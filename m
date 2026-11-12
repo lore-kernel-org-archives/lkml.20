@@ -1,60 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794518236;
-	b=qSbBbkUNAR7fgeaUHImmMFqwKZ62Gi/JebijknTARsvU0OXq3TLi+XGQ7oLuKrI3A2I2
-	 Mi29qc4dV3D/3sSUKPovm60pYfTQjpoRZ/+CzQLjBT8MxToztW8tCD4Iq1d39hzGs8AJw
-	 8wpD7wK20wrVXcKI0yfvEP87wNyz88NAM0I5NQXYcEgZr2rYO3dd7mINGjl6tFrnfv0Ho
-	 D0chsqwbCy0lHsKIRGJavof1hGp65ZCqewH0c9mKfql5zavjWfoAkxHR2rRgBpdfvhKhj
-	 c23VkvcPnB5Y8jdFM3dil3HaoUzoiQLnCxN5e4S2og/4cdn5bNTfSFVFvPNkuM/A8zA==
+	t=1794518264;
+	b=nlHCPn3yNEK/HwXWmBsytTy66BXgLefLuQjHiFRBLWyinQq32PemAV9L2TsLjryh8Q0C
+	 KsMQKSyX8+fVUTScVyPouZ6wu4e9c1EMzt8lprPOWDSyUjy1A/RLrUrrblKbuJ3hlN2Zk
+	 /X78AXG1ss0A1nUOvJSQK6AF5hE3VB/wDtNmTSX26nzybEgj+i9OJoiia0E+DMU+bw5+T
+	 5eCsDnkJb/0BovgRHKbBQh7/I7aRJrN6AlOFGdiYJNfo5/ii3/ka4nXYJoRPtIssZH3L9
+	 HDiF46+BRNqvx53+wp43UvxgO3co7CPqyVNJFu2ZshlaEfz6VcMd2imrdjpFd/hBWAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794518236;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=nCeolnG7xjqaBJL8tNZxUEnHawYs1R1nNtrCWLAobc0=;
-	b=Bn6BN9ABkXj2aCMMLAKhXkbUvRd8CCxuuEiMjfNmwTgnLreOsRH/ESmTJ14SP+WAZaFD
-	 2nT6qBwXjcv4QIKpeB54teRLNu9WJQjy1dF3FsXJAouj5uR0DayerHIK42WYJEtSnHzik
-	 UG5Xnjl1x3wDweseioEr4g1y5iZyAnLkYD+W4p0zidLsAjNbF98vmzCq1qvYEv6vYrVq/
-	 oRdf00K8TKkg8NxOE2XqD6PQSaSfLpSwb0m47CvZe8PXPSGnnjwP4RUeTqXeLD2X8Tjqk
-	 W2M14x9mq4gvFrKXbugR1WYrbZ8+6RuP9/F12uUD4mL5AW16K88GYlNjRF4V3DgPV8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794518264;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=45Y4sZ8sS5eeWt0uYYzHFHzHlhbwxoDgGS6j5RpQTOU=;
+	b=AWsY3aiOKn+9Y7W7Y7qf4X4SuY9n8ZOa6VJdaX/Lv1Nmn16d0uZNioTgD6Q4z6Q62dPR
+	 nhBXslX/p2REF+Z/MHQyeoSuCekw+7FirczWH6ig2u+aFzv4nw+H/Pad/o0wTbt35D8Go
+	 ykyaZNONgiht91O14kBrIBQ2N0oXIujek21qAQc9+3r2MNY78vCkYfRUOwBi31Vodv/8Q
+	 mFAb83svPIuKUsmT002S8P+27C9OjcMWT4WbsnpYbvLb6OgNQBIaTzc9V4ZDWxEnp8TVT
+	 W74NKngmT+BJZD3xqRPyn8ff7Y5eJk4FgZxlUUh5IOH1TYVm72apMaLBWhewW4X29Og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UtAcJnIn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WLlG04Ml;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3CCC606A31C;
-	Thu, 12 Nov 2026 21:17:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAB16606A31C;
+	Thu, 12 Nov 2026 21:17:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UtAcJnIn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C7B51F000C4;
-	Thu, 12 Nov 2026 21:17:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WLlG04Ml
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 263BD1F000C4;
+	Thu, 12 Nov 2026 21:17:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794518236;
-	bh=nCeolnG7xjqaBJL8tNZxUEnHawYs1R1nNtrCWLAobc0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UtAcJnInrsx/Yo1EkpKK/o6/1cGbqiQMpEizHK5gUp48dXpXAkLzPHDrjOKg3ZFU8
-	 d+67RcpXYxexgxkt9Q4e60+IfbF3OytLOuYRwk/TFRe5GSuXrTRqhl/eckP/2DlDEt
-	 79tx+jNdESdRE5bAihtN896sjxaSWaJ4XCdKyyscDNO5g0AAIDrkXl41noLUb4LcGP
-	 bLko8YrnkpFSr/IGQe86OQJPciS6KlYFR9jH7xIFyNvvhv6/LG71iaBMngM61wf5/O
-	 OLqeIzEa1jYxNN1fh8cRHJ+EAVK9wGwPrCTyUYjQwJv5ECYO8CHWL528y56Tn4XWpj
-	 z2hxKurAxcHeQ==
-Subject:
- Re: [PATCH net v2 2/4] ipv4: restrict on-link fallback to lookup misses
-From: netdev-bot+sashiko@kernel.org
-To: liamsmith827@grapheneos.org
-Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, shuah@kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, liamsmith827@proton.me
-Date: Thu, 12 Nov 2026 21:17:15 +0000
-Message-ID: <179451823511.2199510.15480690224597348773@kernel.org>
-In-Reply-To: <20261110061536.10811-3-liamsmith827@grapheneos.org>
-References: <20261110061536.10811-3-liamsmith827@grapheneos.org>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1794518264;
+	bh=45Y4sZ8sS5eeWt0uYYzHFHzHlhbwxoDgGS6j5RpQTOU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WLlG04MlmUjhkGqlKpaKSwrJEXJiamorc0v8bqdu2OLyMgB0lmtLcpgTVYfKp4PEI
+	 deCt0pBWPSR8Db8394ehRIJhRRnQJepzq2wU9DCDPF54F9+SEqEidxGtjgrgkuHSHR
+	 aBXw8dF5rRPB5OuapSpmVMcwaQqc/TReIr6zOGHdjTJUsX5aYyqgQs8KmKWpbA05yg
+	 twkSIsPySPZomL7Je7Pl2N5BDDy9/w6NF4K6+0LzCB/I/c80co5TwuEnIZGBhSnP40
+	 SaJdG2x6YtAy7zlpsWpAEXB/jZmVZ9wGlZsLMmwcX7VMgy2o7fn+MuJy06Y4jXFgt7
+	 zLNbo3pIesXIQ==
+Date: Thu, 12 Nov 2026 15:17:41 -0600
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wesley Cheng <quic_wcheng@quicinc.com>,
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: phy: qcom: Relax required supplies
+Message-ID: <20261112211741.GA279944-robh@kernel.org>
+References: <20261021022446.3619435-1-robh@kernel.org>
+ <avWbmsjkYo2LMJKs@parshuram>
+ <20261112125346.GA3821108-robh@kernel.org>
+ <avX9Qrcapcnutdgh@baldur>
+ <CAL_JsqLGqYAd-BedjNCCmxByJQ_z2Cij9J_z-ifiX9iJs_gqSg@mail.gmail.com>
+ <46821acb-2db9-42e1-b93d-8b6d39f259eb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,127 +69,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <46821acb-2db9-42e1-b93d-8b6d39f259eb@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Thu, Nov 12, 2026 at 09:13:03PM +0100, Krzysztof Kozlowski wrote:
+> On 12/11/2026 20:22, Rob Herring wrote:
+> > On Thu, Nov 12, 2026 at 12:30 PM Bjorn Andersson <andersson@kernel.org> wrote:
+> 
+> 
+> (replying only to parts of the message)
+> 
+> 
+> > 
+> >>> Can the QCom folks stop doing that! Coordinate applying the series or
+> >>> take the binding and dts changes in 1 tree.
+> >>
+> >> I assume you're referring to "QCom folks" in the sense "any maintainer
+> >> touching a binding change related to a qcom platform"?
+> > 
+> > No, primarily you and the submitter I guess. Submitters should be
+> > aware of dependencies in their series and suggest how things are
+> > merged. Otherwise, it falls on you to care that warnings are getting
+> > introduced.
+> 
+> We all have been swamped with patches and Qualcomm have been probably
+> the busiest arm64 platform for months now.
+> 
+> for i in arch/arm64/boot/dts/* ; do echo "${i}:$(git log --no-merges
+> --oneline v7.0..v7.4-rc1 -- $i | wc -l)" ; done
+> 
+> qcom: 1016
+> freescale: 485
+> renesas: 215
+> 
+> Qualcomm SoC got one more maintainer, so there is catching up, but
+> probably not enough.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+Good thing QCom hired half of Linaro...
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+> > I would not care so much when there are transient warnings in next,
+> > but I don't want to be the one chasing them down. But AFAICT, it's
+> > always me. No one beats me to it and I'm not all that fast in
+> > noticing. I just compare all the warnings by platform for Linus vs.
+> > next with "gl-diff-dtb-warning -p arm64" from this repo[2], and look
+> > for things moving in the right direction. Of course this is all after
+> > applying which isn't ideal.
+> 
+> FWIW, I do test all Samsung ones and I look only at some of Qualcomm
+> boards, because there were just too many warnings to have a clean
+> dtbs_check for qcom. I do report them to Bjorn/Konrad [1], but that's
+> indeed only subset of entire qcom ecosystem. I know that a few other SoC
+> platforms keep track (TI at least).
 
-- [High] The fix is incomplete for route-based restrictions.
+The too many warnings excuse is about to run out.
 
---
+Here's Linus's tree ATM for qcom (I'd list next, but warnings have gone 
+up):
 
-ipv4: restrict on-link fallback to lookup misses
+     12 syscon@9a10000 (syscon): compatible: ["syscon"] has less than 2 items
 
-This patch changes ip_route_output_key_hash_rcu() to call fib_lookup()
-with FIB_LOOKUP_REPORT_MISS. For non-vrf unicast with an oif set, the
-on-link fallback is then only taken on a real lookup miss (-ESRCH).
-Before this, it was taken for any fib_lookup() error, so blackhole,
-prohibit and unreachable restrictions could be bypassed.
+https://lore.kernel.org/all/20261112-dtbs-qcom-v1-0-1978370c7cad@kernel.org/
 
-> diff --git a/net/ipv4/route.c b/net/ipv4/route.c
-> index 3a90c8d28b940..80a2c8a3c571f 100644
-> --- a/net/ipv4/route.c
-> +++ b/net/ipv4/route.c
-> @@ -2851,12 +2851,13 @@ struct rtable *ip_route_output_key_hash_rcu(struct net *net, struct flowi4 *fl4,
->  		goto make_route;
->  	}
->  
-> -	err = fib_lookup(net, fl4, res, 0);
-> +	err = fib_lookup(net, fl4, res, FIB_LOOKUP_REPORT_MISS);
->  	if (err) {
->  		res->fi = NULL;
->  		res->table = NULL;
->  		if (fl4->flowi4_oif &&
-> -		    (ipv4_is_multicast(fl4->daddr) || !fl4->flowi4_l3mdev)) {
-> +		    (ipv4_is_multicast(fl4->daddr) ||
-> +		     (!fl4->flowi4_l3mdev && err == -ESRCH))) {
+      5 usb@6af8800 (qcom,msm8996-dwc3): Additional properties are not allowed ('extcon' was unexpected)
+      2 usb@76f8800 (qcom,msm8996-dwc3): Additional properties are not allowed ('extcon' was unexpected)
 
-[Severity: High]
-Can a reject route that scope filtering skips still show up here as
--ESRCH and take the on-link fallback?
+In the wrong spot or needs to be added to the binding?
 
-An unprivileged socket can set an oif with IP_UNICAST_IF, IP_PKTINFO or
-SO_BINDTODEVICE. It can then send with MSG_DONTROUTE, or set
-SO_DONTROUTE, which needs no capability. Either way, ip_sendmsg_scope()
-returns RT_SCOPE_LINK:
+      2 touchscreen@2c (syna,rmi4-i2c): Unevaluated properties are not allowed ('incell-supply' was unexpected)
 
-include/net/ip.h:ip_sendmsg_scope() {
-	if (sock_flag(&inet->sk, SOCK_LOCALROUTE) ||
-	    msg->msg_flags & MSG_DONTROUTE ||
-	    (ipc->opt && ipc->opt->opt.is_strictroute))
-		return RT_SCOPE_LINK;
-    ...
-}
+https://lore.kernel.org/all/20260921232738.3135429-1-robh@kernel.org/
 
-udp_sendmsg() passes that scope into flowi4_init_output(), so
-fl4->flowi4_scope is RT_SCOPE_LINK by the time fib_lookup() runs.
+But seems to be a hack, so?
 
-In fib_table_lookup(), the scope check comes before the reject-type
-error check:
+      2 panel@0 (jdi,fhd-r63452): "power-supply" is a required property
 
-net/ipv4/fib_trie.c:fib_table_lookup() {
-    ...
-		if (fa->fa_info->fib_scope < flp->flowi4_scope)
-			continue;
-		fib_alias_accessed(fa);
-		err = fib_props[fa->fa_type].error;
-    ...
-}
+???
 
-By default, prohibit, blackhole and unreachable routes have
-RT_SCOPE_UNIVERSE, which fib_props allows. So a link-scope lookup skips
-them instead of returning -EACCES, -EINVAL or -EHOSTUNREACH.
+      3 phy@7411000 (qcom,msm8996-qusb2-phy): "vdd-supply" is a required property
+      1 qusb@59000 (qcom,ipq6018-qusb2-phy): "vdd-supply" is a required property
+      1 qusb@59000 (qcom,ipq6018-qusb2-phy): "vdda-pll-supply" is a required property
+      1 qusb@59000 (qcom,ipq6018-qusb2-phy): "vdda-phy-dpdm-supply" is a required property
+      1 phy@79000 (qcom,ipq8074-qusb2-phy): "vdd-supply" is a required property
+      1 phy@79000 (qcom,ipq8074-qusb2-phy): "vdda-pll-supply" is a required property
+      1 phy@79000 (qcom,ipq8074-qusb2-phy): "vdda-phy-dpdm-supply" is a required property
+      1 phy@59000 (qcom,ipq8074-qusb2-phy): "vdd-supply" is a required property
+      1 phy@59000 (qcom,ipq8074-qusb2-phy): "vdda-pll-supply" is a required property
+      1 phy@59000 (qcom,ipq8074-qusb2-phy): "vdda-phy-dpdm-supply" is a required property
 
-If the destination is off-link and there is no link-scope route, the
-lookup ends in -EAGAIN. Because FIB_LOOKUP_REPORT_MISS is set,
-fib_lookup() turns that into -ESRCH, and so does
-__fib_lookup()->fib_rules_lookup() when it runs out of rules. The new
-err == -ESRCH check then passes, and a route through dev_out gets built.
+https://lore.kernel.org/all/20261112192345.3962577-1-robh@kernel.org/
 
-The full path looks like this:
+      1 panel@0 (lg,sw49410-lh609qh1): Unevaluated properties are not allowed ('reg', 'vsn-supply', 'vsp-supply' were unexpected)
+      1 panel@0 (lg,sw49410-lh609qh1): "power-supply" is a required property
+      1 panel@0 (lg,sw49410-lh609qh1): compatible: ["lg,sw49410-lh609qh1","lg,sw49410"] has more than 1 item
+      1 panel@0 (lg,sw49410-lh609qh1): compatible:0: "lg,sw49410-lh609qh1" is not one of "ampire,am-1280800n3tzqw-t00h", "ampire,am-1280800w8tzqw-t00h" or 178 other candidates
 
-udp_sendmsg()
-  ip_sendmsg_scope()               -> RT_SCOPE_LINK
-  ip_route_output_flow()
-    ip_route_output_key_hash_rcu()
-      fib_lookup(..., FIB_LOOKUP_REPORT_MISS)
-        fib_table_lookup()         reject alias skipped, -EAGAIN
-      err == -ESRCH                on-link fallback taken
+https://lore.kernel.org/all/20260614-judyln-panel-v3-2-07f4134441bd@postmarketos.org/
 
-On NOARP or point-to-point links, like the cellular case in the commit
-message, would the packet then go out the interface the prohibit route
-was meant to block?
+      1 panel@0 (flipkart,rimob-panel-nt35532-cs): compatible: ["flipkart,rimob-panel-nt35532-cs"] has less than 2 items
 
-The commit message says:
+Fixed in next
 
-    As a result, routes and rules that are supposed to restrict traffic
-    (blackhole, prohibit, unreachable) are unable to do so
-    comprehensively.
+   Undocumented compatibles:3
+     'jdi,fhd-nt35596s'
 
-This looks fixed for rules. fib4_rule_action() returns -EACCES,
--ENETUNREACH or -EINVAL without any scope filtering. Routes seem to
-still be bypassable with DONTROUTE plus an oif.
+https://lore.kernel.org/all/20260921232609.3130272-1-robh@kernel.org/
 
-The comment added later by "ipv4: replace obsolete routing comment"
-also says "Non-vrf unicast does honor restrictions". That commit calls
-the old MSG_DONTROUTE description obsolete, but this case would still
-apply to it.
+But probably belongs in this:
 
-Would it make sense to stop treating scope-filtered reject matches as
-misses, or to handle the scope case separately?
+https://lore.kernel.org/all/20261011-nt36672a-panels-v3-3-9ea238627f8a@minlexx.ru/
 
->  			/* Apparently, routing tables are wrong. Assume,
->  			 * that the destination is on link.
->  			 *
+     'lg,sw49410-lh609qh1', 'lg,sw49410'
 
-[ ... ]
+See above
 
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110061536.10811-1-liamsmith827%40grapheneos.org
+     'qcom,ipq6018-wcss-pil'
+
+Fixed in next
+
+
+So 3 unique warnings left without fixes in flight.
+
+> 
+> [1] https://krzk.eu/#/builders/102
+> 
+> 
+> > 
+> >> Do you have some CI/guidance/tooling for Vinod (and other subsystem
+> >> maintainers) to perform system-wide DT-validation when considering
+> >> merging a binding change?
+> > 
+> > This one is an ABI break because it adds new required properties. I do
+> > have some tooling that looks for ABI changes, but haven't committed it
+> 
+> because I haven't figured out the best way to deploy it. I think for
+> > anything that is an ABI change, the binding and dts files need to go
+> > in together.
+> > 
+> > I think it is time to reconsider the default of bindings go in with
+> > the driver. That works okay for new bindings as long as the platform
+> > maintainer doesn't take .dts changes before bindings land (also an
+> > issue). However, for cases like this, we need the opposite order. We
+> > need to figure something out because this is only going to be more of
+> > an issue as we get to warning free (and we are close).
+> 
+> We have been talking about this for some time and recent consensus was
+> that SoC maintainers can freely take such bindings when driver subsystem
+> maintainers lag behind. The case here is a bit opposite - driver
+> subsystem was before SoC.
+> 
+> So let's change the generic recommendation/policy? Whenever patchset
+> touches bindings and DTS, and the bindings do not need any driver
+> updates like they add only front-specific compatibles, the SoC should
+> take entire set?
+
+Yes. Platforms that are warning free already do that.
+
+I also think we (the DT maintainers) need to get stricter on handling of 
+adding or removing required properties. For adding required, delay the 
+binding change a cycle (or after dts is in next). For dropping required, 
+delay the dts change a cycle (or after binding is in next). That's 
+probably too much for any maintainer to check other than DT maintainers. 
+Or maybe add this to sashiko prompts...
+
+Rob
