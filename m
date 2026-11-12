@@ -1,100 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794507904;
-	b=E5sN3gMQoMt/Na6yPT6a50g05p/dj0uWqnrfp16gNT9KpIy07stl0KlQR5d28i2QRwPS
-	 EOZ6k8MKfJEwAbanbd1/YtbTynX7v9p0M5I1zouUmWTGxwAls1Q/H5BAaByKr+oourgb9
-	 zb4g4utf8yrZiYATMkaOj4kMajuDkxH8DHEzrUuR7Hl8lWImjAbLBRPP3lKwSeO9iiGVh
-	 s75hx9tKVqTNk+/Wh+Ux2kHEA3hSZB+6WFEi35Ofv65g8aZOngUbB6Q+OyiPGy/aZxieI
-	 hzy8vCpKGUYmBzaY2vrCKWs3I2FFvWoBCbiHRs1FADY+2LVG59ZbHwLBrqAFl8lBHbw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794507904;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=tzBmIcpghOYCP+r03HK0N7KGo+wgnlo6db5N340fGPI=;
-	b=XE+HbYfoAIStQJYfFZY5UoevNwE05S2+aNzWaDYESn1+5791pI69jmiSyZtxW+yJSVRh
-	 W1JKz5qdyj45YgdJUsNy1chR/yBT6TY4Rq64h1jfJ8sGWFMe43fqZOoOXeMWMkjgAmduB
-	 2KoR5Zq5gmUYhYTPAmGHSup4kGFTH2TWO5i7XXLQYusZ8cUFNDHG6FwSCUR46WPY2fuxx
-	 iQ6kM3T0AyUaISz+X0pIGZ4kcYRmlpxqiqCeheT+Fo7BVh5dxXfd/SbVhzZejpUaxmxrA
-	 Uds2NHoWFqQxveznzD4cPQPs+xKD0Thq2N70OvhGFRyBoAIQJH9ra2VhRX+CilDLGhA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BVkx6KPI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.46
-Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794507920;
+	b=yNVVPN2Oby/dTbOfGipdX1hA9irjrKqEYS64gGu23eSgETdWoNp4gHb5lJZ8VWC7b80j
+	 sQUZQPWPgFD92HjDZCrrx87bl+Sztb44cDjawP0yua4GwQahLl1knqOITmXsTOf6gU/PF
+	 1ZzjldynS9kmB3IcCAmrtZE491k/siEtgjRVGRsymlbzHixSPLUN8IZ0JTRz49S41cEjF
+	 fmMsMvrUTl62/qVytOwZ4E1T0a720rAeiaSo6+Uj/9qRDa1Ni7ysGN3j5ovRXRRKcwXfC
+	 tRopvKfHUpfeM09TjSSXi50zMXE1tchNqH/baPXssSd7HjNQZpESBbcK7zFGoL7dR3g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794507920;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 References:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:Thread-Index:
+	 Content-Language:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=mVvldvpyxAhIq+ppmRm7JhIT/5XgL424hW+SaFUm69I=;
+	b=ou4eTVAQpQ3PFqs5k4jmPelWS1WYWg65bLD/3p0uXhsP76m+RapOsVsMCN6NbXn6VROa
+	 u4I6uuavDXWzUey1+11syfDcRdIKzCZfIPuLB+BMgyAPgR3f1jHEaw+CoZeHo6HUQXgL8
+	 aGeM+dTn4NoKKX8Hst44j157W13nOOWP6dEqJNGEjHDXEQCcw3CkchWPlQJtHvdnW4eG9
+	 Eh10CrZesRMzJk4D0gZliuCAefhZvW3oxTaxq9oeb3IAPTh33huUS53Zj9Jod3b5pEtRV
+	 +JAsFlkN+/ffTklVvDdkeLj5/v47XS1J7V80/G2+vjA3VUE2JAI2kqJonEHVr35Xiig==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XJ0kl1r4;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BnxGa1wt;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A6F606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:25:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68A6F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C66606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:25:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55C66606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BVkx6KPI
-Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-97ccbba8e86so54478241.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:25:04 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794507903; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PNTSPCrI14gWsDfZhNtBdYeHLg4VtybK88oxrrjquJgFuS8scsIUpmwvnuy1MpSDmz
-         dENqxcqgp62ndNGWyXempKDVhCW9T1+Jupcip0ntWuFU7J3f6M4Mo3MycjgYvptUtzW2
-         Du1miHCi/CbjUQgIyUnp99ijmngkIXBTmfoAolxR41D8+QmaioSmPf1476YBdh92hGU8
-         Kuz/PFjejlf8T2CffCZ5VdLz9L2Eb+s+kuATmPy5nTPMpheBIIr1MvHllqQdU3YziDHR
-         K3YeD856ghU2jVDOZAqNi9rx8VcW1Djh9VfS6sWymaIV+qG+ZfOT04Ens4PJQiWuxJgf
-         hOlA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tzBmIcpghOYCP+r03HK0N7KGo+wgnlo6db5N340fGPI=;
-        fh=Lz80qgPFpndqDQIh4DRJ8qpa66cfNppqXRm1v1IaTGE=;
-        b=Iqb/yjCLE1uYveUoo/ZOYDjyH79fzLilnVNzgSyBvfa8UkmZFzQRDpyvcrCtT0BaNP
-         dPVD1405Wce2ifFKsInCNAt19Tpu+XyV+Jm3C0KQADg1RINxhn3518hLJuUcj4QuWoPl
-         9VugenupuLV/07R77UZ+Y3FTqxL4LAsr8FB+/TAyJ4Pm6LXrqo78U1LFCIuYubfpWelu
-         /4Ei8bkzt1tGNikbaTQ+31CwJLz+x2vaFAGxvmnwTd1/LiSZY+Dmyr14w8qn2yfZSzLU
-         yccAnLknM7fe5pZZK4eKbTCSfoxWyv4egsICcYEY879CWpF0FlzKDs8Gf91/xMFUe+DC
-         ypzw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XJ0kl1r4;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BnxGa1wt
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACFZVeZ1736540
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:25:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	mVvldvpyxAhIq+ppmRm7JhIT/5XgL424hW+SaFUm69I=; b=XJ0kl1r4PmpOxrHL
+	SxXklADFwad1BhX9bdWXs5UdELiENRzSfpxO8XWD37sH/LuLfyKKgUbg3jciLRSD
+	BgaN9g5GTYq3DLvS0kA9SFeruSRvsOjqw+gBJk/4wsMPL6EzGo2RxgSrff6q6vkr
+	qVy1YPYOPEUTmeXg8oCqsOH9M/9UIXUQ/XCQO8oRIIEHLOVyPVh1Rjnrzd89Mfcc
+	7/FMf14NXnkHf3unZsXRqFNHBKQZBUS8lhs0Ik3h1yn68R2mXQkjmmD6dFYrvJzS
+	VNqpXd86ga17ihZtQEVpaC1XAeqNMj73cpFwOftHhH7vqUcRmQIU/ckRdhr/O+vo
+	ch+gNQ==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw7nc2trq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:25:19 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1b3a348a6dbso11475c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:25:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794507903; x=1795112703; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tzBmIcpghOYCP+r03HK0N7KGo+wgnlo6db5N340fGPI=;
-        b=BVkx6KPIfOrWlIonj0+rgg5nNJzXHoUbUSp0K8GIDNsrBudiOXyiZ7bRc1/kFjDdKL
-         OaV7GFdm9nihZ8tQJ0HBcsVap4KpD8CwkJDhH3YJ7GB5uU0ou2fEc9w2wyVtIwnEZ1ru
-         VFQG3ZiARBtjqYTMQCH392by9JNI3/ZSBMjD53m3SigBJ/VXbJ0+Wy3kC48n9W1Rqrrb
-         W3D7CxIF7Hx1FDFcTWIAQzyifwjrGKJpVXBJe5chge/PzyPiUIhyA8ncy3uSUbN+7x+d
-         8u7pWWY2vN9LN1DuqfxIWRi7aiGCme+FSuLDplzDNWtWDc3uQgZE4uucASTsXC90Dxd1
-         Aifw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794507903; x=1795112703;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1794507919; x=1795112719; darn=vger.kernel.org;
+        h=content-language:thread-index:content-transfer-encoding
+         :content-type:mime-version:message-id:date:subject:in-reply-to
+         :references:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tzBmIcpghOYCP+r03HK0N7KGo+wgnlo6db5N340fGPI=;
-        b=0DIeECjtVJESQjZAqf1Deu/ep75i+o56liUX8jeC+s1tYcGb6bRqUeLsGsT93YTL22
-         A+MYeRxPc+cpQStK8bqCPOT3w+7OjNvAI1sEqGWUho6E9Kddk6OLhmCDv5eOUp4WD7dx
-         0lAhNADV+PpjiBGtc8laFSnJymLe/zROTzOqx4YE5+yn/wbXbAbZKqc7Sio/nX6Y3429
-         1XycgoOdcHRECjluTlrKNpwdj62VxVySPR4W/NHE4eMTpcx1DMtF6WhcpJUnJmuhRkLF
-         mHfBgaeBYVD8Q5O2fboP232vvVDGOkb4arV0z86n1+roUMxOR84+9nMlskYEbn7bHXXx
-         N5kA==
-X-Forwarded-Encrypted: i=1; AL+hErH3Znfqec2Kahq+UDk1D2aUlriOfFwM+/7Ao/QPySBzECs2zBtbjd/bVg+wlUwspBeveclZT8dzciSdrog=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Dh3FplBTGTN5MpTpfp8+jUDr73WXBHksRDk8raN4TbTHKjb7l
-	IZVWC8BCze4ms7zZHQ5OkRFs+HXmq0US0/7yNEAw/wWOgG+9PfiaZe/8rnzi0iQI+ZwTA1zT/iv
-	mxs7adKwHEX7/ILZq8YfGqVOydza/wxIBhgOt4iJaWa35wi/TkN8nhEZrcpc=
-X-Gm-Gg: AYBFou3SVS7dh9CBDzhsPqpAgU5uRFz12rJHmntNjbV40gUIb5baVtfEZmcc+J8qbVX
-	wIlvpHbEaq+Al9Dn8kJvCzgpx7j08tB5IxnUgAtovX0bnz/t7iG9PkHckSaT9Kd8fYIAKeZl3Gh
-	4zQd6ap9uR0QHnbgzLfA2BTrn+IKyeZNegssgJtx5dlbeCRx4x7WgmS+O0EcEs7I+AUXVCoqXme
-	BECcXe+WSZlyyP5Qn0AbJ5q03WmGm0Zi+Bfj3WnCf50hn1YzssDMXE5SRuwISVcLEy2FOT6YRCt
-	TdIG8BCJI/PyHE1KKBTVPFLn8h42FwSnOUbFCkJWTeCVt0G5ZKuiK/8vKL6FL/wSefmdnO2Lvs1
-	ZqdtQHHprD+1+Q+XWOhDC/Wa1a5RXCrXO/iPELR56knUgNf/yEkybVHZ/S2yFmJb9tw==
-X-Received: by 2002:a05:6102:a4d:b0:7cc:828b:41f4 with SMTP id
- ada2fe7eead31-7d64db190fbmr4854137.35.1794507902539; Thu, 12 Nov 2026
- 10:25:02 -0800 (PST)
+        bh=mVvldvpyxAhIq+ppmRm7JhIT/5XgL424hW+SaFUm69I=;
+        b=BnxGa1wtpCEa0essbLR0R/MxXeR49k9FVUypTpMGDWBLwGr/JlQlj8eUYCw4Zc+HwV
+         NmACMj8+lbm2h9FXcCyxJQoW3ikoW62or34zPzrEk9CmMWaB7j9aTskSqS55w77LisJ+
+         0v9ezu1RN+hP1PHT4B+rzejtNBUXo4Y0g0vb7Widd9rg2HGNO/8vKBY7N70XOm/gXE+l
+         eBA1Q+mxcUT+2Q3C+6Vrz30L4hfnmW+unn/t+NawPipsaU2WLBLYkJS8tEGlqDjdKZXl
+         YgbRrooxzYd+B83oZcStKM394JvgdcHYFwhZajeJPTTHdyrGqIMyKEfJeBDF08y/Rp/6
+         t1AA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794507919; x=1795112719;
+        h=content-language:thread-index:content-transfer-encoding
+         :content-type:mime-version:message-id:date:subject:in-reply-to
+         :references:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mVvldvpyxAhIq+ppmRm7JhIT/5XgL424hW+SaFUm69I=;
+        b=oFTon5l3BKbCj6uupETWibCgbgq+leahDBUUKKAwvMAZI0X2IFlOKTjYi+BTQBd1SG
+         IYortZ91UttkO2rkJ0CktV8vskBAYspZwtuMuoWD3lVQ9m4mTmBpd5UYsGZM1TELnf37
+         HlYM2IRdhwnbYUqwOMgMYG9bk+X2Suuak/YbX74gArvgzykDJyiQj1nsJxMFl5Ljzh09
+         6aF//gVIxt8JbgG/62orjZmqlwN3egVwwybGy7C7Zsm9DZU5aTlw+4yraCvdkOrRN6Wr
+         9YB8uGrdIKEFj3MKx75WMvIHCF8RnNTIxhwyCPWKKb7Mz4C6nYer/HHOTBCfYjZv1QL2
+         LAxQ==
+X-Forwarded-Encrypted: i=1; AL+hErG6RBKcuWsrosI9l67KAbmWXfKSq/L5W1C+0YhqajJLKFx9UwcAJ1goc21SRq17CS/rbtLlVotvBkd4ses=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/VxOWZgfZg4GPL35livsrFfQ4bAmS5O7jHXts+sXslaw0WQIWr
+	XlqJ+Fv8BNdHD2NY1HqffOqDT7lFXqR40ErF5VlQo/Pv3V7YB/PlygTul6FHrldx3i4boShFKME
+	npq668G5Q1DxvKrvdOVVwqptppfAmMmpzC//hoci1OVIWlQDCsA8UTZq7gf5SSfvcxZ8=
+X-Gm-Gg: AYBFou2vxwBwGKDeQp+Y81RjoHOG6KkhcRUXVgnl/LHzfFI7ko6+e7cGqtQt+vtVaa+
+	jHC45Y3QySUkSp+1nGR5MisCLn1bFxpleVzQYK/DPzhdCx1/12Lk1Y7CwCD7soaiOOukyUufTux
+	Hb+eEYcKBBywBTyaQDSIbEJIrCWlb29+gO3TZIsxEzYvSk93l5tN4vLOcGnWtsoe25Yg486VyYX
+	pkshLC8lqPe49MBbNXb3LTsuE4Db4Rolh0YMlPUJBDJsr/CZjBXo3WzAeF2ckFbWD+y0hOqARsG
+	yjX8ah4q+LYfJ4caRlZWlipNpXsA+LrFp1Wr6o62rtcGqvJndBmWhB+FDhoo5eRiAJEvQwmNv7s
+	4X6sgXWWae9UL17lHPhtCUdCrCT90AA23Nx9uZfvQkY17ZuJatY51V00yGe3C08IydL5lqTTaOT
+	TxVFB/WvLc2UUP3mXQsXAeWibrYv/rE1dcfkmqyrD3Kw==
+X-Received: by 2002:a05:7022:b045:20b0:190:d0d9:3110 with SMTP id a92af1059eb24-1b50319306fmr310201c88.45.1794507918803;
+        Thu, 12 Nov 2026 10:25:18 -0800 (PST)
+X-Received: by 2002:a05:7022:b045:20b0:190:d0d9:3110 with SMTP id a92af1059eb24-1b50319306fmr310171c88.45.1794507918224;
+        Thu, 12 Nov 2026 10:25:18 -0800 (PST)
+Received: from QCOMk1gASIiYhG (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b503191a43sm614392c88.10.2026.11.12.10.25.16
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 12 Nov 2026 10:25:17 -0800 (PST)
+From: <subash.a.kasiviswanathan@oss.qualcomm.com>
+To: "'Jakub Kicinski'" <kuba@kernel.org>
+Cc: <sean.tranchetti@oss.qualcomm.com>, <andrew+netdev@lunn.ch>,
+        <davem@davemloft.net>, <edumazet@kernel.org>, <pabeni@redhat.com>,
+        <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20261108075727.2031331-1-subash.a.kasiviswanathan@oss.qualcomm.com> <20261112083311.641a2216@kernel.org>
+In-Reply-To: <20261112083311.641a2216@kernel.org>
+Subject: RE: [PATCH net v4] net: qualcomm: rmnet: Update MTU handling during format changes
+Date: Thu, 12 Nov 2026 11:25:16 -0700
+Message-ID: <000001dd72d3$2b06ba30$81142e90$@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,56 +123,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103233909.1364531-1-dylanbhatch@google.com> <avVYkcbr6ah9IzYX@jpoimboe>
-In-Reply-To: <avVYkcbr6ah9IzYX@jpoimboe>
-From: Dylan Hatch <dylanbhatch@google.com>
-Date: Thu, 12 Nov 2026 10:24:49 -0800
-X-Gm-Features: AclHuK-_TAArpRaO2jf5A6e-8RRqPo51or4oUVcum6Bw0xcFyHqgOMVe5Q1IMsE
-Message-ID: <CADBMgpzH8Ogwvr6ORx5PebB=0-2gLNXM96U9=jKa5+PwnapjAA@mail.gmail.com>
-Subject: Re: [PATCH] klp-build: Allow passing options to make via '--'
-To: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: Miroslav Benes <mbenes@suse.cz>, Petr Mladek <pmladek@suse.com>, 
-	Joe Lawrence <joe.lawrence@redhat.com>, Song Liu <song@kernel.org>, live-patching@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQFkeIhnkKVssrYvBGDElDQ/wtA9kAHp7JEquA1kPmA=
+Content-Language: en-us
+X-Proofpoint-ORIG-GUID: jvgD_dMtbzjTOv25FVpr0nD0tl_CQlYB
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA3MyBTYWx0ZWRfXxpEweNrNCn8M
+ pmQ0Lsi7j5eCn7u8eda7TVBDQS15UM1N1lntW7AqIATI5J6w7llyEzPXZDzCyBYd11y8a5pCu03
+ QcnjzNacmtL6BBJaRHOuLCsKnGNmINw=
+X-Proofpoint-GUID: jvgD_dMtbzjTOv25FVpr0nD0tl_CQlYB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA3MyBTYWx0ZWRfX7ofVqO/3Mrd+
+ 5jleBvjZ/looKvosArOXMTSVaamcQ0XTjqKNdnN3VmwkSQLjqliKd9DrFqjp20dBVU2vL8RL6Yr
+ XPx3Irk079Q32LvD2YguoIJPnbUGJeNFmtBKyEnR591wmt5mmyDIi1E9B7E3FC1uGl5BXJx1/LA
+ k8aF1eZ2X9oByevPyDZSDWN2i69ILAlRNN9Un6Hlk1tn5IF70FutkSMCSt9UZfRMH6QH9UZMaDU
+ U76vAzCDMDEAKqosqOXRSAcNWnXceNA7Ib6HUxdMo0sIkU7qQE1uaKEayu+eNse0GrXDl1ONVpp
+ 5Rk8OwjGaTfqgl0160U864u4ubkst1mMpdhHDZeGp+yHKLMaCFd3x0q2bq/uSyfBXNgFeDIX9GP
+ y8R0EFv8EJzuvbUJ7+cOs214/h3qDtTwFe+G+5UJTZXljF1khh6NbktYN3xrogQa0s1IsmiMKJO
+ ZCyZbb2NyypJ84XSlbw==
+X-Authority-Analysis: v=2.4 cv=A8b5rKWG c=1 sm=1 tr=0 ts=6af6048f cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=J1Y8HTJGAAAA:8 a=20KFwNOVAAAA:8
+ a=mXP6K7Sk1cvqIwA962kA:9 a=CjuIK1q_8ugA:10 a=vBUdepa8ALXHeOFLBtFW:22
+ a=y1Q9-5lHfBjTkpIzbSAN:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_02,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 spamscore=0 clxscore=1015 impostorscore=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120073
 
-On Wed, Nov 11, 2026 at 10:14=E2=80=AFPM Josh Poimboeuf <jpoimboe@kernel.or=
-g> wrote:
->
-> On Tue, Nov 03, 2026 at 11:39:09PM +0000, Dylan Hatch wrote:
-> > Livepatch builds rely on reproducing the original kernel build
-> > environment. Currently, klp-build invokes bare 'make', which drops any
-> > command-line variables or flags used during the original build (such as
-> > 'LLVM=3D1', 'CC=3D...', 'KBUILD_BUILD_TIMESTAMP=3D...', or custom wrapp=
-er
-> > Makefiles via '-f').
+> -----Original Message-----
+> From: Jakub Kicinski <kuba@kernel.org>
+> Sent: Thursday, November 12, 2026 9:33 AM
+> To: Subash Abhinov Kasiviswanathan
+> <subash.a.kasiviswanathan@oss.qualcomm.com>
+> Cc: sean.tranchetti@oss.qualcomm.com; andrew+netdev@lunn.ch;
+> davem@davemloft.net; edumazet@kernel.org; pabeni@redhat.com;
+> netdev@vger.kernel.org; linux-kernel@vger.kernel.org
+> Subject: Re: [PATCH net v4] net: qualcomm: rmnet: Update MTU handling
+> during format changes
+> 
+> On Sat,  7 Nov 2026 23:57:27 -0800 Subash Abhinov Kasiviswanathan wrote:
+> > rmnet derives the MTU of its devices from the real device MTU minus
+> > the headroom needed by the egress data format. Several problems exist
+> > in how this is handled when the data format is set or changed:
 > >
-> > Refactor the make invocations to use a common MAKE array and allow
-> > passing arbitrary make options after '--' on the klp-build command line=
-:
+> > - The headroom only accounts for the V4 egress checksum header and
+> >   ignores the V5 one, so devices using V5 checksum offload get an MTU
+> >   that is too large for the real device.
+> > - rmnet_newlink() sizes the first device from the port's data format
+> >   before the requested IFLA_RMNET_FLAGS have been applied, so the MTU
+> >   does not match the format that ends up being used.
+> > - A real device MTU smaller than the headroom underflows the unsigned
+> >   subtraction, and a real device with a jumbo MTU makes the creation of
+> >   the first device fail while resizing an existing one clamps it.
+> > - Existing endpoints are shrunk by writing dev->mtu directly. No MTU
+> >   notifiers run and userspace gets no link notification. The helper
+> >   also returns -1, and changelink flattens every failure into -EINVAL.
+> > - rmnet_changelink() publishes the new data format before resizing the
+> >   endpoints and reverts it on failure, so the datapath can observe a
+> >   format whose headers do not fit the MTUs. A failed resize can also
+> >   leave some endpoints shrunk, and a mux_id change requested in the
+> >   same call is kept even though the call returned an error.
 > >
-> >   klp-build [OPTIONS] PATCH_FILE(s) [-- MAKE_OPTIONS]
-> >
-> > Signed-off-by: Dylan Hatch <dylanbhatch@google.com>
->
-> Does this enable anything that's not already possible via setting those
-> variables in the environment (or MAKEFLAGS), e.g.:
->
->   LLVM=3D1 klp-build
->
-> ?
+> > Fix these by calculating the headroom from the requested data format,
+> 
+> These should probably be 5 separate fixes in a patch series?
 
-Ah, I hadn't tried MAKEFLAGS, thanks for the pointer.
+Sure, I'll split the patch and send it as a series.
 
-Since Makefiles override env vars by default I had some issues with
-our internal Makefile-based build tool, but trying with MAKEFLAGS it
-does seem to work. In which case, this patch doesn't really add any
-new optionality.
-
-I would argue the [-- MAKE_OPTIONS] still has some value in that it
-makes for a slightly more intuitive command line interface, but that
-is just my subjective opinion.
-
-Thanks,
-Dylan
