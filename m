@@ -1,88 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794476445;
-	b=4xQoL1nahcfPzyZbt9iAN56SRic0DhQIdqPh3Ko8Tt+W1M4NzapwjhdwzJDuyz/eHsM4
-	 A95D2hXzeWYG5xAq3352o3035IKTcPCoYgTgtfD8ToQFjc9K6vfRxHIIDzIEbjdqhPfRq
-	 O6TLDDjZZTogRVk6fn5DaEsZvqXqEI33a0XrTusSqyxHU5N9vrYW1nLLopFxiRryEugD6
-	 +WzUsnhjc1SvjOiivfqDG7P9rqNX1oW6wxwyICqLopCLFMwHvx3CeFcTGND8PCAXeAreV
-	 M2VGU7FX+9BImZSOpp8wLPlPfigxL2iRrVSLE/PKiflZU1FOemivQLLbkQ1LYbTQYYQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794476445;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=hf+uCs+VHDQDVs3psYlyxaAnFaCOs7LnZX6+jXmv1vI=;
-	b=OGYgRlwgS9hI1fyuVKRkKvv9nbUB8c2fmnBWQOENdkOX2/YjlPrv3eeXZmsaZ7HGg6gM
-	 gxsG72aJ9+sU24NYjx11IzGSb6ZZsjU8oFhqTIWTgwulAE4qcI9+ldkYHvD8nThbfWU7f
-	 JlTIoIkan7IrV1Ir03oh9VOfGPUtedtMKbUig625v1fOtQgwH2YkJ6cr+TxTKEIAEFOh3
-	 k4XRNKEio+kajB3V/gOVsNVB/V9N4OBDn0fxh2xap9l3lZdFxsLxe61htCMMqey3WYFxJ
-	 SB6VL+pftPxv+feqS/sLDFGcI3vTV8K5mC6KjTuYz74sDGr0QfD4vFBzC/GJSku4voA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BJbOhjAb;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.19
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794476457;
+	b=2LUhiOH3cwddNCkHN5k6NhY3lxObBaOzWzCMp6Rt7DWZhLyzSrxzDd0gYKj9+vxDDkbd
+	 0WUydsluEeCz2HJ6doZOSeSlBV2uua7531P3FTpr9a4Oev12mAsYtidiW3l4bLjVSzXpI
+	 KBbx+v4ARKbz4p4WJzhqAScnUCtKCPvX4XrT6H8eTWiPjOnzlh2a5g2NhSx0q5hcEQJZl
+	 hOleBrwfOB3C6IpYk0U5IEhNaTbnVGSoskD6y+eugVD7HBwfgcnDWHBzek1tQD4eJqOKY
+	 QiqLtFZRr58AjU/t6ZoCXfqHTLTMrK9bIXwOrhOAVYe/JGFW4b4+U5jrFSGud+mxJIg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794476457;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 References:Content-Language:From:CC:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=bs2DWfvZapCw8Pst5xgYPt/5cvHZVHIuVpG7HQ+yH6A=;
+	b=Kh1KbAF1pt4QDS32djwBIjF8DwvafR+f6T9uROsQMmf4xbA1TVc69ialS/tDrv3/wS7z
+	 WI4Jp0Duzy6HGshaUkaY9ONQaxRSQ1TtqN4bKqp/tDs3duZMYG3msFqLf3TF86Z8oWDGH
+	 pD+QC5E26/RzEirfYHN7iFl+qsLYejN+ldu/7GV6rT1XabLoIwa17ET2Ydd0QeiduGvrl
+	 UzKCiImB4SFErQPd1vRtFV7z0xBAYSwEisCLfkPt4uOj32GQNL6QQath6MmW8NPkpmbGr
+	 SyAPBmYOJ1s+fZfrhkCyRDBFM5k/Iwqf/jwaZVHfUiXZwjWGeDq6UGGdzFKtuvAlAoA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foss.st.com;
+	spf=pass smtp.mailfrom=foss.st.com;
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b="jvjzUI/j";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.19
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013019.outbound.protection.outlook.com [52.101.83.19])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F56606A331
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:40:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05F56606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94BA5606A32D
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:40:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94BA5606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BJbOhjAb
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48e10a70540so2449642f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:40:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794476443; x=1795081243; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hf+uCs+VHDQDVs3psYlyxaAnFaCOs7LnZX6+jXmv1vI=;
-        b=BJbOhjAbyHoUEoyh3KeGfUaafSU2O52r4CAsPQ5s6Ww0aw/Noeiloy3kxL391sJ2HK
-         pfhm/Fj31A+egDJsjB/IAfjGbP5gP2mFt43WUaFWFKzTd9AkLEJtI87r6A9E3AfMnqn5
-         vyHPwF5SKymu5mEe1AynP/P4Kg0o+o1y80vafiQZ1t1YmVbhrX2g/OlSvmVq75pgwN1G
-         PWa3+wkFp5gEf1Ax3dkB4TIbS8FWE+ktQavOWD6JoekME2D5Ash1MAuMJJEyhim/k6Y3
-         f8mlezsr030nsedCruWVxUiRrsDdFYg2MpHisD3EJ8qpl5UGlGgqC0+Xxv9nc9wYptod
-         BBNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794476443; x=1795081243;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hf+uCs+VHDQDVs3psYlyxaAnFaCOs7LnZX6+jXmv1vI=;
-        b=sQJm21Cfx5yG20kb/0+itQtRI7jF250xaRp3+NOxebxNI3MZQXdVAP9l5pp3nBE3su
-         sHxYxHFPEXMTZWCtW2pOz0CZXqrr+I1OXtylMEizYo4p++j0A9/VAlI4Qa1HDmaH1KhX
-         OwwxrvpIOBnllbVF1ZGEee+TX/sPlanQU/aSwte/zCGUJXTubpiEhdkAkYxlFbUaBPfY
-         ZICoipR2DpJoE35O+IlC9HwFzHbTmqwZgl/zuiR+lWPHE5VBHkntTDXy/c75DeSTqP9o
-         R803C5jVxrdudvyZqhkqtg1U0nmfuVTmmoYaZYw6NwL5VvKJw1GdcYVoofm0wBf5Zmys
-         P6Lw==
-X-Forwarded-Encrypted: i=1; AL+hErFGsyvFIuqNi58mACk761X6LtHYqAnh5GNC8/5/XxB/dClkS1CTpM7nES7AiTtO4a5fhiUhBEf+sffPyF4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9VXf8I0aUcmPy9BvLhfWo182Ko8/G2H7s96d07FOc7LZKO2Ne0
-	H5koZft+UROyfJEpGk9VhZvdlHaome43nBIQOIJwIXM8Fg2tXaWLD9m6
-X-Gm-Gg: AYBFou058dth/s62rpipYzzoUP3Bg3Qk4T7JcZGx+N9Ws4Agb5XpuERugreUv9YLJMs
-	CKDF1wFsRlxVL/p0Y6dQy7+tFFebhqma9zJvrJImeUkjkLl6OfzjrvgZNBGQWMcL6PtwUp2usCy
-	pPRVYUNFMf0zut/hKrUg+AV363gSyru3RWwLfMXkTqRg9GPzPj1GfhbgqIHPLcG0Zh8fM6ZgwUH
-	AengRwuu4CPhjgAOnCCO1Rh3/MKvQN/h5V0D1hXQ5WldBoigVLHxvFBs4J9b250m2hMwr6zZfXj
-	atj3FBxSNlWFspjjG3Lb41vZ+0ajIf9kBvhEeXBn/NGeqke6UoAGfrrhmAOeb5sP6gdrz+f3iyM
-	IJkzaDQTIK7s5WJ2hknMs5TMDSox715SzviSngzFGc7Ma41FpxLeyPknKl9CodcNQ0GfFVoe4m6
-	YtsV5hFDe+WYlIdJSgHYJpjIKG1dZI+6kTvbJTiWFrbSZkD/6AvtygyWXbZB2evlVMp9/mTM8qL
-	ygmC2nVNhSa1Gvwf1WCK8qaywS0LpAG5Q8731emeryS4M3BBIAOhHKvIgIwsaIUuys0joQpS4IG
-	rLFAcvYEykVIliJLSjVRDTAE
-X-Received: by 2002:a05:6000:25ec:b0:498:1d72:106c with SMTP id ffacd0b85a97d-499c764c9eemr7954310f8f.55.1794476443061;
-        Thu, 12 Nov 2026 01:40:43 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983284c990sm14867834f8f.3.2026.11.12.01.40.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 01:40:42 -0800 (PST)
-Message-ID: <db9ed03f-0b85-4360-a2e9-f6719773c7eb@gmail.com>
-Date: Thu, 12 Nov 2026 10:40:38 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=jvjzUI/j
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w4fNNgpb+uzVmAuR74x19LaBswIXtl30lZr2HhJatvBWxWyPw7lxK+4HGPj8wQ2g7BkgJEnD78tqRw0agg9zI6YaEjxgJ8rB6osq7XUPyLYRYEd/5qRk+xT64QCG4YE4KeON/3Wo4j0sVa+xMGxK9Gp3fglx+DStbrDQDzjSGAqsUMo8+atIQkm+KyGBiO5guIRV/KILjDYpYbkip3ManhmdF+mic2ymZU9DZCloO1KgbVEpxjFUcSnFTtD8KNWQWXzGdSpxh5Bb2meYALhYZPYbq8RGYcAMFciBWcEy62WVVAS4Nfmwfnwwm6IeRlRz+HLwEqOsHh6evkbVaNdW7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bs2DWfvZapCw8Pst5xgYPt/5cvHZVHIuVpG7HQ+yH6A=;
+ b=hrFPXVOwVboQrl86W8bYrFRfi1AyTDHAAQoGaID7IJRiJLX2jPMzEXl9VsJRraOoL7riFAvZlS9fM7jiWc9VRK+94b4TEb9zUIJ2DD89UL0zwu2uEv9dPwTcp5CdHOYKXlAQIhZpk2AwKB9rnVUiXlt5Y1AypzKQkKYWD8QXK4TpAt/Wf3ngz7CYeuzzr7/20J6D4mZd9yxj9vO1dNcJzaaKj4M2f7s9n5p7jArwXR/D4TYMAdaT+tGuE3XBTIeA7itf5N3yYZrurHp25Fw2s/VJNDcMFmy2ksxQmKyEzai9GdVtUTwoYn66wjB8DOyxxLzWHtOOJRIY+walfc/q+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bs2DWfvZapCw8Pst5xgYPt/5cvHZVHIuVpG7HQ+yH6A=;
+ b=jvjzUI/jEUaPEGIsI5A4WBsrnYt2ozxpUCjCAZz84rC67Y1VPkkxiCwnNSQvP54rCFITH35l4qXL6Dk8+lZXQVA4mfA1Khk8Iv0CynugvO8liWG3/NtSoapmZcz94TyWMG5VN/NES4yDPpAUppUUnj8SUZBYj2M/AoHjo2lAavrxyxvZ24fN/NV5o1NKV8YAinbNXhpEvGsYNpWVMZDA5I+AfsbiebwiSCVJKXuKzt5srOZRhTZJBppAQTk9++ZnzZ71pIM/tfzpcabFM6OpLBq5BYehLbQcc0SKcE8Nlo55twKFZIO6ix1vRkru82WHmFwHKSJ20TukZmrZlQEwMg==
+Received: from FR5P281CA0055.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:f0::17)
+ by AM7PR10MB3701.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:13a::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.0; Thu, 12 Nov
+ 2026 09:40:50 +0000
+Received: from MI3PEPF0000848B.eurprd02.prod.outlook.com
+ (2603:10a6:d10:f0:cafe::6d) by FR5P281CA0055.outlook.office365.com
+ (2603:10a6:d10:f0::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.0 via Frontend Transport; Thu, 12
+ Nov 2026 09:40:50 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ MI3PEPF0000848B.mail.protection.outlook.com (10.167.240.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 09:40:50 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 12 Nov
+ 2026 10:41:31 +0100
+Received: from [10.48.87.100] (10.48.87.100) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 12 Nov
+ 2026 10:40:49 +0100
+Message-ID: <a2432129-613b-4f17-813d-82ac8af9b6d6@foss.st.com>
+Date: Thu, 12 Nov 2026 10:40:48 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,75 +105,186 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/12] mm/madvise: send UFFD_EVENT_REMOVE when installing
- guard regions
-To: Tal Zussman <tz2294@columbia.edu>, Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport
- <rppt@kernel.org>, Peter Xu <peterx@redhat.com>,
- James Houghton <jthoughton@google.com>,
- Andrea Arcangeli <aarcange@redhat.com>,
- Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?=
- <mirq-linux@rere.qmqm.pl>, Andrei Vagin <avagin@gmail.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
- Muhammad Usama Anjum <usama.anjum@arm.com>,
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Chris Down <chris@chrisdown.name>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>,
- =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>,
- Michal Hocko <mhocko@suse.com>, Mike Kravetz <mike.kravetz@oracle.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org
-References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
- <20261111-uffd-state-fixes-v1-11-00713d368976@columbia.edu>
- <avTA58zlxJZ69TB8@thinkstation>
- <e19f1fff-f1a7-4c2b-8908-2d3ee6a49069@columbia.edu>
+Subject: Re: [Linux-stm32] [PATCH] firmware: psci: handle unsupported
+ SET_SUSPEND_MODE in PC mode
+To: Sudeep Holla <sudeep.holla@kernel.org>, Ulf Hansson <ulfh@kernel.org>
+References: <20261029191624.1.I5f8f3d75a566b72250d629ac6f43cf0d387c0218@changeid>
+ <20261030-origami-tarantula-of-contentment-a70ab2@sudeepholla>
+ <4690f55f-dc13-4e43-82f9-d508253f6c64@foss.st.com>
 Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <e19f1fff-f1a7-4c2b-8908-2d3ee6a49069@columbia.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Patrick DELAUNAY <patrick.delaunay@foss.st.com>
+CC: Mark Rutland <mark.rutland@arm.com>, Lorenzo Pieralisi
+	<lpieralisi@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<dario.binacchi@amarulasolutions.com>, Linux STM32
+	<linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>
+In-Reply-To: <4690f55f-dc13-4e43-82f9-d508253f6c64@foss.st.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PEPF0000848B:EE_|AM7PR10MB3701:EE_
+X-MS-Office365-Filtering-Correlation-Id: 67de8e43-2b71-4928-aa13-08df40a10999
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|18092099006|18002099003|22082099003|6133799003|261009223027099003|4143699003|261021121427099003|11063799006|261102123227099003|261028144727099003|56012099006|261022105027099003|261026140227099003|261022075727099003|10067099003|261021123027099003|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	eJIw4peyZDrelGSt4VpKyNBpMeoq3pEn2q6ap2gluLg2RI+UveF7vyu6GuD+vkzWYGSkAG47HK1MNOM3T3SyZ0qP78NiDa7BHoE46GIGSN/go/+dmICsIk4YFBYZgz6QQTeqS/amINZUaAyP5rjnMGZoq00xQJEdMlXvKJtHlfZX94XVhNwrC+ZsauX2ebksN3VmOihdXxUw7OR/aRfjz39WQnIhtabB6zNE3xWli+q3YAELxqhHD1dDrn++IR3PDRfrpQZSec9Jj7FVjJ69Mgua5tFHnJOIaGBFQHKpSJGsRl4vtgJ2wbIvefbcAB77HeY+JUOA8AOsPtgpncBBeVJ5nVTxKepwNKfhU73Jhccty0DzuupD0vN1zHZ3FzkrIXBFRvJAe+vX7Xy5DTBumZv9d6g8pPYHju/1psaNttDgD/RnjhfkytsZ1e2c+rNbh13cnfweUxGTjvv8UH07PLoyEQsNNj8+rwHkgb1MICFUboRZbd28ho33HSaEsfzPiu47X/8PU97nHMHOI3u/1LJtyanTx6aOZQYpx6oCAkpeosAa71DVnkypR054vhmzNBCsalDye3GLIr7+2S7yjKwxWpQz86ZFGsI4j5GbQgEXYpHxl9VnjDaufyTeZerNtVHj2vPgS/hNjiU+6xOmtVBDVO1dt858d0JOnkm7+1QAsLOZ8tZT3pJth8yYJkKTX7dGjwIN492Bh9ZowCy6hg==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(18092099006)(18002099003)(22082099003)(6133799003)(261009223027099003)(4143699003)(261021121427099003)(11063799006)(261102123227099003)(261028144727099003)(56012099006)(261022105027099003)(261026140227099003)(261022075727099003)(10067099003)(261021123027099003)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	s2NCDpd5S117CyUaH5nPD+B01CeXE74PG63wTlvdtw+HywoGw76AwziZELWFS7R69LFreAxgSjd73RGWcB/s/8WVGs4KcMKcl6R9AXRTVDhb198gP4V3b5ifUyEJrK+li+84jqVwIyVzL1NIAirNwIbA5qwF3dw7mSYwg2P8BxIWnF4ZciIcZb1bnqRksZbdNJ6CXQg7K7rKcqeSnvBPhWEnWGEXQfhY9+f1/KvRwqaCGsOopqYdibcnpcYivmuNzthOhNFAD2yTdCqaEcFXqDfs54pmGkdgGgNgK9Tqh/apAJS7rybyIzCr9+ea/Kp3HzjggnX0L7Lc/+TtDoOV0WR5xIWT2yMViuJZhf/AklI4aK0MiPqZBAlqPl10beWP5nOY0+6zDPRbo9SS9nAFLm0bChTBWisVN9uY+yrhT7Hvqcmja/7h2HiA3q9589Lk
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 09:40:50.4586
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67de8e43-2b71-4928-aa13-08df40a10999
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MI3PEPF0000848B.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR10MB3701
 
-On 11/12/26 12:21 AM, Tal Zussman wrote:
-> + Jose
-> 
-> On 11/11/26 2:25 PM, Kiryl Shutsemau wrote:
->> On Wed, Nov 11, 2026 at 12:55:19PM -0500, Tal Zussman wrote:
->>> On an anonymous VMA, the zap drops uffd-wp and RWP protection along with
->>> the pages. Writes and accesses to the range after the guard is removed
->>> are then not reported, and the manager cannot know that it has to
->>> protect the range again.
->>
->> For RWP this only holds if the range is registered without MISSING.
->>
->> The zap frees the pages, so with MISSING the first access after the
->> guard is removed is reported as a missing fault. And there is nothing to
->> protect again: RWP only covers present PTEs, and a page faulted back in
->> shows up as accessed in PAGEMAP_SCAN.
->>
-> So this makes sense, but I think this gets at the documentation point
-> raised in the other thread. It seems that to use sync RWP "properly" it
-> needs to be combined with MINOR for shmem and hugetlb (and MISSING for
-> holes) and with MISSING for anonymous memory. Is that accurate? If so,
-> this should be stated much more explicitly in the documentation + man
-> page. I see that co-registering with MISSING is mentioned, but not the
-> rest of the points (reclaim, collapse, etc.) The example in
-> userfaultfd.rst also registers a MAP_SHARED mapping only with RWP and
-> MISSING, no MINOR, so that should be clarified too. Hopefully this will
-> make it into Jose's documentation patch.
+Hi,
 
-okay, if Kiryl is okay with that I will add it to my upcoming patch.
+On 10/30/26 11:04, Patrick DELAUNAY wrote:
+> Hi,
+>
+> On 10/30/26 09:32, Sudeep Holla wrote:
+>> On Thu, Oct 29, 2026 at 07:16:25PM +0100, Patrick Delaunay wrote:
+>>> The PSCI specification makes PSCI_SET_SUSPEND_MODE optional. If it
+>>> returns NOT_SUPPORTED when Linux requests platform-coordinated (PC)
+>>> mode, Linux can assume that PC mode is in effect. Treat this response
+>>> as success so PSCI power-domain providers can initialize when firmware
+>>> does not support OS-initiated (OSI) mode.
+>>>
+>>> Continue to report an error when OSI mode is requested but
+>>> SET_SUSPEND_MODE is not supported.
+>>>
+>> So, your platform advertises the presence/support for OSI mode and yet
+>> opted for not implementing SET_SUSPEND_MODE ? If so, it is indeed a
+>> firmware bug as reported.
+>>
+>
+> I think it is no realy a platform bug but a too strict management in 
+> Linux kernel,
+>
+> for PSCI power domain.
+>
+>
+> The OSI mode is not yet supported by the STM32MP25 platform in Linux at
+>
+> upstream but I introduce PSCI domains in device tree (but without idle 
+> power
+>
+> domain) just to prepare this activation in next steps.
+>
+>
+> As the PSCI support is not activated in Firmware (TF-A BL31), the 
+> firmware correctly
+>
+> expose its capacities (PSCI_OS_INIT_MODE =0)
+>
+> => PSCI feature indicate that OSI is not supported 
+> (FF_SUPPORTS_OS_INIT_MODE = 0)
+>
+> => PSCI_SET_SUSPEND_MODE function is not supported (optional when OSI 
+> is not supported)
+>
+>
+> in Linux side, the power domain driver 
+> (drivers/cpuidle/cpuidle-psci-domain.c)
+>
+> correctly check the support of OSI:
+>
+>     bool use_osi = psci_has_osi_support();
+>
+>
+> in STM32MP25 platform use_osi = false, so the driver request
+>
+> Plafrom Cooordinated mode (PC mode) as expected
+>
+> But here  the GENPD driver try to use optional function to set mode:
+>
+>
+>     /* let's try to enable OSI. */
+>     ret = psci_set_osi_mode(use_osi);
+>     if (ret)
+>         goto remove_pd;
+>
+>
+> And the problem occurs here because the optional function is called 
+> but the normal use case
+>
+> is not handled (OSI mode not supported / PSCI_SET_SUSPEND_MODE not 
+> supported)
+>
+>
+> With the proposed patch, the Linux kernel can have PSCI domain in 
+> device tree even when
+>
+> PSCI OSI support is deactivated in PSCI firmware (or not yet 
+> activated): the domain are
+>
+> always ON (GENPD_FLAG_ALWAYS_ON)
+>
+>
+> NB: I hesitate between the current patch and a patch in PSCI power 
+> domain driver:
+>
+>
+>     /* let's try to enable OSI. */
+>     ret = psci_set_osi_mode(use_osi);
+>
+> + if (ret == -EOPNOTSUPP && !use_osi)
+>
+> +    ret = 0;
+>
+>     if (ret)
+>         goto remove_pd;
+>
+>
+> but I patch PSCI firmware driver because I think it is a more generic 
+> place to handle optional PSCI function.
+>
+>
+> Regards
+>
+>
+> Patrick
 
--- 
-cheers,
-jose a. p-a
+
+To complete my previous answer,
+
+In  last PSCI specification v1.3, we found this description:
+
+"
+
+5.21 PSCI_SET_SUSPEND_MODE
+
+5.21.3 Caller responsibilities
+
+The caller must be able to cope with the following error return codes:
+• NOT_SUPPORTED, in which case the calling OS can assume the platform 
+will work in platform-
+coordinated mode. In this case, the PSCI_FEATURES feature flag 0 for 
+CPU_SUSPEND is also 0.
+
+"
+
+
+My patch only implements this behavior:
+
+the PSCI stack in Linux assumes PC mode when SET_SUSPEND_MODE is not 
+supported.
+
+
+Regards
+
+Patrick
+
