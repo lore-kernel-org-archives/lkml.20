@@ -1,88 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794497009;
-	b=P44gKHznW3wwILQNvilPB9Tq59B3RUVKdgKU7Fe2AMqxeZY5xuFR0Xe5IpU9fl5cmTwh
-	 aUb9vmCfK0R63sQxwP+Hve0KuGGp//fHkGQkk/JU/tHkbL31D16OazproKt32lYP6Yg0E
-	 BFkYE86oQN5TaDlpYu6mPl3eIQDuxAhnL3T78jlDK5iKGCcXhi0OwKjuiq3cCIU04WwWi
-	 xMB4UkPd1UlO2xuNgYkih6r02g7rYUky+lcCNfj3krIKdJ6fQQODPifaAQMm2PViYVzSx
-	 1OLrN5xiOuLOPjB6uXt3Bnsj7eFKN7uSENCDQ0bizMhA0tsR960oKWu8lWteN3Hi4yg==
+	t=1794497030;
+	b=wOiwlZMHoBEmoqUtQpDsrcMt1KQBjfHf4GwySUN7w6qH1Z3clmUhUHOsnB4fHr1ocBVJ
+	 wzzizNTkNSFu+4AFIV1WeZKUQ1BAKBkGS/uO9xpk36sR3SDCed+vcrwaEBVln3yNwaKTs
+	 LIhC7BVdtLOfzK1BwDKYYXxKkDhVxmcYxHT1yyZoPP3FcxN35fpc+gULA2OADoYD7Q43j
+	 nKB8Uk/z0Nkj60LwrhgC0wzGsKf/vQNSIU+EXFBgPQignOOaW63cREYkXqK71zAkeE3Sh
+	 kHR8mKZPdm9ZLTGRgRjKlftudm9oqEKy+4TXryNRmIa+yGTpVA72WYXmgIgJB47/D3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794497009;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ykN2lBUtf6ymGAIeUL7rd3VrIbiFNDowZV9GMRTZITM=;
-	b=Pl91D3I8aRsYgLRV2YRaG70P8in5xg00joa5masp7fiNQDRux2Zu7n2e13hHnu28Az0N
-	 bKcITyD3Y2hj0JCBte1kwORtR8q3anKPTGq8vYXRpK/iwcwuIoRw8asL2Arg6cwMDNHDq
-	 WeAfHe09MY4VCSKi4fBaC3u/K5q3AgMvCl+O/UR3WFYlyZvnxbvLy4iSH9zgTv9cOa7l2
-	 1e3GA+1etwEfegFYKWHiSi45pBNGNRRpdvluFgDSx+GmA8Dx0f+fWQdSko1ggPBgm8y2X
-	 RRFyVJ1aMhNnYqJZ9S9kI754HpKeLaB9af01bG890lCddVxVJbb6SJhyBbdE1BNE/rQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794497030;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
+	bh=4cdhS9H/Scvqwuce1Cg7h8YKsQsIO3wekg4L5Z7bkvw=;
+	b=t7e2+DORzAlMKRA8pY8xw4llGGk2w5MFK3ZXcvFzWJBdlSho2A24rSlmttvt8mcKMYuD
+	 rhHZFieD9AV6pdP1vOVZKPYfKvd/boVRfXtqHNxGO9Hg2+xrzx5+qrU23ax+4U6BVedqA
+	 OUUPiGkTGndYIJYyG1R8CZMYTjNo1e1EemM949oiaZRkP/6ffUmCbpLwecS4tdcsjLIvS
+	 mligINXn/R5iU6VHKAs5dLxDpmDLmfaPexGcype7tF3nId+fH7rGZXbIraVV8mQM0rfCL
+	 zaEfaoddDIjhB32gXrjDnmdQNRR4z5G4lrdQs4b+xlMi2E1PcI9UcDVTt4Jq7MJxFyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0c1E4JNv;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=f+HhI8VP;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14D060A382B
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:23:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E14D060A382B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261C360A3827
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:23:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 261C360A3827
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0c1E4JNv
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so9576985e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:23:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794497007; x=1795101807; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ykN2lBUtf6ymGAIeUL7rd3VrIbiFNDowZV9GMRTZITM=;
-        b=0c1E4JNvnSW3Y7NixbmubZsac7eLcUXLkIMtzoMbkxG6k9cazBcj1ZfkDOhyBbyGw6
-         HZChn+jfz6zkokE1FJWDlAFsMI1Fbv/Y9nLWcLIllA6rLHNwCiJt7bQOq4gcjs8c6e9v
-         R80W6y1jhaX2dWqv8VKRXbNl55VmD9aLcBCAdMuo0ViOY2PKQyYWViFKP/Qv/ORj8/2R
-         T4/Wq87fMJ9pHcgdxbm8asTXhjUdi0JUqU5KXL4qO2TgB7uCHSeo8FIquRbhITTrp3xC
-         VJdp5yyLjutOV2T2w0eBlFRfUWsSsQBxm1/piuAFw5whudGyn4d++zCw0lmX6o1vRi2p
-         6uZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794497007; x=1795101807;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ykN2lBUtf6ymGAIeUL7rd3VrIbiFNDowZV9GMRTZITM=;
-        b=E8uxRuhyUuIwP/nJ8GzWxAry0c+jIzsp+xA6qIJdjHbmz5LWGDQ698ZP/nu9WGVupc
-         rA8xnBhQCZYcquLVFHtJBlNXgqoTXjBa6Fr8NXX05jb5tYPxevrJIc2ZaaFA7WEnerJm
-         wb6qNu1yEpCCXBYLudlv53GZMgocagxW642ZF+WRbexeV024Sm0fHWc4ItyHQC3QRStL
-         3niPSuXyWBd2OobLySnAZJho+vh5r4K6z6YnLUO4bWUuh2CCtXOSkw6eWL2IYjhbl16U
-         dmgaa4GXZuVONALeUaoULpxEUZQ9AewLI+AIN3F3usBESNeOh8HpfY3Tw3fE22aHYgfV
-         66VA==
-X-Forwarded-Encrypted: i=1; AL+hErFgZJGe66KXWFARavt+xf8hnWw4T17lzAWcbKa36XrTm7P7HHb1o29uJN5o79OsWFYe/FUaLMtWQnkjoH4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ClkfQVkdneyQBY3dFnQ3TUfcS43g9BQCT6qjb7iODzw30jSth
-	gM+6R8NQiKSqIGa9fXfGsha2tnPY/nMHBpOZpITcO4sR2NsPWiiIbCrO
-X-Gm-Gg: AYBFou2ljHkMcggR7d+y7MpB64RWaJVoT5x7HIvFEhazpMGTbSWflaki5JZZUo3AILO
-	sLbJSi1SeZ2CUqzu+Yh8O+KtVx5Gf735g7Uz8aufu5TuePDFt5unG4n6y18tbqL5yuiWL+AmsDC
-	YW8O6bzto6pWQtciOObY0eUTzywbOmSS5ldU0MetIHo2cyfDKTQr7fe32MYtZu3r2Hk5o9KoYDz
-	YlG71AAIIWcGNMOHm+Bu1/ZPn1ABA7znxk42uW1XSQ/5e3d7AOox62aMBC3yppYeh+GtLjd0x1m
-	otgHLrvQ4a21hyqxoOuz4JMsXDGM1LNyETEJ8KJhMrhJM+FQeTTNoLMwbxJv0KDiNBjZnIDfZ+S
-	mgmRwJ/RhspD1fRSWBCNZqsNUkQgDpSI7NFMNBoQuRs2DyUtzvuIQb197rMLqZawM4zEbwsatHt
-	U8y5CirldALIPCKJS3p3MbQaUwyF99z7OkWDtJpxh3v5uddyIhl+d9wKtS3pdzHFKbmfGFoHTFA
-	SVHbefDA5cEqccbUomKDTD8JOqMpedB+uLBdYcErnt5jyRGpV/CHo/Rar7ZcDmlJvVzesXHTR39
-	lvExhCcmfoAq8js0vfad07bad+M=
-X-Received: by 2002:a05:600c:860b:b0:4b0:b9ff:1e7c with SMTP id 5b1f17b1804b1-4bb4e296a9fmr58453255e9.15.1794497007254;
-        Thu, 12 Nov 2026 07:23:27 -0800 (PST)
-Received: from [10.2.0.2] ([212.104.214.68])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e251686sm75915855e9.3.2026.11.12.07.23.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 07:23:26 -0800 (PST)
-Message-ID: <0734cdde-3c63-4a53-b405-5cf741f3a5e2@gmail.com>
-Date: Thu, 12 Nov 2026 15:23:25 +0000
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=f+HhI8VP
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id A4219C79A9C;
+	Thu, 12 Nov 2026 15:23:48 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6058B5FF85;
+	Thu, 12 Nov 2026 15:23:46 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9C6CD11BC07CF;
+	Thu, 12 Nov 2026 16:23:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794497025; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=4cdhS9H/Scvqwuce1Cg7h8YKsQsIO3wekg4L5Z7bkvw=;
+	b=f+HhI8VPkOBIjANjnGDhGowwywBgE+KjjI34rpXWHGwPYpj3DVKYp4PPKjSmy1ajfDFpNC
+	rVI5E2XPc8Vs3eu1qNaBXU1Ox6qME9KJX/zN+oMkYWCzqJMFnQn84CguQAdUyqNU8A+eeH
+	UznEayOaNkXiVUZAplZffPzN5tHuIQgO2D5Q7H7xAD2H3AIeYC+D7X3NUVPpRBfGRCXlPn
+	oAL3ae+pj/4I8HPAP54uKyiR7QuXYgMWmNvS66Z1y7UWNi0FUOkW1BC1M6EyBptInvgLZ1
+	n7l1GXatBWVjwgds9I8PEmjCVUMRm5KKx7WK5kMxpj+uvWU1IJu7i2D0AoCguA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,29 +59,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Subject: Re: [PATCH v2] hwmon: (dell-smm) Add Dell Pro Precision 7 16 PW716260
- to fan control whitelist
-To: Guenter Roeck <linux@roeck-us.net>, =?UTF-8?Q?Pali_Roh=C3=A1r?=
- <pali@kernel.org>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261111150435.75965-1-shady.abh@gmail.com>
- <20261111172733.84217-1-shady.abh@gmail.com>
- <96902e72-6a75-42b4-9d30-ea54e82ee933@roeck-us.net>
-Content-Language: en-GB
-From: Shady Abu-Hussein <shady.abh@gmail.com>
-In-Reply-To: <96902e72-6a75-42b4-9d30-ea54e82ee933@roeck-us.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v11 4/7] drm/imx: Add support for i.MX94 DCIF
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-clk@vger.kernel.org, 
+ imx@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20261110-dcif-upstreaming-v11-4-9e13c85ae0d8@oss.nxp.com>
+References: <20261110-dcif-upstreaming-v11-0-9e13c85ae0d8@oss.nxp.com>
+ <20261110-dcif-upstreaming-v11-4-9e13c85ae0d8@oss.nxp.com>
+Date: Thu, 12 Nov 2026 16:23:36 +0100
+Message-Id: <179449701677.2030221.6593749298448668349.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-v2 only changes the Signed-off-by/Author to use my real name instead of 
-a handle, per the automated DCO review on v1 — no code or commit message 
-changes otherwise.
+Hello Laurentiu,
 
-
-On 12/11/2026 15:18, Guenter Roeck wrote:
-> There is no change log. What changed in v2 ? Do you really expect me to
-> track that down myself ?
+> The i.MX94 Display Control Interface features:
+>  * Up to maximum 3 layers of alpha blending:
+>     - 1 background layer(Layer 0);
+>     - 1 foreground layer(Layer 1);
+>     - A programmable constant color behind the background layer;
+>  * Each layer supports:
+>     - programmable plane size;
+>     - programmable background color;
+>     - embedded alpha and global alpha;
+>  * Data output with CRC checksum for 4 programmable regions;
 >
-> Guenter 
+> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com> # bridge refcounting
+> Signed-off-by: Sandor Yu <sandor.yu@nxp.com>
+> Co-developed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+> Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+
+Looks OK, I just have a small remark and a few minor nitpicks, see below.
+
+> +++ b/drivers/gpu/drm/imx/dcif/Kconfig
+> @@ -0,0 +1,16 @@
+> +config DRM_IMX_DCIF
+> +	tristate "DRM support for NXP i.MX94 DCIF"
+> +	select DRM_KMS_HELPER
+> +	select DRM_GEM_DMA_HELPER
+> +	select DRM_DISPLAY_HELPER
+> +	select DRM_PANEL_BRIDGE
+
+This should be unneeded now. As o fnow it is basically a complicated way to
+say 'select DRM_PANEL'. And you are (rightfully) not using the panel API,
+so this line should probably just be removed. Please double check by
+building multiple configs, including an allmodconfig.
+
+> +++ b/drivers/gpu/drm/imx/dcif/dcif-crc.c
+> @@ -0,0 +1,221 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +/*
+> + * Copyright 2025 NXP
+
+2026 I guess... v11, a long journey, hopefully it won't slip to 2027! :)
+
+> +++ b/drivers/gpu/drm/imx/dcif/dcif-crtc.c
+...
+> +static int dcif_crtc_query_output_bus_format(struct drm_crtc *crtc,
+> +					     struct drm_crtc_state *crtc_state)
+> +{
+> +	struct dcif_crtc_state *dcif_state = to_dcif_crtc_state(crtc_state);
+> +	struct drm_bridge *bridge __free(drm_bridge_put) = NULL;
+
+While this is OK, there is generally a preference to declare and assign in
+the same statement when using cleanup actions, so...
+
+> +	struct drm_bridge_state *bridge_state;
+> +	u32 bus_format;
+> +
+> +	dcif_state->bus_format = MEDIA_BUS_FMT_RGB888_1X24;
+> +	dcif_state->bus_flags = 0;
+> +
+> +	bridge = dcif_crtc_get_bridge(crtc, crtc_state);
+
+...it should all happen here, as:
+
+	struct drm_bridge *bridge __free(drm_bridge_put) =
+		dcif_crtc_get_bridge(crtc, crtc_state);
+
+> +++ b/drivers/gpu/drm/imx/dcif/dcif-kms.c
+> @@ -0,0 +1,168 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +/*
+> + * Copyright 2025 NXP
+> + */
+> +
+> +#include <linux/device.h>
+> +#include <linux/of.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/platform_device.h>
+> +
+> +#include <drm/drm_atomic.h>
+> +#include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_bridge.h>
+> +#include <drm/drm_bridge_connector.h>
+> +#include <drm/drm_gem_framebuffer_helper.h>
+> +#include <drm/drm_panel.h>
+
+Unused include?
+
+> +static int dcif_kms_init(struct dcif_dev *dcif)
+> +{
+> +	struct drm_device *drm = &dcif->drm;
+> +	struct device_node *np = drm->dev->of_node;
+> +	struct drm_connector *connector;
+> +	struct drm_bridge *bridge;
+> +	int ret;
+> +
+> +	ret = dcif_crtc_init(dcif);
+> +	if (ret)
+> +		return ret;
+> +
+> +	bridge = devm_drm_of_get_bridge(drm->dev, np, 0, 0);
+
+This function is deprecated. You can use of_drm_get_bridge_by_endpoint()
+instead, which returns a refcounted bridge pointer. And since the bridge
+pointer is a local variable you can just use a cleanup action to put it
+easily:
+
+  struct drm_bridge *bridge __free(drm_bridge_put) = of_drm_get_bridge_by_endpoint(...);
+
+Otherwise LGTM.
+
+Luca
+
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
