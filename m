@@ -1,103 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.68
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794461534;
-	b=cj9b/J8P98g0fV8VrP+pBzVv4uvYLyFZCKrE9iDFsIgXfsvmbHlVZVJrCJZr7wUf3BVA
-	 jWcRLFq2kw5+nk4dcrxdOcsElgZl0P57NCJp2e13m/P2MHD2pyryPXkFnPRoQtjpdjv5m
-	 Op4iew1XowwkbZMJN3PGY3ByNvZ4XMxkR9JxqcUoIjB4nxZL1Ss44N/4lnZNdyFV+Z/eH
-	 ae5S1D8ntUoLJIsR5j3zjlJLdHZcbFuFELmY9lW4p5u4Ul4T4+0XleKRgxyfOex9mTfwy
-	 RuwMKtJaq0LJtRo5rpkeDffL4LjUKGT0GgVNhe8pDp5/x5Scy3wWUaOSeNmkhHFqoSQ==
+	t=1794461564;
+	b=dtqzsti6rKzOfeKS5wDNdSf/nkpU+vnj6KHLWOjRohR/yejjdoDYv/5x9pakniALqTca
+	 cUAiP0mGgpO+9LmFD8wI9zQ7Wm4lJyXR+jgj9eHMjfzR6sDJ68IbXCQTdIQzIY171qasR
+	 W/PyXq19Db+QMzTBSgJVAV6VhSG3rPWfJ287imQyYWrROCqI5Po0fvD+0nmDu2Ye32NCd
+	 iWQcgdm/goGoGorNKACRPFxNos6uOvHfBhIIZ9S/sB4hyvKOzcIIV9zU84CokFpf/azy0
+	 DktX3SRaOss6NWu7m6eDjvrNmXYGVv84nKoY6J4stGdY6yLOHMAcilBBCWJ1MPqwnTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794461534;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=8bdUIArMEVujVxSnFXg7ASEB4w5yQy9UWzwj4XRgu74=;
-	b=4XsMlpJBcZ74iBfOkC+7ttfksm8dpteqd44Moo7dzq0POfWbUucDSiNHiI9R2cdhVR9x
-	 d91gpC9bnoDKb8KRliwyxksUn/F6s3UbbKxkMSgW0LVKLMAUvqftBVpM984A7UmWcOhkk
-	 8o4dPAuytqyzKcF6RJLifFt5olOLAFWfiNB9MK15LLkI6HNZ7yUsotzNKiITuuyVPUrRD
-	 4yWDsyhIG2P+zDjK0tFCu9WhSdwMA1adXUsFLpXM9WbwblNXrYmfgPUwqZDyU3guZjyxs
-	 xM9ii2ZKKwdLHyUwTY0OXuiFA62WSjIoXyGwOXTwQzQPIuSoeAXnTHp11h3ApsRu6Tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794461564;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Content-Type:Mime-Version:
+	 Subject:From:In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:
+	 References:To:X-Mailer;
+	bh=wqPSUrj7Bt8DK8VNrE/ER9XXu71CmlCizLFS+zAMHoI=;
+	b=lY8w0YsEBM+W1Rnd0OnqVOZ72YPBunBtdbo1UeSA4l4fUXw7rfylCdvBFEvC3+BAq+Y7
+	 hV73B+UFBhhUCDFhDsyseRWymBJwmQkcPe/dxW5Sn24lZ/5hRIYoHf1ZAWM4cEFoXnPOf
+	 1CtaLl3EvnKjR576m5B4eg7m4H1wQ6pDaWJFDVkH37qFdnOrmARDq7ytRnR5Dg2lTve1Q
+	 Rs3yvRG0njI1Ad80+mXCNgNpTQiwXkKYpLiOonnY/QJ+xeGBdyT0LyCMLviwu9pzr4HNs
+	 CmZU504eglxb8zJ5/bBxAGwIA8UWiTFxUGu1F//gXXZqpRMJDtxFVOCpXsMnDtRp2fQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KiVa2YK+;
-	arc=none smtp.remote-ip=209.85.215.173
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=cyzhu.com;
+	spf=pass smtp.mailfrom=cyzhu.com;
+	arc=none smtp.remote-ip=115.124.28.68
+Received: from out28-68.mail.aliyun.com (out28-68.mail.aliyun.com [115.124.28.68])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39930606A32A
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:32:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39930606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KiVa2YK+
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cdb2e0062bbso1556275a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:32:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794461533; x=1795066333; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8bdUIArMEVujVxSnFXg7ASEB4w5yQy9UWzwj4XRgu74=;
-        b=KiVa2YK++8rPL+oDHtSbC6BXxg610PnN71TSFaCQMwH/7WEm10m1RZKAFK1g6LlMnF
-         nbW+3+RfwUzWgD+d6i7L22JK/N87HiZPTpPbDhnjfMEXA275IkjSlNYSE769FL48ANrF
-         PCwNR1nnrfDKWG6Qss/5VxsBk+quH/Vrp0dgBeDX00ZpaSFCG9QNHGeV104Kd3nDZnrq
-         rIGJf+jMY9hu8xvTm2bCqEQ9Zu95m583Q6IM7pNuxVQloMQncqpbK0FzAV7m2dnF1Sn2
-         V3T1MDFPqTorXyMwm0h6FM1WEguLp6ryEKiPydHS3SGwqqe/+h99W1Tbzu4IALH1exFm
-         iwMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794461533; x=1795066333;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8bdUIArMEVujVxSnFXg7ASEB4w5yQy9UWzwj4XRgu74=;
-        b=krdKLNVZ5S0d6OFGma3Gm8jiAMsjzB86oMoXdPpT3ZZA93WbOXB/U//n5ZrKqMXq+2
-         Ufk5G3ciD3cvp16b+K5/tk81m5zg+3sY7SIqFkIdukuVvq3xGQSpbJPPlkeh3c+75TOb
-         vtT53zDGYUrqcCQXZWVoM2jkeYPStJcwk5yo4jdZKsy670kqayzf/FlRHuLpV8iRDUqC
-         RDE23ZUr/2BbxUE4ywg6KWZuouAid2yKYH8V8LMWJwBfO3bNjz8AL1l/8io05X5Ajb+K
-         Jl8m4PSLkZViTe3esr7qBCszdsR1SOKzQE/Jy4W+30EOMoWzZJbkEyhwfIKWAywlWiCK
-         noAA==
-X-Forwarded-Encrypted: i=1; AL+hErF8/yOwVojBkA+dezbhq6eyN1heDTSvUYZUZMByeZvrF+IjT2qrTziV39ZRyzRXmcoVhvLPb+iaJzNZytg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8V4cmzn3yfbfKyhxuEy/lFWTI8CKBEpSVAegNElgsHrhopGkk/
-	Ce/QXp/UNWB5IAvswhi6opNcVmZ4XyF5ogk0VSMyBHbNa3y4BUO/6wIP
-X-Gm-Gg: AYBFou0p2k5UNZl3ZHmSo98Zvn2Z6M0+a9T+kXzpcp7BXoAjAcYzfwF9j2tZ9ifM9JS
-	tFQC4AkhpZMVpu8hcTqQ1pqUkOCxzVGM4nrT2/5Ac7ZtS16eT3h+JTkhYUF+IpACu2qo5q+j49M
-	72ZIAhjuYCr8BxOvzhaTFr6iyem+28r4nIGHlqjrT05xJbmensJwob0I/yWeC+e8K23qCBmhtmf
-	bPxeeUcE7ItZ65P92zxF+366bLjHh/UrrGpZk/aCucwUvxum7OybH4e75lT/iwnXkZf2PN1Bl04
-	GGT6tUW9suMuhrYq1G+u839xZ2hVa3+G2jL7SxzC9xzRVi+F8UPFE/pZBcAxDKKHliyqRAsMMtG
-	gNqLGZqhqiGuqb/mJ93HjWhyxPyFYeQxonTiSbXjdYuyVOxJy4iVe44R7ekkxoTYnlDobCU5P0K
-	BBdoZ579xgZY3pPw0Xd9K8dQhOqW3pv9pQ/6cRdsAnUyPN+n4Uk8SuVveFhbAoS+GSbF5VcAwjC
-	T4eFI8azwKqUZMFs+66C7EM31c2JMsF7vc4DHN7580jPD5tzc7B1p+NGgaflZyvsh1EDkP3g9wB
-	Bbo4l8ZUwULQuNda3eKqbAQOlpmTDM9tov8fANkfYmkmqjV1E37NNK8zASZy94FfN3QrLVBh769
-	GLJQpp1QWKh6dvGNs
-X-Received: by 2002:a17:90b:33c6:b0:3b0:9e2c:9b61 with SMTP id 98e67ed59e1d1-3b182ee21e0mr4536093a91.35.1794461533487;
-        Wed, 11 Nov 2026 21:32:13 -0800 (PST)
-Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:182d:659:ffce:39a4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b181b9419bsm3600558a91.0.2026.11.11.21.32.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 21:32:12 -0800 (PST)
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Benjamin Tissoires <bentiss@kernel.org>,
-	Jiri Kosina <jikos@kernel.org>
-Cc: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Michael Zaidman <michael.zaidman@gmail.com>,
-	Rishi Gupta <gupt21@gmail.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Andrej Shadura <andrew@shadura.me>,
-	Johannes Roith <johannes@gnu-linux.rocks>,
-	linux-input@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] HID: hidraw: Encapsulate struct hidraw and make hidraw.h private
-Date: Wed, 11 Nov 2026 21:32:08 -0800
-Message-ID: <20261112053208.1397505-1-dmitry.torokhov@gmail.com>
-X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-In-Reply-To: <20261016-test-hidraw-base-v2-0-153f67a20cad@gmail.com>
-References: <20261016-test-hidraw-base-v2-0-153f67a20cad@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB453606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:32:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB453606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cyzhu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyzhu.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.0993831|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0963169-0.00895397-0.894729;FP=17073822583275324218|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034138;MF=hudson@cyzhu.com;NM=1;PH=DS;RN=3;RT=3;SR=0;TI=SMTPD_---.k0Hb9TS_1794461552;
+Received: from smtpclient.apple(mailfrom:hudson@cyzhu.com fp:SMTPD_---.k0Hb9TS_1794461552 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 12 Nov 2026 13:32:32 +0800
+Content-Type: text/plain;
+	charset=utf-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,28 +44,254 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH] docs: erofs: refine the on-disk overview
+From: hudsonZhu <hudson@cyzhu.com>
+In-Reply-To: <20261112021905.36269-1-xiang.gao@docker.com>
+Date: Thu, 12 Nov 2026 13:32:22 +0800
+Cc: linux-erofs@lists.ozlabs.org,
+ LKML <linux-kernel@vger.kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <78C49082-EE86-431E-A97E-20CEEF2FB352@cyzhu.com>
+References: <20261112021905.36269-1-xiang.gao@docker.com>
+To: Gao Xiang <xiang.gao@docker.com>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
-Hi Benjamin,
+Hi Xiang,
 
-On Fri, Oct 16, 2026 at 03:41:47PM -0700, Dmitry Torokhov wrote:
-> This series cleans up internal HID core and hidraw header boundaries.
-> 
-> First, internal HID core declarations and unused symbol exports are
-> moved out of include/linux/hid.h into a private drivers/hid/hid-core.h
-> header. Next, a hidraw_instance() accessor is introduced in
-> include/linux/hidraw.h so HID drivers that only need the hidraw minor
-> number for naming or debug logging no longer dereference struct hidraw
-> directly. After converting the drivers and dropping unused
-> linux/hidraw.h includes, hidraw.h is moved to drivers/hid/hidraw.h and
-> struct hidraw along with its internal buffer and list structures are
-> made private to drivers/hid/hidraw.c.
+> Each inode can be located directly using the following formula:
+>     inode offset =3D meta_blkaddr  block_size + 32  nid
 
-Gentle ping on v2 of this series. I verified that it still merges
-cleanly onto next-20261109. Could you please take a look?
+Does this formula also apply to inodes stored in the metabox?
 
-Thanks.
+Thanks,
+Chengyu
 
--- 
-Dmitry
+> 2026=E5=B9=B411=E6=9C=8812=E6=97=A5 10:19=EF=BC=8CGao Xiang =
+<xiang.gao@docker.com> =E5=86=99=E9=81=93=EF=BC=9A
+>=20
+> The existing on-disk summary mainly describes inode and shared xattr
+> metadata views, leaving the overall layout and design rationale =
+unclear.
+>=20
+> Expand the summary and refine the terminology and wording while =
+keeping
+> the section a high-level overview.
+>=20
+> Assisted-by: chatgpt:gpt-6.1-sol
+> Signed-off-by: Gao Xiang <xiang.gao@docker.com>
+> ---
+> Documentation/filesystems/erofs.rst | 100 ++++++++++++++++++++--------
+> 1 file changed, 72 insertions(+), 28 deletions(-)
+>=20
+> diff --git a/Documentation/filesystems/erofs.rst =
+b/Documentation/filesystems/erofs.rst
+> index 02caf3b061fe..0633e69aa71e 100644
+> --- a/Documentation/filesystems/erofs.rst
+> +++ b/Documentation/filesystems/erofs.rst
+> @@ -171,13 +171,27 @@ Each mounted filesystem will have a directory in =
+/sys/fs/erofs based on its
+> device name (i.e., /sys/fs/erofs/sda).
+> (see also Documentation/ABI/testing/sysfs-fs-erofs)
+>=20
+> -On-disk details
+> -=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +On-disk format
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +This section provides a high-level overview.  For the latest complete =
+on-disk
+> +format specification, see:
+> +
+> +- https://erofs.docs.kernel.org/en/latest/ondisk/
+>=20
+> Summary
+> -------
+> -Different from other read-only file systems, an EROFS volume is =
+designed
+> -to be as simple as possible::
+> +
+> +EROFS keeps its on-disk format as simple as possible to minimize the =
+need
+> +for metadata consistency checks.
+> +
+> +The guiding principle is that malformed or deliberately crafted =
+metadata
+> +may describe a corrupt filesystem, but its effects should remain =
+confined
+> +to the data and metadata exposed to userspace: garbage filesystems =
+return
+> +garbage (meta)data to users, and nothing more.  Violating this rule =
+is
+> +unsafe and must be prevented by our on-disk design.
+> +
+> +::
+>=20
+>                                 |-> aligned with the block size
+>    ____________________________________________________________
+> @@ -185,15 +199,45 @@ to be as simple as possible::
+>   |_|__|_|_____|__________|_____|______|__________|_____|______|
+>   0 +1K
+>=20
+> -All data areas should be aligned with the block size, but metadata =
+areas
+> -may not. All metadata can be now observed in two different spaces =
+(views):
+> +Apart from the EROFS superblock, which starts at byte offset 1024, =
+metadata
+> +and data regions have no fixed locations or boundaries and may be =
+interleaved
+> +throughout the image.  As a result, inodes do not need to reside in a =
+fixed
+> +central table, allowing incremental builds, although the image =
+creator may
+> +still choose to group all inodes together.
+> +
+> +All data except inline data must be aligned to the filesystem block =
+size
+> +[#unencoded_data]_ to enable efficient block I/O, support memory =
+mapping,
+> +and avoid unnecessary data copies.  Metadata does not require block =
+alignment.
+> +
+> +.. [#unencoded_data] Strictly speaking, data refers to unencoded =
+data;
+> +   encoded inodes are outside the scope of EROFS core metadata.
+> +
+> +EROFS core metadata consists only of the superblock, inodes, and =
+directory
+> +entries stored in directory inode data.  The physical locations of =
+inode
+> +data are recorded as block numbers to avoid block-alignment checks.
+> +
+> +Only a few superblock fields, including the root nid (see below), are =
+needed
+> +to parse the filesystem tree.  Most of the remaining fields provide =
+filesystem
+> +statistics reported to userspace and should not affect the core =
+filesystem
+> +logic.
+> +
+> +Encoded inodes, which contain encoded data such as compressed data =
+(including
+> +compressed directories), use a distinct inode "datalayout" number =
+that allows
+> +them to be identified or rejected when reading the inode metadata.  =
+Support for
+> +encoded layouts is optional and can be explicitly disabled at runtime =
+if there
+> +are security concerns about parsing compressed data in the kernel.
+> +
+> +There are two metadata views: one for inode metadata and one for =
+shared
+> +extended attributes.  Both can also be located in a special hidden =
+inode
+> +called "metabox", which provides a unified way to compress inode and =
+xattr
+> +metadata:
+>=20
+> - 1. Inode metadata space
+> + 1. Inode metadata view
+>=20
+> -    Each valid inode should be aligned with an inode slot, which is a =
+fixed
+> -    value (32 bytes) and designed to be kept in line with compact =
+inode size.
+> +    Each valid inode is aligned to a 32-byte inode slot, matching the
+> +    size of a compact inode.
+>=20
+> -    Each inode can be directly found with the following formula:
+> +    Each inode can be located directly using the following formula:
+>          inode offset =3D meta_blkaddr * block_size + 32 * nid
+>=20
+>     ::
+> @@ -224,8 +268,8 @@ may not. All metadata can be now observed in two =
+different spaces (views):
+>                                             |-> aligned with 4B
+>                                                         |-> aligned =
+with 4B
+>=20
+> -    Inode could be 32 or 64 bytes, which can be distinguished from a =
+common
+> -    field which all inode versions have -- i_format::
+> +    Inodes can be 32 or 64 bytes, distinguished by the i_format field =
+common
+> +    to both formats::
+>=20
+>         __________________               __________________
+>        |     i_format     |             |     i_format     |
+> @@ -236,29 +280,29 @@ may not. All metadata can be now observed in two =
+different spaces (views):
+>                                         |                  |
+>                                         |__________________| 64 bytes
+>=20
+> -    Xattrs, extents, data inline are placed after the corresponding =
+inode with
+> -    proper alignment, and they could be optional for different data =
+mappings.
+> -    _currently_ total 5 data layouts are supported:
+> +    Xattrs, extents, and inline data follow the corresponding inode =
+with
+> +    proper alignment.  Their presence depends on the inode's =
+datalayout.
+> +    Five data layouts are currently supported:
+>=20
+>     =3D=3D  =
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> -     0  flat file data without data inline (no extent);
+> -     1  fixed-sized output data compression (with non-compacted =
+indexes);
+> -     2  flat file data with tail packing data inline (no extent);
+> -     3  fixed-sized output data compression (with compacted indexes, =
+v5.3+);
+> -     4  chunk-based file (v5.15+).
+> +     0  Flat inode data without inline data (no extents);
+> +     1  Encoded inode
+> +     2  Flat inode data with inline tail data (no extents);
+> +     3  Encoded inode (compact indexes)
+> +     4  Chunk-based file (v5.15+).
+>     =3D=3D  =
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+> -    The size of the optional xattrs is indicated by i_xattr_count in =
+inode
+> -    header. Large xattrs or xattrs shared by many different files can =
+be
+> -    stored in shared xattrs metadata rather than inlined right after =
+inode.
+> +    The size of the optional xattrs is indicated by i_xattr_count in =
+the inode
+> +    header.  Large xattrs or xattrs shared by many files can be =
+stored in
+> +    shared xattr metadata rather than inlined immediately after the =
+inode.
+>=20
+> - 2. Shared xattrs metadata space
+> + 2. Shared xattrs metadata view
+>=20
+> -    Shared xattrs space is similar to the above inode space, started =
+with
+> -    a specific block indicated by xattr_blkaddr, organized one by one =
+with
+> -    proper align.
+> +    The shared xattr metadata view is similar to the inode metadata =
+view.
+> +    It starts at the block indicated by xattr_blkaddr, with entries =
+stored
+> +    sequentially with proper alignment.
+>=20
+> -    Each share xattr can also be directly found by the following =
+formula:
+> +    Each shared xattr can be located directly using the following =
+formula:
+>          xattr offset =3D xattr_blkaddr * block_size + 4 * xattr_id
+>=20
+> ::
+> --=20
+> 2.54.0 (Apple Git-157)
+>=20
+
