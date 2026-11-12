@@ -1,62 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794503447;
-	b=2YhFkEWvuQ3S9554GAEVj1CXqWRkifNWQAJupPlRLJoa5dvvBwP5jXzkEHcEMhMkROmS
-	 3w9jhvdd3RwI0MZ09l7yewa5xDMTN2uDwb2KeO/fwrUwsb+jJqg/J2HjFnhAhWbH/2S51
-	 bT5N0NgDaB4b8aclCrGZD9906mC5jHhGiFBp2HGVOkMGgpG5R37Eh0s4kUTy4rsXgCcGu
-	 /ZIS5RYFKiS15rnQ1l/TFOeON1iSMqbOl9NoVr5cyX0B7hNKm57iMx4fpGOy/Ql9Envl1
-	 CB53wvdsp3oY2g+jmPPFk6GaI+VQF5+EY5nioV1Mnmh6iN4n6HJkpI4LL4tgHMggt6g==
+	t=1794503460;
+	b=r++k58QqtpfLfDxn/0qtPLbI88jD9bDAkUiHRmDE4UKEtQ+G5WkJCAjncMrRBrsBuAmh
+	 jNioc7TPnWFD8qtaiPaNJYlWUkGFqhsYyEEj0bXG/1VTeKnmzx+dCdxwsTSxLuW/cwjVQ
+	 kB/RY2P9H+x/FaGvNxH9+fB7C0+76HkL4KAoHeQZ7BlycLkxWthWFxkCw4mosKBw7cHzU
+	 pf4R6ClPlXFAQQju4hWK7WRCOMjVwZfEtmlsxz0zofRsnRNa+biBrbUqeRtYryPUYiRH5
+	 FsGJYIYC0aNCl5Dz2Fpj/hAJDPpeGC9zeUk5su+061qU7+lKyseg9cDzfWSJggAxm1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794503447;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=LRHO5lmdhVp8ikZ9+SxeuhVOjOelared/N/6wvFgJ7Q=;
-	b=UX+OyzY28fKMHSAGneJ8NNOM0kCqtjDHcKskDixBdEiUDEwxJ0VaZbVwQ79hUkypy6RQ
-	 A21+uoJtS8xL9uhg6oNc7SD5s3mxqHrYEejHMeo5hU7yoB4guZxUnZtglPMyvmaBhNeWh
-	 9aV+7yObTMu6kNJ93It2GJfzw6c4kOtD/7EpBBUTztEc5icJ3SDZdk8JZj77G8fn/02qf
-	 TCGi2JPBpkcqJqa/milyIGhNUfIpyXR6Qguzc7OydIGFAbxxGhOn3Sd+9N+NYpeHAb5G9
-	 m0efFtQAkRNXJrq5UGQNcmXSp68+72e5YRcTBWrO4LoYU1sYbO9clUJ1m6VMpHgu6Tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794503460;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=rW3Kj0ulR3Ttq6n6mY5IEPta9ZcKpr108GkAVG+RGZ0=;
+	b=dkY+r2vOqtdMhy98lJEMZDCvCdJ5NGle6rTzGFZxIdmi6ARTV9bXqiDeBuThCC+Nnem7
+	 sFyz+r8mncsfbdmMAIIxdVhI5+FjbSgZHr9w8JM23OsLz+QG3lq9bBDjkn0Vrhsj/xrWp
+	 7BRIQZcVBDgTiVuQrTMKccfPljLAV92ZA0N1uypoWvL+o0F27D7chXouPB5M2m/iGBCGt
+	 Uun5ojAsypCWY00InddSaWVahAQH8exQnKB1cj7IeF4hY1vVjTu9WTGn787FsJVxU3Swz
+	 198QMlgsNHzeFZ/pU7EitkDEQn9pNMgTS8usXIVY6ZA88tT07mcT45vg56p+7lLZ3Tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=X7i4vWnS;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D5862606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:10:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5862606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EKptDYBc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05854606A32E;
+	Thu, 12 Nov 2026 17:11:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=X7i4vWnS
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 18BC11516;
-	Thu, 12 Nov 2026 09:10:43 -0800 (PST)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9C4113F632;
-	Thu, 12 Nov 2026 09:10:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794503446; bh=GXl24yWWtZO9v/KHQgClTSYkqQLlBzrjLfrp8Pe0W0s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=X7i4vWnSoc312bqGeIF8SzhZ2FHjBr8SOrqg8v+VNd8eNeMjmJjOoUDoWUBobe/P2
-	 YOCSxGgV0fpPgUQoreaKJP0wE1RbBGGniEKgB8lr0iXGpR3CW9m5RU7Qek0XslN4Yb
-	 nLAPwI/58VBTo+bZ6+IBbNjHK8BR0zV9KSlwVXfc=
-Date: Thu, 12 Nov 2026 17:10:43 +0000
-From: Leo Yan <leo.yan@arm.com>
-To: James Clark <james.clark@linaro.org>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>, Suyash Mahar <smahar@meta.com>,
-	Yeoreum Yun <yeoreum.yun@arm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Qi Liu <liuqi115@huawei.com>, Junhao He <hejunhao3@huawei.com>,
-	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [PATCH v4 01/10] coresight: configfs: Don't assume active until
- cscfg_mgr is set
-Message-ID: <20261112171043.GK9176@e132581.arm.com>
-References: <20261016-james-cs-multiple-per-threads-v4-0-dedf961aca0e@linaro.org>
- <20261016-james-cs-multiple-per-threads-v4-1-dedf961aca0e@linaro.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EKptDYBc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B54A1F000C4;
+	Thu, 12 Nov 2026 17:10:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794503459;
+	bh=rW3Kj0ulR3Ttq6n6mY5IEPta9ZcKpr108GkAVG+RGZ0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EKptDYBcMSg/IypP4vnzhY9OBUqL2dY9v64RYp6UrU5IMFPbzJAhXTduTv+N9QZV+
+	 8LSwMXXhOT/2eh9bLYvIvQoiCoYxWSX5K2P6HqanGo0tDGoJqmlnFDmQROTR0d8XpP
+	 7S0nrvUzF2EV0dIjE2/PlJym1X3Vit6ANIX2hnHGf6tmPfkGV60JCcx9lDSIG25oE9
+	 S410RIqQlatZRErAhe+hjta67ADz9am+qRiyYjIOvL0GPc6CMXUwqx4D1PhpeSMoJq
+	 mxRK7QH0c3soBzdSej0d5bwU9WzlCcfhes0YiOnKdFjt7Pk9ICduCUqdgfqr9kk5d/
+	 KrME/GIHm5+1A==
+Date: Thu, 12 Nov 2026 18:10:56 +0100
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: "Paul E . McKenney" <paulmck@kernel.org>, linux-kernel@vger.kernel.org,
+	David Woodhouse <dwmw2@infradead.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	Puranjay Mohan <puranjay@kernel.org>, rcu@vger.kernel.org,
+	David Woodhouse <dwmw@amazon.co.uk>,
+	Kunwu Chan <chentao@kylinos.cn>
+Subject: Re: [PATCH v3 2/7] srcu: Rule for using synchronize_srcu_atomic()
+ from interrupt handlers
+Message-ID: <avXzIAXTkQnNsRmW@localhost.localdomain>
+References: <20261112133731.127221-1-mathieu.desnoyers@efficios.com>
+ <20261112133731.127221-3-mathieu.desnoyers@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,21 +70,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261016-james-cs-multiple-per-threads-v4-1-dedf961aca0e@linaro.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261112133731.127221-3-mathieu.desnoyers@efficios.com>
 
-On Fri, Oct 16, 2026 at 11:46:11AM +0100, James Clark wrote:
+Le Thu, Nov 12, 2026 at 08:37:26AM -0500, Mathieu Desnoyers a écrit :
+> This is about the update side.  A user that calls
+> synchronize_srcu_atomic() from an interrupt handler must disable
+> interrupts around all its calls on that srcu_struct, task context
+> included.  Document this rule, and warn when it is broken.  The rules
+> for readers are unchanged.
+> 
+> synchronize_srcu_atomic() spins rather than sleeps, so it may be called
+> from atomic context, interrupt handlers included.  Its callers on one
+> srcu_struct exclude each other with ->srcu_atomic_gp_flag.  One of them
+> drives the grace period.  The others spin until a grace period ends.
+> 
+> The flag owner disables only preemption.  So an interrupt can arrive on
+> its CPU while it holds the flag.  If that interrupt handler calls
+> synchronize_srcu_atomic() on the same srcu_struct, it spins forever:
+> 
+>   CPU 0, task                        CPU 0, hardirq
+>   synchronize_srcu_atomic()
+>     takes ->srcu_atomic_gp_flag
+>                                      synchronize_srcu_atomic()
+>                                        spins until a grace period ends
+>                                        it never ends: its driver is the
+>                                        task this interrupt interrupted
+> 
+> Nothing reports it.  lockdep cannot, because lock_sync() records no
+> interrupt state.
+> 
+> synchronize_srcu_atomic() cannot disable interrupts itself.  A reader
+> that disables only preemption may wait for an IPI to the waiter's CPU.
+> That IPI never runs while the waiter spins with interrupts disabled.
+> The kernel-doc already lets the caller choose the waiter's context.
+> It then asks the readers to run in that context, or a stricter one.
+> 
+> So the caller disables interrupts.  The existing reader rule then
+> requires the readers of that srcu_struct to disable interrupts too.
+> 
+> Also store the owner's CPU number plus one in the flag, instead of 1.
+> A waiter that finds its own CPU as the owner warns once.  It still
+> hangs, but no longer silently.
+> 
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+> Tested-by: David Woodhouse <dwmw@amazon.co.uk>
+> Reviewed-by: Kunwu Chan <chentao@kylinos.cn>
 
-> +static enum cscfg_load_ops cscfg_get_state(void)
-> +{
-> +	return cscfg_mgr ? cscfg_mgr->load_state : CSCFG_UNLOAD;
-> +}
+Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
 
-Could we check !cscfg_mgr explicitly in the three functions instead?
-
-Using CSCFG_UNLOAD to represent both "not initialized" and
-"cfg unloading" is a bit confusing.
-
-Thanks,
-Leo
+-- 
+Frederic Weisbecker
+SUSE Labs
