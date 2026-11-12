@@ -1,77 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794445477;
-	b=F5C1znrG/estiSdEKx5nK7paGp1wqMAw8wfPjOj9wH1DlzLAC7SiY26JoZvw+4hSK9Qt
-	 xJnxDoMpYj7EYToKkZtZ+vfz7wL+Wqk3nTsh/YmoDKLN42saXS85fr9HdP89QdvVfD+/p
-	 VSGcXQhXdxWGqfozoEIM4e7VszKNs4z5/argXny7f/TTI7MVn0JPcbtCnR3mfz9Ae+TaT
-	 dhZi6qawpE7JmHGvdvPDGHXTrkqg/YynGdEPvU4a8UTX1F7WR5HIg7HSKm8Ns+IWqSg7T
-	 94E4qcumRVHwdPFH/f0W6IzM0maSEw9ztcqJccDbwrbk+bR5/AIn/LugvuLMGQ1y4eg==
+	t=1794445515;
+	b=TDEsZpkki95+bTLx60A75s9upW9c8t4rt3iaxQHXhP2sgfw0PTvDIGtE5DaAZZa1oJ8W
+	 WGPbQmS80Pjnz2K8/DP9Om0UDdPk3OWFP9J4qINqzyjfaZKp82ntBcSZCvxFjWU87RH38
+	 YvxgnsB12LyeKADAgZ4YlgbsC6MgvoE8pqa05TPMjpnhFt77N64ahYPMMQjakhiyt/iXD
+	 eVFdzFQu7A/lC8C9BjKwzmSvsBRqPSdGyecOJVdbGfyFL9VMg7QX8E8Zi5ft9l8srTo9/
+	 a/uyH4YuXhT2yOrqEiPEkHH/5skaucUjeIY8g3BJV85O1orxlwCKUfT+rDYlPeAZOFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794445477;
-	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
-	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:
-	 UI-OutboundReport;
-	bh=j6tlVbWU1o1K91DWHI2T6yTCEpkrptJM63aWaCywbOE=;
-	b=hODkX5NbAaIIZWcpovE+PtaPc+YKTfNkFn/pwWmLOTcfm1dNmlWLnnfcTIKvFTPmdasJ
-	 YghXCUjlXMeCCHjaY2BKi24ifmcu0b/2sNA9lhY4nvhMblpV+d0nnx/7aIGTzrPfScj/k
-	 dBxgbISdispQ4q4xgziJPirUFD66ctvsiG0Qu8bgdq3KLNCCfC0U6UNkL4JJD3mQLerYA
-	 8vd/A7MGYGWy0p9BY1+Q7zy8iGa7BW7Uk2hnX2XG65gLofigQa4L/eAl97/pJ18H5q2zV
-	 dFfE/YnGGXrB9UYTCIXbGTQ3Hne02E4Y4poZIvtNZCpF+Y+tLVzyhpIirmUuERBkh3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794445515;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=3NyGS3nOA7Lvp0Dw4Wzv0Za4txVRrYi8SUex8d0oBv8=;
+	b=0aknn5FlnW3Yy/SoLp8NXB2aA6WL0PDTD9J7JuF2eJNFQ4flvCLS/l8Aeqq1TccEmdFF
+	 pFMbsVOwp+KuAmREE29rPYSu/jOgRvFmuJi60ieojHkN/6038SzxbIoBa6WCCzOTrABiX
+	 EnCawBxj2wqNLHmACJ1BeDkD64tcIlLpvU3xNM+1tFaLixp6ZEARhbxQpEaM7j6mfHOyG
+	 6zb4HhxMOZx9UxxWWiyuq9kNI3Nr3tmfI2amRVIwTb0HxJ0FDjeD1xmAC6fw6lvNidqFu
+	 zwDZkweEIviwT12uzYS2YN/7zRhIN4lRYYoQnJ4Z+i6yqyfPOr5dJ/Wv7Y3v1vdHlNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.de;
-	spf=pass smtp.mailfrom=gmx.de;
-	dkim=pass header.d=gmx.de header.i=w_armin@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=JwDck3dY;
-	arc=none smtp.remote-ip=212.227.15.15
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nhmrq2zN;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7427A606A8A4
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:04:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7427A606A8A4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ACC2606A323;
+	Thu, 12 Nov 2026 01:05:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3ACC2606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=JwDck3dY
-DKIM2-Signature:  i=1; m=1; t=1794445474;
- mf=PFdfQXJtaW5AZ214LmRlPg==;
- rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
- d=gmx.de;
- s=s31663417:rsa-sha256:kAFUl7lCWOc9a05geM4uFOLveVCx
-   47ooWHq55IIBkwZ2qN/FM/8jgB1LM/B2quOQ8LTNjKb+Rp5cz3UsKNAn55O/ThI1xZiJwnWtU/l
-   Jji/0xEaObhKQcZtqryRFnkDZBlsFAC3vUdeGNO8OvOEKFBVOSrcvMeGRvNgHqfeUIuAkziSpIv
-   /xhxor8bjqBUKwfXeZ4mmGDrLjeGbg/PiHyyDVmBnowtUbbGCBO/x63FuW5w1i86nJ/OHCFjhro
-   xs7YAysLV2B4qnDGHjYWu4Hlinfvm99SCYuTVadp2cvWcnv3CzoY8h0c+gA6gIru0uPiufKCqYw
-   m7pZJxjYOHPZ4w==;
-Message-Instance:  m=1;
- h=sha256:
-   nrOY6lBG86RsHaopRX5Q77ggFCEqVLrnAdLHqmZo0jA=:
-   kt9FQx6TBHGgxOuYVf4Vfbq9RpyQRuuL+PkxXfBb0a4=,
-  sha512:
-   E304BdJjC8oZhiiNdLS8z1vq15lJmYwjsmatYfyYJN4qW3TOhbsFDeWVvGqV8rrhMm+OVoRumNSSLHupOxuSfw==:
-   FoS7C3NzF57kA/TBDz57OpB/HV+dmbOiB6cwowIXWu3YfZw99cZEoJrq3glBffE8rR8Sx8FExiwpOVQbmdN23g==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1794445469; x=1795050269; i=w_armin@gmx.de;
-	bh=j6tlVbWU1o1K91DWHI2T6yTCEpkrptJM63aWaCywbOE=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=JwDck3dYYsJPjC2A+zumO37wnWZjMEKNJ2UvaoaSc7ybsi9b+V4idWM7WtcPrNDc
-	 b6/UbeobaF+TBgAH/taZl01O+M6Z2QIfNbe+SSIIqhgDlVsxPgkk8N5DrTS+JtnD4
-	 WEZe1sKPzm64pRBw4oz3+3S7TliwG2qSHjs8zNFSvvlVdIaKCKP6j8Z9mh+nOFCsd
-	 EzVT02MUS7FyppbogoBqwFMoLEGeHgHEmX3TgnUND45jXwstTZ5aR/F+gjy6sXz5H
-	 yrh1oNL+JqZEPXfgSHLOU9ZMppC9kHU7h34maS4cuDVXAoDy9l21l57wfAcIByult
-	 7HAWjWOlrCViSEeTwA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MeU4s-1wr9XU3cfM-00fzKz; Thu, 12
- Nov 2026 02:04:29 +0100
-Message-ID: <01ed9468-083c-42cd-ba33-5746d96be55a@gmx.de>
-Date: Thu, 12 Nov 2026 02:04:26 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nhmrq2zN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794445514; x=1825981514;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XjVKd2HNubXo7z2nDE7+efXnFFvj/HoSmdrw3jQ7lOY=;
+  b=Nhmrq2zNQ8m8V5Ks6RtNZflHVuUvZ82drTCn5WucV0Ok5WriYNuEd56h
+   H6Dj9sepI7sFKLt1/Kvygghsvi78QpqSphtGjLNlGac/GzsVaDcb5411p
+   BDuGW5+7jmnrXlLe55B7y3sCLSMgi42mKiLHX68o4NqQrh1ARQPdONP1w
+   o+ZA/C1FlcB6T7GuG77EGrIFxf/ISeua5Fr+ZOnXZbQQ0G74kJXjclnq6
+   wW1n7D5NJaS3S5DKzsveLBxkQ0NkQrf9GVqZZJwnnLxT0TbP8s9D/HCo7
+   07QsPu33g3JxR4KdyozBUo0ngyV3prCWPaM5MPUetTJjJiGj2OaPpSm0W
+   g==;
+X-CSE-ConnectionGUID: +gwLcJOAQQCD/80GZpj+AA==
+X-CSE-MsgGUID: +bzCoUBoQGihivaHvklpvg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3250440"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3250440"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 17:05:14 -0800
+X-CSE-ConnectionGUID: Nb54U2MRT1WGe+6rLMXOJA==
+X-CSE-MsgGUID: nrchI3L6SZCJX5FwlKD0Mg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="8866983"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 11 Nov 2026 17:05:11 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xRJFV-0000000109X-0oVM;
+	Thu, 12 Nov 2026 01:05:09 +0000
+Date: Thu, 12 Nov 2026 09:04:27 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mario Limonciello <mario.limonciello@amd.com>,
+	Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
+	Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Mario Limonciello <mario.limonciello@amd.com>
+Subject: Re: [PATCH] pinctrl: amd: Steer GPIO interrupt to low
+ power/efficiency cores
+Message-ID: <202611120840.VN9Z8N3s-lkp@intel.com>
+References: <20261111-superm1-pinctrl-power-improvement-v1-1-4bbe6cdbd2e8@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,182 +88,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] platform/x86: dell-smbios: Accumulate supported commands
- across 0xDA tables
-To: Rosen Penev <rosenp@gmail.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Edward O'Callaghan <quasisec@google.com>,
- Mario Limonciello <mario.limonciello@dell.com>,
- "Darren Hart (VMware)" <dvhart@infradead.org>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261111214440.5473-1-rosenp@gmail.com>
-Content-Language: en-US
-From: Armin Wolf <W_Armin@gmx.de>
-In-Reply-To: <20261111214440.5473-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:823/N+IEDbQpZDaUOj2wGNf7n9AjDxOuRoxZLtzvHZ2dWvlwFje
- +7Xme699oS3+9r5lnY6yuy1ukz4zfyD0ur6YqdFXrQ8/OAvxvr4sLtDXC1CpIC8UgFDne+3
- E4smRK7V4HjcjpMJugGZ6ogi6ZUxWJmlB9307997FgX9AR9YjtXsk4RxvNBuxerYNrAW5YG
- eddErG3mZOhjS5V9gUMqA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:2Rsot88W+3E=;r4WEU/suPPzj8QKEtUtztxWmBHo
- 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
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-superm1-pinctrl-power-improvement-v1-1-4bbe6cdbd2e8@amd.com>
 
-Am 11.11.26 um 22:44 schrieb Rosen Penev:
+Hi Mario,
 
-> parse_da_table() runs once for every SMBIOS 0xDA structure and assigns
-> da_supported_commands from each one, so the last structure wins. Some
-> systems expose several 0xDA structures where only some fill in
-> supportedCmds. On a Dell Precision M4800 there are seven: the first six
-> report 0x40361f5f and the last reports 0, which leaves
-> da_supported_commands at 0.
->
-> As a result dell_smbios_call_filter() rejects every call made through
-> /dev/wmi/dell-smbios, even token reads from root:
->
->    dell-smbios ...: invalid command, supported commands: 0x       0
->    dell-smbios ...: Invalid call 0/0:      5c
->
-> and dell_smbios_class_is_supported(CLASS_INFO) returns false, so dell-pc
-> refuses to load.
->
-> OR the field across all 0xDA structures instead. With this change the
-> token read succeeds and dell-pc registers its cool/quiet/balanced/
-> performance platform profiles on the M4800.
+kernel test robot noticed the following build errors:
 
-Reviewed-by: Armin Wolf <W_Armin@gmx.de>
+[auto build test ERROR on 7475ea8b58616b33c04afb976cf0fbaad9dd63fb]
 
-> Fixes: 1f8543a5d602 ("platform/x86: dell-smbios: Add filtering support")
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->   drivers/platform/x86/dell/dell-smbios-base.c | 7 ++++++-
->   1 file changed, 6 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/platform/x86/dell/dell-smbios-base.c b/drivers/plat=
-form/x86/dell/dell-smbios-base.c
-> index c8e93c12c445..f79847f0bfe2 100644
-> --- a/drivers/platform/x86/dell/dell-smbios-base.c
-> +++ b/drivers/platform/x86/dell/dell-smbios-base.c
-> @@ -406,7 +406,12 @@ static void __init parse_da_table(const struct dmi_=
-header *dm)
->   	if (dm->length < 17)
->   		return;
->  =20
-> -	da_supported_commands =3D table->supportedCmds;
-> +	/*
-> +	 * Systems may expose several 0xDA structures, and not all of them
-> +	 * fill in supportedCmds, so accumulate rather than letting the last
-> +	 * one win.
-> +	 */
-> +	da_supported_commands |=3D table->supportedCmds;
->  =20
->   	new_da_tokens =3D krealloc(da_tokens, (da_num_tokens + tokens) *
->   				 sizeof(struct calling_interface_token),
+url:    https://github.com/intel-lab-lkp/linux/commits/Mario-Limonciello/pinctrl-amd-Steer-GPIO-interrupt-to-low-power-efficiency-cores/20261111-100708
+base:   7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+patch link:    https://lore.kernel.org/r/20261111-superm1-pinctrl-power-improvement-v1-1-4bbe6cdbd2e8%40amd.com
+patch subject: [PATCH] pinctrl: amd: Steer GPIO interrupt to low power/efficiency cores
+config: um-randconfig-1000-20261112 (https://download.01.org/0day-ci/archive/20261112/202611120840.VN9Z8N3s-lkp@intel.com/config)
+compiler: clang version 18.1.8 (https://github.com/llvm/llvm-project 3b5b5c1ec4a3095ab096dd780e84d7ab81f3d7ff)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261112/202611120840.VN9Z8N3s-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611120840.VN9Z8N3s-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from drivers/pinctrl/pinctrl-amd.c:20:
+   In file included from include/linux/io.h:12:
+   In file included from arch/um/include/asm/io.h:24:
+   include/asm-generic/io.h:1209:55: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+    1209 |         return (port > MMIO_UPPER_LIMIT) ? NULL : PCI_IOBASE + port;
+         |                                                   ~~~~~~~~~~ ^
+>> drivers/pinctrl/pinctrl-amd.c:1285:47: error: array has incomplete element type 'const enum x86_topology_cpu_type'
+    1285 |         static const enum x86_topology_cpu_type types[] = {
+         |                                                      ^
+   drivers/pinctrl/pinctrl-amd.c:1285:20: note: forward declaration of 'enum x86_topology_cpu_type'
+    1285 |         static const enum x86_topology_cpu_type types[] = {
+         |                           ^
+>> drivers/pinctrl/pinctrl-amd.c:1286:3: error: use of undeclared identifier 'TOPO_CPU_TYPE_LOW_POWER'
+    1286 |                 TOPO_CPU_TYPE_LOW_POWER,
+         |                 ^
+>> drivers/pinctrl/pinctrl-amd.c:1287:3: error: use of undeclared identifier 'TOPO_CPU_TYPE_EFFICIENCY'
+    1287 |                 TOPO_CPU_TYPE_EFFICIENCY,
+         |                 ^
+>> drivers/pinctrl/pinctrl-amd.c:1297:8: error: call to undeclared function 'cpu_data'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    1297 |                         if (cpu_data(cpu).topo.cpu_type == types[i])
+         |                             ^
+>> drivers/pinctrl/pinctrl-amd.c:1297:21: error: member reference base type 'int' is not a structure or union
+    1297 |                         if (cpu_data(cpu).topo.cpu_type == types[i])
+         |                             ~~~~~~~~~~~~~^~~~~
+   1 warning and 5 errors generated.
+
+
+vim +1285 drivers/pinctrl/pinctrl-amd.c
+
+  1276	
+  1277	#ifdef CONFIG_X86_64
+  1278	/*
+  1279	 * On hybrid systems prefer to service the GPIO interrupt on low power cores,
+  1280	 * then on efficiency (dense) cores to save power.  Userspace can still
+  1281	 * override the placement.  Do nothing if neither core type exists.
+  1282	 */
+  1283	static void amd_gpio_set_irq_affinity(struct amd_gpio *gpio_dev)
+  1284	{
+> 1285		static const enum x86_topology_cpu_type types[] = {
+> 1286			TOPO_CPU_TYPE_LOW_POWER,
+> 1287			TOPO_CPU_TYPE_EFFICIENCY,
+  1288		};
+  1289		cpumask_var_t mask;
+  1290		int cpu, i;
+  1291	
+  1292		if (!zalloc_cpumask_var(&mask, GFP_KERNEL))
+  1293			return;
+  1294	
+  1295		for (i = 0; i < ARRAY_SIZE(types); i++) {
+  1296			for_each_possible_cpu(cpu) {
+> 1297				if (cpu_data(cpu).topo.cpu_type == types[i])
+  1298					cpumask_set_cpu(cpu, mask);
+  1299			}
+  1300			if (!cpumask_empty(mask)) {
+  1301				irq_set_affinity(gpio_dev->irq, mask);
+  1302				break;
+  1303			}
+  1304		}
+  1305	
+  1306		free_cpumask_var(mask);
+  1307	}
+  1308	#else
+  1309	static void amd_gpio_set_irq_affinity(struct amd_gpio *gpio_dev) {}
+  1310	#endif
+  1311	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
