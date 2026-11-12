@@ -1,108 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794443040;
-	b=0x+mCVWx94opU1saIPILAZdZZZpev6mqHMEt+vDmYJEngcEpvVUSeU+SuFuOX8Elu091
-	 48IQbOLMEhJBvF4DRMkRl1iVWB+UojhdpKiPu6YjUgZVH5+68USZq79KxYSisP8Yea08F
-	 8FEpfWLxeDKmpCz19GJXu3iwik1Ta1Fy6WvYDXWiOglwBnMfNDudVYj5DxZ6emprF5QKY
-	 KEV75Fuva3ey/sWgcTZOdpQBh0JVtgDmAxgWbfGXJFE7FYnXLBd5358S7r+9qoVcdku+e
-	 VYZBbRDMR7dCGeC8uHHaNC9TEVzSbGd+pLLYoYhN+99Fd4Gbs1D4rPlwztBHXtT9O7w==
+	t=1794443118;
+	b=nZTz2B/tDuAjIuVpC3MIU4OY0W7HZa0TYhtLxKza09t5BtFqbmDbsEfG94gcQ6VID+R6
+	 GfZ7VJ8cjapdA0JZvn38+fmP7IwkEuLTPi4D7tmizYtN+nI/lK4Ozw9v4Mz9njOGL2N9b
+	 iR+c15l662sK02BDgcjvtwg6Ip5ektDZuTwrlrJFNUOUni3m2rxJQdK7CzcfmlkLl4hJq
+	 SHPUHJNQ5Jxw4XXsmxf7Ctekz3FMdCs1wUzOgMLVb+CuPB1YY2ilihisb360NJirUZ1p9
+	 lXxR9m8xp5fHMiGdJq2UWCQTkbCj5wCblBG+8pMEklKK/udH8gek8rUWRD9NBA8vznQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794443040;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794443118;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=AvOYiSMUQBE8hHq85U7RnqlX2B8KEnkOUGs6NK6p6bU=;
-	b=uqJ9fo/dw6sDLs/qaB6y8KYIZzj4Prg3HHrRvomK8djUEg0Eqh99BB+S8ZNMXYSQxaP+
-	 sdL+4MyoRfKgQh94fYUY8oTqUWR2D9QB6I4PQxVUqehLuffiCaO6TuGgX6681Rewq2V6t
-	 WEhaTuTLOmnck4zSEiRselyHo+2l9xNbKMvpTgrjYxCNEdlZZtB0HZfmblnd6m6wTnYhj
-	 eo8eJ5k+r9hlwt4VfzsCv8OUnWfyCbeXlzItmzXZQPCOKphyVJXWC3UAtIVljgaUXDqmu
-	 W6Gou1ZkAN8B/G97S3CU+84lcW2s4HivqVdtZM9jQ1CyO5ypq4V69DcHFaqKLg92qJA==
+	bh=WmDxcQotq3NgeobvzOlqzwVczvRUhsveENxWAqE5LCM=;
+	b=Wizwl3QpanjTF4pCsEGoyrtJ2iWDnwqanzZMp08cdKBv1KNr+ggN09CgkwTk/O6PCJab
+	 aUH/A9KETmRJ1Nsa9p5kN4dMFfApFi0/9ag3rTkSyVVJiVRGjbcYB7MhOgbKeySCwmnaJ
+	 GYhRZCh0b3jU3oyOmbpYBsbTdJTgWydkZqFanbXsIO/zpHGdKQEa/bSiNdt6ahAROKG37
+	 cKOGzlXpuuhrOdkthqHFMmW2w1J7QU/lfZCx59WZoxYCuFsO+D2hiItDbdJHJdzaFXNZS
+	 GnZ973jf31pEbQDeaD4Vb2w1/n+EUxqeJAXTparafBxo8h00Lf9mMAEmqxjK9lJC4KQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="jM/eBsyx";
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="h1S/DtRe";
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1943D606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:23:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1943D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB64606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:25:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BB64606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=jM/eBsyx
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1b3acec6677so5571344c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:23:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h1S/DtRe
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-37071c0f42aso6358081eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:25:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794443039; x=1795047839; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794443117; x=1795047917; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=AvOYiSMUQBE8hHq85U7RnqlX2B8KEnkOUGs6NK6p6bU=;
-        b=jM/eBsyxf0242IeUk/QFUPK8XD5A2U7cZB5APpSpLED0Ce/mRZUDfV/L19c/zszsQm
-         xaQ5b4rlHZ5g/PUtovJIzpy0ObuWoyeT/mck5BuHSHfgQqzVE40Im6Xz7fvVqKsVkVkK
-         3yEUP4JP6zTPoCgon9IoLXM6LLP3X5VjaywdY=
+        bh=WmDxcQotq3NgeobvzOlqzwVczvRUhsveENxWAqE5LCM=;
+        b=h1S/DtReSrooUG+5tSN0w/2VC4kQ8AWHjCfF28Z9OQxDnt2zBOzOG5sKY0JnQnJnFJ
+         zNwQbHhUCOB+mBz+KNl0PE8STaFR26KMtp9vkTpW7C07Cb/YyzjGHtqM07sjuYKHxOVT
+         Bw6BOYKRKl4LpOTyraYV/EqXqZQE0emqlHIbes5FFn1qm34+50N3/YHSvLdJ19ytxeVE
+         6yPp0kLgJnc0+ca3K6gduebk0nEVB67S9ZCzo6eMWtcjuyTSxgk/QI0JxuJsNwK89sRJ
+         srUy5gRBPksXx3Vl0TSo+9xqOGXIDjeVqvcLE+cpxfsKW8sza5a3MUFK7cLr+uKfTsYC
+         9a4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794443039; x=1795047839;
+        d=1e100.net; s=20260707; t=1794443117; x=1795047917;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=AvOYiSMUQBE8hHq85U7RnqlX2B8KEnkOUGs6NK6p6bU=;
-        b=gHR252SZ9xCJXPModVt6GnCAM17XlHJZLLkrTrF+86PYpnfilUfX+TXhHI9IXtf0nj
-         CLPOF6Gk5p0zaYP7J3kcHm9vBWSRqjpiC56xqLMYkVAS2PIQxquQ/GhWHH/AJY0FurqK
-         V1TW5xnLlMUPitk7k0PgAave075uAzkQ1yVhRlLzmOn4l1oHtrN3hPrEUpF20CIFbgEq
-         9A2JlifH2WG7X6vawOXXB/Un65Ck44h/6Iog43yaGp87mlX8zNDY08t6A1xxreU7mtih
-         g4h8tSL75eT9q/mF2zJw0cj4wid3cQeCFtme2FwMxn8sWi30SdNvF+NBQSEM3mlqrgbQ
-         UINQ==
-X-Forwarded-Encrypted: i=1; AL+hErFHMK3Bgwl7jL/VnhvvGosG0WrnGK+f0nbo42jIDb9zGnXa5GeFne3shqNYOwvlxuwzMr/R16LWHZtTiog=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+xozYyvFphy5ZwfeVFQB45v/f86+Lq52cPVaLlCD1cy3dgZTEW
-	bGwopmNSIcPMTFDtFhZoVGgF5SVaHpegXftHSX8euqPjWQToX89aXEdUDocl+GwCgw==
-X-Gm-Gg: AYBFou0UOH8Ltstnf5z/xxA0S9al2t7+U2I+sX74x3KMGJf4CjpzgADv/s3Qf/nkHlP
-	sH1megaLgVkCTtdiWF0lMs3LfXLsq22+QldVymYTH9UMVYqOgBvX0vmXJBppYJ62GjNohpYUsu6
-	6zIqHSbUn7SlAfP0zRfOTn1USIHWLxeEZ6Mu0FJ0zNxCJPUMVDq2L+dIhNI6ymZz6ea+x6WBCtY
-	kpZKIeYEY67T7ewWtE5LYf7b8b0d1JjrV2gykoIG7G5DuJebFoCAahqhDMLaLLJtHS0ikrOqbzs
-	QUY0aBLjVqhH1bsFRwEQwfGzzmDIqFULnCztIlguawQl7F6WVAc43tF7wZf9+dNM0zeCqvAG1OV
-	d5zk8bElXSotE25T/Ve8mXAJ0WHU+csuH1VLybOq8S8ruTCZCziPmcSIozPgy78smUzb0hHJEIh
-	+fDMaZSHPirH293/pMI04FzI39TYerpvokZivNeu/qnLqejHGyJ7N5vhZeG7TbRXxjVUheAWZs3
-	lcQcDvK05t7RDYesJtAPNne798doicpXl9uWXByLXwm7JyJkRDPoj/BIngTVrFdI62Uy6uqB5zL
-	/6lcspZx+7VQxU0u5Qv6Qda4KJ1x4i9FV0liWksWoPApUHjVtnmDgyxXXeQQvSrP9zJWFw==
-X-Received: by 2002:a05:7022:1711:b0:1a3:65d7:efae with SMTP id a92af1059eb24-1b3c03185acmr3161801c88.21.1794443039027;
-        Wed, 11 Nov 2026 16:23:59 -0800 (PST)
-Received: from localhost ([2a00:79e0:2e7c:8:5446:563c:ac92:43a8])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b3b5890c0esm19834613c88.1.2026.11.11.16.23.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 16:23:57 -0800 (PST)
-Date: Wed, 11 Nov 2026 16:23:55 -0800
-From: Brian Norris <briannorris@chromium.org>
-To: Alan Stern <stern@rowland.harvard.edu>,
-	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
-	Fabrice Gasnier <fabrice.gasnier@st.com>, linux-pm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, Ulf Hansson <ulfh@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	Andy Shevchenko <andy@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [PATCH v2 3/5] PM: runtime: Propagate last_busy from dependent
- to dependency
-Message-ID: <avUHG8mLuTOUMr8O@google.com>
-References: <auuICAm4BC_8Pzs5@google.com>
- <CAJZ5v0jTX1FgeS9FCV=+V4uacSgLQBVsSPnU27ybgUGg57GUOA@mail.gmail.com>
- <auzlLwlleGLPsLcw@google.com>
- <CAJZ5v0g25xQeRaLJWJyAo2fcJko+gZ7w6JhX7FzMgRx2+uuimw@mail.gmail.com>
- <au0oKFb9CmNzc6Cg@google.com>
- <CAJZ5v0hKpjMsGQm8Cpa89x5wkNxqkggDNbp+eQ0S-E52DETWjQ@mail.gmail.com>
- <avOw_4ZkqtKFHu1B@google.com>
- <2c3bda2b-ccc3-4430-8e09-81b25f6fcda7@rowland.harvard.edu>
- <avSa97F1Nu1LTSCA@google.com>
- <fc43eb13-816b-4cd0-9711-848fdab605ef@rowland.harvard.edu>
+        bh=WmDxcQotq3NgeobvzOlqzwVczvRUhsveENxWAqE5LCM=;
+        b=w0aCdWLxx1YgGVLCvh5DZtf+BPK2zf1fgX1bfvJvJJ8ZfRYf6lGgUQcD41CZiruixh
+         rmlFV4KfTLhjrGNEoPpt5tZzdEzRC9bkbkmaDd3VXQKshIBS03XLlRYwiixQVE+NE6S1
+         xJ7i/7IIriG2TXGzSG2Zh8JA7LagXDEx6wFTYXe9CLror2swf58ybsn/yssfnMEe/bVM
+         qghBtlzb3WPd+MIDumi+nUFtVJBnPsN8t6quieHqIMN8A32y5huVtF4yhIczLEbmyg4Q
+         lomagerKOxthIPVOFq6iM+K8k/4V0K89kynsfk6IykLRYBDXHD1UghxaSBIU+nF5Tg0Y
+         wZjA==
+X-Forwarded-Encrypted: i=1; AL+hErE4WiNcL0A3iB9n8el3/ufbZo6ireHabJsSNg68eemci4VWpiEdSpAgXUJEMpSX/0XL2Yd2Uu9bDegqnyE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9QEghF0j8YzLI8cAJfzfnfjxyqvU2nYRe+YMCeEkZbjUhCOKDL
+	0ZoK5gDnnHIVu2CgQP0RCMoCE/Jolk/YYel5GaBx1zs+HRnWDMw0YsT5
+X-Gm-Gg: AYBFou3f9bdq28qy3QGQxE6zYGmuXyexXVBWheTCI5sNxSmk2ui+CS0s15U7euXfUlH
+	LrzWzX7Mdernag9dUCj2s4DFogd/duUd97rE0KpLZ/6P9jR80wRbNwMK58WUvt7OyfCbXmcmUz6
+	sr/3X/5eBLTj0SXCtPnOiswyJimytSET9hrNj2FRNVPE0z1+wELMGvqFwlem0n+m0KTc/UKZ0NA
+	lb/9RtcmeGLwhLXyQOwlGOmyd+l3ErCW5O18dn2iVplQ09iqjC7C2JbxqInG26jHBwbO3ga0Nl+
+	oO1UCQ4ZkA0bk6+xYvpVtq1a89kWNeMcWgfh2iCYrH/kcRWvd8xAC6YQkhEnR0mQu6LIUIBtOOO
+	0jD3mAEYi822MToDKRnTzIbQeLrNGlcAQTFUfvpg6rjDHRlJkqPTGDwgKKgkIfGBXGXmL4OQ0fm
+	WzgNWipHF00J38No9DVTj2G38WwEOW0IbchSYRHrGuhr8zpS/SmKBQoDH256N/fDnvUF6eSJucJ
+	VitYlbj3q396MJr9hrH3gfG8BveDlxazy/LsPeAWftMXJdaxecMDVGVsHucJ9aFpOpHvNNFi7Un
+	rEPTIOkt9CbxeFicU9/jMOseGbieBqEFbtuEUX5+fo6yL/DuL7VaMEVnO1ySpegaD0tJ6A==
+X-Received: by 2002:a05:7301:d807:b0:378:2e89:3958 with SMTP id 5a478bee46e88-3782e893b15mr345363eec.19.1794443117438;
+        Wed, 11 Nov 2026 16:25:17 -0800 (PST)
+Received: from google.com ([2a00:79e0:2ebe:8:182d:659:ffce:39a4])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3766146551asm12082193eec.1.2026.11.11.16.25.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 16:25:15 -0800 (PST)
+Date: Wed, 11 Nov 2026 16:25:11 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Jakob Unterwurzacher <jakobunt@gmail.com>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Tony Lindgren <tony@atomide.com>
+Cc: Joseph Chen <chenjh@rock-chips.com>, Lee Jones <lee@kernel.org>, 
+	Sebastian Reichel <sebastian.reichel@collabora.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, 
+	mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+	Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>
+Subject: Re: [PATCH 1/4] Input: rk805-pwrkey - enable the wakeup interrupt
+ during system suspend
+Message-ID: <avUGEQhSKlko0Fm9@google.com>
+References: <20261029-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-v1-0-cb12621c1fb4@cherry.de>
+ <20261029-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-v1-1-cb12621c1fb4@cherry.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,163 +106,121 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <fc43eb13-816b-4cd0-9711-848fdab605ef@rowland.harvard.edu>
+In-Reply-To: <20261029-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-v1-1-cb12621c1fb4@cherry.de>
 
-Hi Alan,
+Hi Jakob,
 
-On Wed, Nov 11, 2026 at 03:20:16PM -0500, Alan Stern wrote:
-> On Wed, Nov 11, 2026 at 08:42:31AM -0800, Brian Norris wrote:
-> > Hi Alan,
-> > 
-> > On Tue, Nov 10, 2026 at 10:47:59PM -0500, Alan Stern wrote:
-> > > So yes, in the current scheme a parent's inactivity period doesn't start 
-> > > until all its children are suspended (unless the ignore_children flag is 
-> > > set, but never mind that now).
-> > 
-> > But to be clear, that's not actually how runtime PM works today. It only
-> > works this way for the very small handful of drivers where the parent
-> > calls pm_runtime_mark_last_busy() in .runtime_idle(). I think several
-> > people have acknolwedged that this is a bit of a hack, or at least a
-> > missing feature in runtime PM, and probably should be extended more
-> > widely.
+On Thu, Oct 29, 2026 at 11:06:23AM +0100, Jakob Unterwurzacher wrote:
+> From: Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>
 > 
-> I have to agree; it seems like something we missed.  But then, I've 
-> always had something of a blind spot for pm_runtime_idle().  In fact, my 
-> overall impression has been that in practice, drivers relying on 
-> pm_runtime_idle() for anything nontrivial would be more or less mutually 
-> exclusive with drivers relying on autosuspend.
-
-I also had that impression. But of the approx 60 drivers that implement
-runtime_idle, there are at least 4 GPU drivers: nouveau, radeon, xe_pci
-and amdgpu (I'm sure they all copied each other to some extent). There's
-also some greybus, drivers/misc/mei/gsc-me.c, and a handful of others.
-
-I suppose you can determine for yourself what's "nontrivial"; and in
-many cases, they re-implement many of the same idle checks inside their
-runtime_suspend(), so it doesn't matter too much.
-
-> But of course, 
-> maintainers are free to do whatever they want.
+> The driver marks the device as wakeup capable, but never enables the
+> power key interrupt as a wakeup interrupt. As a consequence, the PMIC
+> interrupt line is masked during system suspend and the power key cannot
+> wake up the system, e.g. from suspend-to-ram on RK3588 with an RK806.
 > 
-> > > The parent's autosuspend delay therefore 
-> > > should take into account the expected time before one of the children 
-> > > may have to be resumed, as well as the expected time before the parent 
-> > > itself may be asked to do something that doesn't involve any children.
-> > > (Note that if a device has more than one child, the expected time before 
-> > > any of its children will be resumed can be different from the expected 
-> > > time before any single particular child will be resumed.)
-> > 
-> > "Expected time before a child may have to resume": isn't that child
-> > last_busy + child delay?
+> Enable the interrupt as wakeup interrupt in the suspend callback if the
+> device may wake up the system, and disable it again on resume.
 > 
-> No; that value is the expected time before the child may be 
-> autosuspended.  Not to mention that you're mixing up clock times 
-> (last_busy) with time intervals (time before).
+> This is done in the regular suspend phase on purpose, rather than with
+> dev_pm_set_wake_irq(), which arms the wakeup in the noirq phase: there,
+> enabling it updates the PMIC's interrupt registers through regmap-irq,
+> which fails when the PMIC is connected via SPI:
 > 
-> >  So that expected time is already in the past by
-> > the time the child autosuspends.
+>   spi_master spi2: Failed to power device: -13
+>   rk8xx-spi spi2.0: Failed to sync masks in 7a
+
+Sounds like this needs to be solved in PM core rather than hacked around
+in individual driver? Let's CC Tony and Rafael.
+
 > 
-> You must have misunderstood what I wrote.  Think of it this way: Let's 
-> say the last remaining active child goes into runtime suspend at time T.  
-> Let's also say that the parent expects none of the children will need to 
-> resume until time T + D.  Is D sufficiently large to make it worthwhile 
-> for the parent to suspend and then resume?  If not, the parent should 
-> remain active.  If yes, the parent should autosuspend -- and the length 
-> of time the parent should wait before autosuspending is on the order of 
-> the value of D (let's call it D*) that corresponds to this crossover 
-> point.  Thus the parent's autosuspend delay should be set to D*, or 
-> something close to it, in order to achieve both objectives.
-
-OK, thanks for explaining again.
-
-I suppose that makes sense, and so Rafael's
-rpm_idle()-implies-mark_last_busy() proposal makes sense.
-
-> > My point here was that I think Rafael was overly concerned about
-> > precisely tuning parent autosuspend delays at the same time as changing
-> > the runtime PM core behavior. Yes, they clearly can be tuned in user
-> > space; but he was suggesting a phase-in / opt-in approach to this
-> > change, because it might harm system power if it's not re-tuned.
+> Fixes: 5a35b85c2d92 ("Input: add power key driver for Rockchip RK805 PMIC")
+> ---
+>  drivers/input/misc/rk805-pwrkey.c | 42 ++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 41 insertions(+), 1 deletion(-)
 > 
-> Is anybody really trying to tune precisely parent autosuspend delays?  
-> On what basis?  I'm doubtful that anyone is sufficiently serious about 
-> it to be annoyed at this PM core change (i.e., setting last_busy when a 
-> child suspends).
-
-I fully agree with you, which is why I don't see why we should make
-Rafael's proposal conditional. We should just make the change, IMO.
-
-> > > > At the same time, it makes it harder to reason about the runtime PM API
-> > > > surface -- because currently, .runtime_idle() is a primary reason that
-> > > > pm_runtime_put() and pm_runtime_put_autosuspend() are different.
-> > > 
-> > > I wouldn't put it that way.  My feeling is that pm_runtime_put() could 
-> > > be replaced by pm_runtime_put_autosuspend(), since they should behave 
-> > > identically for devices that don't use autosuspend.
-> > 
-> > Ah, but that's not actually true! pm_runtime_put_autosuspend() skips
-> > .runtime_idle(). It (semi)directly calls rpm_suspend().
+> diff --git a/drivers/input/misc/rk805-pwrkey.c b/drivers/input/misc/rk805-pwrkey.c
+> index 76873aa005b41..9b64ec7463c62 100644
+> --- a/drivers/input/misc/rk805-pwrkey.c
+> +++ b/drivers/input/misc/rk805-pwrkey.c
+> @@ -15,6 +15,10 @@
+>  #include <linux/module.h>
+>  #include <linux/platform_device.h>
+>  
+> +struct rk805_pwrkey {
+> +	int irq;
+> +};
+> +
+>  static irqreturn_t pwrkey_fall_irq(int irq, void *_pwr)
+>  {
+>  	struct input_dev *pwr = _pwr;
+> @@ -37,10 +41,15 @@ static irqreturn_t pwrkey_rise_irq(int irq, void *_pwr)
+>  
+>  static int rk805_pwrkey_probe(struct platform_device *pdev)
+>  {
+> +	struct rk805_pwrkey *priv;
+>  	struct input_dev *pwr;
+>  	int fall_irq, rise_irq;
+>  	int err;
+>  
+> +	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+>  	pwr = devm_input_allocate_device(&pdev->dev);
+>  	if (!pwr) {
+>  		dev_err(&pdev->dev, "Can't allocate power button\n");
+> @@ -84,16 +93,47 @@ static int rk805_pwrkey_probe(struct platform_device *pdev)
+>  		return err;
+>  	}
+>  
+> -	platform_set_drvdata(pdev, pwr);
+> +	priv->irq = fall_irq;
+> +	platform_set_drvdata(pdev, priv);
+>  	device_init_wakeup(&pdev->dev, true);
+>  
+>  	return 0;
+>  }
+>  
+> +/*
+> + * Arm the wakeup in the regular suspend phase rather than with
+> + * dev_pm_set_wake_irq(), which does it in the noirq phase: enabling the
+> + * wakeup updates the PMIC's interrupt registers, which is no longer
+> + * possible once the bus to the PMIC (e.g. SPI on RK806) is suspended.
+> + */
+> +static int rk805_pwrkey_suspend(struct device *dev)
+> +{
+> +	struct rk805_pwrkey *priv = dev_get_drvdata(dev);
+> +
+> +	if (device_may_wakeup(dev))
+> +		enable_irq_wake(priv->irq);
+> +
+> +	return 0;
+> +}
+> +
+> +static int rk805_pwrkey_resume(struct device *dev)
+> +{
+> +	struct rk805_pwrkey *priv = dev_get_drvdata(dev);
+> +
+> +	if (device_may_wakeup(dev))
+> +		disable_irq_wake(priv->irq);
+> +
+> +	return 0;
+> +}
+> +
+> +static DEFINE_SIMPLE_DEV_PM_OPS(rk805_pwrkey_pm_ops, rk805_pwrkey_suspend,
+> +				rk805_pwrkey_resume);
+> +
+>  static struct platform_driver rk805_pwrkey_driver = {
+>  	.probe	= rk805_pwrkey_probe,
+>  	.driver	= {
+>  		.name = "rk805-pwrkey",
+> +		.pm = pm_sleep_ptr(&rk805_pwrkey_pm_ops),
+>  	},
+>  };
+>  module_platform_driver(rk805_pwrkey_driver);
 > 
-> Like I said above, a blind spot regarding pm_runtime_idle().  And/or an 
-> impression that a driver might want to use pm_runtime_idle() or 
-> autosuspend but not both.
-> 
-> Anyway, pm_runtime_put_autosuspend() could easily be modified to call 
-> pm_runtime_idle() before rpm_suspend() if the device doesn't use 
-> autosuspend.  That's not likely to bother anybody.
 
-Sure.
+Thanks.
 
-One way or another, I'd like to eliminate the differences. And I'd
-prefer doing so by removal, rather than addition, if possible. TBD how
-it ends up looking, after the current topic.
-
-> > I appreciate all the responses. One particular part I did have questions
-> > on, which I'll mostly copy/paste:
-> > 
-> > [Rafael:]
-> > > Now, let me acknowledge that some drivers evidently want rpm_idle() to
-> > > always set the autosuspend timer instead of suspending the device
-> > > right away.  That may be because of the "unwanted parent suspends"
-> > > problem at hand or for other reasons.
-> > 
-> > Do we have any idea what the "other reasons" could be? For example,
-> > because driver writers found it too difficult to find all the
-> > appropriate places to call pm_runtime_mark_last_busy()? (Does commit
-> > b3db492e8335 ("PM: runtime: Mark last busy stamp in
-> > pm_runtime_put_autosuspend()") help? Or should pm_runtime_put() behave
-> > similarly?)
-> 
-> I have no idea.  Outside the area where I mainly work, I don't know what 
-> sorts of things driver writers are doing.  If you know any people who 
-> are doing this, you should ask them directly.
-
-There's so much ancient history and copy/paste that it's a bit hard for
-me to find out who's doing this for what reasons, outside of nicely
-documented changes like commit c537d3457542 ("iio: adc: stm32-adc: fix
-runtime autosuspend delay when slow polling").
-
-> > I see that USB is one of the subsystems where .runtime_idle() calls
-> > pm_runtime_mark_last_busy(), and I thought you (Alan) might have some
-> > more background on that.
-> 
-> I don't remember exactly why that was done, but probably it was meant to 
-> carry out the behavior we've been discussing (autosuspend delay should 
-> start when the device and all its children become idle).
-
-OK, thanks for your thoughts. In any case, maybe it doesn't matter why,
-if we're simply going to move that behavior into the runtime PM core
-as-is.
-
-I'll give this some time in case Rafael had any other thoughts/replies,
-but unless something major changes, I'll plan to write/test/submit v3
-where rpm_idle() calls pm_runtime_mark_last_busy() (part of Rafael's
-proposal), and *not* make it conditional (i.e., no
-pm_runtime_use_autosuspend_always()).
-
-(Or, Rafael is free to do so, since it's his idea. Just let me know so I
-don't waste my time on it. But I figure he'd rather someone else do the
-work.)
-
-Regards,
-Brian
+-- 
+Dmitry
