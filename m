@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794490875;
-	b=q8eegbEsJkmmkK1s9T7IFIWBAUJk1fwaK81kSoC9dfemnOZ6sfV5iIXUP9C5eCu/YW9Z
-	 4Mmm8jqtS1FNCm+t4P7j/iqTm5uzNuOv0YjaVAFRJN/v6YRDyeoxmsMuxnwq2U4wqHsyJ
-	 lYBqQ5K6U+vFpti68Y8lJtjCYqwFUCQNkx8y8PZGYQXst8y0HMHzJkqhX9EwsNVMHwScT
-	 ckb/Kc9EzdDSeUwqYQlmKKVatIQF+cDU1YfYHkvOgjUjHTBbovaq+DGyQi4N8QjKHklhS
-	 vSkgTwjT4MvtBbb2w4dpgBLhlGDZQCWOmzARDjQDjre7RD1jdc0moCsiUTuOe1ZvEjQ==
+	t=1794490892;
+	b=4rNkKRK1PlbfCY7bIMCd3kjN0pr/zB4Zr2f1nvTJUraaipuOWHvoaVjPhB9L4EvnaX8b
+	 GwvMLyQdexY+KlJ8nRzIQftP2hksumNSSz3Py/uZBv5AkVUgoab9nXQ0bHWhKFMn2VfTg
+	 nWuEu78WYfXnTL1z/JasOSNlfuhUJk306FjnUCsy8b6lH2fSt02bbgybtST6WWHWevA+y
+	 Q077vdRfKNcBvEGFAcCw6Q9RIWihcdXiwwXh4aPLrkIZeKa6BD9WtOgqPTYiFOqr83ZzY
+	 RfNOg9pFhalA7F0PvlkmSff0YBC7ESipHeAEXPNPNkyeg4EIR3gFv/y4fyP0YUdnQuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794490875;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=Cj/sN5gWLFL8+X6KNAdHeNr0leCmTaxFBgtc+cpBvcY=;
-	b=ph9YwpIcD6iGdNmOURxMhz2s0mjQpMKFY9E+c0ox6DIAIu0tqY35q1F8yS10D7OKSAr9
-	 CjCmrLyRbtLquuamvMR3qV+FMfReVSFeTycUq9y3SGPmuu+jfuVreiiy2D+k2SY/hs4/t
-	 G0YJ0hfw+AIUCHBIxTJL4OwUaN0hNzRsrDwTwDAh9vCgeeLEEI9lDjvd7P/gwcHD4Z4bl
-	 JEEx3wDabIY1xa6Mk8DlurI08dWTO6nDkYtxwnyadbMZRVpwRBOkVBQNEKoVBJumcdmAP
-	 b3MxB3Mk8X4pFM2Vkns2O/mwi2i8qGsNKRWljHyVWz9vk5vxZiKOlttWvT/2nLQPNGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794490892;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=vwAW0uFdo7/BOz21AYXGAReKmASIq+BVKX+OrTkm94g=;
+	b=MaUz4nu75ySkPBj0HG8WYMn+4qMOH4bs5/iiKvWkQOcbtBtfpanZbNhrwB7i+L4z4yn7
+	 Em633qQ2u8XbAr6iwuK7DTe8t6uvK+SeMxpr1gNf+CTWZqReUDjcBIbS5C8mxzu6egB15
+	 lgxiNS+Eab0y/bt55sWoUxQ6Rjb4CIycADGZTl7MRnC62X5K4VNDbaKiC1fOmEuElzFhq
+	 2vDqXdnaRB9E5K5Kw/jM/kVzNDyQWWEM8XATNKN7ZIKaYZ5nwtkPa99qrjlb0mAmax+g+
+	 9A3xrFxmksj8gZDOpL6Y+7RguyxGN9K4nP3yonq28pA5C0n1+UGDBd1Hr53egIh49Fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=mzwr5Gz5;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=TMTZqY0Q;
+	arc=none smtp.remote-ip=68.232.153.233
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3FC8606A333
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:41:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3FC8606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8568606A335;
+	Thu, 12 Nov 2026 13:41:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8568606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=mzwr5Gz5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Cj
-	/sN5gWLFL8+X6KNAdHeNr0leCmTaxFBgtc+cpBvcY=; b=mzwr5Gz5+JBSmLX3b1
-	kN4FToqqRmTA35yNd1GsjRnqH/yn+yrJiCOukawsS3gWQRcytZlQsL2zXyodlsWG
-	O6sPc3nmYvCwSkOloxkBBpxuZkzLRSf6x5L2S4/E//YD4pkonTn0TREEQr3ZFudi
-	2DT54hCZk+lGN5w1GrVpQrA2U=
-Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgBHhIzjwfVq2wIkFg--.38929S2;
-	Thu, 12 Nov 2026 21:40:53 +0800 (CST)
-From: Baolin Liu <liubaolin12138@163.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com,
-	ntfs@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v1] MAINTAINERS: add Baolin Liu as an NTFS reviewer
-Date: Thu, 12 Nov 2026 21:40:40 +0800
-Message-ID: <20261112134041.4133634-1-liubaolin12138@163.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=TMTZqY0Q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1794490899; x=1826026899;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=zPsKqtkUwktR8nrGH/gE8FHHhCvfpf3sLqDMbExCNcc=;
+  b=TMTZqY0Q9a5GYoKNiK3hyFxBP9n5B7iCPeq/E2UPhbFBYChtj0Mg+LPW
+   JcjHdX25H/wFZZARFJXVWBlIef8CekrMGFsy7lWb5XfQuejU1iIBDXd2f
+   8Z7LUrOssOhUBrUNEzYZb1F7CsqENxOcLDYqgJtSvkcB8uima4AuiYeE7
+   HhjeN5VP62dJW6ZBUb49Vh4M8ftk+RngVGNa2VxARqish6/AAcSj6Reyt
+   h7utG4Tj3BvdcpF3c84IcmTtSfqWYNr/hcW+9BvDF7su3v664UosUxkMZ
+   PUZ04Hh+bFEMjxzyJ9KWcq6Vva0dRl+sleN9wFirX/oiKIe2C3x48K7eZ
+   g==;
+X-CSE-ConnectionGUID: fXvZKbdtT8ucMxCWKA1ySg==
+X-CSE-MsgGUID: QsvRYYWuQB+LU7/brlO+eQ==
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="297833422"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 12 Nov 2026 06:41:38 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Thu, 12 Nov 2026 06:41:30 -0700
+Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex03.mchp-main.com
+ (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Thu, 12 Nov 2026 06:41:28 -0700
+Date: Thu, 12 Nov 2026 14:41:27 +0100
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Joe Damato <joe@dama.to>
+CC: <netdev@vger.kernel.org>, Tariq Toukan <tariqt@nvidia.com>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, <edumazet@google.com>, <horms@kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-rdma@vger.kernel.org>
+Subject: Re: [PATCH net-next 3/5] net/mlx4: factor HW loopback DMAC into
+ mlx4_en_set_loopback_dmac()
+Message-ID: <20261112134127.ltcw2kjochwp3dj3@DEN-DL-M70577>
+References: <20261110231304.1859217-1-joe@dama.to>
+ <20261110231304.1859217-4-joe@dama.to>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,37 +83,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgBHhIzjwfVq2wIkFg--.38929S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrKr15AFyDAF13Cw15urWxWFg_yoW3Grc_Wa
-	1fAw4I9Fn8Jr13A395Cr9F9F4Yvw4IgryYyas8K393A390y3Z8t390yFsYkw1kuFykKFZ8
-	Za13XFs5JF4xWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbgdb7UUUUU==
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6gXBjGr1weXnbAAA3S
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261110231304.1859217-4-joe@dama.to>
 
-From: Baolin Liu <liubaolin@kylinos.cn>
+> Extract the code which copies the destination MAC into the WQE for
+> eSwitch loopback into a helper. This helper will be used by a follow-up
+> series implementing software USO, so USO packets between functions on
+> the same port are looped back too.
+> 
+> Signed-off-by: Joe Damato <joe@dama.to>
 
-Following Namjae's invitation, add myself as an NTFS reviewer to help
-with patch review.
-
-Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
----
- MAINTAINERS | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 05aa377ca912..ad9e52282569 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -20036,6 +20036,8 @@ F:	drivers/ntb/hw/intel/
- NTFS FILESYSTEM
- M:	Namjae Jeon <linkinjeon@kernel.org>
- M:	Hyunchul Lee <hyc.lee@gmail.com>
-+R:	Baolin Liu <liubaolin12138@163.com>
-+R:	Baolin Liu <liubaolin@kylinos.cn>
- L:	ntfs@lists.linux.dev
- S:	Maintained
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/linkinjeon/ntfs.git
--- 
-2.51.0
-
+Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
