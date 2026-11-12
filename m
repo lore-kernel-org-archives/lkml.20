@@ -1,90 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794523589;
-	b=ftPLQpuK/dbt76hKvcDClzzbqLAd1ux/uTNX3R8VLdAtp3XrKoimkwCPt470mOc1TjzS
-	 2r9l678ZYtNqlgmMryYZjv+FYwwYkK5ueGQktwQd7lsOKFofMY0w4ynWaXmyeS2Edpzrz
-	 RWle2fzfuj8B43eKx85BCTDKgOFjy6z893q/J19BZ8MDTGMg7TpAEgZEHHE0ZS8xofu2d
-	 naIfzxC8GVyGI1maoJVz2LQip3ANIww0wln5ISYDT/zcPphTk4vcRBk0M596Gc5ogr3rl
-	 eNOQ3ex4O7fvNW1YGrNdESv6eE4JLXOh5n+/S8EkmxIELIqYLK3l/sNDP2EhvNF8CVQ==
+	t=1794523615;
+	b=qx8hUCbkPjVWLf1/Ij6WzfzpkEGQ103WIFaNAfRK9EG+OBUF7OA3Qu85ucwGlxiOUt0a
+	 3Fyu/f3ZPzRFd8+NnEo/iwTsJRSLDMvOVrWzYSyaHr1IPreIKclcWJWnGo656TqOVSKH1
+	 /2uBCQ2kF7hAHB6FU2f0MLkutkXh7OMczkbhvj4uyrjls2oVH37q02UURkcIUdLJRfNzC
+	 tPDz/Soc3KufA4yLsc3Fx5VICiSPNJqxck/FKUIp1G82xuUYyT9ilmIn/pMkChKXoBy94
+	 P7i3MiP5d+4ykwwcx7W++YCDLXy16cFuXhf277SvxZZLxNKTiwyq3TtWy7RyMG5rQ5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794523589;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794523615;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Message-ID:User-Agent;
-	bh=Qp/CYO9Y9QR0dXHUfw6yCZHzw+ctBhl7YE1TC+1vOS8=;
-	b=p0c6mnAZXkMc6049grm0si6WJ20j/K93V4wWPZ0/7glN565SftuRWl/FtCLGwHyvIqMk
-	 QK+y/lVdE8MkSNBs8uZSPf1an6nkUMnFDX0b4oJ6twNgFzbd7Htv1UiAMC0+NzLJuEcCq
-	 JK5mHm6dpC0k5WprxkmHy/MFtArcEY8AsJOwYlzGFjobRFyCxJMvibxOg2JwUG66C0pTU
-	 XHyTFjUEIUYHoYyz7hhq4gsRZLbrZcNOLpnOR/vLkc+K/Bsd9mqjjv6m7MfPH/DWrR9ZS
-	 bRr1aPoWyt+Z6ezyWhy9iIdiicqvqhnx7rtCSwtZxR5jmjQaBlQ3PTMlEQGStGrtpZw==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=pVSpryHAFlCLz3rbBucSelxzHLz0CacAipJZykSWsqs=;
+	b=RUnmc4B2cNNKF43z/AEVbl2KINzF6++bWy1TgoAhDjK38es2opnUhGST79pHc0ke9e3Y
+	 ndMIXfSKL4bOaoKioFYjgfG30P+zGggyaENCxr/VzOdinJY900AobYoBct8nUqOZrzEMp
+	 /IEZ0owsqjx6Mh1OzweQZ/gEuB7nzHXxNMz5foxdnFQ8cdw163dAcPRHkSZeP6oxoP8vo
+	 tBuMaajya/1Bh5TkRTmSxMRHNV/o3IXSbnPqSPfTm4e0OgSDMdhaOavfce17Y85fSOJT/
+	 nxBmiUgTKn56pL0KgYJuWENV9DZrVECIW3rbwuBzhGTp68FfNJXAbjdTi/XfXMA4wBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=ebkrXilb;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	dmarc=pass header.from=linuxfoundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=gd3ELEKr;
+	arc=none smtp.remote-ip=209.85.161.45
+Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EEBC606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:46:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EEBC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BF69606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:46:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BF69606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=ebkrXilb
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-491971ac844so297983f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:46:28 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=gd3ELEKr
+Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-7190d9bdb2cso334808eaf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:46:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794523587; x=1795128387; darn=vger.kernel.org;
-        h=user-agent:message-id:content-disposition:content-type:mime-version
-         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Qp/CYO9Y9QR0dXHUfw6yCZHzw+ctBhl7YE1TC+1vOS8=;
-        b=ebkrXilbj9spVaHW9PDW3KQNpqmqI4+4NOB68oQOLq+07vtNzaBA8OzPAUS9CcsePT
-         8Kjg8BdAuCo3mV77DJ+j0I94WcjCRoV9fZV+wxCYZ49UIFzTMPcPTgg29Atqgy9WVWs2
-         OlA64TH/oKxQCTcIaOXxFG9ghWOzXAc97hNLU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794523587; x=1795128387;
-        h=user-agent:message-id:content-disposition:content-type:mime-version
-         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linuxfoundation.org; s=google; t=1794523613; x=1795128413; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Qp/CYO9Y9QR0dXHUfw6yCZHzw+ctBhl7YE1TC+1vOS8=;
-        b=wu2kYJyDOQRtRQu4dU5vsh/FaRAXBx4Duc7YZfbiBUuuFHRx1ZYRpb7CLHz3188bTu
-         Wm7ojpHAbXevvJmzxhypRKKh/yZ8a0ST8Tfh5XQJqwseECzIOh6XIm2o2xnXNchswGqq
-         v4hBn83SNoiEqBKMTp1IuevTwbOFRaDedIvKoBhStcC/JpYZzhc8Z02znFosoXQATfMr
-         Cx2tW2SaZL1lLpQcQrvUqZ/sFn5TERXm75v9lH+iHs3xMrYHzYiYUhlt6tNEOHyCYQUX
-         RaVZhpdQxbnIMvI6Tk11rYH/CFu8uyDwq3XZVxGzEsn8GTzeXdk/22gm+purWBRtnqrz
-         7oIw==
-X-Forwarded-Encrypted: i=1; AL+hErFkzerUMDlKRvB/d8SLsOC51L+QtlMTV4vdZSYK3bhdgnzHGE1FfHamvcmvOCcw2aS0eopt+cLNeqlpg6A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9G5keuuClgdXT/kMhDoEDL6QqQMwvliP3hgkqCkHY+5XL3lz2S
-	PMKrxZqvPfUUyMpQAz0mNMdqPF1DUwwbOeFv+1x8kz1x7o6ThMARnM8+Ndz3skV2Lzo=
-X-Gm-Gg: AYBFou02ptLgtXyrchKL5BODxrP+gW/pNi3u4NOrl3zLqnAxOgVg0KJtbpw8YEWYGwC
-	EkcZKQbCcVDFZ1xFgdV53LU5or/9PCBJnAWLgo1x8mjjnCGyjSHxXy5f7lIONvYtYndijsEIs2D
-	/Vd2ym3FmuSGNNBb+hDEL3w/fmfOXaCxqUupbR5Jet6hKi8Ipj++rn4Oc/k2Mh3/OrPXyZMJccp
-	dueJtLPVP1CI8fEH0NRSBt6sCpAGnmcVQuX3uxeby6VRJCA7OSXap82l0x9eK/hT4/fTjnG60W7
-	nDZJmRbkekjnKEjZb3ouQ/izGooyrgW4JMDMuGX0b+4skU//AArRXf0384kScHWOhAMmFyVQKQN
-	qWD5pHINdAOw7KjArQGzL5n/jCoT7UFls0zTdQotlC62j7STLgNYpVYySNvRre6WNzZn2k7MmWT
-	6aZHWyo5sdXpDdAWYZd/QTizxEVfa24Nci2kkSZt6xqtoazpQAEez22zJwcTppSag+JjIyqUrl9
-	3qko8xs7KWF7gSyW4zRhNRZozcU148pZEaIWP8+SMOuDUBZgLANHBNmrT7ZIKPe7zW8H9usZz1s
-	Y5iRfLCSFPfw/b+ydh2k+/RE2nKPpsYQv0WumdkQdlUevqC1Em12+DSFb2DKWdkqRCnH/o9Qvro
-	YBXxw046uKq7lR2kjSoKETjvPKo7LTXuXPucSmLHg93F7Pa4sGyaZd5XA9r1v7poNLtzYHOD3AI
-	FitgefvkDaUqMgoDiebNo6QEQrle2OsXEcFgzLviqXoDpiWr8D7vQ1ZhvUjA==
-X-Received: by 2002:a05:6000:2087:b0:488:57ad:d5c8 with SMTP id ffacd0b85a97d-49c6d453dbbmr2169176f8f.3.1794523587286;
-        Thu, 12 Nov 2026 14:46:27 -0800 (PST)
-Received: from [172.18.0.2] ([199.201.64.8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c6020bb0fsm1504046f8f.34.2026.11.12.14.46.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 14:46:26 -0800 (PST)
-Date: Thu, 12 Nov 2026 14:46:15 -0800
-From: Chris Down <chris@chrisdown.name>
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: tsbogend@alpha.franken.de, paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com, mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, stephen.smalley.work@gmail.com, casey@schaufler-ca.com, longman@redhat.com, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, chenridong@huaweicloud.com, dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, omosnace@redhat.com, kees@kernel.org, neelx@suse.com, sean@ashe.io, chjohnst@gmail.com, steve@abita.co, mproche@gmail.com, nick.lange@gmail.com, cgroups@vger.kernel.org, linux-mips@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-security-module@vger.kernel.org, selinux@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] security: Expand task_setscheduler LSM hook
-In-Reply-To: <20261105172210.76706-1-atomlin@atomlin.com>
-References: <20261105172210.76706-1-atomlin@atomlin.com>
+        bh=pVSpryHAFlCLz3rbBucSelxzHLz0CacAipJZykSWsqs=;
+        b=gd3ELEKrqfLsLRUZQygvDf5TRKPGFeTSyf88xZ0LlqulMvCMtN/hYW1gOeLatc4Zx0
+         GGBSWN4tBQBrSKRnkIP1tW+APOwZ8rGyIzXcG86SeKHlMOWh9KrD0AHuTLC9JBRpV1bQ
+         ILEUrQU+apv19q+8iC3/sWvxdXcYGXp4vZwe0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794523613; x=1795128413;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pVSpryHAFlCLz3rbBucSelxzHLz0CacAipJZykSWsqs=;
+        b=Jp3aAPzEFug2GhZMdOA7DMSIgkCzEjLVLzEPfjmMYDg/LYnP4UxZdRnEJ+y4JE9q2U
+         e3X1vk2YT4vjfn9gEQ8zfdJ4NqBpEO8/U4raEixeycfbvE9nu3wNEyZxbStjbihCWEjc
+         dRKuJ8sKHnp8ATpvUsQ6uPge0HfDRvuzBPlKhyetNPqxbFRuiJQIkosdcfiY45AFCKqf
+         ZlC/3ufhNS3ce1re7k+rOLaOhR6rZSmn/ZquWUMpCQF9OxoU+auNXUZ9CljAzNQpD+hn
+         sfrysgaivGramndRt6qvpBh+jniA/ManMlbG6cnukEpxtHbwYj9Jk4gttw/6IAAcUfnu
+         fkmA==
+X-Forwarded-Encrypted: i=1; AL+hErEEA+Si8KSSPqus6HAK7/YuS8zOQNMGCSVF+WNWZus131wnhin9qjYKhqym8XQmqqnUFxmPDh8qLl2fPNI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8tAmxizErin4trgMydSQarFj/o0Mli14AnTsnJSlQJi8gUsr7K
+	5BSMSLa6ijN6yzqkfBl0kUiSrS6UtUKTYbui135M+OZKg7VaVQBnmrt0l8KUJniA7AA=
+X-Gm-Gg: AYBFou3b8pgUQOZEEqQcuF/I648Au8cl3hf/fb1wPiOSvEgjoNehQMepbRDnGp2yD3e
+	saMHGy0ralKqozq6y9Oi6zlGhbYrTc0sNeKt+BUe9MlkmIk8HOBgr5s0jymqDyx85BM+7zjYfYe
+	puk/dOm1EPXWbMMZzNUbZf0/nDD4W/m0ckJwFLZtYOtFu+i3GvQn9t2fnN25rmpxtB2hNJJWoMI
+	j6zTFij+yLDFsf5X+BwUVVaJkskWjCQTeSGmnEaA4p8h2t7CtVubk7oGa+4ZGSZy2SQafunL35l
+	JktFPlsT57946c2W+yVRr0YqvMb2oSlvimEoGl2RmqzwwwySvX/y14n96m5EolTx9kvUYJoo+hZ
+	ftrzqM9zAiKwMnQIdmvXtDHpamkqPg1RNUc2UqWTsmTrD7YTPF0R1tBUFCb3g8Tv8jk6ZrFn1m3
+	eW2T4or560LLQ+4zttMYmyeIvCgeZs9Pw6eT9RIh1PX32z70XJrte0Bl5htwCjfAGH7E1SNF1jJ
+	T3SQZ7jNS/OAWKd9bEOukzm8LZkudHkhio69rspC4/ErM1gl+jI4rgDIIAdIWBXvDpr/gjirk7l
+	Aip9Hy61y+dUc0dqLnO8+Wl6ERXvUa9nc2yQ0A==
+X-Received: by 2002:a05:6820:8599:20b0:717:10a2:89b1 with SMTP id 006d021491bc7-71ab5218123mr278831eaf.84.1794523613129;
+        Thu, 12 Nov 2026 14:46:53 -0800 (PST)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862880e5148sm831187a34.10.2026.11.12.14.46.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 14:46:52 -0800 (PST)
+Message-ID: <131283b8-0d92-4277-9dc7-eebfe30de5ae@linuxfoundation.org>
+Date: Thu, 12 Nov 2026 15:46:50 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,97 +89,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Message-ID: <20261112144615.df72a3bef0a52f3c@chrisdown.name>
-User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] usbip: stability changes
+To: Michael Grzeschik <grzeschik@puzzle.ch>,
+ Valentina Manea <valentina.manea.m@gmail.com>, Shuah Khan
+ <shuah@kernel.org>, Hongren Zheng <i@zenithal.me>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20261111-usbip-v1-0-da5217ac71d7@puzzle.ch>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20261111-usbip-v1-0-da5217ac71d7@puzzle.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Aaron,
+On 11/11/26 04:34, Michael Grzeschik wrote:
+> While using usbip on kirkwood embedded machine, I came accross
+> some stability issues. This series is addressing the reference counting
+> on and usage of the event handler itself.
 
-Aaron Tomlin writes:
->In modern multi-tenant and real-time environments, CPU and scheduling
->isolation are critical boundaries. The inability to audit or restrict
->specific scheduling policy changes or CPU pinning requests limits the
->effectiveness of security policies, particularly when attempting to
->shield isolated or cryptographic cores from unprivileged or compromised
->tasks.
+Tell me more about the stability issues? What doesn't work
+without these patches? Do you have reproducers for these
+problems?
 
-Peter objected to this paragraph on v3, and you said there that you would
-drop it. What you told him the patch is really for was auditing the
-affinity mask as userspace asked for it, before cpuset intersects it with
-the allowed CPUs, which seccomp can't do because the mask is behind a user
-pointer. That should be in the changelog in place of this paragraph. (I
-object to it as well. Please avoid such LLM grandiosity.)
-
->This change updates all in-tree security modules (capabilities, SELinux,
->and Smack) to accommodate the new parameters mechanically, while
->providing LSMs with the necessary context to enforce strict scheduling
->and affinity policies.
-
-An LSM can only enforce an affinity policy through this hook if all possible
-ways of changing a task's affinity go through it, but writes to cpuset.cpus
-don't. With a BPF LSM program on this hook that rejects any mask containing
-CPU 3, sched_setaffinity() to CPU 3 gets EPERM. An unprivileged user with a
-delegated cgroup v2 subtree can still write 3 to the task's cpuset.cpus,
-though, and the task ends up on CPU 3 without the hook being called.
-cpuset_update_tasks_cpumask() just calls set_cpus_allowed_ptr() on every
-task in the cpuset.
-
-So what this gives an LSM is visibility into sched_setaffinity() requests
-and cpuset migrations, not control over where a task runs. That may be
-enough for auditing, but the changelog shouldn't promise enforcement. It
-also looks like the kind of gap Paul meant on v3 when he asked how this
-fits into a more comprehensive approach to resource control in the LSM.
-
->-LSM_HOOK(int, 0, task_setscheduler, struct task_struct *p)
->+LSM_HOOK(int, 0, task_setscheduler, struct task_struct *p,
->+	 const struct sched_attr *attr__nullable,
->+	 const struct cpumask *in_mask__nullable)
-
-Since the BPF LSM is the only thing that reads these, please Cc
-bpf@vger.kernel.org and the BPF LSM maintainers (KP Singh and Matt
-Bobrowski) on the next version.
-
-While the __nullable annotations do what you say, and a program that
-dereferences either argument without a NULL check is rejected by the
-verifier here, there is still a problem. Existing programs on this hook
-that follow Documentation/bpf/prog_lsm.rst and pass on the previous
-program's ret now get attr in that slot. One declared as
-
-     int BPF_PROG(x, struct task_struct *p, int ret)
-
-that returns ret when it's non-zero loads and runs fine, but with this
-patch the verifier rejects it. LSM hooks aren't stable ABI, so that may
-well be fine, but the BPF folks should get to say so :-)
-
-> 		if (setsched_check) {
->-			ret = security_task_setscheduler(task);
->+			ret = security_task_setscheduler(task, NULL, cs->effective_cpus);
-
-The kerneldoc you add in security.c says @in_mask is NULL if affinity
-isn't changing, but that isn't what happens in cpuset_can_attach(). On v1
-setsched_check is always true, so moving a task between two cpusets with
-the same cpus and mems still calls the hook with the destination's
-effective_cpus. With a v1 cpuset mount I see the hook get 0xf for a move
-between two cpusets that both have cpus 0-3, and Cpus_allowed_list stays
-at 0-3. On v2 the same happens for moves where only the mems differ.
-
-The hook also can't tell this from a sched_setaffinity() call, since both
-pass a NULL attr and a mask, but here the mask is the destination cpuset's
-configuration, rather than something anyone asked to pin to. Please say
-in the kerneldoc what @in_mask means for cgroup migration and
-CLONE_INTO_CGROUP, so LSM authors don't treat it as a pinning request.
-
->+		lsm_attr.sched_policy = policy;
->+		retval = security_task_setscheduler(p, &lsm_attr, NULL);
-
-For sched_setparam() and SCHED_FLAG_KEEP_POLICY, the reset-on-fork setting
-that gets applied also comes from the task (reset_on_fork is set from
-p->sched_reset_on_fork above), but lsm_attr.sched_flags still belongs to
-the caller. On a task with SCHED_RESET_ON_FORK set, sched_setparam() reaches
-the hook with sched_flags of 0, and sched_getscheduler() still reports
-SCHED_RESET_ON_FORK afterwards. If lsm_attr is meant to show the hook what
-will be applied, SCHED_FLAG_RESET_ON_FORK should follow reset_on_fork as
-well.
-
-Chris
+thanks,
+-- Shuah
