@@ -1,110 +1,126 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.34
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794493144;
-	b=DBJ+rtLn1RCq17sSEZHQ4qZTLJRNkTq75gl6aSIINts3xSWXDoiQxMWwK5iZk5yoUewh
-	 y8h5HuEbz4Xd8vXeDj4BHi+6au3F+IDirYcsB1aKO0Mp8hboBQ1mzymKfYbntFLezwkh6
-	 /QF4pxy0uDXaXZEHSdxwmkMF9sDO53siipUq1Rm8/wpafymXWDcVbOqSnZNGeZkD1jmux
-	 Mi6lTb4DNEKg0qonuxzsD7R+Xyo47CD1cr3AtXogN/aYH/54bO8U7MDbRrYQyyWPKNc5L
-	 tjyoxqB9NbnKBn+peG8flfbMMMKHMIFvj9KftwdOAPUybQM7Y9RM15qN18fvaSByTWw==
+	t=1794493153;
+	b=LJXeStNgUEKmnxCFaqsHCrfDbcrbhrEWFN+kqMYPoG1GYZQCAy0BUC2Cp/NQ4WcN7tfw
+	 jmd/uxqAE3zIxUXCP5D/scoMwHCYcWunlyPZ6KF0fkrAT/qIuo2zmmMvXUVx5Cikgdk/1
+	 Uf81GdDKJknKhsFyeUhXTGMEjBfQr9jzY7EuzwaMGevuIHt2h8zpXae9dVCK7jyDaQgMA
+	 oMK3xANC6He/QaeJjke5dlC9ZxVOzQSCdVaj19wMvqoKBAKSvkkLJ/6nxjApqWVJlHfHg
+	 UEt666VqQmPW0ZxRc/KOr8aJ1+d79zN/6W4iE5mdPGsmMlB8450J+NwAeyanU2KEe2g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794493144;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794493153;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:Content-Type:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
 	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
 	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
 	 X-MS-Exchange-CrossTenant-Id:
 	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=PI0qq3aSAac9+WOcrhCA94dNS2lU5eSUBofGsHZM6xI=;
-	b=v45ewE59Y5aeMpbS7JwPEfjnajJJ3/w0YnPfQpjZr29ilU0OYYAsTgLG9rlgk9sgKAzv
-	 LN5/PW13+fO0VeRiLqXj/U5+24vNeBsE8qlHoVewAXvup2GXbQOKbQt1SnQW/kuNhBH/6
-	 jCeoeDFyEXCCRl8rM0GQmU5s40gzeK6dNgiYaieUjKr5R9Pk9/DZxFi3QfMUE3zU3xnP6
-	 TH3QrmlOZw8CmE6ZBte8Ylz/FC7Wp73uGSLgRaEq5F+48Gi2WLkeqzu6SBkpaOjxMXBkE
-	 ePN+Bxd1MtKPtyfwUvr04MuOSH9Qn6sokVCGFI4oeOppxs+34IS9t/D2244+c2GfjPQ==
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Reason;
+	bh=Yq0/Duoijj7Vz//afazXd7x0bhwb/axK2vYCO96oc6A=;
+	b=F9BLdhqj1ZXbEip8ZzTFYACNAynfmyKL+TxPeBECj5nk2noMLAxxMDIH/EWLwhfQxo05
+	 UDH8TnJWKomLqc6T1IynT2dehkxmPHhroPZRV6TdLzufyJLTAqGWhLLpU5WJ9/Tm6mM6v
+	 y/f7pTHA7I0kaySgcx6yRxOT0AS99dYYXsMG7kNkLH1+TUT08m25p+eeE0+g1CZbnOABf
+	 U1HkKEmdX3LCa44OMOv83fhIoRWBr+ODXOoRlbimBkN7+7FXJhp/zJtYRSnPtWc3XpLnZ
+	 wgSnuZmQtaQKq/S3noXTQXhc0wH5W8PTRgtl3RSrV8KJi0BRZcOYVhxlqik1MfmnJfQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=naDmEPLE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.34
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012034.outbound.protection.outlook.com [52.101.48.34])
+	dmarc=pass header.from=opensource.cirrus.com;
+	spf=pass smtp.mailfrom=opensource.cirrus.com;
+	dkim=pass header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=AACmnNys;
+	dkim=pass header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=b7pOshcU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55FCF606A89A;
-	Thu, 12 Nov 2026 14:19:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55FCF606A89A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F67606E65E;
+	Thu, 12 Nov 2026 14:19:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5F67606E65E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=naDmEPLE
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=AACmnNys;
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=b7pOshcU
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACEHrh82166359;
+	Thu, 12 Nov 2026 08:19:09 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=PODMain02222019; bh=Yq0/Duoijj7Vz//a
+	fazXd7x0bhwb/axK2vYCO96oc6A=; b=AACmnNysyz4kSh4Bsp7dw1oVhhd7Ng1r
+	aDA8bwE/+Gd6DOj/WDY5okWvfYpk73x09MZC+0KYIBwk4LCxIupTR2ajZRRDa1G0
+	7fA4qeZUegiGM6vLG2geNQ7Di0SqmivfBiCrs8r4qjmf2izEilFJQTdgCaMrN2Yg
+	hRcFbMP1VXJw1MLsQ+2qN3Zb+0EvY7NFqAZXFWYk8lrxJU2KWjoj7daEVH248CWj
+	1rwQndyAzWyEd0sMTQpoIeQa0pOEle3oZyCtERuHCNVcCVswUpVXKhE0bSLjsaka
+	sVRXjqHZrE6uyWR07UkP/4pGoM3amjSEEhQPIRjA0Jdmk29IUTrR1g==
+Received: from cy7pr03cu001.outbound.protection.outlook.com (mail-westcentralusazon11020109.outbound.protection.outlook.com [40.93.198.109])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4hwcfpg7ke-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 12 Nov 2026 08:19:08 -0600 (CST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kHCm4xCIhOQyupi2cVHXRv2vbVoKA5bt6X7O/CKleqMhSjk1bsZduNyjLD0UbvU2is6+XwIyZJxCnld9nC4wg0wUKF8MQ5KUGvsUzfi0s0ip7lOe6Zg9yw/O+V8kFJ70DHzVr2jSMnqmZ5erxSFaZ2l0A7dxmFSvbDTRv2DjkgRL6dFS+g/PBQoZFTJS+LwwPhXA5JOxMtEpvli4M/chvvxOmQQIb6EjYWMnexyfDY1NQ6fDpeqkSEJ2iu++3IQnEy/mcex/pNOe9YHWZAmadI8m5qNkYs0uyO5vBTm06TJERxaKGkU9Oob0aAtJi1p1CCFy7GiTRGKFAEldjHTH3Q==
+ b=joGqi2vv8SF3RTtbpK3+YIYr5igURNtJTGA7yk6WYUk3sFlCYC1sm5RAZ3BCzqveOVonw84ap6WD8riS9avw1enA+zGGAcDy9u9gPTEyJd47PZY2d3JfWuGWFWo1z8JRKiUjF/55oH0ELIPOfXIrJXbPzm1mY0/0QQs3LXDStE7MwXoqeCgDBcmG7pNIVn1E5qaBBcXbWIZPZP1CtN/OxTILnYxlHCF3/dij/EY9yTiRubT+LqgOuNakkyMSG886W8tHM2y3BND60ScVoFbHQuCAqL+kQyvqvpEaCAg9VvymtEedD7p/KEcwFVPQXNq0YAZOAU8xfB8Uwi753/tT8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PI0qq3aSAac9+WOcrhCA94dNS2lU5eSUBofGsHZM6xI=;
- b=Dx5sDk6IYD/vdoBYna3hrhtJNgfgb7Cp/SFuNEzIf/R/AYAo70bLW1moTx8iOFPkYzMp4tKYWRJ2MhgpMPyJc42jr/xhPgMVkObMV3vQjWayVqIVRYRk4fVhPCzTNVawKRcz71K/5bpXIDEgmBDQiqi+oucAOnzAnh5pj3EL9bUg+7/+7vjdpCm7wH9Qv9bQOa5UoPopPUjKXlNobF9GtQxjv5LtSuu2syVdG7gFX1lNbY+sEC1xtb/3d0LxpcJwyG3loqbVYAcMVlRcNDNqvx30gA4AKUtYOU5OqWs6lgv6TZcUPJYDQG6dPwom0uRWa2vvJUc2FJui3BJ1uKktlA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=Yq0/Duoijj7Vz//afazXd7x0bhwb/axK2vYCO96oc6A=;
+ b=vWkC+RuW5T7R7I8/8gg5OLhN1BEmtILQVDljtZ8EINEqOJ8h3wzo/k6b2kNJXfNwh1nMERWYigEFMpUS/n4pD6tUZFdFue2Cdt4l1zCAcB5z6cQCeMiIE9Pue+CoCMHaiHt5nih89f2kv80lHVCsrdvK9y4ByD36HuZgPFEy7K8XT6Q7KEpBPUadJeN92rijBeEyQBEBIV334IDYNCTEuThajJD1zR8t47JXXyCvnVezGoAvMA3i1iJMfhRRExWUdwn8PBVW7J5SFueF6dmCqYw64Nyrn5FvYn7aXbzZ5t/8qOSw5AyocCJeGuzF0nVgMpof17+YDFFqQRWpoBFuxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=cirrus.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PI0qq3aSAac9+WOcrhCA94dNS2lU5eSUBofGsHZM6xI=;
- b=naDmEPLEVuVFx+Zsm69cXlnQhG3axKIkrMYWhiepRlfARqylZKaKgq4ue8/li3Y64/F5P2I13PrkacfmwcKkJxepN/gXql/KxuvG5RysnrIdmeTOUtPr6r22nQN2q4KKjengi88UHEunyiTA+JKebJD+yNDB4uXcoMSqkfUnAXm0P80HQUQQwjL3pRT3bI6xV95B0f99+97GLgY2hhtv94CIVYbD93L0/31DxYg37uB2RdgenDX6sEXa53YvwhCnR74Pm6SSR8phc88VnKMskrQrLFdKd9vJc+taqKoPabM6L0tVIVMVQ8t1EEhJ5ZSCJui2/24NKnM7VTGidw6gQA==
-Received: from BY3PR05CA0016.namprd05.prod.outlook.com (2603:10b6:a03:254::21)
- by CH3PR12MB081100.namprd12.prod.outlook.com (2603:10b6:610:39e::11) with
+ bh=Yq0/Duoijj7Vz//afazXd7x0bhwb/axK2vYCO96oc6A=;
+ b=b7pOshcUDCa+yodPA7PyPEE85J3hF3IxiVuX63rJCRmFOiX44o5aWn0vIDaQTPZb10X2Wgli4VAIiRtlNHnRiKttxS1fI1UJAyrGR6QLJMiPSS5OAp1HB2m/YLHe9o5ZN+Yd2Fua48G+qafGjz5hyyLILB8PmA39qV719VlejnI=
+Received: from DS7PR03CA0022.namprd03.prod.outlook.com (2603:10b6:5:3b8::27)
+ by LV3PR19MB8778.namprd19.prod.outlook.com (2603:10b6:408:280::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
- 2026 14:18:57 +0000
-Received: from BY1PEPF000264B5.namprd02.prod.outlook.com
- (2603:10b6:a03:254:cafe::2a) by BY3PR05CA0016.outlook.office365.com
- (2603:10b6:a03:254::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Thu, 12
- Nov 2026 14:18:57 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BY1PEPF000264B5.mail.protection.outlook.com (10.167.242.122) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 14:18:57 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 12 Nov
- 2026 06:18:36 -0800
-Received: from NV-2Y5XW94.nvidia.com (10.126.231.37) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 12 Nov
- 2026 06:18:32 -0800
-From: Shameer Kolothum <skolothumtho@nvidia.com>
-To: <kvm@vger.kernel.org>, <linux-pci@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <alex@shazbot.org>, <jgg@ziepe.ca>, <kevin.tian@intel.com>,
-	<kbusch@meta.com>, <michal.winiarski@intel.com>,
-	<satyanarayana.k.v.p@intel.com>, <sonangp@nvidia.com>, <ankita@nvidia.com>,
-	<nathanc@nvidia.com>, <mochs@nvidia.com>, <skolothumtho@nvidia.com>
-Subject: [RFC PATCH v3 14/20] vfio/pci: Add INTx recovery operations
-Date: Thu, 12 Nov 2026 14:16:26 +0000
-Message-ID: <20261112141632.918954-15-skolothumtho@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261112141632.918954-1-skolothumtho@nvidia.com>
-References: <20261112141632.918954-1-skolothumtho@nvidia.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
+ 2026 14:17:00 +0000
+Received: from DS1PEPF0005344E.namprd04.prod.outlook.com
+ (2603:10b6:5:3b8:cafe::85) by DS7PR03CA0022.outlook.office365.com
+ (2603:10b6:5:3b8::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
+ Nov 2026 14:17:00 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
+ IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
+ not signed) header.d=none;dmarc=fail action=oreject
+ header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ DS1PEPF0005344E.mail.protection.outlook.com (10.167.23.230) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
+ via Frontend Transport; Thu, 12 Nov 2026 14:16:59 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id C00CC406559;
+	Thu, 12 Nov 2026 14:16:57 +0000 (UTC)
+Received: from ediswws07.ad.cirrus.com (ediswws07.ad.cirrus.com [198.90.208.12])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 9753C820273;
+	Thu, 12 Nov 2026 14:16:57 +0000 (UTC)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: broonie@kernel.org, lee@kernel.org
+Cc: lgirdwood@gmail.com, linux-sound@vger.kernel.org,
+        linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
+        patches@opensource.cirrus.com
+Subject: [PATCH v2 0/2] Update cs42l43b load detection procedure
+Date: Thu, 12 Nov 2026 14:16:48 +0000
+Message-ID: <20261112141650.1931348-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,449 +131,71 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF000264B5:EE_|CH3PR12MB081100:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9b105697-be99-44bd-652a-08df40c7e3be
+X-MS-TrafficTypeDiagnostic: DS1PEPF0005344E:EE_|LV3PR19MB8778:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: b64ce9c3-df16-4140-832b-08df40c79d93
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|36860700016|82310400026|10067099003|11063799006|56012099006|261022105027099003|261022075727099003|261028144727099003|261026121527099003|261026140227099003|261021123027099003|261021121427099003|261102130727099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003;
+	BCL:0;ARA:13230040|61400799027|23010399003|36860700016|82310400026|376014|11063799006|56012099006|16102099003|18002099003|10067099003|261022075727099003|261021123027099003|261021121427099003|261102123227099003|261009223027099003;
 X-Microsoft-Antispam-Message-Info:
-	n1ynTJPe+VYe3Ci84zFLruqmGrD+xd5cTbVTp8OT5bMvOl9R8GZcdXxFdA5zzvivl2dKmiG1kme6Md4q0y4Rckfb8qNnh1SvQNkYXMKje/UvMrobegRSW+gf+D4t8CHp96yGfVsXqP57JZpJrW5qI+Kc2ikjyInCRuYSQVV46vL2ErQX+KrOuVVvm4555tPuWkO6E6N1xCiPoal5iSOrHof6/ezonJPSURp1DOk2dkvJrCFYrUSxVZ7pi7fVoVkYs40CMd6xA/BryDCEiUX7stRo4TMXULUGOidsUh8f0uIPp9jN8dNKfXyLTxWMYvHDGBkl8Ys0N5Y5iNQ1+qNVkizvxJ85DNvYPaw2RSRfhjP6eYpEh8aK5oo0oQGQpoYH+ReQWLOQnXS5WHi/h63m+Yi8W1GDi+vMpSyQYFaIopL/t7X39wzdmNIuDqMz8fPJPpBkdA/jJRgV9tFCcvwaRpRzcAQzZA/URuS/UhxVsYAkkj0OztLKK4HCtWm6hzvF+gD/Qlw55m0oW4nYsiEenRdlMR6dRyC7P6ZK29jnAtpNjWufawSUxQ4tGvESNwheYM1ag36yAzgR7MjILd/D4xWshj5JYEe8iOKJSN2t9r3fObJmC/DQXmIjwQZw40tK3qjcQlumgzkIOoYMxSsGfnKiBSlX10vNZfBrveyhh7N658wi/3lN4GL3yHX4Sp2jawLdB9Ssvi5XXKNCa1Upow==
+	rKU66dy/jgEjXGpFJJwmnSfcGmAyfFyXwsRcHSF1oAJbfA+SKU/KkXBL4lzTMcvY3wTg9VT8qcltUHgg/3F4tYapmERLjtCsAOiHw8iSJfNukoONJF6cqk8uDQjKgJ7qtIh0UCfuJtpDKNGaJ2JOeJnjGcktJVOpKDHRfDNAokjEJly6ET779fa6YpSPBIJI1FrKqou/0Av1ZhbYfDS65/ke+ivvHqK1gMDfQb/cHMfwuIjFPDwXsjZ+B9qlfMMMS3QujbkRRGI5yJD2ykduXXJYxYHVz3EZqQIYXTxRYsyUXUSq2umGxVkx8C7eCiEWrfkwGKFaXUp7LO299GaNYkyefpM0cNL2AIkSsJaOTIq3UKfgBNahDBvTunkDQW6Beyk9k1n6/3iefXU7DNhMAPrIRSstFArWOcIekrMDkgcewJzArGqiWyEk72BMdHI3noHofNRloRDTI9aBPoJEGDWHers0+HL/JU7wYd1KEst+rABjCPuzMwN9IW5AanxjS7nlomLRhIv1h/YYzL33paXbxM22xyzEjwWVKE52cYjyBAPobINMfaLZt8kiJ8W2dbLOlXCI1gh2swAfE0dvsyHRx7Ce0vttjfkPwhrTVvSUeu89Qtj6Z1G4HosTE024Qi5dUf8f6iksOSYY045vaDXDr96jSUWHmQqYgfxgvoQcvLZpvT9jxYCf/t2yIQoDQNbVMiRicJwz76vOHl5ALQ==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(36860700016)(82310400026)(10067099003)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021123027099003)(261021121427099003)(261102130727099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(61400799027)(23010399003)(36860700016)(82310400026)(376014)(11063799006)(56012099006)(16102099003)(18002099003)(10067099003)(261022075727099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	Nwn6sVopGOiLHvVwzEePvzsTdA+mk0c7x4y0A/o31OH9OBOpvtyK3HydtR8BeEWtx80ufX4P9AMRS58WtX26YLX8aIPi2Yqyc9FK7qb4OemUwOtOvOjL/HA+76LRXXS1mNp+tnKi4zx9mSV5IXYKdS/8AwQdUOC6g+oizyASjx02PCxLBnk1qj/mg7rSH2xDUGFyx6d+zvz71pVdoepeWKZaJdD2DHpL0aNmJs0SOmfix7H/7JHVu1xSN8LYJsBgSWZGhsLDffpiZab+422B0HRRUpQZMuJYle/LVk7GbPYNF4n62ecAckSzrafLWT7hvEAo85G85P140d537B9BhkxtU+FnabMVm6WXzB+wMt67E6U6I1+K25ycKuB12UjhXnvbNkZQldg9zP3Lv9q2paVlPxp00jjN7voHS0uUjkm+aQxDZ2JeeWmqSvyHspOT
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 14:18:57.3234
+	aCtqCM66E/OaLSE1DMizWrY1P2/61/4dPmByumULXIxLHaCvXB9bESzoyDW65r7L1EAa7PxWZ5iY03IgujbjpVumww8HyH+4KvLR44hIx0RL35wmRqxQ2VPk74KSbFoSkzRjrMZYUPO09b2cZjFnLzgTgo1TkVnjUSoVyZMhIC1VcIh2VRqhC9j0UEfb91ur1Ne5wPcg0sCObHXgS4mlMhhlcBPLrUIJG0xKFQzIhdLvtTJS7ZiywkZ63meEPQgxSAFlvwbOCh5HgeDA0yl95z2C6cXIbdHnATEiUGyWC72/5xK2cg7YdQ3l2pHh1I5jShYwPPLzo/sX/lQmBvpnE1rtrkldr+jKzokfLLXbFjyckUg4lqHTdg1PtcSRxeCZzNyq/ufgxwxuWDSJHJ2qwjOTAkS6fOGhOQ3hez61xNefuUr9tSrCuOaPVHVX/nGG
+X-Exchange-RoutingPolicyChecked:
+	gvgJkcN3vm3YauQgnR7jr8KOyAbUsAINpEWVbL3cjwXEskUnN5jMhrfKHnNA1xyaYam0WSP7ONLlDGgPs7RwKwkTGRQcs43KFoIRGNaQw2mEzsViBhBxp6BT+LKx3J9I4Xe3eJYsiUpoKoWn/aiAwiKdkEyFEcNG+MwyLuh/VTaPCK7omW0dcp3eoMn5oQCKHBoaBxCGJehzTgowY4jilu8VpM9VaFQFYpJTnq/SbRtrPcWg4oNxwy81JuqvunzJ441tjYSf1pRATRupNGj54aY+Ir1P7f8pZu1BS6qXWZ61J/apI6euBuK5tf/kHGKOoEndwwTqi5dm4687/ZrKkg==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 14:16:59.3613
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9b105697-be99-44bd-652a-08df40c7e3be
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF000264B5.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-Network-Message-Id: b64ce9c3-df16-4140-832b-08df40c79d93
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-DS1PEPF0005344E.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB081100
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR19MB8778
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA1NyBTYWx0ZWRfX9avbxUy68RMp
+ h7aKXXiPvtWw683rqeB10HeUBbG1XYXN9mODXiZsifRvH/p6IXqLhQ9aQvaPFVOc4Y5GYsZ+pft
+ YVQ9IlFPzmLSh+ylt42zE5vSERpPD+6n9x5mQK5s90TuU2gBGpIhcgblH+2VtXG6LuKLNd+txnB
+ C2lTn0zb8xZty10JEP6SdFrxhxXkSmtKWDAWiJqJyRQMBXx3mNQuywQvKo0WgBs+z9QKkvIyKEU
+ VxMLUXj93dci8ltv79QoMYQ5gY2IF7yvHebNY9rPGa9QsvZAY34OLsew+iD5D2frNYsLCNOSdoK
+ oSlqtOkb6KYGBezQikFJ+EeG/KjaE7T1sA+NC6EeQ7EjEYuwX92FnNA/IBKnaML/oo1jf/u8lGa
+ ky7lmUFfxwMNzuT2rfzA5B3lGgGHJpHtIybcZN8VfUgm4xUUdGYAEJeBmRvRyicb5dWMDCLcFiQ
+ rwwaU0giwi8gyQMgWyg==
+X-Proofpoint-GUID: ptWb0jxegcEYOU8g7N_3kZ5ITaGz3HRo
+X-Proofpoint-ORIG-GUID: ptWb0jxegcEYOU8g7N_3kZ5ITaGz3HRo
+X-Authority-Analysis: v=2.4 cv=Woi+otfv c=1 sm=1 tr=0 ts=6af5cadd cx=c_pps
+ a=mw7aCRCFlb22yk7hlIuqAQ==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=zJRp6_cAMcgA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
+ a=d45nVmDthLegCht-j0MA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA1NyBTYWx0ZWRfX36XlnXxhn+2q
+ NhKIVgJ/HHHqDeS/pajU7yelCuJ05UoGve7cBMH8ilDG/y9guh6JxHOJHRZuddpD94c3OfMCkQg
+ rnCF2nMJ3y9FsR/nG3PHOEYDBnpnSPs=
+X-Proofpoint-Spam-Reason: safe
 
-Physical INTx interrupts and eventfd unmask requests can arrive while
-device access is blocked for recovery. Add blocked operations that
-remember unmask requests and keep masking pending interrupts on shared
-lines. An explicit mask cancels a pending unmask request.
+Some updates are required to ensure proper accuracy on the cs42l43b
+headphone load detection. Add the required extra register to the regmap
+in the MFD and then update the procedure in ASoC.
 
-Select and call INTx operations under irqlock, and hold the same lock
-when switching access ops. Process pending unmask requests and publish
-live ops under irqlock so requests cannot be lost between these steps.
-Keep closed and failed devices blocked.
+Changes since v1:
+ - Make LOAD_DET_SEL readable
 
-Provide helpers to mask INTx at recovery entry and preserve its mask
-when restoring PCI_COMMAND. The completion caller holds igate and
-memory_lock through restoration, then sends any resulting INTx
-notification after releasing memory_lock and irqlock.
+Charles Keepax (2):
+  mfd: cs42l43: Add load detection register needed for cs42l43b
+  ASoC: cs42l43: Update load detect procedure for cs42l43b
 
-Signed-off-by: Shameer Kolothum <skolothumtho@nvidia.com>
----
- drivers/vfio/pci/vfio_pci_priv.h  |  22 ++++
- include/linux/vfio_pci_core.h     |   2 +-
- drivers/vfio/pci/vfio_pci_core.c  |  23 ++++
- drivers/vfio/pci/vfio_pci_intrs.c | 183 ++++++++++++++++++++++++++----
- 4 files changed, 209 insertions(+), 21 deletions(-)
+ drivers/mfd/cs42l43.c            |   2 +
+ include/linux/mfd/cs42l43-regs.h |   2 +
+ sound/soc/codecs/cs42l43-jack.c  | 101 ++++++++++++++++++++-----------
+ 3 files changed, 71 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
-index b02fd1fbcd31..c195ed3e4d9e 100644
---- a/drivers/vfio/pci/vfio_pci_priv.h
-+++ b/drivers/vfio/pci/vfio_pci_priv.h
-@@ -3,6 +3,7 @@
- #define VFIO_PCI_PRIV_H
- 
- #include <linux/vfio_pci_core.h>
-+#include <linux/irqreturn.h>
- 
- /* Special capability IDs predefined access */
- #define PCI_CAP_ID_INVALID		0xFF	/* default raw access */
-@@ -25,6 +26,11 @@ struct vfio_pci_ioeventfd {
- 
- bool vfio_pci_intx_mask(struct vfio_pci_core_device *vdev);
- void vfio_pci_intx_unmask(struct vfio_pci_core_device *vdev);
-+void vfio_pci_intx_recovery_start(struct vfio_pci_core_device *vdev);
-+bool vfio_pci_intx_recovery_finish(struct vfio_pci_core_device *vdev);
-+void vfio_pci_intx_recovery_signal(struct vfio_pci_core_device *vdev);
-+u16 vfio_pci_intx_recovery_update_command(struct vfio_pci_core_device *vdev,
-+					  u16 command);
- 
- int vfio_pci_eventfd_replace_locked(struct vfio_pci_core_device *vdev,
- 				    struct vfio_pci_eventfd __rcu **peventfd,
-@@ -84,6 +90,8 @@ typedef long (*vfio_pci_access_fn)(struct vfio_pci_core_device *vdev,
- long vfio_pci_core_access(struct vfio_pci_core_device *vdev,
- 			  vfio_pci_access_fn fn, void *data);
- 
-+struct vfio_pci_irq_ctx;
-+
- struct vfio_pci_access_ops {
- 	/* Select and call within SRCU. The callback receives kernel buffers. */
- 	long (*execute)(struct vfio_pci_core_device *vdev,
-@@ -92,10 +100,24 @@ struct vfio_pci_access_ops {
- 	int (*set_power_state)(struct vfio_pci_core_device *vdev, pci_power_t state);
- 	/* Caller holds memory_lock. */
- 	void (*restore_dmabufs)(struct vfio_pci_core_device *vdev);
-+	/* Select and call both INTx methods while holding irqlock. */
-+	irqreturn_t (*intx_handler)(struct vfio_pci_core_device *vdev,
-+				    struct vfio_pci_irq_ctx *ctx);
-+	int (*intx_unmask)(struct vfio_pci_core_device *vdev,
-+			   struct vfio_pci_irq_ctx *ctx);
- };
- 
- const struct vfio_pci_access_ops *
- vfio_pci_access_ops(struct vfio_pci_core_device *vdev);
-+void vfio_pci_restore_access(struct vfio_pci_core_device *vdev);
-+irqreturn_t vfio_pci_intx_handle(struct vfio_pci_core_device *vdev,
-+				 struct vfio_pci_irq_ctx *ctx);
-+irqreturn_t vfio_pci_intx_handle_blocked(struct vfio_pci_core_device *vdev,
-+					 struct vfio_pci_irq_ctx *ctx);
-+int vfio_pci_intx_unmask_live(struct vfio_pci_core_device *vdev,
-+			      struct vfio_pci_irq_ctx *ctx);
-+int vfio_pci_intx_unmask_blocked(struct vfio_pci_core_device *vdev,
-+				 struct vfio_pci_irq_ctx *ctx);
- 
- #ifdef CONFIG_VFIO_PCI_IGD
- bool vfio_pci_is_intel_display(struct pci_dev *pdev);
-diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
-index f2b64420cb07..fadbbaa58770 100644
---- a/include/linux/vfio_pci_core.h
-+++ b/include/linux/vfio_pci_core.h
-@@ -160,7 +160,7 @@ struct vfio_pci_core_device {
- 	struct notifier_block	nb;
- 	struct rw_semaphore	memory_lock;
- 	struct srcu_struct	access_srcu;
--	/* Updated under access_lock. */
-+	/* Updated under access_lock and irqlock. */
- 	const struct vfio_pci_access_ops __rcu *access_ops;
- 	/* Set after open completes, cleared before close tears down state. */
- 	bool			device_open;
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index cdc6bafe9861..89cebe2522ba 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -338,12 +338,16 @@ static const struct vfio_pci_access_ops vfio_pci_live_ops = {
- 	.execute = vfio_pci_access_live,
- 	.set_power_state = vfio_pci_try_set_power_state,
- 	.restore_dmabufs = vfio_pci_dma_buf_restore,
-+	.intx_handler = vfio_pci_intx_handle,
-+	.intx_unmask = vfio_pci_intx_unmask_live,
- };
- 
- static const struct vfio_pci_access_ops vfio_pci_blocked_ops = {
- 	.execute = vfio_pci_access_blocked,
- 	.set_power_state = vfio_pci_power_blocked,
- 	.restore_dmabufs = vfio_pci_restore_dmabufs_blocked,
-+	.intx_handler = vfio_pci_intx_handle_blocked,
-+	.intx_unmask = vfio_pci_intx_unmask_blocked,
- };
- 
- /*
-@@ -362,12 +366,27 @@ vfio_pci_access_ops(struct vfio_pci_core_device *vdev)
- /* Block new operations and drain ordinary accesses before teardown or recovery. */
- static void vfio_pci_core_block_access(struct vfio_pci_core_device *vdev)
- {
-+	unsigned long flags;
-+
- 	lockdep_assert_held(&vdev->access_lock);
-+	spin_lock_irqsave(&vdev->irqlock, flags);
- 	rcu_assign_pointer(vdev->access_ops, &vfio_pci_blocked_ops);
-+	spin_unlock_irqrestore(&vdev->irqlock, flags);
- 
- 	synchronize_srcu(&vdev->access_srcu);
- }
- 
-+/* Caller finishes internal restoration before allowing ordinary access. */
-+void vfio_pci_restore_access(struct vfio_pci_core_device *vdev)
-+{
-+	lockdep_assert_held(&vdev->access_lock);
-+	lockdep_assert_held(&vdev->irqlock);
-+	if (vdev->device_open &&
-+	    !(vdev->pci_recovery_flags &
-+	      (VFIO_PCI_RECOVERY_IN_PROGRESS | VFIO_PCI_RECOVERY_FAILED)))
-+		rcu_assign_pointer(vdev->access_ops, &vfio_pci_live_ops);
-+}
-+
- long vfio_pci_core_access(struct vfio_pci_core_device *vdev,
- 			  vfio_pci_access_fn fn, void *data)
- {
-@@ -965,13 +984,17 @@ void vfio_pci_core_finish_enable(struct vfio_pci_core_device *vdev)
- 	}
- 
- 	if (vdev->pci_recovery_supported) {
-+		unsigned long flags;
-+
- 		guard(mutex)(&vdev->access_lock);
- 		WRITE_ONCE(vdev->pci_recovery_flags, 0);
- 		vdev->pci_recovery_sequence = 0;
- 		vdev->pci_recovery_command_valid = false;
- 		WRITE_ONCE(vdev->pci_recovery_enabled, false);
- 		WRITE_ONCE(vdev->device_open, true);
-+		spin_lock_irqsave(&vdev->irqlock, flags);
- 		rcu_assign_pointer(vdev->access_ops, &vfio_pci_live_ops);
-+		spin_unlock_irqrestore(&vdev->irqlock, flags);
- 	}
- }
- EXPORT_SYMBOL_GPL(vfio_pci_core_finish_enable);
-diff --git a/drivers/vfio/pci/vfio_pci_intrs.c b/drivers/vfio/pci/vfio_pci_intrs.c
-index 64f80f64ff57..f78c7217017d 100644
---- a/drivers/vfio/pci/vfio_pci_intrs.c
-+++ b/drivers/vfio/pci/vfio_pci_intrs.c
-@@ -29,6 +29,8 @@ struct vfio_pci_irq_ctx {
- 	struct virqfd			*mask;
- 	char				*name;
- 	bool				masked;
-+	bool				recovery_masked;
-+	bool				unmask_pending;
- 	struct irq_bypass_producer	producer;
- };
- 
-@@ -126,6 +128,10 @@ static bool __vfio_pci_intx_mask(struct vfio_pci_core_device *vdev)
- 	if (WARN_ON_ONCE(!ctx))
- 		goto out_unlock;
- 
-+	/* An explicit mask cancels any unmask request saved during recovery. */
-+	ctx->recovery_masked = false;
-+	ctx->unmask_pending = false;
-+
- 	if (!ctx->masked) {
- 		/*
- 		 * Can't use check_and_mask here because we always want to
-@@ -162,16 +168,13 @@ bool vfio_pci_intx_mask(struct vfio_pci_core_device *vdev)
-  * a signal is necessary, which can then be handled via a work queue
-  * or directly depending on the caller.
-  */
--static int vfio_pci_intx_unmask_handler(void *opaque, void *data)
-+int vfio_pci_intx_unmask_live(struct vfio_pci_core_device *vdev,
-+			      struct vfio_pci_irq_ctx *ctx)
- {
--	struct vfio_pci_core_device *vdev = opaque;
- 	struct pci_dev *pdev = vdev->pdev;
--	struct vfio_pci_irq_ctx *ctx = data;
--	unsigned long flags;
- 	int ret = 0;
- 
--	spin_lock_irqsave(&vdev->irqlock, flags);
--
-+	lockdep_assert_held(&vdev->irqlock);
- 	/*
- 	 * Unmasking comes from ioctl or config, so again, have the
- 	 * physical bit follow the virtual even when not using INTx.
-@@ -179,9 +182,12 @@ static int vfio_pci_intx_unmask_handler(void *opaque, void *data)
- 	if (unlikely(!is_intx(vdev))) {
- 		if (vdev->pci_2_3)
- 			pci_intx(pdev, 1);
--		goto out_unlock;
-+		goto out;
- 	}
- 
-+	ctx->unmask_pending = false;
-+	ctx->recovery_masked = false;
-+
- 	if (ctx->masked && !vdev->virq_disabled) {
- 		/*
- 		 * A pending interrupt here would immediately trigger,
-@@ -197,9 +203,28 @@ static int vfio_pci_intx_unmask_handler(void *opaque, void *data)
- 		ctx->masked = (ret > 0);
- 	}
- 
--out_unlock:
--	spin_unlock_irqrestore(&vdev->irqlock, flags);
-+out:
-+	return ret;
-+}
- 
-+int vfio_pci_intx_unmask_blocked(struct vfio_pci_core_device *vdev,
-+				 struct vfio_pci_irq_ctx *ctx)
-+{
-+	lockdep_assert_held(&vdev->irqlock);
-+	if (is_intx(vdev))
-+		ctx->unmask_pending = true;
-+	return 0;
-+}
-+
-+static int vfio_pci_intx_unmask_handler(void *opaque, void *data)
-+{
-+	struct vfio_pci_core_device *vdev = opaque;
-+	unsigned long flags;
-+	int ret;
-+
-+	spin_lock_irqsave(&vdev->irqlock, flags);
-+	ret = vfio_pci_access_ops(vdev)->intx_unmask(vdev, data);
-+	spin_unlock_irqrestore(&vdev->irqlock, flags);
- 	return ret;
- }
- 
-@@ -220,33 +245,151 @@ void vfio_pci_intx_unmask(struct vfio_pci_core_device *vdev)
- 	mutex_unlock(&vdev->igate);
- }
- 
--static irqreturn_t vfio_intx_handler(int irq, void *dev_id)
-+/*
-+ * Recovery always masks INTx and remembers whether to unmask it afterward.
-+ * The interrupt handler masks INTx only if this device has a pending
-+ * interrupt, since another device may share the line.
-+ */
-+static bool vfio_pci_intx_mask_for_recovery(struct vfio_pci_core_device *vdev,
-+					    struct vfio_pci_irq_ctx *ctx,
-+					    bool quiesce)
- {
--	struct vfio_pci_irq_ctx *ctx = dev_id;
--	struct vfio_pci_core_device *vdev = ctx->vdev;
--	unsigned long flags;
--	int ret = IRQ_NONE;
-+	lockdep_assert_held(&vdev->irqlock);
- 
--	spin_lock_irqsave(&vdev->irqlock, flags);
-+	if (ctx->masked)
-+		return false;
- 
-+	if (!vdev->pci_2_3)
-+		disable_irq_nosync(vdev->pdev->irq);
-+	else if (quiesce)
-+		pci_intx(vdev->pdev, 0);
-+	else if (!pci_check_and_mask_intx(vdev->pdev))
-+		return false;
-+
-+	ctx->masked = true;
-+	if (quiesce)
-+		ctx->recovery_masked = true;
-+	return true;
-+}
-+
-+irqreturn_t vfio_pci_intx_handle(struct vfio_pci_core_device *vdev,
-+				 struct vfio_pci_irq_ctx *ctx)
-+{
-+	lockdep_assert_held(&vdev->irqlock);
- 	if (!vdev->pci_2_3) {
- 		disable_irq_nosync(vdev->pdev->irq);
- 		ctx->masked = true;
--		ret = IRQ_HANDLED;
--	} else if (!ctx->masked &&  /* may be shared */
--		   pci_check_and_mask_intx(vdev->pdev)) {
-+		return IRQ_HANDLED;
-+	}
-+	if (!ctx->masked && pci_check_and_mask_intx(vdev->pdev)) {
- 		ctx->masked = true;
--		ret = IRQ_HANDLED;
-+		return IRQ_HANDLED;
- 	}
-+	return IRQ_NONE;
-+}
-+
-+irqreturn_t vfio_pci_intx_handle_blocked(struct vfio_pci_core_device *vdev,
-+					 struct vfio_pci_irq_ctx *ctx)
-+{
-+	lockdep_assert_held(&vdev->irqlock);
-+	/* A shared interrupt line still needs pending INTx to be masked. */
-+	if (vfio_pci_intx_mask_for_recovery(vdev, ctx, false) ||
-+	    (ctx->masked && !vdev->pci_2_3))
-+		return IRQ_HANDLED;
-+	return IRQ_NONE;
-+}
-+
-+static irqreturn_t vfio_intx_handler(int irq, void *dev_id)
-+{
-+	struct vfio_pci_irq_ctx *ctx = dev_id;
-+	struct vfio_pci_core_device *vdev = ctx->vdev;
-+	unsigned long flags;
-+	irqreturn_t ret;
- 
-+	spin_lock_irqsave(&vdev->irqlock, flags);
-+	ret = vfio_pci_access_ops(vdev)->intx_handler(vdev, ctx);
- 	spin_unlock_irqrestore(&vdev->irqlock, flags);
- 
- 	if (ret == IRQ_HANDLED)
- 		vfio_send_intx_eventfd(vdev, ctx);
--
- 	return ret;
- }
- 
-+void vfio_pci_intx_recovery_start(struct vfio_pci_core_device *vdev)
-+{
-+	struct vfio_pci_irq_ctx *ctx;
-+	unsigned long flags;
-+
-+	lockdep_assert_held(&vdev->access_lock);
-+
-+	spin_lock_irqsave(&vdev->irqlock, flags);
-+	if (!is_intx(vdev))
-+		goto out_unlock;
-+
-+	ctx = vfio_irq_ctx_get(vdev, 0);
-+	if (WARN_ON_ONCE(!ctx))
-+		goto out_unlock;
-+
-+	vfio_pci_intx_mask_for_recovery(vdev, ctx, true);
-+
-+out_unlock:
-+	spin_unlock_irqrestore(&vdev->irqlock, flags);
-+}
-+
-+/* Preserve the current INTx mask when restoring PCI_COMMAND. */
-+u16 vfio_pci_intx_recovery_update_command(struct vfio_pci_core_device *vdev,
-+					  u16 command)
-+{
-+	struct vfio_pci_irq_ctx *ctx;
-+
-+	lockdep_assert_held(&vdev->irqlock);
-+
-+	if (!vdev->pci_2_3 || !is_intx(vdev))
-+		return command;
-+
-+	ctx = vfio_irq_ctx_get(vdev, 0);
-+	if (ctx && ctx->masked)
-+		command |= PCI_COMMAND_INTX_DISABLE;
-+
-+	return command;
-+}
-+
-+/*
-+ * Restore INTx and allow ordinary access under the same lock. An unmask
-+ * request must either be replayed here or reach the live op afterward.
-+ */
-+bool vfio_pci_intx_recovery_finish(struct vfio_pci_core_device *vdev)
-+{
-+	struct vfio_pci_irq_ctx *ctx = NULL;
-+	unsigned long flags;
-+	int ret = 0;
-+
-+	lockdep_assert_held(&vdev->access_lock);
-+	lockdep_assert_held(&vdev->igate);
-+	lockdep_assert_held_write(&vdev->memory_lock);
-+	spin_lock_irqsave(&vdev->irqlock, flags);
-+	if (!is_intx(vdev))
-+		goto out_restore;
-+
-+	ctx = vfio_irq_ctx_get(vdev, 0);
-+	if (WARN_ON_ONCE(!ctx))
-+		goto out_restore;
-+
-+	if (ctx->recovery_masked || ctx->unmask_pending)
-+		ret = vfio_pci_intx_unmask_live(vdev, ctx);
-+
-+out_restore:
-+	vfio_pci_restore_access(vdev);
-+	spin_unlock_irqrestore(&vdev->irqlock, flags);
-+	return ret > 0;
-+}
-+
-+void vfio_pci_intx_recovery_signal(struct vfio_pci_core_device *vdev)
-+{
-+	lockdep_assert_held(&vdev->igate);
-+	vfio_send_intx_eventfd(vdev, vfio_irq_ctx_get(vdev, 0));
-+}
-+
- static int vfio_intx_enable(struct vfio_pci_core_device *vdev,
- 			    struct eventfd_ctx *trigger)
- {
 -- 
-2.43.0
+2.47.3
 
