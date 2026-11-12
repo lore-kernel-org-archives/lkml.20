@@ -1,67 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794496409;
-	b=oF8gx4mVZVMBMFBTmJHELEFDbxUtc1BaIKyDVhaHYnuC7zx2lZX371s7oXadqgvvirJI
-	 EHtde8kiRuxkADEQIpOYGObUQfgfcPjFvxlib1anlJxbNANQyh9Av6mB4vvbraT/O8vUH
-	 6DLLtKGVNkl3VkBPU/tc3ngZBXe2Y6CblJKB8DA4DUajA+AgpDc0HUHbCfy9DecGwUTkd
-	 ieohqX4cHu9NmR7mrp1SYiWzUtEACQv+HuuKw2lc2EFw1R9SlRVq5m8vWS15JoPr/SZCf
-	 d9YBBclt06PV/CAoTE7p61lOQVLiBU2k8MnOmcaas+rkIWOy02gwk0iNmFlw4EmohjA==
+	t=1794496442;
+	b=sbr7Pa04FTC/VZ1Y1Tfk6QhrZpkZiiRVaKBgBKh9ou1e6sGdMnxVqMzZ6WcDGC4ts+vl
+	 owz/NsAh504tchB9nOQqaDKW5PPLa4qLAbyL34J1haEfX3kQKiXrxG4yLE84oAYQ5Qamy
+	 2U9iMY0+opsy/5S1bV2B6KWA5cNcicy0ymTcx6Aaw6xAo4uU82NURaOFmvqf++iU5Hj78
+	 66Roc62K6EQ7rGSCaTSAqr3afdP+Uo5kMmCJQa6R3gf9nrUpp5CRIJCh2H+RYo3uIr0Ty
+	 EYBKmpNA40L+St2Th7LDmGWdDqb8NtiHvaWPKqkE3CXnyvvjz2ZOTnRbT5MfRUA4KVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794496409;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=f8+dSseHhoPX/bP+2/X6S0+i8I13j41/PXk/j7+n3GQ=;
-	b=xFMvkG6Ikd9bRvWnDZ4eXQdIONk0q+Sl1conwSGqo8Rb0VVu4bXlr+XvgKdwFHlsqsmI
-	 sPCVT4HshkODdiCjk1tmMsnUqSEWXI2vXoH4spQphuABMaBwOalTx3Pmpt0zmd5bNaVBO
-	 S0aFjob5+Fm6n+lWRHLmxTfDUhHDvdxCFH9ivTqH4SaGZNJMkfMwekFm/KjOHjxaz9ypk
-	 AM/Nx/2mmbu6dbewxWhgHKZX+uf9t7zGcXBAgglYceoItFrdCeX07PZhN/ZvDntscI67y
-	 +s+s/P0dSQ9ZNlymWSgvkbDAo0G/hPBQx+/IX4MmN0+oTORigWWSE0w0UBFu6gyzd5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794496442;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=yr0atXZ0m6oU194Yrrdf0AUxqB9AC9ns0Dfj3SU/vfU=;
+	b=H2+fekD+Nr3Q7BQreuBAFQss9y0XMCuKZ6HEVZ2n8ksQhSQKu51o1vCLyvInXXmIrN8N
+	 KICNy+LXS0hhxiSfEXmLiTw5yFbAa0vS+drZ4nncHYalrVqkqfHjc/Nd6sBhn9AM6DPry
+	 ECCkPTbteW9IPDbZf6/3/LaKrCOeg4CSHWkT03rS+6YL1R3pVsQNZ4b7HbR8qryKfvgfa
+	 I29N5YfQL1gMFYyRwj9pd16XayqNNPQkcWpDZdFU/ERLdlSiH71fOJPeoMZCc9JnSssO8
+	 DB5T9w4eFCCx3o9d/NyDxzGhjf2RpFCNtpqB861Bi1WLfPwCAr1qL9fmXMcADiN//eA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dolcini.it;
-	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=QQRL9BXP;
-	arc=none smtp.remote-ip=217.194.8.81
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b="Pfgi/xpw";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=oz9i6IbK;
+	arc=none smtp.remote-ip=202.12.124.144
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF22606A32E;
-	Thu, 12 Nov 2026 15:13:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AF22606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889A160A2616
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:14:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 889A160A2616
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=QQRL9BXP
-Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 0C54723187;
-	Thu, 12 Nov 2026 16:13:27 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1794496407;
-	bh=f8+dSseHhoPX/bP+2/X6S0+i8I13j41/PXk/j7+n3GQ=; h=From:To:Subject;
-	b=QQRL9BXPjC8dEVEybWiGwkGTYVXqGhK+2S/9e59Ikq/3iWRDX5PE1DL6t520tyGY0
-	 s59qOgwiIGE6N/NKM4YBlIdtTg15GiYqFXz/Ivzz5VM/XpBHaa6bH3lGwmO2J6X8t7
-	 zhiGehjMLyjbyXF6ueyXFTNAeI/8nUpQUJTAQYvAZcWVt9ds9ay8YRHSmSENFKaNYv
-	 toaGym/vOemtablrQ/dy27gsmE4V1jOW6jpOExYJQIkYOMFIVSVbAXGsmex6s40lcI
-	 Jk3OwqOZ8ZDRmzBdwFi00loDfn/MrLqTUH/a3x/uLWgiLcBfd45TTRVintCbfvMu01
-	 rlmvJGBzpmJyg==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Nishanth Menon <nm@ti.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Tero Kristo <kristo@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 2/3] arm64: dts: ti: k3-am62p-verdin: Add SPI alias
-Date: Thu, 12 Nov 2026 16:13:15 +0100
-Message-ID: <20261112151317.178959-3-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261112151317.178959-1-francesco@dolcini.it>
-References: <20261112151317.178959-1-francesco@dolcini.it>
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=Pfgi/xpw;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=oz9i6IbK
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id B7A451D00118
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:14:01 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 12 Nov 2026 10:14:01 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794496435;
+	 x=1794582835; bh=yr0atXZ0m6oU194Yrrdf0AUxqB9AC9ns0Dfj3SU/vfU=; b=
+	Pfgi/xpwEatfQthVxvTtNqAXrKIh0mwHmnic2aeLsrDBG8t3hY3NC4RYzy8fgSJb
+	wAW/NdjoV/0YfCBNfv4G+IZjlUSKEiRzS4vkRa9U980g1dwieP1snnZhIJWSG8TI
+	Bia9jZ4TCVXU4chpKvWb2yjrgl/Zok879rDtSoaJnnBfXxntf1p025ei3NX4D75/
+	k6ILjz2EE1AtW8EIFHfmT6duNtFGW+wn7bSjFSRV6jNesWO5f0ezH/+OvEstkx1r
+	bwExdHgmA7CwHudQfZgKpIiZ73+2ieY6hGRhXW/tIK22ghKtpWs+10JtP4S2nOGx
+	G822pQceXiXSFuFKoIqYiQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794496435; x=
+	1794582835; bh=yr0atXZ0m6oU194Yrrdf0AUxqB9AC9ns0Dfj3SU/vfU=; b=o
+	z9i6IbKnYqZoI9sWpPEtnLV/t+kGE1rqXxfRBswwGEkq2tRxXPlmkDWw8q4My5a/
+	EnqVEiXfX4qcFL8Dd/8zc/DkhwTu0OcoVuphscVfbScStMtq0+jU3VoT3dXNCIK0
+	0NWvMoCg2xE5HFRup9lLBxHkggZ3Z6NfiZp+ppMLYi85sCDWDuZyvM/rjKh5i9Ct
+	tUuDN83BTPrd2rJIRJ5N5XQZ0j6LkhlBUd1pe2igTuQ/4KYJ4e3k8DKmexbkVegE
+	Px0uQ67fHMPtrJavDz+oxQL4OQjpahOGC3jAtyowq5potpHU6UY9oeA8WjOIxzJW
+	w3EmhHPxUgDV7ayQx6rrQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794496435; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:bAX/e39M541LIFiFVrdMozW+7T759DJ6W7JYET5x5SW79DM
+	7MTKEW3TYiWowYVitUBt6soAjYNGViocVSmTIhYxBDo9sJ1HnDynNLMw/Y7mCKo7
+	aq/tYW65jBQqTePIi9nbbJRP7O4wLxlrPgJimqGZriCtZZQh7ZWtw5XTVcsqs64V
+	qIQOFQmwRJiD8z5DtenCqhfgTFYd7FqrztKlN5NTmNIOZLsXJACq80SQzwwSKzUV
+	kt8L914gRURdtAj9KaH8eQHZO6lBqHEygX7Li297k2rOi/xFqlZN+Cm+G9i9fe56
+	1PaszBmpCHKMyegikybqTTRyNWyc5eedOswtOHw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:V1Y82DRVNhyeaUYCMNFZd6V8It90rR9izI2oqRP8sZs=:qTDNJSMbhXSIYjAgbioGGC+Lc/CIZXEv1nkhrvv13rk=;
+X-ME-Sender: <xms:r9f1agHvDzAKRrPYdrBZTHEKh2jVCLH1DRg4mFWOt30Q00V3mmpIIg>
+    <xme:r9f1akJ9_tUbTgUxIt-Ajm4_zzXX-qr1o96ybFv7O8m-xR_pOzobZA47p7D2YSf8A
+    1qAEo5v03Cek16v9zAHPZKzmdauaTZleIor8Vk5olZ4FNxEFr4B9Wg>
+X-ME-Proxy-Cause: dmFkZTG1vXRcIn8fotWLJjzVfhVY+BjzjZ1qnowZOpNT/rv+EfWWS2ow7G1Onc4Rm16y5R
+    PG1+D3bOroSLj+j2Vred/jg9H127leojZpubS8ufggGVB/6Hgoe+/Uv1Qj+LK7TzQEE9fn
+    GbEf4kU1UIKVEsjjQ26u1CMO51m0ygZnUabeb4JqpKgwxOcfrkn1JkKVVVIgQm9G+hxaru
+    cZHBkZwNXHRKmLY/AT1AxSnLbbzlPdZyTsiA2jwUcJtLEMWUHGN0RmzLffaEwCuReOzBvv
+    V0DoNxTflc682GMTUPUfaiVC+PuH/fmzSt7e4TEEsDbzT2ILvNgldqw9fH+7wLIDPNnuFS
+    Uz50TehBjPHbyFSYDcqjMWbpC/goN8iYSRtjaG4fiqNdRhhmp4yLwzSEfGLMjwnNH9PopE
+    vrJahlsIv+oXJbB65fkFSEHeYdVueu9/mKAOT1D4DLPLYTLqc8hF8k7bFIUXSyZA2lAYIq
+    RUdkugBgRWOX7JkF+sZPau2iumroWiUlTOieJYj/zqemrD6Mesh9+mk1S6YUOO9Z9fonrE
+    tyI9CCpS3h5cKlwNAXTQose5L4743s6lfJrOYw2qDDmA/fkOiN8dNa4i99yiVjUJVBBWn+
+    iASqgGkD128e7nh/7FymnoaXMCjO32WVukw/dsjBvpWQ35/ca0UlqIeiC+6w
+X-ME-Proxy: <xmx:sdf1avFuKdv5T3dsTFH9ppTkwaxvuCrz8maXZ9iftAf7pvSsaeOUYA>
+    <xmx:sdf1as8yYC-u4FVbPf-mQaqaQxwC8tcj7la1HVFZMsAsX82B1sCRNw>
+    <xmx:sdf1asRrAUm7B84nxg5wuPfMFiJ2mOeByjn7sA4q3omujSg0VCLzNg>
+    <xmx:sdf1ahoFyMfShoLhzNDcVFSRhAC8ZhaAXM1DxSNm3dYv5NsTLO22Bw>
+    <xmx:s9f1asjyFS14B1Fed_hOIYHbZ_Hjcq0cHv3iscjg-yluFg5JykcpP0gc>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 3AA9232A0099; Thu, 12 Nov 2026 10:13:51 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,38 +115,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AXRzvbN5yUxV
+Date: Thu, 12 Nov 2026 16:13:30 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Cc: "Christian Brauner" <brauner@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-kbuild@vger.kernel.org, kernel-dev@igalia.com,
+ "Masami Hiramatsu" <mhiramat@kernel.org>,
+ "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>,
+ linux-alpha@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
+ linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
+Message-Id: <1bb5a117-bcc6-414c-9268-4c007d219ee5@app.fastmail.com>
+In-Reply-To: <ecabf256-3dff-47dc-9e59-8f381c2df4ff@igalia.com>
+References: <20261105-tonyk-syscall_table-v9-0-8d1275885d9c@igalia.com>
+ <20261105-tonyk-syscall_table-v9-9-8d1275885d9c@igalia.com>
+ <0cfb4dbf-f3e2-4ceb-ab89-0453ae59793d@app.fastmail.com>
+ <e3910a18-dc28-470f-be2f-6a6d568ba7e3@igalia.com>
+ <301115f6-3f1e-4e83-bc01-0ba49dec496a@app.fastmail.com>
+ <ecabf256-3dff-47dc-9e59-8f381c2df4ff@igalia.com>
+Subject: Re: [PATCH v9 09/15] syscalls: Add an option for offsetting the common table
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+On Thu, Nov 12, 2026, at 16:10, Andr=C3=A9 Almeida wrote:
+> Em 12/11/2026 12:08, Arnd Bergmann escreveu:
+>> On Thu, Nov 12, 2026, at 15:37, Andr=C3=A9 Almeida wrote:
+>>> Em 12/11/2026 11:07, Arnd Bergmann escreveu:
+>>>> On Thu, Nov 5, 2026, at 21:05, Andr=C3=A9 Almeida wrote:
+>>> So one option does a string concat, the other option really does a s=
+um
+>>> operation. If I had used --offset 110, the result would be
+>>>
+>>> #define __NR_file_setattr (110 + 469)
+>>> #define __NR_listns (110 + 470)
+>>> #define __NR_rseq_slice_yield (110 + 471)
+>>=20
+>> I think for consistency, that would have been fine here, possibly
+>> using another macro.
+>>=20
+>
+> Something like:
+>
+> #define __NR_common_offset 110
+>
+> #define __NR_file_setattr (__NR_common_offset + 469)
+>
+> Sounds good?
 
-The Verdin family pinout defines the SoM interfaces and their
-numbering, SPI_1 being the SPI bus on the SODIMM connector, implemented
-by main_spi1 on Verdin AM62P.
+Yes, works for me.
 
-Without an alias the Linux SPI bus number is assigned dynamically and
-depends on probe order against main_spi0. Add a spi0 alias so the bus
-number in sysfs and the spidev name follow the Verdin interface
-numbering, zero-based with SPI_1 being spi0. main_spi0 is a
-module-specific SPI on reserved SODIMM pins with the TPM as its only
-device. It is not part of the Verdin pinout and gets no alias.
-
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
- arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi b/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi
-index 62a518dbbdbe..ebf16ef121e4 100644
---- a/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi
-@@ -35,6 +35,7 @@ aliases {
- 		serial2 = &main_uart0;
- 		serial3 = &mcu_uart0;
- 		serial4 = &main_uart6;
-+		spi0 = &main_spi1;
- 		usb0 = &usb0;
- 		usb1 = &usb1;
- 	};
--- 
-2.47.3
-
+      Arnd
