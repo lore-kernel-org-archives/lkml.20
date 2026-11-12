@@ -1,44 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.79.60.249
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794445302;
-	b=GG4XRipg/AVMoOIZtXp5DY/XUAtn+sg/bgwmuRX/w1LtIoSPqo2i4uCIfFJW0ASO0oNR
-	 Ta7yotUdUOWfcZ+bJmm5/hM/04fhgkX+9gCbNiZ6i5NZIycWFCWKZ/YdjeKFRBqDO+eVx
-	 2QwX1M6Z7gBIwCFKimAcd5G3nKgZ4d//2R/ao1ObKUsqgoUjPbpHQJWtyQJujgRo9+kuO
-	 /ZsJSpIrHeytuaWxvnh/ZQpxRyAPwWsDZBcLEvBcpi/qC/GgnxnfsuepZZGnwPr2Y2YlO
-	 iCkKSefXadqoFsd3rVet7JImx68d36olFq9/Qn+J2Ypz0CfE4X05XmXUGxp/kP41qlA==
+	t=1794445300;
+	b=U0z6yopbsLfZgjF0VYQc+a/hygyw5mLGUL1VCdAARyLkEt8goOdrvTauXZ0YTVZq2wpl
+	 1BVe5u8i7z8e4Wj9nomB/My5DuTo9B75+J6Vl1Hc4SBHyMRt7K9+YZztvKUB5NGGc5M/b
+	 Wd2AE7Vb55LHbLUthXlo8MQdnPDA1NsKj84Nco1+mllrXdw46f1jTa8KT3AjYO3SwvDln
+	 e05mEmzAP30EIhid05Kdu/MQ9CNHtbXuQrQ4ljU76TXSlsx1LxzfzFZH44RE8SSg78s8v
+	 bF8mKqgYHZjVJ7ucR2Ea/ReQvAtvDLuUnAAZuhNieYtrS4M2TCK43YqQhoE0xoVfW6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794445302;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=fY4d6y47CamDA7G44TSptxryAErHvm+2SddM192y+64=;
-	b=NcaZEIQZULoPhqQ5dr7ORbQL4YCFuo76LM+kTJHsgq6hbrhPy2VbU39ML0Do/XtLGgAK
-	 qVmGJn3iEWXbBaDr2jl/8NzOyKXGVJgdHkmqe29SmB0z6/8UmxBQAi5wfmpEe2FuV0zfj
-	 7Oe8HXKlW+QRvyqyU6cbsOQAPWz2z0Jg1VrLZxsO7b+YjCvWnF/6cTaqFMQoKuyt3CQxd
-	 9DMH/KR44JJ4iAEQe0OP2twN6JWpS3A7cCkgUODVa9f1kDRkpsg/ZbrKC2yoctD19c9v5
-	 t3WVz+qwR31N/I0cEoCmKHWpsYb/16ts/xChxmtJfrz0Fd37wBKqImXOIws5jQsYNOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794445300;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=QTIzmMbyBcjb10jqqjWdlz8V7mxEmlySAkhaE1ZJio4=;
+	b=u7fIm1la38KrTzix3Kt7q/psByv0aTQmoeAa0dbOGRxg+v0mPXR37JG2m+6aOE/Oz2fq
+	 eEcAE4qLUedPypP8A1RbSZOgOhJyxSoRZFiCj0qZ76mYyDAJQLZVVYItihg9+v1bEV0M1
+	 rPEHKkOCrn4SPrh5gwl4ZdSQRA1nOcvmEwUfyrPsJYZk/zoLkdCHyipTqQ6FijrKJm6ui
+	 5124Lr8/P7n6lDPryfX8CYzRY4ApF3c9IX9DyoaEfZ0nAQQrS73i48rCSbtTw8IscFLnt
+	 gADtgp5P5qtVLrfo3ACLXZVuxp01tqKnZy7IpQfg8MVQzo5OuUAHXsY/kvA0BiLKaXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=RwvIkZTV;
-	arc=none smtp.remote-ip=210.79.60.249
-Received: from mail-m60249.netease.com (mail-m60249.netease.com [210.79.60.249])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bS/JsDq7";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C09606A326;
-	Thu, 12 Nov 2026 01:01:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75C09606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A78606A32D;
+	Thu, 12 Nov 2026 01:01:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=RwvIkZTV
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 545e00560;
-	Thu, 12 Nov 2026 09:01:30 +0800 (GMT+08:00)
-Message-ID: <dd25880e-be2d-4adc-8384-fa4a7160a4df@rock-chips.com>
-Date: Thu, 12 Nov 2026 09:01:29 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bS/JsDq7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C9911F00A05;
+	Thu, 12 Nov 2026 01:01:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794445299;
+	bh=QTIzmMbyBcjb10jqqjWdlz8V7mxEmlySAkhaE1ZJio4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bS/JsDq7MddpZMXAvtr4UxAfaaPfnJnCx9Jr8Er2KiXp+/auFlxnF+zacf/VWDb56
+	 UBVsqQA86IGIGDIBN01gvJrbcjbhJyNHyNIMIdX9d/K4sOa968OItGq5d/twkukqq3
+	 buEz88Zl10Y/lDVlZQVgM66EzCaFH1qo/8+gsttJdA+znVbVBLIef079NDSfLZLEIa
+	 zg0b1ZcO6dsKYcQC2eEqlvFTiNUuHZVo2MdWHGiSrehN/BhxQ9Xy1JxModYkuFL9Yh
+	 Yn3ag/HaugMwxuAur3mf1Tk03IPsg4EtQaWhAM/p7ci19hJ4nTFQdjT1+Asm2RylaA
+	 qiDxDbUEKfvKg==
+From: Danilo Krummrich <dakr@kernel.org>
+To: gregkh@linuxfoundation.org,
+	rafael@kernel.org,
+	dakr@kernel.org,
+	johan@kernel.org,
+	david.m.ertman@intel.com,
+	iweiny@kernel.org,
+	leon@kernel.org,
+	ojeda@kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	daniel.almeida@collabora.com,
+	tamird@kernel.org,
+	acourbot@nvidia.com,
+	work@onurozkan.dev,
+	igor.korotin@linux.dev,
+	bhelgaas@google.com,
+	kwilczynski@kernel.org,
+	markus.probst@posteo.de
+Cc: driver-core@lists.linux.dev,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-usb@vger.kernel.org
+Subject: [PATCH 5/7] rust: i2c: remove the unbind() callback
+Date: Thu, 12 Nov 2026 01:52:59 +0100
+Message-ID: <20261112005455.1224352-6-dakr@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261112005455.1224352-1-dakr@kernel.org>
+References: <20261112005455.1224352-1-dakr@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,80 +84,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: rockchip: Describe the Type-C port on RK3576
- EVB1
-To: Alexey Charkov <alchark@flipper.net>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261106-rk3576-evb1-husb311-v1-1-99c2f57ea2a5@flipper.net>
- <dd59d491-82b0-4047-ae98-f8070f6be112@rock-chips.com>
- <CAKTNdwHbxnknob9NdjqWUcGU2fURO5B7V4kTTK+fvEYjNDOLCA@mail.gmail.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <CAKTNdwHbxnknob9NdjqWUcGU2fURO5B7V4kTTK+fvEYjNDOLCA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1cd462be103a7kunmad3109128fdea8
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSEIaVktMTUpKTEkeSEkZGVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUJCSU
-	5LVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=RwvIkZTV3jQpd5yHEhMQAJE6+49uXKgn5dUqP2jzosXCm8+6dUU5dw4KqqX/DoivJuUINoenbcsTAmcpB6BTQ+CWfDl9iRrua0VavXKaDAXLL/UcF9IXvO/F/f/XVsAi6kHyZHe2zbWlOQwtfMsVnRU16rPU1itMv9XWPFY5810=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=fY4d6y47CamDA7G44TSptxryAErHvm+2SddM192y+64=;
-	h=date:mime-version:subject:message-id:from;
 
-Hi Alexey,
+The driver model uses native Rust lifetimes to let driver data retain
+device resources and a Device<Bound> reference for the duration of the
+binding. Both remain accessible from the destructor, so a separate
+unbind() callback is no longer needed.
 
-On 11/11/2026 6:45 PM, Alexey Charkov wrote:
-> Hi Chaoyi,
-> 
-> On Wed, Nov 11, 2026 at 1:31 PM Chaoyi Chen <chaoyi.chen@rock-chips.com> wrote:
->>
->> Hi Alexey,
->>
->> On 11/7/2026 1:52 AM, Alexey Charkov wrote:
->>> RK3576 EVB1 has its USBDP PHY routed to a Type-C port with a HUSB311 CC
->>> controller and a fixed-voltage VBUS supply.
->>>
->>> Describe it in the device tree, including the wiring for both the USB and
->>> the DP side.
->>>
->>> This makes the data roles follow the Type-C port's negotiation, so the
->>> port stops being host only. It also leaves the VBUS regulator to be
->>> managed by TCPM instead of being hardwired via the tangentially related
->>> phy-supply on a USB controller. DP lanes are also muxed dynamically by
->>> the USBDP PHY based on the Type-C port's negotiation, so the hacky fixed
->>> lane muxing also goes away.
->>>
->>
->> Have you tested this? As far as I know, dw-dp driver does not support
->> Type-C HPD yet.
-> 
-> I did - it works fine for me under Linux with Sebastian's patches. My
-> primary motivation, however, was U-Boot, where the current phy-supply
-> hack breaks USB data role switching, due to VBUS being forced
-> always-on. With this patch it works, and now the DT actually describes
-> the hardware, as it is supposed to.
-> 
+Remove i2c::Driver::unbind() and the adapter's remove callback and
+document that device teardown belongs in Drop or PinnedDrop.
 
-Oh, I almost forgot about that. I think it should be this patch series[0], right?
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+---
+ rust/kernel/i2c.rs              | 31 ++++---------------------------
+ samples/rust/rust_driver_i2c.rs | 18 ++++++++++++------
+ 2 files changed, 16 insertions(+), 33 deletions(-)
 
-But I think we probably need more than just this series, because
-richtek,rt1711h does not register the HPD bridge, so we will get this:
-
-[   14.828983] auxiliary aux_bridge.aux_bridge.0: deferred probe pending: aux_bridge.aux_bridge: failed to acquire drm_bridge
-
-Maybe you have already added the corresponding patch yourself?
-Another option is to use the generic AUX HPD patch[1]. :)
-
-[0]: https://lore.kernel.org/linux-rockchip/20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com/
-[1]: https://lore.kernel.org/all/20261020072816.180-1-kernel@airkyi.com/
-
+diff --git a/rust/kernel/i2c.rs b/rust/kernel/i2c.rs
+index b4ff25c830fc..b15e73bf827a 100644
+--- a/rust/kernel/i2c.rs
++++ b/rust/kernel/i2c.rs
+@@ -123,7 +123,6 @@ unsafe fn register(
+         unsafe {
+             (*idrv.get()).driver.name = name.as_char_ptr();
+             (*idrv.get()).probe = Some(Self::probe_callback);
+-            (*idrv.get()).remove = Some(Self::remove_callback);
+             (*idrv.get()).shutdown = Some(Self::shutdown_callback);
+             (*idrv.get()).id_table = i2c_table;
+             (*idrv.get()).driver.of_match_table = of_table;
+@@ -161,18 +160,6 @@ extern "C" fn probe_callback(idev: *mut bindings::i2c_client) -> kernel::ffi::c_
+         })
+     }
+ 
+-    extern "C" fn remove_callback(idev: *mut bindings::i2c_client) {
+-        // SAFETY: `idev` is a valid pointer to a `struct i2c_client`.
+-        let idev = unsafe { &*idev.cast::<I2cClient<device::CoreInternal<'_>>>() };
+-
+-        // SAFETY: `remove_callback` is only ever called after a successful call to
+-        // `probe_callback`, hence it's guaranteed that `I2cClient::set_drvdata()` has been called
+-        // and stored a `Pin<KBox<T::Data<'_>>>`.
+-        let data = unsafe { idev.as_ref().drvdata_borrow::<T::Data<'_>>() };
+-
+-        T::unbind(idev, data);
+-    }
+-
+     extern "C" fn shutdown_callback(idev: *mut bindings::i2c_client) {
+         // SAFETY: `shutdown_callback` is only ever called for a valid `idev`
+         let idev = unsafe { &*idev.cast::<I2cClient<device::CoreInternal<'_>>>() };
+@@ -312,6 +299,10 @@ pub trait Driver {
+     type IdInfo: 'static;
+ 
+     /// The type of the driver's bus device private data.
++    ///
++    /// Device teardown should be performed in [`Drop`] or [`PinnedDrop`](pin_init::PinnedDrop)
++    /// for this type. The `'bound` lifetime allows the data to retain device resources and a
++    /// [`I2cClient<device::Bound>`] reference for use during teardown.
+     type Data<'bound>: Send + 'bound;
+ 
+     /// The table of device ids supported by the driver.
+@@ -346,20 +337,6 @@ fn probe<'bound>(
+     fn shutdown<'bound>(dev: &'bound I2cClient<device::Core<'_>>, this: Pin<&Self::Data<'bound>>) {
+         let _ = (dev, this);
+     }
+-
+-    /// I2C driver unbind.
+-    ///
+-    /// Called when the [`I2cClient`] is unbound from its bound [`Driver`]. Implementing this
+-    /// callback is optional.
+-    ///
+-    /// This callback serves as a place for drivers to perform teardown operations that require a
+-    /// `&Device<Core>` or `&Device<Bound>` reference. For instance, drivers may try to perform I/O
+-    /// operations to gracefully tear down the device.
+-    ///
+-    /// Otherwise, release operations for driver resources should be performed in `Drop`.
+-    fn unbind<'bound>(dev: &'bound I2cClient<device::Core<'_>>, this: Pin<&Self::Data<'bound>>) {
+-        let _ = (dev, this);
+-    }
+ }
+ 
+ /// The i2c adapter representation.
+diff --git a/samples/rust/rust_driver_i2c.rs b/samples/rust/rust_driver_i2c.rs
+index a0df0c6097c4..4f5047ab4e84 100644
+--- a/samples/rust/rust_driver_i2c.rs
++++ b/samples/rust/rust_driver_i2c.rs
+@@ -12,6 +12,10 @@
+ 
+ struct SampleDriver;
+ 
++struct SampleDriverData<'bound> {
++    idev: &'bound i2c::I2cClient,
++}
++
+ kernel::acpi_device_table! {
+     ACPI_TABLE,
+     <SampleDriver as i2c::Driver>::IdInfo,
+@@ -32,7 +36,7 @@
+ 
+ impl i2c::Driver for SampleDriver {
+     type IdInfo = u32;
+-    type Data<'bound> = Self;
++    type Data<'bound> = SampleDriverData<'bound>;
+ 
+     const ACPI_ID_TABLE: Option<acpi::IdTable<Self::IdInfo>> = Some(&ACPI_TABLE);
+     const I2C_ID_TABLE: Option<i2c::IdTable<Self::IdInfo>> = Some(&I2C_TABLE);
+@@ -41,7 +45,7 @@ impl i2c::Driver for SampleDriver {
+     fn probe<'bound>(
+         idev: &'bound i2c::I2cClient<Core<'_>>,
+         info: Option<&'bound Self::IdInfo>,
+-    ) -> impl PinInit<Self, Error> + 'bound {
++    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+         let dev = idev.as_ref();
+ 
+         dev_info!(dev, "Probe Rust I2C driver sample.\n");
+@@ -50,15 +54,17 @@ fn probe<'bound>(
+             dev_info!(dev, "Probed with info: '{}'.\n", info);
+         }
+ 
+-        Ok(Self)
++        Ok(SampleDriverData { idev })
+     }
+ 
+-    fn shutdown<'bound>(idev: &'bound i2c::I2cClient<Core<'_>>, _this: Pin<&Self>) {
++    fn shutdown<'bound>(idev: &'bound i2c::I2cClient<Core<'_>>, _this: Pin<&Self::Data<'bound>>) {
+         dev_info!(idev.as_ref(), "Shutdown Rust I2C driver sample.\n");
+     }
++}
+ 
+-    fn unbind<'bound>(idev: &'bound i2c::I2cClient<Core<'_>>, _this: Pin<&Self>) {
+-        dev_info!(idev.as_ref(), "Unbind Rust I2C driver sample.\n");
++impl Drop for SampleDriverData<'_> {
++    fn drop(&mut self) {
++        dev_info!(self.idev, "Unbind Rust I2C driver sample.\n");
+     }
+ }
+ 
 -- 
-Best, 
-Chaoyi
+2.56.0
+
