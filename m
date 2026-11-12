@@ -1,58 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794452160;
-	b=4JYeZDNHBoqLyoT+NyaN++/wfjHh/mwBUV8pwFociu6ce6KuFZiecHknikGRlsqyTDDz
-	 WHdMMRyAiU7hMOkGFWedajY7ejjewtX7EcidvEfiyvAIqAzmtELqabkK6p2E5qlGh6BIe
-	 CaGiL/ZjEwz2RQ8AGQmIK0uF+/fX6jTuIOmWd6/Zbob0iHWjxItvr2N/Li8h9W3JoB6br
-	 y8sMt+ykIcwwjn+kjWMfvGsmHRhtUM3glusJMpCyaSU1tr8xYqKeQW840KhZ15GnYmcKs
-	 jw3HcCAVepQlHikvs5VQhHU0Rxqspeh+7jjsAxddtEGH/fSX+8fj0Jhh0U4B4rttVMw==
+	t=1794452168;
+	b=ANjsO6eqXKqNoaLJMLBM5vVw1onYCGxgnrIJEhAgNY9McVMTUjWiytcXUNYJmxZ72g6w
+	 J1X/nTAqiA3nBiICXB0J/lDDhUrC1H41xe8h5OdDOmXoV67PalChpOY3kiJ59sIUfpZp7
+	 SjFlqoFRnlrtulDylTMV85Zq2GwgUm9apH/2HcovuUocTXkDbO+JzmhhPID5cgYFSPjHc
+	 /aZQbpP8+Mn+nj1eh+8UcLc9XL1xr+ps+YPyZVsh+C2dw2K8br/uUmg9Vz4FQ8jFgsMQp
+	 m3IYwixVT3r0aTnJWRY+yWMab6BNJO1YXLXvw9TCjVUDjYaPW7GAqZFlt/5dhMkM/1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794452160;
-	h=Received:DKIM-Signature:X-Mailer:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=CqfImJvbBCfbJiBn9MZOtV5tMRMtqhnvXEPFcs5Onlg=;
-	b=f7j4twJAQ/dcz8PQWSzi+jzHZEj6esUpqAvw7q/gAL91JxuVcAdjCaOSSVwT1+LTHP3K
-	 tUiPTM+1Xwi2N9R7HmG8fR755FTn1IO3aj8o9Y5kWEPE9DwaRXNau+5HFle9+YIpjQmar
-	 umROrtRr4FbElcTLtS1wPC7uOZh6ZLlp376XJbwVluxCfch+BjqSal6wn4bJC5up0yAxr
-	 u2wJOCdovOP9DDfg9XoxVYR8uFGqc/O6WXIXXpEIdttkcdPABcAL4j/XISR2VLOXhFepW
-	 VDv3klIz+Kl0zEgzpGEgNUGwSxOV7BS7xFzk7S9kKUHQzxVOEb5xevWj7UD9EAc05YQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794452168;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=n5WIXG91W9gLyKmMED8l0xUJtKd4OayeMuFM/2Jyq5o=;
+	b=dq2o6ubgjWt2WKeSQIuxO066q4lf19ambQOdSWvcbcAx5jg1X+k+p16v0JqaSU8vfbgO
+	 vMDQd7ScHrHb+Zfl1mEMdTrXXmnPuhQezpQBS/MlHVqmMkmJryYDtiUNVizSB0xU5MLiB
+	 pDEDs4N+DJZQ5m0h92PnYLt3Xwq6eTzrO7xkzxZccZSKmNAKWBrjsT0rgxOxuo968sbmq
+	 75Gcy8FOk8rtfGm6+NepOKcF6WnEUmvFffAyNDJWGdDs5Olez9J0q+m27MmVfBxqVO2Uy
+	 lifcffDDnlVuBO49aMNMFWueKigPWXmbOTkdaURuHEzuaKE9Ab3S7HOwOLUqck9R3FQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jThQQBPr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=126.com;
+	spf=pass smtp.mailfrom=126.com;
+	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=KyuygNCT;
+	arc=none smtp.remote-ip=117.135.210.9
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A225606A323;
-	Thu, 12 Nov 2026 02:56:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972F0606A32D;
+	Thu, 12 Nov 2026 02:56:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 972F0606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jThQQBPr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A344C1F00A05;
-	Thu, 12 Nov 2026 02:55:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794452160;
-	bh=CqfImJvbBCfbJiBn9MZOtV5tMRMtqhnvXEPFcs5Onlg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=jThQQBPrty1bexjnGQ1dBJ11758QFqPlYSyEvRWv45gtbQRD9FSkqx14/B9NcTIP3
-	 T2o/x2+sTCiGmdWWuZEVt0ijuoQH/zSOicfdU43vUm1IgR5EzytZxg9U6lN8zCtSJK
-	 Kn/LApuAmBzMkl2xHNzg2t5ESCLWMNO+jP2z5lZbMWPs7X3/yqudRoRwiV7wVEOd0c
-	 w0G0g4yJR5xz1uT705gMLy9pJ+P0FqpTHz3mbeVsvYQNyA+L5AnAlWIJlHA1rZl5p2
-	 LybqTR1Wl9UcVhFje1VncTk4c20u2xqos6cpGnBhxEaU373Y8C3ReIdG4lzwT5IHmG
-	 D6Vp0ucLB7a5g==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	David Rientjes <rientjes@google.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH] dma-pool: decrypt pages before creating the shared remap
-In-Reply-To: <20261109154403.384434-1-m.szyprowski@samsung.com>
-References: <CGME20261109154426eucas1p28dad751a60e6a8cd490b178bbf0400fb@eucas1p2.samsung.com>
- <20261109154403.384434-1-m.szyprowski@samsung.com>
-Date: Thu, 12 Nov 2026 08:25:53 +0530
-Message-ID: <yq5aeccqrc5i.fsf@kernel.org>
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=KyuygNCT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=n5
+	WIXG91W9gLyKmMED8l0xUJtKd4OayeMuFM/2Jyq5o=; b=KyuygNCTrg80qMUbNz
+	9ABNVq8Eq2/TQz85t61RmEYgWb4V+CZD0IViwsKAUd7cJwU2qlYHJiXThTmRs+nr
+	YG8mOdm2L5aw2J4+BAR6510v6BZC05QVxXyX5VY4cnmP9Xq/UCdkKz1r4lnjbix7
+	hdQSWd2SRryP7CiwEwNHf2pSY=
+Received: from kylin-pc (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3V6qjKvVqzNLGDA--.44259S2;
+	Thu, 12 Nov 2026 10:55:39 +0800 (CST)
+From: pandaWall <mangosteen922@126.com>
+To: mic@digikod.net,
+	gnoack@google.com
+Cc: linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	pandaWall <mangosteen922@126.com>
+Subject: [PATCH] landlock: Fix layer composition of LANDLOCK_ACCESS_FS_REFER
+Date: Thu, 12 Nov 2026 10:55:28 +0800
+Message-ID: <20261112025528.443654-1-mangosteen922@126.com>
+X-Mailer: git-send-email @GIT_VERSION@
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,113 +61,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3V6qjKvVqzNLGDA--.44259S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGry5WF43Cw45ZFWUtFyxKrg_yoWrAFW5pa
+	yrXr15Kr4xKa4av3W7uwn7uF43Cw4kWw4UWa129ryIy3WUZFn5Grs2gr1UJF4UXr4kZFZY
+	vFWUurWUua1UX3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piYhFrUUUUU=
+X-CM-SenderInfo: 5pdqw0pvwhv0qzssqiyswou0bp/xtbBqgzNw2r1KqygYQAA3w
 
-Marek Szyprowski <m.szyprowski@samsung.com> writes:
+landlock_get_fs_access_mask() unconditionally ORs
+_LANDLOCK_ACCESS_FS_INITIALLY_DENIED (i.e. LANDLOCK_ACCESS_FS_REFER)
+into every layer's handled filesystem mask.  Layers created from
+rulesets that only handle other rule types (network ports, scopes) or
+only permissions therefore report REFER as handled even though
+landlock_upgrade_handled_layer_config() only adds the bit when
+handled.fs is non-zero, and no filesystem rule can ever clear a bit
+of such a layer.
 
-> atomic_pool_expand() creates the pgprot_decrypted() remap of the pool
-> pages before calling set_memory_decrypted() on them. The error path
-> when gen_pool_add_virt() fails does the reverse: it re-encrypts the
-> pages and only then tears down the decrypted remap. In both cases there
-> is a window where a decrypted (shared) kernel mapping points at a page
-> that is still private, i.e. encrypted, to the guest.
->
-> dma_direct_alloc() gets this right: it converts the pages first, then
-> creates the remap, and on error removes the remap before re-encrypting.
-> Do the same in atomic_pool_expand(). The pages are now converted before
-> arch_dma_prep_coherent() and the remap, and the error path unwinds in
-> reverse order.
->
-> If set_memory_decrypted() fails, the page state is unknown, so the
-> pages are still leaked rather than freed. No remap exists at that point
-> any more, so nothing else needs to be undone.
->
+The consequence is that stacking any non-filesystem ruleset on top of
+a filesystem ruleset makes link(2), rename(2) and
+renameat2(RENAME_EXCHANGE) fail with -EXDEV/-EACCES even when each
+ruleset individually allows the operation: landlock_unmask_layers()
+requires every layer's mask to be cleared, and a non-filesystem
+layer's mask can never be.
 
-Reviewed-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+Only implicitly handle REFER for layers that already handle
+filesystem access rights.
 
-> Closes: https://sashiko.dev/#/bug/linux-9212d9b5-4a56-43e2-bc00-6e69b724078b
-> Fixes: 76a19940bd62 ("dma-direct: atomic allocations must come from atomic coherent pools")
-> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> ---
-> The patch was prepared with LLM assistance.
->
-> Best regards
-> Marek Szyprowski, PhD
-> Samsung R&D Institute Poland
-> ---
->  kernel/dma/pool.c | 39 ++++++++++++++++++---------------------
->  1 file changed, 18 insertions(+), 21 deletions(-)
->
-> diff --git a/kernel/dma/pool.c b/kernel/dma/pool.c
-> index 381b3cb28368..3c67728a2471 100644
-> --- a/kernel/dma/pool.c
-> +++ b/kernel/dma/pool.c
-> @@ -106,6 +106,17 @@ static int atomic_pool_expand(struct dma_gen_pool *dma_pool, size_t pool_size,
->  	if (!page)
->  		goto out;
->  
-> +	/*
-> +	 * Memory in the atomic DMA pools must be unencrypted, the pools do not
-> +	 * shrink so no re-encryption occurs in dma_direct_free().
-> +	 */
-> +	if (dma_pool->cc_shared) {
-> +		ret = set_memory_decrypted((unsigned long)page_to_virt(page),
-> +					   1 << order);
-> +		if (ret)
-> +			goto out;
-> +	}
-> +
->  	arch_dma_prep_coherent(page, pool_size);
->  
->  #ifdef CONFIG_DMA_DIRECT_REMAP
-> @@ -117,41 +128,27 @@ static int atomic_pool_expand(struct dma_gen_pool *dma_pool, size_t pool_size,
->  	addr = dma_common_contiguous_remap(page, pool_size, prot,
->  			__builtin_return_address(0));
->  	if (!addr)
-> -		goto free_page;
-> +		goto encrypt_pages;
->  #else
->  	addr = page_to_virt(page);
->  #endif
-> -	/*
-> -	 * Memory in the atomic DMA pools must be unencrypted, the pools do not
-> -	 * shrink so no re-encryption occurs in dma_direct_free().
-> -	 */
-> -	if (dma_pool->cc_shared) {
-> -		ret = set_memory_decrypted((unsigned long)page_to_virt(page),
-> -					   1 << order);
-> -		if (ret) {
-> -			leak_pages = true;
-> -			goto remove_mapping;
-> -		}
-> -	}
-> -
->  	ret = gen_pool_add_virt(dma_pool->pool, (unsigned long)addr,
->  				page_to_phys(page), pool_size, NUMA_NO_NODE);
->  	if (ret)
-> -		goto encrypt_mapping;
-> +		goto remove_mapping;
->  
->  	dma_atomic_pool_size_add(gfp, pool_size);
->  	return 0;
->  
-> -encrypt_mapping:
-> -	if (dma_pool->cc_shared &&
-> -	    set_memory_encrypted((unsigned long)page_to_virt(page), 1 << order))
-> -		leak_pages = true;
-> -
->  remove_mapping:
->  #ifdef CONFIG_DMA_DIRECT_REMAP
->  	dma_common_free_remap(addr, pool_size);
-> -free_page:
-> +encrypt_pages:
->  #endif
-> +	if (dma_pool->cc_shared &&
-> +	    set_memory_encrypted((unsigned long)page_to_virt(page), 1 << order))
-> +		leak_pages = true;
-> +
->  	if (!leak_pages &&
->  	    !dma_release_from_contiguous(NULL, page, 1 << order))
->  		__free_pages(page, order);
-> -- 
-> 2.43.0
+Fixes: fff69fb03dde ("landlock: Support network rules with TCP bind and connect")
+Signed-off-by: pandaWall <mangosteen922@126.com>
+
+Add a corresponding regression test to the layout1 fs_test suite:
+stacking a network-only ruleset (handled_access_net only) on top of a
+filesystem ruleset allowing REFER and MAKE_REG must not deny
+different-parent rename/exchange.
+---
+ security/landlock/domain.h                 | 15 +++++++--
+ tools/testing/selftests/landlock/fs_test.c | 37 ++++++++++++++++++++++
+ 2 files changed, 49 insertions(+), 3 deletions(-)
+
+diff --git a/security/landlock/domain.h b/security/landlock/domain.h
+index 935e18b12..07d4a23fc 100644
+--- a/security/landlock/domain.h
++++ b/security/landlock/domain.h
+@@ -262,9 +262,18 @@ static inline access_mask_t
+ landlock_get_fs_access_mask(const struct landlock_domain *const domain,
+ 			    const u16 layer_level)
+ {
+-	/* Handles all initially denied by default access rights. */
+-	return domain->layers[layer_level].handled.fs |
+-	       _LANDLOCK_ACCESS_FS_INITIALLY_DENIED;
++	access_mask_t handled = domain->layers[layer_level].handled.fs;
++
++	/*
++	 * Only layers that handle filesystem access rights implicitly
++	 * handle REFER.  A layer that handles other rule types (e.g.
++	 * network, scopes) must not imply REFER, otherwise it would
++	 * spuriously deny link and rename operations.
++	 */
++	if (handled)
++		handled |= _LANDLOCK_ACCESS_FS_INITIALLY_DENIED;
++
++	return handled;
+ }
+ 
+ static inline access_mask_t
+diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
+index f725882fa..5588f0ee5 100644
+--- a/tools/testing/selftests/landlock/fs_test.c
++++ b/tools/testing/selftests/landlock/fs_test.c
+@@ -2570,6 +2570,43 @@ const struct rule layer_dir_s2d1_execute[] = {
+ 	{},
+ };
+ 
++/*
++ * Tests that a layer not handling filesystem access rights does not
++ * implicitly handle LANDLOCK_ACCESS_FS_REFER, which would otherwise deny
++ * different-parent renames and links stacked on top of a filesystem ruleset.
++ */
++TEST_F_FORK(layout1, refer_with_net_layer)
++{
++	const struct rule layer_fs[] = {
++		{
++			.path = dir_s1d2,
++			.access = LANDLOCK_ACCESS_FS_REFER,
++		},
++		{
++			.path = dir_s1d3,
++			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
++		},
++		{},
++	};
++	const struct landlock_ruleset_attr ruleset_net = {
++		.handled_access_net = LANDLOCK_ACCESS_NET_BIND_TCP,
++	};
++
++	/* layer_fs alone: different-parent rename is allowed. */
++	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_REFER |
++				      LANDLOCK_ACCESS_FS_MAKE_REG,
++		   layer_fs);
++	ASSERT_EQ(0, test_rename(file1_s1d2, file1_s1d3));
++	ASSERT_EQ(0, test_rename(file1_s1d3, file1_s1d2));
++	ASSERT_EQ(0, test_exchange(file2_s1d2, file2_s1d3));
++
++	/* Stacks a network-only layer: still allowed. */
++	drop_access_rights(_metadata, &ruleset_net);
++	ASSERT_EQ(0, test_rename(file1_s1d2, file1_s1d3));
++	ASSERT_EQ(0, test_rename(file1_s1d3, file1_s1d2));
++	ASSERT_EQ(0, test_exchange(file2_s1d2, file2_s1d3));
++}
++
+ /*
+  * Tests precedence over renames: denied by default for different parent
+  * directories, *with* a rule matching a parent directory, but not directly
+-- 
+2.56.0
+
