@@ -1,49 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794506407;
-	b=w9aa6uqJydKNV1kgY1ja/HJuWKTlcNARJcV4eKRoiGyIv4YsbUmMuH+wz/gs1cWZDmBf
-	 7Xb8M6dS8dv+AHCyv6dew0vi5nKO9HyLmIgJgbZCDmBpV4eFVlmN+z8gfCTeTqbnbsTGI
-	 mlBv3PysR8qo7Kwq4aHQ/0T6p40TkNXvJVBh8BDh8FlDfrw0AxrqvvXqQ4Qi6wiEOyEPG
-	 x15pb6g3TWRWayAqdzci9uedYFw3WbYmLR9FQcMddl/RtqpYdst+KvI1pLPFXXDSTvkSA
-	 Hh9LLL5JXZ6eiCu/YMWJfyB3ujx+LAaiywD4ezIBiLR7UqMOznrXvFE56FzSPvB0dvA==
+	t=1794506453;
+	b=0731j4G3lZWn4O48pV50p158TsTeP4NRg0lR0pJyya14iLZEiJm80N/pbHoxF0+2jn9j
+	 0EXN5dk/boNrOkTnthBnqXkell/Ri+8WxNf5HUhGXNS4+e2MYO04mdmAJ+k2DGxrrQG/a
+	 K58hzn+Ebp2wce9T/fqTopGonVrk2psCd/zftBto23O2Gwg2qsPvwmP/kA0Zcov4pZNfC
+	 Je/IUiBC9b92r2JrD4pyihKaONZ6AfmYkiy/DYq2RJDAHdy72n3qRfgZltOI8bv42kty1
+	 /fl+4EPuKfyGZDW80dW7gTs8Wq8CqVGRime3HQSiTD4CGkyVXk1MNy7pEk8s4s0Xudw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794506407;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=74E+9z4uWRmmkeRkAU8beQOIwYaKDHbJfj34RGUWY4Q=;
-	b=4a4zP2vFfTM4VvxMiorF5wFINfLvbERH16JLpJmGarsFJzQKfixL/HzMtFqUVQV3CWl7
-	 8eCj4UuOmxq8KOoFSpdbXlejaWqBIzTLGlQwHhBAHS2i/bWZBpXpRMyE/L2AsUZsSaJ7b
-	 S3PO1D0fMZuqMRTc+2vcZpmSGhlr1yUUTQS66PzhajiVecizKPXlDVbwrG0G8ABxLZK22
-	 kc7RiF8MWW/SxXfMbiiTFEV529e3KJjLEZz2ALHxoQipl97HjUMGxzJAidBPMVpOS73Ck
-	 g+G0BsKiR9Qz30S2sOvQ6CbNDZ7g+dJa1k1vy/6H3VNlqXn37E769tboJvdCJS/9F1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794506453;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=SDqSGIDCiZFkIs4FRSal1lqSEO0W03HEcqsvZIfqJeo=;
+	b=0r+lOIC1FoAwV8cARM/HmXxsp1DWUyCmTluqk5TBfPppblPV/5YQ6ygJyUfOxbrNYZyG
+	 zrq3lNPBBulyetzSyvB0bnz0EB2v8PrGtEyo4ejBIjCAWpqGGh1405k1EDUWRrWMlzwe5
+	 cvhDLANXj5gld9RdNDbZdISuYdzBXag9rYKmWvrNh6pv1W8gMo1JXTXWfC60JxSi+CQVs
+	 A67xLOdgm8lpkbhUsmiNS6gxSKGC+l2txQaMKBSfAk6IJO6BRYFNrMiRshFhN2zHhRRN5
+	 7aZBVYXZn30vg2Tn8YvrTIJIYaPT48EeB6BE26JaKOLvshk+aG4fzhVRa2qMIT8uVIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=muD8m8Zv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=lMrVfKyt;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCBC4606A323;
-	Thu, 12 Nov 2026 18:00:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D83C606A32D;
+	Thu, 12 Nov 2026 18:00:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D83C606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=muD8m8Zv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 477DC1F000C4;
-	Thu, 12 Nov 2026 18:00:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794506407;
-	bh=74E+9z4uWRmmkeRkAU8beQOIwYaKDHbJfj34RGUWY4Q=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=muD8m8ZvLGaRrVzmLf8zDKP10kpM+sqtUKGz+3Cd7UFNca5JgAjTD54L0rxWxNVLY
-	 ZSr8JbRSz9QJtFtUu9wXq7XUzX4wugc9NK+YIaGq4UEEfcNycsbLWc8uIouQfRkrPy
-	 vt4bzOz6EGWW+XVy0TEKPfSUhPvavdwLadv/9p/XUMEOLRgnBBKwzpVbWPjI+1/NrZ
-	 8ySmH7URpzBEDcSrGxuMIe6ybC1MtoN1W5BAwYUfTYoyjqnKyu/Ng1SzZxDekqMV4u
-	 TcswtiBpuMeyWHox7LC2ugiW+wNMmH8OQcsAl/91KffBJQxuZ27dqoqirJbzArrLh7
-	 fQ6tE9llBnFoQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A44F380AA7D;
-	Thu, 12 Nov 2026 18:00:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=lMrVfKyt
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id E01D940E0237;
+	Thu, 12 Nov 2026 18:00:50 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id JMAzOU8ZEWHc; Thu, 12 Nov 2026 18:00:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1794506447; bh=SDqSGIDCiZFkIs4FRSal1lqSEO0W03HEcqsvZIfqJeo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lMrVfKytnqWScluw5G9YZXtW5IFOQoemEUi2Epxj09mm86dKjCZVENar+jUQn2P/Y
+	 roYVi9D0ToOzltj906kkfzuDLZ9sCC04HbqgJ9gsF75hw+Xz/9LD4lR0zEbTKaABPC
+	 pi/b4ULbvs3v2HNbe4ll6WazFbySd2MWTorm1GNPQzkpyNKwUzraA4M4bqrzWpll8I
+	 V7c35APYYs/6A4gr2OtbrDNAZpNEO7hfU6CgM5ChBvVs1ukaq+GgwLFt+W/KQN1stA
+	 s6MAAQfudOrK8ZPOjp1xDCyLkbHE7XAdGMIGe+48pvaHHA1u4Vpo7B9I/bqrR4OCuU
+	 1MGuCfgyftyhiNne6P1xqp/3HPU1Gjp00V91uuWWN5hopnlEArstd67IhODyyz7jQc
+	 Frp+U1+Vk3DsyYcoHrH7aHGNo2H28xYrQwedp/u7InatWHHmeCQYfjXkaooEavgyGH
+	 SvpZ+MuU6Or+5si1L1//AEsbVeqp1pPaq+BxN14EUiLUaajFhkcXhPKF67MjrngEqp
+	 7jvz3MR0zakUnYMUTewTsgeXwfmVt6JEi8FuIgtcv5gfYB82Wld3aUVY1HXCI9N6zf
+	 GlfmACHpM0k4RfaJGkaCekDS3i7kx371uDnie3ZgTZUBQSQvtb2aa46VBZCnnYsJjF
+	 hyZGu261DbNHM/SC8sc3XzCk=
+Received: from stx.tnic (unknown [209.52.143.85])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 64A4840E0222;
+	Thu, 12 Nov 2026 18:00:41 +0000 (UTC)
+Date: Thu, 12 Nov 2026 10:00:38 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Andrew Luebke <andrew.luebke@gmail.com>
+Cc: Tony Luck <tony.luck@intel.com>, Aristeu Rozanski <aris@redhat.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] EDAC/i5000: Fix the slot loop and re-enable the
+ driver
+Message-ID: <20261112180038.GCavX-xllGG4Y-PM02@fat_crate.local>
+References: <20261111232529.407154-1-andrew.luebke@gmail.com>
+ <20261112001752.GCavUFsCwZIRkfLI7T@fat_crate.local>
+ <d259e498-5cc6-4e23-a589-cdffce1764e9@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,42 +83,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] gtp: free the skb after handling an echo response
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179450640576.567589.2698592522112399495.git-patchwork-notify@kernel.org>
-Date: Thu, 12 Nov 2026 18:00:05 +0000
-References: <20261110-gtp-echo-rsp-leak-v1-1-192c032f3dfa@gmail.com>
-In-Reply-To: <20261110-gtp-echo-rsp-leak-v1-1-192c032f3dfa@gmail.com>
-To: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Cc: pablo@netfilter.org, laforge@gnumonks.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- osmocom-net-gprs@lists.osmocom.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <d259e498-5cc6-4e23-a589-cdffce1764e9@gmail.com>
 
-Hello:
+On Thu, Nov 12, 2026 at 08:58:40AM -0800, Andrew Luebke wrote:
+> Yes, please do. I have the hardware on the bench, with single- and
+> dual-ranked FB-DIMMs, and can test patches on request.
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Ok, then extend your patch 2, pls, by adding yourself as a reviewer to
+MAINTAINERS in this block:
 
-On Tue, 10 Nov 2026 09:03:26 +0000 you wrote:
-> From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-> 
-> gtp0_handle_echo_resp() and gtp1u_handle_echo_resp() return the result
-> of genlmsg_multicast_netns() to gtp_encap_recv().  When the netlink
-> notification is delivered that result is 0, and gtp_encap_recv() treats
-> 0 as "the skb has been consumed":
-> 
-> [...]
+EDAC-I5000
+L:      linux-edac@vger.kernel.org
+S:      Maintained
+F:      drivers/edac/i5000_edac.c
 
-Here is the summary with links:
-  - [net] gtp: free the skb after handling an echo response
-    https://git.kernel.org/netdev/net/c/f17b293d155f
+Thx.
 
-You are awesome, thank you!
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Regards/Gruss,
+    Boris.
 
-
+https://people.kernel.org/tglx/notes-about-netiquette
