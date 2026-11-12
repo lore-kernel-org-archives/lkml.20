@@ -1,103 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794486968;
-	b=SHhkSysThn9r8ZV9lLrAA+RzNZdjJoTulI1drNly6rWvTMi2K0SPspNVbFfVVWyyIo/7
-	 ESADtukVngVstpJwA0XaoO4k8orpDZL5lA/AKwcpmMpJVs/sNzZP0U7j1NorSEvwvanEq
-	 Oy7FtL23aZrFFqxkyZJk1IZEYGHFOLRPid+Nb+5e3q1uoF5oPrw7jN2KtbA4Iw2UZdmYN
-	 uCRDeejoxMiEFUx+IiCNOSY6Qp7upemlve4jIra//cFgdYEyZFb8KRJk8gwgSz9hlF+ny
-	 X+3QCAoEYs4642tGaiw3Dd/3Tj1Kis+6isyDSNrFp/sU3eiHxq4pPZBpygSyPcGvJJA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794486968;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=hjVW9VP/TER5rvEadBEmYCt8ueid8AgZqnJlLcgyHj8=;
-	b=MZi5QuvzNbNFKiplqWi3PYGL9/sW03dz4IqOw6nX3V1/pHs1P+YyYuy//1HLZh4x21r/
-	 bng3ZLzlDQkrv06iwsbY6iyWy7U+jNy27iz/eLa8n2nvgPca79/QM6+LYuCS76nxRpoq4
-	 Mj7hM9s8DBaqgyy/hjIjzCOWhbhetSExGOotoD/9pFoEOWavnRpDJ3XgD5TUbCEhi9Ttu
-	 USBhTrJi3NJbIM+dWNMTGiKfLwVeQlTPKyadXCb+W3tPp0hzwnNmPuaCGi32zmuVtviZr
-	 sm3lOy7TTr19A5GGMNL00tksMVnL+pZvVBoxqiGxJKlg92197Nsfo+YNklJmYOahsVQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EY2seoxg;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.35
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794486987;
+	b=P/Lc9tZ7JbSt9W/xEjggKY1P2F2OpNRC+1KR09qLc9b//nmLbOe/ogrLD73Xbs6V+ynl
+	 bTPyVknZdDswUi0WK48lAy3plILsIuV8JglBJ7UHRBfJ99bC1c+2ZOVtG65WI4C8YrAkW
+	 Cx6Ps5i9SzySyXleeQ66RXx+uGFWq8MHDBKdHpdFfgjKeOdIROM1PsYMAy+PIa+b4mhti
+	 RP2z7XCNBhpvu9WrVw6Ncpzqo09msg/xrcmpbclqSJPDY6G7L20bZU4dEPGX6cSoWH74f
+	 REYuOq18wuZbz827Z1CSALHDZGcFO2gS9LBzac64Z6JU0S4X9FbY989YyHn1vFPLIcQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794486987;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=D6KK2hS0CmygBq9Dx9E8ZiNeZQDLXrujVQ8jX4kOrtM=;
+	b=d86HpipNMBHBvplkoDhMJR5wFFLp+rCCWIx5ChDOJppt5G+6JeZgdLW1nY+BGVEJAUFi
+	 f4tgbQkhyfzyGeXIcVi27ZaRwRdvYLaMC5N2KuK10BHX0PYrHWYue2PuwqXErncSR7JFk
+	 BcrlpTL3ji3oqbZrQi6W7ZhJIQey6t+ZDsLURjbA2TkHo2QTw+mVKZwetDqQDRs+wFCEF
+	 sMi47TVitt/1V0Bp1zaxMkkr97AZpPBVmw9eLgdSiV2P1ukgwufOLIqmgnN6qgMKCQtvX
+	 NGWbW7GooEIJkpKM7XusfySXz9CDvvEOHTUeV38QIE3iLJfgdXnKwdNVVGyTEcOV3XA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3p06ZhvP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.35
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012035.outbound.protection.outlook.com [52.101.48.35])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC7CC606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:36:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC7CC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD27606A31C;
+	Thu, 12 Nov 2026 12:36:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AD27606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EY2seoxg
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36f8cdd30beso7909293eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:36:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794486967; x=1795091767; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hjVW9VP/TER5rvEadBEmYCt8ueid8AgZqnJlLcgyHj8=;
-        b=EY2seoxgN/lP5QZxJCB/IQ7UKMLtTYoZG4g7DdWrqL5oZKQMb8OBcQAdISuf117azw
-         hUIedT4HiaFrFWVSsyRSd7/zRB8tpPlVVvHo7CpOrqpfGQ06FPuwz3Opuw2jCgVa5BVa
-         nmGd1xjy8PgXgJXt6mkfiNDu2r0ViPDjHRtgHRFjHkMJuBn8aJl49JTuvs5wJ6DCYrIb
-         82cN6dW1p42Dc3vwGw5x3m3MK2nN0EEyR9lFGoa2VgdbrNKqZcUfY188N05YogGQyZI0
-         /v99f1cu1xnZcTF0itKA4/UgbFExnYBzD8mz3gDoGDixuwH6M8sz2nCCM4P3O5JUhP/7
-         Sm4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794486967; x=1795091767;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=hjVW9VP/TER5rvEadBEmYCt8ueid8AgZqnJlLcgyHj8=;
-        b=NKECDtTsYIgNa7GVI345XR6+B6J1UZSYTb7hAt8JbsZ0z7qiVIoFWzKBo7qPrpZIH3
-         JuEfp/HAwT2gawBxwFS+2XN7X250y/qSzCSrLJLrN3VNSAZw+b4WraKbQpYhWWi9B1zG
-         GjXZ26DTqWaZ+N17LhVb+Qk+bb/RK5x+qd8YOsfeekeCuvXlsUR0GMb4jO9WpXMRR/dZ
-         oLKDyX4WZYDs6QfnZ3F7F1cU8iTiAzZgSY2Ena5FSYY1w5dcqgVWUkVUPLG0WbHtUM4R
-         uD5qHDttSz5xlLhxgVPF7GPyn64MmyP/WBDnIpV97zCDuD8CPk12XEVya+RncoerUpk6
-         07RA==
-X-Forwarded-Encrypted: i=1; AL+hErESPGq3xh3UZTZ69o0vgBTWaW4FU7EINEqw9U++2Pcb78DbJ1M+fgrZ+Mb2KQr+C5o9NTizOepQTmdbJNU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+wsCS7gYmukDfV+413d/jYVPDSx0jz2ArLyCG10o2JWnFOWZWy
-	SIA1AmdzbCRw/GQjSQjeSAuiF5RZ+i7ZvvbZNzBBSwtZtDJsc/6+iwLQHyM/Vw==
-X-Gm-Gg: AYBFou36jED53x18qlOQ/WndwYqAZG3DPqiO+dsSvhEXQLQPtppP7nR/duS4FtKYvGj
-	4tnO52QmDV8wLV0VBn8qDjOB7+vDeMITn94P417JPuF0R+HOY5FoK3x0swq02iH0r2EgwMRk19z
-	BcbmH8gGFYzjMAO4SIYb//tiQC9Xub6Vg0QYXVzgmxEXB9UEV6pbPnebQhbtEqtMfCg2qkcuZoe
-	UlxPjJ18dpaVx/tkWJOYslRiFZGmPuf+0b03L3QIZtMCw/hcJYJLDKeYQ9xKtCM2KFfcvpSRq+6
-	0gDy7TpedzVYNWFAEuqfu5ywvJS3CquqZPeNOorYkR1Fd29StVCHBjkxTSbhiiHwa+KsHfbusM2
-	RBWglsv5gqplTg5YN60D6UFgdm4yFrFvdWLk+7jEQy2QOgULxODoUybWwuZjae0e4qJzkLFq4QV
-	DhSVzZEaE8wEjNgZV3WiRJF90vNcozLch0eyCAAh+HQUH3CtYXesHzIoSGW059ijEMtnduTNMKG
-	YvwRM+pQIPj3/Vs+IjT1Tgv4uNV2JZapk7AjBfnvHgdPHtoC6hBhp8QBiegp9aptRyKC2GIlGF2
-	7zeWIUfQQJdqGbP5G3znJh8hq4E=
-X-Received: by 2002:a05:7300:561c:b0:36e:2626:4ace with SMTP id 5a478bee46e88-3768366a866mr6118746eec.5.1794486966515;
-        Thu, 12 Nov 2026 04:36:06 -0800 (PST)
-Received: from localhost ([154.21.93.22])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfdfc6sm28827005eec.17.2026.11.12.04.36.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 04:36:05 -0800 (PST)
-Date: Thu, 12 Nov 2026 20:36:01 +0800
-From: Yao Yuan <yaoyuan0329os@gmail.com>
-To: Jingle Wu =?utf-8?B?5ZCz6YeR5ZyL?= <jingle.wu@emc.com.tw>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Vishnu Sankar <vishnuocv@gmail.com>, 
-	"linux-input@vger.kernel.org" <linux-input@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	Phoenix Huang =?utf-8?B?6buD5LiW6bWs?= <phoenix@emc.com.tw>, Stanley Chen =?utf-8?B?6Zmz5bu657at?= <stanley.chen@emc.com.tw>
-Subject: Re: [PATCH 1/1] Input: trackpoint - Add new ELAN trackpoint device
- variant id 7
-Message-ID: <avWyftYhIVaPpoln@sapienza>
-References: <20261102130836.11863-1-yaoyuan0329os@gmail.com>
- <20261102130836.11863-2-yaoyuan0329os@gmail.com>
- <avKBsi-E7IeUgsSY@google.com>
- <TY0PR0101MB4786C8CF42ED66617BD9DA1EDC722@TY0PR0101MB4786.apcprd01.prod.exchangelabs.com>
- <avMcB0q7wF9oP5X8@sapienza>
- <PUZPR01MB477458CD012208A31DE60068DC712@PUZPR01MB4774.apcprd01.prod.exchangelabs.com>
- <avRttU9N0EZeq8nY@sapienza>
- <TY0PR0101MB47865DFC765932B9E6C3E1C0DC702@TY0PR0101MB4786.apcprd01.prod.exchangelabs.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3p06ZhvP
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Sw4lXyexqNajtRCCK3dNTVaWr/VHgyt3d4lmuw6wK7noljAIr4LsHbJCCVP+pkXoW0MaX9VQH4kBy2W8NBj+CWiuqrxGBWO/dH15AU6S3Y+tY4XHXX5MlbWeXmG59QC0et6diKAwRDFaDBDs+8hkiMcNZaM+V92PGmVjT/54x76t1j5KqvLp4ri+L2TVT8eg49zU850IlbSNH462hslBzojBwF7KuE46PimTkppcrlmrweKs+WCXbvqCwfs5hg/9VLAEFzvUmAVPkYyv/hvnBxVEw6f6s3/wAKX2DmrYYovL/K4xUaGiuwkKSYdoz7doEdUPScSWTuri+D3WHZkZqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=D6KK2hS0CmygBq9Dx9E8ZiNeZQDLXrujVQ8jX4kOrtM=;
+ b=UaXlyMdZdJ/hKRs6rjrK5igrTJglA+3be47YEumJvyyGwVEtiKkwJbBUEPNtTYbquiwoHmxZue4fJP6gE/9TxB3OwabEeRtpxYofZ3sxQV+si8JB4NYh033C1rHZjqYbyo4dCuH6RRHsiJ8iIGiqu3YUoRpjSeanknqtjb8v7tl4V+csxK4iePmYZFSNyKx9hSO2b3JnxP0CGmN09Sc5MU2+4jbdiMhOIyaWVlzTZaolCrLFuU921NapHXOV9Qqee+IoGkv5ymwvce8RdfEIs0rLg+BuY43hfkteCiIa3fHAZ2+4xQp+am4QCgcO1SdOLfE4BYdUMiGbmERBpUdiUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=D6KK2hS0CmygBq9Dx9E8ZiNeZQDLXrujVQ8jX4kOrtM=;
+ b=3p06ZhvPQ15U/0txRza8XGNyR2z5GY9FhntkiUkW0Tqw8TAfmJkNg1RaL7xeSppkjVehmH7ZF/Ktp4CA+G6n0MRgNHs94KLbyeuEEAs3GqKMn5KNTzfraQwOjDzjlNSXBOhzj0tPU5Rs76roNF1aL0iKImXRhu76gJZqUt/Y8OU=
+Received: from PH7P220CA0052.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32b::34)
+ by SA0PR12MB4351.namprd12.prod.outlook.com (2603:10b6:806:71::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
+ 2026 12:36:21 +0000
+Received: from PH3PEPF0005961A.namprd05.prod.outlook.com
+ (2603:10b6:510:32b:cafe::7f) by PH7P220CA0052.outlook.office365.com
+ (2603:10b6:510:32b::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
+ Nov 2026 12:36:20 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ PH3PEPF0005961A.mail.protection.outlook.com (10.167.243.24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 12:36:20 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
+ 2026 06:36:19 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
+ 2026 06:36:19 -0600
+Received: from amd-B550M-DS3H.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Thu, 12 Nov 2026 06:36:15 -0600
+From: Syed Saba Kareem <syed.sabakareem@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+CC: <Vijendar.Mukunda@amd.com>, <anson.tsao@amd.com>,
+	<Sunil-kumar.Dommati@amd.com>, <mario.limonciello@amd.com>, Syed Saba Kareem
+	<Syed.SabaKareem@amd.com>, Venkata Prasad Potturu
+	<venkataprasad.potturu@amd.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Pierre-Louis
+ Bossart <pierre-louis.bossart@linux.dev>, "Siva Subramanian Ravi Saravanan"
+	<sravisar@amd.com>, "open list:AMD ASoC DRIVERS"
+	<linux-sound@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Subject: [PATCH v4 1/6] ASoC: amd: acp: add Cirrus SoundWire configs for ACP7.F
+Date: Thu, 12 Nov 2026 18:05:36 +0530
+Message-ID: <20261112123603.2891858-2-syed.sabakareem@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261112123603.2891858-1-syed.sabakareem@amd.com>
+References: <20261112123603.2891858-1-syed.sabakareem@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,156 +119,516 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <TY0PR0101MB47865DFC765932B9E6C3E1C0DC702@TY0PR0101MB4786.apcprd01.prod.exchangelabs.com>
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH3PEPF0005961A:EE_|SA0PR12MB4351:EE_
+X-MS-Office365-Filtering-Correlation-Id: afe491c4-ab03-4442-0d3f-08df40b98e3c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|23010399003|1800799024|82310400026|10067099003|11063799006|56012099006|261022075727099003|261022113327099003|261021121427099003|261009223027099003|261102130727099003|261102123227099003|261026121527099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	J3tcorvzUxHC0yxRpBOWRW4NbUXJXsdPpfuxnYn/V3I05vBy6zCQRa43VnX9bC00oRVX2hoZQzYwTAUr6KnIzwx4kChrDB/dLQ8Cd0WVGZr+RiV4V7JppT7VVRt97pD0L0rr2qj8Nc4zPUKsLqbR/IHEKuZtZbWCZCrmlrX3+XDWcIvt1qrE2F0cAX0U2AlJsngIk+OlpzCL3EbUNiqh5ORrSdhpzycPlNCMZ0GP+AVVa3GsTgbwjH7W2K6BIV7D7E92X8gfsxVbBMSccU96q9QvlbU6TTH+fEiojlheIiYIasgAgHQHw1TIpqlG15cjROC5UawVw20i81KFIudcAz352GJPz2IiEyS8DvhgkE/3ybi5oGm0iPdpfimSpurCOqsDYQR4h5RKYbL4C1MDVsQhJZFkaqwLF1Fdx6Bzj/53HZmq4Jg3I+1gkCPqb818xBbQCw5gsSAfVF5WvBXqP8SfTBaBKaRT7B0/zCNChBYA34YyIl4ROqwIm2Y/3YltZ4IzKvPGs4CxdVi+H6US2EruRyTEMuunIvssR3dEi9P8SI6oTK67WkIZbImIa5HP2b7d/MD6X14i3zLFLS5kgymioDYUJKHoHRFMm0kYVMEhKLc5J4PEy9abWQTYvbCfTUQBgyqzKhiozBoXA/F8bPbXnQn5S57E/Sy/VNaXGjjLTT5+bBhDuRIQ4KLlE4G14mmQl47JdPfVs3nti0aV0g==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(10067099003)(11063799006)(56012099006)(261022075727099003)(261022113327099003)(261021121427099003)(261009223027099003)(261102130727099003)(261102123227099003)(261026121527099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	pV1UrDGKmYT160ZA0RlKDgLtHMvJ1qpRp9/CuytgcUGq85a9ABadw40jYUK8ewxOVNZHV0ZL8+1KJSC/x9icByOWcrEAs6k3120Xhyl8NxRuUw0FKUTkdQq1G10pAFFgiEL7uT8ozUcYP3oTJAlcB4AEbywn6WWjBB9z/ZTN2Yl9FuyqkqOLzogyDr5Rv7E5zr1JNb7pUPmgYH5YvxZmFtVE61Vx4QqqkH3ESJf0ThdEuEpG/CImjsVNiGcoMBL86SfpM1XwCLLUbt/9ZhOXwmeoWvDfMRH6sDyoSvTK3KdMeW0t40HOJUYRcvTsySpneYPSMLzN2aHV+549MHmM+UuyfMgt4nCCwhNV8ggGlT10EcOZxmjuiuzd4IFQqSrV7ga8HY4HwaTmDNS2ZFPXvvfv0GYBKoYjgzZ5KfQymMbUcRLmtQjXH0aMFtG8y9Pa
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 12:36:20.8209
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: afe491c4-ab03-4442-0d3f-08df40b98e3c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	PH3PEPF0005961A.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4351
 
-On Thu, Nov 12, 2026 at 05:26:46AM +0000, Jingle Wu 吳金國 wrote:
-> Hi Yao:
->
-> Upon inquiry, it was confirmed that a black TrackPoint stick (0x07) underneath the red TrackPoint cap corresponds to a vendor that is compatible with the Windows ELAN driver.
+From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
 
-Ah I see, thanks a lot for your help on confirming this!
+Extend the ACP7.F SoundWire machine table with additional Cirrus Logic
+codec configurations:
+- CS42L43 jack + CS35L56 quad amp (L0+L1, L1)
+- CS42L45 jack + CS35L63 stereo/quad amp (L0+L1 combinations)
+- CS35L56 quad amp standalone (L1)
+- Standalone CS42L43 / CS42L43B jack (L0, unique_id 1) and CS42L45 jack
+  (L0, L1)
 
->
-> THANKS
-> JINGLE
->
-> -----Original Message-----
-> From: Yao Yuan <yaoyuan0329os@gmail.com>
-> Sent: Wednesday, November 11, 2026 10:05 PM
-> To: Jingle Wu 吳金國 <jingle.wu@emc.com.tw>
-> Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>; Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>; Vishnu Sankar <vishnuocv@gmail.com>; linux-input@vger.kernel.org; linux-kernel@vger.kernel.org; Phoenix Huang 黃世鵬 <phoenix@emc.com.tw>; Stanley Chen 陳建維 <stanley.chen@emc.com.tw>
-> Subject: Re: [PATCH 1/1] Input: trackpoint - Add new ELAN trackpoint device variant id 7
->
-> ⚠ External Email: This email originated from outside the organization. Please use caution when opening links or attachments.
-> ⚠ 外部郵件： 此郵件來自公司外部，請謹慎開啟連結或附件。
->
-> On Wed, Nov 11, 2026 at 05:26:36AM +0000, Jingle Wu 吳金國 wrote:
-> > Hi Yao:
-> >
-> > Could you help verify whether the color of the TrackPoint stick underneath the red cap can be used to identify the vendor?
-> >
-> > White: ELAN
-> > Other colors: Other vendors
->
-> Hi Wu,
->
-> The thin stick under the red cap is black.
->
-> Also I visited the lenovo's supporting website, there's only
-> 1 ELAN dirver for this thinkpad X14 gen1 model's trackpoint:
->
-> https://newthink.lenovo.com.cn/driveList.html?selname=ThinkPad%20X14%20Gen1
->
-> The laptop model I'm using is 21XM, the driver works well in windows 11.
->
-> Now I'm confused on who is the real vendor of this trackpoint device. I may ask help on Lenovo's supporting website yet. Wu, is that ok to refer this mail there ?
->
-> >
-> > Thanks
-> > JINGLE
-> >
-> > -----Original Message-----
-> > From: Yao Yuan <yaoyuan0329os@gmail.com>
-> > Sent: Tuesday, November 10, 2026 9:48 PM
-> > To: Jingle Wu 吳金國 <jingle.wu@emc.com.tw>
-> > Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>; Ilpo Järvinen
-> > <ilpo.jarvinen@linux.intel.com>; Vishnu Sankar <vishnuocv@gmail.com>;
-> > linux-input@vger.kernel.org; linux-kernel@vger.kernel.org; Phoenix
-> > Huang 黃世鵬 <phoenix@emc.com.tw>; Stanley Chen 陳建維
-> > <stanley.chen@emc.com.tw>
-> > Subject: Re: [PATCH 1/1] Input: trackpoint - Add new ELAN trackpoint
-> > device variant id 7
-> >
-> > ⚠ External Email: This email originated from outside the organization. Please use caution when opening links or attachments.
-> > ⚠ 外部郵件： 此郵件來自公司外部，請謹慎開啟連結或附件。
-> >
-> > On Tue, Nov 10, 2026 at 05:26:21AM +0000, Jingle Wu 吳金國 wrote:
-> >
-> > Hi Wu,
-> >
-> > > Hi Dmitry/Yuan:
-> > >
-> > > We have confirmed that FW A1 was never released by Elan. The Elan Variant ID has always been 3.
-> >
-> > Thanks for your information, Let me share more details:
-> >
-> > The trackpoint has driver from "ELAN
-> > Microelectronics Corp." in windows 11 on same device.
-> >
-> > In Linux I found the device is probed as generic mouse device but not
-> > trackpoint device, it's hard to use due to no sensitivity setting from
-> > sysfs. I found the reported id
-> > 0x7 is not in drivers/input/mouse/trackpoint.c's
-> > trackpoint_start_protocol() after debugging, the trackpoint is probed and works well after add the id 0x7 there.
-> >
-> > So I thought this should be a ELAN device w/ ID 0x7 and cooked this patch.
-> >
-> >
-> > >
-> > > THANKS
-> > > JINGLE
-> > >
-> > > -----Original Message-----
-> > > From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> > > Sent: Tuesday, November 10, 2026 10:36 AM
-> > > To: Yuan Yao <yaoyuan0329os@gmail.com>; Jingle Wu 吳金國
-> > > <jingle.wu@emc.com.tw>
-> > > Cc: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>; Vishnu Sankar
-> > > <vishnuocv@gmail.com>; linux-input@vger.kernel.org;
-> > > linux-kernel@vger.kernel.org; Phoenix Huang 黃世鵬
-> > > <phoenix@emc.com.tw>; Stanley Chen 陳建維 <stanley.chen@emc.com.tw>
-> > > Subject: Re: [PATCH 1/1] Input: trackpoint - Add new ELAN trackpoint
-> > > device variant id 7
-> > >
-> > > ⚠ External Email: This email originated from outside the organization. Please use caution when opening links or attachments.
-> > > ⚠ 外部郵件： 此郵件來自公司外部，請謹慎開啟連結或附件。
-> > >
-> > > Hi Yuan,
-> > >
-> > > On Mon, Nov 02, 2026 at 09:08:36PM +0800, Yuan Yao wrote:
-> > > > The new ELAN trackpoint variant id 7 is found on thinkpad
-> > > > X14 Gen1 laptop(Product Name: 21XMA006CD), it's now incorrectly
-> > > > probed as Generic or Logitech PS/2 mouse.
-> > > >
-> > > > Add ELAN variant id 7 to match the TP_READ_ID command return
-> > > > value, probe the device as trackpoint correctly.
-> > > >
-> > > > BEFORE:
-> > > > input: PS/2 Generic Mouse as
-> > > > /devices/platform/i8042/serio1/input/input63
-> > > >
-> > > > AFTER:
-> > > > psmouse serio1: trackpoint: Elan_variant7 TrackPoint firmware:
-> > > > 0xa1,
-> > > > buttons: 3/3
-> > > > input: TPPS/2 Elan_variant7 TrackPoint as
-> > > > /devices/platform/i8042/serio1/input/input65
-> > > >
-> > > > Signed-off-by: Yuan Yao <yaoyuan0329os@gmail.com>
-> > > > ---
-> > > >  drivers/input/mouse/trackpoint.c | 2 ++
-> > > > drivers/input/mouse/trackpoint.h | 1 +
-> > > >  2 files changed, 3 insertions(+)
-> > > >
-> > > > diff --git a/drivers/input/mouse/trackpoint.c
-> > > > b/drivers/input/mouse/trackpoint.c
-> > > > index 3bd8fdf56cd3..f46fc1665c96 100644
-> > > > --- a/drivers/input/mouse/trackpoint.c
-> > > > +++ b/drivers/input/mouse/trackpoint.c
-> > > > @@ -25,6 +25,7 @@ static const char * const trackpoint_variants[] = {
-> > > >       [TP_VARIANT_NXP]                = "NXP",
-> > > >       [TP_VARIANT_JYT_SYNAPTICS]      = "JYT_Synaptics",
-> > > >       [TP_VARIANT_SYNAPTICS]          = "Synaptics",
-> > > > +     [TP_VARIANT_ELAN_ID_7]          = "Elan_variant7"
-> > >
-> > > I wonder if we really need to say "Elan_variant7" or if we should simply say "Elan" here as well.
-> > >
-> > > Jingle, is this your part? What is the difference from Elan trackpoint reporting 0x03 as its variant?
-> > >
-> > > Thanks.
-> > >
-> > > --
-> > > Dmitry
+Add the corresponding endpoint, adr_device and link_adr descriptors for
+the CS42L43/CS42L45 jack codecs and the CS35L56/CS35L63 amplifiers, with
+speaker endpoints grouped for aggregated multi-amp playback. The CS42L45
+entries reuse the CS42L43 endpoint array minus the speaker endpoint since
+CS42L45 has no internal speaker path.
+
+Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+---
+ sound/soc/amd/acp/amd-acp7x-acpi-match.c | 435 +++++++++++++++++++++++
+ 1 file changed, 435 insertions(+)
+
+diff --git a/sound/soc/amd/acp/amd-acp7x-acpi-match.c b/sound/soc/amd/acp/amd-acp7x-acpi-match.c
+index bf11ceb7478b..786ee5796ee6 100644
+--- a/sound/soc/amd/acp/amd-acp7x-acpi-match.c
++++ b/sound/soc/amd/acp/amd-acp7x-acpi-match.c
+@@ -16,6 +16,34 @@ static const struct snd_soc_acpi_endpoint single_endpoint = {
+ 	.group_id = 0
+ };
+ 
++static const struct snd_soc_acpi_endpoint spk_l_endpoint = {
++	.num = 0,
++	.aggregated = 1,
++	.group_position = 0,
++	.group_id = 1
++};
++
++static const struct snd_soc_acpi_endpoint spk_r_endpoint = {
++	.num = 0,
++	.aggregated = 1,
++	.group_position = 1,
++	.group_id = 1
++};
++
++static const struct snd_soc_acpi_endpoint spk_2_endpoint = {
++	.num = 0,
++	.aggregated = 1,
++	.group_position = 2,
++	.group_id = 1
++};
++
++static const struct snd_soc_acpi_endpoint spk_3_endpoint = {
++	.num = 0,
++	.aggregated = 1,
++	.group_position = 3,
++	.group_id = 1
++};
++
+ static const struct snd_soc_acpi_endpoint jack_dmic_endpoints[] = {
+ 	/* Jack Endpoint */
+ 	{
+@@ -148,6 +176,336 @@ static const struct snd_soc_acpi_link_adr acp7x_rt721_l0_rt1320_l3[] = {
+ 	{}
+ };
+ 
++static const struct snd_soc_acpi_endpoint cs42l43_endpoints[] = {
++	{ /* Jack Playback Endpoint */
++		.num = 0,
++		.aggregated = 0,
++		.group_position = 0,
++		.group_id = 0,
++	},
++	{ /* DMIC Capture Endpoint */
++		.num = 1,
++		.aggregated = 0,
++		.group_position = 0,
++		.group_id = 0,
++	},
++	{ /* Jack Capture Endpoint */
++		.num = 2,
++		.aggregated = 0,
++		.group_position = 0,
++		.group_id = 0,
++	},
++	{ /* Speaker Playback Endpoint */
++		.num = 3,
++		.aggregated = 0,
++		.group_position = 0,
++		.group_id = 0,
++	},
++};
++
++static const struct snd_soc_acpi_adr_device cs35l56x4_l1u3210_adr[] = {
++	{
++		.adr = 0x00013301FA355601ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_l_endpoint,
++		.name_prefix = "AMP1"
++	},
++	{
++		.adr = 0x00013201FA355601ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_r_endpoint,
++		.name_prefix = "AMP2"
++	},
++	{
++		.adr = 0x00013101FA355601ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_2_endpoint,
++		.name_prefix = "AMP3"
++	},
++	{
++		.adr = 0x00013001FA355601ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_3_endpoint,
++		.name_prefix = "AMP4"
++	},
++};
++
++static const struct snd_soc_acpi_adr_device cs35l63x2_l0u01_adr[] = {
++	{
++		.adr = 0x00003001FA356301ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_l_endpoint,
++		.name_prefix = "AMP1"
++	},
++	{
++		.adr = 0x00003101FA356301ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_r_endpoint,
++		.name_prefix = "AMP2"
++	},
++};
++
++static const struct snd_soc_acpi_adr_device cs35l63x2_l1u01_adr[] = {
++	{
++		.adr = 0x00013001FA356301ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_l_endpoint,
++		.name_prefix = "AMP1"
++	},
++	{
++		.adr = 0x00013101FA356301ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_r_endpoint,
++		.name_prefix = "AMP2"
++	},
++};
++
++static const struct snd_soc_acpi_adr_device cs35l63x2_l1u13_adr[] = {
++	{
++		.adr = 0x00013101FA356301ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_l_endpoint,
++		.name_prefix = "AMP1"
++	},
++	{
++		.adr = 0x00013301FA356301ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_r_endpoint,
++		.name_prefix = "AMP2"
++	},
++};
++
++static const struct snd_soc_acpi_adr_device cs35l63x4_l0u0246_adr[] = {
++	{
++		.adr = 0x00003001FA356301ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_l_endpoint,
++		.name_prefix = "AMP1"
++	},
++	{
++		.adr = 0x00003201FA356301ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_r_endpoint,
++		.name_prefix = "AMP2"
++	},
++	{
++		.adr = 0x00003401FA356301ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_2_endpoint,
++		.name_prefix = "AMP3"
++	},
++	{
++		.adr = 0x00003601FA356301ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_3_endpoint,
++		.name_prefix = "AMP4"
++	},
++};
++
++static const struct snd_soc_acpi_adr_device cs42l43_l0u0_adr[] = {
++	{
++		.adr = 0x00003001FA424301ull,
++		.num_endpoints = ARRAY_SIZE(cs42l43_endpoints),
++		.endpoints = cs42l43_endpoints,
++		.name_prefix = "cs42l43"
++	}
++};
++
++static const struct snd_soc_acpi_adr_device cs42l43_l0u1_adr[] = {
++	{
++		.adr = 0x00003101FA424301ull,
++		.num_endpoints = ARRAY_SIZE(cs42l43_endpoints),
++		.endpoints = cs42l43_endpoints,
++		.name_prefix = "cs42l43"
++	}
++};
++
++static const struct snd_soc_acpi_adr_device cs42l43b_l0u1_adr[] = {
++	{
++		.adr = 0x00003101FA2A3B01ull,
++		.num_endpoints = ARRAY_SIZE(cs42l43_endpoints),
++		.endpoints = cs42l43_endpoints,
++		.name_prefix = "cs42l43"
++	}
++};
++
++static const struct snd_soc_acpi_adr_device cs42l43_l1u0_cs35l56x4_l1u0123_adr[] = {
++	{
++		.adr = 0x00013001FA424301ull,
++		.num_endpoints = ARRAY_SIZE(cs42l43_endpoints),
++		.endpoints = cs42l43_endpoints,
++		.name_prefix = "cs42l43"
++	},
++	{
++		.adr = 0x00013001FA355601ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_l_endpoint,
++		.name_prefix = "AMP1"
++	},
++	{
++		.adr = 0x00013101FA355601ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_r_endpoint,
++		.name_prefix = "AMP2"
++	},
++	{
++		.adr = 0x00013201FA355601ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_2_endpoint,
++		.name_prefix = "AMP3"
++	},
++	{
++		.adr = 0x00013301FA355601ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_3_endpoint,
++		.name_prefix = "AMP4"
++	},
++};
++
++static const struct snd_soc_acpi_adr_device cs42l45_l0u0_adr[] = {
++	{
++		.adr = 0x00003001FA424501ull,
++		/* Re-use endpoints, but cs42l45 has no speaker */
++		.num_endpoints = ARRAY_SIZE(cs42l43_endpoints) - 1,
++		.endpoints = cs42l43_endpoints,
++		.name_prefix = "cs42l45"
++	}
++};
++
++static const struct snd_soc_acpi_adr_device cs42l45_l1u0_adr[] = {
++	{
++		.adr = 0x00013001FA424501ull,
++		/* Re-use endpoints, but cs42l45 has no speaker */
++		.num_endpoints = ARRAY_SIZE(cs42l43_endpoints) - 1,
++		.endpoints = cs42l43_endpoints,
++		.name_prefix = "cs42l45"
++	}
++};
++
++static const struct snd_soc_acpi_link_adr acp7x_cs35l56x4_l1u3210[] = {
++	{
++		.mask = BIT(1),
++		.num_adr = ARRAY_SIZE(cs35l56x4_l1u3210_adr),
++		.adr_d = cs35l56x4_l1u3210_adr,
++	},
++	{}
++};
++
++static const struct snd_soc_acpi_link_adr acp7x_cs42l43_l0u1[] = {
++	{
++		.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(cs42l43_l0u1_adr),
++		.adr_d = cs42l43_l0u1_adr,
++	},
++	{}
++};
++
++static const struct snd_soc_acpi_link_adr acp7x_cs42l43b_l0u1[] = {
++	{
++		.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(cs42l43b_l0u1_adr),
++		.adr_d = cs42l43b_l0u1_adr,
++	},
++	{}
++};
++
++static const struct snd_soc_acpi_link_adr acp7x_cs42l43_l0u0_cs35l56x4_l1u3210[] = {
++	{
++		.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(cs42l43_l0u0_adr),
++		.adr_d = cs42l43_l0u0_adr,
++	},
++	{
++		.mask = BIT(1),
++		.num_adr = ARRAY_SIZE(cs35l56x4_l1u3210_adr),
++		.adr_d = cs35l56x4_l1u3210_adr,
++	},
++	{}
++};
++
++static const struct snd_soc_acpi_link_adr acp7x_cs42l43_l1u0_cs35l56x4_l1u0123[] = {
++	{
++		.mask = BIT(1),
++		.num_adr = ARRAY_SIZE(cs42l43_l1u0_cs35l56x4_l1u0123_adr),
++		.adr_d = cs42l43_l1u0_cs35l56x4_l1u0123_adr,
++	},
++	{}
++};
++
++static const struct snd_soc_acpi_link_adr acp7x_cs42l45_l0u0[] = {
++	{
++		.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(cs42l45_l0u0_adr),
++		.adr_d = cs42l45_l0u0_adr,
++	},
++	{}
++};
++
++static const struct snd_soc_acpi_link_adr acp7x_cs42l45_l0u0_cs35l63x2_l1u01[] = {
++	{
++		.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(cs42l45_l0u0_adr),
++		.adr_d = cs42l45_l0u0_adr,
++	},
++	{
++		.mask = BIT(1),
++		.num_adr = ARRAY_SIZE(cs35l63x2_l1u01_adr),
++		.adr_d = cs35l63x2_l1u01_adr,
++	},
++	{}
++};
++
++static const struct snd_soc_acpi_link_adr acp7x_cs42l45_l0u0_cs35l63x2_l1u13[] = {
++	{
++		.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(cs42l45_l0u0_adr),
++		.adr_d = cs42l45_l0u0_adr,
++	},
++	{
++		.mask = BIT(1),
++		.num_adr = ARRAY_SIZE(cs35l63x2_l1u13_adr),
++		.adr_d = cs35l63x2_l1u13_adr,
++	},
++	{}
++};
++
++static const struct snd_soc_acpi_link_adr acp7x_cs42l45_l1u0[] = {
++	{
++		.mask = BIT(1),
++		.num_adr = ARRAY_SIZE(cs42l45_l1u0_adr),
++		.adr_d = cs42l45_l1u0_adr,
++	},
++	{}
++};
++
++static const struct snd_soc_acpi_link_adr acp7x_cs42l45_l1u0_cs35l63x2_l0u01[] = {
++	{
++		.mask = BIT(1),
++		.num_adr = ARRAY_SIZE(cs42l45_l1u0_adr),
++		.adr_d = cs42l45_l1u0_adr,
++	},
++	{
++		.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(cs35l63x2_l0u01_adr),
++		.adr_d = cs35l63x2_l0u01_adr,
++	},
++	{}
++};
++
++static const struct snd_soc_acpi_link_adr acp7x_cs42l45_l1u0_cs35l63x4_l0u0246[] = {
++	{
++		.mask = BIT(1),
++		.num_adr = ARRAY_SIZE(cs42l45_l1u0_adr),
++		.adr_d = cs42l45_l1u0_adr,
++	},
++	{
++		.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(cs35l63x4_l0u0246_adr),
++		.adr_d = cs35l63x4_l0u0246_adr,
++	},
++	{}
++};
++
+ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7b_sof_sdw_machines[] = {
+ 	{
+ 		.link_mask = BIT(0) | BIT(3),
+@@ -189,6 +547,83 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
+ 		.sof_tplg_filename = "sof-acp7f-rt722-l0.tplg",
+ 		.fw_filename = "sof-acp7f.ri",
+ 	},
++	{
++		.link_mask = BIT(0) | BIT(1),
++		.links = acp7x_cs42l43_l0u0_cs35l56x4_l1u3210,
++		.drv_name = "amd_sof_sdw",
++		.sof_tplg_filename = "sof-acp7f-cs42l43-l0u0-cs35l56x4-l1u3210.tplg",
++		.fw_filename = "sof-acp7f.ri",
++	},
++	{
++		.link_mask = BIT(0) | BIT(1),
++		.links = acp7x_cs42l45_l1u0_cs35l63x4_l0u0246,
++		.drv_name = "amd_sof_sdw",
++		.sof_tplg_filename = "sof-acp7f-cs42l45-l1u0-cs35l63x4-l0u0246.tplg",
++		.fw_filename = "sof-acp7f.ri",
++	},
++	{
++		.link_mask = BIT(0) | BIT(1),
++		.links = acp7x_cs42l45_l0u0_cs35l63x2_l1u01,
++		.drv_name = "amd_sof_sdw",
++		.sof_tplg_filename = "sof-acp7f-cs42l45-l0u0-cs35l63x2-l1u01.tplg",
++		.fw_filename = "sof-acp7f.ri",
++	},
++	{
++		.link_mask = BIT(0) | BIT(1),
++		.links = acp7x_cs42l45_l0u0_cs35l63x2_l1u13,
++		.drv_name = "amd_sof_sdw",
++		.sof_tplg_filename = "sof-acp7f-cs42l45-l0u0-cs35l63x2-l1u13.tplg",
++		.fw_filename = "sof-acp7f.ri",
++	},
++	{
++		.link_mask = BIT(0) | BIT(1),
++		.links = acp7x_cs42l45_l1u0_cs35l63x2_l0u01,
++		.drv_name = "amd_sof_sdw",
++		.sof_tplg_filename = "sof-acp7f-cs42l45-l1u0-cs35l63x2-l0u01.tplg",
++		.fw_filename = "sof-acp7f.ri",
++	},
++	{
++		.link_mask = BIT(1),
++		.links = acp7x_cs42l43_l1u0_cs35l56x4_l1u0123,
++		.drv_name = "amd_sof_sdw",
++		.sof_tplg_filename = "sof-acp7f-cs42l43-l1u0-cs35l56x4-l1u0123.tplg",
++		.fw_filename = "sof-acp7f.ri",
++	},
++	{
++		.link_mask = BIT(1),
++		.links = acp7x_cs35l56x4_l1u3210,
++		.drv_name = "amd_sof_sdw",
++		.sof_tplg_filename = "sof-acp7f-cs35l56x4-l1u3210.tplg",
++		.fw_filename = "sof-acp7f.ri",
++	},
++	{
++		.link_mask = BIT(0),
++		.links = acp7x_cs42l43_l0u1,
++		.drv_name = "amd_sof_sdw",
++		.sof_tplg_filename = "sof-acp7f-cs42l43-l0u1.tplg",
++		.fw_filename = "sof-acp7f.ri",
++	},
++	{
++		.link_mask = BIT(0),
++		.links = acp7x_cs42l43b_l0u1,
++		.drv_name = "amd_sof_sdw",
++		.sof_tplg_filename = "sof-acp7f-cs42l43b-l0u1.tplg",
++		.fw_filename = "sof-acp7f.ri",
++	},
++	{
++		.link_mask = BIT(0),
++		.links = acp7x_cs42l45_l0u0,
++		.drv_name = "amd_sof_sdw",
++		.sof_tplg_filename = "sof-acp7f-cs42l45-l0u0.tplg",
++		.fw_filename = "sof-acp7f.ri",
++	},
++	{
++		.link_mask = BIT(1),
++		.links = acp7x_cs42l45_l1u0,
++		.drv_name = "amd_sof_sdw",
++		.sof_tplg_filename = "sof-acp7f-cs42l45-l1u0.tplg",
++		.fw_filename = "sof-acp7f.ri",
++	},
+ 	{},
+ };
+ EXPORT_SYMBOL(snd_soc_acpi_amd_acp7f_sof_sdw_machines);
+-- 
+2.43.0
+
