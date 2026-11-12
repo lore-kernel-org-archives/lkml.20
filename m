@@ -1,72 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794509135;
-	b=xWZR41ewLilerXJFTuHPlcBjKh2P7KOuwFIfawKCqTndBAYcRF+/tmQ2yhaUCYqJ+1c2
-	 6WV15+VYroVWMAhmb4IOLhudW8XrUW1oAi8M9j5R/T1uZyKoF+9IdvaYHrQspBfTNP11r
-	 4zeFn4SC8xuvjPlGe19ONPN4DPVyu8dv2y6dAre1eykwl8n4mcwoKBBiLeZHR+p/hTaaE
-	 dXPxpzRRKV0d0tzllAhqqS4sBbmthcqq4YRV8TJjoAEUAuAWV2o4t0r9sWogBhcAb9bLF
-	 JuwSjXU+bC6zLU6EX2crak9ua4BoaahLQav220CrthkieHAEo5zVUUNDnhStV6TupOg==
+	t=1794509149;
+	b=ePry6gdgIQ0+fjhbLSmHTmGs77kfva1JYlLdDZtUoZVIBQZFIz8MX9bYaM7zEGZz/2JX
+	 jpVw4U8/HMTSYhwlLges7A6U+tvWCcCiHBLTIhdCNuGWB+n/CEzNPWcOV3QlGlYYm4inF
+	 lITWnbp9F4f5UCuhm753VsWTmKjGSpaLj3XUrvplTIqDI5PDYfWE8QkhDgncmi9JMIPGn
+	 hOF5iuCGeYxN+0FoTvrVQd10tV1YuLClh2hc5Lthj5alx+MsUcdssI4azgBBIkrjnQmLT
+	 bCYDxluAQFUTmWr3A5vKxISTaHjJRdV/LazHZhr0C9JhRRZ/Ye62mxq5nYyHO4Mz1dA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794509135;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=1QMrnQVo4O5SnIGabJN3wrTnW6MusZ0h5giYV4GIf1o=;
-	b=n2RrhcIM1b+bN/r7scmG1JXgz0qe0bB08JeYCsIP/hhYngMY5eyg5+Tyx3Nr8VvKXi/J
-	 0gn17o6kOMEhq3zyTsVH2QbK9co1MsDv5xEMvF5XvKp2I8X7jzcOsTmIe9ajmsvRXYEBZ
-	 6YnyJS5Ard1Z+NnSCxxBPgpLAfF3La7hlqM7IqsiAukKArnVnC1A75P2DbSCJ8YEAiiOG
-	 X3ZluiXVIY7HqXIvLFfi5+qw8MpUpN30vPCT51yAS8Ku+Yy0OMzTabY9HR8rsctDDUelK
-	 QLf3b1W7eTbS7Fv1HPxTbZn+7jh9BoN5LQo4zFuUvz2SW/WBQDkzleUcPWKBvF0ShOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794509149;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=o2qMJEH+31qggb6YqbR5qReK9kZYkIie2xHFXPABy7M=;
+	b=WAeSjZRqTsTl7b4e50FqNGBi5U40X7hOvWg/v48VPnkZHCuWD9+YXzhvU66dVF6XmeGD
+	 l+p5f4SS8WfugdlV4Fbhdm7W5Q5yrOICDNhR+YCyKYvehTPYd7Glkkq/l9KuYQUI0SbAn
+	 jcIf08cBPaLO4Dxuz+FWv0HgQSfg9uNZ2S1Yt3HCE0rOOEQeS/2N6Igb8D9oW0xA37v0H
+	 GwMdzEPd5VURZDGc1iQ4VKbLCnm56XYbGEn30yD4Csq0Z+Sf9M33H1aeaqaITAbhgYCbz
+	 tYdozPYMZAi0fJW8XnucQ28JgZZZm2t05P+xdPDinki1TiKBTujKtsLvpj5wKXOwDwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IHTOA7me;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WYKEnETn;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72629606A327;
-	Thu, 12 Nov 2026 18:45:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BDD7606A333
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:45:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BDD7606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IHTOA7me
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1E451F000C4;
-	Thu, 12 Nov 2026 18:45:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794509135;
-	bh=1QMrnQVo4O5SnIGabJN3wrTnW6MusZ0h5giYV4GIf1o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IHTOA7mej2k1aqlGQe0o2vMpa5Gw7UtlZwRhFQLZhUTCPvjZO46VWVXtxm6J6aWPb
-	 3DA2ss0NGpmaXuWwx3qDKIjM/7mIIpHQUFiHQ7rul2sbAYCgDUI/bRmUDwuzf6EvuP
-	 9APyFHKZhwk3J4J7QsFpl5djiJQLpgor+vvJZ35Xmo8RtVotrYFuFGP8WmlO7kgFsU
-	 8X4wJpKybcr5WqKLmdjUpPSVvmZv4My+ZLM1BpHQEc0/E/ehaBGmkKGVt/Vt1V711D
-	 /4XVd6l+Os/5iSG4YtWxiiYY5FJ7ra3yGPlaTOAxvcFVzd0T1aJKMtBVEoGPFQqmlU
-	 d2sk8BPTykwBQ==
-Date: Thu, 12 Nov 2026 18:45:23 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: David Hildenbrand <david@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Usama Arif <usama.arif@linux.dev>, Kairui Song <kasong@tencent.com>, 
-	Balbir Singh <balbirs@nvidia.com>, =?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, 
-	Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
-	Christoph Lameter <cl@gentwo.org>, Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
-	Chris Mason <mason@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>, 
-	Mark Brown <broonie@kernel.org>, "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>
-Subject: Re: [PATCH 13/13] percpu: queue the balance work on an unbound
- workqueue
-Message-ID: <avYJKR8fiETjd9sy@gremlin>
-References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
- <20261111-mason-migrate-et-al-fixes-v1-13-3d2454362e8d@kernel.org>
- <179450887590.482102.12180028123925629664.b4-reply@b4>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WYKEnETn
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-3791619605cso386329eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:45:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794509148; x=1795113948; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o2qMJEH+31qggb6YqbR5qReK9kZYkIie2xHFXPABy7M=;
+        b=WYKEnETnICcshBd/3HhBmqwjrcKe+FbTbYG4mIGPe3Gt+6T8ttAbfauJHC3wbnYNI2
+         N4W+1hX0tN1TiFkSUGF20Ufp7aOifT+NeDqD1SM3j0+/jmZrUNg3HlCMQPoRuAzmDApo
+         /ytIuoeddMZnIW1FBATf89vHQ+Ns5KRLIQseTsjQEups6kRFzSABIhx0gEferU0R3qYO
+         zYuwLHPmb/bdWeZsqHaIZ4W6fV0Zb9fJfF+8Sy08N2sKi9Faho3B3mgBRJzGIPa/43Fz
+         k0eir7hJmXlvb9chFcFblFVb3VZLzcZJJ3u1/K5BulVvqDIWb6KDbSV6T/ndl10J7BJ3
+         CqIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794509148; x=1795113948;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=o2qMJEH+31qggb6YqbR5qReK9kZYkIie2xHFXPABy7M=;
+        b=L4alGJcirFhn/b4eCGBW2aBNnvokWPjYgMopMCtEa/NTU5P707pY+n65+wHzia8il0
+         92BF4FZZoWWfMcdrczEOAvU9If8ZJhhLdKp7eBNmPTVIGflRIx1SuemJO8jOOLM4Z5HV
+         1aKS2iHE1JbDKWrkmEIIAJ20IE4twf5vDIxk10KHb/6EF/3iHNQWKY1u3hSCuGQ/NFQz
+         prkEsug/t817sBnc7MZ+XPCtubliJpXVngY5VqnMAEHxo80jL/bv5YA0n17pG03q9prS
+         KZo3VQNl6cmWeuaDJ+74B7xCgMGNdpRYrpJIwlJ2V+LzqCGs7ZZei+LNvkjHYeYqLwbJ
+         GPyw==
+X-Forwarded-Encrypted: i=1; AL+hErFZsIdWm7AuMSlXUlbRv2JJcX7YdxqTqk3Ead7HNnVTylHhrAS5dQsovD4aAz2bLVZPekWhe5M5oOTQ5Wc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+2+xEShkzryNob8m4VPuKloOWjL0pQ0pQn2z4kAjji+Mlb6PEo
+	7VtIKpFkYdPDsXe8Wz1pQCedDCbq8vslb3dNySxQ/cS7pnG7chOQLeCV
+X-Gm-Gg: AYBFou1E7CBqlZuIHYJ10FsuMLXEzrDTgqFS5uqOgtPCjD0OxHHeq49LGcitEj65NlO
+	F24kToGRxnxq4HAy39VegRJLSGcokGrspVAwiUitSrru04ISzeVhdvif8tHtBac3a/1jGivOz5s
+	TOPbNLO7ZQAry20XYQH+fHoF69S1/T85K1HcmuXV3/b9TbWvqbTZFMfsN45xeTjPZY+Coh9HH+J
+	eG4RYg129a8XLqRataloyD/ZA+5cBnYuYLNaD0fKC3KNThOw1tzlD6S/9JIyOOTIcQAPdUseFxM
+	AkbsFFaGstRWmoK5EueXJQ33Ud27klky//zkNeC9RTS3qmw/LZWw9iGAhZcAAN78/jEI4fXqSji
+	ICvqUSG1S2ERy+3cXRZogBUVN4yYiDIHbFrXFKYaF8LTpWHdPXPb/Yy5NOu86GdpoVBYh6J1gJE
+	tdUbh8+//jMwIGBFaQNBLs82FUzYaVn2WFGX3WPbeZI5Zc6QyoYL7BBk1TbsThQecpvxBgW2eX+
+	b/bfiKEGHWm5s8ZeMyRBvh+L69kIxij5PIwr9jIIqeqSZAVmc/qlN156m7cxcMzUOK2BwpT8FJU
+	wq00UgV2
+X-Received: by 2002:a05:7301:b06:b0:36a:1089:9836 with SMTP id 5a478bee46e88-3796628ce32mr27774eec.15.1794509147532;
+        Thu, 12 Nov 2026 10:45:47 -0800 (PST)
+Received: from eldorado ([2600:8802:b00:1f88::287])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bad134sm369524eec.27.2026.11.12.10.45.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 10:45:46 -0800 (PST)
+From: Florian Fainelli <f.fainelli@gmail.com>
+To: linux-mips@vger.kernel.org
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Paul Burton <paulburton@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	=?UTF-8?q?=E5=91=A8=E7=90=B0=E6=9D=B0=20=28Zhou=20Yanjie=29?= <zhouyanjie@wanyeetech.com>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	linux-kernel@vger.kernel.org (open list),
+	linux-clk@vger.kernel.org (open list:COMMON CLK FRAMEWORK),
+	hns@goldelico.com,
+	paul@boddie.org.uk
+Subject: [PATCH v4 0/3] MIPS: CI20: Enable SMP with two CPUs
+Date: Thu, 12 Nov 2026 10:44:38 -0800
+Message-ID: <20261112184441.3724150-1-f.fainelli@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,74 +106,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179450887590.482102.12180028123925629664.b4-reply@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 01:41:15PM -0500, Gregory Price (Meta) wrote:
-> On 2026-11-11 18:13 +0000, Lorenzo Stoakes (ARM) wrote:
-> > From: Chris Mason <mason@kernel.org>
-> >
-> > A burst of small atomic per-CPU allocations can fail with -ENOMEM while the
-> > machine has free memory and idle CPUs, as atomic per-CPU allocations are
-> > only served from pages that are already populated, and those can be used up
-> > before a worker gets to populate more.
-> >
-> > Consider:
-> >
-> >     caller on CPU 1                     kworker bound to CPU 1
-> >     ===============                     ======================
-> >     allocates 8 bytes, which leaves
-> >     one empty page and 4088 bytes
-> >       schedule_work()                   woken, waits for CPU 1
-> >     allocates 8 bytes, 1023 times
-> >     next allocation: "no space left"
-> >     gives up CPU 1                      populates pages
-> >
-> > The allocator keeps a few empty populated pages in reserve, and the work
-> > item pcpu_balance_work refills them.
-> >
-> > pcpu_alloc_noprof() queues the work item using schedule_work(), so only a
-> > worker bound to the CPU of the caller can run the work item.
-> >
-> > The issue is that the caller keeps that CPU - a task keeps it for the rest
-> > of its time slice, and a softirq keeps it until the softirq ends.
-> >
-> > In that time the caller can use up the reserve, resulting in an atomic
-> > per-CPU allocation failing.
-> >
-> > Fix the issue by queueing the work item on an unbound workqueue so that
-> > another CPU can populate pages while the caller keeps allocating.
-> >
-> > Fixes: 1a4d76076cda ("percpu: implement asynchronous chunk population")
-> > Signed-off-by: Chris Mason <mason@kernel.org>
-> > [ ljs: tweaked commit message, comment ]
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->
-> Reproduced with a cpu hammering atomic percpu allocations with preempt
-> disabled. Results are pretty cool.
->
-> In about 1 second of hammering allocations with the full 13 patch series:
->
->                         Base       Patch
-> Successful Allocs      1,188      131,072
-> Failed allocs          4,097         0
-> balance worker runs      0          169
-> successful retries       0         4,096
->
-> Micro-bench obviously, but pretty stark difference.
->
-> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+This patch series resurrects SMP support for the CI20 board. This was
+submitted back in 2020 by Zhou Yanjie.
 
-Thanks, that's great!
+Changes in v4:
 
-I will include that in commit msg on respin.
+• Enable the secondary CPU clock outside the raw spinlock
+• Mark enumerated CPUs present and assign hardware core IDs
+• Skip generic IPI allocation when the platform supplies both IPI callbacks
+• Fix generic 64-bit builds using CKSEG aliases and pointer-sized assembly macros
+• Reject unsupported CPU offlining with -EOPNOTSUPP
+• Restrict the XBurst SMP idle handler to multicore systems and recheck
+  pending interrupts after flushing the cache
 
->
-> --
-> ~Gregory
->
+Changes in v3:
 
---
-Cheers, Lorenzo
+• Align the second line of the readl_poll_timeout_atomic() per Brian's
+  feedback
+• Collected Paul's R-b and T-b tags
+
+Changes in v2:
+
+• Moved SMP sources to arch/mips/ingenic/ and the header to arch/mips/include/asm/
+• Removed CONFIG_MIPS_INGENIC_SMP, using CONFIG_MACH_JZ4780 and CONFIG_SMP directly
+• Renamed JZ4780-specific SMP symbols to XBurst names
+• Changed CPU enumeration to assign consecutive logical IDs and removed the explicit two-core limit
+• Changed mailbox IRQ allocation failure from panic to logging and returning
+• Shortened commit descriptions, removed Codex attribution, and adjusted source credits and sign-offs
+• Kept the clock polling patch and CI20 defconfig changes unchanged,
+  added Paul's R-b for patch #1
+• Updated the kernel baseline to include additional upstream fixes
+
+
+Florian Fainelli (1):
+  clk: ingenic: Poll JZ4780 CPU1 power status atomically
+
+周琰杰 (Zhou Yanjie) (2):
+  MIPS: Ingenic: Add XBurst SMP support
+  MIPS: CI20: Enable SMP with two CPUs
+
+ MAINTAINERS                           |   3 +-
+ arch/mips/Kbuild                      |   1 +
+ arch/mips/configs/ci20_defconfig      |   2 +
+ arch/mips/generic/init.c              |   3 +
+ arch/mips/include/asm/ingenic-smp.h   |  20 ++
+ arch/mips/ingenic/Kconfig             |   2 +
+ arch/mips/ingenic/Makefile            |   5 +
+ arch/mips/ingenic/ingenic-smp-entry.S |  54 ++++++
+ arch/mips/ingenic/ingenic-smp.c       | 262 ++++++++++++++++++++++++++
+ arch/mips/kernel/idle.c               |  30 ++-
+ arch/mips/kernel/smp.c                |   5 +-
+ drivers/clk/ingenic/jz4780-cgu.c      |   4 +-
+ 12 files changed, 386 insertions(+), 5 deletions(-)
+ create mode 100644 arch/mips/include/asm/ingenic-smp.h
+ create mode 100644 arch/mips/ingenic/Makefile
+ create mode 100644 arch/mips/ingenic/ingenic-smp-entry.S
+ create mode 100644 arch/mips/ingenic/ingenic-smp.c
+
+-- 
+2.53.0
+
