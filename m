@@ -1,49 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794475371;
-	b=q0MFHxrCMpOvfkR99ZlGPXz506BDc99cvwjnmg3PSy7ebCbjJD66Je2p0hL164xHfZu7
-	 t1/v7rW14h+/PkUzUILsXBUOHiNfzjeC+rdHNJNItZtjYFabL8bA+JDdhaUPUIR583kNy
-	 zYpUSD57Emhfu4NmwIenJnusj8+4RMR+6lgQvT346fL670iEV2xEarmyJS+3WP36j2mLj
-	 MRU68EKLMpYo2/j8tXpRGXlWPGdWkDRS8nyKdKuaozNNLHTKu4GIPM6k3bOnT3zOgdA+X
-	 eEENYG62DIMw8Ifk2MtHJNKBJeIrOSh7u2MvKldC6oB8LsRrVpW8hn5jjtYuL+Rp2OA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794475371;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=XLjQ9N+ETz22LHl7JVoKY8YKKdytIbDT+K/gK6twSwI=;
-	b=gC+rOf+HT7wrGXCUQPiPhC5C3PpunonmwvQ+BRQhGU8Ol6ibV6s5ptRz/XB26rCcJHlf
-	 ttHzxvX+eGZ6W9oDGv4E1SozgeF6puoecLLGx8O1MDFT54+1lrt8tqlhNTB+xEQRhaDHy
-	 fcfC/l1xG+q80gEUgGd0jBKoLylew8Ubx95iMwDkA4mnLBbxZ4Tp8pP1ryeYjuNU0j4I9
-	 A1cl1HN5O6Z5NvmtwWtrv9dz16AnrV2jekWojhn8iouPjnIj4v060En8P3SJwEDUEjf0B
-	 UzAWFVa4/xq1jO4Cewxm93GTvSO6PePaoYvCmL9FaKxyRNzrESoOnQv0pVOT27/oKiw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=cGyT9P3D;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B0FE3606A8A3
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:22:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0FE3606A8A3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794475354;
+	b=JNg72zK7rsD/++2NAE0nhQYWecjeqUlpQ/Q3x2x4Enl5QtEFslptFAgxStcmrVHYrOj8
+	 LHrd723wThKvNh18BQpKf4mV4E5wLlaArRSDd2ih/SZDAtWxLYFu9J6m2g78Jnkk3bY9W
+	 2afSJ9e7/S8wKz7JHf1dfsCl1d26YcVwe4QZX7FRaXTZAnaCNRHJFUK9LW//UpJqW2S/M
+	 NVdl1MoZ4AiFryqOi06gpHX6/DBmiZp0KqmtpklMGSepv9VCFUS4/kFFzHIcBcIfzfH0G
+	 OG+YpsclRXmsYfSni+EsYK9fXqTdjaTTPb8VgxooenWh1cgRqrK/81CFdWUXyxmLerA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794475354;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=cccUMx05jPVtgncaoOCw86iG1kz4fwGOT9LlfXUuuVA=;
+	b=s4ngLFBUBxod+xguB0cAQodMkU2ENhZ4cV/aLFwAdJfwkKqgwoDT2B9GyCcYnaqBCKAu
+	 MEP66nHdDGEjl+pqhEUu2acV7EtQ/ecQ2PJk5NkRCUEgBlA/okocsxjFu+J3PTfX9Grgd
+	 JuMzjVrkxp/erhbYqEVRdzS96Zbc8nD8TUspNGITm/3TdjYXdyYenkta734ZqNPvWV9U6
+	 o6sU5OA1rRCh2Nbe1QNeAH/AfSsSNeZWAEi95BdsfYsczdfMPDRhx2nCu6ZAaWdONnc4j
+	 yGNO4XLi6uRyrQcxgf3Bc4laQChYRTVvC5O+hp4kxGgFV/lmL/RK4sbD7XuCxaz4Nlw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KyXNeQvs;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 226BF606A890;
+	Thu, 12 Nov 2026 09:22:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=cGyT9P3D
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DDB01153B;
-	Thu, 12 Nov 2026 01:22:46 -0800 (PST)
-Received: from [10.0.130.226] (e127648.arm.com [10.0.130.226])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5E7CE3F632;
-	Thu, 12 Nov 2026 01:22:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794475369; bh=7msOILnF2iV34j3YNeMMSLuZTv+hcDHQmdRUXPoS4iw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=cGyT9P3Dp5Yok3OCIw76O+oLX1gE4awDG/OBBDi9aY5DCbqh0VKIV1choshoK0vUk
-	 xHLXSl84F+0IbRUf8y7tdktYsu3mWFi78nCAN2XLV/zXiKQk4CuOol+YgbtWgVrquy
-	 nXGHvjycRU7ysM5MxlGNkd0VqS/X7ZMVOyez0+Pc=
-Message-ID: <10a9170d-9ec7-46be-ad0f-d364c65563cd@arm.com>
-Date: Thu, 12 Nov 2026 09:22:46 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KyXNeQvs
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794475354;
+	b=LyNZ9op1c5KYk9xM25LpnA99F3RwtO4E+gZvmUGRRSu9bB7aguCQqggWMQSWg1Q7leHP
+	 RhaJxzPWFbgOZtYVXWBZmX7oGveoan2ry9A/o91tjrKe/kfUR2wIUTZ1jQI8yIWQIKsfO
+	 LroCAVQ2OJqHhQizYOK0pFw8YkpPe4UjXZRFUSJaxN9P43PtVWTuEumTXFl5j6j2q7+IJ
+	 YiE1NiKMHZeY1kWR5duIKDxhqidJEKkMruFEPHmwPhubf3T4GbpVjBhBN//BYtWXqifkd
+	 np39dcFKPc9mi6/ufOLWavVMxjQRyYhtSnwLtkdI9ZKXpXnt/ykULSh3f/OTjg++AqA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794475354;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=cccUMx05jPVtgncaoOCw86iG1kz4fwGOT9LlfXUuuVA=;
+	b=2JzHPD6fw3nvrLeYMYKXSyIIu3hwoIDuXiaTSWiGY6uABx1fVXxmsQ4b4I1zpvTuPSCA
+	 NoTm1ekgkHpiLeGq5PvL2/zUpaMdgDBsXkWReQ/SEgMkr8MH+offWp0GugAfrPOMSlwYc
+	 Q5a55pj9IZfBZI4Hm+Qvt3aCWXFE8focl6x0a/2QTlGcuBIvLyav39MShD+Upbw/+gSy1
+	 0E9ZtLJAQctV8kDDJsDQdZafxGyghbpohFvUo9WxTtPJ+jluxYm55p3AxYHu3V3e9ZNHs
+	 l6EB6giP/jFefgbaT8JJRdEuuv+Q9Z/COcXrHnMHcu/yfBwCbIHQSoj2mBDA070OeMA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 32A3C1F00A09;
+	Thu, 12 Nov 2026 09:22:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794475353;
+	bh=cccUMx05jPVtgncaoOCw86iG1kz4fwGOT9LlfXUuuVA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=KyXNeQvsZakgxoPD3Dq2z4CD0q19/soPgVwSEnt9AMvm9Cem9FN3pPNxi46ywpz6z
+	 444ou63psGpc3C7UD4wSmTa0jBzbfymLHqZ8E7MlWZkfX9gs29YMDC3uiqAYO7u45N
+	 ixY2RzHNVZ24pNP8LTKgI8NA/QeocdsLnWPFAOGFnMlTW2QprrKwL5/vznjfntLcbO
+	 Wy5vZGxDo/hP8uz5ccWvahx4F4vOEFvdrEtdmsCMN6kGqdBG7zdLmOW979I/v9L/wu
+	 bp8Hd2gW0QtS+Kae8Ru1LiJW5tNWPdB3usZA1b95Yxp0M7Gyu+CiRmdLTpHbXd6NfZ
+	 r3vFxETgEydRQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B1EC249438;
+	Thu, 12 Nov 2026 09:22:31 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Thu, 12 Nov 2026 09:22:34 +0000
+Subject: [PATCH v3 4/7] arm64: dts: allwinner: h616: Throttle the GPU from
+ the GPU thermal zone
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,80 +83,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: topology: Reduce the skew for AMU feedback
- counter sampling
-To: Beata Michalska <beata.michalska@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, Vladimir.Murzin@arm.com,
- catalin.marinas@arm.com, will@kernel.org, suzuki.poulose@arm.com,
- xuewen.yan94@gmail.com, linux-kernel@vger.kernel.org
-References: <20261111124005.2688820-1-beata.michalska@arm.com>
- <20261111124005.2688820-4-beata.michalska@arm.com>
- <1493f335-a808-471f-932a-393aaa390d25@arm.com> <avS3CJI82z3xDQQT@arm.com>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <avS3CJI82z3xDQQT@arm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261112-h616-zero2-dt-v3-4-1cd2664230c8@gmail.com>
+References: <20261112-h616-zero2-dt-v3-0-1cd2664230c8@gmail.com>
+In-Reply-To: <20261112-h616-zero2-dt-v3-0-1cd2664230c8@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Ryan Walklin <ryan@testtoast.com>, 
+ Andre Przywara <andre.przywara@arm.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794475350; l=1929;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=teKOTEf4Ehrd6NI/Dk5AeKkHXxd5JXaOLzoyVTpHUvU=;
+ b=JBr93kA1oG4JitFGW184ouUFCxghNk+USgl3FzROcYvTllJd5XDtvNlH/6P/bErKNBm1n82qc
+ v0uIyQJqNzbAcERbs+e6cuMCq8aWUprp0daEkJT4xR6thVHNpE5OrBl
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
 Content-Transfer-Encoding: 7bit
 
-On 11/11/26 18:42, Beata Michalska wrote:
-> On Wed, Nov 11, 2026 at 02:08:11PM +0000, Christian Loehle wrote:
->> On 11/11/26 12:39, Beata Michalska wrote:
->>> With the FFH support for CPPC, the AMU feedback counters, core and const
->>> counter, are being sampled to measure CPU performance. Checking for errata
->>> (which can affect both counters) between the reads delays the second
->>> sample and can skew the result.
->>>
->>> Take both samples in succession, then discard values from affected
->>> counters. This narrows the sampling interval used for CPPC feedback.
->>>
->>> Signed-off-by: Beata Michalska <beata.michalska@arm.com>
->>> ---
->>>  arch/arm64/kernel/topology.c | 76 +++++++++++++++++++++++-------------
->>>  1 file changed, 49 insertions(+), 27 deletions(-)
->>>
->>> diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
->>> index 66ac67bd025e..c968fa5b0c88 100644
->>> --- a/arch/arm64/kernel/topology.c
->>> +++ b/arch/arm64/kernel/topology.c
->>> @@ -381,29 +381,45 @@ enum cpc_ffh_ctr_id {
->>>  	CPC_FFH_CTR_CONST = 0x1,
->>>  };
->>>  
->>> -static void cpu_read_corecnt(void *val)
->>> +static inline void cpu_read_corecnt(void *val)
->>>  {
->>> -	/*
->>> -	 * A value of 0 can be returned if the current CPU does not support AMUs
->>> -	 * or if the counter is disabled for this CPU. A return value of 0 at
->>> -	 * counter read is properly handled as an error case by the users of the
->>> -	 * counter.
->>> -	 */
->>> -	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CORECNT) ?
->>> -		0UL : read_corecnt();
->>> +	*(u64 *)val = read_corecnt();
->>>  }
->>>  
->>> -static void cpu_read_constcnt(void *val)
->>> +static void cpu_try_read_corecnt(void *val)
->>>  {
->>> -	/*
->>> -	 * Return 0 if the current CPU is affected by a HW erratum.
->>> -	 * A value of 0 is also returned if the current CPU does not
->>> -	 * support AMUs or if the counter is disabled. A return
->>> -	 * value of 0 at counter read is properly handled as an error
->>> -	 * case by the users of the counter.
->>
->> Since you're moving this comment around, AFAICT it's not actually true?
->> cpu_has_amu_feat() is checked (which will return -EOPNOTSUPP) before
->> landing here, right?
->>
-> Not entirely, no.
-> `cpu_has_amu_feat()` verifies the support for AMUs, the extension itself
-> (ID_AA64PFR0_EL1). Workarounds are applied on top of it.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Right, I was only referring to:
-"A value of 0 is also returned if the current CPU does not support AMUs[...]"
+The gpu-thermal zone only has the 110 C critical trip point, and the
+GPU node is not a cooling device. Once a board describes GPU operating
+points (panfrost devfreq), the only reaction to a hot Mali-G31 is
+therefore a shutdown.
 
-> [snip]
+Make the GPU a cooling device and add a passive trip point at 85 C
+(2 C hysteresis) that lets the thermal core lower the GPU OPP. 85 C is
+the CPU alert level mainline uses on the H6 (same thermal sensor
+generation), and is below the 90 C at which the vendor BSP for the
+H616 throttles the GPU (it maps the GPU to its CPU "target" trip).
+
+Boards without a GPU OPP table are not affected: panfrost then
+registers no devfreq cooling device and the map stays unbound.
+
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+ arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+index 68bd6137c316..93c3b8279241 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+@@ -162,6 +162,7 @@ gpu: gpu@1800000 {
+ 			clock-names = "core", "bus";
+ 			power-domains = <&prcm_ppu 2>;
+ 			resets = <&ccu RST_BUS_GPU>;
++			#cooling-cells = <2>;
+ 			status = "disabled";
+ 		};
+ 
+@@ -1124,12 +1125,24 @@ gpu-thermal {
+ 			sustainable-power = <1100>;
+ 
+ 			trips {
+-				gpu_temp_critical: gpu-trip-0 {
++				gpu_alert: gpu-trip-0 {
++					temperature = <85000>;
++					type = "passive";
++					hysteresis = <2000>;
++				};
++				gpu_temp_critical: gpu-trip-1 {
+ 					temperature = <110000>;
+ 					type = "critical";
+ 					hysteresis = <0>;
+ 				};
+ 			};
++
++			cooling-maps {
++				map0 {
++					trip = <&gpu_alert>;
++					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++				};
++			};
+ 		};
+ 
+ 		ve-thermal {
+
+-- 
+2.55.0
+
 
