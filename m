@@ -1,78 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794508701;
-	b=bzST7dLZA7fZNbDoHy/nC4b27Vp6nmvtlnkygcgnYsuWD6Xnqc4wyHVio/Q6dy87NUs2
-	 J6QrxUky2LQTHAr8jRfdFQuvcwZ0+vWxyyKiigb1O8c+/n1pLUdI223RVYQ6pvmIDyw5A
-	 Mtzo7PDMobCvlr0HNxefeZHifWAIpD/B4t+g/bBZ9Ez9CJQfnHUz8pAhEyvuFhyFwcjpk
-	 X4m9/p0nxTngVCDt3ZIpBPdrsQ9YHelZK5Ln2i+e3SyraTUcXc2fO2BOjEgl8xLCCQQLj
-	 9fS+OOjS7UahRYHZzfbHEvbwFahchTGSUpsc8wbvVXnB+AoDEFkRgnqX6GpEprQgbZg==
+	b=wteecmL+Ze1OKZfQG7DZP4ns+76kdrxKe/LI/j1HuQtfWAYaPchFCUrRm4AGq4c3ZHQy
+	 15WTc1ksalsXb7C2yrBGs0eEeZYb2nonr5ueT+WSIQ2pi6dG7strwWJ2ilkC3/j/os9Ql
+	 XUxOrf6x/EGcFZ+AaD+o7VU9OINO67XbqDNh2J6u3SAW+UZHtiaL+NF09MQdsyhJqXjJb
+	 1IIC0/v7kvuBFtQVRnMKjonezVS6IIGXw3/J/WCQpr42ty+0/j79X1DgA6qHC7wArVxXG
+	 XXpFAx6trNRKL3n+yzZXBfY992bQqkJzGlC6Y2gM4DMAFnqaLa16W2AZ/cVOqnX1IUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794508701;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=jG//rwm8BG3eLa8N18ZMGuWXVwaEsdy3p2tva64gqAI=;
-	b=ozsVbuZO5Cx9TbrY2nsLbyGuHffT8eHVL5U8Td/D8ss7hX8e+RzxGzIqvdqkHj38sRus
-	 wVI5fc8jm81VHGkLgfrfU/SLI3EhG90Cuq4QUJOAjtp+UkmTn1gAi7DB8DFLEL3bqNU1W
-	 PWzN1XX8pUbfpUELRxmS06EaPKERCGOL2LAsweP651KzqTymKyEafBr80lHtbd2QzmAqD
-	 NO4FtoaF0g0mV/EsWSQ5KrHkgCMRKzNDufYIaHV+6rnoORxJY5pDK37VKFreTr6TSZZpr
-	 4Hl9TUdrG0+Ea9wqGBPKkEOc3m/mlXhaFOARj15KOKSPnQGQCjGV4GZMxvpScFrC0sA==
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=L7x9fVXIk3YLtUocHW/Jzi76+9mdCpISM1XeN9QuiyM=;
+	b=wXW3HeHiz6fW37PcusSPZr5Vsv7bMO7KYzyTO6tRytNlkA1yXZCTcACLPLvQcAGawwJ/
+	 49rvM76EKU1HF3u30Dl4xTFHUyIGUYWTJb49c5eRZjQPxTfiptY1eTuSvbs7JVsmDqM91
+	 KFFBpbdibJ3PkAw4MGmWu/HPMe77zVLaFoIpieUF2cs//uVOcAhgNs9rJ30jqhhGcnIMG
+	 tBAuXLb/lSnvf4zSQLT9q3BOHSQhRmc7wFpFP3JjC3NZe/vWChe0ByDZlmdfliuzK/0oD
+	 x8IIaxHU+KaX/tyXOchjILZejdsd6VyFwAKXSLodv3doRCuh7XKpQcJz3o10uvTS12A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Mo4MerTY;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LEBUXzPW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCCEF606A339;
-	Thu, 12 Nov 2026 18:38:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCCEF606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C33606A33F;
+	Thu, 12 Nov 2026 18:38:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Mo4MerTY
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A667340E0234;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LEBUXzPW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29B1E1F000C9;
 	Thu, 12 Nov 2026 18:38:18 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id Or4TjDU85gde; Thu, 12 Nov 2026 18:38:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1794508695; bh=jG//rwm8BG3eLa8N18ZMGuWXVwaEsdy3p2tva64gqAI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Mo4MerTYL5zvhK7FI25GpXleAh4ozLKh1Zu+0fQ8E0x71yYSlh537Fv5NGCfqjXS8
-	 hYWT1DaXzV6ZyOc9eylwwUDe5Rc/UP7SQ088RpeesJHZtN+Bok5cp7E1jR/NBVo+c+
-	 wLmWIox6h4Z52Hp+/qM85sTf/0x2LWNMg70ffnCaIPxehoYIHcL/d/YFqP/8neeBKg
-	 34p2CzdnDLEfGU4npMXSEXhT8u4r24g0MN7cSX/oZkARkEF66ej+a6ZnpLcdsl/Ezr
-	 QCLm3Iwb/JKDgAL/jrUB5eJefUaeFLd7dmoYthjsQe24pcx99LFCwmqDyv4VZLJqyb
-	 Oe1vGXX9iy7GaWR9Gg25EgkjJ23asBNAeA5CBWU4kLGvukUdK/hN+OlMyBEXDigea2
-	 CVa85rHZTm74BPy3YH66pYfIWGp+j5n8e+AdgdJo3xBdQOuIJx1qcsnZztJ43kNA8k
-	 Gktd9FSHA9Qlc2WLUTRgeNvGVqx0cf2laztG1BWbFAdAr74naPh7FnzrEftQuj6zo7
-	 0F05zU8pvhvb/yrkXSPwKYdSwOF49pce0WMFdM3LJpy0JlnNCksB0FiByLyfYoH8em
-	 EbwAQmf/EqrKnSJ3qXV+rVK4BK7PL4NVKJO9XnS5Anez6OhtYuXEVLtJIw02VGaJqe
-	 2iQppytewMA2SdliIi6ARnrQ=
-Received: from stx.tnic (unknown [209.52.143.85])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 2484B40E0222;
-	Thu, 12 Nov 2026 18:38:11 +0000 (UTC)
-Date: Thu, 12 Nov 2026 10:38:09 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Yazen Ghannam <yazen.ghannam@amd.com>
-Cc: linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v10 3/7] RAS/AMD/ATL: Add unified UMC address translation
- interface
-Message-ID: <20261112183809.GFavYHkdBpCEpwPWR5@fat_crate.local>
-References: <20260922202318.4079080-1-yazen.ghannam@amd.com>
- <20260922202318.4079080-4-yazen.ghannam@amd.com>
- <20261106175635.GAau4U08ECoVyMTEy1@fat_crate.local>
- <20261110152106.GA1579751@yaz-khff2.amd.com>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794508701;
+	bh=L7x9fVXIk3YLtUocHW/Jzi76+9mdCpISM1XeN9QuiyM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LEBUXzPWAsbf071BULHrEEhI/zwFZI/qjjvxJA4hgrD4BGpODUz6udClZy8WSqDAY
+	 WHXI5JIWFzz7RltAvOzuy0YhZwGckicTTpUVYk2KIcL9P1JX1hP6Am+YBf5LvPwuDm
+	 MxyTWs1q+85eYL8pLvDQgRdBYD0uJskQvCm0pzTnx9hVm6sUupUnF9t5GfLSQPMHOE
+	 9jEqd/MNMtUEbamgYO8Olx4/uIDkiR37I68rjLDz2Mb7U+29XTOCUngF/WCVFgxcA4
+	 CdRYJQ7U7T0GosfI7GRu6po5gmyylXm6zZO7Xl0+CziIXhBsqnTC1A0XUHICDidBh1
+	 y2bP54tP4rPxg==
+Date: Thu, 12 Nov 2026 18:38:16 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Gabriel FERNANDEZ <gabriel.fernandez@foss.st.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Christophe Roullier <christophe.roullier@foss.st.com>,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/5] dt-bindings: arm: stm32: Add clock-controller
+ sub-node to STM32MP2 SYSCFG
+Message-ID: <20261112-worsening-yahoo-323ef21dc921@spud>
+References: <20261110-ups_mp25_clk_syscfg-v1-0-667829cd290a@foss.st.com>
+ <20261110-ups_mp25_clk_syscfg-v1-2-667829cd290a@foss.st.com>
+ <20261110-confidant-bundle-08385b99bd78@spud>
+ <c4f08bb7-cea5-4f79-8a11-4045220f3b89@foss.st.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,27 +70,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hlndOg5Yw8RzH+lw"
 Content-Disposition: inline
-In-Reply-To: <20261110152106.GA1579751@yaz-khff2.amd.com>
+In-Reply-To: <c4f08bb7-cea5-4f79-8a11-4045220f3b89@foss.st.com>
 
-On Tue, Nov 10, 2026 at 10:21:06AM -0500, Yazen Ghannam wrote:
-> > Please remove text explaining the code.
-> > 
-> 
-> Okay.
-> 
-> > > Assisted-by: LLM
+--hlndOg5Yw8RzH+lw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I'm sure that assistant will help. :)
+On Thu, Nov 12, 2026 at 09:36:59AM +0100, Gabriel FERNANDEZ wrote:
+> Hi Conor,
+>=20
+> Thanks for review
+>=20
+> On 11/10/26 19:54, Conor Dooley wrote:
+> > On Tue, Nov 10, 2026 at 11:42:17AM +0100, Gabriel Fernandez wrote:
+> > > The LTDC pixel clock multiplexer of the STM32MP23x and STM32MP25x
+> > > SYSCFG is described by a clock-controller sub-node of the SYSCFG node.
+> > >=20
+> > > Add this sub-node to the SYSCFG binding. It is required on STM32MP23x
+> > > and STM32MP25x and not allowed on the other SoCs.
+> > >=20
+> > > Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+> > Why does this need a child node at all, can't the clock controller
+> > properties go straight into this syscon node?
+> >=20
+> > Cheers,
+> > Conor.
+>=20
+> I sent a v2 [1] shortly before your reply, which explains this in the
+> commit message, but the question still applies to it, so let me answer
+> here.
+>=20
+> From a hardware point of view, the mux inputs could indeed be described
+> in the SYSCFG node. The problem is that this node is a "syscon": when
+> the syscon core creates the regmap of the node (syscon_node_to_regmap()
+> or syscon_regmap_lookup_by_*()), it takes the first clock of the node as
+> the clock of the registers, keeps it prepared and enables/disables it
+> around each register access.
+>=20
+> The SYSCFG has no clock gate in the RCC, so this first clock would be
+> the LTDC kernel clock, i.e. the first input of the mux. It would then be
+> enabled on every SYSCFG access by all the users of this syscon (PCIe,
+> ComboPHY, Ethernet, OMM...).
 
-> I had considered that. But I went with the flag idea so that we could do
-> multiple operations with a single call.
+Why are any of these things getting probed before the clock controller?
+I had it in my head that clock initialisation was done super early on,
+before smp even begins, so the clock driver would probe and generate the
+regmap before this can happen?
 
-Fair enough. Less overhead is good.
+>=20
+> Registering our own regmap with of_syscon_register_regmap() from the
+> SYSCFG driver doesn't solve it either: these users reach the SYSCFG
+> through vendor phandles (st,syscon, st,syscfg-amcr) or by compatible,
+> which are not tracked by fw_devlink, so one of them can create the
+> syscon regmap, with the clock, before the SYSCFG driver probes.
+>=20
+> Apart from adding a dummy clock in first position, which would describe
+> something which doesn't exist in the hardware, I didn't find a way to
+> keep these properties in the SYSCFG node. So the mux is described by a
+> sub-node with its own clock inputs, like the USB2 PHYs of the SYSCFG
+> which are already described as sub-nodes.
+>=20
+> In v2, the '#clock-cells' property of the SYSCFG node is deprecated, so
+> that the sub-node is the only provider of this clock. No driver ever
+> registered a clock on the SYSCFG node, so this doesn't change anything
+> for existing devicetrees.
+>=20
+> [1] https://lore.kernel.org/r/20261110-ups_mp25_clk_syscfg-v2-0-624559bb8=
+ec7@foss.st.com
+>=20
+> Best regards,
+>=20
+> Gabriel
+>=20
+>=20
+> >=20
+> > > ---
+> > >   Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml | =
+6 ++++++
+> > >   1 file changed, 6 insertions(+)
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-sys=
+con.yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> > > index a559f8b03b84..38c844e8f19d 100644
+> > > --- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> > > +++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> > > @@ -45,6 +45,10 @@ properties:
+> > >     "#size-cells":
+> > >       const: 1
+> > > +  clock-controller:
+> > > +    type: object
+> > > +    $ref: /schemas/clock/st,stm32mp25-syscfg-clk.yaml#
+> > > +
+> > >   patternProperties:
+> > >     "^phy@2[48]00$":
+> > >       type: object
+> > > @@ -80,6 +84,7 @@ allOf:
+> > >           - "#address-cells"
+> > >           - "#clock-cells"
+> > >           - "#size-cells"
+> > > +        - clock-controller
+> > >           - phy@2400
+> > >           - phy@2800
+> > >       else:
+> > > @@ -87,6 +92,7 @@ allOf:
+> > >           '#address-cells': false
+> > >           '#clock-cells': false
+> > >           '#size-cells': false
+> > > +        clock-controller: false
+> > >           phy@2400: false
+> > >           phy@2800: false
+> > >=20
+> > > --=20
+> > > 2.43.0
+> > >=20
 
--- 
-Regards/Gruss,
-    Boris.
+--hlndOg5Yw8RzH+lw
+Content-Type: application/pgp-signature; name=signature.asc
 
-https://people.kernel.org/tglx/notes-about-netiquette
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavYHlwAKCRB4tDGHoIJi
+0qQzAP485R+QaU2P6b2L0zrS4zCbRiMyXVxuo3+/WUU3dc7jMgEAkdBGsN+zsL7t
+gKc+WZyW1vlVRn7hzQFLhLkjB2PatgQ=
+=UEaX
+-----END PGP SIGNATURE-----
+
+--hlndOg5Yw8RzH+lw--
