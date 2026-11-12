@@ -1,69 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.251
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794451342;
-	b=YUiVjoiRzHoa+npYRlkJ/WBx9iRUZvZD5+MlI7mlctnc2QnwgegJc3K0EzbqDHJqONvb
-	 MO2PUsgvyjAXXBO+FqN7lNnSJ2CaThkUY64F2mIpqMGHAExlbL8nTEIzbMUaxFZqbA6xS
-	 boFM37qsEIZwy/nAOujK9P8pjem+y7YZgBisTffZMAO+tC2GcJ7b6/iO6swB9nAo8hn69
-	 yV4/00hPUb/SPTEOTHLsid/rMlsSbdviXI+k+QdLmR+XiVY0ZQTscAnspOrLG775tGmAW
-	 tInuN7oFc1KZCIsPO77VFgGbWKRYTIU/W7ffJfJjy1PR29zraRg0YwuY/7ag5zr80gw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794451342;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=BmMZehpDKSpEn7nRN/rF7DeEJUhsnBSKzNR43ZzewZI=;
-	b=T49qG7KVcqHmg8bspa6BbPSExj9JBCOOnkqlOJS1wxhtz2NwEfcjIKXfttRRAUmqGgAG
-	 eFmpcovrNQ950m3R6m6/88ljto7WG1JVv0tetxe/+E3Km17RLgZOUy16+scK8dxM7wKnQ
-	 aCQMkXkKcBIzvJYgTUhOjoIBQPUVjxYvr9lNMVAwme3hjXTCRH2guEw/9mkkzdkLYbep4
-	 pCLVy0aBFoQ2UjSRORt7yiBuGpyzyIHcFfRKi7lxgBV/5qIteNcjqVEuu2WgUtH5FqXzA
-	 Dwafsuv9kOmelHbN51t3lDyJc03fj9h66f549+iYhG6hb/eQyG7Zv5jXVf2kowgXidA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xt3z8Ap7;
-	arc=none smtp.remote-ip=91.218.175.251
-Received: from mta0.migadu.com (out-251.mta0.migadu.com [91.218.175.251])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.69
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794451387;
+	b=2tvNl0skwKxbLMu0SdWNcqw8R70NJo07+nR4eyHDOkh5HnPG8IuVRqKaD8UMC1lpuBTr
+	 zZ662FaZx19hFpCTkCu3FnGjOQ0D63imFB+7d8s//dGg8XPnI7OZOlvshoz0wnlXGnUKT
+	 gZVeUrDlvkCW+jKQOoPnB/s8ITzTo1AvsK3QAMR8nTfFrZLR/HjBzKUOGEt036JmsMzEM
+	 NKaNMzITxg2K1Oq+zPgeVJPwJD61Qo5KHJxzD5kB1o54nQ8jIt5EXSAAgQBaX6RCmY9S+
+	 /C1qNY8/0dG5+38ejawuW5gMQIhMN+vfjutXGtEmu5d5FwRKdSk7JWF/4Wwugxhz4jA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794451387;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=RsiQZJdEXDMF5iUujGZ9PiIFb9cPbaOip0t29zAFuDA=;
+	b=cblXpjcJumBv7tgeMJGn+GQh9ocSf6Y3jsE3nlBREtkvgzGGEzH1aWaNsJFC0c1jrG76
+	 +3UHBHbbBBL6TJqakxmzrfja1ZFkur4fbyri68/w/K4HAxLmGDE9olnQj8Hq29WewSc64
+	 UB8GKf0tJFlf4KvJeP2IdG7Y+Da+bH/4c7kmaJf6CbmH5Y+gKYtk4L7F6+eUpbYs+xjyw
+	 qMyt1oyuKnldeqxkd9BvtfzqV59/GJtaP7KaVxQRvBBB/6EsoxBPpuCPuOEVNMc3PGQ9U
+	 iNDzwezjIIUL/CX7TctZqmA9H0RhGqfUbTUEYr6+BQNZ+ejFd8eIJtaLIYMPWp/MJiA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YrOI5cqB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.69
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012069.outbound.protection.outlook.com [52.101.48.69])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4439C606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:42:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4439C606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE5F606A31C;
+	Thu, 12 Nov 2026 02:43:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBE5F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xt3z8Ap7
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=hUR76X8sOGsT1gQiqGf/UMfNUHj/r2aGOXHtYORE5aU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794451339; v=1; x=1795056139;
- b=xt3z8Ap785+aZPG1wBch9mMr+RRwQbj/xK9txSB+hIQKJ/Fx5E1D3f8XKoH56118ZhNWliD2
- qT0i5xAvBTPcBMlJWR1raxN0hltgEfoSbwEEGmkOX4lGuYqpkqtf0cAAAg5LLZHHromiwNkQV5p
- HYaQ8ItzPlkeMvAfhK3RYlfc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a6a23ddec0f4e7eb;
-	Thu, 12 Nov 2026 02:42:19 +0000
-X-Mizu-Trace-ID: a6a23ddec0f4e7eb
-X-Migadu-Flow: FLOW_OUT
-From: "Luiz Capitulino (Red Hat)" <luiz.capitulino@linux.dev>
-To: x86@kernel.org,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	hpa@zytor.com
-Cc: linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	corbet@lwn.net,
-	rppt@kernel.org,
-	blum@kernel.org,
-	david@kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH v4] x86/corruption-check: Remove the BIOS memory corruption check feature
-Date: Wed, 11 Nov 2026 21:42:10 -0500
-Message-ID: <20261112024210.3984587-1-luiz.capitulino@linux.dev>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YrOI5cqB
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TLKbbmRSpxKdj0Zvdzfqd99lN4MPNsV+cClrStErgGr9lOI3hIqGaOokabEoeagG0be11Y/ikizaW6dlROaAkrDpN7GI4x9Z8h9+NgIkISY858DZkL4yCMQAJXeQp0LuihhzYteDpNFQ70/lrfxfKpcl0Rl7YAIfkoAVxWGM/E75Lg1faebrtY2xzVWB77zosfFO3jxkZCbRuubv+nOsr3ih1cBBAeW+EK+qlhMKIcosCsrn8tcsM2YTb6UGBQPIWV3x+DWgx9f6T2x1I8Cwr6pLgp02N7zKuHoYQO9qr/bFCxL1gm5BUTPj8Rct6oEcG3KJgQv76mkAIFPSVUjCrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RsiQZJdEXDMF5iUujGZ9PiIFb9cPbaOip0t29zAFuDA=;
+ b=gFWkTuzOSatk++5y20TTiqKNgzjiildrHjJ5a2dOX/druzIi4CtV5B+XinmqV4vZnDdbzqpqnApcr5GAh6C4wGPSLMcmZzWVkFBq97fQqG3G612vqarCaBv/lRDHBlTP66kzj0qsHA7py/uZonpYgZmitsXXbOQ5P3CZT6m2UpvLwPWHK2KamJlvAMJVjc/SfuX63+0W9OboNzMI2ba1Oo1Zq9+1mhGyjT8fhAx7cdgDa3DCOAT9exuxcYLsdG6CP+1lDtBybmKI5CSr1L0jxZgNBegJZnkGkLsUkjMI54YqQHIlgBeyWe5ZvpWpXRroltvH68oG1zGNZTH1CPSMbA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RsiQZJdEXDMF5iUujGZ9PiIFb9cPbaOip0t29zAFuDA=;
+ b=YrOI5cqB1mLeXmCQuaxzjRQ0va0zEJgZUhylTq2bJbN4e7sBU7qr1TgPyZJBU0ltkB+m3Owo8PdM0N2Ke4cKGXVR8qEqDqYpEs6KqL525kmvkWNv/ipnyIn486UWvmZ2NkLMwlfMPK6EHxKYdCmG/OVSpCMMYTjI0Rk5pSWgoVE=
+Received: from DS7PR03CA0154.namprd03.prod.outlook.com (2603:10b6:5:3b2::9) by
+ DS0PR12MB8245.namprd12.prod.outlook.com (2603:10b6:8:f2::16) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.9; Thu, 12 Nov 2026 02:43:03 +0000
+Received: from DSM2EPF0000000E.namprd02.prod.outlook.com
+ (2603:10b6:5:3b2:cafe::36) by DS7PR03CA0154.outlook.office365.com
+ (2603:10b6:5:3b2::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
+ Nov 2026 02:43:03 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DSM2EPF0000000E.mail.protection.outlook.com (10.167.23.8) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 02:43:03 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 11 Nov
+ 2026 20:43:02 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+Date: Wed, 11 Nov 2026 20:42:59 -0600
+Subject: [PATCH v2] pinctrl: amd: Steer GPIO interrupt to low
+ power/efficiency cores
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,431 +99,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261111-superm1-pinctrl-power-improvement-v2-1-3b294116c835@amd.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WOTQ6CMBSEr0K6toYWQsSV9zAsaPuUZ+xPXkvVE
+ O5uwRM4uy+ZfDMLi0AIkZ2rhRFkjOhdAXmomJ5GdweOpjCTtexECY9zALKCB3Q60ZMH/wLiaAP
+ 5DBZc4n3TtrUZQcm+YcUTCG743jeuw4/jrB6g0ybeGhPG5Omzn8hi6/2zlwUXvFUKOm2UkXC6j
+ NYctbdsWNf1CwhG1ETiAAAA
+X-Change-ID: 20261111-superm1-pinctrl-power-improvement-93440daeb293
+To: Basavaraj Natikar <Basavaraj.Natikar@amd.com>, Shyam Sundar S K
+	<Shyam-sundar.S-k@amd.com>, Linus Walleij <linusw@kernel.org>, "Bartosz
+ Golaszewski" <brgl@kernel.org>
+CC: <linux-gpio@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Mario
+ Limonciello" <mario.limonciello@amd.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DSM2EPF0000000E:EE_|DS0PR12MB8245:EE_
+X-MS-Office365-Filtering-Correlation-Id: a3a1080f-bda0-4ee9-6ac5-08df4066ac7a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700016|23010399003|261009223027099003|18002099003|3023799007|261022105027099003|261021121427099003|261102123227099003|261028144727099003|261026121527099003|261026140227099003|56012099006|10067099003|11063799006|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	wQaamLce6L63La1OTD1dAHO8eSfTIZ41chp+yu7b5BMPY7nL8qCVn7X39Ngf4jkstEznlO5fjpAncmF6fPTJUgP5E8DyJSD3VvScIi4Adt3jsirStdgBMwptFLfgWvNBlCAFOSjIc0RgiS/B+mHIBppXG/N7/cB4fAulsMedGpyxITEwxbs7c23j38bDZjdVDhS2nNbyI9vvGZ/OI15Zc2amhdvd/qa+a5QLc63SGFkDhB1vdxQOJqQgLeTscGNTmVs2tsn5imYx2pOMuigJWY4zJvheXB+IwEzJuzqSXOgplqKx84Wkg7UR8aC+RnB2Z6CItEJZVY2VYEl+2rheff5ChxKK6rrXME9fxb6ypR/qCVt1fHUypWpCv17JTJUFXKI0dbJEkwlkyF1gPjlcZLRrWN807fdg4xQLc4nRAuFQj20Xjfl5R7H2W6B8leY6cXwy0+fx4BLpD27ddOMHTYMC9iqkgYFiNeX40YLWw5b4OrhdNNNvNsbYTqxwZbr8MXTj/TTskrpR0ayLEnF0p6Ve6GfKE4aV6GLFqszOpTkrFdm4Mbd4sP2ya8T9s6Kru+CaPRRR77QwJ2PhF4FQDDsPNwJXRv0hhmt3eaJmvQyAjS5aDoX/3MPUshItax2yRw8sr352+b2bhdLldPG9fvD2B+D/Hd4pQHx1UpGH+co=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(23010399003)(261009223027099003)(18002099003)(3023799007)(261022105027099003)(261021121427099003)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(56012099006)(10067099003)(11063799006)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	DjOyXP57k0wkSydPGEV7xTsJaEmwt2vp5iZZZbtROKazn5FGE8PAOoYlIO6VaN2ueKANWFimy9Xa7tcpDvIQQYY6EJxUDSrsfpmlKu/T3uPeJtJLE9vmtBsZZHEc8+O8aB9GuLZ6dfuSVkdz9ZILEmfqIyVMRozsUpivWs+/vEAF6bR/rKjbvW4OWEOcUvdwQgh61yfZcqir6wKDtJyLrXqfllP0OCX+mCiqeJhAhkTSQ3yWOBK70us0cFisydVcAV1rYel39sbEkC8qUu3A/m7VqDKID8PH0kj4EPk11lg6eThiJ6tRLc2rXCpCoTg8ngzUd/iEWDbmxPQA4BJ+hxjIPBXRL7GG9pQwuiUPYAKWuPeeJBHh+5HsKaDIc5z1/lCltKUWm7sqPFHXYdXmbpfB1Xz2PVnmagc9+CoVqnxyWxb0OQrUaS3FpaRv0Vhk
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 02:43:03.3772
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3a1080f-bda0-4ee9-6ac5-08df4066ac7a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DSM2EPF0000000E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8245
 
-By default, the BIOS memory corruption check works by reserving the
-first 64 KiB physical area from memblock, zeroing it and then scanning it
-periodically.
+On hybrid x86 systems the GPIO controller interrupt can be a frequent
+wake and handler source.  Servicing it on a performance core can wake that
+core unnecessarily.
 
-However, in its default configuration it has been broken since v5.13 by
-two commits:
+Prefer routing it to low power cores, then to efficiency (dense) cores,
+using the CPU type from the x86 topology information.  If the system has
+neither core type (non-hybrid), leave the affinity untouched.
 
-- Commit a799c2bd29d1 ("x86/setup: Consolidate early memory reservations").
-  Moved trim_low_memory_range() into early_reserve_memory(), which runs
-  earlier in setup_arch(), causing the first 64 KiB to be reserved
-  before setup_bios_corruption_check() runs
+The placement is applied with irq_set_affinity(), so userspace is still
+free to override it.
 
-- Commit f1d4d47c5851 ("x86/setup: Always reserve the first 1M of RAM").
-  Hardcodes the reservation of the first 64 KiB early in
-  early_reserve_memory()
-
-This has been broken for years and nobody reported it, which suggests the
-feature might have no users.
-
-It may be possible to fix this by running setup_bios_corruption_check()
-earlier, but that's not worth doing: the feature was intended to detect
-corruption in the first 64 KiB but the kernel will never access that
-range anyway.
-
-Note that one case still "works", which is passing
-memory_corruption_check_size= to scan a larger region. But this is not
-useful either: the parameter takes a size, not an address range, so what
-gets scanned is whatever memblock happens to have free below that size.
-
-Remove the feature.
-
-Acked-by: H. Peter Anvin <hpa@zytor.com>
-Signed-off-by: Luiz Capitulino (Red Hat) <luiz.capitulino@linux.dev>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
+Changes in v2:
+- Guard with CONFIG_X86 instead of CONFIG_X86_64 to fix the UML build
+  failure (reported by kernel test robot and Sashiko).
+- Iterate online CPUs so offline low power CPUs don't prevent falling
+  back to efficiency cores (reported by Sashiko).
+- Link to v1: https://patch.msgid.link/20261111-superm1-pinctrl-power-improvement-v1-1-4bbe6cdbd2e8@amd.com
+---
+ drivers/pinctrl/pinctrl-amd.c | 39 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-Notes:
-  - I'm now sending from luiz.capitulino@linux.dev
-  - Kept hpa's ack as the diff is unchanged
+diff --git a/drivers/pinctrl/pinctrl-amd.c b/drivers/pinctrl/pinctrl-amd.c
+index 30da75bb93b9a..c1b5c5e18d2e4 100644
+--- a/drivers/pinctrl/pinctrl-amd.c
++++ b/drivers/pinctrl/pinctrl-amd.c
+@@ -31,6 +31,8 @@
+ #include <linux/pinctrl/pinmux.h>
+ #include <linux/string_choices.h>
+ #include <linux/suspend.h>
++#include <linux/cpumask.h>
++#include <linux/processor.h>
+ 
+ #include "core.h"
+ #include "pinctrl-utils.h"
+@@ -1272,6 +1274,41 @@ static void __iomem *amd_get_named_res(struct device *dev, struct platform_devic
+ 	return base;
+ }
+ 
++#ifdef CONFIG_X86
++/*
++ * On hybrid systems prefer to service the GPIO interrupt on low power cores,
++ * then on efficiency (dense) cores to save power.  Userspace can still
++ * override the placement.  Do nothing if neither core type exists.
++ */
++static void amd_gpio_set_irq_affinity(struct amd_gpio *gpio_dev)
++{
++	static const enum x86_topology_cpu_type types[] = {
++		TOPO_CPU_TYPE_LOW_POWER,
++		TOPO_CPU_TYPE_EFFICIENCY,
++	};
++	cpumask_var_t mask;
++	int cpu, i;
++
++	if (!zalloc_cpumask_var(&mask, GFP_KERNEL))
++		return;
++
++	for (i = 0; i < ARRAY_SIZE(types); i++) {
++		for_each_online_cpu(cpu) {
++			if (cpu_data(cpu).topo.cpu_type == types[i])
++				cpumask_set_cpu(cpu, mask);
++		}
++		if (!cpumask_empty(mask)) {
++			irq_set_affinity(gpio_dev->irq, mask);
++			break;
++		}
++	}
++
++	free_cpumask_var(mask);
++}
++#else
++static void amd_gpio_set_irq_affinity(struct amd_gpio *gpio_dev) {}
++#endif
++
+ static int amd_gpio_probe(struct platform_device *pdev)
+ {
+ 	int ret = 0;
+@@ -1377,6 +1414,8 @@ static int amd_gpio_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto out2;
+ 
++	amd_gpio_set_irq_affinity(gpio_dev);
++
+ 	platform_set_drvdata(pdev, gpio_dev);
+ 	acpi_register_wakeup_handler(gpio_dev->irq, amd_gpio_check_wake, gpio_dev);
+ 	amd_gpio_register_s2idle_ops();
 
-v4
-  - Improved changelog to state clearly that the feature should be removed
-    rather than fixed (Borislav)
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 20261111-superm1-pinctrl-power-improvement-93440daeb293
 
-v3
-  - Updated changelog to emphasize that the default configuration is broken
-    (Thorsten)
-  - Improved subject prefix
-  - Resending on top of latest Linus tree
-
-v2
-  - Rebased against latest Linus tree (v7.2-rc4)
-  - Improved changelog
-
- .../admin-guide/kernel-parameters.txt         |  23 ---
- arch/x86/Kconfig                              |  30 ---
- arch/x86/configs/i386_defconfig               |   1 -
- arch/x86/configs/x86_64_defconfig             |   1 -
- arch/x86/include/asm/bios_ebda.h              |  17 --
- arch/x86/include/asm/setup.h                  |   1 -
- arch/x86/kernel/Makefile                      |   2 -
- arch/x86/kernel/check.c                       | 187 ------------------
- arch/x86/kernel/setup.c                       |   4 -
- 9 files changed, 266 deletions(-)
- delete mode 100644 arch/x86/kernel/check.c
-
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 0b3c140babd9..05086660b07f 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -3998,29 +3998,6 @@ Kernel parameters
- 			specified as e820 types, e.g., 1 = RAM, 2 = reserved,
- 			3 = ACPI, 12 = PRAM.
- 
--	memory_corruption_check=0/1 [X86,EARLY]
--			Some BIOSes seem to corrupt the first 64k of
--			memory when doing things like suspend/resume.
--			Setting this option will scan the memory
--			looking for corruption.  Enabling this will
--			both detect corruption and prevent the kernel
--			from using the memory being corrupted.
--			However, it's intended as a diagnostic tool; if
--			repeatable BIOS-originated corruption always
--			affects the same memory, you can use memmap=
--			to prevent the kernel from using that memory.
--
--	memory_corruption_check_size=size [X86,EARLY]
--			By default it checks for corruption in the low
--			64k, making this memory unavailable for normal
--			use.  Use this parameter to scan for
--			corruption in more or less memory.
--
--	memory_corruption_check_period=seconds [X86,EARLY]
--			By default it checks for corruption every 60
--			seconds.  Use this parameter to check at some
--			other rate.  0 disables periodic checking.
--
- 	memory_hotplug.memmap_on_memory
- 			[KNL,X86,ARM] Boolean flag to enable this feature.
- 			Format: {on | off (default)}
-diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-index 58dce0b66179..7ba002d1a201 100644
---- a/arch/x86/Kconfig
-+++ b/arch/x86/Kconfig
-@@ -1602,36 +1602,6 @@ config X86_PMEM_LEGACY
- 
- 	  Say Y if unsure.
- 
--config X86_CHECK_BIOS_CORRUPTION
--	bool "Check for low memory corruption"
--	help
--	  Periodically check for memory corruption in low memory, which
--	  is suspected to be caused by BIOS.  Even when enabled in the
--	  configuration, it is disabled at runtime.  Enable it by
--	  setting "memory_corruption_check=1" on the kernel command
--	  line.  By default it scans the low 64k of memory every 60
--	  seconds; see the memory_corruption_check_size and
--	  memory_corruption_check_period parameters in
--	  Documentation/admin-guide/kernel-parameters.rst to adjust this.
--
--	  When enabled with the default parameters, this option has
--	  almost no overhead, as it reserves a relatively small amount
--	  of memory and scans it infrequently.  It both detects corruption
--	  and prevents it from affecting the running system.
--
--	  It is, however, intended as a diagnostic tool; if repeatable
--	  BIOS-originated corruption always affects the same memory,
--	  you can use memmap= to prevent the kernel from using that
--	  memory.
--
--config X86_BOOTPARAM_MEMORY_CORRUPTION_CHECK
--	bool "Set the default setting of memory_corruption_check"
--	depends on X86_CHECK_BIOS_CORRUPTION
--	default y
--	help
--	  Set whether the default state of memory_corruption_check is
--	  on or off.
--
- config MTRR
- 	def_bool y
- 	prompt "MTRR (Memory Type Range Register) support" if EXPERT
-diff --git a/arch/x86/configs/i386_defconfig b/arch/x86/configs/i386_defconfig
-index 79fa38ca954d..848c2d924668 100644
---- a/arch/x86/configs/i386_defconfig
-+++ b/arch/x86/configs/i386_defconfig
-@@ -36,7 +36,6 @@ CONFIG_PARAVIRT=y
- CONFIG_X86_REROUTE_FOR_BROKEN_BOOT_IRQS=y
- CONFIG_X86_MSR=y
- CONFIG_X86_CPUID=y
--CONFIG_X86_CHECK_BIOS_CORRUPTION=y
- # CONFIG_MTRR_SANITIZER is not set
- CONFIG_EFI=y
- CONFIG_EFI_STUB=y
-diff --git a/arch/x86/configs/x86_64_defconfig b/arch/x86/configs/x86_64_defconfig
-index e6896aeb77d8..7c76abee3f36 100644
---- a/arch/x86/configs/x86_64_defconfig
-+++ b/arch/x86/configs/x86_64_defconfig
-@@ -35,7 +35,6 @@ CONFIG_X86_REROUTE_FOR_BROKEN_BOOT_IRQS=y
- CONFIG_X86_MSR=y
- CONFIG_X86_CPUID=y
- CONFIG_NUMA=y
--CONFIG_X86_CHECK_BIOS_CORRUPTION=y
- # CONFIG_MTRR_SANITIZER is not set
- CONFIG_EFI=y
- CONFIG_EFI_STUB=y
-diff --git a/arch/x86/include/asm/bios_ebda.h b/arch/x86/include/asm/bios_ebda.h
-index 4d5a17e2febe..2f441fd9ebf8 100644
---- a/arch/x86/include/asm/bios_ebda.h
-+++ b/arch/x86/include/asm/bios_ebda.h
-@@ -20,21 +20,4 @@ static inline unsigned int get_bios_ebda(void)
- 
- void reserve_bios_regions(void);
- 
--#ifdef CONFIG_X86_CHECK_BIOS_CORRUPTION
--/*
-- * This is obviously not a great place for this, but we want to be
-- * able to scatter it around anywhere in the kernel.
-- */
--void check_for_bios_corruption(void);
--void start_periodic_check_for_corruption(void);
--#else
--static inline void check_for_bios_corruption(void)
--{
--}
--
--static inline void start_periodic_check_for_corruption(void)
--{
--}
--#endif
--
- #endif /* _ASM_X86_BIOS_EBDA_H */
-diff --git a/arch/x86/include/asm/setup.h b/arch/x86/include/asm/setup.h
-index 895d09faaf83..cd042752e6ce 100644
---- a/arch/x86/include/asm/setup.h
-+++ b/arch/x86/include/asm/setup.h
-@@ -42,7 +42,6 @@ static inline void vsmp_init(void) { }
- 
- struct pt_regs;
- 
--void setup_bios_corruption_check(void);
- void early_platform_quirks(void);
- 
- extern unsigned long saved_video_mode;
-diff --git a/arch/x86/kernel/Makefile b/arch/x86/kernel/Makefile
-index 31f46fd00527..702536938433 100644
---- a/arch/x86/kernel/Makefile
-+++ b/arch/x86/kernel/Makefile
-@@ -149,8 +149,6 @@ obj-$(CONFIG_JAILHOUSE_GUEST)	+= jailhouse.o
- obj-$(CONFIG_EISA)		+= eisa.o
- obj-$(CONFIG_PCSPKR_PLATFORM)	+= pcspeaker.o
- 
--obj-$(CONFIG_X86_CHECK_BIOS_CORRUPTION) += check.o
--
- obj-$(CONFIG_OF)			+= devicetree.o
- obj-$(CONFIG_UPROBES)			+= uprobes.o
- 
-diff --git a/arch/x86/kernel/check.c b/arch/x86/kernel/check.c
-deleted file mode 100644
-index 5136e6818da8..000000000000
---- a/arch/x86/kernel/check.c
-+++ /dev/null
-@@ -1,187 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--
--#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
--
--#include <linux/init.h>
--#include <linux/sched.h>
--#include <linux/kthread.h>
--#include <linux/workqueue.h>
--#include <linux/memblock.h>
--
--#include <asm/proto.h>
--#include <asm/setup.h>
--
--/*
-- * Some BIOSes seem to corrupt the low 64k of memory during events
-- * like suspend/resume and unplugging an HDMI cable.  Reserve all
-- * remaining free memory in that area and fill it with a distinct
-- * pattern.
-- */
--#define MAX_SCAN_AREAS	8
--
--static int __read_mostly memory_corruption_check = -1;
--
--static unsigned __read_mostly corruption_check_size = 64*1024;
--static unsigned __read_mostly corruption_check_period = 60; /* seconds */
--
--static struct scan_area {
--	u64 addr;
--	u64 size;
--} scan_areas[MAX_SCAN_AREAS];
--static int num_scan_areas;
--
--static __init int set_corruption_check(char *arg)
--{
--	ssize_t ret;
--	unsigned long val;
--
--	if (!arg) {
--		pr_err("memory_corruption_check config string not provided\n");
--		return -EINVAL;
--	}
--
--	ret = kstrtoul(arg, 10, &val);
--	if (ret)
--		return ret;
--
--	memory_corruption_check = val;
--
--	return 0;
--}
--early_param("memory_corruption_check", set_corruption_check);
--
--static __init int set_corruption_check_period(char *arg)
--{
--	ssize_t ret;
--	unsigned long val;
--
--	if (!arg) {
--		pr_err("memory_corruption_check_period config string not provided\n");
--		return -EINVAL;
--	}
--
--	ret = kstrtoul(arg, 10, &val);
--	if (ret)
--		return ret;
--
--	corruption_check_period = val;
--	return 0;
--}
--early_param("memory_corruption_check_period", set_corruption_check_period);
--
--static __init int set_corruption_check_size(char *arg)
--{
--	char *end;
--	unsigned size;
--
--	if (!arg) {
--		pr_err("memory_corruption_check_size config string not provided\n");
--		return -EINVAL;
--	}
--
--	size = memparse(arg, &end);
--
--	if (*end == '\0')
--		corruption_check_size = size;
--
--	return (size == corruption_check_size) ? 0 : -EINVAL;
--}
--early_param("memory_corruption_check_size", set_corruption_check_size);
--
--
--void __init setup_bios_corruption_check(void)
--{
--	phys_addr_t start, end;
--	u64 i;
--
--	if (memory_corruption_check == -1) {
--		memory_corruption_check =
--#ifdef CONFIG_X86_BOOTPARAM_MEMORY_CORRUPTION_CHECK
--			1
--#else
--			0
--#endif
--			;
--	}
--
--	if (corruption_check_size == 0)
--		memory_corruption_check = 0;
--
--	if (!memory_corruption_check)
--		return;
--
--	corruption_check_size = round_up(corruption_check_size, PAGE_SIZE);
--
--	for_each_free_mem_range(i, NUMA_NO_NODE, MEMBLOCK_NONE, &start, &end,
--				NULL) {
--		start = clamp_t(phys_addr_t, round_up(start, PAGE_SIZE),
--				PAGE_SIZE, corruption_check_size);
--		end = clamp_t(phys_addr_t, round_down(end, PAGE_SIZE),
--			      PAGE_SIZE, corruption_check_size);
--		if (start >= end)
--			continue;
--
--		memblock_reserve(start, end - start);
--		scan_areas[num_scan_areas].addr = start;
--		scan_areas[num_scan_areas].size = end - start;
--
--		/* Assume we've already mapped this early memory */
--		memset(__va(start), 0, end - start);
--
--		if (++num_scan_areas >= MAX_SCAN_AREAS)
--			break;
--	}
--
--	if (num_scan_areas)
--		pr_info("Scanning %d areas for low memory corruption\n", num_scan_areas);
--}
--
--
--static void check_for_bios_corruption(void)
--{
--	int i;
--	int corruption = 0;
--
--	if (!memory_corruption_check)
--		return;
--
--	for (i = 0; i < num_scan_areas; i++) {
--		unsigned long *addr = __va(scan_areas[i].addr);
--		unsigned long size = scan_areas[i].size;
--
--		for (; size; addr++, size -= sizeof(unsigned long)) {
--			if (!*addr)
--				continue;
--			pr_err("Corrupted low memory at %p (%lx phys) = %08lx\n", addr, __pa(addr), *addr);
--			corruption = 1;
--			*addr = 0;
--		}
--	}
--
--	WARN_ONCE(corruption, KERN_ERR "Memory corruption detected in low memory\n");
--}
--
--static void check_corruption(struct work_struct *dummy);
--static DECLARE_DELAYED_WORK(bios_check_work, check_corruption);
--
--static void check_corruption(struct work_struct *dummy)
--{
--	check_for_bios_corruption();
--	schedule_delayed_work(&bios_check_work,
--		round_jiffies_relative(corruption_check_period*HZ));
--}
--
--static int start_periodic_check_for_corruption(void)
--{
--	if (!num_scan_areas || !memory_corruption_check || corruption_check_period == 0)
--		return 0;
--
--	pr_info("Scanning for low memory corruption every %d seconds\n", corruption_check_period);
--
--	/* First time we run the checks right away */
--	schedule_delayed_work(&bios_check_work, 0);
--
--	return 0;
--}
--device_initcall(start_periodic_check_for_corruption);
--
-diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-index 19fc8e1714e6..8627eb7aa769 100644
---- a/arch/x86/kernel/setup.c
-+++ b/arch/x86/kernel/setup.c
-@@ -1108,10 +1108,6 @@ void __init setup_arch(char **cmdline_p)
- 	/* preallocate 4k for mptable mpc */
- 	e820__memblock_alloc_reserved_mpc_new();
- 
--#ifdef CONFIG_X86_CHECK_BIOS_CORRUPTION
--	setup_bios_corruption_check();
--#endif
--
- #ifdef CONFIG_X86_32
- 	printk(KERN_DEBUG "initial memory mapped: [mem 0x00000000-%#010lx]\n",
- 			(max_pfn_mapped<<PAGE_SHIFT) - 1);
--- 
-2.56.0
+Best regards,
+--  
+Mario Limonciello <mario.limonciello@amd.com>
 
