@@ -1,102 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794486886;
-	b=bKmF8fXzbtfMKvBzeQzz6mlsiYiHSkhQgtppIJNtMTKK5I+JZ6veWtdMELdu7byTkn4C
-	 6pG7GQSrb7uiSBGQ2VbtC6QZoklkGeNveQbNq+ofVhPthfrneUwZns1LgpT9hfYl0QtO+
-	 Lwf8UIA9PxL9yv0DWnS7Pjd0JOeVWo7Nj/tPIkQcKEgLEjwJGYOC+UJLmkanWhVfLclu6
-	 FyyjtABqBCWh9YRZdH4Y3GwkTMwMBdGBDMl1Qf+GTrRDYTZDw3WB5RGz+/DKdaZQAVAL7
-	 lAqoQQtI7UT1joVYbxdxG0LsW5ORNylo97zWTjs/A9wMcB6ZIYyBY9wG+oMKy71Cj9g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794486886;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:
-	 X-Spamd-Result:X-Spam-Score;
-	bh=AVpTm882LR63Nx8Y/IB3i5PfkrhJS41OXvMZP0egeqY=;
-	b=XDESYSOjqQZMOzgN3R2UeuEIQB5IlfvvCbgdfEcnjYDGWtpi/EPkDofSkOCKyCF/Z/Fq
-	 c9aPGYABevSvkmXFikO+NLK6eHmXVFPI8DoezXC56qey//ca/1Z8Dj68/G3u/7KLjMvds
-	 xrgS0dGpZI9NThus7bgYOfBIUPuNDfVvGHTkJXq2rHCKiV49iaReuNcUPpPEQBpGpqjTY
-	 sZDynpVQxQFWhYOTZ6Lffvp9jR+U079s3ff6Q3nwv5i39cBTrjwrKe63ZMWBY0wFvMGaQ
-	 1QbiAkCKibVHM9tvEsMCYCUWxkT5QCdepjzfChc1jeqk8/jyyVPcv8hNyxr8cFDQ/qQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=L62Q1giR;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1gWYc4Ws;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Jio2CM6N;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=fSran0kT;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794486924;
+	b=4A5ebC/waLc3pyGb508Qg6MvNgCuFW76PRN7to9yc5kj0mpih/Xb9Bde+hYha7H5eW/g
+	 SeFsr9+rZpWlAjgqLkeEfdKz5bvMADMtT37cCJlhGPtxUINoYaB773ExqW3vb32ff3c5v
+	 yaJGZA0Frhq3+SkR3YZn7WqwzC4ze4j9cF6WcmA8H9jVuR9UcUjQYfWKgiNgKmizUlryb
+	 abyHOuCkDnhAkczO08bBZTk5h3PvV47UOaIoVFmQMAAr/9SMBAF+XXb781WBZnm9qF56x
+	 JdemU80XnLMrpGC6dDdrgzC7qXjnk4Q4DxWmIcUgQBGEY6Z7WvAmgtTrNcygTbkWa8Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794486924;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=gmfeXtI+tey0F/T6j/hOfxDyERZ2N7Ic5Vbc9BTsdyQ=;
+	b=zvEuqMHfQAndyHXh2qct21W+dkxj3sk8jjY9B2TaEuxTbugNjeqSsoahUsiAyUE1j7V8
+	 hU11FmeZ12ACpgiGUo/B0Efu/4oL7NjkzVbPtCPN8pExjFUK75EPFkRtFa5R9j3nW4w6l
+	 VaRLhTLjN73d9x/SMWfHiIqIv9CKSK3rP2ec6hgrJDHFajUfa7tqCsRmd97QMHA85cPoC
+	 8tpKBB+Uama5oMUsRpc94Wp/rSjnxZDHR9nRId8SJfICqPAro9W6y2H6Y5mPOeC1B6HCx
+	 dJQJTsgtJ1Ao7bVVNm4Jzxe3MW+xR9ze3/89HK9HY3FQeMHuLOdlKPdCsiEcBZ+CtKQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ums0J9tX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13946606A31C;
-	Thu, 12 Nov 2026 12:34:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13946606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE995606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:35:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE995606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=L62Q1giR;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1gWYc4Ws;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Jio2CM6N;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=fSran0kT
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E773F1F792;
-	Thu, 12 Nov 2026 12:34:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794486884; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AVpTm882LR63Nx8Y/IB3i5PfkrhJS41OXvMZP0egeqY=;
-	b=L62Q1giRe+H/EBOE4JkcAWNBf0a3UhArANwEaFd+UrPCYxVo6EF7ljn7si4tmndWUx+sQT
-	LpMRBudEBPcZ3o7k5xQWkDXbSgEQfDThIZoGZrduOOmWy2LOIxdZL1t0DwcNP6TqgrDqxZ
-	uL0bJhGSbUD7EtK7j9M4iG6qi0KIPpI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794486884;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AVpTm882LR63Nx8Y/IB3i5PfkrhJS41OXvMZP0egeqY=;
-	b=1gWYc4Ws6/lwWuEIazTSdiECqBXv0mjLcvDQtwksMKlmCsbN9JvwluBRyaK80Vw1ZsgE7J
-	bZrfTNK8oap/QeCQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794486883; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AVpTm882LR63Nx8Y/IB3i5PfkrhJS41OXvMZP0egeqY=;
-	b=Jio2CM6N4HBiMXCth/l0GaykiEzFmrELqiU4WzBWro7gNGbc7RBxLB7Mxgx7rb7pnkhH1e
-	RT9g3Vix0JJbkhSZxQZnJDsogQnpeP9gVGmB5+Omn4SnChtl5JtvoCTIl61+nwov6EYNXt
-	V8w5PY+ZFfB8u7x8gUkd2Cx3/AXDD9w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794486883;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AVpTm882LR63Nx8Y/IB3i5PfkrhJS41OXvMZP0egeqY=;
-	b=fSran0kT0+RVJaDHSIavj7Dxo0K3cU0Qcl39YFXDcoGT/wewaJ1J5SjuSZQvRG202ll145
-	67OMDWnLkEIXw9DA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AD3D513432;
-	Thu, 12 Nov 2026 12:34:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id b2qbIWOy9Wp7SgAAD6G6ig
-	(envelope-from <hare@suse.de>); Thu, 12 Nov 2026 12:34:43 +0000
-Message-ID: <03c4b56f-efcc-4de2-b49c-2305bb3e3997@suse.de>
-Date: Thu, 12 Nov 2026 13:34:43 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ums0J9tX
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so32425695e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:35:23 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794486922; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gez8qv/g/qSVxEyyS9F4gO6DyEcYjihkredquHS0VgFfSosI9awFQUSPIY1XoI8TVK
+         pTmnKAUxXUff/hZhN1aeK18aEHmG9Rcoc6LXrC4NyPac3hulfaDXHPreaEzIUQ6RqB36
+         BDaOpTJgjom0iLzweX/unlQLPt+NHTzcxxYbk6ybFZBnKvsgqhn54jPENJrkUA+bGbwN
+         4q4V9/Gc3NlBJ6Go+EwJd+wQGdz2gFaVxOeZcpi31vEa6ZZPSL0wqe5KTaNiVvrH2dT5
+         qwtfv4PGHpWND25z+jvOxfTI+xL0h4hZ9T9UWIX2VQJXY2r1mm8NzW+p+x0TwSaiFOXt
+         p8uw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gmfeXtI+tey0F/T6j/hOfxDyERZ2N7Ic5Vbc9BTsdyQ=;
+        fh=ik7x6uQ51hpJSW5opbgl4SsorN1n5nC9e6XcE+W56v0=;
+        b=qFcAgzwv9JCqMnNuEKNP/0V3gtvJG5OaIjGwuuMSxtY5SRYHC3q7OrSoM9DOMAoIhN
+         A70C2Ttye9QpUZf7RZFKzR8KXvHllkBSRyL2UGCmv6iL56NA+foEpWOx9CW3upoKv60d
+         UtMhOg5s7apoNm62TxmKikB5bMiVS9GyVKhthmxwrxY/ZPBUcFRHrLQQx0spztfFEyXt
+         MMyl2DPTdpoVN9+ThHvA0VwI9Oe0y++6UHLklYWzBzqc2ULKNaye7X0rIogTpsFIEYuZ
+         DLbNP5F31vsSghMFsxhXG9OBkAkGbPhlBzYv5t+FXFqoCwPbW24rYfLQB0FYkV8o4+mM
+         +g0w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794486922; x=1795091722; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gmfeXtI+tey0F/T6j/hOfxDyERZ2N7Ic5Vbc9BTsdyQ=;
+        b=Ums0J9tXeHFKhdP+fol+vzmGnv1+Fue5K3B2lj8LLRXkHXY3JaZgN1a68UZDyVwlr3
+         b+0TXQx6uz2DxdQO9FJRj6XA4Pwp5YiLBfzHunkAP5nZXfa20p8ohSXA/npzC9fTPsof
+         YCI6CV0szHYmKPkXtlYqz3aToZBEJPSZnO3qJny8ZRSWwckefgqbggkEwAI5aEzUA0Vt
+         ks8xjf2GELPaPEaJ0BQpF8FQOm3C6U7vbbVBf6l3M2MbyEnOxikMPL1dXYKfefIFcB7Q
+         NDEggS0PaVnv+7mUAzLQBIW9SgIF2fBI7ZuxfzOOKngGjXrCabf714t5TK6zi46fwp+G
+         FNew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794486922; x=1795091722;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gmfeXtI+tey0F/T6j/hOfxDyERZ2N7Ic5Vbc9BTsdyQ=;
+        b=TyZTCB5OR7e51AKxQwB+F7xLar414X8qY572uvsBLD3ypr+U5nbdUnTEwoGxuPKFgS
+         6CpIJWeAq1cYpDQwLy3JI+yger2yS3tZU8Eams7aUvkrcZi6jpCSNfjOfdbzOKf94Wl9
+         Loq9iUBwGuQc9KiAI4Lfc+XZj8CHrzQ29ScTdGIciGX4RnS+JYk9KX63njO0nMhOgnSL
+         JIl5r5HXDKJ2dLi5Tul+R3EjtUhUJVpNjm+UvQus2A8be77FDW6LIZi1E7E3//fBMb3s
+         w15+fadkWsuAzQn+61iACUgNMIPL52rtonW5t42VSywVBSzXyaInYhZpbn0Om6g8VAUo
+         4SWQ==
+X-Forwarded-Encrypted: i=1; AL+hErG7rAgWeNqioBiJNF1tI7zx0exH/aNSrdI/TOekwclMR2IUoXo0g3q5wps/Chv6xXtVEojH0Vy0vu1uDmA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z80s2urcT9l8b1Dhm3Dsk5CGrWwswCuPfNvxBBQTO3dmRiHSLjE
+	I4VuRh/ppWzf7sjwCoQywgklXDq8Uyvb3mCwjpWSZlEuaPY+dxV5PBTZMyMIZAYk61fd4LLHoR7
+	pHXtt2e03DDwPbvkogyoFQ6du1JytnNY=
+X-Gm-Gg: AYBFou0GA7QWdLsLGdRUA+88PSfCEj8sTFL1AkhmcVSJaUn4YJpQm9Lpq66hpUz2+M8
+	hnWaqzZsshUjnmZQI7O9cPRgOSX1Ze6Yoa8t3nR7zUmTi7T2haNm48duURIXrKn9c1PidasgJqp
+	GnumZ5vBtm+I88ia/tAAyfRWxILQL6RE0wZyrfko/W4h5ZYEp8MkhcaN+9tKl+HK0dE8WRa/SSQ
+	3KnCtSIyiXmbRimY74Pi5rSM6pWHZJbFVjxCOffsKISJVA70phYl0S9Lqg14oSUZL698IR8UVIT
+	0UZBWmO62i6ONdEH4/J0HFPEv1U3yZLNFxb+7/mbm65fRbNS1hJ+RDnvpKukXbKZ8WGkIIqE1fT
+	luvxUeOqZ0XgoePHwxM+1NekoqTPZnwIwBGGSuIkk0Wi/ExpfULoZkKMqnm+5vn3b4KTbGUJ0tv
+	rK87YDq2DVzEASQjCfEE8QQkmbjTxn1x3C+IpgOSDXr0bezhT3x4MDUAxxX6n8sMoR1fG3i3jdq
+	p+bkTqdUbUIx2H0f2Eb
+X-Received: by 2002:a05:600d:84ca:20b0:4ba:493b:3401 with SMTP id
+ 5b1f17b1804b1-4ba493b3412mr59282305e9.9.1794486922109; Thu, 12 Nov 2026
+ 04:35:22 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,162 +106,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] scsi: lpfc: Fix race conditions in ELS retry handling
-To: Kyle Mahlkuch <kmahlkuc@linux.ibm.com>, linux-kernel@vger.kernel.org,
- linux-scsi@vger.kernel.org, Paul Ely <paul.ely@broadcom.com>
-Cc: msmurthy@linux.ibm.com, mkp@kernel.org
-References: <dcea48dd-f76c-4bb0-9275-c12ef9bd78a2@linux.ibm.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <dcea48dd-f76c-4bb0-9275-c12ef9bd78a2@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-13.29 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-0.998];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -13.29
+References: <20261104182105.1102555-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261104182105.1102555-6-prabhakar.mahadev-lad.rj@bp.renesas.com> <20261106154454.GA3654918-robh@kernel.org>
+In-Reply-To: <20261106154454.GA3654918-robh@kernel.org>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Thu, 12 Nov 2026 12:34:56 +0000
+X-Gm-Features: AclHuK9CRcx1aTAbEKf-B1mAZlFhg1ndxA-uzYSl8n-I7fAtC3zV5PucT1NF8gU
+Message-ID: <CA+V-a8uN1D7CQmKtAizY40NUOXHDLO2VG8JiAiLTyNb6uG=9jA@mail.gmail.com>
+Subject: Re: [PATCH net-next v4 05/14] dt-bindings: net: dsa:
+ renesas,rzn1-a5psw: Disallow ports beyond port@4
+To: Rob Herring <robh@kernel.org>
+Cc: =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@linux.dev>, 
+	Andrew Lunn <andrew@lunn.ch>, Jakub Kicinski <kuba@kernel.org>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Russell King <linux@armlinux.org.uk>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/11/26 6:47 PM, Kyle Mahlkuch wrote:
-> This patch addresses a race condition in the lpfc driver's ELS retry
-> event handling that can lead to a use-after-free in the
-> lpfc_cancel_retry_delay_tmo(), where the NLP_DELAY_TMO flag is cleared
-> before acquiring the lock to check if the retry event is queued. This
-> creates a window where the timer can be rescheduled and fire, causing
-> both the cancel path and the worker thread to release the same reference,
-> resulting in a double-put and use-after-free.
-> 
-> Moved capture ndlp and clear evt_arg1 under hbalock while dequeuing
-> LPFC_EVT_ELS_RETRY in lpfc_work_list_done().
-> 
-> Signed-off-by: Kyle Mahlkuch <kmahlkuc@linux.ibm.com>
-> ---
-> Changes since v3:
-> - More whitespace cleanup. (Paul Ely)
-> 
-> Changes since v2:
-> - Capture ndlp and clear evt_arg1 under hbalock while dequeuing
->    LPFC_EVT_ELS_RETRY in lpfc_work_list_done(). A requeue by
->    lpfc_els_retry_delay() could cause a NULL dereference in the worker.
->    (AI review)
-> - Whitespace and line-wrapping cleanup.
-> 
-> Link: https://lore.kernel.org/lkml/29073ebc-b616-475b-bc05-384da09fbb54@linux.ibm.com/T/#u
-> 
-> Changes since v1:
-> - Leave test_and_clear_bit op and timer_delete_sync at the beginning of
->    lpfc_cancel_retry_delay_tmo() outside of lock. (Paul Ely)
-> 
-> Link: https://lore.kernel.org/lkml/1c8a764c-fce1-4ce1-b797-47ac328cf3f2@linux.ibm.com/T/#u
-> ---
->   drivers/scsi/lpfc/lpfc_els.c     | 29 +++++++++++++++++++++++------
->   drivers/scsi/lpfc/lpfc_hbadisc.c | 11 ++++++++++-
->   2 files changed, 33 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/scsi/lpfc/lpfc_els.c b/drivers/scsi/lpfc/lpfc_els.c
-> index 6f6394a0047c..98d1824aefe1 100644
-> --- a/drivers/scsi/lpfc/lpfc_els.c
-> +++ b/drivers/scsi/lpfc/lpfc_els.c
-> @@ -4477,18 +4477,35 @@ lpfc_issue_els_edc(struct lpfc_vport *vport, uint8_t retry)
->   void
->   lpfc_cancel_retry_delay_tmo(struct lpfc_vport *vport, struct lpfc_nodelist *nlp)
->   {
-> -	struct lpfc_work_evt *evtp;
-> +	struct lpfc_hba *phba = vport->phba;
-> +	struct lpfc_work_evt *evtp = &nlp->els_retry_evt;
-> +	struct lpfc_nodelist *arg_ndlp = NULL;
-> +	unsigned long flags;
->   
->   	if (!test_and_clear_bit(NLP_DELAY_TMO, &nlp->nlp_flag))
->   		return;
->   	timer_delete_sync(&nlp->nlp_delayfunc);
->   	nlp->nlp_last_elscmd = 0;
-> -	if (!list_empty(&nlp->els_retry_evt.evt_listp)) {
-> -		list_del_init(&nlp->els_retry_evt.evt_listp);
-> -		/* Decrement nlp reference count held for the delayed retry */
-> -		evtp = &nlp->els_retry_evt;
-> -		lpfc_nlp_put((struct lpfc_nodelist *)evtp->evt_arg1);
-> +
-> +	/*
-> +	 * If retry event is queued, remove it under lock and consume
-> +	 * its payload to prevent double-put. The event holds a reference
-> +	 * to the nodelist that must be released exactly once.
-> +	 */
-> +	spin_lock_irqsave(&phba->hbalock, flags);
-> +	if (!list_empty(&evtp->evt_listp)) {
-> +		list_del_init(&evtp->evt_listp);
-> +		/* Take local copy and clear to prevent reuse */
-> +		arg_ndlp = (struct lpfc_nodelist *)evtp->evt_arg1;
-> +		evtp->evt_arg1 = NULL;
-> +		smp_wmb(); /* Ensure NULL visible before unlock */
->   	}
-> +	spin_unlock_irqrestore(&phba->hbalock, flags);
-> +
-> +	/* Drop the event-held reference outside the lock */
-> +	if (arg_ndlp)
-> +		lpfc_nlp_put(arg_ndlp);
-> +
->   	if (test_and_clear_bit(NLP_NPR_2B_DISC, &nlp->nlp_flag)) {
->   		if (vport->num_disc_nodes) {
->   			if (vport->port_state < LPFC_VPORT_READY) {
-> diff --git a/drivers/scsi/lpfc/lpfc_hbadisc.c b/drivers/scsi/lpfc/lpfc_hbadisc.c
-> index 4c673dffa671..75457f19d4ea 100644
-> --- a/drivers/scsi/lpfc/lpfc_hbadisc.c
-> +++ b/drivers/scsi/lpfc/lpfc_hbadisc.c
-> @@ -840,12 +840,21 @@ lpfc_work_list_done(struct lpfc_hba *phba)
->   	while (!list_empty(&phba->work_list)) {
->   		list_remove_head((&phba->work_list), evtp, typeof(*evtp),
->   				 evt_listp);
-> +		/*
-> +		 * The ELS retry event can be requeued by lpfc_els_retry_delay()
-> +		 * as soon as hbalock is dropped. Consume the payload within the
-> +		 * hbalock to prevent reuse or double-put.
-> +		 */
-> +		if (evtp->evt == LPFC_EVT_ELS_RETRY) {
-> +			ndlp = (struct lpfc_nodelist *)(evtp->evt_arg1);
-> +			evtp->evt_arg1 = NULL;
-> +		}
->   		spin_unlock_irq(&phba->hbalock);
->   		hba_pci_err = test_bit(HBA_PCI_ERR, &phba->bit_flags);
->   		free_evt = 1;
->   		switch (evtp->evt) {
->   		case LPFC_EVT_ELS_RETRY:
-> -			ndlp = (struct lpfc_nodelist *) (evtp->evt_arg1);
-> +			/* ndlp was already captured under hbalock */
->   			if (!hba_pci_err) {
->   				lpfc_els_retry_delay_handler(ndlp);
->   				free_evt = 0; /* evt is part of ndlp */
-> --
-> 2.55.0
+Hi Rob,
 
-I thought I already did so, but here it is again:
+Thank you for the review.
 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+On Fri, Nov 6, 2026 at 3:44=E2=80=AFPM Rob Herring <robh@kernel.org> wrote:
+>
+> On Wed, Nov 04, 2026 at 06:20:53PM +0000, Prabhakar wrote:
+> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> >
+> > Restrict the A5PSW ethernet-ports node to ports 0 through 4, matching t=
+he
+> > hardware configuration of four external ports and one CPU/management po=
+rt.
+> >
+> > Although the schema pattern limits port nodes to port@0 through port@4,
+> > additionalProperties: true allows other port nodes to pass validation.
+> > Set additionalProperties to false and explicitly allow #address-cells
+> > and #size-cells so that ports beyond port@4 are rejected.
+> >
+> > Existing in-tree device trees describe only port@0 through port@4 and
+> > are unaffected by this change.
+> >
+> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > ---
+> > v3->v4:
+> > - Added reg items validation for ethernet ports
+> >
+> > v2->v3:
+> > - New patch
+> > ---
+> >  .../bindings/net/dsa/renesas,rzn1-a5psw.yaml         | 12 +++++++++++-
+> >  1 file changed, 11 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5p=
+sw.yaml b/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
+> > index 9c477ceb170b..250c59e58439 100644
+> > --- a/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
+> > +++ b/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
+> > @@ -63,12 +63,22 @@ properties:
+> >
+> >    ethernet-ports:
+> >      type: object
+> > -    additionalProperties: true
+> > +    additionalProperties: false
+> > +
+> > +    properties:
+> > +      '#address-cells':
+> > +        const: 1
+> > +      '#size-cells':
+> > +        const: 0
+> > +
+>
+> Drop all this.
+>
+> >      patternProperties:
+> >        "^(ethernet-)?port@[0-4]$":
+>
+> And make this "^(ethernet-)?port@". Then any node will get the 'reg'
+> schema applied. That doesn't check the unit-address, but the way to
+> check that is comparing it to the reg value (not yet implemented except
+> for specific buses in dtc).
+>
+Good point.
+
+>
+> >          type: object
+> >          additionalProperties: true
+> >          properties:
+> > +          reg:
+> > +            items:
+> > +              - maximum: 4
+Here I can drop items and just have something like below:
+
+         properties:
++          reg:
++            maximum: 4
 
 Cheers,
+Prabhakar
 
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+> >            pcs-handle:
+> >              maxItems: 1
+> >              description:
+> > --
+> > 2.56.0
+> >
