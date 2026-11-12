@@ -1,55 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794514340;
-	b=Mzs+6rTq5jD3x7FnLrDXEhjp7dapaoUZFc1RIGlUAJ2RdotC7m6Gp4phmnnJurlOtr0y
-	 aSNEdxfWqDhbydWLSYMMOkxG9WbuZ5T0Lv/cnNgde0ibf5ASSO/KN8P68hk2eVBAV5/Db
-	 FVGUUzPpCo80IXiQTa2ELMw4fIqhrY1L342qaCU/JRJmT7YXnw/i3IrOO0PCXudQn6zwy
-	 IQJEXeOzMvzidbYnZsHvIXtBWUzMKrncxY/54ktF0B3N2mT6pl51BAkxQyUFxgVCRnSbw
-	 lB7cMM/ArN2JcG911GVQhzEI3CjDtuoI/CdKjnbN1uQ2HsQuFP/yQ+0GWXrO6h4EYUw==
+	b=HMcv/y4J44y2d+n6A4mc+pU3Ik/eXNnPT6EYEt8vHX09Kd6Idmu/WlQr0h6EDQY+d182
+	 WDRa8gorHec1xqXdewPt05G1tRkY4fAGj0xRvXjtl2rjVOysxeN2lUJ8WeVSkS67tyfIi
+	 /QENrkRQNgtvlUmarIRlCrbwnGMrof5KajRRTCurt6M+IoToxKg56U4PUOkoBCmeKEbbB
+	 TMkLu1KgS8cU1fuGbCnanI0VXORZrOlMhXv1kb3O0h4te4EQl19Ko2tHe4GreyyNSyrME
+	 zgiP1kKxPTvW2jz5GCWYyfvHXqTx6IKqU8S/er+R65kY6wcSNfV/Ayudv7ite4lFElA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794514340;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=eakRgnWHv93CEQPpJprbZeATRfmw83XT/BkhRlCQLg8=;
-	b=we4hfwzvJUhFk5fCqWfmlYB0RbJZntbirHLanlrm6wuT0dOTQ2FpSxJAsIgZozuLVEwB
-	 JUrjgr9ZcfTWuLGZuEcax5TGEf1Evl6abUWRdGmZ2HJ4dQBqjiPeZIz+FARWXoTi4xBWT
-	 uk3B5CfD9Qu+OqaJiM/zngwBJTvenp1yBXXd6cl3q7vr6YF2omVQqGCIeK9SvouyTRkKt
-	 J/1wzEtJKFfVtH1Sacc9dVUaAAS2rQbQBIKXVI9tg3SOqyTDaT2rcldfWgUX4TXHbnmh4
-	 hc65mbqdV0uifbrCG1hgQA13UUC/PrYu6pcDN23gmect6zPVHTrTmFbCJLLQkPOZJnw==
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=9fpTTl/wf6AJr6umSE+CPRu2oJNdc9XyyktaSY9PbpY=;
+	b=2KUOVpcMBeAWK9F2ZW4SFSYu8eyHgXF5ElZeJBS7z4tWf1Egn+q3GG3aZhpPIok/aWlO
+	 1rWBlek619mot+su6j6mms6LKwnNMVRKqIt7dlUGNAhrmJCNK1JdwkqycSaNrm/m7SRbY
+	 xKtIt/f9ukLj/aIhfzC2yY0/s1+ybxLoHuIMjeYifMNLAZ2Jg/tAwO/2aWeXYcwZcGHHy
+	 XN4qU2NZOfSEJSovIbLHi3l3W3IcF82xeMB5EiYqLtD1IJoKAxwukNMwINPd/kIEQcPom
+	 ib/YPZCSGHOrHX2fGc77NGPby3VMWj8aflY5PK85uzqj6CDwlwUYg8owVegUPjtdo6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bSHbJVnv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wd5LR3x5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 023E0606A330
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:12:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A4C606A332;
+	Thu, 12 Nov 2026 20:12:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bSHbJVnv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE9F01F00923
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:12:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wd5LR3x5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEBF41F000C4;
+	Thu, 12 Nov 2026 20:12:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794514339;
-	bh=eakRgnWHv93CEQPpJprbZeATRfmw83XT/BkhRlCQLg8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=bSHbJVnvKo5zci/a1AG3EHF0wmI3lxnUuv9gNNDuCIUa9Xii0VLak9IqJNPLZgz07
-	 Ep6uTeYWFnkORVWYYXWAyg7SZgXCKfvNk6z/NhDifM4Id8WAepGw8vhSpVItzOqscD
-	 TF2VhaDh2DH2yMOTWY94XPcZy9echX8uG/ncBVHz+DJB5Pr9MgK8ft8ydYXyix3mve
-	 hWrCBu+M9W+3Ln+9mf4dO2kVpEd9Z//hls+ej6fWmz+gownoDGd2DyLr0VO7cJstov
-	 /3YNA8WdNblZK+OsyjcZjgG5Ukde7JElh2g3+Jlod2YdTbI5vfAxx3cuANNhpcxa16
-	 a74kXQpbTvR9w==
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3adef977ad9so1426321fa.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:12:19 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEDMoV2UQqtfNslVEBUk6yPjTX+DKuXOO78BPP38vwBp6jtRWgpAbtEAXLnjZKKZridvzKRePV+LnuzlV8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8lcJNLJIKt4KsdesGxJJtcvm75BE8Q8Wtzj2nq1DgLCV5l3wAG
-	c1cFe/s6ZmLzjixAt2q9qqpLWsuqqCQ6q9gXMXs30I+ozj1aKTgh5fNSmGYJImtrv6+yFnMrYqq
-	DDeByxMB+KmcTZ+mmx1MMRWLNZoCu0bM=
-X-Received: by 2002:a05:6512:1325:b0:5c1:4c83:ae37 with SMTP id
- 2adb3069b0e04-5c1705faa61mr179985e87.2.1794514338096; Thu, 12 Nov 2026
- 12:12:18 -0800 (PST)
+	s=k20260515; t=1794514340;
+	bh=9fpTTl/wf6AJr6umSE+CPRu2oJNdc9XyyktaSY9PbpY=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=Wd5LR3x5Me6L4DjYpH7RjJgvEIUHTnafELJfE4lbU73zmNdBaldXlR3sSNQXDE0rx
+	 cpCXv20hOL/iaqJ73OPT+LEExBym1VzA0yKj2SlRFh4FEHhSrCukhXuMSztKOjwdqM
+	 zynzj1q6PuePZXVZNMDojDXujpUxwsQcgY1AR23TTvny+9nAq1OxdKf/CLd+CdJuzT
+	 3nh0ePxvJMBi9fOqhjY4bt3pPmXbZ7n1OWo63UjkDT4Z7+c5hQwUWZTI8TY85CXaYN
+	 RetJuVMppPAVUFs8M7LyohWaw+CDp5DnIt9p++Ndi5cEoOcczjyjweM+CMEQMZ62/o
+	 ul+IDIXwa6dSA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,105 +49,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111225940.1573565-1-tytso@mit.edu> <20261111225940.1573565-2-tytso@mit.edu>
-In-Reply-To: <20261111225940.1573565-2-tytso@mit.edu>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 12 Nov 2026 21:12:06 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0jQh5o8rT0EDZ+zMXmPn8i0Dz+FoRK92OeYGeHbzrf4Lw@mail.gmail.com>
-X-Gm-Features: AclHuK89jLhFcAKrJXWTO7te7t_zZMTV5xHcIHChc6as7m7NjdEkpvKrRplXSrU
-Message-ID: <CAJZ5v0jQh5o8rT0EDZ+zMXmPn8i0Dz+FoRK92OeYGeHbzrf4Lw@mail.gmail.com>
-Subject: Re: [PATCH v5 1/6] agents: add infrastructure for agent resources
-To: "Theodore Ts'o" <tytso@mit.edu>
-Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev, 
-	Sasha Levin <sashal@kernel.org>, Bradley Morgan <brads@mainlining.org>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Mark Brown <broonie@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Leon Romanovsky <leon@kernel.org>, 
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>, Thorsten Leemhuis <linux@leemhuis.info>, 
-	"Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Dan Carpenter <error27@gmail.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Alexei Starovoitov <alexei.starovoitov@gmail.com>, 
-	Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] spi: atmel: poll short PIO transfers
+From: Mark Brown <broonie@kernel.org>
+To: =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?= <jensemil.schulzostergaard@microchip.com>
+Cc: Ryan Wanner <ryan.wanner@microchip.com>, 
+ Mark Brown <broonie@kernel.org>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, linux-spi@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261112-spi-atmel-poll-short-pio-transfers-v1-1-240ccc868cc3@microchip.com>
+References: <20261112-spi-atmel-poll-short-pio-transfers-v1-1-240ccc868cc3@microchip.com>
+Date: Thu, 12 Nov 2026 20:12:09 +0000
+Message-Id: <179451432977.339049.8591158302502636785.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1791; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=B3s9LTuJyrYMtGqpBf4YhavMI4ad7zNib44eomiVWMs=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLK+yS4IOTDds4S3tibr5Utl4U1HmcIfSShF+tl5Jdvtj
+ HkdPDepo5SFQYyLQVZMkSUui/tlfcnrNXwHF7bBzGFlAhnCwMUpABMRZmVkmG18l1NKqPvphB+H
+ 7oVxsDndtLPrunVj5pVtcieOuzsv/MDwPzcgmmXNZXPfWK2G3QGHiz5pMIVnyIfV3fG5dNeTuSW
+ eEwA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, Nov 12, 2026 at 12:00=E2=80=AFAM Theodore Ts'o <tytso@mit.edu> wrot=
-e:
->
-> From: Sasha Levin <sashal@kernel.org>
->
-> Add agents/ as a home for skills and other resources for
-> coding assistants. Describe the skill layout in coding-assistants.rst,
-> together with the rule that skills only inspect and report, and add a
-> MAINTAINERS entry covering the directory.
->
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> Reviewed-by: Bradley Morgan <brads@mainlining.org>
-> Link: https://patch.msgid.link/20261020161642.3713052-2-sashal@kernel.org
-> Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+> Every PIO transfer enables the controller interrupt and sleeps in
+> wait_for_completion_timeout() until the interrupt handler has drained the
+> receive data. For a transfer of a few bytes, the interrupt, the
+> completion and the two context switches take several times longer than
+> the transfer on the wire. Devices that do their register IO over SPI,
+> such as SPI attached Ethernet switches, issue one message of a few short
+> transfers per register access, so this overhead dominates their register
+> access time.
 
-Fine with me, so
+> Busy-wait on the status register instead of enabling the interrupt when
+> the transfer is estimated to take less than polling_limit_us, 30 us by
+> default, as spi-imx does. The estimate uses the effective clock rate and
 
-Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+How big is the FIFO?
 
-> ---
->  Documentation/process/coding-assistants.rst | 14 ++++++++++++++
->  MAINTAINERS                                 |  6 ++++++
->  2 files changed, 20 insertions(+)
->
-> diff --git a/Documentation/process/coding-assistants.rst b/Documentation/=
-process/coding-assistants.rst
-> index 509dbf23a099..b8f2c74e46fc 100644
-> --- a/Documentation/process/coding-assistants.rst
-> +++ b/Documentation/process/coding-assistants.rst
-> @@ -19,6 +19,20 @@ For guidelines on content generated by AI coding assis=
-tants see:
->
->  * Documentation/process/generated-content.rst
->
-> +Agent resources
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +Skills for coding assistants live under ``agents/skills/``, one director=
-y per
-> +skill with a ``SKILL.md`` entry point in the `Agent Skills format
-> +<https://agentskills.io/specification>`_. Each skill points at the proce=
-ss
-> +documents that apply to its task and adds only what assistants tend to g=
-et
-> +wrong.
-> +
-> +Skills inspect and report. They do not change files, create commits or t=
-ags,
-> +or send mail. A skill returns its result with the evidence for it, or sa=
-ys what
-> +is missing. Do not fill a missing result with a guess or a placeholder, =
-and do
-> +not finalize the work until it is resolved.
-> +
->  Licensing and Legal Requirements
->  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 222b7fc2c3aa..eb348cc9588f 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -734,6 +734,12 @@ F: Documentation/filesystems/afs.rst
->  F:     fs/afs/
->  F:     include/trace/events/afs.h
->
-> +AGENT RESOURCES
-> +M:     Sasha Levin <sashal@kernel.org>
-> +L:     workflows@vger.kernel.org
-> +S:     Maintained
-> +F:     agents/
-> +
->  AGPGART DRIVER
->  M:     David Airlie <airlied@redhat.com>
->  L:     dri-devel@lists.freedesktop.org
-> --
-> 2.53.0
->
->
+> the word delay. Setting the module parameter to 0 disables polling.
+
+If this is dubious enough to require the module parameter we shouldn't
+be doing this.  Most likely it's perfectly sensible and we should just
+do it as standard, other drivers don't make this optional.  If we do
+have a parameter it needs to be documented.
+
+> @@ -725,6 +736,9 @@ static void atmel_spi_next_xfer_fifo(struct spi_controller *host,
+>  
+>  	dev_vdbg(host->dev.parent, "atmel_spi_next_xfer_fifo\n");
+>  
+> +	if (as->poll)
+> +		spi_writel(as, IDR, SPI_BIT(RXFTHF) | SPI_BIT(OVRES));
+
+We should ensure there's no interrupt handler running or that could run
+in future, especially with PREEMPT_RT which puts everything into a
+thread.  If we timed out a transfer then an interrupt could be
+delivered while we're polling and try to also process things.  A lock
+while updating the flag and checking the flag before doing anything in
+the interrupt would probably do the trick.
+
+-- 
+Mark Brown <broonie@kernel.org>
