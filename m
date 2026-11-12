@@ -1,68 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794493953;
-	b=zy85NMXa9yBfM/XROylWW3HTeSjo8FoYMB37XwX9HFX4Qtiocl2TbyvopBlcbKJQvBq0
-	 yC4FZqdfxpIjJE9/2sX0rxRDnb+mHoBPFsaC9e679s+qcY0vfnSLXUsJR6fThAYv0D0g0
-	 HrVUbzg2wMyTUAJJ8Geqm8dUiKNzI7pkWTu+JTzgqPP53Tk2yGmaz2T130G6/WPgYuQ2c
-	 IFPsGglfONi5dRizzJim23soXs9Ngx8hRAjXRutouYohYXuGpzyOkJozQofjbPT72vsAZ
-	 wX6ZzWHmUQU8xQnoeAsD96wDsXCV9qjHosJFfQf2dc3gop0UUBdvKS40A/gwm1Ehoew==
+	t=1794493968;
+	b=vUdqak8cqGUn1EvngJbLn8kPqdh9eEHwkr/p84QjRt9wV6TBl9Xik9F5sXHygt+PWtZt
+	 VvUk0soSmu+DLkflXYhO5RW3nk3qnEMfXRQbRVwbqgSFCYVQGphFftI4ipYoPueNx9oL9
+	 HzsvbXjjvyhFpdkO+tmdRG/PR7VBCgbRoBuV1IUOv9zvMkxOO7S2TJC0YBkFAeeAItEU8
+	 H7RuXwUro55HQa9VNm4KV2nBLFMNKEvmvidMQXaHO2Ezk2k5F8vAB1tP25YPwHN4Eg0X4
+	 08bPdZWtsZUxDGxDWIBhQa7EkdOgUw05XnpqkYMhWEfxEonff+pe9a9tvlfhYzebxIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794493953;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=SRsR6NpxjPS64bA39YhcsanfVCLNt8wtt6lU8BZ5cWE=;
-	b=D9uHXUwb0ZkF8/L+917PHvzORP4EdSsA5CHcscCUq+KiEkWQ7HRSUDtUEFK/uRmbhTX+
-	 UeacwXsO/X2JBwUYUb1zkUTobayEroI8QgLcErSBY1Ce1lyAtNFzQjn37q+M6FKE4Q1z0
-	 gxNfmkPYVqkjnP5BK/A9POs/jiV2HbxxZEUvCe6VciAgBFpbl1/0itakNHlyMdcF+WhuC
-	 nwiWhkIG8ngMctegIBSgcrqd/lMGwBIVX6zC5SCFAb3aqkdQhKyfz7vwAMMkNWuZGgdb/
-	 dncyQYbxhQY9MrhMHbTRXwdaN6istROD90Q2rN57OEzorKBz5J3B3lzySgocAaNBrlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794493968;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=mZcXDkDM4tLOIZWuTJL+zhEVZpgEEqZKEtZyr2yGvYY=;
+	b=n8zHeWjuyNGAvoUeDHIi+zdnkVJb0PwyNSaeRnBBa3CWAYhdD2H2JwNH0N3aa0eM2qMW
+	 yFai9WGC0YYobyvdMHJHz6oQuXx0//3UCzBtpdQuIQGGe11O8jun8UtmEnUn/lAW/gYlR
+	 rXIbRJVtBOdSZqX9j6TgFb6vBoXC5i+DjxtRx2mqXBaJkR5WhigzNF+oKz3M0VAxfC7vi
+	 VRT65Bvu6H937/nuM3YifeI/hizVFQi2Oo9pyvYP6JAFTJ23+HM6B3l+JI9BWz9/UkTnV
+	 h+Ur/BBKND2PoYDbkzjaWPdnAyMlkASXNmZJOipzLnFd/5giGh/vT5b0XBDTQw4hd2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lz9Obzzk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MwNDJuGu;
+	arc=none smtp.remote-ip=209.85.217.53
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9188A606A337;
-	Thu, 12 Nov 2026 14:32:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F89606A88F
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:32:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5F89606A88F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lz9Obzzk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E10E51F00A05;
-	Thu, 12 Nov 2026 14:32:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794493953;
-	bh=SRsR6NpxjPS64bA39YhcsanfVCLNt8wtt6lU8BZ5cWE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lz9ObzzkCRqsNKHqjCsSBDtdF7t0b6TL9jurXhMQ/f1cLZvy1IZIBXK7Xo/Kw9K/E
-	 soV05z14W5WCpRmBJpmq06BcGKBDI4LrxO3OffRbtoPBs/UiUBJ8K/Q8LELMohEXkT
-	 oWgjbWxEzPgKbE6yfCF7AZZW4x/kQS2W2qOoE4ijyhul2X/8Bd7zKk/561owsyZ9Nm
-	 XSeEsNez/zA6y6JpC0BMAhKh0plB5xcxYvZ5nfN1H5DT35kmbYI6WBJz/repoDbJiE
-	 SgaLBmSuN89KEJT0UlYfbLpJ9rLXBNQhqJt5hSMe8AaOseHutAob63YqgCtpDao8Mq
-	 2JHxg/TRmDhyg==
-Date: Thu, 12 Nov 2026 09:32:31 -0500
-From: Sasha Levin <sashal@kernel.org>
-To: Theodore Ts'o <tytso@mit.edu>
-Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Mark Brown <broonie@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Leon Romanovsky <leon@kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Thorsten Leemhuis <linux@leemhuis.info>,
-	"Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Dan Carpenter <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
-	Alexei Starovoitov <alexei.starovoitov@gmail.com>,
-	Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
-	Bradley Morgan <brads@mainlining.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v5 0/6] agents: add skills for Fixes tags, stable tags,
- similar bugs, and commit messages
-Message-ID: <avXN_5uoMggT8hDP@laps>
-References: <20261111225940.1573565-1-tytso@mit.edu>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MwNDJuGu
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-7d2dbe5c4b0so1463150137.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:32:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794493967; x=1795098767; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mZcXDkDM4tLOIZWuTJL+zhEVZpgEEqZKEtZyr2yGvYY=;
+        b=MwNDJuGumbfCpm/nvNtmYBkp1sXBfTj7FXEjMe0FgXpJcfEgMoGzZGnBsT0//GwADA
+         rFtAHvzzpd1Yz2HOfEuJQfX9E2lmtSB7k08g3BF3U/LbxlJIp7/9D+O3pCDOxYAGtwXI
+         pLZWJBLpAFPfvDUdk2MPNPIv4EyLqK2Vx/XHGIYWqpyFyuxk1pZzbL18XFbiBUkqfFmZ
+         SOi0wpZYMoUXca7nPK7cGT/owzhufMvRLX+ao+HzMk9z890UjTZLn1Zz/SgWAxgknuuZ
+         +2hIZUG9tMgtrp0VDImLsjC7jgYu81UvmgLXSZD6uu2ENlOM+Oobw7CRSM40LhwSSO4J
+         qOaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794493967; x=1795098767;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mZcXDkDM4tLOIZWuTJL+zhEVZpgEEqZKEtZyr2yGvYY=;
+        b=0aGav5PQQZ5ZSu+McK11zIDkLs+G6aqCF1COK3od4v2wZhxGDkaW5vvFgDjbWbwBtB
+         UvIdyP1Rgr/yCRAQAFQPWNDnlQNpqGrfuPORuRhK8noooz6hOeRyX/lj6igFUS67He2G
+         9ri6nbVUBLbm5KCXwiTTltpsD4Ytqu9jrNmR6f75tJ8As17gpRo29sfiXq5tfgbVL+Fo
+         ibcorlyIMJQiHbKOdSlpHe5ObQg7txdu+9VEW1DZwPt0Ak6nK/jFRnzNMdjv8cMVeV1b
+         yP1LjVsFeGmhRKXBuLrq8YTRc14bkRBU3mK5rUT+Suj+lUsk0ckCQTw5Xk6uJgaoRgbp
+         2X0g==
+X-Forwarded-Encrypted: i=1; AL+hErGLq/+KC917exguhF0fHSCQr1iIVMIOjiPJMX3F6JFK+CLQXRt1PaoBl+Go57EA2LnSAuORMO44oQR1xqk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9X38CbjZqcqlRwEqL0A5KQ6KXCADIQ6wfyxgcm10YkThSBlhB8
+	JSE2LB1TDuPfyWtj9PEgo1yu9f1dwurlRkKAZs+zWKrwrt0XdK/YPf/X
+X-Gm-Gg: AYBFou1fBNTwy6RS11wM0JpF5+lBGj1KGy/Xkzb3oTzE2Fc/zqqNqHJSbOdtEuG4WIJ
+	QI6avDid952pcCFx4um4y6u9u3jz9cf3FELS9h75uecO9Owe3kcnqa5RVKvq0F/1VRRErCQkXgP
+	y7zGhAUkpoXnWTniQ3TgSSQOUYvqBv+hBCyCrIVJ3H3HksxMHY+WyhLm3Gzkifllt9CluGtTkoQ
+	K1cst3BzAErBKt8o32peIMwN1x2Gy2YsPSw36oA8gL4R0EQL7zE8HEDCtvsgkhyYa6DalC9un22
+	GZzgUPAa0v9zPYJFQAEdi6AyhkaUVNEtGQ1ZRViTD2s2ki9CfUvlXDtltJcFH6pdwSXUHL6u00E
+	xIrKUspEvX/e5QjEbPyHEd04BRAqDRX/wmU0eWp36AQV7aMmDXG8imIZFXDgyCMhZrnUqX5A+LF
+	0h1f+EdAwws4+5A9sUPJdjA4prKBEL/wSiVUO32Sofs7F5Zhu+Mo7jfdD0hggdv/VabeugaynNj
+	eggLAZSBkUkFJ7XZKkdSQZKILofiWkIskBFsJ96ckkiLUBmvl6pG1ffh+L2wf8bC1nApGRlhKhH
+	pIc9QhSqITkcllUSikxGI8yyIPIGb8aE2A==
+X-Received: by 2002:a05:6102:5cc8:b0:7cb:288a:b68b with SMTP id ada2fe7eead31-7d506146d9amr1933561137.37.1794493966318;
+        Thu, 12 Nov 2026 06:32:46 -0800 (PST)
+Received: from fedora ([2a09:bac5:565d:323c::501:5f])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d3023aeac7sm5761387137.9.2026.11.12.06.32.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 06:32:45 -0800 (PST)
+From: =?UTF-8?q?Oscar=20Alejandro=20S=C3=A1nchez=20Lucero?= <aleszlucero@gmail.com>
+To: Massi Djaiz <djaizmassi@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Oscar=20Alejandro=20S=C3=A1nchez=20Lucero?= <aleszlucero@gmail.com>
+Subject: Re: [PATCH] staging: octeon: Fix return value documentation warnings
+Date: Thu, 12 Nov 2026 08:31:58 -0600
+Message-ID: <20261112143159.60591-1-aleszlucero@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261110171618.4507-1-djaizmassi@gmail.com>
+References: <20261110171618.4507-1-djaizmassi@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,32 +100,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20261111225940.1573565-1-tytso@mit.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 05:59:32PM -0500, Theodore Ts'o wrote:
->This is an update of Sasha's v4 patchset with the following changes:
->
->   * Rebased to v7.4-rc2
->   * Removed references to Assisted-by: per the discussion at the
->     Maintainers Summit
->   * Addition of a new skill, writing-kunit-tests which I've been
->     using to add full KUnit test coverage for ext4.
->
->I've been using the prompt against Gemini Pro; would appreciate
->comments about how well it works (or doesn't) when used with Claude
->Code.
->
->Sasha, could you consider updating your patch series with this set?
->I'll assume that you will send this to Linus, since the bulk of the
->work is yours.  Thanks!!
+On Tue, Nov 10, 2026 at 12:16:18PM -0500, Massi Djaiz wrote:
+> Running "scripts/kernel-doc -none -Wall drivers/staging/octeon/" reports
+> that 17 functions in drivers/staging/octeon/ have a missing
+> description for their return value.
 
-Yup, thanks!
+Hi Massi,
 
-My plan is to respin this in a few weeks with any updates and feedback that we
-get, and send it as a PR for the next merge window.
+I applied this patch on top of staging-next, verified that
+"scripts/kernel-doc -none -Wall drivers/staging/octeon/" reports no
+warnings, checkpatch.pl passed, and cross-compiled the modified
+object files from x86_64 to mips64 with no warnings on my machine :D
 
--- 
-Thanks,
-Sasha
+Reviewed-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
