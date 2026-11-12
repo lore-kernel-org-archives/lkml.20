@@ -1,72 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794518792;
-	b=i96Nvs+SIudfW9qumGNDNBLpuym836uPodWJ9mE5vFqPnZaUNs8UKfTTe3svSID+/F+H
-	 fUttsKhmmzXd3A4PMTz8u/cap/x0BaC9GvqklPnLXVHyi2rFtt8uEhyfz1WrpIZFydTSm
-	 HF34ButdKC/yJ/WiPwLUsOrO9iTv8EL8UarYsWnQODOcsrQrf+9TW5RWhnq91KxblUvMT
-	 kK8IHdSer69EtmmlWb7gwXjZep/iF6UcjesV5cQcYb11urdPz/JwXR+esTm7gx1c8+FFB
-	 CjZU1fwg4F6KxztdTPcKXJ2EEmfwXyF5OVq51gJrw+6hlSNeerEu7qq4bXX0hyCTE5A==
+	t=1794518807;
+	b=2+1HKZs004IQ1Q4dTSVgIKWliHnyhPHoy8zNdcD3dhUK8mhtgUl9Z6Y5hKE6kT6EWRN3
+	 PELq/pue1kpig1O1tLS3LhJdcnT7Flhj5Gz5xtgosgZcWlLO1g0p8FmCPdxSD+50DqtKC
+	 XCnOzsIevzCTUWCPto7xgk0YtoHfuqkCZ1GDsleJaSb33Zny5YIMR99mzIeIJwLqRo4jo
+	 cMabnU9o3VQYAN/8oN/VBjukBsrIN/zT6McqgkuvEiHnRU9lkhLJy8RN+RT8um6lelawM
+	 xoj8aRcZ8Swlr9Fdr7KWd2JSZoFwsH+zGgbVUFxiWumMOPOzIQUawdRloTCjU0DbHWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794518792;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=TESmgCxUPr1Vm2wbKzVzpf5OFlB+4n+j8+LrMnvA4m0=;
-	b=US/E772MDfji+ZPA52jcqujd/85c2zGgfGgpPK1U+AYM+nu+xU+xSBKIugQS+9JfKMwI
-	 UAl3MgE5fufGL48PiE7ZyCNOQA5lGmkCYiDfp8Cv+bAeJc0Los67czgfxiT3ZDVWt+8Wq
-	 33yUaRxDY+FXXC5mzpaOJHB0IW+VhWQ7EKUCmaUX4pNj9oGCb4eQVkmtLFgrJBQEYBggR
-	 SXbwFAg08llh5RADVy3Jtb3UzUYD7lIPvhrVCoLS3tkGXtrqv88ZMvYqWiTegAt+/zZ9p
-	 Q3lmMfTGqkM3OVYSTiPm/IELXRcE3ILW+zsZNKMuwjp+rj51z57u1FGPyVt0BUv0I5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794518807;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=JBMHkVOFZcl9fxEDNKOSeCK0S5Pm+0iUiyfj0Dglm4c=;
+	b=qF9iqBf9Dq5V5tJTd75HPfQtJUE0ihFMdNNGBv7KXFjEurF2GWZeSHLRCABINfB+ZFsg
+	 B36i7ur5KDQMB6r5jHseAQnJPOrPB9bsUYaBC6CHUHVolASmqqRX5X3cN7fzmHsIr1FmE
+	 JMBNEf6Xn19OaT3oobGZH/p9u+PTCgC2jKSJpaTh2H8ftydPeqo8J2tEQUKhUSbNF08KO
+	 RRz11iZLvW1jmDktDK9Ix1nBRcSHkCwdK469wbiA6oSzGMQ65HpttJ6DlcnJSEVfRrXgf
+	 4VLNjwK+o62j9u5sNEp/qj5LUGMlXEd/l0M0SyRdUPXoBufMzdcyDOatRrCjHvE44Ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QopOShDW;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=uWg4QYGF;
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F39606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:26:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52F39606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7241E606A323;
+	Thu, 12 Nov 2026 21:26:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7241E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QopOShDW
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4a41f46d629so342572b6e.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:26:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794518791; x=1795123591; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TESmgCxUPr1Vm2wbKzVzpf5OFlB+4n+j8+LrMnvA4m0=;
-        b=QopOShDWxI1E9RX0pzFGc+2f6Yy/h/7mxtYw/URNk09ek9vnzDdKKHqbOQOLYYr107
-         W3c4GBMYzAq3EZQDEFB46+KF7OUH7hhj7YXrqJFdfWod/vmoz3E5GLU/DOd54WPRQXZP
-         Vv9I4/KLG0tqV61NjaimWDUhruut1Ko1g9y9QtVRNjqmLPyJB+kiLEcwIOawzTS6r5DJ
-         EBsPkkwES+VIt5PIsVZNt2/cuxYbrpfAS5xsfkA3jv77Sk9gschHDf1nIeaC4lknV/dO
-         4Q3x2lWbtwuApUZKD2lGdOvgDf1AxVdPnpEvyWl3jbfRkl1lLcF0s486KNAQ010czhRe
-         o8iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794518791; x=1795123591;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TESmgCxUPr1Vm2wbKzVzpf5OFlB+4n+j8+LrMnvA4m0=;
-        b=Yt4DpgedUxrmBs7OG7xVT48Uj88RFReBisQSNtMQUMXgfVkh5OCp5vCOWZ1FscL/Zr
-         hlmtlwxXPkMLTB6UFQawq7d3NRao7UN8jnXMoKFPdZCls4NAaDKLHC6LwHDqEFmrR5z1
-         0TOjdKMhSRoDg+Q1GVtS98xXi/NDQQPPBjaVQrkyYmaW7V6pRi60DeL7iVtPT9KgTSae
-         Vd4oRY2qLLVce/4B3a7ZwZJ+wuJ+mKzdT49N0o7hbJviCwLXeVGWnDgvCAFxhngsTvpi
-         qk1dmvJVAZoy4zM1BKnwcoUql5H5cFLYHf+yrBMIJOoKm0bBD5EHqCYNyJpar12K9dQo
-         VIwQ==
-X-Forwarded-Encrypted: i=1; AL+hErHqCcDwoIuVwSGyt4no7pV1YxjZv+JDgksoesKV9DO7YmPvwC9wN6S26bUSWKCpzWMFadX3Qn63cuk8uJE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9psz+s1/dy3o4S48LfPwZwBXcyxe1U8+DqYA17WHIq2PLgO7/z
-	kFHXOuw0OQbKvvOxiSGGFVP08onhLO2Y0IPywn6z769BdXVBkKxo3R+XS7TtWWss0U6wbz+KDlB
-	7J7Y0Z74pYqqvyw==
-X-Received: from iofe23.prod.google.com ([2002:a05:6602:82d7:b0:9c7:9256:112a])
- (user=jmattson job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:250d:b0:4ec:4c7e:37b5 with SMTP id 5614622812f47-56e641d6157mr456217b6e.29.1794518791076;
- Thu, 12 Nov 2026 13:26:31 -0800 (PST)
-Date: Thu, 12 Nov 2026 13:26:28 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=uWg4QYGF
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jQYP26sPvz1XMYJg;
+	Thu, 12 Nov 2026 21:26:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1794518804; x=1797110805; bh=JBMHkVOFZcl9fxEDNKOSeCK0
+	S5Pm+0iUiyfj0Dglm4c=; b=uWg4QYGFCpo1EzVE5PHLK4k38Wa5nVkJVqBHXhWt
+	SiRzqLLHo/A6KPyN9A0+dyCFfFU32H6cVSfAJy5UZDpLRZUftKOYW+1iRRs9JdgM
+	tarq8Mcu0Z2iKtJD0eR+NsZvI53mNb3tt7gV3AIAIdx+xaUl6Ter/qKwflXjgqBh
+	W0+q527jXRlFHw4cnvdJOpp3iz6/FkoEkZq+PZ8hUaPbDt3dSbbqzZUHtV9rQ+bq
+	m6sgwJXVGKF3MNcoGI1M/qA5L1z6gDEO2k+CT0BjRPkmk6wbXES31fvX/VbL6CSM
+	DGcQvF0iZ7ivwul9VCKT6UoxZvX/YuyudFXpwViML4gUDg==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id gRCXMwv_9KJj; Thu, 12 Nov 2026 21:26:44 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jQYP04Tdqz1XMYJW;
+	Thu, 12 Nov 2026 21:26:44 +0000 (UTC)
+Message-ID: <c2ce2c9b-04b3-476f-984d-c2b68187a740@acm.org>
+Date: Thu, 12 Nov 2026 13:26:43 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,45 +69,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261112212628.265262-1-jmattson@google.com>
-Subject: [PATCH] KVM: nSVM: Gate CET state copy in svm_copy_vmrun_state() on
- guest SHSTK
-From: Jim Mattson <jmattson@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: Yosry Ahmed <yosry@kernel.org>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Jim Mattson <jmattson@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V2] nbd: Reclassify sockets in the reconnect path
+To: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>, josef@toxicpanda.com,
+ axboe@kernel.dk
+Cc: linux-block@vger.kernel.org, nbd@other.debian.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+d7d72f3d467710442af0@syzkaller.appspotmail.com
+References: <20261112105939.260856-1-trintaeoitogc@gmail.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20261112105939.260856-1-trintaeoitogc@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Like nested_vmcb02_prepare_save() and nested_svm_vmexit_update_vmcb12(),
-svm_copy_vmrun_state() should gate copying s_cet, isst_addr, and ssp on
-guest_cpu_cap_has(vcpu, X86_FEATURE_SHSTK) (i.e. the feature is advertised
-to the guest). Instead, copying is gated on
-kvm_cpu_cap_has(X86_FEATURE_SHSTK) (i.e. the host supports shadow stacks).
+On 11/12/26 2:59 AM, Guilherme Giacomo Simoes wrote:
+> diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
+> index ffce519bf008..b2b27f90a7ed 100644
+> --- a/drivers/block/nbd.c
+> +++ b/drivers/block/nbd.c
+> @@ -1356,6 +1356,7 @@ static int nbd_genl_reconnect_sock_cb(struct nbd_device *nbd, unsigned long arg)
+>   	sock = nbd_get_socket(nbd, arg, &err);
+>   	if (!sock)
+>   		return err;
+> +	nbd_reclassify_socket(sock);
+>   
+>   	args = kzalloc_obj(*args);
+>   	if (!args) {
 
-Check guest_cpu_cap_has(vcpu, X86_FEATURE_SHSTK) instead of
-kvm_cpu_cap_has(X86_FEATURE_SHSTK) in svm_copy_vmrun_state().
-
-Fixes: c5ba49458513 ("KVM: nSVM: Save/load CET Shadow Stack state to/from vmcb12/vmcb02")
-Signed-off-by: Jim Mattson <jmattson@google.com>
----
- arch/x86/kvm/svm/nested.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-index 1299fdadeb73..b73bc9c3ebdb 100644
---- a/arch/x86/kvm/svm/nested.c
-+++ b/arch/x86/kvm/svm/nested.c
-@@ -1248,7 +1248,7 @@ void svm_copy_vmrun_state(struct kvm_vcpu *vcpu, struct vmcb_save_area *to_save,
- 	to_save->rip = from_save->rip;
- 	to_save->cpl = 0;
- 
--	if (kvm_cpu_cap_has(X86_FEATURE_SHSTK)) {
-+	if (guest_cpu_cap_has(vcpu, X86_FEATURE_SHSTK)) {
- 		to_save->s_cet  = from_save->s_cet;
- 		to_save->isst_addr = from_save->isst_addr;
- 		to_save->ssp = from_save->ssp;
--- 
-2.56.1.703.gf848ed807c-goog
-
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
