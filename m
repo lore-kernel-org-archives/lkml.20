@@ -1,97 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794495293;
-	b=NWfvN6OXoJvXQGoRLseHxOhjTxlbbb4WVk0As/Fy/wXUKvwr4jK7eOXX4jQ3pIg7uouJ
-	 D9i15r77KkJ4P1gNKeXhl9mXXrxvFcmU5qcbM8DJOO3k8f0hTo5m5KN3uaCofd3ilLsKm
-	 1rpxrgaHTrg3dDPmKsgcKFlHaqxdSgjENVHxyQwQHtLMy55FGGVZFnAKSF+FSOTUIZqfo
-	 liqN7a4URZiTQpQoGDwijLmNar4X0F+ZDmJHDsInMwHSIG0ZZswTfoJspfMwQkqGzjYj1
-	 bXcbDAJ4AoXevwVeOkwEDOOrRoAevHQgYrCHFMR8GogJRlJoLEmp8MReQe9Z1Nu+2vw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794495293;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=YJAKVSq5yqKYSt2NYDkWivS5DNZ0RRvFzcrDx4hLtrA=;
-	b=HuZCWe0ASRkZ+A6fu4uxrjSLxS38ID5Qis0FvxzfCD4Ym32G7vhaWO91gdSWpgRzHb9k
-	 mCqM12TiCe9yWoHoyN+1a9WmAJKmVZCG6wqhEHGi4dg0CA1vlNNbRMTqIPdcsL5cfvSZ+
-	 7dCN9BzoqACWTamAV4GHceA/x7J3CbtyVL2t2fCGuoBoVC7lf0bAYuM9+boinjL2gn0SS
-	 NCn1WP7qwGHqqYR+08TVuibwxnH8NalunaCqvIEaESaCD5xfEr+FWpe5N2jt3x8LAo6LD
-	 KAQ+S6OmLQoXcfKeV9zSbDtXkTbMTpgkV16zVw/tUezjDKcHB5+T8vevSusBAO5RuNQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pBy7U8XD;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.1
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794495295;
+	b=bS1gg74FlengUP/4fSBwJXwzX6fg0sX5ND3Qspf78lG2XcXu6KbmTgB3lqNze+aqUGwU
+	 8N9gtCNJv82hnkzjZnGFu694GavlWmC3sbMJCUt/yZ4VIx1ZMn2KlSw2j57EmRZPZxci1
+	 XGhDXH0Xu4SKzpkzGv2jKZNWKnDUnjMxXYMxSvOrqUG269MG+0vYetJ2SHRmkGUVPKM4q
+	 CDgQrDAJhCWu7SDNNeiGqkJoG/wYwS0TjIuJYzYlpO4wpnKQHM4SRmhg37Ax3ypTZV8Qe
+	 oYfga3XE/SpjRBiXe8eg84LftMnEC9c13O8AtqbZ+zT2zqUs1HP8wr9Z/zxalHx5xJw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794495295;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=6hKajhZFnhs3/szJvBtizIVKQqkI9pGE0tveM+Z6u4Q=;
+	b=Z41TX5PVuPAS0aRYw09DGTwusadul6YuK3pFrmimUA9UrbMvlTHJMrtsPXpZnK2iMbVa
+	 9Vm/O6O0JeCxtxOf4BXG/UVcnbM6heyB0IP8E+2bBY8IQU+hd1xaNt6FDO/i0MTwZhKyQ
+	 9GzlDwhC8j3HmzrXdvy5x1m1Ysmg2idpHBpW+0DD9wjyGP4MbV6VBkU04QyGmAPK1fp4j
+	 B2i9tA9AhaNk7ya2wlpnMXGR6zjiMGAI+2WeoiPCzn7B0XeoA8iz4FhT5PXyD8ymwxLZo
+	 F/ZDkmJ6MOl3g9WoDWhsEUuGaGhwxpe6RabXmW2RfJ6FnAO9b0ZGrsbPVoOgU8svTLw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=VzRdV1wN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.1
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012001.outbound.protection.outlook.com [40.107.209.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5129A606A32A
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:54:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5129A606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C60CA606A337
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:54:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C60CA606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pBy7U8XD
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a210470b49so37273165e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:54:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794495291; x=1795100091; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YJAKVSq5yqKYSt2NYDkWivS5DNZ0RRvFzcrDx4hLtrA=;
-        b=pBy7U8XDNAWse1O6+/qfCw4GU6uCvmoQJcEU8Eub3ENzcDL0eTGFTS74o7FFODs09C
-         zbIBeHzRirh+I6XYVUqC9yrksNitJoDLFqgSSiLWK+Sf0qm3W6NkASrPDHW37+V8Fj2H
-         aPAhXHvj3RIcAB226+cT0eXq8JhUkU4OUeqN3v/lxVm+iemueF3ySxypZZpRHUWrcc9J
-         wZuLPKLSY4SQ34DY6ZvHPHeYsUyQaBpN/MgsZg0+S+HwUNi3b4Nmm9h2BPdDRhs0x3ww
-         C1skj5UNF8RchccJHGsgHimM/1cwLToxgTdMzuIyT2hAoO7ycEiJ+x2NpRF9JWp/uB40
-         eufw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794495291; x=1795100091;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YJAKVSq5yqKYSt2NYDkWivS5DNZ0RRvFzcrDx4hLtrA=;
-        b=Sf7F4SzU89tgkXyKWSOwCWlnqlSKHxEpv+mZb8+iP65SfiuupX67YpBwTi+9/0lvrf
-         YjE14OcwLZv82Q9ulMXdiuAjhJlbnwpU9NRkB59K4Wfw94WV8rRkRaHTAJ6Vc32UDNPB
-         zEA/qZ4uDYHzi8qrhYkZ0UyvW/KHbdw85/iStsN8EkgFsuZ4flhgVZ0pYxgNrp4o6TzZ
-         Pki+nLxNEMZ5VIW0FqHkWITxi1EbCwL18CRsmlqn2espN2w1hMIzrNPACfDR3E/K2fOL
-         MFUuqmw3mI93gruBN2iqUfaLw7i699odA+jkiiq5APT/PdRbgLllsdnPVsa5b13sgZMy
-         XrQw==
-X-Forwarded-Encrypted: i=1; AL+hErEplhCUffgIPGXpXDhYvTkPQW1znHGyZ8fVC3GY9otcR+nDLMqNw/97BYSN/PZ8kTtyOFCVLlueD3X3Bk8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+UVSv+T/wtJQd3RTVsiTdVR9QORavO6NeoBkCZooM6vFM5F9+5
-	YC8hidK28ohY7DX8J93dKU5ZpwI6N3Lv42DXlpGcXDZZ7s5x2+zc+kPN
-X-Gm-Gg: AYBFou1V8BNql1PSCuJibwtVh0vmQOroIK+gORGW4bDKQDUpmEi7Adt6AoV8PwHNKxs
-	F7JYZuB70Q0l0SKYTEULgHbZYEyvuR4qqWsxF8zbDriNJhOMVTuk/nce+FpchPsJuVuii7HgsE4
-	3lsQiIspdN5W3OlbrPoL8zYROjoHgIkDBZMERrSxNgBco2V8SGMm3osrv6juAUgNvFSUAb0Ntjw
-	G+h2+oCVL1zuv7Vf781QQTsseWYCbV8YR5/xaNPKRwXXz3eavMDFN/dLK09Z1r3piYx1s8Ie4mr
-	5tn4c5IxbDj5SAgJVSxJqsnM0qx+mBU1iu72N56A064VLYUrqVZcNf1VJp7Ta9f9nkgaE4cnLAs
-	U+IHDgUJ2j6RzGrm8avDn4eS0rcWYMVvl1vZ6+RszKf05Oy/uQM0pUKvNMXNUxezwCbTsGV4reZ
-	rOImDZ/whRQP304q8mowRA7NRssNXB1R4CMdNHrtXXJWtYtIk2zj0J1SoOdAvbIhN1XR/bH7+xq
-	5+XfBRUtQMOQm0GrM67DEAL3a/HWv6v4l5kMUBzFb3TZk5dRuIiaSR9ae67pa9gB4wuCS900zSj
-	O5nar+dxd5a+RtIhtzZp4Mqw8H+GSaPXgjM=
-X-Received: by 2002:a05:600c:3152:b0:4a1:d537:1c8d with SMTP id 5b1f17b1804b1-4ba09395149mr112085775e9.19.1794495291269;
-        Thu, 12 Nov 2026 06:54:51 -0800 (PST)
-Received: from build-server.. ([62.96.37.222])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49944d646f9sm13956621f8f.32.2026.11.12.06.54.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 06:54:50 -0800 (PST)
-From: Mikhail Malyshev <mike.malyshev@gmail.com>
-To: "Moessbauer, Felix" <felix.moessbauer@siemens.com>
-Cc: Jens Axboe <axboe@kernel.dk>,
-	io-uring@vger.kernel.org,
-	Pavel Begunkov <asml.silence@gmail.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] io_uring/io-wq: apply the current cpuset to new workers
-Date: Thu, 12 Nov 2026 14:54:49 +0000
-Message-ID: <20261112145449.1570302-1-mike.malyshev@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <b95051ac2caf63d3266bd02b326d0e0166a138b6.camel@siemens.com>
-References: <20261111162705.1150983-1-mike.malyshev@gmail.com> <b95051ac2caf63d3266bd02b326d0e0166a138b6.camel@siemens.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=VzRdV1wN
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kSvjCJtbDQG4cTXRsYo7QUrfAFEu6thAKKXXRnZENUiPAr3GbtDHmAZp4DHoHNMmOjGTQWZUBluqz1f9bIU/NmbohQnbEnMROr+wsgfZJ+2V2Mqcr3kzAg19R3jzOvH8nZnWl5oj+4o3n458OwlcqK1hW6o3wQEKYcUCYkh7c3zC+Y+zCc02KBbThHGX4T73G6MFL9tnYLZx2vcmSujlI+p+43TwJuqXJHX4plTOCbhRU9+M2ZzALR1BgVrJLMewrcG7wZoRxmvRq1YsknsHgyHOqge8pCpzNBiU0PWQg59kfdsjKtd9bj584jOYe9caL6KwyR8n3kuspEpAQsfGXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6hKajhZFnhs3/szJvBtizIVKQqkI9pGE0tveM+Z6u4Q=;
+ b=xU5nEferohADWXKSMaxRQ2gx8+GnPN1R0UAxMiFCOUu7otYFu84D/n3gXblvgA7ZZTb3yalsQHC3Q3bBhl+XUjwomnumqaaHg9NZKvqe/0LyDQNUcKXyO3ysYZBs4zoZCHntC7KE75WCCayrik3mhoDIWq6xVFN8vdW61UT3s0uM6sDld/qmw3nuREnCo/dxo6b1vYAvnQMLRD1gM9owK1QgfGetK8lP3T8Gc2/iIDZp+NqPV77M1oVVtk4obG6Vk0jnIgWefd2apcTlzSj19q3PMJyuKb8d/pCIA4tkB6tABVrsvmvyBBRgANgS0qW1joZQxCW6ZEi6iFhzhfQHSw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6hKajhZFnhs3/szJvBtizIVKQqkI9pGE0tveM+Z6u4Q=;
+ b=VzRdV1wNcZJKgXXXkhOCrkNeAxl+dZfL91pPRCLkXOkdS1jlKyO2peyKkKsYnPdBJnZwGyBt4qvNi5OTaNjp563FoaANOq4d6YTy8phBPW6fey4xFOLpS5YaOmjGhmin66sd5nhT9irGCYnh5RyyzC4MZUGAeZvp2ggCudaknk4nxVTS8ZAZjfdbKCD09LYF/d82ploOxi6hXLUYgE1RvCEw5Oi7vUPadLGuN5VEyeBKQAJglvLjAxvr7NJ6Pago48tYh9jGxu3Dy8coJ7jIz1jgBcug46UreIa1dX8ep41RmknahWmPI8uD3e4q/TFlYud1rn+KUVepGoAOkRCzDA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by SA1PR12MB999254.namprd12.prod.outlook.com
+ (2603:10b6:806:4dd::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
+ 2026 14:54:52 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0615.009; Thu, 12 Nov 2026
+ 14:54:52 +0000
+Date: Thu, 12 Nov 2026 10:54:50 -0400
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Alexey Kardashevskiy <aik@amd.com>
+Cc: "Tian, Kevin" <kevin.tian@intel.com>,
+	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"Li, Xiaoyao" <xiaoyao.li@intel.com>,
+	"Hansen, Dave" <dave.hansen@intel.com>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+	"kas@kernel.org" <kas@kernel.org>,
+	"seanjc@google.com" <seanjc@google.com>,
+	"mingo@redhat.com" <mingo@redhat.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"pbonzini@redhat.com" <pbonzini@redhat.com>,
+	"nik.borisov@suse.com" <nik.borisov@suse.com>,
+	"aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>,
+	"Verma, Vishal L" <vishal.l.verma@intel.com>,
+	"Peng, Chao P" <chao.p.peng@intel.com>,
+	"hpa@zytor.com" <hpa@zytor.com>,
+	"tglx@kernel.org" <tglx@kernel.org>,
+	"nicolinc@nvidia.com" <nicolinc@nvidia.com>,
+	"Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
+	"bp@alien8.de" <bp@alien8.de>, "Gao, Chao" <chao.gao@intel.com>,
+	"yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>,
+	"x86@kernel.org" <x86@kernel.org>
+Subject: Re: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
+ operations
+Message-ID: <20261112145450.GM738765@nvidia.com>
+References: <a63e7dbdba277b5a551ec74d09144e97f55504dc.camel@intel.com>
+ <IA3PR11MB91369A1E95D047DBEDB53B7892722@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <f1cdd989f6bcf6a177dcd83e55fb8465e0ee849f.camel@intel.com>
+ <20261110195745.GG738765@nvidia.com>
+ <e44f3f12b3fecdc5f3c05aa1f1b0ceb1befad0b7.camel@intel.com>
+ <20261111001606.GH738765@nvidia.com>
+ <CO1PR11MB4835656CEB24B31B557162258C712@CO1PR11MB4835.namprd11.prod.outlook.com>
+ <20261111150029.GJ738765@nvidia.com>
+ <CO1PR11MB4835C4C6DA79A84D0F123AD88C712@CO1PR11MB4835.namprd11.prod.outlook.com>
+ <a2549a83-6acf-472c-9fd7-69e965707d12@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a2549a83-6acf-472c-9fd7-69e965707d12@amd.com>
+X-ClientProxiedBy: BN0PR04CA0046.namprd04.prod.outlook.com
+ (2603:10b6:408:e8::21) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,75 +125,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|SA1PR12MB999254:EE_
+X-MS-Office365-Filtering-Correlation-Id: b50ed290-a7ee-476d-63a2-08df40cce7f0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|10067099003|5023799004|11063799006|4143699003|56012099006|261022105027099003|261022075727099003|261021121427099003|261021135927099003|261102123227099003|261026121527099003|261026140227099003|261028144727099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	+Z5lnmIdtencNtLh2QcgPxFejVSLaIcOI87HIU+QRPN5IMKsYSBs70vyh/cGYkC1q+e/fiH88Q1amhKWXQbXxUzXCINT1ThcYJWsnyOyiKVc8ahIBFyEKAaIsgl7qRRro7hlIRmIW956hLfwBIZ5uUwkRT4MXOoqWd2L+X+KyyC7C8aCl56yROESntNwb2LALyH0jwGgCjtrxD4yEabyLBHMN99oSi7Gl97BHgMLLTXNBAUhHIly4/lnm+jOgKyARpfgw/dBEXfcpRbzKWtRqRT0hdsUApLomA0jfmZ2UHAI8wM3XBpmGVX5CMkqdiudhVmoMlMi8nUoS3v9zqjfjX6VvrKVEmSRieoqsSm1RceQNJtAsaL/NKstPmP9oM6A8QfGQeRwGu5ON2zdzT1Cv23y49EXlgMBfjLenULOnOy40q/0cPmXwCN+kzwlkDTrmYOpSo4WkQP+vio18QghncC3iLfHF8Amc/p5mY5FYpWr/uDMWjOjNdZuOIepfd4EfvCs11quvKfJpzKg2CECstJMKsw99z3wycjT1H3ZjspB5ndxePn6nbA0MYqva9JUz7qRCmQzExYXiy3vMw0BmNQoUcUVSmfZrfp1fiRyJSWBqRTH6RTy8WzlhpfoNHDQKdL1zJJ4H3ZBtBnLG5wVF3Wt33GbltkbCtab0gLwuyU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(10067099003)(5023799004)(11063799006)(4143699003)(56012099006)(261022105027099003)(261022075727099003)(261021121427099003)(261021135927099003)(261102123227099003)(261026121527099003)(261026140227099003)(261028144727099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?9TxZmJbi1KPUZysc+Gv2hgD0foPtyeJNVOCWMAo/5nREroiHkMoGV10pwb4i?=
+ =?us-ascii?Q?6Q+ozsshichHprPyZpRHUEJUAgTjXxsh1ZGIBvtbtcAQHIgKxqpOdXiCJbNv?=
+ =?us-ascii?Q?RjpbbAlnLP1muIzdKrUa5hMfXKU1e1GdO4xEwLgETpYRyNPgudpXQG6i1olI?=
+ =?us-ascii?Q?wK/Hbpy1v4abRtvi3vL1/YHg6sGU2r3lWopLfTBEZmhhsySetmdmvPT61UMJ?=
+ =?us-ascii?Q?sRNFYqApEcZzvWP9SEEg+yN/NPbIJ2mRieEcMcN84cWcD0/h2779r1JMiykm?=
+ =?us-ascii?Q?lE2eH7ZsTTY51ahjta3j7pWtFoubfI7M7wvqJ/d6T96cNzjyqsx0XrgfcBFg?=
+ =?us-ascii?Q?poT/lJaQhio6EOCPzaD+46fq2Ll9Y6Se2pncadAiJt+2Bjo9PiorjAWVkwY9?=
+ =?us-ascii?Q?6l7jf1sOBJ+YM7f0W45XaByrrI2wWOhPX6+uxSw6z3CHl+AnwqIAl/znOQYo?=
+ =?us-ascii?Q?q/Cly1xN0soNvtRZKearwQrDZ0i5s5ABsExXNOo4LwLRR64b9li1t1c3GOjS?=
+ =?us-ascii?Q?Woy8Kq8iBzWCS7q4EcafZe+fGfo3pNgYykQhAzyeIDyqdETLMIs73Z15eFla?=
+ =?us-ascii?Q?4nPvBUnrWU1/esSaSDfOsOn0dd5ZjySk0FxcrUBTPLxu+bNMMjVzwmvSfUAV?=
+ =?us-ascii?Q?vYHcKLY7mnEsON1fJUarY3ApUget8Gj80FYKGUM+FzOT3v3T6pI34pzkC1tc?=
+ =?us-ascii?Q?pIFd3P06WRKuLYpke/6/qR6vzZTsOPVyt3qjUwKPhP9LKoH0bVj4OoGg5gal?=
+ =?us-ascii?Q?YC2mJpjZwaoa7C5tH3VRsoO0YwqbsD4b2QrHgWVPQkShTYfq5LZaVLvq4HWs?=
+ =?us-ascii?Q?4A4PtMNBwsrbZCeehNt1U79janv7+xHIi8wF28/hg5eGe7cv1SOI5zNEywtd?=
+ =?us-ascii?Q?t589PH4n/0+Qj2Bcr2KCfL+x8GOsEzJHKcib8JegjSaHnoftAk+eWvnBFof0?=
+ =?us-ascii?Q?LsqHoJCPm2iQzD10RgVuxGYGrXHEG+FDvh/1Mfv/kNrcsETK5KD5mp60p/Rl?=
+ =?us-ascii?Q?gZvCAnDo598/xF6VmRMJ8mDFmdlWXrHDaRoyoper/Y3ItrJG+u5YMJADIMGC?=
+ =?us-ascii?Q?sl/pC86oLiGUX9+mEgQwJmwr6cufF0OpdDD33igq0EDhYIJIxuCY4nI1FDZz?=
+ =?us-ascii?Q?voN98k/51D83oDXq0HPHcyHG7Ogxajg/RoGZVfQ00rIj6OMJrwoHg8RbwL13?=
+ =?us-ascii?Q?Jzaa2YAlSzZw/J76pwpR17wSRbo6fLSPwDtgnpJFLhCebp9fvywkSIwEJ9ZS?=
+ =?us-ascii?Q?uxX+KFUilPezRdGBsXQxv8cuXxCkopKSz+ZUkqYwSEyxiR+VObRSXDwYpP2n?=
+ =?us-ascii?Q?Vd3glPqofX7DNjaL8/0PMaB0bYsaUnQWqjANTEFVH9yTBf2iobYe/rNIpl9B?=
+ =?us-ascii?Q?x8xnpDdcYoK3STXvuNZGdEnQUyOtMMvNQFlCVKGE1Hn/OdnchY912b6eZ1Yf?=
+ =?us-ascii?Q?o4TRMgsGi7vPe0ppZew1ISsNZZg83k2TiRMESJHJUug1H/oy/rOha3dk5Y8Z?=
+ =?us-ascii?Q?Ld15w7T2ZNKWUwQ3dcXw6R+xNII1umOoFM2iTfmf7H/Nze3KUivpVIcJxWRG?=
+ =?us-ascii?Q?YQ1Yvy8DJkhNzubKgK6c2gCIOcvEnKBGAbSTwEIAvrqy8QzjYrmLHsCD59ak?=
+ =?us-ascii?Q?wNn1Ouim5m3Qf2ABTiG+h8FLmPymZ+9prErB8JZ4axVtGIyTalqHwISV1wqb?=
+ =?us-ascii?Q?yKuOaEc4WufZnGk++wX+LI2Sbg+Mv2hZPeu4rWEdfUXNzaIa?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b50ed290-a7ee-476d-63a2-08df40cce7f0
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 14:54:51.9790
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mI/EY2e0KVWMtUxrgVcZrmJKMTnkTWbgebkcCV4PFj07fkcEUwVdrR0ZKNuOo4fA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB999254
 
-On Thu, 2026-11-12 at 07:52 +0000, Moessbauer, Felix wrote:
-> that's a valid finding.
+On Thu, Nov 12, 2026 at 09:50:12PM +1100, Alexey Kardashevskiy wrote:
+> On 12/11/26 10:05, Tian, Kevin wrote:
+> > > From: Jason Gunthorpe <jgg@nvidia.com>
+> > > Sent: Wednesday, November 11, 2026 11:00 PM
+> > > 
+> > > On Wed, Nov 11, 2026 at 09:44:42AM +0000, Tian, Kevin wrote:
+> > > 
+> > > > The interesting case is about such failures after attest e.g. unlock
+> > > > which is supposed to be a void operation. Maybe we don't need do
+> > > > anything special in tsm core - the secure firmware maintains the
+> > > > state machine so future lock will fail if the current state is not
+> > > > unlocked.
+> > > 
+> > > unlock can't fail, we have no way to cope with that.
+> > > 
+> > > If unlock does not result in the MMMIO returned to host control then
+> > > the system will surely MCE.
+> > > 
+> > > This should have nothing to do with a crashed device, the disposition
+> > > of the MMIO is under TDX module control, revert it back to host and
+> > > accept you get AERs for the incorrect T= bit if the device isn't syncd.
+> > > 
+> > > The OS would have to kill the SPDM session and FLR the PF to bring it
+> > > all back.
+> > > 
+> > 
+> > Agree but we were talking about different scenarios. Your description
+> > is about real device hang, while mine is about unlock failure from
+> > guest p.o.v. which can be caused by either hardware issue or host
+> > software issues. Or a malicious host may report success w/o actually
+> > doing anything.
+> > 
+> > My point was that the guest can just assume unlock always succeed
+> > and rely on the secure firmware to ensure future operations blocked
+> > in case of incomplete unlock. We don't need to do anything special
+> > within the guest tsm core upon GHCI unlock errors.
+> 
+> If the guest asked for unlock() and the secure fw failed to do so
+> and reported an error (which my hosts cannot hide), then the guest
+> memory is still exposed (via DMA) to some unwanted thing. If
+> anything - it is time to panic() imho. Thanks,
 
-Thanks for looking at it.
+It is completely bad FW design. If you ask for unlock it cannot fail
+in a way that DMA is still enabled. You should still clear the sDTE
+and that should be a non-failable operation.
 
->> Keep wq->cpu_mask for the affinity of the io-wq itself, all CPUs or the
->> mask set with IORING_REGISTER_IOWQ_AFF, and intersect it with the cpuset
->> of the worker when the worker starts, falling back to the cpuset if the
->> two do not intersect, as __set_cpus_allowed_ptr() does.
->
-> Why not simply fail the worker creation if the intersection is empty?
-> Just falling back means that the worker threads run on CPUs where they
-> - intentionally - should not run.
-
-This only matters for an application that registered a mask with
-IORING_REGISTER_IOWQ_AFF and does not register a new one after its
-cpuset changes. Nothing tells it about the change, so it may never do
-that. When none of the registered CPUs are left in the cpuset, new
-workers can either fail, or make a best effort: run on the cpuset, and
-on the registered CPUs again once the cpuset includes any of them.
-That is the open question; when some registered CPUs are left, new
-workers get those either way.
-
-The patch makes the best effort. It never takes a worker out of its
-cpuset, it only ignores the registered mask while the mask does not
-fit. That is what the scheduler does with a task's sched_setaffinity()
-mask when a cpuset change leaves none of its CPUs, since da019032819a
-("sched: Enforce user requested affinity"). I preferred it to failing
-for two reasons:
-
-- The workers that already exist get the new cpuset whatever we do
-  here: cpuset_update_tasks_cpumask() calls set_cpus_allowed_ptr() on
-  them with the whole cpuset, and the scheduler does not know the
-  registered mask. In the test from my notes, a worker started with
-  2-3 registered had 3-6 once the cpuset changed to 3-6, with or
-  without the patch. Failing to start new workers would not keep the
-  ring's work off those CPUs, the existing workers would go on running
-  it there.
-
-- Nothing reports the failure to the application. When no worker exists
-  and none can be started, io_wq_enqueue() cancels the work, so the
-  requests that go async would complete with -ECANCELED until the
-  cpuset or the registered mask changes. A mask outside the cpuset is
-  refused with -EINVAL when it is registered, where the caller can act
-  on it; here the cause would be a cpuset write by someone else, and the
-  error would land on unrelated I/O.
-
-If you and Jens still prefer failing, I can do that in a v2.
-
-> This test program should be added to the liburing testsuite, shouldn't
-> it?
-
-It is, posted separately: the cpuset change and the move to another
-cgroup.
-
-https://lore.kernel.org/io-uring/20261111162716.1151068-1-mike.malyshev@gmail.com/
-
-I can add the IORING_REGISTER_IOWQ_AFF case to it once we agree on what
-an empty intersection should do.
-
-> Shouldn't that also apply to 6.12 (it technically does not apply but
-> semantically it should)?
-
-Yes, 6.12.y has 84eacf177faa and the same bug. The patch needs only
-context changes there (no io_worker_retire(), io_init_new_worker()
-without the acct argument, wq->lock), and I will send a 6.12.y backport
-once this is applied.
-
-Thanks,
-Mikhail
+Jason
