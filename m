@@ -1,74 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794461500;
-	b=d39eAHJ7hyVn2+MVvUw97U9AbMGvsviafI1FU46I/ZAMR3UC15P+o88UKOJq9/v5Kv2e
-	 UKXahWv2TJNAcyoauGWSgv+jJvflaWyHUBzkQBsjPhhGOdnUt0vLMileTGZSpHRA77Exy
-	 Z9MPJ5jmDz2wjjwMmr/CdBolbJud8lHvQgHXy9nUaTh7/927e/E7B0H3RIY707GfvvWQF
-	 es37kAoVUf4vX3pNuAkZFVX2/OjDA+aFD3qaL4u/OBhPXj2qmzccBAumCfIwQZa5b9iLv
-	 N4LOSXPrmkWHIP1KmAiI6Jfm1FSriYSGdyyEojWs8jH2stwWPQhiw9g62SO69D400BQ==
+	t=1794461534;
+	b=cj9b/J8P98g0fV8VrP+pBzVv4uvYLyFZCKrE9iDFsIgXfsvmbHlVZVJrCJZr7wUf3BVA
+	 jWcRLFq2kw5+nk4dcrxdOcsElgZl0P57NCJp2e13m/P2MHD2pyryPXkFnPRoQtjpdjv5m
+	 Op4iew1XowwkbZMJN3PGY3ByNvZ4XMxkR9JxqcUoIjB4nxZL1Ss44N/4lnZNdyFV+Z/eH
+	 ae5S1D8ntUoLJIsR5j3zjlJLdHZcbFuFELmY9lW4p5u4Ul4T4+0XleKRgxyfOex9mTfwy
+	 RuwMKtJaq0LJtRo5rpkeDffL4LjUKGT0GgVNhe8pDp5/x5Scy3wWUaOSeNmkhHFqoSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794461500;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	bh=prqA78QZ1Z5CeKjZtZdkDtlv7RDcpJe/NjIjUqczbGs=;
-	b=1XcdArKIUQ1lKYCrVetj7JAik/Cg77S9aOmefc2dV/+0NavXmiQrMT4Nfj8ZgynzzGc2
-	 cHvVdh0xh/mknJRv3CowsH7Mv31UnO6hYry4B8ndhSO6hKzivGYK8i+Z4SMUXUO4FHuFY
-	 Uuo9902tJxIv/IiiYihamhAOqdBrnfqclpeLmpGbzSvFPvezNCS3HuN5FI+GoaawgxJqy
-	 gfhjFn3HVPtDdcoIb/y3eS8DLV1M4dfoI2Xnni8n4JmJUrY/smM0i3YEcDdXmHBPSNj0t
-	 ZFyuYDd7JyuXtjItRkZTe2EOAff/RPlhHngrATbX8cTNDf/5Ua3dtvRBUAZEr0PE88Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794461534;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=8bdUIArMEVujVxSnFXg7ASEB4w5yQy9UWzwj4XRgu74=;
+	b=4XsMlpJBcZ74iBfOkC+7ttfksm8dpteqd44Moo7dzq0POfWbUucDSiNHiI9R2cdhVR9x
+	 d91gpC9bnoDKb8KRliwyxksUn/F6s3UbbKxkMSgW0LVKLMAUvqftBVpM984A7UmWcOhkk
+	 8o4dPAuytqyzKcF6RJLifFt5olOLAFWfiNB9MK15LLkI6HNZ7yUsotzNKiITuuyVPUrRD
+	 4yWDsyhIG2P+zDjK0tFCu9WhSdwMA1adXUsFLpXM9WbwblNXrYmfgPUwqZDyU3guZjyxs
+	 xM9ii2ZKKwdLHyUwTY0OXuiFA62WSjIoXyGwOXTwQzQPIuSoeAXnTHp11h3ApsRu6Tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=aIS6cm04;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KiVa2YK+;
+	arc=none smtp.remote-ip=209.85.215.173
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E826B606A323;
-	Thu, 12 Nov 2026 05:31:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E826B606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39930606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:32:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39930606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=aIS6cm04
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AC5VTjgC3463063, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1794461489; bh=prqA78QZ1Z5CeKjZtZdkDtlv7RDcpJe/NjIjUqczbGs=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	b=aIS6cm04b7MfEYqJqpKLMBw8vdrNBXnYK63RAe9K9xIod5sEsawDkcl2TAvXWj3nG
-	 I6StFvlM4fLt9j0yK1kfl85wn+G3s1/8All2XxwAwagEeKlPYReiosWR7a3D0oCcH/
-	 8JRqwc7rJ6O8JT7aRCKfyGYsEmhqSa5XmQA9zHI6h9FtKpCekX4drxcoHHLt+OtyBy
-	 axfdJul23NDnEHDaz/LCzf++FsT4E/zpRWfNeuF9I0hu2OOUviFHPJVECx7CLSImB7
-	 RylhKtv9g3hmAkr4hyNyoyShKcRuSAzPp8Ke2+yNlV5GFEYsNhAza9AS0FJwwOMOv+
-	 Rh0WDRypJMEbQ==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AC5VTjgC3463063
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 12 Nov 2026 13:31:29 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 12 Nov 2026 13:31:29 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 12 Nov 2026 13:31:28 +0800
-Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS06.realtek.com.tw
- (10.21.1.56) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
- Transport; Thu, 12 Nov 2026 13:31:28 +0800
-From: Yu-Chun Lin <eleanor.lin@realtek.com>
-To: <p.zabel@pengutronix.de>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <cylee12@realtek.com>
-CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<james.tai@realtek.com>, <cy.huang@realtek.com>, <stanley_chang@realtek.com>,
-	<eleanor.lin@realtek.com>
-Subject: [PATCH v16 0/3] reset: realtek: Add RTD1625 reset support
-Date: Thu, 12 Nov 2026 13:31:25 +0800
-Message-ID: <20261112053128.561149-1-eleanor.lin@realtek.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KiVa2YK+
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cdb2e0062bbso1556275a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:32:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794461533; x=1795066333; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8bdUIArMEVujVxSnFXg7ASEB4w5yQy9UWzwj4XRgu74=;
+        b=KiVa2YK++8rPL+oDHtSbC6BXxg610PnN71TSFaCQMwH/7WEm10m1RZKAFK1g6LlMnF
+         nbW+3+RfwUzWgD+d6i7L22JK/N87HiZPTpPbDhnjfMEXA275IkjSlNYSE769FL48ANrF
+         PCwNR1nnrfDKWG6Qss/5VxsBk+quH/Vrp0dgBeDX00ZpaSFCG9QNHGeV104Kd3nDZnrq
+         rIGJf+jMY9hu8xvTm2bCqEQ9Zu95m583Q6IM7pNuxVQloMQncqpbK0FzAV7m2dnF1Sn2
+         V3T1MDFPqTorXyMwm0h6FM1WEguLp6ryEKiPydHS3SGwqqe/+h99W1Tbzu4IALH1exFm
+         iwMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794461533; x=1795066333;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8bdUIArMEVujVxSnFXg7ASEB4w5yQy9UWzwj4XRgu74=;
+        b=krdKLNVZ5S0d6OFGma3Gm8jiAMsjzB86oMoXdPpT3ZZA93WbOXB/U//n5ZrKqMXq+2
+         Ufk5G3ciD3cvp16b+K5/tk81m5zg+3sY7SIqFkIdukuVvq3xGQSpbJPPlkeh3c+75TOb
+         vtT53zDGYUrqcCQXZWVoM2jkeYPStJcwk5yo4jdZKsy670kqayzf/FlRHuLpV8iRDUqC
+         RDE23ZUr/2BbxUE4ywg6KWZuouAid2yKYH8V8LMWJwBfO3bNjz8AL1l/8io05X5Ajb+K
+         Jl8m4PSLkZViTe3esr7qBCszdsR1SOKzQE/Jy4W+30EOMoWzZJbkEyhwfIKWAywlWiCK
+         noAA==
+X-Forwarded-Encrypted: i=1; AL+hErF8/yOwVojBkA+dezbhq6eyN1heDTSvUYZUZMByeZvrF+IjT2qrTziV39ZRyzRXmcoVhvLPb+iaJzNZytg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8V4cmzn3yfbfKyhxuEy/lFWTI8CKBEpSVAegNElgsHrhopGkk/
+	Ce/QXp/UNWB5IAvswhi6opNcVmZ4XyF5ogk0VSMyBHbNa3y4BUO/6wIP
+X-Gm-Gg: AYBFou0p2k5UNZl3ZHmSo98Zvn2Z6M0+a9T+kXzpcp7BXoAjAcYzfwF9j2tZ9ifM9JS
+	tFQC4AkhpZMVpu8hcTqQ1pqUkOCxzVGM4nrT2/5Ac7ZtS16eT3h+JTkhYUF+IpACu2qo5q+j49M
+	72ZIAhjuYCr8BxOvzhaTFr6iyem+28r4nIGHlqjrT05xJbmensJwob0I/yWeC+e8K23qCBmhtmf
+	bPxeeUcE7ItZ65P92zxF+366bLjHh/UrrGpZk/aCucwUvxum7OybH4e75lT/iwnXkZf2PN1Bl04
+	GGT6tUW9suMuhrYq1G+u839xZ2hVa3+G2jL7SxzC9xzRVi+F8UPFE/pZBcAxDKKHliyqRAsMMtG
+	gNqLGZqhqiGuqb/mJ93HjWhyxPyFYeQxonTiSbXjdYuyVOxJy4iVe44R7ekkxoTYnlDobCU5P0K
+	BBdoZ579xgZY3pPw0Xd9K8dQhOqW3pv9pQ/6cRdsAnUyPN+n4Uk8SuVveFhbAoS+GSbF5VcAwjC
+	T4eFI8azwKqUZMFs+66C7EM31c2JMsF7vc4DHN7580jPD5tzc7B1p+NGgaflZyvsh1EDkP3g9wB
+	Bbo4l8ZUwULQuNda3eKqbAQOlpmTDM9tov8fANkfYmkmqjV1E37NNK8zASZy94FfN3QrLVBh769
+	GLJQpp1QWKh6dvGNs
+X-Received: by 2002:a17:90b:33c6:b0:3b0:9e2c:9b61 with SMTP id 98e67ed59e1d1-3b182ee21e0mr4536093a91.35.1794461533487;
+        Wed, 11 Nov 2026 21:32:13 -0800 (PST)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:182d:659:ffce:39a4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b181b9419bsm3600558a91.0.2026.11.11.21.32.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 21:32:12 -0800 (PST)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Benjamin Tissoires <bentiss@kernel.org>,
+	Jiri Kosina <jikos@kernel.org>
+Cc: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Michael Zaidman <michael.zaidman@gmail.com>,
+	Rishi Gupta <gupt21@gmail.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Andrej Shadura <andrew@shadura.me>,
+	Johannes Roith <johannes@gnu-linux.rocks>,
+	linux-input@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/5] HID: hidraw: Encapsulate struct hidraw and make hidraw.h private
+Date: Wed, 11 Nov 2026 21:32:08 -0800
+Message-ID: <20261112053208.1397505-1-dmitry.torokhov@gmail.com>
+X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
+In-Reply-To: <20261016-test-hidraw-base-v2-0-153f67a20cad@gmail.com>
+References: <20261016-test-hidraw-base-v2-0-153f67a20cad@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,52 +108,26 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 
-Hi all,
+Hi Benjamin,
 
-This series adds reset controller support for the Realtek RTD1625 SoC.
+On Fri, Oct 16, 2026 at 03:41:47PM -0700, Dmitry Torokhov wrote:
+> This series cleans up internal HID core and hidraw header boundaries.
+> 
+> First, internal HID core declarations and unused symbol exports are
+> moved out of include/linux/hid.h into a private drivers/hid/hid-core.h
+> header. Next, a hidraw_instance() accessor is introduced in
+> include/linux/hidraw.h so HID drivers that only need the hidraw minor
+> number for naming or debug logging no longer dereference struct hidraw
+> directly. After converting the drivers and dropping unused
+> linux/hidraw.h includes, hidraw.h is moved to drivers/hid/hidraw.h and
+> struct hidraw along with its internal buffer and list structures are
+> made private to drivers/hid/hidraw.c.
 
-Since the reset and clock controllers share the same register space, they
-are now decoupled via the Auxiliary Bus framework. This allows the reset
-drivers to be submitted as a separate series.
+Gentle ping on v2 of this series. I verified that it still merges
+cleanly onto next-20261109. Could you please take a look?
 
-Best regards,
-Yu-Chun Lin
----
-Changes in v16:
-- Split out the reset controller support from the previously combined
-  clock/reset series (v15) [1].
-- Extract the reset IDs from the clock binding and introduce them as 
-  a standalone patch (Patch 1).
-- Add "REALTEK RESET DRIVERS" entry to the MAINTAINERS file.
-- The driver code remains unchanged since v11 [2].
-
-[1] https://lore.kernel.org/lkml/20261002074331.3066919-1-eleanor.lin@realtek.com/
-[2] https://lore.kernel.org/lkml/20260728142806.1954638-1-eleanor.lin@realtek.com/
-
-Cheng-Yu Lee (3):
-  dt-bindings: reset: Add Realtek RTD1625 reset IDs
-  reset: Add Realtek basic reset support
-  reset: realtek: Add RTD1625 reset controller driver
-
- MAINTAINERS                                 |   7 +
- drivers/reset/Kconfig                       |   1 +
- drivers/reset/Makefile                      |   1 +
- drivers/reset/realtek/Kconfig               |  19 ++
- drivers/reset/realtek/Makefile              |   3 +
- drivers/reset/realtek/reset-rtd1625.c       | 262 ++++++++++++++++++++
- drivers/reset/realtek/reset-rtk-common.c    |  73 ++++++
- drivers/reset/realtek/reset-rtk-common.h    |  29 +++
- include/dt-bindings/reset/realtek,rtd1625.h | 171 +++++++++++++
- 9 files changed, 566 insertions(+)
- create mode 100644 drivers/reset/realtek/Kconfig
- create mode 100644 drivers/reset/realtek/Makefile
- create mode 100644 drivers/reset/realtek/reset-rtd1625.c
- create mode 100644 drivers/reset/realtek/reset-rtk-common.c
- create mode 100644 drivers/reset/realtek/reset-rtk-common.h
- create mode 100644 include/dt-bindings/reset/realtek,rtd1625.h
+Thanks.
 
 -- 
-2.43.0
-
+Dmitry
