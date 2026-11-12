@@ -1,62 +1,89 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794476380;
-	b=uQNzfRdYhnK+yCgj0mB5ugnVWSCHDOHxErCQ9euUzpz8Oxm1frS6KA1MRHsukvBna6s2
-	 GXpw6qV9oH+PV4F5+crbl3wbiYsX/6aq205YFIdWaDY3Y1S55HXmPKgZbkUs8XIcK95tS
-	 aeFJ3qPdqunA3tRsarNUAkwQyOCiwyQ/Ft1G3UWX2Qcukjt6ZNOn9xbgIWCKrbDgxPGeA
-	 vXST042zlSArB1+pDY+SQTtDoUX/ADOTKBnDi/6KTRkaUKP0zkmy7oxsKCzKVkEXiXcwB
-	 BZh+BuHg+Rpbu+GOCcE+f3x+xeOsrUFTltEOQj5kNVIzJc8OCh4gz/MDHp8IXk37ZHA==
+	t=1794476405;
+	b=38O1/0JD0y/b3cGrhD/w0ixgXHL54ddVlYq3SLiJ8b0zQsbuxL5/sXH0pRsO9f0Y/AWO
+	 nffuFDauq1c4S/0sVKhOrrHjFKd8TVFDSS6opB4pNMqGmlvaa6C30NiKn2iscdQkf2LH5
+	 7uSL0GDHhn1bxjSPLUwf9ea3otKI4Y3I5FR8W8KZLBxlajjRUAeq5xkMrW/H0rsdFN2qv
+	 VU4wZe7gODDcj2I2TjaBI9NKqSfBrZqvCfSAbJI/z1azB6Wo9qiFRvntU3W5eC3YW5wF7
+	 DHWy2U8XiZRXfVaCbizU4WDyCMxPSEcH4QbGuH+dZUIVtvP0aFZMjkCJXcjvuI6ts+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794476380;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794476405;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=+qZVe7H4KMKBxamxaLHZL9oGHtOAsg+pNoHshyfPpG4=;
-	b=gN1G7ccS7VIvP1xKJ9948DZYvE21h6B8bwL/yPESj99Xty5fNLPmBSzDuFVTMlkTMjzO
-	 saOqx07FzWs4W90ULeFq3RQ5tKKvxW244v5xDWRbhE3/AuwVa2H9Z+txUBphcTBzk+5Ti
-	 jPVScIf/rW+KR4EKJDogzxxDjZNyvIgwA9RMiTrGUqKGEL3JP9ZzQHN1inEF69jW7nvu1
-	 DPG7eaT/nERjH2/O5u6yXIIFhpADQuJZ1BsAPogRSFqXq8VF3F/qnVpPruo/ozlPAPI/t
-	 XsZL1MyI49l/Jl5yo5b7UhTC+2MpbzZRVqC8fnwfrMgSk7JMyzoWnOmMogXFpivvmoA==
+	bh=IfhBgU9bzNjyzCbMLI08qHDpGZfOfIhIVxpnfJz9+gQ=;
+	b=vnvf7V4yKLpYkAJ8AV1sglG+jC4jQ9lRpO0nXIKEGUxyhKnOdzh58/o8jDhdBVtb4ZdX
+	 ghwg3/WpzPi9uLH+0xhqF1t/3xvcSyAfzF8SIlcWGQ/VrmUaRjKjbL6Pd3dtHCH1ioyBU
+	 8behmcXMcujxtQFqxpqTcDbYDd1dTc5LWLsu//UfmzSi4ACiI7Bm6lId/7VTm3SHMEe9O
+	 ZbUiwTvwZIjdu9ADxGrQOnscXd2aQa9vKalNvWu3G/zJcq1A+sKmg81nlbfxQutL7nFW/
+	 QhpiTVYcUtML5007Mc3hxZelTvtRDSyLiDj33HiFSQwolAeLCBlCRBX29luTbWygXYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ODECxA9y;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoMrAWhy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3575606A336
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:39:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0076B606A321;
+	Thu, 12 Nov 2026 09:40:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ODECxA9y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5761B1F00A05;
-	Thu, 12 Nov 2026 09:39:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoMrAWhy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C635B1F00A05;
+	Thu, 12 Nov 2026 09:39:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794476379;
-	bh=+qZVe7H4KMKBxamxaLHZL9oGHtOAsg+pNoHshyfPpG4=;
+	s=k20260515; t=1794476404;
+	bh=IfhBgU9bzNjyzCbMLI08qHDpGZfOfIhIVxpnfJz9+gQ=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=ODECxA9y1Z6siZR8OwuwDYoboqLxQIe+qqo+J8zI+sp0yRBw8eyM3kziDFpXndHzD
-	 SzqJb37cgvobwr0NhpIFwN6EKQcHRMQMtWLqjPtFdI7TkHoKwVLstwdAltvciPMEFH
-	 uDcWdPxB0/l9k5ljUxPxSlpK9BJavvlwQsqsMQeCe9qv6QmxxVGqG2G7xHjOS0/I4m
-	 pm7Azv+TNXUWwscLesUbHMh/wGg7iGAy23eT4GBCeBVnA98fELahFI0yW9V/965Va7
-	 XmsaZ18t1AuZZJB9uyJWo214iVZacmLDi9/tKYe5X6ZQpQOA/nI2KKKYY0kJHS5u+I
-	 fISEXgbfmoBCQ==
+	b=VoMrAWhyX9Mu8dmXuJL0tzpqovAGH67dTxFbjd4TxmhmE1/c0FPVOzA9Ic0I2dr8O
+	 R1LEPqRDp5AZW1NtPA3Ct7Mk7SEKbgWIVeFl1BNL5iEUe1bTvUvtWIzoKx+CYUZmQy
+	 GE8NIXtSJJ7ZrGaRM5fNNGKitBWEN5/Q6Tq+JK0378GDgv0YZwNQ5bsIqcTjglpUxq
+	 +rRcWDYtIVXhXlC40Ldkc9s2FE3hdEDpugkRygfnLxQixI1iNmJpEI1jDUtJdy6Kj8
+	 Vw/b/Oo7ZPcLQ5a4p4SUexF7KHm5VqcENXFZHkOCDlVpUBNHuwr/mELTYjRHRonOtj
+	 9U2s9/qqKtsKQ==
 From: David Hildenbrand <david@kernel.org>
-To: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+To: Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
  Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Song Liu <songliubraving@fb.com>, 
+ Rik van Riel <riel@surriel.com>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Hugh Dickins <hughd@google.com>, 
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+ Robin Murphy <robin.murphy@arm.com>, 
+ Steve Sistare <steven.sistare@oracle.com>, 
+ John Hubbard <jhubbard@nvidia.com>, 
+ "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
+ Josef Bacik <josef@toxicpanda.com>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+ Linus Torvalds <torvalds@linux-foundation.org>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261110-khugepaged-latency-fix-v3-0-6eea743cf9a3@kernel.org>
-References: <20261110-khugepaged-latency-fix-v3-0-6eea743cf9a3@kernel.org>
-Subject: Re: [PATCH v3 0/3] mm/khugepaged: bound mmap_lock hold time when
- walking an mm's VMAs
-Message-Id: <179447637396.7058.8722598190835864744.b4-ty@b4>
-Date: Thu, 12 Nov 2026 10:39:33 +0100
+ linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev, 
+ linux-arch@vger.kernel.org, iommu@lists.linux.dev, netdev@vger.kernel.org, 
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
+ Jason Gunthorpe <jgg@ziepe.ca>
+In-Reply-To: <20261110-refcount_overflow_stable-v3-0-318625d63a98@kernel.org>
+References: <20261110-refcount_overflow_stable-v3-0-318625d63a98@kernel.org>
+Subject: Re: (subset) [PATCH v3 0/9] mm: limit pagecache folio refcount
+Message-Id: <179447638951.7244.5228149003624496001.b4-ty@b4>
+Date: Thu, 12 Nov 2026 10:39:49 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,22 +97,23 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16.0
 
-On Tue, 10 Nov 2026 17:19:10 +0000, Lorenzo Stoakes (ARM) wrote:
-> This series introduces a couple small changes to khugepaged to improve its
-> behaviour both in the face of mm->mmap_lock contention and to reduce that
-> lock contention when possible.
+On Tue, 10 Nov 2026 21:35:40 +0100, David Hildenbrand (Arm) wrote:
+> Note: I really would prefer doing something else right now, but this is
+> rather urgent.
 > 
-> Looking at the first change - if the mmap lock is contended, an attempted
-> mmap trylock in collapse_scan_mm_slot() will result in the scan being
-> aborted wherever it happens to be, and when next the mm is processed it
-> starts from the beginning again.
+> Users can create a lot of folio references to pagecache folios, making
+> it possible to overflow the refcount of large folios.
+> 
+> While we knew that one could in theory overflow a folio's refcount, we
+> mostly assumed that bad things would happen and it wouldn't go
+> unnoticed.
 > 
 > [...]
 
 Applied, thanks!
 
 tree: mm/core.git
-branch: thp-7.5.misc
+branch: for-next-fixes
 
 Applied patches will appear soon in mm-next, followed by linux-next.
 
@@ -100,12 +128,16 @@ Note that commit hashes shown below are subject to change due to rebase,
 trailer updates or similar. Further, this is not a guarantee that the
 patches will go upstream. If in doubt, please check the listed branch.
 
-[1/3] Revert "mm/khugepaged: remove definition of struct khugepaged_mm_slot"
-      https://git.kernel.org/mm/core/c/3734f01d
-[2/3] mm/khugepaged: scan mm's more efficiently under mmap_lock contention
-      https://git.kernel.org/mm/core/c/f4720f7b
-[3/3] mm/khugepaged: release contended mmap read lock after scanning enough VMAs
-      https://git.kernel.org/mm/core/c/f616e41a
+[1/9] mm: limit pagecache folio refcount when mapping pages
+      https://git.kernel.org/mm/core/c/61351dc9
+[2/9] mm: limit pagecache folio refcount when splicing into pipes
+      https://git.kernel.org/mm/core/c/0ff9a420
+[3/9] mm/mmu_gather: flush pending references early before the folio limit
+      https://git.kernel.org/mm/core/c/bfbf74ba
+[4/9] iommufd: fix cleanup when adding memfd folio pins fails
+      https://git.kernel.org/mm/core/c/6d0d782f
+[5/9] mm/gup: limit pagecache folio refcount when grabbing references
+      https://git.kernel.org/mm/core/c/6d3ff38d
 
 -- 
 Cheers,
