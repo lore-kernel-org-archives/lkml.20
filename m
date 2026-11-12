@@ -1,100 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794482405;
-	b=lr56Qq7v+6JrocpQXLYSDgZlMRngXaLbJTkQvbxVigmrfnHp8tgs4abWWt+zlCIrDA3k
-	 SS455CQy9twrXqqeWqRzpsoPAbxp7wFaXZ5h02S5yfOc2bdyBuO5nF6FdaqNuuHvxvfEL
-	 8Rp+LPIh/AlVK3tXlK3Zez0HBb8CES0rbkHJYWG5HV3yqSzdIusVSVZa1aSFPZa9K/4QV
-	 2Pjsh3QbeaKdpyz/+pRTDBgSWbMIzWWPHYfla74EnfokuNMgoxCH8L2pRsyAkvBpLpBOI
-	 18qtVOOXRkdDV9WBHoJDPZoP4Tw7miy0mXGg/HTmhtL8lkUM8YY7MvZ+D9QjNvPmr2Q==
+	t=1794482418;
+	b=ty7GhOQP2mqf9KPu6YfpDQj7zhmWvjLXL18Z1UL8vizhLxWtndb6vp6T+5sx4iKry6vT
+	 Bf/NP+a+U2q4PrP6Rs7O+hinhbYcho63IhZyNTkHGEerTWk9u3q2QXLK0C1X9vSoDcDG9
+	 EO5cT/VQX70Pcawm8sIGM8uXMAUoY4GqILQy/XJ1LblW28PL4IglWxsI49aXSJKfuAng5
+	 eUx3G04eKGReuVMy6gVk1ogyb66hC5feqoLGS72hJBb7n0psR1uBA2gL4lbPb1tRiNL7R
+	 dihAiQZcoh6bIvI7lp8fn7vwps6ABWxVEjI/gmMpvye+DjNdOYXDdL8C7L990ToVWaA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794482405;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=VTglXy+2krUMdtb0w6gPQkgMvJl6AypaaGv2IAF/L+Q=;
-	b=A+77hiPV5HU4u23Bey+TgIFC0FsOULtrEaZ8PuXDsbZtH/TjJowbvn4B3pLlwt/99Jtq
-	 2aNDw+t9W+pgcXn+/t5+BtRL/86Vmb0qufrOiKuzJU/tm7/jrsVrJ8v7Cj1ShKYnCupJe
-	 y792Wu3fKW73u6EYfyZjOkxoi+k5C5iEYqK9jZYDlGgxjJwytVXV0IfnWgGIQokmoZ/q3
-	 mm4QwDQ4l2Lijl40S4AUC4+xUJHwHpkXfxRaX3l2ajEeYsYJaq5u+MmndvSk57q7OrBSy
-	 +/XlL69PUJxDODGNK7Nu6BmAwQCMteZmwBbMHew5S5LtfzuV+8Y33eDCmD42vez8hpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794482418;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=DAoJLDq8Ga0Al0IQkwwR6XXBD9eqgfhjwmrtsUdqWQo=;
+	b=tk/4UF4YuqxD0/+dAC3DPG3lApzxgH4SUxpiOrMscZ8dZL3qFwFDr0wl07fm+riazqM/
+	 h52BMfga4MhzNs2PWcYsD/GxfX9hCzJl2ZXgIL0N5cfHtSbwAAIpSYoTCKdKGeyw8MDh3
+	 1zFSW7/CjUvMU1xML8yHiNVCjUNaESCrkcHM9t/eyTFqeTL+sWk8ejO6qsfEoHhHvryLx
+	 U9R3L1hudR3S+B6mmjhXP/zvKl1TZg1WpOkXvJN4MY/xBHltC91ennV6Rdry9hmC/JKtr
+	 +06EwTHL7URlyXXkvoxCdjn7S+7hq0f6gKr+IWmlaaQTKoUr0yWtgFt5E+ppxub4s2g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Og6lJkpC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=FETPGWu2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 016CD606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:20:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 016CD606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553CC60A3808;
+	Thu, 12 Nov 2026 11:20:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 553CC60A3808
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Og6lJkpC
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b167ffd132so1188840a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:20:04 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794482403; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hgZiXgj4sgDMIrcPOetaQI0SOEw3YQs6QGVhtfT28TAn4KzvE57G+lUHNtWI/6b9F/
-         GC/5UhU577EIwRx656tmegPVpbez4pVbGjQHIg9QlKikKXcNJMpE8kfBM8aao7tOfj2A
-         zdhYhR6z+pfXhgqdvh2nnRNqPBpAUFzBy7FjyZplQKRk/8ekUQmyRsKf42PcZIj5a97d
-         abtyNO9YuQqABvfmytfGveS1Vq/S6iu2EukQAgomeL40sinnW2aBDOG6293XVPu4Cbdk
-         6Dpy8omVMH2KXljMb5go/1BD0aJFfuMo9H0xhLwF1UI0KJ+y6IoZs9vz3XoAoxWVnyZF
-         A/8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VTglXy+2krUMdtb0w6gPQkgMvJl6AypaaGv2IAF/L+Q=;
-        fh=HSVRUqKJBqtHKJCKeoelCMouemKNJ1F0AzUnJpvHSHw=;
-        b=DRFK9oi9Zmr5ro/zwSHHVhXSyN9NsXIss3UMwJus55cUV6ugWCruZBBtq7ibMrBSJz
-         /MnG7gk+qQ6qluswga8ENMVeobpWEtHQmYeyuDFBEy0gA3MhQ9j/Enu6CCT5E4bGaJ0v
-         k/zqCS4K870nGw1Ht9kjUcgnEVO87vIR58Bq89cU0/lUwESoGdl7Jg8seUz+CVTZAjXH
-         I/Mi00xkr1XjG52+7cy7ZNYythgBXb6qwn64TBdbK4I99hDHZrrV0LXyeV2JekUz/hSR
-         UTwhKYI3ncA1jUWZGxp5lERGlTBeoOpovUv8TDXhjS9dOVw8rElX2a0s9K3QRjXrDnl0
-         i/2Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794482403; x=1795087203; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VTglXy+2krUMdtb0w6gPQkgMvJl6AypaaGv2IAF/L+Q=;
-        b=Og6lJkpCZGCCzHQTeJDBK6mCfPw/+14zn7hZpdGDsCRyNlI0noaa65X8fQV7eRtck1
-         ngkY58NbKFequQki+Zyazn6wM9DinrOu54k5jj7Hf/jwuCFIkWIxI/phPPsJkoyomLwG
-         Ujh65QQxC0tnTo8DYW3Biv9Zpny6ZrZsPVsJHCyEhYH3xckawZpu3el8ZJTLJHznnvSc
-         kp+5W4TnTa5zkyDDyvNQTdwntvXGSpOF80bNlepXmIHvg2rH+U7trMQRzqhkACD8ERK0
-         6YekgRSfib99zFP4X55Yfnl6RrtgT0OgKgGE43YbUbH+N397W0abwzw3oLI/398Hbj1B
-         eaLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794482403; x=1795087203;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VTglXy+2krUMdtb0w6gPQkgMvJl6AypaaGv2IAF/L+Q=;
-        b=GiYK7e4mv6UCYXlD0ZVvWblDshslqe1NRVDs4NZWIkzeM34ZZ3d+attqVtXQgigR03
-         7wkiExvGKEV6NYSGoWawhmS90UQnW+7IpGxzjADq04ywtWlXf0WSxyu/V9pQR+2wO+wQ
-         l1Ugx7GDaVvOhA2RfesZIQsXWvkvZrMw85WS5hh6zcq9C9+t9ZX9uOvWj6lPQW35CZRH
-         NDZwWIkTXMj1tEiOkxAsDQN/xqhHy9ZP4tpXakz4WRGupe1sdoeLvnb7r/mYp0iNs6Ur
-         aX9f3EsiYKnQuw+IMRK/zs1beTXfMKtRD70iGVXzbjhyT649u9lFwmYI1xjNvOQaHKGs
-         gSuw==
-X-Forwarded-Encrypted: i=1; AL+hErHUSdtK04XmAbcWZLBU/e8g96rJhxrXuhJPqmA9uMbrEDCH5wui1KX+XpiY3rIGNaN9hnrKg39A+4mmNiI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8T7p7VfbGCnzzUqJ/QhN6Asj+R7WUWxNEmHcMqqNY/WvOYIqMc
-	8nFrrMLJ8tvUsRDKwKuYTwQ07CRmu+o4nL3ZexuAZEu4tGhng4k4/WTnwXfcI78hQ/gHLzKyCtw
-	r6h6cQoJQTqfr5nGo/uI9Ti5P72IBuAk=
-X-Gm-Gg: AYBFou1Ulkfe0tywzUTDMNowfCIA06vYSTfYIHkYJjcbuEYTqfCJkc6/CX5vlPOhyQ4
-	jP4EOHmEsg782Znx7D2YmQLS2yikZVVX2KpZ74A+F4Ojru/BNSbqWr8x+qlwtn1O6NUIvUuVtOr
-	Q2LAXYcA3pPt2Ccwrjp2f2W8kDooMurKwy7EXZir7PBVaBJLfVmSh8LTitk8bepQ9TuYz7bzXOE
-	AY6S7sdiHfX0JsSXr6TKS59bKuLTOJqZ6U2H2kmqg++rQBUBuLHJQ34y4BXweyUepdEsKrreHUY
-	wV1AhooVHdrUz3IfFvcEgGqOeiAWFG7QKqhpDS0W6nXbBxU2yYTH5hKCIQPE592jHur5RBk2X0B
-	t/LkfN/5MqTGmQqm6Ec/yGwhsJy/7ehsdf+0QpcE5VPySz/05eX3o6C+lLjVS+hLq7ZEzBg==
-X-Received: by 2002:a05:6402:22ca:b0:6b4:21f6:ff48 with SMTP id
- 4fb4d7f45d1cf-6b7773418b6mr3084143a12.3.1794482403134; Thu, 12 Nov 2026
- 03:20:03 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=FETPGWu2
+Received: from ratatoskr.trumtrar.info (unknown [IPv6:2a00:1f:f805:2b01:a03:2f4:308a:7b52])
+	(Authenticated sender: str@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 31679202C92;
+	Thu, 12 Nov 2026 12:20:15 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794482415;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DAoJLDq8Ga0Al0IQkwwR6XXBD9eqgfhjwmrtsUdqWQo=;
+	b=FETPGWu2fT7jsp0NaN/SAGSZGujN+8Sx0qbEiYoi7D/1UwDQA3LiM3gQIl5gOpiBDKf0AP
+	vi3G38aRbsDfVdrdL+m/Q+9TYo8lSKHUy8VgD9pdJnxBrJAITL9N1TpAFeQ6kWo7cCJOLr
+	6Y6fACGoZn1hQusAZy1OG7s0KeYbe4kGM4LkVwYsKrMrmIOOy+XWEULbXBA8RopknGy+vX
+	UzU8dHGyRn/mL3ChSjOdjUlKC4ONuCw+l68Bfwbdl5N9PeeKO3Mq2XgQ8c0yqZMLiJWo6A
+	3AP9kFgi98CHZs7RHexx8CVP+NKLgTymHPVU4Z7Ij3+6TIDqujc6RFciUjhoJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794482415;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DAoJLDq8Ga0Al0IQkwwR6XXBD9eqgfhjwmrtsUdqWQo=;
+	b=Xp1q48rGAcyUlFCto3UZI6ONCpoCC5n0Pnu9WiJgWlxPXXp2sv5zFT7fXvG+xpPIEY19xV
+	oiTipiEa3BAjNhW4RiPTaHF88t4mZVslfhtqM8DIZaOfZooQMmucu5s+Lo2xg4vXNx+vGC
+	9wgSsqWAGykLUD6IPZkg1xHCqhGdTlx0WPyEidT1lbMX/Rb0oq1TRd9PkD4dOmTdb1ZI6t
+	fYNzBeW8DMtf0L5XiVScOlI0xE6nr3IWAV6IW3ZPhofCW0m+7ObDFe2mpismur52XJ6H0M
+	480TTAPd9XBP5F9sysGoXC68E+01HSq1mTWphSqo8cfeMztWQCNTHhOqPq9plQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794482415; a=rsa-sha256;
+	cv=none;
+	b=WnfzFs5xEPwZ++46gnIZArpzfiSiXEJJh2TTWeZmNOXqtpJu33aa4Dl3LY7GXRhd7wdOew
+	fLIrRhSbXp/u+xPw124TdCKV//VP0wDLbmGFPiNt/HDdYGJxsnw6Yqpd2MAdihrpU1aEfL
+	lRKfqslWdRdE/SGYnxy+jpmum/7hGYC2/iSvRgbZsRxeKzOnYxcZD1q5oTq20JyfPs3fMv
+	DfcteTnfueVFk82aRIxN+vb6rsBRa/UMEGRsee04x90eDJ+p8jKbYNjMyRaN050HDCULk2
+	ZHtaigttA1cTukdwNEYwjtj1tGP1AgTbFQ3aCh+T7QicFjyZiIm36AEn4hTTXA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=str@pengutronix.de smtp.mailfrom=s.trumtrar@pengutronix.de
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Thu, 12 Nov 2026 12:19:35 +0100
+Subject: [PATCH net-next v5 3/9] virtio-net: copy the XDP rx hash before
+ the program runs
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,154 +84,250 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112-ovl-link-impure-v1-1-7804905610a9@samsung.com>
-In-Reply-To: <20261112-ovl-link-impure-v1-1-7804905610a9@samsung.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Thu, 12 Nov 2026 12:19:51 +0100
-X-Gm-Features: AclHuK8j8C1jDU01PIIaLNz3c4Dysks-pyFxlkXuClWCxYjHTCcGRwGH-vgdal4
-Message-ID: <CAOQ4uxgZfKXGDn=MaMZTXh2nUu=LZ5Zu0JDoJQhXfVcSA69bSw@mail.gmail.com>
-Subject: Re: [PATCH] ovl: bump the impure dir version when linking a file with origin
-To: daejun7.park@samsung.com
-Cc: Miklos Szeredi <miklos@szeredi.hu>, linux-unionfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-v6-7-topic-virtio-net-ptp-v5-3-7ab67b572f4f@pengutronix.de>
+References: <20261112-v6-7-topic-virtio-net-ptp-v5-0-7ab67b572f4f@pengutronix.de>
+In-Reply-To: <20261112-v6-7-topic-virtio-net-ptp-v5-0-7ab67b572f4f@pengutronix.de>
+To: "Michael S. Tsirkin" <mst@redhat.com>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Richard Cochran <richardcochran@gmail.com>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+ Jason Wang <jasowangio@gmail.com>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Eric Dumazet <edumazet@kernel.org>, 
+ Andrew Lunn <andrew@lunn.ch>, Simon Horman <horms@kernel.org>, 
+ Kory Maincent <kory.maincent@bootlin.com>, 
+ Liang Chen <liangchen.linux@gmail.com>, Heng Qi <hengqi@linux.alibaba.com>
+Cc: virtualization@lists.linux.dev, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, kvm@vger.kernel.org, 
+ kernel@pengutronix.de, Steffen Trumtrar <s.trumtrar@pengutronix.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7436;
+ i=s.trumtrar@pengutronix.de; h=from:subject:message-id;
+ bh=Wt4xzMKr8sKjwDtAffVOd9/ZHwoEf2KWjXEHHQAs2iU=;
+ b=owGbwMvMwCUmtVehiCsuTInxtFoSQ9bXBa+llZf4XjEVSSxW1s1eeab9MMcczyCdqX/ikgXOZ
+ hVELD3XUcrCIMbFICumyKKysIJP1OODZ+Q0ES6YOaxMIEMYuDgFYCLbNBkZFidkaphfe7cmc+2F
+ XxcyWjzmTDrGuUOP9zGrhf9Nk4NGNowM0xzXNDp+kow92zrDMWmWQsAu9upTXEK/3nU/zpr27f1
+ XdgA=
+X-Developer-Key: i=s.trumtrar@pengutronix.de; a=openpgp;
+ fpr=24A1780E1548F0495996140A1ABD20720A5E5622
 
-On Thu, Nov 12, 2026 at 4:58=E2=80=AFAM Daejun Park via B4 Relay
-<devnull+daejun7.park.samsung.com@kernel.org> wrote:
->
-> From: Daejun Park <daejun7.park@samsung.com>
->
-> Linking a file with copy up origin into a non-merge impure dir does
-> not bump the dir version. readdir then reuses the impure dir cache
-> built before the link. It reports the upper inode number as d_ino of
-> the new link, not st_ino.
->
-> Pass whether the linked file has an origin to ovl_dir_modified(), as
-> rename and unlink do.
->
-> Fixes: 4edb83bb1041 ("ovl: constant d_ino for non-merge dirs")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/bug/linux-98f207b6-3936-48e9-a40f-88f20be4d=
-b7b
-> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+virtnet_xdp_rx_hash() reads the hash from the vnet header at
+xdp->data - vi->hdr_len when the XDP program calls
+bpf_xdp_metadata_rx_hash(). That is only the header until the program
+changes the buffer: bpf_xdp_adjust_meta() writes the metadata right in
+front of xdp->data, over the header, and bpf_xdp_adjust_head() moves
+xdp->data, so the callback then reads metadata or packet bytes.
 
-Applied.
+Wrap struct xdp_buff in struct virtnet_xdp_buff, copy hash value and
+report type into it in virtnet_xdp_handler() before
+bpf_prog_run_xdp(), and let the callback read the copy. The small and
+mergeable paths put the wrapper on the stack; for AF_XDP the fields are
+in the cb of struct xdp_buff_xsk, checked with XSK_CHECK_PRIV_TYPE().
 
-Thanks for taking care of this!
-Amir.
+Move virtio_net_hash_value() up so the copy can use it.
 
-> ---
-> Tested on ext4 and xfs with default overlay options: the new fstests
-> test overlay/013 fails without this patch and passes with it. So does
-> a script that puts a whiteout in a non-merge upper dir before mount
-> and links over it (ovl_create_over_whiteout()). Apart from
-> overlay/013, only 079, 085 and 088 fail in overlay/auto on ovl-fixes,
-> with and without this patch.
+Fixes: aa37f8916d20 ("virtio_net: Support RX hash XDP hint")
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ drivers/net/virtio_net.c | 86 ++++++++++++++++++++++++++++++++----------------
+ 1 file changed, 58 insertions(+), 28 deletions(-)
 
-FYI:
+diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
+index 4c740b403ad1e..ffd7313663c18 100644
+--- a/drivers/net/virtio_net.c
++++ b/drivers/net/virtio_net.c
+@@ -491,6 +491,26 @@ struct padded_vnet_hdr {
+ 	char padding[12];
+ };
+ 
++/*
++ * The vnet header sits in the headroom in front of xdp->data, which the
++ * XDP program may overwrite with bpf_xdp_adjust_head() or
++ * bpf_xdp_adjust_meta(). What the metadata kfuncs report is copied from
++ * it before the program runs. For AF_XDP the fields behind xdp live in
++ * the cb of struct xdp_buff_xsk.
++ */
++struct virtnet_xdp_buff {
++	struct xdp_buff xdp;
++	u32 hash_value;
++	u16 hash_report;
++};
++
++static inline u32
++virtio_net_hash_value(const struct virtio_net_hdr_v1_hash *hdr_hash)
++{
++	return __le16_to_cpu(hdr_hash->hash_value_lo) |
++		(__le16_to_cpu(hdr_hash->hash_value_hi) << 16);
++}
++
+ struct virtio_net_common_hdr {
+ 	union {
+ 		struct virtio_net_hdr hdr;
+@@ -1687,6 +1707,24 @@ static void put_xdp_frags(struct receive_queue *rq, struct xdp_buff *xdp)
+ 	}
+ }
+ 
++/* xdp must be embedded in struct virtnet_xdp_buff or struct xdp_buff_xsk */
++static void virtnet_xdp_save_hdr(const struct virtnet_info *vi,
++				 struct xdp_buff *xdp)
++{
++	struct virtnet_xdp_buff *ctx = container_of(xdp, struct virtnet_xdp_buff, xdp);
++	const struct virtio_net_hdr_v1_hash *hdr_hash = xdp->data - vi->hdr_len;
++
++	XSK_CHECK_PRIV_TYPE(struct virtnet_xdp_buff);
++
++	if (vi->has_rss_hash_report) {
++		ctx->hash_value = virtio_net_hash_value(hdr_hash);
++		ctx->hash_report = __le16_to_cpu(hdr_hash->hash_report);
++	} else {
++		ctx->hash_value = 0;
++		ctx->hash_report = VIRTIO_NET_HASH_REPORT_NONE;
++	}
++}
++
+ static int virtnet_xdp_handler(struct bpf_prog *xdp_prog, struct xdp_buff *xdp,
+ 			       struct net_device *dev,
+ 			       unsigned int *xdp_xmit,
+@@ -1696,6 +1734,8 @@ static int virtnet_xdp_handler(struct bpf_prog *xdp_prog, struct xdp_buff *xdp,
+ 	int err;
+ 	u32 act;
+ 
++	virtnet_xdp_save_hdr(netdev_priv(dev), xdp);
++
+ 	act = bpf_prog_run_xdp(xdp_prog, xdp);
+ 	u64_stats_inc(&stats->xdp_packets);
+ 
+@@ -1867,7 +1907,8 @@ static struct sk_buff *receive_small_xdp(struct net_device *dev,
+ 	struct virtio_net_hdr_mrg_rxbuf *hdr = buf + header_offset;
+ 	struct page *page = virt_to_head_page(buf);
+ 	struct page *xdp_page;
+-	struct xdp_buff xdp;
++	struct virtnet_xdp_buff vxdp;
++	struct xdp_buff *xdp = &vxdp.xdp;
+ 	struct sk_buff *skb;
+ 	unsigned int metasize = 0;
+ 	u32 act;
+@@ -1900,17 +1941,17 @@ static struct sk_buff *receive_small_xdp(struct net_device *dev,
+ 		page = xdp_page;
+ 	}
+ 
+-	xdp_init_buff(&xdp, buflen, &rq->xdp_rxq);
+-	xdp_prepare_buff(&xdp, buf + VIRTNET_RX_PAD + vi->hdr_len,
++	xdp_init_buff(xdp, buflen, &rq->xdp_rxq);
++	xdp_prepare_buff(xdp, buf + VIRTNET_RX_PAD + vi->hdr_len,
+ 			 xdp_headroom, len, true);
+ 
+-	act = virtnet_xdp_handler(xdp_prog, &xdp, dev, xdp_xmit, stats);
++	act = virtnet_xdp_handler(xdp_prog, xdp, dev, xdp_xmit, stats);
+ 
+ 	switch (act) {
+ 	case XDP_PASS:
+ 		/* Recalculate length in case bpf program changed it */
+-		len = xdp.data_end - xdp.data;
+-		metasize = xdp.data - xdp.data_meta;
++		len = xdp->data_end - xdp->data;
++		metasize = xdp->data - xdp->data_meta;
+ 		break;
+ 
+ 	case XDP_TX:
+@@ -1921,7 +1962,7 @@ static struct sk_buff *receive_small_xdp(struct net_device *dev,
+ 		goto err_xdp;
+ 	}
+ 
+-	skb = virtnet_build_skb(buf, buflen, xdp.data - buf, len);
++	skb = virtnet_build_skb(buf, buflen, xdp->data - buf, len);
+ 	if (unlikely(!skb)) {
+ 		u64_stats_inc(&stats->alloc_fail);
+ 		goto err;
+@@ -2288,7 +2329,8 @@ static struct sk_buff *receive_mergeable_xdp(struct net_device *dev,
+ 	unsigned int xdp_frags_truesz = 0;
+ 	struct sk_buff *head_skb;
+ 	unsigned int frame_sz;
+-	struct xdp_buff xdp;
++	struct virtnet_xdp_buff vxdp;
++	struct xdp_buff *xdp = &vxdp.xdp;
+ 	void *data;
+ 	u32 act;
+ 	int err;
+@@ -2298,16 +2340,16 @@ static struct sk_buff *receive_mergeable_xdp(struct net_device *dev,
+ 	if (unlikely(!data))
+ 		goto err_xdp;
+ 
+-	err = virtnet_build_xdp_buff_mrg(dev, vi, rq, &xdp, data, len, frame_sz,
++	err = virtnet_build_xdp_buff_mrg(dev, vi, rq, xdp, data, len, frame_sz,
+ 					 &num_buf, &xdp_frags_truesz, stats);
+ 	if (unlikely(err))
+ 		goto err_xdp;
+ 
+-	act = virtnet_xdp_handler(xdp_prog, &xdp, dev, xdp_xmit, stats);
++	act = virtnet_xdp_handler(xdp_prog, xdp, dev, xdp_xmit, stats);
+ 
+ 	switch (act) {
+ 	case XDP_PASS:
+-		head_skb = build_skb_from_xdp_buff(dev, vi, &xdp, xdp_frags_truesz);
++		head_skb = build_skb_from_xdp_buff(dev, vi, xdp, xdp_frags_truesz);
+ 		if (unlikely(!head_skb)) {
+ 			u64_stats_inc(&stats->alloc_fail);
+ 			break;
+@@ -2324,7 +2366,7 @@ static struct sk_buff *receive_mergeable_xdp(struct net_device *dev,
+ 		break;
+ 	}
+ 
+-	put_xdp_frags(rq, &xdp);
++	put_xdp_frags(rq, xdp);
+ 
+ err_xdp:
+ 	page_pool_put_page(rq->page_pool, page, -1, true);
+@@ -2477,13 +2519,6 @@ static struct sk_buff *receive_mergeable(struct net_device *dev,
+ 	return NULL;
+ }
+ 
+-static inline u32
+-virtio_net_hash_value(const struct virtio_net_hdr_v1_hash *hdr_hash)
+-{
+-	return __le16_to_cpu(hdr_hash->hash_value_lo) |
+-		(__le16_to_cpu(hdr_hash->hash_value_hi) << 16);
+-}
+-
+ static void virtio_skb_set_hash(const struct virtio_net_hdr_v1_hash *hdr_hash,
+ 				struct sk_buff *skb)
+ {
+@@ -6760,23 +6795,18 @@ virtnet_xdp_rss_type[VIRTIO_NET_HASH_REPORT_MAX_TABLE] = {
+ static int virtnet_xdp_rx_hash(const struct xdp_md *_ctx, u32 *hash,
+ 			       enum xdp_rss_hash_type *rss_type)
+ {
+-	const struct xdp_buff *xdp = (void *)_ctx;
+-	struct virtio_net_hdr_v1_hash *hdr_hash;
+-	struct virtnet_info *vi;
++	const struct virtnet_xdp_buff *ctx = (void *)_ctx;
+ 	u16 hash_report;
+ 
+-	if (!(xdp->rxq->dev->features & NETIF_F_RXHASH))
++	if (!(ctx->xdp.rxq->dev->features & NETIF_F_RXHASH))
+ 		return -ENODATA;
+ 
+-	vi = netdev_priv(xdp->rxq->dev);
+-	hdr_hash = (struct virtio_net_hdr_v1_hash *)(xdp->data - vi->hdr_len);
+-	hash_report = __le16_to_cpu(hdr_hash->hash_report);
+-
++	hash_report = ctx->hash_report;
+ 	if (hash_report >= VIRTIO_NET_HASH_REPORT_MAX_TABLE)
+ 		hash_report = VIRTIO_NET_HASH_REPORT_NONE;
+ 
+ 	*rss_type = virtnet_xdp_rss_type[hash_report];
+-	*hash = virtio_net_hash_value(hdr_hash);
++	*hash = ctx->hash_value;
+ 	return 0;
+ }
+ 
 
-https://lore.kernel.org/linux-unionfs/20261111132836.3495981-1-giuseppe@scr=
-ivano.org/
+-- 
+2.56.0
 
-> ---
->  fs/overlayfs/dir.c | 20 +++++++++++---------
->  1 file changed, 11 insertions(+), 9 deletions(-)
->
-> diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
-> index e0a164e22d67..8fec18dc5fc7 100644
-> --- a/fs/overlayfs/dir.c
-> +++ b/fs/overlayfs/dir.c
-> @@ -368,7 +368,7 @@ static bool ovl_type_origin(struct dentry *dentry)
->  }
->
->  static int ovl_create_upper(struct dentry *dentry, struct inode *inode,
-> -                           struct ovl_cattr *attr)
-> +                           struct ovl_cattr *attr, bool origin)
->  {
->         struct ovl_fs *ofs =3D OVL_FS(dentry->d_sb);
->         struct dentry *upperdir =3D ovl_dentry_upper(dentry->d_parent);
-> @@ -393,7 +393,7 @@ static int ovl_create_upper(struct dentry *dentry, st=
-ruct inode *inode,
->                 ovl_set_opaque(dentry, newdentry);
->         }
->
-> -       ovl_dir_modified(dentry->d_parent, false);
-> +       ovl_dir_modified(dentry->d_parent, origin);
->         err =3D ovl_instantiate(dentry, inode, newdentry, !!attr->hardlin=
-k, NULL);
->         if (err)
->                 goto out_cleanup;
-> @@ -491,7 +491,7 @@ static int ovl_set_upper_acl(struct ovl_fs *ofs, stru=
-ct dentry *upperdentry,
->  }
->
->  static int ovl_create_over_whiteout(struct dentry *dentry, struct inode =
-*inode,
-> -                                   struct ovl_cattr *cattr)
-> +                                   struct ovl_cattr *cattr, bool origin)
->  {
->         struct ovl_fs *ofs =3D OVL_FS(dentry->d_sb);
->         struct dentry *workdir =3D ovl_workdir(dentry);
-> @@ -582,7 +582,7 @@ static int ovl_create_over_whiteout(struct dentry *de=
-ntry, struct inode *inode,
->                 if (err)
->                         goto out_cleanup_unlocked;
->         }
-> -       ovl_dir_modified(dentry->d_parent, false);
-> +       ovl_dir_modified(dentry->d_parent, origin);
->         err =3D ovl_instantiate(dentry, inode, newdentry, hardlink, NULL)=
-;
->         if (err) {
->                 ovl_cleanup(ofs, upperdir, newdentry);
-> @@ -647,12 +647,12 @@ DEFINE_CLASS(ovl_override_creator_creds,
->
->  static int ovl_create_handle_whiteouts(struct dentry *dentry,
->                                        struct inode *inode,
-> -                                      struct ovl_cattr *attr)
-> +                                      struct ovl_cattr *attr, bool origi=
-n)
->  {
->         if (!ovl_dentry_is_whiteout(dentry))
-> -               return ovl_create_upper(dentry, inode, attr);
-> +               return ovl_create_upper(dentry, inode, attr, origin);
->
-> -       return ovl_create_over_whiteout(dentry, inode, attr);
-> +       return ovl_create_over_whiteout(dentry, inode, attr, origin);
->  }
->
->  static int ovl_create_or_link(struct dentry *dentry, struct inode *inode=
-,
-> @@ -687,12 +687,14 @@ static int ovl_create_or_link(struct dentry *dentry=
-, struct inode *inode,
->                  */
->
->                 if (attr->hardlink)
-> -                       return ovl_create_handle_whiteouts(dentry, inode,=
- attr);
-> +                       return ovl_create_handle_whiteouts(dentry, inode,=
- attr,
-> +                                                          origin);
->
->                 scoped_class(ovl_override_creator_creds, cred, original_c=
-reds, dentry, inode, attr->mode) {
->                         if (IS_ERR(cred))
->                                 return PTR_ERR(cred);
-> -                       return ovl_create_handle_whiteouts(dentry, inode,=
- attr);
-> +                       return ovl_create_handle_whiteouts(dentry, inode,=
- attr,
-> +                                                          origin);
->                 }
->         }
->         return err;
->
-> ---
-> base-commit: 0d5e729c515f4ae4eacc179dbcf350d9b499a161
-> change-id: 20261112-ovl-link-impure-8624810156d8
->
-> Best regards,
-> --
-> Daejun Park <daejun7.park@samsung.com>
->
->
