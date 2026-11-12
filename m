@@ -1,72 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794494560;
-	b=4HLwi1dlzEE0lFNd3bmFJDbn6WiobXkQObmKnGplR6dMUq2KAXEzN5OkDc1i8DIj2mVq
-	 PuahEEpdsEuhZgSzEy2TyRoapYRqZaRNTR/LOyJQ/3HpcWOSAipwgsbRXcuGA8qtBmnkl
-	 ltxssVA3LADVNwEQarOC3HM/UBN2OsgHKAEkRTHj6zVqpC3E93nsDWmycbBRdBdBUg3LZ
-	 SeHE6P/Fsl6sMkX/zbn3lR9DweupdBWHchcmjjrXHIkvkTQD1CWWWo54IbPUxpknnK43E
-	 6i2oBFV5SZB+weDTbLg75EjFzi2JvHME9mnurX0IRKiWoBWFkpZjPU13N7ALDRTzZNw==
+	t=1794494599;
+	b=IW2NJ+pxjQmfcn1MQrHrsKD8+wTYltmkh8s/18rsCB87+odRFqEC7RkYU60dQvPGRh5f
+	 7rhx0Rqp+ZoRRIWAVtdrneRIwyfqvgBat/vQxcEEsUXVnB8GXAKc9/yyfIHQ6CI5X+PBa
+	 PIbXjMkkmXoIae0DW3gyV/AKLhlFeo+cvm9uQbhjaIFFC/0eIjs423v5nkClMIAX/S66G
+	 Ip8gnBetMguwiiMs/7idApuLKHmtTq78fLBqTonGfXEK1YIyMDZff0hQbnPf97eD3NjYB
+	 SEXYNaLb40YXI2Lav0w2snVkOH31cGJJ17xqySUYDjNh7nQGu6RRWl6QUxvo9OevrjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794494560;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=aq0o03R7e9F2pw69m+iUpHwCBUrNrj8FRpthGHachfU=;
-	b=nDShsOQqn9edCwpqVSQ537dBPsOD4+drt7zUEqZrcjLutTnm1ia8Es6y4R9YSJsiSh7l
-	 bHy5UR+tKPFSJrorxVD+6ZF0XMv/pKrQAcQfrDSGn7lI7rvNXybsuQH2PCNLef75FU7+E
-	 g4JW4l1SDbiRIATJL2qLYIlceohUL6ZKGXpjc0KQvncQIWxG3othNac7OmWaMAxpetEEZ
-	 eW14UBDAs4cAqpyn4jckFEzK6/4NaBE6Yv/JKimNY4qRao44mZVobk5IR/EyGHNm47828
-	 adfkIsYJhiApt8DnzUCgnMqi6oC8z2+Po20s9XZvaogBA7/hw8No4YjkntbfnldsZUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794494599;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=doRR2hlsDqY4KYCxE3inoPjG+grnCS2sG965WCAyZas=;
+	b=BxnwZNBMBFEaLRR8+6EpVwRg0lpllcfKSPkppzj5OrrTO5nGwtwAhKv+aQo1sRGOwG9C
+	 fD52Pd9whncvjT2QruRrpJrz0ui89snWA/aHWk5ejNqX97iBMzY7oNsRC/OwdG+NuIpl6
+	 cSNnM+Fg8vgAG4uGn7dIBTM3oe8zEYalSUhuRsBlheAjDY/Z8HdcFhAGNHkCcUg4n9gw2
+	 AdC0m+LFg0f+lVYIDQGJVxLUKdc6nmD+EBHM7VwhGY9Z7Pr0FjbtreI2v5Wxetb+gRUOf
+	 qjrsQ5Bu18eAmCUwoSPRyMdt87FwUbdBWz7Uk9rysF448VROeyglKhgGs/vMaQfr/Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=onurozkan.dev;
-	spf=pass smtp.mailfrom=onurozkan.dev;
-	dkim=pass header.d=onurozkan.dev header.i=@onurozkan.dev header.a=rsa-sha256 header.s=protonmail2 header.b=D6i1tabR;
-	arc=none smtp.remote-ip=79.135.106.112
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=mit.edu;
+	spf=pass smtp.mailfrom=mit.edu;
+	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=PCpUqHRW;
+	arc=none smtp.remote-ip=18.9.28.11
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B718606A31C;
-	Thu, 12 Nov 2026 14:42:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B718606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DDA2606A330
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:43:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DDA2606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.a=rsa-sha256 header.s=protonmail2 header.b=D6i1tabR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
-	s=protonmail2; t=1794494555; x=1794753755;
-	bh=aq0o03R7e9F2pw69m+iUpHwCBUrNrj8FRpthGHachfU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=D6i1tabRaiEabLSjKLt60DBdRBgc1ghMp/8bV7MeYncwMKpZbKK5AAv1JEBCvN7mG
-	 NAHVRlu5d231+HRbVexe+koI+ubiZZX1olmurWYZjkLfMZFTmhy0cg9Lg6BeXneYu0
-	 msslEAx9R23M6rViDj5jTAqogNYMjpgOEeuf7E59esqA6WKnFUP+PFgWIBGdSLBwX2
-	 hN39xgBJl2xBY6D/eKneQFGvb4LSe5r668ZbM/AW3jEsJrxQWZd84uaCf7LQ5vQbiD
-	 mJKrsNO4SNSEcrBQjbU/A8RzVipo2I05KdurWxBE8phhDuupBSA7K60VPAwlfn/SJV
-	 apHpNx4EsqQQg==
-X-Pm-Submission-Id: 4jQNQc4KLdz2Scmw
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: Daniel Almeida <daniel.almeida@collabora.com>
-Cc: linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	dakr@kernel.org,
-	aliceryhl@google.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	ojeda@kernel.org,
-	boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	tmgross@umich.edu
-Subject: Re: [PATCH v7 0/3] drm/tyr: GPU reset infrastructure
-Date: Thu, 12 Nov 2026 17:42:27 +0300
-Message-ID: <20261112144231.279851-1-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <AE29D511-8F4A-49A3-BE4E-31E6411816D7@collabora.com>
-References: <20260912-tyr-reset-impl-v7-0-077ce72084eb@onurozkan.dev> <70AFEE33-C637-4D49-88F1-9DF3A9BBF097@collabora.com> <20261111100745.3929894-1-work@onurozkan.dev> <AE29D511-8F4A-49A3-BE4E-31E6411816D7@collabora.com>
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=PCpUqHRW
+Received: from macsyma.thunk.org (pool-173-48-111-191.bstnma.fios.verizon.net [173.48.111.191])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6ACEgZrS029468
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 12 Nov 2026 09:42:36 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1794494561; bh=doRR2hlsDqY4KYCxE3inoPjG+grnCS2sG965WCAyZas=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=PCpUqHRWzITexZeciyh8kmVbkihYGX8mwUkz4BDsbPPLX+qgXZSgK0siPFYDtsNvw
+	 vhi19YCkVdpN2IOIuCQkUbTABBSJH34jKgUk1v7pcRSM1aF+AI/t36ClaWCrfW2JJN
+	 FcvflnJ9GzeSyh+wHskHLh8VisHyED/GCv1zGigO8l7ebgLy4JiNG3DwOYnQyWrVta
+	 EQI9zCjNPdNU2JePDhpFJerpbV/T9UDaDhfs+O06B95xIv8USzHrU41itNr13pVwFh
+	 S4khQLaNAECVY8NIwKjwYoV0mGOMtac6jtKQmU3og6QNRrEW6ISyYhUHAEkjw/6H5q
+	 +6t7Ei0rd0G3g==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id CC8FE26E540E; Thu, 12 Nov 2026 09:42:35 -0500 (EST)
+Date: Thu, 12 Nov 2026 09:42:35 -0500
+From: "Theodore Tso" <tytso@mit.edu>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev,
+        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
+        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Leon Romanovsky <leon@kernel.org>,
+        Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+        Thorsten Leemhuis <linux@leemhuis.info>,
+        "Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>,
+        Geert Uytterhoeven <geert@linux-m68k.org>,
+        Dan Carpenter <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+        Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+        Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
+        Bradley Morgan <brads@mainlining.org>, Sasha Levin <sashal@kernel.org>,
+        stable@vger.kernel.org
+Subject: Re: [PATCH v5 0/6] agents: add skills for Fixes tags, stable tags,
+ similar bugs, and commit messages
+Message-ID: <avXOSg4jOlzBY1r5@mit.edu>
+References: <20261111225940.1573565-1-tytso@mit.edu>
+ <9c5f5976-ebed-48f3-94ab-1121231af6e1@kernel.org>
+ <avXCcPYM9VAP0JHf@mit.edu>
+ <31a56051-bd63-4a39-9cad-2c9afcd98340@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,40 +85,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <31a56051-bd63-4a39-9cad-2c9afcd98340@kernel.org>
 
-On Wed, 11 Nov 2026 12:33:47 -0300=0D
-Daniel Almeida <daniel.almeida@collabora.com> wrote:=0D
-=0D
-> Hi Onur,=0D
-> =0D
-> > =0D
-> > Any updates on this? I am preparing v2 of the GPU unplug series [1] whi=
-ch=0D
-> > depends on this series. The reset patches need rebasing against current=
-=0D
-> > drm-rust-next.=0D
-> > =0D
-> > Would you prefer me to send a rebased v8 and base unplug v2 on it or ar=
-e=0D
-> > you planning to pick up v7 and handle the rebase?=0D
-> > =0D
-> > Thanks,=0D
-> > Onur=0D
-> > =0D
-> > [1]: https://lore.kernel.org/all/20260823-tyr-gpu-unplug-b4-v1-0-e99c07=
-d4c785@onurozkan.dev=0D
-> > =0D
-> =0D
-> I'm only waiting Alice's R-b before bringing this in. Feel free to send a=
-=0D
-> rebased version, since it will probably be needed for the unplug work too=
-.=0D
-> =0D
-> -- Daniel=0D
-=0D
-Okay, I will.=0D
-=0D
-Thanks,=0D
-Onur=0D
+On Thu, Nov 12, 2026 at 02:49:09PM -0500, Krzysztof Kozlowski wrote:
+> 
+> Specification is also documentation, just like for example specification
+> for our ABI. It's also located in Documentation directory.
+
+Source and header files can also contain documentation.  But we don't
+put them in the Documentation directory because they do not contain
+*exclusively* documentation.
+
+If the complaint is that it is visible when we run "ls", one
+compromise might be to put the skills in .agents/skills.  This is a
+cross-harness standard which is supported by some code harneses
+(Google Antigravity, Github Copilot, etc.).  Some harneses (including
+Claude Code, Opencode) don't, but people who use these harneses can
+solve it by installing their own symlink from .claude/skills,
+.opencode/skills, etc. to the right place.
+
+Cheers,
+
+						- Ted
