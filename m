@@ -1,43 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794470226;
-	b=tLr3X4Ph6R7rocjzOndfioO+vkfdkPansKm0d303oiHSUQYhUPiRuta+Q29EL/mrhWn3
-	 hI6ZD/fvACL/AuQB9YRfXXx6H2zxEzg3w72TqgrMQCAI8L+WLvg16+NBSNbN6Za5G9Cey
-	 mTawMG2/jxv39AmxILmvt3eqaXHQ6TB/vkZlIcCNH99sDpoMTB/kY+5v/rcRZCMtQuwxZ
-	 7ljsNtCrDt4ZviJ7EtkWqOaYifx6cZkBTtjgvDrLZi/HF/E4vI7HJnuOYJZnoIfJCrQdo
-	 rz/1Wds/vuXP2eSFgxm4mv+pEBc9LZx5l4E5r8tWqIS2/H1gxsqqXMtar09bnO3GfSA==
+	t=1794470259;
+	b=R+w3wWAYVqtZ9AeMr8GULWEUXlfQsX8+ACGYb2ukJnClPuKp7K+yySWskqqvBknjT5hv
+	 0SON3VsAuhH4DD6yYpQwRikLDNnyBygknyofsrCuUMpMpCCN56iMe4OdiQJs9TsTUUDrr
+	 XXZABkTVG7oziwHlPNioamMEY0P97vWm+AEyP495Zbbz/i9BqNEh1iLoWgjGTa+xTu5OS
+	 cHsyhRkbueAKEkmTsc0MabW0g64wp9bza820BCc7IK6tzUFEFqxUP3vNkf+aULaXgZ7zF
+	 fjRCPNTxFwg5X4r1WoyVTN2S0e9DKnXzw5G2hNd1DoCAtQmL6bgE+Extb/cbsWB09Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794470226;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=yXljFrMHuNZdAD8pJZ58StWeAWXC+mtlKfyCWGcsFDE=;
-	b=VIW862WejswwEVuAKt6zpIg1mwsam7s5QIjvfH5SXJk181U3B36Q8e4/yWVgOp8wcvQe
-	 aEarCbJdVY3mnbc1z3grHcSwMqlimK9xBFS2U5bP5DmrsdYduCQwEyk3Xl6q4pLb/fVcq
-	 57vGE8XXxWY15AM2KTIpXDf3Q0h4hAWKcqf/1aIsWVPYbv3zSFXArZewQ0efXWsw11h93
-	 dEBKRTwLoA4rRTy6v7ZhX+QUtcPV8CI30CxuzCMp96T6+y2dFuHFPDSqnLG0rNNC3VK8P
-	 YW8mJlJzqUnIotk0boby1QQb+nqvmfydUAhaWRAXSzxCzAvCT5DKT2i4y/PVQZX++Fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794470259;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=HAXiNOcrGlTDifka8zYV26XhLrMTpt8vrdZKcBxEAck=;
+	b=0OfNp9iv2JNYqd6KNu0muq/QStZ5g9ffVWWuYTsw5OwUzo+iD0T5NIArlULLbgNbrQPY
+	 +emrCJth/RBNqUEVHDhxItF9fIvdJgYQa/+C4vTWhn28zdhEDhr7d+2kshn31vc37szC+
+	 SKkmE6QSbM8uUGXcxFnyj/ReJM9AwcW3ECwAliy37MMYNcRkxNxmi7icFvq6JRRd6JGjE
+	 udy/SC1Euto724hMe9DKii2g4gGwnFgqGLZQM/m8Cts6CiyW/sZk8uHQ/uN/Rjle+r6Zb
+	 YAu9OncudGtvowMWwVgz3+I9t/n3xljn9oSr4vdOwmNk0AubDGcFlhYjZW9SB8Bx9Hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=phrozen.org;
-	spf=pass smtp.mailfrom=phrozen.org;
-	arc=none smtp.remote-ip=46.4.11.11
-Received: from nbd.name (nbd.name [46.4.11.11])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=O6j9OfLi;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23BD6606A88D;
-	Thu, 12 Nov 2026 07:57:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23BD6606A88D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
-Received: from [2a04:4540:1403:f2fc:6c6d:98d8:5537:56be]
-	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.96)
-	(envelope-from <john@phrozen.org>)
-	id 1xRPft-002Bve-0y;
-	Thu, 12 Nov 2026 08:56:49 +0100
-Message-ID: <651220fc-f1ea-49f2-9992-a1b3e31d1bb1@phrozen.org>
-Date: Thu, 12 Nov 2026 08:56:48 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0E9606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:57:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A0E9606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=O6j9OfLi
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=HAXiNOcrGlTDifka8zYV26XhLrMTpt8vrdZKcBxEAck=; b=O6j9OfLiD48qpRMwXY8DjIlIrM
+	6ncIA817AmcW4O2IR7lTv1xTCnvCE6o2rfWHnK9GI27ojn4beoSn42yTQfo4WL0zjwpg5+p4YHiCG
+	m8pDeQWs3BUrCkJydgKNE2Keax9LZZjm3cxhvtoqF3ivHKhl9Zaf1tz2cOWP8WAGCVIwt/LRb7ky6
+	eSc7c1/ldeNC79XUZHKk+zYlde8E5BysERTocGRDct6oFVhF6DwswhxB8Q2T10dmelhvIblJPO1QL
+	cv+nZi2nRnWEInstwXYciKO34COy0uNpRNP2anlfTi1QfYWSB5Yn9jWHU8jrWYXqYUzGgkut8e1Ds
+	dJLE+WqQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRPgd-0000000A1jw-179x;
+	Thu, 12 Nov 2026 07:57:35 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id E1C2530066A; Thu, 12 Nov 2026 08:57:33 +0100 (CET)
+Date: Thu, 12 Nov 2026 08:57:33 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Rik van Riel <riel@surriel.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>, x86@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] MAINTAINERS: x86/mm add myself as reviewer
+Message-ID: <20261112075733.GQ2668200@noisy.programming.kicks-ass.net>
+References: <20261110205444.39dc9c43@fangorn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -47,36 +67,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: i2c: mt7621: add Airoha AN7589
-To: Conor Dooley <conor@kernel.org>
-Cc: Stefan Roese <sr@denx.de>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Christian Marangi <ansuelsmth@gmail.com>, devicetree@vger.kernel.org,
- lei.dong@airoha.com, Linqi.zhang@airoha.com,
- linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
- Rajeev.kumar@airoha.com, upstream@airoha.com, Weifeng.xu@airoha.com,
- zhengping.zhang@airoha.com
-References: <20261111093941.691801-1-john@phrozen.org>
- <20261111093941.691801-2-john@phrozen.org>
- <20261111-federal-pleat-191852ed2822@spud>
-Content-Language: en-GB
-From: John Crispin <john@phrozen.org>
-In-Reply-To: <20261111-federal-pleat-191852ed2822@spud>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110205444.39dc9c43@fangorn>
 
-On 11.11.26 19:11, Conor Dooley wrote:
-> I assume a fallback is not suitable here because setting this wider
-> divider is a requirement?
+On Tue, Nov 10, 2026 at 08:54:44PM -0500, Rik van Riel wrote:
+> arch/x86/mm is an area where the maintainers are spread
+> pretty thin, which I care about, and know something
+> about after various TLB flushing adventures.
+> 
+> I should probably help review things there.
+> 
+> Signed-off-by: Rik van Riel <riel@surriel.com>
 
-The new registers offer a wider frequency range. I checked that the
-old MT7621 registers work on the AN7589. They do, so v2 will have the
-"airoha,an7589-i2c", "mediatek,mt7621-i2c" fallback.
+Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 
-Thanks,
-  John
+> ---
+>  MAINTAINERS | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 222b7fc2c3aa..ef9d082cf1f4 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -30413,6 +30413,7 @@ X86 MM
+>  M:	Dave Hansen <dave.hansen@linux.intel.com>
+>  M:	Andy Lutomirski <luto@kernel.org>
+>  M:	Peter Zijlstra <peterz@infradead.org>
+> +R:	Rik van Riel <riel@surriel.com>
+>  L:	linux-kernel@vger.kernel.org
+>  S:	Maintained
+>  T:	git git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86/mm
+> -- 
+> 2.56.0
+> 
