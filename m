@@ -1,68 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794444079;
-	b=tjICPPdLodogBeRyN3zDWS1Idpn+nCawRTTGuHtYQ6ZGyXz39nB94Uf7A67Gs4KAoi5Z
-	 WSH9hoKpI1pPJGvWUtVcFhrqwXSoRSmPYbRG8tegA5YOUdNnbMI6N138PNdhwUU9+qDMl
-	 iyQkiwSyxzU5JnzDPIv5PIB08Rga/3h/WPKqK0kG6bxVAtdYedaJ+mjsZ5cV+AO3DKOmB
-	 kWmZh8GAgWvCy39cOotW9lguUQ2c028+GKVria+cH0hJsztctr+N4ZvJuGKo+3ebwfvkD
-	 kXS80FFnVL7k/6/wnmA7cMjhPK35CQ4G9ws0Yi4tOf6u9gWV1hSMxjQdnGgigMXbBUg==
+	t=1794444083;
+	b=24xakAPrDX3F62+pV4qlOAJ47wXNDQ05kL28LZqopUXsXnr/qG8t7S+Ceck19i44a5gx
+	 vK1CbWkX7wbHyh28gi/MzbxVP5mMZ9DGngASET/Mbb6r60oWyYiyXzd++re0Y3TkC3yjG
+	 A4meV33oCg3L5Z6DaSpNsQe5GN8efsfONyF4LMDmQnlVCjUvmq4FSIaBl5o0nSD+IRt/l
+	 JKUrnIGDIp9mwfZqbCO2G0a+7qTUfYM6bmHaelkEVEPtYpS0h/gbFJUzKURzgYwkCJXYI
+	 y6nBvYqyyRTpDaQm3jBxfIA5b9AlDnwvx+210NbujcxOHZ5mIN60eLWvTa+JgY9rjdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794444079;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Yw31CXHtALD9+rlXmyh33It7GXnvhUwt2iK6ewaR4dU=;
-	b=yHcjy7h7wxLf9GGTwMaybb+crn+YtYm0AbMnQxAGilZO/nxDzITRkq4ubPR9TopH6dT8
-	 0F/7kFo38rmQuoPY5LZHvZbEHP4617LCHfM9esTh2FflW1EfQ8yM+7tnT/rCrNlyK/YxD
-	 WOkcenrQw643/dHy5Man1h4yKvRWg99qCcVV487fpBddXs4HjIJJ+xcTi10NtqsMGpqWg
-	 BjxUTc013TSleFTjVvs/86jV77waefKb4+Bh7NaFNsmLU+t5vwzJmM7+p3LsgXX9EbRG+
-	 iCYyE2VTaEj0l7VhEtHkuDuv3DzgriNB+Ap9hHFn5mEb3GZcwMXnFXXjZDAMpfBDXOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794444083;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=naLbHr/+oPV29aQuJv+P6GsGhs3mmPsOZjs4miyXzy8=;
+	b=otV0W8+Yqh6vLj0O0ldk64x2CEB106NN5UzMgrbFCUSf+dywraE/eLvUqnah8IWjD7fI
+	 70ePXXUCK9diDShxbQof4+dwjs8/79y5eht9O6Aim/IqEBCBwvuURzoh6TeMKWDT5uwaZ
+	 1UKZUh3i/sXlIZlVpNjaL88TevjPu/D57/HFEAs3axJWmr6yj6Mu/KEhV1qL+VdWdvrbQ
+	 8WowcE6TIDDqN7mXMyTDvYGFvjiepwLIR8f0vfd9bTAwEvXQwcx0oQaLcZ5U945GDufeP
+	 v7p2oTGGdkM+b+AepzcU5Ickt6NBUALGhzcy+4CGgapfXlcWkusGU2J9gVXAkQkn9Qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="YXUgt/QC";
-	arc=none smtp.remote-ip=95.215.58.139
-Received: from mta1.migadu.com (out-139.mta1.migadu.com [95.215.58.139])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=D1gBieVl;
+	arc=none smtp.remote-ip=209.85.210.199
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C00606A326
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:41:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88C00606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A68AF606A326
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:41:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A68AF606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YXUgt/QC
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=G8BSMK/JGL39KoesEzLdLzGnPrhRNJKjOy5VM7SOH3k=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794444075; v=1; x=1795048875;
- b=YXUgt/QCbZuZheMKcUZU5r8w8Awez1lahURDOiXCqAoE1DQSjWUJvpcphdLTZvC80s0eZ0I0
- /SepG1YQBZHdF/PJWA4aJkk6uUY7JgiPIw9B1bzHjHB0TyLjybOn0LEXIeeaSdMY+LGtx54RCA/
- H73NYgWKAYioqx0aI/qZctGA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 7f7faac83d7e72b7;
-	Thu, 12 Nov 2026 00:41:15 +0000
-X-Mizu-Trace-ID: 7f7faac83d7e72b7
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 12 Nov 2026 08:41:04 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	MD Danish Anwar <danishanwar@ti.com>,
-	Murali Karicheri <m-karicheri2@ti.com>,
-	Wojciech Drewek <wojciech.drewek@intel.com>,
-	Ravi Gunasekaran <r-gunasekaran@ti.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, 1342116488@qq.com
-Subject: Re: [PATCH net] net: hsr: clean up synced addresses and allmulti in
- hsr_del_port()
-Message-ID: <avULIJLRzOEoefJI@fedora>
-References: <20261111060143.183670-1-sunwenbo@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=D1gBieVl
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8b69d1f2a18so265642b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:41:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794444082; x=1795048882; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=naLbHr/+oPV29aQuJv+P6GsGhs3mmPsOZjs4miyXzy8=;
+        b=D1gBieVl/Fa8IdsUJK/rSq9R0yBN2F8NBSeRAAcOPdZXwaFzfV0jvllDk74866QU3Y
+         xeuQWyizGd+UbfzfXelnFqM1Xrh6czV9Jxz2cguXZvLiWdq3TAmaD2yC6HilAdBcAD/z
+         C2+tH4e31FmtzMY94IBFuYY05cAZWNNXtevOdyiXEVyvJjMbxUYm8b7F4G3pfxiM6ZDB
+         a/kNnqHLomw0iaHK2yMC2OGkfmFO75WhP/HIyeUajLjNfJ6sJT6zRmJzLafktIdgaXVj
+         Y9VknezA61zJzdDWRITzvq8LHsvK2q2XHtUvz0EhTlVNZyMeEn8IR/VRSqAfsegSSMla
+         IQjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794444082; x=1795048882;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=naLbHr/+oPV29aQuJv+P6GsGhs3mmPsOZjs4miyXzy8=;
+        b=0GVGwIKQ+LJ9sY2NycNoVUMxbqTdDuJE0YkxHLW67u40AHg5GsmX/lmsmQucU6fklZ
+         bgbzCMFxpqRDFZLW879bkxGgIEpDkuTt2OaW8/2opNCPuHQaaOLQ/boqRUpkPcPWPrSm
+         NiMIhIlKBby1wFp2JX3WW5VMkG21HPt71cCgVcJmxozAETgAzvYDtyhCFoZJWHz1znTM
+         wLFcUEeF3qof22tO65Y3WIjF450hyDylYBC4exPTbRTxYuMNK6G06DhEqNNqjMy0/xcZ
+         ncHCTQg8W8XXnArezV9AUmXrwEMzBU8T8kNNhBvuxHkCrrrF2qe/q+Tv0whGTvFBHMPH
+         M0Gg==
+X-Forwarded-Encrypted: i=1; AL+hErF6UqVLeC5LoNqALSiTAp0em/qmIHL2S1NmhrHSsWlJ8Y2MxNAsYx9N/68UC0IB1BG2Uf9aKNS6Lw92p7Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8JfLco4wEgjhdcNvOZS3/sbKahHDRk9uvuZsqsew9Du3D1NgOc
+	97RZ6A40CBnHLTZdrOjQ2lC79yMtByGIGLhmm2qbmc6IrKlB6BsHmakHXiaV0X8ASIgIHPO+rEo
+	0uJwmsdmVCNxlt9imwo3amw==
+X-Received: from pfdu2-n2.prod.google.com ([2002:a05:6a00:c002:20b0:88e:f55:207e])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:2e82:b0:8b8:39ac:fed9 with SMTP id d2e1a72fcca58-8bd625ff9b0mr641920b3a.27.1794444081601;
+ Wed, 11 Nov 2026 16:41:21 -0800 (PST)
+Date: Thu, 12 Nov 2026 08:41:11 +0800
+In-Reply-To: <20261112004112.3059801-1-stanleyjhu@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,67 +78,275 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111060143.183670-1-sunwenbo@cmss.chinamobile.com>
+Mime-Version: 1.0
+References: <20261112004112.3059801-1-stanleyjhu@google.com>
+X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
+Message-ID: <20261112004112.3059801-3-stanleyjhu@google.com>
+Subject: [PATCH v6 2/3] scsi: ufs: rpmb: Decouple device lifecycle from devres
+ to avoid UAF
+From: Stanley Jhu <stanleyjhu@google.com>
+To: "Martin K . Petersen" <mkp@kernel.org>, Jens Wiklander <jenswi@kernel.org>, linux-scsi@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Bart Van Assche <bvanassche@acm.org>, Avri Altman <avri.altman@sandisk.com>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@iokpp.de>, 
+	Bean Huo <beanhuo@micron.com>, Alexey Charkov <alchark@flipper.net>, 
+	Can Guo <can.guo@oss.qualcomm.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Shyam Saini <shyamsaini@linux.microsoft.com>, 
+	"=?UTF-8?q?Alex=20Benn=C3=A9e?=" <alex.bennee@linaro.org>, 
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Nov 11, 2026 at 02:01:43PM +0800, Wenbo Sun wrote:
-> hsr_set_rx_mode() syncs unicast and multicast addresses to slave A and
-> slave B devices via dev_uc_sync_multiple() and dev_mc_sync_multiple(),
-> and hsr_change_rx_flags() propagates IFF_ALLMULTI via
-> dev_set_allmulti().
-> 
-> However, when an HSR device is deleted via hsr_dellink(),
-> hsr_del_ports() removes all ports from hsr->ports before
-> unregister_netdevice_queue() invokes hsr_dev_close(). Similarly, when a
-> slave device is unregistered while the HSR master is UP,
-> hsr_netdev_notify() calls hsr_del_port() directly. Because
-> hsr_del_port() does not unsync unicast/multicast addresses or restore
-> the allmulti count, the slave devices permanently retain synced hardware
-> addresses and a leaked allmulti reference count after port deletion.
-> 
-> Fix this by calling dev_uc_unsync() and dev_mc_unsync(), and
-> decrementing allmulti via dev_set_allmulti(port->dev, -1) if
-> IFF_ALLMULTI is set on the master device, when detaching slave A or
-> slave B in hsr_del_port().
-> 
-> This issue was identified with the assistance of an LLM-based code
-> review tool, confirmed by reproducing the leaked allmulti reference
-> count and synced multicast address in a User-Mode Linux (UML)
-> environment, and verified in UML that both states are properly cleaned
-> up upon HSR port deletion.
-> 
-> Fixes: 36b20fcdd966 ("net: hsr: Add support for MC filtering at the slave device")
-> Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-> ---
->  net/hsr/hsr_slave.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/hsr/hsr_slave.c b/net/hsr/hsr_slave.c
-> index a546f70f9cc8..bab0c27dd06a 100644
-> --- a/net/hsr/hsr_slave.c
-> +++ b/net/hsr/hsr_slave.c
-> @@ -245,8 +245,14 @@ void hsr_del_port(struct hsr_port *port)
->  		netdev_rx_handler_unregister(port->dev);
->  		if (!port->hsr->fwd_offloaded || port->type == HSR_PT_INTERLINK)
->  			dev_set_promiscuity(port->dev, -1);
-> -		if (port->type == HSR_PT_SLAVE_A || port->type == HSR_PT_SLAVE_B)
-> +		if (port->type == HSR_PT_SLAVE_A ||
-> +		    port->type == HSR_PT_SLAVE_B) {
->  			vlan_vids_del_by_dev(port->dev, master->dev);
-> +			dev_uc_unsync(port->dev, master->dev);
-> +			dev_mc_unsync(port->dev, master->dev);
-> +			if (master->dev->flags & IFF_ALLMULTI)
-> +				dev_set_allmulti(port->dev, -1);
-> +		}
->  		netdev_upper_dev_unlink(port->dev, master->dev);
->  		if (hsr->prot_version == PRP_V1 &&
->  		    port->type == HSR_PT_SLAVE_B) {
-> -- 
-> 2.33.0
-> 
-> 
-> 
+Region device lifetime in ufs-rpmb fails on host removal in three ways:
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+1. ufs_rpmb_probe() allocates struct ufs_rpmb_dev with devm_kzalloc() on
+   the host device even though it embeds a reference-counted struct
+   device, so devres frees the memory on host unbind regardless of live
+   references.
+2. Probe takes no reference on hba->ufs_rpmb_wlun, so scsi_remove_host()
+   frees the scsi_device while an RPMB request is still in flight.
+3. Child rpmb_dev holds a parent reference on ufs_rpmb->dev until
+   rpmb_dev_unregister() runs, which sits inside
+   ufs_rpmb_device_release() and therefore never runs on unbind.
+
+Allocate struct ufs_rpmb_dev with kzalloc_obj() and free it in
+ufs_rpmb_device_release(), hold a get_device() reference on the WLUN
+across the region lifetime, call rpmb_dev_unregister() explicitly during
+removal and probe unwind, and reject requests when the WLUN is offline.
+
+Fixes: b06b8c421485 ("scsi: ufs: core: Add OP-TEE based RPMB driver for UFS devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+---
+ drivers/ufs/core/ufs-rpmb.c | 79 +++++++++++++++++++++----------------
+ 1 file changed, 44 insertions(+), 35 deletions(-)
+
+diff --git a/drivers/ufs/core/ufs-rpmb.c b/drivers/ufs/core/ufs-rpmb.c
+index 65f2d71cf073..11d2d8e789d0 100644
+--- a/drivers/ufs/core/ufs-rpmb.c
++++ b/drivers/ufs/core/ufs-rpmb.c
+@@ -14,6 +14,7 @@
+ #include <linux/module.h>
+ #include <linux/device.h>
+ #include <linux/kernel.h>
++#include <linux/slab.h>
+ #include <linux/types.h>
+ #include <linux/rpmb.h>
+ #include <linux/string.h>
+@@ -36,13 +37,14 @@ struct ufs_rpmb_dev {
+ 	u8 region_id;
+ 	struct device dev;
+ 	struct rpmb_dev *rdev;
+-	struct ufs_hba *hba;
++	struct scsi_device *sdev;
+ 	struct list_head node;
+ };
+ 
+-static int ufs_sec_submit(struct ufs_hba *hba, u16 spsp, void *buffer, size_t len, bool send)
++static int ufs_sec_submit(struct ufs_rpmb_dev *ufs_rpmb, u16 spsp,
++			  void *buffer, size_t len, bool send)
+ {
+-	struct scsi_device *sdev = hba->ufs_rpmb_wlun;
++	struct scsi_device *sdev = ufs_rpmb->sdev;
+ 	struct scsi_failure failure_defs[] = {
+ 		{
+ 			.sense_key = UNIT_ATTENTION,
+@@ -62,6 +64,9 @@ static int ufs_sec_submit(struct ufs_hba *hba, u16 spsp, void *buffer, size_t le
+ 	};
+ 	u8 cdb[12] = { };
+ 
++	if (!sdev || !scsi_device_online(sdev))
++		return -ENODEV;
++
+ 	cdb[0] = send ? SECURITY_PROTOCOL_OUT : SECURITY_PROTOCOL_IN;
+ 	cdb[1] = UFS_RPMB_SEC_PROTOCOL;
+ 	put_unaligned_be16(spsp, &cdb[2]);
+@@ -74,13 +79,12 @@ static int ufs_sec_submit(struct ufs_hba *hba, u16 spsp, void *buffer, size_t le
+ 
+ /* UFS RPMB route frames implementation */
+ static int ufs_rpmb_route_frames(struct device *dev, u8 *req, unsigned int req_len, u8 *resp,
+-					unsigned int resp_len)
++				 unsigned int resp_len)
+ {
+ 	struct ufs_rpmb_dev *ufs_rpmb = dev_get_drvdata(dev);
+ 	struct rpmb_frame *frm_out = (struct rpmb_frame *)req;
+ 	bool need_result_read = true;
+ 	u16 req_type, protocol_id;
+-	struct ufs_hba *hba;
+ 	int ret;
+ 
+ 	if (!ufs_rpmb) {
+@@ -88,8 +92,6 @@ static int ufs_rpmb_route_frames(struct device *dev, u8 *req, unsigned int req_l
+ 		return -ENODEV;
+ 	}
+ 
+-	hba = ufs_rpmb->hba;
+-
+ 	/* req_resp is at the end of an RPMB frame. */
+ 	if (req_len < sizeof(*frm_out))
+ 		return -EINVAL;
+@@ -122,7 +124,7 @@ static int ufs_rpmb_route_frames(struct device *dev, u8 *req, unsigned int req_l
+ 
+ 	protocol_id = ufs_rpmb->region_id << 8 | UFS_RPMB_SEC_PROTOCOL_ID;
+ 
+-	ret = ufs_sec_submit(hba, protocol_id, req, req_len, true);
++	ret = ufs_sec_submit(ufs_rpmb, protocol_id, req, req_len, true);
+ 	if (ret) {
+ 		dev_err(dev, "Command failed with ret=%d\n", ret);
+ 		return ret;
+@@ -133,7 +135,8 @@ static int ufs_rpmb_route_frames(struct device *dev, u8 *req, unsigned int req_l
+ 
+ 		memset(frm_resp, 0, sizeof(*frm_resp));
+ 		put_unaligned_be16(RPMB_RESULT_READ, &frm_resp->req_resp);
+-		ret = ufs_sec_submit(hba, protocol_id, resp, resp_len, true);
++		ret = ufs_sec_submit(ufs_rpmb, protocol_id, resp, resp_len,
++				     true);
+ 		if (ret) {
+ 			dev_err(dev, "Result read request failed with ret=%d\n", ret);
+ 			return ret;
+@@ -141,7 +144,8 @@ static int ufs_rpmb_route_frames(struct device *dev, u8 *req, unsigned int req_l
+ 	}
+ 
+ 	if (!ret) {
+-		ret = ufs_sec_submit(hba, protocol_id, resp, resp_len, false);
++		ret = ufs_sec_submit(ufs_rpmb, protocol_id, resp, resp_len,
++				     false);
+ 		if (ret)
+ 			dev_err(dev, "Response read failed with ret=%d\n", ret);
+ 	}
+@@ -151,23 +155,31 @@ static int ufs_rpmb_route_frames(struct device *dev, u8 *req, unsigned int req_l
+ 
+ static void ufs_rpmb_device_release(struct device *dev)
+ {
+-	struct ufs_rpmb_dev *ufs_rpmb = dev_get_drvdata(dev);
++	struct ufs_rpmb_dev *ufs_rpmb =
++		container_of(dev, struct ufs_rpmb_dev, dev);
+ 
+-	rpmb_dev_unregister(ufs_rpmb->rdev);
++	put_device(&ufs_rpmb->sdev->sdev_gendev);
++	kfree(ufs_rpmb);
+ }
+ 
+ /* UFS RPMB device registration */
+ int ufs_rpmb_probe(struct ufs_hba *hba)
+ {
++	struct rpmb_descr descr = {
++		.type = RPMB_TYPE_UFS,
++		.route_frames = ufs_rpmb_route_frames,
++		.reliable_wr_count = hba->dev_info.rpmb_io_size,
++	};
++	struct scsi_device *sdev = hba->ufs_rpmb_wlun;
+ 	struct ufs_rpmb_dev *ufs_rpmb, *it, *tmp;
+ 	u8 dev_id[UFS_RPMB_ID_LEN];
+ 	struct rpmb_dev *rdev;
+-	char *cid = NULL;
++	char *cid;
+ 	int region;
+ 	u32 cap;
+ 	int ret;
+ 
+-	if (!hba->ufs_rpmb_wlun || hba->dev_info.b_advanced_rpmb_en) {
++	if (!sdev || hba->dev_info.b_advanced_rpmb_en) {
+ 		dev_info(hba->dev, "Skip OP-TEE RPMB registration\n");
+ 		return -ENODEV;
+ 	}
+@@ -178,25 +190,22 @@ int ufs_rpmb_probe(struct ufs_hba *hba)
+ 		return -EINVAL;
+ 	}
+ 
+-	struct rpmb_descr descr = {
+-		.type = RPMB_TYPE_UFS,
+-		.route_frames = ufs_rpmb_route_frames,
+-		.reliable_wr_count = hba->dev_info.rpmb_io_size,
+-	};
+-
+ 	for (region = 0; region < ARRAY_SIZE(hba->dev_info.rpmb_region_size); region++) {
+ 		cap = hba->dev_info.rpmb_region_size[region];
+ 		if (!cap)
+ 			continue;
+ 
+-		ufs_rpmb = devm_kzalloc(hba->dev, sizeof(*ufs_rpmb), GFP_KERNEL);
++		ufs_rpmb = kzalloc_obj(*ufs_rpmb);
+ 		if (!ufs_rpmb) {
+ 			ret = -ENOMEM;
+ 			goto err_out;
+ 		}
+ 
+-		ufs_rpmb->hba = hba;
+-		ufs_rpmb->dev.parent = &hba->ufs_rpmb_wlun->sdev_gendev;
++		get_device(&sdev->sdev_gendev);
++
++		ufs_rpmb->sdev = sdev;
++		ufs_rpmb->region_id = region;
++		ufs_rpmb->dev.parent = &sdev->sdev_gendev;
+ 		ufs_rpmb->dev.bus = &ufs_rpmb_bus_type;
+ 		ufs_rpmb->dev.release = ufs_rpmb_device_release;
+ 		dev_set_name(&ufs_rpmb->dev, "ufs_rpmb%d", region);
+@@ -207,16 +216,14 @@ int ufs_rpmb_probe(struct ufs_hba *hba)
+ 		ret = device_register(&ufs_rpmb->dev);
+ 		if (ret) {
+ 			dev_err(hba->dev, "Failed to register UFS RPMB device %d\n", region);
+-			put_device(&ufs_rpmb->dev);
+-			goto err_out;
++			goto err_put;
+ 		}
+ 
+ 		/* Create unique ID by appending region number to device_id */
+ 		cid = kasprintf(GFP_KERNEL, "%s-R%d", hba->dev_info.device_id, region);
+ 		if (!cid) {
+-			device_unregister(&ufs_rpmb->dev);
+ 			ret = -ENOMEM;
+-			goto err_out;
++			goto err_unreg;
+ 		}
+ 
+ 		blake2b(NULL, 0, cid, strlen(cid), dev_id, UFS_RPMB_ID_LEN);
+@@ -227,29 +234,30 @@ int ufs_rpmb_probe(struct ufs_hba *hba)
+ 
+ 		/* Register RPMB device */
+ 		rdev = rpmb_dev_register(&ufs_rpmb->dev, &descr);
++		kfree(cid);
+ 		if (IS_ERR(rdev)) {
+ 			dev_err(hba->dev, "Failed to register UFS RPMB device.\n");
+-			device_unregister(&ufs_rpmb->dev);
+ 			ret = PTR_ERR(rdev);
+-			goto err_out;
++			goto err_unreg;
+ 		}
+ 
+-		kfree(cid);
+-		cid = NULL;
+-
+ 		ufs_rpmb->rdev = rdev;
+-		ufs_rpmb->region_id = region;
+-
+ 		list_add_tail(&ufs_rpmb->node, &hba->rpmbs);
+ 
+ 		dev_info(hba->dev, "UFS RPMB region %d registered (capacity=%u)\n", region, cap);
+ 	}
+ 
+ 	return 0;
++
++err_unreg:
++	device_unregister(&ufs_rpmb->dev);
++	goto err_out;
++err_put:
++	put_device(&ufs_rpmb->dev);
+ err_out:
+-	kfree(cid);
+ 	list_for_each_entry_safe(it, tmp, &hba->rpmbs, node) {
+ 		list_del(&it->node);
++		rpmb_dev_unregister(it->rdev);
+ 		device_unregister(&it->dev);
+ 	}
+ 
+@@ -269,6 +277,7 @@ void ufs_rpmb_remove(struct ufs_hba *hba)
+ 		dev_info(hba->dev, "Removing UFS RPMB region %d\n", ufs_rpmb->region_id);
+ 		/* Remove from list first */
+ 		list_del(&ufs_rpmb->node);
++		rpmb_dev_unregister(ufs_rpmb->rdev);
+ 		/* Unregister device */
+ 		device_unregister(&ufs_rpmb->dev);
+ 	}
+-- 
+2.56.0.567.gdb80ae8cd5-goog
+
