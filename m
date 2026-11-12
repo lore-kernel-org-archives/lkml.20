@@ -1,101 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794465480;
-	b=X3s2QlCf02M3Ren5J+EFfRCmqBzmsrAYKALZjYRj1/FHRo3LbrgUqTWh44c6gfQuPzFe
-	 /pbIOO3hxumkvuxpgou2+pN4MAia9wOHz/0vulSrCzXzzGJ485EZsmywOTW441si/tbh7
-	 tGG5GrhOTeTt6HJE9wnPdhJp1B1327ftC7YmhDZOKuwemrkeArrrY1SbTZU09OC9a1YD1
-	 uKKxccX4dOQk2lnPEq5qIB8sOfwk0s+kkMnfupnzCD1B7osclG0mF8qVTpPMCDURbMs60
-	 H/dwUtIRwdIkBKo7/JqnB1rwWCJBmoSE8ecxv9tEdQAlveicxHDhjCDxAWVq8pt5FKQ==
+	t=1794465502;
+	b=hBww98Y/1YUvg09jtnYtwJ4IEG7/52yO8iq7g3qzFNJ1wMLAZnNMOEeT2/v7QREFGGMK
+	 kWvP3SzAefnSK/D6gow3x405jcUQj4jFDhoi1Yex2h4LS2liQfmvrGhoB1Xe6mdGsKK8/
+	 yKJTmks12CL6gKSp1gW4r3OBQyCwW1UMgva3UsdNUrHXtVQSp6crYxQYLJY1Jk671oPYg
+	 Qe+An2cKWmi84wuEi6OCZdG9fj35DVGtAPZRM7t6+CJV94afdzMxHc2P52ttltipfrxX/
+	 ZQxbo/krjItSVtNtj8vvjiYEajrHnOFk1JSdrIMMcULDrfNF9XlVhgyExC15xiTA+XA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794465480;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=IjW8FjpBB738idIMh2c2G0UwubAUjehXMvdNt5zGIgI=;
-	b=ntrxeAxBrntW20dJ0rY9cdMPtFuQ7mAXovsq+LzIoSURre3+yF6OMGM05tEqVZMA9PfK
-	 fmMSePy0ZN0Y4iALzfJIRtTeyaU1W06bH+VW50S4u5o9CgyKHG0MGZcik/k6fQhePS9Xr
-	 HMaHPhuWTyK2j+L/Z3o1tDk1bCss5CziWWtoZr/QmuRgu89Lfg8QRQgyWhWj9CuFjCmbK
-	 NTU7G5OlpmydvgCFwmJc8+Xy9r1IgHlaSNVKxFdrkEukm4FnTJItcfBsy/3rcg/pHNxBl
-	 HIxzaSthTR164BDto9woi7CafK/PlR7suB7/oVoyU+1CBSx0GKOxEhqb2WztO0bgqwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794465502;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Content-Language:To:Cc:From:Subject:Content-Type:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=iRFfIlk2imt6t6yv6bIN0MN/kiJgCcKCYYhBMj7zHZE=;
+	b=sN3DikRt5QaAAXunSXjkm+NDWvGGN5cdFx5Kf7zqTs33aGjN6pTTFYzsumKKEYJR6VhI
+	 HFZM0LbxE+47uEPvRJzymjsmmyECg6SbCDYh8X3Q9ef0VzWA3kDyb0HzCU3OVKg99ELxH
+	 GKnYmt2FbjfrdPZBZviJYf7rwur51GpxoRLYyPYN2iaWB1pwAq86jkJbZiNY8S65xtCOz
+	 AgwwjO6yaEKwA/rk/AGgVHnGQGq3axZjnfyPeXDJiFYUFi2p/bD/J62q8dppP6xXFSX2E
+	 o6irfuUssDrsp0RHfawkbWu0A/Q9OlLUbGbVX9SG+ER2Labf+uowDYX2doll0QY4k+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=La9hR4Km;
-	arc=none smtp.remote-ip=209.85.222.173
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=jANViDSq;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D215E606A890
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:37:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D215E606A890
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B4A606A31C;
+	Thu, 12 Nov 2026 06:38:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74B4A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=La9hR4Km
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93f3c89594cso302344685a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:37:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794465479; x=1795070279; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IjW8FjpBB738idIMh2c2G0UwubAUjehXMvdNt5zGIgI=;
-        b=La9hR4Km7gw+WIla7x4BOBrH4IeJMFTXN7rjLTKymGzp7MH5i5iPiCor/+Oyp9DFdK
-         RFAVj9huTmOQQ4vrJuNtmSfdERUOYt6gNI13X/lp4sBYMAgL5h0Yxz+7r2W5gCOpyufG
-         ZFdkwYRTbjGYG+VOjdL9Gz9Uet9wuzU1iXiDe2MgnBjgUUI2qzBw0L6sjjn1JAsedbiK
-         lGYoCKXiHVrCCfxA3KHHH88ggqnq+gvYAabHNPiFPSqA2KGBQ5loHc+x1sK4BtaqSqtz
-         vHx03UkOAhn+EqjI5Nu1lBC+c/XRTdIHLltR6cB0k+7z0VYqEVHrV6T5aWcuFYHaoYFP
-         S/9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794465479; x=1795070279;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IjW8FjpBB738idIMh2c2G0UwubAUjehXMvdNt5zGIgI=;
-        b=cTZ1k6q5wvc7vra1C9J9yS1hzNZEUukxv4E3l+mZU96V+PDEX/1ki8vMMx7zQUKA62
-         ISdmKYFl01owbYpFgZ9zJG04wFdgNTqjnG33toBru4471+BTW3Pa+DibGQ5O7O/1sOX5
-         3vpbdeJbxp0CUV4xle+DAGIQl/AXaqyUfce7TG+TaNBao2B+qXtOd++8WUOM7bfbeDD+
-         Iob4V0dkKqgGRr/0rV0liT/hco4g2bNqfFwSMNyAhG5iC6a3oruHT0Ze7F/H97l4eNfC
-         4urfmGBcYd0gMGtDUGNYOlfpMb83HgaH7EdxIWJoPcB9oLh6i5qYCbZmUa4Tz+gLkU2s
-         zJVw==
-X-Forwarded-Encrypted: i=1; AL+hErFw93setg+av8e61aYlgtOcRWzpI6GeBLg0ThH1iB03vj6sufvzArkiDVkuWw/dKJ5O7t8yYJ7J9BXFA+I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Op2+c5dLoRieqvHvSRaiO8CtFdzDGK2ZLP/2AAfcATKnJ9C6K
-	D6/D56dJQv7aT4q+zsRpWounYUKlwpPiYTTPoX0lJ/EDGA8dYkul8Oc=
-X-Gm-Gg: AYBFou378KDhdcBz4COz4AHxSnuQXhIh4TMKymoMqFJBtLT3nmqjuB0h9fFRSZuf2cG
-	cP9QOp2Hxkhs7TcFxVKzEf+0258TpPYvfdsE8GpdjuDirwIsjTA5HoIxP8A/2eikBaqh7YHKNpW
-	smEqE2BjvH+tiglgJyJW5HzObtelzVQ/IDmySepitxMfRSRjV/NEiRFRqif6bwEb24KMlr5UvQW
-	W98wk3X8wzMasBQDPX+fXXAQeNuYbbKSxgSXhOth90hFNqO+HACdd4ac3VswiTh3oY/LnH1E3Hz
-	JPr1RfjZmKbr0Us5WzlFJbpxcoe4/oBJqsgUN89R6OotcBPuZ9BMzi5gGbrU5BKonLrB85lESyp
-	9t77afy9VxRPEyig3cxQoqwNLmqVboqUSr8+bWb/QScQAIU4WPDXcMfPYhjJ8Y/bXcvEk7obDmh
-	pMb2MjTIBJeaVn6T6s/IERiCYfwfudmgd57lxmI69lpAXA42S0YPrddKoviLBPYL0mSSsOS6G8R
-	Ro2YWZ1IA6UfrHAnlDdnGrHOy1YD+5rzYUAMNtXs6nTTj8pn/LDxz2McpgeBapHK75f8g8FpyOQ
-	nlBjH4ohyh0kQAqO+KpE8zTDCpObtDoNTTqeCZHhxXRhFGAd4dhG2ITPLuyBxKfytKmUYCgZfsU
-	e5pvBW7YfAlF1nHofPABKCqXHbfv/BagfguVSZ0QknrfXkjoZLHweS5OxCos5iKXZCMJ8js866P
-	G7nk+IeutAm6rtJFo05bdJkmwl5WngfVpL
-X-Received: by 2002:a05:620a:440d:b0:93f:5f83:2ca7 with SMTP id af79cd13be357-947affbcac7mr813036885a.52.1794465478806;
-        Wed, 11 Nov 2026 22:37:58 -0800 (PST)
-Received: from localhost.localdomain (h16.44.55.139.dynamic.ip.windstream.net. [139.55.44.16])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e7e3c34sm658719885a.36.2026.11.11.22.37.56
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 11 Nov 2026 22:37:57 -0800 (PST)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: even.xu@intel.com,
-	xinpeng.sun@intel.com,
-	jikos@kernel.org,
-	bentiss@kernel.org
-Cc: srinivas.pandruvada@linux.intel.com,
-	mpearson-lenovo@squebb.ca,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ae878000@gmail.com
-Subject: [PATCH v3 2/2] HID: intel-thc-hid: quicki2c: quiesce IRQs during teardown
-Date: Thu, 12 Nov 2026 01:37:52 -0500
-Message-ID: <20261112T063704Z-thc-v3-2-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20261112T063704Z-thc-v3-0-mhun512@gmail.com>
-References: <20261112T063704Z-thc-v3-0-mhun512@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=jANViDSq
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2jUbS2861878;
+	Thu, 12 Nov 2026 06:38:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pp1; bh=iRFfIlk2imt6t6yv6bIN0MN/kiJg
+	CcKCYYhBMj7zHZE=; b=jANViDSqvYCil6NXuTTz2+lvbtw4X5DJgETv5vJJEG1R
+	yz74TUDcD22G/HNuu7tt4BErupxWtTnMmCOV3Rxk4rCL4AM0/bNwr+Wqkv8ga1lZ
+	UYJI/fzgBgTokB9nfYcMG51g/vrX6bCR4BRRjhJsbyAwOgqZqVzyEGQwuXF29XOR
+	HXP538IhXr0VIJyzXydnn7RQsaxvxhcaQ2el6/5rnBZtkSSXo/qK9hrJas0F4dzD
+	CMGVBPeuoopAvXLi9dcbuNIvrPsesuNS81IoA1Re2Flm/JzXMKxhzAteKJnskSKl
+	8DzxCG2AXyocbI060AGfKrOaplvnPmFE/0yWXtUajg==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsumv4x23-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 12 Nov 2026 06:38:10 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2a1O8054026;
+	Thu, 12 Nov 2026 06:38:10 GMT
+Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hv309qnav-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 12 Nov 2026 06:38:10 +0000 (GMT)
+Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
+	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AC6c9RE32375318
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 12 Nov 2026 06:38:09 GMT
+Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 51CC35808E;
+	Thu, 12 Nov 2026 06:38:09 +0000 (GMT)
+Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C02F858083;
+	Thu, 12 Nov 2026 06:38:06 +0000 (GMT)
+Received: from [9.61.240.49] (unknown [9.61.240.49])
+	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 12 Nov 2026 06:38:06 +0000 (GMT)
+Message-ID: <0d9a9fd6-3824-4709-a7f7-eb1d5849e079@linux.ibm.com>
+Date: Thu, 12 Nov 2026 12:08:05 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,126 +84,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-GB
+To: Ted Tso <tytso@mit.edu>, Jan Kara <jack@suse.cz>,
+        Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+        Ritesh Harjani
+ <riteshh@linux.ibm.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+        LKML <linux-kernel@vger.kernel.org>, linux-ext4@vger.kernel.org
+From: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Subject: [next-20261111] ext4: Oops in ext4_writepages() during fast commit,
+ replay (generic/483, 64K pagesize, ppc64le)
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAyNCBTYWx0ZWRfXzkSZbFjxUcGT
+ l7AtGG2qgqdbdP8Y9/Xet/7YTiVMhCgVj7S8hWfxXsCELQlYmCx2b/ntkFCZmAXWv5puG7UPohn
+ KAIUjK1hZ9wI/NHQL/i13ZAI8f0uocI=
+X-Authority-Analysis: v=2.4 cv=GISdgeNK c=1 sm=1 tr=0 ts=6af55ed2 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
+ a=-IFbq3Xo538CQDMHEQUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: HUuwRGpVZWvqaF-BWHFBlM4Dujs-ih3S
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAyNCBTYWx0ZWRfX1tyninbRGAkw
+ RjRCTtWO2WMkrA4/R1BhnSdfLgQSQkgVU01gw6+MunDpvC5QTnLkQlF9hIUa3RCSKw/MrSb4V9N
+ GPzTO2nqZiyr6n3sAAw2i8MFb7cOrtvwr2f2QTfnDqL2+SmFkyK9Xd8BYzAJZzKAeky7GYqG0jY
+ Gy2HY90IWENDAIdaxzK3Uh7zkD/xqMZAqdDIPbFU1R/QC5amOiV9DDAgmru9ZIT2/AL+oTLnrz4
+ sIG+LZnxHZnPX1VzS9VORAqMm2JqIdPba/hmFB5QN8WTwjWaMg3ZoyFT+TIpALwImli4W/iGNqe
+ xQgQGDSc3DFtXTrRymDO8qtzkpdu3krpAEr9bGuWKmw7HF2y8xGlpRrDpvS+NLM8+4ekGWmd28o
+ EO4IEJc6MmtLex0mBYfyITBlA2vIOjAjrkwxX4XbZPPnU86SBOslmyc0oEWb5pb/FCmjiLmnW9P
+ ffm4OFACuOg/p3zLWbQ==
+X-Proofpoint-ORIG-GUID: HUuwRGpVZWvqaF-BWHFBlM4Dujs-ih3S
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 impostorscore=0 clxscore=1015 adultscore=0
+ priorityscore=1501 phishscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120024
 
-The managed IRQ can access HID/DMA buffers or queue recovery work while
-remove or probe unwind tears down those resources.
+Hi,
 
-Disable and synchronize the IRQ, drain recovery work, then mask THC
-interrupts before freeing the IRQ and releasing HID/DMA resources.
-Track IRQ/DMA initialization for conditional probe cleanup.
+While running xfstests on linux-next next-20261111 on a Power9 pSeries
+LPAR with 64K PAGE_SIZE, generic/483 on ext4 (64K block size, fast_commit
+enabled) triggers a kernel oops.
 
-Disable the IRQ before shutdown deinit as well. Keep IRQ disabling and
-release outside the shared hibernation helper.
 
-Found by a static analysis tool under development.
+Reproducer
+----------
+Kernel:   7.4.0-rc2-next-20261111 (ppc64le, PAGE_SIZE=64K, Hash MMU)
+Hardware: IBM 8375-42A POWER9 (pSeries LPAR)
 
-Fixes: 66b59bfce6d9 ("HID: intel-thc-hid: intel-quicki2c: Complete THC QuickI2C driver")
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
+xfstests local.config:
+   export FSTYP=ext4
+   export TEST_DEV=/dev/loop0
+   export TEST_DIR=/mnt/test
+   export SCRATCH_DEV=/dev/loop1
+   export SCRATCH_MNT=/mnt/scratch
+   export MKFS_OPTIONS="-b 65536 -O fast_commit"
 
-Changes in v3:
-- Add blank lines in the probe error path (Even).
+   ./check -ext4 generic/483
 
- drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c | 32 ++++++++++++++++++++++++++------
- 1 file changed, 26 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c b/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
-index 29319b6227f3..84e458fdd69c 100644
---- a/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
-+++ b/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
-@@ -652,6 +652,8 @@
- {
- 	const struct quicki2c_ddata *ddata = (const struct quicki2c_ddata *)id->driver_data;
- 	struct quicki2c_device *qcdev;
-+	bool dma_initialized = false;
-+	bool irq_requested = false;
- 	void __iomem *mem_addr;
- 	int ret;
- 
-@@ -704,6 +706,7 @@
- 					qcdev);
- 	if (ret)
- 		goto dev_deinit;
-+	irq_requested = true;
- 
- 	ret = quicki2c_get_device_descriptor(qcdev);
- 	if (ret) {
-@@ -722,6 +725,7 @@
- 		dev_err(&pdev->dev, "Setup THC DMA failed, ret= %d\n", ret);
- 		goto dev_deinit;
- 	}
-+	dma_initialized = true;
- 
- 	ret = thc_interrupt_quiesce(qcdev->thc_hw, false);
- 	if (ret)
-@@ -742,13 +746,13 @@
- 	ret = quicki2c_get_report_descriptor(qcdev);
- 	if (ret) {
- 		dev_err(&pdev->dev, "Get report descriptor failed, ret = %d\n", ret);
--		goto dma_deinit;
-+		goto dev_deinit;
- 	}
- 
- 	ret = quicki2c_hid_probe(qcdev);
- 	if (ret) {
- 		dev_err(&pdev->dev, "Failed to register HID device, ret = %d\n", ret);
--		goto dma_deinit;
-+		goto dev_deinit;
- 	}
- 
- 	qcdev->state = QUICKI2C_ENABLED;
-@@ -763,10 +767,20 @@
- 
- 	return 0;
- 
--dma_deinit:
--	quicki2c_dma_deinit(qcdev);
- dev_deinit:
-+	if (irq_requested) {
-+		WRITE_ONCE(qcdev->recovery_disabled, true);
-+		disable_irq(pdev->irq);
-+	}
-+
- 	quicki2c_dev_deinit(qcdev);
-+
-+	if (irq_requested)
-+		devm_free_irq(&pdev->dev, pdev->irq, qcdev);
-+
-+	if (dma_initialized)
-+		quicki2c_dma_deinit(qcdev);
-+
- disable_pci_device:
- 	pci_clear_master(pdev);
- 
-@@ -788,9 +802,12 @@
- 	if (!qcdev)
- 		return;
- 
-+	WRITE_ONCE(qcdev->recovery_disabled, true);
-+	disable_irq(pdev->irq);
-+	quicki2c_dev_deinit(qcdev);
-+	devm_free_irq(&pdev->dev, pdev->irq, qcdev);
-+
- 	quicki2c_hid_remove(qcdev);
--
--	quicki2c_dev_deinit(qcdev);
- 
- 	quicki2c_dma_deinit(qcdev);
- 
-@@ -814,6 +831,9 @@
- 	qcdev = pci_get_drvdata(pdev);
- 	if (!qcdev)
- 		return;
-+
-+	WRITE_ONCE(qcdev->recovery_disabled, true);
-+	disable_irq(pdev->irq);
- 
- 	quicki2c_dev_deinit(qcdev);
- 
 
-base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
--- 
-2.53.0
+Oops
+----
+[14844.411091] EXT4-fs (dm-0): mounted filesystem 7ef13de7-... r/w with 
+ordered data mode. Quota mode: none.
+[14847.236154] EXT4-fs (dm-0): unmounting filesystem 7ef13de7-...
+[14847.275380] Kernel attempted to read user page (1174770000) - exploit 
+attempt? (uid: 0)
+[14847.275406] BUG: Unable to handle kernel data access on read at 
+0x1174770000
+[14847.275414] Faulting instruction address: 0xc00800000ed42f74
+[14847.275423] Oops: Kernel access of bad area, sig: 11 [#1]
+[14847.275430] LE PAGE_SIZE=64K MMU=Hash  SMP NR_CPUS=8192 NUMA pSeries
+[14847.275575] CPU: 26 UID: 0 PID: 53042 Comm: mount Kdump: loaded Not 
+tainted 7.4.0-rc2-next-20261111 #1 PREEMPT(lazy)
+[14847.275587] Hardware name: IBM,8375-42A POWER9 (architected) 0x4e0202 
+0xf000005 of:IBM,FW950.80 (VL950_131) hv:phyp pSeries
+[14847.275597] NIP:  c00800000ed42f74 LR: c00800000ed42f70 CTR: 
+c0000000009e2a60
+[14847.275647] CFAR: c00000000000db4c DAR: 0000001174770000 DSISR: 
+40000000 IRQMASK: 1
+[14847.275771] NIP [c00800000ed42f74] ext4_writepages+0x12c/0x3a0 [ext4]
+[14847.275908] LR [c00800000ed42f70] ext4_writepages+0x128/0x3a0 [ext4]
+[14847.276038] Call Trace:
+[14847.276058]  do_writepages+0x190/0x330
+[14847.276073]  __writeback_single_inode+0x9c/0xa30
+[14847.276087]  writeback_single_inode+0x18c/0x2a0
+[14847.276101]  write_inode_now+0xc0/0x100
+[14847.276114]  iput_final+0x10c/0x300
+[14847.276128]  ext4_fc_replay_add_range+0x2f0/0x5a0 [ext4]
+[14847.276262]  ext4_fc_replay+0x564/0xdd0 [ext4]
+[14847.276394]  do_one_pass+0x9bc/0x1370 [jbd2]
+[14847.276439]  jbd2_journal_recover+0x358/0x400 [jbd2]
+[14847.276481]  jbd2_journal_load+0x28/0x110 [jbd2]
+[14847.276530]  ext4_load_journal+0x7cc/0xc60 [ext4]
+[14847.276664]  ext4_load_and_init_journal+0x6c/0x680 [ext4]
+[14847.276801]  __ext4_fill_super+0x1454/0x2360 [ext4]
+[14847.276937]  ext4_fill_super+0x188/0x4d0 [ext4]
+[14847.277072]  get_tree_bdev_flags+0x250/0x350
+[14847.277086]  ext4_get_tree+0x24/0x40 [ext4]
+[14847.277221]  vfs_get_tree+0x78/0x210
+[14847.277234]  vfs_cmd_create+0x8c/0x1a0
+[14847.277246]  __do_sys_fsconfig+0x58c/0x880
+[14847.277259]  system_call_exception+0x3c4/0x600
+[14847.277273]  system_call_vectored_common+0x15c/0x2ec
+[14847.277477] Code: 387f0740 480b8b11 e8410018 ebff0740 7dbe6b78 
+386d0030 480b8afd e8410018 ebde0030 7c7ff214 480b8b65 e8410018 
+<7d3ff02e> 7f83e378 39290001 7d3ff12e
+
+If you happen to fix this, Please add below tag.
+
+Reported-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+
+Regards,
+
+Venkat.
+
+
