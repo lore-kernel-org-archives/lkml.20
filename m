@@ -1,100 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794473239;
-	b=QkejbCCvUKp9f3Q90XtMiKzIGXKFMHgtBq6nrq3G3qVmukpSTZp44+N9Ldr7yiDjWyge
-	 J/VXhVMC4mPnzkhfywrzCMRhCw4PJUv9DPxAcbHl3vGW/RQvgfvgMnTiUZwsZzBrUNeeI
-	 I/Vjd1oOcGzfLOj7JY7NxJ2h1lqx+naBsSr5jZBOYxuGUtoAQYLcSGkJbTIt/7Q3YaKAu
-	 Q9AGDVdteNbx68oTpjiphyxsROdA/2f5IGcu2nV4lKnsB6WBhpWCOElW+ZJRF0jMSlY+U
-	 1juPfaKr7lyH4igAPOIy0qjO8Or0V2iSg28iopI0Fpa6P7dlYJq4XR4aExBPVWIGb3A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794473239;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=RB86biYg+BPhq88d5PdaceEbdw/e2Gm1TW0EI7mBLjg=;
-	b=CeWrQjZNQsYCBJl6TdPAL3c08ppxmYWe+X67BR2aOoT7zxihKequSoes15pCfGCKmyxC
-	 /miYFSVqcoPAxkAmyMuOSEZPq75/Lj6naHcBZWDRrxCyMoOirXKcGIVOQV7sUYORkOwE7
-	 y685pH2sG1I89A3Oot2BsBWhbB2RBHXEnj1sFpF23xy2tap3vHKE4KD0J5iJ4y68Zu5Z9
-	 0H4VKUtUga+uRT9nRJid4pN62mjaalsXiftc80qEnqXUB4r3DVWEmTw8fIFfUW2oVqWci
-	 kRb1F17ch3Oy2bnISgn8hpA/6NWtZMIfSXapMt+jFzzmZZeMX5B+DPtKWmGQ63ClAvg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gxIOdRQr;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F75606A8B4
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:47:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0F75606A8B4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794473241;
+	b=iVVYhXyoMkfOyipA/nQMS7BFm3/rwibpA/AlEeDTJxqTFSmARVAXv/UdIKafx8JQxZrc
+	 xK9UcKNzNt0gB20wKl4WoAcCCBOUY4jtbEbpv7j0jk89L7d4cauTeIQMpgJiGYFimXQLG
+	 ykFArdjZbDRDZKYd62ZVPzlDQUJ4ccN1J+pQJSGrLbmAASgl6hYGsRTALvqBpd5by6Kil
+	 V0M2Q66AXoJapr9mJSAUxTv3/5cl6c1IX6vzmTYkO1sFOtuyvgOyY1MQMfDEK1r04RElM
+	 cubkd1nLB9EAqgZpu/B7RHng2LsXq/f6RSlJa21F0zsFm/r/l3QTK/hO7AeCJpHsQgQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794473241;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=J8sPkfShRACIjFhi5b5P9unZx2jKFYw60ldoyo/5V1w=;
+	b=oVgivW0qdL7rDSNH9dYB4ldiMu5fFaBmBJ+Y7H/p15LJZLfSYOXkL6G7OOwvzx/mLqnb
+	 m0gpzH4AVBQKWQ2Xp09PBP7wpAQLm7PxqpyjJave4n37/NnclqenTv5LBXSfToqbvW1Xh
+	 ez7Xf5fHUaaBjNMsceaE0y+hv86K8P0D7H8mmfNJGdZnoc/o3Egfl7mSumDpM//AbqWpy
+	 zpkhAQgZoSbZzf0l4TF4KL2hYR9hV0x3W7tH2v2Uto3+BaTgPbTm3ElG4yt8VRe1OlYSf
+	 7FmHqNrqJeUCKUqBUQwd+rxJhG3iIg2mF+U7bAX5QL01FayvaWAoA+nAs4MmXvvPCGg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=odyH4bvu;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3F308606B254;
+	Thu, 12 Nov 2026 08:47:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F308606B254
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gxIOdRQr
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b547d6c07bso4794687a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:47:18 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794473237; cv=none;
-        d=google.com; s=arc-20260327;
-        b=m510bwQSRviKPcC1A6hx+q3Yr9fqGBOASl09nTDhfbU+H6pLrJHW9SFUiYhP3O9umX
-         xSGL0cHoAtofohugtDh+JYdT6DAPTPOnIRzTJvJIgOufco+azcVn5j3fbBz9t5Gh7NFL
-         vtfLaHsUyQBsXOpz/61uq350XbyFT0ry4VgjiEtWk2YH+00zBkk4W6WIvwhhv7WttAKL
-         Lf8oFRqUXsQWEcGvdALJQ4IPGSbOW82iPXDPYLXSPVFHRXOvVtCckQkKGMVWqKycUtBe
-         LenUzOF4ztZcoJZwIf0sqbmCAspY/9aXOvk7+7IuMWkP1LvKvs9CUQJD+HJWKHEL2SDa
-         DKdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RB86biYg+BPhq88d5PdaceEbdw/e2Gm1TW0EI7mBLjg=;
-        fh=z4/falK+tM4Ohclfm9ysLIHIb3PhYmpxF6WrEoonuGc=;
-        b=j0rBvEGsHuwQjCBpZzWCObY+/hB8JrY6mR/2zvGaqoiV0ioBZUkMhaB0m19rUMGLKk
-         9w6aufo1M4YdXemILrZ30kKQ10vWjT+SR7URFB+s6fhdFx/gpXa5R33qLTSvSlgWfw6x
-         Oa9VpS42mS7PYS32mD4QwqR0eWyYBYJ/BTueDt5ccI7bkCqS7ZO13jytS0fAbMqiK6Ol
-         kRVVDalM5pNHzfqsuYZlWPt7XSOPvgYMDoUHt7abbU4pVO9ihNA/IS7kFVOc7Ol3UR7a
-         g3XUknvbrykI2ZrJpEzdk22mYFgQfvbsttRqVSh1xu9ZB9A0icsWDgnUVuImgA6sRm2o
-         Rb7g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794473237; x=1795078037; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RB86biYg+BPhq88d5PdaceEbdw/e2Gm1TW0EI7mBLjg=;
-        b=gxIOdRQrGGYCVviGjxwyVeMmz6w7UXFEUKI8OQN3X4OR+FcEI9NqJN08m7fLY5oB3D
-         ZchtKa23lEZZ1jsx8tgTdAzLAls+qRVKLe3KI8Y0LPWSiDRQv401NlBslerNSTBwMv7T
-         nuhV0+FyrZFvQYvR61NBtLXUK/oTqHUiId/+algf5iPAoNK2hM8t7ZVLdPwQ81aybg0e
-         IfosV53elz8kF42nVZGGAMxLgwcntqqBx8O5VT9x6TWi69+0k5qxx3j0xl14Icjpjj3X
-         ENqaL69x+MRgzWQs8gNfVmvXZ0fV2WALM24AQyHocAl0ZUsHRKZeqFx7vdEbMKciAkcE
-         n1gQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794473237; x=1795078037;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RB86biYg+BPhq88d5PdaceEbdw/e2Gm1TW0EI7mBLjg=;
-        b=ttFVUR48uL58bKVufTqD5gi8jdQwm4AOMngSgGewULSBj4IsQdjf3m+zACkhejEOLr
-         OSzSCtX19ZPvvuzf2z/SM1M2L5qp21VAEVUR7bK6Jz/8zZAjFQhhgz4lSU8YX7NRb7TQ
-         ChrkI0cOF7TxmKra7K18JBxM9AbpXOomQ4dFOHWRbr0d01cxFWaiZyyXENncH3SMDY7d
-         uCjUhoVrjdJC4UhdWxPgEwicH4R2ACwMHdk0w9BKOHaMfStyPrUmEV4dxEl/zWnIMLca
-         C8sgcKC7Kl5hedAXvOTRJpdM3RzX/AhPrQEPKT0xfpnekpUSOQnewpVuJmhCdJseSbSI
-         uLRg==
-X-Forwarded-Encrypted: i=1; AL+hErHy9Y5LgJzn5smSzSj+c7TkAKNEl1oZaRqSdc7zFVcPtSFP4R28Ph5EduC9iK7+5w8+ZLmWE3FVqNNN6eM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8yFFsKlUn8Us6Ehzr+D3roAQAQ/7bRhrEQtG0cX1OJxHRA8pM9
-	4XvKKLhLvhzvLTnV5vjqCnyySCXd3Q/gQsipFMvFtvL5pIW351zL8IZJvdUFkte22gxtBXVKTz8
-	U7udJGUdkw9oeKGUBOFhRNm4yCDaEfoU=
-X-Gm-Gg: AYBFou1gPixcIlqu39d8O5KRcm6N7ZTvNMYAJts83fibQelzy1yQK05Oiih2DkIy9my
-	APastlT1uIiJn93X1hCcGbsd3wdafF0af7nMlcfpGyXbaE4ricbAaI4z7v7H0b8C1Vi+ze3OzQj
-	Bl02LIrbY39qIGy5cc6QQgGCeDmQZDFsobZZ3Zeg7LzqMhNa1o4T4x7MKJ9X41emMtsj1tJq+/X
-	obAihg8OfNcew5eGFo5uSoe33INgr/ZXfWP+K7YzSjbPLYWc9j3oUYL0/kU8NNRL6frwbAHDNec
-	N+RZKA5Aip92Qcus5CkakgnImmJ8pDccGivXxpr8i5H0F1vND6rawJ71V5Liwcq4w0KidPzG4dB
-	/i3H9PSb+tZLFzc5hakJhgdMk6OIfvUZw+6tqvowB6GnYrept6JvI3ZoVy12UEa3NL2t1+Q==
-X-Received: by 2002:a05:6402:22d0:b0:6b5:7ac2:b4b2 with SMTP id
- 4fb4d7f45d1cf-6b7773eddb5mr3024443a12.15.1794473237126; Thu, 12 Nov 2026
- 00:47:17 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=odyH4bvu
+Received: by linux.microsoft.com (Postfix, from userid 1186)
+	id 9B3A420B716A; Thu, 12 Nov 2026 00:47:16 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9B3A420B716A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1794473236;
+	bh=J8sPkfShRACIjFhi5b5P9unZx2jKFYw60ldoyo/5V1w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=odyH4bvuYbkmBPeomNhr2h0zJqAZDzX6j5tENxc+Vw5HDS859eRksC3YbzBgcGFbr
+	 33qQ148kY5wY9e+1NwLzHPiqYlLpY2yjy+a+9hECbAlabJ8d43aIOmo13qct7ipuus
+	 5mCNG96LP9PorP9pkXfu76tVp7uE1P0T5V9zG42U=
+From: Konstantin Taranov <kotaranov@linux.microsoft.com>
+To: kotaranov@microsoft.com,
+	snsanghvi@microsoft.com,
+	longli@microsoft.com,
+	jgg@ziepe.ca,
+	leon@kernel.org
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH rdma-next v11 2/9] RDMA/mana: Create and destroy kernel RC QPs
+Date: Thu, 12 Nov 2026 00:47:09 -0800
+Message-ID: <20261112084716.1483342-3-kotaranov@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261112084716.1483342-1-kotaranov@linux.microsoft.com>
+References: <20261112084716.1483342-1-kotaranov@linux.microsoft.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,89 +63,306 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111-vgacon-ioremap-null-v1-1-6dd05bf390ef@gmail.com>
-In-Reply-To: <20261111-vgacon-ioremap-null-v1-1-6dd05bf390ef@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Thu, 12 Nov 2026 09:47:05 +0100
-X-Gm-Features: AclHuK_fa-iP9Xeaq-QANT8HT3vhxni1COHVSdMAf4Lytq6Fso_wKtQBPBFi4S0
-Message-ID: <CA+=Fv5SHTC9XWQJZY7DnZbpMPnk3b7eYNiiH6Dnii+eLJo9YgA@mail.gmail.com>
-Subject: Re: [PATCH] vgacon: Fall back to the dummy console if mapping VGA
- memory fails
-To: Matt Turner <mattst88@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Helge Deller <deller@gmx.de>, 
-	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Matt,
+From: Konstantin Taranov <kotaranov@microsoft.com>
 
-On Thu, Nov 12, 2026 at 1:30=E2=80=AFAM Matt Turner <mattst88@gmail.com> wr=
-ote:
->
-> On Alpha, setup_arch() registers vgacon whenever CONFIG_VGA_CONSOLE is
-> enabled. On Marvel (EV7) systems whose SRM console is serial, no VGA
-> hose is set, so marvel_ioremap() finds no hose for 0xb8000 and returns
-> NULL. vgacon_startup() then probes video memory through that NULL
-> pointer and oopses in console_init():
->
->   Unable to handle kernel paging request at virtual address 0000000000000=
-000
->   pc is at vgacon_startup+0x174/0x910
->
-> VGA_MAP_MEM() is ioremap() on Alpha and powerpc and can fail. Treat
-> failure like a failed probe and fall back to the dummy console. If a
-> VGA card is present, locate_and_init_vga() still switches to vgacon
-> once PCI is up.
->
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-> ---
->  drivers/video/console/vgacon.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/video/console/vgacon.c b/drivers/video/console/vgaco=
-n.c
-> index e7e6750f1f87..09f7c376b468 100644
-> --- a/drivers/video/console/vgacon.c
-> +++ b/drivers/video/console/vgacon.c
-> @@ -324,6 +324,8 @@ static const char *vgacon_startup(void)
->         }
->
->         vga_vram_base =3D VGA_MAP_MEM(vga_vram_base, vga_vram_size);
-> +       if (!vga_vram_base)
-> +               goto no_vga;
->         vga_vram_end =3D vga_vram_base + vga_vram_size;
->
->         /*
->
-> ---
-> base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
-> change-id: 20261111-vgacon-ioremap-null-ad4c7184b807
->
-> Best regards,
-> --
-> Matt Turner <mattst88@gmail.com>
->
->
+Implement kernel RC QP creation and destruction. This feature requires
+extended-WQE and power-of-two-SQ support from the HW.
 
-Nice fix! this must have been lingering here for a long time?
-Cross-builds passed for generic Alpha, including Marvel. The shared
-vgacon code also compiled successfully for x86-64.
+Signed-off-by: Konstantin Taranov <kotaranov@microsoft.com>
+---
+v10:
+- Remove SGE check and QP queue validation as the kernel consumers are trusted
+v5:
+- Validate kernel QP queue sizes before allocating queues.
+- Bound SGE counts and enforce the TX/RX WQE size limits.
+v4:
+- Reject RNIC firmware send-SGE counts below 2.
+- Subtract the reserved SGE for extra-large OOB only for RNIC mana_ib.
 
-Alpha QEMU fault injection confirmed the early dummy fallback and
-successful VGA takeover when only the first mapping fails. Without
-your check, the injected NULL mapping faults.
+ drivers/infiniband/hw/mana/main.c    |   3 +-
+ drivers/infiniband/hw/mana/mana_ib.h |   6 ++
+ drivers/infiniband/hw/mana/qp.c      | 168 +++++++++++++++++++++++++++++++++--
+ 3 files changed, 167 insertions(+), 10 deletions(-)
 
-Forcing the later mapping to fail too exposes a separate takeover
-issue: the console core installs vgacon despite the failed mapping,
-leading to a NULL dereference. I don't see that as blocking this fix:
-finding the VGA hose normally resolves the mapping failure on Marvel.
+diff --git a/drivers/infiniband/hw/mana/main.c b/drivers/infiniband/hw/mana/main.c
+index ceb4ec58023a..d0e36fad224a 100644
+--- a/drivers/infiniband/hw/mana/main.c
++++ b/drivers/infiniband/hw/mana/main.c
+@@ -748,7 +748,8 @@ int mana_ib_gd_query_adapter_caps(struct mana_ib_dev *dev)
+ 				resp.max_requester_sq_size / GDMA_MAX_SQE_SIZE,
+ 				resp.max_requester_rq_size / GDMA_MAX_RQE_SIZE);
+ 	caps->max_inline_data_size = resp.max_inline_data_size;
+-	caps->max_send_sge_count = resp.max_send_sge_count;
++	/* Account for the SGE reserved for extra-large OOB. */
++	caps->max_send_sge_count = resp.max_send_sge_count - 1;
+ 	caps->max_recv_sge_count = resp.max_recv_sge_count;
+ 	caps->feature_flags = resp.feature_flags;
+ 
+diff --git a/drivers/infiniband/hw/mana/mana_ib.h b/drivers/infiniband/hw/mana/mana_ib.h
+index 5ca6e2acf974..6f5df64e838a 100644
+--- a/drivers/infiniband/hw/mana/mana_ib.h
++++ b/drivers/infiniband/hw/mana/mana_ib.h
+@@ -267,6 +267,10 @@ struct mana_ib_qp {
+ 	u32 sq_psn;
+ 	bool sq_sig_all;
+ 
++	/* Serializes receive WR posting. */
++	spinlock_t rq_lock;
++	/* Serializes send and memory-management WR posting. */
++	spinlock_t sq_lock;
+ 	/* Serializes QP modification and error-list transitions. */
+ 	struct mutex modify_lock;
+ 
+@@ -274,6 +278,7 @@ struct mana_ib_qp {
+ 	struct list_head recv_err_node;
+ 	struct shadow_queue shadow_rq;
+ 	struct shadow_queue shadow_sq;
++	struct shadow_queue shadow_mmq;
+ 
+ 	refcount_t		refcount;
+ 	struct completion	free;
+@@ -315,6 +320,7 @@ enum mana_ib_adapter_features {
+ 	MANA_IB_FEATURE_DEV_COUNTERS_SUPPORT = BIT(5),
+ 	MANA_IB_FEATURE_MULTI_PORTS_SUPPORT = BIT(6),
+ 	MANA_IB_FEATURE_MSN_IN_WQE_SUPPORT = BIT(7),
++	MANA_IB_FEATURE_EXTENDED_WQE_FORMAT = BIT(9),
+ 	MANA_IB_FEATURE_RC_QP_SQ_POW2_SUPPORT = BIT(14),
+ 	MANA_IB_FEATURE_MULTI_PORT_GSI_SUPPORT = BIT(15),
+ };
+diff --git a/drivers/infiniband/hw/mana/qp.c b/drivers/infiniband/hw/mana/qp.c
+index ae2ebbcc759a..c603f264c548 100644
+--- a/drivers/infiniband/hw/mana/qp.c
++++ b/drivers/infiniband/hw/mana/qp.c
+@@ -427,24 +427,57 @@ static u32 mana_ib_fixed_wqe_size(u32 sge, u32 oob_size)
+ 	return roundup_pow_of_two(mana_ib_wqe_size(sge, oob_size));
+ }
+ 
+-static u32 mana_ib_queue_size(struct ib_qp_init_attr *attr, u32 queue_type)
++static u32 mana_ib_queue_size(struct mana_ib_dev *mdev, struct ib_qp_init_attr *attr,
++			      u32 queue_type)
+ {
++	u32 send_wr = max(attr->cap.max_send_wr, 1U);
++	u32 recv_wr = max(attr->cap.max_recv_wr, 1U);
++	u32 wr, wqe_size, read_sge;
+ 	u32 queue_size;
+ 
+ 	switch (attr->qp_type) {
+ 	case IB_QPT_UD:
+ 	case IB_QPT_GSI:
+-		if (queue_type == MANA_UD_SEND_QUEUE)
+-			queue_size = attr->cap.max_send_wr *
+-				mana_ib_wqe_size(attr->cap.max_send_sge, INLINE_OOB_LARGE_SIZE);
+-		else
+-			queue_size = attr->cap.max_recv_wr *
+-				mana_ib_wqe_size(attr->cap.max_recv_sge, INLINE_OOB_SMALL_SIZE);
++		if (queue_type == MANA_UD_SEND_QUEUE) {
++			wr = send_wr;
++			wqe_size = mana_ib_wqe_size(attr->cap.max_send_sge, INLINE_OOB_LARGE_SIZE);
++		} else {
++			wr = recv_wr;
++			wqe_size = mana_ib_wqe_size(attr->cap.max_recv_sge, INLINE_OOB_SMALL_SIZE);
++		}
++		break;
++	case IB_QPT_RC:
++		switch (queue_type) {
++		case MANA_RC_SEND_QUEUE_REQUESTER:
++			wr = send_wr;
++			wqe_size = mana_ib_fixed_wqe_size(attr->cap.max_send_sge,
++							  INLINE_OOB_EXTRA_LARGE_SIZE);
++			break;
++		case MANA_RC_SEND_QUEUE_MMQ:
++			wr = send_wr;
++			wqe_size = mana_ib_wqe_size(1U, INLINE_OOB_EXTRA_LARGE_SIZE);
++			break;
++		case MANA_RC_SEND_QUEUE_RESPONDER:
++			return MANA_PAGE_SIZE;
++		case MANA_RC_RECV_QUEUE_REQUESTER:
++			wr = send_wr;
++			read_sge = min(attr->cap.max_send_sge, mdev->ib_dev.attrs.max_sge_rd);
++			wqe_size = mana_ib_wqe_size(read_sge, INLINE_OOB_SMALL_SIZE);
++			break;
++		case MANA_RC_RECV_QUEUE_RESPONDER:
++			wr = recv_wr;
++			wqe_size = mana_ib_wqe_size(attr->cap.max_recv_sge, INLINE_OOB_SMALL_SIZE);
++			break;
++		default:
++			return 0;
++		}
+ 		break;
+ 	default:
+ 		return 0;
+ 	}
+ 
++	queue_size = wr * wqe_size;
++
+ 	return MANA_PAGE_ALIGN(roundup_pow_of_two(queue_size));
+ }
+ 
+@@ -460,6 +493,21 @@ static enum gdma_queue_type mana_ib_queue_type(struct ib_qp_init_attr *attr, u32
+ 		else
+ 			type = GDMA_RQ;
+ 		break;
++	case IB_QPT_RC:
++		switch (queue_type) {
++		case MANA_RC_SEND_QUEUE_REQUESTER:
++		case MANA_RC_SEND_QUEUE_RESPONDER:
++		case MANA_RC_SEND_QUEUE_MMQ:
++			type = GDMA_SQ;
++			break;
++		case MANA_RC_RECV_QUEUE_REQUESTER:
++		case MANA_RC_RECV_QUEUE_RESPONDER:
++			type = GDMA_RQ;
++			break;
++		default:
++			type = GDMA_INVALID_QUEUE;
++		}
++		break;
+ 	default:
+ 		type = GDMA_INVALID_QUEUE;
+ 	}
+@@ -726,7 +774,7 @@ static int mana_ib_create_ud_qp(struct ib_qp *ibqp, struct ib_pd *ibpd,
+ 		return -EOPNOTSUPP;
+ 
+ 	for (i = 0; i < MANA_UD_QUEUE_TYPE_MAX; ++i) {
+-		queue_size = mana_ib_queue_size(attr, i);
++		queue_size = mana_ib_queue_size(mdev, attr, i);
+ 		err = mana_ib_create_kernel_queue(mdev, queue_size, mana_ib_queue_type(attr, i),
+ 						  &qp->ud_qp.queues[i]);
+ 		if (err) {
+@@ -779,12 +827,107 @@ destroy_queues:
+ 	return err;
+ }
+ 
++static int mana_init_kernel_rc_qp(struct mana_ib_dev *mdev, struct mana_ib_qp *qp,
++				  struct ib_qp_init_attr *attr, u64 *flags)
++{
++	u32 wqe_size;
++	int err;
++
++	err = create_shadow_queue(&qp->shadow_rq, attr->cap.max_recv_wr,
++				  sizeof(struct shadow_wqe_header));
++	if (err)
++		return err;
++
++	err = create_shadow_queue(&qp->shadow_sq, attr->cap.max_send_wr,
++				  sizeof(struct shadow_wqe_header));
++	if (err)
++		goto destroy_rq;
++
++	err = create_shadow_queue(&qp->shadow_mmq, attr->cap.max_send_wr,
++				  sizeof(struct shadow_wqe_header));
++	if (err)
++		goto destroy_sq;
++
++	wqe_size = mana_ib_fixed_wqe_size(attr->cap.max_send_sge,
++					  INLINE_OOB_EXTRA_LARGE_SIZE);
++	*flags |= MANA_RC_FLAG_FIXED_SIZE_WQE;
++	if (mdev->adapter_caps.feature_flags & MANA_IB_FEATURE_MSN_IN_WQE_SUPPORT)
++		*flags |= MANA_RC_FLAG_MSN_IN_WQE;
++	qp->rc_qp.wqe_size_in_bu = wqe_size / GDMA_WQE_BU_SIZE;
++
++	return 0;
++
++destroy_sq:
++	destroy_shadow_queue(&qp->shadow_sq);
++destroy_rq:
++	destroy_shadow_queue(&qp->shadow_rq);
++	return err;
++}
++
++static int mana_ib_create_rc_qp_kernel(struct ib_qp *ibqp, struct ib_pd *ibpd,
++				       struct ib_qp_init_attr *attr)
++{
++	struct mana_ib_dev *mdev = container_of(ibpd->device, struct mana_ib_dev, ib_dev);
++	struct mana_ib_qp *qp = container_of(ibqp, struct mana_ib_qp, ibqp);
++	u32 doorbell = mdev->gdma_dev->doorbell;
++	u32 queue_size;
++	u64 flags = 0;
++	int i, err;
++
++	if (!(mdev->adapter_caps.feature_flags & MANA_IB_FEATURE_EXTENDED_WQE_FORMAT))
++		return -EOPNOTSUPP;
++	if (!(mdev->adapter_caps.feature_flags & MANA_IB_FEATURE_RC_QP_SQ_POW2_SUPPORT))
++		return -EOPNOTSUPP;
++
++	for (i = 0; i < MANA_RC_QUEUE_TYPE_MAX; ++i) {
++		queue_size = mana_ib_queue_size(mdev, attr, i);
++		err = mana_ib_create_kernel_queue(mdev, queue_size,
++						  mana_ib_queue_type(attr, i),
++						  &qp->rc_qp.queues[i]);
++		if (err)
++			goto destroy_queues;
++	}
++
++	err = mana_init_kernel_rc_qp(mdev, qp, attr, &flags);
++	if (err)
++		goto destroy_queues;
++
++	err = mana_ib_gd_create_rc_qp(mdev, qp, attr, doorbell, flags);
++	if (err)
++		goto deinit_queues;
++
++	qp->ibqp.qp_num = qp->rc_qp.queues[MANA_RC_RECV_QUEUE_RESPONDER].id;
++	qp->port = attr->port_num;
++
++	for (i = 0; i < MANA_RC_QUEUE_TYPE_MAX; ++i)
++		qp->rc_qp.queues[i].kmem->id = qp->rc_qp.queues[i].id;
++
++	err = mana_table_store_qp(mdev, qp);
++	if (err)
++		goto destroy_qp;
++
++	return 0;
++
++destroy_qp:
++	mana_ib_gd_destroy_rnic_qp(mdev, qp);
++deinit_queues:
++	destroy_shadow_queue(&qp->shadow_rq);
++	destroy_shadow_queue(&qp->shadow_sq);
++	destroy_shadow_queue(&qp->shadow_mmq);
++destroy_queues:
++	while (i-- > 0)
++		mana_ib_destroy_queue(mdev, &qp->rc_qp.queues[i]);
++	return err;
++}
++
+ int mana_ib_create_qp(struct ib_qp *ibqp, struct ib_qp_init_attr *attr,
+ 		      struct ib_udata *udata)
+ {
+ 	struct mana_ib_qp *qp = container_of(ibqp, struct mana_ib_qp, ibqp);
+ 
+ 	qp->sq_sig_all = attr->sq_sig_type == IB_SIGNAL_ALL_WR;
++	spin_lock_init(&qp->rq_lock);
++	spin_lock_init(&qp->sq_lock);
+ 	mutex_init(&qp->modify_lock);
+ 	INIT_LIST_HEAD(&qp->send_err_node);
+ 	INIT_LIST_HEAD(&qp->recv_err_node);
+@@ -798,7 +941,10 @@ int mana_ib_create_qp(struct ib_qp *ibqp, struct ib_qp_init_attr *attr,
+ 
+ 		return mana_ib_create_qp_raw(ibqp, ibqp->pd, attr, udata);
+ 	case IB_QPT_RC:
+-		return mana_ib_create_rc_qp(ibqp, ibqp->pd, attr, udata);
++		if (udata)
++			return mana_ib_create_rc_qp(ibqp, ibqp->pd, attr, udata);
++		else
++			return mana_ib_create_rc_qp_kernel(ibqp, ibqp->pd, attr);
+ 	case IB_QPT_UC:
+ 		return mana_ib_create_uc_qp(ibqp, ibqp->pd, attr, udata);
+ 	case IB_QPT_UD:
+@@ -1030,7 +1176,11 @@ static int mana_ib_destroy_rc_qp(struct mana_ib_qp *qp, struct ib_udata *udata)
+ 		return err;
+ 
+ 	mana_table_remove_qp(mdev, qp);
++	mana_remove_qp_from_cqs(qp, false);
+ 
++	destroy_shadow_queue(&qp->shadow_rq);
++	destroy_shadow_queue(&qp->shadow_sq);
++	destroy_shadow_queue(&qp->shadow_mmq);
+ 	/* Ignore return code as there is not much we can do about it.
+ 	 * The error message is printed inside.
+ 	 */
+-- 
+2.43.0
 
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
-
-Thanks,
-Magnus
