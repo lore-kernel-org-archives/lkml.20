@@ -1,98 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794452028;
-	b=AfAfo+BifXPH8zLwge2ecloOA1tu249pvI72gvMi1ADcw93FlIqnJjfedfdNsF2I6ply
-	 rueBK7Yuh+V5r3P4xYCQxK0I8nWQQ3gASPezolG+DW1fQKEFY7FvAMOqEBQZ6c1Ds98v0
-	 20Qu3PyJAdPAsm+rcQ6fbvLKdV3badOWZJKeSBQPB9/pv8x5wbN/P9NB7bsuIOb/A9GOb
-	 r8l5rDTLQ4JXNhy854Qc0YxjQD9JK0O/4hEiob4tct5bYrG6lwc2jnLe5VnIcq1gGGMCw
-	 2WazuXAI+PNjGW8qY3PVG28Ohe7dw2huKTkToyhP7+67fSpg5byOqNBvFSL2jh3tk1g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794452028;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8yMHCtcZ/1cI9oadvNBaz1GIBWo+u42FQNaRXMLSLbc=;
-	b=mRjKbhN21+44OZSgOTr4ERiF4R63HWOEg6hgNgmYK8MA0oy3ApoiSloqIj51EHGn2Sy3
-	 PaExzFw2SHvr7yDyyOW4eDocneNbbuM/YPvPL8NcL6RRJTO/rAO01xeK8y9oFroBnzwPq
-	 4VBNlEAbmwp06m+9CZFz2f9QgfnDhYaDqnkeqhuXP7WMMMr5A6K6XiOJrprQ6LXFH016E
-	 lKr5QY3JqhUmFO3sIL+NAMJh+aKtziJI/meYMbZ0t2Bx+tprxj6M6VJ4+Q8IAqfaHtsFz
-	 5jDUogr6YMOYBzn+YM1gl4SZNTs19QozHH6IShNTlozdDWnDpA5p6d9uulJIOxwMcIA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SoHAKYts;
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794452067;
+	b=BwCfmS+8BGASU+0b5EsoMTAQyE5+tH6xh5dyZZpY4JIwxKpKU2yLgHPH0LdrzigFKyOA
+	 or4gH+aFbFppVK9Lv+XJxSlp5mxYUm0R4PP8WcUwt1qj6yO3CXVhxtqS6m9pjTZ7VS4x/
+	 ZS28BMgZrcBLY2IQzZY1MU+j3WxEturhACMQ6VGMkrxKrgUUbHnNnW/FT0pnc6poji3HX
+	 lUxJbDybUOI+KQwCSLpy+42J5jhrawCSaWH8ReoCHNEEa3oQGS0YbsCuz2dleqzjAt/yf
+	 AROqLlP3AT+2bT1XJYXWy71IOgrDFhUXwCMgfYNCJ/bT8NVacibweF5hEChXWsyewzw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794452067;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=YJ+EnuCym1YWz+DBXyHIchny29FUwy9WeDV3l4E/J60=;
+	b=RMDKQJ+7pIViBgO2KXXCnFNFf4xLANqQ57ZK2DDfWFtsqwd5qmBIsCBv+kAAec4H36/g
+	 ysIFquSEn9rR7sNr+ieQ8rm1n+jszbg1WRdErYJcWGe8aXDAXbpdTJludT6ltwBy+oGh0
+	 Nktp7T0EMDr05ic+hiZEk1Nzeqo8XSsNgQr28D+m0G6OixOpOh7izMui5omM3fy2YnedO
+	 dWdzRRDpmTdnmgHO0dMYRqnc/IXY8QTBKNFtEbGGmNUBogTELiinNmXN3OZP/gvSSsoqm
+	 Eh2hGbSo+g9jLd4peiD/P9VdLraJAYS5tuLuJyBDxM5giBTdM6btGsGDf8LrmrGsfUw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cG7McBUQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31EA8606A31C;
+	Thu, 12 Nov 2026 02:54:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cG7McBUQ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794452067;
+	b=PAerUI0h1ljoPhgPluzUnNyVnbXnzPsHfbq1IvbmD2JehkH0vOfCUDUU3nAChEMTPXEA
+	 QBt/N1YU4cE6GxR5eGTqNPCIfHOQyCJV8yBCxO6qAw2WNayV6STfUc8yC+cm4q0G3ZS7k
+	 mMLj14XVBM+Y4d/hXthMJSwbs0rsEr58oCB5SD0KC5lKvbe3ZVIK7xEKA7jIzG0OJKbMn
+	 DefrU+63pgZP0a0UjAK4gyyIAilIVnF28KLZXUD7ALzCb23A6usRuyim1YNnfb0TGK1bA
+	 YZOK5l1j/zPLoDefPCIiiTb501WfFI/ByDd3udO3GLc6HtHre169FhbKJkLbbidIFdQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794452067;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=YJ+EnuCym1YWz+DBXyHIchny29FUwy9WeDV3l4E/J60=;
+	b=M3PI7BF44KDnHjKgK2qaO/XUhQn/VNaov5AA2FHsc7pFp8VrWTbvz+cZDyGI+2Oqo2Ct
+	 3i32ybwKfR7lw1YXDqVrNDhNCryRisY8kYTAZrYET04hJuDtKf9O+96ak8Ntrtg7P6Vkz
+	 heK3XW57P0x2EKlNVfYkpM7anVeUIG6HBphzbFTHg2XDiOTQ4p/1XVl/VXfvcKA+eOYvI
+	 b0VBt6P54+50lSGGJsMAioDYaT/cI5QXHCR3qRVpdO5Zdw/QcPgqBum/dLmEpAEH8e7wn
+	 DnFQfJji4nQPeT4dRI+V6LMtYURHfyIIjtDsZxPLgck0VpG+NVdz0Qt85HBTfSLW1kw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D26E4606A32A
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:53:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D26E4606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SoHAKYts
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3acb11973c3so3005930a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 18:53:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794452027; x=1795056827; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8yMHCtcZ/1cI9oadvNBaz1GIBWo+u42FQNaRXMLSLbc=;
-        b=SoHAKYts+CYz/wXS2LA4OxGNsSrUcR7FjvkZGOYp9Seetf4436d4GPJtdusZ2ZpaXB
-         3VT1FerWekHSaM7hzUwHLmqTpJnnTHthYLMnwpmN+z03OkuyqnCcmQc8BBUUqp8PuscU
-         n9osR6uokHoBknm9GTc1ZZwyOzczCObDGQ+RnosXayk9oCR4cs6slma7qZ569Wvj9t7+
-         raPDMWMZ9lb2wfPvnSbE3uN/1LP6jqR/TwJp1/qZqk4LY1PRZxXRbfocg9PNELbWNv6u
-         3EnIufpL8tTVmUWJVa7KvYRbwENtXVAkMlowGqwHKkcoZ29e4YyILB/uOBENwmKQ076R
-         4nxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794452027; x=1795056827;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8yMHCtcZ/1cI9oadvNBaz1GIBWo+u42FQNaRXMLSLbc=;
-        b=XtG/UlXbCmosLXIQVLR5ZRyn7yJrF0/cy7vVh+m12v0zACemgTcdNOKws8z60C0v/x
-         dTZVF9bjBasK9d2I508UCklMlkhZbiFNgad6rF/vMWYk9qUvzX0ikohQ7JlDCpdfM1Il
-         3FQRv4IT4xvt7wSnoQeQmvdcTTWyi7PERkL9IAw+Z+Oo50bvHXJJ5v3FN+y1aUd+uzEJ
-         sIhjZGAXB3mwgTh8+VbPB0D6oRRDbjHHrrGNCeHBex5vwkQ9f8+m1oVt02/lX3C+AaRI
-         Aqlc0FuoOEidKf5q6yiwJYZq2QTvMNhlkWKGr2PWwRvr+492zCeQabK64SEhpU0oITuU
-         lIbQ==
-X-Forwarded-Encrypted: i=1; AL+hErEqUcC2Rj0LoKFc1r7dnEdxi3NY9qEqWWbbhUOJBY6N/5dc4xpzTNPpsWPWnHZwxlgRfd/Hp3eBM3MYQeI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/4/iBpwdIYaKV6bNwV5RQ6h5gJMz3BYaqHuq2Bd2mWVv51D9zl
-	lX5A5tRa7d4nQSq/pWqMFy3+dV/0JcfXXuEPu6OIiel2nMSTUzvJEWfa
-X-Gm-Gg: AYBFou1HjCPZWBOJacH2gu83v+zmHMD9pTGUKG5anNQGcIfmTS1QtFE1KexbyMBgBLw
-	xndQO+kR5vkWyfJeLIS4B3WUgMHByZ2TCcYzFRsfX28SkF4yC9uxL1HzSQzeWli+eKbfMvBVoRH
-	nK4sf1zZ/OB9hnFBt9stvZrF4Z4om+hCSIhBbjYpnJCmj4dL/wtc9WLD+cXhdFyMAbbDXFL8W2S
-	T5fSdpMyhDE7IRiRH2BdDON/sSDxm8fluDvUgURhGHqQpW5AG9FMR9nehN1XduOjJPP+lhUrMLb
-	Re4utQTA54t35qvkzu7C1Gi391cSvsMTmY6hq4BXl31q90TBoWyT/OuJupU7kf34WpaYoiTiuQP
-	Gj/gd6z7DL4vaWnwmc/9LgCgVnwlAHKpVN7n2a/pLjem4OHgrSC/l7j8mnxCzEh1EkMokSvPe0u
-	ElkhlIKzvxaja9jDL704VJTTEULarR+BjDYdUAFU9KwRpI02+EUouHtre3LMuSlyoGQCipD7Fy5
-	SMPvjcrcBqZTva2SpH4hxVV+xM1gkwVnDn+IjVjMs0ZI1o8+UP9LMJk6axLaudnrP8Syb/tA0ud
-	+yK9Cy3p2Cycdd4FmctD0at4RlSCJsNo3FQ+jFTnQDRy5zY+zAJfZNWr44IgvuMwsYCt29+VOC2
-	gD/NO6aADPx1ZGXoTmpOeruWVwPz5
-X-Received: by 2002:a17:90b:4a43:b0:3b0:a3eb:759e with SMTP id 98e67ed59e1d1-3b182e6f662mr4020514a91.17.1794452027099;
-        Wed, 11 Nov 2026 18:53:47 -0800 (PST)
-Received: from prox-debian13-dev.listerlab.win (203-96-142-148.dsl-dynamic.connections.net.nz. [203.96.142.148])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d7bf46sm27052045ad.31.2026.11.11.18.53.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 18:53:46 -0800 (PST)
-From: Patrick Lister <patrick.lister.dev@gmail.com>
-To: Russell King <linux@armlinux.org.uk>
-Cc: Ard Biesheuvel <ardb@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Keith Packard <keithpac@amazon.com>,
-	Nicolas Pitre <nico@fluxnic.net>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Patrick Lister <patrick.lister.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ARM: nwfpe: use task_pt_regs() to find user registers
-Date: Thu, 12 Nov 2026 15:51:59 +1300
-Message-ID: <20261112025159.473997-1-patrick.lister.dev@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	by smtp.kernel.org (Postfix) with ESMTPS id 972941F00A05;
+	Thu, 12 Nov 2026 02:54:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794452067;
+	bh=YJ+EnuCym1YWz+DBXyHIchny29FUwy9WeDV3l4E/J60=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=cG7McBUQgiSaUULvOLPM02d7OP7z8SEfNeHurGz+6mrB3x39YEkhppGNbFfGAkWTh
+	 z8b9F1dda2+ynVc6zkEIR2Ym8+oBMKd06aCPBL1CmCSZN1M/04EdtV9zjht2BHtiZQ
+	 UEG7Rh8PT4mAOpDP5Qg3HHIu5HUSPzTdHE/N5jeGvAQp4I/eIpg4Z0iX3gY7Duo5UH
+	 XXoC+Hzo6vfbh+NsW/HwWgcv6WmEASMPn1Ori0Jm2BnAoAZOyn/ZzOYfJhHZJ5WbVu
+	 IItfRHqNR1PBjlbigqjsFXihncjoYKDko8fzW0buJzvxJtxShlqzw41Yhdg+TbMs28
+	 l+3KC+IFTFdZw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2A80F49237;
+	Thu, 12 Nov 2026 02:54:26 +0000 (UTC)
+From: Samuel Wheeler via B4 Relay <devnull+swheel33.gmail.com@kernel.org>
+Subject: [PATCH 0/2] platform/x86: hp-wmi: HP OmniBook Ultra 14-kd0xxx
+ (8EB4) fixes
+Date: Wed, 11 Nov 2026 21:54:25 -0500
+Message-Id: <20261111-omnibook-8eb4-v1-0-3127f45cc338@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,74 +84,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBCF4avIrDVREcpVxKJlMEQrLSJpenfF2
+ 32L93twaAkdNIkHixc5MjqCpwn0s9QTMhqiIc/ykscxs2lSxqxMoCpYJUTNMasKyUeIn93iSPf
+ Xa7vf7lQL9scbgRAeA9uN6HEAAAA=
+X-Change-ID: 20261111-omnibook-8eb4-78891e074a1f
+To: Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Shang En Sim <sim@shangen.org>, Samuel Wheeler <swheel33@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794452066; l=1572;
+ i=swheel33@gmail.com; s=20261112; h=from:subject:message-id;
+ bh=Y4xTG+8RxmiuTXb8mMsG5seOcwWC4EfIZOX+4VckSBk=;
+ b=HwgbCzhMGJBDO+FlTWk1qVHPMAeJTtMjNLT0MBjnDZpGXIPHT5YyytGhU+TdHhBb0PwdJHMrX
+ ex1CXT+aqiWAJH/GNnnmm1cKE/uGnTDnhX51ZpSmkLjDV4f6sI3xOge
+X-Developer-Key: i=swheel33@gmail.com; a=ed25519;
+ pk=cokeT6B31W84o+Gc4wuP2okLF8wShbbGQ7pb5h5JPXg=
+X-Endpoint-Received: by B4 Relay for swheel33@gmail.com/20261112 with
+ auth_id=1494
+X-Original-From: Samuel Wheeler <swheel33@gmail.com>
+Reply-To: swheel33@gmail.com
 
-NWFPE locates the trapping process's saved registers relative to
-current_thread_info(), assuming thread_info sits at the bottom of the
-kernel stack. Since ARM moved thread_info into task_struct, that
-expression points past the end of the task_struct instead.
+Two small hp-wmi changes for the HP OmniBook Ultra Laptop 14-kd0xxx
+(board 8EB4, BIOS F.06, Panther Lake):
 
-This breaks FPA instruction emulation, as the user registers are
-never read or written and causes out-of-bounds reads and writes of
-kernel memory beyond the task_struct. Any unprivileged process can
-trigger this.
+1. The thermal profile query returns status flags in its upper bytes,
+   so reading the platform profile always fails with -EINVAL. Use only
+   the low byte.
+2. The laptop has the same battery charge mode interface as the
+   Spectre 8C15/8C17. Add it to the charge_behaviour quirk list.
 
-Fix by using task_pt_regs(current), which finds the registers on the
-stack.
+Both were tested on the laptop with the same code changes applied to the
+hp-wmi of a 7.2.15-based distribution kernel. The patches themselves are
+against pdx86 for-next and build there with W=1 without warnings;
+checkpatch --strict is clean.
 
-The bug was found with assistance from Claude Code (Anthropic), model
-Claude Opus 5.5 (claude-opus-5-5).
+Patch 2 touches the same quirk table as the pending "platform/x86:
+hp-wmi: Add OmniBook 7 14-fr0xxx to charge_behaviour quirks"
+(https://lore.kernel.org/r/20261102155409.3061761-1-taranarmo@gmail.com),
+so whichever is applied second will need a trivial rebase.
 
-Fixes: 18ed1c01a7dd ("ARM: smp: Enable THREAD_INFO_IN_TASK")
-Fixes: 9c46929e7989 ("ARM: implement THREAD_INFO_IN_TASK for uniprocessor systems")
-Cc: stable@vger.kernel.org # 5.16+
-Signed-off-by: Patrick Lister <patrick.lister.dev@gmail.com>
+The ACPI analysis, the changes and these descriptions were prepared with
+an AI coding assistant (Claude, by Anthropic), as described in each
+patch. I reviewed them and ran the tests myself.
+
 ---
-Build tested on Russell King's linux-arm tree with footbridge_defconfig
-(CPU_SA110, FPE_NWFPE,THREAD_INFO_IN_TASK), W=1, no new warnings.
+Samuel Wheeler (2):
+      platform/x86: hp-wmi: Only use the low byte of the thermal profile
+      platform/x86: hp-wmi: Add charge_behaviour quirk for OmniBook Ultra 14
 
-Runtime-tested on 6.12.116, where this patch applies unchanged
-(arch/arm/nwfpe/fpa11.h is identical to mainline):
+ drivers/platform/x86/hp/hp-wmi.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
+---
+base-commit: a514d723595bd8e5ce926a7fea148ceb3c26915c
+change-id: 20261111-omnibook-8eb4-78891e074a1f
 
- - QEMU versatilepb (ARM926) with OABI_COMPAT, FPE_NWFPE and KASAN:
-   a test that executes FLT and FIX gets the wrong result back and
-   KASAN reports "slab-out-of-bounds in PerformFLT" without this patch;
-   with it the result is correct and KASAN reports nothing.
+Best regards,
+--  
+Samuel Wheeler <swheel33@gmail.com>
 
- - Nokia 770 (OMAP1710, ARM926, OABI userspace): fixes the maemo
-   battery daemon's FPA arithmetic which would incorrectly calculate
-   the remaining charge of the battery and power off the device.
-
-Not runtime tested on mainline: since 25900bd99d4d ("ARM: limit OABI
-support to StrongARM CPUs") NWFPE is StrongARM-only, and QEMU's only
-StrongARM machine (collie) currently fails to boot mainline.
-
-A reproducer is available on request.
-
- arch/arm/nwfpe/fpa11.h | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/arch/arm/nwfpe/fpa11.h b/arch/arm/nwfpe/fpa11.h
-index d51195d41f5b..25c327a73a27 100644
---- a/arch/arm/nwfpe/fpa11.h
-+++ b/arch/arm/nwfpe/fpa11.h
-@@ -13,13 +13,12 @@
- #define GET_FPA11() ((FPA11 *)(&current_thread_info()->fpstate))
- 
- /*
-- * The processes registers are always at the very top of the 8K
-- * stack+task struct.  Use the same method as 'current' uses to
-- * reach them.
-+ * The process's registers are saved at the top of its kernel stack.
-  */
--#define GET_USERREG() ((struct pt_regs *)(THREAD_START_SP + (unsigned long)current_thread_info()) - 1)
-+#define GET_USERREG() task_pt_regs(current)
- 
- #include <linux/thread_info.h>
-+#include <linux/sched/task_stack.h>
- 
- /* includes */
- #include "fpsr.h"		/* FP control and status register definitions */
--- 
-2.47.3
 
