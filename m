@@ -1,77 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794491877;
-	b=3LBHnbLa8CCBXnnHgfBVgizl1FU/iiXGoij1/GBXAi7DsHXrtrlVebCNZvRVPFRHFFL+
-	 tK0BLCaNHmwT2+bl3rK2nhFYfk2c3T/jmLoFIfs9cQtJLB646pMKMivm11c/2lyZr7E49
-	 BWfHpE/OkyN64grrPDIJ+ZAQ7LQOOWmGVtw//+mPd4fnZ5dGGcie2BVvQb+eo82bcjvYz
-	 /yu51varekPTEuCP86Du+4eqkVmMnkTUW515aqp/7CwbWycC2RpAbjxy1ThQ1EW+IFTtr
-	 wa1ncPEjY6GxRGRJoz1VSYJCeZ80P1d5j+1nO5Mwac3nXlsx5D5rijzXux3JGLBsDCA==
+	t=1794491879;
+	b=W3hmfGXjjfuB0oHBXMVFQElAchHXdNFqcPZxeawjapJuoOlE2Tkdy4JSIwFkHc32VNFl
+	 rcNNSNLbVzZrYJRDk6RwMnfTUfA+ozlUr7WHFboFhg8R+vmR2ve/vnxp87m0zTzOoO3Gf
+	 o69Wt7TFA/+T3dRIF67iC/MzQFfSVJ1zGENbTeS/hewa7nReYFJKeZJ1O7MHnevlNIFiF
+	 IY1I6jeCjjXYehFw9D3mLjWgj0NOkLsxfJtBSX9DWADFzXZNWxZtScHllQrkPDW6hemYy
+	 7T39zzHS7sWs7urfrF0PWU5j+D2AHSGidt5HxJI8iNok1fnpOIZxLcK2YMDyt7U1daQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794491877;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=wdg8stMM6r5FBivxq5EOSdvuNXe49X33jADApWgpna0=;
-	b=EKkat43Dug/bTS7Z7khc81l7mdJbxXuFbRJ//VSfgahORj5UuQJAE3anKhPs9Tvx0qez
-	 KHMYEHpCmFugGp86Ay2bBX2I29BmSbrhxCBQcFNSb9lAQB5HcXTJwZz6wtjy9iKTuPFT3
-	 P6YF2jp+e/YXxMl1UEj7PUYPiD5mNLtN3EhWAurWIyhHuZauXqP4aLI1Slewm8crjUuUN
-	 ppKQhDwabaxqu7y2CFpSDvxGrKSeArNCAfz2iALuDuMlO8kumDDI716Sr62o6zIFWUuZB
-	 tpEm9ZsdS66ZfLMjNODJK2IK5AE46vmEuvldVDuTgmwhNhoi6gqSv0y8xmqJ2yIxwOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794491879;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=eoVPrBJ4tURN+QM6vq2ZTCOjSmSxNf9fZYcJKAVOqpU=;
+	b=vhKuiMTaTcoYyOg7ryLDayzPGMMLImrA1CYrTxmXX9abpVOPikz9XN1gfWd9ZbHjCa1C
+	 RpsXPeYO2qrnxlFeWTLO5DqYvzct+2ul0ORQ5PrYV+iGkkA+ycwCwFuhM5ev5qpmfQVoy
+	 ukqjRDU+LkorcIch03m+Wsn2DEq4XSQEzMAoJrIvGb4dLrbNj3hrvf7SIvJhxr5MubOVh
+	 CQyLWXPH77RbyNN8X8rdnQagZG704VWdicyjGxaK2FxEHTRCOA/4RBVbdmYx8Qqf4km7b
+	 YQGai+aSjarKbsjPEV+7gVWjzb7FbdBAwfWDzMy/o5iTTDefP9lFp/1UyuCHLy6ep4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ODhw8U4P;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=UZHTSMBm;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="w3I/NPyn";
+	arc=none smtp.remote-ip=202.12.124.144
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49765606A32D;
-	Thu, 12 Nov 2026 13:57:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E59B606A88E
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:57:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E59B606A88E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ODhw8U4P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37B681F00A06;
-	Thu, 12 Nov 2026 13:57:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794491877;
-	bh=wdg8stMM6r5FBivxq5EOSdvuNXe49X33jADApWgpna0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=ODhw8U4PU7NP+U07JtvrHQ7fu76dDLy178QWgpxgqEazVhYKBZGPLIoEgZis3SVGS
-	 hQDy8s6SGKHwCcswZeDrcCyFyHmmjh1B8CYSQAZSTEhrAE5Zaz+0h+Xq41B2MztB8l
-	 WspG5vC8CCIyhfeM0RzhKJzHrsE69lZGgiegiBQ6HpYGejFxwiouVHVpx0FWVoXh3Y
-	 ZF98zklsEGtHur1BtcNANtZUsILZoKQd4Utonsdsj20ZOqsJ6a0E3e2KMLxr7Drjh8
-	 DeobS4tVRNpaqSOGlAhSgQ8XfHHd06S0GKxW/yXutdhBS40zknt3k7hTol6e9Cnt5j
-	 F1Nd/XoO/2BBQ==
-From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-To: saeed bishara <saeed.bishara.os@gmail.com>
-Cc: Magnus Karlsson <magnus.karlsson@intel.com>, Maciej Fijalkowski
- <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>,
- kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard
- Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
- <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, Pavel
- Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, Andrii
- Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar
- Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau
- <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song
- <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis
- <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>,
- netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
- Mina Almasry <almasrymina@google.com>, "Mike Marciniszyn (Meta)"
- <mike.marciniszyn@gmail.com>, Weiming Shi <bestswngs@gmail.com>, Nikolay
- Aleksandrov <razor@blackwall.org>, David Wei <dw@davidwei.uk>, Alexander
- Lobakin <aleksander.lobakin@intel.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Stuart Clark <stuclar@meta.com>
-Subject: Re: [PATCH net-next v1 01/11] net: Get skb fragment addresses
- through netmem
-In-Reply-To: <CAHfVqdVYBbs8zu40nEaCDvGVNeXHe2DXh0dGxEcgL3kP8S8_HQ@mail.gmail.com>
-References: <20261110102039.1002605-1-bjorn@kernel.org>
- <20261110102039.1002605-2-bjorn@kernel.org>
- <CAHfVqdVYBbs8zu40nEaCDvGVNeXHe2DXh0dGxEcgL3kP8S8_HQ@mail.gmail.com>
-Date: Thu, 12 Nov 2026 14:57:52 +0100
-Message-ID: <87ld6yrw2n.fsf@all.your.base.are.belong.to.us>
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=UZHTSMBm;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=w3I/NPyn
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id E54FB1D00161
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:57:57 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 12 Nov 2026 08:57:58 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794491864;
+	 x=1794578264; bh=eoVPrBJ4tURN+QM6vq2ZTCOjSmSxNf9fZYcJKAVOqpU=; b=
+	UZHTSMBmiNlLbeyzJSM31bww8ECg7DYP3ME/gIcumSkeq4tA+lhhl/mI191u5LRo
+	l0vTQsRmmnZp0mgNoXwv1bx+Tk/L8WLAvkF7YJ5q4i/qNLgqeWU0cQIkN+LtMIQd
+	GZ6jDNI5x87tcxUATqr6xe4hfQkbgzUOtAjJqwS54TnRRosu1tc/9auKlOAsoObg
+	BwB+9W/80/pIaHjBi+nk2zqVyd9ghALWfQAGTOCbRuo5UirR5ztH/mpRo1WsM1PV
+	JXE62YUDioTj3nV6fzAQhDsIWF+MfqOL2scFNDzErj1ZB/p1KoeTKHsoV+zY3X6V
+	lGUHJ9mVecGcJV4LYIuErA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794491864; x=
+	1794578264; bh=eoVPrBJ4tURN+QM6vq2ZTCOjSmSxNf9fZYcJKAVOqpU=; b=w
+	3I/NPyn+0b9ox+whIlNKVZfmVgXjZSFlgoy2pipfU9rRluX6oUSlOqvOAv25QGws
+	F62OpHF1qc8cKKxSSReVPv+tg/jXh6jQu8zPOqIfqUfrA70bwowX8G13ex3RC802
+	UbUnotIhhPa63ZADYTv9R19vyTf4IeHywI0+YOVE7RNBdGZbibmgwZQ+gFyM5oJ8
+	9FNW+1TUbTQXvEgtwRId2tZEO0BoLaFWCbbxVqGM4sr+kmOUiQoPk8Lp6wP+aPTT
+	0+AVHMoQ3oRc3gHRLJy+OxYjKNldYotlz2Hm+jo8C4Luz5uI5RTkECva6Yya8o9N
+	b0gud2jh5WTA3JFMxFvPw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794491864; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:lmxwKTSeYBhZQizPXJ8EO6EpeWSd9EKKIOQNCZ8xSqam50Q
+	7QMVY84GpBNWVL+rMSsUSr02V4ej3tIoNJzVakto+HAPXGzwRwQBGwKAv6pcCM3c
+	2ExSGyHJEJ066AN7yd7UI71k2+uY4CjGnymd3NMN39+QLqBfs1eA4AiGbvoxg5Jn
+	/RqIrwib8erN3xlBlUqe52YC2HQtpu+SSoM1WuPx0poi49dZxumi9AD8FMAQJfSH
+	tg+gEbDMrHqesb/Clt0PhUD81VP6MZyrMw0X0K8eIel401EYoyZCw+t3kNenZptr
+	XvMY2yHj+y8oUmaSVzJ2O9ZL8FVfxwtm+6HIDdQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:zEYnVMaStdy6u3NueFvbJ+hBxgS6XKa9u1fwlhczQCc=:R0gQaAeNfKNVjeBHZqL7VomuTg+ilakhZNJ0xy34LrI=;
+X-ME-Sender: <xms:0cX1ajusonkUhQR5zeGCA3kQeL7A-s496JdRBeES9UIUvmns2OBZwQ>
+    <xme:0cX1avQq87z7x13sx9_SKrij6gto_cwSMOwV-gFxTo9iK0uOcUpCbLKf1A2dVhc_k
+    Ku2mUSK8GyRJVOI7e_9bOXkckT1oLKi8BGFa1lIm3M0e2YrKtX_zal3>
+X-ME-Proxy-Cause: dmFkZTFkk1Kn+8HkXIkYEVOWC2vGr84s9l8C7UUlnEQK82Pov3hCQjBNV4gV/2kHXje/xF
+    em831/oDMuGjB5BvUfbioDeZuMzP5CZK6SAUDxx1eKP9wUvlfp6n7WKOnUuOTge4jUhnbn
+    DaFpTNPfUdbFCKrLNqGPMRoSndsW8LSwRyx8TUMwRXNkHAyCpdnt4ImpjItux89MDxMkuV
+    Ega1unt3VaZIUGsXdNdfHhNga9r1qIulZox9WeX03gXCFey6N0WrxScWyQ3uKFMAxw5KF1
+    Y6P0JH00ghD+EKLiHE0Ta+Zd6hZJb6FNlBYaBaIzfyiD/gkOtc+faMgm1mAVhvZV/6R3Ah
+    xh+eZKGyD3yA+Ez77/LZmBvsAtYHXQceM1Vw/PRlVSIqakVszggLyrOOGUOjmaKHlgJpIw
+    FRIiGyAHMvWBQfmnqIZAFjnyvH+kFAr+AZRid3wtNzWZWMc5JtwyqaDr0JjHkZu+c4k9Hy
+    y/xh/sgkHLnlzEauUt/2TiV9nIIUYoACKofvCDhcuIRVj322eW3F6IcU2Ndf6adVJQ0MN+
+    e5/RNLLOlbn9e12r713Gga/YIn8fhKC7qLyjh3MKEJ5F0zTxNkPtErrUs0QUJDt++ZwrsN
+    wrASM8q/LqDC/Fl71D3jGC5I1D3erHB5RXIwZKZesXpHtvK865GOxTxel8Gw
+X-ME-Proxy: <xmx:1MX1aqUZUaL-Ydv-DegnjcfAxiOO-clYJAHH5eY3nMkpbd_M7SReKg>
+    <xmx:1MX1ahU62gurVb_82o1ijP1q8WRzUN-GEVnw9-wg4s7VP5nNQIh6GA>
+    <xmx:1MX1atRoGOo5GzeZZ4eMNKQjgkcLiaS2Vs2BEEEKOpzdVDbJOimGSQ>
+    <xmx:1MX1aoFzS7LESg3xr2W8MuuBYHtQ3Gqzt9fGuk_3zOtHNB_8bebanA>
+    <xmx:2MX1aoNzcLMo3NB5fp3IXUNAnriKVDrt02NuKOldRNBm1YXVNTkcWe6s>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 1062A32A009C; Thu, 12 Nov 2026 08:57:37 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,39 +115,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: Al4kXH1AuRa-
+Date: Thu, 12 Nov 2026 14:56:46 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Pavel Popov" <pavel.e.popov@intel.com>,
+ "Bjorn Helgaas" <bhelgaas@google.com>,
+ "Logan Gunthorpe" <logang@deltatee.com>
+Cc: "Leon Romanovsky" <leon@kernel.org>, "Lukas Wunner" <lukas@wunner.de>,
+ "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>,
+ "Borislav Petkov" <bp@alien8.de>,
+ "Dave Hansen" <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "Jim Chow" <jim.chow@broadcom.com>, "Radu Rugina" <radu.rugina@broadcom.com>,
+ "Alexey Makhalov" <alexey.makhalov@broadcom.com>,
+ "Wei Liu" <wei.liu@kernel.org>, "Michael Kelley" <mhklinux@outlook.com>,
+ "Nathan Ciobanu" <nathan.d.ciobanu@linux.intel.com>,
+ bcm-kernel-feedback-list@broadcom.com, virtualization@lists.linux.dev,
+ linux-hyperv@vger.kernel.org, Linux-Arch <linux-arch@vger.kernel.org>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-Id: <61d483e3-d1e0-41ed-9210-081a4ce60382@app.fastmail.com>
+In-Reply-To: <20261111234439.4098-2-pavel.e.popov@intel.com>
+References: <20261111234439.4098-1-pavel.e.popov@intel.com>
+ <20261111234439.4098-2-pavel.e.popov@intel.com>
+Subject: Re: [PATCH v5 1/3] asm-generic: Add <asm-generic/cpu_device_id.h>
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-saeed bishara <saeed.bishara.os@gmail.com> writes:
+On Thu, Nov 12, 2026, at 00:44, Pavel Popov wrote:
+> <asm/cpu_device_id.h> exists only on x86, so generic code that
+> matches on x86 CPU models has to wrap the include in #ifdef
+> CONFIG_X86.
+>
+> Add an empty generic version, so the header can be included
+> unconditionally. The CPU match tables themselves still need
+> CONFIG_X86 for the model defines.
+>
+> Suggested-by: Leon Romanovsky <leon@kernel.org>
+> Link: 
+> https://lore.kernel.org/r/25a0cdb4-9c4f-4531-bdf2-8d09eedd0883@app.fastmail.com
+> Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
 
-> On Tue, Nov 10, 2026 at 12:27=E2=80=AFPM Bj=C3=B6rn T=C3=B6pel <bjorn@ker=
-nel.org> wrote:
->>
->> skb_frag_address() goes through struct page, so a net_iov never has an
->> address. Only unreadable memory should lack one: XDP and BPF read
->> fragments through this helper, and AF_XDP UMEM will back readable
->> net_iovs. netmem_address() also returns NULL, not a bogus pointer, for
->> an unmapped highmem page.
-> Does this mean that skb_frag_address_safe() is practically identical
-> to skb_frag_address()? I assume highmem page is the only case where
-> non niov page isn't mapped.
-
-Yes to both. With this patch they're the same, so I'll have
-skb_frag_address_safe() call skb_frag_address() instead of keeping a
-copy. Its callers can move over separately.
-
->>   *
->> - * Returns: the address of the data within @frag. The page must already
->> - * be mapped.
->> + * Returns: the address of the data within @frag, or %NULL if the CPU c=
-annot
->> + * read it.
-> "CPU cannot read" isn't accurate, I assume that in iouring case the
-> buffer is mapped to userspace.
-
-I'll use the netmem.rst term: "%NULL for unreadable netmem or an
-unmapped highmem page". Same for netmem_address() in patch 4 and
-MP_CAP_READABLE in patch 2.
-
-
-Bj=C3=B6rn
+Acked-by: Arnd Bergmann <arnd@arndb.de>
