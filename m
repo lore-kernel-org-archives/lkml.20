@@ -1,41 +1,41 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794472677;
-	b=fPuiMFjHTiowvI+oG389RPnY/Y7N5ewPxq2LNQJqCDCP4vuL/ZzGIyUtM6Be1nY9X/R5
-	 xcdXbHv6ADtPZUk2cbz18DbXTu0XcvbvOCjkqyFk81wLUz9BdfeMHxSswdYfLwMwAh1cu
-	 EqZNO6JMG78lsOoCUFwvpYvlB7vMO+3dLvmqj8pTFcfWFyjIXtp/7cDKCGcojFRKRvxjz
-	 1m7Kr7trDHam+N0dl9zMx1CIo3FiuJrwbpI7oDuPljSH+Io9eXU3BdxtMm20TXLkLKAWd
-	 84wTh/Nj4z5Jdij3mulcLqO57sX2aOeJDirEjV2nXx3cmUDUnbeLoGM9ERayXAdZb9g==
+	b=bvWzI30IH75eaCcAelPnMmQGpshmlAE4iUaY0urJPkABrDSHS2Vvu5frs5SY67CpqFRl
+	 cGmkOTysEdBikWL4w0icokJgRzajN6NQAf28RCtg/GLrWmZ9hvh9z+ZDdiOPMLxvb85EB
+	 6y0TAT0Q6IUHoCdHdWiha+NvcmTEpJ5xg5f/AVLQ+5jSe7sgM/Ab6Eb2L7ZMja5s8FDzn
+	 je76d3CusDTluMuJiwV3JTU7lZik4WWSNEyP/obhuaGDjzTcZFEMD1JwwmHHMeIQx+/4s
+	 AVOuGmWmKFZwuIpGZKpr+A/hxzrZ0sANoqdKCQ4YGl9PcIcNDjz9vfLzGz8r+WOsxdg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794472677;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=RQk4jWkk+NH4t7YyU4ZqKjMoejeTW5BAQK7uOBeQH7w=;
-	b=LWyoN9t0tYNX37+B6xCJz5c0W6mq7b0deeP1lNwkcw3l2kFhPnwGVnqgOkKGv4GrlcC7
-	 ckMchcOmmtJG3CtI+QlFKJfczCftZoGTe2UAOrCRDR84CgEt37NEVGJnzAMzHfRi0baYF
-	 sqGOZk4ZopuBLRkVPzbWLjuMO7bjKL9Y/8fhv/60iig/HOOop7kZXRwuucxRlyBYn4ANQ
-	 tTWmLgAEsTFvULS+1St9iRfF/7/1EHSUgq3VPdr3qbOkUdNti4493F9qxTsVvirDf94tu
-	 gyFQRdkb5J8hmQA4ikv87RcBhP9WwBHQfsxwv1AqrNR749zdde9MEj/RYIZ4zZwYBMA==
+	bh=kRI4WsBi3xbIAUAaP4bW07lW5LiltFJqKkHpCiletDE=;
+	b=3BSvRynHX8+8qjOImjcA2H1i9rXmiwrLMCAzR1fSyIMFVjq44SW4tT6GV2l1JIeXfG+9
+	 94K5qblRTk24gFSeXnPr9sLH9mxVT3iFKsMhgfMOjw3qvTtAPLaBRvLgzgGi8l4E6cbIb
+	 mgOekaIj3/Xa+RrqmHFZi1Hy4byucTywcDUWoH8tYVEyh2WjnMtFPk84yyhle8RqNxfc3
+	 FgcMmqWngH+Kwd1lIXRQqOquk3TuVSMrVscJxTsUpS0/5BRJkhzGu5UZ0zQt+WcDv8OlA
+	 GLduCi2socIbdCoB6m2BF4PJFuF7EigEqSolSFMcC++KL81BvuecavSVxN/u9sxU/7g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Us3odBQ4;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ey9tu5oN;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76776607079E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73BFC607079D;
 	Thu, 12 Nov 2026 08:37:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76776607079E
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73BFC607079D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Us3odBQ4
-Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.pengutronix.de [IPv6:2a0a:edc0:0:1101:1d::ac])
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ey9tu5oN
+Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.4.pengutronix.de [10.17.1.12])
 	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 8A83B205836;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 975E92058D5;
 	Thu, 12 Nov 2026 09:37:51 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1794472671;
@@ -43,40 +43,40 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=RQk4jWkk+NH4t7YyU4ZqKjMoejeTW5BAQK7uOBeQH7w=;
-	b=Us3odBQ4PsgrAfKuswlLtFYBgcPjvnFxMf/4yoa7ekxZq+dAPW52QwWTFGtgVi8ks6lS3Z
-	nmC5QKy8Jg5I3ozUzRC+439FI251r4Ah2oZZCygHOZKqU7f9QYzgeuRqaGpeoijcy9IrHj
-	rGDN+aZ6m1KWdVqM5ofjwnnNCwwhUkfYdv2qeUH5li4oCq7QceqHq3zpvPG9U7qC9bljvq
-	7ATgL7IwiEu32GQkYBPisdNsjdl63UCbwX0DHFcCdGzAqlSMJ23f0S0LBvoFNlDFjDYHJt
-	0vTYvDYiFdpFNKr+V5BPXCJz2GkeGxBrLRaEuMMX7fJyo7GWYC7xonEiOBTkZA==
+	bh=kRI4WsBi3xbIAUAaP4bW07lW5LiltFJqKkHpCiletDE=;
+	b=ey9tu5oNmQiYSz1hBBPKoFV/SsaEX0TUjDybOjuiL9pfQcAgWhrNsO0b9RffuC50GR5dzD
+	hxuNZsSZSIZ9i1R8T9jtF39R1epWOYqqPwcYUP1KfZOWuhLPUHRdCli9JCXP0Yxur0d8B1
+	YD4Na2eLn7GdZHKAvwiTOpx6nx1VmLSUFIge73yRrGuP5oUMUXPDGl+AK+7qHTTIO8cryf
+	pcC8y/ji4jeVWUQR0HkoV259GZQPT/uB/45wg+GHbhVlZrCMusD6/UNCjyljas07bzEkHl
+	TYvTwXEbjByBTIyPLsBOo+27KvlQtC+dqLQB8Tc4fDrsA6bBWAzIzPCOuaFxHQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1794472671;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=RQk4jWkk+NH4t7YyU4ZqKjMoejeTW5BAQK7uOBeQH7w=;
-	b=a3mKe91slCzI+JBzYV3NUhJjWz/HDU1w/8TE8q5K2V/NAlHISw1/1OdV3wAyWnmhmAkOyO
-	fZ27Fgs2nwpy0tg75BUG8/XFXMQQrIW981R48VPQoFp5ERbNKkdbov6r9kzrKj8H64NJjd
-	ejRpPiBpmACvGa6D6n1yCVjm4Xtyo4LIQV+p/0hz4vj5mWK+q1l6Nzy91vApl93Ka/+3TG
-	SpAQ/JQNw44MmtUlh58IdOTDFSGmrRh18LGYSi3JvLzg5ywo2WccgjUSH8YA7HWRSFHhG3
-	XzVaKoVMWTsxcqmV87Jq/rx4UgShNI180Abb5chl3A9EtJblgy4Y1Us3vNs3bw==
+	bh=kRI4WsBi3xbIAUAaP4bW07lW5LiltFJqKkHpCiletDE=;
+	b=Y7pJ8eBhAvKBSJyn9N7DQk3ko+q9LYNRiB8itOO009GX7ulJWMIyRghrF1A+wTP+dtzdGe
+	a6AjVVCQ8NVAst9Y5vG41dfjb2Zk6uyyUlJNrjpEDzx0OnjcWNJKEtsC5O4Oq89sZmjF7l
+	RoI4pkhINaToSMJFUfaFzfXra1JfvVhrH795ZKAXpXFOBCN966wzyLNN4PrCSRFf015xst
+	2DMazboTzCTuzeLyb9achYl9xYwzlCdmXWIybWyN/WnLrIeuEZ7coq5Ha3mcPozZg59+TB
+	I/8VLdWPQXuK7C9jmnU3SMKxHrZnMDb8rmyFdI17FQ5UXOkC/CssIFms+R6Rlw==
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794472671; a=rsa-sha256;
 	cv=none;
-	b=RQjCywgxWl8NM8HOlGZKLZVxkvW0FimCUf2OQ4dm4K4rQbUKWSWmxIK4LlVaxo4ar+AKXG
-	ZAD4C892gO7UGQJuDaYl/AMES9j5WslrtAJE0NPIpfTRDeDbYcoYclaZycb8MWPB4VqFa0
-	KPtN8gRd6iPlZHqxvMLMQiIojMFqQeC7ETtHS8Zlpj33zPrV8DqZAh7YoTKtAmqh8AwOGR
-	QV8TWD1ZTyg91Tu0BiXfV0MvMx7lOwhJ85TRSeHJttlqB1Ue4D/lH2Jt4ouDacELyssqks
-	7uR3AiPN7EIhpw87p/sklXvoN9G0TlQJSTQz3O+DZcKO8cDgzPgW+H34pl8q8g==
+	b=bhhtZmAhl8Yq7eMLRVG2/QYGpoaYphWCHNxGumxfA0y6OkNPnd3uTDpZX54eacDAwxnNGp
+	UfPUCsW91ohJwaZZnSfxgzoC94V3HM1Ynjr8yzuDEB9Q5ZQi4PlOjj2APCHTa3u2140lB/
+	DcNnbq0IWvMygRXOczwdpbszpiJB6YdL9b0wPVVkxVcc/ApfqdnHoLPG5lYcCuxdi+Ic77
+	YpZBo0KP03hCuyJVUbPPL9S5YMl+k6nHOXKh5vFwaP90EvuweEsdCZ7/LXsJAn32gLTvwx
+	9O08gVBc5jXWld3501pVsx+eBsmCVH1BS6LRIzwU1f+4OW6y8HaB0tWMxojYiw==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
 Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1058)
-	id 5C67D381DC0; Thu, 12 Nov 2026 09:37:51 +0100 (CET)
+	id 63A19381E59; Thu, 12 Nov 2026 09:37:51 +0100 (CET)
 From: Oleksij Rempel <o.rempel@pengutronix.de>
-Date: Thu, 12 Nov 2026 09:37:49 +0100
-Subject: [PATCH net-next v2 06/10] net: dsa: realtek: rtl8365mb: store the
- egress queue count per chip
+Date: Thu, 12 Nov 2026 09:37:53 +0100
+Subject: [PATCH net-next v2 10/10] net: dsa: realtek: rtl8365mb: report the
+ DCB DSCP-to-priority map
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,7 +88,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-rtl8365mb-dcb-ingress-v2-6-f8e6fbdf8c99@pengutronix.de>
+Message-Id: <20261112-rtl8365mb-dcb-ingress-v2-10-f8e6fbdf8c99@pengutronix.de>
 References: <20261112-rtl8365mb-dcb-ingress-v2-0-f8e6fbdf8c99@pengutronix.de>
 In-Reply-To: <20261112-rtl8365mb-dcb-ingress-v2-0-f8e6fbdf8c99@pengutronix.de>
 To: "David S. Miller" <davem@davemloft.net>, 
@@ -102,95 +102,153 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Oleksij Rempel <o.rempel@pengutronix.de>, kernel@pengutronix.de
 X-Mailer: b4 0.14.2
 
-Store the number of egress queues in the per-chip info structure and
-advertise it through ds->num_tx_queues, following the ksz driver
-(struct ksz_chip_data.num_tx_queues).
+Report the DSCP-to-priority map through dcbnl, so that "dcb app show"
+lists, on every port, the priority a DSCP value gets once the port
+trusts DSCP.
 
-The queue count is a per-chip hardware property, and this driver supports
-several chips of the rtl8367c family. All currently supported chips expose
-eight queues, but keeping the count in chip_info lets the QoS code that
-follows program the priority-to-queue map via the ieee8021q helpers for
-whatever queue count a chip carries, so the 802.1Q collapse is correct
-rather than hard-coded to eight.
+The switch has one DSCP-to-priority table for all its ports, with
+exactly one priority per DSCP value. dcbnl, in contrast, configures DSCP
+priorities per port and allows several priorities for one DSCP value.
+DSA could mirror a change to every port (dscp_prio_mapping_is_global),
+but a request on one port would still change the classification of all
+ports. Keep the map read-only. The QoS baseline seeds it with the
+default mapping from ietf_dscp_to_ieee8021q_tt(). Requests to change a
+DSCP entry fail with -EOPNOTSUPP.
 
 Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
 ---
-Q: Linus: why is the queue count not in struct realtek_variant?
-A: The count is per chip, while realtek_variant is per subdriver, and
-rtl8365mb serves several chips. The QoS code added later in this series
-reads ds->num_tx_queues, as Linus suggested in his v1 review, so
-RTL8366RB can advertise its own count the same way.
+Q: The v1 review (Linus) suggested DSCP get, add and delete callbacks
+in the common code, and setting ds->dscp_prio_mapping_is_global when
+registering DSCP offload. Why are add, delete and the flag gone in v2?
+A: The DSCP get moved into the shared code as asked. Add and del were
+dropped because the table is chip-wide, as the commit message explains.
+Without add and del, nothing would use the flag, so it is not set.
 
 Changes in v2:
-- drop the num_tx_queues comment, which restated the assignment
-- keep the Reviewed-by tags: v2 only drops a comment
+- make the DSCP map read-only, as the table is shared by all ports of
+  the chip and per-port remapping would change every port
+- drop the DSCP add/del ops, whose delete path could leave the hardware
+  out of step with the remaining APP entries (sashiko)
+- do not set ds->dscp_prio_mapping_is_global; without DSCP add/del
+  nothing needs its global set/del path (sashiko)
+- retitled (was "offload DCB DSCP-to-priority")
+- move the DSCP get handling into rtl83xx-qos.c behind a new
+  qos_get_dscp_prio callback (Linus)
+- DSCP table seeding moved to the baseline patch
+- read the table entry through rtl8365mb_qos_regmap_read_field(), which
+  uses field_get() (Luiz)
 ---
- drivers/net/dsa/realtek/rtl8365mb_main.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/net/dsa/realtek/realtek.h        |  1 +
+ drivers/net/dsa/realtek/rtl8365mb_main.c |  2 ++
+ drivers/net/dsa/realtek/rtl8365mb_qos.c  |  7 +++++++
+ drivers/net/dsa/realtek/rtl8365mb_qos.h  |  1 +
+ drivers/net/dsa/realtek/rtl83xx-qos.c    | 19 +++++++++++++++++++
+ drivers/net/dsa/realtek/rtl83xx-qos.h    |  1 +
+ 6 files changed, 31 insertions(+)
 
+diff --git a/drivers/net/dsa/realtek/realtek.h b/drivers/net/dsa/realtek/realtek.h
+index 0008ba9681cccb521d85d9bfc97425ad1b777aa6..6f2bdeab703a7758e01f983b8907c9421c89fa52 100644
+--- a/drivers/net/dsa/realtek/realtek.h
++++ b/drivers/net/dsa/realtek/realtek.h
+@@ -181,6 +181,7 @@ struct realtek_ops {
+ 	int	(*qos_set_port_prio)(struct realtek_priv *priv, int port,
+ 				     u8 iprio, u8 untag_pcp);
+ 	int	(*qos_set_pcp_prio)(struct realtek_priv *priv, u8 pcp, u8 iprio);
++	int	(*qos_get_dscp_prio)(struct realtek_priv *priv, u8 dscp);
+ 	int	(*qos_set_dscp_prio)(struct realtek_priv *priv, u8 dscp,
+ 				     u8 iprio);
+ 	/* @trust is indexed by enum rtl83xx_apptrust_slot and has @n entries.
 diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-index 1e6cdc61f6bd3b3f74e422dbbcfdcb67cc0532a7..f7960d94f1cd9f6a1982849a9e5a1b5d98880b4b 100644
+index d16e7c99217bdc01d1bdf7dbbcb8e7ed1441e6a8..9377bdbae36c487cf11dc48e77f23ca9f78565dc 100644
 --- a/drivers/net/dsa/realtek/rtl8365mb_main.c
 +++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-@@ -711,6 +711,7 @@ struct rtl8365mb_extint {
-  * @extints: available external interfaces
-  * @jam_table: chip-specific initialization jam table
-  * @jam_size: size of the chip's jam table
-+ * @num_tx_queues: number of egress queues exposed by the chip
-  *
-  * These data are specific to a given chip in the family of switches supported
-  * by this driver. When adding support for another chip in the family, a new
-@@ -724,6 +725,7 @@ struct rtl8365mb_chip_info {
- 	const struct rtl8365mb_extint extints[RTL8365MB_MAX_NUM_EXTINTS];
- 	const struct rtl8365mb_jam_tbl_entry *jam_table;
- 	size_t jam_size;
-+	unsigned int num_tx_queues;
- };
+@@ -3483,6 +3483,7 @@ static const struct dsa_switch_ops rtl8365mb_switch_ops = {
+ 	.port_set_default_prio = rtl83xx_port_set_default_prio,
+ 	.port_get_apptrust = rtl83xx_port_get_apptrust,
+ 	.port_set_apptrust = rtl83xx_port_set_apptrust,
++	.port_get_dscp_prio = rtl83xx_port_get_dscp_prio,
+ 	.port_stp_state_set = rtl8365mb_port_stp_state_set,
+ 	.port_fast_age = rtl83xx_port_fast_age,
+ 	.port_fdb_add = rtl83xx_port_fdb_add,
+@@ -3528,6 +3529,7 @@ static const struct realtek_ops rtl8365mb_ops = {
+ 	.qos_get_port_prio = rtl8365mb_qos_get_port_prio,
+ 	.qos_set_port_prio = rtl8365mb_qos_set_port_prio,
+ 	.qos_set_pcp_prio = rtl8365mb_qos_set_pcp_prio,
++	.qos_get_dscp_prio = rtl8365mb_qos_get_dscp_prio,
+ 	.qos_set_dscp_prio = rtl8365mb_qos_set_dscp_prio,
+ 	.qos_set_apptrust = rtl8365mb_qos_set_apptrust,
+ 	.qos_get_apptrust = rtl8365mb_qos_get_apptrust,
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_qos.c b/drivers/net/dsa/realtek/rtl8365mb_qos.c
+index c465d639ee5e527a604498fb064d6757aac1fda4..095f4a77bd1c666528b5fa9f57aa427114ebefb3 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_qos.c
++++ b/drivers/net/dsa/realtek/rtl8365mb_qos.c
+@@ -255,6 +255,13 @@ int rtl8365mb_qos_set_pcp_prio(struct realtek_priv *priv, u8 pcp, u8 iprio)
+ 						 iprio);
+ }
  
- /* Chip info for each supported switch in the family */
-@@ -748,6 +750,7 @@ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
- 		},
- 		.jam_table = rtl8365mb_init_jam_8365mb_vc,
- 		.jam_size = ARRAY_SIZE(rtl8365mb_init_jam_8365mb_vc),
-+		.num_tx_queues = 8,
- 	},
- 	{
- 		.name = "RTL8367S",
-@@ -761,6 +764,7 @@ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
- 		},
- 		.jam_table = rtl8365mb_init_jam_8365mb_vc,
- 		.jam_size = ARRAY_SIZE(rtl8365mb_init_jam_8365mb_vc),
-+		.num_tx_queues = 8,
- 	},
- 	{
- 		.name = "RTL8367SB",
-@@ -776,6 +780,7 @@ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
- 		},
- 		.jam_table = rtl8365mb_init_jam_8365mb_vc,
- 		.jam_size = ARRAY_SIZE(rtl8365mb_init_jam_8365mb_vc),
-+		.num_tx_queues = 8,
- 	},
- 	{
- 		.name = "RTL8367RB-VB",
-@@ -790,6 +795,7 @@ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
- 		},
- 		.jam_table = rtl8365mb_init_jam_8365mb_vc,
- 		.jam_size = ARRAY_SIZE(rtl8365mb_init_jam_8365mb_vc),
-+		.num_tx_queues = 8,
- 	},
- };
- 
-@@ -3288,6 +3294,8 @@ static int rtl8365mb_setup(struct dsa_switch *ds)
- 		goto out_teardown_irq;
- 	}
- 
-+	ds->num_tx_queues = mb->chip_info->num_tx_queues;
++int rtl8365mb_qos_get_dscp_prio(struct realtek_priv *priv, u8 dscp)
++{
++	return rtl8365mb_qos_regmap_read_field(priv,
++					       RTL8365MB_QOS_DSCP_PRI_REG(dscp),
++					       rtl8365mb_qos_sel_mask(dscp));
++}
 +
- 	/* Start statistics counter polling */
- 	ret = rtl8365mb_stats_setup(priv);
- 	if (ret) {
+ int rtl8365mb_qos_set_dscp_prio(struct realtek_priv *priv, u8 dscp, u8 iprio)
+ {
+ 	return rtl8365mb_qos_regmap_update_field(priv,
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_qos.h b/drivers/net/dsa/realtek/rtl8365mb_qos.h
+index eed5ea5fa7f345ce6989e3e890d7cd755da9d0fc..9602807f7db5b9c5bf0202612e4cd77b85079cb7 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_qos.h
++++ b/drivers/net/dsa/realtek/rtl8365mb_qos.h
+@@ -23,6 +23,7 @@ int rtl8365mb_qos_get_port_prio(struct realtek_priv *priv, int port);
+ int rtl8365mb_qos_set_port_prio(struct realtek_priv *priv, int port, u8 iprio,
+ 				u8 untag_pcp);
+ int rtl8365mb_qos_set_pcp_prio(struct realtek_priv *priv, u8 pcp, u8 iprio);
++int rtl8365mb_qos_get_dscp_prio(struct realtek_priv *priv, u8 dscp);
+ int rtl8365mb_qos_set_dscp_prio(struct realtek_priv *priv, u8 dscp, u8 iprio);
+ int rtl8365mb_qos_set_apptrust(struct realtek_priv *priv, int port,
+ 			       const bool *trust, unsigned int n);
+diff --git a/drivers/net/dsa/realtek/rtl83xx-qos.c b/drivers/net/dsa/realtek/rtl83xx-qos.c
+index b25a9dfb9138b5c2c176dbe68974cdd65e1643bb..f4b7866c7f70ba5ea74f5d8631a9b66afcf50728 100644
+--- a/drivers/net/dsa/realtek/rtl83xx-qos.c
++++ b/drivers/net/dsa/realtek/rtl83xx-qos.c
+@@ -134,6 +134,25 @@ int rtl83xx_port_set_default_prio(struct dsa_switch *ds, int port, u8 prio)
+ }
+ EXPORT_SYMBOL_NS_GPL(rtl83xx_port_set_default_prio, "REALTEK_DSA");
+ 
++int rtl83xx_port_get_dscp_prio(struct dsa_switch *ds, int port, u8 dscp)
++{
++	struct realtek_priv *priv = ds->priv;
++	int tt;
++
++	if (!priv->ops->qos_get_dscp_prio)
++		return -EOPNOTSUPP;
++
++	if (dscp >= DSCP_MAX)
++		return -EINVAL;
++
++	tt = priv->ops->qos_get_dscp_prio(priv, dscp);
++	if (tt < 0)
++		return tt;
++
++	return ieee8021q_tt_to_pcp(tt);
++}
++EXPORT_SYMBOL_NS_GPL(rtl83xx_port_get_dscp_prio, "REALTEK_DSA");
++
+ int rtl83xx_port_get_apptrust(struct dsa_switch *ds, int port, u8 *sel,
+ 			      int *nsel)
+ {
+diff --git a/drivers/net/dsa/realtek/rtl83xx-qos.h b/drivers/net/dsa/realtek/rtl83xx-qos.h
+index fbddc7b7d9dd37918423afc5373b684596637a05..06dbfd24b1af5cced870f463f15b1b39eceb56ee 100644
+--- a/drivers/net/dsa/realtek/rtl83xx-qos.h
++++ b/drivers/net/dsa/realtek/rtl83xx-qos.h
+@@ -15,5 +15,6 @@ int rtl83xx_port_get_apptrust(struct dsa_switch *ds, int port, u8 *sel,
+ 			      int *nsel);
+ int rtl83xx_port_set_apptrust(struct dsa_switch *ds, int port, const u8 *sel,
+ 			      int nsel);
++int rtl83xx_port_get_dscp_prio(struct dsa_switch *ds, int port, u8 dscp);
+ 
+ #endif /* _RTL83XX_QOS_H */
 
 -- 
 2.47.3
