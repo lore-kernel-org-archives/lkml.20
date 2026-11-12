@@ -1,100 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.70
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794485489;
-	b=OJnNgRs0sp9/g3eMz05P+0l1FVUTHc/GdTaVB30u/gh7X8V9i3SbQFWmfbPK2F/Ps2s7
-	 oaCw8qnIyq1Y0xrRhuhz9lIMMEZYVdGqmsV52bo89+/1TixWdiNXthocTT0V7O6iXUWq5
-	 A0c6QNJZ7mvP+XtioZaMGO56vb5crAkLMKYu0idMcBpfm1PqnWf9GOVUHXW2URmMF+pOf
-	 TE2pnXXtlglbAinhYrutC25tsUmz1lUZs+LfAjLn0AFl2PULhtTir5PvmAKAg2YBqd9zi
-	 I99XfN16qFtW26kKCwvkbnA5Vmh2id6T/ym6Y4tatVCPhq1qyTZwKyEl2fxSVTNEXkw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794485489;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=2igb4EzMhU9HjB1uGybM9GfGOzG5O0Se8+upB6lvHqo=;
-	b=H8E25+531SmUHujh4NYwQbkMIkUUuomefrg2zhxVLJ6eauET3x7eGWQTmT5CT1ADwddl
-	 aZ029w6P6nzCtdFthsx4NQuwCSKWKgpKwWWrt22HXVTZXi9R7vBusTXgiOBcA9naQ9UcW
-	 V6lMgRpE5Sx76vb7XFeUGhOUxxdCF0JVs/ELqjsf0yRTrYUBcVh4MRBZ9675gkcAXVrVj
-	 FnxEKxzf4HAqGYZuOsPlVnnHqW9bQSAT6hDnfQXT7mQJJ3ys+6W4UwAPF3iUtfLbOjrF6
-	 5sEbeLA3bNdrRrY6EK0PS1cJH/ORAJLP/RtU6NHrzxFCM5SfqYBTCIx8dZyfrG7NsZQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mobileye.com;
-	spf=pass smtp.mailfrom=mobileye.com;
-	dkim=pass header.d=mobileye.com header.i=@mobileye.com header.a=rsa-sha256 header.s=selector1 header.b=pXtYHRmG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.70
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013070.outbound.protection.outlook.com [40.107.159.70])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794485516;
+	b=WnVj5qAIXyxEmeF5xXiaYWcAya5/r4grUbT22GlwxPYe1VTFQpbvR1wktBL4QNL8yX9x
+	 yzdLAD+pwazVqwvX4LsX8AltPW1XZR7KP9lZkSPq4i814FO5fnghiZoky83h3XMWYCk9R
+	 C5i0nDUWo2yO7TlsFeodGQI1NcEzTJHcItXF93KGYUgy1CqOZhxt+ZUcbPL9P2B36Bsh7
+	 RA2MDFbvoNTm7Z9d1QfII2N64ib/x52xDbvEZBXolSBS6ABK1sHIJI3Qfi4v7Db/GG5yb
+	 1m1EqmiQE9el8lFrkplYClPumuOzNQoIwZv+9eFZjkZ/vXqGo7vtAv6AgteWmV3dM9Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794485516;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=xc3dkm2FkTj3bfcx1hRbhfim8mfu2/061yvWmQIUcIs=;
+	b=4yRqT++RRDmkMewrpypa7yTD8iiS9Ux2MW5iTTAPbs6SHdXwya75xDkOW3/RlV71qNTS
+	 9rRLMwCcToPiC2E2Sr/TDS8OACbgwJbHJCJApalqB6YUOPcfRmcRQ5jcKpFoYWz2afeQT
+	 XumzX8Jq1xdIyrjK/6JQJZjByds8uIlZIP6++V4+VQsr4cUcZXsWla8c87p4RdXrml/tz
+	 Bswaf8cQ94lQlGJlTi3iAiYX0dEMl4WIyEPKYmkUVby+Yd82k1zWVBk+YdkBn47JmutQt
+	 J2nhvYEXJIwJSBNOHwMMmanaIM1+7rpQdJXXvceItdx2jg3Xy+CpU1TzROWJSYla9Vw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RpiHyhBL;
+	arc=none smtp.remote-ip=209.85.208.44
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8196606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:11:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8196606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 471FF606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:11:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 471FF606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mobileye.com header.i=@mobileye.com header.a=rsa-sha256 header.s=selector1 header.b=pXtYHRmG
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rScV0bv27a5l2+2EmfriId5b/2Hqz7W5qesj2PbhjhlbmFwuG+TjkcMKHtZDeOZ2UIJq4Az9AHnPkIneRPTBOfaTARKRNkKOs+jNG9N8jXA04+w5neHsLKQXRDyFhrbKGuW3IyS7rqfq9svN4cgxa2/mr1AC169FXkW2LxWuozbf6tAIc7zy2DialQIa32GU4AX3Nuqg1TlCUVI+gNcP00OMcYq0XkZn5BfMvEQMN0fXvDgO+ZGNIi4YKowpOeGpOsNhpdHCMzhAJWV0wrFj+vcdl1PeplFvbViQkjJjH+nZo4U6KURUoaXW2gYdPeTi/IxC/wblyUiyREBrszwEXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2igb4EzMhU9HjB1uGybM9GfGOzG5O0Se8+upB6lvHqo=;
- b=cvgs8rRBB5f4OtwUgNW4868VDt2wLQoAFYgGdRXWQfJnFgErbAK7RJaiOXADzPAR52h8Vbvf3QkGRRFx/irizcJluhBT3Ste9/CFjBcTT3HLsA4JWRO+IyW/2VvZXLy80pAAbMJZU6EZe6Oz/4wPlkWsfaukYKTle9vTKnN22wtnsmmE/A9gPBgjBLrNR0N55QYzqQ4J7zSqR0+cpZQT183xYp2D6UYLTmbP8eBSgeSeWiC5ELkLAMLqJtwZO9WjlkL4Tps91A9j4VKzpWkdw24I0tqrRBwhz29VFZa1M84T7/r3iZ/Ya3eQWpqZYva/W3CHX74dmBOqbEJcFj1slQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mobileye.com; dmarc=pass action=none header.from=mobileye.com;
- dkim=pass header.d=mobileye.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mobileye.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2igb4EzMhU9HjB1uGybM9GfGOzG5O0Se8+upB6lvHqo=;
- b=pXtYHRmG5D0SuyD6U1YR4jaP65M+Ycg+8LLJYuIhGRoUcNK/p6qsiOoDHXK27kkncDdY7O8swu9HOWx/RZbtt6ihUCChP7gi3Hnk+c0xUfG8FxI6Qe3BDqao8oOvZl7hNpbX1SxDj/DvMOIUM4W6KnlQmuPvPxT6JfaGXLZr/ws=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mobileye.com;
-Received: from ZR6PR09MB889505.eurprd09.prod.outlook.com
- (2603:10a6:910:e0::22) by GV4PR09MB191401.eurprd09.prod.outlook.com
- (2603:10a6:150:406::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
- 2026 12:11:20 +0000
-Received: from ZR6PR09MB889505.eurprd09.prod.outlook.com
- ([fe80::9006:1164:b51f:23a2]) by ZR6PR09MB889505.eurprd09.prod.outlook.com
- ([fe80::9006:1164:b51f:23a2%4]) with mapi id 15.21.0615.009; Thu, 12 Nov 2026
- 12:11:20 +0000
-Message-ID: <a35f6eb0-ed5c-4ba4-85d0-c3a6d6bbe8ac@mobileye.com>
-Date: Thu, 12 Nov 2026 14:11:11 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/2] irqchip/riscv-aplic: force synchronous probing
-To: Anup Patel <anup@brainfault.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- Jessica Liu <liu.xuemei1@zte.com.cn>, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
-References: <20261020-aplic-async-probe-v5-0-c4861c2aafca@mobileye.com>
- <20261020-aplic-async-probe-v5-2-c4861c2aafca@mobileye.com>
- <CAAhSdy2kxydOk9wPdBtVHCTN2uDrpFbQ0WGUXHz0AUvUWAncpg@mail.gmail.com>
-Content-Language: en-US
-From: Vladimir Kondratiev <Vladimir.Kondratiev@mobileye.com>
-In-Reply-To: <CAAhSdy2kxydOk9wPdBtVHCTN2uDrpFbQ0WGUXHz0AUvUWAncpg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TLZP290CA0011.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:9::19) To ZR6PR09MB889505.eurprd09.prod.outlook.com
- (2603:10a6:910:e0::22)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RpiHyhBL
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so1192479a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:11:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794485514; x=1795090314; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xc3dkm2FkTj3bfcx1hRbhfim8mfu2/061yvWmQIUcIs=;
+        b=RpiHyhBLk3MvPRGZ9KqyZYaEz3gxSZVZHr/cu2sc+OExldAArs984cRSnc7hzg2L3+
+         M6lfONzNuDEfOaU3n583z53FmsvyFjKNoy8/Xb0dUQOQNHHX+yCU+wwMwjAUx/uoh31F
+         Vp0Eo9QrEaSR4SkRarnowfwIdntBB7uUGVmT6iIEuGBXaxnk09AA3SgAtXgBwOuwJ28H
+         pAwo9grT/HnEH61Lav3gp2FOIEfY3j9YsfVNsqSoNfBSBebDE19ZCNKSPCHH907zYUHP
+         Im7Ef0IhJN0ODA5CRobe8gwI47FGS6/MzyM0j2pzXXXCNQ9ClZNFzTweLx3ZQ6ysN8O3
+         uUAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794485514; x=1795090314;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xc3dkm2FkTj3bfcx1hRbhfim8mfu2/061yvWmQIUcIs=;
+        b=VSNhMpXevxK9hqzbluiQ0ZQyciquTOdhWClxuum4hnyLwZn8BiqB818Tmb81L1+h9L
+         qx0gRAuI8xl0otWQGc4XPs+X7hLv1A6IV3W4UAe6OZmD8SNzwcW/UkXmqtxzjNcv+iP4
+         4PHqx4Gmmz06e9rlefvjE6mJhEayv+49a3NxaUfIxcpgYNuYPCHKdppcopwGFpAXvRCy
+         FBuCFMzTD4rPOCrZJqzBVFx8AelmoUw+2oQjSxqTonIqE2mSB6aTuByUipsIG8ylpyg1
+         rA9UxgnJY3ueIQZwpXd6JuIW829pmX564JhOhvjqDIG80FwWvRsvODdXRRblfCgYbC71
+         9PyA==
+X-Forwarded-Encrypted: i=1; AL+hErF/OBBBb1+IR3Vd+Qvpi8yibWlbD1kCJyYMgWflBTzBoBIVvanq8xyYc+Tpq1AyZGATNoDeDkHKKSkJKJs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9T5dnIpn/B4AzSaB/J3nCUu/TyiUfnisCKC9j53J+rd6tmXTKW
+	EZlvzgZgzuxxKruVT3/DBYka5o6SUJq3+qsI8Kri+xv5uOptnHjHwnZy
+X-Gm-Gg: AYBFou2NxHS2urhHorLkB3mI0hdRykoMSzEZ4kj2UrNsEto51cC4zxeIRumuf70euAT
+	qRWEHnyBADBkfCq+WFb/r6fwMfaOoLfYE2eyoixr0ZuB+X0gkaFykbUAl6NK2S3+vQjASrPCoyx
+	aCojSvyNB1C9/MSt5vNq/wwmLtN6QDkruxBAVLtmDl5SmCq69Vi3Jp5OB9EzCCSS+kPDD4Niomb
+	pn3/Dh1EbX79Yh5u2VjZitAgIyS5Tg1ngg7qy9CsQGjo4JS8UheYtvdkBSudZpVXMcvchJdJzT8
+	nUs2Jy8YfPwh3UG2DhY7uKM3M2R11BNPKqwz8bLyfGwmHV7Su7wI3XNlvzBIlVc4cnDGl3nNJBm
+	y/vu5AyBaYRKUFbXDPS8z28+3jCFpbf+bx/Udl0oaBbkEv3XalAra8qbZfUNENkZEnSP6cJc6Nv
+	guZFhS2FnCKkw+fOkTZgPh5Z3/vbTiHmIUZ91N9ikOCgAipcESDtPR5se8M0ipffTI+jAwm8+e6
+	bD9CDFQvP3XHTymxuirKeIXMDeOCxLAUThvlciW+eVSBKz8MuDOxRp3VR6djqpAeEjhTA==
+X-Received: by 2002:a05:6402:450a:b0:6b5:875a:c2a0 with SMTP id 4fb4d7f45d1cf-6b7775eb13cmr3884877a12.24.1794485514349;
+        Thu, 12 Nov 2026 04:11:54 -0800 (PST)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7834cdc23sm1610428a12.12.2026.11.12.04.11.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 04:11:53 -0800 (PST)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Thu, 12 Nov 2026 13:11:51 +0100
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Uladzislau Rezki <urezki@gmail.com>, Dev Jain <dev.jain@arm.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
+	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+	Christoph Lameter <cl@gentwo.org>, linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+	linux-mm@kvack.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v4 4/9] mm/vmalloc: BUG_ON() on an unaligned range in
+ vmap_pages_range_noflush_walk()
+Message-ID: <avWtB-nWZUwLdQdP@milan>
+References: <20261110112546.261415-1-hao.ge@linux.dev>
+ <20261110112546.261415-5-hao.ge@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,80 +111,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZR6PR09MB889505:EE_|GV4PR09MB191401:EE_
-X-MS-Office365-Filtering-Correlation-Id: b3a2d3d2-b203-477c-a9a9-08df40b60fb8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|22082099003|261009223027099003|18002099003|261022105027099003|261026121527099003|261028144727099003|261026140227099003|56012099006|10067099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	oxUK1Z9YZclUjTQLudvCH4BToRttWpSKtBbntBfM/FkqFyo1IuIlGa7ozzie0SXsVhS7qO90M7Xj1LdeDnIbzBLadZEuGdhNLXc0Awe0d/h+LU4Kr2s6vOxATqRClmjlK9dMaIhhS9QqerNCXFqQIODktnHIVUSsZUShLlmEgh0u9TYx7LMlmz6DGaUGj8uVJcCJxyn8rfncqHoDJd8/6W+lGIOR7sNkT2Ps/lQgGHGdPYRsfKPxtSPCPiRtR/i1D4XomvbVTWVcO/wruszI9cvJ1wAHMr8/LEPzaMPLRrqOQ9ql/bJF6iZRMjuc7L5fzhzIWY+FTPWnWLqA2PbN+iJKoPNnI/u1SA8g17zgJ5zaRaeQbTUsWPj+BPyOTkpopLgGEUtpgGVguSE8lLZtLlYEWZKN3IIo1Y6jGFSa74Ym5fOswDQWCCLTYpJzVksTGaidTa6db5fnZgfW2Vpu8+SKVl+aciJvGRcuwhxrbYbrgCEvWNgX49D2DO8cRYTegzF4dGKPw/XLzO6QMJdlDVwsMg52W3blI1jbWs55fFxJMnfOqQWAOxfuN9zg+d3bqOILtM+h5uy//azGjSec5VEpxxE9VTlQTXtmc7Fon+T4UnT7EWStjge0KhNaMITqTInO1bcqAkbIRiXSwqJEaJOvtKmaRP2Q/tmYhPdLud4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZR6PR09MB889505.eurprd09.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(22082099003)(261009223027099003)(18002099003)(261022105027099003)(261026121527099003)(261028144727099003)(261026140227099003)(56012099006)(10067099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZzhZeEo1UmJFWGhjTmUrTUdTWnNMMUdEN1JNazlYWXhTRWFlb21wUGRPT1Bi?=
- =?utf-8?B?V3Rvc211QngvRmNRU09Dc3ZKYVdGb25WNHdrQ0hTRzlIaXFSb0svMEo5Wisr?=
- =?utf-8?B?YklxcGVQczl5SVJwV1I2OFoxUkoyVHJ2eDNMWGZFT2YraUVpRnJra25ZRWF2?=
- =?utf-8?B?bXk0QSs0Y2FXNE5GWW1iYk0relpCVHlqS3BXVzBFY1BxazdtTWlkNmRIRVZ5?=
- =?utf-8?B?S254SHp0Nm1ic2Y3ditvZ2MyWGdqL0U2Q29TdkFCdUJkWHl2bWZzeUp5NFFD?=
- =?utf-8?B?c09rL1UyK1lQam9Za1FtOXUyMjNMVGJQSURsK0Qrci9aK3JKeHRNaGdNSGZZ?=
- =?utf-8?B?UVZ6N0ZHK3Z6cEdLVGdkUXVJSW9hZEcxNnRFd3Zxa0xLWFNYMHhuRkNmbWF1?=
- =?utf-8?B?SmJkT2YvR1ZtY2FsRlQrbTExZGlmbWtyNnYwMHdoS2pkN3ZKSmo5Q29kZUJx?=
- =?utf-8?B?UnFZY0MrNDhZdExPUTB0MUJrbXVjd2JEejhjUWZBaFZDdjBlV0lya1JkaXoz?=
- =?utf-8?B?bmk5UkQxbDZVeXZqWEhKRXBIbDRTVlRoRzhvWDRYM1gwN1MveVcwWVlEVDlW?=
- =?utf-8?B?N1ZMcHVxRzJuTDZHMHFqQ2lXL2VlVUZHZGlOVWV3QXBaQjBvZTdvUWgwcGta?=
- =?utf-8?B?Y1RTbXp1VUJkcm5sRThGWHlIbnNjOTQzaDVybnh4dldLNzhCUGgvR0Rlc2xC?=
- =?utf-8?B?UlAreXdVUEtwTkxjM1NaQmo5QiszZ1orUUh5NTJpMGxlS1ZBRDQ4eExhT21Z?=
- =?utf-8?B?TFppZzJXSmNaYWdFdm50VUxYYXk1UnI0Y0FGTy84TFZLM2VyNFlSdXhnU0tW?=
- =?utf-8?B?REpIMkVCeHFURVYrMEFSK0ZJWWJiaW1PZVlJZERsZnlocFdNKzZSaU5zTEhh?=
- =?utf-8?B?aWVUYWdKbDduWkpJT3FWOXplMFhnNDJnMUFqNmk1Z3c0TVhrc2ZHMytpRUE0?=
- =?utf-8?B?V3E2cEFSODhrWHl1U2pUaFdYUGEwSzllTTBPUW1BU1dDOEJjd1hSZ2gxeG9U?=
- =?utf-8?B?MldKZXJnazdaL3ZTS2xiYVRwQ1NZV1N4WUhPTEFmUkRSSy9GY3NlY2RZUlVP?=
- =?utf-8?B?QWcyZWRhd1IxVnhWdVdjNEhOSFkrTm9mTDg3ZDI3NDNnNlkwOWFuUE5ZV2JZ?=
- =?utf-8?B?T1Ryc1BtdjB6T1lvajBSOWsvek9wUjROSitVbmtSTVF5UFIrZXBLcTZRQWkz?=
- =?utf-8?B?Yi9WMUtTcmZ6UFYrVmNrN3dDNmZCbS94akRQM1RoeUl0NFRHNUZ0Z1lVTFhO?=
- =?utf-8?B?R3F1WUkzZVFna0lsTmtJcm9EMENHa1RseGo4aHhOS1h3WUtnUjQxN09tTUdY?=
- =?utf-8?B?RVVnOXp6TTVoWXBIdlFpb3B0MnNZS0M3Qmtseno0L3owRHVRSXgxaHoxejFk?=
- =?utf-8?B?cEZvOHJoK0hCYUYwSWM2WC8zbUg2MDBxaWlWQnVNWHhvVWhSekUzM0YyQ0lh?=
- =?utf-8?B?NGpWWGtwa2VJbmlTK3RpOG00YVRlalN4aitOZ21Hc1NUREJGZUx4OGpiWnhJ?=
- =?utf-8?B?QzZTSzY0anM4TFBLQm83MFVHZnkwcWJTRDJZcENkbXRnd2pFVUU3OWgwcCtP?=
- =?utf-8?B?dVRxU2J5dHlmOGpLWVVRQVc5QnlIdDV3dHNRbVl6dHQ3Zzlkd1hUVEhEaTZo?=
- =?utf-8?B?K1RyMWJlZXRwbC9LWFhFUys0VnVnUUJOY1RwdG9vTWpKd1BIMXZ3OVhMWitO?=
- =?utf-8?B?Mm15QVFYaEhqNlREQXhiemFnSEdGMXRhc3pWRWl3NFRLeFhkWEFyTENxZkxx?=
- =?utf-8?B?U2xaWjBDZVNpaVBQUFlzNlBibTVwQk5LQTV5QjdSSWlCcll2eDNkWHI0NFFh?=
- =?utf-8?B?V3huaHBJTWhyOGd3ZEo2L2JVMlM2Qm9nbUU2alI4aFpmZzUyZEw1Y0hZVnpL?=
- =?utf-8?B?YWs2V2w4aGxPL0JndFBjelJHVUJseHpSY2pVR0VGZFhwT09mKy9jSlo0NHEw?=
- =?utf-8?B?b09icEVoUUZqbXJqU1F4bVhRbEVSQ3BtWjhFbWU3NEJHOG9xNWRyc0d2cm8r?=
- =?utf-8?B?QlJMV2U3ODc3eVo1ZEtnQmI0Mm8rVmxlM1lmZ0JtQXdwc2N4THlrNFpLOUZP?=
- =?utf-8?B?T2JvNklQbEpOempxQ3gxUE5waXRja3pUUTE2bXdCQ295ZEJpMmRzQ3pyOTRY?=
- =?utf-8?B?eDZqeENBNG94UUdqSzZvS2xpZUlIQ0l1dmw3aDNRaFlTSjk3TCtDRUlQSHFC?=
- =?utf-8?B?c3VuNWZPRDhUbXl2cVg0UXRSMVAzNkp4L0xOdmUybVVBMTFUeXhMZUdYc2pI?=
- =?utf-8?B?bkNrQVM3RnhxVnVXOE05WGhtUHYrMEcyUVB0bFRFTzYveEVsdjg3K3Q4WXNU?=
- =?utf-8?B?NEc2S2k4OHVaY2dFa29uRTFaWVhOSVV3cy9yWHRzK2FEVnhzQzdkUT09?=
-X-OriginatorOrg: mobileye.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3a2d3d2-b203-477c-a9a9-08df40b60fb8
-X-MS-Exchange-CrossTenant-AuthSource: ZR6PR09MB889505.eurprd09.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 12:11:20.3534
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f85ba13-6953-46a6-9c5b-7599fd80e9aa
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: o42C4Sr7ILVT3C4nSn2NAgItR21LZlOqsQtp9l46hchKZMs44Ou4kcNWEeonzfmtrPAy43dpZXSHlI3h5wFCbg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR09MB191401
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110112546.261415-5-hao.ge@linux.dev>
 
-On 11/10/26 10:07, Anup Patel wrote:
-> Making the whole driver synchronously probe is a conservative work-around.
+On Tue, Nov 10, 2026 at 07:25:41PM +0800, Hao Ge wrote:
+> The pte loop of vmap_pages_pte_range() maps whole pages and stops
+> only when addr lands exactly on end.  An unaligned end lets addr
+> jump over it and the loop keeps mapping into whatever follows the
+> range.  An unaligned start maps the page below the range with its
+> first pte.  That corruption is impossible to debug afterwards, so
+> bug out on addr and end at the entry of
+> vmap_pages_range_noflush_walk().
 > 
-> Your original direction was good. How about the following:
-> 1) Convert aplic_syscore_registered as atomic variable
-> 2) Add another atomic variable aplic_direct_parent_irq_count and use
-> "if (!atomic_inc_return(&aplic_direct_parent_irq_count) && domain) {"
-> in aplic_direct_setup().
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+> ---
+>  mm/vmalloc.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+> index 27f2674a5556..86fbb1d2b27a 100644
+> --- a/mm/vmalloc.c
+> +++ b/mm/vmalloc.c
+> @@ -698,6 +698,8 @@ static int vmap_pages_range_noflush_walk(unsigned long addr, unsigned long end,
+>  	pgtbl_mod_mask mask = 0;
+>  
+>  	BUG_ON(addr >= end);
+> +	BUG_ON(!PAGE_ALIGNED(addr) || !PAGE_ALIGNED(end));
+> +
+>
+But why do we add this? We used to live without it and as far i see
+we have not gotten any report about any unaligned addresses un-maping.
 
-I will get to it some day. For now, forcing synchronous probing is the
-easiest way to get things functionally correct, even not most flexible.
+The vmap allocator grantees that va->va_start/end have to be page
+aligned.
 
-Thanks, Vladimir
+--
+Uladzislau Rezki
