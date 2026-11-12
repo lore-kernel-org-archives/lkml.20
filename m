@@ -1,69 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501714;
-	b=KRcMPXAwzZ8Gn0Kyqzdsf8E5J7/I/hJGDb4kdfgGgE4J/WyVSSwY3i5TpEIQuTxlMvJQ
-	 oMr3taEJ7DLAq/HeQW6EW0B8uzEUxuF+L9xGG9MYBoH4dmcQ/9mNlCMtgAxO29kbQd1sv
-	 Qxhtfepc4P4FVzgk6qmcr6mpb9LFVKUsKDEV7F7qDajwsuVNrBEURpWztLOSJxGW++44Q
-	 EABnSxk1kjTlN00zFakCvlXE1GIK4djB6wWaCD9wpZG2QGp0uzZG+OkU65VCT5K+qM1Si
-	 HlYUhwjP0ecTfEHgvgiDsJ1yqO8/KrDf/si6sGJgFVtUYIIbGcr0Beu1PQh6gqLKN9w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501714;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=FmGT6juCirIZiH3gAOJXo+P6a62HxlEOwgb0n9iNzwg=;
-	b=j0o89qJdDkDkbkvNAQp3g0Q1yW/S+Kkp6wXb3VaH2wFECi1Mc8Kw14e+fRHJrkXGpsS6
-	 OHpZ0+JMWHW9LqSwkPubk7IUOVvMia+rHjLaayipRSqcEnaz+N5UBCPSSdXCj+aw7MeUD
-	 8yAfcfd3VVdLB1IznHHekb/8kKTIgO/IDy3o0kGxTKuOHoBL4UdyTnWurVMg03M1t+MVJ
-	 t3I3wv2QciyWn/Nj+WqLwmRC557nz9vZKiAIArxKvD6jW0EnL49iahz2w7iYMIwCusj3i
-	 gOPZf1yxTXQrmtsGeX/lS85HLRx6w8mEnLtZ7WZF0lj5dbDOtD5p6w/4at7iOzMdXzw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=Is+VHQ0i;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794501749;
+	b=Wf9xurbIbDy3yBeA0zosdA7FBOnzvsZX1TFYUgyIZxAB5HPFTgngspDMU2h8rwpUkQjx
+	 n5+bUGrKo9uaqnSpaLZrX6zM/zJJvFdQPHwSCXaUNrJw14Jf2SwWzJfQhe/9exE0IBE/I
+	 K7OH01PapZ3g+Zi1mzQu9ZjtUJytFtKJW//dt/ZwRNo24OHpyiSjhdxsHR5EJR/WOk5sO
+	 th12gLL5gXDrRD0H9obPLaCdb3KLybE0uBOsQpJ4JdQF0rJpADv5oD/Jg58/TYQzwKCH+
+	 67gMC8T3FmYc+ZAEG0Q6l8LhG0qyVWsrDG4WwFyWgncNa98RmD/mDqd++W0+40QhigQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501749;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=vb58UL1JBDT0YchS0QVq3Od5hTwaDV5G0mFqoEfJZkE=;
+	b=ktamaDky0llh+rl/MCNl2JJxaGPbD9RxAmXUMa3lW3Il5bk/k8IbK6ZC4C3v88cQoRFb
+	 l9P8q1oflGJBOk4eAOUKQIsCFNBtYp9EP8j3xkaYPpNZ/0xa8DOnA13WoUk5VnbEqpCRw
+	 xFIZEanuhRo+M3CGjQfc+sTM/RI0GNIjCJVnLaSXtZMLRCsGQRVHGRkn2bmR1eR5fnYNY
+	 SRhAa1luNalkY9uiJbXfBjmtp23tzaglK1ZNFeO7AyUCyW8veJxbGXHVA7IAqQFVNQyXk
+	 QGAHh4WAxRWgFKz/1EbMOg7igvLUUsgu8IDiGXkosIi05RP8rUBQ1MxYcbOh1bWneQw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=etvsK4IG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9784606A331;
-	Thu, 12 Nov 2026 16:41:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9784606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB6D606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:42:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEB6D606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=Is+VHQ0i
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=FmGT6juCirIZiH3gAOJXo+P6a62HxlEOwgb0n9iNzwg=; b=Is+VHQ0i7LL6eE3D80U1yf25vr
-	7QJxVPIQpiQuajhj4JxYqPUpz7XW2Jng5ALd/U4BStRCiKgtcajq79BXqWmkDopJpoDmyy9kADkJC
-	5ZCp7NKKW5ynx+QNFPFPTlomYQIraZ2A28GTWuE/pxHj7dLH9WZHBVH5xkRJouDw71DN95IlIaFFf
-	ekR5cpSA2T8ZGLDm4iQN7pBw1opyB4n5Tb3VeBkoNkmw0OdVWZVPj/M2vxI7QrgwLtyASFtIUM4LK
-	bRNdsetgKbjLZ7bhwRORMjGPtWOwSVn7KjBtMVFrA6Y6px7cJd8ncJGkGbw8IMKqQZK7DYIBSMoZT
-	dcEe7jzA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRXry-0000000AZNp-3JMZ;
-	Thu, 12 Nov 2026 16:41:50 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id A51033005AF; Thu, 12 Nov 2026 17:41:49 +0100 (CET)
-Date: Thu, 12 Nov 2026 17:41:49 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Tao Cui <cui.tao@linux.dev>, tj@kernel.org, void@manifault.com,
-	changwoo@igalia.com, mingo@redhat.com, sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	Tao Cui <cuitao@kylinos.cn>
-Subject: Re: [PATCH 2/2] sched_ext: Block a retained donor before PI deboost
- routes it back to sched_ext
-Message-ID: <20261112164149.GE1813469@noisy.programming.kicks-ass.net>
-References: <20261112144935.583937-1-cui.tao@linux.dev>
- <20261112144935.583937-3-cui.tao@linux.dev>
- <20261112152118.GD1813469@noisy.programming.kicks-ass.net>
- <20261112160136.GF1922751@noisy.programming.kicks-ass.net>
- <avXqKIZ1ZkaH2WTh@gpd4>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=etvsK4IG
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so34135105e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:42:28 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794501747; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LZfGClwaroGNOP2Kle0zVNxwksvF4xSZklgdYWjDu4XGS0xhDohYjLET2jFOcWuX9o
+         KeAbeiE9h0Nkd/r8PNuz3q2ZOPudYgpYnfdzSJhOgISZli5+4EfaM6QieNKaGmn5+397
+         +rtAanw3xkrQ8K4UsbmNNaLiObjgQC5WFqPQ2wV2OiD8xP0glbWVCVOZ8d/+hr62gzlS
+         l7zkAfuRcCqkxFfmtiW4yNVUtytFrmUPW2NYDRSJPY8PvcE6A0Zj3VbpTtSA3d/cOXnm
+         EaSZtLsgs6WAxfevROvtmdDsIhqmKjvsNeYzV4hp/tJXKAET3yLGJwiXLtoCZKAaJksB
+         mEpg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vb58UL1JBDT0YchS0QVq3Od5hTwaDV5G0mFqoEfJZkE=;
+        fh=L3OedAYDwAZGi+OLSJi3marFuerloMU8rcKQcMhIHU0=;
+        b=VjYarPVGWiOqFMk8AOddgTUb2HbAxicftTXoMyH13HSbRdH//+IDp7kOSxNpy2gGz/
+         Y7qFhd9HIWWag2XYy/yhJabj+AOPXMeaYzjhlI1bUoatEUexfNgepqbs5HAhR0D+23wM
+         BoclnPgVfLHKELhkOpdMlC/N5Qu8r55CwNFYQoGo3Vw0REzqVYiq9wCg7aWNzxIPMG2T
+         nRyp6ERzOFVT79IKATrw/xYswCyBD42pf1pS6R00yn/MguHZaPHwUpmoZ/Q5fsG9Ynmp
+         JIA3b0HjCVZ0wAipsu/8ncCFaSoqSaP0PToFaiEXWKTPNdBXsvFxpKUUZhsrhsEbFLke
+         Q3mw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794501747; x=1795106547; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vb58UL1JBDT0YchS0QVq3Od5hTwaDV5G0mFqoEfJZkE=;
+        b=etvsK4IGKtC1tmmWAGvlMBJDCobivzoekXoqFKuVsVWyGu8lShV/ecQ/M5I17JaUlL
+         GIgJYMp8UmzWyFSoNcGMefWzA368T6y84Dl1UkNYt0uoWQZgdBdZG/Aiwpc7CVTIhAF/
+         0JQFaTCfa2V+RNlaKbkn7+i4NAyorYBX8ybqJH3XjzPN9VMak9jeuoTXVavcz/TXTb21
+         FaF8VhxNqyxbBZju9qp2Ln/N+5T7gJZ/RicqGc8poLGUIGAlMT1edOhRdpffMJ38j6/6
+         qtsYNESSzPCd2ar5kLu/sN0j0+3cPO20UPb5V2eBQ/lZWth2IIrqyP4VOjINWfuUb+5N
+         qDBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794501747; x=1795106547;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vb58UL1JBDT0YchS0QVq3Od5hTwaDV5G0mFqoEfJZkE=;
+        b=vrTB8UMUPAV3Wx2b2a4iRX/PIFn9v5hMDWhhjCKIbVi65Kzqe4nMz5eKLPIeUtXM6u
+         iWA0NU+QdtvmmiDL1DCTA+g11o3Z1n9ayJzUWYGpvGWzXkFmGKqamW0BWeHLLLHYWOtU
+         e9WNzTlMtrdc06B58yuWKSLXgoYhgBIHKZC88p7myB6iZqu/2Rr9N4jcP2RR8iQn4uqz
+         bSLf4y8iRQSnQODVPRgg5YDlV7Y3A5tjeP2MOOl7Vwm9KUNtc4OZxLKqup4kb0tCCjRs
+         ct5ZZ3ltoDhAQMEkyp2FD4vW6MmLsJA/L4J8BWEuBMK0BG3cEoZ4ncwjSHgxuPBrECMg
+         1lww==
+X-Forwarded-Encrypted: i=1; AL+hErEJVOmZFSeyvZBLnf3H773NMd5za2Hte7CDOtgFtutOuZO7Fe4rwk/HECyDLfPFFG1/nuW7lkqkXNHjkWQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Ea1YRVfesm7d+H7yBnoIAwS+fhvuubIvN3jaFJ7r08To/yIPk
+	CXU2apKh/GABs8hkMhXrrQIr50gCWE1Gc0YXy2+VQJjS4ZcHWeh+Xps2KJezFRVsaHJ7/y6t1xY
+	pnM6XjvCYR0enx81Lhu1Y0gKVOVQTCSw=
+X-Gm-Gg: AYBFou2dNdHSzC9MKDC4973PBGxQjRTqSjXrYR5hPmBOOEm6KCrXL1PTHTs19EWImM2
+	zdM3XzGZ4KwEPejmG1T7TCRl14xxSZU0hi93Q6Btlsl5Grr8jIS9F2Um80skW5T4J+txHm8P4D6
+	kJfrrBD8bCcqOh9nLDCp/cx5E5A8oJ9qFC8dI7LFJU8PFaj341smMnmugSJ5KIIZ9SQB923ooK5
+	rNOGQ+/9N9oKJD51YLrmn3wufZcEoNqIsmiQXV5bF3cTwT8+bfwD1omUnvQX1BojE7r5QFDLfkr
+	s0heiw46hik7sXrQW78SEPgqLkwm8gKyQjcKq35QyKBnwxhQdodbt+xP4RQx3pZpnV+hd05K/bp
+	GZ7qiOjAdQgwP1f+o5JM+J0EFhjP8o4JomTXYwCi+s1jX5jHCQ+a3pv9kL6SC3zAgFK36QQ==
+X-Received: by 2002:a05:600c:310e:b0:4a2:c9b:9b98 with SMTP id
+ 5b1f17b1804b1-4ba0936d857mr116824585e9.17.1794501746962; Thu, 12 Nov 2026
+ 08:42:26 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,100 +104,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avXqKIZ1ZkaH2WTh@gpd4>
+References: <20261104165504.2430480-1-kunwu.chan@gmail.com>
+ <20261104165504.2430480-26-kunwu.chan@gmail.com> <1c2eff9d-213b-4ea2-9905-a054c6d40d97@paulmck-laptop>
+In-Reply-To: <1c2eff9d-213b-4ea2-9905-a054c6d40d97@paulmck-laptop>
+From: KunWu Chan <kunwu.chan@gmail.com>
+Date: Fri, 13 Nov 2026 00:42:13 +0800
+X-Gm-Features: AclHuK_5dn6ii1XkN_5ubWft1GmD866Yv1veX15FudsEky0EOAdtZ7tnwYRl5R4
+Message-ID: <CAN_Opa-RGS=5kTnMVsj6KE=xCLS8aB=dYSqee7DuFeQ=uvDHKA@mail.gmail.com>
+Subject: Re: [PATCH 25/28] hazptr: Select TRACING for HAZPTR_TORTURE_TEST to
+ enable tracepoint
+To: paulmck@kernel.org
+Cc: boqun@kernel.org, mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com, 
+	corbet@lwn.net, mingo@redhat.com, frederic@kernel.org, 
+	neeraj.upadhyay@kernel.org, josh@joshtriplett.org, urezki@gmail.com, 
+	dave@stgolabs.net, stern@rowland.harvard.edu, parri.andrea@gmail.com, 
+	will@kernel.org, dhowells@redhat.com, j.alglave@ucl.ac.uk, 
+	luc.maranget@inria.fr, akiyks@gmail.com, dlustig@nvidia.com, 
+	joelagnelf@nvidia.com, skhan@linuxfoundation.org, rdunlap@infradead.org, 
+	longman@redhat.com, rostedt@goodmis.org, qiang.zhang@linux.dev, 
+	brads@mainlining.org, linux-kernel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, lkmm@lists.linux.dev, linux-doc@vger.kernel.org, 
+	rcu@vger.kernel.org, linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 12, 2026 at 05:32:40PM +0100, Andrea Righi wrote:
+On Wed, Nov 11, 2026 at 5:50=E2=80=AFAM Paul E. McKenney <paulmck@kernel.or=
+g> wrote:
+>
+> On Thu, Nov 05, 2026 at 12:54:43AM +0800, Kunwu Chan wrote:
+> > The hazptr torture test registers the hazptr_waiter_enqueue
+> > tracepoint for its hot-address scenario; select TRACING so
+> > that the register_trace_*() API is available.
+> >
+> > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+>
+> It is useful to run the torture tests without CONFIG_TRACING=3Dy in order
+> to quickly isolate RCU bugs that tracing related.  Is there a way to do
+> this so that people wanting to register tracing can do so, but so that
+> it is still easy to run the tests without tracing?
+>
 
-> > 
+Agreed. Only the HOTADDR and LONGHOLD scenarios need the enqueue
+tracepoint; the other hazptrtorture scenarios should remain usable
+without tracing.
+
+I'll drop the select TRACING changes, make the tracepoint-dependent
+scenarios conditional on CONFIG_TRACING, and enable tracing
+explicitly in their scripted runs.
+
+Thanks,
+Kunwu
+
+>                                                         Thanx, Paul
+>
 > > ---
-> > diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> > index 1a088d4576f5..1c1e669473a6 100644
-> > --- a/kernel/sched/core.c
-> > +++ b/kernel/sched/core.c
-> > @@ -11252,8 +11252,13 @@ void sched_change_end(struct sched_change_ctx *ctx)
-> >  	 */
-> >  	WARN_ON_ONCE(p->sched_class != ctx->class && !(ctx->flags & ENQUEUE_CLASS));
-> >  
-> > -	if ((ctx->flags & ENQUEUE_CLASS) && p->sched_class->switching_to)
-> > -		p->sched_class->switching_to(rq, p);
-> > +	if ((ctx->flags & ENQUEUE_CLASS) && p->sched_class->switching_to) {
-> > +		bool block = p->sched_class->switching_to(rq, p);
-> > +		if (block && p->is_blocked && ctx->queued) {
-> > +			block_task(rq, p, READ_ONCE(p->__state));
-> > +			ctx->queued = false;
-> > +		}
-> 
-> So at this point sched_change_begin() has already dequeued p from the
-> old class, but p hasn't been enqueued in the new class yet, block_task()
-> would dequeue it again, through the new class, and repeat the generic
-> dequeue accounting. I think we should complete the block without another
-> dequeue here.
-> 
-> Also, if p is rq->donor, clearing ctx->queued isn't enough: we need to
-> reset the donor and clear ctx->running, otherwise sched_change_end()
-> would call set_next_task(rq, p) for the task we just blocked.
-
-Right, I figured there was something missing. Can you take this patch
-and make it work?; you are more proficient with running this ext stuff
-than me.
-
-> > +	}
-> >  
-> >  	if (ctx->queued)
-> >  		enqueue_task(rq, p, ctx->flags);
-> > diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-> > index f74ffb3b1aca..4440e32236b3 100644
-> > --- a/kernel/sched/ext/ext.c
-> > +++ b/kernel/sched/ext/ext.c
-
-> > @@ -8947,10 +8934,8 @@ static void scx_root_enable_workfn(struct kthread_work *work)
-> >  
-> >  		if (old_class != new_class)
-> >  			queue_flags |= DEQUEUE_CLASS;
-> > -		if (new_class == &ext_sched_class) {
-> > -			scx_prepare_task_sched_change(p);
-> > +		if (new_class == &ext_sched_class)
-> >  			queue_flags |= DEQUEUE_NOCLOCK;
-> > -		}
-> 
-> scx_prepare_task_sched_change() also calls update_rq_clock(). With
-> that call removed, keeping DEQUEUE_NOCLOCK makes sched_change_begin()
-> skip the clock update even though we haven't done it here.
-> 
-> Maybe we should drop this flag too and let sched_change_begin() update
-> the clock.
-
-Sure.
-
-> > diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
-> > index b5d92d89629b..e73f3474d685 100644
-> > --- a/kernel/sched/ext/sub.c
-> > +++ b/kernel/sched/ext/sub.c
-> > @@ -1647,7 +1647,6 @@ static void scx_rehome_task(struct scx_sched *to, struct task_struct *p)
-> >  	lockdep_assert_held(&p->pi_lock);
-> >  	lockdep_assert_rq_held(task_rq(p));
-> >  
-> > -	scx_prepare_task_sched_change(p);
-> >  	scoped_guard (sched_change, p,
-> >  		      DEQUEUE_SAVE | DEQUEUE_MOVE | DEQUEUE_NOCLOCK) {
-> 
-> With sub-schedulers these paths can move a task between BPF schedulers
-> without changing p->sched_class, so switching_to() won't run. We still
-> need to end the old proxy session before changing ownership, even if the
-> new BPF scheduler also supports proxy-exec.
-> 
-> Can we keep scx_prepare_task_sched_change() for these ownership changes
-> and use switching_to() for the actual class transitions?
-
-ARGH, are you *sure* you want to support crazy like that? Just have the
-thing mandate consistent proxy support.
-
-Enforce the primary scheduler's take when loading sub-schedulers. If it
-does support proxy, dis-allow loading sub scheds that don't and
-vice-versa.
-
-Alternatively, make the support the logical and of all sub-scheduler
-support. Ergo if one sub sched doesn't want to support proxy, nobody
-gets it.
+> >  kernel/rcu/Kconfig.debug | 4 ++++
+> >  1 file changed, 4 insertions(+)
+> >
+> > diff --git a/kernel/rcu/Kconfig.debug b/kernel/rcu/Kconfig.debug
+> > index b500e96ea1c1..8fc6434a05d1 100644
+> > --- a/kernel/rcu/Kconfig.debug
+> > +++ b/kernel/rcu/Kconfig.debug
+> > @@ -27,6 +27,7 @@ config RCU_SCALE_TEST
+> >       tristate "performance tests for RCU"
+> >       depends on DEBUG_KERNEL
+> >       select TORTURE_TEST
+> > +     select TRACING
+> >       default n
+> >       help
+> >         This option provides a kernel module that runs performance
+> > @@ -42,6 +43,7 @@ config RCU_TORTURE_TEST
+> >       tristate "torture tests for RCU"
+> >       depends on DEBUG_KERNEL
+> >       select TORTURE_TEST
+> > +     select TRACING
+> >       default n
+> >       help
+> >         This option provides a kernel module that runs torture tests
+> > @@ -102,6 +104,7 @@ config RCU_REF_SCALE_TEST
+> >       tristate "Scalability tests for read-side synchronization (RCU an=
+d others)"
+> >       depends on DEBUG_KERNEL
+> >       select TORTURE_TEST
+> > +     select TRACING
+> >       default n
+> >       help
+> >         This option provides a kernel module that runs performance test=
+s
+> > @@ -117,6 +120,7 @@ config HAZPTR_TORTURE_TEST
+> >       tristate "Torture tests for hazard pointers"
+> >       depends on DEBUG_KERNEL
+> >       select TORTURE_TEST
+> > +     select TRACING
+> >       default n
+> >       help
+> >         This option provides in-kernel hazard-pointer stress tests.
+> > --
+> > 2.43.0
+> >
