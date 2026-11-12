@@ -1,95 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.19
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794526644;
-	b=SKWYXxih0eQ3zWolczxxlEneSnUM5Q2vcIiAB721iQJs+nYOooDGMLun/lCBfJ8iFgV4
-	 hua4RgiDJdO9ULeMl93q3MenhVdnFQbjHVq0PjtVNVyeOmJpVkCyL8LIy8q4Ne7An7ZLo
-	 EPKTDXUoft+pTbRZlU5ImhTCXG2RLoABL9tWDfx1rTS7RwH9b7aI++xQMWpZ1Q1RP+tam
-	 y78YoNmeulBr6P5+7Sl6mNWNIQ5bP2kp1U1grB8qoiGYXZZZgkca6xA1E6hGg3fAcDuQ5
-	 x2ZE90SwNLj8ojN0nxEsljXiW+OqdQ7kE6DZWcOl5vrIfTQAx00eby9J4XP0Llrar0A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794526644;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=GvEtPhKA0/v32b7y2MVPCN7d/SVffvp7nqYfKBD80us=;
-	b=Xf7ljlllBfO9HIB2SqzlkUfbRai0CU03+ZHfNobPM0bIXifhcitZjvnXq0dfpWi8kyqi
-	 //aCxpTxN65gNHvzONzJxIOumrNUPJie8rnSRG9fhy1eQ+lgMM0MlvaM2JsC1sgq2zFhN
-	 2E8k1whMaMqdRpzc68VeIKWhBaFLXZJ47+Acec52Zrbwx3vR7AwJKWgDZBhoIarDGOr13
-	 huEfBwtQ32FwWrMoJpnTHn4DSi8zIaJSbB2MWqommCW883wMjP1hslLcXgPJtdbfEPEqL
-	 amVyPirjrwLkNZHoSn5H6hCRo8fYFAa89kNPoQXbcHr2kOoeZYJjD9MSpVLO6hdJ75Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=x4OK2jq+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.19
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010019.outbound.protection.outlook.com [40.93.198.19])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794526664;
+	b=NbndG5es58qr6TMVL3Ig3CLiEkCuWrEZHfIDXyjUYrDpf22DBfJklcS8XSoyvBvKJuV8
+	 tOAkZhmvvMndCSlWQ66nwXQnmis1bOPA4SkDLveH7VxCZwsgEqaKOTqiSgH9niknchbpJ
+	 lZcO+wBWGkJwvD/2Yk01lhiswZK7BtF2K3UZFli+3sMvhB/3RIa2pqDdSAtqAgldu3/+Q
+	 yri2mIp7lOXLSGZUxFnsUwPMZyQOqN4VBiNJ9m0Kvck6M3SeaeIblKOLB6ipaVE+GZqjG
+	 +UrRUm1zrvtWoZT0OGLU/jjS0uhJltSVFkbKX9SxorS1BkSRg1ajHRBvIT0bsgUpF4g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794526664;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=Rfpzb/ezDwI38PLxzrjqkaoWvyzmkf9DKdXHTzqeDHo=;
+	b=wlhwyqzgd023upaD32BnWlQ9toSxESOGwa9bDYwJZKhvpt3iDEaWAWXq0KCR2Kzl9Hf9
+	 Yhe16TQ1JPBUWrJG8U9bybZHcr+iy5tRVZ78toFRN8U8fpQG8OyzBF0bUaEszp97MdKkL
+	 SXx2hIqa5mJTrNAhoTS3sUCP4DSROlUQC4MITlLwTjMEXSfWcbJX3p8pSHVzELzdMc3ek
+	 APfjwl0nFdUq/O/DJVS3p1P3UpI9RmNPzgECZJTBHfgQcmzfeZEvlStO4MNsqRSVBv6Kz
+	 ijSHIevGXSuf+UeT8OrbnTqBFu+sWvg0qf7QCdlIBkGlDX0eh/z9OkOZMkgIh8sJJUQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dRjwUjW2;
+	arc=none smtp.remote-ip=74.125.82.197
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA38E606A31C;
-	Thu, 12 Nov 2026 23:37:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA38E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E14606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:37:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66E14606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=x4OK2jq+
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rB+UXbdlTSraG13XdijvU8srLWSjrOX6GS5JrVpxFCKYX5p347dQgwBxhFISBl00m7baz2rGEgSx1vKPIZxsgMiLszJFLmiGyKALAvlShiZAMLKG9H8KZAzfTRcPYIDpfA+Bmf2Fc8zQ/lFNFLmNAcJmFkQwzfqvrJ0DfntBzn/uWMhVVKy7i/1QK0Y03VG1I3FcmzWca/g9f+f6IBd9Ig3KMrvHOl2K/wKbw1fSZfecfyRO+MIBtM9goILeLiCukzpwGNIr09CrZqLy1mpKZmc5OELs/MOxdSW8apP8V4suUsDwIBZ4bJpWRhPNF5uXOjYWdWzXGgul+7Afdv6ukw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GvEtPhKA0/v32b7y2MVPCN7d/SVffvp7nqYfKBD80us=;
- b=ePsJW3vZq2A79gKYItyxrQdAyplwlYkyL7lZKBS8FqgiilqSkYTokVF+dQ3z4gOkkcT6X7PQHYyG8XE0cgE+nvp75lCHbx6FlsBd7mwWSRifivzjjsK2BUmTbrvOhpkyTEmArMi10xbTqMfOdVvLv2Jj9ZMM6SgEiuVer3Q4/cG67+V9wrMttA0RNz6BynVrGdjLlEqoBPCW4OEZjWYs5Rzd1KLl95qIU8jFPGyY6Y783qZDSq00oENyHMtFRJxMrNkESHCp+D/9s3cqXKFHVkvZBrAmv9LlZ3TlunKpGY/Lnv1UheiiTTMT8p2KEUDaUim9N/f3UEqJ1AU9JU499g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GvEtPhKA0/v32b7y2MVPCN7d/SVffvp7nqYfKBD80us=;
- b=x4OK2jq+1RpX/jsRvxec1joL6TifFc6/czECYBjH46uPG0V4w1bp5f7bR8jB9nGTrVIOMWQ/Yi4sjgJGJNvgV5DWrCVzmbrMrtXfYzWUWPka2tmW38K5Zqvx0wGn+1TUCVbybNST7H0/d9kTCcULhavU7ji3cJ0RFzmnvC2TxMQ=
-Received: from CYXPR03CA0029.namprd03.prod.outlook.com (2603:10b6:930:d2::13)
- by MN2PR12MB4189.namprd12.prod.outlook.com (2603:10b6:208:1d8::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
- 2026 23:33:56 +0000
-Received: from BN3PEPF0000B36D.namprd21.prod.outlook.com
- (2603:10b6:930:d2:cafe::75) by CYXPR03CA0029.outlook.office365.com
- (2603:10b6:930:d2::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
- Nov 2026 23:33:41 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B36D.mail.protection.outlook.com (10.167.243.164) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.0 via Frontend Transport; Thu, 12 Nov 2026 23:33:08 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
- 2026 15:55:00 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-Date: Thu, 12 Nov 2026 15:54:54 -0600
-Subject: [PATCH v7 2/3] drm/amdgpu: Match VFCT using initial PCI bus number
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dRjwUjW2
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-375bac6bd21so255275eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:37:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794526663; x=1795131463; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Rfpzb/ezDwI38PLxzrjqkaoWvyzmkf9DKdXHTzqeDHo=;
+        b=dRjwUjW2UKdovWxEID3EkzbnWLLTHk2mgUZYMXCc51U73cat8RdI8KiDjgQ5Uc11vw
+         SuRF/vhkgtERht4/+O0rSeJT96rCH3XJXROwsEIrxr/6NzaNNubG52l9olc63khmh7Kt
+         HKDTO58AJOp8CupoVuNzGzUMgNdQbu9dF4hoMJcDOiQUU8twttGMZAaapuK6wxQPtXx9
+         +ZnrrJJi04kY4HVmjalrqkG9qTZ4QshMocNKYWs06nZ1jL34m2L6Pp+lB1wWQNH6CyF7
+         ZBfCshH5ZAkIpFA6TAaZL/97ryAP5eEYyYIYuj6fp+c3VB++Vt+Pkgk4FLaf4JTEO6Zu
+         ycvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794526663; x=1795131463;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Rfpzb/ezDwI38PLxzrjqkaoWvyzmkf9DKdXHTzqeDHo=;
+        b=XQDcaOj3MkcUIWn4yJfcfiKwkk4zEF3alTfVwWob2Ca+2MnyYV8xzqPeDmfvA6YLvM
+         aLpO+fdVMj6cwdV2UscENIY6DsOy7j+9gA68Q5fJmMxtNPYQFcyFiPZHC72nSjYXOmdt
+         A7hJaMAW6f0tKPDRWzOzbHKFCO0adP5IXjoVgYAGWPdX/JjDqo7YFjZHDfKNNHNDbCU9
+         NHF0o1CGCRb/o01o91Aq/+u4hQQd3IROBNx4SWfD9VVkoDhZrdiRVZdhbLHqxs9v/X39
+         KCS0wohNoaaUasQFSr11JazgnGEgHNIEDRDyzmJlnyjNGi2SBSedkZNz6QG0DFdm7XWy
+         gtfw==
+X-Forwarded-Encrypted: i=1; AL+hErFM/Xux4gCeubjY9XBjwra/BQjcoiWe3TtBULaWTcwkh0qSVDjCkoeneoYc6YHwTBxBuplyyxS+B693L04=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Qoy1+heO8zWQZdJaPD/7T+XUJ62J3HhKcU8xMsufEjBbyptlo
+	NKGJHm21/URxBEx2U8B2A4/NAhrav+utVPMA4QBnlikTovUfcYgCNWYhdLag42jSYRsjf5myiYz
+	2Gq0/g8s2Nw==
+X-Received: from dybpd9.prod.google.com ([2002:a05:7301:4549:b0:36a:1c45:2f79])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:2103:b0:36a:1a7b:d1bb
+ with SMTP id 5a478bee46e88-377e1af5c7bmr3672824eec.22.1794526663031; Thu, 12
+ Nov 2026 15:37:43 -0800 (PST)
+Date: Thu, 12 Nov 2026 15:37:33 -0800
+In-Reply-To: <20261023054952.2503540-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,112 +78,105 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261112-vfct-regression-v7-2-69b1e0cf45c2@amd.com>
-References: <20261112-vfct-regression-v7-0-69b1e0cf45c2@amd.com>
-In-Reply-To: <20261112-vfct-regression-v7-0-69b1e0cf45c2@amd.com>
-To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
-	<alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
-	<christian.koenig@amd.com>
-CC: Oz Tiram <oz@shift-computing.de>, <linux-pci@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>, Mario Limonciello
-	<mario.limonciello@amd.com>, Reza Nikzad Chaleshori <rezanikzadch@gmail.com>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36D:EE_|MN2PR12MB4189:EE_
-X-MS-Office365-Filtering-Correlation-Id: 54b1c996-93ff-4a8a-0e96-08df41154edd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|376014|1800799024|18002099003|22082099003|261009223027099003|11063799006|56012099006|261102123227099003|261022105027099003|261028144727099003|261026140227099003|261022075727099003|261022115727099003|261026121527099003|261021123027099003|261021121427099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	64/V2YNpjyy4jeE2UMjl+KwVCQB1WCWvFgXPBRKyLB3Jz0wYD33x0dbX4VuO3wqok/+rIEhR4bFcw1C/lWv6IrqIdQjOfeifMFMjcup1Xk9uw7+2y9uKIznvRhShsV/J/atzKSQsFOR/chwxVARNdNt93MpSSK8tRiYRl0VnBhZWzsVYwUGy9VQz5aKygCGJxhlwOAA/X8dTrjjpx/LlL8iBTwk0PzPRbdwXWpYwBtJsd1apKLipCBUmU38gL65bEkvH3NhtjvD1kz5uMElfDePN9fZd4x71mxLC/8uU1X54hJVr4S6417o0OSOLQRqglvnqnqJB04dsP8VDRIKodnoUyc6wRgd0aAPRNTgPQQKLT/Ut4g3x3N+69dDPkwkkhogclzHclhfoBgRCOmB8rWPXhBfwh9sdVvQA6MVIEfjXwD9ra3rkPSaDfoPpDk7FhN/zGdnuhYs8BHbL/UifcPUXlsiR5CrN1sXEBA+AJeKDqOgL3HDFWAlB304kxa77DEzF1MWOO+CrAlmAns2+TKUI7rJAmdRWsySbX/Nk+gpD8cLJvfiOnvnMgqIRW/WxauLlCP9tCCVGy8QR7ZVDlT4hmNlzqhMqDf9Zp4+oa+EYRC7CHl7DIIElv7UoIisaabi6x36VvbemuXcOwMxrLaMRWAvFQ13T7KbmCwlNlKI=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(376014)(1800799024)(18002099003)(22082099003)(261009223027099003)(11063799006)(56012099006)(261102123227099003)(261022105027099003)(261028144727099003)(261026140227099003)(261022075727099003)(261022115727099003)(261026121527099003)(261021123027099003)(261021121427099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	b/g927Sg7K5cL3PF/3MeJTxMdJlpPadmlbNEBE5enrP7glHXc9nE1v8nU4pVobk02OqRxcApHIzfJ9R2rx+iIsydD1N2zFojPDn8wHcg1emuSvQMDx/IjmwihqHAz+jvas2m/BFXO1KRds/kQJTXZ7bd/+8Qv6h3FsxN7Z5XDyRahshTjHSgSRYzcLaOtmMIy8YlA5w0c2t3QwcpgvIlBbzFqPc7DlPybqXA7q5xoYAjYqP+CxmfhJ6e41uBtRursB3oSE0LZyR/1X8o6NBmCcBf/Mk/Hz75+bczClpIvWwFvz0Tdfh0iZ41KNXyzikqFTsqsj2ATbpgI763XoXbkX3u1M5kZf5H3zQkqwt8YZwy0uv+P7/CZJfMwkiJd0DKNjf+ZoH9gBjxmSDNHFBHRiVILKBwn98OJWBrHn/cvk9lmIGjP9DKL36nKyU1mXEM
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 23:33:08.2694
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54b1c996-93ff-4a8a-0e96-08df41154edd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B36D.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4189
+Mime-Version: 1.0
+References: <20261023054952.2503540-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
+Message-ID: <20261112233738.699031-1-irogers@google.com>
+Subject: [PATCH v6 0/2] perf timechart: Add --live mode to the TUI and test
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
+Cc: adrian.hunter@intel.com, alice.mei.rogers@gmail.com, 
+	atrajeev@linux.ibm.com, changbin.du@huawei.com, dapeng1.mi@linux.intel.com, 
+	james.clark@linaro.org, jolsa@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org, 
+	tanze@kylinos.cn, thomas.falcon@intel.com, wutengda@huaweicloud.com
+Content-Type: text/plain; charset="UTF-8"
 
-VFCT records the PCI bus number from BIOS POST. The current bus number
-can change after PCI core renumbers the bus, while accepting a mismatch
-based only on device identity can select the wrong VFCT image when
-matching devices are present. Compare against the bus number captured
-from the firmware bus assignment before bridge renumbering.
+Add a '--live' option to 'perf timechart' and 'ttimechart.py' that streams
+live scheduler, power, or I/O (-I/--io-only) events from a 'perf record'
+subprocess over a pipe and displays them in the Textual TUI with a rolling
+time window (--window, default 10s), pause/resume via the control pipe, an
+optional workload after '--' that stops recording when it exits, and
+optional output recording (-o), along with headless shell tests in
+test_ttimechart_python.sh.
 
-Reported-by: Reza Nikzad Chaleshori <rezanikzadch@gmail.com>
-Closes: https://lore.kernel.org/amd-gfx/20261014080523.186533-1-rezanikzadch@gmail.com/
-Fixes: 11c141672045f ("drm/amdgpu: Fix VFCT bus number matching with soft filter")
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 ++++++++++-------------
- 1 file changed, 10 insertions(+), 13 deletions(-)
+Assisted-by: Antigravity:gemini-3.1-pro
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-index 08ed1eb695586..0ee4c6462c4d0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-@@ -386,16 +386,17 @@ static bool amdgpu_read_disabled_bios(struct amdgpu_device *adev)
-  * VFCT entries contain the PCI bus number as recorded during BIOS POST.
-  * On systems where the kernel renumbers PCI buses (e.g. pci=realloc or
-  * resource conflicts), the runtime bus number may differ from the POST
-- * value.  Match by device identity (vendor + device + function) and use
-- * the bus number as a preference: exact bus match is preferred, but when
-- * the bus numbers disagree we accept the entry if the device identity
-- * matches.
-+ * value.  Match using the bus number captured when the device was
-+ * discovered, before any bus renumbering.
-  *
-  * Returns: 0 on match, -ENODEV on no match
-  */
- static int amdgpu_acpi_vfct_match(struct amdgpu_device *adev,
- 				  VFCT_IMAGE_HEADER *vhdr)
- {
-+	struct pci_dev *bridge = adev->pdev->bus->self;
-+	unsigned char initial_bus;
-+
- 	/* Vendor and device IDs must always match */
- 	if (vhdr->VendorID != adev->pdev->vendor ||
- 	    vhdr->DeviceID != adev->pdev->device)
-@@ -405,16 +406,12 @@ static int amdgpu_acpi_vfct_match(struct amdgpu_device *adev,
- 	    vhdr->PCIFunction != PCI_FUNC(adev->pdev->devfn))
- 		return -ENODEV;
- 
--	/* Exact bus number match - preferred */
--	if (vhdr->PCIBus == adev->pdev->bus->number)
--		return 0;
-+	if (bridge && bridge->fw_sec_bus_valid)
-+		initial_bus = bridge->fw_sec_busnr;
-+	else
-+		initial_bus = adev->pdev->bus->number;
- 
--	/* Bus mismatch but device identity matches (PCI renumbering case) */
--	dev_notice(adev->dev,
--		   "VFCT bus number mismatch: table %u != runtime %u, matching by device identity (vendor 0x%04x device 0x%04x)\n",
--		   vhdr->PCIBus, adev->pdev->bus->number,
--		   adev->pdev->vendor, adev->pdev->device);
--	return 0;
-+	return vhdr->PCIBus == initial_bus ? 0 : -ENODEV;
- }
- 
- static bool amdgpu_acpi_vfct_bios(struct amdgpu_device *adev)
+v6: Rebase onto perf-tools-next and address Sashiko review feedback:
+    - Patch 1: Queue pause/resume gap timestamps in a deque so rapid
+      pause/resume cycles before buffered events arrive still close
+      pre-pause open task and CPU states at each gap.
+    - Patch 1: Increment nr_samples inside TimechartData.lock and check/update
+      refreshed_samples in the same lock acquisition as checkpoint() in
+      live_refresh() so final buffered events aren't missed when paused.
+    - Patch 1: Keep cursor following in sync when zooming in/out, resetting
+      zoom with '0' after moving the cursor, or jumping to a waker ('w').
+    - Patch 1: Filter out all threads of ttimechart.py (via comm) and the
+      child perf record process (via $$) on syscall tracepoints in --live -I
+      mode, and ignore filtered I/O events before counting nr_samples.
+    - Patch 1: Track record boundaries in LiveRecorder's pipe pump and emit a
+      synthetic PERF_RECORD_FINISHED_ROUND when perf record goes idle or
+      pauses so ordered_events does not hold back the latest round.
+    - Patch 1: Always drain perf record's stdout on stop so perf record can
+      flush and terminate its workload cleanly without blocking on pipe writes,
+      and kill its process group if wait times out.
+    - Patch 2: Gate the LiveRecorder task-clock subtest on system-wide
+      task-clock permissions so unprivileged runs under perf_event_paranoid > 0
+      skip cleanly, and add synthetic tests for multiple pause gaps, round
+      tracking, and cursor following.
+    v5: https://lore.kernel.org/linux-perf-users/20261023054952.2503540-1-irogers@google.com/
+
+v5: Address Sashiko review feedback:
+    - Patch 1: Always record system wide, as 'perf timechart record'
+      does, as switches into a task and idle states aren't seen by
+      per-task events when only a workload was recorded.
+    - Patch 1: Don't move a task's state start back before its recorded
+      history when its switch out and back in were lost, which inflated
+      its running time.
+    - Patch 1: Serialize LiveRecorder.stop() calls from the UI thread and
+      the thread processing events.
+    - Patch 2: Only run the live recording test when scheduler events can
+      be recorded system wide.
+    v4: https://lore.kernel.org/linux-perf-users/20261023050207.2449976-1-irogers@google.com/
+
+v4: Address Sashiko review feedback on patch 1:
+    - Don't prune live history past the last event, so open states aren't
+      lost when no events arrive for a window, and don't count a still
+      running task's open segment as a switch.
+    - Keep showing the window at the end of recording, rather than jumping
+      back to already pruned history, and prune events flushed as perf
+      record exits.
+    - Close open task, CPU and I/O states when resuming after a pause,
+      rather than extending them across the unrecorded gap, and close the
+      running task when a switch away from it was lost.
+    - Stop perf record and close the files and pipes if
+      LiveRecorder.start() fails after starting it, and close the data pipe
+      read ends in LiveRecorder.stop().
+    v3: https://lore.kernel.org/linux-perf-users/20261023041819.2361900-1-irogers@google.com/
+
+v3: Address Sashiko review feedback:
+    - Patch 1: Explicitly include <string.h> in builtin-timechart.c.
+    - Patch 1: Reject non-finite --window values (e.g. 'inf') that
+      overflowed converting to nanoseconds.
+    - Patch 2: Stop the fake recorder in a try/finally in the synthetic
+      live UI test so a failed check can't leave its background thread
+      running and hang the test.
+    Rebase onto the latest perf-tools-next.
+    v2: https://lore.kernel.org/linux-perf-users/20261014042249.2379829-1-irogers@google.com/
+
+v2: Rebase the remaining 2 patches onto perf-tools-next after patches 1-11
+    of v1 were merged.
+
+Alice Rogers (2):
+  perf timechart: Add a --live mode to the TUI
+  perf test: Test perf timechart --live
+
+ tools/perf/Documentation/perf-timechart.txt   |   20 +-
+ tools/perf/builtin-timechart.c                |   80 +-
+ tools/perf/python/ttimechart.py               | 1232 +++++++++++++++--
+ .../tests/shell/test_ttimechart_python.sh     |  355 +++++
+ 4 files changed, 1590 insertions(+), 97 deletions(-)
 
 -- 
-2.43.0
+2.56.1.703.gf848ed807c-goog
 
