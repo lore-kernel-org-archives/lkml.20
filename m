@@ -1,54 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.182.113.132
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501884;
-	b=ObPM2AMWcJykcgZ4CjvpbqhIOUz0CMq30Yabpy4R8EgrWpNjZRwAW58QasmCb9D5Q31N
-	 WhkGv1iENWR13o6qa5BeexG2xd02Ky2li17sLPZeLkXso3Z0UBT3NPdr5Ud+tBMlGLUf4
-	 xDwx6ULnD1f1jblx4xa7QOB7eARN44uweibMvL29TUcT/pxiPwMkjH/gyNLBaZfncNuvk
-	 EvoRJ6EsShe+VVun5pqRuV0ejLE3uL5gnEsu5Ojskzu6/cVyvDQxv5zJah737S8V9AZLz
-	 td6uHuV+dG2jLjVMI+XuwWVuHH0jtyH0BqDmaFyGS1dqL5mOsRjP/V1kKLQL0an9p9w==
+	t=1794501892;
+	b=LFhY3i2gcF1e0K3LfjijBzCMpftPqHe3tPzJHhtSdNdhu6UlNZO+CSr2PK5GEnDaytM5
+	 SQoAl13RleRB0ru2H//4juihUBWtZtawqyQ6dxC+lve3T+zh3AoZ09Iyb3dSvf6o3r+Ea
+	 G45q7/SERtnYaFPIW11TnOXZ5G0NNEBNE7FcHFfNNo419jbX0eqSjxfzRZkLkBK1KpBn/
+	 9yP6QLJWL05ZvRaXghdf9IN2yQQxRo0FxZJuSMXXx4AJXMYT5OfvjY7nulNXw1mc4xbsy
+	 YF3NfMw/+nyEnKAhTIdSV4YSzMQrz7cOTyYPgGGICDixFgaSUojELwI7PxKhuz6npAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501884;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=wH/2gBEdpxp8UBeVAcys5rd13wXemB1O143+nbBPh6o=;
-	b=K/WuciFlMcVTPfwnx/57vOXLCqXyJIgsKsaPfpuEfzuz7Jd1phkTX3IObRa5Oi4fI6ZH
-	 uyR2s3T5Hj8n/4eOrKI3jE4ej8jXPJ7O6F4p63DkO7sKiv8hDkTtiHKreCRiQjVjRE40v
-	 UPOTou/XC2+0AE77lvqSo7yxd/oDSFd83QVH5rqCJjkog9Qo0bgv7UVnrNyL2kbf4N9QA
-	 21E+DTM2TRk7qULtEIjL1Mg2xldkkypZ9MCeNPLIzjNLz/JigGMwN+IRjzUcXmnm6r7dx
-	 Ox/iAMSW4ZA4S6quhIhZsfuBPduOhotqTzO2/XJNZ2rvSLv/R9Sly+WgXNc7yi7sGhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501892;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:
+	 X-Spamd-Result:X-Rspamd-Action:X-Rspamd-Server;
+	bh=dFbMb8AE6Yw9DziHA4r7D3bkKIOzfPramIwPHQ+C3N4=;
+	b=vFKrVql0UFiZaM04g0pDdOstsnXvIpTz/oEes42mBbPKW3g0YN7/oU0ZxYOzYSf1jDU1
+	 BnivZnhZGeoc76husL5yo4bucxPisGWZHBDTA34N+8wx3d/0COWawdPatxb0qFHbbwe4v
+	 QmWuDXic8cmpRZCAA2AGOEMP0x3WZ/iue9OYcPosFXoIA9VnLO7IsHpzAQ5Txm1jn7S3m
+	 17UcA9G0IWJxhN2V/C65VcNAaHXwnr5cktRCY46wv20fLlWh4nJrCNvvAq/Nx1MEsSVwW
+	 QRVD4DC1ROrHPvI752L9Njuzv3JSfkzWBQb+gDSEQqpZR3qoY6JLRmz6Q0thPzdzfwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KQnClF0U;
-	arc=none smtp.remote-ip=91.218.175.46
-Received: from mta0.migadu.com (out-46.mta0.migadu.com [91.218.175.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=aosc.io;
+	spf=pass smtp.mailfrom=aosc.io;
+	dkim=pass header.d=aosc.io header.i=@aosc.io header.a=rsa-sha256 header.s=default header.b=mxHObK1L;
+	arc=none smtp.remote-ip=217.182.113.132
+Received: from relay2.mymailcheap.com (relay2.mymailcheap.com [217.182.113.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 293E9606A88B
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:44:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 293E9606A88B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AE2E606A32E;
+	Thu, 12 Nov 2026 16:44:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AE2E606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aosc.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aosc.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KQnClF0U
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yuRDaN/g6NhM222+4RRlCyCrWE0jFiozuoxcmO1nhMk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794501880; v=1; x=1795106680;
- b=KQnClF0U6aNVHl2emoF/U+SxdQmy4deR4rBHqtjlPsesMwQQC2VHjO553AYBMamYl5KYF2/k
- jipr8HO7Alqe4k8pm652MU+V+t5PfsvLPHiQNEcc6CshiEB7uzQ5Wxn8F3JnMxE8nZef/lADEME
- xyB8aMGk9Bocmd8bWsvfcndA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 50b709560c217e5f;
-	Thu, 12 Nov 2026 16:44:40 +0000
-X-Mizu-Trace-ID: 50b709560c217e5f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <7ffdabc6-27f3-440b-97e6-94c7f66c807a@linux.dev>
-Date: Fri, 13 Nov 2026 00:44:28 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=aosc.io header.i=@aosc.io header.a=rsa-sha256 header.s=default header.b=mxHObK1L
+Received: from nf2.mymailcheap.com (nf2.mymailcheap.com [54.39.180.165])
+	by relay2.mymailcheap.com (Postfix) with ESMTPS id 5FE1F3E89F;
+	Thu, 12 Nov 2026 16:44:44 +0000 (UTC)
+Received: from mail20.mymailcheap.com (mail20.mymailcheap.com [51.38.223.107])
+	by nf2.mymailcheap.com (Postfix) with ESMTPSA id 10762400EE;
+	Thu, 12 Nov 2026 16:44:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aosc.io; s=default;
+	t=1794501878; bh=dFbMb8AE6Yw9DziHA4r7D3bkKIOzfPramIwPHQ+C3N4=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
+	b=mxHObK1L/yKmRdMyPGn8PagqYJTC/hVNYOHGYs347oIUZWf5hlZUtx/psXbnAY4rj
+	 LI5RIVyMxGghcOJ/LqVz6kKy/x5btKOt3cGRfzi5vLgkZnMd+AfH1LRQZpv8D/Fkw/
+	 bybDniU4gN5GfVtkO3Sblm8CgQCdd7+BkXgxurow=
+Received: from [192.168.13.5] (pool-108-27-76-52.nycmny.fios.verizon.net [108.27.76.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by mail20.mymailcheap.com (Postfix) with ESMTPSA id 3B02FE1E52;
+	Thu, 12 Nov 2026 16:44:31 +0000 (UTC)
+Message-ID: <9a26c741-6217-4155-a3dc-e34b4015f71c@aosc.io>
+Date: Fri, 13 Nov 2026 00:44:27 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,140 +64,83 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 00/39] sysctl: replace overloaded extra pointers with
- typed bounds and context
-To: Joel Granados <joel.granados@kernel.org>
-Cc: David Laight <david.laight.linux@gmail.com>,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <cover.1793204511.git.wen.yang@linux.dev>
- <20261029105837.2f8bee67@pumpkin>
- <0316f664-d98c-43be-92af-13c30436727a@linux.dev> <au85ISJ2qUsB7y-6@hobbes>
- <20261107170507.0d66cc2e@pumpkin> <avGVyB9erjZl8zIO@hobbes>
- <e3c7bf98-64f9-4c29-b300-f54b7a4813d0@linux.dev> <avRVHIx-6nA1mP2F@hobbes>
-Content-Language: en-US
-From: Wen Yang <wen.yang@linux.dev>
-In-Reply-To: <avRVHIx-6nA1mP2F@hobbes>
+From: Neko <neko205@aosc.io>
+Subject: Re: [PATCH] platform/x86: bitland-mifs-wmi: Add Redmi G 2022 (TM2135)
+ quirk
+To: Yun Wang <7z0423arsenova@proton.me>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mingyou Chen <qby140326@gmail.com>, Ilya Gladyshev
+ <ilya.gladyshev@linux.dev>, Armin Wolf <W_Armin@gmx.de>,
+ Chris Taraszka <chris@miget.com>, kexybiscuit@aosc.io, jeffbai@aosc.io
+References: <20261106143114.95008-1-7z0423arsenova@proton.me>
+In-Reply-To: <20261106143114.95008-1-7z0423arsenova@proton.me>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 10762400EE
+X-Spamd-Result: default: False [-0.30 / 10.00];
+	R_SPF_ALLOW(-0.10)[+mx];
+	MIME_GOOD(-0.10)[text/plain];
+	R_DKIM_ALLOW(-0.10)[aosc.io:s=default];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+	ARC_NA(0.00)[];
+	RCVD_COUNT_ONE(0.00)[1];
+	ASN(0.00)[asn:16276, ipnet:51.38.0.0/16, country:FR];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DMARC_POLICY_ALLOW(0.00)[aosc.io,quarantine];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	R_DKIM_ALIGNED(0.00)[strict];
+	RCVD_TLS_ALL(0.00)[];
+	LOCAL_OUTBOUND(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com,linux.dev,gmx.de,miget.com,aosc.io];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	DKIM_TRACE(0.00)[aosc.io:+]
+X-Rspamd-Action: no action
+X-Rspamd-Server: nf2.mymailcheap.com
 
+Hi Yun,
 
-
-On 11/11/26 19:55, Joel Granados wrote:
-> On Wed, Nov 11, 2026 at 01:45:15AM +0800, Wen Yang wrote:
->>
->>
->> On 11/9/26 18:07, Joel Granados wrote:
->>> On Sat, Nov 07, 2026 at 05:05:07PM +0000, David Laight wrote:
->>>> On Sat, 7 Nov 2026 16:27:39 +0100
->>>> Joel Granados <joel.granados@kernel.org> wrote:
->>>>
->>>>> On Mon, Nov 02, 2026 at 11:40:40PM +0800, Wen Yang wrote:
->>>>>>
->>>>>>
->>>>>> On 10/29/26 18:58, David Laight wrote:
->>>>>>> On Thu, 29 Oct 2026 00:34:39 +0800
->>>>>>> wen.yang@linux.dev wrote:
->>>>>>>> From: Wen Yang <wen.yang@linux.dev>
->>>>>>>>
->>>>>>>> struct ctl_table describes an entry with data, maxlen and, until this
->>>>>>>> series, two untyped misc pointers in extra1 and extra2. Those two pointers
->>>>>>>> have accumulated at least seven unrelated jobs: a fixed bound, a bound read
->>>>>>>> through a pointer on every call, an object or namespace pointer, a small
->>>>>>>> integer cookie encoded into the pointer, a lock signal, NULL standing for
->>>>>>>> "no bound", and a value the core itself casts to unsigned int while
->>>>>>>> validating a u8 range. Nothing in the entry says which job applies, so
->>>>>>>> readers infer it from the handler, and the core gets it wrong where it
->>>>>>>> treats extra1 as an unsigned int.
->>>>> <--- snip --->
-> <--- snip --->
->>    for (i = 0; i < head->ctl_table_size; i++) {
->>            entry = sysctl_entry_at(head, i);
->>            node = &head->node[i];
->>            ...
->>    }
->>
->> Insertion/deletion would take the node directly. Readdir would retain
->> its RB-tree node cursor, recovering each entry through that node's header:
->>
->>      entry = sysctl_entry_at(node->header, node - node->header->node);
->>
->> No entry - head->ctl_table, caller slot constants or per-slot wrappers.
->> RB-tree order remains unchanged. Old APIs and generated directory/link
->> tables use sizeof(struct ctl_table).
->>
->> The two mechanisms have existing precedents:
->>
->>    /* include/linux/bsearch.h: explicit element size */
->>    pivot = base + (num >> 1) * size;
->>    result = cmp(key, pivot);
->>
->>    /* include/linux/hwmon-sysfs.h: extended descriptor */
->>    struct sensor_device_attribute {
->>            struct device_attribute dev_attr;
->>            int index;
->>    };
->>
->>    /* drivers/hwmon/adcxx.c: ordinary device_attribute callback */
->>    const struct sensor_device_attribute *attr = to_sensor_dev_attr(devattr);
->>
->> hwmon registers &ad_input[i].dev_attr via device_create_file(); the core
->> passes that same base descriptor to the callback. These are precedents
->> for explicit-size traversal and embedded callback context separately,
->> not an existing strided sysctl registration API.
->>
->> I agree that my fixed-slot solution adds maintenance overhead. Would
->> it make sense to explore this in three small steps?
->>
->>    1. Entry-access helpers, unchanged packed layout.
->>    2. Header stride and compatible registration wrappers.
->>    3. nf_log conversion and code/memory comparison.
->>
->> I would appreciate your thoughts on whether this is worth pursuing.
+在 2026/11/6 22:33, Yun Wang 写道:
+> The Redmi G 2022 (board TM2135, BIOS RMGAD6T0P1313) implements only
+> three modes: 0x02 for quiet, 0x01 for balanced and 0x03 for performance.
+> The default profile table maps balanced to 0x00, but this firmware
+> recognizes it as the performance mode. Because the firmware does not
+> implement the AC adapter type query, setting balanced-performance or
+> performance fails with -ENODATA.
 > 
-> Hey Wen
+> Add a DMI entry with a three-entry profile table for this model and
+> enable skip_ac_type_check. 0x04 is not used for performance: writing it
+> succeeds and the value reads back as 0x04, but in three test runs on
+> 7.2.11 the firmware did not emit WMI event 0x16, which it emits after
+> every other mode change. The Fn+K hotkey also cycles only through the
+> three modes above.
 > 
-> Without a series, it is hard to see how everything fits. Maybe you can
-> send out an RFC with just the changes to the sysctl core and one or two
-> examples of how it would be used in the more involved users.
+> Tested on this machine with this patch and the series it depends on,
+> built as an out-of-tree module and loaded on a 7.2.14 kernel. Writing
+> low-power, balanced, and performance succeeds, the profile reads back
+> correctly, and the firmware emits one 0x16 event for each (values 2, 1,
+> and 3). Writing balanced-performance is rejected, and Fn+K cycles
+> through low-power, balanced, and performance.
 > 
-> The rest of the users can be "vibe coded" (so it compiles) and put into
-> one big commit that we will ignore for the first RFC. Just so we get a
-> clear idea of what you mean.
+> Claude Code (claude-opus-5-5) analyzed the ACPI tables, wrote the test
+> scripts, specified the change and corrected this changelog. I wrote the
+> code and the changelog and ran the tests on this machine.
 > 
-> Tell me what you think
-> 
+> Link: https://lore.kernel.org/platform-driver-x86/OT2JfRLDi6yHShYvywRZoFBYdW-TUgdKqKtahRM5b0cZxNo6eGZHnO5dKf4oYFaEtZhEsqU-Q-2OFe0D-qToJMVUrS5_d2aa2Q5LD50ISIc=@proton.me/
+> Link: https://lore.kernel.org/all/BelDdF5woNEBX6dZ3_zJDEbVkifs1pdxEjtQ1yC-aKyZahijFJCllxm0l_SqZ5Hsj61D8wfJNa7uDSuNKmyyxo2S0tZp9QS5yaafeZUxvxE=@proton.me/
+> Suggested-by: Mingyou Chen <qby140326@gmail.com>
+> Signed-off-by: Yun Wang <7z0423arsenova@proton.me>
 
-Thanks.
+I have tested this patch on my Redmi G 2022 (board model TM2135) and 
+have confirmed that I can now switch between "performance", "balanced", 
+and "power-saver" power profiles via the KDE power manager tray.
 
-That makes total sense. I will prepare a focused RFC series based on
-the next-20261111 structured as follows:
+Stress testing with s-tui also shows different power draw under 
+different profiles.
 
-Patch 1: sysctl: add numeric bounds and core stride infrastructure
-(ctl_table_stride in header, sysctl_entry_at(), register_*_stride())
-
-Patch 2: sysctl: cover numeric bounds and table containers in KUnit
-
-Patch 3: netfilter: embed logger sysctl context using stride
-(demonstrates the use of container_of(), and also eliminating some 
-wrapper functions)
-
-Patch 4: net/ipv4: embed device sysctl context using stride
-(demonstrates the use of container_of(), and also eliminating some 
-wrapper functions)
-
-Patch 5: scripts/coccinelle: add script to detect and convert sysctl bounds
-(provides automatic conversion and proves that no extra1/extra2 fields 
-remain)
-
-
-The ctl_table_stride and type are packed as u16 in struct 
-ctl_table_header, yielding zero size increas.
-
-I will send out this v2 RFC shortly for review.
-
-
-
---
-Best wishes,
-Wen
-
+Tested-by: Yu Pan <neko205@aosc.io>
