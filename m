@@ -1,111 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492289;
-	b=14pfrWXFg0xNqvTZc/a1h3tI7Lg+WLiZNgpSgiCEL1cO3zp+zMMO8OZD6fJHPNAP5172
-	 T5gZ7JApctNQyME6S3ao8aAqpyCuCWPAI+PFSHb8omjbV7199cr88yfEsiXBad/2Mk72O
-	 WcDTmq9k84E1kHUYgdos8oen4kYdSMFjB8qzLhBxM8rlF7RSa5xv27AS/lKe6vExaRLwm
-	 sv5SrJUMDMR1DcazIVOcUIO6V9P89SyA77zLQOtf7lNONyUPNU8E4RgNDsa89+n3+plbB
-	 LaZ5WyjIQRfC9YodA7qsPvQ2Epsh5bEC60vuHV0PkVTBCQISIXTlux88HZaOMeJug3w==
+	t=1794492306;
+	b=xel/2uOvTGJ50L9jvAlJJtZdbFsZsEEvu0jzHFp4bnj2ij/ni0lhmRyp2oNz2P9+Knyc
+	 56uO/YQfcF30wXcq29lqI56Gc6W+vHybWpdebc0Mz5KK3dDULldX++y6hMMXb3kR74uDD
+	 gPaaxdUoGgGtOdI3K/E0uID4JcXofeEQBGvoQtO9PhJoO+BiXKkddIUcyai73TVkJXGT7
+	 VOXgCY6bcRxPdFAqstcXHZd69JDzMpLGhF3gc7OW73IxVF3ys42Pm7LBSPdbw8vr1SMTl
+	 8Yl6pN9xfacrVjDvI2r3rDV9VOj8grsdeDuVXO0Pt5W2C1E5ZUaETEM73TizWl9QT7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492289;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=/tAXn9HhhI5i2xRr+VsFOZh/OUH+m9OqcmYc0kEYn+s=;
-	b=s2lJNg6oJ0kMTqmNN+vc261YpwrhScNIiyHC2dlK6BO206xV6/oklyLpoZpIW/fT2rnZ
-	 3SRvs62QZfc1En+1YnCjZWPgZfKOWyBfLc0iJQVq/lndOs1to99QvWbfNulBpJ0B1RZaG
-	 pE1skjyBxZ1A6SfMpabhL6i3YfskeCo5caK9VNxtwGHtGPEVtf3L+eiogKYg41E8QcB4K
-	 auf6cuJc2RXpzjJtL554HFKJqD3Y9a58UU/Kg+HCiFOHtZ9fMH/mQ/dvNxW+IhBxdO9cb
-	 bg4RoW5V5AjiaJaK3deEbB1X0vHhwU4is+QPLM9a0vRZYx/gos1k3Qg8KvAkXCRkI/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492306;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-SRS-Rewrite;
+	bh=gm0yD+b5i2lQ4S3U6RnsGtdY0rSarSOxzGrXaSrcCqU=;
+	b=jzYg6pfrWJo+LkY7r8jj+yK61DWLqjwqs8Xuno+SQ+G5VNltEGSN30Pg8MDKIM9hHMKb
+	 WK05a1RX/4VmcHFo4eOWIL7jHb/OV1CKat5YGwxLkSarnRZ7Bxtgy7d/AXeQqtOSCZl0I
+	 B9pjsHQw+E1SIYLQoyGVTyWTHwAvf7vWFnm2r5/PSHmY/SQB9QVSXAdtESG1ZV3asmOR2
+	 rZbTZpUeGiGgXDYRHmK2Ys3QOllVrt5MkeS4vjZar0Jcjpm9ZbU7JW/2UIKgd4id/Oh0A
+	 /8kMLkq5zzxBpuYUVnmgA29xIcdwhLsI0ppmrp9Ad6A3v/Z5+gLmmYm0/a3Zp/ELZNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=h6epGYND;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=E1F13uXq;
-	arc=none smtp.remote-ip=202.12.124.158
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=bombadil.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=FNIhJ8Yd;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A88B606AEAB
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:04:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A88B606AEAB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C5A7606A331;
+	Thu, 12 Nov 2026 14:05:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C5A7606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=h6epGYND;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=E1F13uXq
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id C14D07A0151
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:04:48 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 12 Nov 2026 09:04:48 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794492281;
-	 x=1794578681; bh=/tAXn9HhhI5i2xRr+VsFOZh/OUH+m9OqcmYc0kEYn+s=; b=
-	h6epGYNDiXOZ0U54jmhcFmhr9liTv0S3e/4nsnTQfdZmBFJGFRaPsxgpJKPUpAk1
-	man4juZ+v7SfR72SVe3i5cfcS0G7NL3QkvZTt+0piUTA2wTEghZ7hXd9p0RBPABG
-	5vhk1MBr3ULBoO0fTV4xpy4d/uBlLl/WFzoCs379XjgTDVtHfTWujuvdYu9H5pow
-	2mXvdrxvo6BhDIXhZTTx/bO3Exp+PlvP7cK/DsGo9hy9sNUO0aoE67RezRNBDEZt
-	Kasby90AUwr7/BWv+b6YVD+uqy69CBR415lbcTs4A9hLDdoP+N+5GcejR9XDXDhW
-	w0ADKq6QwhGjXMVmZTHlJQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794492281; x=
-	1794578681; bh=/tAXn9HhhI5i2xRr+VsFOZh/OUH+m9OqcmYc0kEYn+s=; b=E
-	1F13uXqZUsWP9ERbcmBRauF4vI+GEx2BkuRQNzoes0ataedMZtzqTjRBbAf7LabK
-	6WDlDw915yi5GTALoa6bso7Dz4Pc0J9qUX9MgVn/kt3l+Lah3AavR6rBwmaTmSf1
-	/Dkgzk8DNWALFs+mQR3HrIKBuWVqz/5oa9tJ3ZgIgjiHGDvTqNr6BNpbQqqJor89
-	huWf3aFIMMPKU8muFWmaNaWYC1XeD81vPT0o1Ohqq1cIEcM1xxKA2Xzx7q+SLPfa
-	QKwNqZZeCSI8o3vbKYTqsjy8jI/z1G4n6JK8HUwDxqK0p+GX20y40nbDpuam5VaR
-	ofEDJNS4lNkRVhiMiG7mA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794492281; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:hO0+/BLdjFwMy+PpPaKdpd9qYYJYX5lgasvGh3U/8LNfpWF
-	o4qhdBdDAmYt17cVe/QZub53hfPUncw6dCJUwpfAA7c6sLIARu5Ks/LhtZoPcCIV
-	w/UdEfxB+RX+odNfKWR40WC4XUn0z3Q2eqgmxRr8SO2E0ZDeeCw/Yz4dWA6LUT2v
-	R07OYlKXXM+ufWPC63T36z+rIV/8mQwVXEJ22EI9MrNVaMXucOQfryDVj4LWsLRK
-	KOxNXG9gWZc6lt2/Rn5NlUffMlu6vhBij5ujueahWHipjfnXJ9iqGaJu66r2k6hu
-	fjQTut/mIETtmcRRxFxck/4GNlBedB+ne4qb7AQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:yhBWo2F8Mg0lXsgAAiDFBLboJONwipmeaHVibNlXcm4=:/tAXn9HhhI5i2xRr+VsFOZh/OUH+m9OqcmYc0kEYn+s=;
-X-ME-Sender: <xms:dcf1ap4UN1N1sYgm98NrBR9yMo43zP8zWJHt_KoCCUEsCOixwmXvbA>
-    <xme:dcf1ahuPMMxteh0vrY0B4rNvmUkFDIN65y7XQAlfVmsmWslILsr3sEP7InMBsBFGj
-    jbDb_lVhqrDpul3WXu1CnFH6muk8Of_T9-Lj4BHAQuKYb3qH8sFKJ4o>
-X-ME-Proxy-Cause: dmFkZTEraX544mQ4uwFvdzCIHZ/nHTECZ1d9wNRCoCeA56HdTpiTyq3xSVAqiNV3X35/Z+
-    dDXXwTcNSzIAJs5fwRvM3QaBeQigOW0u7sEAgv9lxlziJXvg6CryNer7nVzhQF8juyj+aa
-    hRvH/YxuTpd4mrkR5o5OwzbwL4nDwtcuGyVhfjrnAyzbXG69muhVoQHXlcEoD8wQmkGr28
-    VnetKWGF/1sn1HHrJB+F7J5TcmgHftJ59BVNmRvt+ttOpu2zJ8WeAveF1srqK9/1pU1bv9
-    kQRD8+Jeqc9KbjeuF/GwuTL1cm0gvom1BFAQUMXqfIfM0hlgHFgzSKueKw1YJR40jKF1Kv
-    1gxoiF0Xcg0X8YKBTOnVVdwZbEx7LTkcAo9TDrv5CmdIwZlhYabltHnf1TXjhEhFJ7mRh9
-    CsavwvhJzZQje+YI9kWh/F4c3Byqi+Lh9cZ94FgydIu4K98FIU4bAF8yVVBQpwEVNFNrcV
-    /Y8BolSDQx3UwXNXakz2fAlRJjSjz7Bcqoa/DazJqLfFkM9i0bZDaW55ekxupA1FzMDwsX
-    2fYIe3mnx8s7qWJWF4kH37tOLKz6HQ9xmLTk66yk1/H2bO8Wqfi47UDgWnfhstGrZNWee4
-    lE+sM2ptnn48DlRfenKAM500y06BMwBdjQDEM2nKvqkQ7fX1p3NjqkZSZqcQ
-X-ME-Proxy: <xmx:d8f1anI4GyahBTQZsMiQINwhNdinl3W9pXUuBsnor0nDZiOGnXqGHA>
-    <xmx:d8f1arzkSPTEAgh1hwjM-z_KEXo1JI1bT0cQNqGONl2t3IaIjdm0hA>
-    <xmx:d8f1aq0bbLxprs1Ax6j_YjKbqVlZDjcm0WcWdgsV6Z2ubsV4AScf_Q>
-    <xmx:d8f1ak9BDP92Kq051cUj7-aWz23-e42FFO7yN9MbetviFDBx2VwM2g>
-    <xmx:ecf1aqEH4wnb05YC4zON_rcfe3sxx7jDz8fsDVXV3sknS5Vvne6Dwq7a>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 2DC8932A009E; Thu, 12 Nov 2026 09:04:37 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=FNIhJ8Yd
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=gm0yD+b5i2lQ4S3U6RnsGtdY0rSarSOxzGrXaSrcCqU=; b=FNIhJ8Yd+rPA68tNaBn1bvsrVL
+	QGdSdTOerA0MuiihHZaafACfUyEUOXSFoH0O8uPYxqf334x9R31KQ8mDRgW6G/a3txNzYTisY7znZ
+	gLWwHRS3tm0MEr8cmz2vqmX1vvozyn/BHNcgMHeG+u1tE62wb4haUepSUIi2EenfPCpvottzrnBH7
+	zfggO6QOAIZUAvuUlLWdFbt6pUT0xoTgc3k+QKomC89L8TGHFLxNdHHHwRc8W9UTGKcQHtmwtg7rB
+	PZ0TooGkYOpcW+lHiv4sEgtes+suhizIZiPw2KY9gRdCzOkBs671/nbTCjjXdrmUOhXLhTPP6hp0q
+	tZPt8iwg==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRVQF-0000000ABIV-41qr;
+	Thu, 12 Nov 2026 14:05:04 +0000
+Date: Thu, 12 Nov 2026 06:05:03 -0800
+From: Christoph Hellwig <hch@infradead.org>
+To: Qiliang Yuan <qiliang.yuan@linux.dev>
+Cc: Jens Axboe <axboe@kernel.dk>, Damien Le Moal <dlemoal@kernel.org>,
+	Ming Lei <tom.leiming@gmail.com>,
+	Nilay Shroff <nilay@linux.ibm.com>, Hannes Reinecke <hare@suse.de>,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] block: return early when the elevator doesn't change
+Message-ID: <avXHj1CXuNzXC8Ye@infradead.org>
+References: <20261111-bug-block-elevator-unchanged-v1-0-583198bd4e21@linux.dev>
+ <20261111-bug-block-elevator-unchanged-v1-2-583198bd4e21@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,34 +66,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AtwnaRLwEjKw
-Date: Thu, 12 Nov 2026 15:04:16 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- "Masami Hiramatsu" <mhiramat@kernel.org>
-Cc: "Christian Brauner" <brauner@kernel.org>, linux-kernel@vger.kernel.org,
- linux-kbuild@vger.kernel.org, kernel-dev@igalia.com,
- "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>,
- linux-alpha@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
- linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
-Message-Id: <b580eaab-100f-4375-a8df-7d1f4c751cbc@app.fastmail.com>
-In-Reply-To: <20261105-tonyk-syscall_table-v9-13-8d1275885d9c@igalia.com>
-References: <20261105-tonyk-syscall_table-v9-0-8d1275885d9c@igalia.com>
- <20261105-tonyk-syscall_table-v9-13-8d1275885d9c@igalia.com>
-Subject: Re: [PATCH v9 13/15] syscalls: Avoid matching substrings in the ABI parsing
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-bug-block-elevator-unchanged-v1-2-583198bd4e21@linux.dev>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On Thu, Nov 5, 2026, at 21:05, Andr=C3=A9 Almeida wrote:
-> Currently, the abi parsing for grep will match substrings. For instanc=
-e, an
-> ABI called `abc` will match also the ABI called `abcde`. Use the space
-> limiter to match a complete word and avoid matching substrings.
->
-> While here, add a true command in the end of grep command to avoid the
-> script exiting earlier and being able to do the cleanup.
->
-> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+On Wed, Nov 11, 2026 at 10:00:59PM -0500, Qiliang Yuan wrote:
+> Writing the scheduler a queue already uses to queue/scheduler used to
+> be a no-op. elevator_change() now only checks for an unchanged elevator
+> after freezing the queue, and doesn't treat "none" on a queue without
+> an elevator as unchanged at all, so that case also quiesces the queue
+> in elevator_switch() and resets nr_requests.
+> 
+> Every such write therefore drains in-flight I/O and waits for an RCU
+> grace period. udev rules and tuning tools that set the scheduler
+> unconditionally stall I/O on live disks each time they run.
+> 
+> Check under elevator_lock whether anything would change before
+> allocating scheduler resources and freezing the queue. Elevator changes
+> of a queue are already serialized by QUEUE_FLAG_NO_ELV_SWITCH,
+> registration and update_nr_hwq_lock, so drop the check under the freeze.
+> 
+> Writing the current scheduler to queue/scheduler of a null_blk disk 20
+> times takes (median):
+> 
+>   operation                 before (ms)  after (ms)  change
+>   none -> none                     9.06        0.08    -99%
+>   mq-deadline -> mq-deadline       9.14        0.08    -99%
+> 
+> 4k random reads at queue depth 1 for 10 seconds, while "none" is
+> written to queue/scheduler every 50 ms:
+> 
+>   metric             before  after  change
+>   IOPS               342609 395915    +16%
+>   max latency (us)    10839    978    -91%
+> 
+> Fixes: b07a889e83355 ("block: move q->sysfs_lock and queue-freeze under show/store method")
+> Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
+> ---
+>  block/elevator.c | 17 +++++++++++++++--
+>  1 file changed, 15 insertions(+), 2 deletions(-)
+> 
+> diff --git a/block/elevator.c b/block/elevator.c
+> index 9d9b2e84a1288..979203f518ada 100644
+> --- a/block/elevator.c
+> +++ b/block/elevator.c
+> @@ -654,10 +654,24 @@ static int elevator_change(struct request_queue *q, struct elv_change_ctx *ctx)
+>  {
+>  	unsigned int memflags;
+>  	struct blk_mq_tag_set *set = q->tag_set;
+> +	bool unchanged;
+>  	int ret = 0;
+>  
+>  	lockdep_assert_held(&set->update_nr_hwq_lock);
+>  
+> +	/*
+> +	 * Callers serialize elevator changes of this queue, so q->elevator is
+> +	 * stable here. Skip freezing the queue if nothing would change.
+> +	 */
+> +	mutex_lock(&q->elevator_lock);
+> +	if (q->elevator)
+> +		unchanged = elevator_match(q->elevator->type, ctx->name);
+> +	else
+> +		unchanged = !strncmp(ctx->name, "none", 4);
+> +	mutex_unlock(&q->elevator_lock);
+> +	if (unchanged)
+> +		return 0;
 
-Acked-by: Arnd Bergmann <arnd@arndb.de>
+Strictly speaking this is racy with another thread changing the
+elevator.  I don't think we actually care about that, but maybe
+add a comment to that effect?
+
+> +
+>  	if (strncmp(ctx->name, "none", 4)) {
+
+>  		ret = blk_mq_alloc_sched_res(q, ctx->type, &ctx->res,
+>  				set->nr_hw_queues);
+> @@ -677,8 +691,7 @@ static int elevator_change(struct request_queue *q, struct elv_change_ctx *ctx)
+>  	 */
+>  	blk_mq_cancel_work_sync(q);
+>  	mutex_lock(&q->elevator_lock);
+> -	if (!(q->elevator && elevator_match(q->elevator->type, ctx->name)))
+> -		ret = elevator_switch(q, ctx);
+> +	ret = elevator_switch(q, ctx);
+
+However, the raciness means we still need to keep this check I think.
+
