@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794473241;
-	b=OxdRKrTh5z0JHSYW3n6bmt7B+VouGo+LbNztWdeBUQUSkfX0XIB8ECsejUJYjzsjT8jW
-	 iF95TfeqCSgeZllNbL7J38psvRlWyU7urBSPhG+1hHmUFbUdIDhdJd0z7nOd8kETDtPo6
-	 rnVMsZkI5W1C1VGPpaf6qsZqvhkCfae2LEoa8NSROaQblB+3f9XlkSRVsUujC+MYw+IoA
-	 Yp4fH4lFpGL6gpyYMkO5p3pEUOI+zDw5sAkH3X3bHAW/NdXGuQkyD6S0tpTFRlZpWzLfk
-	 FE4wbC1Y/O2e/AZ48hJFHugnKjOGAGH8Aw5Z2JYMkNnjiYzd/rrKSl9wVpntMRkabmw==
+	b=XCHi9uURdtNAgXFThbkUcGJndKUWBXvat9RZUMUgXVlqP8q01ibDCDslBABOt+lOxOk9
+	 m8g/nAawufHMF3lBB6bdtBreL2rBYVL8SulQqQkxhd4ilWK7QlCdntzBXKesZOD+ZuqeI
+	 KK5RmFBdfIR4On2neh/tm2D9opkOl6UzfRvJZc6gbJ6Xt55gx0CuYIHwLN8Au/cW1g2cU
+	 t6iI5FvFgiwf5j8hI5g0OO6XafZfSI/qUtSYt/BaVuPtDHtomK9mb9lZViJLy6bSG7veS
+	 g52XhwrzclF6PKtZGRp0n81hTNXj2q3j0AX+07CMiqhWSk0nFsCO4yAT+QLwnZtpqBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794473241;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=1VDEqX8wptrPa+MlIxN0mJ7pAhvdJM8PxwbyoIOntSY=;
-	b=puaUhVVT2yQKtO3wXXjXjlRypqOoeUFFMc9ocTrVivzlS05F4azJLJwtZSLCos6X8GFf
-	 IAMuzjRQ11hsvvi7y4J6o+wFhDkdFJf81RHltR2Ecm2t6BtalB4HaNMQP1jL1KCStYp04
-	 cjRFtXACEm3uxlYSCRneDdS5rnWQtsqr4aE8czBr65hUt4qShwxdINI3oNDzonaGw4T9A
-	 cGdAf/3hAeyo6pXn8PmLuS6P54Bld2Rhm4/i7YrvF7mFWgwqsLnDFIhaow5CEWjsv4XRt
-	 0/Kcqox7wBoVwuBFBfG+JYGH8VvO1QGbUvVr9z89q0rKxCGLhrT3ecI9VqHF+Sz/Zww==
+	bh=Dlfoyl/PNTchv0y4omRnvG+OAKiVZmibZ3F+a1EAsuw=;
+	b=iTjLC+EqLlqRgcv8xebe7oz3m53eEagJ4pf0TMxqtCTOvoPaXMhMKvlkHgaTz7UvRQgZ
+	 l8nBCGR4UxrzCzGpLESrTz3WlMeyAIqMRZNAvnFwOpWMfFsGPKo4MFPLp2hkHIIOgpbov
+	 r+gVGOr4arqQCDCbDcVo73y5ma8OFL5VvTf28w5xkUXF6pUW0nhn7bWo2hC8y8b1IW20a
+	 uV5lYzekf09OpF5sHyo9EBvzcbF4uj7+XHGFq2jt1zdr8Gfi3q4Zgj6PlBer+AvZwm9z2
+	 7VFgAS/bXhT9yl4r6tfQpN/4Sw8zFORn+LGbaR3jQuSqdmytg+KcHs2nl1TooSC8zLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.microsoft.com;
 	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=actKEw4x;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b="Q/q7SnKb";
 	arc=none smtp.remote-ip=13.77.154.182
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BE2CD606B597;
-	Thu, 12 Nov 2026 08:47:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE2CD606B597
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2D6D4606B72A;
+	Thu, 12 Nov 2026 08:47:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D6D4606B72A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=actKEw4x
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=Q/q7SnKb
 Received: by linux.microsoft.com (Postfix, from userid 1186)
-	id D9B1B20B716F; Thu, 12 Nov 2026 00:47:16 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com D9B1B20B716F
+	id F3A1120B7171; Thu, 12 Nov 2026 00:47:16 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com F3A1120B7171
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1794473236;
-	bh=1VDEqX8wptrPa+MlIxN0mJ7pAhvdJM8PxwbyoIOntSY=;
+	s=default; t=1794473237;
+	bh=Dlfoyl/PNTchv0y4omRnvG+OAKiVZmibZ3F+a1EAsuw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=actKEw4xhO0UJTBqQFIdPHueSl/SVy5UsyRamOo1Z1rj+jxYxM/4EZP7/eHwEv9aX
-	 kSxjoLBBcsxxmph/KndMGoatohV+hT3JirmCauu8aHad9hcbcEWimEpWq2a0vAGJi/
-	 h+ap+zjd7/JSv3gNBx24XHrAgnANwyaeuVnpnmuU=
+	b=Q/q7SnKbSzcQUhpDyUlML4oMF0MAalGgsJDXQ/24Zr1pNKW2MjHNluGiOpKIBNbWQ
+	 mzvAZxWC633NuBUXaf6a6EgNpKgAxV1adoHOpx6PkwCr5j/9hjsMfc6fv95hDoDDZr
+	 vy1cVVyC2tTRiH37xMb13HnqTHl9MW4V2z2mB94A=
 From: Konstantin Taranov <kotaranov@linux.microsoft.com>
 To: kotaranov@microsoft.com,
 	snsanghvi@microsoft.com,
@@ -48,9 +48,9 @@ To: kotaranov@microsoft.com,
 	leon@kernel.org
 Cc: linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH rdma-next v11 7/9] RDMA/mana_ib: Poll RC completions using PSN and FSN progress
-Date: Thu, 12 Nov 2026 00:47:14 -0800
-Message-ID: <20261112084716.1483342-8-kotaranov@linux.microsoft.com>
+Subject: [PATCH rdma-next v11 9/9] RDMA/mana_ib: Handle error CQEs for kernel QPs
+Date: Thu, 12 Nov 2026 00:47:16 -0800
+Message-ID: <20261112084716.1483342-10-kotaranov@linux.microsoft.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20261112084716.1483342-1-kotaranov@linux.microsoft.com>
 References: <20261112084716.1483342-1-kotaranov@linux.microsoft.com>
@@ -67,398 +67,697 @@ Content-Transfer-Encoding: 8bit
 
 From: Konstantin Taranov <kotaranov@microsoft.com>
 
-Decode RC receive completions, armed-PSN notifications, and MMQ
-completions. Retire requester and MMQ shadow entries using their
-sequence numbers, honor cross-queue fence dependencies, and suppress
-successful WCs for unsignaled work requests.
+Decode hardware error CQEs and process them on the corresponding work
+queue. Complete the failing shadow entry with the vendor status from
+the CQE.
 
-On an ARMED completion, rearm the next signal PSN to generate the next
-send CQE.
+Defer transitioning QPs to the ERR state so that the other work
+queues can be flushed. Complete software-flush setup even if the deferred
+ERR request fails, since the error CQE already guarantees whole QP
+shutdown.
 
-Retire acknowledged successful unsignaled WQEs even when the WC
-array is full, so they do not unnecessarily defer PSN rearming.
+Invalidate pending CQEs for a kernel QP during RESET by setting their
+QIDs to zero, and discard CQEs with a zero QID when polling. Before
+destroying a kernel QP, request RESET to stop it before cleaning up its
+CQEs.
+
+Mark deferred errors as pending when scheduling work to prevent stale
+work from moving a reset and reused QP to ERR.
 
 Signed-off-by: Konstantin Taranov <kotaranov@microsoft.com>
 ---
+v11:
+- Reset kernel QPs before destruction unless already in RESET or INIT.
+- Always clean CQEs and unlink CQ error-list entries during shutdown.
+- Keep shared-CQ cleanup under one uninterrupted CQ lock
 v9:
-- Retire acknowledged unsignaled WQEs and fence dependencies
-  even when the WC array is full.
-v4:
-- Assign wqe_size in shadow wqes for RC SEND/WRITE wrs
-- Report a missed-event hint for a cached CQE for arming CQ
-v3:
-- Mask arm_psn to 24 bits before ringing the requester doorbell.
+- Preserve unsignaled retirement as in patch 7 for successful WCs, but
+ require budget for failing WQEs.
+v7:
+- Schedule error work for GSI. Complete software-flush after an error CQE
+  even if the firmware ERR request fails. 
+v6:
+- Check fenced WQEs on error cqes to prevent flushing completed WQEs.
+- Add mana_ib_cq_clean on QP reset to discard stale CQEs. QID 0 is
+ an invalid value for RNIC and safe dor discarding.
+- Add error_pending flag to prevent deffered ERR request to error reset QPs.
+- Update commit message
+v2:
+- Flush error_work after draining QP references during teardown.
 
- drivers/infiniband/hw/mana/cq.c           | 158 +++++++++++++++++++++++++++---
- drivers/infiniband/hw/mana/mana_ib.h      |  31 ++++++
- drivers/infiniband/hw/mana/shadow_queue.h |  22 +++++
- drivers/infiniband/hw/mana/wr.c           |   3 +
- 4 files changed, 203 insertions(+), 11 deletions(-)
+ drivers/infiniband/hw/mana/cq.c      | 205 +++++++++++++++++++++++++++++++----
+ drivers/infiniband/hw/mana/mana_ib.h |  45 +++++++-
+ drivers/infiniband/hw/mana/qp.c      | 107 ++++++++++++++----
+ 3 files changed, 311 insertions(+), 46 deletions(-)
 
 diff --git a/drivers/infiniband/hw/mana/cq.c b/drivers/infiniband/hw/mana/cq.c
-index 3b8044b7dc8f..408dee5ad458 100644
+index cc519d3e42f4..945938c37be0 100644
 --- a/drivers/infiniband/hw/mana/cq.c
 +++ b/drivers/infiniband/hw/mana/cq.c
-@@ -5,6 +5,12 @@
+@@ -5,6 +5,8 @@
  
  #include "mana_ib.h"
  
-+#define PSN_SIGN_BIT 0x800000
-+#define PSN_GE(PSN1, PSN2) ((((PSN1) - (PSN2)) & PSN_SIGN_BIT) == 0)
-+#define PSN_GT(PSN1, PSN2) PSN_GE(PSN1, (PSN2) + 1)
-+#define PSN_LE(PSN1, PSN2) PSN_GE(PSN2, PSN1)
-+#define PSN_LT(PSN1, PSN2) PSN_GT(PSN2, PSN1)
++#define MANA_CQE_INVALID_QID 0
 +
- static enum ib_wc_status vendor_error_to_wc_error(uint32_t vendor_error)
- {
- 	switch (vendor_error) {
-@@ -277,15 +283,18 @@ int mana_ib_arm_cq(struct ib_cq *ibcq, enum ib_cq_notify_flags flags)
- 	struct mana_ib_cq *cq = container_of(ibcq, struct mana_ib_cq, ibcq);
- 	struct gdma_queue *gdma_cq = cq->queue.kmem;
- 	unsigned long irq_flags;
-+	bool missed = false;
- 
- 	if (!gdma_cq)
- 		return -EINVAL;
- 
- 	spin_lock_irqsave(&cq->cq_lock, irq_flags);
- 	mana_ib_cq_doorbell(cq, SET_ARM_BIT);
-+	if (flags & IB_CQ_REPORT_MISSED_EVENTS)
-+		missed = cq->has_pending_cqe;
- 	spin_unlock_irqrestore(&cq->cq_lock, irq_flags);
- 
--	return 0;
-+	return missed;
- }
- 
- struct mana_cq_poll {
-@@ -311,10 +320,10 @@ static struct ib_wc *mana_fill_wc(struct mana_ib_qp *qp,
- 	return wc;
- }
- 
--static void mana_complete_send(struct mana_ib_qp *qp,
-+static void mana_complete_send(struct mana_ib_qp *qp, bool mmq,
- 			       struct mana_cq_poll *poll, u32 vendor_error)
- {
--	struct shadow_queue *shadow = &qp->shadow_sq;
-+	struct shadow_queue *shadow = mmq ? &qp->shadow_mmq : &qp->shadow_sq;
- 	struct shadow_wqe_header *wqe = shadow_queue_get_next_to_consume(shadow);
- 	struct gdma_queue *queue;
- 
-@@ -324,8 +333,19 @@ static void mana_complete_send(struct mana_ib_qp *qp,
- 	if (vendor_error || !(wqe->flags & MANA_WQ_NO_SIGNAL_WC))
- 		mana_fill_wc(qp, poll, wqe, wqe->send_opcode, vendor_error);
- 
--	queue = mana_qp_get_sq(qp)->kmem;
--	queue->tail += wqe->wqe_size_in_bu;
-+	if (mmq) {
-+		queue = qp->rc_qp.queues[MANA_RC_SEND_QUEUE_MMQ].kmem;
-+		queue->tail += wqe->wqe_size_in_bu;
-+	} else {
-+		queue = mana_qp_get_sq(qp)->kmem;
-+		if (wqe->send_opcode == IB_WC_RDMA_READ) {
-+			qp->rc_qp.queues[MANA_RC_RECV_QUEUE_REQUESTER].kmem->tail +=
-+				wqe->wqe_size_in_bu;
-+			queue->tail += qp->rc_qp.wqe_size_in_bu;
-+		} else {
-+			queue->tail += wqe->wqe_size_in_bu;
-+		}
-+	}
- 	shadow_queue_advance_consumer(shadow);
- }
- 
-@@ -354,7 +374,7 @@ static void handle_ud_sq_cqe(struct mana_ib_qp *qp, struct mana_rdma_cqe *rdma_c
- 		return;
- 
- 	for (; to_complete; to_complete--)
--		mana_complete_send(qp, poll, VENDOR_ERR_OK);
-+		mana_complete_send(qp, false, poll, VENDOR_ERR_OK);
- }
- 
- static void handle_rq_cqe(struct mana_ib_qp *qp, struct gdma_comp *cqe,
-@@ -382,6 +402,21 @@ static void handle_rq_cqe(struct mana_ib_qp *qp, struct gdma_comp *cqe,
- 		wc->src_qp = rdma_cqe->ud_recv.src_qpn;
- 		wc->wc_flags |= IB_WC_GRH;
- 		break;
-+	case CQE_TYPE_RC_WRITE_IMM:
-+		wc->opcode = IB_WC_RECV_RDMA_WITH_IMM;
-+		fallthrough;
-+	case CQE_TYPE_RC_SEND_IMM:
-+		wc->wc_flags |= IB_WC_WITH_IMM;
-+		wc->ex.imm_data = cpu_to_be32(rdma_cqe->rc_recv.imm_data);
-+		fallthrough;
-+	case CQE_TYPE_RC_SEND:
-+		wc->byte_len = rdma_cqe->rc_recv.msg_len;
-+		break;
-+	case CQE_TYPE_RC_SEND_INV:
-+		wc->wc_flags |= IB_WC_WITH_INVALIDATE;
-+		wc->byte_len = rdma_cqe->rc_recv.msg_len;
-+		wc->ex.invalidate_rkey = rdma_cqe->rc_recv.imm_data;
-+		break;
+ #define PSN_SIGN_BIT 0x800000
+ #define PSN_GE(PSN1, PSN2) ((((PSN1) - (PSN2)) & PSN_SIGN_BIT) == 0)
+ #define PSN_GT(PSN1, PSN2) PSN_GE(PSN1, (PSN2) + 1)
+@@ -18,6 +20,7 @@ static enum ib_wc_status vendor_error_to_wc_error(uint32_t vendor_error)
+ 		return IB_WC_SUCCESS;
+ 	case VENDOR_ERR_RX_PKT_LEN:
+ 	case VENDOR_ERR_RX_MSG_LEN_OVFL:
++	case VENDOR_ERR_RX_READRESP_LEN_MISMATCH:
+ 		return IB_WC_LOC_LEN_ERR;
+ 	case VENDOR_ERR_TX_GDMA_CORRUPTED_WQE:
+ 	case VENDOR_ERR_TX_PCIE_WQE:
+@@ -37,12 +40,30 @@ static enum ib_wc_status vendor_error_to_wc_error(uint32_t vendor_error)
+ 	case VENDOR_ERR_TX_ATB_WQE_ACCESS_VIOLATION:
+ 	case VENDOR_ERR_TX_ATB_WQE_ADDR_RANGE:
+ 	case VENDOR_ERR_TX_ATB_WQE_CONFIG_ERR:
++	case VENDOR_ERR_TX_RDMA_ATB_CMD_MISS:
++	case VENDOR_ERR_TX_RDMA_ATB_CMD_IDX_ERROR:
++	case VENDOR_ERR_TX_RDMA_ATB_CMD_TAG_MISMATCH_ERROR:
++	case VENDOR_ERR_TX_RDMA_ATB_CMD_PDID_MISMATCH_ERROR:
++	case VENDOR_ERR_TX_RDMA_ATB_CMD_AR_ERROR:
++	case VENDOR_ERR_TX_RDMA_ATB_CMD_PT_OVF:
++	case VENDOR_ERR_TX_RDMA_ATB_CMD_PT_LENGHT_MISMATCH:
++	case VENDOR_ERR_TX_RDMA_ATB_CMD_ILLEGAL_CMD:
+ 	case VENDOR_ERR_RX_ATB_SGE_ADDR_RANGE:
+ 	case VENDOR_ERR_RX_ATB_SGE_MISSCONFIG:
+ 		return IB_WC_LOC_PROT_ERR;
+ 	case VENDOR_ERR_RX_ATB_SGE_ADDR_RIGHT:
+ 	case VENDOR_ERR_RX_GFID:
+ 		return IB_WC_LOC_ACCESS_ERR;
++	case VENDOR_ERR_RX_OP_REQ:
++		return IB_WC_REM_INV_REQ_ERR;
++	case VENDOR_ERR_RX_ATB_RKEY_MISCONFIG_ERR:
++	case VENDOR_ERR_RX_ATB_RKEY_ADDR_RIGHT:
++	case VENDOR_ERR_RX_ATB_RKEY_ADDR_RANGE:
++	case VENDOR_ERR_RX_REMOTE_ACCESS_NAK:
++		return IB_WC_REM_ACCESS_ERR;
++	case VENDOR_ERR_RX_INVALID_REQ_NAK:
++	case VENDOR_ERR_RX_REMOTE_OP_ERR_NAK:
++		return IB_WC_REM_OP_ERR;
+ 	case VENDOR_ERR_RX_MISBEHAVING_CLIENT:
+ 	case VENDOR_ERR_RX_CLIENT_ID:
+ 	case VENDOR_ERR_RX_PCIE:
+@@ -58,6 +79,10 @@ static enum ib_wc_status vendor_error_to_wc_error(uint32_t vendor_error)
+ 	case VENDOR_ERR_RX_NOT_EMPTY_ON_DISABLE:
+ 	case VENDOR_ERR_SW_FLUSHED:
+ 		return IB_WC_WR_FLUSH_ERR;
++	case VENDOR_ERR_TX_RETRY_LIMIT_EXCEEDED:
++		return IB_WC_RETRY_EXC_ERR;
++	case VENDOR_ERR_RX_RNR_NAK:
++		return IB_WC_RNR_RETRY_EXC_ERR;
  	default:
- 		break;
+ 		return IB_WC_GENERAL_ERR;
  	}
-@@ -390,17 +425,108 @@ static void handle_rq_cqe(struct mana_ib_qp *qp, struct gdma_comp *cqe,
- 	shadow_queue_advance_consumer(&qp->shadow_rq);
+@@ -235,19 +260,24 @@ void mana_ib_remove_cq_cb(struct mana_ib_dev *mdev, struct mana_ib_cq *cq)
+ 	gc->cq_table[cq->queue.id] = NULL;
  }
  
-+/*
-+ * A fenced WQE can acknowledge the other send queue. Retire those dependencies
-+ * first, without losing the fence when the caller's WC array fills up.
-+ */
-+static bool mana_advance_send(struct mana_ib_qp *qp, bool mmq, u32 seq,
-+			      struct mana_cq_poll *poll)
+-static inline bool gdma_cq_idx_produced(struct gdma_queue *gdma_cq, uint32_t idx)
++static struct gdma_cqe *mana_ib_get_cqe(struct gdma_queue *gdma_cq, u32 idx)
+ {
+ 	struct gdma_mem_info *gmi = &gdma_cq->mem_info;
+ 	u32 num_cqe = gdma_cq->queue_size / GDMA_CQE_SIZE;
+-	u32 expected_bits = (idx / num_cqe) & GDMA_CQE_OWNER_MASK;
+ 	u32 offset = (idx % num_cqe) * GDMA_CQE_SIZE;
+-	struct gdma_cqe *cqe;
+ 
+ 	if (gmi->nr_pages)
+-		cqe = gmi->pages_va[offset / PAGE_SIZE] +
+-		      (offset & (PAGE_SIZE - 1));
+-	else
+-		cqe = gdma_cq->queue_mem_ptr + offset;
++		return gmi->pages_va[offset / PAGE_SIZE] +
++		       (offset & (PAGE_SIZE - 1));
++
++	return gdma_cq->queue_mem_ptr + offset;
++}
++
++static inline bool gdma_cq_idx_produced(struct gdma_queue *gdma_cq, uint32_t idx)
 +{
-+	struct shadow_queue *shadow = mmq ? &qp->shadow_mmq : &qp->shadow_sq;
-+	struct shadow_queue *other = mmq ? &qp->shadow_sq : &qp->shadow_mmq;
-+	struct shadow_wqe_header *shadow_wqe;
++	u32 num_cqe = gdma_cq->queue_size / GDMA_CQE_SIZE;
++	u32 expected_bits = (idx / num_cqe) & GDMA_CQE_OWNER_MASK;
++	struct gdma_cqe *cqe = mana_ib_get_cqe(gdma_cq, idx);
+ 
+ 	return cqe->cqe_info.owner_bits == expected_bits;
+ }
+@@ -278,6 +308,42 @@ static inline void mana_ib_cq_doorbell(struct mana_ib_cq *cq, uint8_t arm)
+ 	mana_gd_wq_ring_doorbell_ext(mdev_to_gc(mdev), gdma_cq, idx, arm, 0);
+ }
+ 
++static bool mana_ib_cqe_matches_qp(struct mana_ib_qp *qp, u32 wq_num, bool is_sq)
++{
++	struct mana_ib_queue *wq = is_sq ? mana_qp_get_sq(qp) : mana_qp_get_rq(qp);
 +
-+	while ((shadow_wqe = shadow_queue_get_next_to_consume(shadow))) {
-+		if (PSN_LT(seq, mmq ? shadow_wqe->fsn : shadow_wqe->wqe_offset_or_psn))
++	return (wq_num & ~MANA_QID_SUBTYPE_MASK) == (wq->id & ~MANA_QID_SUBTYPE_MASK);
++}
++
++void mana_ib_cq_clean(struct mana_ib_cq *cq, struct mana_ib_qp *qp)
++{
++	struct gdma_queue *gdma_cq = cq->queue.kmem;
++	struct gdma_cqe *cqe;
++	u32 num_cqe, idx, i;
++
++	lockdep_assert_held(&cq->cq_lock);
++
++	if (!gdma_cq)
++		return;
++
++	if (cq->has_pending_cqe &&
++	    mana_ib_cqe_matches_qp(qp, cq->pending_cqe.wq_num, cq->pending_cqe.is_sq))
++		cq->has_pending_cqe = false;
++
++	num_cqe = gdma_cq->queue_size / GDMA_CQE_SIZE;
++	for (i = 0; i < num_cqe; i++) {
++		idx = gdma_cq->head + i;
++		if (!gdma_cq_idx_produced(gdma_cq, idx))
 +			break;
-+		if (shadow_wqe->flags & MANA_WQ_FENCE_WC) {
-+			u32 dependency = mmq ? shadow_wqe->wqe_offset_or_psn : shadow_wqe->fsn;
-+			struct shadow_wqe_header *other_wqe;
 +
-+			while ((other_wqe = shadow_queue_get_next_to_consume(other))) {
-+				if (PSN_LT(dependency, mmq ? other_wqe->wqe_offset_or_psn :
-+							     other_wqe->fsn))
-+					break;
-+				if (poll->produced == poll->budget &&
-+				    !(other_wqe->flags & MANA_WQ_NO_SIGNAL_WC))
-+					return false;
-+				mana_complete_send(qp, !mmq, poll, VENDOR_ERR_OK);
-+			}
-+		}
++		/* Read CQE contents only after observing their owner bits. */
++		rmb();
++		cqe = mana_ib_get_cqe(gdma_cq, idx);
++		if (mana_ib_cqe_matches_qp(qp, cqe->cqe_info.wq_num, cqe->cqe_info.is_sq))
++			cqe->cqe_info.wq_num = MANA_CQE_INVALID_QID;
++	}
++}
 +
+ static bool mana_ib_cq_has_flush_work(struct mana_ib_cq *cq)
+ {
+ 	struct mana_ib_qp *qp;
+@@ -452,31 +518,41 @@ static void handle_rq_cqe(struct mana_ib_qp *qp, struct gdma_comp *cqe,
+  * A fenced WQE can acknowledge the other send queue. Retire those dependencies
+  * first, without losing the fence when the caller's WC array fills up.
+  */
++static bool mana_complete_send_dependencies(struct mana_ib_qp *qp, bool mmq,
++					    const struct shadow_wqe_header *wqe,
++					    struct mana_cq_poll *poll)
++{
++	struct shadow_queue *other = mmq ? &qp->shadow_sq : &qp->shadow_mmq;
++	u32 dependency = mmq ? wqe->wqe_offset_or_psn : wqe->fsn;
++	struct shadow_wqe_header *other_wqe;
++
++	if (!(wqe->flags & MANA_WQ_FENCE_WC))
++		return true;
++
++	while ((other_wqe = shadow_queue_get_next_to_consume(other))) {
++		if (PSN_LT(dependency, mmq ? other_wqe->wqe_offset_or_psn :
++					  other_wqe->fsn))
++			break;
 +		if (poll->produced == poll->budget &&
-+		    !(shadow_wqe->flags & MANA_WQ_NO_SIGNAL_WC))
++		    !(other_wqe->flags & MANA_WQ_NO_SIGNAL_WC))
 +			return false;
-+
-+		mana_complete_send(qp, mmq, poll, VENDOR_ERR_OK);
++		mana_complete_send(qp, !mmq, poll, VENDOR_ERR_OK);
 +	}
 +
 +	return true;
 +}
 +
-+static bool handle_mmq_cqe(struct mana_ib_qp *qp, u32 fsn,
-+			   struct mana_cq_poll *poll)
+ static bool mana_advance_send(struct mana_ib_qp *qp, bool mmq, u32 seq,
+ 			      struct mana_cq_poll *poll)
+ {
+ 	struct shadow_queue *shadow = mmq ? &qp->shadow_mmq : &qp->shadow_sq;
+-	struct shadow_queue *other = mmq ? &qp->shadow_sq : &qp->shadow_mmq;
+ 	struct shadow_wqe_header *shadow_wqe;
+ 
+ 	while ((shadow_wqe = shadow_queue_get_next_to_consume(shadow))) {
+ 		if (PSN_LT(seq, mmq ? shadow_wqe->fsn : shadow_wqe->wqe_offset_or_psn))
+ 			break;
+-		if (shadow_wqe->flags & MANA_WQ_FENCE_WC) {
+-			u32 dependency = mmq ? shadow_wqe->wqe_offset_or_psn : shadow_wqe->fsn;
+-			struct shadow_wqe_header *other_wqe;
+-
+-			while ((other_wqe = shadow_queue_get_next_to_consume(other))) {
+-				if (PSN_LT(dependency, mmq ? other_wqe->wqe_offset_or_psn :
+-							     other_wqe->fsn))
+-					break;
+-				if (poll->produced == poll->budget &&
+-				    !(other_wqe->flags & MANA_WQ_NO_SIGNAL_WC))
+-					return false;
+-				mana_complete_send(qp, !mmq, poll, VENDOR_ERR_OK);
+-			}
+-		}
+-
++		if (!mana_complete_send_dependencies(qp, mmq, shadow_wqe, poll))
++			return false;
+ 		if (poll->produced == poll->budget &&
+ 		    !(shadow_wqe->flags & MANA_WQ_NO_SIGNAL_WC))
+ 			return false;
+@@ -519,6 +595,80 @@ static bool handle_psn_cqe(struct mana_ib_qp *qp, u32 psn,
+ 	return consumed;
+ }
+ 
++static bool mana_cqe_is_send(struct mana_ib_qp *qp, struct gdma_comp *cqe)
 +{
-+	return mana_advance_send(qp, true, fsn, poll);
-+}
-+
-+static bool handle_psn_cqe(struct mana_ib_qp *qp, u32 psn,
-+			   struct mana_cq_poll *poll)
-+{
-+	struct mana_ib_dev *mdev = container_of(qp->ibqp.device, struct mana_ib_dev, ib_dev);
-+	struct shadow_wqe_header *shadow_wqe;
-+	struct gdma_queue *recv_q;
-+	bool consumed;
-+	u32 arm_psn;
++	u32 qtype = cqe->wq_num & MANA_QID_SUBTYPE_MASK;
 +
 +	if (qp->ibqp.qp_type != IB_QPT_RC)
-+		return true;
++		return cqe->is_sq;
 +
-+	recv_q = qp->rc_qp.queues[MANA_RC_RECV_QUEUE_REQUESTER].kmem;
++	return cqe->is_sq ? (qtype == MANA_QID_SUBTYPE_SREQ ||
++			    qtype == MANA_QID_SUBTYPE_MMQ) :
++			    qtype == MANA_QID_SUBTYPE_RREQ;
++}
 +
-+	consumed = mana_advance_send(qp, false, psn, poll);
-+	if (consumed) {
-+		shadow_wqe = shadow_queue_get_next_to_signal(&qp->shadow_sq);
-+		arm_psn = shadow_wqe ? shadow_wqe->wqe_offset_or_psn : psn + 1;
-+		arm_psn &= MANA_WQE_OFFSET_MASK;
-+		mana_gd_wq_ring_doorbell_ext(mdev_to_gc(mdev), recv_q, arm_psn,
-+					     SET_ARM_BIT, MANA_PSN_CLIENT_OFFSET);
++static void mana_ib_schedule_qp_error(struct mana_ib_qp *qp)
++{
++	/* CQ polling cannot sleep; teardown drains this reference before freeing. */
++	atomic_set(&qp->error_pending, 1);
++	refcount_inc(&qp->refcount);
++	if (!schedule_work(&qp->error_work))
++		mana_put_qp_ref(qp);
++}
++
++static bool handle_error_cqe(struct mana_ib_cq *cq, struct mana_ib_qp *qp,
++			     struct gdma_comp *cqe, struct mana_cq_poll *poll)
++{
++	bool mmq = cqe->is_sq && (cqe->wq_num & MANA_QID_SUBTYPE_MASK) == MANA_QID_SUBTYPE_MMQ;
++	struct mana_rdma_cqe *rdma_cqe = (struct mana_rdma_cqe *)cqe->cqe_data;
++	bool send = mana_cqe_is_send(qp, cqe);
++	u32 vendor_err = rdma_cqe->error.vendor_error;
++	struct shadow_wqe_header *shadow_wqe;
++	struct shadow_queue *shadow_q;
++
++	if (send && qp->ibqp.qp_type == IB_QPT_RC) {
++		/* The error PSN/FSN belongs to the failing WQE, not a success. */
++		if (!mana_advance_send(qp, mmq, rdma_cqe->error.psn - 1, poll))
++			return false;
++		if (poll->produced == poll->budget)
++			return false;
 +	}
 +
-+	return consumed;
++	if (!send)
++		shadow_q = &qp->shadow_rq;
++	else if (mmq)
++		shadow_q = &qp->shadow_mmq;
++	else
++		shadow_q = &qp->shadow_sq;
++
++	shadow_wqe = shadow_queue_get_next_to_consume(shadow_q);
++	if (shadow_wqe) {
++		if (send) {
++			if (!mana_complete_send_dependencies(qp, mmq, shadow_wqe, poll))
++				return false;
++			if (poll->produced == poll->budget)
++				return false;
++
++			mana_complete_send(qp, mmq, poll, vendor_err);
++		} else {
++			mana_fill_wc(qp, poll, shadow_wqe, IB_WC_RECV, vendor_err);
++			shadow_queue_advance_consumer(shadow_q);
++		}
++	}
++
++	/* Hardware has stopped DMA for the queues flushed below. */
++	if (send) {
++		if (list_empty(&qp->send_err_node))
++			list_add_tail(&qp->send_err_node, &cq->send_err_qp_list);
++	} else {
++		if (list_empty(&qp->recv_err_node))
++			list_add_tail(&qp->recv_err_node, &cq->recv_err_qp_list);
++	}
++	mana_ib_schedule_qp_error(qp);
++
++	return true;
 +}
 +
-+static bool next_shadow_wqe_is_sq(struct shadow_wqe_header *shadow_wqe_sq,
-+				  struct shadow_wqe_header *shadow_wqe_mq)
-+{
-+	if (!shadow_wqe_mq)
-+		return true;
-+
-+	if (!shadow_wqe_sq)
-+		return false;
-+
-+	return (PSN_LE(shadow_wqe_sq->wqe_offset_or_psn, shadow_wqe_mq->wqe_offset_or_psn) &&
-+		PSN_LE(shadow_wqe_sq->fsn, shadow_wqe_mq->fsn));
-+}
-+
- static bool mana_handle_cqe(struct mana_ib_cq *cq, struct mana_ib_dev *mdev,
- 			    struct mana_cq_poll *poll)
+ static bool next_shadow_wqe_is_sq(struct shadow_wqe_header *shadow_wqe_sq,
+ 				  struct shadow_wqe_header *shadow_wqe_mq)
+ {
+@@ -537,9 +687,13 @@ static bool mana_handle_cqe(struct mana_ib_cq *cq, struct mana_ib_dev *mdev,
  {
  	struct gdma_comp *cqe = &cq->pending_cqe;
  	struct mana_rdma_cqe *rdma_cqe = (struct mana_rdma_cqe *)cqe->cqe_data;
- 	struct mana_ib_qp *qp = mana_get_qp_ref(mdev, cqe->wq_num, cqe->is_sq);
-+	bool consumed = true;
+-	struct mana_ib_qp *qp = mana_get_qp_ref(mdev, cqe->wq_num, cqe->is_sq);
++	struct mana_ib_qp *qp;
+ 	bool consumed = true;
  
++	if (cqe->wq_num == MANA_CQE_INVALID_QID)
++		return true;
++
++	qp = mana_get_qp_ref(mdev, cqe->wq_num, cqe->is_sq);
  	if (!qp)
  		return true;
  
- 	switch (rdma_cqe->cqe_type) {
-+	case CQE_TYPE_ARMED_CMPL:
-+		consumed = handle_psn_cqe(qp, rdma_cqe->rc_armed_completion.psn, poll);
-+		break;
-+	case CQE_TYPE_LWR:
-+		consumed = handle_mmq_cqe(qp, rdma_cqe->rc_mm.fsn, poll);
+@@ -550,6 +704,9 @@ static bool mana_handle_cqe(struct mana_ib_cq *cq, struct mana_ib_dev *mdev,
+ 	case CQE_TYPE_LWR:
+ 		consumed = handle_mmq_cqe(qp, rdma_cqe->rc_mm.fsn, poll);
+ 		break;
++	case CQE_TYPE_ERROR:
++		consumed = handle_error_cqe(cq, qp, cqe, poll);
 +		break;
  	case CQE_TYPE_UD_SEND:
  		if (cqe->is_sq) {
  			handle_ud_sq_cqe(qp, rdma_cqe, poll);
-@@ -408,6 +534,10 @@ static bool mana_handle_cqe(struct mana_ib_cq *cq, struct mana_ib_dev *mdev,
- 		}
- 		fallthrough;
- 	case CQE_TYPE_UD_SEND_IMM:
-+	case CQE_TYPE_RC_SEND:
-+	case CQE_TYPE_RC_SEND_IMM:
-+	case CQE_TYPE_RC_SEND_INV:
-+	case CQE_TYPE_RC_WRITE_IMM:
- 		handle_rq_cqe(qp, cqe, poll);
- 		break;
- 	default:
-@@ -416,21 +546,27 @@ static bool mana_handle_cqe(struct mana_ib_cq *cq, struct mana_ib_dev *mdev,
- 		break;
- 	}
- 	mana_put_qp_ref(qp);
--	return true;
-+	return consumed;
- }
- 
- static void mana_flush_completions(struct mana_ib_cq *cq, struct mana_cq_poll *poll)
- {
--	struct shadow_wqe_header *wqe;
-+	struct shadow_wqe_header *sq_wqe, *mmq_wqe, *wqe;
- 	struct mana_ib_qp *qp;
-+	bool next_is_sq;
- 
- 	if (poll->produced >= poll->budget)
- 		return;
- 
- 	list_for_each_entry(qp, &cq->send_err_qp_list, send_err_node) {
--		while (poll->produced < poll->budget &&
--		       shadow_queue_get_next_to_consume(&qp->shadow_sq))
--			mana_complete_send(qp, poll, VENDOR_ERR_SW_FLUSHED);
-+		while (poll->produced < poll->budget) {
-+			sq_wqe = shadow_queue_get_next_to_consume(&qp->shadow_sq);
-+			mmq_wqe = shadow_queue_get_next_to_consume(&qp->shadow_mmq);
-+			if (!sq_wqe && !mmq_wqe)
-+				break;
-+			next_is_sq = next_shadow_wqe_is_sq(sq_wqe, mmq_wqe);
-+			mana_complete_send(qp, !next_is_sq, poll, VENDOR_ERR_SW_FLUSHED);
-+		}
- 		if (poll->produced == poll->budget)
- 			return;
- 	}
 diff --git a/drivers/infiniband/hw/mana/mana_ib.h b/drivers/infiniband/hw/mana/mana_ib.h
-index 6f8feab9b90f..ef20ec0ec77b 100644
+index ef20ec0ec77b..d39d57d0a207 100644
 --- a/drivers/infiniband/hw/mana/mana_ib.h
 +++ b/drivers/infiniband/hw/mana/mana_ib.h
-@@ -689,6 +689,12 @@ enum mana_ib_error_code {
- enum mana_ib_cqe_type {
- 	CQE_TYPE_UD_SEND = 1,
- 	CQE_TYPE_UD_SEND_IMM = 2,
-+	CQE_TYPE_RC_SEND = 3,
-+	CQE_TYPE_RC_SEND_IMM = 4,
-+	CQE_TYPE_RC_SEND_INV = 5,
-+	CQE_TYPE_RC_WRITE_IMM = 6,
-+	CQE_TYPE_ARMED_CMPL = 7,
-+	CQE_TYPE_LWR = 8,
+@@ -11,7 +11,9 @@
+ #include <rdma/iter.h>
+ #include <rdma/mana-abi.h>
+ #include <rdma/uverbs_ioctl.h>
++#include <linux/atomic.h>
+ #include <linux/dmapool.h>
++#include <linux/workqueue.h>
+ 
+ #include <net/mana/mana.h>
+ #include "shadow_queue.h"
+@@ -33,6 +35,11 @@
+ /* Queue ID encodes type in the lower 2 bits */
+ #define MANA_QID_SUBTYPE_MASK 0x3
+ 
++#define MANA_QID_SUBTYPE_SREQ 0x0
++#define MANA_QID_SUBTYPE_MMQ 0x2
++#define MANA_QID_SUBTYPE_RRESP 0x0
++#define MANA_QID_SUBTYPE_RREQ 0x1
++
+ /*
+  * The hardware limit of number of MRs is greater than maximum number of MRs
+  * that can possibly represent in 24 bits
+@@ -270,14 +277,17 @@ struct mana_ib_qp {
+ 	u16 sq_rsn;
+ 	bool pending_mmq_fence;
+ 	bool sq_sig_all;
++	bool is_stopped;
+ 	enum ib_mtu mtu;
+ 
+ 	/* Serializes receive WR posting. */
+ 	spinlock_t rq_lock;
+ 	/* Serializes send and memory-management WR posting. */
+ 	spinlock_t sq_lock;
+-	/* Serializes QP modification and error-list transitions. */
++	/* Serializes QP modification and deferred error work. */
+ 	struct mutex modify_lock;
++	struct work_struct error_work;
++	atomic_t error_pending;
+ 
+ 	struct list_head send_err_node;
+ 	struct list_head recv_err_node;
+@@ -646,20 +656,30 @@ struct rdma_recv_oob {
+ 
+ enum mana_ib_error_code {
+ 	VENDOR_ERR_OK					= 0x0,
++	VENDOR_ERR_RX_OP_REQ                            = 0x03,
+ 	VENDOR_ERR_RX_PKT_LEN                           = 0x05,
++	VENDOR_ERR_RX_ATB_RKEY_MISCONFIG_ERR            = 0x43,
++	VENDOR_ERR_RX_ATB_RKEY_ADDR_RIGHT               = 0x83,
++	VENDOR_ERR_RX_ATB_RKEY_ADDR_RANGE               = 0xc3,
+ 	VENDOR_ERR_RX_MSG_LEN_OVFL                      = 0x102,
+ 	VENDOR_ERR_RX_MISBEHAVING_CLIENT                = 0x108,
+ 	VENDOR_ERR_RX_MALFORMED_WQE                     = 0x109,
+ 	VENDOR_ERR_RX_CLIENT_ID                         = 0x10a,
+ 	VENDOR_ERR_RX_GFID                              = 0x10b,
++	VENDOR_ERR_RX_READRESP_LEN_MISMATCH             = 0x10f,
+ 	VENDOR_ERR_RX_PCIE                              = 0x10c,
+ 	VENDOR_ERR_RX_NO_AVAIL_WQE                      = 0x111,
+ 	VENDOR_ERR_RX_ATB_SGE_MISSCONFIG                = 0x143,
+ 	VENDOR_ERR_RX_ATB_WQE_MISCONFIG                 = 0x145,
++	VENDOR_ERR_RX_INVALID_REQ_NAK                   = 0x161,
++	VENDOR_ERR_RX_REMOTE_ACCESS_NAK                 = 0x162,
++	VENDOR_ERR_RX_REMOTE_OP_ERR_NAK                 = 0x163,
++	VENDOR_ERR_RX_RNR_NAK                           = 0x164,
+ 	VENDOR_ERR_RX_ATB_SGE_ADDR_RIGHT                = 0x183,
+ 	VENDOR_ERR_RX_ATB_WQE_ADDR_RIGHT                = 0x185,
+ 	VENDOR_ERR_RX_ATB_SGE_ADDR_RANGE                = 0x1c3,
+ 	VENDOR_ERR_RX_ATB_WQE_ADDR_RANGE                = 0x1c5,
++	VENDOR_ERR_TX_RETRY_LIMIT_EXCEEDED              = 0x1c6,
+ 	VENDOR_ERR_RX_NOT_EMPTY_ON_DISABLE              = 0x1c7,
+ 	VENDOR_ERR_TX_GDMA_CORRUPTED_WQE                = 0x201,
+ 	VENDOR_ERR_TX_ATB_WQE_ACCESS_VIOLATION          = 0x202,
+@@ -681,6 +701,14 @@ enum mana_ib_error_code {
+ 	VENDOR_ERR_TX_RDMA_WQE_LEN_ERR                  = 0x216,
+ 	VENDOR_ERR_TX_RDMA_MTU_ERR                      = 0x217,
+ 	VENDOR_ERR_TX_RDMA_VFID_MISMATCH                = 0x218,
++	VENDOR_ERR_TX_RDMA_ATB_CMD_MISS                 = 0x220,
++	VENDOR_ERR_TX_RDMA_ATB_CMD_IDX_ERROR            = 0x221,
++	VENDOR_ERR_TX_RDMA_ATB_CMD_TAG_MISMATCH_ERROR   = 0x222,
++	VENDOR_ERR_TX_RDMA_ATB_CMD_PDID_MISMATCH_ERROR  = 0x223,
++	VENDOR_ERR_TX_RDMA_ATB_CMD_AR_ERROR             = 0x224,
++	VENDOR_ERR_TX_RDMA_ATB_CMD_PT_OVF               = 0x225,
++	VENDOR_ERR_TX_RDMA_ATB_CMD_PT_LENGHT_MISMATCH   = 0x226,
++	VENDOR_ERR_TX_RDMA_ATB_CMD_ILLEGAL_CMD          = 0x227,
+ 	VENDOR_ERR_HW_MAX                               = 0x3ff,
+ 	/* SW vendor errors */
+ 	VENDOR_ERR_SW_FLUSHED				= 0xfff,
+@@ -695,6 +723,7 @@ enum mana_ib_cqe_type {
+ 	CQE_TYPE_RC_WRITE_IMM = 6,
+ 	CQE_TYPE_ARMED_CMPL = 7,
+ 	CQE_TYPE_LWR = 8,
++	CQE_TYPE_ERROR = 34,
  }; /* HW DATA */
  
  struct mana_rdma_cqe {
-@@ -712,6 +718,31 @@ struct mana_rdma_cqe {
+@@ -727,6 +756,19 @@ struct mana_rdma_cqe {
  			u32 imm_data;
  			u32 rx_wqe_offset;
- 		} ud_recv;
+ 		} rc_recv;
 +		struct {
 +			u32 cqe_type		: 8;
-+			u32 reserved1		: 24;
-+			u32 msg_len;
-+			u32 psn			: 24;
-+			u32 reserved2		: 8;
-+			u32 imm_data;
-+			u32 rx_wqe_offset;
-+		} rc_recv;
-+		struct {
-+			u32 cqe_type		: 8;
-+			u32 reserved1		: 24;
++			u32 vendor_error	: 10;
++			u32 reserved1		: 14;
 +			u32 msn			: 24;
 +			u32 syndrome		: 8;
 +			u32 psn			: 24;
++			u32 opcode		: 8;
++			u32 rsp_msn		: 24;
 +			u32 reserved2		: 8;
-+		} rc_armed_completion;
-+		struct {
-+			u32 cqe_type		: 8;
-+			u32 reserved1		: 24;
-+			u32 psn			: 24;
-+			u32 reserved2		: 8;
-+			u32 fsn			: 24;
++			u32 rsp_psn		: 24;
 +			u32 reserved3		: 8;
-+		} rc_mm;
- 	};
- }; /* HW DATA */
++		} error;
+ 		struct {
+ 			u32 cqe_type		: 8;
+ 			u32 reserved1		: 24;
+@@ -1024,6 +1066,7 @@ int mana_ib_post_send(struct ib_qp *ibqp, const struct ib_send_wr *wr,
+ void mana_drain_gsi_sqs(struct mana_ib_dev *mdev);
+ int mana_ib_poll_cq(struct ib_cq *ibcq, int num_entries, struct ib_wc *wc);
+ int mana_ib_arm_cq(struct ib_cq *ibcq, enum ib_cq_notify_flags flags);
++void mana_ib_cq_clean(struct mana_ib_cq *cq, struct mana_ib_qp *qp);
  
-diff --git a/drivers/infiniband/hw/mana/shadow_queue.h b/drivers/infiniband/hw/mana/shadow_queue.h
-index b5d6bb28bd45..9abf390cf3a3 100644
---- a/drivers/infiniband/hw/mana/shadow_queue.h
-+++ b/drivers/infiniband/hw/mana/shadow_queue.h
-@@ -26,6 +26,8 @@ struct shadow_queue {
- 	u64 prod_idx;
- 	/* Unmasked consumer index, Incremented on cq polling */
- 	u64 cons_idx;
-+	/* Unmasked index of next-to-signal shadow WQE */
-+	u64 next_to_signal_idx;
- 	/* queue size in wqes */
- 	u32 length;
- 	/* distance between elements in bytes */
-@@ -50,6 +52,7 @@ static inline void reset_shadow_queue(struct shadow_queue *queue)
+ int mana_ib_alloc_mw(struct ib_mw *mw, struct ib_udata *udata);
+ int mana_ib_dealloc_mw(struct ib_mw *mw);
+diff --git a/drivers/infiniband/hw/mana/qp.c b/drivers/infiniband/hw/mana/qp.c
+index cebd88a5a19d..bd508a3f19be 100644
+--- a/drivers/infiniband/hw/mana/qp.c
++++ b/drivers/infiniband/hw/mana/qp.c
+@@ -5,6 +5,8 @@
+ 
+ #include "mana_ib.h"
+ 
++static void mana_ib_qp_error_work(struct work_struct *work);
++
+ static int mana_ib_cfg_vport_steering(struct mana_ib_dev *dev,
+ 				      struct net_device *ndev,
+ 				      mana_handle_t default_rxobj,
+@@ -518,6 +520,7 @@ static void mana_table_drain_qp_ref(struct mana_ib_qp *qp)
  {
- 	queue->prod_idx = 0;
- 	queue->cons_idx = 0;
-+	queue->next_to_signal_idx = 0;
+ 	mana_put_qp_ref(qp);
+ 	wait_for_completion(&qp->free);
++	flush_work(&qp->error_work);
  }
  
- static inline void destroy_shadow_queue(struct shadow_queue *queue)
-@@ -105,4 +108,23 @@ static inline void shadow_queue_advance_consumer(struct shadow_queue *queue)
- 	smp_store_release(&queue->cons_idx, queue->cons_idx + 1);
+ static int mana_table_store_qp_qid(struct mana_ib_dev *mdev, struct mana_ib_qp *qp,
+@@ -763,7 +766,7 @@ static void mana_add_qp_to_error_cqs(struct mana_ib_qp *qp)
+ 	spin_unlock_irqrestore(&recv_cq->cq_lock, flags);
  }
  
-+static inline struct shadow_wqe_header *
-+shadow_queue_get_next_to_signal(struct shadow_queue *queue)
-+{
-+	struct shadow_wqe_header *wqe = NULL;
-+	/* Inspect only entries that have been fully published by posting. */
-+	u64 prod_idx = smp_load_acquire(&queue->prod_idx);
-+
-+	queue->next_to_signal_idx = max(queue->next_to_signal_idx,
-+					queue->cons_idx);
-+	while (queue->next_to_signal_idx < prod_idx) {
-+		wqe = shadow_queue_get_element(queue, queue->next_to_signal_idx);
-+		queue->next_to_signal_idx++;
-+		if (!(wqe->flags & MANA_WQ_NO_SIGNAL_WC))
-+			return wqe;
+-static void mana_remove_qp_from_cqs(struct mana_ib_qp *qp, bool reset)
++static void mana_remove_qp_from_cqs(struct mana_ib_qp *qp)
+ {
+ 	struct mana_ib_cq *send_cq = container_of(qp->ibqp.send_cq, struct mana_ib_cq, ibcq);
+ 	struct mana_ib_cq *recv_cq = container_of(qp->ibqp.recv_cq, struct mana_ib_cq, ibcq);
+@@ -771,17 +774,18 @@ static void mana_remove_qp_from_cqs(struct mana_ib_qp *qp, bool reset)
+ 
+ 	spin_lock_irqsave(&send_cq->cq_lock, flags);
+ 	list_del_init(&qp->send_err_node);
++	mana_ib_cq_clean(send_cq, qp);
+ 	/* Keep shadow reset serialized with hardware polling and SW flushing. */
+-	if (reset) {
+-		reset_shadow_queue(&qp->shadow_sq);
+-		reset_shadow_queue(&qp->shadow_mmq);
+-	}
+-	spin_unlock_irqrestore(&send_cq->cq_lock, flags);
++	reset_shadow_queue(&qp->shadow_sq);
++	reset_shadow_queue(&qp->shadow_mmq);
+ 
+-	spin_lock_irqsave(&recv_cq->cq_lock, flags);
++	if (recv_cq != send_cq) {
++		spin_unlock_irqrestore(&send_cq->cq_lock, flags);
++		spin_lock_irqsave(&recv_cq->cq_lock, flags);
++		mana_ib_cq_clean(recv_cq, qp);
 +	}
+ 	list_del_init(&qp->recv_err_node);
+-	if (reset)
+-		reset_shadow_queue(&qp->shadow_rq);
++	reset_shadow_queue(&qp->shadow_rq);
+ 	spin_unlock_irqrestore(&recv_cq->cq_lock, flags);
+ }
+ 
+@@ -949,9 +953,12 @@ int mana_ib_create_qp(struct ib_qp *ibqp, struct ib_qp_init_attr *attr,
+ 	struct mana_ib_qp *qp = container_of(ibqp, struct mana_ib_qp, ibqp);
+ 
+ 	qp->sq_sig_all = attr->sq_sig_type == IB_SIGNAL_ALL_WR;
++	qp->is_stopped = true;
+ 	spin_lock_init(&qp->rq_lock);
+ 	spin_lock_init(&qp->sq_lock);
+ 	mutex_init(&qp->modify_lock);
++	INIT_WORK(&qp->error_work, mana_ib_qp_error_work);
++	atomic_set(&qp->error_pending, 0);
+ 	INIT_LIST_HEAD(&qp->send_err_node);
+ 	INIT_LIST_HEAD(&qp->recv_err_node);
+ 
+@@ -1070,16 +1077,21 @@ static bool mana_ib_modify_qp_state(struct ib_qp *ibqp, struct ib_qp_attr *attr,
+ 		qp->mtu = attr->path_mtu;
+ 
+ 	if (attr_mask & IB_QP_STATE) {
++		qp->is_stopped = attr->qp_state == IB_QPS_RESET ||
++				 attr->qp_state == IB_QPS_INIT;
 +
-+	return NULL;
+ 		switch (attr->qp_state) {
+ 		case IB_QPS_RESET:
+-			mana_remove_qp_from_cqs(qp, true);
++			mana_remove_qp_from_cqs(qp);
++			/* Both CQs are clean; no old CQE can queue another error. */
++			atomic_set(&qp->error_pending, 0);
+ 			break;
+-		default:
+-			break;
+-		}
+-		if (attr->qp_state == IB_QPS_ERR) {
++		case IB_QPS_ERR:
+ 			mana_add_qp_to_error_cqs(qp);
+ 			notify = true;
++			break;
++		default:
++			break;
+ 		}
+ 	}
+ 
+@@ -1112,22 +1124,35 @@ static void mana_ib_notify_error_cqs(struct mana_ib_qp *qp)
+ 		recv_cq->comp_handler(recv_cq, recv_cq->cq_context);
+ }
+ 
+-int mana_ib_modify_qp(struct ib_qp *ibqp, struct ib_qp_attr *attr,
+-		      int attr_mask, struct ib_udata *udata)
++enum mana_ib_qp_modify_reason {
++	MANA_IB_QP_MODIFY_VERBS,
++	MANA_IB_QP_MODIFY_ERROR_CQE,
++	MANA_IB_QP_MODIFY_SHUTDOWN,
++};
++
++static int mana_ib_modify_qp_common(struct ib_qp *ibqp, struct ib_qp_attr *attr,
++				    int attr_mask, struct ib_udata *udata,
++				    enum mana_ib_qp_modify_reason reason)
+ {
+ 	struct mana_ib_qp *qp = container_of(ibqp, struct mana_ib_qp, ibqp);
+ 	bool notify = false;
+-	int ret;
++	int ret = 0;
+ 
+ 	mutex_lock(&qp->modify_lock);
+ 
++	if (reason == MANA_IB_QP_MODIFY_ERROR_CQE && !atomic_xchg(&qp->error_pending, 0))
++		goto out_unlock;
++
++	if (reason == MANA_IB_QP_MODIFY_SHUTDOWN && qp->is_stopped)
++		goto modify_state;
++
+ 	switch (ibqp->qp_type) {
+ 	case IB_QPT_RC:
+ 	case IB_QPT_UC:
+ 	case IB_QPT_UD:
+ 	case IB_QPT_GSI:
+ 		ret = mana_ib_gd_modify_qp(ibqp, attr, attr_mask, udata);
+-		if (ret)
++		if (ret && reason == MANA_IB_QP_MODIFY_VERBS)
+ 			goto out_unlock;
+ 		break;
+ 	default:
+@@ -1135,6 +1160,7 @@ int mana_ib_modify_qp(struct ib_qp *ibqp, struct ib_qp_attr *attr,
+ 		goto out_unlock;
+ 	}
+ 
++modify_state:
+ 	notify = mana_ib_modify_qp_state(ibqp, attr, attr_mask, udata);
+ 
+ out_unlock:
+@@ -1146,6 +1172,45 @@ out_unlock:
+ 	return ret;
+ }
+ 
++int mana_ib_modify_qp(struct ib_qp *ibqp, struct ib_qp_attr *attr,
++		      int attr_mask, struct ib_udata *udata)
++{
++	return mana_ib_modify_qp_common(ibqp, attr, attr_mask, udata, MANA_IB_QP_MODIFY_VERBS);
 +}
 +
- #endif
-diff --git a/drivers/infiniband/hw/mana/wr.c b/drivers/infiniband/hw/mana/wr.c
-index e5e70e269166..366f9e11eff8 100644
---- a/drivers/infiniband/hw/mana/wr.c
-+++ b/drivers/infiniband/hw/mana/wr.c
-@@ -405,6 +405,9 @@ static int mana_ib_post_sq(struct mana_ib_qp *qp, const struct ib_send_wr *wr)
- 	if (err)
++static void mana_ib_qp_error_work(struct work_struct *work)
++{
++	struct mana_ib_qp *qp = container_of(work, struct mana_ib_qp, error_work);
++	struct ib_qp_attr attr = { .qp_state = IB_QPS_ERR };
++	int ret;
++
++	ret = mana_ib_modify_qp_common(&qp->ibqp, &attr, IB_QP_STATE, NULL,
++				       MANA_IB_QP_MODIFY_ERROR_CQE);
++	if (ret)
++		ibdev_err(qp->ibqp.device, "Failed to move QP %u to ERR: %d\n",
++			  qp->ibqp.qp_num, ret);
++
++	mana_put_qp_ref(qp);
++}
++
++static void mana_ib_shutdown_qp(struct mana_ib_qp *qp)
++{
++	struct ib_qp_attr attr = { .qp_state = IB_QPS_RESET };
++	int err;
++
++	if (qp->ibqp.uobject)
++		return;
++
++	/* mana_ib_modify_qp_common() calls mana_remove_qp_from_cqs() for kernel QPs
++	 * even if hardware RESET is skipped or fails.
++	 */
++	err = mana_ib_modify_qp_common(&qp->ibqp, &attr, IB_QP_STATE, NULL,
++				       MANA_IB_QP_MODIFY_SHUTDOWN);
++	if (err)
++		ibdev_warn(qp->ibqp.device, "Failed to reset QP %u during destroy: %d\n",
++			   qp->ibqp.qp_num, err);
++}
++
+ static int mana_ib_destroy_qp_rss(struct mana_ib_qp *qp,
+ 				  struct ib_rwq_ind_table *ind_tbl,
+ 				  struct ib_udata *udata)
+@@ -1238,7 +1303,7 @@ static int mana_ib_destroy_rc_qp(struct mana_ib_qp *qp, struct ib_udata *udata)
  		return err;
  
-+	if (wr->opcode != IB_WR_RDMA_READ)
-+		shadow_wqe->wqe_size_in_bu = wqe_info.wqe_size_in_bu;
-+
- 	shadow_wqe->wr_id = wr->wr_id;
- 	shadow_wqe->send_opcode = convert_wr_to_wc(wr->opcode);
- 	if (!signaled)
+ 	mana_table_remove_qp(mdev, qp);
+-	mana_remove_qp_from_cqs(qp, false);
++	mana_ib_shutdown_qp(qp);
+ 
+ 	destroy_shadow_queue(&qp->shadow_rq);
+ 	destroy_shadow_queue(&qp->shadow_sq);
+@@ -1264,7 +1329,7 @@ static int mana_ib_destroy_uc_qp(struct mana_ib_qp *qp, struct ib_udata *udata)
+ 		return err;
+ 
+ 	mana_table_remove_qp(mdev, qp);
+-	mana_remove_qp_from_cqs(qp, false);
++	mana_ib_shutdown_qp(qp);
+ 	/* Ignore return code as there is not much we can do about it.
+ 	 * The error message is printed inside.
+ 	 */
+@@ -1286,7 +1351,7 @@ static int mana_ib_destroy_ud_qp(struct mana_ib_qp *qp, struct ib_udata *udata)
+ 		return err;
+ 
+ 	mana_table_remove_qp(mdev, qp);
+-	mana_remove_qp_from_cqs(qp, false);
++	mana_ib_shutdown_qp(qp);
+ 
+ 	destroy_shadow_queue(&qp->shadow_rq);
+ 	destroy_shadow_queue(&qp->shadow_sq);
+
 -- 
 2.43.0
 
