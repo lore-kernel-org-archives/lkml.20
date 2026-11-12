@@ -1,79 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.164
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794471040;
-	b=XmUFnt49oiqmjR1ElsBOdtkb9d9znBg0N3Y0odO+WyKiS1L+ALkdsdC+Kr6hjEEOzhom
-	 PQwHBKIcx2qLmv0vz3WHzizlsEjg5neSrqjAHDz1D6DQM9ydCA1Bbkh0R0Mp5xcSlZZqv
-	 uSnmdPFSLv7W6vZZyAPbR2fGONjkbTbmCsysEFXkIdjOt5NYfMdIdeEQyRTpOCxK2Ebtz
-	 Grm1k1HJLSwvqDnxIdQwjUaFbejxdo8P2Ie/zMZEzi+9vxe7nXDLjhXcDQ+VA6sVr+PfN
-	 Te6fNC31RtIaqUOMGPm3H60tzYsjiW6e4wtDu01LS2zbv7EA5qGJt0kye0MLEb1qGCw==
+	t=1794471046;
+	b=uqhlzd1JeLb5idMUzYA2OpF3KZZDGyuC1Vlwpcw6Jk9DaLgIJCjmGuLnZ5ZYESYBbYZ+
+	 WIEySYwArl2Fz5qD/8fzWz6pfCpFX6q8TjmE5W6NocTW3u9zzV4xg6fiwPdd+irHf6Z3G
+	 YB3qgBW7u2iRECmntwjw+zDtp47rX0URwD45s9OoWaN0r27zuqVnRmlPDZBAMZeTzuxL4
+	 QvuHfTQThpPcaeNMH73SbRfST6287QLcJPBraxeJkUYBnYxMTs2sr9DskicBLo1lbUpl5
+	 l7uwocvv9Gv7/LxR7QhFJHCPmc+I8aWoqAyJO8c4oGD/oiaZ6g5+Gyppsh5NLYlVNLw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794471040;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=BycxkJDEkQrYGACgnxRcwOpm358ZLLzx9eK5XW7KLlA=;
-	b=2Lwpv/sPlXYFvSgJL/qbr7naFRFVZTRTJEQl5sr5Oo6Ln0OJrPMg61LxY4csuYXrSb8x
-	 8O3smxItY73zMFsQ6zYwgNT/lIgJIY1RZAeEHE+KTuu0fwotE6SF7fW6Z/FQeBeq3ZvDd
-	 h3cogyQRsme6aUwkCWAlzHxVXCZr65hMf/XWg7VHUpIEK4wUPYphFp3wW78oH24afIBCa
-	 spi1qoio1se/rccNQVaXqMqex++S2wPf0PTOmA1S3cDGvrtRNjH1o/MSRBDwV72t4sNdB
-	 uTuTf39ofkh78rlmKkFOL0H8Sokb3WzbeZQX4WBT9nXhLMep5uGEXapMDGxwnhh+ISg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794471046;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=KKbXoLi/o/F4tUEc0WXbaOVqO1cHoHFZMlMuRD/E/6A=;
+	b=YYzRIpWpFJ479TVMj+LKMDdHZCs2huMfAAuusEF86FIeHHPfewNq70Q6UUn0KQXr1bpl
+	 jO+oOKthUkHOIu2rz+pGbRXM6vASDaPRplnS/EF2r0YiMj72TqPfnCXY7+OSalNuF802h
+	 V5qKE24E7ry2Jyrf6GaE2l4AY2dVU7yVNp+ZyMSMkEN+LeAElXCgHza9HOvfqQ+VIQbhS
+	 9uZhEz4L1cW+erCqe2n2mKBQo28PSXtanUpmDb590XqqcLx85Uk2jy+QZ17sVoFAtlHYh
+	 x/aRO83pjynV7zCBWFjmGhWvHxxxOkKeSrx95LWOMpIEq9JWIt/lpwGggsoGgmcPPQQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GURFOUjJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2868B606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:10:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GURFOUjJ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794471040;
-	b=S0jVKuIo0ChZACKK9/TNnPGxPgY0vHLyaLkSkloANHxJOKtSp4b4t5solTn97epf+2Tf
-	 kfQdG5qKhqmCty3uTRHr1E2qaS3oI/u8WDfZcwVSgrpvoTWNr5OeXB1Jnp91YaSM6T+4v
-	 2PO7DYVXBsNzKk3SqeHDdsP0owwidDV/qohfLEiZtmdtJ5gNtu+5bu/9ktnkj31DpDlQv
-	 JJNAOJjE0sIBj89IaeZ6rHsaHxiyLwTC3lV46Po8yMMQrtEtMyHca6fuUw6J1M5/m/4Lt
-	 EQplCgaXMGKDZUVitV138Ybae1nUN5KsVFzUrfy6bR5+rwlh3OqhGsC6Th95gFRFoTg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794471040;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=BycxkJDEkQrYGACgnxRcwOpm358ZLLzx9eK5XW7KLlA=;
-	b=VhWbUzoXc4JGeEF2mxidvF6/gjSPn1UL5/3OR0TVgxUwiFiRjQnXcmHEJACjYCS9oaEn
-	 HKvuh+BIu+TMDKYR7/go2S+u2wugSpvKfxfIORTaR1kU/72wWLjyWnw94l2HPlsGlBpQa
-	 6x2KttNDxTMEOr7mX/u9brUpsDr7XCslf9X7PTQU/3+FxeV8L+A63GQMKhr3/NpWo1S7a
-	 FF6ENm9enqnZO3UPs6c6XG5mOhtpwRf/Z/d/CI9/3q3z8qFSWNgC1KYvNcGXaacrMbmoZ
-	 T6586fivu3sX+2QWKwbRHSjciEu38opnMthKJ9R+mBuNwhWbpuMlNhwpeMp+TqZaR3w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=NFPsL3pW;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=dITluR6B;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.164
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.164])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5F1DE1F00A05;
-	Thu, 12 Nov 2026 08:10:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794471040;
-	bh=BycxkJDEkQrYGACgnxRcwOpm358ZLLzx9eK5XW7KLlA=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=GURFOUjJE8jzpEJuv/bXoOyr81p/2Uw4s9ZtUZuiVKULqMKyuOpkqlccwcdNL1LjD
-	 G4vtZfOIHM33g+pfWRnKEQN27TAyX3iz2jm1X2WeKz+1nKDybDLjlC3ubmbCf5yiSz
-	 4VkRWokLzBaS8yWLwEMJcMgr09HLwK6xUQVgHOWZ1UmQ7et5mYOHHuSHAH2nBzbguM
-	 QV1UlHZWyaMNckcIn7QwIhqPIBjrnUDzSP0H69yo/4LxRmxQihjEa6zIUumqh3hbjA
-	 czbGpC1lzv7nWqYseGLS6IBhfQHrCOdjEf7YTmH4fPebr+1VmT3A51ugFh68CK0Grb
-	 vAGo1s/f4ECAQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B44534932C;
-	Thu, 12 Nov 2026 08:10:38 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:10:39 +0000
-Subject: [PATCH v2] drm/panthor: Suspend devfreq until the GPU is first
- resumed
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9113E606A32E;
+	Thu, 12 Nov 2026 08:10:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9113E606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=NFPsL3pW;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=dITluR6B
+ARC-Seal: i=1; a=rsa-sha256; t=1794471033; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=hnw9Xxdh1yRShJROWepnAtFPXxM4iMofnsTDv5GEsgWwipX+Po+hm8kYT0hf4R26AQ
+    NXE+1kivFXycWnoVIMBGt6/PC45JpTyRqhNhk14Vjh4wmj2p4pTjoFLgfl6Qle95QCus
+    KlcJnR8pSpLoMYlm0q6iUoXCZ5J7aXCh422M8qKWAcy2XJc9Tl23ZQ6SmTW4XLzuQrov
+    rh0B4mmGTfdG2YKHsuWsUuOHVOy2iFcE48e7WrscHrrl9zbUcwmUM4IjFEQORWHKnxfn
+    BCDVTHeINo5z4VN9pkNkKKa1H3xzCIPZHU4hVHFGGasvDRSEARbmnjbNL3/n7Ix4Q+JM
+    WXug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794471033;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=KKbXoLi/o/F4tUEc0WXbaOVqO1cHoHFZMlMuRD/E/6A=;
+    b=o2ywCsVqBbpVHDRdsGwbESt1s6/hgYOLbW/8uGQ5RXUKsrX+Cjgv5h8vo8l8DEmuhn
+    vwNLvQG7E68fCW2wmk/a7wfF/I6kHr5AAxUEyI3k4KTWzBvQHVyPMXjjKk1KeuBsGLji
+    zS6dSXJwpQgmHjHUChF012C+aHXhfrANauYe2++8N3IumReDc3Rr4YpTSZ3wVuRPZzlW
+    cI/yB9drpyp38X560r+7P6hh1vxhM23fpwJnUcRrweJcdohVdFb2FBfOtSya+T14QFZs
+    OCO1VwPqbrfFBRby0V5VX5oKjXa9EowB7hDEU3COB1X9d32+M/uMZ/TsrHypnGBIAqdt
+    jL9Q==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794471033;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=KKbXoLi/o/F4tUEc0WXbaOVqO1cHoHFZMlMuRD/E/6A=;
+    b=NFPsL3pW7kj6XsBRbST1WJEQietTklM0ewLqG8AHm3vGrll47epLPJYA9vb4J1tLSu
+    xMBa5FAvuZ/kLMcVcivuUKNiLmPIRHlxq0+kP39o//Aaq16zx7innsiSQN/OGBiOfvTc
+    dNDkDqYGo0OzPsmnAneJiV2Xj8BXn7tswv8ynTh+y8viq7DIctkP1UDAMABLnenf2/5Z
+    e8yvK6GTBc2w890hopZ4PcW2/dm7CFfswTwmLrUW9RF2ykd3dhhQ+ECny2TflU2r55IV
+    62ihsCdsqwxkjJwuzk7+n9Y1jvE7Rnq2U96hngHWrgqpUo9U38CEn6PoLP10N5fyJBzx
+    3WMw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794471033;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=KKbXoLi/o/F4tUEc0WXbaOVqO1cHoHFZMlMuRD/E/6A=;
+    b=dITluR6BOZhPZoRzV18kd9hz3WsFhsE0mQzhXRrt+/NR+NRXSz16tMT17kXmo6jUFu
+    QfiRj5Jwwtd+mapZjAAw==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV35pZz8iNKp1rK7chac7b5mVucO+Qp4KTQNe8"
+Received: from iMac.fritz.box
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22AC8AXAbZ
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Thu, 12 Nov 2026 09:10:33 +0100 (CET)
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Paul Burton <paulburton@kernel.org>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	"H. Nikolaus Schaller" <hns@goldelico.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	"Christophe Leroy, David Heidelberg" <david@ixit.cz>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.de>, Janusz Krzysztofik <jmkrzyszt@gmail.com>,
+	周琰杰,
+	Paul Boddie <paul@boddie.org.uk>,
+	Olivier Louvignes <olivier@mgcrea.io>
+Cc: linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	letux-kernel@openphoenux.org
+Subject: [PATCH v2 0/9] MIPS: Ingenic: Add XBurst / XBurst II infrastructure and improve overall Ingenic SoC support
+Date: Thu, 12 Nov 2026 09:10:22 +0100
+Message-ID: <cover.1794471031.git.hns@goldelico.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,155 +107,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-panthor-suspend-clk-v2-1-62e1b168052d@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32OS47CMBBErxJ5jUfdSZyMWXGPEQu70yYeyAfbi
- QYh7o5D9rN86qp6/RSRg+cojsVTBF599NOYoTwUgnozXlj6LrMooWwQEeRsxtRPQcYlzjx2km5
- XidipBmrHyrLIzTmw83+f1Z/zznGxv0xpm9oSvY9pCo+PdsUt979hRYlSVbVqQQEr5NNlMP72R
- dMgzq9dEfi+5P/T7hXWRJb5Pvh0LMiCaSoHpBv+ZrIaUGtmqzVRaVpHzrRQdXUee70BaxZKHhQ
- BAAA=
-X-Change-ID: 20261110-panthor-suspend-clk-11d5604fe5be
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Akash Goel <akash.goel@arm.com>, Karunika Choo <karunika.choo@arm.com>, 
- Lukas Zapolskas <lukas.zapolskas@arm.com>, 
- Chris Diamand <chris.diamand@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Heiko Stuebner <heiko@sntech.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- Jonas Karlman <jonas@kwiboo.se>, Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794471038; l=6121;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=uiwyQooI2QqdHVVbIj2tbEKcTWRM+G3FzfbhcKof+kg=;
- b=wivOOwJ/7GTvbZBbl834segCag1oFnqKSy2+v8GXNHok6K8gnpd49EQDjqRZ2Ifr4AEJT7Xg3
- pSZ8BrJXh9wBSgatVc/kYmttND3QH/F7PLPS1qxGYtybmlz9/HqCGC5
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+PATCH V2 2026-11-12 09:10:31:
+The series updates the Ingenic platform support to allow clean transitions
+between bootloader-provided Device Trees and built-in fallbacks. It provides
+the foundational Kconfig, PRID, and CPU-probe blocks required for newer 
+Ingenic/Lumissil hardware generations (X1600, X2000, X2600) and adds JZ4730
+for completeness.
 
-panthor_devfreq_init() adds the devfreq device while the GPU is still
-suspended, and the first panthor_device_resume() then calls
-devfreq_resume_device() without a matching devfreq_suspend_device(). The
-devfreq suspend count stays off by one for the lifetime of the device:
--1 while the GPU is active, 0 while it is runtime suspended.
+Changes to V1
+- allow user selection of BUILTIN_DTB (suggested by Paul Cercueil <paul@crapouillou.net>)
+- added the CPU_XBURTS2 type here to solve an issue reported by kernel test robot
+- removed PRID_IMP_XBURST2_R2 and merged into single commit
+- reviewed all PRID_IMP with data sheets and programming manuals
+- added full x2600 and jz4730 definition for completeness
+- added platform makefile and load address for X1600, X2000, X2600
 
-devfreq_suspend() and devfreq_resume() around a system suspend therefore
-treat a runtime suspended GPU as an active one: devfreq_suspend()
-applies the suspend OPP, if there is one, and devfreq_resume() restarts
-the polling of the simple_ondemand governor, which then sets GPU rates
-while the GPU is still runtime suspended, until its next runtime resume
-and suspend. With the devfreq core keeping a suspended device's
-frequency alone ("PM / devfreq: Do not change the frequency of a
-suspended device"), the unbalanced devfreq_resume() also marks the
-device resumed while the GPU is powered down.
+PATCH V1 2026-10-25 20:20:55:
+The series updates the Ingenic platform support to allow clean transitions
+between bootloader-provided Device Trees and built-in fallbacks. It provides
+the foundational Kconfig, PRID, and CPU-probe blocks required for newer 
+Ingenic/Lumissil hardware generations (X1600, X2000, X2600).
 
-Suspend devfreq right after adding it, as msm_devfreq_init() does, so
-that the devfreq suspend and resume calls pair up.
+The first patch corrects an inverted Kconfig condition regarding appended 
+and built-in DTBs. This fix is necessary to allow configurations where 
+the kernel relies entirely on a Device Tree provided dynamically by the 
+bootloader instead of forcing a built-in fallback.
 
-Fixes: fac9b22df4b1 ("drm/panthor: Add the devfreq logical block")
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
-v1 kept devfreq from changing the GPU clock rate while the GPU is
-suspended by filtering the calls in panthor_devfreq_target(). As Boris
-pointed out, that cannot be done race-free in the driver, so v2 moves it
-to the devfreq core: "PM / devfreq: Do not change the frequency of a
-suspended device" (linux-pm [1]) keeps devfreq from calling
-->target() between devfreq_suspend_device() and devfreq_resume_device()
-and applies the requests made in between on resume. The SError fix
-needs that patch. What is left for panthor is this patch, which makes
-panthor's devfreq suspend and resume calls pair up; it does not depend
-on the devfreq patch to build or to be correct.
+The remaining patches implement CPU-probe initialization, correct PRID 
+mappings (including vendor-kernel values for the Ingenic A1 SoC), 
+platform load addresses, Kconfig updates, and generic board match updates.
 
-Tested on an Orange Pi 5 (RK3588S) running a v7.3-based kernel with
-this patch and the devfreq patch, with the GPU core clock on the
-firmware-managed SCMI_CLK_GPU and a 200 MHz opp-suspend (the
-configuration of Jonas Karlman's RFC, not in mainline): min_freq,
-max_freq, the userspace governor's set_freq and the devfreq cooling
-state written while the GPU was runtime suspended, also right after a
-suspend-to-idle cycle, no longer end in an SError and take effect on
-the next GPU job; 200 runtime suspend/resume cycles with max_freq
-toggling every ~35 ms and a 3 minute sustained load ran without an
-SError, WARN or panthor fault.
+Structure of the series:
+1. MIPS: Ingenic: Fix inverted MIPS_NO_APPENDED_DTB logic in Kconfig
+2. MIPS: Ingenic: Add and update PRIDs for XBurst II R0 and R2
+3. MIPS: Ingenic: Expand Kconfig for X1600, X2000, and X2600 SoCs
+4. MIPS: Ingenic: Add cpu-probe setup for XBurst and XBurst II R2
+5. MIPS: generic: Add MACH_INGENIC type and compatible for X1600
+6. MIPS: Ingenic: Add Platform makefile for X1600 and X2000
 
-This patch was developed with Claude (Anthropic) as a coding assistant:
-it wrote the code and the commit message, and I reviewed it and tested
-it as described above.
+Testing:
+The series has been compile-tested for generic Ingenic targets. PRID 
+values for jz4780, x1600, X2000, X2600 were verified on real hardware 
+(CI20, LX16, LX20 and LX26 boards respectively).
 
-[1] https://lore.kernel.org/r/20261112-devfreq-suspend-sync-v1-1-af64603ef43e@gmail.com
----
-Changes in v2:
-- Dropped the check in panthor_devfreq_target() (Boris): neither
-  pm.state nor devfreq::suspend_count can be read there without racing
-  with devfreq_suspend_device() and devfreq_resume_device(), which only
-  take devfreq->lock around the suspend and resume frequency changes.
-  The devfreq core now tracks the suspended state under devfreq->lock
-  and does not call ->target() while it is set, as Boris suggested.
-- New patch: start with devfreq suspended. The first runtime resume
-  called devfreq_resume_device() without a matching suspend, so the
-  suspend count was -1 while the GPU was active and 0 while it was
-  suspended (the reason v1 did not use it). Without this, the devfreq
-  core change would not hold across a system suspend taken while the
-  GPU is runtime suspended.
-- Liviu, on returning 0 instead of -EINVAL: returning 0 was wrong, devfreq
-  then records a rate the GPU does not run at (Boris). An error is
-  better than 0, but -EINVAL reports a valid request as invalid (-EBUSY
-  fits better), and either way nothing retries the request on resume:
-  the userspace and performance governors never re-evaluate, and
-  simple_ondemand only at its next poll. With the core change panthor
-  never gets these calls, so there is nothing left to reject.
-- Liviu, on disabling the clock when the power domain goes down: the
-  clocks are already disabled in panthor_device_suspend() before the
-  domain goes down, and the SError happens in that state. On RK3588 a
-  rate change on the disabled SCMI clock still goes to TF-A, which
-  programs the PVTPLL through the GPU GRF in the powered-down domain.
-  So the rate change itself has to be held back while suspended.
-- Liviu, on the comment length: the remaining comment is two lines.
-- Sashiko's findings on v1 (a rate requested while suspended was lost
-  without a suspend OPP or with a non-polling governor; the lockless
-  state check could race with the clocks going off; Fixes: tag) are
-  covered by the devfreq core change, which applies deferred requests on
-  resume and keeps the state under devfreq->lock. Thanks to Sashiko for
-  them. The new patch has Fixes: fac9b22df4b1, the commit Sashiko named:
-  the unbalanced count is a mainline bug, independent of the SCMI clock.
-- Link to v1: https://patch.msgid.link/20261110-panthor-suspend-clk-v1-1-53457050e51e@gmail.com
----
- drivers/gpu/drm/panthor/panthor_devfreq.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Please review and consider for inclusion.
 
-diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/panthor/panthor_devfreq.c
-index 2249b41ca4af..45ae42dacdcb 100644
---- a/drivers/gpu/drm/panthor/panthor_devfreq.c
-+++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
-@@ -256,6 +256,12 @@ int panthor_devfreq_init(struct panthor_device *ptdev)
- 		return ret;
- 	}
- 
-+	/*
-+	 * The GPU stays suspended until the first panthor_device_resume(),
-+	 * which resumes devfreq. Suspend devfreq to match.
-+	 */
-+	panthor_devfreq_suspend(ptdev);
-+
- 	cooling = devfreq_cooling_em_register(pdevfreq->devfreq, NULL);
- 	if (IS_ERR(cooling))
- 		DRM_DEV_INFO(dev, "Failed to register cooling device\n");
 
----
-base-commit: cb0a63f0c96e8ecb90199eeb99cc2a7fcfa703d4
-change-id: 20261110-panthor-suspend-clk-11d5604fe5be
+H. Nikolaus Schaller (8):
+  MIPS: Kconfig: Allow user selection of BUILTIN_DTB with description
+  MIPS: Ingenic: Configure CONFIG_BUILTIN_DTB=y for Ingenic based
+    devices
+  MIPS: Ingenic: Do not force BUILTIN_DTB in Kconfig
+  MIPS: Ingenic: Update Ingenic XBurst implementation IDs
+  MIPS: generic: Add MACH_INGENIC type and compatible for X1600 and
+    X2600
+  MIPS: Ingenic: Expand Kconfig for X1600, X2000, and X2600 SoCs
+  MIPS: Ingenic: Expand Kconfig by MACH_JZ4730
+  MIPS: Ingenic: Add Platform makefile and load addresses for X1600,
+    X2000, X2600
 
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+周琰杰 (Zhou Yanjie) (1):
+  MIPS: Ingenic: Add a new CPU_XBURST2 type
 
+ arch/mips/Kconfig                      | 25 +++++++++++++--
+ arch/mips/configs/ci20_defconfig       |  1 +
+ arch/mips/configs/cu1000-neo_defconfig |  1 +
+ arch/mips/configs/cu1830-neo_defconfig |  1 +
+ arch/mips/configs/gcw0_defconfig       |  1 +
+ arch/mips/configs/qi_lb60_defconfig    |  1 +
+ arch/mips/configs/rs90_defconfig       |  1 +
+ arch/mips/generic/board-ingenic.c      |  8 ++++-
+ arch/mips/include/asm/bootinfo.h       |  2 ++
+ arch/mips/include/asm/cpu-type.h       |  1 +
+ arch/mips/include/asm/cpu.h            | 13 ++++----
+ arch/mips/ingenic/Kconfig              | 43 ++++++++++++++++++++++++++
+ arch/mips/ingenic/Platform             |  3 ++
+ arch/mips/kernel/cpu-probe.c           |  7 +++++
+ 14 files changed, 99 insertions(+), 9 deletions(-)
+ create mode 100644 arch/mips/ingenic/Platform
+
+-- 
+2.56.0
 
