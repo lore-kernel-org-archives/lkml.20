@@ -1,110 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794493030;
-	b=vzJP3GdOdzxRvSHTshJFfmI4WEBzr+r9rYD0nt9YWWMEAAbuQOd6ewqiITv0blyWYB3i
-	 HtFAtr1gaJbaTNNk72BHXXWCUSToj4yjCVU87ISv7MEf2InHwuwZPMLeL5oi2NlZIGtQl
-	 otpKdjn/tBYYGTOIEnIwKrn6OlfXGW2zwW8RzJQrxlwQvQ8pzLxUx3JjO795SgBRJXfto
-	 zl2z1kZWOp4PceQPM8bhr5bI63GJOIL8sHtmgSd4UESWkj+5BnhRRCGXoTVSc4xfSVN0a
-	 z8UI8CvkcEv9xnl5Tm6Zymu9nBRDb2p3bKiW0XAqquh9HS46gKBmjrpVIbf9B5eEu5A==
+	t=1794493062;
+	b=isAXaETB07uTw0PhBcV4UsyycMgo4nYnS7OM3cgtcm0zjh9r3vuhPNfmuoSPRIWfKez9
+	 iiIJSF7wz4b4tCAI61L0n2Ly7/xKs74aED51TpUboTgs895UlIOhQlsgcnBFVIeHc4ftd
+	 fhnf2C57Vo/WVHzSJvSFiixz8vDpAg9C5VtmmZ3jWmNFVPP7rD4S5YV/NaRb0OjRjh2H7
+	 cFGyXaGXR5eJCTKzMtH3XpEvbMP8jvQPAFcUzvKZcklptEdTOWSamzINdc6IvY3FyoThD
+	 5Kb8FS40IgAZVH3fKaXEVJ6GC+M4lL3EUbLzkax7yplYaA9zUUJjoOTUz5wqbZ5Rvmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794493030;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=W7IVuM4gM5kY+VlCkjQIKxVNfU8qqC+cV2NO5JrfOD8=;
-	b=Ef/+LFIWbXzvk6aY0/sYPxxxLwI2tdPi+38jj/38KhYNO9n+vCTE1O6kG+rlfJxreHcw
-	 JROm6A3IzccV2u6e6rLY6VoF77VUaLWZ1ngKMINbvNPSnDb72DjANCeJ2qFv86w27kNTY
-	 ayfSIBWDWNKpiu84XE2UZNgUGhW3iCof2W5VrvTjKrYMblNa2ymuJFZs6dfqXxREqQLqf
-	 73/asRLX2vIj7c9ZTbBbZuXBO4SC/VOsq3i15nJcUeC3Ju55fAM+YkacFtJwmpdLzzCgu
-	 8c5XAt9Ek2Nd89LY4L8+LsnUx39l0SY2B/PMKatIW9clX6mpt2Ue4VPWiHdVl9NQojA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794493062;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=Dl26GbVg1oiRuWqjJg2siO0OK6Jj2MIKjLQSLXLLVvI=;
+	b=KOP7bsqRif26uoT6982woB740cQ6FS37m+NoMQv+6mEhXSIJeC1nvIv7qebVN1/MTh5i
+	 dUWHIMQ8EgFt1rOtU5xhmdrUwMmbYYUcaCIXxyxaYn+LVyDppA7aMabMaNj793LUCKPwk
+	 injARw8omOBC+9TZfm0NvkeRM+zgJ8OtJn2+L61OPh1UeU2opmpZQK/GjfdgOTJyCUg3Z
+	 IBl6ppyt2CWTs+LvC/wvmmrOHbKrHFUbDJ4EMI85Njb0yfeSXl6McDS+lyuTXJq5xpj6k
+	 N/M8Ym73BvlUZDM9uMsg0bIz3krfiQUqczji2VjCvUAH/mwTt/VIaTHR0svgdJmtpBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FBbUcmC3;
-	arc=none smtp.remote-ip=209.85.218.43
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=BgDCCRZe;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="DjNFiF/g";
+	arc=none smtp.remote-ip=202.12.124.158
+Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D19D60A3813
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:17:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D19D60A3813
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D113260A2607
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:17:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D113260A2607
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FBbUcmC3
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c4cdc606b47so680852166b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:17:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794493029; x=1795097829; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W7IVuM4gM5kY+VlCkjQIKxVNfU8qqC+cV2NO5JrfOD8=;
-        b=FBbUcmC3TkNMVh+tg9wiyedlSSvXNi3Z9406WpBziBrpIKlDlj5NNHzZZb1XcwSYkF
-         x7+ZTkVfFCUyXjZoWOHRfjpzVtW6WtERVZegkoyX+BBhtCtHf6LctV6VsNgCgGV0Dh25
-         bFus9i1wmGquJjtQiDSmWBBR4EvByqHrRHxYbuubocgxgGuB/V/akZFJ2MsZtV334UEe
-         u5tmhEk4ZC+S10MzkDJXenSEKFawwFu0DPyRD1pp99MCJasPPMJ7cAmcj+NYoxwpxxca
-         Xxlmv7CIj6qklZGD/w57xn370NWyL4vrjhTqvhBUvkfnPoXmRS1R1yOz+snKU5dVDUKS
-         v9oQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794493029; x=1795097829;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W7IVuM4gM5kY+VlCkjQIKxVNfU8qqC+cV2NO5JrfOD8=;
-        b=h/UB43zLOmAJEdtvgiJyU9iI8vZEha54BIE+KqZlnfxDukvVALPqlFZGeD7Opfuq7o
-         DOIe9Gt4jOjVPaLLH31fFOc7EmW/W99HyAaHCcuaUJ/ZL6vlBtwv/zi24tLlkzluw7JH
-         EYrIm7zq6C2JW5ukqriMLotldWIFC/gd693Fk1Ta/0FTwVY3TnNfJ+vjPrICEWpQ+pK5
-         Ii+WUnXDaWlC2aXtQQP0CXrNQEqa6t5TCnBk5vrqr6Yq7BnTP8lpISb+w2p2NtAFzxBb
-         kwAUztjGDq2n0a7JMdETBgrjpTo+X1R4f9WcYzDi/rUm5qddaaT6dH2Ryfb8QajNgflR
-         yfkQ==
-X-Forwarded-Encrypted: i=1; AL+hErHa3iy4NlACSZbZ4+vnrXq0MUTEBkfFcgHNPtn6b+PJb7j3/kDvHbtxhoe5Pqf4nkkxDRn8F7FtLXgh5yk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8SWy/QKSbdxPb8GaplPyCR1ddv5jyxHEOqsGPtaD8gHXbeeJua
-	f6z9kA8R/M9FtN3TvMVjLE+FDpAp8/o7bI1368ZyKzs1eF428EW7pviD
-X-Gm-Gg: AYBFou1Nupm9/JgVSDLbhPI0J6u/bnQmb34SjBlDT94oN3ucGxE45p674QsoNy/kljf
-	RLCNSEV6okkK5ap5ahdWmKvP0s+9a0saePfLDAS60WiFYym+RZQv/KTQae79Ji/KFGhCYPG9rtl
-	ToG4GiQzzxZt1Os+oSqec/obNCUiQ29biN5N/yxLvuMjLfQ5+bFTaJMpuU7ggtN2SryHrW/47t9
-	aVM6+AR0jizKe2YdfRoAnk+00ifvdjkXuUc0WedVeQy8VH+mELbvfB9gF38gLIBKoyAXO24/YoV
-	PkpaPKsdRCltugNmAZM+RjqykDe6O+WRcCIE+qcNLmx3qTW01VR8/fCSV3Gcd/Ub+mKxT+g3qhe
-	Q14F4mZNxXjbQ9yWY5kl4126EuEWaeIcEH/EGop0a27v77TlrwJJ7grDB+uCSC21tvjHq4lyYFk
-	KzGCu1l58MM9ZXG92QrJltEXL31tOGaZpkuWDH2b+CvLM0FE8LQt8WG2Myzbos9Ns6TjfHRk8Ck
-	JYscun191v4NOsozPaJQAj0oEBBNcuB87GnU917m/p2KLB00cQhdk7dJBRVt7cOsvma9bzWnyIZ
-	sd0sYQ3/CY4153QQVZgxCcwS9KEnJr0oWId/QRIoVedLDaQ8TE7MiJjKm2yp400AEJdpt/mPREh
-	5tZILCFaC1lgBa9J5DzNeRNetBw3gULfJ0G+/KVosp7jP7+Bix0DU+9GUxgeekk2jiLeo30Rfku
-	12v5cB/SDN84sSMlIGXatEvmdgziYtpGhI42ghWJzfswv1e85z7M5Dx0xAaH+Y4TvuAMeDqAA=
-X-Received: by 2002:a17:907:3f24:b0:c2e:4292:d27e with SMTP id a640c23a62f3a-c5066ae263fmr504242866b.22.1794493028760;
-        Thu, 12 Nov 2026 06:17:08 -0800 (PST)
-Received: from Ubuntu (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a56b772sm360156466b.16.2026.11.12.06.17.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 06:17:08 -0800 (PST)
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tejun Heo <tj@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Ian Kent <raven@themaw.net>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	driver-core@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	autofs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
-Subject: [PATCH v3 2/2] PM: hibernate: refuse splice on /sys/power/resume
-Date: Thu, 12 Nov 2026 15:17:02 +0100
-Message-ID: <aae0f774a25c8e2048c09919d3b6b841e2b1c1dc.1794479968.git.krystianmkaniewski@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1794479968.git.krystianmkaniewski@gmail.com>
-References: <cover.1794479968.git.krystianmkaniewski@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=BgDCCRZe;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=DjNFiF/g
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 20E0B7A00B4
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:17:41 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 12 Nov 2026 09:17:41 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794493054;
+	 x=1794579454; bh=Dl26GbVg1oiRuWqjJg2siO0OK6Jj2MIKjLQSLXLLVvI=; b=
+	BgDCCRZeMAYVP5Mkj3rC4Dx0zPfpuVx1tHrvLPUjMUiE9v4Th8qYAkXqf30BhCsD
+	AbHa8yCNbVYzzKPm6VaDXRF8TdKbbwwygMupuI9lRPeiB+IDkvWyGW1D2U8LDwRJ
+	REBa4iHNytvQeP2cdQ26sEhXGgegb4THLEYaB5KxSwZMGoNreZAuoETdNSs0RqW+
+	WiBU9wK11SpZRjP5h3H1afBYZFpN8N8XuvWNoXcMlRxxEHVk9LCpYojqMa1Xvicg
+	70gBugV2yVntrBidoQA1rZ8KpsZUR45dNhF9L3iwDGmHFtO0xoiTHXZ9m8LBSbT1
+	Gj1Y3Cb1MebI7XZb6ooSiA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794493054; x=
+	1794579454; bh=Dl26GbVg1oiRuWqjJg2siO0OK6Jj2MIKjLQSLXLLVvI=; b=D
+	jNFiF/gyldbSf72yF03RPBfvfqo3QLXXUSHA23Y6f4JFfRjITQ7MR51oKm7Y/m36
+	G14pKndIrwIwIEWh4evUxSara5lSHuTGH5v3E7C529/nAlq7iy+MzsWTt7SChnvv
+	wR74cJz8zTVpv0G9nWezRB/Gcx+RGnsmh16nx9Ykl9V549U9Ue1j8RaRcDb3pK9S
+	cl7J1H35YxYrSWKNWiuMRiaQK2fYo4VUCev3OID0lZUb7Ganbs4EbC9Yhbx9jp97
+	7RvuJGYg2tcBAzBE/9bQm9U2sOxfdscsQvcvwzCDVr/uKZPvOd53IeX+5IbT/fsi
+	U8yGmb91KO2ihEzrHHKow==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794493054; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:i2PLojc77AOoI2YwYsiDQ8LETVUWMACN+c21vM5azoWGZer
+	emzPPPWjdNGH6CjiPMO6+rWveQUfkOLs0BhiYeB2b+m4zw7JGIIp5aAc31JYBPoi
+	a5LR6rytsVEeEpbam6KjZpvfVoM/aVICEPu/7Jy5bFJ/reIvSqSZ3FwJOoYQezgB
+	7kgFwj7mjF8NekXvSPjncs+nDOWhcQxsRBU1fRxsYGi7843CZTNVB6YURBbJBn/5
+	S2OxzwGAc5ahI2okP/VgZPtiBMuDe5WBwoOu4245Gx6SMIwNobRy3k6irbjit5oX
+	0b/WFhY7Wq3+4JXV+fQfmYFdo6Nflx0UgtkNB5g==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:pDEDEbEGIMSKrrCLp4vJbOtj9ftXD25ifr3Txi0ong0=:ihnDo+fn6sT3wW2JYtL6VV4KZA17ran4u86UJkWTYTg=;
+X-ME-Sender: <xms:esr1auMX3thMxma8_ztiAYINB64rYZ1OoGq4Lba2qMVXHlnsLf0gBA>
+    <xme:esr1anzx2JrsuiaSpQUKP6BShu4yxdXEafjZevf5iJ_PSj0AagENZIqZNG10Dcy4T
+    ZPNvEMEVMcjlsml9O8C4afEUZuRbLQfVpMo61KGPNgTymIh_lFs2RhP>
+X-ME-Proxy-Cause: dmFkZTFzWmoFbTkI7ku6XcdQ5hmYHvBEWKmAFPbxx+KR4fuDHIzPXuKeT0NCsMF/OpNsoS
+    vNCHz4+rbPFGPxzWkj4fQ2mhyluj+KuubUvMLFtq5HTh8zcdQVazJy1ZO3KupoUgNX/HBz
+    UK3ZMd78YWZnDEkDu4jfayCCjWchMJCp0hVux7BUm7FZ+xpkw2l21dm6hf65cO0zUU+UgW
+    0xJ4JOUkxgcOjmsQHqWBoqOPcyOeq6m7PU2wJyINkQmiuXddixOgB6X5MZXIUgZ/6A+4gi
+    /2GHdXAjLTRdlPJq5XdS+MaFOnCet398jadXoGZk8QwjUY1dNB1DztJ7N2yCV6k9hzAVt3
+    YERdmi3cxnlo2u/Fr4+/jwLaSG8K06vfncSJgdAFlvJ9IZGhCtFH+SA/c0iKVjdqoj5RmA
+    mv3O8ysmd1Cx9w7Iwck1JLIDnD/UEoV+lxqpTENFt8z9V1QbqGN/lRqpkoY/m6DRdJidMW
+    voZZDuRV2L98fCiOLdzGJRQQTjyvEhk68t3azBy+bMrHBalh/WcEzV+mgM1qMKuxKND9aV
+    vsGkexNAZg+vqQ+h/jjW6Fj5+BMvdn7a1tClce4EYlaRMGvOt7BBw9XmDobvscVt9D7sZM
+    RfuxKt+2V07xyHeeQwiwbV2R0EDBQe0yXWD/ukogazvfc1OeoSWp+n1b6YgQ
+X-ME-Proxy: <xmx:fcr1arvlfUZ5zY7s63oNATD2IKLwoP7oPXxeI0fDqUY_oT_MsXprtQ>
+    <xmx:fcr1atFCSHPOQGOFSy0rC8QHirVbD09Ymq7u5Mr9nEfXsj3MYw9Kow>
+    <xmx:fcr1ap4ICi-1ZsEaVt5Jq2HXR5jOvv8K2T4XspKXDbRfuzr58VQ9pQ>
+    <xmx:fcr1auypVhvDdDON9TS-fms29QCLjYsgXsSB-RHjS1-zByWAEcyaHQ>
+    <xmx:fsr1agLFJdgZsVPD-Yn31hgBLVw90wdlTHc07fX6wz_fVaKteeZn42mv>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id DCE5932A009C; Thu, 12 Nov 2026 09:17:30 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,57 +115,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AytIAyy8u7pB
+Date: Thu, 12 Nov 2026 15:17:10 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ "Masami Hiramatsu" <mhiramat@kernel.org>
+Cc: "Christian Brauner" <brauner@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-kbuild@vger.kernel.org, kernel-dev@igalia.com,
+ "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>,
+ linux-alpha@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
+ linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
+Message-Id: <cf0ce4be-43df-4341-816e-4d7f4f486beb@app.fastmail.com>
+In-Reply-To: <20261105-tonyk-syscall_table-v9-5-8d1275885d9c@igalia.com>
+References: <20261105-tonyk-syscall_table-v9-0-8d1275885d9c@igalia.com>
+ <20261105-tonyk-syscall_table-v9-5-8d1275885d9c@igalia.com>
+Subject: Re: [PATCH v9 05/15] sparc: Use the common syscall table
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-resume_store() passes the written string to lookup_bdev() before it
-tries to parse it as a device number, so the string is resolved as a
-path relative to the current directory of the writer. The syzbot
-reproducer writes a relative name from the root of an indirect autofs
-mount. Autofs writes a mount request to its daemon pipe while kernfs
-holds of->mutex. Together with a splice into a writable kernfs file,
-which takes of->mutex inside a pipe mutex, lockdep reports
+On Thu, Nov 5, 2026, at 21:05, Andr=C3=A9 Almeida wrote:
+> Remove some of the duplicated code by using the common syscall number
+> table.
+>
+> The generated files are not exactly the same as before, but they have =
+no
+> functional changes:
+>
+>  - syscall_table_32.h would generated lines like the following
+>    __SYSCALL_WITH_COMPAT(422, sys_futex, sys_futex), which is equivale=
+nt to
+>    __SYSCALL(422, sys_futex)
+>
+> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
 
-  Chain exists of:
-    &pipe->mutex --> &of->mutex --> &sbi->pipe_mutex
-
-A splice from the daemon pipe into /sys/power/resume deadlocks when
-the written path triggers a mount request. Mark the attribute with
-SYSFS_NO_SPLICE so that its writable opens refuse splice and use lockdep
-classes of their own. Plain read() and write() keep their behavior, and
-read-only opens retain splice support.
-
-Fixes: 1e8c813b083c ("PM: hibernate: don't use early_lookup_bdev in resume_store")
-Reported-by: syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=002fb7b2d0bc53bf7e75
-Suggested-by: Tejun Heo <tj@kernel.org>
-Link: https://lore.kernel.org/r/ec0c2add83f18d7a3c726d5d219dfe42@kernel.org
-Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
-Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
----
-v3:
-- Use __ATTR_NO_SPLICE after the rename in patch 1. No other change,
-  so Rafael's Acked-by is kept.
-
-v2:
-- New patch. Together with patch 1, this replaces the v1 autofs change.
-
- kernel/power/hibernate.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
-index e365e440cd52..da5590ffe6cb 100644
---- a/kernel/power/hibernate.c
-+++ b/kernel/power/hibernate.c
-@@ -1316,7 +1316,8 @@ static ssize_t resume_store(struct kobject *kobj, struct kobj_attribute *attr,
- 	return n;
- }
- 
--power_attr(resume);
-+static struct kobj_attribute resume_attr =
-+	__ATTR_NO_SPLICE(resume, 0644, resume_show, resume_store);
- 
- static ssize_t resume_offset_show(struct kobject *kobj,
- 				  struct kobj_attribute *attr, char *buf)
--- 
-2.53.0
-
+Acked-by: Arnd Bergmann <arnd@arndb.de>
