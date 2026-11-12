@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.64.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794457947;
-	b=KVVXCwloa1qpyNZnujej9Ym9liXv2YmT+xwGM7ZY9cYyM97t1tpb7TFITQnA/Gk5Lqkj
-	 q4tfDADJr5VS9QNclXU/XNlZZEl7DMUW4EBJAsuv6Flc0RTVxqKLsjwAviXERZcvxf7If
-	 s1FzMljgDzqZ/1Xc3gAlH5ezWg9Q/NIDGv5ZvpBe0Bq7i9w3bxT+hXwwPDWii29QpitMS
-	 /JBC1d3oWdi93lWly6vPtf/zF3Wv4AslnZFLJ7j0JFIvWu2g/gzcmmDaNPfRYIJFhpxdl
-	 G//HzMFkukEaR0c+FBUODfLd0L8Vod1xQ+muG2RwHBhyiwTdmvYvvF5U0JI3J+KkssA==
+	t=1794458060;
+	b=UHv+4ubASZPKcoxwk/hCz0m0Qr5mHwAkXfVvUqXrwJE1KPUL8GM5ufUi5mgtXSUYurEM
+	 FWJd107ngKNlc0ZeJ/C9tnYrfgP3qcSQuGRqTpMvqTiEV4uOaKO0/kdicpvIjtRviek9l
+	 1u7aHM9iS3sRnJhSgwypiK/xpgmriCke9MdM2T4aYoLsBCB46hwInpFeKHSB1xdjth+Ek
+	 Wsv1KdeqeD7//JseBhVHbkHg1lVwC+0vHFfHKZq7n3idFJ/YcRUagzakCh28YZzs4ZcjH
+	 Gb4wTwqI7yK7c9rlQzIWjjux9E6REOsIUFKYUkYHi37Oks5vPTCExnFk6f9euOybfOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794457947;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=tSl8MVJnZefCbq5jHR2g4SRTuu2d9u1W5NiENOYHVKA=;
-	b=kQX7I/hpQjTWEKFVxcpEYfThIbnytNK/FvPRUGY9w50uBORUM7hUWQJaRaUHM934321F
-	 1ZUH6Ioer34Q3OIIjg022dMQIoZ4HFYQae7jlEORJ2t6meMOVAiHx1GnZNbl0yMcT9eer
-	 8Y1HwAvO8Uf3KQ2CU6YJmWuUcpZQm/s3aasSZxXdX682V66p8pRNCuN9qQe7p7pwe9gmV
-	 mEfoa9+EaJ3CXHMv6JWRrR1cQ0bgQNu9auQ1aXJDxlhPQhfJnZtY7UsfS1eVUorhrhpNh
-	 /n8fVthZLlKdC7GrspHW+dwqhesoFe0RWggfg5OQoo1v6JJBNKzwl/zYEsjqfcRgbCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794458060;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Flowmailer-Platform:Feedback-ID;
+	bh=RARPdGFOpymjJpoSOvkZ7QwTFzh+akN3FwghGunS9+o=;
+	b=F0XqtRDi3zqVVSLx9xUW5HGVImmrvSt0cnDIZy/5oo/E/We0cMUY1XPa4oT6ostLTQmA
+	 BFF1MAWku/jxMACS9qx6SLjk9one8SBvwS2BqPvMDqwqsTAamc4k392RI6hDaQyxzcNal
+	 FEjsv0n7/5MiYh5tloV+/fuDoxu04USAr/obBVRw9nE4gc0Gpyfv5ti8jMZ2s4Rn1O+d+
+	 gnWhNXdjuhX79DGJVJRHU8v2+2FFCSWZcrR0+GfpZvLO5+kvG6QJK95D6ZeN3QTLssYrC
+	 wQO7jhC5TOinaYCf7ZkXSkqsbrUPbXCkPoHW2xVWUJl6jm2JzHrPGoih2AbeBDYNllw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jaeyeong.cc;
-	spf=pass smtp.mailfrom=jaeyeong.cc;
-	dkim=pass header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=W3uUTFNT;
-	arc=none smtp.remote-ip=185.70.43.99
-Received: from mail-4399.protonmail.ch (mail-4399.protonmail.ch [185.70.43.99])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=siemens.com;
+	spf=pass smtp.mailfrom=rts-flowmailer.siemens.com;
+	dkim=pass header.d=siemens.com header.i=meng.ding@siemens.com header.a=rsa-sha256 header.s=fm1 header.b=RTxMQDBd;
+	arc=none smtp.remote-ip=185.136.64.226
+Received: from mta-64-226.siemens.flowmailer.net (mta-64-226.siemens.flowmailer.net [185.136.64.226])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E9C606A321;
-	Thu, 12 Nov 2026 04:32:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76E9C606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaeyeong.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaeyeong.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77CA4606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:34:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77CA4606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=W3uUTFNT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaeyeong.cc;
-	s=protonmail2; t=1794457942; x=1794717142;
-	bh=tSl8MVJnZefCbq5jHR2g4SRTuu2d9u1W5NiENOYHVKA=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=W3uUTFNT42Fsc9EQUuqWLn09QQYkG+eTXYlY8O8tiIFJCCIv+XWbWUhsMkTcZbNtw
-	 CgfXW6GuKJ+YRxqVdTmfUW/LpNF77p54C8NQeoihPztnt3JVUuQysU1DLA+r3DYdRE
-	 J7WAH0l+eQNHI3rpzCKl1nmox2SXKazRoKoa7FtyOOEPYnHeU9kQ3Torm+Gmm2zfwP
-	 cq5s6BGOtnf4xghFIe0TqNqaaQg1efazoBSTCKsSOjrUgeI4BSjt3W2T408Q0tip51
-	 D08VULbLheVKtw/ktxDbNWVB7s/ZnZNKk+AWXGa8ZaogD4xy9i/jFrYU18vuOEcF0F
-	 3dOhC7JZQFYeg==
-Date: Thu, 12 Nov 2026 04:32:17 +0000
-To: netdev@vger.kernel.org
-From: Jaeyeong Lee <lee@jaeyeong.cc>
-Cc: john.fastabend@gmail.com, kuba@kernel.org, sd@queasysnail.net, davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org, alice.kernel@fastmail.im, tariqt@nvidia.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH net] net/tls: serialize context removal in tls_device_down()
-Message-ID: <20261112043209.102404-1-lee@jaeyeong.cc>
-Feedback-ID: 177356447:user:proton
-X-Pm-Message-ID: 333b79e90391ab3c6eea869158387f16cfae3937
+	dkim=pass (2048-bit key, unprotected) header.d=siemens.com header.i=meng.ding@siemens.com header.a=rsa-sha256 header.s=fm1 header.b=RTxMQDBd
+Received: by mta-64-226.siemens.flowmailer.net with ESMTPSA id 20261112043415ca26dd80a80002079b
+        for <linux-kernel@vger.kernel.org>;
+        Thu, 12 Nov 2026 05:34:15 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
+ d=siemens.com; i=meng.ding@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Cc:References:In-Reply-To;
+ bh=RARPdGFOpymjJpoSOvkZ7QwTFzh+akN3FwghGunS9+o=;
+ b=RTxMQDBdADI8ovC2WPdHk/BquO6khlSuF/w9iJcD14LD1Q/WpUmD52lDbgUHOzR5ne8BGx
+ xCEGlCZSb8N8GeM+3SZ8ztY9hRyIaQu6eK8NDmnUChRlwn7RaCA5KQLXdUi3bWCYD/v0j9Er
+ /y2kK8taxTDcxmeMbgUTUn9xl4JesRDDVenzYKIzl0o6n2plX6JNtgzJirgu2LsONLMGnRAD
+ UbJ/SKwBojpF7Tapnv9vACFg5zO8S3SYm3iI5lHU2q56ZZptBjrTTtyUVEYT9RhdiJT5Re7Y
+ AgilNrGtYvJZS+iVdSKVNWIIYdbiE1ekVZEso+vnZuctJFKZ3g+33oTQ==;
+Date: Thu, 12 Nov 2026 12:33:57 +0800
+From: Ding Meng <meng.ding@siemens.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: netdev@vger.kernel.org, Willem de Bruijn
+ <willemdebruijn.kernel@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jonathan Corbet <corbet@lwn.net>, Andrew Lunn <andrew+netdev@lunn.ch>, Tony
+ Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel
+ <przemyslaw.kitszel@intel.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, Alexei Starovoitov <ast@kernel.org>, Andrii
+ Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar
+ Kartikeya Dwivedi <memxor@gmail.com>, Richard Cochran
+ <richardcochran@gmail.com>, florian.bezdeka@siemens.com,
+ jan.kiszka@siemens.com, wq.wang@siemens.com, p@1g4.org,
+ gerhard@engleder-embedded.com, Jason Xing <kerneljasonxing@gmail.com>,
+ Simon Horman <horms@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Martin KaFai Lau <martin.lau@linux.dev>,
+ Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, Jiri
+ Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, Ihor
+ Solodrai <ihor.solodrai@linux.dev>, John Fastabend
+ <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ intel-wired-lan@lists.osuosl.org, linux-trace-kernel@vger.kernel.org,
+ bpf@vger.kernel.org
+Subject: Re: [PATCH] net: mark skb NAPI IDs independently of busy polling
+Message-ID: <4pqljild2fp6eotiicvwbwu2wfw66fzd4qamwt6utirdjxlaok@iiu2f3k7azrp>
+References: <20261105071706.7043-1-meng.ding@siemens.com>
+ <20261110134539.12d860ef@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,79 +84,35 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+In-Reply-To: <20261110134539.12d860ef@kernel.org>
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-1335312:519-21489:flowmailer
 
-tls_device_down() moves each context to tls_device_down_list while
-holding tls_device_lock. It then drops its reference and removes the
-context after releasing the lock.
+On Tue, Nov 10, 2026 at 01:45:39PM -0800, Jakub Kicinski wrote:
+> On Thu,  5 Nov 2026 15:16:08 +0800 Ding Meng wrote:
+> > +  interface index will be returned only if CONFIG_SKB_MARK_NAPI_ID is
+> > +  enabled and the driver is using NAPI. This hidden configuration is
+> > +  selected automatically by busy-poll support and by drivers that need
+> > +  skb NAPI IDs to resolve deferred hardware timestamps. Drivers that
+> > +  use deferred timestamp conversion must select it so the networking
+> > +  stack can find the device and call its timestamp callback even when
+> > +  busy polling is disabled. The struct contains also two other fields,
+> > +  but they are reserved and undefined.
+> 
+> Just take napi_id from under CONFIG_NET_RX_BUSY_POLL instead of
+> complicating everyone's lives.
+> -- 
+> pw-bot: cr
 
-tls_device_queue_ctx_destruction() removes contexts from the same list
-under tls_device_lock. If it removes an adjacent context while
-tls_device_down() is deleting its node, the two list updates can
-interleave. One update can then target a context freed by the other path,
-causing a use-after-free write.
+When BUSY_POLL is n under PREEMPT_RT && NETCONSOLE, igc fails to get RX
+hardware timestamps.
 
-Drop the reference and remove the context in the existing
-tls_device_lock critical section. Keep tls_device_free_ctx() after
-releasing the lock.
+Then, drivers that use deferred timestamp conversion (e.g. igc, engleder) must
+specify a busy poll dependency if they want to obtain the original net
+device upon consuming the skb. However, this dependency is far from
+obvious, and annotating it for future features of this kind will be very
+hard to discover.
 
-This issue was found with a static analysis tool.
-
-Fixes: f6336724a4d4 ("net/tls: Remove the context from the list in tls_devi=
-ce_down")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jaeyeong Lee <lee@jaeyeong.cc>
----
-Reproduced with a deterministic KUnit harness under KASAN in a 2-vCPU
-x86_64 QEMU guest. The unpatched kernel reported:
-
-  BUG: KASAN: slab-use-after-free in tls_device_racy_list_del
-  Write of size 8
-
-The patched tls_device.o was compile-tested against current net/main with
-KASAN and DEBUG_LIST enabled.
-
- net/tls/tls_device.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
-index 4cdfbb57ecff0..fa7170cd4fd10 100644
---- a/net/tls/tls_device.c
-+++ b/net/tls/tls_device.c
-@@ -1350,6 +1350,8 @@ static int tls_device_down(struct net_device *netdev)
- =09spin_unlock_irqrestore(&tls_device_lock, flags);
-=20
- =09list_for_each_entry_safe(ctx, tmp, &list, list)=09{
-+=09=09bool free_ctx;
-+
- =09=09/* Stop offloaded TX and switch to the fallback.
- =09=09 * tls_is_skb_tx_device_offloaded will return false.
- =09=09 */
-@@ -1387,17 +1389,19 @@ static int tls_device_down(struct net_device *netde=
-v)
- =09=09 */
- =09=09spin_lock_irqsave(&tls_device_lock, flags);
- =09=09list_move_tail(&ctx->list, &tls_device_down_list);
-+=09=09/* Serialize the final removal with sk_destruct. */
-+=09=09free_ctx =3D refcount_dec_and_test(&ctx->refcount);
-+=09=09if (free_ctx)
-+=09=09=09list_del(&ctx->list);
- =09=09spin_unlock_irqrestore(&tls_device_lock, flags);
-=20
- =09=09/* Device contexts for RX and TX will be freed in on sk_destruct
- =09=09 * by tls_device_free_ctx. rx_conf and tx_conf stay in TLS_HW.
--=09=09 * Now release the ref taken above.
- =09=09 */
--=09=09if (refcount_dec_and_test(&ctx->refcount)) {
-+=09=09if (free_ctx) {
- =09=09=09/* sk_destruct ran after tls_device_down took a ref, and
- =09=09=09 * it returned early. Complete the destruction here.
- =09=09=09 */
--=09=09=09list_del(&ctx->list);
- =09=09=09tls_device_free_ctx(ctx);
- =09=09}
- =09}
---=20
-2.43.0
-
-
+Configuring the skb napi ID separately
+from busy poll seems cleaner and more reasonable.
