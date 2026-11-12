@@ -1,86 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794506225;
-	b=x5zgoW/zsAG/OhQ8jKkmANDW0b7kv9XuzXZsVB4liTlW3JEIKss7pYfqpiXZG91FUKmy
-	 kNvzSaRKAPGJlcJfltoj+kC+G/rglydQERPn2AuWclsbJAqO/8GfWPGrL2uuCeDUAXeg/
-	 icmNPrfcIFUt1LNB84npKTEQW4r+HCJSkOEdL+yW5HiYAjRrEL2mpdJVQkr7lrKk3pzP8
-	 MsZdLrfdCXOityVJxt8U9LRagOEBSuC6S/vZRdP3cfsD7lkaikH4Tl6mvIJDEIJsrUqKr
-	 c0avq0Oo1nf2Ir+iyHT/5EbyJMoNxh3p87NdyZCPsX8tQ+ZjqJz0X5gNmKCLntgIb9g==
+	t=1794506226;
+	b=i50z7UJ11Ub5BYWryTT8PYqizUSrDEmOf1IRCh3Tb5qS1iEmTqMvr64f+tX7BhyRsj06
+	 YofLDzZZVvZj10DGh3c+DoIaJQ3Ikmh1x2V8+Kx0IBi1JzG7e5uv/xzkzMZEAFxq7iS7s
+	 Paqo3e9ABH3ORwq0QRZXGvEEl3A+bwWIF2YW0nP2A6q69Co5BNpHaYl122iPCVAmvz1LT
+	 4UwIl97J8d5oofFtLukz3FcLJUaN31ym4BhiH0kPzFn6cq6heoZtpsV3QyvMrk1/aT/3j
+	 t8fdD7olLusaRolHkAN2Cb7NFgTht6paC9U55vwD32zpGmcastBPTvAJA+lRQq1GoOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794506225;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794506226;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/r4clUms1NakqoTNds1YOBelkAFaw0a4SLyelCy1urc=;
-	b=gBDEdGoloYtzJlCrghKWC8CPZjYD8Xj9PfTo+wLMa8xv8zN+LMQmwc9W1+8/8Pn6zAgO
-	 vU0y44cFjya2TO0GL6gLzycrW3N4OfUifgZukhd5/le/waJvVepupkmEPA688xjOvV03O
-	 tlckS1j7Rm8PmxE3C7bWqu7/LlB0soRLVTH348qCLnRi83HrZ7XXvxYV+8Hz4pWL/9KBh
-	 eL73KUr+xXFhlOBcJBqwqPc7bKGRSQ02MCR0qfp/wUl5u3l0NhIVGnWXAstssE3R0eI5q
-	 NFhHA99zzJAmQi0ih/89Eh28bJRju/6Tdq3Trv3do9ossdvo8jXPyP9Xt3wP9ihI3pA==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Uqh2JNkE7vcANkd4W6Q6M5RKE89IuV30KVj2UCTpRio=;
+	b=1Zg9mIKEF0L04XVhd95vTSk0NC2JfeRxHP+NpgknZ466EFtu6VLkfh2AMEA+GRsFanNv
+	 vuS42QBOIMwH1SAZhBzPyXdMuuthA/VLm4g6U4/dGhGZtxJAiWWqyOXqUWQWeDwNpeZbW
+	 U8O8RIjZGqHSykCph11BreTIbGxVnkrg5ysoe9Zg5o5tMXeu2iG3cGz7EXXNkiks9sju5
+	 V+ptEck5e9UkOfFOYgEdPWoRJnkqL5jY83Ra96gG1LAdZuoBU3zrbEJ/Xe+WikVsNyxCG
+	 BreHl8W4rCHs+fOABHl5lnpKntZglWcNYk+CWQpkPocABPEqSF6llOZBh8+Cz4+4JVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eJjSDfHF;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WmTFMA+p;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384AF60A2602
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:57:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 384AF60A2602
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B4B60A2603
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:57:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6B4B60A2603
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eJjSDfHF
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4b79502c27aso746485e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:57:03 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WmTFMA+p
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4ba013938d7so680085e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:57:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794506222; x=1795111022; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/r4clUms1NakqoTNds1YOBelkAFaw0a4SLyelCy1urc=;
-        b=eJjSDfHFjMqdBLi1n5Y89m58CNcb4RrPbHGB5oJuqxXiFVCqQapNNC4cM3pqBqSyzB
-         2lgCsEP3fhiskZBZ3SZOdfEp0qr9LNGjwpw5xLCePkAKVABjc8oqrOYQPQw9qtUKNUwv
-         nHiX7J2IaL2mDy2B/8+U9JK3Sle7mqQUlhLC7DIQLFijB7U6xOileUWGfFmWrjcFZ2sS
-         Z+AN79E+4ie/v+QBeDBWZkJxzpY6fLKTPEMd+LCz9uPquikgmVVK9Mum0e4GzXV1ROUD
-         mW3l4/iUkF2Rj+gV7g/3hDpVkTwyHjmKMlvjq7XZCviO60MDL1olDNR9e8CaTrE2XAOq
-         4yrQ==
+        d=gmail.com; s=20260707; t=1794506223; x=1795111023; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Uqh2JNkE7vcANkd4W6Q6M5RKE89IuV30KVj2UCTpRio=;
+        b=WmTFMA+pigNIPuxqYEQufzqQtAIjOvR59114Hj/h8nWnE7PSBuuqkBMkQQ9eky2nL+
+         n9zVy+0ZAXISgRd9y8QV8mfeWKdxsjDYYfa60w6NTx9BlUF4ar7vgRaheUNOn0zk81wp
+         EHX2sUosLK52Hod2fyz0Mdg9/m8jT0IPgwrcU/nZsR9UIygtK1pO8rX1IENgSuBGR9Fq
+         MYWn2kyoWOx1bA8F62bSBy1aBatnPGYtBRF0LTtk3KdDWuObwRVdip0q9lhz3Q5FdYOW
+         64j0M2fQrOrPgHFmHkqkes+7+vGiJjyx8HJY1CZZrQyc+iR5bCfQgHVMnvRs+zKibX5M
+         AGGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794506222; x=1795111022;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/r4clUms1NakqoTNds1YOBelkAFaw0a4SLyelCy1urc=;
-        b=chFoBwcSBA97C5QY4f/XpbJ7foJTlNvUpUmBm7lGyugecrHNBSX01FJmnTV813VTS+
-         W4MSaffOrHge/Nq652Y6E108CuP+Xb91XNX7FjVesWn4e95U+jc1hgGUDHxLBGOr9wTr
-         q+hKhKsqJakgVmuWjOptzAFYF0u4LH0cWEWtswkIjcxMjf7yRT8VT4O25hI+Xi5S5IVj
-         qnfGfZ800m3j0eqJxT4hnE9mQi/nGdxhiGZAPj37qYV4NOASErTSRKJfykCUfj6IIZ12
-         hjBbSLruiDw0N5vb3YlednNExhElPK+ngCwtaAcAoywtrg1/dMubulLDqPb2cubp17Br
-         ivvw==
-X-Forwarded-Encrypted: i=1; AL+hErGzA264QdLpgUK98p0YM2UUhZRWowGHn/Pzr/N3Oieurb4vvaLTTo95tD0KIgLCB1T8ln2eeOlKod3I6bA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z++c3fMOnxtLdpTlMFAbsrZv0/OQ5BbimMzyWp9uJIl/+MjGY0k
-	Y207B2JKAhoVJywEGDphy0+rdboS+TiEI+nUA220iCdy2yxSqefVP5V2
-X-Gm-Gg: AYBFou1cjADqSOj13I02BtH/mlh2+cvwekmkDpCg8DPhOFaKX6hkyorKO0C7F5HUCGK
-	OePy+YTc7lJAJ2xH3MXpIBB3unGl+wxuWG6Hm9V8lkvRasQTlvQg06WTebe2rLLEPRM/6BWFI41
-	GjtBU8AdUSyvBc29zrQVsVV2oJmULbgUVrlTmV+8Vtqa8Db3A5NFXQz6GOCrceA3ortI3/fpByb
-	xVpm6LFdF6g/uJ+qcBKMVei+fPRRx8fTV20kip+yIagjQeWatwMaL2bqTmDwxy86NtNJFpX7nXc
-	Be9jHlvLV9eKV2W3jrHxh1ZUXPR9qVAZCJQgguwAyv2BpJir3y2AkhJUJ0/nTT9hJ8cmiKnAbw2
-	POkyMi5AZPwdgC+WaeIyqjBGq3gvP+PdcBDPPWdKUwVpgBGE9RG4artbh8Btvr47YqaFQ8SdJap
-	js7tiUBS1l/OQa7r4Aqzzg55z/fxFzxrG4y3O3RLPM4Ahup9cVn1awLKGjHPt6+YDeGbzuod4bv
-	B2dDho2XMvBi/FKRNhHmEqRipkRYcJdX5WcBR6nKvmUHk0sNqmnyDmV3i/LK41SB/DaIGAqSxOk
-	eHDx5OPKS6ELxPoUn4CK2nhal3uMHxcnvhgSt4En1DsQ+9LtYOuiVvoAZYbAVqEsU1Si2fGwIt0
-	ZNCN6wZMX5phHHwC3cpOFod/NsVlxSSfONUa02cSoQeMRlXKuq5MxMNrucxFJF12qHTKcvZVAqz
-	mn+eGrLWrTLfBS+acpp1QWm17Iozf08mYnIJK0CkO2dA==
-X-Received: by 2002:a05:600c:46d3:b0:4ba:6d8:dfad with SMTP id 5b1f17b1804b1-4ba0936ead9mr126444685e9.14.1794506221789;
-        Thu, 12 Nov 2026 09:57:01 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794506223; x=1795111023;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Uqh2JNkE7vcANkd4W6Q6M5RKE89IuV30KVj2UCTpRio=;
+        b=qJtCAxCL02GFwQnw+G/Ji983MkPtd7A3JOMUsHZ8pWnyFNCsh4FYRgoRhtaJOSCbSV
+         04A4+qP6iKVw6JwiXMpfKIrmk6snbE8qgPyrFm+hgMDlp8bF6vBATk0nlmoo+JDk/VMg
+         2uA/3di9pWuMkT69IBk3XaABrEyPpo5Aaf88vxjmr6+qMlLXNiqKq5ieWttubFkDIVxm
+         1jd0gTDSpqTyPjNxzcxux6YRXgEn7vPgs/MpIsl9M9rRnxCF+5cJHG6nFboMnK727S6N
+         I2pHGW8dfW4fWQFnMphLpgKSx/lI6ygelBxFE0kpZuTJUle1iOJpTWUDNEDvaoD4nrFb
+         PjYw==
+X-Forwarded-Encrypted: i=1; AL+hErHh+E7Kc9sUq1uxxhwB6ZuEenIl/aLQaPT4STYOH0lY6EHj/7ZxSOe5VU+k8AZh0Na7nDWH47KypBxzISg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Ytv+zEKrIJrmsX11XH6R2UFyqEDHFDPU+ef67aRkIXa9euF2R
+	4a+y1UxYqu5qFW1WHBGn4n+kMYj4EWJ00H3+SFhH3ikx+tEhhatZV8rA
+X-Gm-Gg: AYBFou1Ag0JKTVxDWZB7WErmern0gK9rjfNh5JMLZLpekfqTq8OF+yk9ROewr9h6fpJ
+	FQySuQmiRmwZsx+wpF8MIt3wrlzm0uQfAUTLS/mDEHI8PMLbTm4xG/d2jKxTEBfU9MG/8YPbpa+
+	fckd/ItmYx/xmuYf3aMefiAfvDRws42i028y6M8a6JKd3GUQ3sfmk3pMAJozVez5XUXWy1BXuW8
+	GYBBCEYLHVsuD5JbNrYFRKR/AjYGnDN42NYYDvlj4FnMpTT2uxPA+Oyoans3WoPfGzW5Reesgkh
+	71rgGTNANR7VDzc7FN3sOeZA4Sd8jgbjgszQlXXrjZql0Wue0wxz4i1NnYj0AgSjU7WHredBfuW
+	K1LvuCltxFyDhQLNmdzoYUJxqWBWszCd/LJL0IzkngVwrrAjB0t5ABAtlziOMQFzfOx419IGove
+	/bY14LSubeDDNcg66Byhcum67u/EvpQOir/hwZh71J6WKshCAjJdwxqGeWW7krV2a6OapjJNK7Q
+	nFQNEBzO9TZPF3RjCpK78T+hN9H4Blba+F3qV51gtRuHgjG0BWzTdFg2LY6KcEPI7kTz2/fsWyt
+	ohMHeLIHQPtsOSL2MAkva5aAij4o1SPjEwADwOkxi1W3HS7hQaDkJJ1yNUZaIIiopK34q7tCh6X
+	T//lCiOzdIAYMqjFpgGFlgnocVqstdn4HNyHsfPHJrQs479FobZXdeyYmFryDs5GRh1e/VoNGao
+	5knuEo2PKzatHSlPCqi6CjxoJ7LIaqOPt29kdhdsbjuQ==
+X-Received: by 2002:a05:600c:3b88:b0:4b8:d17e:da27 with SMTP id 5b1f17b1804b1-4ba093c51a8mr145849115e9.27.1794506222978;
+        Thu, 12 Nov 2026 09:57:02 -0800 (PST)
 Received: from zitrone.tail45b538.ts.net ([2a02:810d:a1:6000:900:be5c:7a9c:c176])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb527c755esm31491425e9.4.2026.11.12.09.57.00
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb527c755esm31491425e9.4.2026.11.12.09.57.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 09:57:01 -0800 (PST)
+        Thu, 12 Nov 2026 09:57:02 -0800 (PST)
 From: Andreas Wendleder <gonsolo@gmail.com>
 To: linux-wireless@vger.kernel.org
 Cc: Johannes Berg <johannes@sipsolutions.net>,
@@ -92,9 +91,9 @@ Cc: Johannes Berg <johannes@sipsolutions.net>,
 	jpeisach@ubuntu.com,
 	rosenp@gmail.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH RFC wireless-next 2/4] wifi: b43: AC-PHY init and 2.4 GHz channel switching
-Date: Thu, 12 Nov 2026 18:56:54 +0100
-Message-ID: <20261112175656.40686-3-gonsolo@gmail.com>
+Subject: [PATCH RFC wireless-next 3/4] wifi: b43: 5 GHz, 80 MHz and VHT for the AC PHY
+Date: Thu, 12 Nov 2026 18:56:55 +0100
+Message-ID: <20261112175656.40686-4-gonsolo@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261112175656.40686-1-gonsolo@gmail.com>
 References: <20261112175656.40686-1-gonsolo@gmail.com>
@@ -107,1412 +106,489 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Replace the placeholder AC-PHY code with an initialization that brings
-the BCM4360 (PHY AC rev 1, radio 2069 rev 4) up on 2.4 GHz at 20 MHz:
+Add 5 GHz channel switching: the RF sequencer extension, the second
+sequencer's command lists and three table 7 cells (which keep the second
+TX chain working), the 5 GHz TX gain table and AGC tables, VCO calibration
+and the RX gain control word. Switching back to 2.4 GHz rewrites the
+2.4 GHz tables and the 20 MHz PHY bandwidth.
 
- - radio 2069 power-up (init, resistor and RC calibration) and power-down
-   from software_rfkill,
- - PHY init: the table set, the first-init registers, the reset-time
-   register blocks, hardware TX power control with the wide tables, and
-   the second TX chain, which stays dark unless chipcontrol bit 3 is set,
- - channel switching: tune the synthesizer from the radio table, the
-   per-channel Farrow resampler words and BW registers, reset CCA,
-   with PHY 0x0003 bit 8 (the band) cleared on 2.4 GHz,
- - a fixed 2.4 GHz TX gain table index as the starting point of the power
-   loop,
- - the 15 second work restarts the core when the microcode counts PHY TX
-   errors in several fresh inits (only about a third of fresh inits can
-   transmit, the rest fail every frame), at most three times,
- - HT capabilities for the 2.4 GHz band.
+On 5 GHz the PHY runs in its 80 MHz mode on the 80 MHz block that contains
+the primary channel, tuned to the centre of the block, with the
+Farrow resampler words computed for it. The chanspec of such a channel
+names the centre channel, the width and the position of the primary.
+Only an AP with an 80 MHz channel was tested; with a 20 or 40 MHz AP the
+primary channel's frames should still be received in the block.
 
-5 GHz channels are refused for now.
+Register the 5 GHz band with HT and VHT capabilities (two streams, MCS 0-9,
+80 MHz); mac80211 wants 40 MHz capability before it uses 80 MHz.
 
 Co-developed-by: Alessio Ferri <alessio.ferri@mythread.it>
 Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
 Signed-off-by: Andreas Wendleder <gonsolo@gmail.com>
 ---
- drivers/net/wireless/broadcom/b43/main.c      |   23 +-
- drivers/net/wireless/broadcom/b43/phy_ac.c    | 1014 ++++++++++++++++-
- drivers/net/wireless/broadcom/b43/phy_ac.h    |    3 +
- .../net/wireless/broadcom/b43/phy_ac_farrow.h |  260 +++++
- 4 files changed, 1295 insertions(+), 5 deletions(-)
- create mode 100644 drivers/net/wireless/broadcom/b43/phy_ac_farrow.h
+ drivers/net/wireless/broadcom/b43/main.c      |  46 +++
+ drivers/net/wireless/broadcom/b43/phy_ac.c    | 269 +++++++++++++++++-
+ drivers/net/wireless/broadcom/b43/phy_ac.h    |   1 +
+ .../net/wireless/broadcom/b43/phy_common.c    |  25 +-
+ 4 files changed, 328 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/net/wireless/broadcom/b43/main.c b/drivers/net/wireless/broadcom/b43/main.c
-index 6b80b5e..7d2f9ea 100644
+index 7d2f9ea..eeb70bf 100644
 --- a/drivers/net/wireless/broadcom/b43/main.c
 +++ b/drivers/net/wireless/broadcom/b43/main.c
-@@ -352,6 +352,25 @@ static struct ieee80211_supported_band b43_band_2GHz = {
- 	.n_bitrates	= b43_g_ratetable_size,
+@@ -317,6 +317,21 @@ static struct ieee80211_channel b43_5ghz_aphy_chantable[] = {
+ 	CHAN5G(208, 0),		CHAN5G(212, 0),
+ 	CHAN5G(216, 0),
+ };
++
++static struct ieee80211_channel b43_5ghz_acphy_chantable[] = {
++	CHAN5G(36, 0),		CHAN5G(40, 0),
++	CHAN5G(44, 0),		CHAN5G(48, 0),
++	CHAN5G(52, 0),		CHAN5G(56, 0),
++	CHAN5G(60, 0),		CHAN5G(64, 0),
++	CHAN5G(100, 0),		CHAN5G(104, 0),
++	CHAN5G(108, 0),		CHAN5G(112, 0),
++	CHAN5G(116, 0),		CHAN5G(120, 0),
++	CHAN5G(124, 0),		CHAN5G(128, 0),
++	CHAN5G(132, 0),		CHAN5G(136, 0),
++	CHAN5G(140, 0),		CHAN5G(149, 0),
++	CHAN5G(153, 0),		CHAN5G(157, 0),
++	CHAN5G(161, 0),		CHAN5G(165, 0),
++};
+ #undef CHAN4G
+ #undef CHAN5G
+ 
+@@ -336,6 +351,14 @@ static struct ieee80211_supported_band b43_band_5GHz_nphy_limited = {
+ 	.n_bitrates	= b43_a_ratetable_size,
  };
  
-+static struct ieee80211_supported_band b43_band_2GHz_ac = {
-+	.band		= NL80211_BAND_2GHZ,
-+	.channels	= b43_2ghz_chantable,
-+	.n_channels	= ARRAY_SIZE(b43_2ghz_chantable),
-+	.bitrates	= b43_g_ratetable,
-+	.n_bitrates	= b43_g_ratetable_size,
-+	.ht_cap		= {
-+		.ht_supported	= true,
-+		/* static SM power save disabled */
-+		.cap		= IEEE80211_HT_CAP_SM_PS,
-+		.ampdu_factor	= IEEE80211_HT_MAX_AMPDU_8K,
-+		.ampdu_density	= IEEE80211_HT_MPDU_DENSITY_NONE,
-+		.mcs		= {
-+			.rx_mask	= { 0xff, 0xff },
-+			.tx_params	= IEEE80211_HT_MCS_TX_DEFINED,
-+		},
-+	},
++static struct ieee80211_supported_band b43_band_5GHz_acphy = {
++	.band		= NL80211_BAND_5GHZ,
++	.channels	= b43_5ghz_acphy_chantable,
++	.n_channels	= ARRAY_SIZE(b43_5ghz_acphy_chantable),
++	.bitrates	= b43_a_ratetable,
++	.n_bitrates	= b43_a_ratetable_size,
 +};
 +
- static struct ieee80211_supported_band b43_band_2ghz_limited = {
- 	.band		= NL80211_BAND_2GHZ,
- 	.channels	= b43_2ghz_chantable,
-@@ -5613,7 +5632,9 @@ static int b43_setup_bands(struct b43_wldev *dev,
- 
- 	if (have_2ghz_phy)
- 		hw->wiphy->bands[NL80211_BAND_2GHZ] = limited_2g ?
--			&b43_band_2ghz_limited : &b43_band_2GHz;
-+			&b43_band_2ghz_limited :
-+			(dev->phy.type == B43_PHYTYPE_AC ?
-+			 &b43_band_2GHz_ac : &b43_band_2GHz);
- 	if (dev->phy.type == B43_PHYTYPE_N) {
- 		if (have_5ghz_phy)
+ static struct ieee80211_supported_band b43_band_5GHz_aphy = {
+ 	.band		= NL80211_BAND_5GHZ,
+ 	.channels	= b43_5ghz_aphy_chantable,
+@@ -5640,6 +5663,29 @@ static int b43_setup_bands(struct b43_wldev *dev,
  			hw->wiphy->bands[NL80211_BAND_5GHZ] = limited_5g ?
+ 				&b43_band_5GHz_nphy_limited :
+ 				&b43_band_5GHz_nphy;
++	} else if (dev->phy.type == B43_PHYTYPE_AC) {
++		if (have_5ghz_phy) {
++			struct ieee80211_sta_vht_cap *vht =
++				&b43_band_5GHz_acphy.vht_cap;
++
++			/*
++			 * The AP refuses a station without HT here (status 18)
++			 */
++			b43_band_5GHz_acphy.ht_cap = b43_band_2GHz_ac.ht_cap;
++			/*
++			 * mac80211 wants 40 MHz capability before it uses 80
++			 * MHz
++			 */
++			b43_band_5GHz_acphy.ht_cap.cap |=
++				IEEE80211_HT_CAP_SUP_WIDTH_20_40;
++			vht->vht_supported = true;
++			vht->cap = IEEE80211_VHT_CAP_MAX_MPDU_LENGTH_3895;
++			/* MCS 0-9 on one and two streams */
++			vht->vht_mcs.rx_mcs_map = cpu_to_le16(0xfffa);
++			vht->vht_mcs.tx_mcs_map = cpu_to_le16(0xfffa);
++			hw->wiphy->bands[NL80211_BAND_5GHZ] =
++				&b43_band_5GHz_acphy;
++		}
+ 	} else {
+ 		if (have_5ghz_phy)
+ 			hw->wiphy->bands[NL80211_BAND_5GHZ] = &b43_band_5GHz_aphy;
 diff --git a/drivers/net/wireless/broadcom/b43/phy_ac.c b/drivers/net/wireless/broadcom/b43/phy_ac.c
-index fe102ea..4bcf6f8 100644
+index 4bcf6f8..7e041b6 100644
 --- a/drivers/net/wireless/broadcom/b43/phy_ac.c
 +++ b/drivers/net/wireless/broadcom/b43/phy_ac.c
-@@ -4,10 +4,17 @@
-  * IEEE 802.11ac AC-PHY support
-  *
-  * Copyright (c) 2015 Rafał Miłecki <zajec5@gmail.com>
-+ * Copyright (c) 2026 Alessio Ferri <alessio.ferri@mythread.it>
-+ * Copyright (c) 2026 Andreas Wendleder <gonsolo@gmail.com>
-  */
- 
- #include "b43.h"
- #include "phy_ac.h"
-+#include "radio_2069.h"
-+#include "tables_phy_ac.h"
-+#include "dma.h"
-+#include "main.h"
-+
- 
- /**************************************************
-  * Basic PHY ops
-@@ -42,17 +49,1009 @@ static void b43_phy_ac_op_maskset(struct b43_wldev *dev, u16 reg, u16 mask,
- 		    (b43_read16(dev, B43_MMIO_PHY_DATA) & mask) | set);
+@@ -368,6 +368,18 @@ static void b43_phy_ac_op_prepare_structs(struct b43_wldev *dev)
+ 	memset(phy_ac, 0, sizeof(*phy_ac));
  }
  
 +/*
-+ * Unlike the generic b43_phy_write() fallback (two 16-bit writes to CONTROL
-+ * and DATA), the vendor driver writes one 32-bit word, (value << 16) | reg,
-+ * to the CONTROL address. Do the same.
++ * 80 MHz mode: on 5 GHz the PHY runs on the 80 MHz block that contains the
++ * primary channel, tuned to the centre of the block.
 + */
-+static void b43_phy_ac_op_write(struct b43_wldev *dev, u16 reg, u16 value)
++static bool b43_phy_ac_is_80mhz(struct b43_wldev *dev, unsigned int channel)
 +{
-+	b43_write32(dev, B43_MMIO_PHY_CONTROL, ((u32)value << 16) | reg);
++	return b43_current_band(dev->wl) == NL80211_BAND_5GHZ &&
++	       b43_ac_80mhz_centre(channel);
 +}
 +
-+/*
-+ * Which CONTROL/DATA register pair addresses the radio depends on the core
-+ * revision: cores 0x1b and below 0x18 use the legacy RADIO_CONTROL and
-+ * RADIO_DATA_LOW pair, newer ones (including the BCM4360's) the RADIO24 pair.
-+ */
-+static bool b43_phy_ac_use_radio24(struct b43_wldev *dev)
-+{
-+	u8 rev = dev->dev->core_rev;
++static void b43_radio_2069_vcocal(struct b43_wldev *dev);
 +
-+	return !(rev == 0x1b || rev < 0x18);
-+}
-+
- static u16 b43_phy_ac_op_radio_read(struct b43_wldev *dev, u16 reg)
- {
--	b43_write16f(dev, B43_MMIO_RADIO24_CONTROL, reg);
--	return b43_read16(dev, B43_MMIO_RADIO24_DATA);
-+	if (b43_phy_ac_use_radio24(dev)) {
-+		b43_write16f(dev, B43_MMIO_RADIO24_CONTROL, reg);
-+		return b43_read16(dev, B43_MMIO_RADIO24_DATA);
-+	}
-+
-+	b43_write16f(dev, B43_MMIO_RADIO_CONTROL, reg);
-+	return b43_read16(dev, B43_MMIO_RADIO_DATA_LOW);
+ /*
+  * 2.4 GHz TX gain table index set on a channel switch (0 is the highest gain).
+  * The reset value, 64, is too weak beyond a few metres.
+@@ -416,6 +428,126 @@ static void b43_phy_ac_wide_tables_2g(struct b43_wldev *dev)
+ 		b43_phy_ac_table_write48(dev, 0x11, i, zero);
  }
  
- static void b43_phy_ac_op_radio_write(struct b43_wldev *dev, u16 reg,
- 				      u16 value)
- {
--	b43_write16f(dev, B43_MMIO_RADIO24_CONTROL, reg);
--	b43_write16(dev, B43_MMIO_RADIO24_DATA, value);
-+	if (b43_phy_ac_use_radio24(dev)) {
-+		b43_write16f(dev, B43_MMIO_RADIO24_CONTROL, reg);
-+		b43_write16(dev, B43_MMIO_RADIO24_DATA, value);
-+		return;
-+	}
-+
-+	b43_write16f(dev, B43_MMIO_RADIO_CONTROL, reg);
-+	b43_write16(dev, B43_MMIO_RADIO_DATA_LOW, value);
-+}
-+
-+static u8 b43_phy_ac_num_cores(struct b43_wldev *dev)
-+{
-+	u8 cores = b43_phy_read(dev, 0x00b) & 0x7;
-+
-+	if (dev->dev->chip_id == 0x4360 &&
-+	    (dev->dev->board_type == 0x137 || dev->dev->board_type == 0x117))
-+		cores = 2;
-+	return cores;
-+}
-+
-+/* prefregs_2069_rev4 from the vendor driver. */
-+static const u16 b43_radio_2069r4_prefregs[][2] = {
-+	{ 0x063a, 0x0000 }, { 0x063d, 0x000f }, { 0x0645, 0x3000 },
-+	{ 0x0646, 0x0303 }, { 0x0647, 0x36e2 }, { 0x0649, 0x6000 },
-+	{ 0x064a, 0x0003 }, { 0x065e, 0x0ff4 }, { 0x0666, 0x0b2d },
-+	{ 0x0667, 0x03ff }, { 0x0115, 0x3337 }, { 0x0117, 0x1337 },
-+	{ 0x0718, 0x7777 }, { 0x071c, 0x1000 }, { 0x0726, 0x0100 },
-+	{ 0x0727, 0x0002 }, { 0x0761, 0x0100 }, { 0x0407, 0x8382 },
-+	{ 0x055e, 0x0020 }, { 0x0885, 0x0700 }, { 0x08e9, 0x01ce },
-+	{ 0x08ea, 0x00ff }, { 0x08ec, 0x06ff }, { 0x0972, 0x0600 },
++/*
++ * The second sequencer's command lists (table 7 at 0x30/0x40/0x50, cores 0-2)
++ * on 5 GHz: no leading 0x2a, and 0xb0/0xb1/0xb2 where 2.4 GHz has 0x2b.
++ */
++static const u16 b43_rfseq2_c0_5g[] = { 0x07, 0x0a, 0x00, 0x08,
++					0xb0, 0xb1, 0x1f, 0x1f };
++static const u16 b43_rfseq2_c1_5g[] = { 0x07, 0x08, 0x0c, 0x0e,
++					0xb0, 0xb2, 0x1f, 0x1f };
++static const u16 b43_rfseq2_c2_5g[] = { 0x07, 0x08, 0x0e, 0xb0,
++					0xb1, 0x1f, 0x1f, 0x1f };
++static const struct b43_phy_ac_tbl b43_rfseq2_5g_tbls[] = {
++	{ b43_rfseq2_c0_5g, 8, 7, 0x30, 16 },
++	{ b43_rfseq2_c1_5g, 8, 7, 0x40, 16 },
++	{ b43_rfseq2_c2_5g, 8, 7, 0x50, 16 },
 +};
 +
-+/*
-+ * Radio 2069 rev 4 init (as the vendor driver does it). Skipped: a board-flag
-+ * dependent "radio 0x8ea |= 0x100" whose flag source we haven't identified.
-+ */
-+static void b43_radio_2069_init(struct b43_wldev *dev)
-+{
-+	u16 s728, s408;
-+	unsigned int i;
-+	u8 core, cores;
++static void b43_phy_ac_write_table(struct b43_wldev *dev,
++				   const struct b43_phy_ac_tbl *t);
 +
-+	s728 = b43_phy_read(dev, 0x728);
-+	s408 = b43_phy_read(dev, B43_PHY_AC_RFCTL_CMD) & 0xfc38;
-+	b43_phy_write(dev, 0x415, 0);
-+	b43_phy_write(dev, 0x40e, 0);
-+	b43_phy_write(dev, 0x40c, 0x2000);
-+	b43_phy_write(dev, B43_PHY_AC_RFCTL_CMD, s408);
-+	b43_phy_write(dev, 0x417, 0);
-+	b43_phy_write(dev, 0x416, 0xd);
-+	b43_phy_write(dev, 0x728, s728 & 0x7e7f);
-+	b43_phy_set(dev, 0x720, 0x180);
-+	b43_phy_write(dev, B43_PHY_AC_RFCTL_CMD, s408);
-+	b43_phy_write(dev, B43_PHY_AC_RFCTL_CMD, s408 | 1);
-+	udelay(1);
-+	b43_phy_write(dev, B43_PHY_AC_RFCTL_CMD, s408);
-+
-+	for (i = 0; i < ARRAY_SIZE(b43_radio_2069r4_prefregs); i++)
-+		b43_radio_write(dev, b43_radio_2069r4_prefregs[i][0],
-+				b43_radio_2069r4_prefregs[i][1]);
-+
-+	b43_radio_set(dev, 0x96b, 0x0800);
-+	b43_radio_set(dev, 0x96b, 0x4000);
-+	b43_radio_set(dev, 0x96c, 0x0800);
-+	b43_radio_set(dev, 0x96b, 0x8000);
-+	b43_radio_set(dev, 0x96b, 0x1000);
-+	b43_radio_set(dev, 0x96b, 0x0004);
-+	b43_radio_set(dev, 0x407, 0x0002);
-+	b43_radio_set(dev, 0x55e, 0x0010);
-+
-+	cores = b43_phy_ac_num_cores(dev);
-+	for (core = 0; core < cores; core++) {
-+		u16 c = core << 9;
-+
-+		b43_radio_maskset(dev, 0x126 | c, ~0x300, 0x100);
-+		b43_radio_maskset(dev, 0x127 | c, ~0x003, 0x002);
-+		b43_radio_mask(dev, 0x06f | c, ~0x004);
-+		b43_radio_mask(dev, 0x06f | c, ~0x001);
-+		b43_radio_mask(dev, 0x06f | c, ~0x002);
-+		b43_radio_mask(dev, 0x065 | c, ~0x001);
-+	}
-+
-+	b43_radio_mask(dev, 0x40c, ~0x10);
-+	b43_phy_write(dev, B43_PHY_AC_RFCTL_CMD, s408 | 6);
-+	udelay(100);
-+	b43_radio_set(dev, 0x40c, 0x10);
-+	b43_phy_write(dev, 0x417, 0xd);
-+	b43_phy_write(dev, B43_PHY_AC_RFCTL_CMD, s408 | 2);
-+	b43_phy_write(dev, 0x728, s728 | 0x180);
-+	udelay(100);
-+	b43_phy_write(dev, 0x417, 4);
-+	b43_phy_write(dev, 0x728, s728 & 0xfeff);
-+
-+	b43dbg(dev->wl, "phy_ac: radio 2069 init done (%u cores)\n", cores);
-+}
++static void b43_phy_ac_table_write16(struct b43_wldev *dev, u16 id, u16 offset,
++				     u16 value);
 +
 +/*
-+ * Resistor calibration: the vendor's default path when SPROM boardflags3
-+ * bits 3 and 13 are clear. bcma does not parse boardflags3, so we assume 0.
++ * 5 GHz additions to the sequencer and the wide tables:
++ * - table 0x14 entries 0x30-0x33, the RF sequencer extension (48 bits wide,
++ *   written through the third data port 0x011, low word first). Without
++ *   0x30-0x32 the receiver is deaf on 5 GHz; 2.4 GHz does not need them.
++ *   PHY tables survive a driver reload and a PCI bus reset.
++ * - the command lists above and three table 7 cells, see below,
++ * - the 5 GHz TX gain table and the table 0x11 fill.
 + */
-+static bool b43_radio_2069_rcal(struct b43_wldev *dev)
++static void b43_phy_ac_rfseq_ext_5g(struct b43_wldev *dev)
 +{
-+	u16 v = 0;
-+	int i;
-+
-+	b43_radio_set(dev, 0x8ea, 0x40);
-+	b43_radio_set(dev, 0x8ea, 0x80);
-+	b43_radio_mask(dev, 0x8ed, ~0x600);
-+	b43_radio_mask(dev, 0x8ed, ~0x1800);
-+	b43_radio_set(dev, 0x548, 0x1);
-+	b43_radio_write(dev, 0x549, 0);
-+	b43_radio_write(dev, 0x54a, 0);
-+	b43_radio_write(dev, 0x54b, 0);
-+	b43_radio_write(dev, 0x54c, 0);
-+	b43_radio_mask(dev, 0x40b, ~0x1);
-+	udelay(1);
-+	b43_radio_set(dev, 0x40b, 0x1);
-+	for (i = 0; i < 100; i++) {
-+		udelay(10);
-+		v = b43_radio_read(dev, 0x40b);
-+		if (v & 0x8)
-+			break;
-+	}
-+	b43_radio_read(dev, 0x40b);
-+	b43_radio_mask(dev, 0x548, ~0x1);
-+	b43_radio_mask(dev, 0x8ea, ~0x40);
-+	b43_radio_mask(dev, 0x8ea, ~0x80);
-+	b43_radio_mask(dev, 0x40b, ~0x1);
-+
-+	b43dbg(dev->wl, "phy_ac: RCAL %s after %d polls (0x40b=%04x)\n",
-+	       (v & 0x8) ? "done" : "TIMEOUT", i, v);
-+	return v & 0x8;
-+}
-+
-+/* RC calibration (as the vendor driver does it), radio type 0 values. */
-+static void b43_radio_2069_rccal(struct b43_wldev *dev)
-+{
-+	static const u8 cal_a[3] = { 1, 0, 0 };
-+	static const u8 cal_b[3] = { 0, 2, 1 };
-+	static const u8 cal_c[3] = { 0x1c, 0x70, 0x40 };
-+	static const u16 cal_d[3] = { 0x14a, 0x101, 0x11a };
-+	u8 core, cores = b43_phy_ac_num_cores(dev);
-+	u16 v, r1, r2;
-+	int step, i;
-+	bool done;
-+
-+	b43_radio_set(dev, 0x8ea, 0x80);
-+	b43_radio_maskset(dev, 0x8ed, ~0x600, 0x400);
-+
-+	for (step = 0; step < 3; step++) {
-+		b43_radio_maskset(dev, 0x410, ~0x1000, cal_a[step] << 12);
-+		b43_radio_maskset(dev, 0x410, ~0x0018, cal_b[step] << 3);
-+		b43_radio_maskset(dev, 0x411, 0x00ff, cal_c[step] << 8);
-+		b43_radio_write(dev, 0x412, cal_d[step]);
-+		if (step == 2) {
-+			for (core = 0; core < cores; core++) {
-+				b43_radio_mask(dev, 0x11d | (core << 9), ~0x4);
-+				b43_radio_set(dev, 0x171 | (core << 9), 0x2000);
-+			}
-+		}
-+		b43_radio_mask(dev, 0x410, ~0x1);
-+		udelay(1);
-+		b43_radio_set(dev, 0x410, 0x1);
-+		udelay(35);
-+		b43_radio_set(dev, 0x411, 0x1);
-+
-+		done = false;
-+		for (i = 0; i < 100; i++) {
-+			udelay(100);
-+			if (b43_radio_read(dev, 0x413) & 0x10) {
-+				done = true;
-+				break;
-+			}
-+		}
-+		b43_radio_mask(dev, 0x411, ~0x1);
-+
-+		if (done) {
-+			if (step == 0) {
-+				r1 = b43_radio_read(dev, 0x414);
-+				r2 = b43_radio_read(dev, 0x415);
-+				b43dbg(dev->wl,
-+				       "phy_ac: RCCAL step 0: %04x %04x -> %02x\n",
-+				       r1, r2,
-+				       (((u32)(r2 - r1)) * 0xc1 >> 8) & 0xff);
-+			} else if (step == 1) {
-+				v = b43_radio_read(dev, 0x416);
-+				for (core = 0; core < cores; core++) {
-+					b43_radio_maskset(dev,
-+							  0x126 | (core << 9),
-+							  ~0x1f, v & 0x1f);
-+					b43_radio_maskset(dev,
-+							  0x043 | (core << 9),
-+							  ~0x1f, v & 0x1f);
-+				}
-+				b43dbg(dev->wl, "phy_ac: RCCAL step 1: %04x\n",
-+				       v);
-+			} else {
-+				v = b43_radio_read(dev, 0x416);
-+				for (core = 0; core < cores; core++)
-+					b43_radio_mask(dev, 0x171 | (core << 9),
-+						       ~0x2000);
-+				b43dbg(dev->wl, "phy_ac: RCCAL step 2: %04x\n",
-+				       v);
-+			}
-+		} else {
-+			b43dbg(dev->wl, "phy_ac: RCCAL step %d TIMEOUT\n",
-+			       step);
-+		}
-+		b43_radio_mask(dev, 0x410, ~0x1);
-+	}
-+	b43_radio_mask(dev, 0x8ea, ~0x80);
-+}
-+
-+/* Radio power-up (vendor wlc_phy_switch_radio_acphy, on, radio type 0). */
-+static void b43_radio_2069_power_up(struct b43_wldev *dev)
-+{
-+	b43_radio_2069_init(dev);
-+	b43_phy_mask(dev, 0x16b, ~0x400);
-+	udelay(3);
-+	b43_phy_write(dev, 0x175, 0);
-+	udelay(3);
-+	b43_radio_2069_rcal(dev);
-+	b43_radio_2069_rccal(dev);
-+}
-+
-+/* Radio power-down; the power-up is b43_radio_2069_power_up(). */
-+static void b43_radio_2069_power_down(struct b43_wldev *dev)
-+{
-+	b43_phy_write(dev, 0x173e, 0x1c00);
-+	b43_phy_write(dev, 0x1739, 0);
-+	b43_phy_write(dev, 0x173a, 0);
-+	b43_phy_write(dev, 0x1725, 0x1fff);
-+	b43_phy_write(dev, 0x1729, 0);
-+	b43_phy_write(dev, 0x1721, 0xffff);
-+	b43_phy_write(dev, 0x1728, 0);
-+	b43_phy_write(dev, 0x1720, 0x3ff);
-+	b43_phy_maskset(dev, B43_PHY_AC_RFCTL_CMD, ~2, 0);
-+	b43_phy_write(dev, 0x417, 0);
-+	b43_phy_write(dev, 0x416, 1);
-+	dev->phy.ac->radio_on = false;
-+	b43dbg(dev->wl, "phy_ac: radio powered down\n");
-+}
-+
-+/*
-+ * The radio is powered up by software_rfkill(); only switching off is done
-+ * here.
-+ */
-+static void b43_phy_ac_op_switch_analog(struct b43_wldev *dev, bool on)
-+{
-+	if (!on)
-+		b43_radio_2069_power_down(dev);
-+}
-+
-+static void b43_phy_ac_op_software_rfkill(struct b43_wldev *dev, bool blocked)
-+{
-+	struct b43_phy_ac *phy_ac = dev->phy.ac;
-+
-+	b43dbg(dev->wl, "phy_ac: software_rfkill(blocked=%d)\n", blocked);
-+	if (blocked) {
-+		b43_radio_2069_power_down(dev);
-+		return;
-+	}
-+	if (phy_ac->radio_on)
-+		return;
-+	if (dev->phy.radio_ver != 0x2069 || dev->phy.radio_rev != 4) {
-+		b43err(dev->wl,
-+		       "phy_ac: no power-up sequence for radio %04x rev %u\n",
-+		       dev->phy.radio_ver, dev->phy.radio_rev);
-+		return;
-+	}
-+	b43_radio_2069_power_up(dev);
-+	phy_ac->radio_on = true;
-+}
-+
-+static void b43_phy_ac_op_prepare_structs(struct b43_wldev *dev)
-+{
-+	struct b43_phy *phy = &dev->phy;
-+	struct b43_phy_ac *phy_ac = phy->ac;
-+
-+	b43dbg(dev->wl, "phy_ac: prepare_structs\n");
-+	memset(phy_ac, 0, sizeof(*phy_ac));
-+}
-+
-+/*
-+ * 2.4 GHz TX gain table index set on a channel switch (0 is the highest gain).
-+ * The reset value, 64, is too weak beyond a few metres.
-+ */
-+#define B43_AC_TXIDX_2G	20
-+static void b43_phy_ac_txpwr_by_index(struct b43_wldev *dev, unsigned int idx);
-+
-+/* One 48-bit PHY table entry: three words through the third data port. */
-+static void b43_phy_ac_table_write48(struct b43_wldev *dev, u16 id, u16 offset,
-+				     const u16 *w)
-+{
-+	b43_phy_write(dev, B43_PHY_AC_TABLE_ID, id);
-+	b43_phy_write(dev, B43_PHY_AC_TABLE_OFFSET, offset);
-+	b43_phy_write(dev, 0x011, w[0]);
-+	b43_phy_write(dev, 0x011, w[1]);
-+	b43_phy_write(dev, 0x011, w[2]);
-+}
-+
-+/*
-+ * The 48-bit wide tables of the 2.4 GHz setup: the TX gain table 0x20, which
-+ * hardware TX power control indexes; the RF sequencer extension entry 0x33;
-+ * and table 0x11: twelve fixed cells, 448 cells of the SROM's rpcal
-+ * coefficient (the value for this board on 2.4 GHz), then four zero cells.
-+ */
-+static void b43_phy_ac_wide_tables_2g(struct b43_wldev *dev)
-+{
-+	static const u16 ext33[3] = { 0xe800, 0x0084, 0xd351 };
-+	static const u16 head11[12][3] = {
-+		{ 0x005b, 0, 0 }, { 0x8250, 0, 0 }, { 0xc338, 0, 0 },
-+		{ 0x4527, 1, 0 }, { 0xa6a1, 1, 0 }, { 0x081b, 2, 0 },
-+		{ 0x8a18, 2, 0 }, { 0x2c96, 3, 0 }, { 0x8e17, 3, 0 },
-+		{ 0x101b, 4, 0 }, { 0x0020, 0, 0 }, { 0x0020, 0, 0 },
++	static const u16 ext[4][3] = {
++		{ 0x0fd2, 0x0096, 0x0000 },
++		{ 0x0fc2, 0x0086, 0x0000 },
++		{ 0x0fd2, 0x0086, 0x0000 },
++		{ 0x0800, 0x0086, 0x0000 },
 +	};
-+	static const u16 fill11[3] = { 0xd602, 0x007e, 0x4002 };
-+	static const u16 zero[3] = { 0, 0, 0 };
 +	unsigned int i;
 +
++	static const u16 fill11[3] = { 0xbf25, 0x0071, 0x4002 };
++
++	for (i = 0; i < ARRAY_SIZE(ext); i++)
++		b43_phy_ac_table_write48(dev, 0x14, 0x30 + i, ext[i]);
++	for (i = 0; i < ARRAY_SIZE(b43_rfseq2_5g_tbls); i++)
++		b43_phy_ac_write_table(dev, &b43_rfseq2_5g_tbls[i]);
++	/*
++	 * Table 7 cells of the TX chains (core 0 at 973, core 1 at 989) and the
++	 * cell 398 that differ from the 2.4 GHz defaults: without the core 1
++	 * value no two-stream frame is ever acknowledged, and 398 makes
++	 * two-stream MCS 7 usable.
++	 */
++	b43_phy_ac_table_write16(dev, 7, 973, 0x03a2);
++	b43_phy_ac_table_write16(dev, 7, 989, 0x05d0);
++	b43_phy_ac_table_write16(dev, 7, 398, 0x0049);
++	/*
++	 * The 5 GHz TX gain table and the table 0x11 fill (the twelve head
++	 * cells and the zero tail are band independent).
++	 */
 +	for (i = 0; i < 128; i++)
-+		b43_phy_ac_table_write48(dev, 0x20, i, b43_phy_ac_txgain_2g[i]);
-+	b43_phy_ac_table_write48(dev, 0x14, 0x33, ext33);
-+	for (i = 0; i < 12; i++)
-+		b43_phy_ac_table_write48(dev, 0x11, i, head11[i]);
++		b43_phy_ac_table_write48(dev, 0x20, i, b43_phy_ac_txgain_5g[i]);
 +	for (i = 12; i < 460; i++)
 +		b43_phy_ac_table_write48(dev, 0x11, i, fill11);
-+	for (i = 460; i < 464; i++)
-+		b43_phy_ac_table_write48(dev, 0x11, i, zero);
 +}
 +
-+/*
-+ * PHY register init for 2.4 GHz and 20 MHz, in the blocks of the reset-time
-+ * code of Alessio Ferri's b43-ac-wip (mode_init, set_reg_on_reset,
-+ * set_pdet_on_reset, coeff_bank_init), plus the few registers the vendor
-+ * driver writes in the same window. Read-modify-write is kept where his
-+ * code uses it.
++static void b43_phy_ac_write_table(struct b43_wldev *dev,
++				   const struct b43_phy_ac_tbl *t);
++
++/* 5 GHz AGC tables as written by the vendor driver on this board:
++ * the same four table ids as 2.4 GHz (0x44/0x45 core 0, 0x64/0x65 core 1) but
++ * with the 5 GHz LNA gains. Offset 0: eLNA, 8: LNA1, 16: LNA2, 32: gain limits.
 + */
-+#define B43_AC_NCORES	2	/* coremask 0x3 on this chip */
-+
-+/* 0x17xx analog front end page, AFE on */
-+static void b43_phy_ac_mode_init(struct b43_wldev *dev)
-+{
-+	b43_phy_write(dev, 0x173e, 0x0000);
-+	b43_phy_write(dev, 0x1725, 0x0000);
-+	b43_phy_write(dev, 0x1722, 0x0000);
-+	b43_phy_write(dev, 0x1723, 0x0000);
-+	b43_phy_write(dev, 0x1724, 0x0000);
-+	b43_phy_write(dev, 0x1727, 0x0000);
-+	b43_phy_write(dev, 0x1750, 0x0000);
-+	b43_phy_write(dev, 0x1728, 0x0080);
-+	b43_phy_write(dev, 0x1720, 0x0180);
-+	b43_phy_write(dev, 0x1729, 0x0000);
-+	b43_phy_write(dev, 0x1721, 0x5000);
-+	b43_phy_write(dev, 0x173a, b43_phy_read(dev, 0x073a) | 0x0100);
-+	b43_phy_write(dev, 0x1725, b43_phy_read(dev, 0x1725) | 0x0400);
-+}
-+
-+static void b43_phy_ac_set_reg_on_reset(struct b43_wldev *dev)
-+{
-+	unsigned int c;
-+
-+	b43_phy_write(dev, 0x01f2, 0x00c8);
-+	b43_phy_write(dev, 0x0026, 0x0092);
-+	b43_phy_write(dev, 0x01ed, 0x0050);
-+	b43_phy_write(dev, 0x0025, 0x0030);
-+
-+	/* clip mask: low byte 0x55 */
-+	b43_phy_maskset(dev, 0x02ef, (u16)~0x00ff, 0x0055);
-+	b43_phy_maskset(dev, 0x02eb, (u16)~0x00ff, 0x0055);
-+	b43_phy_maskset(dev, 0x02f7, (u16)~0x00ff, 0x0055);
-+	b43_phy_maskset(dev, 0x02f3, (u16)~0x00ff, 0x0055);
-+
-+	b43_phy_maskset(dev, 0x01ca, (u16)~0x1000, 0);
-+	b43_phy_maskset(dev, 0x01b0, (u16)~0x0020, 0);
-+	b43_phy_maskset(dev, 0x01b1, (u16)~0x1000, 0x1000);
-+	b43_phy_maskset(dev, 0x01b6, (u16)~0x8000, 0);
-+	for (c = 0; c < B43_AC_NCORES; c++) {
-+		b43_phy_maskset(dev, 0x0690 + c * 0x200, (u16)~0x0200, 0x0200);
-+		b43_phy_maskset(dev, 0x0690 + c * 0x200, (u16)~0x0400, 0x0400);
-+	}
-+	b43_phy_write(dev, 0x01e6, 0x0030);
-+}
-+
-+/* Operating width in MHz; the coefficient bank scales with it. */
-+static unsigned int b43_phy_ac_bw_mhz(struct b43_wldev *dev)
-+{
-+	switch (dev->wl->hw->conf.chandef.width) {
-+	case NL80211_CHAN_WIDTH_80:
-+		return 80;
-+	case NL80211_CHAN_WIDTH_40:
-+		return 40;
-+	default:
-+		return 20;
-+	}
-+}
-+
-+/*
-+ * RX gain / threshold LUT and per-core words. The 20 MHz values are checked
-+ * on 2.4 GHz; the 40 and 80 MHz ones are from Alessio Ferri's tree (5 GHz).
-+ */
-+static void b43_phy_ac_coeff_bank_init(struct b43_wldev *dev)
-+{
-+	static const u16 lut[3][21] = {
-+		{ 0x0015, 0x0146, 0x0088, 0x0146, 0x076e, 0x01a8, 0x00a3,
-+		  0x00f4, 0x00a3, 0x0684, 0x00ad, 0x00e5, 0x0068, 0x00e5,
-+		  0x06be, 0x019e, 0x0073, 0x00b2, 0x0073, 0x05fe, 0x00cc },
-+		{ 0x000b, 0x0181, 0x005a, 0x0181, 0x0793, 0x01b7, 0x00c1,
-+		  0x0102, 0x00c1, 0x06c0, 0x00a9, 0x0162, 0x0042, 0x0162,
-+		  0x075c, 0x01b3, 0x00b1, 0x00ed, 0x00b1, 0x0692, 0x00af },
-+		{ 0x0005, 0x017a, 0x009e, 0x017a, 0x07ca, 0x01b2, 0x00bd,
-+		  0x0114, 0x00bd, 0x06d6, 0x00a2, 0x016c, 0x006f, 0x016c,
-+		  0x0793, 0x01b2, 0x00b6, 0x00ff, 0x00b6, 0x06b4, 0x00a8 },
-+	};
-+	const unsigned int bw = b43_phy_ac_bw_mhz(dev);
-+	const unsigned int w = bw / 40;		/* 0, 1, 2 */
-+	unsigned int i, c;
-+
-+	/* width index */
-+	b43_phy_maskset(dev, 0x0076, (u16)~0x0007, w + 1);
-+	b43_phy_maskset(dev, 0x0180, (u16)~0x001f, lut[w][0]);
-+	for (i = 1; i < 21; i++)
-+		b43_phy_maskset(dev, 0x0180 + i, (u16)~0x07ff, lut[w][i]);
-+	b43_phy_maskset(dev, 0x01b5, (u16)~0x00ff, bw == 40 ? 0x008b : 0x0097);
-+	b43_phy_maskset(dev, 0x0312, (u16)~0x00ff, bw == 80 ? 0x0009 : 0x0013);
-+	b43_phy_maskset(dev, 0x0313, (u16)~0xff00, bw == 80 ? 0x0900 : 0x1300);
-+	for (c = 0; c < B43_AC_NCORES; c++) {
-+		u16 st = c * 0x200;
-+
-+		b43_phy_maskset(dev, 0x06ed + st, (u16)~0x00ff,
-+				bw == 20 ? 0x000a : 0x0014);
-+		b43_phy_maskset(dev, 0x06ef + st, (u16)~0x00ff,
-+				bw == 20 ? 0x0017 :
-+					   (bw == 40 ? 0x002a : 0x0054));
-+		b43_phy_maskset(dev, 0x06ef + st, (u16)~0xff00,
-+				bw == 20 ? 0x0e00 :
-+					   (bw == 40 ? 0x1600 : 0x2c00));
-+		b43_phy_maskset(dev, 0x06ef + st, (u16)~0x00ff, 15 * (bw / 20));
-+	}
-+}
-+
-+static void b43_phy_ac_phyinit(struct b43_wldev *dev)
-+{
-+	/*
-+	 * The prologue of b43_radio_2069_init()
-+	 * (0x0415/040e/040c/0408/0417/0416) and the end state of the power-on
-+	 * (0x0408 = 0x0c02, 0x0417 = 4)
-+	 */
-+	b43_phy_write(dev, 0x1739, 0x0000);
-+	b43_phy_write(dev, 0x0415, 0x0000);
-+	b43_phy_write(dev, 0x040e, 0x0000);
-+	b43_phy_write(dev, 0x040c, 0x2000);
-+	b43_phy_write(dev, 0x0416, 0x000d);
-+	b43_phy_write(dev, 0x0408, 0x0c02);
-+	b43_phy_write(dev, 0x0417, 0x0004);
-+	b43_phy_write(dev, 0x016b, 0x0000);
-+	b43_phy_write(dev, 0x0175, 0x0000);
-+
-+	b43_phy_ac_mode_init(dev);
-+	b43_phy_write(dev, 0x1645, 0x025c);	/* init_regs */
-+	b43_phy_write(dev, 0x03c4, 0x0668);
-+	b43_phy_ac_set_reg_on_reset(dev);
-+	b43_phy_write(dev, 0x0358, 0xc07f);	/* set_pdet_on_reset */
-+	/* FEM table 2 / sub 1 setup */
-+	b43_phy_set(dev, 0x040a, 0x0100);
-+	b43_phy_write(dev, 0x0414, 0x0555);
-+	/* Second TX chain: without this bit core 1 does not radiate and
-+	 * two-stream rates fail completely.
-+	 */
-+	if (dev->dev->bus_type == B43_BUS_BCMA)
-+		bcma_cc_set32(&dev->dev->bdev->bus->drv_cc, BCMA_CC_CHIPCTL,
-+			      0x00000008);
-+	b43_phy_ac_coeff_bank_init(dev);
-+	/* RX gain control, all cores. Without it the
-+	 * receive level is 26 dB down: -66 instead of -40 dBm.
-+	 */
-+	b43_phy_write(dev, 0x1726, 0x000c);
-+	b43_phy_write(dev, 0x0197, 0x0014);	/* channel_setup */
-+	b43_phy_write(dev, 0x0198, 0x0010);
-+	b43_phy_ac_wide_tables_2g(dev);
-+}
-+
-+static void b43_phy_ac_setup_regs(struct b43_wldev *dev)
-+{
-+	/*
-+	 * Radio state the hardware TX power loop needs (TSSI / power detector
-+	 * path, per-core 0x01a-0x01f / 0x21a-0x21f). Without it PHY 0x640/0x840
-+	 * freeze at index 0 and the loop never reaches its target.
-+	 */
-+	b43_radio_write(dev, 0x0548, 0x0001);
-+	b43_radio_write(dev, 0x0549, 0x0000);
-+	b43_radio_write(dev, 0x054a, 0x0000);
-+	b43_radio_write(dev, 0x054c, 0x0000);
-+	b43_radio_write(dev, 0x040b, 0x0168);
-+	b43_radio_write(dev, 0x054b, 0x0101);
-+	b43_radio_write(dev, 0x004e, 0x8400);
-+	b43_radio_write(dev, 0x0166, 0x0000);
-+	b43_radio_write(dev, 0x024e, 0x8600);
-+	b43_radio_write(dev, 0x0366, 0x0000);
-+	b43_radio_write(dev, 0x001a, 0x0014);
-+	b43_radio_write(dev, 0x001b, 0x0280);
-+	b43_radio_write(dev, 0x001c, 0x0044);
-+	b43_radio_write(dev, 0x001e, 0x0010);
-+	b43_radio_write(dev, 0x001f, 0x0000);
-+	b43_radio_write(dev, 0x021a, 0x0014);
-+	b43_radio_write(dev, 0x021b, 0x0280);
-+	b43_radio_write(dev, 0x021c, 0x0044);
-+	b43_radio_write(dev, 0x021e, 0x0010);
-+	b43_radio_write(dev, 0x021f, 0x0000);
-+	b43_radio_write(dev, 0x0170, 0x0100);
-+
-+	b43_phy_ac_phyinit(dev);
-+	/*
-+	 * Hardware TX power control: 0x70 bits 15:13 enable it, 0x71 holds the
-+	 * averaging window, 0x72 the rest of its configuration. Enabled: with
-+	 * the wide tables it no longer fails frames next to the AP (0x0100
-+	 * would switch it off).
-+	 */
-+	b43_phy_write(dev, 0x0070, 0xe500);
-+	b43_phy_write(dev, 0x0071, 0x04c8);
-+	b43_phy_write(dev, 0x0072, 0x400d);
-+}
-+
-+/*
-+ * Radio registers written from entries [2..51] of the 2069 tuning table, in
-+ * table order. Resolved for acphychipid 0x4360 from the vendor driver's
-+ * channel-set code.
-+ */
-+static const u16 b43_radio_2069_tune_regs[B43_RADIO_2069_TUNE_REGS] = {
-+	0x8e0, 0x8e1, 0x8dd, 0x8dc, 0x8e6, 0x8e7, 0x8c4, 0x8c5, 0x8e5, 0x8eb,
-+	0x8d6, 0x113, 0x8db, 0x8da, 0x8d7, 0x885, 0x886, 0x887, 0x8d9, 0x8d8,
-+	0x8c9, 0x8ca, 0x8cc, 0x8c7, 0x8c8, 0x892, 0x894, 0x895, 0x896, 0x897,
-+	0x899, 0x89a, 0x89b, 0x89c, 0x112, 0x629, 0x65b, 0x65e, 0x668, 0x11a,
-+	0x11b, 0x719, 0x630, 0x65c, 0x662, 0x66d, 0x893, 0x145, 0x146, 0x723,
++static const u8 b43_ac_agc5_elna[] = { 0x0c, 0x0c };
++static const u8 b43_ac_agc5_lna1_gain[] = {
++	0xfe, 0xfe, 0x04, 0x0a, 0x10, 0x17
 +};
 +
-+static const struct b43_radio_2069_chan *
-+b43_radio_2069_find_chan(struct b43_wldev *dev, unsigned int channel)
-+{
-+	unsigned int i;
++static const u8 b43_ac_agc5_lna1_code[] = { 1, 1, 2, 3, 4, 5 };
++static const u8 b43_ac_agc5_lna2_gain[] = { 0xf8, 0xf8, 0xfb, 0xfe,
++					    0x02, 0x05, 0x09 };
++static const u8 b43_ac_agc5_lna2_code[] = { 1, 1, 2, 3, 4, 5, 6 };
++static const u8 b43_ac_agc5_lim7[] = { 7, 7, 7, 7, 7, 7, 7, 7, 7, 7 };
++static const u8 b43_ac_agc5_lim2[] = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 };
 +
-+	if (dev->phy.radio_ver != 0x2069 || dev->phy.radio_rev != 4)
-+		return NULL;
-+	for (i = 0; i < b43_radio_2069r4_chans_n; i++)
-+		if (b43_radio_2069r4_chans[i].channel == channel)
-+			return &b43_radio_2069r4_chans[i];
-+	return NULL;
-+}
-+
-+/* Synthesizer VCO calibration kick. */
-+static void b43_radio_2069_vcocal(struct b43_wldev *dev)
-+{
-+	b43_radio_mask(dev, 0x8e5, ~0x4000);
-+	b43_radio_mask(dev, 0x8d0, ~0x0001);
-+	b43_radio_mask(dev, 0x8e8, ~0x0040);
-+	b43_radio_mask(dev, 0x8dc, ~0x2000);
-+	udelay(11);
-+	b43_radio_set(dev, 0x8d0, 0x0001);
-+	b43_radio_set(dev, 0x8e8, 0x0040);
-+	udelay(1);
-+	b43_radio_set(dev, 0x8dc, 0x2000);
-+}
-+
-+/* Reset clear-channel assessment (PHY rev 1 variant). */
-+static void b43_phy_ac_resetcca(struct b43_wldev *dev)
-+{
-+	u16 bbcfg;
-+
-+	b43_phy_force_clock(dev, true);
-+	bbcfg = b43_phy_read(dev, B43_PHY_AC_BBCFG);
-+	b43_phy_write(dev, B43_PHY_AC_BBCFG, bbcfg | B43_PHY_AC_BBCFG_RSTCCA);
-+	udelay(1);
-+	b43_phy_write(dev, B43_PHY_AC_BBCFG, bbcfg & ~B43_PHY_AC_BBCFG_RSTCCA);
-+	b43_phy_force_clock(dev, false);
-+	udelay(2);
-+}
++static const struct b43_phy_ac_tbl b43_ac_agc_tbls_5g[] = {
++	{ b43_ac_agc5_elna, 2, 0x44, 0x00, 8 },
++	{ b43_ac_agc5_lna1_gain, 6, 0x44, 0x08, 8 },
++	{ b43_ac_agc5_lna2_gain, 7, 0x44, 0x10, 8 },
++	{ b43_ac_agc5_lim7, 10, 0x44, 0x20, 8 },
++	{ b43_ac_agc5_lna1_code, 6, 0x45, 0x08, 8 },
++	{ b43_ac_agc5_lna2_code, 7, 0x45, 0x10, 8 },
++	{ b43_ac_agc5_lim2, 10, 0x45, 0x20, 8 },
++	{ b43_ac_agc5_elna, 2, 0x64, 0x00, 8 },
++	{ b43_ac_agc5_lna1_gain, 6, 0x64, 0x08, 8 },
++	{ b43_ac_agc5_lna2_gain, 7, 0x64, 0x10, 8 },
++	{ b43_ac_agc5_lim7, 10, 0x64, 0x20, 8 },
++	{ b43_ac_agc5_lna1_code, 6, 0x65, 0x08, 8 },
++	{ b43_ac_agc5_lna2_code, 7, 0x65, 0x10, 8 },
++	{ b43_ac_agc5_lim2, 10, 0x65, 0x20, 8 },
++};
 +
 +/*
-+ * Per-core RF control state of the 2.4 GHz setup that the init does not reach.
++ * 5 GHz setup, run on every 5 GHz channel switch: the sequencer extension,
++ * VCO calibration, RX gain control and the AGC tables.
 + */
-+static void b43_phy_ac_rfctrl_2g(struct b43_wldev *dev)
++static void b43_phy_ac_setup_5g(struct b43_wldev *dev)
 +{
-+	static const u16 regs[][2] = {
-+		{ 0x645, 0x024d }, { 0x845, 0x025f },
-+		{ 0x725, 0x0600 }, { 0x925, 0x0600 },
-+		{ 0x727, 0x0004 }, { 0x927, 0x0004 },
-+		{ 0x728, 0x0880 }, { 0x928, 0x0880 },
-+		{ 0x729, 0x1000 }, { 0x929, 0x1000 },
-+		{ 0x73a, 0x0180 }, { 0x93a, 0x0180 },
-+	};
 +	unsigned int i;
 +
-+	for (i = 0; i < ARRAY_SIZE(regs); i++)
-+		b43_phy_write(dev, regs[i][0], regs[i][1]);
-+}
-+
-+#include "phy_ac_farrow.h"
-+
-+/*
-+ * The ADC/DAC run from a clock derived from the synthesizer, so the
-+ * fractional resampler to the baseband rate depends on the channel. The vendor
-+ * driver writes these on every channel switch; without them every channel
-+ * kept channel 6's ratio, 3.5% off on channel 1.
-+ */
-+static void b43_phy_ac_set_farrow(struct b43_wldev *dev, unsigned int channel)
-+{
-+	const struct b43_phy_ac_farrow *f = NULL;
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(b43_phy_ac_farrow_20); i++)
-+		if (b43_phy_ac_farrow_20[i].channel == channel)
-+			f = &b43_phy_ac_farrow_20[i];
-+	if (!f)
-+		return;
-+
-+	b43_phy_write(dev, 0x19a, f->rx[0]);
-+	b43_phy_write(dev, 0x19b, f->rx[1]);
-+	b43_phy_write(dev, 0x19c, f->rx[2]);
-+	b43_phy_write(dev, 0x199, f->rx[3]);
-+	b43_phy_write(dev, 0x1a1, f->rx[0]);
-+	b43_phy_write(dev, 0x1a2, f->rx[1]);
-+	b43_phy_write(dev, 0x1a3, f->rx[2]);
-+	b43_phy_write(dev, 0x1a0, f->rx[3]);
-+	b43_phy_write(dev, 0x1603, f->tx[0]);
-+	b43_phy_write(dev, 0x1602, f->tx[1]);
-+	b43_phy_write(dev, 0x1607, f->tx[2]);
-+	b43_phy_write(dev, 0x1606, f->tx[3]);
-+	b43_phy_write(dev, 0x1601, b43_phy_read(dev, 0x601));
-+}
-+
-+/* Program the synthesizer and the per-channel radio words of one channel. */
-+static void b43_phy_ac_tune(struct b43_wldev *dev,
-+			    const struct b43_radio_2069_chan *e,
-+			    unsigned int channel)
-+{
-+	int i;
-+
-+	for (i = 0; i < B43_RADIO_2069_TUNE_REGS; i++)
-+		b43_radio_write(dev, b43_radio_2069_tune_regs[i], e->radio[i]);
-+	if (channel == 4) {
-+		b43_radio_write(dev, 0x8d6, 0x0ce4);
-+		b43_radio_maskset(dev, 0x8ec, ~0x0070, 0x0050);
-+	}
-+	b43_radio_set(dev, 0x645, 0x7000);
-+	b43_radio_write(dev, 0x723, 0x83e0);
++	b43_phy_ac_rfseq_ext_5g(dev);
 +	b43_radio_2069_vcocal(dev);
-+}
-+
-+/*
-+ * Channel switch for radio 2069 rev 4, following the vendor driver's
-+ * channel-set sequence. Not ported: carrier-search suppression during the
-+ * switch, the 5 GHz PLL setup and the per-channel PHY tweaks that follow the BW
-+ * registers.
-+ */
-+static int b43_phy_ac_op_switch_channel(struct b43_wldev *dev,
-+					unsigned int new_channel)
-+{
-+	struct b43_phy_ac *phy_ac = dev->phy.ac;
-+	const struct b43_radio_2069_chan *e;
-+	u16 save;
-+	int i;
-+
-+	if (b43_current_band(dev->wl) != NL80211_BAND_2GHZ)
-+		return -EOPNOTSUPP;
-+
-+	e = b43_radio_2069_find_chan(dev, new_channel);
-+	if (!e) {
-+		b43err(dev->wl, "phy_ac: no tuning data for channel %u (radio %04x rev %u)\n",
-+		       new_channel, dev->phy.radio_ver, dev->phy.radio_rev);
-+		return -ESRCH;
-+	}
-+	b43dbg(dev->wl, "phy_ac: switch_channel(%u) -> %u MHz\n",
-+	       new_channel, e->freq);
-+
-+	save = b43_phy_read(dev, 0x19e);
-+	b43_phy_set(dev, 0x19e, 0x3);
-+
-+	b43_phy_mask(dev, B43_PHY_AC_BANDCTL, ~0x0100);
-+
-+	if (!phy_ac->chan_set) {
-+		b43_phy_set(dev, 0x728, 0x0100);
-+		udelay(1);
-+		b43_phy_mask(dev, 0x728, ~0x0100);
-+		phy_ac->chan_set = true;
-+	}
-+
-+	b43_phy_ac_tune(dev, e, new_channel);
-+	b43_phy_maskset(dev, 0x19e, ~0x3, save & 0x3);
-+
-+	for (i = 0; i < 6; i++)
-+		b43_phy_write(dev, B43_PHY_AC_BW1A + i, e->bw[i]);
-+
-+	b43_phy_ac_rfctrl_2g(dev);
-+	b43_phy_ac_set_farrow(dev, new_channel);
-+	b43_phy_ac_resetcca(dev);
-+	b43_phy_ac_txpwr_by_index(dev, B43_AC_TXIDX_2G);
-+
-+	return 0;
-+}
-+
-+/* Write a table of 8, 16 or 32 bit entries through the PHY table ports. */
-+static void b43_phy_ac_write_table(struct b43_wldev *dev,
-+				   const struct b43_phy_ac_tbl *t)
-+{
-+	unsigned int i;
-+	u32 v;
-+
-+	b43_phy_write(dev, B43_PHY_AC_TABLE_ID, t->id);
-+	b43_phy_write(dev, B43_PHY_AC_TABLE_OFFSET, t->offset);
-+	for (i = 0; i < t->count; i++) {
-+		switch (t->width) {
-+		case 8:
-+			b43_phy_write(dev, B43_PHY_AC_TABLE_DATA1,
-+				      ((const u8 *)t->data)[i]);
-+			break;
-+		case 16:
-+			b43_phy_write(dev, B43_PHY_AC_TABLE_DATA1,
-+				      ((const u16 *)t->data)[i]);
-+			break;
-+		case 32:
-+			v = ((const u32 *)t->data)[i];
-+			b43_phy_write(dev, B43_PHY_AC_TABLE_DATA2, v >> 16);
-+			b43_phy_write(dev, B43_PHY_AC_TABLE_DATA1, v & 0xffff);
-+			break;
-+		}
-+	}
-+}
-+
-+/*
-+ * 2.4 GHz power-estimation LUT of one core (tables 0x40 / 0x60), 128 entries,
-+ * from the SROM power-detector triple (a1, b0, b1) = pa2ga words. At step j:
-+ * num = 512*b0 + 32*b1*j, den = 0x8000 + a1*j, v = (den/2 + num)/den clamped to
-+ * [-8, 0x7f] (the same transfer function as b43_nphy_tx_power_ctl_setup(); it
-+ * matches the vendor driver's table entry for entry on this board). SROM word
-+ * offsets (rev 11): core 0 pa2ga at 0x6d, core 1 at 0x81.
-+ */
-+static void b43_phy_ac_write_est_pwr(struct b43_wldev *dev)
-+{
-+	static const struct {
-+		u16 id;
-+		u16 word;
-+	} core_tbl[] = { { 0x40, 0x6d }, { 0x60, 0x81 } };
-+	struct bcma_drv_cc *cc;
-+	unsigned int c, j;
-+
-+	if (dev->dev->bus_type != B43_BUS_BCMA)
-+		return;
-+	cc = &dev->dev->bdev->bus->drv_cc;
-+	for (c = 0; c < ARRAY_SIZE(core_tbl) && c < b43_phy_ac_num_cores(dev);
-+	     c++) {
-+		u16 base = BCMA_CC_SPROM + 2 * core_tbl[c].word;
-+		u16 w0 = bcma_read16(cc->core, base);
-+		u16 w1 = bcma_read16(cc->core, base + 2);
-+		u16 w2 = bcma_read16(cc->core, base + 4);
-+		s32 a1 = (s16)w0, b0 = (s16)w1, b1 = (s16)w2, num, den;
-+		u16 lut[128];
-+		struct b43_phy_ac_tbl tbl = { lut, 128, core_tbl[c].id, 0, 16 };
-+
-+		if (w0 == 0xffff && w1 == 0xffff && w2 == 0xffff)
-+			/* unprogrammed SROM: keep the default table */
-+			continue;
-+		num = b0 << 9;
-+		den = 0x8000;
-+		for (j = 0; j < 128; j++) {
-+			s32 d = den ? den : 1;
-+			s32 v = (d / 2 + num) / d;
-+
-+			num += b1 * 0x20;
-+			den += a1;
-+			lut[j] = (u16)(clamp(v, -8, 0x7f) & 0xff);
-+		}
-+		b43_phy_ac_write_table(dev, &tbl);
-+	}
-+}
-+
-+/*
-+ * PHY init for PHY rev 0/1: the AFE page, then the table set of the
-+ * acphytbl_info_rev0 plus the FEM tables of this board's control pattern.
-+ */
-+static void b43_phy_ac_tables_init(struct b43_wldev *dev)
-+{
-+	static const u16 clear_regs[] = {
-+		0x173e, 0x1725, 0x1722, 0x1723, 0x1724, 0x1725, 0x1726, 0x1727,
-+		0x1750,
-+	};
-+	unsigned int i;
-+	u16 save;
-+
-+	b43_phy_write(dev, 0x410, 0x77);
-+	for (i = 0; i < ARRAY_SIZE(clear_regs); i++)
-+		b43_phy_write(dev, clear_regs[i], 0);
-+	b43_phy_write(dev, 0x1728, 0x80);
-+	b43_phy_write(dev, 0x1720, 0x180);
-+	b43_phy_write(dev, 0x1729, 0);
-+	b43_phy_write(dev, 0x1721, 0x5000);
-+	b43_phy_write(dev, 0x173a, b43_phy_read(dev, 0x73a) | 0x100);
-+	b43_phy_write(dev, 0x1725, b43_phy_read(dev, 0x725) | 0x400);
-+
-+	save = b43_phy_read(dev, 0x19e);
-+	b43_phy_set(dev, 0x19e, 0x2);
-+	for (i = 0; i < b43_phy_ac_tbls_rev0_n; i++)
-+		b43_phy_ac_write_table(dev, &b43_phy_ac_tbls_rev0[i]);
-+	for (i = 0; i < b43_phy_ac_rfseq_tbls_n; i++)
-+		b43_phy_ac_write_table(dev, &b43_phy_ac_rfseq_tbls[i]);
-+	b43_phy_ac_write_est_pwr(dev);
-+	for (i = 0; i < b43_phy_ac_misc_tbls_n; i++)
-+		b43_phy_ac_write_table(dev, &b43_phy_ac_misc_tbls[i]);
-+	for (i = 0; i < b43_phy_ac_ladder_tbls_n; i++)
-+		b43_phy_ac_write_table(dev, &b43_phy_ac_ladder_tbls[i]);
-+	for (i = 0; i < b43_phy_ac_vendor_tbls_n; i++)
-+		b43_phy_ac_write_table(dev, &b43_phy_ac_vendor_tbls[i]);
-+	/*
-+	 * FEM control pattern: only the femctrl == 2 variant (this card) is
-+	 * known. SROM rev 11 word 0x55 bits 15:11.
++	/* RX gain control, all cores: 0x2c on 5 GHz (the 2.4 GHz setup leaves
++	 * 0x18); about 8 dB more RX level.
 +	 */
-+	if (dev->dev->bus_type == B43_BUS_BCMA &&
-+	    (bcma_read16(dev->dev->bdev->bus->drv_cc.core,
-+			 BCMA_CC_SPROM + 0xaa) >>
-+	     11) == 2)
-+		for (i = 0; i < b43_phy_ac_femctrl2_tbls_n; i++)
-+			b43_phy_ac_write_table(dev,
-+					       &b43_phy_ac_femctrl2_tbls[i]);
-+	b43_phy_maskset(dev, 0x19e, ~0x2, save & 0x2);
-+
-+	b43_phy_write(dev, 0x1645, 0x25c);
-+	b43dbg(dev->wl, "phy_ac: wrote %u PHY tables\n",
-+	       b43_phy_ac_tbls_rev0_n);
++	b43_phy_write(dev, 0x173b, 0x002c);
++	for (i = 0; i < ARRAY_SIZE(b43_ac_agc_tbls_5g); i++)
++		b43_phy_ac_write_table(dev, &b43_ac_agc_tbls_5g[i]);
 +}
 +
-+/*
-+ * First-init PHY register setup for PHY rev 0/1. Not ported: the hardware
-+ * interference mitigation setup.
-+ */
-+static void b43_phy_ac_first_init(struct b43_wldev *dev)
-+{
-+	bool is_2ghz = b43_current_band(dev->wl) == NL80211_BAND_2GHZ;
-+	u8 core, cores = b43_phy_ac_num_cores(dev);
-+	static const u16 core_reg[3] = { 0x690, 0x890, 0xa90 };
-+
-+	b43_phy_set(dev, 0x19e, 0x1c0);
-+	if (is_2ghz)
-+		b43_phy_write(dev, 0x3c4, 0x668);
-+	b43_phy_set(dev, 0x19e, 0x200);
-+	b43_phy_maskset(dev, 0x19e, ~0x3c, 0x10);
-+	b43_phy_write(dev, 0x1f2, 0xc8);
-+	b43_phy_write(dev, 0x026, 0x92);
-+	b43_phy_write(dev, 0x1ed, 0x50);
-+	b43_phy_write(dev, 0x025, 0x30);
-+
-+	if (dev->dev->bus_type == B43_BUS_BCMA)
-+		bcma_awrite32(dev->dev->bdev, BCMA_IOCTL,
-+			      bcma_aread32(dev->dev->bdev, BCMA_IOCTL) |
-+			      B43_BCMA_IOCTL_MACPHYCLKEN);
-+
-+	b43_phy_mask(dev, 0x40f, ~0x200);
-+	b43_phy_mask(dev, 0x2f1, ~0x20);
-+	b43_phy_mask(dev, 0x2ed, ~0x20);
-+	b43_phy_mask(dev, 0x2f9, ~0x20);
-+	b43_phy_mask(dev, 0x2f5, ~0x20);
-+	b43_phy_maskset(dev, 0x2ef, ~0xff, 0x55);
-+	b43_phy_maskset(dev, 0x2eb, ~0xff, 0x55);
-+	b43_phy_maskset(dev, 0x2f7, ~0xff, 0x55);
-+	b43_phy_maskset(dev, 0x2f3, ~0xff, 0x55);
-+
-+	b43_phy_write(dev, 0x400, 0);
-+	b43_phy_mask(dev, 0x1ca, ~0x1000);
-+	b43_phy_ac_resetcca(dev);
-+	b43_phy_set(dev, 0x072, 0x4);
-+	b43_phy_mask(dev, 0x1b0, ~0x20);
-+	b43_phy_set(dev, 0x1b1, 0x1000);
-+	b43_phy_mask(dev, 0x1b6, 0x7fff);
-+	for (core = 0; core < cores && core < 3; core++) {
-+		b43_phy_set(dev, core_reg[core], 0x200);
-+		b43_phy_set(dev, core_reg[core], 0x400);
-+	}
-+	b43_phy_write(dev, 0x1e6, 0x30);
-+	b43_phy_write(dev, 0x358, 0xc07f);
-+
-+	b43dbg(dev->wl, "phy_ac: first-init registers done\n");
-+}
-+
-+static void b43_phy_ac_table_write16(struct b43_wldev *dev, u16 id,
-+				     u16 offset, u16 value)
-+{
-+	b43_phy_write(dev, B43_PHY_AC_TABLE_ID, id);
-+	b43_phy_write(dev, B43_PHY_AC_TABLE_OFFSET, offset);
-+	b43_phy_write(dev, B43_PHY_AC_TABLE_DATA1, value);
-+}
-+
-+/* Set the TX gain of both cores from the 2.4 GHz gain table, as the stock
-+ * driver's txpwr_by_index does with hardware power control off.
-+ */
-+static void b43_phy_ac_txpwr_by_index(struct b43_wldev *dev, unsigned int idx)
-+{
-+	const u16 *e = b43_phy_ac_txgain_2g[min(idx, 127u)];
-+	u16 bbmult = e[0] & 0x00ff;
-+	u16 g0 = (e[0] >> 8) | ((e[1] & 0x00ff) << 8);
-+	u16 g1 = (e[1] >> 8) | ((e[2] & 0x00ff) << 8);
-+	u16 g2 = e[2] >> 8;
-+	u8 core, cores = b43_phy_ac_num_cores(dev);
-+
-+	for (core = 0; core < cores && core < 3; core++) {
-+		b43_phy_ac_table_write16(dev, 7, core + 0x100, g0);
-+		b43_phy_ac_table_write16(dev, 7, core + 0x103, g1);
-+		b43_phy_ac_table_write16(dev, 7, core + 0x106, g2);
-+		b43_phy_ac_table_write16(dev, 0xc, 0x63 + 4 * core, bbmult);
-+		b43_phy_ac_table_write16(dev, 0xc, 0x73 + 4 * core, bbmult);
-+	}
-+}
-+
-+static int b43_phy_ac_op_init(struct b43_wldev *dev)
-+{
-+	if (dev->phy.rev <= 1) {
-+		b43_phy_ac_tables_init(dev);
-+		b43_phy_ac_first_init(dev);
-+		/* The channel switch that follows init tunes the radio. */
-+		b43_phy_ac_setup_regs(dev);
-+	} else {
-+		b43err(dev->wl, "phy_ac: no table set for PHY rev %u\n",
-+		       dev->phy.rev);
-+	}
-+
-+	b43dbg(dev->wl,
-+	       "phy_ac: init (core_rev %u, radio24=%d, chip %04x, board %04x, radio_on %d)\n",
-+	       dev->dev->core_rev, b43_phy_ac_use_radio24(dev),
-+	       dev->dev->chip_id, dev->dev->board_type, dev->phy.ac->radio_on);
-+
-+	return 0;
-+}
-+
-+/*
-+ * Self-healing for a bad init: only about 30 % of fresh inits can transmit; in
-+ * the others every TX ends in a PHY TX error. The 15 s work polls the ucode's
-+ * txphyerr counter (SHM 0xFE) and restarts the core through mac80211 (fresh
-+ * init, fresh coin flip) after >= 3 errors in a window, at most 3 times
-+ * (B43_AC_SELFHEAL_MAX); the budget refills after 10 quiet minutes. Polled, not
-+ * IRQ-driven: unmasking B43_IRQ_PHY_TXERR hung the machine.
-+ */
-+#define B43_AC_SELFHEAL_MAX	3
-+#define B43_AC_SH_TXPHYERR	0x00FE
-+
-+static bool b43_phy_ac_check_badinit(struct b43_wldev *dev)
-+{
-+	static unsigned int restarts;
-+	static unsigned long last_restart;
-+	static u16 last;
-+	u16 now, d;
-+
-+	if (restarts && time_after(jiffies, last_restart + 600 * HZ))
-+		restarts = 0;
-+	now = b43_shm_read16(dev, B43_SHM_SHARED, B43_AC_SH_TXPHYERR);
-+	d = now - last;
-+	last = now;
-+	if (d < 3 || restarts >= B43_AC_SELFHEAL_MAX)
-+		return false;
-+	restarts++;
-+	last_restart = jiffies;
-+	last = 0;	/* the ucode is reloaded, its counters restart at 0 */
-+	b43err(dev->wl, "AC-PHY: bad init (%u PHY TX errors), restart %u/%u\n",
-+	       d, restarts, B43_AC_SELFHEAL_MAX);
-+	b43_controller_restart(dev, "AC bad init");
-+	return true;
-+}
-+
-+static void b43_phy_ac_op_pwork_15sec(struct b43_wldev *dev)
-+{
-+	b43_phy_ac_check_badinit(dev);
+ /*
+  * PHY register init for 2.4 GHz and 20 MHz, in the blocks of the reset-time
+  * code of Alessio Ferri's b43-ac-wip (mode_init, set_reg_on_reset,
+@@ -715,6 +847,31 @@ static void b43_phy_ac_set_farrow(struct b43_wldev *dev, unsigned int channel)
+ 	b43_phy_write(dev, 0x1601, b43_phy_read(dev, 0x601));
  }
  
- static unsigned int b43_phy_ac_op_get_default_chan(struct b43_wldev *dev)
-@@ -79,10 +1078,17 @@ static void b43_phy_ac_op_adjust_txpower(struct b43_wldev *dev)
- const struct b43_phy_operations b43_phyops_ac = {
- 	.allocate		= b43_phy_ac_op_allocate,
- 	.free			= b43_phy_ac_op_free,
-+	.prepare_structs	= b43_phy_ac_op_prepare_structs,
-+	.init			= b43_phy_ac_op_init,
-+	.phy_write		= b43_phy_ac_op_write,
- 	.phy_maskset		= b43_phy_ac_op_maskset,
- 	.radio_read		= b43_phy_ac_op_radio_read,
- 	.radio_write		= b43_phy_ac_op_radio_write,
-+	.software_rfkill	= b43_phy_ac_op_software_rfkill,
-+	.switch_analog		= b43_phy_ac_op_switch_analog,
-+	.switch_channel		= b43_phy_ac_op_switch_channel,
- 	.get_default_chan	= b43_phy_ac_op_get_default_chan,
- 	.recalc_txpower		= b43_phy_ac_op_recalc_txpower,
- 	.adjust_txpower		= b43_phy_ac_op_adjust_txpower,
-+	.pwork_15sec		= b43_phy_ac_op_pwork_15sec,
- };
++/*
++ * Farrow resampler for an 80 MHz channel centred on @freq (MHz). The formula is
++ * from Alessio Ferri's tree: ratio = round(f * 2^18 / 45), deltaphase =
++ * round(0xb40000000 / f); for 5530 MHz it gives the vendor driver's values.
++ */
++static void b43_phy_ac_farrow_80(struct b43_wldev *dev, unsigned int freq)
++{
++	u32 ratio = DIV_ROUND_CLOSEST_ULL((u64)freq << 18, 45);
++	u32 dphase = DIV_ROUND_CLOSEST_ULL(0xb40000000ull, freq);
++	u16 mu = 0x0004 | (((ratio >> 24) & 0x3) << 7);
++
++	b43_phy_write(dev, 0x019a, ratio & 0xffff);
++	b43_phy_write(dev, 0x019b, (ratio >> 16) & 0xff);
++	b43_phy_write(dev, 0x019c, 0x0b40);
++	b43_phy_write(dev, 0x0199, mu);
++	b43_phy_write(dev, 0x01a1, ratio & 0xffff);
++	b43_phy_write(dev, 0x01a2, (ratio >> 16) & 0xff);
++	b43_phy_write(dev, 0x01a3, 0x0b40);
++	b43_phy_write(dev, 0x01a0, mu);
++	b43_phy_write(dev, 0x1603, dphase & 0xffff);
++	b43_phy_write(dev, 0x1602, dphase >> 16);
++	b43_phy_write(dev, 0x1607, dphase & 0xffff);
++	b43_phy_write(dev, 0x1606, dphase >> 16);
++}
++
+ /* Program the synthesizer and the per-channel radio words of one channel. */
+ static void b43_phy_ac_tune(struct b43_wldev *dev,
+ 			    const struct b43_radio_2069_chan *e,
+@@ -733,6 +890,29 @@ static void b43_phy_ac_tune(struct b43_wldev *dev,
+ 	b43_radio_2069_vcocal(dev);
+ }
+ 
++static void b43_phy_ac_tables_init(struct b43_wldev *dev);
++
++/* Back on 2.4 GHz after 5 GHz in the same boot: the 5 GHz setup overwrote
++ * the AGC, RF sequencer and TX gain tables and left the core in 80 MHz mode
++ * (without this 2.4 GHz associates and receives, but nothing is sent).
++ */
++static void b43_phy_ac_restore_2g(struct b43_wldev *dev)
++{
++	u32 ioctl;
++
++	b43_phy_ac_tables_init(dev);
++	b43_phy_ac_wide_tables_2g(dev);
++	b43_phy_write(dev, 0x173b, 0x0018);
++	b43_phy_write(dev, 0x18b, 0);
++	ioctl = bcma_aread32(dev->dev->bdev, BCMA_IOCTL);
++	if ((ioctl & B43_BCMA_IOCTL_PHY_BW) == B43_BCMA_IOCTL_PHY_BW_80MHZ) {
++		ioctl = (ioctl & ~B43_BCMA_IOCTL_PHY_BW) |
++			B43_BCMA_IOCTL_PHY_BW_20MHZ;
++		bcma_awrite32(dev->dev->bdev, BCMA_IOCTL, ioctl | 0x2);
++		bcma_awrite32(dev->dev->bdev, BCMA_IOCTL, ioctl);
++	}
++}
++
+ /*
+  * Channel switch for radio 2069 rev 4, following the vendor driver's
+  * channel-set sequence. Not ported: carrier-search suppression during the
+@@ -744,15 +924,14 @@ static int b43_phy_ac_op_switch_channel(struct b43_wldev *dev,
+ {
+ 	struct b43_phy_ac *phy_ac = dev->phy.ac;
+ 	const struct b43_radio_2069_chan *e;
++	bool is_5ghz = b43_current_band(dev->wl) == NL80211_BAND_5GHZ;
+ 	u16 save;
+ 	int i;
+ 
+-	if (b43_current_band(dev->wl) != NL80211_BAND_2GHZ)
+-		return -EOPNOTSUPP;
+-
+ 	e = b43_radio_2069_find_chan(dev, new_channel);
+ 	if (!e) {
+-		b43err(dev->wl, "phy_ac: no tuning data for channel %u (radio %04x rev %u)\n",
++		b43err(dev->wl,
++		       "phy_ac: no tuning data for channel %u (radio %04x rev %u)\n",
+ 		       new_channel, dev->phy.radio_ver, dev->phy.radio_rev);
+ 		return -ESRCH;
+ 	}
+@@ -762,14 +941,18 @@ static int b43_phy_ac_op_switch_channel(struct b43_wldev *dev,
+ 	save = b43_phy_read(dev, 0x19e);
+ 	b43_phy_set(dev, 0x19e, 0x3);
+ 
+-	b43_phy_mask(dev, B43_PHY_AC_BANDCTL, ~0x0100);
++	b43_phy_maskset(dev, B43_PHY_AC_BANDCTL, ~0x0100, is_5ghz ? 0x0100 : 0);
+ 
+-	if (!phy_ac->chan_set) {
++	if (phy_ac->chan_set && phy_ac->last_5ghz && !is_5ghz)
++		b43_phy_ac_restore_2g(dev);
++
++	if (!phy_ac->chan_set || phy_ac->last_5ghz != is_5ghz) {
+ 		b43_phy_set(dev, 0x728, 0x0100);
+ 		udelay(1);
+ 		b43_phy_mask(dev, 0x728, ~0x0100);
+-		phy_ac->chan_set = true;
+ 	}
++	phy_ac->chan_set = true;
++	phy_ac->last_5ghz = is_5ghz;
+ 
+ 	b43_phy_ac_tune(dev, e, new_channel);
+ 	b43_phy_maskset(dev, 0x19e, ~0x3, save & 0x3);
+@@ -777,10 +960,76 @@ static int b43_phy_ac_op_switch_channel(struct b43_wldev *dev,
+ 	for (i = 0; i < 6; i++)
+ 		b43_phy_write(dev, B43_PHY_AC_BW1A + i, e->bw[i]);
+ 
+-	b43_phy_ac_rfctrl_2g(dev);
+-	b43_phy_ac_set_farrow(dev, new_channel);
++	if (b43_phy_ac_is_80mhz(dev, new_channel)) {
++		u32 ioctl;
++
++		/*
++		 * Tune the synthesizer to the centre of the block, put the
++		 * core's PHY in 80 MHz mode and toggle force-gated-clock around
++		 * the change.
++		 */
++		unsigned int ctr = b43_ac_80mhz_centre(new_channel);
++
++		b43_phy_ac_setup_5g(dev);
++		/*
++		 * PHY word 0x18b is 0 after reset; 80 MHz RX and TX need
++		 * 0x016c.
++		 */
++		b43_phy_write(dev, 0x18b, 0x016c);
++		/*
++		 * The synthesizer, the per-channel PHY words and the resampler
++		 * for the block centre. The calibration results and the rpcal
++		 * fill are those of channel 106; they are not recalibrated per
++		 * block.
++		 */
++		{
++			const struct b43_radio_2069_chan *c =
++				b43_radio_2069_find_chan(dev, ctr);
++
++			if (c) {
++				save = b43_phy_read(dev, 0x19e);
++				b43_phy_set(dev, 0x19e, 0x3);
++				b43_phy_ac_tune(dev, c, ctr);
++				b43_phy_maskset(dev, 0x19e, ~0x3, save & 0x3);
++				for (i = 1; i < 6; i++)
++					b43_phy_write(dev, B43_PHY_AC_BW1A + i,
++						      c->bw[i]);
++				b43_phy_ac_farrow_80(dev, 5000 + 5 * ctr);
++			}
++		}
++		ioctl = bcma_aread32(dev->dev->bdev, BCMA_IOCTL);
++		bcma_awrite32(dev->dev->bdev, BCMA_IOCTL, ioctl | 0x2);
++		ioctl = (ioctl & ~B43_BCMA_IOCTL_PHY_BW) |
++			B43_BCMA_IOCTL_PHY_BW_80MHZ;
++		bcma_awrite32(dev->dev->bdev, BCMA_IOCTL, ioctl | 0x2);
++		bcma_awrite32(dev->dev->bdev, BCMA_IOCTL, ioctl);
++		b43dbg(dev->wl, "phy_ac: 5 GHz 80 MHz mode, ioctrl %08x\n",
++		       bcma_aread32(dev->dev->bdev, BCMA_IOCTL));
++	} else if (is_5ghz) {
++		b43_phy_ac_setup_5g(dev);
++		/* The filter bank for our width. */
++		b43_phy_ac_coeff_bank_init(dev);
++		save = b43_phy_read(dev, 0x19e);
++		b43_phy_set(dev, 0x19e, 0x3);
++		b43_phy_ac_tune(dev, e, new_channel);
++		b43_phy_maskset(dev, 0x19e, ~0x3, save & 0x3);
++		for (i = 0; i < 6; i++)
++			b43_phy_write(dev, B43_PHY_AC_BW1A + i, e->bw[i]);
++	} else {
++		b43_phy_ac_rfctrl_2g(dev);
++	}
++
++	/*
++	 * The per-channel 20 MHz resampler table; in 80 MHz mode the resampler
++	 * was set for the block centre above.
++	 */
++	if (!b43_phy_ac_is_80mhz(dev, new_channel))
++		b43_phy_ac_set_farrow(dev, new_channel);
++
+ 	b43_phy_ac_resetcca(dev);
+-	b43_phy_ac_txpwr_by_index(dev, B43_AC_TXIDX_2G);
++
++	if (!is_5ghz)
++		b43_phy_ac_txpwr_by_index(dev, B43_AC_TXIDX_2G);
+ 
+ 	return 0;
+ }
 diff --git a/drivers/net/wireless/broadcom/b43/phy_ac.h b/drivers/net/wireless/broadcom/b43/phy_ac.h
-index 02eb6c0..0b6896e 100644
+index 0b6896e..4a6c1e9 100644
 --- a/drivers/net/wireless/broadcom/b43/phy_ac.h
 +++ b/drivers/net/wireless/broadcom/b43/phy_ac.h
-@@ -32,6 +32,9 @@
- #define  B43_PHY_AC_C3_CLIP_DIS			0x4000
- 
+@@ -34,6 +34,7 @@
  struct b43_phy_ac {
-+	/* Band of the last channel switch; valid once chan_set is true. */
-+	bool chan_set;
-+	bool radio_on;
+ 	/* Band of the last channel switch; valid once chan_set is true. */
+ 	bool chan_set;
++	bool last_5ghz;
+ 	bool radio_on;
  };
  
- extern const struct b43_phy_operations b43_phyops_ac;
-diff --git a/drivers/net/wireless/broadcom/b43/phy_ac_farrow.h b/drivers/net/wireless/broadcom/b43/phy_ac_farrow.h
-new file mode 100644
-index 0000000..c707d4d
---- /dev/null
-+++ b/drivers/net/wireless/broadcom/b43/phy_ac_farrow.h
-@@ -0,0 +1,260 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * the vendor driver's rx_farrow_tbl / tx_farrow_dac1_tbl, 20 MHz section
-+ * (dump_farrow.java).
-+ *
-+ * Copyright (c) 2026 Andreas Wendleder <gonsolo@gmail.com>
-+ */
-+static const struct b43_phy_ac_farrow {
-+	u8 channel;
-+	/* PHY 0x19a/0x19b/0x19c/0x199, core 1 at 0x1a1/0x1a2/0x1a3/0x1a0 */
-+	u16 rx[4];
-+	u16 tx[4];	/* PHY 0x1603/0x1602/0x1607/0x1606 */
-+} b43_phy_ac_farrow_20[] = {
-+	{ 184, { 0x0000, 0x0048, 0x0f00, 0x00a7 },
-+	       { 0xe706, 0x0063, 0xe706, 0x0063 } },
-+	{ 186, { 0xaaab, 0x0048, 0x0f00, 0x00a7 },
-+	       { 0xb326, 0x0063, 0xb326, 0x0063 } },
-+	{ 188, { 0x5555, 0x0049, 0x0f00, 0x00a7 },
-+	       { 0x7f7b, 0x0063, 0x7f7b, 0x0063 } },
-+	{ 190, { 0x0000, 0x004a, 0x0f00, 0x00a7 },
-+	       { 0x4c06, 0x0063, 0x4c06, 0x0063 } },
-+	{ 192, { 0xaaab, 0x004a, 0x0f00, 0x00a7 },
-+	       { 0x18c6, 0x0063, 0x18c6, 0x0063 } },
-+	{ 194, { 0x5555, 0x004b, 0x0f00, 0x00a7 },
-+	       { 0xe5bb, 0x0062, 0xe5bb, 0x0062 } },
-+	{ 196, { 0x0000, 0x004c, 0x0f00, 0x00a7 },
-+	       { 0xb2e4, 0x0062, 0xb2e4, 0x0062 } },
-+	{ 198, { 0xaaab, 0x004c, 0x0f00, 0x00a7 },
-+	       { 0x8042, 0x0062, 0x8042, 0x0062 } },
-+	{ 200, { 0x5555, 0x004d, 0x0f00, 0x00a7 },
-+	       { 0x4dd3, 0x0062, 0x4dd3, 0x0062 } },
-+	{ 202, { 0x0000, 0x004e, 0x0f00, 0x00a7 },
-+	       { 0x1b98, 0x0062, 0x1b98, 0x0062 } },
-+	{ 204, { 0xaaab, 0x004e, 0x0f00, 0x00a7 },
-+	       { 0xe990, 0x0061, 0xe990, 0x0061 } },
-+	{ 206, { 0x5555, 0x004f, 0x0f00, 0x00a7 },
-+	       { 0xb7bb, 0x0061, 0xb7bb, 0x0061 } },
-+	{ 208, { 0x0000, 0x0050, 0x0f00, 0x00a7 },
-+	       { 0x8618, 0x0061, 0x8618, 0x0061 } },
-+	{ 210, { 0xaaab, 0x0050, 0x0f00, 0x00a7 },
-+	       { 0x54a8, 0x0061, 0x54a8, 0x0061 } },
-+	{ 212, { 0x5555, 0x0051, 0x0f00, 0x00a7 },
-+	       { 0x236a, 0x0061, 0x236a, 0x0061 } },
-+	{ 214, { 0x0000, 0x0052, 0x0f00, 0x00a7 },
-+	       { 0xf25e, 0x0060, 0xf25e, 0x0060 } },
-+	{ 216, { 0xaaab, 0x0052, 0x0f00, 0x00a7 },
-+	       { 0xc183, 0x0060, 0xc183, 0x0060 } },
-+	{ 218, { 0x5555, 0x0053, 0x0f00, 0x00a7 },
-+	       { 0x90d9, 0x0060, 0x90d9, 0x0060 } },
-+	{ 220, { 0x0000, 0x0054, 0x0f00, 0x00a7 },
-+	       { 0x6060, 0x0060, 0x6060, 0x0060 } },
-+	{ 222, { 0xaaab, 0x0054, 0x0f00, 0x00a7 },
-+	       { 0x3018, 0x0060, 0x3018, 0x0060 } },
-+	{ 224, { 0x5555, 0x0055, 0x0f00, 0x00a7 },
-+	       { 0x0000, 0x0060, 0x0000, 0x0060 } },
-+	{ 226, { 0x0000, 0x0056, 0x0f00, 0x00a7 },
-+	       { 0xd018, 0x005f, 0xd018, 0x005f } },
-+	{ 228, { 0xaaab, 0x0056, 0x0f00, 0x00a7 },
-+	       { 0xa060, 0x005f, 0xa060, 0x005f } },
-+	{  32, { 0x0000, 0x0058, 0x0f00, 0x00a7 },
-+	       { 0x417d, 0x005f, 0x417d, 0x005f } },
-+	{  34, { 0xaaab, 0x0058, 0x0f00, 0x00a7 },
-+	       { 0x1252, 0x005f, 0x1252, 0x005f } },
-+	{  36, { 0x5555, 0x0059, 0x0f00, 0x00a7 },
-+	       { 0xe356, 0x005e, 0xe356, 0x005e } },
-+	{  38, { 0x0000, 0x005a, 0x0f00, 0x00a7 },
-+	       { 0xb488, 0x005e, 0xb488, 0x005e } },
-+	{  40, { 0xaaab, 0x005a, 0x0f00, 0x00a7 },
-+	       { 0x85e8, 0x005e, 0x85e8, 0x005e } },
-+	{  42, { 0x5555, 0x005b, 0x0f00, 0x00a7 },
-+	       { 0x5776, 0x005e, 0x5776, 0x005e } },
-+	{  44, { 0x0000, 0x005c, 0x0f00, 0x00a7 },
-+	       { 0x2932, 0x005e, 0x2932, 0x005e } },
-+	{  46, { 0xaaab, 0x005c, 0x0f00, 0x00a7 },
-+	       { 0xfb1b, 0x005d, 0xfb1b, 0x005d } },
-+	{  48, { 0x5555, 0x005d, 0x0f00, 0x00a7 },
-+	       { 0xcd31, 0x005d, 0xcd31, 0x005d } },
-+	{  50, { 0x0000, 0x005e, 0x0f00, 0x00a7 },
-+	       { 0x9f74, 0x005d, 0x9f74, 0x005d } },
-+	{  52, { 0xaaab, 0x005e, 0x0f00, 0x00a7 },
-+	       { 0x71e3, 0x005d, 0x71e3, 0x005d } },
-+	{  54, { 0x5555, 0x005f, 0x0f00, 0x00a7 },
-+	       { 0x447e, 0x005d, 0x447e, 0x005d } },
-+	{  56, { 0x0000, 0x0060, 0x0f00, 0x00a7 },
-+	       { 0x1746, 0x005d, 0x1746, 0x005d } },
-+	{  58, { 0xaaab, 0x0060, 0x0f00, 0x00a7 },
-+	       { 0xea39, 0x005c, 0xea39, 0x005c } },
-+	{  60, { 0x5555, 0x0061, 0x0f00, 0x00a7 },
-+	       { 0xbd58, 0x005c, 0xbd58, 0x005c } },
-+	{  62, { 0x0000, 0x0062, 0x0f00, 0x00a7 },
-+	       { 0x90a2, 0x005c, 0x90a2, 0x005c } },
-+	{  64, { 0xaaab, 0x0062, 0x0f00, 0x00a7 },
-+	       { 0x6417, 0x005c, 0x6417, 0x005c } },
-+	{  66, { 0x5555, 0x0063, 0x0f00, 0x00a7 },
-+	       { 0x37b7, 0x005c, 0x37b7, 0x005c } },
-+	{  68, { 0x0000, 0x0064, 0x0f00, 0x00a7 },
-+	       { 0x0b81, 0x005c, 0x0b81, 0x005c } },
-+	{  70, { 0xaaab, 0x0064, 0x0f00, 0x00a7 },
-+	       { 0xdf76, 0x005b, 0xdf76, 0x005b } },
-+	{  72, { 0x5555, 0x0065, 0x0f00, 0x00a7 },
-+	       { 0xb395, 0x005b, 0xb395, 0x005b } },
-+	{  74, { 0x0000, 0x0066, 0x0f00, 0x00a7 },
-+	       { 0x87de, 0x005b, 0x87de, 0x005b } },
-+	{  76, { 0xaaab, 0x0066, 0x0f00, 0x00a7 },
-+	       { 0x5c50, 0x005b, 0x5c50, 0x005b } },
-+	{  78, { 0x5555, 0x0067, 0x0f00, 0x00a7 },
-+	       { 0x30ec, 0x005b, 0x30ec, 0x005b } },
-+	{  80, { 0x0000, 0x0068, 0x0f00, 0x00a7 },
-+	       { 0x05b0, 0x005b, 0x05b0, 0x005b } },
-+	{  82, { 0xaaab, 0x0068, 0x0f00, 0x00a7 },
-+	       { 0xda9e, 0x005a, 0xda9e, 0x005a } },
-+	{  84, { 0x5555, 0x0069, 0x0f00, 0x00a7 },
-+	       { 0xafb4, 0x005a, 0xafb4, 0x005a } },
-+	{  86, { 0x0000, 0x006a, 0x0f00, 0x00a7 },
-+	       { 0x84f3, 0x005a, 0x84f3, 0x005a } },
-+	{  88, { 0xaaab, 0x006a, 0x0f00, 0x00a7 },
-+	       { 0x5a5a, 0x005a, 0x5a5a, 0x005a } },
-+	{  90, { 0x5555, 0x006b, 0x0f00, 0x00a7 },
-+	       { 0x2fe9, 0x005a, 0x2fe9, 0x005a } },
-+	{  92, { 0x0000, 0x006c, 0x0f00, 0x00a7 },
-+	       { 0x05a0, 0x005a, 0x05a0, 0x005a } },
-+	{  94, { 0xaaab, 0x006c, 0x0f00, 0x00a7 },
-+	       { 0xdb7f, 0x0059, 0xdb7f, 0x0059 } },
-+	{  96, { 0x5555, 0x006d, 0x0f00, 0x00a7 },
-+	       { 0xb185, 0x0059, 0xb185, 0x0059 } },
-+	{  98, { 0x0000, 0x006e, 0x0f00, 0x00a7 },
-+	       { 0x87b2, 0x0059, 0x87b2, 0x0059 } },
-+	{ 100, { 0xaaab, 0x006e, 0x0f00, 0x00a7 },
-+	       { 0x5e06, 0x0059, 0x5e06, 0x0059 } },
-+	{ 102, { 0x5555, 0x006f, 0x0f00, 0x00a7 },
-+	       { 0x3480, 0x0059, 0x3480, 0x0059 } },
-+	{ 104, { 0x0000, 0x0070, 0x0f00, 0x00a7 },
-+	       { 0x0b21, 0x0059, 0x0b21, 0x0059 } },
-+	{ 106, { 0xaaab, 0x0070, 0x0f00, 0x00a7 },
-+	       { 0xe1e9, 0x0058, 0xe1e9, 0x0058 } },
-+	{ 108, { 0x5555, 0x0071, 0x0f00, 0x00a7 },
-+	       { 0xb8d6, 0x0058, 0xb8d6, 0x0058 } },
-+	{ 110, { 0x0000, 0x0072, 0x0f00, 0x00a7 },
-+	       { 0x8fea, 0x0058, 0x8fea, 0x0058 } },
-+	{ 112, { 0xaaab, 0x0072, 0x0f00, 0x00a7 },
-+	       { 0x6723, 0x0058, 0x6723, 0x0058 } },
-+	{ 114, { 0x5555, 0x0073, 0x0f00, 0x00a7 },
-+	       { 0x3e82, 0x0058, 0x3e82, 0x0058 } },
-+	{ 116, { 0x0000, 0x0074, 0x0f00, 0x00a7 },
-+	       { 0x1606, 0x0058, 0x1606, 0x0058 } },
-+	{ 118, { 0xaaab, 0x0074, 0x0f00, 0x00a7 },
-+	       { 0xedae, 0x0057, 0xedae, 0x0057 } },
-+	{ 120, { 0x5555, 0x0075, 0x0f00, 0x00a7 },
-+	       { 0xc57c, 0x0057, 0xc57c, 0x0057 } },
-+	{ 122, { 0x0000, 0x0076, 0x0f00, 0x00a7 },
-+	       { 0x9d6f, 0x0057, 0x9d6f, 0x0057 } },
-+	{ 124, { 0xaaab, 0x0076, 0x0f00, 0x00a7 },
-+	       { 0x7586, 0x0057, 0x7586, 0x0057 } },
-+	{ 126, { 0x5555, 0x0077, 0x0f00, 0x00a7 },
-+	       { 0x4dc1, 0x0057, 0x4dc1, 0x0057 } },
-+	{ 128, { 0x0000, 0x0078, 0x0f00, 0x00a7 },
-+	       { 0x2621, 0x0057, 0x2621, 0x0057 } },
-+	{ 130, { 0xaaab, 0x0078, 0x0f00, 0x00a7 },
-+	       { 0xfea4, 0x0056, 0xfea4, 0x0056 } },
-+	{ 132, { 0x5555, 0x0079, 0x0f00, 0x00a7 },
-+	       { 0xd74b, 0x0056, 0xd74b, 0x0056 } },
-+	{ 134, { 0x0000, 0x007a, 0x0f00, 0x00a7 },
-+	       { 0xb016, 0x0056, 0xb016, 0x0056 } },
-+	{ 136, { 0xaaab, 0x007a, 0x0f00, 0x00a7 },
-+	       { 0x8904, 0x0056, 0x8904, 0x0056 } },
-+	{ 138, { 0x5555, 0x007b, 0x0f00, 0x00a7 },
-+	       { 0x6215, 0x0056, 0x6215, 0x0056 } },
-+	{ 140, { 0x0000, 0x007c, 0x0f00, 0x00a7 },
-+	       { 0x3b49, 0x0056, 0x3b49, 0x0056 } },
-+	{ 142, { 0xaaab, 0x007c, 0x0f00, 0x00a7 },
-+	       { 0x14a0, 0x0056, 0x14a0, 0x0056 } },
-+	{ 144, { 0x5555, 0x007d, 0x0f00, 0x00a7 },
-+	       { 0xee19, 0x0055, 0xee19, 0x0055 } },
-+	{ 145, { 0xaaab, 0x007d, 0x0f00, 0x00a7 },
-+	       { 0xdae3, 0x0055, 0xdae3, 0x0055 } },
-+	{ 146, { 0x0000, 0x007e, 0x0f00, 0x00a7 },
-+	       { 0xc7b5, 0x0055, 0xc7b5, 0x0055 } },
-+	{ 147, { 0x5555, 0x007e, 0x0f00, 0x00a7 },
-+	       { 0xb490, 0x0055, 0xb490, 0x0055 } },
-+	{ 148, { 0xaaab, 0x007e, 0x0f00, 0x00a7 },
-+	       { 0xa173, 0x0055, 0xa173, 0x0055 } },
-+	{ 149, { 0x0000, 0x007f, 0x0f00, 0x00a7 },
-+	       { 0x8e5f, 0x0055, 0x8e5f, 0x0055 } },
-+	{ 150, { 0x5555, 0x007f, 0x0f00, 0x00a7 },
-+	       { 0x7b53, 0x0055, 0x7b53, 0x0055 } },
-+	{ 151, { 0xaaab, 0x007f, 0x0f00, 0x00a7 },
-+	       { 0x6850, 0x0055, 0x6850, 0x0055 } },
-+	{ 152, { 0x0000, 0x0080, 0x0f00, 0x00a7 },
-+	       { 0x5555, 0x0055, 0x5555, 0x0055 } },
-+	{ 153, { 0x5555, 0x0080, 0x0f00, 0x00a7 },
-+	       { 0x4263, 0x0055, 0x4263, 0x0055 } },
-+	{ 154, { 0xaaab, 0x0080, 0x0f00, 0x00a7 },
-+	       { 0x2f79, 0x0055, 0x2f79, 0x0055 } },
-+	{ 155, { 0x0000, 0x0081, 0x0f00, 0x00a7 },
-+	       { 0x1c98, 0x0055, 0x1c98, 0x0055 } },
-+	{ 156, { 0x5555, 0x0081, 0x0f00, 0x00a7 },
-+	       { 0x09be, 0x0055, 0x09be, 0x0055 } },
-+	{ 157, { 0xaaab, 0x0081, 0x0f00, 0x00a7 },
-+	       { 0xf6ee, 0x0054, 0xf6ee, 0x0054 } },
-+	{ 158, { 0x0000, 0x0082, 0x0f00, 0x00a7 },
-+	       { 0xe425, 0x0054, 0xe425, 0x0054 } },
-+	{ 159, { 0x5555, 0x0082, 0x0f00, 0x00a7 },
-+	       { 0xd165, 0x0054, 0xd165, 0x0054 } },
-+	{ 160, { 0xaaab, 0x0082, 0x0f00, 0x00a7 },
-+	       { 0xbead, 0x0054, 0xbead, 0x0054 } },
-+	{ 161, { 0x0000, 0x0083, 0x0f00, 0x00a7 },
-+	       { 0xabfd, 0x0054, 0xabfd, 0x0054 } },
-+	{ 162, { 0x5555, 0x0083, 0x0f00, 0x00a7 },
-+	       { 0x9956, 0x0054, 0x9956, 0x0054 } },
-+	{ 163, { 0xaaab, 0x0083, 0x0f00, 0x00a7 },
-+	       { 0x86b7, 0x0054, 0x86b7, 0x0054 } },
-+	{ 164, { 0x0000, 0x0084, 0x0f00, 0x00a7 },
-+	       { 0x7420, 0x0054, 0x7420, 0x0054 } },
-+	{ 165, { 0x5555, 0x0084, 0x0f00, 0x00a7 },
-+	       { 0x6191, 0x0054, 0x6191, 0x0054 } },
-+	{ 166, { 0xaaab, 0x0084, 0x0f00, 0x00a7 },
-+	       { 0x4f0a, 0x0054, 0x4f0a, 0x0054 } },
-+	{ 168, { 0x5555, 0x0085, 0x0f00, 0x00a7 },
-+	       { 0x2a15, 0x0054, 0x2a15, 0x0054 } },
-+	{ 170, { 0x0000, 0x0086, 0x0f00, 0x00a7 },
-+	       { 0x0540, 0x0054, 0x0540, 0x0054 } },
-+	{ 172, { 0xaaab, 0x0086, 0x0f00, 0x00a7 },
-+	       { 0xe08c, 0x0053, 0xe08c, 0x0053 } },
-+	{ 174, { 0x5555, 0x0087, 0x0f00, 0x00a7 },
-+	       { 0xbbf7, 0x0053, 0xbbf7, 0x0053 } },
-+	{ 176, { 0x0000, 0x0088, 0x0f00, 0x00a7 },
-+	       { 0x9783, 0x0053, 0x9783, 0x0053 } },
-+	{ 178, { 0xaaab, 0x0088, 0x0f00, 0x00a7 },
-+	       { 0x732e, 0x0053, 0x732e, 0x0053 } },
-+	{ 180, { 0x5555, 0x0089, 0x0f00, 0x00a7 },
-+	       { 0x4ef8, 0x0053, 0x4ef8, 0x0053 } },
-+	{   1, { 0xcccd, 0x0069, 0x1400, 0x00a7 },
-+	       { 0x91c3, 0x005a, 0x91c3, 0x005a } },
-+	{   2, { 0x8ccd, 0x006a, 0x1400, 0x00a7 },
-+	       { 0x61cc, 0x005a, 0x61cc, 0x005a } },
-+	{   3, { 0x4ccd, 0x006b, 0x1400, 0x00a7 },
-+	       { 0x3208, 0x005a, 0x3208, 0x005a } },
-+	{   4, { 0x0ccd, 0x006c, 0x1400, 0x00a7 },
-+	       { 0x0276, 0x005a, 0x0276, 0x005a } },
-+	{   5, { 0xcccd, 0x006c, 0x1400, 0x00a7 },
-+	       { 0xd316, 0x0059, 0xd316, 0x0059 } },
-+	{   6, { 0x8ccd, 0x006d, 0x1400, 0x00a7 },
-+	       { 0xa3e9, 0x0059, 0xa3e9, 0x0059 } },
-+	{   7, { 0x4ccd, 0x006e, 0x1400, 0x00a7 },
-+	       { 0x74ec, 0x0059, 0x74ec, 0x0059 } },
-+	{   8, { 0x0ccd, 0x006f, 0x1400, 0x00a7 },
-+	       { 0x4621, 0x0059, 0x4621, 0x0059 } },
-+	{   9, { 0xcccd, 0x006f, 0x1400, 0x00a7 },
-+	       { 0x1787, 0x0059, 0x1787, 0x0059 } },
-+	{  10, { 0x8ccd, 0x0070, 0x1400, 0x00a7 },
-+	       { 0xe91d, 0x0058, 0xe91d, 0x0058 } },
-+	{  11, { 0x4ccd, 0x0071, 0x1400, 0x00a7 },
-+	       { 0xbae3, 0x0058, 0xbae3, 0x0058 } },
-+	{  12, { 0x0ccd, 0x0072, 0x1400, 0x00a7 },
-+	       { 0x8cda, 0x0058, 0x8cda, 0x0058 } },
-+	{  13, { 0xcccd, 0x0072, 0x1400, 0x00a7 },
-+	       { 0x5f00, 0x0058, 0x5f00, 0x0058 } },
-+	{  14, { 0x999a, 0x0074, 0x1400, 0x00a7 },
-+	       { 0xf1b6, 0x0057, 0xf1b6, 0x0057 } },
-+};
+diff --git a/drivers/net/wireless/broadcom/b43/phy_common.c b/drivers/net/wireless/broadcom/b43/phy_common.c
+index cfc14c1..40e99b2 100644
+--- a/drivers/net/wireless/broadcom/b43/phy_common.c
++++ b/drivers/net/wireless/broadcom/b43/phy_common.c
+@@ -413,15 +413,34 @@ void b43_phy_take_out_of_reset(struct b43_wldev *dev)
+ 	}
+ }
+ 
++/* Centre channel of the 80 MHz block a 5 GHz primary belongs to, 0 if none */
++unsigned int b43_ac_80mhz_centre(unsigned int channel)
++{
++	static const u8 centre[] = { 42, 58, 106, 122, 138, 155 };
++	unsigned int i;
++
++	for (i = 0; i < ARRAY_SIZE(centre); i++)
++		if (channel >= centre[i] - 6u && channel <= centre[i] + 6u &&
++		    (channel - (centre[i] - 6u)) % 4 == 0)
++			return centre[i];
++	return 0;
++}
++
+ /*
+  * The 11ac chanspec of a primary channel as the AC microcode takes it in
+  * SHM and in the TX and RX headers: channel, 0x1000 for 20 MHz, 0xc000 on
+- * 5 GHz.
++ * 5 GHz. In 80 MHz mode (every 5 GHz channel inside an 80 MHz block) the
++ * centre channel, 0x2000 for the width and the primary's position in the
++ * block in bits 10:8 (primary channel 112: 0xe36a).
+  */
+ u16 b43_ac_chanspec(struct b43_wldev *dev, unsigned int channel)
+ {
+-	return channel | 0x1000 |
+-	       (b43_current_band(dev->wl) == NL80211_BAND_5GHZ ? 0xc000 : 0);
++	bool is_5ghz = b43_current_band(dev->wl) == NL80211_BAND_5GHZ;
++	unsigned int centre = is_5ghz ? b43_ac_80mhz_centre(channel) : 0;
++
++	if (centre)
++		return 0xe000 | (((channel - (centre - 6)) / 4) << 8) | centre;
++	return channel | 0x1000 | (is_5ghz ? 0xc000 : 0);
+ }
+ 
+ int b43_switch_channel(struct b43_wldev *dev, unsigned int new_channel)
