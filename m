@@ -1,66 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794472000;
-	b=hpVpg9bxWKlKLIEkn5Mb/im6HjPvHcLHk2tr789fdJIPb4iWZOhM0OjGPUn26DEySYUS
-	 Tqgl3mhrX7eYXwRmrEnJgB58jyEOTAoCYhLG9Sxlz5mjX7SWbGQxjdOgEoKgfsFcAn8Vk
-	 BQkNBcNu3KmrgIJ7eIZACAWM9H/vnSjD3GLMauQvZhIB3cVQEfBpVMiJCdk7be4tRaU3F
-	 taKz4I5LW2VCU9AtB+1TCFYCqBSK3pOETD69vEytt404s9KXihPei0D0cM6a1VxaLEQ+Z
-	 CSujKO3u6OagVkR80fB4hBHia0A6vXDjT8vzuYCdJ3DcDVBQjHAP8SpWAv3+BoVpqow==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472000;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=a8GD79z6ryFAq01siFbSOm1F4JOpsxAS2CMyl087c3U=;
-	b=Frk+dzXHsvqkE1aJglmhj7vD3bwKDXZ4+U1sfBjN0UALY8iQK6c7X4sU2AgPQ48Y2bb3
-	 OKcwIZVn8+9IcMTmIyLhHO9ZwHtE5VFWt9qMmc1QmsodVQFxhtBCutluizh0HRIyTZuZN
-	 J+a7jeps1zJjCW2SC0zzqV/o2nSIpbwLV3tZXgBxqgXnSWkiP3oqeKkEcX7pcwyXIgr9Y
-	 dvV/R9wfBBGbLfgr7T8pUr+mwd2C7IYvEL002WQLaGyUIThROMml4lUFl6+WPO07n8qjG
-	 KWsxz1gO54yA/deii9D543Z3LbFuyZ8/aZhyub/Lm4LiAZm9syw/qI0X8wjXsIa962A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Iy0rex4e;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794471978;
+	b=0/hkFyT+YnG4eh5SMv68CT6Oks8SYyhAyk43UlyDPkqDHwzHpjBOgD6iK1/VX1DUfVQ5
+	 hhKZZi/z5EsUfAMfoOI3t7K6zU/xvUEXMalY08dRfxP/p3P7BvKn55mPuakUWIT4RTj+o
+	 ivpugibB6rm4z/7msMDUdu5KIy4dAfjLATAr4Wuuy3S4Xj1PvpI0SiqggHtKEgK4bIUly
+	 EP967G7+rE/W+yIwf+oNzX1WErxHat/2+V5qXRJBs84jHothFC/7GWEaaFdpNfJRUEolz
+	 GvShxQqlwpXXskt2bwMg4LuJwNClG4z7/Lzh2a6ClnIfcw240f67dg1YzkjgRmbFm/A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794471978;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=8PQDlO+KPnX8OniJ2lunrRKWx5Iss91CriV9EC12boE=;
+	b=zMGW9fwGA6vj9FyCOX09uklBast5XNRQSyix/DBPm7wMN1XoG+SRnCXyXm8fjinps4Yo
+	 7DUFWqqKqQsjSmLLsca3Z15HTsp+upjaTrwzMgaZvpiJoarOG7x5jhss7gCBirN0prvJh
+	 Ip4OM5irDzdJudR2ox7zfrLGBLxqbcuGjuHT+7/Ttfz4R9w0ArYyBGGfxMA7DYvt0OGvt
+	 u3e8YPBE7tUC0fBs7l8eo2A2b1RwXoB/INgPEq4iHfC3MwI9klLjupIc5kfc/1TVfmDtM
+	 1XyKS2GgihPoGALVO3wZJxxXRIPxVvVZfGVGjwB91h0YPSd4kEqornZTwOJMEAeDx+w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XP4Igfzq;
+	arc=fail smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2DCF606A32E;
+	Thu, 12 Nov 2026 08:26:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XP4Igfzq
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794471977;
+	b=q2IaKrASU6+095260Y0fyHilgp9s3Gknfo8jyVufmVqmHNiFr5AFKDWZkEVST/OXrzvM
+	 72NHyVAcSQWj2LKdFJPkZg6M33I1sgAHXhsa0OMDc68mt7N01reDIlq2TrM7zT5MgBjLV
+	 NLBOuHGWAtluMqlSjM9SSKJHAiObkVg9EFCQo4CflIuGbAvB8aLDYv4mgXxH7Ge2bQASg
+	 N72ir8PoQ4YhcKq6lVtxRIuNTg8dGSSuPUjYZfGQOgkaM9en828J6ducjgIgmsy7PkQ8w
+	 MTMBhNj2rnj8BP26K81ae9iIbVO/yLpda3MpLxsOYrot7AS6OACTAgML7yMxcLK8Xjw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794471977;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=8PQDlO+KPnX8OniJ2lunrRKWx5Iss91CriV9EC12boE=;
+	b=X1tqdWglBH8+Zm/I1mahQW5plTU44kXtqmIM11h6S1E3rQEcZhT0AUEEH30aWLbMzbjz
+	 Wv9+gq+A1Ykhk8wZdCCv8dbANseWAe5i1cGveZfgukKmaiTw/swSseg/pierboDMV6JSC
+	 BFJ6MhstJiukhTEIezIpqF3oG6djZtWmvFZlsazFmnbVG6nePH8NK6+msIT9aeVGuhPD2
+	 gTZWJC+lfK+ROfKCXOAC8Jjsvekg9DMdT7WI4Ycwa6MgEtnC0udz3jcbcdvR2IDBcyko8
+	 /o7u1tOohWVQ6Rory/tDLuVfovPSZh0APBFm+I67qjUoBWnEWa/U/dBxeovSuh0pQUw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16D2D606A33E;
-	Thu, 12 Nov 2026 08:26:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16D2D606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Iy0rex4e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794471998;
-	bh=ySZM9u+1PfvUuzNsiaIgfU+AxijVq6u7jV0SP9waBT4=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Iy0rex4e8Bocv9+F5z9wlV45tFxmf67S1FfLLkJd5/u66zGOWE0RZyAPKRy8jT6mg
-	 4CvHMrLW7yOdAFztOybh8SF7qaFcdDsv+EHEMu4Xk+7S7WPokw10SrRX9JaoAtA9pR
-	 fFjhUoACii1vr8MiX+WQR1yEio6dCxENxfO4i5efrwcjeYwacVkZNeZ0OUXA7aw/cm
-	 9/El6JrdkDaLad0xCnSEVBtSEZh+pi1zUx1T3MZ50kQBdCdMo/xj9IakdIlNyzotKg
-	 h1hsWq53YAPSnusR5hjzRnTcvGWMDDCXSNwfHVG048jLUe7mvDcxaKQREqVIXiVcsp
-	 Uxvf2CYYARV1g==
-Received: from benjamin-XPS-13-9310 (unknown [100.64.1.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: benjamin.gaignard)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E1E5517E00AF;
-	Thu, 12 Nov 2026 09:26:37 +0100 (CET)
-From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-To: mchehab@kernel.org,
-	nicolas.dufresne@collabora.com,
-	hverkuil+cisco@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kernel@collabora.com,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>
-Subject: [PATCH v2] media: codecs: vp9: Add tile_info control
-Date: Thu, 12 Nov 2026 09:26:31 +0100
-Message-ID: <20261112082631.40863-1-benjamin.gaignard@collabora.com>
-X-Mailer: git-send-email 2.53.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 6E83C1F00A08;
+	Thu, 12 Nov 2026 08:26:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794471977;
+	bh=8PQDlO+KPnX8OniJ2lunrRKWx5Iss91CriV9EC12boE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=XP4IgfzqAt3VzoiNGKYzFIrNnquikyP1pJyVV0rbdCIApqM2yq8vaF51FRaGXYWnw
+	 fp+G3YbIImqjbFsH2YMt8OleBCAHdyc+ZehpPzCTSaOpuCq0MY42J1yshw+iz6KPzd
+	 vAME4R6BX4LgoeKwaj+joaCxatj/BFIO1a1MDh6+jGMAAr4K6NF2KTCmay1/WUPYRs
+	 hq0rk0USFGHHd2wC+s/pMerR16lIY49mx3E88QWn8Mo+LM1x04KGEUErUfXWdMTZqu
+	 9OIGT2M2YZ2pgOuJBrQrhdCQh/U0vmaOqg/EsgEqEE8pSY0BsH3a1bSIeGRelAVbmP
+	 bDGAxzQJB7RdQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id F0A5349370;
+	Thu, 12 Nov 2026 08:26:15 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Thu, 12 Nov 2026 08:26:17 +0000
+Subject: [PATCH v2 2/2] usb: hub: Retry SuperSpeed for a device stuck on
+ its USB 2.0 peer
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,285 +83,225 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261112-usb-port-pairing-v2-2-45f5a1a29f1f@gmail.com>
+References: <20261112-usb-port-pairing-v2-0-45f5a1a29f1f@gmail.com>
+In-Reply-To: <20261112-usb-port-pairing-v2-0-45f5a1a29f1f@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Alan Stern <stern@rowland.harvard.edu>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Mathias Nyman <mathias.nyman@intel.com>, Chen-Yu Tsai <wenst@chromium.org>, 
+ Chen-Yu Tsai <wens@kernel.org>, Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794471975; l=7334;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=Nu/LkGkyqDhkWbKSDg45ZNOB49lda93sr3AtuvilO00=;
+ b=tfV/NLT3B5EkcIebPT7kiq79NrKQ1AX/h59WIHKfhKnnUcTyCP8za420DYu3bvI2TyOFySAX1
+ +JoEdavoveLD30ECNVV3WBnkYhKuc5sLSWEw84Ib/lSbU4jN0Vh+sWP
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Some hardware accelerators needs to know tiles location and size
-in the bitstream.
-Tiles size are coded inside the bitstream so it is up to the
-userland to provide theses information by calling
-V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY control.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+A SuperSpeed device looks for a SuperSpeed link first when it sees
+VBUS, and connects at high speed when the link doesn't come up. It
+looks again only when VBUS is cycled or after a USB 2.0 bus reset.
+
+When a connector's two halves belong to different host controllers,
+the USB 2.0 host can start first. On the Orange Pi 5 (RK3588S), whose
+USB 3 Type-A port has VBUS on from power-up, a USB 3 flash drive
+plugged in at boot was reset by the EHCI about 10 ms before the
+SuperSpeed-only xHCI registered, so it came up at 480 Mb/s on the EHCI
+in every one of 6 boots, while plugging it in after boot gave
+5 Gb/s. It stays at high speed until it is unplugged.
+
+When a SuperSpeed root hub with ports paired through a connector to a
+root hub port of another host controller has started, check those
+USB 2.0 peers. If a SuperSpeed-capable device that is not a hub is
+connected at high speed there, reset it once, so that it can connect
+at SuperSpeed now that the link can train. Lock the peer root hub
+first, so an enumeration that is under way completes before the check.
+A device that still can't train its SuperSpeed link stays connected at
+high speed after that one reset.
+
+Only the start of the root hub does this, not a resume or a reset of
+it: a device that is suspended with the system can't be reset, and the
+problem is the start-up order of the two controllers. Hubs are left
+alone, because the USB 2.0 half of a USB 3 hub stays at high speed next
+to its SuperSpeed half. The work runs on the freezable hub_wq, holds a
+runtime PM reference on the SuperSpeed hub and is cancelled when the
+hub is quiesced.
+
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-The userland implementation in GStreamer for this control could be
-found here:
-https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/13038
+ drivers/usb/core/hub.c | 113 +++++++++++++++++++++++++++++++++++++++++++++++++
+ drivers/usb/core/hub.h |   1 +
+ 2 files changed, 114 insertions(+)
 
-This will be use by Verisilicon VC9000D driver which isn't upstream yet
-because some improvements in Verisilicon core are needed before.
-At least it needs these series to be merged first:
-- Create AV1 helper library: 
-  https://patchwork.linuxtv.org/project/linux-media/list/?series=30160
-- media: verisilicon: remove unused variant and code clean up:
-  https://patchwork.linuxtv.org/project/linux-media/list/?series=31435
-- media: verisilicon: simplify auxiliary buffers allocation:
-  https://patchwork.linuxtv.org/project/linux-media/list/?series=30541
-
-
-changes in v2:
-- add __user before p_vp9_tile_info_entry declaration in v4l2_ext_control
-  structure.
-- fix invalid symbol in documentation.
-
- .../media/v4l/ext-ctrls-codec-stateless.rst   | 42 +++++++++++++++++++
- .../media/v4l/videodev2.h.rst.exceptions      |  1 +
- .../media/v4l/vidioc-g-ext-ctrls.rst          |  4 ++
- .../media/v4l/vidioc-queryctrl.rst            |  6 +++
- drivers/media/v4l2-core/v4l2-ctrls-core.c     |  8 ++++
- drivers/media/v4l2-core/v4l2-ctrls-defs.c     |  5 +++
- include/media/v4l2-ctrls.h                    |  2 +
- include/uapi/linux/v4l2-controls.h            | 27 ++++++++++++
- include/uapi/linux/videodev2.h                |  2 +
- 9 files changed, 97 insertions(+)
-
-diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst
-index d7a3b8ef03a7..effd3eb47e29 100644
---- a/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst
-+++ b/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst
-@@ -2050,6 +2050,48 @@ This structure contains all loop filter related parameters. See sections
-       - When set, the bitstream contains additional syntax elements that
-         specify which mode and reference frame deltas are to be updated.
+diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+index 199d3f535a89..eaa2a5b6aba0 100644
+--- a/drivers/usb/core/hub.c
++++ b/drivers/usb/core/hub.c
+@@ -1076,6 +1076,109 @@ int usb_remove_device(struct usb_device *udev)
+ 	return 0;
+ }
  
-+``V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY (struct)``
-+    Specifies VP9 Tile Info entry as describe in section 6.4 "Decode tile syntax"
-+    of :ref:`vp9`.
-+    MiRowStart, MiRowEnd, MiColStart and MiColEnd can be retrieved from struct
-+    v4l2_ctrl_vp9_frame using tile_row and tile_col.
-+
-+.. c:type:: v4l2_ctrl_vp9_tile_info_entry
-+
-+.. raw:: latex
-+
-+    \small
-+
-+.. tabularcolumns:: |p{1.2cm}|p{9.2cm}|p{6.9cm}|
-+
-+.. cssclass:: longtable
-+
-+.. flat-table:: struct v4l2_ctrl_vp9_tile_info_entry
-+    :header-rows:  0
-+    :stub-columns: 0
-+    :widths:       1 1 2
-+
-+    * - __u32
-+      - ``tile_offset``
-+      - Specifies the offset from the tile data after frame header,
-+        i.e. where the coded tile data actually starts.
-+    * - __u32
-+      - ``tile_size``
-+      - Specifies the size in bytes of the coded tile.
-+        Equivalent to "tile_size" in :ref:`vp9`
-+    * - __u32
-+      - ``tile_row``
-+      - Specifies the row of the current tile.
-+        Equivalent to "tileRow" in :ref:`vp9`
-+    * - __u32
-+      - ``tile_col``
-+      - Specifies the col of the current tile.
-+        Equivalent to "tileCol" in :ref:`vp9`
-+
-+.. raw:: latex
-+
-+    \normalsize
-+
- .. _v4l2-codec-stateless-hevc:
- 
- ``V4L2_CID_STATELESS_HEVC_SPS (struct)``
-diff --git a/Documentation/userspace-api/media/v4l/videodev2.h.rst.exceptions b/Documentation/userspace-api/media/v4l/videodev2.h.rst.exceptions
-index 6182b4e2d2ee..5e411cdb0469 100644
---- a/Documentation/userspace-api/media/v4l/videodev2.h.rst.exceptions
-+++ b/Documentation/userspace-api/media/v4l/videodev2.h.rst.exceptions
-@@ -161,6 +161,7 @@ replace symbol V4L2_CTRL_TYPE_FWHT_PARAMS :c:type:`V4L.v4l2_ctrl_type`
- replace symbol V4L2_CTRL_TYPE_VP8_FRAME :c:type:`V4L.v4l2_ctrl_type`
- replace symbol V4L2_CTRL_TYPE_VP9_COMPRESSED_HDR :c:type:`V4L.v4l2_ctrl_type`
- replace symbol V4L2_CTRL_TYPE_VP9_FRAME :c:type:`V4L.v4l2_ctrl_type`
-+replace symbol V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY :c:type:`V4L.v4l2_ctrl_type`
- replace symbol V4L2_CTRL_TYPE_HDR10_CLL_INFO :c:type:`V4L.v4l2_ctrl_type`
- replace symbol V4L2_CTRL_TYPE_HDR10_MASTERING_DISPLAY :c:type:`V4L.v4l2_ctrl_type`
- replace symbol V4L2_CTRL_TYPE_HEVC_SPS :c:type:`V4L.v4l2_ctrl_type`
-diff --git a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
-index d78328152b75..836b227c10c9 100644
---- a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
-+++ b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
-@@ -258,6 +258,10 @@ still cause this situation.
-       - ``p_vp9_frame``
-       - A pointer to a struct :c:type:`v4l2_ctrl_vp9_frame`. Valid if this
-         control is of type ``V4L2_CTRL_TYPE_VP9_FRAME``.
-+    * - struct :c:type:`v4l2_ctrl_vp9_tile_info_entry` *
-+      - ``p_vp9_tile_info_entry``
-+      - A pointer to a struct :c:type:`v4l2_ctrl_vp9_tile_info_entry`. Valid if this
-+        control is of type ``V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY``.
-     * - struct :c:type:`v4l2_ctrl_hdr10_cll_info` *
-       - ``p_hdr10_cll``
-       - A pointer to a struct :c:type:`v4l2_ctrl_hdr10_cll_info`. Valid if this control is
-diff --git a/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst b/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
-index 82c8b52e771c..bfef51f70c42 100644
---- a/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
-+++ b/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
-@@ -555,6 +555,12 @@ See also the examples in :ref:`control`.
-       - n/a
-       - A struct :c:type:`v4l2_ctrl_vp9_frame`, containing VP9
- 	frame decode parameters for stateless video decoders.
-+    * - ``V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY``
-+      - n/a
-+      - n/a
-+      - n/a
-+      - A struct :c:type:`v4l2_ctrl_vp9_tile_info_entry`, containing VP9
-+        tile info for stateless video decoders.
-     * - ``V4L2_CTRL_TYPE_AV1_SEQUENCE``
-       - n/a
-       - n/a
-diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-index 6e751a043a21..a426a716f3d4 100644
---- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
-+++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-@@ -425,6 +425,9 @@ void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *ctrl)
- 	case V4L2_CTRL_TYPE_VP9_FRAME:
- 		pr_cont("VP9_FRAME");
- 		break;
-+	case V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY:
-+		pr_cont("VP9_TILE_INFO_ENTRY");
-+		break;
- 	case V4L2_CTRL_TYPE_HEVC_SPS:
- 		pr_cont("HEVC_SPS");
- 		break;
-@@ -1415,6 +1418,8 @@ static int std_validate_compound(const struct v4l2_ctrl *ctrl, u32 idx,
- 
- 	case V4L2_CTRL_TYPE_VP9_FRAME:
- 		return validate_vp9_frame(p);
-+	case V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY:
-+		break;
- 	case V4L2_CTRL_TYPE_AV1_FRAME:
- 		return validate_av1_frame(p);
- 	case V4L2_CTRL_TYPE_AV1_SEQUENCE:
-@@ -2135,6 +2140,9 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l2_ctrl_handler *hdl,
- 	case V4L2_CTRL_TYPE_VP9_FRAME:
- 		elem_size = sizeof(struct v4l2_ctrl_vp9_frame);
- 		break;
-+	case V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY:
-+		elem_size = sizeof(struct v4l2_ctrl_vp9_tile_info_entry);
-+		break;
- 	case V4L2_CTRL_TYPE_AV1_SEQUENCE:
- 		elem_size = sizeof(struct v4l2_ctrl_av1_sequence);
- 		break;
-diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-index e062f2088490..f7a98925027b 100644
---- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-+++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-@@ -1228,6 +1228,7 @@ const char *v4l2_ctrl_get_name(u32 id)
- 	case V4L2_CID_STATELESS_MPEG2_QUANTISATION:		return "MPEG-2 Quantisation Matrices";
- 	case V4L2_CID_STATELESS_VP9_COMPRESSED_HDR:	return "VP9 Probabilities Updates";
- 	case V4L2_CID_STATELESS_VP9_FRAME:			return "VP9 Frame Decode Parameters";
-+	case V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY:		return "VP9 Tile Info Entry";
- 	case V4L2_CID_STATELESS_HEVC_SPS:			return "HEVC Sequence Parameter Set";
- 	case V4L2_CID_STATELESS_HEVC_PPS:			return "HEVC Picture Parameter Set";
- 	case V4L2_CID_STATELESS_HEVC_SLICE_PARAMS:		return "HEVC Slice Parameters";
-@@ -1602,6 +1603,10 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
- 	case V4L2_CID_STATELESS_AV1_SEQUENCE:
- 		*type = V4L2_CTRL_TYPE_AV1_SEQUENCE;
- 		break;
-+	case V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY:
-+		*type = V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY;
-+		*flags |= V4L2_CTRL_FLAG_DYNAMIC_ARRAY;
-+		break;
- 	case V4L2_CID_STATELESS_AV1_TILE_GROUP_ENTRY:
- 		*type = V4L2_CTRL_TYPE_AV1_TILE_GROUP_ENTRY;
- 		*flags |= V4L2_CTRL_FLAG_DYNAMIC_ARRAY;
-diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
-index cec9217d97ac..286e72a00a9d 100644
---- a/include/media/v4l2-ctrls.h
-+++ b/include/media/v4l2-ctrls.h
-@@ -45,6 +45,7 @@ struct video_device;
-  * @p_h264_pred_weights:	Pointer to a struct v4l2_ctrl_h264_pred_weights.
-  * @p_vp8_frame:		Pointer to a VP8 frame params structure.
-  * @p_vp9_compressed_hdr_probs:	Pointer to a VP9 frame compressed header probs structure.
-+ * @p_vp9_tile_info_entry:	Pointer to a VP9 tile info structure.
-  * @p_vp9_frame:		Pointer to a VP9 frame params structure.
-  * @p_hevc_sps:			Pointer to an HEVC sequence parameter set structure.
-  * @p_hevc_pps:			Pointer to an HEVC picture parameter set structure.
-@@ -83,6 +84,7 @@ union v4l2_ctrl_ptr {
- 	struct v4l2_ctrl_hevc_slice_params *p_hevc_slice_params;
- 	struct v4l2_ctrl_vp9_compressed_hdr *p_vp9_compressed_hdr_probs;
- 	struct v4l2_ctrl_vp9_frame *p_vp9_frame;
-+	struct v4l2_ctrl_vp9_tile_info_entry *p_vp9_tile_info_entry;
- 	struct v4l2_ctrl_hdr10_cll_info *p_hdr10_cll;
- 	struct v4l2_ctrl_hdr10_mastering_display *p_hdr10_mastering;
- 	struct v4l2_area *p_area;
-diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
-index d17e41d51d2e..8eb8da0073cd 100644
---- a/include/uapi/linux/v4l2-controls.h
-+++ b/include/uapi/linux/v4l2-controls.h
-@@ -2642,6 +2642,8 @@ struct v4l2_ctrl_hevc_ext_sps_lt_rps {
- 
- /* Stateless VP9 controls */
- 
-+#define V4L2_VP9_MAX_TILE_COUNT			512
-+
- #define V4L2_VP9_LOOP_FILTER_FLAG_DELTA_ENABLED	0x1
- #define V4L2_VP9_LOOP_FILTER_FLAG_DELTA_UPDATE	0x2
- 
-@@ -2924,6 +2926,31 @@ struct v4l2_ctrl_vp9_compressed_hdr {
- 	struct v4l2_vp9_mv_probs mv;
- };
- 
-+#define V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY (V4L2_CID_CODEC_STATELESS_BASE + 302)
-+/**
-+ * struct v4l2_ctrl_vp9_tile_info_entry - VP9 Tile Info entry
-+ *
-+ * Represents a single VP9 tile inside. Note that MiRowStart,
-+ * MiRowEnd, MiColStart and MiColEnd can be retrieved from struct
-+ * v4l2_ctrl_vp9_frame using tile_row and tile_col.
-+ * See section 6.4 "Decode tile syntax" for more details.
-+ *
-+ * @tile_offset: offset from the tile data after frame header,
-+ * i.e. where the coded tile data actually starts.
-+ * @tile_size: specifies the size in bytes of the coded tile. Equivalent to
-+ * "tile_size" in the VP9 Specification.
-+ * @tile_row: specifies the row of the current tile. Equivalent to "tileRow" in
-+ * the VP9 Specification.
-+ * @tile_col: specifies the col of the current tile. Equivalent to "tileCol" in
-+ * the VP9 Specification.
++/*
++ * A SuperSpeed root hub port can be paired through a connector with a USB 2.0
++ * root hub port of another host controller. With VBUS always on, a device
++ * present at boot looks for a SuperSpeed link while the SuperSpeed host is
++ * still down, gives up and connects at high speed to the USB 2.0 host. It
++ * only tries SuperSpeed again after VBUS is cycled or after a USB 2.0 bus
++ * reset, so reset it once when the SuperSpeed root hub has started.
 + */
-+struct v4l2_ctrl_vp9_tile_info_entry {
-+	__u32 tile_offset;
-+	__u32 tile_size;
-+	__u32 tile_row;
-+	__u32 tile_col;
-+};
++static void hub_reset_peer_child(struct usb_device *peer_hdev, int peer_port1)
++{
++	struct usb_hub *peer_hub;
++	struct usb_device *udev;
 +
- /* Stateless AV1 controls */
++	/* Wait for an enumeration in progress on the peer port to finish */
++	usb_lock_device(peer_hdev);
++	peer_hub = usb_hub_to_struct_hub(peer_hdev);
++	if (!peer_hub || peer_port1 > peer_hdev->maxchild)
++		goto out;
++
++	udev = peer_hub->ports[peer_port1 - 1]->child;
++	if (!udev || udev->speed != USB_SPEED_HIGH)
++		goto out;
++
++	/*
++	 * The USB 2.0 half of a USB 3 hub stays at high speed next to its
++	 * SuperSpeed half, and resetting it would disconnect its children.
++	 */
++	if (udev->descriptor.bDeviceClass == USB_CLASS_HUB)
++		goto out;
++
++	usb_lock_device(udev);
++	if (udev->state != USB_STATE_NOTATTACHED &&
++	    udev->bos && udev->bos->ss_cap) {
++		dev_info(&udev->dev,
++			 "SuperSpeed peer port available, resetting\n");
++		usb_reset_device(udev);
++	}
++	usb_unlock_device(udev);
++out:
++	usb_unlock_device(peer_hdev);
++}
++
++static void hub_peer_reset_work(struct work_struct *ws)
++{
++	struct usb_hub *hub = container_of(ws, struct usb_hub, peer_reset_work);
++	struct usb_device *hdev = hub->hdev;
++	int port1;
++
++	for (port1 = 1; ; port1++) {
++		struct usb_device *peer_hdev = NULL;
++		struct usb_port *port_dev;
++		int peer_port1 = 0;
++
++		mutex_lock(&usb_port_peer_mutex);
++		if (port1 > hdev->maxchild) {
++			mutex_unlock(&usb_port_peer_mutex);
++			break;
++		}
++		port_dev = hub->ports[port1 - 1];
++		if (port_dev->connector_peer && port_dev->peer) {
++			peer_hdev = to_usb_device(port_dev->peer->dev.parent->parent);
++			peer_port1 = port_dev->peer->portnum;
++			/* Only root hub ports of another host controller */
++			if (peer_hdev->parent ||
++			    peer_hdev->bus->controller == hdev->bus->controller)
++				peer_hdev = NULL;
++			else
++				usb_get_dev(peer_hdev);
++		}
++		mutex_unlock(&usb_port_peer_mutex);
++
++		if (peer_hdev) {
++			hub_reset_peer_child(peer_hdev, peer_port1);
++			usb_put_dev(peer_hdev);
++		}
++	}
++
++	usb_autopm_put_interface_async(to_usb_interface(hub->intfdev));
++	hub_put(hub);
++}
++
++/* Called when a SuperSpeed root hub has started */
++static void hub_queue_peer_reset(struct usb_hub *hub)
++{
++	struct usb_interface *intf = to_usb_interface(hub->intfdev);
++	int port1;
++
++	for (port1 = 1; port1 <= hub->hdev->maxchild; port1++) {
++		if (hub->ports[port1 - 1]->connector_peer)
++			break;
++	}
++	if (port1 > hub->hdev->maxchild)
++		return;
++
++	/* Keep the hub active until the work is done; hub_quiesce() cancels it */
++	usb_autopm_get_interface_no_resume(intf);
++	hub_get(hub);
++	if (!queue_work(hub_wq, &hub->peer_reset_work)) {
++		usb_autopm_put_interface_async(intf);
++		hub_put(hub);
++	}
++}
++
+ enum hub_activation_type {
+ 	HUB_INIT, HUB_INIT2, HUB_INIT3,		/* INITs must come first */
+ 	HUB_POST_RESET, HUB_RESUME, HUB_RESET_RESUME,
+@@ -1346,6 +1449,11 @@ static void hub_activate(struct usb_hub *hub, enum hub_activation_type type)
  
- #define V4L2_AV1_TOTAL_REFS_PER_FRAME	8
-diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
-index 5373dba640fa..b010be9437a7 100644
---- a/include/uapi/linux/videodev2.h
-+++ b/include/uapi/linux/videodev2.h
-@@ -1903,6 +1903,7 @@ struct v4l2_ext_control {
- 		struct v4l2_ctrl_mpeg2_quantisation __user *p_mpeg2_quantisation;
- 		struct v4l2_ctrl_vp9_compressed_hdr __user *p_vp9_compressed_hdr_probs;
- 		struct v4l2_ctrl_vp9_frame __user *p_vp9_frame;
-+		struct v4l2_ctrl_vp9_tile_info_entry __user *p_vp9_tile_info_entry;
- 		struct v4l2_ctrl_hevc_sps __user *p_hevc_sps;
- 		struct v4l2_ctrl_hevc_pps __user *p_hevc_pps;
- 		struct v4l2_ctrl_hevc_slice_params __user *p_hevc_slice_params;
-@@ -1984,6 +1985,7 @@ enum v4l2_ctrl_type {
- 
- 	V4L2_CTRL_TYPE_VP9_COMPRESSED_HDR	= 0x0260,
- 	V4L2_CTRL_TYPE_VP9_FRAME		= 0x0261,
-+	V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY	= 0x0262,
- 
- 	V4L2_CTRL_TYPE_HEVC_SPS			= 0x0270,
- 	V4L2_CTRL_TYPE_HEVC_PPS			= 0x0271,
+ 	/* Scan all ports that need attention */
+ 	kick_hub_wq(hub);
++
++	/* Let devices stuck at high speed on a connector peer move over */
++	if (!hdev->parent && hub_is_superspeed(hdev) &&
++	    (type == HUB_INIT2 || type == HUB_INIT3))
++		hub_queue_peer_reset(hub);
+  abort:
+ 	if (type == HUB_INIT2 || type == HUB_INIT3) {
+ 		/* Allow autosuspend if it was suppressed */
+@@ -1419,6 +1527,10 @@ static void hub_quiesce(struct usb_hub *hub, enum hub_quiescing_type type)
+ 	/* Stop hub_wq and related activity */
+ 	timer_delete_sync(&hub->irq_urb_retry);
+ 	flush_delayed_work(&hub->post_resume_work);
++	if (cancel_work_sync(&hub->peer_reset_work)) {
++		usb_autopm_put_interface_no_suspend(to_usb_interface(hub->intfdev));
++		hub_put(hub);
++	}
+ 	usb_kill_urb(hub->urb);
+ 	if (hub->has_indicators)
+ 		cancel_delayed_work_sync(&hub->leds);
+@@ -1978,6 +2090,7 @@ static int hub_probe(struct usb_interface *intf, const struct usb_device_id *id)
+ 	INIT_DELAYED_WORK(&hub->leds, led_work);
+ 	INIT_DELAYED_WORK(&hub->init_work, NULL);
+ 	INIT_DELAYED_WORK(&hub->post_resume_work, hub_post_resume);
++	INIT_WORK(&hub->peer_reset_work, hub_peer_reset_work);
+ 	INIT_WORK(&hub->events, hub_event);
+ 	INIT_LIST_HEAD(&hub->onboard_devs);
+ 	spin_lock_init(&hub->irq_urb_lock);
+diff --git a/drivers/usb/core/hub.h b/drivers/usb/core/hub.h
+index 78382839be48..edce19d7bf13 100644
+--- a/drivers/usb/core/hub.h
++++ b/drivers/usb/core/hub.h
+@@ -71,6 +71,7 @@ struct usb_hub {
+ 	struct delayed_work	leds;
+ 	struct delayed_work	init_work;
+ 	struct delayed_work	post_resume_work;
++	struct work_struct	peer_reset_work;
+ 	struct work_struct      events;
+ 	spinlock_t		irq_urb_lock;
+ 	struct timer_list	irq_urb_retry;
+
 -- 
-2.53.0
+2.55.0
+
 
