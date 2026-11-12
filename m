@@ -1,102 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794486924;
-	b=4A5ebC/waLc3pyGb508Qg6MvNgCuFW76PRN7to9yc5kj0mpih/Xb9Bde+hYha7H5eW/g
-	 SeFsr9+rZpWlAjgqLkeEfdKz5bvMADMtT37cCJlhGPtxUINoYaB773ExqW3vb32ff3c5v
-	 yaJGZA0Frhq3+SkR3YZn7WqwzC4ze4j9cF6WcmA8H9jVuR9UcUjQYfWKgiNgKmizUlryb
-	 abyHOuCkDnhAkczO08bBZTk5h3PvV47UOaIoVFmQMAAr/9SMBAF+XXb781WBZnm9qF56x
-	 JdemU80XnLMrpGC6dDdrgzC7qXjnk4Q4DxWmIcUgQBGEY6Z7WvAmgtTrNcygTbkWa8Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794486924;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794486968;
+	b=SHhkSysThn9r8ZV9lLrAA+RzNZdjJoTulI1drNly6rWvTMi2K0SPspNVbFfVVWyyIo/7
+	 ESADtukVngVstpJwA0XaoO4k8orpDZL5lA/AKwcpmMpJVs/sNzZP0U7j1NorSEvwvanEq
+	 Oy7FtL23aZrFFqxkyZJk1IZEYGHFOLRPid+Nb+5e3q1uoF5oPrw7jN2KtbA4Iw2UZdmYN
+	 uCRDeejoxMiEFUx+IiCNOSY6Qp7upemlve4jIra//cFgdYEyZFb8KRJk8gwgSz9hlF+ny
+	 X+3QCAoEYs4642tGaiw3Dd/3Tj1Kis+6isyDSNrFp/sU3eiHxq4pPZBpygSyPcGvJJA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794486968;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=gmfeXtI+tey0F/T6j/hOfxDyERZ2N7Ic5Vbc9BTsdyQ=;
-	b=zvEuqMHfQAndyHXh2qct21W+dkxj3sk8jjY9B2TaEuxTbugNjeqSsoahUsiAyUE1j7V8
-	 hU11FmeZ12ACpgiGUo/B0Efu/4oL7NjkzVbPtCPN8pExjFUK75EPFkRtFa5R9j3nW4w6l
-	 VaRLhTLjN73d9x/SMWfHiIqIv9CKSK3rP2ec6hgrJDHFajUfa7tqCsRmd97QMHA85cPoC
-	 8tpKBB+Uama5oMUsRpc94Wp/rSjnxZDHR9nRId8SJfICqPAro9W6y2H6Y5mPOeC1B6HCx
-	 dJQJTsgtJ1Ao7bVVNm4Jzxe3MW+xR9ze3/89HK9HY3FQeMHuLOdlKPdCsiEcBZ+CtKQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=hjVW9VP/TER5rvEadBEmYCt8ueid8AgZqnJlLcgyHj8=;
+	b=MZi5QuvzNbNFKiplqWi3PYGL9/sW03dz4IqOw6nX3V1/pHs1P+YyYuy//1HLZh4x21r/
+	 bng3ZLzlDQkrv06iwsbY6iyWy7U+jNy27iz/eLa8n2nvgPca79/QM6+LYuCS76nxRpoq4
+	 Mj7hM9s8DBaqgyy/hjIjzCOWhbhetSExGOotoD/9pFoEOWavnRpDJ3XgD5TUbCEhi9Ttu
+	 USBhTrJi3NJbIM+dWNMTGiKfLwVeQlTPKyadXCb+W3tPp0hzwnNmPuaCGi32zmuVtviZr
+	 sm3lOy7TTr19A5GGMNL00tksMVnL+pZvVBoxqiGxJKlg92197Nsfo+YNklJmYOahsVQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ums0J9tX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EY2seoxg;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE995606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:35:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE995606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC7CC606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:36:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC7CC606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ums0J9tX
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so32425695e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:35:23 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794486922; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gez8qv/g/qSVxEyyS9F4gO6DyEcYjihkredquHS0VgFfSosI9awFQUSPIY1XoI8TVK
-         pTmnKAUxXUff/hZhN1aeK18aEHmG9Rcoc6LXrC4NyPac3hulfaDXHPreaEzIUQ6RqB36
-         BDaOpTJgjom0iLzweX/unlQLPt+NHTzcxxYbk6ybFZBnKvsgqhn54jPENJrkUA+bGbwN
-         4q4V9/Gc3NlBJ6Go+EwJd+wQGdz2gFaVxOeZcpi31vEa6ZZPSL0wqe5KTaNiVvrH2dT5
-         qwtfv4PGHpWND25z+jvOxfTI+xL0h4hZ9T9UWIX2VQJXY2r1mm8NzW+p+x0TwSaiFOXt
-         p8uw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gmfeXtI+tey0F/T6j/hOfxDyERZ2N7Ic5Vbc9BTsdyQ=;
-        fh=ik7x6uQ51hpJSW5opbgl4SsorN1n5nC9e6XcE+W56v0=;
-        b=qFcAgzwv9JCqMnNuEKNP/0V3gtvJG5OaIjGwuuMSxtY5SRYHC3q7OrSoM9DOMAoIhN
-         A70C2Ttye9QpUZf7RZFKzR8KXvHllkBSRyL2UGCmv6iL56NA+foEpWOx9CW3upoKv60d
-         UtMhOg5s7apoNm62TxmKikB5bMiVS9GyVKhthmxwrxY/ZPBUcFRHrLQQx0spztfFEyXt
-         MMyl2DPTdpoVN9+ThHvA0VwI9Oe0y++6UHLklYWzBzqc2ULKNaye7X0rIogTpsFIEYuZ
-         DLbNP5F31vsSghMFsxhXG9OBkAkGbPhlBzYv5t+FXFqoCwPbW24rYfLQB0FYkV8o4+mM
-         +g0w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EY2seoxg
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36f8cdd30beso7909293eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:36:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794486922; x=1795091722; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gmfeXtI+tey0F/T6j/hOfxDyERZ2N7Ic5Vbc9BTsdyQ=;
-        b=Ums0J9tXeHFKhdP+fol+vzmGnv1+Fue5K3B2lj8LLRXkHXY3JaZgN1a68UZDyVwlr3
-         b+0TXQx6uz2DxdQO9FJRj6XA4Pwp5YiLBfzHunkAP5nZXfa20p8ohSXA/npzC9fTPsof
-         YCI6CV0szHYmKPkXtlYqz3aToZBEJPSZnO3qJny8ZRSWwckefgqbggkEwAI5aEzUA0Vt
-         ks8xjf2GELPaPEaJ0BQpF8FQOm3C6U7vbbVBf6l3M2MbyEnOxikMPL1dXYKfefIFcB7Q
-         NDEggS0PaVnv+7mUAzLQBIW9SgIF2fBI7ZuxfzOOKngGjXrCabf714t5TK6zi46fwp+G
-         FNew==
+        d=gmail.com; s=20260707; t=1794486967; x=1795091767; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hjVW9VP/TER5rvEadBEmYCt8ueid8AgZqnJlLcgyHj8=;
+        b=EY2seoxgN/lP5QZxJCB/IQ7UKMLtTYoZG4g7DdWrqL5oZKQMb8OBcQAdISuf117azw
+         hUIedT4HiaFrFWVSsyRSd7/zRB8tpPlVVvHo7CpOrqpfGQ06FPuwz3Opuw2jCgVa5BVa
+         nmGd1xjy8PgXgJXt6mkfiNDu2r0ViPDjHRtgHRFjHkMJuBn8aJl49JTuvs5wJ6DCYrIb
+         82cN6dW1p42Dc3vwGw5x3m3MK2nN0EEyR9lFGoa2VgdbrNKqZcUfY188N05YogGQyZI0
+         /v99f1cu1xnZcTF0itKA4/UgbFExnYBzD8mz3gDoGDixuwH6M8sz2nCCM4P3O5JUhP/7
+         Sm4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794486922; x=1795091722;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gmfeXtI+tey0F/T6j/hOfxDyERZ2N7Ic5Vbc9BTsdyQ=;
-        b=TyZTCB5OR7e51AKxQwB+F7xLar414X8qY572uvsBLD3ypr+U5nbdUnTEwoGxuPKFgS
-         6CpIJWeAq1cYpDQwLy3JI+yger2yS3tZU8Eams7aUvkrcZi6jpCSNfjOfdbzOKf94Wl9
-         Loq9iUBwGuQc9KiAI4Lfc+XZj8CHrzQ29ScTdGIciGX4RnS+JYk9KX63njO0nMhOgnSL
-         JIl5r5HXDKJ2dLi5Tul+R3EjtUhUJVpNjm+UvQus2A8be77FDW6LIZi1E7E3//fBMb3s
-         w15+fadkWsuAzQn+61iACUgNMIPL52rtonW5t42VSywVBSzXyaInYhZpbn0Om6g8VAUo
-         4SWQ==
-X-Forwarded-Encrypted: i=1; AL+hErG7rAgWeNqioBiJNF1tI7zx0exH/aNSrdI/TOekwclMR2IUoXo0g3q5wps/Chv6xXtVEojH0Vy0vu1uDmA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z80s2urcT9l8b1Dhm3Dsk5CGrWwswCuPfNvxBBQTO3dmRiHSLjE
-	I4VuRh/ppWzf7sjwCoQywgklXDq8Uyvb3mCwjpWSZlEuaPY+dxV5PBTZMyMIZAYk61fd4LLHoR7
-	pHXtt2e03DDwPbvkogyoFQ6du1JytnNY=
-X-Gm-Gg: AYBFou0GA7QWdLsLGdRUA+88PSfCEj8sTFL1AkhmcVSJaUn4YJpQm9Lpq66hpUz2+M8
-	hnWaqzZsshUjnmZQI7O9cPRgOSX1Ze6Yoa8t3nR7zUmTi7T2haNm48duURIXrKn9c1PidasgJqp
-	GnumZ5vBtm+I88ia/tAAyfRWxILQL6RE0wZyrfko/W4h5ZYEp8MkhcaN+9tKl+HK0dE8WRa/SSQ
-	3KnCtSIyiXmbRimY74Pi5rSM6pWHZJbFVjxCOffsKISJVA70phYl0S9Lqg14oSUZL698IR8UVIT
-	0UZBWmO62i6ONdEH4/J0HFPEv1U3yZLNFxb+7/mbm65fRbNS1hJ+RDnvpKukXbKZ8WGkIIqE1fT
-	luvxUeOqZ0XgoePHwxM+1NekoqTPZnwIwBGGSuIkk0Wi/ExpfULoZkKMqnm+5vn3b4KTbGUJ0tv
-	rK87YDq2DVzEASQjCfEE8QQkmbjTxn1x3C+IpgOSDXr0bezhT3x4MDUAxxX6n8sMoR1fG3i3jdq
-	p+bkTqdUbUIx2H0f2Eb
-X-Received: by 2002:a05:600d:84ca:20b0:4ba:493b:3401 with SMTP id
- 5b1f17b1804b1-4ba493b3412mr59282305e9.9.1794486922109; Thu, 12 Nov 2026
- 04:35:22 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794486967; x=1795091767;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=hjVW9VP/TER5rvEadBEmYCt8ueid8AgZqnJlLcgyHj8=;
+        b=NKECDtTsYIgNa7GVI345XR6+B6J1UZSYTb7hAt8JbsZ0z7qiVIoFWzKBo7qPrpZIH3
+         JuEfp/HAwT2gawBxwFS+2XN7X250y/qSzCSrLJLrN3VNSAZw+b4WraKbQpYhWWi9B1zG
+         GjXZ26DTqWaZ+N17LhVb+Qk+bb/RK5x+qd8YOsfeekeCuvXlsUR0GMb4jO9WpXMRR/dZ
+         oLKDyX4WZYDs6QfnZ3F7F1cU8iTiAzZgSY2Ena5FSYY1w5dcqgVWUkVUPLG0WbHtUM4R
+         uD5qHDttSz5xlLhxgVPF7GPyn64MmyP/WBDnIpV97zCDuD8CPk12XEVya+RncoerUpk6
+         07RA==
+X-Forwarded-Encrypted: i=1; AL+hErESPGq3xh3UZTZ69o0vgBTWaW4FU7EINEqw9U++2Pcb78DbJ1M+fgrZ+Mb2KQr+C5o9NTizOepQTmdbJNU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+wsCS7gYmukDfV+413d/jYVPDSx0jz2ArLyCG10o2JWnFOWZWy
+	SIA1AmdzbCRw/GQjSQjeSAuiF5RZ+i7ZvvbZNzBBSwtZtDJsc/6+iwLQHyM/Vw==
+X-Gm-Gg: AYBFou36jED53x18qlOQ/WndwYqAZG3DPqiO+dsSvhEXQLQPtppP7nR/duS4FtKYvGj
+	4tnO52QmDV8wLV0VBn8qDjOB7+vDeMITn94P417JPuF0R+HOY5FoK3x0swq02iH0r2EgwMRk19z
+	BcbmH8gGFYzjMAO4SIYb//tiQC9Xub6Vg0QYXVzgmxEXB9UEV6pbPnebQhbtEqtMfCg2qkcuZoe
+	UlxPjJ18dpaVx/tkWJOYslRiFZGmPuf+0b03L3QIZtMCw/hcJYJLDKeYQ9xKtCM2KFfcvpSRq+6
+	0gDy7TpedzVYNWFAEuqfu5ywvJS3CquqZPeNOorYkR1Fd29StVCHBjkxTSbhiiHwa+KsHfbusM2
+	RBWglsv5gqplTg5YN60D6UFgdm4yFrFvdWLk+7jEQy2QOgULxODoUybWwuZjae0e4qJzkLFq4QV
+	DhSVzZEaE8wEjNgZV3WiRJF90vNcozLch0eyCAAh+HQUH3CtYXesHzIoSGW059ijEMtnduTNMKG
+	YvwRM+pQIPj3/Vs+IjT1Tgv4uNV2JZapk7AjBfnvHgdPHtoC6hBhp8QBiegp9aptRyKC2GIlGF2
+	7zeWIUfQQJdqGbP5G3znJh8hq4E=
+X-Received: by 2002:a05:7300:561c:b0:36e:2626:4ace with SMTP id 5a478bee46e88-3768366a866mr6118746eec.5.1794486966515;
+        Thu, 12 Nov 2026 04:36:06 -0800 (PST)
+Received: from localhost ([154.21.93.22])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfdfc6sm28827005eec.17.2026.11.12.04.36.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 04:36:05 -0800 (PST)
+Date: Thu, 12 Nov 2026 20:36:01 +0800
+From: Yao Yuan <yaoyuan0329os@gmail.com>
+To: Jingle Wu =?utf-8?B?5ZCz6YeR5ZyL?= <jingle.wu@emc.com.tw>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Vishnu Sankar <vishnuocv@gmail.com>, 
+	"linux-input@vger.kernel.org" <linux-input@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	Phoenix Huang =?utf-8?B?6buD5LiW6bWs?= <phoenix@emc.com.tw>, Stanley Chen =?utf-8?B?6Zmz5bu657at?= <stanley.chen@emc.com.tw>
+Subject: Re: [PATCH 1/1] Input: trackpoint - Add new ELAN trackpoint device
+ variant id 7
+Message-ID: <avWyftYhIVaPpoln@sapienza>
+References: <20261102130836.11863-1-yaoyuan0329os@gmail.com>
+ <20261102130836.11863-2-yaoyuan0329os@gmail.com>
+ <avKBsi-E7IeUgsSY@google.com>
+ <TY0PR0101MB4786C8CF42ED66617BD9DA1EDC722@TY0PR0101MB4786.apcprd01.prod.exchangelabs.com>
+ <avMcB0q7wF9oP5X8@sapienza>
+ <PUZPR01MB477458CD012208A31DE60068DC712@PUZPR01MB4774.apcprd01.prod.exchangelabs.com>
+ <avRttU9N0EZeq8nY@sapienza>
+ <TY0PR0101MB47865DFC765932B9E6C3E1C0DC702@TY0PR0101MB4786.apcprd01.prod.exchangelabs.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,114 +107,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104182105.1102555-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261104182105.1102555-6-prabhakar.mahadev-lad.rj@bp.renesas.com> <20261106154454.GA3654918-robh@kernel.org>
-In-Reply-To: <20261106154454.GA3654918-robh@kernel.org>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Thu, 12 Nov 2026 12:34:56 +0000
-X-Gm-Features: AclHuK9CRcx1aTAbEKf-B1mAZlFhg1ndxA-uzYSl8n-I7fAtC3zV5PucT1NF8gU
-Message-ID: <CA+V-a8uN1D7CQmKtAizY40NUOXHDLO2VG8JiAiLTyNb6uG=9jA@mail.gmail.com>
-Subject: Re: [PATCH net-next v4 05/14] dt-bindings: net: dsa:
- renesas,rzn1-a5psw: Disallow ports beyond port@4
-To: Rob Herring <robh@kernel.org>
-Cc: =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@linux.dev>, 
-	Andrew Lunn <andrew@lunn.ch>, Jakub Kicinski <kuba@kernel.org>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Russell King <linux@armlinux.org.uk>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <TY0PR0101MB47865DFC765932B9E6C3E1C0DC702@TY0PR0101MB4786.apcprd01.prod.exchangelabs.com>
 
-Hi Rob,
+On Thu, Nov 12, 2026 at 05:26:46AM +0000, Jingle Wu 吳金國 wrote:
+> Hi Yao:
+>
+> Upon inquiry, it was confirmed that a black TrackPoint stick (0x07) underneath the red TrackPoint cap corresponds to a vendor that is compatible with the Windows ELAN driver.
 
-Thank you for the review.
-
-On Fri, Nov 6, 2026 at 3:44=E2=80=AFPM Rob Herring <robh@kernel.org> wrote:
->
-> On Wed, Nov 04, 2026 at 06:20:53PM +0000, Prabhakar wrote:
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > Restrict the A5PSW ethernet-ports node to ports 0 through 4, matching t=
-he
-> > hardware configuration of four external ports and one CPU/management po=
-rt.
-> >
-> > Although the schema pattern limits port nodes to port@0 through port@4,
-> > additionalProperties: true allows other port nodes to pass validation.
-> > Set additionalProperties to false and explicitly allow #address-cells
-> > and #size-cells so that ports beyond port@4 are rejected.
-> >
-> > Existing in-tree device trees describe only port@0 through port@4 and
-> > are unaffected by this change.
-> >
-> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > ---
-> > v3->v4:
-> > - Added reg items validation for ethernet ports
-> >
-> > v2->v3:
-> > - New patch
-> > ---
-> >  .../bindings/net/dsa/renesas,rzn1-a5psw.yaml         | 12 +++++++++++-
-> >  1 file changed, 11 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5p=
-sw.yaml b/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
-> > index 9c477ceb170b..250c59e58439 100644
-> > --- a/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
-> > +++ b/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
-> > @@ -63,12 +63,22 @@ properties:
-> >
-> >    ethernet-ports:
-> >      type: object
-> > -    additionalProperties: true
-> > +    additionalProperties: false
-> > +
-> > +    properties:
-> > +      '#address-cells':
-> > +        const: 1
-> > +      '#size-cells':
-> > +        const: 0
-> > +
->
-> Drop all this.
->
-> >      patternProperties:
-> >        "^(ethernet-)?port@[0-4]$":
->
-> And make this "^(ethernet-)?port@". Then any node will get the 'reg'
-> schema applied. That doesn't check the unit-address, but the way to
-> check that is comparing it to the reg value (not yet implemented except
-> for specific buses in dtc).
->
-Good point.
+Ah I see, thanks a lot for your help on confirming this!
 
 >
-> >          type: object
-> >          additionalProperties: true
-> >          properties:
-> > +          reg:
-> > +            items:
-> > +              - maximum: 4
-Here I can drop items and just have something like below:
-
-         properties:
-+          reg:
-+            maximum: 4
-
-Cheers,
-Prabhakar
-
-> >            pcs-handle:
-> >              maxItems: 1
-> >              description:
-> > --
-> > 2.56.0
+> THANKS
+> JINGLE
+>
+> -----Original Message-----
+> From: Yao Yuan <yaoyuan0329os@gmail.com>
+> Sent: Wednesday, November 11, 2026 10:05 PM
+> To: Jingle Wu 吳金國 <jingle.wu@emc.com.tw>
+> Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>; Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>; Vishnu Sankar <vishnuocv@gmail.com>; linux-input@vger.kernel.org; linux-kernel@vger.kernel.org; Phoenix Huang 黃世鵬 <phoenix@emc.com.tw>; Stanley Chen 陳建維 <stanley.chen@emc.com.tw>
+> Subject: Re: [PATCH 1/1] Input: trackpoint - Add new ELAN trackpoint device variant id 7
+>
+> ⚠ External Email: This email originated from outside the organization. Please use caution when opening links or attachments.
+> ⚠ 外部郵件： 此郵件來自公司外部，請謹慎開啟連結或附件。
+>
+> On Wed, Nov 11, 2026 at 05:26:36AM +0000, Jingle Wu 吳金國 wrote:
+> > Hi Yao:
 > >
+> > Could you help verify whether the color of the TrackPoint stick underneath the red cap can be used to identify the vendor?
+> >
+> > White: ELAN
+> > Other colors: Other vendors
+>
+> Hi Wu,
+>
+> The thin stick under the red cap is black.
+>
+> Also I visited the lenovo's supporting website, there's only
+> 1 ELAN dirver for this thinkpad X14 gen1 model's trackpoint:
+>
+> https://newthink.lenovo.com.cn/driveList.html?selname=ThinkPad%20X14%20Gen1
+>
+> The laptop model I'm using is 21XM, the driver works well in windows 11.
+>
+> Now I'm confused on who is the real vendor of this trackpoint device. I may ask help on Lenovo's supporting website yet. Wu, is that ok to refer this mail there ?
+>
+> >
+> > Thanks
+> > JINGLE
+> >
+> > -----Original Message-----
+> > From: Yao Yuan <yaoyuan0329os@gmail.com>
+> > Sent: Tuesday, November 10, 2026 9:48 PM
+> > To: Jingle Wu 吳金國 <jingle.wu@emc.com.tw>
+> > Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>; Ilpo Järvinen
+> > <ilpo.jarvinen@linux.intel.com>; Vishnu Sankar <vishnuocv@gmail.com>;
+> > linux-input@vger.kernel.org; linux-kernel@vger.kernel.org; Phoenix
+> > Huang 黃世鵬 <phoenix@emc.com.tw>; Stanley Chen 陳建維
+> > <stanley.chen@emc.com.tw>
+> > Subject: Re: [PATCH 1/1] Input: trackpoint - Add new ELAN trackpoint
+> > device variant id 7
+> >
+> > ⚠ External Email: This email originated from outside the organization. Please use caution when opening links or attachments.
+> > ⚠ 外部郵件： 此郵件來自公司外部，請謹慎開啟連結或附件。
+> >
+> > On Tue, Nov 10, 2026 at 05:26:21AM +0000, Jingle Wu 吳金國 wrote:
+> >
+> > Hi Wu,
+> >
+> > > Hi Dmitry/Yuan:
+> > >
+> > > We have confirmed that FW A1 was never released by Elan. The Elan Variant ID has always been 3.
+> >
+> > Thanks for your information, Let me share more details:
+> >
+> > The trackpoint has driver from "ELAN
+> > Microelectronics Corp." in windows 11 on same device.
+> >
+> > In Linux I found the device is probed as generic mouse device but not
+> > trackpoint device, it's hard to use due to no sensitivity setting from
+> > sysfs. I found the reported id
+> > 0x7 is not in drivers/input/mouse/trackpoint.c's
+> > trackpoint_start_protocol() after debugging, the trackpoint is probed and works well after add the id 0x7 there.
+> >
+> > So I thought this should be a ELAN device w/ ID 0x7 and cooked this patch.
+> >
+> >
+> > >
+> > > THANKS
+> > > JINGLE
+> > >
+> > > -----Original Message-----
+> > > From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> > > Sent: Tuesday, November 10, 2026 10:36 AM
+> > > To: Yuan Yao <yaoyuan0329os@gmail.com>; Jingle Wu 吳金國
+> > > <jingle.wu@emc.com.tw>
+> > > Cc: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>; Vishnu Sankar
+> > > <vishnuocv@gmail.com>; linux-input@vger.kernel.org;
+> > > linux-kernel@vger.kernel.org; Phoenix Huang 黃世鵬
+> > > <phoenix@emc.com.tw>; Stanley Chen 陳建維 <stanley.chen@emc.com.tw>
+> > > Subject: Re: [PATCH 1/1] Input: trackpoint - Add new ELAN trackpoint
+> > > device variant id 7
+> > >
+> > > ⚠ External Email: This email originated from outside the organization. Please use caution when opening links or attachments.
+> > > ⚠ 外部郵件： 此郵件來自公司外部，請謹慎開啟連結或附件。
+> > >
+> > > Hi Yuan,
+> > >
+> > > On Mon, Nov 02, 2026 at 09:08:36PM +0800, Yuan Yao wrote:
+> > > > The new ELAN trackpoint variant id 7 is found on thinkpad
+> > > > X14 Gen1 laptop(Product Name: 21XMA006CD), it's now incorrectly
+> > > > probed as Generic or Logitech PS/2 mouse.
+> > > >
+> > > > Add ELAN variant id 7 to match the TP_READ_ID command return
+> > > > value, probe the device as trackpoint correctly.
+> > > >
+> > > > BEFORE:
+> > > > input: PS/2 Generic Mouse as
+> > > > /devices/platform/i8042/serio1/input/input63
+> > > >
+> > > > AFTER:
+> > > > psmouse serio1: trackpoint: Elan_variant7 TrackPoint firmware:
+> > > > 0xa1,
+> > > > buttons: 3/3
+> > > > input: TPPS/2 Elan_variant7 TrackPoint as
+> > > > /devices/platform/i8042/serio1/input/input65
+> > > >
+> > > > Signed-off-by: Yuan Yao <yaoyuan0329os@gmail.com>
+> > > > ---
+> > > >  drivers/input/mouse/trackpoint.c | 2 ++
+> > > > drivers/input/mouse/trackpoint.h | 1 +
+> > > >  2 files changed, 3 insertions(+)
+> > > >
+> > > > diff --git a/drivers/input/mouse/trackpoint.c
+> > > > b/drivers/input/mouse/trackpoint.c
+> > > > index 3bd8fdf56cd3..f46fc1665c96 100644
+> > > > --- a/drivers/input/mouse/trackpoint.c
+> > > > +++ b/drivers/input/mouse/trackpoint.c
+> > > > @@ -25,6 +25,7 @@ static const char * const trackpoint_variants[] = {
+> > > >       [TP_VARIANT_NXP]                = "NXP",
+> > > >       [TP_VARIANT_JYT_SYNAPTICS]      = "JYT_Synaptics",
+> > > >       [TP_VARIANT_SYNAPTICS]          = "Synaptics",
+> > > > +     [TP_VARIANT_ELAN_ID_7]          = "Elan_variant7"
+> > >
+> > > I wonder if we really need to say "Elan_variant7" or if we should simply say "Elan" here as well.
+> > >
+> > > Jingle, is this your part? What is the difference from Elan trackpoint reporting 0x03 as its variant?
+> > >
+> > > Thanks.
+> > >
+> > > --
+> > > Dmitry
