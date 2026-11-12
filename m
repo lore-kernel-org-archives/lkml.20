@@ -1,103 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794484650;
-	b=wPkqqnCZzIrmrSg5U52k7lZWOG9cWxO3IRkmHEOXbP7+tkVrsdJ8GJSgFRW/taUXX5ES
-	 PooyNSw5Ier77KjWwutDjatsOslvhrBUhTi4yo7WdIYum/dP2ColFIuA+GHd+i3EpST+h
-	 wc3i46hcx90uQYiyeXj8iDUrUhsmGzCQkhmqdVj4JOFQX2J1kc7KYXfXR3IXkKfZbOUav
-	 hvRot1GyVBzckFsYyLc8hqiIxGGfoJ9h3VyWrCB7q3FvbySfsF2BDaTjRny5B76DDqofp
-	 zb0ThD3NxHPgClctaaYQGMaBS3RPe6AFjVwZgo3zd4EsBYKdLIcRVv7C+UfAJeWSgWg==
+	t=1794484699;
+	b=g5jj33MGvJXQ0iMYPiQZCH6uCIFjQRzrkh9VhsX65RjMmQ5bGOHsZ86wXO2oBK4oaCow
+	 MOf56g57dJNvFLHLFuhv83KyKAvVWzDuYmpIlqMbR/39DfQeMiWDwHJ2QLnOIrsy4QDxO
+	 CrWMnid8BENRDLRaLcyDvvHF+CU8Z1stFh36F6AugnpZrRhfIb0mOv629TDvYRC1cRi7j
+	 +qkuE9YF1Wga2gdrwMdUUHEphc7jfATzRfDG90EfcHQM7jqvCxjHVQH7LlyAFRXP+loxh
+	 jtuLb9QUGZ7SPQhoy69CJs7CaT+4YJId9crTwg/SMJwKJquyYsK80MmP2KZ9N2fzHEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794484650;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=k/+u8wryAfnhidm+5ywgfAqYpYqGesuyWI0G9gxrH3M=;
-	b=2sk3+FIosOW3u9iPeuSMVb+JBDTkb5OKHOmQoJQSajuxFhR8o2sKRClRwxdLE2+jSUbr
-	 Vz/d8V7Yay+5me5utHKWN4DAhtyJ3edx0abitMDBYWJfzb0zdnAH+rAM3DEB4LrnLGgzh
-	 u8fdechQhiLJ5s9TULGD2ZPrea8HnTuiRc2+8+TcJtveEuAHItovKzMkHeofHio+ZRm7w
-	 ESzz4r4FqIwCAHho8JbhieTl1fxSbuY07iYMRdVEshuffVHrQOoh6NVnBYFgwYmaFSKVg
-	 lJFSGmoOSMcNLX14SZ8syIvWSe9oAbsfvkMyEQv2zYUCU/4oXFzaD7QSJrPaMlzE4xg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794484699;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=sfLHcWpnq20caHJHCxxcMBF8FhCQ66tT+/gp4ILq9r0=;
+	b=NUoiiHPBMynczg1GZdP5y/GEvJ+KnpPCIC4rs2V8GmNVVrB4nrPsxzkon85IkhGp3Q5Q
+	 JigU2CxJMKmQtB2tfnDs7J7eWo+AO1JD50hAyUQtsEVhCnYQ52vkLANHf6oG2WpwqVFfe
+	 K6mLMVI5uKXOGSDviRRlJkmDePaKG06HQ4VM8sd3Bhv8y+lMrkAbFtb6MQ3HeHeGPtODi
+	 PMUWHNuO/U2UHoJ6q83/wTXxxV92sEfl3YPNvSP4Vu+xVE49BoNGogaSRaeSJ1F4SgIx5
+	 O/CKOb6eNw7mlWryyrf3hBFzm+ARrMdmGeHuX/lY/hN8R6VeQs9OO1xHPkS4XUm5YVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3zQOrdN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=Mc7sHSCI;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92CF7606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:57:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2A8606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:58:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F2A8606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3zQOrdN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C7251F00A07;
-	Thu, 12 Nov 2026 11:57:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794484650;
-	bh=k/+u8wryAfnhidm+5ywgfAqYpYqGesuyWI0G9gxrH3M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=I3zQOrdNgul9MB7prRZt7XD4EGkGFdeC+C3HzVNHwAMV0RSVzO6CzfgZWnzLmwI7z
-	 MtJpZdBTjvwg5XCxH+ZJOVI8FiMN4i9rLq5RLNBe3cSTOb78W85wHzmUU4NIhVxUQK
-	 Kk9b0IRIyxbNpPPdw8wiKIWjvsejEQnXmHiXjSnR4ZFl1MxNjoSW29e5V72LPrE0s9
-	 MzewkAy+G808m7jz6VSIgt16VCWf6px3epIOq/hgnbIvZOUj0js+FOcQJZHDywaE+7
-	 Q+AAt1Im5qfJGVnn0bDhD8Lv1X7OOGWm4Qrjwdc9FYefeae0HEAvJCeH2kkXOlyokV
-	 obNRpu/+1RHmw==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 87819198003A;
-	Thu, 12 Nov 2026 06:57:19 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Thu, 12 Nov 2026 06:57:26 -0500
-X-ME-Sender: <xms:n6n1asRvSMKt8lZqdd3RjXkBszv8fyN7gvudjZ6B-hleSXeLQe5oLQ>
-    <xme:n6n1anW0Fi28Ad5aW0HqQq03DJ5D4Lus8cC55QBxYpFOj1lLblchYvpcU0dVye168
-    wrRB9hgAI55MllvGHJLe-HoL0KoEtuA5KhIQipSngKG9ZkXNOKLOpkX>
-X-ME-Received: <xmr:n6n1arLLRDMZpcLHqdbwdiVwGBSthKLghs4bvAc7vJBX6XWSv5lcKlpFaH0>
-X-ME-Proxy-Cause: dmFkZTGL2ysdhkk3Q9pSt2a5lMctqQHoVOdfgIyLipUx3E+AndjfL22w/xZNqzjFzzjnCp
-    T7Ix2eZi3R+Ok4cLC5pDLZGlqK6/fRWNOk4EMBXA3XtDSI4SYuCWPZNLAf8yK5UlN8vx2C
-    y7dwBVBBDzu1P0KLwuQU8Z5i+vDsCEutU7YUWMwYrfJczw5P7lhzk/UsejRyA6boaMFoIS
-    gO9Rx78X/oRlsRLfma1744JtL3eevcxkOSlTvxTiPgGaJGIlNAZbWt2PIOgm0CnT5k0gVO
-    82PkN21pLWvf37VPkhFIqCat/ZUGewQBQBbHv+FXP4g3ug7PyqL6jjLs0shLXMHOf2oNOb
-    LlIpCM0cwQ14viXtqL9cJV2Dzw3UHNOvKh94ZVPVIb95qY/VnTh++hSbHErInnC1c8eQ9k
-    5QtEibIXGPdPPWtarIYOe8cnUq8Ln0QU+1xjw5lVLGObRRtQ+aAuwOyD8B4w5t/O3/9zP7
-    iiWasIeWv5WVygzL+iG0ByJ7ySSv9hE4kfY2O7AZY3rKC6Yu4fNHwCn26rxFCRrZVYLA60
-    RATf+q+PGmsA0uLMtUucAQbXNRtHp/u0WqNfbv/1zM7Tqo78BfDLhqhH/2vxMT4Hx2jAln
-    7KocoYABcsVaC+Be0Mi6oyEGDqdJBq6ebeRL6g0zbg1Ljb2ejRvtr6jj6V3A
-X-ME-Proxy: <xmx:n6n1aqZLdv_DDmx5T42wQsF6revHzywPm8jyJN43zuQKciQRF2Aamw>
-    <xmx:n6n1aj99ug-UY_yU0sIuRzEl7c2IXugeH0gaQRaXCBanrPZH3JXKng>
-    <xmx:n6n1aiCqcIyXbRZ9kBG5nquPKtXvxBpYlhSmIWP2owWiuXFq6H_MTQ>
-    <xmx:n6n1aglzBfNwD9G9fnVYF7FZKuJK2Sg0gIKJkGrXiLFmhuf7c4Cj3Q>
-    <xmx:n6n1amv2QK_j6pHPaO1aeMV7A8UBidadsbclmalFiy1pnE1uiNHuKoqO>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 12 Nov 2026 06:57:18 -0500 (EST)
-Date: Thu, 12 Nov 2026 11:57:17 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Cc: Tal Zussman <tz2294@columbia.edu>, 
-	Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
-	James Houghton <jthoughton@google.com>, Andrea Arcangeli <aarcange@redhat.com>, 
-	Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, Andrei Vagin <avagin@gmail.com>, 
-	Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>, 
-	Muhammad Usama Anjum <usama.anjum@arm.com>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Chris Down <chris@chrisdown.name>, Muchun Song <muchun.song@linux.dev>, 
-	Oscar Salvador <osalvador@suse.de>, =?utf-8?Q?Miko=C5=82aj?= Lenczewski <miko.lenczewski@arm.com>, 
-	Michal Hocko <mhocko@suse.com>, Mike Kravetz <mike.kravetz@oracle.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH 11/12] mm/madvise: send UFFD_EVENT_REMOVE when installing
- guard regions
-Message-ID: <avWnaR7VVEGa7yNp@thinkstation>
-References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
- <20261111-uffd-state-fixes-v1-11-00713d368976@columbia.edu>
- <avTA58zlxJZ69TB8@thinkstation>
- <e19f1fff-f1a7-4c2b-8908-2d3ee6a49069@columbia.edu>
- <db9ed03f-0b85-4360-a2e9-f6719773c7eb@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=Mc7sHSCI
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 76D18A0064;
+	Thu, 12 Nov 2026 12:58:13 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1794484695; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=sfLHcWpnq20caHJHCxxcMBF8FhCQ66tT+/gp4ILq9r0=;
+	b=Mc7sHSCI2CgJp4mgP7GG45uP/g/da4TRVl3aPYcP384KJOcb7Z0uaFPXLfv6M19OeX0Z2q
+	SMMcfT9PUOvLXXI/hF276MyJc9jjklZNvnvlPksAWcQUAQN7h5IyIUEr+6OxC7SPig7h+q
+	rTVTs/6uOCMcTxNBZeasPHEzpRoc+sddLfYBGplDIr/tPkBs7z6rPdjzsCRLZf4ZtyMLZj
+	C2iZMrz1M/by+q4+wusT1MmDDrXVvAunoKdHRZHf4qdefAmnxF8qINQ3LaEE+1+cpBCLca
+	u+ZD8HBtp61/PWhgxqdEqfeSUwDNtcdqlE/G27Ng7WvFdGDMzj4N+pCRFHaAkA==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Date: Thu, 12 Nov 2026 12:58:11 +0100
+Subject: [PATCH] irqchip/bcm2712-mip: Fix multi-MSI allocation for
+ non-power-of-two counts
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,55 +56,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <db9ed03f-0b85-4360-a2e9-f6719773c7eb@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-bcm2712-mip-msi-align-v1-1-68090868c979@tipi-net.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQrCMAyA4VcZOS/QRGiZrzJ22Go2I7YbjYow9
+ u5WPX6H/9/BpKgYnJsdirzUdM0V1DYQr2NeBPVSDezYE7mAU0wciDHphskUx7suGb0/8Rxi5x1
+ 1UNutyKzv37cf/rbndJP4+M7gOD7j2DNjeQAAAA==
+X-Change-ID: 20261107-bcm2712-mip-msi-align-6632f7c96019
+To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Stanimir Varbanov <svarbanov@suse.de>
+Cc: =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, Nicolai Buchwitz <nb@tipi-net.de>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Nov 12, 2026 at 10:40:38AM +0100, Jose A. Perez de Azpillaga wrote:
-> On 11/12/26 12:21 AM, Tal Zussman wrote:
-> > + Jose
-> > 
-> > On 11/11/26 2:25 PM, Kiryl Shutsemau wrote:
-> >> On Wed, Nov 11, 2026 at 12:55:19PM -0500, Tal Zussman wrote:
-> >>> On an anonymous VMA, the zap drops uffd-wp and RWP protection along with
-> >>> the pages. Writes and accesses to the range after the guard is removed
-> >>> are then not reported, and the manager cannot know that it has to
-> >>> protect the range again.
-> >>
-> >> For RWP this only holds if the range is registered without MISSING.
-> >>
-> >> The zap frees the pages, so with MISSING the first access after the
-> >> guard is removed is reported as a missing fault. And there is nothing to
-> >> protect again: RWP only covers present PTEs, and a page faulted back in
-> >> shows up as accessed in PAGEMAP_SCAN.
-> >>
-> > So this makes sense, but I think this gets at the documentation point
-> > raised in the other thread. It seems that to use sync RWP "properly" it
-> > needs to be combined with MINOR for shmem and hugetlb (and MISSING for
-> > holes) and with MISSING for anonymous memory. Is that accurate?
+ilog2() rounds down, so a request for three vectors reserves only two
+slots and the third can overlap another allocation. The alignment is
+also applied to the bitmap index and ignores the msi_offset that is
+added to the message data.
 
-Yes. Async mode needs neither: a page faulted back in is mapped without
-the uffd bit and PAGEMAP_SCAN reports it as accessed.
+Reserve exactly the requested number of slots and align the start of
+the message data block to the vector count rounded up to a power of
+two.
 
-> > If so, this should be stated much more explicitly in the
-> > documentation + man page. I see that co-registering with MISSING is
-> > mentioned, but not the rest of the points (reclaim, collapse, etc.)
-> > The example in userfaultfd.rst also registers a MAP_SHARED mapping
-> > only with RWP and MISSING, no MINOR, so that should be clarified
-> > too.
+Fixes: 32c6c054661a ("irqchip: Add Broadcom BCM2712 MSI-X interrupt controller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+Found this while working on a series that uses all 20 MIP1 outputs on
+BCM2712. Even though I can reproduce this on a custom Raspberry Pi CM5
+based board, I'm not aware of any bug reports regarding this (yet).
 
-Without MINOR the example can lose data. Eviction runs in sync mode,
-but an offset that is not mapped in guest_mem, either pre-populated or
-zapped by shmem reclaim or collapse, is mapped back on access without a
-fault. A vCPU write between the pwrite() and the hole punch is lost.
-With MINOR the access faults and waits for the handler, like an RWP
-fault.
+The fix has been tested on Raspberry Pi CM5.
+---
+ drivers/irqchip/irq-bcm2712-mip.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-> > Hopefully this will make it into Jose's documentation patch.
-> 
-> okay, if Kiryl is okay with that I will add it to my upcoming patch.
+diff --git a/drivers/irqchip/irq-bcm2712-mip.c b/drivers/irqchip/irq-bcm2712-mip.c
+index 06a6ab6270ad3..a0f45df0e4c87 100644
+--- a/drivers/irqchip/irq-bcm2712-mip.c
++++ b/drivers/irqchip/irq-bcm2712-mip.c
+@@ -71,15 +71,24 @@ static struct irq_chip mip_middle_irq_chip = {
+ 
+ static int mip_alloc_hwirq(struct mip_priv *mip, unsigned int nr_irqs)
+ {
++	unsigned long hwirq;
++
+ 	guard(spinlock)(&mip->lock);
+-	return bitmap_find_free_region(mip->bitmap, mip->num_msis, ilog2(nr_irqs));
++	hwirq = bitmap_find_next_zero_area_off(mip->bitmap, mip->num_msis, 0,
++					       nr_irqs, roundup_pow_of_two(nr_irqs) - 1,
++					       mip->msi_offset);
++	if (hwirq >= mip->num_msis)
++		return -ENOSPC;
++
++	bitmap_set(mip->bitmap, hwirq, nr_irqs);
++	return hwirq;
+ }
+ 
+ static void mip_free_hwirq(struct mip_priv *mip, unsigned int hwirq,
+ 			   unsigned int nr_irqs)
+ {
+ 	guard(spinlock)(&mip->lock);
+-	bitmap_release_region(mip->bitmap, hwirq, ilog2(nr_irqs));
++	bitmap_clear(mip->bitmap, hwirq, nr_irqs);
+ }
+ 
+ static int mip_middle_domain_alloc(struct irq_domain *domain, unsigned int virq,
 
-Yes, please.
+---
+base-commit: 9d66f26fefacebfeed15de31c1123451a17ff119
+change-id: 20261107-bcm2712-mip-msi-align-6632f7c96019
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Best regards,
+--  
+Nicolai Buchwitz <nb@tipi-net.de>
+
