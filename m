@@ -1,49 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794476499;
-	b=lr2IIhBprYgA7ov6Cl8+Y/wUSe/d/iVloInrxKM+KBUuh5OUSjuHavtNHwbRBVvGSD71
-	 lJrxk3jM5yTkLC3ORanz1VCTdh7XsKcoPn1+9XUYBckyP2R8L7dEXGGFvdh0U9+VR7FLZ
-	 ads3OIlsS1xht+qZEYQr+HmLuzs1XCAk/s/ewCoNYtV50nLueR8x62x7A45M3tdHfSNN3
-	 WNfLru7h0zSim/ST7Afj80Qt0x8NO91KYiMAoah0nEAKH96yoFerwAjaxpPwcBNr8XZzc
-	 z8sQCUQa2kbyFZi5kE04Nl+LelugLX5S5eFgC4yQkwY+m/0hQ++P1QiOvES0AS9zgyg==
+	t=1794476507;
+	b=BP+s235s86xuiHxqou6sH9ZFvZoo4QU30wJaWQF+9Cp+qOYZmV24U9/cAvXGM05Uo6p6
+	 H3MV55cqrYpX5Dh8SGJGT0WvhTSeoDm9RjYamjM4Iy8rO/UBDUmT2LBrIo4BpDWmnNC8Q
+	 n+W1K+j5eF46RDVp5cS3sn+pa/fSbtzbBvJ8wFUGmriEGSNdLNMbzJGIno+UVShgbXLM7
+	 DxbSC/8PcFxDfzTw9tqJuaY8F6AUEKXBCjTfY9TLTqMeqyjDjxEUcCh9G41miFMtJgk8R
+	 nF1lihsmHwUBHMAT8eTpE7ak8XJnMscdCIFlWazsaGfmi9ZwczMSKv+YXF9jKbEo+Yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794476499;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=220ugqDuyQyPHtA/XrNCqAcUUimFC+lFQ4mNPAn6NRA=;
-	b=qi5Ig11aMnvYdSS6o5aaWNh6g1Q1y9jXI8QBJHkCLZsrlfneJmp1sF6WgD541KRgDFaM
-	 uaRKtPzctRQUO++YS0B7Zs3B1AOu9tytbJQ0eN9PUqVTWrJo8F92hWU028VvWSJbJ0czd
-	 Al/1wY7OBjkzBo4tAaEVq5QxrzPZ+wvrcfkcaICcuQiPu9pAIgDoVHh7CSSfd+S5W9a9d
-	 NER9Z9Wx+9c5o3pX8+zRWlP3/83Spg1E8Xyxomd236y3eo1L8SVD52qHoLtfk30DbO/Qj
-	 T82aRVgNdYzIi/w3yEarRE+GVCbUgeSNERCVuBF8F+dNKxfOMNPCBYCS5ApXT9Hkqkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794476507;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=059CCFFzEVHvGsNex5duvrj7Tz6Yz5B+WTMacZsba1M=;
+	b=S6t+cB5LTrn++cTkYP5M8bWUdWNoQynKghlUd1jAGOBtevXPhL0i8EthkKTMUr01pFSR
+	 ZGjfJ4+/vrIlFI1YJVwYHrnS2JBlS2pxM7AMQzMytAnHXxHMaPbkFTPp4RZy+A8ks/VHV
+	 usSuw5TXqCBFv1oeF37r7uCGbfYw/efCFXe/jn5jhWdUWM8M6GnIaj40LIrR8GG2ceQwI
+	 aRmG7kWG/xEgdsUpzZROXvXS6IQbbfxSJYkly/oy7Mg0jjzaDogAL2+Ba+LMMNCpKLRS8
+	 drxrmVhKgi5PzGFjGAQoGW0rw3U1X/DWpD7jJOLvuO7aO4F2iH2Dd2ZnHuKkZZ1LNyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="vmzj/Kff";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E5EE8606A889;
-	Thu, 12 Nov 2026 09:41:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5EE8606A889
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=o66uRwTK;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACEAB60A3822
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:41:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACEAB60A3822
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vmzj/Kff
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 09344153B;
-	Thu, 12 Nov 2026 01:41:35 -0800 (PST)
-Received: from [10.0.129.47] (e122027.cambridge.arm.com [10.0.129.47])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C443D3F632;
-	Thu, 12 Nov 2026 01:41:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794476498; bh=wsUciV+efeTQCIVGRFWUTHzo6OWjjig7oVL2Hlvu3Do=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=vmzj/KffMUnSTgxJ9oWy92AHHsu+KlvSL1PYaGD6G5XriiSu8w8KE7KGTzZaTN6U5
-	 CER5uSOeYHgUJTU2rmyJyLEMApaNv/fSaEtfVj0gBCjwmC88P/COYdfHvGwPi1GTMG
-	 BNkhuxNjxLgDR3CtZUwX6xR3qq/K74GnFMcPcVQY=
-Message-ID: <a25321ce-7593-4c75-a529-e19c273638ef@arm.com>
-Date: Thu, 12 Nov 2026 09:41:26 +0000
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=o66uRwTK
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id C03114E4157E;
+	Thu, 12 Nov 2026 09:41:43 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 8B5EB5FF85;
+	Thu, 12 Nov 2026 09:41:43 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 87C5C11BC02FB;
+	Thu, 12 Nov 2026 10:41:38 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794476502; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=059CCFFzEVHvGsNex5duvrj7Tz6Yz5B+WTMacZsba1M=;
+	b=o66uRwTKg5QwneU8X8Z8uChZl6txo+7p+yOjSrmsrV4IpG6sCeYvm7VGbULxQ2eBCeGnon
+	dwqGMSP8D0OZcko4gnRkbK5DBTpYkyKdQsP8vkJskU1uRDbdHGlixRBpbJe3++N+1uVSUV
+	+yB7wCShn0/GBHqe3C3TBYPsN8cDWXiDbRHenyE6yqK4C7jC7XXYqJqA7FIqfliclyLuQ2
+	HMLwJo9RN2ohn8h1PS5yPiAeyy/mz798oIKG8JnCMnfIP71uJ/n8hABltb2K+djhpoLmw5
+	MFyB/WnSwEnKFU0yNcRxG8Wt2VzNQTlLgk4s63QjlfX27Wuc/iwCzgKe68nnWA==
+Date: Thu, 12 Nov 2026 10:41:37 +0100
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Sam Agazaryan <samagazaryan@google.com>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	linux-i3c@lists.infradead.org, Frank Li <Frank.Li@nxp.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Meagan Lloyd <meaganlloyd@linux.microsoft.com>,
+	Vitor Soares <vitor.soares@toradex.com>,
+	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 0/5] i3c: add i3cdev module to expose i3c dev in /dev
+Message-ID: <202611120941378508d6e0@mail.local>
+References: <arY6DfVf_9tZ_TCu@black.igk.intel.com>
+ <arZTphXbVF5wagy2@shikoro>
+ <CAHreonFzhYk6fDswn7OVZfL3ybUHU15G3_q9+1sDhe8h670r3A@mail.gmail.com>
+ <as487H8-0Gc77mXI@ashevche-desk.local>
+ <CAHreonHiesGbR4VB+3sRxoLDmNHXFFEB=6_o6TNedm-N6VksEQ@mail.gmail.com>
+ <atXmovzepBLP8Mqo@ashevche-desk.local>
+ <atXnS1ZKGVfHDNEK@ashevche-desk.local>
+ <CAHreonFnUSKJMUpR0rmsnSMHEhcJ_W332_NTcGfTKiRkkPse_w@mail.gmail.com>
+ <202610210957562f3f6511@mail.local>
+ <CAHreonH0maC6iU1fkwv9VvWzZfh=W_ybB8R6CLbXQmKQL+x-=g@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,108 +84,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/12] KVM: arm64: CCA: Prepare Realm memory management
-To: Kohei Enju <enju.kohei@fujitsu.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
- Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
- Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>,
- Oliver Upton <oliver.upton@linux.dev>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu
- <yuzenghui@huawei.com>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Joey Gouly <joey.gouly@arm.com>,
- Alexandru Elisei <alexandru.elisei@arm.com>,
- Christoffer Dall <christoffer.dall@arm.com>, Fuad Tabba <tabba@google.com>,
- linux-coco@lists.linux.dev,
- Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
- Gavin Shan <gshan@redhat.com>, Shanker Donthineni <sdonthineni@nvidia.com>,
- Alper Gun <alpergun@google.com>, "Aneesh Kumar K . V"
- <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>,
- Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com,
- Lorenzo Pieralisi <lpieralisi@kernel.org>
-References: <20261111145758.217946-1-steven.price@arm.com>
- <avV-P2_fOkFWQVnM@FCCLS0092175.localdomain>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <avV-P2_fOkFWQVnM@FCCLS0092175.localdomain>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHreonH0maC6iU1fkwv9VvWzZfh=W_ybB8R6CLbXQmKQL+x-=g@mail.gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 12/11/2026 09:08, Kohei Enju wrote:
-> Hi Steve,
-
-Hi Kohei,
-
-> On 11/11 14:57, Steven Price wrote:
->> This series adds the memory management plumbing for CCA, building on the
->> basic RMM support [1]. Thank you to those who reviewed v1 - I'm
->> attempted to address all the comments.
->>
->> The patches introduce internal Realm VM state and RMI feature checks,
->> prepare Realm stage-2 setup and teardown, and provide RTT mapping and
->> invalidation helpers. Realm memslots are restricted to the lower half
->> of the IPA space because the protected and shared halves alias each
->> other. The final patch connects the helpers to KVM's stage-2 MMU
->> operations.
->>
->> This is the memory management portion of the larger Realm host series.
->> Realm descriptor creation, REC entry and exit, activation, and the new
->> uAPI follow in the integration stack. This series alone does not enable
->> Realm creation.
->>
->> As before there's an integration branch[2] that includes the realm
->> creation, REC entry/exit etc building on top of this series. I've also
->> pushed a git branch[3] of just this series.
->>
->> Changes since v1:
->> - Add a guest_memfd prerequisite patch that checks whether the backing
->>   file supports mmap when preparing an arm64 memslot.
->> - Combine the RMI availability and feature checks into one patch, and
->>   move Realm vCPU feature restrictions to the integration stack.
->> - Correct Realm IPA sizing and RTT teardown, including teardown before
->>   activation, RTT accounting, and handling of missing or folded RTTs.
->> - Rework RTT mapping to respect IPA and physical alignment, handle
->>   partial RMI progress, and retry interrupted operations.
->> - Preserve private mappings when a Realm guest_memfd memslot deletion is
->>   rejected, and tighten Realm fault handling and stage-2 destruction.
->>
->> [1] https://lore.kernel.org/all/20261007073537.2454351-1-suzuki.poulose@arm.com/
->> [2] https://gitlab.arm.com/linux-arm/linux-cca
->>     branch: cca-host-mm/v2/integration
->> [3] https://gitlab.arm.com/linux-arm/linux-cca
->>     branch: cca-host-mm/v2/mm
->>
->> Steven Price (7):
->>   KVM: arm64: CCA: Reserve the RMM mode
->>   KVM: arm64: guest_memfd: Check mmap support when preparing memslot
->>   KVM: arm64: CCA: Check RMI support and features at init
->>   KVM: arm64: CCA: Add basic infrastructure for creating a realm
->>   KVM: arm64: CCA: Tear down RTTs
->>   KVM: arm64: CCA: Add Realm RTT mapping and invalidation helpers
->>   KVM: arm64: CCA: Support runtime faulting of memory
->>
->> Suzuki K Poulose (5):
->>   KVM: arm64: CCA: Introduce Realms
->>   KVM: arm64: Handle attributes in stage2_unmap_range
->>   KVM: Allow architectures to reject memslot changes before invalidation
->>   KVM: arm64: CCA: Prevent memslot modifications after Realm creation
->>   KVM: arm64: CCA: Add Realm stage-2 MMU operations
+On 22/10/2026 17:17:20-0700, Sam Agazaryan wrote:
+> > On my side, I believe i3cdev can be added to the kernel and that it is
+> > way safer than i2cdev but I agree that the ABI has to be properly
+> > designed, maybe we need to version it or have a way to probe for
+> > supported features so we can update safely later on. It is failry simple
+> > right now but I feel like we are going to see people with more needs
+> > than initiating transfers.
 > 
-> I've tested the integration branch [2] including this series on our
-> hardware using the QEMU-VMM proposed in:
->   https://lore.kernel.org/qemu-devel/20261002202026.1204110-1-mathieu.poirier@linaro.org/
+> For feature probing and ABI extension, what do you think of:
 > 
-> The Realm guest VM (32 vCPUs, 16 GiB RAM) booted successfully. To
-> exercise the guest with a more realistic workload, I also performed a
-> full Linux kernel build, which completed successfully.
-
-Awesome - thank you very much for testing.
-
-> A Tested-by tag might not be carried over to the next revision, if any,
-> but anyway, for this series:
+> 1. Adding an extensible I3C_IOC_GET_CAPS ioctl:
 > 
-> Tested-by: Kohei Enju <enju.kohei@fujitsu.com>
+>    struct i3c_ioc_caps {
+>        __u32 size; /* sizeof(struct i3c_ioc_caps) */
+>        __u32 pad;  /* must be 0 */
+>        __u64 caps; /* Bitmask of supported I3C_CAP_* features */
+>    };
+> 
+>    Today caps can report the transfer modes supported by the controller
+>    and target (I3C_CAP_SDR, I3C_CAP_HDR_DDR, I3C_CAP_HDR_TSP,
+>    I3C_CAP_HDR_TSL), and new bits in caps (or new fields appended to
+>    the end of the struct) can advertise future capabilities beyond basic
+>    transfers.
 
-Thanks,
-Steve
+This works but my point was also that we need to expose the i3cdev
+capabilities so userspace can discover what is available. I guess we can
+assume .read and .write are going to always be available and so this is
+fine for now.
 
+> 
+> 2. In struct i3c_ioc_xfer, we already have __u8 pad[2] at the end which
+>    is strictly checked to be 0 (-EINVAL if non-zero), reserving 16 bits
+>    for future per-transfer flags without changing the struct size.
+> 
+> > Also, I think this should not bind to any devices by default and make
+> > binding explicit.
+> 
+> This seems to be the consensus so far. I can convert i3cdev from a bus
+> notifier into a standard struct i3c_driver so it does not auto-attach
+> to all unbound targets on boot or on unbind while dropping patches 1
+> and 2.
+> 
+> Since Greg KH noted earlier [1] that driver_override / manual sysfs
+> bind is only for debugging and will taint the kernel in the near
+> future, what do you think of:
+> 
+> Matching explicit opt-in entries in i3cdev's i3c_device_id table (starting
+> with 0xBD for OCP Secure Firmware Recovery), and optionally
+> exposing a new_id sysfs attribute on the i3cdev driver for dynamically
+> adding target IDs at runtime? That also keeps everything self-contained
+> in i3cdev without needing cross-subsystem changes to hwmon/iio drivers.
+> 
+
+We can add new_id later if necessary.
+
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
