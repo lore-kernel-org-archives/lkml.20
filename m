@@ -1,101 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794472719;
-	b=VpZS/TpUEmCoorCGRpetn7yR/DBgg/K0mqqxDhmTFdXvxCBS9E62FfF+XYmKuImFjvWD
-	 jn2yKrsVhXCS27jUwuC90au+u1Zor+gjIEzYPQ+6NWkvM+h9accZjeIgc0Vizy2hy+a25
-	 6BoM/EOIHuxEshrFviYwfkWwLYS1UxqwE5AykjdjpcCQNN75oWlATnNfTLOtGRw1VGDmi
-	 26zZ+H9gUSde0fEBYqpgQmkOmUp7WtX7s4VAwJ14f/Vgj0Wg58wnzUFdbizvTuC7HcinO
-	 SxSbUGRplbZLCXTM2pOLpy6LZulTw6ZFEhXvpsozxZnmC4DRtLqQ6pX6JzI/iSy+z7A==
+	t=1794472762;
+	b=ixbWVbnltpFvEKTHl7kqHep1rN2rFGHpIu8y0ww5zSCtRZpTDiOu03cl8BPyI7Qui7L5
+	 sgdwofb2jhgfRdop4ZhGRZCqG5yiEnLhPHEPI+lU/xgedYtYBfmh6XbkzQBYM58vGD9Kf
+	 kfddFJvBUdy+RDiEbdo9bG9eoWB/uA3xCH4ixjYH8mCloy17EvLNehs2WuY8fmOFtPyXR
+	 rl4IBZJlLHDCvMR+r4I46p0+XhVkkqdzvl/nh46TAqRhn5GZgrf1ZP34znKJ+vDt/TL2F
+	 9/rcS+sJlbZ1TPiT5hLipvevhZ5vncPQoLkkWHxJw/CWvaKbvxmzsI8SF8evgHGmnhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472719;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=dvTW0HYPuDs0zvfRlKwp5jFkeDKeUCmm+3AkWFYGUPc=;
-	b=Uyi8DHfdsZRyoyoi5meZ3OcZkCJtDhN0VrSeuEuKoFVVP666cwdLniozl7NQaey81HwG
-	 ELWWp5BQVH0dIJuJCKM+zjMMfKfTJbgQyIM6yv/BcXvLCb/CZAZJqT4m6QujgxjLfT1K3
-	 9V8+RzOHdHXlULhiEvBVQNzniVE6BcE2i8eh1QO2sBCkzskrqx1sBP5ys637uG+n14cFC
-	 lscxO3fK7zGYMaYvfDc36Kz921qeqzJY2CVMZVyJr4hj7l48aKFRjckl/UQr9dN2187kH
-	 DGxdjXnwIoLiQuvQqhmNIVoTFNV1sHEOLwA2cuGZnVXnTRFAbzgc6Ouu+m2Qc4C8mtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472762;
+	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-ID:References:
+	 In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=AwHc+ndn/oysQVWVndGRb3Cr63wvdmsQpBTORe0DyXs=;
+	b=wwXqLRCzg5zaOtdl6D2U5aFe4goGY2zW+++neWcOx61McPeyRWWOiCVihUpY52IEcr8O
+	 L0TGCjBquworvqEof9U8sLXnvx3YaaO8RkbzGgkh9dGtDLjaVSs2RPjwnu4xpgsMKWpWW
+	 kgyq9ClRMw0Ln4OusHXoKxX/3hkrg0r4DaQmCBOhiYjQf2ekPBJeZgg1WFzkD+4QD9rEf
+	 wnM9yX7a7emrWZp0DKoiKRQLP0oMqKeV7rXsft+M8xN1ncJ6I3U1vyAcOHw3QvqFs30y1
+	 OKCDqS5ZcFfAS5H4bEl77G1a055ljsop6YR8pPC991F1P51LctY7sK+/4pH/kbWmaNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lsBV7ql1;
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=aspeedtech.com;
+	spf=pass smtp.mailfrom=aspeedtech.com;
+	arc=none smtp.remote-ip=211.20.114.72
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC2F0606A338
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:38:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC2F0606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lsBV7ql1
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b16896b8ceso1524547a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:38:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794472718; x=1795077518; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dvTW0HYPuDs0zvfRlKwp5jFkeDKeUCmm+3AkWFYGUPc=;
-        b=lsBV7ql1n0dCE2h8c0NkPG41Gu1R9GylPG5seCstfGAGl783cHDW+zZf30utOij1r1
-         w5c17Y1FMzPebPW/TEctmTXtmSuAfsweVrkFf1WgMX/vh23+GfdrMybvwOYngGpYHuCs
-         0achl4yGpsWJsUv7eSb4Lssiz/163tWdnGs1QWioqehR6NcI0vUzAWznNHRpHlL9gmWP
-         XRATI/0/lw3+SG9hKnZI4YyIg9sRu1noRx+BWiVcgjt1I/y6kN3QN4ioBlPCr36F14k4
-         9z75JIUpKLKU+gUknfnAe4m54agtVDRmIJ6rLUkakliyyfm0CYCWg2FWgDV5jgm00hZZ
-         TgTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794472718; x=1795077518;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dvTW0HYPuDs0zvfRlKwp5jFkeDKeUCmm+3AkWFYGUPc=;
-        b=eSnLDQL3qylHldUwO/A7BnNAZakreOEFUWzF4zbkn0yAMboviFjE7bEpmL/kcZmbwv
-         wji0cpThB0P7sy5roB8G2ZwCZBM85yipPUv/iMXRMtlJG9w4BeVE/gzl2JgQfHjRGequ
-         unR6D6NfVuMtF03MwowfIecgNmspCxZkzIzqo65yBz7NZ/OxMCxFQuPmJ2kt2ujviAOq
-         kilj60U2qLxB7QtgcxrkbU78+XZ8RKR49YzWl9/whEAJ9BOgAGHz957o61kMAZ6cCFat
-         ZxMPPuq6BaK3H0gzZXu0QksmFZ91kYU8LX3+s23Oo+l/SjbHK8ZhCKzug89aISB/UnpI
-         pyng==
-X-Forwarded-Encrypted: i=1; AL+hErFNMnpklqRNtEFa+9jw+BypPts9voV03ZkLVpDb2V0mH44nnOnuBVhtqv+5KASU+bfvrVuK5SpkF42arz0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+7sDab+sNBCFh16cfD0xMPPC3QzqumuThHiiXpY5IDOAsDngLF
-	As3n808Y5v8nKV8ehaF6XhvimmZ7IAWw0tt2TcIeQ9ekrLlAsrjKPsro
-X-Gm-Gg: AYBFou2pzJ90fkh3yrKoqBp+Vyo64C1KTt/OLm/+8NwZVbxOl7FQ2iBReA8NquEwMvF
-	cKXU/W9RJbj4/YUbDr28lapJhHdBxDrMiTOqtqg2u4ZOhGdplYRFBF83KJvKDas986RO1ah772B
-	F8vouMa1J6PbkaCdbg5o64+nYLw26J+n6MEPUm8ar182yVsZzvwhQEabasHJC8FYglgNrxShLAB
-	7WmPRH2ptq8sXaFyHuSFmYGEQgdQtvr2odRp9QUC0bCyEtRlb9w5FQwJiw7R/byl1XoS0ZUyMvE
-	BztZ8IOcTAIJROzBoBTbAM8xpEDREyM8//iNs6N+kGDMrZoRVS8EnAbJXLEnLeFlaccJStkAQa9
-	uIlIvbTSipQhbrWUNTS9x8TZIWKICXnuZq35UQH61+a/JFkfVmgZyOR36A02Ua2HpVzDNefduCe
-	TuHNF++Pq81ix/vTc1YtMeZSnxRK6Tw0IpuxlujYt7GXs/UWWiilV4DKPAMZrQv8Ik370HC7j7D
-	Pt+XDxEQpbd3n26el4rJogwCo2SIYxIHkqFhHmibICT8S3dVFE9+LQ+qlKbrFmne90AlzAPpPX4
-	HVgfm/8K7rqdQ1vxCck095sEcQ3MYKF2TGEwKp/GbyhJ7MU6M2EqYj2PHw0IF8jAAdm8djrvuw=
-	=
-X-Received: by 2002:a17:90b:1d0b:b0:3b0:bd53:8e5d with SMTP id 98e67ed59e1d1-3b182fb601fmr3766750a91.58.1794472718076;
-        Thu, 12 Nov 2026 00:38:38 -0800 (PST)
-Received: from KASONG-MC4 ([43.132.141.24])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197c8ab32sm3786590a91.13.2026.11.12.00.38.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 00:38:37 -0800 (PST)
-Date: Thu, 12 Nov 2026 16:38:20 +0800
-From: Kairui Song <ryncsn@gmail.com>
-To: Ridong Chen <ridong.chen@linux.dev>
-Cc: David Hildenbrand <david@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Yu Zhao <yuzhao@google.com>, 
-	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>
-Subject: Re: [PATCH] mm/mglru: deactivate anon folios into the oldest
- generation
-Message-ID: <avV52J2rD19cjM2J@KASONG-MC4>
-References: <20261112081928.3014946-1-ridong.chen@linux.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90786606B262;
+	Thu, 12 Nov 2026 08:39:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90786606B262
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Thu, 12 Nov
+ 2026 16:39:09 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
+ Transport; Thu, 12 Nov 2026 16:39:09 +0800
+From: Jacky Chou <jacky_chou@aspeedtech.com>
+Date: Thu, 12 Nov 2026 16:39:10 +0800
+Subject: [PATCH net-next v6 4/7] net: ftgmac100: Enable AST2700 RMII
+ support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,86 +49,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112081928.3014946-1-ridong.chen@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261112-support_ast2700-v6-4-238020bf46cf@aspeedtech.com>
+References: <20261112-support_ast2700-v6-0-238020bf46cf@aspeedtech.com>
+In-Reply-To: <20261112-support_ast2700-v6-0-238020bf46cf@aspeedtech.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Po-Yu Chuang
+	<ratbert@faraday-tech.com>, Eric Dumazet <edumazet@kernel.org>, "Heiner
+ Kallweit" <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, "Eric
+ Dumazet" <edumazet@kernel.org>
+CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Jacky Chou <jacky_chou@aspeedtech.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472748; l=4258;
+ i=jacky_chou@aspeedtech.com; s=20251031; h=from:subject:message-id;
+ bh=QOof8Ln5197tONi246cNMG5Jj+NA5lrKsaTcXlkqcQ8=;
+ b=ZqLQTRui+sMSWwjwBhkHeqZdjs4AH0X5jW0JRY4l/mWuRjLxbtf2BNq0YwEFfhCidN46XjJVZ
+ 6XphJf8+FxnAbVq5xRGoEpxmHBMeOF8kD2Ovh993hPNEAX31TTjyaVo
+X-Developer-Key: i=jacky_chou@aspeedtech.com; a=ed25519;
+ pk=8XBx7KFM1drEsfCXTH9QC2lbMlGU4XwJTA6Jt9Mabdo=
 
-On Thu, Nov 12, 2026 at 04:19:28PM +0800, Ridong Chen wrote:
-> From: Ridong Chen <chenridong@xiaomi.com>
-> 
-> folio_deactivate() is used by MADV_COLD and DAMOS_LRU_DEPRIO to move a
-> folio towards eviction. lru_deactivate() does that by deleting the folio
-> from its LRU list, clearing PG_active and PG_referenced, and adding it
-> back with lruvec_add_folio().
-> 
-> With MGLRU, lru_gen_folio_seq() places a swap-backed folio that is not
-> in the swap cache, i.e. an anon or shmem folio, into max_seq - 1,
-> regardless of its refs. That generation is active per
-> lru_gen_is_active(), so such a folio never reaches an inactive
-> generation, and a folio that has aged into min_seq + 1 is moved to a
-> younger generation instead. PGDEACTIVATE is still counted. Other folios
-> are not affected: with their refs cleared they are placed into the
-> oldest generation.
-> 
-> On a 4-generation memcg, 64MB of aged anon memory in min_seq + 1 ends up
-> in max_seq - 1 after MADV_COLD, while 64MB of file memory in the same
-> generation ends up in min_seq.
-> 
-> As a result, MADV_COLD can make anon memory less likely to be reclaimed.
-> It can be reproduced with a single process in a memcg with swap enabled:
-> 
->   1) map two 64MB anon regions A and B and fault them in, A first;
->   2) age the memcg twice through /sys/kernel/debug/lru_gen, so that both
->      regions are in the same generation, min_seq + 1;
->   3) apply MADV_COLD to B only, A is the control;
->   4) reclaim the size of one region from anon only:
->      echo "64M swappiness=max" > memory.reclaim;
->   5) count the swapped out pages of A and B from /proc/self/pagemap.
-> 
-> B is expected to be swapped out instead of A. Three runs on mm-new:
-> 
->                      A swapped out        B (MADV_COLD) swapped out
->   before             16384 pages          15 ~ 128 pages
->   after              0 ~ 157 pages        16384 pages
-> 
-> Use lruvec_add_folio_tail() for MGLRU, which treats the folio as
-> reclaiming and adds it to the tail of the oldest generation, the same
-> place lru_deactivate_file() puts a clean file folio. The other folios,
-> which were added to the head of the oldest generation, are now added to
-> its tail as well, so they are reclaimed first as MADV_COLD intends.
-> 
-> Fixes: 081488051d28 ("mm/mglru: fix underprotected page cache")
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> ---
+Set the RMII enable bit when an AST2700 port uses RMII so the MAC is
+programmed for the selected interface mode. Describe the requirement as
+a match-data quirk instead of checking the MAC generation in the data
+path, allowing later compatible controllers to opt into the behavior.
 
-...
+phydev is always populated by the time this runs: ftgmac100_start_hw()
+is only reached once the device has been opened, and
+ftgmac100_probe_dt() always attaches a phy_device before
+register_netdev() can succeed -- via a discrete PHY ("phy-handle"), a
+"fixed-link" node, or NC-SI's internal fixed 100Mbit PHY
+(ftgmac100_probe_ncsi()). Any failure in that setup aborts probe before
+register_netdev(), so an opened AST2700 netdev always has phydev set.
+This mirrors the same assumption ftgmac100_reset_and_config_mac()
+already makes for every Aspeed SoC earlier in the open path.
 
-> 
->  mm/folio.c | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
-> 
-> diff --git a/mm/folio.c b/mm/folio.c
-> index ea3adb6a89d7..c412d9b398e4 100644
-> --- a/mm/folio.c
-> +++ b/mm/folio.c
-> @@ -583,7 +583,16 @@ static void lru_deactivate(struct lruvec *lruvec, struct folio *folio)
->  	lruvec_del_folio(lruvec, folio);
->  	folio_clear_active(folio);
->  	folio_clear_referenced(folio);
-> -	lruvec_add_folio(lruvec, folio);
-> +	/*
-> +	 * For MGLRU, lruvec_add_folio() places anon folios that are not in
-> +	 * the swap cache into the second youngest generation, which is an
-> +	 * active one. Add the folio to the oldest generation instead, like
-> +	 * lru_deactivate_file() does for clean folios.
-> +	 */
-> +	if (lru_gen_enabled())
-> +		lruvec_add_folio_tail(lruvec, folio);
-> +	else
-> +		lruvec_add_folio(lruvec, folio);
+Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
+---
+ drivers/net/ethernet/faraday/ftgmac100.c | 21 +++++++++++++++++++--
+ drivers/net/ethernet/faraday/ftgmac100.h |  1 +
+ 2 files changed, 20 insertions(+), 2 deletions(-)
 
-Hi Ridong,
+diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
+index 67b1fa464a42..9b7becb01726 100644
+--- a/drivers/net/ethernet/faraday/ftgmac100.c
++++ b/drivers/net/ethernet/faraday/ftgmac100.c
+@@ -41,8 +41,11 @@ enum ftgmac100_mac_id {
+ 	FTGMAC100_AST2700
+ };
+ 
++#define FTGMAC100_QUIRK_RMII_ENABLE	BIT(0)
++
+ struct ftgmac100_match_data {
+ 	enum ftgmac100_mac_id mac_id;
++	u32 quirks;
+ };
+ 
+ /* Arbitrary values, I am not sure the HW has limits */
+@@ -79,6 +82,7 @@ struct ftgmac100 {
+ 	void __iomem *base;
+ 
+ 	enum ftgmac100_mac_id mac_id;
++	u32 quirks;
+ 
+ 	/* Rx ring */
+ 	unsigned int rx_q_entries;
+@@ -355,6 +359,12 @@ static void ftgmac100_init_hw(struct ftgmac100 *priv)
+ static void ftgmac100_start_hw(struct ftgmac100 *priv)
+ {
+ 	u32 maccr = ioread32(priv->base + FTGMAC100_OFFSET_MACCR);
++	/*
++	 * Only reached once the device is open, so a phy_device is already
++	 * attached: a discrete PHY via "phy-handle", a "fixed-link" node, or
++	 * NC-SI's internal fixed 100M PHY.
++	 */
++	struct phy_device *phydev = priv->netdev->phydev;
+ 
+ 	/* Keep the original GMAC and FAST bits */
+ 	maccr &= (FTGMAC100_MACCR_FAST_MODE | FTGMAC100_MACCR_GIGA_MODE);
+@@ -383,6 +393,11 @@ static void ftgmac100_start_hw(struct ftgmac100 *priv)
+ 	if (priv->netdev->features & NETIF_F_HW_VLAN_CTAG_RX)
+ 		maccr |= FTGMAC100_MACCR_RM_VLAN;
+ 
++	if ((priv->quirks & FTGMAC100_QUIRK_RMII_ENABLE) &&
++	    phydev->interface == PHY_INTERFACE_MODE_RMII) {
++		maccr |= FTGMAC100_MACCR_RMII_ENABLE;
++	}
++
+ 	/* Hit the HW */
+ 	iowrite32(maccr, priv->base + FTGMAC100_OFFSET_MACCR);
+ }
+@@ -1942,7 +1957,7 @@ static int ftgmac100_probe_dt(struct net_device *netdev,
+ 
+ static int ftgmac100_probe(struct platform_device *pdev)
+ {
+-	const struct ftgmac100_match_data *match_data;
++	const struct ftgmac100_match_data *match_data = NULL;
+ 	enum ftgmac100_mac_id mac_id;
+ 	struct resource *res;
+ 	int irq;
+@@ -1987,6 +2002,7 @@ static int ftgmac100_probe(struct platform_device *pdev)
+ 	priv->netdev = netdev;
+ 	priv->dev = &pdev->dev;
+ 	priv->mac_id = mac_id;
++	priv->quirks = match_data ? match_data->quirks : 0;
+ 	INIT_WORK(&priv->reset_task, ftgmac100_reset_task);
+ 
+ 	/* map io memory */
+@@ -2134,7 +2150,8 @@ static const struct ftgmac100_match_data ftgmac100_match_data_ast2600 = {
+ };
+ 
+ static const struct ftgmac100_match_data ftgmac100_match_data_ast2700 = {
+-	.mac_id = FTGMAC100_AST2700
++	.mac_id = FTGMAC100_AST2700,
++	.quirks = FTGMAC100_QUIRK_RMII_ENABLE,
+ };
+ 
+ static const struct ftgmac100_match_data ftgmac100_match_data_faraday = {
+diff --git a/drivers/net/ethernet/faraday/ftgmac100.h b/drivers/net/ethernet/faraday/ftgmac100.h
+index 4968f6f0bdbc..8c35c895b146 100644
+--- a/drivers/net/ethernet/faraday/ftgmac100.h
++++ b/drivers/net/ethernet/faraday/ftgmac100.h
+@@ -167,6 +167,7 @@
+ #define FTGMAC100_MACCR_RX_BROADPKT	(1 << 17)
+ #define FTGMAC100_MACCR_DISCARD_CRCERR	(1 << 18)
+ #define FTGMAC100_MACCR_FAST_MODE	(1 << 19)
++#define FTGMAC100_MACCR_RMII_ENABLE	BIT(20)
+ #define FTGMAC100_MACCR_SW_RST		(1 << 31)
+ 
+ /*
 
-One question here, why MGLRU/CLRU have to use two different ways to
-add the folio back?  Will this cause over aggressive reclaim of the
-folio?
+-- 
+2.34.1
+
