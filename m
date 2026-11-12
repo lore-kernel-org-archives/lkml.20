@@ -1,81 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.35.192.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794452841;
-	b=rm9j9s0y3QtkvK4ArhlW0X9ZpVuESlG0UlXWjWry7tbeehE6snYEVKk0Wc8F+n17fFJO
-	 BzAxggHNz6H9YzIzoS697cP+4l+WemEIHcIBDgbjFAkKRBeCQb6Cayx4UsX8NCyjFH8Sf
-	 Wr5st4pzoPrk3UlFTDgB4sTPgHA5hz8QN02cDhxax21rXs62zpXplgU/ZSAYEI4EfQaar
-	 nnVOa2WqdIOX2ILh9e/bC8lIe7196KDJwX9ulJ4EO0tl322tTEVQSwOaBGBxN5FkNCIWQ
-	 9d/JqHOJWeeRRthgW00pPVhRHybY1L32R9LKPWx2V5zS4uWsA8hG8uG5n5nGbcIjjGw==
+	t=1794452853;
+	b=iZ2uKsgx6IpIApPUBqogHN8KUl5MXl9ECM5GtqY4Bjy1Kp5F8xgPFsrgDjS/IZeflNiG
+	 z4bl0RA41fUkrS2rmNhGyy5oSWIldSFo8lh5BKQIFLP9HfWc9eyTGS9pgWUjtueDrJOoe
+	 SQPjM4ZucsfSVaBoxkiUPj2cDz5yKbEV7pwxWGXmcgkPygNifNg8G9y9Jl2F0Oq6LOd8G
+	 1ya97LOsS6g5evXfdiWGrpzJQg/PFUAod8loJablreLjy0wfqqP3RcmdJiqCSTIrDn8+a
+	 rdP346LhlTApeAsfyuoHpVpanBirgbfeWMl0EinhJ8UwFfMr+gk+kF1Xjqjgvlkakog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794452841;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=ptqTEKaa/wQCxX5FQBv36t/SEDmI+dFQJlctOlurQO0=;
-	b=GUE5kRCVNS7vtUCrmdmCfTqpzJD+eC5dWGd5gvsnmvVxbFl32Jv7reZxFI+85LtfM1T9
-	 tPjDTAF8UxWv9nd+q4+7dReCI70zGIKzS3hiCuTBIGA551XEYQjGeLIIkRVmv4wvCHu5K
-	 QAMs9BPyEK1j5rjkqQzN4qPqdBbMqheVQ6r6tNzTY29qNO9w4rojd0uJpEsxFC5+DiB8q
-	 hiE5VDDcc8Ub1I50IqBQfk6GfJera4MetXklksC0saGyUU8azYVIdWqMqolG/GHjDk2Ar
-	 VPke0tWWiCfkJnw6oVGVIGGUu35+AZ2KoyV2949Uf9VcF+/0QA8ij///L62/0BQzhKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794452853;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=YEkzbUxPinYIAAi/13un/eqrNvQ94xo0XZSpt+GcyqM=;
+	b=XqZCmto8Mu/zVhXX4WhAzorzyYGK96M0ANBlyXDhOSe6lCxT/EqBZw988oe9bzoS8uCe
+	 YaZqoH5YrscwJDw8kMmyhQrTZl93Ilo090A1jZDbJtBdwjco0DlWueLghyw9wwghqdgG7
+	 4oT3aHPTIw2KmoKpR8GH9CQvweiAYUj4s5XRbS2GFybFominMVjl0/4rOLD9cHKpv/TYm
+	 QaaiTBvJkSt181DzrQ+XIlZi84H5iGaovUGfLqBBYJkATMYL0iEl55WCIA2voNYqESa6m
+	 YxUD5fztPlW2VXzLTl/H+YMoyb75+6pj8CreEwpMtUnHaGgRkYihqQPAImoYMQ25z3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=IGRfpG9W;
-	arc=none smtp.remote-ip=52.35.192.45
-Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=fryer.io;
+	spf=pass smtp.mailfrom=fryer.io;
+	dkim=pass header.d=fryer.io header.i=@fryer.io header.a=rsa-sha256 header.s=fm2 header.b=CB4hmqPz;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=CDDHJqiI;
+	arc=none smtp.remote-ip=103.168.172.137
+Received: from flow-a2-smtp.messagingengine.com (flow-a2-smtp.messagingengine.com [103.168.172.137])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B33A606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:07:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B33A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4481606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:07:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4481606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fryer.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fryer.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=IGRfpG9W
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794452841; x=1825988841;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=ptqTEKaa/wQCxX5FQBv36t/SEDmI+dFQJlctOlurQO0=;
-  b=IGRfpG9WjpbYEtoDxGB/sH9QIs1jIedJGRAO7e4HX4aO3AVfZDGwUxcv
-   4EdJU1xyLMuygCKipU5UyGUrr5C/Yg23k5+ELjWNIle/dyu+WooIShR4x
-   Hx651mcbsHSoB9Wce3Cv16z2fWdJWavkFBwLvVP/eFQgQ+nexlbtX2/EW
-   mklGckL8RDrtiCBMyW5/BszTIG7XszpI0fLNYI9WTgyW4kIH6OcBBVdAG
-   YgT8PE86BrKaXFVvaJEM8PiM87+ioSnpF2hsetlgfhSQoqHJUedZCLI8f
-   VapOn58Bu12kLAyj3esXCbJvwcjtoTXzNVg9I8iQCM1RgFXVxFqGl4YkT
-   g==;
-X-CSE-ConnectionGUID: t84JfkZRT5qoVkqkr8JN6w==
-X-CSE-MsgGUID: 8NIr0k5VS+WynXbp0R/VSA==
-X-IronPort-AV: E=Sophos;i="6.27,208,1787011200"; 
-   d="scan'208";a="33546894"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 03:07:18 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:24529]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.10.61:2525] with esmtp (Farcaster)
- id 4cf5e5c8-93b3-4b54-b719-798688cbffaa; Thu, 12 Nov 2026 03:07:18 +0000 (UTC)
-X-Farcaster-Flow-ID: 4cf5e5c8-93b3-4b54-b719-798688cbffaa
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 03:07:18 +0000
-Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 03:07:16 +0000
-From: Alexander Graf <graf@amazon.com>
-To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>
-CC: Arnd Bergmann <arnd@arndb.de>, <nh-open-source@amazon.com>, "The AWS Nitro
- Enclaves Team" <aws-nitro-enclaves-devel@amazon.com>
-Subject: [PATCH 08/19] nitro_enclaves: Let the region tracking arrays fall back to vmalloc
-Date: Thu, 12 Nov 2026 03:07:04 +0000
-Message-ID: <0b291c97efac8ddf131faf84495a8407d5ffcd4d.1794393487.git.graf@amazon.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <cover.1794300000.git.graf@amazon.com>
-References: <cover.1794300000.git.graf@amazon.com>
+	dkim=pass (2048-bit key, unprotected) header.d=fryer.io header.i=@fryer.io header.a=rsa-sha256 header.s=fm2 header.b=CB4hmqPz;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=CDDHJqiI
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailflow.phl.internal (Postfix) with ESMTP id 07FBD1380FE1
+	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:07:31 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Wed, 11 Nov 2026 22:07:31 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fryer.io; h=cc
+	:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm2; t=1794452850; x=1794460050; bh=YEkzbUxPinYIAAi/13un/
+	eqrNvQ94xo0XZSpt+GcyqM=; b=CB4hmqPzOPYOhQjZ3caPkulP2sRB6hwoheGBh
+	4N/YmNdjlH+3tD/zNOfD+RwmD5de1wDGYyMbB87EdM7fdOGtNqEfxf7Fo/xZNqks
+	7jsVBwnDLsVWx4EXv3Lsh0R+d7YKaRX4yR0KW/tz7wIyE0jOlLqBhK/ASiAIaGP8
+	bI3+fHYq4M6ywpfie32FI2CMN758pVLWRq80kFHiERsqVxWXcDANvyxZKbfFMonn
+	/Vj67zLPKR3koPHWUSqgj+CH/fPkrN6Elg/igYlEISDcBma6u4c8Jp5Bz83RQf+e
+	ietls6Azr9paPYGoKBQYmsWTmeHxyPw4TLj/okBlwR4UVUmIQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1794452850; x=1794460050; bh=YEkzbUxPinYIAAi/13un/eqrNvQ94xo0XZS
+	pt+GcyqM=; b=CDDHJqiIZC1ntNr4DNFyiNQzvSUyEskKXEJCNV8yZAcF37PCLQY
+	jdBfNm9Y0hfWXdCly19RnlCu9UanLcB7FMhr2X6z2c1fpw2W32D0eezRr7QiLM1W
+	IBgsaH9RF5IfWI4DxxkJyoPL3xgWJA1pO0eAOuidmm9Q93ZbRmMgcFPH6hoc9lQ/
+	h+EjMBEBBwnL25e4FSDNV8xgU5mtv/Q5YxLGEGV0nKL5t8sYl09NoFM4j9ml+ioW
+	zoDeZJFnnzaKFTs4Zh1ILt/8WqBc8jOBbS2TzK1VfkMqiHBHNwHMJ2+arbhz1GMt
+	pLwOSYQ2Pi9oSxAhI2GZAfXJkHMt+rgvLdA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fryer.io a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794452850; d=fryer.io;
+	mf=PGJyeW9uQGZyeWVyLmlvPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:lwUvgW3+JtCS5jjJEF85VhIfYCWXv8NupL5Gfr8pIInaI5C
+	rbSTeNiFRZX4mENLDgvig80yVMHLo9u4CEOBftblsqg1cAbQTi+kUjfVHwykOuz5
+	LWqCHIPo+jT0Y/tm+CkpXST4CoxJzeG03Dx+58sCHXSjQpVunkFJ9MOz2rMeknv1
+	DVJK4CpkaGAKA3fZOTcz1HskXPleUyMUJjuSl/CIQtr2kq3LQFppDBNBO77kG7Va
+	PwFAnc6svjSC9QoVsO9gdJtoYDoyWGjs/yz/9fCGtIcqtvmSnYYPrYSPwrL8Wy+u
+	c+CbyDa2YWQsaVIZIZx8IESHcKKweoAQYoiIQHw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:z6TV82j9Vrd0Cjcla/1e+sg1lMtn9yPTSOSuG3wqbPY=:HlBUGDpmoKyj4SxZSGl9hCRFNBMYU7TLF2NEU9Ji9Ec=;
+X-ME-Sender: <xms:ci31aiEv6MpJ-izVNqvcAkQxJG6rrEFTLptqSF5x14CRXsoYK4j2BQ>
+    <xme:ci31avOJhAZUpodw-MJAKjBDnOdo5BJP8zOianQEhJCG4vB-qOUq9_Jho8ZXGyATm
+    NWFq2156laUSAIpAoQVhLqSNalnIxGr2Yw1bR0VOjtEz6B7xofktEAV>
+X-ME-Received: <xmr:ci31apIpLpAtB1ESqf78eRKFL_g5-iXIFbj58gRdvI9diGpyUaXoS4jKDdVGesgTuq1-h3Io4iSNXCcNqfiyz8NWsRWW3MvAJmGbo4JbFrT-8A>
+X-ME-Proxy-Cause: dmFkZTEYVUo/hdKlkZzj/IqrVqdQkKlqwG7Kasle3c+PqXU73W4ZHoHL0ACW1kbXMxXhum
+    DulWODMmuuour6CsyTHLxDvx9rx5fhpokmFoqS/83iUURE3YCJ4+BW7qQtqu9blnP6ms9M
+    tzuFKrrbAyJ6lgmcTT3HXkLitXoVQEtosxRzbi6ljq2r0NawG8FSOUHoT+cko3ebaVPnIw
+    nSlfON9YGHdLZIt46IAKbWJe3dKPGanv6KBlCUajdHUC+yOI8vcTfrPA7YCVKYhKi0sqBF
+    0/TA+gEUAkK5U4anCY8W142zODS7QVzlSWmrcydkABpgRT4YUjZiMF9UI5RutbT0fu9ipQ
+    L1DJg3v+68g+Qux5vDstgDD9N+AP0LMTWn4lS8zlkYHnt6EH+oZY9tbKvGap2p+FRg7WJB
+    D5P6LzyNztvbLnWieWmXpQYss0y7efOejE58hhvgYR4VABXE6dqdY/uLatQY5sse3i2KtG
+    HMoi29rx6DPNASQqpX4tRGXeezIjoWO1yQJiepuTDogkBA59b0U6hzI+4ir64YRSB+csoI
+    77hihNXL8e+b9zqGzRgcTiZTrqpAU6vfv1pbEh5TD/ALPh0zTwviUpC5VluZyNda1ibGWm
+    pNvBgDnINWeo7inoMe1JprZO10Re1gL8LMkJokDZFFQtLqWgG609kNk192rg
+X-ME-Proxy: <xmx:ci31ag9KyoimmLrXzggxNq5Pu-ql3xx-35vjP2_q6V0u8-dVmpG2Yw>
+    <xmx:ci31atE70AxrKGTeQmtiHI4OB3EGmFh8sga8hT8O-YUb7IytpYz1Hw>
+    <xmx:ci31aj57wR8u5-V5Mx7ksqBpiWGAeXF8XZbFxGeEywLD0YhMiAxNDA>
+    <xmx:ci31aubDzQGxcPe44Gjzr-kZJ-F74f_mBkPM9ctbhmHWHNP9BYW-1w>
+    <xmx:ci31apNUPTzbYB8x4tfAfqyvNcD7NpGEYtsl2eV4LEeKkp8O6gt9xhgy>
+Feedback-ID: if1c946a5:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 11 Nov 2026 22:07:30 -0500 (EST)
+From: Bryon Fryer <bryon@fryer.io>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@kernel.org,
+	horms@kernel.org,
+	jasowangio@gmail.com,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	pabeni@redhat.com,
+	shuah@kernel.org
+Subject: [PATCH net 0/2] udp: preserve outer transport header after tunnel GRO
+Date: Wed, 11 Nov 2026 22:07:06 -0500
+Message-ID: <20261112030708.1915665-1-bryon@fryer.io>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,86 +129,46 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-NE_SET_USER_MEMORY_REGION allocates two tracking arrays that grow with
-the region, and for a large region kzalloc_objs() fails with a WARN.
-Neither needs physically contiguous memory, so allocate both with
-kvzalloc_objs(), with __GFP_NOWARN since a region can push even
-kvmalloc() past its limit.
+UDP tunnel GRO can leave the inner TCP header in skb->transport_header.
+The virtio tunnel exporter uses that field as the outer UDP offset,
+producing descriptors which the receiving decoder rejects.
 
-Fixes: 7dc9d4309fdb ("nitro_enclaves: Add logic for setting an enclave memory region")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alexander Graf <graf@amazon.com>
----
- drivers/virt/nitro_enclaves/ne_misc_dev.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+Patch 1 restores the parsed outer UDP position after successful tunnel
+GRO completion. Patch 2 adds a focused regression to the existing TUN
+selftest, including a GRO-off control.
 
-diff --git a/drivers/virt/nitro_enclaves/ne_misc_dev.c b/drivers/virt/nitro_enclaves/ne_misc_dev.c
-index 821624c93795b..ac33fbcd41f35 100644
---- a/drivers/virt/nitro_enclaves/ne_misc_dev.c
-+++ b/drivers/virt/nitro_enclaves/ne_misc_dev.c
-@@ -938,15 +938,17 @@ static int ne_set_user_memory_region_ioctl(struct ne_enclave *ne_enclave,
- 
- 	max_nr_pages = mem_region.memory_size / NE_MIN_MEM_REGION_SIZE;
- 
--	ne_mem_region->pages = kzalloc_objs(*ne_mem_region->pages, max_nr_pages);
-+	ne_mem_region->pages = kvzalloc_objs(*ne_mem_region->pages, max_nr_pages,
-+					     GFP_KERNEL | __GFP_NOWARN);
- 	if (!ne_mem_region->pages) {
- 		rc = -ENOMEM;
- 
- 		goto free_mem_region;
- 	}
- 
--	phys_contig_mem_regions.regions = kzalloc_objs(*phys_contig_mem_regions.regions,
--						       max_nr_pages);
-+	phys_contig_mem_regions.regions = kvzalloc_objs(*phys_contig_mem_regions.regions,
-+							max_nr_pages,
-+							GFP_KERNEL | __GFP_NOWARN);
- 	if (!phys_contig_mem_regions.regions) {
- 		rc = -ENOMEM;
- 
-@@ -1036,7 +1038,7 @@ static int ne_set_user_memory_region_ioctl(struct ne_enclave *ne_enclave,
- 			dev_err_ratelimited(ne_misc_dev.this_device,
- 					    "Error in slot add mem [rc=%d]\n", rc);
- 
--			kfree(phys_contig_mem_regions.regions);
-+			kvfree(phys_contig_mem_regions.regions);
- 
- 			/*
- 			 * Exit here without put pages as memory regions may
-@@ -1049,7 +1051,7 @@ static int ne_set_user_memory_region_ioctl(struct ne_enclave *ne_enclave,
- 		ne_enclave->nr_mem_regions++;
- 	}
- 
--	kfree(phys_contig_mem_regions.regions);
-+	kvfree(phys_contig_mem_regions.regions);
- 
- 	return 0;
- 
-@@ -1057,8 +1059,8 @@ static int ne_set_user_memory_region_ioctl(struct ne_enclave *ne_enclave,
- 	for (i = 0; i < ne_mem_region->nr_pages; i++)
- 		put_page(ne_mem_region->pages[i]);
- free_mem_region:
--	kfree(phys_contig_mem_regions.regions);
--	kfree(ne_mem_region->pages);
-+	kvfree(phys_contig_mem_regions.regions);
-+	kvfree(ne_mem_region->pages);
- 	kfree(ne_mem_region);
- 
- 	return rc;
-@@ -1448,7 +1450,7 @@ static void ne_enclave_remove_all_mem_region_entries(struct ne_enclave *ne_encla
- 		for (i = 0; i < ne_mem_region->nr_pages; i++)
- 			put_page(ne_mem_region->pages[i]);
- 
--		kfree(ne_mem_region->pages);
-+		kvfree(ne_mem_region->pages);
- 
- 		kfree(ne_mem_region);
- 	}
+This series is based on net 8d5ce4751fad. Before/after virtme-ng/KVM runs
+on that base reproduced and corrected the exported offset for VXLAN,
+VXLAN-GPE and Geneve, with clean GRO-off and prebuilt-GSO controls.
+The complete extended TUN suite had only the added regression fail
+before the fix and no unexpected failures afterward; its 12 expected
+failures were unchanged. Selected UDP GSO tests passed on both variants.
+Bulk TCP delivery checks also completed, with the receiving TAP rejecting
+aggregates before the fix and accepting them afterward. The separate
+VXLAN-GPE raw-path segmentation rejection remains outside this series.
+
+Full x86-64 allyesconfig and allmodconfig bzImage/modules builds completed
+before and after the fix with Clang/LLVM 19 and W=1. Existing baseline
+warnings required KCFLAGS=-Wno-error; the fix introduced no new warnings.
+The runtime kernel pair used GCC 14 with matching configurations.
+
+The detailed timing table in patch 1 comes from three paired virtme-ng
+runs. Median 32 MiB TCP transfer times fell from 69.8s to 0.15s for
+VXLAN and from 70.8s to 0.16s for Geneve. Receiver rejections and
+retransmissions fell to zero, all payload bytes were verified, and
+GRO-off controls were clean.
+
+Bryon Fryer (2):
+  udp: restore outer transport header after tunnel GRO
+  selftests: net: check UDP tunnel GRO virtio offsets
+
+ net/ipv4/udp_offload.c            |   2 +
+ tools/testing/selftests/net/tun.c | 292 ++++++++++++++++++++++++++++++
+ 2 files changed, 294 insertions(+)
+
+
+base-commit: 8d5ce4751fad9499ea408163af7f410f18a85782
 -- 
-2.47.1
+2.47.3
 
