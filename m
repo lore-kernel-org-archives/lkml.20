@@ -1,95 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794502002;
-	b=aIClw4XGFgs3hijVZRfoG9IE9PIsePud0TjAFTNK51ZV5HUkLBfQyZCYhkAYmXVKY46q
-	 bTHsARYeGQlYX2TBXopPAyF5gGOg3R6eSw++ebcIaUg0Q9Ihcyn0UHclfcHwdN62vzovA
-	 RwdwtkidEaurH/gXJxwYuLy0eDu1fIRAZdjY60E55+a3vmEq6izP4jjixmiTMPcLai9o5
-	 N7o5+YAB60ZknC1dm8dI9fJuIRJiX90tncnI8EtoO8GPOS6rEesh9yeQQQNpEhyqISlWs
-	 eBUonBxT/TEGkdEXfX4cKha0t10OWnAIU8ncR6bCJWt9x3c0WjcNEpdATAW6zruBs2A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794502002;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=8ta6z27u8peSSt/lY40ST0jGo2ndF4PI28VpJFYCRxE=;
-	b=XibcMuudrnZN0Gof8QK86XFHgkhu1YIsi99EoCVGUK1RavzmWf2iSuKlsTby8nPgkqBi
-	 koIgd6IeFiWr+vQR4dUQTG+G3i2Oi3EASaJsI3bdjewwO87roXJzIAx3oEsfIIKrIOAq7
-	 86oxYT8qpIZw8yPIiYyS2YUumgJztrFsR+8nsIJaaAkygyHirv1JTVDXUWdwa64uwrgBQ
-	 kFcnnDkOqnuTzGEIJJ/3LqGtGPvql1MYgS7XQmYl+2vInKrzKY1gCoTTCzm5uB2IXrXLR
-	 6UyJ7+ELsCmWTensgjWdaYClQBihIkXJgkg1hZI+4KHV0j2l2Qu5yS/owOkKsyvI0GA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MxD0Jq9D;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.19
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794502010;
+	b=1E6V0gHMwk9Xdtm8SETX9plunWdJFczGxZ7CQHejsZ97Yvr4jIrWYVRY4AC1zbFENzVy
+	 G4h/ZAOk7BeMx+rXWN7fj06uhgQtwNt5Hd9cdvMD0JCRQyetoH/K7oPGFSZC7k0DtjP4v
+	 h9B9/rrz3m5nIe4bMEDMgu1fx10uuAfWbRRmX0vi/PvENUmU0TebHV8ZI8slany/COLS7
+	 exRdxtameyJyEY0vh9P3SucrZmZz+JlpvqBQ8zVMSRcFubYrniGg43GyBJ3mUujJ+uTjA
+	 6RVChWYgnSFbRZaW1plL9YSXJNPXRif3vOPdaDNGxrOGOnfxDeZIH9/PhnBO/X+m86A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794502010;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=zuWtrs163C+i6VB3CcXv//TKbh7ZjouV8eu/fctA6hI=;
+	b=guzeESm9Lz061WQZ87OyTZFo8kOC+rnJVTtaq80pOoXJp8BtJtwfiuZFs5EkDSINbs2F
+	 ZZdps5BB+hW/NrNxEfoAzAXJA0CBGNui8u9zlJWHxhLXmZtLK5aI1jJ6/HhOrxe0C/eOi
+	 JQJZM6Vb8bGeTeuaL7P6MSFznA8mGQJUysrreURm9aRi10UQ7OJ+HZSxiUFf1WpkbhJSJ
+	 WBhf8Q63CKYAelqxnxh2y/dBJF6eczO+ElLR2bf0mtWsDQEynd0dFCOPT4IkzD91tpXf5
+	 Azhgei5EcWybbhvDwo7XBmr1CPTGGLjpy6oYjZaHBRBJhtoNt51b66+HmpouwRN/O8g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=kobx8YkS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.19
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010019.outbound.protection.outlook.com [52.101.84.19])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15285606A885
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:46:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15285606A885
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3EF9606A323;
+	Thu, 12 Nov 2026 16:46:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3EF9606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MxD0Jq9D
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1aefd1bf74aso14358c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:46:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794502001; x=1795106801; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8ta6z27u8peSSt/lY40ST0jGo2ndF4PI28VpJFYCRxE=;
-        b=MxD0Jq9DO9ouHSvfsFJ7aC987hgsLKY6IoGYhYxocG3/5DJWWtzX+tSaqLcorBnVSD
-         wPv2YDjYCBZlYzYtPpDXcUjbYlpK1PAmR5+5GmIDSbuRraG4U2pO0iYcJ/SdRn5aO0d7
-         R1J9qS5cuxmV9Ql+L+gmszHXHtunL7xdO1/zKehLgE3QCFXlb6RSl3OOgA4kfEfSFRCW
-         DLckACnA2Z7TWLvUcHJx7jiiqlX7PeEW9jRBizj6D86CKMdsSTvSYSWvQWIoPgOB1Pw8
-         OF5UkTaFTfsjn89VVnpjv/NO1NHh2z/w1kbu1hCsqqPnKbDnC62ObhLeMMmnwNuPKSRe
-         FtMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794502001; x=1795106801;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8ta6z27u8peSSt/lY40ST0jGo2ndF4PI28VpJFYCRxE=;
-        b=f4pECYOxUj7E/2AkGcLscsU9Y9oghc2fMrcKVyy1L95bj231Ruc3bePdCi5THt3I96
-         zDESkC36YGCN+Y4+07nYsF8EUQhlMAjs+9oETgctf53t0PlkV4cAfyEh9YJlUozwbAg4
-         ZFxcoOpkP+vZJXouY+g9ux3AE+Amk6zk5kOrd4pXPbd/uyX1FwAktLNgDI5YUNA8XO+O
-         RCHKKtcCV431eout/xCthIGpzMPNzth94QaNuEUSWr0lzagDwdjznWabL3TYhfZPohX9
-         weqTnWp7Pqbe7G/1NmT8VNE4YjQ912OMXR0GovMnzFEEkcIGJzK50hrJc3r2X4DvNWmm
-         wBsw==
-X-Forwarded-Encrypted: i=1; AL+hErGFNMZTMAsMTcAXaBGAwy+Si8FnfuSj8djT+NppOrcCJTCV5tdXd7eoEfdi2Z0eJr/hgj48dSrJvvz+vJ0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9L2j+PQyf8jt18ayyqflbvBRbTfm111TAnmE3E8j7xMD0+az0/
-	h4dReE7RZJq5aHjY6veZWE15GymQTncNNX/RDuyjpKuiei5jwW9TPb1f
-X-Gm-Gg: AYBFou0uYUrJEkFm+4AHwD4tZWxxlu+WL1CliT0KJoxIhfXMAa9BcBZcKL4LJ4uMrmC
-	VvRCPPDe4Ij0PR/AyCNGxlPIBZ7402YU0DhenbcjK80Xku8k4MhJAqCCbNlz0h9Kir6itmd/RQk
-	1g7tBOKAB8S+zy51xYKtCtyleXAJNjkyUlUFwjmUFAHZgeY5aV109uUJ8CfkBGUUvy4yRnO+w7Q
-	h40bOckEf/fnNwfZ5WGyu36EiDaUtQD7Xh2CnObDQoIBui3aUbK2BnnLncZMYlkI+FU1l9wX03Z
-	AYAkbILAiPPBWsS1GnAMEmnMq1wBbmqDSJhim0AFtr9+Ub+3cc9U40MKsHpvCqOG+g/r8/638DR
-	+nH2pCp3l+fgk4npSw41QJWv5x6dL5B8dc4rdzAByzC1PLj+qZtY6Or9/rKS1DCBcH4u980haw2
-	n20pu2jBVcSLfuyBXy5sh+HW3sZp42MEBbUB820Bz4TE6yxG03aB4jJ8NBxkoasrTBcQseEuIwH
-	FaVFGtZB03WhP4vEUct1b5mWBvphUiqqtyn8gC1dRIaR9/ZrPY+tntEn7UZ4cBtvhql6PMtw8WP
-	u80HXO1lN0tmbA9lqEFLPdeaTYMOiqEyO09vbMZKF92gdSzxx0uHRzanCB/y48hbZhi9whioIBg
-	kmyPuH7aDw6tOc13G3biMpczTulE/HdE1KtJxcROy7e5XWg==
-X-Received: by 2002:a05:7022:ea8d:b0:145:ac96:3917 with SMTP id a92af1059eb24-1b4f5f734bamr2615650c88.21.1794502000878;
-        Thu, 12 Nov 2026 08:46:40 -0800 (PST)
-Received: from acemagic-m1.tail4fb79.ts.net ([2401:7400:c804:b668:2c54:4647:b67e:c94c])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50300e5dcsm287090c88.0.2026.11.12.08.46.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 08:46:39 -0800 (PST)
-From: Ho Jie Feng <hjf3108@gmail.com>
-To: Stanislaw Gruszka <stf_xl@wp.pl>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ho Jie Feng <hjf3108@gmail.com>
-Subject: [PATCH wireless-next v3 5/7] wifi: rt2800usb: enable RX bulk aggregation
-Date: Fri, 13 Nov 2026 00:45:39 +0800
-Message-ID: <20261112164544.3176458-6-hjf3108@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112164544.3176458-1-hjf3108@gmail.com>
-References: <20261112164544.3176458-1-hjf3108@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=kobx8YkS
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PllXc6r838SsQRlUngtXdQ0IEa+aqjHlsZpjRY4D23abkXRnzWgK6h0S0SaPDen0Qd2eBgxHlV9uyVU8e+8vRoWbbrSchs3qaeohCINx4n8OBI3zXiJhgM49wkVF8ndBdIJ8qjuNtjhZmlCRTLabO44BY2tGmAaLTd9Ul41MCO7cHtfepiM8YhHAC7dKoyaxO9eUZKCmdhznFi/S52HT3C1Z3fxcRRNpY3kK70DJAP3s5zWcsOj5xd3D2+s28Lphg4PyB/zJgTui1FNwy3khpFrc9X2pv+6FNcKRq9Aq2B5bOJEpJ8MPK8AfW3YIRx9MpRz2T2KLOltscSVicKa0Tw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zuWtrs163C+i6VB3CcXv//TKbh7ZjouV8eu/fctA6hI=;
+ b=RhAroOK9tqHTy3635619ZbI7dXx5zJiNiMc+bfGIWFujDS+932np+aFabZLRAhiOKJz9dYgQDdjpDJ40zqGH1XohHmEF62GQ5Xv6cpYTX0OQUCmNXnfvmZ73ptnCZeql3BFxlpK1QdoYraU752xTOSPREjytmTqWLrkSR/dvmFySrD3AxyXadCnr5/nyIK++l81BknUIcTAEm6WvQriJpZUHpbY5Wj2LVLJRIxPrDY10/ZSFcAtXvswaFLcxFxv57SQGrYExChj/wjRFixgBvv0PYk85WlN9SHQk1+KV1Hbft9qcR4fksoeU0Eusvzgu75eVe/DcwV5bVioSu/7HXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zuWtrs163C+i6VB3CcXv//TKbh7ZjouV8eu/fctA6hI=;
+ b=kobx8YkSueu01dp4zFnity0oOMVfVN4xPUOifVGaE9P6+rG7H2dFGCPbFzcnUWJUQz4MptxhIu8y5ZB9EWuiwZzCyBPVch7KcUYoeBlzW+oqB9OaujeM9huLPlHZ8l7Xrk4Q3ZHInPr3eExYj6fpS736oat6/L1yRNc9WluBRhtQPHy+2vlrRwWrgT3RBWQMui7ofI2b1K5AaWiunPOmCgd98gn1VmvTkOs20D6sUnArmd6Yu1BKEiQnJN2n4gV5oP9/Zr/mglMSl2UBDWIDwd+lFvo977dpzZok7PkZKq1JGSspno0FfD4LzExsm9oli3fOm2yG7cJxwpMR4NtA+w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AM8PR04MB7988.eurprd04.prod.outlook.com (2603:10a6:20b:24e::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
+ 2026 16:46:46 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.009; Thu, 12 Nov 2026
+ 16:46:46 +0000
+Date: Thu, 12 Nov 2026 10:46:20 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
+	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v6 8/9] dmaengine: fsl-edma: support per-channel DT child
+ nodes
+Message-ID: <avXtXBPdQcrNQ1Us@SMW015318>
+References: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
+ <20261112-edma-iommu-v3-v6-8-b038edb8ce6f@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112-edma-iommu-v3-v6-8-b038edb8ce6f@nxp.com>
+X-ClientProxiedBy: PH8P222CA0005.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:2d7::23) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,292 +112,390 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM8PR04MB7988:EE_
+X-MS-Office365-Filtering-Correlation-Id: ca4234b3-e156-48d8-caa8-08df40dc8a0c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|19092799006|10067099003|11063799006|4143699003|56012099006|261021123027099003|261021121427099003|261022075727099003|261026140227099003|261009223027099003|261028144727099003|261026121527099003|261102123227099003|261022105027099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	XNlcRG/UuHKlzJU0u8lTCgyHdNeIAcWTwGee+ya4rYSJOuSXyFk5eLsQPllswyNIfEymdW5JSaUCLCp1zhuYPJTdJSNbIu0rtDy8/NoimtGDNqmKhbYxQ5ak22VO5CcIfutrlUFw18v2azckbKR91sEILirs70fFyQZkPocO5DheteX5iNcNuMXPPupOYrhG+hdeqFXBUHlJsDymlxOLr1PPe4Z7lj55OXx0oxzB/rpPccJbdhrpWtUlcdM6Ah4e815xCaPcIZ0zJ14ZkTkmW4+y37SssFVlvBYwFUX3ctbpZiqeqH15wkUyjAsUGh7R+SOa7szq4Ws7Kia5wl7tKpzH6G/yKw++hjYerpihNVKIDB8rcD/bRh9JhSND6bASLq4+RyMAszhyvbQTdJ+ginnEgugbmK5TOPgmD9cMl0ETCQSIsZvRdJzCELjZOxLIMUj5spe0fzv9m15TtSKpJjQJJeb0BeWm+4y04/05mM92bRfayWqxvmMh2ILBgsjnDsYRoeKfgvgVdTD3yrezPrTJcEs0hLubM7owtCDpotr0bd5tnwZSMWuXj+O4t1z4BoAGDJ0/l0dmCv4aHDsWp8F5UWYuuGml/P6I9omKQLkqT+aa78/xyOdQasHcZa8zesol6AQNWLZpdLJQlWpncylRnnItF3mPsmUvq0jnq88=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(19092799006)(10067099003)(11063799006)(4143699003)(56012099006)(261021123027099003)(261021121427099003)(261022075727099003)(261026140227099003)(261009223027099003)(261028144727099003)(261026121527099003)(261102123227099003)(261022105027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?rquTIftYCF5Vl4SLV10x9DrfOBQHBpjR3bkw1HucsVBVckZ9lvmIdh40dZka?=
+ =?us-ascii?Q?fRXK2UmODSk2Nxp41fwbx/cob4M9sH98SlHCitvcA+ucxM5aGUl5tS8z+jdz?=
+ =?us-ascii?Q?boBmyMZzFQtX0kJeE02v/cs8ivm8y4atyVtY1+5HPhoiH3BK8nwy85tPQLbc?=
+ =?us-ascii?Q?ymr4SwCQmwgM6gRq5ospLNjoFf0TzYxNG4DUQDbfh/VfdYjKNVuHO7szFMZl?=
+ =?us-ascii?Q?X/w33K0y6zMY30Ezo4RAp3wTO0v1gRAmrklcTCyLrOXMWOYTfUm92X7ei2+7?=
+ =?us-ascii?Q?oitVEblqmH96Fg8G/Tn5R8U0PD26Hk1KLrqQK6Fc6TDsVQ5Gwla7UgU2rmbw?=
+ =?us-ascii?Q?I8+deSUeJ38DuO7REfZ73gUik8PcagqUtWDsg+EGfHpGVPJGAoVG4arw9UuD?=
+ =?us-ascii?Q?SsO1/nXpXqT7bhLyHtmKzij/G6KXBjV9Bm8+yJwXa3Uj5MZ6JjTV2tLoLM8U?=
+ =?us-ascii?Q?vG7aIjgKvBz2iGcpYKAlVorY7vF5WeErRXd4ln7L2SI0N9nadUT9KchyJrMF?=
+ =?us-ascii?Q?COZutFcgWdFGLKGprY3ZkH3b1oog+zSxFeUTMIqdnOxLfwhgsz35S2Cq0uU+?=
+ =?us-ascii?Q?EPOdgD4g/GCmPlP/DrtpEPwaJCwsFIRupIeCwU7SNc6fIidflKZW09bAyE3n?=
+ =?us-ascii?Q?kRiwqIIYZxNJ8SLCseFdtCS3/fX8BZb23WZRm6UHFDSpocSqkhIeI5RRW/zG?=
+ =?us-ascii?Q?/M+53ll3HpgBmMbWZewRvLiug3u4BMBpK8Fe3I/QJ5o/HK/Kz3ZWMnzlIyDz?=
+ =?us-ascii?Q?F5F4L3ApbtNHXogDPWT1cyv/Oj0CUdvocyVXMreSLDVM222Q7GWiiNYeqSTX?=
+ =?us-ascii?Q?dFfKSh4qGog1n07JlO3g9AEdVzdbcgJxu9q41wn7PLiS66Zg/kYC6U6kr/8Z?=
+ =?us-ascii?Q?LdMnjIfg6KqCgbDtjqMUs/ULv0MpZtgJR57VVCLFn7y4RKXf7S4IkIqX7io6?=
+ =?us-ascii?Q?Vk0p1hVdFQfWT2UptoMnY8pM1RyKMCspA6SXL8vZUSZhToGENtOXNjyHTIRD?=
+ =?us-ascii?Q?lH2LZ74xAn+gGXHkqfnwAsD31+2TiUFWWlZqkf7BHv3toaExy/FcqjCKUqm2?=
+ =?us-ascii?Q?egk7Sc/cImamVcroNY/SbXC0ivFJa87W6GsdIeYXyqL4Uc6EK5cmgTTT1OeJ?=
+ =?us-ascii?Q?oQ3SLIzhiR8YC4+LpG25jql9MWHgxGvCrK8huNRprXygEmg9wbR3SIeEeWVX?=
+ =?us-ascii?Q?6c3xQyJ4FYVWefMtwPTfF1rWxJtqbVpO0LQwfNFju1tDYLuJwcUf+QJ9v1U6?=
+ =?us-ascii?Q?XnQ0Xhxm7CczlZcA1MTxSl/Xlndk1S6E7rqSBDghM3NzyesJRqXDDmPU9xaY?=
+ =?us-ascii?Q?yQLAyr0QgAfn6dCdArYAHzYnxFtiLUpvqYW0tctUmjRN7xd0HIdbQzT9JwcX?=
+ =?us-ascii?Q?X5Yr7brZHYQrNiFkowlf3c0Q0Pmh78G6XTw5ljDHQjJoUKzY+p97xaX8qSG9?=
+ =?us-ascii?Q?B7mnzoZn4uai4b20n+LhYrv1IidUq5/1nLMi6/kkN/+5bp6XlhOUsj8uHJ/S?=
+ =?us-ascii?Q?rZkJ1KCrag5Eg09Gno/kU1xiy8MnBQdS0AqBgWRYq88QOCAeBbfgK4nCePRe?=
+ =?us-ascii?Q?aGXiyyfz/8p/2YDPFD89LW7Nek9W3klW0EMO/z4cljWr31b4aemGdYgDgOK3?=
+ =?us-ascii?Q?R/K42SmpFMnp0LQXIlguai/4vMAFDGwaHIKQbzWk4a25nRaztbDYZMZWPVaA?=
+ =?us-ascii?Q?W0qMIUIRWjpent97o5xufwaIfW/WTIuRmrSLyNGoF8O/966Fozy9zKax7cAC?=
+ =?us-ascii?Q?GpHnp9YhM5IInUFL0S78R5Ggu25qsEfyUv7okI5TivT4XNF49vj3?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca4234b3-e156-48d8-caa8-08df40dc8a0c
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 16:46:46.5345
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TvCAXrw99iWLdQfcDJJ+l60mWqVXOjE/iUIDaZ6pIWB3gkJ6PmrmxipPNnYMhT1kYkuvWTieNZhSorLSrrplOCrDYqUm9jK82AeHuL8ZJEktLuM5I3h4Kc5i1irlNBhJ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7988
 
-Enable RX bulk aggregation on high speed USB, to receive more
-frames per URB.
+On Thu, Nov 12, 2026 at 03:53:11PM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+>
+> Add support for parsing per-channel child nodes from devicetree.
+> Each child node can carry its own interrupts and iommus properties.
+> Child power-domains are not handled here; power domains remain attached
+> at the parent level.
+>
+> The implementation is split into three functions:
+>
+> - fsl_edma_child_to_chan_id()
+> - fsl_edma_configure_chan_from_dt()
+> - fsl_edma_configure_chan_iommu()
+>
+> Child nodes beyond the configured dma-channels are ignored, which allows
+> boards to reduce dma-channels without disabling every unused child node.
+> If child nodes are present, every unmasked channel must have a child node
+> with a valid interrupt; otherwise probe fails with an error asking for
+> dma-channel-mask.  In child-node mode fsl_edma3_irq_init() does not fall
+> back to the parent's flat interrupt array.
+>
+> The shared error IRQ remains a parent-node interrupt.  A child-node-only
+> DTS without that entry simply has no shared error IRQ.
+>
+> Use dev_err_probe() so -EPROBE_DEFER is not logged as an error, and reject
 
-RX buffers are now 24KB, so reduce it to 16 buffers instead of 128,
-so that they take 512 KB in total instead of 4 MB.
+This common sense, can remove
 
-Test results:
-   before after
-TX 30.5   30.5
-RX 67.8   80.9
+> a channel whose iommus property did not result in an IOMMU mapping.
+>
+> Existing DTS without child nodes continues to work unchanged.
+>
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+>  drivers/dma/fsl-edma-common.h |   1 +
+>  drivers/dma/fsl-edma-main.c   | 199 ++++++++++++++++++++++++++++++++++++++++--
+>  2 files changed, 194 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/dma/fsl-edma-common.h b/drivers/dma/fsl-edma-common.h
+> index cbb077e98f55..8843dd5661fb 100644
+> --- a/drivers/dma/fsl-edma-common.h
+> +++ b/drivers/dma/fsl-edma-common.h
+> @@ -271,6 +271,7 @@ struct fsl_edma_engine {
+>  	int			txirq_16_31;
+>  	int			errirq;
+>  	bool			big_endian;
+> +	bool			per_chan_irqs;
+>  	struct edma_regs	regs;
+>  	u64			chan_masked;
+>  	struct fsl_edma_chan	chans[] __counted_by(n_chans);
+> diff --git a/drivers/dma/fsl-edma-main.c b/drivers/dma/fsl-edma-main.c
+> index 818b9b986f13..88d2b9d6b6ab 100644
+> --- a/drivers/dma/fsl-edma-main.c
+> +++ b/drivers/dma/fsl-edma-main.c
+> @@ -12,11 +12,15 @@
+>
+>  #include <dt-bindings/dma/fsl-edma.h>
+>  #include <linux/bitfield.h>
+> +#include <linux/math64.h>
+>  #include <linux/module.h>
+>  #include <linux/interrupt.h>
+>  #include <linux/clk.h>
+>  #include <linux/of.h>
+> +#include <linux/of_address.h>
+> +#include <linux/of_device.h>
+>  #include <linux/of_dma.h>
+> +#include <linux/of_irq.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/pm_domain.h>
+> @@ -400,12 +404,21 @@ static int fsl_edma3_irq_init(struct platform_device *pdev, struct fsl_edma_engi
+>  		if (fsl_edma->chan_masked & BIT_ULL(i))
+>  			continue;
+>
+> -		/* request channel irq */
+> -		fsl_chan->txirq = platform_get_irq(pdev, i);
+> -		if (fsl_chan->txirq < 0)
+> -			return  -EINVAL;
+> +		if (fsl_chan->txirq <= 0) {
+> +			/*
+> +			 * In child-node mode, missing child nodes are rejected
+> +			 * by fsl_edma_configure_chan_from_dt(); do not fall
+> +			 * back to the parent's flat interrupt array.
+> +			 */
+> +			if (fsl_edma->per_chan_irqs)
+> +				continue;
+>
+> -		fsl_chan->irq_handler = fsl_edma3_tx_handler;
+> +			fsl_chan->txirq = platform_get_irq(pdev, i);
+> +			if (fsl_chan->txirq < 0)
+> +				return fsl_chan->txirq;
+> +
+> +			fsl_chan->irq_handler = fsl_edma3_tx_handler;
+> +		}
+>
+>  		if (!(fsl_edma->drvdata->flags & FSL_EDMA_DRV_ERRIRQ_SHARE)) {
+>  			fsl_chan->errirq = fsl_chan->txirq;
+> @@ -415,7 +428,11 @@ static int fsl_edma3_irq_init(struct platform_device *pdev, struct fsl_edma_engi
+>
+>  	/* All channel err use one irq number */
+>  	if (fsl_edma->drvdata->flags & FSL_EDMA_DRV_ERRIRQ_SHARE) {
+> -		/* last one is error irq */
+> +		/*
+> +		 * The shared error IRQ remains a parent-node interrupt at
+> +		 * index n_chans.  A child-node-only DTS without that entry
+> +		 * simply has no shared error IRQ.
+> +		 */
+>  		fsl_edma->errirq = platform_get_irq_optional(pdev, fsl_edma->n_chans);
+>  		if (fsl_edma->errirq < 0)
+>  			return 0; /* dts miss err irq, treat as no err irq case */
+> @@ -703,6 +720,168 @@ static int fsl_edma3_attach_pd(struct platform_device *pdev, struct fsl_edma_eng
+>  	return -EINVAL;
+>  }
+>
+> +static int fsl_edma_child_to_chan_id(struct fsl_edma_engine *fsl_edma,
+> +				     struct device_node *child,
+> +				     struct resource *parent_res)
+> +{
+> +	const struct fsl_edma_drvdata *drvdata = fsl_edma->drvdata;
+> +	struct resource child_res;
+> +	u64 offset, ch_id;
+> +	u32 rem;
+> +	int ret;
+> +
+> +	ret = of_address_to_resource(child, 0, &child_res);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (!resource_contains(parent_res, &child_res))
+> +		return -EINVAL;
+> +
+> +	if (child_res.start < parent_res->start + drvdata->chreg_off)
+> +		return -EINVAL;
+> +
+> +	offset = child_res.start - parent_res->start - drvdata->chreg_off;
+> +	ch_id = div_u64_rem(offset, drvdata->chreg_space_sz, &rem);
+> +	if (rem)
+> +		return -EINVAL;
+> +	if (ch_id > INT_MAX)
+> +		return -EINVAL;
+> +
+> +	return ch_id;
+> +}
+> +
+> +static int fsl_edma_configure_chan_from_dt(struct platform_device *pdev,
+> +					   struct fsl_edma_engine *fsl_edma)
+> +{
+> +	struct device_node *np = pdev->dev.of_node;
+> +	struct resource parent_res;
+> +	u64 child_mask = 0;
+> +	bool has_children = false;
+> +	int i, ret;
+> +
+> +	ret = of_address_to_resource(np, 0, &parent_res);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for_each_available_child_of_node_scoped(np, child) {
+> +		struct fsl_edma_chan *fsl_chan;
+> +		int ch_id, irq;
+> +
+> +		has_children = true;
+> +
+> +		ch_id = fsl_edma_child_to_chan_id(fsl_edma, child,
+> +						  &parent_res);
+> +		if (ch_id < 0) {
+> +			dev_err(&pdev->dev, "invalid channel in %pOFn\n", child);
+> +			return -EINVAL;
+> +		}
+> +
+> +		if (ch_id >= fsl_edma->n_chans)
+> +			continue;
+> +
+> +		if (fsl_edma->chan_masked & BIT_ULL(ch_id))
+> +			continue;
+> +
+> +		child_mask |= BIT_ULL(ch_id);
+> +
+> +		fsl_chan = &fsl_edma->chans[ch_id];
+> +
+> +		irq = of_irq_get(child, 0);
+> +		if (irq == -EPROBE_DEFER)
+> +			return -EPROBE_DEFER;
+> +		if (irq <= 0) {
+> +			dev_err(&pdev->dev,
+> +				"channel %d child node has no valid interrupt; add interrupts or disable it with dma-channel-mask\n",
+> +				ch_id);
+> +			return irq < 0 ? irq : -EINVAL;
 
-This code references the mt7601u driver.
+logic have some complex,
 
-Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
----
- .../net/wireless/ralink/rt2x00/rt2800usb.c    | 32 +++++--
- .../net/wireless/ralink/rt2x00/rt2800usb.h    |  6 ++
- drivers/net/wireless/ralink/rt2x00/rt2x00.h   |  3 +-
- .../net/wireless/ralink/rt2x00/rt2x00dev.c    | 84 +++++++++++++------
- .../net/wireless/ralink/rt2x00/rt2x00mmio.c   |  2 +-
- .../net/wireless/ralink/rt2x00/rt2x00usb.c    |  5 +-
- 6 files changed, 100 insertions(+), 32 deletions(-)
+	if (irq <= 0)
+		return dev_err_probe(&pdev->dev, irq ? irq: -EINVAL,
+				     "...." )
 
-diff --git a/drivers/net/wireless/ralink/rt2x00/rt2800usb.c b/drivers/net/wireless/ralink/rt2x00/rt2800usb.c
-index 387c07e225..be58d72105 100644
---- a/drivers/net/wireless/ralink/rt2x00/rt2800usb.c
-+++ b/drivers/net/wireless/ralink/rt2x00/rt2800usb.c
-@@ -301,15 +301,15 @@ static int rt2800usb_enable_radio(struct rt2x00_dev *rt2x00dev)
- 		return -EIO;
- 
- 	rt2x00_set_field32(&reg, USB_DMA_CFG_PHY_CLEAR, 0);
--	rt2x00_set_field32(&reg, USB_DMA_CFG_RX_BULK_AGG_EN, 0);
-+	rt2x00_set_field32(&reg, USB_DMA_CFG_RX_BULK_AGG_EN,
-+			   rt2x00dev->rx->usb_maxpacket >= 512);
- 	rt2x00_set_field32(&reg, USB_DMA_CFG_RX_BULK_AGG_TIMEOUT, 128);
- 	/*
- 	 * Total room for RX frames in kilobytes, PBF might still exceed
- 	 * this limit so reduce the number to prevent errors.
- 	 */
- 	rt2x00_set_field32(&reg, USB_DMA_CFG_RX_BULK_AGG_LIMIT,
--			   ((rt2x00dev->rx->limit * DATA_FRAME_SIZE)
--			    / 1024) - 3);
-+			   (rt2x00dev->rx->data_size / 1024) - 4);
- 	rt2x00_set_field32(&reg, USB_DMA_CFG_RX_BULK_EN, 1);
- 	rt2x00_set_field32(&reg, USB_DMA_CFG_TX_BULK_EN, 1);
- 	rt2x00usb_register_write(rt2x00dev, USB_DMA_CFG, reg);
-@@ -478,6 +478,27 @@ static void rt2800usb_work_txdone(struct work_struct *work)
- /*
-  * RX control handlers
-  */
-+static unsigned int rt2800usb_get_rx_seg_len(void *data, unsigned int len)
-+{
-+	unsigned int min_seg_len = RXINFO_DESC_SIZE + RXWI_DESC_SIZE_4WORDS +
-+				   RXD_DESC_SIZE;
-+	unsigned int rx_pkt_len;
-+	u32 word;
-+
-+	if (len < min_seg_len)
-+		return 0;
-+
-+	word = rt2x00_desc_read(data, 0);
-+	rx_pkt_len = rt2x00_get_field32(word, RXINFO_W0_USB_DMA_RX_PKT_LEN);
-+
-+	if (WARN_ON_ONCE(RXINFO_DESC_SIZE + rx_pkt_len + RXD_DESC_SIZE > len) ||
-+	    WARN_ON_ONCE(rx_pkt_len & 0x3) ||
-+	    WARN_ON_ONCE(rx_pkt_len < min_seg_len))
-+		return 0;
-+
-+	return RXINFO_DESC_SIZE + rx_pkt_len + RXD_DESC_SIZE;
-+}
-+
- static void rt2800usb_fill_rxdone(struct queue_entry *entry,
- 				  struct rxdone_entry_desc *rxdesc)
- {
-@@ -706,6 +727,7 @@ static const struct rt2x00lib_ops rt2800usb_rt2x00_ops = {
- 	.clear_beacon		= rt2800_clear_beacon,
- 	.get_tx_data_len	= rt2800usb_get_tx_data_len,
- 	.fill_rxdone		= rt2800usb_fill_rxdone,
-+	.get_rx_seg_len		= rt2800usb_get_rx_seg_len,
- 	.config_shared_key	= rt2800_config_shared_key,
- 	.config_pairwise_key	= rt2800_config_pairwise_key,
- 	.config_filter		= rt2800_config_filter,
-@@ -725,8 +747,8 @@ static void rt2800usb_queue_init(struct data_queue *queue)
- 
- 	switch (queue->qid) {
- 	case QID_RX:
--		queue->limit = 128;
--		queue->data_size = AGGREGATION_SIZE;
-+		queue->limit = 16;
-+		queue->data_size = MAX_RXBULK_SIZE;
- 		queue->desc_size = RXINFO_DESC_SIZE;
- 		queue->winfo_size = rxwi_size;
- 		queue->priv_size = sizeof(struct queue_entry_priv_usb);
-diff --git a/drivers/net/wireless/ralink/rt2x00/rt2800usb.h b/drivers/net/wireless/ralink/rt2x00/rt2800usb.h
-index 9e180e9e41..2fae79072f 100644
---- a/drivers/net/wireless/ralink/rt2x00/rt2800usb.h
-+++ b/drivers/net/wireless/ralink/rt2x00/rt2800usb.h
-@@ -29,6 +29,12 @@
-  */
- #define TXINFO_DESC_SIZE		(1 * sizeof(__le32))
- #define RXINFO_DESC_SIZE		(1 * sizeof(__le32))
-+#define RXD_DESC_SIZE			(1 * sizeof(__le32))
-+
-+/*
-+ * RX buffer size
-+ */
-+#define MAX_RXBULK_SIZE			24576
- 
- /*
-  * TX Info structure
-diff --git a/drivers/net/wireless/ralink/rt2x00/rt2x00.h b/drivers/net/wireless/ralink/rt2x00/rt2x00.h
-index ace06ba73d..7b1a32d3e1 100644
---- a/drivers/net/wireless/ralink/rt2x00/rt2x00.h
-+++ b/drivers/net/wireless/ralink/rt2x00/rt2x00.h
-@@ -600,6 +600,7 @@ struct rt2x00lib_ops {
- 	 */
- 	void (*fill_rxdone) (struct queue_entry *entry,
- 			     struct rxdone_entry_desc *rxdesc);
-+	unsigned int (*get_rx_seg_len) (void *data, unsigned int len);
- 
- 	/*
- 	 * Configuration handlers.
-@@ -1460,7 +1461,7 @@ void rt2x00lib_txdone(struct queue_entry *entry,
- void rt2x00lib_txdone_nomatch(struct queue_entry *entry,
- 			      struct txdone_entry_desc *txdesc);
- void rt2x00lib_txdone_noinfo(struct queue_entry *entry, u32 status);
--void rt2x00lib_rxdone(struct queue_entry *entry, gfp_t gfp);
-+void rt2x00lib_rxdone(struct queue_entry *entry, unsigned int len, gfp_t gfp);
- 
- /*
-  * mac80211 handlers.
-diff --git a/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c b/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
-index baf5d039bc..dc6a7d12b2 100644
---- a/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
-+++ b/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
-@@ -765,35 +765,14 @@ static int rt2x00lib_rxdone_read_signal(struct rt2x00_dev *rt2x00dev,
- 	return 0;
- }
- 
--void rt2x00lib_rxdone(struct queue_entry *entry, gfp_t gfp)
-+static void rt2x00lib_rxdone_skb(struct queue_entry *entry)
- {
- 	struct rt2x00_dev *rt2x00dev = entry->queue->rt2x00dev;
- 	struct rxdone_entry_desc rxdesc;
--	struct sk_buff *skb;
- 	struct ieee80211_rx_status *rx_status;
- 	unsigned int header_length;
- 	int rate_idx;
- 
--	if (!test_bit(DEVICE_STATE_PRESENT, &rt2x00dev->flags) ||
--	    !test_bit(DEVICE_STATE_ENABLED_RADIO, &rt2x00dev->flags))
--		goto submit_entry;
--
--	if (test_bit(ENTRY_DATA_IO_FAILED, &entry->flags))
--		goto submit_entry;
--
--	/*
--	 * Allocate a new sk_buffer. If no new buffer available, drop the
--	 * received frame and reuse the existing buffer.
--	 */
--	skb = rt2x00queue_alloc_rxskb(entry, gfp);
--	if (!skb)
--		goto submit_entry;
--
--	/*
--	 * Unmap the skb.
--	 */
--	rt2x00queue_unmap_skb(entry);
--
- 	/*
- 	 * Extract the RXD details.
- 	 */
-@@ -809,7 +788,7 @@ void rt2x00lib_rxdone(struct queue_entry *entry, gfp_t gfp)
- 		rt2x00_err(rt2x00dev, "Wrong frame size %d max %d\n",
- 			   rxdesc.size, entry->queue->data_size);
- 		dev_kfree_skb(entry->skb);
--		goto renew_skb;
-+		return;
- 	}
- 
- 	/*
-@@ -893,8 +872,65 @@ void rt2x00lib_rxdone(struct queue_entry *entry, gfp_t gfp)
- 	rx_status->antenna = rt2x00dev->link.ant.active.rx;
- 
- 	ieee80211_rx_ni(rt2x00dev->hw, entry->skb);
-+}
-+
-+void rt2x00lib_rxdone(struct queue_entry *entry, unsigned int len, gfp_t gfp)
-+{
-+	struct rt2x00_dev *rt2x00dev = entry->queue->rt2x00dev;
-+	struct skb_frame_desc *skbdesc, *frame_skbdesc;
-+	struct sk_buff *skb;
-+	unsigned int seg_len;
-+	u8 *data;
-+
-+	if (!test_bit(DEVICE_STATE_PRESENT, &rt2x00dev->flags) ||
-+	    !test_bit(DEVICE_STATE_ENABLED_RADIO, &rt2x00dev->flags))
-+		goto submit_entry;
-+
-+	if (test_bit(ENTRY_DATA_IO_FAILED, &entry->flags))
-+		goto submit_entry;
-+
-+	if (rt2x00dev->ops->lib->get_rx_seg_len) {
-+		skb = entry->skb;
-+		skbdesc = get_skb_frame_desc(skb);
-+		data = skb->data;
-+
-+		while ((seg_len = rt2x00dev->ops->lib->get_rx_seg_len(data, len))) {
-+			entry->skb = __dev_alloc_skb(seg_len, gfp);
-+			if (!entry->skb)
-+				break;
-+
-+			skb_put_data(entry->skb, data, seg_len);
-+
-+			frame_skbdesc = get_skb_frame_desc(entry->skb);
-+			memset(frame_skbdesc, 0, sizeof(*frame_skbdesc));
-+			frame_skbdesc->desc = skbdesc->desc;
-+			frame_skbdesc->desc_len = skbdesc->desc_len;
-+
-+			rt2x00lib_rxdone_skb(entry);
-+
-+			data += seg_len;
-+			len -= seg_len;
-+		}
-+
-+		entry->skb = skb;
-+		goto submit_entry;
-+	}
-+
-+	/*
-+	 * Allocate a new sk_buffer. If no new buffer available, drop the
-+	 * received frame and reuse the existing buffer.
-+	 */
-+	skb = rt2x00queue_alloc_rxskb(entry, gfp);
-+	if (!skb)
-+		goto submit_entry;
-+
-+	/*
-+	 * Unmap the skb.
-+	 */
-+	rt2x00queue_unmap_skb(entry);
-+
-+	rt2x00lib_rxdone_skb(entry);
- 
--renew_skb:
- 	/*
- 	 * Replace the skb with the freshly allocated one.
- 	 */
-diff --git a/drivers/net/wireless/ralink/rt2x00/rt2x00mmio.c b/drivers/net/wireless/ralink/rt2x00/rt2x00mmio.c
-index 93f76acf3d..a1d8b8d13d 100644
---- a/drivers/net/wireless/ralink/rt2x00/rt2x00mmio.c
-+++ b/drivers/net/wireless/ralink/rt2x00/rt2x00mmio.c
-@@ -78,7 +78,7 @@ bool rt2x00mmio_rxdone(struct rt2x00_dev *rt2x00dev)
- 		/*
- 		 * Send the frame to rt2x00lib for further processing.
- 		 */
--		rt2x00lib_rxdone(entry, GFP_ATOMIC);
-+		rt2x00lib_rxdone(entry, entry->skb->len, GFP_ATOMIC);
- 	}
- 
- 	return !max_rx;
-diff --git a/drivers/net/wireless/ralink/rt2x00/rt2x00usb.c b/drivers/net/wireless/ralink/rt2x00/rt2x00usb.c
-index c9fbc3710f..4519a20a7f 100644
---- a/drivers/net/wireless/ralink/rt2x00/rt2x00usb.c
-+++ b/drivers/net/wireless/ralink/rt2x00/rt2x00usb.c
-@@ -345,6 +345,7 @@ static void rt2x00usb_work_rxdone(struct work_struct *work)
- {
- 	struct rt2x00_dev *rt2x00dev =
- 	    container_of(work, struct rt2x00_dev, rxdone_work);
-+	struct queue_entry_priv_usb *entry_priv;
- 	struct queue_entry *entry;
- 	struct skb_frame_desc *skbdesc;
- 	u8 rxd[32];
-@@ -365,7 +366,9 @@ static void rt2x00usb_work_rxdone(struct work_struct *work)
- 		/*
- 		 * Send the frame to rt2x00lib for further processing.
- 		 */
--		rt2x00lib_rxdone(entry, GFP_KERNEL);
-+		entry_priv = entry->priv_data;
-+		rt2x00lib_rxdone(entry, entry_priv->urb->actual_length,
-+				 GFP_KERNEL);
- 	}
- }
- 
--- 
-2.53.0
+basic irq < 0 (include -EPROBE_DEFER), return irq
+      irq == 0, return -EINVAL
+      irq > 0, okay
 
+> +		}
+> +
+> +		fsl_chan->txirq = irq;
+> +		fsl_chan->irq_handler = fsl_edma3_tx_handler;
+> +	}
+> +
+> +	if (!has_children)
+> +		return 0;
+> +
+> +	fsl_edma->per_chan_irqs = true;
+> +
+> +	for (i = 0; i < fsl_edma->n_chans; i++) {
+> +		if (fsl_edma->chan_masked & BIT_ULL(i))
+> +			continue;
+> +		if (child_mask & BIT_ULL(i))
+> +			continue;
+> +
+> +		dev_err(&pdev->dev,
+> +			"channel %d has no dma-channel child node; add one or disable it with dma-channel-mask\n",
+> +			i);
+> +		return -EINVAL;
+> +	}
+
+print error only when bit is 0 at both fsl_edma->chan_masked and
+child_mask 0
+
+if (~(fsl_edma->chan_masked | child_mask))
+	return dev_err_probe(....);
+
+> +
+> +	return 0;
+> +}
+> +
+> +static int fsl_edma_configure_chan_iommu(struct platform_device *pdev,
+> +					struct fsl_edma_engine *fsl_edma)
+> +{
+> +	struct device_node *np = pdev->dev.of_node;
+> +	struct resource parent_res;
+> +	int ret;
+> +
+> +	ret = of_address_to_resource(np, 0, &parent_res);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for_each_available_child_of_node_scoped(np, child) {
+> +		struct fsl_edma_chan *fsl_chan;
+> +		struct dma_chan *chan;
+> +		struct device *chdev;
+> +		int ch_id;
+> +
+> +		if (!of_property_present(child, "iommus"))
+> +			continue;
+> +
+> +		ch_id = fsl_edma_child_to_chan_id(fsl_edma, child,
+> +						  &parent_res);
+> +		if (ch_id < 0)
+> +			continue;
+> +
+> +		if (ch_id >= fsl_edma->n_chans)
+> +			continue;
+> +
+> +		if (fsl_edma->chan_masked & BIT_ULL(ch_id))
+> +			continue;
+> +
+> +		fsl_chan = &fsl_edma->chans[ch_id];
+> +		chan = &fsl_chan->vchan.chan;
+> +		chdev = dmaengine_chan_dev(chan);
+> +		chdev->dma_parms = pdev->dev.dma_parms;
+> +		if (fsl_edma->drvdata->flags & FSL_EDMA_DRV_TCD64)
+> +			dma_coerce_mask_and_coherent(chdev,
+> +				DMA_BIT_MASK(64));
+> +		else
+> +			dma_coerce_mask_and_coherent(chdev,
+> +				DMA_BIT_MASK(32));
+> +		ret = of_dma_configure(chdev, child, true);
+> +		if (ret) {
+> +			dev_err_probe(&pdev->dev, ret,
+> +				      "IOMMU config failed for channel %d\n",
+> +				      ch_id);
+> +			return ret;
+
+return dev_err_probe(...)
+
+> +		}
+> +
+> +		if (!device_iommu_mapped(chdev)) {
+> +			dev_err_probe(&pdev->dev, -ENODEV,
+> +				      "channel %d is not behind an IOMMU\n",
+> +				      ch_id);
+> +			return -ENODEV;
+> +		}
+> +
+> +		chan->chan_dev->chan_dma_dev = true;
+
+I think you move fetch irq logic into this funcitons, over half of both
+code is similar.
+
+Frank
+
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  static int fsl_edma_probe(struct platform_device *pdev)
+>  {
+>  	struct device_node *np = pdev->dev.of_node;
+> @@ -835,6 +1014,10 @@ static int fsl_edma_probe(struct platform_device *pdev)
+>  			clk_disable_unprepare(fsl_chan->clk);
+>  	}
+>
+> +	ret = fsl_edma_configure_chan_from_dt(pdev, fsl_edma);
+> +	if (ret)
+> +		return ret;
+> +
+>  	ret = fsl_edma->drvdata->setup_irq(pdev, fsl_edma);
+>  	if (ret)
+>  		return ret;
+> @@ -897,6 +1080,10 @@ static int fsl_edma_probe(struct platform_device *pdev)
+>  		return dev_err_probe(&pdev->dev, ret,
+>  				     "Can't register Freescale eDMA engine.\n");
+>
+> +	ret = fsl_edma_configure_chan_iommu(pdev, fsl_edma);
+> +	if (ret)
+> +		return ret;
+> +
+>  	ret = devm_of_dma_controller_register(&pdev->dev, np,
+>  			drvdata->dmamuxs ? fsl_edma_xlate : fsl_edma3_xlate,
+>  			fsl_edma);
+>
+> --
+> 2.34.1
+>
