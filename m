@@ -1,72 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794472791;
-	b=iPl37P97i2Kzb1bIB5BeZ1cbcWkm5ifBdRIMzMmZpaqjNVrjmvHGxyZxGcyvMElsb7o3
-	 0CYGvyRaqTbvKXYMwvaoHMXBHmzsZ8gxIvzWpSvrPeJFUT/pcE3gEIaOHSIZDmR5B3eNP
-	 L3nWo4HZVZtIqZp2t0MYpbhDosspoG9Xn5GMawgTrdID08SG7krIsHzrGsY6BMtkA041O
-	 w1OjUtM7b4Gl+ol/y7cNJLzlPjrwEhwvmM5HUGGquFgPn7gs2TLMIsSrucxkElmsiKBj8
-	 K7eulqRY3zmxG20l5aHpKVhNlqGN+/H6YeL++6Ii5gj3gv8Tj/w20W00bncgKQY/ong==
+	t=1794472802;
+	b=ZLMn3HQd0p5mZc74u0/fEz+ciblc/mqat1Vevlk+A2LjVmfUPqq+aiwKf+uU3jFpNd4e
+	 Zrb/7oJDfKf3K8Xu2uYplE/yF9PeAB9N1J+Oefp5YQwH7Ktygc/IvZpKncCfNcOULRsA0
+	 +xz+ikbW2WBZEIHPyaIXLbjwWC/ROOSIvDeiPaMIuQNHbC++inPsixFmNPyWSUPhPU4qQ
+	 rn1mBCUy+cuH/84xiENyimouOtNyitfrNADbhmKSrChDHNUA/fsLH6WMBYpAoY3diaVt/
+	 KJbHQF/C76yWRq8SXJ8E5ZeGsoYw0YpCAx7u1ROTZRpESWgxfEunaoyu0VoA4q7/AFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472791;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=HoCxZnqDwVt70RG0ruGtLMnZF1f0PVlcRbSPjTQhqSY=;
-	b=F6v78JlzFpMimaOokKRJ9zah3Tuak2G7vqK399Y1rfcAzXRoMZ03IiFnM09/o4412xbK
-	 Ud1rNECsLsnM64Cy3J+a+c0BUp5qeAl35Mbdd/RlUDiAZ1vyCAZJMheDRW/ZohRKrnNbr
-	 nf1uEYy4Y7rRRndmaD548z4MwjtRmpjWysKbjkFqxfbjE+PV+bEUZAF/hykc+zKyv+t1o
-	 usQlFw0kzvM2k6KvFf2+pHFyU4qxYSs8DmAWOTbmfvKqkYUB1AoSQgF07CX65L7iSIXxE
-	 +RYl/oTHhLr5xDqUfd+/cxCThTTAxvNBJFWh9ZPxzoTlkDNE2oQ66KOyT6kqHrcJqSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472802;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=7mQ9PgE1JmToTrJOndvjvlG2pZvNaNVcvI5nSe1P3IU=;
+	b=Hg6X6GJdxJvXoK2Q8SbcxJUHBWj5xdLGy/B0QQAWJnVEZsOjEw1fxxkayEoaO2jCUxui
+	 QOnVGAGsOg0dBCBNXLNaJQWTXqfvdaQ5RP1MVhlBv8/i3N8PSZLbbYISiUQlBdAmunfrv
+	 vZlWOU38f/ZVjRJj1I334rFzvlrO1BDcFkLvhrOKiXPkMIBK8XJT6kYi3gaMdAfC9Yhsg
+	 wEDTkpHcKEthVdhVNoJDRZ2y981jG/x+ovCEslX4waR9tSLWBarrPEU45PmNWSpWlaNup
+	 uxai4gC239bOgLj7NR6WFWdpyxy9CIqrq1dNff4EDpy7KZXZ/OVfmF8ritcjHULsLiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=Mc1d85U7;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1067606B385;
-	Thu, 12 Nov 2026 08:39:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1067606B385
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=dvKOlbjk;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 85BAB606B38E;
+	Thu, 12 Nov 2026 08:40:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85BAB606B38E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=Mc1d85U7
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=HoCxZnqDwVt70RG0ruGtLMnZF1f0PVlcRbSPjTQhqSY=; b=Mc1d85U7R3WLHU95WhUzdkZxgV
-	ozTHQCkjclHt9UTS4prS3VMsVNmWfjlvc7XhqH+HFB6+nasvs8/itX1bdWbFw2NpY6MUTl6+pkWMR
-	hDAM6b19sQ5gp49s72iO5FSmiyPQCftKbLx6OhVskS8hYWRXhNEydcsHXuZi3A9mnYYvRIjpNfGS2
-	sTT3icVYicDyuc+q8SD1kIlYQyoZ9OV0ZuX5EE2SnaJ/UMgFKfNgoeY+mxAVZXCEXhKpsBV+eMNLr
-	GvSrompn4wAl/mqMFdufyaPz0NqdPQuLd7FBGOLmKjraaBLFFDKKKP5zPSSrxu7qp12T8QIL4FssF
-	2vq4j43A==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRQLS-0000000A4TG-2N2H;
-	Thu, 12 Nov 2026 08:39:46 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 7506E30066A; Thu, 12 Nov 2026 09:39:45 +0100 (CET)
-Date: Thu, 12 Nov 2026 09:39:45 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Jiri Olsa <jolsa@kernel.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
-	Naveen N Rao <naveen@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Jason Baron <jbaron@akamai.com>, Alice Ryhl <aliceryhl@google.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ard Biesheuvel <ardb@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Alan Maguire <almagui@kernel.org>,
-	x86@kernel.org, linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH 03/13] jump_label/x86: Avoid decoding instructions for
- jump entry size
-Message-ID: <20261112083945.GF2668804@noisy.programming.kicks-ass.net>
-References: <20261109194916.1089703-1-jolsa@kernel.org>
- <20261109194916.1089703-4-jolsa@kernel.org>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=dvKOlbjk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=dvKOlbjkxzAzGH2CcvRLA9QMKfkzEan6NRcKwcELTpvl7ebAhZ1Vaepsg8AZlTcprcICFIMKlKgw2
+	 nWoB1cvrQT3r3NQBAnVqh2MJOPYMs7vof158+T2bpNODcDwBwKDXGTKlsOkHhFtRgd67v2IhHddj92
+	 /9+2NK8qZ4v79Gy8=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76af57b5eb18-e158d;
+	Thu, 12 Nov 2026 16:39:58 +0800 (CST)
+X-RM-TRANSID:2ee76af57b5eb18-e158d
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from [198.18.0.6] (unknown[223.108.79.101])
+	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56af57b5c081-f984e;
+	Thu, 12 Nov 2026 16:39:58 +0800 (CST)
+X-RM-TRANSID:2ee56af57b5c081-f984e
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, Felix Fietkau <nbd@nbd.name>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Yanqing Wang <ot_yanqing.wang@mediatek.com>,
+ Bartosz Golaszewski <brgl@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ yana06070@163.com
+Subject: Re: [PATCH net-next v2] net: ethernet: mtk-star-emac: fix device_node
+ leak in mtk_star_probe()
+Date: Thu, 12 Nov 2026 16:39:57 +0800
+Message-ID: <1794472797000.690257.2793446627884027520@cmss.chinamobile.com>
+In-Reply-To: <179445682040.2168702.1032780874409478036@kernel.org>
+References: <1794455490000.585551.2561101329908158128@cmss.chinamobile.com>
+ <179445682040.2168702.1032780874409478036@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,27 +79,20 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109194916.1089703-4-jolsa@kernel.org>
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 09, 2026 at 08:49:06PM +0100, Jiri Olsa wrote:
+On 11/12/26 12:13, netdev-bot+sinfo wrote:
+>  - What hardware the change was tested on. For driver fixes please
+>    mention the device (and if relevant firmware version) used for
+>    testing, or say that the change was not tested on real hardware.
 
->  int arch_jump_entry_size(struct jump_entry *entry)
->  {
-> +	const u8 *code = (void *)jump_entry_code(entry);
->  
-> +	if (code[0] == JMP8_INSN_OPCODE ||
-> +	    !memcmp(code, x86_nops[JMP8_INSN_SIZE], JMP8_INSN_SIZE))
-> +		return JMP8_INSN_SIZE;
->  
-> +	if (code[0] == JMP32_INSN_OPCODE ||
-> +	    !memcmp(code, x86_nops[JMP32_INSN_SIZE], JMP32_INSN_SIZE))
-> +		return JMP32_INSN_SIZE;
-> +
-> +	BUG();
->  }
+Hi,
 
-Does this actually generate sane code and checks code[0] first for both
-values before it goes and does memcmp() ? The naive translation would
-suggest it does not.
+I don't have any MediaTek hardware with this Ethernet MAC, so the
+change is compile-tested only, with CONFIG_NET_MEDIATEK_STAR_EMAC
+enabled on x86_64.
+
+Thanks,
+Xia Yan
+
 
