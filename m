@@ -1,59 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501610;
-	b=chjGFelBhI8mrwpvXgGtxNeKtTYnLHSznFSs/kG3EEL5cPH9j15ZRWHZRH20MFI5bTNb
-	 TBkWgOt9vGnWtDASsBnG5xKQFYhRxhq0zuwW/KH4s+W41zVOwz5wPmgR/EsWjGeMol7Q+
-	 jTvefnzEpl6ZmzVXjTv132e3noqNJa1PaSqXxSqwz00tzBSvfNucBZtu0x4bfe0l91naL
-	 +fq5s1VhtpXIBMZAo0WWnnSvekgZeu+R+/4PLIxUhytEgM7UXt0vLNBG5/vlL4ikmaZKt
-	 V7Bp3kjWtix9EspDyEdgBQFKHPnXpoxg4m0F2XoVI1oXg7PFcdLSMaP/CnU6XJkmIXA==
+	t=1794501606;
+	b=EEIBpT6Kc7r3o6e5z7S0Fd1YAAj0KuIrrOSSSfxKXu4H8CJkTyDAr8rd8lvLs/tPwvu2
+	 Ni8NBb2QkhN4oWURlQz/6GPFpWbW11fZalrwAXhksryb37yrcjV1tl5WaUdSQKDyru3Wk
+	 kBRL1LWwlgg7zNAAqFSSHtK2XE0rQ3AjjA6CsVDO1dfzecR9PDEt3bItK0BIz9TTqpVC7
+	 4fvb7cNoGnIAuRy5N6fwaiR82zKfRJNvE2fknGAyU8UY3mK8Jj/ihyjTnC6OQiQ7r/k2P
+	 ZgdukD5VZkwz4/ycjC5wXaaRibsi+TRv5sTaxwkX5fI/LLhEu/j+F26uXyf7Ag2kyMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501610;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=C/y7Uwn+oYzUTWr8Qk21aG5gEd4/XpyC+An9k7mgPHU=;
-	b=3Ebfqbx29myiZk3+HUvfqvDqxGPzOkHWngdyLJ+sExipoTv6LsQiRS33MMO8XDelMSou
-	 zV4VoDcNseAdo13a0OUImiunwRrJOm/2VDIRttg2dPhr0Wy6gGZhUcQi8nmeXV1NZLvoQ
-	 ZpyhG7KE1JAh6voDXGgThLzUJ+pFApFCwgg4CZT2DhiNVL3Zc92fbsLIJfyIUGgAvlpY+
-	 Q/a2wCPDahYZT2LnCu8DgD9L+kly1JxJ6NV7PhA82IvjbZwtSFGlTQve2ym6wJefbKACM
-	 IcRhCADL2zjxpCp6nT+MxxfE9ydVADZJRl9u70BCE2+YQlZYwqzTfkKNT+B9sfm+pEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501606;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=Lq1TICx3qkA5CbbonbKpcn+aZhZNyYUwzWGq9B9pKXA=;
+	b=BB4oKkxp3fe5e2pm/0MhSo1cUUvGJ6AuzGESja+uKBkAT5wQx8L0KMZ+ydMpoK5mQpy4
+	 gFhhmpABJ7mayDJBArevWwXTYWR32tk1hYeNEiEfmkH5Gf7A/P2JJ0uDBJ3u5VHBQ/Ykw
+	 WI+gasRmy/z12/v5kBEOFT0Dl1L3Cc3miSfTEC6xPfxZp46ZuZoo1zfiSz/9mW8U0QEBM
+	 fMOZULi7Zari67Tir+d1TFoQWYypGbp0AC0vnQc8Kno/4x3MXjsUFQoFbW3zYzp4DPFZC
+	 EGtrYH0TXZMg84rvHNp4wQ4h8ge/e++Z9thzkCTRolbgGNskUy47sQJ38ibqjZUVxUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=l+Q1RsYq;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EBA3760A2627
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:40:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBA3760A2627
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bMw8zU+l;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39318606A8BB;
+	Thu, 12 Nov 2026 16:40:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=l+Q1RsYq
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7DE811516;
-	Thu, 12 Nov 2026 08:40:06 -0800 (PST)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 232B23F673;
-	Thu, 12 Nov 2026 08:40:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794501609; bh=OJf9vH/UgjbPnMOOD4wehtLjTNHfSY54RGcIkGkVj5A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=l+Q1RsYqmctClM4wHH70rhdR+HU8l3Kg7ueSQCCj6M/lsoXW/qFh42720oSelH2GM
-	 JhQXQQCr16wIWjJDJ2zx1hNlB/x3J6qZhH1su+womvkbU7Ez3JFeN0hyByCHApTd3o
-	 ZcLq8SbN47HvFupyhUkfKC4cIsm+8vL3/4W5TAJk=
-Date: Thu, 12 Nov 2026 16:40:05 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Breno Leitao <leitao@debian.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
-	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH] slab: allow sheaves for SLAB_NOLEAKTRACE caches
-Message-ID: <avXr5f2pe5lXpDN2@arm.com>
-References: <20261112-kmemleak_sheaves-v1-1-e40e3d73b253@debian.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bMw8zU+l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B7F01F000C5;
+	Thu, 12 Nov 2026 16:40:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794501606;
+	bh=Lq1TICx3qkA5CbbonbKpcn+aZhZNyYUwzWGq9B9pKXA=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=bMw8zU+lfv80QfDOFILC9ANYGN78R5hhaeTn+xi4eFylm5xofoCPkjTY1EivpN8WO
+	 66CbtsmCJZzzGnjWqXjPO9gGYKZUH+Shmbc/GSAVzj4iwKsOdfOEdeEDQthmK294zc
+	 eUf7h0Y0/Cyyefx2W/bwQveTGz5f8l4+BIJmCHbmYLnsiErBjIvs2idt6GK7iko6A7
+	 WjpHlEDZRUfs5gUHeS1USXsuqGakH1/n713XQTHuv/5xN05gBrxVugRuWBd4Qg7bbK
+	 k5ZbAWq7xO+a4cdUys3uryda0NXy8o0UzVVm+WAvuA4cCjeWUFk08wNd0jJb0kZxBm
+	 yHiMnz8f8VU3g==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F149D380AA5F;
+	Thu, 12 Nov 2026 16:40:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,46 +53,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112-kmemleak_sheaves-v1-1-e40e3d73b253@debian.org>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2] ptp: Report clock removal to poll waiters
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179450160478.52552.8310562765355263034.git-patchwork-notify@kernel.org>
+Date: Thu, 12 Nov 2026 16:40:04 +0000
+References: <20261108064928.1931917-2-thnkslprpt@gmail.com>
+In-Reply-To: <20261108064928.1931917-2-thnkslprpt@gmail.com>
+To: Avi Weiss <thnkslprpt@gmail.com>
+Cc: richardcochran@gmail.com, netdev@vger.kernel.org, horms@kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, arnd@arndb.de, john.stultz@linaro.org,
+ linux-kernel@vger.kernel.org
 
-On Thu, Nov 12, 2026 at 02:04:18AM -0800, Breno Leitao wrote:
-> This is a patch that makes kmemleak cheaper to run, by letting
-> kmemleak's own metadata cache use a _new_ sheaves type. The flag only
-> makes that possible without recursion.
-> 
-> The cost today:
->   * every allocation kmemleak tracks needs one kmemleak_object from
->     object_cache. An RCU callback frees it later.
-> 
-> Why that's slow:
->   * object_cache has no sheaves, so each of those allocations and frees
->     goes to the shared slab lists under n->list_lock.
->      - On meta's fleet kmemleak kernels, list_lock is the second most
->        contended lock, after kmemleak_lock.
->      - About 88% of that wait is RCU callbacks freeing kmemleak objects.
-> 
-> Why sheaves aren't allowed:
->   * a sheaf is a kmalloc object. Tracking it makes kmemleak allocate
->     another kmemleak_object, which needs a sheaf, and so on.
-> 
-> When I reported the recursion in [1], I suggested keeping
-> SLAB_NOLEAKTRACE caches away from sheaves, and commit e47c897a2949
-> ("slab: add sheaves to most caches") did that. It stopped the
-> recursion, but it took the sheaves away from the whole cache, although
-> only the kmemleak tracking of the sheaf itself recursed.
-> 
-> Commit 17c38c88294d ("slab: remove cpu (partial) slabs usage from
-> allocation paths"), from the same series, then left these caches with
-> no per-CPU caching at all.
-> 
-> In hindsight, skipping kmemleak only for the
-> sheaf itself, as the new SLAB_ALLOC_NO_LEAKTRACE does, would have been
-> the better fix.
-> 
-> Link: https://lore.kernel.org/all/aW_NK2NXVgtuzCVH@gmail.com/ [1]
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Signed-off-by: Breno Leitao <leitao@debian.org>
+Hello:
 
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Sun,  8 Nov 2026 08:49:29 +0200 you wrote:
+> ptp_clock_unregister() marks the clock defunct and wakes timestamp
+> waiters before posix_clock_unregister() marks it a zombie. A poll
+> waiter can consume the removal wakeup while the event queue is empty,
+> return no events, and remain blocked until timeout after device
+> removal.
+> 
+> Using netdevsim's mock PTP clock in an x86_64 QEMU/KVM guest,
+> the unpatched kernel missed all eight epoll removal notifications.
+> The four poll waits returned POLLERR only at timeout. With this
+> patch, all 12 poll and epoll waits reported clock removal promptly.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net,v2] ptp: Report clock removal to poll waiters
+    https://git.kernel.org/netdev/net-next/c/92be25a17ed6
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
