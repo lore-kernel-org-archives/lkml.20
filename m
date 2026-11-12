@@ -1,60 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794503683;
-	b=K9aL9/hHGujf8FkQNNTTjDRn+GUVwkS8t4AxoehnbJE2Kk2cWjEYu8rnqeIJsqSVhfvd
-	 SzcCgl8WqGmkrkpztK+FyaK/f/+pKPwVh5gEP5oszcI+fNFWtee86/dVJVWrnrCO/wdvY
-	 /ilMyPSiPmiH/JUGlSp0BLPqfiZ4U21vdZ36DSEz1mQgfR4hQOsy4pFKQ2g6Ed189+hEn
-	 W304XeK/pur0eaHGAZiKcoBdp3/RwWGkko9qtdvx3hUT4s9Y8ByDueuxSUYU2xUd0ATU3
-	 F2TQ2tb0MshGRTbUWOnboT6fm75ZpgRkdbRIageCy8l/D6x6HEJhd0rxaWmn5+NTxJQ==
+	t=1794503704;
+	b=VQSW1qfV5KMxOKgnUM4cq5VrkWPkGTf03JaEKRN2GP5VbFYzty/Zu3hP9EmOn4hqTxK0
+	 97F3163rNE5+ElnN8KOhGyJkhFnT7eX/zLR/9CAm/IHWDVBKWhkRzDh+OFBw9X2J0Dx/M
+	 ucF/JfOnbq8REvFYpk1vF5npzMD7aLg82OkJONhhLfats2EcigXjckVZicSIgUmV4yZtA
+	 vdm92EyJvV/wWiDbS6Ogj/LeobLDze9V60J348EtDLeKVV1IfUUe+4OtNva72LvNqp7HU
+	 DhehSllbecp4LgZ+FJtlNjRhwMRG3/U1HSNMFAxYF3zmisIfDBeccXgSMNmZu+QYEeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794503683;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=sIJOpYI0tqH12KdllEGaWQJYe1GWhkDdyw/STcddpKo=;
-	b=yixpWzHgl13c22OIbpa2bWCIMLCfLS9hw+jLmBelmAJdrNvyncLBd9IlGOQnf2LvZW/5
-	 uYEhHqIx8gtAhUekJbyLS5lc0nHz65ckoTr9oKCjrAp7SAGangTUjCz4uWzfDG+jL9uJP
-	 fSWbYH/JX2K7htZtwldIwDp0qpni5FnSXUFwlbvre07fMqTiY82150K7v56qdMnCJQCtD
-	 aHsbcI4SOy6zRkm3f/UKE6BGnc7VdOK1RZ1Jis9OF/lNQ9u/VUxDBoWVZri3AZH3mIf/N
-	 6F1RtzRNU5hdRGHB21/qTOZGgSVghE60ZbO7XHK0iMxBfcONdNrwJKAtT+eHBx4E/Ew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794503704;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=pkUNJy/G/i2yr1NWN9oiSB6swWvpLvuFtnABa0SM57s=;
+	b=1EEUhLz4SkIMDFxVRKJFh/+tUtPC8GRJxMzRGOe1wIXoCN6XtYJvfSSTXqp2OEXLoQtg
+	 EmLh2r+RTSHpg8QcUAHY7CuYneG3XZYngn7JBqNTLpajdpoOaKWYdNVLlYmpCmbx0FL87
+	 PKFEEudIF3SXB3+RknS+IgwYHsiXqsZXHlt6HIqYg8Pv66Y2woHv8e/FCqIn6XuNc46Uk
+	 fFVlNfKrJlKtfre9VDXEGCQelBSCMy4XunH7e0VGvNXubNp5q/H6s8dBcep2JUvc2fbjq
+	 vA9ggFTyXBDYEc4w38x9CIMKxYfemUIM/P9qcCsdSww5CZXK5vuNgIDhltd2SbrxSPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="kv2x/vPG";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=pmyoi0DA;
+	arc=none smtp.remote-ip=209.85.160.173
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35D00606A891;
-	Thu, 12 Nov 2026 17:14:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C67606A333
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:15:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0C67606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kv2x/vPG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80CA41F000CA;
-	Thu, 12 Nov 2026 17:14:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794503683;
-	bh=sIJOpYI0tqH12KdllEGaWQJYe1GWhkDdyw/STcddpKo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=kv2x/vPG3dP93Xn0Pt8n8/AF+47yHXHhwxZmYonj60EUdbF2I4hCPcWctyPubBFKw
-	 9YCmNSREnwdwhmH9ifRrNsWl9T3HI+mRvfh9AOFb/t5eARPoHgI+2QFa3fX+RXuaZs
-	 eaoOURJouW9OkL0uKsettGZj6XMs3J4mAszE1d/5yzSCVW0UM17TDVU74eDgIIJ2+7
-	 6cVRSlOJ48zMaqncdI8nxRDCljLQuKL/L3i9YARqRuT5jKphjMTcjRBSGEB4hDu5Cv
-	 LOmC4xjBrIMBKugdm49FdDPjLn5ea+BNI1kLL0K7/FQ781zNZf/tW3kDbviy6ucevt
-	 4gtWWWjgymRhQ==
-Subject:
- Re: [PATCH net 7/7] net: bcm4908_enet: drop RX frames longer than the buffer
-From: netdev-bot+sashiko@kernel.org
-To: kudzo51@gmail.com
-Cc: netdev@vger.kernel.org, rafal@milecki.pl,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-Date: Thu, 12 Nov 2026 17:14:42 +0000
-Message-ID: <179450368206.2199510.1806851064431992107@kernel.org>
-In-Reply-To: <20261109235700.2586821-8-kudzo51@gmail.com>
-References: <20261109235700.2586821-8-kudzo51@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=pmyoi0DA
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-53669f7b518so45421871cf.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:15:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1794503703; x=1795108503; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=pkUNJy/G/i2yr1NWN9oiSB6swWvpLvuFtnABa0SM57s=;
+        b=pmyoi0DAQQlNFzltCnW5ORgDwnPgssF9tc5Yb41egpqJgqO1bCD46e5CH1aNeekBwW
+         zNHDZbnO+IlIj94erHAXPMOAM++MXQqoXuZCMU4A5rLvl3ueWGShLAmTxgxlGbCB3/gG
+         ZHjvXlyYIqd6r+/SuPQvrTTCMPGpgZUnR+AgV5/jt45EQ2tyGvJM+kMslERvdjYJbMT1
+         9TMAzYgSYsdtz2+/xGf4uEOHM3MHtE71s0/etNjpd1b+uuTHQYTAfstQQM6azn5B8XfM
+         Jrp4nZhrib4IHL3HIQOCPoXU85VZDXpBpYjP8UIEY8bs1f3sG0zr3OlkX5wrMUEsI0qf
+         ujQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794503703; x=1795108503;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pkUNJy/G/i2yr1NWN9oiSB6swWvpLvuFtnABa0SM57s=;
+        b=sIk6B2nsFQTRjPYVtTsKpaKXARQgABPapg/jnlwE3ol6Ba4+kWsZtkifTcNBEI4RuB
+         DRRawCghv+KU2jD1JtvTiJgY2KJN4T9okwekFGcIpi0Gx+gHs+8kMRZO41blVqoquHe8
+         YAOzpWFOce1hiJrDyKn8Szvct9j9pqIewnFrdk/XT9+wUvSxPjGpLtqJ+qLwXqmNYmPa
+         3RFl+NuFrnEJAtm8VXOWr/KQo0S+szLs3S0GCQXDriPUIBAl4/UPCTihgtRsS6Ev2xDC
+         ZtCbvuSN56dcIdfuNhzCjb1NxUmLr1NDWpEf+zNBXIOSmxXOOBKBVPcPQKGi5EU3P7FZ
+         dL7w==
+X-Forwarded-Encrypted: i=1; AL+hErFI3Xlhcj9Hs1B9Q9jlE8amZrQKcVSr/11UYFLGSnkMw3acc7kB3Lm3Ca4mqx6uTfOiSB1xQ0WwKdCOVtM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9trz1UuI1uUrWsUU9wxIbaQqLaTJeRYDvVeSjuJzDZdLz7EVxE
+	4vjpoT8jjjPt9dD4P33dlhd650YKPz6CFfjbYMPBGGTxTBBBsFrt7SLQKeERH2BbQww=
+X-Gm-Gg: AYBFou0AKIFmadkScmqosk6VR+qKYzU6UK3CzP6TMt/Kw6yfVunmvPfCE0INgZN59Ib
+	eaZo1ZWdlnU3D7fCn4+kCQSjBWVh9j/Cterwc/gqMVJZuhh2GI8JARcUc+nQqG6Ix6Vc/TPeDsF
+	znTTRyjJqJ4MJ6CCY1Q/2O5eGobgCnDxAEciBuM1rzjdQpjcih32I7dzR+qfKu97PQkGE+c8SMA
+	sAlRizA0do7gvWFyioJQg48+yN8+mk+a6F2PY2q5kLYFt70LqeBl3tO8q59jKsko2r888JVJujy
+	e4oHgaYa0OFSGlh47QCHNv1k+RYM3PRM/mNvVMcsg//3DXxRrLdV167hkMECmBiIuXY80wMDgVz
+	ORLwhM8d1uoj3OUBc+xrgWl/YHsfYT6x66Aty1zHrYvZ1dETCRzsNmiS+a8y85EDy0OzKsH96AM
+	fl6Ter1BpzKGuwJq/7rNNeBlcV22Eg2VW8evh0VvYH+3UJ+Btp2b25fFmdJF4+pd/yPYC9zp7ji
+	ABnTAEaEIEsdcK6oA63h4PhGcVFsa4nGYxhW9rIYO0lNXnUZV1mUQPYt/CvdSuaHgXl1R1jCReN
+	LM7jJbu9vKwxhiaAFPubV8D+OHhFyS5o/0LLgO4yo/GtYSfE3YRlQ4m2+FXh43xeIJy8LYruvpz
+	UCQQ1B24=
+X-Received: by 2002:a05:622a:5793:b0:54f:863d:92c7 with SMTP id d75a77b69052e-55ac786019emr462181cf.41.1794503702764;
+        Thu, 12 Nov 2026 09:15:02 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5550af5f339sm78250641cf.9.2026.11.12.09.15.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 09:15:02 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,171 +89,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 05/13] mm/migrate_device: don't collect a range twice
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
+ Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
+ =?utf-8?q?J=C3=A9r=C3=B4me_Glisse?= <jglisse@redhat.com>, 
+ Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, 
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+ Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
+ Chris Mason <mason@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ "Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
+ "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+ Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
+In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-5-3d2454362e8d@kernel.org>
+References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
+ <20261111-mason-migrate-et-al-fixes-v1-5-3d2454362e8d@kernel.org>
+Date: Thu, 12 Nov 2026 12:15:01 -0500
+Message-Id: <179450370120.482102.8019443935242743968.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 2026-11-11 18:13 +0000, Lorenzo Stoakes (ARM) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> migrate_vma_collect_pmd() drops the page table lock to split a large folio
+> which it finds in the middle of a page table, and then starts over at the
+> "again" label. The entries for [start, addr) are in migrate->src[] and
+> migrate->dst[] by then.
+> 
+> While the page table lock is dropped the page table can go away, in which
+> case the restarted walk invokes migrate_vma_collect_huge_pmd(). However
+> this is passed start rather than addr, so [start, addr) is collected a
+> second time.
+> 
+> This can result in migrate->npages exceeding the number of pages the
+> caller asked for, and therefore in writes past the end of the
+> migrate->src[] and migrate->dst[] arrays.
+> 
+> Fix this by only handing over what has not yet been collected,
+> page-by-page, and flush the TLB for those entries which have been
+> previously replaced, similar to the other returns in the function.
+> 
+> Fixes: 022a12deda53 ("mm/migrate_device: handle partially mapped folios during collection")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> [ ljs: cleanup commit message ]
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Critical: 0 · High: 0 (1) · Medium: 2 · Low: 0
+Reproduced and observed the out of bounds condition with a KASAN kernel.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Fix looks reasonable to me.
 
-- [Medium] The new check in bcm4908_enet_poll_rx()
-  (drivers/net/ethernet/broadcom/bcm4908_enet.c:664-671) treats a…
-- [Medium] The new branch in bcm4908_enet_poll_rx()
-  (bcm4908_enet.c:668-670) increments netdev->stats.rx_length_errors and…
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the RX refill
-  failure path in bcm4908_enet_poll_rx() loses the old buffer and later…
-
---
-
-net: bcm4908_enet: drop RX frames longer than the buffer
-
-This patch adds a check to bcm4908_enet_poll_rx() so that RX descriptors
-reporting a length larger than ENET_RX_BUF_DMA_SIZE are dropped instead
-of being passed to skb_put(). Such frames are counted in rx_length_errors
-and rx_dropped. The commit message says this was seen only with the RX
-channel MAX_BURST raised to 32.
-
-> diff --git a/drivers/net/ethernet/broadcom/bcm4908_enet.c b/drivers/net/ethernet/broadcom/bcm4908_enet.c
-> index ea4a9eb98097c..b2debdfa0902e 100644
-> --- a/drivers/net/ethernet/broadcom/bcm4908_enet.c
-> +++ b/drivers/net/ethernet/broadcom/bcm4908_enet.c
-> @@ -660,10 +660,13 @@ static int bcm4908_enet_poll_rx(struct napi_struct *napi, int weight)
->  
->  		len = (ctl & DMA_CTL_LEN_DESC_BUFLENGTH) >> DMA_CTL_LEN_DESC_BUFLENGTH_SHIFT;
->  
-> -		if (len < ETH_ZLEN ||
-> +		/* A length past the buffer would make skb_put() panic the kernel */
-> +		if (len < ETH_ZLEN || len > ENET_RX_BUF_DMA_SIZE ||
-
-[Severity: Medium]
-On a mainline kernel, can the device ever report a length like this?
-
-bcm4908_enet_dma_alloc_rx_buf() maps exactly ENET_RX_BUF_DMA_SIZE (1532)
-bytes and puts that size in the descriptor:
-
-    tmp = ENET_RX_BUF_DMA_SIZE << DMA_CTL_LEN_DESC_BUFLENGTH_SHIFT;
-
-bcm4908_enet_set_mtu() programs mtu + ENET_MAX_ETH_OVERHEAD, which is
-also 1532 at ENET_MTU_MAX:
-
-    enet_umac_write(enet, UMAC_MAX_FRAME_LEN, mtu + ENET_MAX_ETH_OVERHEAD);
-
-bcm4908_enet_dma_ring_init() only ever writes ENET_DMA_MAX_BURST_LEN (8)
-to ENET_DMA_CH_CFG_MAX_BURST.
-
-The commit message says:
-
-    It was seen on a BCM4908 with the RX channel's MAX_BURST raised to
-    32, where the DMA reported a length of 3388 bytes, more than twice
-    the size of the buffer; with the default burst length it has not
-    been seen.
-
-Given that, does the Fixes: tag (and the stable backport it implies) fit
-here? The triggering configuration is not one mainline uses.
-
-There is also the question of what the hardware actually did. If the
-DMA wrote the 3388 bytes it reported into a 1532-byte mapping, then the
-skb_shared_info area of the frag, and part of the next napi_alloc_frag()
-allocation, were overwritten before the CPU saw the descriptor.
-
-Before this patch, skb_over_panic() stopped the system at that point.
-With this patch the frame is dropped silently. There is no WARN or log
-message, the channel is not reset, and bcm4908_enet_dma_rx_ring_enable()
-re-enables the ring with the same configuration.
-
-Did the hardware really overrun the buffer, or did it only misreport the
-length? If an overrun is possible, would a WARN_ONCE() or a ratelimited
-netdev_err() be better than a silent drop?
-
->  		    (ctl & (DMA_CTL_STATUS_SOP | DMA_CTL_STATUS_EOP)) != (DMA_CTL_STATUS_SOP | DMA_CTL_STATUS_EOP)) {
->  			dma_unmap_single(dev, slot.dma_addr, ENET_RX_BUF_DMA_SIZE, DMA_FROM_DEVICE);
->  			skb_free_frag(slot.buf);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but slot.buf can be NULL
-when this path runs, after an earlier RX refill failure.
-
-bcm4908_enet_poll_rx() copies the ring slot by value and then refills
-the same index:
-
-    slot = enet->rx_ring.slots[enet->rx_ring.read_idx];
-
-    /* Provide new buffer before unpinning the old one */
-    err = bcm4908_enet_dma_alloc_rx_buf(enet, enet->rx_ring.read_idx);
-    if (err)
-        break;
-
-bcm4908_enet_dma_alloc_rx_buf() writes straight into the ring slot
-before it knows whether the allocation worked:
-
-    slot->buf = napi_alloc_frag(ENET_RX_SKB_BUF_ALLOC_SIZE);
-    if (!slot->buf)
-        return -ENOMEM;
-
-If napi_alloc_frag() fails, the ring slot now holds buf == NULL. The
-only reference to the old, still-mapped frag was in the local copy,
-which is discarded on the break.
-
-On a dma_mapping_error(), slot->dma_addr is overwritten with the error
-cookie and slot->buf is set to NULL, so the old streaming mapping is
-leaked as well.
-
-read_idx is not advanced, and the descriptor still has OWN clear. The
-next poll therefore handles the same index with slot.buf == NULL. Once a
-refill succeeds:
-
-    bcm4908_enet_poll_rx()
-      build_skb(NULL, ENET_RX_SKB_BUF_ALLOC_SIZE)
-        __build_skb_around()
-          __finalize_skb_around()
-            memset(shinfo, ...)   <- NULL + size
-
-Does this oops in NAPI softirq context? On the bad-frame path, including
-the new len > ENET_RX_BUF_DMA_SIZE branch, the code calls
-skb_free_frag(NULL) instead, and after a mapping error it calls
-dma_unmap_single() on the error cookie.
-
-bcm4908_enet_dma_uninit() skips slots with buf == NULL, so the leaked
-frag and its mapping are never released at teardown either.
-
-Could bcm4908_enet_dma_alloc_rx_buf() allocate and map into local
-variables, and update the slot only on success?
-
-> +			if (len > ENET_RX_BUF_DMA_SIZE)
-> +				enet->netdev->stats.rx_length_errors++;
->  			enet->netdev->stats.rx_dropped++;
-
-[Severity: Medium]
-Should rx_errors be incremented here as well?
-
-The struct rtnl_link_stats64 kernel-doc in include/uapi/linux/if_link.h
-says:
-
-    @rx_errors: Total number of bad packets received on this network
-    device. This counter must include events counted by
-    @rx_length_errors, ...
-
-This driver never touches rx_errors, and bcm4908_enet_netdev_ops has no
-ndo_get_stats64. Userspace therefore sees the raw netdev->stats values.
-After one oversized frame, ip -s link would show a non-zero frame count
-with zero errors.
-
-The same frame is also counted in rx_dropped, which the uAPI describes
-as packets received but not processed, for example because of a lack of
-resources.
-
-For comparison, bcmsysport.c and bgmac.c increment rx_length_errors
-together with rx_errors, and do not also count the frame in rx_dropped.
-
->  			break;
->  		}
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109235700.2586821-1-kudzo51%40gmail.com
+~Gregory
+
