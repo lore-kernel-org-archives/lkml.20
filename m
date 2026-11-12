@@ -1,59 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794478137;
-	b=H8t/me2noAbWRaJzsJ9sl0FbV7Gf+3TNhrbVV8QQp1JvFpbXt8Y5b2YUm8kDEXhoVgY5
-	 imzdNcbNmu1E8VN3SRKX/P9++yBrOZnHJpfasK0DO4hl+3Yjqcl7Xkqh3gam2t54uPorw
-	 5TyrGnwB9kLCQKaKjb1mf417HNLcNujtm7GiLBzmngkSVCOmHT+P3flJrpqnO0jyS82Ye
-	 GQPfuZMTdkieaquynvTh3l3k2i5W7PotdmANe0GKq6VHq8iyknZkiYVoIpomqoFsCAlFq
-	 YC4ZAhSguQWqtOGuthwO7j0Jv2BMkgNQeIQziuPTknkN8Jt9nxx4jD70Afenzqz4vDw==
+	t=1794478143;
+	b=HrKIDQx8vdMr6UT7C0YdE5bv1IY3DliI2234qyC62Am2vSCbfSkK6Sbl/+qZcvhx6uSg
+	 V72pAUIFnk2hzKRfvwWSZIuGjwMG7JqOJeIGfqPQ2Wsymc7oJd3AZpVDyiBwZBwLVb8sT
+	 MONOQn4s8UOupO5CeEaviS3ckaa21NZL2UjJu/qrfqxy1zmycFonOc8WKhSL8dv2O/Yao
+	 tmXEYGU7tHqpPINbAoif8xBZVLPbyEiUx0ydsuIMbS8fk2tkJ1evWuJEHqvwiagrtU5nA
+	 Y7/aKveVf2B6fMeollEu3ejAeC3EDHxGRdiVO57HT+7reclcSY9w/GOEz6OyO76WoHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794478137;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=9MoWrZ01MvLCswjQtum5NRuL88rMY2EPIT05IIXNVrc=;
-	b=NDEQmQ+/hQ71Uty5RghZ9JXRC//pfSNX+cCrpxAeLXk+u1J1h8cvwJuHCNX3DhXdJt6I
-	 reu9NXM832Vt3WPH3DaCAHtI1PkJzJGeHPAA9NL7w8KAIInoGEaHlNLozLUDKRSrlQ+BS
-	 NTd9f+I99/dmZUPddf7JfyxfdVw+jDKuOZ1hLf+yGVjNbywRk7ocyajWjapScOOFgHHHU
-	 QkPOLMbSxAKB0ziFgZy8mMhHLBjUd5j+Hx09/HEJKevDoP4cnTRAxnOICvfXokpikAv3m
-	 f4Fgu5D98uvQlP06VxicvbyV6S63yl/VBJwhgucA/eh9ts+EUkF21c4jUuUMsjWKbLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794478143;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=xPCtd0ewEaMYLBvmRKUfVVx6VAZUS9abtar/G6UrVBQ=;
+	b=r5qOIC0dnVZz2Tao5Xnkl22iJPNcYCu1CMJ3EylWp+xs6WT3oAkot+d7Tif3eJ7N9gAn
+	 UevSBGNia2NDHR+GQ9teIPJv8J1JSFA+E5V2SMRu5JUgrpsDPrpkobAY0/E9RZnQavzhr
+	 FPVFA1tJmEMlo5VhRmrf5JICMUK4Yazuw/8VZA1fkdbY8ZweLiUCQJ8nCRyLFUtyaxb7Q
+	 jvKuNZ2nchFx4TJlMBptRQ7PbaGNqcfZcLHJMXz9AJfwsA2XER787bjnRF+xRjQ3+x1nS
+	 mPpKhSNg7upJgH9WN9UHLjELCKGwZdmbovPwCl7lWIZe+NTO4T3OgrPMZ/szPnaAKaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JiXMBpMe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kR0Nxphh;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C398606A882;
-	Thu, 12 Nov 2026 10:08:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49518606A8BE
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:09:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49518606A8BE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JiXMBpMe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40B3E1F00A05;
-	Thu, 12 Nov 2026 10:08:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794478136;
-	bh=9MoWrZ01MvLCswjQtum5NRuL88rMY2EPIT05IIXNVrc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=JiXMBpMe2wqNhjeXUiKa970NELVDjpwvX5CkTomGVwYPGY9fK71lvzwLcDpmebLgj
-	 eAkSrgLk9ui8a4wL4SYWitHFs+nxWR69Z7JCNVdcHV0SUwB/sc3YSVnUGdaB1Iz/M1
-	 xtaJ6VWtOeDuaAo/azRqY1q253OPVysF1QhQMc3RZIqb8vuMh4gpKoJ0M3B3oHa3eB
-	 ZTD18iTagKGOC9+8mVzppDTXXFkd86oQsE8cSb0Xp5GfXwDAij8g58P/Rc+0y3tbkm
-	 G0bZPeymp12LQffluz8cu9r/7Q2Hocbc3OnkpL/8nAgoS2xeKNc6l8YXG3sCB4PiZK
-	 WhMAG4ra6UiqQ==
-Subject: Re: [PATCH net-next v2 3/6] eth: mpnic: TCP segmentation offload
-From: netdev-bot+sashiko@kernel.org
-To: daniel.zahka@gmail.com
-Cc: alexanderduyck@fb.com, kuba@kernel.org, kernel-team@meta.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- pabeni@redhat.com, dimitri.daskalakis1@gmail.com, mohsin.bashr@gmail.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 12 Nov 2026 10:08:55 +0000
-Message-ID: <179447813579.2199510.17629296645152623901@kernel.org>
-In-Reply-To: <20261110-mpnic-lso-v2-3-ccd37b051d08@gmail.com>
-References: <20261110-mpnic-lso-v2-3-ccd37b051d08@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kR0Nxphh
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-49412eb1474so2451709f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:09:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794478142; x=1795082942; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xPCtd0ewEaMYLBvmRKUfVVx6VAZUS9abtar/G6UrVBQ=;
+        b=kR0NxphhiKL+KTZF8o5eVdEGBcFw16FPpJZbnJ6st++UfStJgVk7E7bNwBEldsJFxa
+         sEPs5mXBmajfiaz4b/Qqs6NZL4+AorWUoVa+EDUq12Am62hTuxaxUcUIhFOJIY5yRxuG
+         U/aNNlqiLbFRnk1jBxAW3nby+RwxWi05dCOUOLp/1XnmoNrqQ4iRj7cSLsQkH0VDLVp9
+         VTS+9/PK8jUeU5eSst9LA3sgkAq0hI2LtGgyScjj49UYF2sYVfsFWBMZ9kPq6F66TrJJ
+         mdoEelL4OBWpaTfbKN48wcySnScpPrn2HPpxlaIHeeYVDSpu5X9Dlq9QTxlbUit66j1M
+         HNuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794478142; x=1795082942;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xPCtd0ewEaMYLBvmRKUfVVx6VAZUS9abtar/G6UrVBQ=;
+        b=EX9fEsG430FecZ7IHxi//wG3/G4rU9m940+gIKlOBUpLfRHNLPGVO5dNeEkBDw5OcA
+         7tFrl+7+ECRbZIND939ppc3BBKFCBDDCJEW3NG5okM5wDAiFReOzjbyVq5Qj6hPggdgT
+         A41ThPMR3k0Dy790U8GHVnX9OnJ2qsjegqRY1lfjC6GHaWz0pvhNgkbVf5JhVHLlCdkU
+         6axyW2H1+tTSdn09g40iP1yJm5elnZmpC982X1ASUYfjOiactQgJZYrRFYA0tp8JY3eY
+         QjZnRTTMx8xDP4PBD00Q7BVx6IjRVZEa3HjRDwvjeedsOcyfCAvJ7xMeXbnQLPH5B9Nw
+         X8tA==
+X-Forwarded-Encrypted: i=1; AL+hErEFviiBo3/ZNr82k05G1CELCZbKWtf87Oatv3ZiBU4clU0itgyygj33Nf+ZMMHfcaelGyBtRij1AX3gjpQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8V8qUk90sFQf9O6NHvP8zbKZ8xtLqgv1eHNtRRdcID30htyzOk
+	NRlsW/gdMVUQckaLSo8gjOUowNTbmgJgQDSPIrPkNL4i+2nmqGhKCDEY
+X-Gm-Gg: AYBFou0Lw+LfUbH4uSbXLQom4gFMmKlH4NyAOFC7khivM86A2LXTzCJwyh2QRxbItWJ
+	bv8JSWHUquY5cbcAtg+BevVZfBxeGOw1G9B+2N+JCF+5onSMivXmpNqb6RLn/b9eQjoeL1BbYT1
+	eIlnGcGhy1eQRDqPevPuEDtctM2T0SNjo8M8lQl8EhDsDjCxm80rgwXSUzeADcZsRxGXcIv3Qi9
+	5p3FCsgTxKRL1oCt+D8W7ETdnsZbaysAZ9MuETVYta3rdZG7Ty7Pq5pLYL/IaJSyImCZPLHxOku
+	BpLtz8FmK0Ff15e9sNG9/dF1iExaTZiovAB8IDQQHMkLrzxxGo2dKLNn4IhlolcHcRR+M6m7bYO
+	LZSPtmZWnQFb0AM7jL8UhyNUfxSEdV6drxu8UF/dON0Xl9rO9904E9hN+2r5AHHd6Tu0hKu9o67
+	UvcXUwMfuvZv+J3SfVNxEEQRc4aQnyEl8h+I2553B2JXlaZKuboVTJTysJwXorX9qjpox2CU3K4
+	OYfdk2Gt3Im1qrSOFVZC86qquNUA8/IkurEg2m0KONWzboDnpdZuYMnTSM25vCFv9MQgMTD7LhC
+	TqPa0pQsjSmwIN1NOf5FuK6x
+X-Received: by 2002:a05:6000:4b06:b0:48e:7026:5243 with SMTP id ffacd0b85a97d-499c7270e9cmr8410567f8f.20.1794478141350;
+        Thu, 12 Nov 2026 02:09:01 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983600bd6esm16211466f8f.28.2026.11.12.02.08.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 02:09:00 -0800 (PST)
+Message-ID: <048ba947-e63c-4361-8982-b40372d4f062@gmail.com>
+Date: Thu, 12 Nov 2026 11:08:58 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,136 +92,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/4] mm/huge_memory: use the large-page PAT encoding
+ for huge pfn mappings
+To: Eliav Farber <farbere@amazon.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ x86@kernel.org, William Kucharski <william.kucharski@linux.dev>,
+ Vishal Moola <vishal.moola@gmail.com>, Alex Williamson <alex@shazbot.org>,
+ Matthew Wilcox <willy@infradead.org>, Peter Xu <peterx@redhat.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20261112051440.16140-1-farbere@amazon.com>
+ <20261112051440.16140-5-farbere@amazon.com>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261112051440.16140-5-farbere@amazon.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 11/12/26 6:14 AM, Eliav Farber wrote:
+> insert_pmd() and insert_pud() build the entry from the pgprot that
+> vmf_insert_pfn_pmd()/_pud() took from vma->vm_page_prot and passed
+> through pfnmap_setup_cachemode_pfn(). That pgprot carries the PTE-level
+> cache mode encoding, but x86 keeps the high PAT bit at bit 7 for a PTE
+> (_PAGE_BIT_PAT) and at bit 12 for a PMD or PUD (_PAGE_BIT_PAT_LARGE),
+> where bit 7 is _PAGE_PSE.
+> 
+> A memtype that needs that bit, write-through or write-protect, loses it:
+> the cache mode index of the huge entry drops from 4-7 to 0-3. With the
+> PAT slots Linux programs, write-through (slot 7) becomes UC (slot 3),
+> and write-protect (slot 5) becomes write-combining (slot 1), which loses
+> the write protection. The other x86 paths that build a large entry from
+> a PTE pgprot convert it first, see populate_pmd() and populate_pud().
+> 
+> Convert in the two huge pfn paths. Add a generic pgprot_4k_2_large()
+> that returns its argument unchanged, so that only architectures which
+> encode the levels differently have to define it, and x86's existing
+> definition is picked up.
+> 
+> The folio paths keep using vma->vm_page_prot as is. They map
+> struct-page-backed memory, which x86 maps write-back.
+> 
+> Fixes: 5cad465d7fa6 ("mm: add vmf_insert_pfn_pmd()")
+> Signed-off-by: Eliav Farber <farbere@amazon.com>
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+LGTM:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] At this commit, mpnic_xmit_frame_ring()
-  (drivers/net/ethernet/meta/mpnic/mpnic_txrx.c:306) calls…
-- [Medium] eth: mpnic: GSO validation bypass in mpnic_features_check()
-
---
-
-eth: mpnic: TCP segmentation offload
-
-This adds hardware segmentation for non-encapsulated TCPv4/TCPv6 packets
-to the mpnic driver. It also programs the TOF mode and TCP flag clear
-registers, and reports hw_gso_wire_packets through the netdev qstats API.
-
-> diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-> index a35ce8998409d..b78f8599bbe8f 100644
-> --- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-> +++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-
-[ ... ]
-
-> @@ -312,6 +368,10 @@ netdev_features_t mpnic_features_check(struct sk_buff *skb,
->  	    l2len + i3len + sizeof(struct tcphdr) + MAX_TCP_OPTION_SPACE > 256)
->  		return features & ~(NETIF_F_CSUM_MASK | NETIF_F_GSO_MASK);
->  
-> +	if (skb_is_gso(skb) &&
-> +	    !FIELD_FIT(MPNIC_TWD_MSS, skb_shinfo(skb)->gso_size))
-> +		return features & ~NETIF_F_GSO_MASK;
-> +
->  	return features;
->  }
-
-[Severity: Medium]
-Does this MSS check cover every GSO skb that reaches mpnic_tx_lso()?
-Earlier in mpnic_features_check() there is an early return when
-skb->ip_summed != CHECKSUM_PARTIAL. For those skbs, neither the header
-geometry checks above nor the new gso_size check run, and NETIF_F_TSO
-and NETIF_F_TSO6 stay set.
-
-Those skbs can still end up offloaded. __virtio_net_hdr_to_skb()
-accepts VIRTIO_NET_HDR_GSO_TCPV4/TCPV6 without
-VIRTIO_NET_HDR_F_NEEDS_CSUM. So a tap or virtio guest, or a
-PACKET_VNET_HDR sender, can hand us a GSO skb with CHECKSUM_NONE and
-SKB_GSO_DODGY.
-
-The path from there looks like this:
-
-- validate_xmit_skb() sees netif_needs_gso() and calls
-  skb_gso_segment().
-- tcp4_gso_segment() or tcp6_gso_segment() seeds the pseudo-header
-  checksum and switches ip_summed to CHECKSUM_PARTIAL.
-- tcp_gso_segment() then returns NULL, because skb_gso_ok() is still
-  true for the advertised features.
-
-The original skb then goes to mpnic_xmit_frame() unsegmented, having
-skipped every check in this function.
-
-In mpnic_tx_lso(), shinfo->gso_size then goes into the 14-bit
-MPNIC_TWD_MSS field unchecked. gso_features_check() only bounds
-gso_segs and skb->len. A gso_size of 16384 with a total length under
-64K therefore gets through, and FIELD_PREP() truncates it to an MSS
-of 0.
-
-The header lengths that mpnic_tx_offloads() writes into
-MPNIC_TWD_L2_HLEN and MPNIC_TWD_L3_IHLEN are also unvalidated for
-these skbs. The same goes for the even-length and 256 byte header
-limits. Here the transport header was set by the flow dissector, not
-by a trusted stack.
-
-What does the hardware do with an MSS of 0, or with truncated header
-lengths? At best it seems to put malformed segments on the wire.
-
-I see two possible fixes, and I'm not sure which you'd prefer:
-
-- Clear NETIF_F_GSO_MASK for GSO skbs that are not CHECKSUM_PARTIAL
-  yet.
-- Move the gso_size check above the early return, and validate the
-  headers from skb_transport_header() in that case.
-
-Either way, this patch is the one that turns TSO on, so the fix
-probably belongs here.
-
-[Severity: Medium]
-Can a TCP GSO skb shorter than MPNIC_MIN_FRAME_LEN get to hardware LSO
-here? The only GSO fallback in this check is for a gso_size that doesn't
-fit MPNIC_TWD_MSS. Eth + IPv4 + TCP headers add up to 54 bytes, so a TCPv4
-GSO skb can be 56 bytes long with gso_size 1 and gso_segs 2.
-
-mpnic_xmit_frame_ring() pads every skb before the offloads are set up:
-
-	if (skb_put_padto(skb, MPNIC_MIN_FRAME_LEN))
-		goto err_drop;
-
-That puts the zero pad inside the buffer lengths that mpnic_tx_map()
-programs. Will the LSO engine then segment the pad as TCP payload? That
-would produce more wire segments than shinfo->gso_segs, carrying zero
-bytes at sequence numbers past the real data.
-
-The checksum seed also looks wrong for these skbs. mpnic_tx_lso() takes
-the length out of the pseudo-header using the padded skb->len:
-
-	payload_len = cpu_to_be16(skb->len - skb_checksum_start_offset(skb));
-	csum_replace_by_diff(&tcph->check, (__force __wsum)payload_len);
-
-The sender, or tcp4_gro_complete(), seeded tcph->check with the unpadded
-L4 length. So the seed ends up off by the pad size. Won't every segment
-the hardware generates then carry a bad TCP checksum?
-
-One way to reach this is a remote peer sending back-to-back non-PSH
-1-byte segments. A forwarding host GRO-merges them and sends them out an
-mpnic port. tun/tap/virtio and PACKET_VNET_HDR sources can also build
-such skbs.
-
-Now that NETIF_F_TSO is advertised, these skbs reach the driver
-unsegmented. Before this patch GSO was never offloaded, so the padding
-did no harm.
-
-The next patch in the series, "eth: mpnic: UDP segmentation offload",
-adds skb->len < MPNIC_MIN_FRAME_LEN to this condition. Could that check
-move into this patch, so this commit doesn't send bad segments on its own?
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110-mpnic-lso-v2-0-ccd37b051d08%40gmail.com
+cheers,
+jose a. p-a
