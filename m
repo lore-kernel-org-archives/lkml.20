@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794508306;
-	b=460tOib4pFLB3vMmvBZvFpJKiEiylDxLnT85aX+EH04O3gb+1eHgXsxDDi1AN6eg0bzs
-	 MfCPM+2nIjKWWjfGvrqDwMF8JAZwmX/BHfu7gnxGNuZp5mBnyxNa82cfCMXZOjMy9GCpX
-	 nnUT7X4iIyNNYoK+JCbygHAWk4jgX7CVuv4dmVYV5Nc5h+gBLWkvtd0MkwjhmT4V+VoXG
-	 HhR0aX6mB5TS92mtNLjZOk67tDEQB1204D1swLikBLqzzYnXD6P+gvbLCDKfzb/P2L2Pj
-	 dgcVOUTAAZbjft2r8e2oD8tlgNtPfP5Sb47A/iW05++bw8G9anviXfEhZY9WU7b5yHA==
+	t=1794508333;
+	b=m2Ljq1Bdm7CR4gwxyKHe/vTj3KAgp/whnf0gNuAj4PNpoRwyD+03VBNq3lBIgZA2cwwX
+	 gsyVpSh5/P7R8a28Pu00CsoL8uTVqmlpb6kc/YWyGTdiuci7Ae3hoEB0XZUO2TO9kJ5st
+	 mto01/eL359GJj90MXPRi6uRcPjue7RjoARgyk3EK9fBsOwbHVT76j4iL9TXAOMEjIbHb
+	 KCLBsbe3DzeGP5Jiy7nxev1NrpJUYrwI5WvT0XpgUerZxRyTHj9QUV7lS+rq0PzePnC5B
+	 wH5ShemsUTImdniZF26eVHWpzKwyKyh+NKlpExq3o+uN/Mv7NOw5BDdRunBUbMyfqRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794508306;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794508333;
 	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
 	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
 	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
 	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=14p9iW6f2s5IGSicHbLZEwYZZU92adoKfuAcHYkuAs0=;
-	b=rwVX1xfwLbXbKsRQCaN5VGVtu2eWVSmWyCQsZZ+tvbfaVIW78uhOl3cc6Gl9zhJzeXUD
-	 t+WzvSlrlNVWULcZy97APfUYi0qYrOwg99HIIURY0sAB/TgwCnd7o1mH3N1UtvXOHjRMQ
-	 sZLw9HSv/hjK4mGzRA0PLjlSzBH8CqSwhBIxMS3JLi/RWzoX5w1KVFgJaB791bG4DRN6J
-	 yRZYjFvl6kibL9URpfSnuEIjZI+a/Wyo5F7HvLW8wz9ycZdPeSVAJU+vwOp9100fCSACY
-	 xY4TmaIyeSpADXqWnG+Ky8APHQ68pOwGG4Kwsizo0K2evhMTz1ud5v4n2VGJlxe7/BA==
+	bh=OFffBC/0A3d/er3CdMg4bNbeiYQPAM+yiSRfBJ7UoBI=;
+	b=m+wfvtT/CruOOkuMGgtNxyyaWVcrwp7wE1c4FWmVoVe1Dtpv4CBjJ/CE068OT9Uo6zdc
+	 EuHUBVEJ+Q8Bdwn3wWyBraZRw0MuK4x+2W69TyGszl/DmaF8yBej6ZM2Di5LViFxAeZOc
+	 L8HiYdIzdORO+asPCpUug5VCyqVQAeM6CKbhw8Pi5VHo/z2cYDKjmT9dE3ZpZc9FPZZ+m
+	 8JVPiBQvyVyw2vkKcr1Lgd4uRh0QW2+q3uMgTTI8V8T/Vd6x0O0Ujd7jlkuo8t+QcPgs2
+	 POknYC/zMfSS8yevRt3sY2ZbCEuDNnPwfzSr1Lxbr0o2t9IbmY0usP6HbJd+0aNuhww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IiE58WEm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZvUYUxVp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA7F606A332;
-	Thu, 12 Nov 2026 18:31:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC6E606A32D;
+	Thu, 12 Nov 2026 18:32:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IiE58WEm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A7361F000C4;
-	Thu, 12 Nov 2026 18:31:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZvUYUxVp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0989F1F000C4;
+	Thu, 12 Nov 2026 18:32:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794508306;
-	bh=14p9iW6f2s5IGSicHbLZEwYZZU92adoKfuAcHYkuAs0=;
+	s=k20260515; t=1794508333;
+	bh=OFffBC/0A3d/er3CdMg4bNbeiYQPAM+yiSRfBJ7UoBI=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=IiE58WEm1p1kh3ojYhrQQsYwdElmM/NJdHud+wc5AcH3f6t1PmFCOTrp+Aqr0o970
-	 AKSJVlScQaHhPzrRDjdTSKKRaRjS8227ZZFVvly4BltUJmGOZKWiY40OjZ+iEemrVI
-	 oX7sPyLZfVfVr2Aoy5e1G4WKCVB8jz4jWYhPFcXHeWSpJZkHlh4jWOkdzRElgQTavn
-	 EE0AYTOiddCoti4Vac5lVSLPhwUb0Bb3z/E4Ch1VC/Lo2CGgll2+Ihs3N/rJHQsiC6
-	 9vmjwuSaz5xfjlajBgYjXscH4TO2z28PG3qXwO4SJVtgQ0x9b+van6dpu5fc731/6C
-	 KaMedNtjRHxJA==
+	b=ZvUYUxVpunT534DCUtoCQU5mPaEB+Pw9ZoL923/npMjc7bKCVRijIOhKI8SdmhBg7
+	 Xe+0fk3DGTzt5rRkidL+q1RJqL/pPFR/jZydwN4hiyGuOrAQolaW4duMhl9uTP1C1m
+	 b/64Ad/SpLoVYe/UDrGCSj/Pev4WTCtmuGjOtwRbBG0cmBWpjZecanwdu1+vfs7vZJ
+	 Oo6iteFDhN65n5+vzXGkQ7LgzSWxmJ+y0ExCiZG50yMx/l3wx8gk+h40GqgitGCE+L
+	 TrBqzg83ogS6wotmIHRjdsl/S7HLBbzQ0uYuDtprpBTqQ2ehVcENUDrzoa52MKspAi
+	 CcBLkNmsHbszQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F16E2380AAFF;
-	Thu, 12 Nov 2026 18:31:45 +0000 (UTC)
-Subject: Re: [GIT PULL] gpio fixes for v7.4-rc3
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F15B3380AAFF;
+	Thu, 12 Nov 2026 18:32:12 +0000 (UTC)
+Subject: Re: [GIT PULL] ACPI support fixes for 7.4-rc3
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <20261112155506.50717-1-bartosz.golaszewski@oss.qualcomm.com>
-References: <20261112155506.50717-1-bartosz.golaszewski@oss.qualcomm.com>
-X-PR-Tracked-List-Id: <linux-gpio.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20261112155506.50717-1-bartosz.golaszewski@oss.qualcomm.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git gpio-fixes-for-v7.4-rc3
-X-PR-Tracked-Commit-Id: f8a4fdf57cedb9cb3f47d94269ff27fea8e819e8
+In-Reply-To: <CAJZ5v0gEHWcCX=1cDRUstU5m=9_PQqfD-PgJfrF4jo=0hk4NWA@mail.gmail.com>
+References: <CAJZ5v0gEHWcCX=1cDRUstU5m=9_PQqfD-PgJfrF4jo=0hk4NWA@mail.gmail.com>
+X-PR-Tracked-List-Id: <linux-acpi.vger.kernel.org>
+X-PR-Tracked-Message-Id: <CAJZ5v0gEHWcCX=1cDRUstU5m=9_PQqfD-PgJfrF4jo=0hk4NWA@mail.gmail.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git acpi-7.4-rc3
+X-PR-Tracked-Commit-Id: 756a3f9e02913ca1616ee8ed4598b1208ab8e9fb
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: f34775c0c4078189e179977c76d676663d0bf992
-Message-Id: <179450830445.582195.108539536010013571.pr-tracker-bot@kernel.org>
-Date: Thu, 12 Nov 2026 18:31:44 +0000
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, brgl@kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-PR-Merge-Commit-Id: baa6744dc939a927e2c94e5f20aff01ac538aef1
+Message-Id: <179450833162.582195.4050505416215162819.pr-tracker-bot@kernel.org>
+Date: Thu, 12 Nov 2026 18:32:11 +0000
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, ACPI Devel Maling List <linux-acpi@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,12 +68,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-The pull request you sent on Thu, 12 Nov 2026 16:55:06 +0100:
+The pull request you sent on Thu, 12 Nov 2026 13:46:37 +0100:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git gpio-fixes-for-v7.4-rc3
+> git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git acpi-7.4-rc3
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/f34775c0c4078189e179977c76d676663d0bf992
+https://git.kernel.org/torvalds/c/baa6744dc939a927e2c94e5f20aff01ac538aef1
 
 Thank you!
 
