@@ -1,66 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794467905;
-	b=lKZNwOEFPnYzlsGxJOajXvIMPqqj7wvD2YQQSdmSJNmqbXVSrRbi2y2OZqOq0NpD2MtM
-	 F44i0fVl0hPsSXBPdoFaN82xqDAlcebIBpVsPovC4vq+SpWNci8qNQWbcuIKcK6BwSCOf
-	 AuOC7tLlCBJUoWiKM7OeRDHyjUStgrM8Kz8NofDeeeipzXzKPWxYth+1qj+rUFUA4Bp3M
-	 xVciWJ0PjQ4Oxcwoe03ocD1vMFtn1aiA0HPpjNxmfRCEJX4SM3mewvwHHq33BgTaZgv8n
-	 eee1/B0po8ds+hXPzcD/EAoW9Q+MVHg360NJJCBQ/gRNckIxAW9U+pKjE7GepWFl1JA==
+	t=1794467964;
+	b=QlpLwiTY0363/LPlGGM9K0Ix4wbU+9qH4onC5ItHkSxMqq6NUM1g24wX7EoUg7MC0CnL
+	 AiBN/yiBm3yl9ZFGVaV0FgKpglb40UVFPCzAKNFYsPxcc669UXXO/87W0jOhVokOH3i9J
+	 Mrg7gItaak29quBt+D5E5iW/yVdtAlbfT687qjyoO0Mr0uodNTCaYp0iNMFviMQezo5WJ
+	 /6UkXwBKFyZB9gyp9xerDfWDz0LZ7B8C4BerTTYdfwmT+lVrCMo/YRQCiVdQ9Mo2HGZad
+	 60667kwbsybjggba+0dhx5V3MWmMQYt2C/lHzR9YJ+GEUzL6A1BreYJtFba0+vtb68Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794467905;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=pm4Wc6TgatGh/qcvmdtaAjAUmMmeL2zmmSm7W51Q4A0=;
-	b=yVAlOXol0h4zWq+0v2ZSJqi8fgGVTFFjPIRuZuKbVh5CoQtOCrxAKzopzryDqXPruSGR
-	 OYoMhmXBttziyjP3Z3fPeQ+LncVfDqfIVb4vZJc8Y4JkF9q1YWMqKrTxBN8qeu6OkFk8h
-	 HFAtgfW4ApVNhZe8WMABFtUzi6i4vqVfa83E3OoAwoLAetCWcV5KgWW6I4JuSb0s0rWHm
-	 xMX8wMjyiYWPgeol6QbL48G02OsbeafBibm8Bx5L91wBANO6/FFEmdwDW5QC4Ce6BevKp
-	 +sk/wLiKumxQmLcqZFdMaUFm1H2gzmX/r0EUsDMWxgjb1n5oxl25tsTncr/O2qCGK3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794467964;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=5t1IQ47c0TX9II5SZS9sRg3rlhGHOvDYZKROwdCbd5o=;
+	b=5bD2xjUYOr+iPWJJc1Xw+dSr6cV4CDyt9zYJ86BMFMRzhijxA2M1RcN0Bd+PiigdQKYJ
+	 OEPx2T5uMf5hFJ13UPfgqY5q+HBjZ66l5LhsEZHRED7n9LKWfLv9A88Z3QS1dURqEuLSC
+	 34OwOxmOAJYImT/nGW3ttv1WsKbU5V6IXwG3G3zSCsY8EUt41FxwnBNE1UAwJDCGZtPr9
+	 qsuvTYg8v9O+TpLldnd02hgmKrw3gSx0yc8ysnGS932akpAXdmW2wRQV1fXvEIwBQscFA
+	 vrD3SA9cAxyO07CGTHXZXt7aHVKzhpHcPIk8m0yTA3hyYExhs7mi0ji6BZPqAqZEj4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ELUiBbVX;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B72FF60A3814;
-	Thu, 12 Nov 2026 07:18:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B72FF60A3814
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ELUiBbVX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=ELUiBbVX1MHpgDG3K4Fxo6GXYEL9BmE6n0wiPyeOXW8N7laPoTIZG3M4HEO0YmvDX3ZcQG53ziMQX
-	 SVNwYBWb07MjfBAdJXSIrxYIJpaWpq8z/5DlMdqha9dI7rxcPr1y2ZJVSRpIKEdabH1E23kcY/kc89
-	 AhqqaO681UdHzpis=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56af5681f3a3-dcac8;
-	Thu, 12 Nov 2026 15:17:53 +0800 (CST)
-X-RM-TRANSID:2ee56af5681f3a3-dcac8
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af56820331-f6894;
-	Thu, 12 Nov 2026 15:17:53 +0800 (CST)
-X-RM-TRANSID:2eea6af56820331-f6894
-From: Zhu Jun <zhujun2@cmss.chinamobile.com>
-To: hare@kernel.org
-Cc: James.Bottomley@HansenPartnership.com,
-	mkp@kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhu Jun <zhujun2@cmss.chinamobile.com>
-Subject: [PATCH] scsi: myrs: Put the SCSI device after logging a physical event
-Date: Thu, 12 Nov 2026 15:17:51 +0800
-Message-ID: <20261112071752.154639-1-zhujun2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.51.0
+	dmarc=fail header.from=pereq.eu;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E563D606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:19:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E563D606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=pereq.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a5720b0a57so3117345e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:19:23 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794467962; x=1795072762;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5t1IQ47c0TX9II5SZS9sRg3rlhGHOvDYZKROwdCbd5o=;
+        b=u8RTpuoxkZya5spEWR0VJ/0tkk5ncjBI+ox2xHSGAMdulEZbqgJgaIKoRb6ficDiFP
+         PsRiIpu+qYVa6hT64ADxbVHsaSatM4EMewg92Z44wuxE7slR//i2/MVfA2cWx39YICIK
+         BVMDrhTiGSVEsKF4nDx7YLNYXSTagFBqn8DTaC9ZR6qMtAwwn+E2t/Awvzm34ea7KDkR
+         yQN1iv2uMF3Mq4t2HGSyf2rvvtr1dcDEpfdb0XXkqG0IMTkn5Wocp3z8bNaW6L+pWF7k
+         BzGIh67kAObL7kRDtIGLTHCSEFJh1m3PWhO+3emdqjFtdMfL2OcsyDRDK81NKzIqWNDz
+         zKsA==
+X-Forwarded-Encrypted: i=1; AL+hErFLlrOaSRwDCWbukaxfpqjFeOxSoHaLC4FRKs4WSGfHPiGUoMFMIwl0wvYvXYBTvWpRgN1GwilUXccjX6A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ZIgElqxn+/ZK47/jVrfJpXVXIdJZrraJ3qz9tytoGChY5faXZ
+	dTMTFOzLZCkBZnK6s1KOIUOgbb1GaDSqWGBJUjyQ05MjcsHX8gEn++gn
+X-Gm-Gg: AYBFou3KFShomT7OBf/dwraUqlYtgmgGbehEsTucQD8+IR0RC9UUPYcC6VBm4jXjsYM
+	Ngp4QBfLcuranAi8pSVN1phvWjNQpU0WtxmEFQBcgkaAKZSPL4x0kim4xj0fsEcyLBBDuz+GQcW
+	IhYWMS+oYQ1mI3OMZUZCnGk4VG0g8kKw8wJrNeeJQLYb8KqPd1rwRH88o+k51nQ7HXfi9ATQyfM
+	0/bcg3+L2FcAvt6K4g/9L2gIsScXm5whoqNN0YpVBUJpQzVPszkBasbB30hOkQkG9X3o3E9pHZ8
+	hN+CBa0fNgDXEmG3jjhn5l+sOhFwMxpTE8SwVJRk2LDeLg9ibfRDFvqL6uSzE0FWh0wcMNgnn9h
+	+BAwU2/Kkbmo0482SlD2SacPJPycIznK4l9vQmKAyb1j25xsLq4HECP/uaielLTbgRySbh8tZ7s
+	9m+AxXTQEkSQMSauj03LIpybIsES/CU7opnCU0119D79mkPVshvFMeKwcPOc2zCW8xe5e2texJw
+	wIyZ+oZCwQ21ifoXXeNF0SX6pKycaFchldTFIPsZfOXnYoahb1DpThYcNrMmuxWeweHqs93ll7c
+	Pq62Paurrl/96bRhBoEDcQhyrUGeMUOgpipqMUyYVZeTcFVGTDaNbse8DJZycwRV6VDcHpPqgaS
+	DvdrDpovSe4o/JXnToflMX3XjXxR+ppb/UqXkJ83wKdvClqphMu38wLFeMGjd
+X-Received: by 2002:a05:600c:8903:b0:4a2:1104:7ca7 with SMTP id 5b1f17b1804b1-4bb4e2e9c80mr27941195e9.11.1794467962133;
+        Wed, 11 Nov 2026 23:19:22 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49944d646f9sm11633378f8f.32.2026.11.11.23.19.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 23:19:21 -0800 (PST)
+Date: Thu, 12 Nov 2026 10:19:17 +0300
+From: Dan Carpenter <dan@pereq.eu>
+To: Alejandro Lucero <aleszlucero@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/2] staging: octeon: fix probe error path and
+ pow_send_list matching
+Message-ID: <avVodR7YhtYHN20R@stanley.mountain>
+References: <20261111-octeon-init-pipeline-v1-v3-0-e5581974fae4@gmail.com>
+ <CAHDi9tqk3rHYJZ2Abu5Gn-=xVhA_AawCX9VRK_Nu0sHmNkeM7w@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,37 +84,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHDi9tqk3rHYJZ2Abu5Gn-=xVhA_AawCX9VRK_Nu0sHmNkeM7w@mail.gmail.com>
 
-myrs_log_event() takes a SCSI device reference when processing a
-physical-device event, but does not release it after logging the event
-and updating the cached device state. Each matching event leaks a
-device reference and a reference to the low-level driver module.
+On Wed, Nov 11, 2026 at 09:34:30PM -0600, Alejandro Lucero wrote:
+> Please disregard this series, I sent it by mistake. I will send a
+> corrected version shortly.
+> 
 
-Put the device after processing the physical event, including when no
-host-private information is available.
+Please always wait 24 hours between resends.
 
-Fixes: 77266186397c ("scsi: myrs: Add Mylex RAID controller (SCSI interface)")
-Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
----
- drivers/scsi/myrs.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/scsi/myrs.c b/drivers/scsi/myrs.c
-index 1192b01fab8e..1f248501a611 100644
---- a/drivers/scsi/myrs.c
-+++ b/drivers/scsi/myrs.c
-@@ -877,6 +877,8 @@ static void myrs_log_event(struct myrs_hba *cs, struct myrs_event *ev)
- 				break;
- 			}
- 		}
-+		if (sdev)
-+			scsi_device_put(sdev);
- 		break;
- 	case 'L':
- 		shost_printk(KERN_INFO, shost,
--- 
-2.51.0
-
-
+regards,
+dan carpenter
 
