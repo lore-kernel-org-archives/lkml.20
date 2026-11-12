@@ -1,53 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794447361;
-	b=2pQD6I9JEokoL/YaayeRR9Z0E/lUBuTqGCtR4dFDZ/E/2+YKflu2sl4HMwi72cmOEIXt
-	 +yDYHUliYrjKGl5xNwf+kV/nfFE5hYbcBqEQNm/AQB2Gxw7EyQSOmKKmXf1xMn1IAwjUP
-	 BiV4FBuGU2mdaA+v0QxU1Zp49MyQYlxLlMT055MYqPCIsHsfj1FUXbA7+x284wyc2eU0G
-	 HEaeMGfTBDBLy4zrlo45hzAGFWQ0spoLnmx49XpAKxExFNKQaVE81i+ng96eH2ApLuPIG
-	 l2gaUjoFIOKJJK8L+2zDiBN6hyuVXG6Vz3F43d7iDzHoXt3y5LFxKxtL4mL874WYV6w==
+	t=1794447368;
+	b=Q295c5Rxave1UpdANCEqOCZACz6Q4QY3LkHl8YjKkIScHoHPYLNTiMur8tmBh5WC6Y8L
+	 5/qheO2WamvFrMJk56eIjn1BZEc1AUmuM/Ej9yMWDCcL3OytgrPclXZOr7krALdjZG1QP
+	 OApeyPnCUmCJADDnTk4eDgmSClL1dtUD/ii0SoOPM6hxRJ7znQ685Jt5y3p1CHwawys5j
+	 XDXMBUAJ4Oiw6juB1aAtcL/9ExVz1fMnWgyWBUW7Q+JDUpNudr003rljcg+HPqY6avQ64
+	 FleDqPHXIeTlAIudsi41sLHAQKtj2EoQmq1bIgi1RbXTike4WkM016tQdU2PwEHZtXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794447361;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=qhI+E20LXIOORxSZb1YDpRTYLRw0BHBznnvwsuR4JMI=;
-	b=cWkqnHUc2fb1suhwoztIcZcb7JDKNKviZWtfCoRNgG8hJOhGdBHWl11w4iFV9kowYKuh
-	 o4FCCN7CbBHdNxZ8Oj2EEmXjz78zZBwXPeDcu74W0HCL8R4eeX7LqFY1/NWDoppHfhSFx
-	 mSqUv6dJWCAtw1c8AgSBj1ffvXZREylHjbPT77P9bfPrDo4WvVZH0U8lplcANmeCyHHMi
-	 y95Duq3npjuWN/yvND4x6ZS6PyoiBIOje2sQQP47Rgbq2ttg98IIGc7RvttEoYkUIgPoV
-	 xN8e1zKVLUV+NyIFOO0hSpr33qG7H3Q13Tivhn/xwVaX/Cb5WHEdKFUeDWErgqDj9Ng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794447368;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:Content-Type:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=N7w3mU3Z/aQ234J6T+KznqfhqxGooAWYmjTC1watK8g=;
+	b=lRqQVz5OpmEM8M7XAcqLeT8YO+IdDGs3a9c2tBxtmMWRMBnrMwe+He2XHrAiQ9ZNnvqJ
+	 2IHSO5O07DQo8rn5iN6jAtuB9GCIsglg3EtBW8UwVQt49EGhsrxykhCO3F1nLxcDvbd+S
+	 sRQuQq5OyHo76FZpQ4j21vKuHaPCCrzAFbqR5pnyD4rH0APWJY1+vpxxFebBinj6Z/MbX
+	 mGcfZiIDm2a8FORtQB5fiBPkd1CQzvGWoLblqnyUmiA61ZN71Ll222gfYg77CIVmnxf8x
+	 mRQqjFr2x18+cpsCMHxhDx9x3ft7rYU4pceMBYVuGx2pSOWagGsiWbn/8LseyUKXScg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=Igalia.com;
-	spf=pass smtp.mailfrom=Igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=SSelBtTG;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0883A606A332;
-	Thu, 12 Nov 2026 01:36:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0883A606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=Igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=Igalia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=SSelBtTG
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=qhI+E20LXIOORxSZb1YDpRTYLRw0BHBznnvwsuR4JMI=; t=1794447360; x=2109807360; 
-	b=SSelBtTG2llEei/ybDYULwK7yHOHMPLrjti1UDnPzfNPknKv4UQTaHgLeRsKNgOyfoxHOqTnHQD
-	R6PUhVE6duTzW0A33ivRzkrIQJHE2SuRztj6ocMqa+6kEwMvk8PBAZfusV1dZ3Ss1Qf/p016TkxqE
-	5UMtL4dODtuQbt0Q0y+HsYb8ExiS3LJbLXigDNfhIyEryyxUukDDYrPsUK+whmbvvIz8ioj+se/WU
-	FUElXVAJVSDDA4A7aTapXGg5jU/K07+Gk9xQ9gtJl2UZFcda04O6RKmrVgh9ttv3V5E+JX4NjFC0p
-	TUJIkFI0mtpoCgakHfh1S3gB0kjxsbzd/8Mw==;
-Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91] helo=[192.168.1.133])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xRJj7-009F8k-Ch; Thu, 12 Nov 2026 02:35:45 +0100
-Message-ID: <73c4fcbc-20fe-4efc-95ad-c8d6a519e1fd@Igalia.com>
-Date: Wed, 11 Nov 2026 17:35:38 -0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57D0606A334;
+	Thu, 12 Nov 2026 01:36:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B57D0606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 6b8b89e2de3911f19a56ed5b684f684d-20261112
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:b233f480-255c-4cfc-9f14-6b08b8beca87,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:d3e16174d883be0d854b7b11a293285b,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|83|102|865|898,TC:nil,Content:0|15|50|99,EDM
+	:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
+	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 6b8b89e2de3911f19a56ed5b684f684d-20261112
+X-User: yuyang@kylinos.cn
+Received: from kylinos.cn [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <yuyang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 306454315; Thu, 12 Nov 2026 09:36:02 +0800
+From: Yu Yang <yuyang@kylinos.cn>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-pci@vger.kernel.org,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Brett Creeley <brett.creeley@amd.com>,
+	Shannon Nelson <sln@onemain.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] PCI/MSI: Skip address mask check for MSI-X entries
+Date: Thu, 12 Nov 2026 09:35:49 +0800
+Message-Id: <20261112013549.1130072-1-yuyang@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <87mrriun77.ffs@fw13>
+References: <20261109-pci-fix-msix-alloc-failure-v1-1-6370c0b84354@kylinos.cn>  <87mrriun77.ffs@fw13>
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,202 +74,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 09/10] drm: writeback: clean up writeback connectors in
- drm_connector_cleanup()
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Mihail Atanassov <mihail.atanassov@arm.com>, Eric Anholt <eric@anholt.net>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Brian Starkey <brian.starkey@arm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
-References: <20261111-wb-drop-encoder-v8-0-62948ed87d13@oss.qualcomm.com>
- <20261111-wb-drop-encoder-v8-9-62948ed87d13@oss.qualcomm.com>
-Content-Language: en-GB
-From: John Harrison <John.Harrison@Igalia.com>
-In-Reply-To: <20261111-wb-drop-encoder-v8-9-62948ed87d13@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-On 11/10/26 16:42, Dmitry Baryshkov wrote:
-> Only drmm_writeback_connector_init() registers
-> drm_writeback_connector_cleanup(). Connectors set up with
-> drm_writeback_connector_init() (amdgpu, komeda, malidp, rcar-du, vc4)
-> never drop the formats blob or free the jobs still on the queue, leaking
-> them together with their framebuffer and fence references.
->
-> Call drm_writeback_connector_cleanup() from drm_connector_cleanup() so it
-> runs for both kinds of initialization, the same way the HDMI audio and
-> SCDC state is torn down there. It downcasts the connector to its
-> drm_writeback_connector wrapper, which is only valid when the connector
-> really is embedded in one. A plain drm_connector (or a different wrapper
-> struct) may be initialized with DRM_MODE_CONNECTOR_WRITEBACK without being
-> a writeback connector, as several KUnit tests do, so keying the cleanup
-> off the connector type would read out of bounds. Track genuine writeback
-> initialization with a drm_connector::wb_initialized flag set by
-> __drm_writeback_connector_init() and clean up based on it instead. The
-> drmm action now just wraps the helper; clearing the flag makes the second
-> invocation a no-op and also covers drm_connector_cleanup() being called
-> after a failed __drm_writeback_connector_init().
->
-> Fixes: 935774cd71fe ("drm: Add writeback connector type")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-I have verified that this version fixes the selftest failures I was hitting.
-
-Reviewed-by: John Harrison <John.Harrison@Igalia.com>
-
-> ---
->   drivers/gpu/drm/drm_connector.c     |  3 +++
->   drivers/gpu/drm/drm_crtc_internal.h |  3 +++
->   drivers/gpu/drm/drm_writeback.c     | 30 ++++++++++++++++++++++++------
->   include/drm/drm_connector.h         | 12 ++++++++++++
->   4 files changed, 42 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index d66188521881..da0b16f25ac4 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -921,6 +921,9 @@ void drm_connector_cleanup(struct drm_connector *connector)
->   	if (connector->hdmi.scdc_work_initialized)
->   		cancel_delayed_work_sync(&connector->hdmi.scdc_work);
->   
-> +	if (connector->wb_initialized)
-> +		drm_writeback_connector_cleanup(connector);
-> +
->   	platform_device_unregister(connector->hdmi_audio.codec_pdev);
->   
->   	if (connector->privacy_screen) {
-> diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
-> index 3492787c3697..f60216adcd31 100644
-> --- a/drivers/gpu/drm/drm_crtc_internal.h
-> +++ b/drivers/gpu/drm/drm_crtc_internal.h
-> @@ -329,4 +329,7 @@ static inline void drm_panic_unregister(struct drm_device *dev) {}
->   static inline void drm_panic_init(void) {}
->   #endif
->   
-> +/* drm_writeback.c */
-> +void drm_writeback_connector_cleanup(struct drm_connector *connector);
-> +
->   #endif /* __DRM_CRTC_INTERNAL_H__ */
-> diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
-> index 6487f4a104f2..6ea3e55a1962 100644
-> --- a/drivers/gpu/drm/drm_writeback.c
-> +++ b/drivers/gpu/drm/drm_writeback.c
-> @@ -21,6 +21,8 @@
->   #include <drm/drm_property.h>
->   #include <drm/drm_writeback.h>
->   
-> +#include "drm_crtc_internal.h"
-> +
->   /**
->    * DOC: overview
->    *
-> @@ -215,6 +217,8 @@ static int __drm_writeback_connector_init(struct drm_device *dev,
->   				   blob->base.id);
->   	wb_connector->pixel_formats_blob_ptr = blob;
->   
-> +	connector->wb_initialized = true;
-> +
->   	return 0;
->   }
->   
-> @@ -271,22 +275,28 @@ EXPORT_SYMBOL(drm_writeback_connector_init);
->   
->   /**
->    * drm_writeback_connector_cleanup - Cleanup the writeback connector
-> - * @dev: DRM device
-> - * @data: Pointer to the writeback connector to clean up
-> + * @connector: Writeback connector to clean up
->    *
->    * This will decrement the reference counter of blobs. It will also clean the
->    * remaining jobs in this writeback connector. Caution: This helper will not
->    * clean up the attached encoder and the drm_connector.
-> + *
-> + * Called from drm_connector_cleanup() for all writeback connectors.
->    */
-> -static void drm_writeback_connector_cleanup(struct drm_device *dev,
-> -					    void *data)
-> +void drm_writeback_connector_cleanup(struct drm_connector *connector)
->   {
-> -	struct drm_writeback_connector *wb_connector = data;
-> +	struct drm_writeback_connector *wb_connector =
-> +		drm_connector_to_writeback(connector);
->   	struct drm_writeback_job *pos, *n;
->   	unsigned long flags;
->   	LIST_HEAD(jobs);
->   
-> +	if (!connector->wb_initialized)
-> +		return;
-> +	connector->wb_initialized = false;
-> +
->   	drm_property_blob_put(wb_connector->pixel_formats_blob_ptr);
-> +	wb_connector->pixel_formats_blob_ptr = NULL;
->   
->   	spin_lock_irqsave(&wb_connector->job_lock, flags);
->   	list_splice_init(&wb_connector->job_queue, &jobs);
-> @@ -298,6 +308,14 @@ static void drm_writeback_connector_cleanup(struct drm_device *dev,
->   	}
->   }
->   
-> +static void drm_writeback_connector_cleanup_action(struct drm_device *dev,
-> +						   void *data)
-> +{
-> +	struct drm_writeback_connector *wb_connector = data;
-> +
-> +	drm_writeback_connector_cleanup(&wb_connector->base);
-> +}
-> +
->   /**
->    * drmm_writeback_connector_init - Initialize a writeback connector
->    *
-> @@ -336,7 +354,7 @@ int drmm_writeback_connector_init(struct drm_device *dev,
->   	if (ret)
->   		return ret;
->   
-> -	ret = drmm_add_action_or_reset(dev, drm_writeback_connector_cleanup,
-> +	ret = drmm_add_action_or_reset(dev, drm_writeback_connector_cleanup_action,
->   				       wb_connector);
->   	if (ret)
->   		return ret;
-> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index f656ed8324d3..07218ab26c9e 100644
-> --- a/include/drm/drm_connector.h
-> +++ b/include/drm/drm_connector.h
-> @@ -2688,6 +2688,18 @@ struct drm_connector {
->   	 */
->   	struct llist_node free_node;
->   
-> +	/**
-> +	 * @wb_initialized:
-> +	 *
-> +	 * Set when the connector is embedded in a &struct
-> +	 * drm_writeback_connector that has been initialized through
-> +	 * __drm_writeback_connector_init(). A plain &struct drm_connector may
-> +	 * be created with DRM_MODE_CONNECTOR_WRITEBACK without being a
-> +	 * writeback connector, so drm_connector_cleanup() keys the writeback
-> +	 * teardown off this flag rather than the connector type.
-> +	 */
-> +	bool wb_initialized;
-> +
->   	/**
->   	 * @hdmi: HDMI-related variable and properties.
->   	 */
->
-
+Hi Thomas,=0D
+=0D
+Thanks for the review and the suggested approach.=0D
+=0D
+> The core cannot rely on random implementation details of drivers and=0D
+> architecture code. It fails gracefully when the provided address limit=0D
+> is violated to prevent hard to diagnose subsequent failures.=0D
+=0D
+I agree, and I am not proposing to rely on those details. My concern with=0D
+the pci_msi_broken approach is that it disables MSI unconditionally,=0D
+including on platforms where the MSI allocator returns a 32-bit address=0D
+and MSI works fine. ahci_init_irq() uses MSI as the first choice for=0D
+single-port controllers and as a fallback for multi-port controllers, so=0D
+this would cause a functional regression on such systems (falling back to=0D
+MSI-X or INTx instead of MSI).=0D
+=0D
+> Coming back to your AHCI controller. That's broken to begin with. Assume=
+=0D
+> that MSI-X is not supported then MSI setup would fail the same way. You=0D
+> don't notice because MSI-X is always enabled on x86 platforms.=0D
+=0D
+Understood. The device's MSI capability is 32-bit while its MSI-X=0D
+capability uses 64-bit addresses.=0D
+=0D
+Would a device-specific flag meaning "MSI-X supports 64-bit addresses=0D
+even though the MSI capability is 32-bit" be acceptable? That would keep=0D
+MSI enabled with the existing 32-bit msi_addr_mask, use a 64-bit mask for=0D
+MSI-X, and keep the verification in place instead of skipping it. The=0D
+quirk would only affect this ZX-200 AHCI device.=0D
+=0D
+Please let me know which direction you and Bjorn prefer. I will also fix=0D
+the Fixes: tag as pointed out by the Sashiko review.=0D
+=0D
+Thanks,=0D
+Yu=0D
