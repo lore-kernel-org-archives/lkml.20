@@ -1,110 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794483660;
-	b=2hegXgIqWCP0rtWd/QnllI8NqCZOTK86lbSy5yZzd2VGv1g/YG9lqaDsH/AbsZ1qcXWX
-	 cfo6wzmxDAszYaqcGBo+CngS0Q+37aU3dzN353aYRl+9KMUjrMXn1LfUl3fH3tsR9YERl
-	 0UxOMZD3A4hfApJoQDZtFyqKH/4T6cyVKjuQWPboXhSnDsuDd2oBtvBi5buw/3DVLQODD
-	 tzuU7WmjGVxKdrYPR8Gcf9vIYY1lQ5Kt1F9lJ+iwxh11rADvnvFakkzJ8qibCEFtDhhfT
-	 PJitCB/ktSh3GtMOXtc6XnzpvtaOJTGjjYXEo+upSgmAoTvYfRDE8pUNBqlHbcCtzMQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794483660;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794483668;
+	b=c8BdVFLmvMfe06upErwV5peqNKWQ9+ShD3foZak8ldcTojiaCPTg4XikiHGND/zq68Df
+	 loR82Z1ysKJc8SqoUOkSUVKpiaCmc/uWuCieV84bbVn/6rvYVhei4v4HCGQMDptoMwmSn
+	 YCQqfZHILoTeBm9bJ+7onr5D1t7+eYHFYtzxR+RtG5Ar4XLD2/LFMS1h0PqZCvkO6lzWo
+	 KrQ8zbdf+VPY6x69yviNR4Qkb4Vf3LHrKcDUo7bbZdvvwXxcePeS2PhUW3JPtjjdTq4nG
+	 lXfOlkACY/6YzzHE5XRbdMJrCGAclmqNZhLNS3dNUWnhM69UQYrWWYad6MC73SQxC/g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794483668;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=gd5qaOSUVWh2d2v6VyXcOF3/P2fT705qxQ3nPfB37vE=;
-	b=oZj2dZ9f9hXZAEK4eWRnDbdwvn/X5/Ywq3/x8S95vjdxI94rGEXBDgKNQ0N+3Lymy5F1
-	 skaiGrphNM1gUPyVWsn/6clV+Zu4jxPnqsLLM7YKWId012SxScEzakLkA9U+0SYMOeG6Y
-	 qd3Dqfka2BUFm4T44bzEu8zdRCcmkmu/JPeH5XorKK2Yx2HuoRy2LVnlKmzYj8tmptx54
-	 KHX+q30Tq7rsRJ8qvxdQDtDOz49yrMLDvWT1SKhOGVEanyMVU33LOU0vkyEkxy1IL2m2c
-	 jaolGztnTwMHX377Exj8o76GbXm9u9csVVZGABHcssb8Lu17t98ZXnnCPvsyUWqfUQg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=nXI7xYZgxnpfLKHFm8ZvAIfm4pFkD5dHlOX1GBrtPmA=;
+	b=cYx6yhWVTUkm3W80UNdh4EAOR6Xjnh5s36j5gc6JMCrV8+04HdTRKODS5uCY6n0gBDiu
+	 bpjyk/5nErCxZLoBZ3SxdH9RmOrH+dtFWVvCRlivwP1OxSe+Ld6ggJ7zWN7G/LtPjtbFC
+	 CbCznrMBOcjhuYf/9cvQ6lcuzlxde0IF1ZvipHrbV1QSKag77TCriyXs+wJTCzWM6L7gM
+	 n61HW7BMusL/QXYQN7BDsuqqJGmnT9BbOGXzBA1vA91AYeR8v9pA/fHU/pCCr7ev+LMqK
+	 9YHYGv/YJtjwDoVQgYUK0MdUcsiFP2mjdnsg4eT0NQ8W2WrH0WQrj1fMU7XWwovgP+w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KEmPplNn;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ihANWpv4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.47
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AAFE606A8B2
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:41:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AAFE606A8B2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4EF1606A33D
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:41:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4EF1606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KEmPplNn
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-37628596783so4188135eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:41:00 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ihANWpv4
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5be4a2d94adso3761016e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:41:07 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794483666; cv=none;
+        d=google.com; s=arc-20260327;
+        b=H9CQSrj7BI5wg3UmAZZfxhC99xeApB/Np3MpOYq+cDABZW5cjSWR6pz50Prua/h9+Q
+         sOo6UtXUFGzhmVL7XcBdFeLyvqXHOdhCTundSf9wzOPQRnQgcFbX5nix1yRd5pLfWIfW
+         JcMszx0tmjRBvnmpppzlIbNwVBF6u1uPdBcFBDZQxwexQSZAWXqUFbEz4D0Cnw0OfLqZ
+         9mlb+F5RQmgaM1DTIuQBHrHkh87+GdgPPgrYFzq+lhQHueyrhfMaR5/XeYW4Me9hmT5E
+         sVsKfetNnQ122cjl2xxGohHBOF6jzlbEjr087IOUmBcjrLrYWWtEXXXqZm+06BqW6p7l
+         daxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nXI7xYZgxnpfLKHFm8ZvAIfm4pFkD5dHlOX1GBrtPmA=;
+        fh=+EkHVdStwtii5wkzgUNAZeXPjCx95tlIXWplKyPL+Wc=;
+        b=mDPJ0ejFt1+QFXEVyN8MG1cuMHZ3AdwI+wphJFgVQDlK7VcD7GO/NiHgV0No9pwCyO
+         FwHOpKnLCpxsnt43dwZlsGBhIuLPaKzQkxzHDNmyEdy7RhBaUz3EXEqHankSXWgrRaFr
+         59HOaly0NX72OxYrjvZjRruWZ75aXeDZQAC+Hr5je3uMWdRZk1j2tvHj7eclzFkSds1K
+         DJZOcYd6IFNJdhNQuiy+jpG4b3yo6iQolScBU4CsnmGNuct2Y86wJGrt7mrRSiAE1Mmf
+         kLbDXcEVajddCXfVUaOtHgfQSW1xZnzQar1jlkrOxvc5qKWslaeFgSO7fZ+bYMlHy4ja
+         D8tA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794483660; x=1795088460; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794483666; x=1795088466; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=gd5qaOSUVWh2d2v6VyXcOF3/P2fT705qxQ3nPfB37vE=;
-        b=KEmPplNnoiOlOa7kWqvKF07gxkGykUViIUtmPh+kP7nQPzhyUQI2a1DrOFo26kA+FN
-         C9UmWiuEgkum7U3lnZF2VFTEPJX3p4Ml61IrlT+cGHzD8hsnZNObZ95CR63hz98/GdN6
-         oVVLS/uTLJOs5GgM9aOpfrcCHJAATOXLlBLr16lks61jshecz3PHzThBl0mKt6RU4nux
-         UWdgHb+cuuerQdqnC2PXOfrZbzzzfXprb4boxxMY5F9Wz3GGu8Xd/EcnThJ8SnNGD12u
-         N18W9NAt3u7Q25ugmUdER6ODPxbAGOEuAUNq3WrXdURkhdVsz7uqGd27gWnkRxKiObNB
-         +Y0g==
+        bh=nXI7xYZgxnpfLKHFm8ZvAIfm4pFkD5dHlOX1GBrtPmA=;
+        b=ihANWpv4YvOF7GeQaUYSLUviFOALE7/UOOuxTnBtBcjp9uXbckjgxo8U9pFNwLvLHf
+         RNCRINQwXl9qXHglhb9SVKerNn5MgRTLxUqv+a0klzHJOsEaXDlck+NvIiZEiO+E4mZF
+         47somZb75K2oFTVz/uopuy4lk0tsfoZLEou/+pUxWpHKMyt5Eti55qIcALn1ZoU+asoi
+         38au4Cby0BfrbsGZcVoDzfW5ziDCHgbtvxUSX5I3j5Fv61QJuv12qnkq85UgFzvnUsb8
+         nn50imcTCxcyP+LZktDJjNgrJwoiQbIYsNxQ61vVmrCxogUiMbTAi2CRNEx3C7x1thN2
+         IIWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794483660; x=1795088460;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794483666; x=1795088466;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gd5qaOSUVWh2d2v6VyXcOF3/P2fT705qxQ3nPfB37vE=;
-        b=vspic/om+yRCUvjCQ+PBRFkX+CHqpXbGsSwSgAyMmLSp5Okh4KDXtyIusvTOL4OwCS
-         AZhLB0HH3KU3EqNkne38siAx+/flTT51bkpCQ0vV1o+/ZrLRwQtNxDk07zyuWOLIuXhS
-         NjIjcLyy6GAfz+Exd29Ft2GndkmvtXoOHPdHg7YG5aLzzNfDz/hkbEhoVmi1wcb30EEX
-         tSvoFpW5229H/wRLRxRSptIHk/am1bBpTXuuqO2/J8UvXJKegUCD6cwJwE7q+Bk9jYJj
-         cfMEhGcNcAAT2bWQ2XLjWRkUIYmxcivmZ+II6cDRrA0e4Gagoi+mp2zkL4q0gJ2qPRZ7
-         48Nw==
-X-Forwarded-Encrypted: i=1; AL+hErEmBeHPKowPy0FakyN9bZDN4XLQNIuyobp3t6nZYox7WkpToNY6GtsmxKlNGwsUHjmIJhsJbn2sdS/9jUc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+P8NkUEITNKfVpZnQkC8I3BbtB/X2S2Ohe+n+uoXNI2dCx/3en
-	ROzQ/EHAIDiZx4n6AcH+ZkLVppUVybzg6/0NXQEjap/B55jTye62HMWO
-X-Gm-Gg: AYBFou1quvMT3akacP2KyTwHewj8ipTis5Ed22ilm5nQaDQjntukzrYWO4VijmVnOh4
-	MIBH/w7fkOKhyibueOUXQHbFy139l+8XBFkldRnR5Z9wEyZ+Or0VZ/qmacIPUeAQuVOOVAkP0O/
-	VNhUWFZt7n4b46FmZWfqyn2Cwxnm4Rti0gPgIlUmA8uEnkp2z9H9X0q7VvUinMB+v9M+0vFpZf1
-	bqbJ5LB8S/cKJFiecBcBUD/GJ7wYZKBnIWHEREyLOepSx32Kp7sKvqtQIB0NEgBihMCF6oOiMFc
-	mEFlqp2NvztOansPZF3RHAdmXQrxsTRvgaF2vRY7GntWx99JbFLE8QSVyLAtgLbdZNfs9jiBXpN
-	+Igo4pTdy/kpvop3Nry22yPrqjbhGNfAjdFBlQePaIg5ueK6QYF3bS3pYdWNg61MnNjaRZoldA9
-	l3D/L7V1KPhsFU+YpcIpCqov9FEs9/nhZ2D7iBfwQZQ8c1M6DWoIUO3lx45N3hXwnrmBcN/vl+X
-	yEKmO+rzootrLfhkeXxzfBEkL8ERcyguNxB98ZjF1ekUyknPfcLNxOa3SGGcIZlSlox3r/FLgO9
-	B9OtIBc+rEOrtuGb04C2BIsQ5GWnK5w2IOJ4rmBbXllnhSu6AxgbCwSUBE3rBBI=
-X-Received: by 2002:a05:7022:1184:b0:1b2:6b1f:1d89 with SMTP id a92af1059eb24-1b3c0360627mr4336535c88.36.1794483659738;
-        Thu, 12 Nov 2026 03:40:59 -0800 (PST)
-Received: from DESKTOP-NM9EKIA ([180.67.33.100])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212ec002sm29245380eec.26.2026.11.12.03.40.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 03:40:59 -0800 (PST)
-From: Joonhoe Kim <26rote@gmail.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 4/6] media: iris: add platform data for kaanapali
-Date: Thu, 12 Nov 2026 20:40:58 +0900
-Message-ID: <20261112114058.428-1-26rote@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261001-kaanapali-iris-v4-4-642f9ac5e699@oss.qualcomm.com>
-References: <20261001-kaanapali-iris-v4-0-642f9ac5e699@oss.qualcomm.com> <20261001-kaanapali-iris-v4-4-642f9ac5e699@oss.qualcomm.com>
+        bh=nXI7xYZgxnpfLKHFm8ZvAIfm4pFkD5dHlOX1GBrtPmA=;
+        b=znolYkJ8qpQffQbXTEg+J2l8tBxIz33Cy03AJBCRnIvy3fpCIBH9S/EZwA/0pUdqFy
+         A6wqnV3Elps4mUydhn+QXIjTQRpKc4d220QVgy5t3MrdRG7tzRqeZHRxA29GGQxK/XpW
+         1BJQRAfHz0aOU5GQdjDMKk7TkAhGYSgbJ6uIorUmot2wqVbSC3+UFJ6dX5vz7yUSok4y
+         ENCxcx5wmdRhfKLAOC8ySq6+QTfJ1trQsj8ze9+QewSxhAOus5MVnutP+hmc+sqB2pxU
+         PvFovcsk/XKVqK8mOBG3pQQS2OsDn8/EhvHpEPit5rwbFPCIvse8PRSH5WJG1jKWQBbq
+         XRAA==
+X-Gm-Message-State: APuU4Z/dZLNgyBbVy6qSEpYxAq2kM3dB6wrXFEcZ+S2Z0DS2sLaDei2d
+	3UA34ApU+0lYPIq9VZcYz4VjZmixlfYq+x4IPWuEXPJwBc4z7iTg4Wd/Q9Q+s+K8YbEwHjpfymi
+	qpWdxPKkDVruG+fgV61Qus3xuQZ9nubVxdA==
+X-Gm-Gg: AYBFou3gKb/aY0FjSuqcjHq5Td9USQEZnWZwvZgnJPS9R86ChEx/8DdPX18BCpffkZm
+	Lvf7EqZfQQvCMXUh0hHE7g+rnpsTWBeZS3vcWdStfbrjKhnm0NfQ5v/EhCTjrqIkw/pE9uAVyLG
+	xbMLHt070oTwp/l8jQ4j5gWaDFfJBTDT85D5woe0kMXJqFy9fIqPa/kgGhhv2km/C6YNFx96/T0
+	36Me28YONTGPB1GPZ+QXiIXKmotiqDCtx03Gsyp3wy2lr7fROqDxGiuYSYJKB+gXkTTV3qXaI0X
+	0vrDjFTGX3aEhUbLxc72wjWSjD63Q28G+/ZddyVK4qd4z+VFtaef8Qo8N0c6bkFGphpP/OiqAVI
+	/O6HAhiHGC/NYRxCBQGqY8JL8b/3gd2Aqaz5lvA==
+X-Received: by 2002:a05:6512:3a8c:b0:5c0:b5c:4052 with SMTP id
+ 2adb3069b0e04-5c15d58a6eemr1875176e87.2.1794483665562; Thu, 12 Nov 2026
+ 03:41:05 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,36 +103,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <CAHnbEGLHGX2rMnf=S6CasoNyc939DTe-whcsjt9WhSWG920OoA@mail.gmail.com>
+ <434f6474-b960-4383-8d61-0705632b4c33@oracle.com> <CAHnbEGJq-w4CMS1dg8UBraV+6kLMkmC-hO4Dq7f4z8Af6maitA@mail.gmail.com>
+ <41e9ed40-311d-42ee-9fe2-5af3ecda67d4@oracle.com> <CAHnbEGLuYq6vYqq9M3w+W0iR-r0OOeCfSD3cEV-yekAbo-yAQw@mail.gmail.com>
+ <CAHnbEG+qCwHRptvTGYDY_PeCN+61DVQRf+UcGDnhB+m6H9Np1g@mail.gmail.com>
+In-Reply-To: <CAHnbEG+qCwHRptvTGYDY_PeCN+61DVQRf+UcGDnhB+m6H9Np1g@mail.gmail.com>
+From: Sebastian Feld <sebastian.n.feld@gmail.com>
+Date: Thu, 12 Nov 2026 12:40:27 +0100
+X-Gm-Features: AclHuK-I-9jbTBeQqqpElHlN3AqN0JJHznUWSYtQAmwQIlS15cJfT8Fsf5XfmSA
+Message-ID: <CAHnbEG+HGsubEYwa6b2zmTgiJJYCeWqAaekZiG0iFDtaf1Xm9Q@mail.gmail.com>
+Subject: Re: fattr4_hidden and fattr4_system r/w attributes in Linux NFSD?
+To: Linux NFS Mailing List <linux-nfs@vger.kernel.org>
+Cc: open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 01 Oct 2026 20:47:24 +0530, Vikash Garodia wrote:
-> +	.inst_caps = &platform_inst_cap_sm8550,
+Somehow my email did not get through to the list, so again...
 
-I ran 8K streams on the Lenovo Y700 Gen 5 (TB323FU, Kaanapali), on
-v7.3 with an earlier version of this platform data that also uses
-platform_inst_cap_sm8550, plus local line buffer fixes for 10-bit
-output. Streams of 7680x4320, 30 frames, made with ffmpeg's testsrc2
-and software encoders; decoded output compared against the software
-decoders:
+Sebi
 
-- HEVC 8-bit, VP9, AV1 8-bit and AV1 10-bit decode: bit-exact.
-- H.264 decode: 2 of 30 frames output, nothing in the kernel log.
-- H.264 encode: 3 of 30 frames decodable; HEVC encode: no output.
-- HEVC Main10 decode: reset the board until I applied commit
-  200473c198b2 ("media: iris: Fix iova allocation from restrict
-  region", not in v7.3); with it, the session fails with -ENOMEM:
-  the 222 MiB co-located MV buffer finds no contiguous IOVA range
-  after the 11 capture buffers.
+On Tue, Nov 10, 2026 at 6:40=E2=80=AFPM Sebastian Feld
+<sebastian.n.feld@gmail.com> wrote:
+>
+> Yearly reminder that this is still not fixed.
+>
+> Sebi
+>
+> On Tue, Jun 17, 2025 at 9:59=E2=80=AFAM Sebastian Feld
+> <sebastian.n.feld@gmail.com> wrote:
+> >
+> > On Tue, Apr 29, 2025 at 3:45=E2=80=AFPM Chuck Lever <chuck.lever@oracle=
+.com> wrote:
+> > >
+> > > On 4/29/25 9:10 AM, Sebastian Feld wrote:
+> > > > On Mon, Apr 28, 2025 at 4:15=E2=80=AFPM Chuck Lever <chuck.lever@or=
+acle.com> wrote:
+> > > >>
+> > > >> Hi Sebastian -
+> > > >>
+> > > >> On 4/28/25 7:06 AM, Sebastian Feld wrote:
+> > > >>> I've been debating with Opentext support about their Windows NFS4=
+.0
+> > > >>> client about a problem that the Windows attributes HIDDEN and SYS=
+TEM
+> > > >>> work with a Solaris NFSD, but not with a Linux NFSD.
+> > > >>>
+> > > >>> Their support said it's a known bug in LInux NFSD that "fattr4_hi=
+dden
+> > > >>> and fattr4_system, specified in RFC 3530, are broken in Linux NFS=
+D".
+> > > >>
+> > > >> RFC 7530 updates and replaces RFC 3530.
+> > > >>
+> > > >> Section 5.7 lists "hidden" and "system" as RECOMMENDED attributes,
+> > > >> meaning that NFSv4 servers are not required to implement them.
+> > > >>
+> > > >> So that tells me that both the Solaris NFS server and the Linux NF=
+S
+> > > >> server are spec compliant in this regard. This is NOTABUG, but rat=
+her it
+> > > >> is a server implementation choice that is permitted by RFC.
+> > > >>
+> > > >> It is more correct to say that the Linux NFS server does not curre=
+ntly
+> > > >> implement either of these attributes. The reason is that native Li=
+nux
+> > > >> file systems do not support these attributes, and I believe that n=
+either
+> > > >> does the Linux VFS. So there is nowhere to store these, and no way=
+ to
+> > > >> access them in filesystems (such as the Linux port of NTFS) that d=
+o
+> > > >> implement them.
+> > > >>
+> > > >> We want to have a facility that can be used by native applications
+> > > >> (such as Wine), Samba, and NFSD. So implementing side-car storage
+> > > >> for such attributes that only NFSD can see and use is not really
+> > > >> desirable.
+> > > >
+> > > > I did a bit of digging, that debate started in 2002.
+> > > >
+> > > > 23 years later, nothing happened. No Solution.
+> > > > Very depressing.
+> > >
+> > > It's a hard problem.
+> > >
+> > > Focus on the recent work. It appears to be promising and there have
+> > > been few objections to it.
+> >
+> > Do you have any reference to that work? Are there status updates?
+> >
+> > Sebi
+> > --
+> > Sebastian Feld - IT security consultant
+>
+>
+>
+> --
+> Sebi
+> --
+> Sebastian Feld - IT security consultant
 
-At 1080p and 4K, H.264 and HEVC decode and encode pass, and HEVC
-Main10 decodes bit-exact.
 
-With the SM8550 instance caps, VIDIOC_ENUM_FRAMESIZES reports 96x96 -
-8192x8192 on the decoder and on the encoder. If H.264 decode and
-H.264/HEVC encode are limited below 8K on this SoC, could the platform
-data advertise the limit per codec, so that userspace gets an error at
-S_FMT instead of a silent failure?
 
-Thanks,
-Joonhoe Kim
+--=20
+Sebi
+--=20
+Sebastian Feld - IT security consultant
