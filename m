@@ -1,62 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794481930;
-	b=MsWax2yoNUntWZX7VHX6hKF0vY/USy0f/eUCXOnRf3w1uMxbdpaqqpwrou6myWmGn9TN
-	 YyToxiocnP4Mck/IW7iE6oCSQoPzwf2N1Zis1aTJLZgq2HGTXuDPe0G1oXkq0UnVJgCuB
-	 prkX2s4ABwsVvLP0ReoT7CyQ+f8u9t5EF05y3zDIBX+90cj07wTzlkZzOAe5rED1sQd15
-	 dcASomt7zb6J68hEdfg6M5SzT0cZoRZ7psR0qIE5wivJwthP5FFPFaLQpi/yALA7TqL0E
-	 Thf4w3cj9vNG9gcEpPYTUY5vrJixiW8OlUn1zRHbYAirqb0UKlf9sKZ3Tp0Efnmx9xg==
+	t=1794481990;
+	b=5A9KUzHtMhdTJu4lLhw/iynPA4KJGmCVfj7ZEOPMBq6rbgNHp83EPsdq0f1ntN3W+emq
+	 t8/UqZa5TrzQGVHPpBPIJot/H+/3rSVBpCR9USXTJksI8Js6bQ0k5SPmk0Ou/HTxo3Bek
+	 qbly2d3QOnFX+9+9g+RbjAoDwA625vGNrhI8qPHPp/BpDNgEgV8TwmjYhDlPPsO4KJOYp
+	 uTVL6dRQ1pvBI3hXNDPzNVJ4eAf78WUueSWpZXx7n8kmIIbucBHaWpHEb/00TrybgqiJp
+	 2f9GqkpvVqKNt8gwjaGw+bWE8Zx9N1kZ7mv3A0Zd119hroLA56WCoYHd2JSE/N95v3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794481930;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=5gcFLFOOc3M6G3iV05BDCjmeiT0hNCjXENI5/wHr0cU=;
-	b=iKwIibhjvIt1+5C7HMyqjDci9T6hoTbmW6ppFK/NHEPn9J31adeTzN8G2DDmHdVr2ET+
-	 4MkvWVliKUxjY0udvedKw5Jn5rflyOG+KJLd5zz5MoMp2eKa+38v0gL2fi/JCZb3GjLVn
-	 SIROnMPheteEZRg9yEYkVHylza9QoHx0sdRKrQm+Okk+l1E7hf46qy2saGkGQL9I2XavE
-	 hPCBeJehZDZb+tR+LtKD5XvSBPjrTWnPBjb9BtG/ocfWa5zpwVBFOepUWf9KzOH3DZTGw
-	 QBgaOPpRnImVI28LCOj6PvdpKDYAcxLtKUOuAcb3/J1EZ30t0AgH4vhUkImyMuDevZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794481990;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=O1ylWmglCLFhGDN08Z3QqHQULQGJeVg5Vw4Vd/T+a9I=;
+	b=u4eyuA2FSe6Dy1moKfKxvH7MXVOGG4O3yYbT+xP0HJ9IsWMxpwPhvsM1eF23aVxtIjXS
+	 PcYD4EwyWGpT6iwqFW2NffICM4ZRYaGZjAXBagROu9DNBfEaQF6majwUsHl+cG1BX7ZpY
+	 B/nGHRiHG4un5O66OcjtjnGBBbbSBtwvSQWZzYMnD3kesJkSMXEZwgQQJ1vb9y3BwxPFy
+	 hzdVvdUHdThGHxJ0tpkATXQs6oLuSVBVg+zggnYGjt1XR6Guguao6QRi9wlqKgo4ZwIvG
+	 YGQZTtwTidVqvJQwh4d7as1qj6hywW9f/LFt/UvOr+cSwlR0mtwApykywlL2ZRDjExQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ff21BiKV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=FM7nupIb;
+	arc=none smtp.remote-ip=115.124.30.131
+Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D841606A321;
-	Thu, 12 Nov 2026 11:12:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6DB606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:13:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B6DB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ff21BiKV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 246431F00A05;
-	Thu, 12 Nov 2026 11:12:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794481930;
-	bh=5gcFLFOOc3M6G3iV05BDCjmeiT0hNCjXENI5/wHr0cU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ff21BiKVa91jTFoi8ychwjJauN3eF1PoeEn0UuAJrEVa7+GYQ3+tcfu8iu3BtDMvt
-	 /9uPNcS8CjNz8QJNJm0UTpmwT8ZJy17HqtSr2HmKNNyZ9PRyw1gIDCIKI4bVQPzO3w
-	 gQjAqEHWYVD2z8aTjbWXP0HxPDfnBvJenuL35Cg3rk23uIawkFcCvbjvGBlA1cuzr2
-	 A4/RpL/qeoUhVgd7No1MSsYYu074n6aG81Z1z0eQIIs66dfloZGBCKML0zxPOjRzpG
-	 dO+L8fWKA0YiBtCgdo5KGyjmW/l0v68+rDVM9KJc65mcsMkMHoRg97ml9efRU+Hnyx
-	 rhnySk6BzoNCw==
-Date: Thu, 12 Nov 2026 12:12:06 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ishu Brar <patches@brar.si>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
-	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Krishna Manikandan <quic_mkrishn@quicinc.com>, 
-	Kuogee Hsieh <quic_khsieh@quicinc.com>, linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/6] dt-bindings: display/msm: dp-controller: Add
- SM7250
-Message-ID: <20261112-zealous-sparkling-parrot-0e4d3c@quoll>
-References: <20261112-dpu-sm7250-v2-0-8e925a3a8a7d@brar.si>
- <20261112-dpu-sm7250-v2-3-8e925a3a8a7d@brar.si>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=FM7nupIb
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794481980; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=O1ylWmglCLFhGDN08Z3QqHQULQGJeVg5Vw4Vd/T+a9I=;
+	b=FM7nupIbxP4U6L7OXvL1srusoEdjIc6zCJBefwyQtZMYCShBW1UWdF/kb+eUTWjF0CbCHQnUEOxKm0mcftHxxV1zkoqInlPJ+zrzxuntMejRcXFuzq+y0c/BIBWeSEI0pR9o3Piyd94Z5IM6FfSrwXqCzuRPhHl8h1k68xZQTCg=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XEblyLP_1794481979;
+Received: from localhost(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEblyLP_1794481979 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 12 Nov 2026 19:12:59 +0800
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	hannes@cmpxchg.org,
+	kasong@tencent.com
+Cc: baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	mhocko@kernel.org,
+	baolin.wang@linux.alibaba.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] mm: mglru: use pte_table_clamped_end() helper to calculate the end
+Date: Thu, 12 Nov 2026 19:12:39 +0800
+Message-ID: <b2386c5da61f9a15e60daa421b033bc1e0bcdd41.1794481498.git.baolin.wang@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,21 +71,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261112-dpu-sm7250-v2-3-8e925a3a8a7d@brar.si>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 10:06:31AM +0530, Ishu Brar wrote:
-> The SM7250 has a single DisplayPort controller, the same as the one on
-> SM8250, so add its compatible with the qcom,sm8350-dp fallback.
-> 
-> Signed-off-by: Ishu Brar <patches@brar.si>
-> ---
->  Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 1 +
->  1 file changed, 1 insertion(+)
+Use pte_table_clamped_end() to clamp the range to the PTE table and VMA
+boundaries when batch-checking young flags, making the code more readable.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+No functional changes intended.
 
-Best regards,
-Krzysztof
+Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+---
+Based on mm/core.git for-next branch.
+
+Note that this was found while reviewing David's series:
+https://lore.kernel.org/all/c31cc8a0-c098-4784-a843-f13f51914094@linux.alibaba.com/
+---
+ mm/vmscan.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 5495d9be90e8..804d4188e7b4 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -4470,7 +4470,7 @@ bool lru_gen_look_around(struct page_vma_mapped_walk *pvmw, unsigned int nr)
+ 	walk = current->reclaim_state ? current->reclaim_state->mm_walk : NULL;
+ 
+ 	start = max(addr & PMD_MASK, vma->vm_start);
+-	end = min(addr | ~PMD_MASK, vma->vm_end - 1) + 1;
++	end = pte_table_clamped_end(addr, vma->vm_end);
+ 
+ 	if (end - start == PAGE_SIZE)
+ 		return true;
+-- 
+2.47.3
 
