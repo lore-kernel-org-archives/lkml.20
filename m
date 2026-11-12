@@ -1,111 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492473;
-	b=ltSKWk2bWtEmBB5B+Avncby4TqHFMEN1yW+25xmcev9UQ+rN6mBttdiGF4NwsOcooEyk
-	 xifno4ccxb4zIo0QLJv4iqtc1TlqxnhWaYTazj8tY1lZuZswnjC19WNcpi716cX1kq56A
-	 kGtSkL/hQ1OIIlep1cxaqyxi3YeTYE/h866G0EL/sRxkCRDgbr4MuFawZWniyjLZG0Vtv
-	 zA5YdubRHmrrSne9mVVgA7ateIAwVv5qtM87e63SCNUL9IkUSVZW/OpIb5KluIuQYjpid
-	 tiv5rd55aiYj7DeOb7Zg6/XGPAE90F4DYZpHQy1PlLVq/fygPPYiSUB5u62p/ACah1A==
+	t=1794492476;
+	b=wl6ZNfbw6ve9MM8s0+z4ZxI3eFGZwGYz14t2h61upFhb0EtWRfjRJqPcq6rV8Nymhu9S
+	 I55He+Njruc5hbyaat0UUmAoSRGaNgHuminDQ+PRnCshFExjGmHWYQe9ZoedDP9MV8MsH
+	 X0hfoqxuzVCpuEeXrf2W5Ux0QbxriWCnsygh/KnlOGbx5gERIeEfTFfMbpXEynOTReQEe
+	 raN3aFvj6RKS20C5erT8GrrzU/SFty2QiIhMK5Xf+q6V+3RMCvfKxpY7FWrejx8oRCU/x
+	 o3fBIAegJAXzF47x8E5kitAC6FFEWfbqVqQYewQwqCFbDI5B2dBBe9VwF1x5QPrDNqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492473;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=5GXdvZHa3knndYwSDmToIG3fcge9m7l+oguuWUgRnLk=;
-	b=MpBtj3A4fJ2+4KeCfthmvVG6j6PcI/Zwucz+wg0tgiBXXMCxqvWvx1t4O8m8WRW67iy2
-	 nFEbeyGdCoY4+oH5yc1C0n+GaUsmbxggHaz4r/hLKGMoFyjXYCjwpgV6p6HVVKKVdKI1U
-	 /SaBPFWPjEmzxcjWnHyGoWM4v4yfHdIhKd5OFXYXH326I7svxTc2PUFhqe3k1ntSZgpc6
-	 1SKy88phkGCZFcDh+42MFq2Kj0o7UnWxB6z3PRC62cRWaD330+amLgqdyhePRodWK/+B/
-	 KAwyOHQX3+4HjCS67uR4NMVxVM5edqislSpIjFUD8AyjjbRT4gDnrvvYOllYpWB0KJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492476;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-ID:
+	 In-Reply-To:References:To:Cc:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:X-Debian-User;
+	bh=O1wOFcRJ3hIXdERyUkMm64zL7bpMn661NvAFyLUUNM8=;
+	b=W/5CGuSFdrZMovs6+CHSdukJTyVMt10Ieb0p6QvywGUy98xc64ib7fBMarnFmYG1GKeU
+	 dT3l+gzNScggTeN86/U/i6nshFgUbMiGLqQ2BBZZibMyEWHPn/wM2OV4TaDr55aQ/vyDg
+	 kgmgUzFS/fCOEF9HwmZcdroyAVhfG75GDr2nypAHCRzmC44evudDE+ro/Au06yQY0bNPZ
+	 IEucgXEjezscVNQ2XMiY1bHJ1sMdf8doC4K24xDUiziv/BT0y+obJSeH/NOWZepE7z4rd
+	 S3sR++oFkrl9bGfhCI2haENRbMIl+jjotl8kQtoXECdX+DCdgMcZyb2Tok397m7UeWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=cRlAZarm;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=QqHaFT0F;
-	arc=none smtp.remote-ip=202.12.124.158
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=iyl3uyGf;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9652606A33B
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:07:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9652606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00EE4606A8BD;
+	Thu, 12 Nov 2026 14:07:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00EE4606A8BD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=cRlAZarm;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=QqHaFT0F
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 1DDB47A012C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:07:52 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 12 Nov 2026 09:07:52 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794492465;
-	 x=1794578865; bh=5GXdvZHa3knndYwSDmToIG3fcge9m7l+oguuWUgRnLk=; b=
-	cRlAZarmZS4105Z8tE7f5RDZYNntIRDnBfMMwHtbWXAlvjAnUs8euZwHzC1oA4qV
-	g1bITi/YN+sbnyrChh/8anW6sQGvnqA965k71YUZ18+D4wLBl1MkPCgkyT/HKte4
-	BnpFI1Almwv7zBh0yge61xnfmnIJ3D14TFtgf94jeLh6pQ4kpKOAxpkgGPJ4CX4B
-	XlOSs37j/bSR3CdqILwBv5+w9TmIccKFqV2TqXbkCYwi6R50mLbcw57uR91SIiKs
-	tFCUNrBIqj4sy9V+Ukm8Op7fGcPOJjUPVjAvogbXgOEDgCf5Y9t8ZSRcAJPDVdRW
-	Osd+XB3y/EwjtCI7jz3f0A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794492465; x=
-	1794578865; bh=5GXdvZHa3knndYwSDmToIG3fcge9m7l+oguuWUgRnLk=; b=Q
-	qHaFT0Fm+Wxf3hVMxQa558O3fZ0Go6Jvi6S274zLQEJS6swjaKCN6kB3AUwkcVZ4
-	dHDEA5RRuivP73JeVzYN2a5M4QjNAqcGSjHw1HLzo2U59UMJIODJxa6SnojiP4lH
-	Uj8EcGbNTu6T+rJayzrCydwjkYYmRenBBxShjzXDHIPuKBwWs8nRPX3Gevj2Tt8o
-	AJNjpm3Rw9AO2nlSHmfC64ON2h78tL2HbGW6/r0IvWKMsJOacuWA0cFZV3qOs1bQ
-	nWepqOlxwFocK7Vu0Jab9gbKs2dT7oHaoq659r4agjGKZkHp0pXjsKU/1RcZxXY3
-	ZKiLkERh/JVcsTsfQvhkg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794492465; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:Y6CCevC0Y6cLRjwgzlSZ2fGml/OWZHQK/DRyaDplQoEAAAb
-	1FFLrJtp25AHR6JFSVE+PKZ3THQnN41kPJHtUbkRXMWCWDjVMtRmvrPhxrXYY/LP
-	LiSLQ4OnDmgg/lncZj1UAyJG4nu5/nEzZCOdMUTdvyAZQPOmmZYdSl2ucjPaY5J1
-	Erhf9WDA3jPfVtQJi0IzKNOiZnyu67u6g9PE2q1ZeyJSYSnOffWabwUcv2YiGxrT
-	PPhazkbhQYZRYcp/DPKIbT7m2vY5HCcybskuOVqtcwgmpQC9VPxQogO2UV+3a9Bh
-	j24z36oDBmTNvDUEjU4n0YeAaqE/xTvWQF4+kww==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:zJP+fHFCTvxBi9D/O28hUzwh2VX6rVFNk/0QKB44wyY=:8TXN24dfbYOYJLrLvVuV4dl9S5EX/zjyzYT5+JZds8s=;
-X-ME-Sender: <xms:Lcj1al2oDFJnOlUAmK_BhKEcST47Y0N6e5UIX07eNEXBv_yYUlsZtA>
-    <xme:Lcj1am4R8gX-0bHXcCTlyCS1H-JNx-BAPKywKQ0kjLuDYlEpivo9LVv98dmWysKay
-    3qssT5BdSa0DkALv8tcXnEC-qPrdrNxsauOzMj_NzZPFMcj6E7oTzM>
-X-ME-Proxy-Cause: dmFkZTEghsy3+LDBk1J/jXVYB3hbg3urWjbCnf+Is56K6KlyTy7hIW7mdHHgDWmuP6IaSb
-    ZDXdDcOc8EV8xGJ7CVkyaa8YfJnz+Oz5uIt8kzZFWND+RFfODBO8sLHZboCnmWkQc0NtGG
-    l3m+7yn/hIETUBKmCSO/0i8f92jbpUkfzY35dzz2GqeR8krzd/ZZtpA1opel6Labd8o8Jr
-    MepMBknmBvH7aoLJ+2u/caDVcD2sFC6WrTvozBvhoz+OtDk47fDCPU9aDRAS/xK9Z5NRJV
-    eZ98T+xm+0pq/5D+gOcXKSGMdgNITE5JJLPWGOTTJ8yb37oXvlE+xkuERaKDpqamuH6Znp
-    6jsnsra3ZK0HdT4HHKtvD8eikpleAHDfwks7gof9zPlIUPsvoTUFbXoatjBALn7XX1se9k
-    kCeWhN1h7Ygg92ZrcUrSM/mCxz2MLa/YggUp+0ssbZVkcA3RVSmma9cljg8YjYKA7fE1vh
-    BRTNx8nN1Y38eUCjaghHkPadoJuJID/h/SAhHbZKAMEL3WQEKGmncFIC1zTrshehz2GSt2
-    0ZD9dYFtc8YO8UDcWym4jdmJoX6Blmvh1WfUaM9DI3Faa6e1EiPsDGYj56HHmNQC/lZYlx
-    B1NZh6hbAg7ESf5+tvi5K4i06eDUo822q39zlCb/tB5MexwQOpyv+Kfk/SCw
-X-ME-Proxy: <xmx:MMj1akaCpyajzwhvAHKKZ3HZJuUDzUBJAMdPBUx4tG84ACWN6y34JA>
-    <xmx:MMj1av3Oj_SGPc4gcInww3tWYrXMmHgYyqV7T113ctRHn8jyHVYBfQ>
-    <xmx:MMj1auvfUe2etshsDERBjwS6ULQab0lCcKkEXyrIW_sbpl8v72g-IA>
-    <xmx:MMj1arBIPygLK1JsaclQxxjbHq9DZQwyg5dqTqfYUfb22rZx5khPDw>
-    <xmx:Mcj1asAQNZSZLBQmYqLGCj-qn6alc9lGF0WTdC3VDXPX5SzDibl_9SIC>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id AEE7532A009C; Thu, 12 Nov 2026 09:07:41 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=iyl3uyGf
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:MIME-Version:Content-Transfer-Encoding
+	:Content-Type:Cc:To:References:In-Reply-To:Message-ID:Date:Subject:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=O1wOFcRJ3hIXdERyUkMm64zL7bpMn661NvAFyLUUNM8=; b=iyl3uyGfKS3yVx3sdLRDFnhZ0c
+	nQc7Tuo5srLnjH1c1t4KGPUH0QdWh2MuKbz631tmKq5CB8SjzDQ4UdHVob8qB/9u5m5FLNTvjWBj/
+	irl523qKFJ4xvoP9pcv62WMhvDr+P6ny1JEGoHfBKJN7JLCRg/mmNfMvMbemZSHvcbfCFq1gW+gmq
+	qrou/5+kmSvcYtuwQ0ru9aqk3nTC84CldkAGUi4HY0cxC09XoQJyXQPcF6JIyxNRO72+JploGRJ4k
+	1HndD/bgAYbYUZPcp3RUQ5+vwhsdb39n2ySHV7wdD1mySjC+D9pKzB8xxEMS3OokqdQn9SMoUPOuM
+	ZoXSp/TA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <emfox@debian.org>)
+	id 1xRVSs-00E1Y4-0u;
+	Thu, 12 Nov 2026 14:07:46 +0000
+From: Emfox Zhou <emfox@debian.org>
+Subject: Re: [PATCH v2] media: i2c: ov13858: cap analogue gain at 15.5x
+Date: Thu, 12 Nov 2026 22:07:35 +0800
+Message-ID: <179449245510.342962.8870341202699077471@debian.org>
+In-Reply-To: <20261002093507.43584-1-lsa.uz@pm.me>
+References: <20261002093507.43584-1-lsa.uz@pm.me>
+To: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,42 +70,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AXRzvbN5yUxV
-Date: Thu, 12 Nov 2026 15:07:21 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- "Masami Hiramatsu" <mhiramat@kernel.org>
-Cc: "Christian Brauner" <brauner@kernel.org>, linux-kernel@vger.kernel.org,
- linux-kbuild@vger.kernel.org, kernel-dev@igalia.com,
- "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>,
- linux-alpha@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
- linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
-Message-Id: <0cfb4dbf-f3e2-4ceb-ab89-0453ae59793d@app.fastmail.com>
-In-Reply-To: <20261105-tonyk-syscall_table-v9-9-8d1275885d9c@igalia.com>
-References: <20261105-tonyk-syscall_table-v9-0-8d1275885d9c@igalia.com>
- <20261105-tonyk-syscall_table-v9-9-8d1275885d9c@igalia.com>
-Subject: Re: [PATCH v9 09/15] syscalls: Add an option for offsetting the common table
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-Debian-User: emfox
 
-On Thu, Nov 5, 2026, at 21:05, Andr=C3=A9 Almeida wrote:
-> To better support architectures that doesn't share the same syscall
-> numbers, but have them in the same sequence, add an new option to offs=
-et
-> the common syscall table numbers by a value. This make it possible to =
-reuse
-> the common syscall table for alpha.
->
-> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> ---
-> Changes from v4:
->  - I was reusing the logic from --offset to apply the --common-offset,=
- but
->  the logic is different: --offset does a string concat, and --common-o=
-ffset
->  does a addition to the number
+Hi Sergey,
 
-I don't understand why this should be different here.
+Tested-by: Emfox Zhou <emfox@debian.org>
 
-    Arnd
+Same conclusion here, from a Surface Pro 8 (Tiger Lake, IPU6) on 7.4-rc2 with
+libcamera 0.8 and its software ISP.
+
+I did not measure raw Bayer the way you did, so I cannot add points to your
+table, but a manual gain sweep at a fixed exposure shows the same ceiling.
+Requesting 4x, 8x, 16x, 32x and 64x and taking the mean of the centre crop
+after the ISP:
+
+	4x	35
+	8x	53
+	16x	77
+	32x	77
+	64x	77
+
+Above about 0x7c0 nothing more comes back, which is consistent with your 0x800
+and up entries.
+
+What I can add is the loop's side of it. With the control left at 0x1fff the
+auto exposure parks at 63.99 and stays there; with v2 applied it settles at
+15.5 instead, and the picture settles to about 101 (8-bit luma) over the tail
+of a twelve frame capture.
+
+One thing I noticed and did not chase: with ANA_GAIN_MIN left at 0 the first
+frames of a stream request gain 0, i.e. 0x0000 in 0x3508. It recovers within
+four frames so I am not asking for a change, but ov13b10 and ov08x40 both use
+0x80 as their minimum, and 0x80 is also this driver's default.
+
+Thanks,
+Emfox
