@@ -1,77 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794465923;
-	b=qtvpXHkHaael+QYt4uctZM1KLR6ziRg8o6gcAgd/bfRRoSKKRpguuzj6XOIrXtNmWWF1
-	 XsWbz7Wms5WcMG534FmOP6CnDGFb5vDAvvZy3KWX/M+9s4UM4uEbSIzpn/OdgtMcwwNCn
-	 muU+ncYa6tVKEZUqLHRia/4T+QNWygQEmAI01VPX4BZAyjge/l1WVQ6ut1yY0Rm/G+BDc
-	 9hYlgc5Cz575+TtF99QJr8ubmN0SLNAMrJe/KJOF9KgpPruIcQGWl/4lIy+SaCO3ICXGH
-	 ovG4xvsI3rA7P6bIfISYpLnwbSMo3lsJ9DbQfnQUe2xfJL2hbmvLqe8CLdVDW1vjB9Q==
+	t=1794465930;
+	b=ZF9O0rBg+Gwx+9jQxNNH7vLLE9esh/XOPgH0nu5lqWgrujECeAIuw3pJ1c5mntABn8uA
+	 ftW2AiAMnrbljxhwDvtD+qiaG6XVGXTNS8v2znmUXD074AelJN0rITqVftOsOsN505kae
+	 v5Dhdpk2E3JKBLOc34V1+yBlDRdznD3hzdqKOfpqlRaIyWhF+hqi8KNcICxSYtpihCUgX
+	 T0WIO8MwU4FF1UxKPn2cWRMC04tEkHq26ioC3Yfuy/d0+Is+yR2ujAEbE+v3p++mtTFzL
+	 8NmumazTD/VY1RBTec8irMl7gi8KTMRFsKdu25aixK7HtrJNERtdu+usIyZtdxqeZvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794465923;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=PH7FPXKmXWwh86LBiWXSpBFcw8LkkIhddh/M7mADpoA=;
-	b=ZKBNAIheHnlGqLg20KbOs6f/GSNPcNXlHzokI7+ZNPXmmCrTXn+Co/7kKhCO34XPOc+7
-	 uVqITwHOEJZVn1hhY+6p//zEIcTjpDuOemK7LooeH0WIuGMwQplZt1gqo3fZwE64p1u+8
-	 8/DUIiQz4eAuJGwYpgZMDm8U8N907JAUawHWjPgULffJ+dHolqtmMdflTCey7hbtVJH+f
-	 2X+BRZ+EHmAy5YiLRccS0GUXARpYrW4j/56ow4Gnd9+rwHP9SejMwJbt6phGGaPPu1Hdy
-	 h3KVy/nG0Qd1n63Fhe46wCKmzVj50Gaqq5ezZy017qwM3c8ybVV5j37SxN5tQe8Irlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794465930;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=9rH+QHGG1hI3dNzLf5B98rCFYXMdN76eY5FQVLDUIlw=;
+	b=v7mivpJWiLmgPiDs+tRoYbL4/ULq26GxA+Ten5wv0rZVsDUnnVkRvEbyp16SYpmXNVni
+	 6Phg4CgzDoja2dKXUYjkN3KS8dKouHlAyFlDjeag5yndkvsfU0qrAckuhO3TLbGzT7B9M
+	 aie/+U3Q3Z0OUU9u7xYpafczmoKKDI7IcKtZ/kCv/quq083mEmcgq6pxxuC8mxWcM6avk
+	 Qj5DLY4HHUEy+Kl9Hk2xZlCteMIzvuK74bOgv6AHa/0kGgw4y9tHaX+DHaGzQu44DCYhc
+	 PRqTWQoMYco2lkYn3yoRyplyZGAV2aMjjcIVYquSEFv5eD28LW5dQgBlnNO6hohEMGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ymSbpqUV;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B10C9606A31C;
-	Thu, 12 Nov 2026 06:45:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B10C9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ymSbpqUV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=ymSbpqUVBIpRATdz2wahkZ5KpQq4S30Dx1UdKRR9ULig5alk8DxYjdz+IYafo7AXDZNX+5MfTne8F
-	 YVMxXQc6SVk4vFkh16+bhcGX5QJKaIOjCFVn1qt0GfDyQIOCiYXkUiYIToFnKQjhqjY8eLxp+xaHCm
-	 /GekKm6UupsYvRTE=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86af5607e80a-7ea8d;
-	Thu, 12 Nov 2026 14:45:19 +0800 (CST)
-X-RM-TRANSID:2ee86af5607e80a-7ea8d
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.net (unknown[223.64.115.200])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af5607d33a-f5871;
-	Thu, 12 Nov 2026 14:45:18 +0800 (CST)
-X-RM-TRANSID:2eea6af5607d33a-f5871
-From: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-To: Hangbin Liu <hangbin.liu@linux.dev>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	MD Danish Anwar <danishanwar@ti.com>,
-	Murali Karicheri <m-karicheri2@ti.com>,
-	Wojciech Drewek <wojciech.drewek@intel.com>,
-	Ravi Gunasekaran <r-gunasekaran@ti.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	sunwenbo@cmss.chinamobile.com,
-	1342116488@qq.com
-Subject: Re: [PATCH net] net: hsr: clean up synced addresses and allmulti in hsr_del_port()
-Date: Thu, 12 Nov 2026 14:44:59 +0800
-Message-Id: <20261112064459.81535-1-sunwenbo@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <avUQ5dAMMRlUTNzq@fedora>
-References: <20261111060143.183670-1-sunwenbo@cmss.chinamobile.com> <avULIJLRzOEoefJI@fedora> <avUQ5dAMMRlUTNzq@fedora>
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A7F606A888;
+	Thu, 12 Nov 2026 06:45:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66A7F606A888
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: a09ee23ede6411f19a56ed5b684f684d-20261112
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:3e25d55a-35bc-44a9-a24c-fb5988da5f1e,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:ef66694e734ea29c88e66421930224fb,BulkI
+	D:nil,BulkQuantity:0,SF:80|81|82|83|102|136|865|898,TC:nil,Content:0|15|50
+	|99,EDM:-3|-100,IP:nil,URL:1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: a09ee23ede6411f19a56ed5b684f684d-20261112
+X-User: liwang@kylinos.cn
+Received: from [10.42.16.85] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <liwang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 1954828798; Thu, 12 Nov 2026 14:45:19 +0800
+Message-ID: <ce113884-82ae-4f3d-8f0e-c4499b8f1dfd@kylinos.cn>
+Date: Thu, 12 Nov 2026 14:45:17 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,74 +62,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] fuse: Don't use request timeouts on virtiofs
+To: Yuho Choi <oss.patchbox@gmail.com>, Miklos Szeredi <miklos@szeredi.hu>
+Cc: Joanne Koong <joannelkoong@gmail.com>, Jeff Layton <jlayton@kernel.org>,
+ Vivek Goyal <vgoyal@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>,
+ German Maglione <gmaglione@redhat.com>, =?UTF-8?Q?Eugenio_P=C3=A9rez?=
+ <eperezma@redhat.com>, fuse-devel@lists.linux.dev,
+ virtualization@lists.linux.dev, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261112052208.1248312-2-oss.patchbox@gmail.com>
+Content-Language: en-GB
+From: Li Wang <liwang@kylinos.cn>
+In-Reply-To: <20261112052208.1248312-2-oss.patchbox@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Hangbin,
+Hi Yuho,
 
-Thank you very much for the Reviewed-by and for raising this question!
+On 12/11/2026 13:21, Yuho Choi wrote:
+> virtiofs cannot abort a request once it has been added to a virtqueue,
+> because the device owns its buffers until it returns them on the used
+> ring. This is why virtiofs sets no_control and no_force_umount; see
+> commit 15c8e72e88e0 ("fuse: allow skipping control interface and
+> forced unmount"), which says that "virtio-fs does not support aborting
+> requests which are being processed".
+> 
+> The request timeout added by commit 0f6439f61a6e ("fuse: add
+> kernel-enforced timeout option for requests") aborts them anyway. When
+> a request takes longer than the timeout, fuse_check_timeout() calls
+> fuse_chan_abort(), which moves the requests on each virtqueue's
+> fpq->processing list to its end list and ends them, so they are freed.
+> The device can then still write the reply into the freed request and
+> its pages, and virtio_fs_requests_done_work() later gets the freed
+> request back from virtqueue_get_buf().
+> 
+> The timeout is armed when the server sets FUSE_REQUEST_TIMEOUT in its
+> INIT reply, or when the fs.fuse.default_request_timeout or
+> fs.fuse.max_request_timeout sysctl is set, for example for other FUSE
+> mounts on the same system. A slow host is then enough to hit it.
+> 
+> Don't arm the request timeout, and don't offer FUSE_REQUEST_TIMEOUT, on
+> connections that set no_force_umount.
+> 
+> Fixes: 0f6439f61a6e ("fuse: add kernel-enforced timeout option for requests")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+> ...
+> diff --git a/fs/fuse/inode.c b/fs/fuse/inode.c
+> index 1341b681d0ed..f1aae9b5475c 100644
+> --- a/fs/fuse/inode.c
+> +++ b/fs/fuse/inode.c
+> @@ -1451,7 +1451,14 @@ static void process_init_reply(struct fuse_args *args, int error)
+>  			fc->no_flock = 1;
+>  		}
+>  
+> -		fuse_init_server_timeout(fc->chan, timeout);
+> +		/*
+> +		 * A request timeout aborts the connection, which ends the
+> +		 * requests that are still in flight. A transport that cannot
+> +		 * take back requests it has handed to the device, such as
+> +		 * virtiofs, sets no_force_umount for the same reason.
+> +		 */
+> +		if (!fc->no_force_umount)
+> +			fuse_init_server_timeout(fc->chan, timeout);
+>  
+>  		fm->sb->s_bdi->ra_pages =
+>  				min(fm->sb->s_bdi->ra_pages, ra_pages);
+> @@ -1502,8 +1509,10 @@ static struct fuse_init_args *fuse_new_init(struct fuse_mount *fm)
+>  		FUSE_HANDLE_KILLPRIV_V2 | FUSE_SETXATTR_EXT | FUSE_INIT_EXT |
+>  		FUSE_SECURITY_CTX | FUSE_CREATE_SUPP_GROUP |
+>  		FUSE_HAS_EXPIRE_ONLY | FUSE_DIRECT_IO_ALLOW_MMAP |
+> -		FUSE_NO_EXPORT_SUPPORT | FUSE_HAS_RESEND | FUSE_ALLOW_IDMAP |
+> -		FUSE_REQUEST_TIMEOUT;
+> +		FUSE_NO_EXPORT_SUPPORT | FUSE_HAS_RESEND | FUSE_ALLOW_IDMAP;
+> +	/* See process_init_reply() */
+> +	if (!fm->fc->no_force_umount)
+> +		flags |= FUSE_REQUEST_TIMEOUT;
+>  #ifdef CONFIG_FUSE_VDAX
+>  	if (fm->fc->vdax)
+>  		flags |= FUSE_MAP_ALIGNMENT;
 
-On Thu, Nov 12, 2026 at 09:05:41AM +0800, Hangbin Liu wrote:
-> Sorry. I just got a question.
->
-> hsr_del_port() is called via dev unregister or hsr_dellink() -> hsr_del_ports().
-> The hsr_dellink() also calls unregister devices.
->
-> The unregister process will stop a device if it's up. And hsr_dev_close() has
-> called dev_uc_unsync() and dev_mc_unsync().
->
-> Could you share more details on how you performed the testing?
+Miklos has already posted a patch addressing the same issue [1]. Personally, 
+I feel it would be better to introduce a separate parameter to avoid semantic 
+confusion with whether forced unmount is allowed.
 
-Here is why hsr_dev_close() does not clean them up in those paths, and
-how the test reproduces it:
+[1] https://lore.kernel.org/fuse-devel/16a0bf8f-8c30-415e-a35e-9551c78b8dcc@
+    kylinos.cn/T/#m34d62acd7887a86ec32e9091145e4b19fdbb3fc3
 
-1. Call order in hsr_dellink() (net/hsr/hsr_netlink.c):
-   hsr_dellink() calls hsr_del_ports(hsr) *before*
-   unregister_netdevice_queue(dev, head). Inside hsr_del_ports(), every
-   port is removed from hsr->ports via list_del_rcu(&port->port_list)
-   and freed. When unregister_netdevice_many_notify() later invokes
-   netif_close_many() -> hsr_dev_close(), hsr_for_each_port_rtnl(hsr,
-   port) sees an already-empty list, so dev_uc_unsync() and
-   dev_mc_unsync() are never called on the slaves.
-2. Similarly, when a slave is unregistered directly while hsr0 is UP,
-   hsr_netdev_notify() (NETDEV_UNREGISTER) calls hsr_del_port(port)
-   before any close/dellink takes place.
-3. Also, hsr_dev_close() never calls dev_set_allmulti(port->dev, -1)
-   (and dev_close() preserves IFF_ALLMULTI), so the allmulti refcount
-   leaks even if hsr0 is brought down before deletion.
-
-Here are the exact test steps I ran in UML (using veth pairs):
-
-  ip link add veth0 type veth peer name veth0p
-  ip link add veth1 type veth peer name veth1p
-  ip link set veth0 up && ip link set veth0p up
-  ip link set veth1 up && ip link set veth1p up
-  # Create hsr0 with slave1=veth0, slave2=veth1 (RTM_NEWLINK)
-  ip link set hsr0 up
-  # Set IFF_ALLMULTI (SIOCSIFFLAGS) and add 01:00:5e:00:12:34 (SIOCADDMULTI)
-  # Verify IFLA_ALLMULTI on veth0 == 1 and /proc/net/dev_mcast has 01005e001234
-  ip link del hsr0
-  # Re-check IFLA_ALLMULTI on veth0 and /proc/net/dev_mcast
-
-Observed results on unpatched kernel:
-  [BEFORE DEL] veth0 allmulti_refcnt=1, synced_mcast(01005e001234)=1
-  veth0: left promiscuous mode
-  veth1: left promiscuous mode
-  [AFTER DEL]  veth0 allmulti_refcnt=1, synced_mcast(01005e001234)=1
-
-Observed results with this patch:
-  [BEFORE DEL] veth0 allmulti_refcnt=1, synced_mcast(01005e001234)=1
-  veth0: left promiscuous mode
-  veth0: left allmulticast mode
-  veth1: left promiscuous mode
-  veth1: left allmulticast mode
-  [AFTER DEL]  veth0 allmulti_refcnt=0, synced_mcast(01005e001234)=0
-
-I will also send a v2 with an updated commit message noting explicitly
-that hsr_dev_close() sees an empty port list (along with your
-Reviewed-by). Please let me know if you have any further questions.
-
-Thanks again,
-Wenbo
-
+Thanks,
+Li Wang
 
