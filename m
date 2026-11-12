@@ -1,79 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794477893;
-	b=YeiM26ZIol1mJ67SOa09xHR7hPzKKnsiPTbiwaKEI59w7eA59zGn4ABMl+qn7y1SA7cT
-	 vS8fBzGU9qlyzbXFnmIzuMcwM4Y9+RpJQM+gfmsc98GjNoesA1m4lLsjYcz3XZ4DuhjCp
-	 jfJUlBKpbaYG+yQ+3KSMxlTxvQISvDc1w7+oyD+IK1VvmQh5E21zaoifzich9a2O3BSyj
-	 isGVqA4XS4i03LSp16WdoDoXoyrNm8gjNa5cTocTSiSkMtzXyzsmL90krtjh+HkfAZYxN
-	 wJwXX3lZf6H7V3Wu+V2jF/crJMAQj/uzarYsoSwc/vxDe3h7vlxZcH3pVLTmlmBtgGA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794477893;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=db7y3lUD0vRJWmENghI/EzWxAuhHhCQERcund/ARCN8=;
-	b=bwYDV+3F7nxIlkK1TG/D9ynI5yXs8Y4nDydFhqxtIvKIzT+F8z9r6Yl+36bJvQioJBbp
-	 bzUl0zc+FHa9UP3VQDZWw1w2EAiLGtYZgVZpfX/38y7if414+8o+jLVQJhsgsFEy948En
-	 flJX52lp9CH+n9bm9BoEH74yGMYOBBfx3JU+enck86cd04vzi4ogiZ8u54HJxqQoy1SCR
-	 1WlfEhqtTCatbb3gJSZy9oQpLg2J5JUipPJTVqsbi7Gg1cWgTbbWIQHglSoARTvrARAes
-	 AevI2roAiw5483N63t5m48aSbr45vDrOKce9ZGPFWlfsWDPaKS+1NIJV/vt7VKbSt7Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UR0pf6b1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794477896;
+	b=MnHSn40trxcHF/yIkwj94s3NXkr5ZLrL1SopuWompmNlbt+JykLBmgEm1od9k7ikmwUM
+	 JKaX3WKFPu3rXMg4pdpEUOxpyc82+wJg0S+Rn2pcNEt4fUq5ULdxM1kHYUOLlXb956If3
+	 PLWvgCA03ShxVtzV0He7HjLfTT4GM2Xb9w6Sc3uznU/Ln7L9SB9550f/oo/mBJQUgBx1k
+	 56/WNmspDBgTm9fkVYqHtHX58v1UWX14lwQDqUdQ8PdQeJb/ka/BhaUKFUgMNNJx3AicH
+	 t2p946IR2hEDn9gpWmyKTJkFnqsR7CGsblwoIv8TeNu8foG2E9qt6tsWytb2oGm2HfQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794477896;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=12FxQz40ZG0aBXbOpbg2g2yd/BGfhAmZAB/dUKb2ZeE=;
+	b=l/8rh+bYsy7Dvi2YQHN0Hw2Qcn7v88rL8DUvPFQs88gTvM7P1p2hlnbxm4W4yQ/Yr2WE
+	 8cCw6tcN1WPgKMfq/Xy2SNlKYfoOCmSdf5KoG5SJtX2Iq6T6KhWYyjcsBUhY+Np1ECHP8
+	 ZDM6YmVmmFnRi7Vcz3kEPM4NuOke3JQBRXcwm1uokkTRgFMLOp4DcOFJVoT39dcKqqJD7
+	 PVOLuuvhro4YcEFzJeYcf7FXSN755YqyTI5oerZRG1S0TX7mq/ROrDYL8awcUJhNjMNir
+	 CuR8On58H9r1seZ+PYZrmrUZTE/iJGkBwauqG37OKTspYZQEP+RXTkXZQcJr40req7g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=dolcini.it;
+	spf=pass smtp.mailfrom=dolcini.it;
+	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=EwVro4zd;
+	arc=none smtp.remote-ip=217.194.8.81
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A286F606A332;
-	Thu, 12 Nov 2026 10:04:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518E3606A88D;
+	Thu, 12 Nov 2026 10:04:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 518E3606A88D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UR0pf6b1
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794477893;
-	b=ebqh0/POhcVnNHBTjJC6Y7QuNIb9rboDo8nt/3KVCDTVXo8jDVCJcdal72jZHSLbYy+J
-	 CGW9NlezbRFZAuzCEiNMvynnMALfX/3l5SrMzVbV/T7emt/lD53sBT9xiTqQBjK4sNFxK
-	 ECUqU/zCFR5UZ3l6I33ZNhvu+wnuYm/lhF3NzM9OEzs4ZaqbDA1QaAhV1VgQB1fKq4i9g
-	 FH40z6KfWktt7uBrWyLpYNRnW+wSCitqbzBOPFY8TN/QpDJ9eb20fkHuGdDQZiBl4WCLK
-	 ao8K5zAI+qxMoyKY+w3KmAI7CmsUa0VQ6N+96NyxHU2/Ynhkky3V7a+4c1Ha1ZU8rBQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794477893;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=db7y3lUD0vRJWmENghI/EzWxAuhHhCQERcund/ARCN8=;
-	b=F85arTWL2dVsO8T2FF2B/h/8uwp4wLhWSUj5J534EWXVgbHKBrKYD6KyVNV4NcUDm50X
-	 mUoXtFmQShOPD8UX+e7vHRPhAQMOX467ZbWCO3m0tsL7aYylm1N54/2DAJG1Gs2Uj0nra
-	 mPLuU+pOdYScAsz51zaKTBaL44i3veMSF2KEdHrOJ226X791OSTu8U5CXr+IVNo1bx966
-	 f50ZOMjFsBmNbqjYvnLViUfY2FSJEBsEBYLs6Vi+pV9TbHOdE0uFsO20vjvFKt2AlRgrS
-	 EgPCGfovneqYvUMqVos/dX9YXmWfI+F1X0uNqVPYNlQggffgPJsSD+F6PXAhEN98xOg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C67E71F00A07;
-	Thu, 12 Nov 2026 10:04:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794477893;
-	bh=db7y3lUD0vRJWmENghI/EzWxAuhHhCQERcund/ARCN8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=UR0pf6b17j5I8nOdAVt+Vb9qtsUx5wW9GvyjKF0Mo0nVwf8y5YhJUjXBPXfmNzYn3
-	 i6ZErWV56cjIyFC9haSsgwJOQ9x2nfmme60sTLd7+7HjEjvowco5meXaNW1NlArgbm
-	 N2FosjgnMLd3+AgCBwOhgvU7aBWFV56eLmhP9cMEPe46F3Aa19Hhi6U1SHs5j0KDaA
-	 u1On89o/B2kdUMLehovlgLY0ZKaX6J8KQG3NqedIil+l9OYJS4z8MkKeOxkvtLFAHq
-	 YJCELePd6M257TnVMhT74u2IS3HDEabfRYO8zrlAeAcMAPBWCScoMjWBCL7s/HmGHb
-	 jFUhW39nQuS2w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 53B6649460;
-	Thu, 12 Nov 2026 10:04:52 +0000 (UTC)
-From: Suyuan Wang via B4 Relay <devnull+shyckless.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 10:04:49 +0000
-Subject: [PATCH net 2/2] nfc: st21nfca: Free the ATR_REQ skb after sending
- it
+	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=EwVro4zd
+Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id 3F8C021447;
+	Thu, 12 Nov 2026 11:04:52 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1794477892;
+	bh=12FxQz40ZG0aBXbOpbg2g2yd/BGfhAmZAB/dUKb2ZeE=; h=From:To:Subject;
+	b=EwVro4zddjIo4VKA5LMoi5hY6WS6oYjLYIW3pLBAhZEtcrPJL7OG3Gw+6Mgi+ZdbM
+	 CH5ZI8CTi+aWldncyyeQd33H9WrPwKL0Z/bQUw9CL/Hw8viEiQwXMxqAuieEU2mWwv
+	 VoWZaGMdIjayD37MhMmpD9MI0w28sKu9+YHn6Ymboc4YeFLR84lDJHpzMdegGyAYIS
+	 tLm3szk1apuqKYfIlR1M6+611kM5Zi2IgLr8QViCXglUJpaN4jkCvgjYDgONsZMdz1
+	 Mg0Qp7Mv21oOhfYy0UXS10xuQv1Hd8DXOOyBuhENDdbp9z6e4bW1nmIoDkxgevwze7
+	 yq+t72XwHJAOA==
+Date: Thu, 12 Nov 2026 11:04:48 +0100
+From: Francesco Dolcini <francesco@dolcini.it>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, regressions@lists.linux.dev
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, Peng Fan <peng.fan@nxp.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] driver core: hand off fwnode ownership when shared
+ fwnode owner is rejected
+Message-ID: <20261112100448.GA53281@francesco-nb>
+References: <20260928-driver-core-v1-1-0846bb8e0f32@nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,86 +70,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-nfc-v1-2-ab0ef166f382@gmail.com>
-References: <20261112-nfc-v1-0-ab0ef166f382@gmail.com>
-In-Reply-To: <20261112-nfc-v1-0-ab0ef166f382@gmail.com>
-To: netdev@vger.kernel.org, david@ixit.cz
-Cc: edumazet@kernel.org, kuba@kernel.org, horms@kernel.org, 
- oe-linux-nfc@lists.linux.dev, linux-kernel@vger.kernel.org, 
- pabeni@redhat.com, davem@davemloft.net
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794477891; l=2188;
- i=shyckless@gmail.com; s=default; h=from:subject:message-id;
- bh=+RGyFbOPiqFDpQv7ZHyszj7XEOri6aHfSCc39zfhtRs=;
- b=v4Q5/lkOcsxVMVNcmaaspSv/zDgC3XTBcWhvnWhrbELGF9dTgrptheGZdcFIJhpfGv6haKGzY
- uI2rZzK9QrzD68wZ9yNInIGzjnqBilkb6ThDTTqi+GTfybqECLuKdLU
-X-Developer-Key: i=shyckless@gmail.com; a=ed25519;
- pk=pMtccVGiWES3bV+7YBFuBclkvq2n2HBHQ5azaBrK2lY=
-X-Endpoint-Received: by B4 Relay for shyckless@gmail.com/default with
- auth_id=1498
-X-Original-From: Suyuan Wang <shyckless@gmail.com>
-Reply-To: shyckless@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928-driver-core-v1-1-0846bb8e0f32@nxp.com>
 
-From: Suyuan Wang <stevewong@hust.edu.cn>
++regression list
 
-st21nfca_im_send_atr_req() allocates an skb for the ATR_REQ, passes
-its data to the HCI layer and then forgets about it:
+Hello,
 
-    return nfc_hci_send_cmd_async(hdev, ST21NFCA_RF_READER_F_GATE,
-                            ST21NFCA_WR_XCHG_DATA, skb->data,
-                            skb->len, info->async_cb, info);
+On Mon, Sep 28, 2026 at 07:49:01PM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+> 
+> When multiple devices share the same fwnode (e.g. the SCMI bus creates
+> both "pinctrl" and "pinctrl-imx" devices for SCMI_PROTOCOL_PINCTRL), only
+> the first device registered becomes the fwnode owner (fwnode->dev, set in
+> device_add()). If that owner never binds -- for example its driver returns
+> -ENODEV because it is blocklisted on this SoC, or because its driver is
+> not compiled in at all -- then driver_bound() is never called for it, so
+> fwnode_links_purge_suppliers() and fw_devlink_pickup_dangling_consumers()
+> are never run for the fwnode. The child fwnode supplier links (pin group
+> nodes such as lpi2c3grp, uart5grp, ...) stay unsatisfied and every
+> consumer of those child nodes defers probe forever.
+> 
+> On i.MX95 this manifests as a complete boot failure: the generic "pinctrl"
+> SCMI device claims fwnode ownership but its driver returns -ENODEV, while
+> the vendor "pinctrl-imx" device binds successfully. Because
+> dev->fwnode->dev still points at the rejected "pinctrl" device,
+> driver_bound() of "pinctrl-imx" skips the supplier purge and dangling
+> consumer pickup, so all I2C buses, SPI, UART, MMC, USB and PCIe
+> controllers wait forever for their pinctrl suppliers.
+> 
+> Fix this in two places:
+> 
+> 1. In really_probe() failure path: when the driver definitively rejects
+>    a device (-ENODEV / -ENXIO), fw_devlink_release_shared_fwnode() is
+>    called. If the rejected device is the fwnode owner, it either
+>    transfers ownership to an already-bound sibling (and runs the
+>    purge/pickup on its behalf) or clears ownership so the next sibling
+>    to bind can re-acquire it.
+> 
+> 2. In device_links_driver_bound(): re-acquire the fwnode when it is
+>    unowned (!fwnode->dev) or when the current owner has no driver at
+>    all (!fwnode->dev->driver, meaning the driver was never compiled in
+>    or loaded as a module). This covers the case where probe rejection
+>    never happens because no driver ever matches.
+> 
+> fwnode->dev is not serialized by a lock; instead every writer only ever
+> touches a fwnode->dev it already owns (== dev, as device_del() does when
+> it clears ownership) or one that is currently unowned (== NULL, as
+> device_add() does when it claims ownership). This patch follows the same
+> discipline: fw_devlink_release_shared_fwnode() only writes fwnode->dev
+> when this device is the current owner; device_links_driver_bound() only
+> claims fwnode->dev when it is NULL or when the current owner has no
+> driver (and therefore cannot be in the process of binding).
+> 
+> Fixes: f9aa460672c9 ("driver core: Refactor fw_devlink feature")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+> This issue is triggered by 
+> aac4e67d6eb9 ("firmware: arm_scmi: Always create devices for standard protocols")
+> in linux-next next-20260925.
+> 
+> But I think this is a fix to
+> f9aa460672c9 ("driver core: Refactor fw_devlink feature")
+> 
+> Detailed information could be found in patch commit log.
 
-nfc_hci_send_cmd_async() copies the payload into its own fragments, so
-the skb is still ours to free. As it is, one skb leaks on every ATR_REQ
-sent in initiator mode, whether or not the command was queued.
+Sudeep's series [1] fixes this in linux-next, but it is not yet in
+mainline. I'd like to have this tracked so that it is not lost.
 
-Free it right after the call, on success and on error, as
-st21nfca_tx_work() does for the same call.
-
-Found with a static analysis tool and checked by hand.
-
-Fixes: 1892bf844ea0 ("NFC: st21nfca: Adding P2P support to st21nfca in Initiator & Target mode")
-Cc: stable@vger.kernel.org
-Co-developed-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
-Signed-off-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
-Signed-off-by: Suyuan Wang <stevewong@hust.edu.cn>
----
-Compile tested only, I don't have ST21NFCA hardware.
----
- drivers/nfc/st21nfca/dep.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/nfc/st21nfca/dep.c b/drivers/nfc/st21nfca/dep.c
-index a5fab4fd5129..4b9054eb0208 100644
---- a/drivers/nfc/st21nfca/dep.c
-+++ b/drivers/nfc/st21nfca/dep.c
-@@ -496,6 +496,7 @@ int st21nfca_im_send_atr_req(struct nfc_hci_dev *hdev, u8 *gb, size_t gb_len)
- 	struct st21nfca_atr_req *atr_req;
- 	struct nfc_target *target;
- 	uint size;
-+	int r;
- 
- 	info->dep_info.to = ST21NFCA_DEFAULT_TIMEOUT;
- 	size = ST21NFCA_ATR_REQ_MIN_SIZE + gb_len;
-@@ -547,9 +548,11 @@ int st21nfca_im_send_atr_req(struct nfc_hci_dev *hdev, u8 *gb, size_t gb_len)
- 	info->dep_info.bsi = atr_req->bsi;
- 	info->dep_info.lri = ST21NFCA_PP2LRI(atr_req->ppi);
- 
--	return nfc_hci_send_cmd_async(hdev, ST21NFCA_RF_READER_F_GATE,
--				ST21NFCA_WR_XCHG_DATA, skb->data,
--				skb->len, info->async_cb, info);
-+	r = nfc_hci_send_cmd_async(hdev, ST21NFCA_RF_READER_F_GATE,
-+				   ST21NFCA_WR_XCHG_DATA, skb->data,
-+				   skb->len, info->async_cb, info);
-+	kfree_skb(skb);
-+	return r;
- }
- EXPORT_SYMBOL(st21nfca_im_send_atr_req);
- 
-
--- 
-2.34.1
-
+#regzbot ^introduced: aac4e67d6eb9
+#regzbot title: arm_scmi: i.MX95 does not boot, all pinctrl consumers deferred
+#regzbot fix: pinctrl: imx: Match the standard SCMI pinctrl device
+#regzbot link: https://lore.kernel.org/all/20261005-scmi_bus_fixes-v3-0-d9bada32ed38@kernel.org/
 
