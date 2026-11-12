@@ -1,99 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794466283;
-	b=LKAYzT6OZub0pkyw4OqomiHcWnzqAm1FbEZOjs/HMX1FjiB3TLYFcLg/APBquTv7g/Am
-	 KgbbgrQBqOpert6fzXcRb5mAc7qM3c7BBo37N6HTP/n/JF97MQV+2Ry5fYG96QEbRis0S
-	 DRf9njjJo/XDTFL/Xg53p3QBxFcS9W2RW1+7KZ4bfU1TGrTyCL348XmoKXbihjW5yuoGF
-	 IpDBSBSw/eMT1EHzrngyRZFNYyG6essalBpAeecW2CnAtbdW1aUqDASJPentspx8401on
-	 bYOcw5YV6RNl5XvVqPLykMsDigwSwMXPCf+5zsSYdNTaG+rBp/IU3/gWvwRncbwsX9w==
+	t=1794466322;
+	b=rN5RjbO45Xu2/vz4DxNyRh86L9A9AnA6laO3apvTDeIKsxY3bgO/Cd5dTKuY9ecJXVx6
+	 Oq8xVFuJ13n/UrTeq9lZNk5lS5jc3nl3tSdHXJNl6cKABognK8BCHDYdQmjlR1tkflyXK
+	 oo+euI4CCgg75bBO5mwFl/6YrINKrBlhIVYgp5lH43H+27yrsjt1gqF5Qo65Izcip9mtv
+	 UQHi866JUAGv6HjRh7N7MJiG5QVGi10uUtzd462AQ1RSah9IiC/paLgW/qDdlcafKHXkI
+	 0rQuM7jw+mIdKIvnne/WCbZ+39rNNC8l1CshW2buOEB+6f/fi2AkQDgQkblo4VNyTkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794466283;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794466322;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=S6vHQHJISvLttOPVGmxf1RIVPLKenvgKFyjyMf1hrow=;
-	b=FIDYQKLIzi/8ZCLoZehDEfor4stb37iTpKFjO0PoiGb5g4sBQgnhGEhUH+TcjaXKApur
-	 yzI45A8fZXwo5E1mNIDFpHCqR38CCeL3qrnNxOxmFP3B7kZnZy+XCGBo0OxvvC/JcVQB+
-	 qbhKOO33yNpXnEeStotzwh6jj4NuKHxk7cX7I5+g94B+wehAkhqKig1orJUdnvn0U7/m8
-	 YJutIDNiXWK/ObU3eEykx5Kqxg0nBYUKb3gstz9+4POHYcU4MddszNErNOqjzQbo+RFHH
-	 U6Lnz50u3ba2hdobZg8UnkWOx8mnoIGLsxacBAFKiZq+ifwSSjwdi6QnDgUQ3p//niQ==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=D3JLsp1QTj4757jMDwdQmMwnwAa2ZsC4IeFz9uGfVhA=;
+	b=bYrmBmaiZNbCQKzGNTt2d2FIQVpyTukJqizN0EbinTQX2tMWAfWNaNmtZVLFKepr3SXI
+	 kmKO34vy5w2rBCQRLMtcg+xopW82BYVp4yXVfA38Sk5aFC3uGTNrjN0vI9JtbroLztnqQ
+	 LMH6Y7vYIiSbVEdAGUGrFg0TBk/Vr21BOKdlq9cm7c8gEP5zkPWSjs7sJWvjaS3hsJ89e
+	 ICj25JORG7iYvvrsS3HEjDgSTAD2lzxkU1IYEdOPEYz99GQ2K48JZHcEckd5kZr8aVqb0
+	 Y9BLQrNOvXolgcb+qiLZQfd2qCZAsnLG71hqZQYXoq+xc6AzMjW455FfmoLEN6Rm8Xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="L9o/XV7a";
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=waukMC+D;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E523C60A3839
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:51:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E523C60A3839
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE17F606A32E
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:52:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE17F606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L9o/XV7a
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3720addb068so7040909eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:51:22 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=waukMC+D
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b10ca4e3f9so2239622a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:52:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794466282; x=1795071082; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S6vHQHJISvLttOPVGmxf1RIVPLKenvgKFyjyMf1hrow=;
-        b=L9o/XV7aP/sRDlIO4NymG0vbdEhk/qY2z2okt0Ybn/kuQZmIuPEC9cPaGxuM7HxnQO
-         +48CPWG5n8OcpG/7GHR5YehtxW0eNIW5qbSGB6FMOeQXR1yTDaUAFguyFrFBi1/FiBzA
-         QMhYd+Yl9ZAekrl0p9qELxxnYpy05qnq+uWwK2gBAxJ9j4kiXSAYxy+Wo07v9J2p2Nwn
-         iNBBvygKSVV2Ej7iHNou9RLIgELFxA6a3feApnhZMBfFa/Vas0G3TnGtj+4Be3HdoR1/
-         WYX+q8kUUjit5Mlt5iLML0bT+WQt7bqCsiNGGGEluImYbtUtoCtVDKREy/tAfJq8jqIW
-         V9IQ==
+        d=gmail.com; s=20260707; t=1794466321; x=1795071121; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=D3JLsp1QTj4757jMDwdQmMwnwAa2ZsC4IeFz9uGfVhA=;
+        b=waukMC+Dh6SBM4ZianwvFe5D/w6Z7X1RKpqco5PIIWdSWFlggnLlE4pPfZ3qP8qJ7k
+         biWsoVv++r0z9sYyRifkCoIYsB2auhFfNYyg+fUMt7J8WtYmCJIQfuK5LwV09+VQ/CyV
+         PpgtN8d+6d9eVHTSwjQLwYSKBQvgUgiKuWagO9rYGgq3yzAMuqLjgraZh9xi50TT8MQv
+         YYTk+gilz4GX+0enaemRDVf8Xw94qz+ctG8ZnFCEdEqmDOeADnHPXVj30pzNqnId4sVO
+         zIsR2s9SxE53G8TB6eGSf2a0w+1m+5h8uMzPkTUAGNKW9UnA2ylag708MBPJ/WsUb/FL
+         og/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794466282; x=1795071082;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=S6vHQHJISvLttOPVGmxf1RIVPLKenvgKFyjyMf1hrow=;
-        b=DVopeMLWUvtyNGZ+a2wmTPBvTS8Wlo42SDcQixZREdXiQGWj+U4OK+0pi1FqT5wpO7
-         2Dkt6rjMiFzN92L1F201pFJXyobLKU8/Laj6qT8ZnY0WqiLBJALjd/mZkMykDTwTecSY
-         AB7+6L1O8QBq2pdBXRbzdbG69jPaQF7jEzllR9OM87JISLhjsqIeWFZZsjI8PJrm2hnY
-         8U3ReN9gKHqffFN05VC5ZgZq+wlXSENmYSZyVH30+wQucfbVD6AYHnWBE0lmS/FbjCzb
-         BR6myn07dRFADDLP12txJIIKr3NOnKlxBfFGUoqwWr4SS3JDBl67dooNI2khcEa4eIWx
-         o2zw==
-X-Forwarded-Encrypted: i=1; AL+hErHWsl25W2k1SvSXcsrwuWkc74DpbpFFFwMruFgTDQ3w0f50+JWG7MnipoPrSVy3bNUVzeSEVKJZRniBx+I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kuWNF75yOhVconc32KeOHoYJHMUjhJkU/CEjuRv3yGUfVsF0b
-	GnutoScTnBFQ3EE6hmcqvSOMXxx4T66Ahq+QhSoKep67hOmwEIRHTexj
-X-Gm-Gg: AYBFou3OOBARSretTHfqNU71WHZTHO8OH3+Hks3vjSI+Ne6jhHLEcR5UAWkAmI6NAuV
-	9iSTJedvzEg5gZttvcIu0LLPmo963urNvIn3fGj7HvJMRJkHG32d0oLxSsCi+b+7tcz27GM22xL
-	o8oE4quqMGu1tfbey9OPAsuKjgqfBjit2TfEDwxi8mKPkNo7sED0yndjXUUY0QJSm8oRQTk98bS
-	IN2Y7G0uP6i/Jtc6IbIJD3ko+djgcpl4wBS9K44hvCx5Urc2WT5Nq6UYt4Q9FIvzHy1ZF1flrOU
-	8T+76wnMqyFYNZ2siYboujIFzQp8Kd7fzLMCN3uZ2/DSETAFE2OGdkT/WCsWWLEsD3ZCfMSgrNG
-	6c4lWHX3YEmz6DlLd2ApqEeSxjygEdjq/viCVGXHwc/s5vcg7oR/rgBQ0BZE3m3SDPBXLdzeBSJ
-	Xdt0QAeoczcTKwp7sZsbba5kJzDcXcAozwnEUCMjHZKLPQ/8yH+YmMRpzoGuEdcKKIfcwK59Yv4
-	y0Rw4WaxutOXQOf9CBawNHJtM56PfK8PFRjpPotKHEaOlyLMhuniZQYxtkUecbhy38f/nHMNlxu
-	1C0rviw5wtPQL6GsCjCSIydQ7Cahm1xuN1Hbdgkrvw4pqPIYedZPZF2+hK+A73KfgNvh6W4GmTu
-	kQIq3FIlbURz2RS56
-X-Received: by 2002:a05:7301:d810:b0:376:5b99:a7e3 with SMTP id 5a478bee46e88-3768327e817mr4203057eec.3.1794466281758;
-        Wed, 11 Nov 2026 22:51:21 -0800 (PST)
-Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:182d:659:ffce:39a4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375215d8889sm24547205eec.27.2026.11.11.22.51.20
+        d=1e100.net; s=20260707; t=1794466321; x=1795071121;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=D3JLsp1QTj4757jMDwdQmMwnwAa2ZsC4IeFz9uGfVhA=;
+        b=2u9dcvCTrHeebuNui0aG/7+M4mYE6Bqq4GXfOaTZHcUZNpD5i/BvxrelUh4VM+l0jP
+         UNrSB1larL1BUdscB51MtFdx5+aYo25i8oL0sfQfO7oYVF+1s/ZgFILyH4qzzmbTfx0P
+         T1Y9tPZ9PXypZzzlny6yo6obxjK3lPDVuGIGxfCHSsf+HkKID2jSE97Dr90gKA1P/JEu
+         hXiIGSi7GqqsKRuooAKv/1RqyDcE7conDoGy6YUqykc1cSSS+1/at1G98YPk05dAzss1
+         UGO5lb72rgK+r6oDK3cLe/6zzU3Db4DJtw1nkqakPciTk3GV0yXiCHtFsGp9rrICVAA9
+         cJJw==
+X-Forwarded-Encrypted: i=1; AL+hErGjxKmZZQoKXbduod/muohOq8FLx2kgg98zJ3ftMEApDaJsVb/Ql1rRELTNXSMjKPFnIPeqA7K+yCGNNHQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/M5JkAFierJTbDlqPK3i0C/PCa4pNtt+Atow80xwfw1U8uBlZ/
+	uQjBCvIsXGygIW8xCrsHk6U4SoiKX1B/7WAreUhQ2vUrQv9B5Trvzri7
+X-Gm-Gg: AYBFou3BBZPI65XiOD1aPWDksBr4QqT/o17OJHzIRxdlTeTAQagpPmVHLBpZXX/URy+
+	Q3VeVkie0kbk+ANtG2w3TcCEgU15+r3q+IVtJYTM1bAyxt2kggRbgKPqAe5ARVcSQlIlOKgLZ3X
+	rIyPjiwvBA8bYNLpwcVrpOWnhymRkA81129BsvawNSSemM8x+6ZVau6lUVLrKuZWxUs4aBNEYlX
+	JAIipHW4855KKNYaliDnlkkuSZD1ZzrAJqhaVML0TkHb/Il969RUwC+FdtJabUVCGR4JJkR/LHx
+	o8V7qIZRXm+bZZHokT21iQBDPkmsu/o3wg6RKZvJOsXGxj6kxAZ74vxEQ/vPkZsrnRU8oB9lo+E
+	YPZM8thB/X3TeoUclw3K8o8AWnND/73RAPwUqMgKimKJLsjpPs6hPc1pB6wBU/ypnOz1YxNYokq
+	F4O9FW53w+zpNF4e8J62rbZii1WlZNCpUo6bEtjIxq77rHamHrB/83pe/pt8nDTEGH9uN36nD7X
+	q57sMObklDNfmSnkFAs4tqR7sNd8lQ8LKUmtROlTgF0so7ecOnzs4N1nO9EPlUiM5wIqkum0WmS
+	1Vj8nxgMKETk7QpyZKSphYEeiQUuhMC2eJr1QYk4ozjkEpXAmlGyYggIXlh7LJdHHao//p4XGQ=
+	=
+X-Received: by 2002:a17:90b:224b:b0:3ab:c674:d83c with SMTP id 98e67ed59e1d1-3b182f1fdd0mr4254605a91.27.1794466321050;
+        Wed, 11 Nov 2026 22:52:01 -0800 (PST)
+Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([129.41.58.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d0f6e0sm3052617a91.9.2026.11.11.22.51.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 22:51:21 -0800 (PST)
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Jaewon Kim <jaewon02.kim@samsung.com>,
-	Hyunhee Kim <hyunhee.kim@samsung.com>,
-	Chanwoo Choi <cw00.choi@samsung.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Pankaj Dubey <pankaj.dubey@samsung.com>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] Input: regulator-haptic - fix coding style issues
-Date: Wed, 11 Nov 2026 22:51:15 -0800
-Message-ID: <20261112065115.1803973-3-dmitry.torokhov@gmail.com>
-X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-In-Reply-To: <20261112065115.1803973-1-dmitry.torokhov@gmail.com>
-References: <20261112065115.1803973-1-dmitry.torokhov@gmail.com>
+        Wed, 11 Nov 2026 22:52:00 -0800 (PST)
+Date: Thu, 12 Nov 2026 12:21:53 +0530
+From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
+To: Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, 
+	chzigotzky@xenosoft.de, mpe@ellerman.id.au, npiggin@gmail.com, 
+	christophe.leroy@csgroup.eu, linux-kernel@vger.kernel.org, msuchanek@suse.de, 
+	ritesh.list@gmail.com, harshpb@linux.ibm.com, gautam@linux.ibm.com, 
+	amachhiw@linux.ibm.com, venkat88@linux.ibm.com, nnmlinux@linux.ibm.com
+Subject: Re: [PATCH v2 1/3] powerpc/irq: Add ppc_hard_irq_disable()
+Message-ID: <avVh_YWoIgomwEP1@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+References: <20261110053238.3794500-1-sshegde@linux.ibm.com>
+ <20261110053238.3794500-2-sshegde@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,67 +101,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110053238.3794500-2-sshegde@linux.ibm.com>
 
-Fix minor coding style issues across the driver: add a comment
-explaining mutex purpose, drop an unnecessary blank line after an open
-brace, align function arguments with the open parenthesis, fix
-whitespace in conditional checks, and use a space instead of a tab in
-a return statement.
+On Tue, Nov 10, 2026 at 11:02:36AM +0530, Shrikanth Hegde wrote:
+> Add a flavour of interrupt disable which could be used in
+> multiple places which also takes care of lockdep in both 32 and
+> 64 bit archs.
+> 
+> On PPC64:
+> - Disable hard interrupts using hard_irq_disable. It takes care of
+>   lockdep and tracing. local_irq_disable only alters softmask's state.
+> 
+> On PPC32:
+> - Interrupts are hard disabled with local_irq_disable. It also takes
+>   care of lockdep and tacing.
+> 
+> Subsequent patch uses this API in KVM code to avoid the warnings.
+> Wider use of it is possible, but it will be taken subsequently.
+> 
+> Suggested-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+> ---
+>  arch/powerpc/include/asm/hw_irq.h | 17 +++++++++++++++++
+>  1 file changed, 17 insertions(+)
+> 
+> diff --git a/arch/powerpc/include/asm/hw_irq.h b/arch/powerpc/include/asm/hw_irq.h
+> index b7eee6385ae5..075442366e1e 100644
+> --- a/arch/powerpc/include/asm/hw_irq.h
+> +++ b/arch/powerpc/include/asm/hw_irq.h
+> @@ -516,6 +516,23 @@ static inline unsigned long mtmsr_isync_irqsafe(unsigned long msr)
+>  
+>  #define ARCH_IRQ_INIT_FLAGS	IRQ_NOREQUEST
+>  
+> +/*
+> + * Hard-disable interrupts while keeping the IRQ tracing state
+> + * consistent.
+> + *
+> + * On PPC64, local_irq_disable() only soft-disables interrupts, leaving
+> + * a window where an interrupt can be recorded in irq_happened before
+> + * interrupts are hard-disabled.
+> + *
+> + * On PPC32, hard_irq_disable() does not update the IRQ tracing state, so
+> + * use local_irq_disable().
+> + */
+> +#ifdef CONFIG_PPC64
+> +#define ppc_hard_irq_disable()	hard_irq_disable()
+> +#else
+> +#define ppc_hard_irq_disable()	local_irq_disable()
+> +#endif
+> +
+>  #endif  /* __ASSEMBLER__ */
+>  #endif	/* __KERNEL__ */
+>  #endif	/* _ASM_POWERPC_HW_IRQ_H */
+> -- 
+> 2.52.0
+> 
 
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
----
- drivers/input/misc/regulator-haptic.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/input/misc/regulator-haptic.c b/drivers/input/misc/regulator-haptic.c
-index d99f716ef44b..4ede90195366 100644
---- a/drivers/input/misc/regulator-haptic.c
-+++ b/drivers/input/misc/regulator-haptic.c
-@@ -23,7 +23,7 @@ struct regulator_haptic {
- 	struct regulator *regulator;
- 
- 	struct work_struct work;
--	struct mutex mutex;
-+	struct mutex mutex; /* serializes voltage updates and suspend/resume */
- 
- 	bool active;
- 	bool suspended;
-@@ -38,7 +38,6 @@ static int regulator_haptic_toggle(struct regulator_haptic *haptic, bool on)
- 	int error;
- 
- 	if (haptic->active != on) {
--
- 		error = on ? regulator_enable(haptic->regulator) :
- 			     regulator_disable(haptic->regulator);
- 		if (error) {
-@@ -55,7 +54,7 @@ static int regulator_haptic_toggle(struct regulator_haptic *haptic, bool on)
- }
- 
- static int regulator_haptic_set_voltage(struct regulator_haptic *haptic,
--					 unsigned int magnitude)
-+					unsigned int magnitude)
- {
- 	u64 volt_mag_multi;
- 	unsigned int intensity;
-@@ -118,7 +117,7 @@ static int regulator_haptic_parse_dt(struct device *dev,
- 	int error;
- 
- 	node = dev->of_node;
--	if(!node) {
-+	if (!node) {
- 		dev_err(dev, "Missing device tree data\n");
- 		return -EINVAL;
- 	}
-@@ -165,7 +164,7 @@ static int regulator_haptic_probe(struct platform_device *pdev)
- 
- 	input_dev = devm_input_allocate_device(&pdev->dev);
- 	if (!input_dev)
--		return	-ENOMEM;
-+		return -ENOMEM;
- 
- 	haptic->input_dev = input_dev;
- 	haptic->input_dev->name = "regulator-haptic";
--- 
-2.56.0.567.gdb80ae8cd5-goog
-
+Reviewed-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
