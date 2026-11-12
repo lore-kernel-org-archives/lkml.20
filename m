@@ -1,62 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794478620;
-	b=Js+HAOkHfuP+Nf+zv7e9WOzB8CCHy55NXf9DYuT8HkMZ2yybX9num+QKTs0EsBEu1RYM
-	 jsueQxSJwNZpDNMoZ+8oyXccbJfRlCWZit4ql+bt7MkpoWROUvAC7onCJJnkViVt+f95y
-	 ylnE+v5ZExf1wAqO0zSiyoaIcqG4MsILFqGN226fGa2FKl6ZVLBeTYI6n4NTaepgGpywP
-	 1nzInUGQG+hPJdnEG8ilPYiwO3/rO+C9EhxJ4xLH9K6rPo8WQqNWQlIwR696LAudy4+fm
-	 Oo/y1u/Q+ycxpHxqJalf1CHhDsmxNCXOzK8NM/ysbn+1OE/nniQ6gBF6x3DiKZG0/pg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794478620;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/RdHwbquKi+MVjjdJwJhpJsAsG12vtsmDqJfkK4Jwn4=;
-	b=euOSgK5tEthNf6F5iTr6XKbRo+xa58DTGMeRIHiGv8HSkbXcImb9xDOy672A4xV3P13t
-	 L0S4fQMyfSS75spN2JnKGypW3faag4T1gKUBGPHwwQ5Fuxn70tlhAz7Ree3THUkE4pWKj
-	 kSz/FzbCQ8dphKp9C06Otwr6jrAbEwpiUOo84kJsSEecwa4p1ZA42xJnwrFnWOCR3fvkS
-	 iKhVBBK0C/mSiJSXJW5kI1V0ey0veNqRgkF40mxcrhiDV+Bb9ZKTzqJ1EbcUS396b+9Gg
-	 ++Xqv6xg/VQ58uiP/ncY63MSfzaIlHmG03tOO1qVqYDkdfT8A5iVkCgS4ky+5ZqUABw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ATxohBFD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.69
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794478631;
+	b=p0w26y03mqIi6gp1QUQeaE8rwKTRoK3aOmffhnU9WRhEaH0xBqcWQyryN0qcRRmukhWw
+	 oVj9JTv2F/v+hHUfFAa9ATK9CrAcvnYpIFAXkxtOzH9b0DYtsdSYpwq7MVEAC8s6D0I9Z
+	 A8w8j3ACY4Fwd+jMu0Ski7IWqIGgMz/A1xmWX4Gfooo0XuirREU9hz/J2s1OPaxOmfLOH
+	 2mVx1533jpjs35y9zTQ3VWXvcNcb1IScdevZSH5nZSsERqJGYpQcQ9iJ0P4xPsOVNxmQj
+	 3FObBV4kX/ZZKkjrJDzu3/2iaYl4a12yXM8jOEpzEGYacff0RBy+eJTWpyh+vViaGNw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794478631;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=xMVBG+wwVRqJ5awtXc20OKhxtWtkcbC9Z5QyH2k21uc=;
+	b=S+g+6igGfy1hsvAAdD3EI8153A3QggLXU2VLwOq7ngJUie8VUesoHm1kt47Uwnjd3zoF
+	 PSEaKbPo8uRFukOOwFCTfifs6uG1ZjyjRaz4QbHW55knMNRBrnArXrrFXUskFV9fEdhfv
+	 9VHIeDIQM7owUTexSdlgwBLFwZ0pmp41VoWcFnJCueBUWeTf5Vpe+fMaLea92GV2eTFhj
+	 qBJUsQMNjIGD8uHX6qycjCie6RD/TyXI/OSHKtVn0/1F59lR6O19A2s0DHLOpsfaOwadn
+	 msaLO6JAIVVgWyF1Rz+eex6rcJ9Q9LnDmkLcflREvSk5eD6D4WuRrmLSsL47XmxAeyw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ZyAN83bv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.69
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012069.outbound.protection.outlook.com [40.107.209.69])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D32C8606A323;
-	Thu, 12 Nov 2026 10:17:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CFD606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:17:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1CFD606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ATxohBFD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FCB91F00A05;
-	Thu, 12 Nov 2026 10:16:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794478620;
-	bh=/RdHwbquKi+MVjjdJwJhpJsAsG12vtsmDqJfkK4Jwn4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ATxohBFDTHfYEdsLHe3UlmOS+O+rFc4eVDkGQL5vNv2fMs7+RZQ2uS9LAQMpJ1WDX
-	 U1nnxjcThcj2dp6SOM2vKMcWmndIUgm3S4M7Ha/SXQrFkVe5VCcYa5pUh9hMYtPSiZ
-	 oX/bb7PANfMg5zXIfar1jQGaoikxEQjvW75B4nky5n3nuzE2IHXAFi9nwXJsYCP8Cq
-	 5C6rEl1ZWVu/4tBGW98KN2t3IODQgff1XJ4XLYblSVIVTIg9RhhyfMk96CBd3cBQMQ
-	 bRd0FZ7V5P/zmWo6gyv4lDynLqam2JyY4ffjqKzj5/V1QBlMI/xgkuLr6eYus1kvQT
-	 sSL9YR6adL6rA==
-Date: Thu, 12 Nov 2026 10:16:56 +0000
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, regressions@lists.linux.dev,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, Peng Fan <peng.fan@nxp.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] driver core: hand off fwnode ownership when shared
- fwnode owner is rejected
-Message-ID: <20261112-truthful-zircon-narwhal-fa5d80@sudeepholla>
-References: <20260928-driver-core-v1-1-0846bb8e0f32@nxp.com>
- <20261112100448.GA53281@francesco-nb>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ZyAN83bv
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xRUz1Jc+lHOyVU8dgecX7oPWHo7CpYV0hnSl+LrZ/mfTclKI1rigtjFAZsPXEB90YbmadIOba+Ve7E32YVCYjiAXbQ1Okyvho3RnLe1I3UaO2Ox9CTu4pRHk1tTeAyW3hYGUoUKYP6iUbL8xn3O7wDFz3e20IafRhPZycNfTQ9+hmjCA5XGWcEqakDyBr/5MziwtQV9OgX5VeB8q85ynPuUjJjHXBzy6l4zpA3fN6ZWTy8+Do1z8HwPcaSXlReGavZu3aBGi746rfkBySfv52PBXBbuZrfat6lqPU+p2iIM44u7nMZMi4teEZNYratDQUJ0lsASyzix952jDhp7HyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xMVBG+wwVRqJ5awtXc20OKhxtWtkcbC9Z5QyH2k21uc=;
+ b=VSvpZdSSA0xnSw0fIG5ySUe9DWWFrT9zlUNtN7EBXtQWDE+KC9ELMdVWjLmWeDhMm91G/6A52kRnDgRc8fqfV9XAUsvRqumIxSJ9bx17rkDJTlbjLs1JfK9lMYbH9+WAZaPap+M/csrDWKALf9mbnf9A9AsXU+9GXJ9FkvKRxftSRYoqiT+82ku/76Mv6sncdKiTjv6ybHlo7Pd7Gn/xocVasFqC78J6lotiGnplOnPhd73LEAVxBlwnu2nVQJ8gjrjUrxUSp6yyInYVTicas6pB542cOrtPId+O/6I2hG29OBUAGDBHT86y/uMB5HduHqA7+BmB39CrUw276qQ2aw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=infradead.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xMVBG+wwVRqJ5awtXc20OKhxtWtkcbC9Z5QyH2k21uc=;
+ b=ZyAN83bvBHgmwOOEAAzCY0w5Bid85kPBRI3zTuIB7CEclu7fvnCegK3epOSROnY5tavIAlpn3nb58cPRGJScHHSQlyBRj1/Ki346JVEK2ct4ZXlIcHEwtKZ0pOeGiuWnMRrmsHdgLIdyPazi3YTH+vqlZOk6PmYE+lM4kIhZPAo=
+Received: from PH0PR07CA0043.namprd07.prod.outlook.com (2603:10b6:510:e::18)
+ by BN7PPFDE2ACDA69.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6e6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
+ 2026 10:17:06 +0000
+Received: from PH1PEPF00062F29.namprd02.prod.outlook.com
+ (2603:10b6:510:e:cafe::4b) by PH0PR07CA0043.outlook.office365.com
+ (2603:10b6:510:e::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
+ Nov 2026 10:17:06 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ PH1PEPF00062F29.mail.protection.outlook.com (10.167.243.58) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 10:17:06 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
+ 2026 04:17:05 -0600
+Received: from [10.136.34.22] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Thu, 12 Nov 2026 04:17:01 -0600
+Message-ID: <87ed02f4-f510-47a7-b3fa-30ad7909cb24@amd.com>
+Date: Thu, 12 Nov 2026 15:47:00 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,81 +101,206 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112100448.GA53281@francesco-nb>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 12/12] sched: Remove sched_class::balance()
+To: Peter Zijlstra <peterz@infradead.org>, Andrea Righi <arighi@nvidia.com>
+CC: <mingo@kernel.org>, <juri.lelli@redhat.com>, <vincent.guittot@linaro.org>,
+	<dietmar.eggemann@arm.com>, <rostedt@goodmis.org>, <bsegall@google.com>,
+	<mgorman@suse.de>, <vschneid@redhat.com>, <linux-kernel@vger.kernel.org>,
+	<tj@kernel.org>, <ziqianlu@bytedance.com>
+References: <20261107115913.261163891@infradead.org>
+ <20261107120208.153536827@infradead.org>
+ <56e1d372-c938-468a-950b-4f984ad6bde1@amd.com>
+ <20261112093308.GI2668804@noisy.programming.kicks-ass.net>
+Content-Language: en-US
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <20261112093308.GI2668804@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH1PEPF00062F29:EE_|BN7PPFDE2ACDA69:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5863563b-131e-49ce-5724-08df40a61a59
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|7416014|376014|23010399003|1800799024|22082099003|18002099003|6133799003|4143699003|11063799006|56012099006|261028144727099003|261102123227099003|261021121427099003|261022105027099003|261022075727099003|261026121527099003|261026140227099003|261021123027099003|261021135927099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	6NHXbgexgSkvDuRPKZsG5+u9XG93fPRwHZcaPlL11qzam4SjeCweN9330NDgejvYLeNJOHITQW/2CVmubhd6b34E0UDe9jf4vXEbyMZAdK03kKLB7cHz9hYsYUhKw4zlNQb66rWlLMjz1enhRY+tbWZrzYejrHv9lgrIZkg3QjIlf8G+B2rGytEKywT/1v4gPmF4uVy3xGDdQO8OFBhNGdSTQYWFhIktlGt0T4Yv2r7BCm/we3Wmt8dwMm5V8K2MKChw5/vsfn1Yqup0dqzWqeccO6Teess1Jxgt/tbkUsfrVxZ7XOZ0nRbdTVMFDewWe1PxxGROYoDlQEAG5ZSfz7umgtNFeWiMpkb0n5yGeL8P/5Pmp+lHLVi/LwLBoZ8kp50zE++c3MUoqUFHxk6xjM0jnPAT08XKUWBfcap2jGIUvkK/qfe8KRg28bled92+OCmaLPnV0s/sYjIxTrXllgvOFPlhpTwtVZdDkLpzjQ/20k6BHW6kandf6cxAyaokstO9gVE6kgD/lyHRG1Bh4rvtJv7Ve6lvT2VKuoqR5yWxICoSzqVQdLVACH03Orp6wf8npWK0nNCaipNK4zpdyJ6ddwNkrz/RcMcA5XfJ6gVxiInFV1ZcRcguCXoUeVqu5ou6fVIClA68mFzbBMULC4w7/zxMI9ZCmC90mpFSPme8YAjN4FhFMLKHyD2K51E1SqzPGUO0I4zv9eLp3CVv3A==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(7416014)(376014)(23010399003)(1800799024)(22082099003)(18002099003)(6133799003)(4143699003)(11063799006)(56012099006)(261028144727099003)(261102123227099003)(261021121427099003)(261022105027099003)(261022075727099003)(261026121527099003)(261026140227099003)(261021123027099003)(261021135927099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	P7d5mPYXEK5w0AKJoc11zGWWJNtgbY0GYyTCDC/y630hXm5zAazcP66YAkufhprX6L4L8mtke6EqoKFVL/g/69lYzaGZ7E4pblRMB+5j6R9Vt/bsCuwO+njVZeBRYZ+iT5vbqsSt3W5Fup3EGNMPqBz7bMQyovHO4oVqaYtU+EG/m0lNInqlrfjOWeiqjnNOe3XNUDjBsSLLST2QC4dNOAjRTpIXv2+fLdSgIKqgxYBjJZPh207Q6JHGIjy3T7r3l82NX0gXwJ+lD+Mbsao7B7o1UU0dZ0cfdzd00jbU0dwKzJyY/lO9lB+P3vCdQ3L0jn7Hp2H/3CchgKRODRffK+p8yDCNXWfm51XYkoQq281IyWWrIQlIjOZUsJZoUcvKPdAJ5phnCvnFy5zs3UDEo7dvDlwpvv3/wP8Z6z3+Tj6KWgIxZ4skZecUInV/aib2
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 10:17:06.0086
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5863563b-131e-49ce-5724-08df40a61a59
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	PH1PEPF00062F29.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPFDE2ACDA69
 
-On Thu, Nov 12, 2026 at 11:04:48AM +0100, Francesco Dolcini wrote:
-> +regression list
-> 
-> Hello,
-> 
-> On Mon, Sep 28, 2026 at 07:49:01PM +0800, Peng Fan (OSS) wrote:
-> > From: Peng Fan <peng.fan@nxp.com>
-> > 
-> > When multiple devices share the same fwnode (e.g. the SCMI bus creates
-> > both "pinctrl" and "pinctrl-imx" devices for SCMI_PROTOCOL_PINCTRL), only
-> > the first device registered becomes the fwnode owner (fwnode->dev, set in
-> > device_add()). If that owner never binds -- for example its driver returns
-> > -ENODEV because it is blocklisted on this SoC, or because its driver is
-> > not compiled in at all -- then driver_bound() is never called for it, so
-> > fwnode_links_purge_suppliers() and fw_devlink_pickup_dangling_consumers()
-> > are never run for the fwnode. The child fwnode supplier links (pin group
-> > nodes such as lpi2c3grp, uart5grp, ...) stay unsatisfied and every
-> > consumer of those child nodes defers probe forever.
-> > 
-> > On i.MX95 this manifests as a complete boot failure: the generic "pinctrl"
-> > SCMI device claims fwnode ownership but its driver returns -ENODEV, while
-> > the vendor "pinctrl-imx" device binds successfully. Because
-> > dev->fwnode->dev still points at the rejected "pinctrl" device,
-> > driver_bound() of "pinctrl-imx" skips the supplier purge and dangling
-> > consumer pickup, so all I2C buses, SPI, UART, MMC, USB and PCIe
-> > controllers wait forever for their pinctrl suppliers.
-> > 
-> > Fix this in two places:
-> > 
-> > 1. In really_probe() failure path: when the driver definitively rejects
-> >    a device (-ENODEV / -ENXIO), fw_devlink_release_shared_fwnode() is
-> >    called. If the rejected device is the fwnode owner, it either
-> >    transfers ownership to an already-bound sibling (and runs the
-> >    purge/pickup on its behalf) or clears ownership so the next sibling
-> >    to bind can re-acquire it.
-> > 
-> > 2. In device_links_driver_bound(): re-acquire the fwnode when it is
-> >    unowned (!fwnode->dev) or when the current owner has no driver at
-> >    all (!fwnode->dev->driver, meaning the driver was never compiled in
-> >    or loaded as a module). This covers the case where probe rejection
-> >    never happens because no driver ever matches.
-> > 
-> > fwnode->dev is not serialized by a lock; instead every writer only ever
-> > touches a fwnode->dev it already owns (== dev, as device_del() does when
-> > it clears ownership) or one that is currently unowned (== NULL, as
-> > device_add() does when it claims ownership). This patch follows the same
-> > discipline: fw_devlink_release_shared_fwnode() only writes fwnode->dev
-> > when this device is the current owner; device_links_driver_bound() only
-> > claims fwnode->dev when it is NULL or when the current owner has no
-> > driver (and therefore cannot be in the process of binding).
-> > 
-> > Fixes: f9aa460672c9 ("driver core: Refactor fw_devlink feature")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: LLM
-> > Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> > ---
-> > This issue is triggered by 
-> > aac4e67d6eb9 ("firmware: arm_scmi: Always create devices for standard protocols")
-> > in linux-next next-20260925.
-> > 
-> > But I think this is a fix to
-> > f9aa460672c9 ("driver core: Refactor fw_devlink feature")
-> > 
-> > Detailed information could be found in patch commit log.
-> 
-> Sudeep's series [1] fixes this in linux-next, but it is not yet in
-> mainline. I'd like to have this tracked so that it is not lost.
-> 
+(+ Andrea)
 
-I have already sent it as fixes for SoC team, it must land in v7.4
+On 11/12/2026 3:03 PM, Peter Zijlstra wrote:
+> On Thu, Nov 12, 2026 at 12:16:06PM +0530, K Prateek Nayak wrote:
+>> Hello Peter,
+>>
+>> On 11/7/2026 5:29 PM, Peter Zijlstra wrote:
+>>> Ever since commit 50653216e4ff ("sched: Add support to pick functions to take
+>>> rf"), we have the unfortunate situation that both sched_class::balance() and
+>>> sched_class::pick_task() have overlapping functionality in that they drop
+>>> rq->lock and balance tasks.
+>>>
+>>> Additionally, prev_balance() is only called for a single RQ in the core-sched
+>>> case, resulting in 'missed' balance opportunities in this case.
+>>
+>> So I have a fundamental question - looking at the deadline and rt balance
+>> callbacks, the balance is only done if rq->donor was taken off of rq
+>> (blocked / throttled) and we need to pull a waiting task that might be of
+>> higher priority.
+>>
+>> Now, if the balance (say for RT) failed, and later, a different class' (fair's)
+>> balance callback dropped the lock during which a RT task was woken up on the
+>> CPU, I believe the wakeup path would have already done the balance while
+>> considering this CPU for wakeup right?
+> 
+> Indeed.
+> 
+>> In that case, why should RETRY_TASK want to try balance again for the old
+>> "rq->donor" for which we have already ran balanced for? Shouldn't it simply
+>> pick the task then? Am I missing something?
+> 
+> need_pull_dl_task() has '&& dl_task(prev)', so if prev was FAIR, then it
+> will not be true and pick will not cause it to pull another task. And
+> similar for RT, it checks if the current highest prio is less than the
+> previous prio, and if prev is FAIR that won't be the case.
+
+Ack, but assume:
+
+  /* RT tasks blocks */
+  pick_task_rt()
+    balance_rt()
+    /* Fails */
+
+  pick_task_fair()
+    sched_balance_newidle()
+      raw_spin_rq_unlock()
+
+      /* New RT task wakes up */
+      
+      raw_spin_rq_lock()
+      if (rq_modified_above()) /* True */
+        return -1
+     return RETRY_TASK;
+
+
+  pick_task_rt()
+    balance_rt()
+     need_pull_rt_task() / *Still true */
+       /* Again: Probably unnecessary? */
+
+    /* But it does find an RT task so loop ends */ 
+
+> 
+>>> Just like pick_task(), prev_balance() would iterate the classes and stop when
+>>> there is a runnable task found. The only difference is that pick_task() starts
+>>> from the top class, while prev_balance() would start from prev->class.
+>>>
+>>> This means that if prev was an RT task, we'd get an extra visit to balance_dl()
+>>> -- and similary, if prev is fair, we'd visit balance_{dl,rt}() both. However,
+>>> this is not a problem, because both need_pull_{dl,rt}_task() will DTRT.
+>>
+>> Balance still sees old donor and it can still try a pull if the newly
+>> woken task is on a lower priority than the rq->donor. Is that desirable?
+>>
+>>> Therefore, move balance_{rt,dl}() into pick_task_{rt,dl}() and remove
+>>> sched_class::balance().
+>>
+>> Until commit 50653216e4f ("sched: Add support to pick functions to take rf")
+>> that was how pick worked and we should perhaps stick to that. commit 67692435c41
+>> ("sched: Rework pick_next_task() slow-path"), made it such that none of the picks
+>> could actually return RETRY_TASK and we are actually moving back to the same
+>> state as 67692435c41~1 with these changes.
+> 
+> I know :-(
+> 
+>> IMO, we should re-introduce balance_fair() for newidle_balance, and drain all
+>> the delayed task if !h_nr_runnable && h_nr_queued to avoid pick hitting the idle
+>> label altogether.
+>>
+>> Doing newidle balance for every idle rq's core pick seems too aggressive. I
+>> think we should let idle balance / balance callback handle those movements after
+>> rq->core_cookie is stable.
+>>
+>> This also allows for us to now do rq->next_class->pick_task() and that should
+>> always return a runnable task and we don't have to ever juggle rq_lock between
+>> picks which has already led to a bunch of issues.
+> 
+> So the problem is with ext :/ They need balance and pick to be one. If
+> we have separate loops there is the possibility of doing a balance but
+> then not picking it. In that case ext needs to undo the balance and we
+> don't have anything for that.
+> 
+> Humm...
+> 
+> Ah! we now have consistent cross-class wakeup_preempt calls. If we have
+> the following scenario:
+> 
+>   - only EXT tasks
+>   - balance_ext(), moves task from global DSQ to local DSQ
+>   - wakeup FAIR
+>       wakeup_preempt
+>         if (sched_class_above(p->sched_class, rq->next_class))
+> 	  rq->next_class->wakeup_preempt(rq, p, flags)
+> 	    // could move task back to global DSQ
+
+This part I'm slightly confused about (on tip:sched/core):
+
+  prev was RT
+
+  pick_task_scx()
+    do_pick_task_scx()
+
+      rq_modified_begin(rq, &ext_sched_class);
+
+      dispatch_pick()
+        dispatch_one()
+          ops.acquire() <-- CPU is back in control of ext
+
+          /* Pulls a task to local DSQ */
+
+          /* A new RT task wakes up */
+
+      if (!force_scx && rq_modified_above(rq, &ext_sched_class)) /* True for normal pick */
+	return RETRY_TASK;
+
+  ... goes and picks next RT task
+
+
+The ops.release() is only called when put_prev_task_scx() sees next of
+higher class which means the local dispatch from the pick stays that
+way until it is picked to run.
+
+So, the question is, should balance_ext() do anything more than what
+pick is doing today to pull the task if local DSQ is empty? Am I
+missing something?
+
+
+>   - pick FAIR
+>   
+> This will need some surgery, but might just work if we have
+> prev_balance() set the rq->next_class.
+> 
+> I suppose I'll go try this, the end result is much nicer.
+
+Indeed ;-)
 
 -- 
-Regards,
-Sudeep
+Thanks and Regards,
+Prateek
+
