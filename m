@@ -1,100 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794443118;
-	b=nZTz2B/tDuAjIuVpC3MIU4OY0W7HZa0TYhtLxKza09t5BtFqbmDbsEfG94gcQ6VID+R6
-	 GfZ7VJ8cjapdA0JZvn38+fmP7IwkEuLTPi4D7tmizYtN+nI/lK4Ozw9v4Mz9njOGL2N9b
-	 iR+c15l662sK02BDgcjvtwg6Ip5ektDZuTwrlrJFNUOUni3m2rxJQdK7CzcfmlkLl4hJq
-	 SHPUHJNQ5Jxw4XXsmxf7Ctekz3FMdCs1wUzOgMLVb+CuPB1YY2ilihisb360NJirUZ1p9
-	 lXxR9m8xp5fHMiGdJq2UWCQTkbCj5wCblBG+8pMEklKK/udH8gek8rUWRD9NBA8vznQ==
+	t=1794443196;
+	b=PklsDSXcZi4Iov0N9wKWOQX+WQOpWHs66vmq3P2IOizzwVWskLA8wKt6nK4tzuHUhYi0
+	 cc6lOCjR6UoftxVOJ9gwAMhnI6akE0Txjx4ptQrGLWyA1l2aiM2ACIP0wcEUwLpEqDX1g
+	 dRuefcmVbfW0vyKyDTi2KzZGU0ISDYVKjdxnqiqr7RWXDVRQZOVuKdc3cNvkF455tJyGq
+	 Me7u5/P+klr076fId4c79s3EYtLSlDmoCW5aQ0sEivXU1ToFlTZxph2fEIz1703ZSHMJp
+	 7/0K9XICTxDTKPIYcyO1PYaD6+KTbX2/iRa+IaBBn9vPQ8CuxxY5L2U4HnyMrw+KLrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794443118;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=WmDxcQotq3NgeobvzOlqzwVczvRUhsveENxWAqE5LCM=;
-	b=Wizwl3QpanjTF4pCsEGoyrtJ2iWDnwqanzZMp08cdKBv1KNr+ggN09CgkwTk/O6PCJab
-	 aUH/A9KETmRJ1Nsa9p5kN4dMFfApFi0/9ag3rTkSyVVJiVRGjbcYB7MhOgbKeySCwmnaJ
-	 GYhRZCh0b3jU3oyOmbpYBsbTdJTgWydkZqFanbXsIO/zpHGdKQEa/bSiNdt6ahAROKG37
-	 cKOGzlXpuuhrOdkthqHFMmW2w1J7QU/lfZCx59WZoxYCuFsO+D2hiItDbdJHJdzaFXNZS
-	 GnZ973jf31pEbQDeaD4Vb2w1/n+EUxqeJAXTparafBxo8h00Lf9mMAEmqxjK9lJC4KQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794443196;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=3JaUIX8TvleTZ/eyRqexb46r9ox6QF7gVm6ONPKED1k=;
+	b=aWyKF62iMLG4F2S/ylNhExVD6FlI6yjMEBo53Fd9bv5mUrB+7YD+OZM1trSHOfT8IkjX
+	 k7GhAxfaGV+uhG8eJFIRlMGguffMqalfKQBP+EYw7wAgmGyk/M3+Hrxfb9MIg9ki32a+p
+	 LEuiVFI7lJ4O2SeMkCe5FYLSW+LNf06ed4NnThnc6AXvxB9xOhtWG5JOWizf4/giJDOJj
+	 DqlWYpvDk919Z9i/Booyreq+0Gj7MPhtczc8zNpD0vzg7yHuq7PQ6mtVMEloRtjpi1zyH
+	 NirrkhQQG7g5uAyEdEVaFwfy8m7YuvxqwdsOO/wQkHhfayumhJHVbOMiS8U0OpDCj4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="h1S/DtRe";
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=rafqYhJO;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB64606A324
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:25:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BB64606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCCB606A31C;
+	Thu, 12 Nov 2026 00:26:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDCCB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h1S/DtRe
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-37071c0f42aso6358081eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:25:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794443117; x=1795047917; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WmDxcQotq3NgeobvzOlqzwVczvRUhsveENxWAqE5LCM=;
-        b=h1S/DtReSrooUG+5tSN0w/2VC4kQ8AWHjCfF28Z9OQxDnt2zBOzOG5sKY0JnQnJnFJ
-         zNwQbHhUCOB+mBz+KNl0PE8STaFR26KMtp9vkTpW7C07Cb/YyzjGHtqM07sjuYKHxOVT
-         Bw6BOYKRKl4LpOTyraYV/EqXqZQE0emqlHIbes5FFn1qm34+50N3/YHSvLdJ19ytxeVE
-         6yPp0kLgJnc0+ca3K6gduebk0nEVB67S9ZCzo6eMWtcjuyTSxgk/QI0JxuJsNwK89sRJ
-         srUy5gRBPksXx3Vl0TSo+9xqOGXIDjeVqvcLE+cpxfsKW8sza5a3MUFK7cLr+uKfTsYC
-         9a4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794443117; x=1795047917;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WmDxcQotq3NgeobvzOlqzwVczvRUhsveENxWAqE5LCM=;
-        b=w0aCdWLxx1YgGVLCvh5DZtf+BPK2zf1fgX1bfvJvJJ8ZfRYf6lGgUQcD41CZiruixh
-         rmlFV4KfTLhjrGNEoPpt5tZzdEzRC9bkbkmaDd3VXQKshIBS03XLlRYwiixQVE+NE6S1
-         xJ7i/7IIriG2TXGzSG2Zh8JA7LagXDEx6wFTYXe9CLror2swf58ybsn/yssfnMEe/bVM
-         qghBtlzb3WPd+MIDumi+nUFtVJBnPsN8t6quieHqIMN8A32y5huVtF4yhIczLEbmyg4Q
-         lomagerKOxthIPVOFq6iM+K8k/4V0K89kynsfk6IykLRYBDXHD1UghxaSBIU+nF5Tg0Y
-         wZjA==
-X-Forwarded-Encrypted: i=1; AL+hErE4WiNcL0A3iB9n8el3/ufbZo6ireHabJsSNg68eemci4VWpiEdSpAgXUJEMpSX/0XL2Yd2Uu9bDegqnyE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9QEghF0j8YzLI8cAJfzfnfjxyqvU2nYRe+YMCeEkZbjUhCOKDL
-	0ZoK5gDnnHIVu2CgQP0RCMoCE/Jolk/YYel5GaBx1zs+HRnWDMw0YsT5
-X-Gm-Gg: AYBFou3f9bdq28qy3QGQxE6zYGmuXyexXVBWheTCI5sNxSmk2ui+CS0s15U7euXfUlH
-	LrzWzX7Mdernag9dUCj2s4DFogd/duUd97rE0KpLZ/6P9jR80wRbNwMK58WUvt7OyfCbXmcmUz6
-	sr/3X/5eBLTj0SXCtPnOiswyJimytSET9hrNj2FRNVPE0z1+wELMGvqFwlem0n+m0KTc/UKZ0NA
-	lb/9RtcmeGLwhLXyQOwlGOmyd+l3ErCW5O18dn2iVplQ09iqjC7C2JbxqInG26jHBwbO3ga0Nl+
-	oO1UCQ4ZkA0bk6+xYvpVtq1a89kWNeMcWgfh2iCYrH/kcRWvd8xAC6YQkhEnR0mQu6LIUIBtOOO
-	0jD3mAEYi822MToDKRnTzIbQeLrNGlcAQTFUfvpg6rjDHRlJkqPTGDwgKKgkIfGBXGXmL4OQ0fm
-	WzgNWipHF00J38No9DVTj2G38WwEOW0IbchSYRHrGuhr8zpS/SmKBQoDH256N/fDnvUF6eSJucJ
-	VitYlbj3q396MJr9hrH3gfG8BveDlxazy/LsPeAWftMXJdaxecMDVGVsHucJ9aFpOpHvNNFi7Un
-	rEPTIOkt9CbxeFicU9/jMOseGbieBqEFbtuEUX5+fo6yL/DuL7VaMEVnO1ySpegaD0tJ6A==
-X-Received: by 2002:a05:7301:d807:b0:378:2e89:3958 with SMTP id 5a478bee46e88-3782e893b15mr345363eec.19.1794443117438;
-        Wed, 11 Nov 2026 16:25:17 -0800 (PST)
-Received: from google.com ([2a00:79e0:2ebe:8:182d:659:ffce:39a4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3766146551asm12082193eec.1.2026.11.11.16.25.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 16:25:15 -0800 (PST)
-Date: Wed, 11 Nov 2026 16:25:11 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Jakob Unterwurzacher <jakobunt@gmail.com>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Tony Lindgren <tony@atomide.com>
-Cc: Joseph Chen <chenjh@rock-chips.com>, Lee Jones <lee@kernel.org>, 
-	Sebastian Reichel <sebastian.reichel@collabora.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, 
-	mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>
-Subject: Re: [PATCH 1/4] Input: rk805-pwrkey - enable the wakeup interrupt
- during system suspend
-Message-ID: <avUGEQhSKlko0Fm9@google.com>
-References: <20261029-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-v1-0-cb12621c1fb4@cherry.de>
- <20261029-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-v1-1-cb12621c1fb4@cherry.de>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=rafqYhJO
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=3JaUIX8TvleTZ/eyRqexb46r9ox6QF7gVm6ONPKED1k=; b=rafqYhJOPOa4iyEQfoTvTZ4K6T
+	JVbDXCbUOkzGjrQC/xfo2SUILYVmHnv+jE1DpCEUr5UyyUxk3wCBssj1LE/zlM9WK6X0g2rkRthwf
+	yvfLdVgeFnsmpeZ63A8wNgZzMoPPVqhz+1cMNxhKwCoJxTwN7iPj5kz2Je+KnDPde5Np+p7Pg9+iO
+	EOyofX6A557DYr4wnLBnWDkTd7V0+fj6dLF6mYRJ39yinQRTOo/ezE2ND398UgI9HguHC9op42+ko
+	fsvSXzyYASfK+vM9pYCGI+HWF0RRni/yWCbKDFhSA+4aIBXHGZTApjFR6G3Fukte5JrpDtPvere0F
+	Tj8w+vCQ==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRIe6-00000008Em9-1nv8;
+	Thu, 12 Nov 2026 00:26:30 +0000
+Message-ID: <a7b1d671-18b0-44e8-b112-ab66893b3bf4@infradead.org>
+Date: Wed, 11 Nov 2026 16:26:29 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,123 +58,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-v1-1-cb12621c1fb4@cherry.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mm/zsmalloc: remove CONFIG_ZSMALLOC_STAT
+To: Xueyuan Chen <xueyuan.chen21@gmail.com>, Minchan Kim
+ <minchan@kernel.org>, Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Alex Shi <alexs@kernel.org>,
+ Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Helen Koike
+ <helen.fornazier@gmail.com>, Vignesh Raman <vignesh.raman@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-mm@kvack.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Nhat Pham <nphamcs@gmail.com>
+References: <20261111-zsmalloc_stat-v3-1-2d85ed51570e@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20261111-zsmalloc_stat-v3-1-2d85ed51570e@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Jakob,
 
-On Thu, Oct 29, 2026 at 11:06:23AM +0100, Jakob Unterwurzacher wrote:
-> From: Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>
-> 
-> The driver marks the device as wakeup capable, but never enables the
-> power key interrupt as a wakeup interrupt. As a consequence, the PMIC
-> interrupt line is masked during system suspend and the power key cannot
-> wake up the system, e.g. from suspend-to-ram on RK3588 with an RK806.
-> 
-> Enable the interrupt as wakeup interrupt in the suspend callback if the
-> device may wake up the system, and disable it again on resume.
-> 
-> This is done in the regular suspend phase on purpose, rather than with
-> dev_pm_set_wake_irq(), which arms the wakeup in the noirq phase: there,
-> enabling it updates the PMIC's interrupt registers through regmap-irq,
-> which fails when the PMIC is connected via SPI:
-> 
->   spi_master spi2: Failed to power device: -13
->   rk8xx-spi spi2.0: Failed to sync masks in 7a
 
-Sounds like this needs to be solved in PM core rather than hacked around
-in individual driver? Let's CC Tony and Rafael.
+On 11/11/26 4:41 AM, Xueyuan Chen wrote:
+> CONFIG_ZSMALLOC_STAT only controls the debugfs interface. The class
+> counters are updated regardless of this option.
+> 
+> Remove the CONFIG_ZSMALLOC_STAT guards and rely on the debugfs API
+> stubs when CONFIG_DEBUG_FS=n. Skip statistics setup silently when
+> debugfs is unavailable.
+> 
+> Remove the Kconfig entry and replace the existing CONFIG_ZSMALLOC_STAT
+> settings with CONFIG_DEBUG_FS=y. Update the English and Chinese
+> documentation to match, and clarify the pool name in the debugfs path.
+> 
+> Suggested-by: Nhat Pham <nphamcs@gmail.com>
+> Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+> Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
 
-> 
-> Fixes: 5a35b85c2d92 ("Input: add power key driver for Rockchip RK805 PMIC")
-> ---
->  drivers/input/misc/rk805-pwrkey.c | 42 ++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 41 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/input/misc/rk805-pwrkey.c b/drivers/input/misc/rk805-pwrkey.c
-> index 76873aa005b41..9b64ec7463c62 100644
-> --- a/drivers/input/misc/rk805-pwrkey.c
-> +++ b/drivers/input/misc/rk805-pwrkey.c
-> @@ -15,6 +15,10 @@
->  #include <linux/module.h>
->  #include <linux/platform_device.h>
->  
-> +struct rk805_pwrkey {
-> +	int irq;
-> +};
-> +
->  static irqreturn_t pwrkey_fall_irq(int irq, void *_pwr)
->  {
->  	struct input_dev *pwr = _pwr;
-> @@ -37,10 +41,15 @@ static irqreturn_t pwrkey_rise_irq(int irq, void *_pwr)
->  
->  static int rk805_pwrkey_probe(struct platform_device *pdev)
->  {
-> +	struct rk805_pwrkey *priv;
->  	struct input_dev *pwr;
->  	int fall_irq, rise_irq;
->  	int err;
->  
-> +	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
->  	pwr = devm_input_allocate_device(&pdev->dev);
->  	if (!pwr) {
->  		dev_err(&pdev->dev, "Can't allocate power button\n");
-> @@ -84,16 +93,47 @@ static int rk805_pwrkey_probe(struct platform_device *pdev)
->  		return err;
->  	}
->  
-> -	platform_set_drvdata(pdev, pwr);
-> +	priv->irq = fall_irq;
-> +	platform_set_drvdata(pdev, priv);
->  	device_init_wakeup(&pdev->dev, true);
->  
->  	return 0;
->  }
->  
-> +/*
-> + * Arm the wakeup in the regular suspend phase rather than with
-> + * dev_pm_set_wake_irq(), which does it in the noirq phase: enabling the
-> + * wakeup updates the PMIC's interrupt registers, which is no longer
-> + * possible once the bus to the PMIC (e.g. SPI on RK806) is suspended.
-> + */
-> +static int rk805_pwrkey_suspend(struct device *dev)
-> +{
-> +	struct rk805_pwrkey *priv = dev_get_drvdata(dev);
-> +
-> +	if (device_may_wakeup(dev))
-> +		enable_irq_wake(priv->irq);
-> +
-> +	return 0;
-> +}
-> +
-> +static int rk805_pwrkey_resume(struct device *dev)
-> +{
-> +	struct rk805_pwrkey *priv = dev_get_drvdata(dev);
-> +
-> +	if (device_may_wakeup(dev))
-> +		disable_irq_wake(priv->irq);
-> +
-> +	return 0;
-> +}
-> +
-> +static DEFINE_SIMPLE_DEV_PM_OPS(rk805_pwrkey_pm_ops, rk805_pwrkey_suspend,
-> +				rk805_pwrkey_resume);
-> +
->  static struct platform_driver rk805_pwrkey_driver = {
->  	.probe	= rk805_pwrkey_probe,
->  	.driver	= {
->  		.name = "rk805-pwrkey",
-> +		.pm = pm_sleep_ptr(&rk805_pwrkey_pm_ops),
->  	},
->  };
->  module_platform_driver(rk805_pwrkey_driver);
-> 
-
+Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
 Thanks.
 
+> ---
+> Drop CONFIG_ZSMALLOC_STAT instead of making the counters conditional. The
+> option only controls the debugfs interface, while the class counters are
+> updated unconditionally. Removing it simplifies the code.
+> 
+> Following Nhat's suggestion, remove CONFIG_ZSMALLOC_STAT and rely on
+> the existing debugfs API stubs when CONFIG_DEBUG_FS=n.
+> ---
+> Changes in v3:
+> - Squash the three patches into one (Nhat, Sergey).
+> - Add Nhat's Reviewed-by.
+> - Update the documentation wording.
+> - Link to v2: https://patch.msgid.link/20261109-zsmalloc_stat-v2-0-caee41684aba@gmail.com
+> 
+> Changes in v2:
+> - Drop CONFIG_ZSMALLOC_STAT instead of making the counters conditional.
+> - Update configuration files and documentation.
+> - Link to v1: https://patch.msgid.link/20261106-zsmalloc_stat-v1-1-b574f4714adf@gmail.com
+> ---
+>  Documentation/mm/zsmalloc.rst                    |  4 +--
+>  Documentation/translations/zh_CN/mm/zsmalloc.rst |  2 +-
+>  arch/s390/configs/debug_defconfig                |  2 +-
+>  arch/s390/configs/defconfig                      |  2 +-
+>  drivers/gpu/drm/ci/arm.config                    |  2 +-
+>  drivers/gpu/drm/ci/arm64.config                  |  2 +-
+>  drivers/gpu/drm/ci/x86_64.config                 |  2 +-
+>  mm/Kconfig                                       |  9 -------
+>  mm/zsmalloc.c                                    | 33 ++----------------------
+>  9 files changed, 10 insertions(+), 48 deletions(-)
+
+
 -- 
-Dmitry
+~Randy
