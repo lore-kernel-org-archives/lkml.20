@@ -1,81 +1,82 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794472674;
-	b=MB0U6YdkEkSOZm/y0D41lm+DUGv6vF1Kl+I9sZjN1LRPVR3e9WUaOTyO3JNBz6yFY+cX
-	 zSQJyL3XLIxBjv0LeI8CMYHBd1e+ZOlgkHYezRd9o95lhel7e3ejW9d49ofFWAzoOamMS
-	 LsfDXwzqZqAw90qOyXHq54HRKEN7BnQBzi5J5UbJuPCu/KfzgAXscy9vSBazj3KUgNlSo
-	 1Eg8r4Ydz5Fwv2W6alIkZGk5RzpcuKxplw0u5JknDK2srybcdAFvvGupO0refwsBr7DRH
-	 kZlcNmbNv46abTvCJBQV+y5riBL1jH+S7sAidPjuVViegYRu4FkvOHdpnvETb6Aunyg==
+	t=1794472675;
+	b=Y1u6YnUM5Qj4vufdNcdCI0a5s/vdvRahWntcQChQKy3USkzXfFJtOKO4F3W0KPa7qoCp
+	 8nxwUYfD0ha2uOYkxtIZQAdLxsmE+epv8f5Th5/HS8p3BNZE2iocszHMHvmk/e6UkGuUv
+	 g9QRlrywBexJtCNMjHhytH5O2XOApJpY4D0en4mbGTG6257kjVhndithI2kmastSxVXmW
+	 f6LruyhALLchJhieURvt9U1PHu1u8T80l4VaoiwlXuNqYuu96qZr6oQ5k21B3VWppGIm4
+	 EHwDdju2v93T1RPfE/r5N7caEufgWMR3jT6Tx6IT/FMcTXp1zBuLt3my7vrXq9E4F0A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472674;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=TMY6A5GcpY0Fbu9M9UiBvO7xlXRTKZ0wp76lY/Bnv2g=;
-	b=imRJp/xA/D4bY1TvXCPgh6SGVXYYyYOh07/fnMEUpFGlVQ0bmsNTV43K1mqrPWoAiPnL
-	 zMrOOTtXzAgSkMuNDI1f3K8kooy3GbyM14PAxBZcqnfT7VSp8oFiw3BXk+V9RwEA5TNUU
-	 Zu2vGAT8CIQ6q7b1wivXLCVAggajiJpCKD31JB81f0Ho8KP9rtf4voBA0xAmEv5Gbyulo
-	 CaYKH5kULjxgYUANp8EzYVsY0D+e1DWK4ZhIWon8EE4/tiv/pf/1nGRM8/Wk4gkWwvD4J
-	 vPE6OGJNYHVT4g0i3U1GALLo2TxDnsx2YPKMTW2EjQD9yu+vt+ItQkmzxJb9ENCIQYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472675;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer;
+	bh=53W5SeVSu8yIwtu2lhFAFXYTbrlByRFfbzx3Hg/k6Qo=;
+	b=n0xMFENfsV6tMmz9//EZyxTtb9vNWeaB/iTWR7JrkWODu4VJvzEnJawT9B1O3PBuOzbn
+	 DyDvncf4CTBvoT15F/ZWTWYubTVsZ3RQ26P8BF9sJdRF2KObRqTa0iq/pEXvSzxHowDcN
+	 pXKZjvQ+cWg2h5T1bn4keIEaUXD2FkMINlNhZeew6UbxIOAlixGME/O18Qnug94aZ+W4Y
+	 UrAgoPeWSZyOQaHtq4kqmQAN3VIpAD8BWSUAuf9Y7aCWY5G3VL7BhuBDkzMGlvD/5SXa4
+	 jSGZ8pUe0ZS9zsh43UU4PlP2pVGXDwTm7w0AI3AaI3I+em0OaJ18jHXxcKbz4rZFcYw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="JUGHk0/U";
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=FgbOaAWb;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF1E606A8A5;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF4F606A8A8;
 	Thu, 12 Nov 2026 08:37:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABF1E606A8A5
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABF4F606A8A8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=JUGHk0/U
-Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.4.pengutronix.de [10.17.1.12])
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=FgbOaAWb
+Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.pengutronix.de [IPv6:2a0a:edc0:0:1101:1d::ac])
 	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 5F09C201A86;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 63305201AD6;
 	Thu, 12 Nov 2026 09:37:51 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1794472671;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=TMY6A5GcpY0Fbu9M9UiBvO7xlXRTKZ0wp76lY/Bnv2g=;
-	b=JUGHk0/UI5gBtpv3ECJ4K1LK2hyn/5vBYIrQtDcUOmd8tCvCM6MEe1rt0DGODxUA7Z7bJQ
-	4e0mDaXNKysLvqDGRdWcZPdveqbD66yLgkXbKyrjyIswoKNKwNMHMSlSbHigT5AESwLDnP
-	VNK4HKXwUh8CxuEN5Mtx0usoB7+VfEry8IudMqrzS+7ffPBeabqJQrQE78rauCiIopg/lh
-	BOyKT0moy/siMCpHRgQvTcWINERip5LVdXbGGSi/gwi0cV8IADZhRZje5bOMdNys+0Ciff
-	aik36rejD30wq48L8dU+hJpTPyCHxIvwOx3FwmQi8Rz4O2Hlx8XWLwiyjcqmhg==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=53W5SeVSu8yIwtu2lhFAFXYTbrlByRFfbzx3Hg/k6Qo=;
+	b=FgbOaAWbNra1DkdA9CBUJhb4/fZJSuFTefs2vV3wmP8DRiROMvQJjHCWpefaBrvwKXxfYY
+	5i9DcyErUo9HE2X4vVfKhZdaSjhcdf7V429BZswouPeL8tmbCThxC6dWgMQ1j1C9YOwlXx
+	N0xdWdj59vwhUMLmEKTlaSKxBdOdeS15gut7T78u3Z1EpLk5rQaBjbF1jfJyi+SG+eYqmu
+	DzOApnp4R23l3BkXJsdAzgWgdkRRH5GMFW7AmkFXRXqTvpgdCuiinb/3ZpCecRE/tusqo8
+	6jg9QjfJy2jVsbA+AHosv9id3GPrdx37vDY/nUjU5mH7bDHPMwtMFR991gqgmw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1794472671;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=TMY6A5GcpY0Fbu9M9UiBvO7xlXRTKZ0wp76lY/Bnv2g=;
-	b=LMwmZiUrPDOKakP/zKmJ80DwTrxZIWMpJKabMtcGcYaeMNveFQW/epMHIfk4kX2ax9+/si
-	KN/pP2AY3ZB47YEJlcZQ5uN3IYQmVRZ6V1c9ZAkSGtEv4TyDQzUfmJK83FhUn8EoLJeLUG
-	TG8FEIdCC4ycXM8Ik4+8bSsohvOaplExMVidZcWVJxXElFzd28UAbhd3AIeH8NNt4Ac14Y
-	Wxo/FWDSBzt/akpTSNN6znBmqYEi66Obv8S5I0Vww3RDmbi0xWoDx5n8LPNWQ9dHJ2jCk6
-	kMSO2jEfzFC9cI5FVRiR4nhB9t5AUeQVzBqN84Ir81S+NuKfHd+g84BzHtyzww==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=53W5SeVSu8yIwtu2lhFAFXYTbrlByRFfbzx3Hg/k6Qo=;
+	b=FNFqQwhKZ1viL+6BYh1kOinaAeHmpvjNUZN44IL7uxHbL6irSluB3SNxSl4W9EPkJ92K2S
+	tZIcZwqMVqpOBwWar+6AOCKXLECU3o7mCT51qWQZFX4+gwH3S3TFWRLhHGyip4hEiKC2Y7
+	wd9mhfU5SJFieFIOT7LkriMlrK2b0CRUnIhfLPDNv73L7vzERVlRjqCETOqbviU6l9xXuY
+	IdhJTI2dUN60uStwZiOYGWhDgXEY/aHMx7nYYqP45/ICvhLFLfX2qINJvWqmmbEft6XAEH
+	5tljbD9nVrtGB8AVm4EFryk3rQE1i+T288V+YzVXJohJlrtCpIxi6oJAlySIJA==
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794472671; a=rsa-sha256;
 	cv=none;
-	b=QUh2UVWItogChS8lQdp5UPLBWk0cO3M5mGy2rdie3+0FqC7YC8I6JV3knMpCRnGFR4tUNe
-	fNgXQd189U/d9/5y3VFFW3UzJlpB8E5Qv8vcJAdFunu7MVBn8fjiRPOUgg+3FwR9/RbWhy
-	4+y9d4cwQbsJPNaOT6nqtpKuac9HWhKl2N6K+phuAbz547tNH/pwjXgVhxqtfv0pLGeq1j
-	ojEOixXFOFKRo05d71Pli6+s/5PPXS0Y2M/fRt7SeW6Q/hJp18Fi67ZTGg/8gnVQRz3fV+
-	xb+dZpvxbTxYNwv7CN43H1IBun7IfLvgJ/ea/HRNa+bcDfdF/Y6g0vtOxvzE1w==
+	b=YZlzJxdvddYqOMNtefxutEhK4vW2Gd7I5+TvrZ/H3ZYS+nSNXu/cwMH5Ss0gG0ER0hxaxr
+	EEmQ80P1undlk0nGmAcw8+yq+DPGjpHjffniwXOOaq7qphmFv8JobnYvzU/I6snep4GqpJ
+	qQGVVKjvBEXtVI24cTg2QWDchxCbxq5rQmd2gPXMaE0+5Advvh5qQVu/bztF+ptFIEGNf7
+	CoNYKZtaGIlRAbdM2x8my8nAoFhSiluxlYbfBkClcAiCzX23IreTRuAwQu60za/vR+N481
+	43xJQ78Hr+VymoKIC7L61IKOuVfDzEoHb5tOGejfW3l4eGIFHRHP9F/on8YptQ==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
 Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1058)
-	id 502CC3809F9; Thu, 12 Nov 2026 09:37:51 +0100 (CET)
+	id 52236380428; Thu, 12 Nov 2026 09:37:51 +0100 (CET)
 From: Oleksij Rempel <o.rempel@pengutronix.de>
-Subject: [PATCH net-next v2 00/10] net: dsa: realtek: rtl8365mb: DCB
- ingress QoS offload
-Date: Thu, 12 Nov 2026 09:37:43 +0100
-Message-Id: <20261112-rtl8365mb-dcb-ingress-v2-0-f8e6fbdf8c99@pengutronix.de>
+Date: Thu, 12 Nov 2026 09:37:44 +0100
+Subject: [PATCH net-next v2 01/10] net: ieee8021q: print traffic type and
+ queue count with %u
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,10 +88,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIANd69WoC/zWMQQrCMBBFr1Jm7WCSYlGvIl1Mkmk7YEZJQimU3
- t0ouHz8/94OhbNwgXu3Q+ZViry0gTt1EBbSmVFiY3DGDdaaG+b6vPbDJXmMwaPonLkUNJG4t2R
- cMBM09515ku3XfYByReWtwtgWT4XRZ9KwfLuRVk74f5wTicJxfADiO+/klwAAAA==
-X-Change-ID: 20261109-rtl8365mb-dcb-ingress-0dae31a02c0f
+Message-Id: <20261112-rtl8365mb-dcb-ingress-v2-1-f8e6fbdf8c99@pengutronix.de>
+References: <20261112-rtl8365mb-dcb-ingress-v2-0-f8e6fbdf8c99@pengutronix.de>
+In-Reply-To: <20261112-rtl8365mb-dcb-ingress-v2-0-f8e6fbdf8c99@pengutronix.de>
 To: "David S. Miller" <davem@davemloft.net>, 
  Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
  Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
@@ -102,54 +102,47 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Oleksij Rempel <o.rempel@pengutronix.de>, kernel@pengutronix.de
 X-Mailer: b4 0.14.2
 
-Add ingress QoS offload for the RTL8365MB switch through the dcbnl app
-interface: a per-port default priority, PCP trust and DSCP trust. The
-mapping helpers go to net/core/ieee8021q_helpers.c so other drivers
-can share them.
-
-Two changes are visible to users. The driver now rejects a devicetree
-port that the chip does not have. With a default priority set, an
-untagged frame that leaves a VLAN-tagged port carries that priority as
-its PCP.
-
-Tested on an RTL8365MB-VC with eight queues.
-
-ETS scheduling and CPU-tag pre-classification will follow in separate
-series.
-
-v1:
-https://lore.kernel.org/r/20261002115850.962676-1-o.rempel@pengutronix.de
+Switch the out-of-range diagnostic in ieee8021q_tt_to_tc() from %d to
+%u. The traffic class count num_queues is an unsigned int and the
+traffic type is an enumeration, so printing them as unsigned matches
+their types. The print sits on the range-check error path, which still
+rejects a negative traffic type; %u only changes how an out-of-range
+value is rendered, not which values are rejected.
 
 Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 ---
-Oleksij Rempel (10):
-      net: ieee8021q: print traffic type and queue count with %u
-      net: ieee8021q: add pcp_to_tt()
-      net: ieee8021q: clarify the tt_to_tc() traffic-class mapping
-      net: ieee8021q: add tt_to_pcp()
-      net: dsa: realtek: rtl8365mb: describe the ports of each chip
-      net: dsa: realtek: rtl8365mb: store the egress queue count per chip
-      net: dsa: realtek: rtl8365mb: add QoS baseline and DCB default prio
-      net: dsa: realtek: rtl8365mb: program the PCP of untagged frames
-      net: dsa: realtek: rtl8365mb: offload DCB apptrust
-      net: dsa: realtek: rtl8365mb: report the DCB DSCP-to-priority map
-
- drivers/net/dsa/realtek/Kconfig          |   1 +
- drivers/net/dsa/realtek/Makefile         |   5 +-
- drivers/net/dsa/realtek/realtek.h        |  32 ++
- drivers/net/dsa/realtek/rtl8365mb_main.c |  70 ++++-
- drivers/net/dsa/realtek/rtl8365mb_qos.c  | 507 +++++++++++++++++++++++++++++++
- drivers/net/dsa/realtek/rtl8365mb_qos.h  |  33 ++
- drivers/net/dsa/realtek/rtl83xx-qos.c    | 209 +++++++++++++
- drivers/net/dsa/realtek/rtl83xx-qos.h    |  20 ++
- include/net/ieee8021q.h                  |  21 +-
- net/core/ieee8021q_helpers.c             | 103 ++++++-
- 10 files changed, 979 insertions(+), 22 deletions(-)
+Changes in v2:
+- Drop the reference to a later patch from the commit message. The diff
+  is unchanged, so the Reviewed-by tags are kept.
 ---
-base-commit: fa5196392691051963726787944db872420dfa75
-change-id: 20261109-rtl8365mb-dcb-ingress-0dae31a02c0f
+ net/core/ieee8021q_helpers.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Best regards,
+diff --git a/net/core/ieee8021q_helpers.c b/net/core/ieee8021q_helpers.c
+index 669b357b73b2d7746e4856afdc8187cbaa4f9a6d..bbacdfff9b4c2ec14779baa79d341527fed1920c 100644
+--- a/net/core/ieee8021q_helpers.c
++++ b/net/core/ieee8021q_helpers.c
+@@ -99,7 +99,7 @@ static const u8 ieee8021q_1queue_tt_tc_map[] = {
+ int ieee8021q_tt_to_tc(enum ieee8021q_traffic_type tt, unsigned int num_queues)
+ {
+ 	if (tt < 0 || tt >= IEEE8021Q_TT_MAX) {
+-		pr_err("Requested Traffic Type (%d) is out of range (%d)\n", tt,
++		pr_err("Requested Traffic Type (%u) is out of range (%u)\n", tt,
+ 		       IEEE8021Q_TT_MAX);
+ 		return -EINVAL;
+ 	}
+@@ -131,7 +131,7 @@ int ieee8021q_tt_to_tc(enum ieee8021q_traffic_type tt, unsigned int num_queues)
+ 		return ieee8021q_1queue_tt_tc_map[tt];
+ 	}
+ 
+-	pr_err("Invalid number of queues %d\n", num_queues);
++	pr_err("Invalid number of queues %u\n", num_queues);
+ 
+ 	return -EINVAL;
+ }
+
 -- 
-Oleksij Rempel <o.rempel@pengutronix.de>
+2.47.3
 
