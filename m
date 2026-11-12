@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794524357;
-	b=s6eSHoKFh7iBdENVHShiZkll8SjbOQA2urIjzzFK4MyT3eitLtf39iFRIYGInrJIBuZ/
-	 +dKD5TYeZzQNTmIs7x6arIKsqkdrrtAUbMjbI1dlx31jDfVfRL4glIZzvJimEdcqM6hbt
-	 oILqvyMXcH5IC75FpYNZ0VUnCBphbBuLyaREjHfhlpgZ8FtFLA6hqoLZhsMKbn2V3JFbf
-	 VyFOMT5X8VxVqaA/eUU2s8h+dn+X2S/7ADp0Wggho4M+0VuQuhHdLbYWvSJKoDCUHbzhA
-	 EgFwnTui9r/7CHCkY3KPLn5OUwDxfhehOw0JBr1BpAEK3721/Kba9ola34ePSrxKcWw==
+	t=1794524364;
+	b=KpPuOW5Ve++BJrwh/bAEiipO8egxYbHKJHf3WZdyX4X80BaHS4f2CSiJNuPTZppggpG7
+	 Sz1kDJG8gkEvTOkccAEH7t4AqJdBp1pS1+73M6BL7ddVpyMjwwJ1ATSKqdItbvco+KwNh
+	 DUz0dO5lWZOD99WFhkwRuV/lGrZxM1w9A4qQU9pUym+maRdfMQOnO4yVTmIEqgYoxBb24
+	 k1kkuhFBn2E6AzhsGAz5SRc24z7jvSuIlQmQgWAU/hw4CHt4VqMU+Dl1/A96hRdewnJHD
+	 1gdS8qp34iRsFqpAfTS1BPmVVbZIi3qY6Twp28CANILzTsVELorln1iAXSP2umt1RuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794524357;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794524364;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=f5GATrzTZF4uhtb9ZrBNNQfJYhj4XfqFTs9oaJMkbjs=;
-	b=HM91lLgxC7vmgccR76q6+LzF5nwXWvZwnOKEcRjVES9WC3tUK4IWWNzjsmorW5CD9b76
-	 qj6kfZ1sFImem+ejPI1yLpZNsnyUY00P2FmQWPtD7I/sNfJ72z+lm3ytpZhpvpvsUbr2N
-	 Oi8QOTP9hR106OKTX1q+Xh0wAsidXCf31KVIz7JeOAydWiJwZz67xb0wd7CQ8sJa8eUg2
-	 XqaIyq0/blyAlCzIEzEantJVvUYhiTGnpAVi2vSFDQ8bVzxwxQyBQlJlrh3S1yyFLvALh
-	 A5ZyhuMZ/FNG6N7zsStzqUwbUFOLJEUQVpMQz4+pDjzRfRhiXaaqTKJpR/FqEbVt18A==
+	bh=miZw+tpBz1NZvPzoLi0FsIcx38rJ60qNj9YHT0PyrbM=;
+	b=Qm1YMe1PRl5K1PQtQKyCLQTSDc4/bU8NEfpCj41GXW87XMk1ybq+VCUd60OcWxpwG1uF
+	 MQ5sJYpQ1w3aBpKdZAtHEyZo+SGxz/TKeeGbmN1mYdM281AKHDbTGpI7L18stjC5dTAqk
+	 y3S18wy/TLyMTwfWxjpj/3iDmBIG2RljwGZIq6qqSMpqYK1wFHrmT1A/UDv+myT1lneoy
+	 ccC2A0YJVZJRi5LtbQc6MmvqWuJU0bh7kIuDmyDWaN/1HgezeCcxjDiEf1MubgpbWGxcv
+	 xXjWS6oG4WTvLypWaQSWsBkPPNTRlQUKY2fTfnY2TPeHrCRwZd9l3yCgmeLuvKpL+lQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=telaak.dev;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.175
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
+	arc=none smtp.remote-ip=209.85.128.180
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A8EB60A260E
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:59:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A8EB60A260E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2765460A381E
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:59:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2765460A381E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8b31ca7e0bcso5060947b3.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:59:15 -0800 (PST)
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b336de3d38so3297727b3.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:59:23 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794524355; x=1795129155;
+        d=1e100.net; s=20260707; t=1794524362; x=1795129162;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=f5GATrzTZF4uhtb9ZrBNNQfJYhj4XfqFTs9oaJMkbjs=;
-        b=wSeh4SuLbwuX0IVb95BwFyzeuD8aK4fcpjAVfr9eOxz40U4wfKRCjKzdRaVlsF4VWn
-         QqK0G/enGqCgOPCt2C6njlCjUpJhIOY84loRoFhcHmPBdZoTKMwA3Lh/m1HJnrdeAKur
-         c9ELbLAdbUBCBssUfloL7wIdrfSbbPpvHWOW2LQLxDn44nfULWLBihXBxK8qpVh6tsGj
-         zcODUZB05c16+S1oJPh9FHlMi9Zh9jJD1JuFs8j3LSMt9iFNctHrFbOUM+AuKmjVAUHN
-         xxfgBYTEQPJKvqs0qZs4JGViie0JvTD/MdMulbJxbrNQ99KRrUkLeMYpo4bUJqHaNKaL
-         hmjg==
-X-Forwarded-Encrypted: i=1; AL+hErHPzPV34EZQ9lRaBQTp5s9YgGN5XTuifmHAYgIsDMy2PRgkroQwTkpC0rakhBtva2TSf99sy7XAL4i6VrY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9hvh67pC8gSha2REl2MY0tmTVO4OFi0OBIDHCYw+ZwOC/jTnYF
-	sEygglzzvEEYQydoKDfaAS/NzYI+I3Fwf16Ad9NnotAd/cP/MEQAXUa2
-X-Gm-Gg: AYBFou114i8Zu2W4nLN5Hlf0tEHxjsNMKzCkCY3Ii3iAbMKghWfJtx6VcaxwmIhYBc4
-	jisihQvHg4iGtqhUBSZ9YjccWMdsSwGRV6/wXh4Me1zofmvHtMOzEgSKXd1z4pUOG3wYwFfMA5A
-	cg4NUvabP6PwsHS3MMPD96UcnnKhGFz+vZC8Wd20KqIkYH92AE/5ELLbsK1lhdZvFkdz5quhabV
-	kR40LPMOIIXTRIRitrFVr8NzQwzsQ92FpdMkrf1QB+dpN0oieO3N7ejzLBN1MNgwfVhX5xnqeAB
-	imeKTvXmQubxAY2S/NeRQEuwKj7TCdzt76Hg41fgRPO+/vY1lze6fNDMZMTiRIUF/kBm8fPfgqQ
-	b0UpqWBmAofgyCRszsodbj7kGwhvZiEd9SGlpWS4rKYRKczqOyQgpQ1bBITyAuFPA9Ytor4Tks7
-	oCpN/A8SplIo5H+9bRiOOEX7flm//deZA4mxS5a6MIR45uHfxRLK2T0r9ih+8KOiKpv3shOPD/k
-	9pbMtsj0Q8egGuUnwHdk3j1WWGtfuZs+I5GxLS5xbXMioBAyZeoi5xS2cY+OPM7u6gyHmbTKM30
-	408eRNp09bFAK3pCp7G1klRUNu1dr1a1H07uDLzcC2SilI49d37Jkyjk7IBVFbaICO08dbOnQwX
-	artpdcOVc2TqGcSftMFqIa0SAsbHcDbdhaknmnUv8w1Rabx6RR8OffAHt3MwDlKc8g4Qk1TOqqM
-	HHBSUEHn3h6Tl2R2c3nf+NZ31K2clN+keqsKvlXRJkTDK8dg==
-X-Received: by 2002:a05:690c:e1d7:10b0:8ae:e69d:913a with SMTP id 00721157ae682-8b4aa17ffe4mr5988497b3.1.1794524354317;
-        Thu, 12 Nov 2026 14:59:14 -0800 (PST)
+        bh=miZw+tpBz1NZvPzoLi0FsIcx38rJ60qNj9YHT0PyrbM=;
+        b=i+v/L9hHZwAZnlRp/fAzcRA0SVX8ytEPFzsHssxTlzpdiNEYVEBlj9iyrl0v0m10T1
+         j+rN1UrcbO6aAZnfYmo1IxAnI3MNevIdo59j7TfAoVQqQf15jhBIAPL+I4Y+jYP85cu3
+         zPKABfVg016XfqzMcioHAAm6yf/yJfWFRrb4kj+jZjG0CeXH1l4o8z//oslkPbclm0Ze
+         b8rmHBk1dXmCu0Fco0CgJaVbkvzL5Swx1Z2PZAypLT9nXAJC6lrcH5VeMkgrpTx29flP
+         rQYtbaXYqOcMbsM125pht9TmXkudySEm2nK+tXD3MJ/StLsDIK+U/DjG2GTZB7+uAl3J
+         QQIg==
+X-Forwarded-Encrypted: i=1; AL+hErHR46BwISt0irV6TI6clv/Sl9u4J9u/ECsPJEnpTbRx/JDkwmSNw683AIVaWFueBSqS7gDIwDTs2PZ1uQA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8/rJznL4Bpp4r/2SczNeo1uFqFAUFK9z7F/1hufTjImj/PyFMD
+	vtGVNYC+RyqC79jsdEa0iarEr/yqMKnrXN61VU3quM07bl7C/2YzXcQH
+X-Gm-Gg: AYBFou03ezXmWuczP+Hvdq2fLRqf+uI23pCpXZUO1XbU/Q4pFSnXUN/gGD6yidWvU1z
+	08UVN+ZyhBd8DHUEpqnh2SjXioKt9rC4xFjJeHc3Y27Y8JV3GlZJXUAOBuqJ9VO4BcvkwHiHO4R
+	er8zr6m5fpwNWOe3AviqmiiZb4hHEpsaouuwQ4XzSEPDv9yeQIFRJ2CdGttZIeRyH6TG61bep5E
+	RePw8NFS/7/XdZfDkLxvossUXg3Kp1laACYFe1ivYD5hMIRZ19cdkveJXUmeQtOTKRy6LyPGf7i
+	J3tnWoUkgkvGO/MOnUNjbuoFXtCr0sEmnEBDErT3ImZPAert4NZZepnp4bUWmY1enLp4nm70ZWT
+	XvZmfzce4LT5YN75DE2kmpqlW4ZeKGDbYE0LlYVA6BsiTtJqNgzvP/oGNht4AMxdKB+F4IeRkYi
+	0a5Ychk+3F2pZQWAI/gNdLzVhYThIC4Hxvclga6U+ueLWWgCYJ0dbohG697HhirXPZ5+eU7ItuJ
+	yLTItaTsjWNzmn93o1BBRdYcghK3enty9B1xzI152sM4CJYBZNwmST0LnCB5d0d+nihxnbk0QiN
+	i5dWxHhOE0QTfECdm+D7xNYEHWvgdmcGLtgq/FWSw6vZZQ2h5C8KHgVYk+SUdqR60ovNYJLONM7
+	qq8wSTBNiLBhh/PRGxKvew4cT70dy+RPbNppbDXqnEzUzByXZC0tJ5ZZeHW5MVjdL0OzLy9IYTR
+	Le6RInfmDpX5Z/6Zrd7iehEecR
+X-Received: by 2002:a05:690c:e251:10b0:8b3:23f3:134d with SMTP id 00721157ae682-8b4aa2b33a1mr4256467b3.42.1794524362017;
+        Thu, 12 Nov 2026 14:59:22 -0800 (PST)
 Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([71.68.170.161])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa8f354asm7261077b3.14.2026.11.12.14.59.12
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa8f354asm7261077b3.14.2026.11.12.14.59.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 14:59:13 -0800 (PST)
+        Thu, 12 Nov 2026 14:59:21 -0800 (PST)
 From: Joseph Telaak <joseph@telaak.dev>
-Date: Thu, 12 Nov 2026 17:58:54 -0500
-Subject: [PATCH RFC 04/13] drm/powervr_sgx: Add the uAPI header and its
- documentation
+Date: Thu, 12 Nov 2026 17:58:58 -0500
+Subject: [PATCH RFC 08/13] drm/powervr_sgx: Add contexts, the scheduler and
+ SUBMIT_JOBS
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,7 +81,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261112-powervr-sgx-v1-4-c69b84bac011@telaak.dev>
+Message-Id: <20261112-powervr-sgx-v1-8-c69b84bac011@telaak.dev>
 References: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
 In-Reply-To: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
 To: dri-devel@lists.freedesktop.org, 
@@ -103,1606 +103,1363 @@ Cc: imagination@lists.freedesktop.org, Frank Binns <frank.binns@imgtec.com>,
  linux-kernel@vger.kernel.org, Joseph Telaak <joseph@telaak.dev>
 X-Mailer: b4 0.16.0
 
-The uAPI of powervr_sgx, the render-only driver for PowerVR SGX5xx
-(Series5) GPUs that the next patch adds. It follows the rules of the
-Rogue driver's uAPI: type-aligned members, explicit padding, zeroed
-reserved fields, one layout on i386 and x86_64. The DRM version
-starts at 1.0 and the ioctl numbers are dense from 0.
-
-- DEV_QUERY: the GPU's identity, limits, quirks and heaps.
-- CREATE_BO, GET_BO_MMAP_OFFSET: shmem objects below 4 GiB. A code
-  object has no CPU mapping; UPLOAD_CODE fills it, and the kernel checks
-  every instruction first.
-- CREATE_VM_CONTEXT, VM_BIND: one GPU page directory per VM, with
-  fixed heaps; VM_BIND maps and unmaps synchronously and takes no
-  fences.
-- CREATE_CONTEXT, GET_CONTEXT_STATE, CREATE_RT_DATASET: render
-  contexts, render target data, and the guilty/innocent state after a
-  reset.
-- SUBMIT_JOBS: render jobs with syncobj waits and signals. The
-  header also has a transfer context and job (a 3D-only blit) and a
-  NULL job, which the driver's test tools use. Mesa uses neither, and
-  a client's first transfer can fault after another client's transfers
-  have run. Both go before a v1 unless a reviewer wants them.
-  A job's commands are plain structs, with an extension chain for the
-  fields only one core has; the kernel copies them, checks every field
-  and builds the firmware's command from them. Userspace
-  never writes a firmware structure. Sync is explicit, and a job lists
-  the byte ranges of imported buffers it reads or writes, for the
-  kernel's cache maintenance.
-
-Every ioctl is render-node only. Documentation/gpu/powervr_sgx has the
-overview and the uAPI; MAINTAINERS gets an entry.
+- Render contexts, each a drm_sched entity with its priority, on one
+  scheduler that runs one job at a time.
+- SUBMIT_JOBS with syncobj waits and signals (binary and timeline).
+  Sync is explicit: the out-fence goes on the VM's reservation as
+  bookkeeping only, and other drivers sync through the dma-buf
+  sync-file ioctls.
+- Hardware fences signaled in order from the microkernel's interrupt,
+  on a reclaim-safe workqueue. A microkernel that doesn't count
+  finished jobs is polled instead.
+- A job that runs past its timeout resets the GPU. Its context is
+  guilty, the others innocent; the guilty context's queued jobs fail.
+  If the GPU can't be restarted, the driver sends a wedged uevent
+  (rebind) and fails every job with -EIO.
+- Tracepoints for kicks, interrupts and completions.
 
 Signed-off-by: Joseph Telaak <joseph@telaak.dev>
 ---
- Documentation/gpu/drivers.rst           |    1 +
- Documentation/gpu/powervr_sgx/index.rst |  201 ++++++
- Documentation/gpu/powervr_sgx/uapi.rst  |  133 ++++
- MAINTAINERS                             |   10 +
- include/uapi/drm/powervr_sgx_drm.h      | 1175 +++++++++++++++++++++++++++++++
- 5 files changed, 1520 insertions(+)
+ drivers/gpu/drm/powervr_sgx/pvrsgx_job.c   | 1028 ++++++++++++++++++++++++++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_job.h   |  143 ++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_trace.c |    5 +
+ drivers/gpu/drm/powervr_sgx/pvrsgx_trace.h |  134 ++++
+ 4 files changed, 1310 insertions(+)
 
-diff --git a/Documentation/gpu/drivers.rst b/Documentation/gpu/drivers.rst
-index 20d2c454a..d1a2a3da5 100644
---- a/Documentation/gpu/drivers.rst
-+++ b/Documentation/gpu/drivers.rst
-@@ -8,6 +8,7 @@ GPU Driver Documentation
-    amdgpu/index
-    i915
-    imagination/index
-+   powervr_sgx/index
-    intel-display/index
-    mcde
-    meson
-diff --git a/Documentation/gpu/powervr_sgx/index.rst b/Documentation/gpu/powervr_sgx/index.rst
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_job.c b/drivers/gpu/drm/powervr_sgx/pvrsgx_job.c
 new file mode 100644
-index 000000000..ce21abb9d
+index 000000000..bc1e8ea28
 --- /dev/null
-+++ b/Documentation/gpu/powervr_sgx/index.rst
-@@ -0,0 +1,201 @@
-+.. SPDX-License-Identifier: GPL-2.0-only OR MIT
-+
-+===============================================
-+drm/powervr_sgx PowerVR SGX545 GPU Driver
-+===============================================
-+
-+``powervr_sgx`` is a render-only DRM driver for the PowerVR SGX545. It binds
-+the GPU where it is a PCI function of its own, as in the Intel CE5300
-+(``8086:089b``, core revision 1.0.14), and on Cedarview (GMA3600/3650, core
-+revision 1.0.13), where the SGX shares a PCI function with the display engine,
-+as the auxiliary device ``gma500_gfx.sgx`` that gma500 publishes. Scanout goes
-+through a separate KMS driver, and buffers move between the two as dma-bufs.
-+
-+.. toctree::
-+   :maxdepth: 2
-+   :caption: Contents
-+
-+   uapi
-+
-+Firmware
-+========
-+
-+The SGX545 runs a microkernel on its USSE, loaded with request_firmware() from
-+``powervr_sgx/``. The microkernel takes commands from a kernel-owned command
-+buffer, kicks the tile accelerator (TA) and the 3D core, and raises an
-+interrupt when a job is done. The driver builds the microkernel's data
-+structures: the host control block, the command buffer, render and transfer
-+contexts, render target datasets and parameter buffers. Userspace never writes
-+them.
-+
-+The supported cores are in a table (``pvrsgx_core.c``). Each core design has
-+an entry with its ID, the registers whose offsets or fields differ between
-+SGX5xx cores, its features, instruction set, directory lists, address width
-+and init script. Each part of it has an entry with its revision, clock and
-+firmware file. The bus tells the driver which core to expect, since even the
-+core ID register moves between cores: the PCI ID for the CE5300, the gma500
-+auxiliary device for Cedarview. The driver refuses a core that isn't in the
-+table before writing any register.
-+For the CE5300 the file is ``powervr_sgx/sgx545_ukernel.bin``. It starts
-+with a header giving the host interface version, feature bits, the image's CRC,
-+its entry points and the immediates the driver fills with buffer addresses.
-+The driver only loads an image that declares secure mode, in which no client
-+page directory maps the firmware's memory. After the start it asks the
-+microkernel for its version and features.
-+
-+Memory
-+======
-+
-+Buffer objects are shmem GEM objects with pages below 4 GiB, since the GPU's
-+physical addresses are 32 bits wide. CPU mappings are write-combined. Every
-+open file creates VM contexts. Each one has its own two-level page directory
-+and is managed with drm_gpuvm. The client heaps sit at fixed device addresses,
-+reported by ``DEV_QUERY``. Kernel-owned objects live in ranges a client can't
-+map.
-+
-+USSE programs run only from code objects. A code object has no CPU mapping and
-+can't be exported, and the GPU sees it read-only. Its contents arrive through
-+``UPLOAD_CODE``, which validates them (see `Shader validation`_).
-+
-+dma-bufs are exported and imported with the shmem helpers. An imported object
-+maps in any heap a data object maps in. A CPU mapping of an exported dma-buf
-+needs ``DRM_POWERVR_SGX_BO_ALLOW_CPU_ACCESS``, as a mapping through the DRM
-+file does.
-+
-+Shader validation
-+=================
-+
-+The GPU's page tables keep a client's memory accesses to its own VM, but a USSE
-+program can also read the core's own registers (``ldr``), which the page
-+tables can't stop. On the SGX545, a client's fragment task read the core ID,
-+a live timer and the page directory base. A client's ``str`` to the page
-+directory base or to code bases 14 and 15 was dropped. Stores to other
-+registers from a client task are untested, and the microkernel itself writes
-+registers with ``str``, so stores are refused as well. So the kernel decides
-+which USSE code may run for a client.
-+
-+**Where client code runs from.** A USSE task starts at one of the 16 USE code
-+bases plus an offset, both taken from a ``DOUTU`` word of a PDS program. PDS
-+programs and their data are client memory and are not checked, so a client can
-+name any base and any offset. The offset, like the absolute targets inside
-+USSE code, reaches at most 2 MiB past the base. The kernel programs bases 0-9
-+onto the pixel shader heap, 10-13 onto the vertex shader heap, 14 the same as
-+0, and 15 onto the microkernel's code, which no client page directory maps.
-+From bases 0-14, everything within reach is a USSE heap or an address range no
-+client can map. The USSE heaps take only code objects. So a client task runs
-+code ``UPLOAD_CODE`` checked, or faults.
-+
-+**What UPLOAD_CODE checks.** Every 8-byte word of an upload, whether or not
-+the program's branches reach it, against a table generated from the isaspec
-+description of the instruction set that Mesa's compiler uses
-+(``pvrsgx_usse_table.h``):
-+
-+- The word must be exactly one known form. Fields the compilers leave at one
-+  value are pinned to it.
-+- Refused outright: register-file access (``ldr``, ``str``); everything that
-+  sets or uses the link address (``setl``, ``savl``, ``lapc``, a branch with
-+  ``link``), since together they make a computed jump; the absolute branch
-+  ``ba``; ``phas`` with a register operand; the mutexes ``lock`` and
-+  ``release``, which can stall other tasks; the operand-stepping controls
-+  whose effect on operand numbers is not known (``smbo``, ``smr``, ``smoa``,
-+  ``imo`` and the register forms of all four with ``smlsi``); dual issue
-+  (``fdual``), whose second operation's operands aren't checked; and forms
-+  this core doesn't have or whose meaning is not known.
-+- ``br``: the target must be inside the object.
-+- ``phas.i``: a target other than 0 counts from the code base the task's PDS
-+  program names. Measured: base 0 with offset 0x88380 runs code in window 1,
-+  and its targets still count from base 0. The check takes the base a compiler
-+  names, the 512 KiB window of the USSE heap the task's first instruction is
-+  in, and the target must be inside the object where it is mapped. Such an
-+  object must lie in one window, so that base is the same for every entry in
-+  it, be mapped when its code is uploaded, at one place in its window only,
-+  and can't be mapped at another place afterwards. A PDS program that names
-+  another base only moves the target within the reach described above.
-+- ``setfc``: only ``setfc #0, #1``, the format control a program starts
-+  with, so the check knows the format control of every instruction without
-+  following the program.
-+- Each operand: no writes to constants or globals; no reads of the globals
-+  past ``g45``, which are not documented; internal registers ``i0``-``i3``
-+  and index registers ``idx1``-``idx2`` only. Bit 6 of an operand number is
-+  a format flag only under format select (the instruction's ``fmt`` bit) or,
-+  for the color classes' ``r``, ``o``, ``pa``, ``sa`` and ``i`` operands, C10
-+  format control; everywhere else it is part of the number.
-+
-+**What is not checked, and why.** Memory accesses (``ld``, ``st``, texture
-+samples, the pixel back end's tile writes through ``emit``, PDS DMA) go
-+through the job's page directory, which maps only the client's own objects
-+and the parameter buffer, and none of the firmware's. The GPU can't modify a
-+code object once it is checked. Code objects are mapped read-only, and the MMU
-+faults USSE stores and pixel back end writes to such pages.
-+
-+**Known gaps.**
-+
-+- The parameter buffer is one per device and mapped read-write into every
-+  client VM, so one client's shader can read or corrupt the scenes other
-+  clients are binning.
-+- The following are expected but not yet tested on hardware: that a client
-+  task's instruction fetch from base 15 faults, and that the read-only PTE
-+  bit also stops the depth/stencil store and the tile accelerator.
-+- Indexed operands and repeated instructions can step an operand past the
-+  128 registers its field names. Whether the hardware keeps such accesses
-+  inside the task's own registers is not documented. The compilers need
-+  both.
-+
-+Jobs
-+====
-+
-+One drm_gpu_scheduler feeds the microkernel, and contexts are scheduler
-+entities. Unlike firmware-scheduled GPUs, where each queue gets a scheduler of
-+its own, the SGX545's microkernel takes commands from a single kernel command
-+buffer and doesn't choose between contexts, so drm_sched does: one job on the
-+GPU at a time (credit limit 1), in priority order. After a reset the queued
-+jobs simply run; nothing is resubmitted. A render job is a scene of one or two TA kicks and the 3D render that
-+follows them. A transfer job is a blit. Userspace describes either with one
-+struct per command and a chain of core-specific extensions, which the kernel
-+copies and checks field by field, from tables generated per core, before it
-+writes the microkernel's command. Jobs wait for and signal binary and timeline syncobjs;
-+sync is explicit only, and a shared buffer's reservation gets no fence from the
-+driver (userspace moves fences through the dma-buf's sync-file ioctls). The GPU
-+doesn't snoop the CPU caches, so a job lists the bytes of imports it reads or
-+writes, and the driver flushes those around it.
-+
-+Recovery
-+========
-+
-+A job that doesn't finish within the scheduler's timeout, or that takes a GPU
-+page fault, resets the GPU. The SGX545 raises no interrupt for a page fault, so
-+the driver checks the MMU's fault status while jobs are on the GPU. The
-+driver halts the cores and takes a devcoredump (registers, the microkernel's
-+control blocks, the command buffer and the hung job's structures). Then it
-+fails the jobs that were on the GPU: the guilty one with -ETIME, or -EFAULT
-+after a fault, and the others with -ECANCELED. It restarts the microkernel and
-+marks the guilty context. Its later submissions fail, and other contexts carry
-+on.
-+
-+Power
-+=====
-+
-+With runtime PM, a job on the GPU holds a reference. The device autosuspends
-+500 ms after the last one. Suspend powers the microkernel off and holds the
-+cores in reset; resume restarts it. The SGX function has no PCI PM capability,
-+so it stays in D0. While the core is stopped the driver reads none of its
-+registers.
-+
-+Debugging
-+=========
-+
-+debugfs, under ``/sys/kernel/debug/dri/<minor>/``, has:
-+
-+``status``
-+    firmware state, command buffer offsets, the host control block, the
-+    kernel objects waiting to be freed, the client unmaps waiting for the
-+    TLB invalidate and, while the GPU is awake, the core's registers.
-+
-+``ctlblk``
-+    the microkernel's TA/3D and host control blocks.
-+
-+Module parameters
-+=================
-+
-+``job_timeout_ms``
-+    how long a job may run before the GPU is reset (default 2000).
-diff --git a/Documentation/gpu/powervr_sgx/uapi.rst b/Documentation/gpu/powervr_sgx/uapi.rst
-new file mode 100644
-index 000000000..8dd790897
---- /dev/null
-+++ b/Documentation/gpu/powervr_sgx/uapi.rst
-@@ -0,0 +1,133 @@
-+.. SPDX-License-Identifier: GPL-2.0-only OR MIT
-+
-+====
-+UAPI
-+====
-+The sources associated with this section can be found in ``powervr_sgx_drm.h``.
-+
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :doc: PowerVR SGX UAPI
-+
-+OBJECT ARRAYS
-+=============
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :identifiers: drm_powervr_sgx_obj_array
-+
-+IOCTLS
-+======
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :doc: PowerVR SGX IOCTL interface
-+
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :identifiers: PVR_SGX_IOCTL
-+
-+DEV_QUERY
-+---------
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :doc: PowerVR SGX IOCTL DEV_QUERY interface
-+
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :identifiers: drm_powervr_sgx_dev_query
-+                 drm_powervr_sgx_ioctl_dev_query_args
-+                 drm_powervr_sgx_dev_query_gpu_info
-+                 drm_powervr_sgx_dev_query_limits
-+                 drm_powervr_sgx_dev_query_commands
-+                 drm_powervr_sgx_dev_query_quirks
-+                 drm_powervr_sgx_heap_id
-+                 drm_powervr_sgx_heap
-+                 drm_powervr_sgx_dev_query_heap_info
-+
-+CREATE_BO
-+---------
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :doc: PowerVR SGX IOCTL CREATE_BO interface
-+
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :identifiers: drm_powervr_sgx_ioctl_create_bo_args
-+                 drm_powervr_sgx_ioctl_get_bo_mmap_offset_args
-+
-+UPLOAD_CODE
-+-----------
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :doc: PowerVR SGX IOCTL UPLOAD_CODE interface
-+
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :identifiers: drm_powervr_sgx_ioctl_upload_code_args
-+
-+VM CONTEXTS
-+-----------
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :doc: PowerVR SGX IOCTL VM context interfaces
-+
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :identifiers: drm_powervr_sgx_ioctl_create_vm_context_args
-+                 drm_powervr_sgx_ioctl_destroy_vm_context_args
-+
-+VM_BIND
-+-------
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :doc: VM_BIND operations
-+
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :doc: Flags for struct drm_powervr_sgx_ioctl_vm_bind_args
-+
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :identifiers: drm_powervr_sgx_vm_bind_op
-+                 drm_powervr_sgx_ioctl_vm_bind_args
-+
-+CONTEXTS
-+--------
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :doc: PowerVR SGX IOCTL CREATE_CONTEXT interface
-+
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :identifiers: drm_powervr_sgx_ctx_type
-+                 drm_powervr_sgx_ctx_priority
-+                 drm_powervr_sgx_ioctl_create_context_args
-+                 drm_powervr_sgx_ioctl_destroy_context_args
-+                 drm_powervr_sgx_context_state
-+                 drm_powervr_sgx_ioctl_get_context_state_args
-+
-+RT DATASETS
-+-----------
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :doc: PowerVR SGX IOCTL CREATE_RT_DATASET interface
-+
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :identifiers: drm_powervr_sgx_ioctl_create_rt_dataset_args
-+                 drm_powervr_sgx_ioctl_destroy_rt_dataset_args
-+
-+CLIENT COMMANDS
-+---------------
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :doc: PowerVR SGX client commands
-+
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :identifiers: drm_powervr_sgx_cmd_head
-+                 drm_powervr_sgx_ext
-+                 drm_powervr_sgx_cmd_render
-+                 drm_powervr_sgx_cmd_ta_kick
-+                 drm_powervr_sgx_cmd_transfer
-+                 drm_powervr_sgx_ext_sgx545_render
-+                 drm_powervr_sgx_ext_sgx545_ta_kick
-+
-+SUBMIT_JOBS
-+-----------
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :doc: PowerVR SGX IOCTL SUBMIT_JOBS interface
-+
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :doc: Flags for struct drm_powervr_sgx_sync_op
-+
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :doc: Flags for struct drm_powervr_sgx_cache_range
-+
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :doc: Flags for &drm_powervr_sgx_job.flags
-+
-+.. kernel-doc:: include/uapi/drm/powervr_sgx_drm.h
-+   :identifiers: drm_powervr_sgx_sync_op
-+                 drm_powervr_sgx_cache_range
-+                 drm_powervr_sgx_job_type
-+                 drm_powervr_sgx_job
-+                 drm_powervr_sgx_ioctl_submit_jobs_args
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e1b0a4245..30ba6f6a4 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8635,6 +8635,16 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/display/mayqueen,pixpaper.yaml
- F:	drivers/gpu/drm/tiny/pixpaper.c
- 
-+DRM DRIVER FOR POWERVR SGX5XX GPUS
-+M:	Joseph Telaak <joseph@telaak.dev>
-+L:	dri-devel@lists.freedesktop.org
-+S:	Maintained
-+T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-+F:	Documentation/gpu/powervr_sgx/
-+F:	drivers/gpu/drm/powervr_sgx/
-+F:	include/drm/gma500_sgx.h
-+F:	include/uapi/drm/powervr_sgx_drm.h
-+
- DRM DRIVER FOR QEMU'S CIRRUS DEVICE
- M:	Dave Airlie <airlied@redhat.com>
- M:	Gerd Hoffmann <kraxel@redhat.com>
-diff --git a/include/uapi/drm/powervr_sgx_drm.h b/include/uapi/drm/powervr_sgx_drm.h
-new file mode 100644
-index 000000000..123818095
---- /dev/null
-+++ b/include/uapi/drm/powervr_sgx_drm.h
-@@ -0,0 +1,1175 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only WITH Linux-syscall-note) OR MIT */
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_job.c
+@@ -0,0 +1,1028 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +/* Copyright © 2026 Joseph Telaak */
 +
-+#ifndef POWERVR_SGX_DRM_H
-+#define POWERVR_SGX_DRM_H
-+
-+#include "drm.h"
-+
-+#include <linux/const.h>
-+#include <linux/types.h>
-+
-+#if defined(__cplusplus)
-+extern "C" {
-+#endif
-+
-+/**
-+ * DOC: PowerVR SGX UAPI
-+ *
-+ * The DRM driver is ``powervr_sgx``. Identifiers use the same name in full,
-+ * ``drm_powervr_sgx_`` and ``DRM_IOCTL_POWERVR_SGX_``, because ``pvr`` is the
-+ * upstream Rogue driver's prefix.
-+ *
-+ * The argument structs follow the rules of the upstream PowerVR uAPI:
-+ *
-+ *  - All members are type-aligned, on i386 as on x86_64.
-+ *  - Every struct is padded to 64-bit alignment.
-+ *  - Padding is explicit, in ``_padding_x`` members, where x is the member's
-+ *    offset in hexadecimal. Padding and reserved fields must be zero; the
-+ *    kernel always checks them and returns -EINVAL otherwise.
-+ *  - User pointers and device-virtual addresses are __u64. A device-virtual
-+ *    address at or above 2^&drm_powervr_sgx_dev_query_limits.va_bits is
-+ *    rejected.
-+ *  - Structs reached through &struct drm_powervr_sgx_obj_array can grow at the
-+ *    end. A short object is zero-extended. In an object longer than the kernel
-+ *    knows, the unknown bytes must be zero.
-+ *  - Client commands grow the same way, through &drm_powervr_sgx_cmd_head.size,
-+ *    and carry core-specific fields in extensions: see "PowerVR SGX client
-+ *    commands" below.
-+ *
-+ * The DRM driver's version is 1.0. Additions to the interface raise the minor
-+ * version; nothing is removed or renumbered.
++/*
++ * Contexts, jobs and the scheduler. One drm_sched scheduler with a credit limit
++ * of one: a single job on the GPU at a time. Each job becomes one kernel CCB
++ * command and is complete when the microkernel has finished it. A microkernel
++ * that counts finished jobs (PVRSGX_UKFW_DONE_SEQ) interrupts for each one, and
++ * a slow poll is only a backstop; with an older one, completion is also polled
++ * every jiffy while jobs are out.
 + */
 +
-+/**
-+ * struct drm_powervr_sgx_obj_array - Container used to pass arrays of objects
-+ *
-+ * The stride versions the element type. A stride smaller than the kernel's
-+ * element size zero-extends each element; a larger one requires the unknown
-+ * bytes to be zero. When the kernel writes elements back it writes the smaller
-+ * of the two sizes.
++#include <drm/drm_auth.h>
++#include <drm/drm_drv.h>
++#include <drm/drm_exec.h>
++#include <drm/drm_file.h>
++#include <drm/drm_gem.h>
++#include <drm/drm_gem_shmem_helper.h>
++#include <drm/drm_print.h>
++#include <drm/drm_syncobj.h>
++
++#include <linux/capability.h>
++#include <linux/dma-fence-chain.h>
++#include <linux/dma-resv.h>
++#include <linux/ktime.h>
++#include <linux/module.h>
++#include <linux/sched/mm.h>
++#include <linux/slab.h>
++#include <linux/uaccess.h>
++#include <linux/workqueue.h>
++
++#include <uapi/drm/powervr_sgx_drm.h>
++
++#include "pvrsgx_ccb.h"
++#include "pvrsgx_device.h"
++#include "pvrsgx_pm.h"
++#include "pvrsgx_drv.h"
++#include "pvrsgx_dump.h"
++#include "pvrsgx_fw.h"
++#include "pvrsgx_job.h"
++#include "pvrsgx_prime.h"
++#include "pvrsgx_kobj.h"
++#include "pvrsgx_trace.h"
++#include "pvrsgx_validate.h"
++#include "pvrsgx_vm.h"
++
++#define PVRSGX_MAX_JOBS		64
++#define PVRSGX_MAX_SYNC_OPS	64
++static unsigned int job_timeout_ms = 2000;
++module_param(job_timeout_ms, uint, 0444);
++MODULE_PARM_DESC(job_timeout_ms, "How long a job may run before the GPU is reset (default 2000 ms)");
++
++/*
++ * Two jobs on the GPU at once, so one render's TA runs while another's 3D
++ * finishes. Off until proven: it needs the microkernel to take a TA while a 3D
++ * is in flight. A reset then cancels both, and both contexts are refused.
 + */
-+struct drm_powervr_sgx_obj_array {
-+	/** @stride: Size of one element, in bytes. */
-+	__u32 stride;
 +
-+	/** @count: Number of elements. */
-+	__u32 count;
++static struct pvrsgx_job *to_pvrsgx_job(struct drm_sched_job *sched_job)
++{
++	return container_of(sched_job, struct pvrsgx_job, base);
++}
 +
-+	/** @array: User pointer to the elements. */
-+	__u64 array;
++static const char *fence_driver_name(struct dma_fence *fence)
++{
++	return "powervr_sgx";
++}
++
++static const char *fence_timeline_name(struct dma_fence *fence)
++{
++	return "sgx";
++}
++
++static const struct dma_fence_ops pvrsgx_fence_ops = {
++	.get_driver_name = fence_driver_name,
++	.get_timeline_name = fence_timeline_name,
 +};
 +
-+/**
-+ * DOC: PowerVR SGX IOCTL interface
-+ *
-+ * Every ioctl below is valid on the render node and is marked DRM_RENDER_ALLOW.
-+ * The driver has no modeset or DRM-master ioctls.
-+ *
-+ * Common errors, in addition to the ones listed per ioctl:
-+ *
-+ *  - -EINVAL: a reserved field or flag is not zero, or an argument is invalid.
-+ *  - -ENOENT: a handle does not name a live object of the required type.
-+ *  - -EFAULT: a user pointer cannot be read or written.
-+ *  - -ENOSPC: the file already has 64 contexts or 64 RT datasets, or the
-+ *    device's kernel memory ranges are full.
-+ *  - -EIO: the GPU could not be recovered by a reset (device lost). Every later
-+ *    ioctl other than destroy and GEM close returns it too.
-+ */
++struct pvrsgx_usage *pvrsgx_usage_new(void)
++{
++	struct pvrsgx_usage *u = kzalloc_obj(*u);
 +
-+/**
-+ * PVR_SGX_IOCTL() - Build a powervr_sgx ioctl number
-+ * @_ioctl: Incrementing id of the ioctl. Added to %DRM_COMMAND_BASE.
-+ * @_mode: One of %DRM_IOW or %DRM_IOWR.
-+ * @_data: Middle of the args struct name, drm_powervr_sgx_ioctl_<_data>_args.
-+ */
-+#define PVR_SGX_IOCTL(_ioctl, _mode, _data) \
-+	_mode(DRM_COMMAND_BASE + (_ioctl), struct drm_powervr_sgx_ioctl_##_data##_args)
++	if (u)
++		kref_init(&u->ref);
++	return u;
++}
 +
-+#define DRM_IOCTL_POWERVR_SGX_DEV_QUERY PVR_SGX_IOCTL(0x00, DRM_IOWR, dev_query)
-+#define DRM_IOCTL_POWERVR_SGX_CREATE_BO PVR_SGX_IOCTL(0x01, DRM_IOWR, create_bo)
-+#define DRM_IOCTL_POWERVR_SGX_GET_BO_MMAP_OFFSET PVR_SGX_IOCTL(0x02, DRM_IOWR, get_bo_mmap_offset)
-+#define DRM_IOCTL_POWERVR_SGX_CREATE_VM_CONTEXT PVR_SGX_IOCTL(0x03, DRM_IOWR, create_vm_context)
-+#define DRM_IOCTL_POWERVR_SGX_DESTROY_VM_CONTEXT PVR_SGX_IOCTL(0x04, DRM_IOW, destroy_vm_context)
-+#define DRM_IOCTL_POWERVR_SGX_VM_BIND PVR_SGX_IOCTL(0x05, DRM_IOW, vm_bind)
-+#define DRM_IOCTL_POWERVR_SGX_CREATE_CONTEXT PVR_SGX_IOCTL(0x06, DRM_IOWR, create_context)
-+#define DRM_IOCTL_POWERVR_SGX_DESTROY_CONTEXT PVR_SGX_IOCTL(0x07, DRM_IOW, destroy_context)
-+#define DRM_IOCTL_POWERVR_SGX_GET_CONTEXT_STATE PVR_SGX_IOCTL(0x08, DRM_IOWR, get_context_state)
-+#define DRM_IOCTL_POWERVR_SGX_CREATE_RT_DATASET PVR_SGX_IOCTL(0x09, DRM_IOWR, create_rt_dataset)
-+#define DRM_IOCTL_POWERVR_SGX_DESTROY_RT_DATASET PVR_SGX_IOCTL(0x0a, DRM_IOW, destroy_rt_dataset)
-+#define DRM_IOCTL_POWERVR_SGX_UPLOAD_CODE PVR_SGX_IOCTL(0x0b, DRM_IOWR, upload_code)
-+#define DRM_IOCTL_POWERVR_SGX_SUBMIT_JOBS PVR_SGX_IOCTL(0x0c, DRM_IOWR, submit_jobs)
++struct pvrsgx_usage *pvrsgx_usage_get(struct pvrsgx_usage *u)
++{
++	kref_get(&u->ref);
++	return u;
++}
 +
-+/**
-+ * DOC: PowerVR SGX IOCTL DEV_QUERY interface
-+ */
++static void usage_release(struct kref *ref)
++{
++	kfree(container_of(ref, struct pvrsgx_usage, ref));
++}
 +
-+/**
-+ * struct drm_powervr_sgx_dev_query_gpu_info - Identity of the GPU and its firmware
-+ *
-+ * Fetched with %DRM_POWERVR_SGX_DEV_QUERY_GPU_INFO_GET.
-+ */
-+struct drm_powervr_sgx_dev_query_gpu_info {
-+	/** @core_id: EUR_CR_CORE_ID as read from the hardware. */
-+	__u32 core_id;
++void pvrsgx_usage_put(struct pvrsgx_usage *u)
++{
++	if (u)
++		kref_put(&u->ref, usage_release);
++}
 +
-+	/**
-+	 * @core_revision: EUR_CR_CORE_REVISION as read from the hardware.
-+	 * 0x1000e on the CE5300's revision 1.0.14.
++static void context_release(struct kref *ref)
++{
++	struct pvrsgx_context *ctx = container_of(ref, struct pvrsgx_context, ref);
++	struct pvrsgx_device *sdev = ctx->sdev;
++
++	pvrsgx_render_ctx_fini(sdev, ctx);
++	pvrsgx_transfer_ctx_fini(sdev, ctx);
++	/*
++	 * The next command flushes the GPU's data caches, or a later client at
++	 * the same addresses reads this one's.
 +	 */
-+	__u32 core_revision;
++	mutex_lock(&sdev->ccb_lock);
++	sdev->fw.cache_control |= PVRSGX_CC_INVAL_DATA;
++	mutex_unlock(&sdev->ccb_lock);
++	pvrsgx_vm_put(ctx->vm);
++	pvrsgx_usage_put(ctx->usage);
++	kfree(ctx);
++}
 +
-+	/**
-+	 * @fw_interface_version: Host interface of the loaded firmware, one of
-+	 * ``DRM_POWERVR_SGX_FW_IF_*``.
++void pvrsgx_context_put(struct pvrsgx_context *ctx)
++{
++	kref_put(&ctx->ref, context_release);
++}
++
++static void context_put(struct pvrsgx_context *ctx)
++{
++	pvrsgx_context_put(ctx);
++}
++
++/*
++ * How many of the oldest jobs on the GPU the microkernel says it has finished,
++ * when it counts them (PVRSGX_UKFW_DONE_SEQ); otherwise -1. Jobs finish in
++ * order, and POWER and cleanup commands are never on the active list.
++ */
++static s64 jobs_finished(struct pvrsgx_device *sdev)
++{
++	const struct pvrsgx_fw_ta3d_ctl *t = sdev->fw.cpu[PVRSGX_FW_TA3DCTL];
++
++	if (!(sdev->fw.features & PVRSGX_UKFW_DONE_SEQ))
++		return -1;
++	return (u32)(READ_ONCE(t->done_seq) - sdev->done_seq);
++}
++
++static bool job_done(struct pvrsgx_job *job, u64 consumed)
++{
++	if (job->done_cpu)
++		return (s32)(READ_ONCE(*job->done_cpu) - job->done_val) >= 0;
++	return job->ccb_seq <= consumed;
++}
++
++/* Whether the oldest job on the GPU is done; for the hard IRQ handler. */
++bool pvrsgx_job_oldest_done(struct pvrsgx_device *sdev)
++{
++	struct pvrsgx_job *job;
++	unsigned long flags;
++	bool done;
++
++	spin_lock_irqsave(&sdev->fence_lock, flags);
++	job = list_first_entry_or_null(&sdev->active, struct pvrsgx_job, node);
++	done = job && (sdev->fw.features & PVRSGX_UKFW_DONE_SEQ ? jobs_finished(sdev) > 0 :
++		       job_done(job, pvrsgx_ccb_consumed(sdev)));
++	spin_unlock_irqrestore(&sdev->fence_lock, flags);
++	return done;
++}
++
++/*
++ * A page fault stalls the faulting requestor, and the SGX545 raises no host
++ * event for it: check the BIF here, and end the job at once rather than at its
++ * timeout. Only while jobs are out, so the core is powered.
++ */
++static bool pvrsgx_job_fault_check(struct pvrsgx_device *sdev)
++{
++	bool fault;
++	int idx;
++
++	if (READ_ONCE(sdev->faulted) || READ_ONCE(sdev->lost) || !READ_ONCE(sdev->powered) ||
++	    !drm_dev_enter(&sdev->base, &idx))
++		return false;
++	fault = sgx_rd(sdev, SGX_CR_BIF_INT_STAT) & sdev->cr->bif_int_stat_fault_req;
++	drm_dev_exit(idx);
++	if (!fault)
++		return false;
++	WRITE_ONCE(sdev->faulted, true);
++	drm_sched_fault(&sdev->sched);
++	return true;
++}
++
++/* Signal every job the firmware has finished. Runs in the IRQ thread and the poll work. */
++void pvrsgx_job_process_done(struct pvrsgx_device *sdev)
++{
++	struct pvrsgx_job *job, *tmp;
++	unsigned long flags;
++	bool more, reap = false;
++	LIST_HEAD(finished);
++	bool cookie;
++	u64 consumed;
++	s64 n;
++
++	mutex_lock(&sdev->done_lock);
++	/* Under the lock a reset fails the old jobs under: no count from before it. */
++	consumed = pvrsgx_ccb_consumed(sdev);
++	cookie = dma_fence_begin_signalling();
++	spin_lock_irqsave(&sdev->fence_lock, flags);
++	n = jobs_finished(sdev);
++	list_for_each_entry_safe(job, tmp, &sdev->active, node) {
++		if (n >= 0 ? !n : !job_done(job, consumed))
++			break;
++		if (n > 0) {
++			n--;
++			sdev->done_seq++;
++		}
++		list_move_tail(&job->node, &finished);
++		if (job->type == DRM_POWERVR_SGX_JOB_TYPE_RENDER) {
++			sdev->renders_done++;
++			reap = true;
++		}
++	}
++	more = !list_empty(&sdev->active);
++	spin_unlock_irqrestore(&sdev->fence_lock, flags);
++
++	list_for_each_entry(job, &finished, node)
++		pvrsgx_prime_flush(job, true);
++	spin_lock_irqsave(&sdev->fence_lock, flags);
++	list_for_each_entry_safe(job, tmp, &finished, node) {
++		list_del_init(&job->node);
++		if (job->type == DRM_POWERVR_SGX_JOB_TYPE_RENDER)
++			atomic64_add(ktime_get_ns() - job->start_ns, &job->ctx->usage->render_ns);
++		trace_pvrsgx_job_done(job->type, job->hw_fence->seqno);
++		dma_fence_signal_locked(job->hw_fence);
++	}
++	spin_unlock_irqrestore(&sdev->fence_lock, flags);
++	dma_fence_end_signalling(cookie);
++	mutex_unlock(&sdev->done_lock);
++
++	if (reap || !list_empty_careful(&sdev->inval_waits))
++		queue_work(sdev->free_wq, &sdev->reap_work);
++	if (more && pvrsgx_job_fault_check(sdev))
++		return;
++	/* With a count the interrupt does it, and the poll is only a backstop. */
++	if (more)
++		mod_delayed_work(sdev->wq, &sdev->poll_work,
++				 sdev->fw.features & PVRSGX_UKFW_DONE_SEQ ? HZ / 10 : 1);
++}
++
++static void reap_work_fn(struct work_struct *work)
++{
++	struct pvrsgx_device *sdev = container_of(work, struct pvrsgx_device, reap_work);
++	unsigned long flags;
++	u64 done;
++
++	spin_lock_irqsave(&sdev->fence_lock, flags);
++	done = sdev->renders_done;
++	spin_unlock_irqrestore(&sdev->fence_lock, flags);
++	pvrsgx_kobj_reap(sdev, done);
++	pvrsgx_ccb_inval_reap(sdev, false);
++}
++
++static void poll_work_fn(struct work_struct *work)
++{
++	struct pvrsgx_device *sdev = container_of(to_delayed_work(work), struct pvrsgx_device,
++						  poll_work);
++
++	pvrsgx_job_process_done(sdev);
++}
++
++static struct dma_fence *pvrsgx_run_job(struct drm_sched_job *sched_job)
++{
++	struct pvrsgx_job *job = to_pvrsgx_job(sched_job);
++	struct pvrsgx_device *sdev = job->ctx->sdev;
++	u32 data[6] = {};
++	struct dma_fence *fence;
++	unsigned long flags;
++	bool cookie;
++	int err, idx;
++
++	if (sched_job->s_fence->finished.error)
++		return NULL;
++	/* A reset context's queued jobs build on work that never finished. */
++	if (READ_ONCE(job->ctx->state) != DRM_POWERVR_SGX_CONTEXT_STATE_OK)
++		return ERR_PTR(-ECANCELED);
++
++	/* Allocated at submit: nothing here may wait for memory (dma-fence signalling). */
++	fence = job->hw_fence_mem;
++	job->hw_fence_mem = NULL;
++	spin_lock_irqsave(&sdev->fence_lock, flags);
++	dma_fence_init(fence, &pvrsgx_fence_ops, &sdev->fence_lock, sdev->fence_context,
++		       ++sdev->fence_seqno);
++	spin_unlock_irqrestore(&sdev->fence_lock, flags);
++	job->hw_fence = dma_fence_get(fence);
++
++	/* After unbind the doorbell is gone (pvrsgx_job_unplug). */
++	if (!drm_dev_enter(&sdev->base, &idx)) {
++		err = -ENODEV;
++		goto fail;
++	}
++	/* The job's runtime-PM reference, taken at submit, keeps the GPU up. */
++	if (sdev->lost) {
++		err = -EIO;
++		goto fail_exit;
++	}
++
++	pvrsgx_prime_flush(job, false);
++	WRITE_ONCE(job->ctx->vm->ran_gen, sdev->fw_gen + 1);
++	if (job->type == DRM_POWERVR_SGX_JOB_TYPE_RENDER) {
++		mutex_lock(&sdev->kobj_lock);
++		sdev->renders_submitted++;
++		mutex_unlock(&sdev->kobj_lock);
++		err = 0;
++		for (u32 k = 0; k < job->render.nkicks && !err; k++) {
++			pvrsgx_render_job_build(job, k, data);
++			err = pvrsgx_ccb_send(sdev, PVRSGX_KCMD_TA, data, &job->ccb_seq);
++		}
++	} else if (job->type == DRM_POWERVR_SGX_JOB_TYPE_TRANSFER) {
++		pvrsgx_transfer_job_build(job, data);
++		err = pvrsgx_ccb_send(sdev, PVRSGX_KCMD_TRANSFER, data, &job->ccb_seq);
++	} else {
++		/* A NULL job is a no-op command: done when the microkernel has taken it. */
++		err = pvrsgx_ccb_send(sdev, PVRSGX_KCMD_PROCESS_QUEUES, data, &job->ccb_seq);
++	}
++	if (err) {
++		drm_err_ratelimited(&sdev->base, "job not sent to the microkernel (%d)\n", err);
++		goto fail_exit;
++	}
++
++	job->start_ns = ktime_get_ns();
++	trace_pvrsgx_kick(job->type, job->ccb_seq, fence->seqno);
++	dma_fence_put(sdev->last_fence);
++	sdev->last_fence = dma_fence_get(fence);
++	spin_lock_irqsave(&sdev->fence_lock, flags);
++	list_add_tail(&job->node, &sdev->active);
++	spin_unlock_irqrestore(&sdev->fence_lock, flags);
++	mod_delayed_work(sdev->wq, &sdev->poll_work, 0);
++	drm_dev_exit(idx);
++	return fence;
++
++fail_exit:
++	drm_dev_exit(idx);
++fail:
++	cookie = dma_fence_begin_signalling();
++	dma_fence_set_error(fence, err);
++	dma_fence_signal(fence);
++	dma_fence_end_signalling(cookie);
++	return fence;
++}
++
++/*
++ * A job ran too long. Blame its context, fail what was on the GPU, and start
++ * the microkernel again from a clean control block and an empty CCB, rather
++ * than rescan the old one.
++ */
++static enum drm_gpu_sched_stat pvrsgx_timedout_job(struct drm_sched_job *sched_job)
++{
++	struct pvrsgx_job *bad = to_pvrsgx_job(sched_job), *job, *tmp;
++	struct pvrsgx_device *sdev = bad->ctx->sdev;
++	bool fault = READ_ONCE(sdev->faulted), lost, cookie;
++	unsigned long flags;
++	int idx;
++
++	drm_sched_stop(&sdev->sched, sched_job);
++	/* Every fence on the GPU and in the queue waits on what follows. */
++	cookie = dma_fence_begin_signalling();
++	/* After unbind (pvrsgx_job_unplug) the hardware is gone: fail, touch nothing. */
++	mutex_lock(&sdev->reset_lock);
++	lost = READ_ONCE(sdev->lost) || !drm_dev_enter(&sdev->base, &idx);
++	if (lost)
++		goto fail;
++	if (fault)
++		drm_err(&sdev->base, "job page fault at 0x%08x (BIF status 0x%08x); resetting\n",
++			sgx_rd(sdev, SGX_CR_BIF_FAULT) & sdev->cr->bif_fault_addr,
++			sgx_rd(sdev, SGX_CR_BIF_INT_STAT));
++	else
++		drm_err(&sdev->base, "job timed out (ccb %llu, consumed %llu); resetting\n",
++			bad->ccb_seq, pvrsgx_ccb_consumed(sdev));
++	WRITE_ONCE(bad->ctx->state, DRM_POWERVR_SGX_CONTEXT_STATE_GUILTY);
++	pvrsgx_coredump(sdev, bad);
++	/* Stopped before any fence signals: userspace may free the jobs' memory then. */
++	pvrsgx_fw_halt(sdev);
++
++fail:
++	mutex_lock(&sdev->done_lock);
++	spin_lock_irqsave(&sdev->fence_lock, flags);
++	list_for_each_entry_safe(job, tmp, &sdev->active, node) {
++		list_del_init(&job->node);
++		if (job->ctx != bad->ctx)
++			WRITE_ONCE(job->ctx->state, DRM_POWERVR_SGX_CONTEXT_STATE_INNOCENT);
++		dma_fence_set_error(job->hw_fence, lost ? -ENODEV : job != bad ? -ECANCELED :
++				    fault ? -EFAULT : -ETIME);
++		dma_fence_signal_locked(job->hw_fence);
++	}
++	spin_unlock_irqrestore(&sdev->fence_lock, flags);
++	mutex_unlock(&sdev->done_lock);
++	if (lost)
++		goto out;
++
++	/*
++	 * No power-off handshake with a hung microkernel, which cannot answer:
++	 * straight into the full start (clocks, scripts, a reset that drains
++	 * pending faults, the first kick).
 +	 */
-+	__u32 fw_interface_version;
++	sdev->reset_count++;
++	sdev->fw_running = false;
++	/* The restart's reset clears the BIF's fault state. */
++	WRITE_ONCE(sdev->faulted, false);
++	if (pvrsgx_fw_start(sdev)) {
++		drm_err(&sdev->base, "microkernel did not restart: device lost\n");
++		/* Lost: the cores stay in reset, and run_job fails every job. */
++		pvrsgx_fw_halt(sdev);
++		WRITE_ONCE(sdev->lost, true);
++		/* DMA is off and the fences are signaled: tell userspace to rebind. */
++		drm_dev_wedged_event(&sdev->base, DRM_WEDGE_RECOVERY_REBIND, NULL);
++	}
++	drm_dev_exit(idx);
++out:
++	mutex_unlock(&sdev->reset_lock);
++	dma_fence_end_signalling(cookie);
++	drm_sched_start(&sdev->sched, 0);
++	return DRM_GPU_SCHED_STAT_RESET;
++}
 +
-+	/** @_padding_c: Reserved. This field must be zero. */
-+	__u32 _padding_c;
++/* The puts that can reach a VM's release, which takes reservations. */
++static void free_job_work(struct work_struct *work)
++{
++	struct pvrsgx_job *job = container_of(work, struct pvrsgx_job, free_work);
++
++	pvrsgx_prime_put(job);
++	pvrsgx_render_job_fini(job);
++	context_put(job->ctx);
++	kfree(job);
++}
++
++static void pvrsgx_free_job(struct drm_sched_job *sched_job)
++{
++	struct pvrsgx_job *job = to_pvrsgx_job(sched_job);
++	struct pvrsgx_device *sdev = job->ctx->sdev;
++
++	/* Taken at submit, for this job: the GPU may suspend once none are left. */
++	pvrsgx_power_put(sdev, 1);
++
++	drm_sched_job_cleanup(sched_job);
++	dma_fence_put(job->hw_fence);
++	kfree(job->hw_fence_mem);	/* never run */
++	INIT_WORK(&job->free_work, free_job_work);
++	queue_work(sdev->free_wq, &job->free_work);
++}
++
++static const struct drm_sched_backend_ops pvrsgx_sched_ops = {
++	.run_job = pvrsgx_run_job,
++	.timedout_job = pvrsgx_timedout_job,
++	.free_job = pvrsgx_free_job,
 +};
 +
 +/*
-+ * Version 1 of the open microkernel's own host interface: its command buffer,
-+ * control blocks and command layouts.
++ * Teach lockdep that the locks run_job, the completion and the timeout take
++ * are taken while fences are pending, which reclaim can wait for: an
++ * allocation that can reclaim, made under any of them, is then reported at
++ * once instead of when memory runs low.
 + */
-+#define DRM_POWERVR_SGX_FW_IF_V1 1
-+
-+/**
-+ * struct drm_powervr_sgx_dev_query_limits - Limits of the object-creating ioctls
-+ *
-+ * Fetched with %DRM_POWERVR_SGX_DEV_QUERY_LIMITS_GET.
-+ */
-+struct drm_powervr_sgx_dev_query_limits {
-+	/** @rt_max_width: Largest &drm_powervr_sgx_ioctl_create_rt_dataset_args.width. */
-+	__u32 rt_max_width;
-+
-+	/** @rt_max_height: Largest &drm_powervr_sgx_ioctl_create_rt_dataset_args.height. */
-+	__u32 rt_max_height;
-+
-+	/** @rt_max_samples: Largest &drm_powervr_sgx_ioctl_create_rt_dataset_args.samples. */
-+	__u32 rt_max_samples;
-+
-+	/**
-+	 * @pb_min_pages: Smallest
-+	 * &drm_powervr_sgx_ioctl_create_context_args.param_buffer_pages.
-+	 */
-+	__u32 pb_min_pages;
-+
-+	/**
-+	 * @pb_default_pages: Size used when
-+	 * &drm_powervr_sgx_ioctl_create_context_args.param_buffer_pages is 0.
-+	 */
-+	__u32 pb_default_pages;
-+
-+	/**
-+	 * @pb_max_pages: Largest
-+	 * &drm_powervr_sgx_ioctl_create_context_args.param_buffer_pages.
-+	 */
-+	__u32 pb_max_pages;
-+
-+	/** @max_ta_kicks: Largest &drm_powervr_sgx_job.ta_kicks count. */
-+	__u32 max_ta_kicks;
-+
-+	/**
-+	 * @va_bits: Device-virtual address bits: every address a command names
-+	 * is below 2^va_bits.
-+	 */
-+	__u32 va_bits;
-+
-+	/** @caps: ``DRM_POWERVR_SGX_CAP_*`` bits of this core. */
-+	__u32 caps;
-+
-+	/** @max_layers: Largest number of render-target layers. */
-+	__u32 max_layers;
-+};
-+
-+/**
-+ * DRM_POWERVR_SGX_CAP_BACKWARD_BLITS - A transfer may copy between overlapping
-+ * ranges with the destination above the source.
-+ */
-+#define DRM_POWERVR_SGX_CAP_BACKWARD_BLITS _BITUL(0)
-+
-+/**
-+ * struct drm_powervr_sgx_dev_query_quirks - Hardware fixes userspace has to know
-+ *
-+ * Fetched with %DRM_POWERVR_SGX_DEV_QUERY_QUIRKS_GET. A quirk, once reported
-+ * for a GPU, is never removed for it.
-+ */
-+struct drm_powervr_sgx_dev_query_quirks {
-+	/**
-+	 * @quirks: User pointer to a __u32 array of quirk numbers. The first
-+	 * @musthave_count entries are mandatory: a client that does not
-+	 * implement them must fail to initialize. The rest are opt-in.
-+	 */
-+	__u64 quirks;
-+
-+	/** @count: Length of @quirks. Updated with the number of quirks known. */
-+	__u16 count;
-+
-+	/** @musthave_count: Number of mandatory entries at the start of @quirks. */
-+	__u16 musthave_count;
-+
-+	/** @_padding_c: Reserved. This field must be zero. */
-+	__u32 _padding_c;
-+};
-+
-+/**
-+ * enum drm_powervr_sgx_heap_id - Index into the array returned by
-+ * %DRM_POWERVR_SGX_DEV_QUERY_HEAP_INFO_GET
-+ *
-+ * Append only. A heap a device does not have is returned with a size of zero.
-+ */
-+enum drm_powervr_sgx_heap_id {
-+	/** @DRM_POWERVR_SGX_HEAP_GENERAL: Vertices, indices, VDM streams, surfaces. */
-+	DRM_POWERVR_SGX_HEAP_GENERAL = 0,
-+	/** @DRM_POWERVR_SGX_HEAP_PDS_PIXEL: PDS programs referenced from state words. */
-+	DRM_POWERVR_SGX_HEAP_PDS_PIXEL,
-+	/** @DRM_POWERVR_SGX_HEAP_PDS_VERTEX: PDS programs referenced from VDM streams. */
-+	DRM_POWERVR_SGX_HEAP_PDS_VERTEX,
-+	/** @DRM_POWERVR_SGX_HEAP_USSE_PIXEL: USSE code run by pixel tasks. */
-+	DRM_POWERVR_SGX_HEAP_USSE_PIXEL,
-+	/** @DRM_POWERVR_SGX_HEAP_USSE_VERTEX: USSE code run by vertex and state tasks. */
-+	DRM_POWERVR_SGX_HEAP_USSE_VERTEX,
-+	/** @DRM_POWERVR_SGX_HEAP_TEXTURE: Texels. */
-+	DRM_POWERVR_SGX_HEAP_TEXTURE,
-+	/** @DRM_POWERVR_SGX_HEAP_COUNT: Number of heaps known to this header. */
-+	DRM_POWERVR_SGX_HEAP_COUNT
-+};
-+
-+/**
-+ * struct drm_powervr_sgx_heap - One device-virtual heap
-+ *
-+ * Heaps are the same in every VM context of a device.
-+ */
-+struct drm_powervr_sgx_heap {
-+	/** @base: Device-virtual address of the heap. */
-+	__u64 base;
-+
-+	/** @size: Size in bytes the client can use. 0 if the heap is not present. */
-+	__u64 size;
-+
-+	/** @flags: Always 0. */
-+	__u32 flags;
-+
-+	/** @page_size_log2: Log2 of the device page size. */
-+	__u32 page_size_log2;
-+
-+	/**
-+	 * @usse_base_index: First EUR_CR_USE_CODE_BASE register covering this
-+	 * heap, for the DOUTU words a client writes. 0 for a non-USSE heap.
-+	 */
-+	__u32 usse_base_index;
-+
-+	/**
-+	 * @usse_window_log2: Log2 of the window each code base covers. 0 for a
-+	 * non-USSE heap.
-+	 */
-+	__u32 usse_window_log2;
-+};
-+
-+/**
-+ * struct drm_powervr_sgx_dev_query_heap_info - Array of heaps
-+ *
-+ * Fetched with %DRM_POWERVR_SGX_DEV_QUERY_HEAP_INFO_GET.
-+ */
-+struct drm_powervr_sgx_dev_query_heap_info {
-+	/**
-+	 * @heaps: Array of &struct drm_powervr_sgx_heap, indexed by &enum
-+	 * drm_powervr_sgx_heap_id. With a NULL array pointer, the stride and count
-+	 * are set to what the kernel knows and nothing else is written.
-+	 */
-+	struct drm_powervr_sgx_obj_array heaps;
-+};
-+
-+/**
-+ * enum drm_powervr_sgx_dev_query - Values of &drm_powervr_sgx_ioctl_dev_query_args.type
-+ *
-+ * Append only.
-+ */
-+enum drm_powervr_sgx_dev_query {
-+	/** @DRM_POWERVR_SGX_DEV_QUERY_GPU_INFO_GET: &struct drm_powervr_sgx_dev_query_gpu_info. */
-+	DRM_POWERVR_SGX_DEV_QUERY_GPU_INFO_GET = 0,
-+	/** @DRM_POWERVR_SGX_DEV_QUERY_LIMITS_GET: &struct drm_powervr_sgx_dev_query_limits. */
-+	DRM_POWERVR_SGX_DEV_QUERY_LIMITS_GET,
-+	/** @DRM_POWERVR_SGX_DEV_QUERY_QUIRKS_GET: &struct drm_powervr_sgx_dev_query_quirks. */
-+	DRM_POWERVR_SGX_DEV_QUERY_QUIRKS_GET,
-+	/**
-+	 * @DRM_POWERVR_SGX_DEV_QUERY_HEAP_INFO_GET: &struct drm_powervr_sgx_dev_query_heap_info.
-+	 */
-+	DRM_POWERVR_SGX_DEV_QUERY_HEAP_INFO_GET,
-+	/**
-+	 * @DRM_POWERVR_SGX_DEV_QUERY_COMMANDS_GET: &struct drm_powervr_sgx_dev_query_commands.
-+	 */
-+	DRM_POWERVR_SGX_DEV_QUERY_COMMANDS_GET,
-+};
-+
-+/**
-+ * struct drm_powervr_sgx_dev_query_commands - What this core accepts
-+ *
-+ * Fetched with %DRM_POWERVR_SGX_DEV_QUERY_COMMANDS_GET. A job type whose bit is
-+ * clear is refused with -EOPNOTSUPP: a value it depends on is not known for this
-+ * core yet. An extension name outside its command's mask is refused the same way.
-+ */
-+struct drm_powervr_sgx_dev_query_commands {
-+	/** @job_types: Bit n: &enum drm_powervr_sgx_job_type n is accepted. */
-+	__u32 job_types;
-+
-+	/** @_padding_4: Reserved. This field must be zero. */
-+	__u32 _padding_4;
-+
-+	/** @render_exts: Bit n: extension name n is accepted in a render command. */
-+	__u64 render_exts;
-+
-+	/** @ta_kick_exts: Bit n: extension name n is accepted in a TA kick. */
-+	__u64 ta_kick_exts;
-+
-+	/** @transfer_exts: Bit n: extension name n is accepted in a transfer command. */
-+	__u64 transfer_exts;
-+};
-+
-+/**
-+ * struct drm_powervr_sgx_ioctl_dev_query_args - Arguments for %DRM_IOCTL_POWERVR_SGX_DEV_QUERY
-+ */
-+struct drm_powervr_sgx_ioctl_dev_query_args {
-+	/** @type: [IN] Query, one of &enum drm_powervr_sgx_dev_query. */
-+	__u32 type;
-+
-+	/**
-+	 * @size: [IN/OUT] Size of the receiving struct. Set to the bytes
-+	 * written. With a NULL @pointer, set to the size the kernel knows.
-+	 */
-+	__u32 size;
-+
-+	/** @pointer: [IN] User pointer to the receiving struct. */
-+	__u64 pointer;
-+};
-+
-+/**
-+ * DOC: PowerVR SGX IOCTL CREATE_BO interface
-+ *
-+ * Buffer objects are GEM objects backed by shmem and zeroed at allocation. PRIME
-+ * export and import use the DRM core ioctls.
-+ */
-+
-+/**
-+ * DRM_POWERVR_SGX_BO_ALLOW_CPU_ACCESS - Allow %DRM_IOCTL_POWERVR_SGX_GET_BO_MMAP_OFFSET
-+ * on this object.
-+ */
-+#define DRM_POWERVR_SGX_BO_ALLOW_CPU_ACCESS _BITULL(0)
-+
-+/**
-+ * DRM_POWERVR_SGX_BO_CODE - A code object: USSE programs.
-+ *
-+ * Only code objects can be mapped into the USSE heaps, and a code object can be
-+ * mapped nowhere else. The GPU sees it read-only. It has no CPU mapping and
-+ * can't be exported, so %DRM_POWERVR_SGX_BO_ALLOW_CPU_ACCESS must be clear. Its
-+ * contents arrive only through %DRM_IOCTL_POWERVR_SGX_UPLOAD_CODE, which
-+ * validates them. Bits 2..63 of the flags are reserved.
-+ */
-+#define DRM_POWERVR_SGX_BO_CODE _BITULL(1)
-+
-+/**
-+ * struct drm_powervr_sgx_ioctl_create_bo_args - Arguments for %DRM_IOCTL_POWERVR_SGX_CREATE_BO
-+ */
-+struct drm_powervr_sgx_ioctl_create_bo_args {
-+	/** @size: [IN] Size in bytes. Must be page aligned and not zero. */
-+	__u64 size;
-+
-+	/** @handle: [OUT] GEM handle of the new object. */
-+	__u32 handle;
-+
-+	/** @_padding_c: Reserved. This field must be zero. */
-+	__u32 _padding_c;
-+
-+	/** @flags: [IN] ``DRM_POWERVR_SGX_BO_*`` flags. */
-+	__u64 flags;
-+};
-+
-+/**
-+ * struct drm_powervr_sgx_ioctl_get_bo_mmap_offset_args - Arguments for
-+ * %DRM_IOCTL_POWERVR_SGX_GET_BO_MMAP_OFFSET
-+ */
-+struct drm_powervr_sgx_ioctl_get_bo_mmap_offset_args {
-+	/** @handle: [IN] GEM handle. */
-+	__u32 handle;
-+
-+	/** @_padding_4: Reserved. This field must be zero. */
-+	__u32 _padding_4;
-+
-+	/** @offset: [OUT] Fake offset to pass to mmap() on the DRM file. */
-+	__u64 offset;
-+};
-+
-+/**
-+ * DOC: PowerVR SGX IOCTL UPLOAD_CODE interface
-+ *
-+ * Copies USSE instructions into a code object and validates them
-+ * (Documentation/gpu/powervr_sgx, "Shader validation"). An instruction is
-+ * rejected if:
-+ *
-+ *  - it is not exactly one of the forms the kernel knows;
-+ *  - it is a form the kernel refuses: register-file access (``ldr``, ``str``),
-+ *    the link address (``setl``, ``savl``, ``lapc``, a branch with ``link``),
-+ *    ``ba``, ``phas`` with a register operand, ``lock``, ``release``, the
-+ *    operand-stepping controls other than ``smlsi``, ``fdual``, and forms
-+ *    whose meaning is not known;
-+ *  - it is a ``br`` whose target is outside the object;
-+ *  - it is a ``phas.i`` with a target other than 0 that is outside the object,
-+ *    counting from the base of the USSE heap the object is mapped in, or the
-+ *    object is not mapped, or mapped at more than one place;
-+ *  - an operand writes a constant or global, reads a global past ``g45``, or
-+ *    names an internal register past ``i3`` or an index register other than
-+ *    ``idx1`` and ``idx2``.
-+ *
-+ * Once an object holds code with ``phas.i`` targets, a VM_BIND map that would
-+ * put it anywhere else fails with -EINVAL.
-+ *
-+ * On a rejection nothing is copied, the ioctl fails with -EINVAL, and
-+ * @bad_offset is the byte offset in the object of the first rejected
-+ * instruction.
-+ *
-+ * Bytes no upload wrote are zero, which is a harmless instruction. While a VM
-+ * maps the object an upload may only write past every byte an earlier upload
-+ * wrote, so code the GPU may be running never changes under it; otherwise
-+ * -EBUSY. Once no VM maps the object, the GPU has finished every job that
-+ * could use those mappings, and a later command has dropped the GPU's cached
-+ * walks of them, it can be uploaded anywhere again; until then a lower write
-+ * fails with -EBUSY.
-+ */
-+
-+/**
-+ * struct drm_powervr_sgx_ioctl_upload_code_args - Arguments for
-+ * %DRM_IOCTL_POWERVR_SGX_UPLOAD_CODE
-+ */
-+struct drm_powervr_sgx_ioctl_upload_code_args {
-+	/** @handle: [IN] GEM handle of a code object (%DRM_POWERVR_SGX_BO_CODE). */
-+	__u32 handle;
-+
-+	/** @flags: [IN] Reserved. Must be zero. */
-+	__u32 flags;
-+
-+	/** @offset: [IN] Byte offset in the object. Must be a multiple of 8. */
-+	__u64 offset;
-+
-+	/** @size: [IN] Bytes to copy. Must be a multiple of 8 and not zero. */
-+	__u64 size;
-+
-+	/** @pointer: [IN] User pointer to the instructions, low word first. */
-+	__u64 pointer;
-+
-+	/**
-+	 * @bad_offset: [OUT] When validation rejects the code, the object offset
-+	 * of the first rejected instruction; otherwise all ones.
-+	 */
-+	__u64 bad_offset;
-+};
-+
-+/**
-+ * DOC: PowerVR SGX IOCTL VM context interfaces
-+ *
-+ * A VM context is one GPU page directory, managed with drm_gpuvm. The client
-+ * manages the address space: it picks the address of each mapping inside the
-+ * heaps %DRM_POWERVR_SGX_DEV_QUERY_HEAP_INFO_GET returns. Addresses outside them
-+ * cannot be mapped: the kernel keeps the rest of the 4 GiB space for itself.
-+ */
-+
-+/**
-+ * struct drm_powervr_sgx_ioctl_create_vm_context_args - Arguments for
-+ * %DRM_IOCTL_POWERVR_SGX_CREATE_VM_CONTEXT
-+ */
-+struct drm_powervr_sgx_ioctl_create_vm_context_args {
-+	/** @handle: [OUT] Handle of the new VM context. */
-+	__u32 handle;
-+
-+	/** @_padding_4: Reserved. This field must be zero. */
-+	__u32 _padding_4;
-+};
-+
-+/**
-+ * struct drm_powervr_sgx_ioctl_destroy_vm_context_args - Arguments for
-+ * %DRM_IOCTL_POWERVR_SGX_DESTROY_VM_CONTEXT
-+ *
-+ * The handle goes at once. Once no context uses the VM either and every job on
-+ * it is done, its mappings go and their objects are released; the ioctl
-+ * doesn't wait for that.
-+ */
-+struct drm_powervr_sgx_ioctl_destroy_vm_context_args {
-+	/** @handle: [IN] Handle of the VM context. */
-+	__u32 handle;
-+
-+	/** @_padding_4: Reserved. This field must be zero. */
-+	__u32 _padding_4;
-+};
-+
-+/**
-+ * DOC: VM_BIND operations
-+ *
-+ * .. c:macro:: DRM_POWERVR_SGX_VM_BIND_OP_MAP
-+ *
-+ *    Map @size bytes of the object @handle, from @bo_offset, at @device_addr.
-+ *    The range must lie inside one heap, page aligned, and must not overlap a
-+ *    mapping (-EEXIST). A code object maps only into a USSE heap, and only a
-+ *    code object does.
-+ *
-+ * .. c:macro:: DRM_POWERVR_SGX_VM_BIND_OP_UNMAP
-+ *
-+ *    Unmap every mapping in [@device_addr, @device_addr + @size), splitting a
-+ *    mapping that straddles either end. @handle and @bo_offset must be 0. A
-+ *    range with no mapping in it is not an error.
-+ *
-+ * The page tables of an unmapped range change before the ioctl returns, so a
-+ * job that is still running and uses the range faults inside this VM. The
-+ * objects stay allocated until every job submitted before the unmap is done.
-+ */
-+#define DRM_POWERVR_SGX_VM_BIND_OP_MAP 0
-+#define DRM_POWERVR_SGX_VM_BIND_OP_UNMAP 1
-+
-+/**
-+ * struct drm_powervr_sgx_vm_bind_op - One map or unmap of %DRM_IOCTL_POWERVR_SGX_VM_BIND
-+ */
-+struct drm_powervr_sgx_vm_bind_op {
-+	/** @op: [IN] ``DRM_POWERVR_SGX_VM_BIND_OP_*``. */
-+	__u32 op;
-+
-+	/** @handle: [IN] GEM handle of the object to map; 0 for an unmap. */
-+	__u32 handle;
-+
-+	/** @bo_offset: [IN] Offset into the object, in bytes; 0 for an unmap. */
-+	__u64 bo_offset;
-+
-+	/** @device_addr: [IN] Device-virtual start of the range. */
-+	__u64 device_addr;
-+
-+	/** @size: [IN] Size of the range, in bytes. */
-+	__u64 size;
-+
-+	/** @flags: [IN] Reserved, must be 0. */
-+	__u32 flags;
-+
-+	/** @_padding_24: Reserved. This field must be zero. */
-+	__u32 _padding_24;
-+};
-+
-+/**
-+ * DOC: Flags for struct drm_powervr_sgx_ioctl_vm_bind_args
-+ *
-+ * .. c:macro:: DRM_POWERVR_SGX_VM_BIND_FLAG_SYNC
-+ *
-+ *    The ioctl binds and returns when the binds are done. A synchronous bind
-+ *    takes no fences: @sync_ops must be empty. Required: a bind without it
-+ *    fails with -EINVAL.
-+ */
-+#define DRM_POWERVR_SGX_VM_BIND_FLAG_SYNC _BITUL(0)
-+
-+/**
-+ * struct drm_powervr_sgx_ioctl_vm_bind_args - Arguments for %DRM_IOCTL_POWERVR_SGX_VM_BIND
-+ *
-+ * The ops apply in array order, and all or none of them apply: every op is
-+ * checked, and everything it needs allocated, before any mapping changes. The
-+ * ranges of the ops in one call must not overlap each other (-EINVAL). A wait
-+ * that is interrupted fails with -EINTR before anything changes.
-+ */
-+struct drm_powervr_sgx_ioctl_vm_bind_args {
-+	/** @vm_context_handle: [IN] VM context to bind in. */
-+	__u32 vm_context_handle;
-+
-+	/** @flags: [IN] ``DRM_POWERVR_SGX_VM_BIND_FLAG_*``. */
-+	__u32 flags;
-+
-+	/** @ops: [IN] Array of &struct drm_powervr_sgx_vm_bind_op, at least one. */
-+	struct drm_powervr_sgx_obj_array ops;
-+
-+	/**
-+	 * @sync_ops: [IN] Must be empty (count 0) with
-+	 * %DRM_POWERVR_SGX_VM_BIND_FLAG_SYNC, the only mode. Reserved for an
-+	 * asynchronous mode's &struct drm_powervr_sgx_sync_op array.
-+	 */
-+	struct drm_powervr_sgx_obj_array sync_ops;
-+};
-+
-+/**
-+ * DOC: PowerVR SGX IOCTL CREATE_CONTEXT interface
-+ *
-+ * A context is one scheduling queue on the GPU. Its firmware-visible state (HW
-+ * context, command ring, parameter buffer, free list) belongs to the kernel and
-+ * is never mapped into the client's address space for CPU access.
-+ */
-+
-+/**
-+ * enum drm_powervr_sgx_ctx_type - Values of &drm_powervr_sgx_ioctl_create_context_args.type
-+ */
-+enum drm_powervr_sgx_ctx_type {
-+	/** @DRM_POWERVR_SGX_CTX_TYPE_RENDER: Runs %DRM_POWERVR_SGX_JOB_TYPE_RENDER jobs. */
-+	DRM_POWERVR_SGX_CTX_TYPE_RENDER = 0,
-+	/** @DRM_POWERVR_SGX_CTX_TYPE_TRANSFER: Runs %DRM_POWERVR_SGX_JOB_TYPE_TRANSFER jobs. */
-+	DRM_POWERVR_SGX_CTX_TYPE_TRANSFER,
-+};
-+
-+/**
-+ * enum drm_powervr_sgx_ctx_priority - Values of
-+ * &drm_powervr_sgx_ioctl_create_context_args.priority
-+ */
-+enum drm_powervr_sgx_ctx_priority {
-+	/** @DRM_POWERVR_SGX_CTX_PRIORITY_LOW: Below normal. */
-+	DRM_POWERVR_SGX_CTX_PRIORITY_LOW = -512,
-+	/** @DRM_POWERVR_SGX_CTX_PRIORITY_NORMAL: Normal. */
-+	DRM_POWERVR_SGX_CTX_PRIORITY_NORMAL = 0,
-+	/** @DRM_POWERVR_SGX_CTX_PRIORITY_HIGH: Above normal. Requires CAP_SYS_NICE. */
-+	DRM_POWERVR_SGX_CTX_PRIORITY_HIGH = 512,
-+};
-+
-+/**
-+ * struct drm_powervr_sgx_ioctl_create_context_args - Arguments for
-+ * %DRM_IOCTL_POWERVR_SGX_CREATE_CONTEXT
-+ */
-+struct drm_powervr_sgx_ioctl_create_context_args {
-+	/** @type: [IN] One of &enum drm_powervr_sgx_ctx_type. */
-+	__u32 type;
-+
-+	/** @flags: [IN] Reserved, must be 0. */
-+	__u32 flags;
-+
-+	/** @priority: [IN] One of &enum drm_powervr_sgx_ctx_priority. */
-+	__s32 priority;
-+
-+	/** @vm_context_handle: [IN] VM context whose page directory the jobs use. */
-+	__u32 vm_context_handle;
-+
-+	/**
-+	 * @param_buffer_pages: [IN] Parameter buffer size for a render context,
-+	 * in device pages, or 0 for the default in
-+	 * &drm_powervr_sgx_dev_query_limits.pb_default_pages. Must be 0 for a transfer
-+	 * context. The device has one parameter buffer, shared by every render
-+	 * context of every client: the first render context sets its size, and
-+	 * a later non-zero request for another size fails with -EINVAL.
-+	 */
-+	__u32 param_buffer_pages;
-+
-+	/** @handle: [OUT] Handle of the new context. */
-+	__u32 handle;
-+};
-+
-+/**
-+ * struct drm_powervr_sgx_ioctl_destroy_context_args - Arguments for
-+ * %DRM_IOCTL_POWERVR_SGX_DESTROY_CONTEXT
-+ */
-+struct drm_powervr_sgx_ioctl_destroy_context_args {
-+	/** @handle: [IN] Handle of the context. */
-+	__u32 handle;
-+
-+	/** @_padding_4: Reserved. This field must be zero. */
-+	__u32 _padding_4;
-+};
-+
-+/**
-+ * enum drm_powervr_sgx_context_state - Values of
-+ * &drm_powervr_sgx_ioctl_get_context_state_args.state
-+ *
-+ * These correspond to the reset statuses of GL_ARB_robustness.
-+ */
-+enum drm_powervr_sgx_context_state {
-+	/** @DRM_POWERVR_SGX_CONTEXT_STATE_OK: No reset has affected this context. */
-+	DRM_POWERVR_SGX_CONTEXT_STATE_OK = 0,
-+	/**
-+	 * @DRM_POWERVR_SGX_CONTEXT_STATE_GUILTY: A job of this context hung the GPU
-+	 * or faulted. Its fence carries -ETIME or -EFAULT.
-+	 */
-+	DRM_POWERVR_SGX_CONTEXT_STATE_GUILTY,
-+	/**
-+	 * @DRM_POWERVR_SGX_CONTEXT_STATE_INNOCENT: A job of this context was running
-+	 * when another context's job reset the GPU. Its fence carries -ECANCELED.
-+	 */
-+	DRM_POWERVR_SGX_CONTEXT_STATE_INNOCENT,
-+};
-+
-+/**
-+ * struct drm_powervr_sgx_ioctl_get_context_state_args - Arguments for
-+ * %DRM_IOCTL_POWERVR_SGX_GET_CONTEXT_STATE
-+ *
-+ * A context that is not %DRM_POWERVR_SGX_CONTEXT_STATE_OK fails every later submission
-+ * with -ECANCELED; the client destroys it and creates a new one. A context whose
-+ * jobs were only queued during a reset stays OK and its jobs run afterwards.
-+ */
-+struct drm_powervr_sgx_ioctl_get_context_state_args {
-+	/** @handle: [IN] Handle of the context. */
-+	__u32 handle;
-+
-+	/** @state: [OUT] One of &enum drm_powervr_sgx_context_state. */
-+	__u32 state;
-+
-+	/**
-+	 * @reset_count: [OUT] Number of GPU resets since the driver bound the
-+	 * device, for every context alike; it only grows. Compare two reads to see
-+	 * whether a reset happened in between. @state says whether this context
-+	 * was to blame.
-+	 */
-+	__u32 reset_count;
-+
-+	/** @_padding_c: Reserved. This field must be zero. */
-+	__u32 _padding_c;
-+};
-+
-+/**
-+ * DOC: PowerVR SGX IOCTL CREATE_RT_DATASET interface
-+ *
-+ * An RT dataset is what tiling a target of a given size needs: the macrotile
-+ * numbers, region headers, tail pointers, background object block and firmware
-+ * render data. The kernel derives all of it from the size, allocates it and keeps
-+ * it. A client sees only the handle.
-+ */
-+
-+/**
-+ * struct drm_powervr_sgx_ioctl_create_rt_dataset_args - Arguments for
-+ * %DRM_IOCTL_POWERVR_SGX_CREATE_RT_DATASET
-+ */
-+struct drm_powervr_sgx_ioctl_create_rt_dataset_args {
-+	/** @context_handle: [IN] Render context that uses this dataset. */
-+	__u32 context_handle;
-+
-+	/** @width: [IN] Target width in pixels. */
-+	__u32 width;
-+
-+	/** @height: [IN] Target height in pixels. */
-+	__u32 height;
-+
-+	/**
-+	 * @samples: [IN] Samples per pixel: 1 or 4 (0 is 1). 4 needs
-+	 * &drm_powervr_sgx_dev_query_limits.rt_max_samples of 4 on this core;
-+	 * otherwise it is -EOPNOTSUPP. A 4-sample target's renders need a
-+	 * depth buffer and ZLS control, with depth and stencil per sample.
-+	 */
-+	__u32 samples;
-+
-+	/** @flags: [IN] Reserved, must be 0. */
-+	__u32 flags;
-+
-+	/** @handle: [OUT] Handle of the new dataset. */
-+	__u32 handle;
-+};
-+
-+/**
-+ * struct drm_powervr_sgx_ioctl_destroy_rt_dataset_args - Arguments for
-+ * %DRM_IOCTL_POWERVR_SGX_DESTROY_RT_DATASET
-+ */
-+struct drm_powervr_sgx_ioctl_destroy_rt_dataset_args {
-+	/** @handle: [IN] Handle of the dataset. */
-+	__u32 handle;
-+
-+	/** @_padding_4: Reserved. This field must be zero. */
-+	__u32 _padding_4;
-+};
-+
-+/**
-+ * DOC: PowerVR SGX client commands
-+ *
-+ * The client's part of a GPU command is one struct per command: &struct
-+ * drm_powervr_sgx_cmd_render, &struct drm_powervr_sgx_cmd_ta_kick and &struct
-+ * drm_powervr_sgx_cmd_transfer. Each starts with &struct drm_powervr_sgx_cmd_head:
-+ * its size, and a chain of core-specific extensions. The kernel copies the
-+ * command and its extensions, checks every field and builds the firmware command
-+ * from the result.
-+ *
-+ * Addresses are device-virtual addresses in the job's VM. A field the kernel
-+ * does not check is one whose value only reaches a hardware register, with no
-+ * effect outside the VM. The structs below and the kernel's check tables are
-+ * generated by gen_cmd.py from one description of the fields and their checks,
-+ * powervr_sgx_cmd.xml; both live in the driver's source repository,
-+ * https://github.com/The1TrueJoe/powervr_sgx.
-+ */
-+
-+/* BEGIN commands: generated from powervr_sgx_cmd.xml */
-+
-+/**
-+ * struct drm_powervr_sgx_cmd_head - The head of every command struct
-+ *
-+ * The kernel copies a command as copy_struct_from_user() does: a shorter
-+ * struct is zero-filled, non-zero bytes past what the kernel knows are
-+ * -E2BIG. A field appended later takes 0 to mean "absent".
-+ */
-+struct drm_powervr_sgx_cmd_head {
-+	/** @size: sizeof() the struct as the caller built it. */
-+	__u32 size;
-+
-+	/** @_padding_4: Reserved. This field must be zero. */
-+	__u32 _padding_4;
-+
-+	/**
-+	 * @extensions: User pointer to the first &struct drm_powervr_sgx_ext,
-+	 * or 0.
-+	 */
-+	__u64 extensions;
-+};
-+
-+/**
-+ * struct drm_powervr_sgx_ext - The head of every command extension
-+ *
-+ * At most 16 in a chain, each name once. A name of another command is
-+ * -EINVAL; a name this core doesn't accept is -EOPNOTSUPP
-+ * (%DRM_POWERVR_SGX_DEV_QUERY_COMMANDS_GET lists the accepted ones).
-+ */
-+struct drm_powervr_sgx_ext {
-+	/** @name: One of the ``DRM_POWERVR_SGX_EXT_*`` names. */
-+	__u32 name;
-+
-+	/** @_padding_4: Reserved. This field must be zero. */
-+	__u32 _padding_4;
-+
-+	/** @next: User pointer to the next extension, or 0. */
-+	__u64 next;
-+};
-+
-+/* &struct drm_powervr_sgx_ext_sgx545_render, for sgx545 */
-+#define DRM_POWERVR_SGX_EXT_SGX545_RENDER 1
-+/* &struct drm_powervr_sgx_ext_sgx545_ta_kick, for sgx545 */
-+#define DRM_POWERVR_SGX_EXT_SGX545_TA_KICK 2
-+
-+/**
-+ * struct drm_powervr_sgx_cmd_render - A render command
-+ *
-+ * Extensions: &struct drm_powervr_sgx_ext_sgx545_render.
-+ */
-+struct drm_powervr_sgx_cmd_render {
-+	/** @head: The common head. */
-+	struct drm_powervr_sgx_cmd_head head;
-+
-+	/** @depth_addr: Depth buffer the ZLS loads and stores, or 0. */
-+	__u64 depth_addr;
-+
-+	/** @stencil_addr: Stencil buffer the ZLS loads and stores, or 0. */
-+	__u64 stencil_addr;
-+
-+	/** @pixel_event_pds_addr: PDS program run at the end of each tile (the pixel event). */
-+	__u64 pixel_event_pds_addr;
-+
-+	/** @bg_pds_secondary_addr: Background object: secondary PDS program. */
-+	__u64 bg_pds_secondary_addr;
-+
-+	/** @bg_pds_primary_addr: Background object: primary PDS program. */
-+	__u64 bg_pds_primary_addr;
-+
-+	/** @pixel_event_pds_rows: Data rows of the pixel event program. */
-+	__u32 pixel_event_pds_rows;
-+
-+	/** @bg_pds_secondary_rows: Data rows of the background secondary program. */
-+	__u32 bg_pds_secondary_rows;
-+
-+	/** @bg_pds_primary_rows: Data rows of the background primary program. */
-+	__u32 bg_pds_primary_rows;
-+
-+	/**
-+	 * @bg_depth_f32: Depth the background object clears to. IEEE-754
-+	 * binary32 bits, any value.
-+	 */
-+	__u32 bg_depth_f32;
-+
-+	/** @depth_bias_units: Constant depth bias (glPolygonOffset units). */
-+	__s32 depth_bias_units;
-+
-+	/**
-+	 * @depth_bias_factor_f32: Slope-scaled depth bias (glPolygonOffset
-+	 * factor). IEEE-754 binary32 bits, any value.
-+	 */
-+	__u32 depth_bias_factor_f32;
-+};
-+
-+/**
-+ * struct drm_powervr_sgx_cmd_ta_kick - A ta kick command
-+ *
-+ * Extensions: &struct drm_powervr_sgx_ext_sgx545_ta_kick.
-+ */
-+struct drm_powervr_sgx_cmd_ta_kick {
-+	/** @head: The common head. */
-+	struct drm_powervr_sgx_cmd_head head;
-+
-+	/** @vdm_base: Start of the kick's VDM control stream. */
-+	__u64 vdm_base;
-+};
-+
-+/**
-+ * struct drm_powervr_sgx_cmd_transfer - A transfer command
-+ */
-+struct drm_powervr_sgx_cmd_transfer {
-+	/** @head: The common head. */
-+	struct drm_powervr_sgx_cmd_head head;
-+
-+	/** @bg_block_addr: Background block: the blit's PDS program triple. */
-+	__u64 bg_block_addr;
-+
-+	/** @pixel_event_pds_addr: PDS program run at the end of each tile. */
-+	__u64 pixel_event_pds_addr;
-+
-+	/** @pixel_event_pds_rows: Data rows of the pixel event program. */
-+	__u32 pixel_event_pds_rows;
-+
-+	/** @first_tile_x: First tile column to blit. */
-+	__u32 first_tile_x;
-+
-+	/** @first_tile_y: First tile row to blit. */
-+	__u32 first_tile_y;
-+
-+	/** @last_tile_x: Last tile column to blit. */
-+	__u32 last_tile_x;
-+
-+	/** @last_tile_y: Last tile row to blit. */
-+	__u32 last_tile_y;
-+
-+	/** @bg_depth_f32: Depth the background object writes. IEEE-754 binary32 bits, any value. */
-+	__u32 bg_depth_f32;
-+};
-+
-+/**
-+ * struct drm_powervr_sgx_ext_sgx545_render - Extension %DRM_POWERVR_SGX_EXT_SGX545_RENDER
-+ *
-+ * For &struct drm_powervr_sgx_cmd_render, on sgx545.
-+ * Absent, its fields read as zero.
-+ */
-+struct drm_powervr_sgx_ext_sgx545_render {
-+	/** @base: The common head. */
-+	struct drm_powervr_sgx_ext base;
-+
-+	/** @zls_control: ZLS control register image; bits 3-11 are the kernel's. */
-+	__u32 zls_control;
-+
-+	/** @flags_3d: 3D flags; bit 8 uses the stencil buffer. */
-+	__u32 flags_3d;
-+};
-+
-+/**
-+ * struct drm_powervr_sgx_ext_sgx545_ta_kick - Extension %DRM_POWERVR_SGX_EXT_SGX545_TA_KICK
-+ *
-+ * For &struct drm_powervr_sgx_cmd_ta_kick, on sgx545.
-+ * Absent, its fields read as zero.
-+ */
-+struct drm_powervr_sgx_ext_sgx545_ta_kick {
-+	/** @base: The common head. */
-+	struct drm_powervr_sgx_ext base;
-+
-+	/** @ta_flags2: TA flags register image. */
-+	__u32 ta_flags2;
-+
-+	/** @_padding_14: Reserved. This field must be zero. */
-+	__u32 _padding_14;
-+};
-+
-+/* END commands */
-+
-+/**
-+ * DOC: PowerVR SGX IOCTL SUBMIT_JOBS interface
-+ *
-+ * The ioctl is all-or-nothing: when it fails, no job of the array was queued.
-+ * Jobs on one context run in submission order. Jobs on different contexts are
-+ * ordered only by the sync operations.
-+ *
-+ * A job has one out-fence, signalled from the completion interrupt when the whole
-+ * job is done: for a render job, when its 3D has finished. A job that does not
-+ * finish within the driver's timeout is killed and the GPU reset.
-+ */
-+
-+/**
-+ * DOC: Flags for struct drm_powervr_sgx_sync_op
-+ *
-+ * .. c:macro:: DRM_POWERVR_SGX_SYNC_OP_FLAG_HANDLE_TYPE_SYNCOBJ
-+ *
-+ *    The handle is a binary syncobj. This is the default.
-+ *
-+ * .. c:macro:: DRM_POWERVR_SGX_SYNC_OP_FLAG_HANDLE_TYPE_TIMELINE_SYNCOBJ
-+ *
-+ *    The handle is a timeline syncobj and the value names a point on it.
-+ *
-+ * .. c:macro:: DRM_POWERVR_SGX_SYNC_OP_FLAG_WAIT
-+ *
-+ *    The job waits for this syncobj before it starts. This is the default.
-+ *
-+ * .. c:macro:: DRM_POWERVR_SGX_SYNC_OP_FLAG_SIGNAL
-+ *
-+ *    The job's out-fence is attached to this syncobj.
-+ */
-+#define DRM_POWERVR_SGX_SYNC_OP_FLAG_HANDLE_TYPE_MASK 0xfU
-+#define DRM_POWERVR_SGX_SYNC_OP_FLAG_HANDLE_TYPE_SYNCOBJ 0U
-+#define DRM_POWERVR_SGX_SYNC_OP_FLAG_HANDLE_TYPE_TIMELINE_SYNCOBJ 1U
-+#define DRM_POWERVR_SGX_SYNC_OP_FLAG_WAIT 0U
-+#define DRM_POWERVR_SGX_SYNC_OP_FLAG_SIGNAL _BITUL(31)
-+
-+/**
-+ * struct drm_powervr_sgx_sync_op - One wait or signal of a job
-+ */
-+struct drm_powervr_sgx_sync_op {
-+	/** @handle: Syncobj handle. */
-+	__u32 handle;
-+
-+	/** @flags: ``DRM_POWERVR_SGX_SYNC_OP_FLAG_*`` flags. */
-+	__u32 flags;
-+
-+	/** @value: Timeline point. Must be 0 for a binary syncobj. */
-+	__u64 value;
-+};
-+
-+/**
-+ * DOC: Flags for struct drm_powervr_sgx_cache_range
-+ *
-+ * .. c:macro:: DRM_POWERVR_SGX_CACHE_RANGE_FLAG_READ
-+ *
-+ *    The job reads the range.
-+ *
-+ * .. c:macro:: DRM_POWERVR_SGX_CACHE_RANGE_FLAG_WRITE
-+ *
-+ *    The job writes the range.
-+ */
-+#define DRM_POWERVR_SGX_CACHE_RANGE_FLAG_READ _BITUL(0)
-+#define DRM_POWERVR_SGX_CACHE_RANGE_FLAG_WRITE _BITUL(1)
-+
-+/**
-+ * struct drm_powervr_sgx_cache_range - Bytes of an import a job reads or writes
-+ *
-+ * The GPU doesn't snoop the CPU caches, and an imported object's pages may be
-+ * cached. The kernel keeps a job coherent with the CPU on the listed bytes
-+ * only:
-+ *
-+ *  - when the job is about to run, it writes back and drops the CPU's lines of
-+ *    every range, so the GPU reads what the CPU wrote and no dirty line lands on
-+ *    the job's output later;
-+ *  - once the job's writes have reached memory, and before its out-fence
-+ *    signals, it drops the lines of every range with
-+ *    %DRM_POWERVR_SGX_CACHE_RANGE_FLAG_WRITE, which the CPU may have fetched
-+ *    again meanwhile. A job whose out-fence carries an error gets no such
-+ *    flush: its WRITE ranges are undefined.
-+ *
-+ * The range is @rows rows of @size bytes, @stride bytes apart, from @offset,
-+ * widened to whole cache lines: one damage rectangle of a linear buffer is one
-+ * entry. @rows 0 is one row. An entry for an object that isn't an import (ours
-+ * are write-combined, and a dma-buf of this device imports as the original
-+ * object) is checked and flushes nothing. No fence is attached.
-+ *
-+ * Bytes of an import the job changes but doesn't list have undefined contents
-+ * afterwards, for the CPU and the GPU alike. That is never a leak: the kernel
-+ * writes the whole import back once when it is imported, so a stale line or a
-+ * stale DRAM word is the object's own earlier contents. Bytes a job rewrites
-+ * unchanged (a render's tiles outside its draws, which it loaded) need no entry
-+ * while the CPU doesn't write the object during the job.
-+ */
-+struct drm_powervr_sgx_cache_range {
-+	/** @handle: GEM handle. */
-+	__u32 handle;
-+
-+	/** @flags: ``DRM_POWERVR_SGX_CACHE_RANGE_FLAG_*``, at least one. */
-+	__u32 flags;
-+
-+	/** @offset: Byte offset of the first row. */
-+	__u64 offset;
-+
-+	/** @size: Bytes per row. Must not be 0. */
-+	__u64 size;
-+
-+	/** @stride: Bytes from one row to the next; at least @size when @rows > 1. */
-+	__u32 stride;
-+
-+	/** @rows: Number of rows; 0 and 1 both mean one. */
-+	__u32 rows;
-+};
-+
-+/**
-+ * DOC: Flags for &drm_powervr_sgx_job.flags
-+ *
-+ * Valid flags depend on the job type. Render jobs have none yet.
-+ *
-+ * .. c:macro:: DRM_POWERVR_SGX_SUBMIT_JOB_TRANSFER_DST_TWIDDLED
-+ *
-+ *    The transfer's destination surface is twiddled.
-+ */
-+#define DRM_POWERVR_SGX_SUBMIT_JOB_RENDER_FLAGS_MASK 0U
-+#define DRM_POWERVR_SGX_SUBMIT_JOB_TRANSFER_DST_TWIDDLED _BITUL(0)
-+#define DRM_POWERVR_SGX_SUBMIT_JOB_TRANSFER_FLAGS_MASK \
-+	DRM_POWERVR_SGX_SUBMIT_JOB_TRANSFER_DST_TWIDDLED
-+
-+/**
-+ * enum drm_powervr_sgx_job_type - Values of &drm_powervr_sgx_job.type
-+ */
-+enum drm_powervr_sgx_job_type {
-+	/** @DRM_POWERVR_SGX_JOB_TYPE_RENDER: A whole scene: TA kicks and the 3D. */
-+	DRM_POWERVR_SGX_JOB_TYPE_RENDER = 0,
-+	/** @DRM_POWERVR_SGX_JOB_TYPE_TRANSFER: One 3D-only blit. */
-+	DRM_POWERVR_SGX_JOB_TYPE_TRANSFER,
-+	/**
-+	 * @DRM_POWERVR_SGX_JOB_TYPE_NULL: No GPU work. The firmware takes it in
-+	 * queue order with the context's other jobs, and its out-fences signal
-+	 * once it has. Runs on a context of either type; no command, no flags,
-+	 * no TA kicks, no RT dataset. For testing synchronization (and for a
-+	 * fence that follows everything queued before it).
-+	 */
-+	DRM_POWERVR_SGX_JOB_TYPE_NULL,
-+};
-+
-+/**
-+ * struct drm_powervr_sgx_job - One job of %DRM_IOCTL_POWERVR_SGX_SUBMIT_JOBS
-+ */
-+struct drm_powervr_sgx_job {
-+	/** @type: One of &enum drm_powervr_sgx_job_type. */
-+	__u32 type;
-+
-+	/** @context_handle: Context of the matching type. */
-+	__u32 context_handle;
-+
-+	/**
-+	 * @flags: ``DRM_POWERVR_SGX_SUBMIT_JOB_<type>_*`` flags. Bits outside
-+	 * the type's mask are rejected.
-+	 */
-+	__u32 flags;
-+
-+	/** @_padding_c: Reserved. This field must be zero. */
-+	__u32 _padding_c;
-+
-+	/**
-+	 * @cmd: User pointer to the type's command: &struct
-+	 * drm_powervr_sgx_cmd_render or &struct drm_powervr_sgx_cmd_transfer.
-+	 */
-+	__u64 cmd;
-+
-+	/** @sync_ops: Array of &struct drm_powervr_sgx_sync_op. May be empty. */
-+	struct drm_powervr_sgx_obj_array sync_ops;
-+
-+	/**
-+	 * @cache_ranges: Array of &struct drm_powervr_sgx_cache_range, at most
-+	 * 64: the bytes of imports the job reads or writes. May be empty.
-+	 */
-+	struct drm_powervr_sgx_obj_array cache_ranges;
-+
-+	/**
-+	 * @ta_kicks: Array of &struct drm_powervr_sgx_cmd_ta_kick, each with
-+	 * &drm_powervr_sgx_cmd_head.size equal to the stride. At least one
-+	 * element and at most &drm_powervr_sgx_dev_query_limits.max_ta_kicks for a
-+	 * render job, empty for a transfer job.
-+	 */
-+	struct drm_powervr_sgx_obj_array ta_kicks;
-+
-+	/** @rt_dataset_handle: RT dataset of a render job, 0 for a transfer job. */
-+	__u32 rt_dataset_handle;
-+
-+	/** @_padding_4c: Reserved. This field must be zero. */
-+	__u32 _padding_4c;
-+};
-+
-+/**
-+ * struct drm_powervr_sgx_ioctl_submit_jobs_args - Arguments for %DRM_IOCTL_POWERVR_SGX_SUBMIT_JOBS
-+ *
-+ * Returns -ECANCELED when a job's context is not usable after a reset.
-+ */
-+struct drm_powervr_sgx_ioctl_submit_jobs_args {
-+	/** @jobs: [IN] Array of &struct drm_powervr_sgx_job. */
-+	struct drm_powervr_sgx_obj_array jobs;
-+
-+	/**
-+	 * @failed_index: [OUT] On error, the index of the job that caused it,
-+	 * or ~0 when no single job did. No job was submitted.
-+	 */
-+	__u32 failed_index;
-+
-+	/** @_padding_14: Reserved. This field must be zero. */
-+	__u32 _padding_14;
-+};
-+
-+#if defined(__cplusplus)
++static void lockdep_prime(struct pvrsgx_device *sdev)
++{
++	if (!IS_ENABLED(CONFIG_LOCKDEP))
++		return;
++	fs_reclaim_acquire(GFP_KERNEL);
++	might_lock(&sdev->reset_lock);
++	might_lock(&sdev->done_lock);
++	might_lock(&sdev->ccb_lock);
++	might_lock(&sdev->kobj_lock);
++	fs_reclaim_release(GFP_KERNEL);
 +}
-+#endif
 +
-+#endif /* POWERVR_SGX_DRM_H */
++int pvrsgx_job_init(struct pvrsgx_device *sdev)
++{
++	const struct drm_sched_init_args args = {
++		.ops = &pvrsgx_sched_ops,
++		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
++		.credit_limit = 1,
++		.timeout = msecs_to_jiffies(job_timeout_ms),
++		.name = "powervr_sgx",
++		.dev = sdev->base.dev,
++	};
++
++	int err;
++
++	spin_lock_init(&sdev->fence_lock);
++	mutex_init(&sdev->reset_lock);
++	INIT_LIST_HEAD(&sdev->active);
++	INIT_DELAYED_WORK(&sdev->poll_work, poll_work_fn);
++	INIT_WORK(&sdev->reap_work, reap_work_fn);
++	sdev->wq = alloc_workqueue("powervr_sgx", WQ_MEM_RECLAIM | WQ_UNBOUND, 0);
++	if (!sdev->wq)
++		return -ENOMEM;
++	sdev->free_wq = alloc_workqueue("powervr_sgx_free", WQ_UNBOUND, 0);
++	if (!sdev->free_wq) {
++		destroy_workqueue(sdev->wq);
++		return -ENOMEM;
++	}
++	lockdep_prime(sdev);
++	pvrsgx_coredump_init(sdev);
++	sdev->fence_context = dma_fence_context_alloc(1);
++	err = drm_sched_init(&sdev->sched, &args);
++	if (err) {
++		pvrsgx_coredump_fini(sdev);
++		destroy_workqueue(sdev->free_wq);
++		destroy_workqueue(sdev->wq);
++	}
++	return err;
++}
++
++/*
++ * Unbind. Nothing reaches the GPU again: the firmware stops, the jobs on it
++ * fail with -ENODEV, and run_job fails the queued ones (-EIO, @lost) without
++ * touching the hardware.
++ */
++void pvrsgx_job_unplug(struct pvrsgx_device *sdev)
++{
++	struct pvrsgx_job *job, *tmp;
++	unsigned long flags;
++	bool cookie;
++
++	drm_sched_wqueue_stop(&sdev->sched);
++	/* A reset under way finishes first; one after this sees @lost. */
++	mutex_lock(&sdev->reset_lock);
++	WRITE_ONCE(sdev->lost, true);
++	pvrsgx_fw_stop(sdev);
++	mutex_unlock(&sdev->reset_lock);
++	cancel_delayed_work_sync(&sdev->poll_work);
++	/* Stopped: nothing translates any more, so unmapped memory can go. */
++	pvrsgx_ccb_inval_reap(sdev, true);
++
++	mutex_lock(&sdev->done_lock);
++	cookie = dma_fence_begin_signalling();
++	spin_lock_irqsave(&sdev->fence_lock, flags);
++	list_for_each_entry_safe(job, tmp, &sdev->active, node) {
++		list_del_init(&job->node);
++		dma_fence_set_error(job->hw_fence, -ENODEV);
++		dma_fence_signal_locked(job->hw_fence);
++	}
++	spin_unlock_irqrestore(&sdev->fence_lock, flags);
++	dma_fence_end_signalling(cookie);
++	mutex_unlock(&sdev->done_lock);
++	drm_sched_wqueue_start(&sdev->sched);
++}
++
++/*
++ * System sleep: no new job reaches the GPU, and the jobs on it finish, or the
++ * timeout's reset ends them, within a job timeout. -EBUSY aborts the suspend.
++ */
++int pvrsgx_job_quiesce(struct pvrsgx_device *sdev)
++{
++	long left = msecs_to_jiffies(job_timeout_ms) + HZ;
++
++	/* A reset restarts submission; stop it again after one. */
++	for (int i = 0; i < 2; i++) {
++		struct dma_fence *last;
++
++		drm_sched_wqueue_stop(&sdev->sched);
++		/* Set only by run_job, which is stopped. Jobs finish in order. */
++		last = sdev->last_fence;
++		if (!last || dma_fence_is_signaled(last)) {
++			flush_work(&sdev->reap_work);
++			return 0;
++		}
++		left = dma_fence_wait_timeout(last, false, left);
++		if (left <= 0)
++			break;
++	}
++	drm_err(&sdev->base, "GPU still busy: not suspending\n");
++	drm_sched_wqueue_start(&sdev->sched);
++	return -EBUSY;
++}
++
++void pvrsgx_job_unquiesce(struct pvrsgx_device *sdev)
++{
++	drm_sched_wqueue_start(&sdev->sched);
++}
++
++void pvrsgx_job_fini(struct pvrsgx_device *sdev)
++{
++	drm_sched_fini(&sdev->sched);
++	cancel_delayed_work_sync(&sdev->poll_work);
++	cancel_work_sync(&sdev->reap_work);
++	/* Drains the jobs' final puts, which drm_sched_fini may have queued. */
++	destroy_workqueue(sdev->free_wq);
++	destroy_workqueue(sdev->wq);
++	pvrsgx_coredump_fini(sdev);
++	dma_fence_put(sdev->last_fence);
++	sdev->last_fence = NULL;
++}
++
++static enum drm_sched_priority sched_priority(s32 p)
++{
++	switch (p) {
++	case DRM_POWERVR_SGX_CTX_PRIORITY_LOW:
++		return DRM_SCHED_PRIORITY_LOW;
++	case DRM_POWERVR_SGX_CTX_PRIORITY_HIGH:
++		return DRM_SCHED_PRIORITY_HIGH;
++	default:
++		return DRM_SCHED_PRIORITY_NORMAL;
++	}
++}
++
++int pvrsgx_ioctl_create_context(struct drm_device *drm, void *data, struct drm_file *file)
++{
++	struct drm_powervr_sgx_ioctl_create_context_args *args = data;
++	struct pvrsgx_device *sdev = to_pvrsgx_device(drm);
++	struct pvrsgx_file *sfile = to_pvrsgx_file(file);
++	struct drm_gpu_scheduler *sched = &sdev->sched;
++	struct pvrsgx_context *ctx;
++	int err;
++
++	if (args->flags)
++		return -EINVAL;
++	if (args->type != DRM_POWERVR_SGX_CTX_TYPE_RENDER &&
++	    args->type != DRM_POWERVR_SGX_CTX_TYPE_TRANSFER)
++		return -EINVAL;
++	if (args->priority != DRM_POWERVR_SGX_CTX_PRIORITY_LOW &&
++	    args->priority != DRM_POWERVR_SGX_CTX_PRIORITY_NORMAL &&
++	    args->priority != DRM_POWERVR_SGX_CTX_PRIORITY_HIGH)
++		return -EINVAL;
++	if (args->priority == DRM_POWERVR_SGX_CTX_PRIORITY_HIGH &&
++	    !capable(CAP_SYS_NICE) && !drm_is_current_master(file))
++		return -EACCES;
++	if (args->type == DRM_POWERVR_SGX_CTX_TYPE_TRANSFER && args->param_buffer_pages)
++		return -EINVAL;
++	if (args->param_buffer_pages &&
++	    (args->param_buffer_pages < 0x100 ||
++	     args->param_buffer_pages > pvrsgx_heaps(to_pvrsgx_device(drm))->pb_max_pages))
++		return -EINVAL;
++
++	ctx = kzalloc_obj(*ctx);
++	if (!ctx)
++		return -ENOMEM;
++	ctx->vm = pvrsgx_vm_lookup(sfile, args->vm_context_handle);
++	if (!ctx->vm) {
++		kfree(ctx);
++		return -ENOENT;
++	}
++	ctx->sdev = sdev;
++	ctx->type = args->type;
++	ctx->usage = pvrsgx_usage_get(sfile->usage);
++	kref_init(&ctx->ref);
++	err = ctx->type == DRM_POWERVR_SGX_CTX_TYPE_RENDER ?
++	      pvrsgx_render_ctx_init(sdev, ctx, args->param_buffer_pages) :
++	      pvrsgx_transfer_ctx_init(sdev, ctx);
++	if (err)
++		goto err_put;
++	err = drm_sched_entity_init(&ctx->entity, sched_priority(args->priority), &sched, 1, NULL);
++	if (err)
++		goto err_put;
++	pvrsgx_vm_user_get(ctx->vm);
++	err = xa_alloc(&sfile->contexts, &args->handle, ctx,
++		       XA_LIMIT(1, PVRSGX_MAX_FILE_CONTEXTS), GFP_KERNEL);
++	if (err) {
++		err = err == -EBUSY ? -ENOSPC : err;
++		goto err_entity;
++	}
++	return 0;
++
++err_entity:
++	drm_sched_entity_destroy(&ctx->entity);
++	pvrsgx_vm_user_put(ctx->vm);
++err_put:
++	context_put(ctx);
++	return err;
++}
++
++static void context_destroy(struct pvrsgx_context *ctx)
++{
++	/* Its queued jobs are on the GPU or cancelled before its VM's mappings may go. */
++	drm_sched_entity_destroy(&ctx->entity);
++	pvrsgx_vm_user_put(ctx->vm);
++	context_put(ctx);
++}
++
++void pvrsgx_context_destroy_all(struct pvrsgx_file *sfile)
++{
++	struct pvrsgx_context *ctx;
++	unsigned long handle;
++
++	xa_for_each(&sfile->contexts, handle, ctx) {
++		xa_erase(&sfile->contexts, handle);
++		context_destroy(ctx);
++	}
++}
++
++int pvrsgx_ioctl_destroy_context(struct drm_device *drm, void *data, struct drm_file *file)
++{
++	struct drm_powervr_sgx_ioctl_destroy_context_args *args = data;
++	struct pvrsgx_context *ctx;
++
++	if (args->_padding_4)
++		return -EINVAL;
++	ctx = xa_erase(&to_pvrsgx_file(file)->contexts, args->handle);
++	if (!ctx)
++		return -ENOENT;
++	context_destroy(ctx);
++	return 0;
++}
++
++struct pvrsgx_context *pvrsgx_context_lookup(struct pvrsgx_file *sfile, u32 handle)
++{
++	struct pvrsgx_context *ctx;
++
++	xa_lock(&sfile->contexts);
++	ctx = xa_load(&sfile->contexts, handle);
++	if (ctx)
++		kref_get(&ctx->ref);
++	xa_unlock(&sfile->contexts);
++	return ctx;
++}
++
++int pvrsgx_ioctl_get_context_state(struct drm_device *drm, void *data, struct drm_file *file)
++{
++	struct drm_powervr_sgx_ioctl_get_context_state_args *args = data;
++	struct pvrsgx_context *ctx;
++
++	if (args->_padding_c)
++		return -EINVAL;
++	ctx = pvrsgx_context_lookup(to_pvrsgx_file(file), args->handle);
++	if (!ctx)
++		return -ENOENT;
++	args->state = READ_ONCE(ctx->state);
++	args->reset_count = to_pvrsgx_device(drm)->reset_count;
++	context_put(ctx);
++	return 0;
++}
++
++/* What one job needs from its submission, held until it is pushed. */
++struct job_args {
++	struct pvrsgx_job *job;
++	struct pvrsgx_signal *signals;
++	u32 nsignals;
++	/* Earlier jobs of this submit whose signals this job waits on. */
++	u32 *intra;
++	u32 nintra;
++	bool inited;
++	/* Once pushed: the job's finished fence, for later jobs' waits. */
++	struct dma_fence *done;
++};
++
++static void job_args_fini(struct job_args *ja)
++{
++	for (u32 i = 0; i < ja->nsignals; i++) {
++		if (ja->signals[i].syncobj)
++			drm_syncobj_put(ja->signals[i].syncobj);
++		dma_fence_chain_free(ja->signals[i].chain);
++	}
++	kvfree(ja->signals);
++	kvfree(ja->intra);
++	dma_fence_put(ja->done);
++	if (ja->job) {
++		if (ja->inited)
++			drm_sched_job_cleanup(&ja->job->base);
++		pvrsgx_prime_put(ja->job);
++		pvrsgx_render_job_fini(ja->job);
++		context_put(ja->job->ctx);
++		kfree(ja->job->hw_fence_mem);
++		kfree(ja->job);
++	}
++}
++
++/* The latest earlier job of this submit that signals handle at point, or -1. */
++static int intra_signaller(const struct job_args *prev, u32 nprev, u32 handle, u64 point)
++{
++	for (int k = nprev - 1; k >= 0; k--) {
++		for (u32 s = 0; s < prev[k].nsignals; s++) {
++			if (prev[k].signals[s].handle == handle &&
++			    prev[k].signals[s].point == point)
++				return k;
++		}
++	}
++	return -1;
++}
++
++static int job_sync_ops(struct drm_file *file, struct job_args *ja,
++			const struct drm_powervr_sgx_obj_array *arr,
++			const struct job_args *prev, u32 nprev)
++{
++	struct drm_powervr_sgx_sync_op *ops;
++	int err = 0;
++
++	ops = pvrsgx_obj_array_get(arr, sizeof(*ops), PVRSGX_MAX_SYNC_OPS);
++	if (IS_ERR_OR_NULL(ops))
++		return PTR_ERR_OR_ZERO(ops);
++
++	ja->signals = kvcalloc(arr->count, sizeof(*ja->signals), GFP_KERNEL);
++	ja->intra = kvcalloc(arr->count, sizeof(*ja->intra), GFP_KERNEL);
++	if (!ja->signals || !ja->intra) {
++		err = -ENOMEM;
++		goto out;
++	}
++	for (u32 i = 0; i < arr->count && !err; i++) {
++		u32 type = ops[i].flags & DRM_POWERVR_SGX_SYNC_OP_FLAG_HANDLE_TYPE_MASK;
++		bool timeline = type == DRM_POWERVR_SGX_SYNC_OP_FLAG_HANDLE_TYPE_TIMELINE_SYNCOBJ;
++		struct dma_fence *fence;
++
++		if ((ops[i].flags & ~PVRSGX_SYNC_OP_FLAGS_MASK) ||
++		    (type != DRM_POWERVR_SGX_SYNC_OP_FLAG_HANDLE_TYPE_SYNCOBJ && !timeline) ||
++		    (!timeline && ops[i].value)) {
++			err = -EINVAL;
++			break;
++		}
++
++		if (!(ops[i].flags & DRM_POWERVR_SGX_SYNC_OP_FLAG_SIGNAL)) {
++			int k = intra_signaller(prev, nprev, ops[i].handle, ops[i].value);
++
++			/* Its fence exists once that job is armed: added then. */
++			if (k >= 0) {
++				ja->intra[ja->nintra++] = k;
++				continue;
++			}
++			err = drm_syncobj_find_fence(file, ops[i].handle, ops[i].value, 0, &fence);
++			if (!err)
++				err = drm_sched_job_add_dependency(&ja->job->base, fence);
++			continue;
++		}
++
++		ja->signals[ja->nsignals].syncobj = drm_syncobj_find(file, ops[i].handle);
++		if (!ja->signals[ja->nsignals].syncobj) {
++			err = -ENOENT;
++			break;
++		}
++		ja->signals[ja->nsignals].handle = ops[i].handle;
++		ja->signals[ja->nsignals].point = ops[i].value;
++		if (timeline) {
++			ja->signals[ja->nsignals].chain = dma_fence_chain_alloc();
++			if (!ja->signals[ja->nsignals].chain)
++				err = -ENOMEM;
++		}
++		ja->nsignals++;
++	}
++out:
++	kvfree(ops);
++	return err;
++}
++
++static int job_create(struct drm_file *file, const struct drm_powervr_sgx_job *in,
++		      struct job_args *ja, const struct job_args *prev, u32 nprev)
++{
++	struct pvrsgx_file *sfile = to_pvrsgx_file(file);
++	struct pvrsgx_device *sdev = sfile->sdev;
++	struct pvrsgx_context *ctx;
++	struct pvrsgx_job *job;
++	int err;
++
++	if (in->_padding_c || in->_padding_4c)
++		return -EINVAL;
++
++	switch (in->type) {
++	case DRM_POWERVR_SGX_JOB_TYPE_NULL:
++		if (in->flags || in->cmd || in->ta_kicks.count ||
++		    in->rt_dataset_handle)
++			return -EINVAL;
++		break;
++	case DRM_POWERVR_SGX_JOB_TYPE_RENDER:
++	case DRM_POWERVR_SGX_JOB_TYPE_TRANSFER:
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	ctx = pvrsgx_context_lookup(sfile, in->context_handle);
++	if (!ctx)
++		return -ENOENT;
++	if (READ_ONCE(ctx->state) != DRM_POWERVR_SGX_CONTEXT_STATE_OK) {
++		context_put(ctx);
++		return -ECANCELED;
++	}
++	if (sdev->lost) {
++		context_put(ctx);
++		return -EIO;
++	}
++
++	job = kzalloc_obj(*job);
++	if (!job) {
++		context_put(ctx);
++		return -ENOMEM;
++	}
++	job->ctx = ctx;
++	job->type = in->type;
++	INIT_LIST_HEAD(&job->node);
++	ja->job = job;
++	job->hw_fence_mem = kzalloc_obj(*job->hw_fence_mem);
++	if (!job->hw_fence_mem)
++		return -ENOMEM;
++
++	err = drm_sched_job_init(&job->base, &ctx->entity, 1, sfile, file->client_id);
++	if (err)
++		return err;
++	ja->inited = true;
++
++	if (job->type == DRM_POWERVR_SGX_JOB_TYPE_RENDER) {
++		if (ctx->type != DRM_POWERVR_SGX_CTX_TYPE_RENDER)
++			return -EINVAL;
++		err = pvrsgx_render_job_init(file, job, in);
++		if (err)
++			return err;
++	} else if (job->type == DRM_POWERVR_SGX_JOB_TYPE_TRANSFER) {
++		if (ctx->type != DRM_POWERVR_SGX_CTX_TYPE_TRANSFER)
++			return -EINVAL;
++		err = pvrsgx_transfer_job_init(file, job, in);
++		if (err)
++			return err;
++	}
++
++	err = job_sync_ops(file, ja, &in->sync_ops, prev, nprev);
++	if (err)
++		return err;
++	err = pvrsgx_prime_ranges(file, &in->cache_ranges, job);
++	if (err)
++		return err;
++	return pvrsgx_validate_job(sdev, job);
++}
++
++int pvrsgx_ioctl_submit_jobs(struct drm_device *drm, void *data, struct drm_file *file)
++{
++	struct drm_powervr_sgx_ioctl_submit_jobs_args *args = data;
++	struct drm_powervr_sgx_job *in;
++	struct job_args *ja;
++	struct drm_exec exec;
++	u32 n = args->jobs.count;
++	u32 pushed = 0;
++	int err = 0;
++
++	args->failed_index = ~0u;
++	if (args->_padding_14 || !n)
++		return -EINVAL;
++	if (drm_dev_is_unplugged(drm))
++		return -ENODEV;
++
++	in = pvrsgx_obj_array_get(&args->jobs, sizeof(*in), PVRSGX_MAX_JOBS);
++	if (IS_ERR(in))
++		return PTR_ERR(in);
++	ja = kvcalloc(n, sizeof(*ja), GFP_KERNEL);
++	if (!ja) {
++		kvfree(in);
++		return -ENOMEM;
++	}
++
++	for (u32 i = 0; i < n; i++) {
++		err = job_create(file, &in[i], &ja[i], ja, i);
++		if (err) {
++			args->failed_index = i;
++			goto out;
++		}
++	}
++
++	/*
++	 * One runtime-PM reference per job, from here, where resuming may sleep and
++	 * no reservation is held, to free_job; never in run_job, which signals fences.
++	 */
++	for (u32 i = 0; i < n; i++) {
++		err = pvrsgx_power_get(to_pvrsgx_device(drm));
++		if (err) {
++			pvrsgx_power_put(to_pvrsgx_device(drm), i);
++			goto out;
++		}
++	}
++
++	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT | DRM_EXEC_IGNORE_DUPLICATES, 0);
++	drm_exec_until_all_locked(&exec) {
++		for (u32 i = 0; i < n; i++) {
++			struct drm_gpuvm *gpuvm = &ja[i].job->ctx->vm->gpuvm;
++
++			err = drm_exec_prepare_obj(&exec, drm_gpuvm_resv_obj(gpuvm), n);
++			drm_exec_retry_on_contention(&exec);
++			if (err)
++				goto out_exec;
++		}
++	}
++
++	/*
++	 * All or nothing. First each job's waits on earlier jobs of the submit,
++	 * then arm it; a wait that can't be added fails the call, and the armed
++	 * jobs, never published, are cleaned up unpushed (job_args_fini). Then
++	 * publish and push every job, which can't fail. The VM's reservation,
++	 * held throughout, keeps the order.
++	 */
++	for (u32 i = 0; i < n; i++) {
++		struct pvrsgx_job *job = ja[i].job;
++
++		for (u32 d = 0; d < ja[i].nintra; d++) {
++			err = drm_sched_job_add_dependency(&job->base,
++							   dma_fence_get(ja[ja[i].intra[d]].done));
++			if (err) {
++				args->failed_index = i;
++				goto out_exec;
++			}
++		}
++		drm_sched_job_arm(&job->base);
++		ja[i].done = dma_fence_get(&job->base.s_fence->finished);
++	}
++
++	for (u32 i = 0; i < n; i++) {
++		struct pvrsgx_job *job = ja[i].job;
++		struct dma_fence *done = ja[i].done;
++
++		dma_resv_add_fence(drm_gpuvm_resv(&job->ctx->vm->gpuvm), done,
++				   DMA_RESV_USAGE_BOOKKEEP);
++		for (u32 s = 0; s < ja[i].nsignals; s++) {
++			struct pvrsgx_signal *sig = &ja[i].signals[s];
++
++			if (sig->chain) {
++				drm_syncobj_add_point(sig->syncobj, sig->chain, done, sig->point);
++				sig->chain = NULL;
++			} else {
++				drm_syncobj_replace_fence(sig->syncobj, done);
++			}
++		}
++		drm_sched_entity_push_job(&job->base);
++		ja[i].job = NULL;	/* the scheduler owns it now */
++		pushed++;
++	}
++
++out_exec:
++	drm_exec_fini(&exec);
++	/* The references of the jobs not pushed. */
++	pvrsgx_power_put(to_pvrsgx_device(drm), n - pushed);
++out:
++	for (u32 i = 0; i < n; i++)
++		job_args_fini(&ja[i]);
++	kvfree(ja);
++	kvfree(in);
++	return err;
++}
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_job.h b/drivers/gpu/drm/powervr_sgx/pvrsgx_job.h
+new file mode 100644
+index 000000000..87d3744c7
+--- /dev/null
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_job.h
+@@ -0,0 +1,143 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/* Copyright © 2026 Joseph Telaak */
++
++#ifndef PVRSGX_JOB_H
++#define PVRSGX_JOB_H
++
++#include <drm/gpu_scheduler.h>
++
++#include <linux/kref.h>
++#include <linux/list.h>
++#include <linux/types.h>
++
++#include "pvrsgx_render.h"
++#include "pvrsgx_transfer.h"
++
++struct drm_device;
++struct drm_file;
++struct drm_syncobj;
++struct dma_fence_chain;
++struct pvrsgx_device;
++struct pvrsgx_file;
++struct pvrsgx_vm;
++
++/**
++ * struct pvrsgx_usage - A file's GPU time, for fdinfo
++ *
++ * Its contexts hold it too: a job may finish after its file has closed.
++ */
++struct pvrsgx_usage {
++	/** @ref: Held by the file and by each of its contexts. */
++	struct kref ref;
++	/** @render_ns: Time render jobs of the file spent on the GPU. */
++	atomic64_t render_ns;
++};
++
++struct pvrsgx_usage *pvrsgx_usage_new(void);
++struct pvrsgx_usage *pvrsgx_usage_get(struct pvrsgx_usage *u);
++void pvrsgx_usage_put(struct pvrsgx_usage *u);
++
++/**
++ * struct pvrsgx_context - A queue of jobs in one VM
++ */
++struct pvrsgx_context {
++	/** @ref: Held by the handle and by each job. */
++	struct kref ref;
++	/** @sdev: The device. */
++	struct pvrsgx_device *sdev;
++	/** @vm: The VM its jobs run in. */
++	struct pvrsgx_vm *vm;
++	/** @usage: Its file's GPU time. */
++	struct pvrsgx_usage *usage;
++	/** @entity: Its scheduler queue. */
++	struct drm_sched_entity entity;
++	/** @type: enum drm_powervr_sgx_ctx_type. */
++	u32 type;
++	/** @state: enum drm_powervr_sgx_context_state. */
++	u32 state;
++	/** @render: The firmware half of a render context, else NULL. */
++	struct pvrsgx_render_ctx *render;
++	/** @transfer: The firmware half of a transfer context, else NULL. */
++	struct pvrsgx_transfer_ctx *transfer;
++};
++
++struct pvrsgx_signal {
++	u32 handle;
++	struct drm_syncobj *syncobj;
++	struct dma_fence_chain *chain;
++	u64 point;
++};
++
++/* Bytes of an import a job reads or writes: @rows rows of @size, @stride apart. */
++struct pvrsgx_cache_range {
++	struct drm_gem_object *obj;
++	u64 offset;
++	u64 size;
++	u32 stride;
++	u32 rows;
++	bool write;
++	bool import;
++};
++
++/**
++ * struct pvrsgx_job - One submitted job
++ */
++struct pvrsgx_job {
++	/** @free_work: The final puts, off the scheduler's queue. */
++	struct work_struct free_work;
++	/** @base: The scheduler job. */
++	struct drm_sched_job base;
++	/** @ctx: The context it was submitted on. */
++	struct pvrsgx_context *ctx;
++	/** @type: enum drm_powervr_sgx_job_type. */
++	u32 type;
++
++	/** @hw_fence: Signalled when the firmware has finished the job. */
++	struct dma_fence *hw_fence;
++	/** @hw_fence_mem: @hw_fence's memory from submit until run_job initializes it. */
++	struct dma_fence *hw_fence_mem;
++	/** @ccb_seq: Kernel CCB command that carries the job. */
++	/** @start_ns: When run_job sent it to the microkernel. */
++	u64 start_ns;
++	u64 ccb_seq;
++	/** @node: In pvrsgx_device.active while on the GPU. */
++	struct list_head node;
++	/**
++	 * @done_cpu: Word the firmware sets to @done_val when the job is done;
++	 * NULL for a job that is done when the CCB has taken it.
++	 */
++	u32 *done_cpu;
++	/** @done_val: Value of *@done_cpu once the job is done. */
++	u32 done_val;
++	/** @render: The render job, for a render context. */
++	struct pvrsgx_render_job render;
++	/** @transfer: The transfer job, for a transfer context. */
++	struct pvrsgx_transfer_job transfer;
++
++	/** @ranges: The bytes of imports the job reads or writes, flushed around it. */
++	struct pvrsgx_cache_range *ranges;
++	/** @nranges: Number of @ranges. */
++	u32 nranges;
++	/** @signals: Syncobjs to signal with the job's fence. */
++	struct pvrsgx_signal *signals;
++	/** @nsignals: Number of @signals. */
++	u32 nsignals;
++};
++
++int pvrsgx_job_init(struct pvrsgx_device *sdev);
++void pvrsgx_job_fini(struct pvrsgx_device *sdev);
++void pvrsgx_job_process_done(struct pvrsgx_device *sdev);
++void pvrsgx_job_unplug(struct pvrsgx_device *sdev);
++int pvrsgx_job_quiesce(struct pvrsgx_device *sdev);
++void pvrsgx_job_unquiesce(struct pvrsgx_device *sdev);
++bool pvrsgx_job_oldest_done(struct pvrsgx_device *sdev);
++void pvrsgx_context_destroy_all(struct pvrsgx_file *sfile);
++struct pvrsgx_context *pvrsgx_context_lookup(struct pvrsgx_file *sfile, u32 handle);
++void pvrsgx_context_put(struct pvrsgx_context *ctx);
++
++int pvrsgx_ioctl_create_context(struct drm_device *drm, void *data, struct drm_file *file);
++int pvrsgx_ioctl_destroy_context(struct drm_device *drm, void *data, struct drm_file *file);
++int pvrsgx_ioctl_get_context_state(struct drm_device *drm, void *data, struct drm_file *file);
++int pvrsgx_ioctl_submit_jobs(struct drm_device *drm, void *data, struct drm_file *file);
++
++#endif /* PVRSGX_JOB_H */
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_trace.c b/drivers/gpu/drm/powervr_sgx/pvrsgx_trace.c
+new file mode 100644
+index 000000000..5c70244c3
+--- /dev/null
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_trace.c
+@@ -0,0 +1,5 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/* Copyright © 2026 Joseph Telaak */
++
++#define CREATE_TRACE_POINTS
++#include "pvrsgx_trace.h"
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_trace.h b/drivers/gpu/drm/powervr_sgx/pvrsgx_trace.h
+new file mode 100644
+index 000000000..aab9bc2f6
+--- /dev/null
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_trace.h
+@@ -0,0 +1,134 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/* Copyright © 2026 Joseph Telaak */
++
++#undef TRACE_SYSTEM
++#define TRACE_SYSTEM powervr_sgx
++
++#if !defined(PVRSGX_TRACE_H) || defined(TRACE_HEADER_MULTI_READ)
++#define PVRSGX_TRACE_H
++
++#include <linux/tracepoint.h>
++#include <linux/types.h>
++
++#include "pvrsgx_fwif.h"
++
++/* A command handed to the microkernel (kernel CCB, doorbell rung). */
++TRACE_EVENT(pvrsgx_kick,
++	TP_PROTO(u32 type, u64 seq, u64 fence_seqno),
++	TP_ARGS(type, seq, fence_seqno),
++	TP_STRUCT__entry(
++		__field(u32, type)
++		__field(u64, seq)
++		__field(u64, fence_seqno)
++	),
++	TP_fast_assign(
++		__entry->type = type;
++		__entry->seq = seq;
++		__entry->fence_seqno = fence_seqno;
++	),
++	TP_printk("type=%u ccb=%llu fence=%llu", __entry->type, __entry->seq,
++		  __entry->fence_seqno)
++);
++
++/* A render's last kick: the dataset and the per-frame values it was given. */
++TRACE_EVENT(pvrsgx_render_kick,
++	TP_PROTO(const struct pvrsgx_fw_ta_cmd *cmd, u32 w, u32 h, u32 rgn_next, u32 cmd_off),
++	TP_ARGS(cmd, w, h, rgn_next, cmd_off),
++	TP_STRUCT__entry(
++		__field(u32, rtdata)
++		__field(u32, w)
++		__field(u32, h)
++		__field(u32, frame)
++		__field(u32, rt_entry)
++		__field(u32, rgn_this)
++		__field(u32, rgn_next)
++		__field(u32, cmd_off)
++		__field(u32, pb_desc)
++		__field(u32, te_screen)
++		__field(u32, te_mtile0)
++		__field(u32, te_mtile1)
++		__field(u32, mt_tiles)
++		__field(u32, screen_size)
++	),
++	TP_fast_assign(
++		__entry->rtdata = cmd->rt_data;
++		__entry->w = w;
++		__entry->h = h;
++		__entry->frame = cmd->frame;
++		__entry->rt_entry = cmd->rt_data_entry;
++		__entry->rgn_this = cmd->region_headers;
++		__entry->rgn_next = rgn_next;
++		__entry->cmd_off = cmd_off;
++		__entry->pb_desc = cmd->pb_desc;
++		__entry->te_screen = cmd->te_screen;
++		__entry->te_mtile0 = cmd->te_mtile[0];
++		__entry->te_mtile1 = cmd->te_mtile[1];
++		__entry->mt_tiles = cmd->mt_tiles;
++		__entry->screen_size = cmd->screen_size;
++	),
++	TP_printk("rtdata=0x%08x %ux%u frame=%u entry=0x%08x rgn=0x%08x next=0x%08x cmd_off=0x%x pb=0x%08x te_screen=0x%08x mtile=0x%08x,0x%08x mt_tiles=0x%08x screen=0x%08x",
++		  __entry->rtdata, __entry->w, __entry->h, __entry->frame,
++		  __entry->rt_entry, __entry->rgn_this, __entry->rgn_next,
++		  __entry->cmd_off, __entry->pb_desc, __entry->te_screen,
++		  __entry->te_mtile0, __entry->te_mtile1, __entry->mt_tiles,
++		  __entry->screen_size)
++);
++
++/* The microkernel's interrupt, in the hard handler. */
++TRACE_EVENT(pvrsgx_irq,
++	TP_PROTO(u32 status),
++	TP_ARGS(status),
++	TP_STRUCT__entry(
++		__field(u32, status)
++	),
++	TP_fast_assign(
++		__entry->status = status;
++	),
++	TP_printk("status=0x%08x", __entry->status)
++);
++
++/* A job seen done, just before its hardware fence signals. */
++TRACE_EVENT(pvrsgx_job_done,
++	TP_PROTO(u32 type, u64 fence_seqno),
++	TP_ARGS(type, fence_seqno),
++	TP_STRUCT__entry(
++		__field(u32, type)
++		__field(u64, fence_seqno)
++	),
++	TP_fast_assign(
++		__entry->type = type;
++		__entry->fence_seqno = fence_seqno;
++	),
++	TP_printk("type=%u fence=%llu", __entry->type, __entry->fence_seqno)
++);
++
++/* A job's imports flushed from the CPU caches. */
++TRACE_EVENT(pvrsgx_flush_imports,
++	TP_PROTO(u64 fence_seqno, u32 nimports, u64 bytes, u64 ns, bool after),
++	TP_ARGS(fence_seqno, nimports, bytes, ns, after),
++	TP_STRUCT__entry(
++		__field(u64, fence_seqno)
++		__field(u32, nimports)
++		__field(u64, bytes)
++		__field(u64, ns)
++		__field(bool, after)
++	),
++	TP_fast_assign(
++		__entry->fence_seqno = fence_seqno;
++		__entry->nimports = nimports;
++		__entry->bytes = bytes;
++		__entry->ns = ns;
++		__entry->after = after;
++	),
++	TP_printk("fence=%llu %s imports=%u bytes=%llu ns=%llu", __entry->fence_seqno,
++		  __entry->after ? "after" : "before", __entry->nimports, __entry->bytes,
++		  __entry->ns)
++);
++
++#endif /* PVRSGX_TRACE_H */
++
++#undef TRACE_INCLUDE_PATH
++#define TRACE_INCLUDE_PATH .
++#undef TRACE_INCLUDE_FILE
++#define TRACE_INCLUDE_FILE pvrsgx_trace
++#include <trace/define_trace.h>
 
 -- 
 2.50.1
