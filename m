@@ -1,60 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794473394;
-	b=RGVe9guJcMpbIqjXnocE2ZcDxaoqYqAyQHfgB6Oewqsl0cv+8iFkoeqmzJCZ4NWC04GI
-	 SgkGKNI+j7L6ceSjwT4xF3zOXtjEKkw4+wT9L3sqtVxi7S437kv0Ni35YVnkw8SoxIDGO
-	 f8OAY7GtCscYWggAEBGuwdsR/Yqlj/S+wAQyTXOZMIjhQPlAxp8hmD/aOyfex7L/JXLxr
-	 mo2ZfcxCH35PbtvXCXGmIsL1pOd82Y8AsgGTogL1o49/5oQrxHR6MelAIFdT61lkVtBMj
-	 ltNrROLNUULnCe/KlV0L5CGPLu1o9E9VGykTgakvVXaM1bRS24geMzkSysniZMD3RGg==
+	t=1794473434;
+	b=PnpQ1Ouc8Cwa91UGRAcePCj7NB1RGCXt3kNaxXUD+jP1FqVVacdG4jz/aDDohdaGC8N7
+	 ocu32QePJt2mVJfKlR/84B8lEUJiNfHfVGnfpwRTnXMH4Rd6tbln2gyB/f3tHqBo5RO2O
+	 CPnXXKypCpOjaoW6OZW8fqMX502krFSG3nrnlAW2WMHxJ2J+rzAxD77Xp0ZDO5Ko/kh4Q
+	 dFe3VtiyDMJuypzqcmi4NSKpxzeKr0Pxh4BL9IgCPaTwHJroHdfM/h991C1PD/5m6iNkV
+	 2a2KQ1zKZn34wTNLQfpIpPQ98AbvqNi3bEQvEUGcBZBahYeN2W1gidzSmYXOT2LtBQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794473394;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=OGChezwGEAs5VmxdKN/i88B/dah14lbYLutkEhF0lOY=;
-	b=CGQ68Zm+le1rKai4yVbxdo2gUPWWN3KY06fOaxkxNffHYfWKoGRucwd4AwgCuVB9v+7i
-	 QSfPj90s/UV+/qHXEAKZ38cnKfJlEiN4H06ESYNHEKiKZrNMZfvqD5r2oET09B0VhtTSF
-	 SkB5xK56QIrJTvg4IQcWmMMuwOuL6OdD0wGZMr52eNN2iaRy1p7gcOhWgwfzel3FNDLdp
-	 2PX7xRu2UJJIUpVvpxs5i/fyjOhRv46MdVHw1iCKLXLPbFVSrh7YgOu5+djKWP0X8/BAK
-	 RS8702bLl+E4gc4PgsDct+Uq2SDs1kK37NzcJVfPzbrBskAmB0U8TKG2A60K0uorDRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794473434;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=gZlHEGAkiA3aSI6vvQcwGeSxtcrkyd/SxdRwzYrp61c=;
+	b=pOpro5H6zBgYeisRccuqKhGRvW0LfIe0FhxUsmcQvZSFZhbBm8TQtcbSVmf3NuZlEdUH
+	 4Lkjx9rKn26n3SH4fa9yJDKiKCVRJx/mK8etZtXza8NhdDChtvQmU1B7gJ07Nt71LOyJN
+	 RjEfRIYjaWQ+/XoeGYLxWac8qI2qft2G3zAIxMlcFPQik7kY7e3fxMpFpJTaeonN8hCPr
+	 fyop4KAmNylCXaISB6o2Qw8FK8YisNtkIdQfuXSXae0AtZUf5bm8Y+OTwNUiVxvaQeYGR
+	 IVvNjYO413lvbDazU7URys0krFtExAdIhYoGaGLrnk1W5Pdbb5hn0zaINR/kc0IouTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=blR2ZZkc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=mAV4VJfb;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402A0606A8B6
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:49:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 097C8606A323;
+	Thu, 12 Nov 2026 08:50:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 097C8606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=blR2ZZkc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA7AE1F00A05;
-	Thu, 12 Nov 2026 08:49:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794473393;
-	bh=OGChezwGEAs5VmxdKN/i88B/dah14lbYLutkEhF0lOY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=blR2ZZkcc/vDDO96F1pNxo2m29Sm1eEE58wpJKJVkHYo/oXT8bnVVxwZZly5gZt9q
-	 WjKhsecawJUo7hwiLqoB1tVNvATaSKrnCQij9ms9i4j046DyigYLVgzKpPVW/Tm32u
-	 DFsGgSAhvGZFpD7jZe6hMTEs8q6xFGpoAsvodr12hfkgt1d+rnYLrT4Zo91RMnmygO
-	 0yruuXkzYrHRiuER+joOHfZNGA23QqvNVf/8ozCvJuVQ3b+UfYkf9kKtv/5ozkNjEA
-	 SJWrIn3UVe4emvFMOq5MsjJhsAU82JyD7Ikm8arKDsaA71v1lyHUIdzvm0qEtUhFC4
-	 NtcmR0wFZxi0g==
-Date: Thu, 12 Nov 2026 10:49:46 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Mukesh Pilaniya <mpilaniy@redhat.com>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Alexander Graf <graf@amazon.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chen Pei <cp0613@linux.alibaba.com>,
-	George Guo <guodongtai@kylinos.cn>, Kexin Liu <liukexin@kylinos.cn>,
-	Sourabh Jain <sourabhjain@linux.ibm.com>, kexec@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH v2 1/3] kho: walk bootmem areas in address order
-Message-ID: <avV9qoaPMBLCNOXD@kernel.org>
-References: <20261104-kho-bootmem-sizing-v2-0-b0d1a834780f@kernel.org>
- <20261104-kho-bootmem-sizing-v2-1-b0d1a834780f@kernel.org>
- <990cc079-70ab-4fcf-9974-679aaf07849e@redhat.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=mAV4VJfb
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=gZlHEGAkiA3aSI6vvQcwGeSxtcrkyd/SxdRwzYrp61c=; b=mAV4VJfbyjcbaHfIGNGASfGWnp
+	Z3uR3/UYX/1apdwDSFpjOEbwtlS/Cu3fo2gK/vmqZVpi4H/+HXt9Ffaqg5Uli1TnlkijO4ow9Kd68
+	yTYZVcPDD2LkvFfnKo5CbuFJI4LR4o39XyjshMUAT65FJHITeFpeCWw6V8q7CG/a6CxDSyBKN9QPa
+	Ksm3UgH0lY/XwqxWDaJpaGSqwRFarSgoOoZgyCChREpcUsjrVUjZFuxvVci1V6Ouose7KVok+7X6I
+	IISqN519mFRG9HhC9qiSohSrSjp7lgOsm0zjPG9c12GTAb6vWZUcIQKTTg4NpaXmD6HyjivBF/qjF
+	J5N3rr4Q==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRQVo-0000000A5Rh-2kyG;
+	Thu, 12 Nov 2026 08:50:28 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 8178E300400; Thu, 12 Nov 2026 09:50:27 +0100 (CET)
+Date: Thu, 12 Nov 2026 09:50:27 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Jiri Olsa <jolsa@kernel.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+	Naveen N Rao <naveen@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Jason Baron <jbaron@akamai.com>, Alice Ryhl <aliceryhl@google.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ard Biesheuvel <ardb@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Alan Maguire <almagui@kernel.org>,
+	x86@kernel.org, linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH 04/13] kprobes: Maintain an rbtree of registered probes
+Message-ID: <20261112085027.GG2668804@noisy.programming.kicks-ass.net>
+References: <20261109194916.1089703-1-jolsa@kernel.org>
+ <20261109195517.1090787-1-jolsa@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,114 +77,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <990cc079-70ab-4fcf-9974-679aaf07849e@redhat.com>
+In-Reply-To: <20261109195517.1090787-1-jolsa@kernel.org>
 
-On Thu, Nov 12, 2026 at 12:02:05PM +0530, Mukesh Pilaniya wrote:
-> Hi Mike,
-> 
-> On 04/11/26 10:20 pm, Mike Rapoport (Microsoft) wrote:
-> > kexec_add_buffer() users may depend on the order in which memory holes are
-> > searched. For instance, arm64 places the kernel bottom-up and then
-> > requires the DTB to be above the kernel.
-> > 
-> > kho_walk_bootmem() walks the bootmem areas in the order they were
-> > reserved, so if the kernel lands in a small area at the top of the memory
-> > there is no room left for the DTB and kexec fails. For example, on an
-> > arm64 VM with 2G of RAM and kho_bootmem=8M,64M,64M, the lowmem area is
-> > reserved first at the top of the memory, the kernel image takes most of
-> > it and kexec fails with
-> > 
-> >   kexec_file(Image): Could not find any suitable kernel location!
-> > 
-> > Sort the bootmem areas by address and walk them in ascending order, or in
-> > descending order for top-down searches, like kexec_walk_resources() does.
-> > 
-> > Fixes: 3bdecc3c93f9 ("kexec: add KHO support to kexec file loads")
-> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> > ---
-> >  kernel/liveupdate/kexec_handover.c | 57 ++++++++++++++++++++++++++++++--------
-> >  1 file changed, 46 insertions(+), 11 deletions(-)
-> > 
-> > diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-> > index 6f1f55fe31819..2ac5d94f33fd4 100644
-> > --- a/kernel/liveupdate/kexec_handover.c
-> > +++ b/kernel/liveupdate/kexec_handover.c
-> > @@ -26,6 +26,7 @@
-> >  #include <linux/list.h>
-> >  #include <linux/memblock.h>
-> >  #include <linux/page-isolation.h>
-> > +#include <linux/sort.h>
-> >  #include <linux/unaligned.h>
-> >  #include <linux/vmalloc.h>
-> >  
-> > @@ -820,6 +821,14 @@ bool kho_bootmem_overlap(phys_addr_t phys, size_t size)
-> >  	return false;
-> >  }
-> >  
-> > +static int __init kho_bootmem_cmp(const void *_a, const void *_b)
-> > +{
-> > +	const struct kho_bootmem *a = _a;
-> > +	const struct kho_bootmem *b = _b;
-> > +
-> > +	return cmp_int(a->addr, b->addr);
-> > +}
-> > +
-> >  /**
-> >   * kho_reserve_bootmem - Reserve a contiguous chunk of memory for kexec
-> >   *
-> > @@ -904,6 +913,9 @@ static void __init kho_reserve_bootmem(void)
-> >  	 */
-> >  	kho_bootmem_cnt = i;
-> >  
-> > +	sort(kho_bootmem, kho_bootmem_cnt, sizeof(*kho_bootmem),
-> > +	     kho_bootmem_cmp, NULL);
-> This only covers the case where this kernel allocated the areas itself.
-> On a KHO boot the array comes from the previous kernel. A kernel with
-> this series that is handed over from one without it therefore keeps
-> walking the areas in reservation order for every following
-> kexec_file_load, and the arm64 failure you describe comes back until the
-> next cold boot and vise versa because the ABI string is still
-> "kho-v4".
+On Mon, Nov 09, 2026 at 08:55:17PM +0100, Jiri Olsa wrote:
 
-If we were able to kexec from a kernel with no reservation ordering, the
-issue is not there, isn't it?
+> +static void kprobe_tree_insert(struct kprobe *p)
+> +{
+> +	struct rb_node **link = &kprobe_tree.rb_node, *parent = NULL;
+> +	unsigned long addr = (unsigned long)p->addr;
+> +
+> +	lockdep_assert_held(&kprobe_mutex);
+> +	while (*link) {
+> +		struct kprobe *kp = rb_entry(*link, struct kprobe, rb_node);
+> +		unsigned long kp_addr = (unsigned long)kp->addr;
+> +
+> +		parent = *link;
+> +		if (addr < kp_addr)
+> +			link = &(*link)->rb_left;
+> +		else if (addr > kp_addr)
+> +			link = &(*link)->rb_right;
+> +		else {
+> +			WARN_ON_ONCE(1);
+> +			return;
+> +		}
+> +	}
+> +
+> +	rb_link_node(&p->rb_node, parent, link);
+> +	rb_insert_color(&p->rb_node, &kprobe_tree);
+> +}
 
-And after a cycle of KHO boots to newer kernels we anyway can get to the
-point when bootmem is not large enough.
- 
-> > +static int kho_bootmem_walk_top_down(struct kexec_buf *kbuf,
-> > +				     int (*func)(struct resource *, void *))
-> >  {
-> >  	int ret = 0;
-> > -	int i;
-> >  
-> > -	for (i = 0; i < kho_bootmem_cnt; i++) {
-> > -		struct resource res = {
-> > -			.start = kho_bootmem[i].addr,
-> > -			.end = kho_bootmem[i].addr + kho_bootmem[i].size - 1,
-> > -		};
-> > +	for (int i = kho_bootmem_cnt - 1; i >= 0; i--) {
->
-> kho_bootmem_cnt is unsigned, but the reverse loops in
-> kho_reserve_bootmem() and kho_bootmem_walk_top_down() start an int
-> counter at kho_bootmem_cnt - 1, which for a zero count is UINT_MAX
-> converted to int.  That conversion is implementation-defined; with the
-> current compilers it yields -1 and the loop body is skipped.
-
-We never get here with kho_bootmem_cnt == 0.
- 
-> How about using this one.
-> 	for (unsigned int i = kho_bootmem_cnt; i-- > 0;)
-> 
-> Reviewed-by: Mukesh Pilaniya <mpilaniy@redhat.com>
-
-Thanks!
- 
-> -- 
-> Regards,
-> Mukesh Pilaniya
-> 
-
--- 
-Sincerely yours,
-Mike.
+You probably want to use rb_add() here.
