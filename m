@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794504006;
-	b=x1PqGVuBreS53SWwNxSuqk46SA7FYVrFv6vvj/RKA5u19JzrHvKQ5XkSmSdq1/xu9CJX
-	 Qk6IPUy7s5Lp9Jw0IAtIAmnA3F6FUabu+hMQtjhfcVRvea0yQfXuOLEESbwLg1Edbf8Xz
-	 5CjNqqyQWicot8NKsrgOQltVvW3ZZKQDSzlkjUGhqP5d11BbbTzGziSNOdradm1XaDWIR
-	 34djVD9687mQxwyaGE7eiJC53HkjfBNus8aPHFacLY1ec4M6wTnOXcF5k57q/dw1pV5aP
-	 qSlKCwr0zVXSbARWpi7oLRVqgMOsND4D0Xq7aCfHxeYjQUpIRclq2lOSGK5hLQpT+3w==
+	t=1794504012;
+	b=hoEzEMIICu2b8PQvH6Q2I2bNf4JN4R76Y+mb0vpxYhC5g1ovHwrdxuYDooD5F1/9Wfof
+	 0QFp+x+YFuREvq0FxwkKrutRGjbHdl/o+awVGDbJouYSir+twFo62jrpQ5qx6ThWGfldI
+	 IBLGQFSTXVk/vjD4BhH618AUNOPpIkvEkOXFHDTZn3kcGNKiFUn6DaQWb82Tlaycilq+5
+	 y8+Ra7gWxXnngygRnCNNa+Rl/S2yupcoRVnDl8JhnPNHDe1EWuqltkbms70eT6uaNk+5O
+	 CrhxRtyAuSoszEPYIQS6XH3mN3aCZu3bIB/s3FTmpgAoTMp6sFgzMraws1dzGSO7T/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504006;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794504012;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=qS6fzWJciTtP2BqMr1B9alSuP1TE43oLife9LsW44uA=;
-	b=A1yoac780j9qbD9sqTQdzmiTaDdQDjeCg8YUxXpHY8BfashHvx/YfLQvBDpPa5olybgf
-	 YGBGWNb0kRpspVEY5P+LFsqO60zA4oYUy0/Sd2C2E1hoQx+acCDONGXD/IWXxbWOTxgUr
-	 FnNM2zrFJuWe9Tc75SAFS9DM34YlUxmemvy4LAM2ADF79XDJujK9B768SRy1TpZz/hIaC
-	 dMQ2oshzRF/Z/kyVKx/GzCxvegF86rs3m6/VT5Ka7Bh7687oeY3FJNPDDiGxfEj/l2Zgl
-	 2OZSjvacbhR7eK9mkGjUqft6UVa+9/0/1zFJklSLTlk2a58n0a28hM2G/UVRTtvYsyA==
+	bh=GMe02wEq6eVERv07wvbVn0lKTGvmews00dG0nM6IEzA=;
+	b=LfktesY5BGGUWPanKgdXWp6tOH4myu5gYOth4QGUXQovvTVfHvFezRthdpj9OUlDOQZl
+	 G+HkS9BqmlwewO3l4+LJgeTInJ7nB3scAeFkhIG+Ihw445q0ICLRuo3Dlj7YvWQBTnpxL
+	 URE0P83MWjYc+5LD8GQ0wC4WSpAbZnfMq4M/RaMSD3Un2QpmyztIZv+9xnIdhYhxZ2zbk
+	 EiG0MZscAvzGgXfAmRl1E4gwCS84YVNt6V5NNLXLAQjdnbVp+8DtWHCr4av3x6KiKw5ox
+	 3ZqA3JhrqbYDZ66h+jJrh0oF741llTlGHZQVSLWhUljY+uqfdAaDoTG+BZ3Zm9Zulfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dsNsZ81S;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ibiLNljb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8A81606A323;
-	Thu, 12 Nov 2026 17:20:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1A2C606A882;
+	Thu, 12 Nov 2026 17:20:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dsNsZ81S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 441C31F000C4;
-	Thu, 12 Nov 2026 17:20:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ibiLNljb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC5A11F000C4;
+	Thu, 12 Nov 2026 17:20:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794504006;
-	bh=qS6fzWJciTtP2BqMr1B9alSuP1TE43oLife9LsW44uA=;
+	s=k20260515; t=1794504011;
+	bh=GMe02wEq6eVERv07wvbVn0lKTGvmews00dG0nM6IEzA=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=dsNsZ81SJ0u6/XjilXatuL6uaKKgcXkSMqlwN9jN7R4yXMFlQRv0pUvVT72i7eZfv
-	 Z8/S6eJ4iRaamWs+isH5IytJqZcJzDD0s+cI4LmTBx0Fe+XZJmxGF8kxOhL8zWwT2q
-	 QMfHPqEYhG2dBWoe5E9OvbUqUIUhGrvYEAHnmZ7I3+zC6BSS1w9RWn3A99AZ+up+BB
-	 TlfG+/QBQxw71Q32IEroVUBlumEABafSZZUHKg2q67+L2bm+NndUEYf/bW6KE2cgm4
-	 TnS+Vq5EbvzNDNwr33qQ3bSL4McVpF50jaesCgfL9KvGua3DrXTRlO6UlW0Azi4fH0
-	 uCvbEtwcGegWw==
+	b=ibiLNljbIaWnMUwh5gVjppDfu4RCf6FCg1S7HdTxxr+ha3N/a6HWO4S72rU8SffCY
+	 7pxs9+LJ5oHjKztTZlql4Xg+pCS2FBcLHXykxk5IqlaN9Mkh8VYv4b1c7u8es8/lRB
+	 k+VCpmLQeAd+AyYNduhpAwQuaCjtJrWKJmmtxF5jt7FbhsK1sQfNhYMnO5XlJPnNnK
+	 NkqjaMOqXpeBVc0cCpDyLQ7XKRFwWNtesjRM+EwsLcKJo8e7G3XMwWcsWzNnt7si6s
+	 BGnZOF2ckIn9SfhEr2bT3nslUu5GJBovKbEdq+Ov9MenciZDQdYuKmdKlrLEDu0Odi
+	 x2feZ4sJXimlQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A395380AA78;
-	Thu, 12 Nov 2026 17:20:06 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B44FE380AA78;
+	Thu, 12 Nov 2026 17:20:11 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,40 +54,39 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v4] vsock/virtio: clear vqs[] to avoid a UAF on a
- failed PM restore
+Subject: Re: [PATCH net-next v2] dql: Reset the adjusted limit when resetting
+ the
+ queue
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179450400478.546493.17448438717163223055.git-patchwork-notify@kernel.org>
-Date: Thu, 12 Nov 2026 17:20:04 +0000
-References: <20261109-vsock-restore-uaf-send-v4-1-1df8dfb5d5de@eldare.de>
-In-Reply-To: <20261109-vsock-restore-uaf-send-v4-1-1df8dfb5d5de@eldare.de>
-To: Jerome Mohm <jrmmhm.kernel@eldare.de>
-Cc: stefanha@redhat.com, sgarzare@redhat.com, bobbyeshleman@meta.com,
- mst@redhat.com, jasowangio@gmail.com, eperezma@redhat.com,
- xuanzhuo@linux.alibaba.com, davem@davemloft.net, edumazet@kernel.org,
+ <179450401027.546493.5429797235689363516.git-patchwork-notify@kernel.org>
+Date: Thu, 12 Nov 2026 17:20:10 +0000
+References: <20261109230022.10729-1-dennylin0707@gmail.com>
+In-Reply-To: <20261109230022.10729-1-dennylin0707@gmail.com>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: netdev@vger.kernel.org, edumazet@kernel.org, davem@davemloft.net,
  kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- virtualization@lists.linux.dev, kvm@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+ akpm@linux-foundation.org, linux-kernel@vger.kernel.org
 
 Hello:
 
-This patch was applied to netdev/net.git (main)
+This patch was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Mon, 09 Nov 2026 20:39:24 +0100 you wrote:
-> From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+On Mon,  9 Nov 2026 23:00:22 +0000 you wrote:
+> dql_reset() restores limit to min_limit and clears the cumulative queue
+> and completion counts, but retains adj_limit from the previous queue
+> lifetime. dql_avail() therefore uses stale credit until the next nonzero
+> TX completion.
 > 
-> virtio_vsock_vqs_del() frees the virtqueues but leaves vsock->vqs[]
-> pointing at them. If virtio_vsock_restore() then fails, the driver
-> stays bound with a dangling vqs[], and the next freeze or unbind
-> passes a freed virtqueue to virtqueue_detach_unused_buf():
+> Reset adj_limit to limit as well so that adj_limit = limit +
+> num_completed also holds immediately after a reset.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net,v4] vsock/virtio: clear vqs[] to avoid a UAF on a failed PM restore
-    https://git.kernel.org/netdev/net/c/2a24ba1694f1
+  - [net-next,v2] dql: Reset the adjusted limit when resetting the queue
+    https://git.kernel.org/netdev/net-next/c/c46ddd7d7acd
 
 You are awesome, thank you!
 -- 
