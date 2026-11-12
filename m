@@ -1,107 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794466121;
-	b=VMm2dTmr2eIwLIsurTVnlaczeCAq+SF3GB6GMV9SP0A85NNFo6uSo1H4ecSrrHFYT4T1
-	 okRMQbnhGR9/HUZ5EA3eEA4O09/BnqdRf753dqJj6DweMZzz3PBxtP2jvxGNtQqp/YHHQ
-	 55xhrAzR9phQ+/0oSH6H03kOp1nwFnIOTkTP1grV5Dtr6fzH7HLKI+BgP1+eVYt7RxwzF
-	 IXM8XJdo8uvOE+darB06NMwiGXaQ9fkHyN+4SqiWYbMKHuMxEi4a0SjD+zeEspwFDrDPc
-	 FpUGaqEzFSg8eBvnKL3fHbOVOE0aXrKTANjVEn17cSsfUEFrkxkaXpFqKKBps0Vyjyg==
+	t=1794466176;
+	b=ZUBaLhFvty3oen89U5+OObHs/ObZTi1ixEA6GwTGQUQViYKjinnRYJOk+IDo4mhENfM6
+	 B9C3robGAxbo5jrIbT6VpDDtegO3w2MLtIKdWL0nhxs5Yi/cj6ideekVMk+0gpUN64PZr
+	 qGksZtEaBflmg+7BIU12vBzOK5efNzsk31F6RzXzQKQOJvX3RD0YbTglSzmMeKU0fbx0W
+	 cmDA43/5xDgKlKsg5mJd/pgHUpXHIOQN9XnOD381UVOsZ4fmO4JRHEIHJuPO8fwtOAvvD
+	 D9Bx642nsG1H2a13NIQV0Z7I6dNCtvCyH574gHlbyPsqe/CC37jsaDNyilPs3hAQ9ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794466121;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794466176;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=LUQ//7qrgsHJhp2cav+kGCJj/I5E804GKbiJn2Jl/fc=;
-	b=Q6TI26FZzi1zFsNsYbx4OIxPd6zte8DaG4pqqgb8NwgZd2yZuynDK+qtLfIb1UdRNB/y
-	 l6TkKQNyd1261QW2eZpOKVYx0TddQAcxoCnf48mYqLBjtd3yf4GqgFlPCxHY5hBRSp+ds
-	 Mh6OMmgs2C24yEYT+ID8P7KG59kV3Wkw7tYS2jmGL6PcEG7yr6U4y6UP6Esoch3/8YzwA
-	 0Mtxywi586bEg3bnrfAhjsdUdc8FJBa6SJ6lzVI5r8ptF1rtgbjUym8Fo3ke/f6sLfNLf
-	 Lw13G1H5YOWDbYOdbedA+vgLj9mP9cVa+nway35sd3VdbE6iW44jPfVaSZYRZOBjuJg==
+	bh=CtM4Km47FwSZ7A2ZhTWLoLh7n5nVkJgAgMwOn7ZBsV0=;
+	b=vkvQaJI8+UMLi+o6tUQRnajb4ZPUZLcDy1f/OX0rNca2/QHpOB3rkMlZ5N+qhJfe8nTf
+	 cqNITNU65km8JC6wCbOAibeb+eBS12CEm1Qd/E1S2+trKtcXsQt2AuPmJ7s2uNaWFbFEJ
+	 2+VRSKsLDRCRyLNnGg8tAIsz9EyqasDXRPOzIN+bvxm+3BRaY0ZS/wgkkxNlKdpHqXeXY
+	 rbUuN3nnI6mYohbRdj2ZxpPauq6RHKc1KADYX8HsRSCu4Pp+t849AEGU+NlyVgcOb8Ln6
+	 8Rzkinmv1kQAkKLkofK7910MofOxEsqW6WTzgL9UxzCnhUKQnM2csWajWxQBtqY8/ZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=b9uKCa2J;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RmWa4Q3e;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NrJs0ywH;
+	arc=none smtp.remote-ip=209.85.210.181
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FBDB606A332
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:48:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FBDB606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A5D606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:49:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45A5D606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=b9uKCa2J;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RmWa4Q3e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794466120;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LUQ//7qrgsHJhp2cav+kGCJj/I5E804GKbiJn2Jl/fc=;
-	b=b9uKCa2JTFJIyPvE5jGqzr8X9LPFBL6wo63JxUokJEu8ilNQeTzvs4GzuCHiH+oroutUDW
-	cpTFTDBQBqVlrKD7i6uc/SDpbicf29gw4/+49rsE+mF9s2SpLtVyR6u5TD5kwwlOGSAkDS
-	3MMPVFOf58svaVaEuVgdpggoXzKao98=
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
- [209.85.215.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-281-bJHU29ubMOyheoKK7ulDoA-1; Thu, 12 Nov 2026 01:48:38 -0500
-X-MC-Unique: bJHU29ubMOyheoKK7ulDoA-1
-X-Mimecast-MFC-AGG-ID: bJHU29ubMOyheoKK7ulDoA_1794466117
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1ca15334cso4141954a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:48:38 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NrJs0ywH
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8b2382bf051so2256006b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:49:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794466117; x=1795070917; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LUQ//7qrgsHJhp2cav+kGCJj/I5E804GKbiJn2Jl/fc=;
-        b=RmWa4Q3ekbuK/hQnZSaDe+Yp3NGnBJZ+TESotqPJlMP7/mNoqE5+JVXG2Kh0oaz/Y0
-         FyrS5C5UC0amSOuuu9T/6yPGIuGM/w8u1mdPCl8DyX/2GuGokj5XNRv41DO2pC7xrufW
-         8Zf/QreyyQ9VXI3MYHixsbstCuk1DWn0KvRagl+QQVnme9RleqFBKRv4CM640d/nx2ko
-         3puKbMhm/+yMMoPTO5Xa1iFCuCGWGyLbibBzFexBOUiEV+PCGDtwjvmzevWQvsJdf82W
-         UFtoYKAN8jJncIJOrw0Z7UyqmtWaS+dr6t5marKe+6sjDAoUTh+rSAS0SHUQLcdsmyai
-         PXGg==
+        d=gmail.com; s=20260707; t=1794466175; x=1795070975; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CtM4Km47FwSZ7A2ZhTWLoLh7n5nVkJgAgMwOn7ZBsV0=;
+        b=NrJs0ywHxwQmYxpFgdUE4ovjEw4keDZ4vEs91sDaR4ZOgo6GsR/kGgwoExi7uYiVRJ
+         raVKFiUVvvurjbk4wYu1M/3iEgw4YVVQvU/d/VBpNS6Y8qA53+JS4kJYLZiPV+BkN38t
+         2sL8/Ullur6oSL0dB39+0e8EwWmJxoegnY9vSXEMcTP7uwLiQhm9UwSZKr7FnIJQqCLY
+         e9+QjwDYlCTT8wyfDPoucwCK4UEFF+/AQM/QbhTcv8rnb0hSL6YAqB+awj8VB+kzFLvA
+         CKhFJY1J5BAJS1vrhfuHwBrfuOt9PHzQp/XDsqfuGiQbTe9xeIuhTMB/9cNB525WSKAH
+         aqVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794466117; x=1795070917;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794466175; x=1795070975;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LUQ//7qrgsHJhp2cav+kGCJj/I5E804GKbiJn2Jl/fc=;
-        b=ILByNy32BCrl3pxXJbvoYCfoECBpY0bmM9MwMDZzMLTPEh3qgDZNNiB9DiiJVqDj8q
-         UfQTmysyqbHIBsxyIaeH5Jv4ORaLMtwdqKa81VIUy1beko/deohzs4GFX94JF0wNmaYR
-         +Qa+ynJCJ3gkxQbT5vBU8DLbFKfQQUSkSuqGiQ5jdECdd4Ro3pz87u2us826HqE2yEUg
-         CLdqLOmXiDpm7Okui3HwnKBA57gL0j879ksjV4v3N3WsUINeZ/SmJKjySDEKjeYHS+xV
-         CPxA8/FRjMS1KMN4nckFwbAxB37FwWG5bpzVgOl2a0HC9iEnwgLOOhCm0Vtafb1XbTzr
-         LO1Q==
-X-Forwarded-Encrypted: i=1; AL+hErFaOTdatCLvd3N3xJSq01Hn6yXVGpxZGwdr73I2+nR7P9YelLkftOlHrR12a3bKdfKQKF8Kfjb0QPIyRYY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8jbvWv8D039md7SzwqdIKMcKriFCYAkLojl6GOLtdyUY13Wycf
-	cQk5YeMwdSPhJv6qegNM99zEbfByzz2056XKlgD9RfVaaw00WhaHwPSIUbwrOi/OlgAHnXSawO1
-	6kIuyY8YikHfcea7yzYSSbp3vX8P/gMRUXNI36Jq3BFatbrY4eXhhCDXZtN2FvhyFZQ==
-X-Gm-Gg: AYBFou2f15Rk9EQOcFIKnYMBextgrQBW0CAxuqQY7DSSHQzNWO/h9SmmUauWbC0rI31
-	DgTHboutzs2FfCDh/8ibPGl3CIbka6Pe9akkNlDtmjsLCM8W+soRfGU/YAqWpntLuuzPriFUD0P
-	8VjHmBg8ZEZ0bnP+K4eGf71Sm8HJjKE0N6ILk4Nt0BZAyrE353bbhOG1IJMMU7dRpiYdWepRefA
-	LYT3HjxV6uRQNdyy6JRnbfhjQ2okqVGc8NjClIVHISKebcxdwhK/QI6jfawr8xgKeCxGAkvVU9S
-	CFrAA7Sm0LAOpVeNOdiIKpVC1/PmN5NytAszhO1M4npWDOJ5Jno5BHrBz3gVv8G6251bfRq2EV5
-	/1oPBXJpBxBGXbYK4uhyMK/zfgEC3uG0NLM2QX8pBRYmEy8RR5U8H9vppECkIg0/+ZkTIOFk=
-X-Received: by 2002:a17:90b:1f86:b0:3a8:185:cf40 with SMTP id 98e67ed59e1d1-3b182e6eb74mr4989600a91.10.1794466117054;
-        Wed, 11 Nov 2026 22:48:37 -0800 (PST)
-X-Received: by 2002:a17:90b:1f86:b0:3a8:185:cf40 with SMTP id 98e67ed59e1d1-3b182e6eb74mr4989576a91.10.1794466116545;
-        Wed, 11 Nov 2026 22:48:36 -0800 (PST)
-Received: from [192.168.1.102] ([117.207.221.165])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d32ea0sm2902565a91.15.2026.11.11.22.48.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 22:48:36 -0800 (PST)
-Message-ID: <9b290d87-1413-4981-a296-9d37552e8913@redhat.com>
-Date: Thu, 12 Nov 2026 12:18:28 +0530
+        bh=CtM4Km47FwSZ7A2ZhTWLoLh7n5nVkJgAgMwOn7ZBsV0=;
+        b=EnQjfHL7h8kGf/MeB0XBuKXe+65QAfoyHxy6YGI48yfSL4zqJ46Y+8GVx7qh+kOaC4
+         ETCeiyXIGWNMDuCk0RJzcyM5QfWOf/6KvjO+r6lvreUW6pnBZWqLGWe3IDxyaxPvslFp
+         Gxu9bZPZjgPinmXCd3jJ25boahm6pZg96AJoM6BbFjrNNxNIEjo7CjnNksdNR5ZLDEXP
+         GmcAGiFPotxMtmW5kAPD1l+aVFkDI74bS1bmNHCMkGZwqqBgFkEl67Ok+mSmLbsm2Vx2
+         i/VFD+6YIEPQcrlTIX9sGT5aQo5PSsY8J1J3DSryzJRkc0Px/5m0fXgDNz4Z0frORWcO
+         y+zw==
+X-Forwarded-Encrypted: i=1; AL+hErEgaxiYYbLTN1z3vby2Ion3JajdFUkX0dxQL9Pn0nUWSFqWhed3N4wAar3xYBc4atcUbo1Ndu/Qthv/rrQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8P3/amyr/FtWBalS5VR9NlxVOS56I6dvLglM9f9Q0aPRPH90pW
+	6jZbv+nuMzb0PP7WQeWg7xM8KFUl7hE0Kg+cH3G5R4yW7aMz0ddOwk1f
+X-Gm-Gg: AYBFou0nVskJj3ySpUqDfQHJmuOSKta3QnZqx4/CYDJjRu9jtibltZf0CSJKSZsN18g
+	Q6WuxcppqSxkUfVI0dijrJCl29yQ0auIVlt2F5hR/s8MYS/VYscdWSoYeiKGvnExa0YZCHrE2dh
+	L9uwJSDOy0FRWuf/619SvOF0mG0g6vwn5JAwLIS7PDH1vh1jOhco+2bnj9VEi6MFIWEE7/P44Rk
+	nbApeZcktrd4KpwS0tKeKG8EF56TYD3rMv5vkyH12umHovbx2r5nAAU5DFLVkzE8WQHnyCU6hnA
+	ehE7WMSwVRHe4WeAqSuPJIxDSMjp3BHG+B5Y5Sn1Oyy7is/VBu+QLJOcmSTS636dqb4ElJQTfxy
+	+xQRSBhsvJa8gmmtK2yzSpJhBtZm3p1Fv3tr1xeBs346t3zno2hCvRJAwe7DXgeElaKHfU856yf
+	eL2WUcRqiPWJpV629C2xV18AMdomp0WRySdEbX2GROhBE3Uh0MALN+KyFozXe24MI+yWQq46D2Q
+	oaNhI8CJjS1cmL6hIpn+YmeM1GP1femWcIfY3vwTlRDh+oRxNWgzHxU397jVLxiKFZH+eiLdBxF
+	UsOWHsnkLtO4G4NF8nsrPPHjSVlkI1VNKb7QitHRkUJo7P15DPfQEC8+Z7v4X24KcshXePLKZr0
+	3b+PL6WWBr5A+S9dgUYDUeB/leec7QcOX7C69qxyXXrjzbg6pWpaPKdBYIr/kbMSXmFgp
+X-Received: by 2002:a05:6a00:1786:b0:8b6:4eec:f50d with SMTP id d2e1a72fcca58-8bc1c49c6camr4569616b3a.12.1794466175471;
+        Wed, 11 Nov 2026 22:49:35 -0800 (PST)
+Received: from localhost.localdomain ([183.96.175.225])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baab1228e2sm3097511b3a.41.2026.11.11.22.49.32
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 11 Nov 2026 22:49:34 -0800 (PST)
+From: Joonho Lee <mynameisjune111@gmail.com>
+To: linux-sound@vger.kernel.org
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	anton.yakovlev@opensynergy.com,
+	mst@redhat.com,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org
+Subject: [PATCH v31 00/17] ALSA: virtio: preserve PCM progress
+Date: Thu, 12 Nov 2026 15:49:12 +0900
+Message-ID: <20261112064929.11211-1-mynameisjune111@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,178 +103,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] kho: skip zero-sized lowmem and global bootmem
- areas
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>
-Cc: Alexander Graf <graf@amazon.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Chen Pei <cp0613@linux.alibaba.com>, George Guo <guodongtai@kylinos.cn>,
- Kexin Liu <liukexin@kylinos.cn>, Sourabh Jain <sourabhjain@linux.ibm.com>,
- kexec@lists.infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <20261104-kho-bootmem-sizing-v2-0-b0d1a834780f@kernel.org>
- <20261104-kho-bootmem-sizing-v2-2-b0d1a834780f@kernel.org>
-Content-Language: en-US
-From: Mukesh Pilaniya <mpilaniy@redhat.com>
-In-Reply-To: <20261104-kho-bootmem-sizing-v2-2-b0d1a834780f@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Mike,
+This resends v30 in full. Gmail rejected patch 4 after SMTP accepted it,
+leaving the v30 series incomplete on the mailing list. This version has
+no code or patch-description changes and retains the existing human DCO
+trailers.
 
-On 04/11/26 10:20 pm, Mike Rapoport (Microsoft) wrote:
-> The lowmem and the global bootmem areas can have zero size, for example
-> when none or all of the memory is below ARCH_LOW_ADDRESS_LIMIT, or when
-> either of those areas is explicitly set to zero with kho_bootmem=.
-> 
-> For a zero-sized allocation memblock returns an address without reserving
-> anything, and that empty area is recorded in kho_bootmem. If there is no
-> memory below ARCH_LOW_ADDRESS_LIMIT, allocation of the empty lowmem area
-> fails and KHO gets disabled.
-> 
-> Extract a helper that checks for zero size and allocates memory from
-> memblock, and use it to skip empty areas the same way as empty per-node
-> areas are skipped.
-> 
-> Fixes: 3dc92c311498 ("kexec: add Kexec HandOver (KHO) generation helpers")
-> Reported-by: Chen Pei <cp0613@linux.alibaba.com>
-> Closes: https://lore.kernel.org/all/20261026131851.9942-1-cp0613@linux.alibaba.com
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> ---
->  kernel/liveupdate/kexec_handover.c | 66 +++++++++++++++++---------------------
->  1 file changed, 30 insertions(+), 36 deletions(-)
-> 
-> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-> index 2ac5d94f33fd4..5b1797d1289c8 100644
-> --- a/kernel/liveupdate/kexec_handover.c
-> +++ b/kernel/liveupdate/kexec_handover.c
-> @@ -829,6 +829,26 @@ static int __init kho_bootmem_cmp(const void *_a, const void *_b)
->  	return cmp_int(a->addr, b->addr);
->  }
->  
-> +static int __init kho_reserve_bootmem_area(phys_addr_t size, phys_addr_t end,
-> +					   int nid)
-> +{
-> +	phys_addr_t addr;
-> +
-> +	if (!size)
-> +		return 0;
-> +
-> +	addr = memblock_alloc_range_nid(size, BOOTMEM_ALIGNMENT_BYTES, 0, end,
-> +					nid, true);
-The low memory and global areas are reserved with NUMA_NO_NODE, but
-kho_reserve_bootmem_area passes exact_nid = true for them as well.
-memblock only uses the flag for a valid node So Pass
-numa_valid_node(nid) instant of true.
+Previous version:
 
-Reviewed-by: Mukesh Pilaniya <mpilaniy@redhat.com>
+https://lore.kernel.org/linux-sound/20261112062446.159-1-mynameisjune111@gmail.com/T/
 
-> +	if (!addr)
-> +		return -ENOMEM;
-> +
-> +	kho_bootmem[kho_bootmem_cnt].addr = addr;
-> +	kho_bootmem[kho_bootmem_cnt].size = size;
-> +	kho_bootmem_cnt++;
-> +
-> +	return 0;
-> +}
-> +
->  /**
->   * kho_reserve_bootmem - Reserve a contiguous chunk of memory for kexec
->   *
-> @@ -840,8 +860,8 @@ static int __init kho_bootmem_cmp(const void *_a, const void *_b)
->   */
->  static void __init kho_reserve_bootmem(void)
->  {
-> -	int nid, i = 0, max_nr_bootmem;
-> -	phys_addr_t addr, size;
-> +	int nid, max_nr_bootmem;
-> +	phys_addr_t size;
->  
->  	if (!kho_enable)
->  		return;
-> @@ -861,66 +881,40 @@ static void __init kho_reserve_bootmem(void)
->  	 * reserve bootmem area in low memory for lowmem allocations in the
->  	 * next kernel
->  	 */
-> -	size = bootmem_size_lowmem;
-> -	addr = memblock_phys_alloc_range(size, BOOTMEM_ALIGNMENT_BYTES, 0,
-> -					 ARCH_LOW_ADDRESS_LIMIT);
-> -	if (!addr) {
-> +	if (kho_reserve_bootmem_area(bootmem_size_lowmem, ARCH_LOW_ADDRESS_LIMIT,
-> +				     NUMA_NO_NODE)) {
->  		pr_err("Failed to reserve lowmem bootmem\n");
->  		goto err_free_bootmem_desc;
->  	}
->  
-> -	kho_bootmem[i].addr = addr;
-> -	kho_bootmem[i].size = size;
-> -	i++;
-> -
->  	/* reserve large contiguous area for allocations without nid */
-> -	size = bootmem_size_global;
-> -	addr = memblock_phys_alloc(size, BOOTMEM_ALIGNMENT_BYTES);
-> -	if (!addr) {
-> +	if (kho_reserve_bootmem_area(bootmem_size_global,
-> +				     MEMBLOCK_ALLOC_ACCESSIBLE, NUMA_NO_NODE)) {
->  		pr_err("Failed to reserve global bootmem\n");
->  		goto err_free_bootmem_areas;
->  	}
->  
-> -	kho_bootmem[i].addr = addr;
-> -	kho_bootmem[i].size = size;
-> -	i++;
-> -
->  	/*
->  	 * Loop over nodes that have both memory and are online. Skip
->  	 * memoryless nodes, as we can not allocate bootmem areas there.
->  	 */
->  	for_each_node_state(nid, N_MEMORY) {
-> -		size = bootmem_size_node(nid);
-> -		if (!size)
-> -			continue;
-> -
-> -		addr = memblock_alloc_range_nid(size, BOOTMEM_ALIGNMENT_BYTES,
-> -						0, MEMBLOCK_ALLOC_ACCESSIBLE,
-> -						nid, true);
-> -		if (!addr) {
-> +		if (kho_reserve_bootmem_area(bootmem_size_node(nid),
-> +					     MEMBLOCK_ALLOC_ACCESSIBLE, nid)) {
->  			pr_err("Failed to reserve nid %d bootmem\n", nid);
->  			goto err_free_bootmem_areas;
->  		}
-> -
-> -		kho_bootmem[i].addr = addr;
-> -		kho_bootmem[i].size = size;
-> -		i++;
->  	}
->  
-> -	/*
-> -	 * Nodes that needed no bootmem were skipped, so fewer areas than
-> -	 * initially estimated may have been reserved.
-> -	 */
-> -	kho_bootmem_cnt = i;
-> -
->  	sort(kho_bootmem, kho_bootmem_cnt, sizeof(*kho_bootmem),
->  	     kho_bootmem_cmp, NULL);
->  
->  	return;
->  
->  err_free_bootmem_areas:
-> -	for (i--; i >= 0; i--)
-> +	for (int i = kho_bootmem_cnt - 1; i >= 0; i--)
-Check the First patch comment on this.
+This v30 revision resends v29 with no code changes. Patch 17 clarifies
+the commit description and moves qualification limits to this cover
+letter, following the review. The other patch messages and code are
+unchanged.
 
->  		memblock_phys_free(kho_bootmem[i].addr, kho_bootmem[i].size);
-> +	kho_bootmem_cnt = 0;
->  err_free_bootmem_desc:
->  	memblock_free(kho_bootmem, max_nr_bootmem * sizeof(*kho_bootmem));
->  err_disable_kho:
-> 
+Previous version:
 
--- 
-Regards,
-Mukesh Pilaniya
+https://lore.kernel.org/linux-sound/20261112053446.73504-1-mynameisjune111@gmail.com/T/
 
+This resends v28 in full using mynameisjune111@gmail.com for every
+message. There are no code or patch-description changes from v28; the
+existing human DCO trailers are retained.
+
+The v28 documentation patch 14 was rejected by Gmail. Sending that
+message through my Workspace account made it available on Lore, but
+Sashiko grouped it separately from the other sixteen patches. This
+revision sends the complete series with one From address.
+
+Previous version:
+
+https://lore.kernel.org/linux-sound/20261112043516.37010-1-mynameisjune111@gmail.com/T/
+
+The following describes the changes and validation already included in
+v28.
+
+This replaces v27 in full. Apply all seventeen patches directly to base
+commit a4311e9447bbb219044db38897f95be112f46a8a. The previous public
+version is at:
+
+https://lore.kernel.org/linux-sound/20261112004704.49758-1-mynameisjune111@gmail.com/T/
+
+Changes since v27 are confined to patch 12. The other patch diffs are
+unchanged.
+
+I reproduced both capture findings from the Sashiko review. If request
+N+1 completed before N, RESET could leave N+1's already completed
+payload eligible for later delivery. After an external XRUN, rejecting N
+also left N+1 buffered until generation cleanup. PREPARE cleared that
+state in the control test, so this does not establish a permanent
+recovery failure.
+
+RESET now marks valid completed payloads present at the pointer
+observation as discarded while retaining their ordered placeholders.
+This lets the commit sequence advance when older requests return.
+Transport-owned requests and data arriving after the observation remain
+eligible to commit. Repeated RESET preserves the discard, and invalid
+response status still reports XRUN. Rejected completions also release
+returned buffered entries without resetting the sequence of requests
+still owned by the transport.
+
+The failed native PAUSE path previously reopened the queue with the STOP
+quiet boundary and capture_stopping flag still set. A running stream
+could then accept an empty completion without the normal XRUN check.
+Rollback now restores the prior flags under the substream lock and
+checks the reset epoch before reopening admission.
+
+ARM64 QEMU tests use the actual driver functions with test-only request
+ordering and STOP allocation-failure injection. The v27 baseline fails
+eight affected assertions; the candidate passes all thirteen assertions,
+including normal reordering, post-observation delivery, invalid status,
+and STOP empty-tail controls. The running-observation test invokes the
+actual pointer-observation helper. Full RUNNING RESET ioctls are covered
+separately by the production regression.
+
+The production driver module was built separately without those hooks.
+Its ARM64 W=1 build and eight QEMU regression runs passed with the
+matching v27 KASAN/lockdep kernel and core modules. These cover RW/MMAP
+capture, PREPARED RESET with DRAIN/reopen, RUNNING RESET, and playback
+PAUSE/RELEASE, HWSYNC/poll, DROP and reopen. Capture includes 70-second
+RW and resumed MMAP phases. The independent backend-sequence oracle
+matched 7,104,000 frames across seven capture phases. No KASAN or
+lockdep diagnostic appeared.
+
+The kernel image and core were reused unchanged; the modified driver was
+rebuilt. Fresh KCSAN and physical VZ tests were not run for this
+revision. The earlier v27 KCSAN and Scarlett results describe that
+earlier build. The controlled tests use synthetic requests and a known
+STOP failure before submission; they do not qualify transport
+timeout/uncertainty or demonstrate out-of-order completions on physical
+hardware. Intermediate patch stages are application-checked; the fresh
+runtime tests cover the final candidate.
+
+Review addressed:
+
+https://lore.kernel.org/linux-sound/sashiko-outbox-210240@kernel.org/
+
+Playback validation limits: The one-period reduction in the TX queue
+has not been qualified for worst-case scheduling tolerance. The tree
+through the preceding playback-completion change was inspected but not
+run separately. The playback gate tests used ARM64 QEMU; they did not
+include KCSAN or physical audio. They do not qualify the full series.
+
+base-commit: a4311e9447bbb219044db38897f95be112f46a8a
