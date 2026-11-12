@@ -1,66 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794505680;
-	b=2Xjy8Fog0UNcWjkLzZ8gClBRysymPT3BKtB5h6M0cDXdESUFrjMzegYBpqnik9ii6wGk
-	 xUPivDwGn0x+s0FWECn4JO5hrQxJiWpFLOj2si29aaXv6BEZr8AOvRykx3YjTJFgVXNIc
-	 E8Upgk9aXqqzhloKM1T+Nu/YBK0PgMpKLJ/ZSJlr3nDd/ugeMT4k83jWKEkh8p7LDOJP7
-	 o5R5XMNY8DKzb36ZWTQh53plAat/6oEg8fmQAiUE4q0v5AyPqwMRpJiNps07LlW+zvDnC
-	 Km/3rdzlyn7eVUkLq0GmXgUUeDWRkxHmvVuZAoQEHCO+IGSdBSOkKeTrkDfgjfDORyQ==
+	t=1794505696;
+	b=ydXrBfTL/4K/vjfURMOfioLqi3wocyrCaMA10iihUHs1uPIEz/EmuHHpwTMIAdGruVc+
+	 IoVPvntH4LvAMifv6JKmcy+H2A3eqDSa2U2tgZr1R+TREWIDtLaV+EaZ/inIIuDhmIGhM
+	 7W8cLsenqqonqWseqViF6BQxAuAIEbxxwpQ9WDc8LMTA12Fi+2nklmca40nvR2VVLBDCB
+	 oI4+qFH2FR7w6y6Zg0a2kOuSPGc7D9FBrnamWprxWArkB+5HX3mVtISoX5miHNvZXINZw
+	 HYMFfsz9czIrNgl1gAi29TRzUtkZYunyn7kHqfJOzG+bYdYdInJ4clGmnEXSqDU+nnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794505680;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=zaOiQXaj6cqdaLfvFVkz/GzQHYgpVXTXcmV319+t8cI=;
-	b=1C8iDAOxxPboA4Q7M6/hRXL6XQwbtGkueLSSv7IdDj+Tz0fx3ERR7D2xPea6LGmym8Jp
-	 PT81y2JD60p2qUyj7oMOL23GxboHQFK5Gt0Hz9k6dwUHBNtBxpjR27GM2VaX8xAxd2k0E
-	 HVRyYTmiC3r/lMBiePvc06vgjZgSW9vyW65v47VbwkUnKqAYxBsrCrNXMELGpeBP8QldL
-	 caGrX4bV8ZSbepkE3VBdYjwFdCCbgPmV7vPoZMrRx9jeQiHPfIvs3N5mh9hsuiRECDBcH
-	 0DC3WRi8uOWhnp9b49cDuwPBndBeZx9VXttAbhyjXbdhPZr0XikR5We63e2gDy5zhcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794505696;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=wUuadG0Yw2Izwr3UTyTfSeRMzW9ur52zaG54mUGgnbs=;
+	b=OX7iYK5XeA+kVD74shFM+PYxfg+PQI7/oBYW7rB9LspEx2UdtzI6LopYpvTPyByYi/Md
+	 xXwGcfiP5LW+h4E3Ok4onXqSKHlLvFnStQ0INhEKK9vFzGHztnMuFzKS5eqIuY1rvoxOa
+	 vSbKsvnRl09thVyfF8cOi+NpW6v9YLWjuUJR9wzsyC4uvTR+uP2qPRiVb10fkdO/1a5ce
+	 RvqLEt1G/RvdiGXM++YtXOu+LJmce4Mkbam9JImYhDM6x7zYpoGmrb27PynomJm+706aq
+	 Pei1nYUxbAGIhOyQuE4W4oC6xHd3f3M6SgDMiBrt0mBZneYUfopAASgyFPvCxUmMhKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dAXT8BCQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=WcZiU7dq;
+	arc=none smtp.remote-ip=209.85.160.178
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8780E606A321;
-	Thu, 12 Nov 2026 17:48:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8775606A331
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:48:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8775606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dAXT8BCQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8E631F000C4;
-	Thu, 12 Nov 2026 17:47:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794505680;
-	bh=zaOiQXaj6cqdaLfvFVkz/GzQHYgpVXTXcmV319+t8cI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dAXT8BCQGA0v1Y1k8ymmF1rs8DPDUlmUSugJ0yuskL5i+CZXcn3Slwf0Lukko3L1v
-	 cHr5vmYmUszoaX3cexipeI91nWId6S4XC2HROr+kQibp128sYRTtNpCpwRpvySo+TP
-	 TAYWL2VLQyUmSBGjBQ01qn9TPkni/n+smsz3H6E/Vww7bopXYJFnxpmc8SZ1T91sWr
-	 +zLZ0r76GW8HJmqAEnFf3EJU8s0zykr6Iim6AlveagpPipZ44ndU9Zxb9kHqata28N
-	 yGMghD6Bj/2nOthHKbco/k49feZEDgLDBdKADDboN7SXjmXb96pnCXdAMNUBRwb3lM
-	 s6xeiboXrSSMg==
-Date: Thu, 12 Nov 2026 10:47:53 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Nicolas Schier <nsc@kernel.org>
-Cc: Julian Braha <julianbraha@gmail.com>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Arnd Bergmann <arnd@arndb.de>, Kees Cook <kees@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
-	llvm@lists.linux.dev, Linus Torvalds <torvalds@linuxfoundation.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Charlie Jenkins <thecharlesjenkins@gmail.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	linux-riscv@lists.infradead.org
-Subject: Re: [PATCH v2 5/6] Eliminate CONFIG_CC_HAS_ASM_GOTO_TIED_OUTPUT
-Message-ID: <20261112174753.GC4107043@ax162>
-References: <20261111-kconfig-toolchain-updates-v2-0-b2d9415c1757@kernel.org>
- <20261111-kconfig-toolchain-updates-v2-5-b2d9415c1757@kernel.org>
- <avWkWm1N5rv52GG4@levanger>
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=WcZiU7dq
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-53664b4860bso44258561cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:48:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1794505695; x=1795110495; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wUuadG0Yw2Izwr3UTyTfSeRMzW9ur52zaG54mUGgnbs=;
+        b=WcZiU7dqYkVn3XbOr7LnVDUkgYhzKfqKV+4wtU9Ll/aqiDDEMIJM8j2AheQt4peZbR
+         5YglCi/0y31gAuQm99zSTUGraQofwuVsLVeoM0lIYCvP/X7IFeU8zjfduNXaeKM9CZD7
+         x9jW8WUySgUi4NRi/HAeWE+dMhhATm9Brnihy5/G6T5xujc8r6UtLDPo9JNb8yBD4UBQ
+         e+bCaRqtCn/FU9d13zcEmTSjcxr4WW5EUHPMf+Wd04NbR8Qz8qi7oat2638a63hhfr+R
+         PGt2GoUCzwuLjtBXMDNULtkV+m6sPwUsg0P4UWEpu1ioMfb1SDW2SIh8h+QtmXo06LCl
+         F3lA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794505695; x=1795110495;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wUuadG0Yw2Izwr3UTyTfSeRMzW9ur52zaG54mUGgnbs=;
+        b=ppmKvLdqkcRG+4nQq2hNBGcwyxr8cxTRrTJSF2OMyzIzzyqfLeKrRfG6YFqFc/8tCc
+         2UxEHRmpZxPPXxCC9saopVbBjNQ++bmBuNaO6ce+CPMdgnF9z2WMDAIvNGuCx+w8HESa
+         Nv9Ovw5GJr8gKkG50DsS2ZAuiy96PzzKyR0o1JS9D7YkHTA8RVc3Be/mUMtPe8488CXk
+         P222D7jJJC4TIOSjjemibzI0iyo1b872U8eFxG9UM5umMK7O5b8K0fD4+/oYALjagYmL
+         ZJGAYzrXeFIfk6T8BE4bb/dDgDxhxeIBXTjlPEDeCIpO0FXuIcHF0EkC1Mz/VuCdi1xC
+         dh8w==
+X-Forwarded-Encrypted: i=1; AL+hErEQJwh8cVhnpaVzcBkOgvAKnLJtQXwx2Jb7mwlJ2NymS5Zp03zZ8cuTg/eBUB5mK0fUMQo/pgs3mDo6tiU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8dc0cYR+GFKDub+6Bt/kSG14R377spFrHgaz1eHL1rpzI0G0b4
+	F5P93FpGmWC3oQP38WvBcIrZVzkZxc4ctYOzXUmnV08cJv3vvGhKwJlDh9ZmM8h5i1N89pPkJFV
+	659claw==
+X-Gm-Gg: AYBFou2unc3WcNblMIbE4mxWmiPsXqoD/g3ll7aFa4uRjAe0nN3b1rqZ+66aXUI6VYa
+	zVVCED10FeVymhMP1Lmqg7RbCAV1g/8rDrTP/9/Suyy7t8wrHldtuu00h+w1G+DvRhOQ8ucKkdJ
+	2GGlDT6209Rt+GTnyrIEl/QmgErM26ocoe8VMklTMsww7hCzzh9R8Ku+yqmn0h4K2jPczdjEqoI
+	kkRMNo/QwUPkM7G7C2hVQsmUf578XKMMU1c/glxzb2xP7Kc+kIphUAk0f9pSQ7eWFHqcKfwIRsG
+	DJaS3qs+oaYyqXIMX15OHAaUrMhQcm7MZ9rMk2PqQjS1HxaCguEg3XDsP0ZVQggx8y6VzveQB6g
+	9hp4C743VsrOeRS6sar1vuTFqWlN8dHjN5rxQAiNby2dSRHhoOyIJrqtIomq+B60b78jpwtkm0G
+	sf/hPUQDuRNMe/cgtJGU+N6VJ/i4BNbOvD9EeBkNWRoj/8P8+9e0RTzt/nRQUiAZdy4vAHmmNfR
+	dWOTVePThLRk2KxFYTaUM/YEJA6BhwAoWoLbGZu9nu5JBVrRiV0YBSMzeeOdpmSSZKB/w8d07Yh
+	kbNhjh7wf5DbDdCEYTkIVNVWz/yj8iR3swY0wgbRZBB5jZaVb7Ku
+X-Received: by 2002:a05:622a:17c7:b0:535:a5f9:7526 with SMTP id d75a77b69052e-55ac9089440mr1514941cf.69.1794505694735;
+        Thu, 12 Nov 2026 09:48:14 -0800 (PST)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55ad0ffeba0sm70521cf.17.2026.11.12.09.48.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 09:48:14 -0800 (PST)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Luis Chamberlain <mcgrof@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Hannes Reinecke <hare@suse.de>,
+	John Garry <john.garry@linux.dev>,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] bdev: do not report a statx block size below the block size
+Date: Thu, 12 Nov 2026 12:48:05 -0500
+Message-ID: <20261112174805.1200379-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,49 +100,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avWkWm1N5rv52GG4@levanger>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 12:34:50PM +0100, Nicolas Schier wrote:
-> On Wed, Nov 11, 2026 at 05:52:07PM -0700, Nathan Chancellor wrote:
-> > -config CC_HAS_ASM_GOTO_TIED_OUTPUT
-> > -	depends on CC_HAS_ASM_GOTO_OUTPUT
-> > -	# Detect buggy gcc and clang, fixed in gcc-11 clang-14.
-> > -	def_bool $(success,echo 'int foo(int *x) { asm goto (".long (%l[bar]) - .": "+m"(*x) ::: bar); return *x; bar: return 0; }' | $CC -x c - -c -o /dev/null)
-> 
-> The comments reads as if gcc 8 to 10 are affected.  Is the comment
-> somehow misleading, or should we still keep this until gcc-10 is the
-> minimum gcc version?
+Commit 425fbcd62d2e ("bdev: use bdev_io_min() for statx block size")
+made stat() report the minimum I/O size of a block device as
+st_blksize, so that devices with a large minimum I/O size get large
+enough I/O. Commit 777d0961ff95 ("fs: move the bdex_statx call to
+vfs_getattr_nosec") did the same for fstat().
 
-It is a little misleading. GCC 11 was the first version that supported
-asm goto with outputs, so this program will not compile with GCC 8 to 10
-as a result:
+However, the minimum I/O size of most disks is 512 bytes, and
+st_blksize was 4096 for them before. As of now, programs that size
+their buffer by st_blksize, such as stdio, write to these disks 512
+bytes at a time. Each write that covers only part of a block makes the
+kernel read the block from the disk first.
 
-  <stdin>: In function 'foo':
-  <stdin>:1:51: error: expected ':' before string constant
+The issue can be reproduced on a disk with 512-byte sectors with:
 
-The bug that it is trying to trigger was fixed during the GCC 11
-development cycle between the initial asm goto with outputs commit and
-the final release. As a result, for GCC, if it supports asm goto with
-outputs, it supports tied outputs in the expected manner.
+    stat -c %o /dev/vda
 
-This test was mostly to catch buggy versions of clang, as asm goto with
-outputs was first shipped in clang-11 but using tied outputs breaks the
-build until they were fixed to be compatible with GCC in clang-14:
+Before commit 425fbcd62d2e ("bdev: use bdev_io_min() for statx block
+size"), the result is:
 
-  <stdin>:1:29: error: invalid operand in inline asm: '.long (${1:l}) - .'
-  int foo(int *x) { asm goto (".long (%l[bar]) - .": "+m"(*x) ::: bar); return *x; bar: return 0; }
-                              ^
-  <stdin>:1:29: error: unknown token in expression in '.long' directive
-  <inline asm>:1:9: note: instantiated into assembly here
-          .long () - .
-                 ^
-  2 errors generated.
+    4096
 
-So if the compiler results in CONFIG_CC_HAS_ASM_GOTO_OUTPUT=y, we know
-that CONFIG_CC_HAS_ASM_GOTO_TIED_OUTPUT=y will be present as well.
+After that commit, the result is:
 
+    512
+
+This patch will report the block size of the block device when it is
+larger than the minimum I/O size.
+
+Fixes: 425fbcd62d2e ("bdev: use bdev_io_min() for statx block size")
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+---
+Application impact (Ubuntu 26.04 user space): "bzcat sd.img.bz2 >
+/dev/vda" (bzip2 1.0.8, 64 MiB image, disk with 512-byte sectors). On
+v6.14, it reads at most 688 sectors from the disk. On v6.15, it reads
+about 108,000 sectors (53 MiB) while writing the image.
+
+Tested on block-7.4: with this patch, stat reports 4096 again and bzcat
+reads at most 2,104 sectors.
+
+ block/bdev.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/block/bdev.c b/block/bdev.c
+index f20f91b3176e..c9a3d7832c42 100644
+--- a/block/bdev.c
++++ b/block/bdev.c
+@@ -1430,7 +1430,11 @@ void bdev_statx(const struct path *path, struct kstat *stat, u32 request_mask)
+ 			0);
+ 	}
+ 
+-	stat->blksize = bdev_io_min(bdev);
++	/*
++	 * A buffered write that covers only part of a block has to read the
++	 * block first, so do not report less than the block size.
++	 */
++	stat->blksize = max(bdev_io_min(bdev), block_size(bdev));
+ 
+ 	blkdev_put_no_open(bdev);
+ }
+
+base-commit: 8067050e7226844fb32062b5cea947e5897d3d7e
 -- 
-Cheers,
-Nathan
+2.53.0
+
