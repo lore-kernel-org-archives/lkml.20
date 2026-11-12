@@ -1,111 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794468521;
-	b=NG9y65gIbAYsTBsWQLa1y5gvO920sbONxId5bTyjPkqqrW2YU4WC8RHY+Ri1XbLOxnEQ
-	 ITBLeQlJiIgRNxrstF2a2ph3hqQDl9Jd3c8fn51X8nXY2+MJQOoSUkvNvmVP1JZ9COAX1
-	 R2SBL86ibnMmD5sLkZO5wMNqozOvbwZmoSRtpl/+ND/JQX8sIzkMaAaGKFBTWOFmRh88M
-	 NdefmPY01qVCtymoSl9EqKQ2rYxdyuDjDxwa8L09bKGcFY3/b/QOIn9ozllF6gqCxeNK4
-	 woOLFGKbq89KpZ847rKx1XDOcAF9pyIHO34ORy702rIbq/64uoz4YRoVngzXNRdG4Qg==
+	t=1794468586;
+	b=cEgJkZxHoq7XD/X7vEuK++voOMHds1LsD8EbqcpEvpm8TCY3eV+n63QnGsz9cNPyKiNi
+	 hwYbAfpWzuO0ouDJWbG/f4jZyvhmTeTVPdRZ8oAY6w0Z0kzFuW5Vc384koPyQzVPkh1SQ
+	 flJcGLbRAMle17nkmbScmAwu13B4Ubi2t9j6be3JGEnAIH+g0jWnTX70V6lRCusKQuwk1
+	 n8XvYrOgqH1D40J8T/WOdbxBXh9v41AXMCet+0bPe6S46dQgL06/wRTjsVAutsii/YOtk
+	 2BGE4AvbR1EqetDVUq2T9zVMyjaRocYdyLgLrfAGclriUVYVgCEZQu/GJo8/E4rJWqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794468521;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=jtpWNo7TMacpo5dLQCzhDaqmAx7GU105iZnfQunsf+w=;
-	b=dwXdeGLIWKuTttFGexE4br6TKsOD4SlS3pBGqZzkTTU4gbDPt18M2ao8cogO1Y2BSogD
-	 ITZC8ywZn3d0CA+OEGDjnJFNJ3um4U3vtbFBjwQh9kDIeBWm+EAJ0d6s/VkJN/NK0tomg
-	 eNwAV3lzA3E5tpzBT51tZ3yAzfgW0wI5Mol/Zzi/1+HQHyiVCZv8JXr8KddQCZR67OfXD
-	 Ef5KGtYQxsRRCgdT32ZHSJbimmKiiaDDDKIWxaNmoP2jhdBkRe55iQmc8dWlEO/CLbAjj
-	 RFWy6sgcvsUOX2MOeN3Y4zUBNvumFeT6BstAeHNBHuX3cSaBIf8nUfphkTpBVQQCkUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794468586;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=EeCGyqkm0JqSOK4vQP3xUOcJ8X0Mgwj1dqLLK6KYn3E=;
+	b=fxiURPBXhX0Fw5JN9iROBj+S79UxaQM/ecprtZ1Im8xzA/vfigS6oJMW117g0UrIQMtH
+	 vITvCrHeTJgEyC0y755MzoBQ4cXNcR7LORnJiGfY2hkYoHw2ZarReNXcYQu6EwpvgY7r2
+	 FQo5ztAkn8PJowHG6uuiznitgaAkdYmRo596kMaEh00zT7x1dFQ22PUoWSArHUmHSdqu2
+	 aetaW6/dyJv410a91ii3Icz7pM5vSdyyYhmeaMxWufxMBmWswfcwwTjeAVWeeIj/aaOu5
+	 wIin6BP+RcAOufn3uSFE/5sBt2GL2OWPoEWYgw1vrBEU1g96CQ8YfuN8SDVyN4MOEdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=ZaECq2+H;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=WT09LNp3;
-	arc=none smtp.remote-ip=202.12.124.146
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gOmxHypx;
+	arc=none smtp.remote-ip=209.85.210.178
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5878A606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:28:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5878A606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3AC606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:29:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B3AC606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=ZaECq2+H;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=WT09LNp3
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id 948C81D00243
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:28:40 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 12 Nov 2026 02:28:40 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794468512;
-	 x=1794554912; bh=jtpWNo7TMacpo5dLQCzhDaqmAx7GU105iZnfQunsf+w=; b=
-	ZaECq2+H3fZLSbZItu52liYGqOetSj4pzsfYVmCp+sFMJyF30SsjGOyB3UweUFrW
-	G3K3H0C+yj6GxWQC+INukPp8kql8nLhkTumtAvdnXnVu7tAweKvytl9bgx/MOYcq
-	ZXI7+Mq+mrbou63Jg+GQoTFvMy82or+7hxeDkOr8kPVR9Wx/O7/TzpLyc92BVPLJ
-	fHJfF5GImdIqdXhbgGXYjx2TIOON0IEcgpXH34c6/Dw3ps/fHz7WTaI5Vb9z5aUA
-	//Y16AQkhwl187DXYldkLbOb67eBvPMaqj4WoI/S5ueagvjVEuYgQmpxF+BSJ7GE
-	Gaa6y/+QEd6es95GE1AMiA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794468512; x=
-	1794554912; bh=jtpWNo7TMacpo5dLQCzhDaqmAx7GU105iZnfQunsf+w=; b=W
-	T09LNp3F+6ZU0cg7gjIeXUGQuCqupgHFyIfmNpPh66aUx8GzE/zkgrQWNZnMnx8o
-	XgJ0F1/oU8sZzAZFgeGqAzD+QiWB6Kfhadoo0yq4X/W+eqAT+/6wXm+FOZxtGFj2
-	74/BhZq8Te6hytXtqNimYxbi6+/nK8fSFXuS8nc7nz2/RtsfXPFm8cxjizbW8cg8
-	tXDAAFkmook+dNokF2IHxHvlMlT/IBwH5RaM8voyo1K9kOTPgk2s8O0sLXAHDVTZ
-	RA+wP3EV0T2HPhMd/C2del2gh8WvLwcE/Q7SefSQCiu7g61izsL6ItScQr7dun8g
-	AryJ7TMpDRtXQf80DENVA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794468512; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:dB+HNeyizmoIpbDuhqXfwDpxsZ1BFivTexN7ZYx+nQCSjVg
-	S+maQLvnuKezNWkIbQFoX4fHUbPEt9uN/m3H2cOf2yekEd5Ag/h8xa4aVYl1ih8W
-	cvXCUEUghoBGTn3psys3R5hIAUNICkTL/QcBvKn91H8M/i2rUqI2kSQUuuuHILcZ
-	UVzvM0rcf0hKtFy4B5XHYfbGvQigrdnk7AhE1EPvSZIvDS5PIjD+dFP3lozEAuWQ
-	bJxGApXfwHMTFPwW5VLc3UgLOJZ5xkGQRtW8z2kMqw4GU4me8/EQXL/hj53oElJL
-	BY3SS7S+wumbMKvrZyHKJjARyLxA8eRE8MWT+DA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:nkTOjxKk9a9RAr7YpxephbkNfsVtf2NTfupsq0l/ugw=:jtpWNo7TMacpo5dLQCzhDaqmAx7GU105iZnfQunsf+w=;
-X-ME-Sender: <xms:mmr1ajgXo3Axsmou4B7KzkByWU-AjBViiPTB4XgAgf2XF5doPwnv7g>
-    <xme:mmr1aq0GfE83JG6NZFgZ58z-bruQmVZxeY_ZBDuEUj6-I1pJFr17kpOGFOwybGY_Y
-    5taeQtgs4Qy4WFi7M-2EES5h-jy1WTMD1KzIm0hhukvwm10erYE9bV2xg>
-X-ME-Proxy-Cause: dmFkZTF9Cii5tCJ/eiFoFWruahOT1qK5ASAcalVOMwjDWcFD/dMBUFqfeKLpzlac2VvZ8W
-    V9iu/o6ZR+Sv+050sngjcdznw7FD4MuBoj1sVq4A38XNzwoNh4drEfuQLnvyHU0UWAzEER
-    0/4sDUx/ru4772Ka7asMoVI39ZZKd+VMgg1hWK6dIhZQusAVxfVVXcRBOYa2HO+ODWkJJk
-    yHhAg0/yNzYdXHGAfMBwRNrzlT71WYs3yYVuMgiUtP2W3xChnosbmHTg8oFgQ2A1Wly06T
-    4FJ4LnlTHRsMOa7D+xSMU1HYoEgWvMmfr2TX4b/cJomuLFseYhxG8OoKH52UP023qwOdju
-    OXU/rstS7rhtjzYoEJXl0iV73emRZjJYCx4fU+8YffGbrnO3MpCKZE18sAT5Y8FQUcxkVi
-    gOd9Ye6RcDoNFMyPc9eKbSz0Ntwd9lt3pCFSxcmEyrm1xUkbI7kQIU13hAiY7QRVsDGZ3w
-    MLjUJuiXF7lrFYYtA+Uk2lkbCo3JpWb0eeMr21UcrDPfQ3q1OuO13/0xapduxh0EOx5ZKz
-    AzNi1C/daJAUAlTkwWvNE2oarkNe5WErEMnJtCrw5mQhgyKcA2troNXK9HqN8JU7ZNphoa
-    rQnxuSiEIxK4WY/zpd7LmSHG6MRvS2ebD33d/lkgLortuG/jXaQDedowMbkQ
-X-ME-Proxy: <xmx:nGr1ahnGhNSr4FzptxJsS4_djP_SITwZbwIIgTdu6g6H5GCl3lZdQA>
-    <xmx:nGr1aiYuQsfIJ9UNvMD4tHZlUHhp92ePdBhAJ0tsvBhd-LVYM3In7A>
-    <xmx:nGr1ahNS_d9-LNiv0DwFTrBW7SIySjRPKl8etJxhbQGqBdOgdZIMxA>
-    <xmx:nGr1aidCo_l8iDMifNF071yQQ5TkBpvrB3t41x3zD12lr0Mj7Mzv9g>
-    <xmx:oGr1atPBQrgBZMfEnO70sZpJxtfjXWX6JfXMabrdIR7Zf8qDG6wV5BbS>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 1E5CE32A0099; Thu, 12 Nov 2026 02:28:26 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gOmxHypx
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8a0880a46e7so339153b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:29:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794468585; x=1795073385; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EeCGyqkm0JqSOK4vQP3xUOcJ8X0Mgwj1dqLLK6KYn3E=;
+        b=gOmxHypxd4O4PUIV8u4WBmDa9ZbYNZauWX/5z3f7n4qIiWsDVvKE5ksPpqLRja/Fx7
+         syfnGKTMQKsemE9DYKzof9wMvwuaztIhowiACaT0TZDl2pOO81i/quJBa3z/LYcLeLFb
+         LHLT3TGVFFu9puCuj5J7I9JfcDHOGL64+8CR7MaaFPNUfRBXnXAQC57Tm8yTM6qXapGi
+         ShbuZ7OSvxHpcu/7LR3pJtuh50Q+rJ69QRVvanQmFu5dygF7+yJcjuuClLFJIrfc8bqC
+         l1LgjEVXtzdnU0e25i2m6CSiRhIjPPcTq2p9iM6NWTrI8vjlOl6RkQIiXUNbYY7i20HI
+         l0Xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794468585; x=1795073385;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EeCGyqkm0JqSOK4vQP3xUOcJ8X0Mgwj1dqLLK6KYn3E=;
+        b=0rM5csvieTRQeHw2YNWFsW1X4UMwLCEJ8EX7qazFxAtwWW5xCdPpy7IUSBYF7XGSGC
+         yYurQjkVSfh7ORxqw/TJjkLqxEM3B9EIUG8+8RJ4YzTVciCPJGZ9S/fGQQ/KKL9eSyZf
+         zUoFU8fEyPxdEN+O/ZfUk+s6V6ufk099ApHdMCUGYyhcaFFo/85uJNLDICPywPJ8jKXH
+         9+rYa0k7MfM6qWAEDCPbX0Ae7VhjbXuNNJoeLOexJCrmL1xKdZDwe7XwHBGxIrDgsaY4
+         xCvCNx/4uKs+gAwW9elM9ukkLMBFh628rkEqeBs7QqwkLSww6Yh8d3Zl8xWXMody5Tr+
+         M/AQ==
+X-Forwarded-Encrypted: i=1; AL+hErF0ZTC+82hsOx/G0celJ5nqBFjL6SXtDIKx8regFQf/2TGPHQD+Ab1sEq2O8qOmoO3Dlsd+rANm4ynN3PE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Ggs9COL81hkhZzEgg/FMQTUy5Dm/I1lka6unMfUA2XeYu+fhm
+	wtA0Lm+RpXFITAxy4XtBfnWgmlu1faVC1IYWgbKy29RwSYZkdiwCyC+p
+X-Gm-Gg: AYBFou1xlacV/25RllgWu04NZoSXo3LU5dmdY7m9FoaHtDyvoH9GmTMRv0oy/mjyA52
+	usgA4ekQLImY3RWIvKtQxFfviu566jszTt0kYp6E2EOMl0Bk+8W+nR+7cjmAvaOmKPu72jBEqEY
+	CRO6ljsMuEyIOszUp+Jr7RGc5EVJEiw0wEB+edBl0w2lYewK4SXl7axOPow41vz8aezo9pbElrc
+	BsLgHHnWRn7HYxDLEA8SIj/AQQhZn2Xcal4bJAuGDezWoPZB6d9jN7VmoDkpAWmpV/ZOc/iaW2s
+	aBQNxZaOVOG5L4/Pdd6Pk7OAVvhEQVmOZSxpWtbpFBGS8VWzHEJJI/KUoOR1/ypNDHQuDU1HmnJ
+	DojvUBX65OQUnxB9SIWRQFGDwlgM0BBo6sXCVZMCv483Z7rgB7CAcymhGMEWSknn1NEluSieeah
+	78OFr2jPyUcWmpf2pmnTr33HDc/7dOCSc4SixAmxnCGxmz0NntyVlLX//abS6T9pLsvCWM0lwmy
+	WlF2wcI+lBg1LB15MFhQ6ITtGeNXfrRxWG8Z7MjyzkcHYFnaUPGWzB68xNFWEpyE2YlbuqQ9cLj
+	VA0XSbAT7WeHDOJhNif4oDgC+L/1iTaVWglZ6Z2E9IjUDbmiN8dScsy3AtAa
+X-Received: by 2002:a05:6a00:451a:b0:8a9:b07c:7709 with SMTP id d2e1a72fcca58-8bd5cd78ad6mr1206200b3a.19.1794468585366;
+        Wed, 11 Nov 2026 23:29:45 -0800 (PST)
+Received: from shaunak ([43.242.208.118])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baab8dd5b4sm2980797b3a.53.2026.11.11.23.29.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 23:29:44 -0800 (PST)
+From: Shaunak Datar <shaunakkdatar@gmail.com>
+To: rafael@kernel.org
+Cc: daniel.lezcano@kernel.org,
+	rui.zhang@intel.com,
+	lukasz.luba@arm.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shaunak Datar <shaunakkdatar@gmail.com>
+Subject: [PATCH] dt-bindings: thermal: kirkwood-thermal: Convert to DT Schema
+Date: Thu, 12 Nov 2026 12:59:25 +0530
+Message-ID: <20261112072925.22075-1-shaunakkdatar@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,43 +102,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: ARWrktkilFtV
-Date: Thu, 12 Nov 2026 08:28:05 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
- "Linus Walleij" <linusw@kernel.org>, "Aaro Koskinen" <aaro.koskinen@iki.fi>,
- "Daniel Mack" <daniel@zonque.org>,
- "Haojian Zhuang" <haojian.zhuang@gmail.com>,
- "Robert Jarzmik" <robert.jarzmik@free.fr>
-Cc: "Mark Brown" <broonie@kernel.org>,
- "H . Nikolaus Schaller" <hns@goldelico.com>,
- "Kris Bahnsen" <kris@embeddedts.com>,
- "Mark Featherston" <mark@embeddedts.com>,
- "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>,
- linux-input@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Message-Id: <1ce5b6c0-5926-4330-bc45-593a119c65ef@app.fastmail.com>
-In-Reply-To: <20261112064957.1796975-1-dmitry.torokhov@gmail.com>
-References: <20261112064957.1796975-1-dmitry.torokhov@gmail.com>
-Subject: Re: [PATCH 0/5] Input: ads7846 - drop platform data support and cleanups
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026, at 07:49, Dmitry Torokhov wrote:
-> Now that all in-tree boards using ads7846 have been converted to Device
-> Tree or software nodes, this series drops legacy platform data support
-> and its header file, simplifies sample filtering by calling
-> ads7846_debounce_filter() directly instead of through function pointers,
-> removes redundant memory barriers, deletes dead code, and cleans up
-> minor coding style issues.
+Convert the Kirkwood thermal binding from the legacy text format to YAML
+schema to enable validation with dtbs_check.
 
-Nice cleanup!
+Signed-off-by: Shaunak Datar <shaunakkdatar@gmail.com>
+---
+ .../bindings/thermal/kirkwood-thermal.txt     | 15 ---------
+ .../bindings/thermal/kirkwood-thermal.yaml    | 32 +++++++++++++++++++
+ 2 files changed, 32 insertions(+), 15 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/thermal/kirkwood-thermal.txt
+ create mode 100644 Documentation/devicetree/bindings/thermal/kirkwood-thermal.yaml
 
-I took a look at the patches and everything seems fine to me. The
-spitz.c change will of course conflict with the board removal but
-I see no problem with that.
+diff --git a/Documentation/devicetree/bindings/thermal/kirkwood-thermal.txt b/Documentation/devicetree/bindings/thermal/kirkwood-thermal.txt
+deleted file mode 100644
+index 8c0f5eb86da7..000000000000
+--- a/Documentation/devicetree/bindings/thermal/kirkwood-thermal.txt
++++ /dev/null
+@@ -1,15 +0,0 @@
+-* Kirkwood Thermal
+-
+-This version is for Kirkwood 88F8262 & 88F6283 SoCs. Other kirkwoods
+-don't contain a thermal sensor.
+-
+-Required properties:
+-- compatible : "marvell,kirkwood-thermal"
+-- reg : Address range of the thermal registers
+-
+-Example:
+-
+-	thermal@10078 {
+-		compatible = "marvell,kirkwood-thermal";
+-		reg = <0x10078 0x4>;
+-	};
+diff --git a/Documentation/devicetree/bindings/thermal/kirkwood-thermal.yaml b/Documentation/devicetree/bindings/thermal/kirkwood-thermal.yaml
+new file mode 100644
+index 000000000000..1f9b97bdd48f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/thermal/kirkwood-thermal.yaml
+@@ -0,0 +1,32 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/thermal/kirkwood-thermal.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Kirkwood Thermal
++
++maintainers: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
++
++description:
++  Thermal sensor present in the Marvell Kirkwood 88F8262 and 88F6283 SoCs.
++
++properties:
++  compatible:
++    const: marvell,kirkwood-thermal
++
++  reg:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    thermal@10078 {
++        compatible = "marvell,kirkwood-thermal";
++        reg = <0x10078 0x4>;
++    };
+\ No newline at end of file
+-- 
+2.53.0
 
-I did not have a patch for this driver in my cleanup series because
-it was still using platform data when I created my list.
-
-Acked-by: Arnd Bergmann <arnd@arndb.de>
