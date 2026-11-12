@@ -1,100 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794491225;
-	b=DWyIIbnlR6Rwu5qmMNrAepqxMdlJtFveW49t9lQm8xR+NuAUjU8aiGXPXgsEHQX0ecF1
-	 T575ls3GVLkG5hFksqQi/iSqNpO7qk49uT+5L9fPp5N4osVR5IhJ1VjOOoue4EVs35OSE
-	 8oTk2A4845K/ZuqsdYN7VLnVEpuCBTlREdvcZNNjUIE8eEwHGT/zgbj1f/UzK5YKdyN6w
-	 sZvJlU4QFedvE92Wcq2BVAkpPRzdihrOX2D/zF84kWIb5llcJ78ikwR3P/H4mrbsebMrp
-	 pm+Ejr57GCL/3QhINhukhMKBzBRPtUv0/Q33liPV21Nwgh9idmO/MrMV/MYGjpzAULQ==
+	t=1794491257;
+	b=kL6eiMJ1gj19yMuaADrNHMH47kam4nNgZOMnOLPepGRdFlgFOEpkGqkggcr3umMaA2aO
+	 JK7C3XM8Ilrc5/ktQakcpQQDY5U6Q30EL9Lz5UHW0GwVeFJpoBguiPygtm5p0jHwYCobD
+	 qNtZ5IInpoz0qm8GPdUxXoxpK4TRjcJJYjLzU3AKZjW536cyTT9eQuviLtkxg+LGzr5cf
+	 3gx0L/H0GZkw2Ka6MtiUuFLlC9qLWEdh2awtkrQ76M97Ci5DojlAsnCnJDToV/55tSnwN
+	 NC24UJvlXgBZRZC11PPgVKxiV3KyDT5WRwcSHHnfgvNErSmKIKpJwa1sVWuW2gt3rdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794491225;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=At9dnyT/4q/wJJ9tfHQDwKMvIA9o4nNPXbuYEoFso6w=;
-	b=BXczuwVhz28MF8KTOb1YXQ/0V/PESceIcWvc2vSTcRWQgmoIzknpt3hJUIB0FjXy+IoG
-	 A/4bM2LKL3hm/aEqtPqXjv22a4m82fFzHhNeBIdGUMGcWd83DYP7BUONkV51OHC9a2IuX
-	 GXry/+oyFhetILUoK+oq9bP/J8nMc2H49fXkzbZ3zJY8hZrdvpw4hKN+3SEssi1ioJkbQ
-	 KdASCICLPzQf0EezyMJMLLAc4V+jONCJHmZgBgycrWgqAI3wIXPKQxwnIpXiLdDOZVj9y
-	 s5l9i5KyOtI7iU85Y8hcugr/Cj+Zx2Q37EyCjc8WAx5hFU4xEf3TOzvWlX1k4d5VO0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794491257;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=3YZAzcE1/EpGmUjmz5u1eGptWHji3T8YXnmCFTn4ugM=;
+	b=FZ/1DpH896+CDXcwy6o2/ogwRTo1Glw2EV1dx+/pDFW24F8lZ2aLLEtMDGi1XTgaVfrh
+	 44aX9RB5cbYHrba7MhSx+4qgtyah8hZi5iJh9X6K4Vx/VKJ3Lr1HflYznLLks+htwPqst
+	 JtOABq/pNUmuoyLFjbQb3k5Hg/2RwJE95yBucAndAEvyJOTwFsys3dKPKZJuOstC33nIY
+	 U8mM0p9703eOyBQ/WCoLPICBhkoOzgN2ObHH4NFFPBru2/WgCVJlLt2jx+GVxAZXN+CKy
+	 hbEk5a4EY1Lh+rFlQNGWeXa5hCcEatJDHuCHPqpLfrwrG8Q1CLfoRNjFOjDXX5s4J3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cloud.ionos.com;
-	spf=pass smtp.mailfrom=ionos.com;
-	dkim=pass header.d=cloud.ionos.com header.i=@cloud.ionos.com header.a=rsa-sha256 header.s=google header.b=Fm27Yuq9;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=mit.edu;
+	spf=pass smtp.mailfrom=mit.edu;
+	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=ZyWmHjFT;
+	arc=none smtp.remote-ip=18.9.28.11
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C1DB606A882
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:47:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C1DB606A882
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFCBD606A333
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:47:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFCBD606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.a=rsa-sha256 header.s=google header.b=Fm27Yuq9
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48df4f7ccf4so94404f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:47:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.ionos.com; s=google; t=1794491223; x=1795096023; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=At9dnyT/4q/wJJ9tfHQDwKMvIA9o4nNPXbuYEoFso6w=;
-        b=Fm27Yuq9g7zEqILjHO8VSWuJNFq4DrD6kqa1MUcXpyXdfjc16G9jkLcHADjhHFO+SX
-         6EiMtZOmwH7i8vIYEqg14qvjz2PZFGAS+bwQf4ApqcHOCaX65vYSCtAemyHSY95qRSJP
-         QLQUKnw/Ewmf30XmRjyHWK5iga3UBw+xW6IbwUh+JbJItzusbgI+crjcSRhmltNrCmiF
-         VRZKk25hGlHbMbVKPZbIvL6fpoJytG9KNh2r1wVhz3vp2zuaIERwCEBVc0zPmOSVQPcF
-         6yVcPlJSb5KdJiY8DtuOaVqw22+B0IjziubW5L4oOEyzB+zZQjBRE8vG24gvJaPF0zjX
-         ErTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794491223; x=1795096023;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=At9dnyT/4q/wJJ9tfHQDwKMvIA9o4nNPXbuYEoFso6w=;
-        b=wT+PxY7T+4+/idw6Q6qL527XzHu7Sn7COzUi4S5a+Z/U0M85UrFu1G1J9JhpAdGTrP
-         q8c0L2KiTNDxw2FyHeR0/OU5FyGHbhzsqhDMlwffEi6cXhYMI6Q8XVmSI9LIWKTUdHa2
-         K5oxmElAZnkW97n0Xm5oePAr7cT/XGJhtXQsfgv7N/pz4LDfk4bU/4gaONY77AS9PbNJ
-         ouE1uxMi7Dwu+EvoBvyiR1+8yEQX7krfsr7JqUaynoF/NNs+YugdZMIsGkvwDK5QPj8N
-         U7KfHzQWDVDjQwYi/ygaBjRTXmKO1nd6ZIV2dCdLX16ROaMPY8VLvqz2zwCMW6dWE/bk
-         aUQQ==
-X-Forwarded-Encrypted: i=1; AL+hErHxTjduGqMqOJslX1jXXUu48hqK1SWalYzDayoWY48v9CDlnuABvZmZhzkT3pGJ7IAt8SRXvzxphkWQv8Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+x3IgedVkV4Xu2qhjV61c2mn6X9TIkyiz+J0Kab4kz6EieqtXy
-	cfS3dz1XhnCG9ZgbUnH33zm8jMOG6RB+13gjYiyuUpZV5M120l2858Wt5S5fzUtP9E8=
-X-Gm-Gg: AYBFou2cejle78ZYPLM3H7nkPYAsQydIX9U6IvNBt1YaEi3/7OADHYhJ0zgj/nwyr+1
-	ZK9M9ey89+vcJkBABQS1uBvirz6A93hczN6BQODKWWdhFfeq/TZoBU5Z6qjZPhY5nrULKysN+TH
-	U5DrrnbxAKJSbYVY5K4h051zLV3SIRyG1c0JXaSHLWxCrF+SpjN36GMw0twjxIOnoqzdSYJoPMG
-	C4lbi3hL9+3kQ9h7cGx249MImXUJ/SVB78uE4SlLS1XwYL7HQsTG2v47c0ayyRwJhqC0oNCMQtc
-	bMyG/LBMZh8f6gWIQipfpqt2l4wv8AWT9dXhHMmzCHQPd+hAqgNuGNaCsQ/ARsHP7M0rtqgb/eK
-	Kc0fr7x6gKZekdG8dJFIh0+GjNf/bztQzwdCOL1hZrKxlhY849pezXi9G9MH74SS3tGLbf0+zpW
-	CAu8xp4V5bSpMmMO2Y3JAZqieOUQR5HLRKu2qJ/rbWpMHfJBtU1epH59qn4rY4c5BFvWgaSSL8x
-	W84pFpZ5NGW99PGjlScYEMdGw7+gssy7pKM9v3c7R3EEQYLXKMMb41AuoLbX/rhQM+zA1cvAp3j
-	aOyuZxKYtqvasK7KLcmJcWopkYuzga6+f7qEMSsjLxSOxh3RCodcahgH9isUDnelMpbzSLrjJab
-	+S0k7JQ==
-X-Received: by 2002:adf:e196:0:b0:48c:6611:82 with SMTP id ffacd0b85a97d-499c434be3fmr10614340f8f.1.1794491223476;
-        Thu, 12 Nov 2026 05:47:03 -0800 (PST)
-Received: from jwang-ThinkPad-T14-Gen-6.fkb.profitbricks.net ([212.227.34.98])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498367b99bcsm17665990f8f.51.2026.11.12.05.47.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 05:47:03 -0800 (PST)
-From: Jack Wang <jinpu.wang@cloud.ionos.com>
-To: Yu Kuai <yukuai@fygo.io>,
-	Song Liu <song@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>
-Cc: Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	linux-raid@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 2/2] md: suspend the array instead of freezing the queue for limits updates
-Date: Thu, 12 Nov 2026 14:47:00 +0100
-Message-ID: <20261112134700.372702-3-jinpu.wang@cloud.ionos.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261112134700.372702-1-jinpu.wang@cloud.ionos.com>
-References: <20261112134700.372702-1-jinpu.wang@cloud.ionos.com>
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=ZyWmHjFT
+Received: from macsyma.thunk.org (pool-173-48-111-191.bstnma.fios.verizon.net [173.48.111.191])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6ACDkjFc002782
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 12 Nov 2026 08:46:46 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1794491212; bh=3YZAzcE1/EpGmUjmz5u1eGptWHji3T8YXnmCFTn4ugM=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=ZyWmHjFTGOwAApBFdsJlk7IeyqDSq2vhUc/zeFgql9RtL02ocRFdu/XBx8Lt89Tiu
+	 ZtB+IIHD3ucY5nr5jHEhD43ElWI2goLnpll5rrFOt+YhZpfpxXSEYnRn+gaRodlf9u
+	 raXhl/uk9kHdF/ImFDElqrFFoJBzbfk8QG++m7szVDWSBbTN6Frb6irZEYZnDNP8CI
+	 o+Y3rhzvVBvsOQPFSj/QPdYQrWxPSmJRw4K09X6Mqth7CPKC6xlnk+kvxKtNQEsuth
+	 puDjMzUPSfQ/f80W1sY3xybe9UVwnpP1IM4Fa20NkzuMpntbyOpZGrQ84YQTs4Me9p
+	 Kb6As6/2xoplA==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 3DB4A26E324F; Thu, 12 Nov 2026 08:46:45 -0500 (EST)
+Date: Thu, 12 Nov 2026 08:46:45 -0500
+From: "Theodore Tso" <tytso@mit.edu>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev,
+        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
+        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Leon Romanovsky <leon@kernel.org>,
+        Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+        Thorsten Leemhuis <linux@leemhuis.info>,
+        "Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>,
+        Geert Uytterhoeven <geert@linux-m68k.org>,
+        Dan Carpenter <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+        Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+        Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
+        Bradley Morgan <brads@mainlining.org>, Sasha Levin <sashal@kernel.org>,
+        stable@vger.kernel.org
+Subject: Re: [PATCH v5 0/6] agents: add skills for Fixes tags, stable tags,
+ similar bugs, and commit messages
+Message-ID: <avXCcPYM9VAP0JHf@mit.edu>
+References: <20261111225940.1573565-1-tytso@mit.edu>
+ <9c5f5976-ebed-48f3-94ab-1121231af6e1@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,52 +83,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9c5f5976-ebed-48f3-94ab-1121231af6e1@kernel.org>
 
-Provide ->suspend() and ->resume() for md_fops using mddev_suspend() and
-mddev_resume(), so sysfs limits updates no longer freeze the queue.
+On Thu, Nov 12, 2026 at 09:26:09AM -0500, Krzysztof Kozlowski wrote:
+> 
+> All these are docs (even if you call them as a skill, it's the same),
+> therefore they should be placed in Documentation, not in top-level. We
+> should not create one documentation for humans and another for agents.
+> It's just one documentation.
 
-mddev_suspend() only waits for active_io, but md_submit_bio() reads the
-limits in bio_split_to_limits() before taking it. A bio already there may
-see a mix of old and new limits, as with mddev_update_io_opt().
+Skills aren't necessarily *just* documentation.  The skills
+specification[1] also defines a structured location in the skill's
+directory hierarchy for Python scripts or other executables.
 
-Fixes: c99f66e4084a ("block: fix queue freeze vs limits lock order in sysfs store methods")
-Suggested-by: Yu Kuai <yukuai@fygo.io>
-Signed-off-by: Jack Wang <jinpu.wang@cloud.ionos.com>
----
- drivers/md/md.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+[1] https://agentskills.io/specification
 
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 03e35386a802..c9fa4e99569a 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -8669,6 +8669,16 @@ static unsigned int md_check_events(struct gendisk *disk, unsigned int clearing)
- 	return ret;
- }
- 
-+static int md_suspend_disk(struct gendisk *disk)
-+{
-+	return mddev_suspend(disk->private_data, true);
-+}
-+
-+static void md_resume_disk(struct gendisk *disk)
-+{
-+	mddev_resume(disk->private_data);
-+}
-+
- static void md_free_disk(struct gendisk *disk)
- {
- 	struct mddev *mddev = disk->private_data;
-@@ -8689,6 +8699,8 @@ const struct block_device_operations md_fops =
- 	.getgeo		= md_getgeo,
- 	.check_events	= md_check_events,
- 	.set_read_only	= md_set_read_only,
-+	.suspend	= md_suspend_disk,
-+	.resume		= md_resume_disk,
- 	.free_disk	= md_free_disk,
- };
- 
--- 
-2.43.0
+Cheers,
 
+					- Ted
