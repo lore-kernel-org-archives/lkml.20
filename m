@@ -1,55 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.92.39.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794447990;
-	b=3OVEZhCp4B9aLdcKYys6OCqN7iOymoRiuXRQyEA4fnR/eJfMfhbcjourjeIkHalGZbf2
-	 MoKEh+3WJKhr0You4CRRK2K4gmZx8PNcwDfxpheBKqQ/4O51fPeJTSBH8Ewq7F7r8/HoE
-	 Rj9Ltgkwn7ikeaqFvBlBlrDMsMLRg3to+xC2jQTLotJvNFgunWxa+nQbPhe87BN9noP6W
-	 +mOvMCpDHv8Zl24fQKaQ3HQ4o6c7qDPpp6DDzqO7UPBRtz/pBP22c6lhm3IfMx9jN1OG0
-	 fG7H4Cq9sRWtNLu34GCgEOPFuRm6XvptSIdL2E43zabRsjtldIlovVijbtn28Dtqx9A==
+	t=1794447992;
+	b=aDES7JFBAHPh3vwhdEQXlGOsYfmPdfd/1fUg6vEuAqv4QAAYZf/crJ880yreTdHR7NK+
+	 JXgWi8FsAApnjAJG6e++xEGVDS1H3VSUS6PIm1fuRAO1fAE2QEMNu/fFA5Nex3L1c9Qyj
+	 55ZcT9xbyU2nUnY9cGRMGllH480gOjPOIX85QkhpmkV2QcXHZVwlmMaADADDPGpRip95M
+	 Q+LH2LnpMfb+0SnSXPCc3LbQdQTDxGg0pHdj5adxrDEWrtV5f+WDSS93blamJVHmE838O
+	 ZbeeyonuQYMVGO+kD6X6FdQAzgPk0L+55lxdsvQBPcKXaY1GHIvcu4Lq6ZLtimSJmNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794447990;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=o9qbUelCx5fzvjlP9T4Xcmeuzs4IG3zEIHU3OITHRHo=;
-	b=E0Fx9V9OqCUKgBAhAWpufzty4OiKcMmRPmDoxy9IJ/1GjQGhBwH/5g4LqvdBJAn1B1uk
-	 04RMn4Hw7PUyjvaXOUn8ZEc1CoEwK1eXGDji0VShu7MeTQusd1X7Nhh91/xVMll1oOMXc
-	 JI86Z1cgerWaaxV2hgEIpol7DOL9XhibgQxOBHE6Ga/BhxLwRuQtnpKmCpxhrALRsYK+c
-	 eZgbnAwZt/Oo0yB+ZHmbRPjT4k9HJT9obRL/ENtoYCFf7cje2OeYJ/TwiAG+1QYNVajYm
-	 b8nc6i5ZOxdwDtLKARONwoDaJ/RHHYRe8PzUC/ldK3oI5Bk2d+Xhu6YMSs60IADKNsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794447992;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=f+XkNcgdG0Sy9wKL/HCuBDFw6WXi30Rm2xWjumq4AE8=;
+	b=eAWzdNjByBcOBKpuMwjJq6CMs3KyiUrN6Bl+tks7KI1twdocV4uacAFgUDza1d6502nK
+	 gPMRMx1pyB4Fxv9ObCWodWzaS5xB/LpD//h/I6KYkM9VaMhxbuxVLHitK+FDXJ1qTOoHI
+	 xuqNZLJMbHq8f0L1eOC+zkW5SPs6T1ZFsQ5puu8gbpO0chnfIm9lWQBLwY0y8iwtfaTfA
+	 9l8kT8McI7naPzIpvDHcD5i1Uh17xq6VtTiDokgNTchH/Hxee2tBFIX4jj31BESLSv6gF
+	 ZQ6e89tBrfOnoEk3JmP+GsGV0Hfmlxrukek9MBFoxSeZ0s4cQIS1Eq5rpoEd0EsjIwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=piyJX+OD;
-	arc=none smtp.remote-ip=54.92.39.34
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VnKsYILe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80CC8606A31C;
-	Thu, 12 Nov 2026 01:46:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80CC8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B7E606A338;
+	Thu, 12 Nov 2026 01:46:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=piyJX+OD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1794447957;
-	bh=o9qbUelCx5fzvjlP9T4Xcmeuzs4IG3zEIHU3OITHRHo=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=piyJX+ODZSYYaVvjlTI2Eq9fElkjSsMxECUYYfK7ObaUBsg5PgSevcsupPAxywNUG
-	 M1V8o33I51bLUw7HNWTBkWtgIrCpBX6XsgTznpCjUmm4GjvzDmmTNdnXfXcOulnxIU
-	 W9hxC8AC0AIVB0KOWtwu9w9G0OOccXGgnGlv+qEE=
-X-QQ-mid: esmtpsz17t1794447955t84c88b44
-X-QQ-Originating-IP: nAMxank+hAidb3QvsKnH0QjBdmBkxc00yYWvW0b9tzA=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 12 Nov 2026 09:45:53 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 6514529535114007816
-EX-QQ-RecipientCnt: 20
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VnKsYILe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FAC21F00A05;
+	Thu, 12 Nov 2026 01:46:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794447991;
+	bh=f+XkNcgdG0Sy9wKL/HCuBDFw6WXi30Rm2xWjumq4AE8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=VnKsYILesXYWEYm/qO+C8ozkPFtrbagYux+N40hoTqwuraizfOxhaum/g8oqq/+us
+	 AiAL1pywFeUQbSJOjQL96kktN1RInFGf64VRezBLUW3aDXw1nnpYM7SPfAiNpctDgj
+	 EA3NzG/LCUXQ0Lm0Od27k9DSdXxzE7lIJjnRdwyW3GDQ0pNWycQBJ5mtZpdjxYhGeC
+	 j6HWcL+rXoSUoxxJzG0Pi229MK+cIx+Vkyt5Rnd9nFiLfjzTlpyKT+Mqy+YVdOSXf6
+	 NOAmjC/spTQLBhA6fYJp5qFjGaEIN+FHKLm/BH6XZ//YerAS6hM2HM6yvLgDvZ3GNG
+	 iqfm9bM8ko59Q==
+Subject: Re: [PATCH net-next v2] net: add SO_BYPASS_RFS to exclude a socket
+ from RFS and aRFS
+From: netdev-bot+sashiko@kernel.org
+To: vitaly.zuevsky@gcore.com
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org,
+ richard.henderson@linaro.org, mattst88@gmail.com, linmag7@gmail.com,
+ tsbogend@alpha.franken.de, James.Bottomley@HansenPartnership.com,
+ deller@gmx.de, andreas@gaisler.com, kuniyu@google.com, willemb@google.com,
+ arnd@arndb.de, brauner@kernel.org, andrew@amutable.com, jkoolstra@xs4all.nl,
+ alexander@mihalicyn.com, tariqt@nvidia.com, saeedm@nvidia.com,
+ nashuiliang@gmail.com, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
+ sparclinux@vger.kernel.org, linux-arch@vger.kernel.org
+Date: Thu, 12 Nov 2026 01:46:29 +0000
+Message-ID: <179444798912.2199510.16652368770211815180@kernel.org>
+In-Reply-To: <20261109014547.81555-1-vitaly.zuevsky@gcore.com>
+References: <20261109014547.81555-1-vitaly.zuevsky@gcore.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,87 +71,229 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=d400da5dd7a138166c54bfc43864faed746c419ff16dffcffaf97ceb07d3;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Thu, 12 Nov 2026 01:45:52 +0000
-Message-Id: <DMSUPKS0VL8N.1RUUESQVU8FMF@linux.spacemit.com>
-Cc: =?utf-8?q?Fr=C3=A9d=C3=A9ric_Mah=C3=A9?= <frederic.mahe@cirad.fr>,
- <marcel@holtmann.org>, <luiz.dentz@gmail.com>, <robh@kernel.org>,
- <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <dlan@kernel.org>,
- <anarsoul@gmail.com>, <alistair@alistair23.me>, <pjw@kernel.org>,
- <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
- <troy.mitchell@linux.spacemit.com>, <linux-bluetooth@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 0/2] Bluetooth for the RTL8852BS on BPI-F3
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Luiz Augusto von Dentz" <luiz.von.dentz@intel.com>
-In-Reply-To: <179442601916.1604530.1705197925952408060.git-patchwork-notify@kernel.org>
-References: <20261111094557.443481-1-frederic.mahe@cirad.fr>
-	<179442601916.1604530.1705197925952408060.git-patchwork-notify@kernel.org>
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OD73vtqOAFgqQdl8kVxlaorlGh6ZaUM7MaaEhliCvStV/AKYXHEQMwXv
-	mE8cjPXzZoSMzDP5rS79pEFkS9v0Cuth3c55LR7M61G2e8XnCAOlpEjrxoh8bqs8GEKMTfm
-	GTyWl/QZL70ACCCVQ6uj8Tlyf3KkE2JcX10i0FHHOsrnfmi5q+Ehkn3K7RXY3bZvU2FID2H
-	UvN7y9rKiw77FT7s6GhJ4fx1S1RlRbt7n6OsPhwPZHVivwHdgz9O3mYH3bj7sr9CPzEsPiZ
-	anYDNKhJiC+hgVRO+VxFCm7clKBTCO1/dpbNR1ml5GvrpEDfhV/2pIFyykr+YGZpQHxfY3p
-	TJc9QYLV1u0QXALxLj4Val5hsZE7/CthI+Qownvjkph5L1F+EXqwyrq4eoP0YcK/ilmDAho
-	ZvCFlYhVaBcsc2VU89cwcIOEQgZEehRzQdL+SJw7373sgvVEJE1Y4vyw/ms45GOTC2Q21Id
-	OMUuGZ3QjPuQHbb8B7XixuiYzs7iprF3xJjXo0jmeKrNhDIZGvuaDAh4bySOqW6kLnAbV56
-	RA+Y600SEiXKQWXcLbRFeMx6ywBNGCxG5a+UJRDhGRum8DpjlhmVG+CuhQ2RMmjgc4wr2TD
-	d9jJ3pfBFkZ94W/W+gOn3AIKoBSv2bAM+/8wb+QQJ5FJNFooxGq+YiWh3LAhoLGuVsbgV+D
-	cGyRNvuebtQHbocavAoJSFzS4BmjFe3dwxdXk0kd1Zcow1gxUfTvCHCmx0tZuh3HzTl/1bD
-	l1/6KffMQMTv7+AgDGYqGXZ/mf93hOH0+JeQSGtCJb9BHs+QrqmdnYhQb8uRxyx+kBYUNNl
-	06viwZorpHpExLypIKCmxYCnoJKmZprZWkCQBHUR8BYD7VkRJkGTe7sPXHBZu8AsEKY/jew
-	aZH2f1ovWzm8emaBcAGSmMYWkhghxdY3HkVZc6ExcZXgl8mK7/cUEWu2d5kcUwGmCbG4Qji
-	rdB4VW/J2kmthTdNN2Yl5OqyEXyWpT820kPtJaT3gkQUxcw6IWwrGWQL2IF+aHUev6hHd1F
-	5OEfl/viYZ1xVcnkitMrNIqckdq/L55vhD+jfzXnkrJegcbhzOxEi1uwRca08Usj47dp6VX
-	f8qGllmeqmKimpUt5M9OSQQo1cVnn7Swg2kYjxjGMTh
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
 
---d400da5dd7a138166c54bfc43864faed746c419ff16dffcffaf97ceb07d3
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Thank you for your contribution! Sashiko AI review found 5 potential
+issue(s) to consider.
 
-Hi Luiz,
+Critical: 0 · High: 0 · Medium: 2 · Low: 3
 
-On Wed, 11 Nov 2026 19:40:19 +0000, patchwork-bot+bluetooth@kernel.org wrot=
-e:
-> This series was applied to bluetooth/bluetooth-next.git (master)
-> by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-[...]
-> Here is the summary with links:
->   - [v2,1/2] dt-bindings: net: bluetooth: realtek: Add RTL8852BS
->     https://git.kernel.org/bluetooth/bluetooth-next/c/c21f8cff7503
->   - [v2,2/2] riscv: dts: spacemit: enable Bluetooth on BPI-F3
->     https://git.kernel.org/bluetooth/bluetooth-next/c/df348a0d065c
+- [Medium] The commit message says setting SO_BYPASS_RFS on a socket that
+  was already recorded means the flow "stops being steered with the next…
+- [Medium] Setting SO_BYPASS_RFS does not reliably remove the socket's
+  rps_sock_flow_table entry, and an entry re-recorded in a race is never…
+- [Low] The commit message says that setting SO_BYPASS_RFS on a listening
+  socket "excludes every connection accepted from it".
+- [Low] SO_BYPASS_RFS is added as a generic SOL_SOCKET option, but
+  MPTCP's SOL_SOCKET handler was not updated.
+- [Low] sk_bypass_rfs is a 1-bit bitfield in sock_common
+  (include/net/sock.h:186).
 
-SpacemiT DTS changes normally go through Yixun's tree to the SoC tree,
-and Yixun hasn't acked this one yet. The binding patch is fine in
-bluetooth-next.
+--
 
-Yixun, what do you think? Should Luiz drop the DTS patch and you pick it
-up?
+net: add SO_BYPASS_RFS to exclude a socket from RFS and aRFS
 
---=20
-Troy Mitchell
+This adds a boolean SOL_SOCKET option, SO_BYPASS_RFS, that keeps a
+socket out of rps_sock_flow_table, so neither RFS nor aRFS steers its
+flow. The state is a new bit in sock_common that sock_copy() copies to
+children, and setting the option clears any existing table entry. Close
+time deletion is skipped for bypassing sockets.
 
---d400da5dd7a138166c54bfc43864faed746c419ff16dffcffaf97ceb07d3
-Content-Type: application/pgp-signature; name="signature.asc"
+> diff --git a/Documentation/networking/scaling.rst b/Documentation/networking/scaling.rst
+> index 6c9836000a8d1..b23c874056225 100644
+> --- a/Documentation/networking/scaling.rst
+> +++ b/Documentation/networking/scaling.rst
+> @@ -428,6 +428,21 @@ queues. So for instance, if rps_sock_flow_entries is set to 131072 and there
+>  are 16 configured receive queues, rps_flow_cnt for each queue might be
+>  configured as 8192.
+>  
+> +Excluding individual sockets
+> +~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> +
+> +RFS is configured per host and per queue, but whether it pays off
+> +depends on the traffic pattern. SO_BYPASS_RFS keeps a socket's flow
+> +out of rps_sock_flow_table, so neither RFS nor accelerated RFS acts on
+> +it: packets stay on the CPU chosen by RSS or RPS, and no filter is
+> +programmed into the NIC. The option is inherited through accept(), so
+> +a listening socket that sets it excludes every connection it accepts
+> +while the sockets the process connects itself remain steered. It may
+> +be set at any time; an entry already recorded is removed. This suits
 
------BEGIN PGP SIGNATURE-----
+[Severity: Low]
 
-iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavUaUCEcdHJveS5taXRj
-aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC9TDAD/fhHvVXqOkUxo
-4u6rg6LrG/txpGkWipkP94X2k5PSn9EBAIezttdQYAric2H/Pw+q38b/NEdLHI/i
-7Au69q7vwYkA
-=ms2x
------END PGP SIGNATURE-----
+Is "inherited through accept()" accurate? The bit sits in the copied
+part of sock_common. It reaches the child through sock_copy() in
+sk_clone() when the child is created at handshake completion, not at
+accept():
 
---d400da5dd7a138166c54bfc43864faed746c419ff16dffcffaf97ceb07d3--
+	memcpy(nsk, osk, offsetof(struct sock, sk_dontcopy_begin));
+
+Setting the option on the listener does not walk the accept queue. A
+connection whose handshake finished before the setsockopt() therefore
+has sk_bypass_rfs == 0. When that connection is accepted later,
+__inet_accept() still does:
+
+	sock_rps_record_flow(newsk);
+
+so the flow is recorded and steered.
+
+The commit message says "setting it on a listening socket excludes
+every connection accepted from it". Should both texts say that only
+connections established after the option is set inherit it?
+
+[ ... ]
+
+> diff --git a/include/net/rps.h b/include/net/rps.h
+> index e33c6a2fa8bbc..7c62ae607d182 100644
+> --- a/include/net/rps.h
+> +++ b/include/net/rps.h
+> @@ -149,7 +149,7 @@ static inline void sock_rps_record_flow_hash(__u32 hash)
+>  static inline void sock_rps_record_flow(const struct sock *sk)
+>  {
+>  #ifdef CONFIG_RPS
+> -	if (!rfs_is_needed())
+> +	if (!rfs_is_needed() || sk->sk_bypass_rfs)
+>  		return;
+
+[Severity: Low]
+
+Will KCSAN report this read? sk_bypass_rfs is a 1-bit bitfield. It
+shares a byte with skc_reuse, skc_reuseport, skc_ipv6only,
+skc_net_refcnt and skc_bypass_prot_mem.
+
+sk_setsockopt() writes it with a plain read-modify-write under the
+socket lock. sock_rps_record_flow() reads it without the lock on the
+per-packet paths (inet_recvmsg(), inet_send_prepare(),
+mptcp_rps_record_subflows() and others). sock_rps_delete_flow() and
+sk_getsockopt() also read it without the lock.
+
+Bitfields cannot be wrapped in READ_ONCE()/WRITE_ONCE(), and none of
+these accesses use data_race(). Nearby lockless fields such as
+sk_rxhash and sk_incoming_cpu use READ_ONCE()/WRITE_ONCE(), and the v1
+sk_flags approach used atomic bitops. Would non-bitfield storage or
+data_race() annotations be better here?
+
+[ ... ]
+
+> diff --git a/net/core/sock.c b/net/core/sock.c
+> index e2401d735c5a7..00808217aebf1 100644
+> --- a/net/core/sock.c
+> +++ b/net/core/sock.c
+
+[ ... ]
+
+> @@ -1597,6 +1598,14 @@ int sk_setsockopt(struct sock *sk, int level, int optname,
+>  		reuseport_update_incoming_cpu(sk, val);
+>  		break;
+>  
+> +#ifdef CONFIG_RPS
+> +	case SO_BYPASS_RFS:
+> +		if (valbool)
+> +			sock_rps_delete_flow(sk);
+> +		sk->sk_bypass_rfs = valbool;
+
+[Severity: Medium]
+
+Can a concurrent recvmsg() or sendmsg() put the entry back here? The
+delete runs while sk_bypass_rfs is still 0. inet_recvmsg() and
+inet_send_prepare() check the bit and write the table without the
+socket lock:
+
+CPU0 (setsockopt, lock_sock held)    CPU1 (recvmsg, no socket lock)
+                                     sock_rps_record_flow()
+                                       sees sk_bypass_rfs == 0
+sock_rps_delete_flow()
+  slot = RPS_NO_CPU
+                                       _sock_rps_record_flow()
+                                         slot = hash | cpu
+sk->sk_bypass_rfs = 1
+
+After this, every sock_rps_record_flow() and sock_rps_delete_flow() on
+the socket returns early on the bit. That includes the close-time
+cleanup in inet_unhash(), udp and sctp.
+
+Does the stale entry then keep steering the flow through RFS after the
+socket is closed, until a colliding hash overwrites it? With aRFS it
+would also keep the NIC filter active, since rflow->last_qtail keeps
+advancing.
+
+Setting the bit before the delete would only narrow the window, unless
+the record side re-checks after a paired barrier or the close-time
+delete is kept for this case.
+
+[Severity: Medium]
+
+Does this stop steering for a flow that accelerated RFS has already
+steered? The only cleanup here is
+sock_rps_delete_flow()->_sock_rps_delete_flow(), which writes
+RPS_NO_CPU into the rps_sock_flow_table slot. The per-rxqueue
+rps_dev_flow entry and the filter installed by ndo_rx_flow_steer()
+stay in place.
+
+The driver removes that filter only when rps_may_expire_flow() returns
+true:
+
+net/core/dev.c:rps_may_expire_flow() {
+    ...
+		if (READ_ONCE(rflow->filter) == filter_id &&
+		    rps_flow_is_active(rflow, log, cpu))
+			expire = false;
+    ...
+}
+
+Once the socket entry is cleared, get_rps_cpu() sends this flow to
+try_rps:
+
+		ident = READ_ONCE(sock_flow_table[flow_id].ent);
+		if ((ident ^ hash) & ~net_hotdata.rps_cpu_mask)
+			goto try_rps;
+
+At that point rflow->last_qtail stops advancing. Expiry then depends
+only on unrelated backlog traffic on the target CPU. If that CPU sees
+little RPS/RFS backlog traffic, can the flow stay hardware-steered
+indefinitely?
+
+With software RFS, the flow also moves to the RSS/RPS CPU at once. It
+skips the input_queue_head vs last_qtail check that get_rps_cpu()
+normally uses to hand off in order. If the option is set mid-flow, can
+packets still queued in the old CPU's backlog be delivered out of
+order?
+
+The commit message says "a flow recorded earlier stops being steered
+with the next packet". scaling.rst says "no filter is programmed into
+the NIC" and "It may be set at any time; an entry already recorded is
+removed". Should the documentation describe these effects, or should
+the rps_dev_flow and filter state be handled too?
+
+> +		break;
+> +#endif
+
+[Severity: Low]
+
+Should MPTCP be covered as well? mptcp_setsockopt_sol_socket() accepts
+a fixed list of SOL_SOCKET options and ends with:
+
+	return -EOPNOTSUPP;
+
+so setsockopt(SO_BYPASS_RFS) on an MPTCP socket fails. The option is
+also not in the comment there that lists unsupported options.
+
+MPTCP records RFS entries per subflow through
+mptcp_rps_record_subflows()->sock_rps_record_flow(ssk), which tests
+ssk->sk_bypass_rfs. sync_socket_options() copies sk_incoming_cpu to new
+subflows but has nothing for sk_bypass_rfs. So allowing the option on
+the msk alone would not affect the subflows.
+
+SO_INCOMING_CPU is handled in mptcp_setsockopt_sol_socket(),
+mptcp_sol_socket_sync_intval() and sync_socket_options(). Could
+SO_BYPASS_RFS be handled the same way, or at least be listed as
+unsupported?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109014547.81555-1-vitaly.zuevsky%40gcore.com
