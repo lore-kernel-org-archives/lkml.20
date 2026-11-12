@@ -1,88 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794487561;
-	b=RJY76POsFOewTAuTRxoAoy8pT76wsiTbSRJRRbCXaVUNxzJXaZ+CDCtbet7Sm+yus9AY
-	 EsfXJ0QiCIuxW8OYqgAwyG14DIKcSv6a4/zf6/r+g2S1j3359yZOQ/J4S4XyCbF0b3Rdl
-	 q0aInsWo+oniEnD6d522qWBdzLROPLzYkc8tuLD/lRxLoCi68/yTUjoS8IWOC+ZyD4oYc
-	 BnvRAltoWqvR3jEgIQt5pPbJneOyY1r44PFFE7JNtHzBJSqCLsO+rc+42tURIXYgkF+16
-	 yZVMtYr3Kgoq4Q25Hnr+/IhFMIl7qPSCzRPe26IzGQXtto/Ftatgznp78AFrdReIdxg==
+	t=1794487581;
+	b=OPzML4Rx4KwPj27iCHTmUN14IATIPq6wOjrmqTTl7/9ToVX5zNOSrG4GmvUv6eip85Kb
+	 uiyfnvVrAAamszSTRypBkVWTAF3Rka45KKYBcFZtVzIL0g5M4pTgYttrdIgOPz3B+6cRk
+	 u5joDOq8ETThV4mI4pDh8g07KaCK4Bves1jEkKJirhgDmVvkAzgcpMZpxICpQWWlhJYy7
+	 gbRomismzY4HR+++geJOrGHZu5NnDWU9OrK23LIT+IfbQi7cPdOma0n9wY4sMPiudYxEV
+	 FRS9fB7UicLS5DdQJoUqNWy+uJ7WDtH7p5ZHufxv9TVwCR3oSX7TxbFiXS90ilivLYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794487561;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JqmpB5V0UJQajlsRMfwMtixeo10RY8jo/QPsCgZA0d0=;
-	b=b3dzz9z2n7emlKqMtREzWZN49hI3KNvGZTZJUqEkd4rcOsmyEvdwg/q3bvkKsWMeT4CG
-	 SoUVb9fn/c9eyeCYEGzZVXK9j/qiehDOXFXG2d6JuaNZ1blgZieYGUsaQxDU1ZciOgT7Q
-	 bbgMhSUgmjmBkVAeaOWCq8d50ovCt189Mw+TIS4et+kYo9vTTKMIH3pzaXgxolNhg/ikC
-	 M7mALEd3GnzHJqMw8u4Z+iqaBO5X3Z9svQcgqcvZH9ShuX+yHJjoagRNqoSpAXtvComMT
-	 +06avzG5mqnOTe/qW+C+lH/O8dXPLRnegazlWtwLTUlzUzUGwEbgJh07u1mNnqEoPag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794487581;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=hxXXgy4vvztNsWxgrVWVT106VMuFzuGdKAfgqqkHoEo=;
+	b=k2aLyS6nGKgP1jU9pGkubrQPdlWGSsr1Pojrk4NWfc43kl9Hxg60b8ckA2dqZEnawVVx
+	 T/kWGW4mte9WFf0nr5v6nDIUgA5xks1K0pFaQUTJ1/2QAH590zo0aQo7UHquL1EAr9Hxs
+	 /4Xu6a/oSC1lIIR4gxtOFQw9pY7cAz65+1A+kJHivHpHd0EJogyasCc3UjldzXfHRKjn1
+	 +Vh60GkKb8JzBDNwe6Mk7NMVz2VAREFTZw/dqxmIwbcckNDULwMblegq0awNQu+X52GLe
+	 j95xf4bvt9jJFr6byX8Qc62BrJjsivyPnNqeOHs3zJSpHt+qthEu+ewbbwfHYGTf0JQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=kHo7EZ9U;
-	arc=none smtp.remote-ip=162.62.57.252
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQ6nsbEd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B33E9606A337;
-	Thu, 12 Nov 2026 12:45:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B33E9606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C8F606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:46:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=kHo7EZ9U
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794487554; bh=JqmpB5V0UJQajlsRMfwMtixeo10RY8jo/QPsCgZA0d0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kHo7EZ9UsL2ZrfiBY3IxAXLVh/7LfYfS/9OXzo01hS93BHitatOalsEMlJz+LKSR3
-	 9r6dmZYUNocP59fmhClhPmTXggdtiapklkHUK0feo7i3+fvD60JEdF5/wf/u6uwvav
-	 2cmNa3jcNQWAeBXFJ5WMV7D2jMSk2U2TuBHmyV7c=
-Received: from localhost.localdomain ([2409:8d5c:8f0:65e5:e498:8f16:a485:ceef])
-	by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
-	id B70218AE; Thu, 12 Nov 2026 20:45:48 +0800
-X-QQ-mid: xmsmtpt1794487550tmaw77872
-Message-ID: <tencent_28A2BD1631FE531992E91753BA6419FFC506@qq.com>
-X-QQ-XMAILINFO: OVFdYp27KdlJcREJkrvuUFCtWib1OPE3zJrun6iOGxYUjNRmFzinPQeY3ZFj9S
-	 OX4fwCIbRte4ky5NM+1mQIpDpYXMEAPAg11hBuagfwLa1TBspC05uwLz/ETALXv733TijF2W3Gap
-	 8yAF4dRmgBf95NTm/++pIqRvKMBdnnSlvyCACGB+KSflIBwtrn3SvXbT05POgLOZeVbMOiuGJ9K+
-	 o9+gUaDZFcbR5d38K8fftjmLoXgDXNSh+KKhpfj33PoNOsO9fRJtfKLhA8hHd9HPNgkHfL5QuVs8
-	 R4l8fB0+pqXc7jisR90iPKm81JfrVGDDeFBa/uahvlbulpztdTzj90QwPndR/iXWdzSVoWcNk4bw
-	 gD+JMfCDT/119EsJw/lRRk3v9RyjQu62/MM7yBRi2IhLcgr+BZlTN6XHey+rVyVsuv5JRi+JfxDI
-	 tDaeO46iVuJ5o1iEVwkRX9bbc87A3Pc9ej4GHUs2d9cBoNRG5o9WgiqHTdREjki3HWdv/uOvYSQy
-	 qsENugSnGl1fJjsE7IRgswk+6vSJe9ZwIx8M2YM1kK8q9vJxK8LuX/ogtmXeoBisrp/GzOamBcEm
-	 CGmDTB0Gtub7yd5gGp+Jb4wwfFjRFYExJddrKH1vIzbBaLl4S2Xd57fpiNjyMSWi0hFv1R0a2yOg
-	 SpGiLh4eLB8qfWg6zQfvWr5umkgUsQlSeS7mZ3AnDiuq0+ZaVZ8i4ZUTtqOwIwnfBbRxpu9Rj00h
-	 o4Kilx/RXdoilxSzlmwBbQ4VRnlUf9jfTgLcf0Of0Ci6FcXxwV5oY3HKbOHi1BP4S/3+Q33rYMGL
-	 AdGnGOau+CXbniPBBBx+iHpEGKUA/KfkkhyN+/i8JeRITEnFBAFO9l2lkrIs+uENySnV1OMhWCM0
-	 RHxIheVMo1q5MEo1AQme/Fi1YYwSwZFpHwkKx6tx9NNfNiHg9TJ62NJkc9KnfrY3jo21APCvMrAk
-	 4w01dxwLzEiBISQxQBvsjPuf8j7iqdY2IZIjZ6bn6BIFVnbQ1ni3enaPg6w5H+newufXC4HKAfRz
-	 TZ2Ok3wQsFNkrqyWQ02nlw30bLRcO4ilnobNpXwl/RlmdRPzGwA/nDvkSmHTJxDaQdx9jcVfEm3X
-	 iQw8aK
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: Hang Nan <2122295973@qq.com>
-To: netdev@vger.kernel.org
-Cc: mptcp@lists.linux.dev,
-	matttbe@kernel.org,
-	martineau@kernel.org,
-	geliang@kernel.org,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	kuniyu@google.com,
-	willemb@google.com,
-	linux-kernel@vger.kernel.org,
-	Hang Nan <2122295973@qq.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net 1/2] net: mptcp: take token lookup references with acquire ordering
-Date: Thu, 12 Nov 2026 20:45:46 +0800
-X-OQ-MSGID: <20261112124547.193812-2-2122295973@qq.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261112124547.193812-1-2122295973@qq.com>
-References: <20261112124547.193812-1-2122295973@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQ6nsbEd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E17C1F00A05;
+	Thu, 12 Nov 2026 12:46:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794487581;
+	bh=hxXXgy4vvztNsWxgrVWVT106VMuFzuGdKAfgqqkHoEo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=mQ6nsbEdDOoy1mCgz0HIqHajCyA2XqM1MvabmASxbakBr3HWLPgMIOR+s1Pk9+Ps2
+	 aQhCl4dsDDZj4qA/zk9v/HPLkfxF2FyjD+HgifKEwdDLjVtHdVBKz7Ct07E4qm+Tj8
+	 4pcEeVEzpvmaQDxAdIIoNMkGVMRVf3O8dHIqSDKL/0IMf+In+iuTIjC2YeQZosp6fW
+	 E7aWEnHsy1rsDsd1IOPzXLTKDaoXM+RdhnQZ4kUQ0pyluub4e6ugMchbRFCnYzrwCr
+	 5zVkPgUJArMq6LFVzAPs48dU3A9eCzZPZZDCN2dtxDIX6HjMH8ukMzZMg7UL2/6RMd
+	 NXJ325+s726cg==
+Message-ID: <4411389c-2246-4af6-9b34-10d3f259aeb4@kernel.org>
+Date: Thu, 12 Nov 2026 13:46:13 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,59 +51,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 0/2] mm/huge_memory: find partially mapped shared
+ folios with NO_PAGE_MAPCOUNT
+To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, Zi Yan <ziy@nvidia.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Rik van Riel <riel@surriel.com>, Vlastimil Babka <vbabka@kernel.org>,
+ Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Joanne Koong <joannelkoong@gmail.com>
+References: <20261111113535.330078-1-azpijr@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261111113535.330078-1-azpijr@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-mptcp_token_get_sock() validates the token and the network namespace,
-takes a reference on the socket and then validates them again.  The
-second validation only rejects a socket that is being torn down if it is
-ordered after the reference acquisition: mptcp_token_destroy() unlinks
-the socket and does WRITE_ONCE(msk->token, 0), so a reader that observes
-the token before the acquisition can return a socket whose token has
-already been cleared.
+On 11/11/26 12:31, Jose A. Perez de Azpillaga wrote:
+> With CONFIG_NO_PAGE_MAPCOUNT, an anon large folio mapped by several MMs
+> isn't seen as partially mapped while its mapcount stays at or above the
+> number of pages. If parent and child zap the same half of a THP after
+> fork(), that half is mapped by nobody, the folio is never queued for
+> deferred split, and the memory stays allocated until every mapper is
+> gone.
 
-refcount_inc_not_zero() does not provide acquire ordering since the
-refcount_t consolidation in fb041bb7c0a9, which removed the ordering
-that the previous atomic_add_unless() based implementation gave.  On
-weakly ordered CPUs the loads of msk->token and sock_net(sk) can
-therefore be reordered before the refcount increment, defeating the
-re-validation.
+If you follow the history on this, in e.g., some raised in my talk
 
-The same pattern was fixed for the IPv4 and IPv6 established lookups,
-inet_twsk_purge() and bpf_sk_assign() in 5b5d8f351dd9.  The iterator
-below has the same shape and is converted as well.
+https://share.daveh.de/s/bQsDpD7xigJ6wD8/download?path=&files=LSF_MM%2726_+Deferred_folio_splitting.pdf
 
-No behaviour change on strongly ordered architectures; this only
-restores the ordering the second validation relies on.
+There are a lot of questions around this.
 
-Fixes: fb041bb7c0a9 ("locking/refcount: Consolidate implementations of refcount_t")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hang Nan <2122295973@qq.com>
----
- net/mptcp/token.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+In particular
 
-diff --git a/net/mptcp/token.c b/net/mptcp/token.c
-index e0f2823f92ef..3429b43a9f7c 100644
---- a/net/mptcp/token.c
-+++ b/net/mptcp/token.c
-@@ -309,7 +309,7 @@ struct mptcp_sock *mptcp_token_get_sock(struct net *net, u32 token)
- 		    !net_eq(sock_net(sk), net))
- 			continue;
- 
--		if (!refcount_inc_not_zero(&sk->sk_refcnt))
-+		if (!refcount_inc_not_zero_acquire(&sk->sk_refcnt))
- 			goto not_found;
- 
- 		if (READ_ONCE(msk->token) != token ||
-@@ -370,7 +370,7 @@ struct mptcp_sock *mptcp_token_iter_next(const struct net *net, long *s_slot,
- 			if (num <= *s_num)
- 				continue;
- 
--			if (!refcount_inc_not_zero(&sk->sk_refcnt))
-+			if (!refcount_inc_not_zero_acquire(&sk->sk_refcnt))
- 				continue;
- 
- 			if (!net_eq(sock_net(sk), net)) {
+(a) Is it really relevant in practice. The only way you can trigger this if a
+folio becomes partially mapped *after* fork (by parent and child unmapping the
+same pages), and the child stays alive. Once the child is gone, the folio is
+only mapped by one process (e.g., child quit), the folio is properly detected as
+partially mapped.
+
+So you need a long-running parent+child, and have them both do questionable things.
+
+(b) What is the overhead from having way too many folios in the deferred split list.
+
+> 
+> Patch 1 moves the split_underused_thp check out of
+> deferred_split_folio(). Patch 2 queues such folios as candidates and has
+> the shrinker walk the rmap to see which pages are still mapped.
+> 
+> 512 MB of THPs with the same half zapped by every mapper, memory freed
+> by the shrinker:
+> 
+>                                 before    after
+>   2M,  2 processes                0 MB   252 MB
+>   2M,  3 processes                0 MB   237 MB
+>   2M,  2 children + parent PMD    0 MB   244 MB
+>   64K, 2 processes                0 MB   252 MB
+>   64K, 3 processes                0 MB   252 MB
+> 
+
+Again, we can create nice scenarios that are likely not relevant in practice
+(such as 512 MB THPs, lol), but so far I doubted that this is relevant in practice.
+
+Do we have any evidence that real applications run into that and it's a problem
+for them?
+
+The memory is charged to these processes and swapout etc. would still work.
+
+> With patch 2 the shrinker reads shrink_underused itself, so folios
+> queued for the underused check aren't split anymore once it's turned
+> off.
+> 
+> David suggested a check from the shrinker for the opposite case in [1],
+> folios marked partially mapped by a PTE by PTE unmap. The walk in patch 2
+> could clear the flag there too, this series doesn't do it.
+> 
+> Questions:
+> 
+> - Is an rmap walk from the shrinker fine for this? Every CoW of a page
+>   in a shared PTE-mapped folio queues a candidate, and so does the last
+>   PMD mapper when it splits its PMD.
+
+You are asking the same question I asked in my LSF/MM session :)
+
+I don't have a good answer to that, especially, once large folios (smaller than
+most THPs) come into play. Like 64k folios on a 4k kernel.
+
+> 
+> - The walk needs one bit per page, which is too much for the stack with
+>   64K pages, so I used a static bitmap under a mutex. That serializes
+>   the walks of all nodes and memcgs, and the mutex is taken with the
+>   folio locked. Where should the bitmap live?
+
+Maybe one could track it a bit broader? "any page in this set of 16 pages is
+present". Reclaiming a single 4k page from a 2M folios is barely worth it.
+
 -- 
-2.53.0
+Cheers,
 
+David
