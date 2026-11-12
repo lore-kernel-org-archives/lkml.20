@@ -1,69 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492093;
-	b=zU+p6cW66xBNcQm0E7R8+8RDCzEtrn0MsIftMQN07lIjg98h21TTu2viZegNf34WxC8s
-	 7woGGCbIiX953gHKNM4wMBYnNZERz0SBXkf63D/tcJ9a/ca+ukcaX/b9ZRBUv3LNnnMJd
-	 LKWmIPA/mOGmeXtCtm32Xm4wYW23OuiYDw6X7MxuQeoPsp09irork4y7DjKZnot0E8BGD
-	 oq+NJtCkcyP16nKOzOyAHU63hwWDU2Rf3LHiLW9a0AVMJuSus40zVWOXrgv/6YA3Rv/IR
-	 /tLS7Uydmk2KGquJrGhHvLamTorEoc++4ao7t6eZ+vE9qu/auHwOS88qFsalOIZ7cYA==
+	t=1794492102;
+	b=MwwaQB0v/7wFtPiwP3JygMjcvD8v65VbUbNx+royAoHSEl0Zjn9bUgse+I90LW9M0G5H
+	 JEJHgnlQgMv0ulgYVb0i3GvXMAkwRc/IiXQp1H0qUf++cbjVJTtf5S4U4gmjX2lpOu3BY
+	 4tCXTNK1ua3GZa7iHBqGDV/sMx8CrVh3Fs10D2uVq8teoO656L1rboRQeK02zt8+u/yOc
+	 OqupVtyTAEUT25pflduE/evuBvFII7DDAvccyGSRspOoSr1Ae9+Q+BBaYuvlbBee98v9j
+	 yVXrQrhGlncDzfvTp0rjNOIq76apKX2PtIVDE2muMqI5pRo2NQnNDvfewb1HTHkbGSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492093;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=pF4NYlRN1WELFGOqeaTpMGyTHMxjmieF05rdlgeoI5c=;
-	b=xUYRWc3NdXXvjafak48QeO+UNo8792e8ztGB1q1nok9nUmKu7bwr9IOlCWfjvf4UpyHP
-	 qAy/pK3HPX3t/ZobmUir675IaPxTl+lYU+L18WVhEC1Q2KgQN7NNnWZ8yRWN1ugMTGZYy
-	 rdKnXcrTgXt62HWhmWsf0K3rt4cDaDi9TtQfMcO+p5TrEBjvQKIjU2u3JkKC9OlLAvkiW
-	 xcvEDZurZmlG4O7aqYkFJN4Nf+n8HRVIMIbBHh86KvELXrU9O+Owwnh1FAfZgeyg/MTMP
-	 BP9ooZJrR90TGzEX2pwUCxuVXid+EIoN+kcPzFaq68yHK+wXssji0YwIUUCF1ymxG/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492102;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=aBARur1dT4MWX+I/z1/h+o1yJLTVBc8hlb0hdIzvarw=;
+	b=WderqUk3eM3++J21ZoIeHZvjxItWtwrZhtojv5qW2NdagrxZY72e1x5qYm+VXwWkTBVF
+	 uFO5Bd5SpNH7FV/5JziXWspJmt9dU9yw672oy2k2Y2skIN4LER5AyT5zOUT3G0d/LXcTG
+	 w0D9f9sMadPAoZSIQf0Hx5/nNRHMBOG4u2O5bfQHIUD0mCNSbpF9AJouHnFShsEpGwrYk
+	 3dj71fn8KnOQde70WoOBYH12T54UTIxt4kXU8f+j58BBaVNNTbsw/VRW8+tegnZhywSQu
+	 zuYvkVNRZ8qcUZZIgqyfhoiKq3FCkyq6KWA9Cr6wLYbXAV2iLRsbCPo9EeA1/UFBGpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=XfFgaM58;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bkJrwgFK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEFF960A5BFD;
-	Thu, 12 Nov 2026 14:01:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEFF960A5BFD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FECE606AEAF;
+	Thu, 12 Nov 2026 14:01:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=XfFgaM58
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jQMW85kJGz58fdK;
-	Thu, 12 Nov 2026 22:01:24 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794492084;
-	bh=J0jbSpKN8GiPo+JN8vOl9OapQjjEMrcfqSlMKhSszY0=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=XfFgaM58D7/tO5HcJyn+czudkEL13+dBN6fX0EordD4oj+6aDohYDFIhb/3Ruf2eA
-	 pCNFP6LjxQrfMxm0WqV78dwkEKpsTWFxvYeVT8lUYY9D/kwCpA9kE8jUemAqhmIkiD
-	 65W87w4qm6OUOQy2v0QwR5A77tWC38rnIbJbqUnAT8eITkc5gGWTrJpqsAphOv+nG+
-	 fhszF49xYzBUE0cjD//C3/gTE1r5XUmoHgaMXW5ROVSRhbUgbOe+VDxKr/+S3Q/VSS
-	 N7uHc4c4W+mKhclMpKiPEsk6P/Vc6al8Ce4dZ3LeA1WZMVBI5s604G+3KV3h4gy8kj
-	 E4ILAbVPjeK1Q==
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl2.zte.com.cn with SMTP id 6ACE1KQD036985;
-	Thu, 12 Nov 2026 22:01:20 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp01[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Thu, 12 Nov 2026 22:01:24 +0800 (CST)
-X-Zmail-TransId: 2af96af5c6b45aa-cfd2d
-X-Mailer: Zmail v1.0
-Message-ID: <20261112220124003NT-esXu4g2qMJ-uOMc-4G@zte.com.cn>
-In-Reply-To: <20261112220113627e1oAXj5lbAzyI0Xe6Joud@zte.com.cn>
-References: 20261112220113627e1oAXj5lbAzyI0Xe6Joud@zte.com.cn
-Date: Thu, 12 Nov 2026 22:01:24 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bkJrwgFK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 458351F00A05;
+	Thu, 12 Nov 2026 14:01:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794492102;
+	bh=aBARur1dT4MWX+I/z1/h+o1yJLTVBc8hlb0hdIzvarw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=bkJrwgFKZLz2eyZ08zR1vVS1gNY4lcsTVuOkKO5Zsi6J/MZG3VLrS6/SqAclPw5i/
+	 J9lPRoFaIuh+N72gjr/E9SBEKwkvmSKGhz4ux6exFmYwWinmRza2yHg0ThFnYJLujg
+	 21LXohipWNNThNQvznItQRLJldvnZFt85uHMd2TwqssMp19zdxjl/0ab65GF4n49w9
+	 gMmaFhDtk4gNQqhHcU5C4vhhDqpsVNVxhfel+TEX0vK1b9aFW8pXpgxBeT13jFVfbs
+	 NiKd0e1sAOAnlaqg+VAO0qh26QyBudCrQyLSo9rC9I+Pyg5mFyGfO10c5d61nOZAvy
+	 XXFGc1HLfcAyw==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: Stanislav Fomichev <sdf.kernel@gmail.com>
+Cc: Magnus Karlsson <magnus.karlsson@intel.com>, Maciej Fijalkowski
+ <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>,
+ kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard
+ Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, Pavel
+ Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, Andrii
+ Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar
+ Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau
+ <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song
+ <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis
+ <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
+ Mina Almasry <almasrymina@google.com>, "Mike Marciniszyn (Meta)"
+ <mike.marciniszyn@gmail.com>, Weiming Shi <bestswngs@gmail.com>, Nikolay
+ Aleksandrov <razor@blackwall.org>, David Wei <dw@davidwei.uk>, Alexander
+ Lobakin <aleksander.lobakin@intel.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Stuart Clark <stuclar@meta.com>
+Subject: Re: [PATCH net-next v1 02/11] net: Add memory provider capabilities
+In-Reply-To: <avTy21_cSnyMdbb5@devvm16445.scu0.facebook.com>
+References: <20261110102039.1002605-1-bjorn@kernel.org>
+ <20261110102039.1002605-3-bjorn@kernel.org>
+ <avOYe27x-AlxmyK9@devvm16445.scu0.facebook.com>
+ <87mrrfa6c4.fsf@all.your.base.are.belong.to.us>
+ <avTy21_cSnyMdbb5@devvm16445.scu0.facebook.com>
+Date: Thu, 12 Nov 2026 15:01:38 +0100
+Message-ID: <87cxsarvwd.fsf@all.your.base.are.belong.to.us>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,143 +81,52 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIHYzIDQvNF0gYXRhOiBsaWJhdGEtc2NzaTogZml4IHJlbWFpbmluZyBwYXNzdGhydSBmaWVsZCBwb2ludGVycw==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6ACE1KQD036985
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Thu, 12 Nov 2026 22:01:24 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF5C6B4.001/4jQMW85kJGz58fdK
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+Stanislav Fomichev <sdf.kernel@gmail.com> writes:
 
-Several error paths in ata_scsi_pass_thru() report field pointers for
-the 12- or 16-byte CDB when rejecting a 32-byte CDB. Initiators then
-receive INVALID FIELD IN CDB sense data pointing at an unrelated byte.
-READ/WRITE LONG also reports PROTOCOL when its sector count is invalid.
+> On 11/11, Bj=C3=B6rn T=C3=B6pel wrote:
+>> Stanislav Fomichev <sdf.kernel@gmail.com> writes:
+>> > On 11/10, Bj=C3=B6rn T=C3=B6pel wrote:
 
-Use the PROTOCOL offset and record the FEATURES, SECTOR COUNT and
-COMMAND offsets for each CDB format. Report SECTOR COUNT separately
-from PROTOCOL when validating READ/WRITE LONG.
+>> >> +	if (static_branch_unlikely(&page_pool_mem_providers) &&
+>> >> +	    WARN_ON_ONCE(!page_pool_supports_frag(pool)))
+>> >> +		return 0;
+>> >>  	if (WARN_ON(size > max_size))
+>> >>  		return 0;
+>> >>=20=20
+>> >
+>> > What's the deal with that? How do we get here?
+>>=20
+>> Hey! Thanks for taking a look at the series!
+>>=20
+>> An explicit frag call on a whole-buffer provider is a driver bug: UMEM
+>> chunks can be smaller than a page, and RX gives the whole chunk to
+>> userspace.
+>>=20
+>> But page_pool_alloc_netmem() also picks frags for small requests, so a
+>> valid call can warn.
+>>=20
+>> I think it would be better to make it return a whole buffer and its
+>> actual size. The WARN stays in the frag API, before taking a new buffer?
+>> Wdyt?
+>
+> I see.. Idk, I'd still return 0 here, but without a warn. Not sure
+> we want a warn for any api misuse? Returning no netmem is gonna be enough
+> to debug things? As for the calls from page_pool_alloc_netmem, I'd also
+> handle it explicitly? if (size > max_size || !page_pool_supports_frag) ?
+> But no strong preference, up to you, was mostly trying to understand
+> what we are warning against here :-)
 
-Fixes: b1ffbf854e08 ("libata: Support for an ATA PASS-THROUGH(32) command.")
-Suggested-by: Niklas Cassel <cassel@kernel.org>
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-Changes in v3:
-- Code unchanged; retain the Damien Le Moal Reviewed-by tag.
-Previous version: https://lore.kernel.org/all/20261111223133188VjHq0FbmnzuEZWakS-EYD@zte.com.cn/
+Yes, page_pool_alloc_netmem() gets the explicit check. Thanks!
 
-Changes in v2 (Niklas Cassel):
-- Add a separate patch for the remaining PROTOCOL, FEATURES, COMMAND
-  and READ/WRITE LONG sector-count field pointers.
-v1: https://lore.kernel.org/all/20261104220832716LXKf7OaS9dt1VJ8Q959AG@zte.com.cn/
+For the frag API I'd keep a WARN_ON_ONCE, like the size check right
+below it. A silent 0 looks like an empty provider: the queue just
+stalls, and nothing points at the driver. With the helper fixed, only an
+explicit frag call on such a pool gets there... Wdyt? I'll probably take
+that route for v2.
 
-Validation on x86-64 with GCC 13 and UBSAN: a userspace harness compiled
-the translation functions verbatim with SCSI/device stubs. The rejected
-32-byte DMA/NCQ and READ/WRITE LONG protocols passed field pointer 10 to
-the invalid-field helper, SET FEATURES passed 21, and TPM passed 25.
-Invalid READ/WRITE LONG sector counts passed 4, 6 and 23 for 12-, 16-
-and 32-byte CDBs. These are helper arguments observed in the harness.
 
- drivers/ata/libata-scsi.c | 26 ++++++++++++++++++++------
- 1 file changed, 20 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index 8ee68937e884369beb4d7ad218612d28c5a080ff..c59e6567a108bbb353c08e921228eadbd231da63 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -3383,6 +3383,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
- 	struct ata_device *dev = qc->dev;
- 	const u8 *cdb = scmd->cmnd;
- 	u16 fp;
-+	u8 feature_offset, nsect_offset, command_offset;
- 	u16 cdb_offset = 0;
- 
- 	/* 7Fh variable length cmd means a ata pass-thru(32) */
-@@ -3443,6 +3444,9 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
- 		tf->lbah = cdb[12];
- 		tf->device = cdb[13];
- 		tf->command = cdb[14];
-+		feature_offset = 4;
-+		nsect_offset = 6;
-+		command_offset = 14;
- 		break;
- 	case ATA_12:
- 		/*
-@@ -3457,6 +3461,9 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
- 		tf->lbah = cdb[7];
- 		tf->device = cdb[8];
- 		tf->command = cdb[9];
-+		feature_offset = 3;
-+		nsect_offset = 4;
-+		command_offset = 9;
- 		break;
- 	default:
- 		/*
-@@ -3482,6 +3489,9 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
- 		tf->device = cdb[24];
- 		tf->command = cdb[25];
- 		tf->auxiliary = get_unaligned_be32(&cdb[28]);
-+		feature_offset = 21;
-+		nsect_offset = 23;
-+		command_offset = 25;
- 		break;
- 	}
- 
-@@ -3499,8 +3509,12 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
- 	case ATA_CMD_READ_LONG_ONCE:
- 	case ATA_CMD_WRITE_LONG:
- 	case ATA_CMD_WRITE_LONG_ONCE:
--		if (tf->protocol != ATA_PROT_PIO || tf->nsect != 1) {
--			fp = 1;
-+		if (tf->protocol != ATA_PROT_PIO) {
-+			fp = 1 + cdb_offset;
-+			goto invalid_fld;
-+		}
-+		if (tf->nsect != 1) {
-+			fp = nsect_offset;
- 			goto invalid_fld;
- 		}
- 		qc->sect_size = scsi_bufflen(scmd);
-@@ -3566,13 +3580,13 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
- 
- 	/* We may not issue DMA commands if no DMA mode is set */
- 	if (tf->protocol == ATA_PROT_DMA && !ata_dma_enabled(dev)) {
--		fp = 1;
-+		fp = 1 + cdb_offset;
- 		goto invalid_fld;
- 	}
- 
- 	/* We may not issue NCQ commands to devices not supporting NCQ */
- 	if (ata_is_ncq(tf->protocol) && !ata_ncq_enabled(dev)) {
--		fp = 1;
-+		fp = 1 + cdb_offset;
- 		goto invalid_fld;
- 	}
- 
-@@ -3613,7 +3627,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
- 	 */
- 	if (tf->command == ATA_CMD_SET_FEATURES &&
- 	    tf->feature == SETFEATURES_XFER) {
--		fp = (cdb[0] == ATA_16) ? 4 : 3;
-+		fp = feature_offset;
- 		goto invalid_fld;
- 	}
- 
-@@ -3633,7 +3647,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
- 	 * can turn off TC features of their system.
- 	 */
- 	if (tf->command >= 0x5C && tf->command <= 0x5F && !libata_allow_tpm) {
--		fp = (cdb[0] == ATA_16) ? 14 : 9;
-+		fp = command_offset;
- 		goto invalid_fld;
- 	}
+Bj=C3=B6rn
