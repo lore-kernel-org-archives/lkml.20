@@ -1,62 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794504796;
-	b=bVeWMBTokSqUAoKviaauzk956OzAKUCFQ02CzFkTv3S1q8ip7z9VQC2mJ/QN03uxmU5A
-	 J0hdTQKBl4fxVA8AnMKwyxsZ9JtNwwwh3U5S0itnOM8oYe8t5hlZ54YDo4m8W9FEylyhG
-	 Ftt4h1ZMvH1/pgHtH0zyLRYMSSFMSzgfCial3NvdsxOt6bUsxlBJiWICac+p0R9kTKHdM
-	 b0rcZPSCLKxfNd9qr82DsN1o3LDVIqLjTfxW2Oc8a15MPER2b2sa76ZMx0wDZVPlAsjQ3
-	 xbVr6rVCPGJJ3pkO1qN1IWgGYVx4gtr3ZGWuMxEIZeqVRffd3uy9NFghxG0sqqo8Ijg==
+	t=1794504793;
+	b=2b0xyDCKPbhpQvz6nYefZxJWPQ6ncj6EMVUPrsPg0W+M9PXk6DKPIZ3aPtmFjubZWrH8
+	 gz+853eOtoNzp4oUu1KO0AXbpjeDwgRKxBgfDexgiGuj6HAltP/u37lqpCqOqYflHZD7I
+	 PYiCbrP1bLgZkLmcgsPBG6Bzub5XqWzbQWVPEkixz4abSSq5GG5ZOmw3Bp/BdNO2diyGh
+	 0FdSbURulV4J5TDT2CrxmO2OqLcbV0c2Q6joaGDPZhiXKmcCsBrOdgz8E+EvUfedr4tfG
+	 j+1w+JSlYEmBBCbC/XSx/EQSS5P66pBrBf9foTkaR79nxIadtiF3obJpqsAyc0RZusQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504796;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=kLqQj0fPXIjHp2jTl7IwJO//6P6zW5QHVSed10H8W/w=;
-	b=xXb+2mwyJdC0aE3FR959apm7Y6nC4gUcIph6K3YY8vQRAejvVV85dPeEh0wpyHAmTXaZ
-	 K3ty0jCRuSE9YBXbdzxLXwdd/QZKOwSVejbpy4NHup7SmeSpGGZfDqcMw5+9kOwFh7sGh
-	 DH6XCKC/9NSNRpLAxzTDZGrJ/x4NK40yomBq2n8t2dhcS28JLahErGlm3OgSYRTy84c3s
-	 W0YmHbVoAewwhUfYQRq1VagoJJxV/k9L8FJz07+oFhkFENp83Ji+sxSzPMZJjtheSfCXQ
-	 X0ibKh3UUNDJn8UQI+zOpyJYh5fuAYmbVVsKeQmMm02rcs2BsxeAmvWvr5UgHpwKzdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794504793;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=kYKgVaocDJ/DiZWTyOirSg0cgAlU2Wvu8ek5UIm9hJ4=;
+	b=kzE3sf3obTLglUB2T/A19oDIimH3BGH72dl9C7XRT4lNBXlPdH5f3w+QkfuusPdwFn1P
+	 DVo50HmxptDA1LXN0dD+RoFSbTYcz3o7S1BwXm9z96ISWI/K4MQjbrtPVvwkfK7O4dSV3
+	 ZS02h0atoMSUJHmAhTTMLtQoD07U+lrFMOaucGL4mGB0BCM+P2sbstVbP7rsCWH4LSyO6
+	 t1maoI4z1qYBrsbyBZXf20mGy/wsn454h9jDpV3ieEpJp0P1n1sY+vsq3jTZ2iWdFDzY8
+	 Bd2SFh0w0rU/HcyLnY7TjEXY+8XfjEZcLrUYQswMvuRIGI5t7ZN+/TCeUvBOa2UJ+Og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nzzxEmNf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X3o2iCDS;
+	arc=none smtp.remote-ip=209.85.215.169
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 922E9606A8A0;
-	Thu, 12 Nov 2026 17:33:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6AC606A89A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:33:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA6AC606A89A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nzzxEmNf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FD761F000C5;
-	Thu, 12 Nov 2026 17:33:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794504796;
-	bh=kLqQj0fPXIjHp2jTl7IwJO//6P6zW5QHVSed10H8W/w=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=nzzxEmNfsOO+sjTDRk9YkiRVjwgqlpFBNsjFxlhC2Lfe7bQNWc1pq4I+C3hKreA0W
-	 kf2bZnKqfwNleY4H8ePgIqEFgef60qD4cr6J4E5iyO1ZgrMlX1cDRT2rsrL22yViFk
-	 l+owVvmVZ/9KMWdFpM2mfV/kKRpDQcPyV3IlJq3bInDAMK0FJs9ItTrMFrTVZgG8zh
-	 XA/NmPJk2QNJiShKMmjT7hSyrPmDH8d52jVB4q+aXeaV/50xliYJ/Xyi6yWtSPMsTl
-	 x+g4OqeL0mrANifP+WT58rjoOO+Yvxjo5+njkGUITKy1YgbGycKwmjm83zWXbHA4r5
-	 ajeG8ofuUfskA==
-Subject: Re: [PATCH net-next v2 1/9] net: sparx5/lan969x: stop the FDMA
- channels properly
-From: netdev-bot+sashiko@kernel.org
-To: daniel.machon@microchip.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, Steen.Hegelund@microchip.com,
- UNGLinuxDriver@microchip.com, richardcochran@gmail.com, linux@armlinux.org.uk,
- netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, robert.marko@sartura.hr,
- horatiu.vultur@microchip.com, jensemil.schulzostergaard@microchip.com
-Date: Thu, 12 Nov 2026 17:33:14 +0000
-Message-ID: <179450479493.2199510.4440156833220844993@kernel.org>
-In-Reply-To: <20261111-sparx5-mtu-change-v2-1-59c91357e8f6@microchip.com>
-References: <20261111-sparx5-mtu-change-v2-1-59c91357e8f6@microchip.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X3o2iCDS
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cdab6ae1ee9so55554a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:33:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794504792; x=1795109592; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kYKgVaocDJ/DiZWTyOirSg0cgAlU2Wvu8ek5UIm9hJ4=;
+        b=X3o2iCDSkjbAAqpRFDnktujIY13QCYhgSg4g65MqKaJ8EHi0whrGr3GqNccsUXS0WG
+         PiDrXPGsDx60xh7AVtAgVkMClZYuwUlBE1xU58mE5wvyLeTaTet/9kNRHn+3vUxdSOD3
+         NlLQsWoYO9h25eS9H0Mbu53WHnP5fOaku2+YEIjwUMXxR7ONBpEiE6gZdwIfGxSGrolH
+         kF0XJVP1ca98lrtF6a4YAHdLtcTJWQX+1BC6BgpyGYLR6oN4UPMMmr+19IBPowhl6rIb
+         /VJgjl44zEA39R33HlrKG7MiSE1V6C6lM7bUCNe3m+YYT5z54YqLfRlp41MXaiwVmlWi
+         VfWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794504792; x=1795109592;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kYKgVaocDJ/DiZWTyOirSg0cgAlU2Wvu8ek5UIm9hJ4=;
+        b=l0/r7Nle53twILtCMQz6vMsaAEgcMNq1GLg9LWTLJhWr9KBmplWi9E/8AXOVnT/hQh
+         dckRsomPvtqykq3W/U19T0LH5e3WCaIvsVL4u1zYt1dKnEvsH5JW/pAATAbLIP+xxVP1
+         ths/NzIEF75EK2K3s3D3+L0hEwE0QNA9heTkpXyMtFLlRo9oxi0cnSEdSVr2O7kW5VeK
+         CgLtS8wbEZqSgN8uWWI/Sia6jh3zAdzHKQeR/XGLVhD1wCTI1vHUPc+929sGslHE2sSM
+         GuHJPYm/loGWScPBK8EtG1rfKWEaDELMyPVuGltN7knoKWny8JSDhfTNcWfry5QhrHek
+         Wncw==
+X-Forwarded-Encrypted: i=1; AL+hErEXP075SIkBQVskxGBp6NrKM4HtfOXt+demCPmqOHlPUlt19yNB/VhO3gg89oT58V0RZ4mDjaCF4IHmq8k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Mu0DVcBaFVrvU/USpa8jcEBuKJSfMfdnhrD2S0uNszAlHV81Q
+	FmY6EuOV/tf6XKEzXzZsAR4xo2fdmuEsQBKjsmELGqtHYMiaUv+ify21
+X-Gm-Gg: AYBFou2Odu00xgkw39UUSBJ1EoiL9sIdliqjIZozUG6O+84RbqysJrKX3lWAr7JLYDC
+	3l18g7hIwFNvWKb17HXYRraQ70RXuNVpKmlekzOPsaGT/Vn2vwGtkXvF98VdcWEFCWomica1Dp9
+	aJ3YAii7DhZTQx2gA4kzqu5ddwed+86XJJbyRSSx2jtG6fU7L+cQP1CWaUXRHWc4p3wti1TQtae
+	vTSRb3WZ/lPyNrFma4JPVTBa4Bh3thpVwcn2KkUh+TrmonOGYU47Qv9ZdZiHwOrGEykpsXZ/l4K
+	HZXEOBQSpz5NIGyAA5oU7m/bLzl/hX8FXmIGcgiVDm1H5JlOBLQK/gjUlI3l6WDzFdPIM10kv9l
+	3rRBT15jfNfyJuRdHf0Z7oGMuie94ohBfREyng5wsWQhNDN0OxF/cjWCiZgnPjbcvmAd3Oe1voO
+	ktbcC0sKAwtze75fZm9GxEuzaxk3nXn2UdYg7LzEmcK2QjEQDR/mvlazEB8ojBhVOQDSJGVitOb
+	8xOyc70WV9J8AMr+Ces1pArESU8cmxb5nemK5VFx3PDpc4De7V4pMWlDWtzLQpPoxGjTPxdANPb
+	CXBCKCaoU3L4f60nDmnw/EYp/6FRxzbV2bqxoNL6FntmutpgWL2J39lmohneq/3+olpl3FF2uOj
+	j9PAUIo3rin+QnS+X2dbPCcUGk+z5zcQGjgGFHeJXmyej
+X-Received: by 2002:a17:90b:3a0e:b0:3b1:4018:bfdd with SMTP id 98e67ed59e1d1-3b182e107dcmr5547183a91.7.1794504791841;
+        Thu, 12 Nov 2026 09:33:11 -0800 (PST)
+Received: from acemagic-m1.tail4fb79.ts.net ([2401:7400:c804:b668:2c54:4647:b67e:c94c])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1ae8be5adsm383532a91.0.2026.11.12.09.33.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 09:33:11 -0800 (PST)
+From: Ho Jie Feng <hjf3108@gmail.com>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	Luka Gejak <luka.gejak@linux.dev>,
+	Ho Jie Feng <hjf3108@gmail.com>
+Subject: [PATCH rtw-next v3 4/5] wifi: rtw88: 88xxa: correct carrier-frequency offset
+Date: Fri, 13 Nov 2026 01:32:43 +0800
+Message-ID: <20261112173246.3201729-5-hjf3108@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261112173246.3201729-1-hjf3108@gmail.com>
+References: <20261112173246.3201729-1-hjf3108@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,164 +101,268 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Use the newly promoted helpers to implement support for 88xxa
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+---
+ drivers/net/wireless/realtek/rtw88/phy.c      |  6 ++-
+ drivers/net/wireless/realtek/rtw88/phy.h      |  3 ++
+ drivers/net/wireless/realtek/rtw88/rtw8812a.c |  2 +
+ drivers/net/wireless/realtek/rtw88/rtw8814a.c | 32 +++++++++++--
+ drivers/net/wireless/realtek/rtw88/rtw8821a.c |  2 +
+ drivers/net/wireless/realtek/rtw88/rtw88xxa.c | 47 +++++++++++++++----
+ drivers/net/wireless/realtek/rtw88/rtw88xxa.h |  1 +
+ 7 files changed, 79 insertions(+), 14 deletions(-)
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] If the FDMA_CH_ACTIVE poll in sparx5_fdma_stop()
-  (sparx5_fdma.c:486-493) times out, the function only calls…
-- [Low] In sparx5_fdma_stop()
-  (drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c:472-509), the…
-
---
-
-net: sparx5/lan969x: stop the FDMA channels properly
-
-This commit changes sparx5_fdma_stop() to disable the FDMA channels
-through FDMA_CH_DISABLE and to poll the new FDMA_CH_ACTIVE register until
-they are inactive. It also stops the injection port through INJ_STOP. The
-XTR_BUF_IS_EMPTY poll now waits for the buffer to be empty instead of
-non-empty.
-
-> diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c b/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
-> index 15ec9b053824f..bcae0bbd5e44e 100644
-> --- a/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
-> +++ b/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
-
-[ ... ]
-
-> @@ -468,20 +471,39 @@ int sparx5_fdma_start(struct sparx5 *sparx5)
->  
->  int sparx5_fdma_stop(struct sparx5 *sparx5)
->  {
-> +	u32 channels = BIT(sparx5->rx.fdma.channel_id) |
-> +		       BIT(sparx5->tx.fdma.channel_id);
->  	struct sparx5_rx *rx = &sparx5->rx;
->  	struct sparx5_tx *tx = &sparx5->tx;
->  	u32 val;
->  
->  	napi_disable(&rx->napi);
->  
-> -	/* Stop the fdma and channel interrupts */
-> +	/* Disable the channels, and wait for them to finish the current DCB */
-> +	spx5_wr(FDMA_CH_DISABLE_CH_DISABLE_SET(channels), sparx5,
-> +		FDMA_CH_DISABLE);
-> +
-> +	if (read_poll_timeout(sparx5_fdma_ch_active,
-> +			      val,
-> +			      !(FDMA_CH_ACTIVE_CH_ACTIVE_GET(val) & channels),
-> +			      SPX5_FDMA_STOP_SLEEP_US,
-> +			      SPX5_FDMA_STOP_TIMEOUT_US,
-> +			      false,
-> +			      sparx5))
-> +		dev_warn(sparx5->dev, "Failed to stop FDMA channels\n");
-
-[Severity: Medium]
-If this FDMA_CH_ACTIVE poll times out, what stops the channels from
-continuing to DMA into memory that the callers free right afterwards?
-
-In that case sparx5_fdma_stop() only warns and still returns 0. Both
-deinit callers ignore the return value anyway, and free the DMA memory
-without resetting the FDMA:
-
-sparx5_fdma_deinit() {
-	sparx5_fdma_stop(sparx5);
-	fdma_free_phys(&sparx5->rx.fdma);
-	fdma_free_phys(&sparx5->tx.fdma);
-	...
-}
-
-lan969x_fdma_deinit() {
-	...
-	sparx5_fdma_stop(sparx5);
-	fdma_free_coherent(sparx5->dev, &tx->fdma);
-	fdma_free_coherent(sparx5->dev, &rx->fdma);
-	lan969x_fdma_free_pages(rx);
-	page_pool_destroy(rx->page_pool);
-	...
-}
-
-A channel that is still active keeps the DCB addresses in its LLP
-registers. Could it then fetch DCBs from the freed coherent rings, or
-write extracted frames into RX pages or skbs that have already gone back
-to the allocator? Unbind/remove reaches this through
-sparx5_frame_io_deinit()->ops->fdma_deinit()->sparx5_fdma_stop().
-
-The code alone doesn't show whether a channel can really stay active
-longer than SPX5_FDMA_STOP_TIMEOUT_US after CH_DISABLE. Still, the timeout
-branch exists, and the frees after it run no matter what the stop returns.
-
-Later in this series, "net: sparx5/lan969x: add support for resizing the
-FDMA buffers" adds sparx5_fdma_pause(). It follows sparx5_fdma_stop() with
-an FDMA_CTRL NRESET before the buffers are freed. That covers the resize
-path, but the deinit paths still have no reset.
-
-Would it make sense to return -ETIMEDOUT from sparx5_fdma_stop(), or to
-assert FDMA_CTRL NRESET in the deinit paths before releasing the DMA
-memory, or both?
-
-> +
-> +	/* Stop the fdma and the RX channel interrupt */
->  	sparx5_fdma_rx_deactivate(sparx5, rx);
->  	sparx5_fdma_tx_deactivate(sparx5, tx);
->  
-> -	/* Wait for the RX channel to stop */
-> -	read_poll_timeout(sparx5_fdma_port_ctrl, val,
-> -			  FDMA_PORT_CTRL_XTR_BUF_IS_EMPTY_GET(val) == 0,
-> -			  500, 10000, 0, sparx5);
-> +	/* Wait for the extraction buffer to be empty */
-> +	read_poll_timeout(sparx5_fdma_port_ctrl,
-> +			  val,
-> +			  FDMA_PORT_CTRL_XTR_BUF_IS_EMPTY_GET(val),
-> +			  SPX5_FDMA_STOP_SLEEP_US,
-> +			  SPX5_FDMA_STOP_TIMEOUT_US,
-> +			  false,
-> +			  sparx5);
-
-[Severity: Low]
-Can this poll still time out while RX traffic is arriving?
-
-The extraction channel is disabled and polled inactive first, while the
-extraction port is still running. XTR_STOP is only set after that, in
-sparx5_fdma_rx_deactivate():
-
-	/* Stop RX fdma */
-	spx5_rmw(FDMA_PORT_CTRL_XTR_STOP_SET(1), FDMA_PORT_CTRL_XTR_STOP,
-		 sparx5, FDMA_PORT_CTRL(0));
-
-Frames may keep reaching the CPU extraction queue during that window, and
-CPU forwarding (QFWD_SWITCH_PORT_MODE_PORT_ENA) stays enabled on the
-deinit path. If so, there may be no active channel left to move data out
-of the extraction buffer, and XTR_BUF_IS_EMPTY might never become 1.
-
-The result of this read_poll_timeout() is also discarded and nothing is
-printed. A non-empty buffer therefore looks the same as a clean stop.
-
-The commit message says the old wait "always runs until it times out".
-Could the new wait still do that in this case?
-
-Later in the series, sparx5_fdma_pause() disables CPU forwarding and
-drains the CPU queues before it calls sparx5_fdma_stop(). That suggests
-the stop sequence alone does not handle extraction that is still in
-progress.
-
-Would it help to set XTR_STOP before disabling the channel and poll
-XTR_BUF_IS_EMPTY while the channel is still active? Another option is to
-flush the buffer with FDMA_PORT_CTRL_XTR_BUF_RST, which is defined in
-sparx5_main_regs.h but never used. At the very least, checking and
-reporting the poll result would keep the diagnostic.
-
->  
->  	return 0;
->  }
-
+diff --git a/drivers/net/wireless/realtek/rtw88/phy.c b/drivers/net/wireless/realtek/rtw88/phy.c
+index d0c1fb65be..eed3e2cb60 100644
+--- a/drivers/net/wireless/realtek/rtw88/phy.c
++++ b/drivers/net/wireless/realtek/rtw88/phy.c
+@@ -687,13 +687,15 @@ static void rtw_phy_parsing_cfo_iter(void *data, u8 *mac,
+ 	struct rtw_rx_pkt_stat *pkt_stat = iter_data->pkt_stat;
+ 	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
+ 	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
++	/* rtl8814a has 4 paths, but only 2 of them report cfo */
++	u8 path_num = min_t(u8, rtwdev->hal.rf_path_num, 2);
+ 	u8 *bssid = iter_data->bssid;
+ 	u8 i;
+ 
+ 	if (!ether_addr_equal(vif->bss_conf.bssid, bssid))
+ 		return;
+ 
+-	for (i = 0; i < rtwdev->hal.rf_path_num; i++) {
++	for (i = 0; i < path_num; i++) {
+ 		cfo->cfo_tail[i] += pkt_stat->cfo_tail[i];
+ 		cfo->cfo_cnt[i]++;
+ 	}
+@@ -794,7 +796,7 @@ u8 rtw_phy_cfo_xcap_track(struct rtw_dev *rtwdev, u8 xcap_max, bool bt_hold)
+ {
+ 	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
+ 	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
+-	u8 path_num = rtwdev->hal.rf_path_num;
++	u8 path_num = min_t(u8, rtwdev->hal.rf_path_num, 2);
+ 	s8 crystal_cap = cfo->crystal_cap;
+ 	s32 cfo_avg = 0;
+ 
+diff --git a/drivers/net/wireless/realtek/rtw88/phy.h b/drivers/net/wireless/realtek/rtw88/phy.h
+index b551cb860d..3a74035219 100644
+--- a/drivers/net/wireless/realtek/rtw88/phy.h
++++ b/drivers/net/wireless/realtek/rtw88/phy.h
+@@ -204,4 +204,7 @@ enum rtw_phy_cck_pd_lv {
+ #define RRSR_RATE_ORDER_MAX	0xfffff
+ #define RRSR_RATE_ORDER_CCK_LEN	4
+ 
++/* crystal cap width of all chips except RTL8822C */
++#define RTW_XCAP_MASK		GENMASK(5, 0)
++
+ #endif
+diff --git a/drivers/net/wireless/realtek/rtw88/rtw8812a.c b/drivers/net/wireless/realtek/rtw88/rtw8812a.c
+index 5d58dff4fc..c8008cf43d 100644
+--- a/drivers/net/wireless/realtek/rtw88/rtw8812a.c
++++ b/drivers/net/wireless/realtek/rtw88/rtw8812a.c
+@@ -943,6 +943,8 @@ static const struct rtw_chip_ops rtw8812a_ops = {
+ 	.coex_set_rfe_type	= rtw8821a_coex_cfg_rfe_type,
+ 	.coex_set_wl_tx_power	= rtw8821a_coex_cfg_wl_tx_power,
+ 	.coex_set_wl_rx_gain	= rtw8821a_coex_cfg_wl_rx_gain,
++	.cfo_init		= rtw_phy_cfo_xcap_init,
++	.cfo_track		= rtw88xxa_cfo_track,
+ };
+ 
+ static const struct rtw_page_table page_table_8812a[] = {
+diff --git a/drivers/net/wireless/realtek/rtw88/rtw8814a.c b/drivers/net/wireless/realtek/rtw88/rtw8814a.c
+index c2a18f6be8..a66bd7c7e0 100644
+--- a/drivers/net/wireless/realtek/rtw88/rtw8814a.c
++++ b/drivers/net/wireless/realtek/rtw88/rtw8814a.c
+@@ -146,6 +146,9 @@ static int rtw8814a_read_efuse(struct rtw_dev *rtwdev, u8 *log_map, u8 *phy_map)
+ 	efuse->rfe_option = map->rfe_option;
+ 	efuse->rf_board_option = map->rf_board_option;
+ 	efuse->crystal_cap = map->xtal_k;
++	if (efuse->crystal_cap == 0xff)
++		efuse->crystal_cap = 0x20;
++	efuse->crystal_cap &= RTW_XCAP_MASK;
+ 	efuse->channel_plan = map->channel_plan;
+ 	efuse->country_code[0] = map->country_code[0];
+ 	efuse->country_code[1] = map->country_code[1];
+@@ -284,9 +287,15 @@ static void rtw8814a_config_cck_rx_antenna_init(struct rtw_dev *rtwdev)
+ 	rtw_write32_mask(rtwdev, REG_CCKTX, BIT_CMB_CCA_2R, 1);
+ }
+ 
++static void rtw8814a_set_crystal_cap(struct rtw_dev *rtwdev, u8 crystal_cap)
++{
++	rtw_write32_mask(rtwdev, REG_AFE_CTRL3, 0x07ff8000,
++			 crystal_cap | (crystal_cap << 6));
++}
++
+ static void rtw8814a_phy_set_param(struct rtw_dev *rtwdev)
+ {
+-	u32 crystal_cap, val32;
++	u32 val32;
+ 	u8 val8, rf_path;
+ 
+ 	/* power on BB/RF domain */
+@@ -308,9 +317,7 @@ static void rtw8814a_phy_set_param(struct rtw_dev *rtwdev)
+ 	rtw_load_table(rtwdev, rtwdev->chip->bb_tbl);
+ 	rtw_load_table(rtwdev, rtwdev->chip->agc_tbl);
+ 
+-	crystal_cap = rtwdev->efuse.crystal_cap & 0x3F;
+-	crystal_cap |= crystal_cap << 6;
+-	rtw_write32_mask(rtwdev, REG_AFE_CTRL3, 0x07ff8000, crystal_cap);
++	rtw8814a_set_crystal_cap(rtwdev, rtwdev->efuse.crystal_cap);
+ 
+ 	rtw8814a_config_trx_path(rtwdev);
+ 
+@@ -1269,6 +1276,8 @@ static void rtw8814a_query_phy_status(struct rtw_dev *rtwdev, u8 *phy_status,
+ 			pkt_stat->cfo_tail[i] = cfo[i];
+ 			dm_info->cfo_tail[i] = (cfo[i] * 5) >> 1;
+ 		}
++
++		rtw_phy_parsing_cfo(rtwdev, pkt_stat);
+ 	}
+ }
+ 
+@@ -2069,6 +2078,19 @@ static void rtw8814a_bf_config_bfee(struct rtw_dev *rtwdev,
+ 		rtw_bf_remove_bfee_su(rtwdev, bfee);
+ }
+ 
++static void rtw8814a_cfo_track(struct rtw_dev *rtwdev)
++{
++	struct rtw_cfo_track *cfo = &rtwdev->dm_info.cfo_track;
++	u8 crystal_cap;
++
++	crystal_cap = rtw_phy_cfo_xcap_track(rtwdev, RTW_XCAP_MASK, false);
++	if (crystal_cap == cfo->crystal_cap)
++		return;
++
++	cfo->crystal_cap = crystal_cap;
++	rtw8814a_set_crystal_cap(rtwdev, crystal_cap);
++}
++
+ static void rtw8814a_fill_txdesc_checksum(struct rtw_dev *rtwdev,
+ 					  struct rtw_tx_pkt_info *pkt_info,
+ 					  u8 *txdesc)
+@@ -2103,6 +2125,8 @@ static const struct rtw_chip_ops rtw8814a_ops = {
+ 	.cfg_csi_rate		= NULL,
+ 	.led_set		= rtw8814a_led_set,
+ 	.fill_txdesc_checksum	= rtw8814a_fill_txdesc_checksum,
++	.cfo_init		= rtw_phy_cfo_xcap_init,
++	.cfo_track		= rtw8814a_cfo_track,
+ 
+ 	.coex_set_init		= rtw8814a_coex_cfg_init,
+ 	.coex_set_ant_switch	= rtw8814a_coex_cfg_ant_switch,
+diff --git a/drivers/net/wireless/realtek/rtw88/rtw8821a.c b/drivers/net/wireless/realtek/rtw88/rtw8821a.c
+index 6d106ae70d..17d3677ca4 100644
+--- a/drivers/net/wireless/realtek/rtw88/rtw8821a.c
++++ b/drivers/net/wireless/realtek/rtw88/rtw8821a.c
+@@ -889,6 +889,8 @@ static const struct rtw_chip_ops rtw8821a_ops = {
+ 	.coex_set_rfe_type	= rtw8821a_coex_cfg_rfe_type,
+ 	.coex_set_wl_tx_power	= rtw8821a_coex_cfg_wl_tx_power,
+ 	.coex_set_wl_rx_gain	= rtw8821a_coex_cfg_wl_rx_gain,
++	.cfo_init		= rtw_phy_cfo_xcap_init,
++	.cfo_track		= rtw88xxa_cfo_track,
+ };
+ 
+ static const struct rtw_page_table page_table_8821a[] = {
+diff --git a/drivers/net/wireless/realtek/rtw88/rtw88xxa.c b/drivers/net/wireless/realtek/rtw88/rtw88xxa.c
+index 128a18ee33..a6c964e6c3 100644
+--- a/drivers/net/wireless/realtek/rtw88/rtw88xxa.c
++++ b/drivers/net/wireless/realtek/rtw88/rtw88xxa.c
+@@ -278,6 +278,7 @@ int rtw88xxa_read_efuse(struct rtw_dev *rtwdev, u8 *log_map, u8 *phy_map)
+ 	efuse->crystal_cap = map->xtal_k;
+ 	if (efuse->crystal_cap == 0xff)
+ 		efuse->crystal_cap = 0x20;
++	efuse->crystal_cap &= RTW_XCAP_MASK;
+ 	efuse->pa_type_2g = map->pa_type;
+ 	efuse->pa_type_5g = map->pa_type;
+ 	efuse->lna_type_2g = map->lna_type_2g;
+@@ -631,9 +632,19 @@ static void rtw88xxa_init_beacon_parameters(struct rtw_dev *rtwdev)
+ 	rtw_write16(rtwdev, REG_BCNTCFG, 0x4413);
+ }
+ 
++static void rtw88xxa_set_crystal_cap(struct rtw_dev *rtwdev, u8 crystal_cap)
++{
++	if (rtwdev->chip->id == RTW_CHIP_TYPE_8812A)
++		rtw_write32_mask(rtwdev, REG_AFE_CTRL3, 0x7FF80000,
++				 crystal_cap | (crystal_cap << 6));
++	else
++		rtw_write32_mask(rtwdev, REG_AFE_CTRL3, 0x00FFF000,
++				 crystal_cap | (crystal_cap << 6));
++}
++
+ static void rtw88xxa_phy_bb_config(struct rtw_dev *rtwdev)
+ {
+-	u8 val8, crystal_cap;
++	u8 val8;
+ 
+ 	/* power on BB/RF domain */
+ 	val8 = rtw_read8(rtwdev, REG_SYS_FUNC_EN);
+@@ -652,13 +663,7 @@ static void rtw88xxa_phy_bb_config(struct rtw_dev *rtwdev)
+ 	rtw_load_table(rtwdev, rtwdev->chip->bb_tbl);
+ 	rtw_load_table(rtwdev, rtwdev->chip->agc_tbl);
+ 
+-	crystal_cap = rtwdev->efuse.crystal_cap & 0x3F;
+-	if (rtwdev->chip->id == RTW_CHIP_TYPE_8812A)
+-		rtw_write32_mask(rtwdev, REG_AFE_CTRL3, 0x7FF80000,
+-				 crystal_cap | (crystal_cap << 6));
+-	else
+-		rtw_write32_mask(rtwdev, REG_AFE_CTRL3, 0x00FFF000,
+-				 crystal_cap | (crystal_cap << 6));
++	rtw88xxa_set_crystal_cap(rtwdev, rtwdev->efuse.crystal_cap);
+ }
+ 
+ static void rtw88xxa_phy_rf_config(struct rtw_dev *rtwdev)
+@@ -1620,6 +1625,17 @@ void rtw88xxa_query_phy_status(struct rtw_dev *rtwdev, u8 *phy_status,
+ 			power_b = power_a;
+ 
+ 		pkt_stat->signal_power = max3(power_a, power_b, min_rx_power);
++
++		pkt_stat->cfo_tail[RF_PATH_A] =
++			(s8)le32_get_bits(rpt->w2, RTW_JGRPHY_W2_CFO_TAIL_A);
++		pkt_stat->cfo_tail[RF_PATH_B] =
++			(s8)le32_get_bits(rpt->w2, RTW_JGRPHY_W2_CFO_TAIL_B);
++
++		/* convert to kHz (used only for debugfs) */
++		for (i = RF_PATH_A; i < rtwdev->hal.rf_path_num; i++)
++			dm_info->cfo_tail[i] = (pkt_stat->cfo_tail[i] * 5) >> 1;
++
++		rtw_phy_parsing_cfo(rtwdev, pkt_stat);
+ 	}
+ }
+ EXPORT_SYMBOL(rtw88xxa_query_phy_status);
+@@ -2008,6 +2024,21 @@ void rtw88xxa_phy_pwrtrack(struct rtw_dev *rtwdev,
+ }
+ EXPORT_SYMBOL(rtw88xxa_phy_pwrtrack);
+ 
++void rtw88xxa_cfo_track(struct rtw_dev *rtwdev)
++{
++	struct rtw_cfo_track *cfo = &rtwdev->dm_info.cfo_track;
++	bool bt_hold = rtwdev->efuse.btcoex && !rtw_coex_disabled(rtwdev);
++	u8 crystal_cap;
++
++	crystal_cap = rtw_phy_cfo_xcap_track(rtwdev, RTW_XCAP_MASK, bt_hold);
++	if (crystal_cap == cfo->crystal_cap)
++		return;
++
++	cfo->crystal_cap = crystal_cap;
++	rtw88xxa_set_crystal_cap(rtwdev, crystal_cap);
++}
++EXPORT_SYMBOL(rtw88xxa_cfo_track);
++
+ MODULE_AUTHOR("Realtek Corporation");
+ MODULE_DESCRIPTION("Realtek 802.11ac wireless 8821a/8811a/8812a common code");
+ MODULE_LICENSE("Dual BSD/GPL");
+diff --git a/drivers/net/wireless/realtek/rtw88/rtw88xxa.h b/drivers/net/wireless/realtek/rtw88/rtw88xxa.h
+index 150e86ea74..188b8f3a4b 100644
+--- a/drivers/net/wireless/realtek/rtw88/rtw88xxa.h
++++ b/drivers/net/wireless/realtek/rtw88/rtw88xxa.h
+@@ -172,5 +172,6 @@ void rtw88xxa_phy_pwrtrack(struct rtw_dev *rtwdev,
+ 			   void (*do_iqk)(struct rtw_dev *rtwdev));
+ void rtw88xxa_bf_config_bfee(struct rtw_dev *rtwdev, struct rtw_vif *vif,
+ 			     struct rtw_bfee *bfee, bool enable);
++void rtw88xxa_cfo_track(struct rtw_dev *rtwdev);
+ 
+ #endif
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111-sparx5-mtu-change-v2-0-59c91357e8f6%40microchip.com
+2.53.0
+
