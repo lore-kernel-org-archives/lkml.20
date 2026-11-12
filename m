@@ -1,67 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.215
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794450654;
-	b=aBNP4vAZW//nWgei14RsMM0bS1cuZ7OHg9yRA6QOtRAkKhcbCsXL9+h+Wxl5aSRgkHd0
-	 RRZvLD0dtJzAz+87Uq5An/V6w2uc40bkSB++ygatKJi0rFgKt578icdlvnkAXmn48c4yT
-	 N02t9b04uobJZ7g1oMbs8BSF6jbDlUp/ZSy1rArTXc7jrdnMvnJYi6bGp1+CHXDH9QE11
-	 UlnxbCsEmgP3KARHKO56WHS67NlbdSVTq3ieCvWNGrnpYo9qlBv0bR0kZamaVxwec3LEb
-	 zj5vZmUfECgR4C6QUx5SRGNCZ51eeh6d54UKqZQ+OTPjopq/w292MYJNI0j/xCPU/mw==
+	t=1794450666;
+	b=EzabWCWfBFwhpbxlfBXEciZZNvpgnwJHncwS8OOVCZTNnROYv6UcFB5069iQrS6QZTTt
+	 TdowYI2hwWH4fxGlRghMi2W7Wy6nTFJpbu3QguqOa11MzZ0u21FJQE1v5Pnt6mOEYIyPm
+	 ctsmADB1ChDZhTpU/BIzFhwPn1RBXYKW1y/g6srh9M1OCyoJrVEQ7gFGxdKNf3GVhkaxt
+	 aJobt2UYZem5hFCOQEYKqNaHqEEV8isTjeZsIoReBYR2pEO6HUfqWafix7CbaFvh1jvQt
+	 /iyHxs1VLAynoQhUTv5T7bHFsCsUU1AKTWOzSEaBcgUmKPFivb8HmswEuPYW0nPoZ5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794450654;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=gTQZHlCJUjOxYEpdFL/jeCbv156/zSw9VUjF1xBlN98=;
-	b=QzuiSNrKyb7kdOg05Wz0H/LHbcIjSSjnPreemj3f6R0es+Gq9E83r1x4ofgtcoZeki2y
-	 ZHh8IbSAL81Lb8A3gJ/PTdsf9N/f4GCb/SzRLVq79vaHullx/VlsVPgO1g1/sRtpLnSLW
-	 otLgGAvcnJGZ0CI43XHf/ozgEHszpD5rIQxIC/stpws2F0JnzF49vSXSX+W2loG3ch1yI
-	 MlyiKKnmqlvsFY6L2GTYQg0LddZp5ElqjiUvY90Mj6Q6ek+o144ASddfPIGRqFKXzWlxN
-	 VidcQctfyyALB5N9kgTRoP0Rv8FMYZkyNIeXuKSeSQgO77JDqDfqSRDofWcoT0d4TSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794450666;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=qKjC7MwPtb9rlXRFn/imJ4VBX67PhhjBmJbfa0X27x4=;
+	b=M8QH5I9/gdD2A6o9lD5fB3fD5ogtYve1NprwHVzsSiYVCe7/AG7PccBYr3AI0SYMxET2
+	 +O8DHOVkCwnlHrHyaboiJXfnnAWWynR3vNm8lEb8D0QpbTc7tpEZt7L06aN9EjuT3iMSd
+	 Vwa0wB+GAk/fNFW8o8yf7faU2KVc7ZnEa1uari/1uCwz0onLzjrMnBIPyRH2yjYpXlzj8
+	 MBtxlEk4Mjb2M+sZcZmUEJrJPz4o6QlCkhd26vNlk/yExwvG3OlYxqYlFJ82vxOQJH2Os
+	 Eps04WRobYynn35WHUeDnt2L42oldPed5Gr6l8JSQNbSLfGkEw1UBqLW5unEKspyoAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=X6ao6tY2;
-	arc=none smtp.remote-ip=95.215.58.215
-Received: from mta1.migadu.com (out-215.mta1.migadu.com [95.215.58.215])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EFB606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:30:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66EFB606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=M+e+pkj0;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CC601606A31C;
+	Thu, 12 Nov 2026 02:31:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC601606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=X6ao6tY2
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ex0fZxg7xmW+zEI8jmq9pJooKKCHvU2lpCHkYI6HRkQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794450651; v=1; x=1795055451;
- b=X6ao6tY2lqQAPz7q73RHLLNxHFcQEQzPkblh0SAlZGtImUKpeqF8DpOoTlQT6XwGI4030rSt
- mS60Qk3YQ35ctBEMrCpl4Ri8YqGtpmCMHGrA5RNrA+Y6QhKPogy011ok4pAKhUL7on5qwwQkb7T
- 6dMEdDaCJHYCtu3BRtwFCbvg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 8d3da5d7f84c678c;
-	Thu, 12 Nov 2026 02:30:39 +0000
-X-Mizu-Trace-ID: 8d3da5d7f84c678c
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 12 Nov 2026 10:30:27 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Weiming Shi <bestswngs@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	David Ahern <dsahern@kernel.org>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Kees Cook <kees@kernel.org>,
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org, bpf@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org,
-	co+beaa1ed2d7aaec16@bugs.sh
-Subject: Re: [PATCH net] net: initialize ICMP error queue opt_stats
-Message-ID: <avUjeFUIFJAWbSlt@fedora>
-References: <20261111170528.495116-3-bestswngs@gmail.com>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=M+e+pkj0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=M+e+pkj0YvA7MfhZ6JFFM3JhlxH9y6oGMQWQti7TBqjjIm+ZsjVUa77Q6zZ/Bd4RpifsDZPdRCftR
+	 PtzvssBsx2pH3tOTUTx0ZhNahnWARjZi+gyQXXLBoQTokVKg5i0K/dGDP57EHtK3YZuSa4glKNbkfa
+	 UThgBKg0jqPGRl6s=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af524e60ba-b8639;
+	Thu, 12 Nov 2026 10:31:02 +0800 (CST)
+X-RM-TRANSID:2ee16af524e60ba-b8639
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from devin-VMware-Virtual-Platform (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56af524e3cdb-ef375;
+	Thu, 12 Nov 2026 10:31:02 +0800 (CST)
+X-RM-TRANSID:2ee56af524e3cdb-ef375
+From: Zhu Jun <zhujun2@cmss.chinamobile.com>
+To: brett.creeley@amd.com
+Cc: jgg@ziepe.ca,
+	yishaih@nvidia.com,
+	skolothumtho@nvidia.com,
+	kevin.tian@intel.com,
+	alex@shazbot.org,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhu Jun <zhujun2@cmss.chinamobile.com>
+Subject: [PATCH] vfio/pds: Release migration files on allocation failure
+Date: Thu, 12 Nov 2026 10:31:01 +0800
+Message-ID: <20261112023101.118174-1-zhujun2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,93 +73,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111170528.495116-3-bestswngs@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 09:05:30AM -0800, Weiming Shi wrote:
-> ip_icmp_error() and ipv6_icmp_error() clone a received ICMP skb before
-> building its error queue entry.  skb_clone() preserves the complete control
-> buffer, while the IP receive paths initialize only the portion aliased by
-> sock_exterr_skb::header.  The two functions initialize ee, addr_offset, and
-> port, but leave the final byte containing opt_stats and unused untouched.
-> A TCX classifier can leave bpf_skb_data_end::data_end across that byte,
-> forging opt_stats and making __sock_recv_timestamp() pass skb->len bytes
-> from skb->data to put_cmsg().  For a non-linear ICMP skb, this reads beyond
-> its linear head.
-> 
-> Initialize both bitfields in the two clone-based producers.  Do not clear
-> the whole sock_exterr_skb because the error receive paths consume the saved
-> IP control-buffer header.
-> 
->   usercopy: Kernel memory exposure attempt detected from SLUB object
->             'skbuff_small_head' (offset 72, size 59964)!
->   kernel BUG at mm/usercopy.c:102!
->   Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
->   RIP: usercopy_abort (mm/usercopy.c:102)
->   Call Trace:
->    __check_heap_object (mm/slub.c:8146)
->    __check_object_size (mm/usercopy.c:258)
->    put_cmsg (net/core/scm.c:276)
->    __sock_recv_timestamp (net/socket.c:1061)
->    ip_recv_error (net/ipv4/ip_sockglue.c:550)
->    udp_recvmsg (net/ipv4/udp.c:2034)
->    inet_recvmsg (net/ipv4/af_inet.c:896)
->    sock_recvmsg (net/socket.c:1159)
->    ____sys_recvmsg (net/socket.c:2918)
->    ___sys_recvmsg (net/socket.c:2961)
->    __sys_recvmsg (net/socket.c:2993)
->    do_syscall_64 (arch/x86/entry/syscall_64.c:94)
->    entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
->   Kernel panic - not syncing: Fatal exception
-> 
-> With HARDENED_USERCOPY enabled, the reproducer aborted the unpatched kernel
-> on its first packet.  With runtime usercopy checks disabled and KASAN left
-> in report mode, the same recvmsg() returned 59,964 control-message data
-> bytes sourced past a 704-byte skb head.  Beyond offset 1,024, 58,932 bytes
-> differed from the prefilled userspace marker, including 6,288 nonzero
-> bytes.  The patched build completed 2,000 packets under both configurations
-> without a forged SCM_TIMESTAMPING_OPT_STATS message or sanitizer report.
-> Networking selftests were not run.
-> 
-> Fixes: 4ef1b2869447 ("tcp: mark skbs with SCM_TIMESTAMPING_OPT_STATS")
-> Cc: stable@vger.kernel.org
-> Reported-by: <co+beaa1ed2d7aaec16@bugs.sh>
-> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
-> 
-> ---
->  net/ipv4/ip_sockglue.c | 2 ++
->  net/ipv6/datagram.c    | 2 ++
->  2 files changed, 4 insertions(+)
-> 
-> diff --git a/net/ipv4/ip_sockglue.c b/net/ipv4/ip_sockglue.c
-> index a55ef327ec93..3ab84a4c31e5 100644
-> --- a/net/ipv4/ip_sockglue.c
-> +++ b/net/ipv4/ip_sockglue.c
-> @@ -429,6 +429,8 @@ void ip_icmp_error(struct sock *sk, struct sk_buff *skb, int err,
->  	serr->addr_offset = (u8 *)&(((struct iphdr *)(icmp_hdr(skb) + 1))->daddr) -
->  				   skb_network_header(skb);
->  	serr->port = port;
-> +	serr->opt_stats = 0;
-> +	serr->unused = 0;
->  
->  	if (skb_pull(skb, payload - skb->data)) {
->  		if (inet_test_bit(RECVERR_RFC4884, sk))
-> diff --git a/net/ipv6/datagram.c b/net/ipv6/datagram.c
-> index ca3605acb433..85f646f8d059 100644
-> --- a/net/ipv6/datagram.c
-> +++ b/net/ipv6/datagram.c
-> @@ -330,6 +330,8 @@ void ipv6_icmp_error(struct sock *sk, struct sk_buff *skb, int err,
->  	serr->addr_offset = (u8 *)&(((struct ipv6hdr *)(icmph + 1))->daddr) -
->  				  skb_network_header(skb);
->  	serr->port = port;
-> +	serr->opt_stats = 0;
-> +	serr->unused = 0;
->  
->  	__skb_pull(skb, payload - skb->data);
->  
-> -- 
-> 2.56.0
-> 
+pds_vfio_get_lm_file() takes an extra file reference before allocating its
+backing storage. If an allocation fails, the error path drops only one
+reference and frees the private data, leaving the anonymous file leaked.
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+Take the extra reference only after all allocations succeed. On failure,
+drop the initial reference and let the file's release callback destroy the
+mutex and free the private data.
+
+OpenAI Codex assisted with analysis and patch preparation.
+
+Fixes: bb500dbe2ac6 ("vfio/pds: Add VFIO live migration support")
+Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
+---
+ drivers/vfio/pci/pds/lm.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/vfio/pci/pds/lm.c b/drivers/vfio/pci/pds/lm.c
+index 08487eab11b0..d96ec77402c0 100644
+--- a/drivers/vfio/pci/pds/lm.c
++++ b/drivers/vfio/pci/pds/lm.c
+@@ -37,9 +37,6 @@ pds_vfio_get_lm_file(const struct file_operations *fops, int flags, u64 size)
+ 	stream_open(lm_file->filep->f_inode, lm_file->filep);
+ 	mutex_init(&lm_file->lock);
+ 
+-	/* prevent file from being released before we are done with it */
+-	get_file(lm_file->filep);
+-
+ 	/* Allocate memory for file pages */
+ 	npages = DIV_ROUND_UP_ULL(size, PAGE_SIZE);
+ 	pages = kmalloc_objs(*pages, npages);
+@@ -73,6 +70,9 @@ pds_vfio_get_lm_file(const struct file_operations *fops, int flags, u64 size)
+ 	lm_file->page_mem = page_mem;
+ 	lm_file->alloc_size = npages * PAGE_SIZE;
+ 
++	/* prevent file from being released before we are done with it */
++	get_file(lm_file->filep);
++
+ 	return lm_file;
+ 
+ out_free_page_mem:
+@@ -81,7 +81,8 @@ pds_vfio_get_lm_file(const struct file_operations *fops, int flags, u64 size)
+ 	kfree(pages);
+ out_put_file:
+ 	fput(lm_file->filep);
+-	mutex_destroy(&lm_file->lock);
++	return NULL;
++
+ out_free_file:
+ 	kfree(lm_file);
+ 
+-- 
+2.51.0
+
+
+
