@@ -1,77 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=50.112.246.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794471106;
-	b=xtNJmQ/jPDiL6P872zi4lerHjmj5JwJIUH7fIjTeDZu4oqP6NBlJNtE+bAqAUmJj7ZYo
-	 31cHgpchQA9i1EDiotQrN4fCWkkIxr6W774yrF8EeAAv2La+nllHcy5+vM/HxjDktEVZw
-	 +M+OKFFy5HjCLoQJUhd1S3Y6oBmfjZromQ9TA587diszoGGUOlB+A2sp91De+QBam0RoI
-	 yvB+htZcD8PTV/5CS/soTyD7CxuHvOGieiobGBk7iy/hZ2K7uHMRv6uG5CFZFcRKNeGeb
-	 cmJ7H597iyhpfCJJ0vXWK3uoATYhL1l2h39ytHMAmii/JUxKqDG7RkVyS8L8vYIlp0A==
+	t=1794471117;
+	b=5WhoU6UEPaO6jCjGeCxh9XdNyIW+4P3wUZoKzTvWqBzN/ZJQKevnY70PTlRdODkTdRo7
+	 NcFlWk7f4PVSU6lkOLZAHxG3Gv57aH5QI5IcireGTv1LylXFUwRqAbfjhZfaZzabp9RHS
+	 RXBDtkEpO0aDEOGQW7fYEYqhX3tU7BFEAi7VrgENzDfu93X98IxUbJW36Q8H6gBdreb5X
+	 QH70XMssCR24I+ErIznCc7yV0hVO/guG0Hx7Ktx8RNS+h6iQlv11r2ifdHypmHQleHs5n
+	 46dYLiiPzwLE1Uw2YPpKtlCsSgAu4N3U5LyJ9/Bsn9yc8p/NgiRdkOnCP0GvPfsZitw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794471106;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=5jP3WnmbQtvEPbEed08PResBYIqhTG3VkGD2kJsGtEM=;
-	b=kt62fvM+xbQr3KF8sMO4TTkZdmiZH1Tiw8G8h5mYU9eO60dDmM1XGlyrFucB8ErjgSHS
-	 aiNImHRunR2rNdtp0d9GCKbJ4VyHKrFuV15Pr8EY+U1loWKZSpe3eqy8SXusJpdXKIIZ6
-	 8yWqTdE16oI1tQsgcEXECDltQtdphF7ZkbrIEAhlr+8YSg9o5BAiOlejwwXGkiM+WW4dL
-	 OHc1nWOxN61uGMDECxBtkE1/86xvbJzepdzAQXOr08iLeU4kuiysW8WF7+Om3ChOCt3aD
-	 Kv+nzrlYsx4PI5IRjE2Y3dIM/EdBAhVFsfYchEC0G9SzVIo1Hhi1o+w8nWxPm2Vm3eQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794471117;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:X-Originating-IP:X-ClientProxiedBy:
+	 Content-Transfer-Encoding;
+	bh=yRwejwn52j/pckFIXfpb6iPXXl8i/31yG967frHncGQ=;
+	b=2ZvXGcw7ZcqV7lhFR6S/I8pJa4flyNFRJGv7jevc8SlauEYpBWPI7906VY46qRJW0yyR
+	 HRsEWX85QbC0WDOQ39YU104grCq2p7B5F1qAZaVFzAEZDh4sFj5GsqNE+85DngMAr+8St
+	 dap+YcrdG8uYSQnmDPDP2Rb2b6ySJJQipja8E5E/Yeyj7xAKz7RrHWl4lGfQbv7by+Q5w
+	 CNMnZ5ZPP2iEtglMbhPmCFx6PIgnOWAp/X8gOphz3BjhUduNlskY+P3hZiGWh3MQ5Fsdc
+	 ay5ASlifbo1kxA++x/yr62uHHkPY14Dw2wGtDI12VdrWhYTueskE0XQi9z3EkTzS0QA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mk0LPc76;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Eop3zxX0;
+	arc=none smtp.remote-ip=50.112.246.219
+Received: from pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com [50.112.246.219])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 27B36606A332;
-	Thu, 12 Nov 2026 08:11:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B94B606A32D;
+	Thu, 12 Nov 2026 08:11:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B94B606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mk0LPc76
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 153EC1F00A09;
-	Thu, 12 Nov 2026 08:11:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794471105;
-	bh=5jP3WnmbQtvEPbEed08PResBYIqhTG3VkGD2kJsGtEM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Mk0LPc76zri3qomSdEor/KlJodEmHosdWQSoHEAciZX8vMb+eOvaKzK5wGyW9mVgy
-	 MqJClOk2CH3QeMDjlRnU80SmoDJmrJbem3WUSxeGzStNyNXRHLpOU+3++BbYJtkIkl
-	 vxQFhpj5+lq/kIfSa64soEblDiH/Kw7+0jYHk3KVESyuZ4phjVs0HhlfkEkKZRTZ97
-	 8NFo0bqadHu0+b2J5mQCYyGFWV9Gd5TQ3AaPWzc+5z8gnlPaJ/VksgY9BgH0S0TCnC
-	 pqPFM6LiADtNo3tvGsB6/PvuGUuPsmXpfH3Q928P7go16M7ZK9Deci3agR8FgCjO4k
-	 G1UxE2A0msuvQ==
-Date: Thu, 12 Nov 2026 10:11:42 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: keyrings@vger.kernel.org, linux-afs@lists.infradead.org,
-	linux-cifs@vger.kernel.org, linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
-	linux-s390@vger.kernel.org, linux-security-module@vger.kernel.org,
-	netdev@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
-	Anna Schumaker <anna@kernel.org>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	James Morris <jmorris@namei.org>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>, Paul Moore <paul@paul-moore.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Simon Horman <horms@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
-	Sven Schnelle <svens@linux.ibm.com>, Tom Talpey <tom@talpey.com>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Vasily Gorbik <gor@linux.ibm.com>
-Subject: Re: [PATCH v6 00/13] KEYS: Sanitize the garbage collector
-Message-ID: <avV0vjDNbh8VDk5N@kernel.org>
-References: <20261112040242.247168-1-jarkko@kernel.org>
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Eop3zxX0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794471117; x=1826007117;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=yRwejwn52j/pckFIXfpb6iPXXl8i/31yG967frHncGQ=;
+  b=Eop3zxX03l9RnQYMeBxTQelYygV5Tsez/u/Rer934FkD8eqkr65+A539
+   KlAIohQfZFEGz8vZMTWPDnQNUNXaBr5KXE7I/zQF/Zr074EnJfbGySRnC
+   j3UM4iK9qabTNowb8Bj9j2NP1v/KVNS+YwDSuYCD2Udg60jo8U+BVsz6d
+   YcM+7xk8q8gF8qFvHWPDdt3qR9ljF7mX+SxVG2ZgyNRc3mFqFmSkIU+gg
+   ynvrGnNjF9qWVdga6e9KgDKZDdRcgUdXPae4GYPWJ6lmq7M2epQDceinE
+   HhE3zJpGyVSjdMFVs2rOeR8BXdIdtZm5HY0mha/wFDcbqLQH1F/3L8S/7
+   A==;
+X-CSE-ConnectionGUID: 88UP8YXmSku6Ng9uIsV3zw==
+X-CSE-MsgGUID: BDVhN59CST2+sSodA55VWA==
+X-IronPort-AV: E=Sophos;i="6.27,209,1787011200"; 
+   d="scan'208";a="33570827"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 08:11:54 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:28378]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.55.227:2525] with esmtp (Farcaster)
+ id 57c27c56-a479-41ea-ac2a-2ef1fd33fc35; Thu, 12 Nov 2026 08:11:53 +0000 (UTC)
+X-Farcaster-Flow-ID: 57c27c56-a479-41ea-ac2a-2ef1fd33fc35
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Thu, 12 Nov 2026 08:11:53 +0000
+Received: from dev-dsk-sieberf-metal-1a-7543e84d.eu-west-1.amazon.com
+ (172.19.116.227) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Thu, 12 Nov 2026
+ 08:11:49 +0000
+From: Fernand Sieber <sieberf@amazon.com>
+To: <tj@kernel.org>
+CC: <mingo@redhat.com>, <peterz@infradead.org>, <juri.lelli@redhat.com>,
+	<vincent.guittot@linaro.org>, <bsegall@google.com>,
+	<dietmar.eggemann@arm.com>, <rostedt@goodmis.org>, <mgorman@suse.de>,
+	<vschneid@redhat.com>, <kprateek.nayak@amd.com>, <hannes@cmpxchg.org>,
+	<mkoutny@suse.com>, <void@manifault.com>, <arighi@nvidia.com>,
+	<changwoo@igalia.com>, <skhan@linuxfoundation.org>, <corbet@lwn.net>,
+	<rdunlap@infradead.org>, <cgroups@vger.kernel.org>,
+	<sched-ext@lists.linux.dev>, <linux-doc@vger.kernel.org>,
+	<linux-kselftest@vger.kernel.org>, <bpf@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <nh-open-source@amazon.com>,
+	<hborghor@amazon.de>, <fmubeen@amazon.de>, <dwmw@amazon.co.uk>,
+	<karataev@amazon.com>, <sieberf@amazon.com>
+Subject: Re: [PATCH v2 0/4] sched/fair: cpu.max.runtime and idle refill for CPU credits
+Date: Thu, 12 Nov 2026 10:11:44 +0200
+Message-ID: <20261112081144.38224-1-sieberf@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <e795d4feb4a4e7ca4cf24f3cde9e301b@kernel.org>
+References: <e795d4feb4a4e7ca4cf24f3cde9e301b@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,16 +95,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112040242.247168-1-jarkko@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 12, 2026 at 06:02:29AM +0200, Jarkko Sakkinen wrote:
-> <SNIP>
+Hi Tejun,
 
-All Sashiko responses show "no issues".
+Fair point. I am happy to focus on the fair patches for now.
 
-I assumed different because in the past I've received responses only
-when it finds something; so I checked them all through.
+v3, the two fair patches on their own with the bot findings fixed, is
+on the list:
 
-Br, Jarkko
+  https://lore.kernel.org/all/cover.1794398404.git.sieberf@amazon.com/
+
+Thanks,
+Fernand
+
+
+
+Amazon Development Centre (South Africa) (Proprietary) Limited
+29 Gogosoa Street, Observatory, Cape Town, Western Cape, 7925, South Africa
+Registration Number: 2004 / 034463 / 07
+
