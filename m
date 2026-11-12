@@ -1,113 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.162.73.231
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794500135;
-	b=RLPGtMYavZzrk9MQiaGJB6o+vr3RN993ZRqJ2Rn4a8VO05CevKF6f0I34Wx5WJeARmG2
-	 b5tihzkXN5iHWH7hsKEwhfU584INhI1mj66zj7Pi22AgXn0XhGl+PZrdPA90c2jdQ3FKp
-	 CI2aIZ9GDJRLiiOVKcapotHl2umnWXOH+8+CQqJwSc99VlWJACRi8Z+Bnb2zdZq6mdwNU
-	 CqKmSdfJCeoi8wUewIerhSiuovTovIInuJHZ9QDmYEP11k4tagDB8r71+1Kb/PsXVRLMC
-	 6SNrk0P6fHjsmtpOi7JCpXDQMorxlVapUMkrI/KAr/XaBpEJEz+Yhia+xBVSb8/O6zQ==
+	t=1794500168;
+	b=0Gx+yCzXBlnTdIxknkIfaFOjbxh1pFUALDLwkKFwP6rBOo5m7j4g+9/VBu9pSdx60xVl
+	 flMux525NrWUrqc4xfV7oQRymy/eH+ofC/9pU05DhAE4Q5Wfl1Y6Cfp07G49vaFu9Yl9Q
+	 FrYLCFVnQGQlRaICfLATr2J55PGpGWGzsnBppDvZXdiBD3EKnSiYPRSM5NMbyLI58A3Lg
+	 3myr8VNr2lcqr0R5AUXVaVgrqqlviqZ9t2+DAqedDXYNaSWb+pInILRJLSL+LnZD3FnBy
+	 a4PTPXBorYvb5dr7W78YhtzlggRudFls4ZTnHBYqRqA779j107Eov35qERUdzGCC39g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794500135;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=tzUoBcULPnhR/Dv1/hNrXAMLDMXFYb0dXpYnSaQBg+A=;
-	b=Q+ODGc8aNHFjR8gZswR7Z8jmZ84h9SUYzLfVbvQc+AeGrXgABM4dSY+31bx7oVlwt6cp
-	 cWU6Cxvls23Ren9a2jxDniI3rNxEi9crgNqGkHZoQhU2K0U9GUubxzIxX5OJJAkuegYil
-	 gGQZtn/02vPmu/Z47dTycd9W4pHlkbAjhxvP5GfY4Amp3B+3TpysML7WYuQiKJ4IiDQMh
-	 bSt98Y3Xiw7lawG4fGKDv+5LZLZnsacj3ucx5RzRJWjdAHnbcruhjLSYqGllz1tTF6KeJ
-	 /u6njgITQkKQfDdjNwCII1yRaf5qOpFOGq+mGH5CmfKeWBiZDJTknnNLHF55R3DuFWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794500168;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 X-Originating-IP:X-ClientProxiedBy:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=6slC24wsI5oZIPToi5t2zeTD9OO9CM1u2kY0JlnOvHk=;
+	b=ZbT5xXLRg0MnQCy5rYFekrBD2Hq49cWEjfcZFhuiInZMmHNAoju23dTCF3qPzyulUcfJ
+	 Ym2f9FyLeUT7UBZIbryfbvfTs9x5c7Z+NeNcf9gdmsht67J1s7llng5fxGWTQqsDDWFgM
+	 U7GqI9abhOXuS6mjEK8DDJ31WGPLpvbF+b0Ud9DMoSmTR6nV4CLxdEENzQl3vDoVvw1y4
+	 AQUt6aGIq0bu0+n/cKRIvaLWC+v4u+35dJ1CDO2YXwpVKw0AFt8br2hKFtmyELaXnHPx0
+	 gVDMozfF4axbChzMbFmtgaO4H3YZKBbJbwcGpI5tMcteq8KjJiExFFj5Sc1CVDJ35cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ROMqFnIi;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Crbs1FJL;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=jGSqKKbJ;
+	arc=none smtp.remote-ip=35.162.73.231
+Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.162.73.231])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7C5606A327
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:15:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA7C5606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E981E606A331;
+	Thu, 12 Nov 2026 16:16:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E981E606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ROMqFnIi;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Crbs1FJL
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACFa0JW012031
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:15:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	tzUoBcULPnhR/Dv1/hNrXAMLDMXFYb0dXpYnSaQBg+A=; b=ROMqFnIiXmDRV9Gc
-	9NRZUwdSuaXYVPrSF9yP4h1k9sYML53U2Os6tZBmSNbnifSsdVcLssUm8lLw+owo
-	C92zNv7v82NPqBTdNFdfQuBaVZhqzTyn+Pty9Lgo8NzFVktmP0sDUDwdI8wPzV74
-	JoEyfP6FIhsf3fIdCklW1xpk9Abeeub1oL5I+ncuHNwnEuw8XFttjuRrNaCl5DJk
-	dc70ZZQlLhawdnhPnbHCzN1MTOafakoYkgY50fsTm6KhMM0P1soRYyJtaJ78vAhJ
-	BKWZmktMM4okI8yf7UfkD6HuixJlcJ+8X1Of7ctSRMpkVbrTGT/AoDkAa35yiS7+
-	8U7ACg==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwg1b8777-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:15:34 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-98a9c848bf0so10533241.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:15:34 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=jGSqKKbJ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794500133; x=1795104933; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tzUoBcULPnhR/Dv1/hNrXAMLDMXFYb0dXpYnSaQBg+A=;
-        b=Crbs1FJLGvl2BAh80AfELYCwtmf8MWf9cK2rgbj/NWTw78MVAn7a/yA9C+V4kEbfiw
-         RrzaT4BlIDFTOWjwhl3ioWdZVjfpkglkuO6pIah6O4vx9/rYV67MJnInTEFlOr5fESsk
-         ZzxptR0wzjDR++1+Xn/fqeZvxAKxUsDJw07yZDS2YIX36tgEV1Du3a/flaSKwBgweKEh
-         9txMYxddzadCPn66cMZGfU2DGijcxoiXmizgH8uVug5cPzMyfS4yyNs0dbcKM4/5O2tb
-         iIUX9MCRjkz1VCtTW1pktDmQKMrUzWvUuIyxVjuKaTHyaoO16Xl1bt/hEbyqpNme3ShJ
-         mFMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794500133; x=1795104933;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tzUoBcULPnhR/Dv1/hNrXAMLDMXFYb0dXpYnSaQBg+A=;
-        b=OLjqD/+LGI38FsFfu5+RDb2Z6dSzIEfJv7Mfh8lAhSK06kSlR3OgkYfUO3QsOn5k/V
-         CUx/sU1Nql0BS3lEtmz4IWRQZN/1eJivDyEhClsYHVvnZezHyVLHx9FyHo+YaxqqE1YO
-         syJixS5qteBzBpFQhgT1yuU/nGAqT2wzi2CSPNVB+Y7bT6zsz4Rxuophnq8sVb1ov9ca
-         9Siszl3QSIZ0fp/+r+51g+ThHPrfwhZwfHybQej3xKpqndME0t/NF1daQwDsMhVgRvKJ
-         szQ8JrrvvO2kUPkt1AjYUlxOBJUcQamHTAcSyQ9dwPuLIVpCXwLyv7HmmWB36P5K1k3I
-         FUjg==
-X-Forwarded-Encrypted: i=1; AL+hErFxGMU1kDt3AgD4Lp3p+OcgpoAubEu4X8dV96j0V30LNbjAB/tDB0di6aPiT7Z6EKb2U+jItwPBkVdxjeQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8GAnPTNx56Ig6RzFfQaavYKiX8rsjgV8jbaqEI403ZRhcrDqhh
-	NnMqW29v60MWkRNReBUEspjwOFbqr5b0OSpVpMs++jIHEBQ4e7/ryI/qTJxCESb0nyHYjT02ZcC
-	6k7g874pYJ1/I8VAb3pvaXRQGlRF8xACddCi3ySvOSAI6sTZ1RiVkePwOMZKZjQdNELs=
-X-Gm-Gg: AYBFou38ZdC3xSu2ccdIKKifIwAWbV2k+l43tGwPbHclaZGGhyfmE7mYbjFN5ocN91h
-	X3jZ2t0L+luIvIdOY82NevLRsyKk8GmPShM5x9fkAbPxV7EO+3veqhRaSWKeuHvhWpt9wZ5c5IJ
-	MfuFwUe70jzTDeHI0Ns4m3h/nd/nxaSS92HJdh0OqhPnx60rHH3ZYshkuck7YqYK5YzdfIfZAVK
-	xScRaUdBQVn3SuIeh3NaVSfhuz6NcFz6xHR7d+N9+TyRjWQSjBL+woyPUureyF3vS/Am8O3mx3a
-	Ex+OQ4s6C0wcFMj4kX2kEceJlz2e/Te5XdBRN04/Px/sE1LjeMRpSf6KW1nerub0Ziu51xr+73w
-	SjpnMTTCXu5j0NVli2eaJ1l/L7Sjpb67XHyEkBet7Y0j2vYXD1FXcLPicY8BcGMNYO546wvby7A
-	NSFN1T4xGEdrIAby/uxIiHk7rzq/bdM2L6iKfuI1LETMvsOgZMJmu8ct+/0U4d1nqEJWRcjwl0j
-	roIWe14szgZaYguWQht9cOyZvI=
-X-Received: by 2002:a05:6102:5708:b0:7ce:8505:9848 with SMTP id ada2fe7eead31-7d50618e5c0mr2824043137.31.1794500133060;
-        Thu, 12 Nov 2026 08:15:33 -0800 (PST)
-X-Received: by 2002:a05:6102:5708:b0:7ce:8505:9848 with SMTP id ada2fe7eead31-7d50618e5c0mr2824023137.31.1794500132454;
-        Thu, 12 Nov 2026 08:15:32 -0800 (PST)
-Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:a91e:6b1:bddc:2951])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba08e35e44sm125874045e9.1.2026.11.12.08.15.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 08:15:31 -0800 (PST)
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 17:15:28 +0100
-Subject: [PATCH 1/2] media: qcom: iris: venc: keep the crop rectangle in
- visible resolution space
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794500167; x=1826036167;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=6slC24wsI5oZIPToi5t2zeTD9OO9CM1u2kY0JlnOvHk=;
+  b=jGSqKKbJaYzePqN/E2kJQ0Jcn9ST6Mo51ULFMNZ0HAnGVoDxiGzKmgLd
+   GqAl+n+4NBOxyYP7s4u0HdBx6+5WmMY3sqoIDs1cyHOTwL/asfNw+anbW
+   tJqaRlMEFsMJpqu/Q9GVyU8g80uVkVQyt6LVTEBzAPvyuSxrBtEa6sNMK
+   RYdpzpo8maLsBgVZlkbcHF15txyPBgNgcWLMl6hDsGtzatDKpFZADivbU
+   ASlJypWAZeFZEs452JAzAd1/IW2j5TxgnT4KoCZkp63YoeUQADu6NbXth
+   URe4gVIqR+/tnepwCXmnOfOQDuOx2TCzPcejqJ+43ju5OTQnN3JYNGYhL
+   Q==;
+X-CSE-ConnectionGUID: QqAIZDgOSuWrT8TmWsF6aA==
+X-CSE-MsgGUID: OwIqrzKTQVelmb21GKI8SA==
+X-IronPort-AV: E=Sophos;i="6.27,210,1787011200"; 
+   d="scan'208";a="33640521"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 16:16:05 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:29758]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.10.61:2525] with esmtp (Farcaster)
+ id febfd303-a639-4c39-98e5-657cdafe4b62; Thu, 12 Nov 2026 16:16:05 +0000 (UTC)
+X-Farcaster-Flow-ID: febfd303-a639-4c39-98e5-657cdafe4b62
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Thu, 12 Nov 2026 16:16:04 +0000
+Received: from dev-dsk-sieberf-metal-1a-7543e84d.eu-west-1.amazon.com
+ (172.19.116.227) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Thu, 12 Nov 2026
+ 16:16:01 +0000
+From: Fernand Sieber <sieberf@amazon.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
+	<vincent.guittot@linaro.org>, Shuah Khan <shuah@kernel.org>
+CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
+	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
+	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak
+	<kprateek.nayak@amd.com>, Daniel Bristot de Oliveira <bristot@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>, Josh Don <joshdon@google.com>,
+	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+	<nh-open-source@amazon.com>, Fahad Mubeen <fmubeen@amazon.de>, "David
+ Woodhouse" <dwmw@amazon.co.uk>, Misha Karataiev <karataev@amazon.com>,
+	Hendrik Borghorst <hborghor@amazon.de>, Ibrahim Elshahed <lshahed@amazon.de>,
+	Fernand Sieber <sieberf@amazon.com>
+Subject: [PATCH 0/5] sched: Fix DL server starvation under core scheduling
+Date: Thu, 12 Nov 2026 18:15:43 +0200
+Message-ID: <20261112161548.78189-1-sieberf@amazon.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,165 +93,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-iris-fixes-v1-1-22b759c3c285@oss.qualcomm.com>
-References: <20261112-iris-fixes-v1-0-22b759c3c285@oss.qualcomm.com>
-In-Reply-To: <20261112-iris-fixes-v1-0-22b759c3c285@oss.qualcomm.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Wangao Wang <wangao.wang@oss.qualcomm.com>,
-        Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Authority-Analysis: v=2.4 cv=c6Q+0h9l c=1 sm=1 tr=0 ts=6af5e626 cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=kSwDjhpa1ZG9DP52KJ0A:9 a=QEXdDO2ut3YA:10 a=TD8TdBvy0hsOASGTdmB-:22
-X-Proofpoint-GUID: 6YJkqW3HWir_L3do9hqaxU4kfncXeO85
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA2NCBTYWx0ZWRfX0H3GWbTaB3T0
- iaOvFhsuvHIhn5fOvWZGkjGuzNeoPJWYLRyNwyOBKWaNadzr8ahz5P3on4we323ZxdNTxSyWRfN
- g/UXvx2Jx/LT1L7vYAVtDNVjc0WbK65I5WXgwRdodhG1lcJRQDHiv17W54E4hfu894sd927WE8T
- mS2xOYj0vwxs1PGMQcPQ9iskLvokBh+Us2JlFF+2C403q+J2uc/sr1OYQnlwAAUw8Yh16vTmjoV
- LyGjyJgyExcNhnvE/kS9R36KRxBiDuVREXKEcVYJhgc6bBGfP4thl1qW/c1uqIVt3Y9FkeyvK2I
- 48OGUCT40+gR+YY2IOSwViqVdSy2e8dZwUjveoUqSQKHsLEWkdpse6anTzG22peXJFbLeH5FJly
- s8LoRwBSPU/kQC2mtzIwkIEAth4t6bEXY4RokEE2m7YgU/cHRcgxD1/MqkX4Pwae40eqQHeFWzB
- 8Uow57hqhpeg0ddOUBg==
-X-Proofpoint-ORIG-GUID: 6YJkqW3HWir_L3do9hqaxU4kfncXeO85
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA2NCBTYWx0ZWRfX4NKjwOlAo6l7
- FLLJIMfX9ezlZDYhqD+B3ahJ5OY7HWI7+W1oMM5i/dHUqFU1RewcPhFTm6kzkEMwoUoXbq57kAy
- qJMkR9fgE7KUwI61iw6GrBaNuunoOvw=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_02,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 suspectscore=0 priorityscore=1501 phishscore=0
- impostorscore=0 malwarescore=0 clxscore=1015 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120064
 
-The encoder keeps two source resolutions. inst->fmt_src holds the padded
-buffer geometry handed to userspace, with width aligned to 128 and height
-to 32. enc_raw_width and enc_raw_height hold the visible resolution sent
-to the firmware as HFI_PROP_RAW_RESOLUTION.
+Under core scheduling the class a DL server reserves CPU time for gets
+almost nothing. With the default fair server (50 ms / 1 s), a CFS task
+spinning on one SMT sibling beside a cookied SCHED_FIFO task on the
+other measures 0.000% of its CPU instead of the reserved 5%. The ext
+server starves sched_ext tasks the same way.
 
-inst->crop must use the visible resolution, because
-iris_hfi_gen2_set_crop_offsets() computes
+Two independent mechanisms are at fault. The core-wide selection
+mishandles the rq->dl_server hand-off: a stale link is passed to idle
+(which then forces the siblings idle and trips the forced-idle WARN), a
+sibling's link is lost on the fast path, and picks are ranked before
+p->dl_server is set (patches 1-3, Fixes: bd9bbc96e835). Independently,
+a deferred server is charged its rq's forced-idle time, so its runtime
+runs out while it is still throttled, replenish_dl_new_period() pushes
+the activation a full period out, and the next period of forced idle
+pushes it again (patch 4, Fixes: a110a81c52a9). Either fix alone leaves
+the share at ~0%.
 
-	bottom_offset = inst->enc_raw_height - inst->crop.height;
+Patch 5 adds cs_dl_server_test to selftests/sched: a cookied FIFO
+spinner on one sibling, an uncookied CFS spinner on the other, and a
+check of the CFS share of that CPU against half the fair server's
+reservation, 2.5% by default. Run under QEMU with -smp 4,cores=2,threads=2.
 
-iris_venc_s_fmt_input() seeded inst->crop from the padded fmt_src instead,
-so any height that is not a multiple of 32 underflows. For 1280x720,
-crop.height becomes 736 and bottom_offset becomes 0xfffffff0. The two
-offsets share one payload word, so the right offset is corrupted too.
+Over a 5 s window, plain tip fails 10/10 at 0.000%, and with the whole
+series it passes 31/31 at 3.99-5.19%.
 
-iris_venc_s_fmt_output() compared the requested coded size against
-fmt_src, so a plain 1280x720 session looked like a 736 -> 720 downscale.
-Seed fmt_dst from the visible size. The encoder does not use fmt_dst for
-stride programming.
+This series was prepared with the help of an AI coding assistant. I
+have reviewed and tested all of it.
 
-Seeding fmt_dst from the visible size also means the codec alignment has
-to be applied on every path and not only when scaling, so that the
-CAPTURE queue keeps reporting the coded size. For 1920x1080 that is 1088,
-and the firmware signals the visible 1080 with SPS frame cropping.
+Fernand Sieber (5):
+  sched/core: Clear stale rq->dl_server when core-sched replaces a pick
+  sched/core: Keep a sibling's DL server link in the core-wide pick
+  sched/core: Rank DL server picks as deadline in the core-wide pick
+  sched/deadline: Don't charge core-sched forced idle to the DL servers
+  selftests/sched: Add a core-sched forced-idle DL server test
 
-Report CROP_BOUNDS and CROP_DEFAULT from enc_raw_*, so the bounds match
-the real source frame.
+ kernel/sched/core.c                           |  59 ++-
+ kernel/sched/idle.c                           |   7 +
+ kernel/sched/sched.h                          |  15 +
+ tools/testing/selftests/sched/.gitignore      |   1 +
+ tools/testing/selftests/sched/Makefile        |   4 +-
+ tools/testing/selftests/sched/config          |   4 +-
+ .../selftests/sched/cs_dl_server_test.c       | 402 ++++++++++++++++++
+ 7 files changed, 471 insertions(+), 21 deletions(-)
+ create mode 100644 tools/testing/selftests/sched/cs_dl_server_test.c
 
-G_FMT is left as is. For contiguous NV12 pix_mp.height is the only way to
-report the vertical luma padding, and the hardware is programmed with
-scanline_y = ALIGN(h, 32).
 
-  v4l2-ctl -d /dev/video1 \
-      --set-fmt-video-out=width=1280,height=720,pixelformat=NV12 \
-      --get-selection-output=target=crop
-
-Before:
-
-  Selection Video Output: crop, Left 0, Top 0, Width 1280, Height 736
-
-After:
-
-  Selection Video Output: crop, Left 0, Top 0, Width 1280, Height 720
-
-Fixes: d9967fa37ca9 ("media: qcom: iris: Improve format alignment for encoder")
-Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
----
- drivers/media/platform/qcom/iris/iris_venc.c | 20 ++++++++++++--------
- drivers/media/platform/qcom/iris/iris_vidc.c |  4 ++--
- 2 files changed, 14 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/media/platform/qcom/iris/iris_venc.c b/drivers/media/platform/qcom/iris/iris_venc.c
-index 2f2c56bf9122c73e10e86815b1aa5fad99b0fb42..b367367ac2ccf874a00606b8b1352fed37b37a57 100644
---- a/drivers/media/platform/qcom/iris/iris_venc.c
-+++ b/drivers/media/platform/qcom/iris/iris_venc.c
-@@ -240,14 +240,18 @@ static int iris_venc_s_fmt_output(struct iris_inst *inst, struct v4l2_format *f)
- 	 * If output format size != input format size,
- 	 * it is considered a scaling case,
- 	 * and the scaled size needs to be saved.
-+	 * Compare against the visible source resolution.
- 	 */
--	if (f->fmt.pix_mp.width != inst->fmt_src->fmt.pix_mp.width ||
--	    f->fmt.pix_mp.height != inst->fmt_src->fmt.pix_mp.height) {
-+	if (f->fmt.pix_mp.width != inst->enc_raw_width ||
-+	    f->fmt.pix_mp.height != inst->enc_raw_height) {
- 		inst->enc_scale_width = f->fmt.pix_mp.width;
- 		inst->enc_scale_height = f->fmt.pix_mp.height;
--		fmt->fmt.pix_mp.width = ALIGN(f->fmt.pix_mp.width, codec_align);
--		fmt->fmt.pix_mp.height = ALIGN(f->fmt.pix_mp.height, codec_align);
- 	}
-+
-+	/* The CAPTURE queue reports the coded size, in whole macroblocks. */
-+	fmt->fmt.pix_mp.width = ALIGN(f->fmt.pix_mp.width, codec_align);
-+	fmt->fmt.pix_mp.height = ALIGN(f->fmt.pix_mp.height, codec_align);
-+
- 	fmt->fmt.pix_mp.num_planes = 1;
- 	fmt->fmt.pix_mp.plane_fmt[0].bytesperline = 0;
- 	fmt->fmt.pix_mp.plane_fmt[0].sizeimage = iris_get_buffer_size(inst, BUF_OUTPUT);
-@@ -293,8 +297,8 @@ static int iris_venc_s_fmt_input(struct iris_inst *inst, struct v4l2_format *f)
- 	fmt->fmt.pix_mp.quantization = f->fmt.pix_mp.quantization;
- 
- 	output_fmt = inst->fmt_dst;
--	output_fmt->fmt.pix_mp.width = fmt->fmt.pix_mp.width;
--	output_fmt->fmt.pix_mp.height = fmt->fmt.pix_mp.height;
-+	output_fmt->fmt.pix_mp.width = f->fmt.pix_mp.width;
-+	output_fmt->fmt.pix_mp.height = f->fmt.pix_mp.height;
- 	output_fmt->fmt.pix_mp.colorspace = fmt->fmt.pix_mp.colorspace;
- 	output_fmt->fmt.pix_mp.xfer_func = fmt->fmt.pix_mp.xfer_func;
- 	output_fmt->fmt.pix_mp.ycbcr_enc = fmt->fmt.pix_mp.ycbcr_enc;
-@@ -312,8 +316,8 @@ static int iris_venc_s_fmt_input(struct iris_inst *inst, struct v4l2_format *f)
- 	    f->fmt.pix_mp.height != inst->crop.height) {
- 		inst->crop.top = 0;
- 		inst->crop.left = 0;
--		inst->crop.width = fmt->fmt.pix_mp.width;
--		inst->crop.height = fmt->fmt.pix_mp.height;
-+		inst->crop.width = f->fmt.pix_mp.width;
-+		inst->crop.height = f->fmt.pix_mp.height;
- 
- 		iris_venc_s_fmt_output(inst, output_fmt);
- 	}
-diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
-index 05aab6e3005d5c3788f5dfe5857f2d6b782e7a83..e3eaec1b7c2e30c065d8419ac3278756f70a8a97 100644
---- a/drivers/media/platform/qcom/iris/iris_vidc.c
-+++ b/drivers/media/platform/qcom/iris/iris_vidc.c
-@@ -522,8 +522,8 @@ static int iris_g_selection(struct file *filp, void *fh, struct v4l2_selection *
- 		switch (s->target) {
- 		case V4L2_SEL_TGT_CROP_BOUNDS:
- 		case V4L2_SEL_TGT_CROP_DEFAULT:
--			s->r.width = inst->fmt_src->fmt.pix_mp.width;
--			s->r.height = inst->fmt_src->fmt.pix_mp.height;
-+			s->r.width = inst->enc_raw_width;
-+			s->r.height = inst->enc_raw_height;
- 			break;
- 		case V4L2_SEL_TGT_CROP:
- 			s->r.width = inst->crop.width;
-
+base-commit: d7e670601af6c564ccf6d3b2ddf70ee4f41a6d1c
 -- 
-2.34.1
+2.47.3
+
+
+
+
+Amazon Development Centre (South Africa) (Proprietary) Limited
+29 Gogosoa Street, Observatory, Cape Town, Western Cape, 7925, South Africa
+Registration Number: 2004 / 034463 / 07
 
