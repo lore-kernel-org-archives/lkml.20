@@ -1,99 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.55
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794517438;
-	b=Kyw4N2PTRf67CU/C7cJDPuUhjJ6qzPrqQbaqEQq1fFeCsOWQrGvNYKf6j3l2fNgCLAWR
-	 DV28CSwgKPWbVtcAc5yuZ3sio4AofOkeEnvRPyq3gJjofK/mCKLh8Bm6uylPKBZYXGn1W
-	 Rvyma+nW9cVBQvrgkkK2fqP9ACLeH/j2PZDg6uXYmr7Y2MFPapQpgOZVWlvIQb07pNH6d
-	 571kzrt2ylxG/PwhhYZ5Kad0PTtYizzHL30mqkTA2f6gyVXPpIbrCcYoKNOAmSpzQr3ys
-	 JM/NbY9zGhHySxCqBxy6g3Euaj6h4bbbsXhqiON4iFj2D/nGuumxP0Fxq+kESvOR1TQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794517438;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=IYZBVQt2cpCHLIr5IDzlFgEVBIZ4QCoZS7uavLK58mA=;
-	b=U0p1cvnV0QE2P0y9PtQCfWIaXJ4X0wl3zv0qj3dE2IDC0exTn6SyRnK7UaSk1QwooB+6
-	 MxGkTdkQyBVTiN58H52y1JOZltnwYYx/R+9vZ2iQA3d0fSBqbbX2QuveOSuafvT+UYnDZ
-	 7vquKXqktDlznaM/uCDHvNW86dMYyHKNFLZfcZfvMYzz703t5MbJETb9bNfFmgKG+EtZ4
-	 T9gn+d5xUCRN5/7HPMXOOlOOnNbFXuuhOWSMiYGG6pLl5MVP4Pu0JuU8P+upFCMsrFSbT
-	 onHKrsRli3TqmbwkmhCwpRvjqz97Zzx6JIWfF11x+1uM2f61AOM8oI9nogrUHVrTTmQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=CyX94klC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.55
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011055.outbound.protection.outlook.com [52.101.70.55])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.157.188.15
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794517447;
+	b=hl5yqUPLmilpZfH6DhycNZNBrsi6u9tpej2OqZHd2HU0xGpROy/JZsgUsSS5J1T/+V/+
+	 XfHXsXB9c0bsiAIh6V4WJ0chHRHX/hzOFLTGdkIGvSPnx8LTz94/4DsEwY7zA2sjqsr3Q
+	 6fwr7S56m4HYphjPt22mbtkLY4SVvdqzhJt6WlujG/HTcponrRioCWgvd62ggNF49BBG+
+	 ob9LY5nisbph9mMXAyGeG2kzm0/0IXuqAryLm76HfbG8E9RWfMPmtQAytTH8vCBIR41x2
+	 mEO8B0i5JRZRIu0juqyJyirGEV+TXH2ynepNj5koZz0FmwMgGZm9y9rJaUUVWcj3G3g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794517447;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Subject:Message-ID:
+	 Date:From:To:Cc:Reply-To:X-WS-Location:References:In-Reply-To:
+	 X-Mailer:X-WS-User-Origin:X-WS-User-Mbox:X-WS-LOCALE:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Infomaniak-Routing;
+	bh=yxolAtf7QNMOiBL160312RWUw/Z3tmCv6VZhTsBZaMg=;
+	b=Qb2Oy4ppuMuT/WI8N2R7DUQ8qHgLCFE3MS4wGXx2YJcrbvZUbn9HVzKKZ8+9yd9XsmiM
+	 w8woKHPDlgrHPb4XsEl3XCt45G47+tV1u6/Eb+H/JlwRq1cF3EqVb01H5738eVc14xEPh
+	 tYljgIILLY6r9qTtFUOJkjidkeL+N1nLKgWVAvyhQ9VLG2IrguDixVkS+RsnrijSCgcSP
+	 npBXijGRhp2QryL4PGg5ASO6NNxriC+yYPGnVc12z+z2sBCHx1CqxAhgp/LYMCGKR78Sw
+	 yvhWuxu1VMXTNpMlF+fLHSDdRfqhxZ7771nenVlafQkQa1dbUvkuHZlxm0CuoZNGwrg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=jler.org;
+	spf=pass smtp.mailfrom=jler.org;
+	dkim=pass header.d=jler.org header.i=@jler.org header.a=rsa-sha256 header.s=20250203 header.b=T5DYiI+P;
+	arc=none smtp.remote-ip=45.157.188.15
+Received: from smtp-bc0f.mail.infomaniak.ch (smtp-bc0f.mail.infomaniak.ch [45.157.188.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4BD606A31C;
-	Thu, 12 Nov 2026 21:03:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E4BD606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB322606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:04:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB322606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=jler.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jler.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=CyX94klC
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YNgC3/BrWlii+yiJmDwc8aHPgZCEXgWdfx24IEGRMI4s89vmCD1jlrS3hXtM3JegPe5YDy37kQG+EkdhYF1catylv3++CHM5OZhTuajCfYoRKeHcnIaOnUqiaiD7ANU0s1L2/txXpxVvznbfYdPNIzOp2eOjNZ2w5WlTX+acm5fOSZkiIvorpE+lq+bRhPz0fNQIz5ISoGKQCwXMgH8smwji3Z5UuzdoCci80/qlKZJAlH9yESKxkM7bEV2wgJd7qbau6YHM8pX2xKX7PXskcjPAD7U4Ww0cCZ8/sxx5v9DdJYmH+QfxG8p/onVaYj8d2dBBX20zOIObyIsOm+FhqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IYZBVQt2cpCHLIr5IDzlFgEVBIZ4QCoZS7uavLK58mA=;
- b=Sfy2FFYeLHbxi3YSKCUaFC+EiEd6xWifM2k/MjM4BCwCVjeXoygw3pnUXOGCu5XdWlX6bEwo6+UFKxSzGrM5Bf1Pj0YEhdL95Orlxth0BDiGedvmjVBRLPPes90Ra4Yjb+R4R+3D72/xqLPuf9G8/o4P8jt6U9oi3WeuwRddM/GW3dDO3PjLAU/oBswg5qXFGBNUmaTYz3KEDI4Ha6nA8KK9Glmco8NBmLtwp3DQrLDYDjxOH58cqA0HF/nUUsNVB7OucqYlaIfOw3SCNKQLZsGNdXknYY2IjarfmBO66rs7DPwCZSdhKscbWL9rE2KOVkD0GKfUgHMCX0dtQ/cdGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IYZBVQt2cpCHLIr5IDzlFgEVBIZ4QCoZS7uavLK58mA=;
- b=CyX94klC16tA02cvyjwP7qjR2jexXCtL27RQUkAE/a4nHtK/jIhpDVqCjV5V0THUfILd96fgz3BykPpzm+ZA9Xzo1d/bD/hEpiahpY5Ml1Ops2S40GL8htX/XUqwV1TbM5WZw+mm1d+wnPFxljJfQHKLwMkyPGcJel6yM1sMlDJTLHHW5h+k8FCHMYy0vJzJdYZXai/wZs0rCbxkJd4MR4hB4A9MbYfuoz7bSm2dJwy+WWLQkOwAFz8yM4ltwAEXL7/iC1HU7lRniHqOLrbF86gpc/3KIZeDuW/2Tc+bWU+sI4lVYDMrA+hwjIzzVYz1gkjYMkUnLu9jc/9myAtVBg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by BR0PR04MB715228.eurprd04.prod.outlook.com (2603:10a6:2c8:44::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
- 2026 21:03:55 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.009; Thu, 12 Nov 2026
- 21:03:55 +0000
-Date: Thu, 12 Nov 2026 15:03:38 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Ludovic Desroches <ludovic.desroches@microchip.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Viresh Kumar <vireshk@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org,
-	imx@lists.linux.dev, linux-riscv@lists.infradead.org
-Subject: Re: [PATCH] dmaengine: Convert to subsys_platform_driver()
-Message-ID: <avYpkpoqf9NInTA6@SMW015318>
-References: <20261104113302.1634102-1-peng.fan@oss.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104113302.1634102-1-peng.fan@oss.nxp.com>
-X-ClientProxiedBy: VI1PR04CA0111.eurprd04.prod.outlook.com
- (2603:10a6:803:64::46) To AMBPR04MB12445.eurprd04.prod.outlook.com
- (2603:10a6:20b:75e::21)
+	dkim=pass (2048-bit key) header.d=jler.org header.i=@jler.org header.a=rsa-sha256 header.s=20250203 header.b=T5DYiI+P
+Received: from smtp-4-0001 (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jQXtk2G4wzJWb;
+	Thu, 12 Nov 2026 22:03:58 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jler.org;
+	s=20250203; t=1794517438;
+	bh=yxolAtf7QNMOiBL160312RWUw/Z3tmCv6VZhTsBZaMg=;
+	h=Subject:Date:From:To:Cc:Reply-To:References:In-Reply-To:From;
+	b=T5DYiI+PXo4tEkDzlSeC+6PnFz403U+Gt4d16BV+g7VwVcekpS4TMciefT/vtL2xd
+	 RUPjZ6L6DhugY24f1ktKge51PUKRoebIt4MGrw9jTCweQbeqljiT5CcLajTFY3goh7
+	 PiP024k0S7Xr5mu7w0rmV8HCR3paowlh4yac2V0qSgoYD0J2hMXNTzbddcuJCuuk4Z
+	 fKez9/6Bf7iHn7Y6Hbf7ho+P+IEDOu3+5N5LVCdXfTVfXpZ1vTIQkjQJKy7zvetg/J
+	 tywVCQwjpqjprxM8a4fcClYn/ypp0cKtNRSk66svT3v5lfrHtuaA2LCIEuuDVs+0d+
+	 ox+2AsjSq22xQ==
+Received: from unknown by smtp-4-0001 (Postfix) with ESMTPA id 4jQXtj2xR8zyHM;
+	Thu, 12 Nov 2026 22:03:57 +0100 (CET)
+Subject: Re: [PATCH] platform/x86: ayaneo-ec: Restore controller power when
+ the modules are refitted
+Message-ID: <f995a6c7-46e6-433f-81d7-f51001d310d7@mail.infomaniak.com>
+Date: Thu, 12 Nov 2026 22:03:57 +0100
+From: office JLER <lily@jler.org>
+To: Antheas Kapenekakis <lkml@antheas.dev>
+Cc: Hans de Goede <hansg@kernel.org>, Ilpo =?utf-8?Q?J=C3=A4rvinen?=
+ <ilpo.jarvinen@linux.intel.com>, =?utf-8?Q?Mat=C3=ADas_Mart=C3=ADnez?=
+ <hello@matias.me>, platform-driver-x86@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Reply-To: office JLER <lily@jler.org>
+X-WS-Location: eJxzKUpMKykGAAfpAmU-
+References: <20261112-ayaneo-ec-module-power-v1-1-00d42014bed3@jler.org>
+ <CAGwozwEVkdSpY==gBPE4E+10Ggs3zowYGWqjw2p+z1Jh9nNi6g@mail.gmail.com>
+In-Reply-To: <CAGwozwEVkdSpY==gBPE4E+10Ggs3zowYGWqjw2p+z1Jh9nNi6g@mail.gmail.com>
+X-Mailer: Infomaniak Workspace (1.3.1392)
+X-WS-User-Origin: eyJpdiI6ImRpeThUdHM2V1hSU0NFUUpNNG1IWGc9PSIsInZhbHVlIjoiSnpLNEYyYXZNdWZmcTNVYW0vL3BzUT09IiwibWFjIjoiNzRkOGVmMTMxZWI2Mjk0YzUzNzI5MDZiOGMzYTE3ODRlZDI3NjE3YWQxZDA4N2Q1MzZhNmQ0YzFhZTdlZTE5ZCIsInRhZyI6IiJ9
+X-WS-User-Mbox: eyJpdiI6Ii9sTXRXNStQRThQcDdkWXlXamFkN2c9PSIsInZhbHVlIjoiZlBRTFlHOFo2aThnTENIU09MMHFqdz09IiwibWFjIjoiZjliZDY2YWZhYmMxZGQ5YzNmNDhiY2FhMjNlZTk4MjFiY2RmYWQzZGE1ODI0YjAyYjJkYTJiMTFjZDU3YTkyOCIsInRhZyI6IiJ9
+X-WS-LOCALE: en_GB
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,287 +77,315 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|BR0PR04MB715228:EE_
-X-MS-Office365-Filtering-Correlation-Id: 337b04f2-1dac-4d74-aa9f-08df410075c0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|19092799006|23010399003|7416014|376014|22082099003|18002099003|56012099006|10067099003|11063799006|261102130727099003|261028144727099003|261026121527099003|261026140227099003|261022105027099003|261021123027099003|261021135927099003|261009223027099003|261022075727099003|261021121427099003|261102123227099003;
-X-Microsoft-Antispam-Message-Info:
-	vhuOxMon8a4QdCncetJsnKE5ESdqzbKbfpy3Hq867EQOMCpfeKbQqWrcI5vjL99CS5LGG7MYauAppxBfkEC/i2U0+/CCNIM2VJ/DYEWnMdPtUK3ZX+gqP/5DZ9mxfq3ruRNFcb5bTo8Jpv/zuhug7T7C9FVRXhR5kjhQpWtVTwTQSj134Tpv/8BBcY2T0dK3QsCmjlpCqKm12AGwlt/eaj7veAQuv9QUQa8zSVGa/4YPDLBUQkU+7ZMNjOiZYto9cAmRmGZR9EnahYOK9bA6S3t2uBBwo3E41/CzDe0l+Hu+prrEtSsoU8wMqvd7tpVoxmQr/or9DRUhWAvI4Vca1esWaCqWInIAMLCoK95s8LKznkjGMHPWhtoYWvFFqb/foTuxi7bFQFuYzna0etd/pKGf3TJNIvIVXBtiLvE6rdgFjwV4P9vEyFxxoU9fthDkReGBtdt9vYSeaw4Qa/XqB7tY14UBWqrrUA6e/+YssobT29o2Y/dNuQgyE0SbVieIbQeg8ilvwvh6DjVpvH6jIA4Oicn2zFyMEphzDFnTWYRNSGlDp53oIT2fERlRfAXrXhdFyZPaXIB9YpOWu86b7AjyU2OY+CCbtSy32oFocny7qoE97COB7RUoqkYA9BvXM2ixujpmD8yVBNd9kx5EZgIysoirL0YgaB/Qu9nkBMo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(23010399003)(7416014)(376014)(22082099003)(18002099003)(56012099006)(10067099003)(11063799006)(261102130727099003)(261028144727099003)(261026121527099003)(261026140227099003)(261022105027099003)(261021123027099003)(261021135927099003)(261009223027099003)(261022075727099003)(261021121427099003)(261102123227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?lkm+qluc+7yw5OKn+s0Yh3U/oV/uOR6iKcsQgIBVBa+fgv9xLuS1AvK9FRLV?=
- =?us-ascii?Q?AhBX8KIGX9nWr+G5rLxNjCp6loYHXAIJokzy7XUTXnkmwHe30XGXEc+KaFBo?=
- =?us-ascii?Q?VMiFQOQSkOGGrGprWhV8tQWIiiU24v1LCl1yXCsQPKq9DAL6UPOpR3lT8Ng7?=
- =?us-ascii?Q?TBBwYYVblEMomdqu4i0VjRYHpu6rd74F1phDF25AHrf5SjIcNkBekoIghgYp?=
- =?us-ascii?Q?XU7x+gCNGUGVh/LU0nVfl32vW8oDZDFsAxgkfVCfXqM7nYBa7gb9q2IC7kFn?=
- =?us-ascii?Q?OowQMasoInScnhm3FlippYaoRH8ZB5mA5zve52IixSK6CpbtT+GReyM4U6UL?=
- =?us-ascii?Q?sPaz67anhK+ucox6bjvm+wqLPwTEmRJi80IL6OoN+uMEFjlA2l0o4q9RPAwr?=
- =?us-ascii?Q?mMx+tZxjv6g7MDkHLrvrtWbvTWGek9EcrrWM4CaQi3hnqDxuWoYArdNlDkO7?=
- =?us-ascii?Q?S7IGLK662UfE403yI0XJa6wMNmwBLlCSjhdiC6fmtRzXjaqBuqPyih3aFXrN?=
- =?us-ascii?Q?3jyoQh6uaixYEZy7+hVElYE9/mBEoMzz2aBB9f9mNIehxLegfIQmD41oHrIK?=
- =?us-ascii?Q?kcga1d1uIe6cGwW26hWKwtB7ry5fbT94UVG9iKkQ6+bRU6NU/y6YPzrvwm9r?=
- =?us-ascii?Q?Xq5iJVl+queTLo2KmWJ+dfSuKxIijUNmTZiHJQPw7m2Y/ho3GdmyTt6hghn2?=
- =?us-ascii?Q?qwIb4LJZ4svGEM1LcvL7RswcHSJnsT0HIYrTJiZo+GszeTim4eI+GXsek3jU?=
- =?us-ascii?Q?9uw9gl2Qvuib0ywl3fVjtg15G1cNaNZ9VX/ZCkaN2bmeJyg1erVJCTJJudcD?=
- =?us-ascii?Q?g3bmolkO7iXvobrlxTBlW5/RVSty/HL6PiUz44K9QHa4bp2jW1GiEPobAkBA?=
- =?us-ascii?Q?dc0gxMnvGDqK3VWWscBvDOUJw8W4E+3FOAkWhXSe/8CQK5amjIQMkYvBqlOp?=
- =?us-ascii?Q?5hWlmj6McuAiNhsBhhyptxzIPgDNb7R7HuUdwydgcV0u6s9/R0KnBfeGVR+6?=
- =?us-ascii?Q?qq6Tkmg2dxCoPWfPRipsGeHt7NqTg62OqgIT36FtGp9itFaJMAVV4L8yG4so?=
- =?us-ascii?Q?f9Mbo5DCs1LzqA3HernRgtxPWRBYNEOIr3kdU9enCDvOQLswWPPuib8qdh3t?=
- =?us-ascii?Q?Q4J2pNBQeLbwpvH9MPqUcnaSe36VJgC5pWu9yZPdVKeDIOP9YBSdE7MqXgt5?=
- =?us-ascii?Q?qKpzB9bLnM6xwY8frL9K7g3qb6elGxaB2rJLFPc4bo9a09JHlEQkTxEcbsfR?=
- =?us-ascii?Q?9ZFXj8riKqntlCP5I03SYxY0WKURQVpX4bK1L8fwmMgs0BWy+l5DNqGqOacV?=
- =?us-ascii?Q?o3jlYM6kJ6CaIeeNedMFyBOn5x4isDDzYEChW7mdrQsTyBdi/O8SohP4qRD1?=
- =?us-ascii?Q?HO/fa85pSSq8KvDcbqyJq4BSj+dUxV5S5lo+JhDnWcA4GSWlDhtOLG4bx0Je?=
- =?us-ascii?Q?PHDmx+n2tc4qoHjeUzYeRnEZOrKTdVQs+GJuEUwxMZwkkPPHgAwJjh8SnvmA?=
- =?us-ascii?Q?ugeTTBmET8HIaaFbuNPs05ZIjb+vAXqoWoNDNbhfwHXTbp7OOChDW/Xr7H29?=
- =?us-ascii?Q?jlH5qvpvMHZXcCd5Mz4P70iYtoDL74wUeNljXsbjto7bk/PgNXavQAPmkzuv?=
- =?us-ascii?Q?HiMf3FdHkVbJ8MOZSYl1kGHO8XZ40P1QKBDJdJJmNfVGBEMDoH1Ac+tXeN1S?=
- =?us-ascii?Q?CNwWME+bBYuGocI4hSeHCFToa6AMRjWTtbD8ByGudvn1MU/k6eDTlFtBJqq8?=
- =?us-ascii?Q?LLIrbD8BuuuCU7SqvNW9v6u8YCsKN9Qto4oPg0OlVLHoMqp7jb2d?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 337b04f2-1dac-4d74-aa9f-08df410075c0
-X-MS-Exchange-CrossTenant-AuthSource: AMBPR04MB12445.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 21:03:54.9428
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3OZsGrz/vcViGpyqG4hUhrcTdDUl0p9xM6aqMMsXmveyfKpxsYnOJVf4ducCvTQgChHQ2iz7XS28Q5py3NCgeXVUdAKBe45gupHaO7nTCqTO7XBdhla8FGxNe2UCAazK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR04MB715228
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Infomaniak-Routing: alpha
 
-On Wed, Nov 04, 2026 at 07:33:02PM +0800, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
->
-> Replace the open-coded subsys_initcall()/module_exit() platform driver
-> registration with subsys_platform_driver().
->
-> No functional change.
->
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
+Hi Antheas,
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+On Thu, 12 Nov 2026, Antheas Kapenekakis wrote:
+> If this driver was the one to power off the controller this would make
+> sense. But that's not the case. You used software to eject the modules
+> and turn off the controller. Therefore, you should expect that
+> software to decide when to turn on the controller again.
 
->  drivers/dma/at_xdmac.c          | 13 +------------
->  drivers/dma/bestcomm/bestcomm.c | 20 +-------------------
->  drivers/dma/dma-jz4780.c        | 13 +------------
->  drivers/dma/dw/platform.c       | 13 +------------
->  drivers/dma/fsl-edma-main.c     | 13 +------------
->  drivers/dma/mcf-edma-main.c     | 13 +------------
->  drivers/dma/sa11x0-dma.c        | 13 +------------
->  drivers/dma/sf-pdma/sf-pdma.c   | 13 +------------
->  8 files changed, 8 insertions(+), 103 deletions(-)
->
-> diff --git a/drivers/dma/at_xdmac.c b/drivers/dma/at_xdmac.c
-> index d40a8b40dddc..3e83883cc17d 100644
-> --- a/drivers/dma/at_xdmac.c
-> +++ b/drivers/dma/at_xdmac.c
-> @@ -2487,18 +2487,7 @@ static struct platform_driver at_xdmac_driver = {
->  		.pm		= pm_ptr(&atmel_xdmac_dev_pm_ops),
->  	}
->  };
-> -
-> -static int __init at_xdmac_init(void)
-> -{
-> -	return platform_driver_register(&at_xdmac_driver);
-> -}
-> -subsys_initcall(at_xdmac_init);
-> -
-> -static void __exit at_xdmac_exit(void)
-> -{
-> -	platform_driver_unregister(&at_xdmac_driver);
-> -}
-> -module_exit(at_xdmac_exit);
-> +subsys_platform_driver(at_xdmac_driver);
->
->  MODULE_DESCRIPTION("Atmel Extended DMA Controller driver");
->  MODULE_AUTHOR("Ludovic Desroches <ludovic.desroches@atmel.com>");
-> diff --git a/drivers/dma/bestcomm/bestcomm.c b/drivers/dma/bestcomm/bestcomm.c
-> index 241a91936fe8..1ec700c2c996 100644
-> --- a/drivers/dma/bestcomm/bestcomm.c
-> +++ b/drivers/dma/bestcomm/bestcomm.c
-> @@ -469,28 +469,10 @@ static struct platform_driver mpc52xx_bcom_of_platform_driver = {
->  	},
->  };
->
-> -
-> -/* ======================================================================== */
-> -/* Module                                                                   */
-> -/* ======================================================================== */
-> -
-> -static int __init
-> -mpc52xx_bcom_init(void)
-> -{
-> -	return platform_driver_register(&mpc52xx_bcom_of_platform_driver);
-> -}
-> -
-> -static void __exit
-> -mpc52xx_bcom_exit(void)
-> -{
-> -	platform_driver_unregister(&mpc52xx_bcom_of_platform_driver);
-> -}
-> -
->  /* If we're not a module, we must make sure everything is setup before  */
->  /* anyone tries to use us ... that's why we use subsys_initcall instead */
->  /* of module_init. */
-> -subsys_initcall(mpc52xx_bcom_init);
-> -module_exit(mpc52xx_bcom_exit);
-> +subsys_platform_driver(mpc52xx_bcom_of_platform_driver);
->
->  MODULE_DESCRIPTION("Freescale MPC52xx BestComm DMA");
->  MODULE_AUTHOR("Sylvain Munaut <tnt@246tNt.com>");
-> diff --git a/drivers/dma/dma-jz4780.c b/drivers/dma/dma-jz4780.c
-> index ac2094e65ecf..57ab0f621105 100644
-> --- a/drivers/dma/dma-jz4780.c
-> +++ b/drivers/dma/dma-jz4780.c
-> @@ -1128,18 +1128,7 @@ static struct platform_driver jz4780_dma_driver = {
->  		.of_match_table = jz4780_dma_dt_match,
->  	},
->  };
-> -
-> -static int __init jz4780_dma_init(void)
-> -{
-> -	return platform_driver_register(&jz4780_dma_driver);
-> -}
-> -subsys_initcall(jz4780_dma_init);
-> -
-> -static void __exit jz4780_dma_exit(void)
-> -{
-> -	platform_driver_unregister(&jz4780_dma_driver);
-> -}
-> -module_exit(jz4780_dma_exit);
-> +subsys_platform_driver(jz4780_dma_driver);
->
->  MODULE_AUTHOR("Alex Smith <alex@alex-smith.me.uk>");
->  MODULE_DESCRIPTION("Ingenic JZ4780 DMA controller driver");
-> diff --git a/drivers/dma/dw/platform.c b/drivers/dma/dw/platform.c
-> index 5c1c97eb28a4..95a36af613e8 100644
-> --- a/drivers/dma/dw/platform.c
-> +++ b/drivers/dma/dw/platform.c
-> @@ -194,18 +194,7 @@ static struct platform_driver dw_driver = {
->  		.acpi_match_table = ACPI_PTR(dw_dma_acpi_id_table),
->  	},
->  };
-> -
-> -static int __init dw_init(void)
-> -{
-> -	return platform_driver_register(&dw_driver);
-> -}
-> -subsys_initcall(dw_init);
-> -
-> -static void __exit dw_exit(void)
-> -{
-> -	platform_driver_unregister(&dw_driver);
-> -}
-> -module_exit(dw_exit);
-> +subsys_platform_driver(dw_driver);
->
->  MODULE_LICENSE("GPL v2");
->  MODULE_DESCRIPTION("Synopsys DesignWare DMA Controller platform driver");
-> diff --git a/drivers/dma/fsl-edma-main.c b/drivers/dma/fsl-edma-main.c
-> index 630285c85482..0feb878a03ff 100644
-> --- a/drivers/dma/fsl-edma-main.c
-> +++ b/drivers/dma/fsl-edma-main.c
-> @@ -977,18 +977,7 @@ static struct platform_driver fsl_edma_driver = {
->  	.probe          = fsl_edma_probe,
->  	.remove		= fsl_edma_remove,
->  };
-> -
-> -static int __init fsl_edma_init(void)
-> -{
-> -	return platform_driver_register(&fsl_edma_driver);
-> -}
-> -subsys_initcall(fsl_edma_init);
-> -
-> -static void __exit fsl_edma_exit(void)
-> -{
-> -	platform_driver_unregister(&fsl_edma_driver);
-> -}
-> -module_exit(fsl_edma_exit);
-> +subsys_platform_driver(fsl_edma_driver);
->
->  MODULE_DESCRIPTION("Freescale eDMA engine driver");
->  MODULE_LICENSE("GPL v2");
-> diff --git a/drivers/dma/mcf-edma-main.c b/drivers/dma/mcf-edma-main.c
-> index 9e1c6400c77b..5b72af393ec3 100644
-> --- a/drivers/dma/mcf-edma-main.c
-> +++ b/drivers/dma/mcf-edma-main.c
-> @@ -281,18 +281,7 @@ bool mcf_edma_filter_fn(struct dma_chan *chan, void *param)
->  	return false;
->  }
->  EXPORT_SYMBOL(mcf_edma_filter_fn);
-> -
-> -static int __init mcf_edma_init(void)
-> -{
-> -	return platform_driver_register(&mcf_edma_driver);
-> -}
-> -subsys_initcall(mcf_edma_init);
-> -
-> -static void __exit mcf_edma_exit(void)
-> -{
-> -	platform_driver_unregister(&mcf_edma_driver);
-> -}
-> -module_exit(mcf_edma_exit);
-> +subsys_platform_driver(mcf_edma_driver);
->
->  MODULE_ALIAS("platform:mcf-edma");
->  MODULE_DESCRIPTION("Freescale eDMA engine driver, ColdFire family");
-> diff --git a/drivers/dma/sa11x0-dma.c b/drivers/dma/sa11x0-dma.c
-> index a6fa431530e3..6a7a519910ec 100644
-> --- a/drivers/dma/sa11x0-dma.c
-> +++ b/drivers/dma/sa11x0-dma.c
-> @@ -1079,18 +1079,7 @@ static struct platform_driver sa11x0_dma_driver = {
->  	.probe		= sa11x0_dma_probe,
->  	.remove		= sa11x0_dma_remove,
->  };
-> -
-> -static int __init sa11x0_dma_init(void)
-> -{
-> -	return platform_driver_register(&sa11x0_dma_driver);
-> -}
-> -subsys_initcall(sa11x0_dma_init);
-> -
-> -static void __exit sa11x0_dma_exit(void)
-> -{
-> -	platform_driver_unregister(&sa11x0_dma_driver);
-> -}
-> -module_exit(sa11x0_dma_exit);
-> +subsys_platform_driver(sa11x0_dma_driver);
->
->  MODULE_AUTHOR("Russell King");
->  MODULE_DESCRIPTION("SA-11x0 DMA driver");
-> diff --git a/drivers/dma/sf-pdma/sf-pdma.c b/drivers/dma/sf-pdma/sf-pdma.c
-> index 6f79cc28703e..c7d6774d0970 100644
-> --- a/drivers/dma/sf-pdma/sf-pdma.c
-> +++ b/drivers/dma/sf-pdma/sf-pdma.c
-> @@ -639,19 +639,8 @@ static struct platform_driver sf_pdma_driver = {
->  	},
->  };
->
-> -static int __init sf_pdma_init(void)
-> -{
-> -	return platform_driver_register(&sf_pdma_driver);
-> -}
-> -
-> -static void __exit sf_pdma_exit(void)
-> -{
-> -	platform_driver_unregister(&sf_pdma_driver);
-> -}
-> -
->  /* do early init */
-> -subsys_initcall(sf_pdma_init);
-> -module_exit(sf_pdma_exit);
-> +subsys_platform_driver(sf_pdma_driver);
->
->  MODULE_LICENSE("GPL v2");
->  MODULE_DESCRIPTION("SiFive Platform DMA driver");
-> --
-> 2.51.0
+Fair enough. The case I was after was the program that powered off
+the controller no longer running when the modules are refitted, but
+that is for that program to handle, not something the driver should
+cover for.
+
+> In this case, you'd use something like a new abi auto, to decide to turn
+> on the controller automatically. This would not interfere with current
+> software that handles polling on its own, such as hhd. But it is a
+> large code change compared to making the userspace software that
+> initiated the ejection handle it.
+
+Agreed, that is more than it is worth. I'll drop this patch and
+handle it in userspace.
+
+Thanks for the quick review.
+
+Best,
+lilytaylor42
+
+On Thu, 12 Nov 2026 at 21:06, lilytaylor42 via B4 Relay
+<devnull+lily.jler.org@kernel.org> wrote:
+
+>  =20
+>  From: lilytaylor42 <lily@jler.org>
+>=20
+>  On the AYANEO 3, releasing a Magic Module means writing the eject
+>  command and then turning controller power off. Once the modules are
+>  fitted again, power has to be turned back on before the controller
+>  reappears. Today userspace has to watch for that. If nothing is
+>  running when the modules are refitted, the controller stays off and
+>  the device has no built-in input.
+>=20
+>  The EC raises no event when a module is attached or removed, so poll
+>  the module register while controller power is off. Once a module has
+>  been taken out and both are attached again for a second, turn the
+>  power back on, as the vendor's Windows software does. Power turned off
+>  with both modules left in place stays off. Notify controller_modules
+>  and controller_power so userspace can poll() instead of re-reading.
+>=20
+>  The investigation, code and this changelog were produced with an AI
+>  coding assistant (Claude Code). It decompiled the DSDT and traced EC
+>  query events to confirm that module changes raise no event, wrote the
+>  patch, and ran the tests below on my AYANEO 3 while I removed and
+>  refitted the modules.
+>=20
+>  Signed-off-by: lilytaylor42 <lily@jler.org>
+>  ---
+>  Built in-tree on platform-drivers-x86 for-next (568051916) with W=3D1 an=
+d
+>  x86_64_defconfig plus AYANEO_EC=3Dm: no warnings before or after.
+>=20
+>  Tested on an AYANEO 3 (Bazzite 45, 7.3.3 kernel), built as a module
+>  against the running kernel, with no userspace module handling running:
+>  after eject and power off, refitting both modules turned power back on
+>  1.2 s after both were seated and the controller re-enumerated. Power
+>  turned off with both modules attached stayed off.
+>=20
+>  Independent of this patch: after power returns, the controller first
+>  connects in a state that does not answer GET_DESCRIPTOR and reconnects
+>  about 11 s later, so enumeration takes ~32 s with the default scheme and
+>  ~12 s with the port's old_scheme quirk set. That happens with the
+>  unpatched driver too.
+=20
+Hi,
+this is the responsibility of the program that powered off the
+controller. This driver contains no logic for when to power or unpower
+the controller. It only provides a hook for userspace to access the EC
+addresses required for it.
+
+If this driver was the one to power off the controller this would make
+sense. But that's not the case. You used software to eject the modules
+and turn off the controller. Therefore, you should expect that
+software to decide when to turn on the controller again.
+
+AYANEO_MODULE_SETTLE is especially problematic since you are embedding
+logic into the driver about arbitrarily turning on the controller. In
+this case, you'd use something like a new abi auto, to decide to turn
+on the controller automatically. This would not interfere with current
+software that handles polling on its own, such as hhd. But it is a
+large code change compared to making the userspace software that
+initiated the ejection handle it.
+
+Best,
+Antheas
+
+
+>    ---
+>   Documentation/ABI/testing/sysfs-platform-ayaneo-ec | 10 ++-
+>   drivers/platform/x86/ayaneo-ec.c                   | 90 +++++++++++++++=
++++++++
+>   2 files changed, 99 insertions(+), 1 deletion(-)
+>=20
+>  diff --git a/Documentation/ABI/testing/sysfs-platform-ayaneo-ec b/Docume=
+ntation/ABI/testing/sysfs-platform-ayaneo-ec
+>  index 4cffbf5fc..8c70be0c3 100644
+>  --- a/Documentation/ABI/testing/sysfs-platform-ayaneo-ec
+>  +++ b/Documentation/ABI/testing/sysfs-platform-ayaneo-ec
+>  @@ -7,13 +7,21 @@ Description:
+>                  the controller power (e.g. for power savings). Write 1 t=
+o
+>                  turn on, 0 to turn off. File is readable and writable.
+>=20
+>  +               After power is turned off, the driver turns it back on
+>  +               once a module has been removed and both modules are
+>  +               attached again, as the Windows software for this device
+>  +               does. Power turned off with both modules left attached
+>  +               stays off. Userspace can poll() this file for changes.
+>  +
+>   What:          /sys/devices/platform/ayaneo-ec/controller_modules
+>   Date:          Nov 2025
+>   KernelVersion: 6.19
+>   Contact:       "Antheas Kapenekakis"  <lkml@antheas.dev>
+>   Description:
+>                  Shows which controller modules are currently connected t=
+o
+>  -               the device. Possible values are "left", "right" and "bot=
+h".
+>  +               the device. Possible values are "left", "right", "both"
+>  +               and "none". While controller power is off, changes can b=
+e
+>  +               waited for with poll().
+>                  File is read-only. The Windows software for this device
+>                  will only set controller power to 1 if both module sides
+>                  are connected (i.e. this file returns "both").
+>  diff --git a/drivers/platform/x86/ayaneo-ec.c b/drivers/platform/x86/aya=
+neo-ec.c
+>  index 7c6a06330..3f89f8f9d 100644
+>  --- a/drivers/platform/x86/ayaneo-ec.c
+>  +++ b/drivers/platform/x86/ayaneo-ec.c
+>  @@ -9,6 +9,7 @@
+>=20
+>   #include <linux/acpi.h>
+>   #include <linux/bits.h>
+>  +#include <linux/devm-helpers.h>
+>   #include <linux/dmi.h>
+>   #include <linux/err.h>
+>   #include <linux/hwmon.h>
+>  @@ -19,6 +20,7 @@
+>   #include <linux/pm.h>
+>   #include <linux/power_supply.h>
+>   #include <linux/sysfs.h>
+>  +#include <linux/workqueue.h>
+>   #include <acpi/battery.h>
+>=20
+>   #define AYANEO_PWM_ENABLE_REG   0x4A
+>  @@ -43,6 +45,13 @@
+>   #define AYANEO_MODULE_RIGHT    BIT(1)
+>   #define AYANEO_MODULE_MASK     (AYANEO_MODULE_LEFT | AYANEO_MODULE_RIGH=
+T)
+>=20
+>  +/*
+>  + * The EC raises no event when a module is attached or removed, so the
+>  + * module register is polled, and only while controller power is off.
+>  + */
+>  +#define AYANEO_MODULE_POLL_MS  500
+>  +#define AYANEO_MODULE_SETTLE   3       /* polls with both attached befo=
+re power on */
+>  +
+>   struct ayaneo_ec_quirk {
+>          bool has_fan_control;
+>          bool has_charge_control;
+>  @@ -58,6 +67,12 @@ struct ayaneo_ec_platform_data {
+>          struct mutex hwmon_lock;
+>          bool restore_charge_limit;
+>          bool restore_pwm;
+>  +
+>  +       /* Turns controller power back on once the modules are refitted =
+*/
+>  +       struct delayed_work module_work;
+>  +       bool module_removed;
+>  +       unsigned int module_settle;
+>  +       u8 module_state;
+>   };
+>=20
+>   static const struct ayaneo_ec_quirk quirk_fan =3D {
+>  @@ -395,11 +410,69 @@ static int ayaneo_remove_battery(struct power_supp=
+ly *battery,
+>          return 0;
+>   }
+>=20
+>  +static void ayaneo_module_watch(struct ayaneo_ec_platform_data *data)
+>  +{
+>  +       data->module_removed =3D false;
+>  +       data->module_settle =3D 0;
+>  +       data->module_state =3D AYANEO_MODULE_MASK;
+>  +       queue_delayed_work(system_freezable_wq, &data->module_work,
+>  +                          msecs_to_jiffies(AYANEO_MODULE_POLL_MS));
+>  +}
+>  +
+>  +/*
+>  + * While controller power is off, wait for a module to be taken out and
+>  + * for both modules to be attached again, then turn the power back on.
+>  + * This mirrors the vendor's Windows software and means a refitted
+>  + * controller works even when no userspace program is watching. Power
+>  + * turned off with both modules left in place stays off.
+>  + */
+>  +static void ayaneo_module_work(struct work_struct *work)
+>  +{
+>  +       struct ayaneo_ec_platform_data *data =3D
+>  +               container_of(to_delayed_work(work), struct ayaneo_ec_pla=
+tform_data,
+>  +                            module_work);
+>  +       struct kobject *kobj =3D &data->pdev->dev.kobj;
+>  +       u8 power, modules;
+>  +
+>  +       if (ec_read(AYANEO_POWER_REG, &power) ||
+>  +           ec_read(AYANEO_MODULE_REG, &modules))
+>  +               goto again;
+>  +
+>  +       /* Turned back on elsewhere, e.g. by userspace */
+>  +       if (power =3D=3D AYANEO_POWER_ON)
+>  +               return;
+>  +
+>  +       modules =3D ~modules & AYANEO_MODULE_MASK;
+>  +       if (modules !=3D data->module_state) {
+>  +               data->module_state =3D modules;
+>  +               sysfs_notify(kobj, NULL, "controller_modules");
+>  +       }
+>  +
+>  +       if (modules !=3D AYANEO_MODULE_MASK) {
+>  +               data->module_removed =3D true;
+>  +               data->module_settle =3D 0;
+>  +               goto again;
+>  +       }
+>  +
+>  +       if (!data->module_removed || ++data->module_settle < AYANEO_MODU=
+LE_SETTLE)
+>  +               goto again;
+>  +
+>  +       if (!ec_write(AYANEO_POWER_REG, AYANEO_POWER_ON)) {
+>  +               sysfs_notify(kobj, NULL, "controller_power");
+>  +               return;
+>  +       }
+>  +
+>  +again:
+>  +       queue_delayed_work(system_freezable_wq, &data->module_work,
+>  +                          msecs_to_jiffies(AYANEO_MODULE_POLL_MS));
+>  +}
+>  +
+>   static ssize_t controller_power_store(struct device *dev,
+>                                        struct device_attribute *attr,
+>                                        const char *buf,
+>                                        size_t count)
+>   {
+>  +       struct ayaneo_ec_platform_data *data =3D dev_get_drvdata(dev);
+>          bool value;
+>          int ret;
+>=20
+>  @@ -407,10 +480,15 @@ static ssize_t controller_power_store(struct devic=
+e *dev,
+>          if (ret)
+>                  return ret;
+>=20
+>  +       cancel_delayed_work_sync(&data->module_work);
+>  +
+>          ret =3D ec_write(AYANEO_POWER_REG, value ? AYANEO_POWER_ON : AYA=
+NEO_POWER_OFF);
+>          if (ret)
+>                  return ret;
+>=20
+>  +       if (!value)
+>  +               ayaneo_module_watch(data);
+>  +
+>          return count;
+>   }
+>=20
+>  @@ -518,6 +596,18 @@ static int ayaneo_ec_probe(struct platform_device *=
+pdev)
+>                          return PTR_ERR(hwdev);
+>          }
+>=20
+>  +       if (data->quirks->has_magic_modules) {
+>  +               u8 power;
+>  +
+>  +               ret =3D devm_delayed_work_autocancel(&pdev->dev, &data->=
+module_work,
+>  +                                                  ayaneo_module_work);
+>  +               if (ret)
+>  +                       return ret;
+>  +
+>  +               if (!ec_read(AYANEO_POWER_REG, &power) && power =3D=3D A=
+YANEO_POWER_OFF)
+>  +                       ayaneo_module_watch(data);
+>  +       }
+>  +
+>          if (data->quirks->has_charge_control) {
+>                  data->battery_hook.add_battery =3D ayaneo_add_battery;
+>                  data->battery_hook.remove_battery =3D ayaneo_remove_batt=
+ery;
+>=20
+>  ---
+>  base-commit: 5680519168f65666d2c03cc6ed8fe2b7052aee12
+>  change-id: 20261112-ayaneo-ec-module-power-66f183285f3e
+>=20
+>  Best regards,
+>  --
+>  lilytaylor42 <lily@jler.org>
+>=20
+>=20
 >
