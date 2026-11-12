@@ -1,49 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794487106;
-	b=x6KxH+3ajnPGBqufugb6+VHSpEDKYrp/T+EtC/zWtPG3SfPrlF9sksElcPiNcafFQ5WR
-	 AdFJAQJZAIh07/TuS+hXiTD0rTfNPUjovgf9aoNkF50+fhX7Wrswn0VIAZNlXHYtrHgoA
-	 2lc9602UtSPHc0m3dO9wUQGZ1m0Qv2500g6/1Nbg/3gMvDAwFfhtPqL9vpeCyoe1CeZPH
-	 NKvXeXLciMXEhd4ZHpS6uHLQp1JEQ/DsOphvb8toKjgEh+5zNXpM0CkwglbVmQQV6zDv1
-	 TNndtBU9Qu9HIDp46PV46h1Mf6EJYHmH/LLKYYVdrUDo12QK4FbYb6bSAh0N03sb2sw==
+	t=1794487121;
+	b=T22MUpDIot9LFhKdbZcJQmE3/DEMIBS/UDx2S9H9kzZ+F66lpIFu5Gb68atI/R+mSBVp
+	 JwRaYvU6mxiMC+oHjpYdcX7sQqC0oY0DyNLeWo6/w75yrb++dTYkbqZXppfMtlU3zwAEb
+	 /hRM3VVqJghEQ1YCrRhqO7Q2mbhG7KbvaRJkF2KbhMTdDtmc23SCu2mx8I6Ik1ZwwK8zn
+	 DV/6972+jIIFwZZFXZxp32/GJmCAAR2FtHAPlX8sN0VG3hTdvskt2H4C+o+bPx2zPcQQp
+	 yDKAuvctx14j7qQB/dPE1ff1gJiqFUVZhIAtrhs+yA7qze87/wOm+XCNLLD6CRe+0Kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794487106;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=qwGHYWqkzjPKzDNH4i/tvvgZ4hxVWyzdRGgiuO5uYi0=;
-	b=b8jSOqoEgnwfCIzadTFxAV2BlpBfxRww2J82IaD9qezBG720/dfdul3P5o4NtJpKlTX5
-	 gc8SQaPdgOgjYXRlX4JKfEE/67eacQQX8D0mJ2mbBiXPWur0T1flXadX1KUSK9gvddfp8
-	 MF88IqdeQkeSTGjzjKBz9FhKtd1Uv1UqAkqu5Nj8F6ND8coFWrxN3KbEuGswhdmCJA43q
-	 KKAfuMEcHB5S6iii7GR7DAfjs0+NSEtZy9tay1P/sYAKKw99Fvgo1z17pBaUxHUarjzK+
-	 gvEESsq7wIa+VGUbzodpb2MzsRGfySNYT0e9B+Xgpy2RlbZ2URM91ZtwvzkXhY1cJxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794487121;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=6UK6/KKi1vmJaH5c+RsMG+pBls/fTxRgXLxWMTuXdtA=;
+	b=TufnlvTtPlnVAuz2DZHVWereD6FxrJRxoKsIcKdO0cuwjwxjssRgxYGxwFTHjwTCm8Ib
+	 qyc5cfb+Qgx2/nIeUDJT5AoRPZY2f4Ml5fbH11NzHpJM+SmAuVkxEXS/30SFDooE1PV0g
+	 RCi7GkRKom2f0j+MJedjHoK+L7HUfAYD2DnIHon8I/xLmxF/xX/83IQqtZ61HdJ9QjSW2
+	 LouE+jJmQ2Guiv1+44xBkDJmaPiKLwv+YYl2Ku0OfjV+TuSpNTybTlx5b6n/6A00vbEGk
+	 oSimypOQ9fLu4vxNyJgHEPWI/VJNTfl0zACRrpTFZ45RLsA7x6gdXQtGb8am3Yo32kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=G92ewwS6;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0BB51606A31C;
-	Thu, 12 Nov 2026 12:38:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BB51606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="K/XrF1+5";
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A78606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:38:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3A78606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=G92ewwS6
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 354211477;
-	Thu, 12 Nov 2026 04:38:21 -0800 (PST)
-Received: from [10.57.59.183] (unknown [10.57.59.183])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F0E6E3F673;
-	Thu, 12 Nov 2026 04:38:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794487104; bh=GXDArifiTXzGS/TEyKUeQy694OV8tzZyyHhxUDTufKU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=G92ewwS69xI/sQnwPuFxDuaGeeicD5gWXRAQcqnYkeOnE+1AhuhQD+T9u+2gEnSvA
-	 8Tz0b5fy8Nanp500jVMIfPIBqybgWOu28wUx9eUNS6BsJB8hlKLfKfowurrVqb8yg0
-	 gegWtANRaNOjC5bAe0P7rnTdXxQKCb9wTnu50CiQ=
-Message-ID: <7b92f7c8-1543-447e-8ef3-aba608141699@arm.com>
-Date: Thu, 12 Nov 2026 13:38:13 +0100
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=K/XrF1+5
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-37549877380so4150551eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:38:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794487120; x=1795091920; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6UK6/KKi1vmJaH5c+RsMG+pBls/fTxRgXLxWMTuXdtA=;
+        b=K/XrF1+5uQeap9pI44P2RPX4tS2GuaNG9a3B4XiYyNz2g5kYkyS1mb6fEnQnNet0/r
+         8Hdb1SoLF9wDC9aBHqNWb+evQNYbf9k/eOZmSo6tZ8evUUZnWi2e0Xn6l0CqYgFyierW
+         dTkswGclAbjt/UzUwT5OUOLwjJhg2O2Pg7K+GOdO6pciJPqXixIPbzVOPaFNVYBNUt2p
+         /8aJJ8i7jPVea41VNU2UVSyiVszV/UHnVXNVHfT0bMbgJHME8xFBCytunzLSl+XGW/uT
+         qENQCu3U9Dz151E2bpyakraQOj21EMCH/RLVb85kJ1EQsNIU9yrhxvBwSlJVvUrIfyr/
+         t+bQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794487120; x=1795091920;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6UK6/KKi1vmJaH5c+RsMG+pBls/fTxRgXLxWMTuXdtA=;
+        b=1XKSQhIL/y+XNvHDpJn7L4BrM5Bw2TJqnbJh5AxRIYUHqo1779Jnru4n3CF92zsK86
+         sR1H554OzXALeOPto2dLG+ibaCWsqWDTmWG4ABqcwFk3p8lTRvG25gAZD4sO1eSW/viG
+         66NLawbQzsoItCJGP5nCEUDf6Zy83A0LbIVuJk0R/GuBKi+OKuOdAzleQqnrvvuZQbt5
+         m1xjM3mEUnKkJAVZViZp7mnUExnEtFX5B0tz5dhXhSTuXBAuqMmFF0ce98AtwJx1AK+R
+         Yr/1ogpDQTbkiJ3i9XP3EjFB7yYnW4pxZcZkQNieSu68dXUKrPZFxI9tW3MuRR1uowLA
+         FWtg==
+X-Forwarded-Encrypted: i=1; AL+hErFkTATji5fFpY7y9kSUgKqRsjdKDtjw2/exp5Ee9dZ+gmooqjO/Mhu/c+RRAdhYr+6q3E8Vt7+8WlP9XVQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8YMrVMXLLqQ+4AQLC81OIH9yoBdNeRy4vkDT5eHtxMHE4v1/F7
+	EW4PI3FpCKsHxm0srcmBAQ4iyRaryv8c4XODuhuqlw6S4aouHTfeC+Dy93doiU9p75haJO4etLp
+	DTmckPd/Np1KW3aLh/QbV9Jgz0iyYaA==
+X-Received: from dybcr35.prod.google.com ([2002:a05:7300:aca3:b0:36e:b3e6:ebe2])
+ (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:693c:65cd:b0:36a:1807:75a4 with SMTP id 5a478bee46e88-37686176002mr6158828eec.20.1794487119392;
+ Thu, 12 Nov 2026 04:38:39 -0800 (PST)
+Date: Thu, 12 Nov 2026 12:38:38 GMT
+In-Reply-To: <2026111212-unearned-strike-a7a3@gregkh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,65 +77,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v10 07/22] arm64: Initialize POR_EL1 register on
- cpu_resume()
-To: Yeoreum Yun <yeoreum.yun@arm.com>, Mark Brown <broonie@kernel.org>
-Cc: linux-hardening@vger.kernel.org, Andrew Morton
- <akpm@linux-foundation.org>, Ard Biesheuvel <ardb+git@google.com>,
- Andy Lutomirski <luto@kernel.org>, Catalin Marinas
- <catalin.marinas@arm.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "David Hildenbrand (Arm)" <david@kernel.org>, Jann Horn <jannh@google.com>,
- Jeff Xu <jeffxu@chromium.org>, Joey Gouly <joey.gouly@arm.com>,
- Kees Cook <kees@kernel.org>, Linu Cherian <linu.cherian@arm.com>,
- Linus Walleij <linusw@kernel.org>, Marc Zyngier <maz@kernel.org>,
- Matthew Wilcox <willy@infradead.org>, Maxwell Bland <mbland@motorola.com>,
- "Mike Rapoport (IBM)" <rppt@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Pierre Langlois <pierre.langlois@arm.com>,
- =?UTF-8?Q?Pierre-Cl=C3=A9ment_Tosi?= <ptosi@google.com>,
- Quentin Perret <qperret@google.com>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Vlastimil Babka <vbabka@kernel.org>,
- Will Deacon <will@kernel.org>, Yang Shi <yang@os.amperecomputing.com>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mm@kvack.org, x86@kernel.org, Ira Weiny <iweiny@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Thomas Gleixner <tglx@kernel.org>
-References: <20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com>
- <20261109-kpkeys-v10-7-aa6c4d9603bc@arm.com>
- <be361be8-c5ad-4ff7-a6db-7b0815bfe1d0@sirena.org.uk>
- <avNH_AdvK9AqvfF7@e129823.arm.com>
-From: Kevin Brodsky <kevin.brodsky@arm.com>
-Content-Language: en-GB
-In-Reply-To: <avNH_AdvK9AqvfF7@e129823.arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <18e70d7c82c722e3.3137322e32332e3235332e313736.191fb9.0000sendgmr@google.com>
+ <18e70d7cbc2831c0.3137322e32332e3235332e313736.1920de.0000sendgmr@google.com> <2026111212-unearned-strike-a7a3@gregkh>
+Message-ID: <18e74c87090a4d29.3137322e32332e3235332e313736.1e2278.0000sendgmr@google.com>
+Subject: Re: [PATCH v3 2/2] rust_binder: account for deferred work size in Thread::read()
+From: Chris Wiseman <chriswiseman@google.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alice Ryhl <aliceryhl@google.com>, Carlos Llamas <cmllamas@google.com>, 
+	=?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+	Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Chris Wiseman <chriswiseman@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/11/2026 17:36, Yeoreum Yun wrote:
-> On Tue, Nov 10, 2026 at 03:53:30PM +0000, Mark Brown wrote:
->> On Mon, Nov 09, 2026 at 03:58:32PM +0000, Kevin Brodsky wrote:
->>> From: Yeoreum Yun <yeoreum.yun@arm.com>
->>>
->>> The POR_EL1 register is reset to an unknown value after cpu_suspend().
->>> Since POR_EL1 always holds POR_EL1_INIT when entering cpu_suspend(),
->>> initialize POR_EL1 with POR_EL1_INIT before cpu_do_resume().
->>>> +#ifdef CONFIG_ARM64_POE
->>> +alternative_if_not ARM64_HAS_S1POE
->>> +	b	.Lskip_por_set
->>> +alternative_else_nop_endif
->>> +	mov_q	x2, POR_EL1_INIT
->>> +	msr_s	SYS_POR_EL1, x2
->>> +	/* isb can be skipped since cpu_do_resume() will do it. */
->>> +.Lskip_por_set:
->>> +#endif /* CONFIG_ARM64_POE */
->> cpu_do_resume() will update TCR2_EL1 to enable POE again, a sufficiently
->> unhelpful implementation could potentially decide to do that before this
->> POR_EL1 value takes effect AFAICT given that there's no barriers.
-> Thanks. seems required to isb() after initialising SYS_POR_EL1.
+On Thu, Nov 12, 2026 at 07:26:30AM -0500, Greg Kroah-Hartman wrote:
+> These patches are not "threaded", what went wrong?
 
-Agreed (as Sashiko reported as well). Presumably that means we also need
-an ISB after writing to POR_EL1 in cpu_enable_poe(), as that's basically
-the same situation.
+My wrapper script around our internal sendgmr mailer failed to capture
+the Message-ID of patch 1/2 and stamped an empty In-Reply-To: <> header
+into patch 2/2.  I fixed the script so it fails closed on missing
+Message-IDs going forward.
 
-- Kevin
+Patch 1/2 is here on Lore:
+https://lore.kernel.org/r/18e70d7c82c722e3.3137322e32332e3235332e313736.191fb9.0000sendgmr@google.com
+
+Let me know if you would like me to resend the pair properly threaded
+as v4.
+
+thanks,
+chris
