@@ -1,107 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501220;
-	b=ugAtf4nsN2lCeJLpoLwb1QXNpotMtimToQkMS8BRtRI01eWgcvRltVVDGAhbpsbrP1PT
-	 dPdkxFmJGitNtezTkoJ7/jVkR+ecW1hlUE1xeB8XtscqkcsuoymzPsiHHWUCjv7n18hTR
-	 oIDdw7vIsuQTNVxnc8qqNz+EsyL4JskyucmYDXD/FvSZhbDxtbpnBkxd8dWYGpFalhjuk
-	 iF8rUvoXIxHLpBNH2HULYI8UrFXq0+lgofwGdIKcIBguszCR8ATl2LVRmoZSEXOsyJ9aG
-	 T3TcJnx3kNZ7cVlNg714u/Sn88ug8nn6bgSoerVKGlqDg+LfOmn+LVNxl2IbQRYuP/g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501220;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=fTf5xwUaVqhCGYlOB3/ivLsxy/QQjCllvG43X3tVGp0=;
-	b=tZM22HAk9iFRiUtLttqGPxyLRk4SysYnHL6OAiF7hVoHKa7CtotcfNwtMEt9BNTzmt8+
-	 MjBGfQys8LsfVJuqbko19LQiI9qe0zv9DnGMF8bit08DSnHbUJ0XeswXWXWN9wfAfO7K5
-	 vQILYarCcvG7Wv91xZt+yWFydE+dWn/ppoSxmZAtA0VvKEk/ME0Q0/RkMn5/6e+GbWeO0
-	 qazR6ZF/G7r8BVATv8idydM73HrZJ0M7wPrZNhTAF70sf29WdEes19tqXNr5Cu6/rj3Hm
-	 sDdJmoNkVbp6jNIztn7wpouUPGKHE8rMH6BDLTO7NVyp1aK2YjSOngDMJmOyMRe/TMQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bOOolabN;
-	arc=none smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794501221;
+	b=lVBF7cHTPmIsNATUHmjQHnN60l85STrP/S4fHeMK2/HMiiEorh9qyBJj41wRWNBFF9DP
+	 Ds/J2n5g3LlTfKJ4oWurHrWrZ+ur/bSmbTHBlXzvLlYQjLrh/PexvzMU5eYGpbvIFLp2h
+	 rxLs5kUl2mL+9ZhOi8ihYYhfXci5dEjYBhCe/eXA7BJLKSInlHnzL9UsPQHElaDU1O1a6
+	 5dRYh/88toXImHUIKdeRz+zx4/sa0y88V32kC2l/TPkoLubCCxODGMek+i2tynbBsl2kO
+	 N73T/j64UDdKkd8HFSjxWCW/nJ0XDn00lJk1H1Yhpp3sXDF/ru6nysdYC98v1fomTqg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501221;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
+	 X-ZohoMailClient;
+	bh=Q/dnwQIhA8Sqe3WS4uwxB+IGEIoincQaBjNIe4lg0SQ=;
+	b=oAWArGTxkb+7isDP/RWRHMVa0sS80LgpZacyabDZZcx4aGZszNzierKG/7BpTd7jTV9F
+	 i+rAEnYsIBTDhsJmJpxpCaie/OXYQBOI8cnaWOBqIlj/9ujAltM0ZsDHe0JMVKfy/JQLP
+	 eRryqbSExBpo61LaUut8xdPGW0P4fjU4ke1xyuVjjyWUjAwoTrHo53e02iFWqpRU2JHj3
+	 W/3wK0xnFK7ylflsE0yzvB62kKEJR7ZdcO+sAS5W/kFRPntnOVHMdPapy39brCWHGovrG
+	 9mdp5wGPUUzCP/kdx69W5IpvUs9+Q5KIqYlQvtzdChtejXnc7Em4PzqyZoZO8GJDd1w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=ip9ePaPo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B311460A382C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:33:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B311460A382C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C7F60A5BFC;
+	Thu, 12 Nov 2026 16:33:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0C7F60A5BFC
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bOOolabN
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1a8cc11ac42so4481962c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:33:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794501219; x=1795106019; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fTf5xwUaVqhCGYlOB3/ivLsxy/QQjCllvG43X3tVGp0=;
-        b=bOOolabNHffCQAuwLQ0DkkrmI/0xfrlO3ZGMi4uEqUSA/ruC8Kgzg3IfqETXANiCSc
-         nE5XTUMOGB8+pm3D1vOJLl2dghi+dV6+Vf8rRysaZFAcqdtvPVkoe6QXZX87YeIv7qG7
-         lfylAT9DyUHn+4Eh7Ynj4HzZCeDttzszv+l+bobVFsJjNhRSkAE3y5pQNLVCbqsXZfvX
-         0sFEpdUsLOmCJy7pb/Wb5YJ0zdceVdrQpVM+F7Q5aHZisnn6mlBxmXh9varoskvH9SSU
-         ko83HninfW0bnflBqx4NP0nlDvUvEjXEhUVdASmv8xP0a8g+0Ska9Eos+DzE6V4AAGlQ
-         ELAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794501219; x=1795106019;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fTf5xwUaVqhCGYlOB3/ivLsxy/QQjCllvG43X3tVGp0=;
-        b=FsT3vpsnzsbtipbrpajHn3PgRBR8rK381rerktgI/mlxU7B9gm/O5cY+tb23c/IBjW
-         TiKjh9d4vZwxSMVgsVaYUaOBvkTxOtOVncV3Gt5fKxyWgz3eWnSHN2iKrJcuNzUZ75eA
-         wp1TLmPy7tEkVpDYLrbI5JAGrUrOY8rFONO6Mh1RieeKKHHYGIv3QR1A+80n1c8IovYi
-         iBYSPfNBty69yw6N8zvrCjOr9YtLa3fomvGfb+nhcP0AAXHxFDGK6GvheLT2FRxx1IEj
-         VFdYkgCcqrvMHya8lV5qtCB7AdWXYw2PkKuV9jkwqG5T8565Q5UgpfxHew/76wY5WIh9
-         v4mw==
-X-Forwarded-Encrypted: i=1; AL+hErGCymyRFlbsa1hg9GjZZaeP+3OiogXgpcJx9AenXSip8Aeh+jpqX4jgAoDzp14i5oarCgxglgC5QWOIgRY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8h6sjAXiFzcH18d8GOKz2YZbUmQRL4rFMmKrkHrfWcYDwX2yDV
-	fAfedoMxCmz+GQHAkpJX43N5A8dc+rMMHJiz2fqKOlxRGY35MwZKZmHf
-X-Gm-Gg: AYBFou1vBVL2SmdNc+jU8+rprESUBdv5nz3R8agNNSHXdjaQl7PoDZk5iZ7zdZhKBFm
-	esSZrJPeVZGn8oGZD6FiO9qKuvvDlWIEUfVddr2lp2Ov9tPJIUJUvhgUBHoYzJjSlwLxYNkxrqd
-	qnDDHnliX4Qh2XCI8Jk5NVP6gyFnaxbDfkNd9V2rKCoVmeULxuCLat7QJ6XPfhfBnsv4OUTrhyZ
-	QZr4Z9o8Y26uejVolQsc79LRKDxcWpl4Qktr1Hds9BzNZ2NskBy1Owpux4EVDsPVs8YVe4i+rN5
-	fWgAMWb6wVGMBltqP6w8wNfOj6lOBc83BsA6MX0doo/k4C8JZTVzUraS7X65YkhtKqKX5u1g+Li
-	IqWUM5XtVpldwYzieI1l2IW/hlbAje4/YMvXaoxrRQqUacqZeO7HsQIRorJFSFzsctGNOmD+g+0
-	nPB4AchNFLXafSbb33YHzeiXvyc7d06RtGDlhMrT75v5PREmLcuh4pcbnQuVX9cGYu7yT+MtPDS
-	Z6N64M98PWBrgnePvR8y9J5xflu+c3PpGpFvfARlok/Pv+/3VUHCM8PquIqqSXAcvCA18JmS2b8
-	p4ZmRCjxBxN7dKrGkLj7ntgaSGZDsYEXdkOf7NWlKUpD06rXGOi1/eA37pKLNSt+plkICXFxAtW
-	At5/mmS8wMWfDU8gK4WrH/2n6+o0WZDqZ204JThnV1QA6Jnthj+NN6480gZXtJDuw++lHNWxm
-X-Received: by 2002:a05:7022:409a:b0:1b2:3b5b:b80b with SMTP id a92af1059eb24-1b5030d7a9dmr70385c88.8.1794501218632;
-        Thu, 12 Nov 2026 08:33:38 -0800 (PST)
-Received: from Mac.localdomain (198-27-228-154.fiber.dynamic.sonic.net. [198.27.228.154])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50300e5dcsm230248c88.0.2026.11.12.08.33.36
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 12 Nov 2026 08:33:37 -0800 (PST)
-From: Ahmad Byagowi <ahmadexp@gmail.com>
-To: netdev@vger.kernel.org,
-	vadim.fedorenko@linux.dev,
-	andi.shyti@kernel.org
-Cc: linux-i2c@vger.kernel.org,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH net-next v2 0/3] ptp: ocp: support the WiWi production Time Card
-Date: Thu, 12 Nov 2026 08:33:29 -0800
-Message-ID: <20261112163333.12523-1-ahmadexp@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=ip9ePaPo
+ARC-Seal: i=1; a=rsa-sha256; t=1794501203; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=TyXFnpzt6dEn7SYZRYX9LBDwUMJG88UPvXAhu+jvP4b5K+gCdAr/syvn4RXC3C4jlxNzgPt48zf10avCykyl61Pxfg9VxRNQ9qW0Bhp8PlX7zaa3tPAEHg45ps2HKNFcHyqN8NcXOyuK76PvUxqT5CQ2QLRKVmxGIixgGRD3ALI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794501203; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Q/dnwQIhA8Sqe3WS4uwxB+IGEIoincQaBjNIe4lg0SQ=; 
+	b=FYeV0xsv23iGhQRJsEl6egozOrqON5Hs+1DEvzxrPFhE0giGXnyydeA+H4uvU0eP27XOGT9QjhmbodMjSZaGgahitwsGi/J7iN3CF6PvfQdf//EqijbNMCElZGOCzIe59VipzJNXeQfzDEdreDvSs/qwDNH7dmIkDvOX4k0qH0Q=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=ip9ePaPoVY3ZGfrjNpmVgomklprEC4o4roC1mcA+NBvqB1udzuz/z6o0nXkhFtHplLQBHB033UxNnzoW5Log1fF8+y8V/j1wVXq+/AIVeAFvYdFLTXmmmob7d6MYWDTgPMujwzN+ur/vT6ibOLa11Ofo9jehlWe9PDTFjwdTyxQ=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=Q/dnwQIhA8Sqe3WS4uwxB+IGEIoincQaBjNIe4lg0SQ=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794501201770774.608247615585;
+	Thu, 12 Nov 2026 08:33:21 -0800 (PST)
+Received: by venus (Postfix, from userid 1000)
+	id EA777180570; Thu, 12 Nov 2026 17:33:16 +0100 (CET)
+Date: Thu, 12 Nov 2026 17:33:16 +0100
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: aiyengar1990@gmail.com
+Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+	"Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Niklas Cassel <cassel@kernel.org>, 
+	Pranjal Shrivastava <praan@google.com>, linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	Shawn Lin <shawn.lin@rock-chips.com>, Simon Xue <xxm@rock-chips.com>, 
+	Finley Xiao <finley.xiao@rock-chips.com>
+Subject: Re: [PATCH v2 4/4] arm64: dts: rockchip: Add the reset of the RK3588
+ PCIe SMMU
+Message-ID: <avXqMZkpY7d0sbfR@venus>
+References: <20261112-smmu-v3-pcie-pd-v2-0-3a77bbb6b2c4@gmail.com>
+ <20261112-smmu-v3-pcie-pd-v2-4-3a77bbb6b2c4@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,64 +75,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-The WiWi Time Card (2163:1008, subsystem 10ee:0007) uses a
-Celestica-compatible register map behind LitePCIe. Its bridge does not
-support the subword MMIO used by the XIIC driver. Add an opt-in word
-access mode, exercise both modes with KUnit, and enable ptp_ocp on the
-revision 02 interface. Other cards retain their existing access modes.
-The series does not enable WiWi flash updates or change LED policy.
-
-Patch 3 uses the platform-data field from patch 1. Could the I2C
-maintainers review patches 1 and 2 for an Ack to take the series
-through net-next?
-
-Changes since v1:
- - 1/3: Drop five explicit inline annotations in the C file and
-   shorten the platform-data comment. No access semantics change.
- - 2/3: Wrap the offsets and expectations flagged by checkpatch.
-   The four test modes, register offsets and expected values are unchanged.
- - 3/3: Follow NetTimeLogic's PCI revision convention. Replace the exact
-   image ID and per-core version checks with a revision 02 gate. Reject
-   unknown revisions before FPGA MMIO and retain the BAR/MSI-X checks.
-   Report the full build ID in devlink; select capabilities by interface
-   revision. Update the documentation and wrap overlength lines.
-
-The revision 02 driver was tested on a physical card running build
-0x0000800f under Secure Boot. It bound with 64 MSI-X vectors; the PHC
-advanced 3.000441080 s over three one-second sleeps. SPI NOR and both
-EEPROM clients bound. The PHC was UNSYNCED at probe; this test does not
-establish PPS lock or valid UTC. Only that firmware build was tested on
-hardware. Subsequent edits to the tested drivers remove inline hints or
-change formatting and comments.
-
-On the rebased v2, the XIIC and ptp_ocp objects built on x86-64 with
-W=1 under allmodconfig and allyesconfig. Four XIIC KUnit cases passed
-in an isolated x86-64 QEMU boot. Fixtures exercised all 256 PCI
-revisions, bad PCI layouts and multiple image IDs. These are not
-additional hardware tests. No full allmodconfig or allyesconfig build
-is claimed for v2.
-
-Codex assisted with the changes, tests and changelogs using the board
-layout, machine-check evidence, vendor revision rule and v1 CI reports.
-
-v1: https://lore.kernel.org/netdev/20261111041904.48916-1-ahmadexp@gmail.com/
-
-Ahmad Byagowi (3):
-  i2c: xiic: allow platforms to require 32-bit register accesses
-  i2c: xiic: add KUnit coverage for register access modes
-  ptp: ocp: support the WiWi revision 02 Time Card
-
- Documentation/networking/devlink/ptp_ocp.rst |  36 +++-
- MAINTAINERS                                  |   1 +
- drivers/i2c/busses/Kconfig                   |  14 ++
- drivers/i2c/busses/i2c-xiic.c                |  60 +++++--
- drivers/i2c/busses/tests/i2c_xiic_kunit.c    |  91 +++++++++++
- drivers/ptp/ptp_ocp.c                        | 163 ++++++++++++++++++-
- include/linux/platform_data/i2c-xiic.h       |   3 +
- 7 files changed, 341 insertions(+), 27 deletions(-)
- create mode 100644 drivers/i2c/busses/tests/i2c_xiic_kunit.c
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="plo7cdziw5qygczc"
+Content-Disposition: inline
+In-Reply-To: <20261112-smmu-v3-pcie-pd-v2-4-3a77bbb6b2c4@gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.497.36
+X-ZohoMailClient: External
 
 
-base-commit: 368fbf5d82da9ebce309449c74fc0b128f7d0219
+--plo7cdziw5qygczc
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 4/4] arm64: dts: rockchip: Add the reset of the RK3588
+ PCIe SMMU
+MIME-Version: 1.0
+
+Hi,
+
+On Thu, Nov 12, 2026 at 08:20:25AM +0000, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+>=20
+> The MMU-600 for the PCIe controllers (mmu600_pcie) has a reset line in
+> the CRU, SRST_A_MMU_PCIE, which its node does not describe. Add it, so
+> that the node describes both the clock and the reset of the MMU-600.
+>=20
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+
+squash this into the previous commit.
+
+-- Sebastian
+
+>  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/b=
+oot/dts/rockchip/rk3588-base.dtsi
+> index dfed34a8aa57..45c1bb335447 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+> @@ -560,6 +560,7 @@ mmu600_pcie: iommu@fc900000 {
+>  			     <GIC_SPI 367 IRQ_TYPE_EDGE_RISING 0>;
+>  		interrupt-names =3D "eventq", "gerror", "priq", "cmdq-sync";
+>  		clocks =3D <&cru ACLK_MMU_PCIE>;
+> +		resets =3D <&cru SRST_A_MMU_PCIE>;
+>  		#iommu-cells =3D <1>;
+>  	};
+> =20
+>=20
+> --=20
+> 2.55.0
+>=20
+>=20
+
+--plo7cdziw5qygczc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmr16kgACgkQ2O7X88g7
++ppxMRAAj3Ltv4ErhZU0f3wZhYPQJhx+mkY3nlU/L6SyJGdIyiP+f5sNRq1yS3PC
+uFjSX4M0IV7s6bymiCkx5mimtXcqWnpJZREgT5rE/pn6qA2oEbSvaV71cPBghWMp
+cMCpa6RU7UME/Aj2laC7m+FhA9n6HUGYRchQQbSmd0y+bh6QJq2eGNstI0+1Jl8a
+xgKEyVomPUWe6U+/gvO+f5huDrx8A6AXYmvP/u+1W2pIYcl7khGjb3RimLjhN//o
+IlsoSB3yFBwQsKDJnQBlaCukfQfCaMRFjH6zvIsFMiic2wdLKWTdnDlsFwXXI3HP
+Ckxh7FkdAZmT0FhKm+AkHBschqSqzZTfrHfhy9SrOZgXWOTz1jQE9nIurWtjnyco
+0BtZjwgYCXWMIEOfV+YSrga4BvooysTtTm9/5FBy/YxY1LWjVMYf/73np8yJ4LYC
+yiaPA2M3PfhrK3Pqwany/VxcqF0mgh9wMynwWMmJQXesRv+ECPHtLz+dZ6Ib2pcs
+s+rN0hjEsm8tRsTN38r1n0MTlfMAsSBi2Ms3vTmj2v/jPsAwhb2mpPgJwEP8+k8j
+cN3vrq1sFgYJMee561K3JiUcpm0aCN55NAuTaQ9fOpV8ow4xNn4vrgh+EvjU+LTQ
+YY8DlesoqyZuG6FPd2GvJ5jpRLK2IJtMp+Ao116jHyFzg/oN3UI=
+=VZSZ
+-----END PGP SIGNATURE-----
+
+--plo7cdziw5qygczc--
