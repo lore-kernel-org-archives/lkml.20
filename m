@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794521367;
-	b=Vz6JRIvkGvMrb4YugKs8L3KeW6KRkR0B+wKA2/shYhDDBqORzy7YDWirAFUfgluecMB+
-	 epcq6Fwej1wlxaVnn0vouYiTlv7aMg4lfXycacuZ/OZcVhcK3Hw0lCwA6N3pGJBIE7SOl
-	 hpjcNAx9xgxDJi3odlLz77zD+uanjrMoojLs5iO5E7CRIeOgxhwbjxU9DpFaEh9W+erzi
-	 T7LN21AFPpetKHkn1x52JPvbD4Ztk88DPMRBDKyM2pdXPiFclVmvw683PEmW83pp/VKI2
-	 NYQeuP+upVzX07E4Kx/MdpaF9uzGHUaxFMnlELwk77tZj+hrDQ740fkvdMpLmUpampQ==
+	t=1794521374;
+	b=zqbJ91yLKCLYfvgiEDCYqu33sDtr/yGCdT11OzjHiqeaS7Oe5vgYUwO/eR5iNebO1Gbh
+	 jKYjo7TvssNMUV8HPTS8A70sZJCX5WMbN4BFkDv3CfeE/mVDjBUAX1Ie9btQUOkjOKT/h
+	 vpFpVBTzKFXos2HBqpPiXec3qM9rdUZWgbkfVUVfHTnPX/CEiitwHigz7Gi/5fH9I6WyC
+	 G4K7GHraVqgN9PP255uxeUyQBb8CYOgYxKnD32pqF/oI/yA6D+SoI4UvjX8amYVUs3mi8
+	 rhIJMQqrGR2mCPbR2IG/X9Txvv9OO4bRMyIBJxCbzOWr4BF4710hCBbWg0qcME5JK+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794521367;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794521374;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=930N6QEOjUHirsduFLhsvXWNKJmMCsCwncwdA/i9tec=;
-	b=Tc34Fk61t7MO66jyr0VPsbuKwARd7xuMgAehbTGO+JJ0TZUtGgi43yWTeqJLv2NlDxJN
-	 38YQU4oCgVJsrWbswKXm1OOlMzGID+6K3+LlyIG4aC9rV1vHXFb+GvxEvHSXIucS5YYrb
-	 FLzbdEUZsnIsBRNXa946US5YotSeBEVSReihk3+eKWmGWXkGJw8aejywYeGb3Cu2HF1Rm
-	 ed49CTQ8Yez6PWsRt9yLoX76eU6raYHRRVxBa4jIhixbYA8UPt8FZfb1DiRKVI/hfu1bo
-	 0y8JcQMBW9eDjl2uGDzBwqJ57IlZt/EX+38l1AIB1dkoNKHtps40mDZ1f7ich5xL6fg==
+	bh=Viwqy3ITQgBszpOy2nxIavh5Mt0ao4kMQc4DSQeToGo=;
+	b=NjxGPniSEy4LE78kAOkIpbkS9m60slIvZmqpasSQCWs0y0gepLaPCEKVB9Y5Jbx+OY/f
+	 yMBr8YTdhOoHkJFiQal7w0P4DPFA5ZyKYKOvT25/Xh4YwOeMKby+p8hUYg5La07YoT5n1
+	 nsfWv998YliPchbm35Y6GiVRlDmImznrcm4EvvAJoParpAwSsT+rIJvnNjWynODjzWOkV
+	 i3sX5dL5oElcORAaixcdwOgxO/D9LHYJPGMt8YLUGlqjSHzCCLNTR/BOfpIiBZ/VHYtXE
+	 WgdwdOTSULdMNNQ0KZqw0DHOcGwdxzVbgPw9vVh2T5wq+eehK0lG1NXCNkctARn2jQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PLhRjYTp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HM4HKwBw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D67606A8A2;
-	Thu, 12 Nov 2026 22:09:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 909CC606A33E
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:09:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PLhRjYTp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2BE11F000C4;
-	Thu, 12 Nov 2026 22:09:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HM4HKwBw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 555C61F000D4;
+	Thu, 12 Nov 2026 22:09:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794521366;
-	bh=930N6QEOjUHirsduFLhsvXWNKJmMCsCwncwdA/i9tec=;
+	s=k20260515; t=1794521374;
+	bh=Viwqy3ITQgBszpOy2nxIavh5Mt0ao4kMQc4DSQeToGo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=PLhRjYTpuVCEwDtQeQbEtcsKdTDD4Sr++WJShgqRPkO8U08CqZ+HAAAC1BKtceEex
-	 +ShABf3NSFxi4EA6/i9nO14MOuL3QYZK4jNWj4pB4ivxpkNeAIEdvLVkUSiVC22SRS
-	 HAPkNG60I9FMyz6ojt1gqm35PE5pYqb8siXMDA0df7NnSUIA4ZusDSdoAwhqNcyatw
-	 KOakc8sMlWUc40XT7CnNd4OzM8pVL7XSfTE6f+BgfiH7WZ9S195dJ35iHDfRiD5oiM
-	 MztehWcbZk5EMfmofYeuH1mGMoGM1KD+V45D9dNOEXxNIqLZyVKGmwpaahIp+Lf2x8
-	 7/EMJQgtaFlNA==
+	b=HM4HKwBwenX5LPu3liCUHEMsEalytKn7ys2DDGNSBAMroq/1dFf/rVUIYBjFEHEpI
+	 hE/fY4rJBXGrrTOlj+FZDCzgZ/BtsewXoNR8UtSzaKL3UkvJ1GnU2uIWtxs8CtmBBW
+	 0qUUCKuerr+2hwfE4QZ3r9yCnSLDgkteS96rugzAyzmanEYhnXcnUEsXjy0yK3Id9c
+	 1d7fVZqky1H5uWLL9Z3pHvNpyENJfo+QwEDcpD3mU4gm8mDkSdZS36INIPyHwx5f4d
+	 gwGCNlnn5K6jpoD06i27gE2QSn1Iab7gBi1sgmvAemRpMKmkZuQiuX4NtlNV7WUC/I
+	 p0yh9C0dDrLeg==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 12 Nov 2026 23:08:58 +0100
-Subject: [PATCH 2/5] drm/i915: consider vm_pgoff in vm_access()
+Date: Thu, 12 Nov 2026 23:08:59 +0100
+Subject: [PATCH 3/5] drm/i915/selftests: request read access for mmap
+ access tests
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-access_shite-v1-2-988a5c470db2@kernel.org>
+Message-Id: <20261112-access_shite-v1-3-988a5c470db2@kernel.org>
 References: <20261112-access_shite-v1-0-988a5c470db2@kernel.org>
 In-Reply-To: <20261112-access_shite-v1-0-988a5c470db2@kernel.org>
 To: Lorenzo Stoakes <ljs@kernel.org>, 
@@ -75,53 +76,42 @@ To: Lorenzo Stoakes <ljs@kernel.org>,
  Benjamin Herrenschmidt <benh@kernel.crashing.org>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linuxppc-dev@lists.ozlabs.org, "David Hildenbrand (Arm)" <david@kernel.org>, 
- stable@vger.kernel.org
+ linuxppc-dev@lists.ozlabs.org, "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1430; i=david@kernel.org;
- h=from:subject:message-id; bh=732UbEwrVg9H6cBI5IEtEOpt8rsKtwsfjrtc/ksVv/s=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLK+WfwzFui7teDAdzGvmXXhs2YtOLerfuOEw82X/n+3K
- FgXz3xZv6OUhUGMg0FWTJElKPi+wcuX62qr3fiYYeawMoEMYeDiFICJTDRl+MO/pni27aQmQ5eM
- pjlcVpMMTh34tWiC9fsE8y17/pglmGQxMtzhnMYyW1mtOJO778z5SumEjPXhzB949iW6cz/dLxn
- zggMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1199; i=david@kernel.org;
+ h=from:subject:message-id; bh=UNHRKTPPJVrGYq3JL2OOfSiN8BE6XDeP4WdpR0zw48w=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLK+WfzXfSMdyle0+taS0KYbrY+ZzNvWegtJcp07d9F1o
+ 8y9imPFHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAExkkzEjw1dWKyPrzb+96jf5
+ r53V6B4zxaXk36Gv5ozRBdwzOZ5LsDMyfDYz6l6worxt7dyFeduun10lZLpV2HND/cMu4aMaMY/
+ 7uAE=
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-vm_access() treats the start of every VMA as the beginning of the GEM
-object. After a VMA split, vm_pgoff identifies a later part of the
-object. Debugger reads and writes through ptrace or /proc/<pid>/mem then
-access the wrong bytes.
-
-Properly consider vm_pgoff just like the fault handlers already do.
+__igt_mmap_access() reads the buffer with access_process_vm() without
+FOLL_FORCE, but creates the mapping with only PROT_WRITE. Request
+PROT_READ as well so the test remains valid when we fix the ->access
+fallback to properly check VMA access permissions.
 
 Fixes: 9f909e215fea ("drm/i915: Implement vm_ops->access for gdb access into mmaps")
-Cc: stable@vger.kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_mman.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-index 6b337684dbfe8..e3b24dc8e94f5 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-@@ -511,13 +511,15 @@ vm_access(struct vm_area_struct *area, unsigned long addr,
- 	struct i915_mmap_offset *mmo = area->vm_private_data;
- 	struct drm_i915_gem_object *obj = mmo->obj;
- 	struct i915_gem_ww_ctx ww;
-+	unsigned long obj_offset;
- 	void *vaddr;
- 	int err = 0;
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+index 303be698891fd..d9c828032a1aa 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+@@ -1460,7 +1460,8 @@ static int __igt_mmap_access(struct drm_i915_private *i915,
+ 	if (err)
+ 		return err;
  
- 	if (i915_gem_object_is_readonly(obj) && write)
- 		return -EACCES;
- 
--	addr -= area->vm_start;
-+	obj_offset = area->vm_pgoff - drm_vma_node_start(&mmo->vma_node);
-+	addr += (obj_offset << PAGE_SHIFT) - area->vm_start;
- 	if (range_overflows_t(u64, addr, len, obj->base.size))
- 		return -EINVAL;
- 
+-	addr = igt_mmap_offset(i915, offset, obj->base.size, PROT_WRITE, MAP_SHARED);
++	addr = igt_mmap_offset(i915, offset, obj->base.size,
++			       PROT_READ | PROT_WRITE, MAP_SHARED);
+ 	if (IS_ERR_VALUE(addr))
+ 		return addr;
+ 	ptr = (unsigned long __user *)addr;
 
 -- 
 2.43.0
