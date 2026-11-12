@@ -1,47 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794487395;
-	b=5FT1IIGn2TyvNVh791389WQLN99xG4bxdBBanJbdUX7wCjOpNJLPBaWrlLOqbB2OfXU3
-	 JRh8rGOssB9NSaneXaxEx143k+d7RXITp2a+BkjRC6YYhEdeO1x648DjOj1MpQFBQ0mt0
-	 nHKWUsTT+gU82VWr4h/HRomGADrDlB2bIIWGnytGkeCYfAIgVEhobDVHgGrHGZvW7N04p
-	 y7YRYYmNLEHgHgYKPudqIBq/QLg15UhsMpH69MVOL62WvL19gfeY/xpAZ9TxbI5uLF0P6
-	 gNhbJfO7rQF/QRWULQ06Kd0zUCDG/9xvYaF6qGrSWE3F5IZAa4xLweiZjsDwGf69r+g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794487395;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ADASvMr0ewQg4jG+yxGsHqbqUreW2oMoEC40mk7HqTA=;
-	b=srCZeQ+zVf8b8Hbl70yBinFGtlH+qB6MqdRvGVSvjUeuBJcd9wRXoJ3WEh2ThZwkSG3W
-	 4BMDLOF8BW55V8KMHVC8PYxHiZvi44PFN6YLg9iBX3RSlLZ2PgXto60+O8Hh4a9GHEE9J
-	 D75ewLhd+2IXBKbTNFLHIcqi/tK980z4Wfj4aArssOPGdfGmTg0Glg7vGuk4U3+pEJxqI
-	 B1cQ8D623Smh7HDOnEGa3e5ydVOog9ZXpc9OsKAxvBhA1AXq9zGsHuJWq3pX5FSvX72iC
-	 HbBRngEFVBOgEXZaUABs0DZ4aj3YTb4cY6LJZUYCIrHvzfEU+9NYm1MoQMSqi6SRP8Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KoZVwmzZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794487418;
+	b=Gvl4EDblJ9WaVpxDpFHmJD2xLCtEnd02XKze5i9RLJtV91GAuwDUlASrjtkWyOm0yXPg
+	 Vloebggrr0/XARld8mlgWkneSoUdVl/YWDKwg6/SIFiNlfu1yJzMzJq3GvCZa0c4F/93C
+	 dtCpCXKRxXAPqT6gYTSVZWhcNtbOPKQfZmk2JLRjOsxpUwA1f2/lL94a/t2SrTLS+k7en
+	 71k40cDE+KXZwtdRPP9k13kiIxpV6aQRhz0tAMy2BZivz2DCtoHwvKomUqFWSk9Ge7n97
+	 rNH4zccBTG7OIYVZXhOvADL4So4bWhNWqmaSQvlQj1fFAJd3tFNlubS9PVr8PLpKUDA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794487418;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=xNoA4U11buox0TWTao1trLlkLV4o8ysypTPbXU9Mens=;
+	b=ie9DJtqyOg5SWAI5ogDShCB9NZwFB2EnxVn1PD3YDlKA60OE2RxwsxzY8dMSbzWKDhJ1
+	 IddrMPqEyAD/Ch//+1v/GOpFf/JO77D+Xi8UDY5Qy554KLtBrpG20Bj9/PQ3ZjTv2F9RO
+	 AakKmMw2R/om0O3iBszcQsEOnKCnG73/WhNU+b7ecOuebyAPLxpaWasPOWN6Vxi1hWG/K
+	 o10qa4UOodDHKNabf8lV31APl2ZAjQof5gQjn4n7lUKtAyX5zU5KQuxtMM7k8kqJ9ZEtZ
+	 CrTPtPa2cmG5RwvpmHEEFAp8k6Cpz67fvQrC/s5vL4X1OkHXnEaeWanEJYvmsV8Ll2A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TjQxjVGz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27983606A327;
-	Thu, 12 Nov 2026 12:43:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B838606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:43:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B838606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KoZVwmzZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB6E11F00A05;
-	Thu, 12 Nov 2026 12:43:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794487394;
-	bh=ADASvMr0ewQg4jG+yxGsHqbqUreW2oMoEC40mk7HqTA=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=KoZVwmzZj0xJxI5HCehP7AWM7Vx5hGMex4NSS9nw1Gfai7xft4UeR96HvNus1a1Eg
-	 GW53vB6RPEAvPg558EUOCcjiFyG5Pf065MbPn0vb/RI/3NsYpTuoXOEW9IW5xbvUOh
-	 MZj5Fo/Jwwzr1EwQwRNnFRAyGtj+hQruNqxNZlm0MlMQMKnsQlWnVrjDAXj4FKaU35
-	 nBLHcPsJnchGGqlLFFnQ1vdf+49Xw/t2mw4pcGIytqwHV66t9Y+0lo+hOQ2qa6gQXw
-	 VsY9UmFhiHhLUBMblc+u47WTonMFEvmwCaOT+gpVxgJUog/6bXjzVNlxpXZ5PXwUJ9
-	 8zu3RFvl84ZgQ==
-Message-ID: <3066a335-12b9-4031-84bf-af851c8e03c0@kernel.org>
-Date: Thu, 12 Nov 2026 13:43:10 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TjQxjVGz
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b547d6c07bso5031288a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:43:37 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794487416; cv=none;
+        d=google.com; s=arc-20260327;
+        b=B04MPE/DFaGUC3dtlx4zdpeEqF8Tua3TBBMjjofpzDrUxvMk5S50j08lFiloZKd9u5
+         kwQwWEQkcYoMvGHovH7R09rPpn4h4ACkqsuoUctOih+440/Cu0uXY7K0ZZI+SORt65NW
+         xf7Nyyd4xhjNLbIMTl/HKzbaF/hzkDIJC40vQ70irV74aLS28iYrrvfBp5PowD/uUH4j
+         O7Wl9vBOFEGfKch5FwDdmuMVuH87N3Qe0xk7iIP/fKjy2mnp/ugFvBZkpbJXmwndudJu
+         JZrmJX+hS0Gmpm0/pVL7K731lkk0cBJABavCTDDKmPaiIeFxvrhxQEDCdhLAHiTbmvzW
+         53vQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xNoA4U11buox0TWTao1trLlkLV4o8ysypTPbXU9Mens=;
+        fh=nryIa3VnG81/5QkDs4dHTvcAjryOOfn1nTlys8513CI=;
+        b=ZmyjV+2b3+wDN19XL2m09WEDvU5Ah+dmmAVnQh67oamvcV4IFctMm2LzRTmk4g+Jrb
+         xETc26MDGd/nhUwF4JmIyB99sAXCx96K4J6hujnwG/urVnR3bgQHb9piJzgMV9wiljM3
+         fYl3+8hc/8ou5R0RFRhF2dzPIvGsKmymhx6+1xhzwTMAURArKpZjMNfW8z4qIUWNM80o
+         fKSWglZv753UMvsX/Q4YfJjxVyHoNmnLu5MFYEPdNxYIycXN8mAcVG2dTuVMEFT8+SWJ
+         bdm3mggE1TaXfNMFwaB/OUDxZ8qkMKhuqGWLTbIDZQh+gR8I2QIaC5eimEXtGnMkjmd8
+         th8Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794487416; x=1795092216; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xNoA4U11buox0TWTao1trLlkLV4o8ysypTPbXU9Mens=;
+        b=TjQxjVGzhjhqp7E4klkPZ09rq43BbDlb5NXakTXgPY+pq8WU5SKf9wb8drNVm1d3mR
+         7tVDNuECgw2vtpiNqkv6zYqebFP3tRwUox605HC8u52Ru+m2rni2NyjaU5H20c3jAZq+
+         W5EH0grs/+TIjdZCXBP+Od4yaUmEKbOu8kicmuOkXiZa5r/U69v1er4aKN8riWH72Pm5
+         dxJxiel9dmDTiouSrXa5XGYJFp7LiuQUsUHSgz+GuFHfVbmejO5zhcF2oA5uhAKLIQgf
+         7bbG00diVwtI4g73hreAHYvup/D9GOSWRDTta3z3JtldsTn61JYPuFeOU4CWw0jipnwV
+         GUqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794487416; x=1795092216;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xNoA4U11buox0TWTao1trLlkLV4o8ysypTPbXU9Mens=;
+        b=ZPpz5dMwQI4i5wOLpPjDYN7rvOkXFG2HOEFnOzEcMWF63h7CStycmta4KHU/toTr/a
+         E3P3oBiU8m8gdYn2Y4IHOhuVLJ8+Yz8RghV0UGhiNZHCJQxH5Ul+80yKlPSjOGTQKUcq
+         7mnP4yR0ZI5WtJBEuJr8j3yNCli8OIctfXrGVCmUw7tevDUhmOnCqweWrqKN73oL7jkJ
+         ZszShv6dVUjBykP226Dqgc9soJIjH5zwdVwPdgeY7cxIlPJOHiyJU5BrDw7avHG6mw7z
+         TQXUZYInLNLboiqD6IzfVl0mX4PVc1kjZVgUn5fdKZgm3gpuohNm7JUJSCyOoK1iRwlU
+         lRqA==
+X-Forwarded-Encrypted: i=1; AL+hErF9QIOdU/aBX8pN39MbtNkJdQiErDlYF481PJiENp/jyGG9eI8WMOQorLUaLuyev6HzvxAmJ0hjTUA+u/c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+NaiImRK97nQ8dJitGXvqFqSzVRTIFcOToJxRYcs6BjH85a2JD
+	EBGrSYr2E5AhcTKjyP4az+H8MBap/pCUN+sI/HsrC4TanYOxhHlg9IXAmdNl6TIEnlGvqedrUXV
+	5vY4T3eWI9I7o7iE/+38KdLHhtZCn3z/dDdCZ
+X-Gm-Gg: AYBFou07AFCuVCyvUcT/KYjzKbRzaCE+A5oTJOEDA8dfQ6B3q8iEMeeG+nv+INOUqAY
+	f9pwhbYMzPQ8x8d/XQoUINwNiXDPub3M2El9PUiWKCB+o5zUoJfhsP2wyTglfJimo8Okk9mK8P0
+	31AI6FqnC0TpAThxSD8MDmfcEDY9rfGPImiLHLXnUZsElnagFGrQ9xyF8m0doyoYDKIGck4li0g
+	ActBddgRwZmTHiP7SJAQjjNfRdA0YL6W4PijdfKs5ajaBFUcL/EgKZ4NqgyXbJLTYZ1hYtBDcAh
+	k1prGuLbu3Sx5FgeZOsr2DHOxJGvkiNgRTLij6uCH2xHsq5m5ZFc4GYpO/F2T4DUj0Xk55+Qc6m
+	5uqpW/v82smkFVsyXvTp11gpYkBwPAfDjVNHZWyAQI8DoRN1VYMsG5KmXh30dj3AhlHRlhA==
+X-Received: by 2002:aa7:ccd0:0:b0:6b5:646d:be3b with SMTP id
+ 4fb4d7f45d1cf-6b7773fbcbdmr2868357a12.18.1794487416385; Thu, 12 Nov 2026
+ 04:43:36 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,237 +104,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Mattijs Korpershoek <mkorpershoek@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Michael Riesch <michael.riesch@collabora.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
- <xhkdby0boob5n.fsf@mkorpers-koolstof.csb>
- <685c60fb-f209-42e8-8d75-7e65ca5353c9@kernel.org> <avMM6a6xcDHT-zCR@houat>
- <5bb26065-d876-4ed9-bb80-a9567a369b5c@kernel.org> <avMgJ7MFks0sKD7T@houat>
- <eb8ac54c-a357-4378-8d85-d14855a094e8@kernel.org>
- <avWd9y7c1FVbUB7E@kekkonen.localdomain>
-Content-Language: en-US, nl
-In-Reply-To: <avWd9y7c1FVbUB7E@kekkonen.localdomain>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261111224227.2496049-2-Jeremy.Jean@oss.cyber.gouv.fr> <20261111224227.2496049-4-Jeremy.Jean@oss.cyber.gouv.fr>
+In-Reply-To: <20261111224227.2496049-4-Jeremy.Jean@oss.cyber.gouv.fr>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Thu, 12 Nov 2026 13:43:25 +0100
+X-Gm-Features: AclHuK-2WtHEqM4hrMJmIDeZ0fdZ5_X60kJZg_N-n2ESIxL3n3QN2L1Su0d0XGE
+Message-ID: <CAOQ4uxg-EOfn5bpaiEwojAPvdR-HZqoefT2mqqkA1+e6AAZUHQ@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] selftests: overlayfs: reject different lower
+ idmaps on same fs
+To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, linux-unionfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 12/11/2026 12:07, Sakari Ailus wrote:
-> Hi Hans, others,
-> 
-> On Tue, Nov 10, 2026 at 03:43:59PM +0100, Hans Verkuil wrote:
->> On 10/11/2026 15:17, Maxime Ripard wrote:
->>> On Tue, Nov 10, 2026 at 02:30:51PM +0100, Hans Verkuil wrote:
->>>> On 10/11/2026 13:33, Maxime Ripard wrote:
->>>>> Hi Hans,
->>>>>
->>>>> On Tue, Nov 10, 2026 at 01:08:05PM +0100, Hans Verkuil wrote:
->>>>>> On 23/10/2026 14:26, Mattijs Korpershoek wrote:
->>>>>>> Hi everyone,
->>>>>>>
->>>>>>> On Thu, Oct 01, 2026 at 14:55, Mattijs Korpershoek <mkorpershoek@kernel.org> wrote:
->>>>>>>
->>>>>>>> On media-centric camera pipelines, every entity is known at boot time
->>>>>>>> and described statically (for example via device-tree).
->>>>>>>>
->>>>>>>> The V4L2 framework assumes that every entity of the camera
->>>>>>>> pipeline is always present. This is a reasonable assumption for
->>>>>>>> integrated cameras in laptops or phones. However, in automotive systems,
->>>>>>>> cameras (e.g. rear-view or surround-view) can be damaged or disconnected.
->>>>>>>> When the framework assumes all sensors are present, a single missing
->>>>>>>> camera can prevent the entire pipeline from operating.
->>>>>>>
->>>>>>> This series has been discussed at the Camera & ISP "unconference" in
->>>>>>> Pragues (during Linux Plumbers)
->>>>>>>
->>>>>>> The notes can be found here:
->>>>>>> https://lore.kernel.org/linux-media/20261021224119.GA383235@killaraus.ideasonboard.com/T/#u
->>>>>>
->>>>>> What is missing in this discussion is how userspace can indicate that it
->>>>>> actually can handle partially instantiated pipelines.
->>>>>>
->>>>>> Today if one or more parts do not come up, the devices nodes are also not
->>>>>> created. This is typically exactly what you want.
->>>>>
->>>>> That's very arguable? We have plenty of other examples where we allow to
->>>>> show a software representation of something that isn't available in
->>>>> hardware, starting with virtually any memory buffer allocation, but also
->>>>> disabled CPUs, swapped pages, etc.
->>>>>
->>>>> For things a bit more related to drivers, things like USB root hubs are
->>>>> also pretty analogous. The "root" device will always be created, even if
->>>>> devices connected to it are non-functional, missing or whatever. It's
->>>>> the primary interface that these devices might or might not attach to.
->>>>>
->>>>> So it's a bit hard to understand why the device nodes not showing up is
->>>>> exactly what we always want.
->>>>
->>>> It's simply how V4L2 works today: video devices do not appear until
->>>> all components are instantiated.
-> 
-> I think I've mentioned this before, but I do it once more: there's no
-> concept of creating device nodes at the same time. It may happen roughly
-> around the same time, but not atomically. There's always a chance that
-> accessing device nodes of a device exposing multiple nodes fails for a
-> reason or another. It may also be udev rules used different permissions for
-> different set of nodes so the application can only access some of them.
+On Wed, Nov 11, 2026 at 11:43=E2=80=AFPM J=C3=A9r=C3=A9my Jean
+<Jeremy.Jean@oss.cyber.gouv.fr> wrote:
+>
+> Add an idmapped overlay test for two lower layers that share a backing
+> superblock but use different idmaps. Check that mount creation fails
+> with EINVAL.
+>
+> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> ---
 
-That's why the media device should ideally be the last device that is
-registered. I think that is usually the case.
+Applied with addition of index=3Don mount option.
 
-But even then, when e.g. em28xx creates the video device for video capture,
-it can be used right away. Everything it depends on is there.
+Thanks,
+Amir.
 
-> 
->>>
->>> Sure but that's exactly what we're trying to change.
->>>
->>>> Most video devices consist of multiple devices (bridges, i2c devices,
->>>> etc.) and unless all are found and initialized, you can't capture. So
->>>> bridge drivers postpone creating the video/media devices until
->>>> everything is there.
-> 
-> That's not the case obviously. If you have, say, three different cameras
-> and one of them happens to be missing a driver in Kconfig, there's nothing
-> that would technically prevent streaming video from the two others: it's a
-> policy.
-
-But in that case you wouldn't create the third video device for the missing
-driver. It's up to the bridge driver to decide whether to bail out if that
-driver can't be found, or continue with the others and just skip that video
-device.
-
-> 
-> And supposedly, there could be an application that *needs* all these three
-> cameras to function, but does it then matter how that application is going
-> to fail, is it because it lacks access to all of the hardware or just one
-> piece of it?
-
-That's up to the application. That's not relevant for this discussion.
-What is relevant is that today, if a video device is registered, then it is
-functional. The application can assume that everything it depends on is there.
-
-And applications really do this: the video device appears and they start
-streaming at once.
-
-> 
-> I'm in favour for making this reasonably easy for the user space to figure
-> out, but we currently have no APIs that cover this (and so could be used by
-> existing applications) so it's new behaviour that we're introducing. If we
-> can't do better, then I'd introduce a Kconfig option, but I'd select that
-> by default. I've seen tonnes of issues because of the current behaviour but
-> no evidence creating device nodes proactively could be actually harmful.
-> 
-> So what I'd concentrate on is to provide information to the userspace on
-> the device readiness status, so the userspace can figure out all devices in
-> a Media device complex have been registered.
-> 
-> Functional safety adds the requirement of detecting failures and how that
-> is being done is probably fairly implementation specific. New APIs will
-> very probably be needed for that as well (and they indeed should be behind
-> a specific Kconfig option).
-
-Remember that there are more devices than just ISPs that use the MC: codecs,
-various video capture drivers. Typically the MC is there primarily to help
-understand the hardware, and the topology is usually (but not always) fixed.
-
-Applications usually ignore the MC and just open a video device to start
-streaming.
-
-> 
->>>>
->>>> That also means that applications can safely assume that if a video device appears,
->>>> it is functioning.
->>>
->>> Ish. The only safe assumption you can make about this is that it was
->>> functional at probe time. Anything after that is very much up in the
->>> air. If the device broken after probe for example, or if we have no way
->>> to tell if it's functional to begin with, that assumption is no longer
->>> true. So sure, that's what applications have been doing so far because
->>> there was no better way to do it, but I wouldn't qualify it as a "safe"
->>> assumption.
->>>
->>>> If we add fault tolerance, and you allow video devices to appear even if they are
->>>> not functioning (or partially functioning), then that contract breaks.
->>>>
->>>>>
->>>>>> But here you allow partial instantiation, and how does userspace
->>>>>> signal that? It must be an 'opt-in' mechanism, but how is that done?
->>>>>> There are no devices yet, so that can't be used, so what alternatives
->>>>>> are there?
->>>>>>
->>>>>> We've been discussion Fault Tolerant V4L2 for many years now, and every time
->>>>>> I raise this issue, but I never received any proposals.
->>>>>>
->>>>>> This must be solved.
->>>>>
->>>>> Is there any way to? You're saying at the same time that we must not
->>>>> create the device, but that an application would need to signal to that
->>>>> device that it can indeed be created. It's a circular dependency that
->>>>> cannot be solved on a per-device basis.
->>>>>
->>>>> During the meeting, we had a discussion that the media device should be
->>>>> created as a "skeleton", and then as other devices probe they would fill
->>>>> in the blanks. How would that not work? Also what is your main concern
->>>>> exactly that makes you ask to not do that in the first place (or make it
->>>>> opt-in)?
->>>>
->>>> Applications today assume that everything works when the device nodes appear.
->>>>
->>>> If you change the behavior, then they just see a skeleton driver and how
->>>> would they know that they need to wait until all components are found and
->>>> it is ready for use? Or what to do if some parts are faulty?
->>>
->>> I really think that this discussion is not solely about probe. It's
->>> something we discussed during the meeting, but I think we should try to
->>> handle "my device was broken at probe" and "my device became broken
->>> while the system was up" exactly the same way.
->>
->> If the HW breaks after probe, then you get EIO etc. errors. It's very rare and
->> the only requirement in that case is that you return an error and don't crash
->> the kernel. It's accepted that if the HW breaks, the application breaks as well.
->> And you have to replace your hardware.
->>
->> It's been working like that for >23 years (that's when I started working with
->> V4L). This also means that for >23 years applications have exactly this expectation
->> of how video devices behave. It's really part of the uAPI even though I don't
->> think it is ever explicitly stated.
-> 
-> Do you mean things like VBI with this? MC was introduced around 15 years
-> ago.
-
-No, it's a general design: when a video/vbi/radio/media/whatever device appears in /dev,
-then it is available for use.
-
-With Fault Tolerance you change that: it comes up, but some components are not available
-and userspace has to figure out what to do next: wait, continue without that specific
-component/feature, or bail out.
-
-That doesn't exist in current applications.
-
-> 
->>
->> To be clear: I really want to see Fault Tolerant V4L2 happening. It's clearly
->> very useful for a specific type of use-case.
->>
->> But first we need a solution for this specific uAPI issue. Note that this is
->> now to opt-in to Fault Tolerance, but in the future we might have other opt-ins
->> as well that modify the behavior.
-> 
-> I'd try to separate the early registration of devices from fault tolerance.
-> The former probably is still a hard requirement for latter.
-> 
-
-All I want to see is an RFC for this that we can shoot at.
-
-Regards,
-
-	Hans
+>  .../filesystems/overlayfs/idmapped_mounts.c   | 43 +++++++++++++++++++
+>  1 file changed, 43 insertions(+)
+>
+> diff --git a/tools/testing/selftests/filesystems/overlayfs/idmapped_mount=
+s.c b/tools/testing/selftests/filesystems/overlayfs/idmapped_mounts.c
+> index 44a75839f4ed..b496b279ce98 100644
+> --- a/tools/testing/selftests/filesystems/overlayfs/idmapped_mounts.c
+> +++ b/tools/testing/selftests/filesystems/overlayfs/idmapped_mounts.c
+> @@ -498,4 +498,47 @@ TEST_F(idmapped_overlay, nfs_export_handles)
+>         EXPECT_EQ(close(ovl), 0);
+>  }
+>
+> +/* Same-superblock lower layers must not use different idmaps. */
+> +TEST_F(idmapped_overlay, reject_same_sb_mixed_idmaps)
+> +{
+> +       char lower1[PATH_MAX], lower2[PATH_MAX];
+> +       char upper[PATH_MAX], work[PATH_MAX];
+> +       int fd_lower1, fd_lower2, fsfd;
+> +
+> +       if (!ovl_supported())
+> +               SKIP(return, "overlayfs not supported");
+> +
+> +       snprintf(lower1, sizeof(lower1), "%s/l", self->base);
+> +       snprintf(lower2, sizeof(lower2), "%s/l2", self->base);
+> +       snprintf(upper, sizeof(upper), "%s/u", self->base);
+> +       snprintf(work, sizeof(work), "%s/w", self->base);
+> +       ASSERT_EQ(mkdir(lower2, 0755), 0);
+> +       ASSERT_EQ(chown(lower2, ID_HOST, ID_HOST), 0);
+> +
+> +       fd_lower1 =3D idmapped_layer_fd(lower1, ID_HOST, ID_NS, ID_RANGE)=
+;
+> +       ASSERT_GE(fd_lower1, 0);
+> +       fd_lower2 =3D sys_open_tree(AT_FDCWD, lower2,
+> +                                 OPEN_TREE_CLONE | OPEN_TREE_CLOEXEC);
+> +       ASSERT_GE(fd_lower2, 0);
+> +       fsfd =3D sys_fsopen("overlay", 0);
+> +       ASSERT_GE(fsfd, 0);
+> +       ASSERT_EQ(sys_fsconfig(fsfd, FSCONFIG_SET_STRING,
+> +                              "source", "test", 0), 0);
+> +       ASSERT_EQ(sys_fsconfig(fsfd, FSCONFIG_SET_STRING,
+> +                              "upperdir", upper, 0), 0);
+> +       ASSERT_EQ(sys_fsconfig(fsfd, FSCONFIG_SET_STRING,
+> +                              "workdir", work, 0), 0);
+> +       ASSERT_EQ(sys_fsconfig(fsfd, FSCONFIG_SET_FD,
+> +                              "lowerdir+", NULL, fd_lower1), 0);
+> +       ASSERT_EQ(sys_fsconfig(fsfd, FSCONFIG_SET_FD,
+> +                              "lowerdir+", NULL, fd_lower2), 0);
+> +
+> +       errno =3D 0;
+> +       EXPECT_EQ(sys_fsconfig(fsfd, FSCONFIG_CMD_CREATE, NULL, NULL, 0),=
+ -1);
+> +       EXPECT_EQ(errno, EINVAL);
+> +       EXPECT_EQ(close(fd_lower1), 0);
+> +       EXPECT_EQ(close(fd_lower2), 0);
+> +       EXPECT_EQ(close(fsfd), 0);
+> +}
+> +
+>  TEST_HARNESS_MAIN
+> --
+> 2.47.3
+>
