@@ -1,84 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.34.181.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501533;
-	b=WlGIT2aNWuBjtvbJ43MRhT+9uV1ilTeragpqJjQJYVX2WYv/hNRfH6SGPsOPjHAc1CT7
-	 KGFVcoG+qV7KKHkS7pgU2xC8dVVSBYrNQ7NEiNVUU5kvfyJx3mEe/VoTQNIxavravTl3g
-	 BJT7umgX3q7qxyAtTfjNA+WBl/Dgv/4kt/1qSy/7RzSi5xuwGwiP3YvN+NrdAT9regeSv
-	 6GSf8X2odBFQUO9wdteG4YanVBrMYvmrkQzP0629+vVERbuHPNZhhJweqELUGvtN1ynX9
-	 Vi3j/oDb+Lu681zFQtNY+3YsKZ0Ig1Yu3Tn3r/gEpK6+X/mYQEc8gJvQMKNYK1Xyl+w==
+	t=1794501598;
+	b=xwWQbpeYFV+fUR0pY2VIODiUHZTri/snXxRAvzCWvT2n3q2VXMkoek4LXRB9JdlgQt+I
+	 EtYSHVHbQoIgBb/Kaib/1ngyY1Zbj1M5KzWFAZbjmYHHpVR6S1LIac9fw+ruVNUBspREE
+	 bxduA1/yWgJ2Gu2QfawVuYS3dC7t193Hw+vRG6+IVaNT5QYU3q7b4QhAvFXpn1DSb7jGn
+	 MGtgI8lHU1QoLULCGx7Lou1Gk2sxVpC/TQteSrq6F9KJatAYZOrRv7REoab7jttR4I/9Y
+	 Ps1cls+/fIVC6/j4UUc3UgROBMcJp7qf5FnBfBcq+yR86t5/lRYXkpXmTkEvVQVBnPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501533;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=S0NOAvNsy2O0DFJHbbWBCZrA7P2aZL+2vuTfscCO/DM=;
-	b=bjRpz6x+nRzuzE9efSfE4OCAEvZnGSnN68aezovB1A7ZMBGGgmoq7zfWR3eCxxqFXS91
-	 /NggYVexfIMSl6zCAN8vaovws8Dv5Z2A8/2tqjt5tjCVNq6pCGs4oz1+P0yIyTgqf0G2A
-	 NQ50B8zHfoDybT50mnznha2U8+pk3uzrbPuYhcvyXMP1X6GiINV6hcTfvV0JCVd4GfV0G
-	 G8ekfUyU68BUVPW8fSCM12KOSvezbgmvlhSp9fqUkeCMj85BBFv+4PSXB0qL4TAc1M79C
-	 QAqf/g5HjrS4qTg2H56SiRYML6evOA7eGTyE+L5v1EHomOlbOE/gRlwTJS60+HyK5sA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501598;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=fvV6XL4h3GEAfdxymvHQ6KJBqZ97Mq7jkqEHVuzv9Fc=;
+	b=wkm3XmVCkhQvOD8PplzDcOr4ZTkDnnhZNJFAe2ablRePloHbS+lxMbcWh5xJUN6OTHQn
+	 nKOadTXAoczLbetCyo7PwUG0mcQ4u+TjqNGjzA5xo2VYSxG8D9PxXWLvuaPRxhwMTogcZ
+	 B0XGj+a4Hvy/suelu0AK6KD+5uxXmgltCG8ZJCsk2vkhgcfvqtOjX95Xyk2Ys3JQU9xDa
+	 eGWZ4mpGrtXBO5wSEj7phB0h0liGB7wKtS8Mppv9i7M8wyCL0691uqTpnTy0JvfvNZE3o
+	 OuG5XxRw/n6k0bSZ0eaSMGIBuauU8RLN8zw6Y3mehMdwO4yVz26nFF74zMGGRfc/PrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=XN9ZXYjk;
-	arc=none smtp.remote-ip=52.34.181.151
-Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C3E606A330;
-	Thu, 12 Nov 2026 16:38:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60C3E606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ZJO47dX5;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 309F1606A334;
+	Thu, 12 Nov 2026 16:39:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 309F1606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=XN9ZXYjk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794501533; x=1826037533;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=S0NOAvNsy2O0DFJHbbWBCZrA7P2aZL+2vuTfscCO/DM=;
-  b=XN9ZXYjkeL7jRadVI94iQkW9CagpmViwi7SmE8beMdQVfc8EE92L5yUq
-   A4RAZYt9OkqIum1VaphDuMmWb4UNMElGo0cYxjKFbN+BlWD0mzt+bNBxf
-   1e7vEFdJNoQeA4gCzkoD09QdIBNlaotlqgp+3uEUChAS+2KvUNJjfS1U7
-   JhxcSukOhXOW2q2Vz5ywqmZ2pcSInV2GMAm9X2UMzU2XgISITcUtVGYkB
-   r6XcMKj2JsnQcrYJYtexnUVWYDMfKv3yny3A+iQQVeDTWb6g26EGt7H61
-   SKxMGezqHA6RAalBhCqg4GwQ0p5B6iGFeXqv9UdwfxPZAu0H9TzMugMmq
-   w==;
-X-CSE-ConnectionGUID: euqIrGhkRfKGtLSxI4MJ0A==
-X-CSE-MsgGUID: sxw/XaqySw+9XMRZpuvYww==
-X-IronPort-AV: E=Sophos;i="6.27,210,1787011200"; 
-   d="scan'208";a="33826407"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 16:38:51 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:26362]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.34.255:2525] with esmtp (Farcaster)
- id 19a4b56d-2474-43be-9930-9f83efeb2f5a; Thu, 12 Nov 2026 16:38:50 +0000 (UTC)
-X-Farcaster-Flow-ID: 19a4b56d-2474-43be-9930-9f83efeb2f5a
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 16:38:50 +0000
-Received: from dev-dsk-surenkj-2b-416930d2.us-west-2.amazon.com (10.169.26.94)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 16:38:50 +0000
-From: Surendran Kanagaraj <surenkj@amazon.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>, Peter Huewe <peterhuewe@gmx.de>
-CC: Jason Gunthorpe <jgg@ziepe.ca>, <linux-integrity@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	<linux-doc@vger.kernel.org>, Jonathan McDowell <noodles@earth.li>, "Breno
- Leitao" <leitao@debian.org>, <nh-open-source@amazon.com>, Alexander Graf
-	<graf@amazon.de>, Gunnar Kudrjavets <gunnarku@amazon.com>, Josh Levinson
-	<joshlev@amazon.com>
-Subject: [RFC PATCH v3 3/8] tpm: Take command durations from the limits table
-Date: Thu, 12 Nov 2026 16:38:41 +0000
-Message-ID: <20261112163846.97654-4-surenkj@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261112163846.97654-1-surenkj@amazon.com>
-References: <20261112163846.97654-1-surenkj@amazon.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ZJO47dX5
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7D39D1516;
+	Thu, 12 Nov 2026 08:39:53 -0800 (PST)
+Received: from [10.57.67.215] (unknown [10.57.67.215])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EA7D83F673;
+	Thu, 12 Nov 2026 08:39:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794501596; bh=7shWzIDpVLy84svurvW2x95+hE4KVOpyxi/wiZh858k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ZJO47dX5vke/+FZ6u/CheIKMHFKP4tWiEZXBRpIobhU98K/B48YCM7sEfpTAWO7qN
+	 Z9y5HSPkYoRjJnU2ctAWOHmHoO7bGXbzrAw8ireYK5D6gszc5d/JekKmcAqjJiXmA1
+	 aLK1nxKdgNXK7sAsixyiB85xoG99pq3QTDHcft88=
+Message-ID: <4ccf4e34-bf7e-48da-bd70-acfed1e5ce04@arm.com>
+Date: Thu, 12 Nov 2026 16:39:49 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,714 +53,211 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 04/12] KVM: arm64: CCA: Check RMI support and features
+ at init
+Content-Language: en-GB
+To: Steven Price <steven.price@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
+ Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>,
+ Oliver Upton <oliver.upton@linux.dev>, Zenghui Yu <yuzenghui@huawei.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Joey Gouly <joey.gouly@arm.com>, Alexandru Elisei
+ <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>,
+ Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev,
+ Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
+ Gavin Shan <gshan@redhat.com>, Shanker Donthineni <sdonthineni@nvidia.com>,
+ Alper Gun <alpergun@google.com>, "Aneesh Kumar K . V"
+ <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>,
+ Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Kohei Enju <enju.kohei@fujitsu.com>
+References: <20261111145758.217946-1-steven.price@arm.com>
+ <20261111145758.217946-5-steven.price@arm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20261111145758.217946-5-steven.price@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-TPM 2.0 commands still get their wait from a fixed map of durations.
-The limits table never sees those values so they have no bounds and a
-driver cannot adjust them. TPM 1.x already maps each ordinal to a class
-through tpm1_ordinal_duration[] but reads the value from the jiffies
-copies in struct tpm_chip.
+Hi Steven
 
-Map each TPM 2.0 ordinal to a class too and have
-tpm_calc_ordinal_duration() read the class's limit from the table for
-both families. An ordinal neither table knows gets DEFAULT.
+On 11/11/2026 14:57, Steven Price wrote:
+> Wire RMI initialization into KVM startup and select ARM_RMM_RMI.
+> Proceed only when RMM mode is selected and RMI is available. If
+> KVM uses LPA2, require RMM LPA2 support. Also require SHA-256
+> measurement support.
+> 
+> Define a disabled kvm_rmi_is_available static key for later Realm
+> capability checks. The key is enabled after the remaining Realm
+> support is in place.
 
-With the default limits, TPM2_VerifySignature is the only command whose
-wait changes. Its 30 s matched no class, so it now gets DEFAULT 120 s.
-On TPM 1.x an unknown ordinal still waits two minutes, unless LONG
-ends up above that and validation raises DEFAULT to match.
+Given all of this is only used for the UABI (KVM_CAP_ARM_RMI and
+others), does it make sense to move this patch to the next batch
+of the CCA support and keep this only to sort out the memory
+management support ? Similarly for the Patch 1 ?
 
-Signed-off-by: Surendran Kanagaraj <surenkj@amazon.com>
----
- drivers/char/tpm/tpm-interface.c |  15 +-
- drivers/char/tpm/tpm.h           |   4 +-
- drivers/char/tpm/tpm1-cmd.c      | 518 +++++++++++++++----------------
- drivers/char/tpm/tpm2-cmd.c      |  58 ++--
- 4 files changed, 294 insertions(+), 301 deletions(-)
+Cheers
+Suzuki
 
-diff --git a/drivers/char/tpm/tpm-interface.c b/drivers/char/tpm/tpm-interface.c
-index e0385b16616b..8e6ea9c04019 100644
---- a/drivers/char/tpm/tpm-interface.c
-+++ b/drivers/char/tpm/tpm-interface.c
-@@ -40,6 +40,14 @@ module_param_named(suspend_pcr, tpm_suspend_pcr, uint, 0644);
- MODULE_PARM_DESC(suspend_pcr,
- 		 "PCR to use for dummy writes to facilitate flush on suspend.");
- 
-+static enum tpm_limit tpm_duration_limit(struct tpm_chip *chip, u32 ordinal)
-+{
-+	if (chip->flags & TPM_CHIP_FLAG_TPM2)
-+		return tpm2_duration_limit(ordinal);
-+
-+	return tpm1_duration_limit(ordinal);
-+}
-+
- /**
-  * tpm_calc_ordinal_duration() - calculate the maximum command duration
-  * @chip:    TPM chip to use.
-@@ -52,10 +60,9 @@ MODULE_PARM_DESC(suspend_pcr,
-  */
- unsigned long tpm_calc_ordinal_duration(struct tpm_chip *chip, u32 ordinal)
- {
--	if (chip->flags & TPM_CHIP_FLAG_TPM2)
--		return tpm2_calc_ordinal_duration(ordinal);
--	else
--		return tpm1_calc_ordinal_duration(chip, ordinal);
-+	enum tpm_limit limit = tpm_duration_limit(chip, ordinal);
-+
-+	return usecs_to_jiffies(chip->limits.entry[limit].time_us);
- }
- EXPORT_SYMBOL_GPL(tpm_calc_ordinal_duration);
- 
-diff --git a/drivers/char/tpm/tpm.h b/drivers/char/tpm/tpm.h
-index be88011f9618..1e023f12a400 100644
---- a/drivers/char/tpm/tpm.h
-+++ b/drivers/char/tpm/tpm.h
-@@ -66,7 +66,7 @@ int tpm1_pm_suspend(struct tpm_chip *chip, u32 tpm_suspend_pcr);
- int tpm1_auto_startup(struct tpm_chip *chip);
- int tpm1_do_selftest(struct tpm_chip *chip);
- int tpm1_get_timeouts(struct tpm_chip *chip);
--unsigned long tpm1_calc_ordinal_duration(struct tpm_chip *chip, u32 ordinal);
-+enum tpm_limit tpm1_duration_limit(u32 ordinal);
- int tpm1_pcr_extend(struct tpm_chip *chip, u32 pcr_idx, const u8 *hash,
- 		    const char *log_msg);
- int tpm1_pcr_read(struct tpm_chip *chip, u32 pcr_idx, u8 *res_buf);
-@@ -132,7 +132,7 @@ ssize_t tpm2_get_tpm_pt(struct tpm_chip *chip, u32 property_id,
- ssize_t tpm2_get_pcr_allocation(struct tpm_chip *chip);
- int tpm2_auto_startup(struct tpm_chip *chip);
- void tpm2_shutdown(struct tpm_chip *chip, u16 shutdown_type);
--unsigned long tpm2_calc_ordinal_duration(u32 ordinal);
-+enum tpm_limit tpm2_duration_limit(u32 ordinal);
- int tpm2_probe(struct tpm_chip *chip);
- int tpm2_get_cc_attrs_tbl(struct tpm_chip *chip);
- int tpm2_find_cc(struct tpm_chip *chip, u32 cc);
-diff --git a/drivers/char/tpm/tpm1-cmd.c b/drivers/char/tpm/tpm1-cmd.c
-index 9586b4944578..117948a2b318 100644
---- a/drivers/char/tpm/tpm1-cmd.c
-+++ b/drivers/char/tpm/tpm1-cmd.c
-@@ -31,279 +31,267 @@
-  * from the chip during initialization with a call to tpm_get_timeouts.
-  */
- static const u8 tpm1_ordinal_duration[TPM_MAX_ORDINAL] = {
--	TPM_UNDEFINED,		/* 0 */
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,		/* 5 */
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_SHORT,		/* 10 */
--	TPM_SHORT,
--	TPM_MEDIUM,
--	TPM_LONG,
--	TPM_LONG,
--	TPM_MEDIUM,		/* 15 */
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_MEDIUM,
--	TPM_LONG,
--	TPM_SHORT,		/* 20 */
--	TPM_SHORT,
--	TPM_MEDIUM,
--	TPM_MEDIUM,
--	TPM_MEDIUM,
--	TPM_SHORT,		/* 25 */
--	TPM_SHORT,
--	TPM_MEDIUM,
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_MEDIUM,		/* 30 */
--	TPM_LONG,
--	TPM_MEDIUM,
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_SHORT,		/* 35 */
--	TPM_MEDIUM,
--	TPM_MEDIUM,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_MEDIUM,		/* 40 */
--	TPM_LONG,
--	TPM_MEDIUM,
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_SHORT,		/* 45 */
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_LONG,
--	TPM_MEDIUM,		/* 50 */
--	TPM_MEDIUM,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,		/* 55 */
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_MEDIUM,		/* 60 */
--	TPM_MEDIUM,
--	TPM_MEDIUM,
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_MEDIUM,		/* 65 */
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_SHORT,		/* 70 */
--	TPM_SHORT,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,		/* 75 */
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_LONG,		/* 80 */
--	TPM_UNDEFINED,
--	TPM_MEDIUM,
--	TPM_LONG,
--	TPM_SHORT,
--	TPM_UNDEFINED,		/* 85 */
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_SHORT,		/* 90 */
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_UNDEFINED,		/* 95 */
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_MEDIUM,		/* 100 */
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,		/* 105 */
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_SHORT,		/* 110 */
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_SHORT,		/* 115 */
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_LONG,		/* 120 */
--	TPM_LONG,
--	TPM_MEDIUM,
--	TPM_UNDEFINED,
--	TPM_SHORT,
--	TPM_SHORT,		/* 125 */
--	TPM_SHORT,
--	TPM_LONG,
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_SHORT,		/* 130 */
--	TPM_MEDIUM,
--	TPM_UNDEFINED,
--	TPM_SHORT,
--	TPM_MEDIUM,
--	TPM_UNDEFINED,		/* 135 */
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_SHORT,		/* 140 */
--	TPM_SHORT,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,		/* 145 */
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_SHORT,		/* 150 */
--	TPM_MEDIUM,
--	TPM_MEDIUM,
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_UNDEFINED,		/* 155 */
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_SHORT,		/* 160 */
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,		/* 165 */
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_LONG,		/* 170 */
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,		/* 175 */
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_MEDIUM,		/* 180 */
--	TPM_SHORT,
--	TPM_MEDIUM,
--	TPM_MEDIUM,
--	TPM_MEDIUM,
--	TPM_MEDIUM,		/* 185 */
--	TPM_SHORT,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,		/* 190 */
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,		/* 195 */
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_SHORT,		/* 200 */
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_SHORT,
--	TPM_SHORT,		/* 205 */
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_MEDIUM,		/* 210 */
--	TPM_UNDEFINED,
--	TPM_MEDIUM,
--	TPM_MEDIUM,
--	TPM_MEDIUM,
--	TPM_UNDEFINED,		/* 215 */
--	TPM_MEDIUM,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_SHORT,
--	TPM_SHORT,		/* 220 */
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_SHORT,
--	TPM_UNDEFINED,		/* 225 */
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_SHORT,		/* 230 */
--	TPM_LONG,
--	TPM_MEDIUM,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,		/* 235 */
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_UNDEFINED,
--	TPM_SHORT,		/* 240 */
--	TPM_UNDEFINED,
--	TPM_MEDIUM,
-+	TPM_LIMIT_DEFAULT,	/* 0 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,	/* 5 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_SHORT,	/* 10 */
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_LONG,
-+	TPM_LIMIT_LONG,
-+	TPM_LIMIT_MEDIUM,	/* 15 */
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_LONG,
-+	TPM_LIMIT_SHORT,	/* 20 */
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_SHORT,	/* 25 */
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_MEDIUM,	/* 30 */
-+	TPM_LIMIT_LONG,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,	/* 35 */
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_MEDIUM,	/* 40 */
-+	TPM_LIMIT_LONG,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,	/* 45 */
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_LONG,
-+	TPM_LIMIT_MEDIUM,	/* 50 */
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,	/* 55 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_MEDIUM,	/* 60 */
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_MEDIUM,	/* 65 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_SHORT,	/* 70 */
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,	/* 75 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_LONG,		/* 80 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_LONG,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_DEFAULT,	/* 85 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_SHORT,	/* 90 */
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_DEFAULT,	/* 95 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_MEDIUM,	/* 100 */
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,	/* 105 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_SHORT,	/* 110 */
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,	/* 115 */
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_LONG,		/* 120 */
-+	TPM_LIMIT_LONG,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,	/* 125 */
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_LONG,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,	/* 130 */
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_DEFAULT,	/* 135 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_SHORT,	/* 140 */
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,	/* 145 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_SHORT,	/* 150 */
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_DEFAULT,	/* 155 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_SHORT,	/* 160 */
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,	/* 165 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_LONG,		/* 170 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,	/* 175 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_MEDIUM,	/* 180 */
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_MEDIUM,	/* 185 */
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,	/* 190 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,	/* 195 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_SHORT,	/* 200 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,	/* 205 */
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_MEDIUM,	/* 210 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_DEFAULT,	/* 215 */
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,	/* 220 */
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_SHORT,
-+	TPM_LIMIT_DEFAULT,	/* 225 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_SHORT,	/* 230 */
-+	TPM_LIMIT_LONG,
-+	TPM_LIMIT_MEDIUM,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,	/* 235 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_SHORT,	/* 240 */
-+	TPM_LIMIT_DEFAULT,
-+	TPM_LIMIT_MEDIUM,
- };
- 
- /**
-- * tpm1_calc_ordinal_duration() - calculate the maximum command duration
-- * @chip:    TPM chip to use.
-+ * tpm1_duration_limit() - the execution class of a TPM 1.x command
-  * @ordinal: TPM command ordinal.
-  *
-- * The function returns the maximum amount of time the chip could take
-- * to return the result for a particular ordinal in jiffies.
-- *
-- * Return: A maximal duration time for an ordinal in jiffies.
-+ * Return: The limit that bounds the execution of @ordinal.
-  */
--unsigned long tpm1_calc_ordinal_duration(struct tpm_chip *chip, u32 ordinal)
-+enum tpm_limit tpm1_duration_limit(u32 ordinal)
- {
--	int duration_idx = TPM_UNDEFINED;
--	int duration = 0;
--
- 	/*
--	 * We only have a duration table for protected commands, where the upper
--	 * 16 bits are 0. For the few other ordinals the fallback will be used.
-+	 * The table covers protected commands, where the upper 16 bits are 0.
-+	 * The few other ordinals use the DEFAULT limit.
- 	 */
--	if (ordinal < TPM_MAX_ORDINAL)
--		duration_idx = tpm1_ordinal_duration[ordinal];
--
--	if (duration_idx != TPM_UNDEFINED)
--		duration = chip->duration[duration_idx];
--	if (duration <= 0)
--		return 2 * 60 * HZ;
--	else
--		return duration;
-+	if (ordinal >= TPM_MAX_ORDINAL)
-+		return TPM_LIMIT_DEFAULT;
-+
-+	return tpm1_ordinal_duration[ordinal];
- }
- 
- /**
-@@ -612,7 +600,7 @@ int tpm1_do_selftest(struct tpm_chip *chip)
- 	unsigned long duration;
- 	u8 dummy[TPM_DIGEST_SIZE];
- 
--	duration = tpm1_calc_ordinal_duration(chip, TPM_ORD_CONTINUE_SELFTEST);
-+	duration = tpm_calc_ordinal_duration(chip, TPM_ORD_CONTINUE_SELFTEST);
- 
- 	loops = jiffies_to_msecs(duration) / delay_msec;
- 
-diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
-index f943f1c05721..629caaeffa17 100644
---- a/drivers/char/tpm/tpm2-cmd.c
-+++ b/drivers/char/tpm/tpm2-cmd.c
-@@ -48,47 +48,45 @@ int tpm2_get_timeouts(struct tpm_chip *chip)
- 	return 0;
- }
- 
--/*
-- * Contains the maximum durations in milliseconds for TPM2 commands.
-- */
-+/* The execution class of each TPM2 command with a known limit. */
- static const struct {
--	unsigned long ordinal;
--	unsigned long duration;
--} tpm2_ordinal_duration_map[] = {
--	{TPM2_CC_STARTUP, 750},
--	{TPM2_CC_SELF_TEST, 3000},
--	{TPM2_CC_GET_RANDOM, 2000},
--	{TPM2_CC_SEQUENCE_UPDATE, 750},
--	{TPM2_CC_SEQUENCE_COMPLETE, 750},
--	{TPM2_CC_EVENT_SEQUENCE_COMPLETE, 750},
--	{TPM2_CC_HASH_SEQUENCE_START, 750},
--	{TPM2_CC_VERIFY_SIGNATURE, 30000},
--	{TPM2_CC_PCR_EXTEND, 750},
--	{TPM2_CC_HIERARCHY_CONTROL, 2000},
--	{TPM2_CC_HIERARCHY_CHANGE_AUTH, 2000},
--	{TPM2_CC_GET_CAPABILITY, 750},
--	{TPM2_CC_NV_READ, 2000},
--	{TPM2_CC_CREATE_PRIMARY, 300000},
--	{TPM2_CC_CREATE, 300000},
--	{TPM2_CC_CREATE_LOADED, 300000},
-+	u32 ordinal;
-+	u8 limit;
-+} tpm2_duration_limits[] = {
-+	{TPM2_CC_STARTUP, TPM_LIMIT_SHORT},
-+	{TPM2_CC_SELF_TEST, TPM_LIMIT_LONG},
-+	{TPM2_CC_GET_RANDOM, TPM_LIMIT_MEDIUM},
-+	{TPM2_CC_SEQUENCE_UPDATE, TPM_LIMIT_SHORT},
-+	{TPM2_CC_SEQUENCE_COMPLETE, TPM_LIMIT_SHORT},
-+	{TPM2_CC_EVENT_SEQUENCE_COMPLETE, TPM_LIMIT_SHORT},
-+	{TPM2_CC_HASH_SEQUENCE_START, TPM_LIMIT_SHORT},
-+	/* LONG, 3 s, is too short for signature verification. */
-+	{TPM2_CC_VERIFY_SIGNATURE, TPM_LIMIT_DEFAULT},
-+	{TPM2_CC_PCR_EXTEND, TPM_LIMIT_SHORT},
-+	{TPM2_CC_HIERARCHY_CONTROL, TPM_LIMIT_MEDIUM},
-+	{TPM2_CC_HIERARCHY_CHANGE_AUTH, TPM_LIMIT_MEDIUM},
-+	{TPM2_CC_GET_CAPABILITY, TPM_LIMIT_SHORT},
-+	{TPM2_CC_NV_READ, TPM_LIMIT_MEDIUM},
-+	{TPM2_CC_CREATE_PRIMARY, TPM_LIMIT_LONG_LONG},
-+	{TPM2_CC_CREATE, TPM_LIMIT_LONG_LONG},
-+	{TPM2_CC_CREATE_LOADED, TPM_LIMIT_LONG_LONG},
- };
- 
- /**
-- * tpm2_calc_ordinal_duration() - Calculate the maximum command duration
-+ * tpm2_duration_limit() - the execution class of a TPM2 command
-  * @ordinal: TPM command ordinal.
-  *
-- * Returns the maximum amount of time the chip is expected by kernel to
-- * take in jiffies.
-+ * Return: The limit that bounds the execution of @ordinal.
-  */
--unsigned long tpm2_calc_ordinal_duration(u32 ordinal)
-+enum tpm_limit tpm2_duration_limit(u32 ordinal)
- {
- 	int i;
- 
--	for (i = 0; i < ARRAY_SIZE(tpm2_ordinal_duration_map); i++)
--		if (ordinal == tpm2_ordinal_duration_map[i].ordinal)
--			return msecs_to_jiffies(tpm2_ordinal_duration_map[i].duration);
-+	for (i = 0; i < ARRAY_SIZE(tpm2_duration_limits); i++)
-+		if (ordinal == tpm2_duration_limits[i].ordinal)
-+			return tpm2_duration_limits[i].limit;
- 
--	return msecs_to_jiffies(TPM2_DURATION_DEFAULT);
-+	return TPM_LIMIT_DEFAULT;
- }
- 
- /**
--- 
-2.47.3
+> 
+> Signed-off-by: Steven Price <steven.price@arm.com>
+> 
+> ---
+> Changes since v1:
+> - Combine the separate v1 RMI availability and LPA2/SHA-256 feature
+>    check patches into one initialization patch.
+> ---
+>   arch/arm64/include/asm/kvm_rmi.h |  2 ++
+>   arch/arm64/include/asm/virt.h    |  1 +
+>   arch/arm64/kvm/Kconfig           |  1 +
+>   arch/arm64/kvm/Makefile          |  2 +-
+>   arch/arm64/kvm/arm.c             |  5 ++++
+>   arch/arm64/kvm/rmi.c             | 42 ++++++++++++++++++++++++++++++++
+>   include/linux/arm-rmi-cmds.h     |  5 ++++
+>   7 files changed, 57 insertions(+), 1 deletion(-)
+>   create mode 100644 arch/arm64/kvm/rmi.c
+> 
+> diff --git a/arch/arm64/include/asm/kvm_rmi.h b/arch/arm64/include/asm/kvm_rmi.h
+> index 67f16793b4d0..3194daaacf2b 100644
+> --- a/arch/arm64/include/asm/kvm_rmi.h
+> +++ b/arch/arm64/include/asm/kvm_rmi.h
+> @@ -56,4 +56,6 @@ struct realm {
+>   	enum realm_state state;
+>   };
+>   
+> +void kvm_init_rmi(void);
+> +
+>   #endif /* __ASM_KVM_RMI_H */
+> diff --git a/arch/arm64/include/asm/virt.h b/arch/arm64/include/asm/virt.h
+> index b546703c3ab9..92cec42952f4 100644
+> --- a/arch/arm64/include/asm/virt.h
+> +++ b/arch/arm64/include/asm/virt.h
+> @@ -87,6 +87,7 @@ void __hyp_reset_vectors(void);
+>   bool is_kvm_arm_initialised(void);
+>   
+>   DECLARE_STATIC_KEY_FALSE(kvm_protected_mode_initialized);
+> +DECLARE_STATIC_KEY_FALSE(kvm_rmi_is_available);
+>   
+>   static inline bool is_pkvm_initialized(void)
+>   {
+> diff --git a/arch/arm64/kvm/Kconfig b/arch/arm64/kvm/Kconfig
+> index cecea0820e52..d067063a3686 100644
+> --- a/arch/arm64/kvm/Kconfig
+> +++ b/arch/arm64/kvm/Kconfig
+> @@ -34,6 +34,7 @@ menuconfig KVM
+>   	select GUEST_PERF_EVENTS if PERF_EVENTS
+>   	select KVM_GUEST_MEMFD
+>   	select KVM_GENERIC_PRE_FAULT_MEMORY
+> +	select ARM_RMM_RMI
+>   	help
+>   	  Support hosting virtualized guest machines.
+>   
+> diff --git a/arch/arm64/kvm/Makefile b/arch/arm64/kvm/Makefile
+> index 7aaeeb84e788..66a719ab5b6b 100644
+> --- a/arch/arm64/kvm/Makefile
+> +++ b/arch/arm64/kvm/Makefile
+> @@ -16,7 +16,7 @@ CFLAGS_handle_exit.o += -Wno-override-init
+>   kvm-y += arm.o mmu.o mmio.o psci.o hypercalls.o pvtime.o \
+>   	 inject_fault.o va_layout.o handle_exit.o config.o \
+>   	 guest.o debug.o reset.o sys_regs.o stacktrace.o \
+> -	 vgic-sys-reg-v3.o fpsimd.o pkvm.o \
+> +	 vgic-sys-reg-v3.o fpsimd.o pkvm.o rmi.o \
+>   	 arch_timer.o trng.o vmid.o emulate-nested.o nested.o at.o \
+>   	 vgic/vgic.o vgic/vgic-init.o \
+>   	 vgic/vgic-irqfd.o vgic/vgic-v2.o \
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index e06cc390a3d6..318e8a4b19f8 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -42,6 +42,7 @@
+>   #include <asm/kvm_nested.h>
+>   #include <asm/kvm_pkvm.h>
+>   #include <asm/kvm_ptrauth.h>
+> +#include <asm/kvm_rmi.h>
+>   #include <asm/sections.h>
+>   #include <asm/stacktrace/nvhe.h>
+>   
+> @@ -112,6 +113,8 @@ long kvm_get_cap_for_kvm_ioctl(unsigned int ioctl, long *ext)
+>   	return -EINVAL;
+>   }
+>   
+> +DEFINE_STATIC_KEY_FALSE(kvm_rmi_is_available);
+> +
+>   DECLARE_KVM_HYP_PER_CPU(unsigned long, kvm_hyp_vector);
+>   
+>   DEFINE_PER_CPU(unsigned long, kvm_arm_hyp_stack_base);
+> @@ -3272,6 +3275,8 @@ static __init int kvm_arm_init(void)
+>   
+>   	in_hyp_mode = is_kernel_in_hyp_mode();
+>   
+> +	kvm_init_rmi();
+> +
+>   	if (cpus_have_final_cap(ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE) ||
+>   	    cpus_have_final_cap(ARM64_WORKAROUND_1508412))
+>   		kvm_info("Guests without required CPU erratum workarounds can deadlock system!\n" \
+> diff --git a/arch/arm64/kvm/rmi.c b/arch/arm64/kvm/rmi.c
+> new file mode 100644
+> index 000000000000..f4c45021c6f7
+> --- /dev/null
+> +++ b/arch/arm64/kvm/rmi.c
+> @@ -0,0 +1,42 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) 2023-2026 ARM Ltd.
+> + */
+> +
+> +#include <linux/arm-rmi-cmds.h>
+> +#include <linux/kvm_host.h>
+> +
+> +#include <asm/kvm_pgtable.h>
+> +#include <asm/virt.h>
+> +
+> +static int rmm_check_features(void)
+> +{
+> +	if (kvm_lpa2_is_enabled() &&
+> +	    !rmi_has_feature(0, RMI_FEATURE_REGISTER_0_LPA2)) {
+> +		kvm_err("RMM doesn't support LPA2\n");
+> +		return -ENXIO;
+> +	}
+> +
+> +	if (!rmi_has_feature(1, RMI_FEATURE_REGISTER_1_HASH_SHA_256)) {
+> +		kvm_err("RMM doesn't support SHA-256 measurements\n");
+> +		return -ENXIO;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +void kvm_init_rmi(void)
+> +{
+> +	if (kvm_get_mode() != KVM_MODE_RMM)
+> +		return;
+> +
+> +	if (!is_rmi_available()) {
+> +		kvm_info("Realm VM support is disabled because RMI is not available\n");
+> +		return;
+> +	}
+> +
+> +	if (rmm_check_features())
+> +		return;
+> +
+> +	/* Future patch will enable static branch kvm_rmi_is_available */
+> +}
+> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
+> index a84e50ac851c..6f43eac7c7be 100644
+> --- a/include/linux/arm-rmi-cmds.h
+> +++ b/include/linux/arm-rmi-cmds.h
+> @@ -67,6 +67,11 @@ static __always_inline void rmi_smccc_invoke_once(struct arm_smccc_1_2_regs *reg
+>   
+>   unsigned long rmi_feat_reg(unsigned int index);
+>   
+> +static inline bool rmi_has_feature(unsigned int index, unsigned long feature)
+> +{
+> +	return !!(rmi_feat_reg(index) & feature);
+> +}
+> +
+>   int rmi_delegate_range(phys_addr_t phys, unsigned long size,
+>   		       phys_addr_t *out_phys);
+>   int rmi_undelegate_range(phys_addr_t phys, unsigned long size);
 
