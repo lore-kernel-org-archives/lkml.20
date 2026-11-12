@@ -1,118 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.157
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794486463;
-	b=EmnMlhed0JZl4qJYHn5CWpmFavu9djI6U5kZwTPImFfBi01H3z/Jxozs6A0RQxHUPfAM
-	 saU8SxbrHgFadkZiaEIxOuR/V17VKQPNlOB7LxS3cUrJmuT0CSVukor2746jUXpaDyKPw
-	 yCU5i7tciPi8biVsJc6zskyEbmLiyp07vK7QjdMag9F04LUW+fm70/+6dp0tI/d/hLcmB
-	 g25v32tLCdChnZlQ3fewJ9jTlRfNoiqIeL+g6WzDcoRhHf6524KQAJXphNU+JgrQ7UxZD
-	 0vrFKNj6o0gRE/Fft25pYV9DTde+uKtGppkZN/y3Ubpo2PLg7p5sRCeFVL5VJPl3oBw==
+	t=1794486475;
+	b=si3sGFFmXRmHwVQw+TKur8cofVXNOXHvBdM2Ry7D9RBYOpZAqAIFtn8V5BCf0JuNER3q
+	 enP1ObXfOnoAF4cz4Q2bC1M0HJpejjA0qbPaKO8Plij1j4Kz7fvTiexFmI+SC6LSqleui
+	 m+E/WV9Gq+65+zZ1+cjirGo9Kboh/1/iVdy+hegkSIrgxdnV80IEgKI63XGonFRSX6wjj
+	 A77jXiGeF3nx8Mjc4m4txdvsrDuUXu3N7XZkqxdLOTww5A3x6eavCTGsWfCipWQXnLMmh
+	 E6kEfMeNmDtbqhvZwwYPh0Q6TocNctGFS1sOvn9bGRYhrbYQuAHgo33P0g2CHFWb0Kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794486463;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=d6RPiY0rklyeXAU+QYrLceLVeEm+P0hCcW/c/9VYRgs=;
-	b=E+xq25k1xjbI39z00RnF5bXmhvfyUE2JXDK8BLk57+5nM8X09/KMdlVRjJ1ZZ6KulpHT
-	 bJRspz8RkjWr8rx3ET/AJkVxrK+RMVrCFdoAOlMI0JW8/xiV/6PRVuGhBPVGflQyQMGKO
-	 lJEWuFQife4J66TMAraxxxj/DCjhopfhLcWkK273HNUfWS74uYaYt1JkPJqbkbI1zOw+W
-	 FIJgDgtaWcvwW3WKkY1ZWRFlQweAts7riKqyixQQVa68hLfqVLn+NR/r851AlQSrmK/0j
-	 abQRGQjHN6QZaqdS80GrF37YjWPYpWAUciW+qIoWknY2L7xGpaltB2H8M3IS2UHQrMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794486475;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=1ZA5sC73+IlFkRAeNQ9a0k730uLXrOz2+FrELu1ZSFY=;
+	b=NH11ZWUcBGZ/nzG1u9Dle+OYvGrO/4kYr6dwgYpaN3Gy+4ZhUx9EUNllitKdXv7lZxah
+	 uOmmU8eDBJ/puWxKUTh+dhkwKLvohBXV9lQH/xke3NkeaSLObdlUYGn24sI9R/h+s3Fyj
+	 3o7jy3UhUWIrO3c1YTN46gW7enNe8ycTcwG/dWre4KCztbjlQA6n6SoX/tkrByNNxRIqi
+	 AykFYzCuvqSbQJQPhsFy2Qao3REo+ZDH8T8oeTVUhqgAAzeMPngw1oYZPgplOqFldM++I
+	 Xjt0f5aI4oGciq/SZfgXjE01662ms1lCumwyqIn9yFc18SHJAlf/MjMqSM+rK65X0Tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kroah.com;
-	spf=pass smtp.mailfrom=kroah.com;
-	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=LTh0NXy8;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=qd1kIe33;
-	arc=none smtp.remote-ip=103.168.172.157
-Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=Kgui6sOd;
+	arc=none smtp.remote-ip=68.232.153.233
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63481606A331
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:27:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63481606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5185B606A332;
+	Thu, 12 Nov 2026 12:27:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5185B606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=LTh0NXy8;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=qd1kIe33
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 7FA1A14000CB
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:27:41 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-12.internal (MEProxy); Thu, 12 Nov 2026 07:27:41 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm3; t=1794486461; x=1794572861; bh=d6RPiY0rkl
-	yeXAU+QYrLceLVeEm+P0hCcW/c/9VYRgs=; b=LTh0NXy8XKJoWZZSPeBoJBjMUy
-	8RUq1/PXKwLZMxl0BeQpEUJNvwsqTIfbzGPIXH+h8b9vHtyFkpOIcI1VcMeWrZJ+
-	7zBOk42XeNYOAhOCYA2NO6ojM3yVdbJiOvOfd10SQg0nt8uO9vQ4QBaPomzxILct
-	oFGYXgOoOjkdv4gY+4QtM7qME1RztKu18wjWSh+YH6XWWo1gpI3vlgFoPq2jh9gq
-	dJ2a5z4JuOsoXQG0Aj+NAO5afkp/xWlEEBuAbHXDribHkFB0soNFEsuDKua5ifxI
-	wFuSVd2DNbWAMcdIRPRnp3Fv7mtG5QAzaepy2oYVvd0la8sCbCij46XavJNA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1794486461; x=1794572861; bh=d6RPiY0rklyeXAU+QYrLceLVeEm+P0hCcW/
-	c/9VYRgs=; b=qd1kIe33j6kLr3Ek2iLblOPfI5RRD2Yx1y3xvzh+tu/B9b0aY72
-	KYFEep282WNH7e2JLaAb7i5dcki88cZVCIWifC3r+dE4KBtZiduTkdgf/LjPS+z8
-	BTZYS5KtCUd5WLxDQvNCmO7Yg8ITh3PKsqYhmwWD0PO3BRLZValzWzIodqBiyA8B
-	PEBpjU+QT/04miP5F3o+AZAPDmECIIzL1Wow/I9zY5cn8qcZgLe3yE7sYg8o7lYH
-	YDR3BhaOJnVZetpZYf5LzfSCbbJXzoAMeDhYbiGrv0c37sPkLW45I0c35SkDfQiM
-	ejiZKO9U7ggxOERgqeQe6QU7Y9DvLWIMD7A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794486461; d=kroah.com;
-	mf=PGdyZWdAa3JvYWguY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:Nms03lBYGF6Fi3Sh2O27tDtjSTGXYUFQIC+LxrX1GoO3C7s
-	ldDDIzl0T6Lx+27iPdvftv5Mjy3t1ESn9yHgGq6aDT5JKFHMXzuuf5uPn1cLt9O3
-	KERMg1tI3YYr6aLZgjEZDN/HP/4Yc2bdJOHSYYhZBho3YVu209US3V+B8r8GZiFg
-	V3q/cU3KDv7kIeH0K7ukoxcP3DjSCuGVvFBQ1QU7aB84fJskCobxeWN2wPVFUiUm
-	hwZtXfqtFXB0Qsb5AGCit0hCQvqKK/ww+OFM/yEczAMeEIgvi5ICrkd6IJ+t/nnC
-	pkgiS1CVpj4SIv5FOMQyH/yqzZuwzMN3Eu/N/0g==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:ePUpBg+snje1PRuCyD7St6qpCMTNW4lHhAoyfu6G85o=:PgkBA+iUa585ZODLb7UCx+7LAKTHLPzt89fBhsZ3Ezg=;
-X-ME-Sender: <xms:vbD1aoHSDDsuN4WOtx8FlZrHRrCJmFd5VacDEP7uS62lRB-4u3zxlw>
-    <xme:vbD1ai7EL8kF9xuqkymplL4u3PVih27nEh8EajfWNYiX-9D3zf9K9auqlJsrjCUyn
-    4GX3tMDJWvW4xAnSHnxgLYVJjzjWlZshAzeVFK7tKg2D4WXC8o>
-X-ME-Received: <xmr:vbD1ahZyipggeBcq-mLDjo8LANvSaADrtZSvpX_8B7D2W4Gri5oKM78b_J6WwcyF7nB4qvd-_nh24kTn-SloCrMcCA>
-X-ME-Proxy-Cause: dmFkZTF0uUYZJQrHiUD5AV8vgLI4qwsMjcQLjf6C8fEdquUU8XLtLx5cyMaNy183hgq9Wy
-    AIEIW0a1BfaTFAAoX5g2p6ZyIQWiKTEuVXo6rdyLlxkGwU2lkj4GSOxOeUNiAdXPukOLRT
-    4Fk1ssZSfp9gk+cIQnf4yk47ZmUlbOqrjDNdtTkWQD7FAv5SPqppvAbUQtVfFMpq5tyB0s
-    c/XOhN2NGEhPomcBCaG1B0PjZV2auo+ciegKMBys5vPRTKU7VQ7YaXnJdoKN0Z2ad1Q5KY
-    RwltziMY8FY9UMCg2SKXV7x1Q9hYvzpT3Pba642tpQQBwc3LRfJVpPEENwtiM9m7q81jbk
-    X3SGYsX3hX8sftgCAVe2Yzt/+LXBpd6PlDQEXq3zWoOKowr2kTdJCzLPIlXC6PEwZXbH/H
-    hvPvJVPonaEYJi5hyeO0XqkIXMwGYn2CKJjnmsDYzkO5zdveYPLJK8vNsgux+rBR2llKzD
-    V6GJ1zheC3veXAtBfOjIDnUKGTcMS2dQ81LPj3hp3IkfSO+7HvifI44wbSc8slKwTamlyN
-    wYoOSuhDwRgZnSVAgM7oOz3zW6o/BYsOAXuIYrg+saI7kWJeny2RETDq+9vz4W3LJXytGh
-    5NgdVMLg+FiW47UAIUSGZ7ynsouLm+FIufNxQaBr83mb4SUST5Uc4bNGr5KA
-X-ME-Proxy: <xmx:vbD1aggpucAWH0jwBWW37QavGd46oNRByZ50OsX4O5oOy-tPtU11iQ>
-    <xmx:vbD1aje2rPZLbpuwWMJ1Y9dvOz3qrYKc1ZNJ6ow9NgjVKgagEt9ChA>
-    <xmx:vbD1avl9XTKF9Pb2EmAe-hEKKOmWSBTpys-LWH2IlxQ2cqoJZOaLtQ>
-    <xmx:vbD1aox6eP0pcO-pl7C2yjPwGUaMGQz99U6Uin10Cf9H3egzi4MdZQ>
-    <xmx:vbD1av5hHSaKb98h-aTswvB-1cpjDBoPEubq2hx9ZDaCMMl-n4_JCQ0O>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 12 Nov 2026 07:27:40 -0500 (EST)
-Date: Thu, 12 Nov 2026 07:27:38 -0500
-From: Greg KH <greg@kroah.com>
-To: hh c <hhc436476@gmail.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, kernel-team@lists.ubuntu.com
-Subject: Re: 6.8.0-149: forced 2.5GT/s->5GT/s root-port retrain drops XGI Z11
- VGA off the bus, local console goes black
-Message-ID: <2026111205-tanned-empirical-b961@gregkh>
-References: <CALJR0nehJ5+d7MrPk8rxkNmee_1L5FFsvuF+-swK1nyJ7oJJ8A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=Kgui6sOd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1794486482; x=1826022482;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=l3F0dgEZqqzCTcle72a7ov5JeFD0DWKUDjz+apn6hYY=;
+  b=Kgui6sOdUjO6yxo2fegXimnMxpiCRlcKXU6h4nkdJm7sk+N6X+LStrRF
+   cV2UOwyQSeuQY57+DHs0+GRqadakaGVVwO4nRm9gNnPibL1Kvi12+RfQb
+   BH4Wubvpr9461b9YfKJUyXVhnak5P4y8zZucl/qWjTd0IW4k9XfnjOwVr
+   d3AEfVzpOkgEoXiJIvCUvpAQO6GFlbGmRNKwwGiyz2POwosvp4fK6p+cS
+   tIAhBMrdbqkbbLIo8vXX9RIJJ7osGwIBq0eeSvyT9gQCVJrHjpFagMQCs
+   gH45rLoLEd53BZOMVfU8HoesrTiTrjMlHMxB14beb+wDaLrSXVoMIxwgB
+   Q==;
+X-CSE-ConnectionGUID: RVd2qb8VQ9mGyxq4pxN7VQ==
+X-CSE-MsgGUID: +0FH4PJYR7KVuom5Boj3Zg==
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="77094255"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 12 Nov 2026 05:28:01 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Thu, 12 Nov 2026 05:27:53 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Thu, 12 Nov 2026 05:27:50 -0700
+Date: Thu, 12 Nov 2026 13:27:49 +0100
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Tariq Toukan <tariqt@nvidia.com>
+CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Gal Pressman <gal@nvidia.com>, Leon Romanovsky <leon@kernel.org>, open list
+	<linux-kernel@vger.kernel.org>, <linux-rdma@vger.kernel.org>, Maor Dickman
+	<maord@nvidia.com>, Mark Bloch <mbloch@nvidia.com>, Moshe Shemesh
+	<moshe@nvidia.com>, Or Har-Toov <ohartoov@nvidia.com>, Roi Dayan
+	<roid@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, Shay Drori
+	<shayd@nvidia.com>, Uri Dar <udar@nvidia.com>
+Subject: Re: [PATCH net] net/mlx5: Lag, Return error when enabling MPESW
+ without LAG support
+Message-ID: <20261112122749.7cudepr32t4bz2le@DEN-DL-M70577.microsemi.net>
+References: <20261110114350.2639891-1-tariqt@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,26 +86,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <CALJR0nehJ5+d7MrPk8rxkNmee_1L5FFsvuF+-swK1nyJ7oJJ8A@mail.gmail.com>
+In-Reply-To: <20261110114350.2639891-1-tariqt@nvidia.com>
 
-On Thu, Nov 12, 2026 at 12:09:07AM +0800, hh c wrote:
-> After upgrading from 6.8.0-31 to 6.8.0-149 on a Huawei XH320 V2 (Romley
-> platform, C600/X79 PCH), the local console goes black at kernel handover.
-> The machine boots, SSH works, getty@tty1 is active. Booting the SAME
-> installation into 6.8.0-31 restores both the console and the VGA device,
-> so this is a regression in the 6.8 SRU stream, not a hardware or BMC fault.
-
-6.8.0 is very old and obsolete and insecure.  Please use a newer kernel
-version.
-
-> ROOT CAUSE
+> From: Uri Dar <udar@nvidia.com>
 > 
-> 6.8.0-149 carries the stable backport of upstream commit 72780f796468
+> When firmware reports a function as not LAG capable (lag_master=0 or
+> num_lag_ports < 2), mlx5_lag_add_mdev() creates no LAG object for it.
+> Enabling multiport E-Switch on such a device returns 0 from
+> mlx5_lag_mpesw_queue_work(), so
+> "devlink dev param set ... esw_multiport value true" reports success
+> although nothing was enabled, and a following "devlink dev param show"
+> still reports false.
+> 
+> Return -EOPNOTSUPP instead. mlx5_lag_mpesw_disable() ignores the return
+> value, so disabling keeps its current behavior.
+> 
+> Fixes: a32327a3a02c ("net/mlx5: Lag, Control MultiPort E-Switch single FDB mode")
+> Signed-off-by: Uri Dar <udar@nvidia.com>
+> Reviewed-by: Shay Drori <shayd@nvidia.com>
+> Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+> ---
 
-ah, you are using a distro kernel.  Please file a bug with them.
-
-thanks,
-
-greg k-h
+Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
