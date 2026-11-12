@@ -1,100 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794499133;
-	b=cCzm/k+289z9tUnXzp59VUIi6QH2dFQBhc41rV5m80S2URrubcNIpGflXso4d1r0ijqy
-	 0Uk3/RIRHT9xahun1WOr71HyvJg53lDO4XN6YeCEROj73Ih5cv+g4qWUJN7rcCN6+c2i3
-	 Co1/uQl4jxpvrb6v3422hdHLeW27VYDlwJ8Gid/g4ebh2nDY4eLk3IdlDwPsF3JI1qpwm
-	 0zat3Fe015ssw/0NezNMEm6tGoZAfaG6Sc7VvxkYlJUlOIYMaX2chODQNdexolSa1ODWs
-	 wbcQHHc1UH3ooh6XDsGrMPu8D6fxXKIEdWB1jc8XBrzeCi3L+eYNFc0WjzsuZtktIVg==
+	t=1794499139;
+	b=1F3IS4fNoWgcS+6wuJP5bB4BZ6Ln3r7PAD4vQ0UOWgJkU4+E6G/BonnWsSAwIlhNi5pv
+	 zfBvCpRLk9HAtwAS8+6RqWSbi6LfitW9g3vDm6erKh1jRzJ8NO9gRCd1iJ0IQ9zpPH7pn
+	 ZkwOd+NJu+R7JIgG7WFwjcsec5S72X4P+BT3+RTwLrBAdGv5QcZWOfGyz5QSfAy6decSV
+	 oTZwPtaAGk6ZEfb9uYohN8a07PrRg9It060raC4WsXimOkv9dp1lBz96LnVjfZKZv33hU
+	 nc9leae/qbGrnfeeojJ66atY376kTyiIZlvQU1qyWnkmXckqHziIe8AG/OV+pKt8oQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794499133;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=PBaR9YGz0f77rnkIf9yudCqFA3ukRsghy48xQHT8H54=;
-	b=kJEKue1ur/sHHNQQzXnViazhCs7uDTuSkZ/xnHZGjV80nCQ5QGTaKPOTTP/fDfJQVuI5
-	 K4CWS45KloJsRGyyKU/6rnJq46ySDQgRHpPtrmC/q6y1SRAC/aK3xzInZv7IMeS5BzFK2
-	 Ose9zMBVMf7B7RJ+bKi2U2ZWWZTCUXNGFey48VQEhYmlblhWDnE1j7HCsHuVHN9q6QZjy
-	 NPhW604UftXXjmm497eq8kKevnfFRbevJW4eFSs+za71/rsminVihY6JBp7GRLkSvpeOf
-	 deRH2cgpQrEPVBpXDRtLoVF660X88Fss1NhfBsYUUyHJEqQP01TKcnN2cQE7gK8Ps3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794499139;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Rspamd-Queue-Id:X-Rspamd-Server:X-Stat-Signature:X-Spam-Status:
+	 X-Session-Marker:X-Session-ID:DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=RA4Zm7BEMm8rMWMw7WpSJymch0xY2+ETcvG+vYOO778=;
+	b=BL4pTaIANa2fpAoEFNGDCWsaLBcL9gofxL7vrRZd9aMRrN15tFxtQCXQrcEeXovSnuYn
+	 SoFdWeHEwx8EVY1nV2FYP+wi/LgJm2QwF7VD8R48t1z9bUIDefJrBWwMX9b4LArLhx2zD
+	 UgD62KJ6DA4QVD8zuT1qAB3Qg88sQnx9AmCvrVYE6ieUHGQ7eL/HK3w/DjG0nlYjByMoh
+	 YGByQPLu+8w305maVv4TH8Tl3yPrnfWRunojPwnWCa4V3j9W1rtiOKTLYJ4YQvJYdvXtp
+	 qCy/tVJk19V3fWh4wbrUZz/FfwyLCQvGVdY1tGjcFvLsGm7nQ/CWfWtJLvLvrkQBSkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EnU+MoXS;
-	arc=none smtp.remote-ip=209.85.214.170
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=QpEBqYGD;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF972606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:58:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF972606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20303606A323;
+	Thu, 12 Nov 2026 15:58:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20303606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EnU+MoXS
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2eb0f1b592bso52235ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:58:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794499132; x=1795103932; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PBaR9YGz0f77rnkIf9yudCqFA3ukRsghy48xQHT8H54=;
-        b=EnU+MoXS44HQLXPGBABwOGgBbq3c/nv5MuPJfzZlrr/XKHLepb1X78Pnh8fPHsxkzD
-         eF+3SR2T2DwQgDpPtf/Iqu5gNPyEm9bmGYFwsxLbyczhxYdAyZ3XM13vtfP5OTEEjdzA
-         QtpNA+inIcu8z7gy1eaKGvmYviOKDAG9yX1A+7dIeHqdAqaICHagzr0IeHR0vIF8XzkS
-         aVxKmP3DVAvWF4yCVoP+eNL1WvNVZ2dQyW8L5u5Yr7evcaZwQ/7Xy515SsTJESndl9ye
-         88jf8q2bp/jkRaKJPvTamApHbJad6QVCoS7I3D8+UOpC2eOLA09DnjbVFUVcaqAfIqGO
-         wahQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794499132; x=1795103932;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PBaR9YGz0f77rnkIf9yudCqFA3ukRsghy48xQHT8H54=;
-        b=NiUP67RTUlG9uO1sofvSDu0pmhm4ISt9bKpmioZX6wufO4RebDfUzSfRDpEeNn9XOS
-         LR7BMauR9ErXUq08jYdo80cdrOCI/c3t4ixdKt/pwIuSp9WbdmZgOlrA+g+mPCE6fjvY
-         +5JBH5Zh+vgTwNOWJtRRurldCgIYyElbCxfjck4hb8vDNyd6gEMuq/LKMBQddhrVE+N+
-         IQRnLYsjGq90JRceIudBsDqLaRU/5mL5DEhu9rVRCC0rvyqVuLfCaO8URPKVMK9CQ9LE
-         QAM3IQJ/rfj/q9v+DzPvlLqcKu+Upx1APcm3R6SHPFXxvoc6wIdDSPemSIhYkieoHkPM
-         CDKg==
-X-Forwarded-Encrypted: i=1; AL+hErGDsImdREV09xHkPsu8Blw5uHjt6ceDiZWOfnQXgBDM8x4/OntAjy8Y4TyO2iAt9yWDbS4wiG3e4XyoTpk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+GMwYhQyGNSVnbGncS511VeHXqWsov8bOc+xnrF48QHqZTQMnb
-	pbpTzJ2hw5PuAfcCvUj91/AW2nZK9098DW7blg0ZYbk459f6ke74tcVe
-X-Gm-Gg: AYBFou1du4AVQElqYOppTQAWj5LNkzX4BWAz+QagegYeXqvSI6/0HMnZqUq944hIRFV
-	wEUczzDPwqdq7GooG4FncphE+8KuqzydyHAOfxMG4Jfc0PGDeENHlSOUCmZMazJ4DdZSDRjpiBR
-	k5xXcEczNRhorzNaxuLdekmqPYsr5qvJe5+Au39mEmElmpiyxasljHMAm6sdRYD8MJw7FwzR/66
-	LFVa0kNW1wYMYqKXccNoOgHMP9Ej0Kbox/wEuOEYemafXHG1motEsSPCR3eazHVbG6+vwoG9qc0
-	9YGSQe8oKu336QTpUIWSGkhxiayAo6+KCIRYHmwYjgEylRBHaMHAsOn7n34lMTnjSS3K9W7ky87
-	WTUl108k2wPLYLdnwVw3dSa6o0BFIZxCBMD2nYu+6keNtfaEl6Pchy1wGzV3NFzLMmE2MvERnEx
-	2+eVFqkhY+7emAT8KTuAOR8TeiIElbt/ijVHOnM9e7KFZd40VHnQx2To5NBeYLiC0AHamh44mX3
-	9hi28APPGiyw73+5d33N9FeOkWc+AFkz3f/Et+kXjwFepgwTH94LfX7CGrQ/7ZUeCzjWmWmSFgI
-	Hk/kywzL8XmZVXNv/IA=
-X-Received: by 2002:a17:903:1111:b0:2e8:7686:4d46 with SMTP id d9443c01a7336-2edd788d0bemr62363735ad.34.1794499131728;
-        Thu, 12 Nov 2026 07:58:51 -0800 (PST)
-Received: from oslab.. ([101.6.42.129])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d4b93csm35556945ad.14.2026.11.12.07.58.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 07:58:51 -0800 (PST)
-From: Tuo Li <islituo@gmail.com>
-To: zhenyuw.linux@gmail.com,
-	zhi.wang.linux@gmail.com,
-	jani.nikula@linux.intel.com,
-	joonas.lahtinen@linux.intel.com,
-	rodrigo.vivi@intel.com,
-	tursulin@ursulin.net,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	ankit.k.nautiyal@intel.com
-Cc: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Tuo Li <islituo@gmail.com>
-Subject: [PATCH] drm/i915/gvt: Fix NULL pointer dereference in slot switch
-Date: Thu, 12 Nov 2026 23:58:22 +0800
-Message-ID: <20261112155822.1336713-1-islituo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=QpEBqYGD
+Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay04.hostedemail.com (Postfix) with ESMTP id BD17E1A0684;
+	Thu, 12 Nov 2026 15:58:56 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id 313D52002B;
+	Thu, 12 Nov 2026 15:58:55 +0000 (UTC)
+Date: Thu, 12 Nov 2026 10:58:53 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: LKML <linux-kernel@vger.kernel.org>, Linux trace kernel
+ <linux-trace-kernel@vger.kernel.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>
+Subject: [PATCH v2] tracing/probes: Zero out faulted dereferenced fields
+Message-ID: <20261112105853.38bd39be@fedora>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,39 +57,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 313D52002B
+X-Rspamd-Server: rspamout08
+X-Stat-Signature: 4dzcu1t787i6shzwzxdjaxxutfjow5zq
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/TDRtc4a3gZTgU+8DPOX3+8Aw1OT4g16k=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=RA4Zm7BEMm8rMWMw7WpSJymch0xY2+ETcvG+vYOO778=; b=QpEBqYGDXIOZbgB0T8jEfN7EsSp1WwhrrXHhTP5AEORWoZVlJjrL7p31F9bv1oHn06pBvRB3xt9mpB/N48W/GNQWocIYDlyhFEdL2YBagvMsgcrfWU5CCTRqZE819peCWlweKf6W7hT3RkLsu1IfplAv421xsNTwJtiSMHd7lM8=
+X-HE-Tag: 1794499135-890381
+X-HE-Meta: U2FsdGVkX1+TPCutRuhTmth3nWP+OcwBHqQwhwKiUc7RO+6E+p7zoV8ptm/LvdJNpCUseMB0od+f3VT6ZZHk9kC14NMA0s158XKEsMNKZaC+Il1sYpMa234EWndeb84nt2RYX62aBjWVZTS2s0UbioyKD3bhQzDJ38Nas3jGrew8y9ToDqGp13Cj2z+ReTKM+HgBFDAkapPnvPR3lel2XG564Nw4nLc3ezrTx3N67b1XhEANcayzwlkiTe8HgGnqc2DZTCsr3nWxtZ0MOEYLeE76lUEcmG/0kNqdx7Fxa7BQ3QggHoh3iuyIsTZoXFYLWzW1GnFoTIidHunvzVQanBmuGnvhxKMI5OWENfrrco58taH9+rDJWlJy5/x7QygSslwL8aLYTQfFVU9WMU4KfScr5MEIPL0ZhE/wJAKHiRmleOcnHnUeFprHcYW3W2pbYztoRI3eqBineu6DoYqtkORjVthO1tAbLsiCh/RNZ34=
 
-The running slot is updated to the pending slot before updating the running
-context. However, the condition checks the old running context instead of
-the newly assigned running slot.
+From: Steven Rostedt <rostedt@goodmis.org>
 
-When no pending slot exists, running_slot becomes NULL. If the previous
-running_context is non-NULL, the code attempts to access
-running_slot->ctx[0], resulting in a NULL pointer dereference.
+While looking at tasks global descriptor tables, I discovered the
+following anomaly:
 
-To fix this possible NULL pointer dereference, check running_slot instead
-to ensure that running_context is updated only when a valid slot is
-available.
+~# echo 't:sched sched_switch prev=prev mm=(task_struct)prev->mm ppgd=(task_struct)prev->mm->pgd' > /sys/kernel/tracing/dynamic_events
 
-Fixes: 8453d674ae7e ("drm/i915/gvt: vGPU execlist virtualization")
-Signed-off-by: Tuo Li <islituo@gmail.com>
+The above creates a tprobe on the sched_switch tracepoint and records the
+previous task_struct pointer, it's mm_struct and the pgd the mm_struct
+points to.
+
+~# trace-cmd start -e tracepoints:sched
+
+            bash-1050    [000] d..3.    90.829478: sched: (__probestub_sched_switch+0x0/0x10) prev=0xffff88d30b623600 mm=0xffff88d30108c600 ppgd=0xffff88d33352b000
+          <idle>-0       [002] d..3.    90.836024: sched: (__probestub_sched_switch+0x0/0x10) prev=0xffff88d301870000 mm=0x0 ppgd=0x0
+     rcu_preempt-15      [002] d..3.    90.836031: sched: (__probestub_sched_switch+0x0/0x10) prev=0xffff88d3013ad100 mm=0x0 ppgd=0xffff88d33352b000
+
+The first event has is a user task that has both a valid mm_struct and a pgd.
+The second event is a kernel task where the mm_struct is NULL and so is the
+dereferenced pgd pointer.
+
+The third event is where things looked strange. The mm_struct is NULL but
+the dereferenced pgd has a value! That is: NULL->pgd produced something
+other than zero.
+
+The reason for this is that the probe_mem_read() and probe_mem_read_user()
+do not write to the destination on failure. The process_fetch_insn_bottom()
+loop does not check the return value of the dereference (as it is the last
+one), and does not update the event. That leaves the value for that failed
+field to be whatever was in the ring buffer at that time.
+
+Have both probe_mem_read() and probe_mem_read_user() set the destination to
+zero on failure to read the address.
+
+Now all pgd are zero when mm is zero.
+
+Also update the stage 2 of process_fetch_insn_bottom() to not return on
+fault but to just set the value to zero and also do not even bother
+dereferencing the address if the value is already zero. This allows the
+code to continue and fill in the zero into the memory location on the
+ring buffer.
+
+Cc: stable@vger.kernel.org
+Fixes: 533059281ee59 ("tracing: probeevent: Introduce new argument fetching code")
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- drivers/gpu/drm/i915/gvt/execlist.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changse since v1: https://patch.msgid.link/20261111050322.49bbebfa@fedora
 
-diff --git a/drivers/gpu/drm/i915/gvt/execlist.c b/drivers/gpu/drm/i915/gvt/execlist.c
-index 29147a9f162e..763c310f2aaf 100644
---- a/drivers/gpu/drm/i915/gvt/execlist.c
-+++ b/drivers/gpu/drm/i915/gvt/execlist.c
-@@ -73,7 +73,7 @@ static void switch_virtual_execlist_slot(struct intel_vgpu_execlist *execlist)
+- Have stage two handle faults as well, and just ignore dereferencing NULL
+  pointers. (sashiko)
+
+ kernel/trace/trace_probe_kernel.h | 13 +++++++++++--
+ kernel/trace/trace_probe_tmpl.h   | 15 ++++++++-------
+ 2 files changed, 19 insertions(+), 9 deletions(-)
+
+diff --git a/kernel/trace/trace_probe_kernel.h b/kernel/trace/trace_probe_kernel.h
+index 4eb4acfa09ba..00542a162d30 100644
+--- a/kernel/trace/trace_probe_kernel.h
++++ b/kernel/trace/trace_probe_kernel.h
+@@ -102,18 +102,27 @@ static nokprobe_inline int
+ probe_mem_read_user(void *dest, void *src, size_t size)
+ {
+ 	const void __user *uaddr =  (__force const void __user *)src;
++	int ret;
  
- 	execlist->running_slot = execlist->pending_slot;
- 	execlist->pending_slot = NULL;
--	execlist->running_context = execlist->running_context ?
-+	execlist->running_context = execlist->running_slot ?
- 		&execlist->running_slot->ctx[0] : NULL;
+-	return copy_from_user_nofault(dest, uaddr, size);
++	ret = copy_from_user_nofault(dest, uaddr, size);
++	if (ret < 0)
++		memset(dest, 0, size);
++	return ret;
+ }
  
- 	gvt_dbg_el("[after] running slot %d/context %x pending slot %d\n",
+ static nokprobe_inline int
+ probe_mem_read(void *dest, void *src, size_t size)
+ {
++	int ret;
++
+ #ifdef CONFIG_ARCH_HAS_NON_OVERLAPPING_ADDRESS_SPACE
+ 	if ((unsigned long)src < TASK_SIZE)
+ 		return probe_mem_read_user(dest, src, size);
+ #endif
+-	return copy_from_kernel_nofault(dest, src, size);
++	ret = copy_from_kernel_nofault(dest, src, size);
++	if (ret < 0)
++		memset(dest, 0, size);
++	return ret;
+ }
+ 
+ #endif /* __TRACE_PROBE_KERNEL_H_ */
+diff --git a/kernel/trace/trace_probe_tmpl.h b/kernel/trace/trace_probe_tmpl.h
+index 8db12f758fda..210a75ed5a92 100644
+--- a/kernel/trace/trace_probe_tmpl.h
++++ b/kernel/trace/trace_probe_tmpl.h
+@@ -137,23 +137,24 @@ process_fetch_insn_bottom(struct fetch_insn *code, unsigned long val,
+ 		lval = val;
+ 		switch (code->op) {
+ 		case FETCH_OP_DEREF:
+-			ret = probe_mem_read(&val, (void *)val + code->offset,
+-					     sizeof(val));
++			/* Do not dereference NULL pointers */
++			if (val)
++				probe_mem_read(&val, (void *)val + code->offset,
++					       sizeof(val));
+ 			break;
+ 		case FETCH_OP_UDEREF:
+-			ret = probe_mem_read_user(&val,
+-				 (void *)val + code->offset, sizeof(val));
++			/* Do not dereference NULL pointers */
++			if (val)
++				probe_mem_read_user(&val, (void *)val + code->offset,
++						    sizeof(val));
+ 			break;
+ 		case FETCH_OP_CPU_PTR:
+ 			val = (unsigned long)this_cpu_ptr((void __percpu *)val);
+-			ret = 0;
+ 			break;
+ 		default:
+ 			lval = llval;
+ 			goto out;
+ 		}
+-		if (ret)
+-			return ret;
+ 		llval = lval;
+ 		code++;
+ 	} while (1);
 -- 
-2.43.0
+2.53.0
 
