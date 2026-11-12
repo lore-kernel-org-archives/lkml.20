@@ -1,80 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794472908;
-	b=0Ya4cXqWoPHVeTEOXWOadeRJ1uB3EDR6/AFqazgW622vys8/pzTBdHKzQAhtStmKgxrG
-	 NjwbvX6P1RSBGXj797VAUphkv+99eEjnICmOnqE7qNtaeJQE742IFtIur3I4gNMIBP4VM
-	 ozLRl8Rbm5R0ogGZL1dV/8BhHGSzputATDa6TljtbY/hKLTXC+3AXM4ynrSiuZYZ23dzN
-	 8G0dxeKikiiPD6UgyYzZIG3es+a4NlGrrucsKLOmQCLjuBunKUblIgxfKS3fQAdOH2ajk
-	 JAHyjzWgRzts0UOfo3tURiGN+4WIlgunCIsN0ok+KMQRbyh/ElwSYTymnLOM+2evi5A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472908;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=cOZOcx0Mu9HyNEyLOdYNEnsYBK2dtuXmhg8/FXfAGjg=;
-	b=lSJpvIDdWB6xoHQ5dfaQXsqnNgU4gZ5lJIr93dGotWfpS5uLcbp6v3O8QghWOs2M9TFc
-	 z0uQ7Ig3sVK2/V9XyM4385IHOA1sFAmsL52EQkkcANeZunETk7vy/jfw/NE/OEpOF4IXP
-	 aAq+1NnhcCoT6kB7E4nDyUI4EoyPJc28aHkVK0RNwOiHOLbklDKAcjq0+TSyH6LVjN3t5
-	 BhXx1+T8OApa2BE26OXIJuN0GPPT8gxruQR0lBK5e6Tmqw87kxD0VquANwOSxxj2NM/ZM
-	 TGyMIfQjnrfrKWuBaahas6MRy0zpy4yuC/7mo/c57KgP2EXKDcz8SNQTr03MUlDIS4Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C5xqkIVF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794472928;
+	b=OVItl1fHZ3sUn7YZ/mZa0hq5XvldVHRxo5E7+VQDgldfUC8KYlk1ZHHuxdLhnNUzQAXe
+	 xwhgW2x3NddHUSC76PUBiwWCPe02eJGm29rHgGRHgr9cFaG4VWQGp1hb7hZi8lc37+RkY
+	 n0IsNKmM+UUTkIak3mdDf5ZTsVi/l4FhS5Fv1eOylLrbUW/9OCQgzEyyvP0Nm3TIPUFRG
+	 oGo14dx+NM75K2Gil0/ap342b5lF+VXZuFRaMUKJjBu4XxBA6wYcd8XtVQMbJBQjT0KWi
+	 69wAd7e1AjWyC3jzdJXNoBb9+lmYwuFKtnjVUz/DrZ62amEQFYkcLr1HZfzRZXgNbdw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472928;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=yX/snQhfs/qWZHLfhiGp0UkDR56azxtXVdV6DTHRemA=;
+	b=kTBrB5vNWTcBW3A4bOtY0cm1mQLb0DW1Fid12N0OgUh6hr1h3G630eezUJWShRuGb3a4
+	 B9D/Wu1Ve/T80/CwQ7NZalMspZgGVRsiVxB9PGixV2wUDvPZoQWLAOvYAKcC8Ps+fjwsJ
+	 xx9aNFBZQTtyIRElt/SiCYtRsnxZbxm0+/uJ58273ainKQTZtNDv+9cf5kKfA5Y76JTL1
+	 4yoZaAL3HIQf90TPp4GPbwFbiM992MxDY67tyt77qANOTRHxooedk7KXfvtYercrONb1o
+	 N5GX3FT3+ylCQOFoKnEpF8RPImRT/loPs8LFMLWZ8l4//qugSylu9aH/0CHcKdj1gHg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iKfCprWW;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5B93606C82D;
-	Thu, 12 Nov 2026 08:41:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA3F9606C82D
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:42:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C5xqkIVF
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794472908;
-	b=IyRk5o3fdl2Mkm3fODFjLtfEztDpa5yabMmiaMDbou56QgUEA2Ozm8jcPu7P0yJ7C+K3
-	 hTouAO5bN3DiVmyIAEKXcmU/Ya/KecBrofNzZPptNnKhA8+4vYnPd4F+Qzqq5rjWyNwtz
-	 wI6XPwJ0ANJcs3lA10O5yitAP3/KsQDYlqIarLbGSJ5lJnaydrIVLcfxE+enk83RV1N5E
-	 iO/+5xf2V5yaB2uDmuBsc0Ygd6ZJsVRQhT6th9Ss6sIE8Dnhsj5qUwU++1SaLci0hoX8J
-	 aUGMEpkOtuuCKmvPLFG0Aj79O4OZIYFZYqt+CW1aBZEZzEd3Hi47AQ7GPxnyRMGcKwg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794472908;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=cOZOcx0Mu9HyNEyLOdYNEnsYBK2dtuXmhg8/FXfAGjg=;
-	b=QiF3GPUEKQOa9FhrIolusbGbHn6mRtLBdQdgZNHDgOxyu+IkNEe68foYe5pkqZTHisuN
-	 xAtbXgLJqKlxY/uwdce+F/oxWyumBtIpdbJr84rA9lAehS67ZR0P78+UG2IhLVDh6scRj
-	 ZSrKqjSngDP06sqmUeOcgs0GTQIKtE89ImnSjVfcL4igxUeoT1fDSTWy3KX+8YEKSKA7V
-	 rJ8TPRjBXBt6d60lsymkv5bdj7hCLDTj4JOiZ5k40LKJxE7U8CcUlgn3S3uB6Rhtbjw11
-	 +cjp/uR/eHcnvvwLsDPJju4CWJvO3o66vYV14wf/+p/bjJYkFQimoHv+hzRRM9fx1sg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B1A8B1F00A07;
-	Thu, 12 Nov 2026 08:41:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iKfCprWW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A00D1F00A06
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:42:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794472908;
-	bh=cOZOcx0Mu9HyNEyLOdYNEnsYBK2dtuXmhg8/FXfAGjg=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=C5xqkIVFcXa2Er8OpXLp0CrJD/qDyPZbRPo2JhNEr75D1dslMHGuaAVoCixhq8sqj
-	 UwCKmawRJ1qUWuUgqIF8P8XXzM5oQmrZBRpcxxyQdiYwZz7mQfXu1mg1nmvg5LGrJL
-	 tzJ5dFaR6LOXjZP4UXgDN8wfSeG49TFLWoqUwJF6oSax670YdetQwyY4M55zGgk5E+
-	 hOmTD8QgANWd5iu/rI+Lw82WrFtrrO5hJyVKUujf0ZXZz2AWkmBmq7xsL2+lNcbPhb
-	 pe9WY2IsGnxoo35RKYQQN6r4DUQsNiVPS4vKiFjqqEmxOPfR6a6FWxQo+ZTa4Cjb2h
-	 hh2LwTK5M69kw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 10827493CA;
-	Thu, 12 Nov 2026 08:41:47 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH net-next v2 0/2] net: stmmac: dwmac-sun8i: Jumbo frames and
- an RX_TH fix
-Date: Thu, 12 Nov 2026 08:41:46 +0000
-Message-Id: <20261112-sun8i-emac-jumbo-v2-0-aca0cf23cf17@gmail.com>
+	s=k20260515; t=1794472928;
+	bh=yX/snQhfs/qWZHLfhiGp0UkDR56azxtXVdV6DTHRemA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=iKfCprWWielEa8qWCAy8ZrFTAc9sYEdp2d95dZ0fP3WMdBuinjhFwKaMeL1kcGwq5
+	 kjBb7O2pDIFZI8HBnKfmJiy1UncxHnZgbqg+GnjCutPiaLw0x3h+s4d7JU/+PatuzJ
+	 uzcxXSvU7PVH7J9Im2Q8BbhNVkiBXcPnPPodD5HKlQLMh7U9zlTdgIKzqTK7n28ADM
+	 M3K9XuTWJeD2m1Jzd2hwY7DuJgUmidG4HGB9S2KRhkbLL6M3rCAG8i4EZyjnf2l8am
+	 R7w+Yl3OQheaghiuYRRtcLfQ3f4dPIt5wky/FHmlA3wkSQcxZs8+FJTZkUof8SmWd8
+	 MXqvpDS0XYsjA==
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93f3c89594cso308696385a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:42:08 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEBmkDTQW3U9BvN1kibO3hnlgPH84vRfxobQk/vrsJwUBjXfh7kJBo0F1/ucHxJBEoy2M4yjLE8Y2+lOwU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Xkdwq641aDmJ6/BWBLZjypif/vJjnYaecla1RXyXRR3InVA+n
+	7utT2KF/aJRj5HQYE1hbwyR5TdjeRpVHyJxgJSoGKo17IB77DsFEXt8vZ7UYvwqluegxMMKgoEC
+	0pGF/fLIb21qMyScQ1mNDxPNkRMWjQj4=
+X-Received: by 2002:a05:620a:4629:b0:93e:c12c:9dd2 with SMTP id
+ af79cd13be357-947b000dc62mr804392285a.82.1794472927557; Thu, 12 Nov 2026
+ 00:42:07 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,86 +59,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6DIBREr2L+ur8BNQa66j0aF0g/iinQABob4
- 92rdt3ly8y8WSFRtJTgVqwQabbJBr9DeSlAD8r3hPa5M5SsbDjnDNPkhUVySuM4uS5gLSpppKh
- VoyTss3ckY5dT+QBPGT0tGdpfkqZuJJ0P49EdbMohfs73mZ+L/0czR4ai7gxjJI1R1b13yr6uO
- jhot237Alda2frMAAAA
-X-Change-ID: 20261110-sun8i-emac-jumbo-4839f984a6a9
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com, 
- linux-kernel@vger.kernel.org, Corentin Labbe <clabbe.montjoie@gmail.com>, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472906; l=2223;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=4lSOCGIxuhr5scVSNymqWxWTq8eeBYQM5ER9DID9Zyk=;
- b=8f+Qdim9xm+qJ7Nqsq62ye44HOsAZgiddAr0jN0CQpUvgGKZYonOGdxtlRWyHja9k02ORMRlz
- 1VDwiIjldWeC16DzPzfuMVXbGC6rEq1jOCRMrrKL1v98YFevFuiQsCz
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
+References: <20261112081928.3014946-1-ridong.chen@linux.dev> <avV52J2rD19cjM2J@KASONG-MC4>
+In-Reply-To: <avV52J2rD19cjM2J@KASONG-MC4>
+From: Barry Song <baohua@kernel.org>
+Date: Thu, 12 Nov 2026 16:41:56 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4yibOkJmi9niJ8svu2NdEkZ5Qyf98VO6qMrJMa_9wGFgQ@mail.gmail.com>
+X-Gm-Features: AclHuK_9uCBjHclHvkB2UW2bzSTSpgTVr4bRNegOOsiNxjGaC7AtEWcvW_r0__E
+Message-ID: <CAGsJ_4yibOkJmi9niJ8svu2NdEkZ5Qyf98VO6qMrJMa_9wGFgQ@mail.gmail.com>
+Subject: Re: [PATCH] mm/mglru: deactivate anon folios into the oldest generation
+To: Kairui Song <ryncsn@gmail.com>
+Cc: Ridong Chen <ridong.chen@linux.dev>, David Hildenbrand <david@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Yu Zhao <yuzhao@google.com>, 
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The sun8i EMAC advertises a maximum MTU of 3712, but drops every frame
-longer than 1518 bytes. Patch 2 sets the receiver's jumbo frame enable
-bit and limits the MTU to what fits in one normal descriptor buffer
-(2018). Patch 1 corrects two swapped RX threshold values; no in-tree
-Allwinner board uses RX threshold mode, so none is affected.
+On Thu, Nov 12, 2026 at 4:38=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wrot=
+e:
+[...]
+> >  mm/folio.c | 11 ++++++++++-
+> >  1 file changed, 10 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/mm/folio.c b/mm/folio.c
+> > index ea3adb6a89d7..c412d9b398e4 100644
+> > --- a/mm/folio.c
+> > +++ b/mm/folio.c
+> > @@ -583,7 +583,16 @@ static void lru_deactivate(struct lruvec *lruvec, =
+struct folio *folio)
+> >       lruvec_del_folio(lruvec, folio);
+> >       folio_clear_active(folio);
+> >       folio_clear_referenced(folio);
+> > -     lruvec_add_folio(lruvec, folio);
+> > +     /*
+> > +      * For MGLRU, lruvec_add_folio() places anon folios that are not =
+in
+> > +      * the swap cache into the second youngest generation, which is a=
+n
+> > +      * active one. Add the folio to the oldest generation instead, li=
+ke
+> > +      * lru_deactivate_file() does for clean folios.
+> > +      */
+> > +     if (lru_gen_enabled())
+> > +             lruvec_add_folio_tail(lruvec, folio);
+> > +     else
+> > +             lruvec_add_folio(lruvec, folio);
+>
+> Hi Ridong,
+>
+> One question here, why MGLRU/CLRU have to use two different ways to
+> add the folio back?  Will this cause over aggressive reclaim of the
+> folio?
 
-Tested on an Orange Pi Zero2 (H616, RTL8211F over RGMII) at 1 Gbit/s,
-with a 7.3 kernel carrying both patches:
-- MTU 2000 and 2018: pings with DF set up to the full MTU pass in both
-  directions, iperf3 gives 955 Mbit/s to the board and 905 Mbit/s from
-  it, and the rx_length and rx_crc_errors counters stay at 0.
-- Setting MTU 2019 is refused.
-- At MTU 1500, a 90 minute run (bulk transfers up to 256 MiB both ways,
-  iperf3 853/873 Mbit/s, 1000 pings each of 56, 1472 and 8000 bytes)
-  had no loss and no new error counters.
-
-In that 7.3 kernel, frames longer than 2044 bytes were dropped by a
-local norm_desc change; v7.4-rc2 does the same through commit
-834ec9530832 ("net: stmmac: drop split frames on AF_XDP zero-copy RX"),
-which patch 2 now relies on.
-
-These patches were developed with Claude (Anthropic) as a coding
-assistant. It investigated the problem and wrote the code and the commit
-messages; I reviewed them, and they were tested on an Orange Pi Zero2
-(H616) as described above.
-
----
-Changes in v2:
-- Patch 1: add the Fixes: tag, and correct the commit message: RX
-  threshold mode depends on snps,force_thresh_dma_mode, not on RX
-  checksum offload (Sashiko AI review)
-- Cc Corentin Labbe (author of the Fixes: target)
-- Rebased onto current net-next; patch 2 unchanged
-- Link to v1: https://patch.msgid.link/20261110-sun8i-emac-jumbo-v1-0-84bf00e9ffa3@gmail.com
-
----
-Arun Iyengar (2):
-      net: stmmac: dwmac-sun8i: Fix the RX_TH threshold encoding
-      net: stmmac: dwmac-sun8i: Enable jumbo frames up to MTU 2018
-
- drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 29 +++++++++++++++++++++--
- 1 file changed, 27 insertions(+), 2 deletions(-)
----
-base-commit: c88fd6989aea9237a60a4859139a265bfb7ddc0b
-change-id: 20261110-sun8i-emac-jumbo-4839f984a6a9
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
-
+I guess that is because on mglru, that is lacing a way to add the folio to
+the head of the oldest generation for anon folios while CLRU can do
+that :-)
