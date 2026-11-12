@@ -1,97 +1,96 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794494810;
-	b=PJlewGlh8g5KXQmNiio/5LjasGGBFwKz0JDBBv4VDwDfWo6mxYOohn4Tqi4MXykrs4Cf
-	 bHAKuWmjy19E412E4EQ4Mb8uBnrR7uKjp58sGnqHCZQkYmGeQ8j2hbwbvkrQV5GKydk16
-	 jFKHIXHSXuqm4dUriMn7j9C4aRrk6GoI205PKxGEqYoLAsFbg1jL0d7zymsYWHCf9n22e
-	 qipk7rzerglOoHSxKLhCfT5oJWTd6Bco6bu0VwMKIW0KGaOzqVWqKilJmHIG4SiQ4aLXj
-	 WOIuEwM0reqXT6ASUe9I4c7zCkU4HDkTQ4ip1Bl6QODN5ZCab73WRzcvE2lnKd1WU1A==
+	t=1794494830;
+	b=T+5JvUJHr+hPd1tY9QUSUDopJ0AOkIJZuuGsQO96MjbASDAmuDde2SIJJ6NvvhGL9m8d
+	 3XdP0TLdsiaOyL8je0yzt6C4qCdwphLe2X8D7J4thnIN6uWLYdFDku4J7r0CdLEmEGvFR
+	 Nv54/2t+rRoqchHQa5EdzpGS1DJNwmev1bl0kz+AfRFGwqrk/KicKkwCtFR+pX1GeZnkw
+	 kkwfQluiqOyKVM+YjdJuGshAVmtMcxgH9CvPASRqikoy/a7jwFOPfSkp2mWdd5SXjZT4w
+	 TvD1WmqA94SBYiR/mJYX7f+CjxTaZls49yZ9W4QQEMzjXpKDBHU26oNkeDQTcJEhEhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794494810;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794494830;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Subject:User-Agent:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=GW1J6s7aL2zvtC13WpFK94wE9d4airqES1RCBPqtr2M=;
-	b=lVqpZApcPOZrR/MA2ntELAHpGSZkufy0vJjPwKQS8M2McOUj9Ija52tEslvRTi/8SGlb
-	 4wlHzV4lRlu9aJy2UKMVXkA++aAM5gtnom2jQwgaZVnCLXU5hs+8yz3o1fjBqZSruAHOB
-	 zP34rmbdz9C+UrSh1b12T1EknIYSuwnc7vYR1VHlgdV1f+FiKKh817Uu8IZyseZc1Yny2
-	 ClN18x2PXUKQvQV1rjl6ZXt7VJSRSiFMRrUXjPiGbb8Yc84e+SLvIzH61QWs9macPRthz
-	 IdvldX5Kj6V9M1KKuqsEZvo8US4PxS796wUIb62JWzrz+Xo7qv6EY6eagTkEUauiYpg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BIgDiiCX9yRZLQGXIA3wPjKWsuYyC54v1yTwFIZpwnY=;
+	b=MPCktogf9rO+D6l9GXrVqug/RMGnhU94ikhOZLCjqtGy3bl57LYN+X/qI2vHg8wdll1t
+	 7twiaKkqay9wakIUjZjnAVzSAesFpLNfXfxfrB2iWf5KFmroqgoOyAL5RmyRbl2pxzadk
+	 jFiJGwSda5SehXJU7GtQvWIPMrK4HvfsNeibchxWxFdRmIqu/SBp0RfIyoybXKSUP5Yq+
+	 o+JU0TjmVzlaM4xhu0Q8Y3yRovVY7Xhw2JvgAR1MsenaahFNPrOftcOxoSOMAMxaMAm+q
+	 ESVuFj+0I2yIbvtErn4OIWQlwvt3+S31tMTAlprJJDEGSFdHEKw+/dGmgFqxdTnwnwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B5ie9Sbk;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MHy9D8Lz;
 	arc=none smtp.remote-ip=74.125.82.176
 Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339A6606A332
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:46:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 339A6606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D80606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:47:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1D80606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B5ie9Sbk
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36dbde64409so8541409eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:46:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MHy9D8Lz
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3791619605cso223636eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:47:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794494809; x=1795099609; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=GW1J6s7aL2zvtC13WpFK94wE9d4airqES1RCBPqtr2M=;
-        b=B5ie9Sbk0h0ROlG5e70AX9jsL+iKEdl5R+SqOO+0e/f+zcG2//r+6xJSJaXzM7yXmB
-         bZgvfZ+iA2nav/8AycjLNu1CizbhripoJ642uoYr4akc+mggEeGuliAIXpvvTeIELebu
-         vvh8f3EZjTlIb+HBY+QtvI2Kf889Ei1fVf5Nj5AbQZABx97e4ot0IqJBv0kHaVVP2Pkt
-         +rVxIrhMsygSJJr4glSnP/OTNlK61vufHrXiE+jfwW82wKO17ULrO3RLaSVkyvhe0aC+
-         ahPcvS3VAY6mJgU6TvtX3cBIC+fPVWfPwJk78TBWJv2ms8TuYcKg0j4Zeg/aNtxqHq6b
-         nQCw==
+        d=gmail.com; s=20260707; t=1794494829; x=1795099629; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BIgDiiCX9yRZLQGXIA3wPjKWsuYyC54v1yTwFIZpwnY=;
+        b=MHy9D8LzZ33JLCJ/8z3aMLAoYhDZY0mrXk3LH478DDMx0OO2dt86uCmPYN5RRr0Ddk
+         UiF5miTNHxGyfroty2y3cp6i8WLNzIEvupTeP9LGzMK39ltLj90J7nAcmjpKDdJhi+SG
+         cmPBpefFU7K9flcxRSxoyCccbMVS86zOumEapYn244sE4dcctSjUZrKOe5KSrjy3XFG8
+         jOP9iPqxMh9CtmDRiImpr2VQ46XALVUBCrauuUzDidue+D5En4nPUpcAbvcRd1+DfMF0
+         c10a5sjMExsjxCuf1DhbrTrp0M1TyccHMTHw0DTGNmL8yjqqsyq6/Hyjc/Jf/6aeY/EC
+         D/GA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794494809; x=1795099609;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GW1J6s7aL2zvtC13WpFK94wE9d4airqES1RCBPqtr2M=;
-        b=gHzwlqn04SDIu35XPkbVCQzsAqux+BFrNLVOpJiZt8A00nrEdt9BWpmXFCzWfF4yWe
-         sKYeX9/rsP4kq26nMFo6Axya4FRdOfvzeMBZdiUJFGvwedmxjCL/FtaiayW9oKTyKbJa
-         wJQ8JD3XokwYTwOs4GQkX7kxZAv0RqWhIoaNwG7Qr8VJPtNJxFgRkqr8wS0m6F0cPw3K
-         hefB7iRC68DDM1va/abQU8uTdfCjJJngC+dwZ0g2S3Sd8oafciOLcG86OYgPLCPY+ZDo
-         d3dvO7zbaLpTC3Zr7zQSuwyXnQMVAMpdw3PYksW+boQrVBHI8wTgqpth2S0i1uiJw58R
-         Ki0w==
-X-Forwarded-Encrypted: i=1; AL+hErFCPJom8ywlxjZkWNM9c/RY8rK9GszE5u0exvXS+Nt/E/7u6YRkPp7QO377BciZFqJI5HDcPatozpyndLs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/CrCOrkI/pBV7OljbbHr6NusuBr9waD6paNX+sNpEVwTYODSFB
-	fif+Y5yIUkrdvugmKC0eKHdJgNDxM9VpFje7hM5o1Hg/WQsYEgBJ2mE3MsfTLQ==
-X-Gm-Gg: AYBFou0sxifEdXqIo5tyPKqaKHgUrZV04IGssqMiWt4YVZnq1xhPA/8Y5SGO+QpkigN
-	VdyjmMBrpQBftZeHKKUelXz4E53kraL8+wcoZH665vsoiInZvJnHFMmJa0WIJguw3X1b5d39TQm
-	Os2yZWQG2Ab9neqZVXOwjF3MSwnshdm9nepaGnfrXBuddUDAEA/8a8OzzyUf2/c2xNhyu8hFOG4
-	6C0hj6J4/uC2EC+gaGjXYc1GEJP6qrPwx1fHS5ouEMKnw989Cl4VaCZAnCKTkdGGepf8++e2Hi6
-	g1zQ6l0NVA0Zan4eRXLKhNa2fxxvaInfY7nCiU3WaLb6DwdjUCHZHpDUVXRAsK5jAUAdPc1i0/U
-	ZJN2AqcbZKkqe2jcPCJQQ5Uu49LOc6mwGtH0n+gq8/p2U8pwtkaCrk3Lfw/ocnzvRpgSSUD0x67
-	s+iN2XP8mwsgSWcNNT5ZlhceF1XarNhBYhjVWVPELcgIm+yeUKJ3RAJS7cD4lM2T5zA8Tmr0Txe
-	BoHpRC1Z0AwkOX9JXslrr/Qfga3BAearYRH9vf4ynFFTKi/MruAn8eCe/dgSHV+K2ho8f8E+Oap
-	D/u7teqwHgnB22L4ni3CXirzUJWaGbafDIAJoFrJF/C73gxvHJmH2+uIvCYuXX49gqrkqAdG5GS
-	v0OR15njHAZG2fiN4eh/DG08=
-X-Received: by 2002:a05:7301:470c:b0:36a:12c4:8bd6 with SMTP id 5a478bee46e88-37686171f1bmr5787039eec.22.1794494809135;
-        Thu, 12 Nov 2026 06:46:49 -0800 (PST)
-Received: from ehlo.thunderbird.net (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37925e611e4sm285392eec.20.2026.11.12.06.46.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 06:46:48 -0800 (PST)
-Date: Thu, 12 Nov 2026 06:46:47 -0800
-From: "Derek J. Clark" <derekjohn.clark@gmail.com>
-To: Aaron Ma <aaron.ma@canonical.com>, Mark Pearson <mpearson-lenovo@squebb.ca>,
- Rong Zhang <i@rong.moe>, Hans de Goede <hansg@kernel.org>,
- =?ISO-8859-1?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_platform/x86=3A_lenovo-wmi-ot?=
- =?US-ASCII?Q?her=3A_Deconflict_battery_with_thinkpad=5Facpi?=
-User-Agent: Thunderbird for Android
-In-Reply-To: <20261112074823.853819-1-aaron.ma@canonical.com>
-References: <20261112074823.853819-1-aaron.ma@canonical.com>
-Message-ID: <68B20AF1-0037-4810-98B8-49E3CBF17E92@gmail.com>
+        d=1e100.net; s=20260707; t=1794494829; x=1795099629;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BIgDiiCX9yRZLQGXIA3wPjKWsuYyC54v1yTwFIZpwnY=;
+        b=Qsu9OBw20W2/X7XZa1arpgHb8MBvKTPOBs4wA+UJlmbgX56lq8zChYxATLmi2Ei69/
+         i+E66A69901YK1nL+p9ZKCWy2ayKYwLMz11CsM/3PycL8s9/zfFFdgfdf7t41rThMCCf
+         XIANQQy404MI0dwdQ4WKSXOgvTbTYWpKF7NFM7+MJOOsoGbmSHIIUMzk5cx8Gx4SC4Va
+         XUrXIilfDfLlS7hjHTQfEKcrsz0EAQHMITuy3p/93IDoNftlZmG/rQPvNrQSYvo7FqBJ
+         ctlDFXPvyWW8Yof4Kc7+k9ntAwqON6u45xu6x5mkynoeqPpYGE0NtzAI/KQpem/9aoBu
+         U+tA==
+X-Forwarded-Encrypted: i=1; AL+hErFtC2XHdY6qaHHFwXjHauyzfVot1uhaittWSpbd6A5/t99zeUKon9aSb4+Bt9CGf2c09I+7nB81+khnIkg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9YUO9XSiXxgf3V+yV8+cNURSqC8LhZS3Kk38cQQI+PW8eCCDnT
+	USnYsDhlT1iT/2olK21rTEbl8e2N6Ahn/wpcpfjgQJqd0ht3KN8LaG3+1gxrJA==
+X-Gm-Gg: AYBFou1jW27cv2IY7Z4KDNArEsopliwK5Bi7e3/7hfpR5UXkDCxpc1AVIE8PPbihwXM
+	TIuHXeLp2tV5fq/CWbkhJRm2IYap9toWJr4sUrLt6B9qZwtE6Gx2ttE9RvNua3Hqgs9OPn74Ab7
+	bCongEI6Jd5m01zDTyMDNkSXaU80jdFaUfg6xRy4CcZK1xKiORHkTV4qyJlo934VFBGkYTn38bY
+	Zv8u0MGi189HZTJd+ZPqR6q6WqtdxeB8iK88i6meOxuoGbt9nzI6yBf0EI9AkeCXyLE0Fh+k9dU
+	hJeQ3PxV9uXR1e/TOFWbhHtvG6k5QeuX++zNzupmFTPRnaJtbasTbb5vZjOjUsgN0KJtITFAH5I
+	YbpGXrI80yxgGjLXW6CUrLEd8eN6Osbb/gVdSqQMc5Ubgneb0DU9Zoy+Qpz8j/gpbdGowLvv45h
+	LplqTq1hob9D0DNkKsAqxwM28GN1xFdvRPC5PC04vZfyX/Zm9JpHM8yGVbfyKQraYxxqgeutyrZ
+	kH/O9gxnMmOxRPzC1l7BIoLuOIjmS/zVqO0L/Nrsdubw/QVHCAxdqk8Bw0fFIAe/LfZV+EM35sA
+	8fpDc2FRCuZ4DG+gpkm5qwla0LfqoeHjRNYVO3MktcFAGBXdn4JU
+X-Received: by 2002:a05:693c:62d0:b0:360:b8b4:840a with SMTP id 5a478bee46e88-3768694e3a4mr5915728eec.39.1794494828615;
+        Thu, 12 Nov 2026 06:47:08 -0800 (PST)
+Received: from ubuntu ([110.9.142.4])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37925b77223sm214734eec.18.2026.11.12.06.47.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 06:47:07 -0800 (PST)
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+To: Vlastimil Babka <vbabka@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Hao Li <hao.li@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Roman Gushchin <roman.gushchin@linux.dev>
+Subject: [PATCH v2] mm/slab: remove outdated comment in create_kmalloc_caches()
+Date: Thu, 12 Nov 2026 23:46:52 +0900
+Message-ID: <20261112144653.840367-1-ekffu200098@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,173 +100,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On November 11, 2026 11:48:23 PM PST, Aaron Ma <aaron=2Ema@canonical=2Ecom>=
- wrote:
->ThinkPads expose battery charge thresholds and charge_behaviour through
->thinkpad_acpi's ACPI battery hook using raw sysfs attribute groups=2E The
->Lenovo WMI "Other Mode" driver also registers a power_supply_ext for
->charge_behaviour and charge_types on systems advertising those WMI
->capabilities=2E
->
->When lenovo-wmi-other registers first, thinkpad_acpi fails to create a
->duplicate charge_behaviour sysfs attribute and unregisters its battery
->extension=2E Conversely, registering or updating any power_supply_ext on
->the same battery runs sysfs_update_groups(), which removes standard
->power-supply attributes not owned by power_supply_core and wipes out
->thinkpad_acpi's charge_control_start_threshold,
->charge_control_end_threshold, and charge_behaviour files=2E
->
->Deconflict both ideapad_laptop (VPC2004 with GBMD and SBMC) and
->thinkpad_acpi (LEN0268, LEN0068, or IBM0068 with BDSG and BICG) via a
->table check when the corresponding driver is enabled in Kconfig, and
->update the force_load_psy_ext description accordingly=2E
->
->Fixes: 9ca8fc065b88b ("platform/x86: lenovo-wmi-other: Add WMI battery ch=
-arge limiting")
->Signed-off-by: Aaron Ma <aaron=2Ema@canonical=2Ecom>
+Since commit 16a1d968358a ("mm/slab: remove mm/slab.c and slab_def.h")
+removed SLAB, no kmalloc cache is created before create_kmalloc_caches().
 
-Hi Aaron,
+So remove the outdated and redundant comment.
 
-Looks good, thanks=2E I'll test it in a couple of days=2E I have one quest=
-ion below but it's not blocking for me, I just want to check my assumption =
-is correct=2E
+Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+---
+Changes from v1 [1]
+- Remove the whole useless comment
 
-Reviewed-by: Derek J=2E Clark <derekjohn=2Eclark@gmail=2Ecom>
+[1] https://lore.kernel.org/all/20261104144753.2266231-1-ekffu200098@gmail.com/
 
->---
->Changes in v2:
->- Consolidate IdeaPad and ThinkPad deconfliction into a table of ACPI
->  device IDs, method pairs, and driver configuration checks, as suggested
->  by Derek J=2E Clark=2E
->- Check GBMD and SBMC for IdeaPads, and BDSG and BICG for ThinkPads,
->  instead of relying only on ThinkPad ACPI device presence=2E
->- Check whether the corresponding driver is enabled before looking up
->  its ACPI device, including for ideapad_laptop=2E
->- Update the force_load_psy_ext description to cover both drivers=2E
->
->v1: https://lore=2Ekernel=2Eorg/platform-driver-x86/20261111083529=2E7272=
-85-1-aaron=2Ema@canonical=2Ecom/
->
-> drivers/platform/x86/lenovo/wmi-other=2Ec | 51 ++++++++++++++++++-------
-> 1 file changed, 38 insertions(+), 13 deletions(-)
->
->diff --git a/drivers/platform/x86/lenovo/wmi-other=2Ec b/drivers/platform=
-/x86/lenovo/wmi-other=2Ec
->index bd64e7b44669d=2E=2E14b2c3f4cc7ae 100644
->--- a/drivers/platform/x86/lenovo/wmi-other=2Ec
->+++ b/drivers/platform/x86/lenovo/wmi-other=2Ec
->@@ -189,10 +189,10 @@ MODULE_PARM_DESC(relax_fan_constraint,
-> static bool force_load_psy_ext;
-> module_param(force_load_psy_ext, bool, 0444);
-> MODULE_PARM_DESC(force_load_psy_ext,
->-	"This option will skip checking if the ideapad_laptop driver will confl=
-ict "
->+	"This option will skip checking if the ideapad_laptop or thinkpad_acpi =
-driver will conflict "
-> 	"with adding an extension to set the battery charge behavior and batter=
-y charge "
-> 	"control end threshold=2E It will also skip checking if the BIOS report=
-s that "
->-	"those features are fully supported=2E It is recommended to blacklist t=
-he ideapad "
->+	"those features are fully supported=2E It is recommended to blacklist t=
-he conflicting "
-> 	"driver before using this option=2E");
->=20
-> /* =3D=3D=3D=3D=3D=3D=3D=3D HWMON (component: lenovo-wmi-capdata 00 & fa=
-n) =3D=3D=3D=3D=3D=3D=3D=3D */
->@@ -905,17 +905,32 @@ static acpi_status lwmi_acpi_match(acpi_handle hand=
-le, u32 lvl,
-> 	return AE_CTRL_TERMINATE;
-> }
->=20
->+struct lwmi_psy_deconflict {
->+	const char *hid;
->+	char * const *methods;
->+	bool driver_enabled;
->+};
->+
->+static char * const lwmi_ideapad_psy_methods[] =3D { "GBMD", "SBMC" };
->+static char * const lwmi_thinkpad_psy_methods[] =3D { "BDSG", "BICG" };
->+
->+static const struct lwmi_psy_deconflict lwmi_psy_deconflict_list[] =3D {
->+	{ "VPC2004", lwmi_ideapad_psy_methods, IS_ENABLED(CONFIG_IDEAPAD_LAPTOP=
-) },
->+	{ "LEN0268", lwmi_thinkpad_psy_methods, IS_ENABLED(CONFIG_THINKPAD_ACPI=
-) },
->+	{ "LEN0068", lwmi_thinkpad_psy_methods, IS_ENABLED(CONFIG_THINKPAD_ACPI=
-) },
->+	{ "IBM0068", lwmi_thinkpad_psy_methods, IS_ENABLED(CONFIG_THINKPAD_ACPI=
-) },
->+};
->+
-> /**
->  * lwmi_om_psy_ext_init() - Hooks power supply extension to device batte=
-ry
->  * @priv: Pointer to the lwmi_om_priv drvdata=2E
->  *
->- * Checks if the ideapad_laptop driver is going to manage charge attribu=
-tes first,
->- * then if not, hooks the battery to our WMI methods if they are support=
-ed=2E
->+ * Checks if the ideapad_laptop or thinkpad_acpi driver is going to mana=
-ge
->+ * charge attributes first, then if not, hooks the battery to our WMI me=
-thods
->+ * if they are supported=2E
->  */
-> static void lwmi_om_psy_ext_init(struct lwmi_om_priv *priv)
-> {
->-	static const char * const ideapad_hid =3D "VPC2004";
->-	acpi_handle handle =3D NULL;
+---
+ mm/slab_common.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-I'm assuming this was moved to avoid handling cleanup each loop?
+diff --git a/mm/slab_common.c b/mm/slab_common.c
+index 01c64ef661e7..10603b9cbb53 100644
+--- a/mm/slab_common.c
++++ b/mm/slab_common.c
+@@ -1028,11 +1028,6 @@ new_kmalloc_cache(int idx, enum kmalloc_cache_type type)
+ 		kmalloc_caches[type][idx] = kmalloc_caches[type][aligned_idx];
+ }
+ 
+-/*
+- * Create the kmalloc array. Some of the regular kmalloc arrays
+- * may already have been created because they were needed to
+- * enable allocations for slab creation.
+- */
+ void __init create_kmalloc_caches(void)
+ {
+ 	int i;
 
-Thanks,=20
-- Derek
-
-> 	unsigned int props =3D 0;
-> 	int ret;
->=20
->@@ -928,14 +943,24 @@ static void lwmi_om_psy_ext_init(struct lwmi_om_pri=
-v *priv)
-> 	if (force_load_psy_ext)
-> 		goto load_psy_ext;
->=20
->-	/* Deconflict ideapad_laptop driver */
->-	ret =3D acpi_get_devices(ideapad_hid, lwmi_acpi_match, &handle, NULL);
->-	if (ret)
->-		return;
->+	for (unsigned int i =3D 0; i < ARRAY_SIZE(lwmi_psy_deconflict_list); i+=
-+) {
->+		const struct lwmi_psy_deconflict *entry =3D &lwmi_psy_deconflict_list[=
-i];
->+		acpi_handle handle =3D NULL;
->=20
->-	if (handle && acpi_has_method(handle, "GBMD") && acpi_has_method(handle=
-, "SBMC")) {
->-		dev_dbg(&priv->wdev->dev, "ideapad_laptop driver manages battery for d=
-evice\n");
->-		return;
->+		if (!entry->driver_enabled)
->+			continue;
->+
->+		ret =3D acpi_get_devices(entry->hid, lwmi_acpi_match, &handle, NULL);
->+		if (ret || !handle)
->+			continue;
->+
->+		if (acpi_has_method(handle, entry->methods[0]) &&
->+		    acpi_has_method(handle, entry->methods[1])) {
->+			dev_dbg(&priv->wdev->dev,
->+				"ACPI device %s manages battery for device\n",
->+				entry->hid);
->+			return;
->+		}
-> 	}
->=20
-> load_psy_ext:
+base-commit: ce6518e61e3b4bf4f97f7ac6204049b9eba7eb75
+-- 
+2.53.0
 
