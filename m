@@ -1,62 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794504799;
-	b=VxfeNGeEAvr/CwrbvMQXAbCdDDRuDuLU+0jB/xyjY/Y2YJRIvSXiFKp1LaDu/zdnYu4R
-	 tA/wo+XJh5XMRDGqCfbfjhrcUrbpokHKw6I9KkPvBae3YrFD2wSdjcqIwgqtzfvENqpMe
-	 +TiMNMj+xPBGa17y8Zmq2oZes9XTUCBSCLmrrmskoKlsG4e0tFvMHGVQW7OBFZibgbkTa
-	 MOleklwuuvtE00Su7n79wV+EwT0JIlJuD/d8K1xc4qN9jf4q7I1uZKHzBU9QX8kf2gS25
-	 RomMCMR6SuOaH4vvwnp3L1cUmIEfdS6QtYurWU2/PmhtDzVwBURLN2uFx3Ud5rQjwlQ==
+	b=o2hAE9Og5OzojoT5gIrPxjH3vZ3MHxP//4rKP5+DZJrVwHFZlayRs30nuwYi1IeZ0eTa
+	 qtB0s3hhZXXBtK5HGXwhsf8k2KPRILJAIXSDtApgLbaL0+tsZ2mqYkn86GH//fiviYiYm
+	 Ed0mKVfiFByFz447Sr7XFjxzEGwDH/JUHIQKmaPsn+R0wW99V+aeYnhVgsFRTc7QwOxO1
+	 xfRy7shwqaHZf5f57zyvZY+9WETU9evzivLjXtyYVbBX7gqDe5ZaCRLmWTee4vPbm1wxv
+	 qx71WPz464HsL6dXJcVZ+Q9O9M+3FDhOztL6cl9VIHi7in9AaFNTxW6u9wgvvE3xyKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794504799;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=TWU28xxWKolcs593mhA8pg+/WchtWSWI2RoWiYJxdrk=;
-	b=2AlNeW8KkCUHy92isOhK33cUDmAK0gxoN9R0YyjlUTO0+vG3kzDupCgUKcY7jlf3iMj4
-	 C1G+xWrOwtrgzEsr2RR4KQY4HTnzrmZidTtbPxF5AeTIJHK8vMrtnQEFVUOncvKRFKECN
-	 hNC6qdB5kA8ozQCRGAyPZzK8VAMRFLc02I6bYXrOfi3X5UUVStCJ3lYhklbHtvmh7n/FZ
-	 CJMpEMLkz+M7OidD9a3YgNYbd09Rc3yLCYbAK8Q4WHqkoX22+2VyzjeGnXwfpF/dewyKU
-	 16PAVvSCt/lCtQ81DcimF3KklEh1koJepYpD5Zq9vbXHktA/N2UIxU4Eo9pDPsMFcmQ==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=lP+qoc9O0R6uSwoM2iPaMaGse/6oonGEJ6oTW9GIAvM=;
+	b=mcS5voSSzqSGz6tOAsZqOc0ovXKMjJnhdhL6eFlcTO7mZTMYmyXiJ4saSR3jqnV8Is9d
+	 eOUqj8qAK10/nyOx1Bvun4fD/HQxjKYy+PvJq29XGWtKxDqJF58UMIbahceBuqEltk+84
+	 hTSCJvMqMp2XhR1wFdCJEDqUzBtfclZ5+tV5/+ra/+nSfgZs3L7G6t55zrK2RBhuhMb4/
+	 A9aaj/n9HZrGnvWQ2njCk0CxgKY5vfPPcos2Mw9BsFnGodSpXteHEngccUaTynuJyrcqT
+	 8zUUKA0sxS4htUQ4b3OHMuOTLaemLLrBxu6TmvyqlngVAprsVRoaPCG4CEW5vPR8BMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bYsK+QQU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x1vZoe5B;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FFBF60A383F;
-	Thu, 12 Nov 2026 17:33:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CBB360A383E
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:33:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CBB360A383E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bYsK+QQU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AAF41F000CA;
-	Thu, 12 Nov 2026 17:33:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794504798;
-	bh=TWU28xxWKolcs593mhA8pg+/WchtWSWI2RoWiYJxdrk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=bYsK+QQUASJniilrXvr2xzBD41YmM1FjqEReh91s+dkUOcoumiG9TMJ91x0HxpmQp
-	 tt83f3uDFwMZTQHIBMFMmY5ejZVrw2GkHCYGZ9QIqIcZJgczLwe63WBCPM2UsRoosh
-	 BOCS3YIaAKS7exvgGT1lhVyUuncxB+3JGVv+0L4WeBQf46c7RpYsMS7B8MI99xXuWp
-	 XX6X12JDqUDZr3Mge14bNai7SgoaSAkw6HcsUYv7Si1C/hZSnFtrR6hSGKYma7QksL
-	 1vbM3GOmM51BPJd5w62ueEdPzMYFGPZT/2DspnExIDG0SGRYDOmFf70+GVkhhJbFI7
-	 XHvT41IvQZBXw==
-Subject: Re: [PATCH net-next v2 6/9] net: sparx5/lan969x: add support for
- resizing the FDMA buffers
-From: netdev-bot+sashiko@kernel.org
-To: daniel.machon@microchip.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, Steen.Hegelund@microchip.com,
- UNGLinuxDriver@microchip.com, richardcochran@gmail.com, linux@armlinux.org.uk,
- netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, robert.marko@sartura.hr,
- horatiu.vultur@microchip.com, jensemil.schulzostergaard@microchip.com
-Date: Thu, 12 Nov 2026 17:33:17 +0000
-Message-ID: <179450479769.2199510.7340350354512665906@kernel.org>
-In-Reply-To: <20261111-sparx5-mtu-change-v2-6-59c91357e8f6@microchip.com>
-References: <20261111-sparx5-mtu-change-v2-6-59c91357e8f6@microchip.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x1vZoe5B
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ae6b4c669fso819730a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:33:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794504798; x=1795109598; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lP+qoc9O0R6uSwoM2iPaMaGse/6oonGEJ6oTW9GIAvM=;
+        b=x1vZoe5BGYRuFpBLOPhCdQU5gaILZzJUx+nRkt8AFoyK8kmvscUCWl31wyuMeezn03
+         gkrX2XlXFOvTOeSnFPVbZhF7+hkEtQdEmh0tOH8rm5HkrHRZF2SMu4fE3lVutMhvezbP
+         0fLgGJxfIG8WIAfnc321rvtIq5PEAkNfTXXDaUlHPj45hKM6x9sfhK4ql8OT8270ro8o
+         eu9RjRmuMUncOMIw3ZIPlyMgGpYHvYzp+pmTrrYu/1/gjeignl8B8O+BqsVO4LwgBUXv
+         BLEnDTC6+qoXFy/1jf8fYL+grywzlbn0hBrfbDNKzyWtOcR9PoZTxAoN5cs4Qst3SIk9
+         3oaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794504798; x=1795109598;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lP+qoc9O0R6uSwoM2iPaMaGse/6oonGEJ6oTW9GIAvM=;
+        b=DTvZkBygRQg1C5FjMINmXbdJIX+2uw039gQTA9lsLDA719QJEpX2q4g7I0vqf0lK+U
+         gcKL4bMMTGEk6DT4YSNyyqddHlx+xfDrBktJ18R/FGR0mqTCyTnsp0iV6T9mqNrbO9vQ
+         yOrGemd1o1Bq58GnTiZYaSaR31kygnJQq8yXvm25oGI6kSH9RjB/+jZkhzy39tXbjCQb
+         SJFveOZjVxUfe+N5vUf+qdBLfL3/sBzlco3FCnVoXt10ZCybe5uqQP1ha7M07Kby1lCU
+         5n8H8RGequze9e5zxgNuZPlGzwpMPYC+ZeIGCjy/KsjcanwBfbXQw+MNvEG5G/AHPe2O
+         ImzA==
+X-Forwarded-Encrypted: i=1; AL+hErHzOioJgKDmnHUXFwchHh0YkdD/zt+EJT3mAVUX0w902Iru3aRQWlXMTW/97JZ6sok0t8QDqilr50kSOC4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+0QgucogxC3JBWFaATXmEI1Fwple4R15K1w45pMwAFnuibDAj+
+	PSFQboiVgU3zIG4cDXHRvX3mGZcvnAIrxGTgEADTf7YI8lM/gFwsClow
+X-Gm-Gg: AYBFou1sp+7mGXQ2TKexfw39R2vybreWHjMqPdgsZa0bQiKp0Q6EJsWfmGnJq/aeqCt
+	Q08ZSsPJnP9WGD7u7kIOoTVHG2HiQw+T2XLVpPkrm5PkN2gztvlAXRI900Q6gEGQyQ9uJUeGxpo
+	sX7MTGbb893nqPmXFU3OFaFcvf2O26ouQvj2hxFH3saMbHJpplmHWV9SzDPJHzCup47Pomi+oqm
+	FIXamZYAQlEcmMvvVKck5RM8LtUXLQdRLexq/cBgX4UIFHA6R4ll3ff/Atx/nm3V0wUKRGH0pzj
+	ZPNxuLMwthAHcgrccP6V2IMDBwGbSuHPGkK7yTxsnrxiOkthRXfp+rfR+AdwWH2O4mx7yXhpD7g
+	geHsFYDMNlcwSxKQ+PiBcswCYESzu62OXBMlVNerzExhwobLsdzR5Di3p4TA39Vtw0CQjjXBWB7
+	xh4CDPeNBQTp6OnZik/YdyRn8LCkryClh2YHxmAIvzOU0xZgQf3ESGSTmx0GB2Dorc1bXWuT0ZU
+	dukjbXUjuZMM9P1gdQN/neY9ChxkrQbm9zY/YJUE1ylhItOapkZ+v5HhuTuK6LOt1QY72rGgxcL
+	55JAS/AGpekHYhVVLIII9c91uJdnRa5vZuo1xhUoza0082Cm43Z8MTcVx4XL48x8O48Lg1ahQZb
+	0a09jbVLDxshk9HSTOrqaNq1QDu2ZAjbyb1jfUv8zEH27
+X-Received: by 2002:a17:90b:540f:b0:3b0:9bfa:72ac with SMTP id 98e67ed59e1d1-3b197caa480mr2243793a91.21.1794504797884;
+        Thu, 12 Nov 2026 09:33:17 -0800 (PST)
+Received: from acemagic-m1.tail4fb79.ts.net ([2401:7400:c804:b668:2c54:4647:b67e:c94c])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1ae8be5adsm383532a91.0.2026.11.12.09.33.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 09:33:17 -0800 (PST)
+From: Ho Jie Feng <hjf3108@gmail.com>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	Luka Gejak <luka.gejak@linux.dev>,
+	Ho Jie Feng <hjf3108@gmail.com>
+Subject: [PATCH rtw-next v3 5/5] wifi: rtw88: 8812a, 8821a: respect peer A-MPDU size limits
+Date: Fri, 13 Nov 2026 01:32:44 +0800
+Message-ID: <20261112173246.3201729-6-hjf3108@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261112173246.3201729-1-hjf3108@gmail.com>
+References: <20261112173246.3201729-1-hjf3108@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,414 +101,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+Honor the peer-advertised receive limit for transmitted A-MPDUs.
 
-Critical: 0 · High: 1 (1) · Medium: 2 · Low: 0
+Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+---
+ drivers/net/wireless/realtek/rtw88/rtw8812a.c | 10 +++++++++-
+ drivers/net/wireless/realtek/rtw88/rtw8821a.c | 10 +++++++++-
+ 2 files changed, 18 insertions(+), 2 deletions(-)
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] On lan969x, the RX error path keeps a pointer to a page it has
-  already given back to the page_pool, so lan969x_fdma_resize() can…
-- [Medium] This patch adds a one-line lan969x RX slot clear in
-  lan969x_fdma_rx_get_frame():…
-- [Medium] net: sparx5: GFP_ATOMIC RX skb allocation in
-  sparx5_fdma_resize()
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but it is severe:
-  both RX NAPI paths ignore fdma_dcb_add()'s return value when re-arming…
-
---
-
-net: sparx5/lan969x: add support for resizing the FDMA buffers
-
-This adds an fdma_resize operation for Sparx5 and lan969x. It allocates
-new FDMA buffers sized for a new MTU, pauses the TX queues and the FDMA,
-swaps in the new buffers and then resumes. On lan969x it also clears the
-RX page slot once the page has been passed to the stack.
-
-> diff --git a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
-> index 40cdb0323eb49..6f827cad49229 100644
-> --- a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
-> +++ b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
-> @@ -153,6 +153,12 @@ static struct sk_buff *lan969x_fdma_rx_get_frame(struct sparx5 *sparx5,
->  	skb->dev->stats.rx_bytes += skb->len;
->  	skb->dev->stats.rx_packets++;
->  
-> +	/* The page is passed to the stack in the skb, so clear its slot in the
-> +	 * ring, so that lan969x_fdma_rx_free() does not return it to the
-> +	 * page_pool.
-> +	 */
-> +	rx->page[fdma->dcb_index][fdma->db_index] = NULL;
-
-[Severity: Medium]
-This line also seems to fix an existing double put at deinit, separate
-from resizing.
-
-When the NAPI reload loop fails to refill a slot,
-lan969x_fdma_rx_dataptr_cb() returns before it overwrites the slot:
-
-	page = page_pool_dev_alloc_pages(rx->page_pool);
-	if (unlikely(!page))
-		return -ENOMEM;
-
-	rx->page[dcb][db] = page;
-
-The slot then still holds the page that build_skb() already gave to the
-stack. Later, lan969x_fdma_deinit()->lan969x_fdma_rx_free()->
-lan969x_fdma_free_pages() calls page_pool_put_full_page() on that page.
-
-The earlier fix in this series, "net: sparx5/lan969x: free the FDMA
-buffers on init errors and deinit" (Fixes: d84ad2c0d80c), limits the slot
-clearing to Sparx5:
-
-  "clear the RX buffer slot once the buffer has been passed to the stack
-  on Sparx5"
-
-Could this lan969x line go into that fix, or into its own patch with
-Fixes: d84ad2c0d80c? Otherwise stable trees that take the fix would still
-have the lan969x double put.
-
-> +
->  	return skb;
->  
->  free_page:
-
-[Severity: High]
-The success path now clears the slot. What about the free_page path just
-below it?
-
-lan969x_fdma_rx_get_frame() {
-    ...
-free_page:
-	page_pool_recycle_direct(rx->page_pool, page);
-
-	return NULL;
-}
-
-This path runs on WARN_ON(!port) or when build_skb() fails. It gives the
-page back to the page_pool, but rx->page[fdma->dcb_index][fdma->db_index]
-still points at it.
-
-lan969x_fdma_napi_poll() then breaks out before fdma_db_advance():
-
-		skb = lan969x_fdma_rx_get_frame(sparx5, rx);
-		if (!skb)
-			break;
-
-So the slot is not reloaded. In the same poll, the reload loop can also
-hand the just-recycled page from the direct cache to an earlier slot.
-
-After that, an MTU change that changes the page order goes through:
-
-lan969x_fdma_resize()
-  lan969x_fdma_rx_free()
-    lan969x_fdma_free_pages()
-      page_pool_put_full_page(rx->page_pool, rx->page[i][j], false)
-
-Can this put the same page into the page_pool a second time? If so,
-page_pool_destroy() would release it twice, with a double put_page() and
-a double DMA unmap.
-
-The commit message says the slot is cleared "to know which RX pages are
-still owned by the driver when freeing them". The free_page path also
-gives up ownership. Should it clear the slot as well?
-
-Before this patch the free only happened at deinit. Now
-lan969x_fdma_resize() runs it during normal operation.
-
-[ ... ]
-
-> @@ -468,3 +476,67 @@ int lan969x_fdma_deinit(struct sparx5 *sparx5)
-
-[ ... ]
-
-> +int lan969x_fdma_resize(struct sparx5 *sparx5, struct sparx5_port *port,
-> +			int new_mtu)
-> +{
-
-[ ... ]
-
-> +	sparx5_fdma_pause(sparx5);
-> +
-> +	/* The FDMA is stopped and reset, and NAPI and the TX queues are
-> +	 * disabled, so nothing uses the buffers until sparx5_fdma_resume().
-> +	 */
-> +	lan969x_fdma_tx_reset(sparx5);
-> +	lan969x_fdma_rx_free(sparx5, rx);
-> +
-> +	rx->fdma = rx_new->fdma;
-> +	rx->page_pool = rx_new->page_pool;
-> +	rx->page_order = rx_new->page_order;
-> +	memcpy(rx->page, rx_new->page, sizeof(rx->page));
-> +
-> +	sparx5_fdma_resume(sparx5);
-
-[Severity: High]
-This is a pre-existing issue, not one introduced by this patch. It
-affects the RX refill path that this series makes larger.
-
-Both RX NAPI paths ignore the return value of fdma_dcb_add() when they
-re-arm a consumed DCB. In lan969x_fdma_napi_poll():
-
-		fdma_dcb_add(fdma,
-			     old_dcb,
-			     FDMA_DCB_INFO_DATAL(fdma->db_size),
-			     FDMA_DCB_STATUS_INTR);
-
-		sparx5_fdma_reload(sparx5, fdma);
-
-sparx5_fdma_napi_callback() does the same.
-
-In fdma_api.c, __fdma_db_add() writes the status before the callback
-gets a chance to fail:
-
-	db->status = cpu_to_le64(status);
-
-	err = cb(fdma, dcb_idx, db_idx, &dataptr);
-	if (unlikely(err))
-		return err;
-
-__fdma_dcb_add() then returns before it links prev->nextptr and updates
-fdma->last_dcb.
-
-Suppose page_pool_dev_alloc_pages() in lan969x_fdma_rx_dataptr_cb() fails,
-or the GFP_ATOMIC __netdev_alloc_skb() in sparx5_fdma_rx_dataptr_cb()
-fails. The DCB then has DONE cleared, but it is not in the hardware chain,
-and the next successful add links around it.
-
-The software dcb_index still walks the ring in order. When it reaches
-this DCB, fdma_has_frames() on lan969x, or fdma_db_is_done() in
-sparx5_fdma_rx_get_frame(), sees a DCB that is not done and stops. No
-further DCBs are re-armed, and the hardware stops at the last linked DCB.
-
-Can one failed atomic refill stop CPU extraction for every port until
-the FDMA is re-initialized?
-
-The later commit "net: sparx5/lan969x: add support for changing the MTU"
-enables jumbo MTUs, which turns these refills into higher-order
-allocations. The fix commit "net: sparx5/lan969x: free the FDMA buffers
-on init errors and deinit" checks errors for the initial fdma_dcbs_init()
-fill, but not for this refill at runtime.
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c b/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
-> --- a/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
-> +++ b/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
-> @@ -558,3 +570,173 @@ int sparx5_fdma_stop(struct sparx5 *sparx5)
->  
->  	return 0;
->  }
-> +
-> +/* Check if any TX DB is still waiting to be transmitted */
-> +static bool sparx5_fdma_tx_busy(struct fdma *fdma)
-> +{
-> +	for (int i = 0; i < fdma->n_dcbs; i++)
-> +		if (!fdma_db_is_done(fdma_db_get(fdma, i, 0)))
-> +			return true;
-> +
-> +	return false;
-> +}
-> +
-> +/* Enable or disable the forwarding of frames to the CPU ports */
-> +static void sparx5_fdma_cpu_fwd_set(struct sparx5 *sparx5, bool ena)
-> +{
-> +	for (int cpu = SPX5_PORT_CPU_0; cpu <= SPX5_PORT_CPU_1; cpu++) {
-> +		int portno = sparx5_get_internal_port(sparx5, cpu);
-> +
-> +		spx5_rmw(QFWD_SWITCH_PORT_MODE_PORT_ENA_SET(ena),
-> +			 QFWD_SWITCH_PORT_MODE_PORT_ENA,
-> +			 sparx5,
-> +			 QFWD_SWITCH_PORT_MODE(portno));
-> +	}
-> +}
-> +
-> +/* Get the memory used by the frames queued to the CPU ports */
-> +static u32 sparx5_fdma_cpu_queue_use(struct sparx5 *sparx5)
-> +{
-> +	u32 use = 0;
-> +
-> +	for (int cpu = SPX5_PORT_CPU_0; cpu <= SPX5_PORT_CPU_1; cpu++) {
-> +		int portno = sparx5_get_internal_port(sparx5, cpu);
-> +		u32 base;
-> +
-> +		base = SPX5_QRES_DST_MEM + SPX5_PRIOS * portno;
-> +		for (int prio = 0; prio < SPX5_PRIOS; prio++)
-> +			use += QRES_RES_STAT_CUR_INUSE_GET(spx5_rd(sparx5,
-> +					QRES_RES_STAT_CUR(base + prio)));
-> +	}
-> +
-> +	return use;
-> +}
-> +
-> +/* Stop the port TX queues and the FDMA, and reset the FDMA, so that the FDMA
-> + * buffers can be replaced.
-> + */
-> +void sparx5_fdma_pause(struct sparx5 *sparx5)
-> +{
-> +	bool busy;
-> +	u32 use;
-> +
-> +	/* Only ports that are up have TX queues to stop */
-> +	for (int i = 0; i < sparx5->data->consts->n_ports; i++) {
-> +		struct sparx5_port *port = sparx5->ports[i];
-> +
-> +		if (port && netif_running(port->ndev))
-> +			netif_tx_disable(port->ndev);
-> +	}
-> +
-> +	/* Give the frames already handed to the FDMA a chance to be sent, as
-> +	 * they are lost when the FDMA is reset.
-> +	 */
-> +	if (read_poll_timeout(sparx5_fdma_tx_busy,
-> +			      busy,
-> +			      !busy,
-> +			      SPX5_FDMA_TX_DRAIN_SLEEP_US,
-> +			      SPX5_FDMA_TX_DRAIN_TIMEOUT_US,
-> +			      false,
-> +			      &sparx5->tx.fdma))
-> +		dev_warn(sparx5->dev, "FDMA TX not drained, frames dropped\n");
-> +
-> +	/* Stop the switch core from forwarding frames to the CPU, and let the
-> +	 * FDMA extract the frames already queued, so that the FDMA is not
-> +	 * stopped and reset while the switch core is still sending it frames.
-> +	 */
-> +	sparx5_fdma_cpu_fwd_set(sparx5, false);
-> +	if (read_poll_timeout(sparx5_fdma_cpu_queue_use,
-> +			      use,
-> +			      !use,
-> +			      SPX5_FDMA_XTR_DRAIN_SLEEP_US,
-> +			      SPX5_FDMA_XTR_DRAIN_TIMEOUT_US,
-> +			      false,
-> +			      sparx5))
-> +		dev_warn(sparx5->dev, "CPU queue not drained, frames dropped\n");
-> +
-> +	sparx5_fdma_stop(sparx5);
-> +
-> +	/* Reset FDMA state */
-> +	spx5_wr(FDMA_CTRL_NRESET_SET(0), sparx5, FDMA_CTRL);
-> +	spx5_wr(FDMA_CTRL_NRESET_SET(1), sparx5, FDMA_CTRL);
-> +
-> +	/* Discard frames queued for the CPU, as they may not fit the new
-> +	 * buffers.
-> +	 */
-> +	sparx5_xtr_flush(sparx5, XTR_QUEUE);
-> +}
-> +
-> +/* Restart the FDMA and the port TX queues after sparx5_fdma_pause() */
-> +void sparx5_fdma_resume(struct sparx5 *sparx5)
-> +{
-> +	struct sparx5_rx *rx = &sparx5->rx;
-> +	struct sparx5_tx *tx = &sparx5->tx;
-> +
-> +	/* Enable NAPI before the RX interrupt is enabled, as the interrupt
-> +	 * handler schedules NAPI, as in sparx5_fdma_start().
-> +	 */
-> +	napi_enable(&rx->napi);
-> +
-> +	sparx5_fdma_rx_activate(sparx5, rx);
-> +	sparx5_fdma_tx_activate(sparx5, tx);
-> +
-> +	/* Forward frames to the CPU again, now that the FDMA can extract them */
-> +	sparx5_fdma_cpu_fwd_set(sparx5, true);
-> +
-> +	for (int i = 0; i < sparx5->data->consts->n_ports; i++) {
-> +		struct sparx5_port *port = sparx5->ports[i];
-> +
-> +		if (port && netif_running(port->ndev))
-> +			netif_tx_wake_all_queues(port->ndev);
-> +	}
-> +}
-> +
-> +int sparx5_fdma_resize(struct sparx5 *sparx5, struct sparx5_port *port,
-> +		       int new_mtu)
-> +{
-> +	struct sparx5_rx *rx = &sparx5->rx;
-> +	struct sparx5_tx *tx = &sparx5->tx;
-> +	struct sparx5_tx tx_new = {};
-> +	struct sparx5_rx *rx_new;
-> +	u32 db_size;
-> +	int err;
-> +
-> +	db_size = sparx5_fdma_get_db_size(sparx5, port, new_mtu);
-> +	if (db_size == rx->fdma.db_size)
-> +		return 0;
-> +
-> +	rx_new = kzalloc_obj(*rx_new);
-> +	if (!rx_new)
-> +		return -ENOMEM;
-> +
-> +	sparx5_fdma_rx_init(sparx5, rx_new, FDMA_XTR_CHANNEL, db_size);
-> +	sparx5_fdma_tx_init(sparx5, &tx_new, FDMA_INJ_CHANNEL, db_size);
-> +
-> +	err = sparx5_fdma_rx_alloc(rx_new);
-> +	if (err)
-> +		goto out;
-> +
-> +	err = sparx5_fdma_tx_alloc(&tx_new);
-> +	if (err) {
-> +		sparx5_fdma_rx_free(rx_new);
-> +		goto out;
-> +	}
-> +
-> +	sparx5_fdma_pause(sparx5);
-> +
-> +	/* The FDMA is stopped and reset, and NAPI and the TX queues are
-> +	 * disabled, so nothing uses the buffers until sparx5_fdma_resume().
-> +	 */
-> +	sparx5_fdma_rx_free(rx);
-> +	fdma_free_phys(&tx->fdma);
-> +
-> +	rx->fdma = rx_new->fdma;
-> +	memcpy(rx->skb, rx_new->skb, sizeof(rx->skb));
-> +	tx->fdma = tx_new.fdma;
-> +
-> +	sparx5_fdma_resume(sparx5);
-> +out:
-> +	kfree(rx_new);
-> +
-> +	return err;
-> +}
-
-[Severity: Medium]
-sparx5_fdma_rx_alloc() fills the new ring through fdma_dcbs_init(),
-which calls sparx5_fdma_rx_dataptr_cb() for every DB. That callback
-always allocates the skb with GFP_ATOMIC:
-
-	skb = __netdev_alloc_skb(rx->ndev, fdma->db_size, GFP_ATOMIC);
-	if (unlikely(!skb))
-		return -ENOMEM;
-
-That fits the NAPI refill path. Here, though, it runs in process
-context under RTNL. It allocates the whole ring of FDMA_DCB_MAX *
-FDMA_RX_DCB_MAX_DBS (960) skbs while the old ring is still allocated
-and the FDMA is still running on it.
-
-With the jumbo MTUs enabled later in the series, db_size gets close
-to 14 KB. Each skb head is then an order-2 allocation, roughly 15 MB
-in total. GFP_ATOMIC cannot do direct reclaim or compaction. On a
-system with fragmented memory the MTU change can fail with -ENOMEM
-where a sleeping allocation would have succeeded.
-
-It also draws on the __GFP_HIGH reserves that the NAPI refill of the
-live ring needs at the same time. A failed refill there leads to the
-stall raised above for fdma_dcb_add().
-
-Could sparx5_fdma_rx_dataptr_cb() take the gfp mask from its caller?
-For example, a field in struct sparx5_rx could let
-sparx5_fdma_rx_alloc() use GFP_KERNEL while the NAPI refill keeps
-GFP_ATOMIC.
-
-lan969x_fdma_rx_dataptr_cb() looks the same, since
-page_pool_dev_alloc_pages() is GFP_ATOMIC too. There the page order
-also grows with the MTU.
-
+diff --git a/drivers/net/wireless/realtek/rtw88/rtw8812a.c b/drivers/net/wireless/realtek/rtw88/rtw8812a.c
+index c8008cf43d..c8f5cdf31c 100644
+--- a/drivers/net/wireless/realtek/rtw88/rtw8812a.c
++++ b/drivers/net/wireless/realtek/rtw88/rtw8812a.c
+@@ -78,6 +78,14 @@ static void rtw8812a_cfg_ldo25(struct rtw_dev *rtwdev, bool enable)
+ {
+ }
+ 
++static void rtw8812a_set_ampdu_factor(struct rtw_dev *rtwdev, u8 factor)
++{
++	factor = min_t(u8, factor, IEEE80211_VHT_MAX_AMPDU_128K);
++
++	rtw_write32(rtwdev, REG_AMPDU_MAX_LENGTH,
++		    ((8192 << factor) - 1) | BIT(31));
++}
++
+ static void rtw8812a_do_lck(struct rtw_dev *rtwdev)
+ {
+ 	u32 cont_tx, lc_cal, i;
+@@ -926,7 +934,7 @@ static const struct rtw_chip_ops rtw8812a_ops = {
+ 	.set_tx_power_index	= rtw88xxa_set_tx_power_index,
+ 	.cfg_ldo25		= rtw8812a_cfg_ldo25,
+ 	.efuse_grant		= rtw88xxa_efuse_grant,
+-	.set_ampdu_factor	= NULL,
++	.set_ampdu_factor	= rtw8812a_set_ampdu_factor,
+ 	.false_alarm_statistics	= rtw88xxa_false_alarm_statistics,
+ 	.phy_calibration	= rtw8812a_phy_calibration,
+ 	.cck_pd_set		= rtw_phy_cck_pd_set,
+diff --git a/drivers/net/wireless/realtek/rtw88/rtw8821a.c b/drivers/net/wireless/realtek/rtw88/rtw8821a.c
+index 17d3677ca4..796c100165 100644
+--- a/drivers/net/wireless/realtek/rtw88/rtw8821a.c
++++ b/drivers/net/wireless/realtek/rtw88/rtw8821a.c
+@@ -49,6 +49,14 @@ static void rtw8821a_cfg_ldo25(struct rtw_dev *rtwdev, bool enable)
+ {
+ }
+ 
++static void rtw8821a_set_ampdu_factor(struct rtw_dev *rtwdev, u8 factor)
++{
++	factor = min_t(u8, factor, IEEE80211_VHT_MAX_AMPDU_64K);
++
++	rtw_write32(rtwdev, REG_AMPDU_MAX_LENGTH,
++		    ((8192 << factor) - 1) | BIT(31));
++}
++
+ #define CAL_NUM_8821A 3
+ #define MACBB_REG_NUM_8821A 8
+ #define AFE_REG_NUM_8821A 4
+@@ -872,7 +880,7 @@ static const struct rtw_chip_ops rtw8821a_ops = {
+ 	.set_tx_power_index	= rtw88xxa_set_tx_power_index,
+ 	.cfg_ldo25		= rtw8821a_cfg_ldo25,
+ 	.efuse_grant		= rtw88xxa_efuse_grant,
+-	.set_ampdu_factor	= NULL,
++	.set_ampdu_factor	= rtw8821a_set_ampdu_factor,
+ 	.false_alarm_statistics	= rtw88xxa_false_alarm_statistics,
+ 	.phy_calibration	= rtw8821a_phy_calibration,
+ 	.cck_pd_set		= rtw_phy_cck_pd_set,
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111-sparx5-mtu-change-v2-0-59c91357e8f6%40microchip.com
+2.53.0
+
