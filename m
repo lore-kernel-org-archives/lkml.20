@@ -1,65 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794452476;
-	b=o/efmi0UQLg+PFgADMEIi6yj6bEZBTFD943dM2AWxxn8HVpEfuQM/EhgmhI/1VYOwfqG
-	 v3qOUV/w56AYphhEuheNkUKjjQGleN3MYva9EkpdMbdCOcyCQNXTevNmwwkm2gCzAhujz
-	 +BSKCNN/I9J+1XQypWFTGphiIoypTnXwn9C+Wc/yI+7cbCwVePijthRI+8IFbJ4dkYKo/
-	 zG2jjRaLE587RQGbWB3nJRmSvn2T9xTWsz5JCrchwvGQPxwrWaPbd/hpN3pzOkrSK8vd4
-	 kCtC3vFxw5B8GwdSQM7H6MSvceCu3bVoJf494pwqS83nNfDkA3Ee/3/p5sXbdmnQ8Tg==
+	t=1794452480;
+	b=RV+3Hee1cTfutIM1g8Gj4agbMdlxbp3D8JuD15Ai01apFL8OY3kqRH7DUCVBLGY29N2Z
+	 C5HN9Ojtm8pK2ELmF83Dg1M/CvnB2YRDCkIrdTgewiF4Nju+K6NhDbAassH7iMQgucfrQ
+	 tw+kMAdPtk8sOHQDSRwyK8Csu237VULPkK6sfnsdtGUJ/ZF9jbk6JvSjIAvdnSzpbQOHQ
+	 GhOJYBcBnvIxsfu2ohLcOFF5JMDCZPCwvmqnLslhja87rq+cjIwqNV97oKNGMqq+O+VbR
+	 968CicfruTOc3Dpauq4ldVuMbnCEKt3OGbPV8Z2jnD+NoRTU/ywt3kutJySJc9SgwKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794452476;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=7ytdFkLkeLcyVoJxpOipmWCYZtcUKYbCmGV4i9PFBK0=;
-	b=Iq55NQyjyeuxdSL3ofYaGLsbR0ZRipQ/dPCRCXonFA2BkIi/216HYNBbcw+NMtvYvotS
-	 Lc8WJPtmkkC7JZFsJVeg4SQ6tLh2JPD9vXTSQRSCk+j+Hu3CEDrXfgxVxjaLLxgT9S1i9
-	 Xw2HFw8otWv8Vd3HedXwSHcYt38zhnKkxZ4t8KWY9U0GyTtuOgd6wJOZP8tmXqiT0ATQ3
-	 1gSsiig7wGiS+oqQwslUK3oxJGD2XqeEF4mNLN5eZQy1/qZgK3Ardi42Qj8ciu8T8tjAW
-	 KeeSjckD2m7EzbO35HQCCMeqsVNkuG/fXE657Rc/AAFdRAcaPzPcTtDa5kb4WPmzkog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794452480;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=qdQW5oVjkGqg2J4U43crSPdqlobSwyO9kA5oXI4dqTg=;
+	b=tyQ20j1+jakaACANUAebn50HesS7h7EWVYXRpV6K3MtC1uGLI3GgUZml7xxLPvZoLUuv
+	 tgQD/6lNHOaYJrKiZCTuuYuvPoj7+f6GXHr5ULR+msEZJyFNNYO0ma6p1OoIAlwpkWFry
+	 y2ur2lzk6SmQTmUVZs6mWri2GkH/m7EOsHHJHxESI8meKhGlHKPB3IwnGySmZCmcKWOoV
+	 s7Ocz7WDVO4yZBzgQqy8SYZcy9UJ2DFD6uXlkRvbJnxaPdHRH1NZrk0egkGvj4cEWX6d5
+	 mJWj/yjTMiC38ErVyq+1RF9M7z/rUpNN6kz0wXTzBJ6C4r1ae2pFvMxqYlHZqVM0YiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=nlrltakY;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B9409606A337
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:01:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9409606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=P6dY1R5M;
+	arc=none smtp.remote-ip=91.218.175.221
+Received: from mta0.migadu.com (out-221.mta0.migadu.com [91.218.175.221])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 333DC606A8A0
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:01:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 333DC606A8A0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=nlrltakY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=nlrltakYwm2yZQ7p3iItJW6CyUFEt4Y5HOP3LOwpE5O+DsrhPacu1phD64u1UlU9G8vlAmqmZMNYi
-	 PGLJQLj6sCLxmxktFMmczaNgaBHGSLQ2EHBJ2RlXrjPTAc0M7lrbOv1NeHBYfpzjDlYfJT4I6uNY6w
-	 YUoPzYxFJm/1DLUs=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af52bf061e-a8fb4;
-	Thu, 12 Nov 2026 11:01:07 +0800 (CST)
-X-RM-TRANSID:2ee36af52bf061e-a8fb4
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from [25.255.2.225] (unknown[10.55.1.70])
-	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36af52bf2d93-ef12e;
-	Thu, 12 Nov 2026 11:01:07 +0800 (CST)
-X-RM-TRANSID:2ee36af52bf2d93-ef12e
-From: Jiahao Xu <xujiahao@cmss.chinamobile.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>
-Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>, iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Christian Brauner <brauner@kernel.org>, syzbot+7666ed2c3d42196bf7e3@syzkaller.appspotmail.com,
-	Jiahao Xu <xujiahao@cmss.chinamobile.com>
-Subject: [PATCH] iommufd: reject mapping an iommufd file into an IOAS
-Date: Thu, 12 Nov 2026 10:59:45 +0800
-Message-ID: <20261112105945.285526-1-xujiahao@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=P6dY1R5M
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/LXm5rupOhDmcZE6DqDDNi3ON4n/NXEt6TSkFB6oXko=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794452477; v=1; x=1795057277;
+ b=P6dY1R5MsH+NhS0D/64V7Q1Fwo5bvh9+3HEixa2thnFx84z2doevvOAlBwP0Fj3RxsmhirSw
+ ZkpKg6l0V2G+W9RAnmgoqaF3wI7iXbgh/WTS2De8cHjalNYTZdqqcPpRlLnEtx8CokEWFNmwO+K
+ 4lEbxTBQ3q7RpDzRauF+A+yo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5c8fe64fbd3047ea;
+	Thu, 12 Nov 2026 03:01:17 +0000
+X-Mizu-Trace-ID: 5c8fe64fbd3047ea
+X-Migadu-Flow: FLOW_OUT
+From: Qiliang Yuan <qiliang.yuan@linux.dev>
+Date: Wed, 11 Nov 2026 22:00:59 -0500
+Subject: [PATCH 2/2] block: return early when the elevator doesn't change
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,98 +59,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261111-bug-block-elevator-unchanged-v1-2-583198bd4e21@linux.dev>
+References: <20261111-bug-block-elevator-unchanged-v1-0-583198bd4e21@linux.dev>
+In-Reply-To: <20261111-bug-block-elevator-unchanged-v1-0-583198bd4e21@linux.dev>
+To: Jens Axboe <axboe@kernel.dk>, Damien Le Moal <dlemoal@kernel.org>, 
+ Ming Lei <tom.leiming@gmail.com>, Nilay Shroff <nilay@linux.ibm.com>, 
+ Hannes Reinecke <hare@suse.de>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Qiliang Yuan <qiliang.yuan@linux.dev>
+X-Mailer: b4 0.13.0
 
-iopt_map_file_pages() takes the fd passed to IOMMU_IOAS_MAP_FILE and, for
-every file that is not a dma-buf, stores a reference to it in the pages
-of the new mapping:
+Writing the scheduler a queue already uses to queue/scheduler used to
+be a no-op. elevator_change() now only checks for an unchanged elevator
+after freezing the queue, and doesn't treat "none" on a queue without
+an elevator as unchanged at all, so that case also quiesces the queue
+in elevator_switch() and resets nr_requests.
 
-	iopt_map_file_pages()
-	  iopt_alloc_file_pages()
-	    pages->file = get_file(file)
+Every such write therefore drains in-flight I/O and waits for an RCU
+grace period. udev rules and tuning tools that set the scheduler
+unconditionally stall I/O on live disks each time they run.
 
-iopt_release_pages() drops that reference only when the iopt_pages is
-destroyed, which for a file mapping happens while the iommufd file is
-being torn down.
+Check under elevator_lock whether anything would change before
+allocating scheduler resources and freezing the queue. Elevator changes
+of a queue are already serialized by QUEUE_FLAG_NO_ELV_SWITCH,
+registration and update_nr_hwq_lock, so drop the check under the freeze.
 
-Nothing validates what kind of file the fd refers to, so userspace can
-pass the iommufd file itself, or two iommufd files whose IOASs map each
-other.  The reference graph then contains a cycle:
+Writing the current scheduler to queue/scheduler of a null_blk disk 20
+times takes (median):
 
-	struct file (/dev/iommu) -> iommufd_ctx -> iommufd_ioas
-	  -> io_pagetable -> iopt_area -> iopt_pages -> get_file(file)
+  operation                 before (ms)  after (ms)  change
+  none -> none                     9.06        0.08    -99%
+  mq-deadline -> mq-deadline       9.14        0.08    -99%
 
-Closing the fd drops no reference at all: the file's refcount cannot
-reach zero while the iommufd_ctx it owns still holds a reference to it,
-so iommufd_fops_release() never runs and the iopt_pages, the IOAS, the
-iommufd_ctx and the struct file are all leaked.  kmemleak reports the
-leak at the file allocation site ("memory leak in path_openat"), while
-the holder stack of the same report shows the reference being taken
-through iommufd_ioas_map_file() -> iopt_map_file_pages() ->
-iopt_alloc_file_pages().
+4k random reads at queue depth 1 for 10 seconds, while "none" is
+written to queue/scheduler every 50 ms:
 
-Reject an iommufd file before the reference is established, as Christian
-Brauner suggested when the report was discussed ("this should either
-reject based on file->f_op == &iommufd_fops").  iommufd_ctx_from_file()
-already performs exactly that comparison against the static iommufd_fops
-and is part of the public iommufd interface, so the check needs neither a
-new symbol nor a new export and the fix fits in one file.  The extra
-context reference it returns is dropped again immediately.
+  metric             before  after  change
+  IOPS               342609 395915    +16%
+  max latency (us)    10839    978    -91%
 
-The check must not be placed after iopt_alloc_file_pages(): on an IOAS
-with no attached domain the mapping can succeed without pinning
-anything, so the reference is handed over to the iopt_area and the cycle
-already exists, with no sensible place left to unwind it.
-
-Limitations: this only rejects iommufd files.  A vfio device fd that is
-bound to the same iommufd also holds an iommufd_ctx reference
-(iommufd_ctx_from_fd()) and mapping such an fd can still build a cycle,
-as Brauner pointed out.  This is also not the general validation of
-which files may be mapped (memfd/shmem/hugepage) that Jason Gunthorpe
-asked for in order to keep the memfd_pin_folios() decision on the mm
-side.  Both remain to be addressed separately.
-
-Fixes: f4986a72d6e4 ("iommufd: Add IOMMU_IOAS_MAP_FILE")
-Reported-by: syzbot+7666ed2c3d42196bf7e3@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=7666ed2c3d42196bf7e3
-Link: https://lore.kernel.org/all/20260904-clown-zersplittern-sequenz-987f972a607b@brauner/
-Signed-off-by: Jiahao Xu <xujiahao@cmss.chinamobile.com>
+Fixes: b07a889e83355 ("block: move q->sysfs_lock and queue-freeze under show/store method")
+Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
 ---
- drivers/iommu/iommufd/io_pagetable.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ block/elevator.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/iommu/iommufd/io_pagetable.c b/drivers/iommu/iommufd/io_pagetable.c
-index 5ac736cf5..fca14b012 100644
---- a/drivers/iommu/iommufd/io_pagetable.c
-+++ b/drivers/iommu/iommufd/io_pagetable.c
-@@ -510,11 +510,26 @@ int iopt_map_file_pages(struct iommufd_ctx *ictx, struct io_pagetable *iopt,
- 		}
- 	} else {
- 		struct file *file;
-+		struct iommufd_ctx *file_ictx;
+diff --git a/block/elevator.c b/block/elevator.c
+index 9d9b2e84a1288..979203f518ada 100644
+--- a/block/elevator.c
++++ b/block/elevator.c
+@@ -654,10 +654,24 @@ static int elevator_change(struct request_queue *q, struct elv_change_ctx *ctx)
+ {
+ 	unsigned int memflags;
+ 	struct blk_mq_tag_set *set = q->tag_set;
++	bool unchanged;
+ 	int ret = 0;
  
- 		file = fget(fd);
- 		if (!file)
- 			return -EBADF;
+ 	lockdep_assert_held(&set->update_nr_hwq_lock);
  
-+		/*
-+		 * Mapping an iommufd file would create a reference cycle:
-+		 * file -> iommufd_ctx -> ioas -> iopt -> iopt_pages -> file.
-+		 * The get_file() below can then never be released, since the
-+		 * context that owns the file can never be destroyed.  Reject it
-+		 * before the reference is transferred to the pages.
-+		 */
-+		file_ictx = iommufd_ctx_from_file(file);
-+		if (!IS_ERR(file_ictx)) {
-+			iommufd_ctx_put(file_ictx);
-+			fput(file);
-+			return -EINVAL;
-+		}
++	/*
++	 * Callers serialize elevator changes of this queue, so q->elevator is
++	 * stable here. Skip freezing the queue if nothing would change.
++	 */
++	mutex_lock(&q->elevator_lock);
++	if (q->elevator)
++		unchanged = elevator_match(q->elevator->type, ctx->name);
++	else
++		unchanged = !strncmp(ctx->name, "none", 4);
++	mutex_unlock(&q->elevator_lock);
++	if (unchanged)
++		return 0;
 +
- 		pages = iopt_alloc_file_pages(file, start_byte, start, length,
- 					      iommu_prot & IOMMU_WRITE);
- 		fput(file);
+ 	if (strncmp(ctx->name, "none", 4)) {
+ 		ret = blk_mq_alloc_sched_res(q, ctx->type, &ctx->res,
+ 				set->nr_hw_queues);
+@@ -677,8 +691,7 @@ static int elevator_change(struct request_queue *q, struct elv_change_ctx *ctx)
+ 	 */
+ 	blk_mq_cancel_work_sync(q);
+ 	mutex_lock(&q->elevator_lock);
+-	if (!(q->elevator && elevator_match(q->elevator->type, ctx->name)))
+-		ret = elevator_switch(q, ctx);
++	ret = elevator_switch(q, ctx);
+ 	mutex_unlock(&q->elevator_lock);
+ 	blk_mq_unfreeze_queue(q, memflags);
+ 	if (!ret)
+
 -- 
 2.43.0
-
 
