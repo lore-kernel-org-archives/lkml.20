@@ -1,64 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794518654;
-	b=eKJOsw6AVDy0aTYVn+uwUGlM9s7dZm+6ImgulbRhETU7+4YLKLrGp9hFVKd2FtLDZ7M+
-	 gWORiS1zG9HwFF5jaZf6ji0J8YxAEqbYb4iZYB/ErKxGclJ4FytQ2T1rxXaLK+RmUXlyD
-	 crbKA1WHnXU7n33pnRNZUQkstKl3Qkd1xrjjlJr7k3sxqgD/7/1kON3pqnKDcNTaWEeXE
-	 f5skcDJUwJ0RM1WqL9abLzBem25hTgCX3Cj/r4n5zs9TpNWTUWpbnEWbWoLhQmVzicpSZ
-	 PwG2chgpWDRcYEDTyzjnnFLeI1LKCDWyGIJ9hSMUgEFW0A5RvOxxpK4pySIcWVppSwg==
+	t=1794518792;
+	b=i96Nvs+SIudfW9qumGNDNBLpuym836uPodWJ9mE5vFqPnZaUNs8UKfTTe3svSID+/F+H
+	 fUttsKhmmzXd3A4PMTz8u/cap/x0BaC9GvqklPnLXVHyi2rFtt8uEhyfz1WrpIZFydTSm
+	 HF34ButdKC/yJ/WiPwLUsOrO9iTv8EL8UarYsWnQODOcsrQrf+9TW5RWhnq91KxblUvMT
+	 kK8IHdSer69EtmmlWb7gwXjZep/iF6UcjesV5cQcYb11urdPz/JwXR+esTm7gx1c8+FFB
+	 CjZU1fwg4F6KxztdTPcKXJ2EEmfwXyF5OVq51gJrw+6hlSNeerEu7qq4bXX0hyCTE5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794518654;
-	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
-	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
-	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
-	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=SwiyLr/OYnqBboNqHgT0M5zvPLcGsgM/V44oH2pABuE=;
-	b=p97y8AnzM1Su0nxdNQfx0qXN/Rws8IFOTT+7iLQfhWa10lWCuQ7KBFz3ewqykpyyn1yE
-	 lCyxOxO4JyWi5M2OU4OCoFvRg6Hrjc4vJCevIRA6aOQy85FJz56ZJpgpIDe0m7TSf1F1s
-	 /5RhDPROodSoDzohWO/Fj0RR9ML2StTZ3oHGLrmLFr4Yhq+YzV8p+7YU1/uqXeDaRc17+
-	 VowBBv2hrO7r03E7gs51ksJP9rQ5Gfei3SVqxlLbQRuoEEJzMbylkjGg6FCJ6A/SpzLMS
-	 lIkOYUnGfD02Suc+gU4fFiSvfOfM78VvAI01r/+4Szakge6c9RpT9xl1jzlACVB9OxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794518792;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=TESmgCxUPr1Vm2wbKzVzpf5OFlB+4n+j8+LrMnvA4m0=;
+	b=US/E772MDfji+ZPA52jcqujd/85c2zGgfGgpPK1U+AYM+nu+xU+xSBKIugQS+9JfKMwI
+	 UAl3MgE5fufGL48PiE7ZyCNOQA5lGmkCYiDfp8Cv+bAeJc0Los67czgfxiT3ZDVWt+8Wq
+	 33yUaRxDY+FXXC5mzpaOJHB0IW+VhWQ7EKUCmaUX4pNj9oGCb4eQVkmtLFgrJBQEYBggR
+	 SXbwFAg08llh5RADVy3Jtb3UzUYD7lIPvhrVCoLS3tkGXtrqv88ZMvYqWiTegAt+/zZ9p
+	 Q3lmMfTGqkM3OVYSTiPm/IELXRcE3ILW+zsZNKMuwjp+rj51z57u1FGPyVt0BUv0I5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aD6FvV0S;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QopOShDW;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BFA606A88A;
-	Thu, 12 Nov 2026 21:24:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F39606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:26:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52F39606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aD6FvV0S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC13D1F000C9;
-	Thu, 12 Nov 2026 21:24:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794518653;
-	bh=SwiyLr/OYnqBboNqHgT0M5zvPLcGsgM/V44oH2pABuE=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=aD6FvV0SU6orZUiYFY+a+S4oTkyzSyBAM4eX1lg3LvebQ00MgPTccPr/e9jWbTxSu
-	 SIDlHCEzd1qLQUvGgPnGl6PXZYEf+yIvU7vbq7GQYquigrzMvgCpTZ0mh5xKuyBjXT
-	 giCzt/LnL0bIYlv90blqosfxJSiNI742tzkfTiC+3LaoG+IkviUA6AL5ExYiIBvsAv
-	 9LzNQXNnPzDnWgaui8b74S3Q/Xg3ih/nVC+FFJum/6izXp9zlbFFBjQVw/3vKecH4n
-	 j7C0t0h9wp6JwemkgLOxIyPcsOnNI5ZRbAQmYGmPu8BX9imWPcMumNDXPlX5KzKBXS
-	 0M2/J+TH0r9jw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B44B9392626A;
-	Thu, 12 Nov 2026 21:24:13 +0000 (UTC)
-Subject: Re: [GIT PULL] Networking for v7.4-rc3
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20261112200100.519879-1-kuba@kernel.org>
-References: <20261112200100.519879-1-kuba@kernel.org>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20261112200100.519879-1-kuba@kernel.org>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git tags/net-7.4-rc3
-X-PR-Tracked-Commit-Id: dee3429e94d8089713645706df678ec54a049e13
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 7e1392a42ea288d70a266f6553fe06f57f8647ea
-Message-Id: <179451865236.654083.2910315134434826799.pr-tracker-bot@kernel.org>
-Date: Thu, 12 Nov 2026 21:24:12 +0000
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: torvalds@linux-foundation.org, kuba@kernel.org, davem@davemloft.net, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, pabeni@redhat.com
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QopOShDW
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4a41f46d629so342572b6e.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:26:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794518791; x=1795123591; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TESmgCxUPr1Vm2wbKzVzpf5OFlB+4n+j8+LrMnvA4m0=;
+        b=QopOShDWxI1E9RX0pzFGc+2f6Yy/h/7mxtYw/URNk09ek9vnzDdKKHqbOQOLYYr107
+         W3c4GBMYzAq3EZQDEFB46+KF7OUH7hhj7YXrqJFdfWod/vmoz3E5GLU/DOd54WPRQXZP
+         Vv9I4/KLG0tqV61NjaimWDUhruut1Ko1g9y9QtVRNjqmLPyJB+kiLEcwIOawzTS6r5DJ
+         EBsPkkwES+VIt5PIsVZNt2/cuxYbrpfAS5xsfkA3jv77Sk9gschHDf1nIeaC4lknV/dO
+         4Q3x2lWbtwuApUZKD2lGdOvgDf1AxVdPnpEvyWl3jbfRkl1lLcF0s486KNAQ010czhRe
+         o8iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794518791; x=1795123591;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TESmgCxUPr1Vm2wbKzVzpf5OFlB+4n+j8+LrMnvA4m0=;
+        b=Yt4DpgedUxrmBs7OG7xVT48Uj88RFReBisQSNtMQUMXgfVkh5OCp5vCOWZ1FscL/Zr
+         hlmtlwxXPkMLTB6UFQawq7d3NRao7UN8jnXMoKFPdZCls4NAaDKLHC6LwHDqEFmrR5z1
+         0TOjdKMhSRoDg+Q1GVtS98xXi/NDQQPPBjaVQrkyYmaW7V6pRi60DeL7iVtPT9KgTSae
+         Vd4oRY2qLLVce/4B3a7ZwZJ+wuJ+mKzdT49N0o7hbJviCwLXeVGWnDgvCAFxhngsTvpi
+         qk1dmvJVAZoy4zM1BKnwcoUql5H5cFLYHf+yrBMIJOoKm0bBD5EHqCYNyJpar12K9dQo
+         VIwQ==
+X-Forwarded-Encrypted: i=1; AL+hErHqCcDwoIuVwSGyt4no7pV1YxjZv+JDgksoesKV9DO7YmPvwC9wN6S26bUSWKCpzWMFadX3Qn63cuk8uJE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9psz+s1/dy3o4S48LfPwZwBXcyxe1U8+DqYA17WHIq2PLgO7/z
+	kFHXOuw0OQbKvvOxiSGGFVP08onhLO2Y0IPywn6z769BdXVBkKxo3R+XS7TtWWss0U6wbz+KDlB
+	7J7Y0Z74pYqqvyw==
+X-Received: from iofe23.prod.google.com ([2002:a05:6602:82d7:b0:9c7:9256:112a])
+ (user=jmattson job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6808:250d:b0:4ec:4c7e:37b5 with SMTP id 5614622812f47-56e641d6157mr456217b6e.29.1794518791076;
+ Thu, 12 Nov 2026 13:26:31 -0800 (PST)
+Date: Thu, 12 Nov 2026 13:26:28 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,16 +75,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
+Message-ID: <20261112212628.265262-1-jmattson@google.com>
+Subject: [PATCH] KVM: nSVM: Gate CET state copy in svm_copy_vmrun_state() on
+ guest SHSTK
+From: Jim Mattson <jmattson@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: Yosry Ahmed <yosry@kernel.org>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Jim Mattson <jmattson@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-The pull request you sent on Thu, 12 Nov 2026 12:01:00 -0800:
+Like nested_vmcb02_prepare_save() and nested_svm_vmexit_update_vmcb12(),
+svm_copy_vmrun_state() should gate copying s_cet, isst_addr, and ssp on
+guest_cpu_cap_has(vcpu, X86_FEATURE_SHSTK) (i.e. the feature is advertised
+to the guest). Instead, copying is gated on
+kvm_cpu_cap_has(X86_FEATURE_SHSTK) (i.e. the host supports shadow stacks).
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git tags/net-7.4-rc3
+Check guest_cpu_cap_has(vcpu, X86_FEATURE_SHSTK) instead of
+kvm_cpu_cap_has(X86_FEATURE_SHSTK) in svm_copy_vmrun_state().
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/7e1392a42ea288d70a266f6553fe06f57f8647ea
+Fixes: c5ba49458513 ("KVM: nSVM: Save/load CET Shadow Stack state to/from vmcb12/vmcb02")
+Signed-off-by: Jim Mattson <jmattson@google.com>
+---
+ arch/x86/kvm/svm/nested.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thank you!
-
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index 1299fdadeb73..b73bc9c3ebdb 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -1248,7 +1248,7 @@ void svm_copy_vmrun_state(struct kvm_vcpu *vcpu, struct vmcb_save_area *to_save,
+ 	to_save->rip = from_save->rip;
+ 	to_save->cpl = 0;
+ 
+-	if (kvm_cpu_cap_has(X86_FEATURE_SHSTK)) {
++	if (guest_cpu_cap_has(vcpu, X86_FEATURE_SHSTK)) {
+ 		to_save->s_cet  = from_save->s_cet;
+ 		to_save->isst_addr = from_save->isst_addr;
+ 		to_save->ssp = from_save->ssp;
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+2.56.1.703.gf848ed807c-goog
+
