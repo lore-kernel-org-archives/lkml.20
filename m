@@ -1,101 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794496999;
-	b=YwYuKVYdnBwq6ewsAmB1xjqSgkHzqToLPP6171ipyyPTBFeoNiFtgIFZXl++JP8C/YGz
-	 CI140QDHJtfWfAs16v/gdjSahlgcH7J+z14zkxL6dGRbhpbiNZfmNCf4gDOmSA9kdxwN1
-	 rkpDLNwhwMS1GxEfTImGIYpTN7jy6ciQAXOoGud5iWYu/kQFV4RZTxo1ctrF8bI88EDcm
-	 M751MeMn/gxWGef2wLl/vH6II0tAnfnkqAl/p3knuhKKStf+JQX+bAsDc7My/q6LYOLVr
-	 O0q1oCXw/ytqBQKyJXQBwY7Nq1O8gQIElqXL0NDEhmao1r4UOAbN4qhXuO+kqtW9pfA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794496999;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794497009;
+	b=P44gKHznW3wwILQNvilPB9Tq59B3RUVKdgKU7Fe2AMqxeZY5xuFR0Xe5IpU9fl5cmTwh
+	 aUb9vmCfK0R63sQxwP+Hve0KuGGp//fHkGQkk/JU/tHkbL31D16OazproKt32lYP6Yg0E
+	 BFkYE86oQN5TaDlpYu6mPl3eIQDuxAhnL3T78jlDK5iKGCcXhi0OwKjuiq3cCIU04WwWi
+	 xMB4UkPd1UlO2xuNgYkih6r02g7rYUky+lcCNfj3krIKdJ6fQQODPifaAQMm2PViYVzSx
+	 1OLrN5xiOuLOPjB6uXt3Bnsj7eFKN7uSENCDQ0bizMhA0tsR960oKWu8lWteN3Hi4yg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794497009;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=/gWf9tRn8xdRTedV8zLP5Bk/WzXXZIsEniM+eU5R+pI=;
-	b=F5ibu6lcwLQN+Zn+dZ2n6o1SXO0w0eajiJYZReKyW7zqnZhvIisMfaNuaz/nERnjOSTK
-	 lvIBMTvFEYERmNtsGyoBmZNkL+w3E1PJEoqZGn2rWrFz3KcxpZagLUY4zTUmTJCrWHc3C
-	 KQjxaqmAULMNPz8JkDjd24NZBPl7K1k+o08sRIQ0pXUpKRybhPKysoAJqfXR3PS4Ynx54
-	 4BQsm/2WVkMp9SU92PLNVJLYFO+NbftrN7XE9N68m5gctMWLp5oyIABeEAkqdBevTU5Xl
-	 +5h44cOYJpzAeB0+WK+J0aHH1uSMiVYrMxyVTZGAZ9nxcELTyxUb/UoQPxDFGZl/xmQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ykN2lBUtf6ymGAIeUL7rd3VrIbiFNDowZV9GMRTZITM=;
+	b=Pl91D3I8aRsYgLRV2YRaG70P8in5xg00joa5masp7fiNQDRux2Zu7n2e13hHnu28Az0N
+	 bKcITyD3Y2hj0JCBte1kwORtR8q3anKPTGq8vYXRpK/iwcwuIoRw8asL2Arg6cwMDNHDq
+	 WeAfHe09MY4VCSKi4fBaC3u/K5q3AgMvCl+O/UR3WFYlyZvnxbvLy4iSH9zgTv9cOa7l2
+	 1e3GA+1etwEfegFYKWHiSi45pBNGNRRpdvluFgDSx+GmA8Dx0f+fWQdSko1ggPBgm8y2X
+	 RRFyVJ1aMhNnYqJZ9S9kI754HpKeLaB9af01bG890lCddVxVJbb6SJhyBbdE1BNE/rQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xdHySA5y;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0c1E4JNv;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA16860A3837
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:23:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA16860A3837
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14D060A382B
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:23:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E14D060A382B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xdHySA5y
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4b7252a32c8so47993555e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:23:18 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794496997; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qdGJu3IQLuybm8cZETON6RmXGBMiefPos3ibPeaI6KIrN6w5jE7tMHTRDYMZDwrI0W
-         68iKTI9jx6+hldqSQVbiN+RuiM6ZdOv+h0a6PrLrJsKWvKCtGmaRQgm2XcoLlWeUgpDT
-         pXOCgfXdTkkq5xEcL4mADN7unH1nOe1Eb8EwRVx0PLO1YsnbhitN0qF0duSTC3SOznFQ
-         lAtduYmcsASo8YXJa/3Enm+js4a0BfTmjN1yfeQoQgIKjcvrgbSapBk1PIh+3gFBdOsn
-         1HSNHryXy57PcKZc1fFmTiR8scTLN0uFgNbRSLH0Xm/qX/DQDCfehIrKSNJsM/sqxfJT
-         N05A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/gWf9tRn8xdRTedV8zLP5Bk/WzXXZIsEniM+eU5R+pI=;
-        fh=q8rR87AIZy6mA5GNlBMTJwpM6WVd2jyy3h/AIlhUUmA=;
-        b=Rdr7NF6IyS7rGP4Niv/uS/o/4mpBNhQxVd11H+ikOkR7TQdNtRO9+2XiqO5B2HUuKi
-         nujA0sMYXYTHbezCFhn2seOr7c5BlvUBHbjGTgpu+ouoW5O+sELVNf58AY26RbJuzZQ3
-         RLUmp6EO2gQaYLCeYgY+Cxb2I7QSJIMt7qmZH/wa3EJtcEqqQxnUZK2kyAyuXG2WEYJm
-         sLqmPsq3trDZdH5MBK3hptA3optXoL6EpVDooF5VEe0xViYpwd3cJJSQbZTGTK6NrT++
-         +SNGh60ErD2MzJwcbmFKw6Xpq5/9wf8ThtcLLvpj74KFrceNJBcjr8n7q4jkQPpTaAML
-         35fA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0c1E4JNv
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so9576985e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:23:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794496997; x=1795101797; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/gWf9tRn8xdRTedV8zLP5Bk/WzXXZIsEniM+eU5R+pI=;
-        b=xdHySA5yJr8R3v1bJTdVJvaIGdetLFfLzfjuM+o7syK/yGeAzwWzFMxbWd/Ct+6rMK
-         MVANAOQwCJNG35jAUcUyz4qb96VvSdxfmtWqtOhL07JUGI5YDqKmQrWanxsYe0RUh4zA
-         h/f/rDCpmTn4mbz57neFPhvuuBN/Tq6CJYzLaR1BKKzGinJoy41is6MxKy1i9f9xSrkJ
-         Eh+N8FqElCwLLQdbDMED3VH/oMYEJIZfp3JDX38AozVHqv61qQEQ8tJnfedJbuyUQKf3
-         2G72UmsyJWQGEErAwHvQG+tY7G0eeC/0puJ2E95E1nXfJyAsX9FNegJ6m2ZoHeIHGgXM
-         AMVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794496997; x=1795101797;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794497007; x=1795101807; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/gWf9tRn8xdRTedV8zLP5Bk/WzXXZIsEniM+eU5R+pI=;
-        b=lQ+4BXGWL0iSnxKGtarSmJt8Y8/0LVBLIE+fEBjQBn7qK7T5fdK9E4+kU3VjNSkItg
-         CmCmHg1/ZOPJsSTY/goRu3P6ZCWyxOgc++SsAmibc3cVzMMGvzB+8zkWkr1ysd6dvobV
-         AuhRhT6YofUHtEPAIBfYTCcxyubP0sI7tmCh8KoTbQKar6BKSek+FDj2rF+9KSIboPVd
-         D3hQ/w4AyQsB7KObWfOdOP5kjmHaDxUUaG3efd4qumtkOXlwZGFOVbXtyyExkst7CxlF
-         jKpOKyLA8GOJmnCFNFRTsRwyy2SM+XsGwCgD8dTvbXgT+0tkTgQVck9JH6jVz2b+6eC9
-         oKxA==
-X-Forwarded-Encrypted: i=1; AL+hErHEIXhQPmqpPflMuxH2wlmc1h9kB/qXclvnrF10nU2wklZf9Q/NRHTsr9tjTx5kmBVP9vs62Gq08JEZELI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8hOVMzQWxMQCUVS160oteT3LzRmnOgMB0u6accDGWkvXn1cAh3
-	H4B91wts+yVgdrmvswVRiXW0ifryQCtNgrTyJjMW8DhlmcdKp0/094mbr4e259PFIOkqI37Jr7B
-	ePtHW7xg1EJzTLU4NTHT/nE9COZqaB0c=
-X-Gm-Gg: AYBFou2wQbsAOvwgF/xJsq6oBDbQaNzI9jfKsa+ZOOEdj7czJMXNcoO7xZvfQTmP+R0
-	ktJMZAlumRsF1yRbZbXVW1FxffUBqj3am5lvyLYm+bSy+dP7msc/il7SUXGk7VhAdLt0I99MTM8
-	xIdoZp4psOVP8Bwn4l1Zk8ngXZ10Ym78vFYa8OHAKMWF9BAicRDxOaKBeoz7phvBtclcM2hMlq1
-	bRfNT/PtmL3N50jMqJ6pThY3pKPsqMVDfnnmHkuCI0yF/SHuQ7927gIuF5TEISb8EQFfOwJ7TIm
-	ARIvA0KTvNotXvRKyEUd4gR3W4zRj/7aytx0x5e3w4w5cvRL6DP/mqXzdqEOgz9OIBQKNJBZuZ2
-	9kGILDo19G0FOu9ZjbPQ0FEmshzasdzhtJ4Jej4n2TSWxa6jxqsP/J3LcTdasnOB9Mmk9k7e8wG
-	aZVAEUFr/g9aKlnoPh
-X-Received: by 2002:a05:600c:1986:b0:4a1:f7f4:7ced with SMTP id
- 5b1f17b1804b1-4ba0937a886mr110753845e9.17.1794496996738; Thu, 12 Nov 2026
- 07:23:16 -0800 (PST)
+        bh=ykN2lBUtf6ymGAIeUL7rd3VrIbiFNDowZV9GMRTZITM=;
+        b=0c1E4JNvnSW3Y7NixbmubZsac7eLcUXLkIMtzoMbkxG6k9cazBcj1ZfkDOhyBbyGw6
+         HZChn+jfz6zkokE1FJWDlAFsMI1Fbv/Y9nLWcLIllA6rLHNwCiJt7bQOq4gcjs8c6e9v
+         R80W6y1jhaX2dWqv8VKRXbNl55VmD9aLcBCAdMuo0ViOY2PKQyYWViFKP/Qv/ORj8/2R
+         T4/Wq87fMJ9pHcgdxbm8asTXhjUdi0JUqU5KXL4qO2TgB7uCHSeo8FIquRbhITTrp3xC
+         VJdp5yyLjutOV2T2w0eBlFRfUWsSsQBxm1/piuAFw5whudGyn4d++zCw0lmX6o1vRi2p
+         6uZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794497007; x=1795101807;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ykN2lBUtf6ymGAIeUL7rd3VrIbiFNDowZV9GMRTZITM=;
+        b=E8uxRuhyUuIwP/nJ8GzWxAry0c+jIzsp+xA6qIJdjHbmz5LWGDQ698ZP/nu9WGVupc
+         rA8xnBhQCZYcquLVFHtJBlNXgqoTXjBa6Fr8NXX05jb5tYPxevrJIc2ZaaFA7WEnerJm
+         wb6qNu1yEpCCXBYLudlv53GZMgocagxW642ZF+WRbexeV024Sm0fHWc4ItyHQC3QRStL
+         3niPSuXyWBd2OobLySnAZJho+vh5r4K6z6YnLUO4bWUuh2CCtXOSkw6eWL2IYjhbl16U
+         dmgaa4GXZuVONALeUaoULpxEUZQ9AewLI+AIN3F3usBESNeOh8HpfY3Tw3fE22aHYgfV
+         66VA==
+X-Forwarded-Encrypted: i=1; AL+hErFgZJGe66KXWFARavt+xf8hnWw4T17lzAWcbKa36XrTm7P7HHb1o29uJN5o79OsWFYe/FUaLMtWQnkjoH4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ClkfQVkdneyQBY3dFnQ3TUfcS43g9BQCT6qjb7iODzw30jSth
+	gM+6R8NQiKSqIGa9fXfGsha2tnPY/nMHBpOZpITcO4sR2NsPWiiIbCrO
+X-Gm-Gg: AYBFou2ljHkMcggR7d+y7MpB64RWaJVoT5x7HIvFEhazpMGTbSWflaki5JZZUo3AILO
+	sLbJSi1SeZ2CUqzu+Yh8O+KtVx5Gf735g7Uz8aufu5TuePDFt5unG4n6y18tbqL5yuiWL+AmsDC
+	YW8O6bzto6pWQtciOObY0eUTzywbOmSS5ldU0MetIHo2cyfDKTQr7fe32MYtZu3r2Hk5o9KoYDz
+	YlG71AAIIWcGNMOHm+Bu1/ZPn1ABA7znxk42uW1XSQ/5e3d7AOox62aMBC3yppYeh+GtLjd0x1m
+	otgHLrvQ4a21hyqxoOuz4JMsXDGM1LNyETEJ8KJhMrhJM+FQeTTNoLMwbxJv0KDiNBjZnIDfZ+S
+	mgmRwJ/RhspD1fRSWBCNZqsNUkQgDpSI7NFMNBoQuRs2DyUtzvuIQb197rMLqZawM4zEbwsatHt
+	U8y5CirldALIPCKJS3p3MbQaUwyF99z7OkWDtJpxh3v5uddyIhl+d9wKtS3pdzHFKbmfGFoHTFA
+	SVHbefDA5cEqccbUomKDTD8JOqMpedB+uLBdYcErnt5jyRGpV/CHo/Rar7ZcDmlJvVzesXHTR39
+	lvExhCcmfoAq8js0vfad07bad+M=
+X-Received: by 2002:a05:600c:860b:b0:4b0:b9ff:1e7c with SMTP id 5b1f17b1804b1-4bb4e296a9fmr58453255e9.15.1794497007254;
+        Thu, 12 Nov 2026 07:23:27 -0800 (PST)
+Received: from [10.2.0.2] ([212.104.214.68])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e251686sm75915855e9.3.2026.11.12.07.23.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 07:23:26 -0800 (PST)
+Message-ID: <0734cdde-3c63-4a53-b405-5cf741f3a5e2@gmail.com>
+Date: Thu, 12 Nov 2026 15:23:25 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,113 +92,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104165504.2430480-1-kunwu.chan@gmail.com>
- <20261104165504.2430480-27-kunwu.chan@gmail.com> <444c9bb1-fccc-44ff-8bcb-a04dd36eeecb@paulmck-laptop>
-In-Reply-To: <444c9bb1-fccc-44ff-8bcb-a04dd36eeecb@paulmck-laptop>
-From: KunWu Chan <kunwu.chan@gmail.com>
-Date: Thu, 12 Nov 2026 23:23:05 +0800
-X-Gm-Features: AclHuK-Vxw-TWlfdg2rnJncie6E1-Z5rOKezLCml8xvtMgG1OEVJSy5iWLiq3yg
-Message-ID: <CAN_Opa8-macEL323Tw3JUai3ETmq0CCt93ddCZ+Xqd1RF1Q5nA@mail.gmail.com>
-Subject: Re: [PATCH 26/28] hazptrtorture: Add torture_type=none clean skip for
- rcuscale coexistence
-To: paulmck@kernel.org
-Cc: boqun@kernel.org, mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com, 
-	corbet@lwn.net, mingo@redhat.com, frederic@kernel.org, 
-	neeraj.upadhyay@kernel.org, josh@joshtriplett.org, urezki@gmail.com, 
-	dave@stgolabs.net, stern@rowland.harvard.edu, parri.andrea@gmail.com, 
-	will@kernel.org, dhowells@redhat.com, j.alglave@ucl.ac.uk, 
-	luc.maranget@inria.fr, akiyks@gmail.com, dlustig@nvidia.com, 
-	joelagnelf@nvidia.com, skhan@linuxfoundation.org, rdunlap@infradead.org, 
-	longman@redhat.com, rostedt@goodmis.org, qiang.zhang@linux.dev, 
-	brads@mainlining.org, linux-kernel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, lkmm@lists.linux.dev, linux-doc@vger.kernel.org, 
-	rcu@vger.kernel.org, linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH v2] hwmon: (dell-smm) Add Dell Pro Precision 7 16 PW716260
+ to fan control whitelist
+To: Guenter Roeck <linux@roeck-us.net>, =?UTF-8?Q?Pali_Roh=C3=A1r?=
+ <pali@kernel.org>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261111150435.75965-1-shady.abh@gmail.com>
+ <20261111172733.84217-1-shady.abh@gmail.com>
+ <96902e72-6a75-42b4-9d30-ea54e82ee933@roeck-us.net>
+Content-Language: en-GB
+From: Shady Abu-Hussein <shady.abh@gmail.com>
+In-Reply-To: <96902e72-6a75-42b4-9d30-ea54e82ee933@roeck-us.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 5:31=E2=80=AFAM Paul E. McKenney <paulmck@kernel.or=
-g> wrote:
+v2 only changes the Signed-off-by/Author to use my real name instead of 
+a handle, per the automated DCO review on v1 — no code or commit message 
+changes otherwise.
+
+
+On 12/11/2026 15:18, Guenter Roeck wrote:
+> There is no change log. What changed in v2 ? Do you really expect me to
+> track that down myself ?
 >
-> On Thu, Nov 05, 2026 at 12:54:44AM +0800, Kunwu Chan wrote:
-> > When both HAZPTR_TORTURE_TEST and RCU_SCALE_TEST are built into
-> > the same kernel, hazptrtorture calls torture_init_begin() first
-> > and rcuscale fails with -EBUSY.  torture_type=3Dnone makes
-> > hazptrtorture return early without registering, allowing the
-> > rcuscale hazptr scale type to run in the same boot.
-> >
-> > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
->
+> Guenter 
 
- Thanks Paul for the detailed reply.
-
-> You are only supposed to build one of them into the kernel at a time,
-> so the intent of the torture_init_begin() failure paths is to enforce
-> this rule.  If you want to run both in the same kernel, the way to do
-> that is to build both as kernel modules, then do modprobe and then rmmod
-> of the first one, followed by modprobe and rmmod of the second one.
->
-> So please help me out here.  Why do we need to allow both rcuscale and
-> hazptrtorture to be built into the same kernel?
->
-
-You're right. I had incorrectly made rcuscale's hazptr scale ops
-depend on CONFIG_HAZPTR_TORTURE_TEST.
-That led me to enable both tests in the same kernel and add
-torture_type=3Dnone to keep hazptrtorture from registering.
-
-> If your desire is simply better handling of an error condition, an
-> alternative is to force either a Kconfig or build failure when more than
-> one of the modules invoking torture_init_begin() is built into the same
-> kernel at the same time.
->
-
-The hazptr core is available independently, so that dependency is
-unnecessary. I'll remove the guard from patch 23, leave
-HAZPTR_TORTURE_TEST disabled in the rcuscale configuration, and
-drop the torture_type=3Dnone workaround.
-
-Thanks,
-Kunwu
-
->                                                         Thanx, Paul
->
-> > ---
-> >  .../selftests/rcutorture/configs/rcuscale/HAZPTR    | 13 +++++++++++++
-> >  .../rcutorture/configs/rcuscale/HAZPTR.boot         |  1 +
-> >  2 files changed, 14 insertions(+)
-> >  create mode 100644 tools/testing/selftests/rcutorture/configs/rcuscale=
-/HAZPTR
-> >  create mode 100644 tools/testing/selftests/rcutorture/configs/rcuscale=
-/HAZPTR.boot
-> >
-> > diff --git a/tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR=
- b/tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR
-> > new file mode 100644
-> > index 000000000000..c5e9cf0184ae
-> > --- /dev/null
-> > +++ b/tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR
-> > @@ -0,0 +1,13 @@
-> > +CONFIG_SMP=3Dy
-> > +CONFIG_NR_CPUS=3D128
-> > +CONFIG_PREEMPT=3Dy
-> > +CONFIG_HZ_PERIODIC=3Dn
-> > +CONFIG_NO_HZ_IDLE=3Dy
-> > +CONFIG_HOTPLUG_CPU=3Dy
-> > +CONFIG_DEBUG_KERNEL=3Dy
-> > +CONFIG_HAZPTR_TORTURE_TEST=3Dy
-> > +CONFIG_HAZPTR_DEBUG=3Dy
-> > +CONFIG_HAZPTR_STALL_DETECTOR=3Dy
-> > +CONFIG_HAZPTR_STALL_TIMEOUT=3D1000
-> > +CONFIG_HAZPTR_DRAIN_ASSIST=3Dy
-> > +CONFIG_RCU_SCALE_TEST=3Dy
-> > diff --git a/tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR=
-.boot b/tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR.boot
-> > new file mode 100644
-> > index 000000000000..e9cca4cf453b
-> > --- /dev/null
-> > +++ b/tools/testing/selftests/rcutorture/configs/rcuscale/HAZPTR.boot
-> > @@ -0,0 +1 @@
-> > +hazptrtorture.torture_type=3Dnone
-> > --
-> > 2.43.0
-> >
