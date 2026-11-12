@@ -1,131 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794489180;
-	b=UOyGbavhGuNv/xp4KSV3x7n5aSzK09Ir19UP9oVETo7sNFR7nI30m3jl+SHyUMEeOOgz
-	 nmtHGlSzWwJ7QjOIkfThS8sCyRvV/3ELAQuNoJH5jju7J3pN6jxDm19htLfYfLPiGYh/4
-	 vE0YDkMRsRYKN4J7jc1Yn0Sc+NrCQdZe0C1wVS3wVk6h6UTBKZMXWWseAQCGw1qsFEOrr
-	 NhdPizCwZRgt0XUA66tos83G6QlqkCI6AgoN46rbTZBqNhH8aOpSTkugkE6B2h3EOqWOt
-	 GLD1w4//PFaGbQrrSxOA2AG2C77reIjGv3G60uGFqHFFz7nq0hQVr8iU76i9dgFCHiA==
+	t=1794489198;
+	b=0FUtQ9CKV004KPtif8IlZHqglZylcShvdDacUJkxbGGf5JOxbaZFRSMyNnC8oKbxNvjD
+	 lY2RI8g33w+gsRuf1+AFkoP6JT5x48mn05wJu8TLlmkiYWbaf/I4kWeBBiPA8ZzOPzYzL
+	 DXn/grbQ4MnX9Q/dMCjuVJJOVMEC5fF9DZCRO4+hAVx6CkX9i53hnAgXss70l7SyoXBtj
+	 BUcCSvw3ykxIThHzsGTCwlixj1iuTs0PzStwOj1PP+bCBbfWumQ/1NFrnOVxrzHQ35XVZ
+	 WTjeoVlFwuovL2pt1WJt8ecjq0LD4PJ2dMwW5/lkQ4O8nj5JwCt4XXd5DQvShMiKONg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794489180;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=OHN1jM98e/rDidDGGpuhhKAQmbd/D3xE71tgIR8sZI0=;
-	b=Kj+6JNPGevjVi2wpJsag3yY/tBbqcW3ftVe3Gs4yeFv7Oc8hUR6FHM7V6il7L7MF+3of
-	 bR/9NHmsJGQVNdeoslHa0eQ1i3f3xL0tReIySYtdKb70jU+ybAYXXKlhav6QS0OTnSqeM
-	 ZAZIWZ5EvT1oCVMYQtuRM0Vll/OIdcn6LDH0MI05jZirLAAviavWU9Z2Non1/f5PAfHQH
-	 LAlZo0hk4OTb2nz0UGUlsn2oOFwTSXSXkLY2iwCYEO1hzlY7aFQs2j82bBg14TrMZYyRh
-	 UEBZ22BtzlKzMSj4aq+xAHOIqW8CqJBZn5Gs2qa1BBl4WVGQ9WWkQ8nO61JI/UFg+1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794489198;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=S7gJ+mmdj4WD8XdNszsZW9Soksa9swlMwBZkMkhbAg0=;
+	b=fqxf4dahC3maHaITEksfxnK/U11tpoEIWQ18VWfPvvXDkU9gT+CwX/8tQOBkjzsSpwJ8
+	 CPZqUXfMeVJTTgXZebxGLN8B9xWrO5/f9r5RtrtJJEIy14ATQDQ0Mfk9c7pGzGHBA+wOV
+	 4JpJohLg/tjysokFZ6oppKuko7G8R8e2dfkH2DyLEl66eS/E6gmiuF+n3/h1WSUwhqlHv
+	 sBqSeIBFWyjZ/v9+IQV5VbYA2gQfIv8W4biyis8V0ZrJd1m9R/7Ehz4iIdNnurfNAt1VI
+	 AkPzvXEUY2mP1R0bRCNKpSE2bXzEKo+KkaAw29ZYoq+0DcXlh8GspEx1mqIv2JfegkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=rSVlAVBA;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="K/0F5ksR";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=eCAG9TQz;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+Ip1OpXF;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="ej/S4iTx";
+	arc=none smtp.remote-ip=113.46.200.220
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A23606A31C;
-	Thu, 12 Nov 2026 13:12:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5A23606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21524606A323;
+	Thu, 12 Nov 2026 13:13:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21524606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=rSVlAVBA;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=K/0F5ksR;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=eCAG9TQz;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+Ip1OpXF
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E96121F7BA;
-	Thu, 12 Nov 2026 13:12:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794489178; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OHN1jM98e/rDidDGGpuhhKAQmbd/D3xE71tgIR8sZI0=;
-	b=rSVlAVBAuFTbEKmNvga87CMsJiAzR6P2jK3iBgYEhwBBW7M/FRgIUozQfpxdflyln1UAQp
-	nh/gLnT58Yone9jFxprqcuST6euBhfXwojj4XxZKxY2ib/aoz/ZcNwGsAiJl0dYmgVkpuJ
-	gBoMyEljV8teWIdoq//KYCj7hBdu09E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794489178;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OHN1jM98e/rDidDGGpuhhKAQmbd/D3xE71tgIR8sZI0=;
-	b=K/0F5ksRV1fcZHji05HSZ765KfchtCSSErL2Vc/yTWA97NFYFFH1L56VKvf8XZ8/7prJlo
-	l2ViLDN25EO0J/Cw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794489177; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OHN1jM98e/rDidDGGpuhhKAQmbd/D3xE71tgIR8sZI0=;
-	b=eCAG9TQzbbdiUHGqQ1rrVJEmK+TN0G3+jagjuKjYTTIdr/zfnlkgnGKDrHhDB+qsmiM45I
-	Qmg5DK+Lv5CsnkHrL42cmj3p+tWJHH5eQhYAjpj+mzYDP0xxT18QNS23th4uQzxyrgBu+3
-	iwu/iIfrKhdftLrAvrnzr7MufKezlbs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794489177;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OHN1jM98e/rDidDGGpuhhKAQmbd/D3xE71tgIR8sZI0=;
-	b=+Ip1OpXFy6x05CiEfWql/dw5z+HEyAEHtC4MFasKsOyOvnZvX7onaetbPN6Pdx2GKW08xv
-	vkL63C9JoRlmD7Dg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4EF8A134A0;
-	Thu, 12 Nov 2026 13:12:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 3PJECFa79WqQcgAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Thu, 12 Nov 2026 13:12:54 +0000
-Date: Thu, 12 Nov 2026 13:12:52 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
-	Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
-	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>, 
-	Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Steve Sistare <steven.sistare@oracle.com>, 
-	John Hubbard <jhubbard@nvidia.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
-	Josef Bacik <josef@toxicpanda.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev, linux-arch@vger.kernel.org, 
-	iommu@lists.linux.dev, netdev@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3 5/9] mm/gup: limit pagecache folio refcount when
- grabbing references
-Message-ID: <avW7MFzYJJZ0B85d@pedro-suse.tail5790ac.ts.net>
-References: <20261110-refcount_overflow_stable-v3-0-318625d63a98@kernel.org>
- <20261110-refcount_overflow_stable-v3-5-318625d63a98@kernel.org>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ej/S4iTx
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=S7gJ+mmdj4WD8XdNszsZW9Soksa9swlMwBZkMkhbAg0=;
+	b=ej/S4iTx41VeJL9brXJ9rhJdW/Zo2ncGLkDo6fqWSSbSp/XbDgbzr5EFlV/xl0YomR8umZLmC
+	wJQwBd0sAqU3QsGzBsHqDpRVfz9Lm6MmNwhRlWUwRqfjUBRdeSzQfVrTKjBSLBQP9bzO/cwfbp+
+	YEuAE49iHoaLXKA5EKPbyNo=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4jQLRf4JMyz12LdQ;
+	Thu, 12 Nov 2026 21:13:18 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 0BBE240537;
+	Thu, 12 Nov 2026 21:13:13 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 12 Nov
+ 2026 21:13:12 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
+	<james.morse@arm.com>, <babu.moger@amd.com>, <corbet@lwn.net>,
+	<skhan@linuxfoundation.org>, <rdunlap@infradead.org>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <ben.horgan@arm.com>, <fenghuay@nvidia.com>,
+	<tan.shaopeng@fujitsu.com>, <quic_jiles@quicinc.com>, <x86@kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [RFC PATCH v2 2/9] fs/resctrl: Avoid division by zero in the MBA software controller
+Date: Thu, 12 Nov 2026 21:12:47 +0800
+Message-ID: <20261112131255.4043381-3-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261112131255.4043381-1-ruanjinjie@huawei.com>
+References: <20261112131255.4043381-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -135,57 +76,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-refcount_overflow_stable-v3-5-318625d63a98@kernel.org>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MISSING_XM_UA(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,infradead.org,google.com,suse.com,suse.cz,linux-foundation.org,nvidia.com,linux.alibaba.com,linux.dev,arm.com,intel.com,gmail.com,sk.com,gourry.net,redhat.com,cmpxchg.org,fb.com,surriel.com,szeredi.hu,zeniv.linux.org.uk,arndb.de,ziepe.ca,8bytes.org,oracle.com,toxicpanda.com,davemloft.net,kvack.org,vger.kernel.org,lists.linux.dev];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[62];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -11.80
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Tue, Nov 10, 2026 at 09:35:45PM +0100, David Hildenbrand (Arm) wrote:
-> Let's add a folio_ref_count_over_limit() check in fast and slow GUP
-> before acquiring additional references or pins.
-> 
-> Keep it simple and use the check for all folio types.
-> 
-> Also propagate try_grab_folio() errors when grabbing additional
-> references in __get_user_pages() and in memfd_pin_folios(), so hitting
-> the limit returns -ENOMEM instead of -EFAULT and -EINVAL, respectively.
-> 
-> Keep the existing invalid-refcount warnings.
-> 
-> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
-> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
-> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+The software controller raises the control while the target is above
+the bandwidth expected after the next step, and it uses min_bw instead
+of bw_gran. The two are equal on x86, but when MPAM's maximum control
+has 8 or more bits, min_bw rounds to 0% while bw_gran is 1%. The estimate
+then falls back to the current bandwidth, so the control steps up
+whenever the target is above it and oscillates across the target.
 
-Same points about funny weird inefficiency applies, in any case:
+With min_bw at 0% the control can also reach zero, and the estimate
+then divides by zero in the MBM overflow worker.
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de> 
+Use bw_gran in the estimate, and step up without evaluating it when the
+control is zero. Also require the target to be above the measured
+bandwidth, so a zero target does not raise the control.
 
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+---
+ fs/resctrl/monitor.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+index 75abbf90d090..f067329e92c6 100644
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -673,6 +673,9 @@ static struct rdt_ctrl_domain *get_sc_ctrl_domain_from_cpu(int cpu,
+  * with 10% granularity steps, check whether moving to 40% would go past
+  * the limit by multiplying current bandwidth by "(30 + 10) / 30".
+  *
++ * A zero min_bw lets the control reach zero, where the ratio is
++ * undefined. Take the step up without evaluating it.
++ *
+  * Return: true when the control value changes, false otherwise.
+  */
+ static bool mba_sc_next_ctrl_val(struct rdt_resource *r_mba, u32 cur_msr_val,
+@@ -683,9 +686,9 @@ static bool mba_sc_next_ctrl_val(struct rdt_resource *r_mba, u32 cur_msr_val,
+ 		return true;
+ 	}
+ 
+-	if (cur_msr_val < MAX_MBA_BW &&
+-	    user_bw > (cur_bw * (cur_msr_val + r_mba->membw.min_bw) /
+-		       cur_msr_val)) {
++	if (cur_msr_val < MAX_MBA_BW && user_bw > cur_bw &&
++	    (cur_msr_val == 0 ||
++	     user_bw > (cur_bw * (cur_msr_val + r_mba->membw.bw_gran) / cur_msr_val))) {
+ 		*new_msr_val = cur_msr_val + r_mba->membw.bw_gran;
+ 		return true;
+ 	}
 -- 
-Pedro
+2.34.1
+
