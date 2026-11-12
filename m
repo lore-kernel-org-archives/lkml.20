@@ -1,71 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794506729;
-	b=fVOSPNXEmCyGqFWetPWMGUVZxlaS8JDXfc+T2b28U7d1vX6L65eQU8f/1vxCZzOhAi8b
-	 c49KNZIpGXahSLtL9+ihElDvWtyA76hrwldEnbVU1I6mW3ExWxSpiB2VyOIhx6iaiI3ZX
-	 byCTJ/p8bVrfKyYK3AAFkxBMaLb7RfPVCrXKExoayQnsjYo1sregVCfQnyKbf5H9Ljc4h
-	 RV4YpKzH6g0+PWv9APsYQ6KlDLUhENYEl81PEy2FD1LO/gETFRpUv+FwxkIFub1dINQpu
-	 yTT77G7XDh6j+dDdSaVKAZWngJrKrcD9vhg2XT4yZO7nggkVNPbHwjlpc0AaoYR2cZg==
+	t=1794506732;
+	b=s7UML3Hhp5BWnoOtXRfm/Rylm8m0G1yNIYy8tscZ7cHVrl9LEhjEH/W3UwByfxaGJlDz
+	 7O2y6MVBNOv48zi7PBU1ZS1td6U99FEGMYdNk852j/+ieRQ4rF3x85nBPjDiVuW6yEmGG
+	 Hu8BVp5M+pDgGtnNAlYg5OvjcXR8D4savHwpIaW7tX9+ezESM3DPZCiEsLIg1X/h1Bjz3
+	 3WMk7WJeesmpTbyqk/wK4g1Yv+haoADBmMiZW9IgJLcI9L+nVBQl3bAAFtA2wDIHzISym
+	 PqYMySHUQuf6+pVuZW6e+UmhhpjuSblRhOk76qaJt6s0gayNiJ+GgZUqOqYzFKbzDMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794506729;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=YIV8AzjRKQ457fVdvC9cmzWy207wxkKwWswzLM1Rqq0=;
-	b=SabI1feoQFQ6S8toXMKicnrvKORF35w0po3CbY8tJ7eILQfZybXXa0jWh2s97cTLyxd6
-	 pZm4Hyd7J/DAwPDcPOSoGCI4JNjz3n5oFdpVwDTpgb9iQXiE21WEYO4r+SrqywjK+h9tu
-	 FM+HbljS8mUX9/9bWdJ0+WwIINfEwSs88IzhQ7NbLgi6Flo3ZSYR7c5eyYMnMkB6PaOrB
-	 /uCWhXhEaJeqKGttz5SPLTp3R/kHOMHOSgIlXr/GXgSNz73/T2zBgwpu+599O8pZELp4D
-	 KFGn1DvVjFn6sAQlIovlk19vxwNP5EBsBgtFkZ/xWS3vlJSaYsPn/YSoUHU0HaR6+hw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794506732;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=cG8SYyf7w3dlGbNaL5P0O22CIF0Qp5uX3wBmRgVBppY=;
+	b=eomSZpo+dFax9UUnfbEV9Ujl3Pm5zCF2w8XHduFBqVSA/bS4Ob1hb7aymhufl32bMM+E
+	 bhpuxWCuE4rlEGzc0MQo2qRb9UtXdI++K7Hg+sPaOFNgHx/ewWfT+unHUPdqpDC5I48Ns
+	 Ce19CgduzU21ZlB1xxBO3n1311TUIKh/3EHcmSj52iKaZnhRnwapF/97YnIihQ9oPIRDm
+	 RxDfOam5WqDTRvWkUm5jpwZ+BviD8EGy1xASHKyzI9ME1b9JKUbb1PvDlkOlKH4tk7BoN
+	 Wzp9X19mqr7Jq/iJWBe928bAYx3eFfJVJ96kt+oqbLIbH8SaLn9LPrEemL2F18QkoGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=C1I9mPie;
-	arc=none smtp.remote-ip=44.202.169.37
-Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=an6rnEFH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D0A0606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:05:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D0A0606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB13606A886;
+	Thu, 12 Nov 2026 18:05:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=C1I9mPie
-Received: from eig-obgw-6005b.ext.cloudfilter.net ([10.0.30.162])
-	by cmsmtp with ESMTPS
-	id RTTIxmsLRJFmFRZAtxfBM5; Thu, 12 Nov 2026 18:05:28 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id RZApxLCgQ0288RZAqxOQkU; Thu, 12 Nov 2026 18:05:24 +0000
-X-Authority-Analysis: v=2.4 cv=a5Iw9VSF c=1 sm=1 tr=0 ts=6af5ffe7
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
- a=mgGIjpb2KhxFcZy2RHUA:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=YIV8AzjRKQ457fVdvC9cmzWy207wxkKwWswzLM1Rqq0=; b=C1I9mPieXNcv
-	oHOUYfWctNuFFHM33sSKWajvNIMDaqnmlrG58MInrr9zP0b1W/yVTXM4cb/ir5pIqZWavw190NN4n
-	AXfRxNK16t/DskcbXf5pzJ8PEx0JwreKN1A88+/Zo64kjfCdCSfbCAOc8o/YtMziLYG39uuJZ5P24
-	rTBqhIrVJCv8GnwjdksVbBRS25YITN/KSB/uNByCz6McWc4ffIja+uwPyGaz2pAh7X2JTLqyC667o
-	eOUxkN4rKVpsi1NYV9gphpfcEDlv0FgZ9URMw4apYmuxnhJqHxkNj3+Zq4UR2CY71NENv4LAuwq8I
-	KwkKsOK11L/BEL4kGwWMEQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:44674)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xRZAp-00000000Bxe-2DHq;
-	Thu, 12 Nov 2026 23:35:23 +0530
-Message-ID: <05bae14d-5530-45ab-a14c-d068f7587724@roeck-us.net>
-Date: Thu, 12 Nov 2026 10:05:22 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=an6rnEFH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 229B61F000C4;
+	Thu, 12 Nov 2026 18:05:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794506732;
+	bh=cG8SYyf7w3dlGbNaL5P0O22CIF0Qp5uX3wBmRgVBppY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=an6rnEFHIEQfMD7hb2IewvTV/EyagK+WFjhHhGs/7elOcrogcIsxGsV7IEc9I16wr
+	 cANtce9G2vgpUy5lhY17FNcwQneKEIcYIY+W5IJ0slGgd16Qk/Qh3Wvfb0zV4chVhc
+	 IWjf74UV4A1kTN4ldOCaeItZJzfYiJbdziIksaMS+AIHq/71swxVE3OezZ1iatBt1x
+	 mY6EFh67QqtG015uZu6gP3MiS82xe2OjWemIl7CKMV8h3i1bYCNpH9tYb/TROWIPLE
+	 piSdwUrsYtmEhsz/5LVnzo3yxJqT7rc1ZXvFCJsvQ/MIJ7Bb3Se55tS3K7ruw2DYyY
+	 auQZ8KPUL8o4Q==
+Date: Thu, 12 Nov 2026 18:05:20 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
+	James Houghton <jthoughton@google.com>, Andrea Arcangeli <aarcange@redhat.com>, 
+	Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, Andrei Vagin <avagin@gmail.com>, 
+	Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>, 
+	Muhammad Usama Anjum <usama.anjum@arm.com>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Chris Down <chris@chrisdown.name>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	=?utf-8?Q?Miko=C5=82aj?= Lenczewski <miko.lenczewski@arm.com>, Michal Hocko <mhocko@suse.com>, 
+	Mike Kravetz <mike.kravetz@oracle.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 01/12] userfaultfd: use anonymous memory for
+ UFFDIO_ZEROPAGE on private file mappings
+Message-ID: <avX_qlthMqypxHm0@gremlin>
+References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
+ <20261111-uffd-state-fixes-v1-1-00713d368976@columbia.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,135 +76,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hwmon: (sht3x) Fix alarm attribute names in documentation
-To: Wayne Ho <wayneho219@gmail.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Pascal Sachs <pascal.sachs@sensirion.com>, linux-hwmon@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261112-sht3x-doc-alarm-attr-v1-1-91676362d133@gmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261112-sht3x-doc-alarm-attr-v1-1-91676362d133@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xRZAp-00000000Bxe-2DHq
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:44674
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 1
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfBf0SbNrtySjqXBCtgzW7oVvyXbcKE+6sZxH4Mv5e+5wVjtVuD5lfG4hAyAXOO3OqaH8b0FWkUClVXUzvnvUfMwBeetiwGLpqGfyweadIgUbTE0d6cg9
- RYd2FBS7eCy9Ty+Mv/PWUjaI5gxZG2kfg0rgIVahvb/TBfWIY5eAJ90FkIScwlzBgCDmiiMO6ljsAMi+v3Yxg399R1g4vVqhGGMwsFvjhS0PeNoH7QX6GUFt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-uffd-state-fixes-v1-1-00713d368976@columbia.edu>
 
-On 11/11/26 22:01, Wayne Ho wrote:
-> The description of the periodic measure mode says that "the alert
-> attribute" is set when a reading exceeds the configured limits. The
-> driver has no such attribute, and never had one. The alarm state has
-> been exposed through temp1_alarm and humidity1_alarm since the driver
-> was added, which is also what the sysfs interface table further down in
-> the same document lists.
-> 
-> Refer to the actual attribute names.
-> 
-> Fixes: 7c84f7f80d6f ("hwmon: add support for Sensirion SHT3x sensors")
-> Signed-off-by: Wayne Ho <wayneho219@gmail.com>
+On Wed, Nov 11, 2026 at 12:55:09PM -0500, Tal Zussman wrote:
+> If the mm cannot map the shared zero page, UFFDIO_ZEROPAGE falls back to
+> mfill_atomic_pte_zeroed_folio(), which allocates a zeroed folio and
+> installs it through vma_uffd_ops(), no matter what kind of mapping it
+> is. An s390 KVM guest with storage keys or protected virtualization is
+> such an mm.
+>
+> For a MAP_PRIVATE shmem mapping, that adds the zeroed folio to the page
+> cache of the file. That is wrong: a private mapping must never modify
+> the file it maps, and the file might even be mapped from a read-only fd.
+>
+> The ioctl can also fail where it should succeed. A missing fault is only
+> delivered for a hole in the file, but UFFDIO_ZEROPAGE can be called on
+> an address that did not fault, or can race with a write to the file. If
+> the file has a page at that offset by then, inserting the zeroed folio
+> fails and the ioctl returns -EEXIST although nothing is mapped at the
+> destination address.
+>
+> What we want is what UFFDIO_ZEROPAGE does on a private mapping when the
+> shared zero page can be used, and what UFFDIO_COPY does: only check that
+> nothing is mapped at the destination address, map zeroed memory there,
+> and leave the page cache alone. The zeroed folio path did that before it
+> was moved to vm_uffd_ops.
+>
+> To fix it, pick the ops in the common folio path, as
+> mfill_atomic_pte_copy() did for UFFDIO_COPY: anon_uffd_ops for a private
+> mapping, the ops of the VMA otherwise. That makes
+> mfill_atomic_pte_copy() and mfill_atomic_pte_zeroed_folio() redundant,
+> so remove them and rename __mfill_atomic_pte() to
+> mfill_atomic_pte_folio().
+>
+> UFFDIO_ZEROPAGE no longer modifies the file, and only fails with -EEXIST
+> if something is already mapped at the destination address.
+>
+> Fixes: f74991b4e383 ("shmem, userfaultfd: implement shmem uffd operations using vm_uffd_ops")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+
+Looks sensible (also another cleanup in disguise which I like ;):
+
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
 > ---
->   Documentation/hwmon/sht3x.rst | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/hwmon/sht3x.rst b/Documentation/hwmon/sht3x.rst
-> index 4f67671eb0c..3c022c058be 100644
-> --- a/Documentation/hwmon/sht3x.rst
-> +++ b/Documentation/hwmon/sht3x.rst
-> @@ -78,11 +78,11 @@ The allowed update_interval in milliseconds are as follows:
->   
->   In the periodic measure mode, the sensor automatically triggers a measurement
->   with the configured update interval on the chip. When a temperature or humidity
-> -reading exceeds the configured limits, the alert attribute is set to 1 and
-> -the alert pin on the sensor is set to high.
-> +reading exceeds the configured limits, the temp1_alarm or humidity1_alarm
-> +attribute is set to 1 and the alert pin on the sensor is set to high.
-
-Just replacing "alert" with "alarm", as below, would do the trick as well.
-
-If you resend with those changes, I'll apply it, but for the future please
-refrain from sending cosmetic patches. If you want to contribute, please
-consider fixing real bugs.
-
-Thanks,
-Guenter
-
->   When the temperature and humidity readings move back between the hysteresis
-> -values, the alert bit is set to 0 and the alert pin on the sensor is set to
-> -low.
-> +values, the alarm attribute is set to 0 and the alert pin on the sensor is set
-> +to low.
->   
->   The serial number exposed to debugfs allows for unique identification of the
->   sensors. For sts32, sts33 and sht33, the manufacturer provides calibration
-> 
-> ---
-> base-commit: 44c8ceae2dd3ae536c5f4f956cedb24c157aac23
-> change-id: 20261112-sht3x-doc-alarm-attr-118ddfebc6ae
-> 
-> Best regards,
+>  mm/userfaultfd.c | 46 ++++++++++++++++------------------------------
+>  1 file changed, 16 insertions(+), 30 deletions(-)
+>
+> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> index d65184d9a480..61a712e1f9f5 100644
+> --- a/mm/userfaultfd.c
+> +++ b/mm/userfaultfd.c
+> @@ -531,15 +531,27 @@ static int mfill_copy_folio_retry(struct mfill_state *mfill_state,
+>  	return 0;
+>  }
+>
+> -static int __mfill_atomic_pte(struct mfill_state *state,
+> -			      const struct vm_uffd_ops *ops)
+> +static int mfill_atomic_pte_folio(struct mfill_state *state)
+>  {
+> +	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
+>  	unsigned long dst_addr = state->dst_addr;
+>  	unsigned long src_addr = state->src_addr;
+>  	uffd_flags_t flags = state->flags;
+>  	struct folio *folio;
+>  	int ret;
+>
+> +	/*
+> +	 * The normal page fault path for a MAP_PRIVATE mapping in a
+> +	 * file-backed VMA will invoke the fault, fill the hole in the file and
+> +	 * COW it right away. The result generates plain anonymous memory.
+> +	 * So when we are asked to fill a hole in a MAP_PRIVATE mapping, we'll
+> +	 * generate anonymous memory directly without actually filling the
+> +	 * hole. For the MAP_PRIVATE case the robustness check only happens in
+> +	 * the pagetable (to verify it's still none) and not in the page cache.
+> +	 */
+> +	if (!(state->vma->vm_flags & VM_SHARED))
+> +		ops = &anon_uffd_ops;
+> +
+>  	if (!ops) {
+>  		VM_WARN_ONCE(1, "UFFDIO_COPY for unsupported VMA");
+>  		return -EOPNOTSUPP;
+> @@ -597,32 +609,6 @@ static int __mfill_atomic_pte(struct mfill_state *state,
+>  	return ret;
+>  }
+>
+> -static int mfill_atomic_pte_copy(struct mfill_state *state)
+> -{
+> -	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
+> -
+> -	/*
+> -	 * The normal page fault path for a MAP_PRIVATE mapping in a
+> -	 * file-backed VMA will invoke the fault, fill the hole in the file and
+> -	 * COW it right away. The result generates plain anonymous memory.
+> -	 * So when we are asked to fill a hole in a MAP_PRIVATE mapping, we'll
+> -	 * generate anonymous memory directly without actually filling the
+> -	 * hole. For the MAP_PRIVATE case the robustness check only happens in
+> -	 * the pagetable (to verify it's still none) and not in the page cache.
+> -	 */
+> -	if (!(state->vma->vm_flags & VM_SHARED))
+> -		ops = &anon_uffd_ops;
+> -
+> -	return __mfill_atomic_pte(state, ops);
+> -}
+> -
+> -static int mfill_atomic_pte_zeroed_folio(struct mfill_state *state)
+> -{
+> -	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
+> -
+> -	return __mfill_atomic_pte(state, ops);
+> -}
+> -
+>  static int mfill_atomic_pte_zeropage(struct mfill_state *state)
+>  {
+>  	struct vm_area_struct *dst_vma = state->vma;
+> @@ -634,7 +620,7 @@ static int mfill_atomic_pte_zeropage(struct mfill_state *state)
+>
+>  	if (mm_forbids_zeropage(dst_vma->vm_mm) ||
+>  	    (dst_vma->vm_flags & VM_SHARED))
+> -		return mfill_atomic_pte_zeroed_folio(state);
+> +		return mfill_atomic_pte_folio(state);
+>
+>  	_dst_pte = pte_mkspecial(pfn_pte(zero_pfn(dst_addr),
+>  					 dst_vma->vm_page_prot));
+> @@ -927,7 +913,7 @@ static __always_inline ssize_t mfill_atomic_pte(struct mfill_state *state)
+>  	if (uffd_flags_mode_is(flags, MFILL_ATOMIC_POISON))
+>  		return mfill_atomic_pte_poison(state);
+>  	if (uffd_flags_mode_is(flags, MFILL_ATOMIC_COPY))
+> -		return mfill_atomic_pte_copy(state);
+> +		return mfill_atomic_pte_folio(state);
+>  	if (uffd_flags_mode_is(flags, MFILL_ATOMIC_ZEROPAGE))
+>  		return mfill_atomic_pte_zeropage(state);
+>
+>
 > --
-> Wayne Ho <wayneho219@gmail.com>
+> 2.39.5
+>
 
+--
+Cheers, Lorenzo
