@@ -1,95 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.69
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794451387;
-	b=2tvNl0skwKxbLMu0SdWNcqw8R70NJo07+nR4eyHDOkh5HnPG8IuVRqKaD8UMC1lpuBTr
-	 zZ662FaZx19hFpCTkCu3FnGjOQ0D63imFB+7d8s//dGg8XPnI7OZOlvshoz0wnlXGnUKT
-	 gZVeUrDlvkCW+jKQOoPnB/s8ITzTo1AvsK3QAMR8nTfFrZLR/HjBzKUOGEt036JmsMzEM
-	 NKaNMzITxg2K1Oq+zPgeVJPwJD61Qo5KHJxzD5kB1o54nQ8jIt5EXSAAgQBaX6RCmY9S+
-	 /C1qNY8/0dG5+38ejawuW5gMQIhMN+vfjutXGtEmu5d5FwRKdSk7JWF/4Wwugxhz4jA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794451387;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=RsiQZJdEXDMF5iUujGZ9PiIFb9cPbaOip0t29zAFuDA=;
-	b=cblXpjcJumBv7tgeMJGn+GQh9ocSf6Y3jsE3nlBREtkvgzGGEzH1aWaNsJFC0c1jrG76
-	 +3UHBHbbBBL6TJqakxmzrfja1ZFkur4fbyri68/w/K4HAxLmGDE9olnQj8Hq29WewSc64
-	 UB8GKf0tJFlf4KvJeP2IdG7Y+Da+bH/4c7kmaJf6CbmH5Y+gKYtk4L7F6+eUpbYs+xjyw
-	 qMyt1oyuKnldeqxkd9BvtfzqV59/GJtaP7KaVxQRvBBB/6EsoxBPpuCPuOEVNMc3PGQ9U
-	 iNDzwezjIIUL/CX7TctZqmA9H0RhGqfUbTUEYr6+BQNZ+ejFd8eIJtaLIYMPWp/MJiA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YrOI5cqB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.69
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012069.outbound.protection.outlook.com [52.101.48.69])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794451409;
+	b=NOkXcVtC8QcdSKhu/XW/9c/yJtX58r+Ewj8ObkvWV9W0EMz8AUT14Kw2VH3Ds01Fc85B
+	 Mj7Z7qUlJEDL9UeZPhGM2LRIg0jXfImVnux3eHvrro7fS3z8hAKCSh/CLVmAlX3+Rc5PJ
+	 XFY66eWv/OoE6PKmnLRcip5qyNMwUg6q7aX1l2NqDqS4BuoP0/PCLJ3gKS8k764OMvyk8
+	 RQB7US02GiAFE8QdVPuNOTFHVnT7A4iZSeHjmFEjjv+WCfHbakb82xIKRM1cKrRpfLXAh
+	 zaUwRluffGzdVfFjRqkNr6H7UeMsWwK4N82UnwfuB9rmnKcUjmmuOmzwiyZR/n93zGQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794451409;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Content-Disposition;
+	bh=EnKxfKMM75zbHlTd8AHjSG6CLtQjvzztcUz3K1JFb/I=;
+	b=qk0S949BPe4a8MMOocRvpzM14FC91NEupU4wY9xE5xVhux2wktzVpv4wrVQ61M7/QwuD
+	 GXboVEcx9JG1l2USg7XuOn0gsZDq/CwBS1npeP0Rzh50K7x0dhn0nrRGHC1uJSQNyXEHP
+	 Auh8JkVGKmLeT0CL6qAAnMtqhy3NWM9/7O4Yb8ulYvjQIv1yLQGHgVyXGiN8vM1TKXT8q
+	 UZPbZkszQbriqrNQhy+Xx3fGiMMa1/92h+1oKUXpfsf4XtSARbp3IB5LhfG9rlbh0gYnm
+	 FRhfvHTa20m7rp+p5PtilTrDEaJtDOKULGS7fk8REn4pigg8tsuQm7BbwiSSmDQM4jA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Atd2G7HG;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE5F606A31C;
-	Thu, 12 Nov 2026 02:43:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBE5F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E73B0606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:43:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E73B0606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YrOI5cqB
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TLKbbmRSpxKdj0Zvdzfqd99lN4MPNsV+cClrStErgGr9lOI3hIqGaOokabEoeagG0be11Y/ikizaW6dlROaAkrDpN7GI4x9Z8h9+NgIkISY858DZkL4yCMQAJXeQp0LuihhzYteDpNFQ70/lrfxfKpcl0Rl7YAIfkoAVxWGM/E75Lg1faebrtY2xzVWB77zosfFO3jxkZCbRuubv+nOsr3ih1cBBAeW+EK+qlhMKIcosCsrn8tcsM2YTb6UGBQPIWV3x+DWgx9f6T2x1I8Cwr6pLgp02N7zKuHoYQO9qr/bFCxL1gm5BUTPj8Rct6oEcG3KJgQv76mkAIFPSVUjCrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RsiQZJdEXDMF5iUujGZ9PiIFb9cPbaOip0t29zAFuDA=;
- b=gFWkTuzOSatk++5y20TTiqKNgzjiildrHjJ5a2dOX/druzIi4CtV5B+XinmqV4vZnDdbzqpqnApcr5GAh6C4wGPSLMcmZzWVkFBq97fQqG3G612vqarCaBv/lRDHBlTP66kzj0qsHA7py/uZonpYgZmitsXXbOQ5P3CZT6m2UpvLwPWHK2KamJlvAMJVjc/SfuX63+0W9OboNzMI2ba1Oo1Zq9+1mhGyjT8fhAx7cdgDa3DCOAT9exuxcYLsdG6CP+1lDtBybmKI5CSr1L0jxZgNBegJZnkGkLsUkjMI54YqQHIlgBeyWe5ZvpWpXRroltvH68oG1zGNZTH1CPSMbA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RsiQZJdEXDMF5iUujGZ9PiIFb9cPbaOip0t29zAFuDA=;
- b=YrOI5cqB1mLeXmCQuaxzjRQ0va0zEJgZUhylTq2bJbN4e7sBU7qr1TgPyZJBU0ltkB+m3Owo8PdM0N2Ke4cKGXVR8qEqDqYpEs6KqL525kmvkWNv/ipnyIn486UWvmZ2NkLMwlfMPK6EHxKYdCmG/OVSpCMMYTjI0Rk5pSWgoVE=
-Received: from DS7PR03CA0154.namprd03.prod.outlook.com (2603:10b6:5:3b2::9) by
- DS0PR12MB8245.namprd12.prod.outlook.com (2603:10b6:8:f2::16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.9; Thu, 12 Nov 2026 02:43:03 +0000
-Received: from DSM2EPF0000000E.namprd02.prod.outlook.com
- (2603:10b6:5:3b2:cafe::36) by DS7PR03CA0154.outlook.office365.com
- (2603:10b6:5:3b2::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
- Nov 2026 02:43:03 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DSM2EPF0000000E.mail.protection.outlook.com (10.167.23.8) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 02:43:03 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 11 Nov
- 2026 20:43:02 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-Date: Wed, 11 Nov 2026 20:42:59 -0600
-Subject: [PATCH v2] pinctrl: amd: Steer GPIO interrupt to low
- power/efficiency cores
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Atd2G7HG
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1ae58d17cd9so2977363c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 18:43:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794451408; x=1795056208; darn=vger.kernel.org;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EnKxfKMM75zbHlTd8AHjSG6CLtQjvzztcUz3K1JFb/I=;
+        b=Atd2G7HGc1dDm1yQQ9+xuk/PpSfMsuvDXIRfhf836OVm3a7dfl5vJVGJ4TWAebw8D3
+         nSS7QWzsQ3GdyumATRR5Jlp9jrKQhT+2QiodpNg/Qz5GKJOPvo0bXZW2MMncw7UVkLDp
+         sT2pRf9gZgBuadYimpW9F8l7TfG1AN6IQ9ThrmKr8pKgmCzZvG/t420sJCmAMAC3Vpku
+         45zLlLLqEl+2YFDvLfFFDys3P/rqFeWWcvWMah4VQ+NQC/g81D7gMKTmYcjNTXkxpNqq
+         IjI9az3ilKV3xofq4iq11J62RDc0Ycy/HoigOMBDceIvhDJehH1v9Mym6Xqx90ikGca2
+         aCSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794451408; x=1795056208;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=EnKxfKMM75zbHlTd8AHjSG6CLtQjvzztcUz3K1JFb/I=;
+        b=xdna04hSOFJ1fEK08ompw5DBwG/74Er/eAuI4TZvktDXPjvRyRMWxseORS9e2b3iyl
+         xBYIT9WaPAZSU2zMOYYhbtFypMKFIe4seiWLA+bWFd15yyqZR/z3k825JnA2qNG0MYHm
+         hTgJrJQEJ9smSdJNOgTTUI0lAPCzDhsz/rnNbGIhU5tKuCQftuczpRrKGN27934ZAL4C
+         WZW84ef6bP2GTJft4Yedu2QTYCr1BflCWLQYmWOGbrmOVGyn3OjyExgEjmoiCmpOD15d
+         MMzN0Cf0/osHrb7cFPVoe2LwNdymEER+Gixh7UE6CVFc8LrEIpHqikvdNFG5SYkZBFhP
+         reIg==
+X-Forwarded-Encrypted: i=1; AL+hErF0H+8b+1OKxe07xlTmJN2vzby8K4k8GK3VJ5ogomMEv50aKP1siJJCU9lZ7/E3Y8Xaa1/mwRYdapN4dVs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8LOCRnCRuW7XZwrYrh6Db6cbJ09UdCVzIrZ64GCiJd38v2Q5lf
+	4L6BRhKUWDwxTQq1SyMIiR/ZK97p6O+wsDUiBBEg6d4SQy9Y2jx/ZWuI
+X-Gm-Gg: AYBFou3aM57GDFta8lHypL6sWywFKiiV5bCExwUg1NUaDLg2dVOyeXrTpzO0JT2+/Dt
+	CK4JQ+/azsfcxB1HTyv/P+rhcBRMKAaI7lA6BEqGmYFogdDetbWWP93X2PjUQRhyTkAaOXDgpko
+	HdvcijVFYc9l14tnd3hJsuVQqwmzwwroiCbcVA2GvApNkIF6ZgquDzUJVXrSCRJmBJWm5e5uGcD
+	4+1EofbHIHxZXxxCkVYX4TlxAW8gl3a+eHzaOn+4y0PpzHvtRawJ2JvxTtNjBLkvbboYzROI58R
+	9XEb6bIsBwEGx35fOL3eWDV1eStr2ziCybYGYnSZau5bnFIRKdpRef62rlMFl4GmVpAsGFqKOaw
+	LA0LTl9wWErA5ixJ1F9ckTF/Yw8GW1PTH6Ybre5sIPnlH+RYvocH8L/GetM7hHxCE2KLXxZYE3F
+	PuW+dPzeW0aL8klvDrQGA3PilpHa0Ezp2NaozLb19dxepVdvVBCCNiy852h+oOzP2vPoaPjsGPB
+	96pqDOKsMzcJ2fTX0G5Cn+EpkH5VoZSko7cQX3QhTmoCve+bdGsQy3fZgPc3HhmrPWy7Avuyreo
+	GE/FdQIoq55fg3XggwzoHEbTZ/xQvzwxQLdDHlmGY9lqP50D1u3JAJ9zIfPeFBP8v3z9
+X-Received: by 2002:a05:7022:3c03:b0:195:76af:b810 with SMTP id a92af1059eb24-1b3c08751d4mr3095428c88.25.1794451407665;
+        Wed, 11 Nov 2026 18:43:27 -0800 (PST)
+Received: from localhost ([2a00:79e0:2ebe:8:182d:659:ffce:39a4])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060899asm20259757eec.11.2026.11.11.18.43.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 18:43:26 -0800 (PST)
+Date: Wed, 11 Nov 2026 18:43:26 -0800
+Message-ID: <2f722967b6db0692d4dd4164aff39b62@gmail.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Gideon Heinz <gideonheinz02@gmail.com>
+Cc: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	=?utf-8?q?Filipe_La=C3=ADns?= <lains@riseup.net>,
+	Bastien Nocera <hadess@hadess.net>,
+	Hans de Goede <hansg@kernel.org>,
+	Edwin Velds <e.velds@gmail.com>,
+	Stuart Hayhurst <stuart.a.hayhurst@gmail.com>,
+	Andrey Smirnov <andrew.smirnov@gmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 00/33] HID: logitech-hidpp: G920 force-feedback fixes, rework, and cleanups
+In-Reply-To: <CAPb1+K2BxnfQ7VUQ15td5f9pVhn-ARSM9EjfOU8WuW72o+cvPg@mail.gmail.com>
+References: <20261110-hid-logitech-hidpp-v2-0-30743e91d83b@gmail.com> <CAPb1+K2BxnfQ7VUQ15td5f9pVhn-ARSM9EjfOU8WuW72o+cvPg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,142 +107,210 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261111-superm1-pinctrl-power-improvement-v2-1-3b294116c835@amd.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WOTQ6CMBSEr0K6toYWQsSV9zAsaPuUZ+xPXkvVE
- O5uwRM4uy+ZfDMLi0AIkZ2rhRFkjOhdAXmomJ5GdweOpjCTtexECY9zALKCB3Q60ZMH/wLiaAP
- 5DBZc4n3TtrUZQcm+YcUTCG743jeuw4/jrB6g0ybeGhPG5Omzn8hi6/2zlwUXvFUKOm2UkXC6j
- NYctbdsWNf1CwhG1ETiAAAA
-X-Change-ID: 20261111-superm1-pinctrl-power-improvement-93440daeb293
-To: Basavaraj Natikar <Basavaraj.Natikar@amd.com>, Shyam Sundar S K
-	<Shyam-sundar.S-k@amd.com>, Linus Walleij <linusw@kernel.org>, "Bartosz
- Golaszewski" <brgl@kernel.org>
-CC: <linux-gpio@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Mario
- Limonciello" <mario.limonciello@amd.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DSM2EPF0000000E:EE_|DS0PR12MB8245:EE_
-X-MS-Office365-Filtering-Correlation-Id: a3a1080f-bda0-4ee9-6ac5-08df4066ac7a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700016|23010399003|261009223027099003|18002099003|3023799007|261022105027099003|261021121427099003|261102123227099003|261028144727099003|261026121527099003|261026140227099003|56012099006|10067099003|11063799006|5023799004;
-X-Microsoft-Antispam-Message-Info:
-	wQaamLce6L63La1OTD1dAHO8eSfTIZ41chp+yu7b5BMPY7nL8qCVn7X39Ngf4jkstEznlO5fjpAncmF6fPTJUgP5E8DyJSD3VvScIi4Adt3jsirStdgBMwptFLfgWvNBlCAFOSjIc0RgiS/B+mHIBppXG/N7/cB4fAulsMedGpyxITEwxbs7c23j38bDZjdVDhS2nNbyI9vvGZ/OI15Zc2amhdvd/qa+a5QLc63SGFkDhB1vdxQOJqQgLeTscGNTmVs2tsn5imYx2pOMuigJWY4zJvheXB+IwEzJuzqSXOgplqKx84Wkg7UR8aC+RnB2Z6CItEJZVY2VYEl+2rheff5ChxKK6rrXME9fxb6ypR/qCVt1fHUypWpCv17JTJUFXKI0dbJEkwlkyF1gPjlcZLRrWN807fdg4xQLc4nRAuFQj20Xjfl5R7H2W6B8leY6cXwy0+fx4BLpD27ddOMHTYMC9iqkgYFiNeX40YLWw5b4OrhdNNNvNsbYTqxwZbr8MXTj/TTskrpR0ayLEnF0p6Ve6GfKE4aV6GLFqszOpTkrFdm4Mbd4sP2ya8T9s6Kru+CaPRRR77QwJ2PhF4FQDDsPNwJXRv0hhmt3eaJmvQyAjS5aDoX/3MPUshItax2yRw8sr352+b2bhdLldPG9fvD2B+D/Hd4pQHx1UpGH+co=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(23010399003)(261009223027099003)(18002099003)(3023799007)(261022105027099003)(261021121427099003)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(56012099006)(10067099003)(11063799006)(5023799004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	DjOyXP57k0wkSydPGEV7xTsJaEmwt2vp5iZZZbtROKazn5FGE8PAOoYlIO6VaN2ueKANWFimy9Xa7tcpDvIQQYY6EJxUDSrsfpmlKu/T3uPeJtJLE9vmtBsZZHEc8+O8aB9GuLZ6dfuSVkdz9ZILEmfqIyVMRozsUpivWs+/vEAF6bR/rKjbvW4OWEOcUvdwQgh61yfZcqir6wKDtJyLrXqfllP0OCX+mCiqeJhAhkTSQ3yWOBK70us0cFisydVcAV1rYel39sbEkC8qUu3A/m7VqDKID8PH0kj4EPk11lg6eThiJ6tRLc2rXCpCoTg8ngzUd/iEWDbmxPQA4BJ+hxjIPBXRL7GG9pQwuiUPYAKWuPeeJBHh+5HsKaDIc5z1/lCltKUWm7sqPFHXYdXmbpfB1Xz2PVnmagc9+CoVqnxyWxb0OQrUaS3FpaRv0Vhk
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 02:43:03.3772
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a3a1080f-bda0-4ee9-6ac5-08df4066ac7a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DSM2EPF0000000E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8245
+Content-Disposition: inline
 
-On hybrid x86 systems the GPIO controller interrupt can be a frequent
-wake and handler source.  Servicing it on a performance core can wake that
-core unnecessarily.
+Hi Gideon,
 
-Prefer routing it to low power cores, then to efficiency (dense) cores,
-using the CPU type from the x86 topology information.  If the system has
-neither core type (non-hybrid), leave the affinity untouched.
+On Thu, Nov 12, 2026 at 02:30:39AM +0100, Gideon Heinz wrote:
+> Hi Dmitry,
+>
+> I tested v2 of the series on my G920 (046d:c262). Everything on my
+> list works except one scenario that takes the whole machine down, with
+> and without your series (last item).
+...
+>  - rmmod with fftest holding the device open: rmmod returned after
+>    2.99 s with "Unloading HID++ force feedback" and nothing else in
+>    dmesg. When I then exited fftest (entering -1), the machine went
+>    down: the first time with a garbled panic screen that I couldn't
+>    read, and on later attempts as a total hang with no output. The
+>    same sequence on stock Arch 7.2.11-arch1-1 with the unpatched
+>    driver also hangs the whole system, so this predates the series.
+>
+>    To reproduce: with the module loaded and the G920 plugged in, start
+>    fftest on its event node and leave it at the effect prompt, run
+>    "rmmod hid_logitech_hidpp" from another terminal, then enter -1 in
+>    fftest.
+>
+>    I could not recover a trace yet and will send one if I manage to.
+>
+>    My guess, from reading the code and not verified by a trace:
+>    hidpp_ff_create() stores hidpp_ff_destroy() and the other FF
+>    callbacks in the ff_device as pointers into the module. With fftest
+>    holding the evdev open, the input_dev outlives the driver, so when
+>    fftest closes, the final input_dev release calls ff->destroy in
+>    module code that rmmod has already freed.
 
-The placement is applied with irq_set_affinity(), so userspace is still
-free to override it.
+Thank you very much for the thorough testing!
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Your diagnosis is spot on. Opening /dev/input/eventX pins the evdev cdev
+(and through it input_dev), but does not hold a module reference on the
+underlying HID driver. When rmmod unloads hid_logitech_hidpp while fftest
+still has the file descriptor open, __input_unregister_device() disconnects
+evdev (flushing effects, closing the device, and marking evdev dead so all
+subsequent ioctls and writes return -ENODEV) and runs ff->stop(), after
+which rmmod frees the module text. When fftest finally exits and closes the
+file descriptor, input_dev_release() calls input_ff_destroy(), which
+invokes ff->destroy() pointing into the already-unmapped module text.
+
+Rather than working around this in individual drivers with a separate
+ff->stop() callback, input core should call input_ff_destroy() directly in
+__input_unregister_device() once all handlers are disconnected and the
+device is removed from sysfs. At that point nothing touches dev->ff
+anymore, and calling input_ff_destroy() there guarantees ff->destroy()
+always runs while the driver and its module are still loaded (while the
+second input_ff_destroy() call in input_dev_release() becomes a no-op once
+dev->ff is NULL).
+
+Could you try the input core patch below (with patch 22/33 "HID:
+logitech-hidpp: shut down G920 force feedback on input unregister" dropped
+from the hid-logitech-hidpp series, since ff->stop is removed and
+hidpp_ff_destroy() will now run on input unregistration)?
+
+Alternatively, if you prefer to test with your out-of-tree module build
+without rebuilding the kernel, you can test the equivalent effect by
+setting:
+
+	ff->destroy = NULL;
+
+inside hidpp_ff_stop() in hid-logitech-hidpp.c.
+
+Thanks.
+
 ---
-Changes in v2:
-- Guard with CONFIG_X86 instead of CONFIG_X86_64 to fix the UML build
-  failure (reported by kernel test robot and Sashiko).
-- Iterate online CPUs so offline low power CPUs don't prevent falling
-  back to efficiency cores (reported by Sashiko).
-- Link to v1: https://patch.msgid.link/20261111-superm1-pinctrl-power-improvement-v1-1-4bbe6cdbd2e8@amd.com
----
- drivers/pinctrl/pinctrl-amd.c | 39 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 39 insertions(+)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Subject: [PATCH] Input: destroy force-feedback device on input unregistration
 
-diff --git a/drivers/pinctrl/pinctrl-amd.c b/drivers/pinctrl/pinctrl-amd.c
-index 30da75bb93b9a..c1b5c5e18d2e4 100644
---- a/drivers/pinctrl/pinctrl-amd.c
-+++ b/drivers/pinctrl/pinctrl-amd.c
-@@ -31,6 +31,8 @@
- #include <linux/pinctrl/pinmux.h>
- #include <linux/string_choices.h>
- #include <linux/suspend.h>
-+#include <linux/cpumask.h>
-+#include <linux/processor.h>
+When an input device is unregistered while userspace holds an open file
+descriptor to its event node, input_dev_release() is deferred until the
+last file descriptor is closed. Because input_ff_destroy() was only
+called from input_dev_release(), force-feedback teardown (ff->destroy
+and freeing ff->private) could run after the parent driver had already
+unbound, freed its device state, or even been unloaded via rmmod,
+causing use-after-free errors or page faults in unmapped module text.
+
+Commit ef166ce08801 ("Input: stop force-feedback timer when
+unregistering input devices") added a separate ff->stop callback for
+ff-memless, but left ff->destroy invoked from input_dev_release().
+
+Once __input_unregister_device() has disconnected all input handlers
+(which flushes effects, closes the device, and marks evdev dead) and
+deleted the device from sysfs, nothing accesses dev->ff anymore. Call
+input_ff_destroy() directly in __input_unregister_device() so that
+ff->destroy() always runs synchronously while the driver and its module
+are still active, and remove the now-redundant ff->stop callback. Keep
+input_ff_destroy() in input_dev_release() (where it is a no-op once
+dev->ff is NULL) to handle input_free_device() on devices that were
+never registered.
+
+Fixes: 509ca1a93836 ("Input: implement new force feedback interface")
+Cc: stable@vger.kernel.org
+Reported-by: Gideon Heinz <gideonheinz02@gmail.com>
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+ drivers/input/ff-core.c    |  2 +-
+ drivers/input/ff-memless.c | 23 -----------------------
+ drivers/input/input.c      |  5 ++---
+ include/linux/input.h      |  3 ---
+ 4 files changed, 3 insertions(+), 30 deletions(-)
+
+diff --git a/drivers/input/ff-core.c b/drivers/input/ff-core.c
+index 0e5d1d1ceb46..133b4622dc49 100644
+--- a/drivers/input/ff-core.c
++++ b/drivers/input/ff-core.c
+@@ -338,7 +338,7 @@ EXPORT_SYMBOL_GPL(input_ff_create);
+  *
+  * This function is only needed in error path as input core will
+  * automatically free force feedback structures when device is
+- * destroyed.
++ * unregistered or destroyed.
+  */
+ void input_ff_destroy(struct input_dev *dev)
+ {
+diff --git a/drivers/input/ff-memless.c b/drivers/input/ff-memless.c
+index d1fefd1dfc0d..3069436148ec 100644
+--- a/drivers/input/ff-memless.c
++++ b/drivers/input/ff-memless.c
+@@ -483,32 +483,10 @@ static void ml_ff_destroy(struct ff_device *ff)
+ {
+ 	struct ml_device *ml = ff->private;
  
- #include "core.h"
- #include "pinctrl-utils.h"
-@@ -1272,6 +1274,41 @@ static void __iomem *amd_get_named_res(struct device *dev, struct platform_devic
- 	return base;
+-	/*
+-	 * The timer is normally shut down in ml_ff_stop() when the device
+-	 * is unregistered. However, we still shut it down here as a safety
+-	 * net and for cases where the device was never registered (e.g.
+-	 * error paths during probe).
+-	 */
+ 	timer_shutdown_sync(&ml->timer);
+-
+ 	kfree(ml->private);
  }
  
-+#ifdef CONFIG_X86
-+/*
-+ * On hybrid systems prefer to service the GPIO interrupt on low power cores,
-+ * then on efficiency (dense) cores to save power.  Userspace can still
-+ * override the placement.  Do nothing if neither core type exists.
-+ */
-+static void amd_gpio_set_irq_affinity(struct amd_gpio *gpio_dev)
-+{
-+	static const enum x86_topology_cpu_type types[] = {
-+		TOPO_CPU_TYPE_LOW_POWER,
-+		TOPO_CPU_TYPE_EFFICIENCY,
-+	};
-+	cpumask_var_t mask;
-+	int cpu, i;
-+
-+	if (!zalloc_cpumask_var(&mask, GFP_KERNEL))
-+		return;
-+
-+	for (i = 0; i < ARRAY_SIZE(types); i++) {
-+		for_each_online_cpu(cpu) {
-+			if (cpu_data(cpu).topo.cpu_type == types[i])
-+				cpumask_set_cpu(cpu, mask);
-+		}
-+		if (!cpumask_empty(mask)) {
-+			irq_set_affinity(gpio_dev->irq, mask);
-+			break;
-+		}
-+	}
-+
-+	free_cpumask_var(mask);
-+}
-+#else
-+static void amd_gpio_set_irq_affinity(struct amd_gpio *gpio_dev) {}
-+#endif
-+
- static int amd_gpio_probe(struct platform_device *pdev)
- {
- 	int ret = 0;
-@@ -1377,6 +1414,8 @@ static int amd_gpio_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto out2;
+-static void ml_ff_stop(struct ff_device *ff)
+-{
+-	struct ml_device *ml = ff->private;
+-
+-	/*
+-	 * Even though we stop all playing effects when tearing down an
+-	 * input device (by the way of evdev calling input_flush_device()
+-	 * that calls into input_ff_flush() that stops and erases all
+-	 * effects), we do not actually shutdown the timer, and therefore
+-	 * we should do it here to prevent it firing after the input
+-	 * device is unregistered and its associated resources are freed.
+-	 */
+-	timer_shutdown_sync(&ml->timer);
+-}
+-
+ /**
+  * input_ff_create_memless() - create memoryless force-feedback device
+  * @dev: input device supporting force-feedback
+@@ -543,7 +521,6 @@ int input_ff_create_memless(struct input_dev *dev, void *data,
+ 	ff->playback = ml_ff_playback;
+ 	ff->set_gain = ml_ff_set_gain;
+ 	ff->destroy = ml_ff_destroy;
+-	ff->stop = ml_ff_stop;
  
-+	amd_gpio_set_irq_affinity(gpio_dev);
+ 	/* we can emulate periodic effects with RUMBLE */
+ 	if (test_bit(FF_RUMBLE, ff->ffbit)) {
+diff --git a/drivers/input/input.c b/drivers/input/input.c
+index 210635ef147e..7be69deed8eb 100644
+--- a/drivers/input/input.c
++++ b/drivers/input/input.c
+@@ -2286,10 +2286,9 @@ static void __input_unregister_device(struct input_dev *dev)
+ 		input_wakeup_procfs_readers();
+ 	}
+ 
+-	if (dev->ff && dev->ff->stop)
+-		dev->ff->stop(dev->ff);
+-
+ 	device_del(&dev->dev);
 +
- 	platform_set_drvdata(pdev, gpio_dev);
- 	acpi_register_wakeup_handler(gpio_dev->irq, amd_gpio_check_wake, gpio_dev);
- 	amd_gpio_register_s2idle_ops();
++	input_ff_destroy(dev);
+ }
+ 
+ static void devm_input_device_unregister(struct device *dev, void *res)
+diff --git a/include/linux/input.h b/include/linux/input.h
+index 3381608127f7..02047cc45d04 100644
+--- a/include/linux/input.h
++++ b/include/linux/input.h
+@@ -549,8 +549,6 @@ extern const struct class input_class;
+  * @set_autocenter: Called to auto-center device
+  * @destroy: called by input core when parent input device is being
+  *	destroyed
+- * @stop: called by input core when parent input device is being
+- *	unregistered
+  * @private: driver-specific data, will be freed automatically
+  * @ffbit: bitmap of force feedback capabilities truly supported by
+  *	device (not emulated like ones in input_dev->ffbit)
+@@ -579,7 +577,6 @@ struct ff_device {
+ 	void (*set_autocenter)(struct input_dev *dev, u16 magnitude);
+ 
+ 	void (*destroy)(struct ff_device *);
+-	void (*stop)(struct ff_device *);
+ 
+ 	void *private;
+ 
 
----
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-change-id: 20261111-superm1-pinctrl-power-improvement-93440daeb293
-
-Best regards,
---  
-Mario Limonciello <mario.limonciello@amd.com>
-
+-- 
+Dmitry
