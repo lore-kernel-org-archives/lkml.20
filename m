@@ -1,65 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.198.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794493065;
-	b=TrRF9bqF9pmo4oEs7VsaOBLXKyNuJhs+f0dEZz0mGRoH+x3d5MveB/zSmhFMsc+4YEGw
-	 Dcc9g+XDLjS800HVV4uepcxy5KqnK28eC1sZODmT0r4EdA97DSoYTtyLJhSIHcq/MZrkl
-	 QBqguVEEx4EBXeGapXxnaAgNiAeG/Go4vA80iG46ucaHusVfZfnqZcPAYCsrpZUCR3ZOt
-	 j6J5gqTILgyw3mAlsEqLXBZdnYcxEZX67C2EHmqAaQ9pT7MtMmgUehtjwL9XM3hRWLvPN
-	 56TRSCtSz1KbMG7bOLfX3CkOOmPqtop7QAilb55NSNKHSFtyBZjuEXFbHDhxLVE6cgA==
+	t=1794493062;
+	b=oRrE7FuUTTg0lBC0LdQK6xa4fRJsy+h9btMSVZbMKlsCGQLOQrgaRTELaSwR6x1JVDSV
+	 iaOPmQ0p697EcaRpzkuOxqhJ7HBAyeoTi/0KToCYPOZ5iojdNeHS1ZcxQropdhwXTO5IB
+	 LVpOu3FI8SD3WEU5/o1sw7CdkbHTaPAG0/bb0Dru/o6EiPg2GesIaUkjQ40kt/r0Yu6Fy
+	 /ahmfLBwVmRV9KxYz71V4l6DNuqpyIwe26IlN8KNaBfZOEGzp5NrO0plyf3p42XlkiaZ/
+	 Hbw0Xmv2/KgqsEypI2TOubHsxuHPLwf+PR+4mPN6yppyqYCbHHyp+wSV/Boht9eyKFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794493065;
-	h=DMARC-Filter:Received:X-Titan-User-Uid:DKIM-Signature:X-AuthUser:
-	 Received:Date:Feedback-ID:From:To:Cc:Subject:Message-ID:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 X-F-Verdict:X-Titan-Src-Out:X-CMAE-Score:X-CMAE-Analysis;
-	bh=8Ae72R5vbMZG2Y0zSinia9yHBl3puAbsWYLV2Ao18Xk=;
-	b=SeD4LEWxaGPREGS97Gn3/li5o1P3pet6P0t4nA9OlXr5YrcUxwsuHXqnyrrw2Kxqyut6
-	 qUrGTXofcbrbJeuvH/qvHTxWbVJy7ZcGRmtSogLdLMui1SPxNhOsHnil+LpinGoE0YPiV
-	 Hvc3E2D8siAZzg+rDq3pT8Kib5JDeh8G/h+KJpyJnLyvQatW2qeq/fmttdqDqBNwyJOE1
-	 TsvoC80Iw3JUDo9bDhfERn3a6Ze1IweU0W+lzpPJJ6leuqQFlX6sFtv+G9/on/P8VV4q2
-	 2ZvSpNmf4OWyE4cIPiAlXGJEpO9Ojm+ITqSRIGP+jjwje7/L0UtA9eGTynOAlBr23KA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794493062;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=uVC1UZvNpbPR+bgPqRTm15L5xYy+BXidKU0ZA+GOJTQ=;
+	b=RJ9b/Vo4XoFzc4RT4+fme5jDp3YUVPAHTBZynKtqOcussJDL1ViSVUWfvBYZsIOeNaju
+	 1w1ZrHY39slTq7GD/OjaYA3JNaVuAPTiQMzrCMupgcTnMxUlRgox63szu8iQ1kxs/QUlS
+	 C6VPnJIrE+njsnaTXEPk0RATFVYHjI9WC2T4PsdrWcpl2l7aROpSOK6778DdjtoZjMHeQ
+	 jVjMYnU1yfnvvTQFepRob/WovPyLGpXLM6qpp9FOO+0QimoZl6hn3lN7y4hyg9f0AKY7L
+	 GGe8icsFKl0vZYcoY291NmZjc9FKvPDS5mziQr4QlQWD55hA2HgV71Z6lIwY6+pmIqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=techsingularity.net;
-	spf=pass smtp.mailfrom=techsingularity.net;
-	dkim=pass header.d=techsingularity.net header.i=@techsingularity.net header.a=rsa-sha256 header.s=titan1 header.b=PVq6FOSx;
-	arc=none smtp.remote-ip=18.198.158.5
-Received: from mail12.out.titan.email (mail12.out.titan.email [18.198.158.5])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=juy3VrPE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57550606A88E
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:17:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57550606A88E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=techsingularity.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=techsingularity.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 147A1606A887;
+	Thu, 12 Nov 2026 14:17:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=techsingularity.net header.i=@techsingularity.net header.a=rsa-sha256 header.s=titan1 header.b=PVq6FOSx
-Received: from localhost (localhost [127.0.0.1])
-	by smtp-out0101.titan.email (Postfix) with ESMTP id 4jQMsr58wwzBrJd;
-	Thu, 12 Nov 2026 14:17:36 +0000 (UTC)
-X-Titan-User-Uid: eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..XmHipCtrYPb96E_O.w5vfXo9dA0Bp14QFHNZ6d_Lrmjt58ip4y_RK9tg49g20uwUwUQB4Ts-6QlBRn-Z6bB-0xsqgcitSdoEPPYv9rONwwlwyIoN1sbApm2NjOLgZ_D_pmqz4KqsS2g.j45PDo10Vlbmmx6jwb6XPQ
-DKIM-Signature: a=rsa-sha256; bh=8Ae72R5vbMZG2Y0zSinia9yHBl3puAbsWYLV2Ao18Xk=;
-	c=relaxed/relaxed; d=techsingularity.net;
-	h=subject:date:cc:message-id:to:mime-version:from:from:to:cc:subject:date:message-id:in-reply-to:reply-to:references;
-	q=dns/txt; s=titan1; t=1794493056; v=1;
-	b=PVq6FOSx0yW0pRzmYxUqu0pnyBgeTyNQxIz8qSrP+35HwmmmYJ10kNCOZ6v8M7UuQ1jfO/mZ
-	zaZi5ueu3UAqd1ktdmtJwdyqgCUXU/nDqzLAz1kP5GA/ytO1X9oNFE+PUKvhFkq3fn+5DETByoK
-	Rm+R0XsGW9qDL638341ThaTs=
-X-AuthUser: mgorman@techsingularity.net
-Received: from techsingularity.net (unknown [84.203.169.71])
-	by smtp-out0101.titan.email (Postfix) with ESMTPA id 4jQMsk0HBHzBrJh;
-	Thu, 12 Nov 2026 14:17:29 +0000 (UTC)
-Date: Thu, 12 Nov 2026 14:17:29 +0000
-Feedback-ID: :mgorman@techsingularity.net:techsingularity.net:flockmailId
-From: Mel Gorman <mgorman@techsingularity.net>
-To: Steven Rostedt <rostedt@goodmis.org>, 
-	Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Seiji Nishikawa <snishika@redhat.com>, 
-	Mian Yousaf Kaukab <ykaukab@suse.de>, LKML <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2] sched/rt: Do not account migrate-disabled tasks as
- pushable
-Message-ID: <avXKCDm7NiVejDiF@techsingularity.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=juy3VrPE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A27D1F00A05;
+	Thu, 12 Nov 2026 14:17:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794493061;
+	bh=uVC1UZvNpbPR+bgPqRTm15L5xYy+BXidKU0ZA+GOJTQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=juy3VrPEurVo5mfr+33Q94ZroL1plyGVoPn2mT/38eat1u6CtVIxD67NREnEICYfl
+	 dBVJso7hE+4dugVUr3Wlfqyel5uy4pyf20hdEaFcGlVPHTYDv2vDRnNSa70FqenejE
+	 2m8tYS5oiL4v8XcMj3neOfk4dSlv83KdnwusJGhr4FNEpE21jpMilVEt7lFuQbEG7/
+	 OObs+PlcxwBqloSxGJL8URX6N9Sp0WMy+/sUl7aZoCYyNiXCKuTnXLPmyoFVHoNDRg
+	 MfvXNcLTSS51Us0kR9nmjs0T5abv7Zs3DrOkZ03xq9yPTcVN+s/H+As5oIIzLsuMcy
+	 myQrl+dRnuuvw==
+Message-ID: <6af42f08-c052-48f4-b0e7-32cb340edbff@kernel.org>
+Date: Thu, 12 Nov 2026 15:17:30 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,149 +51,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-15
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-X-F-Verdict: SPFVALID
-X-Titan-Src-Out: 1794493056487294508.1930444.5324121627980721470@prod-euc1-smtp-out1003.
-X-CMAE-Score: 0
-X-CMAE-Analysis: v=2.4 cv=KNjj5FFo c=1 sm=1 tr=0 ts=6af5ca80
- a=z2qhHIlv8qvig73Ub5HWqw==:117 a=z2qhHIlv8qvig73Ub5HWqw==:17
- a=Q9fys5e9bTEA:10 a=CEWIc4RMnpUA:10 a=R_Myd5XaAAAA:8
- a=w6ywC2K9UwzzExR3jiYA:9 a=3ZKOabzyN94A:10 a=PUjeQqilurYA:10
- a=L2g4Dz8VuBQ37YGmWQah:22
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/6] agents: add skills for Fixes tags, stable tags,
+ similar bugs, and commit messages
+To: Sasha Levin <sashal@kernel.org>
+Cc: Theodore Tso <tytso@mit.edu>, workflows@vger.kernel.org,
+ ksummit@lists.linux.dev, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Leon Romanovsky <leon@kernel.org>,
+ Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+ Thorsten Leemhuis <linux@leemhuis.info>, "Michael S. Tsirkin"
+ <mst@redhat.com>, Kees Cook <kees@kernel.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Dan Carpenter
+ <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
+ Bradley Morgan <brads@mainlining.org>, stable@vger.kernel.org
+References: <20261111225940.1573565-1-tytso@mit.edu>
+ <9c5f5976-ebed-48f3-94ab-1121231af6e1@kernel.org> <avXCcPYM9VAP0JHf@mit.edu>
+ <31a56051-bd63-4a39-9cad-2c9afcd98340@kernel.org> <avXJSt_3DYx6aQsD@laps>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <avXJSt_3DYx6aQsD@laps>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-RT_PUSH_IPI is intended to minimise latency and rq lock contention when
-migrating tasks to balance RT task distribution. The problem is that
-if a CPU is rt_overloaded but has no tasks that can be pushed then IPIs
-can be fired continually at the same CPU but fail to move any task due
-to migrate_disable() on PREEMPT_RT. A specific case was "pgrep" running
-at RT priority, its CPU being the target of a continuous stream of IPIs
-without any task moving.  While the pgrep can be bound to another CPU by
-the application, the underlying problem was that pgrep is spinlock-intensive
-which disables migration on PREEMPT_RT.
+On 12/11/2026 15:12, Sasha Levin wrote:
+> On Thu, Nov 12, 2026 at 02:49:09PM +0100, Krzysztof Kozlowski wrote:
+>> On 12/11/2026 14:46, Theodore Tso wrote:
+>>> On Thu, Nov 12, 2026 at 09:26:09AM -0500, Krzysztof Kozlowski wrote:
+>>>>
+>>>> All these are docs (even if you call them as a skill, it's the same),
+>>>> therefore they should be placed in Documentation, not in top-level. We
+>>>> should not create one documentation for humans and another for agents.
+>>>> It's just one documentation.
+> 
+> Right. The idea here is that agent skills will mostly refer to our existing
+> Documentation/ and will only act as a glue layer to make agents behave better.
+> 
+> Consider, for example, one of the most common feedback points we have to AI
+> users: "make your commit message way less verbose". This is the type of things
+> that would make sense as an agent-only instruction.
 
-Commit dae5c0292080 ("sched/rt,dl: Skip migrate-disabled tasks when
-picking a push candidate") stops pick_next_pushable_task() returning a
-migrate-disabled task which fixes the balancer trying to push pinned tasks
-off the CPU. It notes
+I am not objecting to have the instructions for agents. They should be
+however placed in Documentation.
+> 
+>>> Skills aren't necessarily *just* documentation.  The skills
+>>> specification[1] also defines a structured location in the skill's
+>>> directory hierarchy for Python scripts or other executables.
+>>
+>> Specification is also documentation, just like for example specification
+>> for our ABI. It's also located in Documentation directory.
+> 
+> One of the reasons to keep it out of Documentation/ was that it doesn't mesh
+> with the infrastructure Documentation/ uses. For example, Documentation/ is all
+> .rst, while the agents.md spec specifically calls out for markdown, and a very
+> particular construction of that file.
 
-    The self-IPI path is closed by the rto_next_cpu() fix above, and that
-    part works. But the runqueue is still marked overloaded, because the
-    pinned task is still advertised as pushable. Other CPUs now send the
-    push-IPIs during their own RT balancing, and the same loop runs again.
-    Closing the self-IPI path did not stop a pinned task from triggering
-    push balancing.
+Documentation already has YAML files for Devicetree and other ABI, thus
+difference of format does not matter. It's just minor technical aspect -
+tweak the Makefile.
 
-As above, the runqueue is still marked overloaded by enqueue_task_rt()
-and put_prev_task_rt() even if the task is migrate-disabled. A
-migrate-disabled task reaches the pushable list through enqueue_task_rt()
-or put_prev_task_rt() when it is preempted, or when it wakes while
-still migrate-disabled. Either path calls enqueue_pushable_task() to set
-rq->rt.overloaded and rto_mask if unset. Once set, every pull from another
-CPU that fires an IPI may only find migrate-disabled tasks rendering the IPI
-useless for a condition that was detectable when placed on the pushable list.
+> 
+>> Agents supposedly "are just tools", thus just as sparse, smatch and
+>> compilers such tools do not get another top-level directory.
+> 
+> I'm a bit confused by this... the original reasoning was the it doesn't really
+> fit into either Documentation/ , scripts/, or tools/, so we just gave it it's
 
-Stop adding migrate-disabled tasks to the pushable list if RT_PUSH_IPI is
-enabled. This is not a heuristic as migrate-disabled tasks cannot move. Even
-when migration is enabled, the rq still has no pushable candidates until the
-task schedules. The !RT_PUSH_IPI behaviour is preserved and migrate-disabled
-tasks are added to the pushable list. Without IPI, the alternative path in
-pull_rt_task() must find runqueues with off-CPU migrate-disabled tasks. It
-can then push the running task away allowing the migrate-disabled task
-to run.
+Oh, it can go to tools/, I don't mind.
 
-A test case creates a "victim" task with short work/sleep cycles allowed
-to run on CPU1 and CPU2 that optionally disables migration (md=1) while
-running.  A second task mostly does work pinned on CPU1 with short sleeps,
-a third task mostly sleeps on CPU2 so CPU2 pulls frequently.  The results are
+> own home. Why does it matter if it's a top-level dir or not?
 
-| Kernel (7.4-rc2)      |     CPU1-md=1 |   CPU2-md=1 |    CPU1-md=0 |    CPU2-md=0 |
-|-----------------------|---------------|-------------|--------------|--------------|
-| vanilla-rt-push-ipi   | 41474.7 ±0.1% |           0 | 4784.4 ±0.2% |   85.0 ±9.9% |
-| patch-rt-push-ipi     |             0 | 0.3 ±380.6% | 4792.1 ±0.3% |  87.1 ±10.8% |
-| patch-no-rt-push-ipi  |             0 |           0 |            0 |            0 |
-(RT push IPIs per CPU per 5 s interval, mean ±CoV over 30 intervals,
- md=1 means the "victim" with cpumask for CPUs 1-2 disables migration)
+Because we do not need one more top-level directory for something which
+is already categorized. We do not create another top-level for
+"drivers-embedded" or "drivers-acpi". We do not have "tools" and
+"tools-ai". Neither "Documentation" and
+"Documentation-for-ai-but-we-will-call-it-agents".
 
-The vanilla 7.4-rc2 kernel fired 40k+ IPIs every 5 seconds with
-low variance over 30 samples with a migrate-disabled task sitting on
-CPU1. Separate testing showed that the IPIs were not resulting in tasks
-moving and therefore spurious. The patch stops the spurious IPIs (second
-row). Disabling RT_PUSH_IPI also showed no IPIs but it was confirmed that
-tasks were still moved.
 
-Note that altering the RT class only is deliberate and deadline
-is left alone. The justification for RT is eliminating ineffective
-RT_PUSH_IPIs. Deadline is trickier -- it tries to push the task running
-on the rq that holds an off-CPU, migrate-disabled task, so that the
-migrate-disabled task can run there instead of waiting while another CPU
-runs later-deadline work. The cost of that push is bounded, unlike arbitrary
-IPIs, and justifiable because deadline ordering is otherwise violated.
+> 
+> It's something we can always move around later - agents don't care where it
+> lives as long as it's refered to by the main AGENTS.md, so if we later come to
+> the conclusion that it makes sense to move it, for example, under scripts/,
+> then we can easily do that.
 
-For deadline the same two decision sites exist, and any change must update
-both together.
+So place it deeper please.
 
-In the specific context of put_prev_task_dl(), the task is going off-CPU
-with migration disabled, so pushing the running task may take longer
-than letting the running task use its budget. The problem is that the
-time to migrate the running task can only be estimated but ignoring EDF
-requirements is a root-domain-wide violation of deadline principles.
-That is out of scope for this patch.
-
-In the specific context of enqueue_task_dl(), it could be justified on
-the basis that the task is only enqueued, not yet running. This is the
-same question as put_prev_task_dl() -- honour EDF ordering or ignore it.
-That is also out of scope for this patch.
-
-Updating deadline in a similar fashion is not justified by the RT IPI
-problem. It has different requirements that merit its own patch and
-separate justification.
-
-[ykaukab@suse.de: authored fix for spurious IPIs when RT_PUSH_IPI enabled]
-[mgorman@techsingularity.net: deadline, changelog, preserve !RT_PUSH_IPI]
-Signed-off-by: Yousaf Kaukab <ykaukab@suse.de>
-Signed-off-by: Mel Gorman <mgorman@techsingularity.net>
----
- kernel/sched/rt.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-index 1535046a23ff..bb640278d30e 100644
---- a/kernel/sched/rt.c
-+++ b/kernel/sched/rt.c
-@@ -396,6 +396,13 @@ static inline void rt_queue_pull_task(struct rq *rq)
- 
- static void enqueue_pushable_task(struct rq *rq, struct task_struct *p)
- {
-+	if (p->nr_cpus_allowed <= 1)
-+		return;
-+#ifdef HAVE_RT_PUSH_IPI
-+	if (sched_feat(RT_PUSH_IPI) && is_migration_disabled(p))
-+		return;
-+#endif
-+
- 	plist_del(&p->pushable_tasks, &rq->rt.pushable_tasks);
- 	plist_node_init(&p->pushable_tasks, p->prio);
- 	plist_add(&p->pushable_tasks, &rq->rt.pushable_tasks);
-@@ -1448,7 +1455,7 @@ enqueue_task_rt(struct rq *rq, struct task_struct *p, int flags)
- 	if (task_is_blocked(p))
- 		return;
- 
--	if (!task_current(rq, p) && p->nr_cpus_allowed > 1)
-+	if (!task_current(rq, p))
- 		enqueue_pushable_task(rq, p);
- }
- 
-@@ -1746,7 +1753,7 @@ static void put_prev_task_rt(struct rq *rq, struct task_struct *p, struct task_s
- 	 * The previous task needs to be made eligible for pushing
- 	 * if it is still active
- 	 */
--	if (on_rt_rq(&p->rt) && p->nr_cpus_allowed > 1)
-+	if (on_rt_rq(&p->rt))
- 		enqueue_pushable_task(rq, p);
- }
- 
--- 
-2.55.0
-
+Best regards,
+Krzysztof
