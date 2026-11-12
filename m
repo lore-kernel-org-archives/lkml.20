@@ -1,72 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794506732;
-	b=s7UML3Hhp5BWnoOtXRfm/Rylm8m0G1yNIYy8tscZ7cHVrl9LEhjEH/W3UwByfxaGJlDz
-	 7O2y6MVBNOv48zi7PBU1ZS1td6U99FEGMYdNk852j/+ieRQ4rF3x85nBPjDiVuW6yEmGG
-	 Hu8BVp5M+pDgGtnNAlYg5OvjcXR8D4savHwpIaW7tX9+ezESM3DPZCiEsLIg1X/h1Bjz3
-	 3WMk7WJeesmpTbyqk/wK4g1Yv+haoADBmMiZW9IgJLcI9L+nVBQl3bAAFtA2wDIHzISym
-	 PqYMySHUQuf6+pVuZW6e+UmhhpjuSblRhOk76qaJt6s0gayNiJ+GgZUqOqYzFKbzDMQ==
+	t=1794506867;
+	b=XowBLwjTo0FalorjkCvWFUom++6TeMuThlSU7r/7pgZHBFENMYE671hlcMe4j/MBUk46
+	 s3UC1QOOTNU+aIksALdbRVkF/YXJjAjVYQMs44FnprtvRl7tElMTybW0eLLHCADQAsGgi
+	 heXTl0ULgtBqnslJmtpcnX3BY46X209e0qDjPfzzU8rXLH/p5oSBhxW46AaNN2Wb+BeRi
+	 Zj1HIOwGmFbvEkhCmzvTVsVhVxrGKyf+7AVe4jBHy0Xyt5uC2DYnvDFilJl7CCJXF9ShS
+	 CU3NgcMsYMezpJqlLvxPEKPXERtFKtgVIczRieGsONDY0v/yRtgLSf1fYwRDo+z/o+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794506732;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=cG8SYyf7w3dlGbNaL5P0O22CIF0Qp5uX3wBmRgVBppY=;
-	b=eomSZpo+dFax9UUnfbEV9Ujl3Pm5zCF2w8XHduFBqVSA/bS4Ob1hb7aymhufl32bMM+E
-	 bhpuxWCuE4rlEGzc0MQo2qRb9UtXdI++K7Hg+sPaOFNgHx/ewWfT+unHUPdqpDC5I48Ns
-	 Ce19CgduzU21ZlB1xxBO3n1311TUIKh/3EHcmSj52iKaZnhRnwapF/97YnIihQ9oPIRDm
-	 RxDfOam5WqDTRvWkUm5jpwZ+BviD8EGy1xASHKyzI9ME1b9JKUbb1PvDlkOlKH4tk7BoN
-	 Wzp9X19mqr7Jq/iJWBe928bAYx3eFfJVJ96kt+oqbLIbH8SaLn9LPrEemL2F18QkoGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794506867;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=k1iKJ3ce6I7V1KzAt6ijmlB03GjSeH93EgIWrRWokzQ=;
+	b=PoJv7z2XPN0mRiYcUEj7WHJTESh53Oj9gnakUY8dSgENhdy0/ZpyJfL44mDaTFB5bu8f
+	 aMgv6x7crXmQymleVbdfdJpsRmNwyUrZSPPOp+5rd5a258sCTHEX6DMyOIV/krZWJ61z7
+	 kAkXLGCn8t+xFrdaMIYNtl5loBbQ0M/M0bBtrFU454//G9sHu6HpQVfrOXj8wfrquIFe8
+	 cl1U0FrdNmO+6D8Bi24fZFHby8R7GadP5jrgLEaMO6DVCLpxcqztRlCY3N1EMzKIDtEf0
+	 9O281My9d/XitMuoLvHtrrWnNvSh4Y7RpUJMEc8u1z1O4l+CkGkgn/VqBifAEc2DxMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=an6rnEFH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WSZWdqmJ;
+	arc=none smtp.remote-ip=209.85.215.182
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB13606A886;
-	Thu, 12 Nov 2026 18:05:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 500EA606A33D
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:07:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 500EA606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=an6rnEFH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 229B61F000C4;
-	Thu, 12 Nov 2026 18:05:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794506732;
-	bh=cG8SYyf7w3dlGbNaL5P0O22CIF0Qp5uX3wBmRgVBppY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=an6rnEFHIEQfMD7hb2IewvTV/EyagK+WFjhHhGs/7elOcrogcIsxGsV7IEc9I16wr
-	 cANtce9G2vgpUy5lhY17FNcwQneKEIcYIY+W5IJ0slGgd16Qk/Qh3Wvfb0zV4chVhc
-	 IWjf74UV4A1kTN4ldOCaeItZJzfYiJbdziIksaMS+AIHq/71swxVE3OezZ1iatBt1x
-	 mY6EFh67QqtG015uZu6gP3MiS82xe2OjWemIl7CKMV8h3i1bYCNpH9tYb/TROWIPLE
-	 piSdwUrsYtmEhsz/5LVnzo3yxJqT7rc1ZXvFCJsvQ/MIJ7Bb3Se55tS3K7ruw2DYyY
-	 auQZ8KPUL8o4Q==
-Date: Thu, 12 Nov 2026 18:05:20 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
-	James Houghton <jthoughton@google.com>, Andrea Arcangeli <aarcange@redhat.com>, 
-	Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, Andrei Vagin <avagin@gmail.com>, 
-	Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>, 
-	Muhammad Usama Anjum <usama.anjum@arm.com>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Chris Down <chris@chrisdown.name>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	=?utf-8?Q?Miko=C5=82aj?= Lenczewski <miko.lenczewski@arm.com>, Michal Hocko <mhocko@suse.com>, 
-	Mike Kravetz <mike.kravetz@oracle.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 01/12] userfaultfd: use anonymous memory for
- UFFDIO_ZEROPAGE on private file mappings
-Message-ID: <avX_qlthMqypxHm0@gremlin>
-References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
- <20261111-uffd-state-fixes-v1-1-00713d368976@columbia.edu>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WSZWdqmJ
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cdba1bbde0bso54371a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:07:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794506866; x=1795111666; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=k1iKJ3ce6I7V1KzAt6ijmlB03GjSeH93EgIWrRWokzQ=;
+        b=WSZWdqmJqh+OgDpd0veh5NM3ZyaOZ2OD+CYCh11RQq/LhbAg+F59TVE2w8HLbiP37J
+         AfTia6KAhVbRb3q5CFV5LOmYNMAQTDpEizJzAl+yYiIxvlcIsur+hL4XmOqbxN4Nrut5
+         TAFERQq9ERTYuSdV1fZrNdPArb5TYPyPVddgh92h5N1IBbrCf0ATn9y5vSDDGfTAJR+w
+         bG1hiauO5vPHMRNODgze/wKmPq5+m9DBT7Ch5CgS31kXkSIQbhBArKQDZUrVHryy0dQO
+         2rHE3pUWOrEnhxHsV8torug94foBqDARJ+gDNh+HlEse6Cn3+uOV9GU2wUtfHYSTqcLP
+         MGWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794506866; x=1795111666;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=k1iKJ3ce6I7V1KzAt6ijmlB03GjSeH93EgIWrRWokzQ=;
+        b=y+MxULHY3vHFpafoAUdoQZOULERncnmJC4bqZDzLxrFRoFiNilQ3TsVi5PiROCZsCI
+         zuQS9+onU1c4BpY59QIyJB0L9ZuwZZjbIgnzv+MxXGdRflVQ5ZHSp/izsj3jCGenZc+B
+         vEiJI9LgDdZOli8KzcwgKq3ZIDZ5V5r2Hsyn2SZKfdsvlbNhm6tO/4aGNEZonDAe0Txx
+         D/7OhHWVqL2QejD+9AvMeZPN+sgJOm7GSGCjOcRe1TrVgwDTiuGX9SOudKuSckbk22Dk
+         dLah6o0i8lnac0LFFDs5+t767pmzYxVSG62KPiNNzfh9w9M4uCerhPTbCu1dz4yxXtyl
+         wsMw==
+X-Forwarded-Encrypted: i=1; AL+hErGhVxQ3+sPG9+DD8JI3ITYBUHtMPvYwWyc3sNcWDjTvzsP0Fw12CEUyYRXSboyn2CjgyTFeHgUvuq7vO3I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8IP0OodlZVqDMLoVTP1OfLwgo6sNgYjqRkCEDlCJ36ftpbOXjE
+	J60wKt39TZ08Ud74Y9Vjy9qHovuaL3+f4IgXMPdHu47FYLd6gdciMuSH
+X-Gm-Gg: AYBFou2Lj2/7oUDrIytpmC4s0mK6tWuXaJvsBLN+N/1hMxTmi8dEjwxOWHDqBDAwoeF
+	vptnKg/uRgg+//AJRY6XP84YvJ6fW+ifvCWVD0WvOmMBOdSZhi72BEoAv4GiKqn9FB5AnkJ0/XH
+	zTNprAFd4zKxlrMgx1qPskqe5q+W0uNSER30byuyr/S60QE3KFfMpxlffUBcFe/jeQNIbvGxRZa
+	G5pVMx2EDzzOTArQBKLPSc1cdSq9G8BPcuvGNhPVGYmJ8Vpx0a9eu3lcGeR/nzIV+wXVMSRUeZb
+	VAu2eXSJHGxJIknNQhHLZRssmgXSloSWBdkaA7UlZ2yuTI5HPyA5UD3zhzO7U+u9XXobKzOGqQQ
+	8oulHrYJpfCJQMO457XGOHBFQqFceY3Ggk3OWmXMbrWzfn/+QoDXIoMvNcBQGsTXRpSrFSoii+m
+	ahZNp8PJ0QruZR2KGdvwpo5H9ES0kZWQdZEEGTpB3BWWm7j5Rnq0CevtkP8qCMNNsJhqLnzrWHj
+	EgOHZtmwh2+FHxdTH1i7hacrIGCQccSsk866GKz73lyOwfo33DD+AdKHzUYh3gCn2qZ3zlHDJCd
+	BJKbikMFgC7aw/ByyP9ijsFGePjas9qUQ6DBlgzjgG7GMyHumpFjgCJ8wVxSM1EhbdtsNdbtbP6
+	p3EM3T11VpxFJ3gN7oA/OV9ywzCC2J2oC7DZTZAwg+7oM6wwolC2veVTDCuBg0rnElvY+yUh6hR
+	TTd+z/qL0J5S+QymGHYL6ECyQ4isYjdqS8Moze68wP
+X-Received: by 2002:a17:90a:e387:b0:3b1:8380:a9a0 with SMTP id 98e67ed59e1d1-3b18380ac2fmr4732901a91.46.1794506866237;
+        Thu, 12 Nov 2026 10:07:46 -0800 (PST)
+Received: from sid-dev-env.cgrhrlrrq2nuffriizdlnb1x4b.xx.internal.cloudapp.net ([4.155.54.158])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b181f8fd59sm5540773a91.1.2026.11.12.10.07.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 10:07:45 -0800 (PST)
+From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>,
+	Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Yicong Yang <yangyicong@hisilicon.com>,
+	Zhou Wang <wangzhou1@hisilicon.com>,
+	Navneet Singh <navneetsingh@microsoft.com>,
+	apais@microsoft.com,
+	rlmenge@gmail.com,
+	hargar@linux.microsoft.com,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Subject: Re: [PATCH 1/2] KVM: arm64: Hide FEAT_LS64_ACCDATA from guests
+Date: Thu, 12 Nov 2026 18:07:41 +0000
+Message-ID: <20261112180741.17614-1-sidchintamaneni@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <040cf379-baba-4e3a-bf3d-6bc009a9e28d@app.fastmail.com>
+References: <20261023070110.1833446-1-fuad.tabba@linux.dev> <20261023070110.1833446-2-fuad.tabba@linux.dev> <86fqxwzul7.wl-maz@kernel.org> <CA+EHjTw08SZC_3Uodt6ew6vXVH-doW-8G41fVCF-rmaKsv+0fQ@mail.gmail.com> <86ecdgzp6m.wl-maz@kernel.org> <CA+EHjTy0jpY3sdVCENJRj_kfRDwbZ6TpkCAHQ2xUO-7ZuErpcA@mail.gmail.com> <ad724195-3452-495a-a50a-5e5c8093a483@app.fastmail.com> <CA+EHjTyLnAXanf9R7SuoL3gFZUNewX7QOnW=mc3qzwvaxg7jJg@mail.gmail.com> <040cf379-baba-4e3a-bf3d-6bc009a9e28d@app.fastmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,145 +119,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-uffd-state-fixes-v1-1-00713d368976@columbia.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 12:55:09PM -0500, Tal Zussman wrote:
-> If the mm cannot map the shared zero page, UFFDIO_ZEROPAGE falls back to
-> mfill_atomic_pte_zeroed_folio(), which allocates a zeroed folio and
-> installs it through vma_uffd_ops(), no matter what kind of mapping it
-> is. An s390 KVM guest with storage keys or protected virtualization is
-> such an mm.
+On Tue, Oct 27, 2026 at 02:48:29PM +0100, Arnd Bergmann wrote:
+> On Sat, Oct 24, 2026, at 09:14, Fuad Tabba wrote:
+> > On a host that runs at EL1 (nVHE or hVHE), this also requires
+> > __init_el2_fgt to set nACCDATA_EL1 in HFGRTR_EL2 and HFGWTR_EL2, and
+> > __init_el2_hcrx to set HCRX_EL2.EnAS0. Without them, the ACCDATA_EL1
+> > access traps to EL2 and the hypervisor panics, and so does ST64BV0
+> > once SCTLR_EL1.EnAS0 is set. Happy to write those and the KVM change
+> > once you're ready to post this.
 >
-> For a MAP_PRIVATE shmem mapping, that adds the zeroed folio to the page
-> cache of the file. That is wrong: a private mapping must never modify
-> the file it maps, and the file might even be mapped from a read-only fd.
->
-> The ioctl can also fail where it should succeed. A missing fault is only
-> delivered for a hole in the file, but UFFDIO_ZEROPAGE can be called on
-> an address that did not fault, or can race with a write to the file. If
-> the file has a page at that offset by then, inserting the zeroed folio
-> fails and the ioctl returns -EEXIST although nothing is mapped at the
-> destination address.
->
-> What we want is what UFFDIO_ZEROPAGE does on a private mapping when the
-> shared zero page can be used, and what UFFDIO_COPY does: only check that
-> nothing is mapped at the destination address, map zeroed memory there,
-> and leave the page cache alone. The zeroed folio path did that before it
-> was moved to vm_uffd_ops.
->
-> To fix it, pick the ops in the common folio path, as
-> mfill_atomic_pte_copy() did for UFFDIO_COPY: anon_uffd_ops for a private
-> mapping, the ops of the VMA otherwise. That makes
-> mfill_atomic_pte_copy() and mfill_atomic_pte_zeroed_folio() redundant,
-> so remove them and rename __mfill_atomic_pte() to
-> mfill_atomic_pte_folio().
->
-> UFFDIO_ZEROPAGE no longer modifies the file, and only fails with -EEXIST
-> if something is already mapped at the destination address.
->
-> Fixes: f74991b4e383 ("shmem, userfaultfd: implement shmem uffd operations using vm_uffd_ops")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+> Thanks for the offer, that part is definitely not my area.
 
-Looks sensible (also another cleanup in disguise which I like ;):
+Hi Arnd, Fuad,
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+We are preparing to post the Microsoft Smart Data Accelerator (SDA) VF
+dmaengine driver for Microsoft Cobalt SoCs, which uses IOMMU SVA with
+direct EL0 ST64BV0 portal submissions carrying the process PASID in
+ACCDATA_EL1.
 
-> ---
->  mm/userfaultfd.c | 46 ++++++++++++++++------------------------------
->  1 file changed, 16 insertions(+), 30 deletions(-)
->
-> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-> index d65184d9a480..61a712e1f9f5 100644
-> --- a/mm/userfaultfd.c
-> +++ b/mm/userfaultfd.c
-> @@ -531,15 +531,27 @@ static int mfill_copy_folio_retry(struct mfill_state *mfill_state,
->  	return 0;
->  }
->
-> -static int __mfill_atomic_pte(struct mfill_state *state,
-> -			      const struct vm_uffd_ops *ops)
-> +static int mfill_atomic_pte_folio(struct mfill_state *state)
->  {
-> +	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
->  	unsigned long dst_addr = state->dst_addr;
->  	unsigned long src_addr = state->src_addr;
->  	uffd_flags_t flags = state->flags;
->  	struct folio *folio;
->  	int ret;
->
-> +	/*
-> +	 * The normal page fault path for a MAP_PRIVATE mapping in a
-> +	 * file-backed VMA will invoke the fault, fill the hole in the file and
-> +	 * COW it right away. The result generates plain anonymous memory.
-> +	 * So when we are asked to fill a hole in a MAP_PRIVATE mapping, we'll
-> +	 * generate anonymous memory directly without actually filling the
-> +	 * hole. For the MAP_PRIVATE case the robustness check only happens in
-> +	 * the pagetable (to verify it's still none) and not in the page cache.
-> +	 */
-> +	if (!(state->vma->vm_flags & VM_SHARED))
-> +		ops = &anon_uffd_ops;
-> +
->  	if (!ops) {
->  		VM_WARN_ONCE(1, "UFFDIO_COPY for unsupported VMA");
->  		return -EOPNOTSUPP;
-> @@ -597,32 +609,6 @@ static int __mfill_atomic_pte(struct mfill_state *state,
->  	return ret;
->  }
->
-> -static int mfill_atomic_pte_copy(struct mfill_state *state)
-> -{
-> -	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
-> -
-> -	/*
-> -	 * The normal page fault path for a MAP_PRIVATE mapping in a
-> -	 * file-backed VMA will invoke the fault, fill the hole in the file and
-> -	 * COW it right away. The result generates plain anonymous memory.
-> -	 * So when we are asked to fill a hole in a MAP_PRIVATE mapping, we'll
-> -	 * generate anonymous memory directly without actually filling the
-> -	 * hole. For the MAP_PRIVATE case the robustness check only happens in
-> -	 * the pagetable (to verify it's still none) and not in the page cache.
-> -	 */
-> -	if (!(state->vma->vm_flags & VM_SHARED))
-> -		ops = &anon_uffd_ops;
-> -
-> -	return __mfill_atomic_pte(state, ops);
-> -}
-> -
-> -static int mfill_atomic_pte_zeroed_folio(struct mfill_state *state)
-> -{
-> -	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
-> -
-> -	return __mfill_atomic_pte(state, ops);
-> -}
-> -
->  static int mfill_atomic_pte_zeropage(struct mfill_state *state)
->  {
->  	struct vm_area_struct *dst_vma = state->vma;
-> @@ -634,7 +620,7 @@ static int mfill_atomic_pte_zeropage(struct mfill_state *state)
->
->  	if (mm_forbids_zeropage(dst_vma->vm_mm) ||
->  	    (dst_vma->vm_flags & VM_SHARED))
-> -		return mfill_atomic_pte_zeroed_folio(state);
-> +		return mfill_atomic_pte_folio(state);
->
->  	_dst_pte = pte_mkspecial(pfn_pte(zero_pfn(dst_addr),
->  					 dst_vma->vm_page_prot));
-> @@ -927,7 +913,7 @@ static __always_inline ssize_t mfill_atomic_pte(struct mfill_state *state)
->  	if (uffd_flags_mode_is(flags, MFILL_ATOMIC_POISON))
->  		return mfill_atomic_pte_poison(state);
->  	if (uffd_flags_mode_is(flags, MFILL_ATOMIC_COPY))
-> -		return mfill_atomic_pte_copy(state);
-> +		return mfill_atomic_pte_folio(state);
->  	if (uffd_flags_mode_is(flags, MFILL_ATOMIC_ZEROPAGE))
->  		return mfill_atomic_pte_zeropage(state);
->
->
-> --
-> 2.39.5
->
+Now that Fuad's KVM guest FEAT_LS64_ACCDATA series is queued, are you
+planning to post the host ST64BV0 SVA + EL2/KVM patches as a standalone
+series soon?
 
---
-Cheers, Lorenzo
+Either way, we have Cobalt hardware with FEAT_LS64_ACCDATA available and
+would be happy to test your patches on silicon, or help put together and
+carry any remaining pieces alongside our driver series if you prefer.
+
+Thanks,
+Siddharth
