@@ -1,90 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.90.104.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794477652;
-	b=iasRsRobioPQ90iZHw/SxaUo4z7eWKmUJnt72yqhDrUKmubgqp0dAnX9C3Xy85Cffce5
-	 3rUtiqMYQEU8xXo4AI8jAe5pnWzsUdWcSKn4sbiD081B+Yzp768M+mI4XgcMFrUp7WYNK
-	 uOLoly/Sp4mRKTajOv+XrTDDjpXvxvN39CZaTohULa7qBuCbmilVgC+UTrpG32tqu8JIW
-	 ad+lYyclm5GY1pecLAbQMXPldqGFWfbFvsHaU1c4BamYKNWV1mGafFysbdm47UIjQAtMm
-	 0OsCNSpzSHuJj8RSX9sLlIpH+frkN2zI0ApegDSX3CxEenEZEGGo+HRX91FW5whkx5Q==
+	t=1794477722;
+	b=w3nHsY1KdTxk71RAU2GpgWx97vBXlcMwftJwMpf8gfkFgMp/CHmlzu1H/67o5PhPER8L
+	 +iufyAhz4PGR6fS0JW3mA1nVhvzajBGHNHxYDQx0i0x/IgIdpZO4AwFJoP2OTmJ8Qq46l
+	 z8Q/coCRutggGupJXYHp3B02SPlZfsZYFwPRDde+w7VIYKtaufsMdJUnqTQw5DToXEPCq
+	 u5k5AQiYR1fs20xHxuJO2YW+yccylR7tzOPrCSY3qPYOcr39XoyS1u+djV0PfWbr2fbcW
+	 yNNlzzPB/I09tSsMBN8Cd6By4FQnIR1rSshAO/RPVXiP4462DS3NEQaZ1BDVTe3ueZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794477652;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=pZPruizCw8dZqJF6tmAQF+xof9USD+Yx7Epz9rMt5m8=;
-	b=GyOElY9ptMwfLa9cZA5cTjtq3xv54EfZB80sTUq7WVFeXL2HaqdZMWFsKoRjYR987b4H
-	 W0NC8g05l6AN1syqPtizqA3CQYztMwtq6Mj+NJNmPnA7y8K1YD16HCibTJdluZucFtRkJ
-	 9En7aKyq8p0RDE043fkMSgEZLYBJGPsQFgPc8HhwZQsyK58Rqlg0I8w7zSnGZ9c/gatwi
-	 rwn+zE6QD3+RHugiWsrncEX+4tVubUQ2Vta/iPEZSaLP48DCQ/kgxAUqkxAWv0GgMMlzQ
-	 1qbJYhTUeB58tOSpu1GukbelnCEfK2Q7CoM5AmU7JqOZaM16lHQfyVta9gCKj5xqbUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794477722;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:Received:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer;
+	bh=1FXEgYcxxXJgy5WPQEF/P/pK5xzBtD9gYmvBHS9U4mU=;
+	b=e3fp2wuFaI9aR3APAchD93DJBS51MBy4anbt5LPuvPyKjfYUrUYtpmG8JPYjYJY4OaOJ
+	 K6duj4/f3Xr+g2ZxVDuMjrZec0YXAgmczemu86daMPrVUUueRG5cJ6gesuF2kiJ9W00TG
+	 FZET9nNHwZ7DKIJwHgEmc2472gGFG3S6Rr+7VZRwplQ7H2UQmahoKseNl8nQi9FEEhhYg
+	 uXACCdSkMdb7XK1NkDOMlTRngILKpctR1FvOBWvXRx7JVe2UlcF6z+9X74YY9Fo7OwJvO
+	 wFws6/FM6WV54df9Y+HSAwNu85wHZ0o1rjZwkL1xSPDTDnRv2ZTIRs9/F2HoY0Exc4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=ZR1nyB6r;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0437E606A31C;
-	Thu, 12 Nov 2026 10:00:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0437E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=ZR1nyB6r
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=pZPruizCw8dZqJF6tmAQF+xof9USD+Yx7Epz9rMt5m8=; b=ZR1nyB6r0GiR5wJO5ZQipIuWrk
-	/rDZtxw0swz2Lrj1gaXASkQECt1bEWlYkQp00JBi5uCB5IpzKp42wcmx71jdE6waeJ7ZuqIJ/0ovo
-	/YSmXKn39YyPr0mm8gH/cEG6IZewx6che0vf17c2Pzyv/wYqCuvoCbAsgqjkr6qCnA9ZMPj8KtR3/
-	nLdY7OjfgNeUTSS7D+QlpyZq2j1dYmjBaC5czbHzmbSddRn4+RkjOUZoPWn7KMz72xujt95vtWFAX
-	DmwRO7m750WXn6qdKLtMgdyuKNlAU4VCSjWhzDBfTWnITMYsHSDlVz5x/orhvjZF/K4nqSR0gzyDI
-	W+jqPR1g==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRRbp-0000000AANe-1EMj;
-	Thu, 12 Nov 2026 10:00:45 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id A28F630066A; Thu, 12 Nov 2026 11:00:43 +0100 (CET)
-Date: Thu, 12 Nov 2026 11:00:43 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Mete Durlu <meted@linux.ibm.com>
-Cc: Shrikanth Hegde <sshegde@linux.ibm.com>, Yury Norov <ynorov@nvidia.com>,
-	Maxim Kuvyrkov <maxim.kuvyrkov@grdncc.com>,
-	Ingo Molnar <mingo@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Yury Norov <yury.norov@gmail.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Andrea Righi <arighi@nvidia.com>, Ben Segall <bsegall@google.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Heiko Carstens <hca@linux.ibm.com>, Johan Hovold <johan@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Mel Gorman <mgorman@suse.de>, Randy Dunlap <rdunlap@infradead.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Vasily Gorbik <gor@linux.ibm.com>, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-s390@vger.kernel.org
-Subject: Re: [PATCH 0/6] sched: Expose writable interface for preferred CPUs
- mask
-Message-ID: <20261112100043.GR2668200@noisy.programming.kicks-ass.net>
-References: <20261101192203.6979-1-ynorov@nvidia.com>
- <A2B09626-39F0-4EC3-B57D-CD83D77DD208@grdncc.com>
- <avTSC2r61uht9oFK@yury>
- <ef8dcbd9-61e9-467a-88da-3d159a5df9df@linux.ibm.com>
- <91823f62-57fe-44ad-9dab-ba91ba3d26d3@linux.ibm.com>
+	dmarc=pass header.from=mobileye.com;
+	spf=pass smtp.mailfrom=mobileye.com;
+	arc=none smtp.remote-ip=23.90.104.144
+Received: from esa1.hc555-34.eu.iphmx.com (esa1.hc555-34.eu.iphmx.com [23.90.104.144])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1AB97606A31C;
+	Thu, 12 Nov 2026 10:02:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AB97606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
+  t=1794477722; x=1826013722;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=mMjEjjNBNeQ3hphvJgHcDnn3rGQSMsTx89cdVFhbk/I=;
+  b=uq+Yd8xSUrtZbj4sz7D1Xp70Jk9h09KTiHuimHq5hX2aRt/i3a64ncFt
+   wDTxxXh4usabTds3lFnR/LDfiChaxL8U9wkiu65+7S25Swl0Kq7pShLw2
+   1DwMbdtlNbMI1cp1Clnred10bt84BvNcGAaTO3rPbHooEgSE20sc+MxQt
+   p1OnzPCjn6kHGZcotz8x25FLJ8fTqAKyKIlHgK0DNTb7W/gHTkA+O4aOJ
+   WOX4UjPjLlpf+ke+bYa1nIs8YGUoYc+YEUvltGPIqUu7Z9l41p3dCSzV6
+   VyiXyeMh1IUkChKtyqmgq/5avaDK6ACTpHq1FBs7e2ZqzYlb/7h2wEVaS
+   A==;
+X-CSE-ConnectionGUID: 282oaaNjRsSWk8RHbGxu9Q==
+X-CSE-MsgGUID: Zp/gv4PYSiqnf0PE5BH9ew==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from unknown (HELO ces03_data.me-corp.lan) ([146.255.191.134])
+  by esa1.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 12:01:59 +0200
+X-CSE-ConnectionGUID: tqG99rijSfOKtEoICM7JmA==
+X-CSE-MsgGUID: FJ0d8Z2lTPmSSo5/ZwY//Q==
+Received: from unknown (HELO epgd071.me-corp.lan) ([10.154.54.3])
+  by ces03_data.me-corp.lan with SMTP; 12 Nov 2026 12:09:55 +0200
+Received: by epgd071.me-corp.lan (sSMTP sendmail emulation); Thu, 12 Nov 2026 12:01:57 +0200
+From: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Subject: [PATCH v3 0/2] riscv: probes: reject probes inside an LR/SC
+ sequence
+Date: Thu, 12 Nov 2026 12:01:43 +0200
+Message-Id: <20261112-probes-in-lrsc-v3-0-a95089852a17@mobileye.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,21 +67,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <91823f62-57fe-44ad-9dab-ba91ba3d26d3@linux.ibm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAIeO9WoC/33NQQ6CMBAF0KuQrh1DC1Rw5T2MC9pOpQYoabGRE
+ O5uizsTnd1P/n+zEo/OoCfnbCUOg/HGjjEUh4zIrh3vCEbFTFjOOI0Hk7MCPZgReucllFIq5FL
+ osuAkjiaH2rx28Hr7ZP8UD5RzUlKjM362btk/Bpp6P/FAgUKpm0YpbCvN68tghelxwaO0A0l+Y
+ P8FBjkIVrFKnJBijV/Ctm1vFN9chAMBAAA=
+X-Change-ID: 20261111-probes-in-lrsc-4ccde6cbf436
+To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Guo Ren <guoren@kernel.org>, 
+ Pekka Enberg <penberg@kernel.org>, 
+ =?utf-8?q?Patrick_St=C3=A4hlin?= <me@packi.ch>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, 
+ Palmer Dabbelt <palmerdabbelt@google.com>, 
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+ Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.16.0
 
-On Thu, Nov 12, 2026 at 10:56:36AM +0100, Mete Durlu wrote:
-> > Did you mean pin to preferred CPUs? Why would anyone want to run their
-> > workload only on non-preferred CPUs? By definition, they are not meant to
-> > be used as much as possible. and It is benchmarking.
-> 
-> I think they want to prevent anything else *besides* their workload
-> from running on these CPUs by marking them non-preferred and then
-> pinning their workload there.
-> Sort of like like dynamically configurable isolated CPUs.
-> 
-> IMO this fits 1-1 with what Yury is describing with this patchset.
+Patch 1 fixes page fault reported by sashiko-bot@kernel.org that
+existed before this patch series
 
-That's what we have cpusets for. It can do configurable isolated CPUs
-just fine, in fact, it was made for that.
+Patch 2 rejects probes inside the LR/SC sequence. This commit was
+submitted as patch 1 of the series [1].
+Detaching it from that series with slightly edited commit message,
+because it is not depending on other stuff.
+
+[1] https://patch.msgid.link/20261110-lrsc-only-v6-0-bafc3cc0fcae@mobileye.com
+
+---
+Changes in v3:
+- Fix lr/sc loop detection logic for lr at probe position
+- Add "Fixes" trailers as suggested by sashiko-bot@kernel.org
+- Link to v2: https://patch.msgid.link/20261111-probes-in-lrsc-v2-0-b2525b7e1e8e@mobileye.com
+
+Changes in v2:
+- Allow kprobe on the LR itself unless it is part of the LR/SC loop.
+- Fix error (reported by sashiko-bot@kernel.org) where
+  arch_prepare_kprobe() returns -EILSEQ for LR/SC probes.
+  Make codes returned by arch_check_kprobe to indicate -EINVAL
+  if probe falls within the LR/SC loop, consistent with the case when
+  INSN_REJECTED returned by riscv_probe_decode_insn
+- add patch fixing out-of-bounds read in riscv_probe_decode_insn()
+  reported by sashiko-bot@kernel.org (as patch 1)
+- Link to v1: https://patch.msgid.link/20261111-probes-in-lrsc-v1-1-4f99ddea5f68@mobileye.com
+
+To: Paul Walmsley <pjw@kernel.org>
+To: Palmer Dabbelt <palmer@dabbelt.com>
+To: Albert Ou <aou@eecs.berkeley.edu>
+To: Alexandre Ghiti <alex@ghiti.fr>
+To: Masami Hiramatsu <mhiramat@kernel.org>
+To: Oleg Nesterov <oleg@redhat.com>
+To: Peter Zijlstra <peterz@infradead.org>
+To: Guo Ren <guoren@kernel.org>
+To: Pekka Enberg <penberg@kernel.org>
+To: Patrick Stählin <me@packi.ch>
+Cc: linux-riscv@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-trace-kernel@vger.kernel.org
+Cc: Palmer Dabbelt <palmerdabbelt@google.com>
+Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+
+---
+Vladimir Kondratiev (2):
+      riscv: kprobes: fix out-of-bounds read in riscv_probe_decode_insn
+      riscv: probes: reject probes inside an LR/SC sequence
+
+ arch/riscv/include/asm/insn.h          | 28 +++++++++++
+ arch/riscv/kernel/probes/decode-insn.c | 91 ++++++++++++++++++++++++++++++++++
+ arch/riscv/kernel/probes/decode-insn.h |  7 +++
+ arch/riscv/kernel/probes/kprobes.c     | 29 +++++++----
+ arch/riscv/kernel/probes/uprobes.c     | 31 ++++++++++++
+ 5 files changed, 177 insertions(+), 9 deletions(-)
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261111-probes-in-lrsc-4ccde6cbf436
+
+Best regards,
+--  
+Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+
