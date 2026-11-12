@@ -1,71 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794470977;
-	b=naebTqLkt+3wvBeX3s9U1mRVgmq77fGhn09hKyNnWzHZ3Dgcc3bjFIySRPgrVUNJresH
-	 LCALqFEbfLlL6BfjiLTAEHr4jo5/cjSd6knSxheDvwknq8akUnrWksVAXh80R2avApsiW
-	 PISEDMD7V/SdRDAaGIhpXamfwmaAYw6n6si4XfxcZXGQpJo5zIZMwDrBR7uK/SbyxnERK
-	 lngg2ytYyh74R/sY3oBl2p9JIRT0p6wvBC3syNzThM5+sT1L0oiIl1mWkghRXS+KlLdsM
-	 PONdYOjwf3lCxBTWuyBYLOr6kd81vkG0H+fXNNGX0Ko21ig5O5lW35IStm29dbxmPhg==
+	t=1794470985;
+	b=cp3gqYBQDlj3h2tmLkDJtxSCuw1c4LTVJ4K3yLiQBDB51YyKhLj0mZt9rKctpFMhZ9Ds
+	 7ZXqveYTR8UZK3DuoJaouWsmgj2kUewk+mVZhCrnit/eDhv6sVgoLL2FhS3jouXcZhBZY
+	 KqgEABzgaUVa4ZxDPyLGsWVudoOVi3sVcR3m/6ZuysbFi4PZwdTeS9i84KPk8glaAZgFz
+	 OqtWT8ZCJOu0xFTyJPf71HBYAfunCIwQZ6p1w2Ysk1ljCApSVs3fMZn/sO7fo0YgL+jdR
+	 GB71nfwkjv+PAWNu3SzIuFDBCaFKYc+NBrpqMJ+6muywEqlc7rkZ5/eub7qRT+wjQLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794470977;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794470985;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=DjAl4XgOg1dS5z3yYb4d+Tk1gYH65D5OSWDssukR0vI=;
-	b=xs/W7LGZlVjI4fEpVoHC/LuClSQX3iu29ncp85thlMgJoOqrjRhD/yzFNLAdLq3QQi8T
-	 HewRxuZ9vpv4xO1mUkrUL22au9rBt6KwVld51k+ZubvnWda27cwxvl73x74uA1etQ04XY
-	 tZAc5pD1ncQh7La7iEBtIgNiP4NejRciXWUeUkJlHi7SJMTGO8bwA81CY9nhmFzWUou05
-	 dOC1ZfAwg/MX//SvK6xIUDL2ZpNXb5HIrjLerkQ7txMGz6g/+qxijbVNFCPjHRxqALs6b
-	 eMlo3lUWHXLHPrA87MegmLNzDYBSj3g9RDF92EVfG4z2i2hYHLxGt8BCp901rep8wyw==
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=BDpJwbTGNyEZBddgupUtTkbcG64c1MCzi1j9+WCer18=;
+	b=WwDpGQjcvvkCf5i6y8/0xSKGTh7FYQ3L09oP1i3fMfW01VRSw6CkKvSXBUsQ1GCZlM2/
+	 DDmOpIVBN+3D9gM+H3y45V1wpQjB2QGHPoFIkQPqCiwaD1WYBA7UTlrVAHELu8jpI+dBK
+	 qYpIFLrQvdmjdPcE5f0hnUYboRYz+e2Fct88cOicanRgWVcz0htvtqikLN2yl9Ilnv10g
+	 aBQwa2gTV9LC4QNVs3cvd872wrzcqi/TyB4JLL9Md1EP2vYXKXHUK7gAmrKsPX9Onlew0
+	 PrDMzvfz8mfoxkn62nnou+mOuWiql5JP4JIxKAaIMLdHGg3ylBIexpdpSNwBDSZJDFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=fh4UZyPm;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 189DB606A88D;
-	Thu, 12 Nov 2026 08:09:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 189DB606A88D
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=hafZY+Fv;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2AB38606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:09:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AB38606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=fh4UZyPm
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=hafZY+Fv
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=fh4UZyPmoEq0QF9EgZQer4kgYiI/sYLgAkO0qTryrvYcB3lyNuUCkN+N/XnpdSqHPYE9OoVtAuBs6
-	 KdBswuDForKH6WNa9V2RyBtSueD+6sTxCNN1+/SIUOijdg7q/VtJJqYXrvhmjFl3lgHDQxG4l1kX2F
-	 2O6hb8bhgd0XO6wk=
+	b=hafZY+FvAosdM8POEOzVNBnFIyide7+WcFpBt8+LF5wxY338Q9IgkWHPocT4ac1hDVsPeUdreRA8V
+	 hgWrkNVCd+W0NfCowEs2j8jUo4IVjT8yA4axBkG+lQdcKadnEHHjmqIIrf5TU2ddX3uyW37jQAsnuh
+	 n6lycU4i7x23taqU=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56af5743d197-dd8bd;
-	Thu, 12 Nov 2026 16:09:33 +0800 (CST)
-X-RM-TRANSID:2ee56af5743d197-dd8bd
+	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86af57444d65-7ffe8;
+	Thu, 12 Nov 2026 16:09:42 +0800 (CST)
+X-RM-TRANSID:2ee86af57444d65-7ffe8
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
-Received:from FHB-W5100250 (unknown[36.137.216.21])
-	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96af574366b3-f8c0c;
-	Thu, 12 Nov 2026 16:09:33 +0800 (CST)
-X-RM-TRANSID:2ee96af574366b3-f8c0c
-From: Gu Bin <gubin@cmss.chinamobile.com>
-To: acme@kernel.org,
-	namhyung@kernel.org
-Cc: peterz@infradead.org,
-	mingo@redhat.com,
-	mark.rutland@arm.com,
-	alexander.shishkin@linux.intel.com,
-	jolsa@redhat.com,
-	irogers@google.com,
-	adrian.hunter@intel.com,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] perf trace: propagate evsel__set_filter() error in trace__expand_filter()
-Date: Thu, 12 Nov 2026 16:09:21 +0800
-Message-ID: <20261112080924.2082-1-gubin@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+Received:from utest (unknown[223.108.79.97])
+	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86af57423fdb-f841b;
+	Thu, 12 Nov 2026 16:09:42 +0800 (CST)
+X-RM-TRANSID:2ee86af57423fdb-f841b
+From: Shunbo Shi <shishunbo@cmss.chinamobile.com>
+To: johan@kernel.org,
+	elder@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: greybus-dev@lists.linaro.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com
+Subject: [PATCH] greybus: verify the received message size covers the message header
+Date: Thu, 12 Nov 2026 08:09:06 +0000
+Message-ID: <20261112080906.33502-1-shishunbo@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261112071228.33017-1-shishunbo@cmss.chinamobile.com>
+References: <20261112071228.33017-1-shishunbo@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,53 +74,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-At the end of trace__expand_filter(), the return value of
-evsel__set_filter() is ignored. When the strdup() inside fails with
--ENOMEM, the function returns 0 anyway, leaving evsel->filter holding
-the unexpanded filter, which still contains the symbolic constants the
-loop meant to resolve. The failure then surfaces later and indirectly:
-evlist__apply_filters() passes the unexpanded string to the tracepoint
-filter parser, which rejects the symbolic name, so perf trace fails to
-start with a filter syntax error whose real cause is the missed
-allocation.
+In gb_connection_recv(), the size of the received data is checked
+against sizeof(struct gb_operation_msg_hdr) and against the message
+size encoded in the header (msg_size), but msg_size itself is never
+checked against the header size.
 
-Propagate the error so the -ENOMEM is reported at the source and the
-caller fails immediately.
+If a peer sends a message whose header claims a size smaller than
+the header itself (e.g. header.size == 3), the two existing checks
+both pass (size >= sizeof(header) and size >= msg_size), and the
+message is dispatched with the undersized msg_size.
 
-Fixes: 90df0249c2ea ("perf trace: Expand strings in filters to integers")
-Signed-off-by: Gu Bin <gubin@cmss.chinamobile.com>
+In gb_operation_create_incoming(), this leads to an unsigned
+integer underflow in:
+
+	request_size = size - sizeof(struct gb_operation_msg_hdr);
+
+The underflowed request_size then wraps back around in
+gb_operation_message_alloc():
+
+	message_size = payload_size + sizeof(*header);
+
+causing kzalloc() to allocate a buffer that is too small to hold
+the message header.  When the response is later prepared in
+gb_operation_response_alloc(), reading
+request_header->operation_id reads past the end of the undersized
+allocation, triggering a KASAN slab-out-of-bounds report.  When
+header.size is zero, kzalloc(0) returns ZERO_SIZE_PTR and the
+same read dereferences an invalid address.
+
+Verify msg_size >= sizeof(header) in gb_connection_recv() so that
+the "Caller has made sure we at least have a message header"
+assumption in gb_operation_create_incoming() actually holds.
+
+Fixes: d90c25b0a279 ("greybus: let operation layer examine incoming data")
+Reported-by: syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com
+Closes: https://syzbot.org/bug?extid=0b456664585fa81a47f6
+Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
 ---
- tools/perf/builtin-trace.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/greybus/operation.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Found by the sashiko review of the fix to the asprintf() failure path
-in the same function ([PATCH] perf trace: guard free(new_filter) to
-avoid double-free on OOM), which flagged the unchecked return value of
-evsel__set_filter() as a related pre-existing issue:
-
-  https://sashiko.dev/#/bug/linux-cbf4bb01-a981-47dc-b440-68e5c9c3e81c
-
-diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-index 4094141461f91..ce1a7352ea9dd 100644
---- a/tools/perf/builtin-trace.c
-+++ b/tools/perf/builtin-trace.c
-@@ -4704,9 +4704,13 @@ static int trace__expand_filter(struct trace *trace, struct evsel *evsel)
- 	}
- 
- 	if (new_filter != evsel->filter) {
-+		int err;
-+
- 		pr_debug("New filter for %s: %s\n", evsel->name, new_filter);
--		evsel__set_filter(evsel, new_filter);
-+		err = evsel__set_filter(evsel, new_filter);
- 		free(new_filter);
-+		if (err)
-+			return err;
- 	}
- 
- 	return 0;
+diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
+index 7e12ffb2dd60..da53c0e026f0 100644
+--- a/drivers/greybus/operation.c
++++ b/drivers/greybus/operation.c
+@@ -1047,6 +1047,13 @@ void gb_connection_recv(struct gb_connection *connection,
+ 	/* Use memcpy as data may be unaligned */
+ 	memcpy(&header, data, sizeof(header));
+ 	msg_size = le16_to_cpu(header.size);
++	if (msg_size < sizeof(header)) {
++		dev_err_ratelimited(dev,
++				    "%s: invalid message header size (%zu < %zu)\n",
++				    connection->name, msg_size,
++				    sizeof(header));
++		return;
++	}
+ 	if (size < msg_size) {
+ 		dev_err_ratelimited(dev,
+ 				    "%s: incomplete message 0x%04x of type 0x%02x received (%zu < %zu)\n",
 -- 
-2.50.1.windows.1
+2.53.0
 
 
 
