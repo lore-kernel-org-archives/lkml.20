@@ -1,68 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.181
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794507216;
-	b=fF0kR6vfrR2LltXMcsiOP11oypq/gMFK3MaYf7t/jeobXcEdqourjVd2/CfLW4tuBqAZ
-	 L3/GRryNrE/3YY9ShoXJOkqMlBE7/vZ+bm3XVO8qJZTdDa9ZnNBosxjDQkQUsfbDbUOHa
-	 GZtUP5o08kShBdj7iUdmtWJdVhJdgELPNUx85fGFX3p/2JA63b0Fu6ByBQM3MM9b0U675
-	 YyM1f8UO24cRMD/tSljJAVUxPTZizQ3DpcxMacKW8vxlp9lOpT+fu0ESEPp0TnFwEyl/x
-	 3pz70yl62wFWjsb9qqhumK59vEniDjKzlFObuXrLrwdkJtLdc8991nAWVkAzegSyVlQ==
+	t=1794507230;
+	b=p9kSAaOBuOO6IkADYcpsrU9neel7T8ObDBDiJH8HXQj2w+44xLHaztNHCdmOod8GLf0H
+	 lNNSmnXkVruFnckZOA6sZs/NAoJt/uxdYV10y1WDasFXL/q3nkMR3ZdhSu6jLieyTLsGR
+	 DZKeLQVMGmJoHcJohE+nSKw05AHXx1Re+JD4/9wMmt+OdYQ1wLhYUVzlWFLgN1tqk73sX
+	 3rEXFzZUfLdT78lY2KrVM5i8uHbjJLD3LBaQJyGWRDFWSPBXjenTXt8mZoEt8uvHWQQm6
+	 hO/15Srf8BlSmeiAvTdausYUHq/xCbSl0fHA40A+RNXnG29a9m3leZEQq5oXC7bRqNg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794507216;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=clfRlB1cKPI2P2RGkED2YiH8vFJqIWTsVXpS+apuAnA=;
-	b=h9vgYfl3vrS6m1bDnjwAo8A7O2aOe5tW+2gdtKBAIo8BhP7OyWlMSSIvHXBgksDNPD2g
-	 IZGgoWGFyD6jv40yBIUi9sDxnbfpMCM05xFZv+uW8G6WYXtaTlSX0FUz6ZSIJIyHJArBD
-	 lZtQkqeMqaXouKrHR30GQnd5IqSWKxXL7dkapiyX8p7wrHejJdaODW/KSsX6ye6YZmol1
-	 9eDJrJm40otdkDHHje2AEZ/shotZ90q0GZrszmG1Op/yRH1j8W5SAGIRRKzEL/PdioNW+
-	 ZOARH+Tu27KLDkpBr+MIXnR/lGMT6+CWMvCGGP86Z6+YkzWDxjb1WmyZlyy7ce8K6Iw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794507230;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=rZ6GJC7hEGwULDynH0oTCtdmn91ovRHlyRCH+X3ZTes=;
+	b=XlBIfzt9+GrC4xucD50twUxf/MCv1BTc1cFzl0Ib+r9Vh3+t7Bk/b7H3U1V4+PGNENhh
+	 LuHCgnE0OlOZgspC9abcMq/H/Pw0cMgjQjSJopwgFDOhtPO7ZNzsVFQ76wD+wr/+7rVJj
+	 39q/0yCM/lxZmwswjmBUCoNtltZtaDOwl1UdRvzSSC4Ib6L2wYOPps8txTp5gpkIg9FXb
+	 9mnSdbMj8gjG3t/w7SjwZu1LdNX4KkA5EyRlPCmAiTFJFfYwb/sOyFFmOX5CPdQsxMOoU
+	 ELxsP5xiBATu9mCTcpqlgqA61KspkdZdZ/8gRkTiwjkYf7pJtGnpzlwQZEPOHWkcbbg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=IJMMHEtB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="QAOT/jUa";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.181
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45CE0606A31C;
-	Thu, 12 Nov 2026 18:13:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45CE0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4583606A890
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:13:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4583606A890
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=IJMMHEtB
-ARC-Seal: i=1; a=rsa-sha256; t=1794507177; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=eizwPx8KVqV00PIVxZYvQsUep5t+8EKtabRxDIND0DYEhcTdqV0HEincZbZl4jMyBnWDjO57rBEGXvoYXfpbg3HkTs4y6MU3iU0lLetS7vbVCPntMyD2UUnEizAg/ai7VU+CeA0Cqf2SLFUnxSipoL8EBA0OITGlE+9p3F9t/eg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794507177; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=clfRlB1cKPI2P2RGkED2YiH8vFJqIWTsVXpS+apuAnA=; 
-	b=bb9NyM7Tl3qbVtWnGf6FW9HK1Qtn8fHMDmZktlw7AIiEOfmj67YsqR05Tk6oJZVJMnQyES9D69i4aEwPQAqcoeFvB1EQOh0wvZMUwo7NxvPCDbcvaxLqAZVMooYsBd/a05gvLdxRnD9kWK0VxBzP792EHRgzR2oqwK6Rp/lJ/oQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=IJMMHEtBUP+0yvSM2V2o1j1rmnCiI/A+0L+4VpnDZwkTRKGalkVUCBiFKXdmQBKo4DAvnpjhvfH77y584ccLS81lzuwjDkLqc64lOxFnGQ8Qg0c5W2dgVjU4mDnlASBqpHcgFxs6A16dMZ92lGcF5xKxtxssqeTgu4ywXByRD3s=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=clfRlB1cKPI2P2RGkED2YiH8vFJqIWTsVXpS+apuAnA=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794507176475603.4857356077931;
-	Thu, 12 Nov 2026 10:12:56 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id 97ADA180570; Thu, 12 Nov 2026 19:12:51 +0100 (CET)
-Date: Thu, 12 Nov 2026 19:12:51 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Leonard Lausen <leonard@lausen.nl>
-Cc: ulfh@kernel.org, heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, detlev.casanova@collabora.com, finley.xiao@rock-chips.com, 
-	zhangqing@rock-chips.com, inindev@gmail.com, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org, gahing@gahingwoo.com
-Subject: Re: [PATCH 1/2] pmdomain: rockchip: Manage the RK3576 GPU domain
- supply
-Message-ID: <avYBfa10mzLxG0Xe@venus>
-References: <20261019092417.391522-1-leonard@lausen.nl>
- <20261019092417.391522-2-leonard@lausen.nl>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QAOT/jUa
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-533202fe429so11931cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:13:49 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794507229; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iW6/EVx7mwRA1xMbJS4mkMkiCc4XW/N3F1xFtS4LRmIRH4uizNEhh8LGMcaDYOsyic
+         YaJQleKLhczKvyIqjrcUac5EgRlYIUOTSvYo2qs1gCsJ6wty9kY1K3f3bWVgakRzLeXh
+         RBXe0RGYmxnRyiqB8+YLXQePwAdxwAyww/5Km3WTFRN91rL5GvRZ677Ld2joGcWgdMFi
+         H92CTLg3JbZUaUmFhsEun/bvddkhPJHL75tmfzBaAnO4iLGm2ZLUdgCpICVSKxAHr6NM
+         HdQ5PymAN2HrhJytWGuPC/ONsexoGwWxKk8lQpZaXKygB7UH3hRVvjIik/uDHWBw11t4
+         Em5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rZ6GJC7hEGwULDynH0oTCtdmn91ovRHlyRCH+X3ZTes=;
+        fh=ihqDNMZrLspwU3P9wMiLA8DRy672C4DYCMwPDccfMJA=;
+        b=XuIGkHwRLKeKgWWkefyP3MTWxK8P4zNKbALPwd/NcaSC1kEvOE69kLhBECzUD3LCrd
+         O6VRdoWk8fhsgAinjM7gSOm+XvaAIKkRSv6cF51C+3uX2fxsOKWpkNKsJ2thOSO1GREM
+         J8mgIKZLDNQ9wWwWETZTbumjF6HosWB9haq/y60AhDoaivCMH8kfM/g6/cPLiSCHFTl+
+         XibXrT3NNDxpTRnBAMv1Pw4VL4bLcLHAyTNsUNY34oBcll6HlDV+BJ8Ro52MBQOB86Ry
+         Mmh/Q0UTjzkDJymZ13CkWvHJ3fdY6bSbwh/smAJEhvgcEvbCbDSIQAAyMLESt3Jh9FK1
+         /QjQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794507229; x=1795112029; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rZ6GJC7hEGwULDynH0oTCtdmn91ovRHlyRCH+X3ZTes=;
+        b=QAOT/jUa1ge+FjhwHcidPWqHm+YYo2QRnirCuBNYMGRauQmP4nWTzYMNyQy+u3k+zu
+         tKbYvx+UacipiubMSX2t0aNrINRm7JGqNgE4HnDn5ONmnfqtBlekoPiY6RyY8TJZdqB2
+         iMPSQi99rEXSAFVRN+O5374t02u1cDpUtC9gCdwxOQi1tDaoYnuxIHmFNDKqKWxTLKbS
+         yD/UvRB7ECUE0FZhxd0sv0OzKQeI5b7SSgNPE5jKeoEhoVTsDve8pyILpbnScp/cH0k9
+         e0x9cHDKovRAfsJLx0KDxuQYUQ4dTbRAqXvjFi+foSzaKIMiYm0P/fJ4606JrVpwnrVb
+         ZQxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794507229; x=1795112029;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rZ6GJC7hEGwULDynH0oTCtdmn91ovRHlyRCH+X3ZTes=;
+        b=texC0diVB5Fr8m6GizFsGJlf/RzbXxVC4YDYPNy8BZ5Ljz62SAgQeY1Mqy/DpvdSla
+         cm7s93c5AkalIdP1KRcYRqcU4t7vaEISJ252zoSbqw3a13AzdlD2K97ZPypKgSi1JarL
+         CSxlHGbJO6yAHYeZnzSOX9cjdxrfnBQuKredOmPJ5piW13DLV6Wf304D46M//KeqO75N
+         tGuyqS6otlrAyp0hIa1LNsApFcVJcHYjMy0Fo0/Bu4Bj+Gfn+pUddPKnnCdlP16MjW5O
+         i27aMs2fwk8CFW5dkhx/ASR0U+0eaH6wHFJja07tQzLXK4NY888XNLMsoTQzoUvqEocU
+         RdUQ==
+X-Forwarded-Encrypted: i=1; AL+hErFuJunQH/Ce/MPjGNlJC3if5CmgDc0HSpsiCZYdCvz9vYtLfRJlfVnJ19iplTzqKTnukNLa/Y4Dca062I8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Ti/sjcwSoObF/oqECHzf0z+zx1Z/19TAelaWhzkQ+4O1xkA2Z
+	cbWC4ZuDHGB32x2EieW2ogjaImoH4sC/mKjpsuhXJs4oVTlo5ZC8C4j9EORYFLj8CPvooZlGPKz
+	m8S4Wj6AzXu/6i7layI6Gau3vfmYNdTB9brDBAjKM
+X-Gm-Gg: AYBFou3atgm+ZY3kcg/kLbXUvNQ3zT8NRZkbItJLN/NTo44pIIpLKUKkt9WXz7jwKz6
+	r+owZ6Pb0ldvjvvIqjSt0cGLJM9Ft67lItc+ErnmVT+8ONL9+F7QPbArWZwoDeJy3ZTWamevTED
+	Pdi+pRn2qtCGkjMKxCvKKfq/0APuaYOexvxRLp+33V8up9EVzpR/muA9ehGZ7ncZMK6aQ1QpBPo
+	abqANK27XiMCklMHU8FP9i1kDmdjwPmHC+IbQv74ycW5fU5FY2LP2WdZCSlhkf+t/Ydpq64C/hm
+	sFYK0kcjN2zDEFCdlR9BukMv0lO0QKd+fRneRDmslbTem5ev+O7fKcPl7eygyF93TK3IPWvn6Rv
+	saAcECMwagOdkeo+R0E89vg06bZNVyG9cK9NV/xv2uic5cx4vhflg1PgcMlfb09KTVUQ=
+X-Received: by 2002:ac8:5c84:0:b0:534:d386:c3f1 with SMTP id
+ d75a77b69052e-5598d505571mr21838081cf.9.1794507227881; Thu, 12 Nov 2026
+ 10:13:47 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,220 +104,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3g4i4kdgz6zmtb4d"
-Content-Disposition: inline
-In-Reply-To: <20261019092417.391522-2-leonard@lausen.nl>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.497.36
-X-ZohoMailClient: External
-
-
---3g4i4kdgz6zmtb4d
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
+References: <20261104043006.1199857-2-irogers@google.com> <d94520950f855a1d5ac4b51975988b70185ba7da61836aa84b044b69e8104bbc@mail.kernel.org>
+In-Reply-To: <d94520950f855a1d5ac4b51975988b70185ba7da61836aa84b044b69e8104bbc@mail.kernel.org>
+From: Ian Rogers <irogers@google.com>
+Date: Thu, 12 Nov 2026 10:13:35 -0800
+X-Gm-Features: AclHuK_VHOAaoYtWAecnECui2dC3TEgW3VbUrZGpnHMy0F3WB50lMjG2hgO8I_c
+Message-ID: <CAP-5=fWekVEnxS_eSGsrCPM2XzoY=Z5fkYYK_dD6MGgxX3N2gg@mail.gmail.com>
+Subject: Re: [PATCH v3 1/4] tools build: Add explicitly sequenced -lzstd to
+ libbfd feature fallback
+To: bot+bpf-ci@kernel.org
+Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org, 
+	namhyung@kernel.org, jolsa@kernel.org, adrian.hunter@intel.com, 
+	qmo@kernel.org, jpoimboe@kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
+	eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org, 
+	yonghong.song@linux.dev, james.clark@linaro.org, leo.yan@arm.com, 
+	linux-perf-users@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, ast@kernel.org, martin.lau@kernel.org, 
+	mason@kernel.org, ihor.solodrai@linux.dev
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/2] pmdomain: rockchip: Manage the RK3576 GPU domain
- supply
-MIME-Version: 1.0
 
-Hi,
+On Tue, Nov 3, 2026 at 9:03=E2=80=AFPM <bot+bpf-ci@kernel.org> wrote:
+>
+> > tools build: Add explicitly sequenced -lzstd to libbfd feature fallback
+>
+> TL;DR: Possible build break at this commit: the libbfd -lzstd fallback is
+> removed but no consumer uses the new feature test yet, so perf may fail t=
+o
+> link and bpftool may lose JIT disassembly.
+>
+> > diff --git a/tools/build/feature/Makefile b/tools/build/feature/Makefil=
+e
+> > --- a/tools/build/feature/Makefile
+> > +++ b/tools/build/feature/Makefile
+>
+> [ ... ]
+>
+> > @@ -249,18 +250,21 @@ $(OUTPUT)test-python-module.bin:
+> >       $(BUILD) $(FLAGS_PYTHON_EMBED)
+> >
+> >  $(OUTPUT)test-libbfd.bin:
+> > -     $(BUILD_BFD) || $(BUILD_BFD) -lzstd
+> > +     $(BUILD_BFD)
+> >
+> >  $(OUTPUT)test-libbfd-threadsafe.bin:
+> > -     $(BUILD_BFD) || $(BUILD_BFD) -lzstd || $(BUILD_BFD) -liberty || $=
+(BUILD_BFD) -liberty -lz
+> > +     $(BUILD_BFD) || $(BUILD_BFD) -liberty || $(BUILD_BFD) -liberty -l=
+z || \
+> > +     $(BUILD_BFD) -liberty -lz -lzstd
+>
+> Can this leave perf and bpftool unable to link libbfd at this commit?
 
-On Mon, Oct 19, 2026 at 09:24:15AM +0000, Leonard Lausen wrote:
-> On the NanoPi M5, boot hangs during Panfrost initialization. Before this
-> fix, booting required blacklisting Panfrost on the kernel command line.
-> Loading Panfrost after boot reports a GPU power-domain acknowledgment
-> timeout:
->=20
->   failed to get ack on domain 'gpu', val=3D0x113ff
->=20
-> Add regulator support to the RK3576 domain descriptors and mark the GPU
-> domain as regulator-dependent. This lets the existing Rockchip
-> power-domain regulator handling manage the GPU domain supply.
->=20
-> A corresponding domain-supply property is needed in the board DT.
->=20
-> The regulator-capable descriptors are based on the regulator support in
-> Jiaxing Hu's pending RK3576 NPU enablement series, without its NPU settle
-> delay changes.
->=20
-> Link: https://lore.kernel.org/all/20260924102135.92217-10-gahing@gahingwo=
-o.com/
-> Fixes: cfee1b507758 ("pmdomain: rockchip: Add support for RK3576 SoC")
-> Signed-off-by: Leonard Lausen <leonard@lausen.nl>
+So the concern is that at this commit, not later in the series, a
+feature test for a libbfd built with zstd that previously failed to
+link in this feature test will now succeed, but the parent Makefile
+will not pass the -zstd flag and so break the build. This issue is
+fixed later in the series by adding the -lzstd. Will this impact
+anything? It will turn one broken build into a different kind of
+broken build. I can reengineer the series to maintain bisectability
+but this seems like a low priority issue to address.
+
+Thanks,
+Ian
+
+> Nothing here reads the new libbfd-liberty-z-zstd result.  Neither
+> tools/perf/Makefile.config nor tools/bpf/bpftool/Makefile calls
+> feature_check for it or has a branch that uses it.
+>
+> On a system where "-lbfd -ldl" fails but "-lbfd -ldl -lzstd" links, the
+> parent commit gave feature-libbfd=3D1 through the removed fallback.  Here
+> feature-libbfd, feature-libbfd-liberty and feature-libbfd-liberty-z are
+> all 0, while feature-libbfd-threadsafe is 1 through the new
+> "-liberty -lz -lzstd" fallback.
+>
+> With BUILD_NONDISTRO=3D1, perf's Makefile.config then passes the threadsa=
+fe
+> check but takes none of the EXTLIBS branches:
+>
+>   ifeq ($(feature-libbfd), 1)
+>     EXTLIBS +=3D -lbfd -lopcodes
+>   else ifeq ($(feature-libbfd-liberty), 1)
+>     EXTLIBS +=3D -lbfd -lopcodes -liberty
+>   else ifeq ($(feature-libbfd-liberty-z), 1)
+>     EXTLIBS +=3D -lbfd -lopcodes -liberty -lz
+>   endif
+>
+>   CFLAGS +=3D -DHAVE_LIBBFD_SUPPORT
+>
+> util/libbfd.o is still built, so the perf link can fail with undefined
+> references to bfd_openr(), bfd_check_format() and disassembler().  bpftoo=
+l
+> goes down the same chain, silently drops -lbfd and -DHAVE_LIBBFD_SUPPORT,
+> and loses JIT disassembly.
+>
+> The consumers are added later in the series:
+>
+>   6eb66acc776f ("perf build: Add explicitly sequenced -lzstd to libbfd
+>   feature fallback")
+>   155513d3a59d ("bpftool: Add explicitly sequenced -lzstd to libbfd
+>   feature fallback")
+>
+> Would it be better to keep the old -lzstd fallback until those consumers
+> land, or to reorder or squash so that each commit remains buildable?
+>
+>
 > ---
-
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-Greetings,
-
--- Sebastian
-
->  drivers/pmdomain/rockchip/pm-domains.c | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
-ckchip/pm-domains.c
-> index e193f978d5f35..b41f9fcb62bfe 100644
-> --- a/drivers/pmdomain/rockchip/pm-domains.c
-> +++ b/drivers/pmdomain/rockchip/pm-domains.c
-> @@ -176,41 +176,42 @@ struct rockchip_pmu {
->  	.mem_offset =3D m_offset,				\
->  	.mem_status_mask =3D (m_status),			\
->  	.repair_status_mask =3D (r_status),		\
->  	.req_offset =3D r_offset,				\
->  	.req_w_mask =3D (req) << 16,			\
->  	.req_mask =3D (req),				\
->  	.idle_mask =3D (idle),				\
->  	.ack_mask =3D (ack),				\
->  	.active_wakeup =3D wakeup,			\
->  	.need_regulator =3D regulator,			\
->  }
-> =20
-> -#define DOMAIN_M_O_R_G(_name, p_offset, pwr, status, m_offset, m_status,=
- r_status, r_offset, req, idle, ack, g_mask, wakeup)	\
-> +#define DOMAIN_M_O_R_G(_name, p_offset, pwr, status, m_offset, m_status,=
- r_status, r_offset, req, idle, ack, g_mask, wakeup, regulator)	\
->  {							\
->  	.name =3D _name,					\
->  	.pwr_offset =3D p_offset,				\
->  	.pwr_w_mask =3D (pwr) << 16,			\
->  	.pwr_mask =3D (pwr),				\
->  	.status_mask =3D (status),			\
->  	.mem_offset =3D m_offset,				\
->  	.mem_status_mask =3D (m_status),			\
->  	.repair_status_mask =3D (r_status),		\
->  	.req_offset =3D r_offset,				\
->  	.req_w_mask =3D (req) << 16,			\
->  	.req_mask =3D (req),				\
->  	.idle_mask =3D (idle),				\
->  	.clk_ungate_mask =3D (g_mask),			\
->  	.ack_mask =3D (ack),				\
->  	.active_wakeup =3D wakeup,			\
-> +	.need_regulator =3D regulator,			\
->  }
-> =20
->  #define DOMAIN_M_R(_name, pwr, status, req, idle, ack, wakeup, regulator=
-)	\
->  {							\
->  	.name =3D _name,				\
->  	.pwr_w_mask =3D (pwr) << 16,			\
->  	.pwr_mask =3D (pwr),				\
->  	.status_mask =3D (status),			\
->  	.req_w_mask =3D (req) << 16,			\
->  	.req_mask =3D (req),				\
->  	.idle_mask =3D (idle),				\
->  	.ack_mask =3D (ack),				\
-> @@ -250,25 +251,28 @@ struct rockchip_pmu {
->  	DOMAIN(name, pwr, status, req, req, req, wakeup)
-> =20
->  #define DOMAIN_RK3528(name, pwr, req)		\
->  	DOMAIN_M(name, pwr, pwr, req, req, req, false)
-> =20
->  #define DOMAIN_RK3562(name, pwr, req, g_mask, mem, wakeup)		\
->  	DOMAIN_M_G_SD(name, pwr, pwr, req, req, req, g_mask, mem, wakeup, false)
-> =20
->  #define DOMAIN_RK3568(name, pwr, req, wakeup, regulator)		\
->  	DOMAIN_M_R(name, pwr, pwr, req, req, req, wakeup, regulator)
-> =20
->  #define DOMAIN_RK3576(name, p_offset, pwr, status, r_status, r_offset, r=
-eq, idle, g_mask, wakeup)	\
-> -	DOMAIN_M_O_R_G(name, p_offset, pwr, status, 0, r_status, r_status, r_of=
-fset, req, idle, idle, g_mask, wakeup)
-> +	DOMAIN_M_O_R_G(name, p_offset, pwr, status, 0, r_status, r_status, r_of=
-fset, req, idle, idle, g_mask, wakeup, false)
-> +
-> +#define DOMAIN_RK3576_R(name, p_offset, pwr, status, r_status, r_offset,=
- req, idle, g_mask, wakeup)	\
-> +	DOMAIN_M_O_R_G(name, p_offset, pwr, status, 0, r_status, r_status, r_of=
-fset, req, idle, idle, g_mask, wakeup, true)
-> =20
->  /*
->   * Dynamic Memory Controller may need to coordinate with us -- see
->   * rockchip_pmu_block().
->   *
->   * dmc_pmu_mutex protects registration-time races, so DMC driver doesn't=
- try to
->   * block() while we're initializing the PMU.
->   */
->  static DEFINE_MUTEX(dmc_pmu_mutex);
->  static struct rockchip_pmu *dmc_pmu;
-> =20
->  /*
-> @@ -1323,25 +1327,25 @@ static const struct rockchip_domain_info rk3576_p=
-m_domains[] =3D {
->  	[RK3576_PD_VOP]		=3D DOMAIN_RK3576("vop",    0x0, BIT(11), 0,      BIT(=
-11), 0x0, 0x6000,  0x6000,  0x6000,  false),
->  	[RK3576_PD_VO1]		=3D DOMAIN_RK3576("vo1",    0x0, BIT(14), 0,      BIT(=
-14), 0x0, BIT(12), BIT(12), 0x7000,  false),
->  	[RK3576_PD_VO0]		=3D DOMAIN_RK3576("vo0",    0x0, BIT(15), 0,      BIT(=
-15), 0x0, BIT(11), BIT(11), 0x6800,  false),
->  	[RK3576_PD_USB]		=3D DOMAIN_RK3576("usb",    0x4, BIT(0),  0,      BIT(=
-16), 0x0, BIT(10), BIT(10), 0x6400,  true),
->  	[RK3576_PD_VI]		=3D DOMAIN_RK3576("vi",     0x4, BIT(1),  0,      BIT(1=
-7), 0x0, BIT(9),  BIT(9),  BIT(9),  false),
->  	[RK3576_PD_VEPU0]	=3D DOMAIN_RK3576("vepu0",  0x4, BIT(2),  0,      BIT=
-(18), 0x0, BIT(7),  BIT(7),  0x280,   false),
->  	[RK3576_PD_VEPU1]	=3D DOMAIN_RK3576("vepu1",  0x4, BIT(3),  0,      BIT=
-(19), 0x0, BIT(8),  BIT(8),  BIT(8),  false),
->  	[RK3576_PD_VDEC]	=3D DOMAIN_RK3576("vdec",   0x4, BIT(4),  0,      BIT(=
-20), 0x0, BIT(6),  BIT(6),  BIT(6),  false),
->  	[RK3576_PD_VPU]		=3D DOMAIN_RK3576("vpu",    0x4, BIT(5),  0,      BIT(=
-21), 0x0, BIT(5),  BIT(5),  BIT(5),  false),
->  	[RK3576_PD_NPUTOP]	=3D DOMAIN_RK3576("nputop", 0x4, BIT(6),  0,      BI=
-T(22), 0x0, 0x18,    0x18,    0x18,    false),
->  	[RK3576_PD_NPU0]	=3D DOMAIN_RK3576("npu0",   0x4, BIT(7),  0,      BIT(=
-23), 0x0, BIT(1),  BIT(1),  0x1a,    false),
->  	[RK3576_PD_NPU1]	=3D DOMAIN_RK3576("npu1",   0x4, BIT(8),  0,      BIT(=
-24), 0x0, BIT(2),  BIT(2),  0x1c,    false),
-> -	[RK3576_PD_GPU]		=3D DOMAIN_RK3576("gpu",    0x4, BIT(9),  0,      BIT(=
-25), 0x0, BIT(0),  BIT(0),  BIT(0),  false),
-> +	[RK3576_PD_GPU]		=3D DOMAIN_RK3576_R("gpu",  0x4, BIT(9),  0,      BIT(=
-25), 0x0, BIT(0),  BIT(0),  BIT(0),  false),
->  };
-> =20
->  static const struct rockchip_domain_info rk3588_pm_domains[] =3D {
->  	[RK3588_PD_GPU]		=3D DOMAIN_RK3588("gpu",     0x0, BIT(0),  0,       0x=
-0, 0,       BIT(1),  0x0, BIT(0),  BIT(0),  false, true),
->  	[RK3588_PD_NPU]		=3D DOMAIN_RK3588("npu",     0x0, BIT(1),  BIT(1),  0x=
-0, 0,       0,       0x0, 0,       0,       false, true),
->  	[RK3588_PD_VCODEC]	=3D DOMAIN_RK3588("vcodec",  0x0, BIT(2),  BIT(2),  =
-0x0, 0,       0,       0x0, 0,       0,       false, true),
->  	[RK3588_PD_NPUTOP]	=3D DOMAIN_RK3588("nputop",  0x0, BIT(3),  0,       =
-0x0, BIT(11), BIT(2),  0x0, BIT(1),  BIT(1),  false, false),
->  	[RK3588_PD_NPU1]	=3D DOMAIN_RK3588("npu1",    0x0, BIT(4),  0,       0x=
-0, BIT(12), BIT(3),  0x0, BIT(2),  BIT(2),  false, false),
->  	[RK3588_PD_NPU2]	=3D DOMAIN_RK3588("npu2",    0x0, BIT(5),  0,       0x=
-0, BIT(13), BIT(4),  0x0, BIT(3),  BIT(3),  false, false),
->  	[RK3588_PD_VENC0]	=3D DOMAIN_RK3588("venc0",   0x0, BIT(6),  0,       0=
-x0, BIT(14), BIT(5),  0x0, BIT(4),  BIT(4),  false, false),
->  	[RK3588_PD_VENC1]	=3D DOMAIN_RK3588("venc1",   0x0, BIT(7),  0,       0=
-x0, BIT(15), BIT(6),  0x0, BIT(5),  BIT(5),  false, false),
->  	[RK3588_PD_RKVDEC0]	=3D DOMAIN_RK3588("rkvdec0", 0x0, BIT(8),  0,      =
- 0x0, BIT(16), BIT(7),  0x0, BIT(6),  BIT(6),  false, false),
-> --=20
-> 2.47.3
->=20
->=20
-
---3g4i4kdgz6zmtb4d
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmr2AZ8ACgkQ2O7X88g7
-+pqTGg/+IA/3t+nqg2axgiSAxUzY6beCjQNBUt8Uqeat0ODWUyGsy0oj/YRLr1WY
-cb1ByCT+vYvwI4TARthWw9G4F51pdEndZ92BKDE3Nk79a+YIcNnfyWHpUkG8mi+1
-N91UDLzcJGjpp+jkkpOeVsoqQdpmdioXAjVW/bYrAEg4ee4Mbr/xe+jwxl+Sr+dt
-0lRY0zDTnFVZiepgumS99iyBMNnon3vtyQAZzi/CoQ6I0F0vwN6GQYm9PdOiOxtj
-nLLnRSNIuT2S0DpcK1Jev0ABWRbbXRR1fieyKLbHDpHLXiQ6yk+8XHPM9f/zLVgq
-z7CPhHCkIGGX25J4TRxcrtXffezrfMcexe8yFLnV1UWStl7GLvTdgTPt96Eol44U
-wZ6DJxRhohwK07cj+Q6t0X5KSDuGLkjh2SAKd5KfbqJaJpkKKNYN7YU1tDRkhUDT
-2ZyKJNxI8Osbnv8QiE45SIVGTKEjsbna2aWWyJc0VgFDyX2vog4gf1bDy0k8Bygc
-SlkNyfck39DpLwO/xJ7YJPAVsSv8c+YJJxOBLeRuzsxpX2R63sOaVN5ji07j2gME
-nLuuVb7x7HL1kJUqISSvj6e9bb3L5daMS6K2f+kbXenoYI8MMV3rkPsCmB9wLDG0
-V90g8tcYmGmi5Eu9olMlkYkMNVD2DD5ULjbJ//qZK+bako4VG4o=
-=Ajkk
------END PGP SIGNATURE-----
-
---3g4i4kdgz6zmtb4d--
+> AI reviewed your patch. Please fix the bug or email reply why it's not a =
+bug.
+> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/READM=
+E.md
+>
+> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/417749=
+22004
