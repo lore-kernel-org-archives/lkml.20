@@ -1,58 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794469007;
-	b=LRhx+kVGYdhB9WLE6DBafS+fYbYbT5a62/ewFBML95jUbsVSVIfTZMUg2F/f9S4OTpIJ
-	 gCzvn9JFma6XTBfqMJGP3zf9LVNESXf9CBFya35gi+9EbrcBW5XPLsceWX/oepMAcRuTm
-	 ps/Hq5CSpe/+VZT+2QyK4wahUk4eWwUfyDw7CfZ3AUq6p8Gsn2uJcapvPw3RNah0vdIMW
-	 GLPq5DDTYy5nyZpxFnWfkC1+xkdCTUNO/0YJEWfGIe92lck9KNJ0zNXYCAQH5yDjMaz2V
-	 /WcMwhI5oDBRHJlQuYCmn0DNapP7HgL86AMVSavLz5GrPKWABX58i2xnyiUEzANA2Xg==
+	t=1794469009;
+	b=CVV/8HT8tU9J6vWDPdzonCsmRzK25K0bC4U5uWmhAQAHje20C45Xrpp7MGHYGYGIW6kQ
+	 uPRw1yVWnYveRVwZZChNxpWojGEx8uW1/IYrONBIg/nLMQsXMiKGDr+7NiBTQOzaw/cy4
+	 IKFt/aVMbSzv5YB7RVcs04swv8IHlF7P9G34NMmH/lNkYHZGutsPfxyOV/ukQLWJ7T++j
+	 +fk8wmaLlbwXxETHbFr4T3cNq271QYHBrHjyLU4ZnGLts00XSiwg3QUPL5zJjKHISM2w2
+	 3PMSVmyPYMmVKl3/OACOSlB3lr9T1wjkOcaorRj0Km8dvNvrj5wRQhdDLQXfSu9viGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794469007;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794469009;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=QdF4wHPbtvFGvdwX9CW69DxGNZ9Q1N0LXe8g5lqSEBg=;
-	b=m818w1OzASio1FIrAgC6PZJlj3vwyGahjoxhZha8qj3E6MbYOM+9EhJGupGT26pdkS43
-	 O3cw3gCoYWP5js7UtilW6+dUIkQWyTGddZfYLQ5IZ6mzYYKN4bkaJVdztEPJfaRQI4n1W
-	 S2gkwz4jFcOotSkxNH6fM/uL8SlK/VxG67u78VP63M5o8MMDsswplqH7j3iII5ZeKo2mN
-	 1gAXzXaJBO78QKQ+ZeheWJ8QMDloSkRJx6T8cE2H+HDMtF6v5VjkX2yKkKWTPGyHKVsDq
-	 mZLySwGDycSAFyz3TTQQKaZ19tvTj1GlloLKtI5HqrNwNz5aHAyKJxjqYztsA00hMoQ==
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=w7i4mPEqWkPnR7/WFET/ZBgXt1DQ1x4fbHvdPQWGd3Q=;
+	b=y60X3QBOnHtjCdThdiPpcNyGo4+VsNCjFbCUj8A/Mt6+2tTmQXE/PEppmzqpBdjszC7i
+	 SWRIkoib1N8qqgunORMxyOEJ1XNFeMJyxdqS5GiqIaMK/wT0mXRMQokKFO+aFlLqijFS/
+	 reSJ8RQgtXByQsCSvxTEn+0ct1/1iUGUlUekltIja7JCWzLaYzdfJ86pWg1+mFIp6TgRF
+	 vDtf8rSdILpJBVvWOqPANVDKG5X0x68utV3UuUobXRd60sUQWm7UmghjPYQbK0isTQjt3
+	 7OM6oumAOgIzP+cb4WNXm3fOdpT9jS9/6Jz4MpQhqlkgOdUZ8YbCW4Y3eUM/KCTWqEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=l1sB565y;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=BxYdR38B;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A558F606A31C;
-	Thu, 12 Nov 2026 07:36:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A558F606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB2A606A336;
+	Thu, 12 Nov 2026 07:36:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AB2A606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=l1sB565y
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=BxYdR38B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Qd
-	F4wHPbtvFGvdwX9CW69DxGNZ9Q1N0LXe8g5lqSEBg=; b=l1sB565yoIYr7QY5gJ
-	fJT18fIr++LnJiHl4/UJV605mpHaF9TMHd7QobLBZ7gWdUA142o/3417AiPBbzwG
-	NwS2/aI7Eq/H45W2j/lBTVwSp4obODE0rHHN+M8ysCQk/+VE1YfY/j5QMvKtYDZr
-	qohjvKFC3wGqV2AwSKoYEouJA=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=w7
+	i4mPEqWkPnR7/WFET/ZBgXt1DQ1x4fbHvdPQWGd3Q=; b=BxYdR38BAZRJNkxMze
+	jORJ9OLdGt7XhuYI7Eb/p2y7HdDuPCdy4Le/Wa4luTdT0oeurBWRJYx7hA7jHvq0
+	+ekdtJGlQkwEIpZDt84pkM2oCGnr43qUDXOCnBu0IofsY/OxDTTRRFFJ/D8Timlf
+	3dBLPGYQ0MDWFAifAsRlB+OM8=
 Received: from localhost.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgCHaRhtbPVq_SySFA--.53017S2;
-	Thu, 12 Nov 2026 15:36:14 +0800 (CST)
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgCHaRhtbPVq_SySFA--.53017S3;
+	Thu, 12 Nov 2026 15:36:20 +0800 (CST)
 From: Qunqin Zhao <zhaoqunqin@163.com>
 To: bp@alien8.de
 Cc: tony.luck@intel.com,
 	linux-edac@vger.kernel.org,
 	chenhuacai@kernel.org,
 	zhaoqunqin@loongson.cn,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 0/4] EDAC/loongson: Improvements for Loongson EDAC driver
-Date: Thu, 12 Nov 2026 15:36:07 +0800
-Message-Id: <20261112073611.25770-1-zhaoqunqin@163.com>
+	linux-kernel@vger.kernel.org,
+	Huacai Chen <chenhuacai@loongson.cn>
+Subject: [PATCH v7 1/4] EDAC/loongson: Rename driver-local symbols
+Date: Thu, 12 Nov 2026 15:36:08 +0800
+Message-Id: <20261112073611.25770-2-zhaoqunqin@163.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20261112073611.25770-1-zhaoqunqin@163.com>
+References: <20261112073611.25770-1-zhaoqunqin@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,105 +67,137 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgCHaRhtbPVq_SySFA--.53017S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCrWfCFW7Gr15tFWUCF1rWFg_yoW5tFWDpF
-	W3Zan8Gr4ktr1Ika9aya4xC3Z8Ka95JwsrXFs7Z34rZr9xZw1UZ3ySkrWUuFnrAr4SyF1U
-	Xa40gFn3KF4DAa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UQYFtUUUUU=
-X-CM-SenderInfo: 52kd01pxqtx0i6rwjhhfrp/xtbC7g5OjWr1bG7iwQAA3d
+X-CM-TRANSID:PSgvCgCHaRhtbPVq_SySFA--.53017S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGw43uF4DCr1xXFy3JFWDurg_yoWrXw4fpF
+	13Aw4Y9r45Kr1jk393trZ8ZF1ay34Sq3sFqF47A3yI93s8Cw1UXFyfKa17ArZxAr95Kr47
+	Z3y8Kr48CF47CrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U_9N-UUUUU=
+X-CM-SenderInfo: 52kd01pxqtx0i6rwjhhfrp/xtbC7hRQj2r1bHTj-QAA38
 
 From: Qunqin Zhao <zhaoqunqin@loongson.cn>
 
-This series contains four patches for the Loongson EDAC driver:
+Remove the "edac_" prefix from driver-local definitions to keep the
+edac_ namespace reserved for EDAC core functions.
 
-Patch 1: Rename driver-local symbols to remove the "edac_" prefix.
+Rename edac_check(), edac_probe() and edac_remove() to
+loongson_check(), loongson_probe() and loongson_remove(), respectively,
+and rename struct loongson_edac_pvt, loongson_edac_driver and
+loongson_edac_acpi_match to loongson_pvt, loongson_driver and
+loongson_acpi_match, respectively. The shorter names are unambiguous
+since they are all file-local.
 
-Patch 2: Encode node and MC info into mc_idx so that on multi-node
-systems, sysfs entries uniquely identify each controller.
+Signed-off-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
+---
+ drivers/edac/loongson_edac.c | 32 ++++++++++++++++----------------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
 
-Patch 3: Get DIMM size from ACPI _DSM method instead of using hardcoded
-values, enabling correct display of memory size in sysfs.
-
-Patch 4: Add CS4-7 timeout filter for cross-node access on 3C6000
-multi-node systems to prevent false CE error reports.
-
-Changes in v7:
-
-- Encode the presence of the _DSD property into mc_idx.
-
-Changes in v6:
-
-- Rename check(), probe() and remove() to loongson_check(),
-  loongson_probe() and loongson_remove() respectively.
-
-Changes in v5:
-
-- Add a new preparatory patch (Patch 1) that removes the "edac_" prefix
-  from driver-local definitions: rename edac_check(), edac_probe() and
-  edac_remove() to check(), probe() and remove(), respectively, and
-  rename struct loongson_edac_pvt, loongson_edac_driver and
-  loongson_edac_acpi_match to loongson_pvt, loongson_driver and
-  loongson_acpi_match, respectively (Boris)
-- Reorder the variable declarations in probe() so that int ret is
-  declared last, following the EDAC tree reverse-fir-tree convention
-  (Boris)
-
-Changes in v4:
-
-- int mcs_per_node; -> u32 mcs_per_node;
-- int valid_cs_bits; -> u32 valid_cs_bits;
-Changes in v3:
-Patch 2 "Encode node and MC info into mc_idx":
-- Drop mc_idx_u32 temporary variable; pass &mci->mc_idx directly
-- Rename device property mc-per-node -> mcs-per-node
-
-Patch 3 "Get DIMM size from ACPI _DSM method":
-- Fix subject: get -> Get
-- No code changes
-
-Patch 4 "Add CS4-7 timeout filter for cross-node access":
-- No changes
-
-Changes in v2:
-
-Patch 2 "Encode node and MC info into mc_idx":
-- Use char other_detail[64] = {0} and drop the else branch
-- Put snprintf() on one line
-- Initialize mc_idx_valid = true and drop the else branch
-- Validate mc-per-node firmware property is non-zero to prevent
-  division by zero
-- Wrap pvt_init() function definition to satisfy 100-column limit
-
-Patch 3 "get DIMM size from ACPI _DSM method":
-- No changes; rebased on top of updated patch 2.
-
-Patch 4 "Add CS4-7 timeout filter for cross-node access":
-- Assign valid_cs_bits before calling read_ecc() in pvt_init() to
-  prevent using uninitialized data when establishing the baseline
-  error count
-- Add bounds check for valid_cs_bits < 64 to guard against undefined
-  behavior when shifting a 64-bit value by 64 bits
-- Rename device property valid_cs_bits -> valid-cs-bits to match
-  standard DT/ACPI _DSD hyphen convention
-
-v4: https://lore.kernel.org/all/20260902084827.2652-1-zhaoqunqin@loongson.cn/
-v3: https://lore.kernel.org/all/20260812064139.1231-1-zhaoqunqin@loongson.cn/
-v2: https://lore.kernel.org/all/20260805085414.1482-1-zhaoqunqin@loongson.cn/
-v1: https://lore.kernel.org/all/20260730063035.230686-1-zhaoqunqin@loongson.cn/
-
-Qunqin Zhao (2):
-  EDAC/loongson: Rename driver-local symbols
-  EDAC/loongson: Add CS4-7 timeout filter for cross-node access
-
-Wang Jinwei (2):
-  EDAC/loongson: Encode node and MC info into mc_idx
-  EDAC/loongson: Get DIMM size from ACPI _DSM method
-
- drivers/edac/loongson_edac.c | 112 +++++++++++++++++++++++++++--------
- 1 file changed, 88 insertions(+), 24 deletions(-)
-
-
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+diff --git a/drivers/edac/loongson_edac.c b/drivers/edac/loongson_edac.c
+index 3ed4d34a33..5dfa41e877 100644
+--- a/drivers/edac/loongson_edac.c
++++ b/drivers/edac/loongson_edac.c
+@@ -13,7 +13,7 @@
+ 
+ #define ECC_CS_COUNT_REG	0x18
+ 
+-struct loongson_edac_pvt {
++struct loongson_pvt {
+ 	void __iomem *ecc_base;
+ 
+ 	/*
+@@ -27,7 +27,7 @@ struct loongson_edac_pvt {
+ 
+ static int read_ecc(struct mem_ctl_info *mci)
+ {
+-	struct loongson_edac_pvt *pvt = mci->pvt_info;
++	struct loongson_pvt *pvt = mci->pvt_info;
+ 	u64 ecc;
+ 	int cs;
+ 
+@@ -41,9 +41,9 @@ static int read_ecc(struct mem_ctl_info *mci)
+ 	return cs;
+ }
+ 
+-static void edac_check(struct mem_ctl_info *mci)
++static void loongson_check(struct mem_ctl_info *mci)
+ {
+-	struct loongson_edac_pvt *pvt = mci->pvt_info;
++	struct loongson_pvt *pvt = mci->pvt_info;
+ 	int new, add;
+ 
+ 	new = read_ecc(mci);
+@@ -74,13 +74,13 @@ static void dimm_config_init(struct mem_ctl_info *mci)
+ 
+ static void pvt_init(struct mem_ctl_info *mci, void __iomem *vbase)
+ {
+-	struct loongson_edac_pvt *pvt = mci->pvt_info;
++	struct loongson_pvt *pvt = mci->pvt_info;
+ 
+ 	pvt->ecc_base = vbase;
+ 	pvt->last_ce_count = read_ecc(mci);
+ }
+ 
+-static int edac_probe(struct platform_device *pdev)
++static int loongson_probe(struct platform_device *pdev)
+ {
+ 	struct edac_mc_layer layers[2];
+ 	struct mem_ctl_info *mci;
+@@ -98,7 +98,7 @@ static int edac_probe(struct platform_device *pdev)
+ 	layers[1].size = 1;
+ 	layers[1].is_virt_csrow = true;
+ 	mci = edac_mc_alloc(0, ARRAY_SIZE(layers), layers,
+-			    sizeof(struct loongson_edac_pvt));
++			    sizeof(struct loongson_pvt));
+ 	if (mci == NULL)
+ 		return -ENOMEM;
+ 
+@@ -112,7 +112,7 @@ static int edac_probe(struct platform_device *pdev)
+ 	mci->ctl_page_to_phys = NULL;
+ 	mci->pdev = &pdev->dev;
+ 	mci->error_desc.grain = 8;
+-	mci->edac_check = edac_check;
++	mci->edac_check = loongson_check;
+ 
+ 	pvt_init(mci, vbase);
+ 	dimm_config_init(mci);
+@@ -128,7 +128,7 @@ static int edac_probe(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
+-static void edac_remove(struct platform_device *pdev)
++static void loongson_remove(struct platform_device *pdev)
+ {
+ 	struct mem_ctl_info *mci = edac_mc_del_mc(&pdev->dev);
+ 
+@@ -136,21 +136,21 @@ static void edac_remove(struct platform_device *pdev)
+ 		edac_mc_free(mci);
+ }
+ 
+-static const struct acpi_device_id loongson_edac_acpi_match[] = {
++static const struct acpi_device_id loongson_acpi_match[] = {
+ 	{ .id = "LOON0010" },
+ 	{ }
+ };
+-MODULE_DEVICE_TABLE(acpi, loongson_edac_acpi_match);
++MODULE_DEVICE_TABLE(acpi, loongson_acpi_match);
+ 
+-static struct platform_driver loongson_edac_driver = {
+-	.probe		= edac_probe,
+-	.remove		= edac_remove,
++static struct platform_driver loongson_driver = {
++	.probe		= loongson_probe,
++	.remove		= loongson_remove,
+ 	.driver		= {
+ 		.name	= "loongson-mc-edac",
+-		.acpi_match_table = loongson_edac_acpi_match,
++		.acpi_match_table = loongson_acpi_match,
+ 	},
+ };
+-module_platform_driver(loongson_edac_driver);
++module_platform_driver(loongson_driver);
+ 
+ MODULE_LICENSE("GPL");
+ MODULE_AUTHOR("Zhao Qunqin <zhaoqunqin@loongson.cn>");
 -- 
 2.47.2
 
