@@ -1,99 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794460736;
-	b=5YRvyB7Nm4jVneu+iTYLnOp29JmmAIvdiAi8HArQRYWQ5rMbkyIGPUNYmFd27wQ452e2
-	 ZsE3YrxRyjPOdUlQ9Fr/H697Nt8W/Usc4QwpQl6IVZhUkBYBQaLm+W+5jRi3OHTLi7oQN
-	 CDm16yUM0SuaLtGT/fwTUG90v0d5nZtrtkZmd5lI0MJ+2DCHmfBEiY0nD1CGJh827oZ5R
-	 ufCdlD4Jbfq4m8qLwdeUeQt1tAs+azSa3+CGKz7JqQ1bOuSvEV9gNWz/sEqRVKmzlxOMG
-	 TUl8cAE00LMB5uUCkr7rNyc6Za7Fhr2RrtWJuYWgR6U1SBhIyfWwVJYkgnOh8a+OPGw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794460736;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Reply-To:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=PeZmCzba2M5Jt4hjT2xigzRftMQa1cn3KQXiYi9CbsM=;
-	b=Fw0KWRZo0FEalvIp9/5yJ4N5A6J0ucbxqersqHk5fJFVJqpTlmUlkyC70twGdQq7bY8h
-	 T/dq/VogM7XvhuorBAXxIfqd3V/6IJTlUrpgnVxCXQznnWV9yXS2vLykQ74eUe+XWg8KZ
-	 ZgH6U2oXDVwMAOW2XVHNi9/vQewts+VfuGLA/atNbQnvY6Xn8sB1ukufPfhwRX1trfNXb
-	 e5jLsH0q5LD5S7lenTJuwWA3rGJCpuIgWpQHbdBkRdG0QwUHr8uXVm8oOD3tiw3J/nTOM
-	 0XUXHMD2YAfO4NW+pMBq8hZtlL+CsZs2Gvr7otu3ERi/zGcARBbJL2j8hes4mq1eOQw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=deeply.co.kr;
-	spf=pass smtp.mailfrom=deeply.co.kr;
-	dkim=pass header.d=deeply-co-kr.20260707.gappssmtp.com header.i=@deeply-co-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="c0u/NX8S";
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.26
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794460761;
+	b=1bKEzXnu1HDR03dW1dXIipVLEQCn00VlF3a5cpZSuBFMLAuLqR6bG/pNOcjTWf46P9/U
+	 3ZlI1a4nXM6Rvl2qOpJkk8d4lTWfd7DQ82m7nzM+rBMl1IbL+7MLVFhv/HPOqssh+SKDY
+	 y5KsFvC0sKxbr5z2WmscSxAeDKjWVsGC1FCHjtswvGTq8Ef52Y1oXMOjVn1su/JphYZ6A
+	 bhnxIaPfDRLffWzYbeTcdLrZSGA5AfdwESpJ/6T8HNw4vuIgJjnVV2JKI7ZGlS//ZOG6P
+	 ei4rqLt3mH3RA8AODz5sGpzA6/WgMlnq5Nqdi0QZQKtVknGSHtCTO19H8tUj11aAJUQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794460761;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=BgDFk+wFpCUYMJKscTNCyvy1oWEzgE8QndWz1VSD780=;
+	b=qYhsc7SYkcdX5OezJqi28KkSgVdW/pccwA6Bxt3MK+RlPU2UEyMCB0oZlckPpK4ruZKs
+	 oaePKNu2RpQFD8wAcwW0a1+O2ih/uQk5fiO6/J1pHW/We9XjRaphQitKBE1WOX8ECEU7e
+	 6lOeKe0J5IQjx3tg5p041lNfYP0HKf5Y1whdWxOqp7jfNrdU9SWzl6pruPwV+kVei+7+N
+	 ++JAkIZj9rQCdX6zspQdZJZ+RrHwNvWYyRt6UsYxq0YCrKPZVQzqFLXSqOKFHK5QY0srt
+	 SnQVdyhhcn+LRhdjbdRsegeE0QFJMS4BNFMciPlbAtSpnSE1hudMwWSfkvnE5JOUJBQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ZV1Ev34s;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.26
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012026.outbound.protection.outlook.com [52.101.43.26])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 287CD606A32D
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:18:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 287CD606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deeply.co.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deeply.co.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC5E606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:19:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EC5E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deeply-co-kr.20260707.gappssmtp.com header.i=@deeply-co-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=c0u/NX8S
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso8225635eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:18:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=deeply-co-kr.20260707.gappssmtp.com; s=20260707; t=1794460734; x=1795065534; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:reply-to:from:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=PeZmCzba2M5Jt4hjT2xigzRftMQa1cn3KQXiYi9CbsM=;
-        b=c0u/NX8SiRs8e1+N3Ad4VnS3ir7oMnQ2hHdX/cFoPNmEt79EEYN2ctR4xlJPe3O/qu
-         SVxqaVrxSKxOq2Dm4GmGG0hKbcri8SzGDmN1TMiPTFjFimgPeJ34b578EXgSWxIMLUKQ
-         GT6yLwCEkOJvg1D2rWyGuUYO8fhvPSUwQYGVlKDdYqJUyoXk0t4xhxeh383vW21dEDtZ
-         DBaSYlbMrJ9S7miRkyBelEynVNR90OjXXKEw8jwOmB35Z+ctVC0AUBU7VEvUTg17AbLn
-         1NhUy54sDw9QbrEjm9o1AuYSbEYN+wniDcZqDfcyEvRM28qcMT9xpnLgZlgweV/g4Tlr
-         md3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794460734; x=1795065534;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:reply-to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PeZmCzba2M5Jt4hjT2xigzRftMQa1cn3KQXiYi9CbsM=;
-        b=CygvpLn1iESMWHqa9/ZK453W0moCu10XmkbLiqd749sZksomKO+aJaSRMb97JFDomG
-         gfbUH+K1QVWM0YE4FdzuqYRWQHrzFc+IwGag5bHFZiEohyENdEj746pEPiXzCSOc02ZL
-         Ee/A1VLT58M1KalBhmF3O+19QfFuOYj/BTXCVRfBF0wUiXvprCJXaeQvj93+0wMj5fIh
-         Sr2jVWj97OpLfVIm0XANIaOO2aEefoOX2iFw5NPf84mXQIAg2gxWvsKVyDLOGLaSeQhX
-         eoMObWqvdBxaWBrlsRJ6PvePz8eLHVE1nMkuzmJg0dpqZU3wSF6nI6E/a7IcCmCidfx8
-         aHbQ==
-X-Forwarded-Encrypted: i=1; AL+hErGj3Y6vjVD7pHPi1/FiGJbUB00SAH8hpfR4YxiIyzGSqkTfwVgB12CHKuzHkVYlG2/zQI3T/EjqLkrQdeU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+zbKFH0i6VmZdcaX1YrA3u6tla3TkWS0gmxy9R7oLb783VzXn2
-	FcdwtQ/QtP7fDRVpImp8ryxmUdym+CfDZfZnE7g6HrFRcy8uUiE3nNv8R3BSQyYiUXc=
-X-Gm-Gg: AYBFou1OZ9luS7U0A/2+wkwLL/O9lA5MRaKNwDX/rKUiBT7A+4F+c7ALpg+no2EtZT1
-	FFP+LvbUNcTX3nWFkJf6zG1tfABA/46SQzgM8xnFl6HrFPqvtioBqXBWJQw2hTAzpBmgOXbHnV2
-	iqfpqMCJs+LjmAcTO7TUs58Ox7m6LXzoVHtmqPcWmDzjJE+3l4YthnqDmZSvEwL0cx8oYsoi34T
-	o18xIPJ8HfBqZcOsJhqt2qkRb+kWGFdICDxirNWAeALxV+2Q3zAgfeLEbBkw/NcLfBh07I2+Rxq
-	S+R+pdV4/pm1lKD6GcSvXNnDo0NmFIjiTU2HRBlHyLdzkvdN2PyvfK54cSVgS8/u2STrKQidU5V
-	ysfDuz5z7MQdhwX1aiNgVshtlcEp1lHw+61SBj5a2X9vqcSEapEE/yQNzegXUbEgqPGGre//8vg
-	LZRGwBCrO2u06MU4an7jefMy+1t3DWDiMJG7ww0HSTzDAD41RrV4S6197pIOpHahUX9/4ITp0j5
-	PUaVCtEAg6U1ZxOSR1UkWbdOEpVpz40qwPEoHYwtM8HqROR9sH/kjtBPQZ4I/cpd20Oa0FEF945
-	kb/VeIsYkZNbJ8FoL81hLCgMWOqLJuXzezt3hRAyk0pN8TxUZpaJeswLLDwZW6HwF115tbGvwM3
-	j4vrzDeaIGOR2VaYaf6leNjdDsONh1W5vj94UrT+kLkvsZB4=
-X-Received: by 2002:a05:701a:844d:20b0:163:c5eb:d42f with SMTP id a92af1059eb24-1b3c024ad18mr4159915c88.5.1794460733817;
-        Wed, 11 Nov 2026 21:18:53 -0800 (PST)
-Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([183.96.175.225])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b4b90csm19764527c88.14.2026.11.11.21.18.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 21:18:52 -0800 (PST)
-From: Joonho Lee <joon@deeply.co.kr>
-Reply-To: Joonho Lee <mynameisjune111@gmail.com>
-To: linux-sound@vger.kernel.org
-Cc: tiwai@suse.com, perex@perex.cz, anton.yakovlev@opensynergy.com,
- mst@redhat.com, virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
- corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
- linux-doc@vger.kernel.org, mynameisjune111@gmail.com
-Subject: [PATCH v28 14/17] docs: describe virtio-sound capture options
-Date: Thu, 12 Nov 2026 05:18:44 -0000
-Message-ID: <20261112043516.37010-15-mynameisjune111@gmail.com>
-In-Reply-To: <20261112043516.37010-1-mynameisjune111@gmail.com>
-References: <20261112043516.37010-1-mynameisjune111@gmail.com>
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ZV1Ev34s
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WHrUfTFtWgm7S6xL3akAVidFCpflfFNeiMT1WDGOkuU92Evj6lNgOVQWi2Slxq0gAVss6xPkXrB2F7wN6WibW9+UPlN7igPfkprcn3jewighySWgQh2BDDLXW/ka1IC1CCNeBghHIGJhUayILJdIxXUNVxGGABhidBK21s1xnq9GRlLqS2KK0VvykCigb+zH9FOYkhdY0/xL3MgNgAJBHNCbpWGL6AQK3YEU8SfdGbHZHoB3WjzMfPb734mObYSBFrzTJAfvhIEY/RIUVnnQ3/vmAhJnnkvHJBU2u4vyy8V54RywgF10TYCfONRJd5j8qvWeoUcdxNLj+oQVKKmcuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BgDFk+wFpCUYMJKscTNCyvy1oWEzgE8QndWz1VSD780=;
+ b=JQ76l+5rxxzgrVGKsS5PKKTSga9UR1HQXnph0u+aM5GEV4L5iNa0hGuRiMyKydMbJ4LUESK1+yWtQ35GfHPY9mC2hi2Ka9Rx1JSfnbkieCWh+tHWg933GsvPVzcsUqswkMZq6HhiRqClSR/Fq8UtBnMJJBcBBRDrEkfIL+9WEau7ovG1LqtwMyPDlSjkjlhfyeH5T0wMk3+OruZVkQMForzrgmrHovcfAmMx5/yb8hsb83C+jsMCDFLDcf2ruEi40sSV4kduQXZDoZx/cTXiOX1mzgRyreg5/kSg0fDFIaWe6uneNZWibIp1W/wNsqc5uUmgKjK9dX0fpL+DS2jxsg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BgDFk+wFpCUYMJKscTNCyvy1oWEzgE8QndWz1VSD780=;
+ b=ZV1Ev34sCs0P8oE/bZSsFDyo4qdJD/B15k15FbeTkp1kbtFhK1cKUT4bSN/4sc8i0ndS4oAAD2+//PYQk+mKFzRHrfcqlqMEQFKTgkpddZBtrTgnXR8zqoSMHbT7iLf8w63mQHoxM08brdNuBpEW1B7c4KP1jmG2RLcEZRR7p193s5hyrpktbZOg10AkyX5GWevlP2IZGS/68QfVJQCLH6HFs5jxR+dVoDapKvt3Hru7rfoBf/9CqgcDS23rfUiW6WUMoXwn6dyAN6uwKLfSTV7ypNkhOAGoXB/NN4guAOAJHPCMIHAJtK1BuxevBVP5GRDZJDBND4Rx51KZckXl4w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
+ 2026 05:19:14 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Thu, 12 Nov 2026
+ 05:19:13 +0000
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 12 Nov 2026 14:19:10 +0900
+Message-Id: <DMSZ8WDZHACY.1PFMVNJHFRDC8@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH 2/2] gpu: nova-core: gsp: cmdq: increase MSGQ_NUM_PAGES
+ to 64
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+References: <20261111-msgq-64-pages-v1-0-d8c56b6fdd6c@nvidia.com>
+ <20261111-msgq-64-pages-v1-2-d8c56b6fdd6c@nvidia.com>
+ <DMSGRDMGTD4J.30PUSSFQMZ4YO@nvidia.com>
+ <DMSUNELHV29J.3P27BLAEVKTAV@nvidia.com>
+In-Reply-To: <DMSUNELHV29J.3P27BLAEVKTAV@nvidia.com>
+X-ClientProxiedBy: OS3P286CA0077.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:201::20) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,88 +105,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DM4PR12MB6280:EE_
+X-MS-Office365-Filtering-Correlation-Id: 90456795-892a-4395-3cd8-08df407c7d72
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|10070799003|23010399003|376014|18002099003|22082099003|261009223027099003|3023799007|4143699003|261021123027099003|11063799006|10067099003|261102123227099003|261021135927099003|261028144727099003|261026121527099003|261022105027099003|261026140227099003|56012099006|261021121427099003;
+X-Microsoft-Antispam-Message-Info:
+	82YkbTJI3G9tSEDTFCcxdvrZ7WeR/uG4aR8q5mP36ymk3s2/m/tHnYurof6Ud1OdOISRaIV5JP3Fq3iXFYAgWFtgvNnB604FLyEG5kOdwzXEdpjcmNEldgK1V+NMpoZSNg9/cXxD6usrK8bYMhWIc2/DuPmGOEx7/4YVxsUSGdPpAIabpAL+P184r+LqiWrDErIYbYkY/m9IK5Bmtc94b3RIDliQRn9dUkB46tu/uOZVKbVioHcPf8fRV4h23mtHUYw+soJZ6Urq96IPKl6QLwL2fsrLn2pDNHDjBO5utY2wneHCwvkoQYatbTfOViRVjOidmaLR/Fd0ZA1VSrxtjBlJvxaQzB94r1SWguw73Q1mdu5d4G6fN2+21pCZo1IOBJRn2wbl4FUbjjQg6p+aINz9r+GfZAigXTmu1ePbUIPJehET5DLD7xx8ImTS5tINhYTJbjcOwEQEjWtM49nYBKuRRrQOyfkYiNEjykUu9RpFrO/iEkC9TONXqhHBkwmDYh+V//1kRszKorLlJ3fYpF00AT6FHesLbK+iIH6byUXsS/92xsMMe46x8lRZbhHR+mEJN+YgopL/YEpw00EUN/SNns8RuNWeYWo9yhCkdakr7KUElEmoEQvVimwcu8O5kqXnG8eHnF/8Si7Xuw7Cv0AX/i5iNd7tUeVC7l9Vz54=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(23010399003)(376014)(18002099003)(22082099003)(261009223027099003)(3023799007)(4143699003)(261021123027099003)(11063799006)(10067099003)(261102123227099003)(261021135927099003)(261028144727099003)(261026121527099003)(261022105027099003)(261026140227099003)(56012099006)(261021121427099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bGRCVk5QMWR1TWFwTmZMK09lSnRxbStGUHllQjdDTGh5WWRwNDczSlBwZEMx?=
+ =?utf-8?B?Mm9kd0tmYWVnSHhhN0I1QVEwSVc1VU1EVTJBVnkrZjdzTkJ1QUYzbGEwZGVG?=
+ =?utf-8?B?b0I4ZnhVdjZ1a245Y01adGQ4L2wxK2I1dGRVbVNRSUNoWGtDV1EwQ3ZjdEN3?=
+ =?utf-8?B?ZVZUQWl0TlBaOFY1eUczOElLbWVCTEJCNUppc1lwNURTMW50WEU2eXRXOUlz?=
+ =?utf-8?B?ZGlZdEZJM09aNGRyVHNOazdoWXZKaS8vajg4UFBjR3hXK0RQSVViTEdrTWdT?=
+ =?utf-8?B?a2l3VWo4c1hzaHBHczZNSkxrU3RqV1hmRXRXdWI3eEQ3WGRzTWY5R0NMTDlJ?=
+ =?utf-8?B?bjlaSi84SkpJZkNKT2JvTlJZNkFNVUFqN0pvT3Fud1BhWUQ0WVc5cENvRkt5?=
+ =?utf-8?B?NEpBVmtkMVNyeWJmYjBmOURzcE1GVFE5OUNVTkxWaHJzdEZlcjVXWk84R1Bx?=
+ =?utf-8?B?RzVSNUc2TEdQN1RlVTN3VW9vRDlNOEdFbkVYRElpRDhjOElBNEYxUkJYQ3VF?=
+ =?utf-8?B?bUR1SUJxVER2bjZQQWgyTXhKNWlrejZmQXBlWExKYXNJUkJJMkJNQ01kR3pr?=
+ =?utf-8?B?bTN2Z2lMZ3grTDBiUVQyaWFVcW9mK1ZacURHQkcreHFQNmdVQVZSdENIMVBX?=
+ =?utf-8?B?dHhPLytCTWxOaUIxck11Uit6YXRGejVrRVp6cGk4Qm9hWDE5R09OOU1scDRD?=
+ =?utf-8?B?aTUxbnk3cUtjcHIxZi9udy83ekJ5WldSRWVNdzZla3BJbENTUHhMSEE2YUFZ?=
+ =?utf-8?B?TDlJclhOcGs5Zm94MFFZY01nQTVRWkx4aG1kZSt5dlp3YVpScWJoM01WVDdq?=
+ =?utf-8?B?ZUpIbzFRVlBIOERqV09ZSUtyTlQ5a25SZDhLdStOMCtsOEF6eGNLcHlKUFRL?=
+ =?utf-8?B?cHRDbi92bHdxVDdTU3JrVVlpbkh1Mjd1OE16a1BUaFQxOEdxeGNVdldwa2ZN?=
+ =?utf-8?B?cXczU1hGUm5SUUsxTHZ1S3lMcFZud0IzYWJpUHlaelBQcFg1ejFnWHZ0Y201?=
+ =?utf-8?B?Rk5iTzVTRVVnN3NPNGhyUFZGQm5udEtpWExKUXBETHZ3NHZ3VndQSmVzWGRv?=
+ =?utf-8?B?enNISnFxZTlpcXNKOTFHQmlVZEpQTHhQSzlDQ1JnamNWVE5uMU94SHBKY3Y3?=
+ =?utf-8?B?a1FuNVpCZmxFNmwwL24rNkFqeTBZZm1HVGYrUmdBVFpLaHkxb2lheGNZT3ZZ?=
+ =?utf-8?B?NC9RMFcrcWJpR3lRbC9Td0FjOFBkOGdlb2x1b1NOc2VvdVp1blVXMWZ6ckdp?=
+ =?utf-8?B?b2x6aGcxRE1DUzAySEFqYnJ2NkVQdzFpMVA2NitrWDgremZteEZTMlU3REFB?=
+ =?utf-8?B?T0IvdmFWSlQ4UHJaNFZtdCtFbU9JL2QyTVU2M052My90WU1kMVFVNTZndFlL?=
+ =?utf-8?B?RC83K2dXbldyb2hud3FucXF6MWpCWWF1ckFGZDBuakNySWpNS2JKNEFaS2po?=
+ =?utf-8?B?TXYyUmcrb2tuY2ZTbmhDNTB2S0pLajlFWlBTaGFNQjFxMTFIcVBFNnExQkJU?=
+ =?utf-8?B?Ymlzc3lGbUd3RHVtL2o1eittWWNsdllrZWQvdDBjZDAwY1Qrb0k1UnJiUWl5?=
+ =?utf-8?B?VTY1Nkk3YlM0VmhuOUlsd0RVMFdpc2owUDFwT3RWd1JUSEhUMHVFSkR2cDhF?=
+ =?utf-8?B?V0lnTStiOFUwaEpLaDlaZmIrY1MyRDFTRUpkWHNqUU9QWGtJN0FVSE5DS3Jn?=
+ =?utf-8?B?WmFDaUNMWFFiSWYrQWF5b0Q2K1FKaVZFN2I2d01IZXY4NG9CYWViYVRGblFs?=
+ =?utf-8?B?aHo3WTZIYVpBMG5tOUNMclhuK1pmWGh6Smw2cEx5SEZYQWxPWHIyaERReERQ?=
+ =?utf-8?B?YkV4ckpVNlVOOGs0cllMUlBxZ28wWUpIUklKL0dUQWtJcnJ6Wi9oRFRtK2hi?=
+ =?utf-8?B?Zm1HQlNWNkhRT0dFTWZCQmdxOHZFRmhvM3g0enRJRUhWMVdzbGIxSENEODFy?=
+ =?utf-8?B?U0Q1NFRzL3h3UlBlNlNmUzVmOHludlA1NGtTemNWeXNZMFlKK0syTHRUTTNS?=
+ =?utf-8?B?NlkvdlFCTnJod2NYbS95cEE0WHgrTVE3cndvcnY0Y0swZ1ZWclVYbXdMOVYy?=
+ =?utf-8?B?Tlo0cEF2WGlzc3VEUk00SEhLMTdYTlZZZ2JWdXhRYkExckV4OHAwQVhCMkJL?=
+ =?utf-8?B?bFpSUG1KUGZlOG0zTlhkVXN4Tjh6NktnK1BLNVpkWTBibWpBUFl6SlJ5TWl3?=
+ =?utf-8?B?MkVwQzFPdUh4cEVicU5FSzVpeUoyYWRuMDJLTFdFMTBNNW84aWZhcXV5RFli?=
+ =?utf-8?B?akIyUGRhQ2lPb1IxK0NhRSt1cVhEMnVmdXI3WWNkUVBiR1Rpc21NVlVGK09X?=
+ =?utf-8?B?eFhuQ285S0VXcnpaMVBJMjlWSWRpSi8yOTN0eEU2WmU4ZEU0VVI2VkdaNnk2?=
+ =?utf-8?Q?cu3hiV0OfkkvP6YsoDHPS4Il+zFwCrDK4mqfhcTWh6fG+?=
+X-MS-Exchange-AntiSpam-MessageData-1: 7PCvmmfE0TUrYA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 90456795-892a-4395-3cd8-08df407c7d72
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 05:19:13.6953
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KkXH9j9Yoh6ORdd/dw2f6QqwZKDgsUdM7R4rfp7rH3LQIr1J/sasKzS7iZePRUsEkHbNWBW9ACKE0VTb9BdGqA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6280
 
-From: Joonho Lee <mynameisjune111@gmail.com>
+On Thu Nov 12, 2026 at 10:43 AM JST, Eliot Courtney wrote:
+> On Wed Nov 11, 2026 at 11:49 PM JST, Alexandre Courbot wrote:
+>> On Wed Nov 11, 2026 at 10:37 AM JST, Eliot Courtney wrote:
+>>> In the msgq v2 protocol, which the r000 firmware uses, the queue
+>>> pointers are kept in u32 registers and increase monotonically until the=
+y
+>>> wrap at 2^32.
+>>>
+>>> `MSGQ_NUM_PAGES` is currently 63 and does not divide 2^32. This means
+>>> that on msgq v2, the slot can jump backwards when the counters wrap.
+>>> For example:
+>>>
+>>>     (2^32 - 2) % 63 =3D=3D 2
+>>>     (2^32 - 1) % 63 =3D=3D 3
+>>>              0 % 63 =3D=3D 0    (slot 0 instead of slot 4)
+>>>
+>>> The writer can then overwrite slots before the reader has read them.
+>>>
+>>> Increase `MSGQ_NUM_PAGES` to 64 and check at compile time that
+>>> `MSGQ_NUM_PAGES` divides 2^32.
+>>
+>> Have we tested that this was also working on msgq v0?
+>
+> Yerp I tested boot on turing, ampere, ada, blackwell.
+>
+>>
+>>>
+>>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>>> ---
+>>>  drivers/gpu/nova-core/gsp/cmdq.rs | 10 +++++++++-
+>>>  1 file changed, 9 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/=
+gsp/cmdq.rs
+>>> index 33074bb53e8c..240ab42db557 100644
+>>> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+>>> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+>>> @@ -84,7 +84,15 @@ trait CommandElement {
+>>>  }
+>>> =20
+>>>  /// Number of GSP pages making the [`Msgq`].
+>>> -pub(crate) const MSGQ_NUM_PAGES: u32 =3D 0x3f;
+>>> +pub(crate) const MSGQ_NUM_PAGES: u32 =3D 64;
+>>> +
+>>> +// From version 2 of the msgq protocol, the queue pointers increase
+>>> +// monotonically in `u32` counters until they wrap. If `MSGQ_NUM_PAGES=
+` does not
+>>> +// divide `1 << 32`, then the slot, `counter % MSGQ_NUM_PAGES`, can ju=
+mp
+>>> +// backwards when wrapping, which could overwrite slots that still nee=
+d to be
+>>> +// read. So, require that the last counter value, `u32::MAX`, maps to =
+the last
+>>> +// slot.
+>>
+>> That's a pretty convoluted way to say the number of slots must be a
+>> power of 2 representable as a u32. :)
+>>
+>>> +static_assert!(u32::MAX % MSGQ_NUM_PAGES =3D=3D MSGQ_NUM_PAGES - 1);
+>>
+>> Same here, can't we use `MSGQ_NUM_PAGES.is_power_of_two()`?
+>
+> I actually had this originally but I think that this form expresses the
+> condition more directly. The condition/issue is what happens when you
+> wrap the counter - it should go to the next slot (which necessarily
+> needs to be zero since a wrapped counter is 0). So you want
+> MSGQ_NUM_PAGES to divide 2^32. So if you write
+> MSGQ_NUM_PAGES.is_power_of_two() you are implicitly relying on all
+> divisors being a power of two, which is an extra logical step.
+>
+> But in the end I don't really mind, so lmk wdyt.
 
-Document request-owned capture in the ALSA configuration guide. Describe
-`capture_packed_status` as default-off, reading a packed trailer after
-returned data while the fixed status scatterlist remains the default.
-Describe default-off `capture_pause_restart`: pause uses STOP and
-RELEASE, then resume uses PREPARE and START; disabled mode uses STOP and
-START while retaining the prepared stream.
+The current condition also involves an extra logical step. What you
+ideally would have tested is
 
-Note that on MMU systems request buffers are vmalloc-backed and
-page-rounded individually. They remain allocated from hw_params through
-hw_free, and capture data is copied into the ALSA ring.
+  (1 << 32).is_multiple_of(MSGQ_NUM_PAGES)
 
-Assisted-by: LLM
-Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
+... but as `u32::MAX + 1` is not representable using a u32, the one you
+chose is the closest one. It does takes some extra labor to understand
+what it intends to convey though.
 
----
-Documentation/admin-guide/kernel-parameters.txt |   14 +++++++++++++
- Documentation/sound/alsa-configuration.rst      |   25 +++++++++++++++++++++=
-++
- 2 files changed, 39 insertions(+)
+Trying to put myself into the shoes of someone looking at this code for
+the first time, this comment and the condition look a bit hard to chew.
+How about using a u64 to test the condition we actually want:
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/=
-admin-guide/kernel-parameters.txt
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -8344,6 +8344,20 @@
-=20
- 			Can be used multiple times for multiple devices.
-=20
-+	virtio_snd.capture_packed_status=3D [HW,ALSA]
-+			Read an explicitly enabled packed status trailer after
-+			the returned capture data. The fixed status scatterlist is
-+			used by default.
-+			Format: <bool>
-+			Default: false.
-+
-+	virtio_snd.capture_pause_restart=3D [HW,ALSA]
-+			Stop and release the stream when pausing capture. On
-+			resume, send PREPARE and START. If disabled, pause uses
-+			STOP and START while retaining the prepared stream.
-+			Format: <bool>
-+			Default: false.
-+
- 	vga=3D		[BOOT,X86-32] Select a particular video mode
- 			See Documentation/arch/x86/boot.rst and
- 			Documentation/admin-guide/svga.rst.
-diff --git a/Documentation/sound/alsa-configuration.rst b/Documentation/sound=
-/alsa-configuration.rst
---- a/Documentation/sound/alsa-configuration.rst
-+++ b/Documentation/sound/alsa-configuration.rst
-@@ -2537,6 +2537,31 @@
-=20
- This module supports multiple cards.
-=20
-+Module virtio-snd
-+-----------------
-+
-+Virtio-sound capture receives data into a separate request buffer for each
-+PCM period. The driver validates the responses and appends frame-aligned aud=
-io
-+to the ALSA ring in request order. Valid short responses are retained. Empty
-+responses are accepted only during bounded startup or for requests already in
-+flight at STOP or PAUSE.
-+
-+capture_packed_status
-+    Read an explicitly enabled packed status trailer after returned capture
-+    data. The fixed status scatterlist is used by default.
-+    (default =3D false)
-+
-+capture_pause_restart
-+    Stop and release capture on pause. Resume with PREPARE and START. When
-+    disabled, pause uses STOP and START while retaining the prepared stream.
-+    (default =3D false)
-+
-+On MMU systems, the request buffers are vmalloc-backed and page-rounded
-+individually. Allocator rounding can make total additional memory exceed the
-+ALSA ring size, especially with small periods. The request buffers remain
-+allocated from hw_params until hw_free.
-+Captured audio is copied from each request buffer into the ALSA ring.
-+
- Module snd-virtuoso
- -------------------
-=20
+  // The queue pointers are wrapping `u32` counters, and the slot is
+  // `counter % MSGQ_NUM_PAGES`. For slots to remain contiguous when a coun=
+ter
+  // wraps, `MSGQ_NUM_PAGES` must divide `1 << 32`.
+  static_assert!((1u64 << u32::BITS).is_multiple_of(cv!(MSGQ_NUM_PAGES)));
+
+(I have removed the mention the the msgq v2 detail - it is useful in the
+commit log, but becomes unneeded information in the code as it
+eventually will only support v2 anyway)
+
+WDYT?
