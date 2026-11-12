@@ -1,56 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.38
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794462430;
-	b=UN9/uhHHH+havqGVw1BLBoqOmyeeERF36kYMLCwSt1NoyOe7X45MKjE56HB/hGrZsFR3
-	 iKTNrKoRCMIm+eXHd1mJSSwed0/cQsNhdD4yDE3RGDDLThg2LQtcgMdAtlLGmcQ4ZW+Tl
-	 5fCM8jV4U912hojFpL5AIz75lyLkNUVUFRu/PUj8lRnnGcUkxVoctmoGNP2+JlE+aYO7N
-	 +XIjPAGRbKBw8fvQIHKUPf977/J5/gfqsnNgaZ/nJVvAqcFeBdGDZXwsa7p32qRtPQDUa
-	 EYelK3imuwMAlofimq1YIw4pWhV3njLfb9tIPn5ONkLhIlf/TzqdCtGVpb4jAxubLAA==
+	t=1794462535;
+	b=s3ePfps16zTOGQN0cWWJaBWfYIku/I3tOh/hJusBPwc9UrrQw8TXS+fD+jflolfDtiU0
+	 msi/VPRE+CU55mBAcmD72gzzS7hQuH4JPmdXeco5X1wNzw/Ity4D8EWB0mlaV5IRWs26C
+	 1vZBW3wkuQRQ9LNq58ohv+HaxueTZ+zVy5/MUeCEOV/8DIFiM1t/MleVdW8Sp+nf7mnTe
+	 UgUTDO/LS3Elmzlw6Zklg3Ijs9bS0H3PiAoTue/yBZ2XrYAecf6vFy73eJF3tUSTEm5Ns
+	 1OsppW/Esn5AFPT/PXWhDu7y1Ky2KqNnF1XERPSsTCWCG9cE7ckNxUzcbE5heT0naIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794462430;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer;
-	bh=f5zZSofPOE7pOeadwcOvAoWM5g2nJttE3jMN5ZTD1KM=;
-	b=tPh9y/i/zXDa3D8qIsEnlrvF3T8tmxv5fFqkwmy4IOR9fNt+bmDoSW9GXjSo6K9KcWdJ
-	 00R6zpNY7js3RREyvgyxXdXdK+/zNV6/au/qTCmjAAykSkPosUK8k0UatlEmnjFFDuWze
-	 Tj5qdFOPrzBBbvYL+9iYk1Yk/LQFwN8y5ahACvBUVR/mi0nZK4QN0I3DxLbipSz8VqqbZ
-	 cUQrY8H/ThEB++HndDlIJ+Qq9Y8NsWiif3J6Qrz2Ph9CGUB87LqD14moVBnGby+2enmOw
-	 cahAhqtmGUsnZ4dpl/Zo2rTrpznarvxULBW0HPXg2jBhXu6Zyvjxs0y+LxCmxanmObg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794462535;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:X-DetectorID-Processed:
+	 Content-Type;
+	bh=W7Ysid1cXg0p+/0+QsMK/kbJ2LSq7UefW1HWxAbpeBM=;
+	b=ZbiJmFBkWatz9Z9rnK+JkySG3Fp9ACrsryD9IgDSeXr25Mzn/NjuSy+eKjwcKNNFO2J6
+	 P2jhf2Tcgp38pe6rfUdxc3qeaQLLY/aqmZsJRuQ3XFNxeg0dOL38CPJGCafmgNOm5BsJ3
+	 uMw1DDFhNB9+Snp8hMKmpCTxo6Ul4v8vjJSZX2/zCrC5c0cwQbur8pMnVtaMXEZd6aHnx
+	 eQU9zIOWdNdTQvlemcUDLScrTU03+RBDJtnnU8ComNAtqzbnJ8H1Vft6H7bAbjUvwYVVd
+	 Oq/AxQ6V99sEod0XBt8Fj+pHslRu5SDG9b9lXGTIETKnpTIVCiAQeWWdud8hokOf/jA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=goivygNS;
-	arc=none smtp.remote-ip=91.218.175.38
-Received: from mta0.migadu.com (out-38.mta0.migadu.com [91.218.175.38])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="QecEl+c/";
+	arc=none smtp.remote-ip=209.85.210.227
+Received: from mail-pf1-f227.google.com (mail-pf1-f227.google.com [209.85.210.227])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBAD2606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:47:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBAD2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F99606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:48:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7F99606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=goivygNS
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Yc0v2vfQ0O7Xkps+Yu8K3w1Y6vmIMR7uOHhL3n0bXUY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794462426; v=1; x=1795067226;
- b=goivygNSyXEwoFusujkN+y4PjvFBczyVOWVYkNQ+cu4vcx5eR33089ezgBjje1JC/Wdv5KoX
- H8xYm5XRk0p2yOYEmxq0gpFtey0EbMZZSsOUygzEl6SoCO2nSyHvammUwPYmILaf21/TKCm9p+q
- dgtbQoJo+rf7tjT4WZNbf4uI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 7497ed603e4f674f;
-	Thu, 12 Nov 2026 05:47:06 +0000
-X-Mizu-Trace-ID: 7497ed603e4f674f
-X-Migadu-Flow: FLOW_OUT
-From: Hangbin Liu <hangbin.liu@linux.dev>
-Date: Thu, 12 Nov 2026 13:46:44 +0800
-Subject: [PATCH net v4] ipv6: ioam6: do not modify shared tuninfo
- eh.nexthdr
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=QecEl+c/
+Received: by mail-pf1-f227.google.com with SMTP id d2e1a72fcca58-8a60f90a924so1598654b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:48:54 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794462534; x=1795067334;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W7Ysid1cXg0p+/0+QsMK/kbJ2LSq7UefW1HWxAbpeBM=;
+        b=J1zvaHIvAQh18K5gh0xbwsgCsz+v+j5tACfARkvo4Hmdu9+L9YqZKLIXk+QumOgse4
+         TFywcdGPicOjuj8htEVi/wliPkTxE36FL5kvEAskXfO//wXwroZtIXMrNnrFLP0qAfjI
+         Q/5QvOZIv96SOBr5K5sN+kkvt5iCiK0EXz8uFE6DuZkCvxD9EipISgrArKlp+6iCjBWr
+         dNMFMggAjrK36Boq/8PrxckRRNdyzL/w+Tcn8HwRG2vnRKUyz/gI85brvzSpIiGbc85C
+         Osot2dr/nlBKY+pHfFsrgbNei3AWozdGJmjKp4sIaSvGIiv2jkzREp3bv+4EwGnDmJnH
+         f8xg==
+X-Forwarded-Encrypted: i=1; AL+hErGEd8X+NBx0U40Ls/ZEHQJjfe0pudJeoYi+dIm+xxo7fgADvnJCzllPjvi+cLLlXtkMo83ugpTkehWVuro=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+2D3GaxxYYazZ2BEZIQH7EH4KawQRlik2jvT/dlFejUYTHGkrl
+	0k7HwTpd3VxIo4FFOAKiWQzLNnyPtX1Z/6yJb+NyD+oU+AgCVjCVkZF2bOwJwZWsPxbDhLkeHrG
+	vS9Yfxu2tb+SerrwMZazkNZDkLda1c5O4xC9Iqrs2iA8RZ/zkTl5+BEkRFbG5DZo7ZYqf0OmZ8B
+	FO0xY3CDzDqaf9uQn97AFC6P+Ju1AbubZeLUu9oKfZD7MiyMykwHoWanrQTTUih3y63ad5esD2B
+	abTftn6v9CZB7FR
+X-Gm-Gg: AYBFou03/KPysO+TSpFfF+o01yHfuQDNhz+XKoSg7Milf8OtgfMbcMjCcdCtcLz/OGO
+	lzsovvujahdNIpGGGpQ0bfuMZ5Mu8d4qoBcpGLwCcyeRLgj4aiYggnFptDb5CX7P5Xz4u1JydQJ
+	s4AvRKfrXWLwygxfjFNsOnd7MXqhJLSJE7MgB0i/tMQTY/Xf9723SzREdHCmAgYscQel/hhD+Pw
+	gFb0eq18KnCu4yP5zrF5lH6vlVB+ca7w+73ye7NX0+Y/ajQUcHfN7xRICKCcaa2mCMlyZApgvNH
+	KkoEUWSyrY2cLcMPfAQZ1QZpzEzmjJGSxAcOCUGVNJ4SkRsgO4jeAOEpMTYQNs/kV6c4cRF1dvq
+	VYcxvB7e8JGjkAnTiBKnUnpTk9LHDlcg0IAtjFgjW+5LzFyW4KgsJe7nY2uN5Gy+I5gEsiWvW+0
+	sQ46ykBP0WguppnfM3FanYvBSJ/JQcowuM
+X-Received: by 2002:a17:90b:4ac2:b0:3ac:7449:40b4 with SMTP id 98e67ed59e1d1-3b182f2386cmr4589231a91.45.1794462533617;
+        Wed, 11 Nov 2026 21:48:53 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b197c125d0sm1148971a91.1.2026.11.11.21.48.52
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 11 Nov 2026 21:48:53 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-lj1-f200.google.com with SMTP id 38308e7fff4ca-3ab20dc2aceso2114021fa.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:48:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794462531; x=1795067331; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=W7Ysid1cXg0p+/0+QsMK/kbJ2LSq7UefW1HWxAbpeBM=;
+        b=QecEl+c/3/ecI0dT7ekwuCqeuc6E6MRsLCkvg8K+nM6oI6vx3OgYSrn8unKUFcMnsK
+         zvdEPjHcxeTse0gnwv/uETG16gN87WJEc+2zjv6CeF7QwokQH0oYN3CjOwiPTOY6YkDi
+         ltKjIm9QlmjW9cBn3AGUHRAqqK3Xkmv7HltIw=
+X-Forwarded-Encrypted: i=1; AL+hErGMO41nR/WHDQk9yb9tWfUwk3BqS1aj8L6972Dywp194iXnxtDNx8yXabutcf0wigL8Vf+Q0JQBRIAd9uY=@vger.kernel.org
+X-Received: by 2002:a2e:a98b:0:b0:3ab:1dcd:934c with SMTP id 38308e7fff4ca-3ae1bf10d93mr2744231fa.1.1794462531167;
+        Wed, 11 Nov 2026 21:48:51 -0800 (PST)
+X-Received: by 2002:a2e:a98b:0:b0:3ab:1dcd:934c with SMTP id
+ 38308e7fff4ca-3ae1bf10d93mr2744181fa.1.1794462530604; Wed, 11 Nov 2026
+ 21:48:50 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,138 +98,211 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-ipv6_ioam_lock-v4-1-89e3381be525@kylinos.cn>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XNTQ7CIBAF4KsY1mIYCk3rynsYYygOOv5AUyrRm
- N5drC7ULmfyvvceLGJHGNly9mAdJooUfD7UfMbswfg9ctrlm0khSwBRcGpTuaVgLttzsCdeahD
- SGq1qUbGM2g4d3cbCNfPYs837Ga/NEW3/qnrFDhT70N3H2QRj+LOg/hcScODKSWUVNDnSrE73M
- /kQF9aP7Ul+ez3xMvvKCTSFsMo5M/HFt68nvsjeVCXUutL1DvDHD8PwBOYRwP9EAQAA
-X-Change-ID: 20261103-ipv6_ioam_lock-65102ca54908
-To: Justin Iurman <justin.iurman@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>
-Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>, 
- Sashiko <netdev-bot+sashiko@kernel.org>
-X-Mailer: b4 0.16.0
+References: <cover.1794374897.git.zack.rusin@broadcom.com> <90467782be23b83fd3e9a6afe2f1d2149eaf9db9.1794374897.git.zack.rusin@broadcom.com>
+ <CALMp9eR2tm=RkNk_cYsYj0SZmcUBTfxpYiqtLbtCE4TJ4H6jzg@mail.gmail.com>
+In-Reply-To: <CALMp9eR2tm=RkNk_cYsYj0SZmcUBTfxpYiqtLbtCE4TJ4H6jzg@mail.gmail.com>
+From: Zack Rusin <zack.rusin@broadcom.com>
+Date: Thu, 12 Nov 2026 00:48:37 -0500
+X-Gm-Features: AclHuK8ZMoRLTwx7GdlQFNy0IhAHQdBDtS2QIwUSLiDD8CGm6dyYo5afDPhKYYI
+Message-ID: <CABQX2QNsMCke2vKuXarXbvVcC2H4FNq2=zNqrq2PO1Hv2cfSDA@mail.gmail.com>
+Subject: Re: [PATCH v3 06/12] KVM: x86: Forward VMware hypercalls to userspace
+To: Jim Mattson <jmattson@google.com>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	Doug Covelli <doug.covelli@broadcom.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
+	Shuah Khan <shuah@kernel.org>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	David Woodhouse <dwmw2@infradead.org>, Paul Durrant <paul@xen.org>, Xin Li <xin@zytor.com>, 
+	Francesco Lavra <flavra@baylibre.com>, =?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>, 
+	Liran Alon <liran.alon@oracle.com>, Arbel Moshe <arbel.moshe@oracle.com>, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="000000000000c0b28f06600ddd06"
 
-From: Hangbin Liu <liuhangbin@kylinos.cn>
+--000000000000c0b28f06600ddd06
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-ioam6_do_inline() and ioam6_do_encap() stored the next header into
-the shared ilwt->tuninfo template and then memcpy()ed it into the
-skb. The lwtstate is used from multiple CPUs without locking, so
-another packet can overwrite eh.nexthdr between the store and the
-memcpy.
+On Wed, Nov 11, 2026 at 7:29=E2=80=AFPM Jim Mattson <jmattson@google.com> w=
+rote:
+>
+> On Tue, Nov 10, 2026 at 10:05=E2=80=AFPM Zack Rusin <zack.rusin@broadcom.=
+com> wrote:
+> >
+> > Add KVM_VMWARE_ENABLE_HYPERCALL.  When it is enabled, exit to userspace
+> > with KVM_EXIT_VMWARE when an L1 vCPU executes VMCALL or VMMCALL with
+> > VMware's magic value in EAX, and let userspace complete the call by
+> > updating the guest's registers or by having KVM inject #UD, #GP or #PF.
+> >
+> > VMware guests reach the hypervisor through the "backdoor": either the
+> > I/O-port interface that KVM already emulates or, on newer guests,
+> > VMCALL or VMMCALL, with the same commands and register conventions.
+> > VMware's userspace implements the roughly one hundred commands, and
+> > reviewing the command list on the mailing list found none that needs
+> > to be handled in KVM (see the Links), so leave them in userspace.
+> >
+> > Only claim calls that carry the magic value, so that the same VM can
+> > still use Xen, Hyper-V or KVM hypercalls.  Never claim a call from L2:
+> > the only L2 hypercall that L0 handles itself is Hyper-V's L2 TLB flush,
+> > which doesn't use RAX as an input.
+> >
+> > Pass operands and results through KVM_SYNC_X86_REGS instead of defining
+> > a second register ABI; KVM_EXIT_HYPERCALL returns a single value in
+> > RAX, while backdoor commands use RAX through RBP.  Report the CPL and
+> > leave the privilege policy to userspace, as VMware Tools call the
+> > backdoor from user mode.  Instead of completing the call, userspace can
+> > have KVM inject a validated #UD, #GP or #PF at the hypercall, and may
+> > update the registers as well to keep the partial progress of a
+> > high-bandwidth transfer.
+> >
+> > Don't forward hypercalls of vCPUs whose state is protected, as KVM
+> > can't access their registers: reject the flag for VMs with protected
+> > state, omit it from their VM-scoped KVM_CHECK_EXTENSION result, and
+> > ignore it once a vCPU of a VM set up with the legacy KVM_SEV_ES_INIT
+> > becomes protected.
+> >
+> > Link: https://lore.kernel.org/r/c60b32a3-e699-4a8c-8d52-09b34c4d5269@re=
+dhat.com
+> > Link: https://lore.kernel.org/r/CADH9ctD1uf_yBA3NXNQu7TJa_TPhLRN=3D0YZ3=
+j2gGhgmaFRdCFg@mail.gmail.com
+> > Link: https://lore.kernel.org/r/CADH9ctBivnvP1tNcatLKzd8EDz8Oo6X65660j8=
+ccxYzk3aFzCA@mail.gmail.com
+> > Link: https://lore.kernel.org/r/aIEmawm9gLflg8zt@google.com
+> > Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
+> > ---
+>
+> [ ... ]
+>
+> > +static int complete_vmware_hypercall_exit(struct kvm_vcpu *vcpu)
+> > +{
+> > +       struct kvm_vmware_exit *vmware =3D &vcpu->run->vmware;
+> > +       u32 pad1 =3D READ_ONCE(vmware->pad1);
+> > +       u32 inject =3D READ_ONCE(vmware->hcall.exception.inject);
+> > +       u32 pad2 =3D READ_ONCE(vmware->hcall.exception.pad2);
+> > +       u32 vector =3D READ_ONCE(vmware->hcall.exception.vector);
+> > +       u32 error_code =3D READ_ONCE(vmware->hcall.exception.error_code=
+);
+> > +       u64 address =3D READ_ONCE(vmware->hcall.exception.address);
+> > +
+> > +       if (pad1 || pad2 || inject > 1)
+> > +               return -EINVAL;
+> > +
+>
+> Should this check kvm_is_linear_rip(vcpu, vcpu->arch.cui_linear_rip),
+> like the fast PIO completions do?
 
-The packet can then leave with an HBH nexthdr that does not match its
-payload (e.g. TCP labelled as UDP, or a local packet labelled
-IPPROTO_IPV6). Set nexthdr on the per-packet Hop-by-Hop copy after
-memcpy instead, leave the shared template read-only.
+Yes, I think it should. It seems Xen has the same check. Thank you for
+spotting this!
 
-Mark the tuninfo argument const now that the shared template is no
-longer modified, and drop the unnecessary (u8 *) cast in memcpy.
+I'll fix it in the next version alongside the issues sashiko found
+(most of them valid). afaict one thing that this fix doesn't cover is
+if userspace swaps in different vcpu state that happens to have the
+same linear RIP. That's a preexisting blind spot though.
 
-Fixes: 3edede08ff37 ("ipv6: ioam: Support for IOAM injection with lwtunnels")
-Fixes: 8cb3bf8bff3c ("ipv6: ioam: Add support for the ip6ip6 encapsulation")
-Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-Closes: https://lore.kernel.org/netdev/179336082844.3134.1265197633714491521@kernel.org
-Reviewed-by: Justin Iurman <justin.iurman@gmail.com>
-Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
----
-The issue is reported by Sashiko. It was confirmed with concurrent TCP
-and UDP traffic through a shared ioam6 inline route on a multi-CPU host.
+z
 
-Without the fix, a packet can leave with an HBH nexthdr that does not
-match its payload (e.g. hbh->nexthdr=17 with a TCP segment after the HBH,
-or hbh->nexthdr=6 with a UDP segment). With the fix, the same load reports
-no HBH/L4 mismatch: nexthdr is written only on the per-packet Hop-by-Hop
-header after memcpy, never on the shared tuninfo template.
----
-Changes in v4:
-- Use a temp variable for the ipv6_opt_hdr setting (Jakub Kicinski)
-- Link to v3: https://patch.msgid.link/20261109-ipv6_ioam_lock-v3-1-a86195859d1e@kylinos.cn
+--000000000000c0b28f06600ddd06
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
 
-Changes in v3:
-- make tuninfo as const (Justin Iurman)
-- Link to v2: https://patch.msgid.link/20261105-ipv6_ioam_lock-v2-1-8f0ea30c4ffa@kylinos.cn
-
-Changes in v2:
-- Add one missed Fixes tag. No code change.
-- Link to v1: https://patch.msgid.link/20261104-ipv6_ioam_lock-v1-1-4f24c41b261b@kylinos.cn
----
- net/ipv6/ioam6_iptunnel.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
-
-diff --git a/net/ipv6/ioam6_iptunnel.c b/net/ipv6/ioam6_iptunnel.c
-index cfb2c41634a0..e8be0d922f74 100644
---- a/net/ipv6/ioam6_iptunnel.c
-+++ b/net/ipv6/ioam6_iptunnel.c
-@@ -254,10 +254,11 @@ static int ioam6_do_fill(struct net *net, struct sk_buff *skb)
- }
- 
- static int ioam6_do_inline(struct net *net, struct sk_buff *skb,
--			   struct ioam6_lwt_encap *tuninfo,
-+			   const struct ioam6_lwt_encap *tuninfo,
- 			   struct dst_entry *cache_dst)
- {
- 	struct ipv6hdr *oldhdr, *hdr;
-+	struct ipv6_opt_hdr *opt_hdr;
- 	int hdrlen, err;
- 
- 	hdrlen = (tuninfo->eh.hdrlen + 1) << 3;
-@@ -276,12 +277,13 @@ static int ioam6_do_inline(struct net *net, struct sk_buff *skb,
- 
- 	hdr = ipv6_hdr(skb);
- 	memmove(hdr, oldhdr, sizeof(*oldhdr));
--	tuninfo->eh.nexthdr = hdr->nexthdr;
- 
- 	skb_set_transport_header(skb, sizeof(*hdr));
- 	skb_postpush_rcsum(skb, hdr, sizeof(*hdr) + hdrlen);
- 
--	memcpy(skb_transport_header(skb), (u8 *)tuninfo, hdrlen);
-+	opt_hdr = (struct ipv6_opt_hdr *)skb_transport_header(skb);
-+	memcpy(opt_hdr, tuninfo, hdrlen);
-+	opt_hdr->nexthdr = hdr->nexthdr;
- 
- 	hdr->nexthdr = NEXTHDR_HOP;
- 	hdr->payload_len = cpu_to_be16(skb->len - sizeof(*hdr));
-@@ -290,7 +292,7 @@ static int ioam6_do_inline(struct net *net, struct sk_buff *skb,
- }
- 
- static int ioam6_do_encap(struct net *net, struct sk_buff *skb,
--			  struct ioam6_lwt_encap *tuninfo,
-+			  const struct ioam6_lwt_encap *tuninfo,
- 			  bool has_tunsrc,
- 			  struct in6_addr *tunsrc,
- 			  struct in6_addr *tundst,
-@@ -298,6 +300,7 @@ static int ioam6_do_encap(struct net *net, struct sk_buff *skb,
- {
- 	struct dst_entry *dst = skb_dst(skb);
- 	struct ipv6hdr *hdr, *inner_hdr;
-+	struct ipv6_opt_hdr *opt_hdr;
- 	int hdrlen, len, err;
- 
- 	hdrlen = (tuninfo->eh.hdrlen + 1) << 3;
-@@ -314,8 +317,9 @@ static int ioam6_do_encap(struct net *net, struct sk_buff *skb,
- 	skb_mac_header_rebuild(skb);
- 	skb_set_transport_header(skb, sizeof(*hdr));
- 
--	tuninfo->eh.nexthdr = NEXTHDR_IPV6;
--	memcpy(skb_transport_header(skb), (u8 *)tuninfo, hdrlen);
-+	opt_hdr = (struct ipv6_opt_hdr *)skb_transport_header(skb);
-+	memcpy(opt_hdr, tuninfo, hdrlen);
-+	opt_hdr->nexthdr = NEXTHDR_IPV6;
- 
- 	hdr = ipv6_hdr(skb);
- 	memcpy(hdr, inner_hdr, sizeof(*hdr));
-
----
-base-commit: 145480b28ca82e9fae789427cc4569e596515a32
-change-id: 20261103-ipv6_ioam_lock-65102ca54908
-
-Best regards,
---  
-Hangbin Liu <liuhangbin@kylinos.cn>
-
+MIIVIgYJKoZIhvcNAQcCoIIVEzCCFQ8CAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGg
+ghKPMIIGqDCCBJCgAwIBAgIQfofDCS7XZu8vIeKo0KeY9DANBgkqhkiG9w0BAQwFADBMMSAwHgYD
+VQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSNjETMBEGA1UEChMKR2xvYmFsU2lnbjETMBEGA1UE
+AxMKR2xvYmFsU2lnbjAeFw0yMzA0MTkwMzUzNTNaFw0yOTA0MTkwMDAwMDBaMFIxCzAJBgNVBAYT
+AkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBS
+NiBTTUlNRSBDQSAyMDIzMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAwjAEbSkPcSyn
+26Zn9VtoE/xBvzYmNW29bW1pJZ7jrzKwPJm/GakCvy0IIgObMsx9bpFaq30X1kEJZnLUzuE1/hlc
+hatYqyORVBeHlv5V0QRSXY4faR0dCkIhXhoGknZ2O0bUJithcN1IsEADNizZ1AJIaWsWbQ4tYEYj
+ytEdvfkxz1WtX3SjtecZR+9wLJLt6HNa4sC//QKdjyfr/NhDCzYrdIzAssoXFnp4t+HcMyQTrj0r
+pD8KkPj96sy9axzegLbzte7wgTHbWBeJGp0sKg7BAu+G0Rk6teO1yPd75arbCvfY/NaRRQHk6tmG
+71gpLdB1ZhP9IcNYyeTKXIgfMh2tVK9DnXGaksYCyi6WisJa1Oa+poUroX2ESXO6o03lVxiA1xyf
+G8lUzpUNZonGVrUjhG5+MdY16/6b0uKejZCLbgu6HLPvIyqdTb9XqF4XWWKu+OMDs/rWyQ64v3mv
+Sa0te5Q5tchm4m9K0Pe9LlIKBk/gsgfaOHJDp4hYx4wocDr8DeCZe5d5wCFkxoGc1ckM8ZoMgpUc
+4pgkQE5ShxYMmKbPvNRPa5YFzbFtcFn5RMr1Mju8gt8J0c+dxYco2hi7dEW391KKxGhv7MJBcc+0
+x3FFTnmhU+5t6+CnkKMlrmzyaoeVryRTvOiH4FnTNHtVKUYDsCM0CLDdMNgoxgkCAwEAAaOCAX4w
+ggF6MA4GA1UdDwEB/wQEAwIBhjBMBgNVHSUERTBDBggrBgEFBQcDAgYIKwYBBQUHAwQGCisGAQQB
+gjcUAgIGCisGAQQBgjcKAwwGCisGAQQBgjcKAwQGCSsGAQQBgjcVBjASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBQAKTaeXHq6D68tUC3boCOFGLCgkjAfBgNVHSMEGDAWgBSubAWjkxPioufi
+1xzWx/B/yGdToDB7BggrBgEFBQcBAQRvMG0wLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwMi5nbG9i
+YWxzaWduLmNvbS9yb290cjYwOwYIKwYBBQUHMAKGL2h0dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5j
+b20vY2FjZXJ0L3Jvb3QtcjYuY3J0MDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6Ly9jcmwuZ2xvYmFs
+c2lnbi5jb20vcm9vdC1yNi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUAA4IC
+AQCRkUdr1aIDRmkNI5jx5ggapGUThq0KcM2dzpMu314mJne8yKVXwzfKBtqbBjbUNMODnBkhvZcn
+bHUStur2/nt1tP3ee8KyNhYxzv4DkI0NbV93JChXipfsan7YjdfEk5vI2Fq+wpbGALyyWBgfy79Y
+IgbYWATB158tvEh5UO8kpGpjY95xv+070X3FYuGyeZyIvao26mN872FuxRxYhNLwGHIy38N9ASa1
+Q3BTNKSrHrZngadofHglG5W3TMFR11JOEOAUHhUgpbVVvgCYgGA6dSX0y5z7k3rXVyjFOs7KBSXr
+dJPKadpl4vqYphH7+P40nzBRcxJHrv5FeXlTrb+drjyXNjZSCmzfkOuCqPspBuJ7vab0/9oeNERg
+nz6SLCjLKcDXbMbKcRXgNhFBlzN4OUBqieSBXk80w2Nzx12KvNj758WavxOsXIbX0Zxwo1h3uw75
+AI2v8qwFWXNclO8qW2VXoq6kihWpeiuvDmFfSAwRLxwwIjgUuzG9SaQ+pOomuaC7QTKWMI0hL0b4
+mEPq9GsPPQq1UmwkcYFJ/Z4I93DZuKcXmKMmuANTS6wxwIEw8Q5MQ6y9fbJxGEOgOgYL4QIqNULb
+5CYPnt2LeiIiEnh8Uuh8tawqSjnR0h7Bv5q4mgo3L1Z9QQuexUntWD96t4o0q1jXWLyrpgP7Zcnu
+CzCCBYMwggNroAMCAQICDkXmuwODM8OFZUjm/0VRMA0GCSqGSIb3DQEBDAUAMEwxIDAeBgNVBAsT
+F0dsb2JhbFNpZ24gUm9vdCBDQSAtIFI2MRMwEQYDVQQKEwpHbG9iYWxTaWduMRMwEQYDVQQDEwpH
+bG9iYWxTaWduMB4XDTE0MTIxMDAwMDAwMFoXDTM0MTIxMDAwMDAwMFowTDEgMB4GA1UECxMXR2xv
+YmFsU2lnbiBSb290IENBIC0gUjYxEzARBgNVBAoTCkdsb2JhbFNpZ24xEzARBgNVBAMTCkdsb2Jh
+bFNpZ24wggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCVB+hzymb57BTKezz3DQjxtEUL
+LIK0SMbrWzyug7hBkjMUpG9/6SrMxrCIa8W2idHGsv8UzlEUIexK3RtaxtaH7k06FQbtZGYLkoDK
+RN5zlE7zp4l/T3hjCMgSUG1CZi9NuXkoTVIaihqAtxmBDn7EirxkTCEcQ2jXPTyKxbJm1ZCatzEG
+xb7ibTIGph75ueuqo7i/voJjUNDwGInf5A959eqiHyrScC5757yTu21T4kh8jBAHOP9msndhfuDq
+jDyqtKT285VKEgdt/Yyyic/QoGF3yFh0sNQjOvddOsqi250J3l1ELZDxgc1Xkvp+vFAEYzTfa5MY
+vms2sjnkrCQ2t/DvthwTV5O23rL44oW3c6K4NapF8uCdNqFvVIrxclZuLojFUUJEFZTuo8U4lptO
+TloLR/MGNkl3MLxxN+Wm7CEIdfzmYRY/d9XZkZeECmzUAk10wBTt/Tn7g/JeFKEEsAvp/u6P4W4L
+sgizYWYJarEGOmWWWcDwNf3J2iiNGhGHcIEKqJp1HZ46hgUAntuA1iX53AWeJ1lMdjlb6vmlodiD
+D9H/3zAR+YXPM0j1ym1kFCx6WE/TSwhJxZVkGmMOeT31s4zKWK2cQkV5bg6HGVxUsWW2v4yb3BPp
+DW+4LtxnbsmLEbWEFIoAGXCDeZGXkdQaJ783HjIH2BRjPChMrwIDAQABo2MwYTAOBgNVHQ8BAf8E
+BAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUrmwFo5MT4qLn4tcc1sfwf8hnU6AwHwYD
+VR0jBBgwFoAUrmwFo5MT4qLn4tcc1sfwf8hnU6AwDQYJKoZIhvcNAQEMBQADggIBAIMl7ejR/ZVS
+zZ7ABKCRaeZc0ITe3K2iT+hHeNZlmKlbqDyHfAKK0W63FnPmX8BUmNV0vsHN4hGRrSMYPd3hckSW
+tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
+2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
+phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
+a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
+ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
+07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
+SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
+rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGWDCCBECg
+AwIBAgIMYT8cPnonh1geNIT5MA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
+ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
+MDIzMB4XDTI0MTEyODA2NTUwOVoXDTI2MTEyOTA2NTUwOVowgaUxCzAJBgNVBAYTAlVTMRMwEQYD
+VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
+MDExNzEWMBQGA1UEChMNQlJPQURDT00gSU5DLjETMBEGA1UEAxMKWmFjayBSdXNpbjEmMCQGCSqG
+SIb3DQEJARYXemFjay5ydXNpbkBicm9hZGNvbS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
+ggEKAoIBAQCwQ8KpnuEwUOX0rOrLRj3vS0VImknKwshcmcfA9VtdEQhJHGDQoNjaBEFQHqLqn4Lf
+hqEGUo+nKhz2uqGl2MtQFb8oG+yJPCFPgeSvbiRxmeOwSP0jrNADVKpYpy4UApPqS+UfVQXKbwbM
+6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
+SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
+uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
+Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
+b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
+dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
+BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
+Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
+oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
+A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
+A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
+s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
+SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
+QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
+fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
+iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
+3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
+91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
+06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
+b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
+VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
+VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIHh2
+ojIoVc+3rn2irljZv3qzzE3vW23R3iHaCmMN+AQSMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MTExMjA1NDg1MVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAA6K3wUCPVcdX/KTXHg0WvMYuBl83T1MRwsPq4Fg
+TtIJamnHoRyG9hIrpfGcBkNDYNhKCU6IlIfP+NCiHctqFspBnCk+A8Fcqz6xaFAg1aGPMu5IhCgm
+/dOzGq9QUJ6v/aVCF0PNK0JRB0CEKew6aDAnZkKw6t9g3hZ0jkmU9uVQxKfXwW6njrvWd8ow3dEy
+lZsMQ2WosgYdHOdrIRglt260kTCzTIvO0L3MFTIxsS1N5iD2fCSGJ5Wx7O1G4JNy98uWRgqyFVel
+z111ia6n47Y5NVkrA1MfW+KR0lk9dds1z0CAyc0XaAA5ta22UJXamPo0B+xFUrsa3EQKzIHOVLQ=
+--000000000000c0b28f06600ddd06--
