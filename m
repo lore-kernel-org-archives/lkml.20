@@ -1,97 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794519801;
-	b=mikgfSj+NTfMcKVqWqg7TVKeheaSCK2IYSBRKnb7E5/TK9PnS86Mt2r1D9AjHS28G0Ep
-	 EvIr0OqtKR/YfelmvPW1lAzY4Fefyr5/DCzdN5pFeShtzD2I1oN8V0ZHg4ShD1Ti774O6
-	 oumkkSxsCH7Dd3rN1ArmqRh5E9MmT7IP+1D7njQ58rafJEQsik7o/67GiCwWMvDkY78A2
-	 zZ/16wwF2CIH6uICVnScVrZ4s/tI5twAta7oVwCxdyEjCWOj9rbUjLUt2OmPZBIqovF4L
-	 0P8J89mI24gFEOrFrxtqfhACLjG3BlB/thVbkD1csU9Y5P5HXMDMvdzmiTyAKj81kHQ==
+	t=1794519861;
+	b=CGCcRgUZx838fMLt/LWhM9pbwWy1bZwnV8XwvcQaqJM2WH2O2J5TrTiLwT68FsVs+cqB
+	 53wFRC+4/rogk0UBFuGBcB3eel21mafsLYap7acs2eIsvz7OvQ54fayZ5D9n4L//2DOnP
+	 i/6cfmUCYxWNKDp5bSXwtdB7cZYJxX5BWM24liXtZ2xJBp8GrpFwIKAPhVbdEdcCUQhSr
+	 o3QuzvXThXuIaHFjK1NGkODpkraLhR2yqrGLvqd4WoWDUn961jOGn9LGLYvBgP7SHzHmh
+	 xEO719TbqoIE8FFfRRZYMRQEGYY6o+pVb1i9vojKEjnsOZZmAG62buXYABH53l/Mqug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794519801;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=M6fq7p14U+tYgRDdS9W71/l4cxPwKXbIldK0rYG2pfM=;
-	b=qyMcku3V/RWN5kmf4sFfypoznLGBm9tzRZG3IYwzmoHrlhKId8adp+n8sTsrRKEiZPeG
-	 E+iVZVHlF+QDxsk4PZKMcSQi7+NmiLX8Q9o2i4QRsxZDMJ7UUIHxe7qNh2T5K0gS5bXy0
-	 3xK8137DiN7kLkuGBDSJqD7xhBqyupyeB1438cKoU+oXdiCzovSA7uQGs2CIsqOLAeFjI
-	 HkCxLR7WMHlAQbHhVtVmVbaYevcbKUaIA0t5RkudT9S3ZP6sHLiqKJpVLzrtJZ4wX71WR
-	 ionSU2rKxrU7goFA62v/gduUHVwa2es+8OS99WmJ4xMqyil572U7AZXv9H18uhPbufQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794519861;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Organization:X-Mailer:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=ZeMxHXnCBkE76aNWIiCzfKnISExLlSlffb4po3vqmdI=;
+	b=no/GCsLhkvnA6s7GKxm4OtgPawB6utBXR6gyZEGb5nA7LfkFwchuh1aS8msdvH/fCAzh
+	 sW0WATkcrA2YcyMzOt7ACmumzY9OHHAg0oIiZIo0DeeAcLYiX4m1m0VDP7jBZxpd0oQJL
+	 1lRg0U6/WGP9G6c8+aBFekOx3D5qUS/Wrc8X3lDEWlEgFnXhHIVh7Ob4eURRtvCcJOsg7
+	 f8wXNga5TKklZ9NdJh3oOyuZ20wRKZMUdynRlRT+th1h1NDBZuDZ5Bi7XiVyvxncdthpH
+	 ehwuJb2V+qStVB+awoEpbBym7tryzuG7L2YgIgRaR63MnyXibH8B/vZDrF4Nh0eqIwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uxuYJtLK;
-	arc=none smtp.remote-ip=74.125.229.9
-Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SWGQudK9;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZAgLUXUv;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518EB606A336
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:43:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 518EB606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDB8606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:44:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FDB8606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uxuYJtLK
-Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-377157fde7bso146779eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:43:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SWGQudK9;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZAgLUXUv
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACJZl6N1840824
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:44:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ZeMxHXnCBkE76aNWIiCzfKnISExLlSlffb4po3vqmdI=; b=SWGQudK9aYrpfeUe
+	qRTs6vz+IblA+g6HLzEh+HNTp1JWnELbXeYXlgSZ4D2fPe+3AlgY0nfJCmojVecr
+	C+1aHyfw3yXogZgwWvUmpNvISQm8rSXicGpc0601ymsG3vVC0nnNzwu95tt4+vCs
+	Bcbxjn6HZZ1X+cJSRElTcFVnvSQtwtYku8TUD74ZDphUWF3awQLaBdGsgW4AyT6G
+	W7qzXHipUPiDrXYSvquV31srFzv4S58RZ78Y7ViWJZJBenOG9EhrEswCtIA4dsCW
+	+blKhYiBYZZmgIcAWEdkgIczvQxR8YKz9apSBUid1wHdMvLOpVaKFGoUNnLABD8m
+	RzxBcw==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwan4tkg3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:44:13 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1b3b45597c7so402806c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:44:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794519800; x=1795124600; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=M6fq7p14U+tYgRDdS9W71/l4cxPwKXbIldK0rYG2pfM=;
-        b=uxuYJtLKiIvBhnUhcOsUjVd3MOnY1dZrCy1HGJx3d0Oveq/FxKWJynpf06IJmxZgpw
-         D0g1kCrTXC6X/do/ZUIcWTaORp/o4eIMTmxe00Rwz6HUhcnrF3nj2pL5u1K7n7UI2joO
-         4qeiaIUqbf+/f9uI8XYzpLLx6+eB52EkaaesR4mYMDLmSErs9stlFVJvQEFTLlkddUQ1
-         Q1mfPXYphNl7zfHC+kgzRj+vY1CYbncs1fuJMa0A60rwLV7HlIHA/IMJDog/OzlE8W9h
-         jcN8iectHCTS07peoAKimjnw7anwcC3JiJxj02oKqUVv5hhpcuoCqMG7UUCgGEiyOKLv
-         yyYw==
+        d=oss.qualcomm.com; s=google; t=1794519853; x=1795124653; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ZeMxHXnCBkE76aNWIiCzfKnISExLlSlffb4po3vqmdI=;
+        b=ZAgLUXUvXHLfJwIUZC1/C8MgADJ8bUzvPkeTGkQgmRFBESKj86Eb+up/j8RDo/aGan
+         hWTCNA5UNItE1z0awL2jdVixZNnuUSNZRDnNRbXuVs0fC6SN9vXM5H0w/rEL9QBXDvoF
+         e931G5J8EiW0fEmBtyEODT5lweQLwCQ7+MU6X/Pzy49lGpPBuLRjVYwd3eT62NXEti6/
+         M00s6UBc/B1F7oA5F5BBIuVnX8WQf3e+hkDxCdyDfEc7/GiZ0rYaHjUa8gelPpkVbJ5b
+         JVkvvkOQNh7yi7xMfsKwWCBynT+7hj8XNgL9vRPLfPeRBIp8To0AFs9lnAoDpw1q5d7J
+         lEaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794519800; x=1795124600;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=M6fq7p14U+tYgRDdS9W71/l4cxPwKXbIldK0rYG2pfM=;
-        b=xnzgWzv7dPquCpgkjPD0E5bKccmSG3o55hwu9zIvFs4WCcr7A1LYjOXcERofdqHcx3
-         PrT/vpak6wwE5/0O/R+urY/N8AKSBGCHjti145AESAnlV5yriH4fGb37JQrcf4cRi2B3
-         uQhChtYpODWGNWxoRQXh5hlsNmmrfsezQ9zR6p0bwfhBeDo9NojvvG0Ok730DXFEV0tb
-         ulXITgN3Uj3xmZj7e5NviUTn0wyp2lbb/EbpzPjo6seGKRyCJ1tVpWO5mYYAlueg/gyL
-         ezlfYORcn1s5eTmbSnJBplvOewIxhDF5eG/8L8v5gPcXnndLxNaS0y+R9RsEyNPyZqSU
-         Un6g==
-X-Forwarded-Encrypted: i=1; AL+hErG8R35uMM0NUdNvecgUODsxxFMKFmWkW6hHDTv/5ggbOYNHG9SW+xTbTUF2yGumBAOss9+lmfUrga0zApg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+5/EjtT2bsIzRmq0pfySZpKi/zB3cRG8KS61VwKFqUCFvUnb2s
-	5WFKA0uC051mopygStxFpilyIg3LcVTxpZPWRw2PwEjsacmgYYEprZ+o
-X-Gm-Gg: AYBFou1KoweeH1U0uO35vGgzMPVZAYNy4l50LYKVOvyd1n+d08SdMQDRBZobC+k8meh
-	sLbJgK52p32rK7euPdazRsFWj5JRw/NnnvnxGvxIMf1nRUFXbA+BmtBAf2a6ZF1b4MEqrhuRfqs
-	fVrEqcKdPPaFg5FrIkoNAjl9LeIdG10GQMqHp3qwe64FZKZoyJiGbajI2opFMKLH7XxFNNHAuqs
-	OEDbZ6N8SdAiGQeisKMLjJN0HhgS+K1jlW5vUsLBj8zbhxNznM52I1bOM4fEHCJ2zt1MZpXMfCQ
-	agOxuaTNvDh4wgmy4TIzho5BIgIvQ630Et107jhtuSB9S5ErqAPkGy630Anl/wfGL4eEn2x27ql
-	TQZTaB/r5AHAY22X2Ejemm4c8Ss5HNwAIzuiyqXLI/Qjsd42nuFdUuN+NpblZXNX+T0IyLt8/tO
-	X/7I3TKIBitguLeziqExaPAfrrah11uYe2X++0NyUrBJVbsVlyuBGjCQxpyQZWtFNTLKIA3WE+7
-	QnZD5ly7hJC5pGRz3zM8YK5Q+z0IySetWLh5bm3YEeRZnkM6XtYw1YZb/1BeVpZ8vPoSBFqJCBw
-	wzcO68pkpktsssuAamrHFu8qPAwjykmL0uKcvotHLuLyJ3/Lp+UBB2aVRWZJPUok+kUCyko0Oz/
-	hI9OJqkIA1Ax0IPzy911tHs3/H6HwbArk3XGYBQ==
-X-Received: by 2002:a05:7301:f2b:b0:35d:2633:ff79 with SMTP id 5a478bee46e88-37968d8b5c6mr434742eec.40.1794519800357;
-        Thu, 12 Nov 2026 13:43:20 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bad134sm1194466eec.27.2026.11.12.13.43.19
+        d=1e100.net; s=20260707; t=1794519853; x=1795124653;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZeMxHXnCBkE76aNWIiCzfKnISExLlSlffb4po3vqmdI=;
+        b=2Hp/ZJHEbF/99KQC+y5x++8t11JpQ70h7AkCiE2fT+a7yIU39QcmG0g/Vb4V7w7Oz9
+         RC9g22esJ262yuITEk+YOEMMvSlhJS+r0PkfXE2HJtutcA6bm+/4FX19pJlWl7vhDzpd
+         yl+dqVGvDsGh9JfvNflbOj5T59IXR/o9ykNcngL2aC9rLDmkBGyaTSGXAhws3gROnhJF
+         mMTkyy952YTzMZ3xg9jYVyaBqqHTKHyuCKFNhWxywGVsW+swrsJcP5UBaZG3YP8PkT2F
+         2/31gcwYDj0j/sMjm2/N+JJW+hoDLQ7rwBITIbURJa3tgyfplTRN2eNareBGM5Kr+Pwx
+         8d6A==
+X-Gm-Message-State: APuU4Z//7KHE3SEEDaIlHMhf9S733VSjzJGIhvBVENqQ+/Zv1kv8ydYR
+	3LK1VwuenfmWJBT8DgmVTRBbM2kLQunMJr7pmxV95w0UOyYpZ+TFZLmWde0lNikd8x+ERqs2T8+
+	urpm+bK8oN/eZ/doTqTVW11knrNcnGAw/GEar4Y4uyPRvMCIwlq4pUwbVkK18WiMZ4UU=
+X-Gm-Gg: AYBFou0fBSpmJOBrHBYb6HDHV1I0jFXE2q/ThCNKODLqzpOooWR/+2Yb+KxGBuAgeuW
+	Ja9dUdoudvImltPm6uGeSDKsMykiia1JTwqHQZ8eytOlDz94jVCv3/CGxwr+oVelrkHqEpoiRDG
+	Zn+W/xyVqSjy0gjZ+QP9f5u/dfNzXs4kNaXw7AvpHiX3XsQcboJ5ZcuxKfNaN4ybPtcbVOXdPwP
+	DIHabD1/rpbdQKswVf2zyTOpqOK2VSlwE4ZvK6CP9fmSe0Jt2D507SnRuRgEmGc9UhdH7S/3Nkc
+	X3bj8Rn9WROi6vYbxsSoec+uPsERat9BEoTPVk71y+wGiKq6pxFFt0sYc397bHJBlxMbCEhp/1h
+	Lej+gXdEyaXyA95Ll213MWZOVyMgTfqmt1HFK+WzNb+c/p+mTOSk/3P0tYap/z2dK+/yH9QQ3D5
+	uM8twP4RnKcImBssOsOO/L6iRxlTE=
+X-Received: by 2002:a05:701b:450d:20b0:181:ccdd:ed2a with SMTP id a92af1059eb24-1b50315f88bmr668899c88.43.1794519852990;
+        Thu, 12 Nov 2026 13:44:12 -0800 (PST)
+X-Received: by 2002:a05:701b:450d:20b0:181:ccdd:ed2a with SMTP id a92af1059eb24-1b50315f88bmr668878c88.43.1794519852364;
+        Thu, 12 Nov 2026 13:44:12 -0800 (PST)
+Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50319e381sm1541771c88.12.2026.11.12.13.44.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 13:43:19 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: jaegeuk@kernel.org,
-	chao@kernel.org
-Cc: daehojeong@google.com,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH v2 2/4] f2fs: require write permission for F2FS_IOC_RELEASE_COMPRESS_BLOCKS
-Date: Thu, 12 Nov 2026 21:43:01 +0000
-Message-ID: <20261112214303.16198-3-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261112214303.16198-1-dennylin0707@gmail.com>
-References: <20261112214303.16198-1-dennylin0707@gmail.com>
+        Thu, 12 Nov 2026 13:44:12 -0800 (PST)
+Date: Thu, 12 Nov 2026 13:44:07 -0800
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Cristian Marussi <cristian.marussi@arm.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
+        sudeep.holla@kernel.org, james.quinlan@broadcom.com,
+        f.fainelli@gmail.com, vincent.guittot@linaro.org,
+        etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
+        d-gole@ti.com, elif.topuz@arm.com, lukasz.luba@arm.com,
+        philip.radford@arm.com, david@kernel.org, souvik.chakravarty@arm.com,
+        leitao@kernel.org, kas@kernel.org, puranjay@kernel.org,
+        usama.arif@linux.dev, kernel-team@meta.com
+Subject: Re: [PATCH v15 23/35] firmware: arm_scmi: Add Telemetry generation
+ counter event
+Message-ID: <20261112134407.0000457f@oss.qualcomm.com>
+In-Reply-To: <avYe37QP4Upvp51c@pluto>
+References: <20261109091221.2532706-1-cristian.marussi@arm.com>
+	<20261109091221.2532706-24-cristian.marussi@arm.com>
+	<20261110144635.00005964@oss.qualcomm.com>
+	<avYe37QP4Upvp51c@pluto>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,40 +133,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: PB5IZWovi1iQHNEQNTd8OV5vsisJB_Mi
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA4NiBTYWx0ZWRfXxzz9IEywTCMz
+ 1s86LoY5Ejs1KBUn41Vue8ABtOM4xDWzgtfMdhNXi+6ssc9Te+fnyOLJoyCS96Esit5hSWxK1PM
+ hZLCeuxNsoemP2UzibVY9MN3ZzNQK0E=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA4NiBTYWx0ZWRfX8MGjEvmD96FZ
+ MMIcp4Ucq7Qtk5dwsd+erOiWh7x7K7affbCg6Fdolw/bjT7Jciz0Pb/JClGt82SnS+sL0yTgoqx
+ Fz47fWHPpP5NtcYi+bdaFnwBc0Jv9wRbwtAof4FfAzpXxX2KgDu3uKY6tYCEouNHvp4VBAfw+B8
+ aq4UI06eGHr//1+nMZZGjbYpMi+HbTnCWv923JncT4tfGwNa/RGCXpQKCXuSCTyGul+ksy5HHYL
+ acW0CaGwPOvpF10GiCuh4YojHAr9aSpl6tUd1IIvwrnkyi3CWGBOg7FQu6VZRY5YJS87X1rJIKg
+ Vng+gILc6R3tPsYN/AuoDTHHkkuT5Pggeo9PwRnMZodV+3VREMTmLExFuTRh1Hbvi3zmyO6KUPf
+ U+gwb5AF6nMHrl6ZVsxbEi3o1IulyDC1t5LK3+HWqcaqwKsz63BYws8nO0QpuR2SMwFqpGFIoJE
+ l/BOVSqlBLe/neBmZAQ==
+X-Proofpoint-ORIG-GUID: PB5IZWovi1iQHNEQNTd8OV5vsisJB_Mi
+X-Authority-Analysis: v=2.4 cv=Gd+CDgXL c=1 sm=1 tr=0 ts=6af6332e cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=7CQSdrXTAAAA:8 a=reF3IxvR5ta2O57t2W8A:9 a=CjuIK1q_8ugA:10
+ a=vr4QvYf-bLy2KjpDp97w:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_03,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0 clxscore=1015
+ malwarescore=0 phishscore=0 suspectscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120086
 
-F2FS_IOC_RELEASE_COMPRESS_BLOCKS does not check who the caller is, so
-any user who can open a compressed file, even read-only, can release
-its compressed blocks. After that, writes to the file fail with -EPERM
-until the blocks are reserved again or the file is truncated to zero.
+On Thu, 12 Nov 2026 20:17:35 +0000
+Cristian Marussi <cristian.marussi@arm.com> wrote:
 
-Require write permission on the inode. inode_permission() does not
-depend on how the file was opened, so a caller with write permission
-can still release the blocks through a read-only file descriptor, as
-f2fs_io and Android do.
+> On Tue, Nov 10, 2026 at 02:46:35PM -0800, Jonathan Cameron wrote:
+> > On Mon,  9 Nov 2026 09:12:09 +0000
+> > Cristian Marussi <cristian.marussi@arm.com> wrote:
+> >   
+> > > Add a per-instance generation counter to track configuration changes which
+> > > uses the common telemetry events framework.  
+> > Why?  What's the usecase for this?
+> > Needs some more information or I'd leave it for now.
+> >   
+> 
+> SCMI Telemetry is specified and designed FW/Kernel side to allow for
+> multiple readers and multiple writers issuing configuration changes:
+> give that there is NO HW/FW/SPEC limitation in allowing such concurrency
+> (unlike e.g. for a serial or an RTC) the telemetry driver does NOT
+> enfroce any kind of exclusive access...last one wins when multiple
+> acctors tries to configure overlapping stuff...none of kernel problem
+> userspace should co-ordinate...and I suspect most of the time having
+> multiple apps trying to concurrently issue conflicting Telemetry request
+> would be a matter of wrong platform configuration/setup (similarly to
+> what would happen by running together all the lovely varied network
+> configiratio solution on a Linux box...)
+> 
+> As said the Kernel SHOULD NOT care, going back to the networking example
+> Kernel indeed does NOT active policy netlink access..you are free to shot
+> into your foot...
+> 
+> Anyway, co-ordinating access to the Telemetry resources in userspace can
+> be a pain, so the the generation counter is an optional mechanism to be
+> alerted when some of the Telemetry has been changed, so that userspace
+> can spot that something odd is happening (if it was unexpected) and
+> avoid to sample and analyze bogus data...
+> 
+> The generic event support upon which this is based, it is meant to
+> support future events like relaying notifications to userspace...but
+> given that notifs were NOT implemented for real, it is not present (NOR
+> the related ABI...)
+> 
+Ok. That explanation makes sense.  Given it effects how userspace will
+be written against this stack (maybe assuming folk don't just bind a single
+daemon process to it) it does have to be there fairly early. Maybe
+a follow up to the initial set like the stuff for already events.
 
-Fixes: ef8d563f184e ("f2fs: introduce F2FS_IOC_RELEASE_COMPRESS_BLOCKS")
-Suggested-by: Chao Yu <chao@kernel.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- fs/f2fs/file.c | 3 +++
- 1 file changed, 3 insertions(+)
+Anyhow, add this info to the patch description!
 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index cfd24a5fa271..93f892b11915 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -4238,6 +4238,9 @@ static int f2fs_release_compress_blocks(struct file *filp, unsigned long arg)
- 	if (f2fs_readonly(sbi->sb))
- 		return -EROFS;
- 
-+	if (inode_permission(file_mnt_idmap(filp), inode, MAY_WRITE))
-+		return -EACCES;
-+
- 	ret = mnt_want_write_file(filp);
- 	if (ret)
- 		return ret;
--- 
-2.43.0
+Jonathan
+
+> Thanks,
+> Cristian
 
