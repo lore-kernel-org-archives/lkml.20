@@ -1,53 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794496245;
-	b=eGJQ6jMhAE6Tsr4ZctIJEtJguLSsktdCuWW8JM3NzMkjRGm+a2bwx3Q/Yw3x6Uw6BaKh
-	 EuaEFDQb415ryCm5OPAXudvcHrKx87HabPRFMpQIXMtw+5jAa6ref0QnNzV3cnrOBPmWl
-	 KqleCY1Covv06JgI+jdBP4lRb++IKFly8nHCFI8tuMfagektNaFocP4LUOWqfu+poiNSj
-	 iCgzqQRgiQvFXnypGpKaPpS7yLRW9Oc95LpGH5IIUuMijP69QxfIQaZpk17m+0D6TnKFa
-	 MGpA2sdUTAzD+7QvliWGjruobeKnN0PLpf9wqXCcqpWwdybQnltJKIosG4iUE105YsQ==
+	t=1794496287;
+	b=U4BQWeLjjMn+KM5n5aCQFGiZ819UHM2a5bKpRo7JovpJ0ZRnVXIsf+BUB74n83qxgV6V
+	 tnX2zyaeIYZDQCU8lj7MnYUFfypx23SYAhFL9SZjmYc/pv/rZFLBGfkM8l0oP31HqHj8v
+	 xOH0JH0LnC5BmCGiOJi9HOiSXQwSZOdFFIHVe4Nl+xl+g6kD8Hp404vyJaM/3OsJuUP2n
+	 uA4CyAWjLHeWiX30EGqpjcmypusIAAdVq0Fxn5c10rPi2PnjveGvlvpTVdHwX+YFI1jgh
+	 yhgo5pxJUlNKrgTefcdjN1ec4CsEYoRM61scRo7mb/J5cRxbiJlNjwu6WOq9hAxPIiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794496245;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=acMkc7QyDnTSn7Mns6ex97JJ3VU7HnocG3Qg7L3QWME=;
-	b=uDr2+dCiElOs2Vdwy0TvRrhs/FRgSgI9H0B2CR0fWy+oqI4DWmUYTEMDhpYh44ve2CkV
-	 QN1uxTsChHYUt6hrwbCsGnxlt/UV+ETsGdRBXnJVZCKz5SeAzeQFy4UzZna/ZVUzjh+Rm
-	 8d7Pu3oyCzVSTCvT18XYWIBdUAIDEHjkOa6INbjJ9tBn2Gyb44smDMMWY8kRjxENtMDIA
-	 3ksFVsw3qUDarFp/TogEA2JTk5znrzrszRHfbeVzgthVYzKysiZK1HTB7R7TVLZjCeMX5
-	 X5CRg9OshQS+E3hvaLnOvEEBkHxDxPy0DcgzHotxzQX4vNp9B3AIsX2XOei1Eh8qX4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794496287;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=pOPUMS1h+yW9+Q5c6aClYkFvTD4eoG+32Raw8LpRQxc=;
+	b=fHt40/vJxCfrCuNqLEdbYdXrosNUeWsmwlO1bXaX6mGBO1jAaUXO3ZAsVsNgXn2lD4Gj
+	 j9CBFiFV1a/nUB+Bz1hM3jgMqSnt02TLxohjETp1NCqETGRyMeZpvnqV/gezXmWkxikXd
+	 DscxS5EFsE95xg0vvyTcfs01pqY9tRrnJ3sWeMjuED+Z2L0KcqbmiK+nZa1OE6K+KBBMa
+	 ol9X6EkgWd9r0srfWsCDrWuAr6pKwfUMkr0MvoDb3glYHSVyphpN4MfU9FkwpJ3H783Hy
+	 WggjLqBJAxjgD8mUlEnM50swEZhgAmDlCAVgW7xVG2Xdzncjn36ICedNNVOqXLk7ljQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=AMVHXeZl;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JSAUGzyE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63EB2606A31C;
-	Thu, 12 Nov 2026 15:10:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63EB2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1843606A323;
+	Thu, 12 Nov 2026 15:11:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=AMVHXeZl
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=acMkc7QyDnTSn7Mns6ex97JJ3VU7HnocG3Qg7L3QWME=; t=1794496243; x=2109856243; 
-	b=AMVHXeZlqO9tBKaHc4Hx08Gkj1QvsB9bugnWR2CrvNlavhxc1rjwJsirQ4Fa2DFMr9IiMI9yUkp
-	93EtZFr2XzlGFXMQLLhmgsYWA3JMzbxFa19CSegfV05sLeZW4CLTY0ojl8kZvU2wnArSOF6jSgJQY
-	R7SWRYyCyF18n3xLjhAdnvxpegZqDviwk5XEhW+BxG61r8PsBHEGLccs1CGlrs39MWJbC6mhrAgcA
-	OuPOz/mfXtSkmyTvBJ52ON2cEYa14uT4/A9zAZEoBXNBZpncEyJPUPrJoM8iLJOwgMG+Iqf+jpc9f
-	mitQJG1u7xpHOrXTbcj6IkalbDcSCyn+SS3g==;
-Received: from [177.172.124.218] (helo=[192.168.15.100])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xRWRi-009bCN-Iw; Thu, 12 Nov 2026 16:10:38 +0100
-Message-ID: <ecabf256-3dff-47dc-9e59-8f381c2df4ff@igalia.com>
-Date: Thu, 12 Nov 2026 12:10:45 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JSAUGzyE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 665EB1F00A05;
+	Thu, 12 Nov 2026 15:11:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794496287;
+	bh=pOPUMS1h+yW9+Q5c6aClYkFvTD4eoG+32Raw8LpRQxc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=JSAUGzyE7QbNMXTzQkx3wbfn1l6eP4DyrrbcIGYYG73188OznI9AFrCfXf2WpaLXs
+	 beGesy/cnPPXqaHEDO4586sbHZyiX4NKky7+fXZ4gbQ9f1TTIPk10L5TBSUxnnouFi
+	 nWrT3IFhNL1NG8NfYlhvb3sYc591FkhDPoVsqfUVBUtx6SlKYoGZ3StwcW8xRK/3Qu
+	 9kk6inbYUUbdpvnWZNaww3tHbbNWd+mAhjLOWt/CwRePwxmr2rgHAAnvT/R85eL7rq
+	 4PgmAuJjIC8j4FbYTZjLv9m3zVKwNA+58CgZEFXkz4U4Wq8zVPL3M38pLito2Lz9+t
+	 e8HROA+MZJ8MQ==
+Date: Thu, 12 Nov 2026 05:11:26 -1000
+Message-ID: <07d063ef8ebcfc7f4e05c7318a423728@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Ian Kent <raven@themaw.net>, Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>, Jens Axboe <axboe@kernel.dk>, Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, driver-core@lists.linux.dev, linux-pm@vger.kernel.org, autofs@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
+Subject: Re: [PATCH v3 1/2] kernfs, sysfs: add SYSFS_NO_SPLICE to refuse splice on writable opens
+In-Reply-To: <f9f3df7a60ecbbacc3186b700deb947d7dc23e9f.1794479968.git.krystianmkaniewski@gmail.com>
+References: <cover.1794479968.git.krystianmkaniewski@gmail.com> <f9f3df7a60ecbbacc3186b700deb947d7dc23e9f.1794479968.git.krystianmkaniewski@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,49 +57,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 09/15] syscalls: Add an option for offsetting the
- common table
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Christian Brauner <brauner@kernel.org>, linux-kernel@vger.kernel.org,
- linux-kbuild@vger.kernel.org, kernel-dev@igalia.com,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- linux-alpha@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
- linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
-References: <20261105-tonyk-syscall_table-v9-0-8d1275885d9c@igalia.com>
- <20261105-tonyk-syscall_table-v9-9-8d1275885d9c@igalia.com>
- <0cfb4dbf-f3e2-4ceb-ab89-0453ae59793d@app.fastmail.com>
- <e3910a18-dc28-470f-be2f-6a6d568ba7e3@igalia.com>
- <301115f6-3f1e-4e83-bc01-0ba49dec496a@app.fastmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <301115f6-3f1e-4e83-bc01-0ba49dec496a@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
+Hello, Krystian.
 
+On Thu, Nov 12, 2026 at 03:17:01PM +0100, Krystian Kaniewski wrote:
+> Read-only opens keep splice support because they cannot reach
+> ->write().
 
-Em 12/11/2026 12:08, Arnd Bergmann escreveu:
-> On Thu, Nov 12, 2026, at 15:37, André Almeida wrote:
->> Em 12/11/2026 11:07, Arnd Bergmann escreveu:
->>> On Thu, Nov 5, 2026, at 21:05, André Almeida wrote:
->> So one option does a string concat, the other option really does a sum
->> operation. If I had used --offset 110, the result would be
->>
->> #define __NR_file_setattr (110 + 469)
->> #define __NR_listns (110 + 470)
->> #define __NR_rseq_slice_yield (110 + 471)
-> 
-> I think for consistency, that would have been fine here, possibly
-> using another macro.
-> 
+The patch looks fine to me, but I'm not sure whether the read-only
+exemption is necessary. Is it addressing an actual problem? busybox, for
+example, just falls back to regular reads when sendfile() fails with
+-EINVAL, and refusing splice reads on read-write opens while allowing them
+on read-only ones seems more confusing than anything else. Would it be
+simpler to refuse splice for all opens of the file?
 
-Something like:
+Thanks.
 
-#define __NR_common_offset 110
-
-#define __NR_file_setattr (__NR_common_offset + 469)
-
-Sounds good?
+--
+tejun
