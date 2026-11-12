@@ -1,86 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794509727;
-	b=dxzcI0toRVFHCUrMvT7KQXcOx0hTw4FdE//XDSs12/OdqijToQCX2ng/pGO5JU5zFngu
-	 t+vtEbY+mwaCLJ8241LtZoVbyopEp3bndRgA67bW/RmBgyDZJL60N1jZIc80GadRYYegf
-	 6Dv0DJxUVttVG3hNGP5zzp5iHnPl4O2OUWiHTvQP/S/ZLxOBNKnC3nnS8iF9E7GH8EQiP
-	 WH3gkLJRG6s+6wRrPvXXYlh/QTjIyxmjKWi9CELXQ7KVeBoYKgtzkNcVn3gMzyZmGpGYa
-	 N2A7cf9iUcPQvuNOCFGtijJ75SrLLBjxCVXly+3lM/DDS+ejTaRSwhfTJWM3Jt1qfDw==
+	t=1794509730;
+	b=lO30tTFtPN20vbbwJPNvN+4Hy65HwEoeh1plNc4rAqWyPrVGr2ccrMepU1GbZ9/9+aUn
+	 5BAuzV5PydPdM0MNTThBs/OUHs9bzZkK74N0PKm/dyuUVbiFRhTbqjYkcKuUPTDTSHiWF
+	 dVBiKSZ34+3ud0t1Mp8Jgy0kq+bNojqU76HNeD5y0yX0mVKh1L0ePkeopzCFHl04Kzhe7
+	 9IMGA3cYQYpalcMcVFr/+UjBpGwESEEeWvLdS/6TxvSsqELrHxHbqCbmeWeoJ4Q04/8eA
+	 hA+DoFQo94sVpJL0Uv2SVG6ECPdix6CRP5KQmJUow4fPXDvUtRzCIpzSOlrgkvL7Xbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794509727;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794509730;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=T97M8E+1OS922A7v1/zJrg/XyMcn9TaXRosAfSHf8V4=;
-	b=ML8EMHNYp1DBSxntnAJJ1/ur9BN8Te37NQPs83wWNEELQHheI+bL9OfZZOP1cxE/1ooG
-	 vSJm2KYWUZPflTFbUv27vR8PnqXH6ZrX2xQwlxKmxZgc1JFbq1fDSqgFnSCvkrR5NAYBX
-	 /6oRfntbpXAFX9yl6QCYA2AOg1F4Sgka0GF+EsKB1VzZ+XytptglblygCzdDob2oDO0CB
-	 W7J/v2n8ivF5E9wr1fYYpsxTSP/04Djyamvc8VmlYAztw+YLC5lOQrBxLw7drU4GPeqet
-	 hr0SvBHyhMBDAFQkqdb/amyEz0H5Vdaw/j9V0oRyb8A8nfFFazCZ85d4+Ceza+R0jCw==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=0y1qYoq7NoViWaxpRI0L9NF8oo0LErcNzMW4ST3VRQI=;
+	b=b9WcG1xT1ydoPtjDjjoLXcAWUEIcmTEfxNuaNVfY563v58DOO/6d/JOY/Rcu+FEVCqWZ
+	 Nsp95i78R9faeGKi36zc//L0hJCK9/UMu5/Uf7rrTIZnAciYIyUfXNMObxsp10tw3X7L7
+	 ry99J/ETaYAKEqpwX9Yr4GhWfwya1xptqZKXUtgDz57J4AzlWgQYe9+ICdX0mkDiqegIL
+	 9gKNNjtmbu2CW8WDxIMFGxUk2tWgXTIkE6BwiEYo4Id/Rv/En+mna3qkU9MuzfJjR1E8y
+	 N3BfIWJGQtNcb90QR6uQdpHDxSWg4RSNafcocu8crusY88SQtaMcsZsjfXpB+8EC/MQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LHu+NpDI;
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BKj5mvPH;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD6560A3803
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:55:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CD6560A3803
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB0A60A3827
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:55:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEB0A60A3827
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LHu+NpDI
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ae7626d14aso43974a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:55:26 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BKj5mvPH
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so1040595e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:55:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794509726; x=1795114526; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T97M8E+1OS922A7v1/zJrg/XyMcn9TaXRosAfSHf8V4=;
-        b=LHu+NpDI16jcjf0qVYJd5SEQguMAnZHKvWVIxXJlTA77p2KAfDtnXVy7AfTTmVj79c
-         c8JI2iN6DJX+dz+sML7pMeIv2EENJLry/JEkQeSS8edeWiwrFswE28A5jPv1rlUtpo/C
-         wm9MgfqSPtxsQLp5zuwW8ivvNWgeBHHv6TogXXU5QeNAcNzMOMLOjLXOW5uhq7nUtb81
-         GOCL82aDJOqL8vNbxNF0GEg6gFOKT2Gn4PiE1G9XbY5k1xCOdtkJDRQ65Th1SuxKIUdl
-         5311csriCm+rWv3zl+HDSAgI4UpDyQVihaByHAChJ1cAXMNwcoeTDSgzRVoxYopwSg78
-         q8+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794509726; x=1795114526;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794509728; x=1795114528; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=T97M8E+1OS922A7v1/zJrg/XyMcn9TaXRosAfSHf8V4=;
-        b=rlJflaCAY/7qGeBl7CfcMT4xcMgbRuhmZt5ug2NCDt71Jgtl1miQ/26szn+6X2ph0h
-         3fPX60LR3emWat0Fv7wHYBWyT8MPcj32X7ccUf2dCscYzh6oHaftTDHFXcrKKqDfwA3Y
-         +DnNJXRSylUN6a1PLZkxFgA0WhYTxUBhKxq0Pn6j2C43KMQYsfr4GZHmk3kYDz3Nu7ic
-         tO4bro2oRimbC47PdE4zaAFwWORIy2Oqa4TJbo/FdduDy9Afcr12gIcnJC4anwcu3Ylv
-         rZAGIuVsW448ObiczzvimeEF+FO/cazrxq59R1jr1x3+5eJblcopDEsufulM1cT3uKlM
-         loVQ==
-X-Forwarded-Encrypted: i=1; AL+hErEbiINcgt0n9+UMQFU67Y61Ya4ikVkrxr7bf7wqMMFLmmGcJSFWPl+QNXv0AWeEE1adZLH8iGticujH5NE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9n7AbX++1c0z0+H4gowmlLm7hL0K6qyfhry62CzJGklHKh56nF
-	i/pRWk0jlNkilCx1fD7ICgrihSjpvWbepNGhkcx/aArq6qVjT+FxIv5z
-X-Gm-Gg: AYBFou2eKHV1kjb7iO3ggXTri4VBy5nqqVa7a5oCJA2GAFw66zjI5kypObm7b18Eivg
-	IYvGCLwVSSEs5tlyysVtozm7kky/TcbdrckvD3ix7nx3Gj1+Send5YD5V2orZvIp9Ashlr/aVsI
-	LZFIAuTWUGBeG7MvCLgb66B9L06yYoA/88hUGXdtFeYq4SfgvvTHHFOnJpWeVrEwLiiGym+zUJI
-	64benbmdHLpGelGoCvxTMkpqCA3TVN1FjoOI5D2sJJ8VBDJN/4LUTPbOdCTIyAjtYNNs/Pk4sm9
-	hiAhSqc3lzVgai2yQN2QCnqzm1OItGY33HlgJL8qyEgMEWaeP7Qf3aO6KrGu3WKQzZ4uz+eJxHH
-	FmADMEVwHaoQVETHVbfY4P97ZzeiDgaqjQZCSsuyrurilcJoMH80aYl7uqy1+n+czFNVXfZsRo2
-	1fVbVX2cs9RY+V6JuCL2HSgt4p4OuLuWJn6aWbCF+wAGzGaSu8v/5w+8Tz6hxUzSLR1GfSYwE7J
-	lw6dtLRtv0XqEcVInhUQV0a1fyDJRqGDor96haUgfeg4jkBUDc0dHZGr2xbf1XTECXe58+r9a1l
-	qD8vOi2Qe6ez+ygfb0MmZlry7soOeYVNhtvmGQIIS3YmG4u0UnPSp5NH1Q==
-X-Received: by 2002:a17:90b:554e:b0:396:41d1:cbc7 with SMTP id 98e67ed59e1d1-3b1b07ef11bmr29915a91.3.1794509726107;
+        bh=0y1qYoq7NoViWaxpRI0L9NF8oo0LErcNzMW4ST3VRQI=;
+        b=BKj5mvPHlU/G79fJPoXxyusFYo/GtGFce69r3VmdiEr3f2UfXUExRmB7BLnSyZMVA8
+         3exIffQ/in5Dq6uUBJx4beSZO0QP9BjSvdOxu5mJJWdsqMhV6Q/a+Q3LJ26z0+IxnT20
+         cGzzPe2kKuRFOd7Ck0MwJ2auiPIGHi92GwBQpR/MEZNg2w0KCzMrDTXSjCFBp6ubBYCs
+         nWMUw7ILLvPgRxbdvLVh7q7jO3eeTrCDVpxHofHapy/3rF6r4gfDwocWsaIMP7gmrg2v
+         oAu5kOyYK3it9dFY4O/NNsocGylnjUOyBgtFGGq30dJYvw7zUPkdlTOdKn3kJeg0nOGY
+         VGEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794509728; x=1795114528;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0y1qYoq7NoViWaxpRI0L9NF8oo0LErcNzMW4ST3VRQI=;
+        b=lh+wbZlkVii6tjVSUCyYmLA6bWHSXGhx6pGODiOwIYxiVhwvf9yQbLG47V8Qw3p6iD
+         1aFPpMUaV1SvTfZjnUpGEUVzpBbH2cBPWGS3Q8gkhGs23C5AdzHhB7iTrEO032rduTEA
+         oZrfeEswtabnLXhJdl85Ht48E6ob7l/RwuN+R+4wS3aLKo7tpM/aAODc6c80ohhmmhIK
+         FMxCXZQcQOZhVKr2qZCisyXTrTYuniTLm/dMWwqqXu0P8+YBOJXNmiqWZhq8GSTMbXsX
+         +bFwt5rEDhvq3JqE2sB124nIcTbUxH3XwIZ5ytVFAI4oMkv+cmZQQ/JmoDIn9BRd4HNX
+         M2Fw==
+X-Forwarded-Encrypted: i=1; AL+hErFX4V+/n6Tw+DnS05WV01JTLC3cSz+eSp35/Zm+I67LAew35Cwacwa0OiD+HXAJDyesXKptxybkaWD0gAU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9M0eQaEr3UfuMZ7z9vHQdAjAoEkfwIaROqPaT5+oOCcxUeIlTr
+	n9OS/gxnC/4TbYRgnZI1076FSlT9oTCItFwureAz2GBGgw2GPtSg1Q7Y
+X-Gm-Gg: AYBFou36cSBQUoO5q19uivUihtQXBvCOGs8J35gl1OIui0jbl9nV3aBS9tFe9mzpJb4
+	/r00gtZCxEHr6D73x5oBonNEMQcdhVLaGN6XjxK32JzhhZB71rPI/1nYYrWgxAm5JIlPFI0Jt/p
+	l3aaIUTfNu5h+KNvRM/MJIESs+5eML91cmRiiuEMX3cZeTEnyXTBEeIn0TjocunsvbMXjkC4S4k
+	v3mX5yaDIDvz2sE9OUoyGU5TlwynMeN8AOo5CC7IHFHw4qtZxmfgOkGQ1JdNU9mB7DdQCJQICgo
+	oDL0sEJgxfU0Or+VseZ9PD7vW5KUk5DPwfzlDMdncXIHueIhYF7BKu0GAoeB3j4G/NuRG1EIX7q
+	ccxWenGV4jcsbwoFqYe+nfNzmiaBmfiajpX6cKULkRINE23tsDtNnqhshpKhVWKg8JgZBiHpNSq
+	Ore9SkYWVexf5YWPXO11ztNAL3mC01c4+jsjNe/TjBGb/xZJrYH3HWslsgfMFPYYnOaecYF1saF
+	+/p7PS47pjIMtugFqyiKtCx9It8LutOw6BOofpi3nCQ5CA58uS4huqf2IcVp2hV/N0od8f+Fh/h
+	wMAAi2n+de4kHcxo4cOpaNUFdh37M0Y58WeYoAPDC+UBMP5VMMlSdyrHb765Qw+XMaBhjdUeI/n
+	/rgpxnNtvyxOc0ORm/+ydDMc0s8MP
+X-Received: by 2002:a05:600c:1d0e:b0:4a1:d459:db4b with SMTP id 5b1f17b1804b1-4bb55abaef4mr1766655e9.24.1794509728021;
+        Thu, 12 Nov 2026 10:55:28 -0800 (PST)
+Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e28d0b2sm71734755e9.7.2026.11.12.10.55.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Thu, 12 Nov 2026 10:55:26 -0800 (PST)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1ae8be5adsm669758a91.0.2026.11.12.10.55.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 10:55:25 -0800 (PST)
-Message-ID: <5836cf85-78e8-417e-9142-666afbe1d056@gmail.com>
-Date: Thu, 12 Nov 2026 10:55:24 -0800
+From: Alexey Charkov <alchark@gmail.com>
+Date: Thu, 12 Nov 2026 22:55:10 +0400
+Subject: [PATCH v6 3/4] watchdog: Add support for VIA/WonderMedia SoC
+ watchdog functionality
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,129 +94,255 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] serial: sb1250-duart: Convert to use a platform
- device
-From: Florian Fainelli <f.fainelli@gmail.com>
-To: "Maciej W. Rozycki" <macro@orcam.me.uk>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-mips@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <alpine.DEB.2.21.2608060322360.55540@angie.orcam.me.uk>
- <alpine.DEB.2.21.2608060406470.55540@angie.orcam.me.uk>
- <e211bf3f-d696-4bc5-baff-e27b933a89ae@gmail.com>
-Content-Language: en-US, fr-FR
-In-Reply-To: <e211bf3f-d696-4bc5-baff-e27b933a89ae@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-vt8500-timer-updates-v6-3-fd1cea645d1f@gmail.com>
+References: <20261112-vt8500-timer-updates-v6-0-fd1cea645d1f@gmail.com>
+In-Reply-To: <20261112-vt8500-timer-updates-v6-0-fd1cea645d1f@gmail.com>
+To: Alexey Charkov <alchark@gmail.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-watchdog@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7950; i=alchark@gmail.com;
+ h=from:subject:message-id; bh=TKbNAsM+ZSZcFRoALRRcTOU4cJIrVJEa/4qOimCrMHk=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWR9456aYbiuQlt4Zs1EN36TD5cMnrXz8DWwmkkdsCp7u
+ fdswTy/joksDGJcDJZiiixzvy2xnWrEN2uXh8dXmDmsTCBDpEUaGICAhYEvNzGv1EjHSM9U21DP
+ 0EjHWMeIgYtTAKb62G2G/1W+zZfv/vGWu3vQ/KzhfUvXkE1JFwMNT59tVv8kt0mB0Yfhf0hPetD
+ T+j+p638oPl6mcHODinrtrrMsOe9+GiuqaiTOYQAA
+X-Developer-Key: i=alchark@gmail.com; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-On 11/3/26 13:42, Florian Fainelli wrote:
-> On 8/6/26 03:54, Maciej W. Rozycki wrote:
->> Prevent a crash from happening as the first serial port is initialised:
->>
->>    pata-swarm: PATA interface at GenBus slot 4
->>    workingset: timestamp_bits=62 max_order=18 bucket_order=0
->>    Block layer SCSI generic (bsg) driver version 0.4 loaded (major 253)
->>    CPU 1 Unable to handle kernel paging request at virtual address 
->> 0000000000000208, epc == ffffffff8067f8f8, ra == ffffffff80666330
->>    Oops[#1]:
->>    CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Not tainted 6.19.0-dirty #27 NONE
->>    $ 0   : 0000000000000000 0000000014001fe0 0000000000000020 
->> ffffffff80666130
->>    $ 4   : 0000000000000000 a800000100e6f118 ffffffff8112cbc0 
->> 0000000000000000
->>    $ 8   : 0000000000000002 0000000000000000 0000000000000000 
->> 0000000001a80000
->>    $12   : 0000000000000000 ffffffff809fd488 000000004ddf14dd 
->> ffffffff00000000
->>    $16   : a800000100e6f000 0000000000000000 ffffffff8112c1d0 
->> a800000100e6f000
->>    $20   : 0000000000000000 00000000000004d0 0000000000000004 
->> ffffffff8112c1d0
->>    $24   : 0000000000000001 0000000000000003
->>    $28   : a80000010007c000 a80000010007fcb0 00000000000000ef 
->> ffffffff80666330
->>    Hi    : fffffffffffffdb9
->>    Lo    : 0000000000000035
->>    epc   : ffffffff8067f8f8 __dev_fwnode+0x0/0x8
->>    ra    : ffffffff80666330 serial_base_ctrl_add+0xb8/0x180
->>    Status: 14001fe3    KX SX UX KERNEL EXL IE
->>    Cause : 80800008 (ExcCode 02)
->>    BadVA : 0000000000000208
->>    PrId  : 03040102 (SiByte SB1)
->>    Process swapper/0 (pid: 1, threadinfo=(____ptrval____), 
->> task=(____ptrval____), tls=0000000000000000)
->>    Stack : 0000000000000000 ffffffff80cd5178 ffffffff80cd0000 
->> ffffffff8112c1c8
->>            0000000000000260 ffffffff806655c4 a800000100275bc0 
->> ffffffff8064ac88
->>            004000408112c000 0000000000000002 0000000000000000 
->> ffffffff801965d0
->>            a800000100786ba0 ffffffff80cd5178 a800000100786ba0 
->> 0000000000000004
->>            a800000100275bc0 0000000000000000 0000000000000000 
->> ffffffff80cd5178
->>            0000000000000000 ffffffff8112c1c8 0000000000000260 
->> 00000000000004d0
->>            0000000000000004 ffffffff80bf0000 00000000000000ef 
->> ffffffff80d171dc
->>            ffffffff80d17120 ffffffff80d25658 0000000000000000 
->> ffffffff80d50000
->>            ffffffff80d2f928 ffffffff80d50000 ffffffff80d25698 
->> ffffffff80cfcecc
->>            00ffffff80b84428 0000000000000000 0000000000000006 
->> 0000000000000006
->>            ...
->>    Call Trace:
->>    [<ffffffff8067f8f8>] __dev_fwnode+0x0/0x8
->>    [<ffffffff80666330>] serial_base_ctrl_add+0xb8/0x180
->>    [<ffffffff806655c4>] serial_core_register_port+0x174/0x8e0
->>    [<ffffffff80d171dc>] sbd_init+0xbc/0xf4
->>    [<ffffffff80cfcecc>] do_one_initcall+0x64/0x150
->>    [<ffffffff80cfd284>] kernel_init_freeable+0x25c/0x30c
->>    [<ffffffff809ff6e4>] kernel_init+0x24/0x118
->>    [<ffffffff80112d20>] ret_from_kernel_thread+0x14/0x1c
->>    Code: 67bd0010  03e00008  2402ffea <03e00008> dc820208  67bdffa0  
->> ffbe0050  ffb70048  ffb60040
->>    ---[ end trace 0000000000000000 ]---
->>
->> -- where a pointer is dereferenced that has been derived from a null
->> pointer to the port's parent device.
->>
->> Since no device is available with legacy probing and it's not anymore a
->> preferable way to discover devices anyway, switch the driver to using a
->> platform device and use it as the port's parent device.
->>
->> Use platform_driver_probe() because SB1250 DUART devices are embedded
->> onchip the SoC and therefore not that straightforward to remove.
->>
->> An unfortunate consequence of the switch to a platform device is we now
->> hand the console over from the bootconsole much later in the bootstrap.
->> The CFE console handler appears good enough though to work so late and
->> in particular with interrupts enabled.
->>
->> Conversely, only starting the console device so late lets the port
->> initialisation code always use fsleep() for transmitter draining, so
->> drop the other variant since it is now dead code.
->>
->> Since there is one way only remaining to reach sbd_init_port() now, drop
->> the port initialisation marker as no longer needed and go through the
->> channel resets unconditionally.
->>
->> Fixes: 84a9582fd203 ("serial: core: Start managing serial controllers 
->> to enable runtime PM")
->> Signed-off-by: Maciej W. Rozycki <macro@orcam.me.uk>
->> Cc: stable@vger.kernel.org # needs to use .remove_new for <= 6.10
-> 
-> On BCM91250E (Sentosa):
-> 
-> Tested-by: Florian Fainelli <f.fainelli@gmail.com>
+VIA/WonderMedia SoCs can use their system timer's first channel as a
+watchdog device which will reset the system if the clocksource counter
+matches the value given in its match register 0 and if the watchdog
+function is enabled.
 
-Could we apply Maciej's sb1250-duart patches because this is preventing 
-the use of those systems while everything else works just fine.
+Since the watchdog function is tightly coupled to the timer itself, it
+is implemented as an auxiliary device of the timer device. Build it in
+rather than as a module, as the timer it depends on is always built in
+and the driver is tiny.
 
-Thanks!
+Report a watchdog found running at probe, as one armed before a kexec
+would be, so that the core keeps it fed until userspace takes over.
+
+Signed-off-by: Alexey Charkov <alchark@gmail.com>
+---
+ Documentation/watchdog/watchdog-parameters.rst |   7 ++
+ MAINTAINERS                                    |   1 +
+ drivers/watchdog/Kconfig                       |  12 +++
+ drivers/watchdog/Makefile                      |   1 +
+ drivers/watchdog/vt8500-wdt.c                  | 132 +++++++++++++++++++++++++
+ 5 files changed, 153 insertions(+)
+
+diff --git a/Documentation/watchdog/watchdog-parameters.rst b/Documentation/watchdog/watchdog-parameters.rst
+index 348229ffcb43..27453b659545 100644
+--- a/Documentation/watchdog/watchdog-parameters.rst
++++ b/Documentation/watchdog/watchdog-parameters.rst
+@@ -637,6 +637,13 @@ uniphier_wdt:
+ 
+ -------------------------------------------------
+ 
++vt8500_wdt:
++    nowayout:
++	Watchdog cannot be stopped once started
++	(default=kernel config parameter)
++
++-------------------------------------------------
++
+ w83627hf_wdt:
+     wdt_io:
+ 	w83627hf/thf WDT io port (default 0x2E)
+diff --git a/MAINTAINERS b/MAINTAINERS
+index acc4d2915460..80aefe2f5481 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4010,6 +4010,7 @@ F:	drivers/tty/serial/vt8500_serial.c
+ F:	drivers/video/fbdev/vt8500lcdfb.*
+ F:	drivers/video/fbdev/wm8505fb*
+ F:	drivers/video/fbdev/wmt_ge_rops.*
++F:	drivers/watchdog/vt8500-wdt.c
+ F:	include/clocksource/vt8500-timer.h
+ 
+ ARM/ZTE ZX29 SOC SUPPORT
+diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
+index c884f86be4e3..a252f9c9c2c8 100644
+--- a/drivers/watchdog/Kconfig
++++ b/drivers/watchdog/Kconfig
+@@ -1183,6 +1183,18 @@ config SUNPLUS_WATCHDOG
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called sunplus_wdt.
+ 
++config VT8500_WATCHDOG
++	bool "VIA/WonderMedia VT8500 watchdog support"
++	depends on ARCH_VT8500 || COMPILE_TEST
++	select WATCHDOG_CORE
++	select AUXILIARY_BUS
++	help
++	  VIA/WonderMedia SoCs can use their system timer as a hardware
++	  watchdog, as long as the first timer channel is free from other
++	  uses and respective function is enabled in its registers. To
++	  make use of it, say Y here and ensure that the device tree
++	  lists at least two interrupts for the VT8500 timer device.
++
+ # X86 (i386 + ia64 + x86_64) Architecture
+ 
+ config ACQUIRE_WDT
+diff --git a/drivers/watchdog/Makefile b/drivers/watchdog/Makefile
+index 19cb25f51624..5a5a111b4815 100644
+--- a/drivers/watchdog/Makefile
++++ b/drivers/watchdog/Makefile
+@@ -106,6 +106,7 @@ obj-$(CONFIG_SUNPLUS_WATCHDOG) += sunplus_wdt.o
+ obj-$(CONFIG_MARVELL_GTI_WDT) += marvell_gti_wdt.o
+ obj-$(CONFIG_GUNYAH_WATCHDOG) += gunyah_wdt.o
+ obj-$(CONFIG_MA35D1_WDT) += ma35d1_wdt.o
++obj-$(CONFIG_VT8500_WATCHDOG) += vt8500-wdt.o
+ 
+ # X86 (i386 + ia64 + x86_64) Architecture
+ obj-$(CONFIG_ACQUIRE_WDT) += acquirewdt.o
+diff --git a/drivers/watchdog/vt8500-wdt.c b/drivers/watchdog/vt8500-wdt.c
+new file mode 100644
+index 000000000000..e0f838fd1d50
+--- /dev/null
++++ b/drivers/watchdog/vt8500-wdt.c
+@@ -0,0 +1,132 @@
++// SPDX-License-Identifier: GPL-2.0
++// SPDX-FileCopyrightText: 2026 Alexey Charkov <alchark@gmail.com>
++
++#include <linux/auxiliary_bus.h>
++#include <linux/bits.h>
++#include <linux/container_of.h>
++#include <linux/init.h>
++#include <linux/io.h>
++#include <linux/iopoll.h>
++#include <linux/limits.h>
++#include <linux/minmax.h>
++#include <linux/moduleparam.h>
++#include <linux/stringify.h>
++#include <linux/types.h>
++#include <linux/watchdog.h>
++
++#include <clocksource/vt8500-timer.h>
++
++/* Offsets within the timer register block */
++#define VT8500_WDT_MATCH_REG	0x0000	/* timer match register 0 */
++#define VT8500_WDT_EN_REG	0x0018
++#define VT8500_WDT_EN		BIT(0)
++#define VT8500_WDT_ACC_STS_REG	0x0024	/* timer access status */
++#define VT8500_WDT_ACC_WR_MATCH	BIT(0)	/* match register 0 write pending */
++
++#define VT8500_WDT_DEFAULT_TIMEOUT	30	/* seconds */
++
++static bool nowayout = WATCHDOG_NOWAYOUT;
++module_param(nowayout, bool, 0);
++MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default="
++		 __stringify(WATCHDOG_NOWAYOUT) ")");
++
++/* Arm the watchdog to reset the SoC @cycles counter ticks from now */
++static int vt8500_watchdog_arm(struct vt8500_wdt_info *info, u64 cycles)
++{
++	u32 deadline, sts;
++	int ret;
++
++	/* Let a previous match write settle, as the timer driver does */
++	ret = readl_poll_timeout_atomic(info->regbase + VT8500_WDT_ACC_STS_REG,
++					sts, !(sts & VT8500_WDT_ACC_WR_MATCH),
++					1, 10000);
++	if (ret)
++		return ret;
++
++	/*
++	 * The deadline is matched against the hardware clocksource counter,
++	 * which is a u32 value incrementing at VT8500_TIMER_HZ and continuing
++	 * past wraparound. When the return value of timer_next is greater than
++	 * U32_MAX then the match should occur after the hardware counter wraps
++	 * around, thus we take only the lower 32 bits of timer_next return val
++	 */
++	deadline = info->timer_next(cycles);
++	writel(deadline, info->regbase + VT8500_WDT_MATCH_REG);
++	writel(VT8500_WDT_EN, info->regbase + VT8500_WDT_EN_REG);
++
++	return 0;
++}
++
++static int vt8500_watchdog_start(struct watchdog_device *wdd)
++{
++	struct vt8500_wdt_info *info = watchdog_get_drvdata(wdd);
++	u32 timeout_ms = min(wdd->timeout * 1000, wdd->max_hw_heartbeat_ms);
++
++	return vt8500_watchdog_arm(info,
++				   (u64)timeout_ms * (VT8500_TIMER_HZ / 1000));
++}
++
++static int vt8500_watchdog_stop(struct watchdog_device *wdd)
++{
++	struct vt8500_wdt_info *info = watchdog_get_drvdata(wdd);
++
++	writel(0, info->regbase + VT8500_WDT_EN_REG);
++
++	return 0;
++}
++
++static const struct watchdog_ops vt8500_watchdog_ops = {
++	.start			= vt8500_watchdog_start,
++	.stop			= vt8500_watchdog_stop,
++};
++
++static const struct watchdog_info vt8500_watchdog_info = {
++	.identity		= "VIA VT8500 watchdog",
++	.options		= WDIOF_MAGICCLOSE |
++				  WDIOF_KEEPALIVEPING |
++				  WDIOF_SETTIMEOUT,
++};
++
++static int vt8500_wdt_probe(struct auxiliary_device *auxdev,
++			    const struct auxiliary_device_id *id)
++{
++	struct vt8500_wdt_info *info;
++	struct watchdog_device *wdd;
++
++	wdd = devm_kzalloc_obj(&auxdev->dev, *wdd);
++	if (!wdd)
++		return -ENOMEM;
++
++	wdd->info = &vt8500_watchdog_info;
++	wdd->ops = &vt8500_watchdog_ops;
++	wdd->min_timeout = 1;
++	wdd->timeout = VT8500_WDT_DEFAULT_TIMEOUT;
++	wdd->max_hw_heartbeat_ms = U32_MAX / (VT8500_TIMER_HZ / 1000);
++	wdd->parent = &auxdev->dev;
++
++	info = container_of(auxdev, struct vt8500_wdt_info, auxdev);
++	watchdog_set_drvdata(wdd, info);
++	watchdog_set_nowayout(wdd, nowayout);
++
++	/* Let the core feed a watchdog left running, e.g. across kexec */
++	if (readl(info->regbase + VT8500_WDT_EN_REG) & VT8500_WDT_EN)
++		set_bit(WDOG_HW_RUNNING, &wdd->status);
++
++	return devm_watchdog_register_device(&auxdev->dev, wdd);
++}
++
++static const struct auxiliary_device_id vt8500_wdt_ids[] = {
++	{ .name = "timer_vt8500.vt8500-wdt" },
++	{}
++};
++
++static struct auxiliary_driver vt8500_wdt_driver = {
++	.name =	"vt8500-wdt",
++	.probe = vt8500_wdt_probe,
++	.id_table = vt8500_wdt_ids,
++	.driver = {
++		/* Unbinding would leave the hardware armed with no one to ping */
++		.suppress_bind_attrs = true,
++	},
++};
++builtin_driver(vt8500_wdt_driver, auxiliary_driver_register);
+
 -- 
-Florian
+2.56.0
+
