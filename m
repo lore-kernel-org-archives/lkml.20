@@ -1,93 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.19
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794493320;
-	b=ylc3Eiik8ES8ESNXAZznOhI9Vgv360nf4WD4Y330salFL4ZhIgxc0OOK48m6ABgbxr4U
-	 h65qleGp8eY+Vg72aLk+25x94xBAagxFLtqajaOSfTruMTaIVFIh3XvG4aof037k0OEHT
-	 AX7R4Ubt9kGHAac0+6Kq0E3sFzQulI0xw8QhTcJJFJmQZ2gcLFlHAkJkE8Q97WMDbERH3
-	 m+m0kAUYXOUYbBM+OIb6JNH2UtNX/7Gn5gNJyCNnIUD1NnIZb4rnRLZFfYGW8ctCohx0j
-	 9euU3DHK6CCN/LhHQIQUrQNWcAndyDNUJNzPbYaXL97ZwIQZyRwbp6gC+isTqXU43Gg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794493320;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:In-Reply-To:
-	 References:Subject:Message-Id:Date:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=QwRcz3RDzDXc3OiXt9CrRd6PibNzeZ6JA+L+L6SOF6E=;
-	b=EDGjo1ofgJD5WSypEjW4f69bupeO7K72c8rvaiyHnT3o3xSSoFnclfjWHqic6IkKEeei
-	 9wV4CJSsTagP96yqXbbIJ19PdOyFDwPk+viU3igsJrjd9UU7NfC5bfAE0pjffSua8+CSX
-	 K2aliVLOum4YUAQ2/b82UIkFVfup8c5WOpvfRegX5OGG7xqP2kogXDc80sQ9UlyxWI/dj
-	 C1gPMIoDG2EtqSCieJTSYwktFJvNr4+EM3pHVWuR4cy0JXJFJZexO8xMsgTnAkXTvBouK
-	 jlu4Tu2agQS5aiXfPNWlxOZaae0hndX8vi3DSZiqt5LqcD12d3hVH1qy3FL34IKwMwg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ERGQZ5DY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.19
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012019.outbound.protection.outlook.com [40.93.195.19])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794493334;
+	b=tnVNlkh3+YMFATNB1URaCN0NOsfX6feTt7gJOnYkqNs6x4RJ4m2eQQxFP+F/zKOMd83B
+	 nnMr5sbjrsOuszoii67o3dSSytSmMHYBO5r00GXCoY/kY+2erexqQ2FyWb0rgg1ox+MhF
+	 i14l0YzkjH28ix45fHTdR075CjCa4WhuMmvaEOgmV3UhWfwVajV6M2armu2MrKtFn1dMx
+	 SWuZCZxjSAs+a9Kxpe9vUhsguybzmUsZ3b80/uZSNUFy2BeZBB7TnipVU5st17Tk8ZHJI
+	 bKnuSFShR6JnU0XQL+t2EifcsMsMHWvZ4dXyRobZw0lVkcyd109IPfX8UU0o07GrtOQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794493334;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=q5ycgM6KpIgl8GosUfIZQ6wJ8AxoFNABYsI2jhCC9jo=;
+	b=KCBaLfYzJtBCcPkNRjtnCU3dxCRuuaXioFx6JQJTvxNy1n+oNvYjIbvYkZ/GyZCFDL3x
+	 7ICBkdXcWlERi7hjB2aP7wVm0OvLNtuPkj7a84mk5synafv2cvZOMQRG568Eq1KHbvTqk
+	 5OC3Jb/gDrlj4Nfq1qNarzmDD/lqcKru7cHvA0cLQwBI0MJurCVJ8eTBxGdLS2L9P0lZO
+	 xIAJx7+BQLlIzYJA70fUCEFjF7TjZevMaPMhfdChdN2wQPnDGoqt5/PvXReVH8IFX3Fs1
+	 DUadACKWKV3GXJOlfOwKSwGXwMBLwWTXNthpe8WGo36ri0NbN/iWJvmvI01NLospSCw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XPQ5ehng;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=PqIaq6tp;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF609606B832;
-	Thu, 12 Nov 2026 14:21:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF609606B832
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE12B606D56F
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:22:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE12B606D56F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ERGQZ5DY
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SpwNSDTm7MHOafL23t4ba5snLa+hGzvSlVH5o6vmGE+paB291WhVu2dBjjPPhoAYUaRUkaMPtcr6TGLj6tneJEOjk8Vehb76N47RxjNkXcUAHxa41CQv6YMBtWD9cNOUXH+Ar+mZLgweFDyyHXL/iMQiREaN5GuujOTQFI18zVmTqxKVdZK21kvhXusqfQB93b21KOTnfHor5KUKcjmTQRbqUcjKUa8CRuG7SnUV5VCbCVkees9oWy9sUXxWvFU2zuPuvTBg2LEywo9Kvjmu0URSr0Wr8x7I9psiqVb3RmWhHEm+L9P+lpDG5fIXMlaz2gubns8BqjCVqMT+CvZC6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QwRcz3RDzDXc3OiXt9CrRd6PibNzeZ6JA+L+L6SOF6E=;
- b=SB4WwzvhoCRYx+tODMNQJqVvjPfyMsnGVrpEghxRbRY9+oysT1RXUIn8KixmbuXkG3aylyZN1sgOVpDlXfQdfGR3R+NBW596/QRnG5Y/P7sGgJQYPhOSI/ZB+T6d7PsEHMckdrRZnhtnPLKSFhJ7GDR3afVx5uC94h1FzP5TFw6XxxX3x3XG9zZd5/J1j9gMn9bMANk3dwzpKlY8FtmdU9m+jpQcn5sUG/VRs8WCLspFUbzloUSRgXvlePji1l5ns57cK6XD0T5TQFwc1W4df336V4jxno+jpVMmNY1E7nFn8OyyjTZ+bTK2wl/H8tGhdLS1Y6fduMURDadCWOiXTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QwRcz3RDzDXc3OiXt9CrRd6PibNzeZ6JA+L+L6SOF6E=;
- b=ERGQZ5DYDrNY5iWQ0jBP1AnaQqmPRg+YAEqm0pLRY+HpN9QYYy0d0p6YMtHOpF+O9proiwYLuV1t43LO5sSSeimwKHimxpnIs+LTsCgtDhZDzqN/RImTSVXQGWit/aHOLLI/yQ4gXPiGRdds9Yg8Yqas2zuXv8FY+LVFnUP7OozoJuVmGe2mngfG9SNS0ewpfzTa/vUeb3bU3OxmXbODI3+/1NKYQEUxBU7TARAjRHJcV7BT0+P2IJmhP5C4XKf2dlEvi7CQy6z8I2bfqaWuALOPgCaZNmXJX6O3n95RKzS2LHqMoybvHmJcc7dxjTawwKfXe0CfpPT0DHjjSFNSrQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by PH9PR12MB731475.namprd12.prod.outlook.com
- (2603:10b6:510:414::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
- 2026 14:21:57 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0615.009; Thu, 12 Nov 2026
- 14:21:57 +0000
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: jgg@ziepe.ca, kevin.tian@intel.com, 
- Peiyang He <peiyang_he@smail.nju.edu.cn>
-Cc: joro@8bytes.org, will@kernel.org, stable@vger.kernel.org, 
- robin.murphy@arm.com, iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <CD846EC67F4302A7+20261106115252.87749-1-peiyang_he@smail.nju.edu.cn>
-References: <CD846EC67F4302A7+20261106115252.87749-1-peiyang_he@smail.nju.edu.cn>
-Subject: Re: [PATCH] iommufd/selftest: Fix leaked PASIDs on device teardown
-Message-Id: <179435794163.1896047.406220761264833070.b4-ty@b4>
-Date: Tue, 10 Nov 2026 20:45:41 -0400
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-ClientProxiedBy: YT4P288CA0087.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d0::24) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XPQ5ehng;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=PqIaq6tp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794493333;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=q5ycgM6KpIgl8GosUfIZQ6wJ8AxoFNABYsI2jhCC9jo=;
+	b=XPQ5ehngwUs98qcMvC29CzVPYCf57n6bPjE+GYYGQHNG2EBN0+utuP8cVMhAzN4roc6LYW
+	Ha2jvFlyfeASW+LCHEEYTZzwDbsZEX/oLBNjhwJY9KqaBSyGVDYa6K1ZlK83ck6j+jDM73
+	pmcVF3e52m3bLNPgrU3e224N627hY2g=
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
+ [209.85.167.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-556-F067Z-brPxuXaLNiOIK3Og-1; Thu, 12 Nov 2026 09:22:11 -0500
+X-MC-Unique: F067Z-brPxuXaLNiOIK3Og-1
+X-Mimecast-MFC-AGG-ID: F067Z-brPxuXaLNiOIK3Og_1794493331
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4a41f46d629so5821957b6e.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:22:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794493331; x=1795098131; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=q5ycgM6KpIgl8GosUfIZQ6wJ8AxoFNABYsI2jhCC9jo=;
+        b=PqIaq6tpC3qulR4Jy7cYgsLAsKcRKjTfd+W1Zx/p92JVotlZkNLwJOjvEXnB2U/9hh
+         aEM4/hvy4HCjf6aatFLi0NjUjD+R9TaMzZlqjQ1pqv8x375HgB/q1ttcZAPJgjPxQAOo
+         hLl8KuBqTu/Bm7P/POJMrXnu9OsA1i0ukxm6EuPox763QDa3wzazZOvJV5FJah0tsvOg
+         c4DtdIxFVsSeMrHUlrqLjAjVoEshb/woPzb14frNfnJx872mITsv3cqXRRXvyTBImpxh
+         IDOVklDCjjyB1NeGDr5os4/s2mwdAQi5BJ+/C5C5IwL4NjDjYF/ZS+dg5ByCiBQjbd+W
+         FRDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794493331; x=1795098131;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=q5ycgM6KpIgl8GosUfIZQ6wJ8AxoFNABYsI2jhCC9jo=;
+        b=eqAT1iudDQN4KyGpsyRcAY+IVdMqeIUooxfjgkl5isN7wrCA0Xt6r4YpecNDkmb24K
+         bA9bKT++MZCcSFTju583/WV9SAj/QXbPYqf7bRtaf4DwOxrTBtknWMr0tamL0D4oxUP2
+         FyZlfC4kLyV6PfmcZrcIZBRt0AD5tJ0bRsKpG/rtKNWVsT1vQ2Bi5xi54WpkIJvjh7fU
+         kLG9e4oNeFiepROPJUoW6SsNm3J3Hy1ikxz8qOGf/or8f67lHRn1SOH/OoViUypDxprD
+         vnXA5Y98bSL0LPi3lPtDTbAmhaJ0Jjz2kJy72oAX9OBSRVolkMBGZV/iI4aq3OTgOYpM
+         TvMw==
+X-Forwarded-Encrypted: i=1; AL+hErFSpZkxP2RERwe2uX/z068bNqVeIBY0X8WiqQv/jI4a90PRHfv0JO+9W6p/XWTMScDrERL3OGr3k0lbeBQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+hijTAkk7woSWgAdv6cNs0hFy/Be1nufbQv7ki1a2w9NHpoKHv
+	GIacPtnXS53Io8IvYi1yh53/HWA/VubEzTdtJbCcCS+blH3qFKhgeU4slPPxV5l8XiOA/mQRRS8
+	I7onwGise6sBl0wSRoX36epcv9sJ0ucff20o7ac0z8vNBzu7G9o9vKeC8lEqgaVl7IQ==
+X-Gm-Gg: AYBFou2y74Ssq3x+/4/Hkjeu2yY6p0pp6HR5CDm5y425oSEErdapA4kuBctmJTUZcdy
+	gLxOgPaU/e9DfQ1RxnK9M3GCwMhNMaOIodRRzHdQsWtmc6LNFyq0oFemBn8T4EUvMpwnULV0avb
+	YatyhUi5XpsPYmrmT+9/hMH57mHwpJwQQvvW3KxGIVZlfHKipd7Pb01KrU3ve+8JQ0B4c7/h9Yg
+	FIUG+1gbam+iIhdJjaPdJ/c7mQwEeTOIIpB01IqVyMaKZ5HfikrQswHECWCy7//R/4kfByDVlt3
+	3KCTiyueZaf8nNicibrWt2QlXuf0+EuM2+muR7B9uzrXQnwsnWmdODnWzVctX1SW+hvRqcvMUXF
+	bflZ88MPLWypY5SI4u03ZwmnUUKXk8ZoIGkKC/kgVfewXvCO4B5XM
+X-Received: by 2002:a05:6808:5198:b0:4f4:9314:af39 with SMTP id 5614622812f47-56b96bd3b81mr4468301b6e.28.1794493330983;
+        Thu, 12 Nov 2026 06:22:10 -0800 (PST)
+X-Received: by 2002:a05:6808:5198:b0:4f4:9314:af39 with SMTP id 5614622812f47-56b96bd3b81mr4468260b6e.28.1794493329942;
+        Thu, 12 Nov 2026 06:22:09 -0800 (PST)
+Received: from sgarzare-redhat ([209.52.143.85])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ae22fbc9c5sm5819481fac.9.2026.11.12.06.22.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 06:22:09 -0800 (PST)
+Date: Thu, 12 Nov 2026 15:21:53 +0100
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Oleg Drokin <green@linuxhacker.ru>
+Cc: stefanha@redhat.com, mst@redhat.com, jasowangio@gmail.com, 
+	eperezma@redhat.com, xuanzhuo@linux.alibaba.com, bobbyeshleman@meta.com, 
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	horms@kernel.org, netdev@vger.kernel.org, virtualization@lists.linux.dev, 
+	kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2 1/3] vhost/vsock: release the accounting of
+ packets dropped on rx errors
+Message-ID: <avXG51ibBiap9tG9@sgarzare-redhat>
+References: <20261106050244.602625-1-green@linuxhacker.ru>
+ <20261106050244.602625-2-green@linuxhacker.ru>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,82 +119,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|PH9PR12MB731475:EE_
-X-MS-Office365-Filtering-Correlation-Id: 32fda554-a3b1-4900-6c4e-08df40c84ec8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|10067099003|11063799006|56012099006|261026121527099003|261009223027099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	7mxVM0+EdV/6w/nkuPpFjTpSj7QdrOcJ78TlMzkHnvH5Vp9RE8rpD3e7Vdw2EAaYrFvT4Hq8HT7YKE2phcRo7L0cQ0twNp9dJI5h6WkgcIvVITBaAcUAKS1xD1lkjiDWoCFO1YOtgWUqwjF1N3Pf166nCyKaDIZB64bJJv7UIJm3wCB3nEBdDFAACxsOkafz5c7jtbZKOAkuXkcj93T+/+wyizz0wRHLYWqizbRUMPUM6g4ZjO+7zkf4eyLo2Bnm7IfeRQqbn2pTSTHHUp1n/2MCymyAsbPS9OplRk+TxYEVF5p9fdYzhAVrMkjuQBCz3mbwQL/naZiYZdujDhLT7Mri97X3RFs+BMyOSkvOA4zDnmcY+ewNIzNls9CkMVu6oM4cSur3qgp/FYqOyAKPsF2lY23jyAI4VCgrykaohyLhoBs207Z1S4hoRZxv7FzmdCiH5/kUFqTrJOENDkTDTbU6TWX2zoHLOa3iNCPZucKt2UghP8oH8a+zpF668w3p/85h9Le2svZgGtb9gmJbaaIdpRQixmN8SDtCE1iCPdcWrpA1vSOgpYQvRTqhB5nkVOoAGYIn9I+nLRReQD7yGD1qwBnOtNmCO7nXZS72JiKpPqPvsMZilPjphpuo0S7BSBwZIwOEMEAqlyQuR/AYPexqZmrdq1tzcZe7DrA5knY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(10067099003)(11063799006)(56012099006)(261026121527099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MEhweGtWcDlWZ3FyUGRCR2VZS1M5b1dpZ091bndMeEZTTWg2dzU1SHorcElv?=
- =?utf-8?B?V2dlMlM1akFmaWxWTUJ6YVJkQURmMklUYXNxczFKS1hPRnFNdTUxUDd1QWVn?=
- =?utf-8?B?TGFXQU5TQ1d6dzhKYUU3Nm9XaytVVXV4RjR3bXgxQzFHYmR1a2l0Q1hMckp5?=
- =?utf-8?B?bW5SOGs3QUViNlRmREwxZzRzZVEwdm9PMlF5S0JDZ3pZSzNOeExnN2JIVy8w?=
- =?utf-8?B?Mzk1dmZieituK3dpNHI2WVFxY3VaVnQzYlpDRjZhTElvMkI5MkdGL01YRVRL?=
- =?utf-8?B?TWJ4b0h2NG9wY2g4dnVMU28zRXcyRE5xMmhnUkhZdC9CWkVMMmdGc1BxcG5X?=
- =?utf-8?B?clFZUk5WeTRNc21MbFp4NXhTNWlJTGt2TEJabmtuSzlRaHY0SzVjZGwvbTN2?=
- =?utf-8?B?V0kwWlVKdElKTW5qdzI4MTNWbVZoVTZVeU5zRWd0VkdSQitPSHE2aGFrcTV0?=
- =?utf-8?B?V3VDaENPd29sazlCTTl6VVRBaytOekxlTmhPZTB5bWo5WmZXK0JqN2tzNHow?=
- =?utf-8?B?MXVuTzNEVG5XMUxnZGg5VjVrRlJtdkh4ZFdnMTBpLy81dHI2bVBKS25FSHQ5?=
- =?utf-8?B?UW1ObVBMeWV1d0NScXVMeENXSy8vY2lIaHdKZkp2UDJEZTlERTNtMjVRWllH?=
- =?utf-8?B?bzhhRTl3SkdSbyttWTcwZ29UYnB6Y05uS2tlSVRueEpibDhUUEt1c1laSm5H?=
- =?utf-8?B?bm9PNzRvQmpFS21yZHpnODZKQ21PZzZHZ0VVbjNUTUV4WU1WV0tlVUNyVzVk?=
- =?utf-8?B?NkVqc1lIN0NPeVhDZm1GZEt0SmZKOENrSVk5c3JlSEtHaStVM3pOVXdXQTVj?=
- =?utf-8?B?OVlCUU5yWWwwbHptb1E5M0RSQXZFZkRjcGZMTStKcll3YWtueTlkZHdvbml1?=
- =?utf-8?B?cUk5U3UvUnpjYW5kVWkvaWJpdTE5cEgxTDUzd2orWS9SemFTRStzK0FMYUpq?=
- =?utf-8?B?NnZmaXZINUhHRTJFaFpLQ1BVM21MVGJqeWF1enV2cGQrQVZvQ2ZnblF0Kzhi?=
- =?utf-8?B?NnFyZks2UmRPOHNtaUVwVWMwZlE2SkNrc21JWlppZDlTTHp6YW1FbHA5b0tT?=
- =?utf-8?B?TlFrNDF2ZS9xVlFmbW4yWUpJcS9IblpFTUFWeTBLMXFSdlFFaWxVZmFvU2lL?=
- =?utf-8?B?Z2lFUWp5Ni9zUFRZdHJwV01lN3dzdFFPc3Fhck91bElpUFdUVmEvOTgyUjVY?=
- =?utf-8?B?N2tCaHZvZ3RuWXNnSG9mVUtqN1NldnBBZWZwcG9IeWx3eCtKV2cvRXpCdTlx?=
- =?utf-8?B?NWFTWHZGaExxc3B6NkRTa09hWS9qVDhHN1lJYXBCeitvb2JTTld2KzVIQWpU?=
- =?utf-8?B?TUJYUXM1YTlVU3FQeEUzbUVWbm9MVWZjNG1oODFSWmo0T2VZZkQ5UmZtSHNM?=
- =?utf-8?B?TGc5M3NEMVZiKzV0cGlKbWNVTXA1eUc5bDNxSmpaSXBYZUdmY0hUZ1N2c3NW?=
- =?utf-8?B?OWRUbDlzRjVMOVhZQmFlVjNla0JUaEIyeFJvbWNFS2VQNjhVSlJzQlJGcXd2?=
- =?utf-8?B?Zm0xaDRWTXVQT09QSTdadnJXNDVuQmV5azRwRWxiamhMVkhYalpCdmVHK1Vu?=
- =?utf-8?B?NVJzWkEzV1RzM2VKdUJDbDVuRjdiczgyTFQrVjBHMEJQSXd6K1FRME5nSE1I?=
- =?utf-8?B?UHdSTGNmSXZWL2xMamdFUTR3MzNmL2tlbjJFLzkrZlRINWp1ank5ZjBISzdS?=
- =?utf-8?B?UTYwSnpPZnB6dlhxVnRXektuTzN5MWJVQTNHVGdZWGIzS1pzM3Z3bUlhSGFJ?=
- =?utf-8?B?bTFZYmd6ejkydWo4aVluMmc4RnJLRTVObVE2NkRHUEVhK0ZwMnJLbFFYUjhP?=
- =?utf-8?B?bFp5bG1hdEVCdURhWDdiNU1xSGNESDFRbWlvMHAzc00xWGovOWFWSXY0N1pN?=
- =?utf-8?B?eTR6NzR0Mlkxcy8xZEQrS01Na0pmczE3d0ZjZHlwK3hUK1JVMEtBNFBsY2Ux?=
- =?utf-8?B?UEZ4QlJQQ3k0aWJuRFlZNVBkdDluTUFuM010ajFNa1FSd0k5cU9uKzVMNVRW?=
- =?utf-8?B?RTNwckNHN3FkR1JHaUZSdzd3SWhyb0hJckRHUzl4WlREZEJlTGZkL0k0R2NG?=
- =?utf-8?B?NDZiRVIweXJhTFJOK3hyN01STDFhbEhrbi9tU1NMMDJTVXRVeU0yNGluQkxa?=
- =?utf-8?B?bGRPWVRLWWlYM1Z4dGxsUXFIcmVESGxZaUJqNm4wSjdQUEl1MnY0d0tJTEh1?=
- =?utf-8?B?VE9qaFFEQXIrRW9WWU9wdzNxaVczK2d1ZFdKaTZrWlJCUVhLQ2FhYjI4RDV3?=
- =?utf-8?B?b0lPQXRzUmhFSEloTFNZa1VvNU03Tkg4Zmx4ZTAxQkZZVHNTYTdDUm5aRVFH?=
- =?utf-8?Q?F7aI/5rFwhMKP9kebn?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32fda554-a3b1-4900-6c4e-08df40c84ec8
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 14:21:57.0269
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wAEtT9aN8wNfGRurP0724taGHuXsx4+5WKNm3sYbbxH6ijnHGtzBDgLClcrgAmv7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH9PR12MB731475
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261106050244.602625-2-green@linuxhacker.ru>
 
+On Fri, Nov 06, 2026 at 12:02:42AM -0500, Oleg Drokin wrote:
+>When vhost_transport_do_send_pkt() fails to deliver a packet to the guest
+>(unexpected output buffers, a buffer smaller than the header, a fault
+>while copying the header or the payload) it frees the skb with
+>kfree_skb() and gives up. The success path does more:
+>virtio_transport_consume_skb_sent() subtracts the payload from the
+>socket's bytes_unsent (SIOCOUTQ), and for a reply the queued_replies
+>counter is decremented, restarting the guest's tx queue once it drops
+>below the ring size.
+>
+>The error paths skip both. Every such drop leaves SIOCOUTQ too high for
+>the life of the socket, and every dropped reply permanently takes one
+>slot of the queued_replies budget, so that after a ring's worth of them
+>vhost stops processing the guest's tx queue for good.
+>
+>Release both on the error paths, as the success path does.
+>
+>Found by an LLM-assisted security review of vhost-vsock, done while
+>porting a project from Xen to KVM. These error paths were not
+>reproduced: they need a guest that posts malformed rx buffers.
+>
+>Fixes: 433fc58e6bf2 ("VSOCK: Introduce vhost_vsock.ko")
+>Fixes: e6ab45005772 ("vsock/virtio: add SIOCOUTQ support for all virtio based transports")
 
-On Fri, 06 Nov 2026 19:52:52 +0800, Peiyang He wrote:
-> iommufd/selftest: Fix leaked PASIDs on device teardown
+Why this Fixes tag?
 
-Applied, thanks!
+>Signed-off-by: Oleg Drokin <green@linuxhacker.ru>
+>---
+> drivers/vhost/vsock.c | 23 +++++++++++++++++++----
+> 1 file changed, 19 insertions(+), 4 deletions(-)
+>
+>diff --git a/drivers/vhost/vsock.c b/drivers/vhost/vsock.c
+>index 88a310390eb0..b0004cb48999 100644
+>--- a/drivers/vhost/vsock.c
+>+++ b/drivers/vhost/vsock.c
+>@@ -104,6 +104,21 @@ static bool vhost_transport_has_remote_cid(struct 
+>vsock_sock *vsk, u32 cid)
+> 	return found;
+> }
+>
+>+/* Undo the send accounting of an undelivered skb; true if tx may restart. */
+>+static bool vhost_vsock_drop_skb(struct vhost_vsock *vsock, struct sk_buff *skb)
+>+{
+>+	bool restart_tx = false;
+>+
+>+	if (virtio_vsock_skb_reply(skb)) {
+>+		int val = atomic_dec_return(&vsock->queued_replies);
+>+
+>+		restart_tx = val + 1 == vsock->vqs[VSOCK_VQ_TX].num;
 
-[1/1] iommufd/selftest: Fix leaked PASIDs on device teardown
-      https://git.kernel.org/pub/scm/linux/kernel/git/jgg/iommufd.git/commit/?id=a12337013fcaf6eea29dce8409b84bd4588f7801
+Can we add a comment to explain this check?
 
-I changed it to use a scoped_guard instead of the goto spaghetti though
+>+	}
 
-Best regards,
--- 
-Jason
+nit: try to follow the style, e.g. leave a blank line here.
+
+>+	virtio_transport_consume_skb_sent(skb, false);
+
+mmm, this entire function is very similar to the code we have in 
+vhost_transport_do_send_pkt() where we also call 
+virtio_transport_consume_skb_sent() but with consume=true.
+
+What about renaming this entire function to vhost_vsock_release_skb(), 
+adding a new `delivered` parameter to be passed to 
+virtio_transport_consume_skb_sent() (and to be used to call or not 
+kfree_skb()) ?
+
+Thanks,
+Stefano
+
+>+	kfree_skb(skb);
+>+	return restart_tx;
+>+}
+>+
+> static void
+> vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
+> 			    struct vhost_virtqueue *vq)
+>@@ -162,14 +177,14 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
+> 		}
+>
+> 		if (out) {
+>-			kfree_skb(skb);
+>+			restart_tx |= vhost_vsock_drop_skb(vsock, skb);
+> 			vq_err(vq, "Expected 0 output buffers, got %u\n", out);
+> 			break;
+> 		}
+>
+> 		iov_len = iov_length(&vq->iov[out], in);
+> 		if (iov_len < sizeof(*hdr)) {
+>-			kfree_skb(skb);
+>+			restart_tx |= vhost_vsock_drop_skb(vsock, skb);
+> 			vq_err(vq, "Buffer len [%zu] too small\n", iov_len);
+> 			break;
+> 		}
+>@@ -212,7 +227,7 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
+>
+> 		nbytes = copy_to_iter(hdr, sizeof(*hdr), &iov_iter);
+> 		if (nbytes != sizeof(*hdr)) {
+>-			kfree_skb(skb);
+>+			restart_tx |= vhost_vsock_drop_skb(vsock, skb);
+> 			vq_err(vq, "Faulted on copying pkt hdr\n");
+> 			break;
+> 		}
+>@@ -221,7 +236,7 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
+> 					   offset,
+> 					   &iov_iter,
+> 					   payload_len)) {
+>-			kfree_skb(skb);
+>+			restart_tx |= vhost_vsock_drop_skb(vsock, skb);
+> 			vq_err(vq, "Faulted on copying pkt buf\n");
+> 			break;
+> 		}
+>-- 
+>2.56.0
+>
 
