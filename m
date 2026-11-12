@@ -1,79 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794454455;
-	b=rWqEYVBXlqLvPv6jc+S9ks6zXiPdFZnhuMUhOJxP/F03/fpREVPNPgkVXABDy91lMWOf
-	 iabDV4vN0OqUJhDAcnt+KKcJX4G4vnrTxpwoYDLX09DTTcUvMEmBSzm2hlVVNpbgaHLs7
-	 3MZeuCtFN8qbmCjA9JoHzfLMSIRvdUUWlEphyz6RT1lei9B6mV1sTs3w1+4qyGMjTOP+S
-	 pnGpLQNW90iTPjQ1CYI4i3V+fmfyNRJce9efCYigKr5HemzyIUrwjAFRP+ll4xOpyJEaS
-	 0ucC+z7GnvKCQH4fq/TzEq2mhtFacvHrgXhNYupwjtzho9ClgmN2VllRsOU2j8ltU1Q==
+	t=1794454485;
+	b=y2wqGiUkjuUaaNWt5O9acQX//xkHbGv2IeYLpWyFchBhSOUH4nF2JHMJe4UdNLfaJ5Ps
+	 LR6o4dxLrOLunji3Rnlvz8XTifl/Vy7quERGGy+xKUEnCHYrc90t7QqNmxFHQj5zbHPoR
+	 FMsXf4NDtR+CJiMAxhqNpFD8PPlJw0GgqlcOLJG2ZWBWS2NbKPE2qtc67arEF1ZuBHIXw
+	 b5QpD3O9Z8Mj1epySCT+5p9EC8nIkpbXHfHq20beFltvmL5QYjS8rjV9VyCqhNXJi1VC7
+	 disIgbE3whSWLwIDY0VcrMyqMpWe+dcjUO2s3ARpVv1eeXLK0RAkLbIsIdIMP52oDVg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794454455;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=J8QebyNGJfWzCs/CsfLVMv5IsTPj7u8iQ3c86reYX80=;
-	b=1temTwJJ+P+K1cSgh6GKjUxUKEHOFuFzDeJV8qZ6B/ZMwfzUNTfizU9l/pVet4ZEcWBo
-	 IaWgX6Za++iLDaSXxnLWYEKgw80amnmSwdAOyGkTjyAONW/1fDntZ9VvzgyB6tOP5qOUq
-	 ykHzSNxtstbG7JXA710JqxoqbidHow8j/vcccWQrJt86/PJhucFZvYSgc6rkVrYXUXgSa
-	 rzE45Ln4RRJvDABV5rUUzl6VPdzf5ajHkuf0dKn3dakO4mdQb1eVar9c/RSkzLIyeOYUY
-	 8D3QmccKgGyoq99SWOrYLIda2brnVc0Brn8WYnpo6ffn0S6JBcTE5SiuiMVhabr6Brw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794454485;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=HFD04U9lRvgNQz6jrXmGg5HtLCekxqCd9hERP4fkq4w=;
+	b=E2WvUE6F73eb6dH98XF4/G7LxNQDCSY6r8vYiVTCwkM/uotZm3XwNejsJqu2EaG3NquN
+	 9ztfCE6nhyxjYpXmb5gmLd1Ql3wzZzMHXlW/I+1lhVGc0QXnngBMa0Az8PJvtWqF6SCPj
+	 SaRfcdMhTeGMv0LmzWQiqAKkl7rOyvv3lcP/JG7Obu4H0yn4TjLlau/xd8z9LDT4+b6OD
+	 z9xsV88AR7L4ztKrHql6Nn+gpcd8XhCjW+zVeSvHvzqjUTh2R8G7UdWCgQfZHoUTZjykX
+	 iWUsEOxRlzR5PidI8l7aJDI4H5aSTV4wIl6LF//OgQKdFSrQ+trlvN+llqKK6qqMY0g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nw1eezo5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55648606A330
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:34:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nw1eezo5
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794454455;
-	b=fF32doJh9h43wm4BEWP1F89fr7EeTduyoEfvY8Ek9i4G9MiN/3vMzLITOMdOa15Cq3oA
-	 3F+cQdO4cso+TtrleNSS1aHkU98DC00bk7oVVgPljbGi6epwUoR52UH/laYbhQqmAgDTw
-	 nVU/tqg2Tfv89S8Rq+GtmK9CTZbTSmAiW4hMmW63MAFqp3T6zr4M8YalwpQ/lB+qhLnHA
-	 YIq84tBU9DQBTBDIbeCaojkOw8W25MG1/U0u+YcoApvStcYqJ0JxWaPSSdlLeioG2WfeN
-	 jgFzy3oxSCUJbztxJzo06Qxz1sPaQMvWEmu52s8kKzUBRAMuenv6iMxKSsFmd/sjAFw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794454455;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=J8QebyNGJfWzCs/CsfLVMv5IsTPj7u8iQ3c86reYX80=;
-	b=ffjL1ndyM7qt0Du6t3TK03qZGwURhiQZ9dcCMnvIx82tIe0G6Ls+fcXtkJVUlEPb1snP
-	 9TmxcYA3kjW/nhgzo3vFwNzSYpuGkKpmrBkqfaxIAh7yzZt3i+GMplV09K+sPr8/q4cNg
-	 HUOhfgaQGcQ9EBW/2w8lea5iUGKuCYnkqLsSHAu0GPQBB2FdOfpgedN6LhpNkFxsGno0/
-	 Ld3H+yxhad3iW1qdrGdh+tkB7wWXr9jRbvyYGt8WmPxP+n8GBDqoRj1a5yJw+4JaPTr+f
-	 kyQQ4/Px2RWqhFZcPzx0D35Dht0H1/CmYEGYr9hsmMSGIhTar3vQ578RDaUpotXSV+Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XbmweJSo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BF8981F00A06;
-	Thu, 12 Nov 2026 03:34:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794454455;
-	bh=J8QebyNGJfWzCs/CsfLVMv5IsTPj7u8iQ3c86reYX80=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=nw1eezo5x5QJPcY5MdRFL7UPXjxaKzuRndUHze9GxfXBcnoSxRAHa1T2ufOlqjuj+
-	 AaBY/9s7CF4huNsMkcU57qw0CNItKYAqwPJUYK5ZNL0q1dYD9mPPIm/eVd5V0akpcB
-	 eLL9RXlmvO05wo/KHUk41obld2Sr4Z4+6rIH+THppSB245D6IMl7Nmn8Y1hpV/4yMB
-	 ymztUES46X0cwVpSHhMwt4fiRGlm9/aj+pNLIQvctDpbIobWYSErEstVCuX9bmotql
-	 fbMFXgDskGgXV4iGdPGQi4nHYTa+9DFk0jS4i45/OczrkPCKht9wxb5YjfjO2t/z5q
-	 toIPsAclBRhYQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 42ABA49261;
-	Thu, 12 Nov 2026 03:34:11 +0000 (UTC)
-From: Angel Gabriel Crispin Valdivia via B4 Relay <devnull+angelcrispinvaldivia.gmail.com@kernel.org>
-Date: Wed, 11 Nov 2026 22:34:08 -0500
-Subject: [PATCH v2 1/4] drm/fl2000: Add USB driver with register and I2C
- access
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29084606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:34:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29084606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XbmweJSo
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c4395d31228so508518266b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:34:43 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794454482; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IE48vmyKEfVEouF6+WvV7M2JSmHvfEfrbHV7s7iyBUiACKmYc2mQEHnwaheUdkTOok
+         6NH61O51or6tvXplhC/JX+VBu0ADURxCAd0XgOEBkgBRceJzazd502/8+ceS9aeopjon
+         +l1Yto7nueR7R/tO+ZZWW+tRrAiCPS68YrZ2RYYahEE2yKxBNLNRhJihmkrGhQMTHyMi
+         uwTwDlerSwEawdTsdeI98zteYqK6rRX/PWaQniHEHOG+/7XIY2SQw3PiqqyIpUeaLv4R
+         QVwD0Bo/pm1vKwNdAFdQKKFwTOCKxS9FcB6FIVhw/IRHfgk8bTG3XuX0+i2jGd72ghA9
+         wiLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=HFD04U9lRvgNQz6jrXmGg5HtLCekxqCd9hERP4fkq4w=;
+        fh=m+nXjjMqQ+qPQhLx55tiqtKY6G6J/QQvNZP77It2TBs=;
+        b=i/a6hVY9JSba7HnJ6804vrQ9NWT9qDFla+tQyu+D8o8jlKD5RDAKMchggiGLKqZDqX
+         XLOFs1/ab7ihBlMmAY22riF38ZcPvjBnnAerz0dpu94797fqIaw5B82dMqnVK5MRhbRU
+         90msOU4aiw2kNNT4TRloiVzrb648bos9LbHvc5k5CxW7fNBkNzqfsqJ5TkF4Zer+ATrU
+         A159p+UDUdRKvv4/poB/t6Z9DSeQr3hIA+PF7Jpf9OACC1PoHi45gXbwM248QYWqcBL4
+         nGfuwm3dzNIdDTSLat7JCWXkbIbbFGOtilF2j+HHNYD4Q2s8xYSJ1j+lJ8giMtMs6+n+
+         bolg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794454482; x=1795059282; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HFD04U9lRvgNQz6jrXmGg5HtLCekxqCd9hERP4fkq4w=;
+        b=XbmweJSoOw/Ubg9edSib6n+niyNCV83nNz3+Xt0bWSDoO4QvL4eQ5CmKqpD6grupp8
+         UHeFHjZs1J6gJ+3DTvVT5o5DGWKYvTMeSnISFZfsYv7w4vjtxVqSVDQNY3Q52P/0rAth
+         tCOjvjKRyNIHKjYgfu4DPgmuyxoLJG9HDsKgC06+cRaypbOC2P1HdbIJwXBb9OKBgK3G
+         /4cDfTF7LMQy2anMsZxyXiDXyvkXi3FkcZ9ilyey0n48zXD7PNwLVtKjHRYNa/KV9e2x
+         NjauKzaUyuDQmkxvWfazajRR4/PWEiX4s27U1O+dfZg8QS4OxJhU+nveuKfEhVgzQ18O
+         ZvbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794454482; x=1795059282;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HFD04U9lRvgNQz6jrXmGg5HtLCekxqCd9hERP4fkq4w=;
+        b=hj1no25cbMPrKu9IZNp24X3dGrp4aAGElSo8GCQVM7qkALIwxixPqGvjIcLXfHRRJ8
+         Cvmd9Y2zO2zP6CPFFpqHsg5p74kPXTkBVeb8DzY5Ka2pLW2vSvEd9mRr1O/vhnmpMMU0
+         ZuZXBPXvMgtAI+aWMFld52bnG8nuBs29+ZOlpivEGgeqh+qUdPXgJXSSCP9Ul+9fAF9W
+         Qk7M0FqJy4lBLV3akLfv69tp1GzDL70qHk3xuiwUYDdiYPKDQ8fhjSuefTNI8sVQWCnE
+         CdfUpQmrhBnKCQ2E9YmFr5mvCkam5/MLzYTWNm+71LexiOI/gxOLQ5uJA70oEd/Umx+R
+         fQmw==
+X-Forwarded-Encrypted: i=1; AL+hErFrCeyWdm+PHuJ+4e/wvn8ZagIzFEKpFB6lWcyFrLQ0KeH+HmWzgkxUhm5c9wUTC8CwwGoMZfkH+tfJC/w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9temkV4eyzGfDpEPlxViAsXfALKZzkgGGHhEEnz4wjtj7ptg2c
+	PTRqxnYMjqpEN+3wS+fNbbxDqH5OhXQ07iEQv3WdNj5eiXLQUCdCwhhz/jteiq7ufYAyygJkjkY
+	CQwnJ5NJTeG62KC8axp9ZbithhQn+isk=
+X-Gm-Gg: AYBFou3y3knPysdwkSuBMtvUOJKgu7ajdLbo1gwYmsJjCh117bubkJNca4YdFB8EhA0
+	wyrhFl+uGqe+1kBqsvtorfw5dVdGnl5CdhGiRS9Chj8+3XCoczpJLJcm4toH/2fMKnGbYhXNRGL
+	vL2Levd0gHCXn0XsedXTtZLlXz0HLKBKetmsjcx2hB3yq12z27W6HyYYxgGQUscikNnFx+0WP6W
+	3yDcZoDSguj4e/q9xwFvGMbsdS9GVx49Jjdir3x3NlEpAsaJB1PxqBQYngv0QUkjTFOIkSuYBD2
+	5tayN179i8IIE/tpVLaa19pz2uM4IkC4Dz9M9RpzP1C2UIKR/LmV0CYMdnVI1XAvAnxXEugHs6X
+	c6WyTr2MrJKZ18CMIDXmMtD9I7V3h9V14F2aiowJfN/9LtTetVg==
+X-Received: by 2002:a17:907:6d18:b0:c50:5545:b67c with SMTP id
+ a640c23a62f3a-c5066b44dd9mr369952566b.18.1794454482354; Wed, 11 Nov 2026
+ 19:34:42 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,1200 +104,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-fl2000-upstream-v2-1-201f87708cb0@gmail.com>
-References: <20261111-fl2000-upstream-v2-0-201f87708cb0@gmail.com>
-In-Reply-To: <20261111-fl2000-upstream-v2-0-201f87708cb0@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Angel Gabriel Crispin Valdivia <angelcrispinvaldivia@gmail.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794454449; l=41960;
- i=angelcrispinvaldivia@gmail.com; s=20261106; h=from:subject:message-id;
- bh=YoOuqUGKXrqNT+al69CJeT6iscer2cUG0mqdUCr/0Pc=;
- b=Hb32t9KD+zqhtm+mY3HlY01UF6i5TQj7WI9c5ejVj+mU80mFzPg9oZG5Hwj9y6NwtHLBKQDbt
- QoLTulWlOc0CjADiIhWokZWO4el9PadT8BndYzKZQSYde0siXgI0sqX
-X-Developer-Key: i=angelcrispinvaldivia@gmail.com; a=ed25519;
- pk=80bQU/p2R0pLIfdfJaB5I/2obI+RxQHondq5DEM0tbg=
-X-Endpoint-Received: by B4 Relay for
- angelcrispinvaldivia@gmail.com/20261106 with auth_id=1425
-X-Original-From: Angel Gabriel Crispin Valdivia <angelcrispinvaldivia@gmail.com>
-Reply-To: angelcrispinvaldivia@gmail.com
-Content-Transfer-Encoding: 7bit
+References: <20261111-octeon-init-pipeline-v1-v3-0-e5581974fae4@gmail.com>
+In-Reply-To: <20261111-octeon-init-pipeline-v1-v3-0-e5581974fae4@gmail.com>
+From: Alejandro Lucero <aleszlucero@gmail.com>
+Date: Wed, 11 Nov 2026 21:34:30 -0600
+X-Gm-Features: AclHuK9AV_1Y2d0UxZ-1Hr4sJSdXijhOdrfjQAveTFrzhQ1dDz2Bh1ByTpqCY6s
+Message-ID: <CAHDi9tqk3rHYJZ2Abu5Gn-=xVhA_AawCX9VRK_Nu0sHmNkeM7w@mail.gmail.com>
+Subject: Re: [PATCH v3 0/2] staging: octeon: fix probe error path and
+ pow_send_list matching
+To: aleszlucero@gmail.com
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-staging@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Angel Gabriel Crispin Valdivia <angelcrispinvaldivia@gmail.com>
+Please disregard this series, I sent it by mistake. I will send a
+corrected version shortly.
 
-The Fresco Logic FL2000DX is a USB 3.0 display controller used in
-inexpensive USB to VGA and USB to HDMI adapters (USB ID 1d5c:2000). The
-FL2000 itself outputs parallel RGB/VGA; HDMI adapters pair it with an
-ITE IT66121 HDMI transmitter that sits on the FL2000's I2C bus.
-
-This first patch adds the USB side of the driver: it matches interface
-0 and claims the other two FL2000 interfaces from its probe, selects the
-altsetting that has the bulk endpoint, describes the FL2000 registers,
-provides a regmap on top of the vendor control transfers that access
-them, and registers an I2C adapter backed by the FL2000 I2C engine. The
-engine only transfers aligned 32-bit words, so byte accesses are done as
-read-modify-write of the containing word and the adapter advertises the
-matching quirks.
-
-Everything hangs off the binding of interface 0 and goes away with it;
-unbinding any of the interfaces takes the others along.
-
-The driver is based on the out-of-tree fl2000_drm driver by Artem
-Mygaiev, which carries code from the Fresco Logic reference driver.
-
-Signed-off-by: Angel Gabriel Crispin Valdivia <angelcrispinvaldivia@gmail.com>
----
- MAINTAINERS                               |   7 +
- drivers/gpu/drm/Kconfig                   |   1 +
- drivers/gpu/drm/Makefile                  |   1 +
- drivers/gpu/drm/fl2000/Kconfig            |  19 ++
- drivers/gpu/drm/fl2000/Makefile           |   8 +
- drivers/gpu/drm/fl2000/fl2000.h           |  89 +++++++++
- drivers/gpu/drm/fl2000/fl2000_drv.c       | 163 ++++++++++++++++
- drivers/gpu/drm/fl2000/fl2000_i2c.c       | 179 +++++++++++++++++
- drivers/gpu/drm/fl2000/fl2000_registers.c | 315 ++++++++++++++++++++++++++++++
- drivers/gpu/drm/fl2000/fl2000_registers.h | 276 ++++++++++++++++++++++++++
- 10 files changed, 1058 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c10342aa3..6e74cb478 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8324,6 +8324,13 @@ F:	include/linux/aperture.h
- F:	include/linux/sysfb.h
- F:	include/video/nomodeset.h
- 
-+DRM DRIVER FOR FRESCO LOGIC FL2000 USB DISPLAY ADAPTERS
-+M:	Angel Gabriel Crispin Valdivia <angelcrispinvaldivia@gmail.com>
-+L:	dri-devel@lists.freedesktop.org
-+S:	Maintained
-+T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-+F:	drivers/gpu/drm/fl2000/
-+
- DRM DRIVER FOR GENERIC EDP PANELS
- R:	Douglas Anderson <dianders@chromium.org>
- F:	Documentation/devicetree/bindings/display/panel/panel-edp.yaml
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index 61111d50b..6ff093830 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -313,6 +313,7 @@ source "drivers/gpu/drm/atmel-hlcdc/Kconfig"
- source "drivers/gpu/drm/bridge/Kconfig"
- source "drivers/gpu/drm/etnaviv/Kconfig"
- source "drivers/gpu/drm/exynos/Kconfig"
-+source "drivers/gpu/drm/fl2000/Kconfig"
- source "drivers/gpu/drm/fsl-dcu/Kconfig"
- source "drivers/gpu/drm/gma500/Kconfig"
- source "drivers/gpu/drm/gud/Kconfig"
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 2c6bc093a..a4a8a958a 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -190,6 +190,7 @@ obj-$(CONFIG_DRM_NOUVEAU) +=nouveau/
- obj-$(CONFIG_DRM_EXYNOS) +=exynos/
- obj-$(CONFIG_DRM_ROCKCHIP) +=rockchip/
- obj-$(CONFIG_DRM_GMA500) += gma500/
-+obj-$(CONFIG_DRM_FL2000) += fl2000/
- obj-$(CONFIG_DRM_UDL) += udl/
- obj-$(CONFIG_DRM_AST) += ast/
- obj-$(CONFIG_DRM_ARMADA) += armada/
-diff --git a/drivers/gpu/drm/fl2000/Kconfig b/drivers/gpu/drm/fl2000/Kconfig
-new file mode 100644
-index 000000000..bf1badc3e
---- /dev/null
-+++ b/drivers/gpu/drm/fl2000/Kconfig
-@@ -0,0 +1,19 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+config DRM_FL2000
-+	tristate "Fresco Logic FL2000 USB display adapters"
-+	depends on DRM && USB && MMU
-+	depends on USB_ARCH_HAS_HCD
-+	select DRM_BRIDGE_CONNECTOR
-+	select DRM_CLIENT_SELECTION
-+	select DRM_DISPLAY_HELPER
-+	select DRM_GEM_SHMEM_HELPER
-+	select DRM_KMS_HELPER
-+	select I2C
-+	select REGMAP
-+	select REGMAP_I2C
-+	help
-+	  This is a KMS driver for USB display adapters based on the
-+	  Fresco Logic FL2000DX USB 3.0 to VGA controller, paired with an
-+	  ITE IT66121 HDMI transmitter (USB ID 1d5c:2000).
-+
-+	  If M is selected the module will be called fl2000.
-diff --git a/drivers/gpu/drm/fl2000/Makefile b/drivers/gpu/drm/fl2000/Makefile
-new file mode 100644
-index 000000000..2b3a2f151
---- /dev/null
-+++ b/drivers/gpu/drm/fl2000/Makefile
-@@ -0,0 +1,8 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+
-+fl2000-y := \
-+	fl2000_drv.o \
-+	fl2000_i2c.o \
-+	fl2000_registers.o
-+
-+obj-$(CONFIG_DRM_FL2000) += fl2000.o
-diff --git a/drivers/gpu/drm/fl2000/fl2000.h b/drivers/gpu/drm/fl2000/fl2000.h
-new file mode 100644
-index 000000000..9b903e68c
---- /dev/null
-+++ b/drivers/gpu/drm/fl2000/fl2000.h
-@@ -0,0 +1,89 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * (C) Copyright 2017, Fresco Logic, Incorporated.
-+ * (C) Copyright 2018-2020, Artem Mygaiev
-+ */
-+
-+#ifndef FL2000_H
-+#define FL2000_H
-+
-+#include <linux/device.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/regmap.h>
-+#include <linux/types.h>
-+#include <linux/usb.h>
-+
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_bridge.h>
-+#include <drm/drm_crtc.h>
-+#include <drm/drm_damage_helper.h>
-+#include <drm/drm_device.h>
-+#include <drm/drm_drv.h>
-+#include <drm/drm_fourcc.h>
-+#include <drm/drm_framebuffer.h>
-+#include <drm/drm_gem_framebuffer_helper.h>
-+#include <drm/drm_gem_shmem_helper.h>
-+#include <drm/drm_print.h>
-+#include <drm/drm_probe_helper.h>
-+#include <drm/drm_crtc_helper.h>
-+#include <drm/drm_plane.h>
-+#include <drm/drm_encoder.h>
-+#include <drm/drm_modeset_helper_vtables.h>
-+
-+#include "fl2000_registers.h"
-+
-+/* Known USB interfaces of FL2000 */
-+enum fl2000_interface {
-+	FL2000_USBIF_AVCONTROL = 0,
-+	FL2000_USBIF_STREAMING = 1,
-+	FL2000_USBIF_INTERRUPT = 2,
-+	FL2000_USBIF_NUM,
-+};
-+
-+struct fl2000_timings {
-+	u32 hactive;
-+	u32 htotal;
-+	u32 hsync_width;
-+	u32 hstart;
-+	u32 vactive;
-+	u32 vtotal;
-+	u32 vsync_width;
-+	u32 vstart;
-+};
-+
-+struct fl2000_pll {
-+	u32 prescaler;
-+	u32 multiplier;
-+	u32 divisor;
-+	u32 function;
-+};
-+
-+/* Polling interval and timeout in us for I2C read/write operations */
-+#define I2C_RDWR_INTERVAL 200
-+#define I2C_RDWR_TIMEOUT  (256 * 1000)
-+
-+/* I2C adapter interface creation */
-+struct i2c_adapter *fl2000_i2c_init(struct usb_interface *interface, struct regmap *regmap);
-+int fl2000_ddc_read_block(struct i2c_adapter *adapter, u8 *buf, unsigned int block, size_t len);
-+
-+/* Register map creation */
-+struct regmap *fl2000_regmap_init(struct device *dev, struct usb_device *usb_dev);
-+void fl2000_regmap_drop_cache(struct regmap *regmap);
-+
-+/* Registers interface */
-+int fl2000_reset(struct regmap *regmap);
-+int fl2000_usb_magic(struct regmap *regmap);
-+int fl2000_afe_magic(struct regmap *regmap);
-+int fl2000_set_transfers(struct regmap *regmap);
-+int fl2000_set_pixfmt(struct regmap *regmap, u32 bytes_pix);
-+int fl2000_set_timings(struct regmap *regmap, struct fl2000_timings *timings);
-+int fl2000_set_pll(struct regmap *regmap, struct fl2000_pll *pll);
-+int fl2000_force_connect(struct regmap *regmap, bool force);
-+bool fl2000_force_connect_active(struct regmap *regmap);
-+int fl2000_enable_sink_interrupts(struct regmap *regmap);
-+int fl2000_stream_interrupts(struct regmap *regmap, bool enable);
-+int fl2000_read_status(struct regmap *regmap, u32 *status);
-+int fl2000_i2c_dword(struct regmap *regmap, bool read, u16 addr, u8 offset, u32 *data);
-+
-+#endif /* FL2000_H */
-diff --git a/drivers/gpu/drm/fl2000/fl2000_drv.c b/drivers/gpu/drm/fl2000/fl2000_drv.c
-new file mode 100644
-index 000000000..8e41de8f5
---- /dev/null
-+++ b/drivers/gpu/drm/fl2000/fl2000_drv.c
-@@ -0,0 +1,163 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * (C) Copyright 2017, Fresco Logic, Incorporated.
-+ * (C) Copyright 2018-2020, Artem Mygaiev
-+ */
-+
-+#include "fl2000.h"
-+
-+#define USB_VENDOR_FRESCO_LOGIC 0x1D5C
-+#define USB_PRODUCT_FL2000	0x2000
-+
-+static struct usb_driver fl2000_driver;
-+
-+/*
-+ * The three interfaces of the display function only work together, and the driver binds to the
-+ * device through the first one: it matches interface 0 and claims the others from its probe, as
-+ * other multi-interface USB drivers do. Everything else hangs off the binding of interface 0 and
-+ * goes away with it, whatever the reason.
-+ */
-+static const struct usb_device_id fl2000_id_table[] = {
-+	{
-+		.match_flags = USB_DEVICE_ID_MATCH_DEVICE | USB_DEVICE_ID_MATCH_INT_CLASS |
-+			       USB_DEVICE_ID_MATCH_INT_NUMBER,
-+		.idVendor = USB_VENDOR_FRESCO_LOGIC,
-+		.idProduct = USB_PRODUCT_FL2000,
-+		.bInterfaceClass = USB_CLASS_AUDIO_VIDEO,
-+		.bInterfaceNumber = FL2000_USBIF_AVCONTROL,
-+	},
-+	{},
-+};
-+MODULE_DEVICE_TABLE(usb, fl2000_id_table);
-+
-+struct fl2000_devs {
-+	struct regmap *regmap;
-+	struct i2c_adapter *adapter;
-+};
-+
-+/* Interface 0 is what the driver is probing: claim the others */
-+static int fl2000_claim_interfaces(struct usb_device *usb_dev, struct fl2000_devs *devs)
-+{
-+	int ret;
-+
-+	for (int i = FL2000_USBIF_AVCONTROL + 1; i < FL2000_USBIF_NUM; i++) {
-+		ret = usb_driver_claim_interface(&fl2000_driver, usb_ifnum_to_if(usb_dev, i), devs);
-+		if (ret) {
-+			dev_err(&usb_dev->dev, "Cannot claim interface %d (%d)\n", i, ret);
-+			while (--i > FL2000_USBIF_AVCONTROL) {
-+				struct usb_interface *other = usb_ifnum_to_if(usb_dev, i);
-+
-+				usb_set_intfdata(other, NULL);
-+				usb_driver_release_interface(&fl2000_driver, other);
-+			}
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+/* Let go of all interfaces but @interface, which is being unbound if it is one of them */
-+static void fl2000_release_interfaces(struct usb_device *usb_dev, struct usb_interface *interface)
-+{
-+	for (int i = 0; i < FL2000_USBIF_NUM; i++) {
-+		struct usb_interface *other = usb_ifnum_to_if(usb_dev, i);
-+
-+		if (other != interface)
-+			usb_driver_release_interface(&fl2000_driver, other);
-+	}
-+}
-+
-+static int fl2000_probe(struct usb_interface *interface, const struct usb_device_id *usb_dev_id)
-+{
-+	int ret;
-+	struct usb_device *usb_dev = interface_to_usbdev(interface);
-+	struct fl2000_devs *devs;
-+
-+	if (usb_dev->speed < USB_SPEED_HIGH) {
-+		dev_err(&interface->dev, "USB 1.1 is not supported\n");
-+		return -ENODEV;
-+	}
-+
-+	/* Frames go to the bulk endpoint of altsetting 1, and the chip has always been used so */
-+	ret = usb_set_interface(usb_dev, FL2000_USBIF_AVCONTROL, 1);
-+	if (ret) {
-+		dev_err(&interface->dev, "Cannot set streaming interface for bulk transfers\n");
-+		return ret;
-+	}
-+
-+	devs = devm_kzalloc(&interface->dev, sizeof(*devs), GFP_KERNEL);
-+	if (!devs)
-+		return -ENOMEM;
-+
-+	devs->regmap = fl2000_regmap_init(&interface->dev, usb_dev);
-+	if (IS_ERR(devs->regmap)) {
-+		dev_err(&interface->dev, "Cannot initialize regmap (%pe)\n", devs->regmap);
-+		return PTR_ERR(devs->regmap);
-+	}
-+
-+	devs->adapter = fl2000_i2c_init(interface, devs->regmap);
-+	if (IS_ERR(devs->adapter)) {
-+		dev_err(&interface->dev, "Cannot initialize I2C adapter (%pe)\n", devs->adapter);
-+		return PTR_ERR(devs->adapter);
-+	}
-+
-+	ret = fl2000_claim_interfaces(usb_dev, devs);
-+	if (ret)
-+		return ret;
-+
-+	usb_set_intfdata(interface, devs);
-+
-+	return 0;
-+}
-+
-+static void fl2000_disconnect(struct usb_interface *interface)
-+{
-+	struct usb_device *usb_dev = interface_to_usbdev(interface);
-+	struct fl2000_devs *devs = usb_get_intfdata(interface);
-+
-+	/* This interface was only let go of, by the disconnect of another one */
-+	if (!devs)
-+		return;
-+
-+	for (int i = 0; i < FL2000_USBIF_NUM; i++)
-+		usb_set_intfdata(usb_ifnum_to_if(usb_dev, i), NULL);
-+
-+	/* Last, as devs goes with interface 0, which may be one of these */
-+	fl2000_release_interfaces(usb_dev, interface);
-+}
-+
-+static int fl2000_suspend(struct usb_interface *interface, pm_message_t message)
-+{
-+	/*
-+	 * Nothing to save yet. Providing the callback keeps the USB core from
-+	 * unbinding the driver across system sleep.
-+	 */
-+	dev_dbg(&interface->dev, "suspend\n");
-+
-+	return 0;
-+}
-+
-+static int fl2000_resume(struct usb_interface *interface)
-+{
-+	dev_dbg(&interface->dev, "resume\n");
-+
-+	return 0;
-+}
-+
-+static struct usb_driver fl2000_driver = {
-+	.name = KBUILD_MODNAME,
-+	.probe = fl2000_probe,
-+	.disconnect = fl2000_disconnect,
-+	.suspend = fl2000_suspend,
-+	.resume = fl2000_resume,
-+	.id_table = fl2000_id_table,
-+	.supports_autosuspend = false,
-+	.disable_hub_initiated_lpm = true,
-+};
-+
-+module_usb_driver(fl2000_driver);
-+
-+MODULE_AUTHOR("Artem Mygaiev");
-+MODULE_DESCRIPTION("FL2000 USB display driver");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/gpu/drm/fl2000/fl2000_i2c.c b/drivers/gpu/drm/fl2000/fl2000_i2c.c
-new file mode 100644
-index 000000000..97c8cf573
---- /dev/null
-+++ b/drivers/gpu/drm/fl2000/fl2000_i2c.c
-@@ -0,0 +1,179 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * (C) Copyright 2017, Fresco Logic, Incorporated.
-+ * (C) Copyright 2018-2019, Artem Mygaiev
-+ */
-+
-+#include <linux/unaligned.h>
-+
-+#include <drm/drm_edid.h>
-+
-+#include "fl2000.h"
-+
-+/*
-+ * The I2C controller requires a mandatory 8-bit sub-address for any read/write operation. Each
-+ * read or write operates on 8-bit data. Every exchange shall consist of 2 messages (sub-address +
-+ * data) combined. The USB transfer always aligns the address to a 4-byte boundary.
-+ */
-+#define I2C_CMESSAGES_NUM  2
-+#define I2C_REG_ADDR_SIZE  (sizeof(u8))
-+#define I2C_REG_DATA_SIZE  (sizeof(u8))
-+#define I2C_XFER_ADDR_MASK (~0x3ul)
-+
-+static inline int fl2000_i2c_read_dword(struct regmap *regmap, u16 addr, u8 offset, u32 *data)
-+{
-+	return fl2000_i2c_dword(regmap, true, addr, offset, data);
-+}
-+
-+static inline int fl2000_i2c_write_dword(struct regmap *regmap, u16 addr, u8 offset, u32 *data)
-+{
-+	return fl2000_i2c_dword(regmap, false, addr, offset, data);
-+}
-+
-+static int fl2000_i2c_xfer(struct i2c_adapter *adapter, struct i2c_msg *msgs, int num)
-+{
-+	int ret;
-+	bool read;
-+	u16 addr;
-+	u8 idx;
-+	u8 offset;
-+	u32 data;
-+
-+	/*
-+	 * The adapter quirks only let through:
-+	 * - 2 messages of 1 byte each, first write then read
-+	 * - 1 message of at most 2 bytes
-+	 */
-+	if (num == 2)
-+		read = true;
-+	else if (msgs[0].len == 2 && !(msgs[0].flags & I2C_M_RD))
-+		read = false;
-+	else
-+		return -EOPNOTSUPP;
-+
-+	addr = msgs[0].addr;
-+	offset = msgs[0].buf[0] & I2C_XFER_ADDR_MASK;
-+	idx = msgs[0].buf[0] - offset;
-+
-+	/*
-+	 * The FL2000 I2C engine only transfers aligned dwords, so the offset is aligned down to a
-+	 * 4-byte boundary and the requested byte is picked out of (or merged into) the dword.
-+	 */
-+	if (read) {
-+		ret = fl2000_i2c_read_dword(adapter->algo_data, addr, offset, &data);
-+		if (ret)
-+			return ret;
-+
-+		msgs[1].buf[0] = data >> (idx * 8);
-+	} else {
-+		/*
-+		 * Since the FL2000 I2C engine always operates on 4-byte messages, we need to read
-+		 * before write in order not to corrupt the unrelated registers of the same dword.
-+		 */
-+		ret = fl2000_i2c_read_dword(adapter->algo_data, addr, offset, &data);
-+		if (ret)
-+			return ret;
-+
-+		data &= ~(0xffU << (idx * 8));
-+		data |= (u32)msgs[0].buf[1] << (idx * 8);
-+
-+		ret = fl2000_i2c_write_dword(adapter->algo_data, addr, offset, &data);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return num;
-+}
-+
-+/*
-+ * Monitor DDC on the FL2000 bus. The bridge's own EDID command does not work behind this engine,
-+ * and the VGA connector has no bridge at all, so EDID is read with the FL2000 I2C engine at address
-+ * 0x50, 4 bytes per operation with an 8-bit offset, which covers EDID blocks 0 and 1.
-+ */
-+#define FL2000_DDC_ADDR 0x50
-+
-+/**
-+ * fl2000_ddc_read_block() - read one EDID block through the FL2000 I2C engine
-+ * @adapter: the FL2000 I2C adapter
-+ * @buf: destination, @len bytes
-+ * @block: EDID block number (0 or 1)
-+ * @len: bytes to read, at most EDID_LENGTH
-+ *
-+ * The signature matches what drm_edid_read_custom() expects, with the adapter as context.
-+ *
-+ * Return: 0 on success, a negative error code otherwise
-+ */
-+int fl2000_ddc_read_block(struct i2c_adapter *adapter, u8 *buf, unsigned int block, size_t len)
-+{
-+	struct regmap *regmap = adapter->algo_data;
-+	unsigned int start = block * EDID_LENGTH;
-+	int ret = 0;
-+
-+	if (block > 1 || len > EDID_LENGTH)
-+		return -EOPNOTSUPP;
-+
-+	/* One operation of the engine is a sequence of register accesses: keep others out */
-+	i2c_lock_bus(adapter, I2C_LOCK_SEGMENT);
-+	for (unsigned int i = 0; i < len; i += 4) {
-+		u32 data;
-+
-+		ret = fl2000_i2c_dword(regmap, true, FL2000_DDC_ADDR, start + i, &data);
-+		if (ret)
-+			break;
-+
-+		put_unaligned_le32(data, buf + i);
-+	}
-+	i2c_unlock_bus(adapter, I2C_LOCK_SEGMENT);
-+
-+	return ret;
-+}
-+
-+static u32 fl2000_i2c_func(struct i2c_adapter *adap)
-+{
-+	return I2C_FUNC_I2C;
-+}
-+
-+static const struct i2c_algorithm fl2000_i2c_algorithm = {
-+	.xfer = fl2000_i2c_xfer,
-+	.functionality = fl2000_i2c_func,
-+};
-+
-+static const struct i2c_adapter_quirks fl2000_i2c_quirks = {
-+	/* Combined transfers only: an address write, then a read, on the same address */
-+	.flags = I2C_AQ_COMB_WRITE_THEN_READ | I2C_AQ_NO_ZERO_LEN,
-+	.max_num_msgs = I2C_CMESSAGES_NUM,
-+	.max_write_len = 2 * I2C_REG_DATA_SIZE,
-+	.max_read_len = I2C_REG_DATA_SIZE,
-+	.max_comb_1st_msg_len = I2C_REG_ADDR_SIZE,
-+	.max_comb_2nd_msg_len = I2C_REG_DATA_SIZE,
-+};
-+
-+struct i2c_adapter *fl2000_i2c_init(struct usb_interface *interface, struct regmap *regmap)
-+{
-+	int ret;
-+	struct i2c_adapter *adapter;
-+	struct usb_device *usb_dev = interface_to_usbdev(interface);
-+	u8 usb_path[32];
-+
-+	/* Adapter must be allocated before anything else */
-+	adapter = devm_kzalloc(&interface->dev, sizeof(*adapter), GFP_KERNEL);
-+	if (!adapter)
-+		return ERR_PTR(-ENOMEM);
-+
-+	adapter->owner = THIS_MODULE;
-+	adapter->algo = &fl2000_i2c_algorithm;
-+	adapter->quirks = &fl2000_i2c_quirks;
-+	adapter->algo_data = regmap;
-+	adapter->dev.parent = &interface->dev;
-+	strscpy(adapter->name, "FL2000 bridge I2C bus", sizeof(adapter->name));
-+
-+	ret = devm_i2c_add_adapter(&interface->dev, adapter);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	usb_make_path(usb_dev, usb_path, sizeof(usb_path));
-+	dev_dbg(&interface->dev, "Created FL2000 bridge I2C bus %d at interface %s\n",
-+		i2c_adapter_id(adapter), usb_path);
-+
-+	return adapter;
-+}
-diff --git a/drivers/gpu/drm/fl2000/fl2000_registers.c b/drivers/gpu/drm/fl2000/fl2000_registers.c
-new file mode 100644
-index 000000000..f1cd28434
---- /dev/null
-+++ b/drivers/gpu/drm/fl2000/fl2000_registers.c
-@@ -0,0 +1,315 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * (C) Copyright 2017, Fresco Logic, Incorporated.
-+ * (C) Copyright 2018-2019, Artem Mygaiev
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/delay.h>
-+
-+#include "fl2000.h"
-+
-+#define CONTROL_MSG_READ  64
-+#define CONTROL_MSG_WRITE 65
-+
-+#define FL2000_HW_RST_MDELAY 10
-+
-+static bool fl2000_reg_precious(struct device *dev, unsigned int reg)
-+{
-+	return FL2000_REG_PRECIOUS(reg);
-+}
-+
-+static bool fl2000_reg_volatile(struct device *dev, unsigned int reg)
-+{
-+	return FL2000_REG_VOLATILE(reg);
-+}
-+
-+/* Protected by internal regmap mutex */
-+static int fl2000_reg_read(void *context, unsigned int reg, unsigned int *val)
-+{
-+	struct usb_device *usb_dev = context;
-+	__le32 data;
-+	int ret;
-+
-+	ret = usb_control_msg_recv(usb_dev, 0, CONTROL_MSG_READ, USB_DIR_IN | USB_TYPE_VENDOR, 0,
-+				   reg, &data, sizeof(data), USB_CTRL_GET_TIMEOUT, GFP_KERNEL);
-+	if (ret)
-+		return ret;
-+
-+	*val = le32_to_cpu(data);
-+
-+	return 0;
-+}
-+
-+/* Protected by internal regmap mutex */
-+static int fl2000_reg_write(void *context, unsigned int reg, unsigned int val)
-+{
-+	struct usb_device *usb_dev = context;
-+	__le32 data = cpu_to_le32(val);
-+
-+	return usb_control_msg_send(usb_dev, 0, CONTROL_MSG_WRITE, USB_DIR_OUT | USB_TYPE_VENDOR, 0,
-+				    reg, &data, sizeof(data), USB_CTRL_SET_TIMEOUT, GFP_KERNEL);
-+}
-+
-+/*
-+ * We do not use default values as per documentation because:
-+ *  a) somehow they differ from real HW
-+ *  b) on SW reset not all of them are cleared
-+ */
-+static const struct regmap_config fl2000_regmap_config = {
-+	.val_bits = 32,
-+	.reg_bits = 16,
-+	.reg_stride = 4,
-+	.max_register = 0xFFFF,
-+
-+	.cache_type = REGCACHE_MAPLE,
-+
-+	.precious_reg = fl2000_reg_precious,
-+	.volatile_reg = fl2000_reg_volatile,
-+
-+	.reg_format_endian = REGMAP_ENDIAN_BIG,
-+	.val_format_endian = REGMAP_ENDIAN_BIG,
-+
-+	.reg_read = fl2000_reg_read,
-+	.reg_write = fl2000_reg_write,
-+
-+	.use_single_read = true,
-+	.use_single_write = true,
-+};
-+
-+int fl2000_set_pll(struct regmap *regmap, struct fl2000_pll *pll)
-+{
-+	u32 val;
-+
-+	val = FIELD_PREP(FL2000_VGA_PLL_PRESCALER, pll->prescaler) |
-+	      FIELD_PREP(FL2000_VGA_PLL_MULTIPLIER, pll->multiplier) |
-+	      FIELD_PREP(FL2000_VGA_PLL_DIVISOR, pll->divisor) |
-+	      FIELD_PREP(FL2000_VGA_PLL_FUNCTION, pll->function);
-+	regmap_write(regmap, FL2000_VGA_PLL_REG, val);
-+
-+	val = FL2000_VGA_CTRL_ACLK_FORCE_PLL_UP;
-+	regmap_write_bits(regmap, FL2000_VGA_CTRL_REG_ACLK, val, val);
-+
-+	return 0;
-+}
-+
-+/*
-+ * Make the chip believe a monitor is connected whatever its own sense says. The HDMI path has
-+ * always run with this set, so it stays set while HDMI is driven. It must be clear while only VGA
-+ * is driven: it hides the cable being unplugged, and with it clear the chip powers its DAC and PLL
-+ * by itself whenever it senses a monitor.
-+ */
-+int fl2000_force_connect(struct regmap *regmap, bool force)
-+{
-+	return regmap_write_bits(regmap, FL2000_VGA_CTRL_REG_ACLK,
-+				 FL2000_VGA_CTRL_ACLK_FORCE_VGA_CONNECT,
-+				 force ? FL2000_VGA_CTRL_ACLK_FORCE_VGA_CONNECT : 0);
-+}
-+
-+/* Is the chip's monitor sense forced on: then it does not follow any cable */
-+bool fl2000_force_connect_active(struct regmap *regmap)
-+{
-+	return regmap_test_bits(regmap, FL2000_VGA_CTRL_REG_ACLK,
-+				FL2000_VGA_CTRL_ACLK_FORCE_VGA_CONNECT) > 0;
-+}
-+
-+int fl2000_set_timings(struct regmap *regmap, struct fl2000_timings *timings)
-+{
-+	regmap_write(regmap, FL2000_VGA_HSYNC_REG1,
-+		     FIELD_PREP(FL2000_VGA_HSYNC1_HACTIVE, timings->hactive) |
-+		     FIELD_PREP(FL2000_VGA_HSYNC1_HTOTAL, timings->htotal));
-+
-+	regmap_write(regmap, FL2000_VGA_HSYNC_REG2,
-+		     FIELD_PREP(FL2000_VGA_HSYNC2_HSYNC_WIDTH, timings->hsync_width) |
-+		     FIELD_PREP(FL2000_VGA_HSYNC2_HSTART, timings->hstart));
-+
-+	regmap_write(regmap, FL2000_VGA_VSYNC_REG1,
-+		     FIELD_PREP(FL2000_VGA_VSYNC1_VACTIVE, timings->vactive) |
-+		     FIELD_PREP(FL2000_VGA_VSYNC1_VTOTAL, timings->vtotal));
-+
-+	regmap_write(regmap, FL2000_VGA_VSYNC_REG2,
-+		     FIELD_PREP(FL2000_VGA_VSYNC2_VSYNC_WIDTH, timings->vsync_width) |
-+		     FIELD_PREP(FL2000_VGA_VSYNC2_VSTART, timings->vstart) |
-+		     FIELD_PREP(FL2000_VGA_VSYNC2_START_LATENCY, timings->vstart));
-+
-+	return 0;
-+}
-+
-+int fl2000_set_pixfmt(struct regmap *regmap, u32 bytes_pix)
-+{
-+	u32 mask, val;
-+
-+	mask = FL2000_VGA_CTRL_PXCLK_DAC_OUTPUT_EN | FL2000_VGA_CTRL_PXCLK_DROP_CNT |
-+	       FL2000_VGA_CTRL_PXCLK_VGA565_MODE | FL2000_VGA_CTRL_PXCLK_VGA332_MODE |
-+	       FL2000_VGA_CTRL_PXCLK_VGA555_MODE | FL2000_VGA_CTRL_PXCLK_VGA_COMPRESS |
-+	       FL2000_VGA_CTRL_PXCLK_CLEAR_WATERMARK;
-+	val = FL2000_VGA_CTRL_PXCLK_DAC_OUTPUT_EN | FL2000_VGA_CTRL_PXCLK_CLEAR_WATERMARK;
-+	if (bytes_pix == 2)
-+		val |= FL2000_VGA_CTRL_PXCLK_VGA565_MODE;
-+	regmap_write_bits(regmap, FL2000_VGA_CTRL_REG_PXCLK, mask, val);
-+
-+	return 0;
-+}
-+
-+int fl2000_set_transfers(struct regmap *regmap)
-+{
-+	u32 mask;
-+
-+	mask = FL2000_VGA_CTRL_ACLK_USE_PKT_PENDING | FL2000_VGA_CTRL_ACLK_USE_ZERO_TD |
-+	       FL2000_VGA_CTRL_ACLK_USE_ZERO_PKT_LEN;
-+	regmap_write_bits(regmap, FL2000_VGA_CTRL_REG_ACLK, mask,
-+			  FL2000_VGA_CTRL_ACLK_USE_ZERO_PKT_LEN);
-+
-+	regmap_write_bits(regmap, FL2000_VGA_ISOCH_REG, FL2000_VGA_ISOCH_MFRAME_CNT, 0);
-+
-+	return 0;
-+}
-+
-+int fl2000_reset(struct regmap *regmap)
-+{
-+	regmap_write_bits(regmap, FL2000_RST_CTRL_REG, FL2000_RST_CTRL_SW_RESET,
-+			  FL2000_RST_CTRL_SW_RESET);
-+
-+	msleep(FL2000_HW_RST_MDELAY);
-+
-+	return 0;
-+}
-+
-+int fl2000_afe_magic(struct regmap *regmap)
-+{
-+	regmap_write_bits(regmap, FL2000_USB_LPM_REG, FL2000_USB_LPM_MAGIC, FL2000_USB_LPM_MAGIC);
-+
-+	return 0;
-+}
-+
-+int fl2000_usb_magic(struct regmap *regmap)
-+{
-+	u32 val;
-+
-+	/* Writing DONE as 0 would start an I2C operation, see fl2000_i2c_dword() */
-+	val = FL2000_VGA_I2C_SC_MONITOR_DETECT | FL2000_VGA_I2C_SC_EDID_DETECT |
-+	      FL2000_VGA_I2C_SC_DONE;
-+	regmap_write_bits(regmap, FL2000_VGA_I2C_SC_REG, val, val);
-+
-+	regmap_write_bits(regmap, FL2000_VGA_CTRL_REG_3, FL2000_VGA_CTRL3_WAKEUP_CLR_EN, 0);
-+
-+	val = FL2000_USB_LPM_U1_REJECT | FL2000_USB_LPM_U2_REJECT;
-+	regmap_write_bits(regmap, FL2000_USB_LPM_REG, val, val);
-+
-+	regmap_write_bits(regmap, FL2000_USB_CTRL_REG, FL2000_USB_CTRL_WAKE_NRDY, 0);
-+
-+	return 0;
-+}
-+
-+/* The interrupts about monitors: they matter from the moment the device is up, mode or no mode */
-+int fl2000_enable_sink_interrupts(struct regmap *regmap)
-+{
-+	regmap_write_bits(regmap, FL2000_VGA_CTRL_REG_ACLK, FL2000_VGA_CTRL_ACLK_EDID_MON_INT_EN,
-+			  FL2000_VGA_CTRL_ACLK_EDID_MON_INT_EN);
-+
-+	regmap_write_bits(regmap, FL2000_VGA_CTRL2_REG_ACLK, FL2000_VGA_CTRL2_ACLK_HDMI_INT_EN,
-+			  FL2000_VGA_CTRL2_ACLK_HDMI_INT_EN);
-+
-+	return 0;
-+}
-+
-+/* The interrupts about the frames being sent */
-+int fl2000_stream_interrupts(struct regmap *regmap, bool enable)
-+{
-+	u32 mask, val;
-+
-+	val = FL2000_VGA_CTRL_ACLK_VGA_ERR_INT_EN | FL2000_VGA_CTRL_ACLK_LBUF_ERR_INT_EN;
-+	mask = val | FL2000_VGA_CTRL_ACLK_FEEDBACK_INT_EN;
-+
-+	return regmap_write_bits(regmap, FL2000_VGA_CTRL_REG_ACLK, mask, enable ? val : 0);
-+}
-+
-+/*
-+ * Read the status register. Its event bits clear on read, so whoever reads it owns the events it
-+ * returns: callers must not drop them.
-+ */
-+int fl2000_read_status(struct regmap *regmap, u32 *status)
-+{
-+	unsigned int val;
-+	int ret;
-+
-+	ret = regmap_read(regmap, FL2000_VGA_STATUS_REG, &val);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * LBUF issues are recoverable: write their bits back. regmap_write_bits() would read the
-+	 * register once more and lose any event raised since the read above.
-+	 */
-+	if (val & (FL2000_VGA_STATUS_LBUF_OVERFLOW | FL2000_VGA_STATUS_LBUF_UNDERFLOW))
-+		regmap_write(regmap, FL2000_VGA_STATUS_REG, val & ~FL2000_VGA_STATUS_SELF_CLEAR);
-+
-+	/* lbuf_halt and vga_error are not handled: no recovery sequence is known */
-+
-+	*status = val;
-+
-+	return 0;
-+}
-+
-+int fl2000_i2c_dword(struct regmap *regmap, bool read, u16 addr, u8 offset, u32 *data)
-+{
-+	int ret;
-+	unsigned int val;
-+	u32 mask;
-+
-+	if (!read) {
-+		ret = regmap_write(regmap, FL2000_VGA_I2C_WR_REG, *data);
-+		if (ret)
-+			return -EIO;
-+	}
-+
-+	/*
-+	 * The detection bits always read back as 0, so they need to be set again on every write.
-+	 * It is not clear whether the monitor detection circuit is needed at all for the HDMI use
-+	 * case.
-+	 */
-+	mask = FL2000_VGA_I2C_SC_MONITOR_DETECT | FL2000_VGA_I2C_SC_EDID_DETECT |
-+	       FL2000_VGA_I2C_SC_STATUS | FL2000_VGA_I2C_SC_ADDR | FL2000_VGA_I2C_SC_CMD |
-+	       FL2000_VGA_I2C_SC_OFFSET | FL2000_VGA_I2C_SC_DONE;
-+	val = FL2000_VGA_I2C_SC_MONITOR_DETECT | FL2000_VGA_I2C_SC_EDID_DETECT |
-+	      FIELD_PREP(FL2000_VGA_I2C_SC_ADDR, addr) |
-+	      FIELD_PREP(FL2000_VGA_I2C_SC_CMD, read) |
-+	      FIELD_PREP(FL2000_VGA_I2C_SC_OFFSET, offset);
-+
-+	ret = regmap_write_bits(regmap, FL2000_VGA_I2C_SC_REG, mask, val);
-+	if (ret)
-+		return -EIO;
-+
-+	ret = regmap_read_poll_timeout(regmap, FL2000_VGA_I2C_SC_REG, val,
-+				       val & FL2000_VGA_I2C_SC_DONE, I2C_RDWR_INTERVAL,
-+				       I2C_RDWR_TIMEOUT);
-+	/*
-+	 * This shouldn't normally happen: there's internal 256ms HW timeout on I2C operations and
-+	 * USB must be always available so no I/O errors. But if it happens we are probably facing
-+	 * an irreversible HW issue.
-+	 */
-+	if (ret || FIELD_GET(FL2000_VGA_I2C_SC_STATUS, val))
-+		return -EIO;
-+
-+	if (read) {
-+		ret = regmap_read(regmap, FL2000_VGA_I2C_RD_REG, data);
-+		if (ret)
-+			return -EIO;
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * The chip may have lost power (system sleep): forget the cached registers, so that the
-+ * read-modify-write updates that follow read the chip instead of skipping writes it still needs.
-+ */
-+void fl2000_regmap_drop_cache(struct regmap *regmap)
-+{
-+	regcache_drop_region(regmap, 0, fl2000_regmap_config.max_register);
-+}
-+
-+struct regmap *fl2000_regmap_init(struct device *dev, struct usb_device *usb_dev)
-+{
-+	return devm_regmap_init(dev, NULL, usb_dev, &fl2000_regmap_config);
-+}
-diff --git a/drivers/gpu/drm/fl2000/fl2000_registers.h b/drivers/gpu/drm/fl2000/fl2000_registers.h
-new file mode 100644
-index 000000000..f17431e38
---- /dev/null
-+++ b/drivers/gpu/drm/fl2000/fl2000_registers.h
-@@ -0,0 +1,276 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Based on the official registers description from Fresco Logic
-+ *
-+ * (C) Copyright 2019, Artem Mygaiev
-+ */
-+
-+#ifndef FL2000_REGISTERS_H
-+#define FL2000_REGISTERS_H
-+
-+#include <linux/bits.h>
-+#include <linux/types.h>
-+
-+/* #### USB Control Registers Bank #### */
-+/* Some unknown & undocumented FL2000 USB settings */
-+
-+#define FL2000_USB_CONTROL_OFFSET 0x0000
-+
-+#define FL2000_USB_LPM_REG (FL2000_USB_CONTROL_OFFSET + 0x70)
-+#define  FL2000_USB_LPM_MAGIC				BIT(13)
-+#define  FL2000_USB_LPM_U2_REJECT			BIT(19)
-+#define  FL2000_USB_LPM_U1_REJECT			BIT(20)
-+
-+#define FL2000_USB_CTRL_REG (FL2000_USB_CONTROL_OFFSET + 0x78)
-+#define  FL2000_USB_CTRL_WAKE_NRDY			BIT(17)
-+
-+/* #### VGA Control Registers Bank #### */
-+/* Taken from the 'FL200DX Memory Mapped Address Space Registers' spec */
-+
-+#define FL2000_VGA_CONTROL_OFFSET 0x8000
-+
-+#define FL2000_VGA_STATUS_REG (FL2000_VGA_CONTROL_OFFSET + 0x00)
-+#define  FL2000_VGA_STATUS_VGA_STATUS			BIT(0)
-+#define  FL2000_VGA_STATUS_VGA_ERROR			BIT(1) /* read self clear */
-+#define  FL2000_VGA_STATUS_LBUF_HALT			BIT(2)
-+#define  FL2000_VGA_STATUS_ISO_ACK			BIT(3) /* read self clear */
-+#define  FL2000_VGA_STATUS_TD_DROP			BIT(4) /* read self clear */
-+#define  FL2000_VGA_STATUS_IRQ_PENDING			BIT(5) /* read self clear */
-+#define  FL2000_VGA_STATUS_PLL_STATUS			BIT(6)
-+#define  FL2000_VGA_STATUS_DAC_STATUS			BIT(7)
-+#define  FL2000_VGA_STATUS_LBUF_OVERFLOW		BIT(8)
-+#define  FL2000_VGA_STATUS_LBUF_UNDERFLOW		BIT(9)
-+#define  FL2000_VGA_STATUS_FRAME_CNT			GENMASK(25, 10)
-+#define  FL2000_VGA_STATUS_HDMI_EVENT			BIT(26) /* read self clear */
-+#define  FL2000_VGA_STATUS_HDMI_STATUS			BIT(27)
-+#define  FL2000_VGA_STATUS_EDID_STATUS			BIT(28)
-+#define  FL2000_VGA_STATUS_MONITOR_STATUS		BIT(29)
-+#define  FL2000_VGA_STATUS_MONITOR_EVENT		BIT(30) /* read self clear */
-+#define  FL2000_VGA_STATUS_EDID_EVENT			BIT(31) /* read self clear */
-+#define  FL2000_VGA_STATUS_SELF_CLEAR \
-+	(FL2000_VGA_STATUS_VGA_ERROR | FL2000_VGA_STATUS_ISO_ACK | FL2000_VGA_STATUS_TD_DROP | \
-+	 FL2000_VGA_STATUS_IRQ_PENDING | FL2000_VGA_STATUS_HDMI_EVENT | \
-+	 FL2000_VGA_STATUS_MONITOR_EVENT | FL2000_VGA_STATUS_EDID_EVENT)
-+
-+#define FL2000_VGA_CTRL_REG_PXCLK (FL2000_VGA_CONTROL_OFFSET + 0x04)
-+#define  FL2000_VGA_CTRL_PXCLK_CLEAR_WATERMARK		BIT(0)
-+#define  FL2000_VGA_CTRL_PXCLK_FRAME_SYNC		BIT(1)
-+#define  FL2000_VGA_CTRL_PXCLK_HSYNC_POLARITY		BIT(2)
-+#define  FL2000_VGA_CTRL_PXCLK_VSYNC_POLARITY		BIT(3)
-+#define  FL2000_VGA_CTRL_PXCLK_DE_POLARITY		BIT(4)
-+#define  FL2000_VGA_CTRL_PXCLK_MIRROR_MODE		BIT(5)
-+#define  FL2000_VGA_CTRL_PXCLK_VGA565_MODE		BIT(6)
-+#define  FL2000_VGA_CTRL_PXCLK_DAC_OUTPUT_EN		BIT(7)
-+#define  FL2000_VGA_CTRL_PXCLK_VGA_TIMING_EN		BIT(8)
-+#define  FL2000_VGA_CTRL_PXCLK_USE_NEW_PKT_RETRY	BIT(9)
-+#define  FL2000_VGA_CTRL_PXCLK_REF_SELECT		BIT(10)
-+#define  FL2000_VGA_CTRL_PXCLK_DAC_PX_CLK_INVERT	BIT(11)
-+#define  FL2000_VGA_CTRL_PXCLK_CLEAR_LBUF_STATUS	BIT(12)
-+#define  FL2000_VGA_CTRL_PXCLK_DROP_CNT			BIT(13)
-+#define  FL2000_VGA_CTRL_PXCLK_USE_VDI_ITP_CNT		BIT(14)
-+#define  FL2000_VGA_CTRL_PXCLK_VGA_COMPRESS		BIT(24)
-+#define  FL2000_VGA_CTRL_PXCLK_VGA332_MODE		BIT(25)
-+#define  FL2000_VGA_CTRL_PXCLK_VGA_COLOR_PALETTE_EN	BIT(26)
-+#define  FL2000_VGA_CTRL_PXCLK_VGA_FIRST_BT_ENC_EN	BIT(27)
-+#define  FL2000_VGA_CTRL_PXCLK_CLEAR_125US_CNT		BIT(28)
-+#define  FL2000_VGA_CTRL_PXCLK_DISABLE_HALT		BIT(29)
-+#define  FL2000_VGA_CTRL_PXCLK_FORCE_DE_EN		BIT(30)
-+#define  FL2000_VGA_CTRL_PXCLK_VGA555_MODE		BIT(31)
-+
-+#define FL2000_VGA_HSYNC_REG1 (FL2000_VGA_CONTROL_OFFSET + 0x08)
-+#define  FL2000_VGA_HSYNC1_HTOTAL			GENMASK(11, 0)
-+#define  FL2000_VGA_HSYNC1_HACTIVE			GENMASK(27, 16)
-+
-+#define FL2000_VGA_HSYNC_REG2 (FL2000_VGA_CONTROL_OFFSET + 0x0C)
-+#define  FL2000_VGA_HSYNC2_HSTART			GENMASK(11, 0)
-+#define  FL2000_VGA_HSYNC2_HSYNC_WIDTH			GENMASK(23, 16)
-+
-+#define FL2000_VGA_VSYNC_REG1 (FL2000_VGA_CONTROL_OFFSET + 0x10)
-+#define  FL2000_VGA_VSYNC1_VTOTAL			GENMASK(11, 0)
-+#define  FL2000_VGA_VSYNC1_VACTIVE			GENMASK(27, 16)
-+
-+#define FL2000_VGA_VSYNC_REG2 (FL2000_VGA_CONTROL_OFFSET + 0x14)
-+#define  FL2000_VGA_VSYNC2_VSTART			GENMASK(11, 0)
-+#define  FL2000_VGA_VSYNC2_VSYNC_WIDTH			GENMASK(18, 16)
-+#define  FL2000_VGA_VSYNC2_START_LATENCY		GENMASK(29, 20)
-+#define  FL2000_VGA_VSYNC2_BUF_ERROR_EN			BIT(31)
-+
-+#define FL2000_VGA_TEST_REG  (FL2000_VGA_CONTROL_OFFSET + 0x18)
-+#define FL2000_VGA_ISOCH_REG (FL2000_VGA_CONTROL_OFFSET + 0x1C)
-+#define  FL2000_VGA_ISOCH_START_MFRAME_CNT		GENMASK(13, 0)
-+#define  FL2000_VGA_ISOCH_USE_MFRAME_MATCH		BIT(14)
-+#define  FL2000_VGA_ISOCH_USE_ZERO_LEN_FRAME		BIT(15)
-+#define  FL2000_VGA_ISOCH_MFRAME_CNT			GENMASK(29, 16)
-+#define  FL2000_VGA_ISOCH_MFRAME_CNT_UPDATE		BIT(30)
-+
-+#define FL2000_VGA_I2C_SC_REG (FL2000_VGA_CONTROL_OFFSET + 0x20)
-+#define  FL2000_VGA_I2C_SC_ADDR				GENMASK(6, 0)
-+#define  FL2000_VGA_I2C_SC_CMD				BIT(7)
-+#define  FL2000_VGA_I2C_SC_OFFSET			GENMASK(15, 8)
-+#define  FL2000_VGA_I2C_SC_VGA_STATUS			GENMASK(23, 16)
-+#define  FL2000_VGA_I2C_SC_STATUS			GENMASK(27, 24)
-+#define  FL2000_VGA_I2C_SC_MONITOR_DETECT		BIT(28)
-+#define  FL2000_VGA_I2C_SC_READY			BIT(29)
-+#define  FL2000_VGA_I2C_SC_EDID_DETECT			BIT(30)
-+#define  FL2000_VGA_I2C_SC_DONE				BIT(31)
-+
-+#define FL2000_VGA_I2C_RD_REG (FL2000_VGA_CONTROL_OFFSET + 0x24)
-+#define FL2000_VGA_I2C_WR_REG (FL2000_VGA_CONTROL_OFFSET + 0x28)
-+
-+#define FL2000_VGA_PLL_REG (FL2000_VGA_CONTROL_OFFSET + 0x2C)
-+#define  FL2000_VGA_PLL_DIVISOR				GENMASK(7, 0)
-+#define  FL2000_VGA_PLL_PRESCALER			GENMASK(9, 8)
-+#define  FL2000_VGA_PLL_FUNCTION			GENMASK(14, 13)
-+#define  FL2000_VGA_PLL_MULTIPLIER			GENMASK(23, 16)
-+#define  FL2000_VGA_PLL_TEST_IO				BIT(24)
-+#define  FL2000_VGA_PLL_CFG_DAC_PWRDOWN			BIT(25)
-+#define  FL2000_VGA_PLL_FORCE_DAC_PWRUP			BIT(26)
-+
-+#define FL2000_VGA_LBUF_REG (FL2000_VGA_CONTROL_OFFSET + 0x30)
-+#define  FL2000_VGA_LBUF_WATERMARK_ASSERT_RDY		GENMASK(14, 0)
-+
-+#define FL2000_VGA_HI_MARK (FL2000_VGA_CONTROL_OFFSET + 0x34)
-+#define  FL2000_VGA_HI_MARK_HIGH_WATERMARK		GENMASK(16, 0)
-+
-+#define FL2000_VGA_LO_MARK (FL2000_VGA_CONTROL_OFFSET + 0x38)
-+#define  FL2000_VGA_LO_MARK_LOW_WATERMARK		GENMASK(16, 0)
-+
-+#define FL2000_VGA_CTRL_REG_ACLK (FL2000_VGA_CONTROL_OFFSET + 0x3C)
-+#define  FL2000_VGA_CTRL_ACLK_CFG_TIMING_RESET_N	BIT(0)
-+#define  FL2000_VGA_CTRL_ACLK_PLH_BLOCK_EN		BIT(1)
-+#define  FL2000_VGA_CTRL_ACLK_EDID_MON_INT_EN		BIT(2)
-+#define  FL2000_VGA_CTRL_ACLK_EXT_MON_INT_EN		BIT(3)
-+#define  FL2000_VGA_CTRL_ACLK_VGA_STATUS_SELF_CLEAR	BIT(4)
-+#define  FL2000_VGA_CTRL_ACLK_PLL_LOCK_TIME		GENMASK(9, 5)
-+#define  FL2000_VGA_CTRL_ACLK_PLL_FAST_TIMEOUT_EN	BIT(10)
-+#define  FL2000_VGA_CTRL_ACLK_PPE_BLOCK_EM		BIT(11)
-+#define  FL2000_VGA_CTRL_ACLK_PLL_TIMER_EN		BIT(12)
-+#define  FL2000_VGA_CTRL_ACLK_FEEDBACK_INT_EN		BIT(13)
-+#define  FL2000_VGA_CTRL_ACLK_CLR_125US_COUNTER		BIT(14)
-+#define  FL2000_VGA_CTRL_ACLK_CCS_PD_DIS		BIT(15)
-+#define  FL2000_VGA_CTRL_ACLK_STANDBY_EN		BIT(16)
-+#define  FL2000_VGA_CTRL_ACLK_FORCE_LOOPBACK		BIT(17)
-+#define  FL2000_VGA_CTRL_ACLK_LBUF_DROP_FRAME_EN	BIT(18)
-+#define  FL2000_VGA_CTRL_ACLK_LBUF_VDE_RST_EN		BIT(19)
-+#define  FL2000_VGA_CTRL_ACLK_LBUF_SW_RST		BIT(20)
-+#define  FL2000_VGA_CTRL_ACLK_LBUF_ERR_INT_EN		BIT(21)
-+#define  FL2000_VGA_CTRL_ACLK_BIAC_EN			BIT(22)
-+#define  FL2000_VGA_CTRL_ACLK_PXCLK_IN_EN		BIT(23)
-+#define  FL2000_VGA_CTRL_ACLK_VGA_ERR_INT_EN		BIT(24)
-+#define  FL2000_VGA_CTRL_ACLK_FORCE_VGA_CONNECT		BIT(25)
-+#define  FL2000_VGA_CTRL_ACLK_FORCE_PLL_UP		BIT(26)
-+#define  FL2000_VGA_CTRL_ACLK_USE_ZERO_TD		BIT(27)
-+#define  FL2000_VGA_CTRL_ACLK_USE_ZERO_PKT_LEN		BIT(28)
-+#define  FL2000_VGA_CTRL_ACLK_USE_PKT_PENDING		BIT(29)
-+#define  FL2000_VGA_CTRL_ACLK_PLL_DAC_PD_USBP3_EN	BIT(30)
-+#define  FL2000_VGA_CTRL_ACLK_PLL_DAC_PD_NOVGA_EN	BIT(31)
-+
-+#define FL2000_VGA_PXCLK_CNT_REG (FL2000_VGA_CONTROL_OFFSET + 0x40)
-+#define  FL2000_VGA_PXCLK_CNT_PIX_CLOCK_COUNT		GENMASK(27, 0)
-+
-+#define FL2000_VGA_VCNT_REG (FL2000_VGA_CONTROL_OFFSET + 0x44)
-+#define  FL2000_VGA_VCNT_MAX_ACLK_COUNT			GENMASK(14, 0)
-+#define  FL2000_VGA_VCNT_MAX_ACLK_COUNT_HIT		BIT(15)
-+#define  FL2000_VGA_VCNT_MAX_LBUF_ACCUMULATE		GENMASK(31, 16)
-+
-+#define FL2000_RST_CTRL_REG (FL2000_VGA_CONTROL_OFFSET + 0x48)
-+#define  FL2000_RST_CTRL_DIS_HOT_RST2_PORT		BIT(0)
-+#define  FL2000_RST_CTRL_DIS_WARM_RST2_PORT		BIT(1)
-+#define  FL2000_RST_CTRL_DIS_HOT_RESET_PIPE		BIT(2)
-+#define  FL2000_RST_CTRL_DIS_WARM_RESET_PIPE		BIT(3)
-+#define  FL2000_RST_CTRL_DIS_HOT_RESET_PIX		BIT(4)
-+#define  FL2000_RST_CTRL_DIS_WARM_RESET_PIX		BIT(5)
-+#define  FL2000_RST_CTRL_DIS_USB2_RESET_PIX		BIT(6)
-+#define  FL2000_RST_CTRL_DIS_PLL_RESET_PIX		BIT(7)
-+#define  FL2000_RST_CTRL_DIS_SW_RESET_PIX		BIT(8)
-+#define  FL2000_RST_CTRL_DIS_USB2_RESET_BUF		BIT(9)
-+#define  FL2000_RST_CTRL_DIS_SW_RESET_BUF		BIT(10)
-+#define  FL2000_RST_CTRL_DIS_LBUF_RESET_PIX		BIT(11)
-+#define  FL2000_RST_CTRL_DIS_HOT_RESET_PORT		BIT(12)
-+#define  FL2000_RST_CTRL_DIS_WARM_RESET_PORT		BIT(13)
-+#define  FL2000_RST_CTRL_SET_SLOW_CLK_PREDFT		BIT(14)
-+#define  FL2000_RST_CTRL_SW_RESET			BIT(15)
-+#define  FL2000_RST_CTRL_FRAME_FIRST_ITP_WL		GENMASK(31, 16)
-+
-+#define FL2000_BIAC_CTRL1_REG (FL2000_VGA_CONTROL_OFFSET + 0x4C)
-+#define  FL2000_BIAC_CTRL1_CTRL_LO8			GENMASK(7, 0)
-+#define  FL2000_BIAC_CTRL1_FRAME_MULT			GENMASK(15, 8)
-+#define  FL2000_BIAC_CTRL1_125US_MULT			GENMASK(31, 16)
-+
-+#define FL2000_BIAC_CTRL2_REG (FL2000_VGA_CONTROL_OFFSET + 0x50)
-+#define  FL2000_BIAC_CTRL2_CTRL_HI16			GENMASK(15, 0)
-+
-+#define FL2000_BIAC_STATUS_REG (FL2000_VGA_CONTROL_OFFSET + 0x54)
-+#define  FL2000_BIAC_STATUS_CURRENT_STATUS		GENMASK(15, 0)
-+#define  FL2000_BIAC_STATUS_CURRENT_VALUE		GENMASK(31, 16)
-+
-+/* undefined				(FL2000_VGA_CONTROL_OFFSET + 0x58) */
-+
-+#define FL2000_VGA_PLT_REG_PXCLK (FL2000_VGA_CONTROL_OFFSET + 0x5C)
-+#define  FL2000_VGA_PLT_PXCLK_PALETTE_RAM_WR_DATA	GENMASK(23, 0)
-+
-+#define FL2000_VGA_PLT_RADDR_REG_PXCLK (FL2000_VGA_CONTROL_OFFSET + 0x60)
-+#define  FL2000_VGA_PLT_RADDR_PALETTE_RAM_RD_ADDR	GENMASK(7, 0)
-+#define  FL2000_VGA_PLT_RADDR_LAST_FRAME_LBUF_WATERMARK	GENMASK(23, 8)
-+
-+#define FL2000_VGA_CTRL2_REG_ACLK (FL2000_VGA_CONTROL_OFFSET + 0x64)
-+#define  FL2000_VGA_CTRL2_ACLK_PLL_POWERDOWN_DETECT_EN	BIT(0)
-+#define  FL2000_VGA_CTRL2_ACLK_MSTOR_BLKSIZE_PTR_WIDTH	GENMASK(3, 1)
-+#define  FL2000_VGA_CTRL2_ACLK_MSTOR_BLK_COUNT		GENMASK(15, 4)
-+#define  FL2000_VGA_CTRL2_ACLK_SPI_WR_EN		BIT(16)
-+#define  FL2000_VGA_CTRL2_ACLK_DETECT_PINS_DEBOUNCE_EN	BIT(17)
-+#define  FL2000_VGA_CTRL2_ACLK_HDMI_INT_EN		BIT(18)
-+#define  FL2000_VGA_CTRL2_ACLK_HDMI_INT_ACTIVE_HIGH	BIT(19)
-+#define  FL2000_VGA_CTRL2_ACLK_SPI_EN			BIT(20)
-+#define  FL2000_VGA_CTRL2_ACLK_SW_PROD_REV		GENMASK(30, 23)
-+
-+/* undefined				(FL2000_VGA_CONTROL_OFFSET + 0x68) */
-+/* undefined				(FL2000_VGA_CONTROL_OFFSET + 0x6C) */
-+
-+#define FL2000_TEST_CNTL_REG1 (FL2000_VGA_CONTROL_OFFSET + 0x70)
-+#define FL2000_TEST_CNTL_REG2 (FL2000_VGA_CONTROL_OFFSET + 0x74)
-+#define FL2000_TEST_CNTL_REG3 (FL2000_VGA_CONTROL_OFFSET + 0x78)
-+#define FL2000_TEST_STAT1     (FL2000_VGA_CONTROL_OFFSET + 0x7C)
-+#define FL2000_TEST_STAT2     (FL2000_VGA_CONTROL_OFFSET + 0x80)
-+#define FL2000_TEST_STAT3     (FL2000_VGA_CONTROL_OFFSET + 0x84)
-+
-+#define FL2000_VGA_CTRL_REG_3 (FL2000_VGA_CONTROL_OFFSET + 0x88)
-+#define  FL2000_VGA_CTRL3_WAKEUP_CLR_EN			BIT(10)
-+
-+/* undefined				(FL2000_VGA_CONTROL_OFFSET + 0x8C) */
-+
-+/*
-+ * List of registers that shall not be read automatically (e.g. for cache update) due to presence
-+ * of self-clear bits
-+ */
-+static inline bool FL2000_REG_PRECIOUS(u32 reg)
-+{
-+	return reg == FL2000_VGA_STATUS_REG;
-+}
-+
-+/* List of volatile registers that shall not be cached */
-+static inline bool FL2000_REG_VOLATILE(u32 reg)
-+{
-+	switch (reg) {
-+	case FL2000_VGA_STATUS_REG:
-+	case FL2000_VGA_CTRL_REG_PXCLK:
-+	case FL2000_VGA_ISOCH_REG:
-+	case FL2000_VGA_I2C_SC_REG:
-+	case FL2000_VGA_I2C_RD_REG:
-+	case FL2000_VGA_PXCLK_CNT_REG:
-+	case FL2000_VGA_VCNT_REG:
-+	case FL2000_RST_CTRL_REG:
-+	case FL2000_BIAC_STATUS_REG:
-+	case FL2000_VGA_PLT_RADDR_REG_PXCLK:
-+	case FL2000_TEST_CNTL_REG1:
-+	case FL2000_TEST_CNTL_REG2:
-+	case FL2000_TEST_STAT1:
-+	case FL2000_TEST_STAT2:
-+	case FL2000_TEST_STAT3:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+#endif /* FL2000_REGISTERS_H */
-
--- 
-2.56.0
-
-
+El mi=C3=A9, 11 nov 2026 a la(s) 9:30=E2=80=AFp.m., Oscar Alejandro S=C3=A1=
+nchez Lucero
+via B4 Relay (devnull+aleszlucero.gmail.com@kernel.org) escribi=C3=B3:
+>
+> Fixed two bugs in drivers/staging/octeon/ethernet.c:
+>
+> 1. Call cvmx_pko_disable() in the cvm_oct_probe() error path to match the
+>    teardown sequence in cvm_oct_remove().
+> 2. Split pow_send_list on commas using strsep() instead of matching
+>    substrings with strstr().
+>
+> Oscar Alejandro S=C3=A1nchez Lucero (2):
+>   staging: octeon: disable PKO before device removal in probe error path
+>   staging: octeon: match exact interface names in pow_send_list
+>
+> Signed-off-by: Oscar Alejandro S=C3=A1nchez Lucero <aleszlucero@gmail.com=
+>
+> ---
+> Changes in v3:
+> - Drop the ndo_get_stats64 conversion patch
+> - Change commit description.
+>
+> ---
+> Oscar Alejandro S=C3=A1nchez Lucero (2):
+>       staging: octeon: disable PKO before device removal in probe error p=
+ath
+>       staging: octeon: match exact interface names in pow_send_list
+>
+>  drivers/staging/octeon/ethernet.c | 22 +++++++++++++++++++---
+>  1 file changed, 19 insertions(+), 3 deletions(-)
+> ---
+> base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+> change-id: 20261108-octeon-init-pipeline-v1-e25ec64f49e3
+>
+> Best regards,
+> --
+> Oscar Alejandro S=C3=A1nchez Lucero <aleszlucero@gmail.com>
+>
+>
