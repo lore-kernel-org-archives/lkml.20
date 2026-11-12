@@ -1,57 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.114
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794445554;
-	b=pJkcLrItGNIlGBvZNh/BuZ3yv5olFDAj5NoN04cQqPWJ+mSNuJAyb7bX+uTEG9UW5rUQ
-	 h437UPVHPPCFpl1cDnn6qfKNlb9ls24VEalUeSKV1O5huIg7uVK2q4+nXtv84C6PjI4ZP
-	 pjjIc2QlzLUsnhRRo7JqtI+JVV+iI93EFRLS9qc923no0R/F+yNyfuw4GuLnd4rpsa7Il
-	 AFaR6PRrYky1WqwW4BoW2ZUyqe3857AT97FNiv/9uq6DOialn2s1rc8HekoL2W9+LQNef
-	 DuYlsUt7u+KEw02kXL8IrpFWkR9SPw0qiTYlTPzgHM4eYrYQoKwKb0KEdOiuF44adgg==
+	t=1794445558;
+	b=2DDwyQY1bGq/9N+PDo8GsS72DXZ/GOqOEEIb0p6skT1VTVYY7xOOPjc8WiC0cv/esRSM
+	 PutwiRgKj4F6Qm6Ffzj+7LysuZV5vmML6PD1kPGD+7d7+RTIzTLHNkmMWIxWHGgWre6bQ
+	 SrkySi5sALjPTPUf8BlWneXkrZ8/NGPNRGRHqfhIXEsNvSrsGaAo7uFgb9YVlaN+GA7tT
+	 riry15xyYT6yNxJaQEpspiS8LVa6V3BQvlK1pXoQ6adb/F1Mbxq4T3GU96td6YKBhjvQ+
+	 Kwnf3Ckt2IgGz8ao1NF+1/+Uzq33HUGQqZagCZb6p5jjVnVlXw4E31ZoFcZIg72dbcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794445554;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794445558;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/sWknFzfkMJCdtQdCu8LZdg8fGGk1yHJo48gozQsrso=;
-	b=leZAh9vPFIyNlzCFLv5xLxXFFB0PQwCYCVrZNySS8kyPN6bEyOMep0qsvf+mh3bNNgvO
-	 VDf9OsbTvN/w5Cyua++PErpylhVO7Tjpjuz59OXl/ytI4dltcs3145TsHMT1kwdAJzVqa
-	 sbmz4GvsviCVOq/BU2GlPUqe+bV0x4Wah0/yOftJPG8Q06YOb8LbXsOx6AMoX93STZHwm
-	 /uBzki6VIyHKupj+mi5+7yf5/IunUTm4plZApwG+l0W5n1NkTrIXGldbFxQ3C6roHG8Kj
-	 3Alq8sQ5l67elBTZ9Ball2vQNPXz0dsfBJuSj8isJIJ1+e8i4PZnuty9L7LhioKxl0w==
+	bh=eYwsRxOsEMHA3DkX0f0CV+Z+v0W7uUrlEZM5+4lXwUU=;
+	b=NGePf2nHpAfyMQWMBjGUO4TmfJwS/Ez99GQyGANHuFLNFcsPj7aYRlWERnlzmXZMUZBI
+	 IOqg5XNTGsrGjaNEsmTzTAp/EiCunzxuFlylObRKbfRBHgDCOxrSG/KfBMJ7C7+DXgYLK
+	 g8NE/QzTxGM2nF1teJxY7TrrdVrT7KRuhIVPGUIYllIhL6hlOVAYi1xGCT6WzX6OcuW2k
+	 dqt5Wp/6OaYXFUNfq3iavnAm9zOO7Ce9M64SpRoJ76vzf8jYsrlPjqdgnwZuBHOiEr5qX
+	 ilTjuZaKV5OOv8I700p1uggXCXMZAln/9opJgmdufbEQcLq4Ijkdu8rzsPPvs5tjP3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PdIFbPdo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RmRbPnJA;
+	arc=none smtp.remote-ip=95.215.58.114
+Received: from mta1.migadu.com (out-114.mta1.migadu.com [95.215.58.114])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 644E4606A324;
-	Thu, 12 Nov 2026 01:05:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FC9606A880
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:05:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0FC9606A880
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PdIFbPdo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B297F1F00A05;
-	Thu, 12 Nov 2026 01:05:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794445554;
-	bh=/sWknFzfkMJCdtQdCu8LZdg8fGGk1yHJo48gozQsrso=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PdIFbPdoz9GfgBcwbEO6KMOrWh8knP51XkN0XpNrfpXqoQuZEHesZmKpqQ/vS90TQ
-	 TEt/QHibTiRztdr7fqM6giXyEqUVmRNvmqSqG9kcuILRUQ3MYc32ey+OSK2dfG00Xe
-	 apxPjIMeSBxIgi30plBUeaeFgY+1yBWzlBVSiiKDgE191ofWpSklbF4j/VoC9C3tj6
-	 1bsVFSB8xgwt6dlp4UKQE1r934cJmvM+Q3MEjTMba7+xTJejpChXIRP9bdfzBipk/v
-	 41AHUHvKOKg7C2ZXcZ/ShoxOwsELLv6+rEp2ZeU77pgHwKaaxmHfMesuDNyi+bNE0F
-	 Tou/U3CLPHT6g==
-Date: Wed, 11 Nov 2026 19:05:51 -0600
-From: Rob Herring <robh@kernel.org>
-To: Robert Marko <robert.marko@sartura.hr>
-Cc: linux@roeck-us.net, krzk+dt@kernel.org, conor+dt@kernel.org,
-	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
-	nicolas.ferre@microchip.com, claudiu.beznea@tuxon.dev,
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, luka.perkov@sartura.hr
-Subject: Re: [PATCH v3 1/4] dt-bindings: hwmon: fan-common: reject zero
- pulses per revolution
-Message-ID: <20261112010551.GA3769976-robh@kernel.org>
-References: <20261111161619.232141-1-robert.marko@sartura.hr>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RmRbPnJA
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=sW31Mhk6Zdi3FsOK//N9bHRAgzlVLc7voc1yH7U/NNw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794445554; v=1; x=1795050354;
+ b=RmRbPnJAhPUwyMgzbUXtctYoxObMDMxIBvVAgdIKgsXvIqE4kMqtXpRAoSHHd0KJ/mwEPZaC
+ bcsEBY1RSCCYMf72KjgfLGFjfvTWjMTKuvfv4KhNVMaCfGiyJWJMuHb5OGAP70gbqPM3dhPxFeh
+ mKl4waXK6BS3ltWdWX3G8ACc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 27b18086ca939e00;
+	Thu, 12 Nov 2026 01:05:54 +0000
+X-Mizu-Trace-ID: 27b18086ca939e00
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 12 Nov 2026 09:05:41 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	MD Danish Anwar <danishanwar@ti.com>,
+	Murali Karicheri <m-karicheri2@ti.com>,
+	Wojciech Drewek <wojciech.drewek@intel.com>,
+	Ravi Gunasekaran <r-gunasekaran@ti.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, 1342116488@qq.com
+Subject: Re: [PATCH net] net: hsr: clean up synced addresses and allmulti in
+ hsr_del_port()
+Message-ID: <avUQ5dAMMRlUTNzq@fedora>
+References: <20261111060143.183670-1-sunwenbo@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,19 +74,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261111161619.232141-1-robert.marko@sartura.hr>
+In-Reply-To: <20261111060143.183670-1-sunwenbo@cmss.chinamobile.com>
 
-On Wed, Nov 11, 2026 at 05:12:45PM +0100, Robert Marko wrote:
-> A fan sensor cannot produce zero tachometer pulses per revolution.
-> Add a minimum of one to the shared fan schema so every user rejects
-> this invalid value.
+On Wed, Nov 11, 2026 at 02:01:43PM +0800, Wenbo Sun wrote:
+> hsr_set_rx_mode() syncs unicast and multicast addresses to slave A and
+> slave B devices via dev_uc_sync_multiple() and dev_mc_sync_multiple(),
+> and hsr_change_rx_flags() propagates IFF_ALLMULTI via
+> dev_set_allmulti().
 > 
-> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+> However, when an HSR device is deleted via hsr_dellink(),
+> hsr_del_ports() removes all ports from hsr->ports before
+> unregister_netdevice_queue() invokes hsr_dev_close(). Similarly, when a
+> slave device is unregistered while the HSR master is UP,
+> hsr_netdev_notify() calls hsr_del_port() directly. Because
+> hsr_del_port() does not unsync unicast/multicast addresses or restore
+> the allmulti count, the slave devices permanently retain synced hardware
+> addresses and a leaked allmulti reference count after port deletion.
+> 
+> Fix this by calling dev_uc_unsync() and dev_mc_unsync(), and
+> decrementing allmulti via dev_set_allmulti(port->dev, -1) if
+> IFF_ALLMULTI is set on the master device, when detaching slave A or
+> slave B in hsr_del_port().
+> 
+> This issue was identified with the assistance of an LLM-based code
+> review tool, confirmed by reproducing the leaked allmulti reference
+> count and synced multicast address in a User-Mode Linux (UML)
+> environment, and verified in UML that both states are properly cleaned
+> up upon HSR port deletion.
+> 
+> Fixes: 36b20fcdd966 ("net: hsr: Add support for MC filtering at the slave device")
+> Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
 > ---
-> Changes in v3:
-> - New patch: require at least one pulse per revolution in fan-common.
+>  net/hsr/hsr_slave.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
 > 
->  Documentation/devicetree/bindings/hwmon/fan-common.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> diff --git a/net/hsr/hsr_slave.c b/net/hsr/hsr_slave.c
+> index a546f70f9cc8..bab0c27dd06a 100644
+> --- a/net/hsr/hsr_slave.c
+> +++ b/net/hsr/hsr_slave.c
+> @@ -245,8 +245,14 @@ void hsr_del_port(struct hsr_port *port)
+>  		netdev_rx_handler_unregister(port->dev);
+>  		if (!port->hsr->fwd_offloaded || port->type == HSR_PT_INTERLINK)
+>  			dev_set_promiscuity(port->dev, -1);
+> -		if (port->type == HSR_PT_SLAVE_A || port->type == HSR_PT_SLAVE_B)
+> +		if (port->type == HSR_PT_SLAVE_A ||
+> +		    port->type == HSR_PT_SLAVE_B) {
+>  			vlan_vids_del_by_dev(port->dev, master->dev);
+> +			dev_uc_unsync(port->dev, master->dev);
+> +			dev_mc_unsync(port->dev, master->dev);
+> +			if (master->dev->flags & IFF_ALLMULTI)
+> +				dev_set_allmulti(port->dev, -1);
+> +		}
+>  		netdev_upper_dev_unlink(port->dev, master->dev);
+>  		if (hsr->prot_version == PRP_V1 &&
+>  		    port->type == HSR_PT_SLAVE_B) {
+> -- 
+> 2.33.0
+> 
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Sorry. I just got a question.
+
+hsr_del_port() is called via dev unregister or hsr_dellink() -> hsr_del_ports().
+The hsr_dellink() also calls unregister devices.
+
+The unregister process will stop a device if it's up. And hsr_dev_close() has
+called dev_uc_unsync() and dev_mc_unsync().
+
+Could you share more details on how you performed the testing?
+
+Thanks
+Hangbin
