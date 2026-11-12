@@ -1,58 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794513184;
-	b=GEqIJZvw7ZdtNDQqG/hIiKS3VDoCm9BGr7RAULM1Zvtq9v2+vR9AO8Y4/ZVMD5s23E2b
-	 U6s6s8+G8GuvOXgPPHLmTxkqr+CrdPbMDTjc/ECqwdzKQsaKAVw799Ibr9MTmyKlVYBzs
-	 GAmqfhpss1dzHWDIywlMGg/ZEExE0K+WPF8VxZJW/QDLKs0dnbeRcWahRpoh6l+hpolCS
-	 aGm7O3apk6lSC9eXSVwIhOxT81+gVBiWRjiEUa3eTuvpWYCSTuEG9S43EEdJkqsH56XfL
-	 +85YyHOvGbQP2E2N6xpVhfiX+eIQOoPEZXHcpDhttO52T0K5Fd5ulwTXjCs2jbkQzxg==
+	t=1794513193;
+	b=OTVNnQUAi7dmgHADdXAgJVcLKOifu0Fq228qzm//3tTIWvuvfRMlTaH450UOPfp3327L
+	 Sk1hnu6Tjd/QhXTsYHz0ZYz+XoK8MDmAZwwelao6ueoDdNaUVwp0glwtspec61jBJYZC8
+	 Vm308VKfPwrYsPXgLXYK+0iKXeZpXUlWOj7eUHhie0W4e+0LHU7zXrv+74A3pKgoqrcxC
+	 G8NfuEL9TskGmOvi0+A1HZhNRIMiMp8oHawLL+6UuYrMLKi2kBF1ClUChnHKLZGDSS9N1
+	 12oDzr2hKtq7jIEWz1TiQksewRvONRhZ9j0aEK7HrdKV9QdMPnqKi9zzrSWaP6phrjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794513184;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=KrAKCc1OnJY4LbejaA118mCBpDZA++ULUTspBpWDwjI=;
-	b=u8v9uyKeVsWbfsCwQrGhcZiXQ7m4iVKLy6SzRt3iZa4WLFtvJ3hbRb4XDiuReyE766vM
-	 mq6+rTpPF4rMcxHQbjY+Ss9012qC9rgSfV6QQgAvN905KjPSZSlBbFmT0a62C9+HM6n0Y
-	 F7sTGE6ToCfUc4PxhejSULIwkdXUmvls+ACMBxwDkcN/6lrkHsENdgTHPHCKalp1xGODv
-	 E+dOebZvZ56/Fm2u1ntEK/Vq+DffHsVSgCGz8qcoGNyWJNqgHIRD98HIQuVo4y+MqBjP2
-	 BjrNUNfoZyfeaV2acHazW5zSpuODaB348ZyxRgI5AcOEjy5xeWwq0pcYj/DHa+8C8rg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794513193;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:
+	 References:Content-Transfer-Encoding:MIME-Version;
+	bh=slMJ/jl0C3PRYQL80eM6Rik84HUmAPDqG/+JqwCg8f0=;
+	b=fmekArBZtcs0evsF2JywPDUffC3Xo/u0IDfe5BYa3u5muygdYAQvjt+zTOFhV0xMFKZ5
+	 FDG+TOYXszwrK9aWTEt4KZ1fZG7mdF4WrQnvz+k5ur6O1w4HPxrCKwf6AXWQm8BkmhXOg
+	 ZWrsX2SsJijL+SicKtkLMkQ+xgSeemJmRiTj2AtKaMY6TUQzTHvAWsmmlr0Yk434gGXEh
+	 IJ8Pz25zWoug+pPP9XfQ/uPa9uxhfw4HgemGtb/4vgt5RqUoqf62iy07YQ42RifSPVeWw
+	 kpqyuDS3UocV0l7c+Ph4MkWjMJ8FRBREmUS4651duCpw1Zq1DNRFAho5yDAf60lKh+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=KIa6jf8x;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 881F4606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:53:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 881F4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XOvykWdZ;
+	arc=none smtp.remote-ip=209.85.214.182
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B978C606A8A5
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:53:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B978C606A8A5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=KIa6jf8x
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1608B143D;
-	Thu, 12 Nov 2026 11:53:01 -0800 (PST)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E67833F632;
-	Thu, 12 Nov 2026 11:53:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794513184; bh=UVssr2h0mtTlZR3uknoInjfb4xYkRuFDnS+ok0EQ/Js=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KIa6jf8xPIhnYjIt1/ah9uwMyqR51klIIHUVgOF56JSTCncADpFq7xBqP2MixQIcJ
-	 lar+vP5zIri1gYTsurYMR/2zyxKxAviqSzUjHuInf/T5u3xfuEFZ4PJbUNfJxKzJlC
-	 BXRRfQxb5Z7xmfdWLFC8XyLxLlUthyJ2GWqdnZEw=
-Date: Thu, 12 Nov 2026 19:52:56 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: linux-arm-kernel@lists.infradead.org,
-	Beata Michalska <beata.michalska@arm.com>
-Cc: Will Deacon <will@kernel.org>, Vladimir.Murzin@arm.com,
-	suzuki.poulose@arm.com, xuewen.yan94@gmail.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH 0/3] arm64: errata: Update AMU workarounds
-Message-ID: <avYZGOO_gku8RUKj@arm.com>
-References: <20261111124005.2688820-1-beata.michalska@arm.com>
- <179451296804.3304937.3878967781756339834.b4-ty@b4>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XOvykWdZ
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2ed08b07213so1190445ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:53:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794513192; x=1795117992; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:from
+         :subject:cc:to:message-id:date:content-type:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=slMJ/jl0C3PRYQL80eM6Rik84HUmAPDqG/+JqwCg8f0=;
+        b=XOvykWdZa8akqe46XxXcrhPdSdqBzB7qNT4fuFywibfxQufgbTNScOQjj91AfQqUZw
+         wmbVWY6cyWAogeH+okdshWEXjy++ULfcj4DQ9nRE1p5Q07j61mwgC5xiXku5NX3VeaJf
+         jzGj5QgklpL2p6GeZi5PywWO0zN8hv5iG3w2BfhW/grvky+gs6T8hwl7wD0GeIw+r4Y7
+         tbwRpUv+wXlFY11ybqJtpnPlvWZyMvMFNlu79mVZ3Nw3NAnT7oYMN1jJZ13VwHKWsX9f
+         nLAZ8PU3gD+zm7kHmsHmshoT2Bb+y8BOMpYkjVVhGXHOpsv6kRL+zhP/btDwUKU1OFGz
+         TxgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794513192; x=1795117992;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:from
+         :subject:cc:to:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=slMJ/jl0C3PRYQL80eM6Rik84HUmAPDqG/+JqwCg8f0=;
+        b=z53ajt/Vc0Kb7rhK5vAaa0Z8N2yPhfPqXAQlK3VQcTstb7ll5DsgzJgm0DKmcXgOgY
+         9TnCpmaqfXbz5moOMGhchsLGdBPT+bICaW9dLctCUxShkcn1ddI988BPCgrYI6zfIGA8
+         GfRMrZBsDW7MeqMoJY+RlIHKN3mZFLpi0IWRr+wkpUzt9FrVfQyUtyt/DaRs+6XK2qFS
+         29ls5kSCmbPNgtB2n4321I10yhl27msxx1+t0yjmuaAKwZvjF9SzELySHGf4Kj43MMpv
+         bR4T+KPj0Kt4sUP0mREYg9OeLrHzfjabglmbn3LIvXI/gk63Bg3lZHcZ7D05h4i3h04e
+         cAmA==
+X-Forwarded-Encrypted: i=1; AL+hErEBVmFdQ80Iq5+ED7+tkCVIlWmRnRrsVNZbUEwUENbbr6E/c8pC+momQaWcFdlQUV/4FnGsN8csWle8xdU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z93j4DoZOCgpdP0wGglx7VU0GCvKfuijchN6EPKlFllENLImMZx
+	TD9W1Zw7iazohYFSiU0M3JmqT11DgCyVGnPyBiGH1Z5QwVDc1IaC871v
+X-Gm-Gg: AYBFou3GHfnIg3bnoheGE68xS2tirqycWNdugq992E8T1FhdiBA64uCvfx/w803sswN
+	RsUhP+ZLK/DOjNPz2jGOTUeCJnRxayrl5TDrpnl6FmajkV6EqS7RhkyW1jDHN5GQ+qjpr01LEYz
+	T2SLajh+VZopwsJI09cnQVLmUDgIfM9uejr5ldepIXu3pfVVZJIyvZVsV0U2eQashw3SVltGQLm
+	k2VKdDlNrdN5BdIUgoDublhUnz6iICIIRMMjD5OzudZHv7SUabtWnbxrDu8v/YCXAbKDJKx0aH6
+	2HzfyZt9gjVIQWUE1Jz/JNUshLiSEN7CeNPKWRuTGoBZcKoR5ueg0IyIEQR4sM5WKdnVxoMQv4Q
+	RZnRyRKU4bKUpv4H6VNHde7dQ/E3nI1zt+yOjJ2uOvmLyXB/sF9XN8KqZrFszqBvtGwTid+H+l/
+	1FBLrXbazbDEhVBupdSIPGb9m8DQmuEHlyPUNDTOrwH1Cd/k9NRGz/Uyv9jk5DkOtcRBq6aruG1
+	t8otC8Lj1TPr9vQohNRbOGR0qo7j1kzagEqj2ZWlfe9xpxVWOoCctrpF/2OiH9NhysN2+EHFOc3
+	3F5JSCCH/4QaWxjbvtkWJYUghTo/1O8k7GDhEue4krXRKfoF/Y1q/ba0HmaiSjvibaOjvObgb1k
+	9456q3M2UXwhs6Se/TvWIo5JSjBdTPCRTWbI=
+X-Received: by 2002:a05:6a20:5491:b0:3e2:82d6:467f with SMTP id adf61e73a8af0-3f7a75bf032mr171001637.26.1794513191665;
+        Thu, 12 Nov 2026 11:53:11 -0800 (PST)
+Received: from localhost ([153.61.198.242])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed2053d26sm90591b3a.36.2026.11.12.11.53.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 11:53:11 -0800 (PST)
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 12 Nov 2026 19:53:10 +0000
+Message-Id: <DMTHU30GGMF2.1ISXFYKE43OM7@gmail.com>
+To: "Shihuang Liu" <shlomojune6@gmail.com>, <bpf@vger.kernel.org>
+Cc: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Daniel
+ Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>,
+ "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
+ <memxor@gmail.com>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu"
+ <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa"
+ <jolsa@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "Ihor
+ Solodrai" <ihor.solodrai@linux.dev>, "Jakub Kicinski" <kuba@kernel.org>,
+ "Quentin Monnet" <qmo@kernel.org>
+Subject: Re: [PATCH] bpf: Reject offloaded maps as map-in-map inner maps
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+In-Reply-To: <20261112105620.57520-1-shlomojune6@gmail.com>
+References: <20261112105620.57520-1-shlomojune6@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,30 +106,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179451296804.3304937.3878967781756339834.b4-ty@b4>
 
-On Thu, Nov 12, 2026 at 07:49:28PM +0000, Catalin Marinas wrote:
-> On Wed, 11 Nov 2026 13:39:26 +0100, Beata Michalska wrote:
-> > This short series updates errata for AMU core & const counters.
-> > The last patch in the series tries to optimize a bit the paired
-> > readings of both counters, so that the workaround checks do not
-> > skew the results. It is also intentionally the last one, as it
-> > will not apply on older stable kernels.
-> > 
-> > 
-> > [...]
-> 
-> Applied to arm64 (for-next/fixes), thanks! I left the 3rd patch to Will
-> for the upcoming merging window.
-> 
-> [1/3] arm64: errata: Extend the workaround for broken AMEVCNTR01 counter
->       https://git.kernel.org/arm64/c/139a9b7d5a07
-> [2/3] arm64: errata: Add Cortex-A715/A720 AMU core counter workaround
->       https://git.kernel.org/arm64/c/be7771458582
+On Thu, Nov 12, 2026 at 02:56 AM Shihuang Liu <shlomojune6@gmail.com> wrote:
+> +	if (bpf_map_is_offloaded(inner_map))
+> +		return ERR_PTR(-EOPNOTSUPP);
+>  	if (!inner_map->ops->map_meta_equal)
+>  		return ERR_PTR(-ENOTSUPP);
 
-Ignore this one, I applied v2 but b4 still remembered.
+No need for a new check.
+.map_meta_equal in the ops means that the map can be an inner map.
+See the comment in struct bpf_map_ops.
+Drop it from bpf_map_offload_ops. Then the next check rejects the map.
 
--- 
-Catalin
+> -	if (inner_map_meta->ops->map_meta_equal(inner_map_meta, inner_map)) {
+> +	if (inner_map_meta->ops == inner_map->ops &&
+> +	    inner_map_meta->ops->map_meta_equal(inner_map_meta, inner_map)) {
+
+bpf_iter_attach_map() has the same problem. It checks map_type only:
+
+  BPF_LINK_CREATE
+    bpf_iter_attach_map()      accepts an offloaded ARRAY or HASH
+  BPF_ITER_CREATE
+    prepare_seq_file()
+      __get_seq_info()         bpf_map_offload_ops.iter_seq_info is NULL
+                               bpf_map_elem_reg_info.seq_info is NULL
+      seq_info->seq_priv_size  <- NULL pointer dereference
+
+Something like this (compile tested only):
+
+diff --git a/kernel/bpf/map_in_map.c b/kernel/bpf/map_in_map.c
+index 0fa3f2a..9ec3bbf 100644
+--- a/kernel/bpf/map_in_map.c
++++ b/kernel/bpf/map_in_map.c
+@@ -38,6 +38,7 @@ struct bpf_map *bpf_map_meta_alloc(int inner_map_ufd)
+ 	if (!inner_map_meta)
+ 		return ERR_PTR(-ENOMEM);
+
++	inner_map_meta->ops = inner_map->ops;
+ 	inner_map_meta->map_type = inner_map->map_type;
+ 	inner_map_meta->key_size = inner_map->key_size;
+ 	inner_map_meta->value_size = inner_map->value_size;
+@@ -65,7 +66,6 @@ struct bpf_map *bpf_map_meta_alloc(int inner_map_ufd)
+ 	}
+
+ 	/* Misc members not needed in bpf_map_meta_equal() check. */
+-	inner_map_meta->ops = inner_map->ops;
+ 	if (inner_map->ops == &array_map_ops || inner_map->ops == &percpu_array_map_ops) {
+ 		struct bpf_array *inner_array_meta =
+ 			container_of(inner_map_meta, struct bpf_array, map);
+@@ -88,8 +88,9 @@ void bpf_map_meta_free(struct bpf_map *map_meta)
+ bool bpf_map_meta_equal(const struct bpf_map *meta0,
+ 			const struct bpf_map *meta1)
+ {
+-	/* No need to compare ops because it is covered by map_type */
+-	return meta0->map_type == meta1->map_type &&
++	/* An offloaded map has the map_type of a host map and its own ops */
++	return meta0->ops == meta1->ops &&
++		meta0->map_type == meta1->map_type &&
+ 		meta0->key_size == meta1->key_size &&
+ 		meta0->value_size == meta1->value_size &&
+ 		meta0->map_flags == meta1->map_flags &&
+diff --git a/kernel/bpf/map_iter.c b/kernel/bpf/map_iter.c
+index a58c148..9e459a2 100644
+--- a/kernel/bpf/map_iter.c
++++ b/kernel/bpf/map_iter.c
+@@ -176,6 +176,10 @@ static int bpf_iter_attach_map(struct bpf_prog *prog,
+ 	    map->map_type != BPF_MAP_TYPE_RHASH)
+ 		goto put_map;
+
++	/* An offloaded map has the map_type of a host map and its own ops */
++	if (!map->ops->iter_seq_info)
++		goto put_map;
++
+ 	aux->map = map;
+ 	err = bpf_iter_map_check_prog(prog, aux);
+ 	if (err)
+diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
+index 04a3b3c..c8146db 100644
+--- a/kernel/bpf/syscall.c
++++ b/kernel/bpf/syscall.c
+@@ -112,7 +112,6 @@ int bpf_check_uarg_tail_zero(bpfptr_t uaddr,
+ }
+
+ const struct bpf_map_ops bpf_map_offload_ops = {
+-	.map_meta_equal = bpf_map_meta_equal,
+ 	.map_alloc = bpf_map_offload_map_alloc,
+ 	.map_free = bpf_map_offload_map_free,
+ 	.map_check_btf = map_check_no_btf,
+
+
+Pls tag the respin as [PATCH bpf-next v2].
+
+pw-bot: cr
