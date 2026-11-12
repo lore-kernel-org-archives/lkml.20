@@ -1,44 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794473241;
-	b=1H55iJzDgxGsLfdTwbQ3rjVGgEgBh4WOiKiuF9gktw4r8vMu1FziBHMk7a3C+Vf+gAb1
-	 6ytk8Yzvt1ZFcaF7uGURurPlISXthoY6mnvYsT+tIEcJMCRBGpCuCfLqxaQTF/fYJr6lz
-	 pgGoT5FMaVs2OvvcDfG2oiOcpypgXjtVuCZ7CP8X2Y5UzPVWfS60Xuzy1uqJ51M3TY6Jw
-	 u+NLQO6CrSXDYKd1zh0+sUin+TUHYJ/YWumn3VOcVSC9kqlvqEaFuRS7EsWYPPAI+zBzL
-	 2YQrWVmv4Endp9kxjl6snjbnyW2m8cfkodUHlsvssCUz6pfpGjORJCROFLthdGxYWsA==
+	b=vhVPOL4k6dbFf2nF8AtCFRtjT8HokAhLIHqYovVoeMpZiPvybJcZjZpdnNpg5+pmBvPj
+	 WRo6qeQzRgJ/SpOw3nCQxZS4ic4EuGxAoyomzeNDrdnywA9xvNXB6/suX2Or1JoXbpDRB
+	 KFq2/BZnTgFdIgzP4ard4sUmFtBrXUAHIbsv1g5KzPhNGgZMjV2JzW5/EUpq4EDuwI8Lg
+	 HgH01viDUou1Jen73VRd8sDv+083q+EhbCYnrnF6juJkW2nxMd589zSMgtesuWfzEeWaZ
+	 nM0i74/4//GMBsv+BdoHGvdtjR+WFmX7Pz8h3h5nax1R93bLEvXIBmpQpi1Fj6JWaiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794473241;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=IuEo+Yi04Yv9K5s/ToDHf1mLoQ9aV0vni1jo7HIQfu8=;
-	b=GHsMZL1KvcIj0ff1j+TS5JxijuKC2HncCkm7XCc3X3dBXYoyUERf6UBZEFieG8mmHnOc
-	 4h5MHmw5ymGpVVEs8u5eMKiVEjvAbrY910C2bam1kaam9gH//amc9fgmg0H51bkr3CaAG
-	 HV2MDyabbQYRrKx1YLEHLdBB3TyKthVP2dzRbcG9xAQ/ScTHWOv6AGIGMCR/ONGMvwWsm
-	 oFg7lDbqUgSG3VM3zslp+oYIzWTsraiNj7ATbKz0BmYgTVSw4TMQNgUsaHXnkzrJtub+t
-	 OvX+ihqamnuSmv6h18ZuvWafzRjCZruhJ+SKArbXAFKYqObosG7wJnwu1aK3jtMFijQ==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=LkklW7mOExH8dGsVaibL+R3v5RwpD0O9R0fVgP2/cM0=;
+	b=qUcX/tYZ6NVp3WE6AP8qdBma5a3/yZXh9D7ceduMWKFh4n/K3RwPq5jBV6wEq8U6MtNJ
+	 ZHXa84nfGaiHjMWEylznwCvmZXceY049zi0F50md5f25SczrR4docauUDFnSLfqL7AZmh
+	 hWUxXR4gvnzyNy9epapvxo2esgEV3kKw6SdOXJ5HOMFHw9/aolUnjxB4p9GW8bUD/Yxsf
+	 il9khUhuGObZXRKugg56uS52gikSt3xdaQt19iux4MGHCalRB6mEgaaeH/aytNuz6M5Tq
+	 NIb0+/wmXYdnRFoUmwdcQG913ODPEnYn8Zqqn4SplmZIGt5JJLALkoK67Ti2jVPiZZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.microsoft.com;
 	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=qs6Gn4hi;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=rSKMNKjl;
 	arc=none smtp.remote-ip=13.77.154.182
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3F325606B587;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C129B606B598;
 	Thu, 12 Nov 2026 08:47:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F325606B587
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C129B606B598
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=qs6Gn4hi
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=rSKMNKjl
 Received: by linux.microsoft.com (Postfix, from userid 1186)
-	id 7F38220B7168; Thu, 12 Nov 2026 00:47:16 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 7F38220B7168
+	id E6C6020B7170; Thu, 12 Nov 2026 00:47:16 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com E6C6020B7170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
 	s=default; t=1794473236;
-	bh=IuEo+Yi04Yv9K5s/ToDHf1mLoQ9aV0vni1jo7HIQfu8=;
-	h=From:To:Cc:Subject:Date:From;
-	b=qs6Gn4hiQT80citANbsHhVcxThoYltayH/1SbV+3DF7c+uXgf8MbQSkgAx39r8tCB
-	 m4gHOhS2m5vPUCGu/a7MtbUjnq/nzdAwfo5sMYjCQtn6d9wx3urT4om2OL//+CsCe7
-	 8F4xnIqQYD+t8FIGV9ygevsKmU95ddPPCTCZ1Y2o=
+	bh=LkklW7mOExH8dGsVaibL+R3v5RwpD0O9R0fVgP2/cM0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=rSKMNKjlX85xHNJj1w8rn4xy09jfi0qrY1jMr+pQ0NkCHEOnjNh1tm4FkWtuEnG0q
+	 30C8lha6EGAtkuIGmHb5aM8oxj/gk/GSHvyxC/1Uget9fbwy4wrHDtfTSYfEK2bcWz
+	 keZCbCMw4+YQkqoLvbvdsM8Bxp0U+96bzUOL/sHg=
 From: Konstantin Taranov <kotaranov@linux.microsoft.com>
 To: kotaranov@microsoft.com,
 	snsanghvi@microsoft.com,
@@ -47,10 +48,12 @@ To: kotaranov@microsoft.com,
 	leon@kernel.org
 Cc: linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH rdma-next v11 0/9] RDMA/mana_ib: Add kernel RC and fast registration support
-Date: Thu, 12 Nov 2026 00:47:07 -0800
-Message-ID: <20261112084716.1483342-1-kotaranov@linux.microsoft.com>
+Subject: [PATCH rdma-next v11 8/9] RDMA/mana_ib: Flush and notify CQs when kernel QPs enter ERR
+Date: Thu, 12 Nov 2026 00:47:15 -0800
+Message-ID: <20261112084716.1483342-9-kotaranov@linux.microsoft.com>
 X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261112084716.1483342-1-kotaranov@linux.microsoft.com>
+References: <20261112084716.1483342-1-kotaranov@linux.microsoft.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,99 +67,304 @@ Content-Transfer-Encoding: 8bit
 
 From: Konstantin Taranov <kotaranov@microsoft.com>
 
-Add kernel RC QPs and fast-registration MRs to the MANA RDMA driver
-for kernel consumers such as NVMe/RDMA and NFS/RDMA.
+Complete the RC software flush path by adding a kernel QP to the CQ
+error lists when it transitions to the ERR state.
 
-Implement QP creation and state management, work request posting,
-completion processing, and error handling. Use the RDMA core's generic
-queue drains for kernel RC QPs, with software-flush notification in the
-posting paths. Kernel RC QPs require extended-WQE and power-of-two-SQ
-hardware support.
+Invoke the CQ handlers after the transition to flush pending work
+requests.
 
-v11:
-- Patch 09: Reset kernel QPs before destruction unless already in RESET
-  or INIT, and always clean CQEs. Keep shared-CQ cleanup under one
-  uninterrupted CQ lock.
-v10:
-- Patch 01: Remove the FMR page-count limit check
-- Patch 02: Remove the minimum firmware send-SGE check, kernel QP
-  queue prevalidation
-- Patch 06: Remove send-SGE and READ-SGE limit checks and message-
-  length overflow validation
-
-v9:
-- Patch 07 and 09: Retire acknowledged successful unsignaled WQEs with
- a full WC array to avoid deferring rearming.
-
-v8:
-- Patch 06: Annotate rc_send.immediate and immediate_ext as __le32
-
-v7:
-- Patch 09: Include GSI QPs in deferred ERR handling.
-- Patch 09: Complete software-flush setup even if the deferred firmware
-  ERR request fails. An error CQE guarantees whole-QP DMA shutdown for
-  all QP types.
-- Drop patch 10 to use the generic SQ/RQ drains for RC.
-
+Signed-off-by: Konstantin Taranov <kotaranov@microsoft.com>
+---
 v6:
-- Patch 08: Notify software flushes after posting to error-listed QPs.
-  Add reporting pending software flush for IB_CQ_REPORT_MISSED_EVENTS.
-- Patch 09: Check fenced WQEs on error cqes to prevent flushing completed WQEs.
-  Add mana_ib_cq_clean on QP reset to discard stale CQEs. QID 0 is an invalid
-  value for RNIC and safe dor discarding. Add error_pending flag to prevent
-  a deffered ERR request to error reset QPs.
-
+- Notify after posting to error-listed QPs adn reuse new helper for GSI.
+- Report pending flush WCs (mana_ib_cq_has_flush_work) for IB_CQ_REPORT_MISSED_EVENTS
 v5:
-- Patch 01: Reject max_num_sg above MANA_MAX_FMR_PAGES.
-- Patch 02: Validate kernel QP queue sizes and SGE limits to prevent
-  overflows. Ensure that queue size cannnot be 0.
-- Patch 06: Preserve fence flags on unsignaled WQEs. Check message
-  length and read sges before posting a wqe.
-- Patch 08: Remove the unused QP state field.
-
-v4:
-- Patch 01: Use an explicit 64-byte FMR MST alignment
-- Patch 02: Validate that the RNIC firmware reports at least two send
-  SGEs and subtract the reserved SGE only for RNIC-based mana_ib.
-- Patch 07: Add missing wqe_size to shadow wqe for SEND/Write, and
-  return a missed-event hint for cached CQEs when CQ is armed
-
+- Remove the unused QP state field.
 v3:
-- Patch 07: Mask arm_psn to 24 bits before ringing the doorbell.
-- Patch 08: Exclude userspace QPs from kernel software-state handling
-  and CQ error-list insertion, and unlink UC QPs during destruction.
-
+- Skip kernel state update handling for userspace QPs.
+- Warn and refuse to add userspace QPs to the CQ error lists.
+- Add mana_remove_qp_from_cqs() for UC
 v2:
-- Patch 03: Validate fixed-WQE capacity for the header, OOB and SGEs.
-- Patch 04: Preserve UC QP modification support.
-- Patch 08: Skip software CQ notifications for direct-polling CQs.
-- Patch 09: Flush that ERR work during QP teardown.
-- Patch 10: Limit drain callbacks to RC QPs and avoid completion
-  callbacks for direct-polling CQs.
+- Skip software CQ notifications for IB_POLL_DIRECT.
 
-Konstantin Taranov (9):
-  RDMA/mana_ib: Allocate and map fast-registration MRs
-  RDMA/mana: Create and destroy kernel RC QPs
-  net/mana: Extend GDMA encoding for new RDMA WQEs
-  RDMA/mana_ib: Maintain kernel RC QP state
-  RDMA/mana_ib: Post receive WRs on kernel RC QPs
-  RDMA/mana_ib: Post send and memory-management WRs on RC QPs
-  RDMA/mana_ib: Poll RC completions using PSN and FSN progress
-  RDMA/mana_ib: Flush and notify CQs when kernel QPs enter ERR
-  RDMA/mana_ib: Handle error CQEs for kernel QPs
+ drivers/infiniband/hw/mana/cq.c | 27 +++++++++++++++++++--
+ drivers/infiniband/hw/mana/qp.c | 53 +++++++++++++++++++++++++++++++++++++----
+ drivers/infiniband/hw/mana/wr.c | 42 +++++++++++++++++++++++---------
+ 3 files changed, 105 insertions(+), 17 deletions(-)
 
- drivers/infiniband/hw/mana/cq.c                 | 356 ++++++++++++++++++--
- drivers/infiniband/hw/mana/device.c             |   2 +
- drivers/infiniband/hw/mana/main.c               |   8 +-
- drivers/infiniband/hw/mana/mana_ib.h            | 142 +++++++-
- drivers/infiniband/hw/mana/mr.c                 |  84 ++++-
- drivers/infiniband/hw/mana/qp.c                 | 332 +++++++++++++++++--
- drivers/infiniband/hw/mana/shadow_queue.h       |  22 ++
- drivers/infiniband/hw/mana/wr.c                 | 423 +++++++++++++++++++++++-
- drivers/net/ethernet/microsoft/mana/gdma_main.c |  55 ++-
- include/net/mana/gdma.h                         |  38 ++-
- 10 files changed, 1386 insertions(+), 76 deletions(-)
-
+diff --git a/drivers/infiniband/hw/mana/cq.c b/drivers/infiniband/hw/mana/cq.c
+index 408dee5ad458..cc519d3e42f4 100644
+--- a/drivers/infiniband/hw/mana/cq.c
++++ b/drivers/infiniband/hw/mana/cq.c
+@@ -278,6 +278,25 @@ static inline void mana_ib_cq_doorbell(struct mana_ib_cq *cq, uint8_t arm)
+ 	mana_gd_wq_ring_doorbell_ext(mdev_to_gc(mdev), gdma_cq, idx, arm, 0);
+ }
+ 
++static bool mana_ib_cq_has_flush_work(struct mana_ib_cq *cq)
++{
++	struct mana_ib_qp *qp;
++
++	list_for_each_entry(qp, &cq->send_err_qp_list, send_err_node) {
++		if (!shadow_queue_empty(&qp->shadow_sq))
++			return true;
++		if (!shadow_queue_empty(&qp->shadow_mmq))
++			return true;
++	}
++
++	list_for_each_entry(qp, &cq->recv_err_qp_list, recv_err_node) {
++		if (!shadow_queue_empty(&qp->shadow_rq))
++			return true;
++	}
++
++	return false;
++}
++
+ int mana_ib_arm_cq(struct ib_cq *ibcq, enum ib_cq_notify_flags flags)
+ {
+ 	struct mana_ib_cq *cq = container_of(ibcq, struct mana_ib_cq, ibcq);
+@@ -290,8 +309,12 @@ int mana_ib_arm_cq(struct ib_cq *ibcq, enum ib_cq_notify_flags flags)
+ 
+ 	spin_lock_irqsave(&cq->cq_lock, irq_flags);
+ 	mana_ib_cq_doorbell(cq, SET_ARM_BIT);
+-	if (flags & IB_CQ_REPORT_MISSED_EVENTS)
++	if (flags & IB_CQ_REPORT_MISSED_EVENTS) {
+ 		missed = cq->has_pending_cqe;
++		/* Software flushes cannot retrigger the hardware CQ notification. */
++		if (!missed)
++			missed = mana_ib_cq_has_flush_work(cq);
++	}
+ 	spin_unlock_irqrestore(&cq->cq_lock, irq_flags);
+ 
+ 	return missed;
+@@ -592,7 +615,7 @@ static void mana_drain_gsi_sq(struct mana_ib_qp *qp)
+ 		list_add_tail(&qp->send_err_node, &cq->send_err_qp_list);
+ 	spin_unlock_irqrestore(&cq->cq_lock, flags);
+ 
+-	if (cq->ibcq.comp_handler)
++	if (cq->ibcq.poll_ctx != IB_POLL_DIRECT && cq->ibcq.comp_handler)
+ 		cq->ibcq.comp_handler(&cq->ibcq, cq->ibcq.cq_context);
+ }
+ 
+diff --git a/drivers/infiniband/hw/mana/qp.c b/drivers/infiniband/hw/mana/qp.c
+index e1797cd1bead..cebd88a5a19d 100644
+--- a/drivers/infiniband/hw/mana/qp.c
++++ b/drivers/infiniband/hw/mana/qp.c
+@@ -742,6 +742,27 @@ destroy_queues:
+ 	return err;
+ }
+ 
++static void mana_add_qp_to_error_cqs(struct mana_ib_qp *qp)
++{
++	struct mana_ib_cq *send_cq = container_of(qp->ibqp.send_cq, struct mana_ib_cq, ibcq);
++	struct mana_ib_cq *recv_cq = container_of(qp->ibqp.recv_cq, struct mana_ib_cq, ibcq);
++	unsigned long flags;
++
++	if (WARN_ON_ONCE(qp->ibqp.uobject))
++		return;
++
++	/* Keep ERR QPs linked until reset/destroy, including later drain WRs. */
++	spin_lock_irqsave(&send_cq->cq_lock, flags);
++	if (list_empty(&qp->send_err_node))
++		list_add_tail(&qp->send_err_node, &send_cq->send_err_qp_list);
++	spin_unlock_irqrestore(&send_cq->cq_lock, flags);
++
++	spin_lock_irqsave(&recv_cq->cq_lock, flags);
++	if (list_empty(&qp->recv_err_node))
++		list_add_tail(&qp->recv_err_node, &recv_cq->recv_err_qp_list);
++	spin_unlock_irqrestore(&recv_cq->cq_lock, flags);
++}
++
+ static void mana_remove_qp_from_cqs(struct mana_ib_qp *qp, bool reset)
+ {
+ 	struct mana_ib_cq *send_cq = container_of(qp->ibqp.send_cq, struct mana_ib_cq, ibcq);
+@@ -1034,15 +1055,16 @@ static int mana_ib_gd_modify_qp(struct ib_qp *ibqp, struct ib_qp_attr *attr,
+ 	return 0;
+ }
+ 
+-static void mana_ib_modify_qp_state(struct ib_qp *ibqp, struct ib_qp_attr *attr,
++static bool mana_ib_modify_qp_state(struct ib_qp *ibqp, struct ib_qp_attr *attr,
+ 				    int attr_mask, struct ib_udata *udata)
+ {
+ 	struct mana_ib_dev *mdev = container_of(ibqp->device, struct mana_ib_dev, ib_dev);
+ 	struct mana_ib_qp *qp = container_of(ibqp, struct mana_ib_qp, ibqp);
+ 	struct gdma_queue *rq;
++	bool notify = false;
+ 
+-	if (udata)
+-		return;
++	if (udata || ibqp->uobject)
++		return false;
+ 
+ 	if (attr_mask & IB_QP_PATH_MTU)
+ 		qp->mtu = attr->path_mtu;
+@@ -1055,6 +1077,10 @@ static void mana_ib_modify_qp_state(struct ib_qp *ibqp, struct ib_qp_attr *attr,
+ 		default:
+ 			break;
+ 		}
++		if (attr->qp_state == IB_QPS_ERR) {
++			mana_add_qp_to_error_cqs(qp);
++			notify = true;
++		}
+ 	}
+ 
+ 	if (attr_mask & IB_QP_SQ_PSN) {
+@@ -1070,12 +1096,27 @@ static void mana_ib_modify_qp_state(struct ib_qp *ibqp, struct ib_qp_attr *attr,
+ 						     SET_ARM_BIT, MANA_PSN_CLIENT_OFFSET);
+ 		}
+ 	}
++
++	return notify;
++}
++
++static void mana_ib_notify_error_cqs(struct mana_ib_qp *qp)
++{
++	struct ib_cq *send_cq = qp->ibqp.send_cq;
++	struct ib_cq *recv_cq = qp->ibqp.recv_cq;
++
++	if (send_cq->poll_ctx != IB_POLL_DIRECT && send_cq->comp_handler)
++		send_cq->comp_handler(send_cq, send_cq->cq_context);
++	if (recv_cq != send_cq && recv_cq->poll_ctx != IB_POLL_DIRECT &&
++	    recv_cq->comp_handler)
++		recv_cq->comp_handler(recv_cq, recv_cq->cq_context);
+ }
+ 
+ int mana_ib_modify_qp(struct ib_qp *ibqp, struct ib_qp_attr *attr,
+ 		      int attr_mask, struct ib_udata *udata)
+ {
+ 	struct mana_ib_qp *qp = container_of(ibqp, struct mana_ib_qp, ibqp);
++	bool notify = false;
+ 	int ret;
+ 
+ 	mutex_lock(&qp->modify_lock);
+@@ -1094,11 +1135,14 @@ int mana_ib_modify_qp(struct ib_qp *ibqp, struct ib_qp_attr *attr,
+ 		goto out_unlock;
+ 	}
+ 
+-	mana_ib_modify_qp_state(ibqp, attr, attr_mask, udata);
++	notify = mana_ib_modify_qp_state(ibqp, attr, attr_mask, udata);
+ 
+ out_unlock:
+ 	mutex_unlock(&qp->modify_lock);
+ 
++	if (notify)
++		mana_ib_notify_error_cqs(qp);
++
+ 	return ret;
+ }
+ 
+@@ -1220,6 +1264,7 @@ static int mana_ib_destroy_uc_qp(struct mana_ib_qp *qp, struct ib_udata *udata)
+ 		return err;
+ 
+ 	mana_table_remove_qp(mdev, qp);
++	mana_remove_qp_from_cqs(qp, false);
+ 	/* Ignore return code as there is not much we can do about it.
+ 	 * The error message is printed inside.
+ 	 */
+diff --git a/drivers/infiniband/hw/mana/wr.c b/drivers/infiniband/hw/mana/wr.c
+index 366f9e11eff8..c8f8336b0fe9 100644
+--- a/drivers/infiniband/hw/mana/wr.c
++++ b/drivers/infiniband/hw/mana/wr.c
+@@ -72,6 +72,25 @@ static inline u8 convert_wr_to_hw_opcode(enum ib_wr_opcode opcode)
+ 	}
+ }
+ 
++static void mana_ib_notify_flush(struct ib_cq *ibcq, struct list_head *err_node)
++{
++	struct mana_ib_cq *cq = container_of(ibcq, struct mana_ib_cq, ibcq);
++	unsigned long flags;
++	bool flush;
++
++	if (ibcq->poll_ctx == IB_POLL_DIRECT)
++		return;
++	if (!ibcq->comp_handler)
++		return;
++
++	spin_lock_irqsave(&cq->cq_lock, flags);
++	flush = !list_empty(err_node);
++	spin_unlock_irqrestore(&cq->cq_lock, flags);
++
++	if (flush)
++		ibcq->comp_handler(ibcq, ibcq->cq_context);
++}
++
+ static int mana_ib_post_rq(struct mana_ib_qp *qp, const struct ib_recv_wr *wr)
+ {
+ 	struct ib_sge mana_ib_dummy_sge = {.addr = 1, .length = 0, .lkey = 0};
+@@ -129,8 +148,10 @@ static int mana_ib_post_recv_ud(struct mana_ib_qp *qp, const struct ib_recv_wr *
+ 		ring_rq = true;
+ 	}
+ 
+-	if (ring_rq)
++	if (ring_rq) {
+ 		mana_gd_wq_ring_doorbell(mdev_to_gc(mdev), rq);
++		mana_ib_notify_flush(qp->ibqp.recv_cq, &qp->recv_err_node);
++	}
+ 
+ 	return err;
+ }
+@@ -141,6 +162,7 @@ static int mana_ib_post_recv_rc(struct mana_ib_qp *qp, const struct ib_recv_wr *
+ 	struct mana_ib_dev *mdev = container_of(qp->ibqp.device, struct mana_ib_dev, ib_dev);
+ 	struct mana_ib_queue *ib_rq = mana_qp_get_rq(qp);
+ 	unsigned long flags;
++	bool posted = false;
+ 	u8 wqe_cnt = 0;
+ 	int err = 0;
+ 
+@@ -152,6 +174,7 @@ static int mana_ib_post_recv_rc(struct mana_ib_qp *qp, const struct ib_recv_wr *
+ 			*bad_wr = wr;
+ 			break;
+ 		}
++		posted = true;
+ 		wqe_cnt++;
+ 		if (wqe_cnt == 0xFF) {
+ 			mana_gd_wq_ring_doorbell_ext(mdev_to_gc(mdev), ib_rq->kmem,
+@@ -167,6 +190,9 @@ static int mana_ib_post_recv_rc(struct mana_ib_qp *qp, const struct ib_recv_wr *
+ 					     wqe_cnt, 0);
+ 
+ 	spin_unlock_irqrestore(&qp->rq_lock, flags);
++	if (posted)
++		mana_ib_notify_flush(qp->ibqp.recv_cq, &qp->recv_err_node);
++
+ 	return err;
+ }
+ 
+@@ -259,11 +285,8 @@ static int mana_ib_post_send_ud(struct mana_ib_qp *qp, const struct ib_send_wr *
+ 				const struct ib_send_wr **bad_wr)
+ {
+ 	struct mana_ib_dev *mdev = container_of(qp->ibqp.device, struct mana_ib_dev, ib_dev);
+-	struct mana_ib_cq *cq = container_of(qp->ibqp.send_cq, struct mana_ib_cq, ibcq);
+ 	struct gdma_queue *queue = qp->ud_qp.queues[MANA_UD_SEND_QUEUE].kmem;
+-	unsigned long flags;
+ 	bool ring_sq = false;
+-	bool flush_send;
+ 	int err = 0;
+ 
+ 	for (; wr; wr = wr->next) {
+@@ -277,13 +300,7 @@ static int mana_ib_post_send_ud(struct mana_ib_qp *qp, const struct ib_send_wr *
+ 
+ 	if (ring_sq) {
+ 		mana_gd_wq_ring_doorbell(mdev_to_gc(mdev), queue);
+-
+-		spin_lock_irqsave(&cq->cq_lock, flags);
+-		flush_send = !list_empty(&qp->send_err_node);
+-		spin_unlock_irqrestore(&cq->cq_lock, flags);
+-
+-		if (flush_send && cq->ibcq.comp_handler)
+-			cq->ibcq.comp_handler(&cq->ibcq, cq->ibcq.cq_context);
++		mana_ib_notify_flush(qp->ibqp.send_cq, &qp->send_err_node);
+ 	}
+ 
+ 	return err;
+@@ -567,6 +584,9 @@ static int mana_ib_post_send_rc(struct mana_ib_qp *qp, const struct ib_send_wr *
+ 					 qp->rc_qp.queues[MANA_RC_SEND_QUEUE_REQUESTER].kmem);
+ 
+ 	spin_unlock_irqrestore(&qp->sq_lock, flags);
++	if (ring_sq || ring_mmq)
++		mana_ib_notify_flush(qp->ibqp.send_cq, &qp->send_err_node);
++
+ 	return err;
+ }
+ 
 -- 
 2.43.0
 
