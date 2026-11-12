@@ -1,78 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.182
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794509157;
-	b=yeBKMbecbxOokDlO5aMqxoPRaDcyXVUcUuOplWu/ZZONmzfBMCk20+j/SWtT9/1j1GNs
-	 iDEZaGht1cTjcULlomp70NKCZWx47aiaQvRLoyQM5E1as11Y2Mcp5jEgl2hfqVpsEBTfE
-	 AGfn6YuGopTI2M1mcm4eRU0esh6qUsb9GEBJM6VFVxwv+BiTuozb70eiE7JvivptOlwSD
-	 3Y6NGrO/PKYSHJ6jQ+e++8579zZmjOcUqP2mL6y4tXdfrDOpIM+2BZ03bnNPHAX9S8mmq
-	 ZOEcR2rSfA+KYM8yk6bkYC/pYbCBrBRUyFkQaRtl5kvGoBCtY7rY/dqdW+eqw09JpOw==
+	t=1794509294;
+	b=WypaQDspGeLb9f4xd6TTYOqV9FdgwWnGsPBqA4iv/NpTMaBOk8RuhRH9pv8cA4N/QyvE
+	 zphi4bA59DG0mmxt+Vml92YSTu9c4TE2/QGE+JERPsEvV9ejjCo9SeJijoWW2vWDHk6c4
+	 0p9mMlZmM2wyrBgTW/ETGECmIdkYUuUVA+Oa15sHcC6KF6h3y61YxJCAh5xu+4RXg6SxR
+	 Ust6y09V1j74xwcBrBJMqqYfbG06L5ZwKCaE6Ubh6EqQf5rAaX1LmdmBTsK1zyeuQxMxX
+	 cVK3hkMjeh/JjnaKoXIk+InwAJvWO9TYdOhanF923vCJEab5PCW5vTM+0zyusyxN7iw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794509157;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1b/iBUPb+fTmn+Av8UCVFrA/4uFENTynAJNd00LMVhQ=;
-	b=V7n+iLAtMWpV/HIW+k5DKPjUl6qiueXJMaDNDM+wS1pmdRFJWnDMbVz88VTxzAlgTkzE
-	 Dj0xBQCpMm1r77a1aGdZX0xAmKz2oiQZkaOC3LCHWTsCTeikf/qHIVL40o99bD8HPem4M
-	 hnhkV0AManPdGva/kFSpgWijTMTsX9NbGeCo04MKZh21sVA6koLsrOKlDLl4NQ2nR0uxV
-	 7j/ZXGyzVOMcZYgCInn3uAbCRMs0TH47WTXc6jnKW5mvRbwtRpza/4AdrjJ/5AU1QM9o7
-	 a4AMaO6QoOCa6LBX62fP3Q20irnduxZI6puuAGBwWGYnagut4ecHSKLPDoszpbTo3VQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794509294;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=2ZNo/BoPv1da9h6ldNRtbZX7H0ERFUHxFb1OvAOtsY0=;
+	b=MmGQitSUYdNEQskdYSVwMxJZ2eIsoaDJ5/4GsqVV6A3Lx7SQZ7T/5uQ+XO+4Bti9NtYL
+	 Yzv3ojrxY+ovj7EijkddMH+nHG6x3Vi8id0IhYDAWUwWYOytYF+gq5jEXrFaGCJq1Ll/K
+	 SqIofcTjjvusqNID90ogCLFqUr1CpBBga/Vz0w/7Zml+HRbtkZP7LY2cX+uerY6dxZZhT
+	 EkyLKezWOh1jto9GK6uCk5W0nnFjwOENRawf+7Ft02yisA/ZAV8NDktmKy2VdYUurALq5
+	 mFmbJeBBopoWHY8Q1oslUDoYE8y0ZA3AgRGy85OCayLi2Yja+j3nfi54PlRhR/y3NZg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qyh3Ouyd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9602606A8AC;
-	Thu, 12 Nov 2026 18:45:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qyh3Ouyd
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794509157;
-	b=ZbjzUOQMELF1EatJLi/PIg9Rm5ULlFKw1kpNfBcDJ6Yt1A56vCf9ZZ1kxQ6uzYbF08yt
-	 cboN071jzZ99wo51kcORJl27B85c9J+4e3fYHH0lDz2E09v9eoxfmFegNGer88cMZuKbj
-	 4m+zp12Y/bEY7mOOx/OBgFt6zwnELMX3Yv+UZXKziUhdMhbll3OsCNZ7vu99mJg+vhdvu
-	 7o91ttWROpTJ1l4uXNghG5oBkEVXGlee4z+lIN3fqPb2ECR2ZF1A1OmDYFYVRBl+8CSiR
-	 1AFtyCMsqFjBDCAAQ+IK22Y9EyCKlPrMIEioSPtlTEbsmmRUTshC7z4Q6RNtWmywn+w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794509157;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1b/iBUPb+fTmn+Av8UCVFrA/4uFENTynAJNd00LMVhQ=;
-	b=Ab+JoZ3hNqIIYNXZ2KkZ5991pdiDUhWWWrKqG1OjUcs2CNP8k9mufgBPpFMPSd9R+IHm
-	 YPJt9ot9fEF8/oQl3YOFM/zMVKOF+X3KNtoN/zZQXe71gBN4PA+BK9rOKbxIZNx2J4Dw2
-	 Ku66ljD3CbqfDvc7Z9utixdzMLqdNmXhL+nGNBc/Mx9ywDXQFsoZdbKuUuY1c7s5QNi3u
-	 W0o2fhps/j0/1Yhv3VEjg9fyzpSNqa3GvZbqChpt8dZGdoSTkCB7EMn66aeJ3CNT6y0GE
-	 uk+VbXyKJUWlNAc59AYUxKqYoKE2iOQ5WnyPTeAFhltvFVOpD02mOISMkZFXBFEpkgA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0xoVYenJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.182
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 374F41F000C4;
-	Thu, 12 Nov 2026 18:45:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794509157;
-	bh=1b/iBUPb+fTmn+Av8UCVFrA/4uFENTynAJNd00LMVhQ=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Qyh3OuydQkHdKgQ1wCSqVtl3busYtBcqMJY9qWTTur15okiwM+jNE3hKZcc56hevj
-	 9wVN3ZMHBY+ysYDHnNQCThv170xGYP9FALWgBO6TNdNQ15lVo9uboPlMbDWeIXlB/R
-	 Xna2sz+GeQnFYBClY6W5c31Mkv+5Jvid0bFwbZ88gXGfF461msUpyFFatBnTRoraiM
-	 VIxx8ftScbjBGj1OYtGGFv4RRqvz0z6e8XnzLZAE1QhYlmFB4omx+ia2ddljxDjScu
-	 hJ67gqNTVKgWFG8QOe3P5BPyKdetYwgzeB4rt4G+lD5Kxot+nzLdGZ/P3xTvfw42Mb
-	 hGSOwGJMWS0VA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7A79D47497;
-	Thu, 12 Nov 2026 18:45:55 +0000 (UTC)
-From: Vincent Choiniere via B4 Relay <devnull+choiniere.vincent.hydroquebec.com@kernel.org>
-Date: Thu, 12 Nov 2026 13:45:56 -0500
-Subject: [PATCH net v4] ice: fix Tx hang dump using stale tx_buf[0].skb
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1950D606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:48:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1950D606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0xoVYenJ
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-5366ae57896so216551cf.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:48:13 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794509293; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Pzb/nfHnFDas91khVXS/9mP8hxA1wvelo/tb21ATn4sDbPJcgIEddsK2E53TE/RCfT
+         m/l1gQ2mRDiby1ZShwCb720pMMN+urqes5rw4II6CLLw+rjzFiyrptGE4RSfS/pIAqM2
+         zbaO/JamC3pmxqF42zt/jWCr6wCuuPWA1zkQOcbobPPVrBtWjkDZHYmVd+HIIITrlzWR
+         rGVW6HPUo9RyThygMYL8O8fSF9q1OA/sgQmm6Wjrpps/YOkgNRr1lJgfInSVW/JTnsf2
+         A7KenkDirU7H3v9QKqxjSpv9P5p03fRLEcxsN7ZCsg+C+uSU8b3rV7xdLhSfMsVJQKxC
+         tHAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2ZNo/BoPv1da9h6ldNRtbZX7H0ERFUHxFb1OvAOtsY0=;
+        fh=OOQl1NFRJs/PlzNTfh1i+nPY4yIymtT8a8PdsahZqHg=;
+        b=bjQ1vZo5oCUEWEHHvyO7N7aTWszYmS+u+bpdzJzI6ou4ygfVNbqTHwMheQJBdwky/v
+         aGaUWQf75Hlk+IFiuxzsZ3nAxmrxWTs8x66gnWhhrVRPmwQVn3F8oywGa3Rb4/gPjQf6
+         k8R6Sokt8OpGgdis07X6NqkYY7hAhHhaF8+NT0Fa1tu1FL/ov2xUkzIgYTaELEMpjVsU
+         TePGww/HU7VNFvK2b5RnV9jT3LKmr2PT9MPIvgea1yyL13768cLZp4E7JP9X4ZovCPcq
+         upXon1erv+gDfU7izCQNjEI8jpiE8lNx7P5AqgQ80t4+gvq+rmpyhSUVvnSawjdiXfPV
+         vl5w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794509293; x=1795114093; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2ZNo/BoPv1da9h6ldNRtbZX7H0ERFUHxFb1OvAOtsY0=;
+        b=0xoVYenJNOHYVK2tk3GQfolNIKeukJZ32f/YHV41rGHEFcfGWKY8DZAT5ilu1wxECC
+         pRtnOL5FnjC8U4DbCjzMoj/gGseWk41079Yc8xscAIe6N8uXfVn6pMqstuXadzT18sdN
+         Ei1OEWF7hhOXRwOyxBNzHG6y1ldj0MbN7OApgdP2vIOQWTHd9fk3W10sifNDgr3ordE4
+         s8ZMzTyHKM1/LSLY8UmNNPt+XjoYFIbkELNNsLNkLdD6dz6HmdV+JY0tEe1YRKBCeCCh
+         Sa5thdQu4rhEJCkhziV/TfDJ9BSfG7fAcXteNGgJLKP5ovJVqoFaoWuZxe22+FBRPT2P
+         Y6kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794509293; x=1795114093;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2ZNo/BoPv1da9h6ldNRtbZX7H0ERFUHxFb1OvAOtsY0=;
+        b=BN0txn5VXd7XmJ+TW+RuW+8zAJ0+tARjlj6uaqkF8ReWKmi9PadN949fiVjTCc0U2y
+         x04ygQ0HLD48innnOt3AOd/OrI3mbdH6iw4SN1LiYUjsPfwDOQoP0X3cwkLZLLk1fMpo
+         b4a5EmR5BLze7v1J3x9ILanszyZ8ukKKBQn3xcn2hPOvOAdKjminEvRFfVWBzXok+Nqr
+         cfW+p6r5fYCRclvJ7UdYjgll2Xyve4Xu2U80sYWWO4qouHJpLltQGP7fI6/1dree/9rA
+         iSnRm6KpToWtiNJ1nN2+DToWhS7N2mFW2kCB4G2IbytbaKezQivJZmEo+u9Ew4+QdT5k
+         ePDQ==
+X-Forwarded-Encrypted: i=1; AL+hErFr4PTFGI6XQCLtXqFnf2daQNPbddziUqRULtrl8g07Ztv3NpZGbmMTMI4Is+o3I/DyU30FpBGpUcrkp+c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88ll6wYvOZAkqq+Kf/6JfN5PhdC3AOEuOp0Nv4Djcb6c94kLXv
+	Kkl26o5WbRk7DaB0xYafy7LM5t9+nDLi58oc3+NQbr1wwQDy/EzUf1L5ADXKMqcymjM1VAhUmeh
+	ZrLIyuJ8GNxfThEuWZRSVB1oP4hsHIPw=
+X-Gm-Gg: AYBFou3ZnhAET1YjQUdARRet3fdKrzoNMIc+vi2cw1dEmmXPLS4vAxReVG0HddOdcKL
+	MzVCxYFuhi4G/77xSSMQBwfjUDSkVINTma6PIXsNFt1x1WvDT2i5gJZ1UUy9FdwUhw3h08Ijwmz
+	Cm9+AHqha7EKASZNKVfGpUueyeo3ESmfHQYsqxStg0z5T7Jqc6ZYtcFJvb3MXYsfhHoDUvhxACx
+	2n48yZlekRYFsvknHd6F5WOoXuUG3B25c5zln99DWwVo1fUpKey3NUsq/ssxCscEHdDnwsP7ekt
+	vUOVMs753ju90fGjHRN6B0hGmyls9EqL0Zm2bVdK5NDSsb/Qiv1I9rM5Yb5dV3O66mjllIF1cNH
+	A/mTBgCSnNweiwXiItkhpdpvm956SFNMPr7MJuOTCDz+OzwO7g5cU+vbSRw==
+X-Received: by 2002:ac8:59c9:0:b0:536:5e62:4647 with SMTP id
+ d75a77b69052e-55ac755ea49mr5719511cf.16.1794509292920; Thu, 12 Nov 2026
+ 10:48:12 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,454 +104,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-ice-tx-hang-dump-v4-1-9125f687669b@hydroquebec.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XPS27DIBAG4KtErEvFgE3irHKPKAtghphKxgnYV
- qLIdy92F61UZzmv79e8WKYUKLPj7sUSTSGHPpai+tgx15p4JR6w1EwKqUGA5sERHx58mXEcuxu
- nStuKsDoo1Kyc3RL58FjJM4s0sMtPM4/2i9ywYMtaG/LQp+caPMG6/D5jAg5coRe+bvaNqeHUP
- jH195EsuU/Xd2vIJP8wcouRhSEJSpOXrka3zahfBsR+g1GFOXgpQTQIxuB/Zi6ONZm4TSa6dnm
- 6MyGyef4GdQx+uXIBAAA=
-X-Change-ID: 20261016-ice-tx-hang-dump-e46b4ed483d6
-To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
- intel-wired-lan@lists.osuosl.org
-Cc: Aleksandr Loktionov <aleksandr.loktionov@intel.com>, 
- Michal Kubiak <michal.kubiak@intel.com>, 
- Wojciech Drewek <wojciech.drewek@intel.com>, 
- Mateusz Polchlopek <mateusz.polchlopek@intel.com>, 
- Paul Menzel <pmenzel@molgen.mpg.de>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- Vincent Choiniere <choiniere.vincent@hydroquebec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794509155; l=18204;
- i=choiniere.vincent@hydroquebec.com; s=20261016;
- h=from:subject:message-id;
- bh=g6IwZkTyRnjwRh6+ILNEBc+G9HEKzOlDA0Y4fToAutU=;
- b=A3Mv/Y/mBLOWtu7/ZX/TorT81UUgSssH26ZNwXLLNX/5EYDhYzgmqOBIJhRknrEa/54u381lU
- WWPXYIerUsSCJRKe1PKXtkx+c+vPF1G6+yUwag76SqmyY02vfeDRgwF
-X-Developer-Key: i=choiniere.vincent@hydroquebec.com; a=ed25519;
- pk=MctQE067DucsZOaNqb+sjY7aQ+urhztuURanagEW3+8=
-X-Endpoint-Received: by B4 Relay for
- choiniere.vincent@hydroquebec.com/20261016 with auth_id=1210
-X-Original-From: Vincent Choiniere <choiniere.vincent@hydroquebec.com>
-Reply-To: choiniere.vincent@hydroquebec.com
-Content-Transfer-Encoding: 7bit
+References: <20261111212921.290857-1-artem122novak@gmail.com> <20261112-reprise-jukebox-41fb305e9044@spud>
+In-Reply-To: <20261112-reprise-jukebox-41fb305e9044@spud>
+From: Artem Novak <artem122novak@gmail.com>
+Date: Thu, 12 Nov 2026 12:48:00 -0600
+X-Gm-Features: AclHuK83CGLq-frSEcoEahwnbtEAvhllMZwb7XrHT3XQ7fzapMydAcTCyK9acmI
+Message-ID: <CAPufuhZPs66hiMzHZPMLBiOAOjJxaePo=9OEvcxmxyQdKFxBVA@mail.gmail.com>
+Subject: Re: [RFC PATCH] dt-bindings: vendor-prefixes: Add Casio
+To: Conor Dooley <conor@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Vincent Choiniere <choiniere.vincent@hydroquebec.com>
+Hi Conor,
 
-ice_tx_hang_reporter_dump() always reads tx_ring->tx_buf[0].skb,
-regardless of next_to_clean. The Tx cleanup path frees the skb and
-marks the buffer empty without clearing the skb pointer, so slot 0 can
-hold a stale pointer. A NULL check alone does not cover this, and
-devlink_fmsg_dump_skb() can fault on the freed skb.
+I wasn't entirely sure whether this should be submitted as a
+standalone patch or together with the board binding,
+so I marked it as an RFC.
 
-Using tx_buf[next_to_clean] alone does not fix the lifetime issues.
-The dump runs from the service task without synchronization with Tx
-cleanup or ring replacement:
+I included the vendor prefix in my October 22 submission for the
+fx-9750GIII binding.
+I guess, regular patch would be nice, in this case.
 
-- ice_clean_tx_irq() can free the skb at next_to_clean while the
-  report is being prepared. It calls napi_consume_skb() before
-  marking the buffer empty.
-- The ring saved by ice_tx_timeout() can be replaced or freed before
-  the service task runs. ethtool -G replaces the ring contents and
-  frees tx_buf and desc, while ethtool -L can free whole rings.
-
-Record the queue index, next_to_clean and next_to_use at timeout time.
-Before reporting, take RTNL and check that the timeout was on the PF
-VSI, that the VSI is up and that the timed-out queue still maps to the
-saved ring. A freed ring can be reused for another queue, so a pointer
-match alone is not enough. Copy the descriptors and IRQ name while the
-ring storage is protected against replacement. If the check fails or
-the copy cannot be made, report only the values recorded at timeout
-time.
-
-As before this patch, a successful snapshot shows the ring when the
-report is generated. A reset of the same queue after the timeout, for
-example by ethtool -G or an MTU change, is not detected.
-
-Tx cleanup can still run while the ring state is copied, so do not
-dereference the skb. Retain only its pointer value in the dump and
-remove the skb contents.
-
-Release RTNL before calling devlink_health_report(), which takes the
-devlink instance lock. Build the dump from the copied data and free
-the descriptor copy after reporting.
-
-This leaves devlink_fmsg_dump_skb() without users; its removal is left
-to a net-next follow-up.
-
-Observed on an E810 PF passed through to a KVM guest with Ubuntu
-kernel 7.0.0-14 (PREEMPT_RT and a local scheduler patch): a delayed
-queue IRQ led to a Tx timeout and a page fault in
-devlink_fmsg_dump_skb():
-
- BUG: unable to handle page fault for address: 0000000004cd0c11
- Workqueue: ice ice_service_task [ice]
- RIP: devlink_fmsg_dump_skb+0x2d8/0x5d0
- Call Trace:
-  ice_tx_hang_reporter_dump+0x1ce/0x210 [ice]
-  devlink_health_do_dump+0xcc/0x190
-  devlink_health_report+0x1d7/0x260
-  ice_report_tx_hang+0x7d/0xa0 [ice]
-
-Fixes: 2a82874a3b7b ("ice: add Tx hang devlink health reporter")
-Link: https://lore.kernel.org/all/20260327072332.130320-1-aleksandr.loktionov@intel.com/
-Cc: stable@vger.kernel.org
-Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Signed-off-by: Vincent Choiniere <choiniere.vincent@hydroquebec.com>
----
-Changes in v4:
-- Use the saved ring only if the timeout was on the PF VSI and the
-  timed-out queue still maps to it. A pointer match alone accepted a
-  freed ring reused for another queue (Sashiko).
-- Read the saved ring pointer before taking RTNL, alongside the
-  timeout-time values, as before this patch. This avoids rereading
-  the pointer after the RTNL wait, but does not make the event
-  snapshot atomic (Sashiko).
-- Clarify that a successful snapshot shows the ring at report time,
-  as before, and that a reset of the same queue is not detected.
-  v3 implied that ring replacement was detected (Sashiko).
-- Carry Przemek's Reviewed-by; the only code changes are the VSI/queue
-  check and the saved pointer read above.
-- Leave removal of the unused devlink_fmsg_dump_skb() export to a
-  net-next follow-up, and say so in the commit message (Sashiko).
-- Document the pre-existing reload deadlock separately under
-  Limitations.
-- Run hardware tests of v4; see "Testing of v4". The v2 stress
-  campaign was not repeated.
-
-Changes in v3:
-- Glue the kvfree() of the descriptor copy to the preceding if as an
-  else (Przemek).
-- Reword the ice_tx_hang_snapshot() kernel-doc: it said the rings are
-  only replaced or freed under RTNL or from the service task, which does
-  not hold for driver removal and devlink reload (Sashiko). No code
-  change for this.
-- Carry Przemek's Reviewed-by; the only code change is the else above.
-- Move the AI-assistance attribution from the commit trailers to
-  the notes below.
-
-Changes in v2:
-- Validate the saved ring under RTNL before dereferencing it from
-  the service task, and restrict snapshots to the PF VSI while it
-  is up (Sashiko).
-- Check next_to_clean against count before indexing tx_buf, and
-  copy the descriptors and IRQ name while ring replacement is
-  excluded (Sashiko).
-- Stop dereferencing the skb and remove its contents from the dump.
-  Keep only its pointer value (Sashiko).
-- Release RTNL before reporting to preserve the devlink instance
-  lock ordering.
-- Record the queue index and ring indices at timeout time as a
-  fallback when a snapshot cannot be made.
-- Drop Paul's Reviewed-by because the patch changed substantially.
-
-v3:
-https://lore.kernel.org/all/20261107-ice-tx-hang-dump-v3-1-8f22109d1aad@hydroquebec.com/
-
-v2:
-https://lore.kernel.org/netdev/20261026-ice-tx-hang-dump-v2-1-e2136ef2c5dc@hydroquebec.com/
-
-v1:
-https://lore.kernel.org/netdev/20261016-ice-tx-hang-dump-v1-1-3df0f5979a51@hydroquebec.com/
-
-AI assistance: Claude (claude-sonnet-5-5) for earlier revisions;
-Copilot for the v4 queue validation and pointer-read changes, review
-analysis, and commit message and revision notes.
-
-Testing of v4:
-- Built all ice objects and linked ice.o on the exact base below with
-  x86_64 defconfig, CONFIG_ICE=m, GCC 15.2.0, W=1 and sparse C=2
-  (sparse git 84ec065).
-  The compiler and sparse reported no warnings or errors.
-- checkpatch --strict on the full patch: 0 errors, warnings or checks.
-- Runtime tests used a backport, not the exact net tree. The ice module
-  was built from upstream v7.0 with the v4 changes to
-  ice_tx_hang_snapshot() and ice_report_tx_hang(), plus an unrelated PTP
-  lifetime fix, and run on an E810 PF passed through to a KVM guest with
-  a PREEMPT_RT 7.0.0-38 kernel, KASAN, PROVE_LOCKING and
-  DEBUG_ATOMIC_SLEEP.
-- Test-only hooks stop Tx cleaning on one queue of the test PF and delay
-  ice_report_tx_hang() or the dump callback. The stall is released at
-  the first timeout, so recovery stayed at a PF reset. A racing command
-  was started when the hook logged its delay.
-- Forced Tx timeout with automatic dump: 3 runs, complete dump.
-- ethtool -G tx 64 while ice_report_tx_hang() was delayed: 2 runs, the
-  dump showed the replaced ring.
-- ethtool -G tx 64 while the dump callback was delayed: 2 runs, the dump
-  was built from the copy.
-- ethtool -L combined 1 while ice_report_tx_hang() was delayed: 4 runs.
-  The channel change is refused while RDMA is active, so irdma was
-  unbound from the test PF through sysfs first. The report then
-  contained only head, intr, vsi_num, queue, next_to_clean and
-  next_to_use, without the ring-derived fields.
-- No KASAN, lockdep or sleeping-in-atomic report was seen in these
-  runs, and lockdep stayed enabled for the whole boot.
-- Reuse of a freed ring by another queue was not reproduced. The
-  queue check was compared with ice_vsi_alloc_rings(), where q_index is
-  the tx_rings array index. The ethtool -G runs reset the same queue in
-  place; as described above, this is not detected and the dump shows the
-  ring as it is when the report is generated.
-- Other observations during testing, not investigated: the kernel logged
-  order-9 allocation failures in irdma during PF recovery, and an
-  ip link down/up attempted while a reset was pending produced an RTNL
-  assertion warning in ice_dis_vsi() -> ice_vsi_close() on the service
-  task reset path.
-
-Testing of earlier revisions:
-- Built ice.ko with x86_64 defconfig, CONFIG_ICE=m, GCC 12.2 and W=1.
-  Ran sparse with C=2 (sparse git c464045). Neither reported warnings
-  in the changed files.
-- checkpatch --strict reported only an unknown Fixes commit because
-  the local tree is a shallow clone.
-- Runtime testing used an E810 PF passed through to a KVM guest with
-  Ubuntu kernel 7.0.0-38 (PREEMPT_RT), KASAN, PROVE_LOCKING and
-  DEBUG_ATOMIC_SLEEP.
-- Forced Tx timeouts by starving one queue's IRQ thread. The watchdog
-  fired after five seconds, the PF recovered, and the dump retained
-  the v1 fields except for the skb contents.
-- Used a test-only kernel patch to insert configurable delays before
-  ice_report_tx_hang() or the dump callback. Racing ethtool commands
-  were started when the instrumentation logged the delay.
-- With v1 and the same instrumentation, shrinking the ring with
-  ethtool -G tx 64 while next_to_clean was above 64 triggered a KASAN
-  slab-out-of-bounds report. This was also reproduced on a non-RT
-  kernel built from net. Racing ethtool -L combined 1 triggered a
-  use-after-free followed by a general protection fault.
-- With v2, ran 168 forced Tx timeouts, including 149 with concurrent
-  ethtool -G (tx 64, 128 or 512) or ethtool -L combined 1, before and
-  after the ring state was copied. No KASAN, lockdep or
-  sleeping-in-atomic reports were observed. When the saved ring was
-  no longer present, the dump contained only the timeout-time values.
-
-Limitations:
-- The v4 runs were short: two to four per scenario, not a repeat of the
-  168 timeouts run with v2. The same stress testing was not completed
-  on a non-RT kernel, where Tx timeouts could not be forced reliably.
-- Subfunction VSIs and XDP were not tested. Subfunction VSI rings
-  are excluded from the snapshot because ice_sf_dev_remove() frees
-  them without RTNL.
-- Driver removal and devlink reload still stop the service task only after
-  the devlink reporter and the VSIs are torn down, and the service task
-  runs the Tx hang report before it checks ICE_SERVICE_DIS. Before this
-  patch the same path dereferenced the saved ring with no protection at
-  all. The ordering is left to a separate fix.
-- DRIVER_REINIT reload can deadlock: it holds the devlink instance
-  lock while waiting for the service task to stop, and the service
-  task's devlink_health_report() path may need that lock for auto-dump.
-  This pre-existing locking issue is left to a separate fix.
-- This patch does not synchronize publication and consumption of
-  tx_hang_buf between ice_tx_timeout() and the service task. A newer
-  timeout may still be dropped or its fields mixed with an older
-  event. The ring is only used if it matches the recorded VSI and
-  queue.
-
-The original devlink_fmsg_dump_skb() crash was reproduced on Ubuntu
-kernel 7.0.0-14 with PREEMPT_RT and a local scheduler patch. The
-additional race reproductions above used test-only instrumentation.
-The affected reporter code is also present in upstream net at
-191aa4154.
----
- drivers/net/ethernet/intel/ice/devlink/health.c | 116 +++++++++++++++++++++---
- drivers/net/ethernet/intel/ice/devlink/health.h |   6 ++
- 2 files changed, 108 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/net/ethernet/intel/ice/devlink/health.c b/drivers/net/ethernet/intel/ice/devlink/health.c
-index 8e9a8a8178..3909e55b96 100644
---- a/drivers/net/ethernet/intel/ice/devlink/health.c
-+++ b/drivers/net/ethernet/intel/ice/devlink/health.c
-@@ -382,7 +382,13 @@ struct ice_tx_hang_event {
- 	u16 queue;
- 	u16 next_to_clean;
- 	u16 next_to_use;
--	struct ice_tx_ring *tx_ring;
-+	/* the fields below are only valid if @desc is set */
-+	char irq_name[ICE_INT_NAME_STR_LEN];
-+	void *desc_ptr;
-+	dma_addr_t dma;
-+	void *desc;
-+	u32 desc_size;
-+	void *skb_ptr;	/* pointer value only, never dereferenced */
- };
- 
- static int ice_tx_hang_reporter_dump(struct devlink_health_reporter *reporter,
-@@ -390,12 +396,10 @@ static int ice_tx_hang_reporter_dump(struct devlink_health_reporter *reporter,
- 				     struct netlink_ext_ack *extack)
- {
- 	struct ice_tx_hang_event *event = priv_ctx;
--	struct sk_buff *skb;
- 
- 	if (!event)
- 		return 0;
- 
--	skb = event->tx_ring->tx_buf->skb;
- 	devlink_fmsg_obj_nest_start(fmsg);
- 	ICE_DEVLINK_FMSG_PUT_FIELD(fmsg, event, head);
- 	ICE_DEVLINK_FMSG_PUT_FIELD(fmsg, event, intr);
-@@ -403,13 +407,14 @@ static int ice_tx_hang_reporter_dump(struct devlink_health_reporter *reporter,
- 	ICE_DEVLINK_FMSG_PUT_FIELD(fmsg, event, queue);
- 	ICE_DEVLINK_FMSG_PUT_FIELD(fmsg, event, next_to_clean);
- 	ICE_DEVLINK_FMSG_PUT_FIELD(fmsg, event, next_to_use);
--	devlink_fmsg_put(fmsg, "irq-mapping", event->tx_ring->q_vector->name);
--	ice_fmsg_put_ptr(fmsg, "desc-ptr", event->tx_ring->desc);
--	ice_fmsg_put_ptr(fmsg, "dma-ptr", (void *)(long)event->tx_ring->dma);
--	ice_fmsg_put_ptr(fmsg, "skb-ptr", skb);
--	devlink_fmsg_binary_pair_put(fmsg, "desc", event->tx_ring->desc,
--				     event->tx_ring->count * sizeof(struct ice_tx_desc));
--	devlink_fmsg_dump_skb(fmsg, skb);
-+	if (event->desc) {
-+		devlink_fmsg_put(fmsg, "irq-mapping", event->irq_name);
-+		ice_fmsg_put_ptr(fmsg, "desc-ptr", event->desc_ptr);
-+		ice_fmsg_put_ptr(fmsg, "dma-ptr", (void *)(long)event->dma);
-+		ice_fmsg_put_ptr(fmsg, "skb-ptr", event->skb_ptr);
-+		devlink_fmsg_binary_pair_put(fmsg, "desc", event->desc,
-+					     event->desc_size);
-+	}
- 	devlink_fmsg_obj_nest_end(fmsg);
- 
- 	return 0;
-@@ -424,6 +429,78 @@ void ice_prep_tx_hang_report(struct ice_pf *pf, struct ice_tx_ring *tx_ring,
- 	buf->vsi_num = vsi_num;
- 	buf->head = head;
- 	buf->intr = intr;
-+	buf->queue = tx_ring->q_index;
-+	buf->next_to_clean = tx_ring->next_to_clean;
-+	buf->next_to_use = tx_ring->next_to_use;
-+}
-+
-+/**
-+ * ice_tx_hang_snapshot - copy the timed-out queue's ring at report time
-+ * @pf: PF on which the Tx hang was detected
-+ * @tx_ring: ring saved by ice_tx_timeout(), possibly stale
-+ * @ev: event to fill in
-+ *
-+ * The saved ring may have been freed or replaced since the timeout (e.g. by
-+ * ethtool -G or -L), and a freed ring may be reused for another queue. Use it
-+ * only if the timeout was on the PF VSI, that VSI is up and the timed-out
-+ * queue still maps to it. Those paths, and the reset paths, replace or free
-+ * the rings under RTNL or from the service task itself, so with RTNL held the
-+ * accesses below are to live memory for them. The ring may still have been
-+ * reset in place since the timeout (e.g. by ethtool -G or an MTU change); as
-+ * before, its state is read when the report is generated. Driver removal and
-+ * devlink reload tear the VSIs down before the service task is stopped and are
-+ * not covered here. ice_clean_tx_irq() may still run and free the skb at
-+ * next_to_clean at any time, so only the pointer value is recorded and the skb
-+ * itself is never dereferenced.
-+ */
-+static void ice_tx_hang_snapshot(struct ice_pf *pf, struct ice_tx_ring *tx_ring,
-+				 struct ice_tx_hang_event *ev)
-+{
-+	struct ice_vsi *vsi = ice_get_main_vsi(pf);
-+	struct ice_q_vector *q_vector;
-+	struct ice_tx_buf *tx_buf;
-+	u16 ntc, ntu;
-+	void *desc;
-+	u32 size;
-+
-+	ASSERT_RTNL();
-+
-+	if (!tx_ring || !vsi || !vsi->tx_rings ||
-+	    test_bit(ICE_VSI_DOWN, vsi->state))
-+		return;
-+
-+	if (ev->vsi_num != vsi->vsi_num || ev->queue >= vsi->num_txq ||
-+	    vsi->tx_rings[ev->queue] != tx_ring)
-+		return;
-+
-+	q_vector = tx_ring->q_vector;
-+	if (!q_vector || !tx_ring->desc || !tx_ring->tx_buf || !tx_ring->count)
-+		return;
-+
-+	size = tx_ring->count * sizeof(struct ice_tx_desc);
-+	desc = kvmalloc(size, GFP_KERNEL);
-+	if (!desc)
-+		return;
-+
-+	ntc = READ_ONCE(tx_ring->next_to_clean);
-+	ntu = READ_ONCE(tx_ring->next_to_use);
-+
-+	if (ntc < tx_ring->count) {
-+		tx_buf = &tx_ring->tx_buf[ntc];
-+		if (tx_buf->type == ICE_TX_BUF_SKB)
-+			ev->skb_ptr = READ_ONCE(tx_buf->skb);
-+
-+		memcpy(desc, tx_ring->desc, size);
-+		ev->next_to_clean = ntc;
-+		ev->next_to_use = ntu;
-+		strscpy(ev->irq_name, q_vector->name);
-+		ev->desc_ptr = tx_ring->desc;
-+		ev->dma = tx_ring->dma;
-+		ev->desc_size = size;
-+		ev->desc = desc;
-+	} else {
-+		kvfree(desc);
-+	}
- }
- 
- void ice_report_tx_hang(struct ice_pf *pf)
-@@ -435,13 +512,24 @@ void ice_report_tx_hang(struct ice_pf *pf)
- 		.head = buf->head,
- 		.intr = buf->intr,
- 		.vsi_num = buf->vsi_num,
--		.queue = tx_ring->q_index,
--		.next_to_clean = tx_ring->next_to_clean,
--		.next_to_use = tx_ring->next_to_use,
--		.tx_ring = tx_ring,
-+		.queue = buf->queue,
-+		.next_to_clean = buf->next_to_clean,
-+		.next_to_use = buf->next_to_use,
- 	};
- 
-+	if (!pf->health_reporters.tx_hang)
-+		return;
-+
-+	rtnl_lock();
-+	ice_tx_hang_snapshot(pf, tx_ring, &ev);
-+	rtnl_unlock();
-+
-+	/* devlink_health_report() takes the devlink instance lock, which nests
-+	 * outside RTNL, so only report once RTNL has been released.
-+	 */
- 	ice_devlink_health_report(pf->health_reporters.tx_hang, "Tx hang", &ev);
-+
-+	kvfree(ev.desc);
- }
- 
- static struct devlink_health_reporter *
-diff --git a/drivers/net/ethernet/intel/ice/devlink/health.h b/drivers/net/ethernet/intel/ice/devlink/health.h
-index 5edfc4d2ad..508e4115db 100644
---- a/drivers/net/ethernet/intel/ice/devlink/health.h
-+++ b/drivers/net/ethernet/intel/ice/devlink/health.h
-@@ -37,6 +37,9 @@ enum ice_mdd_src {
-  * @head: descriptor head
-  * @intr: interrupt register value
-  * @vsi_num: VSI owning the queue that the hang occurred on
-+ * @queue: index of the queue that the hang occurred on
-+ * @next_to_clean: next_to_clean of the ring when the hang was detected
-+ * @next_to_use: next_to_use of the ring when the hang was detected
-  * @fw_status: buffer for last received FW Status event
-  * @port_status: buffer for last received Port Status event
-  */
-@@ -50,6 +53,9 @@ struct ice_health {
- 		u32 head;
- 		u32 intr;
- 		u16 vsi_num;
-+		u16 queue;
-+		u16 next_to_clean;
-+		u16 next_to_use;
- 	);
- 	struct ice_aqc_health_status_elem fw_status;
- 	struct ice_aqc_health_status_elem port_status;
-
----
-base-commit: 7076f684d5132e6a6145e1da2fa74771ecd052e5
-change-id: 20261016-ice-tx-hang-dump-e46b4ed483d6
+Submission from before:
+https://lore.kernel.org/all/20261022063902.471383-1-artem122novak@gmail.com=
+/
 
 Best regards,
---  
-Vincent Choiniere <choiniere.vincent@hydroquebec.com>
+Artem
 
 
+On Thu, Nov 12, 2026 at 12:13=E2=80=AFPM Conor Dooley <conor@kernel.org> wr=
+ote:
+>
+> On Wed, Nov 11, 2026 at 03:29:21PM -0600, Artem Novak wrote:
+> > Add Casio Computer Co., Ltd. to the Devicetree vendor prefix
+> > registry.
+> >
+> > This prefix will be used by upcoming Devicetree bindings for
+> > Casio calculator hardware.
+>
+> Why is this an RFC?
+>
+> >
+> > Signed-off-by: Artem Novak <artem122novak@gmail.com>
+> > ---
+> >  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/D=
+ocumentation/devicetree/bindings/vendor-prefixes.yaml
+> > index 5471a06f93f1..f05475072eec 100644
+> > --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> > +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> > @@ -303,6 +303,8 @@ patternProperties:
+> >      description: Capella Microsystems, Inc
+> >    "^cascoda,.*":
+> >      description: Cascoda, Ltd.
+> > +  "^casio,.*":
+> > +    description: Casio Computer Co., Ltd.
+> >    "^catalyst,.*":
+> >      description: Catalyst Semiconductor, Inc.
+> >    "^cavium,.*":
+> > --
+> > 2.56.0
+> >
