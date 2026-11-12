@@ -1,81 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794471641;
-	b=SvAtu4Tq4+ETQtsYdma0EfKnYz/X/vx1CjpSS1DPZJvmjNYriX9GWL2UDNydQ6m/8YfG
-	 nZKs958rOPXUfLXdg/GwFKtUuKyU1ZtfPBLpQgEA3VDy2XEO75uBBu5b9ZHKAToswvLx6
-	 JYMlpw+mqVpniNMnN3zNFqiZ/7P6R6QGTkMWxaJHGv7ww65RsL78M1HNjfNfT4bc+U/m3
-	 uoV2YNaOVCbwKMeY6VOMzsMf61mwKgN11pRRNKRPi2MXNViY+6lWiGtgTqd5F6Llq9nBY
-	 OrToYJyPNetDeprOQbckxoAGBEU32jaCJMuO28F0+hjONPlMVneYLlgRaGuyZ4LBokw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794471641;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=zmhn5X3CWYTsEkK58Y2ANNa/NCUnPop7kpMt3Yw06O4=;
-	b=PqvsLYNx+DxQm2o0qUNiSUU1IzBD15SJS2Q4764RDL9xMGSIQwT+8ZPcwX6bCASi3Jm5
-	 bH3FxQUiiBLYbXSzhJOPraIEzkCbmH0EIKT23T/F6fJSnxO0WlMqKjISRgeaZRY/h7fxN
-	 qo8WEZeVGA/TGFyPzl77PYiToi4b6BBiwjNbAwH+zTpt8Hyjs7eEi57ViOX1KpdbBRVPF
-	 8dT3MuEtjZrgVbZ/I1iA/YvNBu65ayd1/QGNbmdjb+2lwE+FR8PBcp0QM42pwMLNIDJg/
-	 vfwNj425yquH52HfWZgv+jZnx/jCWYSH7sJ46Jz6lsXD/T+817I8E+IU521KLaColWQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=PPphDpcu;
-	arc=none smtp.remote-ip=37.230.196.243
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794471659;
+	b=5fMEwWIrwfNdrAIgtsdFo8WYCFNw6+8HWAUcbbX/q1rch0kzfr7ena13T38dPefEg6i1
+	 gDF0Y36L+9tmoGXCXINhUJOIAlgSn/dcBgYC72GW1tTVGzGYbztmalTy6FZ9alBR2A6oe
+	 hhjCOxw7yJdvRvLBiHJVFOuXoBILD2H/JOwHdWqcIVUGU50dcK0YvR5h91XHd42EKpuaY
+	 3aeCMT/0DSCqJmrw8QZbLhuoKElH/DD9lkb5N3cB+j9uuFnXa3Fsg075cURkOYXdPTh4B
+	 Qk7IbQrISwIL9GsI1VNrvYBoMAUtUJyOF6fexySxx/01WqfR3rxwWuawqJVDMQ6GtkQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794471659;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:In-Reply-To:
+	 References:Subject:Message-Id:Date:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=V2bF6IW/t/AO4D5wf5hj8NEj3Am7AZTh/+B9mDN3qAY=;
+	b=bU11k0aZMcnixR64xlP0KUwtz90tZL4Dzg2GcNdFR3V4cDcNBwSEUea8YThD44oKnXHl
+	 INPeTRlfecKZUWLSV7sm+uHu63tIJQSi5lT5egrbIxuIKPycheajt49WrSXQ9pchorZbc
+	 +LDCAbeLWsdFJpCjUFSJpK6WDwgUdact69XQJON7ok63orgPzbziB0k7JUdxo3mhLsQ4C
+	 7J1teiZXlmu3IGCT3DSiCqPnDewPYihfosB9XQPp/+dsYdSkYlaLVPH9CtljRyCcMZpr8
+	 n0tLpMQMD47zJ3dpVWKEaAKVNWBMt4w5lUHAYKKHu4lC6JNTlVx0ozimInlcYSX9LkQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=qPGK63F7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.53
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013053.outbound.protection.outlook.com [40.93.196.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875B6606A32E;
-	Thu, 12 Nov 2026 08:20:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 875B6606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4886A606A32E;
+	Thu, 12 Nov 2026 08:20:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4886A606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=PPphDpcu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1794471631;
-	bh=AP5wjuHCPtVGPOsgE6fooYfAbISUTGES4rmrzmf3upk=;
-	h=From:To:Cc:Subject:Date:From;
-	b=PPphDpcuG/Wc4LBIPzfaFmd4dGKGlovLd63NQ6wE52lUDkVTberAXUx63/5svPHAj
-	 BBEPZKSR+U+yr44XulXDUpBpjvStSOsE20wwjmaXWmPf/1da0mpqhYUf12I6A9lLjv
-	 3mYUnAugMzLV9Z9+JchIMK69NsgdQfPC7DOd78sTS6mqo+5ym+MpS7b9uLdbae2rii
-	 Mw0/E6Scln1k1T9Sk/WiJs1RRphTXUZFh4XDjVN63zD8+IzHSan9gLT7MUK9+Zz28y
-	 pZxkHnqAkgVwtiA6ypKnzkyEAfBmsiJevyv5QflLQbpuYJqvZvCCxdViz4oiKMNapd
-	 TZb64q+13X5Lw==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 6436624AAD;
-	Thu, 12 Nov 2026 11:20:31 +0300 (MSK)
-Received: from mail.astralinux.ru (unknown [10.205.207.6])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Thu, 12 Nov 2026 11:20:29 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.52.220])
-	by mail.astralinux.ru (Postfix) with ESMTPA id 4jQCxn3VPszPL7;
-	Thu, 12 Nov 2026 11:20:29 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
-	linux-wireless@vger.kernel.org,
-	ath11k@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Subject: [PATCH 5.10/5.15] wifi: ath11k: fix stride mismatch in mac_phy_caps_parse()
-Date: Thu, 12 Nov 2026 11:19:08 +0300
-Message-ID: <20261112081910.560-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=qPGK63F7
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=g2Flv/kdfA6hMmbz/kitiLPrzyJOulkeP+z4iisTtdR3d7hGo7yhJ968kiK4WG5Tdqnq2uKgr6FCKFWI/2pV7CUpqcmWs5lDz7QdaOrI7O6E1pkyBYIiBLhKDf6XJ1Np9HPcq5Tc6qvOB6Skni9Ybeb2QvvEpIEbJHdId432mbH12yMV8aloaPqyT/8v2iNtnOyA2fd+gUCo064TBo7GB6fiqRb7vyYos+BxtmCSovHGwYvpYuZ77749jMyhGi7nwbGD6a3Z5vS85+mnZgc7Gh9ohLO6dkHAturGjiSNddNnm/8xaIziVJXi1LFZSEXHfhI2YOaJlsLeVLAxPZTCsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=V2bF6IW/t/AO4D5wf5hj8NEj3Am7AZTh/+B9mDN3qAY=;
+ b=K29ppZbHFUMgtDyAufo/wyCWv72bgpMvjUDcyZ9QkBGyJQuURU6/t00Ta1TWmeRuJJ/fQRrTdpGHCv6S93rlqkL38eHWN1b7nP/TqHmpb6gcfyMIAO/LK8qjl/ECtT+FKAUnyQmS2j4YV48mOF13xcum8zZyyCPEeJdz1+PSW2xXHlnDMIYUNuDwJMu+rzofDf78ijzVPCig7jjwWSLRiQuoetXrZOly9e99JX9cJudfGqgQUSLPLf2fW89R7EaJQJoXaIPQTTcF2HJ0GQ/Wl5nYKLbsKOrzc3CLRnQMmQDzHjPaYbus+vzEvke4fBRnqxrv3FnnpdsM/A9JbvTMKw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=V2bF6IW/t/AO4D5wf5hj8NEj3Am7AZTh/+B9mDN3qAY=;
+ b=qPGK63F7ugPywF+RrFzhkarbeNEAHKG6J6zwJCQqvqSg+tivzc/7wddhVUgYhRmEznj9Xb69Qxs0jSEqDyOe06ZWca+7OI5EYDNn8PMOWAJ0ovhzmL3sONnwb/4ERBk1rrYIie3ygAUL1wAKwPDc8/CYvyQRrzfYOD6MpKqRn8CHDn3nWT+3JdatNMA/5aXyAYzIAMZAC6ZffTfg9lkkyKJnG1jL8IU+63Qk5avBd3bSYTT1s/QwtFw3XNv+KWSkhVjZQDWzsyFp14hUKmxesOtL8ykvQF6CdLekqzDtM5zRxeef3wPIYNhf2X2pXw1S7Iw7uUUCOYP2O/XbVrTRSg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by IA1PR12MB8223.namprd12.prod.outlook.com (2603:10b6:208:3f3::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
+ 2026 08:20:56 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Thu, 12 Nov 2026
+ 08:20:56 +0000
+From: Alexandre Courbot <acourbot@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Alexandre Courbot <acourbot@nvidia.com>
+Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, nova-gpu@lists.linux.dev, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, Daniel Almeida <daniel.almeida@collabora.com>, Gary Guo <gary@garyguo.net>
+In-Reply-To: <20261110-r000-fw-v3-0-20d79ebb646f@nvidia.com>
+References: <20261110-r000-fw-v3-0-20d79ebb646f@nvidia.com>
+Subject: Re: [PATCH v3 00/13] gpu: nova-core: generic bootloader and falcon DMA changes for r000
+Message-Id: <179447159951.1733522.4075357736636588028.b4-ty@b4>
+Date: Thu, 12 Nov 2026 17:19:59 +0900
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: OS3P286CA0055.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:200::11) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,85 +95,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/11/12 08:07:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 134 0.3.134 ce9cca31102af372fedb0df49d70b90f771aea0b, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, patch.msgid.link:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2;mail.astralinux.ru:7.1.1;astralinux.ru:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 207423 [Nov 12 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/12 06:40:00 #28854651
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/11/12 08:07:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA1PR12MB8223:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3b02b23d-0e7f-4f47-9050-08df4095df9a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|10070799003|376014|23010399003|260925022911599003|260925021311599003|260925021911599003|261026140227099003|56012099006|261022105027099003|11063799006|10067099003|261022075727099003|261026121527099003|261028144727099003|261009223027099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	CygOiIJz6rLiZJMrqnNiBzrGHq6195n95PGtEXW2GR9tc18hbYyre0B5mxKgp6eCHadgCjVQc7ba7hFnEN51l1WTKylyh+dcK30eTj6bUa+drY8U3e/fIzWeLU33Xb7vt/G38oaqJGlEp3gkCdLyWzx3Gp46bXEzrWQdGJqTFYNzrze87GzM/LstDZR62w2sMduKZANmimRZDBGrPko3yIZzUw4GvqRauPkIbOQglEN/umff3qcw2wt3LHBkxlA6JQXCkmypUaJUwdYWdQxWxItJ6RNSVKZz1pPb1Yo1SLFFfR3YuyeCnnkL3ed7OBuXKdMLvHskVAvu/hexcGC7bYoprUKtI9G7i8EGN34M4yosnyf2ZepfqbRgwgejcglGJE4HLKAxZ0z07KBxkwsrciYIQvF+/gXnNDTqhnZhP1gVUPGAR4ju0UpbITs4eiOGT7UKq0MRktz0sVO0ghaCKJmH840cXprOoR2LAoqTml+EU8g1rQ8U639oiXyT4kiaMcL3Z+NJhe3UqgxFTqX7XCzTr4xFJ/Sb5EzZwBFvFR+SYRSknx86LHYocIyz0oMcExmEtVPUr1tf6Y/bgQHsqHm5J9QQI6l4nKbo/OCIkhuCfF+nNSb/wxmLz6Pq3qMRq9YwyilpMU/8OBOm0uSSuscPxE9FOaw8OBL55AHtiRo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(376014)(23010399003)(260925022911599003)(260925021311599003)(260925021911599003)(261026140227099003)(56012099006)(261022105027099003)(11063799006)(10067099003)(261022075727099003)(261026121527099003)(261028144727099003)(261009223027099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bmhkMjZvRkZ5Uk5ZRElpcVQ3dHdETWVhdHdYcjJwNFVoWTJxTC9SR04yUHAx?=
+ =?utf-8?B?eDk5LzNtTmhMUXJPLzY5M1ppOVpIMXlGRHBNc1phVFhZb1B2dzlGbWpZQ255?=
+ =?utf-8?B?QmNieitiaHcvcW14SU1Bc25XUVBLWEw0VDEya25mbUZsTzM0U2tRUmNvb1U4?=
+ =?utf-8?B?WkY0RXY4LzBzMUhxemRkQnUyRGRVL3cwWXhPT1FsbloxUG5NTzU5MUhrL1BX?=
+ =?utf-8?B?bkVyUzUvMW1GbXRpSFdHZHA4U1JSaHZHdk9YZXFVTGxuRDkrdXFmaDEvRXZl?=
+ =?utf-8?B?QzFPV01kWjZIdFRKOWJwaXhncHNoSis2VFJXaWRUeXFHOUZ3RGsyWWpqS2lh?=
+ =?utf-8?B?ZUlUTUl3UVdqeFhkbGlFRlp2YWpLNGdva0J0SXBoaGhncTk1WkFBeHF3NHVr?=
+ =?utf-8?B?RlhLZ1B4citwcDFVSVRFRTk2NEphbkVTWXRENE84Q1hwMXlLazY3VlFrclFp?=
+ =?utf-8?B?QkRmT01JK3YyaTVkbjRLVkJhUjY0SEVNems1bHpNWlhmNTMyZTB5d0RuUkI3?=
+ =?utf-8?B?MHlFa24xdFVLdDlISkpHT0FIa3Q3encyamVEeHNJcDBOZXp6Q3pobTVIYjQ0?=
+ =?utf-8?B?VHRHbzJ1enB5dlVkdXFKbENqUnNXamxGRkxWek5idS9NMzBySmZuVy8zTWcx?=
+ =?utf-8?B?Njl2eEozSU5RaHVFR1FUcnQrRm1UbGt3cnpCUjMyWFBRNDlQa3ZtaHFsWW50?=
+ =?utf-8?B?bW0zV3pxVW5nRm1UbVF1NkkwUjZ3N2NaU3Z4YjdJZlNUR01zZlFvK29ndHRj?=
+ =?utf-8?B?SFJmdmlpOU5NcWNYd1pwcFFnTGlGOENTbU9mYnJVSlNkbGVVWnVXTkRwUDF6?=
+ =?utf-8?B?UUUzTVhFR3pNNnh4eE8vSDZxb0hRdm9MazNTemM3UHQzQ2RYWWgvOE5NZnNs?=
+ =?utf-8?B?MjBYTmJCb2RlS2JWcHphWEJhekZmMzFUVWRNcjdUTHdMdGFiSGxIeUlPYjdR?=
+ =?utf-8?B?eHVHQ0xZWDBOUm9xQjc4ZXlrekQ5bzRJZUpScXZVWGpOY3dQdUE5RkhFYUw5?=
+ =?utf-8?B?THdxWGhuTlNRV0hJN3lzR0VONnJKTjVpalNlRDdESWp5RWUrcFpjeUVrZEdn?=
+ =?utf-8?B?Mm9RbmcrckYxTEc5QWErd0s5bEJBTkR5RzlLWGpGMXg5MEo4clhHMXRLL1E0?=
+ =?utf-8?B?blFtQ2t4NnYwVjdoUE9FU3ArNFlPYTlSby96Q2NXclY4MS80LzdlTkg3T0ps?=
+ =?utf-8?B?OW02UHBjeE10SjdqT3hDUW1uZ013ZVViMEQ1bU5OMmlycEw1VGpidnVETFBl?=
+ =?utf-8?B?ZGpGd0Fab2pzN1Q1SzhwR2M5bjJ6MGNkL1dSZFlrZ0RwNmlXZkQyV2RyL3Bi?=
+ =?utf-8?B?ODlwdmNxcUZVbGptVU1VeWtiMVB1bk1iNGd5blYrNmhsNTQyUXRXVVZQRTkz?=
+ =?utf-8?B?MjMyNHRsRTVvQ1VyT0M5Qll3bm43VkVwTjUvTFoySk9ncHNHQ0k4R0FpQWg2?=
+ =?utf-8?B?SXp4T0F0Qmw5SWMwbVBTRnVJVGkyeVB6N2Z6UmIrcGJmb0dFb2ZtSnpRN3Ez?=
+ =?utf-8?B?NXdvZzlIL29ERmlvMTYyRWM4Q2pRSlFlU083Rm1OeUxOaE5oMDFPeVp4dCtO?=
+ =?utf-8?B?eHBoRUVEcmZNTURRSWs0T1RPdVRIc2Fqb3pSd21TZ2d1RHNNWTdsZ3NodmdK?=
+ =?utf-8?B?NmZCZjJwMkRuZ0pYdWxkaUxSMXRTOFoxRFRyQ0o5ZktpdWgvYUVVeWlreWVq?=
+ =?utf-8?B?S21hUDRFbVhkaVg3Y0N2ODdDSjlmOHpkOTBtd1pUSzgwVlFIUGQ5MnQydVZ0?=
+ =?utf-8?B?c001U293ODVYSUR5Z3FIYXBlMGVoY1IxcndjQ0V6MVcwOW9VYzVsMmRMMksv?=
+ =?utf-8?B?OCtvRlVGN2lnTUFYb2xEa0F6dWlsYzJINUh5VnBCUnRQQ1pRME9LRWNJOHpF?=
+ =?utf-8?B?aDNkZGQwcWppZ1pOSkdLWm8xbWZUM08yS1A2aGVlbGVjclZxdHdLOU9IbDlW?=
+ =?utf-8?B?aEp3RGIvaGszenBHbll6N0dHVEVvM1UyMHNFVTJheVdKblFLZmJxZjhVcy8x?=
+ =?utf-8?B?dUVoSGtvL1RlMldPa3NpVlRUM1hlcmxRQWovNmVjanEzbDBhaU45U2NiNGNu?=
+ =?utf-8?B?V0NsVk9KSExtaTkyeWdUellXLzUwRWlPTHVHanlkSUIyM25rQS9VeWRWN0t4?=
+ =?utf-8?B?aU4xNFFuWmQ5OERad0xXTkZXT3R0QmlqU3lMayswMTl2ZDBvemxQY2dSTVNZ?=
+ =?utf-8?B?VHIxSGg5eGNIOGJNTlhqcStXelNjbjEyZUJrVlgvMHhicUpUdUFKV2p6SmMv?=
+ =?utf-8?B?cGtlNUQ0djRGTkwzdS90WG1IYkUyWkpWTlRRZHcwTWM5U2RyTkc4YnJjTjNw?=
+ =?utf-8?B?T0p4UUVaZ0JCYnVFTXpjK3p2OC9BSy9pUktMMWpGTFpiT0tiU2xXSGMrQ0JQ?=
+ =?utf-8?Q?zFhi8l1EnyvZaab7qbOpPILC+4hTO+ty2s1411Cau/Dk5?=
+X-MS-Exchange-AntiSpam-MessageData-1: ESVU+Sca8ZKeQw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b02b23d-0e7f-4f47-9050-08df4095df9a
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 08:20:55.9311
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hy2kPUUTpClIqzVNsSt4aZApaHXtu98FOiXr37jO8DiwoYd30w1b4UagOuU0zzj6MLYaHuI92JNFgSf60subbg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8223
 
-From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+On Tue, 10 Nov 2026 19:20:49 +0900, Alexandre Courbot wrote:
+> This series contains patches 13, 14, 16 and 17 from John's r000 series
+> v3 [1], that prepare the generic falcon bootloader and the falcon DMA
+> code for the r000 boot protocol. They are submitted separately as they
+> do not depend on the command queue work, and are valuable on their own.
+> A few preparatory patches are also introduced to smoothen the
+> transition.
+> 
+> [...]
 
-commit 7a246c72132eb943b5844ba79dad597b47429dba upstream.
+Applied to drm-rust-next, thanks!
 
-Currently, in ath11k_wmi_tlv_mac_phy_caps_parse(), kcalloc() sizes the
-mac_phy_caps buffer as tot_phy_id * len, where len is clamped to
-min(firmware_len, sizeof(struct wmi_mac_phy_capabilities)). The subsequent
-memcpy() destination advances by sizeof(full struct) per slot via C
-pointer arithmetic, not by the clamped len. When firmware sends short
-TLVs, the second and later slots are written past the end of the
-allocation.
-
-The reader in ath11k_pull_mac_phy_cap_svc_ready_ext() also indexes the
-buffer with full-struct pointer arithmetic, so the allocation must match
-that stride.
-
-Fix by using kzalloc_objs(), which derives the element size from the
-pointer type, making allocation size and pointer stride provably
-consistent regardless of what len the firmware provides.
-
-Compile tested only.
-
-Fixes: 5b90fc760db5 ("ath11k: fix wmi service ready ext tlv parsing")
-Assisted-by: Claude:claude-sonnet-4-6
-Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-Reviewed-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260728-mac_phy_caps_parse-stride-mismatch-v1-2-27a9c1a3fbd0@oss.qualcomm.com
-Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-[mdmitrichenko: Replace the existing kzalloc() call with kcalloc()
- using sizeof(*svc_rdy_ext->mac_phy_caps). kzalloc_objs() is not
- available in 5.10 or 5.15.]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
-Backport fix for CVE-2026-90398.
-
- drivers/net/wireless/ath/ath11k/wmi.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/wireless/ath/ath11k/wmi.c b/drivers/net/wireless/ath/ath11k/wmi.c
-index 6434d3ff0ac6..64178ffdc1af 100644
---- a/drivers/net/wireless/ath/ath11k/wmi.c
-+++ b/drivers/net/wireless/ath/ath11k/wmi.c
-@@ -3645,14 +3645,16 @@ static int ath11k_wmi_tlv_mac_phy_caps_parse(struct ath11k_base *soc,
- 	if (svc_rdy_ext->n_mac_phy_caps >= svc_rdy_ext->tot_phy_id)
- 		return -ENOBUFS;
- 
--	len = min_t(u16, len, sizeof(struct wmi_mac_phy_capabilities));
- 	if (!svc_rdy_ext->n_mac_phy_caps) {
--		svc_rdy_ext->mac_phy_caps = kzalloc((svc_rdy_ext->tot_phy_id) * len,
--						    GFP_ATOMIC);
-+		svc_rdy_ext->mac_phy_caps =
-+			kcalloc(svc_rdy_ext->tot_phy_id,
-+				sizeof(*svc_rdy_ext->mac_phy_caps),
-+				GFP_ATOMIC);
- 		if (!svc_rdy_ext->mac_phy_caps)
- 			return -ENOMEM;
- 	}
- 
-+	len = min_t(u16, len, sizeof(struct wmi_mac_phy_capabilities));
- 	memcpy(svc_rdy_ext->mac_phy_caps + svc_rdy_ext->n_mac_phy_caps, ptr, len);
- 	svc_rdy_ext->n_mac_phy_caps++;
- 	return 0;
--- 
-2.43.0
-
+[01/13] gpu: nova-core: separate the generic falcon bootloader from FWSEC
+        commit: 8bf7832a74e1caef599047235343b4750dcc6107
+[02/13] gpu: nova-core: falcon: widen the IMEM PIO offset to 24 bits
+        commit: 597e943e69931b5adce6e0665eae79fa080a1d73
+[03/13] gpu: nova-core: move the bootloader DMEM descriptor out of FWSEC
+        commit: e28788cdcb49f645bf68831ff656ac2a7fc60e31
+[04/13] gpu: nova-core: run the generic bootloader from its own type
+        commit: d2de6ea2e2ef1c21dc52b42e336b3318d2282b0e
+[05/13] gpu: nova-core: place the generic bootloader at the top of IMEM
+        commit: e45827a4cd3d220f01e6c15886d3cf62f700c19d
+[06/13] rust: io: register: implement Copy and Clone for RegisterArrayLoc
+        commit: 2dd2dfc3051266633bc48e22c9478a4c15e170a5
+[07/13] gpu: nova-core: falcon: introduce and use with_fbif_transcfg
+        commit: c78820b1414a766ed59c6808608eae3b323bee39
+[08/13] gpu: nova-core: falcon: rename the local variables of dma_wr()
+        commit: fd54afcfd67345e54b46323a74b453583b084834
+[09/13] gpu: nova-core: falcon: allow DMEM DMA transfers to request tagging
+        commit: 412984fe3871ef3607fffa2c7199a2095171e11f
+[10/13] gpu: nova-core: falcon: allow DMA transfers to read from a framebuffer address
+        commit: 12c2ab28b668b174f0e58de986459c8aba67f303
+[11/13] gpu: nova-core: falcon: use src_start as FB offset for all DMA transfers
+        commit: 31468ee8b9d43503f9b04d551d0b2d5f8b9e9d1c
+[12/13] gpu: nova-core: falcon: check the per-block DMA offsets for overflow
+        commit: fbeb01eb3a218cc5a209ebcd9f91e99a28ce6b85
+[13/13] gpu: nova-core: falcon: program the FBIF_TRANSCFG register in dma_wr
+        commit: b62ffc10ca05a38b9c84cdc36be66b6224944bcd
