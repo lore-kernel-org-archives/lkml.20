@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794453397;
-	b=BQF1FYNlu31U8rQNuEhIkSgCQmklKzMpTkRnwFC2a2OzQ9tWEE2xeouTW3eklwf5SRnM
-	 4LDAwpIVgCIbhW9p493Mchbpjs1x/MtBwbBwWLzqE6M1wm+LMEuuYnsaBN+9tlBXDTQTm
-	 PXxjpDfsIObFGyeiE1TWkrNFqOP2eqdUHsiH7nmMsoo7KXiJf37ynlfGrkryIMrb2PB6i
-	 +R9Wdaq2aw3KeWPb/GIa+Q1A9qHdpYwqauwMIsWayLUrrAzRlAoICzwDt4/OJ3c8YNQr9
-	 VJPQkTrhYpr161HUNCBr32OlJsuirXdl6UOqSKQHUNozwOEBwo3UbLyEl68ELNHa2/g==
+	t=1794453402;
+	b=IyHLi8xXtuZlXQsmsLifynJiUFnoqf7+M1yj6nU3dxQGgvgI4pXkja1I9IZmF5psrBFf
+	 yJ0lFTQOe5MbAR7OTFbyMQxBo93VXY2ZJ1r8lhroQUkaO6Y55dgqOAuEvD83M7FcKN7uk
+	 1M5AqlZUiDe/Dqc3UbanZ3u/FOncz3FwJDIJzo8HIZSwsD1r7noJkzIBHppQfrptlGZxC
+	 1DF/M4/LRp8Gza9+MUkZ0as3tdSe55Xh/0dHAQzGTwpZpMOBAlbBoLcu/hyvegKvmXXtf
+	 MNxdlM+J1wuNz7SxmlLbqjYQmg282STV784v+b2PRuIQHATsgK/mbhy+I0UsDz9gdNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794453397;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794453402;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=XgKdwDr8DTTsXMJ8C3e2KtuAgAhzhLqpZNdLut8RxGU=;
-	b=VCfFrdPds6XsAZOx849GY+VaIVfBRak4nr8GE2gCBWLsDJecGnGvgxHmCAj/cEbeqekj
-	 LgoHzJujJp6R4YmP75r5uxLCI8nDCbQoGXnyXLPhUIW/lY5061HVp1+uaB8pFs8+lcJut
-	 5k02YJcY5ijDHod/EOr7Jc7PmDpjFA8DGEwH2iNLAKt8iXVZa9DvFv78mwAKm6ZIGQ8X1
-	 xQPvXXdN4SqgeDJBzHX4AeOvvdvBtk5FAdyLRDU/bhM5y5cjBcblEYo/Q//Trh5mjoB7W
-	 L7T3u+zv/Y9EhEL9MO3lWB70JcIzC/Y2r0Wd3MpGgHGJvZVdhChTJTFVieoF6B4N0dg==
+	bh=L39CR+CBenA/NXHH1oDntch59w/4ZX+SRL912KR+wXs=;
+	b=HtQBG/wD6td6/9BSuCW7T52BmtPUthm6SdU4Kwwxi5zTE3v81lHYj2FWfDuPznRWruIU
+	 mgKkWHjKOACpaQx8rNfhmHu6hrZp9pIHok58Py3t3hUjauxtn1qZl1V/HGJ6gpe1tttsX
+	 ZR/YIJ351JlW9jOxBVFB51xK8VoGLw3kpB/mvPl73VQzzoLdS4wMKsdAxQM5hyEg4jMrY
+	 yQNXD3JfDRZZRriPanCyuBcNFZhpV4f4yBxFMgXI7wavJJVlWKAQnh7tIeoeFMYqBeGpb
+	 hank2DqyRZVPt+K5SeiMQ9tpZX7ERO476clULJGNHwpuHF8rmogy5PLEg+VVdaiZcVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--mrungta.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=h+5515bP;
-	arc=none smtp.remote-ip=74.125.82.69
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="fZ+/Ydj/";
+	arc=none smtp.remote-ip=74.125.82.71
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D36606A33C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:16:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51D36606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85888606A8AE
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:16:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85888606A8AE
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--mrungta.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=h+5515bP
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1383723dfddso5511780c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:16:36 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fZ+/Ydj/
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-139b62317d0so734817c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:16:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794453395; x=1795058195; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794453402; x=1795058202; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XgKdwDr8DTTsXMJ8C3e2KtuAgAhzhLqpZNdLut8RxGU=;
-        b=h+5515bPExPrd0gXNn/Ab92VXaOOnTEU7Sb8s9GpvdUv2qY/UKSn6O0tucQQxE+EcY
-         XgWNR/C4LOVPSh2rWgAU9BStJzjCBDcQyS05nK94b4RlFsysN7vlFXE77qaY3nfeHNb+
-         L1EufRbVLABlWyvUxC6ZKrJU3KbhENNLIzGVzMNAMghBqR+il1xSmvhPKxm8LcgwkXws
-         cVQpIhsKBZpIJT1oWEQKytFFfGTWSU+HhdsMWydCZ+yXZPQkmugD6UMF/A9D38ZxmncV
-         3EyBOksMGcmHjbas4q4XrHfZeXBkQcpcbLRsdCSEt67QD5hXaKLQhsWURRUg+Xo0/U+n
-         ROMQ==
+        bh=L39CR+CBenA/NXHH1oDntch59w/4ZX+SRL912KR+wXs=;
+        b=fZ+/Ydj/FgLNUQ+y/kZ30Ugr5pjInyVUH7hkeCMRcK/PgDLmUsNrc9WIYQye2+B+Fa
+         Nw4V1BObffYhgl/L/FxMwyd2E/5vWBea2Hsk/R7k7LiBp4p4q7H9pyed9U8YF3Fa2BQ+
+         kOj20hfu4WQjneIsGScQ2k559KQor+5JVvleWAcPhirMs+FKW3rV1SdNYudaHLQy3DmU
+         jzT2kuaH6n0UXKqGQYHnysZnsT9rRN2Ce3q6NyS/A8ZqVMMquk/VS1uZGKRsRGlzpGkz
+         XkC0ypJhc4pzy1JHmTF94XnV5nAqT6nhOAxZUhFS+QJFgzpwK3Wjz0O5qUS2/Fw0eiVD
+         GEkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794453395; x=1795058195;
+        d=1e100.net; s=20260707; t=1794453402; x=1795058202;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XgKdwDr8DTTsXMJ8C3e2KtuAgAhzhLqpZNdLut8RxGU=;
-        b=ii1XxU0qCFf1SeVk/Wl+4GZPklrGH67UeOhiRCS31NhiuRkg36HXxKaZ/u1naHz3w3
-         u7ibGy40wW+t8hI5RM1axf0loyv5OUv2qELZv27kt0jmziPk0ribpkszicBLX4Hzc8gL
-         Fe4bzo9Y4TdbQ4NwJKWovCYF2oTXLIiZ2/b5EE1kEvHi+r1zqdET+zAuNXij3+/qp+dV
-         1HBa4iLhChkth8Zim9aYCLfHgoLmwAYIVoAEBrxdf+VrDxjLemD8wX9vUoAJ2dVYx6cQ
-         yOZCJKww02gUmykdmMQdUZ1vh/tlCgpAyRFiJ0uxfwmgifevNyLMR7el5Fxf0aEtxddy
-         h+EQ==
-X-Forwarded-Encrypted: i=1; AL+hErHuPR62wYE/yKlP5PI9sAKNG+Byq+JYGJ+Qd2tftceo2rwpuaNZBk33bzXZTdt3B/Tnic5NL29UG8QSCRQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8dR4CdYw43Ixe1dGGziIEqqBaQWAJmIm9J5TDUF+3O8tDPj3yY
-	E3j+UmDNBCfdYnbayG1DWiGPFL6faQhljX10pjuZp0tsfYPjDFuxvNTRh9ZfhXwKYFnWeW7nmZ3
-	wolx2eIJjyQ==
-X-Received: from dlbur5.prod.google.com ([2002:a05:7022:ea45:b0:1a3:c305:2584])
- (user=mrungta job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:ea4a:b0:1ae:4ead:8cef
- with SMTP id a92af1059eb24-1b3ced2d774mr2015624c88.30.1794453394997; Wed, 11
- Nov 2026 19:16:34 -0800 (PST)
-Date: Wed, 11 Nov 2026 19:16:23 -0800
+        bh=L39CR+CBenA/NXHH1oDntch59w/4ZX+SRL912KR+wXs=;
+        b=Su7RjcZ96fxKg2dDEdU1K4+2Sfa1RpQUpVz5gam+UV2v+QLmJCGzqsG3VG8Sq75W12
+         TQBHuhturBXFvkyfzjAGDS5t461QixbFCaSg5sVhc+fYwczMEwPjUmDjkVGwNhAWKe5s
+         FQB7II1/s4wCRKxoBuB0rnrHAJXKqeD02ykw8CVkwGocSxRlXCfDeg+kBQ2VFNxOBmss
+         rEF43Wa9+gytJUj/W/AT5v6JaZlWi0zIl6fhZyeMtQV+TusF3waZAFhWuMb0gFF9kkIW
+         7Q/eE5axksreMOGuuch7Ueb9PeF88zwMqonh18MdmSVHYqvJeDskCQSIiTkfF7cxfSvS
+         0T+Q==
+X-Forwarded-Encrypted: i=1; AL+hErGD+5JTnRkK6rp3KVrR6RXDesJh/W8xHSatDRFNqi0bGE9vWpFdlcBBq6fXrLe9R0bh3SZ/rzqiG1LfW4I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/sNgREXX6n080/dm7ooqtMJbPhVeqN+lojWJOh7RSeODSbAwMr
+	Qpq1otEuFoBmQrQbTKuwYBsNcmvLMbwKEXNCc8m5XRm9LCmhApjGIURYaw4Vhhwbw4jmy8+CCnS
+	9DbKC7uQLGw==
+X-Received: from dlbtz9.prod.google.com ([2002:a05:7022:eac9:b0:1b0:ab15:db1d])
+ (user=mrungta job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4549:20b0:1b3:aceb:b8dd
+ with SMTP id a92af1059eb24-1b3c034a955mr3990077c88.38.1794453401434; Wed, 11
+ Nov 2026 19:16:41 -0800 (PST)
+Date: Wed, 11 Nov 2026 19:16:26 -0800
 In-Reply-To: <20261112031629.396819-1-mrungta@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261112031629.396819-1-mrungta@google.com>
 X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
-Message-ID: <20261112031629.396819-2-mrungta@google.com>
-Subject: [PATCH v4 1/7] genirq: Synchronize in-flight handlers during NMI teardown
+Message-ID: <20261112031629.396819-5-mrungta@google.com>
+Subject: [PATCH v4 4/7] genirq: Export NMI APIs for qcom-wdt
 From: Mayank Rungta <mrungta@google.com>
 To: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
 	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>
@@ -92,304 +92,54 @@ Cc: Marc Zyngier <maz@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com
 	Douglas Anderson <dianders@chromium.org>, Mayank Rungta <mrungta@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-When freeing or disabling an interrupt requested via request_nmi(),
-__cleanup_nmi() and __synchronize_hardirq() currently do not wait for
-in-flight instances of the NMI handler on other CPUs to complete, which
-can lead to use-after-free conditions on module unload or driver unbind.
+Currently, request_nmi(), free_nmi(), enable_nmi(), and disable_nmi() are
+restricted to built-in kernel code because they are not exported.
 
-Regular IRQs and NMIs require different synchronization mechanisms:
-- Regular IRQ flow handlers already acquire desc->lock, so tracking
-  in-flight execution via IRQD_IRQ_INPROGRESS under desc->lock avoids
-  extra atomic operations in the interrupt fast path and extra memory
-  barriers during synchronization.
-- NMI handlers cannot acquire desc->lock, and querying hardware
-  IRQCHIP_STATE_ACTIVE alone does not cover handler execution after EOI.
-  Track in-flight NMI handlers locklessly via an atomic counter
-  (desc->nmi_active) in handle_fasteoi_nmi(), paired with a dedicated
-  __synchronize_nmi() helper that waits for both nmi_active and
-  (when supported) IRQCHIP_STATE_ACTIVE to drain.
-
-Because handle_fasteoi_nmi() runs locklessly and cannot mask lazily
-disabled interrupts in hardware, force unlazy disable
-(_IRQ_DISABLE_UNLAZY) in request_nmi() and mask the interrupt in
-hardware before setting IRQD_IRQ_DISABLED in __irq_disable() (matching
-irq_shutdown()). This prevents a level-triggered NMI from observing
-IRQD_IRQ_DISABLED while still unmasked in hardware and livelocking on
-EOI, and is safe for regular IRQs because __irq_disable() runs under
-desc->lock and no chip disable/mask callbacks inspect
-irqd_irq_disabled().
-
-Update __cleanup_nmi() to serialize teardown, shut down and synchronize
-the NMI before clearing desc->action and NMI state, and warn if
-free_nmi() is called from interrupt context.
+Export these symbols with EXPORT_SYMBOL_FOR_MODULES() restricted to the
+qcom-wdt module so it can register and manage its pretimeout NMI when
+built as a loadable module.
 
 Signed-off-by: Mayank Rungta <mrungta@google.com>
 ---
- include/linux/irqdesc.h |   4 ++
- kernel/irq/chip.c       |  35 +++++++++----
- kernel/irq/manage.c     | 111 ++++++++++++++++++++++++++++++++++------
- kernel/irq/settings.h   |   5 ++
- 4 files changed, 130 insertions(+), 25 deletions(-)
+ kernel/irq/manage.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/include/linux/irqdesc.h b/include/linux/irqdesc.h
-index 779d6023c5c2..f1fabddf9650 100644
---- a/include/linux/irqdesc.h
-+++ b/include/linux/irqdesc.h
-@@ -65,6 +65,9 @@ struct irq_redirect {
-  * @threads_oneshot:	bitfield to handle shared oneshot threads
-  * @threads_active:	number of irqaction threads currently running
-  * @wait_for_threads:	wait queue for sync_irq to wait for threaded handlers
-+ * @nmi_active:		number of NMI handlers currently running (normally 0
-+ *			or 1, but can briefly reach 2 if an NMI re-triggers
-+ *			between hardware EOI and atomic_dec())
-  * @nr_actions:		number of installed actions on this descriptor
-  * @no_suspend_depth:	number of irqactions on a irq descriptor with
-  *			IRQF_NO_SUSPEND set
-@@ -107,6 +110,7 @@ struct irq_desc {
- 	unsigned long		threads_oneshot;
- 	atomic_t		threads_active;
- 	wait_queue_head_t       wait_for_threads;
-+	atomic_t		nmi_active;
- #ifdef CONFIG_PM_SLEEP
- 	unsigned int		nr_actions;
- 	unsigned int		no_suspend_depth;
-diff --git a/kernel/irq/chip.c b/kernel/irq/chip.c
-index de754db414d1..565cb0233fff 100644
---- a/kernel/irq/chip.c
-+++ b/kernel/irq/chip.c
-@@ -364,13 +364,19 @@ static void __irq_disable(struct irq_desc *desc, bool mask)
- 		if (mask)
- 			mask_irq(desc);
- 	} else {
--		irq_state_set_disabled(desc);
- 		if (desc->irq_data.chip->irq_disable) {
- 			desc->irq_data.chip->irq_disable(&desc->irq_data);
- 			irq_state_set_masked(desc);
- 		} else if (mask) {
- 			mask_irq(desc);
- 		}
-+		/*
-+		 * Mask in hardware before setting IRQD_IRQ_DISABLED so a
-+		 * lockless NMI firing before hardware masking completes does
-+		 * not observe IRQD_IRQ_DISABLED, skip its handler, and EOI an
-+		 * unmasked level-triggered line into an infinite NMI storm.
-+		 */
-+		irq_state_set_disabled(desc);
- 	}
- }
- 
-@@ -792,21 +798,32 @@ EXPORT_SYMBOL_GPL(handle_fasteoi_irq);
- void handle_fasteoi_nmi(struct irq_desc *desc)
- {
- 	struct irq_chip *chip = irq_desc_get_chip(desc);
--	struct irqaction *action = desc->action;
- 	unsigned int irq = irq_desc_get_irq(desc);
-+	struct irqaction *action;
- 	irqreturn_t res;
- 
--	__kstat_incr_irqs_this_cpu(desc);
-+	atomic_inc(&desc->nmi_active);
-+	/* Ensure nmi_active is visible before reading action or disabled state */
-+	smp_mb__after_atomic();
- 
--	trace_irq_handler_entry(irq, action);
--	/*
--	 * NMIs cannot be shared, there is only one action.
--	 */
--	res = action->handler(irq, action->dev_id);
--	trace_irq_handler_exit(irq, action, res);
-+	action = READ_ONCE(desc->action);
-+	if (likely(action && !irqd_irq_disabled(&desc->irq_data))) {
-+		__kstat_incr_irqs_this_cpu(desc);
-+
-+		trace_irq_handler_entry(irq, action);
-+		/*
-+		 * NMIs cannot be shared, there is only one action.
-+		 */
-+		res = action->handler(irq, action->dev_id);
-+		trace_irq_handler_exit(irq, action, res);
-+	}
- 
- 	if (chip->irq_eoi)
- 		chip->irq_eoi(&desc->irq_data);
-+
-+	/* Ensure all handler accesses complete before decrementing nmi_active */
-+	smp_mb__before_atomic();
-+	atomic_dec(&desc->nmi_active);
- }
- EXPORT_SYMBOL_GPL(handle_fasteoi_nmi);
- 
 diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
-index ec3ecb0e48ce..3fb77a2d954d 100644
+index 073fd3595d2c..ace4d2796382 100644
 --- a/kernel/irq/manage.c
 +++ b/kernel/irq/manage.c
-@@ -48,11 +48,72 @@ static inline void synchronize_irqwork(struct irq_desc *desc) { }
- 
- static int __irq_get_irqchip_state(struct irq_data *d, enum irqchip_irq_state which, bool *state);
- 
-+static void __synchronize_nmi(struct irq_desc *desc, bool sync_chip)
-+{
-+	struct irq_data *irqd = irq_desc_get_irq_data(desc);
-+	bool inprogress;
-+
-+	do {
-+		/*
-+		 * Wait until we're out of the NMI handler before taking
-+		 * desc->lock or polling the irqchip. This might give the
-+		 * wrong answer due to the lack of memory barriers.
-+		 */
-+		while (atomic_read(&desc->nmi_active))
-+			cpu_relax();
-+
-+		guard(raw_spinlock_irqsave)(&desc->lock);
-+		/*
-+		 * Ok, that indicated we're done: double-check carefully.
-+		 *
-+		 * Holding desc->lock serializes with prior state updates (e.g.
-+		 * IRQD_IRQ_DISABLED set under desc->lock) and protects
-+		 * __irq_get_irqchip_state(). Together with
-+		 * smp_mb__after_spinlock(), this provides a full memory
-+		 * barrier pairing with smp_mb__after_atomic() in
-+		 * handle_fasteoi_nmi() so those updates are visible before
-+		 * reading nmi_active.
-+		 */
-+		smp_mb__after_spinlock();
-+
-+		/*
-+		 * Pair with smp_mb__before_atomic() + atomic_dec() in
-+		 * handle_fasteoi_nmi() so all handler memory accesses complete
-+		 * before __synchronize_nmi() returns.
-+		 */
-+		inprogress = atomic_read_acquire(&desc->nmi_active);
-+
-+		/*
-+		 * Also check hardware active state when supported to bridge the
-+		 * window between hardware acknowledge and atomic_inc() in
-+		 * handle_fasteoi_nmi() on non-percpu_devid SPIs. Ignore the
-+		 * return code; inprogress is only updated when the chip
-+		 * supports it. Note that if a chip does not implement this,
-+		 * disable_nmi() is still safe, and free_nmi() is as safe as we
-+		 * can make it (though an NMI acknowledged just before masking
-+		 * that has not yet entered handle_fasteoi_nmi() could race with
-+		 * irq_nmi_teardown() resetting desc->handle_irq).
-+		 */
-+		if (!inprogress && sync_chip)
-+			__irq_get_irqchip_state(irqd, IRQCHIP_STATE_ACTIVE,
-+						&inprogress);
-+	} while (inprogress);
-+}
-+
- static void __synchronize_hardirq(struct irq_desc *desc, bool sync_chip)
- {
- 	struct irq_data *irqd = irq_desc_get_irq_data(desc);
- 	bool inprogress;
- 
-+	/*
-+	 * Generic paths such as synchronize_irq() (e.g. suspend_device_irqs())
-+	 * and synchronize_hardirq() can be called on NMIs; redirect them.
-+	 */
-+	if (unlikely(irq_is_nmi(desc) && !irq_settings_is_per_cpu_devid(desc))) {
-+		__synchronize_nmi(desc, sync_chip);
-+		return;
-+	}
-+
- 	do {
- 		/*
- 		 * Wait until we're out of the critical section.  This might
-@@ -2044,29 +2105,38 @@ EXPORT_SYMBOL(free_irq);
- 
- static const void *__cleanup_nmi(unsigned int irq, struct irq_desc *desc)
- {
--	struct irqaction *action = NULL;
--	const char *devname = NULL;
-+	struct irqaction *action;
-+	const char *devname;
- 
--	scoped_guard(raw_spinlock_irqsave, &desc->lock) {
--		irq_nmi_teardown(desc);
-+	guard(mutex)(&desc->request_mutex);
- 
--		desc->istate &= ~IRQS_NMI;
--
--		if (!WARN_ON(desc->action == NULL)) {
--			action = desc->action;
--			irq_pm_remove_action(desc, action);
--			devname = action->name;
--		}
--		desc->action = NULL;
-+	scoped_guard(raw_spinlock_irqsave, &desc->lock) {
-+		if (WARN_ON(!desc->action))
-+			return NULL;
- 
- 		irq_settings_clr_disable_unlazy(desc);
--		irq_shutdown_and_deactivate(desc);
-+		irq_shutdown(desc);
- 	}
- 
--	irq_proc_update_valid(desc);
-+	/*
-+	 * Ensure all in-flight NMI handlers on other CPUs complete before
-+	 * clearing desc->action or tearing down NMI state.
-+	 */
-+	__synchronize_nmi(desc, true);
-+
-+	scoped_guard(raw_spinlock_irqsave, &desc->lock) {
-+		action = desc->action;
-+		irq_pm_remove_action(desc, action);
-+		devname = action->name;
-+		WRITE_ONCE(desc->action, NULL);
- 
--	if (action)
--		unregister_handler_proc(irq, action);
-+		irq_nmi_teardown(desc);
-+		desc->istate &= ~IRQS_NMI;
-+		irq_domain_deactivate_irq(&desc->irq_data);
-+		irq_proc_update_valid(desc);
-+	}
-+
-+	unregister_handler_proc(irq, action);
- 	kfree(action);
- 
- 	irq_release_resources(desc);
-@@ -2081,6 +2151,8 @@ const void *free_nmi(unsigned int irq, void *dev_id)
- {
- 	struct irq_desc *desc = irq_to_desc(irq);
- 
-+	WARN(in_interrupt(), "Trying to free NMI %d from IRQ context!\n", irq);
-+
- 	if (!desc || WARN_ON(!irq_is_nmi(desc)))
- 		return NULL;
- 
-@@ -2337,6 +2409,13 @@ int request_nmi(unsigned int irq, irq_handler_t handler,
- 		goto err_irq_setup;
- 
- 	scoped_guard(raw_spinlock_irqsave, &desc->lock) {
-+		/*
-+		 * Force unlazy disable so disable_nmi() / disable_nmi_nosync()
-+		 * always mask the interrupt in hardware; handle_fasteoi_nmi()
-+		 * runs locklessly and cannot mask lazily disabled interrupts.
-+		 */
-+		irq_settings_set_disable_unlazy(desc);
-+
- 		/* Setup NMI state */
- 		desc->istate |= IRQS_NMI;
- 		retval = irq_nmi_setup(desc);
-diff --git a/kernel/irq/settings.h b/kernel/irq/settings.h
-index 0a0c027a5d34..4fefdf062dbd 100644
---- a/kernel/irq/settings.h
-+++ b/kernel/irq/settings.h
-@@ -163,6 +163,11 @@ static inline bool irq_settings_disable_unlazy(struct irq_desc *desc)
- 	return desc->status_use_accessors & _IRQ_DISABLE_UNLAZY;
+@@ -852,6 +852,7 @@ void disable_nmi(unsigned int irq)
+ 	if (!__disable_irq_nosync(irq))
+ 		__synchronize_nmi(desc, true);
  }
++EXPORT_SYMBOL_FOR_MODULES(disable_nmi, "qcom-wdt");
  
-+static inline void irq_settings_set_disable_unlazy(struct irq_desc *desc)
-+{
-+	desc->status_use_accessors |= _IRQ_DISABLE_UNLAZY;
-+}
-+
- static inline void irq_settings_clr_disable_unlazy(struct irq_desc *desc)
+ void __enable_irq(struct irq_desc *desc)
  {
- 	desc->status_use_accessors &= ~_IRQ_DISABLE_UNLAZY;
+@@ -919,6 +920,7 @@ void enable_nmi(unsigned int irq)
+ {
+ 	enable_irq(irq);
+ }
++EXPORT_SYMBOL_FOR_MODULES(enable_nmi, "qcom-wdt");
+ 
+ static int set_irq_wake_real(unsigned int irq, unsigned int on)
+ {
+@@ -2189,6 +2191,7 @@ const void *free_nmi(unsigned int irq, void *dev_id)
+ 
+ 	return __cleanup_nmi(irq, desc);
+ }
++EXPORT_SYMBOL_FOR_MODULES(free_nmi, "qcom-wdt");
+ 
+ /**
+  * request_threaded_irq - allocate an interrupt line
+@@ -2455,6 +2458,7 @@ int request_nmi(unsigned int irq, irq_handler_t handler,
+ 
+ 	return retval;
+ }
++EXPORT_SYMBOL_FOR_MODULES(request_nmi, "qcom-wdt");
+ 
+ void enable_percpu_irq(unsigned int irq, unsigned int type)
+ {
 -- 
 2.56.0.611.g1030f0b940-goog
 
