@@ -1,101 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794491464;
-	b=q7pkHLWYmTH0amWKsKXQ5R/s3V348sNJCsOJIk9fjx03G5iWpiJ6EmeZhbGqbR75Hpey
-	 JQfy6YsVcE4ofD1K1dj599/TcUlLCdw+ts0MctjWzzPSulORXhH5gnuaZ+L5Kx0Xa6YGN
-	 VU1eNWNKmbU7au6UGCf04ib3MfxiWB76kpMulRnagAyZ7cVzPplM9HpwLOrEO7RG49eMJ
-	 mhwSnFHQOO3JwJ9RCoXwR3kzZrrUMKZhhmAYbik8Bqa5SHgnMdb8BM3QkoRtoxNN/v4Su
-	 BdvcI8rdzZ/IM+5YzhpkeGj9VNXN4B/UXulFkxjwKfUbvhJzM6mNEwb47rMuwWHP+fg==
+	t=1794491519;
+	b=4YEmmKXYC+PlDtc64ljFRdCYO/13Y2J55ih1lFsbCmM53AmiaCKYXKIvCNXhZ7D9SuQr
+	 ZAg/iaiXEwf1oVbfVDNNoF0x7FNVgVa+YM0Ld0QaZMtu4behZwGbuLJQYM3/rUYyoRAwQ
+	 32DXhblcAUNtH8cgzVv6YVHQW0q8QPI49iLjVwznYsiI4OmMlRtH41EAGOqwcB6Tb19qw
+	 waCxRpCwXKfcCDffrcyxC+pD18k4x2bHk04Cw0vzxCLxYfE5IYMWttJ+7xdC82pq6bn6S
+	 sGYymzhtIhHW0c783yK7n5oPXEu3iezz+cfDwIhCAyFiMd5/xbQinY6tX3XeqmeK2Ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794491464;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=QBfpBqH9DfyEOdhBhH9UadavYWWE9bgXFu1+ss9tjLw=;
-	b=dHwi024vQlnPmpWqbFOctrl/zzPOtnovSUdjrGEClCb8JRZWJZyVP355KQDi34hEFySP
-	 OwI1jWD/n9nX2lldyny+BGPj7un1/+ke9vH9qjskQPozu7vWikE101Xm9/6P2wU+H0qhy
-	 jvlpR7rD24vm/UTP+6v+ldgEoZoxwu4NBaVXaLXTypeds0PXakDKInD47XwX8oI4u6F13
-	 0hsRKPnMKe/MM9ESJpMy5RRtl23SMYvZTqEdb/sTF6ZMYQWuGzzrSuuvUO5vcYylYOtUc
-	 nhtQRPenAxa+wr3hY2LB22SPFiC/1ZiszV4oQbNCkL/g4wOiX6/ejx6a/GQ8XeZdMmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794491519;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=HVBTWjwFTa+IGb3vOI0o1DczkXGYg8kXowwW6CDhXd0=;
+	b=a4UrIp7Oe9tUl99tOMOP68bjlaHKj8QGEPyK9UubwMn7iyMMfI8Pr8kKc6779V0N3BD2
+	 MW2ISjDS8tKrWnDUYByc03Y052CZ+k9Vxs0bbql8SumDyZLL5gMzMZc1MD4bSaqdMiXNI
+	 tQSB4oxnCKVnK9QRAeMQs8tCISXc215VNlRMTIRSNksff3tnRgi150Upg/AC+or5dA01y
+	 jlr0oZ7WVRCZfOq+Zdbj/BeiTeyEzUc57J0LV2xKYlNGpxK15gQ0wsXdwrkN2LadYPl2U
+	 YE6qnv43wM7Cvr7U70VXy1qNK8bzZIDfixFhcvDv/352HG9jT46ARE+uJVtdtiPlSqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LvOJsOzE;
-	arc=none smtp.remote-ip=74.125.227.132
-Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QZ+HZDi4;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 981C1606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:51:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 981C1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C32606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:51:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66C32606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LvOJsOzE
-Received: by mail-pj2-f4.google.com with SMTP id d9443c01a7336-2e96b8bfb43so17862085ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:51:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794491464; x=1795096264; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QBfpBqH9DfyEOdhBhH9UadavYWWE9bgXFu1+ss9tjLw=;
-        b=LvOJsOzEgbgl7nXZFUpikpO+sPH215DynZNktvAHyYkp3yom0zPzdYGSDcZkvgaOUb
-         MtTwYR9abNDhvoSjpVwNtwDHT0X3B8CRNwvoLRgoBnhyT/9JHadf/NWhIzJ0bGfA8oW8
-         RKpb2E2W1KcLaw+dyN74Nc7nTgA+4sELAebw4GDl6EvRaZVad7aZBdN1UQjh11O73qPX
-         i7WSeVw9YyHuU2zdGt3fkV3uUQDCtIHCvcAtl+B8vrGWYU2XLYUhOoOo5s+PMDUwxzY7
-         hLNf5oIFViXMTUUnavPGDuHMpr1Qa0JfInwKPzakXge+I4ZG7CqlnEA5bOVOTB6YetFZ
-         9PPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794491464; x=1795096264;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QBfpBqH9DfyEOdhBhH9UadavYWWE9bgXFu1+ss9tjLw=;
-        b=xwgphUQBFgde1M2uPCDj240de5GswOVoSchVSApl1Ihk3xL/jCBiCve+C2BnhA2eDg
-         ZcITWe4Dv2aG847DksgOAlSIEqzSf7A1k54E59+5RcDuobw0RBcnmSKe1DOYaYhCIqqd
-         kWnKCArwTUOYKv72Fb1CYufqiJDzeYVtj1x0q6VfCfZyFH18LlBo+tUEGU0vOrr5gQYl
-         CTxDsBqpZTMXlK2D8Cks700mQpD4xLzZynYqm6iNFkxPT2KLfgXhzyj96Gtfkvu65c9c
-         99JSddE/uLs74rwUSTza+FbKCQDxhI716/OdHXeS86WW1sJNszHkFk8G3h3Baw24zSU9
-         FEUg==
-X-Gm-Message-State: APuU4Z/kuX0+GV/6HxCys4u7X2nhT9xl+DnlR2bqf0f8F0xZhWiHsNB6
-	1a1FyA+ZmJxrU0TwxyiezMhBsXkwsYatqt3p8B8uaUJsnue5GuycUK3V
-X-Gm-Gg: AYBFou1XVGb5nQbwckNLparC3t5zYreomqjJ4orKsNiLQ+H8S+HmP612WwKnkc9fOli
-	zj3Sf0VK8qW5OFH/WTL0DH0jKihvFrNN22E2llj/mIYAvzFRakx4O8UuJda3mT1HovC3faR6tFM
-	YZVqL8wGnJy1QEPzoA19kui2GPaGyPdzA4jnJu4B7ezN9FlZvvY+Qjz12XEB4cSOezWxzvtuCKp
-	1M7/yWr2PNcJpRdUEbbJfxs1q7F0xhDT+O+nhG3NHklzhnmL3qqceqZ5vmBXgjjBq781XNFCq9M
-	+/1oPoqKz/PKvsDm80qjSXZGkf4u8nxMKTKG1JbVudNV1L1RIVRBT0ve+3HyntL4ZqvNSVLWXLm
-	JZ4FQA3JewyFSyp90v5HMYwAeXizGQXNj/0TZpYZsoc/lx1ylnMahSjFMENZSjGp+K0DC7LD7lJ
-	mnKBPX1qZP+RvBRQa4Ph7kVNhMIUqzRJf3FrhoPcmMmHOry8tTTGigV0T44XMLTUmkFmkooQZep
-	CV5fxT8d/AvMtyOVUrH1jWROL1hzDSfY16X24TGfVCa4gpWDLo7wd8Q/Xws432OTJkc/IM6uWkm
-	7mR+wxvwxzkFq8ZBPI93c0v9JS3xW5kglGzp/CCISvE25vI=
-X-Received: by 2002:a17:903:3bac:b0:2e9:8510:6acf with SMTP id d9443c01a7336-2edd7748dc3mr60985655ad.25.1794491463730;
-        Thu, 12 Nov 2026 05:51:03 -0800 (PST)
-Received: from J4f-Laptop.localdomain ([183.36.237.113])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6e0f9ffsm35078015ad.75.2026.11.12.05.50.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 05:51:03 -0800 (PST)
-From: Shihuang Liu <shlomojune6@gmail.com>
-To: bpf@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Shihuang Liu <shlomojune6@gmail.com>,
-	stable@vger.kernel.org,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Tadeusz Struk <tadeusz.struk@linaro.org>
-Subject: [PATCH] bpf: Fix cgroup link update after a failed effective array rebuild
-Date: Thu, 12 Nov 2026 21:49:41 +0800
-Message-ID: <20261112134942.288831-1-shlomojune6@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QZ+HZDi4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794491519; x=1826027519;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:to:cc;
+  bh=5JDiiL84FQMO6Yn6uhFILcjEX9XOe99mOtlHThxmqoM=;
+  b=QZ+HZDi40jO6m9/cMAPaBTTbn8vuAJ4k6w+Z2fEkQvBFZU7DIluhofXB
+   rX/O5QCmA8Xc4dHTB5h0vEtE1Cr4WZT/PtT6oruGamGSBRpglRreLta4w
+   whj3Ds5XDTGitBqeDcsYN7igLutYEsoD6CaGNw6FHfmjZcKX2YeRbFdYI
+   RX+u9MWwHaQ2SSB9fxq7bDv9mdQyMeOSkZiVzH8MDWnFPzs1Xdx00+Jzs
+   hgwgj/gy/gClyG3hRZEFcGSkwUI1vRhol4sZD7zC5F61MImiCMEudRSbv
+   GKeXs3OY0fyQarSmrxy+TBq15hGI9VcgPyfMEN63sM9BuFb5ewZ2GEwVL
+   Q==;
+X-CSE-ConnectionGUID: Lv0M1P7oRwaSHpiuoKHV1w==
+X-CSE-MsgGUID: 1sk+HHg4T9CeFlKPYk4coA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3174156"
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="3174156"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 05:51:58 -0800
+X-CSE-ConnectionGUID: /UhsDppnRFeMUF+YjpUhqA==
+X-CSE-MsgGUID: aO14QmlGRdSFRk0wCCQwHQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="8755057"
+Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 05:51:57 -0800
+From: Alexander Usyskin <alexander.usyskin@intel.com>
+Date: Thu, 12 Nov 2026 15:51:42 +0200
+Subject: [PATCH char-misc-next] mei: csc: add reset_prepare() and
+ reset_done()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,95 +75,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-csc_reset_prepare_done-v1-1-843c48cc4530@intel.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MwQqDQAwFf0Vy7oJZQWh/pZRljU+bQ1dJpAjiv
+ 3frcRhmDnKYwunRHGT4qutSKvCtIXnnMiPoWJliG3tmjkFcksGxpdWwZkMal4Iw3Dtuh27KfRS
+ qcZWT7tf4+T9Z+KhLKNg3ep3nD7DKGiB4AAAA
+X-Change-ID: 20261112-csc_reset_prepare_done-b9310b3fa62c
+To: Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Menachem Adin <menachem.adin@intel.com>, linux-kernel@vger.kernel.org, 
+ Riana Tauro <riana.tauro@intel.com>, 
+ Alexander Usyskin <alexander.usyskin@intel.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794491516; l=3851;
+ i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
+ bh=5JDiiL84FQMO6Yn6uhFILcjEX9XOe99mOtlHThxmqoM=;
+ b=5BWdaHDDJKrYbGX96OnuY0byz4UJM/NWYFRq4qfB30qJQPScAw35XB9V/IgfbaaPrOBzWWImI
+ yVY67NLw20kBLtu5vx8uVPbIF5AUrSjxVVoCvvsUUN7pYU8XlPe6Hs0
+X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
+ pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
 
-replace_effective_prog() uses the position of a cgroup program list
-entry as a physical index into the effective program array.  When an
-OOM detach falls back to purge_effective_progs(), the detached entry is
-replaced by a dummy but the other entries keep their position, so the
-list position no longer matches the array index.  A later link update
-then writes the new program into the wrong slot, leaving the old
-program pointer in the array.  The array does not hold a reference, so
-the old program can be freed while it is still published.
+Process PCI reset by stopping the flow in reset_prepare() and resuming
+it in reset_done().
+Consolidate start/stop flow in helper functions and stop polling thread
+on suspend/resume by the way.
 
-Translate the position to the corresponding non-dummy entry before
-writing, and use the same helper for deletion and replacement.  This
-covers both regular programs and cgroup struct_ops entries.
-
-Fixes: 4c46091ee985 ("bpf: Fix KASAN use-after-free Read in compute_effective_progs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shihuang Liu <shlomojune6@gmail.com>
+Reviewed-by: Riana Tauro <riana.tauro@intel.com>
+Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 ---
- kernel/bpf/cgroup.c | 42 +++++++++++++++++++++++++++++++-----------
- 1 file changed, 31 insertions(+), 11 deletions(-)
+ drivers/misc/mei/pci-csc.c | 77 ++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 54 insertions(+), 23 deletions(-)
 
-diff --git a/kernel/bpf/cgroup.c b/kernel/bpf/cgroup.c
-index 57a785241d42fb..db3f173e83c693 100644
---- a/kernel/bpf/cgroup.c
-+++ b/kernel/bpf/cgroup.c
-@@ -403,6 +403,28 @@ static int bpf_cgroup_array_length(struct bpf_prog_array *array,
- 	return cnt;
+diff --git a/drivers/misc/mei/pci-csc.c b/drivers/misc/mei/pci-csc.c
+index fc09cfb5cdc7..7fbe4c1826bc 100644
+--- a/drivers/misc/mei/pci-csc.c
++++ b/drivers/misc/mei/pci-csc.c
+@@ -186,38 +186,63 @@ static void mei_csc_remove(struct pci_dev *pdev)
+ 	mei_deregister(mdev);
  }
  
-+/* Return the entry at logical position @index in an effective program
-+ * array.  Dummy entries left behind by a failed rebuild are skipped because
-+ * they do not correspond to an entry in the program list.
-+ */
-+static struct bpf_prog_array_item *
-+bpf_cgroup_array_item_at(struct bpf_prog_array *array, int index,
-+			 enum cgroup_bpf_attach_type atype)
-+{
-+	void *dummy = bpf_cgroup_array_dummy(atype);
-+	struct bpf_prog_array_item *item;
-+
-+	for (item = array->items; item->prog; item++) {
-+		if (item->prog == dummy)
-+			continue;
-+		if (!index)
-+			return item;
-+		index--;
+-static int mei_csc_pci_prepare(struct device *dev)
++static void mei_csc_stop(struct mei_device *mdev)
+ {
+-	pm_runtime_resume(dev);
+-	return 0;
+-}
++	struct mei_me_hw *hw = to_me_hw(mdev);
+ 
+-static int mei_csc_pci_suspend(struct device *dev)
+-{
+-	struct mei_device *mdev = dev_get_drvdata(dev);
++	scoped_guard(mutex, &mdev->device_lock) {
++		if (mei_me_hw_use_polling(hw))
++			hw->is_active = false;
++	}
+ 
+ 	mei_stop(mdev);
+ 
+ 	mei_disable_interrupts(mdev);
+-
+-	return 0;
+ }
+ 
+-static int mei_csc_pci_resume(struct device *dev)
++static int mei_csc_restart(struct mei_device *mdev)
+ {
+-	struct mei_device *mdev = dev_get_drvdata(dev);
++	struct mei_me_hw *hw = to_me_hw(mdev);
+ 	int err;
+ 
++	scoped_guard(mutex, &mdev->device_lock) {
++		if (mei_me_hw_use_polling(hw)) {
++			hw->is_active = true;
++			wake_up_interruptible(&hw->wait_active);
++		}
 +	}
 +
-+	return NULL;
+ 	err = mei_restart(mdev);
+ 	if (err)
+ 		return err;
+ 
+-	/* Start timer if stopped in suspend */
++	/* Start timer if stopped in stop */
+ 	schedule_delayed_work(&mdev->timer_work, HZ);
++	return 0;
++}
+ 
++static int mei_csc_pci_prepare(struct device *dev)
++{
++	pm_runtime_resume(dev);
+ 	return 0;
+ }
+ 
++static int mei_csc_pci_suspend(struct device *dev)
++{
++	struct mei_device *mdev = dev_get_drvdata(dev);
++
++	mei_csc_stop(mdev);
++
++	return 0;
 +}
 +
- static int bpf_cgroup_array_copy_to_user(struct bpf_prog_array *array,
- 					 __u32 __user *prog_ids, int cnt,
- 					 enum cgroup_bpf_attach_type atype)
-@@ -432,16 +454,12 @@ static int bpf_cgroup_array_delete_safe_at(struct bpf_prog_array *array,
- {
- 	struct bpf_prog_array_item *item;
- 
--	for (item = array->items; item->prog; item++) {
--		if (item->prog == bpf_cgroup_array_dummy(atype))
--			continue;
--		if (!index) {
--			WRITE_ONCE(item->prog, bpf_cgroup_array_dummy(atype));
--			return 0;
--		}
--		index--;
--	}
--	return -ENOENT;
-+	item = bpf_cgroup_array_item_at(array, index, atype);
-+	if (!item)
-+		return -ENOENT;
++static int mei_csc_pci_resume(struct device *dev)
++{
++	struct mei_device *mdev = dev_get_drvdata(dev);
 +
-+	WRITE_ONCE(item->prog, bpf_cgroup_array_dummy(atype));
-+	return 0;
++	return mei_csc_restart(mdev);
++}
++
+ static void mei_csc_pci_complete(struct device *dev)
+ {
+ 	pm_runtime_suspend(dev);
+@@ -316,28 +341,34 @@ static pci_ers_result_t mei_csc_pci_error_slot_reset(struct pci_dev *pdev)
+ static void mei_csc_pci_error_resume(struct pci_dev *pdev)
+ {
+ 	struct mei_device *mdev = pci_get_drvdata(pdev);
+-	struct mei_me_hw *hw = to_me_hw(mdev);
+ 
+ 	dev_info(&pdev->dev, "error recovery: resume\n");
+ 
+-	scoped_guard(mutex, &mdev->device_lock) {
+-		if (mei_me_hw_use_polling(hw)) {
+-			hw->is_active = true;
+-			wake_up_interruptible(&hw->wait_active);
+-		}
+-	}
++	mei_csc_restart(mdev);
++}
+ 
+-	if (mei_restart(mdev))
+-		return;
++static void mei_csc_reset_prepare(struct pci_dev *pdev)
++{
++	struct mei_device *mdev = pci_get_drvdata(pdev);
+ 
+-	/* Start timer if stopped in error */
+-	schedule_delayed_work(&mdev->timer_work, HZ);
++	mei_csc_stop(mdev);
++}
++
++static void mei_csc_reset_done(struct pci_dev *pdev)
++{
++	struct mei_device *mdev = pci_get_drvdata(pdev);
++
++	pci_set_master(pdev);
++
++	mei_csc_restart(mdev);
  }
  
- /**
-@@ -1175,7 +1193,9 @@ static void replace_effective_prog(struct cgroup *cgrp,
- 		progs = rcu_dereference_protected(
- 				desc->bpf.effective[atype],
- 				lockdep_is_held(&cgroup_mutex));
--		item = &progs->items[pos];
-+		item = bpf_cgroup_array_item_at(progs, pos, atype);
-+		if (WARN_ON_ONCE(!item))
-+			continue;
- 		prog_list_replace_item(pl, item);
- 	}
- }
+ static const struct pci_error_handlers mei_csc_pci_error_handlers = {
+ 	.error_detected = mei_csc_pci_error_detected,
+ 	.slot_reset     = mei_csc_pci_error_slot_reset,
+ 	.resume         = mei_csc_pci_error_resume,
++	.reset_prepare  = mei_csc_reset_prepare,
++	.reset_done     = mei_csc_reset_done,
+ };
+ 
+ static const struct dev_pm_ops mei_csc_pm_ops = {
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261112-csc_reset_prepare_done-b9310b3fa62c
+
+Best regards,
 -- 
-2.43.0
+Alexander Usyskin <alexander.usyskin@intel.com>
 
