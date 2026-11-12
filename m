@@ -1,55 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794494968;
-	b=zjzC4nd0GhVHgSr68xEid1YZtPyvXdmwZeKCR5f4h8clo9UV26mxZFg9zD1AJSaVI+yA
-	 AlmgU28aru8tP12d2aGZJsdp4RUpD0ZPrGr7N6fe4tX4x3V4pu5GmeFf4k10pl8ZNb9iM
-	 EC5Gpz+wiomsTgWkPQWgVR4OrBbIsbhKmUtlT8WH3Ax6myqPG8eEXbNSos1zeggx/fXip
-	 aIL3bNR70DP+F73Nw/ZxOGQwmIO5etOcuc3GLwLg1lPXYM/Vcg7hsIt8Aut8cXX0hSivp
-	 E1Y588NplWcr41oWqXslfy7+V3sGRyD+ZETlSNvKJDBZ1Lro0013fW1cLwAzNQ58eCQ==
+	t=1794494994;
+	b=Uj1nT6iphAv8OW4YIPsCY86uouFec0psWyx9o5NyMfGC5scbviHzo8PLEuq0tjn9JeWl
+	 pMridkQbUBAESZ9j3hG1Lz0b5zHz//mmykMwUBzS/cfPA03gWlRu2TFE7rn0JInYMsAYs
+	 U3lCe0EieKQcO/TkCALzUuKVZh9JkCDZGVbytmOdSIT6ZFIQnvoxEowPvdL96zh1vZa9L
+	 3UdtjSsYr97muKoEYQQbZ8wP8734X7Mgd3RLgWx1kU0iYot3uSKxp2PBMH2UytU23kcCW
+	 TcH6XshCJEp0X4kiLbH9L15KAgWKbfoTFVOYiOAUuz7pWsO559BGviNoot4e+dj9N8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794494968;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
-	 Content-Type:Date:Message-Id:Subject:From:To:Cc:X-Mailer:References:
-	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
-	 X-QQ-RECHKSPAM;
-	bh=zjGNu9iJUY6tRHH5ZIf6zaOe5ITdcxUbrHIdm2i7RUM=;
-	b=S5WaOJRJH4E2yyWlQmZuB3agq3cUm0vdsFXvb46C04LZQMYHf7/LFfdouwv97HtWqatU
-	 fSUhBjq9kMAWfVGGHJSdYZs5vg8FPxupRMlxZrkAW9BY+u2XjtG3Vq0P5vezb8Uuzv70w
-	 KLzM06HSTiWrBGhG69WMav4nIhUQAMs/7mTelkSlLym+rPLLS9FZVriZhWoaamGywVV0S
-	 6MXJCnfekpgZEAIStdivslTPds5lysoNYvptAvRA3uR344rFwgBzCahppaagC8LuoWEmk
-	 IidSAP5SeakUM8gBsfD+qn0AqUdZKK8EKUqZ2nlDMgOQlGniGtxeayC7puo0oiWnhYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794494994;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=vfNdgyP+NRKLkAfEjNEeqH/mZDeg/vBSn9uePnv4O7Q=;
+	b=WFlSPK4QdFY/mtoPilf/KMEEGikd9q6UfvFbr+P0U5nOGiykXN1DQPlDK0SQwQwZZqMm
+	 hVb5zBNz5r+2pHri6UnexmPKWd/pOWH9uN3in8aLntZoQapktNFc39qCUxGSq28UO51mr
+	 nAWFmitVv9urHcCr2oq1VeFQmFFlqJpreqWF2X7pc9Zx3Wdk0x3POYmDoJdSIJt6WLvuz
+	 OVhEv6WyZVNo0PsStmRAPuGkHHBbbaRLEE+49WscLAgryldh5+bpGQxawSJcVXzi3xCUS
+	 cARDY9/bQf2Iw66UbWZLV1/90r5KeM8rf98h7Pby1+6Rpb2M5Q2HZAH8YinF12JgjaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=bPzMatk7;
-	arc=none smtp.remote-ip=52.59.177.22
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Jodqrhbd;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=d36m5nSx;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856AF606A323;
-	Thu, 12 Nov 2026 14:49:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 856AF606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47798606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:49:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47798606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=bPzMatk7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1794494915;
-	bh=zjGNu9iJUY6tRHH5ZIf6zaOe5ITdcxUbrHIdm2i7RUM=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=bPzMatk7qpExuK/54DlD1AYIsJFWlH7UOaEsiiTsoJRqPkBhOLgzmYW2YFV+1U+mh
-	 ItFD3t74wMuNAITiwMdNZK85jl1D25N/6sTvc5hfVOVFKwHAPy7sjgxBDDybH75GTD
-	 CjUSKckealMdIw0+3UxM1MIO5mvgMc4zdEHLZAf0=
-X-QQ-mid: zesmtpgz6t1794494909t187aaf4b
-X-QQ-Originating-IP: Js536/AgtVk23vBPAsP9wENuhTH6rx7T9W8Qieg91IY=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 12 Nov 2026 22:48:27 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 5432486051573447005
-EX-QQ-RecipientCnt: 20
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Jodqrhbd;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=d36m5nSx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794494993;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vfNdgyP+NRKLkAfEjNEeqH/mZDeg/vBSn9uePnv4O7Q=;
+	b=JodqrhbdwsfSHHTa+77gxZFUKM1g9f0CVOOjreAMIPRiUhFBpzagpt0nmSGnJQZco1SVic
+	MgD2D9GSf77Lw7rXOGOIGJnQO2kURdx/gF0S66xd+xgVL7VbQSfmi17xGQPsNCCzNsjn1G
+	9RRZnR0D4IOy+zoKscYJM+1TKsc0EdY=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-110-_9Im7BY-OSq80aF9v-kq-Q-1; Thu, 12 Nov 2026 09:49:51 -0500
+X-MC-Unique: _9Im7BY-OSq80aF9v-kq-Q-1
+X-Mimecast-MFC-AGG-ID: _9Im7BY-OSq80aF9v-kq-Q_1794494989
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-490ab0a20ebso3282998f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:49:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794494989; x=1795099789; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vfNdgyP+NRKLkAfEjNEeqH/mZDeg/vBSn9uePnv4O7Q=;
+        b=d36m5nSxoDWdvyYtLqnat3194iJTv5RdLjF8A0cLiDThlGMtUpCYJPUhOr+doqiE47
+         SCZNGYTmAilxtj0XcaFk97qT1Zkp0AODjD0FiQd4xlqtdHRJNs5RVOMwhjwOXTk6B2Ot
+         x+Mtm4olGs7EyjoH1yE4d7X0dxfs++EXzuH3u8+OU+5P9KQBC1fgxbjlf8/k3jFTdm+s
+         cRzGbvNcN10o8dgvCCXKWQ5L7ZdDGFMlmlKCN9XCvf1RjXteKe0+cypskqqHJs/cu4oq
+         c/xWT7BVJu1q5tISQ/1tlVUUZcVhx8hQ0HoqfgcgILFrkq+32bZdLEFoM5muSmA3RvaI
+         cxmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794494989; x=1795099789;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vfNdgyP+NRKLkAfEjNEeqH/mZDeg/vBSn9uePnv4O7Q=;
+        b=jpBIXdz1zDGzmys/+8eiZubEiWmMnZR0tgGRZ/U3MkRERuYz0DTwcLsvRuftFVfeYR
+         ODS422v8mMww0cveRw3wIDDoHIDU3Qg68L/DveODdMJ2OrJ3hQMGENC7418woIQs/lOt
+         RIy5zxoc9DEBvFUEoMOGs79WfA/Y1suDi9p0bzfXrbJuUkdMw22Ngc5BKokUnkQlxgPt
+         loBCSGPcjMWxOdT9e+WXr4uNISD8Mh8BgCjC9zw+3FZEmvPPCGXW50kmxgXcw8KY6Z80
+         gwHKyYugKoOjwyWBUaS8NxDAKKDLiqwm37bioiZtHMC0iUid+UBDR+r16rRQZLlj/lhK
+         I6ow==
+X-Forwarded-Encrypted: i=1; AL+hErHVTW857wqaCVqs43P/rpRdHTnV1Y6so6tvGmm5D3cMUVqwmWxNHf4xVjPUv65taRehQslvmzlX5jr2akE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/NcxiD+k761OxFOoPTNfjNbWWRRNNmmjSPVB8Jss9H7HpkTP22
+	dq5Qt0UQOBslmcNXe7UqpH3SzsRltf5ri5t5HnXxIn3TTvgIYbi5HWBiaU0LhFwneL2KwBsrPNb
+	gdICB55hTeyPMEPfhdB4QAHgwuWRTc+CJbjxLceI/7jAKGY7910YhpvRlV820QRSe9g==
+X-Gm-Gg: AYBFou3UfKoAUC2/G7QC68JRdWnLZtosSz2VmTsZ7oIogom2pV6y/8j9bJxmvyybsrB
+	xFrxURtMddexJuhmMRxcjadzNWEs/ngshmx01TePFPhGxQe7qMhbgI1aes+D1FAmVShB0O7q5HE
+	xg3FGMDuztIKLCqGpRGHj7wsXlWdzchwKi3z6NlsEqMy9p7nZciXupmWbbBed5/rGGN8r8kqD3+
+	OG/pq+U7POps9MCiRWmt9CpJvcxJ0iRpurKR9z5rXZEzkH0olp0Ig5EHzSbJakIzYxFIpgobzcj
+	dLgMvZreoOvOeL7XgYHYkqkcSwGuU6WNC7cft7M1tt1HK+o8J/gA2dtM5ERVjjXitjqUpAJAA68
+	aFp+vdLOejEcw68FC7BR+nHpHu2egpq/aFjlSgc7Xwg0qb9/pyYW9SWekM/9L2Qp5dbeHTTPsyw
+	VgR6P6VwQE9pRRCZPzVPrkoz+HKKEiP788zT5j5sZdmreK
+X-Received: by 2002:a05:600c:4ecb:b0:4b9:ff69:19ac with SMTP id 5b1f17b1804b1-4ba093811d3mr106230345e9.11.1794494989324;
+        Thu, 12 Nov 2026 06:49:49 -0800 (PST)
+X-Received: by 2002:a05:600c:4ecb:b0:4b9:ff69:19ac with SMTP id 5b1f17b1804b1-4ba093811d3mr106229855e9.11.1794494988926;
+        Thu, 12 Nov 2026 06:49:48 -0800 (PST)
+Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2969e7sm66879205e9.10.2026.11.12.06.49.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 06:49:48 -0800 (PST)
+Message-ID: <c4910aa4-a477-4b0b-b875-52703fc8bcc2@redhat.com>
+Date: Thu, 12 Nov 2026 15:49:47 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,164 +111,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=4b60170ac85986e157bd72089ccd51b2afc8a5789b706b54e2b49f94448f;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Thu, 12 Nov 2026 14:48:26 +0000
-Message-Id: <DMTBCR706MJ6.23YJ33SOJOGV2@linux.spacemit.com>
-Subject: Re: [PATCH net] net: spacemit: Hold RTNL lock in emac_resume() and
- emac_suspend()
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Ali Tariq" <alitariq45892@gmail.com>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>, "Vivian Wang"
- <wangruikang@iscas.ac.cn>, "Andrew Lunn" <andrew@lunn.ch>
-Cc: "Vadim Fedorenko" <vadim.fedorenko@linux.dev>, <netdev@vger.kernel.org>,
- "Andrew Lunn" <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, "Eric Dumazet" <edumazet@kernel.org>, "Jakub
- Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Yixun Lan"
- <dlan@kernel.org>, "Chukun Pan" <amadeus@jmu.edu.cn>, "Siddharth Vadapalli"
- <s-vadapalli@ti.com>, "Tomas Hlavacek" <tmshlvck@gmail.com>, "Muhammad
- Bilal" <meatuni001@gmail.com>, "Maxime Chevallier"
- <maxime.chevallier@bootlin.com>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.21.0-reader-ipc4
-References: <20261105123441.2524171-1-alitariq45892@gmail.com>
- <DMO13SWAGZAN.NYISGLGI7Y5A@linux.spacemit.com>
- <c55c5878-d9c1-4863-bc55-99d334ba2ede@gmail.com>
- <12a95b3a-9c8b-4a2d-9b81-12b3839e64a9@lunn.ch>
- <DMPNAPNEGQ5I.XYUIB7Y8HDCA@linux.spacemit.com>
- <ee3f414c-fffa-41e6-8bec-6af7ce676c4b@iscas.ac.cn>
- <DMQJ0R4QTE6R.2I492KA9N85CB@linux.spacemit.com>
- <e11f1ba6-6e56-4bac-a0cb-f9258a53f34e@gmail.com>
-In-Reply-To: <e11f1ba6-6e56-4bac-a0cb-f9258a53f34e@gmail.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OLeWdWTN7s9ArBRVgLcndy27MEg8aF14b3t/uiBeUwp6rZK7b9N9IMyB
-	qCwQrKkpCcvizFM58KhJi8zeIpnezLhIjdKpcPQh+fwBpSxjsbavSUKoB6VUH3SVqpCBJXy
-	qM3C4NtpmnqMmOlGNvc2f6vu5LZmZxmiqb6ZMHP0LmCpQx0wdt4CxPXAsULXUQytaNmdM5a
-	oBafatLrX/+bk+Fi7o1mxUQwf95iITdpeZ0+dz+AocmJMpuI/xRUaDcUXwfy9/Cr6lAV3zZ
-	ualxUEGChTslHzsNJN5X9n5fVwzwtyVEUCm1hssCjEPPp1LOCqpKzpme+WDPFksuE5RTQtY
-	SmzuVbf0hfsVsiqnC6za9jxwf2VftW/6RivqISpGbn8jGoarRCYCS4oZnWJnWqoVTqMtK0/
-	pXA7M+9Ft0RywFvZH0qEokBR4YAx8PEdAWesacbwr04T0JqEdL9iwr90xWawLkgb/F67RfS
-	XcYRCWZokE3kQOFrCo9L8O/QOQK8nFyfrjbVDw66EjwBJXGCAZvqRtPYayx5KiDYRGZUaEn
-	oy3LQM0Y6zdu9oZTlxXNCqdFIpuTTPbE04D/O1OQpeBjfPooODxsKGwcFfPr5DaDm7t9aTf
-	S/aY375/gM7Q/t14KmaRViearykkoenKi5qqZqWYR3CRSrqd4YIGzEHEqOt1ncycNg2D2GK
-	Qi+2crYOCFTh3BLBP7Pvt2ijYZdeNrVhIBv4FK1RjuNSi5jooek+SbTyKqzFZl66yh8W/zi
-	HtX2Ad5vHFj9UDVdcjzXDaYbo2+mvQ4i8egiFCiNp2Ap4fCmc6mL2LxsACeJwn9BAPa/NMp
-	oXzIaMAtk2wDyQ7iBrraKjelwOdoRNugZWwsQI0wmqF/aqc11WG9t05uP6SU/v4rLu6zH1Y
-	p4hAStSVOfeEd34dosOCyC8KLMhzXoWCJzONOM4JD2QvFWyysUfG8klaSxflcOpuB/R94Ot
-	s1uiHGeovlshR2Tc97vhhVXp/Y0pG92enn2QPMQ7bkQgxqSJzswrQyohq3xLMIz99toQM3e
-	xOfDIohi3x1owk6Hf/8XhgwA8vp5VDqP7362kWjGxpSGfAvctnb9PW8whb4IdfLlHrRzks8
-	JYLjz3tc8bxK2WdVAMozlBilohuUdVyJDY1ovFTByC9+RmqOh7pM/8=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 5/5] net/mlx4: flush pending doorbell when
+ dropping a TX skb
+To: Daniel Machon <daniel.machon@microchip.com>, Joe Damato <joe@dama.to>
+Cc: netdev@vger.kernel.org, Tariq Toukan <tariqt@nvidia.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, edumazet@google.com, horms@kernel.org,
+ linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org
+References: <20261110231304.1859217-1-joe@dama.to>
+ <20261110231304.1859217-6-joe@dama.to>
+ <20261112134346.zvctvknj4mc5s2pm@DEN-DL-M70577>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261112134346.zvctvknj4mc5s2pm@DEN-DL-M70577>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---4b60170ac85986e157bd72089ccd51b2afc8a5789b706b54e2b49f94448f
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+On 11/12/26 14:43, Daniel Machon wrote:
+>> diff --git a/drivers/net/ethernet/mellanox/mlx4/en_tx.c b/drivers/net/ethernet/mellanox/mlx4/en_tx.c
+>> index 123071a47bed..3166837711be 100644
+>> --- a/drivers/net/ethernet/mellanox/mlx4/en_tx.c
+>> +++ b/drivers/net/ethernet/mellanox/mlx4/en_tx.c
+>> @@ -1135,6 +1135,9 @@ netdev_tx_t mlx4_en_xmit(struct sk_buff *skb, struct net_device *dev)
+>>   
+>>   tx_drop_count:
+>>   	ring->tx_dropped++;
+>> +	/* an earlier skb in this batch may have deferred the doorbell */
+>> +	if (ring->doorbell_pending)
+> 
+> I think checking !netdev_xmit_more() here would let you ditch the new ring
+> state, but it seems bnxt does it the same way, so fine by me.
+I don't think checking `!netdev_xmit_more()` would work, as
+`__netdev_tx_sent_queue()` adds more logic to it.
 
-Hi Ali,
+Still I think that the cacheline alignment comment by sashiko
+on patch 4 is relevant:
 
-On Thu Nov 12, 2026 at 1:33 PM GMT, Ali Tariq wrote:
->
->
-> On 11/9/26 1:10 PM, Troy Mitchell wrote:
->> On Mon Nov 9, 2026 at 7:59 AM GMT, Vivian Wang wrote:
->>> On 11/8/26 15:19, Troy Mitchell wrote:
->>>
->>>> On Sat Nov 7, 2026 at 5:32 PM GMT, Andrew Lunn wrote:
->>>>> On Fri, Nov 06, 2026 at 03:44:50PM +0500, Ali Tariq wrote:
->>>>>>
->>>>>> On 11/6/26 2:43 PM, Troy Mitchell wrote:
->>>>>>> On Thu,  5 Nov 2026 17:34:37 +0500, Ali Tariq wrote:
->>>>>>>> @@ -2056,7 +2059,9 @@ static int emac_suspend(struct device *dev)
->>>>>>>>    		return 0;
->>>>>>>>    	}
->>>>>>>> +	rtnl_lock();
->>>>>>>>    	emac_stop(ndev);
->>>>>>>> +	rtnl_unlock();
->>>>>>>>    	clk_disable_unprepare(priv->bus_clk);
->>>>>>>>    	netif_device_detach(ndev);
->>>>>>> This can deadlock. emac_stop() -> emac_down() calls
->>>>>>> cancel_work_sync(&priv->tx_timeout_task) with RTNL now held, while
->>>>>>> emac_tx_timeout_task() starts with rtnl_lock().
->>>>>>>
->>>>>> Thanks Troy, that makes sense.
->>>>>>
->>>>>> For the deadlock, I think the correct function to call is rtnl_trylo=
-ck()
->>>>>> inside the emac_tx_timeout_task(), which would return if the lock is=
- already
->>>>>> held and will hold the lock if it is not.
->>>>> rtnl_trylock() is generally a workaround needed for badly written
->>>>> code. Please try to avoid it.
->>>> Agreed. If the reset is done in place, the work does not need RTNL at =
-all,
->>>> so .ndo_stop can keep cancel_work_sync() as is.
->>>>
->>> Thanks for the diagnosis and suggestions.
->>>
->>> Although, maybe we could simply avoid cancel_work_sync() in emac_down()=
-?
->>> emac_tx_timeout_task() checks for !netif_running and does nothing if
->>> already down so it should be safe. The task cancel_work_sync() in
->>> emac_remove() does cleanup on unbind so the task is not leaked.
->>>
->>> This seems to be the pattern in other drivers as well. What do you thin=
-k?
->> That was my first thought too, but I'm not sure netif_running() is
->> enough here. emac_suspend() calls emac_stop() directly, so
->> netif_running() is still true and a pending work would stop the device
->> a second time. And since the netdev is devm-registered, emac_remove()
->> runs before unregister_netdev(), so the work could be requeued after
->> the cancel there.
->>=20
->> So we'd still need to cancel it in suspend and remove, and at that
->> point resetting in place looks simpler to me. What do you think?
->>=20
->>=20
->
-> Thanks Troy, Vivian and Andrew. I'll drop rtnl_trylock().
->
-> I think a simpler approach here will be to go with Vivian's suggestion
-> of dropping cancel_work_sync() from emac_down(), and handle Troy's two
-> cases by disabling the work where the device is stopped without the core:
->
-> 1. Suspend: emac_suspend() calls disable_work_sync() before stopping
->     the device, and emac_resume() calls enable_work(). So the work
->     can't run while the device is suspended.
->
-> 2. Remove: emac_remove() uses disable_work_sync() instead of
->     cancel_work_sync(), so the work can't be queued again before the
->     devm unregister_netdev().
->
-> For a normal close, the work's existing netif_running() check is
-> enough, because the core clears it before calling .ndo_stop.
->
-> With this, nothing waits for the work while holding RTNL, and the
-> work doesn't wait for itself.
->
-> v2 will have two patches. First the TX timeout fix (reported by Troy)=20
-> then the suspend/resume patch, which will take
-> RTNL after disable_work_sync() and before the netif_running() checks.
-Sounds good :)
+https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110231304.1859217-1-joe@dama.to
 
+I think a better binary layout for `struct mlx4_en_tx_ring` is needed.
 
---=20
-Troy Mitchell
+Thanks,
 
+Paolo
 
---4b60170ac85986e157bd72089ccd51b2afc8a5789b706b54e2b49f94448f
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavXRuiEcdHJveS5taXRj
-aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC/PdwD8DO7z3cbgb16T
-doImdDC4h5bI5kgpf0udTdwgsfv+jDgA/iBx0Shg3fNGZonovHhDnPSigl1PzAZx
-DoQpm0TbFXIC
-=2L/5
------END PGP SIGNATURE-----
-
---4b60170ac85986e157bd72089ccd51b2afc8a5789b706b54e2b49f94448f--
