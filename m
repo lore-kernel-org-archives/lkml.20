@@ -1,96 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794442852;
-	b=fREabxTQmSzwsaqD0ERS0ZGVtwQBdVWYcu3UqobvPicQULVmw98h+97EbaHfJy8qf0KI
-	 COxzA7lZVSQjIS1RXzldFLxxsVhTmjYwYkruapPvXYhhF2h5JbdQdOZObxpxzPYUsUIoi
-	 SKQgzeRPrKm+Gp+wM/P2HPyIXdPz8dDhg6V5fJq7zCFmblrF85hi6uMbsNi/NoR//usAr
-	 4Z50M00TVBQ8mLVYhmnL1m0dVvKmhjk4i3L5UBHsrSm2Qs8wpdr5tO9j4662APqg/SQ5C
-	 MO4FlLU4zz0JMCDhmmxFR4AmOrhgOq7yq7Cj2q6W9nkN5GN7BR4aXlK2MYIt9Um5K2w==
+	t=1794442889;
+	b=Q+10HTTHepVVsz6QmnXVIYviCap+pefdbRrvKbSQggIt72Iztk7Zvp+hlCt36kvZ3Web
+	 O/9x675wIluBzliALJSGD/lMAtHP2Pz9Py9OB+Fz6a3g+CICU1fav4fYdM/w2VuPXCWeP
+	 Puqzr+FaDcEapuxrm+Qkzkzq7NwfaR/1BAQR5j2MDnrfbHT6v0aaxAgDVRpfkle2Fd9u/
+	 18Ny943krjeipGQZ7tMX7EtSRybHmL5WAXz6tYUInIh/wmVZ7r3O6A+XyCAEFho5R1Ezw
+	 cLoi9a/Mnf4DCplRpaumGI4f1+D0+bzTv5PHSX46hIv89ciaT38t7n7FCX+MFSPKKnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794442852;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794442889;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=4u/i0K/kZxeNYTNdEkP+SGosn3lLleQQ1euUt+BT4f0=;
-	b=B4aX3r6nT4fmxRKeL1wmO8Ao1bVoFfeQjoIPdLSn6iJU9ezy1tdIv8d/+x01Jp5BOXzU
-	 uaQOf6pbOkZMcAkk3alPrXx3QGEvznzQbCY06HBDIA9XKEo5crQ9qeVtlLs+ncsA1Ozoy
-	 Vy5Au3bgtHqgx6d7uhK3WbcIVZuUL5z9gkpKhlZ4FEaDTUcLNwm6ox4FZG/GAG8TBCiK3
-	 oqqqmR96O37qFIkOzghS3q0eQgL3/6rCUkPWRpmgGeXboHl4dR+GfYgHshjzM1kNvkXrF
-	 o3eIDFHBH6toSLCrG8rrUKGTFE14Gj2BIsmn6bcoV7N/LiW9CzDy6QeBHSI/0wus1BQ==
+	bh=LI9uvWE3IMO5HhS0brzUkXza2vMATY/vaZhZVTquYOg=;
+	b=ODPpvEoWVIHMOSDBW8BezDENpusZXbPk7kQJciK3K+nnsssr3MI0vnErbT4i/j22lq2I
+	 oSMPospnH/S+vqRTlgByQfDRHE6j8iPWWCuDfwqZhP2SJu8Tv0HUi77dGRXVW7YH00AQb
+	 5siFuxVdcf5g+NURS+SLaR+E52vO52NoQfEjJlhOWNBHStaWJ0hud1zXGDrx5VhcPpDp+
+	 a+8lxL1xzg43yJlVLOdT8Ku3WgY5+snnWmaiYPXGTw1LVkT8oPwWz1qptp0/WscfeL3x+
+	 TP6hrZgj0K9gW603A9SEKwweqFenFa54znCK2vbfYo+ITkjzJL3Swy9LtTeNvV0pwHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BzP5PfQP;
-	arc=none smtp.remote-ip=209.85.210.179
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qS2Sl6nP;
+	arc=none smtp.remote-ip=209.85.222.178
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEAA7606A324
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:20:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEAA7606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F6C8606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:21:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F6C8606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BzP5PfQP
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8a058315c79so1919350b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:20:51 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qS2Sl6nP
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93e55db58cfso333284085a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:21:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794442851; x=1795047651; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794442887; x=1795047687; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4u/i0K/kZxeNYTNdEkP+SGosn3lLleQQ1euUt+BT4f0=;
-        b=BzP5PfQP5IOY+08Ovdd8G+oGzosODbOdBwPQj2+lm5GPJfWiOD55XAsPyaWQKEiT4j
-         FGFVitsqzvURcqIsMXGabmGJdxDPOJ7Yb6rgNIpQTYnzVpJF5Ejp34ERLSYKgHyIOZnJ
-         2dksh8kbcR8r8Xp7XBheLmbCUTIvp8fZZyP4M8g93he06ABh8fZGrOQ8c/4MlubSpqby
-         d2y9SfdO3gTu1zYiCrsWNrw9KakiRqEzX54N67NACwraed+UifJrZFpX4sAHmfbi1N8T
-         3eHy3pfh8gaX+0pdm6n0RBH3oifeoA1JT6HD+VVRVLNWZ3ildyEsg+fqa9avJD84FGM5
-         jzHw==
+        bh=LI9uvWE3IMO5HhS0brzUkXza2vMATY/vaZhZVTquYOg=;
+        b=qS2Sl6nPQC5yLWfuX9EiEwpuykjbfjbJ8ngdKlOkuPx70wrphU8cXRLnTBk3RoeWOD
+         uJ6UFsYSO/JGPFJXQVLMdAcV+0wyCWFkPuQ+1Cm6nB1eSp6amMxJkohOWRYGgQjiKaK2
+         BAYBDRSCgAy3YAM9kSDLdzMQzttS7EiA5lO9iNlwPcwf8QjDnj1C6hTAfVY03dQuebR3
+         5jL4nuiZj5BMmqTDGyxRZ5vw6l3hwAlenCA8YJJHFjLEglV/B/7fipcn6Ff0PkqJ49Ex
+         qSCOD1ROK0Q4q9fZQb9VidPP8aB+QqAThnXSJDMf0EHpxhsikcQn7K+yczhRIOblcw47
+         6N3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794442851; x=1795047651;
+        d=1e100.net; s=20260707; t=1794442887; x=1795047687;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4u/i0K/kZxeNYTNdEkP+SGosn3lLleQQ1euUt+BT4f0=;
-        b=1p4tzrl9RpjNQoCjVI9D2QFI+kWhrCGwL6jz2pKsU//Pbz5M3pCr/gOpi6gTi4p7RC
-         eFQZqI7JSaDkcyo0UJBRchbeoaIqhMpkM6lZLs3xHmOsRHUi1TKFCwIAJkRWhbjwk5Fj
-         3X6ixHoauNCDiGxetpmh8YNAmXipq7eDI8wlNIBjrWRYDvjBfWerIzsBAxeyDbx2eAje
-         Wvt7vTbGHE7KcWe3K6kzopHeb8w22marEuaV9uteoAq0p/MZSXBmPaXvSyeY8B71qePL
-         TW5+p3yMhS6kQcDG90PVz1DOn16US8xDZQolx76ftWLPfXmWedDykBOgRwF5lpvCQ7JL
-         UnzQ==
-X-Forwarded-Encrypted: i=1; AL+hErGOWodqd3cxIPEjiJ4BRqYOFPBsSvDnqsttB3KqzAbYKH949thpht9sFwmHieheNk33mfEzvcYWKvR3CyA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+t7If9fp3frQ0yO+9hur3/KMckng9ZGbju637tze34Kt/U4wVy
-	a24fenjX2H+ut18pXffngR6o0zoQ6yLttB8YWO5BM83bv7qX2oWG2q02
-X-Gm-Gg: AYBFou1A64lsfVhbKGwRBNJfvU61nwVAfIk8myrx6I9c9TaI+Et0Wev6YqZj7DkpXnJ
-	vfGa6nmKsU48E07u9KbfQ4F6NNCN0Y4yorkIBD5CQ5EmvKxYUl939WLpSYtP9PaeyzzAqEi8mtQ
-	XCG6106/RGMuEfXEv6nq32TBct1SaGjCF8PQWWKpz6KFLtsfGx11EjdfX5hSkUAG5Wj/T4CeG8q
-	6Figpl12aINigh+WijEjXJlwRATU+JtLeUryK3Lr4BzVxNcseHPL1CDplv9ckWX2w2pjvGWhPpy
-	7opku6Dvs4GxxxVEeO8KhmjZitSPY+5XcBRgEedGZTaNe3EtZ0QvVz9CK1pXg11rVJTHY381Zt/
-	lmW867Pt6O1fVc9wBigbqEjRu5dTfzFREzmSva4mQQqa0eOZcDFPnrtWRwZvrl4i7BKT3lKk/Vc
-	8g2vQ23ge/0+O+0t7LF7aDVeKSEgRtD77i0XTVrI9n1bIe+iDBTmNNGLGz+kjZrijJwEotYmBYf
-	C5xn7d0t47jhcIRUStu0Q5Yew8J4PSQIuF6YvNG2uYjU6SWq4sBInbCZVsDcqaP5qxs4+sO8M2W
-	WUpifOH3paXOgWFA/KZ3YbQBikNDCXZepyC08MQJTuS/q2asClUJug==
-X-Received: by 2002:a05:6a20:2589:b0:3e2:7e05:49b0 with SMTP id adf61e73a8af0-3f2ff5d26d7mr3934258637.50.1794442850892;
-        Wed, 11 Nov 2026 16:20:50 -0800 (PST)
-Received: from d.home.yangfl.dn42 ([2a09:bac1:76a0:28::1d2:6e])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaac46b20sm2647262b3a.30.2026.11.11.16.20.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 16:20:50 -0800 (PST)
-From: David Yang <mmyangfl@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+        bh=LI9uvWE3IMO5HhS0brzUkXza2vMATY/vaZhZVTquYOg=;
+        b=qK7OrEZccgwDZiJAYDCT+H7E5MDzLJDY6yJqgDr91aWd0VqlTuhXnt99coc0he/zeb
+         dax+5yX0zQh2oevAOO71MoQDteLaos/s1NDIvxdD9ca8JihmAgqLdOIrkvoZfvDDQbth
+         f6q+KzEQ9SCcwpBK0Iyuc+0fBGCXyBykoICiDs9niAFDVuOlgu9eX1NWANxIC3EUFIhV
+         DBOviCYkL5rq8FPdoGHLktll0k2tTp2h5FO1lxXKq9Lqe1OJEWI7PFFoKAszYgWYI3zm
+         QOx2b1W8X6PspZh9XxbhPxkw5Ubx+z+Bw+zWhXHroXI3uQzhnr3XdexJEQzTa0VeS695
+         5ang==
+X-Forwarded-Encrypted: i=1; AL+hErEfEFnE4sL2z1hAi0qDZL5iESuyps7nTyjAXaI6oi7/pnVhKa8l9oJmLRgaEK2c20EJM8NseR69c/OTWEg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8oAQwBiH+6HFdUFczcW8JWIEGZ4ongfNNz37mVc2IrNTNXZm7o
+	Xaj9T24awHpp2Zj9IxTutcDccTnKleHoWhvq2l/dgrDc1MLJA8pKTQlEnzj17rdn/cUXHQ==
+X-Gm-Gg: AYBFou2+KXauyn0LUXTm6o+lWNs3fNAMNoSJDZCbs9VHf+D1H6WAG1lLRnKESfuseG/
+	kDH3v1enBrnd3/gvatMtHwoyhFfTZHGV6ZlH/DNJ+PHxFIYq0QufiLWZ/diBvINxxtTnhi1GJtx
+	ges+mV+11lC3sjHFUWo6K+2ColmwcP317JCDjGs32FTdmEJGcfNkSKOWdDFWleroqSoi212eSvB
+	l6F9CxplgGQxmFScHQIWs6Et74rIIs898hBCfvDPjZLZqMGE7jl3EsqtDCiTnt3jTQAeCW1r8R1
+	SBlWV8j6CGUbFyj8X5ZTT+/xA/c1r/yMjtJm2lFzIusDm5mvYnKiC2gf9q0xodrzx4ighmEMTN3
+	z/tKtmXa1Wa4yBBUDdDKNyA5jgqQSOogThKgTzYRJSkOe68lOUR4WYdbjVf3o6Xfeh78JQO/yTP
+	n2RGf3V0pxS2mRgix7VdaFxRJU3oqejUVx8aRgSmYbYR1neq3pP9W7vQY5excREYABnkxYyd0JE
+	c5yITc40vnG/hmN9TQCvDeblGtrgSpfhJdzBjRQZ0sApKKdJ/eMwez1EomEc9vXGVqVpaIi/Ff9
+	/qjgKJM5g8Blml6OshnIKqzISTRwbg4YY7RDZ7QrxObuxSvnXSD3r6EMweI+2FPhGZUwt+mu6A5
+	X5Fp1SFomi26vs7Zv1JYc2mykZvOKtE89MOzSZJCmO5QMiHlUNa2IkSj9rZbWmqRalAL8t7QsT4
+	pmRDUDUPr2eZemk3ko/WbEDDEBGz5CFk3s/d2/tgezw6XAQK2jXPzhBu5h5yfG1nBRhMsrjBpTi
+	xYsxRO1ahNAL4xrz+Z8nFKbbAIx4xNQ6m5h1DoGhoYcOA==
+X-Received: by 2002:a05:620a:1b9a:b0:943:b019:f011 with SMTP id af79cd13be357-947aff97216mr622570085a.28.1794442886869;
+        Wed, 11 Nov 2026 16:21:26 -0800 (PST)
+Received: from LRMS.tailf8556c.ts.net ([2600:4041:5024:4b00:c182:d409:44ac:104f])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e7a7aebsm602111585a.28.2026.11.11.16.21.25
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 11 Nov 2026 16:21:26 -0800 (PST)
+From: Jesse Casco <jesse.casco@gmail.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: linux-rtc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v4] net: dsa: motorcomm: Add devlink info and resources
-Date: Thu, 12 Nov 2026 08:20:29 +0800
-Message-ID: <20261112002031.1475005-1-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Subject: [PATCH] rtc: interface: fix wakeup source leak in rtc_timer_do_work()
+Date: Wed, 11 Nov 2026 19:21:25 -0500
+Message-ID: <20261112002125.24566-1-jesse.casco@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,240 +99,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Expose the ASIC model via devlink info (ASIC_ID), and register devlink
-resources for ACLs and meters.
+rtc_update_irq(), rtc_set_time() and the -ETIME paths of
+rtc_timer_enqueue() and rtc_timer_remove() call pm_stay_awake() on the
+RTC parent device before scheduling rtc->irqwork, and
+rtc_timer_do_work() balances that with pm_relax() when it is done.
 
-Signed-off-by: David Yang <mmyangfl@gmail.com>
+Since commit e8ba8a2bc4f6 ("rtc: check if __rtc_read_time was successful
+in rtc_timer_do_work()"), a failed time read returns early without
+calling pm_relax(). A single read error then leaves the wakeup source
+active, reads of /sys/power/wakeup_count block and suspend cannot
+proceed.
+
+Seen on an ASUS Zenbook A16 (UX3607OA), where reads of the PMIC GLINK
+RTC time out and the pmic_glink.rtc-glink.0 wakeup source stays active
+from boot. With this change the source is released after each failed
+read.
+
+Fixes: e8ba8a2bc4f6 ("rtc: check if __rtc_read_time was successful in rtc_timer_do_work()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jesse Casco <jesse.casco@gmail.com>
 ---
-v4:
- - remove FDB-related changes
-v3: https://lore.kernel.org/r/20261109163117.1792478-1-mmyangfl@gmail.com
- - remove the buggy sub-resources
-v2: https://lore.kernel.org/r/20261108094512.1285796-1-mmyangfl@gmail.com
- - fix issues reported by sashiko
-v1: https://lore.kernel.org/r/20261106184811.350700-1-mmyangfl@gmail.com
- drivers/net/dsa/motorcomm/Makefile  |   1 +
- drivers/net/dsa/motorcomm/chip.c    |   8 ++
- drivers/net/dsa/motorcomm/chip.h    |   2 +
- drivers/net/dsa/motorcomm/devlink.c | 111 ++++++++++++++++++++++++++++
- drivers/net/dsa/motorcomm/devlink.h |  18 +++++
- 5 files changed, 140 insertions(+)
- create mode 100644 drivers/net/dsa/motorcomm/devlink.c
- create mode 100644 drivers/net/dsa/motorcomm/devlink.h
+ drivers/rtc/interface.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/dsa/motorcomm/Makefile b/drivers/net/dsa/motorcomm/Makefile
-index 9eaa59f699e8..0b31d815ce43 100644
---- a/drivers/net/dsa/motorcomm/Makefile
-+++ b/drivers/net/dsa/motorcomm/Makefile
-@@ -2,6 +2,7 @@
- obj-$(CONFIG_NET_DSA_YT921X) += yt921x.o
- yt921x-objs := chip.o
- yt921x-$(CONFIG_NET_DSA_YT921X_LEDS) += leds.o
-+yt921x-objs += devlink.o
- yt921x-objs += mdio_bus.o
- yt921x-objs += mib.o
- yt921x-objs += pcs-921x.o
-diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-index a1d0ce35f4f3..855637d0548d 100644
---- a/drivers/net/dsa/motorcomm/chip.c
-+++ b/drivers/net/dsa/motorcomm/chip.c
-@@ -26,6 +26,7 @@
- #include <net/ieee8021q.h>
- 
- #include "chip.h"
-+#include "devlink.h"
- #include "leds.h"
- #include "mdio_bus.h"
- #include "mib.h"
-@@ -2141,6 +2142,8 @@ static void yt921x_dsa_teardown(struct dsa_switch *ds)
- 
- 	yt921x_leds_remove(priv);
- #endif
-+
-+	dsa_devlink_resources_unregister(ds);
- }
- 
- static int yt921x_chip_detect(struct yt921x_priv *priv)
-@@ -2475,6 +2478,10 @@ static int yt921x_dsa_setup(struct dsa_switch *ds)
- 	if (res)
- 		return res;
- 
-+	res = yt921x_devlink_setup(priv);
-+	if (res)
-+		return res;
-+
- #if IS_ENABLED(CONFIG_NET_DSA_YT921X_LEDS)
- 	res = yt921x_leds_setup(priv);
- 	if (res)
-@@ -2563,6 +2570,7 @@ static const struct dsa_switch_ops yt921x_dsa_switch_ops = {
- 	.port_add_dscp_prio	= yt921x_dsa_port_add_dscp_prio,
- #endif
- 	/* chip */
-+	.devlink_info_get	= yt921x_dsa_devlink_info_get,
- 	.teardown		= yt921x_dsa_teardown,
- 	.setup			= yt921x_dsa_setup,
- };
-diff --git a/drivers/net/dsa/motorcomm/chip.h b/drivers/net/dsa/motorcomm/chip.h
-index fc315f1d8f87..55a36716266c 100644
---- a/drivers/net/dsa/motorcomm/chip.h
-+++ b/drivers/net/dsa/motorcomm/chip.h
-@@ -248,6 +248,7 @@ enum yt921x_app_selector {
- #define   YT921X_PORT_LEARN_MODE_AUTO			YT921X_PORT_LEARN_MODE(0)
- #define   YT921X_PORT_LEARN_MODE_AUTO_AND_COPY		YT921X_PORT_LEARN_MODE(1)
- #define   YT921X_PORT_LEARN_MODE_CPU_CONTROL		YT921X_PORT_LEARN_MODE(2)
-+#define YT921X_LEARN_UCAST_CNT		0x18043c
- #define YT921X_AGEING			0x180440
- #define  YT921X_AGEING_INTERVAL_M		GENMASK(15, 0)
- #define YT921X_FDB_IN0			0x180454
-@@ -312,6 +313,7 @@ enum yt921x_app_selector {
- #define   YT921X_FDB_IO2_PRIO(x)			FIELD_PREP(YT921X_FDB_IO2_PRIO_M, (x))
- #define  YT921X_FDB_IO2_NEW_VID_M		GENMASK(11, 0)
- #define   YT921X_FDB_IO2_NEW_VID(x)			FIELD_PREP(YT921X_FDB_IO2_NEW_VID_M, (x))
-+#define YT921X_LEARN_MCAST_CNT		0x180504
- #define YT921X_FILTER_UNK_UCAST		0x180508
- #define YT921X_FILTER_UNK_MCAST		0x18050c
- #define YT921X_FILTER_MCAST		0x180510
-diff --git a/drivers/net/dsa/motorcomm/devlink.c b/drivers/net/dsa/motorcomm/devlink.c
-new file mode 100644
-index 000000000000..6be9630e1e5e
---- /dev/null
-+++ b/drivers/net/dsa/motorcomm/devlink.c
-@@ -0,0 +1,111 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2026 David Yang
-+ */
-+
-+#include "chip.h"
-+#include "devlink.h"
-+#include "tc.h"
-+
-+int
-+yt921x_dsa_devlink_info_get(struct dsa_switch *ds, struct devlink_info_req *req,
-+			    struct netlink_ext_ack *extack)
-+{
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
-+	int res;
-+
-+	if (!priv->info)
-+		return -ENODEV;
-+
-+	res = devlink_info_version_fixed_put(req,
-+					     DEVLINK_INFO_VERSION_GENERIC_ASIC_ID,
-+					     priv->info->name);
-+	if (res)
-+		return res;
-+
-+	return 0;
-+}
-+
-+static u64 yt921x_devlink_occ_get_acl(void *ctx)
-+{
-+	struct yt921x_priv *priv = ctx;
-+	unsigned int count = 0;
-+
-+	mutex_lock(&priv->reg_lock);
-+	for (unsigned int i = 0; i < YT921X_ACL_BLK_NUM; i++)
-+		count += hweight8(priv->acl_masks[i]);
-+	mutex_unlock(&priv->reg_lock);
-+
-+	return count;
-+}
-+
-+static u64 yt921x_devlink_occ_get_meter(void *ctx)
-+{
-+	struct yt921x_priv *priv = ctx;
-+	u64 count;
-+
-+	mutex_lock(&priv->reg_lock);
-+	count = bitmap_weight(priv->meters_map, YT921X_METER_NUM);
-+	mutex_unlock(&priv->reg_lock);
-+
-+	return count;
-+}
-+
-+enum yt921x_devlink_resource_id {
-+	YT921X_DEVLINK_RESOURCE_ID_NONE,  /* DEVLINK_RESOURCE_ID_PARENT_TOP */
-+	YT921X_DEVLINK_RESOURCE_ID_ACL,
-+	YT921X_DEVLINK_RESOURCE_ID_METER,
-+};
-+
-+struct yt921x_devlink_resource {
-+	const char *name;
-+	devlink_resource_occ_get_t *occ_get;
-+	unsigned short size;
-+	unsigned char id;
-+	unsigned char parent_id;
-+};
-+
-+static const struct yt921x_devlink_resource yt921x_devlink_resources[] = {
-+	{
-+		"ACL", yt921x_devlink_occ_get_acl,
-+		YT921X_ACL_NUM,
-+		YT921X_DEVLINK_RESOURCE_ID_ACL,
-+		DEVLINK_RESOURCE_ID_PARENT_TOP,
-+	},
-+	{
-+		"meters", yt921x_devlink_occ_get_meter,
-+		YT921X_METER_NUM,
-+		YT921X_DEVLINK_RESOURCE_ID_METER,
-+		DEVLINK_RESOURCE_ID_PARENT_TOP,
-+	},
-+};
-+
-+int yt921x_devlink_setup(struct yt921x_priv *priv)
-+{
-+	struct dsa_switch *ds = &priv->ds;
-+	int res;
-+
-+	for (unsigned int i = 0; i < ARRAY_SIZE(yt921x_devlink_resources);
-+	     i++) {
-+		struct devlink_resource_size_params size_params;
-+		const struct yt921x_devlink_resource *r;
-+
-+		r = &yt921x_devlink_resources[i];
-+
-+		devlink_resource_size_params_init(&size_params, r->size,
-+						  r->size, 1,
-+						  DEVLINK_RESOURCE_UNIT_ENTRY);
-+
-+		res = dsa_devlink_resource_register(ds, r->name, r->size, r->id,
-+						    r->parent_id, &size_params);
-+		if (res) {
-+			dsa_devlink_resources_unregister(ds);
-+			return res;
-+		}
-+
-+		dsa_devlink_resource_occ_get_register(ds, r->id, r->occ_get,
-+						      priv);
-+	}
-+
-+	return 0;
-+}
-diff --git a/drivers/net/dsa/motorcomm/devlink.h b/drivers/net/dsa/motorcomm/devlink.h
-new file mode 100644
-index 000000000000..184b9f05742e
---- /dev/null
-+++ b/drivers/net/dsa/motorcomm/devlink.h
-@@ -0,0 +1,18 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/*
-+ * Copyright (c) 2026 David Yang
-+ */
-+
-+#ifndef _YT_DEVLINK_H
-+#define _YT_DEVLINK_H
-+
-+#include <net/dsa.h>
-+
-+struct yt921x_priv;
-+
-+int
-+yt921x_dsa_devlink_info_get(struct dsa_switch *ds, struct devlink_info_req *req,
-+			    struct netlink_ext_ack *extack);
-+int yt921x_devlink_setup(struct yt921x_priv *priv);
-+
-+#endif
+diff --git a/drivers/rtc/interface.c b/drivers/rtc/interface.c
+index 96626f8068f9..ba4f92ac0f89 100644
+--- a/drivers/rtc/interface.c
++++ b/drivers/rtc/interface.c
+@@ -980,6 +980,7 @@ void rtc_timer_do_work(struct work_struct *work)
+ again:
+ 	err = __rtc_read_time(rtc, &tm);
+ 	if (err) {
++		pm_relax(rtc->dev.parent);
+ 		mutex_unlock(&rtc->ops_lock);
+ 		return;
+ 	}
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.53.0
+2.56.0
 
