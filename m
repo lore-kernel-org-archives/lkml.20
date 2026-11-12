@@ -1,67 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794467782;
-	b=2PfxrmmPERFYDkL1not26MjiRuLKVGRa3Z2sh1yBjTuG6D9Bf25rukOMcO2QPjVVVcuO
-	 Etin5KelzYZYIQy2epCwI9tnXk6melURjBub1amoKpzQ0tqeQ+in7vXaxCgQGeH4+gQHI
-	 vYJlhzpOebdZzBoMUiv6j8NKnA4AytFqgKnLQdYlzRvKZxoHdS2+6mw1tDZEewg404PwY
-	 +Falmil4+8bPZzFdcvQOxaFsP9D9oEorR3XxmCISCFAYFdmCFw1M7BRWWCEGIBHc4sf/P
-	 BBU3C/DlKGKXEQV8RMmYCEfe6ljfCgJjoUxnvaEA4g8/4cYUKRKM3ycKP/RoBDNV8ZQ==
+	t=1794467784;
+	b=ZteovfFcqp2LddL+GZivfDVYX0beA2/W4rkRbHmXr4NmXuMG7A3g0ef7BgS+S56dXJi5
+	 QoQ0QgQTw6fQ6tt1Nxs6brR3eVhc0NIzTe5/RKvnyapW1MifdxH9x9lgKBu26AtPPiGPK
+	 vHpQR3NVp+5Bcz0SZT7g37r4LDpThZ3OD6AsRvzOEe7mgmmaVnfY6y/cLI5jX9anGcKYD
+	 9yOmOUR+slYGQqLUah29v7bG8hpVqCCgoxHreRvbTgE1CyVMiv/jJJ3UME9/FdgdgD8xU
+	 M/w53knTK/K1kugfKpfG85ZswnlcDM0/2n14ohDA8ARg0TlOllGmDQad8/qWSkHGo1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794467782;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794467784;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ODFeblqJ2IvUuHopebwv4o1Sjw4sySz8nIqoDyGgRI4=;
-	b=LpSwnW6u8h64oo13ChtQ1HFSWy/WOQOt26W+tTtPW4sPyt9kv+WN+M86oPC0HHl0h+lB
-	 cuNl0hWk0MSMX9sU7k4m5MgOSveUYM2fx8j/kFe1R6wnn2Yzr+h7k5KkH6zCjB0x13P6p
-	 njlJ0w4Ufc4D6EuBOVS/kt3gTQ06dd9WfCDASQfbU0mzwNK6WIduozRgeU478qIcbYSFT
-	 MVJZE6x1zXZq+rBiKDZw2eZ5IFuqzURmkeItev5KhA+muNtQye1lNQXPJjQ/+Il8JThmx
-	 lnxLP6FCm8qbbmaO2FeCHt+e85XlWsrelDx7dA4+CVmehEFvxT9RYUY9MU+T4x8D9zw==
+	bh=PdkmRjPwAg1KzHHgw7x21crSWqWQ4G458TrqdvmwyfM=;
+	b=V8W9cd2MK/cmhRTgm52Ujt1Nz2kgOeg2UfWULeTluHM2rqbfGqMGgRVG/xTysX0lmImI
+	 hBI3BfFT6Sv31vxoGsFPa7oFQf/dwzNrNMd14dP2Awt3UAcNSbNLMvrzvlDqXMRqoqcaY
+	 GYGUJDzcE+uomQRu2fqzeoRe2PsdM+akfUjiffAEWnNthfXBB+48X6c+TY1fjGOQk8iDU
+	 Q9QbhS46+Kz27zDT0ZcLoDt8XzUjCmbxGPTU1Vvo9qEVbxOgyKZDPmJTOaXJmLO0yNAj1
+	 uVA53Qt7xa1rdHCm2K27j6RWm7PxI2PpZfJ8WjLrKAOc0MWVPODWdYiwof9RBLLPWGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=jZeEnbD7;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 59E77606A888;
-	Thu, 12 Nov 2026 07:16:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59E77606A888
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=PCppY+Gq;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 613DD606A89D;
+	Thu, 12 Nov 2026 07:16:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 613DD606A89D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=jZeEnbD7
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=PCppY+Gq
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=jZeEnbD75BNbBCYAWjbWJE8pRuh/gnzKyUqEqRgdZyOYhmx7qBH7sngA8W7eoSEpn+lOI4wJAqidB
-	 sJnwyL1N+ykzKy1ba2GJtSaf2Xkuob3RS/WLBrmDmeTlOz6XYCeDpNHsQRbb+lSaJ4jzRUghZSEMrP
-	 HLO8bkDWPh75I+m8=
+	b=PCppY+Gqo+NufPRHYj1b9Xk/SLm/JaZYjSCs4E8haD//ZwVaLPJ0ITBgVFUq0xJiDszQWy0iP2+Sa
+	 MDxqVfcotNAdj8Y2UWrhVTnexRYVSJToTR3dHPVQhNeiRo0vJUPxlxtSlmMhO2Th7aNbrTpxjwuZvp
+	 +GwIfZPgaXVoMDco=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66af567c0f62-abcab;
-	Thu, 12 Nov 2026 15:16:17 +0800 (CST)
-X-RM-TRANSID:2ee66af567c0f62-abcab
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76af567c53b8-dfe29;
+	Thu, 12 Nov 2026 15:16:21 +0800 (CST)
+X-RM-TRANSID:2ee76af567c53b8-dfe29
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66af567c0bef-f6ee0;
-	Thu, 12 Nov 2026 15:16:17 +0800 (CST)
-X-RM-TRANSID:2ee66af567c0bef-f6ee0
+	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46af567c4a2b-f6dbf;
+	Thu, 12 Nov 2026 15:16:20 +0800 (CST)
+X-RM-TRANSID:2ee46af567c4a2b-f6dbf
 From: Zhu Jun <zhujun2@cmss.chinamobile.com>
-To: ukleinek@kernel.org
-Cc: nicolas.ferre@microchip.com,
-	alexandre.belloni@bootlin.com,
-	claudiu.beznea@tuxon.dev,
-	linux-pwm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+To: alexandre.belloni@bootlin.com
+Cc: linux-rtc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Zhu Jun <zhujun2@cmss.chinamobile.com>
-Subject: [PATCH] pwm: atmel-tcb: Fix the channel restart write on resume
-Date: Thu, 12 Nov 2026 15:16:15 +0800
-Message-ID: <20261112071615.154385-1-zhujun2@cmss.chinamobile.com>
+Subject: [PATCH] rtc: ac100: Program clock divider encodings without subtracting one
+Date: Thu, 12 Nov 2026 15:16:19 +0800
+Message-ID: <20261112071620.154398-1-zhujun2@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,32 +70,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-atmel_tcb_pwm_resume() passes the start command as the register address
-and the channel control register offset as the value. The command is
-0x5, which is not an aligned register address, so regmap rejects the
-write and an enabled PWM channel is not restarted after resume.
+divider_get_val() already returns the hardware encoding for the
+power-of-two divider, and ac100_clkout_prediv[].val is also a register
+encoding. Subtracting one from either value programs the previous
+divider setting and turns encoding zero into all ones.
 
-Pass the channel control register first and the clock-enable and
-software-trigger bits second.
+For example, selecting a 32768 Hz output from the 32768 Hz parent
+programs divider seven and produces 256 Hz. Write both encodings
+directly so the programmed rate agrees with the requested rate.
 
-Fixes: 061f8572a31c ("pwm: atmel-tcb: Switch to new binding")
+Fixes: 04940631b8d2 ("rtc: ac100: Add clk output support")
 Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
 ---
- drivers/pwm/pwm-atmel-tcb.c | 4 ++--
+ drivers/rtc/rtc-ac100.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pwm/pwm-atmel-tcb.c b/drivers/pwm/pwm-atmel-tcb.c
-index f74a42d75b81..e878eaaf81cc 100644
---- a/drivers/pwm/pwm-atmel-tcb.c
-+++ b/drivers/pwm/pwm-atmel-tcb.c
-@@ -541,8 +541,8 @@ static int atmel_tcb_pwm_resume(struct device *dev)
- 
- 	if (chan->enabled)
- 		regmap_write(tcbpwmc->regmap,
--			     ATMEL_TC_CLKEN | ATMEL_TC_SWTRG,
--			     ATMEL_TC_REG(channel, CCR));
-+			     ATMEL_TC_REG(channel, CCR),
-+			     ATMEL_TC_CLKEN | ATMEL_TC_SWTRG);
+diff --git a/drivers/rtc/rtc-ac100.c b/drivers/rtc/rtc-ac100.c
+index be57a33ecf53..a94248346bf3 100644
+--- a/drivers/rtc/rtc-ac100.c
++++ b/drivers/rtc/rtc-ac100.c
+@@ -243,8 +243,8 @@ static int ac100_clkout_set_rate(struct clk_hw *hw, unsigned long rate,
+ 	regmap_update_bits(clk->regmap, clk->offset,
+ 			   ((1 << AC100_CLKOUT_DIV_WIDTH) - 1) << AC100_CLKOUT_DIV_SHIFT |
+ 			   ((1 << AC100_CLKOUT_PRE_DIV_WIDTH) - 1) << AC100_CLKOUT_PRE_DIV_SHIFT,
+-			   (div - 1) << AC100_CLKOUT_DIV_SHIFT |
+-			   (pre_div - 1) << AC100_CLKOUT_PRE_DIV_SHIFT);
++			   div << AC100_CLKOUT_DIV_SHIFT |
++			   pre_div << AC100_CLKOUT_PRE_DIV_SHIFT);
  
  	return 0;
  }
