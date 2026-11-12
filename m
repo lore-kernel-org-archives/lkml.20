@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501084;
-	b=Dyz1NSfMbPTtCsymSx8r23dw0lxNuXpDtef9hHVjbzKhQj4MguOmw7NxIxbCQk+o0MUm
-	 wVHLhF52oDKjQ1DzGWr2bahANPozIPwWuy5ilvfiKlqXQ7V9f+ljUF1JD0jVJS6/xBo/r
-	 YZs5YijpHMnOJPMDrNFraSKRSrz3mKh4jaN5azhF6VVejKiWE55BddUrCtlEee0lUSwMT
-	 UoHpP/CPGClRGUJ4C+QlS0u9t5o7WgyuwXWDPlnfU8/2uVBV9HEHx+uGp7NDYwbJ89LFC
-	 lwzt9frm/TlgTI4x7pk1eGp+67iL6y/giy6aeB0ZeTIfg0gcW1HkWF8ZnUBCybp+D/w==
+	t=1794501087;
+	b=Kiups8FLBmZl9/6e5xUhMO1GyZgd0xw2W5ZJ8a4ZsFt+Cb5vOpt3oyVdp3NhSPPyoQzv
+	 7byil4BnMMzEJZBjETtT2PdYGrZlVVjLrYgIHQyBE0Uif87ru3xLhXYRcVpqBSVHMGcRK
+	 e56jDVb84XZ29OBOkI3BhdJr8ok1fDBWvGV7fDB1w7i4LhEsHWeNmyQKMPH1HUdITikFh
+	 gcC5YLhsPhh5A3kK2D6CWE0fI6Cg8paFwI7LWVbIWXmbNtE9G/SeTMWdGZ95t72/NYWFa
+	 PvdPBqNLoWIbLjsQ5uKSRc1orUgv2IY6VIEGzm5pfEzeEFHjDSfHIfLb9dv9A4FD1pA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501084;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501087;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=t7FDNrKyK6VBQjLPAN2SUOn5Hj1rulITu1zeui1Iwx4=;
-	b=RS77Q2O7b9HyDZVDLEkALUkVgh6wutU/exmN5Xuedg2rK5VDB8iFJsa4tdVoSXpYkH66
-	 Gzx23RespbeY0Mz9uZm+Am5dXOqWaNt/ep5MNnf3sjPOdYV9aGbKtlWGh6xKrLDdI4JUk
-	 FfOHBZwuU2CINTjI9zg16prB/A4j7fp6+o0ni94ZJchxoKRzVdSYchfs1nAaZ674WJ3Ls
-	 yA8owS+aftEvFJVfo3kVXj9tL9i/EWDjq8VPLz4FZNzedYswFfchTPpyYmeHSSRdE4QJr
-	 wgtzb0SHYkg0mVzJkNmVhyISQgMkz8vfJLOT1PK2tOnw9aYvngE7yX3a8MmRIkRSUvQ==
+	bh=Var0wb81EXIoiRwlJho2Y50Ag0AbgPDq38QwDWVENoc=;
+	b=Q6b/RA8G6flAol50yIQbCBPKAlN0Or2SoOdz3MB/NbKQQAhLzOufxp81W+hrzHEb00Pa
+	 SIFsEYnzPd3+PTdUos0HTMv1ZOjLywHxxKtvKwNyOXTLo52i3CJz1ozsYAhFldFOpEPgS
+	 2jK2HLUrvhj98q4kK7cO8DprHEiMpwb7a8brP/P2uGiFaCFUJTXpEL+fkgV63ASTimSna
+	 ptB4Y+99Wjq1OaIYqkPq3dApWZDyYTcGHS1tavhpx6XXTz8BcNKJe3tqNeKE+otXEUir8
+	 KOrkQqNwxcjKr98KVAJHcfMgMnViRiRVg0EhmECekGS/YHyUeyNOC2UXKb0Dx+1erLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LkL/j4VW";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EBSoXkXd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5061606A336
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:31:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B65606A336
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:31:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LkL/j4VW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90B761F000C4;
-	Thu, 12 Nov 2026 16:31:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EBSoXkXd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F09C51F000C6;
+	Thu, 12 Nov 2026 16:31:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794501083;
-	bh=t7FDNrKyK6VBQjLPAN2SUOn5Hj1rulITu1zeui1Iwx4=;
+	s=k20260515; t=1794501086;
+	bh=Var0wb81EXIoiRwlJho2Y50Ag0AbgPDq38QwDWVENoc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=LkL/j4VWFtp/M5086uW540o4bsa2YZ7DSm7VaXkncn4H6Av6iURspp1E9Kqn1WAMW
-	 jcuOhd48+w0NU1/dk+Y3fNkxgaIUdmtzUquh2uOHLQXCmdwG/CM0yglBOLJm+NEUeS
-	 3VwHZpBr21Y/vLD/ix9b3nAUTBE/14AiqZw9ZK7SB2Jl/Mlpea6mzIBzbs7agB+uNB
-	 4jHNG3dhPl/TJu+zNqi2hhWVDhuMycDgvr5mhg2reraiauSCCgXeGR4X+NjVX7aU+3
-	 1uwubRotW6/Q9XD8+bfjx0Q2RS3HdziDDQdqhrlTx/bSQYsgl0bmviCtPYxQO5vriN
-	 LcHWZjodulIuA==
+	b=EBSoXkXd8E6yPyRZ7L8eVBIHC5CihFeL3Z/tG4B2r9o6l21Y6dmkDdLY2iQA2tXri
+	 8t3EpMRuX4JjVEuCiEYwMFFa1KDfbdTpGomyrGUW9cMG0vF0ZPKisXuHDGkVG9uxgw
+	 rhld6qQ8CH9u1AhBO1/O8hJHdoAoLSPjeOSPICZvGOvW0O8PCZwxlRQkLDfiqUd8aa
+	 e5xzKMMHiZD1Lifq1p0c8gtMjsABcFEX30fF621tHj0JTnSkaAEEDCRqS2miqzkPIC
+	 km0kSpFEAjzN8AfkP9EFcS3s/3Fx2hObupvHFTRxzbJEtvYu6NUY7Foz0h9OGTwdjt
+	 NK9eN8izUs1RQ==
 From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Thu, 12 Nov 2026 18:31:07 +0200
-Subject: [PATCH 2/9] x86/mm: don't set kernel_set_to_readonly when write
- protecting fails
+Date: Thu, 12 Nov 2026 18:31:08 +0200
+Subject: [PATCH 3/9] x86/mm/pat: don't populate page tables in
+ set_memory_{en,de}crypted()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-fixes-x86-v1-2-791adb8d6670@kernel.org>
+Message-Id: <20261112-fixes-x86-v1-3-791adb8d6670@kernel.org>
 References: <20261112-fixes-x86-v1-0-791adb8d6670@kernel.org>
 In-Reply-To: <20261112-fixes-x86-v1-0-791adb8d6670@kernel.org>
 To: Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>, 
@@ -67,71 +67,39 @@ Cc: Mike Rapoport <rppt@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
  Tom Lendacky <thomas.lendacky@amd.com>, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16.1-dev
 
-mark_rodata_ro() ignores the result of write protecting the kernel text
-and rodata. It can fail when CPA cannot allocate a page table to split a
-large page, and then a part of the text and rodata stays writable.
+__set_memory_enc_pgtable() sets cpa.pgd to init_mm.pgd. With cpa.pgd
+set, CPA populates holes in init_mm instead of failing, and
+__cpa_process_fault() says that only EFI does that.
 
-kernel_set_to_readonly is set anyway, and CPA enforces the static
-protections of rodata from then on. On 64-bit the next call,
-set_memory_nx() for the data, may find the writable rodata and warn
-about a conflict with the static protections, which does not say what
-actually went wrong.
+So when an address in the range is not mapped, the request does not
+fail. populate_pgd() maps the physical memory at cpa.pfn there, with
+_KERNPG_TABLE and the encryption bits: present, writable and executable.
 
-Report the failure and set kernel_set_to_readonly only when write
-protecting succeeds.
+A caller that passes an unmapped address is buggy, but it must not get a
+new mapping of some random physical memory.
 
+Drop the assignment. The request then walks init_mm as usual: a hole in
+the direct map is skipped and any other unmapped address fails with
+-EFAULT, as for the other set_memory APIs.
+
+Fixes: 77bd2342d430 ("x86/mm: Add support for changing the memory encryption attribute")
 Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 ---
- arch/x86/mm/init_32.c | 8 ++++++--
- arch/x86/mm/init_64.c | 8 ++++++--
- 2 files changed, 12 insertions(+), 4 deletions(-)
+ arch/x86/mm/pat/set_memory.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/arch/x86/mm/init_32.c b/arch/x86/mm/init_32.c
-index 0908c44d51e6f..8323c1f599f25 100644
---- a/arch/x86/mm/init_32.c
-+++ b/arch/x86/mm/init_32.c
-@@ -741,12 +741,16 @@ void mark_rodata_ro(void)
- {
- 	unsigned long start = PFN_ALIGN(_text);
- 	unsigned long size = (unsigned long)__end_rodata - start;
-+	int err;
+diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+index fb2413cb8d314..aa7052d247e60 100644
+--- a/arch/x86/mm/pat/set_memory.c
++++ b/arch/x86/mm/pat/set_memory.c
+@@ -2457,7 +2457,6 @@ static int __set_memory_enc_pgtable(unsigned long addr, int numpages, bool enc)
+ 	cpa.numpages = numpages;
+ 	cpa.mask_set = enc ? pgprot_encrypted(empty) : pgprot_decrypted(empty);
+ 	cpa.mask_clr = enc ? pgprot_decrypted(empty) : pgprot_encrypted(empty);
+-	cpa.pgd = init_mm.pgd;
  
--	set_pages_ro(virt_to_page(start), size >> PAGE_SHIFT);
-+	err = set_pages_ro(virt_to_page(start), size >> PAGE_SHIFT);
- 	pr_info("Write protecting kernel text and read-only data: %luk\n",
- 		size >> 10);
-+	if (err)
-+		pr_err("Failed to write protect kernel text and read-only data: %d\n",
-+		       err);
- 
--	kernel_set_to_readonly = 1;
-+	kernel_set_to_readonly = !err;
- 
- #ifdef CONFIG_CPA_DEBUG
- 	pr_info("Testing CPA: Reverting %lx-%lx\n", start, start + size);
-diff --git a/arch/x86/mm/init_64.c b/arch/x86/mm/init_64.c
-index 8b6d86fb5a42e..a68998f359bf3 100644
---- a/arch/x86/mm/init_64.c
-+++ b/arch/x86/mm/init_64.c
-@@ -1365,12 +1365,16 @@ void mark_rodata_ro(void)
- 	unsigned long text_end = PFN_ALIGN(_etext);
- 	unsigned long rodata_end = PFN_ALIGN(__end_rodata);
- 	unsigned long all_end;
-+	int err;
- 
- 	printk(KERN_INFO "Write protecting the kernel read-only data: %luk\n",
- 	       (end - start) >> 10);
--	set_memory_ro(start, (end - start) >> PAGE_SHIFT);
-+	err = set_memory_ro(start, (end - start) >> PAGE_SHIFT);
-+	if (err)
-+		pr_err("Failed to write protect the kernel read-only data: %d\n",
-+		       err);
- 
--	kernel_set_to_readonly = 1;
-+	kernel_set_to_readonly = !err;
- 
- 	/*
- 	 * The rodata/data/bss/brk section (but not the kernel text!)
+ 	/* Must avoid aliasing mappings in the highmem code */
+ 	kmap_flush_unused();
 
 -- 
 2.53.0
