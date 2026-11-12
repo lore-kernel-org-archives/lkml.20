@@ -1,55 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492216;
-	b=5pXhyXVMq9LCFfnXvyjUaTkDWlQX99piIEvLnDVrVIFHxwoIV8tVM3NqVRWNaWPDHlEK
-	 b/9W4XcS4oCdvA1kZWWAFWVrlECZN1iWVh+g65K5ha8hguG6l/5pQLd369bWwQ3t8k6zW
-	 0HXCod2f5yYULbLjvwiOFOiPzEdwtojve7hw4gvgYU5OU1HwEQCzyFy3duziFafyOoD3f
-	 SwKiLppykVOmMNdsz6eGarBsB17jQIcohU/o2utKdv9g/5jHMiASErzq447Bmr3igF5kl
-	 yK2y5T5ji8vr4xc9StQ2+ymxqH5XjyuP7qNvUXueeg9rCdv+8+zmypf5MoUaTxSCdWw==
+	t=1794492220;
+	b=Yin8uGlVOikzYIsYrpX1HYfEva1vkLvQa+a64FDGlW2MFV84dos6BhGMhxOppkN9WUhY
+	 xuRFcZF1DEk1jMGHB+RpXau6dPzjZ6P0SS3ErnQj0DBLGu23XyS+/RVmneHyArv3HRJPv
+	 WRgL6F6vLkmuWN57ch/EP80RpG7QNykgLsxs2NQ2PLQvz8KG8T6xhR1xUl2Gv+gFtVCAz
+	 w6Xrzg52oQE7VkVBUnL79/RKHGEC4i8L5jdrZeciBpQQ/O45b/6pHkV0nZx6c4dnqJZAZ
+	 EbuWioEKLetS1SrTlIcF7cx1l/VVr4sES14M15C0xmf2J1OyLfK/L0pMVC6ccXHhbYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492216;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=zmPWh+NYf7w6PPrSZKb5ErSaLMlekSlLFc1zs9w8z0Q=;
-	b=JqpFehiMbb3cWt8kl+UvFj6zE0GTWJM5aQdKoNCcNaQWcViSjQgxCGLU+qkcHQQzjeWU
-	 DIESGc1077yMUksZ86I6rXfHHsGMu2f9E96DVJ+fqQlD6ItHINL34xhs6pW2psSFpbD2h
-	 9txe0sEPj6V0G2cFC25PFj7/E+ZJIYu75B3LUq/cY2/s1AfAqd2y1tsvS5k9im/ic0z+U
-	 8Rq7O9eE2A3PtI9aVqqJmoRcYpoKNc221i8m/UW0wOxRAJ+x6eTuo3q6WMKwydzEjIqYK
-	 13wvVocun9cIVxXmCk9ssIAa2vw4n51cexcCNMqf4aP/8f2rJ/Jn1b+T6/QgUsyLBGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492220;
+	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=d0d6nm0QMna74OqqEofCs8RvWrgIS/w4CLAon4Pe7PU=;
+	b=dg/zV4hrbnL4TSNlsdZvLZttMKaZpgo+WjYJV82/uJ7rxC2jgXjWWwbFDAi6wgz0CJQa
+	 rfIIeFOSmwBmxRetPhSek3cCO6Efti/DJZkfnqebMYd3LD1QFd4nIvZo+I/JOxIQPvLfB
+	 4Kge+VhiN1dFFxM6B9TN+8Efj6ixKKNCxDCxDmGzMj6gbtp9YuFJPR1jLKVZ2iCzZoY/Q
+	 q+k5xo6JC5+uncBygky8QmMnbyNRuCw5D0rU8x6m1FxjE1p5SDnACZBclt8rcO1/tOiQZ
+	 NXssRlEc1k8LyOMLZcjuTKd1E/f7rnFCPOGKhcIYPCKvyVdSYlQ5xQH1Cknd0q6d6bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=orsbQZ0F;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=crapouillou.net;
+	spf=pass smtp.mailfrom=crapouillou.net;
+	arc=none smtp.remote-ip=185.119.170.32
+Received: from aposti.net (aposti.net [185.119.170.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35BA560A261C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:03:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=orsbQZ0F
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D88321F00A05
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:03:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794492215;
-	bh=zmPWh+NYf7w6PPrSZKb5ErSaLMlekSlLFc1zs9w8z0Q=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=orsbQZ0Fs9Yc8FoXyxHjcSt+uJVAY+FT7P5zPQScjNFhGP+bVpgRbU3Y7B2W4r5ip
-	 jYZ9/Q19ow3k5lCv00/d1zZk9ds6paCeSflAFSlCvbbLvyeiiaAW4Rq+kHZBeRW4Pp
-	 bTr+jvfP6jzc6TcM/YurJSBpq5Wtu9sgabNOIxa4E1NqT7TPcCIN34HGb5mzwwhJw+
-	 +BSvzMnr8Ru5liz74l5qe1mFxtxLV9B1KTq2GpRMWsDQ9w4AsJy8W1i3zy9f8H2JQ7
-	 5uRyQi5gB9uowIXCvriwEaOesFmJhMU3QZ0k6xQHTxWXqVhrdlI942Gh4e9e2TUEJf
-	 Eu7mfm85Zywug==
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bccecba199so4223534e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:03:35 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFL0sC2nLfQDwPfPpVrFPFIez545gp19n5NJGUeuf0v14youNqLt3/Q4oCp9UANZz4uEP8J7NhTjwEoMw0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/3BO+I5B1hzzS+06BxVKVhdHLor7jV28I3D+4K3xlSSH8rT7TS
-	99VpDp4rRLP0c3QF3i1YIdiblakaKPHFrs3kaj5gC81xa2MQy73Bp9IgfwD19/fGQX9BQc83pnh
-	PO7PkIde8jA391oNcer5l4zfg5Q4aHXo=
-X-Received: by 2002:a05:6512:1325:b0:5c1:4a5d:6ae1 with SMTP id
- 2adb3069b0e04-5c15d62c5dcmr2107662e87.14.1794492214280; Thu, 12 Nov 2026
- 06:03:34 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F46960A261C;
+	Thu, 12 Nov 2026 14:03:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F46960A261C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+Message-ID: <f91a0c53b35ff28bed26622f46d562b5a6150008.camel@crapouillou.net>
+Subject: Re: [PATCH v2 5/9] MIPS: Ingenic: Update Ingenic XBurst
+ implementation IDs
+From: Paul Cercueil <paul@crapouillou.net>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>, Thomas Bogendoerfer	
+ <tsbogend@alpha.franken.de>, Paul Burton <paulburton@kernel.org>, "Maciej
+ W. Rozycki" <macro@orcam.me.uk>, Pengpeng Hou <pengpeng@iscas.ac.cn>,
+ "Christophe Leroy, David Heidelberg" <david@ixit.cz>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.de>,  Janusz
+ Krzysztofik	 <jmkrzyszt@gmail.com>, Paul Boddie <paul@boddie.org.uk>,
+ Olivier Louvignes	 <olivier@mgcrea.io>
+Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	letux-kernel@openphoenux.org
+Date: Thu, 12 Nov 2026 15:03:34 +0100
+In-Reply-To: <2e21dc4889ec55bf210dfc205bfadb57acb93eda.1794471031.git.hns@goldelico.com>
+References: <cover.1794471031.git.hns@goldelico.com>
+	 <2e21dc4889ec55bf210dfc205bfadb57acb93eda.1794471031.git.hns@goldelico.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,131 +57,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102-b4-pm-sleep-hibernation-fixes-v1-0-51fac96d080d@oss.qualcomm.com>
- <20261102-b4-pm-sleep-hibernation-fixes-v1-2-51fac96d080d@oss.qualcomm.com> <CAPx+jO86pgUXuHMPKAMKN6Tq9unxnpd9kB8eE9byZw_B=0xxyw@mail.gmail.com>
-In-Reply-To: <CAPx+jO86pgUXuHMPKAMKN6Tq9unxnpd9kB8eE9byZw_B=0xxyw@mail.gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 12 Nov 2026 15:03:21 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0gEDWA_zc6KTJqCPNwHt74+pt6WfBC8Ka6XCp8ZSK15HA@mail.gmail.com>
-X-Gm-Features: AclHuK8e-AJ-XjrSAXBkD-hu4PMVxz0LC00YFvk3ACIuaq22lQdmQ2x0hsZZ62o
-Message-ID: <CAJZ5v0gEDWA_zc6KTJqCPNwHt74+pt6WfBC8Ka6XCp8ZSK15HA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] PM: sleep: Do not arm wakeup IRQs for hibernation
- freeze and quiesce
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Johan Hovold <johan@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Ulf Hansson <ulfh@kernel.org>, 
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, linux-pm@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 12, 2026 at 2:46=E2=80=AFPM Ulf Hansson
-<ulf.hansson@oss.qualcomm.com> wrote:
->
-> On Mon, Nov 2, 2026 at 3:47=E2=80=AFPM Abel Vesa <abel.vesa@oss.qualcomm.=
-com> wrote:
-> >
-> > Freezing devices to take a hibernation image and quiescing them before
-> > jumping into one go through the regular noirq suspend path, which arms
-> > the wakeup IRQs of all devices that may wake up the system. A wakeup
-> > IRQ firing then aborts the hibernation or the restore:
-> >
-> >   PM: Triggering wakeup from IRQ 180
-> >   Wakeup pending. Abort CPU freeze
-> >   PM: hibernation: Failed to load image, recovering.
-> >
-> > On a Qualcomm Glymur CRD this happens on every hibernation and every
-> > restore. The WWAN modem keeps asserting WAKE# once its root port goes
-> > down, after its driver has shut it down for the freeze, and the WAKE#
-> > GPIO of a PCIe port is a dedicated wakeup IRQ with wakeup enabled by
-> > default.
-> >
-> > Neither transition is one the system can be woken up from, as nothing
-> > goes to sleep, and Documentation/driver-api/pm/devices.rst already says
-> > that in the freeze_late and freeze_noirq phases a device "should not be
-> > allowed to generate wakeup events". Do not arm the wakeup IRQs for
-> > them, and only disarm them in the noirq resume path if they have been
-> > armed. Wakeup IRQs are still armed for the final transition to sleep,
-> > PM_EVENT_HIBERNATE, and for suspend.
-> >
-> > Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
->
-> This seems reasonable to me, but I can't judge from a reasonably brief
-> review if this is the proper place to fix this. Rafael, what do you
-> think?
+Hi Nikolaus,
 
-I think I'd do it differently, but give me some more time to think it throu=
-gh.
+Le jeudi 12 novembre 2026 =C3=A0 09:10 +0100, H. Nikolaus Schaller a =C3=A9=
+crit=C2=A0:
+> Add PRID implementation constants for Ingenic XBurst and XBurst II
+> processors and handle the corresponding implementation IDs in
+> cpu_probe_ingenic().
+>=20
+> The PRID table is updated based on Programming Manuals and hardware tests=
+:
+> - jz4780: 0x3ee1024f (confirmed on CI20 board)
+> - x1000:=C2=A0 0x2ed1024f (unconfirmed)
+> - x1600:=C2=A0 0x00d00000 (confirmed on LX16 board)
+> - X1830:=C2=A0 0x00d00100 (unconfirmed)
+> - X2000:=C2=A0 0x00132000 (read out from LX20 board)
+> - X2600:=C2=A0 0x001320xx (confirmed 0x00132000 on LX26 board)
+>=20
+> Additionally, clean up extra spaces in the comments for
+> PRID_IMP_XBURST_REV2 and PRID_IMP_XBURST2.
+>=20
+> Distinguish XBurst1 implementations with different SIMD ISA revisions
+> and identify XBurst II processors using PRID_IMP_XBURST2.
+> The XBurst II classification follows the Ingenic vendor kernel.
+>=20
+> Keep the existing writecombine handling unchanged, since no
+> independent evidence justifies changing the cache attribute for
+> XBurst II.
+>=20
+> Public references:
+> - Ingenic Community, public SoC datasheets and programming manuals:
+> =C2=A0 https://github.com/Ingenic-community/datasheets/tree/main/X
+> =C2=A0 Includes the X1600 programming manual (X1600_PM_20220117.pdf)
+> =C2=A0 and documentation for other X-series SoCs, including X1000,
+> =C2=A0 X1830 and X2000.
+> - Ingenic, XBurst1 CPU Core Programming Manual:
+> =C2=A0 https://cdn.hackaday.io/files/1855627939084608/XBurst1_Core_PM.pdf
+> =C2=A0 Documents the XBurst1 core architecture and CP0 configuration.
+> - Ingenic, XBurst Instruction Set Architecture Programming Manual:
+> =C2=A0 https://www.setphaserstostun.org/ci20/X1000_M200_XBurst_ISA_MXU_PM=
+.pdf
+> =C2=A0 Documents the original XBurst SIMD instruction set.
+> - Ingenic, XBurst2 CPU Core Programming Manual:
+> =C2=A0 https://www.manualslib.com/manual/2646351/Ingenic-Xburst-2-Cpu-Cor=
+e.html
+> =C2=A0 Documents the XBurst2 core architecture.
+> - Ingenic, MIPS-LINUX toolchain R6.0.0 release notes:
+> =C2=A0 https://www.ingenic.com.cn/news-detail/nid-343.html
+> =C2=A0 Distinguishes MSA, MXA and MXU/MXU2 support in the toolchain.
+> - Ingenic, MIPS-LINUX toolchain R6.2.1 release notes:
+> =C2=A0 https://www.ingenic.com.cn/news-detail/nid-348.html
+> =C2=A0 Documents MXU3 support and identifies X2000 as an MSA target.
+>=20
+> The public references document the available CPU, SoC and ISA
+> information. The PRID implementation handling follows the Ingenic
+> vendor kernel.
+>=20
+> AI assistance: ChatGPT was used to help review the PRID definitions,
+> compare the Ingenic vendor implementation with the upstream code,
+> and draft the commit message with public references. The code changes,
+> hardware observations, and final patch were reviewed by the authors.
+>=20
+> Co-developed-by: Paul Boddie <paul@boddie.org.uk>
+> Signed-off-by: Paul Boddie <paul@boddie.org.uk>
+> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+> ---
+>=20
+> Notes:
+> =C2=A0=C2=A0=C2=A0 Changes in V2:
+> =C2=A0=C2=A0=C2=A0 - removed the PRID_IMP_XBURST2_R2 definition and hints=
+ for an x2100 as
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 there is no public reference
+> =C2=A0=C2=A0=C2=A0 - merged into single commit changing the PRID definiti=
+ons and code
+> =C2=A0=C2=A0=C2=A0 - reviewed details and rewrote commit message
+> =C2=A0=C2=A0=C2=A0=20
+> =C2=A0=C2=A0=C2=A0 Open Issue:
+> =C2=A0=C2=A0=C2=A0 Olivier Louvignes <olivier@mgcrea.io> pointed out that=
+ he has
+> =C2=A0=C2=A0=C2=A0 simply reused the definition of the X1830 for the X160=
+0. This
+> =C2=A0=C2=A0=C2=A0 sets c->writecombine differently (_CACHE_CACHABLE_WA) =
+from
+> =C2=A0=C2=A0=C2=A0 _CACHE_UNCACHED_ACCELERATED as we do here.
+> =C2=A0=C2=A0=C2=A0 Both settings appear to work but it needs expert comme=
+nt which
+> =C2=A0=C2=A0=C2=A0 is the right/better one.
+>=20
+> =C2=A0arch/mips/include/asm/cpu.h=C2=A0 | 9 +++++----
+> =C2=A0arch/mips/kernel/cpu-probe.c | 7 +++++++
+> =C2=A02 files changed, 12 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/arch/mips/include/asm/cpu.h b/arch/mips/include/asm/cpu.h
+> index add26f08e8029..79fd9a0747cf2 100644
+> --- a/arch/mips/include/asm/cpu.h
+> +++ b/arch/mips/include/asm/cpu.h
+> @@ -47,7 +47,7 @@
+> =C2=A0#define PRID_COMP_CAVIUM	0x0d0000
+> =C2=A0#define PRID_COMP_LOONGSON	0x140000
+> =C2=A0#define PRID_COMP_INGENIC_13	0x130000	/* X2000, X2100 */
+> -#define PRID_COMP_INGENIC_D0	0xd00000	/* JZ4730, JZ4740, JZ4750,
+> JZ4755, JZ4760, X1830 */
+> +#define PRID_COMP_INGENIC_D0	0xd00000	/* JZ4730, JZ4740, JZ4750,
+> JZ4755, JZ4760, X1830, X1600 */
+> =C2=A0#define PRID_COMP_INGENIC_D1	0xd10000	/* JZ4770, JZ4775, X1000 */
+> =C2=A0#define PRID_COMP_INGENIC_E1	0xe10000	/* JZ4780 */
+> =C2=A0
+> @@ -186,9 +186,10 @@
+> =C2=A0 * These are the PRID's for when 23:16 =3D=3D PRID_COMP_INGENIC_*
+> =C2=A0 */
+> =C2=A0
+> -#define PRID_IMP_XBURST_REV1	0x0200	/* XBurst=C2=AE1 with MXU1.0/MXU1.1 =
+SIMD
+> ISA	*/
+> -#define PRID_IMP_XBURST_REV2	0x0100	/* XBurst=C2=AE1 with MXU2.0 SIMD
+> ISA		*/
+> -#define PRID_IMP_XBURST2		0x2000	/* XBurst=C2=AE2 with MXU2.1 SIMD
+> ISA		*/
+> +#define PRID_IMP_XBURST		0x0000	/* XBurst1 */
+> +#define PRID_IMP_XBURST_REV1	0x0200	/* XBurst1 with MXU1.0/MXU1.1 SIMD
+> ISA */
+> +#define PRID_IMP_XBURST_REV2	0x0100	/* XBurst1 with MXU2.0 SIMD ISA */
+> +#define PRID_IMP_XBURST2	0x2000	/* XBurst2 with MXU2.1 SIMD ISA */
+> =C2=A0
+> =C2=A0/*
+> =C2=A0 * These are the PRID's for when 23:16 =3D=3D PRID_COMP_NETLOGIC
+> diff --git a/arch/mips/kernel/cpu-probe.c b/arch/mips/kernel/cpu-probe.c
+> index 489612ed9d498..69b68d00b66f7 100644
+> --- a/arch/mips/kernel/cpu-probe.c
+> +++ b/arch/mips/kernel/cpu-probe.c
+> @@ -1768,6 +1768,13 @@ static inline void cpu_probe_ingenic(struct
+> cpuinfo_mips *c, unsigned int cpu)
+> =C2=A0
+> =C2=A0	switch (c->processor_id & PRID_IMP_MASK) {
+> =C2=A0
+> +	/* XBurst=C2=AE1 with ISA */
+> +	case PRID_IMP_XBURST:
+> +		c->cputype =3D CPU_XBURST;
+> +		c->writecombine =3D _CACHE_UNCACHED_ACCELERATED;
+> +		__cpu_name[cpu] =3D "Ingenic XBurst";
+> +		break;
 
-> Nevertheless, please add:
->
-> Reviewed-by: Ulf Hansson <ulfh@kernel.org>
->
-> Kind regards
-> Uffe
->
-> > ---
-> >  drivers/base/power/main.c | 21 +++++++++++++++++++--
-> >  1 file changed, 19 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
-> > index 16a1f017051e..34ba0e5941a3 100644
-> > --- a/drivers/base/power/main.c
-> > +++ b/drivers/base/power/main.c
-> > @@ -949,6 +949,9 @@ static void dpm_noirq_resume_devices(pm_message_t s=
-tate)
-> >         trace_suspend_resume(TPS("dpm_resume_noirq"), state.event, fals=
-e);
-> >  }
-> >
-> > +/* Whether dpm_suspend_noirq() has armed the wakeup IRQs of devices */
-> > +static bool dpm_wake_irqs_armed;
-> > +
-> >  /**
-> >   * dpm_resume_noirq - Execute "noirq resume" callbacks for all devices=
-.
-> >   * @state: PM transition of the system being carried out.
-> > @@ -961,7 +964,11 @@ void dpm_resume_noirq(pm_message_t state)
-> >         dpm_noirq_resume_devices(state);
-> >
-> >         resume_device_irqs();
-> > -       device_wakeup_disarm_wake_irqs();
-> > +
-> > +       if (dpm_wake_irqs_armed) {
-> > +               device_wakeup_disarm_wake_irqs();
-> > +               dpm_wake_irqs_armed =3D false;
-> > +       }
-> >  }
-> >
-> >  static void async_resume_early(void *data, async_cookie_t cookie);
-> > @@ -1685,7 +1692,17 @@ int dpm_suspend_noirq(pm_message_t state)
-> >  {
-> >         int ret;
-> >
-> > -       device_wakeup_arm_wake_irqs();
-> > +       /*
-> > +        * Freezing devices to take a hibernation image, and quiescing =
-them
-> > +        * before jumping into one, are not transitions the system can =
-be woken
-> > +        * up from, as nothing goes to sleep. A wakeup IRQ of a device =
-that
-> > +        * signals for attention once its link goes down, like a PCIe e=
-ndpoint
-> > +        * asserting WAKE#, would only abort the hibernation or the res=
-tore.
-> > +        */
-> > +       if (state.event !=3D PM_EVENT_FREEZE && state.event !=3D PM_EVE=
-NT_QUIESCE) {
-> > +               device_wakeup_arm_wake_irqs();
-> > +               dpm_wake_irqs_armed =3D true;
-> > +       }
-> >         suspend_device_irqs();
-> >
-> >         ret =3D dpm_noirq_suspend_devices(state);
-> >
-> > --
-> > 2.54.0
-> >
+What SoCs actually use PRID_IMP_XBURST? The JZ4730?
+
+If it's really used somewhere, you'll also need to add a compatible string =
+for
+it in Documentation/devicetree/bindings/mips/cpus.yaml. I guess just
+"ingenic,xburst".
+
+Cheers,
+-Paul
