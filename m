@@ -1,102 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794503543;
-	b=rR5YMzjkCxhZ0K0F39So/R3+cz6oBZ6Ywzf2O5D1Wd3Z+m2tJpZjXHVqWmDNDcwfYuw2
-	 kW/4bvR+hEOsrhnyUWmh6saytiSVLldvrXWXU+AZeB7NiGjlAQqUPwC387K2mC08wqJbP
-	 ZZzwNPSiPqwXqGH0zxzqNeMpsvxTqQwxyIMaDcIa8xUfZ8kL94afqXHTtJf4+Mo+W813A
-	 z+sLFP27g/hx7S8tMa0+Sc1CrInU69uFYB3Ek6CZom6oX+3iTSl62NCNnhLwq+mzedJmm
-	 tJl7W+VcSHXEzhkR0tYYmnb+Acb3/9FEq1EbB63vj00ua3hVxMYOYhaF10KyC1aWOmQ==
+	t=1794503554;
+	b=u5568yW7d5/sqpkoUYA0UCu61Q+OhOILgMzuHZv5sZD835vD+O70PuAokRmCJfqvidDJ
+	 IKXSIJ2wDmBzkiAyJiSuw1viDNw5gDFeSFu7KbCQf7/Ye6IeQBdyy9rM0PqZbh/VQ6wJO
+	 LX9o8tPU3Sp2k4sxOPpjS+GZaYwigBlMtNCFVf6IZdxzD8zz2cMoJyP6wnk2LtkAa0bxR
+	 qxBOM2OAfnpwhUu4DHhwAPBmng/gUHQW+b1JekxwCLq+S/e02BnuiNAsB7fQM0AAX8KUE
+	 lQsjGiYfkfR9kpxUt46HuaHxjaFedLGFCgz/r3jXSnWgtFKZVd7mtJAipn6LcGQj3/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794503543;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794503554;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=khMH15UrWwDPVaDjMg8F/SoPd4LjFp0hVV0BhxLmj3M=;
-	b=z++awUBa+uQLZIEme5jge2x5HidliQD4Z97f8b1OFSsXo0rxeJzZhU4Bin9iODFJmhzp
-	 xDfyqX/CmYItGhH/Py+qK2PQxHg+/RtLbV8T5v6N+YxBx2b0fCY8+2c1tXeR8DmC9jXoz
-	 lzgq7s/sUltWTNRFrjRJqtYN/8I6uAFF+jhRFqdSBwjaBG1slY29v7VOxUUAxqCIwyzsw
-	 bCZl4hboEV3yWJ8GUAQpyNUhq9jHR0B/NCKW420azvFWuzvaxTIowYKjd+DwQswSvczwg
-	 mbyG3k702WTefj1XxGrGrsZO+1Tqgy7zIPIg6zxzmtSWD+bWBscgeQCkEKevtPP03LA==
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=F6YTYLTty4ZhMoj9B/ri1dVEfYoUCO5Spihz/O49FOQ=;
+	b=0gIsjzFWnarrbG6aJ2w0QDoCwr+EPCFjO5NtDl2b0I3NrZc0lfvvZ15AoQWKeUYoy53X
+	 rdgIkD5wq/OEjoVOb6Jchm90UE/kOm1nmFB+BdkIg3fWx3+aOpkOPG7C4voqSZsYD5SgH
+	 v339T9cCaoCWqqZNmJsuHuhok++4dsTEWlGILwrTh0WyxUS4X7tt3Qk9KprryOZd3RI4/
+	 ijMDT07hdMA2Tmf0PlaG7Rp0ndex6VpzLEkgvhHxO6ATDwzuRon5aTGBqnhG+FHI1/edj
+	 00Dp7QYxi4WYxnyAjRZFOc74WVsbmI4c98g4LxsWKE/K+MsZM2EvoFNM/sRGgz3EpTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=furiosa.ai;
-	spf=none smtp.mailfrom=furiosa.ai;
-	dkim=pass header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=gnV7VT+V;
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=Io0dBwXH;
+	arc=none smtp.remote-ip=209.85.208.49
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF57F606A89A
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:12:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF57F606A89A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=furiosa.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46176606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:12:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46176606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=gnV7VT+V
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b17cf2fa0aso2145207a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:12:22 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=Io0dBwXH
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso90343a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:12:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=furiosa.ai; s=google; t=1794503542; x=1795108342; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=khMH15UrWwDPVaDjMg8F/SoPd4LjFp0hVV0BhxLmj3M=;
-        b=gnV7VT+VVXt6AJyodyjy+I8CYfyUgmlvE4YxFvtWM3hSwXpwO/Bcg6yACfOT41bLsD
-         pxDhRY+vh246IaV3eRfnA/VxL+/xDX3bOkwYQXdTOYWIB7T36NKup0Hf6TrVwrmaMCP6
-         uR/7OpzA2w+I9UT2VxqMGODWVCTGyLFnNmTK4=
+        d=linux-foundation.org; s=google; t=1794503553; x=1795108353; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=F6YTYLTty4ZhMoj9B/ri1dVEfYoUCO5Spihz/O49FOQ=;
+        b=Io0dBwXHEqxfSfx9fW0p6XQzryDyTPTT7SnUUjOkbk9DNZ6N3mKOvrHXwsBLH0SndL
+         8zgLxzCDhnjutEBMQ+Ml2bkh5jCC+MBXtleRYX3PiRqFP3snoolVx0YYZSAj7k1GYHE6
+         dt7dQZAlwPDocQuM5gzXHftt1Pwt6kHu/s2fo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794503542; x=1795108342;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=khMH15UrWwDPVaDjMg8F/SoPd4LjFp0hVV0BhxLmj3M=;
-        b=OF8/5f7q8Na4srOw4DHswg9Q5NpySxlP9i9TKz0XFSQFa8DIzEEZLzSi1dmzVwLG/P
-         5LzOkR4tBVgfAgQv4wmf7SAwj+jQKf3mxIxlnPtflyUAImRnj/l8r3iM3p5zlgJUnplY
-         uhcfeMCdoKJgCo7EZEd6eKSTFR+zAB94/3HnJybn/31TVfUBGdRYddb6Ru9gXg/3racM
-         QWNVk4yozndcLkvi9DFoghiT8C9Ggw6O4j9uhy2l3XU4Y+yslsT5Sb+clv4tBURUzGEv
-         Bh0+eStZTkFPk/Im5GBBzncitNwQau0L1kAn8TNGuvelF49LSlG4+raKekGeA61bpxRE
-         G4Bw==
-X-Forwarded-Encrypted: i=1; AL+hErFmsZP142z5StroodCAA/Kb0t3awSRUHCHKNBImcPTAqm6vNhjJ544IIZIvL++XAr9t1Ucir/lW37+LnLI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9NNGR7Gt9i+oDd0tDRK7Ye3PZ3MJvw1pzi55uFmvusdTg4oqzs
-	x9QPVyvEJn8yvhVGA9SbsLsdEn7UZd0x+Qqg5p/XtrFcytTfrIiUuQh/97xF21ouZC8=
-X-Gm-Gg: AYBFou3Wi2XEuGb/YKz/piYTjU6HuipSs6F5sD77eqqF68+7btE0xKUP9Zzx2B2UMMs
-	patuiFrJm3CCrtCzDsoByK7sKVYplQJOvexZWbkbfGNOPr+2ud3Eja8zuHL2mRusa3Xnqw/pQyY
-	9bKKklVGguIKbcCLulA5I8pdilYLLCxeZDtjLDqshCXqrQpmHQtb6fYyWMFt89N1Od5noScekSP
-	tColiHzJHJtpuL2WSA4mswRnmZyYjtdFFSNuZUid54hvEqyhQNVAXSTmTKiHnXmTxWnuq7CtyG0
-	/nTC9RSj/sjcs30yG6aj2FAEn+rcX/N7R5/2gWStVlyltltCykdEg7JKsNqCo4sIDGyBtJhJWsT
-	qVgMVKjdotODEFqhxzkaePdJvN0KVTTRQOxNfC/KdULTup2tYdBZi1NbL3pQobOzCEH5OQNnONR
-	YMlqp+9+NiSLjgwjvgD/IFhQHjrHw2i01btO//IBVvjzPsWjZXKLRNDNdl10GKc0SzSCZhy8VmO
-	fJy80nmeEoa7XpVp7wMFJy/YdAUAScmtrS/DpCSrJzMybRGKUW7E7zZ+mN9x2iwnb+OGtmdvM2+
-	fGBTgFGjLZTOHtD3BJU/kqtucH1EuyOsWDj2TvH2tI7Mftk+W8hjmLCJzOvI9sywk6k6IqigXZS
-	KCfRJhkRcfXvX
-X-Received: by 2002:a17:90b:3e8e:b0:3ac:9d83:885e with SMTP id 98e67ed59e1d1-3b182f3e594mr7100466a91.52.1794503541921;
-        Thu, 12 Nov 2026 09:12:21 -0800 (PST)
-Received: from rock-5b-plus ([61.83.209.48])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1ae981c55sm263682a91.1.2026.11.12.09.12.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 09:12:21 -0800 (PST)
-From: Sidong Yang <sidong.yang@furiosa.ai>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	Oded Gabbay <ogabbay@kernel.org>,
-	Philipp Stanner <phasta@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Matthew Brost <matthew.brost@intel.com>,
-	ckoenig.leichtzumerken@gmail.com
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>,
-	mcanal@igalia.com,
-	Heiko Stuebner <heiko@sntech.de>,
-	Gyeyoung Baek <gye976@gmail.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sidong Yang <sidong.yang@furiosa.ai>
-Subject: [PATCH v5 2/2] accel/rocket: Report NPU usage through fdinfo
-Date: Fri, 13 Nov 2026 02:11:44 +0900
-Message-ID: <20261112171144.3151554-3-sidong.yang@furiosa.ai>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112171144.3151554-1-sidong.yang@furiosa.ai>
-References: <20261112171144.3151554-1-sidong.yang@furiosa.ai>
+        d=1e100.net; s=20260707; t=1794503553; x=1795108353;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=F6YTYLTty4ZhMoj9B/ri1dVEfYoUCO5Spihz/O49FOQ=;
+        b=dYkfthDWT1zEd6e1bQSjiszWdhVLAcjhvSnrZKM4nvnYNYCz8Z2j9GyFckNa4iYS2B
+         +uRyScMlxkUnLfOrb+UlYDvAHR9qQEn+jzJeuxrtjuIV+bzZihoqBih4n3c54BsrUGVO
+         tE74AWElVYVOzLffEA85thPxAGYCj6ylZ+x8UcdN2g1bkgu+aGwRPSkUP6FFBVOMidvO
+         LkKS22Qhj/55tREQt2kcPSESy4tD9nski7xfWaysYKm7fQ8BfWqJZ4beiagjX9sRhY5B
+         fSE3IgWmkn7VKGa5f9jkdwz+jBDa3rtvA7Jxm2iVW7gEIEtMFPOgGwTkM93PvtiZ4FXq
+         sMgg==
+X-Forwarded-Encrypted: i=1; AL+hErEr3NmvbEzZBc0Kf1rabkKfGle/aVAfj7qLw1Uxx3YDHGrfAyCXrn/zlPD4+yaUfF6g0PG2QZP8YV6CIuY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/0lg+u56FT+VtKHEcb4B5GU1GZA2W7sxOMVglLGXI476gE1uth
+	zzYDiM5N06gk+qliVBUH2cc6O9Tihq12Y0b1Jz9E90No/0aNBR/C8LYBqeIV2xo+xk3cxTCboUz
+	UPHK/wDzrgQ==
+X-Gm-Gg: AYBFou1T6KvRKzbEPxg/AAatc1BoaJ90XTQJaCHsMaNg6XIRrO/lorEj7VjWrh22COr
+	JRhlULEk+a60ku2k4dA+gQW0qRkwNvHXWVOKDmMsVv0NGgwvo/K5esnn2bi/j688a+lFopQ1/ru
+	XVpOyEyV64vkv9qK0f1HxPZCCbKpGBcTZU1KysPwF9uxah638IKyxDjDh5GNYtmtBq3Z0tIm+w5
+	KZ1SKNRBeVtDRSx+k5fTX72PHMhfxJCC1GBT7Fy/kfi/meGR6f8Q2x88+0mb1O+E9T/eQa7t62U
+	yWVo8dUf67q7OIgU9zaiZ+fDU6X18bYQ9ru0ErV0bEKLKvRGkCWDW5mGYrFYnZS8CpuVSJZnkX7
+	1ztdDSklrEsjffP4wNJxEe7jSsUGSCvTE0kPYiuty5pTeYIRzIAUAkUjQ7TYGxB6Vucpg7NI5e0
+	FC5jx+RNjPZe7B+ijyhkiAeZopFEm672kAzmIOk9DZBI+m8/j6t+3D4dgsXWU/At1eopo7rrVrA
+	aiJsdpmaxh62sMRM57JDdypeorlUABkrIHEfRMFAiheaaHreQteQskR0HTld7VoSNJgDgOt6LX1
+	IL7C27hwRnJJDi0MKP/Q7PykTspriBm1yNsMCtKkqevjqdDWtTYUYyx++zUS8xXguNiBYmiaC1w
+	BgFY=
+X-Received: by 2002:a05:6402:750:b0:6b6:edfb:5885 with SMTP id 4fb4d7f45d1cf-6b7c089100cmr193740a12.1.1794503552541;
+        Thu, 12 Nov 2026 09:12:32 -0800 (PST)
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com. [209.85.218.47])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b757823743sm3870788a12.5.2026.11.12.09.12.30
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 09:12:31 -0800 (PST)
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c4395d31228so622397766b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:12:30 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFonUnNJG9sojPnXjdemwbtACP28JFgmABHkrnEF39yjTFuk4LjsrRdyjGLSZ1cKtHcclKmJ+ToO9jhRO0=@vger.kernel.org
+X-Received: by 2002:a17:907:dab:b0:c35:babe:ab44 with SMTP id
+ a640c23a62f3a-c50665538e0mr626078766b.0.1794503550222; Thu, 12 Nov 2026
+ 09:12:30 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,118 +94,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261110145241.536019-1-kas@kernel.org> <20261110145241.536019-2-kas@kernel.org>
+ <avNuQqLf9CG9dSsE@casper.infradead.org> <20261111-heimreisen-ungeziefer-empfunden-a892571f2c07@brauner>
+ <20261111-thunfisch-wirbt-waldrand-822275b2d3b1@brauner> <CAHk-=wjPY=kfgnmtx4COEQjD5UzKx9m2-=KLGAZP4d=RKEH+pg@mail.gmail.com>
+ <20261111-stumpf-montag-miterleben-c4e2feac8090@brauner> <CAHk-=wjGXBnme-N+HvbzHH40ftb7Suc=kZVT5cuintQWyMHJ7Q@mail.gmail.com>
+ <e94bdf7c-eae6-4f64-bf93-0aeedca1a22e@app.fastmail.com> <32ad880e-5946-4703-9c6f-43ff59da39af@kernel.org>
+ <3eb60948-8fc9-4682-87c2-c113e54e7d4e@app.fastmail.com> <4d6a3d68-3fc7-446e-9f59-f61d7475e22e@kernel.org>
+ <bf186643-780c-40e0-bde6-f2af90404a18@app.fastmail.com> <b90d4bcb-b865-4a41-8496-78d751c03dfb@app.fastmail.com>
+In-Reply-To: <b90d4bcb-b865-4a41-8496-78d751c03dfb@app.fastmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Thu, 12 Nov 2026 09:12:13 -0800
+X-Gmail-Original-Message-ID: <CAHk-=whTG_hWYC=a2+uu_+SeN4E1ra0n=ytGqyk83Yr7tDuEJA@mail.gmail.com>
+X-Gm-Features: AclHuK8_5teM8idFuSWqym8O4N3OQPYF_Y6jfMJ_yh9uCx25qjwD1XBnjE0OwRA
+Message-ID: <CAHk-=whTG_hWYC=a2+uu_+SeN4E1ra0n=ytGqyk83Yr7tDuEJA@mail.gmail.com>
+Subject: Re: [PATCH 1/4] virtio_console: copy pipe buffers in splice_write()
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: "David Hildenbrand (Red Hat)" <david@kernel.org>, Christian Brauner <brauner@kernel.org>, 
+	Matthew Wilcox <willy@infradead.org>, "Kirill A. Shutemov" <kas@kernel.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Miklos Szeredi <miklos@szeredi.hu>, Amit Shah <amit@kernel.org>, 
+	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Bernd Schubert <bschubert@ddn.com>, 
+	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev, 
+	virtualization@lists.linux.dev, Netdev <netdev@vger.kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	Malin Jonsson <malin.jonsson@est.tech>, Richard Weinberger <richard@nod.at>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Nishanth Menon <nm@ti.com>, Frank Li <frank.li@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
 
-There is no way to tell how much of the NPU a client uses. Implement the
-DRM usage stats: report the runtime of the client's scheduler entity as
-drm-engine-npu, along with drm_show_memory_stats() for the BOs.
+On Thu, 12 Nov 2026 at 03:35, Arnd Bergmann <arnd@arndb.de> wrote:
+>
+> Posted with a somewhat shorter Cc list at
+> https://lore.kernel.org/linux-arm-kernel/20261112112528.1116405-1-arnd@kernel.org/T/#t
 
-The cores are identical, so they are reported as a single engine with
-drm-engine-capacity-npu set to rdev->max_cores, the number of core
-slots.
+Lovely.
 
-Document the keys in the rocket driver documentation.
+I'd love to expand on this kind of early removal: anybody want to get
+brownie points by just removing the remaining users of the legacy
+'kmap()' interface entirely?
 
-Signed-off-by: Sidong Yang <sidong.yang@furiosa.ai>
----
- Documentation/accel/rocket/index.rst  | 28 +++++++++++++++++++++++++++
- Documentation/gpu/drm-usage-stats.rst |  1 +
- drivers/accel/rocket/rocket_drv.c     | 21 +++++++++++++++++++-
- 3 files changed, 49 insertions(+), 1 deletion(-)
+I don't think we actually have that many of them. Almost all users
+have already been converted to 'kmap_local_page()' and friends.
 
-diff --git a/Documentation/accel/rocket/index.rst b/Documentation/accel/rocket/index.rst
-index 70f97bccf100..8ae785b65a53 100644
---- a/Documentation/accel/rocket/index.rst
-+++ b/Documentation/accel/rocket/index.rst
-@@ -17,3 +17,31 @@ project.
- Hardware currently supported:
- 
- * RK3588
-+
-+.. _rocket-usage-stats:
-+
-+Rocket DRM client usage stats implementation
-+============================================
-+
-+The accel/rocket driver implements the DRM client usage stats specification as
-+documented in :ref:`drm-client-usage-stats`.
-+
-+The NPU cores are reported as a single engine, npu, with a capacity equal to the
-+number of cores. The time is summed over all cores and is accounted by the DRM
-+GPU scheduler, from when a job is handed to a core until its fence signals.
-+
-+Example of the output showing the implemented key value pairs:
-+
-+::
-+
-+        pos:	0
-+        flags:	02400002
-+        mnt_id:	33
-+        ino:	755
-+        drm-driver:	rocket
-+        drm-client-id:	263
-+        drm-engine-npu:	2384122043 ns
-+        drm-engine-capacity-npu:	3
-+        drm-total-memory:	24216 KiB
-+        drm-shared-memory:	0
-+        drm-active-memory:	3000 KiB
-diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
-index 70b7cfcc194f..288764730d23 100644
---- a/Documentation/gpu/drm-usage-stats.rst
-+++ b/Documentation/gpu/drm-usage-stats.rst
-@@ -218,3 +218,4 @@ Driver specific implementations
- * :ref:`panthor-usage-stats`
- * :ref:`xe-usage-stats`
- * :ref:`amdxdna-usage-stats`
-+* :ref:`rocket-usage-stats`
-diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
-index 5d7805c41dc3..351be60b1228 100644
---- a/drivers/accel/rocket/rocket_drv.c
-+++ b/drivers/accel/rocket/rocket_drv.c
-@@ -3,8 +3,10 @@
- 
- #include <drm/drm_accel.h>
- #include <drm/drm_drv.h>
-+#include <drm/drm_file.h>
- #include <drm/drm_gem.h>
- #include <drm/drm_ioctl.h>
-+#include <drm/drm_print.h>
- #include <drm/rocket_accel.h>
- #include <linux/clk.h>
- #include <linux/err.h>
-@@ -139,7 +141,23 @@ static const struct drm_ioctl_desc rocket_drm_driver_ioctls[] = {
- 	ROCKET_IOCTL(FINI_BO, fini_bo),
- };
- 
--DEFINE_DRM_ACCEL_FOPS(rocket_accel_driver_fops);
-+static void rocket_show_fdinfo(struct drm_printer *p, struct drm_file *file)
-+{
-+	struct rocket_device *rdev = to_rocket_device(file->minor->dev);
-+	struct rocket_file_priv *rocket_priv = file->driver_priv;
-+
-+	drm_printf(p, "drm-engine-npu:\t%llu ns\n",
-+		   drm_sched_entity_get_runtime(&rocket_priv->sched_entity));
-+	drm_printf(p, "drm-engine-capacity-npu:\t%u\n", rdev->max_cores);
-+
-+	drm_show_memory_stats(p, file);
-+}
-+
-+static const struct file_operations rocket_accel_driver_fops = {
-+	.owner = THIS_MODULE,
-+	DRM_ACCEL_FOPS,
-+	.show_fdinfo = drm_show_fdinfo,
-+};
- 
- /*
-  * Rocket driver version:
-@@ -150,6 +168,7 @@ static const struct drm_driver rocket_drm_driver = {
- 	.open			= rocket_open,
- 	.postclose		= rocket_postclose,
- 	.gem_create_object	= rocket_gem_create_object,
-+	.show_fdinfo		= rocket_show_fdinfo,
- 	.ioctls			= rocket_drm_driver_ioctls,
- 	.num_ioctls		= ARRAY_SIZE(rocket_drm_driver_ioctls),
- 	.fops			= &rocket_accel_driver_fops,
--- 
-2.53.0
+If we got rid of the legacy kmap() case, I think that would get rid of
+the whole "pkmap_page_table[]" mess and the PKMAP_BASE / PKMAP_END /
+PKMAP_ADDR games and only use the FIXMAP area.
 
+                   Linus
