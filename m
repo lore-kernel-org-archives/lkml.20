@@ -1,49 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794483593;
-	b=ZJwc9WuaDmCMiQIzJnClzDxRxex6161sbWMq97sCD/9AT3kv0UzB6K1nBImtVZL3vOfO
-	 MenGphYSoAc5xT+vHPMk8FCbAr9cjVQCL5yOk+ZMX7tql9EXRQGqsj2FKXnHi9ksvDDLy
-	 PTaLzkcihoEqaBjzNb+QvFRMZ++/MmzTorScDGCTpnzsi2isfxpFjkLxGL3k4jH6Fhrxm
-	 6tmO+NRvJQryOJPNArF1hP8Xp5EooIqhZuR/y3c9DdvTfnNAdxLvGdfvQ9sIUxozmUrx+
-	 lMnv/p+xdG0Q7ZcedVw9AqqtqWeqdT7P1j9fjPn5a6W5OkWdHV5GaIIXgUWW0VNI0vg==
+	t=1794483601;
+	b=TC6zjvMZ4y+vx4cnqyjkc/hsLWe3oZlLlNyxK4M4h4r2LhvuAUq8XWPg1xIDSSEIis57
+	 QS2bnRvFy04WefNfJrC6uy2nH45fHs4RE8vChXMEDNHSa5pPYDPT/lcc6vACsvjRANRFf
+	 HCQwQDKltkfc4QymDCs9BrD/ZTAsR02mvRCIcD7XbQQfLzy2OAPXK2FXJ4FT/XrkMrnqD
+	 Gj93EMRJmFBGwaspIXlV8baiIf/Nw23pWAgknDzq6Gj3gPlK1QoopBltFhaKydNoAhSQ1
+	 k/7XmxjOo/IvKrGBKy/FOJFZ2/sAIz5U+Y0PEzor6n6qL3/OEHFZ0hNTXhoySU38pXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794483593;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=YL9vPLbC3ZW14DvANU3hpZtkl64GE6Cg8WE0isE/rfA=;
-	b=SYN317OHvQN0Yws6zzma1LDv0j1GaZnpTWgvHE8MCes4aRYlu+W5n5zuCVl5CTUULctZ
-	 2bSvJZNaO5AYAkY5YxTo9nV2fA2XhgKbqmt4OBUY2wlJ7tc4nVcfmwucldcO1ZOBJMAu3
-	 Fr16Twqbk9nwJgQYRk7/ZDNd+e0BxvftBiUKn6mTJKv7C4jAwnl7AfJvNm6LgsDDNEg97
-	 IG+7kvnQvjyqolTEJgcqsRoFWRyxDmD6iGvJjYyvLPXatJ2SZQe6L0KygM/NoFA9rmaa2
-	 O1i+Madh327xQOu9l50xfilSrT07nVlF3WImGzKAtdGcPT8UpVVJQxgcg6EzJXCXBLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794483601;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=uAkMK2tRWJvVq1ApX47OvdLFJWtUKDboSiivt2OouPg=;
+	b=3lnD8Hox8iC18//b5Gm2KZX8bq3ND9V1hObZStm6fnOaoVQ7U7gNlxmTtI2EDx8FD3EU
+	 R8sCqJCroaC0SxPdU1q02r035ZRiD46VH/1HPgVXQoC7595UdwT3LiFDVn/9N6+aatLU5
+	 ijXYhCO/EW0DUJ39jNFUntDP2rh+vAaDPc6OmnAy+X/xvpyZMnMgaw0kLoFWsgMVTK47J
+	 MmHt4WmWOW70MA091bvLEL6nFsww+4PsaLWqIW8RbPgEi3pBX3WnWXwLl223D/JEt6YKq
+	 qVMVvNUEFsIXWTmh6p+8HXDOLiTexBvLJr0VZLRs6FNhO7d+Keqe6e7+b1SO+TafEYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=t64olPTY;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2D0F0606A31C;
-	Thu, 12 Nov 2026 11:39:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D0F0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=U0CQwUHe;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B449D606A889
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:40:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B449D606A889
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=t64olPTY
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 680D81576;
-	Thu, 12 Nov 2026 03:39:49 -0800 (PST)
-Received: from [10.57.59.183] (unknown [10.57.59.183])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3E85A3F632;
-	Thu, 12 Nov 2026 03:39:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794483592; bh=ZqrSL8M+EK26zZlTilw3+OBU1RXFJn7OmIH1wj8UGK8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=t64olPTYqsoQruagzwJOaBesAbiAuLSWj19fX/8b7GkaY+T0lCZpZaJDwCz7A9L7V
-	 +fqxsw7u8kA5Dpjlo5v6OChVIthmr7+a0bvXzVahIPw5GvhtMB39qoCGMRCkXDT77T
-	 iTNyJwWtn5UF4h3ugfYVxBZJaw1lYK9xBCS4ekKo=
-Message-ID: <4fab7e04-c429-4a35-9945-57eea8c97144@arm.com>
-Date: Thu, 12 Nov 2026 12:39:42 +0100
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=U0CQwUHe
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so36323045e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:40:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794483599; x=1795088399; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uAkMK2tRWJvVq1ApX47OvdLFJWtUKDboSiivt2OouPg=;
+        b=U0CQwUHemHFbBxqW9VsnxFohmwNfgKvTSToszBtA+5XssJMQIKbmmXVfmZJGhf467f
+         Lte51ln40ut1omGhjOEC4ISaGpXBpxcz8hyuYC5TdqP77Qtol9sTnUEk9tmNfMasInAX
+         Z1Phyj3c1UoZPv1fVWYNaOwoIddrCmkEFWRz4WlMg2UODFWbM+5PYKJag4qiCeIHCkqt
+         Lrova3BmheH0NJ5b8eiyrYYJn/NnHVnu2WODQoxA3V+UBZXFVRl2R0J6LMx363G3PFFU
+         22agP2Q7L4y4QuDPWTTAyISHf2prGbbBH8MD/uL5v8Ft31DR35onVBJ7vwDaJq8nD3Mm
+         NOJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794483599; x=1795088399;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uAkMK2tRWJvVq1ApX47OvdLFJWtUKDboSiivt2OouPg=;
+        b=XfRzzQ8sOjTWupjkGaffnemQ3nh6tNGBAmwpz3oZUeRsaxhY3S+9dSeGCq6ZjfTXrf
+         3i18d9/YR7jywq6nSf+zFrYWsplIMbDJoXGM9i2ms3WIqJA0/EiGJc7zxjAjThgzQiqh
+         iPoHBfXP16YCpIo0Wo1PxsWGfRtAwzwhv4s4RzOGJC/MuAEkIlCQFONdCa0R9wM3M5JD
+         FBDk6y2ddIpKjAraiwl/jIbiHwlUMMmnSzqeoJEVcI22nQeABeXNVxJC8SKik2LXKK4i
+         ut7DdtMRVblLkAgAMBoQMdzmM7sB+dZJ7rML+S3++FYmIh1xZMoV5BRzWeuZANhx15sY
+         Ag3g==
+X-Forwarded-Encrypted: i=1; AL+hErEt/JHry2RE5Gf1kGYVCQjZ467OetEpH9UbWtd54LoMdMVo4Z0p+jl+T9urE3Exo7FhpJOLrnK7KzYYzy4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9cEcKKRrwkqZaMXs2fdi8xqgPj3Mq8TMp8JUcvbIgsMAj5J0p8
+	4BXKEbmqOhxkkQcg61NRJ/0NrH2bcBFyHC8CvTfRrm7WFNqBDUiFRFiauZD3HYqNzlQ=
+X-Gm-Gg: AYBFou2hx02htXfCAzlERjXkt7Mcmx8QfHyu5o/0BJUU/CNk/d/DTG2FqrQUv5spos6
+	/91WPF7/ibHEQJG82aUBcxNhDk9QwxxchXPurYfTjVpMiON+UDDzTFiVfeO9x7t71AbBQRtuhBY
+	7oEd0nfAMcplVUAXXdkTdDCMVKfCRxxNxTV2h6x8yVw/P7/yp0QQ0n4T2R6c/OHfGk4m0ZMAyMI
+	pr26OaBHZWPFSHXiwlgVlAjc31M+5s/5XS0KaaxCGg8dwMkerwGpGa9HcbU0uIPBX4UGSr8D62K
+	LqHN9+4aU403S07vpzzH8bH+EFKAcSBG5RTBbgspOA9ZfOIHGh2pGRZzvYocdQLwGfHMZ9qLdv4
+	TP0olHp3knKCvm0MH8e5QKgnbfw/lwTI3y1KLal33aVfFOnWpKVn97sYXHvTMMmAnhc5oMIkwpT
+	PwmaplKqCrqHwObDCFdtxCIfHLJWMjc5HLZaglfhXf93yKjBSp4tm9vbQ3xF2J1nqQ5vdwc/Jbd
+	sieHKQuE+VZh4kSVD/AwQHhgoQnKUKFjML1pHeS+zjN5eNq4KRXt8mDsQRucy3AmXrlG5qbP30L
+	oVZCPeAf5jaVqJVxURLJvBBQnDr/cLj/Kt89frORnvMzBPz7qjH6L9d23R3sCnH9kgvzLY2u7GF
+	UBpgsZ1IHa40DQ2R+
+X-Received: by 2002:a05:600c:4f81:b0:4a2:180b:3153 with SMTP id 5b1f17b1804b1-4ba093605c2mr91136455e9.14.1794483599210;
+        Thu, 12 Nov 2026 03:39:59 -0800 (PST)
+Received: from localhost (p200300f65f19a904528996c8ea0fadad.dip0.t-ipconnect.de. [2003:f6:5f19:a904:5289:96c8:ea0f:adad])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4ba09509c74sm72110275e9.2.2026.11.12.03.39.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 03:39:58 -0800 (PST)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	linux-remoteproc@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/2] remoteproc: elf_loader: Make rproc_elf_load_segments() more generic
+Date: Thu, 12 Nov 2026 12:39:49 +0100
+Message-ID: <cover.1794483181.git.u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,70 +104,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v10 22/22] mm: Add basic tests for
- kpkeys_hardened_pgtables
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-hardening@vger.kernel.org, Andrew Morton
- <akpm@linux-foundation.org>, Ard Biesheuvel <ardb+git@google.com>,
- Andy Lutomirski <luto@kernel.org>, Catalin Marinas
- <catalin.marinas@arm.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "David Hildenbrand (Arm)" <david@kernel.org>, Jann Horn <jannh@google.com>,
- Jeff Xu <jeffxu@chromium.org>, Joey Gouly <joey.gouly@arm.com>,
- Kees Cook <kees@kernel.org>, Linu Cherian <linu.cherian@arm.com>,
- Linus Walleij <linusw@kernel.org>, Marc Zyngier <maz@kernel.org>,
- Matthew Wilcox <willy@infradead.org>, Maxwell Bland <mbland@motorola.com>,
- "Mike Rapoport (IBM)" <rppt@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Pierre Langlois <pierre.langlois@arm.com>,
- =?UTF-8?Q?Pierre-Cl=C3=A9ment_Tosi?= <ptosi@google.com>,
- Quentin Perret <qperret@google.com>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Vlastimil Babka <vbabka@kernel.org>,
- Will Deacon <will@kernel.org>, Yang Shi <yang@os.amperecomputing.com>,
- Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, x86@kernel.org,
- Ira Weiny <iweiny@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>
-References: <20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com>
- <20261109-kpkeys-v10-22-aa6c4d9603bc@arm.com>
- <2d13fbb7-b5b4-446e-8709-5b43349ff19a@sirena.org.uk>
- <9e59fd71-97e7-422c-a7dd-bc23c6e6a852@arm.com>
- <717cccfe-81d6-4e09-a466-5361ae27776f@sirena.org.uk>
- <0b29393f-bb84-4df1-a699-f7afcb50f2e8@arm.com>
- <9deffbb1-75fd-407e-90cc-59bf4c2fa1a6@sirena.org.uk>
-From: Kevin Brodsky <kevin.brodsky@arm.com>
-Content-Language: en-GB
-In-Reply-To: <9deffbb1-75fd-407e-90cc-59bf4c2fa1a6@sirena.org.uk>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1100; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=rpD3ZlQEIotpmgm/8a/F0GE3kt8iCsrVMvUNk750HQI=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq9aV0VygZNHI2SVH27/dYSxqTJjDlywp4XNFMf BZVY/583XSJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCavWldAAKCRCPgPtYfRL+ TtCQCAClGYs+wv2wyzDrk/79LjPZbrJxNoTbgGZjAjNL8eGW9gHs8Qtu+Ul38KB+Yvlx4MgtF/v 68QyYlSMuYHXaQbGbOS3caVOpqAhhyFW9mM8PzK7wng3qCpRW2IfG4zk8sJ/b7sHISO5LsW4Q2Y jq3i6lhqo2kiw+dw7eJbkLOANZ2WciwA1jE12N3J4FGVwH2cLPWqU99eaaiq2jvcq9iKdY8wF3G DVlNZUgZMzYirkj6IRVOAVLsmMDsQs6BRWvaWplf/mr1RgAw0UEx47fAFp0XNesIZ3AoiCpDO5F Ee1FjbOjYKH4bwaNPe5ccJau4Aiy8JQCTn6mUlgyP1PvkV3V
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
 
-On 11/11/2026 17:15, Mark Brown wrote:
->>> Yes, or something like that - unfortunately KUnit checks to see if the
->>> config options appear in the configuration so something that vanishes on
->>> other architectures causes issues.
->> Alright, I guess there's not much we can do then, short of creating
->> arch-specific fragments.
-> Or my suggestion below, or come up with some generic option that could
-> always be there and would in turn select hardening things.  There's
-> probably a case for having something given that the hardening features
-> will tend to catch some kinds of test error but that feels more config
-> fragment like.  Another idea would be to teach KUnit about the idea that
-> it should try turning on some config options but not worry if they're
-> not selected.
->
->>> Perhaps the default for the config
->>> option ought to depend on KUNIT_ALL_TESTS?
->> Not sure I'm following, the config already has default KUNIT_ALL_TESTS?
-> The config for the test does, but KPKEYS_HARDENED_PGTABLES which the
-> test depends on does not so unless the underlying defconfig turns that
-> on the test won't be enabled.  I was suggesting also adding a default
-> for testing.
+Hello,
 
-Ah got it. It doesn't look like there's a precedent for KUNIT_ALL_TESTS
-having that kind of side effect though.
+Changes since v3 (available at
+https://lore.kernel.org/linux-remoteproc/cover.1793879714.git.u.kleine-koenig@baylibre.com):
 
-A separate fragment for hardening options where KUnit ignores options
-not getting selected seems like a reasonable approach.
+ - Improve kdoc comment for new callback describing what it is supposed
+   to do as requested by Mathieu.
 
-- Kevin
+I'm currently working on another remoteproc driver that cannot use
+rproc_elf_load_segments() as is because the remoteproc's va isn't mapped
+into the local CPU's memory address space in a useable way. With the new
+callback the amount of code that must be repeated is reduced, similar to
+how the imx_dsp driver's load routine is reduced.
+
+Best regards
+Uwe
+
+Uwe Kleine-König (2):
+  remoteproc: elf_loader: Create new callback for copying segments to
+    remote cpu
+  remoteproc: imx_dsp_rproc: Implement .memcpy_tova()
+
+ drivers/remoteproc/imx_dsp_rproc.c         | 120 ++++++---------------
+ drivers/remoteproc/remoteproc_elf_loader.c |  64 ++++++-----
+ include/linux/remoteproc.h                 |   7 ++
+ 3 files changed, 74 insertions(+), 117 deletions(-)
+
+
+base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
+-- 
+2.56.0.rc1
+
