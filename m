@@ -1,88 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794491200;
-	b=KZ9Ib4IVasQ5D70jdaIwUDwXumy7xjq+NVUwR+ENBP1Sr859J7QevPJbJ90XtzcwVRrM
-	 bsnFo10RtADPPm1tXa25FgzcOsOiTGZ+7HiEaq1Qv/av+k6dRrrtxRHyfjLDbsmc7a/7W
-	 aVXHd499I3qWtryWQUA1foZ0r+hz/265ZqprftEqlWnkKcd1Epony3BjE2FpQgZpgmg7X
-	 UYU28BByzdr4pdDtNzaa+Z0vgD7nTjDRmpur7dr6bQBYXnDd+fM1hRZeexksTh04ISjtl
-	 lt7yTdMAitXp2JOVjbWC9pw5et46oGfNXOLamxAn7hL0TxLtUTjXYA6m+8o59k8zCmw==
+	t=1794491224;
+	b=23r/jPaMdJZ+AIo8QG+iuH71RFkmM3xVLnPXQIzCHmZUYUeq6l8U7A2UMwDmmyjEDkfY
+	 HpKjAP6EiqaJ/7QvqzPvCLZtffJ+GaiL3n+hY6nZ0IDD/dPgAwE032KRWwbF7taqrlqON
+	 hVC4PEOQW+UhsuL9ZvbRywecFOWK25yiu6+x2hXTWq0Pqv93/WvXk4ggDPQLE8VM66oq+
+	 z7C9XdqtYv9v8TEKsgxjjh2WfiS9IQx9WlgrFDG5QKfXQn15dTW+uIswdcRZjxS/rBny9
+	 MVvkzZQ/o/RewbIPVhq+HkXd3JUwyOn++oSFii/oxHBmbqBNNMPBSoNcVKEManVZbhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794491200;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794491224;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=2yGUa3yvv9BwAmjth7xVSNIdT1WjubKlsaL334MWC0w=;
-	b=lpgT5uaQ6Cx2M/XL0T2zTVPAvXL78TJXOIwAnXQKXtRZtmr+w8rBwK+WstgpKHKW1agC
-	 qk21ZAseRjtAKGTHTW/SAT4PMFQ+P7y4o9n1QghW34yG0jUrWW2foNxtYG3vT9X8JpYbZ
-	 0602dNITCJuOVCyGUIa7NCeAMaJVHBLIylNz+Q6E21D9HZk3nVfHn+aewggDCRK4gdv79
-	 01J6HAEexuuJm8D84gDt+PPno2gbo1eWAxLP6/0i3TFyvh1qKF+SQBkI/jJESFnly4Rb2
-	 EBEG5Qc4kE3bxoToeC/CktkXsXHSk1qsY9nD4F1Rc6kqaWZvmX7ISxZUiyvym92YB7w==
+	bh=dERELiZSBaCRsX3GCJV7kxhJlGD+/7BqSxHY/qipGqI=;
+	b=QdeMBsg7u70OzHTAeDtC/xAvOyVnH0HwGRXFMCZQNphoFSRaTPv1xCniKMdzbV1fZ5d5
+	 HzAyeMVPvdDfqSTaFFUYP0kmimiM9fG2YHEkBFK+DM4Yju5dsGGmH3u8rqLPe0mcxEbBV
+	 wuKX3lEwrTCKWWiDbTbG4wmiXbDuxggQQ5AIGZOzgehcHIsfRQQiIq64TVk4HIjdKMtQ8
+	 E0TZzI5dR1z2i+jnzEL6pjr2O1RAbw+R16cCv1y0hpkXzF/x9wPmntPvzz/jJJHHQSNJA
+	 YWY0zuKeeAlZewSTrtpQlJGm5XTCvVgU3+7j4VrfxmFXMpJOznIbfslfkZsq9bQOk5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ursulin.net;
-	spf=pass smtp.mailfrom=ursulin.net;
-	dkim=pass header.d=ursulin.net header.i=@ursulin.net header.a=rsa-sha256 header.s=google header.b=M35LRWQM;
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	dmarc=pass header.from=cloud.ionos.com;
+	spf=pass smtp.mailfrom=ionos.com;
+	dkim=pass header.d=cloud.ionos.com header.i=@cloud.ionos.com header.a=rsa-sha256 header.s=google header.b="bvlw/b/K";
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39DA2606A331
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:46:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39DA2606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ursulin.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA824606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:47:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA824606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.a=rsa-sha256 header.s=google header.b=M35LRWQM
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c4d2b741ed9so675752066b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:46:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.a=rsa-sha256 header.s=google header.b=bvlw/b/K
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-49a357e48a2so122537f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:47:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ursulin.net; s=google; t=1794491198; x=1795095998; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2yGUa3yvv9BwAmjth7xVSNIdT1WjubKlsaL334MWC0w=;
-        b=M35LRWQMrNcnZaf9izfF5L/wkiTPEnRJx/eRvDaNfpJBY1/h8gufbYUi3BPcZnP1Lw
-         HRdkM95xUNpJBGKuIaU6Bhhfne8TOE7e4ILfhaKOQdjLQgzvHBNNlxB7m5VVYJsSNS3Z
-         GrpcAFxsgeIjvwJfpExEXIXU8qqqnkZbfq9uBetitGS/hAtMNNwD4wZ9idVIt8CMFKSr
-         j2AYz6dKzOt9EkKi+QtL+R5jvl01hexjRgP2+JthKkfiYX8o+k6HLgCiuSss/UieWTfj
-         F6rIg8nsIuhxJ5GxWoQz/LCKdn5i2YmFMoTyN8bU45Rhy/Kv3Nlm0pZnzHWbPWQfaERT
-         bchg==
+        d=cloud.ionos.com; s=google; t=1794491222; x=1795096022; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dERELiZSBaCRsX3GCJV7kxhJlGD+/7BqSxHY/qipGqI=;
+        b=bvlw/b/Kno2uFKtJ+dXzbP/S8+wc8sflGs2KyqIU0upMpljHYo9DqBVQOR4XfDmCIv
+         TQkD6s3vtpeVQzPPWheKAeZuiNU4NmIRFauGSGqUkEhY6ABkf7bzEhOU/FRSF2rbfA5C
+         ug/E3vqmyE1MPj2b9qRq4lxmd6sairWVlygW/cVmXRPXih/ZOONUL8/yBPGymxujnhUy
+         3RReL2rDPgQKCmxXVR1wlgYkbZzcLsVuHhYG/K1LWPd3YfbR4/1Mt68aJ6xoByINzmZw
+         VNdp3JGEjqlOFEESHT0Bp6hRQ8/cnZadKdovZYYXMqOOYAaaumRqVVgeKPAxgXSa9Xti
+         WdFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794491198; x=1795095998;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794491222; x=1795096022;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2yGUa3yvv9BwAmjth7xVSNIdT1WjubKlsaL334MWC0w=;
-        b=cUyg8iNb88XmMLssnBILXMYjELMn7xqqpGJSsrwWrrahMKQBBrNbIf/eGKZKpgvCfy
-         hpaANV46YEJKGEoF1IqhUI6L0vur0Cy7qQxPl1KRB2gZSXuBWyzuwHqBOdTT6S1KlmTJ
-         d7z/uEln1gwLPZrIOuP/thL5T58AflAM/6RS0URNYMX+/o8wX6GOE6Rj+aHWG46zy3No
-         uA/n/vNLBDFlUPcL7v74wwFHU5a2p1+f1rAruODP/CSGY4+cbx7Mdezyzkjp2C/1pvhJ
-         fP35NvCiaX7DLH6traQ5g11a7ManjyRip6ah3ixsDL5EDdYinQZABiAnC2t+qcRgXRSN
-         nrhA==
-X-Forwarded-Encrypted: i=1; AL+hErFgNYr2pMvJD791gkUDQXYi5wXGokSfroDERdFCtRr+kKuYMpXxZfrDKCBmIR8yTD95LchCYZ/I0PZkqD0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Pj1CqjP3someRERbdY/fXcwcfyca0RByt7vPHIrKSxIBudoqo
-	PcUxmvDx208NlfFw6nh6ByULGm2RqGoiSbQ/XDpgb/pb1J/hkz+goXyBcWmKIRPDVYw=
-X-Gm-Gg: AYBFou2edSRiZG5QxsjbbbLtpiDMDF9tncQ+5XlkT+tkksfEfB+rAyRqHPEBd9tdE3e
-	mcyOCYT6tGyILxNiFjrFulShE/W0Mexn3sjSu5o7Y3hk8l6fvTy+KhExcpTQbm2Fds62BfhqG+I
-	L5+xiC4RjK7oROQXcLwvlgxcZoab0v7f6XUinIzITBF8+sNUmEbdQj3cfofo5wDkmaaWt4INRbZ
-	/20fiwNpN5tL45kiE5TQWl9xk92/gI4Qw/cjp3cMTUCDQOJTOnM8AkW4b361Vtr+Zl8G2bgIzv7
-	GcQKWC60418Kduj6ooWawBmErDejjKwLCzXU1fm4We3HxU1jUKafdPTU+7DnvcRh0vu7bjB6T4y
-	H+6qSafE5Bj6Jj5UrbS6y5cInmpygpPqLvhAIAWGdh4uyAxnhHx8jc9sYFCyEq/aKCnS+PKSg4K
-	WyLZgyR+nf3zsFKuGVzjagvQoLdvjW+X7u/b4K2/Qdgb08yA3Zb7KqYuQOMpzRvYSUxW+oW4yV3
-	7F9VyQa3Xm/DO6Fh+sYuKoA/N2D7+b993/TUxBHYeEh/Ryn4o5h4rjrB2PO6A+MV0dpeXFel0SV
-	I/PHCQ5DWzspWpsYEw121Yjxy+mSPqL+us1aJe+ghqLy8w==
-X-Received: by 2002:a17:906:f587:b0:c4d:31c5:cda with SMTP id a640c23a62f3a-c5066ae249bmr493311766b.21.1794491198313;
-        Thu, 12 Nov 2026 05:46:38 -0800 (PST)
-Received: from [192.168.0.116] ([81.79.79.1])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a5d54bbsm349754666b.48.2026.11.12.05.46.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 05:46:37 -0800 (PST)
-Message-ID: <fc21d057-be4a-4cea-ab92-0951c4eb7de2@ursulin.net>
-Date: Thu, 12 Nov 2026 13:46:37 +0000
+        bh=dERELiZSBaCRsX3GCJV7kxhJlGD+/7BqSxHY/qipGqI=;
+        b=Nhb9hr/vaRm2Vr2eQiD7MyxzQ/dtaDQ/X8YP2tS7iy3zoPcrL5uOYfg6+YWhrGzpbB
+         fiKbD9LsgOMIBLCeCTCSFwqpmOs4YXYjiaLK0PreoXDbdP3NFg5Hh8COraZxnDZgJ57Q
+         uOilQ8itcShwIDOokpi/2Jfb1VGoBuzz+v2lC32GENtCNhVEoPVycqmZxwyYz6UllhUc
+         +KTEdVYoRwK05EDcXIUdLX02ViQtWST/HHnmd1VFTtIDelJQBrOF2+/r7dgb+yqJRgsV
+         E8AuhA5S0poSzv5qnU1WSWXP77DF/EDG9eWmzM3PTGNsZENYEdz0+gTJMZP+Hunj5Xe5
+         givw==
+X-Forwarded-Encrypted: i=1; AL+hErFB+hQ5Vxav403uWE2CT3snQvN4nlmBH7Y4tgurC2OzAMLddV80ygfWbOIdVrxq9i0pIy3xUG7Bqy0YoNk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/E/4kUPqwGh9jStD8mAHKs4hiomK0IYv3ud3WT9CrIGtXT291/
+	WZQ9oP8MZwru1h58SvAV1+yic35+ec5XmNzPO4+/X8Trh3LUzXwKzD7wyw8lH0NPia8=
+X-Gm-Gg: AYBFou1MikdGTYz+q7CdjMo7rNyzFFNjsnMmSj8bk3ikloZA5a/Eob/9+cfQ7sCDN0e
+	4Vx9zJN9D7JWz4FxmOu6mzlwjRAIvwEQvMzReB0MFplPd4QTlZBGglKUpDaqxyASUdBqCVf14F8
+	IxiDECvW47dLoIa8UC/XMtnHvaKDGKF3xXnzAstHh0kP6zmczS/IBdtW8l8cZyZxfvB4LQl1Flr
+	QWNnzg7WIfvmtNuzMoWV692El6pdsQf/voZkS4ZtDA6MHwvgj9RqjqkL9UTz1Vi31u8S1D18Ukv
+	34xwOw8gddmsQvuuQeQ8NLP0nuz4FmlmB7Cf5cNxfxIlQCDCdtJkWgLWslizbPvPBHvMbOVxAhi
+	IQRkfXMqrDVaT+FYuoV9swLkiM9AFq/4uwA2cvllnNW2oWVjA2Y0JSyN/2zuM6p9v9G0z/MI/tr
+	4Tm7Tlryi1BjCiHGipVws94YUVoWyFpFRAxGeY8nfplDsray5ywuLhTR4TP0YNgNzya2j25ZPk6
+	9jby7UEH7QcUUP+TN6eQwTp3SFNL32ttAS3pz2LikWvD7QYEaM9mshOjJT2kqgNvn/t5lHVFLHZ
+	zz03cV9KvtPyrIk0mu73tByiXl3HDGlfcRUpd70pCHoNuwghbmwOOn6z990RkTflxbPAUpmLyAI
+	HJpvApw==
+X-Received: by 2002:a05:6000:4205:b0:491:9a69:5ad0 with SMTP id ffacd0b85a97d-499c7d06677mr11144611f8f.5.1794491221773;
+        Thu, 12 Nov 2026 05:47:01 -0800 (PST)
+Received: from jwang-ThinkPad-T14-Gen-6.fkb.profitbricks.net ([212.227.34.98])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498367b99bcsm17665990f8f.51.2026.11.12.05.47.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 05:47:01 -0800 (PST)
+From: Jack Wang <jinpu.wang@cloud.ionos.com>
+To: Yu Kuai <yukuai@fygo.io>,
+	Song Liu <song@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>
+Cc: Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	linux-raid@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/2] block, md: suspend md around queue limits updates
+Date: Thu, 12 Nov 2026 14:46:58 +0100
+Message-ID: <20261112134700.372702-1-jinpu.wang@cloud.ionos.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,40 +101,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] accel/rocket: Report NPU usage through fdinfo
-To: Sidong Yang <sidong.yang@furiosa.ai>
-Cc: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
- Gyeyoung Baek <gye976@gmail.com>, Philipp Stanner <phasta@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261103155338.1949294-1-sidong.yang@furiosa.ai>
- <a9f016ce-f086-412d-9ca6-6608a41840e5@ursulin.net>
- <33ccceef-3498-426a-ae7c-a8bafbb88992@igalia.com>
- <2ca12f1b-89f6-4069-aedf-4e5d645e8deb@ursulin.net>
- <au31m2jC9SmQ6iZh@rock-5b-plus>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <au31m2jC9SmQ6iZh@rock-5b-plus>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+
+From: Jack Wang <jinpu.wang@cloud.ionos.com>
+
+Writing to a queue limits attribute of an md array while a spare is
+being re-added deadlocks the array.  I reported this earlier here:
+
+  https://lore.kernel.org/linux-raid/CAMGffE=heGA3y8FjQ0Sm1jj-kd-=H9Y54WozKASSEZhc9UNKjA@mail.gmail.com/
+
+Four tasks, one array:
+
+  udev-worker    queue_attr_store() holds q->limits_lock, waits in
+                 blk_mq_freeze_queue() for q_usage_counter to drain
+  fio            holds a q_usage_counter reference, parked in
+                 md_handle_request()'s is_suspended() loop
+  mdadm          suspended the array, waits for reconfig_mutex
+  md_start_sync  holds reconfig_mutex, waits for q->limits_lock
+
+Since commit c99f66e4084a ("block: fix queue freeze vs limits lock
+order in sysfs store methods") the sysfs store holds q->limits_lock
+across the freeze.  A bio parked in md_handle_request() while the array
+is suspended still holds a q_usage_counter reference, so that freeze
+never completes.
+
+v3 froze the queue in mddev_suspend().  Review showed this deadlocks
+against raid1d/raid10d resubmitting a split bio and against raid456 I/O
+waiting on an interrupted reshape.  Following Yu Kuai's suggestion, v4
+lets a bio based disk suspend itself instead of freezing its queue:
+
+ - Patch 1 adds optional ->suspend() and ->resume() to
+   block_device_operations.  queue_attr_store() and the integrity
+   flag_store() call ->suspend() before taking q->limits_lock, commit the
+   limits without a freeze, then call ->resume().
+ - Patch 2 implements them for md with mddev_suspend() and
+   mddev_resume().
+
+The order is suspend, then q->limits_lock, as in mddev_update_io_opt().
+A suspend already held by another task only nests.
+
+Known limitation: md_submit_bio() reads the limits in
+bio_split_to_limits() before taking active_io, so a bio already there
+when the suspend completes can see a mix of old and new limits.
+mddev_update_io_opt() has the same window.
+
+Christoph, does a ->suspend()/->resume() pair in block_device_operations
+fit what you had in mind?
+
+v3: https://lore.kernel.org/linux-raid/20261102154847.198472-1-jinpu.wang@ionos.com/
+v2: https://lore.kernel.org/linux-raid/e2c36f31-d198-40a7-a18d-156e1fd6fbb2@fygo.io/
+v1: https://lore.kernel.org/linux-raid/20260909063029.GC29874@lst.de/T/#t
+
+Changes since v3:
+ - Drop the freeze in mddev_suspend(); add ->suspend()/->resume() to
+   block_device_operations, as suggested by Yu Kuai.
+ - Also cover the integrity flag_store() path.
+ - Rebased on v7.4-rc1.
+
+Testing: the reproducer below, 20 fail/remove/add cycles with fio in
+flight and a loop writing queue/max_sectors_kb, on a 6.12 based kernel
+with lockdep enabled.  No lockdep reports, no hung tasks.  That kernel
+had the queue_attr_store() change only; the flag_store() change and the
+rebase to v7.4-rc1 are build tested only.
+
+A blktests case for this deadlock was sent separately:
+
+  https://lore.kernel.org/all/20260910100916.1638378-1-jinpu.wang@ionos.com/
+
+The reproducer:
+
+  mdadm -C /dev/md111 --force -e 1.2 --assume-clean -l 1 \
+        --bitmap=internal -n 2 /dev/ram0 /dev/ram1
+
+  fio --direct=1 --rw=randrw --ioengine=libaio --iodepth=32 --numjobs=4 \
+      --time_based=1 --runtime=180 --filename=/dev/md111 --name=repro &
+
+  while :; do
+      echo 128 > /sys/block/md111/queue/max_sectors_kb 2>/dev/null
+  done &
+
+  for i in $(seq 20); do
+      mdadm /dev/md111 --fail /dev/ram0
+      mdadm /dev/md111 --remove /dev/ram0
+      mdadm /dev/md111 --add /dev/ram0
+      mdadm --wait /dev/md111
+  done
+
+Jack Wang (2):
+  block: suspend bio based disks around queue limits updates
+  md: suspend the array instead of freezing the queue for limits updates
+
+ block/blk-integrity.c  | 10 ++++++++--
+ block/blk-sysfs.c      | 19 +++++++++++++------
+ block/blk.h            | 20 ++++++++++++++++++++
+ drivers/md/md.c        | 12 ++++++++++++
+ include/linux/blkdev.h |  7 +++++++
+ 5 files changed, 60 insertions(+), 8 deletions(-)
 
 
-On 06/11/2026 15:44, Sidong Yang wrote:
-> On Thu, Nov 05, 2026 at 11:04:29AM +0000, Tvrtko Ursulin wrote:
->> It would just be adding u64 drm_sched_entity_get_runtime(entity).
->> Nothing else would need to be exported and the implementation simply
->> locks entity->stats and returns the runtime. As long as the caller knows
->> they haven't destroyed the entity it is safe since entity holds a
->> reference to the stats object.
-> 
-> Thanks for the suggestion. If Philipp and Danilo are fine with it, may I
-> add drm_sched_entity_get_runtime() and switch rocket to it in v5?
-
-I am neither Philipp nor Danilo but I would say go for it.
-
-Regards,
-
-Tvrtko
-
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
