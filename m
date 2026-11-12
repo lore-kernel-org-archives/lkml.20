@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794480710;
-	b=WC2AaU9y0m6Tl42vf2rzc+Py4r0EXHbg3qhl/RnYPti/MMD6ElyYkJJe0e+SkNxWFuJy
-	 cmdjxg7+p4D+S/CTmdUiSX0i/xnugN9W4hha4m4aSqLDfFFOCLPESfhBCsa2I3qOzMbcm
-	 XfooHwRlVxut8BRWYb0D3A6ImP1NKzUi+pZXKQdadFnJPyexy/I6DzExiHXP2gTv/7CN1
-	 SxrRh6Z2MMs1V4Iv9jTYWEaOngFVlMnsB/ah2k9BR68AbxYb7pVh4zEmnjhDSOTUrs1zj
-	 dfSiTx+PCPFnbHZkeXL8J39nM7ecLP6HKUmPws8uWiLNF/mDm5UsLJs6qlmrlraFvpA==
+	t=1794480714;
+	b=OqdxsLPo5YZp/CrzQLfV3qYYVBPbbKywKJbi8iBXEWhn6gtnhSImAxihl/fVfPQs4OVa
+	 oZa1BRQWwR0H7KfbikVlJu1y8QnVsgwUvDYw21JMdzd7zx75eqtXavL93V1IPU4XrAyb/
+	 /FoeTVvhjDczWqtTqf8jLQ1aNZmn9JzaZKn/70BnbKqVfeG2gFm1eEnrzZejfKflc8GdZ
+	 2eefG6gbMT/0y2316X/ZOG3NfG+hkyNiGvgeTjWePkLlbXIwVo66ZmVurYgEQJn7cyFJX
+	 Sv67bQVRlsDq3oH0AIzNB39mMqNODlYgSXBfbPgesCxbVCpVpl154tXUQStww6tLBkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794480710;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794480714;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=y2Z4k53MZ5CuMtRn2UaTr841R9J/LmSKA80BVWLhtkM=;
-	b=P3az6A3jTocMPEeuci9xTd1FjUA4NfH73EBbAwWakhc27SAGyV/17fZEAyxMnIElrB5m
-	 GDc5tvw8hdFIeBf+6iIh3hFmQ0F7uG/vAgXkMGtf+rcKOq5CmuZmYaF7ifiNP+elit7HG
-	 XYfrjkgrg/TBQVEpvJ2+o5Iil5WdDR+QSo0Boz2gCmPVm6YtXg/TR9N+iFAkQyKRrrhdJ
-	 t5O2f+LesQNqlSXfpyJgCp87betTmBHWvcA+dBRpyBZgR/eHkROXYwYznORwFD3Bukaum
-	 J6FFaku1gedA9dBRi0gI9ebQPwLSyIrOYnrCVzoznEgFRaxGud+An2YRQRm27jfZzLA==
+	bh=A0pfUkfSu9+4b7u0lMR40b3rWHEvr3iCbrzCpdtLRdw=;
+	b=Jr9LSqAvR53cfiIZjeewhbA/pn8e5vkYyzvaz+8xcqQFdt2XeHL7DuFGhcoMPYFI/TE0
+	 csO5NuDVNGCO0wDXSJ5LsdURLmBIhIBPsau6/uJziG0Z8/4D8qurD5Em997WoFW5bOG+l
+	 mQih6N4JttWfn8KgD4ln3gon9LdKErLxF4FVoYWRpypmf5/rDzI9UQPWuxOpuBCaUAR+H
+	 7lGuh8Pk47wXqDw0oXHU/+3E4ra9o5CnXWKw2Pb2zfAnivh5FagpHW7yupZiRmT5mv/Uu
+	 9DIUbKzymnl2GbBDSrv5eUPAp0uulIQwLqhUUwyICGzMTzbcQdq6xESfd3ycDX67dhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K6txWJLq;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AUKvQnDF;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 171D2606A894
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:51:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 171D2606A894
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58890606A89F
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:51:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58890606A89F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K6txWJLq
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-33fb4680717so5097233eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:51:49 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AUKvQnDF
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3712b6d9843so4006073eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:51:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794480709; x=1795085509; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794480713; x=1795085513; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=y2Z4k53MZ5CuMtRn2UaTr841R9J/LmSKA80BVWLhtkM=;
-        b=K6txWJLq5QeZD/TA+ezEEMcWqFahlSzKugqMxWT6pBvBhW5Rx2iasjq8E9lFb/QCp3
-         jbtCkMcFxjCO3cov25ABwYtrlymvJx+jdLHSM1RNrPjj4ummtDNjNcWbBa4i5Rum5nPL
-         pHPUU7KfSxRu4FoOPFM2irEBdBAP3RatVRpVX5/bj7Xt2PswCeZn9dZx+uh7WyOFggLI
-         wqUVXlHEsgYoX+hXblZc5OMh4BumYuE8kKCXVuKJ7Qf6svSXt9ucYgODsydy3e30DECQ
-         AQ+x/6z0RDLoiWPS/HzaAPfe/ivk47X7PRw65sa4Vp6vwOBSFxTlCrQGZv+JuqIFruDC
-         TMTw==
+        bh=A0pfUkfSu9+4b7u0lMR40b3rWHEvr3iCbrzCpdtLRdw=;
+        b=AUKvQnDFpFo7qSL0nyxBNCRwtKVVPcdB98BfAreJmJ+WreD+VXcSORdynoJ0mGJyvK
+         SBIwNTnKJqoxvtp/OrRmCsKEVTTmwaaGw/02Z4NGAMzIjAATeglbx2wbXR6DNBeh6sTZ
+         QpmvIZQfCkbdh0Mw5ptHrhl3mYpakak6jk+FQVh3daMP/mcOZaA/Eoo4NCHkw0fUtcmn
+         oFalHoO5JRoOZ4Y25jXOIB3ZN/PAgsrxzGidFt4hLWXrg8s5VIwmYVoyzjwZGhOnvO0Y
+         Nw/xmq9wGf+UUl9vrqaVoJeteRP3BaukyzzH5qUsizc42ExKIYd5YvMTwpeMyihe+xXq
+         TF+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794480709; x=1795085509;
+        d=1e100.net; s=20260707; t=1794480713; x=1795085513;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=y2Z4k53MZ5CuMtRn2UaTr841R9J/LmSKA80BVWLhtkM=;
-        b=Trerap+zRFTd1Yprh1naLhztXh+YQgj93KNsPv3mOQ4vu8K/qX/FgEmjkX9LmHRekC
-         g3rj9vylgC+H1zzWF5fOrlXy3iuzL1QdP1bgGLSbUOGo7W2lE2PuQ6rKiJVGWCS7sBp3
-         cIATlTtwp0eF/cxdrMPA1OwP4a8ZrJvH6PuTdPfQFmIeLQYDpxOa43BtAluyE0J324CL
-         jcdGq5uol/RCuwYN6ewnoauZzciL2h4cR8Ks/r/Nshv9Cs0kcNXidfTcOg2lVD3CuEXY
-         EpcOnqoCB7Obh2dlZ/mSlw/jr44xOdk/iP16IXdUgIMCd7aIQSbPCLiAat4xQoHLM4t4
-         aRlA==
-X-Forwarded-Encrypted: i=1; AL+hErEBhY960sdFIKjussUTX0B4zeMcZJWIWqjl3inrI7GoY3ovKqWObRfe6sZ+zyd0NP+Bw0BJw8ybXIuofw8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9iun0iaDClF0X7Ty6dK/4jivVhBL6tGNL2sgGCnA3DfsCkDe5u
-	nf9acjnt5Mtn2fQAQSJv5rbGbijmPb8ak9pLafNt0PS5tri+x76neWaV
-X-Gm-Gg: AYBFou20i1FzvdEF1MHrH0B1V+6lkUGxAH1sW9V0AZ/sr23QVqD16igt2O4xPXuSf0Y
-	AzkDijhSdV4Z48Lw+7VxTNqD0ZFEFrqnO00T1cz7UzPMwED3DAx2l6IKcUG1JZ5FsCypzt3WWBw
-	WTWSXvVAbrtdRaGy5dcUOz96IDQGQqoSW7FyzZgNshAhyLDX7uxhAgz+JJvI85sEILgoZVH1iTI
-	3E/ayqbgQKMsaK/SC+kf/X4IT0OxcSG2j9K6cGCNaK2Lr56JpCvcOCqW37cRudV6tHKe28Omgf+
-	yhPhfJINEhwlb9LkqeUc6oItStENng+8lhfn4oQhzqpl+FO+Syx7CDWMvRWorRHTOtrOZmtEgXu
-	jT9dBJwIxnmbFNoPxGGQnpjuyvfZLHvqCv05Cv2iaF+fZrXwR5o1lgNJ5pYHk14/Am1if+DROlr
-	nbca1fe+xa70JqTmlfzD2GFpDoISdCD8QQNDu/Dd1OcImLkt+O8VqctPx8di3rCr1riuINbSRW0
-	zj0RYzwzQF7HIcLKhgpx4gsxesydqIBOgnCEfWvppW+WZAEfAVzeso6D12Cw2fgdX4c/6mzn4jz
-	y7pLAkSpDH7HKb8V1T2u+93A6SR3C3FCnjHmsEZz8w4Fp4w3QjbLd5B7ce7CVtwRZ+YM5FzfWU3
-	8C7lJqo/CTDAEY8ucBahyjqu/Ez/BqylzA3j9Sxxhdsyh
-X-Received: by 2002:a05:7301:2121:b0:358:eccb:af7c with SMTP id 5a478bee46e88-37686467c11mr5852796eec.33.1794480709185;
-        Thu, 12 Nov 2026 02:51:49 -0800 (PST)
+        bh=A0pfUkfSu9+4b7u0lMR40b3rWHEvr3iCbrzCpdtLRdw=;
+        b=Pd8ut77sjqoAhXFToX2yawpJhSIngoODzAU8GOGfV5Tma78QI4sfgOQ9lkub4mzIV3
+         cpGCPntKxGxpUh7FScoAUOk5K5uYMPsYnRh9uA9ERVMM6dHhlFLhSmwJ3JH5pe0cTBL8
+         STnGGLc78KMtUCCEPU4QLLRV7rtBX+SA1GX2LhbXBw2+mmzFl+bcUa3zRck5vVqScbz3
+         XhU1vKDkdfJonETcj5iXuiTFn62Prf4AnKDI5mqJzUH+Aps+Fwx7EL+SsEkGXdp+9tLb
+         A8wNVAROUsajfYnnS06YSq0g3s8cla3CzCppyzDvWHxzAeBYmNPWwY7LTWryBDqCrVe4
+         sN8w==
+X-Forwarded-Encrypted: i=1; AL+hErFcb6aTJO9XSNHXYUzy5MLcqkBSaDV/Ley9ow0dU4OvwsiB9iyXlPt4H2n9rum3lZ6ROz1zg0H4Z87hHfs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8/nGDj6rxdhj4BVW6nUnLkJcINcldSH9e1sZ+cRs3pZmBsJ0WJ
+	8GLdpM1SQHIjnyOtQbh9br51WIe5b5PJP0YuI7ZVXRdrxP4DsnYajDtA
+X-Gm-Gg: AYBFou2OEIOoCxYdysetAZePYBDk/JEyqPLL1zkcfZCh97doKmfldDlt58eqPZRDagQ
+	/ZpT9wZqFYr1Twnrb+jfI8xxQH3B2/Q4oewI1gsjidm8nBRH6YFpuC6DtJ5nv7i2ReCYaXqCb63
+	yl50YfZtJfZeCixyt20spK5RofYSvKJSnKk8vslv0dZcna3cIR/32i3RtWXnlSYPVPaLT8j5ap0
+	+m3b12Eh0nJnyWTRfYxnZ3QzWqf31jBWoIGrSJVjHQ7NRnEUZd3mWUEBB0OoziRvW/LthzGkaNC
+	SxUXh2qGdD6NTG8dombBFu7PQ5w4UamO0WGfxvt86o5gdUIsSu0zZ0PvyWfLpHQzgq7XPkT9dIA
+	FlVhv6i01OBdYU0/UT33+YIegH0G+MgVoWPA7icUN2t+0X57iTbhXQsrOfVAt5XEIkvOix3sNMo
+	/tYEnGEkdElCQEbMioMg3R8+JJ1yXfRD2ceh/kOYEGqgAfM3ckOyuVMkgldnIFSEfvQlpmq9otw
+	edq2MdpI+OaxRi5AGSRpYM8HnJseVMCs+/xUJ5jdPj/IATJSsek6qvgLU4qM7b6z5qexQhN3uz1
+	DQzkEzv9jyMjc7W6GHc7+eb9go6KA22nF9OIxbxyBggaR5X18BzuqmNHaE9py5kDceRHjAao6FD
+	DKKW4dOg28O1T9DJYdZiIw4aCxEVVvJ5uKm2Ze9CuotMZ
+X-Received: by 2002:a05:7300:d709:b0:376:37a2:87f3 with SMTP id 5a478bee46e88-37686b43109mr6989721eec.31.1794480713499;
+        Thu, 12 Nov 2026 02:51:53 -0800 (PST)
 Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe306casm23047232eec.9.2026.11.12.02.51.45
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe306casm23047232eec.9.2026.11.12.02.51.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 02:51:48 -0800 (PST)
+        Thu, 12 Nov 2026 02:51:53 -0800 (PST)
 From: phucduc.bui@gmail.com
 To: Shengjiu Wang <shengjiu.wang@gmail.com>,
 	Shengjiu Wang <shengjiu.wang@nxp.com>,
@@ -93,9 +93,9 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH 4/5] ASoC: fsl_asrc: Request the IRQ after the device is initialized
-Date: Thu, 12 Nov 2026 17:51:15 +0700
-Message-ID: <20261112105116.32274-5-phucduc.bui@gmail.com>
+Subject: [PATCH 5/5] ASoC: fsl_asrc: Use devm for runtime PM cleanup
+Date: Thu, 12 Nov 2026 17:51:16 +0700
+Message-ID: <20261112105116.32274-6-phucduc.bui@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261112105116.32274-1-phucduc.bui@gmail.com>
 References: <20261112105116.32274-1-phucduc.bui@gmail.com>
@@ -112,49 +112,126 @@ Content-Transfer-Encoding: 8bit
 
 From: bui duc phuc <phucduc.bui@gmail.com>
 
-Request the IRQ after fsl_asrc_init(), while the device is still
-runtime active, so that the interrupt handler cannot run before
-the device is initialized.
+On unbind, fsl_asrc_remove() gates the clocks before devres
+unregisters the component and frees the IRQ, while the component
+may still be in use.
 
-If requesting the IRQ fails, balance the runtime PM usage count
-before proceeding with cleanup.
+Move the cleanup to devm. The action that disables the clocks is
+registered before devm_pm_runtime_enable(), so it runs last, after
+runtime PM is disabled, as in fsl_asrc_remove().
 
 Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- sound/soc/fsl/fsl_asrc.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ sound/soc/fsl/fsl_asrc.c | 48 ++++++++++++++++++++++++----------------
+ 1 file changed, 29 insertions(+), 19 deletions(-)
 
 diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-index f7ac60724c6c..c97f814d7358 100644
+index c97f814d7358..09e09164a106 100644
 --- a/sound/soc/fsl/fsl_asrc.c
 +++ b/sound/soc/fsl/fsl_asrc.c
-@@ -1299,11 +1299,6 @@ static int fsl_asrc_probe(struct platform_device *pdev)
- 	if (irq < 0)
- 		return irq;
+@@ -1258,6 +1258,15 @@ static int fsl_asrc_m2m_pair_resume(struct fsl_asrc_pair *pair)
+ static int fsl_asrc_runtime_resume(struct device *dev);
+ static int fsl_asrc_runtime_suspend(struct device *dev);
  
--	ret = devm_request_irq(&pdev->dev, irq, fsl_asrc_isr, 0,
--			       dev_name(&pdev->dev), asrc);
--	if (ret)
--		return ret;
--
- 	asrc->mem_clk = devm_clk_get(&pdev->dev, "mem");
- 	if (IS_ERR(asrc->mem_clk))
- 		return dev_err_probe(&pdev->dev, PTR_ERR(asrc->mem_clk),
-@@ -1436,6 +1431,14 @@ static int fsl_asrc_probe(struct platform_device *pdev)
- 		goto err_pm_get_sync;
++/* devm action: runtime suspend the device if it is not runtime suspended yet */
++static void fsl_asrc_runtime_suspend_action(void *data)
++{
++	struct device *dev = data;
++
++	if (!pm_runtime_status_suspended(dev))
++		fsl_asrc_runtime_suspend(dev);
++}
++
+ static int fsl_asrc_probe(struct platform_device *pdev)
+ {
+ 	struct device_node *np = pdev->dev.of_node;
+@@ -1413,22 +1422,34 @@ static int fsl_asrc_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, asrc);
+ 	spin_lock_init(&asrc->lock);
+-	pm_runtime_enable(&pdev->dev);
++
++	/*
++	 * Ensure the device is suspended after the IRQ and component
++	 * have been released.
++	 */
++	ret = devm_add_action(&pdev->dev, fsl_asrc_runtime_suspend_action,
++			      &pdev->dev);
++	if (ret)
++		return ret;
++
++	ret = devm_pm_runtime_enable(&pdev->dev);
++	if (ret)
++		return ret;
+ 	if (!pm_runtime_enabled(&pdev->dev)) {
+ 		ret = fsl_asrc_runtime_resume(&pdev->dev);
+ 		if (ret)
+-			goto err_pm_disable;
++			return ret;
  	}
  
-+	/* Request the IRQ only once the device is initialized */
-+	ret = devm_request_irq(&pdev->dev, irq, fsl_asrc_isr, 0,
-+			       dev_name(&pdev->dev), asrc);
-+	if (ret) {
-+		pm_runtime_put_noidle(&pdev->dev);
-+		goto err_pm_get_sync;
-+	}
-+
+ 	ret = pm_runtime_resume_and_get(&pdev->dev);
+ 	if (ret < 0)
+-		goto err_pm_get_sync;
++		return ret;
+ 
+ 	ret = fsl_asrc_init(asrc);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "failed to init asrc %d\n", ret);
+ 		pm_runtime_put_noidle(&pdev->dev);
+-		goto err_pm_get_sync;
++		return ret;
+ 	}
+ 
+ 	/* Request the IRQ only once the device is initialized */
+@@ -1436,32 +1457,25 @@ static int fsl_asrc_probe(struct platform_device *pdev)
+ 			       dev_name(&pdev->dev), asrc);
+ 	if (ret) {
+ 		pm_runtime_put_noidle(&pdev->dev);
+-		goto err_pm_get_sync;
++		return ret;
+ 	}
+ 
  	ret = pm_runtime_put_sync(&pdev->dev);
  	if (ret < 0 && ret != -ENOSYS)
- 		goto err_pm_get_sync;
+-		goto err_pm_get_sync;
++		return ret;
+ 
+ 	ret = devm_snd_soc_register_component(&pdev->dev, &fsl_asrc_component,
+ 					      fsl_asrc_dai, ARRAY_SIZE(fsl_asrc_dai));
+ 	if (ret)
+-		goto err_pm_get_sync;
++		return ret;
+ 
+ 	ret = fsl_asrc_m2m_init(asrc);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "failed to init m2m device %d\n", ret);
+-		goto err_pm_get_sync;
++		return ret;
+ 	}
+ 
+ 	return 0;
+-
+-err_pm_get_sync:
+-	if (!pm_runtime_status_suspended(&pdev->dev))
+-		fsl_asrc_runtime_suspend(&pdev->dev);
+-err_pm_disable:
+-	pm_runtime_disable(&pdev->dev);
+-	return ret;
+ }
+ 
+ static void fsl_asrc_remove(struct platform_device *pdev)
+@@ -1469,10 +1483,6 @@ static void fsl_asrc_remove(struct platform_device *pdev)
+ 	struct fsl_asrc *asrc = dev_get_drvdata(&pdev->dev);
+ 
+ 	fsl_asrc_m2m_exit(asrc);
+-
+-	pm_runtime_disable(&pdev->dev);
+-	if (!pm_runtime_status_suspended(&pdev->dev))
+-		fsl_asrc_runtime_suspend(&pdev->dev);
+ }
+ 
+ static int fsl_asrc_runtime_resume(struct device *dev)
 -- 
 2.43.0
 
