@@ -1,111 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492332;
-	b=pETL9WKiwFZsIDPcKSn2dd9i0NqbIRC325H60lKLkTjmRLGbKw1RxA3f/U8486S6xaEX
-	 O9o4VUPnANgKsb2S8ZFdMa8E7sYJ78Usa9vs98aTVt7lf/RGGKzL3QTx89weiAb3dfiz2
-	 LB6aVZRzurnLJiAMH8aZQ7t7TuvjBL9rja+eTJN2CyKil0Ay0yo3BqJJVcMyktvCRJe8+
-	 B8uC4sWhywynBmJrvc7ro7Kw+0V92e7TOSvRs0M9VC/a3Kq9wqh9rjd7EpmGzQBLmd8Cd
-	 6xi4Hh2trHgoeAC5I3Ms6pFXsBbbKUR47PEakaP+BS/CYVeovwu7ha4F6yxqNFVUjvQ==
+	t=1794492345;
+	b=rpGLdWNhA6pbsA8cjU4hPBhDhwuWYy4MZbc3vDNcws21GSGMAIBPZUbJHy+3KaNe3/yy
+	 /0Ixj1cUmsMdagyWrqwgB3fqAWkmOcgShKMahIHSz3lJNMAmHh4N5JZS+S/tNuL6wgrUK
+	 1fNpqMRn9BtiDYDSQPmB5XgdqIQmGMCnuUu/atchZ7/bqQKzg1u3HRHal8n7NpBWB19Sm
+	 1UStIjp9DcFvqCPY8xR7fLxV6hH/vN6/dHwQqnA5Lddb9PRl7zPpaU9GVCsDlVPl4dFT6
+	 rBc+UviP3MW837LknweWCaNScZ0t4x1k2vVPDLJGTWBvwgB9JzdarZRlwaSiRrqb0XQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492332;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=pko6mRCMfp9Cyyy/gAoWpwIveNBcnJXIKlKgVug+D/o=;
-	b=0PLuREfjwafVi3pV5h0uIYTT9YS+CUlF78PM7jYuH16kZncBvA2GI4LnCGkrdu1DWEhs
-	 f5Vtn1pudV8nHasHsYpa2nwTv7nF/RpRwy//9iN+WKbQ780dXvm9f6HUjyazKHvjk0iQW
-	 xactNKfto7GVWZGEGQ4xFglPRkO2MWWtmBOzVA6oM7I0m+QbQCP/FKIXDpewY+YQVC5y9
-	 lnh+5zdb+Oel/21iS7lPapZEWYgIaU1zaUwcMAHZvlqyNXC1QQfpWHn7XubGxIfWV82Ux
-	 rkj5B3qvyj2rFALUj4RxruzptiZJ5InHo+IXm4QfJIHMCq6mUT5fHLUdmmEezf5PQ0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492345;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=ccZWgR7dmlMI77SvdnZJfxt5XPzWoiMS7ZxdcshawL8=;
+	b=AmVLRBvrMLc0SjVSpi/wLWjZQK29h8kwi2qcm9mQyq/HwifYBckZeu9EkjoZEW1Juq8y
+	 z2u7Rjy/jv8R+XeIW3LtDTEC4TH6/v/MJjWRKgyP0CiT+3ieY5pXPfoO4x6V+KCXn6sFa
+	 rSzubI/NG+LEwJztxX0dkjnvPmm9+Ewd4YjUofaCiJoxU5FTLkwUV3BNmmEx9GL7R9yd/
+	 0UBwDHcsKNk/nBOkpBKcZwCFEn+LlCD272fUN30f3b0KUtAQlOCbmxLl85n7n2kavpudE
+	 xfbs+xDqtVzbQbwQVclwHuNVN48OJM2P+G86KhQszXxS0gYV+U2vDHL66UmxVkfD+fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=Xh+h1wSV;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=FqEKdWwe;
-	arc=none smtp.remote-ip=202.12.124.158
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b="i/UfKCOm";
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E273606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:05:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E273606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DDC3606A321;
+	Thu, 12 Nov 2026 14:05:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DDC3606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=Xh+h1wSV;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=FqEKdWwe
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 87AB27A00F6
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:05:31 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 12 Nov 2026 09:05:31 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794492325;
-	 x=1794578725; bh=pko6mRCMfp9Cyyy/gAoWpwIveNBcnJXIKlKgVug+D/o=; b=
-	Xh+h1wSVBu44nSJ74HnYBVZC3D0EBf1F6f0FHS7sToQviRCNenAi+z0CBn0Jwnox
-	ejnFqzYKhIx51SNCnaUSnZzzqrQ+wqvQckDK/fMjWzFOO2enBez9pGWqHZf9eS79
-	7TqHB9QdwSNlpvFDqzH0SPMAmX3a3kSolXe6DKs+ij1SwIupxzQzK+bPO+p5fSpZ
-	YEtrA07xt/Q5H+cyOb/m8WWQXhqCvZtYZBN5r0VTNpsWfLsx5KSYwLH1gPTz8wh7
-	aAqiDcYOqUbLfnb6FUeX3j1uLR6qs97kX1JsfW1YijTycwg1n8uBYQy+YQQIx/rG
-	6nqV9Rtub99HBhD3dooiXQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794492325; x=
-	1794578725; bh=pko6mRCMfp9Cyyy/gAoWpwIveNBcnJXIKlKgVug+D/o=; b=F
-	qEKdWweWYKGwAOqEQHtslqgHkl02o+VAPHTV+Ok0UxkqW/umCZK0USiDkcQGDmnm
-	zPqB668MutngAEMB6/B4Zt3OVm3JGZi4AHkcmcwX4RIJEQwks++WW45H32q4p+AI
-	J0HR4qb8etAY1z/DVsxOmHZ/CWUTbosqjobcqGf0CTFp5A8O1Cbr679+KBZH5Map
-	oDlpoY18EPMZynyf5mjNnsHtfwDhd/qStKlC7GIJ7InkQPO+N9RaeZWMt+FCvmZR
-	vnaSVJrvgEMOkz1zMQrY+2SUBpg1yhVk/8oOekR4AMGm6Mw7wyoDhXo4bJvfu5pD
-	tMEv9Zan5KlrwtvUv90+A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794492325; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:FiF54yRQOzh9o1Dhx6n8mSvl3v4NFaSxcaccbFPOoZ52Wl6
-	URxP4glcb8Q5o8bWlHJa4BmGcdcnnOrHF4pI8TKSp5xcKDbrbIalYgkJwHvrxmm/
-	eOAAu7nTwHHGgFavrnudxsru7oZNtQIy43mxmGh6ied/GHLd3rTBc8r2lyza/Aut
-	wv/f3pcA6APpp8dV8g3hyVDeA4AYAEPldusGO8QxatzblBKHs95z2boa4f7jyLKT
-	6fTNmAnCUlzOOtOsPZ7hZUDsiA0t7cG1Vb09GmqnbYSSkiiqPJG7yI3UTxxuLaqb
-	fZHXhQx6azXNIUKgqADTUOC7iQrGANN1cRDkCpw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:V60JOROyj/FCtqcbRKRyHTpWddfUd3jbk7dyOJsukjU=:Of2aUQiysyEawKxf7qyisIhQXXg6zSM4x99cDBoHPUk=;
-X-ME-Sender: <xms:oMf1agFOMxhRnSVLuDUoykP5UcEaUmqTFjlXdqyO2uB6F9su6yRNUw>
-    <xme:oMf1akLwZwhweZnV5ZmnIfs10GzsHsK22-pTYnrYX3V-cjegvJPl_Myftn5u0Gbwm
-    DaCWXLR_MoNxjIEU4nSmSLZrTGV1f3nnW3z6kcicXNxfBcD27jZuRoh>
-X-ME-Proxy-Cause: dmFkZTEo6VaWdj6bxILRHhv5G1jOW57ujTVJlC60OvW6f6oZAOkjAhJfLyfQ49u3ydRqSD
-    6McsbenddWiSAoIlBf0W+NIryEOud74ndQRz1ZNlMraGhXPv+PXtGwEWkyMxloBFs28AM+
-    VC192GnF3PbfCLd/7+bSFeIt/B0QBaOAfOsIn395cK3dTopXenIvBp6SQsQKB6phN+B9N8
-    64zvJ/tH5yyX1gC6DuvHI/QxWEKFFTCz3bKka6l9Oc60EMdBZdJIR7mDAcEwPZSfBGmwPb
-    2Z9OY6PpxO64z/9vBGotM7b8//4i1p4MJhV0SzERiXc9YegNJHS2YEhsW2FEyw/g3Y3ZRu
-    oYdobkUaJL2vVkuf3T68WqVhzELvAAGfVl1I02wG2/C2ee5pG4BsL99/ufnRR/RMRJfUDL
-    IAOiMCCS/0lXXQL0QiDC+S9LQxR0GnnllNps6HKEOYOzABoYBb73irVKV+/FvcBrj/lZlt
-    KNgU5rRvLdeTEsl5/OmCVzut8/pJmcfBWSq9jgtDWtKtfbYVKtPBr6tYGiNLXE4KYwDsCX
-    TuSkgz3NcCJjmEocAeYLBdE3MtcNWb4/YseBTWzbPMmhrXkYZPYwSVkCpchNqNRuriNhqE
-    AZrpEdcFFaE1gBWBqfwXUzpCNEzsnW4FNez5rGN8yS7XzeIux+zwtk8TNIAA
-X-ME-Proxy: <xmx:osf1avEZfAfXrF6erZ-8PXAN54m2ulAyFtO0FYzjsf_1FxrnbaIiCQ>
-    <xmx:osf1as8BNfiWFYPBCaJ86GPB2RJe4q470hV-HuChed5yBLL21RKeRQ>
-    <xmx:osf1asSOl9G_RlHWFW4hJcVJeg1HfYqN5torsMoo160Yk7Co8S1WEQ>
-    <xmx:osf1ahrsJhcpjQbCC8-euvDiMkYTBNRXBWR9bHNczCu6x11eef6VMw>
-    <xmx:pcf1ashlANfxc3dlsCHW7RA00z0RWpZW_h8YKAmt-y_S0kOrMRqVWIb4>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 8FB1332A0099; Thu, 12 Nov 2026 09:05:20 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=i/UfKCOm
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=ccZWgR7dmlMI77SvdnZJfxt5XPzWoiMS7ZxdcshawL8=; b=i/UfKCOmWEcqm5tB7RRNDaNgt5
+	AQic0RfgmdLRngj53swzQuj3/xti5yzRH5UggFv/KKhxSB6cJyARDM5k0+ZOiLYhl9QExy3cQNivF
+	IEwl72Bsy/j4xS8InlClIlrTQIdw1a3uQ/xcN0at0IIpJWxHG3ihQ+fXmzBdL+2sV4sYNHUu/OsfX
+	QFmDp5gxFGA79clNRcD6o2pMx+ifDoxsAjLJB4V+Bx0E+Dk8g8C8jH0sgdYeBcKRz4dg9hAQM1UoV
+	LMgxlKn8h9FWx8P1JlGB+/T41vYjSI1XVgxonDAllFpeNM8PYM4VnVxN+78jI2MEjH+pDhp0zU3j/
+	B7Yskgbw==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xRVQi-00E1WS-1F;
+	Thu, 12 Nov 2026 14:05:32 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Thu, 12 Nov 2026 06:04:58 -0800
+Subject: [PATCH net] netconsole: harden the enablement through configfs.
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,42 +62,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: A6ErS7mxpCYw
-Date: Thu, 12 Nov 2026 15:05:00 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- "Masami Hiramatsu" <mhiramat@kernel.org>
-Cc: "Christian Brauner" <brauner@kernel.org>, linux-kernel@vger.kernel.org,
- linux-kbuild@vger.kernel.org, kernel-dev@igalia.com,
- "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>,
- linux-alpha@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
- linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
-Message-Id: <b728a698-bac7-4cfb-9eba-505f955148eb@app.fastmail.com>
-In-Reply-To: <20261105-tonyk-syscall_table-v9-1-8d1275885d9c@igalia.com>
-References: <20261105-tonyk-syscall_table-v9-0-8d1275885d9c@igalia.com>
- <20261105-tonyk-syscall_table-v9-1-8d1275885d9c@igalia.com>
-Subject: Re: [PATCH v9 01/15] syscalls: Make --abis parsing more robust
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-netcons_double_cleanup-v1-1-d5ff8167e05a@debian.org>
+X-B4-Tracking: v=1; b=H4sIAI/H9WoC/x3MYQrCMAwG0KuE7/cKTRXRXkVkbFnUwEhHu4kwd
+ nfBd4C3o2k1bci0o+rHmhVHJu4I8h78pcEmZEKK6cLMKbiuUrz1U9nGWXuZdfBtCefTGCPzVVh
+ u6AhL1ad9//Edrisex/EDx5ipVW0AAAA=
+X-Change-ID: 20261112-netcons_double_cleanup-43b00118c1c9
+To: Gustavo Luiz Duarte <gustavold@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ kernel-team@meta.com, Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2721; i=leitao@debian.org;
+ h=from:subject:message-id; bh=5wcjJzy/USJaZfmSnamW/hrROjyCXQQqW4AJILq8p8E=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq9ceo+r3xwF/1X732ecFof2CxLKj5fdcvjqjm9
+ oxf2PvljRyJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavXHqAAKCRA1o5Of/Hh3
+ bYhcEACMsDSTjiVuOzE0ZgnKG1DSmfbqw/2Cdj/5Qoj4Y4iRax8wQtC0XvGtXmtCVMZ72P/1Rwa
+ oo120CAnU4NyWLVLW4RgPTkgjfCVALCE30b/SlsG3gHp6ML3I32HwYiw5PbkKbLSfwSuo9Yd+cd
+ r9kiu/UppQ+Qy3AF09HOdxIbCjAgLPV4t2pwb7PMdqguhsQcpy+s9fnM4i1tt3NMkW52cCcdypP
+ 0Pj8hbP4/shZsXd4Hb9LdVUByNACuece+9ayyKhi6u9dv5m2pVDNc37T+cfOWHFSgZLEJT0ZD0+
+ XlavgpurVQ9tO4e0JoNu6gnl5Kwzy+AYQxHSBDwj2fQirBpssuKRJaXZFxrAZrBF957e8dhbWpL
+ OFgpuEnnFxF83R3hA8uRsD5+ZTftXII6CXsbTbBNrMUN4tHaK4bKoZn/UxXyU1LQvkXi7vV5KhB
+ VoQirriKEr+knWeZGSWXgAhdGog5dFauipGHSYoOCTZQzS43lHPMHg1eRg2WRK71TSNlNBQrmHk
+ SgknsLu/LjPlgOf/ZD+2CVIFOHgxJ0xj603nRqID7sPpkyOOJwsFv+qHJi3H4bHCia7w4A92Ei7
+ qwOsFbuZ6pz7nT/6a60IXS5GWQdieF1xiloJiirTyYkotGJcAGzQeHcN6BtMZqTZLAQdvPR/LnI
+ yNtVPdDtCp2sCog==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On Thu, Nov 5, 2026, at 21:05, Andr=C3=A9 Almeida wrote:
-> Some archs Makefile have something like this as the rule for making the
-> syscall files:
->
->   cmd_systbl =3D $(CONFIG_SHELL) $(systbl) --abis common,$* $< $@
->
-> The $* symbol is evaluated to the variable found at $(uapi)/unistd-%.h,
-> where % is 32 or 64, resulting in e.g. `--abis common,32`. Sometimes t=
-he
-> rule for the file won't have a %, resulting in a trailing comma e.g.
-> `--abis common,`.
->
-> Currently this input is transformed into (common|). This is problematic
-> because grep will then match any ABI because of the trailing `|`. Make=
- the
-> syscalls scripts more robust by removing any trailing comma.
->
-> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+There is a possible race when enabling/disabling the target through
+configfs with netdev events that can call a null pointer dereference.
 
-Acked-by: Arnd Bergmann <arnd@arndb.de>
+My robot was able to come up with a reproducer by adding a bunch of
+msleeps() around.
+
+The race is basically this one:
+
+  CPU 0 (enabled_store)             CPU 1 (netconsole_netdev_event)
+  current_enabled = true
+                                    nt->state = STATE_DEACTIVATED
+                                    do_netpoll_cleanup()
+                                      np->dev = NULL
+  nt->state = STATE_DISABLED
+  list_move(&nt->list, &target_cleanup_list)
+  do_netpoll_cleanup()
+    __netpoll_cleanup(): np->dev->npinfo
+
+And kasan reports:
+
+  KASAN: null-ptr-deref in range [0x0000000000000108-0x000000000000010f]
+  RIP: 0010:__netpoll_cleanup
+  Call Trace:
+   do_netpoll_cleanup
+   netconsole_process_cleanups_core
+   enabled_store
+   configfs_write_iter
+
+The disable path used to call netpoll_cleanup(), which skips a netpoll
+without a device, until it started deferring the release to
+target_cleanup_list.
+
+Re-check the state under target_list_lock, which the notifier holds when
+it stops a target, and queue the target only if it is still enabled.
+Mark it disabled either way, as before.
+
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Fixes: 97714695ef90 ("net: netconsole: Defer netpoll cleanup to avoid lock release during list traversal")
+---
+Given this is not super critical or hardly faced in production, I am
+sending this to net-next, even with a 'Fixes:' tag.
+---
+ drivers/net/netconsole.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
+index a9f9477da1ec77..4b546194f7179c 100644
+--- a/drivers/net/netconsole.c
++++ b/drivers/net/netconsole.c
+@@ -1143,11 +1143,10 @@ static ssize_t enabled_store(struct config_item *item,
+ 		 */
+ 		mutex_lock(&target_cleanup_list_lock);
+ 		spin_lock_irqsave(&target_list_lock, flags);
++		/* An interface event may have stopped and released it */
++		if (nt->state == STATE_ENABLED)
++			list_move(&nt->list, &target_cleanup_list);
+ 		nt->state = STATE_DISABLED;
+-		/* Remove the target from the list, while holding
+-		 * target_list_lock
+-		 */
+-		list_move(&nt->list, &target_cleanup_list);
+ 		spin_unlock_irqrestore(&target_list_lock, flags);
+ 		mutex_unlock(&target_cleanup_list_lock);
+ 		netconsole_unregister_console(nt);
+
+---
+base-commit: c88fd6989aea9237a60a4859139a265bfb7ddc0b
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git main
+change-id: 20261112-netcons_double_cleanup-43b00118c1c9
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
+
