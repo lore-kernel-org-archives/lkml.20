@@ -1,99 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794466916;
-	b=DCv4racaaqz9fNSMKo2tjBN2OdRSFiUCii6WhO7c8RlIWFLBHOTKMG3eaJXjYQPLycuN
-	 U63vt46Hebcib8uoFUYMFEkd5Mj5vBObhc5i/FGa7EezO0T2DC/uGkKxch6PfN+v1Rgz8
-	 yIXiho+5SOEWDsl2OQtN8xPdUjyhShUoRj1weXrzQgw6Wm1h8VKJ5SQBdHx587nQ5VzYA
-	 9eqhf6EwXpeF7gyFjYoFPjir7fCwmhlIeMpL9pBlqNcXAiOTLh/CvoNBO4+Sawj1MfD/O
-	 hrMt5AxBQB+m7P4Gafpr2GOc840f1lS9mTXTk2jYGZnEZp38ZmrfhXoNUzPzRU02nrQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794466916;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794466933;
+	b=0VYSAJM39Knb/ET9bJxeb1O1FVbohj04sDwEjYgYUMhAo9fBFrtvOQwGyI7W+sTXJoVO
+	 u9n9Ifi7APUYpGmTgtFWHExOS0az/FDa2z2EBbm90E0eFxS7x01QmwC4eYbfPZd5gAf39
+	 ZvdpAjA8RqVqlq0k90RgM7ZrCrgacMSu7KWR1aV5NCvciIhEISTU7i4741xNkZxpLqUXz
+	 HXVq8333S5cIx+MesGYi5vLHy2TI5grvUsykVWQZZCL1O0ujXIULnvOuBLsO8dJlCc3Sb
+	 7PtMjtJf4RPbxmSkPR95TQ4/+iznoPsGoh3O9Muy1msTf0te/A8jjR2Bii9kHlDn1ng==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794466933;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=UE2S/v9lUpY69MJ7L+FzJG1ltivTSX3+KzjoTbLuPuc=;
-	b=Objpgrt/L5UWKKJAARDQbb62jfiRdZfaK5wp75tORW2jFAPWKxiTRh3QoC6ZNuzC9V2n
-	 Qxs61LkjRYR14Ek4VSvrmiCQDoSijXQduBC0oEJV6cS6242ihsQ6SVUZWmyJlRC5NVtNi
-	 c9+0cQStDT74MfzX/2rP4GIFMH29jMP/9oa/EMbKrwAuO6FJOr6rBLQFoPtgZXtk17YcS
-	 9XaFWIvD78yLEMQXswDcH7MzYJVH19C8cdoD8/+IGe+Lkq/YUxZqeP4GSUwSXIzqEDgbD
-	 wh7kIfC8TDw4oaqBVW9Bf4dxfOlS02Px/TUPDeghmRKiqdMibroDn17rMm0ENp4SN3g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=UiAixHN1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type;
+	bh=/4MtBLSGAeSlREMeMpXOJglcbVkwCt0++4H9V4EMMVM=;
+	b=Kcz9XslqXecRF5SIHpzMn1DsdHKQeqNj0em+uY/46G+ZyyCOTdhE1oVBiEYZz+Lzvr3D
+	 dZYPzkHB8bgXT/3Jl89fkk+dCPCysGG0LYOV6Zg52nF4XfKRGwM9lG9xMfxGOaKKp6YLo
+	 ncu3oWBuCeRtMw0JngS6mLiDKQ2jP4+viBXNQsAngsv+67CJEfFlSjSy4O2Wzz2KSQegA
+	 wHOnWI29Jxcksg0mJXVN5+9821Em2oYw2nUxmbrUNbWcTc7g/J5vA2wdWbERSsa0j4tIV
+	 9+gFzGcKoXozBUwJKViD/12LQapuOThCfqURyOydl3uVvTZbjbKgp6CCxc+CWdTd0gg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Bjvcdfpw;
+	arc=none smtp.remote-ip=209.85.208.48
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C66606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:01:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46C66606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A05606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:02:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8A05606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=UiAixHN1
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so6033314a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:01:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794466915; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hPIRoLONBtUK0uTceWyTVlRZCC659WAanWIY1eBtY0q3pKmuwTwwbi1d2kx6RrdJ08
-         reNbvUlqa7RG0cnwvX9v4XVG/7GTWsxPEZa45ACtgP0o36GL2qP52zdxiBzmYZwwcnpW
-         yR3hGS/ri78n2anxgn3vg/DRtCo/w0sQ+NIdBwGXk83lhf4aPlvrYV6Q/xjrGQnP/BKF
-         ZObyFDH8DoeT58QiSky9d5z8gBRHAkbid3g66DjMZgeN72Vf9ZcUD6SYaaVrqcLQqIJ1
-         o0BQ2ujmUS+/DwciNiHXjI8tpZU60rYHrNqOMmkyoVJYHo7brphLbdgl7TxAvMLJ9e1c
-         Xirw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=UE2S/v9lUpY69MJ7L+FzJG1ltivTSX3+KzjoTbLuPuc=;
-        fh=XUf/EZk/XhHCzxWZ9Zok7wf+xx7ido9R8uMqFWs2xqY=;
-        b=eAAieczra6UJWQjx1ITthkgiQ/xvH0zisaMvzilHpilmXHI2l9tEb5p1OrDJsXzYuR
-         d/aY6J4GQjsRWSN5gsEQbdMVzJ5V9SNDeo8O2H194v19xRM4wHENz3jd4SEe9U7C9oQY
-         j78MTLaCUiiYeZ9h8S72xNFE71d82g1uf+7eGBBi1LEUml8WLBEYgSwS+hqrmx5jEZTd
-         JtEATm8doQLCXOywlE0XM+VQz87ritbUUVp75Zd04ddS38+MvOjUKV/WDTUnhcq043vm
-         eIjJxXwjTdsXTDvqgqgkIfw7aTwwFJwpeLn04Vm80tgG7+D/o0KlzGBIwNrLkxx7YAxu
-         BUxA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Bjvcdfpw
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b65d69f5c2so598374a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:02:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794466915; x=1795071715; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UE2S/v9lUpY69MJ7L+FzJG1ltivTSX3+KzjoTbLuPuc=;
-        b=UiAixHN1FUbfDe7klDgIiMH62rnQAf9KRkO3u1AfWrm5CI0uh82tN0eXc3T9wbA1Vk
-         Z8e2YZ2ub0b4ecefSp1MlLEP9YoKN9hs3yBnqsQ79R6LmoTehDvWMcwTehXLsJ0k85ZT
-         aPlsOaL6jxHi8jiee/UUZhJlaJ3V25Tw2gI4OROVD5eqcmSqr79oxLXkhIMmwqd3Qoo8
-         aRpxd5FzCw1PnCPlkVLYqjlR1eqckLU6ezpDBr1aIrEQNs3/CuzwLXhXWvW3ZzGUKW4N
-         /Wne4+lV9YUhnr8P2O4p4+yZRSNJ2yOF6S5fMPm1PGN79bYpHqjnD7jZCNaySrLT6Beg
-         A8xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794466915; x=1795071715;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+        d=suse.com; s=google; t=1794466931; x=1795071731; darn=vger.kernel.org;
+        h=content-type:in-reply-to:autocrypt:from:content-language:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=UE2S/v9lUpY69MJ7L+FzJG1ltivTSX3+KzjoTbLuPuc=;
-        b=dE5SaK52yl6vLhqpJTws+7QOb2w811ubPtPuT2UmPHTmr+gdAYTZ++6gwp+uguoxn/
-         4SBLJFPaO/QgsISy12nLg/NG7AHYVGml0kN2tyT8zLgIDOfsUlmtxaSUcm0nleEy2m2Z
-         WTb7TJs1Th2939whb/2DQPJMSWMA8D97l7rYOAMwxW6+UkwmAC5w376dKfmum9XL24tu
-         fM0F8UpqG7APLO7Llp5/jTfridLsW7DhJWAwpkj1YD9QtLvh1M5rwk/Z1oJhgpBJwRdL
-         BgaGA7DpHK+EK7Rb7UeUFomu8p7HX7Y1ZYVH5qJJO50TQ83yLZ7Jkxf1L1P5ENMsTbPb
-         Fg1A==
-X-Forwarded-Encrypted: i=1; AL+hErFLoCa8kUfSYt6h+Srrpwc8Fms88BQ6WA/Lp6eXKQH8C0UPVIrCVZlN3LOjxDlfrbHXeWS+tNlMNpDevBw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+L5Nm83Gq9FkqFO7LzoT7D+OMPHzbbZ9W96JolkOScEbEPVuzQ
-	Mvq9NoJl5GLLRZS8D/mtWWeNUT9tSH5HBEhDivzYFRjNJuUvt++3mYTJGsdHB7a8Z/Xn5gACWpo
-	T5T+205eVYs0mhTBje4SxwNUSNOCPOmLiMYaVReiTNQ==
-X-Gm-Gg: AYBFou2XVYNumAQm3fVEuLd4zE+J3fIMAN5s9+X/FPjSo3CIr3ZpzDBXJHKhA5/HQEE
-	lrfAWoxLkmEvat0NZKiIM4/gNisDHPceZhUFxbcewAgI/cFyQj44D/0TMm7w2SqYCYJPzMln7GG
-	bQHSt4ECC+oivijf6M9IL4eysapiJ7gYf447vTeXvxNZFT9JQOD9fZHARINbfTCi+r8ONlhAUmU
-	H0igvlsZShzjw4EsDU6SGHndKB+ayw8SPyy69jF+w8a94bwKkMB8NzwGdn06jMWX9x6Fos21dYK
-	fIZAt5REhZ4O7gFDM8x/mh2VjTEstKSSSdgFRrOgaBIZO0cfW1asMR0/ryPhkZ4H38pYQA14571
-	7jxFBAaebHAn6mQZkZcfr9a2NpKa/mMcIyZ1OyYp8bR/bZ6mvhmjT2rRElv72SzzjDNR9HQ==
-X-Received: by 2002:a05:6402:1f03:b0:6b5:767e:f030 with SMTP id
- 4fb4d7f45d1cf-6b77733a4b5mr3291059a12.2.1794466914501; Wed, 11 Nov 2026
- 23:01:54 -0800 (PST)
+        bh=/4MtBLSGAeSlREMeMpXOJglcbVkwCt0++4H9V4EMMVM=;
+        b=BjvcdfpwCSBKwnvk9dCuZdO5bKIE7LwAVDFAJ/gmxSf74WWDcshOCc4hWUyXyWXXUr
+         4sZTuk4jlequbSGaosO1Aa9C45fjTvXFUCFwQ/9zmPG8TnCwSWyOtFW1WxdYViy06yTc
+         HyFX1dQtACLjFDtpRnNOcP/J81n1jrZC0X6gNuRiOoKvRw3BaT3Wwd6O03XwNbf5Ueuw
+         PEtIxT25lUKN7ekbFyaixdV6RqZwO4LjKFYjA5f4dlm2xzjsWBm8x1RzGDJxAAkgyreV
+         /vcr+SLLhddZFEgHZqgHxdSZH+baDtgbno3TWD21Uj+EIETHVKbPhaDJZ4K6/jVbpari
+         RNBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794466931; x=1795071731;
+        h=content-type:in-reply-to:autocrypt:from:content-language:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/4MtBLSGAeSlREMeMpXOJglcbVkwCt0++4H9V4EMMVM=;
+        b=nLdScFwDkv3UyG0ks1SMyDcH9AcxA1MYs5K/Ava34wmDXLUlhFK+LO9xlw8q89PO0w
+         yKUvLOF+16S+7GewbvKlZTSTUPPjZZTkPhkIyhdYEgjQKoUUPm1DfzCmIMts2NNUDuT5
+         Y7sYfP6hbGo/4w2WZTBzrFYlh7zN+hnX3p2ABzdKgoO17z4SYUPst0idj5/rEC9eQ5GK
+         ulGk6Wx1/u4Un3vlt4BrAHZB6DCELKRHzqs42HYphaQGWENmcHEeFn/3OEXigO5fCErc
+         9G7fysEt6qHlretfVhH0TOjynLhEO5QzUzbbhUzU95c3DDQ/h9BuK5iabvPIV+UhaMnV
+         MO9w==
+X-Forwarded-Encrypted: i=1; AL+hErH4ZOuc+f050a6QO7n0rsK1GjjjER5BwjWXpupbhyBDng3RG+1qk04m3ZYA+Bjwt2to6cf5za2Pf/rCTmQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+e4k9qCTka+EGGbNYMBDUiWZjihFuRTT58dx4oAofdkTwytljC
+	Hoxqozv9z1g736Q8tisILY0LeXQX5N5/MyKnuyWq53X6T2dgnxRU3MCcVbJtzD46kRc=
+X-Gm-Gg: AYBFou3MDhBGGDc+LSEhiEJB5+uXwkx6i7xI+S0ZMAsDm6edY7ECDo+kth4mL3/cli/
+	pvQ58luobarE+yCyJaqdlnui6u9s7Oe9/EW6bVU7psLq+fnPkVZxogtL76cL1mV98MrifLiI4g3
+	PihIDAS/mpWes7Qtnt9v0dUlmxVtXjuMnCAZvV0qLEFKTauvc+091jQSQXATZcHNAFO1yIraGO9
+	hR4tg1ogU/16jV8nTRt+VUkWWbSW8vAzkXSHU5GcPk0fh2F+iE7q6cp7HWtA2VsZROpVly0nnFW
+	jW0+LD6yXgmC9P/IJU9cb129NZGnH25p04/+IUzdDYrGKyrXQgaZ0dBxVMy71WQDCMhtSFzxWB1
+	z7whcLH4AUPsLXs5QIJmEkdJ7JtLO3YorS6iEzMFVERdJGnIUYGasXMFI0gi5IlvuMiHXGjsHZR
+	7hOtaEIKTMB4ewMO6eYbtX3zdzsPYaXixMH2rAfeG5rZoWYWkVs8sR+82QDR5mxOOBDTXypBVKO
+	qE9dSPZ29V3DLegIQ3h/LMDr9io36nhF++8gi/lLWrUfCOvU3rblu1qA7m/qOUHaGAKU51BOkd7
+	BycITxpYrM346ZCQuOgfp5qDvQJnMxVuapD3TTfnLekawcbWw8cDC2iq7BoOfGQHE1Cmq7ANJJS
+	fz50dZsQTGnOek3tUqcIGmhJFfsREkTf4wbfaPo1qbs9Yw3EwpBUgHnUrm0v5duRrGTG3vLsM
+X-Received: by 2002:a05:6402:1e94:b0:6b5:61fe:982a with SMTP id 4fb4d7f45d1cf-6b777824953mr3292179a12.45.1794466916038;
+        Wed, 11 Nov 2026 23:01:56 -0800 (PST)
+Received: from ?IPV6:2a00:12d0:afa3:c01:92cc:e257:77ba:97a1? (2a00-12d0-afa3-c01-92cc-e257-77ba-97a1.ip.tng.de. [2a00:12d0:afa3:c01:92cc:e257:77ba:97a1])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7ada54c88sm112091a12.2.2026.11.11.23.01.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 23:01:54 -0800 (PST)
+Message-ID: <3a052d2c-8d14-4cb1-b6fd-277a6b0c8196@suse.com>
+Date: Thu, 12 Nov 2026 08:01:53 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,81 +91,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
- <20261106151947.3991524-9-vincent.guittot@linaro.org> <20261109144350.GD2668564@noisy.programming.kicks-ass.net>
- <CAKfTPtDcu6HS-G75bG7xp10t-n-XceneFtqxa_cAd+B96zCJiw@mail.gmail.com> <20261111085928.GE2668564@noisy.programming.kicks-ass.net>
-In-Reply-To: <20261111085928.GE2668564@noisy.programming.kicks-ass.net>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Thu, 12 Nov 2026 08:01:42 +0100
-X-Gm-Features: AclHuK-gkc4M-jSyE1nXnvG2bMRR6frusiPuC8UsfPnuglBYeu9svvaRxrdoStY
-Message-ID: <CAKfTPtD054JHb38LdY-Dgdo4LTOVU1f80tL9hf9i629kEc6wkA@mail.gmail.com>
-Subject: Re: [PATCH 08/20 v3] sched/fair: Add push task mechanism for fair
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@redhat.com, juri.lelli@redhat.com, dietmar.eggemann@arm.com, 
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
-	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, lukasz.luba@arm.com, 
-	rafael@kernel.org, linux-pm@vger.kernel.org, tj@kernel.org, 
-	void@manifault.com, arighi@nvidia.com, changwoo@igalia.com, 
-	sched-ext@lists.linux.dev, qyousef@layalina.io, christian.loehle@arm.com, 
-	pierre.gondois@arm.com, sshegde@linux.ibm.com, kayracizmeci@gmail.com, 
-	tim.c.chen@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] xen-blkback: do some I/O statistics rework
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger@xenproject.org>,
+ Jens Axboe <axboe@kernel.dk>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, linux-block@vger.kernel.org
+References: <20261111162058.804033-1-jgross@suse.com>
+ <7af69a18-fcd7-48f9-a9e4-c2ddc060755e@suse.com>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <7af69a18-fcd7-48f9-a9e4-c2ddc060755e@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------XnKNkkfJknfgjGY9Ag00BvNt"
 
-On Wed, 11 Nov 2026 at 09:59, Peter Zijlstra <peterz@infradead.org> wrote:
->
-> On Mon, Nov 09, 2026 at 05:07:31PM +0100, Vincent Guittot wrote:
-> > On Mon, 9 Nov 2026 at 15:43, Peter Zijlstra <peterz@infradead.org> wrote:
-> > >
-> > > On Fri, Nov 06, 2026 at 04:19:35PM +0100, Vincent Guittot wrote:
-> > > > +static struct task_struct *pick_next_pushable_fair_task(struct rq *rq)
-> > > > +{
-> > > > +     struct task_struct *p;
-> > > > +
-> > > > +     if (!has_pushable_tasks(rq))
-> > > > +             return NULL;
-> > > > +
-> > > > +     p = plist_first_entry(&rq->cfs.pushable_tasks,
-> > > > +                           struct task_struct, pushable_tasks);
-> > > > +
-> > > > +     WARN_ON_ONCE(rq->cpu != task_cpu(p));
-> > > > +     WARN_ON_ONCE(task_current(rq, p));
-> > > > +     WARN_ON_ONCE(p->nr_cpus_allowed <= 1);
-> > > > +     WARN_ON_ONCE(!task_on_rq_queued(p));
-> > > > +
-> > > > +     /*
-> > > > +      * Remove task from the pushable list as we try only once after that
-> > > > +      * the task has been put back in enqueued list.
-> > > > +      */
-> > > > +     plist_del(&p->pushable_tasks, &rq->cfs.pushable_tasks);
-> > > > +
-> > > > +     return p;
-> > > > +}
-> > >
-> > > This means a task will only be pushed once? After which it needs to be
-> > > re-enqueued on the runqueue?
-> >
-> > Yes, my goal is to keep the list small to avoid ending up with many
-> > tasks to push. So I only check if prev could be pushed somewhere else
-> >
-> > >
-> > > So if it was found during migrate_disable(), its thereafter stuck? --
-> > > this seems a little weird.
-> >
-> > If a task is migrate disabled while we are about to look for a
-> > possibly better CPU, it will have to wait until after the next time it
-> > becomes current. This is a simple way to pace the number of tasks to
-> > push in one callback
->
-> There is still a worst case where a lot of tasks get woken, they all get
-> enqueued and then they all get on this list and you need to iterate them
-> all.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------XnKNkkfJknfgjGY9Ag00BvNt
+Content-Type: multipart/mixed; boundary="------------znQNYWv2cH6gyTbCeqXfd0fm";
+ protected-headers="v1"; hp="clear"
+Message-ID: <3a052d2c-8d14-4cb1-b6fd-277a6b0c8196@suse.com>
+Date: Thu, 12 Nov 2026 08:01:53 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] xen-blkback: do some I/O statistics rework
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger@xenproject.org>,
+ Jens Axboe <axboe@kernel.dk>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, linux-block@vger.kernel.org
+References: <20261111162058.804033-1-jgross@suse.com>
+ <7af69a18-fcd7-48f9-a9e4-c2ddc060755e@suse.com>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <7af69a18-fcd7-48f9-a9e4-c2ddc060755e@suse.com>
 
-Yes but this case still limits the number of tasks added to the list
-because of the case which involves short slice preemption and
-simultaneous enqueue on an idle CPU
+--------------znQNYWv2cH6gyTbCeqXfd0fm
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
->
-> If you want to bound this thing, you might as well do like
-> detach_one_task(). Only ever consider the first task from the end that
-> is suitable.
->
+T24gMTIuMTEuMjYgMDc6MzQsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAxMS4xMS4yMDI2
+IDE3OjIwLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gU29tZSByZXdvcmsgb2YgdGhlIGJs
+a2JhY2sgc3RhdGljcyBkYXRhIGhhbmRsaW5nLg0KPj4NCj4+IEp1ZXJnZW4gR3Jvc3MgKDMp
+Og0KPj4gICAgeGVuLWJsa2JhY2s6IFJlbW92ZSBzdGF0aXN0aWNzIGxvZ2dpbmcgb24gY29u
+c29sZQ0KPj4gICAgeGVuLWJsa2JhY2s6IG1vdmUgc3RhdGlzdGljcyBkYXRhIGludG8gc3Vi
+LXN0cnVjdHVyZQ0KPj4gICAgeGVuLWJsa2JhY2s6IG1ha2Ugc3RhdGlzdGljcyBkYXRhIHBl
+cnNpc3RlbnQgYWNyb3NzIGRpc2Nvbm5lY3QvY29ubmVjdA0KPiBSZXZpZXdlZC1ieTogSmFu
+IEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPg0KDQpUaGFua3MuDQoNCj4gSW4gdGhlIGxh
+c3QgcGF0Y2ggYSBicmllZiBjb21tZW50IG9uIHRoZSBnbG9iYWwgc3RhdHMgaW5zdGFuY2Ug
+bWF5IGJlDQo+IHdvcnRoLCB0byBpbmRpY2F0ZSBpdCdzIGd1YXJkZWQgYnkgdGhlIHJpbmdz
+IGxvY2suDQo+IA0KPiBBbHNvLCBkbyBJIG1heWJlIGdldCBhIFJlcG9ydGVkLWJ5OiBvbiB0
+aGUgbGFzdCBwYXRjaD8NClllcyB0byBib3RoLiA6LSkNCg0KDQpKdWVyZ2VuDQo=
+
+--------------znQNYWv2cH6gyTbCeqXfd0fm--
+
+--------------XnKNkkfJknfgjGY9Ag00BvNt
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmr1ZGEFAwAAAAAACgkQsN6d1ii/Ey+j
+5Qf/VkOKnOQT0F4EOFuBzac7B3dirk00TyTViv89zfyTCzNWvQ1NhWRd612k2Xgs3lS/oMFgAlZt
+8xcOpUaNnM+ubudMuiHRsf94cKCdh2EubF04ANK9kn012eDseJjkCweKmxjVDDoPM/A1BVSwq5yQ
+aTE8k+xGcOzKNYrGHwaFiC1C/jsIcw4DN+CCV/vPDL0iIkhFP0qWbOE8d7kQ0czpFzwJBXAI6LBQ
+r/PKwaH/JwSwwW28ipAGIYNwTdlJWfsu18dP/C3j/A4UOiFGDFTWlFq31EaSvZkKmMSl+tQ2LHse
+EX30z7qV/A7ZAEiQet8JXCQ9qtLsznVIwO+Q8Zn1JQ==
+=hvYA
+-----END PGP SIGNATURE-----
+
+--------------XnKNkkfJknfgjGY9Ag00BvNt--
