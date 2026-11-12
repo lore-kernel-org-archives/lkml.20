@@ -1,47 +1,140 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794495663;
-	b=gW5ghqh4nxyeAqjIQjneE47kBRE8sccNgXy9PFEHfBXxgYtxIxDNjtg5Aep20uZ7Da/E
-	 KSd/0AoHvbHGgjcpx2yTVIjJcfEgmPp5k5UYQoYzmAiScGN4iwhpR0iwYW8Y2vQqqCc2A
-	 9E3Jp41SLPUz6TuLR3zV07k/aKYgINKrz0KnCuWojCGlC1RXW/fZ8rijHy1MTjnBXTLlH
-	 J7Dvp6z58rZozrjL9HD4RtTqyOXwZ/liZPcegrHrHWw5CPGGSM0UPM9139qm+W7/nyQyl
-	 LiXOwUCqYzVSPG/mqIJNQZwVrVZj5keRvjCBmntgKqQPtwWMc9cE7ag975quUWxX4Ug==
+	t=1794495685;
+	b=eRfZX9tDTe11ePGYJ4JaZsDI8IWemx2CGejw2boYy8dP30SdqAzESu4EKBRpcDcRcEfR
+	 pClb61Vu+1r8IQLngiYumbBdotXY0cfzBp0DKGX1AlAuule/waFyM9oAbkqZ2PHTRJNHM
+	 B1HG01cQEUNgzBFvoPuJouuwKi7vITBkLWYdpIgzrbWV7IhjjkVz8igEBr2EXvqQzV5If
+	 +AKjV3zqVWJYLAuyMfYDDx0ecP/2NVOkdfeNpjM8sx1Rd3Gj5xUsbMeup6PnHCfS7da2g
+	 9fKw/yehxrZcaVcNYCuiOShZFLKUABi0IHl9z3PASlok6OAV9oEjIdJoz1d8ES2gS4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794495663;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=XWzzX2bCOjZE8Fke1tFaOhIuXhTbcbQFXwLZVTqEnEI=;
-	b=lBCj5aJQOLelxDtvs5PsUdCDJeBCSZ2u5ULZkpBVN1RHnjtLl3R5Vzqe9y/bHfT8P5CB
-	 Pbw2YF8Y+Ay0wwVuxut6opaUSrb8E8of6GePLD1C6o9yKXO6+co7vo9K4niAnvUGH+9Nv
-	 UoRkBLPoz1L9JISm88nBb21BZSMm3pXNNWCYuj7lp4c6HewC53oDzfANGg7Z9jZT9v4dh
-	 2ZPxV5U5mtnEgPoBn2bjMQkFTT+EBA2f4pWj9ON1zxBiowYzmF+Yj4KcMlgRA2jUPgZtV
-	 ZGV8xzCNJfmuNN8owkKNqS9Qf36Moz+qkAft3usSSHUOPy0+vA/PU2gyaXtZuAO3Lig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794495685;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=M/6u10agl+rdRWY13WawdsYLlQi9SJfLtYTamWTVA+8=;
+	b=otiv9dVtzfb0g8ERoIG5Q2MRj4jRhwcoF6mFKdUbZHj6IDGaDzLZGe9bFxdKFNdI1uJM
+	 jXYf/Akv3T2YK/M4KWtiz7b2tpC6S3FM+mI72/Ws6n3j0uFkvj8zoAYG8NX9llhWqJwFX
+	 Tdehtqz7WiXeQSLLqoLkVLnrMmxDPfvtyiDKVfDQh8VyZIzr/nC+PUarUqyc+bTsCDylv
+	 DLIJY33WJ9Dcj9Oyz57orSFc/0q6ImNzQ5wSHr7EB4FkHd4Ywq7co2y1C/zlK+kr4guBl
+	 lDs+2VbyM5QfIM4qUpjGt8t50ivm9x8+nlUhI0ByChkCE32TFnOwGRdMGQEiDnfvECg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KNa1MpD3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=hmiaU1wW;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RTr+R4Yb;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707A8606A327
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:01:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D03D606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:01:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D03D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KNa1MpD3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 360271F00A05;
-	Thu, 12 Nov 2026 15:01:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794495663;
-	bh=XWzzX2bCOjZE8Fke1tFaOhIuXhTbcbQFXwLZVTqEnEI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KNa1MpD330l3EWuySCHcUKGnIZC0ND/ubfob28E/jJ0ZXddKGwz7qZFjYFVe22jUO
-	 fr1EGuZJOR11VLiJeZCKyr/jgX1FLWAmaxqHVwdYDJUQFAawUKkmpcc7we+wk1viR0
-	 2L5yLmYZ0oPbeMCOeutt7KS+GBToJ8lh7VmWi0m/nSh37iimn818iZn5MRFjTrV7/W
-	 JBlv43bsdj08e2nohFZMOaGYvY3MD101tc0A4LRMEM6dsvEaDmSsu4CRQgPG87CFyi
-	 Bo1eFHvgTGblFg/uCDkdRlIF+G3280cgX6v+zdTQPXov6TGxxq9LNAF9cQd0PYd5gJ
-	 o7Hw/ecXuTd2g==
-Message-ID: <76157846-e30e-46b0-b767-0902e3f8c82a@kernel.org>
-Date: Thu, 12 Nov 2026 16:00:58 +0100
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=hmiaU1wW;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RTr+R4Yb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794495683;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=M/6u10agl+rdRWY13WawdsYLlQi9SJfLtYTamWTVA+8=;
+	b=hmiaU1wWD0+MVl93b/8w/eTEXYUwaBkXZ0c2PPNL9h9Wi+4my9c1JhbbnQgbW7vr6Ea0B/
+	NXAAsTvyY/FnVA5vhAGRaovEWkpQkeAhqwkMoqpI5Wip2qdCarBIhos803w+KpwSnLzIn2
+	jLYj7tStDcTERHCyO5iqPGjDeBJePNM=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-645-a-l1Hj1aPWqnIjQhHDEabw-1; Thu, 12 Nov 2026 10:01:14 -0500
+X-MC-Unique: a-l1Hj1aPWqnIjQhHDEabw-1
+X-Mimecast-MFC-AGG-ID: a-l1Hj1aPWqnIjQhHDEabw_1794495671
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a1fdde384cso30033045e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:01:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794495671; x=1795100471; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=M/6u10agl+rdRWY13WawdsYLlQi9SJfLtYTamWTVA+8=;
+        b=RTr+R4YbUtPb0bJdv9nKHbt5s927vcuRHj8Qc+OgK1pDd+OkXz/XRTdRh+Lp+nae6T
+         l8lJ53T4GUVn9XOVe0bCKpyjw3CnwmmmXHp08IWNvpnkN1WmIOQnOrXGswdpYoBnfqCQ
+         y9gE7rnEsVVfnKIv64XUWDMmG6izvPpfn4bFNPpiC+7qjOELvlLNSzLS3gpb9Lq/um6S
+         O9f8JkDe7Wxx0Wh+ahSYpy3z8bupNQZI4JCTSBKci4+I5ulr0MP7RAQiXvnYM2O3UolY
+         85zasF1WCLyu6xoC8IR+3v+DI32L7sVan4s8dZ2r1WSI33icXbBNVYFWTfbbmw6GYvmh
+         pkQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794495671; x=1795100471;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M/6u10agl+rdRWY13WawdsYLlQi9SJfLtYTamWTVA+8=;
+        b=uyQo7Cu3C2GdSIdUtjRHkk/tjiEhzGIwdY/VfG8C+0lMIyHGQyymy0H/6Y2ntDozKe
+         3RukEDO3Tzc7MZgIcHcQE+RfBXkluwurahYX5dN17XpM5QPnc1rwJO5M3e7eYD2dw96T
+         BRMO2mK5fIFBOS64NFqGalHH9okeSeoyndhXJ9OBwb0izLCpJYlnJRZ4j/qvgI/0QWOI
+         QR1czh54byU7N+uONiJlfb4Zio70cpkEgfW/vJYh0bmdNzEU6XyfmV6rslEx3HWxP1vo
+         2XlE6GT+uOHZAgP6+Y1x7JR75fdQXxSTo4blXhXchvRdik+I8+qoz6tI1O0oaL9Er14s
+         Oy2Q==
+X-Forwarded-Encrypted: i=1; AL+hErGsJkNNen6rw9i6h4WGVr7LCwdj0xNRDTd6BSbgm7qpr7HSxp0bL6M06snj6cg9XC1bTgDio9PAUNWor5A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9M7jZpOzEwe++++InbASefEL8V+fzHnsLM3vKgojb5mU3dPS+2
+	p4lWj//2SzU0peIgJ2pBtaZZUJlxAO0XQVkXeM5T9yfqosjZwmWnV9TjcrA3gDHnGQJecljYgzk
+	Tbk1rpjBge6zoNRr1+57SnFsp5gWhRrdLhJ1lR96xTutMf4vVcYRU5qcqovSIollXOQ==
+X-Gm-Gg: AYBFou0i1TxVcATP3+u1pypZ8m6iidbQTmF1FmYtCWmPoNuWvl3o7s5TbTOkLwwMxaE
+	+bJwMujRrmeCC78kuFTW4Olbpxi6rMH9hUBHoNLteupiiJzys2hKQ9aFDk0kn2U4GhyFpNhKW/K
+	CvJT3U7BhQjRkPPPUSIt3GTUigOpYakFBNksjJ9f9Nk1r89SBXTG/V71wA+pFlMzEF1XDo5GFzL
+	pSp0GFKTbPuYfKC1xpBfv5/Zyss6U+AmhjI7NO2gn7iYHRtpUdAXB7yI3sclVT5oKzL7QEz/hGg
+	mBaLMpxbHAAk9zKPiEyQzohqwWs3wbMuI+XmegKM3toboS8ihCvbV0vl7LxCrJj2aRyfvV/23gi
+	0149i23lFWIaxd5TM2SgWVNxFNP7MOPVLndclJMmdkhemO43KbN5L8ONAJmJtW6G1TZmQi7Jh9m
+	w/qKo=
+X-Received: by 2002:a05:600c:6819:b0:4a2:167a:c946 with SMTP id 5b1f17b1804b1-4ba0935f880mr100717865e9.13.1794495670975;
+        Thu, 12 Nov 2026 07:01:10 -0800 (PST)
+X-Received: by 2002:a05:600c:6819:b0:4a2:167a:c946 with SMTP id 5b1f17b1804b1-4ba0935f880mr100717275e9.13.1794495670509;
+        Thu, 12 Nov 2026 07:01:10 -0800 (PST)
+Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba08ddd467sm110908625e9.0.2026.11.12.07.01.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 07:01:09 -0800 (PST)
+Date: Thu, 12 Nov 2026 16:01:06 +0100
+From: Juri Lelli <juri.lelli@redhat.com>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
+	rcu@vger.kernel.org, linux-doc@vger.kernel.org,
+	John Ogness <john.ogness@linutronix.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	luca abeni <luca.abeni@santannapisa.it>,
+	Yuri Andriaccio <yurand2000@gmail.com>,
+	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
+	Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Qais Yousef <qyousef@layalina.io>
+Subject: Re: [PATCH v2 0/7] sched: RT throttling cleanup and a bit of
+ documentation
+Message-ID: <avXUstjABxdTZaxM@jlelli-thinkpadt14gen4.remote.csb>
+References: <20261110-sched_dl-v2-0-cc9399f7aeb1@linutronix.de>
+ <c2bf89ce-b9de-43cf-839b-395d28b2275c@paulmck-laptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,96 +144,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/slab: remove outdated comment in
- create_kmalloc_caches()
-Content-Language: en-US
-To: Sang-Heon Jeon <ekffu200098@gmail.com>, Harry Yoo <harry@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
- Hao Li <hao.li@linux.dev>, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- Roman Gushchin <roman.gushchin@linux.dev>
-References: <20261112144653.840367-1-ekffu200098@gmail.com>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20261112144653.840367-1-ekffu200098@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c2bf89ce-b9de-43cf-839b-395d28b2275c@paulmck-laptop>
 
-On 11/12/26 15:46, Sang-Heon Jeon wrote:
-> Since commit 16a1d968358a ("mm/slab: remove mm/slab.c and slab_def.h")
-> removed SLAB, no kmalloc cache is created before create_kmalloc_caches().
-> 
-> So remove the outdated and redundant comment.
-> 
-> Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+Hello,
 
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+On 10/11/26 11:56, Paul E. McKenney wrote:
+> On Tue, Nov 10, 2026 at 06:34:42PM +0100, Sebastian Andrzej Siewior wrote:
+> > People used to disable the RT throttling mechanism by writing -1 to
+> > /proc/sys/kernel/sched_rt_runtime_us. Since v6.12 they can still do this
+> > but they don't disable RT throttling anymore. Instead this throttling
+> > mechanism has been taken over by the fair_server which can be configured
+> > via debugfs.
+> > This is not really documented by a hint appeared a few cycles later in
+> > Documentation/scheduler/sched-rt-group.rst. This can be found once you
+> > know what you are looking for because this document describes the RT
+> > group scheduling (CONFIG_RT_GROUP_SCHED). The fair_server is used even
+> > without it.
+> > The then there is global DL resource control which also shares this
+> > file proc file (which is stuck if CONFIG_RT_GROUP_SCHED is enabled).
+> 
+> Nice, thank you!
+> 
+> Unfortunately but unsurprisingly, this gets the same divide-by-zero
+> issue reported (belatedly) on the earlier series:
+> 
+> https://lore.kernel.org/all/e58e48c3-ac62-40cd-b5d3-2de87db12496@paulmck-laptop/
+> 
 
-> ---
-> Changes from v1 [1]
-> - Remove the whole useless comment
-> 
-> [1] https://lore.kernel.org/all/20261104144753.2266231-1-ekffu200098@gmail.com/
-> 
-> ---
->  mm/slab_common.c | 5 -----
->  1 file changed, 5 deletions(-)
-> 
-> diff --git a/mm/slab_common.c b/mm/slab_common.c
-> index 01c64ef661e7..10603b9cbb53 100644
-> --- a/mm/slab_common.c
-> +++ b/mm/slab_common.c
-> @@ -1028,11 +1028,6 @@ new_kmalloc_cache(int idx, enum kmalloc_cache_type type)
->  		kmalloc_caches[type][idx] = kmalloc_caches[type][aligned_idx];
->  }
->  
-> -/*
-> - * Create the kmalloc array. Some of the regular kmalloc arrays
-> - * may already have been created because they were needed to
-> - * enable allocations for slab creation.
-> - */
->  void __init create_kmalloc_caches(void)
->  {
->  	int i;
-> 
-> base-commit: ce6518e61e3b4bf4f97f7ac6204049b9eba7eb75
+I wonder if this fixes is
+
+https://lore.kernel.org/lkml/20261108185406.1549770-6-mathieu.desnoyers@efficios.com/
+
+Thanks,
+Juri
 
