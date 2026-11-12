@@ -1,94 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.236
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794532726;
-	b=1OOdPwohkm7YhFyQ8QuUdni3tFGCtfxMtfd40Iq9R+qGRvf0fAJo+ez2/wHl8SXRWmDj
-	 8qEjHeRBhVpSS33IQ61kUIfn0AynPL5E4+fZBmGtVCGqBerrh9aU2h8mYOMKt8+wLQG01
-	 TrG7XLAtd2tMFeANZb1GDmTryY+UKGaUNwmXFNqq8HNx0gJ/SCtn7RwZzbM7YLgnSSZ8f
-	 0r3+bLeW2RiMahkGWfa2YJaO4xdXnhwPP31w98hZ8RhKbSl7vGpupua59WqZrZKzn2pL6
-	 IJh9bhlUg64aapTKJCzKBJUFqBLuNC3log9yuW1+ly92YC2UxgDLTcUxoexKv+aEjjQ==
+	t=1794532723;
+	b=dxmteGGRSuvTLFPQcAV7YPI4NNHk8bLH7aPdBTe9IkWIOC7bzvHMkoLFPLSVtktd1shZ
+	 af8CrnzW0Cu/0b3dFLWPMIbRyIQCnOO/l3LNeMYNt+ct+w04jmvYNR10JTJQvpZGe0Uua
+	 VQDacM1CMFVN1eVLxtgX6zmQUeIJmbX+NwwpQGYPq90gTJ1JTlD288HuksU6xmIbX/F9u
+	 6QkRBw34gwT1xLTC9CWiAKzcpWo3z4sn5wejRGsLAE78If0NlGXKemPu1rWsGOnObXLg/
+	 hM5vBGFpAKOuEDnWon4ZeFnzU7WybK/2m/Btw465t9p7fwag/foEJ8Ke2TFxq4fQEcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794532726;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=VasWpqSUZYD0V4VYxxbwomWuyZegnnIz6kc2wFLpprs=;
-	b=gxCppA84+rUvr7tc9nvnqz+ZqjusAlYdLcLDbMwJzMb+m34AFxm/jSSNUVRylTqDun7k
-	 OSACD96B1wzJpUfUyGWPww2xw3v1gW4jPsu3PStlMKWNGuoYrdzU1wlxzLz/+YCLiEcrp
-	 oWwDTmHzh1yOT5YbU4Bo0oLySmPvjh3cE8clb8EdtoFUliGwqM+eKtwb41u4HslklSzY1
-	 o+E/T5RrTbEN2SHDRk+K66tsKsgj4Qs/gUJH4q8yimpnLlub3qcAjfiP4aCoT/07vLT6V
-	 8uTivd37hCcI7EVpfLKsqxTfcJrjVHlJIEJURkSmy40HFGS33r4mF/RvG8DFrcWAf4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794532723;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:Date:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=VweIZJncufI4qxiNi9la2hhpX8UP/VSqawVkGohdoqk=;
+	b=RxPBbCSrT40PLqoS4QLscNBsropkK1hX678M/p7VaBr8SNUMvQvnd6TNk0cF5p2H/8D1
+	 2IihU8wWMHwjqIXpWGW2AQAsb6flP+NiQlRdrxljV4QsytJAk5V43n5iwj4THcd9e2cAl
+	 cLKV8VFZfJwgEwE9SavgOjj1YplJUkxxwiY2aok+egUkOP/BF1Fvu6GZ3odGBYHZ+qEMa
+	 1H245V1otSiEpVbCblDwWCqbHqE1GL6bM3opEmWQCdyvvrP/Bwr4S5xBIiPvATsZ79/gu
+	 jkYFy8RwLif8G8G0kqk1c8i8HQkRsEgahuJQ+dlVG9+3EobYFUW6gzBlJCuKjCrg2jA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gbwr0IK0;
-	arc=none smtp.remote-ip=209.85.210.47
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=f7DA52wh;
+	arc=none smtp.remote-ip=203.205.221.236
+Received: from out203-205-221-236.mail.qq.com (out203-205-221-236.mail.qq.com [203.205.221.236])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE88E606A883
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:18:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE88E606A883
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA4A5606A327;
+	Fri, 13 Nov 2026 01:18:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA4A5606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gbwr0IK0
-Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-843cf077f10so861684a34.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:18:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794532725; x=1795137525; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VasWpqSUZYD0V4VYxxbwomWuyZegnnIz6kc2wFLpprs=;
-        b=Gbwr0IK0qd1Y/y7HBMuf9IUXwTm1GD3GcGNZPmJ1lAYZJxS9CEQryMc6NhKoIJE+Bo
-         d/DETRVD7Yr2TJ8MnzMvwdJDeGO9PKieWKkwVjxjdFHx0x19ePXKYdMSqKnWlb6hb9nH
-         HLwKuCTlpOhDLIIzPqad5DgqCy+q7YvwdAH1w70j2nhoeD9L0veIb9fe7xqnNpLV+1Ro
-         hoy7/e9qlNO958nQJ5LfomK6a1419t6AZ6MEdEbyJ+YqNgg9rTUe1pRbBNLpgzyJt78S
-         wqm3q4S8sjeCQf1kBhJfKIWq/4VHU3brAqcQL8gYfp06+ntjJmGtD9NBGWRPEOwhXoQ+
-         ytDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794532725; x=1795137525;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VasWpqSUZYD0V4VYxxbwomWuyZegnnIz6kc2wFLpprs=;
-        b=c6oQPbnkxyJrERniRk1w+b77aTvisiqQEcbLIXTLWUuISQ8keX52lvFf1BcGKd+lJt
-         nuA7dORZRsPp9POKgW/BEysETdRAjOofPyLYa8X7oTQkzzqQl30b3tx4xvz4Sc5l0Hmr
-         WxqSzfQiVayJWazFvyUeJEhcM+CqmKvgpKVxtgMI6TmhYPL+UQJsQu4J00B8NjZQoC8q
-         AEBkCGjkhWulohg7Yjy6NdKUJKTdLrXGV7kHGiWNXA7jAnDkNoZNCZ7RJ+E21KxdhjKC
-         yGXUQHC4O1EKvbSkf0eyOcpwqLemJqzSr+ozTDiHWJONnR+9WUlae1OEbMo43SfMEQFJ
-         wh6Q==
-X-Forwarded-Encrypted: i=1; AL+hErHo7Bsa/MHfIN64KppE46Q7pwiy+Bf209LX0teM1Jq430bToWXSxT6LNuOXIg9j+ZFpyXXCjkIcAPBMSbY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+JIp0oaoiF3OzwVR9ZR58Wdrme8AadIatQ2aYJmOP1d/QuIaSC
-	UIFUck8WTW6meOuqm2YsCUgEAJxc/Iwzkxd8T+zvpru65OAI/+WJ2eE/
-X-Gm-Gg: AYBFou0TiJAZP+Av4ceVLSplisFhLPbYVe/aTs/0Sx6UNdQnUwcAYF4DlTced6clFei
-	XsHqoyEhhjA8G2PIB32V+iJTUQumgfFlyoe3/MFU/iOok/+VNehGc4dCOh2zy0P25uc3Pk+NBQj
-	MweGyxoqlAer5y34C/ieGih7ICOMNAbZFRRk+4giq84pyELjXWHyHxWQshv2eUPsNxT/EPI/SPm
-	4M4/wyzaNKqvaUdBOh7IPvWlj/+8qO3LbfUm8mLe2Z7OQQd/OZP7E1cdh2a7E3R7bUtsT1n7HfX
-	33aa7fodnd/zKOzX2aSZt+WwptHtZjwO5fyrrQTYEWn15+8lnRkkc1lTuLPcgFJdim+BtKI7/Fe
-	sEPs2caBLM/0vNWfXp35Vo3Sh1un/755DhILG0lzOJLEBomNqewuEjj+3uRgZ6zpMOjeo+AX2fr
-	Cm2cs+LCuOBPMUphZ6KlOHcH5gllKpDCr0fvQ0LBMD9/DNanvrSmLY8Hnj2Y64nE62sBaet/ccp
-	jvfyuNvEwoQdSESxYzqfTyJ6zvyo69+3Ro+8aVj7yeqyyXUKorpZWIyWNOmSly8i6X8BClwn37G
-	QmGjqbbKBJWkIAsZqCk5GAX+nAeuD+zoUfKGjnHShmQ231gflfVtt25/aclL+a47QWPVvCsJsem
-	kCXkdPbZ0h9ddc15TE1Ca/hY9655Dxx3bUmlhxxcXwYdHoxau2uPTIUM=
-X-Received: by 2002:a05:6830:914:b0:843:8982:9532 with SMTP id 46e09a7af769-8628992d65cmr1277963a34.28.1794532724575;
-        Thu, 12 Nov 2026 17:18:44 -0800 (PST)
-Received: from cachyos-x8664 (fixed-186-96-141-48.totalplay.net. [186.96.141.48])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862880a5298sm1230599a34.7.2026.11.12.17.18.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 17:18:44 -0800 (PST)
-From: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
-To: mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>,
-	stable@vger.kernel.org,
-	syzbot+1a7507a194fff09e5c44@syzkaller.appspotmail.com
-Subject: [PATCH] media: em28xx: clear dev->v4l2 when v4l2 init fails
-Date: Thu, 12 Nov 2026 19:12:34 -0600
-Message-ID: <20261113011234.45270-1-diegomancera.dev@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=f7DA52wh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794532713; bh=VweIZJncufI4qxiNi9la2hhpX8UP/VSqawVkGohdoqk=;
+	h=From:To:Cc:Subject:Date;
+	b=f7DA52whRu9zxhNwY4n3Cu7FwzU4eW9eGVN2IAUcerOAaOfMdPGiCSbx6g9BJYYB2
+	 NW7amMXa+FnA1FaOWFTXY2MY3WlPfHuku2aBSyoKduEyD+bRb0J3pB8q8xNOdKmLfK
+	 vaFrCULY0TmesGG8ru6XutZyhooeuJKX690LzzAc=
+Received: from [172.18.4.77] ([202.113.185.209])
+	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+	id 4A0010BF; Fri, 13 Nov 2026 09:18:32 +0800
+X-QQ-mid: xmsmtpt1794532712tv1r7dmz9
+Message-ID: <tencent_F85118A9AFDF9B230D4E8FA672510A3E2F08@qq.com>
+X-QQ-XMAILINFO: MllZffuBkEb50UofCUAfNsgu6HZLmSUutpfhL45iu8NQOHT2+DMp7KMvx9Y0vp
+	 bqChCpGuqMxSVrp9LehunMcRd4WZ+XoB7sBYk2YXHSoPAqcc9OP3UIkekywmBTx4XYVR87WD+yYI
+	 l5PcmWTvAmslYOm+UwjJutw8F7ZseeWogsVEQ7tCb2kJLrxeR0NEhTg6+OjgKxE8T5N8Oe0X+QJm
+	 2gTS6N5mx3yKwETPsAXEAaFvBYGiKWAKAHqFDRgo1S7eDaTUfSB9udbkruGA1ihsCsqRMwHgnzqF
+	 RuZdTa0YLQigKL5gAEckIYIqomnw3Yq4xca7Zs13yOVG3Do8Egjt7rLdLNSNYsrv5vtjztA0wdnx
+	 FytvrD51fZPTTqkax2mVG+8MkozJnzRcG/9+J3fyqotBcYn5ctLtVyzBlciJXbf5nlDPMz9NTTDt
+	 dkDpgo6vZu3Z+FCMWkBtB4eY26/usavi545oLbAbs0AUWWc+Zd1JWWiYnf57TPpiUTJY0LBnKQ7m
+	 Y15JSX63s9bXpRPyvqDwoaq6CvA1abgich3GSR7AxJL0Nbml3ouIMIrxRjKYUZV/0He4I1ygyUqH
+	 pxvctqka9D14L8ODT172e4FHlF/q5Ad+gWw1zvVZEc0kJ+5RUphvhLqhH+ccn5CUAuh/+VSWWgB9
+	 2RJ7GAx1t0sf6PPq21sDkW7Bz8u/eLCmUMdVsJcnTIQ+ME7IR/N/PpIRIOXxwXqM/9oCS+cifmEg
+	 wLccQS6lgp+DK8U28OmLGytzvxWp80xHH6CNyMZ4gnrdro/HyYcI5A3Xwv8QIHi8NCFK3EFWT0sC
+	 wSoIoh3G9ZF7kh4SF+xmtSLt5c8adoQzOLkHGPEB1ak9StbeY1GMxeSXd8x+0nNvFBKP0onsVgJU
+	 nbet1czU9InAAyLuqqlHomTstISSZAePjQVh/Zz/f0bSidEIINTv6VkwbZEm5viWsgWC6BUXmSUG
+	 Yuz6VeO4Yzk9s0lrbmvANI0L3XdJZT7m7Wlekp3U4nKGw9be5VNhHqIPF1sm2Z1yQjy3RbcF+Nd1
+	 U8TT2Ibsvz9fOsGm3cOQ0lioEQ1m7kIlCrr3+h4Gix1F/qFyyosZA62WVhCc291FrJur2OqAKwM5
+	 LUdN4t
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: Guikun Yang <yangguikun19@qq.com>
+To: Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Yangtao Li <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [Bug report] hfsplus: extents-tree search_key buffer is 24 bytes but
+ hfs_bnode_read_key() bounds key reads against 518 - slab OOB write on fsync
+X-OQ-MSGID: <c44-hfsplus-extkey-oob-20261112@qq.com>
+Date: Thu, 12 Nov 2026 22:00:00 +0800
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,53 +80,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-In em28xx_v4l2_init(), if an error occurs after video_register_device()
-succeeds, the unregister_dev error path unregisters the video devices and
-drops the initial v4l2_dev reference, but leaves dev->v4l2 set.
+Hi,
 
-An em28xx_v4l2_open() call already in progress (such as from v4l_id)
-that blocked on dev->lock while em28xx_v4l2_init() held it will then
-find dev->v4l2 still non-NULL and succeed on an unregistered node
-instead of returning -ENODEV. When the device is later disconnected,
-em28xx_v4l2_fini() also sees dev->v4l2 is still set and calls
-v4l2_device_put() a second time, dropping the refcount to zero and
-freeing v4l2 while v4l_id still holds it, causing a slab-use-after-free
-in v4l2_open().
+Appending to a file on a crafted HFS+ image ends in a
+slab-out-of-bounds write into a 24-byte allocation. The extents tree
+sizes its search key buffer from max_key_len, but
+hfs_bnode_read_key() bounds the copy against the generic union size
+(518), so any on-disk key length between 10 and 516 passes the bound
+check and overflows the extents-tree buffer - and the reject path
+itself memsets 518 bytes into the same 24-byte allocation.
 
-Fix this by clearing dev->v4l2 under dev->lock in the unregister_dev
-error path of em28xx_v4l2_init().
+  BUG: KASAN: slab-out-of-bounds in hfsplus_bnode_read+0x30/0x5f0
+  Write of size 502 at addr ffff888005fb4100 by task init/1
+   hfsplus_bnode_read -> hfs_bnode_read_key
+   hfs_brec_insert -> __hfsplus_ext_write_extent
+   hfsplus_ext_write_extent -> hfsplus_write_inode
+   hfsplus_file_fsync -> do_fsync
+  Allocated by task 1:
+   hfsplus_find_init (kzalloc 24) -> hfsplus_ext_write_extent
+  The buggy address is located 0 bytes inside of
+   allocated 24-byte region, cache kmalloc-32
 
-Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
-Cc: stable@vger.kernel.org
-Reported-by: syzbot+1a7507a194fff09e5c44@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1a7507a194fff09e5c44
-Assisted-by: Gemini
-Signed-off-by: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
----
-Note: compile-tested drivers/media/usb/em28xx/em28xx_video.o with allmodconfig (no warnings); not runtime-tested locally against the syzbot reproducer.
+## The size mismatch
 
- drivers/media/usb/em28xx/em28xx-video.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+hfs_find_init() sizes the search key per tree (fs/hfsplus/bfind.c:22):
 
-diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
-index 84424284d486..f78325a41124 100644
---- a/drivers/media/usb/em28xx/em28xx-video.c
-+++ b/drivers/media/usb/em28xx/em28xx-video.c
-@@ -3129,6 +3129,12 @@ static int em28xx_v4l2_init(struct em28xx *dev)
- 		vb2_video_unregister_device(&v4l2->vdev);
- 	}
- 
-+	/*
-+	 * Clear dev->v4l2 to prevent an in-progress em28xx_v4l2_open() from
-+	 * succeeding on an unregistered node (returning -ENODEV instead) and
-+	 * to prevent em28xx_v4l2_fini() from tearing down the instance again.
-+	 */
-+	dev->v4l2 = NULL;
- 	mutex_unlock(&dev->lock);
- 
- 	/*
--- 
-2.56.1
+  ptr = kzalloc(tree->max_key_len * 2 + 4, GFP_KERNEL);
+
+The extents tree's max_key_len is validated at mount to
+HFSPLUS_EXT_KEYLEN - 2 = 10 (fs/hfsplus/btree.c:318), so its search
+key is 24 bytes. The catalog tree's is 516*2+4 = 1036.
+
+hfs_bnode_read_key() bounds the read with the generic key union
+(fs/hfsplus/bnode.c):
+
+  if (node->type == HFS_NODE_LEAF || ...)
+          key_len = hfs_bnode_read_u16(node, off) + 2;   /* raw disk u16 */
+  else
+          key_len = tree->max_key_len + 2;
+
+  if (key_len > sizeof(hfsplus_btree_key) || key_len < 1) {
+          memset(key, 0, sizeof(hfsplus_btree_key));     /* 518 */
+          pr_err("hfsplus: Invalid key length: %u\n", key_len);
+          return;
+  }
+  hfs_bnode_read(node, key, off, key_len);
+
+sizeof(hfsplus_btree_key) is the union of cat (518), attr (268) and
+ext (12) keys - 518. That bound is correct only where the buffer is
+the catalog one. For the extents tree it means:
+
+- key_len 10..516 passes the check and memcpy writes key_len bytes
+  into a 24-byte allocation (502 with a crafted key length of 500)
+- key_len 517..65535, or any odd value, takes the reject path, which
+  memsets 518 bytes into the same 24-byte allocation
+
+Both paths are out-of-bounds writes; the second one fires even for a
+"rejected" key.
+
+## Why the disk value reaches this point
+
+The bnode loader validates key_size only against the record entry
+size (fs/hfsplus/bnode.c:601):
+
+  key_size = hfs_bnode_read_u16(node, off) + 2;
+  if (key_size >= entry_size || key_size & 1)
+          goto node_error;
+
+A record with key length 500 in a 3814-byte slot passes: 502 < 3814
+and even. The binary-search path that does check against
+max_key_len (hfs_brec_keylen(), fs/hfsplus/brec.c:71) only runs for
+the records it probes; placing the crafted record's cnid above the
+search key keeps the search converging past it without ever probing
+it. When an insert then forces a node split, hfs_bnode_split() moves
+records verbatim into the new node, and brec.c:169 calls
+
+  hfs_bnode_read_key(new_node, fd->search_key, 14);
+
+on the new node's first record - the crafted one - with no
+max_key_len bound in between.
+
+## Reproducer
+
+The trigger is write(2) + fsync on a file whose data fork has 8
+extents followed by a non-contiguous allocation, forcing
+hfsplus_ext_write_extent() to insert into the extents tree and split
+the crafted leaf:
+
+  # positive: ext leaf rec2 key_len = 500
+  python3 mk_hfsplus_ext.py base_file.img run.img
+  python3 trigger_write.py run.img pos.log     # KASAN OOB write 502
+
+  # negative: same image, only that field differs
+  python3 mk_hfsplus_ext.py base_file.img run.img neg   # key_len = 10
+  python3 trigger_write.py run.img neg.log      # clean, write returns 4096
+
+The negative control differs from the positive image in exactly one
+field - the crafted key length - and parses normally, printing
+"vda1 <lv...>"-equivalent extents output with no KASAN report.
+Positive 4/4, negative 3/3. Each run regenerates from the base image
+(the mount consumes it by writing the real extents tree back).
+
+## Relation to the existing fixes
+
+bb5e07cb92 ("hfs/hfsplus: fix slab-out-of-bounds in
+hfs_bnode_read_key", 2024) added the 518 bound and the memset reject
+path after syzbot hit the same function through fs/hfs and the
+catalog tree, where the buffer is 1036 bytes and the bound holds.
+The extents tree's buffer (24 bytes) was never covered by that fix -
+the bound is larger than the buffer it protects, so the check is
+inert there and the reject path is itself an overflow.
+
+## Suggested fix
+
+Bound against the actual buffer, not the union:
+
+  if (key_len > tree->max_key_len + 2 || key_len < 1) {
+          memset(key, 0, tree->max_key_len + 2);
+          pr_err("hfsplus: Invalid key length: %u\n", key_len);
+          return;
+  }
+
+This covers both the memcpy and the reject-path memset for every
+tree with one change. The extents tree additionally can never see
+a key_len above 12 on a well-formed volume (HFSPLUS_EXT_KEYLEN),
+so max_key_len + 2 is the natural bound.
+
+The reproducer (image builder for positive and negative cases,
+serial logs) is available on request.
+
+Tested on 7.3.0; fs/hfsplus/bnode.c is unchanged in current
+mainline as of 2026-11-12.
+
+Thanks,
+Guikun Yang
 
