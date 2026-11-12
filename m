@@ -1,102 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794507002;
-	b=WJ0pf9sTunr/1Yzif7qpVgJD7iMS5kJ/VSl7B19TTlgu6M4qQN5H0RDl4efr4jnIZFpP
-	 5bFdPxDPiiLL5TUTr56vBV1IzJ/6JPylc3Ii3yjqv6Bh5DZnx12+dIQKXUnAAqtJw1F3t
-	 lchyvO3K56GxWLwtYxgUBakAEMsCGrYBDKxmdznIpr9zqSV9fgPczHNFnF8/7JHDxbRgV
-	 VWeJwlCUgX0/fCzV4DLeMBpPmTETGb7bufl4Pn6qsa++W3U/kWJlJWhDnCtRYAwv48Gv+
-	 BeOFMjsmIIwo+jQl0obGE/iriKFDeTygpc6XUNadDdmeT4Vj8nX/dK7PreG6PqwNeFw==
+	t=1794507086;
+	b=baNtkPAEYLGmLhmmgZ2jXMLLM/MU3H+qhfPvfn+Oz65qFnkG8MUoD4InXaLNLNFYyfWa
+	 yX+Jw8Cy8w1tdLeweZZTX4W3+Zhob0iS2TZ3PedrfbFWshy3OArLsM1eu9qjY4+62BA4z
+	 If0JboOBgd9OTegzTz3IYc0thkilCq5CPqbW2ahd2kW1hynat+BedBmMhnZsyFqS9Jfw+
+	 EtjFroyDsd5ILw0rdWA0AKrQ2CYJl3HqR9bh4fdhCs5/MMXGf7qYqANxwQvh+nRvY+f82
+	 zJ0/mTcIE1tjYQO8BJVh7ISh+Kr8n4744SGrvrq5DLseQtZs3movqcJpQuiC8I11PxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794507002;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=67XE+pOyTXrOxg14FNOW2nVR7sSqHYk9a1ZEpCs3068=;
-	b=ufPY9qlY5uFOPrxhQA25IAqLBAHQklJlmlYXaVpszsjkeXfyWtgqbDSQwo8ZMoa5LLx4
-	 E9cUkHZx5SXN4cj+n8I31b7tduO5k47LY+HvAmRWVzbAO5QeCZyb10nwGdpXB5WS2EJD4
-	 HTmMlLHQ7OtbjaEJ4hQuQQ+qq9eSJCX/neCX2CfpOploQuDup9e9ASwqPEtdoXdcE5qRe
-	 cwJlTrSjSSjo1e+zy51aJ9D6h7jVGly6stSB8CYEYIH33yFJOP7+WPuvpbqQncmNjR+aG
-	 UE5TFsKgHjcHyU5OpnWVj3LIPlN22X0EVdLBSxtRrerC+eB/3IjMy5BJuVEoJ9OSbEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794507086;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=h3F/2mZ2taGXkpMtbtIAiV+m8bah+vcbwSZcHemW22I=;
+	b=05i6urTzFiqYrTk5cETAkySVUVzDv1rKFmulU71VER9CgyQHLnWfSVfEGpFTNWMRkChC
+	 K+CImbLHnOaV4XSBd0H+lOKAd4ohDJ+WE00Oho9tNY7OYH58K1HtXbRi5nRLof/x+VP+H
+	 SWHc8Nes5+VmUvtA5n6OY9UYjiQ4rTItzXlQNedQHLg04xssq+ZeyieoQiSh1I7tVnQfx
+	 GHKOwanNuHaHh8gA6Pd1iH1nS1ryhWjPwc1slR/7h2LJOpqTPz5vqWSSq1vL76OxdxVzq
+	 D7RDPg9NW10kJrTZtc+JWIJ71UNyq8nyLnuQ7l4N2UfXIzRku7Lq+Wofy1Pkcke20xA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=C4BkGuFN;
-	arc=none smtp.remote-ip=209.85.214.226
-Received: from mail-pl1-f226.google.com (mail-pl1-f226.google.com [209.85.214.226])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V76p3xkm;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB45B606A327
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:10:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB45B606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 019A0606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:11:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 019A0606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=C4BkGuFN
-Received: by mail-pl1-f226.google.com with SMTP id d9443c01a7336-2ea138a3497so845645ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:10:01 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794507001; x=1795111801;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=67XE+pOyTXrOxg14FNOW2nVR7sSqHYk9a1ZEpCs3068=;
-        b=txHBd7BMNk8Px1sILrOkfRwas/lXj4oSYKimYHPzIUlNqmRoRJCWNdUUhLStb3emK7
-         lt+UGKP3WAzAHG4KmvyonSVlzQjsgx1X2Uw9ory5ByxRUkNltRInqX4jnUyzgfSVuA3E
-         MAcm8e/ehih0V3kfRoq5Q0pW9RSTfx+nKmf2tdOqxgo033r6uiaPz4mKda0s+s4xGOvz
-         NT8DX735IY3bjqfS8a1629OTt+MAkz4LqL9GjjsI+LnaojhnOQp73qqeHIKTuweIIKbU
-         hCYxN5XoLVzSWVzZYtrmzlCrH3tKJw1fATMOvOTSw5SCZPbT+Wl308ZRSwKy3gMQklYx
-         U1zg==
-X-Forwarded-Encrypted: i=1; AL+hErHtU6IAhqggJvc6NUN3KK6rPyu1Dyq3PeP5za6v5ASJqxOH7j8x1z1eMSXqIjOCIq9bdcN1qCXCexku6dU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9F3d1w6/f4u4zS5/9cal25wKWL6KZ4V9pib068ZNiAFkuAJb/h
-	MemufD6sBWg78eGClPNe8LuZQqde49xz2Sxa1Ha70Zma1gNAQMY7g92bi3o+J9biRqAdgMiKLMj
-	qRBRMkA+IDq8NPmzopV4PzH4LcKZi/cVQnl3tgV/ftHRGwVeWGcBfE9EScDPuCRME5zl+dyNd+V
-	9+2U9hEuHB+TnSRboxg5+QQBi/JvSunN5eamKwvHQQQXAqLnwKIBMUCWSKuIr7JWXvB6K4i8gMi
-	TSnxQusUg+rph4x28IU7GGi
-X-Gm-Gg: AYBFou01SkLjpuduayLal8AsM19G/ZxFbV/Uq5d5y8AUL99zFdiqhc3kwwmVguqz1k0
-	zwTUXCM7a+v969VyuldgSpbXVZLisrturd4Qw3+K/RCsaHP+NgvOR0gwnQLozTzQrlmZ0iNJIIB
-	kHc1nljA2eUSuwkQNdxM2nh0/YZxoy3PAQWtq9XnJFKlMgAyelYKuULRTdjVRRb71auMYBdZQCn
-	ijuXjdVHiJE65X5ruW8dWmIqg8Mv4i85tCZ32Dj9vKAXXkzuHPPQGRH4nNFQTgW2c6CTs9MyDMi
-	DgSDd/uJ+ugBcUEwhKn4RjULe1L8MO6/1n93TpfBzaAr0GnTYwXLy0BIXJRvn+9RO3PGn+qy06h
-	mfIMYmCF1w9hBxix3so2Rd8WiKunaSaNEqECcNR4GDhAV2l447RwCqpf6VYdB7ofHp+YhuYPbE6
-	/np2WspygOxxzXmHAIiQ4A3S+GhxgEYcO8nJ/KKm2Q
-X-Received: by 2002:a17:902:f64e:b0:2df:9d04:403b with SMTP id d9443c01a7336-2ee0dadab9emr1659425ad.32.1794507000811;
-        Thu, 12 Nov 2026 10:10:00 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
-        by smtp-relay.gmail.com with ESMTPS id d9443c01a7336-2edb6535b06sm2522285ad.33.2026.11.12.10.10.00
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 12 Nov 2026 10:10:00 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5338ff2cf14so90345381cf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:09:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V76p3xkm
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36a315ed211so99925eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:11:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794506999; x=1795111799; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=67XE+pOyTXrOxg14FNOW2nVR7sSqHYk9a1ZEpCs3068=;
-        b=C4BkGuFNKm0wGtrmcXirU3E68yJDl+B/GBd7Wbm5IqskU9B/KwCc6QYRkJ1rjI3HTU
-         7MrPRmedq8BGeCtywXlp94FI/t1IyA3qUErHkhuZgkOwZTQdmx4tbneU6YDfsCPpuxHU
-         zyMdmjHrCZnzhsB32jw7GhrMy1PBYC8Gfqjp8=
-X-Forwarded-Encrypted: i=1; AL+hErFgWQGyDiqQzRYfQRAevi/jjxjDVuu3DnnQkt8swvoG73MZ+d8UZahyV99PC1RHZZeq+FTCuWNru6RrRmk=@vger.kernel.org
-X-Received: by 2002:a05:622a:548:b0:535:cc6:659 with SMTP id d75a77b69052e-55ac8179497mr3218561cf.37.1794506999476;
-        Thu, 12 Nov 2026 10:09:59 -0800 (PST)
-X-Received: by 2002:a05:622a:548:b0:535:cc6:659 with SMTP id d75a77b69052e-55ac8179497mr3217971cf.37.1794506999020;
-        Thu, 12 Nov 2026 10:09:59 -0800 (PST)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d70489sm1470666d6.21.2026.11.12.10.09.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 10:09:58 -0800 (PST)
-Message-ID: <22b7948d-096c-4f76-863c-70819a4f989a@broadcom.com>
-Date: Thu, 12 Nov 2026 10:09:56 -0800
+        d=gmail.com; s=20260707; t=1794507085; x=1795111885; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=h3F/2mZ2taGXkpMtbtIAiV+m8bah+vcbwSZcHemW22I=;
+        b=V76p3xkm/46ZSUdU6l+M8k14Zk6kK+BM6b6JdhDJ9ccgYu9DviRjsfmv+nBR+OXvJN
+         EvAbsyIUk3zfxLbZ8+tNgfOPuZob3Pk0o3yiybl/aLi7m9kYa30ZdxdNdB/WaBFAC1nq
+         KTAUXv5rVWFZqYHw2CzTjKkxQQtdgusVHGSHEWedOPoTfOy/yOOhQvGuXWxFzoIMAWKX
+         hfxdd0Zdox2KJteMi181hwXiMcHAvQzbD0yiEmpUlZQianqNUoyeZo+kOTfvWVgrI7x+
+         bnVfrfkDbYz1Dhn6k4+q5u5bmaUvDaK4i6sPDXpoR1Ige4Ek57b3RGg9ZJTjc15yA8TW
+         co0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794507085; x=1795111885;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=h3F/2mZ2taGXkpMtbtIAiV+m8bah+vcbwSZcHemW22I=;
+        b=0rzu94XfdIyYjzDd5hbPsNM5yk+L/1goQQ+PLM6cSQnXT3nSML2NyhFepXj/hUGsnT
+         2Cy/8m+Y7Pt5G/0+invOHrQYjzCclC22UUbK8QD4cGs6W4JHzVDFDOB4ex/HrPSwokdO
+         f/cA7ZnKuVpQxPCgDCWQCZmS4xZiYoZqcnjCga7hPvpqyerU5f09ADkYm97IL65HHZAh
+         g1O5bxvRjO47Grn3YYRfmJ4oBFlAb+Xo4ZCHJEiskKIKi2RmLvB1+izIWxhgcYmOfaO/
+         e37daWv0yhwULOTcGvM3Q+Wa+rzOAJAqiG60AqHtlDqz0Z1lGikyZz4i65e7qQhsZVJz
+         Bodg==
+X-Forwarded-Encrypted: i=1; AL+hErFEJ+hFk6YyVBOJbF6Ei9MwyKT8k/ztHxqL7+IXbpVE1fwRx+4JRtJLebXkm3X++YnxTvMS/WxTEiL9wVw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ZZKycOCc5RpnqtUu8aR2hr8fcgX19KmDZ97Dtucupxe/kucjc
+	E3XWN6IvTqDVb105F1KR7H86RUXfImtsUcROnUPOowHNuQXgN5GhFXFj
+X-Gm-Gg: AYBFou2XDnJuFI+7NxSSvCnil1xbVlTpeOmQSXTUAzAaiyyTWc5vdMs93f01zjNj0tV
+	vOxVEe+OPbFhGs9RMDXHK3wDTlioPb9Gv2NkzknOvjry6iY1GfIASBtNSAX1HIXjju691L0bzG7
+	EoyEy79ofeAfmLvXfUTBtd5RvFo1yQPPECx48utUX3N5pBPjVSNKoNbVBvxOgWWIwcsnE0g+HWl
+	0+oblovqPOzl9PpbvpbQVehPGk83Zha3q0eIWaHgGSbu+djv2Z4Ldg5BVnnP66K7kyJLVqsZmI+
+	nZmrcgEWzYskkF/l3BMyw4DrqTyvT0dYeCAhKYO8VqaK88G1OeNgsRvFxeAedCVQFOvKHyev1RE
+	9FTzjBysSTOQbaVCC8RdX7aLPLHiWARZwU3xmjnxwmpc+CLSe5ATeOzXsBycVYhcAI69A1MK+1C
+	bWXS3SqWIVLem0kWxvxkLrftSabKCRUhPCgUpwV4azWcV18fg48pPi9OPnuHuaVvMJOM/s1hpqA
+	q5gE3QOUbh33l/dvsekxFYSB/1QpzPc2sRdEuFrkiZoIonOfJKEHrKFTfv7z254sbGl5leVi0Cu
+	EA1gkFbnxmrhQijefvW3hUWAn15YMB6RkUfEXgAXSQ==
+X-Received: by 2002:a05:693c:8115:b0:36d:bcd7:2347 with SMTP id 5a478bee46e88-377e093db88mr2800214eec.4.1794507084838;
+        Thu, 12 Nov 2026 10:11:24 -0800 (PST)
+Received: from Alienware-m16.lan ([79.127.217.36])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332a77sm215678eec.4.2026.11.12.10.11.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 10:11:24 -0800 (PST)
+From: Andrew Luebke <andrew.luebke@gmail.com>
+To: Borislav Petkov <bp@alien8.de>,
+	Tony Luck <tony.luck@intel.com>
+Cc: Aristeu Rozanski <aris@redhat.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Andrew Luebke <andrew.luebke@gmail.com>
+Subject: [PATCH v2 0/2] EDAC/i5000: Fix the slot loop and re-enable the driver
+Date: Thu, 12 Nov 2026 10:11:19 -0800
+Message-ID: <20261112181121.565824-1-andrew.luebke@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,71 +98,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] irqchip/bcm2712-mip: Fix multi-MSI allocation for
- non-power-of-two counts
-To: Nicolai Buchwitz <nb@tipi-net.de>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Stanimir Varbanov <svarbanov@suse.de>
-Cc: =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-References: <20261112-bcm2712-mip-msi-align-v1-1-68090868c979@tipi-net.de>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20261112-bcm2712-mip-msi-align-v1-1-68090868c979@tipi-net.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Transfer-Encoding: 8bit
 
-On 11/12/26 03:58, Nicolai Buchwitz wrote:
-> ilog2() rounds down, so a request for three vectors reserves only two
-> slots and the third can overlap another allocation. The alignment is
-> also applied to the bitmap index and ignores the msi_offset that is
-> added to the message data.
-> 
-> Reserve exactly the requested number of slots and align the start of
-> the message data block to the vector count rounded up to a power of
-> two.
-> 
-> Fixes: 32c6c054661a ("irqchip: Add Broadcom BCM2712 MSI-X interrupt controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+In 2022 i5000_edac was marked BROKEN instead of taking Aristeu's fix for
+an out-of-bounds read in i5000_init_csrows(). Nobody had the hardware to
+check that the driver handles both single- and dual-ranked DIMMs [1].
 
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+I tested on an HP xw8400 (5000X, four channels) with v7.4-rc2, KASAN,
+UBSAN bounds and EDAC debug. Without patch 1, UBSAN reports at driver
+load:
+
+  UBSAN: array-index-out-of-bounds in drivers/edac/i5000_edac.c:959:20
+  index 4 is out of range for type 'u16 [4]'
+
+and the same at line 961. With it there are no reports, and all eight
+slots (4 x 2 GB 2Rx4 in slot 0, 4 x 512 MB 1Rx8 in slot 1, both branches)
+show up at the right branch/channel/slot with the right size and rank,
+10240 MB in total. On 7.2.14 the same holds, also with 4 x 1 GB 2Rx8 in
+slot 1 (12288 MB). A two-pass memtester run with the driver polling (two
+DIMMs) saw no errors.
+
+Not tested: two-channel boards (5000V/5000Z) and error reporting, as no
+memory errors occurred.
+
+Patch 1 is Aristeu's patch as posted, plus my tags. Patch 2 reverts the
+BROKEN marking and adds me as a reviewer in MAINTAINERS.
+
+6.1, 5.15 and 5.10 do not have the BROKEN marking, so the out-of-bounds
+read is live there. Patch 1 applies to them as is.
+
+Analysis and test kernels were prepared with LLM help; the tests ran on my
+hardware.
+
+Changes in v2:
+- Patch 2: add myself as a reviewer in MAINTAINERS (Boris)
+- Patch 1: no change
+
+v1: https://lore.kernel.org/r/20261111232529.407154-1-andrew.luebke@gmail.com
+
+[1] https://lore.kernel.org/all/YyxpbRkuLPIcW1Om@zn.tnic/
+
+Andrew Luebke (1):
+  Revert "EDAC/i5000: Mark as BROKEN"
+
+Aristeu Rozanski (1):
+  i5000_edac: fix slot number passed to determine_mtr()
+
+ MAINTAINERS               | 1 +
+ drivers/edac/Kconfig      | 1 -
+ drivers/edac/i5000_edac.c | 4 +---
+ 3 files changed, 2 insertions(+), 4 deletions(-)
+
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
 -- 
-Florian
+2.47.3
+
