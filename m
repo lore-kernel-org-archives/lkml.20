@@ -1,103 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794451409;
-	b=NOkXcVtC8QcdSKhu/XW/9c/yJtX58r+Ewj8ObkvWV9W0EMz8AUT14Kw2VH3Ds01Fc85B
-	 Mj7Z7qUlJEDL9UeZPhGM2LRIg0jXfImVnux3eHvrro7fS3z8hAKCSh/CLVmAlX3+Rc5PJ
-	 XFY66eWv/OoE6PKmnLRcip5qyNMwUg6q7aX1l2NqDqS4BuoP0/PCLJ3gKS8k764OMvyk8
-	 RQB7US02GiAFE8QdVPuNOTFHVnT7A4iZSeHjmFEjjv+WCfHbakb82xIKRM1cKrRpfLXAh
-	 zaUwRluffGzdVfFjRqkNr6H7UeMsWwK4N82UnwfuB9rmnKcUjmmuOmzwiyZR/n93zGQ==
+	b=PtXlLiySDl6977BxXQ7oNFdUH+VHdl+Xb+o1ZUU+lBIoL+GTFJx5z65KR908xH6ZIZa8
+	 njTjGO3o9hJtjnTWMqpZjBYr8IeAn7momKwMw/TgdT0kWUFxKB5lq5erlzUsVYtfEboDf
+	 5inRHSgGufhjg1O4yrYtblcgHUq6eXybTxtO3lF1XnUZs+LJKA6ex3rquTaYMfKDsk78V
+	 yuaBiWcxVWdUd2LFmvtL2Z3P2kVI/ct34p+Ko5iYyNJpc0b3UFcUfLXxhIg5/ghBQ8n1U
+	 rGHiq8dslDgVpvCoHKt/OrlGHqqno0GHx6IDuzSMjuAARn8QlRB8mIWU/gP0E1O0neQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794451409;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Content-Disposition;
-	bh=EnKxfKMM75zbHlTd8AHjSG6CLtQjvzztcUz3K1JFb/I=;
-	b=qk0S949BPe4a8MMOocRvpzM14FC91NEupU4wY9xE5xVhux2wktzVpv4wrVQ61M7/QwuD
-	 GXboVEcx9JG1l2USg7XuOn0gsZDq/CwBS1npeP0Rzh50K7x0dhn0nrRGHC1uJSQNyXEHP
-	 Auh8JkVGKmLeT0CL6qAAnMtqhy3NWM9/7O4Yb8ulYvjQIv1yLQGHgVyXGiN8vM1TKXT8q
-	 UZPbZkszQbriqrNQhy+Xx3fGiMMa1/92h+1oKUXpfsf4XtSARbp3IB5LhfG9rlbh0gYnm
-	 FRhfvHTa20m7rp+p5PtilTrDEaJtDOKULGS7fk8REn4pigg8tsuQm7BbwiSSmDQM4jA==
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
+	 X-Spam-Checker-Version;
+	bh=XdkaBsBaFVJPPurgDNIn6T1G0WeNJH9pMqVBcKCihf8=;
+	b=uIHVi3eo9C2jqwntVBQoC6iKBP6XyzYGcPdA4KL+IAyL5q48/X3aeOxszSzJpklH9IbP
+	 VT4iUAWc2rYIR2jr68fkbqFvk4uNXZ1FfWW8p6IE3uBd+sRD/QtXpXnYztW1m9qJeaNU8
+	 JQ5vU6GVzGgmCCBEFIhTSNwA+S4loODAC5njsYui8nWghqLQdJEb3PAlw1ymerZrhKgF8
+	 Phq2Q6TPhhFos3gQZqbcUK4GBuVk8LGsNdp9ybO1lGM5bB6hkE9WlMXyEpqgoNObbEBw5
+	 JmzcQG4rvwubs02E1S79TPCcRSgdPbJKRJCs1ioKCliX2tFHY/nRVhJFS7do1IonBjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Atd2G7HG;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E73B0606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:43:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E73B0606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=SlzSn2Z+;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 00345606A326;
+	Thu, 12 Nov 2026 02:43:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00345606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Atd2G7HG
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1ae58d17cd9so2977363c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 18:43:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794451408; x=1795056208; darn=vger.kernel.org;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EnKxfKMM75zbHlTd8AHjSG6CLtQjvzztcUz3K1JFb/I=;
-        b=Atd2G7HGc1dDm1yQQ9+xuk/PpSfMsuvDXIRfhf836OVm3a7dfl5vJVGJ4TWAebw8D3
-         nSS7QWzsQ3GdyumATRR5Jlp9jrKQhT+2QiodpNg/Qz5GKJOPvo0bXZW2MMncw7UVkLDp
-         sT2pRf9gZgBuadYimpW9F8l7TfG1AN6IQ9ThrmKr8pKgmCzZvG/t420sJCmAMAC3Vpku
-         45zLlLLqEl+2YFDvLfFFDys3P/rqFeWWcvWMah4VQ+NQC/g81D7gMKTmYcjNTXkxpNqq
-         IjI9az3ilKV3xofq4iq11J62RDc0Ycy/HoigOMBDceIvhDJehH1v9Mym6Xqx90ikGca2
-         aCSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794451408; x=1795056208;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=EnKxfKMM75zbHlTd8AHjSG6CLtQjvzztcUz3K1JFb/I=;
-        b=xdna04hSOFJ1fEK08ompw5DBwG/74Er/eAuI4TZvktDXPjvRyRMWxseORS9e2b3iyl
-         xBYIT9WaPAZSU2zMOYYhbtFypMKFIe4seiWLA+bWFd15yyqZR/z3k825JnA2qNG0MYHm
-         hTgJrJQEJ9smSdJNOgTTUI0lAPCzDhsz/rnNbGIhU5tKuCQftuczpRrKGN27934ZAL4C
-         WZW84ef6bP2GTJft4Yedu2QTYCr1BflCWLQYmWOGbrmOVGyn3OjyExgEjmoiCmpOD15d
-         MMzN0Cf0/osHrb7cFPVoe2LwNdymEER+Gixh7UE6CVFc8LrEIpHqikvdNFG5SYkZBFhP
-         reIg==
-X-Forwarded-Encrypted: i=1; AL+hErF0H+8b+1OKxe07xlTmJN2vzby8K4k8GK3VJ5ogomMEv50aKP1siJJCU9lZ7/E3Y8Xaa1/mwRYdapN4dVs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8LOCRnCRuW7XZwrYrh6Db6cbJ09UdCVzIrZ64GCiJd38v2Q5lf
-	4L6BRhKUWDwxTQq1SyMIiR/ZK97p6O+wsDUiBBEg6d4SQy9Y2jx/ZWuI
-X-Gm-Gg: AYBFou3aM57GDFta8lHypL6sWywFKiiV5bCExwUg1NUaDLg2dVOyeXrTpzO0JT2+/Dt
-	CK4JQ+/azsfcxB1HTyv/P+rhcBRMKAaI7lA6BEqGmYFogdDetbWWP93X2PjUQRhyTkAaOXDgpko
-	HdvcijVFYc9l14tnd3hJsuVQqwmzwwroiCbcVA2GvApNkIF6ZgquDzUJVXrSCRJmBJWm5e5uGcD
-	4+1EofbHIHxZXxxCkVYX4TlxAW8gl3a+eHzaOn+4y0PpzHvtRawJ2JvxTtNjBLkvbboYzROI58R
-	9XEb6bIsBwEGx35fOL3eWDV1eStr2ziCybYGYnSZau5bnFIRKdpRef62rlMFl4GmVpAsGFqKOaw
-	LA0LTl9wWErA5ixJ1F9ckTF/Yw8GW1PTH6Ybre5sIPnlH+RYvocH8L/GetM7hHxCE2KLXxZYE3F
-	PuW+dPzeW0aL8klvDrQGA3PilpHa0Ezp2NaozLb19dxepVdvVBCCNiy852h+oOzP2vPoaPjsGPB
-	96pqDOKsMzcJ2fTX0G5Cn+EpkH5VoZSko7cQX3QhTmoCve+bdGsQy3fZgPc3HhmrPWy7Avuyreo
-	GE/FdQIoq55fg3XggwzoHEbTZ/xQvzwxQLdDHlmGY9lqP50D1u3JAJ9zIfPeFBP8v3z9
-X-Received: by 2002:a05:7022:3c03:b0:195:76af:b810 with SMTP id a92af1059eb24-1b3c08751d4mr3095428c88.25.1794451407665;
-        Wed, 11 Nov 2026 18:43:27 -0800 (PST)
-Received: from localhost ([2a00:79e0:2ebe:8:182d:659:ffce:39a4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060899asm20259757eec.11.2026.11.11.18.43.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 18:43:26 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=SlzSn2Z+
+Received: from [192.168.0.88] (192-184-212-33.fiber.dynamic.sonic.net [192.184.212.33])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 0ACFE20B7166;
+	Wed, 11 Nov 2026 18:43:24 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 0ACFE20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1794451404;
+	bh=XdkaBsBaFVJPPurgDNIn6T1G0WeNJH9pMqVBcKCihf8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=SlzSn2Z+Gl7kJcsX9wJLqJ90/vk2fEkxrE+wu5+JYE1DqzF0i4hmLIYUxC2bTTM9u
+	 E6Gmvo27MKj5KArH76fYvRbG97Iw6gByVN8EqGGz3Rs1ThL8ZwqSC8n8NxB+TXjeGw
+	 K3q9NMitLOhAYSiq1vFLg45YHdeyROGC134yrgQk=
+Message-ID: <c6b7f583-878d-1f1e-60cc-e602e277d075@linux.microsoft.com>
 Date: Wed, 11 Nov 2026 18:43:26 -0800
-Message-ID: <2f722967b6db0692d4dd4164aff39b62@gmail.com>
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Gideon Heinz <gideonheinz02@gmail.com>
-Cc: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	=?utf-8?q?Filipe_La=C3=ADns?= <lains@riseup.net>,
-	Bastien Nocera <hadess@hadess.net>,
-	Hans de Goede <hansg@kernel.org>,
-	Edwin Velds <e.velds@gmail.com>,
-	Stuart Hayhurst <stuart.a.hayhurst@gmail.com>,
-	Andrey Smirnov <andrew.smirnov@gmail.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 00/33] HID: logitech-hidpp: G920 force-feedback fixes, rework, and cleanups
-In-Reply-To: <CAPb1+K2BxnfQ7VUQ15td5f9pVhn-ARSM9EjfOU8WuW72o+cvPg@mail.gmail.com>
-References: <20261110-hid-logitech-hidpp-v2-0-30743e91d83b@gmail.com> <CAPb1+K2BxnfQ7VUQ15td5f9pVhn-ARSM9EjfOU8WuW72o+cvPg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,210 +53,169 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.1
+Subject: Re: [PATCH v6 4/6] Drivers: hv: Mark shared memory as decrypted for
+ CCA Realms
+Content-Language: en-US
+To: Michael Kelley <mhklinux@outlook.com>,
+ Kameron Carr <kameroncarr@linux.microsoft.com>,
+ "decui@microsoft.com" <decui@microsoft.com>,
+ "haiyangz@microsoft.com" <haiyangz@microsoft.com>,
+ "wei.liu@kernel.org" <wei.liu@kernel.org>
+Cc: "arnd@arndb.de" <arnd@arndb.de>,
+ "catalin.marinas@arm.com" <catalin.marinas@arm.com>,
+ "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "lpieralisi@kernel.org" <lpieralisi@kernel.org>,
+ "mark.rutland@arm.com" <mark.rutland@arm.com>,
+ "sudeep.holla@kernel.org" <sudeep.holla@kernel.org>,
+ "thuth@redhat.com" <thuth@redhat.com>, "will@kernel.org" <will@kernel.org>
+References: <20261031001412.4150488-1-kameroncarr@linux.microsoft.com>
+ <20261031001412.4150488-5-kameroncarr@linux.microsoft.com>
+ <MN2PR02MB6863AA6357C8E0D4881F5FEAD4712@MN2PR02MB6863.namprd02.prod.outlook.com>
+From: Mukesh R <mrathor@linux.microsoft.com>
+In-Reply-To: <MN2PR02MB6863AA6357C8E0D4881F5FEAD4712@MN2PR02MB6863.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
-Hi Gideon,
+On 11/11/26 10:01, Michael Kelley wrote:
+> From: Kameron Carr <kameroncarr@linux.microsoft.com> Sent: Friday, October 30, 2026 5:14 PM
+>>
+>> In hv_common_cpu_init(), the per-CPU hypercall input/output pages need
+>> to be marked as decrypted (shared) for confidential VM isolation types.
+>> This is already done for SNP and TDX isolation; extend the same handling
+>> to Arm CCA Realm guests so that the host hypervisor can access the
+>> shared hypercall buffers.
+>>
+>> is_realm_world() is declared in include/linux/arm-rsi-cmds.h which only
+>> builds on arm64 (it includes <asm/memory.h>), so using it directly in
+>> the arch-neutral drivers/hv/hv_common.c would break the x86 build.
+>> Introduce a Hyper-V-specific helper following the established
+>> hv_isolation_type_snp() / hv_isolation_type_tdx() pattern.
+>>
+>> On architectures other than arm64 the weak default keeps the existing
+>> behaviour.
+>>
+>> Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+>> Signed-off-by: Kameron Carr <kameroncarr@linux.microsoft.com>
+>> ---
+>>   arch/arm64/hyperv/mshyperv.c   |  5 +++++
+>>   drivers/hv/hv_common.c         | 17 +++++++++++++----
+>>   include/asm-generic/mshyperv.h |  1 +
+>>   3 files changed, 19 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/arch/arm64/hyperv/mshyperv.c b/arch/arm64/hyperv/mshyperv.c
+>> index 46ab2da..da6c3aa0 100644
+>> --- a/arch/arm64/hyperv/mshyperv.c
+>> +++ b/arch/arm64/hyperv/mshyperv.c
+>> @@ -182,3 +182,8 @@ bool hv_is_hyperv_initialized(void)
+>>   	return hyperv_initialized;
+>>   }
+>>   EXPORT_SYMBOL_GPL(hv_is_hyperv_initialized);
+>> +
+>> +bool hv_isolation_type_cca(void)
+>> +{
+>> +	return is_realm_world();
+>> +}
+>> diff --git a/drivers/hv/hv_common.c b/drivers/hv/hv_common.c
+>> index 31256cb..a60c92c 100644
+>> --- a/drivers/hv/hv_common.c
+>> +++ b/drivers/hv/hv_common.c
+>> @@ -476,6 +476,7 @@ int hv_common_cpu_init(unsigned int cpu)
+>>   	u64 msr_vp_index;
+>>   	gfp_t flags;
+>>   	const int pgcount = hv_output_page_exists() ? 2 : 1;
+>> +	const size_t alloc_size = ALIGN((size_t)pgcount * HV_HYP_PAGE_SIZE, PAGE_SIZE);
+>>   	void *mem;
+>>   	int ret = 0;
+>>
+>> @@ -489,7 +490,7 @@ int hv_common_cpu_init(unsigned int cpu)
+>>   	 * online and then taken offline
+>>   	 */
+>>   	if (!*inputarg) {
+>> -		mem = kmalloc_array(pgcount, HV_HYP_PAGE_SIZE, flags);
+>> +		mem = kmalloc(alloc_size, flags);
+>>   		if (!mem)
+>>   			return -ENOMEM;
+>>
+>> @@ -499,14 +500,16 @@ int hv_common_cpu_init(unsigned int cpu)
+>>   		}
+>>
+>>   		if (!ms_hyperv.paravisor_present &&
+>> -		    (hv_isolation_type_snp() || hv_isolation_type_tdx())) {
+>> -			ret = set_memory_decrypted((unsigned long)mem, pgcount);
+>> +		    (hv_isolation_type_snp() || hv_isolation_type_tdx() ||
+>> +		     hv_isolation_type_cca())) {
+> 
+> Could this big "if" statement use "hv_is_isolation_supported()" instead
+> of explicitly testing for each CoCo VM type? I ask partly because
+> Mukesh Rathor has just submitted a patch [1] that introduces a new
+> function that does something almost exactly the same as
+> hv_is_isolation_supported() and uses it here.
 
-On Thu, Nov 12, 2026 at 02:30:39AM +0100, Gideon Heinz wrote:
-> Hi Dmitry,
->
-> I tested v2 of the series on my G920 (046d:c262). Everything on my
-> list works except one scenario that takes the whole machine down, with
-> and without your series (last item).
-...
->  - rmmod with fftest holding the device open: rmmod returned after
->    2.99 s with "Unloading HID++ force feedback" and nothing else in
->    dmesg. When I then exited fftest (entering -1), the machine went
->    down: the first time with a garbled panic screen that I couldn't
->    read, and on later attempts as a total hang with no output. The
->    same sequence on stock Arch 7.2.11-arch1-1 with the unpatched
->    driver also hangs the whole system, so this predates the series.
->
->    To reproduce: with the module loaded and the G920 plugged in, start
->    fftest on its event node and leave it at the effect prompt, run
->    "rmmod hid_logitech_hidpp" from another terminal, then enter -1 in
->    fftest.
->
->    I could not recover a trace yet and will send one if I manage to.
->
->    My guess, from reading the code and not verified by a trace:
->    hidpp_ff_create() stores hidpp_ff_destroy() and the other FF
->    callbacks in the ff_device as pointers into the module. With fftest
->    holding the evdev open, the input_dev outlives the driver, so when
->    fftest closes, the final input_dev release calls ff->destroy in
->    module code that rmmod has already freed.
+>> +		    (hv_isolation_type_snp() || hv_isolation_type_tdx() ||
+>> +		     hv_isolation_type_cca())) {
 
-Thank you very much for the thorough testing!
+With my change, this will become:
 
-Your diagnosis is spot on. Opening /dev/input/eventX pins the evdev cdev
-(and through it input_dev), but does not hold a module reference on the
-underlying HID driver. When rmmod unloads hid_logitech_hidpp while fftest
-still has the file descriptor open, __input_unregister_device() disconnects
-evdev (flushing effects, closing the device, and marking evdev dead so all
-subsequent ioctls and writes return -ENODEV) and runs ff->stop(), after
-which rmmod frees the module text. When fftest finally exits and closes the
-file descriptor, input_dev_release() calls input_ff_destroy(), which
-invokes ff->destroy() pointing into the already-unmapped module text.
+         (hv_isolation_hw_cvm() || hv_isolation_type_cca())) {
 
-Rather than working around this in individual drivers with a separate
-ff->stop() callback, input core should call input_ff_destroy() directly in
-__input_unregister_device() once all handlers are disconnected and the
-device is removed from sysfs. At that point nothing touches dev->ff
-anymore, and calling input_ff_destroy() there guarantees ff->destroy()
-always runs while the driver and its module are still loaded (while the
-second input_ff_destroy() call in input_dev_release() becomes a no-op once
-dev->ff is NULL).
 
-Could you try the input core patch below (with patch 22/33 "HID:
-logitech-hidpp: shut down G920 force feedback on input unregister" dropped
-from the hid-logitech-hidpp series, since ff->stop is removed and
-hidpp_ff_destroy() will now run on input unregistration)?
+Thanks,
+-Mukesh
 
-Alternatively, if you prefer to test with your out-of-tree module build
-without rebuilding the kernel, you can test the equivalent effect by
-setting:
 
-	ff->destroy = NULL;
+> You don't provide the non-stub hv_is_isolation_supported() until
+> Patch 6 of this series, but the weak stub should allow everything to
+> build if a bisection splits this patch series.
+> 
+> Michael
+> 
+> [1] https://lore.kernel.org/linux-hyperv/20261111022036.351231-2-mrathor@linux.microsoft.com/
+> 
+>> +			ret = set_memory_decrypted((unsigned long)mem,
+>> +						   alloc_size >> PAGE_SHIFT);
+>>   			if (ret) {
+>>   				/* It may be unsafe to free 'mem' */
+>>   				return ret;
+>>   			}
+>>
+>> -			memset(mem, 0x00, pgcount * HV_HYP_PAGE_SIZE);
+>> +			memset(mem, 0x00, alloc_size);
+>>   		}
+>>
+>>   		/*
+>> @@ -666,6 +669,12 @@ bool __weak hv_isolation_type_tdx(void)
+>>   }
+>>   EXPORT_SYMBOL_GPL(hv_isolation_type_tdx);
+>>
+>> +bool __weak hv_isolation_type_cca(void)
+>> +{
+>> +	return false;
+>> +}
+>> +EXPORT_SYMBOL_GPL(hv_isolation_type_cca);
+>> +
+>>   void __weak hv_setup_vmbus_handler(void (*handler)(void))
+>>   {
+>>   }
+>> diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
+>> index bf601d6..1fa79ab 100644
+>> --- a/include/asm-generic/mshyperv.h
+>> +++ b/include/asm-generic/mshyperv.h
+>> @@ -79,6 +79,7 @@ u64 hv_do_fast_hypercall16(u16 control, u64 input1, u64
+>> input2);
+>>
+>>   bool hv_isolation_type_snp(void);
+>>   bool hv_isolation_type_tdx(void);
+>> +bool hv_isolation_type_cca(void);
+>>
+>>   /*
+>>    * On architectures where Hyper-V doesn't support AEOI (e.g., ARM64),
+>> --
+>> 2.45.4
+>>
 
-inside hidpp_ff_stop() in hid-logitech-hidpp.c.
-
-Thanks.
-
----
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Subject: [PATCH] Input: destroy force-feedback device on input unregistration
-
-When an input device is unregistered while userspace holds an open file
-descriptor to its event node, input_dev_release() is deferred until the
-last file descriptor is closed. Because input_ff_destroy() was only
-called from input_dev_release(), force-feedback teardown (ff->destroy
-and freeing ff->private) could run after the parent driver had already
-unbound, freed its device state, or even been unloaded via rmmod,
-causing use-after-free errors or page faults in unmapped module text.
-
-Commit ef166ce08801 ("Input: stop force-feedback timer when
-unregistering input devices") added a separate ff->stop callback for
-ff-memless, but left ff->destroy invoked from input_dev_release().
-
-Once __input_unregister_device() has disconnected all input handlers
-(which flushes effects, closes the device, and marks evdev dead) and
-deleted the device from sysfs, nothing accesses dev->ff anymore. Call
-input_ff_destroy() directly in __input_unregister_device() so that
-ff->destroy() always runs synchronously while the driver and its module
-are still active, and remove the now-redundant ff->stop callback. Keep
-input_ff_destroy() in input_dev_release() (where it is a no-op once
-dev->ff is NULL) to handle input_free_device() on devices that were
-never registered.
-
-Fixes: 509ca1a93836 ("Input: implement new force feedback interface")
-Cc: stable@vger.kernel.org
-Reported-by: Gideon Heinz <gideonheinz02@gmail.com>
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
----
- drivers/input/ff-core.c    |  2 +-
- drivers/input/ff-memless.c | 23 -----------------------
- drivers/input/input.c      |  5 ++---
- include/linux/input.h      |  3 ---
- 4 files changed, 3 insertions(+), 30 deletions(-)
-
-diff --git a/drivers/input/ff-core.c b/drivers/input/ff-core.c
-index 0e5d1d1ceb46..133b4622dc49 100644
---- a/drivers/input/ff-core.c
-+++ b/drivers/input/ff-core.c
-@@ -338,7 +338,7 @@ EXPORT_SYMBOL_GPL(input_ff_create);
-  *
-  * This function is only needed in error path as input core will
-  * automatically free force feedback structures when device is
-- * destroyed.
-+ * unregistered or destroyed.
-  */
- void input_ff_destroy(struct input_dev *dev)
- {
-diff --git a/drivers/input/ff-memless.c b/drivers/input/ff-memless.c
-index d1fefd1dfc0d..3069436148ec 100644
---- a/drivers/input/ff-memless.c
-+++ b/drivers/input/ff-memless.c
-@@ -483,32 +483,10 @@ static void ml_ff_destroy(struct ff_device *ff)
- {
- 	struct ml_device *ml = ff->private;
- 
--	/*
--	 * The timer is normally shut down in ml_ff_stop() when the device
--	 * is unregistered. However, we still shut it down here as a safety
--	 * net and for cases where the device was never registered (e.g.
--	 * error paths during probe).
--	 */
- 	timer_shutdown_sync(&ml->timer);
--
- 	kfree(ml->private);
- }
- 
--static void ml_ff_stop(struct ff_device *ff)
--{
--	struct ml_device *ml = ff->private;
--
--	/*
--	 * Even though we stop all playing effects when tearing down an
--	 * input device (by the way of evdev calling input_flush_device()
--	 * that calls into input_ff_flush() that stops and erases all
--	 * effects), we do not actually shutdown the timer, and therefore
--	 * we should do it here to prevent it firing after the input
--	 * device is unregistered and its associated resources are freed.
--	 */
--	timer_shutdown_sync(&ml->timer);
--}
--
- /**
-  * input_ff_create_memless() - create memoryless force-feedback device
-  * @dev: input device supporting force-feedback
-@@ -543,7 +521,6 @@ int input_ff_create_memless(struct input_dev *dev, void *data,
- 	ff->playback = ml_ff_playback;
- 	ff->set_gain = ml_ff_set_gain;
- 	ff->destroy = ml_ff_destroy;
--	ff->stop = ml_ff_stop;
- 
- 	/* we can emulate periodic effects with RUMBLE */
- 	if (test_bit(FF_RUMBLE, ff->ffbit)) {
-diff --git a/drivers/input/input.c b/drivers/input/input.c
-index 210635ef147e..7be69deed8eb 100644
---- a/drivers/input/input.c
-+++ b/drivers/input/input.c
-@@ -2286,10 +2286,9 @@ static void __input_unregister_device(struct input_dev *dev)
- 		input_wakeup_procfs_readers();
- 	}
- 
--	if (dev->ff && dev->ff->stop)
--		dev->ff->stop(dev->ff);
--
- 	device_del(&dev->dev);
-+
-+	input_ff_destroy(dev);
- }
- 
- static void devm_input_device_unregister(struct device *dev, void *res)
-diff --git a/include/linux/input.h b/include/linux/input.h
-index 3381608127f7..02047cc45d04 100644
---- a/include/linux/input.h
-+++ b/include/linux/input.h
-@@ -549,8 +549,6 @@ extern const struct class input_class;
-  * @set_autocenter: Called to auto-center device
-  * @destroy: called by input core when parent input device is being
-  *	destroyed
-- * @stop: called by input core when parent input device is being
-- *	unregistered
-  * @private: driver-specific data, will be freed automatically
-  * @ffbit: bitmap of force feedback capabilities truly supported by
-  *	device (not emulated like ones in input_dev->ffbit)
-@@ -579,7 +577,6 @@ struct ff_device {
- 	void (*set_autocenter)(struct input_dev *dev, u16 magnitude);
- 
- 	void (*destroy)(struct ff_device *);
--	void (*stop)(struct ff_device *);
- 
- 	void *private;
- 
-
--- 
-Dmitry
