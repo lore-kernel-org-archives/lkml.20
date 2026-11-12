@@ -1,107 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794485516;
-	b=WnVj5qAIXyxEmeF5xXiaYWcAya5/r4grUbT22GlwxPYe1VTFQpbvR1wktBL4QNL8yX9x
-	 yzdLAD+pwazVqwvX4LsX8AltPW1XZR7KP9lZkSPq4i814FO5fnghiZoky83h3XMWYCk9R
-	 C5i0nDUWo2yO7TlsFeodGQI1NcEzTJHcItXF93KGYUgy1CqOZhxt+ZUcbPL9P2B36Bsh7
-	 RA2MDFbvoNTm7Z9d1QfII2N64ib/x52xDbvEZBXolSBS6ABK1sHIJI3Qfi4v7Db/GG5yb
-	 1m1EqmiQE9el8lFrkplYClPumuOzNQoIwZv+9eFZjkZ/vXqGo7vtAv6AgteWmV3dM9Q==
+	t=1794485543;
+	b=WiRH5ozyQTEzWPILqEFVW4DBT0bPOI8YPiN0Il4nEf5wKxsx/6YThT7N6lrZ9en25g7Q
+	 7AKUpjWpqtCKPtEVjOwKs2EFDyE9MxXgd4hBGYammnpI0I/2tqdv5ZjzW+fRlO8r8SGXK
+	 OH9OiA6CWoPxLuC6RXcS+LhQn/UDC85loOShoqmqrjgTSzSmdxHBGg9H9XimXIodvSOMY
+	 wFCxCbOGqUObu2xBb5We1PUoP0HGo07nMQCFMwJlKOr4JoTvNiJGmo3jsEQ8a50dPOS3t
+	 vmx8hmz6sMWNvnD6B2s2XmZ3eERDgmNBctRar2ZDIaLsZUitK0N17dN4HBtQ20W7YmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794485516;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794485543;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
 	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xc3dkm2FkTj3bfcx1hRbhfim8mfu2/061yvWmQIUcIs=;
-	b=4yRqT++RRDmkMewrpypa7yTD8iiS9Ux2MW5iTTAPbs6SHdXwya75xDkOW3/RlV71qNTS
-	 9rRLMwCcToPiC2E2Sr/TDS8OACbgwJbHJCJApalqB6YUOPcfRmcRQ5jcKpFoYWz2afeQT
-	 XumzX8Jq1xdIyrjK/6JQJZjByds8uIlZIP6++V4+VQsr4cUcZXsWla8c87p4RdXrml/tz
-	 Bswaf8cQ94lQlGJlTi3iAiYX0dEMl4WIyEPKYmkUVby+Yd82k1zWVBk+YdkBn47JmutQt
-	 J2nhvYEXJIwJSBNOHwMMmanaIM1+7rpQdJXXvceItdx2jg3Xy+CpU1TzROWJSYla9Vw==
+	bh=bKu/a9idr8AalgLeaxKGctDwmMWZR2soVm/wfK6AECE=;
+	b=rhE9e0NEFOMYtkTR8nhze210DbWxQUh51o6GTRe/9mtkhBABcDuxecRU+SU7i4y8ZdSz
+	 9YZ4ryYA1kPIzgIghhiZdZVE+6vgAKG6iWJtqrtOKIiAOf7IwuG1CrAAUUnutyZCGffdE
+	 +FBOYAYWa4P5Tb2I4X9Ic8ppVrXe/ov7apzZCVKe7Qn8KJTnK+qfklXUsfSR1w28W0bb3
+	 d7O/+zWMGCtUSxPCWGXcABkLWVyU1VkYwbYgRMMiyI3OxrZX6DC/art++yl+zh4uaVjQW
+	 EoZznf4xvV3O2gjC9tcRnkfHLdJvsHajjSFOs/eOmN6ZZGi1oV8rdYOmvIUyxAxkyrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RpiHyhBL;
-	arc=none smtp.remote-ip=209.85.208.44
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=BvmnVXRh;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 471FF606A327
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:11:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 471FF606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5F20606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:12:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5F20606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RpiHyhBL
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so1192479a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:11:55 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=BvmnVXRh
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4910b863b84so518707f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:12:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794485514; x=1795090314; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1794485540; x=1795090340; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:date:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=xc3dkm2FkTj3bfcx1hRbhfim8mfu2/061yvWmQIUcIs=;
-        b=RpiHyhBLk3MvPRGZ9KqyZYaEz3gxSZVZHr/cu2sc+OExldAArs984cRSnc7hzg2L3+
-         M6lfONzNuDEfOaU3n583z53FmsvyFjKNoy8/Xb0dUQOQNHHX+yCU+wwMwjAUx/uoh31F
-         Vp0Eo9QrEaSR4SkRarnowfwIdntBB7uUGVmT6iIEuGBXaxnk09AA3SgAtXgBwOuwJ28H
-         pAwo9grT/HnEH61Lav3gp2FOIEfY3j9YsfVNsqSoNfBSBebDE19ZCNKSPCHH907zYUHP
-         Im7Ef0IhJN0ODA5CRobe8gwI47FGS6/MzyM0j2pzXXXCNQ9ClZNFzTweLx3ZQ6ysN8O3
-         uUAA==
+        bh=bKu/a9idr8AalgLeaxKGctDwmMWZR2soVm/wfK6AECE=;
+        b=BvmnVXRh37jlQj5w+r+F+RhSfdu+OISPOeDGoNpq6xWDkIAMFJ1jNyoFPCELfxfZMW
+         STQOokc+wrDCKo3qAa6Z6pKMOX978XaLqPJwLIzI/E0S7fIscdDTz2ebkRmp9Q/DY0eq
+         ha02vVjulkCaMD7jjZAnXaXGxJzvsr0ChW5u4ugNgD98Y4PfSKLiQo1dJ/WdK1qPy6X6
+         qWL2W7gzXfqrAL6QIxPxDFwWcIJhYGFqXKhifxWRDbWM3iNCfNQ2+yWCmqX0amdWYWAl
+         L7MLUJyjSUWU6aeWGMLKAVLTj+UWg0KBBYpB9Y5jBgM7sJI7Q1I5JlaG94GNfR+Y2Xev
+         Cy6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794485514; x=1795090314;
+        d=1e100.net; s=20260707; t=1794485540; x=1795090340;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xc3dkm2FkTj3bfcx1hRbhfim8mfu2/061yvWmQIUcIs=;
-        b=VSNhMpXevxK9hqzbluiQ0ZQyciquTOdhWClxuum4hnyLwZn8BiqB818Tmb81L1+h9L
-         qx0gRAuI8xl0otWQGc4XPs+X7hLv1A6IV3W4UAe6OZmD8SNzwcW/UkXmqtxzjNcv+iP4
-         4PHqx4Gmmz06e9rlefvjE6mJhEayv+49a3NxaUfIxcpgYNuYPCHKdppcopwGFpAXvRCy
-         FBuCFMzTD4rPOCrZJqzBVFx8AelmoUw+2oQjSxqTonIqE2mSB6aTuByUipsIG8ylpyg1
-         rA9UxgnJY3ueIQZwpXd6JuIW829pmX564JhOhvjqDIG80FwWvRsvODdXRRblfCgYbC71
-         9PyA==
-X-Forwarded-Encrypted: i=1; AL+hErF/OBBBb1+IR3Vd+Qvpi8yibWlbD1kCJyYMgWflBTzBoBIVvanq8xyYc+Tpq1AyZGATNoDeDkHKKSkJKJs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9T5dnIpn/B4AzSaB/J3nCUu/TyiUfnisCKC9j53J+rd6tmXTKW
-	EZlvzgZgzuxxKruVT3/DBYka5o6SUJq3+qsI8Kri+xv5uOptnHjHwnZy
-X-Gm-Gg: AYBFou2NxHS2urhHorLkB3mI0hdRykoMSzEZ4kj2UrNsEto51cC4zxeIRumuf70euAT
-	qRWEHnyBADBkfCq+WFb/r6fwMfaOoLfYE2eyoixr0ZuB+X0gkaFykbUAl6NK2S3+vQjASrPCoyx
-	aCojSvyNB1C9/MSt5vNq/wwmLtN6QDkruxBAVLtmDl5SmCq69Vi3Jp5OB9EzCCSS+kPDD4Niomb
-	pn3/Dh1EbX79Yh5u2VjZitAgIyS5Tg1ngg7qy9CsQGjo4JS8UheYtvdkBSudZpVXMcvchJdJzT8
-	nUs2Jy8YfPwh3UG2DhY7uKM3M2R11BNPKqwz8bLyfGwmHV7Su7wI3XNlvzBIlVc4cnDGl3nNJBm
-	y/vu5AyBaYRKUFbXDPS8z28+3jCFpbf+bx/Udl0oaBbkEv3XalAra8qbZfUNENkZEnSP6cJc6Nv
-	guZFhS2FnCKkw+fOkTZgPh5Z3/vbTiHmIUZ91N9ikOCgAipcESDtPR5se8M0ipffTI+jAwm8+e6
-	bD9CDFQvP3XHTymxuirKeIXMDeOCxLAUThvlciW+eVSBKz8MuDOxRp3VR6djqpAeEjhTA==
-X-Received: by 2002:a05:6402:450a:b0:6b5:875a:c2a0 with SMTP id 4fb4d7f45d1cf-6b7775eb13cmr3884877a12.24.1794485514349;
-        Thu, 12 Nov 2026 04:11:54 -0800 (PST)
-Received: from milan ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7834cdc23sm1610428a12.12.2026.11.12.04.11.52
+        bh=bKu/a9idr8AalgLeaxKGctDwmMWZR2soVm/wfK6AECE=;
+        b=loRbtMeryyqO+q5aFGFo6cBfIOxEIegqnNBR3jAUxy1loS9/iv3p+K4urFZPMwpZL+
+         ftOuynazZ8GNbA619wClzRIZ64agMQ72xswwg8q2+fQxmWY1ZkTiq367/KXqgQHpXoob
+         oYyYHf9BOAYWfce0maSBRdu7YNjUxdzDqC6h1UMOxwsE7cvAoaAXO4jmdxqK0mgH1OH2
+         AMc5QBu4gZ/15f1g4J+VuDUc8UKLWmRUZRQrbtspXMEqxcFZBs+bvK/JXP399KpzHpmL
+         JaZgcOExui7aUaiXx+afHUdHdl0Gjj/i5EVr6Z+4RCvV0832/LAeQ0XCnv5VbTFB33sY
+         29Xg==
+X-Forwarded-Encrypted: i=1; AL+hErHSBt17RezB2FeRskuXQvFGLqfW8bbchncuVZ6ZK6Y037CNAILjNVk4VmlUkwe9cxXwrtytQjIlSGZoNWE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9254FBIvQGSFUgke+h2DRbBRiaSu/+/9kNFnnTOF4jkYrtmzp5
+	BAu0Q7Dt21YfPClqP+iB9W/lq4ni3WRBFGq0V8F4ALnxrd5+fANQsCRaAFUgRn9MIas=
+X-Gm-Gg: AYBFou1J1x/JbUIS72UIstmoQvDrLbqcVtB11D+ND25kYMM/Pq3OE2HvGfjXt25kOHt
+	U4LredgsmGB7qhXpjgRWLUuk+HfqZLuF1XuYW8tlG6MeHZpnOMvXm8d2qE5hJcBvlP2p+s9fyDh
+	qDb5qN/ul/EpEI0GzE/1GvwuXrn0cwKGOgSCh7U1NLtFJSwTIA60HNcVxiI7CPJjtCvlgEpyA6h
+	jzxzMzPbVrhsIMuAqBv2LTfhLxbBvduBR869awJkPppbzoyEs+GOQHYHGD2KUMcM2KbcFv3Y1QX
+	3DccIwRm7jDQnmuG8VggEY3Qk9+Ub5PBQ+Ds+1vDG+rXQuFb3tY26iQg0uCnYBFKvMZdbD9mv8l
+	HQkNNnjA2WbMSPJa58lsHL50xP2nthqm6HmX50FYmpRSPene9uZp2GKkGlVwgHfzpVdzIlhEAzB
+	uwV12eFKzptoLdFElkxSehx+h4lOKvl7lhNLS8lnDnNOA6IRQXCYmhrQjpKEB12+92jAHzBrKKZ
+	QEZK34/7ZU6GtZkR7QQj+AQWwafTd7VRY7+i92aXHycANX1G8JSeO90HPtXpjyOTkmy0Wdqo9Z9
+	yfHOlJB0LfYYIo12PuAQM71ESRVx
+X-Received: by 2002:a05:6000:491c:b0:491:e477:6820 with SMTP id ffacd0b85a97d-49aff96ab56mr4685821f8f.20.1794485540040;
+        Thu, 12 Nov 2026 04:12:20 -0800 (PST)
+Received: from localhost ([195.94.151.204])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983284c9b1sm15040172f8f.6.2026.11.12.04.12.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 04:11:53 -0800 (PST)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@milan>
-Date: Thu, 12 Nov 2026 13:11:51 +0100
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Uladzislau Rezki <urezki@gmail.com>, Dev Jain <dev.jain@arm.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Potapenko <glider@google.com>,
-	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
-	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>, linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
-	linux-mm@kvack.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v4 4/9] mm/vmalloc: BUG_ON() on an unaligned range in
- vmap_pages_range_noflush_walk()
-Message-ID: <avWtB-nWZUwLdQdP@milan>
-References: <20261110112546.261415-1-hao.ge@linux.dev>
- <20261110112546.261415-5-hao.ge@linux.dev>
+        Thu, 12 Nov 2026 04:12:19 -0800 (PST)
+From: Andrea della Porta <andrea.porta@suse.com>
+X-Google-Original-From: Andrea della Porta <aporta@suse.de>
+Date: Thu, 12 Nov 2026 13:16:16 +0100
+To: Wang Xiaolei <wangxiaolei01@kaihong.com>
+Cc: linusw@kernel.org, florian.fainelli@broadcom.com, rjui@broadcom.com,
+	sbranden@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
+	daniel@dragonzap.com, iivanov@suse.de, andrea.porta@suse.com,
+	phil@raspberrypi.com, linux-gpio@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Jonathan Bell <jonathan@raspberrypi.com>
+Subject: Re: [PATCH 1/3] pinctrl: bcm: Fix off-by-one and out-of-bounds
+ access in fsel_get()
+Message-ID: <avWuED_RGlEdGH-9@apocalypse>
+References: <20261106070628.1428691-1-wangxiaolei01@kaihong.com>
+ <20261106070628.1428691-2-wangxiaolei01@kaihong.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,39 +106,149 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261110112546.261415-5-hao.ge@linux.dev>
+In-Reply-To: <20261106070628.1428691-2-wangxiaolei01@kaihong.com>
 
-On Tue, Nov 10, 2026 at 07:25:41PM +0800, Hao Ge wrote:
-> The pte loop of vmap_pages_pte_range() maps whole pages and stops
-> only when addr lands exactly on end.  An unaligned end lets addr
-> jump over it and the loop keeps mapping into whatever follows the
-> range.  An unaligned start maps the page below the range with its
-> first pte.  That corruption is impossible to debug afterwards, so
-> bug out on addr and end at the entry of
-> vmap_pages_range_noflush_walk().
+Hi Wang,
+
+On 07:06 Fri 06 Nov     , Wang Xiaolei wrote:
+> brcmstb_pinctrl_fsel_get() takes the value read from the pin's FSEL
+> register and uses it directly as an index into
+> pc->pin_funcs[pin].funcs[]:
 > 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+>         fsel = (val >> BIT_TO_SHIFT(bit)) & pc->pin_funcs[pin].func_mask;
+>         func = pc->pin_funcs[pin].funcs[fsel];
+> 
+> That is not how the register field is encoded. The setter,
+> brcmstb_pinctrl_fsel_set(), treats 0 as GPIO, 1..n_funcs as
+> funcs[0..n_funcs - 1], rejects n_funcs + 1 and above, and n_funcs is
+> always BRCMSTB_FSEL_COUNT (8). The field is therefore a 1-based function
+> number, while funcs[] is a 0-based array of eight entries.
+> 
+> Every readback is consequently shifted by one slot, and a field value of
+> 8 -- which the setter accepts, being the eighth and last alternate
+> function -- indexes funcs[8], one element past the end of the array.
+> 
+> This is reachable from userspace without supplying any invalid input:
+> 
+>         # echo "gpio45 alt8" > .../pinmux-select
+>         # cat .../pins
+> 
+> The write is an ordinary mux request that fsel_set() accepts; the read
+> that follows goes through pinctrl_pins_show() ->
+> brcmstb_pctl_pin_dbg_show() -> fsel_get() and triggers KASAN on
+> Raspberry Pi 5:
+> 
+>         BUG: KASAN: global-out-of-bounds in brcmstb_pctl_pin_dbg_show
+>         Read of size 1 at addr ffffa07c577ab2e8 by task cat/839
+>         The buggy address belongs to the variable:
+>          __compound_literal.62+0x8/0x40
+> 
+> A field value of 0 has the same root cause in a milder form: it is
+> reported as funcs[0] instead of GPIO. The mux itself is programmed
+> correctly in both cases, so this affects the debugfs readback and KASAN
+> rather than the hardware configuration.
+> 
+> Handle 0 and out-of-range values explicitly, and index funcs[] with
+> fsel - 1, so that the getter uses the same numbering as the setter and
+> the index can no longer go past funcs[n_funcs - 1]. The existing
+> fallback for func__ placeholder entries is kept:
+> 
+>         if (!fsel)
+>                 return pc->func_gpio;
+> 
+>         if (fsel > pc->pin_funcs[pin].n_funcs) {
+>                 dev_warn(pc->dev,
+> 			 "invalid fsel %d for pin %u\n", fsel, pin);
+>                 return pc->func_gpio;
+>         }
+> 
+>         func = pc->pin_funcs[pin].funcs[fsel - 1];
+
+Non-blocking nit-pick: I think that pasting the code in the comment is
+too verbose, especially when the same code consists in the entire patch
+body here below. A succint explanation by words would be more than enough.
+
+> 
+> Tested on Raspberry Pi 5 with KASAN enabled. Before the fix, writing
+> "gpio45 alt8" to .../pinmux-select and then reading .../pins triggers
+> the splat above. After the fix the same sequence reports
+> "function spi_m" with no warning and no splat, and a register field
+> value of 0 reports "gpio". The register is restored to 0 afterwards.
+
+Since you're at it, would you mind fixing the SGPIO AON related OOB access too?
+Please take a look at bcm2712_[cd]0_aon_gpio_pin_regs struct: they both have
+a bunch of AON_SGPIO_REGS macro describing pins at the end of the struct. That
+macro puts them at [(n) + 32] in the struct so there's a hole between 'normal'
+gpios and SGPIO ones.
+Accessing bcm2712_[cd]0_aon_gpio_pin_funcs struct via this +32 offset as the
+'pin' index in pc->pin_funcs[pin].funcs[] will result in OOB access. KASAN should
+report that if you 'cat pins' in aon pin controller.
+
+One way would be to refactor the code in order to avoid this hole, but I
+won't pretend this.
+The other way is just add the missing SGPIO entries in bcm2712_[cd]0_aon_gpio_pin_funcs
+(mind the +32 offset, a new macro is probably needed).
+You can find the functions for SGPIO pins declared in downstream driver, see file
+drivers/pinctrl/bcm/pinctrl-bcm2712.c from rpi-6.12.y branch (later branches
+already have the upstream driver which is missing the SGPIO functions entirely).
+I've posted here the relevant data copied from downstream for your convenience,
+please rearrange accordingly:
+
+static const struct bcm2712_pin_funcs bcm2712_c0_aon_sgpio_pin_funcs[] = {
+        PIN(0, hdmi_tx0_bsc, hdmi_tx0_auto_i2c, bsc_m0, vc_i2c0, _, _, _, _),
+        PIN(1, hdmi_tx0_bsc, hdmi_tx0_auto_i2c, bsc_m0, vc_i2c0, _, _, _, _),
+        PIN(2, hdmi_tx1_bsc, hdmi_tx1_auto_i2c, bsc_m1, vc_i2c4, ctl_hdmi_5v, _, _, _),
+        PIN(3, hdmi_tx1_bsc, hdmi_tx1_auto_i2c, bsc_m1, vc_i2c4, _, _, _, _),
+        PIN(4, avs_pmu_bsc, bsc_m2, vc_i2c5, ctl_hdmi_5v, _, _, _, _),
+        PIN(5, avs_pmu_bsc, bsc_m2, vc_i2c5, _, _, _, _, _),
+};
+
+static const struct bcm2712_pin_funcs bcm2712_d0_aon_sgpio_pin_funcs[] = {
+        PIN(0, hdmi_tx0_bsc, hdmi_tx0_auto_i2c, bsc_m0, vc_i2c0, _, _, _, _),
+        PIN(1, hdmi_tx0_bsc, hdmi_tx0_auto_i2c, bsc_m0, vc_i2c0, _, _, _, _),
+        PIN(2, hdmi_tx1_bsc, hdmi_tx1_auto_i2c, bsc_m1, vc_i2c0, ctl_hdmi_5v, _, _, _),
+        PIN(3, hdmi_tx1_bsc, hdmi_tx1_auto_i2c, bsc_m1, vc_i2c0, _, _, _, _),
+        PIN(4, avs_pmu_bsc, bsc_m2, vc_i2c3, ctl_hdmi_5v, _, _, _, _),
+        PIN(5, avs_pmu_bsc, bsc_m2, vc_i2c3, _, _, _, _, _),
+};
+
+In case you don't want to fix this, you will still have a Reviewed-by from me,
+and I'll take care of uploading the fix in a subsequent patch.
+
+Many thanks,
+Andrea
+
+> 
+> Fixes: 657cbf9b24ba ("pinctrl: bcm: Add STB family pin controller driver")
+> Cc: Jonathan Bell <jonathan@raspberrypi.com>
+> Cc: Phil Elwell <phil@raspberrypi.com>
+> Signed-off-by: Wang Xiaolei <wangxiaolei01@kaihong.com>
 > ---
->  mm/vmalloc.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/pinctrl/bcm/pinctrl-brcmstb.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
 > 
-> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> index 27f2674a5556..86fbb1d2b27a 100644
-> --- a/mm/vmalloc.c
-> +++ b/mm/vmalloc.c
-> @@ -698,6 +698,8 @@ static int vmap_pages_range_noflush_walk(unsigned long addr, unsigned long end,
->  	pgtbl_mod_mask mask = 0;
+> diff --git a/drivers/pinctrl/bcm/pinctrl-brcmstb.c b/drivers/pinctrl/bcm/pinctrl-brcmstb.c
+> index f46b27155c3c..2b942ca7196b 100644
+> --- a/drivers/pinctrl/bcm/pinctrl-brcmstb.c
+> +++ b/drivers/pinctrl/bcm/pinctrl-brcmstb.c
+> @@ -66,7 +66,16 @@ static unsigned int brcmstb_pinctrl_fsel_get(struct brcmstb_pinctrl *pc,
 >  
->  	BUG_ON(addr >= end);
-> +	BUG_ON(!PAGE_ALIGNED(addr) || !PAGE_ALIGNED(end));
+>  	val = readl(pc->base + BIT_TO_REG(bit));
+>  	fsel = (val >> BIT_TO_SHIFT(bit)) & pc->pin_funcs[pin].func_mask;
+> -	func = pc->pin_funcs[pin].funcs[fsel];
 > +
->
-But why do we add this? We used to live without it and as far i see
-we have not gotten any report about any unaligned addresses un-maping.
-
-The vmap allocator grantees that va->va_start/end have to be page
-aligned.
-
---
-Uladzislau Rezki
+> +	if (!fsel)
+> +		return pc->func_gpio;
+> +
+> +	if (fsel > pc->pin_funcs[pin].n_funcs) {
+> +		dev_warn(pc->dev, "invalid fsel %d for pin %u\n", fsel, pin);
+> +		return pc->func_gpio;
+> +	}
+> +
+> +	func = pc->pin_funcs[pin].funcs[fsel - 1];
+>  
+>  	if (func >= pc->func_count)
+>  		func = fsel;
+> -- 
+> 2.34.1
+> 
