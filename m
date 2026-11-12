@@ -1,74 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794504160;
-	b=upS9kX8YqDxgtEubt/yjhdHhBchzmCyqdtZCdDQXPizLMRjd7XmA749OWvLUCYToz+Vy
-	 4wIZy/RrOM1HsnszsRrm1xKM6tkZQWKOC0tTz5zDLfPmm92b/5yuFVCDr0pvpZJzrtEOO
-	 yinNpu9GolRStRvEIUWFvvbr8Lno4HlD+gNrBsH+amp9DKbMbOU0vhdi0KuadyR8jM2Ri
-	 7zVcSt+5zzZ13+pk4PpLE1H31H5IZEK8PUBrvMKvLVtysrzBp3qFN0onKaeSAGdwuCzgy
-	 d81LcrLfhcjLILmP32hxFq2tsyVYJ/9uR4eybzGIdquhSHMjVFMQcKdKOpfIpeKwcUQ==
+	t=1794504173;
+	b=fm08jT0C6c3WYkG129O/Tg78JrtazDp8OrQFOrkVPoq6a39P7TQDjhjO1uQdzBbyvtq/
+	 YLuls+HST3ElztvL8EWFdeuchLEG2KOUQ0AIxvYq25OPHQQztiZqlUFROMP20AIpeO/nI
+	 OgQeNfyuvippG+L52Ne2rXVti8lr2DHNZa+l7hs0jve5S5WTMzSOA5Jd3c4mWJFFiqVhw
+	 aQArk6YLwcqTH60zItCOF/YDmjnGuwmuJiDxn7y/a8CRRPP3ty3zcDxnA7F6UHnsY32mt
+	 0t7qfP4mxWao6504y7YaQxzg4UpoD/uuOluyo1VU1OHrwUA/ijGSaseIWGL05vNaycw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504160;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794504173;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=/AzCjpFBcsxFuApem78XlXxlBTt4SuIRCgZJ1fWdV1M=;
-	b=opxYmx85mfSD8oP7xBDO7PVoFjYFCusEb8Zl6n5LjzGZ5V5V58k/+CyJC5gW+0yFUYKH
-	 23LY+5GNCANj2xCxt1AoI7hUeKqFaRgIGRad9/dE0DJP8jkd4U2iIsxA3n5BgDs9TcgCA
-	 ZXLzZ/W9GaIxujMxVXJ2VkJoJxGWTMjDsifyxowp3h+5r6nqIFZ97NnIEHTqU7wxJdGX0
-	 09+NLHZz4Guc7pjqAG2kvGfRFZtvV099oGAK6REuWjbOlSAqFEmZsqbB1olilugX5efBd
-	 0SJ/R4poIsTmjCmV1P936CyNuffpTa3ddGj5CXHgshbX36/FhSTL5SaFR9HQqPDm2RQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=a/JRN/xbf7qsdPvNLlS8GtXasJ+TiojxhhjDTwn3xLY=;
+	b=QXMFvdEX9SkpGVYj16D5dkHVN0Dm9tEApPU08YtxaOMAgKZEmStaDtTSz5/dvUdsna8H
+	 OFk2VLdu312SE9guBnVDu/GIJxpUk5IBZnwjWHRffZnY4US4D2jm9elwUlgP0xKpV0CyX
+	 StCKK4ehfQJADlj+DXGSjLbHDnKlz2JwOT9jb96cT23gR9OVtQPwz7dckC9yAv7c/BVm1
+	 XGd23gfAhVxZ9rfAXi6TVY50tlH4q/G/oELRvDTB83FRA+wnXQ+UVE/h5Xrd0v5GmeRb2
+	 tY/C0e7RMBSUUpS1RX+UafmqtTLEh9apTUaCI4xpwi+Mp6M5SphRhdP4rtynz39hlTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=El2U0FFa;
-	arc=none smtp.remote-ip=209.85.214.199
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=vEiLisOe;
+	arc=none smtp.remote-ip=209.85.160.176
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47675606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:22:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47675606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90E48606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:22:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90E48606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=El2U0FFa
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ed08904845so1160325ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:22:40 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=vEiLisOe
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-53bb57f1310so49810861cf.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:22:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794504159; x=1795108959; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/AzCjpFBcsxFuApem78XlXxlBTt4SuIRCgZJ1fWdV1M=;
-        b=El2U0FFa/1kTNlfAoi4s3lVxhBnMS+TuFDyQDMzpDozCU6OYPkMXzTzlLBheS9ebNi
-         V0Yd3DCF7EeGNz2s9mFP+56Ruqn5gQnxeYbpeRRJbqvh/Lp4jyBdq8ocd/vt5KAPkAKT
-         D2VNZQrDAoe3xJRCdLhvJxcSdqmg8Zi8tz0zysXNjqZDq7aPJfbnYWJP5HY08syecLfA
-         bcg/mgjsaMvtszdLpZzl6hLZpgAK2xSBvLRHDKfm82rvyrOvqxUJhgBscGukgwQfbg2B
-         92fjHtg2Yb2kMZDDZug49EaL6Pb0qkXMtcPvRdekwPocdqBwhwGYlBYOHOlmPkMzVAR7
-         BhYA==
+        d=gourry.net; s=google; t=1794504171; x=1795108971; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=a/JRN/xbf7qsdPvNLlS8GtXasJ+TiojxhhjDTwn3xLY=;
+        b=vEiLisOeATJcgaH8HupEr6TgVwYoVfRhOc5WUsJ97Fr/YmUk7miXmTYVniih//0XKg
+         QHLJ2ZMK8tqd1Et7ZG+N4Jh0PE0NAP0DMFsTfjohOPnRbNbx5wCi9MJf7GlbX3zGC5bi
+         aLUK0quGQJOUi6k1xd8x7SWJKtq9f5WXsAvqMv5Jofuab5LSwieefdRRSscAfGpRNImR
+         sbdLr+gv9jGDWpKHzo1kNv1TRF4RDoecODqqKyKYyyViG6EOhcR5hf9KcsCEy5o/DAVl
+         SjKv8MglBVhq4lTjIWfDKL+t0qDr6AR+DnZiNsQlHWG3G4GChP1hcSnl0JNtqLZQikII
+         00Jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794504159; x=1795108959;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/AzCjpFBcsxFuApem78XlXxlBTt4SuIRCgZJ1fWdV1M=;
-        b=oA8h1C1jBqeSUdms+FC88qDvkb00aXy3pYKPu8nvHrFUbvLyovulWvv5+X1vPetNeW
-         RRr+pOhyiRbujdwkWRNtQWOxlsUqJRapTWFUvD8Vq1aDnfz4d/B7Qg5C1XwKLKGAwvNF
-         4FC1kUgqBItnKANXdnDUHy6P1Rsox0R5iUMJxT8SAU5pTSmoole2G4PH5OVC32pAQZRc
-         OujWsmvtROV7FeNd8EUEjuk2gGNi0HbhR0dan/sI+6no0e+8Go87xIx1RPFwI83bzATv
-         /XGndzY5kNJ7TeiGWUffr1K+lUWmgfp6v6ER2OshBtTHl3ir+R8JuZFyX6AQf5RcFKyR
-         TGjw==
-X-Forwarded-Encrypted: i=1; AL+hErHd0TFaU25i4qNB2itJ5cPNcNTPHafrMHGMYP/HwsU+52Lm1LpCKvJpUVL7GJQayWXfxU+Kdd796yOQ3IQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z99yGh8jTVa14YrV3pXUzh5YH9uEMrO6uDIL+aFsBV7lJnS5yh8
-	QWbL5+srbwozQq4Iu9MZjfEQkYZVHZyMORrg8R/G4Pd0EBURaNjSZwaAnqQ/uE2RzKiLMsG847y
-	wHVXTkg==
-X-Received: from plgs10.prod.google.com ([2002:a17:902:ea0a:b0:2e9:5b68:4b7d])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:d2c8:b0:2eb:4a05:4b4b
- with SMTP id d9443c01a7336-2ee0dcc3023mr420945ad.49.1794504159130; Thu, 12
- Nov 2026 09:22:39 -0800 (PST)
-Date: Thu, 12 Nov 2026 09:22:38 -0800
-In-Reply-To: <20261112144220.30801-1-dwmw2@infradead.org>
+        d=1e100.net; s=20260707; t=1794504171; x=1795108971;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=a/JRN/xbf7qsdPvNLlS8GtXasJ+TiojxhhjDTwn3xLY=;
+        b=AnDKvXEjPaghZKlXdQcRbjxfD0UbIoLB2yXLLAp1PMZ0gNQ5Tzz0pP1cI7YI/NnBdT
+         fqTzmoLSqxnth9MHbR60FAIN3P9StLnkqZcsU0AEj2TkkcUuglIEfjRKEFyxancpLxL0
+         X0L2sYf6AIgJTkBjKWBJiVNZignDog4MQ8O0FFHnnjkReGjkgGGp/1oxFf7Hq7u+BKNK
+         fAWSwFw3zyVVdhIwJnqFZeGXNCeq8eEJ+qUm9GmqbtxU3SfcuZtNgFq7d7QXhB+c1tbL
+         8euYd2G7dNdUdZQWCOeooTT+inyt65yaVWeEoyWzXb0jzGl9/ImfKSIAJYcmDl5doEYb
+         sltQ==
+X-Forwarded-Encrypted: i=1; AL+hErGAYp1TcV6/WNb5INdBfKoqvED5fgkFvHR0mghyMIp0cb1tAoj06lZsYZ4kI6opz5+JmN0geJczYyreVsE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9IBOW9l/at8FAhfhKiMdGLulIXqlK/A6/egqAsb03uNJNCJR9l
+	hyXiF1E5XaXtJi88TXJnND6sWo+CY78JAi2zp1G5pbBdP3En/0uDa5GTJMMhDGyBPU8=
+X-Gm-Gg: AYBFou1EqLHw0NGzDMhmt4zHiaQZLgdycK8k2qXxb4cTCj79gpjU8AbfKH+i1BjoREG
+	ERQPL5lcGnKSFJ05EOZGcut6mHnkYLxmDbWmafG0aCy9lnpilkcOKStYMlQ4vh28NxqcECN4+x1
+	Vo2G21KRSPxsfaldRe8HCdj3os1KGJ4d1H4bRDCaKH0Mp8V1UR6N96JOkbvsz8kKSl91vROHbxX
+	6BZMXOlL16KtA/4LtXvTu2LC1oEq/Ra67JgW82uVhfrP4df7mMtpg3j7LJ1KK9K/aIPJjN6GxEG
+	m1/VKqoZpS4eivemQ7b7L098PZAvcs6Y9kGgbz0v146QtkLZCSfBi3aABlsBH9TndXbFBzj7GvO
+	8Unj+strFQxgftJYH6zB09P3vzV4cK/dZvC0J/zv/uygiMx+1z1P9P3nFTj5oijccud6Vo0LXaM
+	LAnTezOxaVjxjdFhSFZ1+nIEXsEMFJ/uU1cZEydcpDLatPQk2VFz7lk3HO8GiaQAk2+i7TsPK88
+	hhJ2K1lYD0spwNCZ6oaxTbajIQ6cJenojG/1gEubhedlfN85PdT8JN3RhtgibeOBnGl7b3YSw6J
+	crLrEWdO45yMRK7ZP56XxW9R0LFnHl0GB8KDYlkV5KRqGxyxWCmlHhdyvmVhdoC/n7yn4yON34E
+	IE6bwXaM=
+X-Received: by 2002:a05:622a:180e:b0:536:64a3:aaca with SMTP id d75a77b69052e-55ac8e955b4mr521501cf.62.1794504171329;
+        Thu, 12 Nov 2026 09:22:51 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d93f10sm542436d6.30.2026.11.12.09.22.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 09:22:50 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,31 +88,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261112144220.30801-1-dwmw2@infradead.org>
-Message-ID: <avX13o0qRkidIwWo@google.com>
-Subject: Re: [PATCH] KVM: selftests: Drop stale exact flags check in private_mem_kvm_exits_test
-From: Sean Christopherson <seanjc@google.com>
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: kvm@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, 
-	Anish Moorthy <amoorthy@google.com>, Shuah Khan <shuah@kernel.org>, 
-	Nicolas Saenz Julienne <nsaenz@amazon.com>, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, David Woodhouse <dwmw@amazon.co.uk>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 08/13] mm/migrate_device: fix ksmd oops on a migrated
+ KSM page
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
+ Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
+ =?utf-8?q?J=C3=A9r=C3=B4me_Glisse?= <jglisse@redhat.com>, 
+ Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, 
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+ Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
+ Chris Mason <mason@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ "Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
+ "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org
+In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-8-3d2454362e8d@kernel.org>
+References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
+ <20261111-mason-migrate-et-al-fixes-v1-8-3d2454362e8d@kernel.org>
+Date: Thu, 12 Nov 2026 12:22:49 -0500
+Message-Id: <179450416941.482102.7238369347030508170.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-On Thu, Nov 12, 2026, David Woodhouse wrote:
-> From: David Woodhouse <dwmw@amazon.co.uk>
+On 2026-11-11 18:13 +0000, Lorenzo Stoakes (ARM) wrote:
+> From: Chris Mason <mason@kernel.org>
 > 
-> Commit 7d0afe669374 ("KVM: selftests: Take into account mixed memory
-> fault flags") relaxed the memory_fault.flags checks so that they only
-> test for KVM_MEMORY_EXIT_FLAG_PRIVATE, since KVM may report the access
-> type alongside it. In test_private_access_memslot_deleted() it added
-> the relaxed check but left the exact match above it, and with the
-> READ flag now reported the test fails for me there:
+> After a KSM page is migrated to device private memory, ksmd can oops,
+> and KSM then stops until reboot. A process that maps the page can also
+> loop in page faults when it next accesses the page.
+> 
+> The problem arises because KSM doesn't know not to try to look at device
+> private memory that does not exist in the direct map.
+> 
+> Disallow this from happening by explicitly testing for this scenario in
+> __migrate_device_pages().
+> 
+> Fixes: a5430dda8a3a ("mm/migrate: support un-addressable ZONE_DEVICE page in migration")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ ljs: tweak commit message, comment ]
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Ah, this is against kvm/kvm-memprot-v4.
+Reproduced and tested the fix.  I validated in the base kernel that
+a migration could succeed and after this patch it cannot.
 
-Paolo, what are your plans with that branch?  Sashiko had valid complaints, e.g.
-against patch 1[*], so I assume the branch won't be merged as-is.
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
 
-[*] https://lore.kernel.org/all/sashiko-outbox-193903@kernel.org
+-- 
+~Gregory
+
