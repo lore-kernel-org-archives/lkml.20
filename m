@@ -1,59 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794473241;
-	b=3qdP+lmoa5fEeRIcm4HbU40QZTjGz8/yzzsr38aY2Tr3jEe7iYHaEjro0HH2AC35soX5
-	 ozLlWfC1xeWiAR1pzip1O4U9VKdNUMKGHKYd9kCYuUGvYd6PrlPPCDIynmV1tzZqFasT1
-	 p1d8bpsnTGsjOttVzrbBO3y0m02A6VRUZCpJHISpZEkwzqh7BSQUQx7/Zz8mfUAnCsFQY
-	 ceMcvSEDPHfZEET+5U1uPmfigfXiNmJluD38u6XGbP5bmatNP1mSfvMgXzlY+qxDyBvBy
-	 u9eUUN3kVZWcWSxMMKfxKmEjx39Cpv+mWeRyQX7V9v+weU9M/8bGJu6S+9Ejd2rHxiQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794473241;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=N41quIfnMKlk0yGGLP2bTGDp4ct65b4cGCAbOTy9tt0=;
-	b=VjcPWZhiXhY1NvJi3jFxk05gxAiZ+JtA+g6SZNY0QPu9ZvCWOhHNiFT2A5M92jN/fLgJ
-	 O+d7Cz2WsYwqmMSVsWd2ljsZcB5nF+W6/iDkCYfBP0x6rB2m3Zx19M23tHoG+I/NvTl4k
-	 eWjv9r9DVHTKK0KvoC5npZcJQ557k4m3hVO9U7DMu8Ktk46CXgpDvplLb6JvswwmXHVIJ
-	 CPmkImG7MQzljTYAJyYbZy9CbiFORyqZIvA1pwoO+JxjMWTyqh06e2Hw6BFjNspw10xlT
-	 pcJpv34NoITJRtimk0ORy/zi0aLPMkv5y1wRbGSe22n1dDNV5RX5CI4u2kwC/L4+GwA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=na02kpvs;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3F35A606B58A;
-	Thu, 12 Nov 2026 08:47:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F35A606B58A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794473239;
+	b=QkejbCCvUKp9f3Q90XtMiKzIGXKFMHgtBq6nrq3G3qVmukpSTZp44+N9Ldr7yiDjWyge
+	 J/VXhVMC4mPnzkhfywrzCMRhCw4PJUv9DPxAcbHl3vGW/RQvgfvgMnTiUZwsZzBrUNeeI
+	 I/Vjd1oOcGzfLOj7JY7NxJ2h1lqx+naBsSr5jZBOYxuGUtoAQYLcSGkJbTIt/7Q3YaKAu
+	 Q9AGDVdteNbx68oTpjiphyxsROdA/2f5IGcu2nV4lKnsB6WBhpWCOElW+ZJRF0jMSlY+U
+	 1juPfaKr7lyH4igAPOIy0qjO8Or0V2iSg28iopI0Fpa6P7dlYJq4XR4aExBPVWIGb3A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794473239;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=RB86biYg+BPhq88d5PdaceEbdw/e2Gm1TW0EI7mBLjg=;
+	b=CeWrQjZNQsYCBJl6TdPAL3c08ppxmYWe+X67BR2aOoT7zxihKequSoes15pCfGCKmyxC
+	 /miYFSVqcoPAxkAmyMuOSEZPq75/Lj6naHcBZWDRrxCyMoOirXKcGIVOQV7sUYORkOwE7
+	 y685pH2sG1I89A3Oot2BsBWhbB2RBHXEnj1sFpF23xy2tap3vHKE4KD0J5iJ4y68Zu5Z9
+	 0H4VKUtUga+uRT9nRJid4pN62mjaalsXiftc80qEnqXUB4r3DVWEmTw8fIFfUW2oVqWci
+	 kRb1F17ch3Oy2bnISgn8hpA/6NWtZMIfSXapMt+jFzzmZZeMX5B+DPtKWmGQ63ClAvg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gxIOdRQr;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F75606A8B4
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:47:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0F75606A8B4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=na02kpvs
-Received: by linux.microsoft.com (Postfix, from userid 1186)
-	id 8BF8220B7169; Thu, 12 Nov 2026 00:47:16 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 8BF8220B7169
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1794473236;
-	bh=N41quIfnMKlk0yGGLP2bTGDp4ct65b4cGCAbOTy9tt0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=na02kpvss1C1lpkSuX93lNPXuT7DYS+53eJylQM3qhkiczTscb+ZHS/YXNPkviQs9
-	 rdV96FimcueTf2FEVIP9LAHbC2tmvyyZWC+imFCOFwzUIm/CdmdC4W8thCMQ7vPKDJ
-	 wBHsdd6cHcEYjEXk4U+/jdZaAkzeOEAyxOPzzYPE=
-From: Konstantin Taranov <kotaranov@linux.microsoft.com>
-To: kotaranov@microsoft.com,
-	snsanghvi@microsoft.com,
-	longli@microsoft.com,
-	jgg@ziepe.ca,
-	leon@kernel.org
-Cc: linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH rdma-next v11 1/9] RDMA/mana_ib: Allocate and map fast-registration MRs
-Date: Thu, 12 Nov 2026 00:47:08 -0800
-Message-ID: <20261112084716.1483342-2-kotaranov@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261112084716.1483342-1-kotaranov@linux.microsoft.com>
-References: <20261112084716.1483342-1-kotaranov@linux.microsoft.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gxIOdRQr
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b547d6c07bso4794687a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:47:18 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794473237; cv=none;
+        d=google.com; s=arc-20260327;
+        b=m510bwQSRviKPcC1A6hx+q3Yr9fqGBOASl09nTDhfbU+H6pLrJHW9SFUiYhP3O9umX
+         xSGL0cHoAtofohugtDh+JYdT6DAPTPOnIRzTJvJIgOufco+azcVn5j3fbBz9t5Gh7NFL
+         vtfLaHsUyQBsXOpz/61uq350XbyFT0ry4VgjiEtWk2YH+00zBkk4W6WIvwhhv7WttAKL
+         Lf8oFRqUXsQWEcGvdALJQ4IPGSbOW82iPXDPYLXSPVFHRXOvVtCckQkKGMVWqKycUtBe
+         LenUzOF4ztZcoJZwIf0sqbmCAspY/9aXOvk7+7IuMWkP1LvKvs9CUQJD+HJWKHEL2SDa
+         DKdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=RB86biYg+BPhq88d5PdaceEbdw/e2Gm1TW0EI7mBLjg=;
+        fh=z4/falK+tM4Ohclfm9ysLIHIb3PhYmpxF6WrEoonuGc=;
+        b=j0rBvEGsHuwQjCBpZzWCObY+/hB8JrY6mR/2zvGaqoiV0ioBZUkMhaB0m19rUMGLKk
+         9w6aufo1M4YdXemILrZ30kKQ10vWjT+SR7URFB+s6fhdFx/gpXa5R33qLTSvSlgWfw6x
+         Oa9VpS42mS7PYS32mD4QwqR0eWyYBYJ/BTueDt5ccI7bkCqS7ZO13jytS0fAbMqiK6Ol
+         kRVVDalM5pNHzfqsuYZlWPt7XSOPvgYMDoUHt7abbU4pVO9ihNA/IS7kFVOc7Ol3UR7a
+         g3XUknvbrykI2ZrJpEzdk22mYFgQfvbsttRqVSh1xu9ZB9A0icsWDgnUVuImgA6sRm2o
+         Rb7g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794473237; x=1795078037; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RB86biYg+BPhq88d5PdaceEbdw/e2Gm1TW0EI7mBLjg=;
+        b=gxIOdRQrGGYCVviGjxwyVeMmz6w7UXFEUKI8OQN3X4OR+FcEI9NqJN08m7fLY5oB3D
+         ZchtKa23lEZZ1jsx8tgTdAzLAls+qRVKLe3KI8Y0LPWSiDRQv401NlBslerNSTBwMv7T
+         nuhV0+FyrZFvQYvR61NBtLXUK/oTqHUiId/+algf5iPAoNK2hM8t7ZVLdPwQ81aybg0e
+         IfosV53elz8kF42nVZGGAMxLgwcntqqBx8O5VT9x6TWi69+0k5qxx3j0xl14Icjpjj3X
+         ENqaL69x+MRgzWQs8gNfVmvXZ0fV2WALM24AQyHocAl0ZUsHRKZeqFx7vdEbMKciAkcE
+         n1gQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794473237; x=1795078037;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RB86biYg+BPhq88d5PdaceEbdw/e2Gm1TW0EI7mBLjg=;
+        b=ttFVUR48uL58bKVufTqD5gi8jdQwm4AOMngSgGewULSBj4IsQdjf3m+zACkhejEOLr
+         OSzSCtX19ZPvvuzf2z/SM1M2L5qp21VAEVUR7bK6Jz/8zZAjFQhhgz4lSU8YX7NRb7TQ
+         ChrkI0cOF7TxmKra7K18JBxM9AbpXOomQ4dFOHWRbr0d01cxFWaiZyyXENncH3SMDY7d
+         uCjUhoVrjdJC4UhdWxPgEwicH4R2ACwMHdk0w9BKOHaMfStyPrUmEV4dxEl/zWnIMLca
+         C8sgcKC7Kl5hedAXvOTRJpdM3RzX/AhPrQEPKT0xfpnekpUSOQnewpVuJmhCdJseSbSI
+         uLRg==
+X-Forwarded-Encrypted: i=1; AL+hErHy9Y5LgJzn5smSzSj+c7TkAKNEl1oZaRqSdc7zFVcPtSFP4R28Ph5EduC9iK7+5w8+ZLmWE3FVqNNN6eM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8yFFsKlUn8Us6Ehzr+D3roAQAQ/7bRhrEQtG0cX1OJxHRA8pM9
+	4XvKKLhLvhzvLTnV5vjqCnyySCXd3Q/gQsipFMvFtvL5pIW351zL8IZJvdUFkte22gxtBXVKTz8
+	U7udJGUdkw9oeKGUBOFhRNm4yCDaEfoU=
+X-Gm-Gg: AYBFou1gPixcIlqu39d8O5KRcm6N7ZTvNMYAJts83fibQelzy1yQK05Oiih2DkIy9my
+	APastlT1uIiJn93X1hCcGbsd3wdafF0af7nMlcfpGyXbaE4ricbAaI4z7v7H0b8C1Vi+ze3OzQj
+	Bl02LIrbY39qIGy5cc6QQgGCeDmQZDFsobZZ3Zeg7LzqMhNa1o4T4x7MKJ9X41emMtsj1tJq+/X
+	obAihg8OfNcew5eGFo5uSoe33INgr/ZXfWP+K7YzSjbPLYWc9j3oUYL0/kU8NNRL6frwbAHDNec
+	N+RZKA5Aip92Qcus5CkakgnImmJ8pDccGivXxpr8i5H0F1vND6rawJ71V5Liwcq4w0KidPzG4dB
+	/i3H9PSb+tZLFzc5hakJhgdMk6OIfvUZw+6tqvowB6GnYrept6JvI3ZoVy12UEa3NL2t1+Q==
+X-Received: by 2002:a05:6402:22d0:b0:6b5:7ac2:b4b2 with SMTP id
+ 4fb4d7f45d1cf-6b7773eddb5mr3024443a12.15.1794473237126; Thu, 12 Nov 2026
+ 00:47:17 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,337 +104,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261111-vgacon-ioremap-null-v1-1-6dd05bf390ef@gmail.com>
+In-Reply-To: <20261111-vgacon-ioremap-null-v1-1-6dd05bf390ef@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Thu, 12 Nov 2026 09:47:05 +0100
+X-Gm-Features: AclHuK_fa-iP9Xeaq-QANT8HT3vhxni1COHVSdMAf4Lytq6Fso_wKtQBPBFi4S0
+Message-ID: <CA+=Fv5SHTC9XWQJZY7DnZbpMPnk3b7eYNiiH6Dnii+eLJo9YgA@mail.gmail.com>
+Subject: Re: [PATCH] vgacon: Fall back to the dummy console if mapping VGA
+ memory fails
+To: Matt Turner <mattst88@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Helge Deller <deller@gmx.de>, 
+	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Konstantin Taranov <kotaranov@microsoft.com>
+Hi Matt,
 
-Implement alloc_mr and map_mr_sg for memory-registration MRs.
+On Thu, Nov 12, 2026 at 1:30=E2=80=AFAM Matt Turner <mattst88@gmail.com> wr=
+ote:
+>
+> On Alpha, setup_arch() registers vgacon whenever CONFIG_VGA_CONSOLE is
+> enabled. On Marvel (EV7) systems whose SRM console is serial, no VGA
+> hose is set, so marvel_ioremap() finds no hose for 0xb8000 and returns
+> NULL. vgacon_startup() then probes video memory through that NULL
+> pointer and oopses in console_init():
+>
+>   Unable to handle kernel paging request at virtual address 0000000000000=
+000
+>   pc is at vgacon_startup+0x174/0x910
+>
+> VGA_MAP_MEM() is ioremap() on Alpha and powerpc and can fail. Treat
+> failure like a failed probe and fall back to the dummy console. If a
+> VGA card is present, locate_and_init_vga() still switches to vgacon
+> once PCI is up.
+>
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
+> ---
+>  drivers/video/console/vgacon.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/video/console/vgacon.c b/drivers/video/console/vgaco=
+n.c
+> index e7e6750f1f87..09f7c376b468 100644
+> --- a/drivers/video/console/vgacon.c
+> +++ b/drivers/video/console/vgacon.c
+> @@ -324,6 +324,8 @@ static const char *vgacon_startup(void)
+>         }
+>
+>         vga_vram_base =3D VGA_MAP_MEM(vga_vram_base, vga_vram_size);
+> +       if (!vga_vram_base)
+> +               goto no_vga;
+>         vga_vram_end =3D vga_vram_base + vga_vram_size;
+>
+>         /*
+>
+> ---
+> base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
+> change-id: 20261111-vgacon-ioremap-null-ad4c7184b807
+>
+> Best regards,
+> --
+> Matt Turner <mattst88@gmail.com>
+>
+>
 
-Signed-off-by: Konstantin Taranov <kotaranov@microsoft.com>
----
-v10:
-- Remove the max_num_sg limit check as kernel consumers are trusted
-v5:
-- Reject max_num_sg above MANA_MAX_FMR_PAGES
-v4:
-- Use an explicit 64-byte FMR MST alignment
+Nice fix! this must have been lingering here for a long time?
+Cross-builds passed for generic Alpha, including Marvel. The shared
+vgacon code also compiled successfully for x86-64.
 
- drivers/infiniband/hw/mana/device.c  |  2 +
- drivers/infiniband/hw/mana/main.c    |  3 +-
- drivers/infiniband/hw/mana/mana_ib.h | 48 +++++++++++++++++++++
- drivers/infiniband/hw/mana/mr.c      | 84 +++++++++++++++++++++++++++++++++++-
- include/net/mana/gdma.h              | 15 +++++++
- 5 files changed, 150 insertions(+), 2 deletions(-)
+Alpha QEMU fault injection confirmed the early dummy fallback and
+successful VGA takeover when only the first mapping fails. Without
+your check, the injected NULL mapping faults.
 
-diff --git a/drivers/infiniband/hw/mana/device.c b/drivers/infiniband/hw/mana/device.c
-index 62c7803ca6c6..cdaada7f6e8a 100644
---- a/drivers/infiniband/hw/mana/device.c
-+++ b/drivers/infiniband/hw/mana/device.c
-@@ -19,6 +19,7 @@ static const struct ib_device_ops mana_ib_dev_ops = {
- 
- 	.add_gid = mana_ib_gd_add_gid,
- 	.alloc_mw = mana_ib_alloc_mw,
-+	.alloc_mr = mana_ib_alloc_mr,
- 	.alloc_pd = mana_ib_alloc_pd,
- 	.alloc_ucontext = mana_ib_alloc_ucontext,
- 	.create_ah = mana_ib_create_ah,
-@@ -40,6 +41,7 @@ static const struct ib_device_ops mana_ib_dev_ops = {
- 	.get_dma_mr = mana_ib_get_dma_mr,
- 	.get_link_layer = mana_ib_get_link_layer,
- 	.get_port_immutable = mana_ib_get_port_immutable,
-+	.map_mr_sg = mana_ib_map_mr_sg,
- 	.mmap = mana_ib_mmap,
- 	.modify_qp = mana_ib_modify_qp,
- 	.modify_wq = mana_ib_modify_wq,
-diff --git a/drivers/infiniband/hw/mana/main.c b/drivers/infiniband/hw/mana/main.c
-index 672bd3f650dd..ceb4ec58023a 100644
---- a/drivers/infiniband/hw/mana/main.c
-+++ b/drivers/infiniband/hw/mana/main.c
-@@ -133,7 +133,7 @@ int mana_ib_alloc_pd(struct ib_pd *ibpd, struct ib_udata *udata)
- 			     sizeof(resp));
- 
- 	if (!udata)
--		flags |= GDMA_PD_FLAG_ALLOW_GPA_MR;
-+		flags |= GDMA_PD_FLAG_ALLOW_GPA_MR | GDMA_PD_FLAG_ALLOW_FMR_MR;
- 
- 	req.flags = flags;
- 	err = mana_gd_send_request(gc, sizeof(req), &req, sizeof(resp), &resp);
-@@ -647,6 +647,7 @@ int mana_ib_query_device(struct ib_device *ibdev, struct ib_device_attr *props,
- 	props->max_ah = INT_MAX;
- 	props->max_pkeys = 1;
- 	props->local_ca_ack_delay = MANA_CA_ACK_DELAY;
-+	props->max_fast_reg_page_list_len = MANA_MAX_FMR_PAGES;
- 	if (!mana_ib_is_rnic(dev))
- 		props->raw_packet_caps = IB_RAW_PACKET_CAP_IP_CSUM;
- 
-diff --git a/drivers/infiniband/hw/mana/mana_ib.h b/drivers/infiniband/hw/mana/mana_ib.h
-index 74edb6e707a1..5ca6e2acf974 100644
---- a/drivers/infiniband/hw/mana/mana_ib.h
-+++ b/drivers/infiniband/hw/mana/mana_ib.h
-@@ -39,6 +39,8 @@
-  */
- #define MANA_IB_MAX_MR		0xFFFFFFu
- 
-+#define MANA_MAX_FMR_PAGES	504
-+
- /*
-  * The CA timeout is approx. 260ms (4us * 2^(DELAY))
-  */
-@@ -51,6 +53,8 @@
- 
- #define MANA_GSI_QPN		(1)
- 
-+#define MANA_PTE_VALID_MASK	0x1ULL
-+
- struct mana_ib_adapter_caps {
- 	u32 max_sq_id;
- 	u32 max_rq_id;
-@@ -150,10 +154,46 @@ struct mana_ib_mw {
- 	mana_handle_t mw_handle;
- };
- 
-+#define MANA_FMR_MST_ALIGNMENT 64
-+
-+struct mana_fmr_mst_entry {
-+	u32 reserved1;
-+	u32 reserved2		: 8;
-+	u32 page_size		: 5;
-+	u32 reserved3		: 3;
-+	u32 access_right	: 8;
-+	u32 addr_type		: 2;
-+	u32 reserved4		: 6;
-+	u32 reserved5[2];
-+	u64 start_va;
-+	u64 length;
-+	u32 reserved6[8];
-+}; /* HW DATA */
-+
-+static inline u32 mana_ib_fmr_header_offset(u32 num_ptes)
-+{
-+	/* The header follows the PTEs with the required MST alignment. */
-+	return ALIGN(sizeof(u64) * num_ptes, MANA_FMR_MST_ALIGNMENT);
-+}
-+
-+static inline u32 mana_ib_fmr_buf_sz(u32 num_ptes)
-+{
-+	return mana_ib_fmr_header_offset(num_ptes) + sizeof(struct mana_fmr_mst_entry);
-+}
-+
-+struct mana_ib_fmr {
-+	u64 *ptes;
-+	dma_addr_t dma_handle;
-+	size_t size;
-+	u32 max_ptes;
-+	u32 pte_count;
-+};
-+
- struct mana_ib_mr {
- 	struct ib_mr ibmr;
- 	struct ib_umem *umem;
- 	mana_handle_t mr_handle;
-+	struct mana_ib_fmr fmr;
- };
- 
- struct mana_ib_dm {
-@@ -840,8 +880,16 @@ int mana_ib_create_rwq_ind_table(struct ib_rwq_ind_table *ib_rwq_ind_table,
- 
- int mana_ib_destroy_rwq_ind_table(struct ib_rwq_ind_table *ib_rwq_ind_tbl);
- 
-+enum gdma_mr_access_flags
-+mana_ib_verbs_to_gdma_access_flags(int access_flags);
-+
- struct ib_mr *mana_ib_get_dma_mr(struct ib_pd *ibpd, int access_flags);
- 
-+struct ib_mr *mana_ib_alloc_mr(struct ib_pd *ibpd, enum ib_mr_type mr_type,
-+			       u32 max_num_sg);
-+int mana_ib_map_mr_sg(struct ib_mr *ibmr, struct scatterlist *sg, int sg_nents,
-+		      unsigned int *sg_offset);
-+
- struct ib_mr *mana_ib_reg_user_mr(struct ib_pd *pd, u64 start, u64 length,
- 				  u64 iova, int access_flags,
- 				  struct ib_dmah *dmah,
-diff --git a/drivers/infiniband/hw/mana/mr.c b/drivers/infiniband/hw/mana/mr.c
-index 1233685b4b89..34dcc50d0be9 100644
---- a/drivers/infiniband/hw/mana/mr.c
-+++ b/drivers/infiniband/hw/mana/mr.c
-@@ -10,7 +10,7 @@
- 
- #define VALID_DMA_MR_FLAGS (IB_ACCESS_LOCAL_WRITE)
- 
--static enum gdma_mr_access_flags
-+enum gdma_mr_access_flags
- mana_ib_verbs_to_gdma_access_flags(int access_flags)
- {
- 	enum gdma_mr_access_flags flags = GDMA_ACCESS_FLAG_LOCAL_READ;
-@@ -55,6 +55,11 @@ static int mana_ib_gd_create_mr(struct mana_ib_dev *dev, struct mana_ib_mr *mr,
- 		req.gva.virtual_address = mr_params->gva.virtual_address;
- 		req.gva.access_flags = mr_params->gva.access_flags;
- 		break;
-+	case GDMA_MR_TYPE_FMR:
-+		/* page_size is deprecated field and must be 0. */
-+		req.fmr.page_size = 0;
-+		req.fmr.rsvd_pte_count = mr_params->fmr.rsvd_pte_count;
-+		break;
- 	case GDMA_MR_TYPE_ZBVA:
- 		req.zbva.dma_region_handle = mr_params->zbva.dma_region_handle;
- 		req.zbva.access_flags = mr_params->zbva.access_flags;
-@@ -294,6 +299,77 @@ err_free:
- 	return ERR_PTR(err);
- }
- 
-+struct ib_mr *mana_ib_alloc_mr(struct ib_pd *ibpd, enum ib_mr_type mr_type,
-+			       u32 max_num_sg)
-+{
-+	struct mana_ib_pd *pd = container_of(ibpd, struct mana_ib_pd, ibpd);
-+	struct gdma_create_mr_params mr_params = {};
-+	struct gdma_context *gc;
-+	struct mana_ib_dev *dev;
-+	struct mana_ib_mr *mr;
-+	int err;
-+
-+	dev = container_of(ibpd->device, struct mana_ib_dev, ib_dev);
-+	gc = mdev_to_gc(dev);
-+
-+	if (mr_type != IB_MR_TYPE_MEM_REG)
-+		return ERR_PTR(-EOPNOTSUPP);
-+
-+	mr = kzalloc_obj(*mr);
-+	if (!mr)
-+		return ERR_PTR(-ENOMEM);
-+
-+	mr->fmr.max_ptes = max_num_sg;
-+	mr->fmr.size = mana_ib_fmr_buf_sz(max_num_sg);
-+	mr->fmr.ptes = dma_alloc_coherent(gc->dev, mr->fmr.size, &mr->fmr.dma_handle,
-+					  GFP_KERNEL);
-+	if (!mr->fmr.ptes) {
-+		err = -ENOMEM;
-+		goto err_free;
-+	}
-+
-+	mr_params.pd_handle = pd->pd_handle;
-+	mr_params.mr_type = GDMA_MR_TYPE_FMR;
-+	mr_params.fmr.rsvd_pte_count = max_num_sg;
-+
-+	err = mana_ib_gd_create_mr(dev, mr, &mr_params);
-+	if (err)
-+		goto err_dma;
-+
-+	return &mr->ibmr;
-+
-+err_dma:
-+	dma_free_coherent(gc->dev, mr->fmr.size, mr->fmr.ptes,
-+			  mr->fmr.dma_handle);
-+
-+err_free:
-+	kfree(mr);
-+	return ERR_PTR(err);
-+}
-+
-+static int mana_ib_set_page(struct ib_mr *ibmr, u64 addr)
-+{
-+	struct mana_ib_mr *mr = container_of(ibmr, struct mana_ib_mr, ibmr);
-+
-+	if (mr->fmr.pte_count >= mr->fmr.max_ptes)
-+		return -ENOMEM;
-+
-+	mr->fmr.ptes[mr->fmr.pte_count] = addr | MANA_PTE_VALID_MASK;
-+	mr->fmr.pte_count++;
-+
-+	return 0;
-+}
-+
-+int mana_ib_map_mr_sg(struct ib_mr *ibmr, struct scatterlist *sg, int sg_nents,
-+		      unsigned int *sg_offset)
-+{
-+	struct mana_ib_mr *mr = container_of(ibmr, struct mana_ib_mr, ibmr);
-+
-+	mr->fmr.pte_count = 0;
-+
-+	return ib_sg_to_pages(ibmr, sg, sg_nents, sg_offset, mana_ib_set_page);
-+}
-+
- static int mana_ib_gd_create_mw(struct mana_ib_dev *dev, struct mana_ib_pd *pd, struct ib_mw *ibmw)
- {
- 	struct mana_ib_mw *mw = container_of(ibmw, struct mana_ib_mw, ibmw);
-@@ -352,6 +428,7 @@ int mana_ib_dereg_mr(struct ib_mr *ibmr, struct ib_udata *udata)
- {
- 	struct mana_ib_mr *mr = container_of(ibmr, struct mana_ib_mr, ibmr);
- 	struct ib_device *ibdev = ibmr->device;
-+	struct gdma_context *gc;
- 	struct mana_ib_dev *dev;
- 	int err;
- 
-@@ -360,11 +437,16 @@ int mana_ib_dereg_mr(struct ib_mr *ibmr, struct ib_udata *udata)
- 		return err;
- 
- 	dev = container_of(ibdev, struct mana_ib_dev, ib_dev);
-+	gc = mdev_to_gc(dev);
- 
- 	err = mana_ib_gd_destroy_mr(dev, mr->mr_handle);
- 	if (err)
- 		return err;
- 
-+	if (mr->fmr.ptes)
-+		dma_free_coherent(gc->dev, mr->fmr.size, mr->fmr.ptes,
-+				  mr->fmr.dma_handle);
-+
- 	if (mr->umem)
- 		ib_umem_release(mr->umem);
- 
-diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
-index 2a28fcaa637d..332f394b82e1 100644
---- a/include/net/mana/gdma.h
-+++ b/include/net/mana/gdma.h
-@@ -865,6 +865,8 @@ enum gdma_mr_access_flags {
- 	GDMA_ACCESS_FLAG_REMOTE_WRITE = BIT_ULL(3),
- 	GDMA_ACCESS_FLAG_REMOTE_ATOMIC = BIT_ULL(4),
- 	GDMA_ACCESS_FLAG_BIND_MW = BIT_ULL(5),
-+	GDMA_ACCESS_FLAG_INVALIDATE = BIT_ULL(6),
-+	GDMA_ACCESS_FLAG_FMR = BIT_ULL(7),
- };
- 
- /* GDMA_CREATE_DMA_REGION */
-@@ -917,6 +919,7 @@ struct gdma_destroy_dma_region_req {
- 
- enum gdma_pd_flags {
- 	GDMA_PD_FLAG_ALLOW_GPA_MR = BIT(0),
-+	GDMA_PD_FLAG_ALLOW_FMR_MR = BIT(1),
- 	GDMA_PD_FLAG_SHORT_PDN = BIT(2),
- };
- 
-@@ -953,6 +956,11 @@ enum gdma_mr_type {
- 	 * address that is set up in the MST
- 	 */
- 	GDMA_MR_TYPE_GVA = 2,
-+	/* Fast Memory - MRs are initially put in the free state,
-+	 * and the specified number of PTEs are reserved for future fast
-+	 * memory registrations
-+	 */
-+	GDMA_MR_TYPE_FMR = 3,
- 	/* Guest zero-based address MRs */
- 	GDMA_MR_TYPE_ZBVA = 4,
- 	/* Device address MRs */
-@@ -982,6 +990,9 @@ struct gdma_create_mr_params {
- 			u64 length;
- 			enum gdma_mr_access_flags access_flags;
- 		} da;
-+		struct {
-+			u32 rsvd_pte_count;
-+		} fmr;
- 	};
- };
- 
-@@ -1006,6 +1017,10 @@ struct gdma_create_mr_request {
- 			u64 offset;
- 			enum gdma_mr_access_flags access_flags;
- 		} __packed da;
-+		struct {
-+			u32 page_size;
-+			u32 rsvd_pte_count;
-+		} __packed fmr;
- 	} __packed;
- 	u32 reserved_2;
- 	union {
--- 
-2.43.0
+Forcing the later mapping to fail too exposes a separate takeover
+issue: the console core installs vgacon despite the failed mapping,
+leading to a NULL dereference. I don't see that as blocking this fix:
+finding the VGA hose normally resolves the mapping failure on Marvel.
 
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
+
+Thanks,
+Magnus
