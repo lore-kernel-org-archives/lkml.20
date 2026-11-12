@@ -1,101 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794446299;
-	b=JoujmoVIN/H9bMTfq/t2jqwpwviRa7olBM3eT/PV9VWJ2faW2rK0EgDb9B9hUZod/3kt
-	 /Dm8nv6wwCpv8djQHowqIqGSgwKaNbNxNxjs9GOFs3iOWfjF8zPcBAZaw8l5npx5Jcy52
-	 /Z4ZnyyXb9nUyTgqNsHfEaQS3d+djrirgacdKIeWDqvr2M4R4wqt0v3veLREiknk94Def
-	 wR9UOVeP4z5Bz1Z8w2HpOEwDip7DD6wzQjxcHRN4JJ0IwGHtYWgNfU7OSKR6d3YPERo7j
-	 GOIKBR5eJOJevM+gHOgKUiqeCmJgxdndwnIOlminuKcnJPkAZysmBgq8cbUb06JuRnw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794446299;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=EZx5k7geWUkka50W6MOHS2J6Xnk3P46GguPiHBvqeNY=;
-	b=WqxZg4WQJxR89NG5LGePk2U4gthdJ6Lj2UzcuFtC8fxysWNioylNaXqWFFpCxaTWMy5h
-	 5EjZhWcOEG/2IEXVZNgFCVRra1gviTGi14eJlNKictZWa5DY/PZtthvUItjLxZBI9OzeZ
-	 p2QW0NSonkrV/g/+VN0wf5Ilofpx1SFpkSMSXXogSvCVKSzOCRzf1Qnnyp8aeQhHlY3Pl
-	 SjoGzAoLBDBvzwP2Ow0A+mPHVMisW+hqkWSb1Ko4qDaVEv3TsCYmrjIXIUAqdvuRfhIix
-	 dU+KFYEyKnKLKeywFcEb/81xkFXgxoJc8bgihIQfJ4tz8kagxevqU0z74dPBJQGb7wA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nuGSld8Z;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794446298;
+	b=oAi3jc1L2gE4HP4eNdb8ArFDSqeFuYrJ2N8WEJ3+V1Z1Xd8x0ZxSgvRI+jqg3+OEkCJF
+	 B5xM42CJzG3XvYwbWTDXkN77mvJgQLM9zLJOV5FBn7yjKG/BoAVCREiKplM1oYoknAeJx
+	 wIqdWdQhaAcukH1B0Bs2pvGSttUmBj/4AogkLRFTnWy7TfpKi1wZATIu4njbqTLgCliVi
+	 za5D7JwxiC0UUXF5FNKVLq/8Uw1CwqdMaxjWPYfyRtCipVqHmfvM2BEvAgeoiS2FLlOZt
+	 rA8QK+Hfh5c3IhTVhKTtuMaBi94PAYYr1zSax39HDp7PQoEG12yo7FfZrSoJrB+BsIg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794446298;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=giOynWrj1p05vkyeYCyHdpu2lu3LEmA+NcfUzFVBsw8=;
+	b=kYNg9yhNXoFgBPR8ksERMebNnBNx06bT8ljKCJupGqe+Bv84TB2dO7lrhiqrWIe7MRTZ
+	 Y0xmg3g0RnsIpaw0BKyRSX7Sjzep2kOpxpIZIWbfDkJlp4NVUWtxfWjtyoTG1AddbxPDi
+	 NAaL/PHNftvZoJGO/J+Bm52aGXL3y1XrJvSOmH4XXM4sBOeGPd5jKneW41X5LSEG7BYiy
+	 AU6Z3/lYJN6//Agt21JTiIhgjGgVtYiA1b8SkL6ajd/+stv8u5xXsgCg0aHIhdWhTfDLc
+	 ybAy+ECRO+G1yHbOTfrMsFdOpQc3fiKWzGx1fGb5b9el2GARrvTFcVxB1vljhdn93Mg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PkXImLPd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4D0606A326;
-	Thu, 12 Nov 2026 01:18:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A4D0606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9DDD606A321;
+	Thu, 12 Nov 2026 01:18:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nuGSld8Z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794446299; x=1825982299;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=XzhoicYFHQtaBduXxA9DHIFJWU3DL3AA6BxXunzhRj0=;
-  b=nuGSld8ZsZpo0Y+Ugusc4Rh+F1YnQoi5YNlluAaoW/DHX0D7YebokUxU
-   6jVCWetraiPKCMpTifIStZe28d8cujnSS/sou/Ztku9Ho3MRg2bwbKCsH
-   K3qDRgTffMci3rr8rniyclID4vXH1qCy7jTYK2tJc22K/ZfG7HnHZbtoQ
-   2tD9PMm9aZbEIEuQdZsLMTnVvEHKXl0/AnAH1VxPKcAkj4fsyeOGgZNC1
-   MpSuBCXqxCKa8/wVI2pjLqPPwrY3XRbszKPIB3e/TDiWZySVr0spDkkgk
-   5gNSSBe/DmQaVaABpoc4VWtCiCFVe8fAG2LCFUPm2c07Vt6jm8i2MTB0x
-   Q==;
-X-CSE-ConnectionGUID: W1/wcG+HQtiFaaJdz3qLjQ==
-X-CSE-MsgGUID: ZWz6a5QHSwO8u6CanAf+hg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3119586"
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="3119586"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 17:18:18 -0800
-X-CSE-ConnectionGUID: n4YdawboSm6iGZUYGgGZtw==
-X-CSE-MsgGUID: UwrUxPsZQfilm24D64xW6A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="8412277"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa003.jf.intel.com with ESMTP; 11 Nov 2026 17:18:13 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xRJS5-000000010AJ-3GPI;
-	Thu, 12 Nov 2026 01:18:09 +0000
-Date: Thu, 12 Nov 2026 09:17:17 +0800
-From: kernel test robot <lkp@intel.com>
-To: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, Alejandro Colomar <alx@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Andreas Schwab <schwab@linux-m68k.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Daniel Scally <djrscally@gmail.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Len Brown <lenb@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 2/6] string: Warn if the prefix is the empty string
-Message-ID: <202611120923.khG1i6jO-lkp@intel.com>
-References: <cd09427148a0c4718b46029c9e806f9dc1622f9b.1794425425.git.alx@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PkXImLPd
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794446297;
+	b=mqFDIgPyD64w/jounPZJvg1RMgEoPNK/KT2rUpladn7VRFKI5OKlD+oNitpepIj5GpsI
+	 Ciqn4oc3DH544l0jBNQ0NvO1KEwYYfrNKDoik6e3tN3D/NJrBO65iNFOZnjEb1S/H7uIG
+	 xsvXMgx65gqbmWlE00oHx/Ks/JUZAMiVCzvgCCaItPie3OFefQ3B8csl2b6nFb4HPgG29
+	 /uDKJeqq+Vc8frplKT5lTowmZaBgesZ7sQEDGZrsLBk20zE9SjMKbFkd0IsxWzcqVppEn
+	 2ZKhnW2hCjd2Tkn6Pi6xBMCPKYXNY5b+UKD96N252kHORXKmV58myCEFzYYZyQBi/RQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794446297;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=giOynWrj1p05vkyeYCyHdpu2lu3LEmA+NcfUzFVBsw8=;
+	b=t3KTQ03rfxlud+5fHcHXXm8QYtzXxIRJe+NyIYrbpV6oYucbql+jOtD5bCiGO2302Jor
+	 LzwWbmIfl7mMOMKDsFD4KmKf0WSBtCJYIGDz57ajiGNL+g621N8e3Of8ik3mttcIEW0BS
+	 IWffr7d7HYUOZ74Shg95PTEOyKZm9iX3UW9+BUSkBVqXv7y+XmUAdTgef6UYuCAoxqeXb
+	 UQ60pVGfSYl7IowWtO64QhhCheMqrd1xFSuTTFNiDQ/0COVMB4lQdS9tvCjjhAbDLljlq
+	 K2GUV4OFGwH4s/K9vezVtxKI7TOJ8GLm2NyYsCnf60A5eGQMhIa6EUop0izmAnoCRxg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 1B4AC1F00A05;
+	Thu, 12 Nov 2026 01:18:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794446297;
+	bh=giOynWrj1p05vkyeYCyHdpu2lu3LEmA+NcfUzFVBsw8=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=PkXImLPdE+XOnRYLkukGVZzArbr3fLPccyriXx3W5y9dg5ZYo8EHPfJN5Yngw3eYz
+	 QB61jmbaAHOz1bDIWUSV6/8tNW+vBMOuirNWAsGPaLT6oHy02+GCPNjwVD2OopQ/Pl
+	 WWN4w9I2Y1KH3TavxJbM6/HvEK/o3KyZ17wBsiXDca5ug8sIW1hUiKkRFn9wYTROB5
+	 0UVjgZVp4x5ypXb4iPDJzTcfIEH8X638t0g0mfdLhYIPRmI0Ga6xRw9c4KkhGfg7ei
+	 8y3RFPq0mU8vtLGJaogvZlCUzCetrc5vDyoTuv2ZjXIowhKWQ0w8ieIl7Li5O4n2Sa
+	 MxjkuRyL8Jyaw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A206B491AB;
+	Thu, 12 Nov 2026 01:18:16 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Thu, 12 Nov 2026 01:18:15 +0000
+Subject: [PATCH] arm64: dts: rockchip: Name the GPIO lines on Kobol
+ Helios64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,80 +83,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cd09427148a0c4718b46029c9e806f9dc1622f9b.1794425425.git.alx@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261112-helios64-gpio-line-names-v1-1-2ce53756753f@iav.lv>
+X-B4-Tracking: v=1; b=H4sIANYT9WoC/x3MQQqEMAxG4atI1hMwRUS8irjo1F8NaCsNiCC9+
+ 5RZfov3XjJkhdHYvJRxq2mKFfJpKOw+bmBdqsm1rhcRxzsOTdZ3vF2a+NAIjv6EcfDfYZAOi7h
+ ANb8yVn3+62ku5QfPO7juagAAAA==
+To: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4082; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=mxfTsSDkWYOFNeIUFLUD6qD7wTrjLsl+OXjto3i0uRA=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFlfha9nyr0qPrqV6fH2LaHnvsw23ecXeWbZ+g/idxaU6
+ l1qWKYd1lHKwiDGxSArpsgy4ZDGrYwlV//6e5g/gJnDygQyhIGLUwAm8k2akWHuGimJPXIajY/3
+ V8ZZFcnOlUrrv8uXbLLgjcrNhbcXnGJh+Cvaw9JhWs+yWfG4UOyJSaKyKz06z909X+u8p6PS5bE
+ 0KzcA
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
+Content-Transfer-Encoding: 7bit
 
-Hi Alejandro,
+From: Igor Velkov <iav@iav.lv>
 
-kernel test robot noticed the following build errors:
+Name the SoC GPIO lines after the nets on the Helios64 Rev1.2
+schematic, so that user space can find a line by name. The auto
+power-on latch (U23, an SN74LVC1G79 flip-flop), for one, has no kernel
+driver: user space sets it at shutdown through AUTO_ON_EN_D and
+AUTO_ON_EN_CLK.
 
-[auto build test ERROR on kees/for-next/hardening]
-[also build test ERROR on driver-core/driver-core-testing driver-core/driver-core-next driver-core/driver-core-linus kees/for-next/pstore kees/for-next/kspp linus/master v7.4-rc2 next-20261110]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+A line that reaches a named net through a series resistor takes that
+net's name. The SD card lines, whose nets are not named, take the SoC
+pin function, and the two board revision straps are named after the
+schematic's "Board Revision ID" block. Lines that go only to a test
+point or are not connected stay unnamed.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Alejandro-Colomar/string-Add-strprefix-and-deprecate-str_has_prefix/20261111-205515
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/kees/linux.git for-next/hardening
-patch link:    https://lore.kernel.org/r/cd09427148a0c4718b46029c9e806f9dc1622f9b.1794425425.git.alx%40kernel.org
-patch subject: [PATCH v4 2/6] string: Warn if the prefix is the empty string
-config: parisc-allyesconfig (https://download.01.org/0day-ci/archive/20261112/202611120923.khG1i6jO-lkp@intel.com/config)
-compiler: hppa-linux-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261112/202611120923.khG1i6jO-lkp@intel.com/reproduce)
+Link: https://wiki.kobol.io/helios64/files/schematics/Helios64_Schematics_Rev1.2.pdf
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+Tested on Helios64 with the names added by fdtput to the DTB of an
+Armbian 7.3.4 kernel: gpioinfo lists them, and every line it shows as
+requested by a driver (LEDs, buttons, regulators, beeper, charger, SD
+card detect, Ethernet PHY reset) carries the name of the net it drives
+or reads.
+---
+ .../boot/dts/rockchip/rk3399-kobol-helios64.dts    | 74 ++++++++++++++++++++++
+ 1 file changed, 74 insertions(+)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611120923.khG1i6jO-lkp@intel.com/
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+index f13ea2df7a30..329116e2074b 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+@@ -421,6 +421,80 @@ &gmac {
+ 	status = "okay";
+ };
+ 
++/* Line names follow the Helios64 Rev1.2 schematic */
++&gpio0 {
++	gpio-line-names =
++		/* GPIO0 A0-A7 */
++		"RTC_CLK0_SOC", "SDMMC0_PWR_H", "VCC12V_DCIN_GOOD", "USR1_SWITCH#",
++		"NETW_ACT_LED_ON", "PWR_KEY_L", "PWR_LED_OFF", "SDMMC0_DET_L",
++		/* GPIO0 B0-B5 */
++		"LAN_WAKE#", "EXP16_INT#", "PMIC_INT#", "USB3_ACT_LED_ON",
++		"SYS_GRN_LED_ON", "SYS_RED_LED_ON";
++};
++
++&gpio1 {
++	gpio-line-names =
++		/* GPIO1 A0-A7 */
++		"HDD_A_ON", "HDD_B_ON", "TYPEC0_CC_INT_L", "VCC5V0_TYPEC0_EN",
++		"USB_MUX_HS", "PMIC_SLEEP_H", "OTP_OUT_H", "SOC_SO",
++		/* GPIO1 B0-B7 */
++		"SOC_SI", "SOC_CK", "SOC_CE#", "I2C4_SDA_TYPEC",
++		"I2C4_SCL_TYPEC", "USB_MUX_OE", "GPU_SLEEP_H", "I2C0_SDA_PMIC",
++		/* GPIO1 C0-C7 */
++		"I2C0_SCL_PMIC", "CPU_SLEEP_B_H", "SOC_WP#", "LOG_DVS_PWM",
++		"I2C8_SDA", "I2C8_SCL", "USB3_EN", "USB3LAN_PWR",
++		/* GPIO1 D0 */
++		"PCIE_PWR";
++};
++
++&gpio2 {
++	gpio-line-names =
++		/* GPIO2 A0-A7 */
++		"I2C2_SDA_TEMP_EXP", "I2C2_SCL_TEMP_EXP", "SATA_ERR0", "SATA_ERR1",
++		"SATA_ERR2", "SATA_ERR3", "SATA_ERR4", "I2C7_SDA",
++		/* GPIO2 B0-B7 */
++		"I2C7_SCL", "SPI2_RXD", "SPI2_TXD", "SPI2_CLK",
++		"SPI2_CSN0", "", "", "",
++		/* GPIO2 C0-C7 */
++		"UART0_RX", "UART0_TX", "", "",
++		"SATA_SO_LV", "SATA_SI_LV", "SATA_CK_LV", "SATA_CE#_LV",
++		/* GPIO2 D0-D4 */
++		"SATA_WP#_LV", "PCIE_CLKREQ_L", "", "CHARGER_STATUS#",
++		"PCIE_PERST_L";
++};
++
++&gpio3 {
++	gpio-line-names =
++		/* GPIO3 A0-A7 */
++		"RGMII_TXD2", "RGMII_TXD3", "RGMII_RXD2", "RGMII_RXD3",
++		"RGMII_TXD0", "RGMII_TXD1", "RGMII_RXD0", "RGMII_RXD1",
++		/* GPIO3 B0-B7 */
++		"GMAC_MDC", "RGMII_RXCTL", "", "GMAC_CLK",
++		"RGMII_TXCTL", "GMAC_MDIO", "RGMII_RXC", "GPHY_RST#",
++		/* GPIO3 C0-C7 */
++		"", "RGMII_TXC", "", "",
++		"", "", "", "",
++		/* GPIO3 D0-D7 */
++		"", "", "", "",
++		"", "", "ERR1_B", "ERR1_A";
++};
++
++&gpio4 {
++	gpio-line-names =
++		/* GPIO4 A0-A7 */
++		"", "ERR0_B", "", "",
++		"", "ERR0_A", "", "",
++		/* GPIO4 B0-B7 */
++		"SDMMC0_D0", "SDMMC0_D1", "SDMMC0_D2", "SDMMC0_D3",
++		"SDMMC0_CLKOUT", "SDMMC0_CMD", "", "",
++		/* GPIO4 C0-C7 */
++		"", "", "FAN1_PWM", "UART2DBG_RX",
++		"UART2DBG_TX", "FAN1_SENSE", "FAN2_PWM", "FAN2_SENSE",
++		/* GPIO4 D0-D6 */
++		"SATA_SPI_FLSH", "AUTO_ON_EN_D", "AUTO_ON_EN_CLK", "BUZZER_ON",
++		"SATA_ACT_LED", "BOARD_REV_ID0", "BOARD_REV_ID1";
++};
++
+ &gpu {
+ 	mali-supply = <&vdd_gpu>;
+ 	status = "okay";
 
-All errors (new ones prefixed by >>):
+---
+base-commit: c3baae5f1a15645cddadcb2b9abddef5df291f59
+change-id: 20261112-helios64-gpio-line-names-cab8814ed12c
 
-   In file included from include/linux/uuid.h:11,
-                    from include/linux/device-id/hv_vmbus.h:6,
-                    from include/linux/mod_devicetable.h:31,
-                    from scripts/mod/devicetable-offsets.c:4:
-   include/linux/string.h: In function 'str_has_prefix':
->> include/linux/string.h:575:9: error: implicit declaration of function 'WARN_ON_ONCE' [-Wimplicit-function-declaration]
-     575 |         WARN_ON_ONCE(len == 0);
-         |         ^~~~~~~~~~~~
-   make[3]: *** [scripts/Makefile.build:185: scripts/mod/devicetable-offsets.s] Error 1
-   make[3]: Target 'scripts/mod/' not remade because of errors.
-   make[2]: *** [Makefile:1424: prepare0] Error 2
-   make[2]: Target 'prepare' not remade because of errors.
-   make[1]: *** [Makefile:248: __sub-make] Error 2
-   make[1]: Target 'prepare' not remade because of errors.
-   make: *** [Makefile:248: __sub-make] Error 2
-   make: Target 'prepare' not remade because of errors.
+Best regards,
+-- 
+Igor Velkov <iav@iav.lv>
 
 
-vim +/WARN_ON_ONCE +575 include/linux/string.h
-
-   555	
-   556	/**
-   557	 * str_has_prefix - Test if a string has a given prefix
-   558	 * @str: The string to test
-   559	 * @prefix: The string to see if @str starts with
-   560	 *
-   561	 * This is similar to strprefix(), but returns an offset instead of
-   562	 * a pointer.
-   563	 *
-   564	 * Unlike for strprefix(), if the prefix is an empty string, the
-   565	 * behavior is undefined.  If you need to support arbitrary prefixes,
-   566	 * use strprefix().
-   567	 *
-   568	 * Returns:
-   569	 * * strlen(@prefix) if @str starts with @prefix
-   570	 * * 0 if @str does not start with @prefix
-   571	 */
-   572	static __always_inline size_t str_has_prefix(const char *str, const char *prefix)
-   573	{
-   574		size_t len = strlen(prefix);
- > 575		WARN_ON_ONCE(len == 0);
-   576		return strncmp(str, prefix, len) == 0 ? len : 0;
-   577	}
-   578	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
