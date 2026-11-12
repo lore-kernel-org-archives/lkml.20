@@ -1,105 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.29
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794469736;
-	b=KtnJBYTsoPshFYJOe/Go2EZ0Cw0y+6zwIYBSOegEF3fk/SjrRSHvSItSBoGawDSUdGRD
-	 qb2saCmUyU+aDkO5IysFZbstji0IJrIlSHs4lchMbp/bOTysf5PtqN0efumaY8vBaSRjY
-	 urO1qA0LaC+1NzYez+/lcv6O3IuMxvT0vod3zrp9HQfa/eAmsaF5UfxF4DiEce/hXv6U1
-	 Opi7eHBNUfNWGGkwouVj8Q/bfv0Ej081Ahus234R0ZcBbPK5xLPahTl71Sfiz1gcNnbVi
-	 JBTlcDLCQ78V9UHe3Wb2/vCOeCw8WEg2UwhNjY2C3TQHF2GB/tVBz0Ga7obwmMoQrEQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794469736;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=m8ym+UYmvT8FDZT03gE/yrhsKKedLQtj9TsIenPnNdM=;
-	b=5GrIAqHSOjfLAmoEn6eWavRltHIC/VE6+HmXKEyrRNjgvzmDUQIqleq3cnvBLK77CZ7f
-	 pjLMplItcNY1XNLl6P8qwyqQLgKVcPrwu2oVqBLlUwYwmafd01nnDERaSWGftZB8bqYPn
-	 x6RmjmC8MzToyNG43qSP3nk2HS23sJFpqisbGDCfUHNcbMCVdDME2/1TbWTpSlh7KujQH
-	 t9TNwHrb3hQTaRrbx9SaBtdXCXbeqwD1OWMnkDaGfj/PV02KOihUm6AT/W1NOU7rTev8G
-	 w8wdm8KqXvnLYcTmHuaNh2eyhf8i0YySw3jeJyoVQJz5rc5LOW+otejI5e6v9VODHkQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Ykw0y5vs;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.29
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013029.outbound.protection.outlook.com [52.101.72.29])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.123
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794469739;
+	b=xduLYbeUObWvfi/ocbB9DVx8RKChaF1Nk0CZQweah43ogtcmGo3PxmF2I2rWuaR2hYHv
+	 vFH9mnim6K7WQFEG+ANVdzH4DLq53+ZQWBBqDHn04+xizzMjBzm1dQBy0Ik6m6CObrXZu
+	 aEK1yvRXGhmCCgf2hem49Is64xOPmVFnEkQeq4EPU41W8FO8sh4EHQdnjw4oxPjo6bdt5
+	 fLO6m3eS1X/s4j+VtcNpQUAU/pP6E1FkzACPSrzpwfaRF+V46J5s283k8einvi0kDUxo7
+	 YkgSMoxx7iYxO05/31lYSSpFrq1P/BGoXyqxcvYS3INro5jf/y8RIDrDBBDnz73+9nQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794469739;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:Received:From:To:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=UTxjwsGyPSnDcBcDCP67400BSKT3Lhs5REZ8Ih/HPr8=;
+	b=oiMZsqaNX4skKvIMti+ieGa2tdwBA65iINpxm2GZk6o9kxWk0r+ocL0zelHYtxmqWF2q
+	 6OFID74Lyr5fN13r5RqlF9+FxC8hNM5pjUy9B3X9nR3/uDKZqBN7uoI4mQLfaIyH6eNo4
+	 rYaecF+kS3EpdtzMIvJJyn10NFIpB84ru/Nu3fAqL7Svoqlv7cgrNc5dJl9w7ffTJ8er4
+	 +282wKkungt6sYBfYBQTR68jsB2VevcW0HJ4SAYq8dJpnUvjv1vSwfJ67t0hfmuMUZcfN
+	 wzjzsDq4sD31gQhrDYcwUDSF+uvUnvhenUKox9ZmB6Iv/gDU8e5Sc8u5awIAqvWPAqQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=canonical.com;
+	spf=pass smtp.mailfrom=canonical.com;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=gY3ByJLT;
+	arc=none smtp.remote-ip=185.125.188.123
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA0E606A32E;
-	Thu, 12 Nov 2026 07:48:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CA0E606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7355060A2638
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:48:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7355060A2638
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Ykw0y5vs
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HWC7pAloTrur0fVk4Scjr8PL6hWYCbhehSjDv0HszA0BUFkjRS7u9QqUUcjrzC4aNk8T+zrDy/WCET4dWoIsJyJAJVf/aLN2wJyacfdye2wdYY7+xtxBpH6u3dqJvq4pnZ/X62r1lt6ix/DPtHGGktw2mLDRKZw1MK6o4YDQu/DurzL/Q3vpoZtPCgycVBrCQv66754AlpcletNIpjXtUUo2Z/guTrqo4mEt2Jsk0C3m/c3WtiX7OdQ+uQU7YxUU2yo1OrEnATg9UcVV7ILJ4/oYyjDgdZ5YIdwg8GvdQ3Iw6MsUqcnO7p35zvHYUgYhd5+pDC7AG0u+8ZQivvzlRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m8ym+UYmvT8FDZT03gE/yrhsKKedLQtj9TsIenPnNdM=;
- b=VkZEazIkEnPYkQAm/7WONbOj09uy9YefKqbCFRFfkUC6nnK/h+VPHZY8dofDx/jFMmQH0KmHmactVfMtDM337+s8FI8r7Eu/tU5GXLGGge2s4HEPJkPHP+tdUwOScDEJ9QLHD9Hx0HktBlKK2aihQYoWNrbTb4Ori8W1WmgIm9P17WT1uK8wSXg2iIEyrIHKzhjmM0+lHYy7WLZVRb8qy6gJZ9js5fWADmjy4MiqpXkTBxVRIzoytzXnoQmQ9BZZncl1Ta6MB0EFYIy3DNaseO9Ero1XhyN1lTEUepJc8GYEWEGH8tR5uvvgqGBzV4Za6zEY/YaZHwytfvwUirqoMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m8ym+UYmvT8FDZT03gE/yrhsKKedLQtj9TsIenPnNdM=;
- b=Ykw0y5vsNZwE53q33uQTB3WEQfMQPAnw31oWEj3WgKwWBXWEOaPdOBfZ74Z5M871ZX6BomqIVzEnRX6UcDILawjntnA1/OIqDL3XOvPELi4+NcyaX3lY1vMmlSTlFC+XdYJIb+eu/f/BE/PYJkevtCJ8QzeLrgXkCMyavo/F4MDPCKjtuh92SW45gntpunT0shV49YbC8LNzICRFShxmjXDCWvRcWojSbROTVSRGPNmMOde8Jgsjd0KacPDZjvC2ssesXg4JCg6Nw1DgI0WI+IkJizJ97UqP3YjFJij+qzOU92tzMuru9J3vgBvtF45ElJIQzbpQZUvH66AuXEIrvQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by PAXPR04MB8909.eurprd04.prod.outlook.com (2603:10a6:102:20c::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Thu, 12 Nov
- 2026 07:48:52 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%5]) with mapi id 15.21.0615.008; Thu, 12 Nov 2026
- 07:48:52 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Date: Thu, 12 Nov 2026 15:53:08 +0800
-Subject: [PATCH v6 5/9] dt-bindings: dma: fsl,edma: add per-channel child
- node support
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-edma-iommu-v3-v6-5-b038edb8ce6f@nxp.com>
-References: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
-In-Reply-To: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
-To: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Laxman Dewangan <ldewangan@nvidia.com>, 
- Jon Hunter <jonathanh@nvidia.com>, 
- Thierry Reding <thierry.reding@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: Frank Li <Frank.Li@kernel.org>, 
- Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev, 
- dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- iommu@lists.linux.dev, linux-tegra@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Peng Fan <peng.fan@nxp.com>
-X-Mailer: b4 0.16-dev-7bc12
-X-ClientProxiedBy: SI2PR02CA0001.apcprd02.prod.outlook.com
- (2603:1096:4:194::10) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=gY3ByJLT
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id C42BF3F98B
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:48:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1794469736;
+	bh=UTxjwsGyPSnDcBcDCP67400BSKT3Lhs5REZ8Ih/HPr8=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=gY3ByJLTNkog7/3ckyMKAjrUn/MFx4doGGwAvlIgNrR6FVX4MeoLjjvOPBPWWw0WU
+	 wzKTkuJagB1k+/0cH7ezwc/BYY7sC1cHHk8ePZtOY2l/HEU1vGwwAh58sOuXW6wW7J
+	 ZDgafu1qdEuXP4TI0u8d1f9OYf3isX2yum39qrNyGEODtn8rKvaU93C0b+Ef4iJOJz
+	 +pRLAj6I112+dJsa6wC1XhLEo7rIpBDUcb/XkhuHLWDXQ03+97fB3x9YLI2okD3r2S
+	 HPCgjatYMjtheDZjcNcdfb0ovwqWLYID6SJiItQ5hHdosBPyzQu+0q22XcQRQSQf2U
+	 eLJgUXlXN/GJ4hC7qdB/+r1WIhMzivLLpROrvZVK4l9zmfXg4vUNr52NSyNaflSfxH
+	 IWi1qObk/KyCgFag1qhOLCbAfDg9qG9fpqr43BJZ1BVuMDaqNSMGxV/QXN4WurnKeb
+	 WbUIkHsrJyX6oJglUotOv613pVuGwOqGxWJEGuTmse4PrMSECd5N48Q6sDIYv4Mx7Q
+	 yGnD5jqHY7SvOTnMjx66crXncK/YzEShB29K2ufFDvG2dD4oLUrEPXpLJnpIInXQLG
+	 slWqwnCEBlpA+3UyeBr96K/qgW+9Sgyvur6KlWDkiePTvgFW+wTZuUdMXk/gfiuJ5B
+	 p0V4prTRwcpytpDCpY5UnegI=
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36ecd5db581so307318eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:48:56 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794469735; x=1795074535;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=UTxjwsGyPSnDcBcDCP67400BSKT3Lhs5REZ8Ih/HPr8=;
+        b=pHG7OPvDXMP9C+HmrqWyublxg2Y+6joNSiPUORTTt+akR5dNc1ixBAZoEYJeQTVJAp
+         EDt/pf4r0k9tIeufKvQ0gHlsJJli8KIIWq11E93qXEzaA2y7mpjDXBUWdE3hyqkOMvPy
+         xVmJBAmhQrI8RCg5iukraPPNaKK4SIwnZ1221GBJh/5sdKSpPjGpmmBlRyq6A9T3zE00
+         Y+RYYbtdiacFkTKYEX5qEhhNvJOqDz6Kqkorlq/TZTh6xVouXFgA2eMwuKd7NL18L7m9
+         Vq+dxlcLjjxtbhy1gqRtyVZIybA0/2iAA16TCB/i3MMyatmVKSpiHTHAiUj+8OyQ9Jtn
+         Jc6g==
+X-Forwarded-Encrypted: i=1; AL+hErGJzGBxL1ZO+sdxNdIJcIk/3ci5OkHXzrpLsxz403tevglGOxvNGW1Lgn2rNdxn6mVLT65Fx1myRSXhMKI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9sj+rL596nwA08ECZgZoTfS6J/CdRTEG7v/noc1dQJxXYF2uIc
+	DUDV1zAj3PRgY3J4MSLK/+yGVzyCx2We3DFbf5U3VaRgw3kAw15j4gbGbZMusEiOqu4iJCHz/ki
+	J8jvW6rU1CJDOswPKMQItX0AIfT+A/fS+Y3+K/xY3NVbbjBxKaHUVzZ5imY38/LGbaFCcJrc5Q1
+	yYSa63rw==
+X-Gm-Gg: AYBFou01Aqk68ROYOd2T0O4y1shxdrUuyKm2Mq2PC65D1fp8F5OYXfOntM9z+MyQRMP
+	kfnV+unC0WSQuIpxwkUYQ5K1g7SlWIc0BRyIHL+0kY4q0uKLfuGLyrU69UKaGlMvVuFfBlIzGK6
+	I9RSXrssHTgrQtzSeKc2W40huCJeHiGlmOg4QQmIomOPOH8SszhrbncvM/1vaIsHp7IsC52jjQP
+	mO9XLs6j4tqSxbb18347SQgGI6QPKNn8me5dCRZygmyLXiB88fMF/2TStgxD5L+PQxa2wZxC6LR
+	6hz7MJ8elKVzjoc39L7gdfuDPzQL8gmNJYwgrfYrNmgyLq8QWTbYdCU/eavv7POkVNSdNdYdp8M
+	r1VmeqFR8ceuWJgBh22aeLIKS+dCwLmvliFrjMlvm3kPp1quwkSr+HymDqS5aeUtA+ZDbRpFfQM
+	85IYInScCnU3Fv3WNfVTmlNiAFtC+Q8QearDKs9z453BhW86wycIASBXfJ7jXh/B7ut8SXjcdNd
+	zrO7dnilqQI4IUVZeaEnzrV2nW3DeMuLqz/HgBXQsSyEv1tJ6XNZXfjbMsl4ae3C6fw9yGd/q+C
+	878GE7WRufcWxKI=
+X-Received: by 2002:a05:7300:d941:b0:372:1be6:110b with SMTP id 5a478bee46e88-376861826d1mr4459569eec.15.1794469734927;
+        Wed, 11 Nov 2026 23:48:54 -0800 (PST)
+X-Received: by 2002:a05:7300:d941:b0:372:1be6:110b with SMTP id 5a478bee46e88-376861826d1mr4459550eec.15.1794469734214;
+        Wed, 11 Nov 2026 23:48:54 -0800 (PST)
+Received: from u-ThinkPad-X1-Extreme-Gen-4i ([103.155.100.15])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375218c7c50sm44595188eec.29.2026.11.11.23.48.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 23:48:53 -0800 (PST)
+From: Aaron Ma <aaron.ma@canonical.com>
+To: Mark Pearson <mpearson-lenovo@squebb.ca>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Rong Zhang <i@rong.moe>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] platform/x86: lenovo-wmi-other: Deconflict battery with thinkpad_acpi
+Date: Thu, 12 Nov 2026 15:48:23 +0800
+Message-ID: <20261112074823.853819-1-aaron.ma@canonical.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,182 +112,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|PAXPR04MB8909:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd5dc0bd-bf4d-45a1-32f2-08df40916563
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|1800799024|23010399003|376014|7416014|366016|261026140227099003|921020|261028144727099003|261102123227099003|261026121527099003|11063799006|56012099006|261021123027099003|261022105027099003|261021121427099003|261009223027099003|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	Vbi5lAG/qTRVOv3HpOOxXKLcekLVAYMWeXoEz7kwnBMKWaWpXU8av4KptbcPrx37I1iuDPNIvW7y2V1d2yOwp2Pt2jCK5MmllxAlN6MEa+Usen7AEmDVdLXCqLHuJJkbwDm+bQvs2YXF/RwnDieW/d698uWGkrYzA5h4tjV7UQzd+aybPVkNfa4GrAbWcgUkz4iYSlAXYTmiqQGeGHGNryB/fdOwwTDb5bg8m1du3XneaCjZERNjq2n5bbnyFXRIK61WFBnta+yfsL3lPREbHe3Hy9OYqL3EmBM5PGuYX+0mZlN0g321fR2GvmeoCgdeJZQedOOlhno7VX6bFPGZB85uVV2ACxuE3Ms2ltO1q9SLhsIG8qfDblo3eBKj4168M5dQz3u5rkikj7pk7PoE7ac3ZWyhbyUnpoRZzdjwXN65hoQnsiCGzgECW5VfObodS2dyEEso5y9OtDmWFLwQM6CJq5cMcLVV4X2bGeGYzc0v6hqk3lUichCBDskd6WsgtnylzRLmERi8lnAJZjWpN6K/+NuZy7jYYKkWBD8ObCa93fv8qVRsThFPAq3KyCzXk8gjvSl7Xc+mN4s24RveIj/vPU7f7RYmL9EM5ecWHUuzbu16+6fETUEGwKbAD7PVlV/qwhosDL46FEE3rxMnQ3371wUwVJYp2OBmY70bs4TpTVuklWk33eGfR4pAHfEfZrgKU/KAjtZFgSIJ5Ciejw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(23010399003)(376014)(7416014)(366016)(261026140227099003)(921020)(261028144727099003)(261102123227099003)(261026121527099003)(11063799006)(56012099006)(261021123027099003)(261022105027099003)(261021121427099003)(261009223027099003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eW9xVHpvUURNWnN5a1RKRitKWmdJOFFIVkxUUDR5RUxXN2g2LzFoN2pqUWVu?=
- =?utf-8?B?ZGN1WXBZUG9td1dINEZPbFlrY3BvS1FlUmdnOTR0Wml6MDZnSmw3VVArSVJJ?=
- =?utf-8?B?WFVOTWV4Ri9rREJ2aGxObTlwSk13c1hDVGN1RkhpakVwSnNOdDBUaU8wQVVh?=
- =?utf-8?B?aFBpQ2VUQVFGVDNGNUk2WjF1VUVJQjNBL29FeGZzQ25LUXRlSWxEK3pPYjhF?=
- =?utf-8?B?VHY2ckR6ank0NlQzaUN4T1JhMGFpWVZNOExVVWZqZ25xSHBoek44RGtTbmlR?=
- =?utf-8?B?R204ODBXZ2Nvem1mVWdvcVFJbjlVV1N3OG0vVGd3VTJlZ3hHZlpVWVc1eWwy?=
- =?utf-8?B?WUg4MkdsOEtjcFVXSzgzK3FaVTJKbVhSRklZV3JST1hSN0FxSjRoRC81MkFy?=
- =?utf-8?B?eU5Zd1F3UTZCbjNtWVhyUjVjUVNiai9XL0JFT3FySUxyZXFKYkFad1BlRjB4?=
- =?utf-8?B?dU93QmtTY1lqYkdPL1RvdlZIQ1R3SjM3UkhUS1JGT0lRc0ROTndjRFhwUkIw?=
- =?utf-8?B?QTNjU1FTLzZMMEZ1TVlVL0ltckJaYWFpaUQxV092VmR5dlhDc3hObU9FRDNI?=
- =?utf-8?B?bVlIbnBwMzJzUW9kc1h6S095cU1IVUV6a1FxVDF4R2JVTzJSMEpKVVExVStI?=
- =?utf-8?B?a29Ba3NpVkJtUEp2bnFiMTlsVnVaMWt4L3o2VEdxYytWZFN4STFDOFMxcVFq?=
- =?utf-8?B?WFQ0dVRGaG9TWlhpYjNVcldjZVhtRDVyTy85cC9HZHEzSDFURkkxQ0tPMHhI?=
- =?utf-8?B?R0IzUDBsN0xzUHduU2xrUFZCMXlodTdpNEJPNDh4SlR6VFZoUEhOWm82bjd4?=
- =?utf-8?B?NHJFZEV1NERnYXQycmpqa0NJc2p2dWszSldlWWErOHlkelIvYWZLeXhod2dj?=
- =?utf-8?B?RHR1OUwwbFBlNUx5cVdjOUFrSDlYZHR2VWM5K1kreVpPaXZhbG01b2RsSGQw?=
- =?utf-8?B?NmwzRHFYZmIyUGlBMTgxMFhKRm1iOE43TVJMSzk0cVJhZ0RsTTcwNFkvQi9R?=
- =?utf-8?B?Ujl5cytncDd4OHo4dmllbE1DZkh1Znc3NXUzT0lNQVBkQXJ2VjYrelptYktL?=
- =?utf-8?B?T0t6RlMzRzNsWHl0K09MT2J6Mk8xVHV0Uks3RTM4aUxUdG9qY3h5VHE2UW84?=
- =?utf-8?B?MXZUaXhyUDV3aHlXK1NPSVpvUnNXVUVCWnZld2VUcVUwZ2FyMzk5K0E1Wnlr?=
- =?utf-8?B?K2QrZjBEdnNiZ2xRUlRhS2hDSUJiY1Rnbm5ubWZhUURDa2ZkQzhFODBjRm42?=
- =?utf-8?B?QURzeDgvaXNQQmlDYnRhUytzWkEyaWE4ckNPbmVMT3ZiT2V6dnUxbTJkdU0r?=
- =?utf-8?B?TFVwZk5nd3Y1cXlTTWx1QnlXRnRYRGlRdnJhTDkrMkNPRTNOc2YwZmNHQ1h4?=
- =?utf-8?B?cllCejJaR2R0UW1hQU1qbm9FL29sMVVXZ1cySWRCSUtKQUdTYmU1ZkdhSmh0?=
- =?utf-8?B?UldSY0xMNEoyc25sV25yZjduN2dJUGorajEzWkVlR3M3azl0TXlHRytBamIx?=
- =?utf-8?B?WkthUi9PRFJZcDBycDlNOFlaVTJyZU5xM0M3Nml1TUEyU0kyeVJFTHgxcy8x?=
- =?utf-8?B?akF3NWRFajJOYjljOHVyNzFuVzJDQjJCQ0R2eTl5NW93MTlPRUNITm5lTzlM?=
- =?utf-8?B?dlFUWWZLLzJtcGRnczJmUHhNcExHaW1IOWZ4Zm0zOGV2eE9xai9HaDhYZ0Fa?=
- =?utf-8?B?OGlMNlNIb1dveEg5QmNVeitSbWxYRUN5MVV1d1Q5Q2JCV1NuanRJWVdDZDM0?=
- =?utf-8?B?aGNheklBd1U5dnB1TVpaTk82WHdWNW91ZGw4SUdha0dTeUxwcHlGOWZqQ3RR?=
- =?utf-8?B?NXhwRk5rbUVydStrbFZEUG9PUy9QZGUweHF1elJJcnhHREpGRzhkV0VOaVh2?=
- =?utf-8?B?MzNBY2YzSDhmd01KZGk4SitNWVNiZkZsNUUrOFJxRThhUmlrQW9YdkduaW9x?=
- =?utf-8?B?allaNDJzU25HUlY0TWx4Z05maVptV1UrR2MzQWV5OHM4UkMrcExnc1lqT1ZT?=
- =?utf-8?B?NmFSRGlTMEFVTGhwMTY4RUJOZFpFUkVtcUVQMzlxLzdsVTlVQmsveTdNU1Rp?=
- =?utf-8?B?QktjT0cvaGlRak50Zyt3VDFEWTdMVmpsU3lJU2Y0dW5iWXV4YzMyRTJuYTdz?=
- =?utf-8?B?TDgvYmRZMEMwOGRSWGYvcml0OEpFTzBnWmxEcUUxeTFYczhWc0FBcG1QODVk?=
- =?utf-8?B?QUgzc242c0JUOGF6dFBPek5VTW1LWGs2VkFsZWR0VUdwVVpiTDVSMG8yNlNZ?=
- =?utf-8?B?RU9CS1ZmV3QzZW5EaHhoeEZ4ZlQ4RnFGSENQdGZmUE8yNW02eWtUQ2lkT3Ax?=
- =?utf-8?B?Rncwb2RpaWJxcGdjZFhWMzQwcHFvOWNBSEFFK1E0aDVGVC8vZHZ2NUlTeGts?=
- =?utf-8?Q?jK3GS+Xy+JMvwNafDEEk5UBC3ik1TR3jUWIj3?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd5dc0bd-bf4d-45a1-32f2-08df40916563
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 07:48:52.6427
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +Z6I2lNzpTpEqmgZCBeiCFAKDHMCd5z3AvdiUMGlWUq0rQmBoQFYlilabhAbmMSL3RABKnHzShX+/tw1OPCYSn0e6JO01FCoMbQaQrJIV74XMiqiIsuTQJWwI5D6gS9s
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8909
+Content-Transfer-Encoding: 8bit
 
-From: Peng Fan <peng.fan@nxp.com>
+ThinkPads expose battery charge thresholds and charge_behaviour through
+thinkpad_acpi's ACPI battery hook using raw sysfs attribute groups. The
+Lenovo WMI "Other Mode" driver also registers a power_supply_ext for
+charge_behaviour and charge_types on systems advertising those WMI
+capabilities.
 
-Add support for optional per-channel child nodes (dma-channel@<addr>)
-to the fsl,edma binding. Each child node can carry its own reg,
-interrupts, iommus, and power-domains properties, describing a real
-per-channel MMIO region.
+When lenovo-wmi-other registers first, thinkpad_acpi fails to create a
+duplicate charge_behaviour sysfs attribute and unregisters its battery
+extension. Conversely, registering or updating any power_supply_ext on
+the same battery runs sysfs_update_groups(), which removes standard
+power-supply attributes not owned by power_supply_core and wipes out
+thinkpad_acpi's charge_control_start_threshold,
+charge_control_end_threshold, and charge_behaviour files.
 
-Enables per-channel IOMMU stream ID assignment via the standard
-iommus property on each child.
+Deconflict both ideapad_laptop (VPC2004 with GBMD and SBMC) and
+thinkpad_acpi (LEN0268, LEN0068, or IBM0068 with BDSG and BICG) via a
+table check when the corresponding driver is enabled in Kconfig, and
+update the force_load_psy_ext description accordingly.
 
-The interrupts property is removed from the required list since
-channels with child nodes carry their own interrupts. Existing DTS
-without child nodes remains valid.
-
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
+Fixes: 9ca8fc065b88b ("platform/x86: lenovo-wmi-other: Add WMI battery charge limiting")
+Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
 ---
- .../devicetree/bindings/dma/fsl,edma.yaml          | 70 +++++++++++++++++++++-
- 1 file changed, 69 insertions(+), 1 deletion(-)
+Changes in v2:
+- Consolidate IdeaPad and ThinkPad deconfliction into a table of ACPI
+  device IDs, method pairs, and driver configuration checks, as suggested
+  by Derek J. Clark.
+- Check GBMD and SBMC for IdeaPads, and BDSG and BICG for ThinkPads,
+  instead of relying only on ThinkPad ACPI device presence.
+- Check whether the corresponding driver is enabled before looking up
+  its ACPI device, including for ideapad_laptop.
+- Update the force_load_psy_ext description to cover both drivers.
 
-diff --git a/Documentation/devicetree/bindings/dma/fsl,edma.yaml b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
-index 0260d177c7d0..65877e78330a 100644
---- a/Documentation/devicetree/bindings/dma/fsl,edma.yaml
-+++ b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
-@@ -104,11 +104,40 @@ properties:
-       Bit semantics: 0 means channel available, 1 means channel unavailable
-     default: 0
- 
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 1
-+
-+  ranges: true
-+
-+patternProperties:
-+  "^dma-channel@[0-9a-f]+$":
-+    type: object
-+    additionalProperties: false
-+
-+    properties:
-+      reg:
-+        maxItems: 1
-+        description: Per-channel register region within the eDMA block.
-+
-+      interrupts:
-+        maxItems: 1
-+
-+      iommus:
-+        maxItems: 1
-+
-+      power-domains:
-+        maxItems: 1
-+
-+    required:
-+      - reg
-+
- required:
-   - "#dma-cells"
-   - compatible
-   - reg
--  - interrupts
-   - dma-channels
- 
- allOf:
-@@ -351,3 +380,42 @@ examples:
-                       <&pd IMX_SC_R_DMA_3_CH6>,
-                       <&pd IMX_SC_R_DMA_3_CH7>;
-     };
-+
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    dma-controller@42000000 {
-+      compatible = "fsl,imx95-edma5";
-+      reg = <0x42000000 0x210000>;
-+      #dma-cells = <3>;
-+      #address-cells = <1>;
-+      #size-cells = <1>;
-+      ranges;
-+      dma-channels = <64>;
-+      clocks = <&clk 0>;
-+      clock-names = "dma";
-+
-+      dma-channel@42020000 {
-+        reg = <0x42020000 0x8000>;
-+        interrupts = <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH>;
-+        iommus = <&smmu 0x30>;
-+      };
-+
-+      dma-channel@42028000 {
-+        reg = <0x42028000 0x8000>;
-+        interrupts = <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH>;
-+        iommus = <&smmu 0x30>;
-+      };
-+
-+      dma-channel@42030000 {
-+        reg = <0x42030000 0x8000>;
-+        interrupts = <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>;
-+        iommus = <&smmu 0x31>;
-+      };
-+
-+      dma-channel@42038000 {
-+        reg = <0x42038000 0x8000>;
-+        interrupts = <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>;
-+        iommus = <&smmu 0x31>;
-+      };
-+    };
+v1: https://lore.kernel.org/platform-driver-x86/20261111083529.727285-1-aaron.ma@canonical.com/
 
+ drivers/platform/x86/lenovo/wmi-other.c | 51 ++++++++++++++++++-------
+ 1 file changed, 38 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/platform/x86/lenovo/wmi-other.c b/drivers/platform/x86/lenovo/wmi-other.c
+index bd64e7b44669d..14b2c3f4cc7ae 100644
+--- a/drivers/platform/x86/lenovo/wmi-other.c
++++ b/drivers/platform/x86/lenovo/wmi-other.c
+@@ -189,10 +189,10 @@ MODULE_PARM_DESC(relax_fan_constraint,
+ static bool force_load_psy_ext;
+ module_param(force_load_psy_ext, bool, 0444);
+ MODULE_PARM_DESC(force_load_psy_ext,
+-	"This option will skip checking if the ideapad_laptop driver will conflict "
++	"This option will skip checking if the ideapad_laptop or thinkpad_acpi driver will conflict "
+ 	"with adding an extension to set the battery charge behavior and battery charge "
+ 	"control end threshold. It will also skip checking if the BIOS reports that "
+-	"those features are fully supported. It is recommended to blacklist the ideapad "
++	"those features are fully supported. It is recommended to blacklist the conflicting "
+ 	"driver before using this option.");
+ 
+ /* ======== HWMON (component: lenovo-wmi-capdata 00 & fan) ======== */
+@@ -905,17 +905,32 @@ static acpi_status lwmi_acpi_match(acpi_handle handle, u32 lvl,
+ 	return AE_CTRL_TERMINATE;
+ }
+ 
++struct lwmi_psy_deconflict {
++	const char *hid;
++	char * const *methods;
++	bool driver_enabled;
++};
++
++static char * const lwmi_ideapad_psy_methods[] = { "GBMD", "SBMC" };
++static char * const lwmi_thinkpad_psy_methods[] = { "BDSG", "BICG" };
++
++static const struct lwmi_psy_deconflict lwmi_psy_deconflict_list[] = {
++	{ "VPC2004", lwmi_ideapad_psy_methods, IS_ENABLED(CONFIG_IDEAPAD_LAPTOP) },
++	{ "LEN0268", lwmi_thinkpad_psy_methods, IS_ENABLED(CONFIG_THINKPAD_ACPI) },
++	{ "LEN0068", lwmi_thinkpad_psy_methods, IS_ENABLED(CONFIG_THINKPAD_ACPI) },
++	{ "IBM0068", lwmi_thinkpad_psy_methods, IS_ENABLED(CONFIG_THINKPAD_ACPI) },
++};
++
+ /**
+  * lwmi_om_psy_ext_init() - Hooks power supply extension to device battery
+  * @priv: Pointer to the lwmi_om_priv drvdata.
+  *
+- * Checks if the ideapad_laptop driver is going to manage charge attributes first,
+- * then if not, hooks the battery to our WMI methods if they are supported.
++ * Checks if the ideapad_laptop or thinkpad_acpi driver is going to manage
++ * charge attributes first, then if not, hooks the battery to our WMI methods
++ * if they are supported.
+  */
+ static void lwmi_om_psy_ext_init(struct lwmi_om_priv *priv)
+ {
+-	static const char * const ideapad_hid = "VPC2004";
+-	acpi_handle handle = NULL;
+ 	unsigned int props = 0;
+ 	int ret;
+ 
+@@ -928,14 +943,24 @@ static void lwmi_om_psy_ext_init(struct lwmi_om_priv *priv)
+ 	if (force_load_psy_ext)
+ 		goto load_psy_ext;
+ 
+-	/* Deconflict ideapad_laptop driver */
+-	ret = acpi_get_devices(ideapad_hid, lwmi_acpi_match, &handle, NULL);
+-	if (ret)
+-		return;
++	for (unsigned int i = 0; i < ARRAY_SIZE(lwmi_psy_deconflict_list); i++) {
++		const struct lwmi_psy_deconflict *entry = &lwmi_psy_deconflict_list[i];
++		acpi_handle handle = NULL;
+ 
+-	if (handle && acpi_has_method(handle, "GBMD") && acpi_has_method(handle, "SBMC")) {
+-		dev_dbg(&priv->wdev->dev, "ideapad_laptop driver manages battery for device\n");
+-		return;
++		if (!entry->driver_enabled)
++			continue;
++
++		ret = acpi_get_devices(entry->hid, lwmi_acpi_match, &handle, NULL);
++		if (ret || !handle)
++			continue;
++
++		if (acpi_has_method(handle, entry->methods[0]) &&
++		    acpi_has_method(handle, entry->methods[1])) {
++			dev_dbg(&priv->wdev->dev,
++				"ACPI device %s manages battery for device\n",
++				entry->hid);
++			return;
++		}
+ 	}
+ 
+ load_psy_ext:
 -- 
-2.34.1
+2.53.0
 
