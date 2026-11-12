@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794471814;
-	b=B+Q7Qy53vVIA+hl/dE5RZpYnE+V2adEVUFsD4j10QUCk8y52YVezSX6vvNe/jNlCnRjB
-	 Pe3bJOOVXVyWHOfurrOOoFrjACJNgeqNefunzVDGqUsG0k5aQW6GmjMk/8Vx480+aFHy3
-	 sx+WfMVGBL/0pzNTGHlkrUd1fHX6Lqsxu0mjmWg6ejD1oI/swZ485H/6BbtLQMWPFVyZn
-	 Ad4YsLOKVnN+uBElkgg5KbaSnISKj9DY4tiaUOnmtruJmselS1ekjSPfMen9eEIV4Nhbo
-	 6qz3DcTHVhOoVjNwoubQvRVUZz+Ppgv7HepRtJhnHInUcnfmBHO1JgW/v1uJXX8j06g==
+	b=4eI01/vtzZquLsInInUdf8hhJiXxj4wUD5AJyIHkl2DflMa8H3+sbZC7UiTRIoegurKW
+	 9XYltWGYEuWUg3j+p0QmN1TQzVbNkn8Wi+ibNJP7F+Nc8W8zVc0xPB/dKXlmoE7OSi9Ae
+	 FPqVF/rsypIqLnYTryLYzeenVSImDWTCqgfcXpgE6EbdOOow0gTKQ4bR9eJMEAvYCeU34
+	 sWpvIhS5f35kDTeqpWAPwCb/h4u8EmFURpDoAmtv7PQ7+ISUkbceWr2rrqvUAGjQDBYtk
+	 2qZdU+F3Rsi1N+G9dYmfZTKR57q1sV+JfY+3yxwVEg3ww6qi8C63w58SRcRStyiX0rg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794471814;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=qKYjBYnR5WGa5NCIh6j5J0rCxP117RMta7GUqAqVAXA=;
-	b=WqZNmvXj1/EGT5dbbfMGSQWZw78DrGjZG3tWMUbQqEnjRAx30BSy40Cu5YzGeHGG6O9F
-	 f6Oa/IjWX9/kWpMSPLISBw2gQWkzix0R9T1cz1kakJlwiGEefval9hrhdb/sL6z/z3Lwp
-	 3uH196Tvr1dtAJPt7BvSr1d73qMfxqW+c4RTW74rB0P824GaFGDO6YEnWHK2omPtehsa+
-	 meXQIBKxiULE24Rl1a/RXo15Vo95u4uWp38dA1EhNWcQVQwAZcG09dGkrXItES6mljWaw
-	 mY8T+i2iLd3EPxv+FeU2UXS8uVrh4L+ymShd5xKiRnzW0aso5UeO9ExbV+lgcUpTo+w==
+	bh=u120nBzjSw85Ua4h2iZr2dC7vRzrh960a8a37kW/TOg=;
+	b=Wsr7Y8ySzu4spPpZvFcsyVTrFcool3jd3HIGM7tNDDrRuTS3qpcYrMbcnUiDijxJ8Qve
+	 9ol/0b0HUTt+1HR7S+/ZiNcbt4ds0RJ2/yGBM1qBI8rUOzIqoenCri0e8R/SjimQwM5yn
+	 yBaNoTRmXjo3iA155P3y5m42XVbdemg8Pr35WpzvKlMKBAH3mlY1enigDbcxx57/6x0tT
+	 8nQI4i3SBN2kWwP3joaGwTFVwyevPZ4lmKuQZ57i3Yi95SjwyDoryJnBQQEb6/BBIct3a
+	 uY/XZNOuV6pHQYQvrrSq9iDudKiMv1WkDB0KcmturPm0odrRhB6Qr1nq19IYweKbhMA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XU5tzQTW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fHuju1yo;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0AAC606A327;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD01F606A8B1;
 	Thu, 12 Nov 2026 08:23:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XU5tzQTW
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fHuju1yo
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794471814;
-	b=1e2vDISgZGwm4TgjZ2t+Lr0muW3unKhckD0ZUyExOvsbE1c2cGVgonqCCz95KmgBRSfU
-	 ECX23hnppeKl6IuEi1gRBH3QTA1Zt/I1Kqc6wiEXdscfOpn53fUHykzAgrb5CqSii05rA
-	 2U41IUIr4uS3otNDRF5g3A6oqQfSmYleu6Zwwu81ebhaTKHJJqK7PqVbBDctuHLnNbV9Y
-	 Pb2nEhW4U6e2eIiI2lgZn5/it/vMZ0khAUmtnO9vRscanlvMlGU64TAgFD+l4KNf8NcYX
-	 29zIS094VLHojCRYWlkBRqFbTy9Xyt06hAEosVK/Ds0T3t6QZvXSbo10B8pWU/+GlPQ==
+	b=B17NsFhy7xxMD9nOKAx46/g5NP3k5697f/lmpSCd7e5DkyfNIqEF1aHXq9sqWxUDYTvD
+	 y70DF+xvaVIZ1CCoz+TJlEyZEBOVo3nS8lmP45yEN/6QWAfu6I5RE4gX41wAeKL0c5gQI
+	 4Wd2Ldl5zzj4eiRynVmioBJqKhRF76hJYFG24g85nY7hytAgqizu/wNItqhlZkQa3uzyL
+	 gAdc0+LdbmWjnRwTehEoSeE/B19wVo4iB+4dvi1PuKCf56C6BBTREM6DMXbKb20fTQf17
+	 5ZBC+snIFRjzgrwnh2fsCH0/Du3DuFS7AIVj8nBHllMOxX6DN6fv9hheumPaOOcxP3w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794471814;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=qKYjBYnR5WGa5NCIh6j5J0rCxP117RMta7GUqAqVAXA=;
-	b=EXn12fEFNp+Wj9i0CuZmq+rPNQWGlfjNvNhVeMzhjf8XIrWlzpFyXifleWUQR5K0VmSz
-	 AHmhU3adXN4km0qRqV0g7IiVS4sRIIKRjj0Z52FcBO1CoaFlIsoKCadWBiSV/PWj6jwsJ
-	 iBUXnpk9X/ZDNnOABTyjBtswd/Fe7APXi7lxaQk8rVl9amgaAHb8SsFlXzHqJSZBk/HQs
-	 472FO+cuR/KCHZNWjelg+hw/pi3QecXf65OJ4+6j2gS33Aj0WotQ0hC4fXHgOZIDiIysT
-	 Lxejx0oZYi3ZLZBKRupXFifhzSKIqpGw3kjgAnTGzYHy5FBxb8gXRO69+cTd4fOAnew==
+	bh=u120nBzjSw85Ua4h2iZr2dC7vRzrh960a8a37kW/TOg=;
+	b=XNiUTKlj+VcJG2TaY5g0vUTiT5FFaIWkueJPWxeXMEXdMwjzoxcR1YRRIDUMuKNTREiV
+	 B5t0q/YjwyvrFiqFFuVbxK5kNMsQyXhRD/FyvG99rqB9nlpiQBv0pBp7bUGzDA6RQfbDI
+	 ymuOrLj3mOcKxi5pyc4Hj9wRXX3JnJFdN4DmL3PRhymEf20gSJB0kPc0a8YKjqjpaZ6Jv
+	 EUx9ZPU8FxUn3knGXFAy2CbL6qx4Xs30RzTcMm3iVV/j0JknvOk+KpoOOLn1gdBVyDK0o
+	 SNUzvjSe0SF+HEnMf4w5Sw3nViQErN4rodxUYYMKBx8VgJAQQrc16/VQQwb+dnYyYPA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 649661F00AC8;
+	by smtp.kernel.org (Postfix) with ESMTPS id 50FE61F00AC7;
 	Thu, 12 Nov 2026 08:23:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794471814;
-	bh=qKYjBYnR5WGa5NCIh6j5J0rCxP117RMta7GUqAqVAXA=;
+	bh=u120nBzjSw85Ua4h2iZr2dC7vRzrh960a8a37kW/TOg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=XU5tzQTWCT4XiZ6Y2N6PKN1MlXwoot/4gcxImIf4zxM0NcspUo8Bx3fLjVrPfFCbf
-	 2RaQ/PYsWWLVok6qt0YUDEHMqZHclsnCZ05bIzYIPQODArvxgQfd7nwh/WpqPhU5m7
-	 0bAqwK+dTRSrGrbun9h8SAxoEHiMFCq9xB7Q/Uv7EqE3nWhW9XVYlc4TrCf1tDrvoO
-	 JwNO5HJ77m9PEsMf4iuu8a2g3ylMeC4NduZqpH5p2JzNOVqFIq9UMJx9Rt9tN6Ctgl
-	 FZkjxne+6RzYd0Ls9Pho8bwN1oiR5OATIEolj7IJHd+x2oVY99NpSfq2U70RTJdfBJ
-	 PBft74pJJWo2w==
+	b=fHuju1yofLcm+DkrzDe5jxxSB3FZtaZdhyu/vcxW+SntVc8byG/Zjz8SCkWcVw41O
+	 DidKV9m6+7o9wXPOFt1mxLq/RIWbY81dTBcAkM+qb3grwddDi7RQsj3MbBnWyPQStY
+	 YbbbmDX95sFFxAc3duMqNEOF3cC2UqZsQzsxqQJk4jteXSUzHYJvDFg+vdsC7uw69/
+	 dTR4abeWqSKdqqlkPtsBlfwAlrhUJihxJhsT1ztu3Eu0Ev7b89Nh88ADc/07Cl6TyO
+	 3aAZ4cGi8LvyBspy8IvF8+UtXSRjRZttRpPm/gccccWCY4FGI9X3hlmwgVkhFdKA3G
+	 KMGOvawRFJjZw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id EC45E49361;
+	by lkml.kernel.org (Postfix) with ESMTP id D995349360;
 	Thu, 12 Nov 2026 08:23:32 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:23:34 +0000
-Subject: [PATCH v2 2/2] usb: typec: fusb302: Toggle with the default Rp
- current
+Date: Thu, 12 Nov 2026 08:23:33 +0000
+Subject: [PATCH v2 1/2] usb: typec: tcpm: Don't cut a pending state delay
+ short on a re-queue
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-tcpm-attach-reboot-v2-2-b4bc6ca83490@gmail.com>
+Message-Id: <20261112-tcpm-attach-reboot-v2-1-b4bc6ca83490@gmail.com>
 References: <20261112-tcpm-attach-reboot-v2-0-b4bc6ca83490@gmail.com>
 In-Reply-To: <20261112-tcpm-attach-reboot-v2-0-b4bc6ca83490@gmail.com>
 To: Badhri Jagan Sridharan <badhri@google.com>, 
@@ -93,13 +93,13 @@ To: Badhri Jagan Sridharan <badhri@google.com>,
  Guenter Roeck <linux@roeck-us.net>, Heiko Stuebner <heiko@sntech.de>
 Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- Arun Iyengar <aiyengar1990@gmail.com>
+ Arun Iyengar <aiyengar1990@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794471812; l=3585;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794471812; l=2363;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=tD7FYH82nlIArIvaQxvwuexRhWGTOTfnEzwgYwR8d8U=;
- b=spjM5HPPpWe+lrfW7WRU681uie2NR8dc4+wxVo2n+3xwGB6vSqQ1bU1/Os7tSe3znFz4XI8W2
- 2ONr7RyGZJ1CXPtw6TxihfctXruTMpLrgQehwYMr6XuEBm3iocDr10+
+ bh=f9cETtbmuMeuYvGKqDaJesYJ7nf3lLCpDNSETJ6OO1Q=;
+ b=8LeYYkVSV9H3DvqyT645JP9izzuqYaWIgQ1uDLbfjiBRX8POMf/uQ34dp9ygJq6VmUe61ARjI
+ B8WrR2TZDkLClcHrFvxrxbeZrGee24mdnZzilLL+3t+VslFG/oqOok8
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -110,83 +110,58 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-tcpm_start_toggling() programs the Rp current that tcpm asks for, which
-is the current of the source PDO (Rp 3.0A on boards that can source
-3A) when the port starts toggling from Unattached.SRC, and the default
-current when it starts from Unattached.SNK after a detach.
+tcpm_state_machine_work() applies port->delayed_state as soon as it
+runs, assuming it only runs when the state machine timer fired. The
+work can also run because it was queued for another reason while it was
+already running.
 
-A Genesys Logic based USB-C to DisplayPort cable connected to the
-Orange Pi 5 is often not detected after a warm reboot: the FUSB302
-toggle state machine raises no interrupt with it while it drives the
-high Rp current, but finds it within seconds once toggling restarts
-with the default current after another device was detached.
+This happens at every port registration: tcpm_init() runs with the port
+lock held and calls tcpm_set_state() twice with no delay (default state,
+then PORT_RESET). The first call queues the work, which starts and
+blocks on the lock; the second call queues it again. The first run
+handles PORT_RESET and schedules PORT_RESET_WAIT_OFF after
+PD_T_ERROR_RECOVERY; the second run then applies it at once. On an
+Orange Pi 5 (FUSB302) the log shows the 100 ms ErrorRecovery taking
+6 us:
 
-Toggle with the default current, and switch to the requested one when
-toggling stops on a sink, before tcpm is told about the attach, so the
-sink sees the configured level from the start of the connection as
-before. tcpm does not set it again after attach on every path (not on
-ports without PD, for instance). The Rd detection threshold used for
-unplug detection follows the restored current.
+  pending state change PORT_RESET -> PORT_RESET_WAIT_OFF @ 100 ms
+  state change PORT_RESET -> PORT_RESET_WAIT_OFF [delayed 100 ms]
 
-The FUSB302B datasheet sets the toggle up the same way: under "Toggle
-Functionality" the processor writes HOST_CUR for the default current
-before it sets TOGGLE, and a HOST_CUR change after attach is applied to
-the CC line immediately ("HOST_CUR Changed After Attach").
+so the "clean slate" that tcpm_init() asks for never happens.
 
-Fixes: c034a43e72dd ("staging: typec: Fairchild FUSB302 Type-c chip driver")
+If the delay has not expired yet, re-arm the timer for the time left
+and return, as tcpm_send_queued_message() already does.
+
+Fixes: 3ed8e1c2ac99 ("usb: typec: tcpm: Migrate workqueue to RT priority for processing events")
+Cc: stable@vger.kernel.org
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/usb/typec/tcpm/fusb302.c | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
+ drivers/usb/typec/tcpm/tcpm.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/usb/typec/tcpm/fusb302.c b/drivers/usb/typec/tcpm/fusb302.c
-index 3319f6a2b0c9..44aa05fd4ba2 100644
---- a/drivers/usb/typec/tcpm/fusb302.c
-+++ b/drivers/usb/typec/tcpm/fusb302.c
-@@ -97,6 +97,7 @@ struct fusb302_chip {
- 	/* chip status */
- 	enum toggling_mode toggling_mode;
- 	enum src_current_status src_current_status;
-+	enum src_current_status toggling_src_current;
- 	bool intr_togdone;
- 	bool intr_bc_lvl;
- 	bool intr_comp_chng;
-@@ -942,10 +943,19 @@ static int tcpm_start_toggling(struct tcpc_dev *dev,
- 	}
+diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+index d721baef5210..0a19b7665555 100644
+--- a/drivers/usb/typec/tcpm/tcpm.c
++++ b/drivers/usb/typec/tcpm/tcpm.c
+@@ -6569,6 +6569,18 @@ static void tcpm_state_machine_work(struct kthread_work *work)
  
- 	mutex_lock(&chip->lock);
--	ret = fusb302_set_src_current(chip, cc_src_current[cc]);
-+	/*
-+	 * Look for a partner with the default USB current advertisement.
-+	 * Some sinks (seen with a Genesys Logic based USB-C to DisplayPort
-+	 * cable) present an Rd that the FUSB302 toggle state machine does
-+	 * not detect while it drives the high (3.0 A) Rp current, so they
-+	 * are only found when toggling starts from the sink side. The
-+	 * requested current is restored when toggling finds a sink.
-+	 */
-+	chip->toggling_src_current = cc_src_current[cc];
-+	ret = fusb302_set_src_current(chip, SRC_CURRENT_DEFAULT);
- 	if (ret < 0) {
- 		fusb302_log(chip, "unable to set src current %s, ret=%d",
--			    typec_cc_status_name[cc], ret);
-+			    typec_cc_status_name[TYPEC_CC_RP_DEF], ret);
- 		goto done;
- 	}
- 	ret = fusb302_set_toggling(chip, mode);
-@@ -1357,6 +1367,13 @@ static int fusb302_handle_togdone_src(struct fusb302_chip *chip,
- 			    typec_cc_status_name[cc2]);
- 		return fusb302_set_toggling(chip, toggling_mode);
- 	}
-+	/* advertise the requested Rp current now that a sink is attached */
-+	ret = fusb302_set_src_current(chip, chip->toggling_src_current);
-+	if (ret < 0) {
-+		fusb302_log(chip, "cannot set src current, ret=%d", ret);
-+		return ret;
-+	}
-+	rd_mda = rd_mda_value[chip->src_current_status];
- 	/* set polarity and pull_up, pull_down */
- 	ret = fusb302_set_cc_polarity_and_pull(chip, cc_polarity, true, false);
- 	if (ret < 0) {
+ 	/* If we were queued due to a delayed state change, update it now */
+ 	if (port->delayed_state) {
++		/*
++		 * The work may have been queued again for another reason
++		 * while it was running, for instance by tcpm_init() at port
++		 * registration, which sets two states in a row with the
++		 * port lock held. Do not cut a pending delay short; re-arm
++		 * the timer for the time that is left.
++		 */
++		if (ktime_after(port->delayed_runtime, ktime_get())) {
++			hrtimer_start(&port->state_machine_timer,
++				      port->delayed_runtime, HRTIMER_MODE_ABS);
++			goto done;
++		}
+ 		tcpm_log(port, "state change %s -> %s [delayed %ld ms]",
+ 			 tcpm_states[port->state],
+ 			 tcpm_states[port->delayed_state], port->delay_ms);
 
 -- 
 2.55.0
