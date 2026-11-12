@@ -1,57 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794488534;
-	b=EG2kxYmtcP+TCR0sR84H5jbYMa/WWFnbvJaSdOwaLb6v3/maXr04C7cPdIWGJefcMCgh
-	 etiWG9uJ5RXq6d2wcYsXRE8mLzNmWWoJIoBYdcb5jOYTimHroFtOniiXMMY7obHLwgFhX
-	 L1v2XYRAkC6XCvtpPdU015btVtX+9PuXxe/PJtWtaNDS90vZOV47O8FiTPJOgy56BGQhX
-	 BHcKbMVpTwjpCpkr/tbcBRAPyTWA7IYvR2SVYxBI/sDaQTqJm8Mc1dPu0v1BVu4ZD/7MS
-	 L6eW52hVmHsudRizT6sP7H4yEvBOto83Q6hvPwNYBFiXBGXKrNKxClfKDlz+NUmGECQ==
+	t=1794488538;
+	b=aM0MmosthnBFmDWC5NFbddSUZXPtbIFnUMvQQZ9uN0pNN4cSFPtW/cj9DG/HfusN20OQ
+	 tNSmRLKBDgyC0JOFoVFQ4nFBuNFRqf4drqZFmPQsiIAxIHsxuRWC//+PnYmM9MjhXaqv6
+	 K98TzZtBzRD65U6VILaYFbeXDkDb+SYfqyeHJtupLCEli1mVrAD+UtV7WtsM6qhmf7V+f
+	 nSSmZmHVUPVkiojZ6J48Dc2f0bCfOZ04d/m1G0UFF9WIqG9fDM/iDYHlDKZUfUGqjk8Ot
+	 0mmtNj476dRzGCPngdYhplkBc3oHkh7NsW8f/S0/RE6alw/swQpERORgdrNwZOGm6Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794488534;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=KYusxYP1bJCA82Agudj5Yk62dkc+vZ4npVPLPLyCVJY=;
-	b=vNAoe8wt9ge5W75ZrgWDf/1uGH8vmgSUwyjP9jrraqhzXbL0xXauW4AJMhyJdzMpGM6T
-	 CuAQ+J6SRDqIG3/eMYZVLjR3fnG00mPH+m6dG31TbI8diANtUGaZVMsX4RGoq9msLPl2n
-	 x0XWPyjPUdLnoOPKRd1ZAMKEC1oeLFoF/Yrant2CDyz8GPXfzbGiVj9Rx3YtIGdJFoB4b
-	 7Go7Iu3q6orcM2RVO28sfkkOmAS76Ez0P2D9zx43EdA4Xmi5yDQmsR7TLz62+7Z3mrsDU
-	 bLNHhVrvWzNliU15m5bY8RmyWQT2JPPWE+e6jqc5rM+2fL9zvjANZp7cCx3AUrPN0Yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794488538;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=RJ2PySTdMP5k2BjkIu5goRjZubEIQvsj1+Fqpgep/Gc=;
+	b=Lb3/JbNV8J+2n77NxEyd2qOdzqg1zJk3DdO4ocxgzjbBpoRCtSSFdtBolOvYJEFzDkTi
+	 QtcC4/4ZFFB5WkeeCN1ml06UhAldfwEKtPs7gqGTrKjyoQzMj0zbLmk+q4pGvCE+7Me3F
+	 7MKd3UrweAr8SB36BnZCyi7C/KELsF7CgM1K6Ic6GRKnac7Bp4husvNkQhS24pMiLukq0
+	 9KF2WTEieypS2Tx7dD1HAbwfuWIQPtswOrJbWENc64Fa/Ge+svW91Zx7zxVI6we/BeHCQ
+	 KwAH6bmtHlufufSJF8zUgHS7K8bb8kKK6Pt7zbUwZmnpt8XABAUFXJcq6+OqHDprAUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SMs4/KN/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZYye6LEP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972FF606A321;
-	Thu, 12 Nov 2026 13:02:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7CAF606A882
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:02:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SMs4/KN/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAE401F00A05;
-	Thu, 12 Nov 2026 13:02:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZYye6LEP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E70E1F00A08;
+	Thu, 12 Nov 2026 13:02:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794488534;
-	bh=KYusxYP1bJCA82Agudj5Yk62dkc+vZ4npVPLPLyCVJY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SMs4/KN/eiCn7BHQ63CG/6s/8VCH/u+KLjduSqHZr1LtaiAeMJYqyN5m8Ui6TQN4h
-	 MnhnFbOJGaxTcpwznRharfRlE7U1tbPixQX90oUpd133QX+39cAYaZMZWrAWqgN15x
-	 /Yi8M2nFEbWVSEtYaI2EZPSe3nvlTW9x1zh1TRpfhAnxb3u9RSnCxw7T/ftmssXKui
-	 B9yRenIPrjVreQm2iy9T7LGIojP0KoN+2g+Ap86VM4v5zVLLFyS/s/3X/e/jfRUBD2
-	 y3uIl6Co9ZYPpn1zKy1NO7xnQrrtJ4jEXJ1iF+0C0IRR6AYm2gtgEj4Vop0jp83vtH
-	 16vRycYrOaLBg==
-Message-ID: <sashiko-outbox-211133@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/6] perf: add MIPS Coherence Manager 3 (CM3) PMU
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vladimir Kondratiev" <vladimir.kondratiev@mobileye.com>
-Cc: linux-rt-devel@lists.linux.dev, devicetree@vger.kernel.org, linux-perf-users@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261112-i6500-cm3-pmu-v2-5-cd2569571819@mobileye.com>
-References: <20261112-i6500-cm3-pmu-v2-0-cd2569571819@mobileye.com>
- <20261112-i6500-cm3-pmu-v2-5-cd2569571819@mobileye.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 13:02:13 +0000
+	s=k20260515; t=1794488538;
+	bh=RJ2PySTdMP5k2BjkIu5goRjZubEIQvsj1+Fqpgep/Gc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ZYye6LEPfA/hnqdM0bt26qltKvUOPso/adO51BU6OdxmublLSBrFT+5XvG6U0YdFe
+	 uq/JfdaQEF/PlQ7LO5rOm/oi5mIbt32QjrqBpidCkjkvYzVJ7VvZUXyUpv7Ft0fxbO
+	 ny8GKJ8KBcSuZTHUdAUsOm8wyelyJDp6UU76t4+y2+gklMPSadIR+i6Plt4K8FydO3
+	 BB9PX+bWUr3dopxGc6n4bOqz5rG7ZHNGyp1ydmzi3aIFu2nOyF9LFcJZS3r+oEL7ig
+	 CNLWFU1q2cH9kozO0ORb7bSCTVosIlFYIcjJH92CsOONOZ8p9NLAXWv7Y7MIYitJHy
+	 YFJ70bEhL6GJw==
+Message-ID: <a242ede8-71c2-4f75-b5e5-dcfa98ab25d3@kernel.org>
+Date: Thu, 12 Nov 2026 14:02:11 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,116 +50,233 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] mm: add vmf_insert_pfn_order() and vmf_pfn_order_ok()
+ helpers
+To: Eliav Farber <farbere@amazon.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20261111113045.35368-1-farbere@amazon.com>
+ <20261111113045.35368-3-farbere@amazon.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261111113045.35368-3-farbere@amazon.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] perf: mips_cm3_pmu: counter overflow double-counting in
-  cm3_pmu_update()
-- [Low] perf: mips_cm3_pmu: broken !MIPS_CPS / !SMP configuration
---
-
-commit 272d1a9241643c479b7f4cabbd1c40edccbe1b16
-Author: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-
-perf: add MIPS Coherence Manager 3 (CM3) PMU driver
-
-This commit adds an uncore PMU driver and documentation for the MIPS
-Coherence Manager 3 (CM3) performance and cycle counters.
-
-> diff --git a/drivers/perf/Kconfig b/drivers/perf/Kconfig
-> index 245e7bb763b99..2dbed2fc7b030 100644
-> --- a/drivers/perf/Kconfig
-> +++ b/drivers/perf/Kconfig
-> @@ -75,6 +75,18 @@ config ARM_XSCALE_PMU
->  	depends on ARM_PMU && CPU_XSCALE
->  	def_bool y
-> =20
-> +config MIPS_CM3_PMU
-> +	tristate "MIPS Coherence Manager 3 (CM3) PMU"
-> +	depends on MIPS_CM
-
-[Severity: Low]
-Should MIPS_CM3_PMU depend on MIPS_CPS rather than MIPS_CM?
-
-MIPS_GIC selects MIPS_CM even when CONFIG_MIPS_CPS=3Dn and CONFIG_SMP=3Dn.
-On a !CONFIG_SMP build, irq_set_affinity() is a stub returning -EINVAL, so
-cm3_pmu_online_cpu() unconditionally triggers WARN_ON() when an overflow
-IRQ is present; without CONFIG_MIPS_CPS, cps_smp_setup() also never
-populates the cluster ID in cpu_data[].globalnumber.
-
-> diff --git a/drivers/perf/mips_cm3_pmu.c b/drivers/perf/mips_cm3_pmu.c
-> new file mode 100644
-> index 0000000000000..6d53535473b96
-> --- /dev/null
-> +++ b/drivers/perf/mips_cm3_pmu.c
-[ ... ]
-> +static void cm3_pmu_update(struct perf_event *event)
+On 11/11/26 12:30, Eliav Farber wrote:
+> ->fault/->huge_fault handlers of VM_PFNMAP mappings that want huge PFN
+> mappings open-code the same steps: check that the order-aligned fault
+> window lies within the VMA and that the pfn is aligned to the order,
+> then call vmf_insert_pfn(), vmf_insert_pfn_pmd() or vmf_insert_pfn_pud()
+> depending on the order, guarded by
+> CONFIG_ARCH_SUPPORTS_{PMD,PUD}_PFNMAP, and fall back to a smaller order
+> otherwise. vfio-pci has its own is_aligned_for_order() and
+> vfio_pci_vmf_insert_pfn() for this.
+> 
+> Add vmf_pfn_order_ok() for the window and alignment check, and
+> vmf_insert_pfn_order() for the order dispatch. The latter also checks
+> pfn_modify_allowed() for huge orders: the order-0 vmf_insert_pfn() does
+> this, but vmf_insert_pfn_pmd() and vmf_insert_pfn_pud() do not. The two
+> are separate so that a driver can apply its own policy (access checks,
+> device locking) between them.
+> 
+> vmf_insert_pfn_order() passes the fault's write flag to
+> vmf_insert_pfn_pmd() and vmf_insert_pfn_pud(), as the DAX and DRM
+> ->huge_fault handlers do. With write=false, insert_pmd() leaves a
+> read-only entry in place and returns VM_FAULT_NOPAGE, so a store to a
+> mapping that mm write-protected for tracking (soft-dirty, uffd-wp)
+> faults forever; wp_huge_pmd() splits the entry only when the handler
+> returns VM_FAULT_FALLBACK. Passing it marks the entry young, dirty and,
+> where the VMA allows, writable, as wp_page_reuse() does at PTE level.
+> The order-0 path needs nothing: wp_pfn_shared() resolves that fault.
+> 
+> The helper also declines the huge zero folio's pfn, which
+> vmf_insert_pfn_pmd() refuses with SIGBUS, so that the fault is retried
+> at PTE order where it maps.
+> 
+> They will be used by the /dev/mem and UIO huge_fault handlers added
+> later in this series.
+> 
+> Signed-off-by: Eliav Farber <farbere@amazon.com>
+> ---
+>  include/linux/mm.h | 28 ++++++++++++++++++++++++++
+>  mm/memory.c        | 49 ++++++++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 77 insertions(+)
+> 
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index c11bdee1596a..57437b317709 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -5010,6 +5010,34 @@ vm_fault_t vmf_insert_mixed(struct vm_area_struct *vma, unsigned long addr,
+>  			unsigned long pfn);
+>  vm_fault_t vmf_insert_mixed_mkwrite(struct vm_area_struct *vma,
+>  		unsigned long addr, unsigned long pfn);
+> +vm_fault_t vmf_insert_pfn_order(struct vm_fault *vmf, unsigned long pfn,
+> +				unsigned int order);
+> +
+> +/**
+> + * vmf_pfn_order_ok - check that a pfn can be mapped at a given fault order
+> + * @vmf: The fault being handled.
+> + * @pfn: The pfn to map at the start of the order-aligned fault window.
+> + * @order: The fault order (0 for a single page).
+> + *
+> + * For a huge (order > 0) fault, the order-aligned window around @vmf->address
+> + * must lie within the VMA and @pfn must be aligned to @order. @pfn is only
+> + * looked at once the window is known to lie within the VMA, so a caller may
+> + * compute it before calling, even when the window starts below vm_start.
+> + *
+> + * Return: true if vmf_insert_pfn_order() may map @pfn at @order, false if the
+> + * fault should fall back to a smaller order.
+> + */
+> +static inline bool vmf_pfn_order_ok(const struct vm_fault *vmf,
+> +				    unsigned long pfn, unsigned int order)
 > +{
-> +	struct cm3_pmu *cm3_pmu =3D to_cm3_pmu(event->pmu);
-> +	struct hw_perf_event *hwc =3D &event->hw;
-> +	u32 ov_bit =3D cm3_pmu_overflow_bit(hwc->idx);
-> +	u64 delta, prev, new;
-> +	bool overflowed =3D false;
+> +	const struct vm_area_struct *vma = vmf->vma;
+> +	unsigned long addr = vmf->address & ~((PAGE_SIZE << order) - 1);
 > +
-> +	/* Counts were harvested when the cluster went down, nothing since */
-> +	if (READ_ONCE(cm3_pmu->paused))
-> +		return;
-> +
-> +	/*
-> +	 * When polling, the counter cannot wrap twice between two reads and
-> +	 * the 32-bit difference tells the whole story. With the overflow
-> +	 * interrupt the counter is only read on demand and may have made a
-> +	 * full turn since the last read, which the overflow status tells.
-> +	 * It is read and cleared before the counter so that a wrap seen
-> +	 * here is also reflected in the counter value; a wrap happening in
-> +	 * between is accounted by the next update, which the interrupt it
-> +	 * raises makes sure happens. In interrupt mode every access to the
-> +	 * event runs on cm3_pmu->on_cpu with interrupts disabled, so the
-> +	 * status and the counter are read consistently.
-> +	 */
-> +	if (cm3_pmu->irq > 0) {
-> +		overflowed =3D CM3_PMU_READ(cm3_pmu, pc_ov) & ov_bit;
-> +		if (overflowed)
-> +			CM3_PMU_WRITE(cm3_pmu, pc_ov, ov_bit);
-> +	}
-> +
-> +	do {
-> +		prev =3D local64_read(&hwc->prev_count);
-> +		new =3D cm3_pmu_read_counter(cm3_pmu, hwc->idx);
-> +	} while (local64_cmpxchg(&hwc->prev_count, prev, new) !=3D prev);
-> +
-> +	/*
-> +	 * If the counter wrapped and now shows a value not below the
-> +	 * previous one, it made a full turn on top of the 32-bit difference.
-> +	 */
-> +	delta =3D (new - prev) & CM3_PMU_COUNTER_MASK;
-> +	if (overflowed && new >=3D prev)
-> +		delta +=3D CM3_PMU_COUNTER_MASK + 1;
-> +
-> +	local64_add(delta, &event->count);
+> +	return !order || (addr >= vma->vm_start &&
+> +			  addr + (PAGE_SIZE << order) <= vma->vm_end &&
+> +			  IS_ALIGNED(pfn, 1UL << order));
+
+To make this somewhat consumable for a human,
+
+if (!order)
+	return true;
+return start >= vma->vm_start && end <= vma->vm_end;
+
+And maybe rejecting IS_ALIGNED(pfn, 1UL << order) with WARN_ONCE() as this
+sounds like the user is doing something stupid?
+
+But looking again, this all looks like sanity checks where the user is just
+doing something stupid?
+
+Why is that required at all? I'd get rid of this entirely.
+
+
 > +}
+> +
+>  int vm_iomap_memory(struct vm_area_struct *vma, phys_addr_t start, unsigned long len);
+>  
+>  static inline vm_fault_t vmf_insert_page(struct vm_area_struct *vma,
+> diff --git a/mm/memory.c b/mm/memory.c
+> index ab29ec719ae1..0c583442e049 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -3002,6 +3002,55 @@ vm_fault_t vmf_insert_pfn(struct vm_area_struct *vma, unsigned long addr,
+>  }
+>  EXPORT_SYMBOL(vmf_insert_pfn);
+>  
+> +/**
+> + * vmf_insert_pfn_order - insert a pfn mapping of a given fault order
+> + * @vmf: The fault being handled.
+> + * @pfn: The pfn to map at the start of the order-aligned fault window.
+> + * @order: The fault order (0 for a single page).
+> + *
+> + * Helper for ->fault and ->huge_fault handlers of VM_PFNMAP mappings: maps @pfn
+> + * with a PTE for order 0, or with a PMD/PUD for PMD_ORDER/PUD_ORDER where the
+> + * architecture supports huge PFN mappings. The caller must have checked the
+> + * window and the pfn alignment with vmf_pfn_order_ok().
+> + *
+> + * vma cannot be a COW mapping.
+> + *
+> + * Return: vm_fault_t value; %VM_FAULT_FALLBACK if @order cannot be mapped, so
+> + * that the fault is retried at a smaller order.
+> + */
+> +vm_fault_t vmf_insert_pfn_order(struct vm_fault *vmf, unsigned long pfn,
+> +				unsigned int order)
+> +{
+> +	struct vm_area_struct *vma = vmf->vma;
+> +	bool write = vmf->flags & FAULT_FLAG_WRITE;
+> +
+> +	if (!order)
+> +		return vmf_insert_pfn(vma, vmf->address, pfn);
+> +
+> +	/*
+> +	 * vmf_insert_pfn_pmd() refuses the huge zero folio's pfn with SIGBUS,
+> +	 * while a PTE mapping of it is fine, so fall back to a smaller order.
+> +	 */
+> +	if (is_huge_zero_pfn(pfn))
+> +		return VM_FAULT_FALLBACK;
+> +
+> +	/*
+> +	 * vmf_insert_pfn_pmd()/_pud() don't call pfn_modify_allowed(), unlike
+> +	 * the order-0 path, so check it explicitly for the L1TF mitigation.
+> +	 */
+> +	if (!pfn_modify_allowed(pfn, vma->vm_page_prot))
+> +		return VM_FAULT_FALLBACK;
+> +
+> +	if (IS_ENABLED(CONFIG_ARCH_SUPPORTS_PMD_PFNMAP) && order == PMD_ORDER)
+> +		return vmf_insert_pfn_pmd(vmf, pfn, write);
+> +
+> +	if (IS_ENABLED(CONFIG_ARCH_SUPPORTS_PUD_PFNMAP) && order == PUD_ORDER)
+> +		return vmf_insert_pfn_pud(vmf, pfn, write);
+> +
+> +	return VM_FAULT_FALLBACK;
+> +}
+> +EXPORT_SYMBOL_GPL(vmf_insert_pfn_order);
+> +
+>  static bool vm_mixed_ok(struct vm_area_struct *vma, unsigned long pfn,
+>  			bool mkwrite)
+>  {
 
-[Severity: Medium]
-Can cm3_pmu_update() double-count a counter wrap in interrupt mode and
-inflate event->count by 2^32?
 
-If hwc->prev_count holds a non-zero value prev and the counter wraps to a
-small value (new < prev) between reading pc_ov and reading the counter,
-the first cm3_pmu_update() sees overflowed =3D=3D false, updates prev_count=
- to
-new, and already accounts for the wrap in (new - prev) &
-CM3_PMU_COUNTER_MASK while leaving ov_bit set in pc_ov.  When the pending
-overflow interrupt then runs cm3_pmu_update(), it sees overflowed =3D=3D tr=
-ue
-with the counter >=3D the new prev_count and adds CM3_PMU_COUNTER_MASK + 1 a
-second time.
+Why do we even care about the order? Why isn't it sufficient that we get called
+with "insert this pfn range" and we see how to best map it (pfn/pmd/pud)?
 
-Similarly, because the hardware sets ov_bit when the counter reaches
-0xffffffff rather than when it wraps to 0, handling the interrupt or
-reading the event while the counter is still at 0xffffffff satisfies
-overflowed && new >=3D prev, adding 2^32 before the wrap to 0 adds 1 on the
-next update.
+Why does the caller even have to care about *how* something is mapped?
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-i6500-cm3-=
-pmu-v2-0-cd2569571819@mobileye.com?part=3D5
+-- 
+Cheers,
+
+David
