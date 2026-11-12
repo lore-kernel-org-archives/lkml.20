@@ -1,84 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794473002;
-	b=WwVpNvICQWMKvtny44Lq1CvzSMSu5TlHSw0impqDxOmYn7U58JtGbqn70qexONwoJp+y
-	 HxsTdXv7w8awz+FQQM9K6mjeuDlvxIvgpx+EHx5W2dj6YxWdH+SxH0CkZtTRX9mYXvBbh
-	 nNEaoT+mYDZ1vE13xrZ4ZKJCIgPczskd6rbvWX/kqghYCu+NUxGQy9HxhwSxW6VNfx0IR
-	 SziWvk1Nd5BcjSvs/Wf2cMVx/s1GwPTo39J5ZAPX4s4d8AQPT8Glg/uVXQNp5Z9BSX4Vu
-	 Mhwgq1G77Rxp+q8cL3fGRwdAt46FfYdezQS0f/ha/6etwFzq3csYiFcpNOzHHAD6nfQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794473002;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Ccrg0Ah5/raiZe23O01HRQmfIbLS9+N0hKSJNBgmJXY=;
-	b=IQtYjkz/+bv6DukkIhw9VeGeBPtej974LXioPaqNZv4fHUjLPVpfKY3usz0LkyM7uB/+
-	 ndrxFZiXuZ+9SD7NAnBFum+j9YNmgCu4LNCI367ZizD7F4rnFJWtzCqhpgfiSUEzzkyAe
-	 5JKrDv4tHfS9abssfjtUgKdHq+xZD0c4qsQKDjehJDnuuf2X8GBw6aNd8biNDlJ6LHdGj
-	 CiwYRrbhUdWUs6/I8WDGaEjDocDSb9gVu6fAjSde9vpEFoHwxMhQxY+FnZigexZwZdNHe
-	 9jI/XoIXvxov6C+K/2KxyaypL+25ff48JfMspGDhEPlGC6ZClfoWLobccUP0x4Q6C2w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=pereq.eu;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794473041;
+	b=XZlswekAsyHShYZMXRuOaDyF+CHhQLAZid0ln2ljhU+OniB5j55kXywl9ynVpEqFZxcb
+	 ieIoi3OzTbbZ1yUJYAgB3JGiqii8LGyk2O4Yzj2bOBupyKD6PP3RzMhXXg7llAOiLSssr
+	 dyrPAAwP9h9iKIABB6zsYWsnJjK3cp3LklB50Qge/9oyfPTWb3oyOadlxoSJQp/bGjzNp
+	 LoVYbXpNkwYfWctGu/ZMkCoa/6J7XwSNeR77Ac7ZrwROD2zn857y2QlW93WCKlhFJX8w9
+	 dA/K5FzmO7oIzvs4bLFvo3K+gncn05oF47GE8AxZXFJmMHZwojBXLF8kzeACZ7pVaeg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794473041;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=j4z+t7xZiBYWqSlCxRL9tqHGVa1+jJSPT4E84fY0Opw=;
+	b=qzc/Ihfo+IoYU9dE85MKsNFHbdWEHqiGOgp3pZts/VNe1rJ+f5Wglro7G+DZSL6zg4Sj
+	 nOIJ5tZsCVj/5abKQKC2NanQMxGMDocCON7Itsh9azDbRuRuK8qDRfC3op56Nh2h7CtfP
+	 VmkzdMZyIwkomaGoXORxM9dQkEKKiNkOROYtV47yOMGgOKqMiZR5fDS6PIcRvF0+YwqzV
+	 4I82sS4nc3eoRiYeA1HTxRbSyP0OWc+Udbiu7vmBPSerKkK5CnXoezI3vw8OFOkI8quvJ
+	 gJApc7R8cZbXTO/vFfvzu3Ggbrj/3F09RLAexsseIfOOcd96LRHKhONWFeCP7vGux0w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U1pDnbWC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.182
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44BCE606B247
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:43:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44BCE606B247
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=pereq.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC91E606B247
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:44:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC91E606B247
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso25601555e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:43:21 -0800 (PST)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U1pDnbWC
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3acd523a802so33563491fa.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:44:00 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794473039; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BnNVoCU1sPeLiT7bpS5zLCCJrV1Q7q37T88K/BNSTyXBq+gbs0gJMAGkJRxSCdcYtk
+         e1iPs+QCuno8DEh4fe1KlXFDriIgN24wMlqQUQsLkZunu/bUbmJyu7iVMj2HxKzgjjmU
+         nqYCMtrnJ45fb3L6cnSiKhbqK00IW7pWxuljy/tWGFb/xyNjgDfxKcubSymCRbpntswa
+         WSu2IQqrviUsyPKIOTZZevhRIbPFUwIChMsoXRJi45mWL4Vd5fN1ScsoXfmDmY65B26E
+         MJwNhFdMqHDHoJIe353UZNpp29vdKD83Q1enSrhimu05n0W+Gz1SBgOgdzN5YO56KQqO
+         Cohg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=j4z+t7xZiBYWqSlCxRL9tqHGVa1+jJSPT4E84fY0Opw=;
+        fh=2QmtWkt0gVKp+6agU+HzgL0fCdaLx3nG7PXN6wCYK+8=;
+        b=KtBd0HEDFibWfWoXqsYqvi/mirZHsj++lPdiVeiGSjwkKhKWLv4rppe4Q51skpbLzM
+         ks7PJALl1K3JUmOgnv/xVKZT1cspZ+AIvGJLMg0YeYmPO6VTor6SsQBQkbj1tmWX8vUP
+         bS2W/EOhn+WLI63xyWrBT+IL0K5aZsufaNmrpCvUUS8dXtEObjTaLCPBFlwZ51Tc6PCV
+         k4MOfh+c1i2q+NYJQMSgq0UpdcjMcNAKjgaby2RtN/ot1YQ+uH6St/y2ROM+WRb45wHG
+         Laefvkr04Hst+skidee3tGGCG4VJPSk3Py2lb0GyHKg5jiGUmZUvsKltc0c2vR7Ym7bA
+         lA4w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794473039; x=1795077839; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=j4z+t7xZiBYWqSlCxRL9tqHGVa1+jJSPT4E84fY0Opw=;
+        b=U1pDnbWCVTCGQ77KHMpS0ryIaY5Fd8M8qQtnYvIN/tmX8WicigA45WByhGmV43ossZ
+         pfnI64oIMCvXG8XXWmk+gr6tcrgPDj2fU22ue+zSzsR7sWEBVKcL1DmwcPTMaCnFOF0r
+         jtyUZsI2FR+DNUEReCFY+5P31HvJWHAgDLN9G1NMVXtFNZO/8aFXIldiyBt/uGWxzziM
+         0EcImUD+ORPm4MwTBn/RrhH1tyrHovLeXJYT6nviSzb3QU2VqavcDOUCsYAA0KG4QHaj
+         NY47PsuSV+Mo+t7BQpe02fEgrRDAVk6MO79V1ILDOteoY6ktLVHeZRk2yQ0X/uOtUpHq
+         luwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794473000; x=1795077800;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794473039; x=1795077839;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ccrg0Ah5/raiZe23O01HRQmfIbLS9+N0hKSJNBgmJXY=;
-        b=A4EaYZhgmkSbcLZvgj56cyXORZk5zjC6tSsyhqnkUJjk5zI++IpNp+kk6LXHFFiAhx
-         8gUFitmNikekkq0D4lv1DrF/BC1+PXk2w1Wpjcv4x0WgoLZ5+2a/RjtOs1sMHJ9hxorP
-         4Wei1KKNsyMSFMahjsqUVGFPUxgUzHzLRqAWOGKHv0jvtoBNAbMbTvQpY5zlgZQnwk3O
-         nFySliYuJSDy1MpFlxbQNpWoqI6oaWqwrKlObltSUurpqkPsqjjTUKaymM51NRRM3iFh
-         JMFlIMFaZrq69/lBGetsyQSjb4VNVZGE9u2rbjC15OlAa8gHx4rIStoHz4XRxzChvQNk
-         Kgrw==
-X-Forwarded-Encrypted: i=1; AL+hErHcDwfj4mwqpasZkPUktrYJpvUkCTsUqvWOoqD73NxmEY2DlrziIjX0L1E6MVrp59YwFEV10mUzKNT28Wg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/95bHdJjzz+GQyrtuJG01o01og+krRO506N/LrXxIt+uQzwVHM
-	lkpFSmk28OlJ6QQZjmilyZCH/GzCHrU7GUNQUL4a8aN0j/KG9nT85Rzf
-X-Gm-Gg: AYBFou15616uTDgEIZ9sRT8zZLZS62oOxFOPoI8Wok3lgbtpKHyLz1OKUyP9ru91pPj
-	FttSVVA30OJEUY1d4tW3+CrZvWEKOkSfq+QRfjXReBaOzKhsaM6SMib1FTKuCtZwxlitOUlUdl5
-	qQ7bvVaTg606vIqpx1R5RYeb8qFAnGQHHlzfuvb3ZFGmqtohW4uqmu6SIXOvIQBz5KmJ6k4TS4Z
-	36EJaEJZ90M0PbRfICZFgfVfUiepCb55qHwU54gr38njfwLv18cxyB+FHrZujFaddzxiR7cswtY
-	mVONeR6GhlM5pLIAUSRnvyQXHJ3orYyIRQBtn0eQMaxz+TTEzcHCm2CMZPJ2Zy/NsZz0iq4WqCt
-	LQFOTYYiyayaA2z/ctC+Emw9YFplzCIg2MucFyFSPvGX4W68l0FvdZ1GLZyvcBMHk7qJRP+geTE
-	VSz69IhrC58fxWLgT0V0JTuiqX7IAbZcVyIE7gqtMtnYUYUoYV1DBX+6zNGy0ma7Q2uNMwRxtd0
-	DZVnFXipXWPQd+xohQUyh5a5qIw4yMVWsuxLif5IUYa+qAbFoC3pJRm4hNpnWwFeL9vh8EA68Cj
-	iZvsRThgFxypv8rrhdv+gNg3kxz1VQ7VWJxjkz6slHSi6c8RRosZFP+E0YEPnPiXyCTmgXWmCEB
-	BUT8n2VJYI5zFq+HNvhitKy9fir5VkQ2F8aatNacy1bVzriWcmPAQFgWaXlyNCeHczNMCfpcoAt
-	+jDQV6mw==
-X-Received: by 2002:a05:600c:470d:b0:4b1:4017:c4f4 with SMTP id 5b1f17b1804b1-4ba093805b3mr88234605e9.20.1794472999607;
-        Thu, 12 Nov 2026 00:43:19 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e258e8dsm82532545e9.4.2026.11.12.00.43.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 00:43:18 -0800 (PST)
-Date: Thu, 12 Nov 2026 11:43:15 +0300
-From: Dan Carpenter <dan@pereq.eu>
-To: Shunbo Shi <shishunbo@cmss.chinamobile.com>
-Cc: syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com, elder@kernel.org,
-	gregkh@linuxfoundation.org, greybus-dev@lists.linaro.org,
-	johan@kernel.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-usb@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Subject: Re: [PATCH] greybus: verify the received message size covers the
- message header
-Message-ID: <avV8I97uZJgX8Osk@stanley.mountain>
-References: <6af55517.a0c627da.5d811.0010.GAE@google.com>
- <20261112082230.33584-1-shishunbo@cmss.chinamobile.com>
+        bh=j4z+t7xZiBYWqSlCxRL9tqHGVa1+jJSPT4E84fY0Opw=;
+        b=pVcROho+qgTcu2Kt7gC37EnydIsGgDVDxNYpmMhUxfI0Tuyw48iwF/iqXwQH+QgZSV
+         +RsALAs4IDNvxLigy/OsxIij4UGGNy1JxWsEHBRtNbTnG36a0FZHfIYcy4HKqLq/bbdh
+         8QVep8GWrCu0b9+DpS+qPLllKqReEPzUMsvcXcq6XihtNQO6jdtcpxMLddN1DzEkVMAQ
+         Vkdx7pkXGbYD/wSMdsS/NdurHWsztoDHKKVEMcHXScyXPcCDRsTL4JTgLp++pfBEQ4yM
+         57Wo2JX4WweNQe/Z6nvJjmwyKwsQClcFbm+LAEdjW45wn5SZhXphWs2RGEGJXqlpovFk
+         2eGw==
+X-Forwarded-Encrypted: i=1; AL+hErEE/hPGOWpHW04WJcbtoKtJ2AbWQZ6IaLq84/mGs0CT4r0jJd/Es+m8H2M7drih8OBBOr8fWr9cOVVYlMQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+HwlHHMi4vuWn9U/+J1D3OeQmLGOyjULntCpPpZ720MO+ByfJB
+	E5ii63VgwmDAbumG171kkzRJyU/Beh2fESnxXjIIK//FuPzy0coEPVsOguMzDocODgftmx8Ms7X
+	uo94Yxb3kYsFk2Ij5UZog7nvRkXtscL0=
+X-Gm-Gg: AYBFou3HyKXPcxa4WafkAan23o4tGDMGhp9ghvTB3/QOvZGpiQe7Xbj+nH/tYC/EAsR
+	o/ckhkUycEtLLGDPtRmmCfC342RMvSEvsjh3qEFO5JT9oueaU5VfrAfRGl9qSBGCdUXoWdi/6MI
+	1b9Z42bmhgrZEzWi0ucd3LU2h0vIAgPnEuP1QZ1nGczt/5jtBZ1J00dsyw6Z7yR3BF3nv8LG7LT
+	cNt1qQhE/1tENjGgqe5FESuG3p+T9Gds8kRjK4KbN/h9lRRWrCiinifc/iPncFQArrw7j+6ZM9J
+	mg3o10xvEsEg6NZbzVPNU/XbR1CYPBvKvbFC+boFTTwQ+NGQbD21Hgzn14ugCT3dNEP9m/4VSpx
+	3FzJi7dO2/RTsqD9YZcOSz7dApCG6gaQHUcZBdlow+pPLIjJMF4tXWIEDBdxT6SF7
+X-Received: by 2002:a05:651c:a347:b0:3aa:fc64:a92c with SMTP id
+ 38308e7fff4ca-3ae125cc73emr11313481fa.1.1794473038570; Thu, 12 Nov 2026
+ 00:43:58 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,79 +104,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112082230.33584-1-shishunbo@cmss.chinamobile.com>
+References: <20261102130836.11863-1-yaoyuan0329os@gmail.com>
+ <20261102130836.11863-2-yaoyuan0329os@gmail.com> <avKBsi-E7IeUgsSY@google.com>
+ <TY0PR0101MB4786C8CF42ED66617BD9DA1EDC722@TY0PR0101MB4786.apcprd01.prod.exchangelabs.com>
+ <avMcB0q7wF9oP5X8@sapienza> <PUZPR01MB477458CD012208A31DE60068DC712@PUZPR01MB4774.apcprd01.prod.exchangelabs.com>
+ <avRttU9N0EZeq8nY@sapienza> <TY0PR0101MB47865DFC765932B9E6C3E1C0DC702@TY0PR0101MB4786.apcprd01.prod.exchangelabs.com>
+ <avVPRySmoH_KKHa6@google.com> <CABxCQKt9o--KrucZ-jcG+tb4AGtrBnPY_mypqX64ojWRpoO_yw@mail.gmail.com>
+In-Reply-To: <CABxCQKt9o--KrucZ-jcG+tb4AGtrBnPY_mypqX64ojWRpoO_yw@mail.gmail.com>
+From: Vishnu Sankar <vishnuocv@gmail.com>
+Date: Thu, 12 Nov 2026 17:43:21 +0900
+X-Gm-Features: AclHuK8ZD51yIggX2ulMSfaDbMsjgHBr0y01lwFMAIyoSpiv0HXa-d3ugFJHB-A
+Message-ID: <CABxCQKvPhvs5X+fej2gHaCJv_rWWPYciG8cUKVtxgSb-iFK5yQ@mail.gmail.com>
+Subject: Re: [PATCH 1/1] Input: trackpoint - Add new ELAN trackpoint device
+ variant id 7
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: =?UTF-8?B?SmluZ2xlIFd1IOWQs+mHkeWciw==?= <jingle.wu@emc.com.tw>, 
+	Yao Yuan <yaoyuan0329os@gmail.com>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	"linux-input@vger.kernel.org" <linux-input@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	=?UTF-8?B?UGhvZW5peCBIdWFuZyDpu4PkuJbptaw=?= <phoenix@emc.com.tw>, 
+	=?UTF-8?B?U3RhbmxleSBDaGVuIOmZs+W7uue2rQ==?= <stanley.chen@emc.com.tw>, 
+	Vishnu Sankar <vsankar@lenovo.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 12, 2026 at 08:22:29AM +0000, Shunbo Shi wrote:
-> In gb_connection_recv(), the size of the received data is checked
-> against sizeof(struct gb_operation_msg_hdr) and against the message
-> size encoded in the header (msg_size), but msg_size itself is never
-> checked against the header size.
-> 
-> If a peer sends a message whose header claims a size smaller than
-> the header itself (e.g. header.size == 3), the two existing checks
-> both pass (size >= sizeof(header) and size >= msg_size), and the
-> message is dispatched with the undersized msg_size.
-> 
-> In gb_operation_create_incoming(), this leads to an unsigned
-> integer underflow in:
-> 
-> 	request_size = size - sizeof(struct gb_operation_msg_hdr);
-> 
-> The underflowed request_size then wraps back around in
-> gb_operation_message_alloc():
-> 
-> 	message_size = payload_size + sizeof(*header);
-> 
-> causing kzalloc() to allocate a buffer that is too small to hold
-> the message header.  When the response is later prepared in
-> gb_operation_response_alloc(), reading
-> request_header->operation_id reads past the end of the undersized
-> allocation, triggering a KASAN slab-out-of-bounds report.  When
-> header.size is zero, kzalloc(0) returns ZERO_SIZE_PTR and the
-> same read dereferences an invalid address.
-> 
-> Verify msg_size >= sizeof(header) in gb_connection_recv() so that
-> the "Caller has made sure we at least have a message header"
-> assumption in gb_operation_create_incoming() actually holds.
-> 
-> Fixes: d90c25b0a279 ("greybus: let operation layer examine incoming data")
-> Reported-by: syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com
-> Closes: https://syzbot.org/bug?extid=0b456664585fa81a47f6
-> Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
-> ---
->  drivers/greybus/operation.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
-> index 7e12ffb2dd60..da53c0e026f0 100644
-> --- a/drivers/greybus/operation.c
-> +++ b/drivers/greybus/operation.c
-> @@ -1047,6 +1047,13 @@ void gb_connection_recv(struct gb_connection *connection,
->  	/* Use memcpy as data may be unaligned */
->  	memcpy(&header, data, sizeof(header));
->  	msg_size = le16_to_cpu(header.size);
-> +	if (msg_size < sizeof(header)) {
-> +		dev_err_ratelimited(dev,
-> +				    "%s: invalid message header size (%zu < %zu)\n",
-> +				    connection->name, msg_size,
-> +				    sizeof(header));
-> +		return;
-> +	}
->  	if (size < msg_size) {
+On Thu, Nov 12, 2026 at 4:14=E2=80=AFPM Vishnu Sankar <vishnuocv@gmail.com>=
+ wrote:
+>
+> Hi Dimitry, Jingle, Yuan,
+>
+> On Thu, Nov 12, 2026 at 2:33=E2=80=AFPM Dmitry Torokhov
+> <dmitry.torokhov@gmail.com> wrote:
+> >
+> > Hi Jingle,
+> >
+> > On Thu, Nov 12, 2026 at 05:26:46AM +0000, Jingle Wu =E5=90=B3=E9=87=91=
+=E5=9C=8B wrote:
+> > > Hi Yao:
+> > >
+> > > Upon inquiry, it was confirmed that a black TrackPoint stick (0x07)
+> > > underneath the red TrackPoint cap corresponds to a vendor that is
+> > > compatible with the Windows ELAN driver.
+> >
+> > Are you at liberty to share the vendor name? Or should we mark it as
+> > "Elan" or "Elan-compatible"?
+>
+> Sorry to jump in; this is Vishnu from Lenovo.
+> I have now confirmed with the component owner and supplier that the
+> TrackPoint reporting variant ID `0x07` and firmware revision `0xA1`
+> are made by JYT/NDT, not ELAN. The physical check also identified the
+> corresponding button/stick as white. It uses the same ELAN driver for
+> Windows but has different FW.
+Sorry, typo.
+The physical check also identified the corresponding button/stick as
+black/off-black
+>
+> Therefore, the patch should recognize `0x07` as the JYT/NDT variant
+> rather than naming it as an ELAN variant.
+>
+> Can name it something like  [TP_VARIANT_JYT_NDT]          =3D "JYT_NDT"
+> or something like that.
+> >
+> > Thanks.
+> >
+> > --
+> > Dmitry
+>
+> --
+>
+> Regards,
+>
+>       Vishnu Sankar
 
-Combine the conditions:
 
-	if (msg_size < sizeof(header) || msg_size > size) {
 
-regards,
-dan carpenter
+--=20
 
->  		dev_err_ratelimited(dev,
->  				    "%s: incomplete message 0x%04x of type 0x%02x received (%zu < %zu)\n",
-> -- 
-> 2.53.0
-> 
-> 
-> 
+Regards,
+
+      Vishnu Sankar
