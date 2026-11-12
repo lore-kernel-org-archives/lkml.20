@@ -1,68 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794521592;
-	b=DBpTNjxUySXP56RKseVXYyhsLzx/AnNrUDnB1lKq4HgMD0NaqOmJzFADGg1qkpd+pILb
-	 4oCIjI0JcGr+vkBqn6QRwAG2/NeWyWjbzLTtU+SK1/If9hSiNTo7HVDr5mrncJzCP4x42
-	 szLthN3YImvEAigyYB4T8pxlR4Of2oNvGwJuSkSmYxkAXDvgHdXTJSBfXvb/hfSws5Z+K
-	 fQG9670dsEnwl6+fRRdqrylzxnI560GkNhtECGOdNlAf4JKRokgMkm1KUtNBplEMEqoOZ
-	 G9fVPL9SFbUhlaOsb69Vp8cA6oY30Ursy7/xXQEPlNK1awCKfJSPE0CX4FhbDFMi6Xw==
+	t=1794521657;
+	b=ziUAMwB9KIjB83Lw0xVbUg/3izWmus/f2fwTXamlLKU/1ywLyHPyg3DaGp6mVH3caYpO
+	 CgPp6hsiGmfM0fdhuF6J691EZIYjxgIfFhuUKrVEJYYZF+ZF0c87uD3AkLw/iHllqXxq/
+	 V5eC5/m15BOoi+Uoo0dPELJ4loYWXXWhm7JJw+flvm3TU/VRnBwR9AsUfDhvfqr+OcpNL
+	 yLz3HjNYdqS41DIxW0OqnOMjChL4hCJMULkveti5ToF5lDRJ7Udo0p5tbxQeIZDr7KerI
+	 R4KPYNu/Z17M08u/n8ohhnsHccYF9WuJtLNnMEVBCw4gy4u9jSKt5o+V1WY54Gh6cSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794521592;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=kTdo+kO/ZFnoi8WBOH10hGoTbRODmVYIrrHV4RIL5fA=;
-	b=xWL1hOARfBva0ZqHxhyh6oOU/T+3anc2vLmO5V+pFgoo6Puj9YfAQxY+nDeyapLeLTMj
-	 IbFnqCuzUN03yql/GK9ExHz6Wi3IcrI4m0ymSKB7J73ghcPkiCpxege43O3RZbqZiex0K
-	 /JlRhp0lI8JyT5/O7oqB1hADMJ060uXrqN0pR0HZjpiHbMQQEaAn+V2BOlBagu2ZAoyIs
-	 dsMAsq2FYJcPxmpNtFOsxDvkilWsuzUxs6TWmnf8+b1fuSk5c4VZW1UlMZuu8QPL8lh7x
-	 0DsHAPAL7pPi7yIKFEtooZG04brkqlHC5Lm2S+r1w1I1e4/QcIC5BZeVAF2dUrIJf4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794521657;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type;
+	bh=9KhTxx7Zr4hjfg7KTdE7MstkrdgDZypeK0mfiKIhiOs=;
+	b=SbMaZXYzeemb+4MAqatHakZ7kY1CSeZufCbodAi9MpJwnZeAL5Np0HxDyT4HACNcEI2u
+	 I/Io86/jyC5um0X3RsULNq3n+viiPBvEGEQafn+DKMfiZqZKNEWRNVvIYcioRlme3Yvdc
+	 i7u20M3rjxV/SaIwCkVDUUUw5Lt1/lE+JlyaYdI2j1+ZOgiuHNcBEg1mjnKsL+wEeBW2R
+	 iBe1OoXMep9V8ZZz/0WvhYvTLUuIfNN/sBIruaVEjF1mVtxZoa4JbszsDP1f1/LrNPt2R
+	 5vpe7JqrNlkNmQM5qPRG7cGsnDFwRTELlnbiSnkdP8Kt5FchMa1w4mDJO1rkduetYvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=iaYl8CJG;
-	arc=none smtp.remote-ip=95.215.58.216
-Received: from mta1.migadu.com (out-216.mta1.migadu.com [95.215.58.216])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YvwMMI7P;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E942E606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:13:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E942E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60345606A31C;
+	Thu, 12 Nov 2026 22:14:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=iaYl8CJG
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=SBKlid3rP+qCHPEj+Z0hRqE3CyPPTMKLsXSlj3BJE+c=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794521590; v=1; x=1795126390;
- b=iaYl8CJGgnyl+5hL1pofzDwkBpk0CDE8yh15YaEbJw4NLc5S2i5xWHovQGaTnX6ARYyJcqGL
- 5ub1HZYjIwxeE2g5m1V5jSKFBeUk2gZGg3YTdwLADNruTbBWmI3oY4JB3+ywis2IH8k2jHe6DCf
- byWolOUof+FhzolNqXwmoxVQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 140af9af48ba9318;
-	Thu, 12 Nov 2026 22:13:08 +0000
-X-Mizu-Trace-ID: 140af9af48ba9318
-X-Migadu-Flow: FLOW_OUT
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Dave Chinner <david@fromorbit.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	David Hildenbrand <david@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Meta kernel team <kernel-team@meta.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Chris Mason <mason@kernel.org>
-Subject: [PATCH] mm: list_lru: don't use a new memcg's lists for an offline memcg
-Date: Thu, 12 Nov 2026 14:12:48 -0800
-Message-ID: <20261112221248.3512447-1-shakeel.butt@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YvwMMI7P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C2F61F000C9;
+	Thu, 12 Nov 2026 22:14:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794521657;
+	bh=9KhTxx7Zr4hjfg7KTdE7MstkrdgDZypeK0mfiKIhiOs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=YvwMMI7PRXhf6+j5PUnskPlwa1Pr/RJadLUItvSSBIdcs8RK3zRJWfO29isaqQexw
+	 yAtNMEL0ShxpoIssQl5RabhaGraEMnCn8iJAMbfDG9SjO2kUOIFCTvCXTtJlSyFAxM
+	 fkPGCto0+AbuEup2wNJtIa6Z6kjuwrGxAKYK+6439yi0LQd7It47fH5X92uNOeNGbN
+	 bBwiY+HXzfYdUIwtfQIafDLRUcGpaEvBc2N3h2MNXb47NLuOUrmVIJH0t5c5iQPxD5
+	 jXmLyz0Zzf7eZ+NHFHVzDDs/6kzGGnvrjXvbDSUy0EATKpe0oMlsZewfoWB404oFav
+	 4egUNxy+AEXNQ==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Troy Mitchell <troy.mitchell@linux.dev>, Radu Rendec <radu@rendec.net>,
+ Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, Palmer
+ Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre
+ Ghiti <alex@ghiti.fr>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt
+ <rostedt@goodmis.org>, =?utf-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@rivosinc.com>
+Cc: Anup Patel <apatel@ventanamicro.com>, linux-kernel@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-rt-devel@lists.linux.dev, Troy
+ Mitchell <troy.mitchell@linux.dev>
+Subject: Re: [PATCH v2 2/2] irqchip/riscv-imsic: Complete vector moves
+ without a timer
+In-Reply-To: <20261112-imsic-remote-sync-irqwork-v2-2-680f65b24ff6@linux.dev>
+References: <20261112-imsic-remote-sync-irqwork-v2-0-680f65b24ff6@linux.dev>
+ <20261112-imsic-remote-sync-irqwork-v2-2-680f65b24ff6@linux.dev>
+Date: Thu, 12 Nov 2026 23:14:13 +0100
+Message-ID: <87v761snnu.ffs@fw13>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,122 +66,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-A memcg's list_lru lists are found by its kmemcg_id, which is its
-private ID. Offlining a memcg moves its lists to the parent and frees
-the ID right away, with no RCU grace period. The next new memcg can get
-the same ID and allocate its own lists at that index.
+On Thu, Nov 12 2026 at 07:54, Troy Mitchell wrote:
+> When a vector moves, the new CPU clears move_prev only after the old CPU
+> has released the old vector. If the new CPU syncs first, it arms a timer
+> on itself and retries a jiffy later. That CPU is often the one entering
+> idle and taking over the broadcast interrupt, with its tick already
+> stopped, so the timer is not programmed.
 
-A caller that holds only the RCU read lock, such as
-__folio_unqueue_deferred_split(), can still hold the offline memcg. If
-it is preempted until the ID is reused, it then locks the new memcg's
-list and unlinks a folio that now sits on the parent's list, without
-holding the parent's lock. A concurrent change to the parent's list can
-then leave a pointer to a freed folio on it.
+When that timer expires _before_ the earliest programmed timer on the
+remote CPU then that remote CPU is kicked out of idle to reevaluate.
 
-Users see list corruption reports, crashes or silent memory corruption
-when memory cgroups are removed and created while THPs are freed, on
-kernels with preemptible RCU, which is the default on x86 and arm64.
-They can also see a warning from memcg_reparent_list_lru_one() when the
-new memcg is removed, because the wrong unlink made its count negative.
+So your problem description does not make any sense at all.
 
-Fix it by recording the owning memcg in each list_lru_memcg, and by
-treating the index as empty when its lists belong to another memcg. The
-lookup then moves up to the parent, whose list holds the folio.
+If the timer code fails to kick that remote CPU out for re-evaluation
+then this needs to be fixed and not worked around somewhere else with
+dubious claims.
 
-Fixes: 28e98022b31e ("mm/list_lru: simplify reparenting and initial allocation")
-Reported-by: Chris Mason <mason@kernel.org>
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
----
- include/linux/list_lru.h |  2 ++
- mm/list_lru.c            | 18 +++++++++++-------
- 2 files changed, 13 insertions(+), 7 deletions(-)
+> The move then completes only on the next interrupt of that CPU, which
+> took up to 0.5s on an idle SpacemiT K3. Until then the IRQ is still
+> marked as moving and further affinity changes of it return -EBUSY.
 
-diff --git a/include/linux/list_lru.h b/include/linux/list_lru.h
-index a450fffe1550..6ef5bc539606 100644
---- a/include/linux/list_lru.h
-+++ b/include/linux/list_lru.h
-@@ -38,6 +38,8 @@ struct list_lru_one {
- 
- struct list_lru_memcg {
- 	struct rcu_head		rcu;
-+	/* owning memcg, only compared and never dereferenced */
-+	const void		*memcg;
- 	/* array of per cgroup per node lists, indexed by node id */
- 	struct list_lru_one	node[];
- };
-diff --git a/mm/list_lru.c b/mm/list_lru.c
-index ca8de3793166..560190d5b348 100644
---- a/mm/list_lru.c
-+++ b/mm/list_lru.c
-@@ -72,12 +72,15 @@ static int lru_shrinker_id(struct list_lru *lru)
- }
- 
- static inline struct list_lru_one *
--list_lru_from_memcg_idx(struct list_lru *lru, int nid, int idx)
-+list_lru_from_memcg(struct list_lru *lru, int nid, struct mem_cgroup *memcg)
- {
-+	int idx = memcg_kmem_id(memcg);
-+
- 	if (list_lru_memcg_aware(lru) && idx >= 0) {
- 		struct list_lru_memcg *mlru = xa_load(&lru->xa, idx);
- 
--		return mlru ? &mlru->node[nid] : NULL;
-+		/* Lists at a reused index belong to another memcg. */
-+		return mlru && mlru->memcg == memcg ? &mlru->node[nid] : NULL;
- 	}
- 	return &lru->node[nid].lru;
- }
-@@ -91,7 +94,7 @@ lock_list_lru_of_memcg(struct list_lru *lru, int nid,
- 
- 	rcu_read_lock();
- again:
--	l = list_lru_from_memcg_idx(lru, nid, memcg_kmem_id(*memcg));
-+	l = list_lru_from_memcg(lru, nid, *memcg);
- 	if (likely(l)) {
- 		lock_list_lru(l, irq, irq_flags);
- 		if (likely(READ_ONCE(l->nr_items) != LONG_MIN)) {
-@@ -132,7 +135,7 @@ static inline bool list_lru_memcg_aware(struct list_lru *lru)
- }
- 
- static inline struct list_lru_one *
--list_lru_from_memcg_idx(struct list_lru *lru, int nid, int idx)
-+list_lru_from_memcg(struct list_lru *lru, int nid, struct mem_cgroup *memcg)
- {
- 	return &lru->node[nid].lru;
- }
-@@ -313,7 +316,7 @@ unsigned long list_lru_count_one(struct list_lru *lru,
- 	long count;
- 
- 	rcu_read_lock();
--	l = list_lru_from_memcg_idx(lru, nid, memcg_kmem_id(memcg));
-+	l = list_lru_from_memcg(lru, nid, memcg);
- 	count = l ? READ_ONCE(l->nr_items) : 0;
- 	rcu_read_unlock();
- 
-@@ -502,11 +505,10 @@ static void memcg_reparent_list_lru_one(struct list_lru *lru, int nid,
- 					struct list_lru_one *src,
- 					struct mem_cgroup *dst_memcg)
- {
--	int dst_idx = dst_memcg->kmemcg_id;
- 	struct list_lru_one *dst;
- 
- 	spin_lock_irq(&src->lock);
--	dst = list_lru_from_memcg_idx(lru, nid, dst_idx);
-+	dst = list_lru_from_memcg(lru, nid, dst_memcg);
- 	spin_lock_nested(&dst->lock, SINGLE_DEPTH_NESTING);
- 
- 	list_splice_init(&src->list, &dst->list);
-@@ -602,6 +604,8 @@ static int __memcg_list_lru_alloc(struct mem_cgroup *memcg,
- 			if (!mlru)
- 				return -ENOMEM;
- 		}
-+		/* Set before the lists are published, and never changed after. */
-+		mlru->memcg = pos;
- 		xas_set(&xas, pos->kmemcg_id);
- 		do {
- 			xas_lock_irqsave(&xas, flags);
--- 
-2.53.0-Meta
+What's the problem with that? The notification to cleanup can be
+arbitrarily long delayed. See below.
+
+> Let the old CPU queue the sync work on the new CPU once it has released
+> the old vector, and remove the retry timer. Wait only while the old
+> vector still points to the new vector, since a released old vector may
+> already belong to another move.
+
+That's even more bogus. The old CPU does not queue anything.
+
+The issue with these completely misdesigned interrupt controllers is
+that the only safe way to migrate an interrupt is to do the following:
+
+   1) Defer the affinity change to the interrupt context of the original
+      target CPU.
+
+   2) When the next interrupt arrives on the original target CPU switch
+      the affinity over to the new target CPU (carefully...)
+
+   3) If the interrupt is pending again on the original target CPU after
+      switching affinity send an IPI to the new target to kick that
+      vector.
+
+   4) When the new target CPU receives the first interrupt (it does not
+      matter whether it's from the device or from the IPI in #3) it
+      tells the original target CPU to cleanup the stale
+      associations. That's what the timer is for.
+
+So the requirement is that the new target CPU has to receive an
+interrupt to be able to release the associations on the original target
+CPU and to re-enable affinity settings. This can obviously cause
+arbitrarily long delays if #3 is not the case as the cleanup has to wait
+for #4.
+
+That has absolutely nothing to do with the timer and changing that to an
+IPI as that only shortens the cleanup delay from _ONE_ jiffies to almost
+instant. Who the hell cares?
+
+Why is that requirement there in the first place?
+
+  Because there neither is a guarantee that the affinity change takes
+  place immediately when the update happens nor there is a guarantee
+  that an interrupt message which was sent to the old CPU is delivered
+  before the pending check in #3 happens. There are arbitrary device
+  specific delays between the point where the device reads the target
+  message and the point where it is sent and fabrics have delays too.
+
+A lot of people spent a massive amount of time and head scratching to
+come up with a solution for that especially for non-maskable MSI
+interrupts.
+
+Coming back to your change.
+
+Of course this can be done with an IPI from the _new_ target CPU to
+the _old_ target CPU, but only under one condition:
+
+    The IPI vector cannot be higher prioritized than the to be cleaned
+    up device vector.
+
+Why?
+
+Contrary to level interrupts which stay asserted until the interrupt
+handler resets the condition, edge interrupts (e.g. PCI/MSI[-X]) are
+from a device POV fire and forget. There is no guarantee that a device
+waits for handler response before sending the next one.
+
+So due to this and the arbitrary hardware (device/fabric) delays you can
+end up in a situation where there is an interrupt pending either in the
+old target or in the new target after #3 above or on both.
+
+For the on both case assume that the new target CPU wins the race to
+handle it and it sends the IPI to the old target CPU, which is currently
+in an interupt disabled region. Once the old target CPU re-enables
+interrupts it handles the highest priority interrupt first, which is the
+IPI. Now the IPI handler detects that the lower priority device interrupt is
+pending and retriggers the cleanup IPI on itself ---> livelock.
+
+Sure, you can make that so that it ignores that situation and waits for
+the new target CPU to re-issue the clenaup IPI on the next interrupt,
+but that's still not solving the arbitrary delay problem, i.e. waiting
+for that next interrupt which might take forever....
+
+I'm still puzzled that at least _two_ decades after it was publicly
+known that the x86 APIC is a design disaster hardware people still
+insisted on making the same mistakes over and over. It's not only RISCV
+folks, there are more insanities like that in other architectures...
+
+But please read back on the initial IMSIC discussion which led up to
+merging this driver. There is a ton of more context there which I'm not
+going to repeat.
+
+Thanks,
+
+        tglx
+
+
 
