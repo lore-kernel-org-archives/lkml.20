@@ -1,58 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794445957;
-	b=MNjcg7gYYaS/bMzo10effpZ+P8sy/1ok5VqLK1PXbdCXAbrQWW5pujJroEBIDDg9p3Gw
-	 fZocRxQ5MQyfsukown5C8B21R5o88xuhRFxKm7T+TQQPOXZTCqx8RC/GVGiQjOcM1vxEZ
-	 eSefkle4DFOJoSrNweLEkMhCy7OEnL7+GsnY93UGy5jjDfwNXWSuedLuMRKzAGKiva60Y
-	 GwqG62rtfvruPrlbRPVvpM3wDkhjJPxMhoUCou1OFtivxv9fyZj+cS/jfAtv5vWtyETp4
-	 fKpmYDbSf9epE8dGhdFMmAsfB/Y46S8o3TEssiCCgMcOw84wLnI1Tm2RiGGGiRYWPlQ==
+	t=1794445960;
+	b=hKH3OUSk4m3oOcKxt87zV59nnUIPqIVvTu1chzoQycEhtPhVlnsKvxhpC7n5Gxn+wMJM
+	 MmDBUjKoxqw80OCXCUes7FwNZ+GTgUQIyi20oJZtvE5D51H3nXZp6uOdAW9brzT2bxslz
+	 uo22WHThitM6OD1JVIKqsArFmfBmC1bE5nF2YogOyz9nX97fhuN/gP8HMZziJAm76F5xx
+	 SB0GaKvyyczI2xnf7TtIW60wQl4mX7Xy7UTKHZLC1WbsRDWvwvroEyO6+qCXm/DlvDEWz
+	 y76QHywuVGDQr34l41kXyzJ9neiy1DPfpUVGL5pViQZ65Ri8C7zk/s1PhOlBH2+Oeiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794445957;
-	h=DMARC-Filter:Received:X-Originating-IP:Date:X-CM-HeaderCharset:From:
-	 To:Cc:Subject:X-Priority:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	 X-Coremail-Locale:X-CM-TRANSID:X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=gXwNq+wrNEU9TijRwh8wJ/8LjCN/+70P6xKK8wwzMhA=;
-	b=MjIk+t4RhIMq4xwA9X4OEg4vzvVnPSiLey8JEtB81AG/c9i2C+mUbrvcFamtVxfkkUle
-	 UoJ9a12NsjivscrLNLVWwgpwR06UiiVutZXQ/BGNnHfuGnsD40+EhaDOub6iRH1rauuo/
-	 sYKDrncFPP9GkWGi9zDtQ6m8bIfAMap+5Go9OWhi61jm+HaPJs1LjHKihQbcz2QHbB5+0
-	 C3v9O1PYiQLHGsfaTcFu8b5pkPoHuj0MZNQuzyCetdcLhJAtv+Rjl7yKsnUKBz8HrFZu5
-	 rJQQwRsKKJqk9GQMxHdXdwuR0GH+sQq7roYZ8foZ//tFzVjR1qZ1zH+TsmImi1ApAXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794445960;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=MiFbN8j2jyp+jkBuNs9uCIal0qPxMVDHV33aouRjMeU=;
+	b=O/Fq0i0Q0SncrgfNro19OzaUpMjZDC/Wp+z3M5Xdjpv/B808sZCKn6lBKfu95YD+kkeP
+	 9fzLQ4P8ps9Jv+ZDubB/KWxrKGYY/HJ7nzjeN7DYwrOuYpbKhfMFxmuMQ/DVZHKK7Ry0g
+	 AFzwHn3Xw4r6PHFHmA3rDAV/cA874SJx3JMUxCTf9bg16DkQSBVKG3WPLiZarWqt6yOwP
+	 KcqkB+w2Ipez/8I9JB9ibaxeXD0ilUxwZ33WPzN757z0OiSroTMdDu2r3cKbUUORBD81n
+	 1YZJH5wT7MvEaYH5Oy/EaPDH42sY2J0DIJjn4ipoFaiDmExaj64eluBmwtrQQypQeSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=eswincomputing.com;
-	spf=pass smtp.mailfrom=eswincomputing.com;
-	arc=none smtp.remote-ip=13.75.44.102
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1309E606A324;
-	Thu, 12 Nov 2026 01:12:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1309E606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
- ajax-webmail-app2 (Coremail) ; Thu, 12 Nov 2026 09:12:05 +0800 (GMT+08:00)
-Date: Thu, 12 Nov 2026 09:12:05 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
-To: "Han Gao" <gaohan@iscas.ac.cn>,
-	"Yifeng Huang" <huangyifeng@eswincomputing.com>,
-	"Stephen Boyd" <sboyd@kernel.org>,
-	"Brian Masney" <bmasney+clk@redhat.com>,
-	"Jerome Brunet" <jbrunet+clk@baylibre.com>
-Cc: "Brian Masney" <bmasney@redhat.com>, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	"Min Lin" <linmin@eswincomputing.com>,
-	"Pinkesh Vaghela" <pinkesh.vaghela@einfochips.com>,
-	"Pritesh Patel" <pritesh.patel@einfochips.com>,
-	"Han Gao" <rabenda.cn@gmail.com>
-Subject: Re: [PATCH] clk: eswin: Keep the TCU AXI clock enabled
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <20261110-eic7700-tcu-aclk-v1-1-72db82bf59c1@iscas.ac.cn>
-References: <20261110-eic7700-tcu-aclk-v1-1-72db82bf59c1@iscas.ac.cn>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=bZ9rboZd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5274A606A324;
+	Thu, 12 Nov 2026 01:12:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=bZ9rboZd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 009DB1F00A08;
+	Thu, 12 Nov 2026 01:12:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794445960;
+	bh=MiFbN8j2jyp+jkBuNs9uCIal0qPxMVDHV33aouRjMeU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=bZ9rboZdTe4XEpMT/kSygMte2k5VLnK1HcPqsDH5y/ipbmUgN9OEek8Ab6d2Jom/n
+	 uxGPCydRvHxLkoN2Ra6AVkRJSdc5z145ifo1RbszfAZ5mG+Qs51NwZvOWd9ifGxvQO
+	 UjV2d02UkF+Fquaad2BvJ7iKpydTS2rdJox5IhXQ=
+Date: Wed, 11 Nov 2026 17:12:38 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "Theodore Ts'o" <tytso@mit.edu>
+Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Leon Romanovsky <leon@kernel.org>, Konstantin
+ Ryabitsev <konstantin@linuxfoundation.org>, Thorsten Leemhuis
+ <linux@leemhuis.info>, "Michael S. Tsirkin" <mst@redhat.com>, Kees Cook
+ <kees@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, Dan Carpenter
+ <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Alexei Starovoitov
+ <alexei.starovoitov@gmail.com>, Julia Lawall <julia.lawall@inria.fr>, SJ
+ Park <sj@kernel.org>, Bradley Morgan <brads@mainlining.org>, Sasha Levin
+ <sashal@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v5 6/6] agents: add a skill to write KUnit tests
+Message-Id: <20261111171238.7a974b89a2d9e793666b30df@linux-foundation.org>
+In-Reply-To: <20261111225940.1573565-7-tytso@mit.edu>
+References: <20261111225940.1573565-1-tytso@mit.edu>
+	<20261111225940.1573565-7-tytso@mit.edu>
+X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,47 +67,32 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Message-ID: <b81e73b.6e7.1a1cd4fdbb8.Coremail.dongxuyang@eswincomputing.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:TQJkCgAnPqFlEvVqyMiJAA--.15625W
-X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAgEJAmr0mS0Ic
-	gAAsY
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-PiAKPiBUaGUgU01NVSBUQ1UgbmVlZHMgaXRzIEFYSSBjbG9jayBmb3IgRE1BLCBldmVuIGluIGJ5
-cGFzcyBtb2RlLiBObyBkcml2ZXIKPiBjbGFpbXMgdGhpcyBjbG9jaywgc28gY2xrX2Rpc2FibGVf
-dW51c2VkKCkgZ2F0ZXMgaXQgYW5kIERNQSB0aHJvdWdoIHRoZQo+IFNNTVUgc3RhbGxzLiBPbiB0
-aGUgSGlGaXZlIFByZW1pZXIgUDU1MCwgdGhpcyBoYW5ncyBmaXJtd2FyZSBsb2FkaW5nIG9mCj4g
-YW4gUlg1NTAgZ3JhcGhpY3MgY2FyZC4KPiAKPiBNYXJrIHRoZSBjbG9jayBhcyBjcml0aWNhbC4K
-PiAKPiBGaXhlczogY2Q0NGYxMjdjMWQ0ICgiY2xrOiBlc3dpbjogQWRkIGVpYzc3MDAgY2xvY2sg
-ZHJpdmVyIikKPiBTaWduZWQtb2ZmLWJ5OiBIYW4gR2FvIDxnYW9oYW5AaXNjYXMuYWMuY24+Cj4g
-LS0tCj4gVGVzdGVkIG9uIHRoZSBIaUZpdmUgUHJlbWllciBQNTUwIHdpdGggYW4gUlg1NTAgZ3Jh
-cGhpY3MgY2FyZDoKPiAKPiAtIFdpdGhvdXQgdGhpcyBwYXRjaCwgYW1kZ3B1IHN0YWxscyB3aGls
-ZSBsb2FkaW5nIHRoZSBSWDU1MCBmaXJtd2FyZQo+ICAgYW5kIENQVXMgY2FuIG5vIGxvbmdlciBi
-ZSBoYWx0ZWQuCj4gLSBXaXRoIG9ubHkgdGhlIFRDVSBBWEkgY2xvY2sga2VwdCBlbmFibGVkICh0
-aGUgVENVIGNvbmZpZ3VyYXRpb24gY2xvY2sKPiAgIGlzIHN0aWxsIG1hbmFnZWQgbm9ybWFsbHkp
-LCBhbWRncHUgaW5pdGlhbGl6ZXMgYW5kIHRoZSBJQiByaW5nIHRlc3RzCj4gICBwYXNzIHdpdGhv
-dXQgYW55IG1hbnVhbCByZWdpc3RlciB3cml0ZXMuCj4gLS0tCj4gIGRyaXZlcnMvY2xrL2Vzd2lu
-L2Nsay1laWM3NzAwLmMgfCA0ICsrKy0KPiAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygr
-KSwgMSBkZWxldGlvbigtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2Nsay9lc3dpbi9jbGst
-ZWljNzcwMC5jIGIvZHJpdmVycy9jbGsvZXN3aW4vY2xrLWVpYzc3MDAuYwo+IGluZGV4IDQzYTQ3
-ZmUxNmFiMTRhZTFkMWNhY2MzYTBkYTAyMDNlNDEyNTQxYzAuLjdjOTUwNTVmMTNlYjc4MmEwMzcy
-M2U0NDc1ZDYzMDYwZDM3NzExYWEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9jbGsvZXN3aW4vY2xr
-LWVpYzc3MDAuYwo+ICsrKyBiL2RyaXZlcnMvY2xrL2Vzd2luL2Nsay1laWM3NzAwLmMKPiBAQCAt
-ODMyLDggKzgzMiwxMCBAQCBzdGF0aWMgc3RydWN0IGVzd2luX2Nsa19pbmZvIGVpYzc3MDBfY2xr
-c1tdID0gewo+ICAJRVNXSU5fR0FURV9UWVBFKEVJQzc3MDBfQ0xLX0dBVEVfRDJEX0NGR19DTEss
-ICJnYXRlX2QyZF9jZmdfY2xrIiwKPiAgCQkJRUlDNzcwMF9DTEtfTVVYX1NZU0NGR19DTEtfUk9P
-VF8yTVVYMV9HRlJFRSwKPiAgCQkJQ0xLX1NFVF9SQVRFX1BBUkVOVCwgRUlDNzcwMF9SRUdfT0ZG
-U0VUX0QyRF9DRkcsIDMxLCAwKSwKPiArCS8qIERNQSB0aHJvdWdoIHRoZSBTTU1VIHN0aWxsIG5l
-ZWRzIHRoZSBUQ1UgQVhJIGNsb2NrIGluIGJ5cGFzcyBtb2RlLiAqLwo+ICAJRVNXSU5fR0FURV9U
-WVBFKEVJQzc3MDBfQ0xLX0dBVEVfVENVX0FDTEssICJnYXRlX3RjdV9hY2xrIiwKPiAtCQkJRUlD
-NzcwMF9DTEtfRElWX0REUl9BQ0xLX0RZTk0sIENMS19TRVRfUkFURV9QQVJFTlQsCj4gKwkJCUVJ
-Qzc3MDBfQ0xLX0RJVl9ERFJfQUNMS19EWU5NLAo+ICsJCQlDTEtfU0VUX1JBVEVfUEFSRU5UIHwg
-Q0xLX0lTX0NSSVRJQ0FMLAo+ICAJCQlFSUM3NzAwX1JFR19PRkZTRVRfVENVX0FDTEssIDMxLCAw
-KSwKPiAgCUVTV0lOX0dBVEVfVFlQRShFSUM3NzAwX0NMS19HQVRFX1RDVV9DRkdfQ0xLLCAiZ2F0
-ZV90Y3VfY2ZnX2NsayIsCj4gIAkJCUVJQzc3MDBfQ0xLX01VWF9TWVNDRkdfQ0xLX1JPT1RfMk1V
-WDFfR0ZSRUUsCj4gCgpBY2tlZC1ieTogWHV5YW5nIERvbmcgPGRvbmd4dXlhbmdAZXN3aW5jb21w
-dXRpbmcuY29tPgoKVGhhbmtzLApYdXlhbmcgRG9uZwo=
+On Wed, 11 Nov 2026 17:59:38 -0500 "Theodore Ts'o" <tytso@mit.edu> wrote:
+
+> Add a skill under agents/skills/writing-kunit-tests/ to guide coding
+> assistants when designing, implementing, verifying, or reviewing KUnit
+> unit tests. Point the skill at the KUnit and process documentation and
+> cover unit testing principles (testing behaviors rather than
+> implementation details, keeping tests focused and DAMP, choosing
+> non-default and distinct test values, using narrow expectations, and
+> maintaining test isolation), KUnit resource management and static stub
+> idioms, and verification with kunit.py.
+> 
+> Update Documentation/process/coding-assistants.rst to list the new skill
+> and note that skills only inspect and report unless their task is to
+> write or modify code or tests.
+> 
+> ...
+>
+> +  KUNIT_DEFINE_ACTION_WRAPPER(my_resource_cleanup, my_resource_cleanup_wrapper,
+> +                              struct my_resource *);
+
+LLM says this should be
+
+KUNIT_DEFINE_ACTION_WRAPPER(my_resource_cleanup_wrapper, my_resource_cleanup, struct my_resource *)
+
+:)
