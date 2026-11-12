@@ -1,71 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794498264;
-	b=jc5W7L/EBa1jScsK+N5vxY8fG+dMTfawL0mphSL7V/37y478NC4xwR+EVSfC1RUcmTHZ
-	 Yut9TGWV6NhbQF8ztoiqZEDvc4iZ7yNSHYVmrQGGie9TGwXMIWaMbkruvQQk78dmw9Ckq
-	 GY1IKWfOIX3kvnlqu/gZFuN0V+kGrK8JTB1cQHhWxXyQWVNqnzUxsJATPEwg7ehJ58YpR
-	 S1f9IxcjstgrCDxPHyWvqgwij2Pwa75DX9hFhXiPI1skb3KnSLesppC/Iz1L2c2h0l6Wt
-	 UokT06DW+OgHi73CS6VhIbBYesEFRBWuPTwfAkWK3ixrxBE5Ek/JTgCrf3ODfmdJ97A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794498264;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:X-B4-Tracking:To:CC:X-Mailer;
-	bh=2jggDFXfiKjyjxfNyJQQxWRj7IWrl5y+P/gKpuovSl0=;
-	b=GuFA1iO/LobznPBK9XGeCHL6azXRtuWBf2dHtg59J3RsICkrWie90Tzh7ofkZ0a6U/BJ
-	 +PX/NpstuTpfSlIsqQQZt4EjXhHFDuxGqHrdqs3TsAlxHln/Lw3SSGk7/O9lpf1UTZ9yD
-	 zYMFVN1dEbcc3fOqkz+WDSqeVRn9QuKGIPRKe/T2bNI7+9p6IifbNewxGhGdWbOXUvkKD
-	 QSN6scI7U+4CPqLNObtc6+uM3La4gle0n2M2m+38UZZDlWh7H14oYWQjLYKFoYNnktoBm
-	 1THghNmDRJHiMxujJf8+Z75tObcLjHjuf1ZEePG9hgTTPEEqNRU6DprhSe9DdrHqASA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=sioSg+Wy;
-	arc=none smtp.remote-ip=68.232.153.233
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.27
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794498279;
+	b=CVTC57h3uOOjLNIfmmZ2athH1hdSTPXIR1ZkZKeDKjQ/+VxQFG7IYhq+lF3YhvDMTGuT
+	 RkAlLNcE11A84hHaL2jjBhfqYqttS556XImVbJyFyuItz24YlNxPjkzF9GvWSTT7jANek
+	 7g99l9QTYLPaam9csS+xk7or+64SjUChcnOy1bRMeA/LRq86ufDgB8/9SMHO3+AfQ9sA2
+	 Qf3WoAZnTrzSqVDKAxQ7n4FmaybUxIsFfdwesCYwQn8+O0psIk6695oHl/rhTdRsWiCyf
+	 HDin5RHfNfoS71jsIyYjSyprwT4CKcVrM4Ipojq1rLDZhR3NaCedLx3GEGqwIVBpXrw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794498279;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
+	 X-MS-Reactions:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=2MdypvYs0G9YJTI/gCtpPun29r6JDPp0RHSkU63+kD4=;
+	b=hA9q4frlsuG6ZNtJ7VaRz1pxk9VW4/GQxXgpJ1xNlebxVCSV54WhK8OLt15mihoy1d6H
+	 Qj+wHUJ4QEHwnMazFsgDlaCJHAZvjCA5a/uWASmYHsMExkjVhA+O+zTTUqwg5ZmMCFmGN
+	 dWaCVmB8OXptpWgqlOsx5s7WSAFKmA4DAWIoj8yj/eTEAUPEDvsw7jbKABK4qdCH+ASbc
+	 G70GXOE/bW94g0t7+Bfn0z3J95nDWbDIPZ7UqhalPOLCOmcPCq71f4t8XDRX7aVnOoGmK
+	 SwanTAzdP5q5OnqqtoN66fvMG1RPa6gnbyrvxvUNQ/0FsuIxCOCns2jq2EBck1q6xXw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=sno91Hqx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.27
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011027.outbound.protection.outlook.com [40.93.194.27])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C264606A327;
-	Thu, 12 Nov 2026 15:44:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C264606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEDA2606A334;
+	Thu, 12 Nov 2026 15:44:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEDA2606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=sioSg+Wy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1794498264; x=1826034264;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=HxgHa+ylojaHP6gqM1yhKD1ewdvIyZI+z1/zt8wg2Fk=;
-  b=sioSg+WyLRTLusM3eoYOdq/dVGiqqLver6U79of/vV9/8g43Jej2gTzl
-   gAr5AsNvOiwI1r9FS6LKzGxdA8JwVYrktSz7BnRFPhuzKnnat0bdeI4iE
-   5LLDYZdMlRAPC/t2ilmwdBmBFVovI2M2EIh89nmTHOVSEEo/XANF9F5/4
-   9wFdzzMZqm94pOcgzAGWzhXUU3vy4lB1CcjP00q8/kjm1ET+DLZSiVGmC
-   1xTelJSiDKvTPUBhBJJh3NSEnwqwo3osISKFV+U4wu5LtrbkZXNIYIv0a
-   engWfs0BHV02zeRw5/ooMYvsvvK5JeCxqyYfIbAdCkUjjntUuDFaPrQbr
-   g==;
-X-CSE-ConnectionGUID: hFPvcHixS26nUTs0b7YK8w==
-X-CSE-MsgGUID: bvlYCDkkQXWNbTmxtQ8J0w==
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="66419760"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 08:44:17 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
- chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Thu, 12 Nov 2026 08:44:16 -0700
-Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex04.mchp-main.com
- (10.10.85.152) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Thu, 12 Nov 2026 08:44:14 -0700
-From: =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
-	<jensemil.schulzostergaard@microchip.com>
-Date: Thu, 12 Nov 2026 16:43:58 +0100
-Subject: [PATCH] spi: atmel: poll short PIO transfers
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=sno91Hqx
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RXBiP7hooN7jKd7OYX4vTn+XDB9rY3r0vvWrsDghLW85FiA/vw/XPA0NbESUJcGLZfT0Wc+ovmMNGXV/zKpRly52vKo3lllX7U6DRrH8QB533sCIQfu0YhUgQVQKNeOXgkb4wfO8P1oX5J7BPi9tNa46S+I6IgCi167BfnDORYSlptK7+hZJZC+XZnB2V9UxppiLSIOtXzFNo50J3uD8WI2Ru7ct4sKG+45qjdAK8fMgugKG0VdcgycjyNo8fxm09+xP5F/F7EPSJjbWie78iGPH2YpOJxx8/dk40Do/deTv9gNqSHRvozUy8OrMAV3PMqg46VjwptLiWO2g9isJ5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2MdypvYs0G9YJTI/gCtpPun29r6JDPp0RHSkU63+kD4=;
+ b=XnhXyCyxx61zwwIhvnjwbTUcTbjepHYWn7lUOWf5g5vd1h+Lype95Vaptb2C2dBe9yP2eCmYy0kQblZoXo68DUkgC27fA8FTX8X80kmoLMU4KnQ1zdF9ogWzR8istFwLQfiN1uXav92Wnz3k+liIX0RqWkTvvkCbPntUUwyD2vUECPt9SO6nGDEzcWeZLUw/X2EK4n9rwLRmUe1LWgcLhjfZYb2aekdEEFoQuRtGBqsERXc+dTENQeMNL4NqwoP+9Hbs/1J+h/N8j52alwszVp1Iwi4E7YXXRU0VZlRAOu+4bmE5Zg8O93uRdV8quTRHT+AqZYxJJejpw+f7fHuvSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2MdypvYs0G9YJTI/gCtpPun29r6JDPp0RHSkU63+kD4=;
+ b=sno91HqxJITEqWcHz5MNMj4E2SpVdGP1CdxIyVZsd/TQ1yY4Rqb6j+CVxdMQo6Ly1lgSX+UWB074B/xnSUxbnj2qe281d1Pl7El0iN0LrpbCp5/Ko/Hkh7VUzFPQdTA/IGsYA39laxJMOjVRguEEH37xEjEdKEZ9hFBW1MNcKYuYPPsl5VqUQHMgNH2RRIBpr54hBbjiaFunCcCugNXzbTjbGgQspB74Dwtt1mSOgOHrD23Y21FDRmNYCE+eG2EAMJ81E9zIQyR+Oc3/WHE9ruiW80PaxOzZvqz2IIemoziakWvyOqYZxJLmjGw3uoy8aCUw2uLX74Hfv1AknN0GHg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by PH0PR12MB7470.namprd12.prod.outlook.com (2603:10b6:510:1e9::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
+ 2026 15:44:35 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0615.007; Thu, 12 Nov 2026
+ 15:44:35 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com,
+ byungchul@sk.com, david@kernel.org, gourry@gourry.net, jannh@google.com,
+ joshua.hahnjy@gmail.com, liam@infradead.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org,
+ matthew.brost@intel.com, mhocko@suse.com, pfalcato@suse.de, rppt@kernel.org,
+ surenb@google.com, vbabka@kernel.org, ying.huang@linux.alibaba.com,
+ kas@kernel.org, hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev,
+ kernel-team@meta.com, baolin.wang@linux.alibaba.com,
+ Nico Pache <nico.pache@linux.dev>, ryan.roberts@arm.com, dev.jain@arm.com,
+ baohua@kernel.org, lance.yang@linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH 2/3] fs/proc/task_mmu: don't read young/dirty from a
+ non-present PMD in smaps
+Date: Thu, 12 Nov 2026 10:44:31 -0500
+X-Mailer: MailMate (3.0r7038)
+Message-ID: <7A78EF9B-1D4A-407A-9948-7AF4DBDDB732@nvidia.com>
+In-Reply-To: <20261111113904.650722-3-usama.arif@linux.dev>
+References: <20261111113904.650722-1-usama.arif@linux.dev>
+ <20261111113904.650722-3-usama.arif@linux.dev>
+Content-Type: text/plain
+X-MS-Reactions: disallow
+X-ClientProxiedBy: YT4P288CA0085.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d0::16) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,199 +106,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-ID: <20261112-spi-atmel-poll-short-pio-transfers-v1-1-240ccc868cc3@microchip.com>
-X-B4-Tracking: v=1; b=H4sIAL3e9WoC/x3NMQrDMAxA0asEzRVUHkrSq5QOtiM3Atc2kimBk
- LvXZHzL/wcYq7DBczpA+ScmtQzQbYK4+fJhlHUY3N09iMihNUHfv5yx1ZzRtqodm1Ts6oslVsO
- wzimGJdISAoxQU06yX5PX+zz/IAezvnQAAAA=
-To: Ryan Wanner <ryan.wanner@microchip.com>, Mark Brown <broonie@kernel.org>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>, Alexandre Belloni
-	<alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>
-CC: <linux-spi@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
-	<jensemil.schulzostergaard@microchip.com>
-X-Mailer: b4 0.15-dev
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|PH0PR12MB7470:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6452bca4-f030-4926-ff1f-08df40d3da03
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|18002099003|22082099003|4143699003|11063799006|56012099006|10067099003|261102123227099003|261021123027099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info:
+	tWi3LyxLqhfc7Aqw93inKz9d7u7WmvgqtT8M7+tT5CKl1+1vUlQjDbGuy7XHhfrjHRm46NZC8keLG9hvJMslzQ7GvG95Us7V+hXDMI+vys4Wvc1WcK0USEu5JNPD/Jx2L/y7rmLW/qhiRWrr/RyuhSkMTJ1g9jhGUy8lQY8jgX9+6pC9hRtq4qGIiudrQEyjAyT+D0axpd3l4POxsUFo/4GHZt+2q2N/wX+9HBv1qac08Bi5ulAswLYfBET97EZcOKav7rMT8JJyiFE5QZoe3T8kqH4gAkQh4d5nsoxYDluKHJ9ssSyGYYtpYv5gCZHYOi2LVXCMlfFx83sZWj+aL1bkXmaaHMiwcPr92zU13Kxip9bQDfIR52iw9wyaxEb1pqas0KUZDDVNsw4NZdLNSHvrvZT8Jda45uliG2ZvXg+RogunTTyuh/AOAjh7LWxAhiK2AnC6pUUx5dzH09BVLHFgZJCyEg9FpB8DflQo2qI2dPrFnIGk1VMvdc4MXwrSbNC2jODQ55eahjzMIZVeqBRH6wnSNb5FZ8hYw+GBw0vP7mkUnQUZ5zPuh1e7A3v/xKUEoUuOjf+Y9HlDdQUXPpTSc/PCYpqrYwu387mUM5jpJS+a9EGKW5zEgc76ENSdYjEZQuFVwxDKLNy9ZJk4QXRMawkOFtaqYhf+J7/xCsk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(10067099003)(261102123227099003)(261021123027099003)(261021121427099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?hIuE31khTkbCLWouxHi9o5PvDnESdvlhbfpfjH5fj95dGDCquSIARrWBsnnF?=
+ =?us-ascii?Q?VX/DZ/KKVKtDxed9y28CKdWVE8+sBU/txIBxusgGYoHLy0op9DP8npqLILWk?=
+ =?us-ascii?Q?6YnvuoQ3uAeSEcNnJwHYgy+bXD8bZOxRA6PIjxi8lIFptBvFptevVsFBPYxc?=
+ =?us-ascii?Q?Rf1+Ph9S2eiD7RQpVn4eoCTEwYblw1MrwVTs7L9JTjQF+PP3jKtL/KSQzQXI?=
+ =?us-ascii?Q?kKgM+a23GJUuWTX2BEvc9ri4lF8BP1CpwnEkpiuQShBIGK6VD7TPoVOTSUBV?=
+ =?us-ascii?Q?uEBB3KNWr8mOFFdvVuXw1WXqqZ4TUDUSxaARb4dEuxfh8ruyHFE/CwwZDVEx?=
+ =?us-ascii?Q?wrRUWE+PANi6zvqRHTJJNf2FnLczxscHFXGXg+4rC2dEiR+yEihur5lBrzvw?=
+ =?us-ascii?Q?/+MV1RVD8co+RsBi7kfUoegJAjuMfuCue90Ws65un/1ul3ZUlgrAVJgzqNXZ?=
+ =?us-ascii?Q?qnsaZ68bEq1o9+3pJbrexxGq405hjD/bSqQsrtAakuuRGBsdt2NVyh0UZlR3?=
+ =?us-ascii?Q?8PqUX2rrp+j9lzsSxfeQbUrP+aIi4LyQQjLVFL7c5+FzqlI8VCK/tB7jJW+o?=
+ =?us-ascii?Q?Cd+dIYhTt/FtDiRxqyHbyIF25zMF7G8wRjIE2C/dubZfFxspcb00zN5dP63m?=
+ =?us-ascii?Q?bHdIFJj9tYO/sIgATg+qe+U+As/e/jwMKzdBkBeaHV24/XRFnug3DRw4JORs?=
+ =?us-ascii?Q?urO0yXFhn3iG1D3ONnB84s8+dP0urwQxhtVi3zax7t535PwMDO+3kXMUKQpv?=
+ =?us-ascii?Q?XWL+2qQSz+k0fpuzsLe0TcKR11YU5EJXHzGlPGE/Kf5zP1aXWS353CyKiDeB?=
+ =?us-ascii?Q?JhvXsad6Em57AQLxsVrI79lqZWISYSTghb0Yei8QZWt+oHT2evIvVXn2DePA?=
+ =?us-ascii?Q?J85+en5DVvrNchN8uikavLugJfUz54kUhUTdE/w0Brwy7W+CubkV08D9fk+i?=
+ =?us-ascii?Q?ZzhwlGO8HZd9NNdggAgwgBzPyjwmCiWAwHffVyvGcEpQWugcPll0uhjACIXF?=
+ =?us-ascii?Q?61Q07uM2XYt/h6zxhayUq9ZfTEvpauDtPkjXOxd8rp1mQ3bJy26VIaRa5hMf?=
+ =?us-ascii?Q?R9uc0V5Jc5Ww9mDkYKc0oNzmXdY3fviqjOG4cv8O1hGXC28leL2Pjr/ICkle?=
+ =?us-ascii?Q?7DUxXBizbohnodVe1icMl/ngQAIudVezGhdFhv4GV3XDSS9Htjy/ZsOeTzZF?=
+ =?us-ascii?Q?phFRO9W/qPKYjjtdz08B/LOQpFnTBtfJg3Q8s8GsowzyUGWOc+1xQE0rps+9?=
+ =?us-ascii?Q?bZAS1+Xtohmxb7LUc8mLkA42v6lb176KmIfaa7A0r3b86PRoOkynP3/3O2+d?=
+ =?us-ascii?Q?HUZ7MMbbgGcm0uRP9WvF/RMpqfoFb6wYAL1qJWQD9yJ4zkgMWXvKEDI7kX76?=
+ =?us-ascii?Q?LOUT0CmNE8685de7Bi6ujBAvJ6rfVX/tQkF+UftO6iA5ei80EHeA9e5xjsWF?=
+ =?us-ascii?Q?IJSXdgVJP8+/A//Tl9tSQdPvkxmq3fPaLTHAohNT1jgvO5fvcSDpNnT4XaNg?=
+ =?us-ascii?Q?tRJEnntCBGosQvaYw+Xl8SMnJcB/4TdkIVsljhIgYZfl33mMmxi09cDAM7Ye?=
+ =?us-ascii?Q?rxYZSFj7XdJYZNDChgfoUm4mweu3c1ISyr2VbpsWVqb7wpBX7szt5Ajv3bi0?=
+ =?us-ascii?Q?0CcfbQV+vO4+949SxuOpFmJBHUOkLB5gmuxflKC4CTaR9mmGjppcsxCYT4l4?=
+ =?us-ascii?Q?6jHBOXbVv4srLq4WKIa//WSa6gyfgr7iUkGp4hITnJMHfAGh?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6452bca4-f030-4926-ff1f-08df40d3da03
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 15:44:35.1551
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eEiO96KhMn3dJ6JefROsDGws07brrwvWZ9g5p/vOjqselb25nR0dhrRhZ2pX4iMu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7470
 
-Every PIO transfer enables the controller interrupt and sleeps in
-wait_for_completion_timeout() until the interrupt handler has drained the
-receive data. For a transfer of a few bytes, the interrupt, the
-completion and the two context switches take several times longer than
-the transfer on the wire. Devices that do their register IO over SPI,
-such as SPI attached Ethernet switches, issue one message of a few short
-transfers per register access, so this overhead dominates their register
-access time.
+On 11 Nov 2026, at 6:38, Usama Arif wrote:
 
-Busy-wait on the status register instead of enabling the interrupt when
-the transfer is estimated to take less than polling_limit_us, 30 us by
-default, as spi-imx does. The estimate uses the effective clock rate and
-the word delay. Setting the module parameter to 0 disables polling.
+> smaps_pmd_entry() passes pmd_young(*pmd) and pmd_dirty(*pmd) to
+> smaps_account() for every PMD, including migration and device-private
+> entries, where those bits hold part of the swap offset rather than
+> accessed/dirty state. smaps_pte_entry() only reads them when the entry
+> is present.
+>
+> On x86_64 the offset is stored inverted across bits 9-58, which overlap
+> _PAGE_SAVED_DIRTY, so pmd_dirty() returns garbage: a clean 2MB
+> device-private mapping is accounted as 2048 kB dirty, and lazyfree
+> accounting is suppressed. pgtable_64.h also warns that the hardware can
+> set the accessed and dirty bits on non-present entries by mistake.
+>
+> Only read the bits when the PMD is present.
+>
+> Fixes: c94b6923fa0a ("/proc/PID/smaps: Add PMD migration entry parsing")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> ---
+>  fs/proc/task_mmu.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+>
+Makes sense.
 
-Mask the receive and overrun interrupts before a polled transfer is
-started. An earlier interrupt driven transfer can leave them enabled:
-the overrun interrupt always stays enabled, and the receive interrupt
-also stays enabled after an overrun or a timeout. The interrupt handler
-would then consume the status the poll waits for. Like the interrupt
-handler, the poll only reads received data while bytes are outstanding.
+Reviewed-by: Zi Yan <ziy@nvidia.com>
 
-Signed-off-by: Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
----
- drivers/spi/spi-atmel.c | 80 +++++++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 78 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/spi/spi-atmel.c b/drivers/spi/spi-atmel.c
-index ffc1292b08c1..25a0a3acfc4e 100644
---- a/drivers/spi/spi-atmel.c
-+++ b/drivers/spi/spi-atmel.c
-@@ -234,6 +234,11 @@
-  */
- #define DMA_MIN_BYTES	16
- 
-+static unsigned int polling_limit_us = 30;
-+module_param(polling_limit_us, uint, 0664);
-+MODULE_PARM_DESC(polling_limit_us,
-+		 "maximum time in us to run a transfer in polling mode");
-+
- #define AUTOSUSPEND_TIMEOUT	2000
- 
- struct atmel_spi_caps {
-@@ -274,6 +279,8 @@ struct atmel_spi {
- 
- 	bool			use_dma;
- 	bool			use_pdc;
-+	bool			poll;
-+	unsigned int		poll_limit_us;
- 
- 	bool			keep_cs;
- 
-@@ -688,6 +695,9 @@ static void atmel_spi_next_xfer_single(struct spi_controller *host,
- 
- 	dev_vdbg(host->dev.parent, "atmel_spi_next_xfer_pio\n");
- 
-+	if (as->poll)
-+		spi_writel(as, IDR, SPI_BIT(RDRF) | SPI_BIT(OVRES));
-+
- 	/* Make sure data is not remaining in RDR */
- 	spi_readl(as, RDR);
- 	while (spi_readl(as, SR) & SPI_BIT(RDRF)) {
-@@ -706,7 +716,8 @@ static void atmel_spi_next_xfer_single(struct spi_controller *host,
- 		xfer->bits_per_word);
- 
- 	/* Enable relevant interrupts */
--	spi_writel(as, IER, SPI_BIT(RDRF) | SPI_BIT(OVRES));
-+	if (!as->poll)
-+		spi_writel(as, IER, SPI_BIT(RDRF) | SPI_BIT(OVRES));
- }
- 
- /*
-@@ -725,6 +736,9 @@ static void atmel_spi_next_xfer_fifo(struct spi_controller *host,
- 
- 	dev_vdbg(host->dev.parent, "atmel_spi_next_xfer_fifo\n");
- 
-+	if (as->poll)
-+		spi_writel(as, IDR, SPI_BIT(RXFTHF) | SPI_BIT(OVRES));
-+
- 	/* Compute the number of data to transfer in the current iteration */
- 	current_remaining_data = ((xfer->bits_per_word > 8) ?
- 				  ((u32)as->current_remaining_bytes >> 1) :
-@@ -776,7 +790,8 @@ static void atmel_spi_next_xfer_fifo(struct spi_controller *host,
- 	 * Enable RX FIFO Threshold Flag interrupt to be notified about
- 	 * transfer completion.
- 	 */
--	spi_writel(as, IER, SPI_BIT(RXFTHF) | SPI_BIT(OVRES));
-+	if (!as->poll)
-+		spi_writel(as, IER, SPI_BIT(RXFTHF) | SPI_BIT(OVRES));
- }
- 
- /*
-@@ -1375,6 +1390,58 @@ static void atmel_spi_set_cs(struct spi_device *spi, bool enable)
- 
- }
- 
-+static bool atmel_spi_use_poll(struct atmel_spi *as,
-+			       struct spi_transfer *xfer)
-+{
-+	u32 hz = xfer->effective_speed_hz ?: xfer->speed_hz;
-+	unsigned int limit = as->poll_limit_us;
-+	int word_delay_ns;
-+	u32 words;
-+	u64 us;
-+
-+	if (!limit || as->use_pdc || atmel_spi_use_dma(as, xfer) || !hz)
-+		return false;
-+
-+	us = div_u64((u64)xfer->len * BITS_PER_BYTE * USEC_PER_SEC, hz);
-+
-+	word_delay_ns = spi_delay_to_ns(&xfer->word_delay, xfer);
-+	if (word_delay_ns > 0) {
-+		words = xfer->len / DIV_ROUND_UP(xfer->bits_per_word,
-+						 BITS_PER_BYTE);
-+		us += div_u64((u64)words * word_delay_ns, NSEC_PER_USEC);
-+	}
-+
-+	return us < limit;
-+}
-+
-+static int atmel_spi_poll_xfer(struct atmel_spi *as,
-+			       struct spi_transfer *xfer)
-+{
-+	u32 done = as->fifo_size ? SPI_BIT(RXFTHF) : SPI_BIT(RDRF);
-+	u32 status;
-+	int ret;
-+
-+	ret = readl_poll_timeout(as->regs + SPI_SR, status,
-+				 status & (done | SPI_BIT(OVRES)),
-+				 0, (u64)as->poll_limit_us * 10);
-+	if (ret) {
-+		dev_err(&as->pdev->dev, "spi transfer timeout\n");
-+		return -EIO;
-+	}
-+
-+	if (status & SPI_BIT(OVRES)) {
-+		dev_warn(&as->pdev->dev, "overrun\n");
-+		return -EIO;
-+	}
-+
-+	atmel_spi_lock(as);
-+	if (as->current_remaining_bytes)
-+		atmel_spi_pump_pio_data(as, xfer);
-+	atmel_spi_unlock(as);
-+
-+	return 0;
-+}
-+
- static int atmel_spi_one_transfer(struct spi_controller *host,
- 					struct spi_device *spi,
- 					struct spi_transfer *xfer)
-@@ -1412,6 +1479,8 @@ static int atmel_spi_one_transfer(struct spi_controller *host,
- 	as->done_status = 0;
- 	as->current_transfer = xfer;
- 	as->current_remaining_bytes = xfer->len;
-+	as->poll_limit_us = READ_ONCE(polling_limit_us);
-+	as->poll = atmel_spi_use_poll(as, xfer);
- 	while (as->current_remaining_bytes) {
- 		reinit_completion(&as->xfer_completion);
- 
-@@ -1437,6 +1506,13 @@ static int atmel_spi_one_transfer(struct spi_controller *host,
- 			atmel_spi_lock(as);
- 			atmel_spi_next_xfer_pio(host, xfer);
- 			atmel_spi_unlock(as);
-+
-+			if (as->poll) {
-+				as->done_status = atmel_spi_poll_xfer(as, xfer);
-+				if (as->done_status)
-+					break;
-+				continue;
-+			}
- 		}
- 
- 		dma_timeout = msecs_to_jiffies(spi_controller_xfer_timeout(host, xfer));
-
----
-base-commit: 2bc7eb398cd0f89fd2331d5a1a8fe7ed17addd35
-change-id: 20261112-spi-atmel-poll-short-pio-transfers-bd8fcb9c19bb
-
-Best regards,
--- 
-Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
-
+Best Regards,
+Yan, Zi
