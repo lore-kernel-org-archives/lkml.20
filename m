@@ -1,44 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.105
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794473301;
-	b=MlLWxnSmrIP5MM584+KuhkyqcsU37fHQw6D0KzEl5ipIDAivCCg+okhlbYZW2S7q3fCP
-	 83fslyxwdnd8+j3VQrfBL4NU3HRZoE0rIUGeOMpNmgEJQc6bXm1kPJ4P1PZAfJtbQb6Mg
-	 cXwvjqVC4IXHZBfdsJV+r7a27qaL5BswWOm4JxQkyF0f+XAThrsIhzZKfHNFkqZhydscq
-	 hrOjlLKVItebm1CqOu24sGJwhHKz5CbfLm+5JM4NcgHfPJI0PMgJAO0oiibyZLICfvcJY
-	 8s4IopgzbyZU1PNmqZ70fKo/KjUhH7H9ZmIoMNSVHYc+Le96WkouyjOxmnoGViWNCFg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794473301;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=YW52iYa3PS22kVrKBhZRqo+7XMDGvxdxdBLom1iDW5U=;
-	b=icc3vlK8lJ62ca8T3AB0cMwAAjf7FkZ0QovVU/VHKRxvoM5fHtqdtlRWQMZ/KvZ88ioP
-	 CriOJL1SweBRIESStwQjuxcV1Lv+81iM4GzVNRXB4hmE4aAUmKf830wjmzA+zhMjJG5EX
-	 hOqckV3lcc5RR0Z2Pv60dYKzaxSlVRpcpnMGCyG++TUY6Jo1s5ZQmLf1jqvd+vXm0DyPv
-	 1iSVozMiq2ABc8HFy8Ogc8dBP4G6A+Wtfx8TYzznHNF4z6bYlCMRZCRE4OBy1FKSyOx/4
-	 bk8/V5YzlXOJGAoRSkcIz5WjXJ18RBSCTYnNxxc7e+MmDbdyDs/dDyW4gppMAmEaFDg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=HTjyU8HA;
-	arc=none smtp.remote-ip=103.209.128.105
-Received: from mail-m128105.netease.com (mail-m128105.netease.com [103.209.128.105])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794473316;
+	b=BO8m0zYeBS04rGEVL3Jt7ko8CcO0YtwZOok0IGzTrsg5jt5d67mXtR8GS0vbnfyDwuL/
+	 gsUy90hjMCvr+LJElWcHzEs/bCG4ylLMvqcZN+S8/1Zuj/n0H+jkSbhQnbSy9WZSEnzZc
+	 R3xmPdtG70j4eSO4fK8omlQkUUxZQy/Maut5ePmBBvuOYCmafXoBy30V+2Q8O7t5KFtsh
+	 X7DT0w7VowKhhPlGB+80AJeqbwL0zvoLPqMT1EgEcUc5V2inrsZtX/EbwMKIKisdW39dd
+	 JL+wSFOob0j6xMVmw3jEoMaxXQCHZT+qYnzscd/CWjlUYuT78a+LTmeJ7CHkmK2JeXg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794473316;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=6R/zhoa8svTG09lSjgTlGyW8oNktUFJ95AqUC1MGVe0=;
+	b=ziRqf1OGL2zSp4nNAwzrxXfvW/DwJi3fHj3KvujoH/RJLo4NZhY6WXoZKfQORoTmU+HF
+	 hkzlwwUR7JOo64ZEg10vG3NH3Hv5nn0k9/iy9tpWQWFXdfbG+XM4ww69cXuABdiJQ795x
+	 9NCSdzq1f6sPvSjlKm79Gi7NfkGJx3+H9LCY+ZXtmm44baejB1zmXBIV1pAWUwiSvrb36
+	 4cDVbBDFndFr9l+KeW9a4iuXR1W+zUEs1vTvMCukcEk2KH6mh0zuvwIAxWdtQUdHUiHqx
+	 S+axzJHe4Jj/DgKvml3F/jqwTlXVsh+cE+rkHGDXpgffHGK7SrkD8/1jNyxJ3K1UWnw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UH6wTmRl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9985C606A338
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:48:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UH6wTmRl
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794473316;
+	b=ZuElMlGi4JgWvDu8OmUocCMhmJXKHTPzHV9ADF1SoDpbgEl6+0QXZIbic7SopF8JVxyd
+	 5jrpw7KDKwFTctdvtLfc1pVqPn+IWRDBPSoWSYC2Qnfhbwt1slZro6p2DX8Kg1O0mpWuV
+	 D70IB8VcYCpHf6N7adoPotCLHFUTHT1Nq0BF1Zw+mb00t46tiFXHWEGjkTEcBYw8qS33m
+	 GO85K8YiB3clYCGuN0nTzunQFsNLDxztX5kX23I/fV02RXPuY8gyYzXXWZNI/C1i+Epuq
+	 ZGjJMVMhL4pyMSF7qnNOVoLK33bRadZuBhSjGMqGvOXDiQnnV+wCRAibz/NJ9r+khmg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794473316;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=6R/zhoa8svTG09lSjgTlGyW8oNktUFJ95AqUC1MGVe0=;
+	b=CojiEI4oeTs4jhosdqk5ZDJkycWFhpzfJLYkMd7LESLTJpln/FhzV7Ec99TZHvEQzdaI
+	 YithewkH9A6r59nMiFvgZWatTAhu7v06TI01pXK7yHQXKGme5m4J9gTLICjqLw/Mz+g9f
+	 bQKutt8CrEb4JlyeO6Nzul+TwvTGKUdKhOHhmGbH5xdO7wtyerfHiXPOim2o+c4sLUEK+
+	 TG5WUcsacj6xAdShsAV2WGSAJL+dWXrjy4vza1796mp/cqhdkuxKMeLHgyt8Xp3elE6uf
+	 f/oA6EOdXC5s3sAVnCG5iW3nONv/+tAz7AsCQW0E87KHjM56WwHzb5jzy+eEUjsSmDg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B94FA606A31C;
-	Thu, 12 Nov 2026 08:48:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B94FA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=HTjyU8HA
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 546f2be92;
-	Thu, 12 Nov 2026 16:48:08 +0800 (GMT+08:00)
-Message-ID: <051621ab-a8b5-4120-afde-fbeeae48690d@rock-chips.com>
-Date: Thu, 12 Nov 2026 16:48:06 +0800
+	by smtp.kernel.org (Postfix) with ESMTPS id 9D1F51F00A07;
+	Thu, 12 Nov 2026 08:48:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794473316;
+	bh=6R/zhoa8svTG09lSjgTlGyW8oNktUFJ95AqUC1MGVe0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=UH6wTmRlx2e664IN0rDmGIivG4ZXZ5ulNBfLSgg2JIqXJUi1UNe4jHIzlYIPFVWv1
+	 SoSQXOnlausBeEyKsXoTOnQ5sUFUnSFLzFQF9m0pB+0/kZ3EH0drvCSDrK6I52kt7k
+	 VV7EfWhjkDQBObVyDiCCsqCPznycLdNCiNawdJJkzLhJfhGLENcL51yGTBSYB0IqFV
+	 a/RSpDIh9FjVMIxtgWVr8bP21Qxq0szvt85LlZQ0W+Sma+3YXWiQiS/7XsZNKNwhM4
+	 bxcthtQEt+XVmxL2OQlQYqNOXfEivgOZ/4+zfE+hpuFWB4W2Xt97y30qXWjnHt+pGW
+	 rkaAUy0DOZS8Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2A7B2493E1;
+	Thu, 12 Nov 2026 08:48:35 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Thu, 12 Nov 2026 08:48:35 +0000
+Subject: [PATCH v2 02/11] drm/panfrost: Refuse to sync the CPU caches of a
+ heap BO
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,59 +83,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18 0/7] usb: dwc3: introduce Rockchip glue driver
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Igor Paunovic <royalnet026@gmail.com>, linux-kernel@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-phy@lists.infradead.org,
- kernel@collabora.com, Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-References: <20261021-b4-rockchip-dwc3-rockchip-glue-v18-0-60000d03fca2@collabora.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20261021-b4-rockchip-dwc3-rockchip-glue-v18-0-60000d03fca2@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1cef161e603a7kunm25f03da89714c0
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSBofVkIeGUgfSEJJQx9KHVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=HTjyU8HAzlfGIH2zaWksvL0FatkZsBVvluGDZ0gXv7vdsLYvXtsI1AWIvGnpoKDX4/o3OOAfMNjPJk2bzP/cP7pzvx9KI8SL489WjcGeQL4HNW+4jNEWl43izC+LKg0zo4Ip/zGfA514bSOwoCB604D0QANS08DlCPVPFi8nZk4=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=YW52iYa3PS22kVrKBhZRqo+7XMDGvxdxdBLom1iDW5U=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261112-panfrost-long-jobs-v2-2-a06830da3d99@gmail.com>
+References: <20261112-panfrost-long-jobs-v2-0-a06830da3d99@gmail.com>
+In-Reply-To: <20261112-panfrost-long-jobs-v2-0-a06830da3d99@gmail.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794473314; l=2148;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=sabqZXiqcOVlHYAJg0avzqnHVWyyC8nVoD/l1btGZFM=;
+ b=EZaFwvzELyUZIeDpHLBigkeb0f38sxfR+QENoZ2o+SujrdnYH8BpvXs9ae9t/9l/ldZOF276x
+ YSfTG2G0puWDNT6nGnOkBYQFT6SpvtrNj4eOEBTq5fOfdol2A12jwoK
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Hi Sebastian,
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-On 10/22/2026 2:05 AM, Sebastian Reichel wrote:
-> The recent Rockchip platform have a combined PHY, which does USB3 and
-> DisplayPort as well as muxing the lines in arbitrary order. Changing its
-> enabled functionality requires a PHY reset and as the PHY provides a
-> clock to the DWC3 controller, this can result in an SError. Apart from
-> that the PHY might not start up correctly when the DWC3 PIPE interface
-> is running. This series prepares a Rockchip specific DWC3 glue driver to
-> help out with these problems. To become useful more patches are needed
-> on the Rockchip USBDP PHY side, which are send separately.
-> 
-> This was split from the USBDP cleanup series. v17 has a dependency on
-> the patches that have been merged to phy's for-next branch. There are
-> some additional Rockchip USBDP phy fixes, which depend on this series
-> (which is effectively also a fix).
-> 
+panfrost_gem_sync() calls drm_gem_shmem_get_pages_sgt() on any BO that is
+not write-combined. Heap BOs are write-combined only on non-coherent
+GPUs; on a coherent one, a PANFROST_SYNC_BO on a heap BO reaches
+drm_gem_shmem_get_pages_sgt() with bo->base.pages being the sparse page
+array of the GPU fault handler, and drm_prime_pages_to_sg() dereferences
+the NULL entries of the chunks not faulted in yet. On a heap BO with no
+chunk faulted in yet, it instead pins the whole heap and leaves
+bo->base.pages set without bo->sgts, and the next GPU fault on the heap
+dereferences the NULL bo->sgts.
 
-I'm not sure whether this is the right thing to do, but I tried applying
-all the v18 patches on top of v14 patch1–patch27, and tested Type-C DP
-on the RK3576 EVB1 board. And it seems to work fine.
+Heap BOs are not CPU-mappable (panfrost_ioctl_mmap_bo() refuses them, and
+panfrost_gem_create() refuses PANFROST_BO_WB_MMAP for them), so there is
+nothing to sync: return -EINVAL, as for imported BOs.
 
-Tested-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Found by code review (Sashiko). Not tested on a coherent GPU: the
+Mali-G31 here is not coherent, so a heap BO is write-combined and the
+sync returned early before.
+
+Fixes: 7be45f548976 ("drm/panfrost: Add a PANFROST_SYNC_BO ioctl")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/sashiko-outbox-206561@kernel.org/
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+ drivers/gpu/drm/panfrost/panfrost_gem.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
+index 518f24549..5d3925abd 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem.c
++++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
+@@ -569,6 +569,14 @@ panfrost_gem_sync(struct drm_gem_object *obj, u32 type, u32 offset, u32 size)
+ 	if (drm_gem_is_imported(&shmem->base))
+ 		return -EINVAL;
+ 
++	/* Heap BOs are not CPU-mappable, and their pages are populated by the
++	 * GPU fault handler, one 2 MB chunk at a time, with a page array and
++	 * sg tables of its own: drm_gem_shmem_get_pages_sgt() must not touch
++	 * them.
++	 */
++	if (bo->is_heap)
++		return -EINVAL;
++
+ 	switch (type) {
+ 	case PANFROST_BO_SYNC_CPU_CACHE_FLUSH:
+ 	case PANFROST_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE:
 
 -- 
-Best, 
-Chaoyi
+2.55.0
+
+
