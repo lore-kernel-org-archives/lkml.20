@@ -1,47 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.93.112
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794454430;
-	b=yKiphP2HnwdsqsaQBBwEyzwHKKOyeNcR4Md8LtzDp81onTOe63E5Nl7maR1+vJyyzS82
-	 Q03UMi+awsNHoSCnO79olcxaIoPzmLeg7O0In2570/c3vv0tf/nexERTYFIEQvhMmK7EE
-	 NCwUMeGWEuM3gdToKT59s/CBUqAlyYJK7xdR0YyomwXb6bDHb9/dgyeJzWA59zB9QlG92
-	 mfgwAALxo1KkBn6rXczmoqfihe7HMFpMF8iyg4z54Maj6WObSCGdnkf7p1FOnX36sP9uA
-	 08DW+BrCDUcOrZYhYsGNWHDwnySxP9+/okVGi2+K9SEfa7ejn9oAfQNW1AYiqfiA0Zg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794454430;
-	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=F6+7ZlIp4itBJtPDKgD6D6d0/yQu4/YAUF6Hgt2dgJo=;
-	b=BxOOpxXDyXTYLQn8e9pzrRYFzVn1aQH0TGTEjJCiMBUscZbL8e2DkC0+DbmTpe1xyxqv
-	 BrhXpy9GMOG0+rFkzVyfjzRHQR5zvTiXlTvq/Bwqzbj4kRAJJJ+xXghhY24I0xH0obf89
-	 BDEMZ5ULwRa+haNQREQ6FcBSYFa959PcqDzTf9MEf9HTT00Tevz8pvTr1k7AYrJdUCM5o
-	 gHBEMfhoLxBG+2XBc3TPGCcjek7ac17+2AQHWBR4BcPthOduJ/l1Rcod7umIlAIhRfcys
-	 ZcJsGBVPLXU/rbAj0rFBMacrlshPizZBYg72wWU6h8d7vkHaIRtYwQBDJG+3T6zA7mA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=none smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=124.71.93.112
-Received: from dggmsgout12.his.huawei.com (dggmsgout12.his.huawei.com [124.71.93.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794454453;
+	b=f2Vb+iRX14c2y/PseIstPxhDaYXsTpMdXrJpHTSeqVII3ElqPo5W5812pT8FyySepkX9
+	 mm1oOpfZf+dRZGtZ7ZaUyiDkZWuDJQbnB2myw+LmYRV8Kz9givcIpJTctKIsBxOpLBNix
+	 ruolPItB3aLna4OoP6gUIe4EtEbBCftKPJArR8LYV7wvG6DnKjBKHwA7H2cznq8v2+VMG
+	 7377KQtrfC8uMkDFHIrC7Z/GKBcWvO2M1bq9MBJ+nkQkBm1ZTyLh7b1N3KVku1MXYVg8z
+	 f9yHxaevHqi5EaW82JdR1Stpt92bbJMyfoawK6pTcStPrjrtV+MDKvZ0Vzj4HjqaBrQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794454453;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=Gm55iSOTgbLwtkYj3NPyG7MZXw07pKTsLRlpf/fNTZw=;
+	b=WDN5v9J5dH2hxEO2RbquZH6KnK5O8WpZeqiGtkw+QwD3Bit1uUvjkWrPwMuLBtUqBIg/
+	 YnWMYYqf7mRPBl/ME/Wvtef4UmUDI0qFXvFUD67F9E7ArEtJWvizQWppodXBNDiXClwcg
+	 zs59ohoYB++rBMH9A+w+7zcl3B8ebGAvspAklHeg+TNpltjRmCUYqB3hYRsPzV0uN+ddU
+	 q8r0i7r8lKPfCXEI7uXjxpmi6Eevtk7Bq+nRz1BBl9pgvd847G1yj7F4vL1cb4ofDDfQl
+	 JRKjHC9ELGwXwTsNe5uu5SUAle00AzYHQMw3/W/BoWhtjOU0Sb1m8geIgtut3wP3YDg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gnfxiyu1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 008C0606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:34:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gnfxiyu1
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794454452;
+	b=TlOXl2lsSoInmY+UYbhYuRG3lZOHQMs8uF33FmqjeOcMxQ4cv7jPVwhvX/fRRzzNoVcY
+	 DmvVkaJwZ5hwPhhm0CVZghMLHh4/d79/WGifQQkuEFRJefaoqpc0Ok3kB7HpRJh4cLw9Q
+	 g6rH6pNi7V9orRfRFlbVrN3y+2WAlZz+OFsIbEibpB2MxFDDWGVEKCKWJIN999zXlh71w
+	 YYMwVYft+RNeUaT0tOHyjNQVrnopzoqdQgx/d4RvMaRRPYs6QbVf5nSPs2xSuLcb/sUjd
+	 r+QHJ44ukPDiKEYFQeq6du9JLN8u6v0t91VOuTw6jq8tjgyw6jxna5ivMIrM7PL5D8w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794454452;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=Gm55iSOTgbLwtkYj3NPyG7MZXw07pKTsLRlpf/fNTZw=;
+	b=I9g1oE93MDLs9laF4i9QvCZDsZ8j8Kk6yYUFEkmibmte4+nghqSmBUZ25s6e9sbJf+TS
+	 rK4dLXsPbbJM9pNPAQ6v+H6PD9APghqiY4xf2jRtwlGfBePeJKtLKM1CLhCM6/n7XHvF8
+	 OXsS3T1br1U9EcbTH7MjtOcNtMVZbpShoCzoZT2Hhp8FWc2SadsHCyekH0Oa3rbOvqRIH
+	 XmB00t7SGuFX8/BH0aD4nSRl3U6EHzLneMfLofr6LmnD37r0dCXwq29HHfjBILslJALi+
+	 Zx6GP4WrXZvOL8kMSKCCfZ2xOS/DSwQ93oKy5rZFj0W1k6CTQencchoY56TcyZWRxVw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16062606A321;
-	Thu, 12 Nov 2026 03:33:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16062606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.177])
-	by dggmsgout12.his.huawei.com (SkyGuard) with ESMTP id 4jQ5Z15wz5z20Nk;
-	Thu, 12 Nov 2026 11:32:57 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id B5B41409C7;
-	Thu, 12 Nov 2026 11:33:37 +0800 (CST)
-Received: from [10.174.179.19] (unknown [10.174.179.19])
-	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgCn4O+PM_VqRVcZEA--.64899S3;
-	Thu, 12 Nov 2026 11:33:37 +0800 (CST)
-Message-ID: <fce5c384-3a18-4156-b0eb-a0d584b8b459@huaweicloud.com>
-Date: Thu, 12 Nov 2026 11:33:35 +0800
+	by smtp.kernel.org (Postfix) with ESMTPS id BE7CF1F00A05;
+	Thu, 12 Nov 2026 03:34:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794454452;
+	bh=Gm55iSOTgbLwtkYj3NPyG7MZXw07pKTsLRlpf/fNTZw=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=gnfxiyu1FYIAXaDL28CzC1kh5FqACxU8GGUGcA/ndZmaQayceDD+tF07AedUmtCVX
+	 TVUvFV91tJ8VeMh60PA5XgkLWCyFSTMFBihiE7+k4fZKSguD1QbC3jz5s6XS++xjzS
+	 SrJ2ee7pGHjJiXCMUUHUNqOVHIajfrjYXn5G0Q/HR7c11WitUj/pBGLqp8QFb+zDUy
+	 b0OjuwyMvzNDnNcmPv/v6MTCptmq5QIolHZ/Eubu6q44JaUfdQkVfBP0KmaE7XR+D1
+	 oTrMEI/BiYIqPFKZ2W3KI15FCdFHLwCwlOA+cUZ4nRrhG/U3Hyb63xSHe7fFEjDb7E
+	 WPvyhy1hUs4jg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2C6CF49252;
+	Thu, 12 Nov 2026 03:34:11 +0000 (UTC)
+From: Angel Gabriel Crispin Valdivia via B4 Relay <devnull+angelcrispinvaldivia.gmail.com@kernel.org>
+Subject: [PATCH v2 0/4] drm: Add Fresco Logic FL2000 USB display driver
+Date: Wed, 11 Nov 2026 22:34:07 -0500
+Message-Id: <20261111-fl2000-upstream-v2-0-201f87708cb0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,241 +83,247 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/8] ext4: fix endio zeroout corruption by tracking
- to-be-converted unwritten IOs
-To: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-Cc: Theodore Ts'o <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>,
- Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, linux-ext4@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261102-ext4-endio-zero-bug-v1-0-266d2bb9e6dc@linux.ibm.com>
-Content-Language: en-US
-From: Zhang Yi <yi.zhang@huaweicloud.com>
-In-Reply-To: <20261102-ext4-endio-zero-bug-v1-0-266d2bb9e6dc@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:gCh0CgCn4O+PM_VqRVcZEA--.64899S3
-X-Coremail-Antispam: 1UD129KBjvJXoW3JFWUZFyDtrWfGF18AFyrJFb_yoWfXr47pF
-	sIkF15Jr4kt34Ik393A3W2qr1Yvws3GFW3WrW3GFWjyFy5XryFgr47KFWj9Fyv9rs7CFya
-	vF4Yv34UCas8uaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUymb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I
-	0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
-	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
-	0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vI
-	r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
-	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0
-	cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8V
-	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E
-	14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07UK2NtUUUUU=
-X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4XM2prpoCS68j8MC1qmMIZX2kI0h
+ H+34NrlSc49d4XAXjjAPVvB8yJBxiEBnTKwbTU0rKRODIRUaI1X5TpCRDVPIXquepU7S6wdYk0
+ XSKvJs5P3UXyWPw6zebGNe2Y3Wglx9J/jctG797++aIXKGF3kbA3leHs0fSXd2Y49lNu2fQHeN
+ hYQwAAAAA==
+X-Change-ID: 20261105-fl2000-upstream-3fc2e1f00d24
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Angel Gabriel Crispin Valdivia <angelcrispinvaldivia@gmail.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794454449; l=11996;
+ i=angelcrispinvaldivia@gmail.com; s=20261106; h=from:subject:message-id;
+ bh=43XFtzRhNur/WmEhZyMLx1W6oUchF58B4Xxb7Xh6Oew=;
+ b=6eS/0cY+n6GgAFIAeTl4cTS1SX+Q+YmchIP4g7VWVNef0XgvbyxNdwmzvMhzgw8O2Tmnkg0HB
+ ZkJlqdWodaoDFY4FMHd2+GagVdjrD10kl7TbwZGEjvgCuULgFZZLY44
+X-Developer-Key: i=angelcrispinvaldivia@gmail.com; a=ed25519;
+ pk=80bQU/p2R0pLIfdfJaB5I/2obI+RxQHondq5DEM0tbg=
+X-Endpoint-Received: by B4 Relay for
+ angelcrispinvaldivia@gmail.com/20261106 with auth_id=1425
+X-Original-From: Angel Gabriel Crispin Valdivia <angelcrispinvaldivia@gmail.com>
+Reply-To: angelcrispinvaldivia@gmail.com
 
-On 11/3/2026 2:26 AM, Ojaswin Mujoo wrote:
-> There is a data corruption in the zeroout fallback
-> ext4_split_extent_zeroout() when we encounter an error like ENOSPC
-> while trying to perform endio extent splitting.
-> 
-> The issue was discovered by Fedora coreos community while using 1kb
-> blocks size on a 64kb pagesize arch like powerpc or aarch64 and the
-> discussion can be found at [1].
-> 
-> ** The Issue **
-> 
-> The issue can be encountered as follows:
-> 
-> 1. Make an FS with no reserved to root reserved blocks and fill it
->    completely.
-> 2. Delete a file so that ext4_sb_info thinks there is free space but
->    mballoc doesnt have any (until txn is committed).
-> 3. Now when endio kicks in it eventually reaches:
-> 
-> ext4_handle_unwritten_extents
->   ext4_split_convert_extents
->     ext4_split_extent
->       ext4_split_extent_at
->         ext4_ext_insert_extent
->           ext4_new_meta_blocks  // extent tree split/grow needs a block
->             ext4_mb_new_blocks
->               ext4_claim_free_clusters  // thinks we have free space but mballoc
->                                            has none until txn commit frees it
->               ext4_mb_regular_allocator
->                 // return -ENOSPC
->     // ext4_split_extent fallsback to zeroout
->     ext4_split_extent_zeroout
->       // We try to zeroout surrounding unwritten ranges. This code has a bug
->          where we zero an unwritten extent which could have valid data on disk 
->          whose endio has not yet converted it
-> 
-> The main issue is that zeroout assumes any unwritten extent is valid to
-> zeroout but it could actually be a soon-to-be-converted extent holding
-> valid data.
-> 
+Hi,
 
-Hi Ojaswin,
+This series adds a DRM driver for USB display adapters built around the
+Fresco Logic FL2000DX (USB ID 1d5c:2000). These are sold under many
+brands as cheap USB 3.0 to VGA/HDMI dongles; the HDMI variants pair the
+FL2000 with an ITE IT66121 HDMI transmitter on the FL2000's I2C bus.
+Today these adapters only work on Linux with out-of-tree drivers.
 
-Thank you for your analysis! This makes sense to me. I apologize for not
-having considered this concurrent scenario earlier and for amplifying
-the data loss issue.
+The driver started as Artem Mygaiev's out-of-tree fl2000_drm driver,
+itself partly based on Fresco Logic's reference driver; their copyright
+lines are kept. I ported it to current kernels, fixed the problems found
+on real hardware (EDID, crashes on disconnect, frames that were never
+terminated, imported buffers read from the wrong VRAM), added the analog
+VGA output and cleaned it up for submission.
 
-> ** The fix **
-> 
-> The way this series fixes it is by per-inode tracking the no. of
-> unwritten IOs that are submitted but not yet converted
-> (ei->i_conv_pending_ios). If we end up in the zeroout fallback and see
-> there are such IOs existing in the inode, then we don't zeroout and just
-> return back the original error. More design notes can be found in
-> subsequent patches.
-> 
+I intend to maintain this driver for the long term: patch 1 adds a
+MAINTAINERS entry with me as maintainer, I have the hardware to test
+on, and I will keep following review and bug reports on dri-devel.
 
-Regarding the solution, I agree that your approach looks like it can fix
-this issue, and the idea is fairly straightforward. When zeroing out, if
-there is other concurrent I/O, just fall back and return an error.
-However, I've been thinking about it over the past few days, hoping to
-find another simpler and more elegant solution, but that seems rather
-difficult.
+The series builds the driver up in four steps, each of which compiles
+on its own:
 
-First, due to the map range caching mechanism in the iomap writeback
-path and for performance reasons, we probably can't go back to splitting
-extents when issuing I/O as before. Moreover, the previous approach also
-couldn't completely avoid zeroing the entire unwritten extent when the
-I/O completes, so the problem already existed before. It just required
-concurrency and had a very low probability. Therefore, I agree that we
-need to address this problem head-on.
+  1. USB driver, FL2000 register access (regmap) and I2C adapter
+  2. IT66121 HDMI transmitter bridge
+  3. frame streaming over bulk URBs
+  4. the KMS pipeline, which makes the display usable, including the
+     analog VGA output of adapters that have both connectors
 
+v1 was an RFC. This version answers its review and is meant to be
+applied, but some design points are still open and I would like your
+view on them; the first one could change the series:
 
-Here's a rough idea I'd like to share:
+1. IT66121 support. The series carries its own small IT66121 bridge
+   (fl2000_it66121.c) instead of reusing drivers/gpu/drm/bridge/
+   ite-it66121.c, because I could not find a way to use the in-tree
+   driver on a PC: it depends on OF (x86 distribution kernels have no
+   CONFIG_OF), reads bus-width and its next bridge through of_graph,
+   requires a reset GPIO the FL2000 boards do not have, and DRM has no
+   bridge lookup without OF. It also reads the EDID through its DDC
+   engine, which on these boards is not connected to the monitor (the
+   EDID is read with the FL2000 I2C engine instead).
+   Reusing it would take converting ite-it66121 to the fwnode API with an
+   optional reset GPIO, a fwnode-based bridge lookup in drm_bridge.c, and
+   a small bridge of this driver providing the EDID. Is that the direction
+   you would like, or is a private IT66121 bridge acceptable for a USB
+   device like this one?
 
-1. Add an in-core extent status flag, something like
-   EXTENT_STATUS_PENDING_WRITTEN.  Like EXTENT_STATUS_DELAYED, these
-   entries would be must-keep.  The idea is to mark ranges for which
-   we've submitted I/O over an unwritten extent but haven't done the
-   conversion yet.  It would just be an extra flag on top of
-   EXTENT_STATUS_UNWRITTEN; the zeroout paths would be the only thing
-   looking at it, and everywhere else the entry would still behave like
-   a normal unwritten extent.  We'd have to drop the flag whenever the
-   entry changes state, and also when the I/O or the conversion fails.
+2. Hotplug. The bridge attaches with DRM_BRIDGE_ATTACH_NO_CONNECTOR and
+   the HDMI connector comes from drm_bridge_connector. The bridge
+   reports DETECT and EDID only: the IT66121 interrupt reaches the host
+   through the FL2000 interrupt endpoint, which makes the driver send a
+   hotplug event for the device, so there is no DRM_BRIDGE_OP_HPD and
+   the connector is also polled. Would reporting HPD with
+   drm_bridge_hpd_notify() from that path be preferred?
 
-2. When submitting I/O, once we know the actual range being submitted,
-   we'd split the existing unwritten extent status entry and add a
-   pending-written entry for that subrange.  Then, when the I/O
-   completes, or when fallocate and similar paths want to split an
-   unwritten extent, we could check the extent status tree for the range
-   we're about to zero; if there's a pending-written entry there, we'd
-   just skip the zeroout fallback and return the original error.
+3. Pixel conversion. The stream converts with its own small line
+   converters instead of drm_fb_xrgb8888_to_*(). The framebuffer is
+   usually imported from the primary GPU and sits in write-combined
+   VRAM; the format helpers read such I/O memory with memcpy_fromio(),
+   which takes ~88 ms per 1080p frame, while drm_memcpy_from_wc() into a
+   cached line buffer takes ~8 ms. The converters also apply the
+   FL2000's 32-bit word swap and only touch the damaged rectangle of a
+   shadow frame. Would a helper that reads its source through
+   drm_memcpy_from_wc() be welcome, so this could go away?
 
-3. We'd need to set the pending-written entry under i_data_sem.  Since
-   ext4_split_extent_zeroout() already runs under i_data_sem, that
-   should be enough to avoid the race.
+4. VGA detection. The chip has a single monitor sense input, which on
+   the adapter I have follows whichever monitor is plugged in, HDMI or
+   VGA. The VGA connector therefore reports a monitor when the chip
+   senses one and the IT66121 hot plug line is low, which means a
+   monitor on VGA is not reported while one is on HDMI (clone mode
+   needs video=VGA-1:e). Is this an acceptable way to do it, and is
+   there a better signal I should look for in the chip?
 
-4. One thing to be careful about: a pending-written entry is still
-   unwritten, but it shouldn't be merged with a normal unwritten entry.
+The rest of the pipeline follows the current helpers: regular atomic
+plane/CRTC/encoder objects with managed initialisation, GEM SHMEM with
+shadow-plane access and fbdev emulation through drm_client_setup().
+There is no cursor plane and no vblank support. On the USB side the
+driver matches interface 0 and claims the other two, everything hangs
+off that binding, and resets and system sleep do not unbind it.
 
-Some advantages I see:
+Other known limitations: XRGB8888 goes out as RGB888, and modes the USB
+link can only carry in RGB565 (2560x1080 on USB 3.0, 640x480 on USB 2.0,
+as there is no compression) need a framebuffer in that format. RGB565
+was seen working at 1280x720 on HDMI and 1024x768 on VGA, but those
+larger modes have not been tried; and adapters with a VGA connector
+only, without an IT66121, are not supported: the analog output is only
+added next to the HDMI one.
 
-1. We don't need to add anything to struct ext4_inode_info.
+Tested on x86_64 (amdgpu laptop, GNOME Wayland) with a UGREEN USB 3.0
+adapter with HDMI and VGA connectors: a 1920x1080 monitor on HDMI, and
+an old 1366x768 monitor without a usable EDID on VGA. EDID, mode
+setting in XRGB8888 and RGB565, plugging and unplugging monitors,
+system sleep, USB resets and the desktop work, with one frame per
+refresh on the link. With Mutter 51.1, which renders in XRGB2101010
+when it can, the missing 10-bit formats make it copy the frames on the
+GPU instead, and that copy path leaks a framebuffer per frame (Mutter
+issue #5101; the fix is on Mutter's stable branch for its next release,
+51.2).
+The unplug, unbind, module removal and USB reset paths were also run
+under KASAN and lockdep against an emulated FL2000 on raw_gadget and
+dummy_hcd. Every patch builds without warnings with W=1 on top of
+drm-misc-next, sparse is clean, and the series passes checkpatch
+--strict.
 
-2. We don't need a new lock, and we avoid things like
-   EXT4_GET_BLOCKS_NO_CONV_ACC for paths that don't account for
-   themselves, as well as walking ioend/iovec at I/O completion just to
-   keep a count.  I think the code would be a bit easier to follow.
+Tool use, as described in Documentation/process/generated-content.rst: I
+used an AI coding assistant (Claude Code with Anthropic Claude models)
+extensively while preparing this series. It helped port the driver to the
+current APIs, clean it up to kernel style, write the shadow-frame
+streaming, track down and fix the hangs on unplug,
+and draft the commit messages and this letter. I reviewed the result and
+tested it on the hardware described above; the Signed-off-by lines are
+mine. The series was generated and checked (per-patch builds, checkpatch)
+by scripts in the out-of-tree repository this driver is developed in.
 
-3. Random I/O into preallocated files seems pretty common, so tracking
-   at per-extent (or more precisely, per-range) granularity should give
-   better exclusion than a per-inode counter and hopefully reduce the
-   chance of writeback/conversion failures.
+---
+Changes in v2:
+- Sent as a regular series: v1 was an RFC.
+- From the review of Thomas Zimmermann:
+  - No cursor plane, and no blending in the driver.
+  - No vblank timer, and so no vblank support.
+  - The EDID is not kept: it is read from the monitor on every probe.
+  - The formats are XRGB8888, converted to RGB888, and RGB565, sent as
+    it is. The 10-bit ones went: they are not native (the device takes
+    RGB888 or RGB565), and they were only converted down. What the USB
+    link cannot carry at a mode fails in the atomic check of the plane;
+    the CRTC no longer picks a format. (This makes Mutter 51.1 copy its
+    frames through a path that leaks, as said above.)
+  - The limits are what the timing registers hold, 12 bits (4095).
+  - mode_fixup adjusts the clock, mode_valid returns MODE_* codes, the
+    helpers are used as drop-ins, and the plane helper goes first in the
+    plane check.
+  - The interrupt endpoint is only polled once the device is registered,
+    and after system sleep once the state is restored, so no state about
+    that in the driver. The chips themselves are still set up before
+    restoring the state, as restoring it writes to them.
+  - Forcing the monitor sense went to the HDMI encoder, and the CRTC
+    only enables the interrupts about frames.
+  - struct fl2000_device, sorted driver flags, drm_dbg(), fewer
+    comments.
+- Convert each damage rectangle of the plane instead of their bounding
+  box. A compositor that copies into a rotation of buffers only keeps
+  the damage current, and the pixels between the rectangles could bring
+  back older content.
+- Bind through interface 0 and claim the other two with
+  usb_driver_claim_interface(), with everything hanging off that
+  binding, instead of keeping shared state on the usb_device: unloading
+  the module or unbinding the driver left it all behind, pointing into
+  freed memory. This answers question 3 of v1, which is gone. There is
+  no component framework any more, the bridge is attached directly, and
+  the DRM device hangs off the interface.
+- USB resets no longer unbind the driver (.pre_reset/.post_reset).
+- Keep the stream as long as the DRM device, and guard everything that
+  reaches a register with drm_dev_enter() or drm_bridge_enter().
+- Really probe for the IT66121: the detection had its return values
+  inverted and always "found" the chip at the first address, without any
+  transfer.
+- Reject modes larger than the limits in the CRTC check. The core only
+  applies max_width/max_height to probed modes, and a mode with an off-
+  screen primary plane could wrap the 32-bit buffer size.
+- Do not write the old shadow frame with a new geometry after a failed
+  mode set.
+- Remove the EDID read through the IT66121 DDC engine, which never
+  completes on these boards and cannot work behind an I2C engine that
+  reads whole dwords (each read of the DDC status pops the DDC FIFO).
+  The DDC bus release stays.
+- Honour the plane's source rectangle: a framebuffer larger than the
+  mode froze the output.
+- No phantom VGA monitor from the forced monitor sense when HDMI is
+  unplugged.
+- Acknowledge the IT66121 from the FL2000 interrupt and unmask its hot
+  plug, instead of polling it over USB ten times a second. Enable the
+  monitor interrupts at probe, not at the first mode set.
+- Keep FL2000 resets and I2C control register writes out of running I2C
+  operations.
+- Smaller fixes: URB submission retries bounded (-EAGAIN looped
+  forever), no pointer in urb->transfer_buffer,
+  flush_kernel_vmap_range() before sending a frame, I2C message
+  validation through the adapter quirks, a lost status event when
+  clearing the LBUF flags, interrupt URB interval and endpoint, a NULL
+  dereference on allocation failure, suspend error handling.
 
-A few disadvantages I'm a bit worried about:
+Most of these come from the Sashiko review of v1.
 
-1. We'd have to audit all the ext4_es_cache_extent() callers for
-   conflicts, and all ext4_es_remove_extent()/ext4_es_insert_extent()
-   call sites, to make sure pending-written entries don't get dropped or
-   overwritten. I'm not sure yet whether this is definitely feasible.
+- Link to v1: https://patch.msgid.link/20261105-fl2000-upstream-v1-0-bb163ecb2309@gmail.com
 
-2. It changes the core semantics of the extent status tree, so it's
-   quite a bit more code and work, and probably not something for
-   stable.  I see it more as a long-term fix.
+---
+Angel Gabriel Crispin Valdivia (4):
+      drm/fl2000: Add USB driver with register and I2C access
+      drm/fl2000: Add ITE IT66121 HDMI transmitter support
+      drm/fl2000: Add frame streaming
+      drm/fl2000: Add KMS display pipeline
 
-What do you think?
+ MAINTAINERS                                  |   7 +
+ drivers/gpu/drm/Kconfig                      |   1 +
+ drivers/gpu/drm/Makefile                     |   1 +
+ drivers/gpu/drm/fl2000/Kconfig               |  19 +
+ drivers/gpu/drm/fl2000/Makefile              |  13 +
+ drivers/gpu/drm/fl2000/fl2000.h              | 159 +++++
+ drivers/gpu/drm/fl2000/fl2000_drm.c          | 902 +++++++++++++++++++++++++++
+ drivers/gpu/drm/fl2000/fl2000_drv.c          | 222 +++++++
+ drivers/gpu/drm/fl2000/fl2000_i2c.c          | 179 ++++++
+ drivers/gpu/drm/fl2000/fl2000_interrupt.c    | 226 +++++++
+ drivers/gpu/drm/fl2000/fl2000_it66121.c      | 799 ++++++++++++++++++++++++
+ drivers/gpu/drm/fl2000/fl2000_it66121.h      |  18 +
+ drivers/gpu/drm/fl2000/fl2000_it66121_regs.h | 284 +++++++++
+ drivers/gpu/drm/fl2000/fl2000_registers.c    | 315 ++++++++++
+ drivers/gpu/drm/fl2000/fl2000_registers.h    | 276 ++++++++
+ drivers/gpu/drm/fl2000/fl2000_streaming.c    | 807 ++++++++++++++++++++++++
+ drivers/gpu/drm/fl2000/fl2000_vga.c          | 223 +++++++
+ 17 files changed, 4451 insertions(+)
+---
+base-commit: 41ecf852c07391687beb129e12a231760b5d783f
+change-id: 20261105-fl2000-upstream-3fc2e1f00d24
 
-Thanks,
-Yi.
+Best regards,
+--  
+Angel Gabriel Crispin Valdivia <angelcrispinvaldivia@gmail.com>
 
-> For direct IO, ext4_iomap_begin() is called once per mapping and has no
-> way to account something only once per dio. So we first fix it in a
-> simple way by relying on inode->i_dio_count which is already
-> incremented/decremented once per dio. The last patch optimizes this by
-> moving dio accounting to i_conv_pending_ios as well, by using a custom
-> ext4_iomap_next() (needed because we want to increment once per
-> dio). Since iomap_next() infra was added in 7.2+ this can't be
-> backported so kept this approach separate.
-> 
-> There are other approaches considered like completely disabling zeroout
-> (not ideal as it's a useful fallback) or tracking the conv_pending ranges
-> in extent cache (this is an intrusive change) however the current
-> approach was chosen as a middle ground to balance complexity vs
-> accuracy of accounting.
-> 
-> ** Backport Notes **
-> 
-> This issue seems to have existed ever since we had the zeroout logic
-> however this was never encountered until we moved extent splitting from
-> writeback time to endio time in commit:
-> 
-> ea96cb5c4ae3 ("ext4: don't split extent before submitting I/O") (merged
-> in 7.0)
-> 
-> which changed the dioread_nolock writeback/dio path to submit I/O
-> without pre-splitting extents, deferring the split to endio. This means
-> multiple concurrent writes can share a single unwritten extent, and a
-> failed split on one of them could zeroout data belonging to another,
-> which exposes this issue in the zeroout logic. 
-> 
-> Note that the issue in zeroout was always present but the above patch
-> just uncovered it. However, for the purpose of backports, I've used this
-> patch. Seeing how we never saw this issue before this, hopefully just
-> backporting it till 7.0 should be fine.
-> 
-> ** Testing **
-> 
-> I've tested -g quick for various configurations to catch any obvious
-> issues or counter leaks, saw no regressions. I'll continue to test for
-> auto group. I've also added some new tests to hit this regression which
-> I'll post soon.
-> 
-> [1] https://github.com/coreos/fedora-coreos-tracker/issues/2234
-> 
-> Thoughts and suggestions welcome.
-> 
-> Regards,
-> ojaswin
-> 
-> Signed-off-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-> ---
-> Ojaswin Mujoo (8):
->       ext4: add extra_flags param to ext4_convert_unwritten_extents()
->       ext4: fix endio zeroout corruption by tracking unwritten to-be-converted IOs
->       ext4: add tracing for i_conv_pending_ios tracking
->       ext4: don't zeroout if we have inflight unwritten IOs in non buffered-iomap path
->       ext4: don't zeroout if we have inflight direct IOs
->       ext4: make sure zero range WRITE_ZEROES uses NO_CONV_ACC flag
->       ext4: don't zeroout if we have inflight unwritten IOs in buffered iomap path
->       ext4: optimize inflight dio tracking for zeroout
-> 
->  fs/ext4/ext4.h              |  29 +++++++--
->  fs/ext4/extents-test.c      |   2 +
->  fs/ext4/extents.c           | 117 ++++++++++++++++++++++++++++-------
->  fs/ext4/file.c              |  14 ++++-
->  fs/ext4/inode.c             | 146 +++++++++++++++++++++++++++++++++++++++++++-
->  fs/ext4/page-io.c           |  27 +++++++-
->  fs/ext4/super.c             |  12 ++++
->  include/trace/events/ext4.h |  25 ++++++++
->  8 files changed, 342 insertions(+), 30 deletions(-)
-> ---
-> base-commit: 8c4f6e3376348fc3162eed86a05b933921c8f9ed
-> change-id: 20261023-ext4-endio-zero-bug-ec627ae61f39
-> 
-> Best regards,
 
