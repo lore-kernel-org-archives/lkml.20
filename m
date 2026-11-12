@@ -1,125 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794516978;
-	b=FBrRt2r/NesqYTxAm4T+5dWJ5lA5m5RGRWYSjd2+kQkWY6bZ6M6RZgtzGP5/lAIaCCtR
-	 egFUS3VzIPHG+/HP/2ot1DiaEzT1e/OjtJVjliSZd0qcidhc+BeHmyHLXk1ffFdp/zuFz
-	 FcJO0nqu2LzEPLh+MNq9ugCaajj5H9jlo/3kVRe1OpLzzKGaMtC6wXBakYKTEeKGFpGeS
-	 7D9TqzjaNO6Ikb+T2iClKrNF1qQuHoDVeq28gqAqy1jn0oMN1dRJQ0j72ZnsS7iU2nYqR
-	 DeVlyz4OiEy95B0kDjS0tL+qW07+w9QHejjU1mOlTRIXE3jI22l1x8tJRD3EnnhawQA==
+	t=1794517026;
+	b=Ra04jIPJN2Fr+I38hRJ6Hl/cFh7PYHHgUGHOgFeebLpa0C9Vs2Uts8ugX/1O1T73bpc0
+	 bfOBoGGuvDjD3SC9VDWEdcGEcdMxTugc1dPZpffRVFShHWJ0zbgzk/Dk+PtgKtv2zKxhn
+	 kBimYip74iO70wwXDI+7LyQ8OE1SsWLnmU9VBErD/FQfuwp9yue+/cDXrH7K+jKgAHjaA
+	 prXy/8Cmx7wuGHASREvKingiYfFArxGQ/+QNDkQ2/pWxEDLHg/cteETLXICp4JJv6SLre
+	 ZErpVp5XzxbLrOHZSjHQ/65OniYPY2JowxFMc+0lmX8VTnA7s0Z96pikf/AIcnVyW9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794516978;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=iJ29OM5qVMg3SIcWH9IPi0t+ZcUFCBUMo/7eDRtwZfo=;
-	b=ZskXsF2nhTRyyLQRrEpjC83TL5VOSxy4C9qRBNOJ3V0ry/tI/RXlhy1h/ZfwvIQSqVA4
-	 1GMGqHdeo43xt+OaM1v1oNEjv4MtzzoHUyz3/0YkA+Aw4E4cwuWw9aTI8iQ7Wb4CBoCM0
-	 VkUpKUcih51a4jNAfMp6ftX4KfTmJ0sdEWDQP7IS1dkYElnzG+MAt+6EcDNVa6lrvG+2d
-	 +WjdDbgnNk5Lr222jLDwHAje03GXlodDXzeuSjBnsf8GGohWiFupN/lVIH4DE4mjC8ASz
-	 aya7p+uuHsaabwIzGv44o+Yyo+jck+6Id0hNZFqEI2ybQjvCKaAXmPSvN3qC4PhEk1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794517026;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=e68ELQiwpDBaPgGFwS4ZSzIkJMM3tSCd+P1yanX7rwI=;
+	b=Ss+mzILsVLlm19LtZT+6McHwkAWe4XfrD0zwyRRPgncsbghmNEyEGYJjFgSnAsNoOnKy
+	 RVVCVxbfRNYEUNo+H7kdQVzXD9pWDx1045k9HyIV/bkGkxtF50Jg4BybOHZigWlGz8fTS
+	 mvQpntrqZ5HKrO15EK6r3y5XKN+ck+E1NwFtAcD7wepsN3hLpBZL5bAfj3Gp9QD9dS/Cz
+	 /47iAGcCh2tSy5jDmckg2aQh8mJNrlO5Jn34Bs21Sxs4keGEhLUKUSdsn1XS+qW5uULOD
+	 OtJFzwJues56IoYs3sjfLu7Haq5fyA5sbwGYskzayspz2d2ofCGmXQvUhT24g2pyQpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b="CT/h2ZWp";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=SU4eEKOx;
-	arc=none smtp.remote-ip=103.168.172.136
-Received: from flow-a1-smtp.messagingengine.com (flow-a1-smtp.messagingengine.com [103.168.172.136])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KxPew1I3;
+	arc=none smtp.remote-ip=209.85.210.170
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1787606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:56:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1787606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28961606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:57:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28961606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=CT/h2ZWp;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=SU4eEKOx
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailflow.phl.internal (Postfix) with ESMTP id 22DE71382B77
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:56:16 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Thu, 12 Nov 2026 15:56:16 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1794516976; x=
-	1794524176; bh=iJ29OM5qVMg3SIcWH9IPi0t+ZcUFCBUMo/7eDRtwZfo=; b=C
-	T/h2ZWpJIYE6PXEfqqKq0Kg6mviK4jJazhzQm1QY5Evl90/ARdgEKQda6OBIfTxr
-	3GWC6zBu/Nrk/LgdZ7PXfdJgwmhCq4/YDhd10HvZwlF4vtzh6LLXLVPuPatwCxJQ
-	eMCNwlNihZ7Zq9FAh0SqfwlBjZblDmfcFU160msw1co+TifzVjBHVe0QTM5DvYaK
-	77M6m3jFHUSXb0Ee/vYvkUYv8jly/YfX0gfB+tksA6/ZCY9Rfke8SrCzqnx2KUrn
-	KpqcIthFvITKv70o6LMJ8XoNzME/9iKkMZHKbVP1V4qTNYWjG/FVwq6yZI4OC9Fp
-	eeKKec+sAH5FOtfXSm67g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794516976; x=1794524176; bh=i
-	J29OM5qVMg3SIcWH9IPi0t+ZcUFCBUMo/7eDRtwZfo=; b=SU4eEKOxKPDohX3MX
-	H/uijNhceZy8OcZ5M8y0ShgpA9ZF6klux46+GMQ0x1xxmFNrvZc1VA2rkhtXFM1m
-	AZpBTfcjKCmlVAG1C960wDZOlsUNg+Wc9mTookBaURiimiVD3Y9bYi8LZ4XlmdnU
-	iEk7pbZ4BQGUHsaMND8dmHLpz+jRxQPXweQUp9+Kqq0PYcVOL+n3Hzp/cyH111RD
-	NrY4AuV+txDT+Rzk1Jqv1umH3kG+577rjecyYqEwgy3qHUJkyY3UV/A7Zq3RmPzu
-	KlcsX56QUYZbt9Djc7tiQ5uk03411v72UT7NZ7kT6sA509k4pMvR078xK+GovRsr
-	HQDow==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794516976; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:gkg9uJRHYARGpp1+piHCLeUmgzYyjuF3XO2jKDEGv0vQuL2
-	Zn3V+l2fTFsiw7XygcUNPafLa55xYhP0lys89pww9Kc/ddjx9+5SYZyJweEWyqCW
-	4OuEeR6jYSbdR++GnylVe+KTwDuTFmcjtFRWBxGkal3SnnyV8IyULnWD7yImUPeC
-	tU1GbU1HkuUEKUnzZjHEG0Pj47XwmuJastNgDpfOA1Uiimt4yuH448gQ7Yc+2Daf
-	56tRgb0blpM1QgrCdwqUJe/oAgoMoOZrOed4zJ1kbXRbZWqFBGaljFLBh9oOvmUw
-	X55wAlTPqa/7GSIcMe0TafOvRMKrTuQnTUt10TA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:kGG/S0Sc/ZpvHR7ouMeB9R4zu/SY/DC6UJBVYolYAUE=:iJ29OM5qVMg3SIcWH9IPi0t+ZcUFCBUMo/7eDRtwZfo=;
-X-ME-Sender: <xms:7yf2auiJs56D7bYLbLjTSqatrAyOGQOZMLV3DJog8n3R8P6jk2CRbg>
-    <xme:7yf2avuV58CADJp3eBA7yzKQg0bK66s4iUbqAMovYhgDfISV6poXviaCBFSx6m8uU
-    G04nTCT2o_gkK1CDi4z_X0mg-ztrIPPVvE7q0kaRLPr2WDmBAQm4TI>
-X-ME-Received: <xmr:7yf2akQyc2hyPyP-V2t5waGh1iqkI-LrOwL0WkMR8j5ofTwZPlphls3un_M4csBX>
-X-ME-Proxy-Cause: dmFkZTGMEpMZHbHnsDEa31aNnb7u0pgpRkeY++XjQxdxHdZueVzxOzMod3h8IIDBIcetLS
-    QK6rcxHtu/7Flqsgg41/sVMG9EFT2RQ2dCJCsnVNlqOocUCmYy/hiFek2LdWOeudvsiw5p
-    /NRTf2Elop6p0TIaWyvocZ9t3bH/SiTI41DkWeYd6Ca1qGDH2d6sqjN2d5lSvBxyn5nl+u
-    yClBILGZf8rYi0sTdXkhoCu49pIboWFAZCGwAGMIA8NIfq/PdH8yBeDohsjBr3QZtVZsEO
-    mz+SY9QnZojZoyv0aEc5W3+FC/nJC9ogWMH57YyvjBCykyM3atpqsFk42ZrFKZFp+QltGE
-    dE/dCzhhDp6kmGZY0ha27K8D2ifAaWXd5yc5BE3CSrqX6GA50x3yBqtJFCcGHrfN0f7n1D
-    sgTdNJPhjdC64/mkvJRNXYP1iQoQSji3PaO3F0CMT1Pxk9/wPQYtW+oC9fE3yEPkMa+zbF
-    JQSboQu8fjYU63l/KlZJ/9prQx9uqQCNbAI74uTx6IzM5VagnOwsWsIKXZNFqA6+rg5P9N
-    hI1gvEzY4JoijcmyihKvFpl7AwYd0LwuW30Ho/LhBAA86TPiI4Q74+G5rz3Ptmr7tXiml9
-    u/6RBJftzw5kEgs805ObGqeoeRVrnK/J6+xAA959r7UjgFjcQoAsd0UxOkag
-X-ME-Proxy: <xmx:7yf2ar3eMpnjyIgMqM0JFdEK1q7YmJ0H9cSAYQifoL6ottCHHHoPvA>
-    <xmx:7yf2ahsA3Z78mOrVRe0AOCfMrkVeW2SYN7w4E2h3QAZzGXAk4oHMbg>
-    <xmx:7yf2aphIfkNhoii5xAJlGc5AW90S-wQfDA65RbS92AiqnKXoF4kD1A>
-    <xmx:7yf2aq82qoFxOjp3hGkLdR_TxPM77SaTdsotzM77UUDlscfY4SEg3Q>
-    <xmx:8Cf2av062lzNh_jLueQmFnwTTHsGqghOsi0rUE_HX9f1YOps4Khz9zWv>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 12 Nov 2026 15:56:15 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: mike.michalo@gmail.com
-Cc: linkinjeon@kernel.org,
-	senozhatsky@chromium.org,
-	tom@talpey.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>
-Subject: Re: [PATCH] ksmbd: sign the last response of a compound that ends early
-Date: Thu, 12 Nov 2026 14:55:51 -0600
-Message-ID: <20261112205551.1668102-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261112194744.47047-1-mike.michalo@gmail.com>
-References: <20261112194744.47047-1-mike.michalo@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KxPew1I3
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8b32bc605d9so106112b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:57:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794517025; x=1795121825; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=e68ELQiwpDBaPgGFwS4ZSzIkJMM3tSCd+P1yanX7rwI=;
+        b=KxPew1I3PwGG2pZNZWgWXa4GjYWse4SICR+kgrhTAZDwqn/mr4LrrF5//drxEAdXtS
+         bYS4STAcG1SSMPUIni9SDqmZXrpmxeOni6KgALgJ1gTiCUL6YFqXI0nrvom4PRghE0Ur
+         roXqFwE8BgMRZzDlrgZpzqfMFRheyGcwOIuMXB0daNpLM8c9FKB3zWwZUFH0hao00cVy
+         JeLOnYefOTHEZCJD3sGAl43thCrm0qfXXyP3US7YtnQJfuTF8tDb+WzTYJEQw2InvPvD
+         +3W1n1SHxOSN2SMYPNXkhbRABaanDfullkwvuhui6bphElr8BW5lVmwq0M1u99knPaUH
+         3bAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794517025; x=1795121825;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e68ELQiwpDBaPgGFwS4ZSzIkJMM3tSCd+P1yanX7rwI=;
+        b=J5qApg89qADCYG9OPZp2LVUQr+8GOdIv5JjQJliuqekddPrkW6D6klpokKsdWIRdZM
+         1B2Rw2dxTCr92JjkCamGYfuwI6hY/ZAQ6C6uGvPj5RgKeANDpNvDot1vFR2sAy5DD5oO
+         9zpw7BsbS7HmwwtbtuDZkDWVA+MGiAGzdp2yJDwMK7YOZy7GecfYZjsk52z7+9BaYGhn
+         Rwy6NCK+i78xVVRjjyBRMSwvxYRf+shxnOlBHQiVAEFUjHVr2LhqZD9KZ67ZEzfgXyIl
+         HRG6z2h+LAlwDxPBXuWmJM8HRuo42mx5Qv/6lmqBcj/pooH3MYaRsZ35dI7imkFoKq0y
+         iibA==
+X-Forwarded-Encrypted: i=1; AL+hErGyhNZmU3qdN/ow6i3rZ4GUPTv3C+tpLBZmHcJ7GXTPtvydXUGBOx2scN6SK/WEddaENhVsuGOBz3c2KaQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/HJkCYVGkWzTG+g56Vep9u98t/z4eE7/5S/NfOeIL8uCu632qj
+	QX4cNB/2CifPKlCplub8C3kD0vNnbbHBUcXCkhBZ2kyxZXvmUlpNOZsmNIKBoA==
+X-Gm-Gg: AYBFou3CrJNI3GA9C0ziAnGOTuagBY2tZbX6KLIJ3XKe53fTVvH6cpu8UZun2rdCxzx
+	OS+9PyD7knEcBQtBe6X0Pg+tRHv4g5a/LHHANyHTlff2e2KHrhB8SBTw8ZmjZZquc5K/BJq9jpc
+	8URdE4gut1QXOzrnosfaKjAaSqpm7umsjyFcqgGoLrc0ddEVVJwU8/qUr41VD0QturVIZBzOrhK
+	eyD5aCC6PxArWSdjYS6BvQ4b1QUhkzy04gckktuJBu4tT5bpO4Y5guOw+Qo9/ev4xFdJkFzlixw
+	pjRN3MS0KS3wyaKQyFheuKLM53Lzk3qavYFAZUZo2VJWZ1V/xuqOi1200cz6HmR3bVMTwskoRBx
+	ysg7xd6LptoWh7iB2JpRJc9JuH52OKHj/PaIOjNwUIeOrxCFnEDhTZBpsAL/o8Us5YfvVbpzpGr
+	HP34YSu+06dnU1SvNT/g4fPHmQ39wdZewdj8MieBzlhSnSJAD43+4Kqjrc/9AL8n8DnQOtDNmu9
+	6rZQ0mMmZgP6ox8QMfXy2+P0z65IP53kA47BYzTnBFSTXAMmccHirJnfxMSr+QXEqDLgDgx3DQS
+	ONpoiePeNI1zXskr/dKRhOyvL2aJ1/7EYosZK42F/NMKc6K+LPzBTW1MT/ZsrnhIxY6CGM0z8pm
+	ZPX/vUoKADNjTsw53MQGj87jYZgqG6kw+UA==
+X-Received: by 2002:aa7:9063:0:b0:8a0:3ed7:93a7 with SMTP id d2e1a72fcca58-8beb6396804mr736741b3a.32.1794517025098;
+        Thu, 12 Nov 2026 12:57:05 -0800 (PST)
+Received: from localhost ([153.61.198.252])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed12a7edbsm134654b3a.18.2026.11.12.12.57.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 12:57:04 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,17 +88,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 12 Nov 2026 20:57:04 +0000
+Message-Id: <DMTJ704LM94F.W2LQRVNGZAJJ@gmail.com>
+Cc: "Amery Hung" <ameryhung@gmail.com>, "Emil Tsalapatis"
+ <emil@etsalapatis.com>, "Nicholas Carlini" <npc@anthropic.com>,
+ <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <kernel-team@meta.com>
+Subject: Re: [PATCH bpf v1 0/4] bpf: Scope callback arguments to their frame
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Ihor Solodrai" <ihor.solodrai@linux.dev>, "Alexei Starovoitov"
+ <ast@kernel.org>, "Andrii Nakryiko" <andrii@kernel.org>, "Daniel Borkmann"
+ <daniel@iogearbox.net>, "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar
+ Kartikeya Dwivedi" <memxor@gmail.com>
+X-Mailer: aerc 0.20.1-355-gf870624f6c37
+References: <20261106231157.2840635-1-ihor.solodrai@linux.dev>
+ <2785198b-ca41-4cee-9dba-bc0c1e6e8f25@linux.dev>
+In-Reply-To: <2785198b-ca41-4cee-9dba-bc0c1e6e8f25@linux.dev>
 
-I tested this with the ksmbd code from ksmbd-for-next. I sent a signed
-compound of two ECHOs whose second NextCommand covers only that
-command, so the compound ends early. Before the patch, the first
-response carried a signature that did not verify and the second was
-not signed. With the patch, both responses are signed and verify. A
-normal signed compound gives the same result as before, and the
-connection keeps working in both cases. smbtorture gives the same
-results as without the patch, and KASAN reports nothing.
+On Fri Nov 6, 2026 at 11:32 PM UTC, Ihor Solodrai wrote:
+> On 11/6/26 4:11 PM, Ihor Solodrai wrote:
+>> [...]
+>>=20
+>> Ihor Solodrai (4):
+>>   bpf: Scope the bpf_user_ringbuf_drain() dynptr to its callback frame
+>>   selftests/bpf: Cover the user ringbuf callback dynptr lifetime
+>>   bpf: Scope the bpf_for_each_map_elem() array key to the callback frame
+>>   selftests/bpf: Cover callback-frame map key lifetime
+>
+> Alexei, if this lands first, your pending verifier rewrite will need a
+> hunk like the one pasted below. Or the other way around.
+>
+> Without it, a join can link a value to the wrong callback frame.
+>
+> diff --git a/kernel/bpf/join.c b/kernel/bpf/join.c
+> index cc4494aef187..92b94e18c873 100644
+> --- a/kernel/bpf/join.c
+> +++ b/kernel/bpf/join.c
+> @@ -464,6 +464,9 @@ static bool join_func(struct bpf_join_state *js, stru=
+ct bpf_func_state *fd,
+>  			return false;
+>  		if (!join_loop_stack(fa, fb))
+>  			return false;
+> +		jid_note(js, fa->frame_id, fb->frame_id, true);
+> +	} else if (!jid_strict_ok(js, fa->frame_id, fb->frame_id)) {
+> +		return false;
+>  	}
 
-Reviewed-by: Ian Bridges <icb@fastmail.org>
-Tested-by: Ian Bridges <icb@fastmail.org>
+This and your other set no longer applies. Sorry.
+Please respin them both as one set against bpf-next.
+
+pw-bot: cr
