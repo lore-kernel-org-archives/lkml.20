@@ -1,60 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492146;
-	b=gWiswQ0i5hePWAx0K7vHkDSxcP5yVAs4qGAqh+cpdvoW3GjkXFQjYZNuAh7Kmrvco68A
-	 pRIYQEbBR3Fu2T/F8KpntyS2mU+dEZFv8H5Cu3zXeqVX3Dyel7EckiLVqBQ1K60EQ5SfT
-	 a82gOyL+DtP/spbth6Ng2j/SbWnwCPwW9lVvsr5YGXn4ianoxp59znN90KWBX883amGGm
-	 mU9Zru5Qi94oRyEiEx93QseaqBFhO/VzQm5BonzlFpwB71KMClzsXMdnT10z3EtkkXYsr
-	 aY5G3JbXNTb0EPIQzrlz3yWdPnrmyfwxUkFgH/xQSal7GOMLC4dVtZ+BDz1N8DIRhhA==
+	t=1794492155;
+	b=qZlf7LIbmfeSmN8YDVTVVA+uh9ybv/PTH620xpu3IAthcwp0YvqK8r97inM7n8yjMD+M
+	 Dea0S5kUUBDD76NmGkF6yB4I2N6+cb5/dT9nC6dQGHY4u1BiHzo4c0DJHQODIlKDLw3xN
+	 gM6G5RiVF0RBroVnFxsPqWL2DJHWAYPO/yDro2Gy8SAXnDvc1J6YdFfXa6NIlduprEeh0
+	 NpSMDQ1/bKeRNbDeJjmgeafsaHtGpT+v0P34m4/XQR8/2+ABpv9gff8BQA/OrbTAElRpT
+	 /8aH1YpMkptmxX2HgC7YKFu45ugWKwSarftjjrh1dGgahmM6Zf0GFprwNMN0TZ+hMZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492146;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
-	b=08bIgqau/6IPLSdfgW6uMCv61g+wTaACKHqgKiR/CK3yzRh51YNbq47XWnC4XbOrMuAl
-	 tfOHHLdjf3czfBr+Yvh85uZu8xwAdRR1jiAX8p3jKL0KiPWmZIHhef2F/MmrxkjmUcjx2
-	 Pqh+GPhkHV3HEj4Vg5VkLzBnfZ1EgLqNVg5MzQcn2mehkYu+2Ul41cvLBCEjAMJDxg/gy
-	 cnB0b8eDatEu1L8ftPnHqHWstzbua4ncpMpn4ACq4y/m7BDspno7T7Srg/NyoYTvbfSlk
-	 nn4ShcYvkei6/9ik7VdyG4f4Ou8WEVnBJaQXpzJXG7TjSMpe2O/OE2QPHWryjxZVGGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492155;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=P8HAkiuzwKeRXUgbQ8d9xhnf33IFx4jSd7V3UxCb280=;
+	b=40z/Jz+ZirDWPteGCtOe8IcYPsjjd/lrIg6W+S2fEwJisZsIs0n+GgI2R3S2mNprpsF2
+	 F7BFOX4Fo/vj2wkCYf0y1aZ8suQ/zbiBmgIparO1VBy37ZS8UMP2lQzpM5PlrWBm+JeBG
+	 xpNkFGBRFCLbQuS2OsswNtDi9ldrjlxpzh7JwzK3u6O1KS0AWiVFufuZNO31piuT9QNXV
+	 evpUxkCPYcmj/6JPo0OKsvPV10IvI5h05sk6WqeCdnbcRJq4o3YnP9LRWqHbPohn4NFgf
+	 kYJKoxsV9CgfF5o/+XuyWobwb1nejI2EtrqwxjFEeYfBL2ul5AUWtFFmnseOmwtyGpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jlwJ39a1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OhbJzI7w;
+	arc=none smtp.remote-ip=209.85.208.181
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C86606A330;
-	Thu, 12 Nov 2026 14:02:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7BA4606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:02:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7BA4606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jlwJ39a1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D75401F00A06;
-	Thu, 12 Nov 2026 14:02:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794492146;
-	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jlwJ39a12n/heLpSgWcHBpjVT9mYI5SkK8C7DrOZFc3WyKQ0kpQMTx5nhJ6Tp6IX4
-	 B6dIP5ckzBOfjO9SA7ct7vQwjrByJ/BSd6WbHVgsrc2pg5Rm5naTl44+Z9pr+4W+qP
-	 YWfTZww+HsanluFclcz0CE/K8UekcMX8fqpIM2iaJZxFPN9Ro8AITvgaMKla2wcz9F
-	 xtocuYddY99fKD14mmkGtaA8mHFRHvUVCfF03fBRVfCwnJ+SBBydkF+kBdjwwwNBhE
-	 LxK/Ooh+zmMeyN/RJ1ZB0ZiH6Dh6aeXr6wyqQp0CFbWu9n3l5P/wiazlMIhO4TtwtU
-	 ciW2e48/4W2QA==
-From: netdev-bot+sinfo@kernel.org
-To: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-Cc: Sudarsana Kalluru <skalluru@marvell.com>,
- Manish Chopra <manishc@marvell.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] bnx2x: Fix potential IRO array leak on removal
-Date: Thu, 12 Nov 2026 14:02:25 +0000
-Message-ID: <179449214541.2168702.8243471976083576689@kernel.org>
-In-Reply-To: <20261112-88a3a7ff32-net-bnx2x@mail.sdu.edu.cn>
-References: <20261112-88a3a7ff32-net-bnx2x@mail.sdu.edu.cn>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OhbJzI7w
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3ab30d04674so2523111fa.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:02:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794492153; x=1795096953; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=P8HAkiuzwKeRXUgbQ8d9xhnf33IFx4jSd7V3UxCb280=;
+        b=OhbJzI7wYTc4AGpSHyvzwoc38CXiGpUsoLRO8fh1eE2hWn2+mbqLrIOuURDyeoaB6V
+         WngnermPQiGKcIxLOwK5trTksplQRddBKMgYFLGNCPKnzjXj3AmiqHgrU/v4yY2hd+TA
+         xzcMLJqxM65jcDLsDQuJxV7PRCGc2568d8qP7wP42bqlKYfYXcwKbbKbOXPfUyc6zrtA
+         +U0cwOTUv3k27xjsn/k800HeMaJV+RXDHzO73Ho++rtQg586LVLUGUuFClECilmnGCB1
+         e5SBuwxg/tX4sdWo2p/IQ9M3OjEfW/SX5BZ3gX644QAMOYc62u8RYWz5iUqwnaa6r3n2
+         snyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794492153; x=1795096953;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P8HAkiuzwKeRXUgbQ8d9xhnf33IFx4jSd7V3UxCb280=;
+        b=KvgpR62+yUiMWBAkuHaZ7XV7bS0893IH2wb2M/vRpunb8jqzPsUb5rmqDy0BQFcnEQ
+         bOyGPKu1tXVsRBizWIW4kiqrmpZb5BIiA0KOQPZ2o640eUUakcHoAq73pcWsRCh/+Frq
+         y/m3UnU1R/64syLbVj8NKv4+tfcJZ9jc5VY1TRaTR/tzKwMPltN6JZ7Gsl/+forthmAl
+         76lY1xEl1VuCv4OOoSVrdPnXnrVGOhh6AlUMTsCN+X7fm25cVIcG9xdEySAuWUthJKvf
+         bzUgqkr9wHB4MoxrrEGSBVGO+1OU+G5m+JeimQdKcYbMubxe3gtv1StxXze67HmIo1ng
+         kAwQ==
+X-Forwarded-Encrypted: i=1; AL+hErEs02S6QyZixMxCUQXWwEXFicpfBDlEWQaWmmpJWXvQwzEZMlNozK4tBh7QBqLLnwK6P8TIddF14ztXYX8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9BULSLVM10zks+7ermPOUS516taL9BVCmLEZSUGshEGYCFOuD2
+	4MMjh5BTOATvnd5sNH3ENKfpOpDOc039dlLvGvN279erMfAZxt+P2k+ESzy67w==
+X-Gm-Gg: AYBFou3xxioRbmWvvdOa1KyJg8kv/e4NXkCLYyRGVjmnPmiVbABSI/zyHkKmgBJ80cj
+	WlmDlHQQydDv9nSpsmBP1Fy0peVf0zV2iSpnlsdtkqCXZiUVYXUKsicOwgJK5mK7K7kSkyHkMx7
+	/Tt0wECR6IygpBs23kkuYghQy2kzB/934AaZYlsEVTWQpqTbmH+A155jSbuXVEqL8YT5pQbAZNL
+	wbrB/+3c3+Oq0NPqnk+Q3o89udVmJSFyTYlJrCVw9gMyZu2p3Bsebp8Vviev84JGxrzp9pku5OX
+	W758w1dd18PLrNSsCfl+/q7rKxmrMM2AOUj7bIcOcF/ldhWGYEaFN8+YF4GUqQc8aJjNvWtMUXA
+	zRdaAIhAVaaOYfSwKpYOBjjEg7nzMjmGJ3chbQhTwARRUxQzc056cjXyAa8RKh67xd64py3nvUh
+	mHEujaUwZcpQrK8aWxtM05B+xLvmt5OrLHK0F9O6nKPhPzi8cZKaxGQ72LdQJKRSJX9LK/9noXw
+	lRRSQi1jrsaDHIJ0IrEvpAlHTGaN04bPhmNRVH41RMRETxpUwoG8oWV+FtEpzH1FlryyQ2/A4gB
+	D8g3z0EHCl5+i5tQPF7PyaMVPJpgJl/tb4ma+1V9ES4oGUMlWLfjrFkRsQ==
+X-Received: by 2002:a05:651c:439c:10b0:3ab:1d67:caf with SMTP id 38308e7fff4ca-3ae1252b561mr13845481fa.0.1794492152740;
+        Thu, 12 Nov 2026 06:02:32 -0800 (PST)
+Received: from scheduler.schedules ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2adf53sm71538805e9.15.2026.11.12.06.02.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 06:02:30 -0800 (PST)
+Date: Thu, 12 Nov 2026 17:02:27 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: mingo@kernel.org, linux-kernel@vger.kernel.org, juri.lelli@redhat.com, 
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	joshdon@google.com, tj@kernel.org, jakub@okonski.org
+Subject: Re: [PATCH 2/3] sched/fair: Make cfs_rq::idle the sum of ancestor
+ tg::idle
+Message-ID: <avXFHBcVoMkZY6uL@scheduler.schedules>
+References: <20261105165525.011876858@infradead.org>
+ <20261105170157.616859418@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,21 +100,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261105170157.616859418@infradead.org>
 
-Hi!
+:-(.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Look here: https://lore.kernel.org/oe-kbuild-all/202611121431.06YgiErz-lkp@intel.com/
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+On Thu, Nov 05, 2026 at 05:55:27PM +0100, Peter Zijlstra wrote:
+> Rather than keeping cfs_rq::idle as a copy of tg::idle, make it the sum of
+> all ancestor tg::idle. This makes it trivial to tell if the current cgroup
+> is marked idle somewhere along its ancestral path.
+> 
+> This makes se_id_idle() behave differently. Notably is will now be true
+> when there is a idle cgroup anywhere in the ancestor path. This
+> addresses an issue where preemption of cgroup::idle was overlooked when
+> flattening the runqueue.
+> 
+> Fixes: 85570f10a4c6 ("sched/eevdf: Move to a single runqueue")
+> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+> ---
+>  kernel/sched/core.c  |    2 -
+>  kernel/sched/debug.c |    1 
+>  kernel/sched/fair.c  |   73 ++++++++++++++++++++++++++++++++-------------------
+>  kernel/sched/sched.h |    4 +-
+>  4 files changed, 50 insertions(+), 30 deletions(-)
+> 
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -8970,7 +8970,7 @@ void __init sched_init(void)
+>  		rq->nr_running = 0;
+>  		rq->calc_load_active = 0;
+>  		rq->calc_load_update = jiffies + LOAD_FREQ;
+> -		init_cfs_rq(&rq->cfs);
+> +		init_cfs_rq(&rq->cfs, NULL);
+>  		init_rt_rq(&rq->rt);
+>  		init_dl_rq(&rq->dl);
+>  #ifdef CONFIG_FAIR_GROUP_SCHED
+> --- a/kernel/sched/debug.c
+> +++ b/kernel/sched/debug.c
+> @@ -1090,6 +1090,7 @@ void print_cfs_rq(struct seq_file *m, in
+>  	SEQ_printf(m, "  .%-30s: %d\n", "h_nr_runnable", cfs_rq->h_nr_runnable);
+>  	SEQ_printf(m, "  .%-30s: %d\n", "h_nr_queued", cfs_rq->h_nr_queued);
+>  	SEQ_printf(m, "  .%-30s: %d\n", "h_nr_idle", cfs_rq->h_nr_idle);
+> +	SEQ_printf(m, "  .%-30s: %d\n", "idle", cfs_rq->idle);
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+idle is only in the CONFIG_FAIR_GROUP_SCHED :-(.
+So as the robot says, this breaks compiling in !CONFIG_FAIR_GROUP_SCHED.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+AFAICT tho, moving this down below in CONFIG_FAIR_GROUP_SCHED next to
+h_load and other guys will solve the issue no?
+
+
+Cheers,
+
+Kayra
