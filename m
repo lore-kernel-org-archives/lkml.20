@@ -1,79 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794461287;
-	b=BjRZRYOBrFH/uY1eriU1p6jcN2Kf93NeLSax5kXALgpm5Dvy+2X5ZsD2hONzkpaTVCqw
-	 MNeV9nsMbQztae2w+++7zA1zU2S6YUnSHr39+7PnRbI8h+2jnA5KWDqeIA5m3Xb6xZgcr
-	 mXsw8yjjIXluISpg9mirTVu0j8hwt1iS9jolv82yFNdE1H0DKOhBUEa6nyMNeWqA1nUXv
-	 lnqzl60pXtfAcCklMb/F5bgkZWobFUtqzMsXSaYVzwNkjyfRZGDJVHYDAOslKHXTWVOdY
-	 x3SLhU42qYrEjz/5hCyJwoHG/OvQ1LTngHzWpzzPn1uR5hjUFZgCMTeSRpEcVzKc3IA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794461287;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=W6mZOJg0qLo6Oh/FE3CEb1vYHcaROZa/HUARz/kORXE=;
-	b=GiA3p2vSPgvLXYkyykb+/Hjg52Olfni68H0Rb0UpuXw3UWTJlEfnb0eaz5kgG0IqFHxf
-	 Byivht8jWedQUC48K+QVKq4AZb+7adkKukrirvY2ASlWr687FTuU4lxvX3/p/Hz1G5wUk
-	 JOPZGfgbGTAnzZGaB5osEnmpUMfAG4lGP81JHjm47w4BYYC4eoDRf8vVVzwH76qQ2td21
-	 ycV3WxqeH/VJL74LIJ+DDaduEoOgo2VrsQZ79qxsVZqfu+KSHMFtQihGNrTQHIktWXreU
-	 L7HFhs3pXNCPwW1ispN8u/EP0Fwap3DU6iXWpFHq2UTgq8xRHf+/3yekwMvMtNFPvdQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oZiRt3k+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EAD2606A324;
-	Thu, 12 Nov 2026 05:28:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oZiRt3k+
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794461286;
-	b=H9vUwjI/2pkawjH/yZx1jvNuHTPxjiRtRdl7q3GBJiAW+cGTyKvzraBxdjf3ac8KUJlS
-	 BhSHLgKygYT2buK7BE/zxMQTr8yah58ekCGWBlac0UiqDtWS1sR6lIXXRzYyFEGCLbtnC
-	 jdR71tL69Rv4BPzsdR1kP0Xl/EoD6ZjUvxdCqRK1R79Mx430WOtx+sC65Jwi31/tHMHrn
-	 S0JmzKtxhLkSFtmrvwxFmecaSBc0OQ+NqJJlU5j7qLrmTXqdfVZdrDPQIVDv+5Lt8MmzA
-	 m+Sxzm3WNYhaDPsUW31rve1VL5++iatVtfGhp554KL2KjPB/UyETXwyVy2ciT0TyiQg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794461286;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=W6mZOJg0qLo6Oh/FE3CEb1vYHcaROZa/HUARz/kORXE=;
-	b=0hMwJi/5kZc60K2cThvoO09Io1eeh0RrhWnGdZXC3eFF0SjfZj5LZvtO0AcaKqHIbffy
-	 qiSD7LzvrjXJtS5/3MKy+LUm9ZnKAL8Btlnp/Si/XVaOOVdGY1vhQ1x+SOLR30dqoSVHC
-	 pNI7ADcZ4TxbTZSnGVImx3Jigl9WYpkIAZDtENfBo49eq4ZE5/Rq1oVc9XGjhKX0delAM
-	 /8TIle5esV+XRKMwOW8BlSt8qJJyWazvS4Kf4UTTLd7M3/lRs+v++8WE8rUQhhe7jYCpi
-	 uM/+kM5o/0YGgjbQSI/y3x/dHXdhfTz5Okhr7PUl9cDdVCA0MT4KRgm9aCX2kGabTQw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794461329;
+	b=GDY8VoxhmyGPpJu8YWbWRJ4iAsA/0GJJ5gOm5ZdM1zY6ucPgkzKXkAtMRfo9sPMoKFYk
+	 hhnLVE+Ei18bgUSvppKy+oWTXlwSsNHNH5yjBTACQ+1hyo3alyMbL+s1+P2b5va9al95D
+	 DlS7La3bq0LK4NR1YSRoH1JyuQjUyHmd0bdg/Qd6dn8esHTiJdKL9n9vMDWC9WtQrVAnE
+	 oKnxVnSCeEHvyp/9nYIjC3BPTZ04KfSu+ceftgLrxbjYF9H7ydl4fZveE7h28pCZ7O6UC
+	 GrKvLyPFoNq8WqFBVOhQUcLYfGP/Ug0bvu88wLwtr/F9CBQ0FyxKdoBzPKFPPFZtKtA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794461329;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=hNlfYdQobugmf9UW73UA0KZ3DncrTeY2FGpbRf8Ii54=;
+	b=h4kYIhJesgKVADzK6pg0ZqkKKZsZ86yB/YJimszK7E/4xwuVMiVFi2aCkOLVLvR+rTc+
+	 9bQauQBXZNjDzCviRWNZ1mZ/V22l4pEew5Uc6uLbp4qrHkgTzrHFVPCSN/+ho1nwOGUq2
+	 kCVCDuDIti0/QI7xlttUlkiwyz9YRYItSAMigwCYRir920cdZ7kOuqj6kqcAFwmdQOYfw
+	 ZpBlitkDqRYJYGt8JWF3W7c2VZw9W3QiaYMuBR2COmlbo4Dc/AzvkoJ0O6OYVHdHl0d0T
+	 g42fsTAQyp+HJ8Y40IEz8ScLsGggAdevG/Fp27n8RdtpzuAAGW20j/KEKRaaQsLwnsQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=pereq.eu;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BE6021F00A09;
-	Thu, 12 Nov 2026 05:28:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794461286;
-	bh=W6mZOJg0qLo6Oh/FE3CEb1vYHcaROZa/HUARz/kORXE=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=oZiRt3k+5VLSUnqmGNXWTTO6XAnuzwR740thG6dGPVl3CLpu1FDFmdE11owrSmqHq
-	 BPFDoflNNhsytwPaBdJ8JhyV754h7lCpwdE/FDqYxIu2aRBrwKBGgstP8qCG3tzZnz
-	 E3LBdofMaNeN4NUv42K00Hcr6EgBj5Puv6/2mIH1CrXXq9A7+t0LbG3IuhNEPt3DCo
-	 ZzplRRTlAQtRWpu0Pqn0zelwNIYYb3W3Mgm7T1PuSHTfpZE2WeiRFX9DEdMVAeQ1oO
-	 vMXvekvdKbmqQM/lPOjKY8cMYI+n8KFblDFKuxL0R+R7EEao16nZI/CADHTZOpXNAV
-	 uVHkLkvs3KyTA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3815549191;
-	Thu, 12 Nov 2026 05:28:05 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 05:28:05 +0000
-Subject: [PATCH net] net: stmmac: dwmac-sun8i: Fix use-after-free in the
- MDIO mux error path
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92E9E606A32D
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:28:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92E9E606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=pereq.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-49412eb1474so2295948f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:28:48 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794461327; x=1795066127;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hNlfYdQobugmf9UW73UA0KZ3DncrTeY2FGpbRf8Ii54=;
+        b=rbe1FPO0Iw36un7uadzFIaaWHGQbA6VJ6dh7ymefANHm8cHrf82SAW7N6rMPWhyTLK
+         Kr2RXczuvK8a/WmG6FxkBmS8zMdEMM1ZWrj9KfQwRMgVGHbt/q1n6IL3dx3B1IHgnW/P
+         GiucSnQSS3i4H9RqJNeB/Es/ThWDD2r9pGykpMg0DOpyr7g3F0ppdlF0sqed7qQajahi
+         viYg+be1zN5S2YkDdCdsuK+rGrIZRYH0GyrWHkivu5bijnLwHycvNvVqpCsmGps5rSAY
+         Jm5sI+Bn+toAxLBuq1mkvt1h/edcx+ItPxgEKj2S7YQla7RFeByiHrnf07D3XkM7zHOd
+         rAeQ==
+X-Forwarded-Encrypted: i=1; AL+hErGGMPur0viHvondZIbmPm5/NKlB15U2kgAZWXIItTMl2ibu3KVfPqdDIOXu0dZjiKGVO7bG/iaBPs3eBx4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8UJ26jZB+sBMMj/BEfJESXIVsVBMpsC3AYXriSWl0KxX/7ycxp
+	YY5bA5uiNfUvSUVnTTCXM4RFGODs3lL+bLlwkeWsO4wnlq0KCPJIv3GG
+X-Gm-Gg: AYBFou276jjrAjLvJ4DQXOuMbujX6urYEYSPvMs4xMB5VoSfoaO/qlr+kgKlDG34+dh
+	tWm4mLsHJdy8ekRRTERhcyVDwjIAD+bkMTaTz6DmQqoQe2GiF2t8YbQNp6lEIdKCrtgcjth+xxp
+	ii0HjZhl5RaO1SEd4Uf5nAqumxz2Le7rSKiqhP/dFOYafBwBL7bIFXxNlUcnGa0g3RMUlnROuMy
+	66qCItJR8u6sD410h2cENZ3+E7NGKP1beg8QeEErckUaWSyCZGY3hPOnKciGSHivAdwyWuYvbaW
+	DrUrFBHSxJviekWyEsxySzwt0SVqp6qdybu6VmxMputwG3Ozv9jbdoDA4uIBZEnkWoEkcMcs420
+	HOcgGhnkNVvihmmrflTx3oxtPgfrg684WAwsfEKlTDK5hfQHGn9p9LLqEpRKA2yFY48E734RNwr
+	0rvZiNH0MD/SW28VwtA4FFgtAQsb1Felb1LMFPFFytJxdXlY3b0UUQq2Yy4WczQNqG58Of2BJC1
+	XclwkN9s3oQKDlW1q5FuV87HsGv1kdevmDqXlL9scPF2VoW00gv7tHMBQaipiqks/7LaOfhBCtP
+	V3y53dg4CwzdEY3Cnx8VzKGZXyxAAVxbet5uT+PmYifV8eIASjT6YnAx7ikvyk83wLlDLeNSPYW
+	a5l9QMEUrjJSs8SfDlX5dVcgJYqRwqOAiKALezT35MsXUMfAUg+EguST1KIgm
+X-Received: by 2002:a05:600c:8708:b0:4a7:c366:d791 with SMTP id 5b1f17b1804b1-4ba0931c364mr69232725e9.1.1794461326740;
+        Wed, 11 Nov 2026 21:28:46 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49944d646f9sm11119109f8f.32.2026.11.11.21.28.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 21:28:46 -0800 (PST)
+Date: Thu, 12 Nov 2026 08:28:42 +0300
+From: Dan Carpenter <dan@pereq.eu>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Dan Carpenter <dan@cryspen.com>, Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Karthik Bhargavan <karthik@pereq.eu>,
+	=?iso-8859-1?Q?Cl=E9ment?= Blaudeau <clement@cryspen.com>
+Subject: Re: [PATCH] KVM: arm64: nv: Initialize hw_mmu to NULL for nested
+ vCPUs
+Message-ID: <avVOivX0YmlES4Pe@stanley.mountain>
+References: <d3571fb535e1832d2a067649f294b83d824d4350.1794395321.git.dan@cryspen.com>
+ <86ld6z1782.wl-maz@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,100 +92,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-sun8i-emac-mux-uaf-v1-1-308ae7e6fcf2@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQrCMBAFf6Xs2QU3YIn+inhI44uu0CjZphRK/
- 91UjzMws5KhKIwu3UoFs5q+cwM5dBSfIT/Aem9M7uh6EXFsNXtljCHyWBeuIbEMwfuTk3MCqIW
- fgqTLb3qljIluf2l1eCFO+4627QucXK9qewAAAA==
-X-Change-ID: 20261112-sun8i-emac-mux-uaf-1ba885219fee
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794461284; l=2672;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=NsburT4Rs6TuKeRLvNh9ntKMBycWNUHji+Gwj+018cs=;
- b=KuvZTvy/m2KLD0YOLU883uIqDNTznxKHAhJWD8davNR1BvQqXeosLyiPNYJbDYPG6qKvJDQdR
- LcFJgmVCqFeAlJD1ouD1bdILIdSCBHTVE1tYyniSitGLJ+rn/Vi2tK2
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <86ld6z1782.wl-maz@kernel.org>
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+On Wed, Nov 11, 2026 at 07:46:53PM +0000, Marc Zyngier wrote:
+> 
+> I think this really needs a comment to explain why we repaint hw_mmu
+> to NULL, because the next idiot who looks at this (likely me) will
+> probably remove this line...
+> 
+> The other thing is that this means that nothing can evaluate
+> vcpu->arch.hw_mmu anywhere outside of the loaded path, as it can be
+> NULL. I *think* this is OK, but I need to really convince myself...
+> 
+> I'd like to add something like:
+> 
+> 	/*
+> 	 * We can't rely on the S2 MMU being the canonical one,
+> 	 * as userspace can restore a nested context. Nuke the
+> 	 * hw_mmu early to ensure that we pick the correct one
+> 	 * load time. It also means that we can't rely on hw_mmu
+> 	 * being set to anything useful if the vcpu isn't loaded.
+> 	 */
+> 
+> If that works for you, I'll squash that in.
 
-mdio_mux_init() registers the child MDIO buses one after the other.
-Scanning the internal bus makes mdio_mux_syscon_switch_fn() select the
-internal PHY and power it, which sets gmac->internal_phy_powered. If
-mdio_mux_init() then fails without switching away from the internal
-bus, for example because registering the external bus returns
--EPROBE_DEFER before any access to it, or because an allocation for it
-fails, sun8i_dwmac_probe() jumps to dwmac_mux with the PHY still
-powered.
+Absolutely.  Thanks so much.
 
-That error path releases gmac->rst_ephy and gmac->ephy_clk and only
-then calls stmmac_pltfr_remove(), which ends in sun8i_dwmac_exit().
-Since the PHY is still marked as powered, sun8i_dwmac_exit() calls
-sun8i_dwmac_unpower_internal_phy(), which passes the clock and the
-reset control that were just freed to clk_disable_unprepare() and
-reset_control_assert().
-
-Unpower the internal PHY before releasing its clock and reset control,
-as sun8i_dwmac_remove() does. The later call from sun8i_dwmac_exit()
-then does nothing because internal_phy_powered is already cleared.
-
-Fixes: 529254216773 ("net: stmmac: dwmac-sun8i: Balance internal PHY resource references")
-Cc: stable@vger.kernel.org
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
-The problem was pointed out by the Sashiko AI review of an unrelated
-dwmac-sun8i series of mine. It holds against the code: clk_put() and
-reset_control_put() free the per-consumer struct clk and the exclusive
-reset control, and nothing between the dwmac_mux label and
-sun8i_dwmac_exit() clears internal_phy_powered.
-
-This is build-tested only (arm64 and arm, W=1). I have no board with the
-internal PHY (H3, H5 or V3s), so the error path was not exercised.
-
-This patch was developed with Claude (Anthropic) as a coding assistant:
-it checked the report against the code and wrote the fix and the commit
-message. I reviewed it.
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-index 47954537b29e..4436532af2dc 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-@@ -1245,6 +1245,7 @@ static int sun8i_dwmac_probe(struct platform_device *pdev)
- 	return 0;
- 
- dwmac_mux:
-+	sun8i_dwmac_unpower_internal_phy(gmac);
- 	reset_control_put(gmac->rst_ephy);
- 	clk_put(gmac->ephy_clk);
- dwmac_remove:
-
----
-base-commit: 145480b28ca82e9fae789427cc4569e596515a32
-change-id: 20261112-sun8i-emac-mux-uaf-1ba885219fee
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
+regards,
+dan carpenter
 
