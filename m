@@ -1,80 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794471977;
-	b=ecE+rjU0pyT8R/Ddlfv7IZkzijk6GmV2+SapvvYM9WrC8c3CwFUuaaUGkfrykAqSAv0b
-	 9GgO8PpRCEtHyArVOlpLqxq8t5xJaDR6A3mg8ivdKvHqabU2WZVcweCNW7nSqYvn0nNGE
-	 nObSUc+dEvtYYoXZGEmGlF7Gg7xciS3i0a4ocbtyGg5clhOF3zEX/tmrLzxMm/5fFWkyK
-	 ybLp/TId41U+dhJX4joMiIWRswz7vaMco0Bw958+pgjE4wRyzaIW74h8ND0GLu6/eUFFI
-	 aPgbW12lc5uWnqr8P0XspDTWAmDV7y/+3JN2yvf6CCHJdILBTTgp7Mqs49yodzxR3gA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794471977;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=3rVQa0sWwZ5QViATjS/5X6/S5E8yPnWJ+dm2QiX8gZw=;
-	b=QnRnyyinn5P2AwHfbArNnF9dakioXTcjbEiHoBhWMxXpObiCPAxw8ZSD7o3UPMf1mjpj
-	 vKXKLq4gTcQf6leGIvVzgxH/I7zuW8+TwfJBcYiqhKpmaBDt62pus9GVJphCow8FJRNKf
-	 MgosgAIggnIv2JZTfovzEpFovqFt2txweUUhGGO5HMDzdZfXKsW3gp3Ce5w2qFTKDQbni
-	 qg8noQojk/KeyjpPKJm5+2QUh3UGjJxcNMIYPwxzUX2fyrIo09yVcJdIcHd4IsAi5u2p5
-	 4M08VxrBjD1NeMzXbSBP8IP62Ybn+Cu+WSRv5BVN1SjdP9O48IIoF9vEjMGyUighOCg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nmoxqjet;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.194.254.142
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794471997;
+	b=4jt4j20r7wsBSNqQfjXeaZnKH3fRMG90OgXbhURdTXnhqm5mY4F6D4CjLvgzp0Hlq15m
+	 OnzIWFklTDvCy9IRFs7t24q4ksEpznnb3KwAmE/jD9oJ/N8t/3utPX+U9Jm+xm51SQY1U
+	 1Bg0xQlQUrAjW8V4QOkEd/pFp7+mBFzEhhB47YgXaZ40xg1rQe/ssLSvgD+L80ZAWL0e9
+	 hZp9qQgaIlm3OPg6wcNM3Fjtvs2Ko+RX2ST8ZmwnpspZuCHCdn07yCA9ZcGoeYbjKp6w4
+	 QvEF81HikH0kAATEoTmeoew7TTV3jK3LlikrbFbRY6YMlkH5AE2DFiyNcqQzjEhNAvw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794471997;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=ALlmcWUT8hLm+bMDDq61tHU2NhGeQNt9726k88rnyjI=;
+	b=m3JmufqCt4OKhgs9FphEKJbRju+eqqvT0R0S5O1WUJuoE40VPBVV4f2K7RxoL1UD2dns
+	 PooIzVZwyueuZc4//rG4OjmPA7leQS5jbq6uSFyCyTaUxbCnYmhDEh8HgbPZgQkIboLjJ
+	 OIvDuIsylQ/k51I5hpEBREcywEzrpoHeMz+UX3GO/+CZv1gOeoUsjYI0Qo7CtOiBCXZ66
+	 wnDd4CeRTq5kQDw6ncKY+y+ayT4VKw2g4dphpzCqRV6hu0pnc0myYcf8NPwlbSbktrAES
+	 4bj+/oLlzHaq1KsCqOhiiNKFPeli7eH8gH0+KNVRJUSs2jcqGkjy7qF4ggvk0fTklhg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=EV2yZaGs;
+	arc=none smtp.remote-ip=18.194.254.142
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D137606A321;
-	Thu, 12 Nov 2026 08:26:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A97606A323;
+	Thu, 12 Nov 2026 08:26:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4A97606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nmoxqjet
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794471977;
-	b=s6DNWTU5k4PIlCRn6qYJCC+YiMj9uCUiDV221lfMrXzoUeb9qU7K4Xmi1YWAxNru6QFI
-	 7ws1Lcq+AaZnNkFXImOooTGwC+D7UX8EgwYUQBICEN3TfM1uAQs7x0dGEB6Lnt/Sk7hW/
-	 FYD3CJ62pSCaO9ZQkeRhoI2Wv/OPdGQocfmzD2+Tqg5y7GjoHUXrr6KuBphIwHIESoX2q
-	 VMbFqI7Ul47d07yxqo8IgbP3E0bntW3kZoOX8TPASJ9D3DVghlSbzp+q/oWLFNn+lw6o2
-	 I50N0RaakLNzVsYbHPmXdTyo0w4YzIlwmaOJOk5oIxVTFPMflTPuQhnaqQvbbCAaqmQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794471977;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=3rVQa0sWwZ5QViATjS/5X6/S5E8yPnWJ+dm2QiX8gZw=;
-	b=YmRId8/ATNXTXEqGIt+DbmlypX3EA124L4q3wtd988biPCvEQh04K0lpNREpz7/zt6X7
-	 iiHcuNX/hwe3pdwYfjBv2PukXNINSG3yKDmeq+IZynD+psbhHmSaIj74uLOP6lUAsnSiJ
-	 x6+ZkEy9cdxDrFy4dqEDYu/Bv2R53wZtSaZEnUcgP8fjsSS1D4Oarf0ErOOYAsehcatck
-	 Xykg+onGeKeylCXnDptr2gcMFCfW4w4bIsFmoZ6deu0EMjmihom3DoD86LxulkvKYsViY
-	 r24FBRUVB8GSejFv4rbw0IiJRsY29JfU8sft5/QD/ajFALFokVty41OXB5rvVYzZahA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 430651F00A06;
-	Thu, 12 Nov 2026 08:26:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794471977;
-	bh=3rVQa0sWwZ5QViATjS/5X6/S5E8yPnWJ+dm2QiX8gZw=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=Nmoxqjet1sOzm4Qt9aJaPFy0Cjd4UnkDiGblTN4y78kCw+ZvVhvrbHBX7tpCwTjSo
-	 eNg6SnYDGCoZniEr7iXfUWzYYnTRISaB0VM6iSBBmvXfNkIZYVVzr515kVPZDJUUm6
-	 FTeE5/JGhbDnPEEIzTTm9c2pOlnPNsiHrBGZC0Dd6GO2QHhYcQDCM6mLU7gQtwvD2g
-	 iXADi6G7smcav0aPTD2bS5WwMl4fzjiH09JxhlobewA/zV4U8iYb142SqHW2KPFfqE
-	 sNBtwk9a93jIQPJEK6Ci3mFPun1QnEEbpNT1oufiOVgYK/mGa9cAGrOqew2gww3Zyf
-	 SuYID2s2MMAAg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C751B4936C;
-	Thu, 12 Nov 2026 08:26:15 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH v2 0/2] usb: core: Pair ports of different host controllers
- through their connector
-Date: Thu, 12 Nov 2026 08:26:15 +0000
-Message-Id: <20261112-usb-port-pairing-v2-0-45f5a1a29f1f@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=EV2yZaGs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794471969;
+	bh=ALlmcWUT8hLm+bMDDq61tHU2NhGeQNt9726k88rnyjI=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=EV2yZaGsyn2hlirQd81vnhev9jV2VN/PUYIi6NukJE8Uqlc0d4RDXCZFTWJ4CQaQh
+	 /dT9+8QjfQNWh4/7AMA8Ep9NJOdNrfkLKguOtZyQiGuBYYMRt+hvIPhOdYXE7xfEca
+	 IdvWOtN7aDk40ewNWGzQYKU2MwwjTnMSSblsA6d0=
+X-QQ-mid: esmtpsz18t1794471964t89470df4
+X-QQ-Originating-IP: k56wWTcPTlKlrR/LsO4FnsffIDy49lTP5C+ygjI4QhM=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 12 Nov 2026 16:26:02 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 791511799139374376
+EX-QQ-RecipientCnt: 5
+From: raoxu <raoxu@uniontech.com>
+To: marcel@holtmann.org
+Cc: luiz.dentz@gmail.com,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	raoxu@uniontech.com
+Subject: [PATCH] Bluetooth: hci_vhci: Report write readiness with queued input
+Date: Thu, 12 Nov 2026 16:26:01 +0800
+Message-ID: <A77F6FF053467FCC+20261112082601.1356290-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,174 +69,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6CMBBFr0Jm7Zh2TGpw5T0MiwJTGCOUtEA0p
- HeX4t7lS95/f4PIQTjCrdgg8CpR/LgDnQpoejt2jNLuDKTIaK0VLrHGyYcZJytBxg6tU84Yp2x
- NDPtsCuzkfSQf1Y/jUj+5mXMnG73E2YfP8bnq7P3JrxoVlhd1ZSpb4pbu3WDldW78AFVK6QuDF
- Q0UwgAAAA==
-X-Change-ID: 20261110-usb-port-pairing-af0f66f0ab2e
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Alan Stern <stern@rowland.harvard.edu>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mathias Nyman <mathias.nyman@intel.com>, Chen-Yu Tsai <wenst@chromium.org>, 
- Chen-Yu Tsai <wens@kernel.org>, Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794471975; l=7862;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=e2s8sooK67x7vmIoLwy9LZ4Ezlzfpkkf2yNAWvkHjzY=;
- b=V5kIsLgXO5t2Iud5BeBpSkGmnoh6KGzV5BybTjNJ/zjPpQX5LOUCNFdLgGhgxs39eLpHK8vbu
- QPGwDyGo6qtCWRXP3TPskmYJDkNfmuLZVi22rrlRyNrp2WzN1EyypdQ
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: MABkn+BX1UZ4qV99deJJuiGcugFIHBUXo3Z+CNttgQkiOlrbx5PtStLu
+	0cg3G2Kw07RY0oh391eKpLpSyNBVV3Tb/KGPCOO0PzA1tQiIPL+w97nlkaJTmqAjsHG1yPc
+	8j4c2E0tpLXqrKoJV2+e6lEfZuBZK9TrTcgIMrhdZM570nsojT2u3Ngsy0FT3vbffwSbaWX
+	qtQCAqSSZTTyHmitB8HnKC9KHpLbs4ya3X+bkoCgePXWMNGNVVl9RmW7gexK3VQavR4jb34
+	rE+5IojQGoF/h1gv4oLYRGEquJsACNKcy8nZiyFW5b4pNwwT5nAOz9V/Jxvnpd36eC6/i9y
+	ba+JOsd8GbVaQuDHzzc0Cw9VesKcfpDPdl/oxCtaCGROyM4w+F0VX9rSQFOjTyqDsGpM83z
+	yoYxofuPeo6yaBPBCXWlNJOtqquC5ZVfntLgEhhFavlDBqkqL9Jis9oPBmC/7AkjCes3r/n
+	948nN8nznmT1kez0bDD2d/idcwPkpRxd2LL1GjcR7+RkwKi2OQ9LVTqpXfqxcIDHkMFOgL8
+	wh9KnK9SqIuSyN9T4TKfXAT9/ubN+jf6501aH5hiI7ZVeyd6/Dm4WsA4WoazaQbwfBiBjCd
+	f51e70v82MuUM26WMPIX1PiVFAJ6qlqVh8TD1maWcz9fADW2RWXgrqyMSwyAos2HhgAqF+n
+	39cHF9Zpm2meTeY1PbPtCs+358KhQwo3Lkt7+lHd+Wyd4pBDjDdDDK8r5zeBwzmsXPYcDI8
+	U2QJpuKmju+rlo5H+y3QEKhmSAVVormdNrqKrnyJZxVSfNs6hZ8m+I+01wzwz/cWKLtOJqu
+	7FDJk5OMayogEdwJ9spxranwjX+9Mcl5DGGjLiP1ypKEavSAmNoCl0Xa/gW8BTFtBho5fxn
+	7ROpW8JVCjLYsfBIoOaYCLeBDFrCTmDyp/Fm2/QTLf9qKHzWEOqa5mhu+pXIvRU582kCksw
+	4TwG/h9+J1Mt2UWPpu+cBxNPep148RrWlIFAZHEjbI4YuVNP0MXJOjxZKuBjWxBzy3Q4MbJ
+	tLkXH1ld5NzqxBu3+D/Nujq4oW/ItPCSe5iO4Mzw==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
-The USB core pairs the USB 2.0 and SuperSpeed halves of a USB 3 port
-only within one xHCI (shared_hcd, same port number) or through ACPI
-location data. Some SoCs route the two halves of a connector to
-different host controllers: on the Rockchip RK3588, USB 3.0 host 2 is
-SuperSpeed-only (its own USB 2.0 root hub port is not wired to a PHY)
-and the connector's USB 2.0 lines go to a separate EHCI/OHCI pair.
-Today the SuperSpeed port is paired with the dead USB 2.0 port of its
-own xHCI, and the EHCI port that really shares the connector has no
-peer.
+From: Xu Rao <raoxu@uniontech.com>
 
-That is more than a cosmetic problem on boards where VBUS of such a
-port is always on. On the Orange Pi 5 the Type-A USB 3 port has no
-VBUS switch at all (no enable GPIO in the vendor or mainline device
-tree; confirmed on the board), so a device that is plugged in across
-power-up or a reboot is powered long before the kernel runs. It looks
-for a SuperSpeed link while the xHCI is still down, gives up, and
-connects at high speed to the EHCI, which starts ~10 ms before the
-xHCI. It then stays at 480 Mb/s until it is unplugged: USB 3 devices
-only look for a SuperSpeed link again after a VBUS cycle or a USB 2.0
-bus reset.
+vhci_poll() returns only EPOLLIN and EPOLLRDNORM when readq is nonempty,
+dropping the write readiness bits it reports when the queue is empty.
+However, vhci_write() does not wait for readq to drain: incoming frames
+are handled independently by vhci_get_user().
 
-The series lets the USB core use a description of the connector in
-the device tree:
+As a result, userspace polling only for write readiness can time out or
+remain asleep while input is queued, even though it could submit a
+frame. Applications that drain input before waiting to write avoid this
+case.
 
-  1. usb: core: when a port's graph endpoint leads to a usb-{a,b,c}
-     connector whose other half ends on a different hub or host
-     controller, pair the two ports through the connector and keep them
-     out of the default pairing. Connectors whose halves end on the same
-     node (Type-C on a dwc3) are unchanged.
-  2. usb: hub: when a SuperSpeed root hub whose ports are paired
-     through a connector with USB 2.0 root hub ports of another host
-     controller starts, reset a SuperSpeed-capable device (not a hub)
-     that sits at high speed on the USB 2.0 peer, once, so that it can
-     train its SuperSpeed link now that the host is up. Resume and reset
-     of the root hub don't do this. A device that still does not train
-     stays at high speed; there is no loop.
+Always include EPOLLOUT and EPOLLWRNORM in the readiness mask, and add
+EPOLLIN and EPOLLRDNORM when readq contains data. Keep the existing wait
+queue registration and empty-queue behavior unchanged.
 
-The Orange Pi 5/5B device tree that describes its Type-A USB 3
-connector this way was patch 4 of v1; it now goes separately to the
-Rockchip tree as "arm64: dts: rockchip: Describe the USB3 Type-A
-connector on Orange Pi 5/5B". Other RK3588 boards with the same split
-would need the same node.
-
-That DT patch links an EHCI root hub port to the connector through a
-"ports" node on the EHCI. v1 added that node to generic-ehci.yaml
-in its patch 1; v2 relies instead on Chen-Yu Tsai's "dt-bindings:
-usb: hcd: Add downstream USB ports", which adds "ports" to
-usb-hcd.yaml for all host controllers [1]. It is not merged yet. The
-two patches here don't need it to build or run; only the separate DT
-patch needs it to pass dtbs_check.
-
-Port numbers: patch 1 finds a root hub port in the graph by its root
-hub port number, as usb_of_get_connect_type() does today, and not by
-the xHCI port number. On an EHCI the two are the same. On the
-SuperSpeed-only xHCI of the RK3588, a dwc3, the SuperSpeed root hub
-port 1 is graph port@1, which is also where snps,dwc3-common.yaml puts
-the SuperSpeed port today. Chen-Yu has said that the graph port of a
-root hub port should be found by the xHCI port number
-(usb_hcd_find_raw_port_number()) [2], and patch 2 of his series
-renumbers the dwc3 ports to match. If that is the way to go, patch 1
-has to translate the numbers on both sides of the pairing. I would
-like to hear which numbering is wanted before I change it.
-
-Honest limits: patch 2 only helps devices that retry SuperSpeed after
-a USB 2.0 bus reset. A SanDisk Extreme does; a SanDisk Ultra Fit does
-not and stays at high speed after the single reset. The hardware fix
-(a switchable VBUS, cycled once the SuperSpeed host is up) is not
-available on this board. The pairing itself (patch 1) also makes the
-existing peer runtime-PM rules apply to such connectors.
-
-v1 was tested on an Orange Pi 5 (RK3588S): with the series the EHCI
-root hub port 1 and the xHCI SuperSpeed port 1 show each other as
-"peer" in sysfs. A SanDisk Extreme present at boot enumerates at high
-speed on the EHCI at ~3.2 s, "SuperSpeed peer port available,
-resetting" is logged once, and it re-enumerates at 5 Gb/s on the xHCI
-at ~3.8 s, on every boot; without the series (two different kernels)
-it came up at 480 Mb/s on the EHCI on every boot and stayed there
-until replugged. A SanDisk Ultra Fit that ignores the USB 2.0 reset
-stays at high speed after the one reset. Hot-plug after boot (5 Gb/s),
-the Type-C port (both halves on the same dwc3 node) and USB 2.0-only
-devices in the port behave as before.
-
-v2 was tested on the same Orange Pi 5 with the SanDisk Extreme in the
-port: on 4 of 4 boots it ended at 5 Gb/s on the xHCI with the EHCI
-port paired (3 of them logged the one peer reset), no WARN or BUG.
-Root hubs runtime-suspend as without the series. 5 s2idle cycles with
-the bus kept and 3 in which the root hubs lost power: no peer reset on
-resume, no device lost. A logical replug, 2 xHCI unbind/bind cycles
-and 10 unbind/bind races of the xHCI and of the hub driver at
-different delays: no hang, no WARN, the device back at 5 Gb/s each
-time. Not tested: an external USB 3 hub in the port (none at hand).
-With Chen-Yu's binding patch applied, CHECK_DTBS for the Orange Pi 5
-and 5B with the separate DT patch shows no new warnings.
-
-All board tests ran on a v7.3 based kernel with these patches and the
-DT patch applied. On v7.4-rc1 the series is build-tested only.
-
-This series was developed with Claude (Anthropic) as a coding assistant:
-it wrote the code and the commit messages, and I reviewed and tested
-every change as described above.
-
-[1] https://lore.kernel.org/all/20261014082037.1774672-2-wenst@chromium.org/
-[2] https://lore.kernel.org/all/CAGXv+5GdBUafk6niG-UMDx=z6LJQ6iHAWhDpm1Ly2ce6CQDaxg@mail.gmail.com/
-
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
 ---
-Changes in v2:
-- Dropped v1 patch 1 "dt-bindings: usb: generic-ehci: Allow describing
-  the root hub ports": Chen-Yu Tsai's "ports" binding in usb-hcd.yaml
-  covers all host controllers, EHCI included, and Rob Herring's comment
-  on it about the port numbers applied to ours too (Chen-Yu Tsai, Rob
-  Herring). v1 patches 2 and 3 are now patches 1 and 2.
-- Patch 2: reset the USB 2.0 peer only when the SuperSpeed root hub
-  starts, not on its reset-resume or after a reset: a device that is
-  suspended with the system can't be reset (Sashiko)
-- Patch 2: never reset a hub, and only look at USB 2.0 root hub ports
-  of another host controller: the USB 2.0 half of a USB 3 hub stays at
-  high speed, and resetting it would disconnect its children (Sashiko)
-- Patch 2: cancel the work in hub_quiesce() (Sashiko) and hold a
-  runtime PM reference on the hub while it is queued (Sashiko); run it
-  on the freezable hub_wq
-- Patch 1 unchanged
-- v1 patch 4 (Orange Pi 5/5B DTS) split out of the series; it goes to
-  the Rockchip tree on its own (Krzysztof Kozlowski)
-- Link to v1: https://patch.msgid.link/20261110-usb-port-pairing-v1-0-9307e29d2ed2@gmail.com
+ drivers/bluetooth/hci_vhci.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
----
-Arun Iyengar (2):
-      usb: core: Pair ports of different hubs through their connector
-      usb: hub: Retry SuperSpeed for a device stuck on its USB 2.0 peer
+diff --git a/drivers/bluetooth/hci_vhci.c b/drivers/bluetooth/hci_vhci.c
+index 771ad9893c44..0b427c65ce59 100644
+--- a/drivers/bluetooth/hci_vhci.c
++++ b/drivers/bluetooth/hci_vhci.c
+@@ -636,13 +636,14 @@ static ssize_t vhci_write(struct kiocb *iocb, struct iov_iter *from)
+ static __poll_t vhci_poll(struct file *file, poll_table *wait)
+ {
+ 	struct vhci_data *data = file->private_data;
++	__poll_t mask = EPOLLOUT | EPOLLWRNORM;
 
- drivers/usb/core/hub.c  | 113 ++++++++++++++++++++++++++++++++++++++++++++++++
- drivers/usb/core/hub.h  |   3 ++
- drivers/usb/core/of.c   | 101 +++++++++++++++++++++++++++++++++++++++++++
- drivers/usb/core/port.c |  54 +++++++++++++++++++++--
- include/linux/usb/of.h  |   9 ++++
- 5 files changed, 276 insertions(+), 4 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261110-usb-port-pairing-af0f66f0ab2e
+ 	poll_wait(file, &data->read_wait, wait);
 
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+ 	if (!skb_queue_empty(&data->readq))
+-		return EPOLLIN | EPOLLRDNORM;
++		mask |= EPOLLIN | EPOLLRDNORM;
 
+-	return EPOLLOUT | EPOLLWRNORM;
++	return mask;
+ }
+
+ static void vhci_open_timeout(struct work_struct *work)
+--
+2.50.1
 
