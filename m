@@ -1,61 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794451059;
-	b=YkJU+txb+newKpqsoTUmpR5sDwaBRO+QHDMqq7H//gfFL5U7zL0sfF4+yKk7dQZLEaj1
-	 4hDTDunjFEcV3TSQO4F5CY8JBmznAHF08yGL6NDXh9hbdJoSgLU1zIH+wXwa7Cc9Xd6p+
-	 hxSyAOnwpRIKZqKGGUgidYWg7YbVpWoPs3E0Achdjf6aRFH1ZElPttRlv4GMcSWlYo+9M
-	 J2DTg95pN7AtlNlSVupU5k9gGFgSGG0xzXHZvp+r1w//AR6a28gLpkUX9m9Iy4aNWipvK
-	 EU6B3dtJ/K7n8iOF+V7fZRL4vSBsEoQ4paiCrBs+VBNVuJBsbMX7Z7A8j9foJIhS/pw==
+	t=1794451060;
+	b=ZN7tizXqabd0eWpFAkd8iiiY/enmL39u6u2316DBHNslkot/hq57jF39p9J0amonDdPP
+	 FV2XbqKk7zd1VdCVOt/w6Xheh0kGMc5p+Pf23GhUCvIyVs/t63x45ctL7qWFJwdKvSgrA
+	 W3mkPnuOjWvoB5YJ9Zjh0V/1EH7BQjEtYa5id1Qb4Te52NkLcRZ9mzQpKtLYyoi7nQwD+
+	 uGwcOOZ+bmteY6jvWlTc5rLMFSz/fl2Exus+qMrZ+pJJGgCpAZ5HS4ePpeqD8RVN5RSvo
+	 GUJklE0BJxDsOrH12sAp7H8Vg3mZh/B72MK2AsmaC/4xu1bW+svkYcxeKyK4p85ulPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794451059;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=fMa1F596zZeCN4DtEvr02egD3NFnabU1nIZffJ3y2Fs=;
-	b=cW6N6QW960dVsQtZtWQFJVaOLmST9haEu25awyajqfA8aL/DY3sgigi7qDYQKlL+MOyh
-	 SX95pqk7R1eM1PK3hC3QPTBd25nwt/TIIDD2lz2GtWmwpDZRdqP4X8GbBJGLG6jruDtU1
-	 rqUJ2Xf4k3qO2/8uwr3lKEQg09EbF9VDJ87IzrTnDPPnjND2h3Rjx45fTIT1Hiiiq0qCZ
-	 llKbVMacMjjnVc1zN5ut45Z63VIku0xTgyGBxbM1611W5Gb+HbDY6mGM06HciBziwv+pg
-	 HkGkM7Dz7wb/5ZmlKHq6xQgMMYSacDG67acJ45EMMNkKD76QYZSVhqC2pZcMfCx50RQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794451060;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=4LGltwQ3Kf8DkYrU7swKYOQk0fsRi67eRsuvppsb45E=;
+	b=ll4doPnDZlv+bt3TZZ9cAUL0PTpnrplS9bd8fr30XBCOcREDjbJhClq9X7vi3K4tYSrV
+	 oJYn5hipMH5c+fboVBUbeULz2LizmUZJkNdvSe6kxGp2hkuFQhqdovYeiwPb2+zD3LWgn
+	 DAkSvwcES6Ga0ET5Hz6aYj8lu9vtgRg4s+XGIQfj1JNiO2Ep/bpVzsIvhP6fKZLo5BLfr
+	 MczvdAXtmuWtoR6on25BCkdYS2fZ3iI+BRyKbNiADs5nl/OcJScywohohlRT9kckL/BzT
+	 goyA3qq9TszOXjlS36rLKVs7qwfwuUX8mVEtwpJfqFpVJrJX6hzSgNrqVkL3Qu+cI7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=IfLpwo4i;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mj5xkh4T;
+	arc=none smtp.remote-ip=209.85.210.46
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 098F3606A88A;
-	Thu, 12 Nov 2026 02:37:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 098F3606A88A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48F4606A88C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:37:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A48F4606A88C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=IfLpwo4i
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794451057;
-	bh=lUDmKjtljGQw127/vFvt2r0JrBvNqetevLUcJso/6hs=;
-	h=From:Date:Subject:To:Cc:From;
-	b=IfLpwo4ivjWYLXGC3jzRWCcE78/65qO9rAG9w2IqBclGvj561Li5P0T0X1Fe73pwr
-	 eHRN86E43Mbapmo60lpHTwp3OU9E2oYDz9MwrAzQDW1T8jYQLMYMkRnXV+VyUjn/6U
-	 TlP2Y0MhBzksj4hfFOmnJARMAphqzb7FJmNpS/oVDc0eq+SyhV05ZkG2j8/UfFX8Ig
-	 /9pFNGAa6IkNUgUWl1Vo5FsEs1NaIKCalA8TIWwHkc/OD9gXxd6wREY8UuOktIovh2
-	 BTRDg62qO6mWijKFFI5/ToRvnmfMQA+IFbGTtORKqZG52iepVSO6IiSv04dl6k+2EC
-	 i4P6uH51iQTFw==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 08D6417E0240;
-	Thu, 12 Nov 2026 03:37:37 +0100 (CET)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id B87D948002C; Thu, 12 Nov 2026 03:37:36 +0100 (CET)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 12 Nov 2026 03:36:40 +0100
-Subject: [PATCH] clk: rockchip: rk3576: create proper platform device
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mj5xkh4T
+Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-8451a619da7so2334179a34.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 18:37:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794451058; x=1795055858; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4LGltwQ3Kf8DkYrU7swKYOQk0fsRi67eRsuvppsb45E=;
+        b=mj5xkh4T6RqD6GDvHyQl55SV4gBgq/24mN3Nv1xMtiLLI0xe/fN9nBVvuoqMfIvHn7
+         UXB6At2xQrs9rrlsq+zyuidgpmHPC5/5KZQqPtFOe+XSeu17h3OTHbgKzUDso9nhQcXY
+         AxdcxDdtWO9r4oivVWF8V/Pdgayhb1WvliC36aSFnhx1k9B6mfrifblnPqlp3L6PbhXd
+         qkCHUGiBLPNXs12U0s++2ZNlY42CJ8ysjTIKLfHkEDdxpBqHsxJjLuPZgtMXhAU3Mrtc
+         F9pWz82dtLL/LPIHL/AdDoMkUY/islXuMt0yXyo9QGXcSNIpR+RA/xdoyb8tiikbnoht
+         8DyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794451058; x=1795055858;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4LGltwQ3Kf8DkYrU7swKYOQk0fsRi67eRsuvppsb45E=;
+        b=cGkb9N7MCmFzO3ZHZf9rLZ0Vk423knKsPMjzSMr3fkNRzxweTyJCAbEj1GRUwXp/FK
+         TpANYjESIynT95ecGEjvQX60PU8B4QAJZvEyBoklFhbSUlhvh+khtJNO1ydBzL4ZBvxs
+         qZHZAQrb8n39xNTmO9ztWK0LtsZedoQbXGjDk1VaAXtA5LdXY+ydfh5Hig6B8R3+2bh6
+         sNBtCJUASXbxj/tMJ3fPmmKlV08glAoNtoX1ZQ5Zs7rzFgTn8z79n2+wEIhemgwYH3Rs
+         aijlBuFT6W8rK0IyU1o28FoDMDr7jiIsUGD4mrIrNDVsqVwZJnw8QpMh/QN0XDX6ucAQ
+         1Dxg==
+X-Forwarded-Encrypted: i=1; AL+hErHlBftKFJw+7GVedyWZWuB+d/zq4e5BR3paepSlQtMh+ZQGNonne2OC9l3wKUlSNcYSXc4kaFPOP/Lcn50=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9lKOcmxx63ngrs2Z5ofxbzBkegErFqPnGjjBSPlbbTSjOWH7D8
+	fqEhzNpmZ5r7MTZ9qlnHzsGmNPH8fYATX9zJD4Iab2E5QDHxLB7XudLj
+X-Gm-Gg: AYBFou0/0YdW+lj9K1jIXoPcaywXHLv/YBzptO73sXlmin0uxrE5nLCGdtdtroM6ttX
+	XjekAyHT6iOfIPC6MGx+lk1x74vExEngzhjzMxaIIcgIk09yd4AN+B/haPTi56lOrZFD1W/Uvf4
+	m/9MXVfFKR/ppDmJMmuAt57Si83hP5eK9iuAwLssE7syA5dStM8bD1dv9zrgqhM/IO8O64ZPWio
+	tbp6ODhNtgVY79vCN9L/G46OQoTLnzBs3o7zKfIu9MuBUA6QlmQ0qjTSCxME1Br5udKMPyu9lPS
+	hTdtT61t0Ln5CBNrfXJxWjRlglenpEBFjd1b78I13eO598t+NE7L5Q3CQAZcnjfSZTY8lOP7tSw
+	uu7eGhWwkUqFAQzkYt36b3l7uVTmKdbrmJHVQ4DT5+YlHb9+6wHnw7sSIG/ZrsRx5rtDjH3n6PO
+	0KffEz0JoO/SgatCy0n/FZx32mxYHp/Rd7jGorwaAQCl6DxEnrwldahf8Trt4z1bkRpbRBTXpTr
+	jWnbWx9+NUbyR1xjKojuOQOpu36YzfsGsJnQJufcVPuMqrgIRDjdwUcgCF2V0mizLed+WnrQ1XQ
+	WnB3r5ReQVJn59g7ahTosC7AEzgjeWQvWQgzTJmTZbtxSU71JdDnUjPe/Pv/Ow4aIDY=
+X-Received: by 2002:a05:6820:858a:20b0:717:da:ba41 with SMTP id 006d021491bc7-719178602cbmr2115739eaf.28.1794451058360;
+        Wed, 11 Nov 2026 18:37:38 -0800 (PST)
+Received: from localhost.localdomain ([2600:1702:4ff0:baa0:5054:ff:fe3d:4ddb])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ae22f6a1c7sm4327310fac.6.2026.11.11.18.37.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 18:37:37 -0800 (PST)
+From: Will Porter <mrwillporter@gmail.com>
+To: Christian Ruppert <arc@gmx.li>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Neil Andrews <neil@androos.io>
+Subject: [RFC PATCH 3/6] ALSA: mixer_audient: Replace three flags with an access mode
+Date: Wed, 11 Nov 2026 20:37:17 -0600
+Message-ID: <20261112023720.1503814-4-mrwillporter@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261112023720.1503814-1-mrwillporter@gmail.com>
+References: <avOFQAGTVkCXgs2l@khmer.arcnet>
+ <20261112023720.1503814-1-mrwillporter@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,165 +101,385 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-rk3576-clk-platform-device-v1-1-2f3ac9f09403@collabora.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CQAxA4auQrm1CS4DoVYiLYeho5TcdICaEu
- zvq8lu8d0AUU4lwyw4w2TXqPCXQJQP/dNNDULtk4JwrImK0vijrCv3Q4zK4Ncw2YpdCL0jsAud
- lfW05QBosJkHfv3lz/ztu7Uv8+j3CeX4AnojzKn4AAAA=
-X-Change-ID: 20261112-rk3576-clk-platform-device-12af20579b2f
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Heiko Stuebner <heiko@sntech.de>, 
- Elaine Zhang <zhangqing@rock-chips.com>, Liang Chen <cl@rock-chips.com>, 
- YouMin Chen <cym@rock-chips.com>, Finley Xiao <finley.xiao@rock-chips.com>
-Cc: linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- kernel@collabora.com, Dragan Simic <dsimic@manjaro.org>, 
- Detlev Casanova <detlev.casanova@collabora.com>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4298;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=lUDmKjtljGQw127/vFvt2r0JrBvNqetevLUcJso/6hs=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr1JnDFs9N+ORoHA/zkD4paMpzY9YFK/0oca
- aypg7XvG9a81IkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9SZwAAoJENju1/PI
- O/qapGgP/3JYeHHE33FqJeXoA82rbh5VSH7oTa/FIq4xjf4mwBhcFMDYgd735i22DjNDHjct9BD
- RakcG3HSMNLVymfiAPEGtWFP9IgXDwwNJo4EU1ixpKzXyVLKn1jaL/ylpkhxsHzU+vjUCZTlhah
- 2j7LgwQ4U/yg0NK6RVTIT+YAUYx9fNxVDj+SfAdBFJaB/BjDRClh8Y1oKOVj3ju0RMRlVLd9+kY
- eWGR3c3QpMKk08SjtHSu881mncwflJm+eIM8IHzqiEN8UG48U6elwtoU+an/h4r/q7gdf36KNTi
- Hl2wJaD84fGquOkiIpVgh3eM45/gEZhIrpIl0SZ1bL2M7n8yDAxqsA3s1+dKFJr21xiLw5ZeUwc
- /pnscgSnLLQfMkWTgqcjP1ogxve7ylFCi+eU/GK0gmhSW7ub3oDcJpyhaEfllCO9kT0qKakNbdU
- PLWK5/dge5IigT4jhCboWewhJY7FAdSeuDNJPoxOeJgzXbFJwf/+39WVs9royCGivZ14g/5Z6zr
- jEz+walFZ/Dl9IEDYQ7qwHO0pqSRVxbIgMaGMB1mEVhMRLzVGeDUCAfHgxzQ/d8T6fewtKIRm8x
- 1wMlx2vg1s/FsyQ2HvYfJIB93vc3LdL4LZ21dH960hFbxuI4kA6cJ2J/rcRgl9nPIEjsZParQk8
- QBl1/jS73SbMNciNYXfUoZg==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+Content-Transfer-Encoding: 8bit
 
-When RK3576 clock controller support was upstreamed, it copied the
-vendor kernel's logic. That code makes no sense as it contains a
-bunch of unused code (clk_rk3576_probe is never called as the DT
-node is already initialized; if it would be called, the clock tree
-would be registered twice).
+The INIT_HW, FORCE_SET and CACHE flags allow eight combinations. The
+control tables use three: no flag, CACHE alone, and all three together
+(ID14_WO). Name these three with an enum in a new field, access:
 
-Let's switch the driver to use the same style as RK3588: Continue to
-initialize the clock tree early via rk3576_clk_init executed by
-CLK_OF_DECLARE_DRIVER before the device model is initialized, but
-don't mark the DT node as processed.
+  READBACK:   every get reads the device
+  CACHED:     read once, then use the cache
+  WRITE_ONLY: never read; show the last write
 
-Later the device driver is probed for the DT node and registers the
-resets as well as the restart handler. It also officially becomes
-responsible for the DT node, which fixes all device link messages for
-power-domains with a clock phandle:
+The SIGNED flag stays.
 
-Failed to create device link (0x180) with supplier soc for <device node>
+With a mode, the set helper decides "is it a change" and "send it"
+separately. It no longer needs the force argument, or a compare value
+that is made different to force a write. The probe write of a
+write-only control calls the send helper directly.
 
-Note that the supplier is 'soc' here, because there is no device for
-the clock-controller before this change.
+The mode also decides the VOLATILE access bit and get_cur_broken.
+Remove the ID14_WO macro and the code for the combinations that no
+table uses.
 
-Ideally at some point we move the clock tree registration to the
-device driver and get rid of the early init completely, but the
-upstream kernel is not yet ready for it on the Rockchip platform.
-This gets us at least in the right direction.
+No functional change for the controls in the tables.
 
-Fixes: cc40f5baa91b ("clk: rockchip: Add clock controller for the RK3576")
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Assisted-by: Claude:claude-fable-5-2
+Assisted-by: Claude:claude-sonnet-5-5
+Signed-off-by: Will Porter <mrwillporter@gmail.com>
 ---
-That's 16 scary looking error messages less printed during boot on that
-platform while reducing lines of code and modernizing the driver :)
----
- drivers/clk/rockchip/clk-rk3576.c | 39 ++++++++++++++++++---------------------
- 1 file changed, 18 insertions(+), 21 deletions(-)
+ sound/usb/mixer_audient.c | 172 ++++++++++++++++++++------------------
+ 1 file changed, 90 insertions(+), 82 deletions(-)
 
-diff --git a/drivers/clk/rockchip/clk-rk3576.c b/drivers/clk/rockchip/clk-rk3576.c
-index 2cdd667f4004..577100659593 100644
---- a/drivers/clk/rockchip/clk-rk3576.c
-+++ b/drivers/clk/rockchip/clk-rk3576.c
-@@ -1733,6 +1733,8 @@ static struct rockchip_clk_branch rk3576_clk_branches[] __initdata = {
- 			RK3576_CLKGATE_CON(59), 5, GFLAGS),
- };
+diff --git a/sound/usb/mixer_audient.c b/sound/usb/mixer_audient.c
+index 35b562b3aac51..1bc6b4bbd2910 100644
+--- a/sound/usb/mixer_audient.c
++++ b/sound/usb/mixer_audient.c
+@@ -62,9 +62,23 @@ enum snd_audient_type {
+ static const DECLARE_TLV_DB_MINMAX_MUTE(snd_audient_tlv_mixer, -12800, 600);
  
-+static struct rockchip_clk_provider *rk3576_early_ctx;
+ #define SND_AUDIENT_CTYPE_FLAGS_SIGNED		BIT(0)
+-#define SND_AUDIENT_CTYPE_FLAGS_INIT_HW		BIT(1)
+-#define SND_AUDIENT_CTYPE_FLAGS_FORCE_SET	BIT(2)
+-#define SND_AUDIENT_CTYPE_FLAGS_CACHE		BIT(3)
 +
- static void __init rk3576_clk_init(struct device_node *np)
++/*
++ * How a control reaches the device.
++ *
++ * A cached value is valid once a transfer confirmed it. A read or a write
++ * that succeeds records the value and sets its cache bit. A transfer that
++ * fails leaves the cached value and the bit unchanged.
++ *
++ * WRITE_ONLY: GET stalls or does not report writes. The driver writes the
++ * init value at probe and sends every put. A get shows the last value
++ * written, or an unknown value while none was.
++ */
++enum snd_audient_access {
++	SND_AUDIENT_ACCESS_READBACK = 0,	/* every get reads the device */
++	SND_AUDIENT_ACCESS_CACHED,		/* read once, then use the cache */
++	SND_AUDIENT_ACCESS_WRITE_ONLY,		/* never read; show the last write */
++};
+ 
+ /*
+  * An enumerated control: item i sends values[i]. A get of a device value
+@@ -177,14 +191,6 @@ static const char *const snd_audient_id14_optical_texts[] = {
+ SND_AUDIENT_ENUM(snd_audient_id14_optical, snd_audient_id14_optical_texts,
+ 		 0, 1);
+ 
+-/*
+- * Write-only: GET stalls or does not report writes. Show the last value
+- * written, write the init value at probe, and send every put.
+- */
+-#define ID14_WO	(SND_AUDIENT_CTYPE_FLAGS_CACHE		\
+-		 | SND_AUDIENT_CTYPE_FLAGS_FORCE_SET	\
+-		 | SND_AUDIENT_CTYPE_FLAGS_INIT_HW)
+-
+ #define ID14_BOOL(unit_, sel_)				\
+ 	{						\
+ 		.type = SNDRV_CTL_ELEM_TYPE_BOOLEAN,	\
+@@ -220,9 +226,9 @@ SND_AUDIENT_ENUM(snd_audient_id14_optical, snd_audient_id14_optical_texts,
+ 	}
+ 
+ /*
+- * A readable enum. It has no cache entry, so a get always reads the device
+- * and never uses init. Write-only enums set .init and .flags without this
+- * macro.
++ * A readable enum. Its access mode is READBACK, so a get always reads the
++ * device and never uses init. Write-only enums set .init and .access
++ * without this macro.
+  */
+ #define ID14_ENUM(unit_, sel_, len_, enum_)		\
+ 	{						\
+@@ -235,6 +241,7 @@ SND_AUDIENT_ENUM(snd_audient_id14_optical, snd_audient_id14_optical_texts,
+ 
+ static const struct snd_audient_ctrl_type {
+ 	snd_ctl_elem_type_t type;
++	enum snd_audient_access access;
+ 	unsigned long flags;
+ 	size_t len;		/* datatype size, can be 1, 2 or 4 bytes */
+ 	union {
+@@ -285,8 +292,8 @@ static const struct snd_audient_ctrl_type {
+ 	},
+ 	[SND_AUDIENT_TYPE_MIXER] = {
+ 		.type = SNDRV_CTL_ELEM_TYPE_INTEGER,
+-		.flags = SND_AUDIENT_CTYPE_FLAGS_SIGNED
+-			 | SND_AUDIENT_CTYPE_FLAGS_CACHE,
++		.access = SND_AUDIENT_ACCESS_CACHED,
++		.flags = SND_AUDIENT_CTYPE_FLAGS_SIGNED,
+ 		.len = 2,
+ 		.min.integer = -128 * 256,
+ 		.max.integer = 6 * 256,
+@@ -330,7 +337,7 @@ static const struct snd_audient_ctrl_type {
+ 	/* the documented boost is a fixed +10 dB */
+ 	[SND_AUDIENT_TYPE_ID14_IN_BOOST] = {
+ 		.type = SNDRV_CTL_ELEM_TYPE_BOOLEAN,
+-		.flags = ID14_WO,
++		.access = SND_AUDIENT_ACCESS_WRITE_ONLY,
+ 		.len = 2,
+ 		.min.integer = 0,
+ 		.max.integer = 10 * 256,
+@@ -340,7 +347,7 @@ static const struct snd_audient_ctrl_type {
+ 	},
+ 	[SND_AUDIENT_TYPE_ID14_IN_POLARITY] = {
+ 		.type = SNDRV_CTL_ELEM_TYPE_BOOLEAN,
+-		.flags = ID14_WO,
++		.access = SND_AUDIENT_ACCESS_WRITE_ONLY,
+ 		.len = 1,
+ 		.min.integer = 0,
+ 		.max.integer = 1,
+@@ -350,7 +357,7 @@ static const struct snd_audient_ctrl_type {
+ 	},
+ 	[SND_AUDIENT_TYPE_ID14_MON_ID_KEY] = {
+ 		.type = SNDRV_CTL_ELEM_TYPE_ENUMERATED,
+-		.flags = ID14_WO,
++		.access = SND_AUDIENT_ACCESS_WRITE_ONLY,
+ 		.len = 2,
+ 		.init = 0xffff,		/* ScrollControl */
+ 		.enumeration = &snd_audient_id14_id_key,
+@@ -359,7 +366,7 @@ static const struct snd_audient_ctrl_type {
+ 	},
+ 	[SND_AUDIENT_TYPE_ID14_MON_TALKBACK_SRC] = {
+ 		.type = SNDRV_CTL_ELEM_TYPE_ENUMERATED,
+-		.flags = ID14_WO,
++		.access = SND_AUDIENT_ACCESS_WRITE_ONLY,
+ 		.len = 1,
+ 		.init = 0xff,		/* None */
+ 		.enumeration = &snd_audient_id14_talkback,
+@@ -369,7 +376,7 @@ static const struct snd_audient_ctrl_type {
+ 	/* the power-on mode is S/PDIF */
+ 	[SND_AUDIENT_TYPE_ID14_OPTICAL_MODE] = {
+ 		.type = SNDRV_CTL_ELEM_TYPE_ENUMERATED,
+-		.flags = ID14_WO,
++		.access = SND_AUDIENT_ACCESS_WRITE_ONLY,
+ 		.len = 4,
+ 		.init = 1,		/* S/PDIF */
+ 		.enumeration = &snd_audient_id14_optical,
+@@ -557,10 +564,7 @@ static inline u16 snd_audient_kctl_channels(struct snd_kcontrol *kctl)
+ /*
+  * A cached control keeps its values in the cache of struct
+  * usb_mixer_elem_info: bit i of elem->cached and elem->cache_val[i] for
+- * element channel i. The bit is set once a transfer confirmed the value: a
+- * read, or a write that succeeded. A probe transfer that fails leaves it
+- * clear. CACHE | FORCE_SET without INIT_HW keeps the earlier behaviour: the
+- * init value is assumed, without a transfer.
++ * element channel i. See enum snd_audient_access for when the bit is set.
+  */
+ 
+ 
+@@ -611,27 +615,24 @@ static inline int snd_audient_set_cur(struct usb_mixer_interface *mixer,
+ 
+ 
+ static int snd_audient_raw_get_one(struct usb_mixer_elem_info *const elem,
+-			const struct snd_audient_ctrl_type *const ctype,
+-			const unsigned int ch, const u8 cidx,
+-			u32 *const value)
++				   const struct snd_audient_ctrl_type *const ctype,
++				   const unsigned int ch, const u8 cidx,
++				   u32 *const value)
  {
- 	struct rockchip_clk_provider *ctx;
-@@ -1802,12 +1804,10 @@ static void __init rk3576_clk_init(struct device_node *np)
- 	rockchip_clk_register_branches(ctx, rk3576_clk_branches,
- 				       ARRAY_SIZE(rk3576_clk_branches));
+ 	struct usb_mixer_interface *const mixer = elem->head.mixer;
+-	const bool cache = ctype->flags & SND_AUDIENT_CTYPE_FLAGS_CACHE;
+ 	int ret;
+ 	__le32 buf = 0;
+ 	s32 val;
  
--	rk3576_rst_init(np, reg_base);
--
--	rockchip_register_restart_notifier(ctx, RK3576_GLB_SRST_FST, NULL);
--
- 	rockchip_clk_of_add_provider(np, ctx);
+-	if (cache && test_bit(ch, elem->cached)) {
++	if (ctype->access != SND_AUDIENT_ACCESS_READBACK &&
++	    test_bit(ch, elem->cached)) {
+ 		*value = elem->cache_val[ch];
  
-+	rk3576_early_ctx = ctx;
-+
- 	return;
+ 		return ctype->len;
+ 	}
  
- err_free_pmu0:
-@@ -1817,35 +1817,27 @@ static void __init rk3576_clk_init(struct device_node *np)
- 	return;
+-	/*
+-	 * Cached FORCE_SET controls are treated as write-only: a clear
+-	 * cache bit does not trigger a GET.
+-	 */
+-	if (cache && (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_FORCE_SET))
++	/* A write-only control never sends a GET: its value is unknown. */
++	if (ctype->access == SND_AUDIENT_ACCESS_WRITE_ONLY)
+ 		return -ENODATA;
+ 
+ 	ret = snd_audient_get_cur(mixer, ctype, cidx, &buf);
+@@ -645,7 +646,7 @@ static int snd_audient_raw_get_one(struct usb_mixer_elem_info *const elem,
+ 
+ 	*value = val;
+ 
+-	if (cache) {
++	if (ctype->access == SND_AUDIENT_ACCESS_CACHED) {
+ 		elem->cache_val[ch] = val;
+ 		set_bit(ch, elem->cached);
+ 	}
+@@ -653,41 +654,55 @@ static int snd_audient_raw_get_one(struct usb_mixer_elem_info *const elem,
+ 	return ret;
  }
  
--CLK_OF_DECLARE(rk3576_cru, "rockchip,rk3576-cru", rk3576_clk_init);
--
--struct clk_rk3576_inits {
--	void (*inits)(struct device_node *np);
--};
--
--static const struct clk_rk3576_inits clk_rk3576_cru_init = {
--	.inits = rk3576_clk_init,
--};
-+CLK_OF_DECLARE_DRIVER(rk3576_cru, "rockchip,rk3576-cru", rk3576_clk_init);
- 
- static const struct of_device_id clk_rk3576_match_table[] = {
- 	{
- 		.compatible = "rockchip,rk3576-cru",
--		.data = &clk_rk3576_cru_init,
- 	},
- 	{ }
- };
- 
- static int clk_rk3576_probe(struct platform_device *pdev)
+-static int snd_audient_raw_set_one(struct usb_mixer_elem_info *const elem,
+-			const struct snd_audient_ctrl_type *const ctype,
+-			const unsigned int ch, const u8 cidx,
+-			const u32 value, bool force)
++/* Send a value and, for a cached control, record that the device has it. */
++static int snd_audient_raw_send_one(struct usb_mixer_elem_info *const elem,
++				    const struct snd_audient_ctrl_type *const ctype,
++				    const unsigned int ch, const u8 cidx,
++				    const u32 value)
  {
--	const struct clk_rk3576_inits *init_data;
-+	struct rockchip_clk_provider *ctx = rk3576_early_ctx;
- 	struct device *dev = &pdev->dev;
-+	struct device_node *np = dev->of_node;
- 
--	init_data = device_get_match_data(dev);
--	if (!init_data)
--		return -EINVAL;
-+	if (!ctx)
-+		return -ENODEV;
- 
--	if (init_data->inits)
--		init_data->inits(dev->of_node);
-+	rk3576_rst_init(np, ctx->reg_base);
+-	struct usb_mixer_interface *const mixer = elem->head.mixer;
++	__le32 buf = cpu_to_le32(value);
+ 	int ret;
+-	u32 val;
+-
+-	if (force) {
+-		val = !value;		/* just make it different */
+-	} else {
+-		ret = snd_audient_raw_get_one(elem, ctype, ch, cidx, &val);
+-		if (ret == -ENODATA)	/* FORCE_SET and not cached yet */
+-			val = !value;	/* just make it different */
+-		else if (ret < 0)
+-			return ret;
 +
-+	rockchip_register_restart_notifier(ctx, RK3576_GLB_SRST_FST, NULL);
- 
- 	return 0;
- }
-@@ -1858,4 +1850,9 @@ static struct platform_driver clk_rk3576_driver = {
- 		.suppress_bind_attrs = true,
- 	},
- };
--builtin_platform_driver_probe(clk_rk3576_driver, clk_rk3576_probe);
++	ret = snd_audient_set_cur(elem->head.mixer, ctype, cidx, &buf);
++	if (ret < 0)
++		return ret;
 +
-+static int __init rockchip_clk_rk3576_drv_register(void)
-+{
-+	return platform_driver_register(&clk_rk3576_driver);
++	if (ctype->access != SND_AUDIENT_ACCESS_READBACK) {
++		elem->cache_val[ch] = value;
++		set_bit(ch, elem->cached);
+ 	}
+ 
+-	force = force || (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_FORCE_SET);
++	return 0;
 +}
-+core_initcall(rockchip_clk_rk3576_drv_register);
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261112-rk3576-clk-platform-device-12af20579b2f
-
-Best regards,
---  
-Sebastian Reichel <sebastian.reichel@collabora.com>
++
++/*
++ * Set one channel. Returns 1 if the value changed, 0 if not, or a negative
++ * error. A write-only control sends every value; the others send only a
++ * changed one.
++ */
++static int snd_audient_raw_set_one(struct usb_mixer_elem_info *const elem,
++				   const struct snd_audient_ctrl_type *const ctype,
++				   const unsigned int ch, const u8 cidx,
++				   const u32 value)
++{
++	bool changed;
++	u32 cur = 0;
++	int ret;
++
++	ret = snd_audient_raw_get_one(elem, ctype, ch, cidx, &cur);
++	if (ret < 0 && ret != -ENODATA)
++		return ret;
+ 
+-	if (force || (val != value)) {
+-		__le32 buf = cpu_to_le32(value);
++	/* -ENODATA: write-only and not cached yet */
++	changed = ret == -ENODATA || cur != value;
+ 
+-		ret = snd_audient_set_cur(mixer, ctype, cidx, &buf);
++	if (changed || ctype->access == SND_AUDIENT_ACCESS_WRITE_ONLY) {
++		ret = snd_audient_raw_send_one(elem, ctype, ch, cidx, value);
+ 		if (ret < 0)
+ 			return ret;
+-
+-		if (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_CACHE) {
+-			elem->cache_val[ch] = value;
+-			set_bit(ch, elem->cached);
+-		}
+ 	}
+ 
+-	return val != value;
++	return changed;
+ }
+ 
+ 
+@@ -758,7 +773,7 @@ static int snd_ctl_audient_boolean_set(struct snd_kcontrol *kctl,
+ 		int ret;
+ 
+ 		ret = snd_audient_raw_set_one(elem, ctype, i, base + i,
+-					      buf, false);
++					      buf);
+ 		if (ret < 0)
+ 			return ret;
+ 
+@@ -879,7 +894,7 @@ static int snd_ctl_audient_integer_set(struct snd_kcontrol *kctl,
+ 		int ret;
+ 
+ 		ret = snd_audient_raw_set_one(elem, ctype, i, base + i,
+-					      val, false);
++					      val);
+ 		if (ret < 0)
+ 			return ret;
+ 
+@@ -977,7 +992,7 @@ static int snd_ctl_audient_enum_set(struct snd_kcontrol *kctl,
+ 		int ret;
+ 
+ 		ret = snd_audient_raw_set_one(elem, ctype, i, base + i,
+-					      e->values[item], false);
++					      e->values[item]);
+ 		if (ret < 0)
+ 			return ret;
+ 
+@@ -1035,9 +1050,9 @@ static int snd_audient_add_ctrl(struct usb_mixer_interface *mixer,
+ 						   ctrl->hwchannels);
+ 	knew.tlv.p = ctype->tlv;
+ 	knew.access = SNDRV_CTL_ELEM_ACCESS_READWRITE
+-			| ((ctype->flags & SND_AUDIENT_CTYPE_FLAGS_CACHE)
+-			   ? 0
+-			   : SNDRV_CTL_ELEM_ACCESS_VOLATILE)
++			| ((ctype->access == SND_AUDIENT_ACCESS_READBACK)
++			   ? SNDRV_CTL_ELEM_ACCESS_VOLATILE
++			   : 0)
+ 			| (ctype->tlv ? SNDRV_CTL_ELEM_ACCESS_TLV_READ : 0);
+ 
+ 	switch (ctype->type) {
+@@ -1072,40 +1087,33 @@ static int snd_audient_add_ctrl(struct usb_mixer_interface *mixer,
+ 	 * get_cur_broken is set. A write-only control cannot read its value
+ 	 * back after that.
+ 	 */
+-	if ((ctype->flags & SND_AUDIENT_CTYPE_FLAGS_CACHE) &&
+-	    (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_FORCE_SET))
++	if (ctype->access == SND_AUDIENT_ACCESS_WRITE_ONLY)
+ 		elem->get_cur_broken = 1;
+ 
+ 	/*
+ 	 * A failed probe transfer must not fail the card: warn and keep the
+-	 * control. Its cache bit stays clear, so a readable control reads
+-	 * the device again on its next get, and a write-only control shows an
++	 * control. Its cache bit stays clear, so a cached control reads the
++	 * device again on its next get, and a write-only control shows an
+ 	 * unknown value until a put succeeds.
+ 	 */
+-	if (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_INIT_HW) {
++	if (ctype->access == SND_AUDIENT_ACCESS_WRITE_ONLY) {
+ 		int i;
+ 
+ 		for (i = 0; i < ctrl->hwchannels; i++) {
+-			ret = snd_audient_raw_set_one(elem, ctype, i,
+-						      ctrl->val_offs + i,
+-						      ctype->init, true);
++			ret = snd_audient_raw_send_one(elem, ctype, i,
++						       ctrl->val_offs + i,
++						       ctype->init);
+ 			if (ret < 0)
+ 				usb_audio_warn(mixer->chip,
+ 					       "%s: cannot set channel %d (%d)\n",
+ 					       ctrl->name, i, ret);
+ 		}
+-	} else if (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_CACHE) {
++	} else if (ctype->access == SND_AUDIENT_ACCESS_CACHED) {
+ 		int i;
+ 
+ 		for (i = 0; i < ctrl->hwchannels; i++) {
+ 			u32 val;
+ 
+-			if (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_FORCE_SET) {
+-				elem->cache_val[i] = ctype->init;
+-				set_bit(i, elem->cached);
+-				continue;
+-			}
+-
+ 			ret = snd_audient_raw_get_one(elem, ctype, i,
+ 						      ctrl->val_offs + i,
+ 						      &val);
+-- 
+2.47.3
 
