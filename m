@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.105
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.104
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794450109;
-	b=aCqSJyHkK6XjcOQGe6za8eQhurPqw5OLrUXHXjyhv/4Uc57D5bPRl2ZtVG/S3fnRizU6
-	 OIklC8RScoyBKm5/03auvaDyqV4P/6cJno/pbU2IYbLTYK02GhC5HJ8hZQXhxqeqFCHor
-	 sOv3d5iOAnPLmGBz/uBwWNA/2IhWRMpFIIz17VPCFmCjogAYmlDxverO9EXVOLfxjkm4f
-	 JqnePzuwE9rpEOmT6AwJYbw/eGkQFm0KrYLbXTdd0txLSY6Xxs/Pp33OPDcZHAdblzhWp
-	 A/Qbf7rP0brJQ7WhwVO0q9ww7KgB5R9sY9CkCpgcUD5nzczwGkPZ+3uUKrvB1DHbRhw==
+	t=1794450110;
+	b=vf2csYvhCzO/bp7mfDmeUmZf1q10oXBaq9gkF7LCZqxSrxudWD0nYnmO1HR5AmY8WS9t
+	 rs2HX/yZZ1pEWRL4TBmsBQ9h8RcaZaHPASRD79HSS6agSlGBaHVLY+XF5RaUOQgtFA2+l
+	 BJANTYVHGECvyixl/Tt2V0jl5vvs1uz9LgnS95qG6bGe6pDg0VQwOoNkAejbMjmIyZOiP
+	 zmzpSXRvre9bfW9yu0KLegCddSZPkox7jpRB9+8uqAlRTJNpTlrqOVErJo+iF9V+luMWW
+	 DpVNOr4LjTgWYuj1KCM2TkqacW0Mhb/769xoz/hgxik8VSL+eW2kfe7CjxkmFcKyaBQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794450109;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794450110;
 	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
 	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
@@ -25,45 +25,45 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=aNAzdSf9YKGebRN7kwtU3xvJdAfntxR/R+bLdrxw++o=;
-	b=I5Ld6QzdiXqI5uco4FQ87SvtjLRZBL3tzKlfbamlGm1Sh4h+9xumHWy7CGzHfAX6eIXz
-	 oQdJixd98pVYm/PFHBHYRu1Cuq9VWHpgzCw66so4iRCEUM+PDo8E8qWhFgUh6jJtKljpD
-	 E7macT+xFke2eYPC/8qJmBlw9xX15fI9V85FrrXDf85L6Kj5xl3P9PPRADljK5erKywE7
-	 El90Lj3880/wo+GWJYr44dtLCmzlc4VAzpvn4sEfGzFB5WG4PXdbk/DUBOnYWCYhhnACb
-	 AnABcbEug+bnWGwKYJaP6Wtp+j06uSHprzJzAsNk9rrrVtUnQjaqteOjA99JAUHG31Q==
+	bh=EzVBhe5jgJ09yEWuBCFpondz7mN8VA4cwT0CtQAAd9U=;
+	b=fCkKcjb3jeQ/XRJNu6+rJtY3OI8Z9NExMQqPcmiQhI5Qjt46IVJwS4AbVss0TINoCN50
+	 uK6/1cJcQ8GOux6349T5FO0nrb/qmLbzVR9SLCP0F2x3BBw3s/i/YfMB4CYM3CQywIhD1
+	 su9QsXsaSKS2T2/Y81UB9wDreSnArpX9+sgw4vG6vIfl1xmmxay94bQTrGI8sGq0mSt9I
+	 P8cc8BjhHMWIyMAmho+ELv6L2Z3aXgYPJidE11KrBtOhbptDFHYN/Y2IZa5w6JE53AdMc
+	 ZD4JJ+Mc7F6s0cEM14FvvS2aPbUt3I78a7E4xdzmlasFDABtm3xfmLcf3Y9VO6DGLiw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=cixtech.com;
 	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.105
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023105.outbound.protection.outlook.com [52.101.127.105])
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.104
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022104.outbound.protection.outlook.com [52.101.126.104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD8A606A324;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33449606A323;
 	Thu, 12 Nov 2026 02:21:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CD8A606A324
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33449606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GxYkregEFOXAVGA3bcwLUKjJuJtDNjoSN6cxMfA47eLc0faqrGUNXj35U03gLL/jtXt5X4cOggP3BPyUb6m0/8wa4OE9TN+aM71OdVZj8ALQXISUIlxbbOT2m4xbsDG0L3Ef4/E/rtoQdHM2yIlFnb9NgIktc2vlg3gq47qk0xGtTZ6YYYNVD+zbA2dGd90Jo5oMW7H19KJoeMZYFv3P2kXSXuuFUlRGF4qaAcQZj7GTPHsvh/yVHHln8e8+zf9wwhW+DkhbOOS7BvbBPssNwuqfufQI27HQ72cizBvCHsPe7dqwhP6EJsmGd1iQWS/c7AmSYrORHeHSKCF7mlqSqA==
+ b=zJsC+AOMcxl90HBNiBygXNiO8PwsiPhxiJQznYEyZRMPVyO18tlLJtcsvTgPWtruyUQGh/wFk6nKlbSYt1WM7z9/0lfz31Jg7aFTM19aGIpSNAxeezmZjYpugmpkrwcUsOPCLh2ZFcSG0oLt2ZRE2M1vYtyp8OsbjV0h2ylQCTTzf9IvesBKs7H2+LgC8Vp5uttqzNV1fZ/u136YFVELYVU9QjaGLzAviv7Pqvxr3CaWCIMmgyw0PInOYTVeb/tH/33TMxjEzoQ2tYapCY64JeuszO3iIVmjelKZpAVX9oXyp5zh+JnYDYGRz1XmyuqQD4bd1jlr34vH6CfKMQ/mUA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aNAzdSf9YKGebRN7kwtU3xvJdAfntxR/R+bLdrxw++o=;
- b=KMhJiEDNNbBYV7ZaHr+opk1k2t6lcuaIVG5RS22JU+jtv8r3+fvcFp7LrvzNpc2WJSHWAiMrJDzMJpPFdHEZyXUqtTDA1ZoOwf/8ayIMMHLHNyU7UYaQXXEK/Hd7cqyTvPXm01PObi0RM99fIXLwDDUJkM0owM7AeAcLKWvYEzbr5R7poDzLcPsaJzBb2qh7YPd0Evj5YExNb7943gFnWkw7olLrNbU4n1AuB7G201mBZDM9yjLMsE2ySFKNcoClYY+dGtacFdmxtudwvIqMZNCq+zE1UXSIOCHm/5snOb7/Iwegb6WS2ecURZEGYJemdv7++2BsWfMAQlMoqe8feg==
+ bh=EzVBhe5jgJ09yEWuBCFpondz7mN8VA4cwT0CtQAAd9U=;
+ b=gKr6opvtRs/krv6CA+PQ8tPJM8iIWQLTscUwIgq6WLwSTcI5jMdFG9zXjv1vauMlg6e1ONJM068mWhonDl9emz4foYTJkXzwn+R6RbDoTLcc+GUXwPvGxXUUKF/k/I9XVNYL/Orez8if3e7pIGqxQoEWKJ2RalTZOSUHOR8hsSiRjsWeCmddcNcGhi7D8QwnXD2Vg70wX/nkvXCtbgwMWxTYhpqE/sdZIosIMLOOLXHrQ05zfxdFqQgfR8O6reKjATtMfh2DCo+1mpG7Q78odonCPt9b0MJoF0Wd39lcZObt1a0qxrb05ssoaJvOIreLxULu8q3gakWCfxsr8k/Liw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  222.71.101.198) smtp.rcpttodomain=cadence.com smtp.mailfrom=cixtech.com;
  dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
  not signed); arc=none (0)
-Received: from SI2PR01CA0006.apcprd01.prod.exchangelabs.com
- (2603:1096:4:191::14) by SI4PR06MB8898.apcprd06.prod.outlook.com
- (2603:1096:4:2af::6) with Microsoft SMTP Server (version=TLS1_2,
+Received: from JH0PR03CA0023.apcprd03.prod.outlook.com (2603:1096:990:74::13)
+ by SEYPR06MB5914.apcprd06.prod.outlook.com (2603:1096:101:db::11) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.0; Thu, 12 Nov
- 2026 02:21:46 +0000
-Received: from SG2PEPF000B66D0.apcprd03.prod.outlook.com
- (2603:1096:4:191:cafe::82) by SI2PR01CA0006.outlook.office365.com
- (2603:1096:4:191::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
+ 2026 02:21:45 +0000
+Received: from SG1PEPF000082E8.apcprd02.prod.outlook.com
+ (2603:1096:990:74:cafe::7c) by JH0PR03CA0023.outlook.office365.com
+ (2603:1096:990:74::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.0 via Frontend Transport; Thu, 12
  Nov 2026 02:21:45 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
@@ -72,12 +72,12 @@ Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
  222.71.101.198 as permitted sender) receiver=protection.outlook.com;
  client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
 Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG2PEPF000B66D0.mail.protection.outlook.com (10.167.240.26) with Microsoft
+ SG1PEPF000082E8.mail.protection.outlook.com (10.167.240.9) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 02:21:43 +0000
+ 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 02:21:44 +0000
 Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id BED794102E64;
-	Thu, 12 Nov 2026 10:21:42 +0800 (CST)
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 3AEEC40920E1;
+	Thu, 12 Nov 2026 10:21:43 +0800 (CST)
 From: Hongliang Yang <hongliang.yang@cixtech.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Peter Chen <peter.chen@kernel.org>,
@@ -95,9 +95,9 @@ Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	cix-kernel-upstream@cixtech.com,
 	hongliang.yang@cixtech.com
-Subject: [PATCH v8 1/2] dt-bindings: usb: Add CIX Sky1 USBSSP controller
-Date: Thu, 12 Nov 2026 10:21:40 +0800
-Message-ID: <20261112022141.4136099-2-hongliang.yang@cixtech.com>
+Subject: [PATCH v8 2/2] usb: cdns3: Add CIX Sky1 glue driver
+Date: Thu, 12 Nov 2026 10:21:41 +0800
+Message-ID: <20261112022141.4136099-3-hongliang.yang@cixtech.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261112022141.4136099-1-hongliang.yang@cixtech.com>
 References: <20261112022141.4136099-1-hongliang.yang@cixtech.com>
@@ -113,292 +113,912 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG2PEPF000B66D0:EE_|SI4PR06MB8898:EE_
+X-MS-TrafficTypeDiagnostic: SG1PEPF000082E8:EE_|SEYPR06MB5914:EE_
 Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 7ff2ed53-071a-4b3e-685f-08df4063b1ec
+X-MS-Office365-Filtering-Correlation-Id: 0972d53b-66ff-48ca-59aa-08df4063b218
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|36860700016|82310400026|921020|10067099003|56012099006|261022105027099003|261028144727099003|261022075727099003|261026121527099003|261026140227099003|261021121427099003|261102123227099003|261009223027099003|22082099003|18002099003|6133799003|3023799007;
+	BCL:0;ARA:13230040|1800799024|82310400026|7416014|376014|36860700016|23010399003|18002099003|22082099003|261009223027099003|261009223327099003|261009221227099003|261009221727099003|261009220027099003|921020|56012099006|5023799004|261028144727099003|261102123227099003|261026140227099003|261021121427099003|261022105027099003|261022075727099003|261026121527099003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	aHprN75cseWYIzOByYgS4Dmen65RbKi2ZeDngb/3Y1dvv9kvBTvO+DGulKUtryAaLqpP82H8GNMUb2LOdDU00nlrrPIpmug8Ck4dwparrWH47jE3K1evP97KoOL97OyDSAwMNeJTKCwXleindwjH0uzr5EsoEPx+IrQ89hSlT1WtIBySDcPtdRje+SHpVoquGCD2OCO9elvtltNCgMjudlDSzI0gTzjM8F03KfXDxrQHuLxkaXE687L/2QOZLKTqeIeri907x7smWeajAmjM5TPBwpGdqBrn+Ut1GgYjBat/1zepGlLBxnKd+dwV8CdUhSsPJZ7/eTxTzdvcwkGeK9SpmzgXM3ytEVdJ0CBbmONgZ/e0oRC1yHACyjyk4zFK8nYZeyKSjlJVwFTwbvRImfuGghFPc946UGHvCAqTUxmuZIJrBlrRNICZyqpZ32+3v1Rsam37PTGklnNxamaKKcj1s6KdpfGKZPCFsDaLtLtLbFr1mCO1chybpyK8fXv4KaT0ZyemMQAl2YV8g4rmnXQ6SiDz3EoWlLqeWsZrspv0q7wvx7ruNB1jLv4aFoVOG8TElrWg9IXvYKCH/yrbztICuKUUFadknh3sCEXmRneNaGDVTqbJ4HT2hxyZ/pqec6bme4bXjg9UIKRwYGMkj9r2z7cWx+XG/4vvULEDQL1WXuCdh0Fh+h4SOwkleZk4
+	+sXkbMMxVWvlLqjPl2LzJ/3nQB4Va+QEJ/kqMIHT/TmdfbBuz4QrCsLbqZsEPIcwMDtuSZrGKGrczDv6OTa04icUYg/KKDZJGvJjPTzl50abME63K5nsCNHKW7qCxlu6jaf/XzrcT8Nf9FivoJE0Ia0DBzMksjD5OyOyUbyG8ux/U6c/6Az2m7Hucf8uoJVXGsakJIFfj0bxmdj2+B7ENH4uxiMC3MQFW7wHTBG5MxlH1NHQ+HliB1EQ6vlRtcO421RijvZFeH5cUlePQU4PxgxAG/bFhwAFSTv9o6nhV/J5Y473GUWZkMNZBHnONyD454jcqQ0ysz0GWMAl5C0JNArVUPdhUGi+lfeOawxTcXn9A9jzsBZmPLBASJmm3delFICu7tiR3lrLoBWG9JInNV21+yhb5kbvXW1dAcLS8ry8ng89l4fgwaPLMdgtcCc5dev2DewrKGC0+VsUezLSXMth69vTPQ6KHaWUfoYwtvOUgI2Sy/HuPLAgMR9NHbqKPp4AA0i/XqM5V6TKFWP60bPtIoZjJ7vNazmaETqTbJH2JkZQEt/P81R79HRXm02if/j6WW6rLMAhB+GhFzsyHXarri4TQKRnLApDOVQ1smvII/llyLCcxUMepZuAYQqelOnO08H4umaDapmRRKLyzpn0wBCPrwCAzElxtm9CVfV6Vaufv69cf6EmjAEhXABYaMG3vJ7qEiKs5Mj3EXZBWiC1l3V5+G4LhCJNjFpNjO10cpXQ+KYkQH//ZHwi3XW9
 X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(921020)(10067099003)(56012099006)(261022105027099003)(261028144727099003)(261022075727099003)(261026121527099003)(261026140227099003)(261021121427099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(7416014)(376014)(36860700016)(23010399003)(18002099003)(22082099003)(261009223027099003)(261009223327099003)(261009221227099003)(261009221727099003)(261009220027099003)(921020)(56012099006)(5023799004)(261028144727099003)(261102123227099003)(261026140227099003)(261021121427099003)(261022105027099003)(261022075727099003)(261026121527099003)(10067099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	ylgR0vgEiqUPIbbVcP07O0MlCSsIkSnDN3IdFcu5lREZZGubih1ji6YTv5vWVRjF6YfapNi1CmVtcbxwqo96uZlZgM8un7eiodJu/YW+XnWj5c+6ecXyFILKQXM2AoESqMq7WTcKBdo0V060RaNqQNw6V8y587e4PhLL9vJKD6iQn2q3LI0QtH9+pARGRgSq7daZpsJ+C9C+hypEbDCZL4pyEhZWSG56yCqrijFyOSu3Pz9y28sXK/l6clFPJM76EG5oi6rBvlqT6K7RiAQLpvGrrHXL4v1rsoqWdOXoN9NCqmcmtsjzuCA8kPqQ0WsMO2l25cidBHt83T9JlSyN2I5OJOG055AsA2y9eyYlQFlTu3vzDWZfqQ1fRyFxQvRZidWiHVhTWB0v0xQBgVqxZFTbUqliS2TL9lLDzci3S5UADkdad/ZjIcnE/HCyvpvF
+	0JddCIs0KiOlMFsXOvbng2BCiwwCToUXbv18RJarDAHS4UkL5IHuFEWHQMm0QuxgBw3z+IFF3SNG/jQf6aObcy/KT9E6+JVzvTsklgaFdF4yjVnBUqr6o+UkdryWnxkA5mbq4DAn7nHCT4WyRrVBfhqJhMrEbxmJDgy5uaAXXztyW3Umv53XBs3fcho/iB+Y3mGl2WezJVjeZ0K0PejzezfM+6/e19ch860rQ2KlxwMtjZFvYl+cGsO9cvI2910SjMZBRMuy5+yyL3ntFLYgI/C4qmQMhilXrel+KQMTlGOvgVeSq70871uEJMkRnvuYr7VFmlQhRlFznrWfaWakrciqA0+Wmt6ziH7hJMRuDZpSwr245UsCDME1HA7Daa7j3yIw33AGK/bO0M61XS9SmncyoCkNiWv8Od2h16i2UBEhhtrNBH7w1EBYV0n4W3rr
 X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 02:21:43.7797
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 02:21:44.1994
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ff2ed53-071a-4b3e-685f-08df4063b1ec
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0972d53b-66ff-48ca-59aa-08df4063b218
 X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SG2PEPF000B66D0.apcprd03.prod.outlook.com
+	SG1PEPF000082E8.apcprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI4PR06MB8898
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB5914
 
-Add device tree binding for the Cadence USBSSP DRD controller integrated
-in the CIX Sky1 SoC. Each instance wraps one of the two USB3 Type-A DRD
-controllers of the SoC.
+Add a glue layer driver for the Cadence USBSSP controller integrated in
+the CIX Sky1 SoC. The driver manages the controller clocks, resets and
+the mode strap controls located in the Sky1 S5 system controller, and
+writes the AXI cache attributes and polls the AXI clock status of its
+own controller in the RCSU block.
 
-The register range of an instance is its window in the USB30 Type-A DRD
-RCSU block at 0x091c0000, from the AXI cache attribute strap register of
-the instance up to and including its AXI clock status register. The strap
-registers of the two controllers and of their PHYs are interleaved in
-that block, so the ranges of the two instances overlap.
-
-The Cadence USBSSP core is described by a child node at its own address.
-Mode strap controls are programmed through the Sky1 S5 system controller
-referenced by the cix,usb-syscon phandle.
+The register range is mapped with devm_ioremap() instead of
+devm_platform_ioremap_resource(): the two Type-A controllers share one
+RCSU block and their register ranges overlap, so reserving the region
+would make the second controller fail with -EBUSY. The offset of the
+AXI clock status register inside the range is taken from the
+per-compatible match data, as it differs between the Type-A and Type-C
+register blocks of the SoC.
 
 Signed-off-by: Hongliang Yang <hongliang.yang@cixtech.com>
 ---
 Changes in v8:
-- Fix the example: the USB3 PHY is a single provider shared by both
-  controllers, so the core node references one phandle. The example
-  still carried the per-lane two-PHY form that v5 of the PHY series
-  used. Keep the USB2 PHY reference and describe it as usb-nop-xceiv,
-  since it needs no configuration.
-- Add the vendor prefix to the two board properties: cix,ssp-disable
-  and cix,u3-port-disable.
+- Read the two board properties with their vendor prefix:
+  cix,ssp-disable and cix,u3-port-disable.
+- Do not assert the resets in system suspend/resume: that discards the
+  OTG registers programmed by cdns_drd_init(), and nothing programs
+  them again after the child device resumes. Only the clocks are gated.
+- Rewrite shutdown() to use the same teardown as remove(): depopulate
+  the child while its clocks are still on, then assert the resets and
+  disable the clocks. Whether to stay alive is decided on the child
+  device, which owns the wakeup interrupt.
+- Allocate the child platform data with kzalloc() and free it if the
+  children cannot be created: platform_device_release() kfree()s
+  dev.platform_data, so it must not be devm-managed.
+- Only set PS_PME_En when wakeup is requested, and return -ETIMEDOUT
+  when the controller does not reach D3 or does not leave it.
+- Drop the cached wakeup state: it went stale as soon as the child
+  changed its own wakeup setting.
 
 Changes in v7:
-- Describe the RCSU registers of each controller as one address range
-  starting at its AXI cache attribute register, instead of two 16-byte
-  register slots, and drop the reg-names property.
-- Take the offset of the AXI clock status register from per-compatible
-  driver data (0xec on Type-A, 0xf0 on Type-C), instead of two
-  reg-names.
-- Dropped #syscon-cells from the S5 system controller binding: the
-  property does not exist in the kernel, and the series no longer
-  touches bindings/soc/cix.
-- Removed the arm64 dts from the series: it is a separate SoC patchset.
+- Map one register range taken from the first reg entry, instead of two
+  ranges selected with reg-names.
+- Map it with devm_ioremap() because the ranges of the two Type-A
+  controllers overlap.
+- Take the offset of the AXI clock status register from the match data.
 
 Changes in v6:
-- Dropped the simple-bus RCSU container; each node is placed at the
-  address of its glue registers and the core is a child at its own
-  address.
-- Replaced the usbN aliases and the undocumented id property with the
-  register offset and bit position arguments of cix,usb-syscon.
-- Converted probe error paths to dev_err_probe().
-- Removed the unused over-current GPIO handling and the unused dr_base
-  and cdnsp_pdev fields.
-- Fixed the 125us prescaler value: time * frequency - 1.
-- Made the AXI halt writes read-modify-write so the preserved and RW1C
-  bits of XEC_AXI_CAP keep their state.
-
-Changes in v5:
-- Dropped the cix,sky1-usbss-rcsu syscon binding and the cix,usb-rcsu
-  phandle; the glue registers are described in the controller node.
-- Added the MAINTAINERS entry for the glue driver.
-
-Changes in v4:
-- Split the combined PHY/USBSSP series into two independent series.
-- Restructured the RCSU registers as a shared syscon region with offsets
-  (reverted in v5).
-- Fixed the indentation reported by checkpatch.
-
-Changes in v3:
-- Fixed the interrupt specifiers of the core nodes: the Sky1 GICv3 uses
-  four cells, so every entry needs the fourth (empty) cell.
-
-Changes in v2:
-- Split the single binding into a PHY binding and a USBSSP binding.
-- clock-names: sof/axi/lpm/apb for the controller.
-- reset-names: core/apb instead of reset/preset.
-- Dropped axi_bmax_value from DT; it is a driver constant.
-- Added the MAINTAINERS entries.
-
-Changes in v1: initial version.
+- Read the USB mode strap register offset and bit position from the
+  cix,usb-syscon phandle arguments instead of relying on the usbN
+  aliases and the undocumented id property.
+- Use dev_err_probe() in the probe error paths.
+- Drop the unused over-current GPIO handling and the unused dr_base and
+  cdnsp_pdev fields.
+- Do not disable the clocks before they have been acquired.
+- Drop the redundant depends on USB_CDNS3 and fix the compatible name
+  in the Kconfig help text.
 ---
- .../bindings/usb/cix,sky1-usbssp.yaml         | 163 ++++++++++++++++++
- MAINTAINERS                                   |   1 +
- 2 files changed, 164 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
+ MAINTAINERS                    |   1 +
+ drivers/usb/cdns3/Kconfig      |  13 +
+ drivers/usb/cdns3/Makefile     |   1 +
+ drivers/usb/cdns3/cdnsp-sky1.c | 663 +++++++++++++++++++++++++++++++++
+ drivers/usb/cdns3/cdnsp-sky1.h |  99 +++++
+ 5 files changed, 777 insertions(+)
+ create mode 100644 drivers/usb/cdns3/cdnsp-sky1.c
+ create mode 100644 drivers/usb/cdns3/cdnsp-sky1.h
 
-diff --git a/Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml b/Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
-new file mode 100644
-index 000000000000..994c805d30da
---- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
-@@ -0,0 +1,163 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/usb/cix,sky1-usbssp.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: CIX Sky1 Cadence USBSSP Controller
-+
-+maintainers:
-+  - Hongliang Yang <hongliang.yang@cixtech.com>
-+
-+description: |
-+  The CIX Sky1 USBSSP controller is based on the Cadence USBSSP DRD
-+  controller. Each instance wraps one of the two USB3 Type-A DRD
-+  controllers of the SoC.
-+
-+  The register range of an instance is a window in the USB30 Type-A DRD
-+  RCSU block at 0x091c0000, starting at the AXI cache attribute strap
-+  register of the instance and ending after its AXI clock status
-+  register. The strap registers of the two controllers and of their PHYs
-+  are interleaved in that block, so the ranges of the two instances
-+  overlap.
-+
-+  The Cadence USBSSP core itself is described by a child node at its own
-+  address. Mode strap controls are programmed through the Sky1 S5 system
-+  controller referenced by the cix,usb-syscon phandle, whose arguments
-+  give the register offset and the bit position of the strap field.
-+
-+  The USB2 PHY of the controller needs no configuration. It is described
-+  as a usb-nop-xceiv device and referenced by the core node like any
-+  other PHY.
-+
-+properties:
-+  compatible:
-+    const: cix,sky1-usbssp
-+
-+  reg:
-+    maxItems: 1
-+    description:
-+      Window from the AXI cache attribute strap register of this instance
-+      up to and including its AXI clock status register.
-+
-+  ranges: true
-+
-+  "#address-cells":
-+    const: 2
-+
-+  "#size-cells":
-+    const: 2
-+
-+  clocks:
-+    items:
-+      - description: Start-of-frame clock
-+      - description: AXI bus clock
-+      - description: Low-power mode clock
-+      - description: APB register interface clock
-+
-+  clock-names:
-+    items:
-+      - const: sof
-+      - const: axi
-+      - const: lpm
-+      - const: apb
-+
-+  resets:
-+    items:
-+      - description: APB register reset
-+      - description: Controller reset
-+
-+  reset-names:
-+    items:
-+      - const: apb
-+      - const: core
-+
-+  cix,ssp-disable:
-+    type: boolean
-+    description: Disable SuperSpeed Plus mode of the controller.
-+
-+  cix,u3-port-disable:
-+    type: boolean
-+    description: The board does not route the USB3 port of the controller.
-+
-+  cix,usb-syscon:
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    description:
-+      Phandle to the Sky1 S5 system controller followed by the register
-+      offset and the bit position of the USB mode strap field.
-+    items:
-+      - items:
-+          - description: Phandle to the Sky1 S5 system controller
-+          - description: Register offset of the USB mode strap field
-+          - description: Bit position of the USB mode strap field
-+
-+required:
-+  - compatible
-+  - reg
-+  - ranges
-+  - "#address-cells"
-+  - "#size-cells"
-+  - clocks
-+  - clock-names
-+  - resets
-+  - reset-names
-+  - cix,usb-syscon
-+
-+patternProperties:
-+  "^usb@[0-9a-f]+$":
-+    $ref: cdns,usb3.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/cix,sky1.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/reset/cix,sky1-s5-system-control.h>
-+
-+    soc {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        usb@91c0314 {
-+            compatible = "cix,sky1-usbssp";
-+            reg = <0x00 0x91c0314 0x00 0x100>;
-+            ranges;
-+            #address-cells = <2>;
-+            #size-cells = <2>;
-+
-+            clocks = <&scmi_clk CLK_TREE_USB3A_H0_CLK_SOF>,
-+                     <&scmi_clk CLK_TREE_USB3A_0_AXI_GATE>,
-+                     <&scmi_clk CLK_TREE_USB3A_H0_CLK_LPM>,
-+                     <&scmi_clk CLK_TREE_USB3A_0_APB_GATE>;
-+            clock-names = "sof", "axi", "lpm", "apb";
-+            resets = <&src SKY1_USBC_SS2_PRST_N>,
-+                     <&src SKY1_USBC_SS2_RST_N>;
-+            reset-names = "apb", "core";
-+            cix,usb-syscon = <&src 0x424 8>;
-+
-+            usb@91d0000 {
-+                compatible = "cdns,usb3";
-+                reg = <0x00 0x91d0000 0x00 0x4000>,
-+                      <0x00 0x91d8000 0x00 0x8000>,
-+                      <0x00 0x91d4000 0x00 0x4000>;
-+                reg-names = "otg", "xhci", "dev";
-+                dr_mode = "otg";
-+
-+                interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>,
-+                             <GIC_SPI 169 IRQ_TYPE_LEVEL_HIGH>,
-+                             <GIC_SPI 170 IRQ_TYPE_LEVEL_HIGH>,
-+                             <GIC_SPI 171 IRQ_TYPE_LEVEL_HIGH>;
-+                interrupt-names = "host", "peripheral", "otg", "wakeup";
-+                maximum-speed = "super-speed-plus";
-+
-+                phys = <&usb3_phy4>, <&usb2_phy4>;
-+                phy-names = "cdns3,usb3-phy", "cdns3,usb2-phy";
-+            };
-+        };
-+
-+        usb2_phy4: usb-phy {
-+            compatible = "usb-nop-xceiv";
-+            #phy-cells = <0>;
-+        };
-+    };
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065..5144d02fc998 100644
+index 5144d02fc998..3c609d371306 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -2903,6 +2903,7 @@ S:	Maintained
- T:	git https://github.com/cixtech/linux-mainline.git
- F:	Documentation/devicetree/bindings/arm/cix.yaml
- F:	Documentation/devicetree/bindings/mailbox/cix,sky1-mbox.yaml
-+F:	Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
+@@ -2906,6 +2906,7 @@ F:	Documentation/devicetree/bindings/mailbox/cix,sky1-mbox.yaml
+ F:	Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
  F:	arch/arm64/boot/dts/cix/
  F:	drivers/mailbox/cix-mailbox.c
++F:	drivers/usb/cdns3/cdnsp-sky1.*
  K:	\bcix\b
+ 
+ ARM/CLKDEV SUPPORT
+diff --git a/drivers/usb/cdns3/Kconfig b/drivers/usb/cdns3/Kconfig
+index 39ad23d1ada8..678cedd8de97 100644
+--- a/drivers/usb/cdns3/Kconfig
++++ b/drivers/usb/cdns3/Kconfig
+@@ -77,6 +77,19 @@ config USB_CDNSP_PCI
+ 	  If you choose to build this driver as module it will
+ 	  be dynamically linked and module will be called cdnsp-pci.ko
+ 
++config USB_CDNSP_SKY1
++	tristate "Cadence USB3 support on CIX Sky1 SoC platforms"
++	depends on ARCH_CIX || COMPILE_TEST
++	default USB_CDNS3
++	help
++	  Glue driver for the Cadence USB dual-role controllers on CIX Sky1
++	  (device tree compatible cix,sky1-usbssp). It enables clocks and
++	  resets from the SoC, then uses the shared cdns3 platform core
++	  (cdns.ko).
++
++	  If built as a module, the module is named cdnsp-sky1.ko and must be
++	  loaded after the cdns core module when both are loadable modules.
++
+ config USB_CDNS3_TI
+ 	tristate "Cadence USB3 support on TI platforms"
+ 	depends on ARCH_K3 || COMPILE_TEST
+diff --git a/drivers/usb/cdns3/Makefile b/drivers/usb/cdns3/Makefile
+index b2e4ba6a49a3..ab813aaf9940 100644
+--- a/drivers/usb/cdns3/Makefile
++++ b/drivers/usb/cdns3/Makefile
+@@ -28,3 +28,4 @@ obj-$(CONFIG_USB_CDNSP_PCI)			+= cdnsp-pci.o
+ obj-$(CONFIG_USB_CDNS3_TI)			+= cdns3-ti.o
+ obj-$(CONFIG_USB_CDNS3_IMX)			+= cdns3-imx.o
+ obj-$(CONFIG_USB_CDNS3_STARFIVE)		+= cdns3-starfive.o
++obj-$(CONFIG_USB_CDNSP_SKY1)			+= cdnsp-sky1.o
+diff --git a/drivers/usb/cdns3/cdnsp-sky1.c b/drivers/usb/cdns3/cdnsp-sky1.c
+new file mode 100644
+index 000000000000..c5d0ff9141cc
+--- /dev/null
++++ b/drivers/usb/cdns3/cdnsp-sky1.c
+@@ -0,0 +1,663 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * cdnsp-sky1.c - CIX Sky1 glue for Cadence USBSSP DRD controller
++ *
++ * Copyright (C) 2026 CIX Technology Group Co., Ltd.
++ */
++
++#include <linux/bits.h>
++#include <linux/clk.h>
++#include <linux/device.h>
++#include <linux/interrupt.h>
++#include <linux/io.h>
++#include <linux/iopoll.h>
++#include <linux/kernel.h>
++#include <linux/mfd/syscon.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_address.h>
++#include <linux/of_platform.h>
++#include <linux/platform_device.h>
++#include <linux/pm.h>
++#include <linux/pm_runtime.h>
++#include <linux/regmap.h>
++#include <linux/reset.h>
++
++#include <linux/usb.h>
++#include <linux/usb/hcd.h>
++
++#include "cdnsp-sky1.h"
++#include "core.h"
++
++static const char *cix_usb_clk_names[CIX_USB_CLK_NUM] = {
++	"sof",
++	"axi",
++	"lpm",
++	"apb",
++};
++
++static int cdnsp_sky1_set_mode(struct device *dev, int mode)
++{
++	struct cdnsp_sky1 *data = dev_get_drvdata(dev);
++
++	return regmap_update_bits(data->usb_syscon, data->strap_offset,
++				  GENMASK(data->strap_bit + 1, data->strap_bit),
++				  mode << data->strap_bit);
++}
++
++/**
++ * cdnsp_sky1_clk_enable_all() - enable all clocks for usb controller
++ * @dev:	Pointer to the device of platform_device
++ *
++ */
++
++static int cdnsp_sky1_clk_enable_all(struct device *dev)
++{
++	int i, ret = 0;
++	struct cdnsp_sky1 *data = dev_get_drvdata(dev);
++	struct clk **cix_usb_clks = data->cix_usb_clks;
++
++	for (i = 0; i < CIX_USB_CLK_NUM; i++) {
++		cix_usb_clks[i] = devm_clk_get(dev, cix_usb_clk_names[i]);
++		if (IS_ERR(cix_usb_clks[i])) {
++			ret = dev_err_probe(dev, PTR_ERR(cix_usb_clks[i]),
++					    "could not get %s clock\n",
++					    cix_usb_clk_names[i]);
++			goto err_usb_clks;
++		}
++		ret = clk_prepare_enable(cix_usb_clks[i]);
++		if (ret) {
++			dev_err(dev, "%s enable failed:%d\n", cix_usb_clk_names[i], ret);
++			goto err_usb_clks;
++		}
++	}
++	dev_dbg(dev, "enable sky1 USB clock done\n");
++	return ret;
++
++err_usb_clks:
++	while (--i >= 0)
++		clk_disable_unprepare(cix_usb_clks[i]);
++	return ret;
++};
++
++/**
++ * cdnsp_sky1_clk_disable_all() - disable all clocks for usb controller
++ * @dev:	Pointer to the device of platform_device
++ *
++ */
++
++static void cdnsp_sky1_clk_disable_all(struct device *dev)
++{
++	int i;
++	struct cdnsp_sky1 *data = dev_get_drvdata(dev);
++	struct clk **cix_usb_clks = data->cix_usb_clks;
++
++	for (i = 0; i < CIX_USB_CLK_NUM; i++)
++		clk_disable_unprepare(cix_usb_clks[i]);
++};
++
++/**
++ * cdnsp_sky1_clk_enable_resume() - enable the clocks that are turned
++ * off while suspend
++ * @dev:	Pointer to the device of platform_device
++ *
++ */
++
++static int cdnsp_sky1_clk_enable_resume(struct device *dev)
++{
++	int i, ret;
++	struct cdnsp_sky1 *data = dev_get_drvdata(dev);
++	struct clk **cix_usb_clks = data->cix_usb_clks;
++
++	for (i = 0; i < CIX_USB_CLK_OFF_NUM; i++) {
++		ret = clk_prepare_enable(cix_usb_clks[i]);
++		if (ret) {
++			dev_err(dev, "failed to enable clock %s: %d\n",
++				cix_usb_clk_names[i], ret);
++			goto err_usb_clks;
++		}
++	}
++	return 0;
++
++err_usb_clks:
++	while (--i >= 0)
++		clk_disable_unprepare(cix_usb_clks[i]);
++	return ret;
++};
++
++/**
++ * cdnsp_sky1_clk_disable_suspend() - disable the clocks which are not
++ * needed when suspend
++ * @dev:	Pointer to the device of platform_device
++ *
++ */
++
++static void cdnsp_sky1_clk_disable_suspend(struct device *dev)
++{
++	int i;
++	struct cdnsp_sky1 *data = dev_get_drvdata(dev);
++	struct clk **cix_usb_clks = data->cix_usb_clks;
++
++	for (i = 0; i < CIX_USB_CLK_OFF_NUM; i++)
++		clk_disable_unprepare(cix_usb_clks[i]);
++};
++
++static u32 sky1_rcsu_read_status(struct cdnsp_sky1 *data)
++{
++	return readl(data->rcsu_base + data->rcsu_status_offset);
++}
++
++static int sky1_rcsu_handshake(struct cdnsp_sky1 *data, u32 mask, u32 done,
++			       u64 timeout_us)
++{
++	u32	result;
++	int	ret;
++
++	ret = readl_poll_timeout(data->rcsu_base + data->rcsu_status_offset,
++				 result,
++				 (result & mask) == done ||
++				 result == U32_MAX,
++				 10, timeout_us);
++	if (result == U32_MAX)		/* card removed */
++		return -ENODEV;
++	return ret;
++}
++
++static int cdns_sky1_platform_suspend(struct device *dev,
++				      bool suspend, bool wakeup)
++{
++	struct cdns *cdns = dev_get_drvdata(dev);
++	struct platform_device *xhci_dev = cdns->host_dev;
++	struct usb_hcd  *hcd;
++	struct device *parent = cdns->dev->parent;
++	struct cdnsp_sky1 *data = dev_get_drvdata(parent);
++	u32 value;
++	int poll;
++	int ret = 0;
++	int count = 3;
++
++	if (cdns->role != USB_ROLE_HOST)
++		return 0;
++
++	if (!xhci_dev) {
++		dev_dbg(dev, "host controller has not been registered\n");
++		return 0;
++	}
++
++	hcd = dev_get_drvdata(&xhci_dev->dev);
++	if (!hcd) {
++		dev_dbg(dev, "host controller have not registered\n");
++		return 0;
++	}
++
++	if (suspend) {
++		while (count--) {
++			value = readl(hcd->regs + XECP_PM_PMCSR);
++			value &= ~PS_MASK;
++			value |= PS_D3;
++			if (wakeup)
++				value |= PS_PME_En;
++			writel(value, hcd->regs + XECP_PM_PMCSR);
++			/* After controller enters D3, disable AXI and SOF
++			 * until AXI valid flag changes to 0.
++			 */
++			if (sky1_rcsu_handshake(data, AXI_CLOCK_VALID, 0,
++						100ULL * 1000)) {
++				u32 ctst;
++
++				ctst = sky1_rcsu_read_status(data);
++				dev_dbg(dev, "enter D3 failed, register value:%x\n",
++					ctst);
++			} else {
++				break;
++			}
++		}
++		if (count < 0) {
++			u32 ctst;
++
++			ctst = sky1_rcsu_read_status(data);
++			dev_err(dev, "enter D3 failed after retries, register value:%x\n",
++				ctst);
++			ret = -ETIMEDOUT;
++		}
++	} else {
++		while (count--) {
++			value = readl(hcd->regs + XECP_PM_PMCSR);
++			value &= ~PS_MASK;
++			value |= PS_D0;
++			value &= ~PS_PME_En;
++			writel(value, hcd->regs + XECP_PM_PMCSR);
++			/* Wait power state back to D0 */
++			poll = readl_poll_timeout(hcd->regs + XECP_PM_PMCSR,
++						  value,
++						  (value & PS_MASK) == 0,
++						  10, 100ULL * 1000);
++			if (poll) {
++				dev_dbg(dev, "exit D3 timeout, power state=0x%lx\n",
++					value & PS_MASK);
++			} else {
++				break;
++			}
++		}
++		if (count < 0) {
++			dev_err(dev, "exit D3 timeout after retries, power state=0x%lx\n",
++				value & PS_MASK);
++			ret = -ETIMEDOUT;
++		}
++	}
++
++	return ret;
++}
++
++static void cdnsp_sky1_configure_controller(struct cdnsp_sky1 *data)
++{
++	int clk;
++	int v0, v1, v2, v3;
++	u32 dev_cap, xhci_cap;
++	u32 val = 0;
++
++	if (data->u3_disable) {
++		dev_dbg(data->dev, "disable u3 port\n");
++		writel(D_XEC_CFG_3XPORT_MODE_VALUE, data->device_base
++			+ D_XEC_CFG_3XPORT_MODE);
++	}
++	dev_cap = readl(data->device_base + D_XEC_AXI_CAP);
++	xhci_cap = readl(data->xhci_base + D_XEC_AXI_CAP);
++	writel(dev_cap | AXI_HALT, data->device_base + D_XEC_AXI_CAP);
++	writel(xhci_cap | AXI_HALT, data->xhci_base + D_XEC_AXI_CAP);
++	writel(data->axi_bmax_value, data->device_base + D_XEC_AXI_CTRL0);
++	writel(data->axi_bmax_value, data->xhci_base + D_XEC_AXI_CTRL0);
++	writel(dev_cap & ~AXI_HALT, data->device_base + D_XEC_AXI_CAP);
++	writel(xhci_cap & ~AXI_HALT, data->xhci_base + D_XEC_AXI_CAP);
++	clk = data->sof_clk_freq;
++	v0 =  25 * clk / 100000000;
++	v1 = clk / 10000;
++	v2 = clk / 10;
++	v3 = 125 * clk / 1000000;
++	writel(((v0 > 1) ? v0 - 1 : 1), data->device_base
++		+ D_XEC_PRE_REG_250NS);
++	writel((unsigned int)((v1 / 100 > 1) > 0 ? (v1 / 100) - 1 : 1),
++	       data->device_base + D_XEC_PRE_REG_1US);
++	writel((unsigned int)((v1 / 10 > 1) > 0 ? (v1 / 10) - 1 : 1),
++	       data->device_base + D_XEC_PRE_REG_10US);
++	writel(((v1) > 1 ? v1 - 1 : 1), data->device_base
++		+ D_XEC_PRE_REG_100US);
++	writel((unsigned int)(v3 > 1 ? v3 - 1 : 1),
++	       data->device_base + D_XEC_PRE_REG_125US);
++	writel(((v2 / 100 > 1) ? (v2 / 100) - 1 : 1), data->device_base
++		+ D_XEC_PRE_REG_1MS);
++	writel(((v2 / 10 > 1) ? (v2 / 10) - 1 : 1), data->device_base
++		+ D_XEC_PRE_REG_10MS);
++	writel((v2 > 1 ? v2 - 1 : 1), data->device_base
++		+ D_XEC_PRE_REG_100MS);
++	dev_dbg(data->dev, "readl:%x, %x ,%x, %x, %x, %x, %x, %x\n",
++		readl(data->device_base + D_XEC_PRE_REG_250NS),
++		readl(data->device_base + D_XEC_PRE_REG_1US),
++		readl(data->device_base + D_XEC_PRE_REG_10US),
++		readl(data->device_base + D_XEC_PRE_REG_100US),
++		readl(data->device_base + D_XEC_PRE_REG_125US),
++		readl(data->device_base + D_XEC_PRE_REG_1MS),
++		readl(data->device_base + D_XEC_PRE_REG_10MS),
++		readl(data->device_base + D_XEC_PRE_REG_100MS));
++	clk = data->lpm_clk_freq;
++	v0 =  25 * clk / 100000000;
++	v1 = clk / 10000;
++	v2 = clk / 10;
++	v3 = 125 * clk / 1000000;
++	writel(((v0 > 1) ? v0 - 1 : 1), data->device_base
++		+ D_XEC_LPM_PRE_REG_250NS);
++	writel((unsigned int)((v1 / 100 > 1) > 0 ? (v1 / 100) - 1 : 1), data->device_base
++		+ D_XEC_LPM_PRE_REG_1US);
++	writel((unsigned int)((v1 / 10 > 1) > 0 ? (v1 / 10) - 1 : 1), data->device_base
++		+ D_XEC_LPM_PRE_REG_10US);
++	writel(((v1) > 1 ? v1 - 1 : 1), data->device_base
++		+ D_XEC_LPM_PRE_REG_100US);
++	writel((unsigned int)(v3 > 1 ? v3 - 1 : 1),
++	       data->device_base + D_XEC_LPM_PRE_REG_125US);
++	writel(((v2 / 100 > 1) ? (v2 / 100) - 1 : 1), data->device_base
++		+ D_XEC_LPM_PRE_REG_1MS);
++	writel(((v2 / 10 > 1) ? (v2 / 10) - 1 : 1), data->device_base
++		+ D_XEC_LPM_PRE_REG_10MS);
++	writel((v2 > 1 ? v2 - 1 : 1), data->device_base
++		+ D_XEC_LPM_PRE_REG_100MS);
++	v0 = readl(data->xhci_base + XEC_USBSSP_CHICKEN_BITS_3);
++	v0 &= ~(CFG_APB_TIMEOUT_PSLVERR_EN | CFG_APB_PSLVERR_EN);
++	writel(v0, data->xhci_base + XEC_USBSSP_CHICKEN_BITS_3);
++	if (data->u3_disable) {
++		dev_dbg(data->dev, "disable u3 port\n");
++		writel(XEC_CFG_3XPORT_MODE_VALUE, data->xhci_base
++			+ XEC_CFG_3XPORT_MODE);
++	} else if (data->ssp_disable) {
++		dev_dbg(data->dev, "disable ssp\n");
++		v0 = readl(data->xhci_base + XEC_CFG_3XPORT_MODE);
++		writel(v0  & CFG_3XPORT_MODE_DIS_SSP, data->xhci_base
++			+ XEC_CFG_3XPORT_MODE);
++	}
++	clk = data->sof_clk_freq;
++	v0 =  25 * clk / 100000000;
++	v1 = clk / 10000;
++	v2 = clk / 10;
++	v3 = 125 * clk / 1000000;
++	writel(((v0 > 1) ? v0 - 1 : 0), data->xhci_base
++		+ XEC_PRE_REG_250NS);
++	writel((unsigned int)((v1 / 100 > 1) > 0 ? (v1 / 100) - 1 : 0), data->xhci_base
++		+ XEC_PRE_REG_1US);
++	writel((unsigned int)((v1 / 10 > 1) > 0 ? (v1 / 10) - 1 : 0), data->xhci_base
++		+ XEC_PRE_REG_10US);
++	writel(((v1) > 1 ? v1 - 1 : 0), data->xhci_base
++		+ XEC_PRE_REG_100US);
++	writel((unsigned int)(v3 > 1 ? v3 - 1 : 0),
++	       data->xhci_base + XEC_PRE_REG_125US);
++	writel(((v2 / 100 > 1) ? (v2 / 100) - 1 : 0), data->xhci_base
++		+ XEC_PRE_REG_1MS);
++	writel(((v2 / 10 > 1) ? (v2 / 10) - 1 : 0), data->xhci_base
++		+ XEC_PRE_REG_10MS);
++	writel((v2 > 1 ? v2 - 1 : 0), data->xhci_base
++		+ XEC_PRE_REG_100MS);
++	clk = data->lpm_clk_freq;
++	v0 =  25 * clk / 100000000;
++	v1 = clk / 10000;
++	v2 = clk / 10;
++	v3 = 125 * clk / 1000000;
++	writel(((v0 > 1) ? v0 - 1 : 0), data->xhci_base
++		+ XEC_LPM_PRE_REG_250NS);
++	writel((unsigned int)((v1 / 100 > 1) > 0 ? (v1 / 100) - 1 : 0), data->xhci_base
++		+ XEC_LPM_PRE_REG_1US);
++	writel((unsigned int)((v1 / 10 > 1) > 0 ? (v1 / 10) - 1 : 0), data->xhci_base
++		+ XEC_LPM_PRE_REG_10US);
++	writel(((v1) > 1 ? v1 - 1 : 0), data->xhci_base
++		+ XEC_LPM_PRE_REG_100US);
++	writel((unsigned int)(v3 > 1 ? v3 - 1 : 0),
++	       data->xhci_base + XEC_LPM_PRE_REG_125US);
++	writel(((v2 / 100 > 1) ? (v2 / 100) - 1 : 0), data->xhci_base
++		+ XEC_LPM_PRE_REG_1MS);
++	writel(((v2 / 10 > 1) ? (v2 / 10) - 1 : 0), data->xhci_base
++		+ XEC_LPM_PRE_REG_10MS);
++	writel((v2 > 1 ? v2 - 1 : 0), data->xhci_base
++		+ XEC_LPM_PRE_REG_100MS);
++	val = readl(data->xhci_base + XEC_USBSSP_CLK_GATING_CTRL);
++	val |= HOST20_ACLK_GATING_DISABLE | HOST20_UTMI_GATING_DISABLE;
++	writel(val, data->xhci_base + XEC_USBSSP_CLK_GATING_CTRL);
++}
++
++static int cdnsp_sky1_drd_init(struct cdnsp_sky1 *data)
++{
++	int ret = 0;
++
++	reset_control_assert(data->reset);
++	reset_control_assert(data->preset);
++	ret = cdnsp_sky1_clk_enable_all(data->dev);
++	if (ret)
++		return ret;
++	writel(CIX_USB_AXI_WR_CACHE_VALUE, data->rcsu_base);
++	cdnsp_sky1_set_mode(data->dev, MODE_STRAP_OTG);
++	reset_control_deassert(data->preset);
++	cdnsp_sky1_configure_controller(data);
++	reset_control_deassert(data->reset);
++	return ret;
++}
++
++static void __iomem *sky1_of_get_addr_by_name(struct device_node *parent, const char *name)
++{
++	void __iomem *addr = NULL;
++	struct device_node *node;
++	int index;
++
++	for_each_child_of_node(parent, node) {
++		index = of_property_match_string(node, "reg-names", name);
++		if (index >= 0) {
++			addr = of_iomap(node, index);
++			of_node_put(node);
++			break;
++		}
++	}
++
++	return addr;
++}
++
++static void __iomem *sky1_get_addr_by_name(struct device *dev, const char *name)
++{
++	return sky1_of_get_addr_by_name(dev->of_node, name);
++}
++
++static void sky1_put_addr(void __iomem *regs)
++{
++	if (regs)
++		iounmap(regs);
++}
++
++struct sky1_usbssp_cfg {
++	unsigned int rcsu_status_offset;
++};
++
++/* Offset of STRAP_STATUS0, the AXI clock status register, from 0x91c0314. */
++static const struct sky1_usbssp_cfg sky1_usbssp_typea_cfg = {
++	.rcsu_status_offset = 0xec,
++};
++
++static int cdnsp_sky1_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct device_node *node = dev->of_node;
++	struct of_dev_auxdata cdns_sky1_auxdata[] = {
++		{ .compatible = "cdns,usb3", },
++		{},
++	};
++	const struct sky1_usbssp_cfg *cfg;
++	struct cdnsp_sky1 *data;
++	struct cdns3_platform_data *cdns_sky1_pdata;
++	struct resource *res;
++	unsigned int args[2];
++	int ret = 0;
++
++	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
++	if (!data)
++		return -ENOMEM;
++	cfg = of_device_get_match_data(dev);
++	if (!cfg)
++		return dev_err_probe(dev, -ENODEV, "unsupported device\n");
++	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	if (!res)
++		return dev_err_probe(dev, -ENODEV, "missing register range\n");
++	/*
++	 * The two Type-A controllers share one RCSU block and their
++	 * register ranges overlap, so the range is mapped without
++	 * requesting it: request_mem_region() would make the second
++	 * controller fail with -EBUSY.
++	 */
++	data->rcsu_base = devm_ioremap(dev, res->start, resource_size(res));
++	if (!data->rcsu_base)
++		return dev_err_probe(dev, -ENOMEM, "failed to map registers\n");
++	data->rcsu_status_offset = cfg->rcsu_status_offset;
++	data->reset = devm_reset_control_get_exclusive(&pdev->dev, "core");
++	if (IS_ERR(data->reset))
++		return dev_err_probe(dev, PTR_ERR(data->reset),
++				     "failed to get core reset\n");
++	data->preset = devm_reset_control_get_exclusive(&pdev->dev, "apb");
++	if (IS_ERR(data->preset))
++		return dev_err_probe(dev, PTR_ERR(data->preset),
++				     "failed to get APB reset\n");
++	platform_set_drvdata(pdev, data);
++	data->dev = dev;
++	data->usb_syscon =
++		syscon_regmap_lookup_by_phandle_args(node, "cix,usb-syscon",
++						     2, args);
++	if (IS_ERR(data->usb_syscon))
++		return dev_err_probe(dev, PTR_ERR(data->usb_syscon),
++				     "failed to get S5 system controller\n");
++	data->strap_offset = args[0];
++	data->strap_bit = args[1];
++	data->u3_disable = device_property_read_bool(dev, "cix,u3-port-disable");
++	data->ssp_disable = device_property_read_bool(dev, "cix,ssp-disable");
++	data->sof_clk_freq = CIX_USB_CLK_8M;
++	data->lpm_clk_freq = CIX_USB_CLK_32K;
++	data->axi_bmax_value = AXI_BMAX_VALUE_DEFAULT;
++	data->xhci_base = sky1_get_addr_by_name(dev, "xhci");
++	if (!data->xhci_base) {
++		ret = -ENODEV;
++		goto err_put_xhci;
++	}
++	data->device_base = sky1_get_addr_by_name(dev, "dev");
++	if (!data->device_base) {
++		ret = -ENODEV;
++		goto err_put_addrs;
++	}
++	ret = cdnsp_sky1_drd_init(data);
++	if (ret == -ETIMEDOUT)
++		ret = -EPROBE_DEFER;
++	if (ret) {
++		/*
++		 * drd_init() leaves the clocks disabled and the resets
++		 * asserted on failure; only the address mappings are
++		 * left to release.
++		 */
++		goto err_put_addrs;
++	}
++	/*
++	 * platform_device_release() kfree()s dev.platform_data, so this
++	 * buffer belongs to the child device once it is created. It cannot
++	 * be devm-managed, and it is released here only if no child takes
++	 * it over.
++	 */
++	cdns_sky1_pdata = kzalloc(sizeof(*cdns_sky1_pdata), GFP_KERNEL);
++	if (!cdns_sky1_pdata) {
++		ret = -ENOMEM;
++		goto err_quiesce;
++	}
++	cdns_sky1_pdata->platform_suspend = cdns_sky1_platform_suspend;
++	cdns_sky1_pdata->quirks = CDNS3_DEFAULT_PM_RUNTIME_ALLOW;
++	cdns_sky1_auxdata[0].platform_data = cdns_sky1_pdata;
++	ret = of_platform_populate(node, NULL, cdns_sky1_auxdata, dev);
++	if (ret) {
++		dev_err(dev, "failed to create children: %d\n", ret);
++		kfree(cdns_sky1_pdata);
++		goto err_quiesce;
++	}
++	device_set_wakeup_capable(dev, true);
++	pm_runtime_set_active(dev);
++	pm_runtime_enable(dev);
++	return 0;
++
++err_quiesce:
++	reset_control_assert(data->reset);
++	reset_control_assert(data->preset);
++	cdnsp_sky1_clk_disable_all(dev);
++err_put_addrs:
++	sky1_put_addr(data->device_base);
++err_put_xhci:
++	sky1_put_addr(data->xhci_base);
++	return ret;
++}
++
++static void cdnsp_sky1_remove(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct cdnsp_sky1 *data = dev_get_drvdata(dev);
++
++	pm_runtime_get_sync(dev);
++	of_platform_depopulate(dev);
++	sky1_put_addr(data->xhci_base);
++	sky1_put_addr(data->device_base);
++	reset_control_assert(data->reset);
++	reset_control_assert(data->preset);
++	cdnsp_sky1_clk_disable_all(dev);
++	pm_runtime_disable(dev);
++	pm_runtime_set_suspended(dev);
++	pm_runtime_put_noidle(dev);
++}
++
++/*
++ * Because the wake-up interrupt and host interrupt are the same interrupt,
++ * closing the axi and sof clock will result in the inability to generate
++ * port status change interrupt.
++ *
++ * The resets are left alone here. Asserting them throws away the OTG
++ * registers programmed by cdns_drd_init(), and nothing programs them again
++ * after the child device resumes, so the controller keeps its state across
++ * system suspend and only the clocks are gated.
++ */
++static int cdnsp_sky1_system_suspend(struct device *dev)
++{
++	cdnsp_sky1_clk_disable_suspend(dev);
++
++	return 0;
++}
++
++static int cdnsp_sky1_system_resume(struct device *dev)
++{
++	return cdnsp_sky1_clk_enable_resume(dev);
++}
++
++static const struct dev_pm_ops cdnsp_sky1_pm_ops = {
++	SYSTEM_SLEEP_PM_OPS(cdnsp_sky1_system_suspend, cdnsp_sky1_system_resume)
++};
++
++static const struct of_device_id cdns_sky1_of_match[] = {
++	{
++		.compatible = "cix,sky1-usbssp",
++		.data = &sky1_usbssp_typea_cfg,
++	},
++	{}
++};
++MODULE_DEVICE_TABLE(of, cdns_sky1_of_match);
++
++static int cdnsp_sky1_find_cdns_dev(struct device *dev, void *data)
++{
++	struct device **cdns_dev = data;
++
++	if (dev->of_node && of_device_is_compatible(dev->of_node, "cdns,usb3")) {
++		/* keep a reference: the pointer is used after the iteration */
++		*cdns_dev = get_device(dev);
++		return 1;
++	}
++	return 0;
++}
++
++static void cdnsp_sky1_shutdown(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct cdnsp_sky1 *data = dev_get_drvdata(dev);
++	struct device *cdns_dev = NULL;
++
++	/*
++	 * The wakeup interrupt and the host interrupt are the same one, so
++	 * the controller has to stay alive when wakeup is enabled on the
++	 * child device, which is the one that owns the interrupt.
++	 */
++	device_for_each_child(dev, &cdns_dev, cdnsp_sky1_find_cdns_dev);
++	if (cdns_dev && device_may_wakeup(cdns_dev)) {
++		put_device(cdns_dev);
++		return;
++	}
++
++	/*
++	 * Same teardown as remove(): depopulate the child while its clocks
++	 * are still on, so that its driver stops the controller and frees
++	 * the interrupts before the resets and the clocks are taken away.
++	 */
++	pm_runtime_get_sync(dev);
++	of_platform_depopulate(dev);
++	reset_control_assert(data->reset);
++	reset_control_assert(data->preset);
++	cdnsp_sky1_clk_disable_all(dev);
++	pm_runtime_put_noidle(dev);
++	put_device(cdns_dev);
++}
++
++static struct platform_driver cdnsp_sky1_driver = {
++	.probe		= cdnsp_sky1_probe,
++	.remove		= cdnsp_sky1_remove,
++	.shutdown	= cdnsp_sky1_shutdown,
++	.driver		= {
++		.name	= "cdnsp-sky1",
++		.of_match_table	= cdns_sky1_of_match,
++		.pm	= pm_sleep_ptr(&cdnsp_sky1_pm_ops),
++	},
++};
++
++module_platform_driver(cdnsp_sky1_driver);
++
++MODULE_ALIAS("platform:cdnsp-sky1");
++MODULE_DESCRIPTION("CIX Sky1 Cadence USBSSP DRD glue driver");
++MODULE_AUTHOR("Hongliang Yang <hongliang.yang@cixtech.com>");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/usb/cdns3/cdnsp-sky1.h b/drivers/usb/cdns3/cdnsp-sky1.h
+new file mode 100644
+index 000000000000..73e0dfe318c2
+--- /dev/null
++++ b/drivers/usb/cdns3/cdnsp-sky1.h
+@@ -0,0 +1,99 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++
++#ifndef _CDNSP_SKY1_H
++#define _CDNSP_SKY1_H
++#include <linux/clk.h>
++#include <linux/reset.h>
++#include <linux/types.h>
++
++#define MODE_STRAP_OTG                  0
++
++#define AXI_HALT                        BIT(31)
++#define AXI_BMAX_VALUE_DEFAULT          0x7
++
++#define D_XEC_CFG_3XPORT_MODE           0x2040
++#define D_XEC_AXI_CAP                   0x2174
++#define D_XEC_AXI_CTRL0                 0x217C
++#define D_XEC_PRE_REG_250NS             0x21E8
++#define D_XEC_PRE_REG_1US               0x21EC
++#define D_XEC_PRE_REG_10US              0x21F0
++#define D_XEC_PRE_REG_100US             0x21F4
++#define D_XEC_PRE_REG_125US             0x21F8
++#define D_XEC_PRE_REG_1MS               0x21FC
++#define D_XEC_PRE_REG_10MS              0x2200
++#define D_XEC_PRE_REG_100MS             0x2204
++#define D_XEC_LPM_PRE_REG_250NS         0x2208
++#define D_XEC_LPM_PRE_REG_1US           0x220C
++#define D_XEC_LPM_PRE_REG_10US          0x2210
++#define D_XEC_LPM_PRE_REG_100US         0x2214
++#define D_XEC_LPM_PRE_REG_125US         0x2218
++#define D_XEC_LPM_PRE_REG_1MS           0x221C
++#define D_XEC_LPM_PRE_REG_10MS          0x2220
++#define D_XEC_LPM_PRE_REG_100MS         0x2224
++
++#define XEC_CFG_3XPORT_MODE             0x2040
++#define XEC_PRE_REG_250NS               0x21E8
++#define XEC_PRE_REG_1US                 0x21EC
++#define XEC_PRE_REG_10US                0x21F0
++#define XEC_PRE_REG_100US               0x21F4
++#define XEC_PRE_REG_125US               0x21F8
++#define XEC_PRE_REG_1MS                 0x21FC
++#define XEC_PRE_REG_10MS                0x2200
++#define XEC_PRE_REG_100MS               0x2204
++#define XEC_LPM_PRE_REG_250NS           0x2208
++#define XEC_LPM_PRE_REG_1US             0x220C
++#define XEC_LPM_PRE_REG_10US            0x2210
++#define XEC_LPM_PRE_REG_100US           0x2214
++#define XEC_LPM_PRE_REG_125US           0x2218
++#define XEC_LPM_PRE_REG_1MS             0x221C
++#define XEC_LPM_PRE_REG_10MS            0x2220
++#define XEC_LPM_PRE_REG_100MS           0x2224
++#define XEC_USBSSP_CHICKEN_BITS_3       0x2230
++#define XEC_USBSSP_CLK_GATING_CTRL      0x2234
++#define XECP_PM_PMCSR                   0x2240
++
++/* XEC_USBSSP_CLK_GATING_CTRL */
++#define HOST20_ACLK_GATING_DISABLE      BIT(4)
++#define HOST20_UTMI_GATING_DISABLE      BIT(5)
++
++/* XECP_PM_PMCSR */
++#define PS_MASK                         GENMASK(1, 0)
++#define PS_D0                           0
++#define PS_D3                           3
++#define PS_PME_En                       BIT(8)
++
++#define D_XEC_CFG_3XPORT_MODE_VALUE     0xa0031e07
++#define XEC_CFG_3XPORT_MODE_VALUE       0xa0031e07
++#define CFG_3XPORT_MODE_DIS_SSP         (~BIT(31))
++
++#define CFG_APB_TIMEOUT_PSLVERR_EN      BIT(22)
++#define CFG_APB_PSLVERR_EN              BIT(23)
++
++#define CIX_USB_CLK_NUM                 (4)
++#define CIX_USB_CLK_OFF_NUM             (2)
++#define CIX_USB_AXI_WR_CACHE_VALUE      0x33
++#define CIX_USB_CLK_32K                 32000
++#define CIX_USB_CLK_8M                  8000000
++
++#define AXI_CLOCK_VALID                 BIT(1)
++
++struct cdnsp_sky1 {
++	struct device *dev;
++	void __iomem *rcsu_base;
++	unsigned int rcsu_status_offset;
++	void __iomem *xhci_base;
++	void __iomem *device_base;
++	struct reset_control *reset;
++	struct reset_control *preset;
++	struct clk *cix_usb_clks[CIX_USB_CLK_NUM];
++	unsigned int strap_offset;
++	unsigned int strap_bit;
++	struct regmap	*usb_syscon;
++	int lpm_clk_freq;
++	int sof_clk_freq;
++	bool u3_disable;
++	bool ssp_disable;
++	int axi_bmax_value;
++};
++
++#endif /* _CDNSP_SKY1_H */
 -- 
 2.54.0
 
