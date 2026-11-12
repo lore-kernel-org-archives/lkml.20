@@ -1,111 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794473813;
-	b=RoLeM8dJqhjyshQ8/tluN0YuqBhZflbOffPuFIwCHUivL39yyxVNvp2DPMIFE+/9TkV/
-	 1NAZjhqwjD8iL4paMzYD7Qro6B02rlH31W16vL3rv+zU5M5tqu7foqS6afJRJwZgwAL5d
-	 3qmnzLMeiUN4aYGKemj1QU5xC0HFR+iwBSYGXcBSorYXCKhBkQRkK7hzlPs9v1NjYRvKz
-	 KCIIT4lxw0klzTldwJVqfYCkoyIyMxAusVIkDIuep2s0wuNak6/cpLaquVcROOAuMt9Jk
-	 Qlz466LNO32FrOI6wmNxe3p8ZjNbr2NCwTAAqB9Sp5jWpPKbpzXU/N1YAXFbUnzuScg==
+	t=1794473810;
+	b=qtO3pTzT9+T6tJpMTGov38g4JvwWKVLG7LlR4QedBS2yenakAMdmQ83SQdFhuHHqkups
+	 mWsLMYRY+Bh5oT3RN/dCRprCesCgBvV7sZrPNhiMBEsF04smHMgkoxsCdMazgY9rmH4ai
+	 AWRIdsfZpQ/b14gLZbPqJm8X7TZYtgq8xaK6W3DM3Q00ul1vFTrrZqguat1tTlY7BbDSd
+	 ZjWCz7jhXpu3r1z13tgb7S8ksZu6KiFbfgjYFsuYRhfgQZd1gVgi/K8KYNngpqClb1IKg
+	 EcLsHr1SAh18DwBVsHObIbUQrvgQuYxtZJ7S9Wrwom04N5/eGukLdQ51Qqb6hng6Uqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794473813;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=rEDyzDvctiKMCWHEwGxzSSTUsEjyrAP4XO5pemqaf/w=;
-	b=K9wi/XNqZtmHlj3cgPPe52QeqW4np8G0LDIh0eeSl+U+r962BC+9X6qfbKyXolC0BO27
-	 ExO5W0jaZmmVUfucu5RepGUD1uis+DSs+rAIAe61ig3k6O8aYL5xRxElm+tgdJ3DqhEGD
-	 fUkyEONJD2OF2popS45OL0clCD5tAHNkt8JrQccAYsti99AXBM1y5gdy4u+cZXZMXkPBC
-	 j6g5Gn7krkS54N9c2fZeTsR75w98hnG7fM1xXkrv5uvEWuUNB62H5AM3bPhd+JaOGo9Yr
-	 KO3aTwpb08PdwlZ9rmxFq5kFZ5e20r0KZWV/y0foKprnO7iCkWNdSrNnQUnKw5nhE7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794473810;
+	h=DMARC-Filter:X-UUID:X-CID-CACHE:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:
+	 X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=3rmNGZ3FyLxulD7mp5QOdVRfcfOUI6QTy1OLeUY9pY0=;
+	b=1MxAjYvTBrFidE6Fcs/1uhYtL7ANfs8cJ2TttS5rbXNOjB9xI3lxnJsBaWFmk1xVIKkq
+	 WyUKZ4Je+pOCPzVBqQRQc9+5qRLnoXSKdSw7iL3knh2NcezBu015c0sbRN13q5tkbR6HX
+	 OCFf5yuCsmw0gf/M/qQn52m7Xou0KbJXih1j57xzQMOeFeJUOYleh1UJX6kfbfkLxtsZb
+	 JFdkD/UpbznUN89PrzP67DZe615PFW+JYy7r/RMDeabXdwjaxYX14J2kQz0C8VI4R3Zlu
+	 7srdPnuddVLwCxBmtzP6LJB5l+UhjkZ6d4yVMCxmbG4ytIz323Wl9k0iC/pS8jKGbIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=B3knZGFb;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=1UQSHGCM;
-	arc=none smtp.remote-ip=202.12.124.147
-Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3274860A2625
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:56:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3274860A2625
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=B3knZGFb;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=1UQSHGCM
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id 67BED1D00245
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:56:52 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 12 Nov 2026 03:56:52 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794473793;
-	 x=1794560193; bh=rEDyzDvctiKMCWHEwGxzSSTUsEjyrAP4XO5pemqaf/w=; b=
-	B3knZGFbJoyqxhvAjg5ey4pgvXQ0+dX+2yrqxypUpfmLl52FvtNsp7+AX8SbQ/eD
-	QB4o9/31f8xFXCXe56hraiMz96Up0KKZvOb2Y5C65VShVM0pPaDafBjDrSUg42VY
-	tu9bgejyvmqkt1Sc9Y32autzBDXmungVYOYMmKlWzY8ke9h7yX3aXbw7wQqSIKs3
-	owqqHduQlPeKvwCMeJG/2LJco0+TSA+EyuE40Mo+9A/AlkXjnBpb4ObaqIe0Doxc
-	7R11bWCv4vRYIh1QpCl5N1NsJgYyvfBQVk0IZtDm5jfVeuHETVudImiaPHrGdr9O
-	vc7/hsrU2ooBu9I+vxQIQA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794473793; x=
-	1794560193; bh=rEDyzDvctiKMCWHEwGxzSSTUsEjyrAP4XO5pemqaf/w=; b=1
-	UQSHGCMZ2A3z8bSIkkWxeq6RnxTXCPrxpPWHAyytgP+bJFnjHFjyYHqv4hm0qCHi
-	QYj5WIQxDSWITpVoqdkvKqOQ6WfVb701r08hcNQLu5c31R4jKN1xLVhnaNofI2HX
-	7FdlCq7ohwLhQBbrPhAF/DBKK326jQC/kxRtegHB3eLgHLY3PWtxVOOFT5sBaYxH
-	iEXrIpL7ps7Vq4atKdHaQMjAWH1A1hydNB2gIjGap0JgIebeP6f+c/OshDqYw/Jr
-	vUJZRxhTpwPPzneK6Bk38wsyBQPOmtYPcLegI1AUZjxz+ntB7H/oAx/pXKxLSRwD
-	hopHAfS59cof80uyciXMg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794473793; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:hxoOpuyRcfoT+OHXXUW1Qfz49E+f2yxp7t0yXFPb3D/fcn3
-	fHvt6AoHOsIYFB7OqoYjvCMAabuFZUMDYuxmFW+YNrDSNgfIp2tcCR4TgA/q3Q/k
-	S/wmoFGpXn9dj+2m3/BTOGkoSRUC9ELftJil+5eEV5WGkyqkbQQBowN1mfzWgJKu
-	Jt29q1eC0nbWazAB9y8p2aZfqtW5q0YrDqDIvJ3sQ2zqClQSqfpVi6HaZsm2QRG7
-	ekZ0Ku9mwLJXqlQjxW/BZG3mfbiNqlGSr21loSLzjoKrkZt12EGVxpt7L/EsvJ5v
-	BXk9yy5pvGII7k5WjC+SuwC/Ksdi8IsP+nZ06fg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:bxT2HtsddpIKccxw7D1EmmeuIKfYJp+MJ2nSGobHrHU=:sEmA3MCn6JLrIUaQkRNBmsF7Hz02Y0iwntBVDLMI0ZY=;
-X-ME-Sender: <xms:NH_1asWKISFAZPfViYwtF0t1h1O_t_TUK-yUOcamOFfpOmsJjSP4yg>
-    <xme:NH_1arbnH92k8S1-bT0BlraQyd9qZk0y0Sn00uORJAF8vwlxDDfIbDO0bjykC8awK
-    bmkq2V7jpdyyeJMnsesd2PBlWQc6-IxQ5LTwSVYBMhTPwlK8kfbKFQb>
-X-ME-Proxy-Cause: dmFkZTE3ND7a5+W1Z07eormEvJEB+XP9yRNxmJWlhqo4nFZBM2kAyJQF7ZgJlr2V+yFcEa
-    l9MRmavypBJJ+1A3waVwnEHhrM4U0pZpCmMYKIXvfnZkXMGbKdecZtrxLKkn6LEq19o5fE
-    gPq8WxneDUi3v4xiFBdFxJqhhRjF9l4qFHfKxbM/8/kEKMzoow8MOCqc8EgLK/YGye/NOx
-    vJ+BeW0pJ1MEvAjPtKHXRRQgaz1GtmTJKeuhP2oScGxUjAxi6NvtA3CvTfeHnIQJVEo9ZV
-    dg2D6P1vG5wAmVpHBLy1jTDsA3jHwbynxf2/c8p8S1vmmHEGJ6xAPZTTV5Umrrj1UI3Khs
-    rJijqRdX01D2IUPunT3qBzgERFBVZ8jYBYw1H3yAWZItZ9j4airbtb5XjMvlG++YM1xjMj
-    nmYen9siqd5jtfWF+5rxuSCWu//0CHbbjZOuheK/lwuiWNnUidGYUvyWOFd9E2OfMRQyJo
-    NHUJLrgFmF/YLzCIRd6QgoB46bEjyL4va2ECLKod74mkfUM9Bt3nKjoMZsBw6FKGE9i6pb
-    kcdlCi+42mrcvNt9/oRYrgd7nZbADhLRxQvbPjTXfqJ8XvHIJ7OuVZ6HyNF9xugO4WyMQv
-    IHitba4dtlHe8UFBYfWm9s4Tizbuv07yoIS03Wj6UhMEjI5BgOKm5i1NzONA
-X-ME-Proxy: <xmx:OX_1atJeGP10qV3r_BB9LlbDWvzjzAT8IKY6g0XHpnMofHCEovQSTw>
-    <xmx:OX_1ajjzmcyTWNa03jroLuvYNjQrc-9N6_xxwGxAK_v1HHphOwD9Lg>
-    <xmx:OX_1ahRgitGd4zqX3yfmA8xLG4zFwqJjTP381SaWrv0nOrdNocAf6w>
-    <xmx:OX_1aoabTMJLtPTZZWDyERW41w-hFW-0kPrJfUFDo4kw2bxAwi0xvA>
-    <xmx:QX_1apsoJxByQcSYtOm475IyTqWu9-y7wuRQ59vqRM_Lw5w34HoWDLYb>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 1A43C32A0099; Thu, 12 Nov 2026 03:56:20 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE8FA606A8B0;
+	Thu, 12 Nov 2026 08:56:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE8FA606A8B0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: fc264180de7611f19a56ed5b684f684d-20261112
+X-CID-CACHE: Type:Local,Time:202611121605+08,HitQuantity:1
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:b76f948c-f57b-4d42-80b7-cf3d90f2704f,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:24f61df2c0030f820d9e23753848eb35,BulkI
+	D:nil,BulkQuantity:0,SF:102|123|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
+	:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,
+	LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: fc264180de7611f19a56ed5b684f684d-20261112
+X-User: zhaoguohan@kylinos.cn
+Received: from ubuntu.. [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zhaoguohan@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 847822666; Thu, 12 Nov 2026 16:56:44 +0800
+From: zhaoguohan@kylinos.cn
+To: mst@redhat.com
+Cc: jasowangio@gmail.com,
+	eperezma@redhat.com,
+	xuanzhuo@linux.alibaba.com,
+	kvm@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] vhost: set dirty log bits without pinning pages on x86
+Date: Thu, 12 Nov 2026 16:56:30 +0800
+Message-ID: <20261112085631.128819-2-zhaoguohan@kylinos.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261112085631.128819-1-zhaoguohan@kylinos.cn>
+References: <20261112085631.128819-1-zhaoguohan@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,113 +75,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AD8wiEBgakfZ
-Date: Thu, 12 Nov 2026 09:55:48 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Linus Torvalds" <torvalds@linux-foundation.org>,
- "Christian Brauner" <brauner@kernel.org>
-Cc: "Matthew Wilcox" <willy@infradead.org>,
- "Kirill A. Shutemov" <kas@kernel.org>,
- "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Miklos Szeredi" <miklos@szeredi.hu>, "Amit Shah" <amit@kernel.org>,
- "Jan Kara" <jack@suse.cz>, "David Hildenbrand (Red Hat)" <david@kernel.org>,
- "Zi Yan" <ziy@nvidia.com>, "Bernd Schubert" <bschubert@ddn.com>,
- "Hugh Dickins" <hughd@google.com>,
- "Baolin Wang" <baolin.wang@linux.alibaba.com>,
- "Andrew Morton" <akpm@linux-foundation.org>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "David S . Miller" <davem@davemloft.net>,
- "Eric Dumazet" <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>,
- "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>,
- linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
- virtualization@lists.linux.dev, Netdev <netdev@vger.kernel.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
- "Malin Jonsson" <malin.jonsson@est.tech>,
- "Richard Weinberger" <richard@nod.at>,
- "Geert Uytterhoeven" <geert+renesas@glider.be>, "Nishanth Menon" <nm@ti.com>,
- "Frank Li" <frank.li@nxp.com>
-Message-Id: <e94bdf7c-eae6-4f64-bf93-0aeedca1a22e@app.fastmail.com>
-In-Reply-To: 
- <CAHk-=wjGXBnme-N+HvbzHH40ftb7Suc=kZVT5cuintQWyMHJ7Q@mail.gmail.com>
-References: <20261110145241.536019-1-kas@kernel.org>
- <20261110145241.536019-2-kas@kernel.org>
- <avNuQqLf9CG9dSsE@casper.infradead.org>
- <20261111-heimreisen-ungeziefer-empfunden-a892571f2c07@brauner>
- <20261111-thunfisch-wirbt-waldrand-822275b2d3b1@brauner>
- <CAHk-=wjPY=kfgnmtx4COEQjD5UzKx9m2-=KLGAZP4d=RKEH+pg@mail.gmail.com>
- <20261111-stumpf-montag-miterleben-c4e2feac8090@brauner>
- <CAHk-=wjGXBnme-N+HvbzHH40ftb7Suc=kZVT5cuintQWyMHJ7Q@mail.gmail.com>
-Subject: Re: [PATCH 1/4] virtio_console: copy pipe buffers in splice_write()
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026, at 20:26, Linus Torvalds wrote:
-> On Wed, 11 Nov 2026 at 10:53, Christian Brauner <brauner@kernel.org> wrote:
->>
->> If that's the official new stance than I'm very happy.
->
-> I definitely want to remove HIGHMEM entirely in the not too distant
-> future. And before we remove it, we can most definitely document the
-> fact that we will not be worried about insane users.
->
-> And things like security issues count as "insane user": if you use
-> HIGHMEM outside of controlled embedded setups or museum pieces you get
-> to keep both pieces when it breaks.
->
-> IOW, it's legacy. We should aim to not introduce *new* bugs to it, but
-> if there are pre-existing bugs they very much count as "don't care",
-> this will be removed soon.
+From: Khan Zhao <zhaoguohan@kylinos.cn>
 
-Agreed. There is also the option of adding Kconfig dependencies to
-mark things that are known broken with highmem when we either know
-that it is buggy, or we have a good reason to break something that
-none of those remaining users should be using.
+set_bit_to_user() pins the log page with pin_user_pages_fast(), maps it
+with kmap_atomic(), sets one bit and then unpins the page and marks it
+dirty. This runs for every bit set in the dirty log, e.g. on each used
+ring update while logging is enabled for live migration.
 
-> I think the only reason it wasn't removed a couple of years ago
-> already is basically a few old 32-bit ARM platforms that still used
-> it.
->
-> Those platforms still exist, and I predict that they'll still exist
-> next year, but if those users have to stay at the current LTS kernel,
-> that's fine.
+log_write() always passes a byte address and a bit number in [0, 7], so
+the update can be done as a byte-sized cmpxchg on the user address. On
+x86, try that first using unsafe_try_cmpxchg_user() inside a
+user_access_begin()/user_access_end() section with page faults disabled.
+If the access faults (page not present, read-only or needing COW), or
+the cmpxchg loses to concurrent updates of the same byte four times in
+a row, fall back to the existing pin/kmap/set_bit path, which can fault
+the page in.
 
-I tried to push for what I thought was an aggressive timeline
-last year, but that would still keep the Arm bits for a couple more
-LTS releases and only gradually reduce the scope of highmem in the
-meantime, removing support from architectures, file systems, and
-drivers where possible. See https://lwn.net/Articles/1051010/
-for a summary of my talk in Tokyo, including the slides and
-a link to the video for anyone wanting more details.
+unsafe_try_cmpxchg_user() is only implemented on x86, so other
+architectures keep using the existing path.
 
-I also prepared a number of patches towards this, but have so
-far not been great at following up to get them merged, sorry
-about that.
-I definitely still want to revisit this soon, in particular the
-bits about defaulting to VMSPLIT_2G_OPT, and probably my patch
-to allow having (limited) discontiguous lowmem on Arm systems
-with a large MMIO hole.
+On an x86_64 KVM guest (i7-12800HX host), a synthetic used-ring
+workload with logging enabled went from 243.60 to 171.11 ns per
+descriptor, averaged over five alternating runs. This is the
+end-to-end cost per descriptor, not live migration performance.
 
-Scope-wise I think we absolutely need zsmalloc (zram/zswap)
-on arm32 to work with GFP_HIGHUSER, but enough people have told me
-that they still expect to need anonymous memory and ext4 page
-cache for a while, and probably powerpc32. The majority
-of __GFP_HIGHMEM allocations can probably just be converted
-to use lowmem, which would eliminate a good chunk of kmap()
-calls as well. In my attempts to do that, I came across two
-problems I'd have to solve though:
+Signed-off-by: Khan Zhao <zhaoguohan@kylinos.cn>
+---
+ drivers/vhost/vhost.c | 50 ++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 45 insertions(+), 5 deletions(-)
 
- - Movable allocations (GFP_HIGHUSER_MOVABLE) imply highmem.
-   while I think only 64-bit architectures support movable
-   pages today, we cannot currently express an allocation
-   that should be movable on 64-bit but lowmem on 32-bit.
+diff --git a/drivers/vhost/vhost.c b/drivers/vhost/vhost.c
+index e29f154706da..9c3045504709 100644
+--- a/drivers/vhost/vhost.c
++++ b/drivers/vhost/vhost.c
+@@ -2527,11 +2527,7 @@ long vhost_dev_ioctl(struct vhost_dev *d, unsigned int ioctl, void __user *argp)
+ }
+ EXPORT_SYMBOL_GPL(vhost_dev_ioctl);
+ 
+-/* TODO: This is really inefficient.  We need something like get_user()
+- * (instruction directly accesses the data, with an exception table entry
+- * returning -EFAULT). See Documentation/arch/x86/exception-tables.rst.
+- */
+-static int set_bit_to_user(int nr, void __user *addr)
++static int set_bit_to_user_slow(int nr, void __user *addr)
+ {
+ 	unsigned long log = (unsigned long)addr;
+ 	struct page *page;
+@@ -2550,6 +2546,50 @@ static int set_bit_to_user(int nr, void __user *addr)
+ 	return 0;
+ }
+ 
++#ifdef CONFIG_X86
++static bool set_bit_to_user_fast(int nr, void __user *addr)
++{
++	u8 __user *p = addr;
++	u8 old;
++	int retries = 4;
++	bool success = false;
++
++	/*
++	 * log_write() passes a byte address and a bit number in [0, 7].
++	 * On x86, update just that byte to avoid crossing a page boundary.
++	 * Bound retries so a contended byte cannot hold up the worker.
++	 */
++	pagefault_disable();
++	if (!user_access_begin(p, sizeof(*p)))
++		goto out;
++	unsafe_get_user(old, p, fault);
++	do {
++		if (unsafe_try_cmpxchg_user(p, &old, old | BIT(nr), fault)) {
++			success = true;
++			break;
++		}
++	} while (--retries);
++fault:
++	user_access_end();
++out:
++	pagefault_enable();
++	return success;
++}
++#else
++static bool set_bit_to_user_fast(int nr, void __user *addr)
++{
++	return false;
++}
++#endif /* CONFIG_X86 */
++
++static int set_bit_to_user(int nr, void __user *addr)
++{
++	if (set_bit_to_user_fast(nr, addr))
++		return 0;
++	/* Resolve faults, or use the native bit layout on other architectures. */
++	return set_bit_to_user_slow(nr, addr);
++}
++
+ static int log_write(void __user *log_base,
+ 		     u64 write_address, u64 write_length)
+ {
+-- 
+2.43.0
 
- - Internal users of tmpfs (in particular DRM/GEM) usually
-   don't want highmem or movable pages, but actual tmpfs
-   does default to GFP_HIGHUSER_MOVABLE. Separating the two
-   is complicated.
-
-I added a few people to Cc here that I believe care about
-having several more LTS releases with some highmem support
-because of existing customer requirements.
-
-     Arnd
