@@ -1,74 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794485649;
-	b=bUzG3PEf9gHBJ5gW4AuZFFYpoW6Ic+mqhkJpVrpNXX/W3hmv0rBvtcx3xa1NUFFpjDAh
-	 hgCw9hKSLSJUTw7mgloQ8rq91yv8qbbrwQElZjUB8uhvLDyVSYiIDxuVEGrfXJiC61EHd
-	 9kbB+EygwaAux+fjLUbZtTnU7mwY0h/dJh6P6hW7dxCjhQu58WdY2WorDMRfdND/JA4c1
-	 ab6HkOhWW/LEFFCNoUn3Fj3INGwQWDRz80sYqjSrTa99lYV6k5IIna4GCJj04rtR7GRv7
-	 RevDYIiUSFGCGqYLPN5+K9y1vXva5Oa7i9Fyld6rXZ7i74W18aGbExP51piPj/4cswg==
+	t=1794485685;
+	b=JDFrptrgciNAwYGDPdCEEvfPjzupnSHnHxKQd70Npmce0yewFa2/fX749agmgVroNAwg
+	 cBVxeahOfMgB2IEkkzwWI3ki4kRFTWSVBnHlRa4p2BNQuxXk6cbUzU9hIWFGrynf9i+Pg
+	 KSYr8OBt6V8FGSEPzOgKBVzII0/OMbOwTVZTJUsChULYXYTG3wuK2ooSJfEbWVaELRS+g
+	 A8A2yiQl2NPEC9vCfa62KQqEnhU/+iTKVsA8nxEB8MwcAGeMtmL+sHZN3vmePGsxOLyY7
+	 SLPgVcwzIJUzzdKERgXL0/JEX9JfGtne4nCpymAxrpGrckNgWVzb9O4gcCFKH9DffuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794485649;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Subject:From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:
-	 X-Last-TLS-Session-Version;
-	bh=XnZv+Fvy9sZiITTaYH0t03PvvK3AeTuBITl0A3YU2qs=;
-	b=K/UyZ9HkwWc7DcLAyk+R+BYg41yXxiqJY79t0Vuxfd+3v7BkguKQc/akJdgWp1FG64XO
-	 Nv3GnPkCJJy+kCgFMoE5qA3mV2p2vZEk+xxB8gIBefOxfANhv3vGNZ4fIfmmjexVd+Y54
-	 GKiiKc0CfJHB6zR8BrG5l8OACh6U1H5s0F8Bt9TD/rvTdeCm1Sbqvxy2Pt+awKX/hDpWe
-	 IjrkMaYMUKavJgR52L24xZUgOUjqCJQpY+PhfEw8zhACfeKMIxrJzsEZsnpnth+l+bYYL
-	 K6axHuSMJSzaYN3jk47YSAO+kqGFIhbHecfW8u52UrSswz06tLkaHM/CYZZRcNqSlRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794485685;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=wSnWAvHtOMLFz4uzS2KYZ1SGi9EBgJHHln4xOPRtuRk=;
+	b=P7PLIz7WUthiDfmf/ZKRYt4wsjfiYclbOtz9lrpm4AULHc3v8BTf9orD+glb/pRkneHO
+	 wwQUMNNXgOjtg94vxL+Khp3yivIKjJoYvb34Q/fna2cnkcwPY3oZOA0tpiZeo/6H2hWmD
+	 6GOieVBzBXPpa3TUgYX5aqCZLsJAbaCIDwu7XT8tCGxbXJvR/CNqv12Rar2C8UnDuRfL9
+	 yu25AoR94zLX6qg3NqLQcIto3x3xwtOY6WUxj4b8uxwTkdTlO+GA3mXIYGZqeINee1c73
+	 W0L4RG8mNKdbVoOujNwpJQyC3XU3Iv/s5idZwCSKMr/jUgJyIaBdbE9cpXp6VqnDApA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=DeyJN3T2;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CsCxIx0m;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4D6F606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:14:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4D6F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA10606A31C;
+	Thu, 12 Nov 2026 12:14:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=DeyJN3T2
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 6F6D74E41588;
-	Thu, 12 Nov 2026 12:14:01 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3A6A95FF85;
-	Thu, 12 Nov 2026 12:14:01 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C32D711BC09A8;
-	Thu, 12 Nov 2026 13:13:56 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794485640; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=XnZv+Fvy9sZiITTaYH0t03PvvK3AeTuBITl0A3YU2qs=;
-	b=DeyJN3T2zm4Qrq+XxdaBnaJFAaHiJ5I0SyHiGLGx87BboKMkXv94dr5S0aQTKSJHtxGCo7
-	O9K+YrlhERumzbn9NrlCptuCkqenyxQFcsotbAeYWho3Ok5cbdRaTzuoaokJf2OA11lWOX
-	KTfGbsG1vixNQEMrc/J1LOY2A/8G2TqqumxRaQodh6/yaHiPaLoR2pNJzb99KisccYcfP1
-	eHK6kpXaE6a9ddHJVdqM1sq0sSOn5BaOVayDJU4VrMpz5JFTlOoo8W7nbRIjylKGTEUzU1
-	BRAcypszK9fR0ytqroR5DDEUwBUF4DF7oG3slBF0MA/CjrBhiwqMT9CVzMJ4GA==
-Message-ID: <57c4547d2a763b4de6913d14118d90c67ccbbc0a.camel@bootlin.com>
-Subject: Re: [PATCH v2 6/6] spi: cadence-xspi: Add workaround for old
- Marvell firmwares
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: kernel test robot <lkp@intel.com>, Mark Brown <broonie@kernel.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, 
-	linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, Thomas Petazzoni
-	 <thomas.petazzoni@bootlin.com>, Bharat Bhushan <bbhushan2@marvell.com>, 
- Sunil Kovvuri Goutham
-	 <sgoutham@marvell.com>, Tanmay Jagdale <tanmay@marvell.com>, Jisheng Zhang
-	 <jszhang@kernel.org>
-Date: Thu, 12 Nov 2026 13:13:53 +0100
-In-Reply-To: <202611121914.Tdw8zp6W-lkp@intel.com>
-References: <20261111103541.100848-7-paul.cercueil@bootlin.com>
-	 <202611121914.Tdw8zp6W-lkp@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CsCxIx0m
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F2E41F00A05;
+	Thu, 12 Nov 2026 12:14:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794485684;
+	bh=wSnWAvHtOMLFz4uzS2KYZ1SGi9EBgJHHln4xOPRtuRk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CsCxIx0mR38bvlIFQiBxk6+Y9l6TgU4JRu2TXLPxpT1XJ38vOTZZbnd1ZUZe8XzPb
+	 dZATWSN8bWSnf0qiSj/ZV8qjWjo38tSH971twZOTE//E6H7RuMnWH6EZ83OrW7/kDw
+	 oid/SOUPKzABd6rrkVbxx5EYkuvgwW81uSn/A2OeHHZgYBQSEKwKF3jpQt8pHj+z3D
+	 HXyrC3HAd8WA+VnndLLwi9Oflq7MJ58ptZ+ulVlE2e/x1xoHcHSjCAVGIUAC4hxQGo
+	 4MqCwGhcqHsaFME19gmDjPiewxeNNV7+idvhLMxcj7jTNhpL7vEnW4qPnCkPZYmhwq
+	 ZmrmnDDcAZhlw==
+Date: Thu, 12 Nov 2026 12:14:32 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Michal Hocko <mhocko@suse.com>
+Cc: David Hildenbrand <david@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	David Rientjes <rientjes@google.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
+	=?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Yu-cheng Yu <yu-cheng.yu@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+	Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, Chris Mason <mason@kernel.org>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	"Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
+	"Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 01/13] mm/mmap: free gathered pages before MMF_OOM_SKIP
+Message-ID: <avWsG-zmuniUFio7@gremlin>
+References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
+ <20261111-mason-migrate-et-al-fixes-v1-1-3d2454362e8d@kernel.org>
+ <avWmfXu39vtp0DM9@tiehlicka>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,132 +75,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avWmfXu39vtp0DM9@tiehlicka>
 
-I had missed the big fat "#ifdef CONFIG_ACPI" in linux/acpi.h.
+On Thu, Nov 12, 2026 at 12:43:57PM +0100, Michal Hocko wrote:
+> On Wed 11-11-26 18:13:15, Lorenzo Stoakes (ARM) wrote:
+> > The OOM killer can quickly trigger again after having selected a
+> > victim. That victim might not have freed its memory yet, but its mm will
+> > be marked MMF_OOM_SKIP by this point, so the OOM killer will ignore it.
+> >
+> > This can cause the OOM killer to kill an innocent process when the first
+> > might have freed enough memory to relieve the memory pressure.
+> >
+> > Fix the issue by freeing the memory before marking the mm MMF_OOM_SKIP.
+> >
+> > Note that the task which calls mmput() might not be the victim - if it
+> > took a reference on the mm (e.g. ptrace), it may hold the last reference
+> > and release it when it calls mmput().
+>
+> I do not follow the reasoning here. MMF_OOM_SKIP is called after the
+> address space has been unmapped either by the last mmput or the
+> oom_reaper (or both when they are racing). Now all your patch does is to
+> call tlb_flush_mmu which I suspect is to release batched pages. But why
+> is that needed only for the oom victim and why there was no final flush
+> in unmap_vmas?
 
-Looks like some structs aren't defined if !CONFIG_ACPI. Not great design IM=
-HO.
+Sorry maybe commit message isn't clear enough. I did have to pare these down
+from really massive ones.
 
-I guess I'll send a v3 with ifdef guards around the ACPI code...
+And yeah tlb_flush_mmu() is about freeing the batches.
 
-Cheers,
--Paul
+unmap_vmas() doesn't have a final flush, it relies on the caller to figure that
+out, and just batches up.
 
-Le jeudi 12 novembre 2026 =C3=A0 20:02 +0800, kernel test robot a =C3=A9cri=
-t=C2=A0:
-> Hi Paul,
->=20
-> kernel test robot noticed the following build errors:
->=20
-> [auto build test ERROR on broonie-spi/for-next]
-> [also build test ERROR on linus/master v7.4-rc2 next-20261110]
-> [If your patch is applied to the wrong git tree, kindly drop us a note.
-> And when submitting patch, we suggest to use '--base' as documented in
-> https://git-scm.com/docs/git-format-patch#_base_tree_information]
->=20
-> url:=C2=A0=C2=A0=C2=A0
-> https://github.com/intel-lab-lkp/linux/commits/Paul-Cercueil/spi-cadence-=
-xspi-Properly-handle-errors-in-transfer_one_message/20261111-113536
-> base:=C2=A0=C2=A0 https://git.kernel.org/pub/scm/linux/kernel/git/broonie=
-/spi.git=C2=A0for-
-> next
-> patch link:=C2=A0=C2=A0=C2=A0
-> https://lore.kernel.org/r/20261111103541.100848-7-paul.cercueil%40bootlin=
-.com
-> patch subject: [PATCH v2 6/6] spi: cadence-xspi: Add workaround for old
-> Marvell firmwares
-> config: sparc64-allmodconfig
-> (https://download.01.org/0day-ci/archive/20261112/202611121914.Tdw8zp6W-l=
-kp@in
-> tel.com/config)
-> compiler: clang version 20.1.8
-> (https://github.com/llvm/llvm-project=C2=A087f0227cb60147a26a1eeb4fb06e3b=
-505e9c7261
-> )
-> reproduce (this is a W=3D1 build):
-> (https://download.01.org/0day-ci/archive/20261112/202611121914.Tdw8zp6W-l=
-kp@in
-> tel.com/reproduce)
->=20
-> If you fix the issue in a separate patch/commit (i.e. not just a new vers=
-ion
-> of
-> the same patch/commit), kindly add following tags
-> > Reported-by: kernel test robot <lkp@intel.com>
-> > Closes:
-> > https://lore.kernel.org/oe-kbuild-all/202611121914.Tdw8zp6W-lkp@intel.c=
-om/
->=20
-> All errors (new ones prefixed by >>):
->=20
-> > > drivers/spi/spi-cadence-xspi.c:1234:58: error: array has incomplete
-> > > element type 'const struct acpi_platform_list'
-> =C2=A0=C2=A0=C2=A0 1234 | static const struct acpi_platform_list mrvl_pla=
-tform_list[] =3D {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 ^
-> =C2=A0=C2=A0 drivers/spi/spi-cadence-xspi.c:1234:21: note: forward declar=
-ation of
-> 'struct acpi_platform_list'
-> =C2=A0=C2=A0=C2=A0 1234 | static const struct acpi_platform_list mrvl_pla=
-tform_list[] =3D {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 ^
-> > > drivers/spi/spi-cadence-xspi.c:1239:11: error: use of undeclared
-> > > identifier 'all_versions'
-> =C2=A0=C2=A0=C2=A0 1239 |=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .pred =3D all_versions,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ^
-> > > drivers/spi/spi-cadence-xspi.c:1249:10: error: call to undeclared fun=
-ction
-> > > 'acpi_match_platform_list'; ISO C99 and later do not support implicit
-> > > function declarations [-Wimplicit-function-declaration]
-> =C2=A0=C2=A0=C2=A0 1249 |=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return acpi_match_platform=
-_list(mrvl_platform_list)
-> >=3D 0;
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ^
-> =C2=A0=C2=A0 3 errors generated.
->=20
->=20
-> vim +1234 drivers/spi/spi-cadence-xspi.c
->=20
-> =C2=A0 1233=09
-> > 1234	static const struct acpi_platform_list mrvl_platform_list[] =3D {
-> =C2=A0 1235		{
-> =C2=A0 1236			.oem_id =3D "MRVL=C2=A0 ",
-> =C2=A0 1237			.oem_table_id =3D "CN10K",
-> =C2=A0 1238			.table =3D ACPI_SIG_DSDT,
-> > 1239			.pred =3D all_versions,
-> =C2=A0 1240		},
-> =C2=A0 1241		{ }
-> =C2=A0 1242	};
-> =C2=A0 1243=09
-> =C2=A0 1244	static inline bool cdns_is_marvell(struct device *dev)
-> =C2=A0 1245	{
-> =C2=A0 1246		const char *compatible;
-> =C2=A0 1247=09
-> =C2=A0 1248		if (has_acpi_companion(dev))
-> > 1249			return acpi_match_platform_list(mrvl_platform_list)
-> > >=3D 0;
-> =C2=A0 1250=09
-> =C2=A0 1251		if (of_machine_read_compatible(&compatible, 0) < 0)
-> =C2=A0 1252			return false; /* shouldn't actually happen */
-> =C2=A0 1253=09
-> =C2=A0 1254		return strstarts(compatible, "marvell,");
-> =C2=A0 1255	}
-> =C2=A0 1256=09
->=20
+And currently tlb_finish_mmu() comes after MMF_OOM_SKIP is set (in
+exit_mmap()), so at that point the memory is unmapped but whatever the last
+batch is isn't freed yet, and the batch can be large (PMDs are single
+entries if I recall correctly for e.g.).
+
+This only matters for the OOM victim, hence reinstating MMF_OOM_VICTIM, which
+made the patch _way_ smaller than the one proposed :)
+
+>
+> > diff --git a/mm/mmap.c b/mm/mmap.c
+> > index 7618e72766a5..4cb18b217048 100644
+> > --- a/mm/mmap.c
+> > +++ b/mm/mmap.c
+> > @@ -1313,11 +1313,18 @@ void exit_mmap(struct mm_struct *mm)
+> >  	/* update_hiwater_rss(mm) here? but nobody should be looking */
+> >  	/* Use ULONG_MAX here to ensure all VMAs in the mm are unmapped */
+> >  	unmap_vmas(&tlb, &unmap);
+> > +
+> > +	/*
+> > +	 * Free the memory before marking MMF_OOM_SKIP so a re-triggered OOM
+> > +	 * killer will only skip this mm if it's already freed all it can.
+> > +	 */
+> > +	if (mm_is_oom_victim(mm))
+> > +		tlb_flush_mmu(&tlb);
+> >  	mmap_read_unlock(mm);
+> >
+> >  	/*
+> >  	 * Set MMF_OOM_SKIP to hide this task from the oom killer/reaper
+> > -	 * because the memory has been already freed.
+> > +	 * because the memory has been already unmapped.
+> >  	 */
+> >  	mm_flags_set(MMF_OOM_SKIP, mm);
+> >  	mmap_write_lock(mm);
+>
 > --
-> 0-DAY CI Kernel Test Service
-> https://github.com/intel/lkp-tests/wiki
+> Michal Hocko
+> SUSE Labs
+
+--
+Cheers, Lorenzo
