@@ -1,58 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794508205;
-	b=iIZE9uDkzMmU6WDL/B7sJqOq62XImyf0PFGqx7xscA9wn9xnIvQ+O214/nQFwoda0EO/
-	 xYTGUrUK4AU529Eg8quTCXWOoVyGKM05zDzF4Us2M8/Vb5ONH9wXIPojiCWv/CPbi7tQ8
-	 pCg0iSNUjAOdgC/QaUpAeZkGlDSXwJ4UFuH4WuuwxnAL/xtWVQZxbmxwg1btWIKfCOhnk
-	 Nf2fa3j+54kAeedYPbu9FvLbtYr8UL2wURoJ3T+yDCoKreKt71iXwfuoMWg7vwEST9UL9
-	 WYumKCnAUc1dD9ZFtNAxGb12s9Ak3o6MZECfm6LJtT2hVMNLX8NPc0bBn64+XxbBIbg==
+	t=1794508208;
+	b=crAkxAmIlkhlHHNI6q0HbUevsjXqpBxJ1B4BNy2XAkJ2PndqzqUuEKoglIJJD9Ritu40
+	 /LE7IZQnoEbQg8ssSkndsO9jmYv4c/tX8SQ4PagOWSASjvDzj0vjGnVcyH3M+nGepWtSX
+	 jswhrnG1K5ftiQOVXDf7h7+UoHgBOrhdWkn/G55JHngnpxZpV547GSeVDfjM5BKwNiBSY
+	 SdP4xRICxKSZPq9TWM+F83u2SEIluZTMEbkrQnnsG5swQN1kFAP5HNcAWZTAgLNRljxLL
+	 ODJpiwgWueG9JCzriSk1p6xCiD8G9hSGCh7w6F9o2QJW5v+e/faA81nKhQ67rhZYF4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794508205;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Rtc92rlbJoLohK4LVxmMVpKXwZ+yJ59RVuAWYMV1ddM=;
-	b=2MdoEsrwHDfe2rw1W8EXxeLRRwq05p25PAdwQGoP9dbM86TZfRysUy/LTJ3gJOFke11K
-	 tdBqX7enOzqAQTZ+1efQMJIGxKJx9dav7MHkfZieTOcFTZ6/n7sg+V4QgdH411OskarS9
-	 S3kH2SrL7yZSNElLAV8mrq0vb+q9i3oSOF7UIcBaErbTnTrmYpp2PvK1y1rgzDLLY8RBv
-	 hmNBVfnz22hano2gSGaNcwRGjQ8jzRoJrER2A9JcpF31Q53FU1WNi9VYDJ0NgTZjMNTSs
-	 RI/i3hmXWjvjg8XFeTkpr8VRYsXvudHseg+O1PfGlt7nJWKhpMTTlzIASaM3DMKpCZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794508208;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=+52UGbBilkl4hGyrUrFA0fSvaAA64MpqwEqJs05gnNA=;
+	b=B2eOX7WQVCtefY/2h2CvQR9cH7z5aKfrF5xYvqPmeuU8ATgOMlea9Lfv5eTn49lpvMjl
+	 nVJBsTxGTM0aRVf20jzw49LTBTsK/Iq6q2bI9XWRctJOikBD1QYdwCZGUZP+Zu5/4PNCz
+	 dhTyvdRFXDpvfoxKjWE8i1H9pyh/Qm2swNSwzr0uL+xrXDUGxLuF86ty99oQMiy3hbkZq
+	 XlgTbl+VMjDApXk116ypIdqxgotSziZRtmDi/Qijn7LCN/sxCozS23UjcMR30yBAVS8sK
+	 i5o8F00GrdI/MM95UOUANCrwPbJydOCSDOIT9y/FYxb09mzf1DpSvg2Qofdc70m1XKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jS3+VlNK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nz0heuvc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F74606A327;
-	Thu, 12 Nov 2026 18:30:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D1A606A885;
+	Thu, 12 Nov 2026 18:30:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jS3+VlNK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 518701F000C4;
-	Thu, 12 Nov 2026 18:30:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nz0heuvc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C03711F000CA;
+	Thu, 12 Nov 2026 18:30:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794508204;
-	bh=Rtc92rlbJoLohK4LVxmMVpKXwZ+yJ59RVuAWYMV1ddM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jS3+VlNKNheQKWnKJjut95GHr34G+JNaUDsAWytjTmzpXs/UwgLRHqPj5GutmW7oX
-	 dDBa2x+2TFu05dIOHA0x2pD0iZxHeowgDs4dM2vg3nitk21sVx9N26FbvPObzbFk9G
-	 FhSuVGqbBWqql8CLciAenR0idFvAbQRC8Ua7+55XqV2bjG3ptXsC7HdWnp8wRLagaq
-	 /XlU71IAuqJaSDBHumr84oYUsSzPgonQ4S7qKawOJJaAMhjvIh/i2ROGhx6GkDHDyA
-	 CSlNaBROHZZokcecgOZ3SHv7x3aegxwj8wyojRwbT5sthRNboLbdMUvq0N3ACfH61x
-	 FN5OzKne6wtTw==
-Date: Thu, 12 Nov 2026 12:29:56 -0600
-From: Bjorn Andersson <andersson@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Wesley Cheng <quic_wcheng@quicinc.com>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: phy: qcom: Relax required supplies
-Message-ID: <avX9Qrcapcnutdgh@baldur>
-References: <20261021022446.3619435-1-robh@kernel.org>
- <avWbmsjkYo2LMJKs@parshuram>
- <20261112125346.GA3821108-robh@kernel.org>
+	s=k20260515; t=1794508207;
+	bh=+52UGbBilkl4hGyrUrFA0fSvaAA64MpqwEqJs05gnNA=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Nz0heuvctAyaSfiiJvoHqgZqQ8vTXglysA79k+he2ohOLzsolSr6kchIiCHDRLHrb
+	 TyrXK+GrFfqw0mpDhQ9vsIa+I2pExs4/nIhKCJGb9s65r36BX5AhYuwusuqUCmotlI
+	 /TYBAdrslIIuoRacE1M8iSBZV+O/F9XHM4cX42YrVJD4SDQxY9Atg0H8/wEk5HUApi
+	 F8t+ggY04wLx++OEzE2TTeBfmViMTob26jEF/O5LtcYiH/pxvq3RoyNCbwmxPDsDnn
+	 6bYLw2YtWs88/LX+qTLEKclwWpD1D/beoJ0YZ7IYhnmoqAYAKKN8jm6nLy9TjFF8rr
+	 R8TAM9/F3JTZA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B4454380AAFF;
+	Thu, 12 Nov 2026 18:30:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,74 +53,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112125346.GA3821108-robh@kernel.org>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] udp_tunnel: don't treat IPv4 sockets bound to an
+ address
+ as wildcard
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179450820653.579048.1771964318277156966.git-patchwork-notify@kernel.org>
+Date: Thu, 12 Nov 2026 18:30:06 +0000
+References: <20261110113306.3698438-1-antonio@mandelbit.com>
+In-Reply-To: <20261110113306.3698438-1-antonio@mandelbit.com>
+To: Antonio Quartulli <antonio@mandelbit.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, willemb@google.com,
+ kuniyu@google.com, razor@blackwall.org, alice.kernel@fastmail.im,
+ linux-kernel@vger.kernel.org
 
-On Thu, Nov 12, 2026 at 06:53:46AM -0600, Rob Herring wrote:
-> +Konrad
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Tue, 10 Nov 2026 12:33:06 +0100 you wrote:
+> With IPv6 enabled, sk_saddr_any() checks sk_v6_rcv_saddr also for
+> AF_INET sockets, where it is always zero. An IPv4 tunnel socket bound to
+> a specific address (e.g. fou or geneve with "local") ends up in the GRO
+> lookup fast path, although another socket may bind the same port on a
+> different address: GRO then hands that socket's packets to the tunnel's
+> gro_receive.
 > 
-> On Thu, Nov 12, 2026 at 04:27:30PM +0530, Vinod Koul wrote:
-> > On 20-10-26, 21:24, Rob Herring (Arm) wrote:
-> > > For the QUSB2 PHY binding, keep the three regulator supplies required
-> > > except for legacy IPQ6018 nodes that do not describe the board rails.
-> > > 
-> > > This relaxes the requirements for the IPQ5210 as well as if it is
-> > > compatible with IPQ6018, then it shouldn't have more required
-> > > properties either.
-> > 
-> > Hey Rob,
-> > 
-> > This fails for phy/next I see vdd-supply has been moved around..
-> 
-> The change in question[1] should not be applied until the .dts changes 
-> in the series are applied. It introduces a bunch of warnings.
+> [...]
 
-I don't understand. The change you present here relates to ipq5210 and
-ipq6018.
+Here is the summary with links:
+  - [net] udp_tunnel: don't treat IPv4 sockets bound to an address as wildcard
+    https://git.kernel.org/netdev/net/c/612b8376e811
 
-That change doesn't touch these two IPQs, so what are you suggesting?
-Are we talking about the same warnings?
-
-> Can the QCom folks stop doing that! Coordinate applying the series or
-> take the binding and dts changes in 1 tree.
-
-I assume you're referring to "QCom folks" in the sense "any maintainer
-touching a binding change related to a qcom platform"?
-
-Do you have some CI/guidance/tooling for Vinod (and other subsystem
-maintainers) to perform system-wide DT-validation when considering
-merging a binding change?
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
-I unfortunately only spotted the one-way dependency when glancing at the
-seris and thereby ignored the dts patches waiting for the binding to be
-merged.
-
-> Given the patch series is 2+ months old, I'd be surprised if the rest
-> gets applied.
-
-I've applied the two dts changes today, and they do resolve a number of
-warnings - presumably the ones that you're talking about, but I don't
-think the ones that this patch aim to fix?
-
-> 
-> This patch OTOH fixes warnings.
-> 
-
-What warnings? Can you please provide actionable context when you're
-pointing out these issues.
-
-Is it the three "'x-supply' is a required property" warnings from
-ipq6018-cp01-c1.dtb? It seems unlikely that there's one chip that
-doesn't depend on those supplies.
-
-> Rob
-> 
-> 
-> [1] https://lore.kernel.org/all/qusb2phy-v2-1-4c3f980a4560@oss.qualcomm.com
-
-https://lore.kernel.org/all/20260903-topic-8996_61x5_qusb2phy-v2-1-4c3f980a4560@oss.qualcomm.com/
-
-Regards,
-Bjorn
