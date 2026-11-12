@@ -1,98 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794457466;
-	b=kLHrpCfTGhUDvovqDo6uxaVI9TsEVSAHU2Cq6avRxqvxMBC7xaKxy22SLMz+apPPjtkX
-	 n6rWzOU+SUO0u6XuhD91Q6niTM4mOw+RZqNfXjnCquNjNHsMDrNfkmac76VnvFk+RtiHl
-	 Ku7VlTLfCWjfRMzCaUrcnYJCZbDaVkVqJHO71Pzmr1zMLvroPK5OTZsbslEzUWl2O4K0z
-	 eZzerjoN68KVCETlOxb5sMyo8yc59sZPA6TArDH4cOCfpiNeh60/2jAGwIOAlRyAUzg3f
-	 0uJgiBT6Ohyg5of7THV/+8V3WnxEplYSzZyjhGlnS6bxBnzjA9t5W6vAKozpxgm1hAw==
+	t=1794457531;
+	b=WYJ/nWwClDmCCWrG1UxnhrQNF4ptIKXoVPDM8yiTugEzRBUYoke7Bl+MXLS9XHbnC0qW
+	 LO9wl9Hg1HutITSOVKWHFX3Zrp6WDBV6w/QMEipxYODkzYesBIx3sjzVamR1iCXfVlmxt
+	 jBIlqxgsEDIA4SBhard8lZ9Mn+tD1A5bKVTnopvM5vx7JzI8Q9Q8rviecvJjdPfS/wvMq
+	 FykikCIRfnTsgRMCYyPwjr5KkVPPJzfMSW8WSc1g8CnZltl6IMHlOlb/960xg5T9WxZcj
+	 vLK71zolTZ4oGKifbZeC4zQ/b5E4Y67z4ovVSEqTnlOtnUeFgYpW+jAaGlZ0/LYtUAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794457466;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=lpp4FX5gZJokt1GnwgH1j6FAHpdM7kiuFK8F/Wda8qU=;
-	b=i89PIaKiCY5BXKfIyCRBd6L1brvj2QOGLC15+Ry+cwRN4WYTZgYmka3bKq2fB1vZ+4ZJ
-	 SQQrMHbBUGvrZyMXO3CTXBGHtHc+Rye8JAqFqxdvI3jelVOVjhm21gT0a69+BK+2xjpol
-	 8PJXbbGeNS7ZRdhiwwsxEHBiIJcJWtIZXVTI8BZLU2xszO1miwgGWTFX658DHRZKfigCK
-	 KzIWLF0PMJebw5GsrLfL6/ecaabzzBi4UkQ2DPa2I2s/uHjElKk10/1uYNcw0nIft5w2e
-	 /ctKqMVgy485sXE8H5XDTGhDz3kJIiftjD60W+GO4nYNOIcR7Fre8WQhBrcNQAdwA+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794457531;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=x2OyaPiM8VzNGwESrDCi29D4joiGpyq5DaOagbQ+zgY=;
+	b=0gKqe2yBehOWYRX9mdcWjYcN3IygZtdkxFYICz8ujdMEMOHWHSU3LUNT4FlQgPIIXr0E
+	 zVo2v32XvH92BEgvgc/5cfNycJ70w7pZKLnTLV3ZZMZl6yauIWKHIaGPOV/ENPkWyvOCp
+	 tLbsz4teKCGU7hhD3bKwKEO3QRL1YCp3aBpn0Xee3fcXonU1VwZ9/X1/tqdh7ZrL9WUsX
+	 9iNU/O1U5B2ONxH+pSTxPtTUFxkM0WRlvfrwxgyHjpQqD6T7M3xUbP3sqwV31i7l49DiB
+	 b6vM3VcCLUyZ8tiJLbgpmx60FwEoR//e3vzCF+fggSrT99fDXEoHdDZ+7ZP/jav7lPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dZp+0eOc;
-	arc=none smtp.remote-ip=74.125.231.197
-Received: from mail-oi2-f5.google.com (mail-oi2-f5.google.com [74.125.231.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KS/SlFsa";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4052D606A330
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:24:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4052D606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2899B606A321;
+	Thu, 12 Nov 2026 04:25:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dZp+0eOc
-Received: by mail-oi2-f5.google.com with SMTP id 5614622812f47-567e79972f6so155570b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:24:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794457464; x=1795062264; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lpp4FX5gZJokt1GnwgH1j6FAHpdM7kiuFK8F/Wda8qU=;
-        b=dZp+0eOc7wf67+aV9XcOB9yjsrNEhiEJuWZRMp4y85VlJLW8OlwqJMn7CEYTRAzwg3
-         W8VJKgm/oGP9cCmLAHuHiJ9izkrdETd/R/a4uRiAditF26dNTa9ZRgeHOb8MaI49JokK
-         Zya0oeg80Id2CG9kYrNJAP/W/O/+NQy7mg0mQuQPdaFLRwmkRd7+mpIou1v82/6lJjM1
-         MfhuQk4m69Ia9zNaQS/Sqsoovgy2nt9aMRJxgddK91Ax456Qqft6YjtAOfqEpM4/HuIx
-         cfAj4tPrB13Xdt5Afph7W/8pPWseLrqRPszMQitrPgVtUeuW76plj+LOoDYA+cDWyex1
-         pktg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794457464; x=1795062264;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lpp4FX5gZJokt1GnwgH1j6FAHpdM7kiuFK8F/Wda8qU=;
-        b=vJrlL0Gfeo6VbQ4i/RKJEiIcLL0NvfYynscG571UzqrKeFd08pI+gvG596FNEgkV2t
-         uC+dQX8895lihf53hJrP2rfTecmg1yE1SXjiH64SqatXzq1rTJCTQLcH3LSUippQa2Bn
-         xzGjrzPjrJu6JuHezC69oSUw5eHiBgvAFW3hNdDlrSX3mwN1bxMbudYPY1yWw8+3b8la
-         9xhiRSEts5kkyskDbwXmykuKs9OX+beudOK10mutkKMTz8XiVjMrVXowjuE40ge6Mnzg
-         9PSCeDdGdj/IFkorKMaEdK0toW2qVzeqeuf95M916iv6D1GAGZ8kkp5lRFPhghQDpKxH
-         YBuw==
-X-Forwarded-Encrypted: i=1; AL+hErGfbsuV8usKR0dtocvYqdp3Vj0tXdzzXOyVGYy6UdfiiOQ5o1g6AFWxyBCh4Gp5Zsc2oEk9eDqKMHgYWko=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9RCsGjKdIW34sGCwWf07oLMg551EEIhQgNy8iMyCuVpLJtcmX7
-	d97Dgzx74wb3lzPixLiK53+3bACBRVWYzMyTVJvX1EJXVm4AbR0PcL4s
-X-Gm-Gg: AYBFou0x0H3OOdm2BTjzPJpPARU+0f1ULhgDDGsne+MMZBNlZWnXg1RYlKHbT13o010
-	jwS0U14rMKDUq5StHzHiulQk8H9Glv4U3ygp2FbFbb17IOguADFksMPtjZPLTZHucRX2PvOjSnE
-	eGWzbchDlqZLFD/JG3N0qPozcgo6g7J6x2pQzMxSg+9EIQfVdMClRRuztg1tVCQS8/v78d0OanA
-	xGbBa4QFQ0Spfx9gT/NGP48pNhzlR62Oij+I50tR57Y+FB5uJmZRF2dlhpLTvjVc8JJUXKXDPWL
-	WTTX9IA62kUfWEKl5nbr11pLt99a9Kr8KqTN1LVWT5HAjX2OGBiuIA1aeh9BwLKAMafGySQ4wnx
-	/lMG18Bi5GfxaWsLWWqHi3KUrqo4y7AAat+9IEoHwCCfU3aVkLsjdYchrJvO3jYsJRZQOgasfue
-	wLbPoKX5mHRUrtjSPbTOO2+0OI4dij1Xb+ues5LjdZIbRIDXP0EdGKNOHvrZSMTRvJ5RnC/UoE3
-	BCJBwtE/uypAZ0tkgHK0BaExWkzoyl/fwHXP1+hOKs1I9DkMmyz8tjHgGU++/l65Ipay3CEet6/
-	3ZW3NzA5TvfzfEFo3LL0Mhib9NaSxgNYVFt8sk8b/aR9zmlbki/gjCoQ3upqcW8zG3o=
-X-Received: by 2002:a05:6808:1246:b0:532:6c52:9778 with SMTP id 5614622812f47-56cd65417d6mr1113652b6e.20.1794457464100;
-        Wed, 11 Nov 2026 20:24:24 -0800 (PST)
-Received: from localhost.localdomain ([14.22.11.162])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56905146a03sm6947187b6e.6.2026.11.11.20.24.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 20:24:23 -0800 (PST)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] ip6mr: prevent info-leak in ip6mr_cache_report()
-Date: Thu, 12 Nov 2026 12:24:15 +0800
-Message-ID: <20261112042415.617221-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KS/SlFsa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF4F81F00A05;
+	Thu, 12 Nov 2026 04:25:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794457530;
+	bh=x2OyaPiM8VzNGwESrDCi29D4joiGpyq5DaOagbQ+zgY=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=KS/SlFsaO11cfINJh2wnQGU1PW/lBLhuEZSyxX1GOutuwsoFsc7yWfaiADTDaGziJ
+	 WDGrrW7mWK3XnyqZmnxomH8XSsjOCCEm45GXVpeiuMnJlTh8eOXQH8+6Q1Jiv+mSkr
+	 3W5Szl4ZmbtMOvP0r+5O6XnvBqX4EmQvlSad/C75NYI9l622MpqSkxKjpbox/+tkEs
+	 tyD1ygzXAIlfwPqqmhheqcpp548rHrwmnX58RWfDYkel1GuTF8fCA7pxEu+9deAelg
+	 7FdOCca8RWfTplFoLZU4J4feakYNFhj8yxWZCPBPhk3HPxle1mkQ+b+ZUkdKB7Qq4q
+	 wXdkJ2PRE4r1w==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 7F146CE28E6; Wed, 11 Nov 2026 20:25:30 -0800 (PST)
+Date: Wed, 11 Nov 2026 20:25:30 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: linux-kernel@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	Puranjay Mohan <puranjay@kernel.org>, rcu@vger.kernel.org
+Subject: Re: [PATCH v2 4/7] srcu: Add irqsave variants of the atomic SRCU
+ readers
+Message-ID: <408366d0-3612-47a2-bfce-7ee52828f3ae@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261111145949.70845-1-mathieu.desnoyers@efficios.com>
+ <20261111145949.70845-5-mathieu.desnoyers@efficios.com>
+ <0f5b9d22-353a-4e30-91e1-aeea47461583@paulmck-laptop>
+ <31ba97d2-f02e-4c43-a9a6-5ed49263c511@paulmck-laptop>
+ <9207ad1c-fe1c-4041-80c2-52723bc58486@efficios.com>
+ <9fc742ab-457c-41e2-ba05-0ef0bb15d00b@paulmck-laptop>
+ <fc1bbc25-a410-42bd-b5b9-d734d2444b70@efficios.com>
+ <78c1a437-ee80-4e83-8806-a7f7113a4b63@paulmck-laptop>
+ <b81abda5-e882-42e8-b780-6db34fdd0092@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,45 +78,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b81abda5-e882-42e8-b780-6db34fdd0092@efficios.com>
 
-The non-WHOLEPKT branch copies the IPv6 header at offset 0 and then
-appends 40 bytes with skb_put(), but the mrt6msg is written at offset 0
-after skb_reset_transport_header(), so the appended 40 bytes are never
-initialized.  They hold stale heap contents.
+On Wed, Nov 11, 2026 at 09:50:26PM -0500, Mathieu Desnoyers wrote:
+> On 2026-11-11 21:13, Paul E. McKenney wrote:
+> [...]
+> > I used the same trick that I have used elsewhere, keeping a separate
+> > variable for the tag ("--qemu-args") and the argument itself, as shown
+> > in the diff below on top of my earlier patch.
+> [...]
+> > +             --configs "SRCU-P" "${qemu_tag}" "${qemu_args}" --trust-make
+> 
+> This works on x86.  On arm64 both variables are empty, so kvm.sh gets
+> two empty arguments.  A kvm.sh --dryrun with "" "" in that place stops
+> with:
+> 
+>     Unknown argument
+> 
+> Dropping the quotes does not help: the value has a space in it.  So I
+> think this one needs either the ${qemu_arg:+...} form, or a test around
+> the torture_set call.
 
-The report is queued to the mroute6 socket and copied into the
-IP6MRA_CREPORT_PKT netlink attribute, disclosing the stale bytes to
-user space.  The stale bytes can contain kernel heap and image
-pointers, and the report is reachable from an unprivileged user
-namespace (MRT6_INIT in a new netns, plus the non-root
-RTNLGRP_IPV6_MROUTE_R group).
+Ah, you need the kvm.sh hunk of this commit in my -rcu tree:
 
-Use skb_put_zero() instead, as the IPv4 code does since
-commit 4f34002e2e376 ("ipmr: prevent info-leak in pmr_cache_report()").
+436f3c6b27de ("torture.sh: Add hazptr torturing")
 
-This issue was discovered by Tencent CodeBuddy Security.
+Which I clearly need to extract from hazard pointers and get more widely
+available.  Diff shown below.
 
-Fixes: 7bc570c8b4f75 ("[IPV6] MROUTE: Support multicast forwarding.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
----
- net/ipv6/ip6mr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> > I will add it there, also.
+> > 
+> > And to the --do-rcutorture stuff as well.
+> 
+> Sounds good.
 
-diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
-index dd0638d3c3f95..b7ae220d6b21d 100644
---- a/net/ipv6/ip6mr.c
-+++ b/net/ipv6/ip6mr.c
-@@ -1154,7 +1154,7 @@ static int ip6mr_cache_report(const struct mr_table *mrt, struct sk_buff *pkt,
- 	/*
- 	 *	Add our header
- 	 */
--	skb_put(skb, sizeof(*msg));
-+	skb_put_zero(skb, sizeof(*msg));
- 	skb_reset_transport_header(skb);
- 	msg = (struct mrt6msg *)skb_transport_header(skb);
- 
--- 
-2.43.7
+							Thanx, Paul
 
+------------------------------------------------------------------------
+
+diff --git a/tools/testing/selftests/rcutorture/bin/kvm.sh b/tools/testing/selftests/rcutorture/bin/kvm.sh
+index 32c3199976388..86dd5c131d226 100755
+--- a/tools/testing/selftests/rcutorture/bin/kvm.sh
++++ b/tools/testing/selftests/rcutorture/bin/kvm.sh
+@@ -271,6 +271,9 @@ do
+ 	--trust-make)
+ 		TORTURE_TRUST_MAKE="y"
+ 		;;
++	"")
++		# torture.sh can pass empty arguments.  Ignore them.
++		;;
+ 	*)
+ 		echo Unknown argument $1
+ 		usage
