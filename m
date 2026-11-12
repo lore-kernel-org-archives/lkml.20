@@ -1,54 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492050;
-	b=Um/4j78v4M0x0Khwj+t+mL7s2dmnt5KpWJoB+5Rbp2lta32LQdekTmZiZNwf9Yb5WeV7
-	 4bsTtQ+gCYbt0khJkC/Z8CI5R2F+Wn4ecwud1ZdWg/joo38fHZSNCVbgBU723/BJneq+P
-	 I2ZHmat2BdCyUjDCMOW4E7ewVF4y2BF/8/sh4GtvDRgND8Mu4mogmQh+tkHz3sufNVpUb
-	 av/kjhff/JJe8WKhkPlx37Pi4ByFHSh60MBjQYcRWPfgCMtYPX9V2m4OWztwdIMEAovDZ
-	 v3ShOk6hJ8Wx0rWtdWlK8TqgBp9sYeQwvGTnki4+EjzAgBHqJQiCUYJZ5dfalKOnDiQ==
+	t=1794492071;
+	b=kEXbTqGGuwBbzGCrpU5iF+hsJkyKv2sEtKNBXF5l7QBvivflTxYjnUK3m1VehAqp+vyP
+	 tsj0YImrjdf9BO3jvhPCzJJ0+jsq66Sd/nJIT63yP67Qi3/ByIBSE/NjEyiaTRSAgWQNJ
+	 jZKPI4hq33NJuAty80l7W+TqbfRoo1E+eTf8l3Nw7CDhEFkkoHUy3glKiyz9K9JaSMajO
+	 fG6fg2PmHiInDQ26CND2EJ8DRVN5hollKqaWZ6vLrIYZKZSuCOcx1sRzVBKSaUBnUX2ZQ
+	 chpGXaQFtyOowatY85gKYSd9F7G3tBdeqB8DLiuWgiZ8oGlB0q1vHbpRukGP+O0/zHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492050;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=9AYBncbKt6OLkkaaAIBSAFE3gIw17mjNbdLU8o9JQ08=;
-	b=vh6NjwIpC3b5KrgPYMR3hHwL7x6QcfB1JsCgVaLSKM4FLb6p4Q4XAWxvdjyT1FMibaZa
-	 48xk9+HJK6yI3eycO211H7rfRE0Budgn1WeZHmECGlPQghwkTgQyPiozpR6ZO+zFPVE9l
-	 6uc/iDm6QJEoN+An3F99W6tOpiO+qlh5zDziLsu7YtnwsqqIY0DlbNmU3uxI4zYawc1tb
-	 m8INtc7jq9+w9dSIuzWvR5qJKTYBUmcjlfyWYOCQb+SSFM+UlbjHBI8RwByCncP3h+RKX
-	 /kIiSBe9kwR6CW6IacQatAOBd/EYSXcjJZN9u/rLUWDv8wavbT3P92dyyuiW+gyNidw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492071;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=ehMAux4zPO59WGmXjV45w0rvQhEn3+ok2cfsvTCiEm8=;
+	b=XYvHQlWF0xA9RIf/dyEC4GMzm6G9GfSlJdIFbeAnR6T+XPyjPt3N2liHcKUtl4HeBadR
+	 gUNRc0MLMNeo7QY9tprxDY0UatH0Eadk3m16SFJ34GIIXX8vuUPovRU+tgLe58bPbCn32
+	 JsEPauwFa5zEtwnRkbvLggSuGDoGaXdvnGV2F0t2y4CNJGV74CnwICk6taxbq6M2tiT6F
+	 er5sHTY4933+6xh9nRPmnGbDRTiSz3Vv3Rd2l6tlZbT7mkHeK//1T9h0u7EZyHqllWncm
+	 3VdX1RBTVcCrk70o3UfpwJP5f13xBlnYei0Gcckf3l6YopGtZb6PLK7yksdbl+DtsDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z6bGhatX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=FInfaeEA;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 99B66606C72B;
-	Thu, 12 Nov 2026 14:00:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C9560A260E;
+	Thu, 12 Nov 2026 14:01:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12C9560A260E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z6bGhatX
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 9C7521F00A06;
-	Thu, 12 Nov 2026 14:00:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794492050;
-	bh=9AYBncbKt6OLkkaaAIBSAFE3gIw17mjNbdLU8o9JQ08=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z6bGhatXEii/0J1Qx1w+sPPjBWOJonniSHMxFcNAzkewu+ZhTdumconLFnsxgvwJL
-	 CDsCi6InovdzspcV2fcIva24t9Ubf2CPr5VbVKh8Y5rFN20uo9CXv5IcgVWoXDCY01
-	 Pc9RsB6pacSnVxiiAHMQ/Wg2eI9krlmSP7igVimd7SUT0uGzkADpKnd3yo77fedLI/
-	 YwjiSLLBTwC2dTCOTshm0jQa8ENtZrcx9GrCqNTxUhhhuGaCeDrUmOsD+rqo56bnZI
-	 yZPxedhyq5SruX8eyLiaTUnFaAn0vYBhKK4KbH29ff35EFasTw9tDzu8G7uZrX9cHl
-	 QgRmrleFuzhiA==
-Date: Thu, 12 Nov 2026 16:00:46 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
-	surenkj@amazon.com, noodles@meta.com, kernel-team@meta.com
-Subject: Re: [PATCH v2 1/2] tpm: Disable a TPM that stops responding
-Message-ID: <avXGjiejK2ZlldKs@kernel.org>
-References: <20261112-tpm_unresponsive-v2-0-7454d2c899ef@debian.org>
- <20261112-tpm_unresponsive-v2-1-7454d2c899ef@debian.org>
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=FInfaeEA
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jQMVj6LXNz4yjjF;
+	Thu, 12 Nov 2026 22:01:01 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794492061;
+	bh=2vd7az9105wcSaW62eUNl1HKGlFkwj5Se2CmMaZM/+M=;
+	h=Date:From:To:Cc:Subject;
+	b=FInfaeEAsyzxZEXYqHjivnoIpff+/7/yIUXlruzPUln8QVtJLfRNOwdqlaXq9KzzV
+	 YHyVQDnVQnkFcicoF9cW/7HfbygM1EW961hX2XjqC4vcTc8yOtSj3T2frbk/PiEr1s
+	 XfbfdviZ0C3fqbzS71AhBMlGp550PT0xdGNwHtf/rWhIc0pSgXIywVJpN8LjTa4EiW
+	 QldLmqE/IKAtDFXnEKvt+5bvo7Pbhl2U+bjdCn2eE52D6clytFKB3vUyJsiPHUmn9H
+	 rzVI58rM4/XqC/uBTdojt4vTS+/KGPaZDmVBHzaxP9EaykZfuf9UA1/0no/wLRZgyp
+	 Ax9cjAct9hDwA==
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl1.zte.com.cn with SMTP id 6ACE0t93045249;
+	Thu, 12 Nov 2026 22:00:55 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp04[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Thu, 12 Nov 2026 22:00:58 +0800 (CST)
+X-Zmail-TransId: 2afb6af5c69a44a-d4bc8
+X-Mailer: Zmail v1.0
+Message-ID: <20261112220058755zQhw_h6UkcVSjRnu478lb@zte.com.cn>
+Date: Thu, 12 Nov 2026 22:00:58 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,110 +69,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112-tpm_unresponsive-v2-1-7454d2c899ef@debian.org>
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
+        <linux-nvme@lists.infradead.org>
+Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIHYyIDAvMl0gbnZtZXQ6IGZpeCBmaWxlIGJhY2tlbmQgc2hvcnQgSS9PIGFuZCBMQkEgcmFuZ2UgY2hlY2tz?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6ACE0t93045249
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Thu, 12 Nov 2026 22:01:01 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF5C69D.002/4jQMVj6LXNz4yjjF
 
-On Thu, Nov 12, 2026 at 04:30:17AM -0800, Breno Leitao wrote:
-> A TPM that stops responding fails each command only after the transport
-> timeout, and its callers keep sending more: the hwrng thread every 10
-> seconds forever, and userspace through /dev/tpmrm0. Each attempt holds
-> tpm_mutex for the whole timeout and logs an error:
-> 
->   tpm tpm0: invalid TPM_STS.x 0xff, dumping stack for forensics
->   tpm tpm0: tpm_try_transmit: send(): error -62
->   tpm tpm0: tpm_try_transmit: send(): error -62
->   ...
-> 
-> The core already stops using a TPM it cannot trust: tpm_try_get_ops()
-> fails with -EIO once TPM_CHIP_FLAG_DISABLE is set, which
-> tpm2_load_null() does when it cannot restore the null key. Set the same
-> flag once 60 commands in a row have timed out.
-> 
-> A completed command, whatever its TPM return code, resets the count.
-> Some TPMs stall for half a minute, time out a handful of commands, and
-> then recover, so a short streak must not disable them.
-> 
-> With only the hwrng retrying every 10 seconds, 60 timeouts take more
-> than ten minutes. A userspace poller gets there sooner, but each of its
-> commands still waits out the transport timeout.
-> 
-> The limit is the tpm.max_unanswered boot parameter, so that slow
-> pre-production parts, such as FPGA prototypes, can raise it, or set it
-> to 0 to never disable the TPM. A disabled TPM stays disabled until the
-> driver is rebound or the machine reboots.
-> 
-> Signed-off-by: Breno Leitao <leitao@debian.org>
-> ---
->  drivers/char/tpm/tpm-interface.c | 15 +++++++++++++++
->  include/linux/tpm.h              |  1 +
->  2 files changed, 16 insertions(+)
-> 
-> diff --git a/drivers/char/tpm/tpm-interface.c b/drivers/char/tpm/tpm-interface.c
-> index e0385b16616b46..b7865ccb799289 100644
-> --- a/drivers/char/tpm/tpm-interface.c
-> +++ b/drivers/char/tpm/tpm-interface.c
-> @@ -40,6 +40,11 @@ module_param_named(suspend_pcr, tpm_suspend_pcr, uint, 0644);
->  MODULE_PARM_DESC(suspend_pcr,
->  		 "PCR to use for dummy writes to facilitate flush on suspend.");
->  
-> +static unsigned int tpm_max_unanswered = 60;
-> +module_param_named(max_unanswered, tpm_max_unanswered, uint, 0444);
-> +MODULE_PARM_DESC(max_unanswered,
-> +		 "Disable the TPM after this many commands in a row time out (0 = never).");
+The file backend computes byte offsets from the LBA and block size with
+unchecked 64-bit arithmetic and does not handle short reads or writes.
+A host can therefore make the backend report success for a transfer that
+only covered part of the range, and a large LBA or length can wrap the
+range check and reach vfs_fallocate() with an out-of-range offset.
 
-Documentation/admin/kernel-parameters.txt update is also needed.
+Patch 1 makes nvmet_file_execute_io() stop at an incomplete submit
+instead of advancing the position and eventually reporting success, and
+converts a zero-byte completion on the common path to -EIO.  Patch 2
+adds a shared overflow-safe range check and uses it for read, write,
+discard and write zeroes.
 
-tpm_max_missed_responses is what I would suggest, because it is more
-accurate e.g., on stating what is being counted :-)
+The two patches are independent and can be applied in any order.  Both
+carry Fixes: and Cc: stable.
 
+Changes in v2 (Christoph Hellwig):
+- Patch 2: use the shared LBA range helper for reads and writes, with
+  pos64 local to the helper. No functional change from v1.
+- Patch 1: unchanged; add Christoph Hellwig's Reviewed-by tag.
+Link to v1: https://lore.kernel.org/all/20261111224134934XG6vMtntrNJQL1ztj7imr@zte.com.cn/
 
-> +
->  /**
->   * tpm_calc_ordinal_duration() - calculate the maximum command duration
->   * @chip:    TPM chip to use.
-> @@ -268,6 +273,16 @@ ssize_t tpm_transmit(struct tpm_chip *chip, u8 *buf, size_t bufsiz)
->  		delay_msec *= 2;
->  		memcpy(buf, save, save_size);
->  	}
-> +
-> +	if (ret >= 0) {
-> +		/* we are good, reset nr_unanswered */
+Shao Mingyin (2):
+  nvmet: handle short reads and writes in the file backend
+  nvmet: use overflow-safe range checks in the file backend
 
-I'm not a huge fan in general of third person plural in the source code
-comments. Probably a comment here is not needed at all as it does not
-state anything that would not be obvious (i.e. something nothing
-non-obvious is documented).
+ drivers/nvme/target/io-cmd-file.c | 47 ++++++++++++++++++++++++++++-----------
+ 1 file changed, 34 insertions(+), 13 deletions(-)
 
-> +		chip->nr_unanswered = 0;
-> +	} else if (ret == -ETIME &&
-> +		   ++chip->nr_unanswered == tpm_max_unanswered) {
-> +		dev_err(&chip->dev, "%u commands in a row timed out, disabling the TPM\n",
-> +			chip->nr_unanswered);
-> +		chip->flags |= TPM_CHIP_FLAG_DISABLE;
-> +	}
->  	return ret;
->  }
->  
-> diff --git a/include/linux/tpm.h b/include/linux/tpm.h
-> index 0db277af45c393..e8191585a68e7a 100644
-> --- a/include/linux/tpm.h
-> +++ b/include/linux/tpm.h
-> @@ -131,6 +131,7 @@ struct tpm_chip {
->  	struct hwrng hwrng;
->  
->  	struct mutex tpm_mutex;	/* tpm is processing */
-> +	unsigned int nr_unanswered;	/* commands in a row that timed out */
-
-This would be then nr_lost_responses.
-
->  
->  	unsigned long timeout_a; /* jiffies */
->  	unsigned long timeout_b; /* jiffies */
-> 
-> -- 
-> 2.53.0-Meta
-> 
-
-Br, Jarkko
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
