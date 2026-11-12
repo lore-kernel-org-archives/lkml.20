@@ -1,107 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794526952;
-	b=SyUgQrYbVhHM1ZODEk07IWA8EXH88zL2aJ5nMDaXQY6XJtclhGr38QCvHVPG/mNo38b4
-	 uE8484e9E2i3bWJL4OnyPru5ZL0My34t9tsbmp3J3/KRqpdY9OI2M5FPq+0XxuxX2xeVj
-	 9375tsZ+vXsHinu8Wdh/gixP+QzVDzDx+TxjE+7IWg5390p5ey2InGoNMq3rwnMsk0hKn
-	 MMVIU3cNsJL50rrxxnz6+TCClDocLI06F6hIm17zTy6KUq5pu4RA2PWLkfdaPIlP1wT7Z
-	 MWVCavh/IaFxAI9+TuFftI9b0Y8HRVXB/hFu/Lt7ehxsHVk1u6KNMKK84g/axmTVAbA==
+	t=1794527037;
+	b=Px8K/YLdeQsLHLH0Dzox3pIQIEWH26P7m+9l3Hi5qb8b6s5FOGA4rrQi5l6XuImlAWy5
+	 bM4bh6Cr6KgBfZbtbkFOwYQs8mcVzYvsIaSeOg4jWyoBuxWiKIFk6NqF0lECZL39qk/q/
+	 p89maiIuqLBZiui6I7qL1cWcvkbLhGSpkr3hPu1jMKaGhyGQdmncTDv8FE7qeW/kCG8r/
+	 C4c0x7CpDZCtF5fNJny8dQDEWiu9Ee23jLC0dCgbAOJ+QIwGcMyk1zuWqRB1z66Jqm1S9
+	 nl5lH/ofA0RTV21I7gEgfkk3gSBjqezjd3Wz9nBRi65MF2D7LWo6HyrL7dktYUybDKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794526952;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=DttvFnge8kOenaa6QdgP5d+NJ+mqXut24bqDnL4lrTM=;
-	b=rFStCGPAh+s8WkXYL4+4jp0h8Iz7Abim32UOgYzkk3iwLYQFJI52NM5a79X4MgbnrhXb
-	 VRtqZr8dpyuYE713oo1nmqL2lNAkX8QSHffM6v6q8/W8j8uzff78m0rpbKEWJZdt9Grz4
-	 U+6eDokJ9bYGsUB1MWAsOZh+kTDPMAL17Zx1NrRCS5JcreXxTmefNV7u8SUirsl36eR94
-	 gKCt/VIcCg3pUhw6msJzp/5xs/WUk/QBSVE65AJmR6dedkHHZlFBxzec1K/DU8bstBonw
-	 NupRY/ufSKtYlK6j/SXWLsDOqIRKBN4jkgO5VxsQRDaXeWdigX/iY9VbB8ZEkzqm2+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794527037;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=Xo+H9lR23P0A0A4fib3m01tppo5IkRluvh2Z4UoFknA=;
+	b=wRQrlm7xdPSkLRZseTE1jsTFfGM601RjwVt67xGAM8k7wxPVV4nE/PqOZLfQ9IWvf/Oi
+	 VdemukmonqWtgSyiRWBTV0rIMfRPXfrzyYpalXMh1gcKPLoUrJOlmvTEPEs43IosytEzA
+	 jr/w5JOxis55rkFn4x4SlibGFgggXdDLTFC7M0qAHbeWgI6sA6GOIDWEz8HnBVT3TL6AP
+	 MW5GM+CtcHDoqZV7I3DBsDJSChsvSk4hu/Nt1FPUgeNM+k0X/a54LsDiTzEkUuBNwt4oZ
+	 VzlRpDs7vt16wqV3KmHNFN5knQt0nCIeiMT8BrAN22ceIvLdjPJRamdz8wQYixgg2Dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=CKwuKFEG;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="ffuE/ZCW";
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290FA606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:42:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 290FA606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=CKwuKFEG;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ffuE/ZCW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794526951;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DttvFnge8kOenaa6QdgP5d+NJ+mqXut24bqDnL4lrTM=;
-	b=CKwuKFEGpemc9k2K2TgdvQqIJnuUnJd9EwXCQQnfo2zvXwg6ULxCH3H8vo+xawfn99ISZy
-	w8T6Oh7JnNHX9D/bGm1tDsmDkbPkbk0o0WE/NFXkpLIxU+rzgSwObUZMtSKbbbIIerpDzR
-	VM6qyvNQTk148SkwfiQgDB0a0BnTsuY=
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com
- [74.125.82.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-460-VKSCG6MeOBy4iiltDYwx1A-1; Thu, 12 Nov 2026 18:42:29 -0500
-X-MC-Unique: VKSCG6MeOBy4iiltDYwx1A-1
-X-Mimecast-MFC-AGG-ID: VKSCG6MeOBy4iiltDYwx1A_1794526948
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1af203073e0so267687c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:42:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794526948; x=1795131748; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DttvFnge8kOenaa6QdgP5d+NJ+mqXut24bqDnL4lrTM=;
-        b=ffuE/ZCWGah5vwmNi4jFUjSVkvfc0eiSmkQqLnqtUoHRmueOrE3zYX4VPMwqx/eeG7
-         AGWGTESlxQQ+YMMYQnacv25kuq4BJqyorrGMiOEn+qCxwYurzDPFX2qR89xy1wFHOoqG
-         UjMRAxIH+VbXgC6qI28h2Sv4xaM3fRSL6P8tJzRHN/MMAON/4XpqAY4dKqiJ3tZlL7aV
-         p0wp6A/NzY1caaozTjimEsHrLgqBhRxitPuxwWcRw3XwS+m4styd2IjZ+DGyw6gTK3X+
-         oId/DFUnjXn5d9UCtG55goVa4+KhaFbxJoVJz3CNrqUJcg9JBis1boc56sVTyDDfQ4TE
-         VfPg==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD33606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:43:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FD33606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4ea2c058e67so487560b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:43:56 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794526948; x=1795131748;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DttvFnge8kOenaa6QdgP5d+NJ+mqXut24bqDnL4lrTM=;
-        b=ksC9GErAvei11axepTr7Q6oZugME3/3sWEraUAnWt+qlDLjcPFvQQEbMANgAHF5Lni
-         uXLByZd7J5B7slB/25g0ZVpipSdgjrG0PZVNRfQ2qsYLlatqBhhBlqiYnqO7T7Z3cFn9
-         /kEmBOpOJQW42/LqFVMJH/Sp4aat2ue7dffZ6cIgWrz3/YAhCUyUQVqCwx3a4723kqPa
-         jIWopEy0E9T/v1SeL7CZaVrLa0nFG0Ffr/0JTv5KTX0HylLTGkw4WYWp7HZ4i9ex8q8g
-         N5hJ9vyCDINJG0G6Wz6N1z5o7vHF4P8F+kQcjLIZlB7WRs3Mb/JseIxKZ9uxl5wg2mVo
-         ty9Q==
-X-Forwarded-Encrypted: i=1; AL+hErFIukhgbaaUtS0kXWVmLlA9TKvVpikIOGfchSqR+x23GUoFQtjuFtaZaw+NhA22F3ZBo4lqN5IrJAKloVc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+0nunBD7uk7gFJV1opscTcISHgRxGV7YVjilUYmA+wFWAfeNkN
-	WM9UU7NTxVuXdHGyL2KUUy8yFlN8NWBFR9OXS4ZOvTn3SXzY7NCyFimu0RdMvg+lDTbPGdRelIp
-	n5JAXhkWRp8FttMbkRTV1E8heBCGvnRUI/qTcAE/47dhJA7BkgbQXNMJhusMqIze79g==
-X-Gm-Gg: AYBFou1PynYYL1xuE6YtDEJ98sUQAFihV1JGZJ2U7bYx1c7fzFBW7FyZ3rL/vZ6GEaO
-	7MxcSFBUbym28NW9g1Vp7jloyIB3C5/j9IQf6ekqkDrA3dvtYnWvA7KroH0nK3bbG2kJYSmn/hv
-	AeMmIT6dpJR+NXjut8dgQLZARzT+rXkFScDCjrx+6hVgqdXlj7YuAB0pKBBoaMJuE88/EBfvQFd
-	mBvokbYHMDblooFrTVFW3enjtXBciRsyHTxwuZPIQXUPM5LUB7y1F4zF/Jm4r6KxG0DhVpr7B04
-	wMAqxr3Ga/XhYKlCLsDgWUT3Lo2byHumaWKhQ9nxv7QegClrE7JVImRrkl7GGE5Co9bNaenryWS
-	vYuZCrEc1Ob8p+hrEipdG3fOzNph2gojVqQd4kFAlAz+okH9C0MMzb5RDhJbhhcCfQWq1XOWSxi
-	5nJ40rZ7RJ1yJBKC4=
-X-Received: by 2002:a05:701b:2616:b0:182:6c6c:d876 with SMTP id a92af1059eb24-1b5030e74dcmr678968c88.8.1794526948221;
-        Thu, 12 Nov 2026 15:42:28 -0800 (PST)
-X-Received: by 2002:a05:701b:2616:b0:182:6c6c:d876 with SMTP id a92af1059eb24-1b5030e74dcmr678949c88.8.1794526947710;
-        Thu, 12 Nov 2026 15:42:27 -0800 (PST)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031468b7sm2689566c88.5.2026.11.12.15.42.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 15:42:27 -0800 (PST)
-Message-ID: <a783b375-7c27-4c91-b40e-7e615d33bc5b@redhat.com>
-Date: Fri, 13 Nov 2026 09:42:21 +1000
+        d=1e100.net; s=20260707; t=1794527036; x=1795131836;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Xo+H9lR23P0A0A4fib3m01tppo5IkRluvh2Z4UoFknA=;
+        b=USYtDKzQu+IlWJgQAzaKr7XkbmrIEyJngJk2Bmb+S7H8Mch2bb5kHPcVENVpe6yu5j
+         AAhcG98eIMXzCXpMiA1FMj46rpKu8d6WeRgA6vk0SBF9BJR9PZAUQKGHftjLqnX+HOTx
+         biwWCIhZJdQC9Q02ughv319oFWjKJ33CGWRrHRDHhJl0WeaDDSej0yzjCT9mwcDM23kH
+         APgJwFf3p/+DWX/mik6N/gYJCjORs1l2DC8203pnkJNeNAIDBs10HMt8pb0kcellUzRW
+         gUABCP3cgH8f2Rp43ATiXM4wo+L/XqjuW2TtDhMBzY83tUEDYrzinjFuJXO8JfwxWPEM
+         D6ag==
+X-Forwarded-Encrypted: i=1; AL+hErFv4aC9/A8BHLgp25tFQJmoMMQdcIScZtDW1NOcLbZYiu0zivaKY8KVpiykqsZZiFJyCQlJ5+AlqnyUcDQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/TGGW+P0fCJlNhy0B7b5v9Thnhnsy66/GBzWJJ9jTtfdufEz6T
+	vIUT4R6kzaunBs34N8GGcbuX7TYweUWuMG7CQxWPE1rQRI+PePXajrVy+vRkIfPSVUW4xoxq+MY
+	0HzjjFCIp93Vsr6UzlhzEEO38CDIa20BPPL8pe6ukoy8dHUeRr8ujxLGn+Wo=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,81 +58,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] arm_mpam: resctrl: Only enable CDP on a resource
- that supports it
-To: Jinjie Ruan <ruanjinjie@huawei.com>, james.morse@arm.com,
- ben.horgan@arm.com, reinette.chatre@intel.com, fenghuay@nvidia.com,
- zengheng4@huawei.com, tan.shaopeng@jp.fujitsu.com, jic23@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261111081316.3828283-1-ruanjinjie@huawei.com>
- <20261111081316.3828283-3-ruanjinjie@huawei.com>
-Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <20261111081316.3828283-3-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:c125:b0:523:dee6:7ae0 with SMTP id
+ 5614622812f47-56e64df18a8mr745987b6e.58.1794527036137; Thu, 12 Nov 2026
+ 15:43:56 -0800 (PST)
+Date: Thu, 12 Nov 2026 15:43:56 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af64f3c.29bc419b.2c18ce.0002.GAE@google.com>
+Subject: [syzbot] [kernel?] INFO: task hung in vhost_task_stop (3)
+From: syzbot <syzbot+f59eab881ec20d423ab0@syzkaller.appspotmail.com>
+To: john.ogness@linutronix.de, linux-kernel@vger.kernel.org, pmladek@suse.com, 
+	printk@lists.linux.dev, rostedt@goodmis.org, senozhatsky@chromium.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/11/26 6:13 PM, Jinjie Ruan wrote:
-> resctrl_arch_set_cdp_enabled() enables CDP for any cache level that is
-> requested, even one that has no MPAM cache controls. Mounting resctrl
-> with -o cdpl2 when only L3 can allocate still turns CDP emulation on for
-> the whole system, so every CLOSID takes two PARTIDs while resctrl keeps
-> its CLOSID count at the number of PARTIDs. Control groups in the upper
-> half then map to PARTIDs beyond mpam_partid_max, which index past the
-> configuration and monitor arrays and program out of range PARTIDs into
-> the MSCs. On QEMU with 5 PARTIDs the first monitor read after creating
-> 2 control groups raises MSMONCFG_ID_RANGE for PARTID 5, and MPAM is
-> disabled.
-> 
-> Do not enable CDP when a resource cannot allocate or is not CDP capable,
-> as x86 does, so the mount fails instead. Only the enable path is checked,
-> since unmount disables CDP on both cache levels to restore the MBA control.
-> 
-> A system where only MBA can allocate, or that only has monitors, now
-> fails a mount with CDP as well: CDP hides the MBA control because
-> mbw_max is a per-PARTID maximum, leaving nothing for CDP to apply to.
-> 
-> Fixes: 6789fb99282c ("arm_mpam: resctrl: Add CDP emulation")
-> Link: https://sashiko.dev/#/bug/linux-05c19551-0bba-4a06-aa2c-3c90fab5853d
-> Suggested-by: Ben Horgan <ben.horgan@arm.com>
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> Cc: <stable@vger.kernel.org> # 7.1+
-> ---
->   drivers/resctrl/mpam_resctrl.c | 4 ++++
->   1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-> index 573617ba09df..afa3c084c475 100644
-> --- a/drivers/resctrl/mpam_resctrl.c
-> +++ b/drivers/resctrl/mpam_resctrl.c
-> @@ -222,6 +222,10 @@ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
->   	if (enable && mpam_partid_max < 1)
->   		return -EINVAL;
->   
-> +	if (enable && (!mpam_resctrl_controls[rid].resctrl_res.alloc_capable ||
-> +		       !mpam_resctrl_controls[rid].resctrl_res.cdp_capable))
-> +		return -EINVAL;
-> +
+Hello,
 
-x86 only checks 'cdp_capable', so this check isn't exactly same as to what's
-done on x86, as claimed in the commit log?
+syzbot found the following issue on:
 
-int resctrl_arch_set_cdp_enabled(enum resctrl_res_level l, bool enable)
-{
-         struct rdt_hw_resource *hw_res = &rdt_resources_all[l];
+HEAD commit:    fa4ad798f6f6 Merge tag 'for-7.4-rc1-tag' of git://git.kern..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=101e0b69580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=d44b06612b68f56
+dashboard link: https://syzkaller.appspot.com/bug?extid=f59eab881ec20d423ab0
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+userspace arch: i386
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1382f8ad580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1782f8ad580000
 
-         if (!hw_res->r_resctrl.cdp_capable)
-                 return -EINVAL;
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/2bde23f56ff1/disk-fa4ad798.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/48017a7575e9/vmlinux-fa4ad798.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/c5dba52ab74d/bzImage-fa4ad798.xz
 
-         :
-}
+AI-generated root cause summary:
+When a KVM VM is initialized, kvm_mmu_start_lpage_recovery() creates the
+"kvm-nx-lpage-recovery" worker thread via vhost_task_create(). Because
+vhost_task_create() clones the calling process with CLONE_THREAD and
+.user_worker = 1 (PF_USER_WORKER) without PF_NOFREEZE, the worker inherits the
+caller's thread group and cgroup freezer state. If the cgroup is subsequently
+frozen (e.g. via cgroup1 freezer.state), the worker thread is trapped in
+__refrigerator() in the TASK_FROZEN state. When the VM file descriptor is
+closed, kvm_mmu_pre_destroy_vm() calls vhost_task_stop(), which sets
+VHOST_TASK_FLAGS_STOP, attempts to wake the worker using wake_up_process()
+(which only targets TASK_NORMAL), and blocks in
+wait_for_completion(&vtsk->exited). Because wake_up_process() cannot wake a task
+in TASK_FROZEN and freezing(current) remains true, the worker never exits,
+causing vhost_task_stop() to hang indefinitely in uninterruptible sleep.
+
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=f59eab881ec20d423ab0
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+f59eab881ec20d423ab0@syzkaller.appspotmail.com
+
+INFO: task syz.0.17:5888 blocked for more than 143 seconds.
+      Not tainted syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:syz.0.17        state:D stack:26216 pid:5888  tgid:5888  ppid:5825   task_flags:0x400040 flags:0x08080002
+Call Trace:
+ <TASK>
+ __schedu
+ context_switch kernel/sched/core.c:5583 [inline]
+ __schedule+0x17dd/0x5830 kernel/sched/core.c:7382
+ __schedule_loop kernel/sched/core.c:7459 [inline]
+ schedule+0x164/0x2b0 kernel/sched/core.c:7474
+ schedule_timeout+0xc0/0x2c0 kernel/time/sleep_timeout.c:75
+ do_wait_for_common kernel/sched/completion.c:100 [inline]
+ __wait_for_common kernel/sched/completion.c:121 [inline]
+ wait_for_common kernel/sched/completion.c:132 [inline]
+ wait_for_completion+0x2c5/0x5d0 kernel/sched/completion.c:153
+ vhost_task_stop+0xc0/0x170 kernel/vhost_task.c:102
+ kvm_arch_pre_destroy_vm+0x68/0x80 arch/x86/kvm/x86.c:10107
+ kvm_destroy_vm virt/kvm/kvm_main.c:1284 [inline]
+ kvm_put_kvm+0x377/0xb40 virt/kvm/kvm_main.c:1350
+ kvm_vm_release+0x6b/0x80 virt/kvm/kvm_main.c:1375
+ __fput+0x408/0xa40 fs/file_table.c:512
+ fput_close_sync+0x11f/0x240 fs/file_table.c:618
+ filp_close_sync+0x6e/0xa0 fs/open.c:1574
+ __range_close fs/file.c:919 [inline]
+ __do_sys_close_range fs/file.c:1003 [inline]
+ __se_sys_close_range+0xa77/0xef0 fs/file.c:954
+ do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+ __do_fast_syscall_32+0x28b/0x6c0 arch/x86/entry/syscall_32.c:282
+ do_fast_syscall_32+0x33/0x70 arch/x86/entry/syscall_32.c:307
+ entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+RIP: 0023:0xf7fb3f1c
+RSP: 002b:00000000ffe837dc EFLAGS: 00000206 ORIG_RAX: 00000000000001b4
+RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 000000000000001e
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+
+Showing all locks held in the system:
+locks held by khungtaskd/33: 1, last CPU#0:
+ #0: ffffffff9015a260 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffffffff9015a260 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffffffff9015a260 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks+0x2e/0x180 kernel/locking/lockdep.c:6871
+locks held by kworker/u8:9/1115: 4, last CPU#0:
+ #0: ffff88813fe4c148 ((wq_completion)events_unbound){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88813fe4c148 ((wq_completion)events_unbound){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88813fe4c148 ((wq_completion)events_unbound){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3460 [inline]
+ #0: ffff88813fe4c148 ((wq_completion)events_unbound){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3578
+ #1: ffff8880b8224708 (psi_seq){-.-.}-{0:0}, at: psi_task_switch+0x57/0x7d0 kernel/sched/psi.c:928
+ #2: ffff8880b8226498 (&base->lock){-.-.}-{2:2}, at: lock_timer_base kernel/time/timer.c:1005 [inline]
+ #2: ffff8880b8226498 (&base->lock){-.-.}-{2:2}, at: __mod_timer+0x1a9/0xed0 kernel/time/timer.c:1086
+ #3: ffffffff9c12ba00 (&obj_hash[i].lock){-.-.}-{2:2}, at: debug_object_activate+0xb7/0x420 lib/debugobjects.c:873
+locks held by kworker/u8:12/1168: 3, last CPU#0:
+ #0: ffff88813fe4c148 ((wq_completion)events_unbound){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88813fe4c148 ((wq_completion)events_unbound){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88813fe4c148 ((wq_completion)events_unbound){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3460 [inline]
+ #0: ffff88813fe4c148 ((wq_completion)events_unbound){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3578
+ #1: ffffc900050f7c40 ((work_completion)(&(&nsim_dev->trap_data->trap_report_dw)->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc900050f7c40 ((work_completion)(&(&nsim_dev->trap_data->trap_report_dw)->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc900050f7c40 ((work_completion)(&(&nsim_dev->trap_data->trap_report_dw)->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3460 [inline]
+ #1: ffffc900050f7c40 ((work_completion)(&(&nsim_dev->trap_data->trap_report_dw)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3578
+ #2: ffff888037387258 (&devlink->lock_key#9){+.+.}-{4:4}, at: nsim_dev_trap_report_work+0x57/0xb30 drivers/net/netdevsim/dev.c:834
+locks held by kworker/0:2/1216: 3, last CPU#0:
+ #0: ffff88813fe0dd48 ((wq_completion)events_power_efficient){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88813fe0dd48 ((wq_completion)events_power_efficient){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88813fe0dd48 ((wq_completion)events_power_efficient){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3460 [inline]
+ #0: ffff88813fe0dd48 ((wq_completion)events_power_efficient){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3578
+ #1: ffffc90005487c40 ((work_completion)(&(&gc_work->dwork)->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90005487c40 ((work_completion)(&(&gc_work->dwork)->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90005487c40 ((work_completion)(&(&gc_work->dwork)->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3460 [inline]
+ #1: ffffc90005487c40 ((work_completion)(&(&gc_work->dwork)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3578
+ #2: ffffffff9015a260 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #2: ffffffff9015a260 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #2: ffffffff9015a260 (rcu_read_lock){....}-{1:3}, at: gc_worker+0x274/0x1890 net/netfilter/nf_conntrack_core.c:1530
+locks held by getty/5391: 2, on CPU#1:
+ #0: ffff8880385230a0 (&tty->ldisc_sem){++++}-{0:0}, at: tty_ldisc_ref_wait+0x25/0x70 drivers/tty/tty_ldisc.c:243
+ #1: ffffc900032362e8 (&ldata->atomic_read_lock){+.+.}-{4:4}, at: n_tty_read+0x45a/0x1360 drivers/tty/n_tty.c:2211
+
+=============================================
+
+NMI backtrace for cpu 1
+CPU: 1 UID: 0 PID: 33 Comm: khungtaskd Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/15/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ nmi_cpu_backtrace+0x274/0x2d0 lib/nmi_backtrace.c:123
+ nmi_trigger_cpumask_backtrace+0x17d/0x390 lib/nmi_backtrace.c:66
+ trigger_all_cpu_backtrace include/linux/nmi.h:164 [inline]
+ __sys_info lib/sys_info.c:157 [inline]
+ sys_info+0x135/0x170 lib/sys_info.c:165
+ check_hung_uninterruptible_tasks kernel/hung_task.c:377 [inline]
+ watchdog+0x1073/0x10f0 kernel/hung_task.c:598
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Sending NMI from CPU 1 to CPUs 0:
+NMI backtrace for cpu 0
+CPU: 0 UID: 0 PID: 32 Comm: pr/ttyS0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/15/2026
+RIP: 0010:io_serial_in+0x77/0xc0 drivers/tty/serial/8250/8250_port.c:425
+Code: e8 2e 6a 43 fc 44 89 f9 d3 e3 49 83 c6 40 4c 89 f0 48 c1 e8 03 42 80 3c 20 00 74 08 4c 89 f7 e8 2f f3 ba fc 41 03 1e 89 da ec <0f> b6 c0 5b 41 5c 41 5e 41 5f e9 9a 14 83 06 cc 44 89 f9 80 e1 07
+RSP: 0018:ffffc90000a878b8 EFLAGS: 00000002
+RAX: 1ffffffff3840b00 RBX: 00000000000003fd RCX: 0000000000000000
+RDX: 00000000000003fd RSI: 0000000000000000 RDI: 0000000000000020
+RBP: dffffc0000000000 R08: 0000000000000003 R09: 0000000000000004
+R10: dffffc0000000000 R11: ffffffff8585a440 R12: dffffc0000000000
+R13: 0000000000000000 R14: ffffffff9c205ec0 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff888123409000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000563e7aa97d08 CR3: 000000000ff48000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ serial_in drivers/tty/serial/8250/8250.h:134 [inline]
+ serial_lsr_in drivers/tty/serial/8250/8250.h:156 [inline]
+ wait_for_lsr+0x184/0x2f0 drivers/tty/serial/8250/8250_port.c:2036
+ serial8250_fifo_wait_for_lsr_thre drivers/tty/serial/8250/8250_port.c:3294 [inline]
+ __serial8250_console_fifo_write+0xcd/0x3e0 drivers/tty/serial/8250/8250_port.c:3369
+ serial8250_console_fifo_write drivers/tty/serial/8250/8250_port.c:3402 [inline]
+ __serial8250_console_write drivers/tty/serial/8250/8250_port.c:3456 [inline]
+ serial8250_console_write+0xa7e/0x1200 drivers/tty/serial/8250/8250_port.c:3520
+ nbcon_emit_next_record+0xef5/0x1a90 kernel/printk/nbcon.c:-1
+ nbcon_emit_one kernel/printk/nbcon.c:1157 [inline]
+ nbcon_kthread_func+0x6d9/0x8d0 kernel/printk/nbcon.c:1271
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
 
->   	/*
->   	 * resctrl_arch_set_cdp_enabled() is only called with enable set to
->   	 * false on error and unmount.
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Thanks,
-Gavin
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
