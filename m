@@ -1,52 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794484699;
-	b=g5jj33MGvJXQ0iMYPiQZCH6uCIFjQRzrkh9VhsX65RjMmQ5bGOHsZ86wXO2oBK4oaCow
-	 MOf56g57dJNvFLHLFuhv83KyKAvVWzDuYmpIlqMbR/39DfQeMiWDwHJ2QLnOIrsy4QDxO
-	 CrWMnid8BENRDLRaLcyDvvHF+CU8Z1stFh36F6AugnpZrRhfIb0mOv629TDvYRC1cRi7j
-	 +qkuE9YF1Wga2gdrwMdUUHEphc7jfATzRfDG90EfcHQM7jqvCxjHVQH7LlyAFRXP+loxh
-	 jtuLb9QUGZ7SPQhoy69CJs7CaT+4YJId9crTwg/SMJwKJquyYsK80MmP2KZ9N2fzHEg==
+	t=1794484754;
+	b=WYKj9VtNjORSKTzqwjvcTUU17k5PG+5pYLke3lyC2sboZV/AuEz1yB/W5hb7m7DN7nAC
+	 3bkmPTTr3DQrKPAqGdcZgS05SrWFzrJg5/x+hDH6zDO2bYyc1w6EzXlPLc9wqKDpx7mvK
+	 sd1mSFMmNSfu6guAVsMI05KnTrONYm5NLGy1i6Y4yQ/0s6MUxLCjQfDdoi24ESVOr6wbE
+	 yLlywrZJP5Cc1mr+hiAngsBERVj6j2f3j/kguH1jFa+nPuXblyWoYO46aHhfPPVVmQUtZ
+	 WlT28nUdpPZOix+wSwB0KZGCYkJgFp6k7b3rCNYryCYfTgjoihYm6VU7s7QvCqE53hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794484699;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
-	bh=sfLHcWpnq20caHJHCxxcMBF8FhCQ66tT+/gp4ILq9r0=;
-	b=NUoiiHPBMynczg1GZdP5y/GEvJ+KnpPCIC4rs2V8GmNVVrB4nrPsxzkon85IkhGp3Q5Q
-	 JigU2CxJMKmQtB2tfnDs7J7eWo+AO1JD50hAyUQtsEVhCnYQ52vkLANHf6oG2WpwqVFfe
-	 K6mLMVI5uKXOGSDviRRlJkmDePaKG06HQ4VM8sd3Bhv8y+lMrkAbFtb6MQ3HeHeGPtODi
-	 PMUWHNuO/U2UHoJ6q83/wTXxxV92sEfl3YPNvSP4Vu+xVE49BoNGogaSRaeSJ1F4SgIx5
-	 O/CKOb6eNw7mlWryyrf3hBFzm+ARrMdmGeHuX/lY/hN8R6VeQs9OO1xHPkS4XUm5YVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794484754;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 User-Agent;
+	bh=Kii4d1l8a9WqO76mq39yEuoHq+1skubE8Z+vWj++inQ=;
+	b=qCHZSa0U4vNDxPE9QqJuM5M7qowP/WdOIKigjUJFvpBHC47YvvpwL7b4QyZocv3AJHXA
+	 CwSLup2DcUGTFdMBMcFA0vzJKDMp2BCYHEyJRnJUYngfbGV/TfTIbrtP68jkMh+VyMxjI
+	 vRh71fICcnNCeYC72vcKCSUhfOtgev/IQl2ldRVua+AZfmoVvVhJ0hQMd9wPqjfWT0HrV
+	 gy8GwSoMwpEXWkGxz8LsjvQDGrIoOSfHk90qsPT8zXIVkiK/b8wSJbJLNTgggTmhq4yqL
+	 FKFLWNDtZIKZQa5upUs6HeRtZaKub45JDmtbVvxHC4sWEv7ZDEaAUrZyF5ySu4VeLFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=Mc7sHSCI;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NZr9jiYM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2A8606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:58:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F2A8606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28BFD606A31C;
+	Thu, 12 Nov 2026 11:59:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=Mc7sHSCI
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 76D18A0064;
-	Thu, 12 Nov 2026 12:58:13 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1794484695; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=sfLHcWpnq20caHJHCxxcMBF8FhCQ66tT+/gp4ILq9r0=;
-	b=Mc7sHSCI2CgJp4mgP7GG45uP/g/da4TRVl3aPYcP384KJOcb7Z0uaFPXLfv6M19OeX0Z2q
-	SMMcfT9PUOvLXXI/hF276MyJc9jjklZNvnvlPksAWcQUAQN7h5IyIUEr+6OxC7SPig7h+q
-	rTVTs/6uOCMcTxNBZeasPHEzpRoc+sddLfYBGplDIr/tPkBs7z6rPdjzsCRLZf4ZtyMLZj
-	C2iZMrz1M/by+q4+wusT1MmDDrXVvAunoKdHRZHf4qdefAmnxF8qINQ3LaEE+1+cpBCLca
-	u+ZD8HBtp61/PWhgxqdEqfeSUwDNtcdqlE/G27Ng7WvFdGDMzj4N+pCRFHaAkA==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Thu, 12 Nov 2026 12:58:11 +0100
-Subject: [PATCH] irqchip/bcm2712-mip: Fix multi-MSI allocation for
- non-power-of-two counts
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NZr9jiYM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D6321F00A05;
+	Thu, 12 Nov 2026 11:59:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794484754;
+	bh=Kii4d1l8a9WqO76mq39yEuoHq+1skubE8Z+vWj++inQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NZr9jiYMQACePlXmIejgrEHj9jfkpM7XdYH7LrYIm+P3nN3FYtwkXntutAt3tAYbH
+	 IvltLuN71gbyPWXRf2r27zZc7mIDyWIOlEk+vIIb1mL//qJcmvKU8yPoqWPQu9Rduz
+	 dk+PCON81vO8RZji9RPoqyuLNpPWMNvQqk9Ds/UEPHwL554Eut6UcCyqzAjh7zMteH
+	 aNJ0CMDLEztnJU+PLluUS3PampaBI58wXJGinfXnWcsq9f31q2yT7TypRZwWMJUXS6
+	 ki0RABOv5U29mzYd5Ct6b1T6WWjY9ZnScIXcDR11EamBvUJrfcPONZxmiOljWau9Z1
+	 htrTqKjGReABA==
+Date: Thu, 12 Nov 2026 06:59:11 -0500
+From: Brian Masney <masneyb@kernel.org>
+To: Johnny Liu <johnliu@nvidia.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Prashant Gaikwad <pgaikwad@nvidia.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Douglas Anderson <dianders@chromium.org>,
+	Aniruddha Rao <anrao@nvidia.com>, devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org
+Subject: Re: [PATCH v3 4/4] clk: tegra: bpmp: Do not cache the EMC clock rate
+Message-ID: <avWqD-Rm5-85Dj5c@x1g10>
+References: <20261102121202.2431928-1-johnliu@nvidia.com>
+ <20261102121202.2431928-5-johnliu@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,82 +68,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-bcm2712-mip-msi-align-v1-1-68090868c979@tipi-net.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQrCMAyA4VcZOS/QRGiZrzJ22Go2I7YbjYow9
- u5WPX6H/9/BpKgYnJsdirzUdM0V1DYQr2NeBPVSDezYE7mAU0wciDHphskUx7suGb0/8Rxi5x1
- 1UNutyKzv37cf/rbndJP4+M7gOD7j2DNjeQAAAA==
-X-Change-ID: 20261107-bcm2712-mip-msi-align-6632f7c96019
-To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Stanimir Varbanov <svarbanov@suse.de>
-Cc: =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, Nicolai Buchwitz <nb@tipi-net.de>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102121202.2431928-5-johnliu@nvidia.com>
+User-Agent: Mutt/2.4.2 (2026-08-30)
 
-ilog2() rounds down, so a request for three vectors reserves only two
-slots and the third can overlap another allocation. The alignment is
-also applied to the bitmap index and ignores the msi_offset that is
-added to the message data.
+On Mon, Nov 02, 2026 at 12:12:02PM +0000, Johnny Liu wrote:
+> EMC clock scaling is managed by the BPMP itself without kernel
+> involvement. When the rate changes on the BPMP side, clk_get_rate() on
+> the kernel side returns the stale value cached by the common clock
+> framework instead of the rate programmed by the BPMP.
+> 
+> Set CLK_GET_RATE_NOCACHE on the EMC clock, identified by the per-SoC
+> emc_clk_id from the BPMP SoC data, so that rate queries are forwarded to
+> the BPMP.
+> 
+> Signed-off-by: Johnny Liu <johnliu@nvidia.com>
 
-Reserve exactly the requested number of slots and align the start of
-the message data block to the vector count rounded up to a power of
-two.
-
-Fixes: 32c6c054661a ("irqchip: Add Broadcom BCM2712 MSI-X interrupt controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
----
-Found this while working on a series that uses all 20 MIP1 outputs on
-BCM2712. Even though I can reproduce this on a custom Raspberry Pi CM5
-based board, I'm not aware of any bug reports regarding this (yet).
-
-The fix has been tested on Raspberry Pi CM5.
----
- drivers/irqchip/irq-bcm2712-mip.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/irqchip/irq-bcm2712-mip.c b/drivers/irqchip/irq-bcm2712-mip.c
-index 06a6ab6270ad3..a0f45df0e4c87 100644
---- a/drivers/irqchip/irq-bcm2712-mip.c
-+++ b/drivers/irqchip/irq-bcm2712-mip.c
-@@ -71,15 +71,24 @@ static struct irq_chip mip_middle_irq_chip = {
- 
- static int mip_alloc_hwirq(struct mip_priv *mip, unsigned int nr_irqs)
- {
-+	unsigned long hwirq;
-+
- 	guard(spinlock)(&mip->lock);
--	return bitmap_find_free_region(mip->bitmap, mip->num_msis, ilog2(nr_irqs));
-+	hwirq = bitmap_find_next_zero_area_off(mip->bitmap, mip->num_msis, 0,
-+					       nr_irqs, roundup_pow_of_two(nr_irqs) - 1,
-+					       mip->msi_offset);
-+	if (hwirq >= mip->num_msis)
-+		return -ENOSPC;
-+
-+	bitmap_set(mip->bitmap, hwirq, nr_irqs);
-+	return hwirq;
- }
- 
- static void mip_free_hwirq(struct mip_priv *mip, unsigned int hwirq,
- 			   unsigned int nr_irqs)
- {
- 	guard(spinlock)(&mip->lock);
--	bitmap_release_region(mip->bitmap, hwirq, ilog2(nr_irqs));
-+	bitmap_clear(mip->bitmap, hwirq, nr_irqs);
- }
- 
- static int mip_middle_domain_alloc(struct irq_domain *domain, unsigned int virq,
-
----
-base-commit: 9d66f26fefacebfeed15de31c1123451a17ff119
-change-id: 20261107-bcm2712-mip-msi-align-6632f7c96019
-
-Best regards,
---  
-Nicolai Buchwitz <nb@tipi-net.de>
+Acked-by: Brian Masney <masneyb@kernel.org>
 
