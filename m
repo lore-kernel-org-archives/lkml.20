@@ -1,53 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794491961;
-	b=SS6mhGu+mbf4UjaZH6ljZYUZE0rpr1G12KAKQT8qgjZcHMIaHzzSbyDUmLpPwuhjm49r
-	 OwycLZ2bvuagH1MP63MnUyjHmGHKXMCBom6MH7UpcOGqqlKaOgFDtMCpItKSJDWFL0csg
-	 jWrh01ex/RencZzZ4cY1QJFrXSRnkAzCoAwXXtn+ajbG29rCs5eNcgo2YsCNMsUjNQ+Aq
-	 5C5bqiX4/uHTKotitydegAr0N9qrJuXUDbTaWWyNjsOHZEl8duVOgOOtRAudnV45ttzob
-	 /bDQS3rraJieJNsVH/RhNVkFkRwQ8UL8nKtDfSmIzby0KxvIKTf7k36OoYA1vPlp1dQ==
+	t=1794491964;
+	b=mv+kRTRiDtNofDEcK05qcuK1yIki5VESaQhRmn6hd6EkgEM7aOwVnOXaMmFIud1PHPIV
+	 /uxsEnMMa+Eg0kr+se1A8Ywsrx0j5+JoLXfGi//zVxrmcY2F7hTQB4BGw2uyYT15Wc4Nw
+	 lxmrsPrqaPvZS3mGzXavcetsfHYPTNoUXg8kGWQQQNLLVNMP2KV2iiKHDBXwXrygSCJBy
+	 f/VEHZXRfuhfgHOVyJ3DdW4RNuGPblZHOjH4s8wMtuUlcIllxiyyLf4djEb1OQw2aV5HW
+	 ARWcjqrjIC/7jd4KKzYH5w8JtskJceCZLEKUUBBcqqOHHcLIjPOL4nJB28JExXCKyYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794491961;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
-	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=lXG9MBSQhDrGOCZTWj0nDvoJTqPM2YbPFRE/i7Hzskg=;
-	b=4RlLMOVIBi+X4ocAsQGZ4ROnvAn7ROlPq2SvTyxac7RtskAndwGP7Rz+mafa6wNcs8g5
-	 O3DD39WPcWr1RrUQpm5sK9cPDkhbMdt+PgYfwQgHIajp4bu/os/1fVVuCK9PvF7wxmopo
-	 sOGv+hcRDIuL9s96Ip1FFwUab/70NEhnIBAZWVXijOgWS6fKiBk33aXpI+TaQlgsybdSc
-	 rIcnTNijMsqulNjv2BNYAP8/mwGV18CYGEt4LKPvUY2Hyut3v2g9KYIBzPvIDanruaROC
-	 jOlwqqLexpIZIQcSi7/jDkkfKzKWrd/UtT7QmWfFvYpET+/TktnVcE7utlm+h+4LFtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794491964;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=MSdOh3wWr5sEcBlfoBA7IeLDEYWG921LNEXwJOfhaAM=;
+	b=1NKU4idX213HiNdENF+3rHRHiZifV8KpIujIZ3RiHkaZ6mzeORBkksmBzTuSkXLE/8ic
+	 /E2IXcva4YpplGlr6dSED/mF7adC0U4aNzE1TjuyUYT4Fcjovy62jhIkILDvsVUfGLZu4
+	 uyC/affKlNRtrjMC38kIJiN4zLGxovrufeUdCqbAaarg5MH4QDsKZOeZ0b6hbTQsVVd7X
+	 bpj+KApvn1CPMphzq3RZy8DicOgqFxEsUzTxDK+MvAKiOLo6RMEaKAydo3VNHCmFATpFP
+	 pl+nVdF4bmKixLhg28+svJ8a4A9ql401Fjm20bnLnzl3/a66ZxbiLaC5d5y5UyHohrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b="WW/cxJNs";
-	arc=none smtp.remote-ip=101.71.155.101
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQNlFTZd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A070560A6F73;
-	Thu, 12 Nov 2026 13:59:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A070560A6F73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84561606C70D;
+	Thu, 12 Nov 2026 13:59:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=WW/cxJNs
-Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 547738931;
-	Thu, 12 Nov 2026 21:59:15 +0800 (GMT+08:00)
-From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: patches@opensource.cirrus.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: wm8994: Fix potential DSP control text array leaks
-Date: Thu, 12 Nov 2026 21:59:14 +0800
-Message-ID: <20261112-88a3a7ff32-asoc-wm8994@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQNlFTZd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE2F21F00A08;
+	Thu, 12 Nov 2026 13:59:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794491964;
+	bh=MSdOh3wWr5sEcBlfoBA7IeLDEYWG921LNEXwJOfhaAM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eQNlFTZdXuIoj1MzviluZHyjVA7dfuxIy+5koRqkv0gJWrfMQ/n06eohTgQrzP+k1
+	 LDDIoJFJ/KGoMdNNVucHdsoFd9Ac2IZsDKCONek+vlzOVkjVdFVft3Qpo6ds77An8F
+	 SBIx2FAvvydwO0OBXiuSjgTUpv1dMjGbxbKapW3Ka5UFd0n0LEI0oBQCug5pGUe/r4
+	 KXusqSQTJjpBB7ixtRN435k9Q78gPnRKLHys3kPaXLHGKHpLbddKptNgpQts+oE1L3
+	 Ex1gXiTIOLg62Jgl3ofsyFFOoqTrTTdkJDUiY/cZ7SPHn+wQhl6qws0gQwR5dN1fWp
+	 2FZPjq5Yo55Kw==
+Date: Thu, 12 Nov 2026 07:59:21 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	devicetree@vger.kernel.org, linux-media@vger.kernel.org,
+	Vaibhav Hiremath <hvaibhav@ti.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: media: i2c: ti,tvp514x: Convert to DT schema
+Message-ID: <179449196091.359704.1222472038664247368.robh@kernel.org>
+References: <20261109-ti-tvp514x-v1-1-151cc74f67bd@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,52 +59,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1d00e382803a1kunm5dcdbc1b2a0b
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHk1KVkJISx9DSU0aQksdTVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
-	NMVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=WW/cxJNspN3aJBbC9EvDLguQurxe2MAVR9yW4k/IhpjaR16Ym3ijDg9wWuV8SuSVjjfEsvdDqyeZBEB5A0AzX8Eh8k0Jg3Qrgji1sEk3ljVk3ogk11ERmfGql5e0bZm7D1Ky5a5EAterOcttTmu6S/Ark3hbZ49wcBsEtFBS5OE=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
-	bh=lXG9MBSQhDrGOCZTWj0nDvoJTqPM2YbPFRE/i7Hzskg=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109-ti-tvp514x-v1-1-151cc74f67bd@gmail.com>
 
-wm8958_dsp2_init() allocates text arrays for the DSP mode controls,
-but component removal does not free them.
 
-Release the arrays on removal and clear their pointers so a later
-component probe that stops partway through allocation cannot leave
-old pointers for the next removal.
+On Mon, 09 Nov 2026 01:10:06 +0530, Bhargav Joshi wrote:
+> Convert Texas Instruments TVP514x video decoder from text to DT schema.
+> The legacy text binding marked the port endpoint as required, but
+> in-tree DTS files omit it. Make the endpoint optional.
+> 
+> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+> ---
+>  .../devicetree/bindings/media/i2c/ti,tvp514x.txt   | 44 -------------
+>  .../devicetree/bindings/media/i2c/ti,tvp514x.yaml  | 72 ++++++++++++++++++++++
+>  2 files changed, 72 insertions(+), 44 deletions(-)
+> 
 
-This issue was found by our static analysis tool under development.
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-Fixes: 131d81061eba ("ASoC: Allow user-specified WM8958 multiband compressor configurations")
-Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
----
- sound/soc/codecs/wm8994.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
-index 6b91e02f130b..1c7619f1d481 100644
---- a/sound/soc/codecs/wm8994.c
-+++ b/sound/soc/codecs/wm8994.c
-@@ -4640,6 +4640,14 @@ static void wm8994_component_remove(struct snd_soc_component *component)
- 	release_firmware(wm8994->mbc_vss);
- 	release_firmware(wm8994->enh_eq);
- 	kfree(wm8994->retune_mobile_texts);
-+	kfree(wm8994->mbc_texts);
-+	kfree(wm8994->vss_texts);
-+	kfree(wm8994->vss_hpf_texts);
-+	kfree(wm8994->enh_eq_texts);
-+	wm8994->mbc_texts = NULL;
-+	wm8994->vss_texts = NULL;
-+	wm8994->vss_hpf_texts = NULL;
-+	wm8994->enh_eq_texts = NULL;
- }
- 
- static const struct snd_soc_component_driver soc_component_dev_wm8994 = {
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
