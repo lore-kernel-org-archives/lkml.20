@@ -1,54 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794484762;
-	b=wtnitx07CnuQTHayWn9sb884zEuPiGZOsLRe2C+Q/lirIXSA+ZfLIlopK4v5T1AG3B9f
-	 9WsAXji03nruDCS//zgQ9zdFmpqWXllaNCjDj4vdmH1hfPtUaB2m+Fh6tionLH0AI9D7t
-	 dG5UwgTqZD51oqqOZbdGfLTzpvHMgR6qo/zo5xICtqggXoHDZkd7syroE5M/ymGh/5ZG3
-	 FmSpicIPg0dDsNKoC/XbiMiFaH2L42Ftn7+U0TIUmZqJtKdYbkrQcvGsqGWow7bpNCog1
-	 O8bPBdXr7Mtzu8ynn6QpmOgNypgBj799Dt+2acwSeLleq9F5RnsJVOHazQz4z3oiPLg==
+	t=1794484763;
+	b=J6QaDsJdVCNeyW+wWXmq7pJwVop2wyqo22VWem6Q9+BE4Y/Cu+E0x//ji1GzNA7boC/c
+	 prD5gQbUjfSJWXfiQFtXzM3WtlZfNcViP3gpIxprmpaOxGobjsR9NQWDfRL6Y3Nl9gEzR
+	 pnFNUzmaExE0e6rms+DcFC0EGfHx6D4ZEf2C6mAlfVwD8ftoA/UFBLKy2AZl0/y1PT5WP
+	 AuDux/glvxYV0Fy+thHUBikhb13/M1xLgbPaW6s4qOLw6POccPjPl3Mj0RNrxCGwajKtk
+	 Iuz7GZB0JjdyCYgGI0aUQGosBhF3332cDHQXsTPYTzV1DCvacPE+sEOU8RDvI/6oQ8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794484762;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=8Exqu4NcRdV/N84WhnKHI+8tv0Q8pqFx+3FzcBJtyiQ=;
-	b=dzWx2KBq+f58XuHEy3Nd2dRhLYjcr7GF/sQACpzltYHPNW5OmrYvXOlil4uaJN4N9Mkv
-	 zeYYA5x0W0HooR50qoIrNesSWR1zPnLYxPUVemHvqJt0dzgAVK5jBdOmqFqNS5fdljKHb
-	 6/1VEGRvQ9pWBAUG0FDCbEky2MkY11uUBj/mobSJtc/illxjrh4QyubxtdAaDLNpuzIqx
-	 dfHQwVW/i9ylNWlZTdTmw+XatGooet6PUOfntQkrjqRtrvIrC5EsfOChhMTPbgF/dg2fJ
-	 1VGljVIcKUxgA3BGuKg3jZ2olf+zuopMAeg86MbYRyV1kizHULOoasWvvg+X6N2F5fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794484763;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=dZfij8Ivbo850EMf4X4H6hd0rBMJmTn82NT+hkeDdK4=;
+	b=o7XsKP8dtsp9obGeC764ghsGiYMyZcUrasEPCoCuRX7IP1RzuM4Z32bswDQmQ3cFbnDZ
+	 vUSEecnjsTSbzhrzQzI1qK5i2Bw1SynN7rKuFnVZuU3zwlXE9fKMgLehHMinLZXpBWmXI
+	 sgzYZA8i0fj1xT8IiR29UQtWgYUK3rA0DUOCcvisyVlNi+K6kDGqPdqcymt+btzFDR+QW
+	 N/iuQBieJVJbHUiDfMa72uYusSuC9D6vKWlqWGqgBMjtyNLoTf8voT3oT2d5zkyv6dckx
+	 AHOEQavtOT1PgoPAGr91v5+a/wYybnexd77A9Yf5OkmKFeAx8xrlycCzsUM0kyh7X/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MAvSJI8M;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B55C2606A32A
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:59:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B55C2606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-567ac848d83so4897195b6e.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:59:21 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794484761; x=1795089561;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8Exqu4NcRdV/N84WhnKHI+8tv0Q8pqFx+3FzcBJtyiQ=;
-        b=Utkf5AENjQ6wwPDGecya7nXV4smcjZGXGfpicpQw8nmN0yE7zb28r0XejbQEbovBdO
-         WnVlDwVhc5BNCR9tuSgKISCbVg08RGuK6ParlqYFd0GHtyJy5pUTmujxlRCLlWieKWO5
-         EAZLR6z+7EBK9b9HpC5ICCnsoqrP8+PedycOmub0MSuq40/l+G45Wl/xHzjtF2sFL02Q
-         TB6Ex0Lz+s0ieS4MpVWZmr8oj7STs/hVjo2jzrajZjpqJ3ts5x9NLNEImro2zhXWbpgb
-         kp6orLZ7pha/TC2sq7V6+Bi0WlSLDYCA7TUc64FEZS/wgSTcXxNwrvpgAI2PEjWPwPLx
-         QoFQ==
-X-Forwarded-Encrypted: i=1; AL+hErENLG+uThvWpZ4+g6sDb9qUk8aNOD1WETMyIMpn0t1xQVaP45UQP8GTh/isOAEKcphixia4om/kq6ne4NU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kSW/DHTtz19pGCVjARthsxVJeLRclMCkPCdCGPOlwDbz2vv4k
-	W8iUmkyux4qA93wQd6eQGvSTqyS38AlVIFS+0Dxim6Sj5QFD7+29GW3Mb+/4PR/McVB5l23X7B6
-	M9ftsvz0y+GYPvj1z6GBIhT2hWa/KGHmYujo1peYAFAes18hdzUZTacggTWo=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B6B606A880
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:59:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MAvSJI8M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7C1D1F00A05;
+	Thu, 12 Nov 2026 11:59:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794484762;
+	bh=dZfij8Ivbo850EMf4X4H6hd0rBMJmTn82NT+hkeDdK4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MAvSJI8MfGsC2DOUgxr8BEjv8QyT+8eTHZkaoP5FeG2QN6roNxmILNLbq2muIIYjo
+	 /WV8YzG/Z9o3Zx+i4Z2oozyDCHYux4cyQGf0SxIHcF50NbpNQoxnO3AVaujPQ+uHLT
+	 XGPHv/bGL4+YuGrCxoKqdOtgmnwmk/0Zzyu8eryDiJ1Rlg1cqZQKjn0J70T12tLTWi
+	 kZFxtFe10D7iKNA3hMLrM9/Kt5IBU06UMYWLCMd7eWlId78gmh9cQABgto+psYwiqr
+	 NUju/SooCxdRaQFBywYvhH8jK1BF3WroSvoiWbBjXDdDCcFxVaUszd684k6yHAwVq7
+	 BCXyobxr+QMWg==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id C1DC71980047;
+	Thu, 12 Nov 2026 06:59:18 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Thu, 12 Nov 2026 06:59:20 -0500
+X-ME-Sender: <xms:Fqr1ak272VecbDQ9jXtTulx7h_XDkAZmtiU0CMBbYHDNOuUpG6RBbQ>
+    <xme:Fqr1aj_hSHkh6oQJRfNQSizQdRAssetUdHIDwfr6imPAGOQxWe2gimUxXdRTudzKf
+    bv9fNJjmQjfd9VqmswesRwIbJeogZ2G3s0JFA1IU1Ae9V4mADoA4QE>
+X-ME-Received: <xmr:Fqr1aqeSpr5g1iT1RwJTuEaiLMrBglpVP6AgFZUmqOA6502iRjKsWhnYz1A>
+X-ME-Proxy-Cause: dmFkZTF5BU3WKP534phhHhe91k0ltQ4AEcFtiJEGzM5fvraOsxf/CFFg94zJJiqAvx4MC7
+    5G0d3Vaycvut1/TS01R4AQCvQudUjPvHvi4ITQUT+gSumV4dJ+nWwtffp4zM2sG9Qakcft
+    80LUcZHh3jlAZxiy/qC5wYiXInBRNL7m/cuH4S4+4+V2YtKKGAOr6Q4sN0HSRK5eQ4dKKy
+    INqTBMLT/vJA9jJX8Ro3Ha1nGs6AXVWGfo7nkTyy/Kc0uJk9pP9dbjt7Vv4AOLipphcCDC
+    1pmzDhBY8jYKgt5qyEDRApnHLss25fh9YXwGsPczHz4U4vMksNf+outF9GGsQ1KOhBByaX
+    KM31tmmA9W6b4JBrVNb97UOplCZhktLk5GAkkhgV1Z5kUY7T9itjLDDdySdphyARbWROga
+    ewYyvZBoNJEcRiEgrREihRMXzNCRB+5qn1wBpMh0fVznbU/DRh0kdqvrpYHFIO0azopj9B
+    X7T5V5F9Ncz+S9Xt+41+jcu325mOjKKF+psye6uog27smL8fEXVziH3vXhZg/wqwS1UYeh
+    lBBRWEzhYj0bJBdZdC6eDxqJKko8abBb+SeEvBA5uxCG1RLAZIUoeSsMM9O/MYpZacqcwL
+    woltQmaAuM883WEOIYuDqD71i5r0/iriczau0iXd2kaIWlDJ7xasSnsFMLgA
+X-ME-Proxy: <xmx:Fqr1av5KReVWErtPQqDZz-WjpMj7qvfHg5XxC5DOvWiNreGWeUN5sA>
+    <xmx:Fqr1amN7UeLC9tHaGajH6oZA4PCQio60F4TKJEN9Z8DuJ9hkt_Aujg>
+    <xmx:Fqr1ao7C-vh-q4ZkbQbez4QmdZwmM_4HhP3rVCMr-9cfnihobyrBag>
+    <xmx:Fqr1alyqNRWqgZ5uOSd1Rehn44rX-y5A3LEPu6Y50g2v3Ac4tusM4A>
+    <xmx:Fqr1agRClIUjlRp08CLhHiK3-DYcWmdHHVA4hkRJeY1sQVisguCEN-qd>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 12 Nov 2026 06:59:17 -0500 (EST)
+Date: Thu, 12 Nov 2026 11:59:16 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, linux-coco@lists.linux.dev, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] x86/virt/tdx: remove kernel-doc syntax from comment
+Message-ID: <avWp_b6x719N2_AA@thinkstation>
+References: <20261111214540.681690-2-manuelebnerli@mailbox.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,92 +88,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1a09:b0:53a:ad3c:17aa with SMTP id
- 5614622812f47-56b98620830mr5072770b6e.55.1794484760823; Thu, 12 Nov 2026
- 03:59:20 -0800 (PST)
-Date: Thu, 12 Nov 2026 03:59:20 -0800
-In-Reply-To: <20261112115906.17915-1-diasyzhangqing@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af5aa18.41d0a7c9.ab0b9.0108.GAE@google.com>
-Subject: Re: [PATCH] ext4: wait for tail page commit before truncating a
- failed write
-From: syzbot <syzbot+f111db4cb2acd44eb2f4@syzkaller.appspotmail.com>
-To: diasyzhangqing@gmail.com
-Cc: adilger.kernel@dilger.ca, diasyzhang@tencent.com, diasyzhangqing@gmail.com, 
-	jack@suse.cz, libaokun@linux.alibaba.com, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
-	tytso@mit.edu, yi.zhang@huawei.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111214540.681690-2-manuelebnerli@mailbox.org>
 
-> From: Qing Zhang <diasyzhang@tencent.com>
->
-> In data=journal mode, a failed extending write can leave buffers beyond
-> i_size attached to the committing transaction. When blocksize < PAGE_SIZE,
-> invalidating these buffers in the partial tail folio returns -EBUSY,
-> triggering a warning in ext4_journalled_invalidate_folio() and leaving
-> invalidation incomplete.
->
-> Call ext4_wait_for_tail_page_commit() before truncating the page cache
-> in ext4_truncate_failed_write(), as is already done when shrinking a file
-> via ext4_setattr(). The helper releases the folio lock before waiting
-> for the commit to finish, then retries invalidation.
->
-> Fixes: 53e872681fed ("ext4: fix deadlock in journal_unmap_buffer()")
-> Reported-by: syzbot+f111db4cb2acd44eb2f4@syzkaller.appspotmail.com
-> Closes: https://syzbot.appspot.com/bug?extid=f111db4cb2acd44eb2f4
-> Signed-off-by: Qing Zhang <diasyzhang@tencent.com>
-> ---
-> #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+On Wed, Nov 11, 2026 at 10:45:40PM +0100, Manuel Ebner wrote:
+> Remove kernel-doc syntax form multiline comment, fixing:
+>   $ ./scripts/kernel-doc --none arch/x86/virt/vmx/tdx/tdx.c
+>   Warning: arch/x86/virt/vmx/tdx/tdx.c:123 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+>    * Enable VMXON and then do one-time TDX module per-cpu initialization SEAMCALL
+> 
+> Fixes: 165e77353831 ("KVM: x86/tdx: Do VMXON and TDX-Module initialization during subsys init")
+> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
 
-Patch testing via #syz test is temporarily disabled.
-See https://github.com/google/syzkaller/issues/8122 for details.
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
->
->  fs/ext4/ext4.h    | 1 +
->  fs/ext4/inode.c   | 2 +-
->  fs/ext4/truncate.h |  2 ++
->  3 files changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-> index f38fec3167fb..505ec38fa508 100644
-> --- a/fs/ext4/ext4.h
-> +++ b/fs/ext4/ext4.h
-> @@ -3214,6 +3214,7 @@ int ext4_get_fc_inode_loc(struct super_block *sb, unsigned int ino,
->  extern int ext4_inode_attach_jinode(struct inode *inode);
->  extern int ext4_can_truncate(struct inode *inode);
->  extern int ext4_truncate(struct inode *);
-> +extern void ext4_wait_for_tail_page_commit(struct inode *inode);
->  extern int ext4_break_layouts(struct inode *);
->  extern int ext4_truncate_page_cache_block_range(struct inode *inode,
->  						loff_t start, loff_t end);
-> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-> index 10cd85d4c721..f59c4a5b7561 100644
-> --- a/fs/ext4/inode.c
-> +++ b/fs/ext4/inode.c
-> @@ -6845,7 +6845,7 @@ int ext4_sync_inode_metadata(struct inode *inode, struct writeback_control *wbc)
->   * buffers that are attached to a folio straddling i_size and are undergoing
->   * commit. In that case we have to wait for commit to finish and try again.
->   */
-> -static void ext4_wait_for_tail_page_commit(struct inode *inode)
-> +void ext4_wait_for_tail_page_commit(struct inode *inode)
->  {
->  	unsigned offset;
->  	journal_t *journal = EXT4_SB(inode->i_sb)->s_journal;
-> diff --git a/fs/ext4/truncate.h b/fs/ext4/truncate.h
-> index ce84aa2786c7..c10e4ab4242e 100644
-> --- a/fs/ext4/truncate.h
-> +++ b/fs/ext4/truncate.h
-> @@ -17,6 +17,8 @@ static inline void ext4_truncate_failed_write(struct inode *inode)
->  	 * We don't need to call ext4_break_layouts() because the blocks we
->  	 * are truncating were never visible to userspace.
->  	 */
->  	filemap_invalidate_lock(mapping);
-> +	if (ext4_should_journal_data(inode))
-> +		ext4_wait_for_tail_page_commit(inode);
->  	truncate_inode_pages(mapping, inode->i_size);
->  	ext4_truncate(inode);
->  	filemap_invalidate_unlock(mapping);
-> -- 
-> 2.43.0
->
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
