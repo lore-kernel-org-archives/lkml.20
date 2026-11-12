@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794484839;
-	b=X4s2qjYCQZfdIEuUWnQ5B/1Y9wpKrgReiCNAzN9512xFPFlQ7DqMUOsHdsjf3jOSQ5sv
-	 4N8Lh/fHP0UdE2AxJ4IBeiGJ+k22yY/8oXURELzmrn9DytYKp1Ngmfgh+Zq1HJxfPuxZ+
-	 KqQMm0Hmt4BMfxs9djd7xYR6YI6PB8i5a8BwjhnKX4IOOWH4nwZB1EPnFNqjqKappqPb2
-	 FTLj0npEqZsM+Esli0YztonLratFf3hfJ4JRziwnHFvx+MkMMQF85ky7f2Fx0rvr3W/Q8
-	 8E0rinK8MhrjQtjn5ulKKxeAQ4QfzfNamfb/WtpG8C7sKkr7jjvSNd4JWdq0g11uEUA==
+	t=1794484845;
+	b=PisH0zcPHtHF43qjMPFBksLOPvZsDrmlkq6W+2oqsyHnfRbEhk/3hk2xvY09wv0EXlpS
+	 n8XxsA58dXDTJ1piLDR08QNDpsgixvi5viftUo8jpsJWGr8W1PakTowXDHp1HT2UVsfCw
+	 suQhDROA8iSjAoE9qPNtZNANyJ/HIAOv0SEQcbvkQRcju8GxPL3uK1Ce25nhdEfbuEpHM
+	 jd0lhDcC08erjRhmc+4BHYFhbKQ2RE9mh68QApczJMX8KVNdsRpd5UvwO2IhIfg8KkXKF
+	 fZyEyVKKmAAT0/k0X/ksKVPON+UVThsmg4PO9VnFj9gocagUy3VsoJ6QN8aQ2nSsg9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794484839;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794484845;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=5PnvePViqRVgTyh191bMD2IOvsKk1Zkj+A+MkvxzKeY=;
-	b=GOboKu16nBW+WvS3sqBuY0AqLMzJYf1a/9LOm3mF++QJaqjXr+707UWTV6F674DkR36I
-	 KakPdPHfXxsBEPsGhSTwaXWupV6HmQy9iG51Xm5dmrCuJaOoLvFZ8wMiYjnf014zL5Awa
-	 37lulQt/HegMUxtTlTFP3MUsaqaAPCURERvAdciUVcQ4biOI6w3u3omEvqUfQQ5R/OvOS
-	 Q5WwlbY4Y9rysYELS4xeTe5X4unQ5RNNpi9k1Jfups4saOff2KO6WOlWYZqWUrIdisU9V
-	 virKsOFf2sg1CTaelJuQjiyxHha/X1FJ04KWeZBbExltToi1a+ijdLsU/IAtCAfJo2w==
+	bh=3eP4I0Ez26so6pJApDkwIpCymms6xr8duaAA7LctjtY=;
+	b=jwy2jwIKIITTz6+5lU5TTB2UO1Zwvh6GD8j8iotHUIukP0hFyxCycXpBbSLNnZLyydJB
+	 WodglHTWJcWd0tlABhEo/wRp7LoyTxAxh3BvQNH72StECPnbNEqigzMTK/Lww8IVFuHPo
+	 OXILYef0tfIxKMzMTxeiFmlyzbTP+M01tnUXLeNRDMpdGFdYTXFGRVN+f0hgAXckT1kaD
+	 og7Vc/aEWIUxq7+gFaM2TmLqbVaTna9E7cfNoZvu1N++zUU2U3okr33ArDeAj5AOqhzEX
+	 nxyaZxFvtq3w47TkmyeXuKfHxnz21o3psxqAGCNZOY8K9frgXGq8lfONBvxDMzxUEBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcDznNFe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eXU1vLX5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F8F9606A31C;
-	Thu, 12 Nov 2026 12:00:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA69606A339;
+	Thu, 12 Nov 2026 12:00:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcDznNFe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94ADA1F00A05;
-	Thu, 12 Nov 2026 12:00:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eXU1vLX5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C0A71F00AC7;
+	Thu, 12 Nov 2026 12:00:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794484839;
-	bh=5PnvePViqRVgTyh191bMD2IOvsKk1Zkj+A+MkvxzKeY=;
+	s=k20260515; t=1794484845;
+	bh=3eP4I0Ez26so6pJApDkwIpCymms6xr8duaAA7LctjtY=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ZcDznNFetFWJG1C8faMGgggQqfq7WNRRlWLrT6elduD5KlKbsEUl+di9xfASULHeN
-	 iL/j7Rcu3FqVDtvSyJxUx9dWNIJFriiQO1mX3ePai8pbmvBLTbBGQ2y+OVs+XlCiUb
-	 zZjpr3l3gD6c/tJGHQQzjTsFLkAL1tyf0DrsSDTZSEqF+kBWQGBRp1tvG+Tt49jXqq
-	 QkgFMWd+rnNqa8PSH+FSh9qpQPZr6qGSFYf3y6jc8qf2/504Q2kgnoxnIeIlOfLx4m
-	 mqD+OuUSs0OZwAZrIzEXBYdLqAAsf7q+Y2g+Rr4yUXK9x1oxQMgTuUvRhfqE2i79Ya
-	 K/QzMqZf/9S8g==
-Subject: Re: [PATCH net-next v2 2/7] net: ethernet: oa_tc6: Allow custom reset
- settle time values
+	b=eXU1vLX5y2O/zQ40iydFNNsy+2kn5+VuCCKdSnCS/wSuBJXgCa62nZTQS+BICpNqj
+	 mGYH35BYtrK0xWAtIT4D/0Gqo7mIQESWLXe+VA46l2xmFvhdYYp5ndwVW/uPnkz9dc
+	 4ZwcZIQT5uaRwHnqaIFp967FdT7Zu2/tSf/ZxZwu9fepWFt+JJ+uXvlIW9rFTZcV4B
+	 k217Ep3DtKAKARnDgQYpU1Znsb9guF9js74AJuKY9Wg1gS4voki6t9OWWQdtp8zv0v
+	 ef8zXASbNpgTy+X2RHDvKHEixSTq4PrQlh/xyZK7CTOGeawr7KQXJ9u2VOUVhAanN3
+	 cd3bMXPGfZQvw==
+Subject: Re: [PATCH net-next v2 7/7] net: ethernet: adi: adin1110: Add OA TC6
+ protocol support for ADIN1110
 From: netdev-bot+sashiko@kernel.org
 To: iustin.stolniceanu@analog.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
@@ -50,11 +50,11 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
  hkallweit1@gmail.com, linux@armlinux.org.uk, marcelo.schmitt@analog.com,
  alvin.sipraga@analog.com, ciprian.regus@analog.com, netdev@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 12 Nov 2026 12:00:38 +0000
-Message-ID: <179448483815.2199510.2819430860684021311@kernel.org>
-In-Reply-To: <20261109085952.105331-3-iustin.stolniceanu@analog.com>
-References: <20261109085952.105331-3-iustin.stolniceanu@analog.com>
-X-sashiko-severity: Medium
+Date: Thu, 12 Nov 2026 12:00:44 +0000
+Message-ID: <179448484417.2199510.5272200957302283278@kernel.org>
+In-Reply-To: <20261109085952.105331-8-iustin.stolniceanu@analog.com>
+References: <20261109085952.105331-8-iustin.stolniceanu@analog.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -67,10 +67,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Critical: 0 · High: 1 · Medium: 1 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -78,50 +78,81 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] oa_tc6_init() (drivers/net/ethernet/oa_tc6.c) runs the
-  hardware reset sequence without holding the SPI bus.
+- [High] net: adin1110: NULL netdev_ops dereference in
+  adin1110_oa_tc6_probe()
+- [Medium] In OA TC6 mode, the ADIN1110 hardware reset no longer goes
+  through the driver's own reset sequence in adin1110_check_spi().
+- [Low] In adin1110_oa_tc6_probe() (drivers/net/ethernet/adi/adin1110.c),
+  every -EPROTO returned by oa_tc6_init() is turned into -ENODEV, and…
 
 --
 
-net: ethernet: oa_tc6: Allow custom reset settle time values
+net: ethernet: adi: adin1110: Add OA TC6 protocol support for ADIN1110
 
-This commit adds hwreset_settle_us and softreset_settle_us fields to
-struct oa_tc6_quirks. MAC-PHY drivers can use them to set the wait after
-deasserting the reset GPIO and the wait after the software reset. The
-hardware reset wait stays at 1 ms by default, and there is still no
-software reset wait unless a driver sets one.
+This adds OPEN Alliance TC6 SPI protocol support for the ADIN1110 using
+the oa_tc6 framework, selected by the adi,spi-oa-tc6 property. Register
+accesses go through new read_reg/write_reg callbacks, so both protocols
+share the MAC configuration code. ADIN2111 is rejected in TC6 mode, and
+strap/property mismatches are reported with -ENODEV.
 
-> diff --git a/drivers/net/ethernet/oa_tc6.c b/drivers/net/ethernet/oa_tc6.c
-> index 364027c39fa4a..549997ba363ad 100644
-> --- a/drivers/net/ethernet/oa_tc6.c
-> +++ b/drivers/net/ethernet/oa_tc6.c
+> diff --git a/drivers/net/ethernet/adi/adin1110.c b/drivers/net/ethernet/adi/adin1110.c
+> index 53fac3dc8be62..3f054565acb0e 100644
+> --- a/drivers/net/ethernet/adi/adin1110.c
+> +++ b/drivers/net/ethernet/adi/adin1110.c
 
 [ ... ]
 
-> @@ -1515,12 +1524,12 @@ struct oa_tc6 *oa_tc6_init(struct spi_device *spi, struct net_device *netdev,
->  					     "failed to get reset gpio\n"));
->  
->  	if (tc6->reset_gpio) {
-> -		/* Keep the reset asserted for 10 us and then allow 1 ms of
-> -		 * settle time for the crystal oscillator startup.
-> +		/* Keep the reset asserted for 10 us and then allow the reset
-> +		 * settle time (1 ms by default).
->  		 */
->  		fsleep(10);
->  		gpiod_set_value_cansleep(tc6->reset_gpio, 0);
-> -		fsleep(1000);
-> +		fsleep(tc6->hwreset_settle_us);
+> @@ -1115,14 +1230,89 @@ static int adin1110_check_spi(struct adin1110_priv *priv)
+
+[ ... ]
+
+> +static int adin1110_oa_tc6_probe(struct adin1110_priv *priv)
+> +{
+
+[ ... ]
+
+> +	quirks.hwreset_settle_us = 50000;
+> +	quirks.softreset_settle_us = 10000;
+> +
+> +	port_priv->tc6 = oa_tc6_init(priv->spidev, netdev, &quirks);
+
+[Severity: High]
+Isn't netdev->netdev_ops still NULL at this point?
+devm_alloc_etherdev() leaves it unset. It is only assigned to
+&adin1110_tc6_netdev_ops near the end of adin1110_oa_tc6_probe(),
+after oa_tc6_init() has already returned.
+
+quirks.quirk_flags does not set OA_TC6_BROKEN_PHY, so oa_tc6_init()
+attaches the PHY to this netdev while it runs:
+
+  oa_tc6_init()
+    oa_tc6_phy_init()
+      phy_connect_direct()
+        phy_attach_direct()
+          phy_link_topo_add_phy()
+            netdev_need_ops_lock(dev)
+
+With CONFIG_NET_SHAPER enabled, netdev_need_ops_lock() reads
+dev->netdev_ops->net_shaper_ops. That would dereference the NULL
+netdev_ops and oops on every probe in TC6 mode.
+
+As far as I can tell, lan865x_probe() had the same ordering problem
+with oa_tc6_init(). It now sets netdev_ops before calling into the
+framework.
+
+Can the netdev->netdev_ops assignment, and probably ethtool_ops with
+it, be moved above oa_tc6_init()? None of the ndo callbacks should
+be reachable before devm_register_netdev(), so moving the assignment
+up looks safe.
 
 [Severity: Medium]
-Should this reset sequence in oa_tc6_init() hold the SPI bus while
-the MAC-PHY settles?
+In TC6 mode, adin1110_probe() branches to adin1110_oa_tc6_probe() before
+adin1110_check_spi() runs, so oa_tc6_init() now does the hardware reset.
+The existing reset in adin1110_check_spi() holds the SPI bus lock while
+the configuration pins are latched:
 
-The commit message says the ADIN1110 tristates its SDO pin during
-reset. For the same chip, adin1110_check_spi() in
-drivers/net/ethernet/adi/adin1110.c locks the bus for the whole
-reset and settle window:
-
-	if (reset_gpio) {
+drivers/net/ethernet/adi/adin1110.c:adin1110_check_spi() {
+    ...
 		/* MISO pin is used for internal configuration, can't have
 		 * anyone else disturbing the SDO line.
 		 */
@@ -130,48 +161,104 @@ reset and settle window:
 		gpiod_set_value(reset_gpio, 1);
 		fsleep(10000);
 		gpiod_set_value(reset_gpio, 0);
-		...
+
+		/* Need to wait 90 ms before interacting with
+		 * the MAC after a HW reset.
+		 */
 		fsleep(90000);
 
 		spi_bus_unlock(priv->spidev->controller);
+    ...
+}
+
+The reset in oa_tc6_init() requests the GPIO with GPIOD_OUT_HIGH and
+does not lock the bus:
+
+drivers/net/ethernet/oa_tc6.c:oa_tc6_init() {
+    ...
+	if (tc6->reset_gpio) {
+		...
+		fsleep(10);
+		gpiod_set_value_cansleep(tc6->reset_gpio, 0);
+		fsleep(tc6->hwreset_settle_us);
 	}
+    ...
+}
 
-Here, reset is asserted by devm_gpiod_get_optional(..., GPIOD_OUT_HIGH),
-then deasserted and held for hwreset_settle_us. No spi_bus_lock() or
-spi_bus_unlock() surrounds any of these steps.
+On a shared SPI bus, can a transfer to another device drive MISO/SDO
+while the ADIN1110 latches its configuration as it leaves reset? That
+configuration includes the SPI_CFG1 protocol selection this path relies
+on. If it latches wrong, the first control transfer would fail and probe
+would report a strap/DT mismatch on a board that is strapped correctly.
 
-The last patch in the series, "net: ethernet: adi: adin1110: Add OA
-TC6 protocol support for ADIN1110", does this in
-adin1110_oa_tc6_probe():
+The timings also differ from the generic SPI path. The reset is asserted
+for 10 us instead of 10 ms, and the settle time is 50 ms where the
+comment in adin1110_check_spi() asks for 90 ms. The oa_tc6 patch earlier
+in this series cites a 50 ms datasheet limit. Which value is correct?
+Should the comment in adin1110_check_spi() be updated, or should
+hwreset_settle_us be 90 ms?
 
-	quirks.hwreset_settle_us = 50000;
-	quirks.softreset_settle_us = 10000;
+> +	if (PTR_ERR_OR_ZERO(port_priv->tc6) == -EPROTO)
+> +		return dev_err_probe(dev, -ENODEV,
+> +				     "no OA TC6 reply, check the SPI_CFG1 strap and adi,spi-oa-tc6\n");
 
-	port_priv->tc6 = oa_tc6_init(priv->spidev, netdev, &quirks);
+[Severity: Low]
+The commit message says:
 
-In that mode adin1110_check_spi() is never called. The bus-locked reset
-is replaced by this unlocked sequence, and the window grows from 1 ms
-to 50 ms.
+  If the first OA TC6 control transfer gets no valid reply, or the PHY ID
+  does not match, probe fails with -ENODEV and a message pointing at the
+  strap and the property.
 
-Can a transfer by another device on the same spi_controller drive MISO
-in that window and make the ADIN1110 latch a strap that differs from
-the board configuration? The later software reset in
-oa_tc6_sw_reset_macphy() does not appear to re-sample straps.
+Is this check limited to the first control transfer? In oa_tc6.c,
+-EPROTO comes from the reply checkers that every control access uses:
 
-Whether this happens depends on which strap is on SDO and when the
-part samples it. Those are datasheet details I couldn't verify from
-the tree. If the protocol strap were flipped, the first OA TC6 transfer
-would fail with -EPROTO. adin1110_oa_tc6_probe() would then fail the
-probe with -ENODEV, and this would happen only sometimes, depending on
-timing.
+drivers/net/ethernet/oa_tc6.c:oa_tc6_check_ctrl_write_reply() {
+    ...
+	if (memcmp(tx_buf, rx_buf, size - OA_TC6_CTRL_IGNORED_SIZE))
+		return -EPROTO;
+    ...
+}
 
-Later patches in the series don't seem to add a bus lock to this path.
-Would wrapping the reset assert, deassert and settle in oa_tc6_init()
-with spi_bus_lock() and spi_bus_unlock() be appropriate here?
+drivers/net/ethernet/oa_tc6.c:oa_tc6_check_ctrl_read_reply() {
+    ...
+	if (*tx_buf != *rx_buf)
+		return -EPROTO;
+    ...
+			if (complement != ~reply)
+				return -EPROTO;
+    ...
+}
 
->  	}
->  
->  	/* Check the PROTE bit status so that we can reset the device */
+oa_tc6_check_ctrl_protection() only succeeds if the chip answered in TC6
+mode. After that, oa_tc6_init() still runs these steps:
+
+  oa_tc6_sw_reset_macphy()
+  oa_tc6_unmask_macphy_error_interrupts()
+  oa_tc6_phy_init()
+  oa_tc6_enable_data_transfer()
+  oa_tc6_update_buffer_status_from_register()
+
+Each one returns its error unchanged as ERR_PTR(ret). A reply mismatch
+in any of them would still be logged here as a strap/property problem,
+with -ENODEV.
+
+> +	if (IS_ERR(port_priv->tc6))
+> +		return PTR_ERR(port_priv->tc6);
+> +
+> +	priv->read_reg = adin1110_read_reg_tc6;
+> +	priv->write_reg = adin1110_write_reg_tc6;
+> +
+> +	ret = devm_add_action_or_reset(dev, adin1110_oa_tc6_remove, port_priv->tc6);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = adin1110_read_reg(priv, ADIN1110_PHY_ID, &val);
+> +	if (ret < 0)
+> +		return ret;
+
+The PHY ID read is handled differently. An -EPROTO from
+adin1110_read_reg_tc6()->oa_tc6_read_register() is returned here as
+-EPROTO rather than -ENODEV. Is that difference intended?
 
 [ ... ]
 
