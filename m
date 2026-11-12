@@ -1,80 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794486456;
-	b=bpjSAhP9LM3yOyV3mQ+XDBYHE46+6mjoSQNbPituxoVVOiCfC+Y+VLOWSgpInz/PVpw6
-	 syANIsKcpqvFX1vyErlawD6HCN6OppJ9hBHe6mSJP5vKSqN0lnU/XmcwXf2FCP1uO2zMx
-	 uHrh+BYW2EJUYui0NSFfNPlLACDXOnDGwKLi8T/gTFpCcZ8e/hY1oH8ZhOfBAK6q8sbxT
-	 l2o3JfjS7EDRkjKaO8sgmfJ3yMo3Ezhl+RmphyzR0+4hHqH1Hwu1idrE+9TyOxFaJlv/3
-	 9NELCbV9FSw6NgHS+nXEr9JQJ4pED6EBFw1MdqQemKTQUN3E5lGmgGbcpap0caRvYKw==
+	t=1794486463;
+	b=EmnMlhed0JZl4qJYHn5CWpmFavu9djI6U5kZwTPImFfBi01H3z/Jxozs6A0RQxHUPfAM
+	 saU8SxbrHgFadkZiaEIxOuR/V17VKQPNlOB7LxS3cUrJmuT0CSVukor2746jUXpaDyKPw
+	 yCU5i7tciPi8biVsJc6zskyEbmLiyp07vK7QjdMag9F04LUW+fm70/+6dp0tI/d/hLcmB
+	 g25v32tLCdChnZlQ3fewJ9jTlRfNoiqIeL+g6WzDcoRhHf6524KQAJXphNU+JgrQ7UxZD
+	 0vrFKNj6o0gRE/Fft25pYV9DTde+uKtGppkZN/y3Ubpo2PLg7p5sRCeFVL5VJPl3oBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794486456;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Content-Language:To:Cc:From:Subject:Content-Type:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=6zIF2mscWWNdqPdPpywMELCgP+4wYM3ffEmTeqpAw4o=;
-	b=gJxC8K3DxM+CGAXXd0i8wyL6ugN0aEQfejTbhHUulFCkHFYUPolk06t8KewyOhZSttq3
-	 jE11kufLzhA9Bw5b/HuNzRIzPWVRJmWaeWoqPNLzQsTHv3tZusf+VCK8QMTpl6fZVxww/
-	 QNaLg622WW+BCHUB6TBcx1ghpNLRodSJlMuNva/DCMlVgLTwmp+sX4Es/k+qKWvM74/0R
-	 n8borNMidRr0AUduoUzC/H2amLO9t8UgwmA8hkt2hMCQBKNojdhoCLz+5xTBIbySf7X6U
-	 g/gnx71om0gJKeUNgV/+X5fKvwy6T/uhKWgqDihln14BdbqyHrIPrhFZI7+vmNhdUuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794486463;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=d6RPiY0rklyeXAU+QYrLceLVeEm+P0hCcW/c/9VYRgs=;
+	b=E+xq25k1xjbI39z00RnF5bXmhvfyUE2JXDK8BLk57+5nM8X09/KMdlVRjJ1ZZ6KulpHT
+	 bJRspz8RkjWr8rx3ET/AJkVxrK+RMVrCFdoAOlMI0JW8/xiV/6PRVuGhBPVGflQyQMGKO
+	 lJEWuFQife4J66TMAraxxxj/DCjhopfhLcWkK273HNUfWS74uYaYt1JkPJqbkbI1zOw+W
+	 FIJgDgtaWcvwW3WKkY1ZWRFlQweAts7riKqyixQQVa68hLfqVLn+NR/r851AlQSrmK/0j
+	 abQRGQjHN6QZaqdS80GrF37YjWPYpWAUciW+qIoWknY2L7xGpaltB2H8M3IS2UHQrMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=kHiIB1bW;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dmarc=pass header.from=kroah.com;
+	spf=pass smtp.mailfrom=kroah.com;
+	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=LTh0NXy8;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=qd1kIe33;
+	arc=none smtp.remote-ip=103.168.172.157
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583A3606A31C;
-	Thu, 12 Nov 2026 12:27:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 583A3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63481606A331
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:27:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63481606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=kHiIB1bW
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2iL0A1214781;
-	Thu, 12 Nov 2026 12:27:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pp1; bh=6zIF2mscWWNdqPdPpywMELCgP+4w
-	YM3ffEmTeqpAw4o=; b=kHiIB1bWyrkRYoH21DvGNfwM6coLugLCAeOYLOo+0O6I
-	MSRSgK+Eb0gb7F9h3zi336apegwmAMLE1efwDWvP3D5plkxNxy6CKrC1VisMoz40
-	4QuDUsxiBwYjOrAbQPOSHZSaU9Q8/wjXf6gEPzfuZZ1W4K+hEubHrTVXQowhdIys
-	ZNnIy2KjW2NDm30seSVwjYETbJpam8hTWn05YoG99D1kvIfJiudEDy6ROUwHU3+L
-	IfBerHM3bvrMI4hv4HOHOaFjtlteTKORAGBhNxsVY4Y80msceYTTnB+Gk2XiQyj/
-	ttCvSNJILlFas7/Gqdm/wFYt0WT10a4ezX5PNLffEw==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsuntfdu4-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 12 Nov 2026 12:27:26 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC8Lvmf097884;
-	Thu, 12 Nov 2026 12:27:25 GMT
-Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hvkq0w7sr-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 12 Nov 2026 12:27:25 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
-	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6ACCRPWQ26346036
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 12 Nov 2026 12:27:25 GMT
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F066D58059;
-	Thu, 12 Nov 2026 12:27:24 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 31E5058055;
-	Thu, 12 Nov 2026 12:27:22 +0000 (GMT)
-Received: from [9.61.240.49] (unknown [9.61.240.49])
-	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 12 Nov 2026 12:27:21 +0000 (GMT)
-Message-ID: <bc84cb05-55fe-43e7-9a6e-e6bbf2f5a9ff@linux.ibm.com>
-Date: Thu, 12 Nov 2026 17:57:20 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=LTh0NXy8;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=qd1kIe33
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 7FA1A14000CB
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:27:41 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-12.internal (MEProxy); Thu, 12 Nov 2026 07:27:41 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1794486461; x=1794572861; bh=d6RPiY0rkl
+	yeXAU+QYrLceLVeEm+P0hCcW/c/9VYRgs=; b=LTh0NXy8XKJoWZZSPeBoJBjMUy
+	8RUq1/PXKwLZMxl0BeQpEUJNvwsqTIfbzGPIXH+h8b9vHtyFkpOIcI1VcMeWrZJ+
+	7zBOk42XeNYOAhOCYA2NO6ojM3yVdbJiOvOfd10SQg0nt8uO9vQ4QBaPomzxILct
+	oFGYXgOoOjkdv4gY+4QtM7qME1RztKu18wjWSh+YH6XWWo1gpI3vlgFoPq2jh9gq
+	dJ2a5z4JuOsoXQG0Aj+NAO5afkp/xWlEEBuAbHXDribHkFB0soNFEsuDKua5ifxI
+	wFuSVd2DNbWAMcdIRPRnp3Fv7mtG5QAzaepy2oYVvd0la8sCbCij46XavJNA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1794486461; x=1794572861; bh=d6RPiY0rklyeXAU+QYrLceLVeEm+P0hCcW/
+	c/9VYRgs=; b=qd1kIe33j6kLr3Ek2iLblOPfI5RRD2Yx1y3xvzh+tu/B9b0aY72
+	KYFEep282WNH7e2JLaAb7i5dcki88cZVCIWifC3r+dE4KBtZiduTkdgf/LjPS+z8
+	BTZYS5KtCUd5WLxDQvNCmO7Yg8ITh3PKsqYhmwWD0PO3BRLZValzWzIodqBiyA8B
+	PEBpjU+QT/04miP5F3o+AZAPDmECIIzL1Wow/I9zY5cn8qcZgLe3yE7sYg8o7lYH
+	YDR3BhaOJnVZetpZYf5LzfSCbbJXzoAMeDhYbiGrv0c37sPkLW45I0c35SkDfQiM
+	ejiZKO9U7ggxOERgqeQe6QU7Y9DvLWIMD7A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794486461; d=kroah.com;
+	mf=PGdyZWdAa3JvYWguY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:Nms03lBYGF6Fi3Sh2O27tDtjSTGXYUFQIC+LxrX1GoO3C7s
+	ldDDIzl0T6Lx+27iPdvftv5Mjy3t1ESn9yHgGq6aDT5JKFHMXzuuf5uPn1cLt9O3
+	KERMg1tI3YYr6aLZgjEZDN/HP/4Yc2bdJOHSYYhZBho3YVu209US3V+B8r8GZiFg
+	V3q/cU3KDv7kIeH0K7ukoxcP3DjSCuGVvFBQ1QU7aB84fJskCobxeWN2wPVFUiUm
+	hwZtXfqtFXB0Qsb5AGCit0hCQvqKK/ww+OFM/yEczAMeEIgvi5ICrkd6IJ+t/nnC
+	pkgiS1CVpj4SIv5FOMQyH/yqzZuwzMN3Eu/N/0g==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:ePUpBg+snje1PRuCyD7St6qpCMTNW4lHhAoyfu6G85o=:PgkBA+iUa585ZODLb7UCx+7LAKTHLPzt89fBhsZ3Ezg=;
+X-ME-Sender: <xms:vbD1aoHSDDsuN4WOtx8FlZrHRrCJmFd5VacDEP7uS62lRB-4u3zxlw>
+    <xme:vbD1ai7EL8kF9xuqkymplL4u3PVih27nEh8EajfWNYiX-9D3zf9K9auqlJsrjCUyn
+    4GX3tMDJWvW4xAnSHnxgLYVJjzjWlZshAzeVFK7tKg2D4WXC8o>
+X-ME-Received: <xmr:vbD1ahZyipggeBcq-mLDjo8LANvSaADrtZSvpX_8B7D2W4Gri5oKM78b_J6WwcyF7nB4qvd-_nh24kTn-SloCrMcCA>
+X-ME-Proxy-Cause: dmFkZTF0uUYZJQrHiUD5AV8vgLI4qwsMjcQLjf6C8fEdquUU8XLtLx5cyMaNy183hgq9Wy
+    AIEIW0a1BfaTFAAoX5g2p6ZyIQWiKTEuVXo6rdyLlxkGwU2lkj4GSOxOeUNiAdXPukOLRT
+    4Fk1ssZSfp9gk+cIQnf4yk47ZmUlbOqrjDNdtTkWQD7FAv5SPqppvAbUQtVfFMpq5tyB0s
+    c/XOhN2NGEhPomcBCaG1B0PjZV2auo+ciegKMBys5vPRTKU7VQ7YaXnJdoKN0Z2ad1Q5KY
+    RwltziMY8FY9UMCg2SKXV7x1Q9hYvzpT3Pba642tpQQBwc3LRfJVpPEENwtiM9m7q81jbk
+    X3SGYsX3hX8sftgCAVe2Yzt/+LXBpd6PlDQEXq3zWoOKowr2kTdJCzLPIlXC6PEwZXbH/H
+    hvPvJVPonaEYJi5hyeO0XqkIXMwGYn2CKJjnmsDYzkO5zdveYPLJK8vNsgux+rBR2llKzD
+    V6GJ1zheC3veXAtBfOjIDnUKGTcMS2dQ81LPj3hp3IkfSO+7HvifI44wbSc8slKwTamlyN
+    wYoOSuhDwRgZnSVAgM7oOz3zW6o/BYsOAXuIYrg+saI7kWJeny2RETDq+9vz4W3LJXytGh
+    5NgdVMLg+FiW47UAIUSGZ7ynsouLm+FIufNxQaBr83mb4SUST5Uc4bNGr5KA
+X-ME-Proxy: <xmx:vbD1aggpucAWH0jwBWW37QavGd46oNRByZ50OsX4O5oOy-tPtU11iQ>
+    <xmx:vbD1aje2rPZLbpuwWMJ1Y9dvOz3qrYKc1ZNJ6ow9NgjVKgagEt9ChA>
+    <xmx:vbD1avl9XTKF9Pb2EmAe-hEKKOmWSBTpys-LWH2IlxQ2cqoJZOaLtQ>
+    <xmx:vbD1aox6eP0pcO-pl7C2yjPwGUaMGQz99U6Uin10Cf9H3egzi4MdZQ>
+    <xmx:vbD1av5hHSaKb98h-aTswvB-1cpjDBoPEubq2hx9ZDaCMMl-n4_JCQ0O>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 12 Nov 2026 07:27:40 -0500 (EST)
+Date: Thu, 12 Nov 2026 07:27:38 -0500
+From: Greg KH <greg@kroah.com>
+To: hh c <hhc436476@gmail.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, kernel-team@lists.ubuntu.com
+Subject: Re: 6.8.0-149: forced 2.5GT/s->5GT/s root-port retrain drops XGI Z11
+ VGA off the bus, local console goes black
+Message-ID: <2026111205-tanned-empirical-b961@gregkh>
+References: <CALJR0nehJ5+d7MrPk8rxkNmee_1L5FFsvuF+-swK1nyJ7oJJ8A@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,94 +122,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-To: mszeredi@redhat.com, Shuah Khan <shuah@kernel.org>
-Cc: luis@igalia.com, amir73il@gmail.com, linux-fsdevel@vger.kernel.org,
-        linux-kselftest@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
-        linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, nandinih@linux.ibm.com
-From: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-Subject: [BUG / BUILD FAILURE] selftests/fuse: build failure with libfuse <
- 3.17.0 (RHEL 10 / fuse3-3.16.2)
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA0OCBTYWx0ZWRfX0JfJ6hzcRhBo
- 3pYzaJxWCP83/cPc0kLSsIDPYdNyeWt8FbyWRuQat9/3XZ2iKw95G177cPiCqpYJ2tf8vfzAK1v
- BHUHeQT9VgxLgGwtPrIW9XG86dP5iBk9B5urNmoApmLLUyRuMn+HNtbu02fmAG5TY2vp3OPZqyA
- lYbrdVyHDqkVjH2vWQDVu6H23HDWtNhzb+wKoKn4jLPSWu5ZvcMgejzDYz+SR0mbaEx7jrcqXhV
- 59ToqtEZ+KD40OVTp6DTSbo9QFxaACTg/HYhdMyfuKZdrqJq5wIe1mnBmLOdocp+3QsK9gpkciT
- Q5yZPCcCbmMUVabGdk38GTXGmzNZgPgByNPKrbZJD+Jprcfmtf96OjG/LhIVdEODuP1oKOi907q
- y5OBDT7ZhqsQ25ZZfoXeJWd5zdFXoTALrJ1PwmK98nNgaS83KhJSo8fqYHSY4ku91IJ9Dmgim4J
- N7wmogzN8iSjaOwOHgg==
-X-Proofpoint-ORIG-GUID: 5QlD2gsgulIE-MaNq1rxj5110MS0lzWu
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA0OCBTYWx0ZWRfX1UvpJ0LrrdRE
- OpEqesTwMy+Eh2HcYAyPJoXqePAAbBSe49rAX4i57i0CGqUSXarIJFXCqGxB9WRn6sNrcEGJ+5A
- CYKwysiMIwfglqKSSzW7MubjHd6u080=
-X-Authority-Analysis: v=2.4 cv=euZKXYpX c=1 sm=1 tr=0 ts=6af5b0af cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
- a=G8bnuFaaA9ZLbBnholgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: ADQL8XVHLD3II553328d1E9yRtxsIZum
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1011 suspectscore=0 spamscore=0 priorityscore=1501
- lowpriorityscore=0 bulkscore=0 impostorscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120048
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CALJR0nehJ5+d7MrPk8rxkNmee_1L5FFsvuF+-swK1nyJ7oJJ8A@mail.gmail.com>
 
+On Thu, Nov 12, 2026 at 12:09:07AM +0800, hh c wrote:
+> After upgrading from 6.8.0-31 to 6.8.0-149 on a Huawei XH320 V2 (Romley
+> platform, C600/X79 PCH), the local console goes black at kernel handover.
+> The machine boots, SSH works, getty@tty1 is active. Booting the SAME
+> installation into 6.8.0-31 restores both the console and the VGA device,
+> so this is a regression in the 6.8 SRU stream, not a hardware or BMC fault.
 
-Hi Miklos, Luis,
+6.8.0 is very old and obsolete and insecure.  Please use a newer kernel
+version.
 
+> ROOT CAUSE
+> 
+> 6.8.0-149 carries the stable backport of upstream commit 72780f796468
 
-IBM CI has reported a build failure, while building selftests/fuse, due 
-to missing definitions in libfuse3 headers.
+ah, you are using a distro kernel.  Please file a bug with them.
 
-Environment:
+thanks,
 
-OS: RHEL 10 (ppc64le)
-Kernel: upstream (linux-next / mainline)
-libfuse package: fuse3-devel-3.16.2-5.el10.ppc64le (pkg-config 
---modversion fuse3 -> 3.16.2)
-
-Build Errors:
-
-In fuse_acl_cache_test.c & fuse_symlink_cache_test.c:
-
-fuse_acl_cache_test.c: In function ‘fs_init’:
-fuse_acl_cache_test.c:105:17: error: implicit declaration of function 
-‘fuse_set_feature_flag’ [-Wimplicit-function-declaration]
-   105 |                 fuse_set_feature_flag(conn, FUSE_CAP_POSIX_ACL);
-       |                 ^~~~~~~~~~~~~~~~~~~~~
-make: *** [../../lib.mk:226: 
-/home/upstreamci/linux/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test] 
-Error 1
-
-In fuse_mnt.c:
-
-fuse_mnt.c: In function ‘test_readdir’:
-fuse_mnt.c:51:35: error: ‘FUSE_FILL_DIR_DEFAULTS’ undeclared (first use 
-in this function); did you mean ‘FUSE_FILL_DIR_PLUS’?
-    51 |         filler(buf, ".", NULL, 0, FUSE_FILL_DIR_DEFAULTS);
-       |                                   ^~~~~~~~~~~~~~~~~~~~~~
-       |                                   FUSE_FILL_DIR_PLUS
-make: *** [../../lib.mk:226: 
-/home/upstreamci/linux/tools/testing/selftests/filesystems/fuse/fuse_mnt] 
-Error 1
-
-
-If you happen to fix this, please add below tag.
-
-
-Reported-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-
-Regards,
-
-Venkat.
-
-
-
+greg k-h
