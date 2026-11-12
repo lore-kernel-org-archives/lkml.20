@@ -1,79 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794473319;
-	b=Q7aqnv0pq5a9v93a+Po4OnOhU/Zj2TyCf8EdWTymJEOhHvcXlt4C69OyyE3AoLLT5XRB
-	 PgGoDlkzRLSZ29cTgDWnFnwdyVYcdCZDyfLh3D1GlvDHoedVZqczQ8Gcrp58NgmiuBEF7
-	 Z8GBd1NjPbnhct1VsnP/ZzRerXuwRL32Yeor0x42A+2hapLSOYGtViBPBuDXcUFlP5VDF
-	 Ht7A7H+MScGjA47QFyNCh6g3jtdwLR2V0O3jP9F+FSe27yAENt0T/9oKfr1tgXX6VOWvB
-	 M92R5FOJR1IJbx0KVjxWcSXAKOFwd+69N0Q4cPSPSGdl0WBifa1IOPRCUIiw+jRY8+g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794473319;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=TEHOtvcg8pmwNlr46/3hyiqhp5oP4AzLHASyCL8V+7o=;
-	b=MRVBZhvdNqD9YdZMqq3pKEGRH8+ZfagCrbzSr8A9SetxU4XHugdhpKklCS1IlpaU1vRE
-	 XcoGd3o1TycJwd2x3hWo4i3QsZ1TXPZMo4/LPknCCvb6aknsfNJJdJgjObBjNFwjf/0do
-	 ztN2ul3R+2Ww8nR12fz0TLIeaFXbOXQEbZMrXdwfraZWnqTcbZp1qhGreTVnvk9CKKs6c
-	 xKXQqjhZHXFCKjkSJHcBVgom6scjMGe3YbJ6y9kQQ+2+1Las4WCMVsgEl2UV8iCXSeN4s
-	 2pklacsYsntsPCO4arbCg0JJJwQxdcle6WtkqLIXS5SeQgRcE2HBt7liceWEUYI2QHw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iMbu48jb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794473394;
+	b=RGVe9guJcMpbIqjXnocE2ZcDxaoqYqAyQHfgB6Oewqsl0cv+8iFkoeqmzJCZ4NWC04GI
+	 SgkGKNI+j7L6ceSjwT4xF3zOXtjEKkw4+wT9L3sqtVxi7S437kv0Ni35YVnkw8SoxIDGO
+	 f8OAY7GtCscYWggAEBGuwdsR/Yqlj/S+wAQyTXOZMIjhQPlAxp8hmD/aOyfex7L/JXLxr
+	 mo2ZfcxCH35PbtvXCXGmIsL1pOd82Y8AsgGTogL1o49/5oQrxHR6MelAIFdT61lkVtBMj
+	 ltNrROLNUULnCe/KlV0L5CGPLu1o9E9VGykTgakvVXaM1bRS24geMzkSysniZMD3RGg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794473394;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=OGChezwGEAs5VmxdKN/i88B/dah14lbYLutkEhF0lOY=;
+	b=CGQ68Zm+le1rKai4yVbxdo2gUPWWN3KY06fOaxkxNffHYfWKoGRucwd4AwgCuVB9v+7i
+	 QSfPj90s/UV+/qHXEAKZ38cnKfJlEiN4H06ESYNHEKiKZrNMZfvqD5r2oET09B0VhtTSF
+	 SkB5xK56QIrJTvg4IQcWmMMuwOuL6OdD0wGZMr52eNN2iaRy1p7gcOhWgwfzel3FNDLdp
+	 2PX7xRu2UJJIUpVvpxs5i/fyjOhRv46MdVHw1iCKLXLPbFVSrh7YgOu5+djKWP0X8/BAK
+	 RS8702bLl+E4gc4PgsDct+Uq2SDs1kK37NzcJVfPzbrBskAmB0U8TKG2A60K0uorDRA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=blR2ZZkc;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2ED606B585
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:48:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402A0606A8B6
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:49:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iMbu48jb
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794473318;
-	b=QrV4/HONDe6u1lUoV6j4XiqvqicMZj6CRa7Cn7L70YJ4/1nXtb+MsLVGMdd37E0Ibi3U
-	 JQtldJAA0/aSzJiKsjOyWs3vojfH26j1tf72xKBdVI9jENKhVG9i/sRYI/7orSH3cj5iR
-	 uLSqouPGdHWzAj58AQ2agLDYwAnucK5FQQXCjvniqrjdwQXDlkIV5ehJ+u4/wOrX3xE6O
-	 Nhv43Pdl46dle10Cs7o7YX4BX4e6TNFV3rqLWm5SYBfph9NIunXbj9rzfXJJ+0jyC7YMr
-	 6lUdADB08gtpQD1OT1b+3CY2aO01EX0+HlVTnKNn5UzQKmum3FIGSaaBRH9lpAhOLdw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794473318;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=TEHOtvcg8pmwNlr46/3hyiqhp5oP4AzLHASyCL8V+7o=;
-	b=Wf0tLHbidOcN6W2tjDW1dWE1ByfU/fLfw+23t8xMXDgcSKkRWx80fCkwRPx/VktkjnGO
-	 AWVQBhqgo0LArPAvkNI9QIkEuCn2uM5UxHjXDXurjNZ5BPVNE5QKRvAhd6psTF0LVncqA
-	 P+dZVVV/VPi4uKlw4O1fpN2VN0r+zsxF5B7PKGSf+9ayjgkLOCDrI9i6+2vAZ/0Je65kt
-	 C3iONL/pVF50kzmvnL7QgIMqfGTKupP9b2KDuNrEF0fYFCq3t4wI1kOoLaJvUjihfS2PM
-	 7/FLn/jR+MhHJALlID3qopJuSoiS044uzlrcuDQdJc23fuldupcHKHIoAZUutAGaiMw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E912C1F00A05;
-	Thu, 12 Nov 2026 08:48:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=blR2ZZkc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA7AE1F00A05;
+	Thu, 12 Nov 2026 08:49:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794473318;
-	bh=TEHOtvcg8pmwNlr46/3hyiqhp5oP4AzLHASyCL8V+7o=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=iMbu48jbZesfVIl/arsGMUvy5ujhTVwfjJdPJ/GluBs0XW6LpNgoKp63m2nSExc/P
-	 lM8d3ek14T52hMadGwAQGLEk7IFse6vqjvVMc5e8xeEIDJqDmRkGnBaN+zWvFEA6g5
-	 0ZDjA+inGC4ukKMr/fxbm/JZd5k825BTSLxTYmR46BKOAhr6971SurlZCFo0BSKUoI
-	 bNf0aIZZ7rGsJ//o+HXWbIFrMmrcSUackbQycp95sU3+8ba/EgYl2PxwBYisq35rd5
-	 0PnH+wpC11wKXelk6sfw0/VIh0TW+mJDZ9YaaemNwB/Uzjqm3Z5f0pJcH6gxdKSMeP
-	 eTgXZLZOyJ5YQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DF35549405;
-	Thu, 12 Nov 2026 08:48:35 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:48:44 +0000
-Subject: [PATCH v2 11/11] drm/panfrost: Name the BOs around an unhandled
- page fault
+	s=k20260515; t=1794473393;
+	bh=OGChezwGEAs5VmxdKN/i88B/dah14lbYLutkEhF0lOY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=blR2ZZkcc/vDDO96F1pNxo2m29Sm1eEE58wpJKJVkHYo/oXT8bnVVxwZZly5gZt9q
+	 WjKhsecawJUo7hwiLqoB1tVNvATaSKrnCQij9ms9i4j046DyigYLVgzKpPVW/Tm32u
+	 DFsGgSAhvGZFpD7jZe6hMTEs8q6xFGpoAsvodr12hfkgt1d+rnYLrT4Zo91RMnmygO
+	 0yruuXkzYrHRiuER+joOHfZNGA23QqvNVf/8ozCvJuVQ3b+UfYkf9kKtv/5ozkNjEA
+	 SJWrIn3UVe4emvFMOq5MsjJhsAU82JyD7Ikm8arKDsaA71v1lyHUIdzvm0qEtUhFC4
+	 NtcmR0wFZxi0g==
+Date: Thu, 12 Nov 2026 10:49:46 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Mukesh Pilaniya <mpilaniy@redhat.com>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Alexander Graf <graf@amazon.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Chen Pei <cp0613@linux.alibaba.com>,
+	George Guo <guodongtai@kylinos.cn>, Kexin Liu <liukexin@kylinos.cn>,
+	Sourabh Jain <sourabhjain@linux.ibm.com>, kexec@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH v2 1/3] kho: walk bootmem areas in address order
+Message-ID: <avV9qoaPMBLCNOXD@kernel.org>
+References: <20261104-kho-bootmem-sizing-v2-0-b0d1a834780f@kernel.org>
+ <20261104-kho-bootmem-sizing-v2-1-b0d1a834780f@kernel.org>
+ <990cc079-70ab-4fcf-9974-679aaf07849e@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,171 +64,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-panfrost-long-jobs-v2-11-a06830da3d99@gmail.com>
-References: <20261112-panfrost-long-jobs-v2-0-a06830da3d99@gmail.com>
-In-Reply-To: <20261112-panfrost-long-jobs-v2-0-a06830da3d99@gmail.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794473314; l=5340;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=CXD0bHW8DBV0tvu/BFD5Whm4NSAnnjGvKwePlCoQV94=;
- b=FL0/5+96JG4aOn/kdjVnI+A8iVlG4dq7IWsbIs2UrOwn/fNfZ+cXBh3+5fUhBcvbSuCG1Vgeh
- cbl/tSzCxWVAmpJJb04tSe7+T4y1wRpZeTRINM+nNzpKsOO1C6XCQxr
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <990cc079-70ab-4fcf-9974-679aaf07849e@redhat.com>
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+On Thu, Nov 12, 2026 at 12:02:05PM +0530, Mukesh Pilaniya wrote:
+> Hi Mike,
+> 
+> On 04/11/26 10:20 pm, Mike Rapoport (Microsoft) wrote:
+> > kexec_add_buffer() users may depend on the order in which memory holes are
+> > searched. For instance, arm64 places the kernel bottom-up and then
+> > requires the DTB to be above the kernel.
+> > 
+> > kho_walk_bootmem() walks the bootmem areas in the order they were
+> > reserved, so if the kernel lands in a small area at the top of the memory
+> > there is no room left for the DTB and kexec fails. For example, on an
+> > arm64 VM with 2G of RAM and kho_bootmem=8M,64M,64M, the lowmem area is
+> > reserved first at the top of the memory, the kernel image takes most of
+> > it and kexec fails with
+> > 
+> >   kexec_file(Image): Could not find any suitable kernel location!
+> > 
+> > Sort the bootmem areas by address and walk them in ascending order, or in
+> > descending order for top-down searches, like kexec_walk_resources() does.
+> > 
+> > Fixes: 3bdecc3c93f9 ("kexec: add KHO support to kexec file loads")
+> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> > ---
+> >  kernel/liveupdate/kexec_handover.c | 57 ++++++++++++++++++++++++++++++--------
+> >  1 file changed, 46 insertions(+), 11 deletions(-)
+> > 
+> > diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+> > index 6f1f55fe31819..2ac5d94f33fd4 100644
+> > --- a/kernel/liveupdate/kexec_handover.c
+> > +++ b/kernel/liveupdate/kexec_handover.c
+> > @@ -26,6 +26,7 @@
+> >  #include <linux/list.h>
+> >  #include <linux/memblock.h>
+> >  #include <linux/page-isolation.h>
+> > +#include <linux/sort.h>
+> >  #include <linux/unaligned.h>
+> >  #include <linux/vmalloc.h>
+> >  
+> > @@ -820,6 +821,14 @@ bool kho_bootmem_overlap(phys_addr_t phys, size_t size)
+> >  	return false;
+> >  }
+> >  
+> > +static int __init kho_bootmem_cmp(const void *_a, const void *_b)
+> > +{
+> > +	const struct kho_bootmem *a = _a;
+> > +	const struct kho_bootmem *b = _b;
+> > +
+> > +	return cmp_int(a->addr, b->addr);
+> > +}
+> > +
+> >  /**
+> >   * kho_reserve_bootmem - Reserve a contiguous chunk of memory for kexec
+> >   *
+> > @@ -904,6 +913,9 @@ static void __init kho_reserve_bootmem(void)
+> >  	 */
+> >  	kho_bootmem_cnt = i;
+> >  
+> > +	sort(kho_bootmem, kho_bootmem_cnt, sizeof(*kho_bootmem),
+> > +	     kho_bootmem_cmp, NULL);
+> This only covers the case where this kernel allocated the areas itself.
+> On a KHO boot the array comes from the previous kernel. A kernel with
+> this series that is handed over from one without it therefore keeps
+> walking the areas in reservation order for every following
+> kexec_file_load, and the arm64 failure you describe comes back until the
+> next cold boot and vise versa because the ABI string is still
+> "kho-v4".
 
-An unhandled GPU page fault only reports the faulting VA. That does not
-tell a GPU access just past the end of a buffer (a userspace or hardware
-overrun) from a stale or garbage pointer.
+If we were able to kexec from a kernel with no reservation ordering, the
+issue is not there, isn't it?
 
-After the fault report, look the address up in the faulting address
-space and print the BO that contains it, or else the nearest BO below
-and above it: VA range, size, the distance of the fault from it,
-heap/noexec, and the label userspace gave it (Mesa labels its BOs with
-their use, format and size). A BO that has been freed is no longer in the
-address space, so an access to it shows up as a hole between its
-neighbours. Mappings whose last reference is gone, which stay in the
-address space until their teardown takes mm_lock, are skipped. For an
-OpenCL image read on a Mali-G31 this gave (with an earlier version of
-this patch, which also printed whether the BO was mapped):
-
-  panfrost 1800000.gpu: Unhandled Page fault in AS0 at VA 0x000000000A181000
-  ...
-  panfrost 1800000.gpu: fault bo: below: VA [0xa041000-0xa181000) size 0x140000, fault at end+0x0, mapped, noexec, label "Texture format=r32g32b32_sint extent=25x128x32 array_size=1 mip_count=0 samples=0 modifier=0x0"
-
-that is, the texture unit reading past the end of a 96-bit-per-texel
-texture, which userspace can avoid by padding such textures.
-
-Only the unhandled fault path is affected; heap growth faults are not.
-
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
- drivers/gpu/drm/panfrost/panfrost_mmu.c | 88 +++++++++++++++++++++++++++++++++
- 1 file changed, 88 insertions(+)
-
-diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-index 684735937..9c255daf2 100644
---- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-@@ -601,6 +601,93 @@ addr_to_mapping(struct panfrost_device *pfdev, int as, u64 addr)
- 	return mapping;
- }
+And after a cycle of KHO boots to newer kernels we anyway can get to the
+point when bootmem is not large enough.
  
-+static void panfrost_mmu_print_fault_bo(struct panfrost_device *pfdev,
-+					struct panfrost_gem_mapping *m,
-+					u64 addr, const char *where)
-+{
-+	struct panfrost_gem_object *bo = m->obj;
-+	u64 start = m->mmnode.start << PAGE_SHIFT;
-+	u64 end = (m->mmnode.start + m->mmnode.size) << PAGE_SHIFT;
-+	u64 dist = addr < start ? start - addr : addr >= end ? addr - end : addr - start;
-+
-+	mutex_lock(&bo->label.lock);
-+	dev_err(pfdev->base.dev,
-+		"fault bo: %s: VA [0x%llx-0x%llx) size 0x%zx, fault at %s0x%llx%s%s, label \"%s\"\n",
-+		where, start, end, bo->base.base.size,
-+		addr < start ? "-" : addr >= end ? "end+" : "start+", dist,
-+		bo->is_heap ? ", heap" : "", bo->noexec ? ", noexec" : "",
-+		bo->label.str ? bo->label.str : "");
-+	mutex_unlock(&bo->label.lock);
-+}
-+
-+/*
-+ * Report the BOs around an unhandled fault address in the faulting address
-+ * space: the one containing it (if any), else the nearest one below and above.
-+ * An access just past the end of a BO that a hole follows is a GPU overrun of
-+ * that BO (userspace or hardware); an address far from any BO is a garbage
-+ * pointer, or a stale one: a BO that has been freed has left the address
-+ * space, and its range shows up as a hole between its neighbours.
-+ */
-+static void panfrost_mmu_report_fault_bos(struct panfrost_device *pfdev,
-+					  int as, u64 addr)
-+{
-+	struct panfrost_gem_mapping *below = NULL, *above = NULL;
-+	u64 offset = addr >> PAGE_SHIFT;
-+	struct drm_mm_node *node;
-+	struct panfrost_mmu *mmu;
-+	bool inside = false;
-+
-+	spin_lock(&pfdev->as_lock);
-+	list_for_each_entry(mmu, &pfdev->as_lru_list, list) {
-+		if (as == mmu->as)
-+			goto found_mmu;
-+	}
-+	spin_unlock(&pfdev->as_lock);
-+	dev_err(pfdev->base.dev, "fault bo: no context holds AS%d\n", as);
-+	return;
-+
-+found_mmu:
-+	spin_lock(&mmu->mm_lock);
-+	/* The node list is sorted by address. A mapping whose last reference
-+	 * is gone is being freed, and only waits for mm_lock to leave the
-+	 * list: skip it.
-+	 */
-+	drm_mm_for_each_node(node, &mmu->mm) {
-+		struct panfrost_gem_mapping *m = drm_mm_node_to_panfrost_mapping(node);
-+
-+		if (!kref_read(&m->refcount))
-+			continue;
-+		if (node->start > offset) {
-+			above = m;
-+			break;
-+		}
-+		below = m;
-+	}
-+	if (below) {
-+		inside = offset < below->mmnode.start + below->mmnode.size;
-+		if (inside)
-+			above = NULL;
-+		if (!kref_get_unless_zero(&below->refcount))
-+			below = NULL;
-+	}
-+	if (above && !kref_get_unless_zero(&above->refcount))
-+		above = NULL;
-+	spin_unlock(&mmu->mm_lock);
-+	spin_unlock(&pfdev->as_lock);
-+
-+	if (!below && !above)
-+		dev_err(pfdev->base.dev, "fault bo: AS%d has no BO\n", as);
-+	if (below) {
-+		panfrost_mmu_print_fault_bo(pfdev, below, addr,
-+					    inside ? "inside" : "below");
-+		panfrost_gem_mapping_put(below);
-+	}
-+	if (above) {
-+		panfrost_mmu_print_fault_bo(pfdev, above, addr, "above");
-+		panfrost_gem_mapping_put(above);
-+	}
-+}
-+
- #define NUM_FAULT_PAGES (SZ_2M / PAGE_SIZE)
+> > +static int kho_bootmem_walk_top_down(struct kexec_buf *kbuf,
+> > +				     int (*func)(struct resource *, void *))
+> >  {
+> >  	int ret = 0;
+> > -	int i;
+> >  
+> > -	for (i = 0; i < kho_bootmem_cnt; i++) {
+> > -		struct resource res = {
+> > -			.start = kho_bootmem[i].addr,
+> > -			.end = kho_bootmem[i].addr + kho_bootmem[i].size - 1,
+> > -		};
+> > +	for (int i = kho_bootmem_cnt - 1; i >= 0; i--) {
+>
+> kho_bootmem_cnt is unsigned, but the reverse loops in
+> kho_reserve_bootmem() and kho_bootmem_walk_top_down() start an int
+> counter at kho_bootmem_cnt - 1, which for a zero count is UINT_MAX
+> converted to int.  That conversion is implementation-defined; with the
+> current compilers it yields -1 and the loop body is skipped.
+
+We never get here with kho_bootmem_cnt == 0.
  
- /*
-@@ -984,6 +1071,7 @@ static irqreturn_t panfrost_mmu_irq_handler_thread(int irq, void *data)
- 				exception_type, panfrost_exception_name(exception_type),
- 				access_type, access_type_name(pfdev, fault_status),
- 				source_id);
-+			panfrost_mmu_report_fault_bos(pfdev, as, addr);
+> How about using this one.
+> 	for (unsigned int i = kho_bootmem_cnt; i-- > 0;)
+> 
+> Reviewed-by: Mukesh Pilaniya <mpilaniy@redhat.com>
+
+Thanks!
  
- 			spin_lock(&pfdev->as_lock);
- 			/* Ignore MMU interrupts on this AS until it's been
+> -- 
+> Regards,
+> Mukesh Pilaniya
+> 
 
 -- 
-2.55.0
-
-
+Sincerely yours,
+Mike.
