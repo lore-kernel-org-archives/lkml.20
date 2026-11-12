@@ -1,131 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794499555;
-	b=cAWD4uE8Jquz5IRGySzZWzpEbMlWY4l8dZw5kcnsq+UbQZAYJyGrXZW0OY6eq/V/l9a3
-	 hYzgWgeTtVWkyF22irwIEt+1kbjhCGSMmjmSlVzrAUrcbYPHS15rIlblFsRzyApLYK7za
-	 Oxin0aUQ0Vhk6t3pRkRV6IKo3zEEc4Y2WqKhZSffBsSTBRCMXcM58MVdcL+ZXxZ7b/8h0
-	 puSQmPbfojW+pM5AIo0aSM29ynGkxEWVJKtZeNMvcqq3IXWeS2cI8jbUxGOueDIkXefnT
-	 cNSwHCKw9/aC80wde6BLS7W1y6Pv1HhsxVB4IXyNUwdYL3VVaYSmZfxZvdN7zfMRVxA==
+	t=1794499554;
+	b=4oM18R5cZQJMOwj+auNz8s3/jTusp+lpMFrleswlKWRxGed2zpwABTUxee/ha3WUCFdb
+	 NYW1OoS/N1wU41L8ziF6NRWLJGjfAwUqJvmqCE6hUkF0ALHvg8l/t1Deqy6gVK8uUUgwo
+	 2kLIc7+gDPat8ODLH5Ygkp5sm5tWe7KOlvTcA9//QQkD5Vg0L2zsln6HJs6yKn4HriVNO
+	 vx9hXpOYLButTnB4AlrTm1jxFbuSSTwfZhtEhxu5ZFlIr/nEh1ee8lloJN9MS+cj0y0nD
+	 erYYQff3Ea+hLZ2j7zcmCup+3NTFcvb5G+3ZG75NfeFCSMtus5XRS+eNSC9/yWW2BBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794499555;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=YufnmZVNechLqcaL+12tnkQkHsQyEMDzCGtNkLwTnI0=;
-	b=WYVn8xaTZr1WfLoUdaXGe8NTXt4YirbzBsPQ9uFmyE6QVOUWbv1FyLBf5YzA6OBciLea
-	 sOeOsl6am1d/az11mvU1cumv2mW9rZS8Zw3X9Y9hOXU3/ioJXJJrZlY5xj0XHYoDF1xZv
-	 oVYuHwMckhIYESwL+TFSsOVKCQVIoPS+yBJtH00G4cCuTkIwpb/f2e1IkmEoMqcHFhX1T
-	 e7foYT8nlYmH+RozF1y3pxk5u2udiBM+09tvo/iWMCm4J4I61iuYHGuC8fV4im8GSGcuW
-	 AyQMPhFmJlciDkxgzVunbEHbSiPhbVBK30N8B2bJvBHc92S0szyx046hW/fuSBl6IYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794499554;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=o8iTVgOTiZT73c0h3+A1eigD9lE2pHsZudl5pIAmkQI=;
+	b=EyuQ6KL0R+sZyi8NOfrELdE8t5/5/llbT2MH7e75oaxt/rYRUCIHhf/ZyzZ2DCgVwGo1
+	 aa5ZEl3v/eLJhoQNz/O0MQ7+uz86KoGJVnlQrG72HJ2hGg8RRTlatrHblk24ZXyuf2CnQ
+	 iWjPYtwiU/RzbcHnSoFU17W4prgKLqQ9uEn/pR4D/W2gXnCIJyY+Ia5ueb/waau3yAuGE
+	 C4LnnblmRPLlCXqhI4fYgsedTO7yiSbyZEw+NMNtHqIrnlorcrPTBUtYOMZR6kn27TJ83
+	 x2hUaIchtTUYWkkCQsGoJXwYHNMnPTp7TS9jNbVVuBuce36BwI9WsXCg7d7DzJibMLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1XqhTbRt;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W8xNeInm;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="qJ/9tp20";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HJbtW+mO;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KTWT1m0Q;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B76606A323;
-	Thu, 12 Nov 2026 16:05:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4B76606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB55A606A333
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:05:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB55A606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1XqhTbRt;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W8xNeInm;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=qJ/9tp20;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HJbtW+mO
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9BF261F7C6;
-	Thu, 12 Nov 2026 16:05:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794499552; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YufnmZVNechLqcaL+12tnkQkHsQyEMDzCGtNkLwTnI0=;
-	b=1XqhTbRtR2Ti2wMF/rvG2bh0JIBFEix+aS565q+brCOymeXkbIxqBQq2r6wsuvjiaO4+2w
-	7vfPm9DxdSKjxbS+lm1t4CLNcFuy/aDguieyK4iugLfLvVw7S9L1Jct/nMqrJprcCEIpD/
-	nkrRSyW3+pMrvBILTWn/2P65EZiNyIA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794499552;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YufnmZVNechLqcaL+12tnkQkHsQyEMDzCGtNkLwTnI0=;
-	b=W8xNeInmb51XAqwMI01ZB6ZyLVoJIpxMF250ZX/5Jv8Zkh6KoO3jw58ZSy97gjEKKrw5ff
-	TY0JojlmtcRCm4Aw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794499551; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YufnmZVNechLqcaL+12tnkQkHsQyEMDzCGtNkLwTnI0=;
-	b=qJ/9tp20/z5EPRCwjV3Ju3oZQSF63/UXEfbK0qWbglccebVbRVJ17Cow0WhCqK2fPx4oDA
-	1WXHs3iY8Axd+KkJKQ2VhoFG7bhXpndOn67Jt9IA4ZnjiV/fNLyjHE0RFjIFUqn7pPmRTu
-	uOkBoRbKv1DY3FYxsRkePWbviVKDar4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794499551;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YufnmZVNechLqcaL+12tnkQkHsQyEMDzCGtNkLwTnI0=;
-	b=HJbtW+mODGRUVoEOZT6vq0WsF+o5SBwK9SwP09053w/gNrYQYHXjf1sVhXTvZ+CP7MMNSX
-	9U0u9mDp3bfE52Cg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5E26C13432;
-	Thu, 12 Nov 2026 16:05:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id bcdNCNrj9WqGKQAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Thu, 12 Nov 2026 16:05:46 +0000
-Date: Thu, 12 Nov 2026 16:05:40 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
-	Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
-	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>, 
-	Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Steve Sistare <steven.sistare@oracle.com>, 
-	John Hubbard <jhubbard@nvidia.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
-	Josef Bacik <josef@toxicpanda.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev, linux-arch@vger.kernel.org, 
-	iommu@lists.linux.dev, netdev@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3 6/9] RFC: net: limit folio refcount when copying skb
- frag references
-Message-ID: <avXi-z1MEb9S93Ii@pedro-suse.tail5790ac.ts.net>
-References: <20261110-refcount_overflow_stable-v3-0-318625d63a98@kernel.org>
- <20261110-refcount_overflow_stable-v3-6-318625d63a98@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KTWT1m0Q
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e46e449e8so2977860f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:05:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794499552; x=1795104352; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o8iTVgOTiZT73c0h3+A1eigD9lE2pHsZudl5pIAmkQI=;
+        b=KTWT1m0QTT0IiZ+OiePQXtoD9hL26xv0+bxj8gkZu3CnT/s7rK1bHV+T5jA+yVy2JH
+         e9WASE1yr87WPJfZvr4bDj0rfP7KgXfGA2HIl0INE9UKHFUdjRJb6xin92zQFGO3kva3
+         qV4FcJhJf+hBvWE8I3AiE045NudIMMQ+ful4qu0cuqfVWhr0zzcx8dkpooKYdKnRw6yc
+         7c8za3dsAKoECNiijG+9nyaPbkKqFN6FUVTo/6EGhOTLkfK6rR9w3VFwozKw94dmHE2c
+         zEf5/PisDigDGeqqRJZ74a/mdSHcCxJMiMeDbDq2ybrXZz1h5RA/wSAxa4qU4BZa7eRS
+         x1og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794499552; x=1795104352;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=o8iTVgOTiZT73c0h3+A1eigD9lE2pHsZudl5pIAmkQI=;
+        b=IZ9A4+KcqygKQiSyd++rlTKF7gDJYIoZIX/XQOpyIdyMCfv0ZXSqcVJNcLGDN2UYEP
+         Fg46hLu1uIFlq8gmymLZyyiw3n0nYBP6cSGiA499U1ZH4AW6HIH0KS2eFoBQ0xutMJVa
+         Ua3GlfpNC+MQ1ZR5eeHYNM+sbMqx2vXSasZjPtckzVP6R3M2n6W0mT646D+RxdHRH2+V
+         IMRuC/Zde9Jz9abs1X09dCFPZHzfUmyx3vdLo0FO3cvJp/X+dYSJy2ocHu28uxvmInyj
+         Gx0YB48NFURP+qux7iQJ0ovsFIlVosOsG8S+hWvwGHXMrNtDpSFCEIWiZeLiYULpPkn4
+         K1YQ==
+X-Forwarded-Encrypted: i=1; AL+hErGMQvm7nymxAnqrjEgO1I8vdgxDD7Yz5H8xYCEOUInTAHu3ujHz2n83oIFIqK5l+IUkN/lPYJQ+IVAwM8s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z96043xJW/MJwAw+2m8vuNIyWD8nVYRNNVX7y+JnJhlLRXcAkwg
+	tZWJZsJ+8TWsohJ/t4iYegv8w+zwj7SkNXb6NnHqMOFKq8IRRzaD1JB2
+X-Gm-Gg: AYBFou3uE98a3oixWVBNAy+015STG+tUSQfteyxuJzf6+FoS0VBEc3O0Jn9jTNzNr1b
+	2qsHBIPiRvqRWcuI9PrSOaiQqeftqGJxVVVssnwy9MZlXBzNB3/moWCHlwxfAYNKSQP5fbQ2U39
+	X1Rlolhg2fW0T9jb59hDi0oxAjU7/lZs7mMPvx8OvBxrTe91NH17/o6fpfqCNNvBWejx88Ul0z3
+	vFpOsHxmkXgx2+RDvQZ8DmtubpS1FhFcdEhXEG6aja6MqXKOEGAUE2z+R2TAogj1ql1aYHk0LC6
+	2Ni9bhc0+ElZp4mXpOOEXtTUGaAKcDzQ9dQ7WXZ+Nlr6718FakLrGpDexcQzW5M0l62U4JhmNUs
+	/eFbfrjj6yUkDF/OcXSL3nTRPmissIbAIRgJQEEsIT5MgrS3FIa83KbVGqfv0G3Tci1X9n/khqL
+	JkrAYtAx+PaaW1Nw3TLRx59w0sjiN/+/GEVjgJ7R6BHKFyHw+iCis3WSEOn66ipDczuTcEr1sS6
+	sPJOORT7cC1wBAezZ5SWNK5/zyAjOlrutTaqqvS3O+Q/P2NBV+TpVTVBAUKf6wnE6SokNUcFNL5
+	rTo4Ker4/X4FFsR+myuJb1NQW7qdTXJrj+51yKu9OJXJlzeWK9QSwWqmNlM1
+X-Received: by 2002:a5d:588c:0:b0:48c:414f:cc12 with SMTP id ffacd0b85a97d-499c792de9emr11285652f8f.40.1794499551691;
+        Thu, 12 Nov 2026 08:05:51 -0800 (PST)
+Received: from AVIV-PC (89-139-9-231.bb.netvision.net.il. [89.139.9.231])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f78214dsm23615f8f.25.2026.11.12.08.05.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 08:05:51 -0800 (PST)
+From: Aviv Levinson <levinson.aviv@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: dtwlin@gmail.com,
+	johan@kernel.org,
+	elder@kernel.org,
+	greybus-dev@lists.linaro.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Aviv Levinson <levinson.aviv@gmail.com>
+Subject: [PATCH v2] staging: greybus: uart: convert idr to xarray
+Date: Thu, 12 Nov 2026 18:05:46 +0200
+Message-ID: <20261112160546.27094-1-levinson.aviv@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026111219-guacamole-quality-2ecf@gregkh>
+References: <2026111219-guacamole-quality-2ecf@gregkh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -135,64 +102,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-refcount_overflow_stable-v3-6-318625d63a98@kernel.org>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MISSING_XM_UA(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,infradead.org,google.com,suse.com,suse.cz,linux-foundation.org,nvidia.com,linux.alibaba.com,linux.dev,arm.com,intel.com,gmail.com,sk.com,gourry.net,redhat.com,cmpxchg.org,fb.com,surriel.com,szeredi.hu,zeniv.linux.org.uk,arndb.de,ziepe.ca,8bytes.org,oracle.com,toxicpanda.com,davemloft.net,kvack.org,vger.kernel.org,lists.linux.dev];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[62];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -11.80
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 09:35:46PM +0100, David Hildenbrand (Arm) wrote:
-> Various networking features copy frag references of an skb, for example
-> when unsharing a cloned skb (AF_PACKET trimming a clone), when copying an
-> skb (nft dup) or when building NFQUEUE messages. This is an effective
-> way for multiplying folio references held by an skb, allowing for
-> exceeding folio refcount limits.
-> 
-> This is not specific to large pagecache folios, but with them it is a
-> lot easier to reach the refcount limit, as page table mappings can cheaply
-> create many references.
-> 
-> Let's introduce skb_frag_try_ref() and skb_frags_try_ref(), which use
-> try_get_page(), and use them in pskb_expand_head(), __pskb_copy_fclone(),
-> skb_zerocopy() and pskb_carve_inside_*(). All of these can already fail,
-> and their callers handle that.
-> 
-> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
-> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
-> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+The legacy IDR API is deprecated in favor of the modern XArray API.
+Convert the tty_minors IDR to an XArray.
 
-Acked-by: Pedro Falcato <pfalcato@suse.de>
+To prevent locking the entire gb_tty object while loading the minor,
+switch IDR to XArray and use the internal XArray's spinlock (xa_lock).
+To respect TTY encapsulation, use tty_port_get()
+instead of direct kref_get_unless_zero().
 
-For what it's worth, I tried thinking up a way to avoid all of this stuff.
-I know there are severe recursion limits that (should) avoid a large copy
-chain, but the issue is that, say you have a copy chain limit of 8, you can
-still create 2^31/8 skbs (each with their own reference), then clone each 8
-times such that you get an overflow. Annoying.
+Signed-off-by: Aviv Levinson <levinson.aviv@gmail.com>
+---
+ drivers/staging/greybus/uart.c | 27 ++++++++++++---------------
+ 1 file changed, 12 insertions(+), 15 deletions(-)
 
+diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
+index 2b1a5d4671dd..054bdc232942 100644
+--- a/drivers/staging/greybus/uart.c
++++ b/drivers/staging/greybus/uart.c
+@@ -339,24 +339,21 @@ static struct gb_tty *get_gb_by_minor(unsigned int minor)
+ {
+ 	struct gb_tty *gb_tty;
+ 
+-	rcu_read_lock();
++	xa_lock(&tty_minors);
+ 	gb_tty = xa_load(&tty_minors, minor);
+-	if (gb_tty) {
+-		if (!kref_get_unless_zero(&gb_tty->port.kref))
+-			gb_tty = NULL;
+-	}
+-	rcu_read_unlock();
++	if (gb_tty)
++		tty_port_get(&gb_tty->port);
++	xa_unlock(&tty_minors);
+ 
+-	if (gb_tty) {
+-		mutex_lock(&gb_tty->mutex);
+-		if (gb_tty->disconnected) {
+-			mutex_unlock(&gb_tty->mutex);
+-			tty_port_put(&gb_tty->port);
+-			gb_tty = NULL;
+-		} else {
+-			mutex_unlock(&gb_tty->mutex);
+-		}
++	if (!gb_tty)
++		return NULL;
++	mutex_lock(&gb_tty->mutex);
++	if (gb_tty->disconnected) {
++		mutex_unlock(&gb_tty->mutex);
++		tty_port_put(&gb_tty->port);
++		return NULL;
+ 	}
++	mutex_unlock(&gb_tty->mutex);
+ 
+ 	return gb_tty;
+ }
 -- 
-Pedro
+2.53.0
+
