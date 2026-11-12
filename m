@@ -1,49 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794481806;
-	b=iUONQiGou7XSnAfYYSLHjV/O3ES9mKFY56x40OqJaT5JPDldEihDIGSe/X45Hb4fglJf
-	 +xwe+7PtSx3JuMzgHqxocdfn+zbrmneUYfC2mwrwu0inE9IJMvAX5/2ePu3bh2FWcDLZa
-	 GhOxcxwV0SazwMb5kLevQrom/R2qkezx0+LkrBpdYpAe8HyIUmFx7OyL90q4AFp/94MPW
-	 +Tc3MCPG80EB5ePidzvv9xdwiqc2ZxiL3o+3/k+E8CXOGtZM1lwnedQhJpH0IGtkr+E/j
-	 JerDTxIGMJyDXQ0b8oxpc75yb9ZwW7zNYPfauKmGjW9EdFCCAuD/76KpPhR63jUDp2A==
+	t=1794481860;
+	b=Yo73ZAx1YaksqtSlKUIEli37bQwpzG4kUbyGTn6/u8zCSWQPz5q0b6WQnynGWLChdV2G
+	 BOtecgL5ZQjWRpyJ8JjgVruNjSgqbKcYty8+OeFjg46TOXfIPCTefTs6BGRsLofMCH8b8
+	 pK8kB9lN5heZG52HmFidlBNzMLvKCTDetziOYF3tECqm7LBItwZbD+FxST/Hwrt1OeFow
+	 VHMqSTEqYPgHTp+57J6R/sRNJSFL9F3IOEaNxZrLx2BGfUkyrBea+Rvq7vvTDnHsyEDR2
+	 BXpv+o4EH5QyP0wR2J5P0gc6HJQUp9Ky0WRLb3jVmpi6DotgBdx/XutJKu6xInl+eTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794481806;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=hn5JHRn1D+0dPUmFjVPSY2298ewtxyUPc3PuzoACQ90=;
-	b=oguKvFaws82LzsIlUbV6RRGTywwOnMOzWTCd4aPMiK/hJ/4iLApfpdQPKawX/WPlp4Tl
-	 D5iOJErbt0DwLVoY6yIFrpXxjHXzOUzLjWBP6iBFvNjUtWki8KsvaBd2TuwHKhR+Suwd4
-	 N4hNB959U0vO4JD4S1AcLI3Prl9pPfqsYBpjswLJmDcffApfpIiwXpM3FcNhaRFAt5/ye
-	 OnvINRSdSUVewBGXNKt+v9olPdj0POHrLfeN5NYzTxc/kC6TzxCYJwV/VfK+5Ionify7U
-	 oIN1OyBEEHW2hZVAoOhlihGrDLZUqKRdyJFynkbiNr+T4l/jrNhwuKo7CMnkYV2eBgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794481860;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ektZNdoDRs4nbYgB95A+evTohYyvZ+c3ZHsun85mrNk=;
+	b=fFbRzDMMJc4iT5yGBO3XjFc329NGqrwPv9Y0MZKuVFRKdqqg6F8a9raUSdVNFX2zaoyD
+	 WkICPLiS4g7pEAF2gyY9p/2tMT8ef2ZomIS2aZANJKZadEFQ4rAuQim6RHvBc004O67X4
+	 u14oLznBH+XxGpLBZ4UVFMD9AmqCBhCwO1BQTavWebpi+xLuvRs+b5Mv91au6RE0Kbo3n
+	 10ILRTWFsKibVSEaZnbtkMw+febivwMMx8gjMNw48eb7rgMvBUp/wcHJfy505D3RzEiye
+	 xyTUEtRmws6cxQJCL1EbEryyTRXOyHejqzHrUq2oY5tzeNuIWM8AQEfjz3rPu+0Q9Lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J+mFTVll;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BwtDVxcr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D51606A31C;
-	Thu, 12 Nov 2026 11:10:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2825A606A31C;
+	Thu, 12 Nov 2026 11:11:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J+mFTVll
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2BF61F00A05;
-	Thu, 12 Nov 2026 11:10:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BwtDVxcr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 182F21F00A05;
+	Thu, 12 Nov 2026 11:10:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794481805;
-	bh=hn5JHRn1D+0dPUmFjVPSY2298ewtxyUPc3PuzoACQ90=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=J+mFTVllvw2p8ex1twvleZRF9qfxWHaDebcXzVK0ImD9E7jftkJ9sNv9oWEpXD0ZB
-	 WMDjq6/odYKkf/0uTfYnu33Kcq2le0T5yPBcr6Hs6B7hfAm5gEkqoYMllKkYWB2Bgn
-	 YEMOXsNlh57Yzm8czMfQ7KfOL2vzScEl8dTdzcjilGH4tVAAzc8VRCBJr2C44Vz18q
-	 mU6cUmukNVw9GT9KACtaajrTzXixdEllGDsiF4BaxodQFH39a26c/7FOZuSimucKGN
-	 mGNXmm3ske+cD4i1984HyOxEnpSUCjvOwWgyyRQYw/BF+1VOUtKRvkYvhgyZmt2hAC
-	 MKuXuDGVD8gIw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D82843AA9F46;
-	Thu, 12 Nov 2026 11:10:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1794481859;
+	bh=ektZNdoDRs4nbYgB95A+evTohYyvZ+c3ZHsun85mrNk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BwtDVxcrJDfKDI+sNi5mUcOqiYck2I0tcD04KbCSmrlsFNsp8iy2H0NSgZfTs6nQL
+	 UqhE0LLuBc4NGVQX5rq7sxaVHvir0+MGbNrfZ81U2xeent/FHcvng2rTPmxY4Z5RDL
+	 cnDV9KWGV1fef1OllxITvJDrlN2i0eW4mpFyo2Td1oZp9h8ec11zAf0YDaAMcDRxr7
+	 cNcG3ZLa5Awm2hhqOabCa0RQEC0Z8TXy4zEZkeXUl8PweS+LCVK+YOorDmkVVOFKIs
+	 nZMkj65GTyc+wJwnWv+VPH+/lI1eC3bFtaq0ikhgar2blqlEQ8LXOcRPEDZBWYYNrI
+	 c198QFJyWiJ7A==
+Date: Thu, 12 Nov 2026 12:10:56 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vincent Cloutier <vincent.cloutier@icloud.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Purism Kernel Team <kernel@puri.sm>, Vincent Cloutier <vincent@cloutier.co>
+Subject: Re: [PATCH v2 1/3] dt-bindings: media: i2c: Add Samsung S5K3L6 image
+ sensor
+Message-ID: <20261112-dainty-groovy-jaguar-7cdd26@quoll>
+References: <20261112004636.739749-1-vincent.cloutier@icloud.com>
+ <20261112004636.739749-2-vincent.cloutier@icloud.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,44 +64,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v2] net/sched: cls_fw: allow filter replace
- without
- re-specifying mask
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179448180472.2021886.7663013932315306240.git-patchwork-notify@kernel.org>
-Date: Thu, 12 Nov 2026 11:10:04 +0000
-References: <20261106063133.98515-1-taowei@kylinos.cn>
-In-Reply-To: <20261106063133.98515-1-taowei@kylinos.cn>
-To: Wei Tao <taowei@kylinos.cn>
-Cc: jhs@mojatatu.com, jiri@resnulli.us, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261112004636.739749-2-vincent.cloutier@icloud.com>
 
-Hello:
-
-This patch was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
-
-On Fri,  6 Nov 2026 14:31:33 +0800 you wrote:
-> The fw classifier keeps the fwmark mask in the fw_head shared by all
-> filters of a tcf_proto instance, so the mask is a property of the head
-> and not of the individual filter: it is set when the head is created
-> and cannot be changed by a filter that is being replaced.  Nevertheless
-> fw_set_parms() rejects such a replace with -EINVAL whenever the head
-> mask is not the default 0xFFFFFFFF and the mask is not repeated on the
-> command line:
+On Wed, Nov 11, 2026 at 07:46:34PM -0500, Vincent Cloutier wrote:
+> From: Vincent Cloutier <vincent@cloutier.co>
 > 
-> [...]
+> Add a devicetree binding for the Samsung S5K3L6 13MP raw Bayer image
+> sensor.
+> 
+> Describe the validated two-lane MIPI CSI-2 configuration used by the
+> Librem 5 rear camera, including its supplies, input clock, reset GPIO and
+> three link frequencies. Require the endpoint and reset GPIO: the driver
+> uses hardware reset to stop the sensor if an I2C standby write fails.
+> 
+> Signed-off-by: Vincent Cloutier <vincent@cloutier.co>
+> Assisted-by: OpenCode:GPT-6.1 Sol
 
-Here is the summary with links:
-  - [net-next,v2] net/sched: cls_fw: allow filter replace without re-specifying mask
-    https://git.kernel.org/netdev/net-next/c/0cd24172516c
+Drop tag. Also, your SoB is supposed to be the last one.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Please run scripts/checkpatch.pl on the patches and fix reported
+warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+patches and (probably) fix more warnings. Some warnings can be ignored,
+especially from --strict run, but the code here looks like it needs a
+fix. Feel free to get in touch if the warning is not clear.
 
+> ---
+>  .../bindings/media/i2c/samsung,s5k3l6.yaml    | 118 ++++++++++++++++++
+>  1 file changed, 118 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml b/Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml
+> new file mode 100644
+> index 000000000000..097593d74780
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml
+> @@ -0,0 +1,118 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/i2c/samsung,s5k3l6.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Samsung S5K3L6 13MP MIPI CSI-2 image sensor
+> +
+> +maintainers:
+> +  - Vincent Cloutier <vincent@cloutier.co>
+> +
+> +description: |-
+
+Drop |-
+
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
 
