@@ -1,58 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.208
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794453963;
-	b=baHzq95nYPomAprqcZJE5T01nHvT9cvu+mEgzejPVqh5Ir7GC5NjxjL6L9WWf4XmNHLF
-	 VDA+IHF9cnRwMieO+0UwONehL41Dph5sAxy3vsHb7nhxSrsrlX8oQSL+jUgIKq5I3p7Zx
-	 XxC8b6jgdJPNF/AiY7dB+C4mO+0IWmYhT1wxZ5Bi03V72twlgx2HLvZ/+/LfaDprhwOT9
-	 Og3krHizR2rsEMekKZOyEAwZ5a4yEvH3wWXcifkiTt5KRlyN2frL+vpd4Gz2Wl/iHFxr3
-	 e0uSlBEF3IoG6UjAbVpbfmOg2tMsfcTzLzUmIppk9KqlgsOfL4S5VGkAv11aWjjuzbQ==
+	t=1794454079;
+	b=zU+4fyvE450g2bTH9oi+n6j6t6fmPkmTHO2bS4oh8Sx/g1tddPNlulXGAaoIdxB/hFro
+	 xODgJGsLfkHLAEuFvH8HI8UoRun29hrRZPvOwn3XN93FlGguB2sgqwe8x0zZ/LL96qdQF
+	 5uKQ0spI2R0VHyCc8lrYXEq1mWGL//5sYE+IuF021WYohSw1FOcu7a5nnM9y0idkCEX54
+	 w29Kv2AOL55ecdsaqqhq9Bg0sbsB1FRPtk38/tFZBqPV8jbpRRp8Cn78xj0VMQir6h+DE
+	 k6PtlsdJHy1KJ0edItKQDEG+6jBCrzj1s7IEZx7ZA2XZP8jXXXhH4j4bk2OdZA4bFoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794453963;
-	h=DMARC-Filter:DKIM-Signature:To:Cc:User-Agent:X-Original-From:
-	 References:X-Lms-Return-Path:Subject:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding:From:Date:Message-Id:In-Reply-To;
-	bh=KwVkcbc7y+N/n0v3EmYPeXpyF8Leg60aXI1iqgxnOa0=;
-	b=iiT0HxUidNaIHpI7OQlgdlG0bflv7+WbgWMy0OxdzpWjjZ+VUU9e9hGNAZDO72Ts0/CX
-	 UcEF/gOlHEzkj3T3BQLtwPYhifMrjMcKKCOmoIyldcYtvVunEfVxkAcyWWKjQYsO782e9
-	 rPtwTzScjYH8tLTCZYVm5Z+eQ0dE1nO5sd9x7Vx0yH7JTMnpWx6gZ9+opGOI0qfoOARr5
-	 m51VRdXw9UuAuP1dVWVKsfnZwQedyA4rjtj6ADet3/DxBRMe/6taPkCSzrFI3gfrp0mdU
-	 KYeX7ph7LMVSfTrW6ecNObMsOrhAvOyXAvdoGdcBFJ8BtzhX+vgeRih0ZdQSyWmcmYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794454079;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=FJxtok8nywZ/TQgGJyWa/+E2CH+0K50OeaFCvC/H71M=;
+	b=qEztB8EolKtWxB1mrff3pMSB49v0Sbktfn11veX9ojYjZyoQXRwGUwaZM0R42ibyHn1/
+	 dF8/WgF+EH+cCYFHTmcVDnmpdyLxHG5Dl/x0rqXiOHFJcFbaMj16IA3kQrZpvlUTh1xvi
+	 f+wRHRRUQKkhxuzku3EkhpmEd6TNDs/MAyO7Prbui40i3dqKBFSiF9mCQrmYDLCtx9zsF
+	 ufaNoRgwhhxNjU0XMsA4B8r2whZioFiYidSDYho4oKbs6wieIicJ4/r0zzA+j0NEgC85K
+	 cqMGUo0x4e8KpKy9Z8BxYJHb65qI8bo4MTR18Oqwo6tlvy/zafPlFHvOWnJnevhFYjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=Z0WoG611;
-	arc=none smtp.remote-ip=209.127.230.113
-Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LFZVCmgP;
+	arc=none smtp.remote-ip=91.218.175.208
+Received: from mta0.migadu.com (out-208.mta0.migadu.com [91.218.175.208])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F10606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:26:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80F10606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11E07606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:27:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11E07606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=Z0WoG611
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1794453957; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=KwVkcbc7y+N/n0v3EmYPeXpyF8Leg60aXI1iqgxnOa0=;
- b=Z0WoG611yUE9gGcjG0XpeLIJj6VT4JCy5VpnIaefcKpVYPNuzo32E8xZLThNJ3pBZib0mK
- p1s4SaULdFh5qaLeNcTsbojeBXgfosa8Z/HP3Blrm/iQ8UbgXhyMbSjna7nN7dKySoN7HT
- QxhQ2hD6swpK92wcmH0BicOV9kke84batljU8gfrru5vivB7wKQjskfNaB7u7PDSS0FbmJ
- 6my62Te8jMz7J8BcCrRLrvswnYZN0wtj56nxChvwBsrwd1ZwH0v1yO33vhHOVfZkohp9qs
- EQ7XC7TW0PUtKK+ikQXn9hwfZ/Cgk1GsOaiUovpvcnS9VQOLViRShJw7ntJusQ==
-To: "David Hildenbrand (Arm)" <david@kernel.org>, 
-	"Qi Zheng" <qi.zheng@linux.dev>, <muchun.song@linux.dev>, 
-	<osalvador@suse.de>, <akpm@linux-foundation.org>, <azpijr@gmail.com>, 
-	<lance.yang@linux.dev>
-Cc: <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>
-User-Agent: Mozilla Thunderbird
-X-Original-From: Qi Zheng <zhengqi.arch@bytedance.com>
-References: <cover.1794046188.git.zhengqi.arch@bytedance.com> <b1c1c835-180a-49e2-86c0-bc3f65981728@kernel.org>
-X-Lms-Return-Path: <lba+26af531c3+d6ed4b+vger.kernel.org+zhengqi.arch@bytedance.com>
-Subject: Re: [PATCH v3 0/3] mm: hugetlb: fix CMA-related issues
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LFZVCmgP
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=mcfYyT8ssdEa144YgXQss8K/JkNJiAW/50JOamvyaFE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794454076; v=1; x=1795058876;
+ b=LFZVCmgPiTIEZJ1A5tKZkTFVNGFy6F8sQZ2z7v+0VqqrwOkK5MOLVGteCp7csaavOOeLXOx5
+ K6UfAumPyZ11XL6I5aYTeBGMC71C1H4tuBPor6bSUp22nfLMw3qyguuCO94Wo7BFwnxfmZ8bw2t
+ CXeuegxbcWb8tSb2xRQ7B7Tw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d517d826f1cb946c;
+	Thu, 12 Nov 2026 03:27:56 +0000
+X-Mizu-Trace-ID: d517d826f1cb946c
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <64a49d81-c836-49b2-890a-096f5ce5e318@linux.dev>
+Date: Thu, 12 Nov 2026 11:27:42 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,98 +57,233 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-From: "Qi Zheng" <zhengqi.arch@bytedance.com>
-Date: Thu, 12 Nov 2026 11:25:38 +0800
-Message-Id: <7e733c3b-2aa2-406e-a5ca-cd9a2c872f9f@bytedance.com>
-In-Reply-To: <b1c1c835-180a-49e2-86c0-bc3f65981728@kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] mm: gup: allow long-term pins of CMA-allocated
+ HugeTLB folios
+To: Frank van der Linden <fvdl@google.com>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, muchun.song@linux.dev,
+ osalvador@suse.de, akpm@linux-foundation.org, azpijr@gmail.com,
+ lance.yang@linux.dev, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ stable@vger.kernel.org, Qi Zheng <zhengqi.arch@bytedance.com>
+References: <cover.1794046188.git.zhengqi.arch@bytedance.com>
+ <586d6c53ab7e4c64d6e89ad3cf0cf7e07dabbfaf.1794046188.git.zhengqi.arch@bytedance.com>
+ <7abb3aa1-385a-422f-86bd-7aac9661c4d8@kernel.org>
+ <423c9b28-ecf2-4fab-817d-2fb326690c73@linux.dev>
+ <3a1a3bb5-0b01-4f20-aa0e-74a952544b8c@kernel.org>
+ <5f68ffba-9f56-4e31-9e7c-9d110f552efc@bytedance.com>
+ <CAPTztWb0XbjCxtihyp=Tx16Z_kjF+M8sa7YcUjvFv0WcS83MAg@mail.gmail.com>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <CAPTztWb0XbjCxtihyp=Tx16Z_kjF+M8sa7YcUjvFv0WcS83MAg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi David,
 
-On 11/12/26 6:05 AM, David Hildenbrand (Arm) wrote:
-> On 11/7/26 11:30, Qi Zheng wrote:
->> From: Qi Zheng <zhengqi.arch@bytedance.com>
+
+On 11/12/26 6:26 AM, Frank van der Linden wrote:
+> On Wed, Nov 11, 2026 at 2:27 AM Qi Zheng <zhengqi.arch@bytedance.com> wrote:
 >>
->> Hi all,
+>> Hi David,
 >>
->> This series fixes three CMA-related issues in HugeTLB reservation,
->> long-term pinning and allocation:
+>> On 11/11/26 3:43 PM, David Hildenbrand (Arm) wrote:
+>>> On 11/9/26 04:10, Qi Zheng wrote:
+>>>>
+>>>>
+>>>> On 11/8/26 1:58 AM, David Hildenbrand (Arm) wrote:
+>>>>> On 11/7/26 11:30, Qi Zheng wrote:
+>>>>>> From: Qi Zheng <zhengqi.arch@bytedance.com>
+>>>>>>
+>>>>>> Long-term pinning treats explicitly CMA-allocated HugeTLB folios as
+>>>>>> unpinnable, causing unnecessary migration or pinning failures.
+>>>>>>
+>>>>>> These folios already own their CMA bitmap ranges, and memory blocks
+>>>>>> overlapping CMA areas cannot be offlined. Allow HugeTLB folios with
+>>>>>> HPG_cma to be pinned directly, including in ZONE_MOVABLE.
+>>>>>>
+>>>>>> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic hugepages using cma")
+>>>>>> Cc: stable@vger.kernel.org
+>>>>>> Suggested-by: Muchun Song <muchun.song@linux.dev>
+>>>>>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+>>>>>> Acked-by: Muchun Song <muchun.song@linux.dev>
+>>>>>> Reviewed-by: Oscar Salvador <osalvador@suse.de>
+>>>>>> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+>>>>>> ---
+>>>>>>     include/linux/mm.h | 29 +----------------------------
+>>>>>>     mm/gup.c           | 31 +++++++++++++++++++++++++++++++
+>>>>>>     2 files changed, 32 insertions(+), 28 deletions(-)
+>>>>>>
+>>>>>> diff --git a/include/linux/mm.h b/include/linux/mm.h
+>>>>>> index 2d0b8a4c9974f..75dd40265d3f4 100644
+>>>>>> --- a/include/linux/mm.h
+>>>>>> +++ b/include/linux/mm.h
+>>>>>> @@ -2975,35 +2975,8 @@ static inline bool is_zero_folio(const struct folio *folio)
+>>>>>>             return is_zero_page(&folio->page);
+>>>>>>     }
+>>>>>>
+>>>>>> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
+>>>>>>     #ifdef CONFIG_MIGRATION
+>>>>>> -static inline bool folio_is_longterm_pinnable(struct folio *folio)
+>>>>>> -{
+>>>>>> -#ifdef CONFIG_CMA
+>>>>>> -  int mt = folio_migratetype(folio);
+>>>>>> -
+>>>>>> -  if (mt == MIGRATE_CMA || mt == MIGRATE_ISOLATE)
+>>>>>> -          return false;
+>>>>>> -#endif
+>>>>>> -  /* The zero page can be "pinned" but gets special handling. */
+>>>>>> -  if (is_zero_folio(folio))
+>>>>>> -          return true;
+>>>>>> -
+>>>>>> -  /* Coherent device memory must always allow eviction. */
+>>>>>> -  if (folio_is_device_coherent(folio))
+>>>>>> -          return false;
+>>>>>> -
+>>>>>> -  /*
+>>>>>> -   * Filesystems can only tolerate transient delays to truncate and
+>>>>>> -   * hole-punch operations
+>>>>>> -   */
+>>>>>> -  if (folio_is_fsdax(folio))
+>>>>>> -          return false;
+>>>>>> -
+>>>>>> -  /* Otherwise, non-movable zone folios can be pinned. */
+>>>>>> -  return !folio_is_zone_movable(folio);
+>>>>>> -
+>>>>>> -}
+>>>>>
+>>>>> Moving code while adding new stuff to it, please don't.
+>>>>>
+>>>>> Move code first, then modify it.
+>>>>>
+>>>>> I don't want to play "find the difference between two pictures" on a Saturday
+>>>>> evening.
+>>>>
+>>>
+>>> You resent your series way too fast.
 >>
+>> Got it.
+>>
+>>>
+>>> Now we have discussions in to threads, congratulations ;)
+>>>
+>>>> ;), got it.
+>>>>
+>>>> I moved the code to resolve a build dependency.
+>>>>
+>>>
+>>> Why can't that be resolved differently? What is the dependency?
+>>
+>> The dependency is that the new check wants to use
+>> `folio_test_hugetlb_cma()`, which is a HugeTLB-specific inline helper
+>> from `include/linux/hugetlb.h`.
+>>
+>> `folio_is_longterm_pinnable()` currently lives in `include/linux/mm.h`,
+>> while `include/linux/hugetlb.h` already includes `linux/mm.h`. So I
+>> can't simply use `folio_test_hugetlb_cma()` from `mm.h`
+>>
+>>>
+>>>>>
+>>>>>> +bool folio_is_longterm_pinnable(struct folio *folio);
+>>>>>>     #else
+>>>>>>     static inline bool folio_is_longterm_pinnable(struct folio *folio)
+>>>>>>     {
+>>>>>> diff --git a/mm/gup.c b/mm/gup.c
+>>>>>> index 2b405cce2ca5c..f41701c603500 100644
+>>>>>> --- a/mm/gup.c
+>>>>>> +++ b/mm/gup.c
+>>>>>> @@ -2216,6 +2216,37 @@ struct page *get_dump_page(unsigned long addr, int *locked)
+>>>>>>
+>>>>>>     #ifdef CONFIG_MIGRATION
+>>>>>>
+>>>>>> +bool folio_is_longterm_pinnable(struct folio *folio)
+>>>>>> +{
+>>>>>> +#ifdef CONFIG_CMA
+>>>>>> +  int mt = folio_migratetype(folio);
+>>>>>> +
+>>>>>> +  /* These HugeTLB folios own the CMA memory, so they can be long-term pinned. */
+>>>>>> +  if (folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio))
+>>>>>> +          return true;
+>>>>> More hugetlb hackery ... don't like that, sorry.
+>>>>
+>>>> Agree.
+>>>>
+>>>>>
+>>>>> I think this just goes down to a problem we discussed a while ago that is
+>>>>> independent of hugetlb: we'd need some way to identify that the the page was
+>>>>> actually allocated by the CMA owner, and it's not just some other movable
+>>>>> allcoation that ended up there.
+>>>>>
+>>>>> For something generic non-hugetlb thing, can't we call into CMA to ask whether
+>>>>> the current chunk is marked allocated?
+>>>>
+>>>> The existing bitmap is set before allocation completes, so the range
+>>>> may still contain borrowed movable pages. A set bit alone cannot
+>>>> establish ownership.
+>>
+>> The more accurate code path is as follows.
+>>
+>> Assuming the 2M buddy allocation is successful, page P is borrowed from
+>> the 1G CMA area.
+>>
+>> Now, proceed to request a new 1G huge page:
+>>
+>> only_alloc_fresh_hugetlb_folio
+>> --> alloc_gigantic_frozen_folio
+>>       --> hugetlb_cma_alloc_frozen_folio
+>>           --> cma_range_alloc
+>>                   /* set bitmap!! */
+>>               --> bitmap_set(cmr->bitmap, bitmap_no, bitmap_count);
+>>
+>>                   <time A>
+>>
+>>                   /* may fail */
+>>                   alloc_contig_frozen_range
+>>
+>>           /* set HPG_cma!! */
+>>           folio_set_hugetlb_cma(folio);
+>>
+>> At time A, for page P, a bitmap was set, but HPG_cma was not set.
+>>
+>> If a concurrent FOLL_LONGTERM pin uses the bitmap alone to determine
+>> ownership, it could incorrectly allow P to remain pinned. If
+>> alloc_contig_frozen_range() fails, cma_range_alloc() clears the bitmap
+>> bits, while the long-term pin on P remains.
+>>
+>> HPG_cma is set only after explicit CMA allocation succeeds. It records
+>> the folio's own CMA ownership, whereas a set bitmap bit can represent
+>> another allocation's in-flight reservation. Therefore, the bitmap
+>> alone cannot replace HPG_cma in this check.
+>>
+>>>>
+>>>> A generic query may need separate ownership tracking, such as an
+>>>> owned_bitmap recording successfully allocated pages. Its updates and
+>>>> lookups would also need to handle concurrency with fast GUP.
+>>>
+>>> Or simply two bitmaps? "trying allocation - allocated"
+>>
+>> As a fix, perhaps this is a bit too complex? :(
+>>
+>> Alternatively, we could adjust the timing for setting the bitmap, though
+>> this might introduce new concurrency issues.
+>>
+>> Thanks,
+>> Qi
 > 
-> Can I hand you over another CMA-related hugetlb problem?
-> 
-> On arm64, we can end up allocating 1GiB and 32MiB hugetlb folios from the cma
-> region.
-> 
-> Doing that dynamically is not a problem. Doing it during boot doesn't quite work.
-> 
-> cma_reserve_early() does not handle any kind of alignment.
-> 
-> So if you allocate a 32M folio followed by a 1G folio, the 1G folio will
-> suddenly start at offset 32M, not being naturally aligned in physical address space.
+> Yeah, ideally there would be a way to identify folios allocated
+> through cma_alloc. But that would probably require.. dare I say.. a
+> page flag. Trying to check bitmaps does seem too complex.
 
-Yes.
+Agree.
 
 > 
-> Likely cma_reserve_early() must be taught to align (and maybe consume an order
-> instead of a size), similar to how the dynamic cma allocations work.
-
-However, simply adding alignment would leave gaps that the
-current activation code cannot distinguish from actual reservations.
-
-The early allocation path would become:
-
-hugetlb_cma_alloc_bootmem()
-   -> cma_reserve_early()
-        pfn = ALIGN(cmr->early_pfn, nr_pages);
-        cmr->early_pfn = pfn + nr_pages;
-        cma->available_count -= nr_pages;
-
-For a CMA range starting at 4 GiB, reserving 32 MiB followed by 1 GiB
-would produce:
-
-4 GiB       4 GiB + 32 MiB             5 GiB             6 GiB
-| 32 MiB used |------ 992 MiB gap ------| 1 GiB used       |
-                                                         ^
-                                                     early_pfn
-
-Later, cma_activate_area() marks the entire prefix below early_pfn as
-allocated, including the gap:
-
-count = early_pfn[r] - cmr->base_pfn;
-bitmap_count = cma_bitmap_pages_to_bits(cma, count);
-bitmap_set(cmr->bitmap, 0, bitmap_count);
-
-It only initializes and frees pageblocks after that cursor:
-
-for (pfn = early_pfn[r]; pfn < cmr->base_pfn + cmr->count;
-      pfn += pageblock_nr_pages)
-	init_cma_reserved_pageblock(pfn_to_page(pfn));
-
-The gap therefore remains reserved and marked allocated. Releasing the
-two HugeTLB folios only clears their own ranges through
-cma_release_frozen(); neither release covers the gap. Those 992 MiB
-would be permanently lost from usable CMA capacity.
-
-So we would also need to track the gaps, clear their bitmap bits during
-activation, and initialize them as free CMA pageblocks.
-
+> And, since we've had a local change that does exactly the same thing
+> for a few years (which I apparently forgot to send along with other
+> hugetlb_cma changes), I can confirm that this looks good to me and
+> works. So,
 > 
+> Reviewed-by: Frank van der Linden <fvdl@google.com>
 
-Another possibility would be to give 32 MiB pages their own pool,
-similar to the separate PMD-sized pool proposed in the other series. On
-arm64 with 4 KiB base pages, 2 MiB, 32 MiB and 1 GiB allocations would
-then use separate pools.
+Thanks for your review and confirmation!
 
-This could work during early boot too: hugetlb_cma_reserve() establishes
-the CMA areas and their ranges before hugetlb_bootmem_alloc() runs.
-Although the bitmaps are allocated later, each range already has its
-own early_pfn. With naturally aligned ranges and one allocation size
-per pool, the cursors would stay aligned without creating gaps.
 
-What do you think?
 
-Thanks,
-Qi
+
