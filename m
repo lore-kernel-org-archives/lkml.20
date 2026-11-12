@@ -1,84 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794513456;
-	b=Ascrmi73X5j4uxpa+8vxK3U2N28B987c3GBYgLyNJ5ewMtKu1SBiuMoKxL9R0w+jQSiF
-	 BtteYJZkq/CzuMWEz2ysL/KGPNocu9jDtCoH2vr+BtOiC+DaMawIUdbzDPedf22t62oEL
-	 5wj9m9aJf8RrQv7v6WIXj8GtebtB9dIVvbzKfuLtLTJt6k33fERBzGKTApStvsZ/Ys2rA
-	 OiOkxCAyo8ip6lp/e3xm4TtY48xORSoGnfz0pN/gUhwK1C44qFJ9MqGzZmPPERieSPOC0
-	 M2jKBhevbnSmX9eug4ZiEWcMIuotPBTfRIer13h/Y5g1HjJbZ6lxxjqFhkoJIJVqnmA==
+	t=1794513458;
+	b=1anX/uCg2hwk/P/8eMTdM61jHBrAPfemEo697vniGIg4i9436W2+FzYM5+CARlRVjRpL
+	 N3fkzXNkZLskJjsSCmx71PwEAwG+IDOTGfxRvc3ycICXcIZJJv63CNOPOHqJfm+GzaWYC
+	 U8DrAT4ZgDM4aUhidB8/zrUQ5InK7sIEQCMn9yKSFveMpvEjt1oBaMCTMh61Cirqkm40G
+	 6VCJwWmKWNjhTSFAZwtKUM6N5OIvUE7WbT4v8WUaM2db37ecuQBNirV0kHtaJsNnLiYM3
+	 H+tthZzGXzTmsUW7oW6lD9eIywuYRq7ZURvzWLgvKOneNzzzOS5ksx2uhK/+SnjiRdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794513456;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To;
-	bh=nG/lLkqQ0rdJBUmgF+0ZHDQjmdqunn63tZ9hH/Qnp9w=;
-	b=uTf1pK3r0SNrZNw8EU76LPRJKAnF+WzuI57WkmjukGeP1Ma+/uM9jtXcDB45C2sSMWUp
-	 +aWm3AJnfJOmiTVmilZim+1eaUs1dTLbOtFXGJNqkhW4L6mnYw9ErwNGV6Sd2Py519gpr
-	 ZqOr6F3c5DpRdY0yOh4347clh1/+V8M35lL47tfdZDTyT+or1xdajJWRcWZBJWc+z9iSc
-	 UEFMHOG4oDdYcN5v1L8SplkKIlzifCzDm1CFz/I4cUm/EcnTlbD+DAymClYOzpHEBvyRa
-	 qUnZTJaTR0Gec0+sIwprlrVW6Eu0uS1q5djlUVstRjMs8tf3Ui37gwY6rOfCogTuYBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794513458;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=7guJMRRaIyBXSu5q1TNtm5fdzWXrkWkE2iKaLV14h3U=;
+	b=kvJJnBIpXnEqbemn+vE3lTmWItKPdXdrUOdApZUt/qlOGSO3cRJ6ECavnAfNrmhbjNSA
+	 74VGnb/jq3zhXW7f3mRbSiX9pZSoJUFqdB+RywRvkwTt4MZjis1pBCTk3TjM/t3fCVVZ5
+	 8MH1ZInPpc2nzSmI9QjmQKmu1jybeROeS+1gxtVeuMWSo6xwdskIIs7IUrxOQj8Q16upu
+	 j8upr/x2L8YhAOU1e8DhbTeqncDi6e2RPjP9vmODWLtjmKoylbjDpXcH3oNr7C/322LSl
+	 W8lbYEdPNQQqy46n+l77h6hD/R8tevzwIM6/k3WwCXVe0Xr71MDMMxUDW1+FClL+lSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YwtQlMy8;
-	arc=none smtp.remote-ip=209.85.210.181
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WwR0zLi9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 977A4606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:57:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 977A4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCBFE606A88F;
+	Thu, 12 Nov 2026 19:57:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YwtQlMy8
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8b2f59de176so182604b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:57:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794513455; x=1795118255; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=nG/lLkqQ0rdJBUmgF+0ZHDQjmdqunn63tZ9hH/Qnp9w=;
-        b=YwtQlMy8tzw38kivYwSxsVaNkC48NjO6zR8HMolDidk13wZwdwL8G/pT8tl/GFrfTG
-         u/rerWG2qSjiC3eGgoV7XJBnRYu933lNqf5mqTQE9Z1LonLa1ldVJeEtpCDScXlV/u7T
-         a4iklcV9UQfu/chino4vWs/c47DgX3ABVgT/1gCYj95tTh/kF6piFL97/1YEWUHAztky
-         FBO9nwTGkihc8nXWTBcneYJBqT4vj3d9kj/uwpci+pshkcSThMNHate41TMitBuvpu6I
-         j/eqehGvkpxbrTAiz/a9gbU2f5M6+k3yBvijC31uB3NJi3I4uzcxiNn5J7IMPlJH1KBY
-         LjMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794513455; x=1795118255;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nG/lLkqQ0rdJBUmgF+0ZHDQjmdqunn63tZ9hH/Qnp9w=;
-        b=WWA3txTHVr5iOgnBevP53BLtt4tBaYHUpMQWiqtcBH6OVJhyc5Qj5BI9Ysk8JW8K/5
-         tY/438Nn0EYq6o8r279RczhIBv4mQyWVPsv6MeU5+t1OP94J+KICot5YPETnHJs2Wh7i
-         SBbj08cFKlVLFp80K5yGqkOC8Q4uXCIKXuHfXWZb+FMk7wvxOKBIIFiO6hXbU60r0q77
-         uxlpo8d0bA7UrfmhqwIdoi7B1MvuuhgIl/NW6KXR2xq4RL1u3lYc8zFjHzNRTtJya6LY
-         qBWvyQ2Q9YFTzmuDSofo4PTpE1enPGlrHUgJ6juD6LPZLtcW2NkV0MQWuGrV4VSmPwmQ
-         9jVQ==
-X-Gm-Message-State: APuU4Z93/UOKeV5ey4uV34MwLvemAcH/nP04FJ7zfenLKznIjN5yngfZ
-	yGqeg5LjhzyObJrExUMct4m56Yns5hE+jHJlupZMhzHrpnqBm2yhKu0V
-X-Gm-Gg: AYBFou33koSsXqadekdYgQy4iZiivmuHcZnEOWPm5X+Cr24bTbNq+FiTIgUzDuc3BVq
-	Pd2Q0x6GywFH2mXO/q9D/W+3Hh14JLs5+THDan84ISIFjAaQ/3SeWS3Wu+cXhdbzHuTyTAZgoER
-	Sfvysd13rMsLUusKgo16paGwWAejYljp7vDcrFarFYwrCMr6YS+U7iDmuOWvbbEOxDY5G2bbcj2
-	C3VpObDsME/L5kB4GJ26rfZvH1WG4FXVNy20i8Nl+WAbXHrJyPSb+oHM5l+ayVmnTRFb97gkhjW
-	GYkD+9qEc66JLCA3vIOnj5JbfmuAvfOZfLpMEefDld/eQV8T1FPmY0B2ZAplMRi3xH+HSV3CkCK
-	Tcg6k5Kcd+09z+HAMggNr1vqVMX6b63JdtZC7kVlEOPVD7ju4JdoP98RNN/wcEtVXPojn/W9esK
-	V643bI23Gf6efl9fKa+Imew+ZsxW41b9v8Po+jiMGp3fYdJJMBG9ypoFyEA/TYxs0FvE6rvHpbj
-	kf7A7TsxDIDUm1PAQ/D95qVcsUdJnEPNke/PT79otot4DuslzdJdcyQ1OSkVJp8GjMj9rCwesHi
-	PMy6Shf9DvhiSYONrkqWEoFAfd/5yeca1jCKzRU6S84DZ0XVUKUaEm/AtwcQeUYbzqYZbKKpfUz
-	zvC6vwaAIkxfyjkMQ71SPzKNJL+pcR5sjxfk=
-X-Received: by 2002:a05:6a21:6b05:b0:3e1:8300:f6d with SMTP id adf61e73a8af0-3f7a8cd3babmr195219637.59.1794513454592;
-        Thu, 12 Nov 2026 11:57:34 -0800 (PST)
-Received: from localhost ([153.61.198.251])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed2d11ac8sm91909b3a.55.2026.11.12.11.57.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 11:57:34 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WwR0zLi9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDE151F000C5;
+	Thu, 12 Nov 2026 19:57:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794513458;
+	bh=7guJMRRaIyBXSu5q1TNtm5fdzWXrkWkE2iKaLV14h3U=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=WwR0zLi94YNDct3dcB3nW3opR+n+eZhSHuebehNpSFyoYQJYcRB/uTok6f0VIEsn8
+	 VhNnmCYLnslIOCeD3XHMyPbA/szoNfexl/h4UkRdQdnkKQS+t4viFQd0RF5sIrS+7w
+	 94NnR1EI7kWlcUYSg5DeygJD9WLbjg6lApMtl06hUAl/P2fwWHzg6oLoFiO4b46RcW
+	 EtTonZU6mxNjqp2zNmo0stc9wJcpwtqAxzNRKlZulu64/zsMZDedhlHfcdt4xWq8eU
+	 vUh5tJKBKk+fh7k+Z924uIN9JJy6j+hnV411pXsULtaOC6Ei5AfRW5f5NXXqASN3YD
+	 y+XV789RFCh3g==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+Cc: Magnus Karlsson <magnus.karlsson@intel.com>, Stanislav Fomichev
+ <sdf@fomichev.me>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>,
+ kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard
+ Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, Pavel
+ Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, Andrii
+ Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar
+ Kartikeya
+ Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song
+ Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa
+ <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai
+ <ihor.solodrai@linux.dev>, netdev@vger.kernel.org, bpf@vger.kernel.org,
+ io-uring@vger.kernel.org, Mina Almasry <almasrymina@google.com>, "Mike
+ Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>, Weiming Shi
+ <bestswngs@gmail.com>, Nikolay Aleksandrov <razor@blackwall.org>, David
+ Wei <dw@davidwei.uk>, Alexander Lobakin <aleksander.lobakin@intel.com>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Stuart Clark
+ <stuclar@meta.com>
+Subject: Re: [PATCH net-next v1 07/11] xsk: Deliver provider chunks without
+ copying
+In-Reply-To: <avWua/xvHrUa5wUI@boxer>
+References: <20261110102039.1002605-1-bjorn@kernel.org>
+ <20261110102039.1002605-8-bjorn@kernel.org> <avWua/xvHrUa5wUI@boxer>
+Date: Thu, 12 Nov 2026 20:57:34 +0100
+Message-ID: <875wy1rff5.fsf@all.your.base.are.belong.to.us>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,38 +79,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 12 Nov 2026 19:57:33 +0000
-Message-Id: <DMTHXFS504S9.2BU4PDLEWG3PX@gmail.com>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, "Alexei
- Starovoitov" <ast@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>,
- "Andrii Nakryiko" <andrii@kernel.org>, "Eduard Zingerman"
- <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Martin
- KaFai Lau" <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong
- Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
- Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
- <ihor.solodrai@linux.dev>, "Tadeusz Struk" <tadeusz.struk@linaro.org>
-Subject: Re: [PATCH] bpf: Fix cgroup link update after a failed effective
- array rebuild
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Shihuang Liu" <shlomojune6@gmail.com>, <bpf@vger.kernel.org>
-X-Mailer: aerc 0.20.1-355-gf870624f6c37
-References: <20261112134942.288831-1-shlomojune6@gmail.com>
-In-Reply-To: <20261112134942.288831-1-shlomojune6@gmail.com>
 
-On Thu Nov 12, 2026 at 1:49 PM UTC, Shihuang Liu wrote:
-> replace_effective_prog() uses the position of a cgroup program list
-> entry as a physical index into the effective program array.  When an
-> OOM detach falls back to purge_effective_progs(), the detached entry is
-> replaced by a dummy but the other entries keep their position, so the
-> list position no longer matches the array index.  A later link update
-> then writes the new program into the wrong slot, leaving the old
-> program pointer in the array.  The array does not hold a reference, so
-> the old program can be freed while it is still published.
+Maciej Fijalkowski <maciej.fijalkowski@intel.com> writes:
 
-I doubt you managed to reproduce such scenario.
-So wont-fix until there is one.
+> On Tue, Nov 10, 2026 at 11:20:28AM +0100, Bj=C3=B6rn T=C3=B6pel wrote:
+>> A provider socket still receives through the copy path, which takes
+>> FILL entries without the provider's ownership checks: a chunk that a
+>> page pool holds could be handed out twice. No driver opts in yet.
+>>=20
+>> Put packets whose buffers all belong to the socket's provider on the
+>> RX ring as they are, and copy others into chunks the provider claims.
+>> Only the queue NAPI may produce to such a socket, so generic XDP and
+>> CPUMAP redirects to it are dropped.
+>>=20
+>> A device may place payload at chunk offset 0, as fbnic does, so only
+>> the first buffer of a packet keeps the UMEM headroom. Such buffers may
+>> be sent back as they are, so only descriptors with XDP_TX_METADATA
+>> need room for TX metadata in front.
+>>=20
+>> Signed-off-by: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
+>> ---
+>>  Documentation/networking/af_xdp.rst          |   6 +-
+>>  Documentation/networking/xsk-tx-metadata.rst |   3 +-
+>>  include/net/page_pool/memory_provider.h      |   2 +
+>>  net/core/page_pool.c                         |  34 +++-
+>>  net/xdp/xsk.c                                |  82 ++++++++-
+>>  net/xdp/xsk.h                                |   5 +
+>>  net/xdp/xsk_pp.c                             | 165 +++++++++++++++++++
+>>  net/xdp/xsk_queue.h                          |  18 +-
+>>  8 files changed, 304 insertions(+), 11 deletions(-)
+>>=20
+>
+> (...)
+>
+>> +
+>>  static int xsk_pp_nl_fill(void *mp_priv, struct sk_buff *rsp,
+>>  			  struct netdev_rx_queue *rxq)
+>>  {
+>> diff --git a/net/xdp/xsk_queue.h b/net/xdp/xsk_queue.h
+>> index 1bc42c8902f4..b9464b917a88 100644
+>> --- a/net/xdp/xsk_queue.h
+>> +++ b/net/xdp/xsk_queue.h
+>> @@ -156,17 +156,24 @@ static inline bool xp_unused_options_set(u32 optio=
+ns)
+>>  	return options & ~(XDP_PKT_CONTD | XDP_TX_METADATA);
+>>  }
+>>=20=20
+>> +static inline u32 xp_desc_meta_len(struct xsk_buff_pool *pool,
+>> +				   struct xdp_desc *desc)
+>> +{
+>> +	return desc->options & XDP_TX_METADATA ? pool->tx_metadata_len : 0;
+>
+> How is it related to this patch? I know I trimmed, but I didn't see any
+> references above to tx_metadata_len, only some documentation bump.
 
-pw-bot: cr
+Provider frags start at chunk offset 0, and an application may send them
+back as they are. TX validation wants tx_metadata_len in front of every
+descriptor once the UMEM has it, so such a descriptor fails, though only
+XDP_TX_METADATA descriptors use that room. Driver ZC never puts RX data
+below offset 256, so it never came up. It stands on its own; I'll make
+it a separate patch.
+
+> Besides, the amount of branches introduced to existing hot path is
+> worrying. On next revision, could you provide numbers from xdpsock before
+> and after this set run on existing zc driver?
+
+(FWIW, I've left a all my performance patches out, to keep the size of
+set down.)
+
+Will do, but the only one I got is mlx5. Would be awesome if you or
+Magnus could take it for a spin on Intel NICs.
+
+Single-buffer RX on driver ZC gets no new per-packet branch: xsk_rcv()
+leaves through xsk_rcv_zc() first. The rest is one test per flush, one
+XDP_TX_METADATA test per TX descriptor, and a flag test in the
+multi-buffer and XDP_PASS/redirect helpers. v2 also moves pool->pp next
+to fq, which the flush reads anyway, and drops the frag walk in
+xdp_buff_needs_copy(), as agreed with Stan.
+
+Anything specific, or just in general?
+
+
+Bj=C3=B6rn
