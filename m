@@ -1,112 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794498974;
-	b=YIG8hCi7FdBgj1auSpuqRB+Sw29M/gDdzwOCpD8AStvdIb+J6qecov80t+GEqzVepFDc
-	 5QK7iRixh41X6ql05zC7fVKddZsegsPzNlNuF6hvuXVZMUEc4ttCVZJXwy9xFl1PYN6ZU
-	 dgZ23uKWEhu3qukWQe7UrNv0fxfgRPQoIcNgdAbok2LvkxjZbWoFBW90nm18LIzJoMOmA
-	 CvnLzuE/U2z1JMJzRMa5sMalhWBVcpp2zuY3sL6KFBnQobapqjD5sAdZ82i97R8FeaH81
-	 QssEhLD6DAOoPBhWTKWs3EMoZZxafySYu9/wuVUXtYf1HhrBUoSH6RuRD3k4X77vhUQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794498974;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=t5MCX39uElepfVtTvuZHVglCqNrm+Ac5neZ1hbGO2lg=;
-	b=VKP3ICO/D5seACQkgOBARM8Rq8eLq+0BlBwTA6w+/6CPUygpvh9889g9sMU0T9VzndFq
-	 N71tpZ1SUI/qkpP3fuZcTnTuIFfibYqiu9MmcEDyGvueMX7P3oGhlaBsEFlJNvLOivICq
-	 maR/Yf/GUJjTrM12XzUvzlavMZVwNnkmmYGXfkbPJSHTktE90JaU9xJjONX4izL1RVNt6
-	 4I+euF+9a7KScPPi/l9zMi4u8cVd+DWYaLM3TNm5R+vJgVDcb77nmNAI+Y1txA+lbjizo
-	 zTYcLVBs9fTNF8o/2ZkouHcapACsFntvPNzwle/GLZbKtrlbWJHgYAL4DLGa2zTtygA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=qTIXmb6I;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=y+JcAziL;
-	arc=none smtp.remote-ip=148.163.139.74
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794498981;
+	b=gg1Q1CAd3ssGIhVhYxHr92Y/bz4Qe2PM2O9qmDBKCbCxlwnGuZqq2FN2N+1T51QSy2nQ
+	 aywjb+ONwuNqjfXICyYs3J550JAA/Sl6ZIw/l00IFC0V2kF9QV1H0JFbMWvkzA2etgiJC
+	 BcZ+wmrly61qwrbZ+DV/J2VgoGOmPSauW108ciW6KAhNgYLKcVKGGth3JbBTozCk4Ihig
+	 IUHKLtpxgsY/B0KvxsTbSoBqGiop7vmsBuwi9pROf+iv43KROpCJKE20nqEAidZztELhd
+	 cYoaYiqQ3P1PFAOq18pc87WwyWUQDPo7jve1Bl9RLWPCZ7NCcjejKzsi1Kl7eoNlkPQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794498981;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Q6vCcmO9UnueyWU0efgozjB5WIAOqxMCCYGcp8pVZSk=;
+	b=OCk8w7QOcFHTHYmKcy3Qycj8H0H3N2W0SN5BIWyTHm3jhbOpIhy4P5wDrUZcXvdjqJjE
+	 jB2PCRSwIcweuVuwewszdK2jP804921nEMr6z3/a3746EqfrL7P29HjwyPx6gnO9OJFdL
+	 /6UzI5+hTqtLYI80JIXG3bMSMPqkv4iupVYVIy4cRTFoFYA8SCnqRLpX81zhhWbbzD9nF
+	 LhUJZlcHDM2zfvA8m3wzEhSlobFKKKFGORxIfx95mEGLnA300vhzCfKRi0v9xp47HDjv8
+	 U57Ioi1qJGQGv4uCcLWqN744olsCiqr7Z/Hx83pdzXrhmLhRVrbVzTVimwCBXuxio2w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FMMQwfxn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.179
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2344606A32E
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:56:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2344606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E828D606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:56:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E828D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=qTIXmb6I;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=y+JcAziL
-Received: from pps.filterd (m0499198.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACFXqxg3952491
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:56:12 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=t5MC
-	X39uElepfVtTvuZHVglCqNrm+Ac5neZ1hbGO2lg=; b=qTIXmb6Ic6MlwXZjV3kT
-	fn+T3+gZsaoRNrwfJOLTfI7WERkwtLdWJNySW3ERtXHj4X9ojddNHnFnRMdDxE5/
-	pIarWQXZiZiMSqTxtZPRoYZ1alPM3+1dw+bo/Q8HzY+0dRNd2SddSeI44/SdsB9Z
-	u7yQKYt1a6eH3GsCPJzW1fKyYPwr7aSOgJPyFZnU8QroVLJoDqkm4FiKAwBsY/eR
-	ofi6ao3yQVfyz2CpmqAalgjsxeSxdy/AgeDcUM1iDvz9MtGc6ArdcHUkBWG7uFPR
-	x6S5pEGTpAm2jdbfxy6S9wYYUcscTTcMY6nI9HAebPLvETvNFl1KuTBVipLVx8ZP
-	ig==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hwft28ftx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:56:11 -0500 (EST)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91eb7d1472cso85594916d6.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:56:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FMMQwfxn
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8b68e59ab33so1020042b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:56:19 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794498979; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PT7+AI976sUOYmUCpjBNWKhF1daFKpP6gZzluYYRP+j6AEGpVpElH+VNtkXFkGCDyA
+         WcINFnmLpscJrpu0mFbvF7Jcg/46lLk4gmWMy6oPHX4g/92ZLN02Lr226rYEAuBMKPoK
+         etTuLxsGjvRU9JmbvQc8iGFXMmBtSu+/fvgS7ST3N/fYPpiAPW3ZSLrqdu5XEfbu19nH
+         M3o15q/m7ZtFZe1R16ya6FjnYpH0Bc8CdOoeRbPD/ORmroNBQUcdgrAvfaGH9emvI8TZ
+         Q25pdyrr/SMB9owxz5pEmoHeH+Z9pwMhKKynnfuFwAUtHcqQGbdZ86D/rbdcPslBc+tt
+         WSmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Q6vCcmO9UnueyWU0efgozjB5WIAOqxMCCYGcp8pVZSk=;
+        fh=tus+Q3B6Z3vzajBFvRycQFL+cz89g6zCjjp4MdKhadg=;
+        b=s7yQcUpQ1YMXvp8AyXiZT3mo5yYav3Z088OlaHZN6WjMnABNWD8eRFdBRmao9DOsk9
+         G2lIfRri0TrHeJU1wrpl6rQoR63mtaiHhJWVO7+Pcj62KcVVqqFk0Pfb7b5DqTqtM7se
+         VBk790zpZVsayo0/Np0gGh4Ho6QbYsI8LiryxpCJZ2iMJOWmdYGqlDtOoOy1HBtwtO2y
+         mmSbiI8zcoWGOwLQS8wLlKyAUIE8zgHYvBM80Lf2K1L2348yvtVoGV6SVtwmieszjWEs
+         pQvoQYRe9NBMpLsRnhUJwMR2XUTvyxKGl0M8Iw7yxuMS2/nMOZTo+uKYo31ogVWeuy1p
+         nCzg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1794498971; x=1795103771; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t5MCX39uElepfVtTvuZHVglCqNrm+Ac5neZ1hbGO2lg=;
-        b=y+JcAziL4iSGXZwGyzlBXeZg3g4rXFZumTN1iIh/MMSOJIDRCdtyzMqYl2BYft9rkS
-         09b7Lkemww4IKXXkXkRGvjJgwvHdqHJNpGOaEvhBK9if4ArAsiT5v3zBHUtjSayHm15m
-         nh4A4QpL2g0X5J7pscPdrOJB0HC4aTNlcyXqRcZj/u9h9E/wlrYWv3nNBHEUPj70DSun
-         Xohe619/Ndp/C8DYKIkSQRszIOIGJXNXMK8aB8QlRFDMrwvhPTf1AYegeGa9IZcKnRyH
-         PCU/AwqLBfid7ZTnWJsPiHafelpfUTB8R1nVExJmC4gpQxld/LP8GPI4v5/Er6ciylEN
-         5a7g==
+        d=gmail.com; s=20260707; t=1794498979; x=1795103779; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Q6vCcmO9UnueyWU0efgozjB5WIAOqxMCCYGcp8pVZSk=;
+        b=FMMQwfxnGhQl73SmXTmz3Uz/fR5DEkmGqGslOlDNHRgRQuERn1ilxuNemrRhzkBGqJ
+         TC/nbvr3M/UlfSDu0l0pmWhaGHUZQekv6rpZTy/rK6iz00ZHta13GKrHNvKh5xfPuT5g
+         I838dUJLIEB3vfrekuxhJlBI1FAwzgFDwVDPJ2h5ZKy4tpyqQv4/yAHUkstGe39jCV+H
+         hIZKrD8EB+m1u4yeOLlXftBg2cduPxnDRmRczR9bKcrC8XSO++rYLTPEaF6he/OOqXBJ
+         PudvFY1qdb4BbH/1pp3C/xdGCdyusJ5RrMhGcpEQ8k+UxMN+2bJLYbHbn1Nz3ew5b/e0
+         8qXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794498971; x=1795103771;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=t5MCX39uElepfVtTvuZHVglCqNrm+Ac5neZ1hbGO2lg=;
-        b=ozOmzkRPJsaTPddwTBWjOo9LZKB0/iC4F3V0NQ49eZaaOswI/J+VnYTpBc+Wx+bTPa
-         Qbw1E0MzDHTaVJmGyLoJeWg+2HP+BDqdZdww8+gc60FQDOPNUCmKOCI7RT4+ZNq7OMN3
-         D81yu2bLuQ14yB9vrfPzQpGWnlymOM232kpsx/7aq4v/DEkodaoD4609vct+2JMm0vBc
-         rCKiiYaDCu5mnfzuSG9CCzuN3xo0AQtbkCf6fNRMIWEdtw0vUtK8/dgQLej7Zav5Wiwr
-         I/6Z+Lp/PqdJlIGxW3Yy1tmpwwkEH6ne/n6yaK2PG9WI0hg/lR4n1im8bR3ZTtOBJaRX
-         YFnw==
-X-Forwarded-Encrypted: i=1; AL+hErF3PgJ/KjGR3WDzmyPXzrULSz3WXBip0lYlu6xnswNwzMUM6y4oFHFprK4JouI03NTEBk7fB+ndOuQZNUY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8TKZbEFAj/mTKEztxnW3mPKKRH8WsjRh0HgJMxyf+7qCnMM0RS
-	DCiHOdbuUHFKcdwmgbaL0e9vPvnboogabyyfuCfD1v3SZz+WsWbIaaZ8NLnMdbKXukSJ/NnWugi
-	B5YE92mt6tDdU9WVP/CriNcQQm3HNBtsyYY5H2ExMlqP7e8B4fEbGmeiYZbrTDQ==
-X-Gm-Gg: AYBFou0SnFr+tO7/sg3OxCAw7QeFw3jvPasMxGyzf6WVm5T76M6HYl3+NqvF3EjCR7t
-	KI+DpGQg4USP3LwBSlrEfNwbLQ6K5DqXp3lV2J7Oyb5di3rH0pgIuDOSsqiUePorMkIeP+eduQL
-	wJ24hCMj0U2D4ULpdtFNtJK2jP4kba5xXkwhh22FYc5HKlHAGPjfaoUG4VypBZ9PeN9Ky64P2RR
-	7SztPC5KQPPp3gQOiInXz7tkCDaakfDTdBO6lJlWD9GzqtQeJYUULMMJPp3fGB6lp5byk/o20Ha
-	izVIfthTvTcxSFPHq2uxDkNO3F3QWnR8R+vw2HQt2dW9ZPhgNabLqbaPRow0qt90x6OK805yHu9
-	FNEom9ADGgJKdBD//vWHSr0Kwyq/7YgYVBLh5GZAvE6RHsHDWYR4+hSOnduUDaG8wLttE9Xjkso
-	CksTVDFQYls4zH37gQu1rw/g==
-X-Received: by 2002:a05:6214:85c2:20b0:91f:136e:e90c with SMTP id 6a1803df08f44-91f136eec29mr39816496d6.53.1794498971002;
-        Thu, 12 Nov 2026 07:56:11 -0800 (PST)
-X-Received: by 2002:a05:6214:85c2:20b0:91f:136e:e90c with SMTP id 6a1803df08f44-91f136eec29mr39815616d6.53.1794498970297;
-        Thu, 12 Nov 2026 07:56:10 -0800 (PST)
-Received: from [192.168.1.62] (dyn-160-39-33-242.dyn.columbia.edu. [160.39.33.242])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef031c7dasm74341706d6.1.2026.11.12.07.56.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 07:56:09 -0800 (PST)
-Message-ID: <f76cb2b0-0090-4554-9169-5cfff6a6ca53@columbia.edu>
-Date: Thu, 12 Nov 2026 10:56:08 -0500
+        d=1e100.net; s=20260707; t=1794498979; x=1795103779;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q6vCcmO9UnueyWU0efgozjB5WIAOqxMCCYGcp8pVZSk=;
+        b=0dmGqsxNsTB9ntaojGnUlrny8eBWbq+GgJuNkGi5k4sbiEa/g2f2SM3gMKR9PuBE06
+         rPqKQreOR+HBgxBr9GxMHiGF7qxjOPH4n4Ml1xySxSy9kXCbiXoxR59LEZavYld7BXBI
+         BwGTibmZXHRCycaRlFVJY7YAIg9CbC4cb7jQOvyQ7rDKl/aBNNnLNXC1PZ7M6NQjUBgg
+         nsJznhqNaVVSOm4l2oNgb9Cqa7SwBzJld7EEXLx9YPIkzCeKCzLEZ/ZXctkamnFR9N8N
+         74Oe2VTu2F7ZfMJccUyaTvakm3pa/Pl6Aw9StvIZuJA2LO5vsceWD1G+zz2bYTxKP60G
+         7t0A==
+X-Forwarded-Encrypted: i=1; AL+hErG61+ryF7/tMJQaJ3GZeWq8KdqCMeTGJW+sWxuAX5oKTaeU89r1BC+wOOJ2US8bSWcBZ0Mhdl0GLR6WP8Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/prUXpLaKhg4NYN794Jzde+ZU08YTWi0R8yx4x8ngVQ1k2wO3l
+	y+sbFOYrg/2az/yNTTu3wXIfbY6RjjAMrl5tstsCC5aAxpbZiJ19sI1u1VixPCrTFozyljSrRDc
+	jJkOCy9Qk6nSNKZ4mA6MVBZDXIA95R9A=
+X-Gm-Gg: AYBFou2dvNnL39UBZTgxt8ydwR7zNw8ZAZvzxbIaxiWDqJHoBJpEm9xGg1n19A+LmfV
+	1YR2EF/LIVtWDVih+IVwfGdaSn3ojT7W5jacmT790o3irgn9WuGSa7LvuqDI6N+n/WAHMyCaJAg
+	M8FumoKM+K5WcGgEexNkijDpdWl67lKCDpCsaBP0gj0sJcq0QKnt6SdrcR07x+isHImSL30rSnx
+	fDD3SX9UxR9o+gUOqk6pBBccMolkvYVqDoeFGrfNOav2H5VyC1knzJkaOmpEGS+JbZvZJWgYBa6
+	ffjPLdX6zBKBqCFiiaf5oXjS8vxBdBGaQ4+6OdWuuwHy1QbEvRRhhUfeEbyiR53dQuGZkOJKkCb
+	OpJuLpg2L24sWkSZ3OvAJz8VnJVfB3m7qReosaGtEb7Jj3t6BhBcjRiVoVe11aIMbIA/qIN5VFd
+	jdSx8KZBvPXxTaORXrHsn2Ed/0Yt6/1ZUyH5O4Qg==
+X-Received: by 2002:a05:6a00:13a9:b0:8a5:7006:1ecf with SMTP id
+ d2e1a72fcca58-8bc1ca74f3dmr6405399b3a.39.1794498979018; Thu, 12 Nov 2026
+ 07:56:19 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,198 +105,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/12] mm/madvise: send UFFD_EVENT_REMOVE when installing
- guard regions
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-        Mike Rapoport
- <rppt@kernel.org>, Peter Xu <peterx@redhat.com>,
-        James Houghton <jthoughton@google.com>,
-        Andrea Arcangeli <aarcange@redhat.com>,
-        Suren Baghdasaryan <surenb@google.com>,
-        Balbir Singh <balbirs@nvidia.com>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
-        Pedro Falcato <pfalcato@suse.de>,
-        =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
-        Andrei Vagin <avagin@gmail.com>,
-        Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
-        Muhammad Usama Anjum <usama.anjum@arm.com>,
-        David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
-        Matthew Brost <matthew.brost@intel.com>,
-        Joshua Hahn <joshua.hahnjy@gmail.com>,
-        Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
-        Ying Huang
- <ying.huang@linux.alibaba.com>,
-        Alistair Popple <apopple@nvidia.com>,
-        Baolin Wang <baolin.wang@linux.alibaba.com>,
-        Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
-        Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
-        Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
-        Kiryl Shutsemau <kas@kernel.org>, Chris Down <chris@chrisdown.name>,
-        Muchun Song <muchun.song@linux.dev>,
-        Oscar Salvador <osalvador@suse.de>,
-        =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>,
-        Michal Hocko <mhocko@suse.com>, Mike Kravetz <mike.kravetz@oracle.com>,
-        linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org
-References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
- <20261111-uffd-state-fixes-v1-11-00713d368976@columbia.edu>
- <avWW5t1BiD7pbzIZ@gremlin>
-Content-Language: en-US
-From: Tal Zussman <tz2294@columbia.edu>
-In-Reply-To: <avWW5t1BiD7pbzIZ@gremlin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=arknmiZV c=1 sm=1 tr=0 ts=6af5e19b cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=GaPK54s0Se3oFqK5NkZy0g==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=BpGzv1V74M3SfeTrGa8v:22
- a=uherdBYGAAAA:8 a=VwQbUJbxAAAA:8 a=Byx-y9mGAAAA:8 a=MsTJSH7eipKYaIDY7ewA:9
- a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-ORIG-GUID: d44afy9UCRDBnuRX1LYqeLeMl4cz_VP3
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA2MyBTYWx0ZWRfX5k7irlf+EOLx
- 5ZT3m3ttssff7fKMU1WO4Q7M64ANJ9TbDOhMOEwO/RePdVmHME+0S7zUvVGpDCH93FwUaKDO7Ru
- bqvO+BuS8QbAyu0Jd2n8XqdFB0mEysKaFqKX1eNJqN/x6aJMlUIl
-X-Proofpoint-GUID: d44afy9UCRDBnuRX1LYqeLeMl4cz_VP3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA2MyBTYWx0ZWRfX4TZt8lG0FnXU
- 7iL++4CrXCAUu0Hp8q8kXApFtN+aWbN+O53Lyx8Yjqm2JPdbg3sdC4cEju5DqP+/2cfyFlx3dgl
- SEYbtBltsa0XAUhNPjWUcPvcGIkNql6WlNnV7MOFTMyczPGIiFvRajFQUH/60OaYjFpFCwZHPc/
- 7aqnkp/OGZULVreUlbczBhX+qh4oszXS1qPgv+WrfXg31vVil0YQqg2n+7OXSaVAIkFgBhWwDwk
- MA+ZJI90jQdaOBRXecJfjAwAsMpjepvEFvXCTbX1jqfvpnUVbX5F/cxGjns92cRCRGqM835Y6rB
- 9ZSi2VEyb6suUXJwKq+ZjJtA4PU0MJCyGmzICnz7OxyidqapNwlnhRhz2nvC/ZTGmU5B7eeKqpH
- 6YuKLHPAC9aofFoG5n2KY9darx4QLUGwaGCX0bkJicCXwIWWd1INfk7UkcuwEuEQfH0wKg86yce
- aRixMLU7jJxmDe+SV6A==
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11964
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 lowpriorityscore=10 impostorscore=10 malwarescore=0
- priorityscore=1501 suspectscore=0 bulkscore=10 spamscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120063
+References: <20261110224233.82977-1-yves.bieri@theori.io>
+In-Reply-To: <20261110224233.82977-1-yves.bieri@theori.io>
+From: Xin Long <lucien.xin@gmail.com>
+Date: Thu, 12 Nov 2026 10:56:07 -0500
+X-Gm-Features: AclHuK-WWnb_Avs24C603cZWJLj9kdWOrIpfiyA-Mg7U4Ik96B8IwVtXOHQS-lI
+Message-ID: <CADvbK_edbUYvFXPGJzRspdG+RpV4ZnfP_WwuS4e4_sS2kbDAZw@mail.gmail.com>
+Subject: Re: [PATCH net] sctp: do not free a new asoc peeled off while sendmsg slept
+To: Yves Bieri <yves.bieri@theori.io>
+Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/12/26 6:03 AM, Lorenzo Stoakes (ARM) wrote:
-> On Wed, Nov 11, 2026 at 12:55:19PM -0500, Tal Zussman wrote:
->> MADV_GUARD_INSTALL zaps whatever is mapped in the range before
->> installing the guard markers. However, unlike MADV_DONTNEED and
->> MADV_REMOVE, madvise_guard_install() does not call userfaultfd_remove(),
->> so the userfaultfd manager is not told that the pages are gone.
->>
->> On an anonymous VMA, the zap drops uffd-wp and RWP protection along with
->> the pages. Writes and accesses to the range after the guard is removed
->> are then not reported, and the manager cannot know that it has to
->> protect the range again.
->>
->> To fix it, send UFFD_EVENT_REMOVE before zapping. Guard install on a VMA
->> registered with userfaultfd already takes the mmap lock instead of the
->> VMA lock, so we can drop the lock for the event and look the VMA up
->> again afterwards.
->>
->> As with MADV_DONTNEED, the call can now return -ENOMEM if the VMA goes
->> away while the lock is dropped, or -EINVAL if it is replaced by a VMA
->> that does not support guard regions.
->>
->> Fixes: 662df3e5c376 ("mm: madvise: implement lightweight guard page mechanism")
->> Closes: https://urldefense.com/v3/__https://lore.kernel.org/linux- 
-> mm/3f4b0d1b.bbf84.1a1c55cb666.Coremail.18670333770@163.com/__;!!BDUfV1Et5lrpZQ! 
-> T5BLvK-D7GgO7Y87n7ULpXAEzR6V57uNMU7saDR9ShW05mDBxMyqFA4DD22Nbycn_r7rhjPtEZp8gBAN$ <https://urldefense.com/v3/__https://lore.kernel.org/linux-mm/3f4b0d1b.bbf84.1a1c55cb666.Coremail.18670333770@163.com/__;!!BDUfV1Et5lrpZQ!T5BLvK-D7GgO7Y87n7ULpXAEzR6V57uNMU7saDR9ShW05mDBxMyqFA4DD22Nbycn_r7rhjPtEZp8gBAN$>
-> 
-> This report was super-synthetic AI slop
-> 
+On Tue, Nov 10, 2026 at 5:42=E2=80=AFPM Yves Bieri <yves.bieri@theori.io> w=
+rote:
+>
+> When sctp_sendmsg() creates a new association and sending on it fails
+> with anything but -ESRCH, it frees the association. The send can
+> sleep in sctp_wait_for_sndbuf(), which releases the socket lock, and
+> meanwhile another thread can peel the new association off to a new
+> socket. The wait then returns -EPIPE, and sctp_sendmsg() frees an
+> association that now belongs to the peeled-off socket, without holding
+> that socket's lock.
+>
+> If the peeled-off socket frees the association first, e.g. on close(),
+> sctp_sendmsg() frees it a second time. Otherwise a syscall running
+> concurrently on the peeled-off socket can use it after sctp_sendmsg()
+> freed it. Both are reachable by an unprivileged user. The double free
+> on net with KASAN:
+>
+>   BUG: KASAN: double-free in sctp_tsnmap_free+0x5c/0x80
+>    sctp_association_free+0x1eb/0x750
+>    sctp_sendmsg+0x15ff/0x2020
+>   Freed by task 836:
+>    sctp_association_free+0x1eb/0x750
+>    sctp_primitive_ABORT+0x85/0xe0
+>    sctp_close+0x22a/0x8d0
+>
+> Commit dfcb9f4f99f1 ("sctp: deny peeloff operation on asocs with threads
+> sleeping on it") fixed this double free by denying the peeloff.
+> Commit cea0cc80a677 ("sctp: use the right sk after waking up from
+> wait_buf sleep") replaced that check, and commit a0ff660058b8 ("sctp:
+> return error if the asoc has been peeled off in sctp_wait_for_sndbuf")
+> reverted it to return -EPIPE, without restoring the check.
+>
+> Fix this by holding a reference on the new association while sending
+> on it, and by freeing it on error only if this socket still owns it.
+> asoc->base.sk only changes in sctp_sock_migrate(), which runs with this
+> socket locked, so the ownership check is stable. The reference keeps
+> the check safe if the new owner frees the association meanwhile.
+> Userspace still gets -EPIPE, and the association stays with the socket
+> it was peeled off to.
+>
+> This was found by Xint Code, an AI code review agent, and reproduced as
+> an unprivileged user on net with KASAN (trace above), without modifying
+> the kernel or using error injection. With this patch the sender gets
+> -EPIPE and the association keeps working on the peeled-off socket.
+> Without a peeloff, a failed send that created the association (EAGAIN,
+> EINTR) still frees it, and a peer ABORT while the sender sleeps still
+> frees it exactly once. The SCTP selftest sctp_vrf.sh passes. The
+> reproducer is available on request.
+>
+> Fixes: a0ff660058b8 ("sctp: return error if the asoc has been peeled off =
+in sctp_wait_for_sndbuf")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yves Bieri <yves.bieri@theori.io>
+> ---
+> Tested on net at b71c101bbb98.
+>
+> The fix and this message were drafted with Claude, and reviewed and
+> tested by me.
+>
+>  net/sctp/socket.c | 14 ++++++++++++--
+>  1 file changed, 12 insertions(+), 2 deletions(-)
+>
+> diff --git a/net/sctp/socket.c b/net/sctp/socket.c
+> index b5a57f6..e7e14a0 100644
+> --- a/net/sctp/socket.c
+> +++ b/net/sctp/socket.c
+> @@ -2082,10 +2082,20 @@ static int sctp_sendmsg(struct sock *sk, struct m=
+sghdr *msg, size_t msg_len)
+>         /* Update snd_info with the asoc */
+>         sctp_sendmsg_update_sinfo(asoc, sinfo, &cmsgs);
+>
+> +       /* sctp_sendmsg_to_asoc() may release the socket lock while waiti=
+ng,
+> +        * and a new asoc can be peeled off to another socket meanwhile. =
+ Hold
+> +        * it, and free it on error only if it is still owned by sk.
+> +        */
+> +       if (new)
+> +               sctp_association_hold(asoc);
+> +
+It doesn't look nice to add another 'if (new)' check. Can you move
+this 'sctp_association_hold(asoc);' to after new =3D true; line?
 
-Will drop it
+Thanks.
 
->> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-> 
-> Sorry I hate this.
-> 
 
-Don't worry, me too...
-
-> Since this was already silently broken, I think the right solution is to simply
-> disallow guard region installation for uffd-armed VMAs.
-> 
-> I had the AI go look for users, and it seems nobody is relying on this (glibc,
-> android, CRIU, etc.), and there's really no sensible world in which somebody's
-> combining the two. So I think fine to do that.
-> 
-
-What about CRIU restoring an application that uses guard regions?
-CRIU registers the task's memory with uffd MISSING mode for lazy restore, and
-if the application (e.g., glibc) is using guard regions, this could break.
-I believe glibc falls back to mprotect() after guard installation failure,
-but I'm not sure about other users. I agree that there's no sensible reason for
-a single application to combine these two, but uffd manager mode is where we
-get these fun combinations...
-
-Re: "silently broken", WP and RWP are more broken here than MISSING and
-MINOR modes (due to the issues in the other two guard patches). MINOR and
-MISSING mode already work today, modulo this event notification. If the CRIU
-issue above matters, disallowing guard regions on WP/RWP VMAs could be a good
-middle ground (and of course this should all be documented somewhere...).
-Otherwise disallowing guard regions on uffd entirely sounds reasonable to me.
-
-> It was simply an oversight (reflex action is to disable new features for hugetlb
-> + uffd)
-> 
-> I'll send a patch separate from this, please drop it from the series.
-> 
-
-Will do!
-
->> ---
->>  mm/madvise.c | 23 +++++++++++++++++++++++
->>  1 file changed, 23 insertions(+)
->>
->> diff --git a/mm/madvise.c b/mm/madvise.c
->> index e8b05dc899f1..6413f0e65381 100644
->> --- a/mm/madvise.c
->> +++ b/mm/madvise.c
->> @@ -1166,6 +1166,29 @@ static long madvise_guard_install(struct madvise_behavior *madv_behavior)
->>  	if (!is_valid_guard_vma(vma, /* allow_locked = */false))
->>  		return -EINVAL;
->>
->> +	/*
->> +	 * Installing guards zaps the range, so report it to a userfaultfd
->> +	 * manager like MADV_DONTNEED does. The VMA can change while the mmap
->> +	 * lock is dropped for the event, so look it up again.
->> +	 */
->> +	if (!userfaultfd_remove(vma, range->start, range->end)) {
->> +		mark_mmap_lock_dropped(madv_behavior);
->> +		mmap_read_lock(madv_behavior->mm);
->> +		madv_behavior->vma = vma = vma_lookup(madv_behavior->mm,
->> +						      range->start);
->> +		if (!vma)
->> +			return -ENOMEM;
->> +		if (!is_valid_guard_vma(vma, /* allow_locked = */false))
->> +			return -EINVAL;
->> +		/*
->> +		 * The VMA may have been split while the lock was dropped.
->> +		 * Handle the part in this VMA. The remainder is handled by the
->> +		 * next iteration of madvise_walk_vmas().
->> +		 */
->> +		if (range->end > vma->vm_end)
->> +			range->end = vma->vm_end;
->> +	}
->> +
-> 
-> (separate rant - that we have to a. know to do it and b. write duplicative
-> open-coded crap like this is a perfect example of why uffd is such an utterly
-> broken mm feature that should never have been merged...)
-> 
-
-But where would be the fun in that... ;)
-
->>  	/*
->>  	 * Set atomically under read lock. All pertinent readers will need to
->>  	 * acquire an mmap/VMA write lock to read it. All remaining readers may
->>
->> --
->> 2.39.5
->>
-> 
+>         /* Send msg to the asoc */
+>         err =3D sctp_sendmsg_to_asoc(asoc, msg, msg_len, transport, sinfo=
+);
+> -       if (err < 0 && err !=3D -ESRCH && new)
+> -               sctp_association_free(asoc);
+> +       if (new) {
+> +               if (err < 0 && err !=3D -ESRCH && asoc->base.sk =3D=3D sk=
+)
+> +                       sctp_association_free(asoc);
+> +               sctp_association_put(asoc);
+> +       }
+>
+>  out_unlock:
+>         release_sock(sk);
+>
+> base-commit: b71c101bbb9814d163c00234d43c41f0a17907d4
 > --
-> Cheers, Lorenzo
-> 
-
+> 2.43.0
