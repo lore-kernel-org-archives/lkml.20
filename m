@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794504873;
-	b=v4GVNrHUL83Gf07RwijBfOEKwwEkvrgD1T0hBoXxSMixweGuiZ/ry/MAtdr3syEWLNLD
-	 fjKTPALeN0da6D/D+vCCMvspp3CZOMO78O2FlKplEEQ2Cbiu7+EwgLGRpctT9RkSuTWaE
-	 gQ6gdKfIGfaB6UKJtnMkignRPt8WZgUMBb5CX0aTTvz/q9OQazGVcMYXxIufESJ72EL8E
-	 7UxDlSEgJSvEl+9TBboAyz1iRT32OvQmoMbQH0twCIAFqkYVrax+pcvwMA5lj0KrM/7RF
-	 HvKpbaRp3DcKMYPlrJGe+iKPrj7Mnu87/cNnR1e5/5C7S8wtmZgahdVNCyqF7+rsuUw==
+	t=1794504875;
+	b=aQkKdPneo3mWK4eCsjRFLCTVTAerqWR6Piin4ojflEHVDR4AcJ0fc2R5BaWwSVwbW26X
+	 hGt5ll3X8+ZKaOY0t7uUFUS5urLFJVWei3wUXLTTAEiqF1k26wrwS5OisqxTRj2kKbZiO
+	 zCrO4Qlii8KHkSPaJCDdu9LALEQTc4dKGUCiYU/ty4zGiWG0CcDlYLy1KnMZhu5JxrL5l
+	 7f1MwKFEjA8kFgi2iqBg6wUm4zQzFUvozTnUSyO6OOcaIAd1LSUwQA3DkWwAltHAhCk25
+	 bF0pMyF2oaPprcEScnpi8D80wOi8QjAR8oNsSp0PRihRGezuh+oiTpj1W+PXDwQPjXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504873;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794504875;
 	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=K8BGRbxyU75zQ+k1MnxIjx8fccgD4YM1pBJW8tiaEpI=;
-	b=5HnJ7Kj4jsKCHgDrCf8Na0AjCCwai1U4fm1Kx/7kU22/ZovC3dEAI6uexeA9piHKeWpw
-	 ozyjRR2zto25V/u89rWtwsHSuhNKkT57g2Cl69+kqigpSdJmcFNizL7diEEA7xQ/r1cn1
-	 yyRbNO5DOKwU1yMJAUpXlcVdgMRZ6mOnXzvBs618wYDtEgDc0OoVgFWm6VGPaVVSVcNin
-	 mmqmg9vKcbCrLaZCJ7sb/rAtTtywJYTNkJtepXHd+PgyiLdBpso3WDCBZqRaSpnihM8Lf
-	 MDa0CxLWwwMMXdz1nipDens8HUHRj2oRtnjksUns02iVXvkulb4FrgXKLaEplf2SvtA==
+	bh=aHf8SvTsvmzrsiNoKF8t5kRLlqX2t6w481FaqMiV8l8=;
+	b=G6kBJsgdNlnnV874Jib+006AhkL02lQ3B7vJVvQ8BttAHf1Tg8bGk0kh8Kj+dWyaU8f7
+	 N5misxdktzKVW6krTu8Tqdi4XuIDf0sPV3k8Ya7Ph1m90mZ0bAE2TmTMrESG0yiD1RGYe
+	 aZdb57J2yHVhWHskGjTU6U2W6PWztMlmiFQBWVeqf+VSEtRZ+kOGvcXXpEp6bD7FpqH1g
+	 gEAxGQS62aFvgIUadXjWJ/V9DsDgnohWAevi0cDUAOaVYCpHq48EFFlv5Cs3CCEW3B+qn
+	 liufXeFEvIoZLopb3quEJSd7l18nV/XHA5OWnbpN/Sst4b2pc+Zf/MbL5srR8gVJBFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xv65GFMb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PRzwyZVM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 721BA60A3826;
-	Thu, 12 Nov 2026 17:34:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44DF2606DF2E;
+	Thu, 12 Nov 2026 17:34:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xv65GFMb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB72E1F000C4;
-	Thu, 12 Nov 2026 17:34:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PRzwyZVM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA9881F000C4;
+	Thu, 12 Nov 2026 17:34:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794504873;
-	bh=K8BGRbxyU75zQ+k1MnxIjx8fccgD4YM1pBJW8tiaEpI=;
+	s=k20260515; t=1794504875;
+	bh=aHf8SvTsvmzrsiNoKF8t5kRLlqX2t6w481FaqMiV8l8=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Xv65GFMb8GLsNjt8BVsimrh4QJheLcctSAXDWAQ6Ydm3/3ecW6u/+vGEyG1J5aX/z
-	 yiTLxlgZupN7PhjXHeo0sd2qpgxnh6XGIf1EYkipdWFsi4GZlWc9woWBB9LpOYTHqb
-	 hRlYTNFNduJAQLkcnW8CSYFrAaeTWOZhe/pdUd+LpsBr51HLVlJDyHuGiBdbgMgh79
-	 T0Vv3lNlUO+e2bvez2J9jOyaFkN5nJycHOzhS/9fRIZTzfqZdZB6ExVLVm1LBbTEkV
-	 x6BEprrSZWlkn06IjwWxw66vTj5g4OgboL+Bl7SjfZlxcITOoKE50SPFu9IbQ0uMLM
-	 7ovElad9ecJRA==
-Date: Thu, 12 Nov 2026 07:34:32 -1000
-Message-ID: <eb63bdf20dd6e2f09b0e7c81bc905878@kernel.org>
+	b=PRzwyZVMjW0YbLQw5kcg06GPJMKtkdEU39ifUVmU9j9kqwRDxZzXfQJCRvTqAkEd+
+	 Tn+J7ZI1uj/djpgGDS8woplc32Z2qjmjg0yfU0Y9aEzdb/xFmjyuRwYi9sChkek3If
+	 AkZA/f9nrUg1GVK7hjdVagbniA1XESr0tSA/t784j5A78+H/mm4YLXYrsRo2UBh+Tb
+	 xzetUpjVWUgXqitpbP4eI5F39ROFHlsvl/n6fJwN6XbjajWJ90jbT+i6/GXKzxh8HT
+	 lpyIEVRYSj8XA6mbNyWJ9rK9vvJRjG/L5SDnMZwDyi+tfGgY3kI2PvNPASZQv+pAnm
+	 Ycwl7bjYWk7aA==
+Date: Thu, 12 Nov 2026 07:34:34 -1000
+Message-ID: <6814cbed2f153dbe75711c624f6e0498@kernel.org>
 From: Tejun Heo <tj@kernel.org>
 To: Tao Cui <cui.tao@linux.dev>
 Cc: void@manifault.com, arighi@nvidia.com, changwoo@igalia.com, liwanwu@kylinos.cn, usama.arif@linux.dev, sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>
-Subject: Re: [PATCH 0/6] sched_ext: fix kfunc, sub-sched, flatcg and idle-mask issues
-In-Reply-To: <20261112130934.563321-1-cui.tao@linux.dev>
-References: <20261112130934.563321-1-cui.tao@linux.dev>
+Subject: Re: [PATCH 2/6] sched_ext: Make scx_bpf_cid_node() a benign lookup for invalid cids
+In-Reply-To: <20261112130934.563321-3-cui.tao@linux.dev>
+References: <20261112130934.563321-1-cui.tao@linux.dev> <20261112130934.563321-3-cui.tao@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,17 +62,14 @@ Content-Transfer-Encoding: 7bit
 
 Hello, Tao.
 
-On Thu, Nov 12, 2026 at 09:09:28PM +0800, Tao Cui wrote:
-> This series fixes six issues in the sched_ext core, the scx_flatcg
-> example scheduler and the CID helpers. The core.c fixes travel as a
-> separate series.
+On Thu, Nov 12, 2026 at 09:09:30PM +0800, Tao Cui wrote:
+> Bounds-check @cid in the kfunc instead, keeping the documented benign
+> return and leaving the aborting validation to the paths whose contracts
+> call for it.
 
-There's one actual fix here (1/6) and the rest are rather vacuous. Can you
-please think more through each change and whether it makes sense in the
-context of actual usage? If these are coming from LLM scans, please don't
-just follow the details that they surface. It'd help to actually use the
-thing that you're producing patches for and think through the implications
-of the changes that you're suggesting.
+If anything, it's the doc that needs updating. The other cid kfuncs trigger
+an error on an invalid cid and this one should stay the same. Maybe update
+the kerneldoc to say so instead?
 
 Thanks.
 
