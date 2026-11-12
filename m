@@ -1,68 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794519353;
-	b=WoBCxiZplhNME35vtUePtBrDSQdiXZzCq1LtcUkVr8j6mbbTLLkch/2RehOBeoy/zwE9
-	 DNEk4EfWSdpAoQz2HteKsdw2fUZlKUfapqo8S6qoc8jj8IbMS7cCJz5kPNp08HtyKe7KV
-	 +yOQS5TeGg1o1C3+Iz/ISPZ398sZmCIZR6WAt6/5ROC/rFSMniOLNUXoQzag/5J5CL6M5
-	 Oz+FX5Kv8CAgYj//FOfVkNSdQ8IyzI9/xo9bxwt9dXgWmavMWRmBFki3EEbBe+TBXe2PI
-	 ufB4HPFkvH0u1lk0mmxqwgnTCHVAfDlUdAZGVfaPvuSoad+qyrCpzfxeLHM/6tH6C5w==
+	t=1794519479;
+	b=ysvCxFBaoM+mobJfeiTplOmiMlxlBS5XWbkhggJGPb1Oq5OMVkK11k6HEipx8KtdjMSO
+	 v7ZFb6njgnJ/qrBMcr97ruemd1JdsaL/+c8V+g2Pfr0RJ5PiUMH7jmG374NlrEIjFGJAv
+	 wlj7lOsTkASvCvVS0o0F6gbwrvRTW43o3wYUJVFYWYh3Wrp4ucIMf5u9kKtowbBgmlQzj
+	 1khH0BNt201HIbPUlxg2d0PcM9vx0VYd24Gf8CBQo0IOzXbtKvaEVSAP1hBiApG+wnKJP
+	 legTJ0b1FhKTi3P6O/vxBc6FRExvIM8iecsyNL3gfu2EEmX7Io1anxWypF/HfjBw3GA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794519353;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=UC30sGnYtiIq6XvO1InU15cyFxVK4lm9N2kZyIR1CCQ=;
-	b=WBabeGgZqhHGLbfTchWonYP9N37xzeOLjXWfSJsAwJjmd39MPuo8gN174Ui3c0fu551Z
-	 NY98isizxaORWW1/Vrq2Hrk6V0ASBMkqxuaoEx9/kbqkoMjigO+NqoK0gOGysGE0nkaB3
-	 W/pgghKM40tbB3dsHgxax5YTzHxTVF3s+pgCAZUoaxsljq2yzKZvCSY0q8cdqyvWeRsvu
-	 ydNfcIBMdamjfPIt62nO5OsM535Fg2JVN8dHJlwog+RSs8rOnAeTfjFVza8FvUSi3oCuJ
-	 dHoNRVO+CExei9k3Q5pKLignf8hmcTF19iEX70MzB2ROSSUhZvXJ7iyn40bz6x08IAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794519479;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=oZdcJRMUxxlk1z+2TXuUtGeoqWVbfR50Qnwl3g1KkFc=;
+	b=1GWsRh2hwrfAI3bVR4qh4ZNeo2Na+udnasmRkHUiBj1BE6gq6N9CbT4Q5ZpzVZMMNd9i
+	 FSkHZecco2zgT7o/vBg0VLPR09IBjLi2LTy8257zwX2kTm7Qt4PirVMrC2u/9xBrmDXnh
+	 bNZi97g7ySwULmTAwMszZZ03FRyBoJQp1HzBxO+vNMURnJYuPhQKjDgNrsceX4GF2+tD1
+	 6Uc7OWKdhIzJMsStxpBiOXf8uobWleJPoFjpoAS3oAai6j44yXIByba8+6Jopm8M88i58
+	 YOz4mSvSUQKa+G4HsKUBcB75DDnbXVSPQ+njGBQl/QKxuoLa1XS1yPk9SlJJqTzjE6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=M0wZcKkx;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=telaak.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0CA1606A31C;
-	Thu, 12 Nov 2026 21:35:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0CA1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=M0wZcKkx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794519352; x=1826055352;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=CRuRizMfmnFBiA9pHWAZpC0Tg5U1X5QvtCsLixsWsLc=;
-  b=M0wZcKkxF2NSzkrnqTHaNuKMbNXKFBJCLFr//NTGXZFSeA4Qq5dEtPca
-   UuNIKP+ID7Dl1F3oGU0Gn2CUOuZGQcTd3Vw2DqEOb91lOkd5Aa6kLQQeI
-   hXlhTGwUrKD3dbYHS0ItYmvnSZ/W3PXwJk3cjkFipUTwkD4VsQnza6/Wz
-   wy0ACYfpe9E9kf92gBbBFnzO43iAK0EmzkA3gCknxPFXSW0VGYua/EfYE
-   jor9ADsF0ALRMXCnvIwOygMsZpeF2hqYamqLqEkZpQDKgn87Z2Qmpwfvx
-   qavLTt+CXjWhw20qPGNSkZaPrfAghwaJ1AAq95K3uKk//hOa//hVxcGXC
-   w==;
-X-CSE-ConnectionGUID: K01ltnayS+WUcFdCKJayqg==
-X-CSE-MsgGUID: B6Jh3MmUSHS5gc8AlT6wug==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3351754"
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="3351754"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 13:35:52 -0800
-X-CSE-ConnectionGUID: s4wExNETSUmdzDNYZnjwtA==
-X-CSE-MsgGUID: m9MkmBakRBen2qGy5j0Fmg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="8754685"
-Received: from jjgreens-desk24.amr.corp.intel.com (HELO [10.125.111.216]) ([10.125.111.216])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 13:35:50 -0800
-Message-ID: <1c6e45dc-afc8-43ad-8dde-507b9a4b3522@intel.com>
-Date: Thu, 12 Nov 2026 14:35:49 -0700
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86CDA606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:37:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86CDA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3b0e61a4decso329944a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:37:59 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794519479; x=1795124279;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=oZdcJRMUxxlk1z+2TXuUtGeoqWVbfR50Qnwl3g1KkFc=;
+        b=CgiOMrt4fKnUZNl45tq5ZDgtrL08QHXWRyEbk3nRJ6FljcBs04a4E7VO1P7VJywxmn
+         J28MkVhHbMsq0Qnd5BKzCsrV4ZztHzyas7lLIhvEIY+dxlhQ9deAuYj7NhdL8c3Lm5uw
+         Qi4Uqy6XWG1UBE/GFB5JQdbGMHT68prZxVguoxsHmHswejodmw+iXJLmzX9dGE7ja2wW
+         2Q099NXSWNp4JMfnU20477pvaAzRwV5NJekMnXXXNUHrwLCRQ/v49hR2uKOCq6AIoUZG
+         9f64XMEFFH8laojwO+eOOYisKr7bT1I4tiFFhPGsKyUlwQTBkqQI4dLEj0DzLKxSFvjv
+         wo3g==
+X-Forwarded-Encrypted: i=1; AL+hErG+I635iGrHlevJwGdp9PPHFmfEng3qArgpmmKHq1Y1U5FC8Z8jDswXMA0C2N5c2WYK1N+xjPxDmddYafc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/41fPJcQilC2NK0JhN5Ga7izYTMFgYG2umy3JFEu63gxpYi85j
+	8Vc1fvML00KTf6o7nsuLI7fGLaCeIpECmt2jCRj6cSNaYrZIEb8nbYpPWP0OE/lV
+X-Gm-Gg: AYBFou3HIIfVRj2gf3huzb0B/XliC08GVvc26TYnzEYpNj4HugkZOCOplRLBhgVMvRM
+	0K+xRsf/8Z8TYlX02xIBliuVrHb7d/pXqw760EiKflQGoMNQZS0Z40xS1/8wl0XrwflVBeh8xii
+	P0JdpKLqA+6ZwTg6nD33M25g3XCr+jIoI30RMoe4ZONMoLOGOCliAs7/szvLS/WzdGYevz128NI
+	n1Y7UUS2fKbVonmBCFXJncwSu8tlKmHLhmWvG19BDaTldxHzNRKghD8Mt4xajghyxe5/Kvshiw0
+	wu/2jLvO98GbjnCmK90ke3r7L2PTUP+tP4HbvabS6PjSwRMDc87sTpE9N/+xBqZd3PnXozQ6+dr
+	QysvUaYHTkYP/ahA0PlRiAkGDau6LLslCaCVujXTGNbXO0fDoh40hCLQRhZzDDMHXQJx3a/wDUL
+	RLT7x31oZvK5b0iSPuTkIvur39pTHM5vqTzB/KpqEe3ClqnIpp9AO2wSLIMFkMedIm3f86XXqPS
+	vbC7536mesxXpNHkIb3pttGBaueHLFXRSwnx6c1EXmbSw60CxNvsR9SUhyEPqZJ9MoLnQcIu2SW
+	4FgeD4mRMi0QZ+lAzHSsXwXE+nPMDuvMvdCPTRmOK2mmEngeZ5xRW+I5ubrv1Rk89XlkWXlVKMO
+	am2PIYNIO2zDZSZ2h0eYFCD8iRLLes+WddWqHAg6TRBks
+X-Received: by 2002:a17:90b:2d88:b0:3ab:36c4:b502 with SMTP id 98e67ed59e1d1-3b1b0ba38d1mr289656a91.30.1794519478633;
+        Thu, 12 Nov 2026 13:37:58 -0800 (PST)
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com. [74.125.82.177])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aed76f95sm1007485a91.17.2026.11.12.13.37.57
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 13:37:57 -0800 (PST)
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-37628596783so576684eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:37:57 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGeFwTxJ30VerTYrRKgwKrTvTnVth6vhwscBS9ktrjBmB9jxVro+XnHWdJYJuaJ6OqzKdEmf2MTIRmQ8mY=@vger.kernel.org
+X-Received: by 2002:a05:693c:6383:20b0:379:8df3:d2c9 with SMTP id
+ 5a478bee46e88-3798df3d361mr53568eec.13.1794519476959; Thu, 12 Nov 2026
+ 13:37:56 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,271 +81,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 07/19] cxl: Share HDM decoder register unpacking
-To: Srirangan Madhavan <smadhavan@nvidia.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
- Ira Weiny <iweiny@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Li Ming <ming.li@zohomail.com>, Joshua Machauer <machaujo@amazon.de>,
- Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
- alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-References: <20261105185917.2667656-1-smadhavan@nvidia.com>
- <20261105185917.2667656-8-smadhavan@nvidia.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20261105185917.2667656-8-smadhavan@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261111-sf19a2890-sysm-v2-0-d2fcb723e4f1@telaak.dev>
+ <20261111-sf19a2890-sysm-v2-1-d2fcb723e4f1@telaak.dev> <179444699398.1126566.18079369824329437583.b4-review@b4>
+In-Reply-To: <179444699398.1126566.18079369824329437583.b4-review@b4>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Thu, 12 Nov 2026 16:37:45 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ79fUPUGG4g+bZYcaMXJHXVh_89NL55MXNkhppMEYDD6A@mail.gmail.com>
+X-Gm-Features: AclHuK-qYQ4QvhuWcFcAv5sXFh2xbA3gQD3BM89Iz_DI_n7EaCswO7U9VivUGq0
+Message-ID: <CAPY4CJ79fUPUGG4g+bZYcaMXJHXVh_89NL55MXNkhppMEYDD6A@mail.gmail.com>
+Subject: Re: [PATCH v2 1/4] dt-bindings: clock: Add Siflower SF19A2890 clock manager
+To: Brian Masney <masneyb@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
 
+> > +/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
+>
+> The license is different compared to siflower,sf19a2890-clk.yaml. Is that
+> expected?
 
+Yes. The header is Chuanhong's, and it keeps the license he gave it,
+with only the identifier updated from GPL-2.0 to GPL-2.0-only. The
+binding is mine, under the usual GPL-2.0-only OR BSD-2-Clause. Both
+licenses let non-GPL device trees use the header.
 
-On 11/5/26 11:59 AM, Srirangan Madhavan wrote:
-> Factor common HDM register parsing into cxl_hdm_unpack_decoder().
-> Validate range and interleave parameters in locals before publishing the
-> decoder configuration, including enable and lock flags. Reject nonzero
-> ranges whose end overflows the address space while preserving the
-> zero-size range representation.
-> 
-> Read decoder base and size registers low then high through a shared
-> helper used by enumeration and the reset snapshot.
-> 
-> Read switch target lists and endpoint DPA skip in their respective
-> branches of init_hdm_decoder().
-> 
-> Preserve the decoder ID allocated by cxl_decoder_init() when publishing
-> the parsed configuration.
-> 
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-> Assisted-by: LLM
-Feel free to just drop this. Upstream no longer wants it. 
+> > +#define CLK_MUXDIV_NPU_PE_CLK 20
+>
+> This is the only one that has a suffix of _CLK. Can that be dropped for
+> consistency?
 
-> Reviewed-by: Richard Cheng <icheng@nvidia.com>
+Sure, v3 names it CLK_MUXDIV_NPU_PE. No device tree uses it yet.
 
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-
-> 
-> ---
-> Changes in v17:
-> - Initialize the zero-size end to base - 1 and document the zero-size
->   case, removing a branch (Richard)
->   https://lore.kernel.org/linux-cxl/auQ27s1rSCcbdRJ3@MWDK4CY14F/
-> 
-> Reference branch: https://git.kernel.org/pub/scm/linux/kernel/git/djiang/linux.git/commit/?id=7d6ed7faf7d8e14abce8ae23902d5323738868d2
-> ---
->  drivers/cxl/core/core.h     |  5 +++
->  drivers/cxl/core/hdm.c      | 65 ++++++++------------------------
->  drivers/cxl/core/hdm_regs.c | 74 +++++++++++++++++++++++++++++++++++++
->  3 files changed, 95 insertions(+), 49 deletions(-)
-> 
-> diff --git a/drivers/cxl/core/core.h b/drivers/cxl/core/core.h
-> index fb14b222f3ca..ea539f00e55d 100644
-> --- a/drivers/cxl/core/core.h
-> +++ b/drivers/cxl/core/core.h
-> @@ -147,6 +147,11 @@ void cxl_commit_start_switch(const struct cxl_decoder_config *config,
->  			     u64 targets, void __iomem *hdm);
->  int cxld_await_commit(void __iomem *hdm, int id);
->  
-> +int cxl_hdm_unpack_decoder(struct cxl_decoder_config *config, int id,
-> +			   u32 ctrl, u64 base, u64 size);
-> +int cxl_hdm_read_decoder(struct cxl_decoder_config *config, void __iomem *hdm,
-> +			 int id, u32 ctrl);
-> +
->  int cxl_memdev_init(void);
->  void cxl_memdev_exit(void);
->  void cxl_mbox_init(void);
-> diff --git a/drivers/cxl/core/hdm.c b/drivers/cxl/core/hdm.c
-> index 2c373dfbc070..5b5f5f22ea32 100644
-> --- a/drivers/cxl/core/hdm.c
-> +++ b/drivers/cxl/core/hdm.c
-> @@ -938,11 +938,11 @@ static int init_hdm_decoder(struct cxl_port *port, struct cxl_decoder *cxld,
->  			    u64 *dpa_base, struct cxl_endpoint_dvsec_info *info)
->  {
->  	struct cxl_endpoint_decoder *cxled = NULL;
-> -	u64 size, base, skip, dpa_size, lo, hi;
-> -	bool committed;
-> +	u64 size, skip, dpa_size, lo, hi;
-> +	struct cxl_decoder_config config;
->  	u32 remainder;
-> -	int i, rc;
->  	u32 ctrl;
-> +	int i, rc;
->  	union {
->  		u64 value;
->  		unsigned char target_id[8];
-> @@ -953,41 +953,25 @@ static int init_hdm_decoder(struct cxl_port *port, struct cxl_decoder *cxld,
->  							which, info);
->  
->  	ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(which));
-> -	lo = readl(hdm + CXL_HDM_DECODER0_BASE_LOW_OFFSET(which));
-> -	hi = readl(hdm + CXL_HDM_DECODER0_BASE_HIGH_OFFSET(which));
-> -	base = (hi << 32) + lo;
-> -	lo = readl(hdm + CXL_HDM_DECODER0_SIZE_LOW_OFFSET(which));
-> -	hi = readl(hdm + CXL_HDM_DECODER0_SIZE_HIGH_OFFSET(which));
-> -	size = (hi << 32) + lo;
-> -	committed = !!(ctrl & CXL_HDM_DECODER0_CTRL_COMMITTED);
-> +	rc = cxl_hdm_read_decoder(&config, hdm, which, ctrl);
-> +	if (rc) {
-> +		dev_warn(&port->dev,
-> +			 "decoder%d.%d: Invalid decoder configuration (ctrl: %#x): %d\n",
-> +			 port->id, cxld->config.id, ctrl, rc);
-> +		return rc;
-> +	}
-> +
-> +	config.id = cxld->config.id;
->  	cxld->commit = cxl_decoder_commit;
->  	cxld->reset = cxl_decoder_reset;
-> -
-> -	if (!committed)
-> -		size = 0;
-> -	if (base == U64_MAX || size == U64_MAX) {
-> -		dev_warn(&port->dev, "decoder%d.%d: Invalid resource range\n",
-> -			 port->id, cxld->config.id);
-> -		return -ENXIO;
-> -	}
-> +	cxld->config = config;
-> +	size = range_len(&cxld->config.hpa_range);
->  
->  	if (info)
->  		cxled = to_cxl_endpoint_decoder(&cxld->dev);
-> -	cxld->config.hpa_range = (struct range) {
-> -		.start = base,
-> -		.end = base + size - 1,
-> -	};
->  
->  	/* decoders are enabled if committed */
-> -	if (committed) {
-> -		cxld->config.flags |= CXL_DECODER_F_ENABLE;
-> -		if (ctrl & CXL_HDM_DECODER0_CTRL_LOCK)
-> -			cxld->config.flags |= CXL_DECODER_F_LOCK;
-> -		if (FIELD_GET(CXL_HDM_DECODER0_CTRL_HOSTONLY, ctrl))
-> -			cxld->config.target_type = CXL_DECODER_HOSTONLYMEM;
-> -		else
-> -			cxld->config.target_type = CXL_DECODER_DEVMEM;
-> -
-> +	if (cxld->config.flags & CXL_DECODER_F_ENABLE) {
->  		guard(rwsem_write)(&cxl_rwsem.region);
->  		if (cxld->config.id != cxl_num_decoders_committed(port)) {
->  			dev_warn(&port->dev,
-> @@ -1021,23 +1005,6 @@ static int init_hdm_decoder(struct cxl_port *port, struct cxl_decoder *cxld,
->  			writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(which));
->  		}
->  	}
-> -	rc = eiw_to_ways(FIELD_GET(CXL_HDM_DECODER0_CTRL_IW_MASK, ctrl),
-> -			  &cxld->config.interleave_ways);
-> -	if (rc) {
-> -		dev_warn(&port->dev,
-> -			 "decoder%d.%d: Invalid interleave ways (ctrl: %#x)\n",
-> -			 port->id, cxld->config.id, ctrl);
-> -		return rc;
-> -	}
-> -	rc = eig_to_granularity(FIELD_GET(CXL_HDM_DECODER0_CTRL_IG_MASK, ctrl),
-> -				 &cxld->config.interleave_granularity);
-> -	if (rc) {
-> -		dev_warn(&port->dev,
-> -			 "decoder%d.%d: Invalid interleave granularity (ctrl: %#x)\n",
-> -			 port->id, cxld->config.id, ctrl);
-> -		return rc;
-> -	}
-> -
->  	dev_dbg(&port->dev, "decoder%d.%d: range: %#llx-%#llx iw: %d ig: %d\n",
->  		port->id, cxld->config.id, cxld->config.hpa_range.start, cxld->config.hpa_range.end,
->  		cxld->config.interleave_ways, cxld->config.interleave_granularity);
-> @@ -1052,7 +1019,7 @@ static int init_hdm_decoder(struct cxl_port *port, struct cxl_decoder *cxld,
->  		return 0;
->  	}
->  
-> -	if (!committed)
-> +	if (!(cxld->config.flags & CXL_DECODER_F_ENABLE))
->  		return 0;
->  
->  	dpa_size = div_u64_rem(size, cxld->config.interleave_ways, &remainder);
-> diff --git a/drivers/cxl/core/hdm_regs.c b/drivers/cxl/core/hdm_regs.c
-> index 53d2f236e49c..cc5d77c4abf5 100644
-> --- a/drivers/cxl/core/hdm_regs.c
-> +++ b/drivers/cxl/core/hdm_regs.c
-> @@ -116,3 +116,77 @@ void cxl_commit_start_switch(const struct cxl_decoder_config *config,
->  	writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
->  }
->  EXPORT_SYMBOL_FOR_MODULES(cxl_commit_start_switch, "cxl_core");
-> +
-> +int cxl_hdm_unpack_decoder(struct cxl_decoder_config *config, int id,
-> +			   u32 ctrl, u64 base, u64 size)
-> +{
-> +	bool committed = FIELD_GET(CXL_HDM_DECODER0_CTRL_COMMITTED, ctrl);
-> +	enum cxl_decoder_type target_type = 0;
-> +	int interleave_granularity;
-> +	unsigned long flags = 0;
-> +	struct range hpa_range;
-> +	int interleave_ways;
-> +	u64 end;
-> +	int rc;
-> +
-> +	if (!committed)
-> +		size = 0;
-> +	if (base == U64_MAX || size == U64_MAX)
-> +		return -ENXIO;
-> +	/* A zero-size decoder maps no HPA; its range is empty at @base. */
-> +	end = base - 1;
-> +	if (size && check_add_overflow(base, size - 1, &end))
-> +		return -ENXIO;
-> +
-> +	hpa_range = (struct range) {
-> +		.start = base,
-> +		.end = end,
-> +	};
-> +
-> +	if (committed) {
-> +		flags |= CXL_DECODER_F_ENABLE;
-> +		if (ctrl & CXL_HDM_DECODER0_CTRL_LOCK)
-> +			flags |= CXL_DECODER_F_LOCK;
-> +		if (FIELD_GET(CXL_HDM_DECODER0_CTRL_HOSTONLY, ctrl))
-> +			target_type = CXL_DECODER_HOSTONLYMEM;
-> +		else
-> +			target_type = CXL_DECODER_DEVMEM;
-> +	}
-> +
-> +	rc = eiw_to_ways(FIELD_GET(CXL_HDM_DECODER0_CTRL_IW_MASK, ctrl),
-> +			 &interleave_ways);
-> +	if (rc)
-> +		return rc;
-> +	rc = eig_to_granularity(FIELD_GET(CXL_HDM_DECODER0_CTRL_IG_MASK, ctrl),
-> +				&interleave_granularity);
-> +	if (rc)
-> +		return rc;
-> +
-> +	*config = (struct cxl_decoder_config) {
-> +		.id = id,
-> +		.hpa_range = hpa_range,
-> +		.interleave_ways = interleave_ways,
-> +		.interleave_granularity = interleave_granularity,
-> +		.target_type = target_type,
-> +		.flags = flags,
-> +	};
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_FOR_MODULES(cxl_hdm_unpack_decoder, "cxl_core");
-> +
-> +int cxl_hdm_read_decoder(struct cxl_decoder_config *config, void __iomem *hdm,
-> +			 int id, u32 ctrl)
-> +{
-> +	u64 lo, hi, base, size;
-> +
-> +	lo = readl(hdm + CXL_HDM_DECODER0_BASE_LOW_OFFSET(id));
-> +	hi = readl(hdm + CXL_HDM_DECODER0_BASE_HIGH_OFFSET(id));
-> +	base = (hi << 32) | lo;
-> +	lo = readl(hdm + CXL_HDM_DECODER0_SIZE_LOW_OFFSET(id));
-> +	hi = readl(hdm + CXL_HDM_DECODER0_SIZE_HIGH_OFFSET(id));
-> +	size = (hi << 32) | lo;
-> +
-> +	return cxl_hdm_unpack_decoder(config, id, ctrl, base, size);
-> +}
-> +EXPORT_SYMBOL_FOR_MODULES(cxl_hdm_read_decoder, "cxl_core");
-
+Thanks,
+Joseph
