@@ -1,54 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794485790;
-	b=ZgLne7An8exc9b4ZDvwrKCWgTUObAY3sAaQrJmvQ9xg+csKNuhfD73CYZ5cBdIb6C2xH
-	 7IqDv425FkRwp+NFqdGNujfArgAkA7ywKTpcTlSemFsAJfJ51XjglcgYXOsLxrCMrj4g6
-	 b/nmN+b/vXPLNTFLhMjRjDcJaRZansv7Zh11kwRoA+dCUcNBn4gJyYXdXS3VxEpDV2fwL
-	 qdG42OhJk6mx6TbwiKxbPKgPIywSUBcjH49tCW/BB9yZCIpqswRLKONY5hcg0BslHrNBp
-	 +q+xKFZggGYGndsQh0dEBFWazrPbNhptcX8jrn9IY/6mk4/k0BtXCmqOGlwnbj8HWDA==
+	t=1794485816;
+	b=cV9t0mUzR43KSJ3p2So/3+G2OKOiumHggIHo4A1nSpuOIo3RYgJgiZvuzXijXw5JHnI7
+	 Af8u0U4ppKiN0+6bYtiGQm6PE4lRJtJXnHbs8GJ1zv8ht+llholtfenqI/CEo3WbgzqGw
+	 3mWrBxzkMLXeVHRhj+SHZ3WGhuUIAu1i/7L3LKr817FUxAosHvsND7GcE4Guj/ZZNk1Bi
+	 MTQK4RWEnigi/+iaCJxn3uZipG3Q0C5wu4C2sVuZv7MPjB2mpTFIhvih5Tl9jMMEqf0Wj
+	 y2sJCvj1qR4IOQ+GYApXfO0/n9Td25P0mKr5hzRoV2v3iEKxG8NPzTPwS+KD4REWFeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794485790;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=DCibk3esbM9aP9RQ7ZoKH3SlkoeG0DaznIMSZGChnao=;
-	b=AC2qKonJBxkiXPUu4LQ/EX6uJJOkWz5n4fyzuZ1UgVbkG2H2U7CTbsOmTgzXE8U1Gb4H
-	 mmzEI95+tSVG4KT3OEFItkS92/iyy5l9PKM5dGE2pqH+QaAJLOFrujgjKF31k2XqGu8Lx
-	 UsU94JXofHrmvPeUdn1To6s2cUTb5zj+mHnLyXpyBusBvZAAARV2KN/3F7YaaYRpG9qWR
-	 VKWGZDM0MOIEPssBvBrw/jHy4aABp+93ZKxWTFFQob3a21e/vsjtzrEIyJG6UGmtEYpto
-	 wb6mV99eQfyXHCZ9irsuhuImnDWGrB0gzvV/XJT/FSTDRmGviljEEHE8b2tP6DhfVKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794485816;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=fkghkLc+UM+Ih/ovzmI/ipH5f/tVvmlQK1TTNKFCOPA=;
+	b=RjoymWf4sUR2THwCRgkhrMe5pQjTKOSTr0XHOgdok1MQcf5/yqMpyUcjgZRpTkBvm3JN
+	 WzJVZzrdGUqhtO8YYSyR5zhoU+jd5s7vKhJoIqqyv+d8U5kz4kO1LheZkGfqnfDzMVhd8
+	 1kYJFP3/jSAeZ1z4PYz2LJyulw+ya2wlAXHZ5UGYh/rYgTPpVupjHJs9bw6MMMf9q63V+
+	 RfkS4H0fEnZjyAt4ZMuA1KecQMfC2PtlidACjneFY9oqZp/igSd2IAc1cI8PvgNoXs7wB
+	 cmC4f/Xr1ogEmMS7Jy9up9a8Op9A938epME20NbxilnCYfiC8tmoRvtSSQ4w34ENkhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=becholey.ch;
-	spf=pass smtp.mailfrom=becholey.ch;
-	arc=none smtp.remote-ip=185.70.43.97
-Received: from mail-4397.protonmail.ch (mail-4397.protonmail.ch [185.70.43.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ts/cjWzl";
+	arc=none smtp.remote-ip=209.85.218.47
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 977AA606A327
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:16:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 977AA606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
-	s=protonmail; t=1794485786; x=1794744986;
-	bh=DCibk3esbM9aP9RQ7ZoKH3SlkoeG0DaznIMSZGChnao=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=mCaQ3qoSm+rFH/KLRwA7LURfaWqUZwGE7CtopOUZiRHMYuNNGGU3ZWEwdcxoPksOs
-	 uAKDusQph1BkDvTn5OmO2Gyx3GVqIwgH6WC9FWr72GMTqZTWgZ5PtbAtsuSI1E4hNI
-	 oDa15dHlXYBEAVy2/sNl+fFO8w8NiZlRRyuQ5lHqBuZS7EikEj4CLoKMyKXsNqoObE
-	 1tv3EIrQQ39ikBaMOTbtOQmHubeAv3kBdcIohygsj64nq3b2iwlbdzrWcRr/07NWxT
-	 ONC6zKX4uKYHQynwTki8xie6x1lMPR/cHuuFX//pVywr7Fk9g50kWplUQohvpTTkAa
-	 Znc67iY3BZF4w==
-Date: Thu, 12 Nov 2026 12:16:20 +0000
-To: johannes@sipsolutions.net
-From: Alexandre Becholey <alex@becholey.ch>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, Alexandre Becholey <alex@becholey.ch>, stable@vger.kernel.org
-Subject: [PATCH] wifi: rsi: fix use-after-free of in-flight USB rx buffer
-Message-ID: <20261112121524.96610-1-alex@becholey.ch>
-Feedback-ID: 60743817:user:proton
-X-Pm-Message-ID: af1b45cd88e1635e254e5e2ad6feabbfdd8f2597
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB78B606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:16:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB78B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ts/cjWzl
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c40f29667e6so629652966b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:16:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794485814; x=1795090614; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fkghkLc+UM+Ih/ovzmI/ipH5f/tVvmlQK1TTNKFCOPA=;
+        b=ts/cjWzlrAw7OVLBUOIKgZpVdV7kRCggPRRQvRvK3ob88hBdtgDIfVh8WAEFyn/77E
+         oaCfu9v0N4vPrrHq8J34loLHqhfrjaksB7PdedglyvM8clsKLtRVbdfJtwSDBEbs5mC4
+         gkrJr+qUvrAY4b+C0zoHWKn6qEOAXMv/XPAsgBVAvGUPlgkEDna+m9sUmSBm+VF248iu
+         iERfLAuwDYPRqf5xzWJL0SYBD8ZRn0RNyVxgxzXdCZ2z0vGuZ2irrLqyWnfGa7sANdxS
+         X5xFac8Tu+TZQD4fSxT0MF6WLu6C7O1QP2guETy389GQEN/CXZbKhmNEQzxh28H0jB+S
+         c2Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794485814; x=1795090614;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fkghkLc+UM+Ih/ovzmI/ipH5f/tVvmlQK1TTNKFCOPA=;
+        b=gL4G8EoqEnqXECLTHb5MjNVkIIImpWLdkAqJxp7VCKN3SsuS6ZbyANK1+x9GgrgCOC
+         BysYlhK4alse6CuiAToydt83842+Fwl5CoEzpMcJlQ24eljC4UGEzI7phlmUNLqxrlIO
+         FUQQphgq6I6EcpEO9HuEP2j9yc/Sj1vFTsxWikdEMQj0WWkXPXdsIH2iZAFaN9EyhhI5
+         3caFUsdfLxhE506pIB5MJjC7trg8iOSmwCNxR3pV3LLQmmWZwwc0gV1AhvX7d7+XXAWg
+         ECj8YmTlu5KR2Ha+v1raQgXkcCYWJFCs+yVA24+4Venuesx7R86Co9wLjltzyQiGYqLN
+         irUg==
+X-Forwarded-Encrypted: i=1; AL+hErGmyutoRO3jAsRA6nfvUMVMBNsybqr/YBv/l8+wbBMRBh6Eg1CGhJF/TtRJTXEALP8H9gEzbUovRRqU/L8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+jzvMwJpviqjP/ircvi1Zcb1X1HAwGczzlFzJ8oCbe1E9O9jWF
+	ATyezs9ktdLGETY8STanlz4YGy0Wf01gHKU2fL+UJtAi0aIksrdH2dGm
+X-Gm-Gg: AYBFou0GDu9XOcoIBm1bZOc9hcnK5MZumMRlsC4XqYRsUKHmMjj7Nr0peu4iWHL4ydm
+	oC3JpNypf0Q77Ark9Lel2hRJGJz10/eD3tQnn/Y/bKGkwr2RueChyCoFrZfnDY5Rwc8oAC649De
+	/CbAAdaFv6sAnTlAAZZ9F/czsjweOco8/0r+BYH/i95Jf0RmSPgZ/tcCAt/bU5jxh2xAh6e9v2j
+	8MSSeP54xuPQ/RJ/OLubAcdIReq+NGiLzVqPNsql7tFUJu1LbmCDLQnE1fSSgIF7tAy0aTjb2JG
+	Ht7lV2fOJ4lRfqfYI9IbYe7yFINA9AMzH4opZXe/ZiMd9R2viCbymSNe7igEcPhyE0FirhfTWOz
+	hRZ70nto5UevsXxmhtEtDs+h3TMbqln8VqqBCG3Vc8cnV0u6cBOEXr6hhun6sBrxkX4qbg/D9Ud
+	6v/YwszLB4+/ehfUt5E0Gc8ltFwEqghDCSs18YPiLnaO0dKjRch+BxFfNzHs4p7FxGSW0Z2JsIl
+	+b/x9qMzHPTZOQ775LsJR/FvidxQzPWfVjDr3eOnkhLpLwg5GYkwTPV7hEDy3B8d7uU5A==
+X-Received: by 2002:a17:907:3d0a:b0:c42:4750:8d33 with SMTP id a640c23a62f3a-c5066b46008mr455415066b.28.1794485814178;
+        Thu, 12 Nov 2026 04:16:54 -0800 (PST)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a618abesm330293966b.50.2026.11.12.04.16.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 04:16:53 -0800 (PST)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Thu, 12 Nov 2026 13:16:50 +0100
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Uladzislau Rezki <urezki@gmail.com>, Dev Jain <dev.jain@arm.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
+	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+	Christoph Lameter <cl@gentwo.org>, linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+	linux-mm@kvack.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v4 6/9] mm/vmalloc: only flush the cache after the vmap
+ succeeded
+Message-ID: <avWuMhLKno4LXNe-@milan>
+References: <20261110112546.261415-1-hao.ge@linux.dev>
+ <20261110112546.261415-7-hao.ge@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,135 +111,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110112546.261415-7-hao.ge@linux.dev>
 
-When an rx URB completes successfully but the packet is rejected
-(actual_length is 0 or larger than the skb, or the rx queue already
-holds RSI_MAX_RX_PKTS skbs), rsi_rx_done_handler() jumps to the out
-label with status still set to -EINVAL. There it first calls
-rsi_rx_urb_submit(), which allocates a new skb, stores it in
-rx_cb->rx_skb and resubmits the URB with that skb as transfer buffer,
-and only then frees rx_cb->rx_skb because status is non-zero.
+On Tue, Nov 10, 2026 at 07:25:43PM +0800, Hao Ge wrote:
+> vmap_page_range() and __vmap_pages_range() call flush_cache_vmap()
+> before they even look at the error code. A failed mapping is never
+> used, so the flush is pointless at best.
+> 
+> According to the Sashiko review it is worse than pointless on UML:
+> flush_cache_vmap() there is flush_tlb_kernel_range(), which syncs the
+> PTEs into the host OS. Flushing a half-installed mapping therefore
+> leaves host mappings behind for a range that was just freed again.
+> 
+> Only flush when the mapping, and for vmap_page_range() also the KMSAN
+> metadata, is fully set up.
+> 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+> ---
+>  mm/vmalloc.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+> index 0565cbfe325c..3f98056f8c7e 100644
+> --- a/mm/vmalloc.c
+> +++ b/mm/vmalloc.c
+> @@ -369,10 +369,12 @@ int vmap_page_range(unsigned long addr, unsigned long end,
+>  
+>  	err = vmap_range_noflush(addr, end, phys_addr, pgprot_nx(prot),
+>  				 ioremap_max_page_shift);
+> -	flush_cache_vmap(addr, end);
+>  	if (!err)
+>  		err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
+>  					       ioremap_max_page_shift);
+> +	if (!err)
+> +		flush_cache_vmap(addr, end);
+> +
+>  	return err;
+>  }
+>  
+> @@ -758,7 +760,9 @@ static int __vmap_pages_range(unsigned long addr, unsigned long end,
+>  	int err;
+>  
+>  	err = vmap_pages_range_noflush(addr, end, prot, pages, page_shift, gfp_mask);
+> -	flush_cache_vmap(addr, end);
+> +	if (!err)
+> +		flush_cache_vmap(addr, end);
+> +
+>  	return err;
+>  }
+>  
+> -- 
+> 2.25.1
+> 
+Like Suren noted, vmap_pages_range_batched() should be fixed also.
 
-At that point rx_cb->rx_skb is the buffer of the URB that was just
-submitted. The in-flight buffer is freed, the next packet received on
-that endpoint is written into freed memory, and the skb of the
-completed URB is leaked. A USB device bound to rsi_91x can trigger this
-by sending a zero-length packet on a bulk IN endpoint right after
-probe, followed by a normal packet. With dummy_hcd and KASAN on current
-master this shows up as:
-
-  BUG: KASAN: use-after-free in dummy_timer+0x95f/0x3360
-  Write of size 2560 at addr ffff88800f5add40 by task swapper/1/0
-
-The device chooses the contents and length of the data (up to about
-2.9 KiB per packet in our tests) that end up in freed memory. In one
-run the freed page had been reused for a kmalloc-4k slab and the write
-went into a live object. Each zero-length packet also leaks one skb.
-
-Commit b07e3c6ebc0c ("rsi: Fix use-after-free in rsi_rx_done_handler()")
-made the handler bail out on the next completion, but the in-flight
-buffer was still freed.
-
-Free the skb of the completed URB before resubmitting, so that the
-buffer of the newly submitted URB is left alone.
-
-The bug was found by AI agents (Claude Mythos and Claude Opus models). The
-analysis and the patch were reviewed by a human, who also reproduced the
-bug on x86_64 and aarch64 with current master.
-
-Fixes: a1854fae1414 ("rsi: improve RX packet handling in USB interface")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alexandre Becholey <alex@becholey.ch>
----
-Notes for reviewers (not part of the commit message):
-
-Trigger: an emulated USB device (raw-gadget + dummy_hcd under QEMU)
-with ID 1618:9113 that reports the firmware as already running
-(FW_STATUS_REG bit 0), so no firmware file is needed. Right after
-probe it sends a zero-length packet on bulk IN 0x81 and then a
-2900-byte packet on the same endpoint. No action on the host is
-needed. The reproducer is available to maintainers on request.
-
-Trace from torvalds/master 067c5c24cef2 (x86_64, QEMU q35, KASAN):
-
-  BUG: KASAN: use-after-free in dummy_timer (drivers/usb/gadget/udc/dummy_h=
-cd.c:1411 (discriminator 18) drivers/usb/gadget/udc/dummy_hcd.c:1514 (discr=
-iminator 18) drivers/usb/gadget/udc/dummy_hcd.c:2035 (discriminator 18))
-  Write of size 2560 at addr ffff88800f5add40 by task swapper/1/0
- =20
-  CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Not tainted 7.4.0-rc2-00092-g067c5c2=
-4cef2 #1 PREEMPT(lazy)
-  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS Arch Linux 1.17.=
-0-2-2 04/01/2014
-  Call Trace:
-   <IRQ>
-   dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-   print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
-   kasan_report (mm/kasan/report.c:595)
-   kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
-   __asan_memcpy (mm/kasan/shadow.c:106 (discriminator 1))
-   dummy_timer (drivers/usb/gadget/udc/dummy_hcd.c:1411 (discriminator 18) =
-drivers/usb/gadget/udc/dummy_hcd.c:1514 (discriminator 18) drivers/usb/gadg=
-et/udc/dummy_hcd.c:2035 (discriminator 18))
-   __hrtimer_run_queues (kernel/time/hrtimer.c:2079 kernel/time/hrtimer.c:2=
-136)
-   hrtimer_run_softirq (kernel/time/hrtimer.c:2153)
-   handle_softirqs (kernel/softirq.c:669)
-   __irq_exit_rcu (kernel/softirq.c:703 kernel/softirq.c:542 kernel/softirq=
-.c:786)
-   irq_exit_rcu (kernel/softirq.c:809)
-   sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.c:1062 (discrimin=
-ator 37) arch/x86/kernel/apic/apic.c:1062 (discriminator 37))
-   </IRQ>
- =20
-  The buggy address belongs to the physical page:
-  page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0xf5a
-
-dummy_hcd is the emulated host controller copying the received packet
-into the URB buffer that rsi_rx_done_handler() freed.
-
-The same report reproduces on arm64 (QEMU virt), and on v7.3.1 as well
-as master; rsi_91x_usb.c is identical in v7.3.1, v7.3.4 and 067c5c24cef2.
-
-Testing on v7.3.1: with the patch the reproducer runs clean (10/10),
-without it KASAN reports the use-after-free (2/2), and rx keeps working
-after zero-length packets.
-Testing on master 067c5c24cef2: with the patch clean (10/10 with
-dummy_hcd), without it KASAN (3/3); rx keeps working after zero-length
-packets (15/15 plugs), also on an emulated xHCI host (no KASAN report
-there either way: the controller writes the freed buffer by DMA).
-
-Thanks,
-Alexandre Becholey
-
- drivers/net/wireless/rsi/rsi_91x_usb.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/wireless/rsi/rsi_91x_usb.c b/drivers/net/wireless/=
-rsi/rsi_91x_usb.c
-index 8765cac6f875..bd049ca72919 100644
---- a/drivers/net/wireless/rsi/rsi_91x_usb.c
-+++ b/drivers/net/wireless/rsi/rsi_91x_usb.c
-@@ -295,13 +295,13 @@ static void rsi_rx_done_handler(struct urb *urb)
- =09status =3D 0;
-=20
- out:
--=09if (rsi_rx_urb_submit(dev->priv, rx_cb->ep_num, GFP_ATOMIC))
--=09=09rsi_dbg(ERR_ZONE, "%s: Failed in urb submission", __func__);
--
- =09if (status) {
- =09=09dev_kfree_skb(rx_cb->rx_skb);
- =09=09rx_cb->rx_skb =3D NULL;
- =09}
-+
-+=09if (rsi_rx_urb_submit(dev->priv, rx_cb->ep_num, GFP_ATOMIC))
-+=09=09rsi_dbg(ERR_ZONE, "%s: Failed in urb submission", __func__);
- }
-=20
- static void rsi_rx_urb_kill(struct rsi_hw *adapter, u8 ep_num)
---=20
-2.53.0
-
-
+--
+Uladzislau Rezki
