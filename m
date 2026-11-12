@@ -1,97 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794506906;
-	b=2X1FmdE5s1gtqA9EpA4WZpO16nQ51ELoPNxFKK81cFZVp2QP41SNXxeO2eBkjedNWHG+
-	 359NwO8+IfDyNI7gGI/A8fXdyEJjHjtRAGERbjyR/y4WYY3x60yoXU2sKj+cS90K69YTe
-	 kTALBaDDCuoSNf5pSIFGd8a1kyq//L1C5Wb5fjoW/znZHO2z8uHl353pABrQng+HqiYd+
-	 IbsSGQsfRTGb1r3/rW9U38IFNAJF3hvqTFf79b50V+H0YwoWLqcbTys8yuvNQybLP0v8C
-	 EQrf4DIK8/x/vi6qGxHvgpns4fmXtw8iVJo1CFvumYE2+oSkacz4fKZcHkmBFCEVrRw==
+	t=1794506942;
+	b=ofZ/57aZAPj92RsYifIjIUQ19t58Nwg4UeXhxqHp7qT4yP6SCTmmZ+O5NmjeVlxZL4tt
+	 ftDrjlPOEQBe7x9b+DYptddeAXg1vM9viK6g2tkeFYCfecG9ACEy6qPHgZS+tC1fSm42c
+	 J7mKv0nnsy+HNuDQuZJdzUsD/RbfKh850LRZdDKJkf0JvHUj8GOLn7mepB+GPY0uVXhX8
+	 JpPBTug0yQ8Lbz+3nPRTKEVVEXNzN6tffJBlJr+1xBwAlr83gCqBiecA3OAoV8IJrglcQ
+	 0wAC7UbeSDjcdyLihzY5t0GnyED6QvjI2lSeIBWvhdZbzirP5KhhcXhkz7l3hVGgprw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794506906;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=IuyY4VkDEyFSQSAJ/QGlhbXVklK5sj2QLVDu+lvSUaA=;
-	b=btiqRcePZzlhjJycS5jr9Lxh3kevYOSsbGV6jmXxARepGG980gpoH5IhdD7D8oFMXkkg
-	 zlX13WX8iLsvvd21WCKKy6+S/ODwKfCs+ipkaJhgEbfkEd0oT7OfGuUJx5MgPjJRS7gOq
-	 +tdIBF5/Q1eGnjcSnEWdqmVtM24Y10q+kIuF9nv5JJknkjTOYSSedrkHOWaNen8e01/7t
-	 BsUji8No9PzcTdbpB9kVffzx8zeuLXxAlmImlbdJb0ggHsMwiptPhdqdTjBoUcRYKk7kd
-	 mEv+71ikCtSfvxViytUdNMDzeDOqml92Z2euIOc0lBVCyweoO2l+duFeVYxhzQikcMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794506942;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Spam-Level:
+	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:
+	 X-Spam-Score;
+	bh=0uqFwBn+9Y/5L04B28BEdx1Vva9wKMxDDuER2cKqQQY=;
+	b=ZCuHu4KPCa53eUZW/01xvv0PiO5RcQT6noIwyNacGWQIV4PdinpCO/Ttioo2YN9l4HPm
+	 H/8iKzcJuVaAUH05qCJ6e8SWZH+dpaA5oaJH0xelaMiHCKEEgjlCPhzZa1Jbv2c04Utum
+	 GMGJ110g376jXVil/f51S2aooJ8n7qOryAVSu/RGijHbrkkFDcE/1yVtVT5xX5MCW7XhT
+	 1bbK0D/fvkWh76K8S2yEEelPovmQOfCTepbTrrufub0CSBn9aVFcdX293wTRcalJjzzfk
+	 dVr+9kmzOFWUJSTyTDsDNpavNWpOhF+3VMWlFGZN1te0XE9nUlLEX8Wv1Woc3W8wylQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unc.edu;
-	spf=pass smtp.mailfrom=cs.unc.edu;
-	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=KkbandDT;
-	arc=none smtp.remote-ip=209.85.128.177
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=HZ4Kg0Ko;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b="oQD/PD1H";
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0958606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:08:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0958606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B6B606A31C;
+	Thu, 12 Nov 2026 18:09:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4B6B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=KkbandDT
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b32bbd39d5so1615237b3.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:08:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1794506905; x=1795111705; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IuyY4VkDEyFSQSAJ/QGlhbXVklK5sj2QLVDu+lvSUaA=;
-        b=KkbandDTebPbtmvtFRJySdi9uHWjGVY+xCBEXoeqFT3otRqLqghjLLhESS2VmNbsZG
-         JW8/NU4Ji7lPnObb0Jpl8uVYwV85AQIN0rtovgkhk0Vm3brSPvgKjZIiwl/DcXianqnI
-         rm5Cn/ZGv1MQxLXrr0TYT6JOmjigo37X94D4tjnDu+6m6VAOu1yrgvSIOjZovdD2wKcn
-         LE1/nAxkIodnZMyyTcpWjSAOf28hhLFatREyMqb4SJH2+6oemej2YHpEtTmbc1M5LNXB
-         DY8LPlMWHs0PFfvZpR0riH+0FIox/j/k/5f8tLpHJlODXEacfuw7h4h37oG6pEq1W6JT
-         eErQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794506905; x=1795111705;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IuyY4VkDEyFSQSAJ/QGlhbXVklK5sj2QLVDu+lvSUaA=;
-        b=l5+yhTGqQSKapLNWcXOSs/1I3W+c+FOhTHFFzxvlb8aU6Qxg9wc08OOtYFMB0NJo4S
-         4M3nWNCfnNrTGBBuOXS1gVQSFg6Cx0IYEKDZR0f5BEmKdvY4G4i7cVeenZyoPG50kCgU
-         nRKhFQ1DCUYMeeCSdptKSFIozkZTPYdpEVEbm/2RlhZnOspIcY/SrZXkpPL/8Zl+pPGM
-         yRMKTDwYDWSrYf3gLajSjO8C8x/MhKHktGQqMQnONak+KR8+xeJZjFREZtcFlfYJ0f82
-         +jf/8lW+X7Ai+yF2QPTiTqqOgXW2qPjwxmbrx2Avmgk4OV7z+JwK0XZutp9Xq60G47aj
-         VkOw==
-X-Forwarded-Encrypted: i=1; AL+hErE5O1utJBJmkF24JUg2lSi92z8+iWT21EoNdf+eganMpTvqE4sIQTpYQ1UOKBL4Nc6u2cTX+s2ueWS2VHQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+NLVdA9OdEnC8wgVGjNEXZG/mlZmv7YFM/G9VyaeJuGrSF06nC
-	mPfmI1ohxZ2mcgq43ybaTcKNlOlGqEQbOXD9ZfFM5ZRWHYwfbPQamXnvgl4vl74dGw==
-X-Gm-Gg: AYBFou0gkLUQmYtNA8v7WbPaQKXuUXBhKuUST132fuKuBies6P4BPq//dQu4PeHk2JO
-	PQmCjLLrx6nGr7h2q9Pe23UoVzxnjyBHcmgIcs3LiJaihQsPlM2IXmKXm6v8B4YvCdy6qkfsa3j
-	jH8o/OMUW0Ng9iP5SHoq2hqEZwsTd5BdipyRz1f9Me0H0+z4qsjFPGVtIyVt8YA5NfgZWhgFb+/
-	pgh+NysBxZISCwtpOxbIKG213YGJd20UKg5REMg5RFd1C/1NTcu/SCOP+VfMnBSsF1RfMBdczYE
-	20hP/IYid1TIKfkz3xpC6i/LHRHyaPlUqL3ZS9fc+1bfGrsHPXjlVblxBFt84k9IMavG/Tr8x8f
-	7vW5EeQHwc103qzGfmIbxHKrC2cS3fUdO1sCLnFKSjJULQ3RLt+eWgq22br7Cb928LNHyaKzDFX
-	jzJiJ6/2VqN5ZD85e784A5d1f0SuA9DjmYW4VX29K929MwecBIDbAsYHJFoZAJGvyOIcXXrmpmk
-	ews+BZwhrDBSSgpr/MgrDWYI41ywXb8j7h2nucz0Ewu5qLVU8bld6R5go7/0Vh/KJSyG6R8KAPQ
-	urCnJ6le8/hCOFpOzR4uUwcj6fKTajnskcwS7toA3gOMaoU2JVQi
-X-Received: by 2002:a05:690c:c6c3:b0:8b0:d9c9:3fc6 with SMTP id 00721157ae682-8b4aa2f2c28mr2160547b3.13.1794506904893;
-        Thu, 12 Nov 2026 10:08:24 -0800 (PST)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa933f04sm1743067b3.18.2026.11.12.10.08.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 10:08:24 -0800 (PST)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Simon Horman <horms@kernel.org>,
-	Donald Hunter <donald.hunter@gmail.com>,
-	netdev@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=HZ4Kg0Ko;
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=oQD/PD1H
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id C14A221FAF;
+	Thu, 12 Nov 2026 18:08:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1794506940; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=0uqFwBn+9Y/5L04B28BEdx1Vva9wKMxDDuER2cKqQQY=;
+	b=HZ4Kg0KofldsTFC0g7akEVAbx3P6HdGjEA++iBa32I3qGyYJjJ77Zz+5oeG/kcOmGQRRPE
+	G8RnestCrtueRtjgr8gznI5rZL/rYatlsllFYNnUCDeKN9bhSYFwAYuzM/izh7hISkHRBL
+	56A1WYWRiGzKjQkTsOR/q8sAyx+Glvk=
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b="oQD/PD1H"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1794506939; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=0uqFwBn+9Y/5L04B28BEdx1Vva9wKMxDDuER2cKqQQY=;
+	b=oQD/PD1H/AGoAjfACqF4LZB7KOJodIKVL04hIAxi2ztyKAM2J82caBMCSuYmBmWUDMcOfd
+	KoR3GchNKm8Jz8dZ2izisPF83eUDZdx3+vc260mF4EfVZydv5wEEZwHxOkp+5AWIVambBN
+	j1Z/BMvi8+5z2WAeXVi7r21VsdoQa+k=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9A35513432;
+	Thu, 12 Nov 2026 18:08:59 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id AU4dHbsA9mqFJwAAD6G6ig
+	(envelope-from <dsterba@suse.com>); Thu, 12 Nov 2026 18:08:59 +0000
+From: David Sterba <dsterba@suse.com>
+To: torvalds@linux-foundation.org
+Cc: David Sterba <dsterba@suse.com>,
+	linux-btrfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net] ipv6: bring NLM_DONE out to a separate recv() in link and address dumps
-Date: Thu, 12 Nov 2026 13:08:08 -0500
-Message-ID: <20261112180808.1217483-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+Subject: [GIT PULL] Btrfs fixes for 7.4-rc3
+Date: Thu, 12 Nov 2026 19:08:57 +0100
+Message-ID: <cover.1794506624.git.dsterba@suse.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,85 +88,107 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: C14A221FAF
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DKIM_TRACE(0.00)[suse.com:+]
+X-Spam-Score: -12.01
 
-Commit ac14ad9755d4 ("ipv6: use xarray iterator to implement
-inet6_dump_ifinfo()") and commit 9cc4cc329d30 ("ipv6: use xa_array
-iterator to implement inet6_dump_addr()") made the IPv6 RTM_GETLINK and
-RTM_GETADDR dumps put NLM_DONE into the same recv() as the last
-objects.
+Hi,
 
-However, some applications expect NLM_DONE in a separate recv(). As of
-now, Kamailio waits for it when it looks for the IPv6 addresses of the
-host. It gives up after 4 seconds and listens on localhost only.
+please pull a few fixes. Thanks.
 
-A similar issue happened before in the route dumps and in the IPv4
-address dump. It was fixed by commit 460b0d33cf10 ("inet: bring
-NLM_DONE out to a separate recv() again") and commit 5b4b62a169e1
-("rtnetlink: make the "split" NLM_DONE handling generic"). Perhaps
-these two dumps need the same.
+- zoned mode fixes
+  - fix counting active zones after activation
+  - redo zone reset after error
+  - update device lock range during mount and zone loading to avoid lockdep
+    warnings with device drivers (virtio)
+  - space accounting and extent buffer handling fixes
 
-The issue can be reproduced with:
+- fix keeping zstd workspace for the last level
 
-    python3 tools/net/ynl/pyynl/cli.py --dbg-small-recv 4096 --no-schema \
-        --spec Documentation/netlink/specs/rt-addr.yaml \
-        --dump getaddr --json '{"ifa-family": 10}' 2>&1 | grep Recv
+- in SUBVOL_SYNC ioctl handle a real case of a subvolume with 0 refs
 
-Before commit 9cc4cc329d30 ("ipv6: use xa_array iterator to implement
-inet6_dump_addr()"), the result is:
+- properly handle case of zero num_stripes when reading chunk items
 
-    Recv: read 232 bytes, 3 messages
-    Recv: read 20 bytes, 1 messages
+- exclude reloc tree from xarray as it's special and it's key does not fit
+  unsigned long on 32bit platforms
 
-After that commit, the result is:
+- in tree-checker, handle extent item tree owner depending on the features
+  (enabled in simple quota mode)
 
-    Recv: read 252 bytes, 4 messages
+- fix bio control structure leak when checksumming fails
 
-This patch will set RTNL_FLAG_DUMP_SPLIT_NLM_DONE for both dumps.
+----------------------------------------------------------------
+The following changes since commit 8c66a6aa59a5df1d672d72b7cd379d897ff73200:
 
-Fixes: ac14ad9755d4 ("ipv6: use xarray iterator to implement inet6_dump_ifinfo()")
-Fixes: 9cc4cc329d30 ("ipv6: use xa_array iterator to implement inet6_dump_addr()")
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
----
-Application impact (Ubuntu 26.04 user space): Kamailio 6.0.5 with
-"auto_bind_ipv6=1" added to the shipped kamailio.cfg, on a host with
-one IPv4 and one global IPv6 address. On v6.8, it listens on both
-addresses and on localhost. On v6.9 and on net, it logs "Could not get
-network interface list" and listens on 127.0.0.1 only.
+  btrfs: zoned: fix double free of bitmaps on clone failure (2026-10-30 23:17:16 +0100)
 
-Kamailio looks only at the first message of each recv() for NLM_DONE
-(src/core/socket_info.c, same in its master branch).
+are available in the Git repository at:
 
-Tested on net: with this patch, Kamailio listens on all addresses again
-and starts without the 4 second wait.
+  git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux.git tags/for-7.4-rc2-tag
 
- net/ipv6/addrconf.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+for you to fetch changes up to d27d0039bc1334be8a72c769e14c0b0c3efc317d:
 
-diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
-index d9d13e78bf13..cbee883e8b01 100644
---- a/net/ipv6/addrconf.c
-+++ b/net/ipv6/addrconf.c
-@@ -7561,14 +7561,16 @@ static struct rtnl_af_ops inet6_ops __read_mostly = {
- 
- static const struct rtnl_msg_handler addrconf_rtnl_msg_handlers[] __initconst_or_module = {
- 	{.owner = THIS_MODULE, .protocol = PF_INET6, .msgtype = RTM_GETLINK,
--	 .dumpit = inet6_dump_ifinfo, .flags = RTNL_FLAG_DUMP_UNLOCKED},
-+	 .dumpit = inet6_dump_ifinfo,
-+	 .flags = RTNL_FLAG_DUMP_UNLOCKED | RTNL_FLAG_DUMP_SPLIT_NLM_DONE},
- 	{.owner = THIS_MODULE, .protocol = PF_INET6, .msgtype = RTM_NEWADDR,
- 	 .doit = inet6_rtm_newaddr, .flags = RTNL_FLAG_DOIT_PERNET},
- 	{.owner = THIS_MODULE, .protocol = PF_INET6, .msgtype = RTM_DELADDR,
- 	 .doit = inet6_rtm_deladdr, .flags = RTNL_FLAG_DOIT_PERNET},
- 	{.owner = THIS_MODULE, .protocol = PF_INET6, .msgtype = RTM_GETADDR,
- 	 .doit = inet6_rtm_getaddr, .dumpit = inet6_dump_ifaddr,
--	 .flags = RTNL_FLAG_DOIT_UNLOCKED | RTNL_FLAG_DUMP_UNLOCKED},
-+	 .flags = RTNL_FLAG_DOIT_UNLOCKED | RTNL_FLAG_DUMP_UNLOCKED |
-+		  RTNL_FLAG_DUMP_SPLIT_NLM_DONE},
- 	{.owner = THIS_MODULE, .protocol = PF_INET6, .msgtype = RTM_GETMULTICAST,
- 	 .dumpit = inet6_dump_ifmcaddr,
- 	 .flags = RTNL_FLAG_DUMP_UNLOCKED},
+  btrfs: fix bio counter and bioc leak when async checksumming fails (2026-11-09 18:50:58 +0100)
 
-base-commit: 19ec8416a76c08326fe5f814410a1b43046e63be
--- 
-2.53.0
+----------------------------------------------------------------
+Cheng Yongkang (2):
+      btrfs: reject refs=0 subvolume without DEAD in SUBVOL_SYNC_WAIT
+      btrfs: handle zero num_stripes in btrfs_chunk_item_size()
 
+Filipe Manana (1):
+      btrfs: zstd: prevent leak of workspace below maximum level
+
+Johannes Thumshirn (6):
+      btrfs: zoned: only change active zone counter on successful (de)activation
+      btrfs: zoned: fix possible UAF in wait_eb_writebacks()
+      btrfs: zoned: requeue block group if zone reset bails out
+      btrfs: zoned: avoid underflow of space info bytes_zone_unusable
+      btrfs: zoned: don't wait for ordered extents in do_zone_finish()
+      btrfs: zoned: fix lockdep splat on mount
+
+Mani Tofigh (1):
+      btrfs: fix bio counter and bioc leak when async checksumming fails
+
+Qu Wenruo (1):
+      btrfs: do not insert the data reloc tree into fs_roots_radix
+
+Siddharth Mishra (1):
+      btrfs: tree-checker: reject extent owner ref without simple quota
+
+ fs/btrfs/bio.c          |  4 +++
+ fs/btrfs/block-group.c  |  2 +-
+ fs/btrfs/disk-io.c      | 53 +++++++++++++++++++++++++++------
+ fs/btrfs/ioctl.c        |  8 +++--
+ fs/btrfs/tree-checker.c |  6 +++-
+ fs/btrfs/volumes.h      |  5 ++--
+ fs/btrfs/zoned.c        | 78 +++++++++++++++++++++++++++++++++++--------------
+ fs/btrfs/zstd.c         |  3 +-
+ 8 files changed, 120 insertions(+), 39 deletions(-)
