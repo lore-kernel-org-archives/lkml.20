@@ -1,112 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794499588;
-	b=yJCQ5Nwm6SY7m7qAMiUp1KSycjCErmi339GIFZP6fRg3KiaiPkKe9KjmBzQrsUzylC2P
-	 G5QBvo7CdjXR+AqMQrtkPJ9r+ghGyP/XzFa4EzXhwc9dtWL6aQJuf5rheH5PDUi/TejWI
-	 9XeUP6Nn+t+oEhbQGCnRC1jOvk6SzkMrsys2NXBz+B7std9QBkYfdI/c/X35YCeJpssbc
-	 5k4IaDfhviiCGa4grm2yOshAs946Zc9aPmlBJcsDrd0DMXv/+iWgqvXwWvA/MPGRTGVh6
-	 v2BJxTZaqj4zSfaXplt67J5di7XcqCCd4GruNcw8uaNBWgNJAuRsRdAy6GuPW9AVhXg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794499588;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=s/0yD8XwSZcMtPhKjxGvWxzhalMi4P0RN9zUgkplp3I=;
-	b=XnpRCB/1qQljfk+EBB5U/LBkm0q2i4vzr8Wxya43lJaMQkyBPSNS2CJljM/fGEH6bEtA
-	 XCw1UQQNU31WD4f3yEGMNz7GKgJW1Ljrm0gyo4OtHyzgK7aCgWTDPuF7XgjhPJxqCFy60
-	 B7BH9i1pV7Qz3x9LRk6m838k3C6bIYaHlTcxyy0taGTy+MMNoRok6za6SWvlGGolPL9zb
-	 WMLlEGh8imcu2KY7YLpJeD2j+DfkolNZ060nCYEZV74DVhnpU9Z7TNDMjxzjDrOEzlxhZ
-	 RPMmW8JauTclNxEgfR+scoCYVUYhZXxB71TdfeQSG/V9Rs+dSYQrnm3rO42wx5OLTRg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b="U+/4y+pU";
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=Bygn+8lx;
-	arc=none smtp.remote-ip=148.163.135.74
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.26
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794499608;
+	b=3YqAskgpgnhRUz335bZjPCxMRYmVHF8BiyC5Ns3PeNVBoL3Tp1T9xlIjl+lv2uw+l6+t
+	 s94O/t2uyroGQb7rziXhRxYgVJdPZ/2ZSZVW1573olybASkF7itbXJYxWfQVcwo96ar2o
+	 RVujRfOa3xTPQLEBG2YfcFicKQwjr3jgnstOMCun2rs10ttbaAaewND7Me2cJ+D5pq+Wp
+	 Pq2HYH1WRWOI0vEtCvi8VWD+k2iH0P0M/cs8oI8EM5qpvBPmu3Vmnh2HsfY3ie0F8rJQa
+	 jJIG3TFBaKo0OlmN7+goToiBEZlXKwZ1OVS9AaQE3hP2lIqQ2gHhjYHStDngyyCID1w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794499608;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=X/fOu0EIwP74iv4Y49vsqZtVCb4D018mu7v86BwRqIw=;
+	b=RW41D7KRYd8aqS01riAkSnO1ZESHEAU5joSU3iZGmNtfmgM655QZawX10XelGt/AJ3b+
+	 wweKl/BruSikEkaF97iCjK5F8MPQJgQ4SkgTH2tSINJV+QrOD5LbG5APkz5tpb/o97JGv
+	 huRpbKcrYg+5c0U8fnf1bKWBH0rVNnVmYJZ5Vd63hZaYGa72gXBNsPtWSuKYEHFWyWq+M
+	 s/2FLkuUBa2dznxyKalDqPVOJLRw8x8d+v/xxFhiOG4MbbVEPFqZbwwo/tmu6w59Dl2uM
+	 0GF7hHonfNygBUfQ/2ghorGqTwpJQB5bsVqClvl1exwdGWMk4qa5U6twnPoHCf+SOyA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=GE3p84jo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.26
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013026.outbound.protection.outlook.com [40.107.159.26])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5930606A331
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:06:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5930606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD81606A31C;
+	Thu, 12 Nov 2026 16:06:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AD81606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=U+/4y+pU;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=Bygn+8lx
-Received: from pps.filterd (m0167068.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACFXrFa3622386
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:06:27 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=s/0y
-	D8XwSZcMtPhKjxGvWxzhalMi4P0RN9zUgkplp3I=; b=U+/4y+pUkpfDAQFmeZ09
-	BltQvCuaL59sr8VUmfUen3PJ8cTOac6eFO5dnCQiTwzplouLPAndcc8p4GIexEQK
-	UJEcEcyMBDEzf5xhAwPSz7lO9RgN8BuMgBrQaQimDgBX0pGy6s0UqUQjhJ9NpZ2k
-	ukrOYbxDXqyaGOqG5VVhWnklyNWT7rOrQgV46051NXipQHgGh3B9ngiuDILR2TpQ
-	IBU6hkSfwvdYT9RG5nihfk3romNw4nySl2w4ECXSy+lMqpqHDilTS2YPBgC/PnK7
-	bwzf5oVzpQCMvwHWtZCXM2DNgHMqdX4sk6ewMRCSTtbAviLTewgSO4PenXDbRkHz
-	Qw==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hw0vjmxkd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:06:26 -0500 (EST)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91ea5866643so84252376d6.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:06:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1794499586; x=1795104386; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s/0yD8XwSZcMtPhKjxGvWxzhalMi4P0RN9zUgkplp3I=;
-        b=Bygn+8lxpzufZ794OxLPD2+Bx5jJh6abT5usUaVY8dNzOJRPjBFPhRA9R/g6Chq6IX
-         eSdGxqozGomcg72tTBCT/fvCjBgWqNWEBRkCEGOxqgdz0IklIA8bEY1wwhA7xC7zf7DR
-         RD1dbtKn4tR+DgGyzAeCCuCKeaetU1jdymq+BctHoCceoXsICxd6tqCY27R61dt1DYJP
-         hsj7Yzj9CwZTLJvbmqTLfX8SIJaJnY4yRQdGm8/InqUiNriFgktXuVCDq6TcmfZGdEX8
-         nyKraVnE1soesCuPxJZ+I2tQdOmvusRjezjbfyoi8iLFD89wXTjlh7h3vEHq1fIyeIRT
-         qzVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794499586; x=1795104386;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=s/0yD8XwSZcMtPhKjxGvWxzhalMi4P0RN9zUgkplp3I=;
-        b=xWq12s4SSIxiSZ98FyHfyzm/dA+Uzx3FAYF/Yrrp9GZvRUEz6t1rWPsxSd4F0VGTJB
-         K9bgCWYqbPRTizM2aIJtp6SFmzw2iLWvdnAV0xAmNKfE1WAkNjqWQeqOoXa9XEpAN0jC
-         gq1kuL5SaL9geH7u2v1SoD3UIpEY1Vp8nMJZ9btNhQahhcO8CQRnKENi9yHJ8CefB/Bb
-         GHDq+HG6qtNLQGZgdL6MGWhq9PKiUnjFo7hVf7gsKxuHf057S2GULfqDCMpe2/Nnwxqw
-         tjHZfvhOHSsaQtQmfQ6N+zC1KQ+0iSgfDgoStv6wrcifhlGhJbem6Yr8A1vC4WTzHL0a
-         D+tg==
-X-Forwarded-Encrypted: i=1; AL+hErGCaBN1X2av7u6Kwr/40eon7CzfeOlFwxDhJ5lnAmUa5aijbCkxXMWzUaElGXGiDL/3mUvDC/5BxSF8RqM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/d2XBVVZVpC3+7GFadkjORYH1ma3xY5StvjLOwLVfiI6Q7o59r
-	MsP5jtX2JfydyTvN4b59cN/6/eaAsXoNnvTKbUpSYFafSFKZW/zxcrQ0fTnzDPMv9MDavgJPbMi
-	Npu8t2guqDQPZTFHunotg8/f0uCR8o7Xsi8BHe0Pn7t7CtiKBCaNi9vOne93Iwg==
-X-Gm-Gg: AYBFou3oN1Trfy5KDNrqec2IMe7dQfdqqfdoEmnex0NKLqXjusbxxOtyf+qXN8UQ05Q
-	YW30WKGAp9RQ2AQsOJb5cok07yGO4CHt1/Mo9IWgtKVw2dkNHA+4AKE4Gt7K32UzehyN1mJR18o
-	mE4+1SMNhHvAtgOkTKY6enn7dujlvig4V3mjYkJb3agsLluaYbINc7c4E5R2wMMCO0UvgGcC2ym
-	aLyDCU1ioGinwgNIWU0NvFvQ2F6G+L3w6tg956gyzK3JOt+7sYlnOFyREqJ3CKlmEJvZwBuRtf2
-	hpbKcZaW41py5x/SyQEvLoBt9euMPhAa/y86qK26EHp7PQGyI4Lud5ZN35zQnaqr1NT8+UW2BAd
-	fCATBIw5xieDu0eXiA1sKHAM0i3iKXpNc0SmiETDOWK3Z3A3v+oL0p8o3yymBxcS4XROfj1EiaH
-	4KoFF56oJHzvbGoehS+1Ck6A==
-X-Received: by 2002:a05:6214:1d21:b0:91e:9db6:c329 with SMTP id 6a1803df08f44-91f0414665bmr103300236d6.35.1794499583686;
-        Thu, 12 Nov 2026 08:06:23 -0800 (PST)
-X-Received: by 2002:a05:6214:1d21:b0:91e:9db6:c329 with SMTP id 6a1803df08f44-91f0414665bmr103297826d6.35.1794499581900;
-        Thu, 12 Nov 2026 08:06:21 -0800 (PST)
-Received: from [192.168.1.62] (dyn-160-39-33-242.dyn.columbia.edu. [160.39.33.242])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef04fb371sm75358026d6.25.2026.11.12.08.06.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 08:06:21 -0800 (PST)
-Message-ID: <e0a9ef1a-c24b-44a8-9d63-9a800b35da24@columbia.edu>
-Date: Thu, 12 Nov 2026 11:06:20 -0500
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=GE3p84jo
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=djRQIKj0EMpXlVq/BZt3nW1bzolxPpa0rFgDdYhFL9t9n9bfLIEU9nrQRMbRGbl/dwODIjGK9pwM7NOrgSiNKXw09kRpxEIaVsczWVMhFDxL8bBtvHfbjpaEhu6mm+mvq1TYcVzgRTSvLmICxg8Zkliw2YyoV1cOfLVu5HlAYkEOrnhpm7vZVujSIU6AYacYWAD6EfrnY4o5DwL94B19REUL3fxL4ARHSAIQAm3k2S/oENVjlpf8Mn2wcVNUrqu00simF+x8aEkDKsrQHuXGhF9oSyRzUMVlWjj0INIS8CAQR9Nn4k5oTJ1R4KnvRqHS+siHLyTTb2sOet8LF2BCrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=X/fOu0EIwP74iv4Y49vsqZtVCb4D018mu7v86BwRqIw=;
+ b=u3SFcXAYmDczSposBvNzTat4tHhghasJ3FJRkqQI3eoufOrllKr+MwG7urzYU6zcpsO592SOUrCj64TDmMU83mPm5g5VKvaOfWVCWP/WivhNYe8U0XV0dlT0UisIMwaJhBhwsIJXGZaJ4cyo5ROx32liQ0HzOIDk4uCsB/oxBPdAoEbKvG9ZZ1Y+85JJluYkhE/pvuWlq+4fQxWkIdYpmguVlxhl2IVeWBKvfyCzg2bypPJclWOIwXpTMHqI21IS7Lmapx3lALmqO75b+aHsWRuTvCt47ng9oPFu2q02dIBZE8tyv9xPVHZ/dFz3Wb+pfCcK/w3Ejrb1DiT3MbmN9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=X/fOu0EIwP74iv4Y49vsqZtVCb4D018mu7v86BwRqIw=;
+ b=GE3p84joTBS/xJR5JN0mcKmchKt8lsy305o1aTegN+irSOGA77ZnFlBKq4sq84gpTVxgbhqP9o/xLzqUvmSYOfAqabzjKmKBd0+PcKbL4iBdO08Dikq4kcKSBsV4/tPjysrKLqqINSN5h8FZRvD1LvQJYBH+TEEErb34kijHv7e8nxnYcZHAT4pms529oApsyg4cN+nJR8GjZJwuOt0vZkr08xN7tBsWckMDFYSzyYcXVutjMhvg9MC1+3kHuMOuPmCFX+EuIlyHL8Opa28fGzyY1zLbl+E3ZtTvlgEBB56rkWitAijOfQx5V7hWvH25zmz6iJJ6Lv1mC8g9t4fTIQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by PAXPR04MB8911.eurprd04.prod.outlook.com (2603:10a6:102:20e::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Thu, 12 Nov
+ 2026 16:06:43 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.009; Thu, 12 Nov 2026
+ 16:06:43 +0000
+Date: Thu, 12 Nov 2026 10:06:31 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
+	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v6 7/9] dmaengine: fsl-edma: use
+ dmaengine_get_dma_device()
+Message-ID: <avXkB8apdBFfWt9e@SMW015318>
+References: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
+ <20261112-edma-iommu-v3-v6-7-b038edb8ce6f@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112-edma-iommu-v3-v6-7-b038edb8ce6f@nxp.com>
+X-ClientProxiedBy: CYXP220CA0009.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:930:ee::17) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,245 +112,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/12] mm/madvise: let a guard marker carry the uffd-wp
- bit
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-        Mike Rapoport
- <rppt@kernel.org>, Peter Xu <peterx@redhat.com>,
-        James Houghton <jthoughton@google.com>,
-        Andrea Arcangeli <aarcange@redhat.com>,
-        Suren Baghdasaryan <surenb@google.com>,
-        Balbir Singh <balbirs@nvidia.com>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
-        Pedro Falcato <pfalcato@suse.de>,
-        =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
-        Andrei Vagin <avagin@gmail.com>,
-        Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
-        Muhammad Usama Anjum <usama.anjum@arm.com>,
-        David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
-        Matthew Brost <matthew.brost@intel.com>,
-        Joshua Hahn <joshua.hahnjy@gmail.com>,
-        Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
-        Ying Huang
- <ying.huang@linux.alibaba.com>,
-        Alistair Popple <apopple@nvidia.com>,
-        Baolin Wang <baolin.wang@linux.alibaba.com>,
-        Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
-        Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
-        Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
-        Kiryl Shutsemau <kas@kernel.org>, Chris Down <chris@chrisdown.name>,
-        Muchun Song <muchun.song@linux.dev>,
-        Oscar Salvador <osalvador@suse.de>,
-        =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>,
-        Michal Hocko <mhocko@suse.com>, Mike Kravetz <mike.kravetz@oracle.com>,
-        linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org
-References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
- <20261111-uffd-state-fixes-v1-9-00713d368976@columbia.edu>
- <avWeNRMIU2QPGZ4w@gremlin>
-Content-Language: en-US
-From: Tal Zussman <tz2294@columbia.edu>
-In-Reply-To: <avWeNRMIU2QPGZ4w@gremlin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=d9FgWhjE c=1 sm=1 tr=0 ts=6af5e402 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=GaPK54s0Se3oFqK5NkZy0g==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=usPcmh10W0ubT8QP8_c3:22
- a=iDqOqAWsPJ7IfU34PtYA:9 a=QEXdDO2ut3YA:10 a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-ORIG-GUID: aSF-ZRZnyMwosNTd3geiq7dzB4vtENkf
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA2NCBTYWx0ZWRfX5/BR0btazUGf
- Lc1bytywi7/AkY5cFoC4zzk6UvZwIj8XVpGG83vlrGBZAYoCbmWLr23hGFi/oIvz92cKhCvixh4
- CD9z/+OJZ5r3RNz3Z7lIJ0jTA5IN2kQSCMKbGwR4MVVj2KgKJKha
-X-Proofpoint-GUID: aSF-ZRZnyMwosNTd3geiq7dzB4vtENkf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA2NCBTYWx0ZWRfX9+MQPS4HG8IQ
- 2bB3CSvcrWJOrcnyL2acAyEenzXDWSTrNqsbxfj0BwtWWer6J8f+le63JgVmJaLH1A0whGkr1Tj
- oqW3cTC4bq4Txko3bWb4CUlEKoWXoqgY5IiEkKKj4QSOp0tZqQK/yDUOUwsmvODWrvd7F0wpiw1
- sAQx/2bFLmrW++IXFs7/nmFzLifynanUezXCVO8zpSN6mE5lYZcNXByZPbUvdihvcmw+/GWyeKc
- UEYFQkhV1zGDBMa/Ez3oDZBrBspfUZMZ1AzTFjpS8ZzR3HGTFAkkITZmzdJzDTD8P6UZChKTBJj
- E6ZwLTvt9sYydBz4oc4PUOECQeme2oemfSLyyHhs44eIJsIwTc8idLEcZ3qyt/BTUa11WJgJykU
- r+N4jVWDKCCA4NeijEOQxcaAYz8DdRz0qnF+y4J8jva+1lpdn5MdfGlru9eeHmG9FYnbowgzr0O
- zWa0oaVapucpJBshzUg==
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11964
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=10 impostorscore=10 malwarescore=0 priorityscore=1501
- suspectscore=0 spamscore=0 phishscore=0 adultscore=0 bulkscore=10
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611120064
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PAXPR04MB8911:EE_
+X-MS-Office365-Filtering-Correlation-Id: 90302ebf-4d16-4a3b-6bff-08df40d6f1af
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|376014|1800799024|366016|19092799006|10067099003|11063799006|56012099006|261102123227099003|261009223027099003|261021121427099003|261021123027099003|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	UZJJc002611HpBFYe+ZZahmsDu+TC5NLvPGKiGNivjr6t++WQKCvu1m5dyMfY52IQZOHRkheL3ddExQ41QNLIIrXGNyrby461Fhy6vwnkva9e0h7Pi7CMsPC6hxsRSyJNJhLJod69QSuzXY7SOqhN+Hy0QPY4VGKkvCbn/+oMol21/ogbBYOWLRLbLPEEeW0ikJXIgwcBsT0A2WYqIunBDOVkr95YtGK+HwN4IGzMJhW+xbV1C7HBLBzqch7yPtEIBGWsZt7ubvKxme+sdDq6r7qi7NUN/zxPTjdDuVH97hQVN+T8+joPDAEbZJOU5/vhPr04CJBWWg6jQR4aPCg3AHI8WvYQ7Kem+hSjpMv1t+mfuo/AOF6lp/QIHV9M5HWGQxtcToW36O6DgSV3wTEU566NFkL4Zsz7M+zDLCfZC+LjiJwMBXG6dCftF4sLTP4iQxKvP0LBsqJVmnUEJGI3WukNvyJTWj2jmmRJoANUae30ZH28X33r36OdqqDuw2ovRyMU2h1R6hE5QrlMM3szRcYAx2uO0aqXoCeyKHB3LfEyK9YhG2HHwU2o76sRTcWuS/LgUcEXADx5yoVmSiSBq+oNHrmtw3lia02TmtqR6mn6h2EkAiuDq0CvHQNJKYY59UXtaNZbI3KWRsCujyLIzeRJQs1sFDt7UuDrKEdixQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(1800799024)(366016)(19092799006)(10067099003)(11063799006)(56012099006)(261102123227099003)(261009223027099003)(261021121427099003)(261021123027099003)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?e0Lwlqfc7TiD0Nn5jeunDVwu0C1XM4U3XGIM2f4hdSX49I91hJdGYRbg6k/Q?=
+ =?us-ascii?Q?9fNgVukcus8lLXRvNti2/w7QzySpCS/cFvZfhuCM8/OrtAn5PyItfi3ijsFs?=
+ =?us-ascii?Q?fjqMOSli012PptoOhRmT1E1jQO0Jy+ZlWtC3wejSkXA+vSjslRe43UpmrUQF?=
+ =?us-ascii?Q?eDggVflgH5hE62rpRRlPPc9YYq5HQ4q8bCtd9arJPfvpy1l3zToaR/GyTy3h?=
+ =?us-ascii?Q?KJMP9vHqufpeT207a2vmGZhUExr6svi3REZqY4bz4oRpnqxqkL4sB50dB1oC?=
+ =?us-ascii?Q?RseVKe5j+O8oeu/0uGbzqOxgX7EKExSN6z+EzqAe5qYUEqOriGYiL+ukKx9b?=
+ =?us-ascii?Q?LaJg4dRqsdsCUuBghUAlUp4r75Y3HOSMoN84k8ccEoxqD588BV0LLn1G4CA6?=
+ =?us-ascii?Q?jtIuo0gJnGPg0l4BN31Mxdr9vMnYImmqyt1WdOEXREC34n0GiBQdCh47BYB+?=
+ =?us-ascii?Q?lHG4JO2LpoQI4sNtwnN0D0Hli0q60FNmhwNgnaXiefn6xQNqqcf2Zpifa/6b?=
+ =?us-ascii?Q?rL9VLQmV4RVyHe1NOrVAvSRUhVRpRnBHIq1d5EhL2IuwoX96Kcz1E/0F0QBB?=
+ =?us-ascii?Q?ZX0nt6Ags93+hDLEs/gUMXAziVL4X+COVZTaPDOfwZoRAEhM/YLLoL8YttgG?=
+ =?us-ascii?Q?rLeHrmcQYNg/N41ELUA8zcBc7fq3QyHdq97zkf4a437ShzAlxcV/T7h1Cqli?=
+ =?us-ascii?Q?i9fcfu87Ow5iVGhliCSRSIE9Y8T/nfJ4stbf30Vh7FozvL0j5JdrAQsVUwp0?=
+ =?us-ascii?Q?um88q3l0PDCcFcemvxaoLGk014B+akMY1cqILLXCF78YEn3FqzbSXFHHYwe8?=
+ =?us-ascii?Q?4APHLMcQHC9nudpk0nJ5sthARkJacE0oejI9jGgL1wMInuBq6wVtGIJdUKie?=
+ =?us-ascii?Q?zf0Hr5Jp873uQAGLYbXYiNYy/xvJADXrxMPtBdUaMAT91MnFxe3fin+EwbOy?=
+ =?us-ascii?Q?N2xAz8HAxDBk9YWEjolnKH/n/LeF8uRbnQjhYYoBYUCAgRjYB38zB03DoFNk?=
+ =?us-ascii?Q?NBo2Xi5Yx08wEYNkKqQ4W5UKcS8bnJ7dnsJMZWe42O/agFcqBU6xFb/q4Q/3?=
+ =?us-ascii?Q?BWExPbuGOXYCcCb6z55hx7cpYFX3PEcxLB8WaUGPmJ9maFgNpYA+Gbr/Y1Mv?=
+ =?us-ascii?Q?BRhLxhuiv5B0SmC2dUAzu3wZSvNYC8z66I4GqQBToJsWaeNSaL0RdglgVA7h?=
+ =?us-ascii?Q?/1hM0SerfK9vC0Xz07oda2GAf2WRJwHk1ktPTtWJXvkzvQhtf6lkEmD287Z1?=
+ =?us-ascii?Q?S94uctJSPxwJi0b73qwdk7kR8GEhdATXKjh5Dl4Mf1CZXCdzs2W4faZbnp5Y?=
+ =?us-ascii?Q?TEu1AZ4ty5wH50AqWEy1cV/vaaoQaaV28djPkl44VSVSVXOg3k2SWQ2LAxvs?=
+ =?us-ascii?Q?DHs3DJPLpXovzNZaSkkNiMte+rbTc+YYk4hSqOIHNf0AJ8VBjM2QzHgvOs/C?=
+ =?us-ascii?Q?qb+VDpIMy8/uDpp6lrpq+l6fVxNKZ8xuxeCn8Bb5LLu/xOn6MJl+5WGIrxFG?=
+ =?us-ascii?Q?vfvvugRm2pzcVpJQ7mM+cOC0a5iAnitFTXlt8lW5/870Q/WX2IkNWrCqiAMe?=
+ =?us-ascii?Q?iawjmUdK+b7gbFJ+k+xhp4EXKixDJT6631RsrtiS+8F12YAI/TNDh+Wy2Kxg?=
+ =?us-ascii?Q?tbw2elMM1hZi9swnUIV1uCSd7RmK5GIxPsXEUVdK/eRMY0UcuwlwT9rv1IdY?=
+ =?us-ascii?Q?16BUFeJcQvdrSWCS/LJ/Cph+ecr1n2QmST63ehJQKGJpzaBMkk1KrLn61v6z?=
+ =?us-ascii?Q?+3wJy9rdOjsvKCgRElgC/nwOSVN2L4+XRSmxZZv4+Uxvoedc0OsN?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 90302ebf-4d16-4a3b-6bff-08df40d6f1af
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 16:06:43.3955
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vdql28pmFR6A5zxhYyLA/FQrIAvIgaH21UzgkIWaexstBcA2XDvW1aXHFlP6jVSwR8GcgIOV14fU3ogO0OnHd6ReBp/+z1n1k0VV/VQoTlnvgDcKE0e2sBWEIC5BG+2w
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8911
 
-On 11/12/26 6:21 AM, Lorenzo Stoakes (ARM) wrote:
-> On Wed, Nov 11, 2026 at 12:55:17PM -0500, Tal Zussman wrote:
->> MADV_GUARD_INSTALL can only install guard markers in a range without
->> populated entries. It zaps the range and retries, restarting the syscall
->> if the range still isn't clear. On a file-backed VMA registered for
->> uffd-wp, the zap keeps uffd-wp markers and converts write-protected PTEs
->> into new markers, as the pages are still in the page cache and must stay
->> write-protected. The range never becomes clear, and installing a guard
->> region in write-protected shmem keeps restarting the madvise() call.
->> Signal handlers still run, but the call does not return until the task
->> is killed.
->>
->> An entry that is write-protected must stay write-protected while a guard
->> is installed on it and after the guard is removed. PTE markers are a bit
->> mask, so a marker can be a guard marker and a uffd-wp marker at the same
->> time. To fix it, let a guard marker carry the uffd-wp bit:
->>
->>  - guard install adds the guard bit to an existing uffd-wp marker
->>  - guard removal clears only the guard bit
->>  - unprotecting or unregistering clears the uffd-wp bit of a guard
->>    marker
->>
->> The fault path, zap, fork, and pagemap already handle a marker with both
->> bits set. However, pte_is_uffd_marker() would let UFFDIO_COPY overwrite
->> the guard, so make it ignore guard markers. Anonymous VMAs drop uffd-wp
->> markers on zap and never get the combined marker.
->>
->> MADV_GUARD_INSTALL on a uffd-wp shmem range now succeeds instead of
->> hanging. When the guard region is removed again, its pages are still
->> write-protected. While the guard is in place, pagemap reports both
->> PM_GUARD_REGION and PM_UFFD_WP for them.
->>
->> There are two simpler alternatives, but neither works. Zapping with
->> ZAP_FLAG_DROP_MARKER fixes the hang but drops the write protection: the
->> page is still in the page cache once the guard is removed, and writes to
->> it are not reported. Refusing guard install on uffd-wp file VMAs in
->> is_valid_guard_vma() would break a combination that works on anonymous
->> memory, by adding a new -EINVAL for it.
->>
->> Fixes: f807123d578d ("mm: allow guard regions in file-backed and read-only mappings")
->> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-> 
-> Please drop this patch too.
-> 
-> With my patch disallowing guard marker install on uffd-armed VMAs this goes
-> away (and doesn't make sense anyway.)
-> 
-> I really feel these guard region ones should have been sent separately, btw.
-> 
-> You're establishing a bunch of interlocking dependencies of different changes in
-> this series that makes life hard for reviewers, especially given backports etc.
-> 
-> And now I'm having to essentially inverse cherry pick stuff :)
-> 
+On Thu, Nov 12, 2026 at 03:53:10PM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+>
+> Use dmaengine_get_dma_device() instead of chan->device->dev when creating
+> the TCD pool and when mapping the slave resource. This lets the driver use
+> the per-channel device once per-channel IOMMU support enables it, without
+> changing behaviour for existing users.
+>
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
 
-Sorry about that. These started off as one fix and then grew a couple more on
-further rounds of AI review...
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-I'll drop this and the other two guard patches.
-
->> ---
->>  include/linux/leafops.h |  4 ++++
->>  mm/madvise.c            | 28 ++++++++++++++++++++++++++--
->>  mm/mprotect.c           | 23 +++++++++++++++++++++--
->>  3 files changed, 51 insertions(+), 4 deletions(-)
->>
->> diff --git a/include/linux/leafops.h b/include/linux/leafops.h
->> index 4c1476ae3234..add4968ded44 100644
->> --- a/include/linux/leafops.h
->> +++ b/include/linux/leafops.h
->> @@ -578,6 +578,10 @@ static inline bool pte_is_uffd_marker(pte_t pte)
->>  	if (!softleaf_is_marker(entry))
->>  		return false;
->>
->> +	/* A guard marker stays a guard, even with the uffd-wp bit set. */
->> +	if (softleaf_is_guard_marker(entry))
->> +		return false;
->> +
->>  	/* UFFD WP, poisoned swap entries are UFFD-handled. */
->>  	if (softleaf_is_uffd_wp_marker(entry))
->>  		return true;
->> diff --git a/mm/madvise.c b/mm/madvise.c
->> index 0214efd2a014..e2c6b0f26672 100644
->> --- a/mm/madvise.c
->> +++ b/mm/madvise.c
->> @@ -1123,6 +1123,23 @@ static int guard_install_pte_entry(pte_t *pte, unsigned long addr,
->>  		return 0;
->>  	}
->>
->> +	/*
->> +	 * Zapping keeps uffd-wp markers on file-backed VMAs, so add the guard
->> +	 * to the marker instead. The slot stays write-protected once the guard
->> +	 * is removed.
->> +	 */
->> +	if (!vma_is_anonymous(walk->vma) && pte_is_uffd_wp_marker(pteval)) {
->> +		const softleaf_t entry = softleaf_from_pte(pteval);
->> +
->> +		set_pte_at(walk->mm, addr, pte,
->> +			   make_pte_marker(softleaf_to_marker(entry) |
->> +					   PTE_MARKER_GUARD));
->> +		update_mmu_cache(walk->vma, addr, pte);
->> +		(*nr_pages)++;
->> +
->> +		return 0;
->> +	}
->> +
->>  	/* If populated return >0 so we abort the operation + zap. */
->>  	return 1;
->>  }
->> @@ -1259,8 +1276,15 @@ static int guard_remove_pte_entry(pte_t *pte, unsigned long addr,
->>  	pte_t ptent = ptep_get(pte);
->>
->>  	if (is_guard_pte_marker(ptent)) {
->> -		/* Simply clear the PTE marker. */
->> -		pte_clear(walk->mm, addr, pte);
->> +		const softleaf_t entry = softleaf_from_pte(ptent);
->> +		const pte_marker marker = softleaf_to_marker(entry) &
->> +					  ~PTE_MARKER_GUARD;
->> +
->> +		/* Clear the guard bit and keep the uffd-wp bit, if set. */
->> +		if (marker)
->> +			set_pte_at(walk->mm, addr, pte, make_pte_marker(marker));
->> +		else
->> +			pte_clear(walk->mm, addr, pte);
->>  		update_mmu_cache(walk->vma, addr, pte);
->>  	}
->>
->> diff --git a/mm/mprotect.c b/mm/mprotect.c
->> index ef4e7188e24d..6cc5b99b4185 100644
->> --- a/mm/mprotect.c
->> +++ b/mm/mprotect.c
->> @@ -249,9 +249,28 @@ static long change_softleaf_pte(struct vm_area_struct *vma,
->>  		 * because any access should sigbus/sigsegv
->>  		 * anyway.
->>  		 */
->> -		if (softleaf_is_poison_marker(entry) ||
->> -		    softleaf_is_guard_marker(entry))
->> +		if (softleaf_is_poison_marker(entry))
->>  			return 0;
->> +
->> +		/*
->> +		 * A guard marker on a file-backed VMA carries the
->> +		 * uffd-wp state of the slot for when the guard is
->> +		 * removed.
->> +		 */
->> +		if (softleaf_is_guard_marker(entry)) {
->> +			const pte_marker old = softleaf_to_marker(entry);
->> +			pte_marker marker = old;
->> +
->> +			if (uffd_prot_resolve)
->> +				marker &= ~PTE_MARKER_UFFD_WP;
->> +
->> +			if (marker == old)
->> +				return 0;
->> +			set_pte_at(vma->vm_mm, addr, pte,
->> +				   make_pte_marker(marker));
->> +			return 1;
->> +		}
->> +
->>  		/*
->>  		 * If this is uffd-wp pte marker and we'd like
->>  		 * to unprotect it, drop it; the next page
->>
->> --
->> 2.39.5
->>
-> 
+>  drivers/dma/fsl-edma-common.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/dma/fsl-edma-common.c b/drivers/dma/fsl-edma-common.c
+> index 513b0f4e5be2..62cd60179bc6 100644
+> --- a/drivers/dma/fsl-edma-common.c
+> +++ b/drivers/dma/fsl-edma-common.c
+> @@ -310,10 +310,10 @@ int fsl_edma_resume(struct dma_chan *chan)
+>
+>  static void fsl_edma_unprep_slave_dma(struct fsl_edma_chan *fsl_chan)
+>  {
+> +	struct device *dev = dmaengine_get_dma_device(&fsl_chan->vchan.chan);
+> +
+>  	if (fsl_chan->dma_dir != DMA_NONE)
+> -		dma_unmap_resource(fsl_chan->vchan.chan.device->dev,
+> -				   fsl_chan->dma_dev_addr,
+> -				   fsl_chan->dma_dev_size,
+> +		dma_unmap_resource(dev, fsl_chan->dma_dev_addr, fsl_chan->dma_dev_size,
+>  				   fsl_chan->dma_dir, 0);
+>  	fsl_chan->dma_dir = DMA_NONE;
+>  }
+> @@ -321,7 +321,7 @@ static void fsl_edma_unprep_slave_dma(struct fsl_edma_chan *fsl_chan)
+>  static bool fsl_edma_prep_slave_dma(struct fsl_edma_chan *fsl_chan,
+>  				    enum dma_transfer_direction dir)
+>  {
+> -	struct device *dev = fsl_chan->vchan.chan.device->dev;
+> +	struct device *dev = dmaengine_get_dma_device(&fsl_chan->vchan.chan);
+>  	enum dma_data_direction dma_dir;
+>  	phys_addr_t addr = 0;
+>  	u32 size = 0;
+> @@ -1090,7 +1090,7 @@ int fsl_edma_alloc_chan_resources(struct dma_chan *chan)
+>  	if (fsl_edma_drvflags(fsl_chan) & FSL_EDMA_DRV_HAS_CHCLK)
+>  		clk_prepare_enable(fsl_chan->clk);
+>
+> -	fsl_chan->tcd_pool = dma_pool_create("tcd_pool", chan->device->dev,
+> +	fsl_chan->tcd_pool = dma_pool_create("tcd_pool", dmaengine_get_dma_device(chan),
+>  				fsl_edma_drvflags(fsl_chan) & FSL_EDMA_DRV_TCD64 ?
+>  				sizeof(struct fsl_edma_hw_tcd64) : sizeof(struct fsl_edma_hw_tcd),
+>  				32, 0);
+>
 > --
-> Cheers, Lorenzo
-> 
-
+> 2.34.1
+>
