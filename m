@@ -1,110 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794478858;
-	b=QUR0gv7JsSjsZ4ANmWxuSR7RKqGqQZtmcvFYt4c9Q4gMb0eKm6Dara3LK1wK+3rx8W0Z
-	 Jasqn8j4YetYdhyrOo+5fowEVrvw1fcIApIL6e+OM14i6dxSJwHAWqLwUOUh1qilRH3qW
-	 3ykP5h46w3cwpjJIwHBnQrhcUpAZ+FfY5higVUyPZucCJwlCbnRRhJWta2KTJHYXiyz+L
-	 LrOdKBeltyJMRBKCsJqPlY5tsvCeW/dGyTgXbOESFlO1Ed5++Gtzh9e+aldL8Jk9XpCXA
-	 LAN/GXX5N2PTd7WdWqzbjzBYoGNQcWyiRnIDPo3wnCw+hYv7aT+2xT3D0gNjtZMACMQ==
+	t=1794478868;
+	b=2LjMgmCkjug3AyNSSofbHlMpSzHH1S8+CPxAlrV8aRPxFCEUztNNV2nQSxyp7UYQEcNI
+	 JtXtJDXreJX3343UUlL+YXKTINLhXyAci6iDE/XxMqTp0Nq44XoXW7koog/JmVM/c+14e
+	 o3qHdZvWM6tl3L3/gUchsHOk64BrDUAUqkwg8BtwBukzcSwv+x5z2M5DSpyU6/EW1J3fO
+	 Aji5rmO0jaMbQKHexIoVJhh1zZsrpID/IwDFU9GNrSa52GbnqSOr7VfwKmTL6Kl2HY0dI
+	 fp/vqCmFF/FAeAx+ULHRceiHLZmm6x29FcLbGaTdxd36zGixhImamCYafjOjwnG+D5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794478858;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=xE10P+uk4zNthoMOfJL5g1Osej2zE7Y695Cl7w1M/C4=;
-	b=l3lu+ooXbQKXgCXta7BZmM3Lp6//Q2M1E50Yb4aWXh6AYCN7EZilPdyEXzvDk3tyIT0o
-	 gKzvD+Ck0swWXooz5icHlunXQgGjMdBTmn4xoia+qupaGFj9BvUziO6+D4/X/loeMpF5w
-	 qjS1Qsks+5eZAdbl2yvyxZ273j9R0tXsGh6zE7WLkI9yBog83h5ryukjDe9HtuzKntk8Z
-	 1vBoFONLyJRmQVH1jW5GzuvS+j09N3osF5IS4UGXd3XYLwUJDMYdlZoReXUmeDUsZ21P7
-	 E4XBFWLLMDCPHiOe1tjC9JoBfwdhz9gZn6VbA3Vauejf/DJJvCZyUxETErj7bpSDvOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794478868;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Message-ID:In-Reply-To:
+	 References:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Correlation-ID;
+	bh=Bd80MeNM9pTxoWBwGXjsknndsrAkhTF783e+5nYvx28=;
+	b=S5ePY+GWOmVQcChlWBt5UB+d5R+I1/IqyGWWbF1epG+rLtWFX83wxAbx0XNN+L5VY+Jv
+	 rmLhEbMJ2ZjgZw+S6Bqb0P1oUbOEC3nkUl8UA4Pns6mEFLpkVTOXtK2JGeSBdDx2BmIVK
+	 PIc4xB/HZs6AMx4K+bGwGwHEOUuZ0UHljWmd4pjji6jMVugVU+eVcwdxEUBCvZgHH45wu
+	 K2cuPV09efAKPlnC1QCtjBhKzRN+XSDXWvY2VSNSuqGpW2QHpeJfVBEJQm0JU5d1BIldE
+	 MlECQ2MoXtiTMI8LIDpmqEiQVEa2/4vHvBrlE5yFlWXIgong8d/6YZMn4o3wAaUBgrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DY6c4zsy;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OJuiZnWf;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Dpohe1Kq;
+	arc=none smtp.remote-ip=91.218.175.74
+Received: from mta0.migadu.com (out-74.mta0.migadu.com [91.218.175.74])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C1A606A32D
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:20:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5C1A606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F0F606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:21:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57F0F606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DY6c4zsy;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OJuiZnWf
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC93xmi2514179
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:20:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	xE10P+uk4zNthoMOfJL5g1Osej2zE7Y695Cl7w1M/C4=; b=DY6c4zsyIIwudJ1m
-	GOmaVOyhORdZCQ9jgXWygIpWrNEYD3F8l0sontN2nfn8SQfB1L8Fq2AbVkUb+pnY
-	pVorlf+IPVY6jwl4DNnPhU7KZeZgerFbuUnaNBDXuvK/TeCvzhuJ4kLEZQoXZ3l/
-	Q0nMePy8ykK2JiHc903UXiB1L6XV+/kE0+6V06s/+cBQxkjH0weq+LAwmnbaee68
-	zaVwXwKWMti3Scg4InGG2DW94VOQ0KojE3t+1SSiwgtPH9dzEHJElIt6LZ8qB56D
-	WEFXWvxenAmnJ221Hq8rQjPikHecWi1CEtSWy+nFds+dZvuSSOLvz6dLh9fi/lBL
-	pvrQ2g==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvwm1u496-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:20:57 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ae1d132d52so3718924a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:20:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794478856; x=1795083656; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xE10P+uk4zNthoMOfJL5g1Osej2zE7Y695Cl7w1M/C4=;
-        b=OJuiZnWfvsNGQoGPCxDdggYBIUHIfAJT45kdjoCrUgO+DC8+TszyEm8UJh4oK7t9fq
-         1P2w2XPJSIJxFnYCRb2c7W0aCwTT3vtEEFSEoDI55dF/E1dsbeskfMWHrl30eFNVPbLv
-         AXflwhEQHParZdWTszPyMcYxs73jQzz2ESaQJceafGdG7yx1X54puoiHwEt+ah7e9oko
-         9pwu4E9PV82fniFYxiFH0ETYGoSP6roQQewasvl+5nPZbvag/uL1H2zV7nf/TYen3rsf
-         DihNyY1U2/xcsvOaSfUS3wkefZ9hn5cGlZS2TDtkr4l8tb+jMrYjoN1t+M6wKEk1Yhzj
-         lqeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794478856; x=1795083656;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xE10P+uk4zNthoMOfJL5g1Osej2zE7Y695Cl7w1M/C4=;
-        b=SGzxBWBmgNh1d+PAX14/c1gUtoalftqIj4FSuPV6TFJwlJ92CKyvbPQ0uTqZy/7/fC
-         cMqnqcHidJpm4AhOweVCTcmLcVUbZvHw3JxH+FuPbn9e1yOQO+s00fxzGUf3cD9u3RQv
-         1zwGZrgmQRCuUsOOabbL2ao7VfIpOiw62TF3mkulINjydJXRr6geGIuHq9/Sk+hyT0lY
-         odP1oQ4RWH/rp1kMOlXRicJNjXmlMjeROMIS51wv478gD8AqxCHsB/Ph0uoY4SsJtU8b
-         IVZN+RQNYquB590pGlhGyyYHXlw3eIxyCrT9wLsxGm9qSar5s3O++FeqUcNWLIFmvhJ+
-         4XFw==
-X-Forwarded-Encrypted: i=1; AL+hErEvzzVyJBbZP0+z2axHnL/2Z7zMT48sJuZ0nWCl962qF4ItJZttFc7Sqc6oAV81wQjq5yE4RbMsTKLpNNw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8NNKnqjKViF7Uzi059oq5JPVWiheK2fdUU4bExhZETPZ22gZU5
-	LssYQs8I4F3t5/IN3rNWEcJtFGe80txWJ+dGcmrgw9zk1WnNlndweTs+FhOK+d6ugRwdnZLvaLn
-	U5/XhKMIjvk3xWoPwogSfxsCMEMImsp1SF4tB5oAAdVnw7vtAL/gY3MGAmwki5yzoRSU=
-X-Gm-Gg: AYBFou1otgtUn5gjBLHgeqWhWyyExGdr9tHeq5gJh+d3S8gk2xxV7D8MMNJdO+PrbV3
-	MCPkRRhN0fAAATSTIIrtEnarjHjd6WUkjt4SvJ05rFwmHBOTKthcREJiGw6R8NjnbaI+o7IlIyy
-	0FOqmguAq2RZ3yx5GUtjcmfU4exigZ29Ts6LW9/EfC8tM6biHmEIZUlkYlndg3yL4fVlQvvT/Q2
-	+388oeZ418bv3l8XyoTgK5EOgVu138V5k8Wf3x+L5byixAlkmqOkMB2TOqaOGvjjtpoCSCkG9SQ
-	Uw1smpJw7iEfOQ6ylUmoc5T0nBCdef9bWQYwyrIDdz7rtGiUE831MQZgVgbPbr6myWL595V4+SS
-	8FEXyJls9fM+I3Bn5c61w5bLSqfQawQh5WpPXLs2qR7O2VHK6W8DGhI6Zj8vddbXzuPhlEVTaKP
-	GqI9/KIXBUYc0=
-X-Received: by 2002:a17:90b:35c2:b0:3b0:a3eb:75a0 with SMTP id 98e67ed59e1d1-3b182efb666mr4818034a91.23.1794478856334;
-        Thu, 12 Nov 2026 02:20:56 -0800 (PST)
-X-Received: by 2002:a17:90b:35c2:b0:3b0:a3eb:75a0 with SMTP id 98e67ed59e1d1-3b182efb666mr4818004a91.23.1794478855724;
-        Thu, 12 Nov 2026 02:20:55 -0800 (PST)
-Received: from [10.218.21.154] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197ce55c1sm4011387a91.3.2026.11.12.02.20.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 02:20:55 -0800 (PST)
-Message-ID: <50254309-4714-45c6-8989-7963637df690@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 15:50:49 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Dpohe1Kq
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Bd80MeNM9pTxoWBwGXjsknndsrAkhTF783e+5nYvx28=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794478865; v=1; x=1795083665;
+ b=Dpohe1KqNJ+Q6KzplHoBcMd6A4Oe5YEaiqEtbSCYa0dXH+kmo/W//CyXqTEePnZFPr/ZcWDF
+ tgSD/YudXICtqbKF3v8NvWnSafcQ586C1hx3VdzGKLd6f6V0XM+AmLbYWukhCX5H3EkH1+WipA1
+ NOAwgOHNoT1fbjWaQfEYD6C4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cc48a1a792d15d12;
+	Thu, 12 Nov 2026 10:21:05 +0000
+X-Mizu-Trace-ID: cc48a1a792d15d12
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 12 Nov 2026 11:20:56 +0100
+From: Denis Benato <denis.benato@linux.dev>
+To: tarrihmoad@proton.me
+Cc: Corentin Chary <corentin.chary@gmail.com>,
+	"Luke D. Jones" <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Antheas Kapenekakis <lkml@antheas.dev>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Sercan GOKMEN <gokmensercan@gmail.com>,
+	Burak Goncu <burakgon12@gmail.com>,
+	Denis Benato <benato.denis96@gmail.com>,
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Message-ID: <04c46822-9baa-4152-8193-d8aa9d757b4e@linux.dev>
+In-Reply-To: <20261111-asus-wmi-kbd-readback-v4-1-79df1567476d@proton.me>
+References: <20261111-asus-wmi-kbd-readback-v4-1-79df1567476d@proton.me>
+Subject: Re: [PATCH v4] platform/x86: asus-wmi: Ignore unusable kbd
+ backlight WMI device on ROG Strix G814FP
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,116 +74,176 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 v6 4/9] ASoC: qcom: lpass-va-macro: Add shikra
- compatible
-From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261106-add_shikra_support-v6-0-2cda302237cc@oss.qualcomm.com>
- <20261106-add_shikra_support-v6-4-2cda302237cc@oss.qualcomm.com>
- <179436005594.790675.8837636459182556844.b4-review@b4>
- <25ecc2ac-434f-4eea-b144-51fbc683201f@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <25ecc2ac-434f-4eea-b144-51fbc683201f@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=KsnYSmWN c=1 sm=1 tr=0 ts=6af59309 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=hEKXFTEi-1vmzGoa-5MA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-GUID: 0b8nSrI7Od9ojWI-1PspNcY0TKF_WtmO
-X-Proofpoint-ORIG-GUID: 0b8nSrI7Od9ojWI-1PspNcY0TKF_WtmO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA0MSBTYWx0ZWRfX6eY39FeV4QPQ
- 7gNnjzLglj7nBuX8u+HzBqCpvAEpZIrE97vhIWW/mzYeHWJRkHdvhaIOCx+X5mq3s7pcimhnpYC
- GAq1XSEU4y06FIEPjj9f/Ebh5lEMOXBkHTTioFXblpjAg46dfVKa8IwD0NyoERoBkTQGZ21f6Fj
- +Vic9pd/cRh15pKTtSfry+Y701z/sA6rODu/tHnVjZA9DiZXxfSEObdOocRFfSkT+A9gZMAWzut
- mMKqOIUdn8WmeT9zQzfzt7d2EepWhblP15HutzBpR/3+n09XMnrZieQkK7pyFef8f1oQ/G8pbX9
- NW1KQSiEPnlPTqC8tLLjfbEG1abQqZR5n4x2OV+BrFFNjk4vlIeBUfLMH0x9AnERSbQXUUNiG6F
- eT9pL1SrZKO+N7mJ2JFt2lk2unXqrCMlg6C9PTJ6OfwBAHqbSV1m9te4oSQKg1hD1O6HMUQhKoN
- GqEtUx5Ohs3YIJ5XtuA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA0MSBTYWx0ZWRfX9rXYuV1StZbE
- ZYpAYDqYv05eaTXVrLULMqms78hgCpTtq3PIxbqBmLKpUWV4ZS8WyhTYSjeaoROCjhyoUTy8THF
- BrgiffXeAG/FTRa5gavIPzkSNzhzifA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 bulkscore=0 adultscore=0 malwarescore=0
- spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611120041
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Correlation-ID: <04c46822-9baa-4152-8193-d8aa9d757b4e@linux.dev>
+
+12 nov 2026 00:36:34 Moad Tarrih via B4 Relay <devnull+tarrihmoad.proton.me=
+@kernel.org>:
+
+> From: Moad Tarrih <tarrihmoad@proton.me>
+>
+> On the ASUS ROG Strix G18 G814FP, writing a level to the keyboard
+> backlight brightness in sysfs works, but reading it back always gives
+> 0, and the read makes the Fn brightness keys misbehave.
+>
+
+With "works" do you mean the write report success but does nothing or that =
+it is actually changing the brightness?
+
+I assumed the #1 but from this message it's unclear (to me, and I assume fo=
+r others as well).
+
+See below.
+
+> The firmware reports the keyboard backlight WMI device as present
+> without implementing it, and the backlight is actually driven by
+> hid-asus. DSTS(0x00050021) always returns 0x50000, which is level 0
+
+Always returns level zero with the presence bit set.
 
 
+> regardless of what the actual level is, and every DEVS(0x00050021)
+> write is rejected as an unsupported method.
+>
+> Add a kbd_led_no_wmi quirk that makes asus-wmi treat the keyboard
+> backlight WMI device as absent, and set it for this board, matched on
+> the DMI board name. asus-wmi then keeps the LED registered for hid-asus
+> and no longer reads from or writes to the WMI device.
+>
+> As a side effect, the kbd_rgb_mode and kbd_rgb_mode_index attributes are
+> no longer created on this board, they never worked here since the firmwar=
+e
+> rejects those writes as well.
 
-On 11/12/2026 3:47 PM, Mohammad Rafi Shaik wrote:
-> 
-> 
-> On 11/11/2026 6:50 AM, Mark Brown wrote:
->>> Add shikra specific VA macro data and register programming needed by
->>> the LPASS codec v4.1 implementation.
->>
->>> +/* LPASS codec v4.1 adaptive filter (ADPT) blocks */
->>> +#define CDC_VA_CDC_ADPT0_ADPT_CTRL        0x0800
->>> +#define CDC_VA_ADPT_CTRL_EN_MASK        GENMASK(7, 0)
->>
->> Is the enable mask really 8 bits wide?
->>
-> 
-> Good catch, Mark. It's actually 6 bits. I'll correct this in the next revision.
-> 
+Isn't this a contraddiction to what is written above? That writes actually =
+succeeds?
 
-Fixed the typo in my previous reply.
-
-Thanks,
-Rafi.
-
-
-> 
->>> +static const struct reg_default va_4_1_defaults[] = {
->>> +    /* VA macro */
->>> +    { CDC_VA_CLK_RST_CTRL_MCLK_CONTROL, 0x00},
->>> +    { CDC_VA_CLK_RST_CTRL_FS_CNT_CONTROL, 0x00},
->>> +    { CDC_VA_CLK_RST_CTRL_SWR_CONTROL, 0x00},
->>> +    { CDC_VA_TOP_CSR_TOP_CFG0, 0x00},
->>> +    { CDC_VA_TOP_CSR_DMIC0_CTL, 0x00},
->>> +    { CDC_VA_TOP_CSR_DMIC1_CTL, 0x00},
->>> +    { CDC_VA_TOP_CSR_DMIC2_CTL, 0x00},
->>> +    { CDC_VA_TOP_CSR_DMIC3_CTL, 0x00},
->>> +    { CDC_VA_TOP_CSR_DMIC_CFG, 0x80},
->>> +    { CDC_VA_TOP_CSR_DEBUG_BUS, 0x00},
->>> +    { CDC_VA_TOP_CSR_DEBUG_EN, 0x00},
->>> +    { CDC_VA_TOP_CSR_TX_I2S_CTL, 0x0C},
->>> +    { CDC_VA_TOP_CSR_I2S_CLK, 0x00},
->>> +    { CDC_VA_TOP_CSR_I2S_RESET, 0x00},
->>> +    { CDC_VA_TOP_CSR_CORE_ID_0, 0x00},
->>> +    { CDC_VA_TOP_CSR_CORE_ID_1, 0x00},
->>> +    { CDC_VA_TOP_CSR_CORE_ID_2, 0x00},
->>> +    { CDC_VA_TOP_CSR_CORE_ID_3, 0x00},
->>> +    { CDC_VA_TOP_CSR_SWR_MIC_CTL0, 0xEE},
->>> +    { CDC_VA_TOP_CSR_SWR_MIC_CTL1, 0xEE},
->>> +    { CDC_VA_TOP_CSR_SWR_MIC_CTL2, 0xEE},
->>> +    { CDC_VA_TOP_CSR_SWR_CTRL, 0x06},
->>> +    /* VA core */
->>> +    { CDC_VA_TX0_TX_PATH_CTL, 0x04},
->>
->> Are we missing defaults for the mux registers?
-> 
-> I missed in this version. will fix in next revision
-> 
-> Best Regards,
-> Rafi.
-> 
->>
-> 
+>
+> Fixes: fac55d29581f ("platform/x86: asus-wmi: Add support for multiple kb=
+d led handlers")
+> Suggested-by: Antheas Kapenekakis <lkml@antheas.dev>
+> Suggested-by: Denis Benato <denis.benato@linux.dev>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Moad Tarrih <tarrihmoad@proton.me>
+> Reviewed-by: Antheas Kapenekakis <lkml@antheas.dev>
+> ---
+> Tested on an ASUS ROG Strix G18 (board G814FP, BIOS G814FP.317) on
+> 7.2.14: the brightness attribute reads back the level that was set, the
+> Fn keys step from it, and this survives suspend and reboot. W=3D1 and
+> checkpatch --strict are clean. v4 only changes the commit message.
+>
+> Sercan GOKMEN's B9406CAA patch also adds a field to struct quirk_entry
+> and a DMI entry, so whichever lands second may need a trivial rebase.
+>
+> AI assistance: Claude Code (Claude Opus 5.5) was used to trace the
+> asus-wmi code, write the patch and draft the commit message. I reviewed
+> it and tested it on the hardware.
+> ---
+> Changes in v4:
+> - Trim the commit message and move the AI assistance note below the
+> =C2=A0 --- line (Ilpo).
+> - Link to v3: https://patch.msgid.link/20261110-asus-wmi-kbd-readback-v3-=
+1-646adf2b8629@proton.me
+>
+> Changes in v3:
+> - Drop the comment on kbd_led_no_wmi (Antheas).
+> - Don't set wmi_backlight_set_devstate for this board: the firmware
+> =C2=A0 rejects both DSTS and DEVS on 0x00050012, so the write did nothing
+> =C2=A0 (Antheas).
+> - Add Antheas's Reviewed-by.
+> - Link to v2: https://patch.msgid.link/20261109-asus-wmi-kbd-readback-v2-=
+1-c048fc53d8ee@proton.me
+>
+> Changes in v2:
+> - Add a quirk that makes asus-wmi skip the keyboard backlight WMI
+> =C2=A0 device on this board instead of detecting rejected writes at
+> =C2=A0 runtime (Antheas), so no more WMI writes that are known to fail
+> =C2=A0 are issued (Denis).
+> - Link to v1: https://patch.msgid.link/20261108-asus-wmi-kbd-readback-v1-=
+1-bf38f6400ade@proton.me
+> ---
+> drivers/platform/x86/asus-nb-wmi.c | 13 +++++++++++++
+> drivers/platform/x86/asus-wmi.c=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++-
+> drivers/platform/x86/asus-wmi.h=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
+> 3 files changed, 16 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/as=
+us-nb-wmi.c
+> index 3b0f3346dc60..9b2a4b829885 100644
+> --- a/drivers/platform/x86/asus-nb-wmi.c
+> +++ b/drivers/platform/x86/asus-nb-wmi.c
+> @@ -93,6 +93,10 @@ static struct quirk_entry quirk_asus_unknown =3D {
+> =C2=A0=C2=A0=C2=A0 .wmi_backlight_set_devstate =3D true,
+> };
+>
+> +static struct quirk_entry quirk_asus_g814fp =3D {
+> +=C2=A0=C2=A0 .kbd_led_no_wmi =3D true,
+> +};
+> +
+> static struct quirk_entry quirk_asus_q500a =3D {
+> =C2=A0=C2=A0=C2=A0 .filter_i8042_e1_extended_codes =3D true,
+> =C2=A0=C2=A0=C2=A0 .wmi_backlight_set_devstate =3D true,
+> @@ -167,6 +171,15 @@ static int dmi_matched(const struct dmi_system_id *d=
+mi)
+> }
+>
+> static const struct dmi_system_id asus_quirks[] =3D {
+> +=C2=A0=C2=A0 {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .callback =3D dmi_matched,
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .ident =3D "ASUS ROG Strix G18 G814=
+FP",
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .matches =3D {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DMI_MATCH(D=
+MI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DMI_MATCH(D=
+MI_BOARD_NAME, "G814FP"),
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 },
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .driver_data =3D &quirk_asus_g814fp=
+,
+> +=C2=A0=C2=A0 },
+> =C2=A0=C2=A0=C2=A0 {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .callback =3D dmi_matched,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .ident =3D "ASUSTeK COMPUTER I=
+NC. Q500A",
+> diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-=
+wmi.c
+> index b33ebdb21aa2..51fea21ff247 100644
+> --- a/drivers/platform/x86/asus-wmi.c
+> +++ b/drivers/platform/x86/asus-wmi.c
+> @@ -2165,7 +2165,8 @@ static int asus_wmi_led_init(struct asus_wmi *asus)
+> =C2=A0=C2=A0=C2=A0 asus->kbd_led.brightness_set_blocking =3D kbd_led_set;
+> =C2=A0=C2=A0=C2=A0 asus->kbd_led.brightness_get =3D kbd_led_get;
+> =C2=A0=C2=A0=C2=A0 asus->kbd_led.max_brightness =3D ASUS_EV_MAX_BRIGHTNES=
+S;
+> -=C2=A0=C2=A0 asus->kbd_led_avail =3D !kbd_led_read(asus, &led_val, NULL)=
+;
+> +=C2=A0=C2=A0 asus->kbd_led_avail =3D !asus->driver->quirks->kbd_led_no_w=
+mi &&
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 !kbd_led_read(asus, &led_val, NULL);
+> =C2=A0=C2=A0=C2=A0 INIT_WORK(&asus->kbd_led_work, kbd_led_update_all);
+>
+> =C2=A0=C2=A0=C2=A0 if (asus->kbd_led_avail) {
+> diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asus-=
+wmi.h
+> index b45f81b38a47..e53c6b3fc619 100644
+> --- a/drivers/platform/x86/asus-wmi.h
+> +++ b/drivers/platform/x86/asus-wmi.h
+> @@ -41,6 +41,7 @@ struct quirk_entry {
+> =C2=A0=C2=A0=C2=A0 bool wmi_force_als_set;
+> =C2=A0=C2=A0=C2=A0 bool wmi_ignore_fan;
+> =C2=A0=C2=A0=C2=A0 bool filter_i8042_e1_extended_codes;
+> +=C2=A0=C2=A0 bool kbd_led_no_wmi;
+> =C2=A0=C2=A0=C2=A0 int key_wlan_event;
+> =C2=A0=C2=A0=C2=A0 enum asus_wmi_tablet_switch_mode tablet_switch_mode;
+> =C2=A0=C2=A0=C2=A0 int wapf;
+>
+> ---
+> base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+> change-id: 20261108-asus-wmi-kbd-readback-236245e82de8
+>
+> Best regards,
+> --=C2=A0
+> Moad Tarrih <tarrihmoad@proton.me>
 
