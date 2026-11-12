@@ -1,85 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.68.102
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794488215;
-	b=B6g158Vuf2rwImwhnPzGkD0BCq/1FjOfD80z0kMdynAyIUIblOKiFABUXpr5DYjnjYsh
-	 gyuvMxPXB0u/005jmEh3mkz3tKs5fNCh6rZIQI2xWa3/d6YT07+ta1e+pkjge8LS6VnGs
-	 R2zRfsTf79/7M8W7h+hty2qv3LVIB+B7dXkr2l//CjQFzOtcvHUEE51WdyM9FtjubjlKD
-	 W+gG9AWX0tdLhSrwGD3nOyzZPUCdp91JSpenzeHiy8cUZZ1kG72trPgA8rvESRsxnFErX
-	 8akryQ0GrZIQBE4OK386Hyg5zqfTFGS05uEfQl7bnpwMaswWZ8vBYYi3HijEtI10ivA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794488215;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=BHCZgy5CRTPHvK8BqsQtFsJ376YRfs3ZCftnvP8cvm4=;
-	b=Z/QvQLuF89rnc5v4/3NV2iUU8dQ31YT2HjkoTemE6jpbUFf9rlnX+VQ1Y+nkfx7GvheI
-	 mqA/+gVgAgzmQeWI+CFUsuXsgJy0jL+6Qc/tENiWEq1V3+GLLzGU5/w+IJFg56NemiQKm
-	 DPfMYsjhf3+Qvbe4axWzwq5WwacaFp3fi+KOvn1mEnwpGC4sDZTUVzlbZydfuSVZ/2s5+
-	 +KIiNfBtiiYon6wFVxBq0DVYzfrMfqVUrQZfNcBAXiN6fHqM61SS5KAIXM5/79RKiKXXI
-	 yJU8xK+JyEH8FNhLJsixPoDYhvWZv2kmguQwo05F2R0nNffHX0UVtVq6m5ChWOXVRAA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=QD498Od6;
-	arc=none smtp.remote-ip=44.246.68.102
-Received: from pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.68.102])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794488250;
+	b=gW/Wcey/u93CEnzF3fO9gFIThHHL34YxzObPQ23igN4Dk41vXoWr+Z2vhbn0sL/lZj0e
+	 t+/QgZT4CwbuHCPpKS4H/l5qr89vVJEB3iluuuWHLErqLqhEdA4A520fUyE6DzSD/1Dt1
+	 op2Fo2dnIVCwov4qXYpm0GMcYs2aeHusoTlj5T5Ur3TzDJk5fVk8UqyD30m2C9JiPy1Ia
+	 GGHwkV+UOrKJC92ch4X1URZ3PiQGZj6DCR2apqyAiiQSDOnfqzwR9ToEUTjQ7XzU4qcPg
+	 NzW0zExAUlHxl7C+acvQOItYo6w+Yc4E2DEnww/7w3thmVqMZQ1JSkhbnaLLg5N407Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794488250;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=QwjtaejwHcpDXMAslS3uVhsx3lI/CrcCuwcEtURbnWQ=;
+	b=qFyQxK5REniIpiu7f0rnTKEUBNXgB61enHAAQgztV8zmMza6MSsadwmIBJY61JhCFrZj
+	 7gyzyVYumbzfoBERhhLaRXepSxqbztARQ11q4OuYxGX/GqP6/h3+VSjM1Vi+ld61bGlpR
+	 CjUHrpKK0K10jq3kn8Rg8Mz7d7zFWp+E6PKDSlPlvRrhuLCDlc7xlqtU7xW+FGr9SHfRa
+	 lChzIVxBGSPrRiCEv1ytl3yd9jrOQxtbYcaNBeg+0cIG+ZleIjlehhHYI7B2b8A33dMdg
+	 M8OBYFkYq7ZXQGv4YsLiiNnSuHFrKmYCHeomefZTE3WqHgYREnniNsXaK1WQjJPkeJQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iiitd.ac.in;
+	spf=pass smtp.mailfrom=iiitd.ac.in;
+	dkim=pass header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=Ck8de3oy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BDAC606A893
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:56:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BDAC606A893
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98667606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:57:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98667606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iiitd.ac.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iiitd.ac.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=QD498Od6
+	dkim=pass (1024-bit key) header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=Ck8de3oy
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b56221d361so4835746a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:57:29 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794488248; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nvqCrcE63tsH/HjAvV6okHBH1eZJ9vjxAErSg3fE00+6ySYb1ng72lyuRo4bWAAor4
+         YhSTUe8H5/kWj9aDnhfW8fMqMr6x1DY+ToSQlHo3ftQH5sFa04c1C54l4rN6q3TMvYAj
+         qrJGsSOTX8iyrPJTl2yxJB4saJJpPQ7+fnSavUMyX4DD9kKi9T+Ykb8GdEsL7Q6xdzMN
+         zgBijzCFlRXde0H5qWpGQUEj2+fB7MV5Bi8m9hIKxkpekOZjS47wBhHEFVB6dmi+awuT
+         UssNSd/PhaJoHruNahwI6uDBduSubNKQslPxLkPUP1CEGSQ/y51mxJv+u+73x2X/+SQS
+         eXbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QwjtaejwHcpDXMAslS3uVhsx3lI/CrcCuwcEtURbnWQ=;
+        fh=0eNsufIYuafSasIK2IkgC9Tn6OKlDKVQEFlBdOTi/Hg=;
+        b=i80i3+KmThH09V4QSPjtWVhCmcvs4xWgJbqOwN1lAde16tu3cLfs8LhHuf0QvsGAtp
+         wy+61kdE3XAnn6Js+PTikr2BuYOSlNMIYByNp66Ol1YC0y6UrdJtnrAs5kZlC/fz5Uyu
+         rJy6A12MVBF1JQeHhXoKoyhAilr3d+oTmGvdW3NOH/G+MEugkXLYjdN+Ph+iEwG0Eq2E
+         /hhe0HUKPcnvYDsEaAV01d15I//tK31lwHuHzAa6ZbbtFeFkitFlgOXpUgSKC4QNG7oJ
+         d5qeXY5tc2Z7VgxFtMoTIHIaZr6yJLUNU9B8pN3v4s7vrKHsPm1T+9Ux2eMfe3NvluZG
+         XOiA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794488215; x=1826024215;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=BHCZgy5CRTPHvK8BqsQtFsJ376YRfs3ZCftnvP8cvm4=;
-  b=QD498Od6V4lZO2mvM0kNw9fu6mfumKxHf5WmxHSr9kNkybm9SRclaLzq
-   T9mJSspETMcubLnDcbL8jXEF/IMWYBFa1dNqSVxFlX3Vfs5ZYOCvm+19k
-   giVjQkl3pE+k/Sf77ZXhw6BfXEZgDDqWLgeMFXd27n1B4WqJlmedwveUa
-   Cx9L57Xv6RjUXya7s78C8EI+sqMKmsCwOaOfMQuwPrhxp8oo8XkMqD2SG
-   Qd253twnn3JcQa6RezuwNjZZfUuxn99wU5h9fR2q3MKnlVv2YkSTOP2A0
-   xQTQqZ39Onrn9zqhr60ylg/XZVjMbyCug9VfQlPSJJom6uw2YjT2MjXYO
-   Q==;
-X-CSE-ConnectionGUID: AtKDJ2DOR8abEGQziXIkcQ==
-X-CSE-MsgGUID: Tkd/Vo62QM6lGtcrLabdig==
-X-IronPort-AV: E=Sophos;i="6.27,209,1787011200"; 
-   d="scan'208";a="33728096"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 12:56:55 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:18634]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.5.141:2525] with esmtp (Farcaster)
- id 1b3fcdea-2d1b-4f10-9575-dcf019735ad2; Thu, 12 Nov 2026 12:56:54 +0000 (UTC)
-X-Farcaster-Flow-ID: 1b3fcdea-2d1b-4f10-9575-dcf019735ad2
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 12:56:54 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Thu, 12 Nov 2026
- 12:56:52 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, David Hildenbrand <david@kernel.org>
-CC: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, "Suren
- Baghdasaryan" <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jann Horn
-	<jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, <linux-mm@kvack.org>,
-	<linux-kernel@vger.kernel.org>, Eliav Farber <farbere@amazon.com>
-Subject: [PATCH v2 4/4] uio: implement huge_fault support for physical mappings
-Date: Thu, 12 Nov 2026 12:56:38 +0000
-Message-ID: <20261112125638.12209-5-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261112125638.12209-1-farbere@amazon.com>
-References: <20261112125638.12209-1-farbere@amazon.com>
+        d=iiitd.ac.in; s=google; t=1794488248; x=1795093048; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QwjtaejwHcpDXMAslS3uVhsx3lI/CrcCuwcEtURbnWQ=;
+        b=Ck8de3oyVOuBXjWWNERiRX6kifNx8Y6MwGVEyjQs4mgvSRlaUnGfKsMDQ7pOTpUSxF
+         LLMS9doO2ZHoyUP0Qx9wiKw4888CBVO6ETO8Wk8/v9kucYwkNb5A1MZa7q4Apcf5fFIz
+         M3MM7Y3BrI2lk3WEZG2+KrbFX8qXRLUMcKjr0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794488248; x=1795093048;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QwjtaejwHcpDXMAslS3uVhsx3lI/CrcCuwcEtURbnWQ=;
+        b=jCfM1itjXF1uOgrBBWiV2F6ogvUQQRJF92G66C1UO7E+u8W++zNFzU3lcoJmHZ3l8L
+         jBNx4kLme9QSoW/qVRdv0h4dWrd3/DI3oI/RQJojqw3oqDVsOdqOYh9CSbL3UfFka7VR
+         zS4gISCdQGnBwskwXMSwfwHex8InlEqYBL8kmpsWtnwKAehMYab8ReJ85cMp1qTmOJ5K
+         SY7mXyqrbtGjtB4W1+kj4kD+FcvOku1nA9jQZgw/2mXC0RHPKa2wcTH3tsMZfvXCscUQ
+         d4SLX3ESK2YpCaVJD5EzdaOh6StTWENny2gb6alhHN32pFVlc+AcH94lh+nh0Fpxgeuj
+         ewgQ==
+X-Forwarded-Encrypted: i=1; AL+hErERyba1KGtxQR1fzx/OoPuGwFvWfXxjDni9uS7BOW1btyaDZ5UgGdN1sL4/0IOGlKGyZwJa/WFAWaTdPAA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/KhVi9xWu/lA2bUsv36fSEiZik8c0IK5YL8DnQyc7+Ach8LUyO
+	C2+hL3b1HOeTY0Nmke+Sn4dpHDCMgPZQgZpkX95JQjp4c766PUeWBRAABeYh56geJfVjevof0nh
+	F3V4zGqSgeBVHYqLt4UXrMi22uBWHfC6FQQ0ErHNf5dHs/0ockc5YNL4Pi3qr
+X-Gm-Gg: AYBFou1+A5dYvDQxYU4ihuKG4r5iAN81veJ5seIx5PVWEGLhyrMayBE+NfkwqqJoF4U
+	fHiUpT6RxDqFFNghFKS4Q6dHBEml76zP3oBwiWTweyfne+i97httOueK+zpXMWbnT/id3XB6GpU
+	5vuvaAKUQH2kyvWBniN3GivV/ZJo0M21r1I10dOZlZEiHyxhVNCKkOANcBkPsREMoX46Ig178NG
+	IsZFVkrifCMQMzuQ/Ne3y7Bx2pPp2h7mHfhRRI85a3B9FLzGg6WOHfffqGZMeNG0qxApWMNavOp
+	7nfymdGhzw296ltpsuvgaWgGzwatmpQNchn5G2978915sysZsCIflzG1WRabH3IVxYkGYG39XAy
+	8Rx7+K4bcX+Rnqg98fba2GjMCr14zx8g6v15Go1dHDTU+chXS9e0v2DsfihxQ+UihJrNvn894VG
+	yx3dPY7BXlvXMr2oAb3VMGaracb81caQGQPYlWR6jKwAkYDqYpt1xsAZ8=
+X-Received: by 2002:a05:6402:4407:b0:6b7:b0bc:f4af with SMTP id
+ 4fb4d7f45d1cf-6b7b0bcf5c5mr873269a12.7.1794488247914; Thu, 12 Nov 2026
+ 04:57:27 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,222 +102,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA004.ant.amazon.com (10.13.139.19) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+References: <20261110175334.676816-1-piyus@iiitd.ac.in> <20261110175334.676816-2-piyus@iiitd.ac.in>
+ <CABBYNZL9GjdZvU6Z8B2v5_5iGXBno5K-GvqkKfX5vjEaTkV9vw@mail.gmail.com>
+In-Reply-To: <CABBYNZL9GjdZvU6Z8B2v5_5iGXBno5K-GvqkKfX5vjEaTkV9vw@mail.gmail.com>
+From: Piyus Kedia <piyus@iiitd.ac.in>
+Date: Thu, 12 Nov 2026 18:27:16 +0530
+X-Gm-Features: AclHuK8hls-AW8yfs8-PRYUOyj383dNj68tz1FvuidA2KViMtTYZ32vFMU0YiIw
+Message-ID: <CADq=QSxbEXxgbZry=d0F5ACxNUST_u2fChEc8XgZ3YR-zyOmaA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/1] Bluetooth: hci_sync: drop adv instances the
+ controller cannot carry
+To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Kapil Vaswani <kapil@presceralabs.ai>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-UIO physical mappings (UIO_MEM_PHYS, UIO_MEM_IOVA) often expose large
-device memory regions to userspace. uio_mmap_physical() maps them at
-mmap() time with remap_pfn_range(), i.e. with 4K PTEs, even when the
-region and the user address are aligned for huge mappings.
+Hi Luiz,
 
-Map non-COW mappings on fault instead, as vfio-pci does since commit
-f9e54c3a2f5b ("vfio/pci: implement huge_fault support"): call
-pfn_range_track() rather than remap_pfn_range(), so the VMA is set up
-and its memory type tracked as before, and add ->fault/->huge_fault
-handlers that map the faulting window with vmf_insert_pfn_order(), using
-a PMD or PUD where alignment allows. Like uio_vma_fault(), the handlers
-take idev->info_lock and fail with SIGBUS once the device is gone.
+We just submitted another version that addressed the issues raised by Sashi=
+ko.
 
-COW mappings cannot be populated by vmf_insert_pfn*(), which BUG_ON()s
-a COW VM_PFNMAP vma, so they stay eager and keep a vm_ops without
-fault handlers. do_fault() then rechecks a pte it found cleared under
-the page table lock, which is what a transient clearing by
-wp_page_copy() needs; a PMD-aligned COW mapping is also not reported
-as THP eligible in smaps.
+https://lore.kernel.org/linux-bluetooth/20261112125420.3905719-1-piyus@iiit=
+d.ac.in/T/#u
 
-vm_pgoff holds the UIO map index, which a fault handler cannot use: a
-VMA split (partial munmap(), mprotect(), ...) adds the split offset to
-vm_pgoff of the upper part, so the index no longer identifies the map.
-Store the base pfn in vm_pgoff instead, as remap_pfn_range() does for
-COW mappings; splits then keep it correct. As a side effect,
-/proc/<pid>/maps shows the physical address as the offset of such a
-mapping, rather than N * PAGE_SIZE.
+Best,
+Piyus
 
-generic_access_phys() only follows present PTEs, so .access now faults
-the page in first; otherwise remote access (ptrace, /proc/pid/mem) to an
-untouched page would fail. A mapping that does not permit the fault,
-PROT_NONE for example, keeps that gap: fixup_user_fault() refuses it,
-where the eager mapping left a present PTE.
-
-Validation at mmap() time is unchanged, except for the L1TF pfn check.
-remap_pfn_range() rejected a disallowed pfn with -EACCES from mmap(),
-so an unprivileged mmap(PROT_NONE) of a pfn above l1tf_pfn_limit()
-failed. It now succeeds. Nothing fails later instead:
-pfn_modify_allowed() only denies a prot that needs PTE inversion, i.e.
-a non-present one, and no pte is installed for an inaccessible vma.
-
-Once the device is unregistered, a page with no present entry gets
-SIGBUS, where the eager mapping kept it mapped. Not only untouched
-pages: splitting a huge entry with a partial munmap() or mprotect()
-zaps it, since __split_huge_pmd_locked() clears a PFN-mapped PMD rather
-than converting it to PTEs.
-
-Without huge PFN mappings, or for small or unaligned mappings, the
-region is populated one page per fault, paid only for pages that are
-actually touched.
-
-Signed-off-by: Eliav Farber <farbere@amazon.com>
----
-v2:
-COW mappings get their own vm_operations_struct defining only .access; with
-->fault installed, a COW vma could reach the BUG_ON in vmf_insert_pfn*(),
-reproduced as a kernel BUG at mm/memory.c:2989. Corrected the L1TF claim in
-the commit message: mmap(PROT_NONE) above l1tf_pfn_limit() now succeeds,
-and nothing fails later. Reported by sashiko-bot.
-
- drivers/uio/uio.c | 118 +++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 111 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/uio/uio.c b/drivers/uio/uio.c
-index f8fa20522660..7c038e3b107c 100644
---- a/drivers/uio/uio.c
-+++ b/drivers/uio/uio.c
-@@ -733,12 +733,94 @@ static int uio_mmap_logical(struct vm_area_struct *vma)
- 	return 0;
- }
- 
--static const struct vm_operations_struct uio_physical_vm_ops = {
-+/*
-+ * Populate UIO physical mappings on fault, using a PMD or PUD mapping where the
-+ * architecture, the fault address and the pfn allow it.
-+ */
-+static vm_fault_t uio_physical_huge_fault(struct vm_fault *vmf,
-+					  unsigned int order)
-+{
-+	struct vm_area_struct *vma = vmf->vma;
-+	unsigned long addr = vmf->address & ~((PAGE_SIZE << order) - 1);
-+	struct uio_device *idev = vma->vm_private_data;
-+	vm_fault_t ret = VM_FAULT_SIGBUS;
-+	unsigned long pfn;
-+
-+	/*
-+	 * vm_pgoff is the base pfn of the mapping (see uio_mmap_physical()).
-+	 * vmf_pfn_order_ok() ignores pfn if the window starts below vm_start.
-+	 */
-+	pfn = vma->vm_pgoff + ((addr - vma->vm_start) >> PAGE_SHIFT);
-+	if (!vmf_pfn_order_ok(vmf, pfn, order))
-+		return VM_FAULT_FALLBACK;
-+
-+	mutex_lock(&idev->info_lock);
-+
-+	if (idev->info)
-+		ret = vmf_insert_pfn_order(vmf, pfn, order);
-+
-+	mutex_unlock(&idev->info_lock);
-+
-+	return ret;
-+}
-+
-+static vm_fault_t uio_physical_fault(struct vm_fault *vmf)
-+{
-+	return uio_physical_huge_fault(vmf, 0);
-+}
-+
-+#ifdef CONFIG_HAVE_IOREMAP_PROT
-+/*
-+ * generic_access_phys() only follows present PTEs, and a lazily populated
-+ * mapping has none for pages the target has not touched yet. Fault the page in
-+ * first (through the handlers above, so info_lock is honoured), so that remote
-+ * access (ptrace, /proc/pid/mem) keeps working.
-+ *
-+ * fixup_user_fault() refuses a fault the vma does not permit, so an untouched
-+ * page of a mapping without VM_READ stays unreadable, where the eager mapping
-+ * left a present PTE.
-+ */
-+static int uio_physical_access(struct vm_area_struct *vma, unsigned long addr,
-+			       void *buf, int len, int write)
-+{
-+	unsigned int fault_flags = FAULT_FLAG_REMOTE;
-+
-+	if (write)
-+		fault_flags |= FAULT_FLAG_WRITE;
-+
-+	/*
-+	 * With unlocked == NULL, fixup_user_fault() keeps the mmap lock held
-+	 * and the vma valid.
-+	 */
-+	fixup_user_fault(vma->vm_mm, addr, fault_flags, NULL);
-+
-+	return generic_access_phys(vma, addr, buf, len, write);
-+}
-+#endif
-+
-+/*
-+ * COW mappings are mapped eagerly by remap_pfn_range() and cannot be populated
-+ * on fault: vmf_insert_pfn*() BUG_ON() a COW VM_PFNMAP vma. Leave them without
-+ * fault handlers, so that do_fault() rechecks a pte it found cleared under the
-+ * page table lock, and fails only once the pte is really gone, and so that they
-+ * are not reported as THP eligible in smaps.
-+ */
-+static const struct vm_operations_struct uio_physical_cow_vm_ops = {
- #ifdef CONFIG_HAVE_IOREMAP_PROT
- 	.access = generic_access_phys,
- #endif
- };
- 
-+static const struct vm_operations_struct uio_physical_vm_ops = {
-+#ifdef CONFIG_HAVE_IOREMAP_PROT
-+	.access = uio_physical_access,
-+#endif
-+	.fault = uio_physical_fault,
-+#ifdef CONFIG_ARCH_SUPPORTS_HUGE_PFNMAP
-+	.huge_fault = uio_physical_huge_fault,
-+#endif
-+};
-+
- static int uio_mmap_physical(struct vm_area_struct *vma)
- {
- 	struct uio_device *idev = vma->vm_private_data;
-@@ -754,7 +836,6 @@ static int uio_mmap_physical(struct vm_area_struct *vma)
- 	if (vma->vm_end - vma->vm_start > mem->size)
- 		return -EINVAL;
- 
--	vma->vm_ops = &uio_physical_vm_ops;
- 	if (idev->info->mem[mi].memtype == UIO_MEM_PHYS)
- 		vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
- 
-@@ -767,11 +848,34 @@ static int uio_mmap_physical(struct vm_area_struct *vma)
- 	 * So we just do the physical mmap without a page
- 	 * offset.
- 	 */
--	return remap_pfn_range(vma,
--			       vma->vm_start,
--			       mem->addr >> PAGE_SHIFT,
--			       vma->vm_end - vma->vm_start,
--			       vma->vm_page_prot);
-+	if (vma_is_cow_mapping(vma)) {
-+		/* COW mappings cannot be populated on fault: map them now. */
-+		vma->vm_ops = &uio_physical_cow_vm_ops;
-+
-+		return remap_pfn_range(vma,
-+				       vma->vm_start,
-+				       mem->addr >> PAGE_SHIFT,
-+				       vma->vm_end - vma->vm_start,
-+				       vma->vm_page_prot);
-+	}
-+
-+	vma->vm_ops = &uio_physical_vm_ops;
-+
-+	/*
-+	 * Populate on fault (see uio_physical_huge_fault()). Tracking the PFN
-+	 * range keeps its memory type reserved, for PAT conflict detection.
-+	 *
-+	 * vm_pgoff holds the map index, which the fault handler cannot use:
-+	 * splitting the VMA adds the page offset of the split to vm_pgoff of
-+	 * the upper part, so uio_find_mem_index() then returns the wrong map,
-+	 * or none, and the start of that part would be mapped to mem->addr.
-+	 * Store the base pfn instead, as remap_pfn_range() does for COW
-+	 * mappings; VMA splits then keep vm_pgoff correct for each part.
-+	 */
-+	vma->vm_pgoff = mem->addr >> PAGE_SHIFT;
-+
-+	return pfn_range_track(vma, vma->vm_start, mem->addr >> PAGE_SHIFT,
-+			       vma->vm_end - vma->vm_start);
- }
- 
- static int uio_mmap_dma_coherent(struct vm_area_struct *vma)
--- 
-2.47.3
-
+On Thu, Nov 12, 2026 at 1:19=E2=80=AFAM Luiz Augusto von Dentz
+<luiz.dentz@gmail.com> wrote:
+>
+> Hi Piyus,
+>
+> On Tue, Nov 10, 2026 at 12:54=E2=80=AFPM Piyus Kedia <piyus@iiitd.ac.in> =
+wrote:
+> >
+> > An advertising instance stores up to HCI_MAX_EXT_AD_LENGTH (251) bytes
+> > in adv_info. How much of that is accepted when the instance is added is
+> > decided by max_adv_len(), which depends on a feature bit in the
+> > controller's LE Extended Advertising support:
+> >
+> >   ext_adv_capable(dev) ? HCI_MAX_EXT_AD_LENGTH : HCI_MAX_AD_LENGTH
+> >
+> > ext_adv_capable() reads hdev->le_features[1], which is re-read from the
+> > controller on every bring-up, while the instance list is only freed in
+> > hci_release_dev(). Instances therefore outlive a power cycle, and an
+> > instance added while the controller reported LE Extended Advertising
+> > can be far larger than the capability now allows.
+> >
+> > hci_update_adv_data_sync() picks the writing path by that same bit.
+> > Without it the legacy path runs, and hci_set_adv_data_sync() writes
+> > into struct hci_cp_le_set_adv_data, whose data[] is HCI_MAX_AD_LENGTH
+> > (31) bytes on the stack, while eir_create_adv_data() copies
+> > adv->adv_data_len bytes into it. A controller that reports the feature
+> > on one bring-up and not on the next overflows that buffer. This can
+> > happen when, for example, a USB dongle answers LE Read Local Features
+> > differently after a reset. scan_rsp_len has the same problem against
+> > hci_cp_le_set_scan_rsp_data.
+> >
+> >   BUG: KASAN: stack-out-of-bounds in eir_create_adv_data+0x2ab/0x440
+> >   Write of size 220 at addr ffffc90006b679c1 by task syz-executor
+> >
+> >   BUG: KASAN: stack-out-of-bounds in eir_create_scan_rsp+0x119/0x1a0
+> >   Write of size 220 at addr ffffc90006ca79c1 by task syz-executor
+> >
+> > Both are reached from HCIDEVUP by way of hci_powered_update_adv_sync()
+> > re-arming a stored instance.
+> >
+> > Bounding the copy in eir.c would leave the instance registered and
+> > unusable, to be retried on every bring-up. Unregister it instead, once
+> > the features have been re-read and before anything is scheduled, and
+> > report it with MGMT_EV_ADVERTISING_REMOVED. Userspace can add the
+> > instance again at a size this controller will accept. Dropping the
+> > instances before the list_empty() test below also lets the default
+> > instance be set up.
+> >
+> > The removal is under hci_dev_lock() because
+> > hci_schedule_adv_instance_sync() sends commands, which cannot be done
+> > with the lock held.
+> >
+> > Fixes: 112b5090c219 ("Bluetooth: MGMT: Fix always using HCI_MAX_AD_LENG=
+TH")
+> > Cc: stable@vger.kernel.org
+> > Co-developed-by: Kapil Vaswani <kapil@presceralabs.ai>
+> > Signed-off-by: Kapil Vaswani <kapil@presceralabs.ai>
+> > Signed-off-by: Piyus Kedia <piyus@iiitd.ac.in>
+> > ---
+> >  net/bluetooth/hci_sync.c | 28 ++++++++++++++++++++++++++++
+> >  1 file changed, 28 insertions(+)
+> >
+> > diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+> > index 9213e3ef9f26..ee8b1cd9dee5 100644
+> > --- a/net/bluetooth/hci_sync.c
+> > +++ b/net/bluetooth/hci_sync.c
+> > @@ -3608,6 +3608,34 @@ static int hci_powered_update_adv_sync(struct hc=
+i_dev *hdev)
+> >         if (!hci_dev_test_flag(hdev, HCI_LE_ENABLED))
+> >                 return 0;
+> >
+> > +       /* An instance's data was accepted against max_adv_len() as it =
+was
+> > +        * when the instance was added, and that is a branch on a contr=
+oller
+> > +        * feature which has just been re-read. Anything too large for =
+the
+> > +        * current capability can no longer be rendered: drop it and te=
+ll
+> > +        * userspace, so it can add the instance again at a size this
+> > +        * controller will take.
+> > +        *
+> > +        * This is safe as long as there is no command send while the l=
+ock is
+> > +        * held.
+> > +        */
+> > +       hci_dev_lock(hdev);
+> > +
+> > +       list_for_each_entry_safe(adv, tmp, &hdev->adv_instances, list) =
+{
+> > +               u8 instance =3D adv->instance;
+> > +
+> > +               if (adv->adv_data_len <=3D max_adv_len(hdev) &&
+> > +                   adv->scan_rsp_len <=3D max_adv_len(hdev))
+> > +                       continue;
+> > +
+> > +               bt_dev_warn(hdev, "instance %u too large for this contr=
+oller",
+> > +                           instance);
+> > +
+> > +               if (!hci_remove_adv_instance(hdev, instance))
+> > +                       mgmt_advertising_removed(NULL, hdev, instance);
+> > +       }
+> > +
+> > +       hci_dev_unlock(hdev);
+> > +
+> >         /* If RPA Resolution has not been enable yet it means the
+> >          * resolving list is empty and we should attempt to program the
+> >          * local IRK in order to support using own_addr_type
+> > --
+> > 2.34.1
+>
+> Sashiko flagged a few problems:
+>
+> https://sashiko.dev/#/patchset/20261110175334.676816-1-piyus%40iiitd.ac.i=
+n
+>
+> --
+> Luiz Augusto von Dentz
