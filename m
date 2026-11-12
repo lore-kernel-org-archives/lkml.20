@@ -1,63 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794479765;
-	b=k8Widv4MnM1ImJdzqEpaxfQFyMii/wpVLKeYC+z6gOm/coLlj2G7YknhmFYWD+hE16ck
-	 Dtsds+YvsPaHtma55VHzYpAvn+0wDq2DQeKsxYaIgcedbcppk5XK1DyIrShVwgwOSN9aC
-	 2oTFiOD5Ej+UoF4mnTdIa2YGht2/FZuhd5W+aMXzzAmNttUn8m4Aqr23rMBjxnlY+hIbr
-	 AaBXeUaOx89AboxNLbJCCa0BSBKbyH7M5xiQN4jPaI6pomNQJ9lnxygdE124x6jIfDiim
-	 uFn3H5g/HdKdD7LoDgpp5y/32CxH0X0Mp4B4CqjFwdB2K5nUhueJaLxDdhlvuFbPxpw==
+	t=1794479773;
+	b=LCQuWYAhgG+tG226EB1lrrsWsvLUqKVFh+Yw9aCjkIy0dy9QLIYkeo4aSLzgiMzS5VDP
+	 jRlcXfk4yUghTLuFVpJPkNejgPcZE7BqVp2ZxdnZzzq+xpkUdTok4zcP84CptZIRrynem
+	 LYLxgVaw2+xIdOqDgXx2lDxMZhipglaI22t+AxpSJjF7KgxQurmxHSkQwmd+AX9vApEms
+	 y43gftejISW4pwYpefz5JJH2eNnDXv5N2qszTU3rxySkNJvNaEt3p/56h3aMSW5xS0ryG
+	 FzgmW4Uzi+8XfVgwyogenemXdcQMyRGKHOnrYyFVqH0WPOUc2nQJqSdcRiintfDUkJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794479765;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=oVTc5I6nKpBiLsItkBZmeShBR8ASpkDeEBpnWBZ++aw=;
-	b=j/Bxe31uh+K88h7Kj2TpdwowUIjH8uqq9fdsvSFZhzjXGWRn/7NAzBxKRCkuD+LBUC8z
-	 qnXFCDF7kL23CrfrCvILR70s+Yl+1Tbr0EOysiEaBcrYP1CEy+2yxoN7tOsenZD2dcuMw
-	 t9t/gke7TB5wHDt/JEpkNRHrPrRCyUaKhq/j4SzkTk8STzG5WZlkgCih8buUh68XI4p7n
-	 5JwFvaqPS6d5fLewXleoyPFjAPewaEoHT84EAoy4FuKy/VPXHGocmt8Uv3gCEqMJbMEJn
-	 /416syM5FaBsZ/rawvPjuwGSmRNL+5hxPtS/jHf+ZnLTNECq0uak1QAdwiCXqcskgoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794479773;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Ogwz7ul59oD/hj3UG/Yij9D+/c4RWMPymBINXQ6+9Bk=;
+	b=jeqwsCy8ZSmsXZmEbEOJP4dA57bP+nIbfQLGNyN/aU9B8tptZfYkHnHrjMLbstZjhSy8
+	 tSXgi7FJ77+jcULiLZSgYuomh7dwnLA7R+xBE24qa42ADjasHBqk+CEmfJ34OBTFwkKyr
+	 2T2B1PJxvIA6lXH/nm02s1JDyYhKgM4Bh3FV3jyGZiZFQob5jFznEyALx2lPXYItas+QS
+	 Kg0X/L2fSCFQS/URKA++OacYaAbgxhFBWX94zWPc5CCRhkOB/lC2liiUmXwZRL99c6dQ7
+	 H9l04uT3yxOC6oOdlTK44739w0RD8msyOg7eLNXRRGjwRXLj9OZcSfY0pfMsdk77HmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jF0m7nsy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=U6OaBErl;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lPkq+kCJ;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681C2606A330;
-	Thu, 12 Nov 2026 10:36:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E713606A885
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:36:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E713606A885
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jF0m7nsy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 641401F00A05;
-	Thu, 12 Nov 2026 10:36:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794479765;
-	bh=oVTc5I6nKpBiLsItkBZmeShBR8ASpkDeEBpnWBZ++aw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jF0m7nsy/kOpUGPVDECaxy+z1JQjd3q1T08tClg07MgBE3iS7AJ5qozya9SlbI1B0
-	 AWZH6hP03z+wJnCele/zlNXt83t/Z0ZBmV1lzq76cYAAavzl+JWjsrbuFVvkEYUrft
-	 j6bQ15E+9Mr+TZc5KFgYeFTCgr6ad77hqmcruJtnr570QwPTwRFV/9W12YJxlk/EoM
-	 U6PC72fVi7yS/bNa/pogqyjBlnD07RPYnQz1eZErxIvZ/1Pej2gFSTtowCei3/fGcl
-	 2tlUlf34k+J6an1jfJUjdnJUGUMDSYAwuz/pyE16zkVnDPbbixL3PqBH1cp+hKrnsD
-	 sEtRi5VTeun/Q==
-From: netdev-bot+sinfo@kernel.org
-To: Michal Luczaj <mhal@rbox.co>
-Cc: Stefan Hajnoczi <stefanha@redhat.com>,
- Stefano Garzarella <sgarzare@redhat.com>,
- Bobby Eshleman <bobbyeshleman@meta.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
- Eugenio =?utf-8?q?P=C3=A9rez?= <eperezma@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, kvm@vger.kernel.org,
- virtualization@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] vhost/vsock: Fix socket state constant
-Date: Thu, 12 Nov 2026 10:36:03 +0000
-Message-ID: <179447976386.2168702.18392043659968828325@kernel.org>
-In-Reply-To: <20261112-transport-reset-state-fix-v1-1-5698375f52a9@rbox.co>
-References: <20261112-transport-reset-state-fix-v1-1-5698375f52a9@rbox.co>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=U6OaBErl;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lPkq+kCJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794479771;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ogwz7ul59oD/hj3UG/Yij9D+/c4RWMPymBINXQ6+9Bk=;
+	b=U6OaBErlYMSHobbPrJAoJTPY3fslh246DBRqobmFAs8roRgp/0Fx6LTp0i9vQ+u0hwCsFa
+	gPJzRGAI+QvuLXpM4wBPJILFXz9dI41hN1RCwuzCNf6fkRdxvlkoDzuTDI0jYVR377TB6j
+	WYdrqMuFfCWqHWmOSmTqeZHgqz07OEM=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-549-8o5SHHsMOvWOvUWFoWFUTA-1; Thu, 12 Nov 2026 05:36:10 -0500
+X-MC-Unique: 8o5SHHsMOvWOvUWFoWFUTA-1
+X-Mimecast-MFC-AGG-ID: 8o5SHHsMOvWOvUWFoWFUTA_1794479769
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a318cd95e8so6180445e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:36:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794479769; x=1795084569; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ogwz7ul59oD/hj3UG/Yij9D+/c4RWMPymBINXQ6+9Bk=;
+        b=lPkq+kCJM2Ukg4Zws6fskES5U7k09H78lXinl0DlX74ddFDmHzPoI2tle74/yBu5QT
+         KmdGpfCaUUduZ611q1IBDRvn0whTReefWjNQ+JejQMGX5ys0WOCZEtaImQLznHxcc88n
+         c9keFcTrhU6XgoCsOZaXXSXu1STQ7smK8H3Tb3SDJMjH86TB8W4EKLpqEpAlECxslsGb
+         nPCDrkBZjKceLlOg3gSjJe/VsievNDtwa8UhUKjklSuRpcTFhvoVCmvka8/7GmPNqQ9B
+         HFGO2yw2BTSnRmACKW9KQLE6ibOMdmhZqf0zZETh2o9YABo16mPyySOsTXPDOTW5G5zb
+         vLnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794479769; x=1795084569;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ogwz7ul59oD/hj3UG/Yij9D+/c4RWMPymBINXQ6+9Bk=;
+        b=Tl/BEnl4G+w9l2aJBlAU6BYP9/4kWubZml7DJj+63RzhKMp+pm0W4Cr6xNbZGBDegc
+         h2Ki5XT3e9S4b57R+erfGCnIWk93/ud4c3ywsw0sS/mg/7qgSIFaBfOQCisH6/EgQtlT
+         0RRECjj4hgwoRtUeg+zR0D4m2LTNZbna6+CVdOpvPUY1KQ+4ogQnBhFGy5aF0aFLb19h
+         oq4u78gKRVw9a8SC0XaDXdRS4TLC6m9i+X8sRyNjrZFVr1RQ0JXVlWB5ruO0+4bhG1kj
+         n1KSLhfPr+1btX/Owlddyvarfhc8EZvzufL3EmJRM9p0MZCoaI/0CLQcrd6rGR+2fA/a
+         HAuw==
+X-Forwarded-Encrypted: i=1; AL+hErFq6LrNL8dJi0d1p9QQxahjKu2j3TpDtyyOqHDsky8aOW2hjMVl+CNTBnYScSI8aiiNPXlPOs1OLAqIGrw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8NY7REdtw/v6c9xnnx/XkD3hGTMS4bao0eTPNa3m0GGunu4JSQ
+	L/UirIQaGH7B1LEfel/bzq/sL28S0zXynCBEtK7y+qIgH+gX/hwBNxrdmOjhQyk48N0OmWvzdwc
+	FQU4ioVdmCiEV+NHUm5VvRdkRB3lc8vhL2OFkVCNkpZdCyweZ3pNHaYeYSRUDeS7p/A==
+X-Gm-Gg: AYBFou2XiI3ooDxFESsX0HdfAd1DvaA8axCoIAwlQ/yjLvQHDYDYteChHXFpKPw3ZUu
+	JvjMYf36P9R/6vKakbS0Nvot5gjvUe4jdXo9zE0PzsdruIVF5MGMqesx/YhwgxK5a/6Nhw2t5pA
+	Yit33yYKwf656FmS/HXpHFvYM9oFoVtENNLzhprDNPxPLyxsCl1Ci8A3H2jM5yhzZRe7r075/S8
+	vIgju802r3RE/+ndvoe732v1g3mcTjMcSCWdOJxPsZtrsr/gqDWXfWTHFJIs/vbENU4yCo4GsTJ
+	hAQo+cQwrJLgDIiEyYYD/iOL66k8ChgZbU7UaXw6VpAQMEg+uZaYnHVCLpnLgB9BAC9EZFBbtTj
+	SacAujeiiHU+5pRWjbdQfqhKUT/nBznJwyO5TVuN+/ZsFTjZdll1wxAAH32qbIOvSscXflQtfrM
+	9Nhhw=
+X-Received: by 2002:a05:600c:8b57:b0:4ba:4395:560f with SMTP id 5b1f17b1804b1-4bb4e283efamr44875095e9.8.1794479768799;
+        Thu, 12 Nov 2026 02:36:08 -0800 (PST)
+X-Received: by 2002:a05:600c:8b57:b0:4ba:4395:560f with SMTP id 5b1f17b1804b1-4bb4e283efamr44874665e9.8.1794479768472;
+        Thu, 12 Nov 2026 02:36:08 -0800 (PST)
+Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e27a8b0sm60917155e9.15.2026.11.12.02.36.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 02:36:06 -0800 (PST)
+Date: Thu, 12 Nov 2026 11:36:04 +0100
+From: Juri Lelli <juri.lelli@redhat.com>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
+	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
+	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org, longman@redhat.com,
+	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
+	clrkwllms@kernel.org, parri.andrea@gmail.com,
+	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev
+Subject: Re: [PATCH v5 26/29] sched/debug: Show the deadline bandwidth of
+ each runqueue
+Message-ID: <avWWlEGGqVPYkuZw@jlelli-thinkpadt14gen4.remote.csb>
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-27-mathieu.desnoyers@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,25 +127,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108185406.1549770-27-mathieu.desnoyers@efficios.com>
 
-Hi!
+Hello,
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+On 08/11/26 13:54, Mathieu Desnoyers wrote:
+> For each CPU, sched_debug prints the deadline bandwidth of its root
+> domain. It does not print the two sums of its runqueue. this_bw is the
+> bandwidth of the deadline tasks assigned to the CPU. running_bw is the
+> part of it that belongs to active tasks.
+> 
+> GRUB reclaiming depends on both sums. grub_reclaim() takes this_bw -
+> running_bw as the inactive bandwidth of the CPU. The more inactive
+> bandwidth, the slower a reclaiming task uses up its runtime.
+> 
+> The kernel warns when a sum wraps around, and when running_bw exceeds
+> this_bw. Bandwidth left behind in this_bw triggers no warning.
+> 
+> Print both sums. The deadline_bw_test selftest added later in this
+> series reads this_bw in its params_waking and random_mix cases. It
+> checks that this_bw is back to its first value once their tasks are
+> gone.
+> 
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> ---
+>  kernel/sched/debug.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
+> index e0d6cd3bd607..3dbe1d7d2d77 100644
+> --- a/kernel/sched/debug.c
+> +++ b/kernel/sched/debug.c
+> @@ -1174,6 +1174,8 @@ void print_dl_rq(struct seq_file *m, int cpu, struct dl_rq *dl_rq)
+>  	SEQ_printf(m, "  .%-30s: %lu\n", #x, (unsigned long)(dl_rq->x))
+>  
+>  	PU(dl_nr_running);
+> +	PU(running_bw);
+> +	PU(this_bw);
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+OK, but we will still not printing additional useful information like
+extra_bw, etc. Not sure if you are aware of tools/sched/dl_bw_dump.py
+drgn script; maybe that is already useful for the needed additional
+debugging information?
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by LLM and not proven at runtime). If it was triggered
-   please include the symptoms, like the stack trace or kernel messages.
+Thanks,
+Juri
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
