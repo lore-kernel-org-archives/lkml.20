@@ -1,59 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794478028;
-	b=QmMwPo5doP2Nl21ZYTVaEGXh9/+o+TWyBxEIPDwpNJyMC7w1F20cYS10jG2AShBoVjIx
-	 ypOzQ/pk8WF+Ey23hPV38YwBMUhLCF4QlC7q2RBfqIt25BcJrWtkaT2lRDIf66MBVVlb0
-	 UELpWlEu9xqZtCrAEpHJVsvO4lUiidRIPRiMzFkiRPexG9JUgy3efyONt83KZPtUqVk/Z
-	 gwrOi9u9x2msVtXUeBlwGiEl6tyLjEHUlFoAXt3Q5+NuFjDgbyNxi3hJD9hDIVcLTZtTP
-	 SB08zCaTCP75hyvbV8DdgToYpoRuOPAkWHWPn77tsZJ17woGKVf6lf5+Q3v+Qm/eVtw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794478028;
-	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=YrrwumO/5raUBSV5ArMQZNK6oNAfyIqZEDeYPuOGJbc=;
-	b=bevWySO9pZzdEpjpAAKIGeqL8EIvbAkpyvhal0ymbILdwAK6JKIE+gFdz71AClVurczR
-	 U3TLlHNaONi5mEcNUFlYoRnNGlF2CU/9kABofoStNeM/PXgJOUCTcKmEuO/0AfbgYlqFT
-	 vKdAsdSeQT+V9bXFBUgZTF29jAvtRL2HPpmMQ1mp53Qm6K+qs5sR/21Ruc0D5oJXPT0Tu
-	 CriccoY8K92zzxXtwV/NcQPCXjd5JT+G6M3R6qulHpfNgCkcmPwg4hG3+0I9ZJoe2PE4z
-	 3/gsgWvDLxxtmQ5doa130wdOSk6n4OKV3aZj4Jk9c/VW4tkfclXDpbAMSSe8NPFul9g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ooT0GOf7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.4
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794478027;
+	b=aLKE9TC1x86LQe71EJNUEKX89lg2rFstvAU2ovik+aLuXdZOgbeLfxeDRvxMCiN6K1Sk
+	 Y/TO51ABEN6n4buwYufO9pl2m0Cds/r06YKIRoD1R74QcEfpAdQX2D4Y7TiStdjciiveJ
+	 bxZXfaHAWthbQTuMsm0ha5374b+CDWDryckCfD/RiXVn7JIqp4yWl1Xly+gIbO6gCUO8A
+	 0SaPV2AnPXC/b7xnVtp0xyAqhlNmshmDQm7SJKmJnoDy6dvYQP73owg1RGql84rlsCn5O
+	 G0U/FjnGJ0+qd2qpNlVFgToTYcIBUT1aOGOW5tkAh3dXTGzuoxTd4OKnLbYw4HT05SA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794478027;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=H4bAaTrCqmctSADeFqQQX+kGXr4lncxWKiQe5n9FcE4=;
+	b=V8YMzebopJ51q+DU4kb6fUr6YcWtPpXv6DvnfuX9OHisUajRO3+71ZO4aju3tNR6LL1h
+	 RQY8KYhKV92pW4tIYfZyZsuE2xCOPhzHlLZ5+xwY2GP65LDdyOEbD/BYwTNthc7zjTC86
+	 XK3y09/CJnfpA6faxAXfn+tjsV4rDqm0znm4jmybEDpd67OoiHEOYwIkLrT186TGWgLVY
+	 vRlc7cljQbM7s3nuxuRDG49lV155vqJ9ze93FnkCq6TyzOces4zmLLPCm7ogsVy3tkkka
+	 DpnZcAtQWdBFj553Xr4DGrILumE+A6+sf1gHCVxFN5lnZZbGEpy3rIB4HTDbs/gRgNA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=CEVCSt52;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.4
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011004.outbound.protection.outlook.com [52.101.70.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C0C606A332;
-	Thu, 12 Nov 2026 10:07:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19804606A323;
+	Thu, 12 Nov 2026 10:07:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19804606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ooT0GOf7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E66081F00A06;
-	Thu, 12 Nov 2026 10:07:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794478027;
-	bh=YrrwumO/5raUBSV5ArMQZNK6oNAfyIqZEDeYPuOGJbc=;
-	h=From:To:Cc:Subject:Date;
-	b=ooT0GOf7phxibuDjkz4U6fvVoFcnMn6rIZk3VMvKLd5HbMyL3KR7bmGG7bSsBIg5D
-	 TaXfXR1RuQF8ckiWuKb7uK31R6MRdHSkjYu07UUNypJLyKAA2nwIVWumjoyI9quS/9
-	 0029jFclb3+o1XeVyPUFR9jhK/RlnHS8YKDfu7gs6tr6YQchCmORNMOFUIR5hV2eUg
-	 wQb8eURA+3y7lDZ9ujYah5UJkyg47/Ta8GUkU4b6kdbPNxtCnlMijYJFjsF+Yii0AL
-	 3MYngPf/PfOGGdYr1uJI6C56VgqdydoL/6JLhQYCO65lMBkjvyZcBGJFk7T5mVECtW
-	 RpFnphEdD8lyQ==
-Received: from johan by xi.lan with local (Exim 4.100.1)
-	(envelope-from <johan@kernel.org>)
-	id 1xRRhx-00000001Sep-2PNC;
-	Thu, 12 Nov 2026 11:07:05 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-serial@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=CEVCSt52
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aqWbAD7nEoMXpFOO5RWD3j8ACtrf8j1SS/YPrJblLyGnswgziV0pXva58cL8rOb7XXS/z5za2dabXr/0K5DbqLEbhMsHsrINV9MTraqEKj/gZgW4Sgmj9daCabg6QgXuyydmma5nCkTH5LOAyU8Zxk1UQq8e+yUxxZiVrQbrRFaHBE0gwYeeFA3yUudCJJUsELqQdfYPyIFRxLdgeoBMtPBpN1OIzR4bSuT8wD3mCMwkTPbCFyvDNbU37HLa+9csvZqo8/MduK3H2chOivjPfN6TnwRbPV1jvcOj9lq7bRZ0kaZVy3Juaw3H2ahQz+ytonhKJ95dJ/vve2KYYzfkuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=H4bAaTrCqmctSADeFqQQX+kGXr4lncxWKiQe5n9FcE4=;
+ b=ACcL8aUs+o2NyFA+37rq6Wr5PZE5VUPZTJ7/4ph74l/UZBPp9yVFzR9N8erWQ+pu0hngBYGNbIW+3828HxN3a3v0KyhInm87RoA/kvH7+vjXuCnKRDCiG2+dZ/6WoRS6GMD5VUwyDnxY8aFzQ4xXIFSdFQTePAOWZwYcofw+AR+Zpqz3945CZCe7qoNVsQq0ZG69yZ9kWMzBXYo2MuWydWFbCs34z03eU4kQV2Iq1wiaYqT+hEzRCX2avOQup63wi8A4TpOoeyA0zVx4NErt3ivsioizVT+L5D9+b4WHMcAbEcMfWYpJUxC54ymmhOGofeY9T1/EY3qC91YJISsEqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=H4bAaTrCqmctSADeFqQQX+kGXr4lncxWKiQe5n9FcE4=;
+ b=CEVCSt52akwimUvq7ADgNOHRcXKt+sbxLb1oTDO8WxTWL7eD3DMaqblmQYFe1bVQKEUCQDXP5cloE0kx/2cM1MzPIr1SeAC81fkwBdOQzc0TwYFT66Z+lO4XipMMvD1fmjo9JCxHiRIBTVNP5FoARxgpZQfO0lOuMFpAe4ur53zRqCmoOIQQ6c/TT3EaH6dqj2/tx2y1gDV+6TPlls6ifM8u5Gnn88NBQVGWOpjJABlX5TFhH6EJtRLrluofmgV83wEjAnoQUeFXlHWeaVvCJ4aHXjGvZ9pFanmivLPsmRAMHJ+EaQu5rtbcgCzoF/L/bVpUoE6MxkUcjMDP25rQkw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM6PR04MB4472.eurprd04.prod.outlook.com (2603:10a6:20b:23::20)
+ by PA4PR04MB7998.eurprd04.prod.outlook.com (2603:10a6:102:c5::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
+ 2026 10:07:03 +0000
+Received: from AM6PR04MB4472.eurprd04.prod.outlook.com
+ ([fe80::aed9:e8b9:c352:9ba0]) by AM6PR04MB4472.eurprd04.prod.outlook.com
+ ([fe80::aed9:e8b9:c352:9ba0%6]) with mapi id 15.21.0615.007; Thu, 12 Nov 2026
+ 10:06:27 +0000
+From: Stefan Ghetu <stefan.ghetu@nxp.com>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>
+Cc: Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
-	Johan Hovold <johan@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] serial core: fix use-after-free after driver module unload
-Date: Thu, 12 Nov 2026 11:05:41 +0100
-Message-ID: <20261112100541.348390-1-johan@kernel.org>
-X-Mailer: git-send-email 2.56.1
+	Stefan Ghetu <stefan.ghetu@nxp.com>
+Subject: [PATCH v2 0/5] ASoC: fsl_asrc/fsl_easrc: fix memory safety issues
+Date: Thu, 12 Nov 2026 12:01:00 +0200
+Message-Id: <20261112100105.123845-1-stefan.ghetu@nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: AS8PR04CA0133.eurprd04.prod.outlook.com
+ (2603:10a6:20b:127::18) To AM6PR04MB4472.eurprd04.prod.outlook.com
+ (2603:10a6:20b:23::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,78 +103,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM6PR04MB4472:EE_|PA4PR04MB7998:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6763a21e-4807-4ccd-3e8e-08df40a469c8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|19092799006|10067099003|11063799006|260925021311599003|260925022911599003|260925021911599003|56012099006|261022105027099003|261022075727099003|261028144727099003|261026121527099003|261026140227099003|261021123027099003|261021121427099003|261102123227099003|261009223327099003|261009223027099003|261009221727099003|261009221227099003|261009220027099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	G8ektGFkcl2RXMwlAMzlWEXRJs/oKQXqvhd0G3QVhDDZSH0k9W0lgUK+S4L83OSeCu8R/B5HsPifDIOekTdZU0j/e0el4g2bt2TrQF/7Ny3ChL95q6Cxjdi/uV11h0MujJ7M1VF2WP+h5tfC3f+PrxglyhebmV8dgo+RpNiCI6Z/UIEViML/nw7QG1ozSu7r3H1l8JUenmaItd+Spwn+Paaf97qw8mQt001EWSa0OhT9ckfSbwMPMd0ddt6/n8x0fxvqVRUvlMV0CwJFRt/GLQ6mYpxf8cKQsCsPeOuPgYjPHHCgyOC4wAQpcBeA1lXCLJuT2GH6by/ucm0RC5qgyxfnHq/VesqRfx1bMMsiz2VQpRloHDzYkW1lXoN9juKVMoOQ7ckUKchX7MwlBozNxB0piH1iVIUIDmdrZXppVwuguLlwgZQWYTh/zqcRnXfLLy3mUgIuhxOvr9I8gbH6iqo11Qfk714TFVYu+WJyrqK/WiCOR9p/4i3mSgjjKidJCjePKc+KhHUqzGAqsyFGNufccSKwj+u3TyoKDtllVxvmU11zc9ZHqWZJXOOQL7DkZlFY/xPVBbZUfBv3RvsAFhQlqLU+0y/7r5ToQHyDFXvtA4KHBrWfOP4DDYLcBirF
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB4472.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(19092799006)(10067099003)(11063799006)(260925021311599003)(260925022911599003)(260925021911599003)(56012099006)(261022105027099003)(261022075727099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223327099003)(261009223027099003)(261009221727099003)(261009221227099003)(261009220027099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?IGphgyIYDe1o7/i/+86hEfYUIIU8L6VmfIlmSPLyanA3cGzLFMU8zKW9NNgg?=
+ =?us-ascii?Q?gW/1nYXbAyiODZlAu1n5LGUv3V5qrp2zrzbKnCLz4Y0b84Y4jne6QIuRLvVA?=
+ =?us-ascii?Q?pshYMGvDaeQKpleRsFiEVRSDKz/YEqfXMU1zcE+QWzi46AxtuTf46UM0px69?=
+ =?us-ascii?Q?2rz+hY3R45N+8NIY5uclcYf2RBU+ZVjHHd5IXKSO4hBaJhXcd0OPUwN+efWY?=
+ =?us-ascii?Q?zeStef1K62DcwXVhzRjxmzJ4cbRzTOlASWsYBaoIPtPcoSz8XFG3+qZaLKgL?=
+ =?us-ascii?Q?YK4f1aeS71JiDwF0vDrM4xqVce75b23ijbasayDlvZ46qMKOyPmuj3UvFthd?=
+ =?us-ascii?Q?icUjmW+v6yiZZnNR7VTyNHIHjoEgPAZ4S7fD73VkXQrZR35LpW5FZIGKLZm/?=
+ =?us-ascii?Q?tos7pF2P47b+OITTTX7UnldUoMiTS/Pwj0D96dJn2jUxw8d523Ms6sgvOq07?=
+ =?us-ascii?Q?FxVjPFpHO+n94y3mon1wDrTTQncCj8ExaC8eQo/WAaGSVXpYfd8DVeBeTtGz?=
+ =?us-ascii?Q?rkh8P4N3Lvq6Uyv0n+vMbOjIu43J/S8OldKB3LH4fnHrFNpWk4LxBT2Dms3B?=
+ =?us-ascii?Q?PbsYxNVGQuVTPQ81pm6qf5pwj0oYEXtbvGpJLD9dmjMnjhCrL7esQmNCdDgW?=
+ =?us-ascii?Q?sB0B41S5GxkMoFJqo3ymnjrno58TJoAhl8r2JniDq/oJyGiaUMHWFCS/jF3n?=
+ =?us-ascii?Q?KDbBGyB5QQnug+1sJJKQjLDDs5ZX+gkIauUWqRmseW7q8y8GsL3hnSHioY2g?=
+ =?us-ascii?Q?5Xe24xYsl2oSDo7WRBuDCKvWj1Hv45MH4R6Ph8hPjJkN8IMaH9R8OCWR7/ts?=
+ =?us-ascii?Q?l+sR6JhW9xF17Rhr3aeWpd3xQER/wzFXtUumG6+R0quvauFKTpxxmDacy328?=
+ =?us-ascii?Q?bvGzgG3ByxISZLxPhCrWsPh390GEyAq6sD8u9jkdc00Lg8+2rlFPHSQrAZgc?=
+ =?us-ascii?Q?ClNr+C5NhHi6VZzhN1d2LG5yM4sdUyeXBE+qG7EWuagFvzprvx7esenbEwGk?=
+ =?us-ascii?Q?pycReadjpTfflHO4FxxHZ4sttOqMbp3wCQdoXEb9mNWo9aNTbQvyn811yD3b?=
+ =?us-ascii?Q?z5HmkT0mMPpwbsAKsZoiX2YXC+HGN+R6yc5clBm2xRz0JRPTTY9whAWMZ/1F?=
+ =?us-ascii?Q?olDgMng7taIx1aOkmk43nAl7o90BeWJeOS7n9G2ItRPfvdZ2seAn4V3kTdMH?=
+ =?us-ascii?Q?F5BFZ4Cw5b+j1ipgDy9v/HsveGMH4zM/wY9VQ4eLAvsfbx8THV/tJXyjPV3r?=
+ =?us-ascii?Q?XQoSNO7jUOL/wU/Awgcrzr0f0bs4SuF/FeeDJO6bta5xw2j9Qp+hJKq8GK88?=
+ =?us-ascii?Q?XlxrfS/Jol11nRApB8tPoyorjR8/I5L0XR+9+6TPuFMTjXwcRfASrfJOH1oh?=
+ =?us-ascii?Q?cpz9qnrCfCQ+OnAaCi8CBv/gwgC0J+QTiMJG3TScRH0vkguFlzJGzDuVUmQ1?=
+ =?us-ascii?Q?j94ZvhBFHgSgrjoXNYBx3Ql/l/gucs+t7j//kRdUVQHb4nDzVCn6JCj0fS4W?=
+ =?us-ascii?Q?A5H7BqMWqjMaPhSqyGY4mhcUZijBHveJQpsXlzAqyQq+8KfVV+I/NbqxRCmd?=
+ =?us-ascii?Q?sTNX37pROiS8UQJL2NlAhkkb7LBxzJLZgYoxLTRljjheisLW3vIxe/7L8jiA?=
+ =?us-ascii?Q?HlUHjp1Gla3m0UcjDR+ZzoyCzdbR3RKwPWBp3uaSfMuyNfw5YcrkZyBY+dag?=
+ =?us-ascii?Q?3DZSUyRVIQERSDaEyozO0A7l9piwBuujVOMTOImLIHu0bThNZLmHJ9d2aZOv?=
+ =?us-ascii?Q?eV1AWjh06g=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6763a21e-4807-4ccd-3e8e-08df40a469c8
+X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB4472.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 10:06:26.7617
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: w+sCYKlCzmGMI+EUey3GzNYYVta/g/NZ/35RmKawPlgSfQJTHPWDKF6mFxKzcqrGeIisMKFJg9KZwzORsI7Ndg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7998
 
-Deregistering a uart driver frees the driver uart state including the
-tty ports themselves.
+This series fixes memory safety issues in the ASRC and EASRC drivers
+that can be triggered by a user with access to their PCM or compress
+devices:
 
-Take a reference to the uart driver module at install() so that the
-uart state and resources like the tty driver name do not go away while a
-tty is still open.
+1. fsl_asrc_m2m: the output FIFO drain can write past the end of the
+   output buffer.
+2. fsl_asrc: a repeated hw_params() leaves a stale asrc->pair[] entry
+   that points to freed memory after close, and hw_free() after a
+   failed hw_params() can release the pair of another stream.
+3. fsl_asrc_dma: DMA channels are leaked on a repeated hw_params(), and
+   released twice after a Back-End configuration error.
+4. fsl_easrc: the same repeated hw_params() issue for EASRC contexts.
+5. fsl_asrc_m2m: more than one task per compress stream leads to double
+   DMA channel release and a stale pair entry.
 
-This specifically avoids use-after-free when accessing the tty port and
-crashes when accessing the tty driver name (e.g. in the tty printk
-macros) when a tty is closed after its driver module has been unloaded.
+Patches 2 and 4 make the pair/context release ownership-checked; patch
+5 relies on them. Please apply in order.
 
-It also makes sure that the uart state is still valid when waking up any
-waiters after releasing the final uart port reference in
-uart_port_deref().
+Validated on i.MX8MP (EASRC) and i.MX8QM (ASRC).
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
+Changes since v1:
+- Patch 1: drop the 8-bit output path, ASRC does not support 8-bit
+  output (Shengjiu Wang).
+- Patches 2-5: add Reviewed-by tags, no code changes.
 
-I hit this when investigating a deregistration race that can lead to a
-deadlock:
+v1: https://lore.kernel.org/linux-sound/20261110120743.6301-1-stefan.ghetu@nxp.com/T/
 
-	https://lore.kernel.org/lkml/avSAyV6QE0Id3rAk@hovoldconsulting.com/
+Stefan Ghetu (5):
+  ASoC: fsl_asrc_m2m: fix out-of-bounds write when draining the output
+    FIFO
+  ASoC: fsl_asrc: fix pair ownership on repeated or failed hw_params
+  ASoC: fsl_asrc_dma: release DMA channels on repeated hw_params
+  ASoC: fsl_easrc: fix context ownership on repeated hw_params
+  ASoC: fsl_asrc_m2m: allow only one task at a time per stream
 
-Johan
+ sound/soc/fsl/fsl_asrc.c     | 22 ++++++++++++++++++++++
+ sound/soc/fsl/fsl_asrc_dma.c | 27 ++++++++++++++++++---------
+ sound/soc/fsl/fsl_asrc_m2m.c | 30 +++++++++++++++++++-----------
+ sound/soc/fsl/fsl_easrc.c    | 10 ++++++++++
+ 4 files changed, 69 insertions(+), 20 deletions(-)
 
 
- drivers/tty/serial/serial_core.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index 2e53d194ecfe..289f767cc068 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -1930,10 +1930,25 @@ static int uart_install(struct tty_driver *driver, struct tty_struct *tty)
- {
- 	struct uart_driver *drv = driver->driver_state;
- 	struct uart_state *state = drv->state + tty->index;
-+	int ret;
-+
-+	if (!try_module_get(drv->owner))
-+		return -ENODEV;
- 
- 	tty->driver_data = state;
- 
--	return tty_standard_install(driver, tty);
-+	ret = tty_standard_install(driver, tty);
-+	if (ret)
-+		module_put(drv->owner);
-+
-+	return ret;
-+}
-+
-+static void uart_cleanup(struct tty_struct *tty)
-+{
-+	struct uart_driver *drv = tty->driver->driver_state;
-+
-+	module_put(drv->owner);
- }
- 
- /*
-@@ -2733,6 +2748,7 @@ static void uart_poll_put_char(struct tty_driver *driver, int line, char ch)
- 
- static const struct tty_operations uart_ops = {
- 	.install	= uart_install,
-+	.cleanup	= uart_cleanup,
- 	.open		= uart_open,
- 	.close		= uart_close,
- 	.write		= uart_write,
+base-commit: b810335a0699d1810683796b0e3ffe8827ddfe6c
 -- 
-2.56.1
+2.34.1
 
