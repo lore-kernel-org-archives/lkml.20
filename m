@@ -1,63 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794516227;
-	b=tMFPZZMTSLEWdoZlPZz2BOMCpnCRFteqHkG+ZNuu5jbW1dO2Eavq/jnF8hOAuHqxwtkp
-	 ihnTqWZeZLZeac9ILmBPJ8A84ZMo7/YUcnYeh+JlAZjGBpZfy4129Zo0pKDdV3ten7pGk
-	 cFpt+YxIrTDjgDlojCoE4K5MrX8qPGm+7TqI/2oLuMGH+RMek93xHuK12t0JEQPYZrS5v
-	 un8v1Ta1WVcODBBbm9jEGUW+dc5rZDPi83AL5gUTLVZ3lRhVWxrlus34mFPYCH7r4zM+M
-	 52dOkQFYbreD+/P65vVDn8PjVFyezKsGsC/XsyQ4cEeBgMJrVWzf+akL92usr8JaO/Q==
+	t=1794516228;
+	b=vXiQbaj8/a+SqD086YC4fohZW2IJ48ZaYf9MGX9QLl0z/Oz2iLfqUPRDBe4PuIFzR2J5
+	 mb5PfbVqAtASTrvkZU3zP63njcZEEwlgcmNmaiGetUkuvqf/b+GbAlM2Q+KpuVXb5WToy
+	 zFrqSy8KQRfq/4Hd0Z/xkhm5rsy6d+mlI5mExynNKB9z2pCbf9cOGxTZNk2kiExqp2zTV
+	 4Q/rJmMsyF4xhi/mCE0cjlTiH/EVVOQQxFQ5kMO6P29tm2G8JpWYcEAFlYJLoxwD+gK93
+	 Qrkmq40AXhecfyXskiNelwvC7o0DRaRGiNVUYK4fwRrKkExhssn5VXz+dwAcMbd31OA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794516227;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794516228;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=LrgZbSU7skm5UOnm/aYfy1htNLm3IHcri83g/C34JqQ=;
-	b=Cjt3NuY/qB67bKee9pqdZDEyqLv589xYF4ceqWbdr5USMcBQpiW1jjVU1j+QTZSdXbcF
-	 focCSBvHQp5KlVGacdXWoK7xSDxjIpIjikHwQD5K+vEKrykhaAIZjOTMxF4INbiIzPeLE
-	 eCJ//aG2z8AmglRnebWsVm5ogQK4Kx0XiK+8SWd0tZlAFE0lmGN2nf3kXNLRSsnOnNU/E
-	 N9+q9TRbLftU5EzdVshOL60VDqnhidTCkMaH8A01/K87I62L16IeFXqIoAYAFGZ5OjcPT
-	 gwW1w3wxnMmvu3uVMlty6CAutVyiP/W1pW+LBrf9t5bBHM9WMMLqglhP8e2r58r69cw==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Q+1796m/f659RHbeT3BlZBv1aJQ1Dt/esPKM3W0KmvQ=;
+	b=hI6KFLafZrmX46md19tzDCtWJcK5FmkKwj1GYzxyvO97DGmBA2/MIJ11ubU7ZQI9quLJ
+	 5F1uT/Vsbzb02VerzkivyT6Ypchk+zaFdqJi8Es5lclEOhf/S11jw3DKN7gYOwnqvVnZV
+	 d7uEiqbNt/lKvqaA2Juw79a870k9o+cebRxO3UryxUVr4Jg2Ubbkn0cAJqviJXfhaCJj+
+	 uxcSNE/cyGmjqxYRmmxCOVxCpcDP7B4/hOpLCNVjDBUa8SlEzKK8gzVUK3uvMM5V8Tgrn
+	 eHT1+CPzG58nL9ENjIxILsyu5A10ybRctgReTg/WIkxD4PX6ypbRhKXgJ1wqtGHLYWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="WHCtVX/U";
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cIsS9lkI;
 	arc=none smtp.remote-ip=192.198.163.9
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0D6606A321;
-	Thu, 12 Nov 2026 20:43:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF0D6606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E0B6606A32A;
+	Thu, 12 Nov 2026 20:43:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E0B6606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WHCtVX/U
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cIsS9lkI
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1794516227; x=1826052227;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=+pw7IPfoLV9aVKF+uyApi5cJBsLD+4XUm4QdKKRtGzY=;
-  b=WHCtVX/UWDJR8ZXzR964Vi4uvEPN441Md4oCPGpZA7jmAalDtC3Xysn6
-   AKqybQf+Y92sJVgKuoFE4rVnkFvlJKu0JapuhWoKN/RTSYeLx4HfgjODB
-   0TowNPBoS9m8vE6TaGFdpTkCGDnCtTmouyxek9dEu5S8aByIb8oBiIXI9
-   l62FGfiLRGMnC8Hq1iuHsARVL8ktZEKatiUWwkWn/KlZC/95jBKh7JFS7
-   M8M+pzvF0ncIBvOsIAgLc5FDmA59D4q1ALMdbUIGUCghuTYZP0EFyaDDX
-   XlteWwYMdAKRnqKu9XyEFgU+DxVFs7m2PEKFPI8ar+1b1LeiPUPPgUweJ
-   A==;
-X-CSE-ConnectionGUID: yepCWdCMSDG2t/het2ruyg==
-X-CSE-MsgGUID: lyz5788QQ32ThQaiYipdzg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3192207"
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=7jKBTIumxZzcDao58h8B8q16Q7JZ8X9u9E0l454HUgI=;
+  b=cIsS9lkI4s1XN5eIKASkUj7G7t5cm7u+ljezVmxLZtufkK89+dcakeku
+   zXfylgdUXHbNb2wUXng5KmqWA4ibbuuaTGa6FVKtePiv9JOb32FydYbvW
+   Z5PKTFXWcctHcfCqRE4jzIkniZXYxMHVewZFypDBuahr+gBSCvQXwayz+
+   KoNUU8EoS/TQe3kgQ2bE9svTmbeBWaFFoDcvt+T08EW6loLKlcjDv8iZ6
+   Zybo5udOgpdguoT251S9fcTQnUpEGW0qN0MTXSZEe2JEKH/nCeo84dcB/
+   dTn1IBNu1tcnjhv20CFyzzOno6Np+fsxjAdjHm9HYlvieYT7wAWSm+6q6
+   Q==;
+X-CSE-ConnectionGUID: baPSLueRQoSgszsFImx38Q==
+X-CSE-MsgGUID: CEM9G0lKRJCfSZHndARIOg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3192213"
 X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="3192207"
+   d="scan'208";a="3192213"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
   by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 12:43:46 -0800
-X-CSE-ConnectionGUID: ICnbhtwdQkS3sbGpmSVesw==
-X-CSE-MsgGUID: /WWtYSrhSe6shRBFh4EgOw==
+X-CSE-ConnectionGUID: 76BTwQRxSB+3qzCBHlO+0w==
+X-CSE-MsgGUID: VhBnh9NcT4alq15rPbYF6g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="9087860"
+   d="scan'208";a="9087864"
 Received: from 9cc2c43eec6b.jf.intel.com ([10.54.77.29])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 12:43:46 -0800
 From: Zide Chen <zide.chen@intel.com>
@@ -76,10 +77,12 @@ Cc: kvm@vger.kernel.org,
 	Shukla Manali <Manali.Shukla@amd.com>,
 	Dapeng Mi <dapeng1.mi@linux.intel.com>,
 	Xudong Hao <xudong.hao@intel.com>
-Subject: [PATCH v4 00/21] KVM: x86/pmu: Add mediated vPMU PerfMon v5 support
-Date: Thu, 12 Nov 2026 13:32:06 -0700
-Message-ID: <20261112203227.289379-1-zide.chen@intel.com>
+Subject: [PATCH v4 01/21] KVM: SVM: Drop counter MSR checks in amd_is_valid_msr()
+Date: Thu, 12 Nov 2026 13:32:07 -0700
+Message-ID: <20261112203227.289379-2-zide.chen@intel.com>
 X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261112203227.289379-1-zide.chen@intel.com>
+References: <20261112203227.289379-1-zide.chen@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,156 +94,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-KVM currently caps the guest Intel architectural PMU version at 2 and
-relies on counter-count fields that cannot describe sparse or
-non-contiguous fixed counters.
+amd_msr_idx_to_pmc() accurately validates individual counter MSRs by
+checking whether the corresponding counter is supported for the vCPU.
+Validating counter MSRs again in amd_is_valid_msr() is redundant.
 
-Rework KVM's vPMU to track counters with bitmasks instead of counts, so
-mediated-PMU guests can use Intel PerfMon v5 and non-contiguous fixed
-counters, and lay the groundwork for non-contiguous GP counters (CPUID
-leaf 0x23). This series also adds support for new features
-introduced in PerfMon v3-v5.
+Furthermore, validating counter MSRs using broad checks like
+"pmu->version > 0" or "PERFCTR_CORE" is inaccurate and misleading. It
+falsely validates unexposed counters, which then fail in
+amd_pmu_{get,set}_msr(), injecting an errant #GP instead of taking
+KVM's fallback (read 0, write ignored) and breaking migration for
+unadvertised counters.
 
-- CPUID.0AH:ECX fixed-counter bitmap (v5): supersedes EDX[4:0] and
-  lets KVM/guests represent non-contiguous fixed counters (e.g. some
-  E-core server parts skip fixed counter 3).
-- Support IA32_PERF_GLOBAL_STATUS_RESET (v4): inherits MSR 0x390 and its
-  emulation from IA32_PERF_GLOBAL_OVF_CTRL; mark CondChgd (bit 63)
-  reserved in IA32_PERF_GLOBAL_STATUS while allowing it to be cleared
-  on STATUS_RESET, and document its mediated-PMU passthrough erratum in
-  errata.rst.
-- Add support for IA32_PERF_GLOBAL_STATUS_SET (v4): lets software set
-  individual bits in the global status MSR.
-- Add support for IA32_PERF_GLOBAL_INUSE (v4): reports which counters
-  and PMI are currently claimed.
-- Implement ANYTHREAD_DEPRECATION capability (v5).
-- Clamp guest PMU version to KVM's host capabilities (pmu->version):
-  ensures KVM's internal state tracks the effective PMU version that
-  KVM can actually emulate, matching how bit_width, mask_length, and
-  nr_{gp,fixed}_counters are clamped.
+Finally, the range check in the default case is dead code because AMD
+CPUs currently support at most 6 Core Perf counters. Even if future AMD
+CPUs support more than 6, counter MSRs would still be sufficiently
+validated by amd_msr_idx_to_pmc().
 
-Intel PerfMon v5 doesn't support non-contiguous GP counters; however,
-this series lays the groundwork for GP counter bitmap support anyway,
-for consistency with the host perf API interface, and prepares for
-PerfMon Masking support.
+Drop the counter cases and dead range check from amd_is_valid_msr(),
+leaving counter validation solely to amd_msr_idx_to_pmc().
 
-Freeze_PerfMon_On_PMI virtualization is not implemented because, as
-commit 3daa96d67274 ("perf/intel: Remove Perfmon-v4 counter_freezing
-support") states, the Freeze-on-PMI mechanism violates the perf counter
-independence.
-
-Streamlined Freeze_LBRs_On_PMI is not implemented because LBR is not
-yet supported on mediated vPMU.
-
-Mutual exclusion between Intel PT and mediated vPMU, to prevent host PT
-PMIs from asserting IA32_PERF_GLOBAL_STATUS.Trace_ToPA_PMI (bit 55)
-while guest PMU context is loaded, as analyzed by Yosry Ahmed, is left
-out of this series and will be addressed in a separate follow-up patch.
-
-Tests are described in v2 cover letter.
-
-Patch series summary:
-patch 1-4: Code cleanups and bug fixes.
-patch 5-10: Implement PMC bitmap support across perf and KVM.
-patch 11-19: Implement PerfMon v4-v5 new features, including PMU
-             version clamping.
-patch 20: Advertise PerfMon version up to v5 on Intel hosts.
-patch 21: Support fixed counters bitmap in pmu_counters_test selftest.
-
-Rebased on kvm-x86/next: commit cbe54fc3462b("Merge branch 'vmx'")
-
+Fixes: 4a2771895ca6 ("KVM: x86/svm/pmu: Add AMD PerfMonV2 support")
+Reported-by: Jim Mattson <jmattson@google.com>
+Signed-off-by: Zide Chen <zide.chen@intel.com>
+---
 v4:
- - New patches:
-   - Patch 1: Drop redundant counter MSR checks in amd_is_valid_msr().
-     (Jim)
-   - Patch 12: Handle CondChgd (bit 63) asymmetry: mark bit 63 reserved
-     in global_status_rsvd to reject writes to GLOBAL_STATUS{,_SET},
-     while allowing writes to STATUS_RESET. (Jim, Yosry)
-   - Patch 15: Clamp pmu->version to kvm_pmu_cap.version. (Sean, Yosry)
- - Collected Reviewed-by tags, but did not carry Reviewed-by on patches
-   5, 9, and 13 due to code changes.
- - All other changes are non-functional, including code improvements,
-   coding style cleanups, and patch rearrangements.
+- New patch. (Jim)
+---
+ arch/x86/kvm/svm/pmu.c | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
 
-v3:
- - https://lore.kernel.org/kvm/20261106013927.166209-1-zide.chen@intel.com/
- - Dropped v2 patch 4 ("Gate BUFFER_OVF reserved bit on guest DS").
-   (Jim)
- - New patch 10 to document the IA32_PERF_GLOBAL_STATUS_RESET
-   passthrough erratum in errata.rst.
- - New patch 15 to mask only OS/USR bits when filtering fixed counters,
-   preventing AnyThread leakage into hardware and preserving
-   METRICS_CLEAR_EN.
- - Split MSR 0x391 and MSR 0x392 emulation into separate patches.
- - Always intercept IA32_PERF_GLOBAL_STATUS_SET and GLOBAL_INUSE to
-   prevent hardware state divergence. (Jim)
- - Reject bit 63 (CondChgd) writes to GLOBAL_STATUS_SET. (Jim)
- - Keep the AnyThread bit guest-visible while removing it from the
-   hardware-visible states. (Jim)
- - Address other minor review comments from LKML, also some fixes
-   suggested by AI tools.
- - Collected Reviewed-by and Acked-by tags.
-
-v2:
- - https://lore.kernel.org/kvm/20260827223755.143247-1-zide.chen@intel.com/
- - Dropped v1 11/15: KVM: x86/pmu: Emulate streamlined
-   Freeze-LBR-on-PMI.
- - New patch 4/15 to gate BUFFER_OVF reserved bit on guest DS feature.
- - Some renames:
-   - all_valid_pmc_mask to pmc_exists;
-   - add _is to kvm_{gp,fixed}_pmc_supported();
-   - split kvm_for_each_set_pmc_idx() to
-     kvm_for_each_{gp,fixed}_counter().
- - Add missing AnyThr handling in IA32_FIXED_CTR_CTRL and advertise
-   anythread_deprecated only if kvm_pmu_cap.version >= 5.
- - Cap vPMU v3/v4 to v2, as AnyThread cannot be safely virtualized.
- - Miscellaneous updates to changelogs and some minor fixes.
-
-v1: https://lore.kernel.org/kvm/amj-5YH-LSwZOLow@google.com/T/#u
-
-Dapeng Mi (6):
-  KVM: x86/pmu: Drop nr_arch_{gp,fixed}_counters from kvm_pmu
-  perf/x86: Plumb counter bitmap from x86_pmu to x86_pmu_cap
-  KVM: x86/pmu: Switch to bitmask-based KVM PMU capabilities
-  perf/x86: Remove num_counters_{gp,fixed} from x86_pmu_capability
-  KVM: x86/pmu: Advertise PerfMon version 5 on Intel hosts
-  KVM: selftests: Support fixed counters bitmap in pmu_counters_test
-
-Zide Chen (15):
-  KVM: SVM: Drop counter MSR checks in amd_is_valid_msr()
-  KVM: x86/pmu: Remove redundant Perf Global Status MSR bit definitions
-  KVM: x86/pmu: Rename all_valid_pmc_idx to pmc_exists
-  KVM: x86/pmu: Rename reserved_bits to eventsel_rsvd in kvm_pmu
-  KVM: x86/pmu: Use pmc_exists in PMC lookup helpers
-  KVM: x86/pmu: Expose kvm_host_pmu to vendor modules
-  KVM: x86/pmu: Document GLOBAL_STATUS_RESET passthrough erratum
-  KVM: x86/pmu: Mark CondChgd reserved in global_status_rsvd
-  KVM: x86/pmu: Emulate IA32_PERF_GLOBAL_STATUS_SET MSR
-  KVM: x86/pmu: Emulate IA32_PERF_GLOBAL_INUSE MSR
-  KVM: x86/pmu: Clamp pmu->version to kvm_pmu_cap.version
-  KVM: x86/pmu: Populate CPUID.0AH:ECX fixed-counter bitmap
-  KVM: x86/pmu: Factor out fixed counter control bit calculation
-  KVM: x86/pmu: Mask only OS/USR bits when filtering fixed counters
-  KVM: x86/pmu: Ignore AnyThread bit if CPUID.0AH:EDX[15] is set
-
- Documentation/virt/kvm/x86/errata.rst         |  10 +-
- arch/x86/events/core.c                        |   8 +-
- arch/x86/include/asm/kvm_host.h               |   9 +-
- arch/x86/include/asm/msr-index.h              |   9 +-
- arch/x86/include/asm/perf_event.h             |  13 +-
- arch/x86/kvm/cpuid.c                          |  24 ++-
- arch/x86/kvm/msrs.c                           |  12 +-
- arch/x86/kvm/pmu.c                            |  85 +++++---
- arch/x86/kvm/pmu.h                            |  54 ++++-
- arch/x86/kvm/svm/pmu.c                        |  43 ++--
- arch/x86/kvm/svm/svm.c                        |  19 +-
- arch/x86/kvm/vmx/nested.c                     |   4 +-
- arch/x86/kvm/vmx/pmu_intel.c                  | 192 +++++++++++++-----
- arch/x86/kvm/vmx/vmx.c                        |  28 ++-
- .../selftests/kvm/include/x86/processor.h     |   6 +-
- .../selftests/kvm/x86/pmu_counters_test.c     |  29 ++-
- 16 files changed, 366 insertions(+), 179 deletions(-)
-
+diff --git a/arch/x86/kvm/svm/pmu.c b/arch/x86/kvm/svm/pmu.c
+index c18286545a7a..bf2f23c30afc 100644
+--- a/arch/x86/kvm/svm/pmu.c
++++ b/arch/x86/kvm/svm/pmu.c
+@@ -106,23 +106,16 @@ static bool amd_is_valid_msr(struct kvm_vcpu *vcpu, u32 msr)
+ 	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
+ 
+ 	switch (msr) {
+-	case MSR_K7_EVNTSEL0 ... MSR_K7_PERFCTR3:
+-		return pmu->version > 0;
+-	case MSR_F15H_PERF_CTL0 ... MSR_F15H_PERF_CTR5:
+-		return guest_cpu_cap_has(vcpu, X86_FEATURE_PERFCTR_CORE);
+ 	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS:
+ 	case MSR_AMD64_PERF_CNTR_GLOBAL_CTL:
+ 	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_CLR:
+ 	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_SET:
+ 		return pmu->version > 1;
+ 	default:
+-		if (msr > MSR_F15H_PERF_CTR5 &&
+-		    msr < MSR_F15H_PERF_CTL0 + 2 * pmu->nr_arch_gp_counters)
+-			return pmu->version > 1;
+ 		break;
+ 	}
+ 
+-	return amd_msr_idx_to_pmc(vcpu, msr);
++	return false;
+ }
+ 
+ static int amd_pmu_get_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
 -- 
 2.56.1
 
