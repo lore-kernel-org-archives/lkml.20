@@ -1,65 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.205.69.213
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794515096;
-	b=EXXKF0vHT80RgALNKVgNoFLUehilJUea8ZB5CbjIx240OpRo77DAVA1sGsdp+5TPYFrg
-	 L2/a4F1KjZeJ+ntuKCub/17fz34nF5S3vpLBM3CI38B+dKJmD49clbherrJh3f3caFnuX
-	 G7jBn74vclNMCIxaJGMsTzX25tjFYDj2Qdc0/LBXD4mNMTIGUbnYZFaP4NGYTmUjLzoej
-	 4eJjmczFihRBgx/e98ptFwnoq2myelDKH+cWWHL01c4bBiOTbCW+AydUQnFnMcSvDqL39
-	 NTkFpNgOzrpSwLgBs6plpTZj+2ivIejTgqGsGdGHRvlbnqyoBpzpPA5QqYcI1HVONWg==
+	t=1794515102;
+	b=kA58Xe8P2/7TdL9NVurMKhXuua2XbHF/nO2c1f0GvG2Grn+plAOF1MDstlgzXL/S3kKO
+	 RWcdlvIY6KoiUx57Rjm83syYvF0spwPUo8PjhFcMcqKgIorO9dDBykjuo9jTH7J+IYraT
+	 /fGu3flU2EcZxVCDv3fO8x7Yu5sQGcnsCez+LID/VojKQG8ENpzSbQS9+p2Uk9/eKC8Ef
+	 xdPHowGWg5PywFP/WWu1dWuW/0jeEDxWjDQUTiDtsra6hg7YIKdcouaDtvGayEfjS8VJf
+	 RUOGUH+r1FSgWO1YYcsurlP3V84BaFoLM85tAqdpyqZwZQibXB26ShKD7tZzrTEkpuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794515096;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Message-ID:
-	 In-Reply-To:References:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Feedback-ID;
-	bh=PtSio2YcRjUGo/PTlEArxH4x2rEk7BbnuEJRInP3kq8=;
-	b=sB07SILc8T4aCEqcVM/VIzY5kFxETYgitRg1dIISnYGrSC5myqWJroUq/QvbKa/yLY8S
-	 +bfBhJClwN8QUAN+468fdI+sFU9q0hOcE6ZhfnZILVv/OmJopP7ETzY6lq7jNQIsZTtrY
-	 Nxu0wcV1mCJvtqa1NZe1S4IMJLV131PKFxsMnWwabYJ89AbmjlwvYYtccu6X/Ta3AkZi3
-	 vauVZT0W2qTFtPAoFJhhT9eNclCT/dUpVmDhnXaJhV6cUeXhTgdJIpwa0S04rPq/Ddsj2
-	 MOtEHCp4PQCjETShv1O/QwbFEFLdIkmkJrCYgy2Vj/pF7+FoW0tDjwftWn11Xrd0J1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794515102;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=WO7meJqCu3VrBPx22ffKtmKq1nIJShD8oGFFbmqmLrM=;
+	b=Hof6kdn/Tm1VfEDzmYxYdR2Bx/s8D/4P9yPnEhfv/IvA4RT7aS58EMcL5EYvnaRhcaZ1
+	 /JTmR/J4L6rMlmHID3HRkIi85akLYsxHolGckkdKDIwy9NRM8o0CQ3m6dT/gYjD+je68K
+	 Ius7rj2RcqAxURgq6EHf8t2efQGbO2Focn4O5WdFSfLokR+lFegAU1wI84+bOcgTr2HUl
+	 aZzhvAaSsO1Tx4B+MtJui/EzmoGK584ch0+FOppyQ1VDtZTwQ1sNJMcrOdfetYSHrjiEb
+	 QtACrV3uedeK0UnzTHecUS3JKcjAVdw/FcRFa/J4ExzkG5stnOuu0tdTOFgwRS/aIlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=tuta.io;
-	spf=pass smtp.mailfrom=tuta.io;
-	dkim=pass header.d=tuta.io header.i=@tuta.io header.a=rsa-sha256 header.s=s1 header.b=t7oWQcTR;
-	arc=none smtp.remote-ip=185.205.69.213
-Received: from mail.w13.tutanota.de (mail.w13.tutanota.de [185.205.69.213])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IgRFtgQr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6ED1606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:24:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6ED1606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuta.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuta.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC728606A335
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:25:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tuta.io header.i=@tuta.io header.a=rsa-sha256 header.s=s1 header.b=t7oWQcTR
-Received: from tutadb.w10.tutanota.de (w10.api.tuta.com [IPv6:fd:ac::d:10])
-	by mail.w13.tutanota.de (Postfix) with ESMTP id 4D0A21A390EA4
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:24:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1794515094;
-	s=s1; d=tuta.io;
-	h=From:From:To:To:Subject:Subject:Content-Description:Content-ID:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Cc:Cc:Date:Date:In-Reply-To:In-Reply-To:MIME-Version:MIME-Version:Message-ID:Message-ID:Reply-To:References:References:Sender;
-	bh=PtSio2YcRjUGo/PTlEArxH4x2rEk7BbnuEJRInP3kq8=;
-	b=t7oWQcTRLFV8EfH0Z9oCKiMWx7TBp3nr3wLRNSNbljvlUHZjaLPmREOyIRGbKrZ0
-	mVeBkE4uxgOVvD2WMaQf7sLbf0XyMhzc0vnfUvK1YmVqLHhDE1pFVB69pOoMze23bbQ
-	/MhnNui/4xCqFeM9YdCzsn2vX5SFL/cB/JpQu8M364hinugmww/43G0N+n8JAhK+roV
-	auXKF+rjcUjVQBtgTBIndD+GW2BQoKx0YJh33iN3/JxhHPe5V3uYzW3DM8cDcL4LvIT
-	j9nk7fwTVQdSssnunLg9m/cuoVTHkRwp8dt6y+NqDDhQmhZr6rx6nCFbfykiQCxF+zx
-	Tn4NnBm0bA==
-Date: Thu, 12 Nov 2026 21:24:54 +0100 (CET)
-From: servpol@tuta.io
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linux Pm <linux-pm@vger.kernel.org>,
-	Devicetree <devicetree@vger.kernel.org>,
-	Linux Kernel <linux-kernel@vger.kernel.org>,
-	=?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Message-ID: <P6GQkBA--F-9@tuta.io>
-In-Reply-To: <avEHPVdx0NlX4dhy@venus>
-References: <20261021-gl-e750-mcu-v2-0-9bd7e7c2e0e1@tuta.io> <20261021-gl-e750-mcu-v2-2-9bd7e7c2e0e1@tuta.io> <avEHPVdx0NlX4dhy@venus>
-Subject: Re: [PATCH v2 2/2] power: supply: Add GL.iNet GL-E750 MCU battery
- driver
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IgRFtgQr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F3231F00925
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:25:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794515102;
+	bh=WO7meJqCu3VrBPx22ffKtmKq1nIJShD8oGFFbmqmLrM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=IgRFtgQrs2ggZrRUAgd25LkVaL607Tg2ecfGjNckmTOTeyCbaKKRNH9rGAnQ3n7GF
+	 cDq9WqBdElPxScdNZ/jqgT2iFYGtlR96iqeFOYPA6dpjgcOMnOwmdWbMsCp3yJl1m2
+	 F1bjpV7XACK2pGiidQycpLTgzU1PmwRi4YzFUfmt4gp34SXcfmiDiwCAijP/z6qSbq
+	 BDR/6Df0KryyReWqDopf2ku9E92+sR+VkJmyMIIByhFTpZy0I36qQGIhndw30vLo1c
+	 8qaDii9soLRHdnJvXceRFsdNjo/5Nl4lWiHfE0nxGt3AwQAfzoiE0u8l67vhUUtJ2H
+	 qyx165clNq+3A==
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5c0a520df2eso290138e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:25:02 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErF/ESibzo/CKAtvct1Gyo/bEci3cm4+kOhJc1VIRk2ncxnr1LVH0zKGpP972Vlhj89AcgoivmJHrjgTTWE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9qPUdGx+5QGUV056ZbfdBjRm7G3T2jdmZlccrQjekT6NrGG0Ps
+	CEiIxMhx8b6Qa4nGxu/ovXzEUw8zkmeKHThIjKqfVZtKwQHdpz9yTdlLyyihnnx8k09+US2obM1
+	Qhh8d45Q9nz8zQbTlsnY7ITArLPgk5HA=
+X-Received: by 2002:a05:6512:3182:b0:5bc:f0d3:cb8f with SMTP id
+ 2adb3069b0e04-5c1709f7693mr184328e87.51.1794515100836; Thu, 12 Nov 2026
+ 12:25:00 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,35 +59,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+References: <d9da17af-f49e-4878-a8dd-59a8919e6930@yahoo.com> <c76ba49c-a962-4838-b8d5-75c5b3bcdc2b@yahoo.com>
+In-Reply-To: <c76ba49c-a962-4838-b8d5-75c5b3bcdc2b@yahoo.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 12 Nov 2026 21:24:48 +0100
+X-Gmail-Original-Message-ID: <CAD++jLnONqTy=DgeUSnZq=Z=dcq=7gvu6bQWEsnJqOXk1FPO1g@mail.gmail.com>
+X-Gm-Features: AclHuK_eDEYBVPO0Vc1ixTirMFpO9gVm4DlW0a1sRNDxgMX4WsFgGC8V3sP-rXM
+Message-ID: <CAD++jLnONqTy=DgeUSnZq=Z=dcq=7gvu6bQWEsnJqOXk1FPO1g@mail.gmail.com>
+Subject: Re: [PATCH net-next v10 06/12] net: dsa: realtek: rtl8365mb: refactor
+ VLAN 4k handling
+To: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Cc: andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org, davem@davemloft.net, 
+	edumazet@google.com, pabeni@redhat.com, linux@armlinux.org.uk, 
+	luizluca@gmail.com, maxime.chevallier@bootlin.com, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, alvin.sipraga@analog.com, gusfmora@gmail.com, 
+	kuncy7@gmail.com, fabianotassotti@gmail.com, gabonpivovich@gmail.com, 
+	contact@c127.dev
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Feedback-ID: 01bb77f0f6a34f22cd96c09b0ff79382356995353b38b124f21de10af076a9961e02969e72277f7fb26516500e6c215bfc:TurnOnPrivacy!:tutamail
 
-On Mon, Nov 09, 2026 at 12:35:58AM +0100, Sebastian Reichel wrote:
-> The Sashiko analysis looks correct:
+On Thu, Nov 12, 2026 at 6:36=E2=80=AFPM Mieczyslaw Nalewaj <namiltd@yahoo.c=
+om> wrote:
+
+> Move the family-specific VLAN 4k table accessors behind struct
+> rtl8365mb_family_info, so that family D can provide its own versions
+> without is_d() checks in the shared code. The existing code becomes the
+> family C implementation and is otherwise unchanged: rename the
+> functions to rtl8365mb_c_vlan_4k_read() and rtl8365mb_c_vlan_4k_write(),
+> export them and call them through the family info.
 >
-> https://sashiko.dev/#/patchset/20261005-gl-e750-mcu-v1-0-499d2e31f786%40t=
-uta.io
+> No functional change.
+>
+> Tested-by: Gustavo Foletto Mora <gusfmora@gmail.com>
+> Tested-by: Stanislaw Pal <kuncy7@gmail.com>
+> Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
 
-Hi Sebastian,
+Looks good to me!
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-thanks for looking at it. That link is the review of v1, and both
-findings there are addressed in this v2 (see "Changes in v2" in the
-cover letter):
-
-- a new message (they all start with '{') now ends the previous one,
-=C2=A0 so an event that follows a status reply without a line ending is no
-=C2=A0 longer appended to it and lost;
-- the poll work no longer clears the receive buffer, neither before the
-=C2=A0 request nor on the reply timeout; it only consumes a pending status
-=C2=A0 reply, so a partially received event stays in the buffer.
-
-Sashiko's review of v2 reports no regressions:
-https://sashiko.dev/#/patchset/20261021-gl-e750-mcu-v2-0-9bd7e7c2e0e1%40tut=
-a.io
-
-If you meant something else in that analysis, please let me know and
-I'll address it in v3.
-
-Thanks,
-Serv
+Yours,
+Linus Walleij
