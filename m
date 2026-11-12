@@ -1,64 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794474231;
-	b=gcWA1rvEkMVVzY7uZYglu3A/NUEzH1Kt7Z4ZuaqFyeVzCXfw7eKTpKNE28GFdNq6dDXL
-	 yLk3vWvxifo2MZROSiB7qtiwi7ySbbOljUAT2muEJhcQlFgRkjiwxUee1xZVeszoAQWLZ
-	 IT62JBhkEIhJbKK8xqdy58JZ7gRJ5U252wdSz66HgVzbJRs22bhLJiGXo+XhpbMBY0en9
-	 raEwh7xQ1DIYoCd2OZRuChX9iscFUeNDD0eBVeW9mESR8EFIy2QdshANBvpWXq6oJ36Oa
-	 XGqeN4S7nqnkhVjoLl0tXgjZcPuKmQcLO3zDq+3gq+9FHDCONqpeesQJkx/kKcx4sTw==
+	t=1794474246;
+	b=2AKVoZtI3PNQq6EyOqjV6p+779Y+bpsNzcL21zIJQfIX6rkKIIvIPY40fFqQ6tc9UPTh
+	 e+iS5znzr8gX1xSzrPLUQKDQvfVYgmLuniZiWjLgtQ6V2cJOqxVLC/vNn61CxQ1JVtjKz
+	 SET51rcutIJXNW3kmrpJrDoJLVV74orH/y8EjI+jzWe7/WGNlUts0TuBqgwYyDfbF71Kl
+	 5hHfPY4gCWc9ghTwtV+uL26h6mhkBMaog0LPNwehPFDV0plOScFsPvS5aL7j+ZQawDMTF
+	 ipYDYwBaFGAo0kKl5J3x+cRUYKn0070VUP4xGY0L1gDkGkM98KLLqXYn6BFh2THHR4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474231;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474246;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=WQnZsJLH2M1dTlVyLgeRf55jDtYtcurGIQfRD7ez1uU=;
-	b=pmfXGAkANUf5+0vVrxQeQPOYwUxrysaC3UUwp1Zy/mBXlxmAGScgPxS1ahBFVmfBpFGM
-	 h1zndH8mx130lxCHVuVay4fNN8dRMA4gDEec70K4DCx6J0MfulcXtBQQ573yyIdGDR9rS
-	 IQCfDS5ZRYtRUNC0IWjmi50RXvBI1+ZJDiATaj2sUohzna9bXGF/SyTRxSPlv/u+5bXYJ
-	 9Fc0NloHzLd4ZA+tTC+cYMhv/nNJE3sYpp6m/au+KfoJtbWYZEPckhUF0p7MOztBwlJeW
-	 xWLqMB231P3Hc/TbUkjfKgjO7oN2tVhVmkDohDZDHSo/lDMqBTbkZ7raIWKjMBEuXwA==
+	bh=5fCCCXEOfM/ae3w8SM+2GzfEV3C2pd0/CFQFdIizuLk=;
+	b=ZTCKrUcTlZjt8SvkG23EYkRwXbspybvACxX86CL4pLAlh5h7GEpo8Uzn1RWIAHXaQ9Gz
+	 wRE8kbnJyhjm/cmcEDP3pxND/vdruArKpP2t/KZ/MnQjcwpbzwuMQAcBn1PBmc1VDDloW
+	 yfQas+L3TGvXC5P6Ash+GlhtlSPv8nFtrN1UCzxqmFb+WUw6rM7TJYHpq5Z/gjpShoiDZ
+	 O2zjItjVnEUcjwwZdQAz84E5sbivAvJXPr93SApLr5AXc0nnuFzKf9PT2xf7f8e19eshP
+	 U8riABajG65SlGQgqH9+xknhZXQ6KGpAjhvclWesAJ6ls5vKmKw4ttAMRLQMe4c0LZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nsIowRd/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JZ0GgMow;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FE31606A32D;
-	Thu, 12 Nov 2026 09:03:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 452F7606A887;
+	Thu, 12 Nov 2026 09:04:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nsIowRd/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 333F81F00A05;
-	Thu, 12 Nov 2026 09:03:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JZ0GgMow
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3A931F00A05;
+	Thu, 12 Nov 2026 09:04:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794474230;
-	bh=WQnZsJLH2M1dTlVyLgeRf55jDtYtcurGIQfRD7ez1uU=;
+	s=k20260515; t=1794474245;
+	bh=5fCCCXEOfM/ae3w8SM+2GzfEV3C2pd0/CFQFdIizuLk=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=nsIowRd/5N1YLDeHmfHPiMGlzrFN2dGE2GgzLzxhtfAivRapUQJ+KGa6R/M4zAF97
-	 8mmGmoPhVs0e+XTfOFfgyOvwi6ii1WS+hIq9K9BdbaVTta1pDBhc4IFDzkAnPBG74A
-	 yqSeTerwr0Mbji8FX0ZjfbGOWystLGKVp77SHvzHIlIkkIEE4F5aL91TjQq3Tegsuc
-	 2wp+HnxFhV/Z/+hBk/zm/pznIVxrWAuvTFgCZsCJ/XFp3ZDkdSynv5mv5Lo8Y6BP59
-	 wyDgKwxombqRHlS8k+BM/m1HDL1YWC0TSxynkv1ue+kvrVbnybhT5rur9/zvgHvAI1
-	 kfuEQmox4QlwA==
+	b=JZ0GgMowVVv7gOw9QlHwThCBEBbt3JKeRmM2MgNzEBiiSTB5cL7g2TYhJm+ks+UGu
+	 b/juZDJBmThfJUGHjty10H9GkhqRnDeFx8MARIlIYbZG7YpEqUvbKN4ZMmm9KHl4ye
+	 s0ZwehVI3m7Gdp3+C6qOrTrNO7ileHDk91EQt7bH8UGEt/5291lWMnBMSmTUK84eyK
+	 aBJ6m5ZE3jcNRXZsvijkZaN8Xqn3zO4oLHf9uXm3tMWEBcJ7qya8wtJXlKP5Ht7IR8
+	 BU7rqOFrhbiY7BMVzb2X1GEwNL+1J4UHIEoViThRgPu31DTuf9+7TbmwYuwSoxmhcc
+	 K/q60NXSCUKZw==
 From: Vinod Koul <vkoul@kernel.org>
-To: Michael Burch <me@michaelburch.net>
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
  Manivannan Sadhasivam <mani@kernel.org>, 
- Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
- Qiang Yu <qiang.yu@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Abel Vesa <abel.vesa@oss.qualcomm.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Hans de Goede <johannes.goede@oss.qualcomm.com>, 
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
- regressions@lists.linux.dev
-In-Reply-To: <20261013-qmp-pcie-skip-reset-revert-v1@michaelburch.net>
-References: <20261013-qmp-pcie-skip-reset-revert-v1@michaelburch.net>
-Subject: Re: [PATCH] Revert "phy: qcom: qmp-pcie: Skip PHY reset if already
- up"
-Message-Id: <179447422684.428158.9271110060803827650.b4-ty@kernel.org>
-Date: Thu, 12 Nov 2026 14:33:46 +0530
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org, 
+ linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260830131442.3025-1-pengpeng@iscas.ac.cn>
+References: <20260830131442.3025-1-pengpeng@iscas.ac.cn>
+Subject: Re: (subset) [PATCH] phy: qcom: m31: propagate reset errors
+Message-Id: <179447424330.428303.14422230960411700772.b4-ty@kernel.org>
+Date: Thu, 12 Nov 2026 14:34:03 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,22 +65,21 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
 
-On Tue, 13 Oct 2026 09:22:49 -0500, Michael Burch wrote:
-> This reverts commit 910b828b22b7b91054b3bd4be676a017444b0e00.
+On Sun, 30 Aug 2026 21:14:42 +0800, Pengpeng Hou wrote:
+> m31usb_phy_init() enables the regulator and clock, then performs an
+> unchecked
+> reset pulse before reporting that the PHY powered on.
 > 
-> That commit skips the no-csr reset assert/deassert (and the 200-300us
-> settle) whenever the bootloader already brought the PCIe QMP PHY up:
-> 
->   skip_reset = qmp->skip_init &&
->                !qphy_checkbits(pcs, cfg->regs[QPHY_PCS_STATUS],
->                                cfg->phy_status);
+> Return reset-controller errors and release the clock and regulator that
+> were
+> enabled for the failed power-on attempt.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] Revert "phy: qcom: qmp-pcie: Skip PHY reset if already up"
-      commit: 9a07dfa7f6fe34e230de183c02a8180529091649
+[1/1] phy: qcom: m31: propagate reset errors
+      commit: ad2bf54fe7267f9e7cba90afdc8d91dfd17957f3
 
 Best regards,
 -- 
