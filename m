@@ -1,61 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794526870;
-	b=vBamdlF8Xh0bncrPLdYPiSnB7+BkMK+sFqMiJb2SwOmq4fvCWKEIbNBZH8gZuUFEALQ6
-	 mRz3Kqw+ld7778DZMjJMZwTBrAoILlDw4jt9w3IfXhHCt/JMQUw5sPyOYOJUzV6xqcwfa
-	 TRVDfssCznvV5cz2ZCPXq+caLtdkWfngNdRLwTHx5y5CGxCn4lMgQFvrsGOY5a/QSBAmf
-	 kkl2C2qeQVeg+I5wm2yM4xO9gAG7HqTY/3v0wCbg/oV7DtWa2hcAKQg1tdnBjAa4gRzQG
-	 MRHOn2NrifvhvMRweZteuJKAojFc0Kz8U3cFBnSTc59gEe5vWjnucYHtgPTYXCCoRKg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794526870;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=L5KWhhbeBXZKmzDTgoYpamBPxic157lvyeKhXzre0Ig=;
-	b=sI55IzJpaIAxX8Uxp5ccO95IwHh7MGqIJ68z4q6PXjILje4iWJu2aYrJTwLpQj/jtWvA
-	 76AfQgsgpd25FKF/mGuahv2z/P9Kwj8JfmFcLsIR8CneCXFls/MHe+LaxfAwswFYMFYbQ
-	 7F52pVE7v+B+2DuR1H0oaQyA4cnUXHDjD5zc0qEchf+eAh7caCw4BIbxTgXZ8xFq5GG+t
-	 TWLboF/nhox0Dfy9sNNpxjqXFHPoC6jp2mRKLaQIBubw8dfnXQOYnuhOBkiTQ2kHrUnxL
-	 xbFRS0Qt1SszSqmrKbUWLxNis48sVJxL30WIv9Cd1SSPOUyXu6kIkbzM+fkkY1Wxeyw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W29hfTdP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.39
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794526940;
+	b=GGtQ0f2IWzzIa8Ff9z4wdOE38Uy8qNBZO2d0SPVXr0W2T9D2ltyHBoPLUa6AlbUYa+Hr
+	 uj8xo1n8SOt5oB3Z91DNlDquJukvMKrNJ2mCrBfkvl6eO1CqoWyqkxuXl099KM5iVdiY7
+	 UIdglE3UnCgWC+HfISXEvoIAhwO2tax6UgWGbuiQIdgMA6hFXxJ2LoKwVWSE6N6old4K/
+	 oPfn7BqWfvcEU+oOx5xg3o0toRvhkXUPm3JaYPZQcskdUXFNxLHnepdVc06BScvOnh70a
+	 ue7DdgAK5Iz35/5iSE2anviFpnuSOfak0NrKhvumUq2tS9HU/nhdq6IO/TgYBEje33g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794526940;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
+	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=6zPkleiqsljKb3sKClsAxvVbU6og2wa2OyvI62mMUIE=;
+	b=Od1qV00akYPL4zWt6Xyj/RL+0jijLcyo8bPyv005QiaADHNdVBeDO3JRgwp1KQJ+FPe/
+	 wT2a6XbCnKn1pvOZ26i3J2nYIx1+quIuMMYbIqJ6XT/QyuCBU3rdAm2tMr2Gz2ilXMYtf
+	 gtznPLCh2mQlGs9U6mND0IgN88xzYAm9T27b/TWPnaBcH8ZQe/FU9UR8kOYmSsKcuSXuW
+	 30xNWbjjXf51klOeRGlqtBd8D/X4tc4/P2CS5KvwrjGGyeduDNTFP095Cth+DzH4fYrPV
+	 spE0LDuJ+dyAbH2A4FpyAnBgQWj2/7ogwshDBoa45JAL91ocYOxVH/q36xgq9V18dMA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=lBkjfJYX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.39
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012039.outbound.protection.outlook.com [52.101.53.39])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF130606A31C;
-	Thu, 12 Nov 2026 23:41:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1BEE606A31C;
+	Thu, 12 Nov 2026 23:42:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1BEE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W29hfTdP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A63AD1F000C4;
-	Thu, 12 Nov 2026 23:41:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794526870;
-	bh=L5KWhhbeBXZKmzDTgoYpamBPxic157lvyeKhXzre0Ig=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=W29hfTdPUcxSvyo08U23g3NvUtFivFYvlzc0Py6OZucOa83R/tuav9t+TdGtAAARk
-	 reXr2Q5kcw7LL1IwvHQm4MT5fLAiZqo0NYdxubIEjdTcs/8FslIPdvk2uoVTNhBgDh
-	 7I7BMv8eMfN8IoBAqi+0HuotB/sEd3AUA7L9ffjVIyCGJsMDVFb511iNraW//HTrSm
-	 cJ/6lgvQBMSJusEmPBA2EYy/q2Uc+k+GzjnGeg5uGdrTJzaTVelWk0Q7uedEwyZA4t
-	 6NMyuDs14WDrvP+tYZpYOZOXUZCYAiZny7uesuyeHPMNVShQphNDqKxBZqw9GibMaI
-	 pc994UM+wz30w==
-Date: Thu, 12 Nov 2026 17:41:06 -0600
-From: Bjorn Andersson <andersson@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Wesley Cheng <quic_wcheng@quicinc.com>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: phy: qcom: Relax required supplies
-Message-ID: <avYyrAKAQs6pHNbh@baldur>
-References: <20261021022446.3619435-1-robh@kernel.org>
- <avWbmsjkYo2LMJKs@parshuram>
- <20261112125346.GA3821108-robh@kernel.org>
- <avX9Qrcapcnutdgh@baldur>
- <CAL_JsqLGqYAd-BedjNCCmxByJQ_z2Cij9J_z-ifiX9iJs_gqSg@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=lBkjfJYX
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=A2tOnhL0J5wL2gGwGizEXvNcfdCGxjnVzp46/qhONztRgpWj92G/DqIeA/6DrEUo7cpys13YZDBLpO1l1kpoVwyfINHZpSXSDGyQb/SgO96GOx2EGKmZRdw8+ux4ePPWLYgf5I2me0g0VggNRek4Um6qmbtOHW0k3dK89vwtRKhwjOteuy+mhX6Q+pnK0strDJ/mi5/UdyVtM40ELxRDnLc4GR6nkHLZ0pTRJbPaNqSQdJ3nIiWsR/qgEYjjAWr2dMdzkT9ZnKdFF+7+0aE+7Nt619FHXQuV4BO/xdcAYOot0BpMSOgoqTWeapknFIgTecAl3rKVoMASc/2YPoiLRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6zPkleiqsljKb3sKClsAxvVbU6og2wa2OyvI62mMUIE=;
+ b=J/3gHgK7D6NrODYolxf2HPJGOTRRcOJYuDDH8CCGtIdJezWu9Nq5TUtNHSofPSu2LQwwmJJeGYx0l6kTwix81JIYVAUdW2nvBkfJ+izrmFIuW1Q15N5N08lSTyTpSAglvu89YxqUXKJpzFivd6NeDDhU8Vfqeicq4vQJWpVPJ5rcPJuETfjDofBYs4ZzKr84O6ftU8RNYSiOVmIv34otCPx/rxYZ3VhT5BwPnXZzb56g1E2yzmZBa3wp268swpW1HGx8n72XYKQEySssE5CMkuNe/Lai4yizGDxVbJ2UQf9xY6IBGrOOn2Rv7j+DcomeV5b0B+ulCCh1geYbel3/Lg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6zPkleiqsljKb3sKClsAxvVbU6og2wa2OyvI62mMUIE=;
+ b=lBkjfJYXg3Z/BFWAXzJnkRxz8EPOv3MpFMjqjEAsI4jQDznrR6KnIsAetwRUIoH43fnFivXRA0q5Pl5FiuHbxOLTRobbL74OrWpcBJhomDbF2N+igiEN7SrQEx57tnMfxyk0uxRxfd/Aeg54mTXDZL/g+7GVQ1+Q8/2KHC5jots=
+Received: from PH8P221CA0025.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:2d8::21)
+ by SA3PR12MB9132.namprd12.prod.outlook.com (2603:10b6:806:394::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
+ 2026 23:40:32 +0000
+Received: from DSM2EPF0000000C.namprd02.prod.outlook.com
+ (2603:10b6:510:2d8:cafe::ad) by PH8P221CA0025.outlook.office365.com
+ (2603:10b6:510:2d8::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
+ Nov 2026 23:40:30 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DSM2EPF0000000C.mail.protection.outlook.com (10.167.23.6) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 23:39:55 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
+ 2026 15:54:59 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH v7 0/3] Fix VFCT matching after PCI bus renumbering
+Date: Thu, 12 Nov 2026 15:54:52 -0600
+Message-ID: <20261112-vfct-regression-v7-0-69b1e0cf45c2@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,180 +100,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAL_JsqLGqYAd-BedjNCCmxByJQ_z2Cij9J_z-ifiX9iJs_gqSg@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKw19moC/3XOTU7DMBAF4KtUXmPkGf/FrLgHYuHY49ZIbZAdI
+ lDVu2OXBYkCyye9781cWaWSqbKnw5UVWnLN06UF+3Bg4eQvR+I5tsxQoAEBji8pzLzQsVDtXY6
+ gMAWNg0bPmnovlPLnffHl9SfXj/GNwtxneuOU6zyVr/vJBXrv//UFuODaGxljlHaI8dmf42OYz
+ qxvL7jSKPYam44onYoASgu/1XKtzV7LphM5PRiKxtlhq9Va271WTQuy4ARJFzBstf7VAH98rvt
+ t5ZInN8CY5FabtYa9Nk1LJ62z4zgaWunb7fYNCMBl+fQBAAA=
+X-Change-ID: 20261019-vfct-regression-2142fc52852a
+To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
+	<alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
+	<christian.koenig@amd.com>
+CC: Oz Tiram <oz@shift-computing.de>, <linux-pci@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>, Mario Limonciello
+	<mario.limonciello@amd.com>, Reza Nikzad Chaleshori <rezanikzadch@gmail.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DSM2EPF0000000C:EE_|SA3PR12MB9132:EE_
+X-MS-Office365-Filtering-Correlation-Id: 69d1c63b-c4ea-41d0-f4d5-08df41164165
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|6133799003|18002099003|261026140227099003|11063799006|56012099006|261022105027099003|10067099003|261021121427099003|261102123227099003|261009223027099003|261028144727099003|261022075727099003|261021123027099003|261026121527099003|261022115727099003;
+X-Microsoft-Antispam-Message-Info:
+	fQTZe5j/awDfbk5PGZ/GwUJJrXWXKjpaUK6+im+4nrfjn4C8l1Lgz3MOClmyPRvMXJ3wdKi9XKjgpCs9oQc7SIKqwVr5JE685FEnwFr0dqkFsw/GAjwej8klJ+dWKquHufLzQ4lfICozX+R2ZWhc42v6m9Tp7Eem+27sZR+60l+/ErFtRN8JOX2fOUFJWBAab4xTmvKpgqtIW9dCDVWoGDPdto4t6iQjodbUTVxhNOT/9BJordm4tql1dJMDlmV+BBL0HcXC2lRfy64imjl0vtEbkij5IaGDTrlL3ySK6Kg17hHN1Nn4e+1YGf4v14t0KKfXLT/ZG7hFU0V7/OWSRchH2m2jtAPtQPolsxR1ehPHT1f8UfRdsUUH+Y4Ybrq8Kqk6v4kfsROnbXjuSWJy5cQHDYDaRgPd6DKp32AwHQQzcOUhGE/loT9c5P+KfycmLh5pYKKZ0tAfZ05O0zzJSJxqgiFF05NnkE2Iytd+eL9AWlEIgmrtj1KkyL/j3lOSnrmpXkzd+E2FRekrH8ZZ9GxUzQruP3JbzevSxOMFfuPWZ8KPL22+A8YG8YvwvredRDMWrLrHwCaVcLnLZYaBchsKRK+AwlRx5twzJg5n9aTGzC3ZDl23oyivfxGcmuPNJDnuzdT1+SqcKmyc+XGMiDIKud1fISd+eKDr5Q2RxUM=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(6133799003)(18002099003)(261026140227099003)(11063799006)(56012099006)(261022105027099003)(10067099003)(261021121427099003)(261102123227099003)(261009223027099003)(261028144727099003)(261022075727099003)(261021123027099003)(261026121527099003)(261022115727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	GA1p11qcOizRmaoNvd8MFxZNaoY5EJnKYr6a8MfzN3+S6uqetKzvRClyRFVfFvRIBORitzu9uTwc5oTyDYULpx74wkfCWbs/tKyhsElwNYC/ab9wNVOOSx97st6rxFrkdQu62I9J4Lwe2Ka32NuBqgWEPvFlsAPiVrnTiM8OGn8aCw2Z3cqDtuNEHYVL1KUiJJ65U1uU17EvhxuponJ+S0xjziYanS45aO0a+8bp25a/sJNeJJxiQooQ037q3+CMZCMimiE/FJJd8nDLx1mnrn9Jd7MlISFhn9ECHAUqSZvCMgQlH7Dy8Bs+18VWnWuIjzKGtIb/jDFnJwsMLLPz/wju+crD4LyGQ/u+27qNM2gkQeoxl7AnQIlAcNTvglKuYlrApU8xK/+coBKSgtZRRhBfh5hJSSwoKat79ucdGRZpgHeCOhgIT4Tw3JZXd9Po
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 23:39:55.1744
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69d1c63b-c4ea-41d0-f4d5-08df41164165
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DSM2EPF0000000C.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9132
 
-On Thu, Nov 12, 2026 at 01:22:16PM -0600, Rob Herring wrote:
-> On Thu, Nov 12, 2026 at 12:30 PM Bjorn Andersson <andersson@kernel.org> wrote:
-> >
-> > On Thu, Nov 12, 2026 at 06:53:46AM -0600, Rob Herring wrote:
-> > > +Konrad
-> > >
-> > > On Thu, Nov 12, 2026 at 04:27:30PM +0530, Vinod Koul wrote:
-> > > > On 20-10-26, 21:24, Rob Herring (Arm) wrote:
-> > > > > For the QUSB2 PHY binding, keep the three regulator supplies required
-> > > > > except for legacy IPQ6018 nodes that do not describe the board rails.
-> > > > >
-> > > > > This relaxes the requirements for the IPQ5210 as well as if it is
-> > > > > compatible with IPQ6018, then it shouldn't have more required
-> > > > > properties either.
-> > > >
-> > > > Hey Rob,
-> > > >
-> > > > This fails for phy/next I see vdd-supply has been moved around..
-> > >
-> > > The change in question[1] should not be applied until the .dts changes
-> > > in the series are applied. It introduces a bunch of warnings.
-> >
-> > I don't understand. The change you present here relates to ipq5210 and
-> > ipq6018.
-> >
-> > That change doesn't touch these two IPQs, so what are you suggesting?
-> > Are we talking about the same warnings?
-> 
-> This is what I get with phy-next because it has the binding change
-> from [1], but not the .dts changes in the series:
-> 
-> arch/arm64/boot/dts/qcom/apq8096-db820c.dtb: phy@7411000
-> (qcom,msm8996-qusb2-phy): "power-domains" is a required property
->         from schema $id:
-> http://devicetree.org/schemas/phy/qcom,qusb2-phy.yaml
-> arch/arm64/boot/dts/qcom/apq8096-db820c.dtb: phy@7411000
-> (qcom,msm8996-qusb2-phy): "required-opps" is a required property
->         from schema $id:
-> http://devicetree.org/schemas/phy/qcom,qusb2-phy.yaml
-> 
-> (and then duplicated for every 8996 board).
-> 
+amdgpu and radeon pick the VFCT image for a GPU by comparing the PCI bus
+number recorded by the BIOS at POST with the device's bus number. When
+the kernel renumbers buses (e.g. pci=realloc), the runtime number no
+longer matches the one in VFCT.
 
-Good, then we're aligned. These 18 warnings are resolved in my tree, so
-they should drop again in the next linux-next.
+commit 11c141672045f ("drm/amdgpu: Fix VFCT bus number matching with soft
+filter") and its radeon counterpart worked around this by accepting an
+entry whenever everything but the bus number matched. That picks the
+wrong image when a system has two identical GPUs.
 
-> > > Can the QCom folks stop doing that! Coordinate applying the series or
-> > > take the binding and dts changes in 1 tree.
-> >
-> > I assume you're referring to "QCom folks" in the sense "any maintainer
-> > touching a binding change related to a qcom platform"?
-> 
-> No, primarily you and the submitter I guess. Submitters should be
-> aware of dependencies in their series and suggest how things are
-> merged. Otherwise, it falls on you to care that warnings are getting
-> introduced.
-> 
+Instead, have the PCI core remember the secondary bus number the
+firmware assigned to each bridge, and make amdgpu and radeon match the
+VFCT bus number against it again, using the bridge above the GPU. The
+value is captured once, when the bridge windows are first read, so
+renumbering and later rescans don't overwrite it.
 
-I currently do catch these things while applying dts changes, and I've
-recently cooked a dashboard to track the overall state of mainline and
-linux-next, but I don't have any solution to catch things prior to merge
-- or a good solution for catching regressions coming from binding
-changes prior to them being merged.
+Patch 1 adds the cached firmware secondary bus number to struct pci_dev.
+Patches 2 and 3 convert amdgpu and radeon to use it and drop the soft
+filter.
 
-> I would not care so much when there are transient warnings in next,
-> but I don't want to be the one chasing them down. But AFAICT, it's
-> always me. No one beats me to it and I'm not all that fast in
-> noticing. I just compare all the warnings by platform for Linus vs.
-> next with "gl-diff-dtb-warning -p arm64" from this repo[2], and look
-> for things moving in the right direction.
+Link: https://lore.kernel.org/linux-pci/20261015124843.203905-1-mario.limonciello@amd.com/
+Link: https://lore.kernel.org/amd-gfx/20261019194106.2796150-1-alexander.deucher@amd.com/
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+Changes in v7:
+- Reword the cover letter and the PCI patch to describe the current design:
+  the firmware secondary bus number is cached on the bridge pci_dev when its
+  bridge windows are first read, and amdgpu/radeon match VFCT against it.
+- No code changes.
+- Link to v6: https://patch.msgid.link/20261111-vfct-regression-v6-0-393797bbb6e3@amd.com
 
-I'll try to wire something up to catch these faster. At least until this
-regression things has been fairly stable for a while now...
+Changes in v6:
+- Capture the firmware secondary bus number when reading bridge windows and
+  ignore unconfigured values so rescans cannot replace it with runtime data
+  (Sashiko).
+- No change needed in the VFCT consumers; they continue to read the cached
+  value from the upstream bridge.
+- Link to v5: https://patch.msgid.link/20261110-vfct-regression-v5-0-f49fae981bf3@amd.com
 
-> Of course this is all after applying which isn't ideal.
-> 
+Changes in v5:
+- Record the firmware secondary bus number only on the bridge struct pci_dev,
+  guard it with a validity bit, and keep it across rescans (Bjorn, Lijo).
+- Drop pci_bus::number_initial and have amdgpu/radeon read the saved bridge
+  number when matching VFCT entries.
 
-Thanks to the --cache-dir and --json support it's a bit more convenient
-to catch things during the merge, but the CPU-power needed for a
-system-wide sanity check remains a concern.
+Changes in v4:
+- Retain secondary bus bus number for a bridge across rescans, and the child bus is initialized
+  from it during allocation, before registration callbacks run. (Sashiko)
+- Rename variable to clarify it's for bridges (Lijo)
+- Link to v3: https://patch.msgid.link/20261026-vfct-regression-v3-0-fe9586ed6978@amd.com
 
-I would prefer to catch more issues prior to touching the patches, but
-so far my efforts there has run into issues as contributors keep sending
-things with loose dependencies.
+Changes in v3:
+- Preserve the firmware bus number across bridge renumbering, capturing the
+  secondary bus number before pci_scan_bridge_extend() clears it.
+- Adjust member name in all patches
+- Add tags
+- Link to v2: https://patch.msgid.link/20261020-vfct-regression-v2-0-d2394d11450a@amd.com
 
-> > Do you have some CI/guidance/tooling for Vinod (and other subsystem
-> > maintainers) to perform system-wide DT-validation when considering
-> > merging a binding change?
-> 
-> This one is an ABI break because it adds new required properties. I do
-> have some tooling that looks for ABI changes, but haven't committed it
-> because I haven't figured out the best way to deploy it. I think for
-> anything that is an ABI change, the binding and dts files need to go
-> in together.
-> 
+Changes in v2:
+- pci_alloc_dev(NULL) remains safe.
+- For buses behind a reassigned bridge, the PCI core now saves the firmware secondary bus
+  number before clearing the bridge configuration and carries it into the newly allocated bus.
+  Devices discovered there inherit that original number.
+- Add changes for radeon too.
+- Link to v1: https://patch.msgid.link/20261019-vfct-regression-v1-0-5a63ddd378dd@amd.com
 
-After a second look, that would have made more sense, since the driver
-changes wasn't related to the binding change after all...
+---
+Mario Limonciello (3):
+      PCI: Cache bridge firmware secondary bus number
+      drm/amdgpu: Match VFCT using initial PCI bus number
+      drm/radeon: Match VFCT using initial PCI bus number
 
-> I think it is time to reconsider the default of bindings go in with
-> the driver. That works okay for new bindings as long as the platform
-> maintainer doesn't take .dts changes before bindings land (also an
-> issue). However, for cases like this, we need the opposite order. We
-> need to figure something out because this is only going to be more of
-> an issue as we get to warning free (and we are close).
-> 
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 ++++++++++-------------
+ drivers/gpu/drm/radeon/radeon_bios.c     | 25 +++++++++++--------------
+ drivers/pci/probe.c                      | 16 ++++++++++++++--
+ include/linux/pci.h                      |  4 ++++
+ 4 files changed, 39 insertions(+), 29 deletions(-)
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261019-vfct-regression-2142fc52852a
 
-There's also the ever growing number of small incremental changes to
-bindings, where subsystem maintainers leave the binding changes to me.
+Best regards,
+--  
+Mario Limonciello <mario.limonciello@amd.com>
 
-But then there's also the many changes where the driver patches depend
-on the binding changes. Not sure how to structure this and keep the
-velocity up.
-
-> > I unfortunately only spotted the one-way dependency when glancing at the
-> > seris and thereby ignored the dts patches waiting for the binding to be
-> > merged.
-> >
-> > > Given the patch series is 2+ months old, I'd be surprised if the rest
-> > > gets applied.
-> >
-> > I've applied the two dts changes today, and they do resolve a number of
-> > warnings - presumably the ones that you're talking about, but I don't
-> > think the ones that this patch aim to fix?
-> 
-> Other than the warnings it introduces, the [1] series fixes this one warning;
-> 
->       3 phy@7411000 (qcom,msm8996-qusb2-phy): "vdd-supply" is a
-> required property
-> 
-> 
-> > > This patch OTOH fixes warnings.
-> > >
-> >
-> > What warnings? Can you please provide actionable context when you're
-> > pointing out these issues.
-> >
-> > Is it the three "'x-supply' is a required property" warnings from
-> > ipq6018-cp01-c1.dtb? It seems unlikely that there's one chip that
-> > doesn't depend on those supplies.
-> 
-> Of your 20 unique warnings, it's these 10:
-> 
->       1 qusb@59000 (qcom,ipq6018-qusb2-phy): "vdd-supply" is a required property
->       1 qusb@59000 (qcom,ipq6018-qusb2-phy): "vdda-pll-supply" is a
-> required property
->       1 qusb@59000 (qcom,ipq6018-qusb2-phy): "vdda-phy-dpdm-supply" is
-> a required property
->       1 phy@79000 (qcom,ipq8074-qusb2-phy): "vdd-supply" is a required property
->       1 phy@79000 (qcom,ipq8074-qusb2-phy): "vdda-pll-supply" is a
-> required property
->       1 phy@79000 (qcom,ipq8074-qusb2-phy): "vdda-phy-dpdm-supply" is
-> a required property
->       1 phy@59000 (qcom,ipq8074-qusb2-phy): "vdd-supply" is a required property
->       1 phy@59000 (qcom,ipq8074-qusb2-phy): "vdda-pll-supply" is a
-> required property
->       1 phy@59000 (qcom,ipq8074-qusb2-phy): "vdda-phy-dpdm-supply" is
-> a required property
-> 
-
-I'd prefer to actually populate those, I'll take another pass to see if
-I can find documentation/schematics to resolve them.
-
-Regards,
-Bjorn
-
-> Rob
-> 
-> > > [1] https://lore.kernel.org/all/qusb2phy-v2-1-4c3f980a4560@oss.qualcomm.com
-> 
-> [2] https://gitlab.com/robherring/ci-jobs
-> 
