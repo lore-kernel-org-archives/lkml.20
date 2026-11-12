@@ -1,78 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794511071;
-	b=AHFqp9oUu8tlg0/qUVhtuf2hwvGqDRv14Tm1Q6SrK8JNyNA588mqcCLwPZdP3S/H5j7X
-	 77aZXCrV1v0KdicRqoxHxjL7nUIitCBZEbylVtRVJBAB9Nn6Gu7pb7ndllouaifeAFwRt
-	 pf0djiUYswsPcJCSOePlx4OKT7Ded24FZIkk6LB7LBCrQRMx7SOwIEz1A6WkZsLnSuc1x
-	 0/cky9+KOJ/SakToQuMQahQwz875oqVtfjigdzsLaVsKB2LR/AuGhK4KTxQaKN74Zid1w
-	 tQKfcNTnz1fHmxmVWLzzrcjeQJkhKR6soQacyAqAw6W4hU1srq2jANp7K0IdIB6c7Ug==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794511071;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=NM8hEvDsyj53GoOS63YWbmZbMNCb5e1wMTKVRZfgFns=;
-	b=IUkrtYqN6VTN2nxQx25qoOb6gJcrIBoPfYYEAqfmSUFNwGD7liw3u2gAbkKg27aHNw7+
-	 WbNaXWrmVQ/sAEtybfKuT7kge4ARV8adHQVdlJX1qa/TxPMAZEUxu86tmTdG1ovZjvFAV
-	 2ujoT76tbyCPIlhi/5zg7UVVQROhpFboIb1qVyBA3H6RAg8YcOn6DPO1BTqoS/qmwKA0O
-	 zVTUtrbDGn0r08o4S/xBV0kmQ7MhQzbrRVd5SfsCHIk8eRhPXjT971EkDx0pb3Q9iM8Cx
-	 Og3fe6G+jVFg+ugaqbbCbUHh85kdwxNmpw/71mxi/l81JTQDZOHeJDCPvnNPkSlbv+Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A1Pl8a2d;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=38.105.200.78
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794511117;
+	b=Pm1JH5Ratc/kFNMpw1a36AW8ZYwMX5vK4MEedXavUfXy4gC8PiLT2tRtCXcmpEi2OhGr
+	 7pB4xP/o8GHAmWpYki9E4fOsidXJPXLpH9KW6XyyZ4Opt9jyzXipfgnF/fosrbzYzZkjU
+	 eWZsEAZTDDHM6teFuUQ/WJtdtrom0OttXz/vA1lXExTxdI+7+W8Vl1vIcq5osIF/C4OSL
+	 pXo2Zg8oWlHOFCGwYnRnRGQC/1GfvTRtpsgfD7TTPIij4JtxkeRzhxMTpMblTzvpOvhya
+	 rKLqwbk2UPM+02JLvqBHm2D8U3l7W+BIhyAW3rPUwH+hNnBK9zticNoELD4qOLkTLLg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794511117;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:MIME-Version:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=EFDkvvuk/5rONyB6sG3nkd+MKe2Z3SzEfM0I/qm/DYo=;
+	b=nR76dgcNb4eCQ/yVOzyRLwzTzRiVDSFnXVzqiLltoR3+Bsyg9WRRcLgCfNZtAVW7HFR7
+	 BOjqld4imJmxeZ/P8W/9WUO9++rsuD4yH6JEuLlUvPojByGa+fWbRDbCI/TQNU/1nPSTq
+	 RzZEFNKJTYaliMha+kt1PGAiD/54waMDt9E1XikxKIQVXXmSZSfyltT48O8XGhOFpLp44
+	 cjiI7rO2SdjwFOquunTqlvimqEs6m0Ic4N2gm5WFlSaRfZMdX1OaEH/7/xuUJiv7C10bM
+	 4OIezqq/JyI8regeXe94UuWecXOsZO41DqWMNVCDW/Qp+8fK5hv/BNsReQESjrKaSaA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=janestreet.com;
+	spf=pass smtp.mailfrom=janestreet.com;
+	dkim=pass header.d=janestreet.com header.i=@janestreet.com header.a=rsa-sha256 header.s=waixah header.b=RiRgLta0;
+	dkim=pass header.d=janestreet.com header.i=@janestreet.com header.a=rsa-sha256 header.s=google header.b=Iy9DWvvG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=38.105.200.78
+Received: from mxout1.mail.janestreet.com (mxout1.mail.janestreet.com [38.105.200.78])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2FCD606A336;
-	Thu, 12 Nov 2026 19:17:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2FCD606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65DB2606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:18:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65DB2606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=janestreet.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=janestreet.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A1Pl8a2d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794511069; x=1826047069;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=QXj5V9B+DPU/kbEKR6nPDD91AkHCuaht9RC9Kzlyoh4=;
-  b=A1Pl8a2db95s8Xyjd+e/i1gzuq3Xu+oxSbWK3+ySkJ0lSKqSEZMYdC4N
-   Q/Nf3r1o11KrFmGF6MdQi6UxeemW+/I7OOk7Rb7ix0B6nUviq0U41lYp2
-   CWWAbmQ58N4ardKS2Xz+n+NjPaQBPwLepYIxywFp7/hCKM4j7WlUd0Iu+
-   nhwyyy8h7KFOZMl++6kvTonZRMfB8uslWstU1LH1cyhb98Yh02F2c80XU
-   dnbiBSHmS0HSVvWL44fSVS3a6CeqV3WlEq7YiFCuK307M77k1MrpmmXO9
-   rYkQkGzsyvffZ8/eRrhEzVhpCY311VRjQUH0PJED8UV4v9qqq6+IkGkhP
-   w==;
-X-CSE-ConnectionGUID: /W1UONB4TUe5ex20PkuRJg==
-X-CSE-MsgGUID: fXxJcu8oREClsMErdIrVRw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3216974"
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="3216974"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 11:17:49 -0800
-X-CSE-ConnectionGUID: uS3kAE7SRt2/q8epaHuiww==
-X-CSE-MsgGUID: KP39O6smQ7WlIcF1hv3mEQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="10464617"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa012.fm.intel.com with ESMTP; 12 Nov 2026 11:17:47 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xRaIq-000000011xb-3v5I;
-	Thu, 12 Nov 2026 19:17:44 +0000
-Date: Fri, 13 Nov 2026 03:17:39 +0800
-From: kernel test robot <lkp@intel.com>
-To: Wang Yibo <wangyibo@kylinos.cn>, arlos Maiolino <cem@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-xfs@vger.kernel.org
-Subject: Re: [PATCH] xfs: convert the dahash test to KUnit
-Message-ID: <202611130302.dGXAb4Py-lkp@intel.com>
-References: <20261112041631.2792545-1-wangyibo@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=janestreet.com header.i=@janestreet.com header.a=rsa-sha256 header.s=waixah header.b=RiRgLta0;
+	dkim=pass (1024-bit key) header.d=janestreet.com header.i=@janestreet.com header.a=rsa-sha256 header.s=google header.b=Iy9DWvvG
+Received: from mail-lj1-f200.google.com ([209.85.208.200])
+ 	by mxgoog2.mail.janestreet.com with esmtps (TLS1.3:TLS_AES_128_GCM_SHA256:128)
+ 	(Exim 4.100.1)
+ 	id 1xRaJa-00000000NWx-2fBo
+ 	for linux-kernel@vger.kernel.org;
+ 	Thu, 12 Nov 2026 14:18:30 -0500
+Received: by mail-lj1-f200.google.com with SMTP id 38308e7fff4ca-3ad00533aa8so538751fa.0
+         for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:18:30 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794511109; cv=none;
+         d=google.com; s=arc-20260327;
+         b=FKWUUZxf/wdg5E183txjwXOqgSvP4j7RuIvdtNicmnyjyRb+PZEKP3GO+f0/Lq5QaR
+          nc2aRQ7CHPF8fKQ3c+oDhS47uvqrR8ZzPsmwOMs6s62OaWi4+oVR13jWA/1ktJ5UxOZN
+          wUKiC4lpyu65UNmTlW47bKARzXbWmqOZlncgZX5egph2E6OdOJwMQE7mNgCfDmx87sMT
+          jDGMIhqp5Qztx/+xG8Ra+CYHQpB9kIhqSW59yg/bfybVGNRwPbs7llW4L4xI6/R3YkO4
+          +LMNW5DXSD/NfziItebDQAuizV+nh9ZAkeMb2JyQ5WmNcPQb9niEmK9lQ6dyBwAHOuPq
+          rkSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+         h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+         bh=EFDkvvuk/5rONyB6sG3nkd+MKe2Z3SzEfM0I/qm/DYo=;
+         fh=qSw1pY7olPEMi/Ckjv86zVz7+9Emff1+0N88bQALwg8=;
+         b=mer/CMHeLBXkv0DU63nyzxaMq4MOQd7UscFInI5Elfc1fXCYzZ9NR1xI8sNxzskP88
+          uXUh/qyZBZkPwxShVwidBNS3Mu9M3hyoEng+l/iI2M1yapHZ2sXQEeDFR+lIQc2sOaRj
+          iHhDDxMeLro6AClrIr1/S7lOeqRUc0Q2IntE9LsMGhpN7hG8hNmIPh9lsjoSNXbP7zUN
+          DxIJEK+s++CpIftiaqfj6syLxdJHdl8NbkyoxfA/5lLCnDdI3nX5TtEOgM9jp6093j4Z
+          9c4vs+Jci8ZDeeaqcTbyP2Jp9WegTg0Ues/j92ci4G+2AC84ahpgMwoLUX2bY0H/SJc+
+          j/Dw==;
+         darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=janestreet.com;
+  s=waixah; t=1794511110;
+  bh=EFDkvvuk/5rONyB6sG3nkd+MKe2Z3SzEfM0I/qm/DYo=;
+  h=From:Date:Subject:To:Cc;
+  b=RiRgLta0b5jaIvGclQQe6YOWJ9mRdJ3GPJWhMplzGLoe5rY7aljlx3eXePtNjgh8i
+  I8OdoVSfiaPuHtOAqWjSXiixRfMNh3m3TXt7FKjaOy2ynYAGx2MTjvtnIrf16SbsAS
+  qsqMhE9qFVeoJFgXHeEc9F8no4OitNOxuLwrYMRNipdVjH4vhcK10yyrCyOB00n1Ba
+  pg9mHgMIVkuWRJ5PW5rHFx+K/qbOVDNmJQAvr5JG4srV0KSIKaS5/5JlWaP2YivuwJ
+  0S4gnH+AFCRwYtl4xMW03It3ZS1RddMMOzUL8ueaNVQWD3NOx4qgw1YQrMLawG0p0O
+  MjuzIjMkq65Pw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+         d=janestreet.com; s=google; t=1794511109; x=1795115909; darn=vger.kernel.org;
+         h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+          :to:cc:subject:date:message-id:reply-to:content-type;
+         bh=EFDkvvuk/5rONyB6sG3nkd+MKe2Z3SzEfM0I/qm/DYo=;
+         b=Iy9DWvvGAWsf9UxNWrg6ZCxuT0hNkZtWDAYC2EOsE59V3pVZx/w5HuNgsaa/uCLkDn
+          SXAKlWkuPDBW8/+JhfXQRK32aqG7YtyiLQYXe700GGdyypVz9t33qXUnptmZNycMHIB/
+          YXKyWxCNLzXEX1JisJuoxTyo1w8+y7s4ZuWVU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+         d=1e100.net; s=20260707; t=1794511109; x=1795115909;
+         h=content-type:cc:to:subject:message-id:date:from:mime-version
+          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+          :reply-to:content-type;
+         bh=EFDkvvuk/5rONyB6sG3nkd+MKe2Z3SzEfM0I/qm/DYo=;
+         b=Q3uQkhmHIEneSyz0AypiPKumy04Yp/w0+PuV4C5nLC+oOalW1kxKDQnKcBFqJtvJaS
+          y/QWIckdM9x0/P6A4weRPRnqPYuhwWrV+BrgmfDJ1+a1SOEP39p9jIYVjE62Agh1d0C0
+          V0ijoYHJp/FU+Mjex8adbTfXFwYKEGPx/dSs5VCvHDY9nUch2iZJmmiauBUXgFhrkfVM
+          LMIjt/6N+5GnYzX4wgvfxA0j4ArrnghdPL64088huIzlE/49Ktlt+Ni3Ss55Lhi3dXBp
+          6fyew/OHhDj+iYeRBfHVp70fwKGCdLaJRsdOBYqWPCvRrsxa74rthlD/fjsi+1uPIDO/
+          IcIA==
+X-Forwarded-Encrypted: i=1; AL+hErEM0l+aMWZaM2DYBCHKUUtEmk5/wzw/pCwN+0d+YvcwQzJEM8YJgLpe6ngCOWOFCLYb+5TsUA9WnD/UDdc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8MSurvAgPpIVDN3dEUmstTXff7nTn2YI4qNEE/prxeTjoGjfaX
+ 	79TTxN2MAZFTi6uJT+287OEDzHjRtHeZw+fNzOxSYcTAU+fe0OA5D7pj4EENYOG/uhtC/Lh+5nn
+ 	uHz9yIZhORY9byc5JVhfwqdBaq06U2ol+KJQ4++Y84LVu/+ymTpr237MdQxvWNixfeuQ0PKIixc
+ 	O+rKrx3GWtiV4svwAo9c+gUt3/dXwHEQpyb2Vp9Yk=
+X-Gm-Gg: AYBFou2TYkf0eFEFkAcdutu/GjdCsMXTPMN0ezsfqOJ7q0y00npv5zxlvj6VY28aU08
+ 	aA4hiknzlH6fuBqD7hcIXFNR15q1XbQlAZ6WiWp9xgYQjEOTgHz3yDVy73juOU5rMfUtXRMfuW/
+ 	IwwF7FDGL4ycTRlQHGMU+qOBmx1dYYN3vG2QM+bNBYs5hnR6Q5h5K6WfG0
+X-Received: by 2002:a05:651c:41d1:b0:3ab:1207:bd2f with SMTP id 38308e7fff4ca-3ae2b4bad8cmr2454321fa.11.1794511109065;
+         Thu, 12 Nov 2026 11:18:29 -0800 (PST)
+X-Received: by 2002:a05:651c:41d1:b0:3ab:1207:bd2f with SMTP id
+  38308e7fff4ca-3ae2b4bad8cmr2452381fa.11.1794511108606; Thu, 12 Nov 2026
+  11:18:28 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,64 +116,288 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112041631.2792545-1-wangyibo@kylinos.cn>
+From: Gregg Leventhal <gleventhal@janestreet.com>
+Date: Thu, 12 Nov 2026 14:17:52 -0500
+X-Gm-Features: AclHuK_B7quFzyIv8VUjYl-Ts-0hb1VNcf5TexOj_ipkHnHeo-gl7aDWP1ryg_s
+Message-ID: <CAFN_u7G94CC_RGL1La66jX+jRKHSJdAB5PKkTRSWrUvqhM48oQ@mail.gmail.com>
+Subject: Subject: [BUG] perf/core: frequency-mode period overshoots during ramp-up
+To: linux-perf-users@vger.kernel.org
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+ 	Mark Rutland <mark.rutland@arm.com>, 
+ 	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+ 	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+ 	James Clark <james.clark@linaro.org>, Mark Barnett <mark.barnett@arm.com>, 
+ 	linux-kernel@vger.kernel.org, Jay Hilton <jahilton@janestreet.com>, 
+ 	Andrew Delgadillo <adelgadillo@janestreet.com>, Eric Hagberg <ehagberg@janestreet.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Wang,
+Hi,
 
-kernel test robot noticed the following build errors:
+In frequency mode (attr.freq = 1, e.g. perf record -F 11), the sample
+period overshoots its target while it ramps up from its initial value.
+The sampled thread then goes unsampled for roughly 2-6x longer than
+1/freq, and when the kernel later cuts the period back, events go
+missing from the profile. We see this on vanilla v7.3, 6.18.56 and
+6.12.112. The code involved is unchanged in v7.4-rc2.
 
-[auto build test ERROR on xfs-linux/for-next]
-[also build test ERROR on linus/master v7.4-rc2 next-20261111]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Tested on (all vanilla kernel.org kernels):
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Wang-Yibo/xfs-convert-the-dahash-test-to-KUnit/20261112-121631
-base:   https://git.kernel.org/pub/scm/fs/xfs/xfs-linux.git for-next
-patch link:    https://lore.kernel.org/r/20261112041631.2792545-1-wangyibo%40kylinos.cn
-patch subject: [PATCH] xfs: convert the dahash test to KUnit
-config: i386-randconfig-1012-20261112 (https://download.01.org/0day-ci/archive/20261113/202611130302.dGXAb4Py-lkp@intel.com/config)
-compiler: gcc-13 (Debian 13.3.0-16) 13.3.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261113/202611130302.dGXAb4Py-lkp@intel.com/reproduce)
+- AMD EPYC 9655P (Zen5), bare metal, 7.3.0: cycles 50/50,
+  instructions 50/50, raw cycles 50/50 runs (>2x in 17, 25 and 16 of
+  those), up to 5.9x. IBS (ibs_op, cycles:P): >2x in 28/30, up to 7.0x.
+- Intel Xeon Platinum 8468, bare metal, 7.3.0: raw cycles (0x3c)
+  49/50, up to 6.8x; cycles 0/50.
+- AMD EPYC Turin (Zen5), KVM guest, 7.3.0: 3/3 runs.
+- AMD EPYC Genoa (Zen4), KVM guest, 6.18.56: 3/3 runs.
+- AMD EPYC Genoa (Zen4), KVM guest, 6.12.112: 3/3 runs.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611130302.dGXAb4Py-lkp@intel.com/
+"N/50" counts runs in which the ramp-up produced either a period over
+2x the target or a sample whose period doesn't match the cycles
+counted. The 9655P uses PerfMonV2 (amd_pmu_v2_handle_irq()); the
+guests don't expose it and use x86_pmu_handle_irq().
 
-All errors (new ones prefixed by >>):
+IBS (perf_ibs_handle_irq()) is affected the same way. It starts at its
+minimum period of 144 and, for example, goes 144 -> 318,671 ->
+2,021,072,009 (4.9x the target, a 450 ms gap). IBS runs included
+kernel mode, since IBS rejects exclude_kernel without its software
+filter.
 
-   ld: fs/xfs/xfs_dahash_test.o: in function `xfs_ascii_ci_hashname_case':
->> fs/xfs/xfs_dahash_test.c:671:(.text+0x88): undefined reference to `kunit_binary_assert_format'
->> ld: fs/xfs/xfs_dahash_test.c:671:(.text+0xc0): undefined reference to `__kunit_do_failed_assertion'
-   ld: fs/xfs/xfs_dahash_test.o: in function `xfs_da_hashname_case':
-   fs/xfs/xfs_dahash_test.c:655:(.text+0x178): undefined reference to `kunit_binary_assert_format'
-   ld: fs/xfs/xfs_dahash_test.c:655:(.text+0x1b0): undefined reference to `__kunit_do_failed_assertion'
+Reproducer
+----------
 
+The program at the end samples its own user-mode cycles at 11 Hz while
+spinning for 3 seconds. For each sample it prints the reported period
+(PERF_SAMPLE_PERIOD), the cycles counted since the previous sample
+(PERF_SAMPLE_READ), and the time since the previous sample. On v7.3,
+bare-metal EPYC 9655P (target period ~411M cycles, ~91 ms):
 
-vim +671 fs/xfs/xfs_dahash_test.c
+        period      counted    dt(ms)
+             1         1790     0.001
+          2426         1863     0.001
+      21864282     21864341     4.852
+    2313570064   2458402940   543.880  <- != counted  <- > 2x target
+     411062043    411061989    90.958
+     410683637    410683588    90.945
+  target period 410934292, max period 2313570064 (5.6x): BUG
 
-   658	
-   659	static void xfs_ascii_ci_hashname_case(struct kunit *test)
-   660	{
-   661		unsigned int	i;
-   662	
-   663		for (i = 0; i < ARRAY_SIZE(dahash_test_vecs); i++) {
-   664			const struct dahash_test	*tv = &dahash_test_vecs[i];
-   665			struct xfs_name			xname = { };
-   666			xfs_dahash_t			hash;
-   667	
-   668			xname.name = test_buf + tv->start;
-   669			xname.len = tv->length;
-   670			hash = xfs_ascii_ci_hashname(&xname);
- > 671			KUNIT_EXPECT_EQ_MSG(test, hash, tv->ascii_ci_dahash,
-   672					    "case %u", i);
-   673		}
-   674	}
-   675	
+After a 21.9M-cycle interval, the period jumps to 2.3G (5.6x the target)
+and the next sample comes 544 ms later instead of 91 ms. 2.46G cycles
+elapsed, so 145M are not attributed to any sample (see below for why).
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+On the Turin guest (v7.3, target ~403M), a run with a smaller overshoot:
+
+        period      counted    dt(ms)
+             1         1706     0.000
+             1         2133     0.015
+             1         1179     0.009
+          1210         1398     0.011
+       1019729      1020007     0.241
+     998467121    998466679   225.390  <- > 2x target
+     402677477    402677426    90.819
+     402960793    402960844    90.921
+  target period 403056550, max period 998467121 (2.5x): BUG
+
+After a 1.02M-cycle interval, the counter is armed for 998M cycles,
+2.5x the target, and period == counted: nothing was cut back, and the
+next sample comes 225 ms later instead of 91 ms. When the overshoot is
+larger, a later tick cuts it back, which shows up as a sample whose
+period is smaller than the cycles that elapsed:
+
+       2036681      2037233     0.458
+     464053892    711277272   159.223  <- != counted
+     406964862    406964897    90.959
+
+Here 247M cycles (~55 ms of CPU) are not attributed to any sample.
+6.18.56 behaves the same way (955M armed against a 329M target, or
+379.6M reported for 573.4M counted).
+
+Cause
+-----
+
+__perf_event_account_interrupt() adjusts the period with
+
+        if (delta > 0 && delta < 2*TICK_NSEC)
+                perf_adjust_period(event, delta, hwc->last_period,
+                                   true);
+
+but the PMU drivers re-arm the counter before calling
+perf_event_overflow() (x86_pmu_handle_irq(), amd_pmu_v2_handle_irq(),
+handle_pmi_common(), perf_ibs_handle_irq(), ...), and re-arming sets
+hwc->last_period to the period of the *next* interval. The estimator
+therefore divides the next period by the time the previous one took.
+Once the period is stable the two are about equal, but during ramp-up
+each period is much larger than the one before it, so the rate is
+overestimated by that ratio.
+
+The Turin guest run above matches this. At the overflow that ended
+the 1,210-cycle interval (about 11 us), the counter was re-armed for
+1,019,729 cycles, so perf_adjust_period() got count = 1,019,729 and
+nsec ~ 11 us:
+
+  period        = 1019729 * 1e9 / (11e3 * 11)       ~ 8.4e9
+  sample_period = 1019729 + (8.4e9 - 1019729) / 8   ~ 1.05e9
+
+which is the ~998M period armed one overflow later. With the elapsed
+count (1,210) the same calculation gives a period of ~10M and a next
+sample_period of ~2.1M. The low-pass filter can only move sample_period
+1/8 of the way toward the estimate, so a correctly fed estimator cannot
+overshoot the target. Reaching 2.5x the target needs an estimated rate
+around 20x what the CPU can do.
+
+When the overshoot exceeds 8x, perf_adjust_period() on the next tick
+sees period_left > 8 * sample_period, zeroes period_left and restarts
+the counter. Restarting sets hwc->last_period to the new, smaller
+period, which is why the reported period then understates the cycles
+that elapsed (the 464M/711M sample above).
+
+Since 1734d98fbcce ("perf/arch: Record sample last_period before
+updating on the x86 and PowerPC platforms"), the elapsed period is in
+data->period when perf_event_overflow() is called, so that looks like
+the right input for the estimator, but we haven't tested that change
+on mainline.
+
+Kernels without 1734d98fbcce (e.g. 6.12) also report each sample's
+period one sample late. Combined with this bug, the oversized period is
+attached to a sample that covered only ~1M cycles. For example, on
+6.12.112:
+
+       1037581         1464     0.012  <- != counted
+    1002666013      1037874     0.293  <- != counted  <- > 2x target
+
+That sample claims ~1000x the cycles it represents.
+
+Impact
+------
+
+This matters most at low frequencies and for threads that run in short
+bursts, since they spend a large share of their samples in ramp-up.
+It isn't limited to low frequencies, though: on the bare-metal 9655P,
+perf's default 4000 Hz overshot in 10/10 runs, by up to 4x (in the KVM
+guests it was ~1.03x).
+
+We found it because continuous per-thread profiles at 11 Hz (on
+6.12-based kernels) attributed ~12% of a CPU-bound program's time to a
+function that only runs at startup, and heavily overweighted a mostly
+idle runtime ticker thread. On kernels with 1734d98fbcce, the symptoms
+are sampling gaps and events missing from the profile, rather than
+inflated weights.
+
+On Intel (Xeon 8468, bare metal, 7.3), the default cycles and
+instructions events are not affected: intel_pmu_freq_start_period()
+starts them at 500M/freq (45,454,545 at 11 Hz), close to the target, so
+there is no ramp-up to overshoot. A raw cycles event (0x3c) starts much
+lower (23,272) and overshoots in 49 of 50 runs, by up to 6.8x. In a
+typical run (target ~344M), the period jumps to 1.94G (5.7x) and 61M
+cycles are not attributed to any sample:
+
+         23272        23255     0.007
+      25310078     25310067     6.737
+    1943552252   2005048959   530.205  <- != counted  <- > 2x target
+     343751272    343751292    90.879
+
+So the problem is in the generic code; Intel's start-period estimate
+only hides it for some events. We haven't looked at or tested other
+architectures.
+
+Thanks to Jay Hilton <jahilton@janestreet.com> and Andrew Delgadillo
+<adelgadillo@janestreet.com>, who found and analyzed this.
+
+Reproducer:
+
+// Minimal reproducer for the perf frequency-mode ramp-up bug.
+// Samples this thread's user-mode cycles at 11 Hz while burning CPU
+// for 3s, then prints each sample's period, the cycles actually
+// counted since the previous sample, and the time since the previous
+// sample.
+//
+// On a correct kernel, period == counted (up to skid) and no period
+// exceeds 2x the steady-state target (cycles per second / samples
+// per second). Exits 1 if either check fails.
+//
+//   cc -O2 -o repro-min repro-min.c && ./repro-min
+#define _GNU_SOURCE
+#include <linux/perf_event.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <sys/ioctl.h>
+#include <sys/mman.h>
+#include <sys/syscall.h>
+#include <time.h>
+#include <unistd.h>
+
+#define FREQ 11
+#define PAGES 64
+#define SKID 100000
+
+static double now(void) {
+  struct timespec ts;
+  clock_gettime(CLOCK_MONOTONIC, &ts);
+  return ts.tv_sec + ts.tv_nsec / 1e9;
+}
+
+int main(void) {
+  struct perf_event_attr attr = {
+      .size = sizeof(attr),
+      .type = PERF_TYPE_HARDWARE,
+      .config = PERF_COUNT_HW_CPU_CYCLES,
+      .freq = 1,
+      .sample_freq = FREQ,
+      .sample_type =
+          PERF_SAMPLE_TIME | PERF_SAMPLE_PERIOD | PERF_SAMPLE_READ,
+      .exclude_kernel = 1,
+      .disabled = 1,
+  };
+  int fd = syscall(SYS_perf_event_open, &attr, 0, -1, -1, 0);
+  if (fd < 0) return perror("perf_event_open"), 2;
+  long pg = sysconf(_SC_PAGESIZE);
+  struct perf_event_mmap_page *meta =
+      mmap(NULL, (PAGES + 1) * pg, PROT_READ | PROT_WRITE,
+           MAP_SHARED, fd, 0);
+  if (meta == MAP_FAILED) return perror("mmap"), 2;
+
+  ioctl(fd, PERF_EVENT_IOC_ENABLE, 0);
+  double start = now();
+  while (now() < start + 3) {
+  }
+  ioctl(fd, PERF_EVENT_IOC_DISABLE, 0);
+  double elapsed = now() - start;
+  uint64_t total;
+  if (read(fd, &total, sizeof total) != sizeof total)
+    return perror("read"), 2;
+  double target = total / elapsed / FREQ;
+
+  // 3s at 11 Hz fits in the buffer, so records never wrap.
+  char *data = (char *)meta + pg;
+  uint64_t head = __atomic_load_n(&meta->data_head, __ATOMIC_ACQUIRE);
+  uint64_t prev_count = 0, prev_time = 0, max = 0;
+  int bad = 0;
+  printf("%12s %12s %9s\n", "period", "counted", "dt(ms)");
+  for (uint64_t pos = 0; pos < head;) {
+    struct perf_event_header *h = (void *)(data + pos);
+    if (h->type == PERF_RECORD_SAMPLE) {
+      // v[0] = time, v[1] = period, v[2] = counter value
+      uint64_t *v = (void *)(h + 1);
+      uint64_t counted = v[2] - prev_count;
+      long long err = (long long)(v[1] - counted);
+      int mismatch = err > SKID || err < -SKID;
+      int over = v[1] > 2 * target;
+      double dt = prev_time ? (v[0] - prev_time) / 1e6 : 0;
+      printf("%12llu %12llu %9.3f%s%s\n",
+             (unsigned long long)v[1], (unsigned long long)counted,
+             dt, mismatch ? "  <- != counted" : "",
+             over ? "  <- > 2x target" : "");
+      bad |= mismatch || over;
+      if (v[1] > max) max = v[1];
+      prev_count = v[2];
+      prev_time = v[0];
+    }
+    pos += h->size;
+  }
+  printf("target period %.0f, max period %llu (%.1fx): %s\n", target,
+         (unsigned long long)max, max / target, bad ? "BUG" : "OK");
+  return bad;
+}
+
+Thanks,
+Gregg Leventhal
