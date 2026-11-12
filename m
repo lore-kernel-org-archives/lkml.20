@@ -1,68 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794453287;
-	b=f8SvJG18Cx1X0FI9na4GTTbvRAQSt+ruImIdJIKbN6mZMUCHkYwexcP0HlyzQhJjzzuL
-	 W9qqI7EW9VA9SbKhmJF12geNMO1Ti281eEKXoLdOEMgF94bR0kPu/a+axkHmQQOGF+HN0
-	 5xdbJZvtOt5g6OTY7XPyvsQvZr1k+DzaAk0Y5WkdeRld9dpjCF3jbjPLic3ShzURzfRSH
-	 uZnBj//r31VJm64kaMpW+3mH0fZ3WrnGBvpRNTDX81zz5z1aXdbJZAxmOUayP3kbj1dnK
-	 4sxtj1kD3+GQ50Vn4bcuodcUnbIyMnOaNwggX+tigsjzLYGN/YwNHrmcheCsEUkPavQ==
+	t=1794453310;
+	b=JOD2oCnlgAhR1wZ0iaCgfQva6JGSYN9mz6uJ5SMXHisg690H9+ebt7SAMQWscGWGPiP+
+	 MdZ4CfzB8Mw7P3Xiuj4YKg9OCruU9R9A5ZJmgUlv+UwykmbOHg+LMvOWF+xIoGztHGi4i
+	 GbDCfCce788pz4SCljN4VIHgkWd0WjNeprr1IMUfdg1OcIfC6Ldt7vi65KGdztZCA64K0
+	 3aV0+TjgBhfzNaaQrBXeTz5DoqXsR4UQIt9G9966h6Vlqc1Vrr36DwIt8YHJfiws3oy+6
+	 LwR8OXe/2YTK89qIX8op9lb4EQu928k3bObAeDfJZcl40ThW2VB5gh0z9Z4nDyByJtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794453287;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/30VWyBplrHuByc3jnpm/ewinby2W6T19rzhjR/lb94=;
-	b=kgkc5DxnsGhMBPdrHwKj50CBYng1Y+wuB04t9+q6VO8LcoiUT1vVN0QP5lMsFxDYqKcE
-	 NjQN+m9rVLgsFKkZ9TkECpuz0HllwVEqCpjkhhTOTfAFLJU2ef7pN3ShK7CBhNdRQYxck
-	 O1YAfK5DUxpgkV+CU7In/nXemOxtpi+LD0DmuXpBo5Mxw6jWyVDY8IwyETC/W3P7GpPum
-	 rJGPzSiNFgiNpUBYyLN1gMMvnYcJBLTv+1cjV6P4qwzckfE2lsSqqE+aZb9ZynunV3+Xp
-	 GCNT6beHoLLS1Ct5Qtlg9VNttQVl+lCxcGr8O1eohutARGiVYI3cAimEOFF/n7LBvOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794453310;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=KukHHa4IpQLPx0nLghzyKli6Eignxu46dayWT5IB5Os=;
+	b=J3dYTE9N4am+A665FyeLbhh0/QAukk1AVSbLZDLKapDVQHJwx5pUR7HwUamehb5iywU0
+	 tstP3YQrkQnWYVt1Wc4aGK1y3eozkelhbYXLBbPt9wfCjrLbbC+6IvEmssKimSaDwoMWG
+	 TzY7zVMw71bWcEN+NLoISm2SQRZyHIGMByYFjM66OKJrH0qxLtWlv1slq6PJ+oti5HXr9
+	 y7Fuzxeqg7kBTTudDEJACrP1ZGru42+8SIg5hNZOTNu3wPHfVxefZXv+3PPhGQLuRilFR
+	 d2bQ6IAqQujdnOGaIdG6FZiYM3lim4tiK1xqkIuc3NByS98WecfePuzcldQIsaZkv3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Ey1jhzMo;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 95856606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:14:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95856606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YMp28IOO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4820E606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:15:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Ey1jhzMo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=Ey1jhzMoUiJ3GqO4Zw52/9rP5yP77vtL+oskHizqy+0Tsqp4q6nbD1HTIFU0pcqy3L3kBDOWaBW3s
-	 eOaGCqKjmv7KZ9LqtVWUvwuOTpi+zr12xiiuq+/XyXkotKm9yK9pYkDL6uzwRx6/51LISbrRa72jY3
-	 17evi/txqUCMBZq8=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96af52f21224-e2673;
-	Thu, 12 Nov 2026 11:14:44 +0800 (CST)
-X-RM-TRANSID:2ee96af52f21224-e2673
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66af52f225ed-f0845;
-	Thu, 12 Nov 2026 11:14:44 +0800 (CST)
-X-RM-TRANSID:2ee66af52f225ed-f0845
-From: Zhu Jun <zhujun2@cmss.chinamobile.com>
-To: pmladek@suse.com
-Cc: john.ogness@linutronix.de,
-	rostedt@goodmis.org,
-	senozhatsky@chromium.org,
-	paulmck@kernel.org,
-	printk@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Zhu Jun <zhujun2@cmss.chinamobile.com>
-Subject: [PATCH v2] printk: ringbuffer: Annotate speculative record reads
-Date: Thu, 12 Nov 2026 11:14:41 +0800
-Message-ID: <20261112031441.120773-1-zhujun2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YMp28IOO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E001E1F00A07
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:15:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794453309;
+	bh=KukHHa4IpQLPx0nLghzyKli6Eignxu46dayWT5IB5Os=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=YMp28IOOkOpmgpjEGggQsJTj/xunkcm3xcqHrjlryVSThkdTDXotcTu4FfFa0ax2p
+	 F7troXbepBoldAXvDiVsdENhcjwbvVLP1lFJG5X3PwIdszLGdViBjHc7rJrIDDi2Iy
+	 90RJbnF+BfNiQSov7MpdqrAIjdtLCOy+89DAY5wx008BcDFOlCqJE1GtekWIf6th7U
+	 DdRMijID71R8bUcFNNrKPfeoyeUKL4WrQ5q6MzpZCL8xTxsONCvCMTGfVB/k+ExP8T
+	 sGKNeOHOVuzVAhTbh5wg+ppMUWE2fOo06qwUZTv5OnM6uMcemXdoSp1xnNP1DVRcXK
+	 Hwcb75x42hVuQ==
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so572235266b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:15:09 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErF43rZ5UiCUg08hAVh4+5UQWe+gK2YCCA6nMAWp2OT2Jff1PWcGUStAj1hq0kXFEDw1GfNCyG56LMP6C9M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+muHj2gQAcPu8051rXFz3qGjQA1r7/ncwdLNS7x0LNZGDa2dAQ
+	87zSkddWQ+XsRgUQS3DdjqG3L3fr1Gd3BrI/aWruVu27/2A7eMr5a/NFVYO57YtT9JqYa1pGm0U
+	r6ohXVzhU1KDhQdVbGrVmQ68Qjik/3BA=
+X-Received: by 2002:a17:907:2d8f:b0:c50:5e10:71ae with SMTP id
+ a640c23a62f3a-c5066afce46mr377456166b.17.1794453308567; Wed, 11 Nov 2026
+ 19:15:08 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,88 +59,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261111092421.3771992-1-chenhuacai@loongson.cn> <20261111170600.GS1779021@noisy.programming.kicks-ass.net>
+In-Reply-To: <20261111170600.GS1779021@noisy.programming.kicks-ass.net>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Thu, 12 Nov 2026 11:14:57 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H6SYOjOw+owmStK7sr-HOiADC1zZ4Cii5hv1q+qYAUETg@mail.gmail.com>
+X-Gm-Features: AclHuK_e17qcvjrZPS0KZhv5Xdz0uZ2nPZtp3g7am9FbsyZNwEyKWIbkfxX2baU
+Message-ID: <CAAhV-H6SYOjOw+owmStK7sr-HOiADC1zZ4Cii5hv1q+qYAUETg@mail.gmail.com>
+Subject: Re: [PATCH] lib/smp_processor_id: Don't warn if there is only one CPU
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Huacai Chen <chenhuacai@loongson.cn>, Andrew Morton <akpm@linux-foundation.org>, 
+	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Tiezhu Yang <yangtiezhu@loongson.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Readers may copy a finalized record while a writer recycles its storage.
-prb_read() checks the descriptor again after copying and rejects records
-that have changed, but the plain metadata and text accesses still trigger
-KCSAN reports.
+Hi, Peter,
 
-Annotate the speculative copies, line counting and length read with
-data_race(). Retain READ_ONCE() for text_len so that the size check and
-copy use one snapshot. The descriptor validation continues to determine
-whether the copied record can be used.
+On Thu, Nov 12, 2026 at 1:06=E2=80=AFAM Peter Zijlstra <peterz@infradead.or=
+g> wrote:
+>
+> On Wed, Nov 11, 2026 at 05:24:21PM +0800, Huacai Chen wrote:
+> > When CONFIG_DEBUG_PREEMPT is enabled on a Non-SMP (single-core) kernel,
+> > calls to smp_processor_id() in preemptible contexts trigger some false
+> > positive "BUG: using smp_processor_id() in preemptible" warnings, which
+> > are harmless noise because the process always executes on CPU 0 and CPU
+> > migration is impossible.
+>
+> The check is still valid, you don't want to have any code that uses
+> smp_processor_id() outside of preempt_disable(). Such code would be
+> invalid on SMP, even when ran on UP.
+Thank you for your reply.
 
-OpenAI Codex assisted with analysis and patch preparation.
+At first I also think that smp_processor_id() should always be called
+in preempt disabled context, but after investigation, I found:
 
-Fixes: b6cf8b3f3312 ("printk: add lockless ringbuffer")
-Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
----
-Changes in v2:
-- Mark the speculative text_len snapshot with data_race(), retaining
-  READ_ONCE() and documenting the reader-side validation.
+There are 5 existing skip conditions.
 
- kernel/printk/printk_ringbuffer.c | 22 ++++++++++++++--------
- 1 file changed, 14 insertions(+), 8 deletions(-)
+1. if (likely(preempt_count()))
+2. if (irqs_disabled())
+3. if (is_percpu_thread())
+4. if (current->migration_disabled)
+5. if (system_state < SYSTEM_SCHEDULING)
 
-diff --git a/kernel/printk/printk_ringbuffer.c b/kernel/printk/printk_ringbuffer.c
-index 46a79ec0940a..8a1075d00d0a 100644
---- a/kernel/printk/printk_ringbuffer.c
-+++ b/kernel/printk/printk_ringbuffer.c
-@@ -1894,9 +1894,10 @@ static bool copy_data(struct prb_data_ring *data_ring,
- 	if (data_size < (unsigned int)len)
- 		return false;
- 
--	/* Caller interested in the line count? */
--	if (line_count)
--		*line_count = count_lines(data, len);
-+	if (line_count) {
-+		/* Racing text is rejected by the caller's descriptor recheck. */
-+		*line_count = data_race(count_lines(data, len));
-+	}
- 
- 	/* Caller interested in the data content? */
- 	if (!buf || !buf_size)
-@@ -1904,7 +1905,7 @@ static bool copy_data(struct prb_data_ring *data_ring,
- 
- 	data_size = min_t(unsigned int, buf_size, len);
- 
--	memcpy(&buf[0], data, data_size); /* LMM(copy_data:A) */
-+	data_race(memcpy(&buf[0], data, data_size)); /* LMM(copy_data:A) */
- 	return true;
- }
- 
-@@ -1969,6 +1970,7 @@ static int prb_read(struct printk_ringbuffer *rb, u64 seq,
- 	atomic_long_t *state_var = &rdesc->state_var;
- 	struct prb_desc desc;
- 	unsigned long id;
-+	u16 text_len;
- 	int err;
- 
- 	/* Extract the ID, used to specify the descriptor to read. */
-@@ -1984,12 +1986,16 @@ static int prb_read(struct printk_ringbuffer *rb, u64 seq,
- 	if (err || !r)
- 		return err;
- 
--	/* If requested, copy meta data. */
--	if (r->info)
--		memcpy(r->info, info, sizeof(*(r->info)));
-+	if (r->info) {
-+		/* The record may be recycled; the descriptor is rechecked below. */
-+		data_race(memcpy(r->info, info, sizeof(*r->info)));
-+	}
-+
-+	/* The descriptor recheck below also rejects a raced length. */
-+	text_len = data_race(READ_ONCE(info->text_len));
- 
- 	/* Copy text data. If it fails, this is a data-less record. */
--	if (!copy_data(&rb->text_data_ring, &desc.text_blk_lpos, info->text_len,
-+	if (!copy_data(&rb->text_data_ring, &desc.text_blk_lpos, text_len,
- 		       r->text_buf, r->text_buf_size, line_count)) {
- 		return -ENOENT;
- 	}
--- 
-2.51.0
+Condition 1 and 2 is to make sure smp_processor_id() is called in
+preempt disabled context, but Condition 3, 4 and 5 is not.
+
+Condition 5 can make sure no context switching since the scheduler
+hasn't begun to work, but Condition 3 and 4 can not.
+
+In other words, Condition 3 and 4 can only make sure the current
+execution will not be migrated to another CPU, and I think my new
+condition is exactly the same.
+
+>
+> All code must be SMP ready.
+This is why I use "if (nr_cpu_ids =3D=3D 1)" rather than "if
+(!IS_ENABLED(CONFIG_SMP))".
+
+>
+> Aside from that, nr_cpu_ids is the wrong number to check.
+Correct me if I'm wrong, do you mean checking num_online_cpus()?
 
 
-
+Huacai
