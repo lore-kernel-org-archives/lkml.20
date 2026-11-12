@@ -1,120 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.154
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794497136;
-	b=HMaOhisNhGHPfscxtYUEzqP4ebhZ72gOA2H3F87CzHjufDQs3jhCQgEwMk5YjSvKxAbs
-	 QgIWpMqdAAR5lpihMtdfrMjgWV0HwhmPxidfis7lHhdcg1aoz78wBbZA+nOAhNnxE6HGR
-	 0kt0OCUgHMVcIFnjD5k02Yh48jsUn42EMETm2t9lfTWZfqzCACYP2Xhlia8BSQIAlhVL2
-	 6TWM0U3OoA9vQ8TTEO0bVUztQhkyZ3/GLqdoO+a6JOaqE/sLYX5dAdFXgDQCoKimkvqRh
-	 sO+ypOP3eVf1wUdNS26nDgqZWNqj1H+ZKbzHiWwTkCiuK7qdch2QhuM5Eavz7sjUoLQ==
+	t=1794497181;
+	b=poz/wdH+w2YwcllWb5yzFAsv8uqF4AIfPWBHzYonWawDK9SGwz7zH2uhjUJC/h+gG6xk
+	 /EBKWch2pMdrlhmS9dl3vLMTY6m9GdY0r1f0I4p0MgwkwG2id8lbFvx5/AHxGwQrj28MX
+	 /N27uOm0MHcKxbgwXIpKNto8BqLPM3VfqsZSa8820fGu3NFM2on3rjMYzF8i136ScVBem
+	 tthbvcVe6J5LMo4rkb+bPvYq/6MRxo23PAu3Irf/6MjyGRb7h6au9qgqRc1soYlL8yEsv
+	 9eY7dZdXMt6rjLC9+Q6HZvyH59Z2xsdcMB2WjtAAzJ9lzjZaTqsMPdtHXh4zzhH01iQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794497136;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=OxUusV0kxIEPkUTlkXJ9JrwRF0G1sxRdLTr9R3f/yFo=;
-	b=3e7nj+AnqyRDXWc83ARTzOWz4kMNEH5fSKaDGhYpCFA1Db2avfJptlCidD4gnILDyPKR
-	 p1DLgs4aSoEqN2+sNRrf4HdVOXWcImqjsl1rK4n1WxMHZueNYI/XcGDH3YDr6SFLu5eyt
-	 JzrvrIjkCjhSYnEJ1053S1zXQ7BczoWr0zuPLPre4UjZf3xigoP+doJG5rRbhEWeDAjlS
-	 0UpLBqB0Y7CT0ZLmLzU1v0ewzpaXuz1DdUcgHHrye8GstppnkrytjCrKZbeCXhFy60xuS
-	 mYteQO/kTgWzodDQh/RfI3hSFuLqCB6S2v30JrlUuBW0J/IEzIIAwp1noWLtVu3YzHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794497181;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
+	bh=S5SzpuE9K1j8lcY7r96zLl/v/riOJlJqayes6pUVvY8=;
+	b=nzV/xJjFojBjwiKSr0rRH/DGywiF8B0ztWB/wYoGUKNIdn/+w0cB6EA8LGBBx0v3ZAiN
+	 T6bD3Mgg3ykS5OU/7TUzEG94tFTiddx2VrqO70FK6MQLJZQXdgpTePH4nO5wG5jQnI1F0
+	 DclzvtQKGGs4AWE/0ktJQvHWGGumIWnsP7dUUZfeN7ad1qkGOGFD5+QlTKv4jlcvVYQCd
+	 vMJ9pR46UWDxePNOG1r/nCp3x7QzqixMHlk+L/jFNOvV8H9LZCtlC0oI/HkZ525roLf0/
+	 GptXxXBwZfIRY3CswAt2Vcvinn7uKBnY5/Cz07A7E+PCDOSiOirGq/tYUlROs5DiBjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=daanbouwman.nl;
-	spf=pass smtp.mailfrom=daanbouwman.nl;
-	dkim=pass header.d=daanbouwman.nl header.i=@daanbouwman.nl header.a=rsa-sha256 header.s=fm1 header.b=Ow7w92ga;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=CJbjg1KA;
-	arc=none smtp.remote-ip=103.168.172.154
-Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E07606A32E
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:25:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53E07606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=daanbouwman.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=daanbouwman.nl
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=C3+eQTZO;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A506606A32E;
+	Thu, 12 Nov 2026 15:26:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A506606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=daanbouwman.nl header.i=@daanbouwman.nl header.a=rsa-sha256 header.s=fm1 header.b=Ow7w92ga;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=CJbjg1KA
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 8DD901400066
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:25:35 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Thu, 12 Nov 2026 10:25:35 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=daanbouwman.nl;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm1; t=1794497135; x=1794583535; bh=OxUusV0kxI
-	EPkUTlkXJ9JrwRF0G1sxRdLTr9R3f/yFo=; b=Ow7w92gawUnE7FyqxNasB0cg9a
-	5qz7NejX0ijBnpfPsGmDbarw2ErIoq0/pNClm4WMsenLwwdn2XjrabGZY5jXHx7l
-	fo6xmNskLtxyWE68O29JUlrDKI92HsYt4D59tTAsy7Q6dSgS9EQGiBtO1p2Xdko8
-	ycAHfGmTLem8Oj0QJUDWtZKNl5s7o6sG/ijfxR/5apRztqC/ipbmnuJrbI18GAxX
-	eqgKqgeWHEcossOqOiB9gqST5D+63TuTWYTH7q18WRfIBV6FsXnkVKGyLR0KUCmi
-	7ESnmiSA7AlQcSZRhoOTgW/ba/QYI/nn6qakZdz0TIAWf/ikCZ+9tD70Pcyg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1794497135; x=1794583535; bh=OxUusV0kxIEPkUTlkXJ9JrwRF0G1sxRdLTr
-	9R3f/yFo=; b=CJbjg1KAQPbJ2Z4FO5NPaEqx87zFRMqR97Sera5Aw9bAMRLMID3
-	xa/FZK7NNteqlfz3hD7AQYoCwouyWcRzJHvqJqHz1mXsRCw+VNySUBPdX0NS+D2l
-	EmgfJTqUU8iAwkSpszyKstuaHwsZ7/RNBaPwuKi+ZvulDu1arHMDcQS1e+MKyuTH
-	Z54p/WyeN8cVKqUEbPm26DlLHWoDJqeNCAaxdbtyu42kb9NQP4BzzdXpqEoJJGCd
-	uVnbTngdYodeTbASFeDrTeL0SJru+489UxKu8mGWUU1H3ASlJsN6TpD1yhFniS6j
-	ZTSfcz/OilLwNLXkdTjPNgQPSC6rvinAQWg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=daanbouwman.nl a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794497135; d=daanbouwman.nl;
-	mf=PGRhYW5AZGFhbmJvdXdtYW4ubmw+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:lEXPwpxtibw/tYw+9Y/fwTXLfki84EPr4QdvZjb3C+d/NaN
-	kh5M8FRd+8KAv4uqOnT/uwSkQngpevvlSv5R9JSDaPfsMQhGWaRLxrZuzkixZDKq
-	wJwEISXhhL5ZJJazd8CvUlca6y3rJ3jQwD+cz1zDcdVUj7atXrGN0VgUlBAz+bfD
-	o26PyoUGKVjCsHDQ9dSq910eiBr5Ld70nlQg8Pcydtsvt/X6B782ONwep0DW9XAT
-	fqXcumVN+9PX2ywLkGJAA3Cc0ThiG4eiKxbVyL7ObGDDHLwdrRFlljOQtY2HZ+Z6
-	IP04ay9bKJFKLkJ+6PUtF9ocf21rni+KCalNOOg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:dM4JR5TwGCN+oN4b5/XHsK6jee3EK7CnlSX52D+2uOc=:c07zY8anuh8g65MOjUyinIH3uPh7GfiWUgtFYb2C6YM=;
-X-ME-Sender: <xms:b9r1ahtpgAtb97TN6i64EaokK-Wm8JZZGetto-Zcg00a5Awd-qPeYQ>
-    <xme:b9r1alYhLyKKagK9y-PYUyS7xkwau5g9HO0lQtFxF7MfZuwDjGhbeY1ZWHay7Kq6F
-    cNYB-R2DR-uVYDqN1flhBokL8u59pCksiD-Hzq971oU7WCcEcYDT9g>
-X-ME-Received: <xmr:b9r1ajzsVEO-JW1f4ooRJUfpmN2VN1562BJeyjnqFeljAJKWc8YTeOALFg-uOR9La38tKudIP9g5DokLy2A>
-X-ME-Proxy-Cause: dmFkZTFHexHi45wj/oZspy+CZQF2pB4nZvnJvxqOtKMoY9ys9kyD+9oqLgL3XFFxTuyKFb
-    t/rBBLZPT0hTW7F5dS5+BOfN2ylM6Oy3D/qcX3hNkN90Qm5BNilwPL7iW7iaAmoGU9zzMF
-    UJ8ddHpua4mQpdkU4YQh7fe3n9x7mVnaH2UvL5BOCvf1RQ2Ttj4A5p0ZzJwwyx4+Fkt8vN
-    uVtudbNiZ2NsEPbPd5qRTP8rLDlDY03Tz/ovfJfyDNdO1zVNpUAIF6ycBA7oI5mGde2ly8
-    OlFne1TdRx7UAU7gjlAnUCM25nI/qExGuKBI7wI9krNo6bifWobmNyI+xaPlTlPN5tUvIZ
-    6pxQcWprWApG8JS9hwNb3P6vdDzoT3vaRqTtt0C3Qm6TKIo80PC3EhXv6UK9QGbt002QDy
-    Rtk3d6e+VwAsIllTlUu7qiBrjtThX+KaaHBqCUrTrWkpgoPPYRsl3f78t58QJ8whJGUPHw
-    n2FJPQYx+RhkNS6sexDoiEHf/RsO9xlXdhsrXlEqgW3+IphbXtX+XQU9hT3ipvFvGjb8ew
-    GAIyo4lfJr9HUQtMmjEfceJBCQzrNPEYJKkIdGVtYbMnWnVHfnW+ED+bjgvjPrvd2pahCa
-    p7yvJQ16jYxz6VmqpOGJs2v7/SSpUJ1ASXwS+N51/bqj7ZYiM/9iKu6qHawA
-X-ME-Proxy: <xmx:b9r1atiBhMXhJ26EaspQfJZb2VllweEZCwFDAV5wFN8U5PXPf57sUA>
-    <xmx:b9r1avk0dxRiUyhEYmBrlbF_eicqB7oe3wGocITIRWfxG7Mbwr0dag>
-    <xmx:b9r1ajiylCITzedlKfvKhrE3-gO6HQHqte5KDXWzjf0jNqXk03yMEg>
-    <xmx:b9r1aj0Gw3Q1QZwX6gpak4Oq0hrT1-5Ynh5vXjiyAIoaMNytLY5pmA>
-    <xmx:b9r1aj3VMR-FZwts2UVRzwOfDYjxb3OVwvhd-BFc2vOD_u9_l5boItqr>
-Feedback-ID: i83ce4876:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 12 Nov 2026 10:25:34 -0500 (EST)
-From: Daan Bouwman <daan@daanbouwman.nl>
-To: linux-bluetooth@vger.kernel.org
-Cc: Daan Bouwman <daan@daanbouwman.nl>,
-	stable@vger.kernel.org,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] Bluetooth: btusb: Add QCA Rome support for Surface Laptop 3 AMD (0cf3:e303)
-Date: Thu, 12 Nov 2026 16:24:26 +0100
-Message-ID: <20261112152426.10335-1-daan@daanbouwman.nl>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=C3+eQTZO
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E79AE1516;
+	Thu, 12 Nov 2026 07:26:14 -0800 (PST)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 45BF23F632;
+	Thu, 12 Nov 2026 07:26:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794497177; bh=btEnX4uDhjrUHVzZrwRd+YJ2duMYbN+7dhmt6hZ8QcE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=C3+eQTZOzu1UELo2VKOMsYJ7L2S8YhbY8UfFsu/BvGX/rhLuuRVXaThVsd5Y0C8BK
+	 EHr+DnD1m5w7cpb0Bjcuis2I5Ozpjto38/PtiO/dQr2gTQJXID7h/fAXhiYcdFi1Rm
+	 djJbY6xjQgg5L6eMYfqJIxM9cMpalkGPCK70ZerE=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Tian Zheng <zhengtian10@huawei.com>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	maz@kernel.org,
+	oupton@kernel.org,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	corbet@lwn.net,
+	pbonzini@redhat.com,
+	yuzenghui@huawei.com,
+	wangzhou1@hisilicon.com,
+	yangjinqian1@huawei.com,
+	caijian11@h-partners.com,
+	liuyonglong@huawei.com,
+	tangchengchang@huawei.com,
+	yezhenyu2@huawei.com,
+	yubihong@huawei.com,
+	linuxarm@huawei.com,
+	joey.gouly@arm.com,
+	kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	fuad.tabba@linux.dev,
+	mark.rutland@arm.com,
+	seanjc@google.com,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	skhan@linuxfoundation.org
+Subject: Re: [PATCH v5 11/15] KVM: arm64: Reserve dirty ring space for the HDBSS buffer
+Date: Thu, 12 Nov 2026 15:26:12 +0000
+Message-ID: <avXak02I6i0tLLN9@LeoBrasDK>
 X-Mailer: git-send-email 2.56.1
+In-Reply-To: <fee835a5-a027-4b68-b933-6f8e81987bce@huawei.com>
+References: <20260929103655.85107-1-zhengtian10@huawei.com> <20260929103655.85107-12-zhengtian10@huawei.com> <auikG0clmr19sAjh@LeoBrasDK> <afcbf19b-bd13-4afc-ab56-8bc50c793e50@huawei.com> <au30DqzWIFny1tpr@LeoBrasDK> <d81243e3-d790-4ee8-9b28-36d35591ee77@huawei.com> <avIOZTvQF-1sxs2p@LeoBrasDK> <90775cb3-84ab-4690-a252-1ac41488118f@huawei.com> <avMSw3LLDIFT3kSR@LeoBrasDK> <fee835a5-a027-4b68-b933-6f8e81987bce@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,66 +89,267 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 
-The Microsoft Surface Laptop 3 (AMD edition) uses a Qualcomm Atheros
-QCA6174 Bluetooth USB controller with USB ID 0cf3:e303. Without the
-BTUSB_QCA_ROME quirk, btusb binds to it as a generic controller and
-never loads the QCA rampatch and NVM firmware, leaving the controller in
-unpatched ROM mode where BLE connections fail with "unexpected event for
-opcode 0x2005" errors.
+On Thu, Nov 12, 2026 at 09:15:02PM +0800, Tian Zheng wrote:
+> 
+> 
+> On 11/10/2026 8:49 PM, Leonardo Bras wrote:
+> > On Tue, Nov 10, 2026 at 04:54:30PM +0800, Tian Zheng wrote:
+> > > 
+> > > 
+> > > On 11/10/2026 2:18 AM, Leonardo Bras wrote:
+> > > > On Mon, Nov 09, 2026 at 12:00:52PM +0800, Tian Zheng wrote:
+> > > > > 
+> > > > > 
+> > > > > On 11/6/2026 11:36 PM, Leonardo Bras wrote:
+> > > > > > On Fri, Nov 06, 2026 at 06:36:04PM +0800, Tian Zheng wrote:
+> > > > > > > 
+> > > > > > > 
+> > > > > > > On 11/2/2026 10:54 PM, Leonardo Bras wrote:
+> > > > > > > > On Tue, Sep 29, 2026 at 06:36:51PM +0800, Tian Zheng wrote:
+> > > > > > > > > The dirty ring reserves room for CPU-side dirty buffers via
+> > > > > > > > > kvm_cpu_dirty_log_size(). Report the HDBSS buffer entry count
+> > > > > > > > > through it, so a full buffer flush always fits in the ring.
+> > > > > > > > > 
+> > > > > > > > > Pin the HDBSS buffer size to PAGE_SIZE when dirty-ring is enabled,
+> > > > > > > > > via kvm_arch_dirty_ring_size_updated(): a larger buffer only
+> > > > > > > > > shrinks the soft_limit and forces more frequent userspace drains.
+> > > > > > > > > 
+> > > > > > > > > Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
+> > > > > > > > > ---
+> > > > > > > > >      arch/arm64/kvm/arm.c | 8 ++++++++
+> > > > > > > > >      arch/arm64/kvm/mmu.c | 8 ++++++++
+> > > > > > > > >      2 files changed, 16 insertions(+)
+> > > > > > > > > 
+> > > > > > > > > diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> > > > > > > > > index 9d7bdece149a..5a7046acb62e 100644
+> > > > > > > > > --- a/arch/arm64/kvm/arm.c
+> > > > > > > > > +++ b/arch/arm64/kvm/arm.c
+> > > > > > > > > @@ -215,6 +215,14 @@ static int kvm_arm_default_max_vcpus(void)
+> > > > > > > > >      	return vgic_present ? kvm_vgic_get_max_vcpus() : KVM_MAX_VCPUS;
+> > > > > > > > >      }
+> > > > > > > > > 
+> > > > > > > > > +void kvm_arch_dirty_ring_size_updated(struct kvm *kvm)
+> > > > > > > > > +{
+> > > > > > > > > +	if (!system_supports_hdbss())
+> > > > > > > > > +		return;
+> > > > > > > > > +
+> > > > > > > > > +	kvm->arch.hdbss_buffer_size = KVM_ARM_HDBSS_DEFAULT_SIZE;
+> > > > > > > > > +}
+> > > > > > > > > +
+> > > > > > > > 
+> > > > > > > > On the same subject as a previous patch:
+> > > > > > > > I don't think this is the best approach, on top of adding a new weak
+> > > > > > > > function to take care.
+> > > > > > > > 
+> > > > > > > > Maybe during the dirty-ring allocation, on vcpu creation, we could take
+> > > > > > > > into account the requested dirty-ring size, and just allocate the HDBSS
+> > > > > > > > buffer taking that into account. That would make it simpler, don't you
+> > > > > > > > agree?
+> > > > > > > > 
+> > > > > > > > Thanks!
+> > > > > > > > Leo
+> > > > > > > 
+> > > > > > > Hi Leo,
+> > > > > > > 
+> > > > > > > The "set once" guard we're discussing comes from the patch that adds the
+> > > > > > > ioctl, and it isn't really needed. We discussed this earlier [1]: we can
+> > > > > > > just initialize hdbss_buffer_size to PAGE_SIZE at VM creation and let
+> > > > > > > the ring reservation use it directly. **That also means
+> > > > > > > kvm_arch_dirty_ring_size_updated() can be removed.** Thanks for your
+> > > > > > > suggestion.
+> > > > > > 
+> > > > > > :)
+> > > > > > 
+> > > > > > > 
+> > > > > > > As for why PAGE_SIZE is the right value in ring mode: the HDBSS buffer
+> > > > > > > is flushed on every VM exit, so a larger buffer doesn't reduce the flush
+> > > > > > > frequency. It only inflates the ring reservation (64 + size/
+> > > > > > > sizeof(u64)), which shrinks the soft_limit and forces more frequent
+> > > > > > > exits to userspace for the ring to be drained. Draining the dirty ring
+> > > > > > > from QEMU is more expensive than draining the HDBSS buffer from the
+> > > > > > > kernel, so the smallest buffer gives the best performance. In this mode,
+> > > > > > > a larger buffer provides no benefit to users.
+> > > > > > 
+> > > > > > Humm, if properly dimensioned larger buffers would be benefitial for
+> > > > > > memory-intensive workloads, unless they are guest_exiting for other
+> > > > > > reasons in the meantime.
+> > > > > > 
+> > > > > 
+> > > > > Agreed, and the workload I tested is on the "unless" side. The guest
+> > > > > exits constantly for other reasons, so the larger buffer never got a
+> > > > > chance to pay off, and only cost ring capacity.
+> > > > > 
+> > > > > > > 
+> > > > > > > In my tests, I also saw performance degrade when more space is reserved.
+> > > > > > > 
+> > > > > > 
+> > > > > > Humm, what kind of workloads did you test?
+> > > > > > Did you have the chance to monitor what were the reasons for VM exiting?
+> > > > > > 
+> > > > > 
+> > > > > For the workload question, it's a Redis server in the guest under redis-
+> > > > > benchmark (SET-only, 2KB values, 1M keys, 100M requests). The traffic is
+> > > > > network-driven, so the guest exits constantly to service requests. The
+> > > > > HDBSS buffer only accumulates entries between two exits and is flushed
+> > > > > on every exit, so it rarely fills regardless of size. A larger buffer
+> > > > > only inflated the ring reservation, which shrinks the soft_limit and
+> > > > > makes the ring-full exit and userspace drain fire more often.
+> > > > > 
+> > > > > > I am not saying this is mandatory for the HDBSS implementation, but the
+> > > > > > whole idea of letting the user choose their own HDBSS buffer size is
+> > > > > > because different workloads may benefit from different buffer sizes: if a
+> > > > > > VM writes a lot to new memory, and exits very little for other reasons,
+> > > > > > then a larger buffer will cause the VM to guest_exit much less often.
+> > > > > > 
+> > > > > > Does that make sense?
+> > > > > > 
+> > > > > > Thanks!
+> > > > > > Leo
+> > > > > 
+> > > > > It does make sense. That's exactly the workload where a larger buffer
+> > > > > pays off, and the next version no longer gets in its way. The two ioctls
+> > > > > are no longer mutually exclusive.
+> > > > > 
+> > > > > The only coupling left is the reservation. hdbss_buffer_size starts at
+> > > > > SZ_4K at VM creation, so a ring enabled right away reserves for the
+> > > > > default buffer (64 + 512 entries), and the minimum ring size accepted is
+> > > > > unchanged from v5. KVM_CAP_ARM_HDBSS_BUFFER_SIZE is the gate. When the
+> > > > > ring is already enabled, a size is accepted only if its reservation
+> > > > > still fits in the ring, otherwise -EINVAL. In the other order, ring-
+> > > > > enable validation rejects a ring too small for the configured size.
+> > > > 
+> > > > I don't think this is needed. If using dirtyring, we don't need to allow
+> > > > user to set hdbss size: HDBSS size should be sized according to the
+> > > > dirty-ring dimensions, that are set by userspace before the first vcpu is
+> > > > created.
+> > > > 
+> > > > 
+> > > > > So SZ_4K is just the conservative default for guests that exit often.
+> > > > > Anything larger, within what the ring can reserve, is up to the user.
+> > > > > 
+> > > > > Does this work for you?
+> > > > 
+> > > > I still think we should do PAGE_SIZE for dirty-bitmap. Dirty ring should do
+> > > > based on the dirty-ring size, and maybe review the use of reserved
+> > > > entries, or it's accounting.
+> > > > 
+> > > > What do you think?
+> > > > 
+> > > > Thanks!
+> > > > Leo
+> > > 
+> > > Hi Leo,
+> > > 
+> > > Thanks for your review. It does make sense!
+> > > 
+> > > I agree that dirty-bitmap mode will keep PAGE_SIZE as the default, and
+> > > in that mode the ioctl stays available for a larger buffer.
+> > > 
+> > > In ring mode we will drop the ioctl, the two remain mutually exclusive,
+> > > and the buffer will be derived from the ring size userspace configured
+> > > before the first vCPU is created:
+> > > 
+> > > ```
+> > > hdbss_buffer = clamp_t(unsigned long,
+> > >                         rounddown_pow_of_two(ring_size / 16),
+> > >                         SZ_4K, KVM_ARM_HDBSS_MAX_SIZE);
+> > > ```
+> > > 
+> > 
+> > Are you allocating 1/16th of the ring size in bytes as an hdbss buffer?
+> > That's confusing. I recommend we rather have something like:
+> > 
+> > ring_entries = ring_size / sizeof(struct kvm_dirty_gfn);
+> > hdbss_entries = ring_entries / 2; // Or any number we decide to use here.
+> > hdbss_buf_size = hdbss_entries * sizeof(hdbss_buf_entry);
+> > 
+> > Then we do
+> > hdbss_buf_size = clamp_t(unsigned long,
+> >                           rounddown_pow_of_two(hdbss_buf_size),
+> >                           SZ_4K, KVM_ARM_HDBSS_MAX_SIZE);
+> > 
+> > So it's clear what is what here.
+> > Just dividing by 16 above can be confusing to whoever is reading the code.
+> > 
+> > 
+> > > A buffer entry is 8 bytes and a ring entry is 16 bytes, so:
+> > > 
+> > > ```
+> > > buffer entries = buffer_size / 8
+> > > ring entries   = ring_size / 16
+> > > ```
+> > 
+> > Remember to use the sizeof instead of fixed numbers.
+> > 
+> > > 
+> > > This means ring_size / 16 reserves at most one eighth of the ring
+> > > entries for the HDBSS buffer. That keeps the usable ring above 85% while
+> > > the buffer still grows with the configured ring size, and the result is
+> > > independent of the kernel page size, with SZ_4K as the only minimum.
+> > 
+> > Yeah, remember that if you are dealing with the ringbuffer like this, an
+> > user can request a 4k ringbuffer and we just won't be able to use hdbss, as
+> > it means 4k/16 entries, and hdbss has the minimum of 4k/8.
+> > 
+> > As I mentioned, maybe this approach of reserved entries is not the right
+> > way of dealing with it in arm64.
+> > 
+> > > 
+> > > One eighth is the ratio that looks reasonable to me so far. What do you
+> > > think?
+> > > 
+> > 
+> > I see no reason why it could not be higher than that. It all depends on how
+> > you want to deal with the full buffer in the future patchset. If hdbss
+> > buffer is full, it has to exit and drain to the dirtyring. The guarantee
+> > you seek with reserved entries is that all hdbss entries fit in the
+> > dirty-ring.
+> > 
+> > As long as the user is required to drain entries until the dirty-ring is
+> > not 'full' anymore, we could easily work with dirty-ring having twice as
+> > many entries as the hdbss buffer.
+> > 
+> > How does it sound?
+> > 
+> > Thanks!
+> > Leo
+> 
+> Hi Leo,
+> 
+> Thanks for the suggestion.
+> 
+> For the next version I'll still go with the reservation scheme. It's the
+> safest approach I can think of. The guarantee I want is that a full
+> buffer flush always fits in the ring by construction, without depending
+> on how quickly userspace drains it.
 
-With the quirk applied, the controller is set up correctly:
+Of course, it should never depend on how quickly userspace drains the ring.
+My point is that reserved entries is not the only option that satisfies 
+that.
+ 
+> 
+> I'll also switch to sizeof(struct kvm_dirty_gfn) and
+> sizeof(hdbss_buf_entry) instead of the hardcoded 16 and 8, and size the
+> HDBSS buffer at half the ring entries as you suggested.
+> 
+> On the 4K ring case: HDBSS can't fit there. One option is to just not
+> enable HDBSS in that scenario, but I'll start with returning -EINVAL for
+> now. I'm happy to switch to the other option if you think that's better.
+> 
 
-  Bluetooth: hci0: using rampatch file: qca/rampatch_usb_00000302.bin
-  Bluetooth: hci0: QCA: patch rome 0x302 build 0x3e8, firmware rome 0x302 build 0x111
-  Bluetooth: hci0: using NVM file: qca/nvm_usb_00000302.bin
+Return -EINVAL meaning what? userspace can't set the dirty-ring to 4k? that 
+could break a lot of users.
 
-Add 0cf3:e303 with BTUSB_QCA_ROME | BTUSB_WIDEBAND_SPEECH.
+Disabling HDBSS for that range could be the solution, but then we 
+would have HDBSS being used for dirty-rings above some size, which could be 
+kind of odd in the code, and possibly lead to trouble in the future.
 
-T:  Bus=01 Lev=01 Prnt=01 Port=02 Cnt=01 Dev#=  3 Spd=12   MxCh= 0
-D:  Ver= 1.10 Cls=e0(wlcon) Sub=01 Prot=01 MxPS=64 #Cfgs=  1
-P:  Vendor=0cf3 ProdID=e303 Rev=00.01
-C:  #Ifs= 2 Cfg#= 1 Atr=e0 MxPwr=100mA
-I:  If#= 0 Alt= 0 #EPs= 3 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
-E:  Ad=02(O) Atr=02(Bulk) MxPS=  64 Ivl=0ms
-E:  Ad=81(I) Atr=03(Int.) MxPS=  16 Ivl=1ms
-E:  Ad=82(I) Atr=02(Bulk) MxPS=  64 Ivl=0ms
-I:  If#= 1 Alt= 0 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
-E:  Ad=03(O) Atr=01(Isoc) MxPS=   0 Ivl=1ms
-E:  Ad=83(I) Atr=01(Isoc) MxPS=   0 Ivl=1ms
+That's one of the reasons I mentioned reserved entries may not be the best 
+solution for us.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Daan Bouwman <daan@daanbouwman.nl>
----
-
-Notes:
-    The commit message was drafted with Claude (claude-opus-5-5); I reviewed
-    the change and tested it on my Surface Laptop 3 (AMD).
-    
-    Tested on v7.2.15 with this same ID entry applied to btusb, after a cold
-    boot with my out-of-tree workaround disabled:
-     - stock btusb: no rampatch/NVM loaded, HCI version 7, BLE mouse fails
-       with "unexpected event for opcode 0x2005"
-     - patched btusb: rampatch and NVM 0x302 loaded, HCI version 8, BLE mouse
-       connects and reconnects, no 0x2005 errors
-
- drivers/bluetooth/btusb_main.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/bluetooth/btusb_main.c b/drivers/bluetooth/btusb_main.c
-index 95398e2ca..f44b44382 100644
---- a/drivers/bluetooth/btusb_main.c
-+++ b/drivers/bluetooth/btusb_main.c
-@@ -288,6 +288,8 @@ static const struct usb_device_id quirks_table[] = {
- 						     BTUSB_WIDEBAND_SPEECH },
- 	{ USB_DEVICE(0x0cf3, 0xe301), .driver_info = BTUSB_QCA_ROME |
- 						     BTUSB_WIDEBAND_SPEECH },
-+	{ USB_DEVICE(0x0cf3, 0xe303), .driver_info = BTUSB_QCA_ROME |
-+						     BTUSB_WIDEBAND_SPEECH },
- 	{ USB_DEVICE(0x0cf3, 0xe360), .driver_info = BTUSB_QCA_ROME |
- 						     BTUSB_WIDEBAND_SPEECH },
- 	{ USB_DEVICE(0x0cf3, 0xe500), .driver_info = BTUSB_QCA_ROME |
--- 
-2.56.1
-
+Thanks!
+Leo
