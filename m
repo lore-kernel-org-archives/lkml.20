@@ -1,105 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794476535;
-	b=zYFsCgGPs2fO/xD1vZrkugyeUI+QWBh9nU5YmrdKBdsuKyRBDmjenqVcNwjr60BLVDue
-	 CGVPLWeQcClGiiR4MmkLVdMntLAdC+72tyTIsj6V1wrjaCgqwTn4LJHpVq7jARKRgCm4w
-	 lqIksGKgM5tcZ09UjnF6hSuLK5MWRr9X71/iSEoB927DZkePf0HFNr6k1BSM+DF8m5joy
-	 ibCGt9TlVWRPOPDPeZCQw4lorNArY3RuL/BV2Ko3DxiGwLnIrceJ5Px7lLvbRpkCIjgkY
-	 CrcT2oi7qYQ7slcJLP3Co31V0RGimN9Lzy4flvyw63MZNIfXV70Y+b1yrNlN1MxRq8A==
+	t=1794476554;
+	b=eN29kNKfMVpgZDSr89mhri9NjS08nND0LumLGi/wTA5u+ottsCTYgdz6ELjJvbWN0w2j
+	 +dip9PNjcTYrOnb4kShEbC38cXbCycd/qf8Djbvoi7TjhCwRDQwK2gUBiDpSZHvdUgphn
+	 PvPAANxfD51r73fIisAcnLZK7OickfHvuvsD7egSTRv/pjsmdQSa5iHU8npvrvNMPMvIX
+	 zQH3lsbqKM5J1qoZqv5kTRTCrkXLSTEupwyTXNJYDVmO247nTfhu77MGPOiHE/1osAwft
+	 tj9FkT+DbIoAEpAa6qmUzhFFDp8t/UKrw3nM/Ol8PnQ5gZSJ4UL45J7+MpW6+qMYGLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794476535;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794476554;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=M5z4Z218iwFLIiE49jl2bv9SF37cp7wRUYRt0lwEz+g=;
-	b=TvHbINYeF8Oah3v89Cxu6OfGGO1riFnXzk7wnIiDBVz9yuUAk88rI9RSCW+CtohZD1Ie
-	 y3popL6/4Cuv6Gpnehu6WJq/CFwKiLjA7+fT7gO8itbRT80on/XBG1UFoKkLy+Xf0RQPL
-	 p7vKVroFE48DECwca/qtuLhUW3KuuThb0k5dA0FNPZ6Fm+yi5dArh33Sc1k5bFe074lVN
-	 pPxJ8QN/kfH5lSH2ZTAjnQ3JOEzEqdXRVKpRSOTYxRJQ3sJm6ouu8cTLy/76La2QrxZvm
-	 AzpBxQjf9TVYckVVuwbqAV4eVMRaFcHxwqdRKPLEtNvBdoHxOuy1wI0sIMOclhBB6pw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=GTBA18JOWQoqxmchbhKPxOkv4PhMrzj8DppFkmldNNY=;
+	b=Yo4V53QkP1JnpkR/Kn10m5ewVe6L2ayG2aWsIi8ngLEY1TiTMyqlgRzMTCZT2Zc09Y6r
+	 tXAxAUYAtB/McRIMeaeHVloGWmJm5P7EHGqFRq+JMBzjsd+GfD7KOCMsTYLR0PJ/FWiiS
+	 kS19duGfG9wAwS+IVuURvut366TYi1ND/75Il8K1HHQW0Ycg8GRgbAOvOO1ETs/2UcMhe
+	 0hXod5jFWDOEGnQlaRf+nZxfeRGyXNGTysovsO772TVzUORt5m8hPLB91QXuzvRhxboB8
+	 XN/iE1116MBKoVi1EOq4oci1hG0tEwB/dHgjUuvwW3ltFyBwPvuKxzCJpVvht59pN4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Oghy3hZM;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rAPFnoHI;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2AE2606A887
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:42:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2AE2606A887
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9062606A33B
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:42:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9062606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Oghy3hZM
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3720addb068so7255754eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:42:14 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rAPFnoHI
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-15dd124bbe7so6423932c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:42:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794476534; x=1795081334; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=M5z4Z218iwFLIiE49jl2bv9SF37cp7wRUYRt0lwEz+g=;
-        b=Oghy3hZMUYng4sAKtcoxnPw6uGHj+5sCsfYUVf23LwU+ATEnKNflnRzEzIb67/xawB
-         tNco7RrfZzCS/s+2YDJ+nguv5RXPGLznG5Vw8B1HcZYHurdd3n44EcP7zvp8H8ez8uXy
-         1TjeMT5PT+koVkp+clFHn+eKrqXXRsrzqIJcvZB9mnAduvT3DZTN/nSR7FoJDjgDdvhg
-         i+PgyNIfLepNKm/wjuDniyaNJJ/zIaupctIRDTpCuKqLixyR3nzzuP0MQR4RTORtkFwq
-         HY18eFm6NjdVvfTBqadsTHC0VQNZNW9EN+u3T3JifzTv+MejzEhp4+DRhUgp5a1QDwV6
-         VU+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794476534; x=1795081334;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794476553; x=1795081353; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=M5z4Z218iwFLIiE49jl2bv9SF37cp7wRUYRt0lwEz+g=;
-        b=J4pSiGEhdbmAkiEEr0I9VBip6XympmnXIiA049axFJgF0F7AdP3rb+CaiQRUnYkLmf
-         7JbynL0wHjMuveg2ktY7BLrui2yqc2etgswKLx3dRVqJHZ+fvhrT7QdjmXyotILAfuyn
-         3Lkobc+lDCnYP1g3lsb8Y9ygBS+kpOCRhi09uB4k4uKaFO8V8Vcj6xihkQV4UEvQP20H
-         UaPhhrmJxXEuCeN6Fgk4PcJ2qC0+Fsr08GKaQSTftdWGodQo8mHI9eLtqHDSt7gHGaVN
-         CkV8BTCIX20yDnoVNVplx1xvKCSfFhXzXE8JQ6uV+8MS5/cLgEOvoak4cBJ9Uh35viMO
-         RCiQ==
-X-Forwarded-Encrypted: i=1; AL+hErE90EiWIk3F8/kVx5ejpyy73yr76aXM8vAJurOSvnDNov1Cia4a/qDGJ5zZEyhDKxTKRWQVL+Szv4t7ZN4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+pJgkq7Tx6Aha+5ebw9aatfvhBzqDRx9oSFlPXuF+ax78gkaEi
-	0iponpwFQ5/+a46R7NhqWeAY3GPrlC5jo5hGd6ZbvSDCvI57SbQUBsjI
-X-Gm-Gg: AYBFou20P7O1eMTEBVKUB1uo2h3U3HCmvOitDKizxVPcZB0zBC0VXSbhrjHMZBFrfua
-	/I8Hc25tzoy5WlyXV11f1dqTagrDxtnmu9M75V8VLpXNCpxLk5IA02GsjBeOj938sm+0w6Zs/D5
-	hKMJQ8OPyxS/YYzqvNV5sarCrXd3/0IB9AWlc3lE/BKr8mSnzlPoIoij28F1gQBzZrv5HpmUqSt
-	9UdQatZTVGISBUvWNgApLWVsPt/tBNMNheOB+s+aPPoNSn2Yv2druJ6Uq7VJdRegkPJPNL3ceTZ
-	2M4V8MTTbeFLttaWiePeEE5j3FtNarDnRVotvFicoGiSon1q1j8zxfzO7fKObW11sra9xmyCBEa
-	+d4W31PKl6CIfzzmezGcNyltozALhUKqPRz9smoEgvF8TkgqzDF3W1bu+iBwknD0krJEqPbERuB
-	UpVbiAy9F1Kt/J55VWHOa0Jag8SWCopM0pf/znpldJF+D4cJxbE9bp7NSSMj6nBG9glOl5harQl
-	Kz1EhZHxIaT55ElLnDuP3mLLV2dAUC0/1e+1wBUGkE7VRRPeFEwhbIIozXBnRla2cAvcUJ5+8W2
-	rSq1REBJ/9FVAhcyAZDtWRA44AYtbKLWKiPDEgM/gIkIjZCkoVdHVPyJafYjFVMEf8RCQ1uAq0Y
-	tNXR4gaec8xqpmvJ9yyB6qbsDVOMJDyyM86FkalO1SwS57nz41DcBhz9Ns7omuu93a5dqT7WupR
-	w=
-X-Received: by 2002:a05:693c:42d1:b0:36e:c9e5:33aa with SMTP id 5a478bee46e88-376854ba4b9mr5548647eec.13.1794476533548;
-        Thu, 12 Nov 2026 01:42:13 -0800 (PST)
-Received: from ramen-dev-security-2.asia-south1-c.c.ramen-dev-345017.internal (90.156.200.35.bc.googleusercontent.com. [35.200.156.90])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe306e3sm26300020eec.7.2026.11.12.01.42.08
+        bh=GTBA18JOWQoqxmchbhKPxOkv4PhMrzj8DppFkmldNNY=;
+        b=rAPFnoHIsbGNfDSv9jotfyB0/qKorAoRbkeKBXmB4EXsH71j8nZ1gKX8EOOos0Sowt
+         WDxjVN3kjS2r4mbBevm5WsXOc/d/bok51BYDgqsVa1SxuIdSevDfTE/fgPr2mRw99Spw
+         TSDq+g8KcP8aH8EOAoEF61W/kplwlov9Vcf25USfDpPti3KUNDk8Zk38SPTUboK0EJhs
+         uSY5iWq21wueHBK46vJ6pxoPYuKVxCMdBSDiN6b8NPHNTlfGYjFa2grMGeWkNRUTXQ5v
+         6VTXJ7BSpGQah8nckly4oIA3MipYmkUywvxpTbqnTpc5VU2O02xDnxX4ze9CvPc+dNxi
+         RT9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794476553; x=1795081353;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GTBA18JOWQoqxmchbhKPxOkv4PhMrzj8DppFkmldNNY=;
+        b=anWYnQYChdNWz2nGrOf4/1BsZm3UIkTyeOf4IICskmj16CvDxt3tbxLOXyreYsgTJm
+         FODStZdpb5OfFqKik07mdQE+nDb69NqemhobhEvp20yhjdtogHJWH0jG/9CCeAzNKQhM
+         M/cIp975EBDhbj0cIi+rigZ4MbgbbaIpYpQVHuohB5CKPFIpOXKY6PhJx1GBX78JbAoE
+         twP1Moo+PPoi2Dib0Hs1HhkaJVhoVFA2YOKW8qVp02E+uCPMqF2mdRYKj74fuUBeD1fB
+         uvpvyCFrxbx6thGQElX5iFcDeeJd/7Pvqa57W91qz8nZw2Rz0StleKO/uWff9UuozJkR
+         /eTg==
+X-Forwarded-Encrypted: i=1; AL+hErGbZadHbXF4muGfuEHD2VhX69NTkRRvOZuO4QR8gwy+CMJk1UiAN6bG5d7eO4jrwydY1jwTxM+3iUt46kE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9XNgt9DZqHeQciu5OZp7HP1rYEjMx75RGuQHQDcA0+pZJSHqjN
+	269JIiT9QbMwsGz5VeVXjN8UTI2G+B/v/eB6u+b02nMVY7Ex+NZ9J0pszWynLDbj
+X-Gm-Gg: AYBFou3qIX1lCgqwd8pKuAUTh3XO2cKhqlhoTd9ukRYVQxSSt9Mp0axuRKHvDJc7llP
+	5UZ5eh+Qg1Vlj2oEWMONTTIW0DLpxDvBkVJm9dw3gHlyX5Ldtug/xv1mGStGaKAPCAO7wO8mzpc
+	X/1R0Pru9QlSYVSwhhnFvtOUnQIT+WjrJrX0MgnPqhySM0nOdOH3dTfzAi5LtN92+3m8+JPI91f
+	HD3cm2wwxNNzoPSeOPg9IaB0JSe4ZxkQOVO+4OL6zCWOVbKv0AWbujrFcYg9QtBjbw1KfCAOFrv
+	uTAWxqdFRQxUXr2OrFmpKMDhllu/u/8bx9RLGzCcJP4ZD5M5ZKv5HYpmmLx3aRAuEj7OEmDNAg/
+	IIXgfEFpOyvx6IRqYsKoatIhMJ/l77x558boB5MjzALCkPK7UKS1sd6PI4CyHrxKw1JV2Bi/UWX
+	blT8MshQH36sMTT5Evk77sjmmK2wAixWK7tcgPVEoNqbj72quI6TPCKXqEs9tf+bNWmA8bJ5SyI
+	808aWNuZJpZxQCu3zCVu3wk/pj6UxsUnPUKWcjB1clayxO7Iht44sYj7lZcQbVne2DOh4phj886
+	gLnDsziufAwepIR6M3OrccDE0kmc/EUeB+67Fwo=
+X-Received: by 2002:a05:7023:888:b0:1a7:78a3:bda8 with SMTP id a92af1059eb24-1b3c0324732mr4909368c88.27.1794476552314;
+        Thu, 12 Nov 2026 01:42:32 -0800 (PST)
+Received: from localhost.localdomain ([223.104.79.0])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b20c55sm22293829c88.8.2026.11.12.01.42.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 01:42:12 -0800 (PST)
-From: Anil Kaushik <anilkaushikwireless@gmail.com>
-To: netdev@vger.kernel.org
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Florian Westphal <fw@strlen.de>,
-	Mat Martineau <martineau@kernel.org>,
-	XingWang Xiang <v3rdant.xiang@gmail.com>,
-	Alice Ryhl <aliceryhl@google.com>,
+        Thu, 12 Nov 2026 01:42:31 -0800 (PST)
+From: liuyong <pkfxxxing@gmail.com>
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Yong Liu <pkfxxxing@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
+	linux-rdma@vger.kernel.org,
+	target-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Anil Kaushik <anilkaushikwireless@gmail.com>
-Subject: [PATCH net v6] genetlink: Reject joining multicast groups no family owns
-Date: Thu, 12 Nov 2026 09:42:05 +0000
-Message-Id: <20261112094205.1120090-1-anilkaushikwireless@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	security@kernel.org
+Subject: [PATCH v4] RDMA/srpt: Prevent uninitialized read buffer disclosure
+Date: Thu, 12 Nov 2026 17:41:36 +0800
+Message-ID: <20261112094138.1390409-1-pkfxxxing@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261111065342.1282709-1-pkfxxxing@gmail.com>
+References: <20261110030809.913063-1-pkfxxxing@gmail.com> <20261110030809.913063-2-pkfxxxing@gmail.com> <20261110052827.963143-1-pkfxxxing@gmail.com> <20261111065342.1282709-1-pkfxxxing@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,127 +104,184 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-genl_bind() checks the GENL_MCAST_CAP_* flags of a group only when a
-family owns it. For a group ID that no family owns, it returns 0, so any
-user can join it.
+From: Yong Liu <pkfxxxing@gmail.com>
 
-A family registered later can get that ID, and the socket stays a member:
-nothing checks it again. An unprivileged user can join the free IDs, load
-a family module with CTRL_CMD_GETFAMILY, which calls request_module(),
-and then receive the notifications of a group with
-GENL_MCAST_CAP_NET_ADMIN or GENL_MCAST_CAP_SYS_ADMIN. For example the
-drop_monitor "events" group always gets ID 1, and is free until the
-drop_monitor module is loaded.
+SRPT allocates read buffers and creates RDMA contexts from the
+initiator's descriptors before parsing the CDB. When target core reduces
+cmd->data_length, a backend such as rd_mcp fills only the shorter
+length, but the prebuilt RDMA transfer still sends the full buffer.
+Control CDB handlers can also leave bytes within cmd->data_length
+unwritten, while target core only clears the first SG entry of these
+preallocated buffers. Both cases can disclose stale target kernel memory
+to a remote initiator with access to the LUN.
 
-Fix by returning -ENOENT from genl_bind() when no family owns the group.
-There are no group flags to check before the family registers, so this
-applies to privileged callers too: a program that joins a fixed ID such
-as NET_DM_GRP_ALERT before the family is loaded no longer gets its
-messages. I don't know of a program that does this. One that resolves
-the family first still joins.
+Reject indirect descriptor tables whose direct descriptor lengths do not
+sum to the advertised total before allocating RDMA contexts. Also
+initialize commands rejected during descriptor parsing so the BUSY
+response path has valid callbacks and a command reference.
 
-bind() takes a mask of groups, and most IDs in it can have no owner. Such
-a mask used to work, so keep it working: netlink_bind() skips an ID when
-the bind callback returns -ENOENT, and joins the others. Only genl_bind()
-returns -ENOENT. A skipped ID is not joined, so it is no longer in the
-groups that getsockname() and NETLINK_LIST_MEMBERSHIPS report.
-setsockopt() returns the error, as it asks for one group.
+Save the original buffer length and zero the entire control read buffer
+before command execution. For data READs, zero any tail beyond
+cmd->data_length before posting the existing RDMA transfers. Synchronize
+each mapped SG list for device access in the response path.
 
-This does not cover a family that is unregistered between the check and
-the point where the membership bit is set.
+The issue was discovered by Qihoo 360's Tulongfeng multi-agent system.
 
-Found by the Sashiko review of the gtp multicast group fix. Tested as an
-unprivileged user who joins all free IDs, then loads gtp and
-drop_monitor:
-
-Before:
-  joins: ok=62 EPERM=2
-  gtp/gtp (ID 15): member
-  NET_DM/events (ID 1): member
-
-After:
-  joins: ok=19 ENOENT=43 EPERM=2
-  gtp/gtp (ID 15): not member
-  NET_DM/events (ID 1): not member
-  bind(), an owned group and free IDs: ok, member of the owned group only
-
-genl_bind() was added, with its first capability check, in the commit
-in the Fixes tag.
-
-Link: https://lore.kernel.org/netdev/179324692107.3134.14443689892607921337@kernel.org/
-Fixes: 4d54cc32112d ("mptcp: avoid lock_fast usage in accept path")
-Signed-off-by: Anil Kaushik <anilkaushikwireless@gmail.com>
+Fixes: b99f8e4d7bcd ("IB/srpt: convert to the generic RDMA READ/WRITE API")
+Fixes: 8b8807b9e982 ("scsi: RDMA/srpt: Fix handling of command / TMF submission failure")
+Cc: stable@vger.kernel.org
+Suggested-by: Bart Van Assche <bvanassche@acm.org>
+Signed-off-by: Yong Liu <pkfxxxing@gmail.com>
 ---
-v6:
-- Drop patch 2 of v5, as Jakub found it too ugly. A family unregistered
-  between the check and setting the membership bit is not covered.
-- Say that early joins to fixed IDs stop working, also for privileged
-  callers, and that NETLINK_LIST_MEMBERSHIPS changes.
-- Document the -ENOENT meaning on the bind member.
-- Rebase on net/main.
+Changes in v4 (addressing the three issues reported by sashiko-bot):
+- Zero the entire original control read buffer before command execution.
+  Limit tail zeroing to data READs and synchronize mapped SG lists in
+  the RDMA submission loop.
+- Use Yong Liu in the author and Signed-off-by fields.
+- Add the Fixes tag for the descriptor-parsing BUSY path initialization.
 
-v5: https://lore.kernel.org/netdev/20261104092125.211537-1-anilkaushikwireless@gmail.com/
+Developed against f66469d9905b39d2c260a15d7d6db450f4db67c1 (7.4-rc1).
 
-I used an LLM to help write and review the code, the tests and the
-commit message of this patch. I checked and tested every change myself.
+ drivers/infiniband/ulp/srpt/ib_srpt.c | 48 +++++++++++++++++++++++++++
+ drivers/infiniband/ulp/srpt/ib_srpt.h |  2 ++
+ 2 files changed, 50 insertions(+)
 
- include/linux/netlink.h  | 3 +++
- net/netlink/af_netlink.c | 6 ++++++
- net/netlink/genetlink.c  | 3 ++-
- 3 files changed, 11 insertions(+), 1 deletion(-)
-
-diff --git a/include/linux/netlink.h b/include/linux/netlink.h
-index 882e9c1b6c1d..b4eb873850e7 100644
---- a/include/linux/netlink.h
-+++ b/include/linux/netlink.h
-@@ -48,6 +48,9 @@ struct netlink_kernel_cfg {
- 	unsigned int	groups;
- 	unsigned int	flags;
- 	void		(*input)(struct sk_buff *skb);
-+	/* -ENOENT means no one owns the group: bind() skips it and joins the
-+	 * others, setsockopt() returns the error.
-+	 */
- 	int		(*bind)(struct net *net, int group);
- 	void		(*unbind)(struct net *net, int group);
- 	void            (*release) (struct sock *sk, unsigned long *groups);
-diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
-index 69bb951b5fb8..ee573ba6396d 100644
---- a/net/netlink/af_netlink.c
-+++ b/net/netlink/af_netlink.c
-@@ -1033,6 +1033,12 @@ static int netlink_bind(struct socket *sock, struct sockaddr_unsized *addr,
- 			err = nlk->netlink_bind(net, group + 1);
- 			if (!err)
- 				continue;
-+			/* no one owns this group, still join the others */
-+			if (err == -ENOENT) {
-+				__clear_bit(group, &groups);
-+				err = 0;
-+				continue;
-+			}
- 			netlink_undo_bind(group, groups, sk);
- 			return err;
+diff --git a/drivers/infiniband/ulp/srpt/ib_srpt.c b/drivers/infiniband/ulp/srpt/ib_srpt.c
+index 43c3ff1ad8..0ec230950b 100644
+--- a/drivers/infiniband/ulp/srpt/ib_srpt.c
++++ b/drivers/infiniband/ulp/srpt/ib_srpt.c
+@@ -41,6 +41,7 @@
+ #include <linux/kthread.h>
+ #include <linux/string.h>
+ #include <linux/delay.h>
++#include <linux/dma-mapping.h>
+ #include <linux/atomic.h>
+ #include <linux/inet.h>
+ #include <rdma/ib_cache.h>
+@@ -1115,8 +1116,10 @@ static int srpt_get_desc_tbl(struct srpt_recv_ioctx *recv_ioctx,
+ 	} else if (((srp_cmd->buf_fmt & 0xf) == SRP_DATA_DESC_INDIRECT) ||
+ 		   ((srp_cmd->buf_fmt >> 4) == SRP_DATA_DESC_INDIRECT)) {
+ 		struct srp_indirect_buf *idb = srpt_get_desc_buf(srp_cmd);
++		u64 total_len = 0;
+ 		int nbufs = be32_to_cpu(idb->table_desc.len) /
+ 				sizeof(struct srp_direct_buf);
++		int i;
+ 
+ 		if (nbufs >
+ 		    (srp_cmd->data_out_desc_cnt + srp_cmd->data_in_desc_cnt)) {
+@@ -1128,6 +1131,11 @@ static int srpt_get_desc_tbl(struct srpt_recv_ioctx *recv_ioctx,
+ 			return -EINVAL;
  		}
-diff --git a/net/netlink/genetlink.c b/net/netlink/genetlink.c
-index 5cc1037d4917..f038f04ef4ea 100644
---- a/net/netlink/genetlink.c
-+++ b/net/netlink/genetlink.c
-@@ -1825,7 +1825,7 @@ static int genl_bind(struct net *net, int group)
- {
- 	const struct genl_family *family;
- 	unsigned int id;
--	int ret = 0;
-+	int ret = -ENOENT;
  
- 	down_read(&cb_lock);
++		for (i = 0; i < nbufs; i++)
++			total_len += be32_to_cpu(idb->desc_list[i].len);
++		if (total_len != be32_to_cpu(idb->len))
++			return -EINVAL;
++
+ 		*data_len = be32_to_cpu(idb->len);
+ 		return srpt_alloc_rw_ctxs(ioctx, idb->desc_list, nbufs,
+ 				sg, sg_cnt);
+@@ -1304,6 +1312,7 @@ static struct srpt_send_ioctx *srpt_get_send_ioctx(struct srpt_rdma_ch *ch)
+ 	WARN_ON_ONCE(ioctx->recv_ioctx);
+ 	ioctx->n_rdma = 0;
+ 	ioctx->n_rw_ctx = 0;
++	ioctx->buf_len = 0;
+ 	ioctx->queue_status_only = false;
+ 	/*
+ 	 * transport_init_se_cmd() does not initialize all fields, so do it
+@@ -1597,9 +1606,13 @@ static void srpt_handle_cmd(struct srpt_rdma_ch *ch,
+ 			pr_err("0x%llx: parsing SRP descriptor table failed.\n",
+ 			       srp_cmd->tag);
+ 		}
++		target_init_cmd(cmd, ch->sess, &send_ioctx->sense_data[0],
++				scsilun_to_int(&srp_cmd->lun), 0,
++				cmd->sam_task_attr, dir, 0);
+ 		goto busy;
+ 	}
  
-@@ -1841,6 +1841,7 @@ static int genl_bind(struct net *net, int group)
- 			continue;
++	send_ioctx->buf_len = data_len;
+ 	rc = target_init_cmd(cmd, ch->sess, &send_ioctx->sense_data[0],
+ 			     scsilun_to_int(&srp_cmd->lun), data_len,
+ 			     cmd->sam_task_attr, dir, TARGET_SCF_ACK_KREF);
+@@ -1613,6 +1626,11 @@ static void srpt_handle_cmd(struct srpt_rdma_ch *ch,
+ 			       GFP_KERNEL))
+ 		return;
  
- 		grp = &family->mcgrps[i];
-+		ret = 0;
- 		if ((grp->flags & GENL_MCAST_CAP_NET_ADMIN) &&
- 		    !ns_capable(net->user_ns, CAP_NET_ADMIN))
- 			ret = -EPERM;
++	/* Control CDB handlers may leave part of the response untouched. */
++	if (cmd->data_direction == DMA_FROM_DEVICE &&
++	    !(cmd->se_cmd_flags & SCF_SCSI_DATA_CDB))
++		sg_zero_buffer(sg, sg_cnt, send_ioctx->buf_len, 0);
++
+ 	target_submit(cmd);
+ 	return;
+ 
+@@ -2866,6 +2884,26 @@ static u8 tcm_to_srp_tsk_mgmt_status(const int tcm_mgmt_status)
+ 	return SRP_TSK_MGMT_FAILED;
+ }
+ 
++static void srpt_zero_read_tail(struct srpt_send_ioctx *ioctx)
++{
++	u32 data_len = ioctx->cmd.data_length;
++	int i;
++
++	for (i = 0; i < ioctx->n_rw_ctx; i++) {
++		struct srpt_rw_ctx *ctx = &ioctx->rw_ctxs[i];
++		struct scatterlist *sg;
++		unsigned int j;
++
++		for_each_sg(ctx->sg, sg, ctx->nents, j) {
++			u32 skip = min(data_len, sg->length);
++
++			data_len -= skip;
++			if (skip < sg->length)
++				sg_zero_buffer(sg, 1, sg->length - skip, skip);
++		}
++	}
++}
++
+ /**
+  * srpt_queue_response - transmit the response to a SCSI command
+  * @cmd: SCSI target command.
+@@ -2907,9 +2945,19 @@ static void srpt_queue_response(struct se_cmd *cmd)
+ 	if (ioctx->cmd.data_direction == DMA_FROM_DEVICE &&
+ 	    ioctx->cmd.data_length &&
+ 	    !ioctx->queue_status_only) {
++		if ((cmd->se_cmd_flags & SCF_SCSI_DATA_CDB) &&
++		    ioctx->buf_len > cmd->data_length)
++			srpt_zero_read_tail(ioctx);
++
+ 		for (i = ioctx->n_rw_ctx - 1; i >= 0; i--) {
+ 			struct srpt_rw_ctx *ctx = &ioctx->rw_ctxs[i];
+ 
++			/* Make CPU writes and zeroed data visible to the RDMA device. */
++			if (!ib_uses_virt_dma(sdev->device))
++				dma_sync_sg_for_device(sdev->device->dma_device,
++						       ctx->sg, ctx->nents,
++						       DMA_TO_DEVICE);
++
+ 			first_wr = rdma_rw_ctx_wrs(&ctx->rw, ch->qp,
+ 					ch->sport->port, NULL, first_wr);
+ 		}
+diff --git a/drivers/infiniband/ulp/srpt/ib_srpt.h b/drivers/infiniband/ulp/srpt/ib_srpt.h
+index 506c11b843..78bba74148 100644
+--- a/drivers/infiniband/ulp/srpt/ib_srpt.h
++++ b/drivers/infiniband/ulp/srpt/ib_srpt.h
+@@ -204,6 +204,7 @@ struct srpt_rw_ctx {
+  * @rdma_cqe:    RDMA completion queue element.
+  * @state:       I/O context state.
+  * @cmd:         Target core command data structure.
++ * @buf_len:     Original SRP data buffer length.
+  * @sense_data:  SCSI sense data.
+  * @n_rdma:      Number of work requests needed to transfer this ioctx.
+  * @n_rw_ctx:    Size of rw_ctxs array.
+@@ -223,6 +224,7 @@ struct srpt_send_ioctx {
+ 	struct ib_cqe		rdma_cqe;
+ 	enum srpt_command_state	state;
+ 	struct se_cmd		cmd;
++	u32			buf_len;
+ 	u8			n_rdma;
+ 	u8			n_rw_ctx;
+ 	bool			queue_status_only;
 -- 
-2.25.1
+2.43.0
 
