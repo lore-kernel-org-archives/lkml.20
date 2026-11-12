@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794506207;
-	b=VdPa2LHqHoGjxbFm6E940wgCnfnp1kgf2CxEVq/xoRa+Z7OBJ7I9LxIiRJD21OiLR81U
-	 tKfDq3ay7jpyiSzNJ+Ld1QRgzVlI3pKF6LKWCa+wV/aOr5WdaUuCSYka/VsACJr3hAKe9
-	 ct4KZhg2wYpCRhK3ukn8lWYCngo2x0rV4OOleTzdFnpVvAyBp4Stq8mttKEdQQqCRH/Bp
-	 0UJWmFgQrKJwwygOM+NimY6GDN9FoS+G2gfwXqvYDuJTYjjCPVtfWza6z9zASzs7DowxF
-	 m/n/pKGwOArlwL9uairXzSYpVI+3wD0I+ZIga6FtCE5OKkcJkdJgzv3sJRY3PPPDBPg==
+	b=AG8nVjF/scsB6cXi3Bb18PBKvUy0LCrh18HS0LghZYnrhPL3QGdkgIy8sVCjNXcP9LZ9
+	 FQG1CtcCo6/mKpjauMsFuBNOFwQiCChc4ELSD47LMzXLOpt2eqFy5irv2oFFlYCc+GxZc
+	 i5LVTty3fHJBN92uyFSSwLDyEHLeel8NyG8lfHi6JByqaISTt74sV+5KmH4b24HHCYljy
+	 G1tu3OkIYZrL0eF3e8fpFlmOwjJB7qmJG1WWfqICvcQX19yAZ+Pa/hB9d5LMsjzgZMhXT
+	 tc/LnKLoZoG4mmvlirYbQo5VND2DNw5jCY7x9B9HrIzM0qOmFVQ7Uoe/5A62WUyb+9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794506207;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=HVf+U3hxUblRExsvvhERdHcHREEMt0I1/4RW7w8TQjA=;
-	b=WHJV3w7KM1a6BEawzbJqWOPnGFqQYTLKLPMg5rDFl20G9e6/dedIKOp2a3kiZU/FnbiV
-	 1/YuUI4GObT2heLtxWrsu6XQ/UHgDtbdAiJUZQz9Toq6to31gWzJo2ILi7JZCKlH1FMn6
-	 CfHct8hhJU/1l1IDXl6ohh/HOjv+fDacTmzJy4UlC2abSc9c7DPnHlYLuCYlRzgPIxC+c
-	 wIPVF8j+Z7LIBhJF6UUGWTPDFsiM7N5GWMC55M66gLxTxZFl25L6Q+wdkIk/xq/yp9l5N
-	 gxhmbrxL/KWZBF/tUsiT88X+X/+SPhreDrDiL1rgJY+8J32YglWRZj44uCAYvSEOMiA==
+	bh=nNm8Cx2ZfHbw8ESTnrWh1uOe82GeZsKFiVEtoCEnJGE=;
+	b=tB//arAJkH5CXFWPiU5QOvDUfWp7Kt6IJdTxSf7J/rxIC7k+RI6heuTEfW/EUQr7JCYk
+	 HUznwFgqgVb2yZPGwtbU78v2w78C64Dm5sVSKpNVtnffNGDNZ8qGp4fxox+w99XgYbLGo
+	 /PsvFzC/mFMVc8++3co/8kxWLJOoOx7Kf0xNuM78Hcw+a57rFao7YYs3u40u2nVzHBvTx
+	 tPKfy2NMm7OehuUfYxZ8BmNJ2HoslHzxe2gXTAO2aouxp4qXKSz0Nkmqb6sSJexQizBXh
+	 FxICELAjyX9w3uBuWSw+mjHjK1Ld9uaQ62qASmb9B80O8SfWVuvyURMdu4ppXbHdiHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bs0tI4Lc;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CQHo2KIP;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13C7860A2626
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:56:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13C7860A2626
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2182F60A263B
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:56:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2182F60A263B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bs0tI4Lc
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-491f34b4e0fso12325f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:56:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CQHo2KIP
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4919a880834so34685f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:56:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794506204; x=1795111004; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794506205; x=1795111005; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HVf+U3hxUblRExsvvhERdHcHREEMt0I1/4RW7w8TQjA=;
-        b=bs0tI4Lchd2DkyHnjMoqg78rp6BUgfsi4omjEdhf/U/mHtF5+E/C8MwaVag1EmrtHq
-         S5nThcoqLvtH4NUxqFR+Ysxj3tzK2CEwzRQGp++qiyu7//siMmRDhnWqI5r+Otdba8Ur
-         FPS1WMT1l0ZeSkXmvQlOl3529LnOQAkmD7jcZQttN9ZT3v2rF9MiTbcnXPXIbW+fQw0L
-         7jXhKjrB1WmOm0AIoLeW7BfyjYK79Oqr5qG2Bu7A4OAgmD9MJa3D/vJ+O+o8ZZ4xKHKr
-         CH2XZqTEpUnJcsDKySi9+UdKkAgiHI2tjMgkXnww0ynTsu100jPhKpmIXsyD41tI88dA
-         kWXA==
+        bh=nNm8Cx2ZfHbw8ESTnrWh1uOe82GeZsKFiVEtoCEnJGE=;
+        b=CQHo2KIPRQenaqgEzE2NoSegb7WfWqir3iaN4h22UZ2lsokznkDCJ9BQ50/QIEr39X
+         SEj0M8yyiAu5UfFhMzsPYNkJq0KJFEvqOb82y2irGjhYO0uKliAXFOcw6WBkOtlaDEev
+         ge0nAxzVnn0RemgEhMj8Rx5ruBBYj9AHHPgsM454AZ5LCMss9GKhngC5xV/zlJp810mu
+         ICiUmA5MkZz0UvkPFJRHsOR5pVCH4sNVgqOKRcQ3A02WAVEYLI9QxgjBn4oarpb5pQb7
+         cTXbJIZwsiIOs59TAJOJ1u2gTY7mSQrAuyKp//cBinHMF/y0DOvxI7y8hqnx7qV7/bt3
+         3A1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794506204; x=1795111004;
+        d=1e100.net; s=20260707; t=1794506205; x=1795111005;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HVf+U3hxUblRExsvvhERdHcHREEMt0I1/4RW7w8TQjA=;
-        b=heDl6rf3zKopAIHY6bK25NLJIT7pIcoykxTqkLPuYBkv4klymyXgNCzUbTbS/vQwjU
-         NCqeuyBRX8K355Sbm9YDluLdDlUgQALjmxRbtdEcIm3ljraSaSGOrmiIgSrb9hKj9eyo
-         GoS3YPHbLQmMt7scl2R3wBRHm0f7oY7IRhXQS1HDZdLMAIh9IXBJRI1WJc2PY+AqvqG2
-         pAM5nY+gqA3sQv63ZIq3UfYuXQc+PoGMqTLv+xTWDc+lcrPjdGZ7dXyoliIMt/0CZG9t
-         H2tByZCPd1bi7x1zoiBrxYOt9EjlnqjKgWX2Ty2R4reK3I9uhjSvi/WrBgTuZTJJN/m5
-         pj1Q==
-X-Forwarded-Encrypted: i=1; AL+hErFE1YRaXaHzEsdUvJcMPAOUYVqTJdBtgvr25Sf9TxR1Mq9FYc5ZTUSmt9X9CnZXVRBe5w25lM9J0+GYdGg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8kxBcuC2Hkh/7Ko1W0RBi2P4LWRmsv+EBIUuAJaaM8q5ZzB2Yu
-	kFL7ITHNslsUJ4ZnCZsrJ1enGoMQrAxMhDUo8nO7vhijTMsRwCWV30t8WLgjmSafSY8=
-X-Gm-Gg: AYBFou1YHBi2VERIRDWwub6TJmCJf5MkrG2GYHJZXCxCPoAlkIn3kRS5RVXbWcx/CYY
-	g6N8ghf45wHiexykey1bj+takVZABJFupQnavCzxYs419N2edKoQDm0++zYuY0bzbVpOYH7FFcR
-	1nMnOhfXNTzEzCeeoizwgaWaXx0sMSM/bihi2c0GznyXknuqdgPygsl1XPYMW6ciiDQ0S784bno
-	6FXTVGZJNT/eB9I4d7bIBL/HnvnrpIDANi9rLZrcGs8vXPF2Q3KvN8aRKRUA7Z1ctUgizNbjmpG
-	DjEXhJcH+Rbyc5jyLTMnX53TkpBhxP/MzkCWyXHDbI6/gFDyM9hEaljLZoXkYOIyhNfoWe/nFAB
-	bm0zJEy5nlUZaHtCrbHM0wwpW507mzJ5NG8BLRLqAT8w4VIfZusqFfm+4NK8ocxc0ecB+AVA7qR
-	n6c9sTq0HmEL0QNDBr1+DYr93+SoYBH4i0GtJ6RPpZqBZ8EozC8sBeZP3VNsy4LxPNuNTO7OjY+
-	jCpVpCVeqG3KXaNXqUr7UbkNouYFFwpoU5aGUb7QHC9jJXGXGLYKbJIhRok0ULcgCp9y5SLRo07
-	dbnR6O7KL2F+zfOVnXwbZnYskKUxVLY6uZNvA/xKi8rfBzxLOyvUViWFqvIr3VFe7d+/5OP8Xpr
-	3+mzgJHgJXNna8YGdSVR8AJ6jbQLY9pl7L6dGn/Cn1p4LCUqE4nhlTh7L8GBHJOdXnsR26i8kBZ
-	gUAMijpxVUBsSZNUgS6CQX6l1wmEwEZl4dvFUC2ejRHw==
-X-Received: by 2002:a5d:5f51:0:b0:495:5c83:51bc with SMTP id ffacd0b85a97d-49c6fc9e6efmr339741f8f.5.1794506204392;
-        Thu, 12 Nov 2026 09:56:44 -0800 (PST)
+        bh=nNm8Cx2ZfHbw8ESTnrWh1uOe82GeZsKFiVEtoCEnJGE=;
+        b=NhRaW47Uo4wZTLWG/77inHumI3w0Ynb03K4EAVjTawv6WzPCWeCCae+GzlGORd/jqn
+         cnRyo2dsAHyBcKNOhaTo3d4FRv5E9RwRUWu7zBg11tUX4LiwMUzcE/Z6NifPpTjaa1ft
+         MxjzTyGzU4haHZ+00rqqOy5IgPhn87T9k6ssPea1zAr4VHljeuKeEFW6hE1R8WMq/6dN
+         wyXFRUzwTZWbEm1RVwO1C27xh5pNRplFnHGS4SzLukKM13GlT9NRWiBvpuP5MS6WVlRf
+         ETypTc7tq4bLXuJu9iVmBbpeb1gfBtMX0y53EBPOAT17ghgVhe4KzbOKM1tbALyQjCW2
+         Cphg==
+X-Forwarded-Encrypted: i=1; AL+hErHavZN45oHfTCgwy/nebSZNgYCHq3FI+/j/154ncHt/+iEACKBDKRw4GA6ucHHGsmoVp+9c8zN0faWJKXk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Y10AgIr5jGYjHAW8bSq2MkSsOoCq7HCVTS8fRBfOEeYgtuz7L
+	7ljS2bpAE7ekmWtXjTW76g2c5gigMDLOdKsHzSN90QTnZBD1AiGkdOUj
+X-Gm-Gg: AYBFou2dShDCPLnB+1I/mkUDYh0VL63YE1CRCvUSUqAB2ZWMZBaQOQ9qiDHloMid/Ke
+	yzCyttKNzeO5i6pK/97Rjp4z5NG/EZXJ2GxpR8rrl3pkx6kbzSTzElvwyK1qZHWtLjEUQU7jOeQ
+	n4i379CS1pOwpqE+ow+ieK7V+tPuJhPrtaULLWGEEVqmF68RPsq79XEO0dyufh+TnwX8PlNYQ8z
+	DKSn/zYytBWLk3xS54xElJ/SrbbSQV4i0Pl8aZdQc7FWNK/f6GBS64MtybUtszibPDCB0cqEUHQ
+	fArJF4NvzrRjLNPAHRzZuAKzm1guIIGppL4Mllud/fC2+oDAoJ9xJkyMyifEtaLHfuQqsh+m/x2
+	oqAH0BiJ8wR3wl2ggrK21NISR9alyiijxcUadHJrjq2WeUNmoDy0sWhtqtobMYeL/aD5MIfgBx5
+	KuV4vfH8pqbreP0ougqcVMBoZO0sq0Z2EK/i6irk6DwNK5gF6UKDs4IqC/xnUoxs9IH0rwy0zRe
+	a73WyZvfR0x9AQBxmU1QV6yJ9dDEpzX+ofyNyOSMuzKciiVXVbB3ctPXmnCsPvd8i8JphMQjVpW
+	wV7R5wR+r8JDI0S3Bg2WDxIJxJ/r7FRORjHy3QX0UOqC+fCZ6w9fNKukfaTmDzVoV1oajo6jLmb
+	vFHlT6BHKXuIiuXqjhl8rWHlAmRHe1wRBV9LZpXtBF4sIX0nQNB9KU7n70g2GzzNooh2B9JsUAl
+	DSFTOmxf45olOmcKit5h7XHjJKRD+3arFIrk+Rx3efBrGqnbpeRxWvSh3shDj8jwY=
+X-Received: by 2002:a05:6000:2288:b0:49c:6a45:ca33 with SMTP id ffacd0b85a97d-49c70ed923amr259032f8f.9.1794506205465;
+        Thu, 12 Nov 2026 09:56:45 -0800 (PST)
 Received: from zitrone.tail45b538.ts.net ([2a02:810d:a1:6000:900:be5c:7a9c:c176])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f1c193fsm547430f8f.13.2026.11.12.09.56.43
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f1c193fsm547430f8f.13.2026.11.12.09.56.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 09:56:43 -0800 (PST)
+        Thu, 12 Nov 2026 09:56:44 -0800 (PST)
 From: Andreas Wendleder <gonsolo@gmail.com>
 To: linux-wireless@vger.kernel.org
 Cc: Johannes Berg <johannes@sipsolutions.net>,
@@ -91,9 +91,9 @@ Cc: Johannes Berg <johannes@sipsolutions.net>,
 	jpeisach@ubuntu.com,
 	rosenp@gmail.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH RFC wireless-next 2/4] wifi: b43: TX descriptor and TX status for the AC microcode
-Date: Thu, 12 Nov 2026 18:56:38 +0100
-Message-ID: <20261112175640.40603-3-gonsolo@gmail.com>
+Subject: [PATCH RFC wireless-next 3/4] wifi: b43: RX header handling for the AC microcode
+Date: Thu, 12 Nov 2026 18:56:39 +0100
+Message-ID: <20261112175640.40603-4-gonsolo@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261112175640.40603-1-gonsolo@gmail.com>
 References: <20261112175640.40603-1-gonsolo@gmail.com>
@@ -108,424 +108,151 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The AC microcode takes a 4 byte passthrough prefix and a 124 byte
-descriptor with four 20 byte rate entries. Add the descriptor builder:
-legacy CCK and OFDM rates, HT rates with the PLCP laid out as brcmsmac
-does, VHT rate blocks (frame type 3, with the width and the subband of the
-primary channel in the first two words and the VHT-SIG-A fields), and the
-cache info that session frames carry (the microcode builds the A-MPDU
-from them). The cache info must not carry a cipher: mac80211 has encrypted
-the frame already.
+The RX header of the AC microcode keeps the MAC status at 0x10, the TSF at
+0x14, an 11ac chanspec at 0x16 and the power of the two antennas at 0x09
+and 0x0a. Decode the channel (including the 80 MHz block with the position
+of the primary channel), the signal, and the HT-SIG and VHT-SIG-A bytes
+that precede the frame for the rate, bandwidth, guard interval, coding
+and stream count.
 
-The TX status comes as two 4 word records. The attempt count is the low
-byte of word 2, not the sum of its bytes, and a record with more than one
-MPDU carries a block ack bitmap for the consecutive cookies; the cookies
-are advanced with the new b43_dma_cookie_advance().
+The microcode sets the decryption error bit on frames it never decrypted,
+because no hardware key is programmed (the 4-way handshake message 3 and
+DHCP replies carry it). Pass such frames up; mac80211's own decryption
+still rejects anything corrupt.
 
 Only microcode revision 832 has been tested.
-
-Co-developed-by: Alessio Ferri <alessio.ferri@mythread.it>
-Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
 Signed-off-by: Andreas Wendleder <gonsolo@gmail.com>
 ---
- drivers/net/wireless/broadcom/b43/dma.c  |  13 ++
- drivers/net/wireless/broadcom/b43/dma.h  |   1 +
- drivers/net/wireless/broadcom/b43/main.c |  76 ++++++++
- drivers/net/wireless/broadcom/b43/xmit.c | 214 +++++++++++++++++++++++
- drivers/net/wireless/broadcom/b43/xmit.h |  11 ++
- 5 files changed, 315 insertions(+)
+ drivers/net/wireless/broadcom/b43/xmit.c | 91 ++++++++++++++++++++++--
+ 1 file changed, 85 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/wireless/broadcom/b43/dma.c b/drivers/net/wireless/broadcom/b43/dma.c
-index 5f968b0..404f75f 100644
---- a/drivers/net/wireless/broadcom/b43/dma.c
-+++ b/drivers/net/wireless/broadcom/b43/dma.c
-@@ -1444,6 +1444,19 @@ out:
- 	return err;
- }
- 
-+/* The cookie of the frame @n frames after @cookie on the same ring. */
-+u16 b43_dma_cookie_advance(struct b43_wldev *dev, u16 cookie, unsigned int n)
-+{
-+	struct b43_dmaring *ring;
-+	int slot;
-+
-+	ring = parse_cookie(dev, cookie, &slot);
-+	if (!ring)
-+		return cookie;
-+	return generate_cookie(ring, (slot + n * TX_SLOTS_PER_FRAME) %
-+					     ring->nr_slots);
-+}
-+
- void b43_dma_handle_txstatus(struct b43_wldev *dev,
- 			     const struct b43_txstatus *status)
- {
-diff --git a/drivers/net/wireless/broadcom/b43/dma.h b/drivers/net/wireless/broadcom/b43/dma.h
-index 14de4cb..5c84b1f 100644
---- a/drivers/net/wireless/broadcom/b43/dma.h
-+++ b/drivers/net/wireless/broadcom/b43/dma.h
-@@ -298,6 +298,7 @@ void b43_dma_tx_resume(struct b43_wldev *dev);
- 
- int b43_dma_tx(struct b43_wldev *dev,
- 	       struct sk_buff *skb);
-+u16 b43_dma_cookie_advance(struct b43_wldev *dev, u16 cookie, unsigned int n);
- void b43_dma_handle_txstatus(struct b43_wldev *dev,
- 			     const struct b43_txstatus *status);
- 
-diff --git a/drivers/net/wireless/broadcom/b43/main.c b/drivers/net/wireless/broadcom/b43/main.c
-index da7e420..5830acb 100644
---- a/drivers/net/wireless/broadcom/b43/main.c
-+++ b/drivers/net/wireless/broadcom/b43/main.c
-@@ -1414,6 +1414,74 @@ static void handle_irq_transmit_status(struct b43_wldev *dev)
- 			break;
- 		v1 = b43_read32(dev, B43_MMIO_XMITSTAT_1);
- 
-+		if (b43_ucode_is_ac(dev)) {
-+			/* rev 40+ ucode: two 4-word records per frame */
-+			u32 v2 = b43_read32(dev, B43_MMIO_XMITSTAT_0 + 8);
-+			u32 v3 = b43_read32(dev, B43_MMIO_XMITSTAT_0 + 12);
-+			unsigned int n;
-+
-+			/*
-+			 * second package: words 1 and 2 are the block ack
-+			 * bitmap
-+			 */
-+			u32 w0 = b43_read32(dev, B43_MMIO_XMITSTAT_0);
-+			u32 w1 = b43_read32(dev, B43_MMIO_XMITSTAT_1);
-+			u32 w2 = b43_read32(dev, B43_MMIO_XMITSTAT_0 + 8);
-+			u32 w3 = b43_read32(dev, B43_MMIO_XMITSTAT_0 + 12);
-+			unsigned int mpdus = (v0 >> 8) & 0x7f, i;
-+			u64 bitmap = ((u64)w2 << 32) | w1;
-+
-+			memset(&stat, 0, sizeof(stat));
-+			stat.cookie = v0 >> 16;
-+			stat.seq = v1 & 0xffff;
-+			stat.phy_stat = (v1 >> 16) & 0xff;
-+			stat.intermediate = !!(v0 & 0x0004);
-+			stat.pm_indicated = !!(v0 & 0x0008);
-+			stat.supp_reason = (v0 & 0x00f0) >> 4;
-+			stat.acked = !!(v0 & 0x8000);
-+			/*
-+			 * : the attempt count is the LOW BYTE of word 2 only.
-+			 * Bits 16-23 hold a constant 1 on every acknowledged
-+			 * frame (0 on suppressed ones), not a second attempt
-+			 * counter: summing it made every frame look like it
-+			 * needed a retry, so minstrel saw ~50 % failures at
-+			 * every rate and TX stayed at 1-6 Mbit/s (1.2 "retries"
-+			 * per frame regardless of rate or TX power).
-+			 */
-+			n = v2 & 0xff;
-+			stat.frame_count = min(n, 15u);
-+			stat.fb_count = min((v2 >> 16) & 0xff, 15u);
-+			b43dbg(dev->wl,
-+			       "AC txstatus %08x %08x %08x %08x / %08x %08x %08x %08x\n",
-+			       v0, v1, v2, v3, w0, w1, w2, w3);
-+			if (mpdus > 1) {
-+				/*
-+				 * A-MPDU: one status for @mpdus frames with
-+				 * consecutive cookies
-+				 */
-+				u16 cookie = stat.cookie;
-+
-+				/*
-+				 * the attempt count covers the whole aggregate
-+				 */
-+				stat.frame_count =
-+					min(DIV_ROUND_UP(n, mpdus), 15u);
-+				stat.fb_count =
-+					min(DIV_ROUND_UP((v2 >> 16) & 0xff,
-+							 mpdus), 15u);
-+				for (i = 0; i < mpdus; i++) {
-+					stat.cookie = cookie;
-+					stat.acked = !!(bitmap & (1ULL << i));
-+					b43_handle_txstatus(dev, &stat);
-+					cookie = b43_dma_cookie_advance(
-+						dev, cookie, 1);
-+				}
-+				continue;
-+			}
-+			b43_handle_txstatus(dev, &stat);
-+			continue;
-+		}
-+
- 		stat.cookie = (v0 >> 16);
- 		stat.seq = (v1 & 0x0000FFFF);
- 		stat.phy_stat = ((v1 & 0x00FF0000) >> 16);
-@@ -1444,6 +1512,14 @@ static void drain_txstatus_queue(struct b43_wldev *dev)
- 		if (!(dummy & 0x00000001))
- 			break;
- 		dummy = b43_read32(dev, B43_MMIO_XMITSTAT_1);
-+		if (b43_ucode_is_ac(dev)) {
-+			int i;
-+
-+			b43_read32(dev, B43_MMIO_XMITSTAT_0 + 8);
-+			b43_read32(dev, B43_MMIO_XMITSTAT_0 + 12);
-+			for (i = 0; i < 4; i++)
-+				b43_read32(dev, B43_MMIO_XMITSTAT_0 + 4 * i);
-+		}
- 	}
- }
- 
 diff --git a/drivers/net/wireless/broadcom/b43/xmit.c b/drivers/net/wireless/broadcom/b43/xmit.c
-index f0b0825..cf9e7a5 100644
+index cf9e7a5..dee6cc6 100644
 --- a/drivers/net/wireless/broadcom/b43/xmit.c
 +++ b/drivers/net/wireless/broadcom/b43/xmit.c
-@@ -231,6 +231,216 @@ static u8 b43_calc_fallback_rate(u8 bitrate, int gmode)
- 	return 0;
- }
+@@ -855,6 +855,7 @@ void b43_rx(struct b43_wldev *dev, struct sk_buff *skb, const void *_rxhdr)
+ 	u32 macstat;
+ 	u16 chanid;
+ 	int padding, rate_idx;
++	s8 ac_signal = 0;
  
-+/*
-+ * One VHT rate block (frame type 3), as the stock driver lays it out and
-+ * Alessio Ferri's driver builds it: the width in word 0 bits 15:14, the
-+ * subband of the primary within that width in word 1, MCS and NSS - 1 in
-+ * word 2, VHT-SIG-A1/A2 in the PLCP bytes (group ID 63, both reserved bits
-+ * set), FBW 0x0300 and the rate in 500 kbit/s.
-+ */
-+static void b43_txhdr_ac_vht_block(u8 *ri, const struct ieee80211_tx_rate *t,
-+				   u16 chanspec)
-+{
-+	static const u8 rate_bw[] = {
-+		RATE_INFO_BW_20, RATE_INFO_BW_40, RATE_INFO_BW_80,
-+	};
-+	u8 mcs = ieee80211_rate_get_vht_mcs(t);
-+	u8 nss = ieee80211_rate_get_vht_nss(t);
-+	unsigned int bw = 0;
-+	struct rate_info rinfo = { .flags = RATE_INFO_FLAGS_VHT_MCS };
-+	u16 sb = 0;
-+	u32 a1, a2;
-+
-+	/* wider than 20 MHz only inside the 80 MHz channel */
-+	if ((chanspec & 0x3800) == 0x2000) {
-+		if (t->flags & IEEE80211_TX_RC_80_MHZ_WIDTH)
-+			bw = 2;
-+		else if (t->flags & IEEE80211_TX_RC_40_MHZ_WIDTH)
-+			bw = 1;
-+		sb = ((chanspec >> 8) & 0x7) >> bw;
-+	}
-+	rinfo.mcs = mcs;
-+	rinfo.nss = nss;
-+	rinfo.bw = rate_bw[bw];
-+
-+	put_unaligned_le16(3 | 0x0004 |
-+			   ((nss > 1 ? 3 : 1) << 6) |
-+			   (bw << 14), ri + 0x00);
-+	put_unaligned_le16(sb, ri + 0x02);
-+	put_unaligned_le16((mcs & 0xf) | ((nss - 1) << 4), ri + 0x04);
-+	a1 = bw | BIT(2) | (63 << 4) | ((nss - 1) << 10) | BIT(23);
-+	a2 = (mcs << 4) | BIT(9);
-+	ri[0x06] = a1;
-+	ri[0x07] = a1 >> 8;
-+	ri[0x08] = a1 >> 16;
-+	ri[0x09] = a2;
-+	ri[0x0a] = a2 >> 8;
-+	ri[0x0b] = a2 >> 16;
-+	put_unaligned_le16(0x0300, ri + 0x0c);
-+	put_unaligned_le16(cfg80211_calculate_bitrate(&rinfo) / 5, ri + 0x0e);
-+}
-+
-+static int b43_generate_txhdr_ac(struct b43_wldev *dev, u8 *h,
-+				 struct sk_buff *skb,
-+				 struct ieee80211_tx_info *info, u16 cookie)
-+{
-+	static const u8 cck[] = { B43_CCK_RATE_1MB, B43_CCK_RATE_2MB,
-+				  B43_CCK_RATE_5MB, B43_CCK_RATE_11MB };
-+	static const u8 ofdm[] = { B43_OFDM_RATE_6MB, B43_OFDM_RATE_9MB,
-+				   B43_OFDM_RATE_12MB, B43_OFDM_RATE_18MB,
-+				   B43_OFDM_RATE_24MB, B43_OFDM_RATE_36MB,
-+				   B43_OFDM_RATE_48MB, B43_OFDM_RATE_54MB };
-+	const struct ieee80211_hdr *wlhdr = (const void *)skb->data;
-+	struct ieee80211_rate *txrate =
-+		ieee80211_get_tx_rate(dev->wl->hw, info);
-+	u8 rate = txrate ? txrate->hw_value : B43_CCK_RATE_1MB;
-+	bool is_ofdm = b43_is_ofdm_rate(rate);
-+	unsigned int len = skb->len + FCS_LEN;
-+	u8 *ri = h + B43_TXH_AC_RATE(0);
-+	u16 mac_lo = 0, phy0, idx = 0, chanspec, subband;
-+	int ht_mcs = -1;
-+	/* Only HT rates go out as session frames: a legacy probe frame with the
-+	 * aggregate header fails at every attempt.
-+	 */
-+	bool vht = info->control.rates[0].flags & IEEE80211_TX_RC_VHT_MCS;
-+	bool agg = (info->flags & IEEE80211_TX_CTL_AMPDU) &&
-+		   (info->control.rates[0].flags &
-+		    (IEEE80211_TX_RC_MCS | IEEE80211_TX_RC_VHT_MCS));
-+	const u8 *tbl = is_ofdm ? ofdm : cck;
-+	unsigned int n = is_ofdm ? ARRAY_SIZE(ofdm) : ARRAY_SIZE(cck);
-+
-+	/* Hardware crypto needs the AC key fields; load with nohwcrypt=1. */
-+	if (info->control.hw_key)
-+		return -EOPNOTSUPP;
-+
-+	memset(h, 0, B43_TXH_AC_LEN);
-+	h[0] = 0x02;	/* passthrough prefix, as wl sends it */
-+	h[2] = 0x02;
-+	h += B43_TXH_AC_PREFIX;
-+	ri = h + B43_TXH_AC_RATE(0);
-+	while (idx < n && tbl[idx] != rate)
-+		idx++;
-+	if (idx == n)
-+		idx = 0;
-+
-+	if (!is_multicast_ether_addr(wlhdr->addr1) &&
-+	    !(info->flags & IEEE80211_TX_CTL_NO_ACK))
-+		mac_lo |= 0x0080;	/* expect immediate ACK */
-+	if (!(le16_to_cpu(wlhdr->seq_ctrl) & IEEE80211_SCTL_FRAG))
-+		mac_lo |= 0x4000;	/* start of MSDU */
-+	if (ieee80211_is_beacon(wlhdr->frame_control))
-+		mac_lo |= 0x0200;	/* ignore PMQ */
-+
-+	chanspec = b43_ac_chanspec(dev, dev->phy.channel);
-+	/* A 20 MHz frame inside an 80 MHz channel names its subband (word 1) */
-+	subband = (chanspec & 0x3800) == 0x2000 ? (chanspec >> 8) & 0x7 : 0;
-+
-+	if (agg) {
-+		/* MPDU of a block ack session, as the stock driver posts it
-+		 * (rxtx-1s-ht20-40-80.zip): MAC control 0x45c0, no fixed rate,
-+		 * the sequence number, and the cache info at +0x64: no cipher
-+		 * (we encrypt in software; the stock 50 04 makes the microcode
-+		 * encrypt again), MPDUs per aggregate at the primary and the
-+		 * fallback rate, duration 5414 us, window 63, max length 0x14.
-+		 * Without the cache info the AP deauthenticates us.
+ 	memset(&status, 0, sizeof(status));
+ 
+@@ -874,6 +875,31 @@ void b43_rx(struct b43_wldev *dev, struct sk_buff *skb, const void *_rxhdr)
+ 		chanstat = le16_to_cpu(rxhdr->format_351.channel);
+ 		break;
+ 	}
++	if (b43_ucode_is_ac(dev)) {
++		/* AC ucode (rev 40+) header: RxStatus1 @0x10, TSF @0x14,
++		 * 11ac-style chanspec @0x16, per-antenna power @0x09/0x0a.
 +		 */
-+		static const u8 cache[8] = { 0x00, 0x00, 0x04, 0x04,
-+					     0x26, 0x15, 0x3f, 0x14 };
++		const u8 *h = _rxhdr;
++		u16 cs = get_unaligned_le16(h + 0x16);
++		s8 p0 = h[0x09], p1 = h[0x0a];
 +
-+		mac_lo = 0x45c0;
-+		memcpy(h + 0x64, cache, sizeof(cache));
++		macstat = get_unaligned_le16(h + 0x10);
++		mactime = get_unaligned_le16(h + 0x14);
++		/* 80 MHz chanspec: centre channel and the primary's position */
++		if ((cs & 0x3800) == 0x2000)
++			cs = (cs & 0xff00) |
++			     ((cs & 0xff) - 6 + 4 * ((cs >> 8) & 0x7));
++		chanstat = ((cs & 0xff) << B43_RX_CHAN_ID_SHIFT) |
++			   B43_PHYTYPE_N;
++		if ((cs & 0xc000) == 0xc000)
++			chanstat |= B43_RX_CHAN_5GHZ;
++		if (p0 == -128)
++			ac_signal = p1;
++		else if (p1 == -128)
++			ac_signal = p0;
++		else
++			ac_signal = max(p0, p1);
 +	}
-+	put_unaligned_le16(mac_lo, h + 0x02);
-+	put_unaligned_le16(agg ? 0 : 0x0002, h + 0x04);	/* fixed rate */
-+	put_unaligned_le16(chanspec, h + 0x06);
-+	h[0x08] = ieee80211_hdrlen(wlhdr->frame_control);
-+	put_unaligned_le16(len, h + 0x0a);
-+	put_unaligned_le16(cookie, h + 0x0c);
-+	if (agg)
-+		put_unaligned_le16(le16_to_cpu(wlhdr->seq_ctrl), h + 0x0e);
-+
-+	/* Rate entry 0: frame type, always-set bit 2, TX core 0 mask. */
-+	phy0 = (is_ofdm ? 1 : 0) | 0x0004 | (1 << 6);
-+	if (!is_ofdm && rate != B43_CCK_RATE_1MB &&
-+	    (info->control.rates[0].flags & IEEE80211_TX_RC_USE_SHORT_PREAMBLE))
-+		phy0 |= 0x0010;
-+	if (info->control.rates[0].flags & IEEE80211_TX_RC_MCS) {
-+		ht_mcs = info->control.rates[0].idx;
-+	} else if (vht && !agg) {
-+		/*
-+		 * A VHT frame always goes out as an A-MPDU; outside a session
-+		 * send the HT20 rate of the same stream count instead.
+ 
+ 	if (unlikely(macstat & B43_RX_MAC_FCSERR)) {
+ 		dev->wl->ieee_stats.dot11FCSErrorCount++;
+@@ -884,10 +910,19 @@ void b43_rx(struct b43_wldev *dev, struct sk_buff *skb, const void *_rxhdr)
+ 	if (phystat0 & B43_RX_PHYST0_SHORTPRMBL)
+ 		status.enc_flags |= RX_ENC_FLAG_SHORTPRE;
+ 	if (macstat & B43_RX_MAC_DECERR) {
+-		/* Decryption with the given key failed.
+-		 * Drop the packet. We also won't be able to decrypt it with
+-		 * the key in software. */
+-		goto drop;
++		/* The AC ucode sets this bit on frames it never decrypted: this
++		 * port programs no hardware keys on AC, and it shows up even on
++		 * unprotected EAPOL frames. Dropping here killed
++		 * 4-way handshake message 3 and DHCP replies; mac80211's own
++		 * software decryption still rejects anything really corrupt.
 +		 */
-+		const struct ieee80211_tx_rate *r = &info->control.rates[0];
-+
-+		ht_mcs = min_t(int, ieee80211_rate_get_vht_mcs(r), 7) +
-+			 8 * (ieee80211_rate_get_vht_nss(r) - 1);
-+	}
-+
-+	if (vht && agg) {
-+		b43_txhdr_ac_vht_block(ri, &info->control.rates[0], chanspec);
-+	} else if (ht_mcs >= 0 && ht_mcs <= 15) {
-+		/*
-+		 * HT20: frame type 2, PLCP as brcmsmac lays it out, rate
-+		 * index = MCS
++		if (b43_ucode_is_ac(dev)) {
++			b43dbg(dev->wl,
++			       "RX: DECERR passed up (len %u, macstat %04x)\n",
++			       skb->len, macstat);
++		} else {
++			goto drop;
++		}
+ 	}
+ 
+ 	/* Skip PLCP and padding */
+@@ -931,7 +966,11 @@ void b43_rx(struct b43_wldev *dev, struct sk_buff *skb, const void *_rxhdr)
+ 	}
+ 
+ 	/* Link quality statistics */
+-	switch (chanstat & B43_RX_CHAN_PHYTYPE) {
++	switch (b43_ucode_is_ac(dev) ? B43_PHYTYPE_AC :
++		(chanstat & B43_RX_CHAN_PHYTYPE)) {
++	case B43_PHYTYPE_AC:
++		status.signal = ac_signal;
++		break;
+ 	case B43_PHYTYPE_HT:
+ 		/* TODO: is max the right choice? */
+ 		status.signal = max_t(__s8,
+@@ -955,7 +994,47 @@ void b43_rx(struct b43_wldev *dev, struct sk_buff *skb, const void *_rxhdr)
+ 		break;
+ 	}
+ 
+-	if (phystat0 & B43_RX_PHYST0_OFDM)
++	if (b43_ucode_is_ac(dev) &&
++	    (phystat0 & B43_RX_PHYST0_FTYPE) == B43_RX_PHYST0_PRE_N) {
++		/* HT frame: the six bytes before the frame are HT-SIG: MCS and
++		 * 40 MHz bit in byte 0, coding/STBC/short GI in byte 3.
 +		 */
-+		static const u8 ht20_500k[8] = { 13, 26,  39,  52,
-+						 78, 104, 117, 130 };
-+		u8 mcs = ht_mcs;
-+		u8 *plcp = ri + 0x06;
++		const u8 *sig = plcp->raw;
 +
-+		phy0 = 2 | 0x0004 | ((mcs > 7 ? 3 : 1) << 6);
-+		put_unaligned_le16(phy0, ri + 0x00);
-+		put_unaligned_le16(subband, ri + 0x02);
-+		put_unaligned_le16(mcs, ri + 0x04);
-+		plcp[0] = mcs;
-+		plcp[1] = len & 0xff;
-+		plcp[2] = len >> 8;
-+		/* smoothing, not sounding, reserved (brcmsmac) */
-+		plcp[3] = 0x07;
-+		plcp[4] = 0;
-+		plcp[5] = 0;
-+		put_unaligned_le16(ht20_500k[mcs & 7] * (mcs > 7 ? 2 : 1),
-+				   ri + 0x0e);
-+	} else {
-+		put_unaligned_le16(phy0, ri + 0x00);
-+		put_unaligned_le16(subband, ri + 0x02);
-+		put_unaligned_le16(idx, ri + 0x04);
-+		b43_generate_plcp_hdr((struct b43_plcp_hdr4 *)(ri + 0x06),
-+				      len, rate);
-+		put_unaligned_le16(rate, ri + 0x0e);	/* 500 kbit/s units */
-+	}
-+	if (vht && agg && info->control.rates[1].idx >= 0 &&
-+	    (info->control.rates[1].flags & IEEE80211_TX_RC_VHT_MCS)) {
-+		put_unaligned_le16(0, ri + 0x10);
-+		ri += 0x14;
-+		b43_txhdr_ac_vht_block(ri, &info->control.rates[1], chanspec);
-+	} else if (agg && !vht && info->control.rates[1].idx >= 0 &&
-+	    info->control.rates[1].idx <= 15 &&
-+	    (info->control.rates[1].flags & IEEE80211_TX_RC_MCS)) {
-+		/* Second rate block: the fallback rate of the session frame */
-+		static const u8 ht20_500k[8] = { 13, 26,  39,  52,
-+						 78, 104, 117, 130 };
-+		u8 mcs = info->control.rates[1].idx;
++		status.encoding = RX_ENC_HT;
++		if (sig[0] & 0x80)
++			status.bw = RATE_INFO_BW_40;
++		if (sig[3] & 0x80)
++			status.enc_flags |= RX_ENC_FLAG_SHORT_GI;
++		if (sig[3] & 0x40)
++			status.enc_flags |= RX_ENC_FLAG_LDPC;
++		status.enc_flags |= ((sig[3] >> 4) & 0x3)
++				    << RX_ENC_FLAG_STBC_SHIFT;
++		rate_idx = (sig[0] & 0x7f) <= 15 ? sig[0] & 0x7f : -1;
++	} else if (b43_ucode_is_ac(dev) &&
++		   (phystat0 & B43_RX_PHYST0_FTYPE) == B43_RX_PHYST0_STD_N) {
++		/* VHT: the six bytes are VHT-SIG-A1/A2 */
++		const u8 *p = plcp->raw;
++		u32 a1 = p[0] | (p[1] << 8) | (p[2] << 16);
++		u32 a2 = p[3] | (p[4] << 8) | (p[5] << 16);
++		u8 nsts = ((a1 >> 10) & 0x7) + 1;
 +
-+		put_unaligned_le16(0, ri + 0x10);
-+		ri += 0x14;
-+		put_unaligned_le16(2 | 0x0004 | ((mcs > 7 ? 3 : 1) << 6),
-+				   ri + 0x00);
-+		put_unaligned_le16(subband, ri + 0x02);
-+		put_unaligned_le16(mcs, ri + 0x04);
-+		ri[0x06] = mcs;
-+		ri[0x07] = len & 0xff;
-+		ri[0x08] = len >> 8;
-+		ri[0x09] = 0x07;
-+		put_unaligned_le16(ht20_500k[mcs & 7] * (mcs > 7 ? 2 : 1),
-+				   ri + 0x0e);
-+	}
-+	put_unaligned_le16(0x0020, ri + 0x10);	/* last rate entry */
-+
-+	return 0;
-+}
-+
- /* Generate a TX data header. */
- int b43_generate_txhdr(struct b43_wldev *dev,
- 		       u8 *_txhdr,
-@@ -259,6 +469,10 @@ int b43_generate_txhdr(struct b43_wldev *dev,
- 	struct ieee80211_rate *txrate;
- 	struct ieee80211_tx_rate *rates;
- 
-+	if (b43_ucode_is_ac(dev))
-+		return b43_generate_txhdr_ac(dev, _txhdr, skb_frag, info,
-+					     cookie);
-+
- 	memset(txhdr, 0, sizeof(*txhdr));
- 
- 	txrate = ieee80211_get_tx_rate(dev->wl->hw, info);
-diff --git a/drivers/net/wireless/broadcom/b43/xmit.h b/drivers/net/wireless/broadcom/b43/xmit.h
-index 6524a75..d403a28 100644
---- a/drivers/net/wireless/broadcom/b43/xmit.h
-+++ b/drivers/net/wireless/broadcom/b43/xmit.h
-@@ -188,9 +188,19 @@ struct b43_tx_legacy_rate_phy_ctl_entry {
- #define  B43_TXH_PHY1_MODUL_QAM256	0x2000 /* QAM256 */
- 
- 
-+/*
-+ * rev 40+ (AC) TX buffer: 4-byte TX offload passthrough prefix, then the
-+ * 124-byte descriptor (packet info + 4 rate entries + cache).
-+ */
-+#define B43_TXH_AC_PREFIX		4
-+#define B43_TXH_AC_LEN			(B43_TXH_AC_PREFIX + 124)
-+#define B43_TXH_AC_RATE(i)		(0x14 + (i) * 0x14)
-+
- static inline
- size_t b43_txhdr_size(struct b43_wldev *dev)
- {
-+	if (b43_ucode_is_ac(dev))
-+		return B43_TXH_AC_LEN;
- 	switch (dev->fw.hdr_format) {
- 	case B43_FW_HDR_598:
- 		return 112 + sizeof(struct b43_plcp_hdr6);
-@@ -214,6 +224,7 @@ struct b43_txstatus {
- 	u16 seq;		/* Sequence number */
- 	u8 phy_stat;		/* PHY TX status */
- 	u8 frame_count;		/* Frame transmit count */
-+	u8 fb_count;		/* AC: attempts at the fallback rate */
- 	u8 rts_count;		/* RTS transmit count */
- 	u8 supp_reason;		/* Suppression reason */
- 	/* flags */
++		status.encoding = RX_ENC_VHT;
++		if ((a1 & 0x3) == 1)
++			status.bw = RATE_INFO_BW_40;
++		else if ((a1 & 0x3) == 2)
++			status.bw = RATE_INFO_BW_80;
++		if (a1 & 0x8) {
++			status.enc_flags |= 1 << RX_ENC_FLAG_STBC_SHIFT;
++			nsts /= 2;
++		}
++		status.nss = max_t(u8, nsts, 1);
++		if (a2 & 0x1)
++			status.enc_flags |= RX_ENC_FLAG_SHORT_GI;
++		if (a2 & 0x4)
++			status.enc_flags |= RX_ENC_FLAG_LDPC;
++		rate_idx = ((a2 >> 4) & 0xf) <= 9 ? (a2 >> 4) & 0xf : -1;
++	} else if (phystat0 & B43_RX_PHYST0_OFDM)
+ 		rate_idx = b43_plcp_get_bitrate_idx_ofdm(plcp,
+ 					!!(chanstat & B43_RX_CHAN_5GHZ));
+ 	else
