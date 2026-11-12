@@ -1,82 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.240
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794536760;
-	b=ynIHAJgcOCEGOzICiCEd2aoNmqUVnZ3PqAH3COd5s9GIedeCj2qEIuP6H59asE/QtpZk
-	 RYicF+8k+JuxE/5PWGsmUXk6+vQ5iEyGUmNh7X0QWvwU4W9vPDLO9G2aD/765+4j/BQ0r
-	 nKrK7oWlZObKi6GPcJDNxijGks38nd+m+n7P+kmM6OrF1Tamg6uPC3s0GhAtiaUwDmSRl
-	 GgOnlobeG0HQmGWu24znsqtJtGyNb0WPG2b5q6M3UMNfBtwnoHo+I80Wnq/3y63jbtsN1
-	 UoUoSwxppQIdx0iOjVB611QpJ742gqDUmbjkjVX/tmlx/mT643ve+tq/OWmAs9ZjswA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794536760;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=zfBBaJ7qkHjbWFu7eIOT1qJ9L3v/wkkf8Bidtygq29o=;
-	b=CKYg1QzlOn27uKgjdzL+224ga0jp+SrPazv1Tm/K8oiptEdq4WMXgqmXsLmI3X/zfFsG
-	 p9HhFjv28neSbJwCdr3t6cYY2uZ1x3TO/XQw2G125kjPziPLpArRrNYUNaAbA5oVkylUj
-	 bh2cYWXim76gRWCec25L+nFjxypUgLPfU6v7i9cT7fwq+ggj9IUb6EiIWHioeVoMhQeYg
-	 B+Ycvm3GafP9MGY8L7l0kkxHcdVW+Yoj7PMxveJo7+HcgkwnW9yU+8bGUUSvWAvr4AxZN
-	 eWCiRTvIR41qEhE8R6627Ejjkyd7lOhUDBFP7gTvrX1hvWswB4iDKfzB/ZFgMecGF9g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="Cr/glNsR";
-	arc=none smtp.remote-ip=203.205.221.240
-Received: from out203-205-221-240.mail.qq.com (out203-205-221-240.mail.qq.com [203.205.221.240])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.4
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794536838;
+	b=4a3YxkKs48wDWsOS7dMAW9r2V1g1UkyS2r25qWNsq+a8Zz94/Mq7SPdliMN4tjxW+/hA
+	 o+rt6qBo5q5ReQrKJ7brMHV4+v4GaROI2jtoXh5RSMYw/LqPGbYVIB/SUOs5yjgxuqmqq
+	 XpGNtW5omyxBgcko+4ZcFGinQeVWCVIKQeFzfS4+u/vEBRGqe4UbcV3TkHyuI7uX1mWFh
+	 jNaetfsoabqeD9AaJMCK0/oQdv432wFkK4Fs2k0dAeJiyEJaBUZMWh0X2sG7SgJih/+GL
+	 7A9DYPqFLPwd8HKig0as+P7FhIi2Yur841NfPaBQEKQBwQs6cUk3Hn5dQKnwecL1elg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794536838;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-ID:References:In-Reply-To:To:CC:
+	 X-Mailer:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=TxIZqIr06ayrrgVSLTDd54qmlbTTsdeODV+TWW/mI/A=;
+	b=AnDjTHsNY8RlrO4CwabSeKpQ9QkwyDafUzghcPFi7wJsHMSkaQXX8B/lkU5QXJWfONAH
+	 HcSiHYtLc4ixuO6xwpTKW8gmgNrppjVf5sQElY493o97SZFPjV03t+Zf8ZlEF86Ugl6Gr
+	 eXHgIKX7mfevgbPykVLpQ8dYDVihw8x424HoGMSs/W/OxsqBhjKwkhL9nBYUvdeAMzqRa
+	 deE6PtFS8mfZcG6Ffrrbuy77uGMEV1jk0Bm8L7E5dRxS5z/8WAlyXZ4HFV8HadCSQczOK
+	 PJvgGKGaYs8bfFxWlse5P/FD/cCSlGb/BwotwyvwgqQmVUzsFiuGQjJ/0+nnBzP4oxg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=CrUWtMtV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.4
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010004.outbound.protection.outlook.com [52.101.56.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BBC606A332;
-	Fri, 13 Nov 2026 02:25:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2BBC606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D49606A31C;
+	Fri, 13 Nov 2026 02:27:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5D49606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Cr/glNsR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794536756; bh=zfBBaJ7qkHjbWFu7eIOT1qJ9L3v/wkkf8Bidtygq29o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Cr/glNsRKGE5yZk2wkikFjGP+fEcU8qqLtdV48FJXOHhgeL7XKWLpe7sWnoJTZVuC
-	 dCpGgQFzMljymhwbe1wdQzYOd2LOTILfj71UlKgLO727FRTQ+Av+Ajm2fzYcA+8qWc
-	 jpeQDOdIxg3hLGghP8nlP8Q3IFfDTidx+A72FaC8=
-Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.199])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id 67422604; Fri, 13 Nov 2026 10:25:52 +0800
-X-QQ-mid: xmsmtpt1794536753t1sm62q5o
-Message-ID: <tencent_D3AFD8C9C490FBA3F4380B887C6F5301AE06@qq.com>
-X-QQ-XMAILINFO: ODQfruXGvXmaq4mVhVTtcaPv4KWc2W5HPHjIZyHsgOGatoYOP/7j3ejhP5YENg
-	 OXxQnBV6e9YT/Ibm0lbdr2OEmP9Afz4yFpbn0xbe/dLE05FdaTAwWwH7QOASp1C6dXgbz+n0u5y2
-	 Aynmo/ffyFaT7iRbK2rvFWUbvW66F/Vx46RZIAAVxNh23hXXNTERMwe58jwSSrExQ5U66XF4AFM1
-	 WgSaN2RCKybLj6mdkLBa2D69/daCBiFD7lWNuw/9aGUBg3634BHMFFa1L0tjxy63H/vWrAV38Mya
-	 090lml7fu2Py4DCinXRrbMQ52MNRhMyuNSi+/sFjlCy6M9IFg5yCLUctaFyEGVJ0ULf9z+0bIEzr
-	 o415SFRHIIJCRTzav6RlG95wg3mVXbuE9ja/rxDc7kdLBH9y3Y80XKnn3B/3J5cChu58sF4u3vrb
-	 6y1HxScZ2nvZNBYyx/PPJZgY1dgaH1/yy1qwO3zc0B0fW2bKNwgTosZr/M9P1M1VMQpaOXfJXbpv
-	 LFccfkaxsHvUiBCzIXJZlPi5M8BG8jIPAtylKvPwgGfWhPwF7/wgdDm3+SqqQXVzaVA6PwXSrN5/
-	 zrm6VCoz8vHmV9v577El6HMqQ6xcZZrZRTW84cgGWPel+uRWEr5GVtm/6PZ/cix/fhwVXj69UdP2
-	 Bc9Jp1TlJhUbJ2ewQOofFPvDpc86gw+SASpuNn3vW/18FBdymq7RaoFl8rgBrm603d71htBG4an2
-	 or5M9Er+yzTClWVUt4Ypm/q2H+pC06Q9EEEqSPiXy0t+9HoIGMzKsSWS8TdfQspQ6mvOGq+XalNS
-	 fRnGgM+Tfh59loG04YSpIp+XNtAbLbkNvKQTtTGvPFf+T0tsBUHrxzCMZBCAyIQ1bjcFBT82nU9e
-	 Nkhku8NoNyj2xUojWAU3cZ9Cpn39aTORJQoWxWGAR2016lWHL4+0Yb1LQ+intw+nO0W+dQQerV1j
-	 QB3NkPZeZ+U+zcHKhq1o1vdujO23XoRFyyCOueRIJsLy7uEbXN9qiRF3SuXYIdMqnXZLa7PYp1Eq
-	 2NtaND8RYuk7UVFD+mJK0Wfu5RuHIIXdW4Sp9RdIgaAll1dOyljB10Z1ocPyhORGAo17m155gWUm
-	 dUApfCbWE2gTKgHXU6tdyS9pl/WLgRKCGUav3D0iuntmjVZ4BGJxbVdnQMdxE2/zlAiVla8NN4jT
-	 2uGL75BPwWj4WxVA==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: Shuai Liu <847807867@qq.com>
-To: linux-spi@vger.kernel.org
-Cc: rust-for-linux@vger.kernel.org,
-	Mark Brown <broonie@kernel.org>,
-	ojeda@kernel.org,
-	dakr@kernel.org,
-	linux-kernel@vger.kernel.org,
-	847807867@qq.com
-Subject: [PATCH v7 2/3] rust: spi: add SPI driver abstractions
-Date: Fri, 13 Nov 2026 10:25:51 +0800
-X-OQ-MSGID: <20261113022552.601873-2-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261113022552.601873-1-847807867@qq.com>
-References: <tencent_097BA6F40A0B8FBC4C130C6EBF58F8048006@qq.com>
- <20261113022552.601873-1-847807867@qq.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=CrUWtMtV
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DBapDl2dlOel+v3GW5Lz+59xFCUjNemk1AQhp2RORhscKNcyr54EUkprDL12m87g6C5DGfgB93IBMM7U7TWkxlpUIcMaKrIcP7igZ3ijMZu7CCqRK9BjTqbSc7Sax1e3DQ1neD79KmVcDqV+ezAlq8kh0NTUULqqdkvhRGLA9vMHfYJdAtj5IpByp2J4IStp7amLaIbJn4KS2T2pi0+QlJUWKBHZ5W/m0J2NbA7cTQ7cQ2khABjcdVFNMpz12OQbfFfQ0SGLqzoy196AH9Zv1ctm4405Z/ZC47+SbViok2S8TXtxMRecIhI9R8V7XQ68i3kBZTl37nxbByVml7vWqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TxIZqIr06ayrrgVSLTDd54qmlbTTsdeODV+TWW/mI/A=;
+ b=EaQA3QX69+QpebJc61cVAaiNHkMMNhpOcT3rJ1TtSe7X7BC30PYLwBKf1gSupRrrK48J6NJNkUoN1pqWhdM1mARVkJLS11oGWBU+d09obJpMmE52haYNHgKYfQJC+CWjG+24CObAiKgirxfUXW2Ebgv+adOxtHy0gVvXHoj9c7wn+xzOGX1LO/CdaL61bLUaBB3L2lu8y2SotJpHLbd/zrWpg5Gov+XOI7q7+w3xMiuW1PZazJqdW0qh4UMdL8mHvnTwl9dwpsX94T2w9WOK5mLw86+PVIkDG+m8xfey66xOOiVXg9CFZOR46fEIpeApsxTCpQzDie37NgSbbG6OkQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TxIZqIr06ayrrgVSLTDd54qmlbTTsdeODV+TWW/mI/A=;
+ b=CrUWtMtV1qUxS/tup3xmzvNO8sQE5rQIVcaYetomKRNiKudFSrKy2e/kXx4ZrBLTkgjQ+whqkPjYMOhInQ1QTmbpPQ6Sjxw5NIGOiYKLh99Izr1FzkzJpIiIZlT7LwPLhoPqlucaAEhp/pGnZ70yZ7yMDeE/J6IsNGXW/rBbDjM=
+Received: from SJ0PR05CA0056.namprd05.prod.outlook.com (2603:10b6:a03:33f::31)
+ by LY0PR12MB390394.namprd12.prod.outlook.com (2603:10b6:408:3b9::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 02:26:29 +0000
+Received: from CH2PEPF00000146.namprd02.prod.outlook.com
+ (2603:10b6:a03:33f::4) by SJ0PR05CA0056.outlook.office365.com
+ (2603:10b6:a03:33f::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Fri, 13
+ Nov 2026 02:26:28 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CH2PEPF00000146.mail.protection.outlook.com (10.167.244.103) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 02:26:20 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
+ 2026 12:47:45 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
+ 2026 12:47:44 -0600
+Received: from xhdsneeli40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Thu, 12 Nov 2026 12:47:38 -0600
+From: Srinivas Neeli <srinivas.neeli@amd.com>
+Date: Fri, 13 Nov 2026 00:16:50 +0530
+Subject: [PATCH net-next v4 6/8] net: xilinx: tsn: add the endpoint RX data
+ path
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,780 +107,463 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261113-patches_v2_external-v4-6-56bb26f042a4@amd.com>
+References: <20261113-patches_v2_external-v4-0-56bb26f042a4@amd.com>
+In-Reply-To: <20261113-patches_v2_external-v4-0-56bb26f042a4@amd.com>
+To: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>, "Michal
+ Simek" <michal.simek@amd.com>, Sebastian Andrzej Siewior
+	<bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, "Steven
+ Rostedt" <rostedt@goodmis.org>, Eric Dumazet <edumazet@kernel.org>, "Eric
+ Dumazet" <edumazet@kernel.org>
+CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-rt-devel@lists.linux.dev>, Srinivas Neeli <srinivas.neeli@amd.com>,
+	<git@amd.com>, <neelisrinivas18@gmail.com>
+X-Mailer: b4 0.16.0
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000146:EE_|LY0PR12MB390394:EE_
+X-MS-Office365-Filtering-Correlation-Id: 680461ee-3da2-4da6-bf44-08df412d8141
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|376014|7416014|23010399003|18002099003|22082099003|6133799003|261009223027099003|3023799007|921020|11063799006|56012099006|10067099003|261102123227099003|261022105027099003|261026121527099003|261022113327099003|261022075727099003|261028144727099003|261021121427099003|261026140227099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info:
+	ADBnho2tso/V5KfZFnYmCsyTjXvEZh6savfdh+yDfLAjCgAnL6gpbuQHGz5DLab8urssACFKt3vRISV2ewYK60SLbZc8Eo9n4h0fxClbfCf9Y5SYNB0W2YMrGb363BV5OB1DIDJ9oSye0/DCL89GAlbSfnbjcMuxP5QSEtCa2C3lc7dRvRpZlwV/+o+kuyFBPEiJPMIa2zhCSz8bt3fdUt6AIAp+fdVfT9+99kVRzvGIQ8S5oAZPjortHYuaqGdM1eGLCCW4rkyH0L4fbvAHP1C8Crl6N2Raw54Jh29DWtQEQIgcxe9PS1gZ7+p/qC8N/HM2jNucZPcckGcHkLBnhi2IKb5fOZXyd1rncUJQnS8Eti1AE6g4cG/es8um8xQQ/Nder7hVueylU/6B7wIdek9L/pL+oIhxOvdmZtdbBaQyq53PVIj8mKC5Vq9ByPPcRCFEGrOB3ibSoeAljSvfyhHCVzT+YQo0ZmbvWyXAdzfffIm4jbznl8ex52YNsKEJbrryRLTEfujJoC+WTzS+/ZAGKztw9KHdOczTDbbHwX8+wcblm75onTICqo6REbfhxXlsOq6zFiPqmRJUCZo4zKhebB3Z4EO91c6qkQCobqeCeBnz1G6YFFBHk8syqzEoOTHN4RmHztofUsYxpIbiCqu9RgZyTn2l/9H8HWQcxRL8MaN2qR1KQLURmzNG9Tx4P5xkQTN4mUejDW1NzM/btmwI/xpflbgKIzc77UO2zSLiW2Dt1TZpdomFqAadqZtf
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(7416014)(23010399003)(18002099003)(22082099003)(6133799003)(261009223027099003)(3023799007)(921020)(11063799006)(56012099006)(10067099003)(261102123227099003)(261022105027099003)(261026121527099003)(261022113327099003)(261022075727099003)(261028144727099003)(261021121427099003)(261026140227099003)(261021123027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	jLCH4Ccw/BwWm5d/2f7EYFsk5h6bagRKmOyyU6sfBul/8CQDTBLJTyqUgrYgQ+Ir+woaTjTWXV+bIO8RTYPmw9uZrhJjxypQ2hUuP77VpRFJdc3owa8Ipgmlq27uN/JgPvkEiKkk4cRMEOScGlGW6zayN5tdV/QidvozuvqViYlsOLJNklnbEwtYoUS6f6CgXrmMYNIfBpfkMETc0sl+EB+zwDPpv3oIWvhfYrUmvmnTNIgLyiSB5yvqSfaUD9pPBdkXwXT6BmBN06/E+0uwRYF8ZI/J8o35pLTuvxynMVTFuKEYXL//BBuJXLK+Hw3iN4drUT2z4yu4mi7IvHJtc9ikPyUDY8aZZB5mPxsXgmDbpvFjwj+2/lFVl8UM7lchpBxKFyD9JPitHE0KCK0Ty8jSSqlRvOyWCyRzfmUEt4c8H4XQ0pXWBAGb/TUA2cmx
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 02:26:20.7187
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 680461ee-3da2-4da6-bf44-08df412d8141
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF00000146.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LY0PR12MB390394
 
-Add the Rust abstractions for the SPI driver subsystem, allowing SPI
-drivers to be written in Rust.
+With the RX channels armed, the endpoint can start receiving frames.
 
-This adds the following abstractions:
-- `spi::DeviceId`: a driver-side device id.
-- `spi::Adapter`: the registration of SPI drivers, implementing
-  `driver::DriverLayout` and `driver::RegistrationOps`.
-- `spi::Driver`: the trait that SPI drivers implement, with `probe()`,
-  `shutdown()` and `unbind()` callbacks.
-- `spi::SpiDevice`: a representation of `struct spi_device`, providing
-  device configuration accessors and device I/O on bound devices.
-- `spi::Transfer`: a single SPI transfer that transmits, receives, or
-  does both simultaneously (full duplex).
-- `module_spi_driver!` and `spi_device_table!` macros.
+Post RX buffers to every RX channel on open and reap them from the
+completion callback. Each inbound frame carries a TUSER port_id in the
+descriptor sideband. Accept frames from MAC1 (port_id 1) and MAC2
+(port_id 2) and pass them up the stack. Drop any other port_id, since
+the bridged-only model never produces it. Drop and count frames with
+bad descriptor status, an invalid length or no metadata pointer.
 
-The module is only built when CONFIG_SPI is enabled, since the SPI core
-functions it uses are not available otherwise.
+Refill each slot from the completion callback unless the interface is
+closing, which keeps the ring full without a separate refill worker.
 
-The device configuration accessors and the I/O operations are only
-available on `SpiDevice<Bound>`: an `ARef<SpiDevice>` may outlive the
-driver's unbind and the device's or controller's unregistration, and the
-SPI core's transfer path does not check the registration state, so
-performing I/O on an unbound device is not sound. Moreover, once the
-device is unbound, another driver may bind to the same
-`struct spi_device` and mutate the device configuration with plain,
-non-atomic writes (e.g. via `spi_setup()`), so reading the configuration
-would be a data race. Driver callbacks receive a `SpiDevice<Core>`,
-which dereferences to `SpiDevice<Bound>`.
+Serialise the RX refill against teardown. The completion callback re-arms
+the ring, so ndo_stop() sets a closing flag before teardown and the refill
+tests it under the per-channel lock. ep_free_dma_chan() then takes that
+lock as a barrier, so any refill already past the closing test finishes
+and no later one submits or arms the timer before the channel is
+terminated. No descriptor is submitted once teardown has begun, so a single
+dmaengine_terminate_sync() is enough to quiesce the channel.
 
-Device I/O is built on a single primitive, `SpiDevice::transfer()`,
-which maps to the C `spi_sync()` API: a sequence of `Transfer`s is
-submitted as one `spi_message`, executed in order with the chip select
-asserted for the whole message. The convenience methods `write()`,
-`read()` and `write_then_read()` are thin wrappers on top of it.
+The RX path uses __netif_rx() from the dmaengine completion callback
+rather than NAPI. dmaengine owns the RX interrupt and ring and delivers
+one descriptor per callback, so there is no poll context to run NAPI or
+GRO, and the per-packet counters use the dev->stats atomics.
 
-`spi_sync()` requires transfer buffers to be DMA-safe, and Rust slices
-may be located anywhere (e.g. on the stack), so `transfer()` copies all
-data into DMA-safe bounce buffers before submitting the message and
-copies received data back afterwards. Unlike the previous approach of
-leveraging the C convenience wrappers, this maps directly onto the
-lower-level C APIs and also supports full-duplex transfers, which the C
-convenience wrappers do not offer.
+Co-developed-by: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
+Signed-off-by: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
+Signed-off-by: Srinivas Neeli <srinivas.neeli@amd.com>
 
-Match data lookup follows the same order as the C core's
-spi_get_device_match_data(): first the OF/ACPI match data, then the SPI
-id table. Entries without driver data (e.g. `@none` id tables) are
-handled gracefully.
-
-Signed-off-by: Shuai Liu <847807867@qq.com>
-
-Link: https://lore.kernel.org/rust-for-linux/179451185979.339049.12323339081307899766.b4-review@b4/
 ---
- rust/kernel/Kconfig.test |  11 +
- rust/kernel/lib.rs       |   2 +
- rust/kernel/spi.rs       | 673 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 686 insertions(+)
- create mode 100644 rust/kernel/spi.rs
+Changes in v4:
+- Return true from ep_rx_refill() when this call submitted at least one
+  descriptor. The completion callback advances ring_tail without rx_lock,
+  so a descriptor could complete before the ring_head != ring_tail test
+  and make ndo_open() fail with -ENOMEM.
+- Use dev_dbg_ratelimited() for the unexpected port_id message, so it does
+  not consume the shared net_ratelimit() budget, and replace the redundant
+  CHECKSUM_NONE store with skb_checksum_none_assert().
 
-diff --git a/rust/kernel/Kconfig.test b/rust/kernel/Kconfig.test
-index 3bf4194f28c7c..bda70dcc77934 100644
---- a/rust/kernel/Kconfig.test
-+++ b/rust/kernel/Kconfig.test
-@@ -94,6 +94,17 @@ config RUST_BUG_KUNIT_TEST
+Changes in v3:
+- Check the dmaengine_submit() cookie in ep_rx_submit_desc(). Store the skb
+  and submit, then advance ring_head only once dma_submit_error() is clear.
+  On a submit failure clear the slot, unmap and free the buffer and return
+  the error, so a failed descriptor can no longer pin its buffer or be read
+  back by a later completion.
+- Use scoped_guard() instead of guard() in ep_rx_refill() for the rx_lock,
+  per the netdev cleanup.h guidance (guard() is discouraged in functions
+  longer than 20 lines).
+- Introduce the closing flag here (field, kernel-doc and the
+  ndo_open/ndo_stop writes), together with its first reader in the RX
+  refill path. It was added in the MCDMA bring-up patch before it had a
+  consumer. Add the circ_buf.h and spinlock.h includes here, where
+  CIRC_SPACE() and spinlock_t are first used.
+- Reword the commit message to describe how the closing flag is published
+  and tested, rather than stating that ndo_stop() sets it under the
+  per-channel lock.
+
+Changes in v2:
+- Serialise the RX refill against teardown under a per-channel rx_lock. The
+  completion callback re-arms the ring, so ndo_stop() sets a closing flag under
+  the same lock and ep_free_dma_chan() takes it as a barrier before terminating.
+- Recover a drained ring with a refill timer instead of leaving RX dead after
+  an allocation failure.
+- Fail ndo_open if a channel cannot arm any RX descriptor.
+- Set the closing flag on the ndo_open error path too, before tearing the
+  channels down.
+- Take the ring size from the channel instead of a compile-time constant.
+- Note in the commit message why RX is not NAPI based. dmaengine owns the RX
+  interrupt and ring and delivers one descriptor per callback, so there is no
+  poll context for NAPI or GRO, and the counters use the dev->stats atomics.
+- Shut the refill timer down with timer_shutdown_sync() at teardown rather than
+  relying on timer_delete_sync() plus the closing flag.
+- Return true from ep_rx_refill() when at least one descriptor is armed, false
+  otherwise, following the usual bool convention.
+- Init the refill timer and rx_lock only for RX channels.
+---
+ drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c | 230 +++++++++++++++++++++++-
+ 1 file changed, 229 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+index 52d2da04a5d8..f179062c7d14 100644
+--- a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
++++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+@@ -5,7 +5,9 @@
+  * Copyright (C) 2026 Advanced Micro Devices, Inc.
+  */
  
- 	  If unsure, say N.
++#include <linux/bitfield.h>
+ #include <linux/bitops.h>
++#include <linux/circ_buf.h>
+ #include <linux/dma/xilinx_dma.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/dmaengine.h>
+@@ -21,7 +23,9 @@
+ #include <linux/platform_device.h>
+ #include <linux/scatterlist.h>
+ #include <linux/slab.h>
++#include <linux/spinlock.h>
+ #include <linux/string.h>
++#include <linux/timer.h>
+ #include <linux/types.h>
  
-+config RUST_SPI_KUNIT_TEST
-+	bool "KUnit tests for the Rust SPI driver abstractions" if !KUNIT_ALL_TESTS
-+	depends on SPI=y
-+	default KUNIT_ALL_TESTS
-+	help
-+	  This option enables KUnit tests for the Rust SPI driver
-+	  abstractions. These are only for development and testing, not
-+	  for regular kernel use cases.
+ #include "xilinx_tsn.h"
+@@ -39,6 +43,19 @@
+ #define TX_BD_NUM_DEFAULT		64
+ #define RX_BD_NUM_DEFAULT		128
+ 
++#define EP_RX_REFILL_RETRY		msecs_to_jiffies(10)
 +
-+	  If unsure, say N.
++/*
++ * The DMA descriptor sideband status word packs TID/TDEST/TUSER together;
++ * TUSER occupies the low byte, TID/TDEST sit in the upper bits.
++ */
++#define TSN_TUSER_MASK			GENMASK(7, 0)
++/* TUSER Input Port ID field (bits [5:4] of the TUSER field) */
++#define TSN_TUSER_PORT_ID_MASK		GENMASK(5, 4)
++#define TSN_TUSER_PORT_EP		0x0
++#define TSN_TUSER_PORT_MAC1		0x1
++#define TSN_TUSER_PORT_MAC2		0x2
 +
- config RUST_TIME_KUNIT_TEST
- 	bool "KUnit tests for the Rust time API" if !KUNIT_ALL_TESTS
- 	default KUNIT_ALL_TESTS
-diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-index a4747f75b1632..cbe5a4ed825dc 100644
---- a/rust/kernel/lib.rs
-+++ b/rust/kernel/lib.rs
-@@ -133,6 +133,8 @@
- pub mod sizes;
- #[cfg(CONFIG_SOC_BUS)]
- pub mod soc;
-+#[cfg(CONFIG_SPI)]
-+pub mod spi;
- #[doc(hidden)]
- pub mod std_vendor;
- pub mod str;
-diff --git a/rust/kernel/spi.rs b/rust/kernel/spi.rs
-new file mode 100644
-index 0000000000000..424563baddb3e
---- /dev/null
-+++ b/rust/kernel/spi.rs
-@@ -0,0 +1,673 @@
-+// SPDX-License-Identifier: GPL-2.0
+ /**
+  * struct skbuf_dma_descriptor - skb container for each in-flight DMA descriptor
+  * @sgl: scatter-gather list backing the DMA mapping
+@@ -64,6 +81,8 @@ struct skbuf_dma_descriptor {
+  * @ring_head: producer index
+  * @ring_tail: consumer index
+  * @ring_size: number of slots in @skb_ring
++ * @rx_lock: serialises @ring_head between the RX callback and the refill timer
++ * @rx_refill_timer: retries RX refill after an allocation failure
+  * @is_tx: true for TX channels, false for RX
+  */
+ struct xlnx_tsn_ep_dma_chan {
+@@ -74,6 +93,8 @@ struct xlnx_tsn_ep_dma_chan {
+ 	u32 ring_head;
+ 	u32 ring_tail;
+ 	u32 ring_size;
++	spinlock_t rx_lock;	/* serialises @ring_head */
++	struct timer_list rx_refill_timer;
+ 	bool is_tx;
+ };
+ 
+@@ -90,6 +111,7 @@ struct xlnx_tsn_ep_dma_chan {
+  * @rx_dma: dmaengine RX channels, held from probe until remove
+  * @tx_chans: array of TX channels (size @num_tx_queues)
+  * @rx_chans: array of RX channels (size @num_rx_queues)
++ * @closing: set in ndo_stop so the RX completion callback stops re-arming
+  */
+ struct xlnx_tsn_ep {
+ 	struct net_device *ndev;
+@@ -105,6 +127,7 @@ struct xlnx_tsn_ep {
+ 	struct xlnx_tsn_ep_dma_chan **tx_chans;
+ 	struct xlnx_tsn_ep_dma_chan **rx_chans;
+ 
++	bool closing;
+ };
+ 
+ static inline struct skbuf_dma_descriptor *
+@@ -113,6 +136,181 @@ ep_get_desc(struct xlnx_tsn_ep_dma_chan *xchan, int idx)
+ 	return xchan->skb_ring[idx];
+ }
+ 
++static void ep_dma_rx_cb(void *data, const struct dmaengine_result *result);
 +
-+//! SPI Driver subsystem
-+//!
-+//! This module adds abstractions for the SPI driver subsystem, allowing drivers to be
-+//! written in Rust for SPI devices.
++static int ep_rx_submit_desc(struct xlnx_tsn_ep_dma_chan *xchan)
++{
++	struct dma_async_tx_descriptor *dma_rx_desc;
++	struct skbuf_dma_descriptor *skbuf_dma;
++	struct xlnx_tsn_ep *ep = xchan->ep;
++	struct sk_buff *skb;
++	dma_cookie_t cookie;
++	dma_addr_t addr;
 +
-+// SPI Driver abstractions.
-+use crate::{
-+    acpi,
-+    device,
-+    device_id::{
-+        RawDeviceId,
-+        RawDeviceIdIndex, //
-+    },
-+    driver,
-+    error::*,
-+    of,
-+    prelude::*,
-+    sync::aref::AlwaysRefCounted,
-+    types::Opaque, //
-+};
++	skbuf_dma = ep_get_desc(xchan, xchan->ring_head & (xchan->ring_size - 1));
++	if (!skbuf_dma)
++		return -ENOSPC;
 +
-+use core::{
-+    marker::PhantomData,
-+    mem::offset_of,
-+    ptr::NonNull, //
-+};
++	skb = dev_alloc_skb(ep->max_frm_size);
++	if (!skb)
++		return -ENOMEM;
 +
-+/// An SPI device id table.
-+#[repr(transparent)]
-+#[derive(Clone, Copy)]
-+pub struct DeviceId(bindings::spi_device_id);
++	sg_init_table(skbuf_dma->sgl, 1);
++	addr = dma_map_single(xchan->dma_dev, skb->data, ep->max_frm_size,
++			      DMA_FROM_DEVICE);
++	if (unlikely(dma_mapping_error(xchan->dma_dev, addr))) {
++		if (net_ratelimit())
++			dev_warn(ep->dev, "DMA mapping error on RX submit\n");
 +
-+impl DeviceId {
-+    const SPI_NAME_SIZE: usize = 32;
++		goto err_free_skb;
++	}
++	sg_dma_address(skbuf_dma->sgl) = addr;
++	sg_dma_len(skbuf_dma->sgl) = ep->max_frm_size;
++	dma_rx_desc = dmaengine_prep_slave_sg(xchan->chan, skbuf_dma->sgl,
++					      1, DMA_DEV_TO_MEM,
++					      DMA_PREP_INTERRUPT);
++	if (!dma_rx_desc)
++		goto err_unmap_skb;
 +
-+    /// Create a new device id from an SPI 'id' string.
-+    #[inline(always)]
-+    pub const fn new(id: &'static CStr) -> Self {
-+        let src = id.to_bytes_with_nul();
-+        build_assert!(src.len() <= Self::SPI_NAME_SIZE, "ID exceeds 32 bytes");
-+        let mut spi: bindings::spi_device_id = pin_init::zeroed();
-+        let mut i = 0;
-+        while i < src.len() {
-+            spi.name[i] = src[i];
-+            i += 1;
-+        }
++	skbuf_dma->dma_address = sg_dma_address(skbuf_dma->sgl);
++	skbuf_dma->desc = dma_rx_desc;
++	dma_rx_desc->callback_param = xchan;
++	dma_rx_desc->callback_result = ep_dma_rx_cb;
 +
-+        Self(spi)
-+    }
++	skbuf_dma->skb = skb;
++	cookie = dmaengine_submit(dma_rx_desc);
++	if (dma_submit_error(cookie)) {
++		skbuf_dma->skb = NULL;
++		goto err_unmap_skb;
++	}
++	xchan->ring_head++;
++
++	return 0;
++
++err_unmap_skb:
++	dma_unmap_single(xchan->dma_dev, addr, ep->max_frm_size, DMA_FROM_DEVICE);
++err_free_skb:
++	dev_kfree_skb(skb);
++	return -ENOMEM;
 +}
 +
-+// SAFETY: `DeviceId` is a `#[repr(transparent)]` wrapper of `spi_device_id` and does not add
-+// additional invariants, so it's safe to transmute to `RawType`.
-+unsafe impl RawDeviceId for DeviceId {
-+    type RawType = bindings::spi_device_id;
++static bool ep_rx_refill(struct xlnx_tsn_ep_dma_chan *xchan, bool arm_timer)
++{
++	int avail, i;
++
++	scoped_guard(spinlock_bh, &xchan->rx_lock) {
++		if (READ_ONCE(xchan->ep->closing))
++			return false;
++
++		avail = CIRC_SPACE(xchan->ring_head, READ_ONCE(xchan->ring_tail),
++				   xchan->ring_size);
++		for (i = 0; i < avail; i++) {
++			if (ep_rx_submit_desc(xchan))
++				break;
++		}
++		dma_async_issue_pending(xchan->chan);
++
++		if (i > 0 || xchan->ring_head != READ_ONCE(xchan->ring_tail))
++			return true;
++
++		if (arm_timer)
++			mod_timer(&xchan->rx_refill_timer,
++				  jiffies + EP_RX_REFILL_RETRY);
++	}
++
++	return false;
 +}
 +
-+// SAFETY: `DRIVER_DATA_OFFSET` is the offset to the `driver_data` field.
-+unsafe impl RawDeviceIdIndex for DeviceId {
-+    const DRIVER_DATA_OFFSET: usize = core::mem::offset_of!(bindings::spi_device_id, driver_data);
++static void ep_rx_refill_timer(struct timer_list *t)
++{
++	struct xlnx_tsn_ep_dma_chan *xchan = timer_container_of(xchan, t,
++							       rx_refill_timer);
++
++	ep_rx_refill(xchan, true);
 +}
 +
-+/// IdTable type for SPI
-+pub type IdTable<T> = &'static dyn kernel::device_id::IdTable<DeviceId, T>;
++static void ep_dma_rx_cb(void *data, const struct dmaengine_result *result)
++{
++	struct xlnx_tsn_ep_dma_chan *xchan = data;
++	struct skbuf_dma_descriptor *skbuf_dma;
++	size_t meta_len, meta_max_len, rx_len;
++	struct xlnx_tsn_ep *ep = xchan->ep;
++	struct net_device *ndev = ep->ndev;
++	struct sk_buff *skb;
++	u32 port_id, tuser;
++	u32 *metadata;
 +
-+/// Create a SPI `IdTable` with its alias for modpost.
-+#[macro_export]
-+macro_rules! spi_device_table {
-+    ($($tt:tt)*) => {
-+        $crate::module_device_table!("spi", $crate::spi::DeviceId, $($tt)*);
-+    };
++	skbuf_dma = ep_get_desc(xchan, xchan->ring_tail & (xchan->ring_size - 1));
++	WRITE_ONCE(xchan->ring_tail, xchan->ring_tail + 1);
++	skb = skbuf_dma->skb;
++	skbuf_dma->skb = NULL;
++
++	dma_unmap_single(xchan->dma_dev, skbuf_dma->dma_address,
++			 ep->max_frm_size, DMA_FROM_DEVICE);
++
++	if (result->result != DMA_TRANS_NOERROR) {
++		if (net_ratelimit())
++			dev_warn(ep->dev, "RX DMA transfer error %d\n",
++				 result->result);
++
++		dev_kfree_skb_any(skb);
++		DEV_STATS_INC(ndev, rx_dropped);
++		DEV_STATS_INC(ndev, rx_errors);
++		goto submit_new;
++	}
++
++	metadata = dmaengine_desc_get_metadata_ptr(skbuf_dma->desc,
++						   &meta_len,
++						   &meta_max_len);
++	if (IS_ERR_OR_NULL(metadata)) {
++		if (net_ratelimit())
++			dev_warn(ep->dev, "Failed to get RX metadata pointer\n");
++
++		dev_kfree_skb_any(skb);
++		DEV_STATS_INC(ndev, rx_dropped);
++		DEV_STATS_INC(ndev, rx_errors);
++		goto submit_new;
++	}
++
++	/* MCDMA metadata: [0] = status, [1] = sideband (TID/TDEST/TUSER), [2..] = app */
++	tuser = metadata[1] & TSN_TUSER_MASK;
++	rx_len = ep->max_frm_size - result->residue;
++
++	if (rx_len > ep->max_frm_size || rx_len < ETH_HLEN) {
++		if (net_ratelimit())
++			dev_warn(ep->dev, "Invalid RX length %zu (max=%u, min=%u)\n",
++				 rx_len, ep->max_frm_size, ETH_HLEN);
++
++		dev_kfree_skb_any(skb);
++		DEV_STATS_INC(ndev, rx_dropped);
++		DEV_STATS_INC(ndev, rx_errors);
++		goto submit_new;
++	}
++
++	port_id = FIELD_GET(TSN_TUSER_PORT_ID_MASK, tuser);
++	if (port_id != TSN_TUSER_PORT_MAC1 && port_id != TSN_TUSER_PORT_MAC2) {
++		dev_dbg_ratelimited(ep->dev,
++				    "RX dropping unexpected TUSER port_id=%u\n",
++				    port_id);
++
++		dev_kfree_skb_any(skb);
++		DEV_STATS_INC(ndev, rx_dropped);
++		goto submit_new;
++	}
++
++	skb_put(skb, rx_len);
++	skb->dev = ndev;
++	skb->protocol = eth_type_trans(skb, ndev);
++	skb_checksum_none_assert(skb);
++	__netif_rx(skb);
++
++	DEV_STATS_INC(ndev, rx_packets);
++	DEV_STATS_ADD(ndev, rx_bytes, rx_len);
++
++submit_new:
++	ep_rx_refill(xchan, true);
 +}
 +
-+/// An adapter for the registration of SPI drivers.
-+pub struct Adapter<T: Driver>(T);
-+
-+// SAFETY:
-+// - `bindings::spi_driver` is a C type declared as `repr(C)`.
-+// - `T::Data` is the type of the driver's device private data.
-+// - `struct spi_driver` embeds a `struct device_driver`.
-+// - `DEVICE_DRIVER_OFFSET` is the correct byte offset to the embedded `struct device_driver`.
-+unsafe impl<T: Driver> driver::DriverLayout for Adapter<T> {
-+    type DriverType = bindings::spi_driver;
-+    type DriverData<'bound> = T::Data<'bound>;
-+    const DEVICE_DRIVER_OFFSET: usize = core::mem::offset_of!(Self::DriverType, driver);
-+}
-+
-+// SAFETY: A call to `unregister` for a given instance of `DriverType` is guaranteed to be valid if
-+// a preceding call to `register` has been successful.
-+unsafe impl<T: Driver> driver::RegistrationOps for Adapter<T> {
-+    unsafe fn register(
-+        sdrv: &Opaque<Self::DriverType>,
-+        name: &'static CStr,
-+        module: &'static ThisModule,
-+    ) -> Result {
-+        build_assert!(
-+            T::ACPI_ID_TABLE.is_some() || T::OF_ID_TABLE.is_some() || T::SPI_ID_TABLE.is_some(),
-+            "At least one of ACPI/OF/Legacy tables must be present when registering an spi driver"
-+        );
-+
-+        let spi_table = match T::SPI_ID_TABLE {
-+            Some(table) => table.as_ptr(),
-+            None => core::ptr::null(),
-+        };
-+
-+        let of_table = match T::OF_ID_TABLE {
-+            Some(table) => table.as_ptr(),
-+            None => core::ptr::null(),
-+        };
-+
-+        let acpi_table = match T::ACPI_ID_TABLE {
-+            Some(table) => table.as_ptr(),
-+            None => core::ptr::null(),
-+        };
-+
-+        // SAFETY: It's safe to set the fields of `struct spi_driver` on initialization.
-+        unsafe {
-+            (*sdrv.get()).driver.name = name.as_char_ptr();
-+            (*sdrv.get()).probe = Some(Self::probe_callback);
-+            (*sdrv.get()).remove = Some(Self::remove_callback);
-+            (*sdrv.get()).shutdown = Some(Self::shutdown_callback);
-+            (*sdrv.get()).id_table = spi_table;
-+            (*sdrv.get()).driver.of_match_table = of_table;
-+            (*sdrv.get()).driver.acpi_match_table = acpi_table;
-+        }
-+
-+        // SAFETY: `sdrv` is guaranteed to be a valid `DriverType`.
-+        to_result(unsafe { bindings::__spi_register_driver(module.as_ptr(), sdrv.get()) })
-+    }
-+
-+    unsafe fn unregister(sdrv: &Opaque<Self::DriverType>) {
-+        // SAFETY: `sdrv` is guaranteed to be a valid `DriverType`.
-+        unsafe { bindings::spi_unregister_driver(sdrv.get()) }
-+    }
-+}
-+
-+impl<T: Driver> Adapter<T> {
-+    extern "C" fn probe_callback(sdev: *mut bindings::spi_device) -> kernel::ffi::c_int {
-+        // SAFETY: The SPI bus only ever calls the probe callback with a valid pointer to a
-+        // `struct spi_device`.
-+        //
-+        // INVARIANT: `sdev` is valid for the duration of `probe_callback()`.
-+        let sdev = unsafe { &*sdev.cast::<SpiDevice<device::CoreInternal<'_>>>() };
-+
-+        // Match the lookup order of the C core's `spi_get_device_match_data()`: first the
-+        // OF/ACPI match data, then the SPI id table.
-+        //
-+        // SAFETY: `sdev` matched data is of type `Self::IdInfo`.
-+        let info = unsafe { <Self as driver::Adapter>::id_info(sdev.as_ref()) }
-+            .or_else(|| Self::spi_id_info(sdev));
-+
-+        from_result(|| {
-+            let data = T::probe(sdev, info);
-+
-+            sdev.as_ref().set_drvdata(data)?;
-+            Ok(0)
-+        })
-+    }
-+
-+    extern "C" fn remove_callback(sdev: *mut bindings::spi_device) {
-+        // SAFETY: `sdev` is a valid pointer to a `struct spi_device`.
-+        let sdev = unsafe { &*sdev.cast::<SpiDevice<device::CoreInternal<'_>>>() };
-+
-+        // SAFETY: `remove_callback` is only ever called after a successful call to
-+        // `probe_callback`, hence it's guaranteed that `SpiDevice::set_drvdata()` has been called
-+        // and stored a `Pin<KBox<T::Data<'_>>>`.
-+        let data = unsafe { sdev.as_ref().drvdata_borrow::<T::Data<'_>>() };
-+
-+        T::unbind(sdev, data);
-+    }
-+
-+    extern "C" fn shutdown_callback(sdev: *mut bindings::spi_device) {
-+        // SAFETY: `shutdown_callback` is only ever called for a valid `sdev`
-+        let sdev = unsafe { &*sdev.cast::<SpiDevice<device::CoreInternal<'_>>>() };
-+
-+        // SAFETY: `shutdown_callback` is only ever called after a successful call to
-+        // `probe_callback`, hence it's guaranteed that `SpiDevice::set_drvdata()` has been called
-+        // and stored a `Pin<KBox<T::Data<'_>>>`.
-+        let data = unsafe { sdev.as_ref().drvdata_borrow::<T::Data<'_>>() };
-+
-+        T::shutdown(sdev, data);
-+    }
-+
-+    /// Returns the driver's private data from the matching entry in the [`spi::IdTable`], if any.
-+    ///
-+    /// If this returns `None`, it means there is no match with an entry in the [`spi::IdTable`].
-+    fn spi_id_info(dev: &SpiDevice) -> Option<&'static <Self as driver::Adapter>::IdInfo> {
-+        // Ensure the driver has an SPI id table: the entries matched by `spi_get_device_id()`
-+        // below come from the table registered in `register()`, i.e. `T::SPI_ID_TABLE`, which
-+        // guarantees that every `driver_data` field is a valid `T::IdInfo`.
-+        T::SPI_ID_TABLE.as_ref()?;
-+
-+        // SAFETY:
-+        // - `dev` is guaranteed to be valid while it's alive, and so is `dev.as_raw()`.
-+        //
-+        // `spi_get_device_id()` looks up the registered driver id table using the device's
-+        // modalias and returns either a pointer to a matching entry or `NULL`.
-+        let raw_id = unsafe { bindings::spi_get_device_id(dev.as_raw()) };
-+
-+        if raw_id.is_null() {
-+            return None;
-+        }
-+
-+        // SAFETY: `DeviceId` is a `#[repr(transparent)` wrapper of `struct spi_device_id` and
-+        // does not add additional invariants, so it's safe to transmute.
-+        let id = unsafe { &*raw_id.cast::<DeviceId>() };
-+
-+        // SAFETY: `id` comes from the driver's id table (as established by the `T::SPI_ID_TABLE`
-+        // check above). By the safety requirements of `info_unchecked_opt()`, this is either a
-+        // valid `T::IdInfo` or `NULL` (e.g. for a `@none` table), which `info_unchecked_opt()`
-+        // handles by returning `None`.
-+        unsafe { id.info_unchecked_opt::<T::IdInfo>() }
-+    }
-+}
-+
-+impl<T: Driver> driver::Adapter for Adapter<T> {
-+    type IdInfo = T::IdInfo;
-+
-+    fn of_id_table() -> Option<of::IdTable<Self::IdInfo>> {
-+        T::OF_ID_TABLE
-+    }
-+
-+    fn acpi_id_table() -> Option<acpi::IdTable<Self::IdInfo>> {
-+        T::ACPI_ID_TABLE
-+    }
-+}
-+
-+/// Declares a kernel module that exposes a single spi driver.
-+///
-+/// # Examples
-+///
-+/// ```ignore
-+/// kernel::module_spi_driver! {
-+///     type: MyDriver,
-+///     name: "Module name",
-+///     authors: ["Author name"],
-+///     description: "Description",
-+///     license: "GPL v2",
-+/// }
-+/// ```
-+#[macro_export]
-+macro_rules! module_spi_driver {
-+    ($($f:tt)*) => {
-+        $crate::module_driver!(<T>, $crate::spi::Adapter<T>, { $($f)* });
-+    };
-+}
-+
-+/// The spi driver trait.
-+///
-+/// Drivers must implement this trait in order to get a spi driver registered.
-+///
-+/// # Example
-+///
-+///```
-+/// # use kernel::{device::Core, spi, of};
-+///
-+/// struct MyDriver;
-+///
-+/// kernel::spi_device_table!(
-+///     SPI_TABLE,
-+///     <MyDriver as spi::Driver>::IdInfo,
-+///     [
-+///          (spi::DeviceId::new(c"rust_driver_spi"), ())
-+///     ]
-+/// );
-+///
-+/// kernel::of_device_table!(
-+///     OF_TABLE,
-+///     <MyDriver as spi::Driver>::IdInfo,
-+///     [
-+///         (of::DeviceId::new(c"test,device"), ())
-+///     ]
-+/// );
-+///
-+/// impl spi::Driver for MyDriver {
-+///     type IdInfo = ();
-+///     type Data<'bound> = Self;
-+///     const SPI_ID_TABLE: Option<spi::IdTable<Self::IdInfo>> = Some(&SPI_TABLE);
-+///     const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = Some(&OF_TABLE);
-+///
-+///     fn probe<'bound>(
-+///         _sdev: &'bound spi::SpiDevice<Core<'_>>,
-+///         _id_info: Option<&'bound Self::IdInfo>,
-+///     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-+///         Err(ENODEV)
-+///     }
-+///
-+///     fn shutdown<'bound>(
-+///         _sdev: &'bound spi::SpiDevice<Core<'_>>,
-+///         this: Pin<&Self::Data<'bound>>,
-+///     ) {
-+///     }
-+/// }
-+///```
-+pub trait Driver {
-+    /// The type holding information about each device id supported by the driver.
-+    // TODO: Use `associated_type_defaults` once stabilized:
-+    //
-+    // ```
-+    // type IdInfo: 'static = ();
-+    // ```
-+    type IdInfo: 'static;
-+
-+    /// The type of the driver's bus device private data.
-+    type Data<'bound>: Send + 'bound;
-+
-+    /// The table of device ids supported by the driver.
-+    const SPI_ID_TABLE: Option<IdTable<Self::IdInfo>> = None;
-+
-+    /// The table of OF device ids supported by the driver.
-+    const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = None;
-+
-+    /// The table of ACPI device ids supported by the driver.
-+    const ACPI_ID_TABLE: Option<acpi::IdTable<Self::IdInfo>> = None;
-+
-+    /// SPI driver probe.
-+    ///
-+    /// Called when a new spi device is added or discovered.
-+    /// Implementers should attempt to initialize the device here.
-+    fn probe<'bound>(
-+        dev: &'bound SpiDevice<device::Core<'_>>,
-+        id_info: Option<&'bound Self::IdInfo>,
-+    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound;
-+
-+    /// SPI driver shutdown.
-+    ///
-+    /// Called by the kernel during system reboot or power-off to allow the [`Driver`] to bring the
-+    /// [`SpiDevice`] into a safe state. Implementing this callback is optional.
-+    ///
-+    /// Typical actions include stopping transfers, disabling interrupts, or resetting the hardware
-+    /// to prevent undesired behavior during shutdown.
-+    ///
-+    /// This callback is distinct from final resource cleanup, as the driver instance remains valid
-+    /// after it returns. Any deallocation or teardown of driver-owned resources should instead be
-+    /// handled in `Drop`.
-+    fn shutdown<'bound>(dev: &'bound SpiDevice<device::Core<'_>>, this: Pin<&Self::Data<'bound>>) {
-+        let _ = (dev, this);
-+    }
-+
-+    /// SPI driver unbind.
-+    ///
-+    /// Called when the [`SpiDevice`] is unbound from its bound [`Driver`]. Implementing this
-+    /// callback is optional.
-+    ///
-+    /// This callback serves as a place for drivers to perform teardown operations that require a
-+    /// `&Device<Core>` or `&Device<Bound>` reference. For instance, drivers may try to perform I/O
-+    /// operations to gracefully tear down the device.
-+    ///
-+    /// Otherwise, release operations for driver resources should be performed in `Drop`.
-+    fn unbind<'bound>(dev: &'bound SpiDevice<device::Core<'_>>, this: Pin<&Self::Data<'bound>>) {
-+        let _ = (dev, this);
-+    }
-+}
-+
-+/// The spi device representation.
-+///
-+/// This structure represents the Rust abstraction for a C `struct spi_device`. The
-+/// implementation abstracts the usage of an existing C `struct spi_device` that
-+/// gets passed from the C side.
-+///
-+/// # Invariants
-+///
-+/// A [`SpiDevice`] instance represents a valid `struct spi_device` created by the C portion of
-+/// the kernel.
-+#[repr(transparent)]
-+pub struct SpiDevice<Ctx: device::DeviceContext = device::Normal>(
-+    Opaque<bindings::spi_device>,
-+    PhantomData<Ctx>,
-+);
-+
-+impl<Ctx: device::DeviceContext> SpiDevice<Ctx> {
-+    fn as_raw(&self) -> *mut bindings::spi_device {
-+        self.0.get()
-+    }
-+}
-+
-+/// A single SPI transfer.
-+///
-+/// A transfer transmits, receives, or transmits and receives simultaneously (full duplex).
-+/// A sequence of transfers is submitted to the device as a single message with
-+/// [`SpiDevice::transfer`].
-+///
-+/// The buffers don't need to be DMA-safe: the data is copied into DMA-safe bounce buffers
-+/// internally, since Rust slices may be located anywhere (e.g. on the stack).
-+pub struct Transfer<'buf> {
-+    tx: Option<&'buf [u8]>,
-+    rx: Option<&'buf mut [u8]>,
-+}
-+
-+impl<'buf> Transfer<'buf> {
-+    /// Creates a transfer that transmits the data in `tx`.
-+    pub fn write(tx: &'buf [u8]) -> Self {
-+        Self {
-+            tx: Some(tx),
-+            rx: None,
-+        }
-+    }
-+
-+    /// Creates a transfer that receives data into `rx`.
-+    pub fn read(rx: &'buf mut [u8]) -> Self {
-+        Self {
-+            tx: None,
-+            rx: Some(rx),
-+        }
-+    }
-+
-+    /// Creates a full-duplex transfer: `tx` is transmitted while `rx` is received
-+    /// simultaneously.
-+    ///
-+    /// The two buffers must have the same length. Controllers with the
-+    /// `SPI_CONTROLLER_HALF_DUPLEX` flag (or devices in 3-wire mode) reject full-duplex
-+    /// transfers with [`EINVAL`].
-+    pub fn full_duplex(tx: &'buf [u8], rx: &'buf mut [u8]) -> Self {
-+        Self {
-+            tx: Some(tx),
-+            rx: Some(rx),
-+        }
-+    }
-+}
-+
-+/// Device configuration accessors and I/O operations, restricted to bound devices.
-+///
-+/// An `ARef<SpiDevice>` (i.e. a `SpiDevice<Normal>`) may outlive the driver's unbind and the
-+/// device's or controller's unregistration. The SPI core's transfer path does not check the
-+/// registration state, and the controller driver's resources (e.g. `spi->controller_state` or
-+/// MMIO mappings) may already have been released, so performing I/O on an unbound device is not
-+/// sound. Likewise, once the device is unbound, another driver may bind to the same
-+/// `struct spi_device` and mutate the device configuration with plain, non-atomic writes (e.g.
-+/// via `spi_setup()`), so reading the configuration accessors on an unbound device would be a
-+/// data race. Restricting these operations to [`SpiDevice<Bound>`] guarantees that the device is
-+/// still bound to a driver; driver callbacks receive a `SpiDevice<Core>`, which dereferences to
-+/// `SpiDevice<Bound>`.
-+impl SpiDevice<device::Bound> {
-+    /// Returns the maximum speed of the SPI device.
-+    #[inline]
-+    pub fn max_speed_hz(&self) -> u32 {
-+        // SAFETY: By the type invariant of `Self`, `self.as_raw()` is a valid pointer to a
-+        // `struct spi_device`.
-+        unsafe { (*self.as_raw()).max_speed_hz }
-+    }
-+
-+    /// Returns the number of bits per word of the SPI device.
-+    #[inline]
-+    pub fn bits_per_word(&self) -> u8 {
-+        // SAFETY: By the type invariant of `Self`, `self.as_raw()` is a valid pointer to a
-+        // `struct spi_device`.
-+        unsafe { (*self.as_raw()).bits_per_word }
-+    }
-+
-+    /// Returns the mode flags of the SPI device.
-+    #[inline]
-+    pub fn mode(&self) -> u32 {
-+        // SAFETY: By the type invariant of `Self`, `self.as_raw()` is a valid pointer to a
-+        // `struct spi_device`.
-+        unsafe { (*self.as_raw()).mode }
-+    }
-+
-+    /// Executes a sequence of [`Transfer`]s as a single SPI message.
-+    ///
-+    /// This is the primitive that all I/O methods are built on; it maps to the C `spi_sync()`
-+    /// API. The transfers are executed in order with the chip select asserted for the whole
-+    /// message.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```ignore
-+    /// use kernel::spi::{self, Transfer};
-+    ///
-+    /// fn read_register(dev: &spi::SpiDevice<kernel::device::Bound>, reg: u8) -> Result<u8> {
-+    ///     let cmd = [reg];
-+    ///     let mut val = [0u8; 1];
-+    ///     dev.transfer(&mut [Transfer::write(&cmd), Transfer::read(&mut val)])?;
-+    ///     Ok(val[0])
-+    /// }
-+    /// ```
-+    pub fn transfer(&self, transfers: &mut [Transfer<'_>]) -> Result {
-+        if transfers.is_empty() {
-+            return Err(EINVAL);
-+        }
-+
-+        struct Bounce {
-+            tx: KVec<u8>,
-+            rx: KVec<u8>,
-+        }
-+
-+        // `spi_sync()` requires transfer buffers to be DMA-safe, but Rust slices may be
-+        // located anywhere (e.g. on the stack), so the data is copied into DMA-safe bounce
-+        // buffers.
-+        let mut bounces: KVec<Bounce> = KVec::with_capacity(transfers.len(), GFP_KERNEL)?;
-+        let mut xfers: KVec<bindings::spi_transfer> =
-+            KVec::with_capacity(transfers.len(), GFP_KERNEL)?;
-+
-+        for t in transfers.iter() {
-+            if let (Some(tx), Some(rx)) = (&t.tx, &t.rx) {
-+                if tx.len() != rx.len() {
-+                    return Err(EINVAL);
-+                }
-+            }
-+
-+            let tx_len = t.tx.map_or(0, |buf| buf.len());
-+            let rx_len = t.rx.as_deref().map_or(0, |buf| buf.len());
-+            let len = tx_len.max(rx_len);
-+            if len == 0 || len > u32::MAX as usize {
-+                return Err(EINVAL);
-+            }
-+
-+            let tx = t.tx.unwrap_or(&[]);
-+            let mut tx_bounce = KVec::with_capacity(tx.len(), GFP_KERNEL)?;
-+            tx_bounce.extend_from_slice(tx, GFP_KERNEL)?;
-+
-+            let mut rx_bounce = KVec::with_capacity(rx_len, GFP_KERNEL)?;
-+            rx_bounce.resize(rx_len, 0, GFP_KERNEL)?;
-+
-+            let xfer = bindings::spi_transfer {
-+                tx_buf: if tx_bounce.is_empty() {
-+                    core::ptr::null()
-+                } else {
-+                    tx_bounce.as_ptr().cast()
-+                },
-+                rx_buf: if rx_bounce.is_empty() {
-+                    core::ptr::null_mut()
-+                } else {
-+                    rx_bounce.as_mut_ptr().cast()
-+                },
-+                len: len as u32,
-+                ..pin_init::zeroed()
-+            };
-+            xfers.push(xfer, GFP_KERNEL)?;
-+            bounces.push(
-+                Bounce {
-+                    tx: tx_bounce,
-+                    rx: rx_bounce,
-+                },
-+                GFP_KERNEL,
-+            )?;
-+        }
-+
-+        let mut msg: bindings::spi_message = pin_init::zeroed();
-+
-+        // SAFETY: `msg` is a valid `struct spi_message`.
-+        unsafe { bindings::spi_message_init(&mut msg) };
-+
-+        for xfer in xfers.iter_mut() {
-+            // SAFETY: `xfer` is a valid `struct spi_transfer` and `msg` has been initialized
-+            // by `spi_message_init()` above.
-+            unsafe { bindings::spi_message_add_tail(xfer, &mut msg) };
-+        }
-+
-+        // SAFETY: By the type invariant of `Self`, `self.as_raw()` is a valid pointer to a
-+        // `struct spi_device`. `msg` and the `struct spi_transfer`s linked into it are valid
-+        // for the duration of the call, and `spi_sync()` is synchronous, so they are not
-+        // accessed by the C core after it returns.
-+        to_result(unsafe { bindings::spi_sync(self.as_raw(), &mut msg) })?;
-+
-+        for (t, bounce) in transfers.iter_mut().zip(bounces.iter_mut()) {
-+            if let Some(rx) = t.rx.as_deref_mut() {
-+                rx.copy_from_slice(&bounce.rx);
-+            }
-+        }
-+
-+        Ok(())
-+    }
-+
-+    /// Writes the data from `buf` to the SPI device.
-+    #[inline]
-+    pub fn write(&self, buf: &[u8]) -> Result {
-+        self.transfer(&mut [Transfer::write(buf)])
-+    }
-+
-+    /// Reads data from the SPI device into `buf`.
-+    #[inline]
-+    pub fn read(&self, buf: &mut [u8]) -> Result {
-+        self.transfer(&mut [Transfer::read(buf)])
-+    }
-+
-+    /// Writes the data from `write_buf` to the SPI device, then reads data from the SPI device
-+    /// into `read_buf`, with the chip select asserted for the whole operation.
-+    ///
-+    /// This performs the two phases sequentially; to transmit and receive simultaneously, use
-+    /// [`Transfer::full_duplex`] with [`SpiDevice::transfer`].
-+    #[inline]
-+    pub fn write_then_read(&self, write_buf: &[u8], read_buf: &mut [u8]) -> Result {
-+        self.transfer(&mut [Transfer::write(write_buf), Transfer::read(read_buf)])
-+    }
-+}
-+
-+// SAFETY: `SpiDevice` is a transparent wrapper of `struct spi_device`.
-+// The offset is guaranteed to point to a valid device field inside `SpiDevice`.
-+unsafe impl<Ctx: device::DeviceContext> device::AsBusDevice<Ctx> for SpiDevice<Ctx> {
-+    const OFFSET: usize = offset_of!(bindings::spi_device, dev);
-+}
-+
-+// SAFETY: `SpiDevice` is a transparent wrapper of a type that doesn't depend on
-+// `SpiDevice`'s generic argument.
-+kernel::impl_device_context_deref!(unsafe { SpiDevice });
-+kernel::impl_device_context_into_aref!(SpiDevice);
-+
-+// SAFETY: Instances of `SpiDevice` are always reference-counted.
-+unsafe impl AlwaysRefCounted for SpiDevice {
-+    fn inc_ref(&self) {
-+        // SAFETY: The existence of a shared reference guarantees that the refcount is non-zero.
-+        unsafe { bindings::get_device(self.as_ref().as_raw()) };
-+    }
-+
-+    unsafe fn dec_ref(obj: NonNull<Self>) {
-+        // SAFETY: The safety requirements guarantee that the refcount is non-zero.
-+        unsafe { bindings::put_device(&raw mut (*obj.as_ref().as_raw()).dev) }
-+    }
-+}
-+
-+impl<Ctx: device::DeviceContext> AsRef<device::Device<Ctx>> for SpiDevice<Ctx> {
-+    fn as_ref(&self) -> &device::Device<Ctx> {
-+        let raw = self.as_raw();
-+        // SAFETY: By the type invariant of `Self`, `self.as_raw()` is a pointer to a valid
-+        // `struct spi_device`.
-+        let dev = unsafe { &raw mut (*raw).dev };
-+
-+        // SAFETY: `dev` points to a valid `struct device`.
-+        unsafe { device::Device::from_raw(dev) }
-+    }
-+}
-+
-+// SAFETY: A `SpiDevice` is always reference-counted and can be released from any thread.
-+unsafe impl Send for SpiDevice {}
-+
-+// SAFETY: `SpiDevice` can be shared among threads because `SpiDevice<Normal>` has no methods
-+// that could mutate the device state or race with the C core (the configuration accessors and
-+// I/O operations are restricted to `SpiDevice<Bound>`).
-+unsafe impl Sync for SpiDevice {}
-+
-+// SAFETY: Same as `SpiDevice<Normal>` -- the underlying `struct spi_device` is the same;
-+// `Bound` is a zero-sized type-state marker that does not affect thread safety.
-+unsafe impl Sync for SpiDevice<device::Bound> {}
-+
-+#[cfg(CONFIG_RUST_SPI_KUNIT_TEST)]
-+#[kunit_tests(rust_kernel_spi)]
-+mod tests {
-+    use super::*;
-+
-+    #[test]
-+    fn device_id_name_size() {
-+        assert_eq!(DeviceId::SPI_NAME_SIZE, bindings::SPI_NAME_SIZE as usize);
-+    }
-+
-+    #[test]
-+    fn device_id_new_short_name() {
-+        let id = DeviceId::new(c"rust_driver_spi");
-+
-+        let expected: &[u8] = b"rust_driver_spi\0";
-+        assert_eq!(&id.0.name[..expected.len()], expected);
-+
-+        // The remaining bytes must be zeroed.
-+        assert!(id.0.name[expected.len()..].iter().all(|&byte| byte == 0));
-+    }
-+
-+    #[test]
-+    fn device_id_new_empty_name() {
-+        let id = DeviceId::new(c"");
-+
-+        assert!(id.0.name.iter().all(|&byte| byte == 0));
-+    }
-+
-+    #[test]
-+    fn device_id_new_max_length_name() {
-+        // 31 bytes plus the NUL terminator is the maximum accepted name length.
-+        let id = DeviceId::new(c"abcdefghijklmnopqrstuvwxyz01234");
-+
-+        let expected: &[u8] = b"abcdefghijklmnopqrstuvwxyz01234\0";
-+        assert_eq!(&id.0.name[..], expected);
-+    }
-+}
+ static netdev_tx_t ep_start_xmit(struct sk_buff *skb, struct net_device *ndev)
+ {
+ 	dev_kfree_skb_any(skb);
+@@ -128,6 +326,8 @@ static int ep_open(struct net_device *ndev)
+ 	struct xlnx_tsn_ep *ep = netdev_priv(ndev);
+ 	int ret;
+ 
++	WRITE_ONCE(ep->closing, false);
++
+ 	ret = ep_init_dmaengine(ep);
+ 	if (ret) {
+ 		netdev_err(ndev, "failed to initialize DMA engine\n");
+@@ -145,6 +345,7 @@ static int ep_stop(struct net_device *ndev)
+ 	struct xlnx_tsn_ep *ep = netdev_priv(ndev);
+ 
+ 	netif_tx_disable(ndev);
++	WRITE_ONCE(ep->closing, true);
+ 	ep_exit_dmaengine(ep);
+ 
+ 	return 0;
+@@ -201,6 +402,10 @@ ep_alloc_dma_chan(struct xlnx_tsn_ep *ep, struct dma_chan *dma_chan,
+ 	chan->ep = ep;
+ 	chan->ring_size = ring_size;
+ 	chan->dma_dev = dmaengine_get_dma_device(chan->chan);
++	if (!is_tx) {
++		spin_lock_init(&chan->rx_lock);
++		timer_setup(&chan->rx_refill_timer, ep_rx_refill_timer, 0);
++	}
+ 
+ 	return chan;
+ }
+@@ -212,8 +417,21 @@ static void ep_free_dma_chan(struct xlnx_tsn_ep_dma_chan *chan)
+ 	if (!chan)
+ 		return;
+ 
+-	if (chan->chan)
++	if (chan->chan) {
++		if (!chan->is_tx) {
++			/* ep_stop() sets closing before teardown. Take rx_lock
++			 * so any refill that already passed the closing check
++			 * finishes and no later one submits or arms the timer,
++			 * then shut down the timer so it cannot be rearmed
++			 * before the channel is freed.
++			 */
++			spin_lock_bh(&chan->rx_lock);
++			spin_unlock_bh(&chan->rx_lock);
++			timer_shutdown_sync(&chan->rx_refill_timer);
++		}
++
+ 		dmaengine_terminate_sync(chan->chan);
++	}
+ 
+ 	if (chan->is_tx) {
+ 		while (chan->ring_tail != chan->ring_head) {
+@@ -306,9 +524,19 @@ static int ep_init_dmaengine(struct xlnx_tsn_ep *ep)
+ 		rx_allocated++;
+ 	}
+ 
++	for (i = 0; i < ep->num_rx_queues; i++) {
++		if (!ep_rx_refill(ep->rx_chans[i], false)) {
++			dev_err(ep->dev, "RX channel %d: no descriptors armed\n",
++				i);
++			ret = -ENOMEM;
++			goto err_free_chans;
++		}
++	}
++
+ 	return 0;
+ 
+ err_free_chans:
++	WRITE_ONCE(ep->closing, true);
+ 	while (--rx_allocated >= 0)
+ 		ep_free_dma_chan(ep->rx_chans[rx_allocated]);
+ 	while (--tx_allocated >= 0)
+
 -- 
 2.43.0
 
