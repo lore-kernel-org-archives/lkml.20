@@ -1,91 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.77.92
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794500188;
-	b=neq91MWlYe6+v8KiRDmUGq/dXbQlSZZaaEfVXCzlRihY4eKzNtsyjhPgnEXhWYVKc5W/
-	 32GW1YlrNKYUOO9JSeqi5YIGybDt4ZJSeR7Cx9tHsDxzO9a/JngM9+3ydgxMFfGVnEqW5
-	 ZWJsJV3FLC+IJGLnys133v5+HDN8JL5d+0OCFTCwpt+Z19c1xGrX7MRr2tOqkNj3C9Mtz
-	 n4ApNTdIMckKn6+UptGesLTDjQJjn0tKQ9x5hxYOJu9lGMbZd4rcpVIuu3B6qfhx4eWiR
-	 aANT1HpnmxqLLlrsSkSj3GyLp5IOKLQ/pfyTSbyEq4vNAOofN0NoaFriNAa8+dCYuFg==
+	t=1794500189;
+	b=IKLe/PHZtW9BfoDzWxcMEHY5MMqt2GBQPNHfU67sTLxOQqjVQEZSAobFrp79JPr+L9w1
+	 49dEThRvZnLZ/yXI/KlR4gkjOZwui2J2/yr+h7r2tF/TwP8LFes3V9rFY4yFwDTXh4ye7
+	 cBRSAekXXv1tOxXFVkPEFyH1FxC7DXHm1OGyuk7H6CZzEQlG+0XMENKoHwfXz+dM8TmrG
+	 GaZqAt1a5H2FIvPeHIs8TjHJrjnmOEG5RNvLd3MoeSXA1qU5G/MT2y9NQaBwvaPMuvmf3
+	 iwZmPGBYfIMjkAoxOfztS0fgQTbaLkD3M5nZwtat3AAVVrQYDeZX8IYjStp0b77xRfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794500188;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794500189;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:X-Originating-IP:X-ClientProxiedBy:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=zI6jpPdRTfEJ3iMeZVxYPwVawJ+oNViJsEyZsG8jQeo=;
-	b=z0nXIa9+0AHvuARkCmUEHK02bd0ShzUYRHX5ruF19+W8eYoMBylE2m+1NzpQjA5wlLNY
-	 3ufNjnWP36a+eC8tSO2VS9wJOTOev8LVy+OAy5o4GNXrG1UBE9sAfn7Yb2U9XMBw4C8mW
-	 ip9ibmJTy2S96yTTNZPpBMsFxyL1uE3SsBGLhhOaFfHQzbeeBC8bYrdE7MFp1fsHaz5EK
-	 YtIUGWwAWBzYRtrsVVtuN7FYvXeDrzoDOwWx8fYI5HGA7Wj/9igCbIJfj3YtAlBR9oW47
-	 aaro1rXnWWL6PTxeCS5vyAwlDEKdcBQbDsmlq0muPdf1ztl6jZ/yfPF4GtyvMkW6Epw==
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=2zkIwgx7KpVel0dp5RKFUNmPsf0yAK60wdcEswbaqeA=;
+	b=XQN2VLW1cPC1D8uR3DVDY5wm2gpW3bvWacCTI/aU8p4IRHnuh1Jd7eKeTPMIuHeuzb7K
+	 oRtgVYe+CUqZjxBC1UJtN+BZD0rX8SVZNP+Z5wxWN2+uqHAK1EIyU9ZaT/963KlAmRWKz
+	 GpA8tvS+WMAuNaseH2pkqj2qaN9XgtAQ+qOIv3dQTeQtp80kBfoSQ0sG2Y2fnjbBZKY4A
+	 GuBfMu6eFE4SbQD92ZaqaFbHe4lRHJkauUmn2uAmdsBYSkNSRAHbdtJ3y0QpCIFpGmPdn
+	 zsilu/axV/NGf8aL4a+EEuurNEgINhRt/pV7lSdHXi8KReS9oRDKwJKz9z/R8b8yi2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=ETQW6o0s;
-	arc=none smtp.remote-ip=44.246.77.92
-Received: from pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.77.92])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YgGom+il;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D58606A323;
-	Thu, 12 Nov 2026 16:16:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02D58606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08126606A880;
+	Thu, 12 Nov 2026 16:16:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08126606A880
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=ETQW6o0s
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794500188; x=1826036188;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=zI6jpPdRTfEJ3iMeZVxYPwVawJ+oNViJsEyZsG8jQeo=;
-  b=ETQW6o0sIiscXzzfryk4AKdwRsodv6lpu8Dxk6pZJPQaWKuds4ucVS4q
-   gVtQZG8a2SGGE66MEUBoC3JDIAuUeNhA8+iTIcOb7wUA/niUFQa8QsgVf
-   fxi3CRfU8av4FF9TY3v5Pws7nhMCij/k6F9zKk6KAriiZXhDit/gUPQYK
-   IdQuzat12WOnrEF3g6jcMiMyqGZXLs0axyEVBK029kT89T8eLiVp+TdTB
-   Y3UwacmhH9z2jeBVgguhhbdGAdoPqx3O9Izj+zQeH+qmOYDbsSnCKvbGv
-   ZmkUiutl+gKsWNE9uNAulJHOHit89vy+NpNU2P4hMJhQxhFyvlcmB/tY9
-   w==;
-X-CSE-ConnectionGUID: i3W5HIP0Q/OS3pq1ol8tlg==
-X-CSE-MsgGUID: lCcJXC0AS5Kug8HyhYN2WA==
-X-IronPort-AV: E=Sophos;i="6.27,210,1787011200"; 
-   d="scan'208";a="33829665"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 16:16:25 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:24853]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.46.128:2525] with esmtp (Farcaster)
- id 1fc5008f-f181-49aa-b8ce-554d2f56a30b; Thu, 12 Nov 2026 16:16:25 +0000 (UTC)
-X-Farcaster-Flow-ID: 1fc5008f-f181-49aa-b8ce-554d2f56a30b
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 16:16:24 +0000
-Received: from dev-dsk-sieberf-metal-1a-7543e84d.eu-west-1.amazon.com
- (172.19.116.227) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Thu, 12 Nov 2026
- 16:16:21 +0000
-From: Fernand Sieber <sieberf@amazon.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
-	<vincent.guittot@linaro.org>, Shuah Khan <shuah@kernel.org>
-CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
-	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
-	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak
-	<kprateek.nayak@amd.com>, Daniel Bristot de Oliveira <bristot@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>, Josh Don <joshdon@google.com>,
-	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
-	<nh-open-source@amazon.com>, Fahad Mubeen <fmubeen@amazon.de>, "David
- Woodhouse" <dwmw@amazon.co.uk>, Misha Karataiev <karataev@amazon.com>,
-	Hendrik Borghorst <hborghor@amazon.de>, Ibrahim Elshahed <lshahed@amazon.de>,
-	Fernand Sieber <sieberf@amazon.com>
-Subject: [PATCH 1/5] sched/core: Clear stale rq->dl_server when core-sched replaces a pick
-Date: Thu, 12 Nov 2026 18:15:44 +0200
-Message-ID: <20261112161548.78189-2-sieberf@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261112161548.78189-1-sieberf@amazon.com>
-References: <20261112161548.78189-1-sieberf@amazon.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YgGom+il
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794500189; x=1826036189;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=nImn2zfNJCiLqwjUQuwz6k3lP2UNsG9/Llh1rT3KZkw=;
+  b=YgGom+iljPxqKf7W9sEvXQkkjioFUA1zW/VV9WPjDVnHv3hv2ohO+mi9
+   kN8DTSrBh0MDW99qd3/8FiZGMvfOPLzEazhT2vxpFCOG7Ig9hHq8Dd8lO
+   KJHlKPnaYIXAXDrB+hhK9SGSJPYmD8M/jgrh1TrGcIg3FyyjY7ZlxmtSW
+   mjjPLpNr7Rnm0BPD0x94nfLZON4WWOTPOhRWxH3tYJy8Ht7QyIFeDxQ4s
+   FE4qvteYw70INqLnb5lLzMniQ8RnekdaIDWi+3UeIYPATrjY9WNbNS0Qm
+   hu0VY1gub8P3+tAF8iElQxy4KZLe14Hl+F/YjJ16xwuou30TiW75c+ifZ
+   g==;
+X-CSE-ConnectionGUID: 2IekCDKmSBSlNDVjF6Y+UA==
+X-CSE-MsgGUID: Ym7zdKF5Tv2c0/kcDqkHOg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3324058"
+X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
+   d="scan'208";a="3324058"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 08:16:28 -0800
+X-CSE-ConnectionGUID: ssVOz9eyRmyhYzMROW3lrQ==
+X-CSE-MsgGUID: jwX6ZGn2TLKhc7tFueDCGg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
+   d="scan'208";a="8862437"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa003.fm.intel.com with ESMTP; 12 Nov 2026 08:16:24 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xRXTK-000000011i7-0aXn;
+	Thu, 12 Nov 2026 16:16:22 +0000
+Date: Fri, 13 Nov 2026 00:16:01 +0800
+From: kernel test robot <lkp@intel.com>
+To: Moteen Shah <m-shah@ti.com>, conor+dt@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, nm@ti.com, ssantosh@kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, u-kumar1@ti.com, gehariprasath@ti.com,
+	m-shah@ti.com, vigneshr@ti.com, afd@ti.com, a-limaye@ti.com,
+	y-abhilashchandra@ti.com, johan@kernel.org, kees@kernel.org,
+	jm@ti.com, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 4/4] soc: ti: Add TDA54 SCM configuration syscon
+ support
+Message-ID: <202611130001.dmwqpc05-lkp@intel.com>
+References: <20261112081047.1550471-5-m-shah@ti.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,99 +87,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ClientProxiedBy: EX19D031UWC001.ant.amazon.com (10.13.139.241) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112081047.1550471-5-m-shah@ti.com>
 
-With core scheduling and the fair server, the forced-idle accounting
-warns from an idle core:
+Hi Moteen,
 
-  WARNING: kernel/sched/core_sched.c:263 at __sched_core_account_forceidle+0x1d6/0x1f0, CPU#0: swapper/0/0
+kernel test robot noticed the following build errors:
 
-The core is in forced idle with no sibling running a task. The reason
-is a stale rq->dl_server causing the idle task to incorrectly be
-considered as carried by the deadline server. The idle task then wins
-over a runnable sibling task and the whole core is idle despite having
-runnable tasks.
+[auto build test ERROR on robh/for-next]
+[also build test ERROR on linus/master v7.4-rc2 next-20261111]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-The timeline below describes the issue:
+url:    https://github.com/intel-lab-lkp/linux/commits/Moteen-Shah/dt-bindings-soc-ti-Document-the-ti-tda54-mcu-scm-conf/20261112-134044
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git for-next
+patch link:    https://lore.kernel.org/r/20261112081047.1550471-5-m-shah%40ti.com
+patch subject: [PATCH v3 4/4] soc: ti: Add TDA54 SCM configuration syscon support
+config: arm64-defconfig (https://download.01.org/0day-ci/archive/20261113/202611130001.dmwqpc05-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261113/202611130001.dmwqpc05-lkp@intel.com/reproduce)
 
-  Setup. CPU0 and CPU1 are SMT siblings.
-  - CPU1 runs R, a SCHED_FIFO task with cookie X.
-  - CPU0 has C, a CFS task with no cookie, which has been starved.
-    So CPU0's fair server is due to step in.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611130001.dmwqpc05-lkp@intel.com/
 
-  t0, CPU0 picks for the core.
-  - pick_task(rq0) goes through the deadline class, which picks the
-    fair server, which picks C. As a side effect it sets
-    rq0->dl_server = &rq0->fair_server.
-  - pick_task(rq1) picks R.
+All errors (new ones prefixed by >>):
 
-  t1, ranking. C->dl_server is only set once C is switched in, so C
-  ranks as CFS. R (RT) beats C (CFS), so the core cookie becomes X.
-
-  t2, matching. CPU0's pick C has cookie 0, not X, so it is replaced.
-  There is no cookie-X task on CPU0, so the replacement is idle, and
-  CPU0 is forced idle.
-  - The code sets rq0->core_pick = idle and rq0->core_dl_server = NULL.
-  - The bug: it leaves rq0->dl_server pointing at CPU0's fair server,
-    even though idle didn't come through any server.
-
-  t3, CPU0 switches. CPU0 is the selecting CPU, so next = idle, and
-  put_prev_set_next_task() hands the stale rq0->dl_server to it. Now
-  idle->dl_server is CPU0's fair server.
-
-  t4, C leaves. Load balancing moves C to another core, so CPU0 has
-  nothing runnable. The stale link stays on idle.
-
-  t5, the next core-wide selection (when CPU1 reschedules, say on a
-  wakeup).
-  - CPU0's pick is idle, and the ranking sees idle->dl_server set, so
-    it ranks idle as a deadline task.
-  - idle now beats R, and the core cookie becomes idle's cookie, 0.
-  - CPU1's R has cookie X, not 0, so CPU1 is forced idle.
-
-  t6, result. The whole core is idle. R is runnable but can't run, and
-  nothing runs on either CPU. That's the WARN in
-  __sched_core_account_forceidle(): forced idle with no sibling running
-  a task. It lasts until CPU0 goes through a full schedule that resets
-  its server link.
-
-With this patch, step t2 also does rq0->dl_server = NULL. At t3 idle
-gets no server, and at t5 it ranks as plain idle, so R wins and keeps
-running on CPU1.
-
-Fixes: bd9bbc96e835 ("sched: Rework dl_server")
-Signed-off-by: Fernand Sieber <sieberf@amazon.com>
----
- kernel/sched/core.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 175b52a7ea793..f7ac13186ee59 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -6453,6 +6453,12 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
- 				p = sched_core_find(rq_i, cookie);
- 			if (!p)
- 				p = idle_sched_class.pick_task(rq_i, rf);
-+
-+			/*
-+			 * Neither a core tree pick nor idle comes through a
-+			 * DL server; drop the one the replaced pick left.
-+			 */
-+			rq_i->dl_server = NULL;
- 		}
- 
- 		rq_i->core_pick = p;
--- 
-2.47.3
+>> drivers/soc/ti/tda54-mcu-sysconf.c:14:10: fatal error: linux/soc/ti/k3-socinfo.h: No such file or directory
+      14 | #include <linux/soc/ti/k3-socinfo.h>
+         |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+   compilation terminated.
 
 
+vim +14 drivers/soc/ti/tda54-mcu-sysconf.c
 
+  > 14	#include <linux/soc/ti/k3-socinfo.h>
+    15	#include <linux/types.h>
+    16	
 
-Amazon Development Centre (South Africa) (Proprietary) Limited
-29 Gogosoa Street, Observatory, Cape Town, Western Cape, 7925, South Africa
-Registration Number: 2004 / 034463 / 07
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
