@@ -1,111 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.157
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794483316;
-	b=4xhOnd43eijYp4GF30ITRyD5xvMECiffL96bYFuOJf+tV6qT03d1uUPptLk1PuuQVhnG
-	 giJpAkjOe/rPGRKw17F3Nf1XEn1x69AdSUwWq4BvFMp8GAWrK7vepLoS4Ff2102bDJxu+
-	 8ckOUG24hk8uAF+O+HALCOruTF5TzHXC/KkEdMPaGhbT4s6FEE53FwSZYa4UuEHJk0UPp
-	 xI1+y5PEqFJvafIwCf20B1fJ6AAlVu1gdB/TnU9YKu5TYzOGVMTwL1l5VH67exLnsKL87
-	 11YJib22lpr5VR81QARTjRYUaqvU7/fBsKudwlZBA3d0q8ffAbUTlqvXnl77fD9hfjg==
+	t=1794483336;
+	b=pFFrmPujYoAvt2wEYUGUy1Ts1Jyq6ngeBDUDn0BQh5Lh9o1sZ0zeio+5FwovfIz/yXQA
+	 +LmK2H3HieHY5ztR5RAbft/oy+UnA7UvufddC/Wh41g8fSysKMVboPhk/3WU6yLdZeI3/
+	 YVBW3II5bA77IDIN5JoS3YX+XmW7WeJKlLWnewh4VQhSgfdMf2wiiYHf1l1xHWTKoBh3a
+	 5EurEm/BDiG4RqL3akEyenutvuOASUbrRfu5trXp9cLR1eCssWhqgngjIqm/xzyjTfiT/
+	 g04Nsy23pSREWcUqDNAsk47gFkCYmHgfGsB0Vvf6HP1QjVwnLSlKrHqASPYOChkJHnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794483316;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=FpibZxpHOkegx/nWCVPd2wzoEHQ0LrdmDgeGw81ilYs=;
-	b=P6gFpkuzvvIe6ZPWJKpEgdDxnRzYWcbXNmBsq6e4RgbNWPpdoGjObAiH62XAOUaNazFx
-	 4/BzScSuEYaF8oUTYmjIVDzEnYfONLMhE0sPdiZwLrg6Topf2kxIcFd8jp/LHF2suudqV
-	 0PhfLnA8/cdD4AvSMAmbanrkZIbujILgpNZO56kyJiv3U/ql0UYtQK5NLwd/nXwMzKCWN
-	 Iqw1n4XD6g9dTNyesCj5jdRc9pJYM+q9XpqdK6HwXFq/wol+8dV2wj1rUjTzjrc3GZ8eV
-	 ms+kV9vWEdXKFAXb7BQ+KcjoEq5EeaWzud6uvHWC41dY/K4zMFLF3BordJaRiZBbP9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794483336;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=EPcJkEv6Mv9K5uRm29JHqDQ1ukD6n2G1FK8ZkT2iuVE=;
+	b=Nsalad3bQ4jo/GIvjHPjP/h1KWlCkn2ugzbR/YrBc8jdmWaLQB/u6rXlO64hZDdzuB46
+	 FOlO/Pa/xp/+QdaeqCaSCBPCguhaWtT2jvWmuJzXAwA/vuwdaPg7kE1oSRPJ/vT/JoR+S
+	 NPDbHEkGQVGuxGzubZkHqFu6NKSS8/RyZ61ZKeqZWjn7j0kwvt4YhIQKV5HwuFLTiCjb0
+	 eB+Ocy0yvVfY8vYWoqXcRzrVmHlv04K72P2GTl3nOmLpT/RHSA200N+XjIds9Q2aSuX0h
+	 5srrsZ9iZed0JCWQ2GtEndCx6v7wuO/8XUAaX1JVLtnmKQi9Q/0px/G/LYcuE/TClSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=YnjyECYZ;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=EoYAqh2K;
-	arc=none smtp.remote-ip=202.12.124.157
-Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
+	dmarc=pass header.from=kemnade.info;
+	spf=pass smtp.mailfrom=kemnade.info;
+	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=0fe1SDEf;
+	arc=none smtp.remote-ip=178.238.236.174
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C796A606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:35:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C796A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1FC7606A31C;
+	Thu, 12 Nov 2026 11:35:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1FC7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=YnjyECYZ;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=EoYAqh2K
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 1D5C57A0103
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:35:15 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 12 Nov 2026 06:35:15 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794483296;
-	 x=1794569696; bh=FpibZxpHOkegx/nWCVPd2wzoEHQ0LrdmDgeGw81ilYs=; b=
-	YnjyECYZ5KqjOOxhuESWXFBKhCb+g4+aQMsE/ayy4dx7HTII8DY5qC6L8N5Oq4B9
-	aFFXcVADNerTxuZ4qxGAhtHAqG7Ds9FiWH14HZS5/r8aFrj90hogyx0r63B7GN4c
-	HTIWiMrRFywAvU3cu6PSxo2mEo2wHUJDFH+hYNAWajiu/5LbHOW97cdZvILz0fXn
-	zhXASZyR+cnTWGJUeUnrDTYmxAotShzqzAc1UE0CnIEEVgGEdHO51b+oEE2B2vkk
-	EwZnIwY5apX3sJ8oP4as/cbvF9EiHf3aJu6JQzQ//ouQdy8tS+4ndhErxFr8A4/6
-	Tmv0hIqSBbeHpYbwFYmXBQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794483296; x=
-	1794569696; bh=FpibZxpHOkegx/nWCVPd2wzoEHQ0LrdmDgeGw81ilYs=; b=E
-	oYAqh2Knmf/M2+WL/lYcoYF9Ubw58FO6mJetTaHFy5/LP16KrM7LNtkQamogUqAp
-	X7qOCs4RlUds7Dc8mnpN9h2grKnPJ044gBRfEW1iMn2iEBAFLPpMj9oeDvbhgMLq
-	b6uWz+Nbru7IoqVwpNkOKvRNUjKULEjAX6ea+yAVxCmTyRnMRXeVafaghHJ5HyIS
-	1ULFS78SN1e76eEVZlzBDFGTJ05IuWbSK4eaq6hnSXhgZHneGIY0notj7lBz74rL
-	uL+9I12v2l4s1bQvCH1OtwBpPFca9Z1PmeL2NX+n5X1QzfSwPjyPMXPwQxPltDzp
-	cspv0AX5xv2pYGnj9IjMw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794483296; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:Yc5FrjiMumzBExCWz3XfaA/O5sddJKPhHrSuY15881Uqr4m
-	XkAL8YUIv4siLYwYDdtJQTY1UXytqY4agxX3uY5rED7TB/yXR9FNeJ9qtGWULsJc
-	bKQGKWA9CPkwMou0Os8gvwn2ixHMwhnwRZbaQ+u4NUk0tw1pOSOlgOaTlHkfpgDl
-	wDkUjx5TgPLTOG2WymozjC7sPmO64Uzs1gsUOfGRS6BO7olpbmacwRyVqSKdvl6f
-	gZ1Vd1c+Rjd6Y5CAubuy3uxG5MFHni1WIAoYcJend0jhVHTJqCEZDF7ziUTGBuLl
-	FzHbC1FeDzM6fE6NpUlecxB63XRQArQmyMTmgLg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:LrLjs6XTKWCSSNotOqYUK9bd4P/Tv2a4idtoIaia+Eo=:caBZPj8plx3VSvs+ge8aezudfEqyHYXFIacZdzWX234=;
-X-ME-Sender: <xms:UqT1asJlqyiyyIypv7wjKPJ9lHZ4L4cP4JeT9jTkIAnyAnwO4uj5ag>
-    <xme:UqT1am9zzTRNILYWl5sBNEECXIDd5mHUoOkovydHISaB_MfOSPgBXKFeqXG6sUAnm
-    TIuHDmjBLIa78wscurRNaxv9g-jg67zFAV3PTKaOBf_HtICSd0ADG0cUA>
-X-ME-Proxy-Cause: dmFkZTFK6NqHhcvznJICrUy/D/REKnqcZEEPxcmeVbqSM/sH0tEH4MlhHzwubOud3I7xCZ
-    nREf/SCeRN3WTSxr53ekKjNkoeLgpEJs5urD1/PA3o2atIbiI/NqMdbga4WzwAwMLtYZ6M
-    g9wFUGTEOmpXYzjzK9On5HW9cVzMWqAYlx/bYQ1R5RVqZZARJ3ah6bS6Hb7DKTN+3ITNhN
-    25hYTSTE4KFT5WWR/bCD1zQulC9fpiIoQTwVpHiOO+TXtva9ezDSSYqcNMlUs3dVzLB8Ua
-    ee6nq1ZeuK2wjkieQK44K9yCD1LxPt5h9F/VCy4zZBHyLneRDGN3aphYXMbGTO/eMhh4gw
-    7Q+tYUI3Sw8I1/2TcdjW9OAK76ncriH2Jy6uu5YDDZkP4V5JFV1lzBZYxM1KSpUhkFLJqD
-    FUUlY5ijAMmgVcahPXUKnn7ptM5Dhp146Pjp7t9LKG0hp4H3j2ebQrUYk7CPa7R47HZqcZ
-    wRDqG8Hz0RFTRI4CWwU7sEvcIBC8qXuTl3Oqhc1vbL/iMEd9V0FDMtz9h0kXFz3WpA3EGE
-    +AR168DYzFjnr/nkbQWNuy98Ow3hAGNAOq6kMs1UJBkgZaKywh5q6uVbvRPEX4kb5XLPwo
-    KQ5vszXkt/F7xUNHFSFfdp/7RRpRLdvaE03bFNZPayUSgxOd+8xrqM+yvkng
-X-ME-Proxy: <xmx:WKT1ate0JSmoljTP-1RvObYglimMb3meuI6LWzSKhIqS161hEmakMg>
-    <xmx:WKT1alkRLCwtkeL289w15sRJI_h9Kl2o7gWJq1zj_lp9iyEoMvFfGw>
-    <xmx:WKT1aiHaPi7iX7ijag6QKLzhk2icR_DyPcoc7lQI6QBRB_C_Cep4ag>
-    <xmx:WKT1ag9ByCoR9wJ701SeJXf3gCON-Apr0Pu_xNxmAv_ysbIxA8BZ8w>
-    <xmx:YKT1at2vfJVpoavGotgby5sfMSO1WVKloXsk31C4yR7PRsWzAogLoiYV>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 1866332A009F; Thu, 12 Nov 2026 06:34:42 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=0fe1SDEf
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=EPcJkEv6Mv9K5uRm29JHqDQ1ukD6n2G1FK8ZkT2iuVE=; t=1794483335; x=1795692935; 
+	b=0fe1SDEfB9b2igjfKc7fzsFKJNemg5u0zOwnfPtbIWkuobtQVwNUHWpUaraw/maTeD+93V+qMSb
+	7akUkWxvGjdggGbn3ZI9TdypIxIr1eERjeBftGtq7LRXHGHr20lFPjbTzPoz1uEZUIhcnnFITrchE
+	O53PvWmnPvqHmwOYoyXUCC08i+B5cZqiNt+uPXRNOm1cLyGrr13dybIdoU9BmHQtqkAWSPzhPILTA
+	d6sWnTD9OkMear1GHkLcKWW0OHGqKQfSYQXejti7F9mNhgQ158uk510Am3Gm8susOOv8fUobmlcmO
+	eXVW00vp6F2zlm3XCF1EyNvsbcb8ICKbzZYQ==;
+Date: Thu, 12 Nov 2026 12:35:22 +0100
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org, linux-omap@vger.kernel.org,
+ hns@goldelico.com, linux-kernel@vger.kernel.org, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Luca Ceresoli <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v2] drm/omap: dss: fix handling deferrals
+Message-ID: <20261112123522.09ef73fd@kemnade.info>
+In-Reply-To: <e93d1911-a6d9-4256-a2cb-cd2d6112a4c0@ideasonboard.com>
+References: <20261111-gta04-drm-regression-fix-v2-1-010caf3b08bd@kemnade.info>
+	<e93d1911-a6d9-4256-a2cb-cd2d6112a4c0@ideasonboard.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,56 +65,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AD8wiEBgakfZ
-Date: Thu, 12 Nov 2026 12:34:21 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "David Hildenbrand (Red Hat)" <david@kernel.org>,
- "Linus Torvalds" <torvalds@linux-foundation.org>,
- "Christian Brauner" <brauner@kernel.org>
-Cc: "Matthew Wilcox" <willy@infradead.org>,
- "Kirill A. Shutemov" <kas@kernel.org>,
- "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Miklos Szeredi" <miklos@szeredi.hu>, "Amit Shah" <amit@kernel.org>,
- "Jan Kara" <jack@suse.cz>, "Zi Yan" <ziy@nvidia.com>,
- "Bernd Schubert" <bschubert@ddn.com>, "Hugh Dickins" <hughd@google.com>,
- "Baolin Wang" <baolin.wang@linux.alibaba.com>,
- "Andrew Morton" <akpm@linux-foundation.org>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "David S . Miller" <davem@davemloft.net>,
- "Eric Dumazet" <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>,
- "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>,
- linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
- virtualization@lists.linux.dev, Netdev <netdev@vger.kernel.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
- "Malin Jonsson" <malin.jonsson@est.tech>,
- "Richard Weinberger" <richard@nod.at>,
- "Geert Uytterhoeven" <geert+renesas@glider.be>, "Nishanth Menon" <nm@ti.com>,
- "Frank Li" <frank.li@nxp.com>
-Message-Id: <b90d4bcb-b865-4a41-8496-78d751c03dfb@app.fastmail.com>
-In-Reply-To: <bf186643-780c-40e0-bde6-f2af90404a18@app.fastmail.com>
-References: <20261110145241.536019-1-kas@kernel.org>
- <20261110145241.536019-2-kas@kernel.org>
- <avNuQqLf9CG9dSsE@casper.infradead.org>
- <20261111-heimreisen-ungeziefer-empfunden-a892571f2c07@brauner>
- <20261111-thunfisch-wirbt-waldrand-822275b2d3b1@brauner>
- <CAHk-=wjPY=kfgnmtx4COEQjD5UzKx9m2-=KLGAZP4d=RKEH+pg@mail.gmail.com>
- <20261111-stumpf-montag-miterleben-c4e2feac8090@brauner>
- <CAHk-=wjGXBnme-N+HvbzHH40ftb7Suc=kZVT5cuintQWyMHJ7Q@mail.gmail.com>
- <e94bdf7c-eae6-4f64-bf93-0aeedca1a22e@app.fastmail.com>
- <32ad880e-5946-4703-9c6f-43ff59da39af@kernel.org>
- <3eb60948-8fc9-4682-87c2-c113e54e7d4e@app.fastmail.com>
- <4d6a3d68-3fc7-446e-9f59-f61d7475e22e@kernel.org>
- <bf186643-780c-40e0-bde6-f2af90404a18@app.fastmail.com>
-Subject: Re: [PATCH 1/4] virtio_console: copy pipe buffers in splice_write()
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 12, 2026, at 11:56, Arnd Bergmann wrote:
->
-> I'll do some more build testing on this version before I post
-> them to the list.
+On Thu, 12 Nov 2026 12:25:20 +0200
+Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
 
-Posted with a somewhat shorter Cc list at
-https://lore.kernel.org/linux-arm-kernel/20261112112528.1116405-1-arnd@kernel.org/T/#t
+> Hi,
+> 
+> On 11/11/2026 23:14, Andreas Kemnade wrote:
+> > Forward the error given by of_drm_get_bridge_by_endpoint() if it is
+> > EPROBE_DEFER to ensure output gets initialized later when available.
+> > 
+> > On GTA04/OMAP3 no display was found, but it appeared after doing
+> > rmmod omapdrm ; modprobe omapdrm
+> > 
+> > Fixes: b7e9b93fc8ecf ("drm/omap: dss: don't create a panel_bridge")
+> > Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+> > ---
+> > Changes in v2:
+> > - do not use the error goto
+> > - Link to v1: https://patch.msgid.link/20261111-gta04-drm-regression-fix-v1-1-1de27d5ba46a@kemnade.info
+> > ---
+> >   drivers/gpu/drm/omapdrm/dss/output.c | 3 +++
+> >   1 file changed, 3 insertions(+)  
+> 
+> Thanks, I'll push to drm-misc-next.
+> 
+Isn't it drm-misc-fixes? This issue is new in v7.4-rc1.
 
-    Arnd
+Regards,
+Andreas
+
+>   Tomi
+> 
+> > diff --git a/drivers/gpu/drm/omapdrm/dss/output.c b/drivers/gpu/drm/omapdrm/dss/output.c
+> > index 36d37deac8026..b5cef5093a883 100644
+> > --- a/drivers/gpu/drm/omapdrm/dss/output.c
+> > +++ b/drivers/gpu/drm/omapdrm/dss/output.c
+> > @@ -24,6 +24,9 @@ int omapdss_device_init_output(struct omap_dss_device *out,
+> >   
+> >   	bridge = of_drm_get_bridge_by_endpoint(out->dev->of_node, out->of_port, 0);
+> >   	if (IS_ERR(bridge)) {
+> > +		if (PTR_ERR(bridge) == -EPROBE_DEFER)
+> > +			return PTR_ERR(bridge);
+> > +
+> >   		dev_dbg(out->dev, "failed to find video sink\n");
+> >   		return 0;
+> >   	}
+> > 
+> > ---
+> > base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+> > change-id: 20261111-gta04-drm-regression-fix-f7ef51c66ed3
+> > 
+> > Best regards,
+> > --
+> > Andreas Kemnade <andreas@kemnade.info>
+> >   
+> 
+> 
+> 
+
