@@ -1,95 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794502015;
-	b=xIjJZuxZl+JqAK3UpVEbQFpEy6LoA4QQtX+K4yjMpk0GjhF1nUw28qt/jZ+cKcWfjGD6
-	 j63ufBQf4rUoY/jxpQwGhTBTycjzG6Q48bYN+q++isWzy+M10SIBEu8X4fFdKZbC07Amv
-	 h9gxsqWcaQ6BiT5+D4/tkjE/KLKIQjW7RX5B3avso/uJgMu8gEEmAnbJLpb2fg12bnp5v
-	 /U+LEtPJEwdr8Wb/mghsqBbTqYL3WPP3Pj54rQ7viK4kjLw87hB7Xr4NMJEUn70rngidI
-	 BGbXG7S29sbDypNXne4EsSvR1mvgRVuRNKLcmCYSSkZQJkCMUipFVXs4dl+bJgMDDUg==
+	t=1794502023;
+	b=CjbAMNAPA1V2mwRMKLgYd5wAeLQKCwvDirr7AvoNbpesFOrpoBP8CXrGKyqzYzYcM6/V
+	 pH4WPb2+m38QSCVymxl0t/9PUMFmWcNxq8ehEMXh45D+azmGtQpEBcw5+ubZpq/yJmf3d
+	 IkHGDS41ZEXMVVyIjwksev4c5E2owr+3ZnX0w/momDY/O7GNxJND/QAFSOvfFc62DR4i2
+	 DsKheGpO7yoek6no+WXZIK07nW1WQZeg6V4otphAvpaTs6qsRXZw5OQ4B6LMQnZDapOHe
+	 qSz2/gu4QpHDUF7SPPj1dOpvvQMlJbAlFy0oCQW3R0ItF3NsieLv3fdAZ1RTDvun+wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794502015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794502023;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=S8wdNbtrbubg70W0ODPEMV8st9QdJj+0fwZLV1CeKUo=;
-	b=0vPG4I9+KM6mmvhoDLS+iRRhh62/k/UA2g7LdCSkGkub9iOkSYlMU2hxsNPi5Jv/m39M
-	 YrWwBoxZBZ2ig7YVBHU7fEOy0fAdpE1vWP96mfbp4iKFBtWpTgkfDUoQ3L5ZxJM8/uStz
-	 w2jhuMuYhMW6uEUDOhoJSkGSbWr1/8nmkg/qV2B7rSZqPJLklmtl8lgcyZ25TLlzpntcg
-	 7oIQQy1DImWMC85weiMZ5T8rE1A5rYKVUn8tx/jTZfELU8eiJa/xpDSNfWQt+BPbNFtFn
-	 K33jrguRfiqIXTH3HGNgr3Kg8htX1t/B0witFxFdAhgjNf7gh1NiNMnNe6zphxModNw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=0dKN0COIptcZp6LUQ9g82bvQApFBYtce8GNc+voVkvk=;
+	b=GMp8Z+u+dRk51YTEIlRYnBh9aIw0rDvpI9f3zq7tu3uNxO2SDPvDawVx7wTNxt9OYvHs
+	 PyZXwwdqV6m3DlfQ4xnqzNvvBxjwGm9Uj/IYUb2u0NdvJgGzRKDkMzR9XNSmc8+0XKHM0
+	 N/ydWOcTJKvuIhIf9fx3lfuNZTZMRWPFot7LvL8W9FGp7bplfb/Q+2qT4+XXAu+dNo829
+	 2ydyZa0LSVAbVAjknc1wUyBN7XuHHopBiUeZ+bs/DmweobUCHeZhWxfSHRn7TkwNI7dpP
+	 MAb/+20u+nG5zUtxPG9JwuSJQuZm+m0INzgbYJaycdgKZqYRKcdO79kJrOpK9vcNnrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="KFb/SmIA";
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hsqY8lYz;
+	arc=none smtp.remote-ip=74.125.224.133
+Received: from mail-yx2-f5.google.com (mail-yx2-f5.google.com [74.125.224.133])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51AC606A8B3
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:46:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E51AC606A8B3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399F960A3826
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:47:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 399F960A3826
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KFb/SmIA
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-18818daa3e7so521658c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:46:54 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hsqY8lYz
+Received: by mail-yx2-f5.google.com with SMTP id 956f58d0204a3-679b4ca950fso1966639d50.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:47:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794502014; x=1795106814; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S8wdNbtrbubg70W0ODPEMV8st9QdJj+0fwZLV1CeKUo=;
-        b=KFb/SmIAv9EBqYiQRHEZ9ZmYR7/oE1c09ISsP0C2VEmnObyQ75cu77pASajrz4vYZ+
-         DANGyxrkk2milY8otQd1Uf4YDlhgioa11U+vZ9X2xsuHcRFndzTj9xDfTEseUgROlb3O
-         8w+ERKl5eou0EfPXz7/6tIbIL/bsBcdImk/SwC+IqBvHXKCFlU28WBMAAnfuy5cGlBB8
-         UEmPRPILBNcFNes4j3hGboeM8BHM7Ou1h8AO9OEAHapcjzznSKmCSYa1jez1P79qFiK8
-         qJvhwWOYaScsxNfAXmKsZ4rRbXGsp6G4yIAWzfmOv0AzURiDrYPQMw03Ve/lUH+5u6xg
-         MHaw==
+        d=gmail.com; s=20260707; t=1794502021; x=1795106821; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0dKN0COIptcZp6LUQ9g82bvQApFBYtce8GNc+voVkvk=;
+        b=hsqY8lYznBH3gIYkyiZkkuZiQkrM6H1lhVgYqe30w/vDk8HG4Q+uO/FCjldXo52eKb
+         NYEo3VJmpwiPMRUS/8raEeRnOsR/NH8y17D0Tr5wuHXLgICydFxJOWuUlc++/Yns9zWY
+         CefwHHvIre4c3D0g0gmHrctfCZdMaJWXrcB8vOy/34Aa8bUNsA3H6Arjlq6Eu8kDjr0i
+         E/7o8EVMdJVu24a5O0bA4iSWtoKT5z/k0eVs72i7EdEKOJZdVa2WdIlSjPWLxqLe48sg
+         ATkSRvZPhE4KmiM7cArbL3JAYizcFmPw3ww5gsfHzFv8LsNyM/9K4KfVtNgllIBmrs9d
+         PkDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794502014; x=1795106814;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=S8wdNbtrbubg70W0ODPEMV8st9QdJj+0fwZLV1CeKUo=;
-        b=PcwCCLZJ8HLs98/ltpaltCTUtg/vUfixo9TGGug7ExiHdDZSJhJHeR3il+GWvYYgHO
-         JqszzLCakBfCMpayMZ+2ekiaRE3JeQFvDKOVSv6Wxw4MM9s1FsvCSnTLcOFEJX4Zfvte
-         Sd5D+xbVINpl5UjIYlrMOobjkP30C6JkkZVZhFZeUu/RHi/G7oHStzw/o6aN1l4u2QpM
-         pXRsQM2uEuu2z5YNaICx+8HGFpRjZq3DCPfUd5cj7BAh30bhuASTCBA4q0HXUUYWzWn5
-         siXCqInsBcoeSGJt+T5BWyE3PB/PSBzNu/S/7/eYbosA9eWaeEloREfuCUP7LCDrBas/
-         jqrg==
-X-Forwarded-Encrypted: i=1; AL+hErFoEjrACYrKToNPrI4mL2wC0UBbHwYYMsn29JtX/rXx1zsHqhruuF6s/KyKWA0ro0F5rRHGnsBNHs/8H3E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+5TCMZJUyQC2+gRE1yHXa2ij5k+hnOTx8QwEgJaXEkFJWOBSOH
-	mo1UTq1cO+RP75SvZHfzh4ih7hCB8HjWb93XKdJAEstPvwYbp3C55xCB
-X-Gm-Gg: AYBFou2Ruqe/qufy4fbDTbEvg/LMV1EZCSXRb6Z/QrNex3EIdI7NzPee82gBI4mOpfZ
-	+MaM1LET9X6usCzZz5WNcIrgQ6hlwVqggVRgnOwYzJF3rApt+j1GnzFwp7On1mkAR9CQlE6yAX6
-	nZ670m3LL2+oseSoK22pZX+y+cx6qPH+YBXdm0b8QkyoTA9ZKKce11Ha1fuWZWau3yJTfCYCzdA
-	RbhkJo3sbq+iZa5fnHvol5cbkjmULIrOMnIRY6UJ5pncpae2fjOKFCsY+StZID5WuoinAZISp4J
-	susm436u6g/ydGLMdBs01q31G0NSaVQOUWF01ypwlocFftVzRDsHDbH+Hhj4hKEGYPyjTzyLTIJ
-	CWQ5q9cvPV8kZz4sXZT2xN3j7jrAl5Lqfan4pndgyv3SY6ejEQ90RRZCKvldSFRlks2jlmpOYcJ
-	lfstz1BRjlE0HZlTuR5Q7NQAGkqw3EUpXhKTVCoufuo5T+pmXCupjMbTB2jUR2x/jHc2kUQ3P6A
-	M2FP8owziE7VMxaw09KT5Eu+zD/rc7vnFAtW72UXwa0ByW9RSMH8KZMF3re+OMUDk5u/iJV/Yry
-	ZkARce+ajv9AFnDW4wO427sRaK5niymIsfJNp5ROpy2bDS6dYzlaU005RkpFfGGrhan3jdxbfKX
-	dYHzB+QJN26a4p9zKgVYWQtvYplVtSdCmefnMwNISOcGW
-X-Received: by 2002:a05:701b:4648:b0:1ad:1574:aa9d with SMTP id a92af1059eb24-1b502f8a3femr141571c88.0.1794502013924;
-        Thu, 12 Nov 2026 08:46:53 -0800 (PST)
-Received: from acemagic-m1.tail4fb79.ts.net ([2401:7400:c804:b668:2c54:4647:b67e:c94c])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50300e5dcsm287090c88.0.2026.11.12.08.46.51
+        d=1e100.net; s=20260707; t=1794502021; x=1795106821;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0dKN0COIptcZp6LUQ9g82bvQApFBYtce8GNc+voVkvk=;
+        b=I1ewwXaIDmYPIDufH6dSG25MALzoSQI0bZ+ynQiYdypLNADnmjXQbeXOzSTM3R2Cje
+         KoyYFDMSdylZyYxe9vlBMmlmHOQorFgQLtLuSTkriJmgE3G9Dez+m7Pqjv+uqjUJIl9z
+         62KZLPYPxXN0fyGl1Mavmlbq5kr0oVQPg71RJne9Y8/Zqtl4FexeuMcc8JlVj5oZHxb5
+         /BNsg5lvaBXwnsZFcprrOwT8o4RP+y9VKzqekFZpbVPe8rpnLoiEMDbtCOW9di15oSMg
+         nl5k7RBQSRNB8vfzvoX8qzedPO9yyHcyafZpTtLTeWHLsqRMbQg2MYxj5zTFugHdAgX5
+         zWTg==
+X-Forwarded-Encrypted: i=1; AL+hErFc5KogZO7tM06wzsToujjBeXj9a28eYqnKW+5wmk20l79dy6p8vlNdmq+ZJWI1i+nRMrUf5M4FShHOwbs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9KS5Rnzwq5u642zncJoUr7TfTA8hQtuKalSIHqbGF146SRDfhn
+	H14jyTG4hX+EcMnAHeug1u4WL0lll/Vqf4GqYRqld+tAy4N/i8kPkC5g
+X-Gm-Gg: AYBFou3ORS4cJOQbQT7ICg81xR6SFSLuvDHBSxJeoraVdpvMn77kUqlf9NEr8K9mbeG
+	mAXo+1w4rpDu8ritiC5qrBSf+fvGAxDsiFaPZHXYWfU4qMtF0pcpnjuJ5dM/t1GjF55s5iSs0Ru
+	K38dSycBBAZh8KiB0OIFIExEN2pIqXARkKo/KVQ0paO/MamaEOExxngYOtKiUN8UyYwP2PmYL5h
+	Pn9crIs3b6ZEuiAz0WIccHa3a677kcvy56rkD21Sgt1XVp0G8Ip5guSgigIQDpakpkdhX7oggm1
+	XqkfdXoSbz5+9/YepSAzTZADEuLmFUYRwY/VqXa6kmQGfQQ776cmIq8rdOMN2MWhMnf7T4NYlXJ
+	PVYQl3KSSHyrQYx2BCvU+xaQCVVQlNnqU8KH62naurSmbqrz1zX5P7ZFeSWTVaCyqinq7eObkXX
+	2axNL6yw17rmcvcoCm592afHJhyEg6mqD4AlGECmKy9GRDKme3evx4BYLrD1eoL71L5SYmvIosz
+	VWqaH+oAb4jfLu0XFJJW5z0M0BvtiwnsO5VFY6+b6Hy7K5tXlGnRh4zPjiyjMRkDw5Ma35EDs09
+	vzjx2dAQV1u0SGR11veB3VmNwg3zeQNrkZ0TAxfmSg==
+X-Received: by 2002:a05:690e:b87:b0:67d:83c7:ddd2 with SMTP id 956f58d0204a3-67d895e51afmr1023d50.37.1794502020995;
+        Thu, 12 Nov 2026 08:47:00 -0800 (PST)
+Received: from athenadria-developer.attlocal.net ([2600:1700:1350:96b0::42])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c589ea7acsm7787339d50.14.2026.11.12.08.47.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 08:46:53 -0800 (PST)
-From: Ho Jie Feng <hjf3108@gmail.com>
-To: Stanislaw Gruszka <stf_xl@wp.pl>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ho Jie Feng <hjf3108@gmail.com>
-Subject: [PATCH wireless-next v3 7/7] wifi: rt2x00usb: use a threaded NAPI with GRO for RX
-Date: Fri, 13 Nov 2026 00:45:41 +0800
-Message-ID: <20261112164544.3176458-8-hjf3108@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112164544.3176458-1-hjf3108@gmail.com>
-References: <20261112164544.3176458-1-hjf3108@gmail.com>
+        Thu, 12 Nov 2026 08:47:00 -0800 (PST)
+From: Hezekiah Mogere Joseph Mayaka <hmjm081106@gmail.com>
+To: Andy Shevchenko <andy@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] staging: media: atomisp: Remove unneeded return statements
+Date: Thu, 12 Nov 2026 10:46:42 -0600
+Message-ID: <20261112164642.38692-1-hmjm081106@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,296 +101,691 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-GRO makes sense now that RX aggregation is enabled, since multiple
-frames arrive at once.
+Remove the bare return statements at the end of void functions
+throughout the driver, along with the blank lines before them. They
+have no effect and checkpatch.pl warns about them:
 
-This code is referenced from commit 5323d3e50c20
-("wifi: mt76: mt76u: use a threaded NAPI for the RX path")
+  WARNING: void function return statements are not generally useful
 
-The RX locking is referenced from commit 3298b1f866fb ("mt76: use
-ieee80211_rx_list to pass frames to the network stack as a batch") and
-commit 5b8ccdfb943f ("wifi: mt76: add missing locking to protect
-against concurrent rx/status calls")
-
-Test results:
-   before after
-TX 30.5   30.5
-RX 80.9   161.7
-
-Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+Signed-off-by: Hezekiah Mogere Joseph Mayaka <hmjm081106@gmail.com>
 ---
- drivers/net/wireless/ralink/rt2x00/rt2x00.h   | 16 ++++-
- .../net/wireless/ralink/rt2x00/rt2x00dev.c    | 28 ++++++++-
- .../net/wireless/ralink/rt2x00/rt2x00usb.c    | 59 +++++++++++++++----
- 3 files changed, 89 insertions(+), 14 deletions(-)
+v2:
+ - Cover the whole driver instead of only irq.c (Andy Shevchenko)
 
-diff --git a/drivers/net/wireless/ralink/rt2x00/rt2x00.h b/drivers/net/wireless/ralink/rt2x00/rt2x00.h
-index 7b1a32d3e1..7d10bbe3ba 100644
---- a/drivers/net/wireless/ralink/rt2x00/rt2x00.h
-+++ b/drivers/net/wireless/ralink/rt2x00/rt2x00.h
-@@ -960,11 +960,22 @@ struct rt2x00_dev {
- 	struct work_struct intf_work;
- 
- 	/**
--	 * Scheduled work for TX/RX done handling (USB devices)
-+	 * Scheduled work for TX done handling (USB devices)
- 	 */
--	struct work_struct rxdone_work;
- 	struct work_struct txdone_work;
- 
-+	/*
-+	 * NAPI context for RX done handling (USB devices).
-+	 */
-+	struct net_device *napi_dev;
-+	struct napi_struct napi;
-+	struct sk_buff_head rx_skb;
-+
-+	/*
-+	 * Serialize the RX in NAPI with the TX status reports to mac80211.
-+	 */
-+	spinlock_t rx_lock;
-+
- 	/*
- 	 * Powersaving work
- 	 */
-@@ -1462,6 +1473,7 @@ void rt2x00lib_txdone_nomatch(struct queue_entry *entry,
- 			      struct txdone_entry_desc *txdesc);
- void rt2x00lib_txdone_noinfo(struct queue_entry *entry, u32 status);
- void rt2x00lib_rxdone(struct queue_entry *entry, unsigned int len, gfp_t gfp);
-+void rt2x00lib_rx_complete(struct rt2x00_dev *rt2x00dev);
- 
- /*
-  * mac80211 handlers.
-diff --git a/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c b/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
-index dc6a7d12b2..aae96d082a 100644
---- a/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
-+++ b/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
-@@ -461,7 +461,9 @@ void rt2x00lib_txdone_nomatch(struct queue_entry *entry,
- 
- 		rt2x00lib_fill_tx_status(rt2x00dev, &txinfo, skbdesc, txdesc,
- 					 success);
-+		spin_lock_bh(&rt2x00dev->rx_lock);
- 		ieee80211_tx_status_noskb(rt2x00dev->hw, skbdesc->sta, &txinfo);
-+		spin_unlock_bh(&rt2x00dev->rx_lock);
- 	}
- 
- 	dev_kfree_skb_any(entry->skb);
-@@ -545,10 +547,12 @@ void rt2x00lib_txdone(struct queue_entry *entry,
- 	 * send the status report back.
- 	 */
- 	if (!(skbdesc_flags & SKBDESC_NOT_MAC80211)) {
-+		spin_lock_bh(&rt2x00dev->rx_lock);
- 		if (rt2x00_has_cap_flag(rt2x00dev, REQUIRE_TASKLET_CONTEXT))
- 			ieee80211_tx_status_skb(rt2x00dev->hw, entry->skb);
- 		else
- 			ieee80211_tx_status_ni(rt2x00dev->hw, entry->skb);
-+		spin_unlock_bh(&rt2x00dev->rx_lock);
- 	} else {
- 		dev_kfree_skb_any(entry->skb);
- 	}
-@@ -871,7 +875,10 @@ static void rt2x00lib_rxdone_skb(struct queue_entry *entry)
- 	rx_status->bw = rxdesc.bw;
- 	rx_status->antenna = rt2x00dev->link.ant.active.rx;
- 
--	ieee80211_rx_ni(rt2x00dev->hw, entry->skb);
-+	if (rt2x00dev->napi_dev)
-+		__skb_queue_tail(&rt2x00dev->rx_skb, entry->skb);
-+	else
-+		ieee80211_rx_ni(rt2x00dev->hw, entry->skb);
+v1: https://lore.kernel.org/r/20261112011025.101375-1-hmjm081106@gmail.com
+
+ .../hive_isp_css_common/host/event_fifo_private.h    |  1 -
+ .../pci/hive_isp_css_common/host/fifo_monitor.c      |  5 -----
+ .../hive_isp_css_common/host/fifo_monitor_private.h  |  3 ---
+ .../atomisp/pci/hive_isp_css_common/host/gp_device.c |  1 -
+ .../pci/hive_isp_css_common/host/gp_device_private.h |  1 -
+ .../pci/hive_isp_css_common/host/gpio_private.h      |  1 -
+ .../pci/hive_isp_css_common/host/input_formatter.c   |  8 --------
+ .../host/input_formatter_private.h                   |  1 -
+ .../media/atomisp/pci/hive_isp_css_common/host/irq.c | 12 ------------
+ .../pci/hive_isp_css_common/host/irq_private.h       |  1 -
+ .../media/atomisp/pci/hive_isp_css_common/host/isp.c |  1 -
+ .../pci/hive_isp_css_common/host/isp_private.h       |  6 ------
+ .../media/atomisp/pci/hive_isp_css_common/host/mmu.c |  2 --
+ .../pci/hive_isp_css_common/host/sp_private.h        |  8 --------
+ drivers/staging/media/atomisp/pci/hmm/hmm_bo.c       |  2 --
+ .../media/atomisp/pci/isp2400_input_system_private.h |  4 ----
+ .../media/atomisp/pci/runtime/binary/src/binary.c    |  1 -
+ .../media/atomisp/pci/runtime/bufq/src/bufq.c        |  1 -
+ .../atomisp/pci/runtime/debug/src/ia_css_debug.c     |  9 ---------
+ .../media/atomisp/pci/runtime/frame/src/frame.c      |  4 ----
+ .../media/atomisp/pci/runtime/ifmtr/src/ifmtr.c      |  2 --
+ .../staging/media/atomisp/pci/runtime/isys/src/rx.c  |  7 -------
+ drivers/staging/media/atomisp/pci/sh_css.c           |  4 ----
+ 23 files changed, 85 deletions(-)
+
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/event_fifo_private.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/event_fifo_private.h
+index e77d7cf61356..f9823b9c2246 100644
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/event_fifo_private.h
++++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/event_fifo_private.h
+@@ -20,7 +20,6 @@ STORAGE_CLASS_EVENT_C void event_wait_for(const event_ID_t ID)
+ 	assert(ID < N_EVENT_ID);
+ 	assert(event_source_addr[ID] != ((hrt_address) - 1));
+ 	(void)ia_css_device_load_uint32(event_source_addr[ID]);
+-	return;
  }
  
- void rt2x00lib_rxdone(struct queue_entry *entry, unsigned int len, gfp_t gfp)
-@@ -945,6 +952,23 @@ void rt2x00lib_rxdone(struct queue_entry *entry, unsigned int len, gfp_t gfp)
- }
- EXPORT_SYMBOL_GPL(rt2x00lib_rxdone);
- 
-+void rt2x00lib_rx_complete(struct rt2x00_dev *rt2x00dev)
-+{
-+	struct sk_buff *skb, *tmp;
-+	LIST_HEAD(list);
-+
-+	spin_lock(&rt2x00dev->rx_lock);
-+	while ((skb = __skb_dequeue(&rt2x00dev->rx_skb)) != NULL)
-+		ieee80211_rx_list(rt2x00dev->hw, NULL, skb, &list);
-+	spin_unlock(&rt2x00dev->rx_lock);
-+
-+	list_for_each_entry_safe(skb, tmp, &list, list) {
-+		skb_list_del_init(skb);
-+		napi_gro_receive(&rt2x00dev->napi, skb);
-+	}
-+}
-+EXPORT_SYMBOL_GPL(rt2x00lib_rx_complete);
-+
- /*
-  * Driver initialization handlers.
-  */
-@@ -1469,6 +1493,8 @@ int rt2x00lib_probe_dev(struct rt2x00_dev *rt2x00dev)
- 	mutex_init(&rt2x00dev->conf_mutex);
- 	INIT_LIST_HEAD(&rt2x00dev->bar_list);
- 	spin_lock_init(&rt2x00dev->bar_list_lock);
-+	spin_lock_init(&rt2x00dev->rx_lock);
-+	skb_queue_head_init(&rt2x00dev->rx_skb);
- 	hrtimer_setup(&rt2x00dev->txstatus_timer, hrtimer_dummy_timeout, CLOCK_MONOTONIC,
- 		      HRTIMER_MODE_REL);
- 
-diff --git a/drivers/net/wireless/ralink/rt2x00/rt2x00usb.c b/drivers/net/wireless/ralink/rt2x00/rt2x00usb.c
-index 4519a20a7f..4fe0d6f836 100644
---- a/drivers/net/wireless/ralink/rt2x00/rt2x00usb.c
-+++ b/drivers/net/wireless/ralink/rt2x00/rt2x00usb.c
-@@ -341,15 +341,16 @@ static bool rt2x00usb_kick_tx_entry(struct queue_entry *entry, void *data)
- /*
-  * RX data handlers.
-  */
--static void rt2x00usb_work_rxdone(struct work_struct *work)
-+static int rt2x00usb_poll_rxdone(struct napi_struct *napi, int budget)
- {
- 	struct rt2x00_dev *rt2x00dev =
--	    container_of(work, struct rt2x00_dev, rxdone_work);
-+	    container_of(napi, struct rt2x00_dev, napi);
- 	struct queue_entry_priv_usb *entry_priv;
- 	struct queue_entry *entry;
- 	struct skb_frame_desc *skbdesc;
- 	u8 rxd[32];
- 
-+	rcu_read_lock();
- 	while (!rt2x00queue_empty(rt2x00dev->rx)) {
- 		entry = rt2x00queue_get_entry(rt2x00dev->rx, Q_INDEX_DONE);
- 
-@@ -368,8 +369,14 @@ static void rt2x00usb_work_rxdone(struct work_struct *work)
- 		 */
- 		entry_priv = entry->priv_data;
- 		rt2x00lib_rxdone(entry, entry_priv->urb->actual_length,
--				 GFP_KERNEL);
-+				 GFP_ATOMIC);
- 	}
-+	rt2x00lib_rx_complete(rt2x00dev);
-+	rcu_read_unlock();
-+
-+	napi_complete(napi);
-+
-+	return 0;
- }
- 
- static void rt2x00usb_interrupt_rxdone(struct urb *urb)
-@@ -396,7 +403,7 @@ static void rt2x00usb_interrupt_rxdone(struct urb *urb)
- 	/*
- 	 * Schedule the delayed work for processing RX data
- 	 */
--	queue_work(rt2x00dev->workqueue, &rt2x00dev->rxdone_work);
-+	napi_schedule(&rt2x00dev->napi);
- }
- 
- static bool rt2x00usb_kick_rx_entry(struct queue_entry *entry, void *data)
-@@ -478,7 +485,7 @@ static bool rt2x00usb_flush_entry(struct queue_entry *entry, void *data)
- 
- void rt2x00usb_flush_queue(struct data_queue *queue, bool drop)
- {
--	struct work_struct *completion;
-+	bool is_tx;
- 	unsigned int i;
- 
- 	if (drop)
-@@ -486,17 +493,17 @@ void rt2x00usb_flush_queue(struct data_queue *queue, bool drop)
- 					   rt2x00usb_flush_entry);
- 
- 	/*
--	 * Obtain the queue completion handler
-+	 * Obtain the queue type
- 	 */
- 	switch (queue->qid) {
- 	case QID_AC_VO:
- 	case QID_AC_VI:
- 	case QID_AC_BE:
- 	case QID_AC_BK:
--		completion = &queue->rt2x00dev->txdone_work;
-+		is_tx = true;
+ STORAGE_CLASS_EVENT_C void cnd_event_wait_for(const event_ID_t ID,
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/fifo_monitor.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/fifo_monitor.c
+index f0de78815456..9aee5ebb2004 100644
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/fifo_monitor.c
++++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/fifo_monitor.c
+@@ -492,8 +492,6 @@ void fifo_channel_get_state(
+ 		assert(0);
  		break;
- 	case QID_RX:
--		completion = &queue->rt2x00dev->rxdone_work;
-+		is_tx = false;
- 		break;
- 	default:
- 		return;
-@@ -515,7 +522,14 @@ void rt2x00usb_flush_queue(struct data_queue *queue, bool drop)
- 		 * Schedule the completion handler manually, when this
- 		 * worker function runs, it should cleanup the queue.
- 		 */
--		queue_work(queue->rt2x00dev->workqueue, completion);
-+		if (is_tx) {
-+			queue_work(queue->rt2x00dev->workqueue,
-+				   &queue->rt2x00dev->txdone_work);
-+		} else {
-+			local_bh_disable();
-+			napi_schedule(&queue->rt2x00dev->napi);
-+			local_bh_enable();
-+		}
- 
- 		/*
- 		 * Wait for a little while to give the driver
-@@ -750,7 +764,7 @@ void rt2x00usb_uninitialize(struct rt2x00_dev *rt2x00dev)
- 
- 	usb_kill_anchored_urbs(rt2x00dev->anchor);
- 	hrtimer_cancel(&rt2x00dev->txstatus_timer);
--	cancel_work_sync(&rt2x00dev->rxdone_work);
-+	napi_synchronize(&rt2x00dev->napi);
- 	cancel_work_sync(&rt2x00dev->txdone_work);
- 
- 	queue_for_each(rt2x00dev, queue)
-@@ -758,6 +772,14 @@ void rt2x00usb_uninitialize(struct rt2x00_dev *rt2x00dev)
+ 	}
+-
+-	return;
  }
- EXPORT_SYMBOL_GPL(rt2x00usb_uninitialize);
  
-+static void rt2x00usb_free_napi(struct rt2x00_dev *rt2x00dev)
-+{
-+	napi_disable(&rt2x00dev->napi);
-+	netif_napi_del(&rt2x00dev->napi);
-+	free_netdev(rt2x00dev->napi_dev);
-+	rt2x00dev->napi_dev = NULL;
-+}
-+
- int rt2x00usb_probe(struct usb_interface *usb_intf,
- 		    const struct rt2x00_ops *ops)
- {
-@@ -801,9 +823,21 @@ int rt2x00usb_probe(struct usb_interface *usb_intf,
+ void fifo_switch_get_state(
+@@ -514,8 +512,6 @@ void fifo_switch_get_state(
+ 	state->is_none = (data == HIVE_ISP_CSS_STREAM_SWITCH_NONE);
+ 	state->is_sp = (data == HIVE_ISP_CSS_STREAM_SWITCH_SP);
+ 	state->is_isp = (data == HIVE_ISP_CSS_STREAM_SWITCH_ISP);
+-
+-	return;
+ }
  
- 	rt2x00_set_chip_intf(rt2x00dev, RT2X00_CHIP_INTF_USB);
+ void fifo_monitor_get_state(
+@@ -537,7 +533,6 @@ void fifo_monitor_get_state(
+ 		fifo_switch_get_state(ID, sw_id,
+ 				      &state->fifo_switches[sw_id]);
+ 	}
+-	return;
+ }
  
--	INIT_WORK(&rt2x00dev->rxdone_work, rt2x00usb_work_rxdone);
- 	INIT_WORK(&rt2x00dev->txdone_work, rt2x00usb_work_txdone);
+ static inline bool fifo_monitor_status_valid(
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/fifo_monitor_private.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/fifo_monitor_private.h
+index 53a3fb796aab..123cb89cf3ee 100644
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/fifo_monitor_private.h
++++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/fifo_monitor_private.h
+@@ -31,8 +31,6 @@ STORAGE_CLASS_FIFO_MONITOR_C void fifo_switch_set(
+ 	(void)ID;
  
-+	rt2x00dev->napi_dev = alloc_netdev_dummy(0);
-+	if (!rt2x00dev->napi_dev) {
-+		retval = -ENOMEM;
-+		goto exit_free_hw;
-+	}
-+
-+	strscpy(rt2x00dev->napi_dev->name, wiphy_name(hw->wiphy),
-+		sizeof(rt2x00dev->napi_dev->name));
-+	netif_napi_add(rt2x00dev->napi_dev, &rt2x00dev->napi,
-+		       rt2x00usb_poll_rxdone);
-+	netif_threaded_enable(rt2x00dev->napi_dev);
-+	napi_enable(&rt2x00dev->napi);
-+
- 	init_usb_anchor(rt2x00dev->anchor);
+ 	gp_device_reg_store(GP_DEVICE0_ID, FIFO_SWITCH_ADDR[switch_id], sel);
+-
+-	return;
+ }
  
- 	retval = rt2x00lib_probe_dev(rt2x00dev);
-@@ -814,6 +848,8 @@ int rt2x00usb_probe(struct usb_interface *usb_intf,
+ STORAGE_CLASS_FIFO_MONITOR_C hrt_data fifo_switch_get(
+@@ -56,7 +54,6 @@ STORAGE_CLASS_FIFO_MONITOR_C void fifo_monitor_reg_store(
+ 	assert(FIFO_MONITOR_BASE[ID] != (hrt_address) - 1);
+ 	ia_css_device_store_uint32(FIFO_MONITOR_BASE[ID] + reg * sizeof(hrt_data),
+ 				   value);
+-	return;
+ }
  
- exit_free_anchor:
- 	usb_kill_anchored_urbs(rt2x00dev->anchor);
-+	rt2x00usb_free_napi(rt2x00dev);
-+exit_free_hw:
- 	ieee80211_free_hw(hw);
- 	usb_set_intfdata(usb_intf, NULL);
+ STORAGE_CLASS_FIFO_MONITOR_C hrt_data fifo_monitor_reg_load(
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gp_device.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gp_device.c
+index b934d20c88ea..35366da05390 100644
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gp_device.c
++++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gp_device.c
+@@ -96,5 +96,4 @@ void gp_device_get_state(
+ 				   _REG_GP_SYNCGEN_FRAME_CNT_ADDR);
+ 	state->soft_reset = gp_device_reg_load(ID,
+ 					       _REG_GP_SOFT_RESET_ADDR);
+-	return;
+ }
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gp_device_private.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gp_device_private.h
+index 71f20992ee98..f43e79a39f4d 100644
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gp_device_private.h
++++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gp_device_private.h
+@@ -22,7 +22,6 @@ STORAGE_CLASS_GP_DEVICE_C void gp_device_reg_store(
+ 	assert(GP_DEVICE_BASE[ID] != (hrt_address) - 1);
+ 	assert((reg_addr % sizeof(hrt_data)) == 0);
+ 	ia_css_device_store_uint32(GP_DEVICE_BASE[ID] + reg_addr, value);
+-	return;
+ }
  
-@@ -830,6 +866,7 @@ void rt2x00usb_disconnect(struct usb_interface *usb_intf)
- 	 * Free all allocated data.
+ STORAGE_CLASS_GP_DEVICE_C hrt_data gp_device_reg_load(
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gpio_private.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gpio_private.h
+index bcf6538ac0dc..27809117dde6 100644
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gpio_private.h
++++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gpio_private.h
+@@ -18,7 +18,6 @@ static inline void gpio_reg_store(
+ 	OP___assert(ID < N_GPIO_ID);
+ 	OP___assert(GPIO_BASE[ID] != (hrt_address) - 1);
+ 	ia_css_device_store_uint32(GPIO_BASE[ID] + reg * sizeof(hrt_data), value);
+-	return;
+ }
+ 
+ static inline hrt_data gpio_reg_load(
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_formatter.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_formatter.c
+index c353461dcdf2..d2ac87fdfb4a 100644
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_formatter.c
++++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_formatter.c
+@@ -64,8 +64,6 @@ void input_formatter_rst(
  	 */
- 	rt2x00lib_remove_dev(rt2x00dev);
-+	rt2x00usb_free_napi(rt2x00dev);
- 	ieee80211_free_hw(hw);
+ 	if (!HIVE_IF_BIN_COPY[ID])
+ 		input_formatter_reg_store(ID, addr, rst);
+-
+-	return;
+ }
  
- 	usb_set_intfdata(usb_intf, NULL);
+ unsigned int input_formatter_get_alignment(
+@@ -87,7 +85,6 @@ void input_formatter_set_fifo_blocking_mode(
+ 		input_formatter_reg_store(ID,
+ 					  HIVE_IF_BLOCK_FIFO_NO_REQ_ADDRESS, enable);
+ 	}
+-	return;
+ }
+ 
+ void input_formatter_get_switch_state(
+@@ -120,8 +117,6 @@ void input_formatter_get_switch_state(
+ 					   _REG_GP_IFMT_input_switch_fsync_lut);
+ 	state->if_input_switch_ch_id_fmt_type = gp_device_reg_load(GP_DEVICE0_ID,
+ 						_REG_GP_IFMT_input_switch_ch_id_fmt_type);
+-
+-	return;
+ }
+ 
+ void input_formatter_get_state(
+@@ -201,8 +196,6 @@ void input_formatter_get_state(
+ 				HIVE_IF_FSM_VECTOR_SUPPORT);
+ 	state->sensor_data_lost = input_formatter_reg_load(ID,
+ 				  HIVE_IF_FIFO_SENSOR_STATUS);
+-
+-	return;
+ }
+ 
+ void input_formatter_bin_get_state(
+@@ -230,5 +223,4 @@ void input_formatter_bin_get_state(
+ 			 HIVE_STR2MEM_DUAL_BYTE_INPUTS_ENABLED_REG_ADDRESS);
+ 	state->en_status_update = input_formatter_reg_load(ID,
+ 				  HIVE_STR2MEM_EN_STAT_UPDATE_ADDRESS);
+-	return;
+ }
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_formatter_private.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_formatter_private.h
+index 6b6ba49656e5..823861f2abe3 100644
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_formatter_private.h
++++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_formatter_private.h
+@@ -22,7 +22,6 @@ STORAGE_CLASS_INPUT_FORMATTER_C void input_formatter_reg_store(
+ 	assert(INPUT_FORMATTER_BASE[ID] != (hrt_address)-1);
+ 	assert((reg_addr % sizeof(hrt_data)) == 0);
+ 	ia_css_device_store_uint32(INPUT_FORMATTER_BASE[ID] + reg_addr, value);
+-	return;
+ }
+ 
+ STORAGE_CLASS_INPUT_FORMATTER_C hrt_data input_formatter_reg_load(
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq.c
+index 61dea386361a..6ca8fcd61b36 100644
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq.c
++++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq.c
+@@ -60,7 +60,6 @@ void irq_clear_all(
+ 
+ 	irq_reg_store(ID,
+ 		      _HRT_IRQ_CONTROLLER_CLEAR_REG_IDX, mask);
+-	return;
+ }
+ 
+ /*
+@@ -104,8 +103,6 @@ void irq_enable_channel(
+ 		      _HRT_IRQ_CONTROLLER_MASK_REG_IDX, mask);
+ 
+ 	irq_wait_for_write_complete(ID);
+-
+-	return;
+ }
+ 
+ void irq_enable_pulse(
+@@ -120,7 +117,6 @@ void irq_enable_pulse(
+ 	/* output is given as edge, not pulse */
+ 	irq_reg_store(ID,
+ 		      _HRT_IRQ_CONTROLLER_EDGE_NOT_PULSE_REG_IDX, edge_out);
+-	return;
+ }
+ 
+ void irq_disable_channel(
+@@ -150,8 +146,6 @@ void irq_disable_channel(
+ 		      _HRT_IRQ_CONTROLLER_CLEAR_REG_IDX, me);
+ 
+ 	irq_wait_for_write_complete(ID);
+-
+-	return;
+ }
+ 
+ enum hrt_isp_css_irq_status irq_get_channel_id(
+@@ -212,7 +206,6 @@ void irq_raise(
+ 			    (unsigned int)addr, 1);
+ 	gp_device_reg_store(GP_DEVICE0_ID,
+ 			    (unsigned int)addr, 0);
+-	return;
+ }
+ 
+ bool any_virq_signal(void)
+@@ -251,7 +244,6 @@ void cnd_virq_enable_channel(
+ 			irq_disable_channel(IRQ0_ID, IRQ_NESTING_ID[ID]);
+ 		}
+ 	}
+-	return;
+ }
+ 
+ void virq_clear_all(void)
+@@ -260,8 +252,6 @@ void virq_clear_all(void)
+ 
+ 	for (irq_id = (irq_ID_t)0; irq_id < N_IRQ_ID; irq_id++)
+ 		irq_clear_all(irq_id);
+-
+-	return;
+ }
+ 
+ enum hrt_isp_css_irq_status
+@@ -302,8 +292,6 @@ void virq_clear_info(struct virq_info *irq_info)
+ 
+ 	for (ID = (irq_ID_t)0 ; ID < N_IRQ_ID; ID++)
+ 		irq_info->irq_status_reg[ID] = 0;
+-
+-	return;
+ }
+ 
+ enum hrt_isp_css_irq_status virq_get_channel_id(
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq_private.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq_private.h
+index ae0a8466a70a..5e27f053f00c 100644
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq_private.h
++++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq_private.h
+@@ -21,7 +21,6 @@ STORAGE_CLASS_IRQ_C void irq_reg_store(
+ 	assert(ID < N_IRQ_ID);
+ 	assert(IRQ_BASE[ID] != (hrt_address) - 1);
+ 	ia_css_device_store_uint32(IRQ_BASE[ID] + reg * sizeof(hrt_data), value);
+-	return;
+ }
+ 
+ STORAGE_CLASS_IRQ_C hrt_data irq_reg_load(
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/isp.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/isp.c
+index 39cccbfa3fca..17a04ac623ff 100644
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/isp.c
++++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/isp.c
+@@ -27,7 +27,6 @@ void cnd_isp_irq_enable(
+ 		isp_ctrl_clearbit(ID, ISP_IRQ_READY_REG,
+ 				  ISP_IRQ_READY_BIT);
+ 	}
+-	return;
+ }
+ 
+ /* ISP functions to control the ISP state from the host, even in crun. */
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/isp_private.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/isp_private.h
+index 177770a9bc1d..b699a1c3af0b 100644
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/isp_private.h
++++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/isp_private.h
+@@ -30,7 +30,6 @@ STORAGE_CLASS_ISP_C void isp_ctrl_store(
+ #else
+ 	hrt_master_port_store_32(ISP_CTRL_BASE[ID] + reg * sizeof(hrt_data), value);
+ #endif
+-	return;
+ }
+ 
+ STORAGE_CLASS_ISP_C hrt_data isp_ctrl_load(
+@@ -64,7 +63,6 @@ STORAGE_CLASS_ISP_C void isp_ctrl_setbit(
+ 	hrt_data	data = isp_ctrl_load(ID, reg);
+ 
+ 	isp_ctrl_store(ID, reg, (data | (1UL << bit)));
+-	return;
+ }
+ 
+ STORAGE_CLASS_ISP_C void isp_ctrl_clearbit(
+@@ -75,7 +73,6 @@ STORAGE_CLASS_ISP_C void isp_ctrl_clearbit(
+ 	hrt_data	data = isp_ctrl_load(ID, reg);
+ 
+ 	isp_ctrl_store(ID, reg, (data & ~(1UL << bit)));
+-	return;
+ }
+ 
+ STORAGE_CLASS_ISP_C void isp_dmem_store(
+@@ -91,7 +88,6 @@ STORAGE_CLASS_ISP_C void isp_dmem_store(
+ #else
+ 	hrt_master_port_store(ISP_DMEM_BASE[ID] + addr, data, size);
+ #endif
+-	return;
+ }
+ 
+ STORAGE_CLASS_ISP_C void isp_dmem_load(
+@@ -107,7 +103,6 @@ STORAGE_CLASS_ISP_C void isp_dmem_load(
+ #else
+ 	hrt_master_port_load(ISP_DMEM_BASE[ID] + addr, data, size);
+ #endif
+-	return;
+ }
+ 
+ STORAGE_CLASS_ISP_C void isp_dmem_store_uint32(
+@@ -123,7 +118,6 @@ STORAGE_CLASS_ISP_C void isp_dmem_store_uint32(
+ #else
+ 	hrt_master_port_store_32(ISP_DMEM_BASE[ID] + addr, data);
+ #endif
+-	return;
+ }
+ 
+ STORAGE_CLASS_ISP_C uint32_t isp_dmem_load_uint32(
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/mmu.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/mmu.c
+index 70d118fe1e70..87d89eab7f2c 100644
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/mmu.c
++++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/mmu.c
+@@ -12,7 +12,6 @@ void mmu_set_page_table_base_index(
+     const hrt_data		base_index)
+ {
+ 	mmu_reg_store(ID, _HRT_MMU_PAGE_TABLE_BASE_ADDRESS_REG_IDX, base_index);
+-	return;
+ }
+ 
+ hrt_data mmu_get_page_table_base_index(
+@@ -25,7 +24,6 @@ void mmu_invalidate_cache(
+     const mmu_ID_t		ID)
+ {
+ 	mmu_reg_store(ID, _HRT_MMU_INVALIDATE_TLB_REG_IDX, 1);
+-	return;
+ }
+ 
+ void mmu_invalidate_cache_all(void)
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/sp_private.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/sp_private.h
+index c69778411f2f..b03ae6658df3 100644
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/sp_private.h
++++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/sp_private.h
+@@ -21,7 +21,6 @@ STORAGE_CLASS_SP_C void sp_ctrl_store(
+ 	assert(ID < N_SP_ID);
+ 	assert(SP_CTRL_BASE[ID] != (hrt_address)-1);
+ 	ia_css_device_store_uint32(SP_CTRL_BASE[ID] + reg * sizeof(hrt_data), value);
+-	return;
+ }
+ 
+ STORAGE_CLASS_SP_C hrt_data sp_ctrl_load(
+@@ -51,7 +50,6 @@ STORAGE_CLASS_SP_C void sp_ctrl_setbit(
+ 	hrt_data	data = sp_ctrl_load(ID, reg);
+ 
+ 	sp_ctrl_store(ID, reg, (data | (1UL << bit)));
+-	return;
+ }
+ 
+ STORAGE_CLASS_SP_C void sp_ctrl_clearbit(
+@@ -62,7 +60,6 @@ STORAGE_CLASS_SP_C void sp_ctrl_clearbit(
+ 	hrt_data	data = sp_ctrl_load(ID, reg);
+ 
+ 	sp_ctrl_store(ID, reg, (data & ~(1UL << bit)));
+-	return;
+ }
+ 
+ STORAGE_CLASS_SP_C void sp_dmem_store(
+@@ -74,7 +71,6 @@ STORAGE_CLASS_SP_C void sp_dmem_store(
+ 	assert(ID < N_SP_ID);
+ 	assert(SP_DMEM_BASE[ID] != (hrt_address)-1);
+ 	ia_css_device_store(SP_DMEM_BASE[ID] + addr, data, size);
+-	return;
+ }
+ 
+ STORAGE_CLASS_SP_C void sp_dmem_load(
+@@ -86,7 +82,6 @@ STORAGE_CLASS_SP_C void sp_dmem_load(
+ 	assert(ID < N_SP_ID);
+ 	assert(SP_DMEM_BASE[ID] != (hrt_address)-1);
+ 	ia_css_device_load(SP_DMEM_BASE[ID] + addr, data, size);
+-	return;
+ }
+ 
+ STORAGE_CLASS_SP_C void sp_dmem_store_uint8(
+@@ -98,7 +93,6 @@ STORAGE_CLASS_SP_C void sp_dmem_store_uint8(
+ 	assert(SP_DMEM_BASE[ID] != (hrt_address)-1);
+ 	(void)ID;
+ 	ia_css_device_store_uint8(SP_DMEM_BASE[SP0_ID] + addr, data);
+-	return;
+ }
+ 
+ STORAGE_CLASS_SP_C void sp_dmem_store_uint16(
+@@ -110,7 +104,6 @@ STORAGE_CLASS_SP_C void sp_dmem_store_uint16(
+ 	assert(SP_DMEM_BASE[ID] != (hrt_address)-1);
+ 	(void)ID;
+ 	ia_css_device_store_uint16(SP_DMEM_BASE[SP0_ID] + addr, data);
+-	return;
+ }
+ 
+ STORAGE_CLASS_SP_C void sp_dmem_store_uint32(
+@@ -122,7 +115,6 @@ STORAGE_CLASS_SP_C void sp_dmem_store_uint32(
+ 	assert(SP_DMEM_BASE[ID] != (hrt_address)-1);
+ 	(void)ID;
+ 	ia_css_device_store_uint32(SP_DMEM_BASE[SP0_ID] + addr, data);
+-	return;
+ }
+ 
+ STORAGE_CLASS_SP_C uint8_t sp_dmem_load_uint8(
+diff --git a/drivers/staging/media/atomisp/pci/hmm/hmm_bo.c b/drivers/staging/media/atomisp/pci/hmm/hmm_bo.c
+index 0a8f401a1ca1..4ceb8cb41156 100644
+--- a/drivers/staging/media/atomisp/pci/hmm/hmm_bo.c
++++ b/drivers/staging/media/atomisp/pci/hmm/hmm_bo.c
+@@ -483,7 +483,6 @@ void hmm_bo_release(struct hmm_buffer_object *bo)
+ 	__bo_insert_to_free_rbtree(&bdev->free_rbtree, bo);
+ 
+ 	mutex_unlock(&bdev->rbtree_mutex);
+-	return;
+ }
+ 
+ void hmm_bo_device_exit(struct hmm_bo_device *bdev)
+@@ -957,7 +956,6 @@ void hmm_bo_vunmap(struct hmm_buffer_object *bo)
+ 	}
+ 
+ 	mutex_unlock(&bo->mutex);
+-	return;
+ }
+ 
+ void hmm_bo_ref(struct hmm_buffer_object *bo)
+diff --git a/drivers/staging/media/atomisp/pci/isp2400_input_system_private.h b/drivers/staging/media/atomisp/pci/isp2400_input_system_private.h
+index a6762683a0ac..00e6574f186a 100644
+--- a/drivers/staging/media/atomisp/pci/isp2400_input_system_private.h
++++ b/drivers/staging/media/atomisp/pci/isp2400_input_system_private.h
+@@ -22,7 +22,6 @@ STORAGE_CLASS_INPUT_SYSTEM_C void input_system_reg_store(
+ 	assert(INPUT_SYSTEM_BASE[ID] != (hrt_address)-1);
+ 	ia_css_device_store_uint32(INPUT_SYSTEM_BASE[ID] + reg * sizeof(hrt_data),
+ 				   value);
+-	return;
+ }
+ 
+ STORAGE_CLASS_INPUT_SYSTEM_C hrt_data input_system_reg_load(
+@@ -43,7 +42,6 @@ STORAGE_CLASS_INPUT_SYSTEM_C void receiver_reg_store(
+ 	assert(ID < N_RX_ID);
+ 	assert(RX_BASE[ID] != (hrt_address)-1);
+ 	ia_css_device_store_uint32(RX_BASE[ID] + reg * sizeof(hrt_data), value);
+-	return;
+ }
+ 
+ STORAGE_CLASS_INPUT_SYSTEM_C hrt_data receiver_reg_load(
+@@ -67,7 +65,6 @@ STORAGE_CLASS_INPUT_SYSTEM_C void receiver_port_reg_store(
+ 	assert(MIPI_PORT_OFFSET[port_ID] != (hrt_address)-1);
+ 	ia_css_device_store_uint32(RX_BASE[ID] + MIPI_PORT_OFFSET[port_ID] + reg *
+ 				   sizeof(hrt_data), value);
+-	return;
+ }
+ 
+ STORAGE_CLASS_INPUT_SYSTEM_C hrt_data receiver_port_reg_load(
+@@ -95,7 +92,6 @@ STORAGE_CLASS_INPUT_SYSTEM_C void input_system_sub_system_reg_store(
+ 	assert(SUB_SYSTEM_OFFSET[sub_ID] != (hrt_address)-1);
+ 	ia_css_device_store_uint32(INPUT_SYSTEM_BASE[ID] + SUB_SYSTEM_OFFSET[sub_ID] +
+ 				   reg * sizeof(hrt_data), value);
+-	return;
+ }
+ 
+ STORAGE_CLASS_INPUT_SYSTEM_C hrt_data input_system_sub_system_reg_load(
+diff --git a/drivers/staging/media/atomisp/pci/runtime/binary/src/binary.c b/drivers/staging/media/atomisp/pci/runtime/binary/src/binary.c
+index e9016d7775dc..8ee20947b20e 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/binary/src/binary.c
++++ b/drivers/staging/media/atomisp/pci/runtime/binary/src/binary.c
+@@ -345,7 +345,6 @@ ia_css_binary_dvs_stat_grid_info(
+ {
+ 	(void)pipe;
+ 	sh_css_binary_common_grid_info(binary, info);
+-	return;
+ }
+ 
+ int ia_css_binary_3a_grid_info(const struct ia_css_binary *binary,
+diff --git a/drivers/staging/media/atomisp/pci/runtime/bufq/src/bufq.c b/drivers/staging/media/atomisp/pci/runtime/bufq/src/bufq.c
+index 0f0d16f4ce7c..51f7c9d6f378 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/bufq/src/bufq.c
++++ b/drivers/staging/media/atomisp/pci/runtime/bufq/src/bufq.c
+@@ -176,7 +176,6 @@ static void map_buffer_type_to_queue_id(
+ 	}
+ 
+ 	assert(i != SH_CSS_MAX_NUM_QUEUES);
+-	return;
+ }
+ 
+ static void unmap_buffer_type_to_queue_id(
+diff --git a/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c b/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
+index 5113aa5973f3..f9be7743d006 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
++++ b/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
+@@ -136,7 +136,6 @@ void ia_css_debug_dtrace(unsigned int level, const char *fmt, ...)
+ void ia_css_debug_set_dtrace_level(const unsigned int trace_level)
+ {
+ 	dbg_level = trace_level;
+-	return;
+ }
+ 
+ unsigned int ia_css_debug_get_dtrace_level(void)
+@@ -315,7 +314,6 @@ static void debug_print_fifo_channel_state(const fifo_channel_state_t *state,
+ 			    state->fifo_valid);
+ 	ia_css_debug_dtrace(2, "\t%-32s: %d\n", "sink accept",
+ 			    state->sink_accept);
+-	return;
+ }
+ 
+ void ia_css_debug_dump_pif_a_isp_fifo_state(void)
+@@ -364,7 +362,6 @@ void ia_css_debug_dump_all_fifo_state(void)
+ 	for (i = 0; i < N_FIFO_CHANNEL; i++)
+ 		debug_print_fifo_channel_state(&state.fifo_channels[i],
+ 					       "squepfstqkt");
+-	return;
+ }
+ 
+ static void debug_binary_info_print(const struct ia_css_binary_xinfo *info)
+@@ -386,7 +383,6 @@ static void debug_binary_info_print(const struct ia_css_binary_xinfo *info)
+ 	ia_css_debug_dtrace(2, "enable_uds = %d\n", info->sp.enable.uds);
+ 	ia_css_debug_dtrace(2, "enable ds = %d\n", info->sp.enable.ds);
+ 	ia_css_debug_dtrace(2, "s3atbl_use_dmem = %d\n", info->sp.s3a.s3atbl_use_dmem);
+-	return;
+ }
+ 
+ void ia_css_debug_binary_print(const struct ia_css_binary *bi)
+@@ -441,7 +437,6 @@ void ia_css_debug_binary_print(const struct ia_css_binary *bi)
+ 			    bi->sctbl_width_per_color);
+ 	ia_css_debug_dtrace(2, "s3atbl_width = %d\n", bi->s3atbl_width);
+ 	ia_css_debug_dtrace(2, "s3atbl_height = %d\n", bi->s3atbl_height);
+-	return;
+ }
+ 
+ void ia_css_debug_frame_print(const struct ia_css_frame *frame,
+@@ -526,7 +521,6 @@ void ia_css_debug_frame_print(const struct ia_css_frame *frame,
+ 		ia_css_debug_dtrace(2, "  unknown frame type\n");
+ 		break;
+ 	}
+-	return;
+ }
+ 
+ #if SP_DEBUG != SP_DEBUG_NONE
+@@ -808,8 +802,6 @@ void ia_css_debug_print_sp_debug_state(const struct sh_css_sp_debug_state
+ #endif
+ 
+ #if SP_DEBUG != SP_DEBUG_NONE
+-
+-	return;
+ }
+ #endif
+ 
+@@ -823,7 +815,6 @@ void ia_css_debug_dump_sp_sw_debug_info(void)
+ #endif
+ 	ia_css_bufq_dump_queue_info();
+ 	ia_css_pipeline_dump_thread_map_info();
+-	return;
+ }
+ 
+ /* this function is for debug use, it can make SP go to sleep
+diff --git a/drivers/staging/media/atomisp/pci/runtime/frame/src/frame.c b/drivers/staging/media/atomisp/pci/runtime/frame/src/frame.c
+index 8614efc28b19..ae952df03cc6 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/frame/src/frame.c
++++ b/drivers/staging/media/atomisp/pci/runtime/frame/src/frame.c
+@@ -525,7 +525,6 @@ static void frame_init_nv_planes(struct ia_css_frame *frame,
+ 	frame_init_plane(&frame->planes.nv.y, y_width, y_stride, y_height, 0);
+ 	frame_init_plane(&frame->planes.nv.uv, uv_width,
+ 			 uv_stride, uv_height, y_bytes);
+-	return;
+ }
+ 
+ static void frame_init_yuv_planes(struct ia_css_frame *frame,
+@@ -558,7 +557,6 @@ static void frame_init_yuv_planes(struct ia_css_frame *frame,
+ 		frame_init_plane(&frame->planes.yuv.v, uv_width, uv_stride,
+ 				 uv_height, y_bytes + uv_bytes);
+ 	}
+-	return;
+ }
+ 
+ static void frame_init_rgb_planes(struct ia_css_frame *frame,
+@@ -575,7 +573,6 @@ static void frame_init_rgb_planes(struct ia_css_frame *frame,
+ 			 width, stride, height, 1 * bytes);
+ 	frame_init_plane(&frame->planes.planar_rgb.b,
+ 			 width, stride, height, 2 * bytes);
+-	return;
+ }
+ 
+ static void frame_init_qplane6_planes(struct ia_css_frame *frame)
+@@ -599,7 +596,6 @@ static void frame_init_qplane6_planes(struct ia_css_frame *frame)
+ 			 width, stride, height, 4 * bytes);
+ 	frame_init_plane(&frame->planes.plane6.b_at_r,
+ 			 width, stride, height, 5 * bytes);
+-	return;
+ }
+ 
+ static int frame_allocate_buffer_data(struct ia_css_frame *frame)
+diff --git a/drivers/staging/media/atomisp/pci/runtime/ifmtr/src/ifmtr.c b/drivers/staging/media/atomisp/pci/runtime/ifmtr/src/ifmtr.c
+index 50b0b31d734a..9739ab25000c 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/ifmtr/src/ifmtr.c
++++ b/drivers/staging/media/atomisp/pci/runtime/ifmtr/src/ifmtr.c
+@@ -471,8 +471,6 @@ static void ifmtr_set_if_blocking_mode(
+ 			input_formatter_set_fifo_blocking_mode(id, block[id]);
+ 		}
+ 	}
+-
+-	return;
+ }
+ 
+ static int ifmtr_start_column(
+diff --git a/drivers/staging/media/atomisp/pci/runtime/isys/src/rx.c b/drivers/staging/media/atomisp/pci/runtime/isys/src/rx.c
+index 9cfb8bc97e24..5d90587bac73 100644
+--- a/drivers/staging/media/atomisp/pci/runtime/isys/src/rx.c
++++ b/drivers/staging/media/atomisp/pci/runtime/isys/src/rx.c
+@@ -43,8 +43,6 @@ void ia_css_isys_rx_enable_all_interrupts(enum mipi_port_id port)
+ 	 * The CSI is nested into the Iunit IRQ's
+ 	 */
+ 	ia_css_irq_enable(IA_CSS_IRQ_INFO_CSS_RECEIVER_ERROR, true);
+-
+-	return;
+ }
+ 
+ /* This function converts between the enum used on the CSS API and the
+@@ -196,8 +194,6 @@ void ia_css_isys_rx_clear_irq_info(enum mipi_port_id port,
+ 	receiver_port_reg_store(RX0_ID,
+ 				port,
+ 				_HRT_CSS_RECEIVER_IRQ_ENABLE_REG_IDX, bits);
+-
+-	return;
+ }
+ 
+ static int ia_css_isys_2400_set_fmt_type(enum atomisp_input_format input_format,
+@@ -637,8 +633,6 @@ void ia_css_isys_rx_configure(const rx_cfg_t *config,
+ 	 *                INPUT_SYSTEM_CSI_RECEIVER_SELECT_BACKENG, 1);
+ 	 */
+ 	input_system_reg_store(INPUT_SYSTEM0_ID, 0x207, 1);
+-
+-	return;
+ }
+ 
+ void ia_css_isys_rx_disable(void)
+@@ -650,5 +644,4 @@ void ia_css_isys_rx_disable(void)
+ 					_HRT_CSS_RECEIVER_DEVICE_READY_REG_IDX,
+ 					false);
+ 	}
+-	return;
+ }
+diff --git a/drivers/staging/media/atomisp/pci/sh_css.c b/drivers/staging/media/atomisp/pci/sh_css.c
+index 4a182dc384ca..5b12ff8ec32d 100644
+--- a/drivers/staging/media/atomisp/pci/sh_css.c
++++ b/drivers/staging/media/atomisp/pci/sh_css.c
+@@ -2928,8 +2928,6 @@ ia_css_get_crop_offsets(
+ 	in_frame->crop_info.start_line = row;
+ 
+ 	IA_CSS_LEAVE_PRIVATE("void start_col: %u start_row: %u", column, row);
+-
+-	return;
+ }
+ 
+ static int
+@@ -3326,8 +3324,6 @@ static void send_raw_frames(struct ia_css_pipe *pipe)
+ 							    pipe->continuous_frames[i], pipe->cont_md_buffers[i]);
+ 		}
+ 	}
+-
+-	return;
+ }
+ 
+ static int
 -- 
-2.53.0
+2.56.0
 
