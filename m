@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794460324;
-	b=l8NnT4KxJbul7bY7tojZUJAp7JZreob29lVSbiB8/Xr5rgFmZUXab4xif1AaWR7BPJAU
-	 Ym7fjY2fbL5d7Lg/NCgEcBBwkjdbSiq2Rv7Pe3iL5U50WzYHKbRYqBF8N0RWrS45M/BFn
-	 vPB59OmXmb60nwwQjjl40GBMIKdq0ShUDIvRMP2CetAuNJabopSJzYuAgbDVRcemkBHmN
-	 qJXuAwQfwtpgZJ40Z8FqRf1bNsN6xgM1OsWp85deqpXduWt7Q/s+lwtxI/IH76a9ySBSi
-	 J2ZvfXWD62M+oiSCq4VaYP2a65A6QLWA1XRI8Q0TBheXhxE3nCIAMcescgirKiJ1CRQ==
+	t=1794460327;
+	b=deUzZK1lZpLVVqMMt+MUn7veWBYQ6AFlUUD4QpM4Or3/l0DmLM3CZMEOXjszfGV26z8K
+	 8Q3z0qneNCIuN8+7gHaVOtk4Bu9xu+VFZODzjfOP/T94bZwohgbDUSEtx1C8cYIrN0CS3
+	 s33CYA5RK3zzuRBWfXZnav+9xrlJmGdQ/mu2nfKzvEUC8hO7srMPrko3uJFYqXlckH+x0
+	 nlOPdxGBVWAuYKh40MZTFstYtLzWLZhaP21FAWYdflQCmJHTpAruWgsGOFHJqDiFB0XrC
+	 uFNhLYOKrwMHV+3CrORcq3OsS5HFaKCdyW6AiUmx01LnDI5D3Bvi+ZRARd1niyeCe6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794460324;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794460327;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=uKSQxebDokb2ys9UHctF3cTAzVxMrJvvKwhXq5pMm2Q=;
-	b=fABLNFTFQ8HBQw2IibFvWpn+4JxCGqnQLfFg1YUKRIZl2siueTnj8uFpdVAbmTCfKyoJ
-	 SjQmZLPe11CgdDgTkGUVVZKeVKBOIek02rm+i9LOjmG7oKoVpfQ14uDkhk4UWFrbbmJzS
-	 Op1/u2aFqe3aI/Mlm/Mn0mqZ7sY7Qx6qWzNDszyHQPzX1042BbgX4sIcYso+et1waEKej
-	 2tLO0450dkt72epP8gJg/XQ3QjbbqNhNyr3HfIH134pfdJbbaDk/KJn84cdCjdDKKJazR
-	 0HKq5v4fium3flr5k53cTmqJdFwQx7BVBwivURJedgbhw60UiyIgzPmVP6HwmI0HFiQ==
+	bh=S6s5EG8cJ/T3odvc7pqRCLvrVKTXrFbJQqMyd2LrHmA=;
+	b=Xvt31sYY7/BzamMBJ5IOT02kZggFZ0qOgB075Z6jojMQR77/l2i+drrxmWlNXtcSzZ2O
+	 xxU6Tl5Z4fSxy1U0KB43NY1nKR1BjPoMEM74aCKWfuJE2S9/lOdv3cn4X/drnnCf/LR90
+	 dglYCrzLt7s7i6Dv3kw+U6bVEDc8Ww9hOxoV1oYn2aM9Iq/mjQnvZu9VXgojrDKGoYdWV
+	 r6CqKjnjhFD0hhVYJKvb/b6nWzURsKjMXTMgRn3xmSPl0Zz/zHwE0EUb/PKu/0AubTnZB
+	 +NYynGzYeumucISbNT7xvc7oVRD7d8FGPvOpR7oEtniw28yTxxXYZHep6KQdTdwFmdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=grSH4cuT;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f7VsY7Pe;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63C06606A32E
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:12:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63C06606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80DE3606A896
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:12:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80DE3606A896
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=grSH4cuT
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so5873185eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:12:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f7VsY7Pe
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so7660421eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:12:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794460323; x=1795065123; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794460327; x=1795065127; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uKSQxebDokb2ys9UHctF3cTAzVxMrJvvKwhXq5pMm2Q=;
-        b=grSH4cuTeil7DmfeYByb529y3LjJgYepDb8OtKEsY7Qv8LhjhWFOn9wb8u8vo4WKG8
-         HWO5SUKcEzHEsZ/j1SW0ZF3Z2x5rnkai7mqS8aWfYMXyWUDy5h2iBSRc23GBJ+s8T2mj
-         BC89Y16sN+TXvZBbg9mTqu2+zWTsXAyJwPVEym/pWONvufndFLrfIEpE0UCrJssw5gTM
-         R1l0IYMlJ6R4WaTDpn6KrIXw7HJrXGLvl5d+FjEikhTvDeKV1VipDZveSJK17kmEqZrJ
-         8ckCnd5KlAt0z61Y+MQg2MPm9S97ZWT40qC74Zd3l2AIl2+rhgidIXYQpfnovpD7IgrD
-         f84A==
+        bh=S6s5EG8cJ/T3odvc7pqRCLvrVKTXrFbJQqMyd2LrHmA=;
+        b=f7VsY7Pelz/eXl3TcfKcjkAaCYErc2Xfl2NqSNMxAyO9DngYBpdpeDkhPhI/V9Ksbo
+         w7bF8MJ/P1a9btuycvhzP3tw3xEXr2qZ6I/IiwA9uiOSsrYvZLIbSLrI260CUFBn3ngR
+         51b5Q38U+b5TbQtZWFjZlimjPrzvDJuDrNC4a2+kGz7CiGY7SAu6CMyXaVOwYwHZza0m
+         C4gIQsUqDZZGdx3EjKDlHjyUkxSVdKvaf4ZxSznPkTCA9xDMQEImKlYJk30RmgBHA6CD
+         77SHbKLnWAZSS5LnvyRV1qtOiih+qq1r1oe55O6dguWnr7ontCJn8MLbIKNnf7haVMC1
+         H2Qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794460323; x=1795065123;
+        d=1e100.net; s=20260707; t=1794460327; x=1795065127;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uKSQxebDokb2ys9UHctF3cTAzVxMrJvvKwhXq5pMm2Q=;
-        b=aKHJ6O78oIFVyZYx+vT9Ju95OmqiB1GDNozuambWvNZpvgQd/yNPHs+nsizATDOjzA
-         Tu+Ac+EkVNhAQFKnfgkyUx4/Qd3R7AHyqM2PqJP9URHGaVJNeQrpP2clcW9/zfRH4eAp
-         JoacqkaG33XRMwFhfd/Oh3SmByYZisr4iXYybOlKkxSI+e8j2qSs0+1JXWi1YJ7PPFlh
-         2bw/WS2jSX/28Heonmxhnh0/sIWYwDMxmoGIbq0XYQWVq2im/vt4eoPtZO4OpEAH6+J5
-         e6vBZB3iEk8jngqLApI7uxcUX9u+C60Hh07zqxpuwnka+XirSHP/iTm0TRHp5eyNDDRO
-         4pPw==
-X-Forwarded-Encrypted: i=1; AL+hErHhb/BXKI2A2IATVw87/sNTZRGmq50uwxdUbWdpWk6owGrxHGpyPuKO/zRZWtNP26zGjn//0NqUO3tnpMI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/vWbuKmGyXq0ZWzIq2sjPTpDrnzPjR+F1W3umWuUIkictJ6nAy
-	4OMzvLqMlNeSqMVH9Wjby/5YfJ0yiqx40DzaDi8R1zcuLO0VI+fLd+g3
-X-Gm-Gg: AYBFou0sGTrrSvZJzW05HtqyesjMidzMZnBJIjoK5hAiF7SsR7FwNOdq90TprbAtpRd
-	SdGDv7ivgG+evWi+WsIyf5p7odBUSHQNd+rEk0C5qhnpIq3ifJqPvrI4IZK+ikSVNeCfcqszxaU
-	dp05N0/NXfhXPHWLiLMkg8An2XP3bh7NhNAZoXgADfY3YgiQG++XyTqIEdOznJPKpP6A4Ks+kWa
-	nErj6cAsXtmRJG5syKJiAGnr6fM8DvAvLiudvekhnHzRiB/gmaNADZR11aahFJZQNCeHsbL2tYP
-	xxW0MKvNRqUjozbeKXP8TCP7K/8k4RVmfV7cQPnSYS9XZF8HHmHif3u90KUwjb2nOhB2i5+zkp5
-	Ks5QaSGtywhGvpI6YDJOcPSQLA9jv39WT5WgfcwuUX5SMIyOshP9DevxXdF0vuo9JXmXTkspvwX
-	4BZclQ95E+kfbb5d12/JjL/Q+psGyoHNoXbyU+hyeTGkVeU2C4Hce9/1juJsRjRHE1eHh65pvCj
-	uiudWehMdsvCnee6ZeiipWCO2OKtPO1/uNrWC4+DFw2+2kGQLihbPOeO4efcsPHs3dDRTbkmDoG
-	o+DEVwTXe8tAsFTB8LrMoZo8e9d9QANEoiCRPn6b1zyxgO0270fikKE=
-X-Received: by 2002:a05:7300:e024:b0:360:d4c5:7243 with SMTP id 5a478bee46e88-37685b80494mr4971787eec.11.1794460323501;
-        Wed, 11 Nov 2026 21:12:03 -0800 (PST)
+        bh=S6s5EG8cJ/T3odvc7pqRCLvrVKTXrFbJQqMyd2LrHmA=;
+        b=Q4uoGL0JBRR5OHMOHMSTQt9+ExGPqsN8sfKOGyXcORRmTfXmEnVp4jcqn7gqF70wwH
+         1xtkg6/t4hd1Y9DAqTA8T+vzIjfiisupUylx+GFtKPsOd+g3ApaW8+awC+g8gTCFsHXP
+         NpU6Zaec/EFqUNrXXG6SUg28LhZGUycyJ8dysYFmGwisM2k5jbAl2ZNIFKdUEIo4kUOd
+         S+qJHnCLjTIllgaeUHGVYIwEgjrTAiTY1SMJ7GaNlWc3P1j6AnBpwSmHR5UzAR3jXovU
+         K9f82uMQ+7XmivYTwzb8P2NHot6TRTO0gtc1145MOLnZIuyH9otlL2OEdLuNDUtDTbju
+         bb3w==
+X-Forwarded-Encrypted: i=1; AL+hErGPPZURpR0ge5slesWg7AgYEhOvCxEJ5+x/51XtDyPS3dDV3bYYGyZW+jI32huRpekUtaac/HobZg1vkzo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Jo645D7yVJLwUUIaVib/bwHv5q6uPX/2eoRU1IWn4r9j+0wtA
+	B8z0DrUg4hAiPZjuXSwRACOFXPN71tir1ogWeiIdNweKOYkqeHYvoqZQ
+X-Gm-Gg: AYBFou0py77mvevIzdcYsrat+DWNXITntqylO0VzcxoGZgaI36STxiYAAaLuw1DSbJN
+	sbwez4jKFuhbczYj4TPoGnglnQ960VC5uklc3pbd+Zxy2T/kRDsvbiWvYNqNR7GQwVvBl3xKKLY
+	m/RySjfslcPG6PCZj5gGmxYCNUdwyiL2cxGHjqi4Qc3zyVyOg/d1ychOoANN+rrRvGGDjSRm37B
+	MIdl5znym8W+wyhnOqPYz/d9iOeSncgXSfdOk7YeIE1PD+ieTjzvAfj06pQllmrCbniNeEmxN2b
+	eU7wH8uq18IN2Loq29EOdHr2zs79r3fOlH78QrDcYiora++AsSH6gVjdiWd3SXKG64NYr1+lCjh
+	Qc6EvHVi/ETlTK8VXlCZJZHMVmGTtQiXZlZYy6Ui3r9AsVQhin1lBIxoXpqMG4a5nK0ko0y7V/b
+	AFsJtfnQG7HGkKfk75PSB7y5MJZVDN43Ltz2NrMaIQA9V2ndmUM74eDcPKg8NU8Bxbm0BUsHOqs
+	u9/gh+vtBExosEb8N6+VLivDrQdR4VFQ34cMNhyu4Lu/3laCwfU86I5Gcqg5k56ZQcM5sHusaM/
+	dM/hViAUuZJwH1KT+ODleA7cjKMcD0/3QklMdiY1X7R/OlBPzYolhebbkZz9kopRrm5fE2OJT2s
+	s
+X-Received: by 2002:a05:693c:4081:b0:377:678:231b with SMTP id 5a478bee46e88-37706782701mr3839735eec.25.1794460326598;
+        Wed, 11 Nov 2026 21:12:06 -0800 (PST)
 Received: from acemagic-m1.tail4fb79.ts.net ([2401:7400:c804:b668:37ea:9b2d:3d7a:8379])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfdfadsm26095228eec.19.2026.11.11.21.12.01
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfdfadsm26095228eec.19.2026.11.11.21.12.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 21:12:03 -0800 (PST)
+        Wed, 11 Nov 2026 21:12:06 -0800 (PST)
 From: Ragul Balaji <ragulbaby@gmail.com>
 To: linux-wireless@vger.kernel.org
 Cc: hjf3108@gmail.com,
@@ -86,9 +87,9 @@ Cc: hjf3108@gmail.com,
 	brcm80211@lists.linux.dev,
 	brcm80211-dev-list.pdl@broadcom.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 02/10] wifi: brcm80211: move d11.h to the shared include directory
-Date: Thu, 12 Nov 2026 13:11:29 +0800
-Message-ID: <20261112051142.2797529-3-ragulbaby@gmail.com>
+Subject: [PATCH 03/10] wifi: brcmsmac: look up OFDM rates in rate.c
+Date: Thu, 12 Nov 2026 13:11:30 +0800
+Message-ID: <20261112051142.2797529-4-ragulbaby@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261112051142.2797529-1-ragulbaby@gmail.com>
 References: <20261112051142.2797529-1-ragulbaby@gmail.com>
@@ -103,91 +104,114 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move the header to brcm80211/include, where the other hardware
-definitions shared between the brcm80211 drivers live, and include it
-as <d11.h> in brcmsmac.
+Move the OFDM rate table next to its only user, ofdm_phy2mac_rate(),
+which leaves rate.c independent of the PHY code. No functional change.
 
 Signed-off-by: Ragul Balaji <ragulbaby@gmail.com>
 Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
 ---
- drivers/net/wireless/broadcom/brcm80211/brcmsmac/mac80211_if.c  | 2 +-
- drivers/net/wireless/broadcom/brcm80211/brcmsmac/main.h         | 2 +-
- drivers/net/wireless/broadcom/brcm80211/brcmsmac/rate.c         | 2 +-
- drivers/net/wireless/broadcom/brcm80211/brcmsmac/rate.h         | 2 +-
- drivers/net/wireless/broadcom/brcm80211/brcmsmac/stf.c          | 2 +-
- .../net/wireless/broadcom/brcm80211/{brcmsmac => include}/d11.h | 0
- 6 files changed, 5 insertions(+), 5 deletions(-)
- rename drivers/net/wireless/broadcom/brcm80211/{brcmsmac => include}/d11.h (100%)
+ .../broadcom/brcm80211/brcmsmac/phy/phy_cmn.c | 17 -----------------
+ .../broadcom/brcm80211/brcmsmac/phy/phy_hal.h |  2 --
+ .../broadcom/brcm80211/brcmsmac/rate.c        | 19 +++++++++++++++++++
+ .../broadcom/brcm80211/brcmsmac/rate.h        |  7 -------
+ 4 files changed, 19 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/mac80211_if.c b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/mac80211_if.c
-index c1a2318d7e..eeae85cae0 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/mac80211_if.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/mac80211_if.c
-@@ -28,7 +28,7 @@
- #include <net/mac80211.h>
- #include <defs.h>
- #include "phy/phy_int.h"
--#include "d11.h"
-+#include <d11.h>
- #include "channel.h"
- #include "scb.h"
- #include "pub.h"
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/main.h b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/main.h
-index 9cb09c8a13..d81de701a3 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/main.h
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/main.h
-@@ -21,7 +21,7 @@
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_cmn.c b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_cmn.c
+index 7eae73ef7e..d519e950ca 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_cmn.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_cmn.c
+@@ -101,18 +101,6 @@ static const struct chan_info_basic chan_info_all[] = {
+ 	{216, 5080}
+ };
  
- #include <brcmu_utils.h>
- #include "types.h"
--#include "d11.h"
-+#include <d11.h>
- #include "pub.h"
- #include "scb.h"
+-static const u8 ofdm_rate_lookup[] = {
+-
+-	BRCM_RATE_48M,
+-	BRCM_RATE_24M,
+-	BRCM_RATE_12M,
+-	BRCM_RATE_6M,
+-	BRCM_RATE_54M,
+-	BRCM_RATE_36M,
+-	BRCM_RATE_18M,
+-	BRCM_RATE_9M
+-};
+-
+ #define PHY_WREG_LIMIT  24
  
+ void wlc_phyreg_enter(struct brcms_phy_pub *pih)
+@@ -2486,11 +2474,6 @@ u8 wlc_phy_stf_chain_active_get(struct brcms_phy_pub *pih)
+ 	return active_bitmap;
+ }
+ 
+-const u8 *wlc_phy_get_ofdm_rate_lookup(void)
+-{
+-	return ofdm_rate_lookup;
+-}
+-
+ void wlc_phy_ldpc_override_set(struct brcms_phy_pub *ppi, bool ldpc)
+ {
+ 	return;
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_hal.h b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_hal.h
+index 7ffff7f519..c5aaaec434 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_hal.h
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_hal.h
+@@ -234,8 +234,6 @@ void wlc_phy_ofdm_rateset_war(struct brcms_phy_pub *pih, bool war);
+ void wlc_phy_bf_preempt_enable(struct brcms_phy_pub *pih, bool bf_preempt);
+ void wlc_phy_machwcap_set(struct brcms_phy_pub *ppi, u32 machwcap);
+ 
+-const u8 *wlc_phy_get_ofdm_rate_lookup(void);
+-
+ s8 wlc_phy_get_tx_power_offset_by_mcs(struct brcms_phy_pub *ppi,
+ 				      u8 mcs_offset);
+ s8 wlc_phy_get_tx_power_offset(struct brcms_phy_pub *ppi, u8 tbl_offset);
 diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/rate.c b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/rate.c
-index 0a0c0ad4f9..6841bc0052 100644
+index 6841bc0052..ac577c8e85 100644
 --- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/rate.c
 +++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/rate.c
-@@ -17,7 +17,7 @@
- #include <brcmu_wifi.h>
- #include <brcmu_utils.h>
+@@ -266,6 +266,25 @@ const struct brcms_c_rateset cck_rates = {
+ 	  0x00, 0x00, 0x00, 0x00, 0x00}
+ };
  
--#include "d11.h"
-+#include <d11.h>
- #include "pub.h"
- #include "rate.h"
- 
++static const u8 ofdm_rate_lookup[] = {
++
++	BRCM_RATE_48M,
++	BRCM_RATE_24M,
++	BRCM_RATE_12M,
++	BRCM_RATE_6M,
++	BRCM_RATE_54M,
++	BRCM_RATE_36M,
++	BRCM_RATE_18M,
++	BRCM_RATE_9M
++};
++
++/* Convert encoded rate value in plcp header to numerical rates in 500 KHz
++ * increments */
++static inline u8 ofdm_phy2mac_rate(u8 rlpt)
++{
++	return ofdm_rate_lookup[rlpt & 0x7];
++}
++
+ /* check if rateset is valid.
+  * if check_brate is true, rateset without a basic rate is considered NOT valid.
+  */
 diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/rate.h b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/rate.h
-index 2b10fd5427..e178b1a0e2 100644
+index e178b1a0e2..7c1d43323a 100644
 --- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/rate.h
 +++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/rate.h
-@@ -18,7 +18,7 @@
- #define _BRCM_RATE_H_
+@@ -198,13 +198,6 @@ static inline u8 cck_rspec(u8 cck)
+ 	return cck & RSPEC_RATE_MASK;
+ }
  
- #include "types.h"
--#include "d11.h"
-+#include <d11.h>
- #include "pub.h"
- #include "phy_hal.h"
- 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/stf.c b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/stf.c
-index 79d4a7a4da..6e92dc4c90 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/stf.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/stf.c
-@@ -17,7 +17,7 @@
- #include <net/mac80211.h>
- 
- #include "types.h"
--#include "d11.h"
-+#include <d11.h>
- #include "rate.h"
- #include "phy/phy_hal.h"
- #include "channel.h"
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/d11.h b/drivers/net/wireless/broadcom/brcm80211/include/d11.h
-similarity index 100%
-rename from drivers/net/wireless/broadcom/brcm80211/brcmsmac/d11.h
-rename to drivers/net/wireless/broadcom/brcm80211/include/d11.h
+-/* Convert encoded rate value in plcp header to numerical rates in 500 KHz
+- * increments */
+-static inline u8 ofdm_phy2mac_rate(u8 rlpt)
+-{
+-	return wlc_phy_get_ofdm_rate_lookup()[rlpt & 0x7];
+-}
+-
+ static inline u8 cck_phy2mac_rate(u8 signal)
+ {
+ 	return signal/5;
 -- 
 2.53.0
 
