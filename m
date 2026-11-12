@@ -1,69 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794470458;
-	b=O34avB7c+ZNYol0uzNdNayX921dNyWH4bBBzpENaY0oFSu7PegefN9iCdZavklhJO+N3
-	 HQBepV0aBq+Uk9OfNurzYXmEjXXgVhAo3CzFrzenZZqzwrX9t3EJ9WDWCCCn+z1kbI+FD
-	 fGGdtdYUIdKmx5Tu5gJh1Fexl35my2Z/JmDTGTf+Kqli8QPf2Vn58LrCar9+cRAcSntLV
-	 JfrRLZE2E5LsoRN5JGJ49akxgpgpau/HW7DiAgDApvzXuQuQUBA9fKALHprVyRE/G0fqm
-	 EMOAntsXpu5rWrSb0LUvJFlrxhGIAaFwxHPdHc7AsyC7SrCgK/rahw/TNpkMBDwoFPA==
+	t=1794470480;
+	b=WMbIrO9F/s3XbG1mKa85gHkMpMrzT4CVPNzaNAc+IwES7syv8owxH5sNVr+sLFKhrSR9
+	 t5z6+eoYBMYqn7TKFdSzkm1M8zPaEjSVrD513N8f1zzku8tIs3tqyruigN2wXhamG4y/u
+	 K2et6XHrgQwZ42jzFi1XKwzMLG7D3+e+iurmtCofLpqf0WotNCTLvajtVkINw1wrjVJA/
+	 jGuxfn4VtFWo2ZA2xjxHdJhpJNB3jw45noPTPXhYq83dBgbcxT7DkSG5qR7j7tG2dAMts
+	 ax2BOgzL3RFKJMZGApVFYVldoJe3LURz7I9jyqfG368K/MsCGZR8JfRvkxlZ88lR6Hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794470458;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Cm7AtxdM5CH1FUBVqHh5yaMh1nV0eZJjc/Ip3saInLw=;
-	b=Uvts6GUCnwQtlf5JCZMc3mvG4HEz+Jxz3W3wVxW/6aKKrjgU7XpgPclkYRBdPnr8c9UR
-	 jWoCkUzgUd0M599i1B4507Q6grouedSUB45m9FpR/gRrV641G/wtr24cirlap4q5HCGYo
-	 DnXDGOMG3jiN9Q4C9VcPc1Pwgxrycz1ILlATWYytOiJfL+vz1F1o3U8pTZDir2ez/o5Ws
-	 3ZZ11SdVCv8qVZ/EbnXl7DfOAYlZmyTx7O2rl9MLCxqkFOQ7J53IaN156+oCbc7eyLYSV
-	 vgBJr9+vLNpjtTFKQe0z0Ikq0opYyHPuALJ1rbv9sDWD/F2dw2L3AEqg6JT/C+b9B1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794470480;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Qah46fhbDwH4cpNdD/q4W0jvLXp6V+k5euCRpR0v8cQ=;
+	b=P5P50ktRDTg98RJ2hH6bnhHOeDR+EdUM7grrmLuzXnwwFCxcKVwo5zA252ofDR2aJI7f
+	 lUJyaQzEye55Mf7u/mcXghE1MLL8INhsDJfYa1WwwB/UWuOIklGTJefGR8G+hPzgmqogO
+	 qaPX68CGOYbjr9LAfwqpUUnq7l5FJYIOZ9DgCo9p1MZRCk0DvpuCFDIwvfFno+SXVKWca
+	 GmNlRJ+mf1/+4aicOOO3wjwSNsrhhe+OmzaA6n8iVQr2fwKoR61DvH9k9efzlZoSHXAHm
+	 hK38AdD095j+5VeUvirJoDr4wGi1J9Wx97RRMDHsYxYfIDby2ON1mhBn8NVdPiPemJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=NB8DUBSN;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kY4tAs2h;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA09606A321;
-	Thu, 12 Nov 2026 08:00:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAA09606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B103606A327;
+	Thu, 12 Nov 2026 08:01:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=NB8DUBSN
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Cm7AtxdM5CH1FUBVqHh5yaMh1nV0eZJjc/Ip3saInLw=; b=NB8DUBSNjgFxHyXncVqzp3mDq8
-	Bep8qNMh2Xthp+6jkWveq7/mcgyypw/bmfycCoczUI20lvNEve2Qcl0sVhf3pcFPYVXoP31bnpzBj
-	YYmsFQaRNEX50h+zYSqlxkhq+JyTBB5Ha8n+yb4ZpdlR2TQnH2DvONHkmfvUHYStUD9uUtczYCEug
-	br+gVQGOcwr1f9GxpBD7q3cLPqUfOW+zIiCAO+Cu3f6szwPjoDuEuaQnmUF+Ys0kBFctgXawFay97
-	XzUBdac1pA6lt07IJiQx7RbsvADFN6t/yjyDt8npZoPqBb4yi5Q0eoxXdsJ0hSrD67oZxQhMtgjO7
-	o0YmBSXA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRPjn-00000004nAB-1Aql;
-	Thu, 12 Nov 2026 08:00:51 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 2AA9130066A; Thu, 12 Nov 2026 09:00:50 +0100 (CET)
-Date: Thu, 12 Nov 2026 09:00:50 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Ben Cressey <ben@cressey.dev>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Kees Cook <kees@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
-	llvm@lists.linux.dev, Josh Poimboeuf <jpoimboe@kernel.org>,
-	kexec@lists.infradead.org, David Woodhouse <dwmw2@infradead.org>
-Subject: Re: [PATCH] x86/kexec: Type relocate_kernel() to drop __nocfi
-Message-ID: <20261112080050.GZ2668804@noisy.programming.kicks-ass.net>
-References: <20261111-x86-kexec-kcfi-v1-1-b4d41ea14deb@cressey.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kY4tAs2h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 064A21F00A05;
+	Thu, 12 Nov 2026 08:01:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794470479;
+	bh=Qah46fhbDwH4cpNdD/q4W0jvLXp6V+k5euCRpR0v8cQ=;
+	h=From:Subject:Date:To:Cc;
+	b=kY4tAs2hd0U6lOA0K8IxC/LsYPMVBRXQdyyNxYL2lQ+IMtploA/s78BLdTUm4XGVc
+	 P93leJr28v0vw8jCBQJr4m96iVAlKdi285/i6ynntfAMhaIfOOlIMgerEEPwpbCzkU
+	 s0VkrfM2epQJKpgkUp/apOAqtAfCKGBcWOEJWWrD+vcQfmWmZSIQ8P/P+JdVyIu+CT
+	 hq2GNG0PRDXKoonqL0CETcItplnpX8A35E2nydcm6Rw/9bi36Qsd5a1ICv9wjHH5o2
+	 ICI0zNWQOxOn4GzrJewhiMuaCNkTgZwGWRoYDJ+uY3gw7Nk+nJVIGMKuQnzpJAOYeK
+	 Ew/CooQyOUDLw==
+From: Yixun Lan <dlan@kernel.org>
+Subject: [PATCH v4 0/2] PM: spacemit: Add power domain support
+Date: Thu, 12 Nov 2026 08:00:55 +0000
+Message-Id: <20261112-04-k3-pm-support-v4-0-de3931aa5153@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,30 +53,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-x86-kexec-kcfi-v1-1-b4d41ea14deb@cressey.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23NQQ6CMBCF4auQrq0ZW6DgynsYF5QOUFHatNBoC
+ HeX4sIYXf7Jm29m4tFp9OSYzMRh0F6bYY10l5C6q4YWqVZrEwYshxJKCintObV36idrjRspSGx
+ SwEI0SpD1zDps9GMjz5d3+0lesR6jExed9qNxz+1nYHG38QeA4pcPjALNGyGKKuNKMXXq0Q142
+ xvXkugH/hEOfwW+CrJUNRSZAF7KL2FZlhcKPlMQBQEAAA==
+X-Change-ID: 20260909-04-k3-pm-support-0bef40e87fd7
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: Icenowy Zheng <uwu@icenowy.me>, Iker Pedrosa <ikerpedrosam@gmail.com>, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-pm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Yixun Lan <dlan@kernel.org>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2695; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=zFye6M5NKotuxjgyr7IlnWx2Qi3038u/MfWOQTdTsqc=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBq9XJCxCuotHkY4p603gXwIV4JIq12y3AQjVnMJ
+ wgkSYGeqYCJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCavVyQhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+331g//fzYjoLn5jn9BCg0jlpTOwJVQxJNuLwP5X+R1xTRhqECd0O0isRPzS
+ zk0pLateXp54ZEEy28ZTQqlWe0Epu14zqrcjoxG5oNudXYZ6QpYmazkMiqCwI37Vn2haHTgTeu9
+ suv2GuyAs35I9Fi76MV6xGcbi2Bmlh3BdnnevOlQd3BdU64cbSErUxKKYKuuxwRS90msnHNUzC5
+ SGaTKA2+mhSsURroHhDzQcMFHs0kK9LjxWnSs1N8AtKwjyuMizRDNZLrm6S3UWVZq2N1HAjppoG
+ glVnZbhzXOO6xoAVkA2+pJurCRFoRjBBo/4QLcXMeDW/7DFyQUltT588GYyQynLfjdHjHzJAaAF
+ idYwSTs/XaZXtR2AdWfSFWdd9mp9nqEC1VbPGDKJ3H75lqfFe2VoGnSkjHVXSZ1rFx5zxAr/xZM
+ 2aD/rbaGDT6kqfoheaHvrOrhI+x4qXZnzt+UV2omg4yHaQ6laG3BqiRZublWM9DWbdLOLdPUj5P
+ 8thC9oo+JFpNywErtgf3iRmCUpSOGOl7GF5USSH39KYuafsaeaOipY/xPVszWjAFOiTy3ggK7TL
+ A6ckdcMt7GHG0wTAQixwZFi/oZEdFhT0JGLifBTPansSkCh5TkmZDPVkZGPxrIL2MJWUhbDUcgT
+ Nl72x8/ql/zaOVku5IJ51Owz0QPYi8=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-On Wed, Nov 11, 2026 at 03:26:59PM -0800, Ben Cressey wrote:
-> machine_kexec() calls the control page's copy of relocate_kernel()
-> indirectly. The routine has no kCFI type, so all of machine_kexec() is
-> exempt since commit 2114796ca041 ("x86/kexec: Mark machine_kexec() with
-> __nocfi"), and ANNOTATE_NOCFI_SYM() silences objtool.
-> 
-> No other call there loses its check today, but one added later would.
-> Review of that mark on arm64 preferred a typed entry, and objected to
-> covering a whole function, on x86 too [1].
-> 
-> Typing the routine was set aside in 2025 as not worth it [2]: a type
-> from the caller cannot catch a prototype that drifts, and
-> machine_kexec() seemed unlikely to follow a stray pointer.
-> 
-> Type the routine with SYM_TYPED_START(), emit an ENDBR only under
-> CONFIG_FINEIBT, whose boot-time rewrite skips a function without one,
-> and drop both exemptions, along with kexec as a valid use in annotate.h.
-> 
-> The check guards only the pointer, and not reliably under plain FineIBT,
-> which checks in the callee with IBT off. A failed check panics or hangs
-> with no CFI report, since load_segments() has reset GS.
+In this series, we try to add a Power Domain driver support for SpacemiT
+K1/K3 SoCs, the driver implement the power-switch functionaly which support
+power on/off, and it's based on Linux Generic PM Domain framework and
+similiar to vendor K1's implementation, but unlike the K3's vendor
+version which is more complicated.
 
-I don't understand this; what?
+  The DT documentation for Power Domain already exist in below file,
+and APMU already has #power-domain-cells property.
+Documentation/devicetree/bindings/soc/spacemit/spacemit,k1-syscon.yaml
+
+  The previous DTS patch is obsolete, so I dropped it. For devices required
+PM feature, it need to add a "power-domains" property, and should send in
+a separate patch.
+
+  In order to test this series, a prerequisite CCU patches are needed,
+which can be found here [1].
+
+Link: https://lore.kernel.org/spacemit/20261008-04-k3-clk-pm-aux-v1-0-8372d7307694@kernel.org/ [1]
+Signed-off-by: Yixun Lan <dlan@kernel.org>
+---
+Changes in v4:
+- adjust Kconfig help message
+- drop unused include header 
+- propagate regmap_read_x() error code
+- simplify spacemit_pm_is_off_state()
+- Link to v3: https://patch.msgid.link/20261108-04-k3-pm-support-v3-0-b9dc0857039b@kernel.org
+
+Changes in v3:
+- collect tags
+- rename spacemit_pm_is_off_state()
+- implement a remove() function
+- use proper type in struct spacemit_pm_domain_param
+- refactor struct spacemit_pmu
+- Link to v2: https://patch.msgid.link/20261008-04-k3-pm-support-v2-0-6f778a53dd2d@kernel.org
+
+Changes in v2:
+- convert to auxilary driver
+- no need dt-binding doc, drop it
+- drop dts patch
+- support to build as module
+- set always on for K3 audio pm 
+- no global variable for struct spacemit_pmu
+- no force to do power-off in spacemit_pd_power_on()
+- check return value of pm_genpd_init()
+- adjust license header format
+- Link to v1: https://patch.msgid.link/20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org
+
+---
+Yixun Lan (2):
+      dt-bindings: power: spacemit: Add power domain controller IDs
+      pmdomain: spacemit: Add power domain driver
+
+ drivers/pmdomain/Kconfig                        |   1 +
+ drivers/pmdomain/Makefile                       |   1 +
+ drivers/pmdomain/spacemit/Kconfig               |  21 ++
+ drivers/pmdomain/spacemit/Makefile              |   1 +
+ drivers/pmdomain/spacemit/spacemit-pm-domains.c | 424 ++++++++++++++++++++++++
+ include/dt-bindings/power/spacemit,k1-power.h   |  14 +
+ include/dt-bindings/power/spacemit,k3-power.h   |  12 +
+ 7 files changed, 474 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20260909-04-k3-pm-support-0bef40e87fd7
+
+Best regards,
+--  
+Yixun Lan <dlan@kernel.org>
+
