@@ -1,78 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794477427;
-	b=IYX9g/C07NE5HJpWaeeSluBJTs7a+/DayG7M6N+JhY6+FPvcKNWleII6hBrU3NeJhNYV
-	 sRi8vqrpA2o05BPtfhOYjA9PQXfP1fYiMNCsoXQjlGuS6AM2Y1nSpxQLiHjfT5ICyV0RJ
-	 /kDzLI/d7IT2+fF+CXs9Tf4cS6tMEd+iQy5bIPZCxFD4R20zNfFNlYllj9Tg4J40H/wWQ
-	 7KqoLsEH7FabLn81WgW7nYlBVIx3PPTKTbHgFnghuGULC5nMu+U8GOuJ7snL0U5xV6Blv
-	 +inDEEk64734bUf/4+qhg/AICIyF5RDoMWa4FTY1C65K5g0hHMLegRVUaAlzUgZymQw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794477427;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=LWMxaHvej+JAIfe+xnOcYKvqLkgpuN4gboflvAZI5HA=;
-	b=SnDnlXJbrl6QUDUDDkL5naAUnscKLElfedw+NZkVnltSAztdclodf77cQEG9mLCVFpVV
-	 sXFc9oej/YubGFBbmgxncm3vovX7O7lwpFmLQbpKk2xC9yvyib4UZdVjhEa9q+SGhFeIM
-	 7m3Ne0maTXk+xt4njZxt4kRo6L3oiBZ6RJWJSGqfQcWVt1C6pX82ThRAqh9YvVmJS+Aix
-	 CFTvAZZdvNLouxQ04HumAz6VSOwrAPoYPM9PxIKbu5CUoA7j/vmpEhqFRyIMhqMagtfrZ
-	 +Ha8Yk43Yp4Ze2iU3BUqWiePQZ4kenZyHK28bqB0Q4OMbB0+EV7krDgzMoAi0j0/ZjQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QYSn78Uo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD67606A327;
-	Thu, 12 Nov 2026 09:57:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QYSn78Uo
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794477427;
-	b=dZg+NRy6uWHeC6IMDdV+Yx6TtFPXP1xlpTfl69t6KLpMo51p0SXlW9kSPaXDCqaeW0gk
-	 Q3Igba/NpVAG9TqUr0jrWd+DagoWVATsskyt68urPXBgXtk/PBQZ6IlJOYTHhyZrqu+er
-	 gGERpADUUpRXlMh49soh5YPzC2pxyYSKoTVBjH4+WovVKSbsMjtoNhonPWp2A0ElfOQge
-	 fUkr4HAaCXTZTUSKA9P3vuCXCVcBJCT6cAbUbJIJA25GbM8OqrKiNW9sjaZ/b2ohuMyyz
-	 zCO3cVkdh8pzqN7ldJ0G9Z8ISpBRBd/hUw0yBdErubmG89as39k2qBHuviTRqkaS5+A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794477427;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=LWMxaHvej+JAIfe+xnOcYKvqLkgpuN4gboflvAZI5HA=;
-	b=fisk4GiqJ1Un0SmFIEPnzkGAaX94SeYrVLUzNSrp7ksKq0RZIhSNXddY0demyicOz5dR
-	 S42BWsmy+DnDC/17jIKfhOkmqTV+KSZtNFcjDfbgtFNlWm4relOZivt2TgwUqhZu2v79r
-	 fp+RQntjr5/un+Pdw0mnuN8L5ZDh3xMzfkM4OSjOs0QEiyxN4IjqFE7Q/ihryd6ndkOmi
-	 Ix8x1mJWOHYOUQ9Ly/D58j37NoVo2ykiXuZzv2Qugnsdbcn4/kJaLUjAQMAnCpTcjhVf+
-	 FuJje2rsYYVEWASVHybgg6HsA7AHh0uDZlAtvfNJGddcYBmYQFpshP3EBFtelk6DN9g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794477443;
+	b=5hvPMXeolQ1bhH09M0y1Otw8bZuL3bfwgY6u5rCNg5mwb9IugLNZ5ncxrqh69BBMck40
+	 2MRrkKdQV+8qLtSIGisUL+awBrrGhe09d8RpxQin5NiVTspqnIsPSFywWhz3bItEE80eG
+	 V/oWI+0GCM+64h1Yq8CiL4khcQ/R/zccG95RGObtIi8bTUlSa8up/NJ//IkfaMwRBswFo
+	 vSFJjNKPXG4+IJIXTZP7gjXIKQ4pC1xGtF408p54c0yM8+01PmTSthfzP24UnaAhWCgo/
+	 umJiV9ANCjQ51cVkPQJBbkryFPUx4abARt1f/OXg6a2X1HgWpvc/xO4/CE3yYIbrydw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794477443;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Ycds2+vuVeecukpZKkEj1RvHul1iDk9sjhEdWisBqXM=;
+	b=jfoFA8iZFcE2sYNnHFylx8CZ7eBsXI6/7kOHWmg0JQ2Ju4LKC1JiWL0OJ7CwhSf0w5FZ
+	 4hxWrkIrZ0oF4g6PnHi+D6YOsQLM1R3QQ+zjbnejIpS7wFfNSFA66oo7RzhWbH1M71yUQ
+	 gZUYRO3/8v4mgSBl/NBvGEx9l9wxIVW79R1SJSoXUg3jS1Awq0W1kshCNxy/bz9/Ui0xk
+	 JnFjkIHvMNq86tH5lWmFwebz8VUKX9nLQL7U6bNC5flHX26mGl5fblE4otZIfwyzW5vE8
+	 m5mTjyIAhJv6MoQZWrAim55dNOXEDAAb0gAg9fUV/Do7enHCrH2vDCUfo9GSxrE6I2A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=geX9WeuM;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 7E2851F00A05;
-	Thu, 12 Nov 2026 09:57:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794477427;
-	bh=LWMxaHvej+JAIfe+xnOcYKvqLkgpuN4gboflvAZI5HA=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=QYSn78UoncAZ0xk9xnTCJiMp2EUezsN6pvHE5CZoYh+1mvf2LZRIjSfQeYS00xK4T
-	 ONYBCnurXwtHZjvaY+6Xw3gyZDG3hoOeHGilZyOpF7YbvhmNPKNtgzSknRmVVCC/na
-	 nTt68ucY8fFWdmAd8OjjAOxYpv6NAwX731papcZim9MLPVqwMrB3q/CFiA+LnDEESG
-	 uM6vJ057o7Pe2CSkGlsBry8Q4mx7ilp965KgEID3pE2OcNjSAj/SxeCvv5xogYvsnk
-	 fPVBHDTlhuq7//cI2+AHnfaKoGQc0FwLAOcVSnBZOdYtdCJzc4r0MhD//0427JmlMF
-	 3YvaLoJKZpkwA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0B20749452;
-	Thu, 12 Nov 2026 09:57:06 +0000 (UTC)
-From: Suyuan Wang via B4 Relay <devnull+shyckless.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 09:57:03 +0000
-Subject: [PATCH] thunderbolt: Keep the USB4 port when component_add() fails
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C880606A327;
+	Thu, 12 Nov 2026 09:57:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C880606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=geX9WeuM
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2i4tn3053535;
+	Thu, 12 Nov 2026 09:56:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=Ycds2+
+	vuVeecukpZKkEj1RvHul1iDk9sjhEdWisBqXM=; b=geX9WeuMWcmyLmfi9qTCWQ
+	GXdNlMoig+JM1uUm+ne1IXzh9EtUFRf/EkwBC8i1h/96aijcd43KIO2HYSYtYrMT
+	YHg9BigglMVb4JLsTnOMnimikOAIuHfQAMp4n/YF3ohOZupcPLxsrgyAWqZjkejC
+	6yMrO2VdwAGXR3WQeD7LpU1bdUYm/6RVO0Fe5JZtw4oPAoezkdG8mv5coJCnLvzy
+	HbD8yORVRBoyv5n5LDROUq9ESxpj7uLd44r3Zm/pUY6+ZfFq+z9BJRwQ6hFRU2QX
+	ZXQzxassLf8iw6ePaxbrgx6LFGYqn4LxWpleyGSikNHJB9k/3kCa7a5J2SHG68UA
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsug6ev87-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 12 Nov 2026 09:56:42 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC88jRW3145596;
+	Thu, 12 Nov 2026 09:56:41 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hvd51wxqy-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 12 Nov 2026 09:56:41 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AC9ucxS52036052
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 12 Nov 2026 09:56:38 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F34412004B;
+	Thu, 12 Nov 2026 09:56:37 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id DBAA620043;
+	Thu, 12 Nov 2026 09:56:36 +0000 (GMT)
+Received: from [9.111.4.227] (unknown [9.111.4.227])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 12 Nov 2026 09:56:36 +0000 (GMT)
+Message-ID: <91823f62-57fe-44ad-9dab-ba91ba3d26d3@linux.ibm.com>
+Date: Thu, 12 Nov 2026 10:56:36 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,139 +86,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-thunderbolt-v1-1-fc30057cb7cd@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAG6N9WoC/yXMSwqEMBBF0a1IjTtgZeBvK+KgY55aIlGSKIK4d
- 2P38AzuvSjACwI12UUehwRZXQJ/MuqnrxuhxCaTznXBzFrFaXcW3qxLVKVlmNoUFbimVGweg5y
- /W9v9HXYzo4/vgu77AQjJtbFvAAAA
-X-Change-ID: 20261112-thunderbolt-7d1eb9b68e19
-To: andreas.noever@gmail.com, YehezkelShB@gmail.com, westeri@kernel.org
-Cc: heikki.krogerus@linux.intel.com, linux-kernel@vger.kernel.org, 
- alok.a.tiwari@oracle.com, linux-usb@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794477425; l=4179;
- i=shyckless@gmail.com; s=default; h=from:subject:message-id;
- bh=ki/sIY/g7xSk0EAREsQF/l4ZOt4JaXBRGwX2+sn3T8U=;
- b=4LDAM163qsvP4HlzHvmtX2k/wcdBdvgGPl2BALV8K6VUgwrm8O60yNfau0R9Wemt/4GblZWBS
- JsS/lKdTq63AOy1zQXc/Fcni4Hj6WJIGaJoSNqnGcNBspWJNcnx+0i0
-X-Developer-Key: i=shyckless@gmail.com; a=ed25519;
- pk=pMtccVGiWES3bV+7YBFuBclkvq2n2HBHQ5azaBrK2lY=
-X-Endpoint-Received: by B4 Relay for shyckless@gmail.com/default with
- auth_id=1498
-X-Original-From: Suyuan Wang <shyckless@gmail.com>
-Reply-To: shyckless@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/6] sched: Expose writable interface for preferred CPUs
+ mask
+To: Shrikanth Hegde <sshegde@linux.ibm.com>, Yury Norov <ynorov@nvidia.com>,
+        Maxim Kuvyrkov <maxim.kuvyrkov@grdncc.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+        Thomas Gleixner <tglx@kernel.org>, Juri Lelli <juri.lelli@redhat.com>,
+        Vincent Guittot <vincent.guittot@linaro.org>,
+        Yury Norov <yury.norov@gmail.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Andrea Righi
+ <arighi@nvidia.com>, Ben Segall <bsegall@google.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Dietmar Eggemann <dietmar.eggemann@arm.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Heiko Carstens <hca@linux.ibm.com>, Johan Hovold <johan@kernel.org>,
+        Jonathan Corbet <corbet@lwn.net>,
+        K Prateek Nayak <kprateek.nayak@amd.com>, Mel Gorman <mgorman@suse.de>,
+        Randy Dunlap <rdunlap@infradead.org>,
+        Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Steven Rostedt
+ <rostedt@goodmis.org>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Valentin Schneider <vschneid@redhat.com>,
+        Vasily Gorbik <gor@linux.ibm.com>, linux-kernel@vger.kernel.org,
+        linux-doc@vger.kernel.org, driver-core@lists.linux.dev,
+        linux-s390@vger.kernel.org
+References: <20261101192203.6979-1-ynorov@nvidia.com>
+ <A2B09626-39F0-4EC3-B57D-CD83D77DD208@grdncc.com> <avTSC2r61uht9oFK@yury>
+ <ef8dcbd9-61e9-467a-88da-3d159a5df9df@linux.ibm.com>
+Content-Language: en-US
+From: Mete Durlu <meted@linux.ibm.com>
+In-Reply-To: <ef8dcbd9-61e9-467a-88da-3d159a5df9df@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: Grk7OAPM9lezy57svraLsYt8P7yEZPh5
+X-Authority-Analysis: v=2.4 cv=PeVqFShd c=1 sm=1 tr=0 ts=6af58d5b cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=swU2ZibCdQ0ba2sdvOoA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: ERKEVtWXCKvlZPEGzNvGFeK9TNk9wyT_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzOCBTYWx0ZWRfXxMV2Wht4hmPe
+ ATcJgeQPIjUEr5HuxvL4Ln9qinQG1FbV/i0c0TW2lZk61lABarnA5lr5pAu/QDN1RnE60fd75c9
+ WovOlHBxN9TslF6FukMWh495bB8f9za0wgnZ/0fc/okmO8Z4xEsW0guOUwk33uSzk1oeIlN0ZkP
+ hq4gENODboK49Q6r0//GH1y1PEYpxq877+NMsw1dBc6WqbkDlMyVGRbT9H31lii0JXbkJmvNj1T
+ 0bCCYSvh3TDxPvHbJEuNfWmPKGEuUkEVOZJbyUZRA8YenpuCgy1as/rx1KKkup4j+EflgtZfUOg
+ xcnx3vFJ3+93M/WG4FP1ZL+7orCl253LfZMQjKTrd7gTJMqizw3UrhxxsptB5dp5X1X5XT2zhKJ
+ LAJGv4g3OyucFYWJ1Pryro1Ns456nsIOahVPJkU3at9iNiWZdBFwTdNDjm04JUBupVbJ8Pe3AYw
+ mNXCAGT5dpYYuuCEojA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzOCBTYWx0ZWRfXwyQ7QVWz6uQR
+ b79qlJeBwWTAcP4zO76K/UFjY0jTKe0AE0yylU3KB42XWkE0vbhx9+D3unLYHvztUqEiKItgFXc
+ p+gbirrononB6sfJrYWVQSX8i3A5DUk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 suspectscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 spamscore=0 malwarescore=0 clxscore=1011 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120038
 
-From: Suyuan Wang <stevewong@hust.edu.cn>
+Hi Shrikanth,
 
-When component_add() fails, usb4_port_device_add() unregisters the
-device but doesn't return:
+>>> I've been trying to do this with crutches in user-space for a long 
+>>> time.  Thanks for implementing this in the kernel, and with a 
+>>> convenient user interface.
+>>>
 
-    ret = component_add(&usb4->dev, &connector_ops);
-    if (ret) {
-            dev_err(&usb4->dev, "failed to add component\n");
-            device_unregister(&usb4->dev);
-    }
+>>>> A user can mark a CPU non-preferred and pin a workload to it. Fair 
+>>>> tasks
+>>>> whose affinity includes preferred CPUs are steered away, while tasks
+>>>> whose allowed CPUs contain no preferred CPU can still run there. The 
+>>>> CPU
+>>>> stays online, task affinity is preserved, and the selection can be
+>>>> reversed without rebooting:
+>>>>
+>>>>     # rmmod steal_governor
+>>>>     # echo 0 > /sys/devices/system/cpu/cpu3/preferred
+>>>>     # taskset -c 3 ./my_workload
+>>>>     # echo 1 > /sys/devices/system/cpu/cpu3/preferred
+>>>
+>>> My use-case (being a compiler optimization engineer) is to pin 
+>>> benchmarks to specific cores, and stop the system from using those 
+>>> cores even when the cores are idle.  This prevents L1/L2 cache 
+>>> pollution and makes performance numbers more stable.
+>>
+>> Hi Maxim,
+>>
+>> Thank you for the feedback.
+>>
+>> I agree, this trick with pinning a workload to an non-preferred CPU
+>> looks promising for benchmarking purposes, and probably for more.
+>>
+> 
+> Sorry, i don't follow.
+> 
+> Did you mean pin to preferred CPUs? Why would anyone want to run their
+> workload only on non-preferred CPUs? By definition, they are not meant to
+> be used as much as possible. and It is benchmarking.
 
-The port was registered just before, so device_unregister() normally
-drops the last reference and usb4_port_device_release() frees usb4.
-The function still goes on to set up runtime PM on usb4->dev and
-returns usb4 to usb4_switch_add_ports(), which stores the stale pointer
-in port->usb4. When the router is removed later,
-usb4_switch_remove_ports() calls component_del() and
-device_unregister() on that pointer again.
+I think they want to prevent anything else *besides* their workload
+from running on these CPUs by marking them non-preferred and then
+pinning their workload there.
+Sort of like like dynamically configurable isolated CPUs.
 
-component_add() can fail on allocation, or when binding the aggregate
-driver fails. It isn't common, but when it happens the result is a
-use-after-free and a double unregister.
+IMO this fits 1-1 with what Yury is describing with this patchset.
 
-The USB4 port can keep working without the component link. Keep the
-port registered when component_add() fails, and track whether the
-component was added, so that usb4_port_device_remove() only calls
-component_del() for a registered component. Otherwise component_del()
-would hit its WARN_ON().
-
-Found with a static analysis tool and checked by hand.
-
-Fixes: 5dddb4169284 ("thunderbolt: Link USB4 ports to their USB Type-C connectors")
-Reported-by: Alok Tiwari <alok.a.tiwari@oracle.com>
-Closes: https://lore.kernel.org/all/20250622140455.2884518-1-alok.a.tiwari@oracle.com/
-Suggested-by: Mika Westerberg <mika.westerberg@linux.intel.com>
-Cc: stable@vger.kernel.org
-Co-developed-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
-Signed-off-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
-Signed-off-by: Suyuan Wang <stevewong@hust.edu.cn>
----
-Alok asked about the missing return in 2025, and a one-line return
-patch was posted in May. In both threads Mika said he'd rather keep the
-port, so this does that instead.
-
-https://lore.kernel.org/all/20260517142923.80585-1-darknessshayder@gmail.com/
-
-Compile tested only, I didn't try to force component_add() to fail.
----
- drivers/thunderbolt/tb.h        |  2 ++
- drivers/thunderbolt/usb4_port.c | 12 +++++++-----
- 2 files changed, 9 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/thunderbolt/tb.h b/drivers/thunderbolt/tb.h
-index e86845762e22..8ed373e94b65 100644
---- a/drivers/thunderbolt/tb.h
-+++ b/drivers/thunderbolt/tb.h
-@@ -314,6 +314,7 @@ struct tb_port {
-  * @can_offline: Does the port have necessary platform support to move
-  *		 it into offline mode and back
-  * @offline: The port is currently in offline mode
-+ * @component_added: The port was added to the component framework
-  * @margining: Pointer to margining structure if enabled
-  */
- struct usb4_port {
-@@ -321,6 +322,7 @@ struct usb4_port {
- 	struct tb_port *port;
- 	bool can_offline;
- 	bool offline;
-+	bool component_added;
- #ifdef CONFIG_USB4_DEBUGFS_MARGINING
- 	struct tb_margining *margining;
- #endif
-diff --git a/drivers/thunderbolt/usb4_port.c b/drivers/thunderbolt/usb4_port.c
-index 890de530debc..7582acadf37c 100644
---- a/drivers/thunderbolt/usb4_port.c
-+++ b/drivers/thunderbolt/usb4_port.c
-@@ -320,11 +320,12 @@ struct usb4_port *usb4_port_device_add(struct tb_port *port)
- 		return ERR_PTR(ret);
- 	}
- 
-+	/* The port works fine without the component, so don't fail here */
- 	ret = component_add(&usb4->dev, &connector_ops);
--	if (ret) {
--		dev_err(&usb4->dev, "failed to add component\n");
--		device_unregister(&usb4->dev);
--	}
-+	if (ret)
-+		dev_err(&usb4->dev, "failed to add component: %d\n", ret);
-+	else
-+		usb4->component_added = true;
- 
- 	if (!tb_is_upstream_port(port))
- 		device_set_wakeup_capable(&usb4->dev, true);
-@@ -348,7 +349,8 @@ struct usb4_port *usb4_port_device_add(struct tb_port *port)
-  */
- void usb4_port_device_remove(struct usb4_port *usb4)
- {
--	component_del(&usb4->dev, &connector_ops);
-+	if (usb4->component_added)
-+		component_del(&usb4->dev, &connector_ops);
- 	device_unregister(&usb4->dev);
- }
- 
-
----
-base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
-change-id: 20261112-thunderbolt-7d1eb9b68e19
-
-Best regards,
---  
-Suyuan Wang <shyckless@gmail.com>
-
-
+Thanks,
+-Mete
