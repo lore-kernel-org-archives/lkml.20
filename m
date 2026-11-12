@@ -1,127 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492738;
-	b=F3+K9MJzSeovSWRYtP+PQSW/dKqbQuj/zVOjPLlvO5c6ucmBeHwKD8lnh1t1SyEvSU1V
-	 JeaHYNdRGDqV8utS69P0hnIjMB36CHHyR1X7aO1FBBZvrmxFhgVkTNhmVqp/HybuOE453
-	 FVgFgS6BJkUI8le/a8TsaFzNtXCbHcGFPhoUmJBWpwEp95LHIW1gTjrOYQFmbPmSmJfrR
-	 xHRkPOYxXTB4EkV4kfOVpSrE9xbaR48Uh/o9IsgekcEWBwwHVTa8gLCg/KfYgzZ3dsYid
-	 kV+lEUmumx4qPymO4aPm8dmuTLSYFHBo9P6wym6vlJcsllq+kZPGq0ppL7b5DbMMRSQ==
+	t=1794492748;
+	b=KxC4y2GW3iYgtUrTPfzSP4FrOqvHNg57LpxS1P5hM0LhVEALH8Z7a96PjC8mrUiBusSY
+	 tqe75u0On2j2X+IyVDoKJ3V7hyO0sIfV8vumPqOUarzDs6OXK/Wxj61tA+MG6XUICzQF4
+	 EqHW7L9cbJ+LRiwI3RDmeEf5Z8YRY1v3KPKB/MW/GZDGVfjZEinaU/XhbpxjPUsT4kVT5
+	 rhs/UcHpH5zuMF8dPkOBFyMIe1PxETpH12vHFJtLDDH0cKR4Iku2OsgiL9WulpITJb0TP
+	 i6LUTgWmlDup4TQGO5JExDEqk4Q+GDaDQWCNsTiXvv2eqsidC+WhGV0qVVtsh2ZC67A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492738;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=uM02Fg1gjU3NBZSPcxHW5Rd4yGFYmOd1Ea0CS7gM/Ms=;
-	b=dfjme5xCaAaKM+RS/hEmRiejNUjJDuaRVTUzMpn55X5t2NS8jTgIAcMqMdcUP+hVLB1j
-	 RSquS6Bas57CyKd9avkeL0+1eGK+W5+s5blyVPLNvJcBieHPGJyCHi3WBkBJoMir9YuxH
-	 PCnb/2uwzT2NSpMppEZn1TfBKzWPWey/xDtvBaum0GoETc+1tf/cKL8kxirqqYzujSTBj
-	 q/A/T5nZbiEzJc5oeXyBcDDVbwCNDEGVW0AYdGYxGXuh4QL1UTa5/bRsVhVaBTPZIk4Re
-	 YsNe1WuQCJzaivTd48E5dmnL26qIvxqF4C5ezmEEuL3fNpE3tAVnz5KRoXCDNvjX7HQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492748;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=LLgepSpmTFKlnz1y/yhLoyuPFm3/4g3SJxDL0aIX9Js=;
+	b=QU/lJYcSP2+a/lb0lI1JbWxexXoQA+qqUjxrXYg2T8oVwMjyyOPqqZS/5SUyV/gg9wjb
+	 kzg0e40O9TTn3ZWiV3FICWC0nfZ7mApXkbP9+Ncfl/F41eypk/rGUQkMPi6Iu9BWxdhRb
+	 LNGmpDAwDeFsXntRKCouHVx7hJYlCMTdd9oXtPsU23aZzfDrpJt6BS/6Ty3RrAEudXCiX
+	 AKreOxcPVCaXe3+JPvDnOUXe9l3YBFtrGB+eSk68xnAdoXv/38uKmsvx8IRpV53CGs65b
+	 xiPoRAb6PUPaEOX4PGhq5ASsL/xtzsidABShaMqemujZjnkxCQ3eaNJAZvDg0iXOI2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=gAM4oD6u;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BbUv2Bdg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6128606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:12:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6128606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5154606A31C;
+	Thu, 12 Nov 2026 14:12:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=gAM4oD6u
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49d05d51553so30456655e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:12:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794492736; x=1795097536; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uM02Fg1gjU3NBZSPcxHW5Rd4yGFYmOd1Ea0CS7gM/Ms=;
-        b=gAM4oD6uTHicKnz9f6XcRMaEiose74RSU+22HtrUNTVYwp1z4E+0jsTVXhaopMJhuT
-         pjs4A65NOnqmzswNjZyNhEselwzTsfg+DahHBo3oXTJoc0kQ/aoomF0w/MnekRyv/0cV
-         CCxrtZxViKMXI3LNnyKnDxqhPmzivgpxsBCnS8d2L74xih/EW5CodlRtaM23ZtLqYkXv
-         m/OAVrSVnx/aSsd3jAruqfNVGYJvlp8Un5NBSNi4cFxU0OV6uxzoDBD8L5S66G7WMZob
-         8Gfo1jphMoQx20P3Qs6ZvBIsuaBUWw7P099WzOZENsx5TTGTQt3eXcWPUOrCWT/0c/pO
-         p2oA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794492736; x=1795097536;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uM02Fg1gjU3NBZSPcxHW5Rd4yGFYmOd1Ea0CS7gM/Ms=;
-        b=LsgyzIrVNQri5TddvCffBCZrBXdY54lLDMqhBb7QjbOXrS555zuQ4H4oGE+Syd/K/C
-         JWBa4v8Jqd790pRYn4+0C2SY62PkIu0Juu3m6EvFfFxTit9NpGxOGHWcuDvZU6x2WrNd
-         3tMUisplApdn4xqMVUjwG42L4X6u5lN3FjhwlDZzIGk3eC53A5mfxM/IaDJp/Y2JIfuL
-         /xl6WUBZsNpVYhnyyW0ReGJUYrK4l8y1kNTDG757hUvVXULGaKkBIyJHkgUdhqzGF3Yl
-         jZhN83OvDGeomkxEiipa3Sojr6ZBkY7tomse9wxT6kir+l9yg71wToZNPN76gSvCf4q9
-         ERZw==
-X-Forwarded-Encrypted: i=1; AL+hErFHUQY0OTJjpssXnbT2bFAce9tJfzHsO7ZW+2Vk28AGURDktwIZwtTfY+3ByUsUMpRU86eRkP63su4Bq38=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Tn/IbpVmKitiEOqVSI9bmz9q27gsmxQx2iTupoWKRIrF3spPc
-	WbChBLOynG7OEKYMN+zhI4Eh3tdeak64v0KwF5K0ihIfG7Bevx/l5BIp03Ebru74+BQ=
-X-Gm-Gg: AYBFou2keqWImDlVbqxrw2TVs5Y6LJs+ukjgXNGdpRJj9mXIl/5O7EcR6X2LPnzCEPG
-	xTpPjkycyuGwxoPnFmX/z9jI25BGE1m0ivF4NwluUBuWJ1WM0ks7zf6cqWtGs6FT4qwv97cOnV7
-	3gFQtE0OiBVkqKZsWEpCA5dw70a8bhldUoOajqL+oF8VKbsjZN3+S6iXzFl08e6HuAAI8d0ROFt
-	J5d6PF983k/uqSAECJ7scKgAi7+ElQsYFYdhBw2okq3PuOWUBYYb3Sbv1AfrQatGhCoTmzUWo6R
-	AtbervYStdJpD2qwoRoWHxw1TkThm9u3pHn0FxdCYjDRQ/dMz4HhQoehKLqlJ5t8m5IuzPM+mFh
-	GisQxKr5l536teBbFRQcrvn40Doa4FC2EIEphdZrvBZ4VxyLapB6mnQwE7j5AlyBGqP5ZXaQJ25
-	E8uIo3WEPUZzaCUaIBkJpPNeEBSrNau+25NnjlSX8kr0SFwzIhBt7CekuqmqCaiHOeaXt/gl+Ip
-	t9Oju7UItAy25s6a43mTTwOCotNbuIVu0eyHt45rvOHOuuxp7iy/hacNG3qkwJDehZ4jHf5glnN
-	giS4lnLeZCjFSeuDosjKQPyjT9M0vVSyvN4CdNHs8LWJ
-X-Received: by 2002:a05:600c:8b31:b0:4a1:dadf:9876 with SMTP id 5b1f17b1804b1-4ba0938e3aamr97570525e9.23.1794492736131;
-        Thu, 12 Nov 2026 06:12:16 -0800 (PST)
-Received: from localhost (109-81-94-245.rct.o2.cz. [109.81.94.245])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2776casm105702275e9.14.2026.11.12.06.12.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 06:12:15 -0800 (PST)
-Date: Thu, 12 Nov 2026 15:12:15 +0100
-From: Michal Hocko <mhocko@suse.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	David Rientjes <rientjes@google.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>,
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Gregory Price <gourry@gourry.net>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Usama Arif <usama.arif@linux.dev>, Kairui Song <kasong@tencent.com>,
-	Balbir Singh <balbirs@nvidia.com>,
-	=?iso-8859-1?B?Suly9G1l?= Glisse <jglisse@redhat.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Yu-cheng Yu <yu-cheng.yu@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>, Peng Fan <peng.fan@nxp.com>,
-	Josef Bacik <jbacik@fb.com>, Chris Mason <mason@kernel.org>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BbUv2Bdg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 310C31F00A05;
+	Thu, 12 Nov 2026 14:12:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794492748;
+	bh=LLgepSpmTFKlnz1y/yhLoyuPFm3/4g3SJxDL0aIX9Js=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BbUv2BdguZCP3qKWTVs4X2hEbpYe5LftvnZVtHAJSag7IUmxIi1F3uLofwtRQodXa
+	 cHMylkh2Ehxhbu/lhSDiBE3UZ7Y4cPnWlvpvPjPmdNl92d+5DVryFIw2vGpVGQJOVt
+	 aOH3DcBHUTTb8OIHl6geEgQ8siBzrfZF4pddRQ4DYju0/EnBRGqS1PjHqK8gAqp32/
+	 USdzgTD+grb2FekH2CPFWpVcnmzH6yuIJc5F1HDHrOpWlSR3JEMkqXRcMWAVVwn4It
+	 hpVdE3pMIirn9HdaWMIwuKICKXMi2aVL7ljtZGPX2TTxykprori1a4MpTe+9NKOJHg
+	 S0RxDjO/5XTSg==
+Date: Thu, 12 Nov 2026 09:12:26 -0500
+From: Sasha Levin <sashal@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Theodore Tso <tytso@mit.edu>, workflows@vger.kernel.org,
+	ksummit@lists.linux.dev, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
 	Mark Brown <broonie@kernel.org>,
-	"Dennis Zhou (Facebook)" <dennisszhou@gmail.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 01/13] mm/mmap: free gathered pages before MMF_OOM_SKIP
-Message-ID: <avXJPw17fWvLtCO8@tiehlicka>
-References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
- <20261111-mason-migrate-et-al-fixes-v1-1-3d2454362e8d@kernel.org>
- <avWmfXu39vtp0DM9@tiehlicka>
- <avWsG-zmuniUFio7@gremlin>
- <avW1s2wvz1PB0-Ln@tiehlicka>
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Leon Romanovsky <leon@kernel.org>,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+	Thorsten Leemhuis <linux@leemhuis.info>,
+	"Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Dan Carpenter <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+	Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+	Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
+	Bradley Morgan <brads@mainlining.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v5 0/6] agents: add skills for Fixes tags, stable tags,
+ similar bugs, and commit messages
+Message-ID: <avXJSt_3DYx6aQsD@laps>
+References: <20261111225940.1573565-1-tytso@mit.edu>
+ <9c5f5976-ebed-48f3-94ab-1121231af6e1@kernel.org>
+ <avXCcPYM9VAP0JHf@mit.edu>
+ <31a56051-bd63-4a39-9cad-2c9afcd98340@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,28 +75,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <avW1s2wvz1PB0-Ln@tiehlicka>
+In-Reply-To: <31a56051-bd63-4a39-9cad-2c9afcd98340@kernel.org>
 
-On Thu 12-11-26 13:48:53, Michal Hocko wrote:
-> > This only matters for the OOM victim, hence reinstating MMF_OOM_VICTIM, which
-> > made the patch _way_ smaller than the one proposed :)
-> 
-> Should we simply do that flushing unconditionally before setting MMF_OOM_VICTIM
-> then?
+On Thu, Nov 12, 2026 at 02:49:09PM +0100, Krzysztof Kozlowski wrote:
+>On 12/11/2026 14:46, Theodore Tso wrote:
+>> On Thu, Nov 12, 2026 at 09:26:09AM -0500, Krzysztof Kozlowski wrote:
+>>>
+>>> All these are docs (even if you call them as a skill, it's the same),
+>>> therefore they should be placed in Documentation, not in top-level. We
+>>> should not create one documentation for humans and another for agents.
+>>> It's just one documentation.
 
-Sorry, I was caught in calls and didn't get much time to think about
-this.  I have only now found some time to look into that and to do the
-above we would need to make tlb_batch_list_free visible and conditional.
-Which is a bit of undertaking, not anything major but still kind of
-ugly. So your solution seems better in the end.
+Right. The idea here is that agent skills will mostly refer to our existing
+Documentation/ and will only act as a glue layer to make agents behave better.
 
-Please clarify the changelog wording to be really about this and with
-that
-Acked-by: Michal Hocko <mnhocko@suse.com
+Consider, for example, one of the most common feedback points we have to AI
+users: "make your commit message way less verbose". This is the type of things
+that would make sense as an agent-only instruction.
 
-Thanks!
+>> Skills aren't necessarily *just* documentation.  The skills
+>> specification[1] also defines a structured location in the skill's
+>> directory hierarchy for Python scripts or other executables.
+>
+>Specification is also documentation, just like for example specification
+>for our ABI. It's also located in Documentation directory.
+
+One of the reasons to keep it out of Documentation/ was that it doesn't mesh
+with the infrastructure Documentation/ uses. For example, Documentation/ is all
+.rst, while the agents.md spec specifically calls out for markdown, and a very
+particular construction of that file.
+
+>Agents supposedly "are just tools", thus just as sparse, smatch and
+>compilers such tools do not get another top-level directory.
+
+I'm a bit confused by this... the original reasoning was the it doesn't really
+fit into either Documentation/ , scripts/, or tools/, so we just gave it it's
+own home. Why does it matter if it's a top-level dir or not?
+
+It's something we can always move around later - agents don't care where it
+lives as long as it's refered to by the main AGENTS.md, so if we later come to
+the conclusion that it makes sense to move it, for example, under scripts/,
+then we can easily do that.
+
 -- 
-Michal Hocko
-SUSE Labs
+Thanks,
+Sasha
