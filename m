@@ -1,83 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794511132;
-	b=TwAKypZ0odGNQVBSDuQnMQzSpuMt/HSWsmDxEJ9PeS4MFI4pw7TP+k6TMM/FFsO4Se9c
-	 OqYbG8LFO/0nugTFZ740ADzMrUiM6apjXYOZ/MwPqb0LJ4oGV96Dm/h6fR4JStKRlhNs8
-	 3qBhtKKNsy+734Jd0eYis2VeEifSGaGxM+sCmaH/z143WUrrVVBn6atTWlLghV0wizfjr
-	 r4N++rZgr55or5vTxMJjdZs4Wv93u2m7XGt9dhzANq3eJph/7pqr4Tf8GGFDYm21UACmS
-	 kmAjDV8Rh80BpUX+an1WE6/P6KnPJB91R/LKrweDX0+RCFgcMboMl5hn1iv+NfXeI1Q==
+	t=1794511188;
+	b=cIJ1YaCyzlupO804MrEjJxHk6WIm+2GH5bO2f9eDZeKniDSaUWnO9gPybvWf6pj0M8kz
+	 yfU6nLNbMZDVj98yexgrtiyyeqlTWE6XFHLoHVjl8SAQrGJX0ltTbru0TSXbPH8zRwWV8
+	 21Eu2X06FhrJkwE2anXtf7RxZboDBDdT8ZfJbE6yLfAN59drqJMgVzmEFrDTEEoCyj+BO
+	 BdPsXj5P8EiVC5+NYJ/AQfFzrNBjrh5MOdu65Z2YAEskfJ7HdcUzZLfdkHw4Z8iT1c+eB
+	 kzzTXKdby2FFl2/UbDydECVXoMuUzE74jKnhb1ZrXtB+dax/Rwi+sBUOfFKCR3v79IA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794511132;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=n+k8QuVBsbcS7lt+1FuYH5jEsin9o5MtevrgXnCVhMY=;
-	b=3/Mo7xr+bipkRTYGzLS1/fux5yl7u4WMeXN0dXqvZwWADFpsjYLE9uK7jqOps+qQpQJM
-	 1wUqdGXvOYdVWY3Avm046MN25KsYajUG4bj/ywOxxe3ExEikgzgZvDQWBBJAkkHj75wNy
-	 2mBsf8yJ6lrc491F9IsmOvgyNbwPiygHNp7lHSx8B+bgcDtcMtdV5Fd0jZkhQWcHPFo3S
-	 IufyxbmP2VYLyb6yHOfbxW2DGou1viQ7TMl7XOwoJUbR1ewXABqPH4g3uTqMObYaTdRfc
-	 561ONDYA8HsfSpG5IM7htDZugOORvWreeUJwPwHWBR9f0YxmdLqSIydCLBOHN/dggWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794511188;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 CC:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Originating-IP:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version;
+	bh=a/3/vOknZNV5rMhfsRlvw02gGnblZnfFUGDt0wyzhjE=;
+	b=w8Ns7z30usfY+so0CfnjJleSgRqMc81Z5toqf6X55mEBYXozSc3Qo/BAPcb4J29ghE8c
+	 s98Du2JoeA3Ft+7d02waDSxStaxkNLfpNF1gk3XuoIVrdnRUFFmFVNY8W/XeZt8ZJpu/j
+	 WFfe+tMAFQ8kNxh2a3VdwbuRO9pwP3K2PzDlj52p3tFsjGEmnQae9kp7M7gC91PIFtJAJ
+	 06OHZtJgMegaRqLvNIszKwNIEnysXLSU04+SkNvc2HLLz1i6w7/RfCRAx+WgTqNzULUlg
+	 1IqT1jh8z4Vrk6q9KdDAZn7goj5tHtw4VbfPnvb2KD9TVEPp+vUQIDe13cpI7KCUWQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=khMs140n;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=ReSOOSyy;
+	arc=none smtp.remote-ip=67.231.153.30
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B92E606A31C;
-	Thu, 12 Nov 2026 19:18:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B92E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9498606A31C;
+	Thu, 12 Nov 2026 19:19:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9498606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=khMs140n
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794511132; x=1826047132;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=YCnToFH2jDdO0u9ni7OYkpQv2fHW7DDUyxMYmDB7nm0=;
-  b=khMs140ny2UFiIARxxDsE4KY5orz5mMEvctCEoqiF70aaDX87/EM8fCN
-   FhBh5wRUQCGktHzjJwHZBQ+/UJIJTlVLvE4CUUU82hCfRRCKqU1rmqs2l
-   52RwkEvF0+rF6li8g60DT9ZbBvkqVX4TEGRJV4YaTnuZYYvtAFB6Vb4d9
-   Zp5seR++ixH9+0llnvm7FSn++RV7Y4LI/XjsoqjWkrCoR2aOmdhnv3rYz
-   kYbhUMkknLylYiM/c8oRS7IoeVrMAfOE/lpMAlWKu5Hu3PoU6bH7jYETp
-   PdRKNctKEYwf2ljoPrCBbBS/+4Vmu1DP1n1b86aTIv4L5fnlGxlMhZ86J
-   Q==;
-X-CSE-ConnectionGUID: 8I91yA8dTTSNEtV+hZO01Q==
-X-CSE-MsgGUID: QRaoLyknRhG9rVM6fs0U1g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3312464"
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="3312464"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 11:18:51 -0800
-X-CSE-ConnectionGUID: J349Wq4+Q1CKLjGTR7p67g==
-X-CSE-MsgGUID: RpoPHp4nTfyLsRhJrrSQJw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="9075973"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa009.fm.intel.com with ESMTP; 12 Nov 2026 11:18:48 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xRaJp-000000011xt-0DgA;
-	Thu, 12 Nov 2026 19:18:45 +0000
-Date: Fri, 13 Nov 2026 03:17:53 +0800
-From: kernel test robot <lkp@intel.com>
-To: Jack Wang <jinpu.wang@cloud.ionos.com>, Yu Kuai <yukuai@fygo.io>,
-	Song Liu <song@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Li Nan <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>,
-	linux-raid@vger.kernel.org, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] block: suspend bio based disks around queue
- limits updates
-Message-ID: <202611130354.oOiDWpa1-lkp@intel.com>
-References: <20261112134700.372702-2-jinpu.wang@cloud.ionos.com>
+	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=ReSOOSyy
+Received: from pps.filterd (m0109332.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACFapVR3401241;
+	Thu, 12 Nov 2026 11:19:16 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pps82601-s2048-2026-q3; bh=a/3/vOknZNV
+	5rMhfsRlvw02gGnblZnfFUGDt0wyzhjE=; b=ReSOOSyylrPqQ7w5znHrlGE8xe5
+	SRq+nMfSWT9+K3w+QUWwgPFl18x3t8ZXFwVDYz8hzD0ukBdvnAXhHPR5hDNzXYia
+	aIihrOdNs5daQ8LmrSNo9p8y7iFxcu/fzoSy0jp185nK8K00p875CxDwNBZq9/aw
+	58lWmQWM2WF+Ob9S4vaoNqEAf8TT9oHqaT8YpssjLnJ1UvZJgkZMS12AM4FFfVSt
+	WSes2w+bUupqKzGdsWbVHyKtN8emlkxnK4XoHnSBxwkoSZkybMBfL3AooSUuDK+y
+	+Ry8GGkx3VTTUy+aemx2CdOtJi6eni9KrHkdFjhhR3AgWNK+/wjgKPnTc6A==
+Received: from mail.thefacebook.com ([163.114.134.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hvaudygk7-2
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Thu, 12 Nov 2026 11:19:16 -0800 (PST)
+Received: from localhost (2620:10d:c085:208::7cb7) by mail.thefacebook.com
+ (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Thu, 12 Nov
+ 2026 19:19:14 +0000
+Date: Thu, 12 Nov 2026 11:19:13 -0800
+From: Bobby Eshleman <bobbyeshleman@meta.com>
+To: Michal Luczaj <mhal@rbox.co>
+CC: Stefano Garzarella <sgarzare@redhat.com>,
+        "David S. Miller"
+	<davem@davemloft.net>,
+        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>,
+        Simon Horman <horms@kernel.org>, Jonathan Corbet
+	<corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Stefan Hajnoczi
+	<stefanha@redhat.com>,
+        "Michael S. Tsirkin" <mst@redhat.com>,
+        Jason Wang
+	<jasowangio@gmail.com>,
+        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+        Eugenio
+ =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+        Shuah Khan
+	<shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+        Donald Hunter
+	<donald.hunter@gmail.com>,
+        Eric Dumazet <edumazet@kernel.org>, <virtualization@lists.linux.dev>,
+        <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-doc@vger.kernel.org>, <kvm@vger.kernel.org>,
+        <linux-kselftest@vger.kernel.org>, <sargun@sargun.me>,
+        <jlinbox@meta.com>
+Subject: Re: [PATCH net-next v5 4/7] vsock: add a netlink command to assign
+ the g2h device to a netns
+Message-ID: <avYRMQww+ui4uPkz@devvm29614.prn0.facebook.com>
+References: <20261103-vsock-guest-ns-v5-0-48179b9b66b8@meta.com>
+ <20261103-vsock-guest-ns-v5-4-48179b9b66b8@meta.com>
+ <c34123f3-e006-4c25-b8d7-cdf0784926f4@rbox.co>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,68 +99,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20261112134700.372702-2-jinpu.wang@cloud.ionos.com>
+In-Reply-To: <c34123f3-e006-4c25-b8d7-cdf0784926f4@rbox.co>
+X-Authority-Analysis: v=2.4 cv=AKwTwrWT c=1 sm=1 tr=0 ts=6af61134 cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=7x6HtfJdh03M6CCDgxCd:22 a=xtH7KyWI9dI7BmFOsl-x:22 a=VwQbUJbxAAAA:8
+ a=Bgyc4cfSFuLOcWupkI0A:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
+X-Proofpoint-GUID: _cVSF3NSQ_uvq6t-vYkVz_6cKrlEOdZl
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA3NyBTYWx0ZWRfX3ZEYaRYhoxQ8
+ usrYrAigjaSSywUkrAML7m082FIZ9ahPa6osa/uLjGeURPOoNHW2DhRuRRqH8MO5qwe2ciVft8x
+ NzE7lxNSVPJe1XXp4Iu0HiPfj/GkiZbi02cvfDvuuS1vqU0Dny9tFRHJC3vtiINZYIGuWEUewzN
+ /pMtixzbQdUxfpN1rfc6nnBqAYW9q0Ky2ibw9EME0SEzeY7HcGeT2r5acmDJw0SBasnebv2sJlr
+ LOI44viL/MzNw28pNFndfNU3SA9UhdAjQ4D7hArvOtZ7qvUs5y1MXsC6daoxsnOk2WaxPJ26iKd
+ i8ii47IdwImq/MU8O5a30jphsmPyMdE6uBQGDiLehzjiXvuJyoYLckgbgQgywBSY8qgj+uq7rjL
+ mkuSU6j7uiGvjX7zfAwE6UzWaBPzhUdmmcIOGq/Rao8qXqZ9wDo1sRuegm/RrlJTdCtyMCNC/qg
+ DbgNkydXQ0fm7nWHtNQ==
+X-Proofpoint-ORIG-GUID: _cVSF3NSQ_uvq6t-vYkVz_6cKrlEOdZl
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA3NyBTYWx0ZWRfX0xgaferDqxVz
+ fMjqjg/jghUeB/xn0OclUvGqHgL1ZiEL1sSDvdnPbjicEh9BXwwcUZZaGmFvNK+/7wz5h2yn+we
+ AGI5UprcQ0+lFYfR17uH1zSuSF+OCBQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_02,2026-11-11_03,2025-10-01_01
 
-Hi Jack,
+On Thu, Nov 12, 2026 at 11:34:49AM +0100, Michal Luczaj wrote:
+> On 11/4/26 02:53, Bobby Eshleman wrote:
+> 
+> > +/* Avoid breaking the socket when another thread has changed its sock->state
+> > + * while we were asleep.
+> > + */
+> > +static void vsock_connect_close(struct socket *sock)
+> > +{
+> > +	sock->sk->sk_state = TCP_CLOSE;
+> > +	if (sock->state == SS_CONNECTING)
+> > +		sock->state = SS_UNCONNECTED;
+> > +}
+> > +
+> 
+> It'd be nice to have it as a separate commit. If I'm not mistaken, this
+> itself solved the vsock_connect() vs. transport reset
+> (vhost_vsock_reset_orphans(), virtio_vsock_reset_sock(),
+> vmci_transport_handle_detach()) races. And those were already reported a
+> couple of times, including a recent NIPA/Sashiko Severity-Medium[1].
+> 
+> [1]:
+> https://lore.kernel.org/netdev/179447093204.2199510.8895677421994612994@kernel.org/
+> 
+> thanks,
+> Michal
+> 
 
-kernel test robot noticed the following build warnings:
+That's fair, will break out on its own.
 
-[auto build test WARNING on 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Jack-Wang/block-suspend-bio-based-disks-around-queue-limits-updates/20261112-144659
-base:   6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-patch link:    https://lore.kernel.org/r/20261112134700.372702-2-jinpu.wang%40cloud.ionos.com
-patch subject: [PATCH v4 1/2] block: suspend bio based disks around queue limits updates
-config: arm-randconfig-1002-20261112 (https://download.01.org/0day-ci/archive/20261113/202611130354.oOiDWpa1-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 1b1fed44d3dcca649a9877915d57c3357a98124e)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261113/202611130354.oOiDWpa1-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611130354.oOiDWpa1-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   In file included from block/blk-map.c:12:
->> block/blk.h:680:10: warning: releasing mutex 'disk->queue->limits_lock' that was not held [-Wthread-safety-analysis]
-     680 |                 return queue_limits_commit_update(disk->queue, lim);
-         |                        ^
-   block/blk.h:681:9: warning: releasing mutex 'disk->queue->limits_lock' that was not held [-Wthread-safety-analysis]
-     681 |         return queue_limits_commit_update_frozen(disk->queue, lim);
-         |                ^
-   2 warnings generated.
---
-   In file included from block/blk-sysfs.c:14:
->> block/blk.h:680:10: warning: releasing mutex 'disk->queue->limits_lock' that was not held [-Wthread-safety-analysis]
-     680 |                 return queue_limits_commit_update(disk->queue, lim);
-         |                        ^
-   block/blk.h:681:9: warning: releasing mutex 'disk->queue->limits_lock' that was not held [-Wthread-safety-analysis]
-     681 |         return queue_limits_commit_update_frozen(disk->queue, lim);
-         |                ^
->> block/blk-sysfs.c:909:3: warning: mutex '(kobj - #undefined)->queue->limits_lock' is not held on every path through here [-Wthread-safety-analysis]
-     909 |                 blk_disk_resume(disk);
-         |                 ^
-   block/blk-sysfs.c:897:9: note: mutex acquired here
-     897 |                 lim = queue_limits_start_update(q);
-         |                       ^
-   3 warnings generated.
-
-
-vim +680 block/blk.h
-
-   675	
-   676	static inline int blk_disk_commit_limits(struct gendisk *disk,
-   677						 struct queue_limits *lim)
-   678	{
-   679		if (disk->fops->suspend)
- > 680			return queue_limits_commit_update(disk->queue, lim);
-   681		return queue_limits_commit_update_frozen(disk->queue, lim);
-   682	}
-   683	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks,
+Bobby
