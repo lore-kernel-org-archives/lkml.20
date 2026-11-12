@@ -1,47 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.16.62.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794527194;
-	b=uMCOu9229xsbmyzMzTEuQ0iI6tLswimqX/vauVUXxS4k4oUMhocJKQaeCH8ZXKG35D9n
-	 UFilk2PWzXUiZ4b/ORSk6oX23ajLdynlT9TWLkDLNP6M8c0GNFWq3qRtdboJWlPBXYKxI
-	 Dd+70vpwC5ilpu0hqXSD/WNOQGRwqek4Z7yG1jZgXY5dcuc2KlxYLswnoHCstNb7u39Cw
-	 YtnXmdIE1X4pn8vR6j2V9IL+NDzxZ4nf6Hf2Nkwk60ILeJQue8GWs+kOufleQz2RBE7jc
-	 qtYBCaZbfOT8aI5feZ1f0p8zGqrX2NZsybVCeE5oHG/rx0cGmWZmw0lFcULCt3ZOtzw==
+	t=1794527203;
+	b=lBJQYsTjnvCrjlM4URymYwEfEK6zXttmsKUfWmj+O8nwTGMuyzQtXZdhV/UIyCFGdnkY
+	 aTfHVYPLJYyoOyGFUvYInSMDTqX5lQ8LAOo+QqzVkzxbosn3cFUcRkGjNOsbPsYwrvL8+
+	 xDHf728mfzzp71z2HS2Tnk6fOTHLMDlQLyI/LnqGANMk0gVIpeWIRNOn4lLW0lQpO2pkH
+	 GDPRILZ67Gh4AvrfinzCmX2dtJ58jyGfaSQC6BV21li9c+dQs46mD4FB5X1gxtpx6aOEA
+	 oqY6H1qkrMT8RRiGsIpP+i1N93alSJ1Ukv/lOWlcgRQbLEYjWNtcLVvnAQHqMR2I89A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794527194;
-	h=DMARC-Filter:Received:DKIM-Filter:To:From:X-Ip:X-Ip-source:
-	 Precedence:List-Unsubscribe:List-Unsubscribe-Post:Subject:
-	 Mime-Version:Content-Type:Content-Transfer-Encoding:X-MagazineId:
-	 X-uId:X-Sender:X-Url:Message-Id:Date;
-	bh=NOfNgTyd0uEr6RzFm0WGakXbVq4eVhUqaBjZ/gzkpPY=;
-	b=EP5dIXOp9yznU8xqkpY/eVbKvfymxQasrsVQ2wCfGApVyouMjCaxa+ezQog7fIEGxGkd
-	 BuIwA6M3iID+ukGXwYVoxlcKWX29kXl+/m/ijlY1u8vNLKHU4gXXrM97FhS7s1Z+/2tFd
-	 jBwWTwyS5/JSkR3uci5hn9Qs3QXwPhYV0dHbpDDyzYyxHLZI/+AtfQx63wzOjWL1YYI5b
-	 H5WxHakLAz3B3O1sHfgNYBslejSw5FgL55+zM7F+RoD94yCMXbj1+8x5Dekv59hFQ6l5b
-	 11rikt0jWNOgWicXXzZMvhjdtOzJQs1H9puZHW/yPV8dX/dWw8vRrdX1IvPGRVtXeUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794527203;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Fp4tdSd/mDb/LWGtHZMVb3duVaZTa+5YiNZw4U0pJl0=;
+	b=3+cI0MgEPOjVpbJX8m4aJNZgz2DjemuvSa/cx9sJvqHxbMdKclWvlfD2RFV8gSTRhKOi
+	 W/bx9nDjS08Nao3ZPlqiftl+4Ed/LOhK+Glawx9A6D4guOIgEb/nJQ4kTQfUE79trMyra
+	 dTTqdmxnc+hWE+UjRuMWiyoK9JHLSZgyPMTyYigh5LHXKkybz3PrtUXG2NQZcjcZAtz/A
+	 NjthmBQhHLXe4+Zd/G5MfG71psTzI8To08KGJENY8Oydm8TfbD2KhiAUu5euyjj2S+zUX
+	 XmW2VIk5o9JfHIXyYRePEZ/wg0952zVv7xnxC9ME0P7J1Ae1cFXGX8er2QnuH6iQudA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=knowledgelink-corp.jp;
-	spf=pass smtp.mailfrom=magerr.combzmail.jp;
-	arc=none smtp.remote-ip=160.16.62.121
-Received: from r9205.ps.combzmail.jp (r9205.ps.combzmail.jp [160.16.62.121])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=aMVly8mi;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Ex3i1bEQ;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 959A0606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:46:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 959A0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=knowledgelink-corp.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=magerr.combzmail.jp
-Received: by r9205.ps.combzmail.jp (Postfix, from userid 99)
-	id CE9E4C49CC; Fri, 13 Nov 2026 08:46:08 +0900 (JST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 r9205.ps.combzmail.jp CE9E4C49CC
-To: linux-kernel@vger.kernel.org
-From: =?ISO-2022-JP?B?GyRCP0BFRCFDMGxITDxSQ0RLIT9NJUolbCVDJTglaiVzJS8bKEI=?= <info@knowledgelink-corp.jp>
-X-Ip: 5483041303158552
-X-Ip-source: k85gj72848dnsad1u0p6gd
-Precedence: bulk
-List-Unsubscribe-Post: List-Unsubscribe=One-Click
-Subject: =?ISO-2022-JP?B?GyRCPFJEOSROMnE8UiROIVYlKCE8JTkhVyEiGyhC?=
- =?ISO-2022-JP?B?GyRCJCQkRDwtJGEkXiQ5JCshKSFaN1AxRDxUOEJEaiU7GyhC?=
- =?ISO-2022-JP?B?GyRCJV8lSiE8IVsbKEI=?=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF919606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:46:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF919606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=aMVly8mi;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Ex3i1bEQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794527201;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Fp4tdSd/mDb/LWGtHZMVb3duVaZTa+5YiNZw4U0pJl0=;
+	b=aMVly8miUlDwqUMW2u4JYjawtZiSW0GThkGdwrg/xp1NAJzrZEwjZCCp6Xz/23vhs3Ln7F
+	EHwMgBhP5wlEUSHXr0dHbkGE8+z4vtU/FAcF9XN6xslOLF0f77ubE/myJhdOtTyCInhjDu
+	j0fEg0ueYmdvWVLlrspgabEIDWNbXic=
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
+ [74.125.82.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-498-1ZKoqAsmOjC4JbYqtgA28Q-1; Thu, 12 Nov 2026 18:46:40 -0500
+X-MC-Unique: 1ZKoqAsmOjC4JbYqtgA28Q-1
+X-Mimecast-MFC-AGG-ID: 1ZKoqAsmOjC4JbYqtgA28Q_1794527199
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-341eff9e381so601536eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:46:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794527199; x=1795131999; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Fp4tdSd/mDb/LWGtHZMVb3duVaZTa+5YiNZw4U0pJl0=;
+        b=Ex3i1bEQ9mxj0br2J/t5iZiQWOf8LWq7Ado3UzttOS/rqZrPESfVqA6kADsW5fUPXU
+         ebEHpf3XZVR9+J1sOTutCEQHpk0errp0ga75oONwWvmAC0lkZDQQigDOHCMo7HqQ1cnf
+         fdm2Y1NmgmE51sq1jcddGwo0hSlC/+NnFcPwPTLdQKsv+OufZ/yumF9VBqgASwOHlmdV
+         iwf6n8Ovxowr8kXPvfvIijmaQHEcqO5ny18KWDcpAlG2dIpIJErrMyYkEV/q4bwkoOb6
+         W2Rnw+dHtObZOuKlFYkYdOe1//sfa9PeHG2K54N2RG0VO8WvvladT059r+mSDTv41mjr
+         +gJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794527199; x=1795131999;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Fp4tdSd/mDb/LWGtHZMVb3duVaZTa+5YiNZw4U0pJl0=;
+        b=gDvOXrFHgK2uK8wdWyQHy6vmDRouatuBMwGQPOQIp8WQo0doFxDn+KSZ/E0T2uPaLw
+         K2nSe0xqy22MSuduClUhCryTYTpfVy3FfX5o4QNPDSzGMIUKDBFe9nsOMMgrfQYa9O8A
+         trpn5jlG5pMPCmOjiJDjxI1ljddgj/Iy4wJxF+OW+kIDta2Wra/uJ6loBmIMxh2FdUH5
+         ATIsSiaqS5j2lIhqMx/n5ck4ABr102KR5QGs3zroKXX4u6fKPWk83gJpnTXC8h3mmI2i
+         +7P7XbGGIet/yPgMtMFEG3OcMDcATV5d4P32b3niXg/y9yHtILZ7WEof/RJhHzUYgrMd
+         m18w==
+X-Forwarded-Encrypted: i=1; AL+hErGG30mJPjtnTkN8z+XPjVJHz+7p6ZgHEDj1QVxcmI14MtpHxz4ZakLybhNcD1LWKvRVKZn9zQeojs3bb+o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/6elWtbW0SlbjF+C5GE1sJ94J8Fc/2MRz686u8i3iXCBO5GrO6
+	Hv8bkYEaGjm1iqaiAznUWx2806mPZyRXYyBlyHzEvg0/A0wYpgcIvP5MhxohvWNbLUKaiWDzN3z
+	q3e7ilEkHvHeUtNt5syWaGSK7QT/wQFFIJdLPAQoRTAtyoXtsF2himXR/wNBt3Xh7WQ==
+X-Gm-Gg: AYBFou16G5Q37Ew2r41VKAgjuHeTBW1foMljWkSn4+kHJUMrdbyKoJYDIOqVmvy9X40
+	PBUipmvFVSR7Hd+k6UsnodJLq007B2hwHqRE8K9tck+Enc9A7hc506S8ZxYI1FjepLgjfX8Uou+
+	GHdeYdSvitJwFJyM+zcvqDL68kEl2A2ez3jFEW2kpo8tpQY1ALce3kBRsNuShbNMlDuquFJVsne
+	qBKWkW7ruL6jNT7DhOp1Pqo7X9DV/J0qZQti8xAlid9m8lCspPme4Gv3n16esT6Yr5CmXepknff
+	kBsLerhx8yzuKnaKcpNHJS0cTRBMGLFrO/ci3yRZpMJhDA6X3P7eUpWhn2RhrJ1HxS9B6FjId4l
+	UVdNh9l8KFdHXrV9OYxVJVusFWVZFdrddh9Vr3y4x+XDPsGX1+IVWESq8tFFqXW1L1mkABM6eyc
+	P6rwl8GsajrMFg3k0=
+X-Received: by 2002:a05:7300:a21f:b0:36e:c85c:3bbc with SMTP id 5a478bee46e88-37965ca778amr617161eec.12.1794527199152;
+        Thu, 12 Nov 2026 15:46:39 -0800 (PST)
+X-Received: by 2002:a05:7300:a21f:b0:36e:c85c:3bbc with SMTP id 5a478bee46e88-37965ca778amr617132eec.12.1794527198548;
+        Thu, 12 Nov 2026 15:46:38 -0800 (PST)
+Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379553316f2sm1655703eec.9.2026.11.12.15.46.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 15:46:37 -0800 (PST)
+Message-ID: <da4c6658-a4a0-43ae-92da-14d8463dfc08@redhat.com>
+Date: Fri, 13 Nov 2026 09:46:32 +1000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,88 +110,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-2022-jp
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/3] arm_mpam: resctrl: Limit num_rmids to the CLOSIDs
+ in use
+To: Jinjie Ruan <ruanjinjie@huawei.com>, james.morse@arm.com,
+ ben.horgan@arm.com, reinette.chatre@intel.com, fenghuay@nvidia.com,
+ zengheng4@huawei.com, tan.shaopeng@jp.fujitsu.com, jic23@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261111081316.3828283-1-ruanjinjie@huawei.com>
+ <20261111081316.3828283-4-ruanjinjie@huawei.com>
+Content-Language: en-US
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <20261111081316.3828283-4-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-MagazineId: 28d1
-X-uId: 6764325137486067654956401009
-X-Sender: CombzMailSender
-X-Url: http://www.combzmail.jp/
-Message-Id: <20261112234625.CE9E4C49CC@r9205.ps.combzmail.jp>
-Date: Fri, 13 Nov 2026 08:46:08 +0900 (JST)
 
-　
-　ルールを決めたら、社員は辞めるどころか
-　「迷わなく」なった。
-　
-　これまでに4,800社以上への支援から分かった
-　
-　“凡人”を常勝集団に変える
-　ルールのつくり方を
-　
-　次の朝礼から実践できる形で
-　分かりやすく丁寧にお伝えします。
+On 11/11/26 6:13 PM, Jinjie Ruan wrote:
+> On MPAM an RMID is a PMG within a PARTID, so resctrl can only allocate
+> the PMGs of the CLOSIDs it uses. info/L3_MON/num_rmids is instead set
+> to the whole PARTID and PMG space when the monitors are initialised,
+> and halved when CDP is enabled. It reports more RMIDs than resctrl can
+> allocate in two cases:
+> 
+> - With CDP each CLOSID takes two PARTIDs, and resctrl halves the
+>    CLOSID count rounding down, while MPAM halves the whole RMID space.
+>    With 5 PARTIDs and 2 PMGs resctrl has 2 CLOSIDs and 4 RMIDs, but
+>    num_rmids reads 5. The count is too high whenever the number of
+>    PARTIDs is odd and there is more than one PMG.
+> 
+> - On a monitor-only system there are no control groups and resctrl
+>    only uses the default CLOSID, but num_rmids still covers every
+>    PARTID. With 5 PARTIDs and 2 PMGs it reads 10 while only 2 RMIDs
+>    can be allocated.
+> 
+> RMID allocation is limited to the CLOSIDs in use, so only the value
+> reported to userspace is too high. Creating as many monitor groups as
+> num_rmids allows fails with -ENOSPC before that number is reached.
+> 
+> Count the CLOSIDs resctrl uses instead: every resource has
+> mpam_partid_max + 1 CLOSIDs, halved and rounded down while CDP is
+> enabled, and a system with no resource that can allocate uses only the
+> default CLOSID. Report (pmg_max + 1) RMIDs for each of those CLOSIDs.
+> Count at monitor initialisation and from resctrl_arch_set_cdp_enabled(),
+> which resctrl calls whenever a mount or unmount enables or disables
+> CDP.
+> 
+> Fixes: 264c285999fc ("arm_mpam: resctrl: Add monitor initialisation and domain boilerplate")
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> Cc: <stable@vger.kernel.org> # 7.1+
+> Cc: James Morse <james.morse@arm.com>
+> Cc: Ben Horgan <ben.horgan@arm.com>
+> Cc: Reinette Chatre <reinette.chatre@intel.com>
+> Cc: Fenghua Yu <fenghuay@nvidia.com>
+> ---
+> v4:
+> - Simplify the fix with mpam_partid_max, cdp_enabled
+>    and resctrl_arch_alloc_capable() as Ben suggested.
+> v3:
+> - Drop resctrl_arch_set_mon_rmid_count() and count the CLOSIDs in the
+>    MPAM driver instead, as Ben suggested.
+> - v2: https://lore.kernel.org/all/20261105123304.2281987-1-ruanjinjie@huawei.com/
+> v2:
+> - Also fix num_rmids on monitor-only systems, as Ben suggested.
+> - Retitle from "arm_mpam: Round the CDP RMID count down to whole CLOSIDs".
+> - v1: https://lore.kernel.org/all/20261104101622.563280-1-ruanjinjie@huawei.com/
+> ---
+>   drivers/resctrl/mpam_resctrl.c | 30 +++++++++++++++++-------------
+>   1 file changed, 17 insertions(+), 13 deletions(-)
 
-┏… Overview …………………………………………┓
-　
-　「あいつが辞めたら、うちは回るのか？」
-　
-　　エースに頼らず“凡人”を
-　　常勝集団に変えるルールのつくり方
+Reviewed-by: Gavin Shan <gshan@redhat.com>
 
-　　　　　　　　―――
-　　日　時　11月24日（火）13:00-15:00
-　
-　　会　場　Zoom無料開催／定員100名
-　　事務局　ナレッジリンクセミナー窓口
-　
-　　詳細はこちら
-　　https://knowledge-co.jp/rule/
-
-┗……………………………………………………………┛
-　
-　
-　多くの社長とお話しする中で
-　このようなお悩みをよく伺います。
-　
-　　・エースが辞めたら、売上が大きく落ちる
-　　・朝礼に遅れてくる社員がいても、誰も何も言わない
-　　・同じミスに、毎回説教。その後、自己嫌悪になる
-
-　研修も、クレドも、評価制度も試した。
-　それでも改善は続かず「結局は人次第なのか」と感じている。
-　
-　
-　そんなお悩みを解決し、成果を生み出す会社に一変させる
-　本質をついた、ルールづくりをお伝えします。
-
-　
-― セミナーで得られること ―
-
-　・ルールを増やすと社員は辞めるのか？への答え
-　・「姿勢のルール」の決め方
-　・「完全結果」の指示に書き換える方法
-　・エラー時に上司がかける「一言」
-　
-　
-　いずれも、翌日の朝礼から試していただける内容です。
-　
-　自社の組織に希望を持つための気づきを得られる
-　内容となっておりますので、ぜひご視聴ください。　
-　
-　
-_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
-
-　一般社団法人ナレッジリンク
-　東京都千代田区神田小川町1-8-3
-　セミナー窓口：03-5256-7638
-
-……………………………………………………………………
-　メール案内が不要な方にはご迷惑をお掛けしまして
-　大変申し訳ございません。
-　お手数ですが下記URLより手続きをお願い致します。
-　
-　配信の解除依頼はこちら
-　https://fc-knowledgelink-corp.jp/mail/
-
-_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
