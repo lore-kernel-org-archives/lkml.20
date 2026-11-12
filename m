@@ -1,69 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492071;
-	b=gMyXAOyMGa2iOuCAUmy35+dLz+Rz3VgI8/l55v7V93Z+VIAbIDMw+aSDy7YW98asYPPK
-	 +ICn0Okc6twe2ofuEKJIGnG4E/u7lGWO+blqmPhg65e4ghJ3QdlS6RZfBsL+M0Mq9t5l2
-	 6Jwim5Vm6QAHukaL6NiYTjm06Zr6b18gf37OfMpt+gZOpbyJyAbEObc2VoLB/r8neYW5g
-	 UV6WxB+YHoQ+cxFVDXzkQxr6fCKT9kzd/YWZGUI5GDW4L/AVAneZaPZh4aia9miLGSPHd
-	 XDrZ5ENRb2fbOwPfVa84SA2ghEl6RrBh6Z8jqtOPs1Js+sa33Yd7NvV/T7ygeraXCfw==
+	t=1794492085;
+	b=eev8s+0yZyLR3NcEfkewzuWKDapL4auoRpqwtvel5G8Pxd955+9TgF1e6rCr72MekcXf
+	 5mnvqGsCrIJgl8MsYU4A9gfynuubRHg6cp0BAXmVDh9BkQ9DwWp51CsycWVlHi8R8QjTo
+	 6fSH/pWNGk2vhLY8d2q4uKZPjarnjrTycvu2ogCybKcsKTynM0C8LQOb4gp3aK+vXjxGy
+	 H+q9P3vikeaQHhEsurmrGgc6gfleuwR9GEqKVmdz7ZcbKddD5+MunWSRA+VzdObBjPtP+
+	 E1FOVcUrcYA8/InUxWAk7Ga2HolYhvweK6U9p/8I9Cuy0FL0EGVYI718I544xXJDPDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492071;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492085;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=v8quR/qQbHP8x5qxLl+rCpSGM4ITARqPB9AodIBRjJo=;
-	b=D+/FZ8pygLdq42+QrghwoQPuPW375/01tUbauOWRCHUkuzpuIBmou7s9JMfHFgk0GmJc
-	 yUMe0xhWBiMMwZe4+PhSNJNxzpP0cDHoMzWsh2XBOf5YMRiksTGn6PJ9k/IsCRYsoxfFq
-	 GJTkpsGh8/gMiogIwnGYICN2QaOLKWRvalwELmgFRV/g57aIznnO3iR5KISPS0mUBX0IT
-	 FZMgcDqXxdCZlW5xMEGGDD18sECplAD+7KX0oNMPa9JFsX8/xdgmDXCcKuzzfC+eUcSoR
-	 ehP3HALAMzeCP+6aDtk+VjJXvlqQfbegYVhacn6e8ttBnNSg2i+Y2rlWTVdoM5uK9rg==
+	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=LOCwwsQ3nFCCuQn+92JBgFqZgHp6qjYKUsnX5/E4g/c=;
+	b=xk7Fm1XoXqQsQUNZKXxb4tX4+XVVqkKRdj/R2Zn22obVA/KEheCNJ8cITqplBv/sJzjU
+	 vKVz4che6jGiO7dl8ROChJGxp7FAPjxVqU4s0G+zFISimpS0f8fyv7eQzfzOLSMSjWA+x
+	 J78++IsGsLNRjBEBCiV4ZuSU4pWutAvv/bhcH0UEAEdXt3DzBJns+8iwA38uDYlookYPg
+	 kSpAjkZx8Zt8dd8IwMAEOzsji98RL0jzJ6IwG7ijrGwcwS1FIVO+Q+Q1CbpCwnhMgDmU0
+	 vtVv1sz1iMS5FmN8f6Xqj4Jop/4ekLU+KOWD1f6PZGUYOF3Ipyme04JzWDebzNXOy5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=1QNNjn2g;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=r245EHki;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C73606A31C;
-	Thu, 12 Nov 2026 14:01:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12C73606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3855360A382C;
+	Thu, 12 Nov 2026 14:01:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3855360A382C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=1QNNjn2g
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=r245EHki
 Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jQMVq6fc9z4yjjL;
-	Thu, 12 Nov 2026 22:01:07 +0800 (CST)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jQMW22Yfyz58fdJ;
+	Thu, 12 Nov 2026 22:01:18 +0800 (CST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794492067;
-	bh=BlI3/KUCsukXz3p66Ixal03TgAg+1W0oe+w4087oj8I=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=1QNNjn2gKlKr5SNab8kUc6RUpuXXr3CWkmanGJ7ZPWH1S5sOrSWmwTKa0IRupi3G1
-	 bAAIu4YPB8t67UkY/VRMfALIfCO4k15oW4s6V47NCmUnP4hP2KFQuceZ5Vtzabix5P
-	 SKgNDwV1z0WBJpN+jZKxk/13eIzciyc8AFO88xlFLFi4jwRmp0Q5rL2SmLTD1LGPE6
-	 DjJgiSweIvnD4KfqAld0oJ5W7owfYQncxoR4hCScW7TauxpMDw1hlHQ2IFLWhc/Sjq
-	 ezIXpYURkJQci1f55EnQSbej05vSoY0c1g7uY+vdry1EcrhAimJ9l19acNim7SEk2g
-	 KiDFOjO0gTGIg==
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl2.zte.com.cn with SMTP id 6ACE12cf036815;
-	Thu, 12 Nov 2026 22:01:02 +0800 (+08)
+	s=z202610; t=1794492078;
+	bh=ABaa6UwTzHtZeufAAFYzwS4SgHiNV500JXrr9ADhf5U=;
+	h=Date:From:To:Cc:Subject;
+	b=r245EHkiNALuAH9Q2pF4Kh8g6LMGCQ7BNNIx7PViaZKYoGklD3pKmCj7HTq2cWPf0
+	 lWJEUsbyggxe4pbDBnU8r5IOg/gi+76byJsH3zOAv9QZqPtYbMpfIwQBdHxhQHoEvl
+	 hJVJF3YZmHNcT4XjRsUphKEpLpQ+GGMqKjTwzD2LO8XaOipGjsLl1BLMmiSMJZ11Hx
+	 9KhLa7QrlRydG8IIL2p99y6mMbXcIF4tOEKPNkbYz4hwYRfi8wC/Xu8XqUHiJWPYjn
+	 OAvBL7kPqYy/Ia0hJz+9mutVPnwIbK6p2qbcfT0DIe586u5vRy7gfjl8YxnzMNqHjj
+	 LHj7Vty31k3aQ==
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl2.zte.com.cn with SMTP id 6ACE1AkP036927;
+	Thu, 12 Nov 2026 22:01:10 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp05[null])
+Received: from mapi (xaxapp01[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Thu, 12 Nov 2026 22:01:05 +0800 (CST)
-X-Zmail-TransId: 2afc6af5c6a1517-d6c93
+	Thu, 12 Nov 2026 22:01:13 +0800 (CST)
+X-Zmail-TransId: 2af96af5c6a92b2-cfa35
 X-Mailer: Zmail v1.0
-Message-ID: <20261112220105340AIwfaxoF7-iONJ2bZlEqI@zte.com.cn>
-In-Reply-To: <20261112220058755zQhw_h6UkcVSjRnu478lb@zte.com.cn>
-References: 20261112220058755zQhw_h6UkcVSjRnu478lb@zte.com.cn
-Date: Thu, 12 Nov 2026 22:01:05 +0800 (CST)
+Message-ID: <20261112220113627e1oAXj5lbAzyI0Xe6Joud@zte.com.cn>
+Date: Thu, 12 Nov 2026 22:01:13 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,98 +71,47 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
 From: <shao.mingyin@zte.com.cn>
-To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
-        <linux-nvme@lists.infradead.org>
+To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
 Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIHYyIDEvMl0gbnZtZXQ6IGhhbmRsZSBzaG9ydCByZWFkcyBhbmQgd3JpdGVzIGluIHRoZSBmaWxlIGJhY2tlbmQ=?=
+Subject: =?UTF-8?B?W1BBVENIIHYzIDAvNF0gYXRhOiBsaWJhdGEtc2NzaTogZml4IEFUQSBQQVNTLVRIUk9VR0goMzIpIGhhbmRsaW5n?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6ACE12cf036815
+X-MAIL:mse-fl2.zte.com.cn 6ACE1AkP036927
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Thu, 12 Nov 2026 22:01:08 +0800
+X-SOURCE-IP: 10.5.228.133 unknown Thu, 12 Nov 2026 22:01:18 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF5C6A3.002/4jQMVq6fc9z4yjjL
+X-Fangmail-MID-QID: 6AF5C6AE.000/4jQMW22Yfyz58fdJ
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+ATA PASS-THROUGH(32) still has translation and completion paths that
+interpret fields as if the command used a 12- or 16-byte CDB.
 
-When the file backend falls back to its bvec mempool, large requests
-are submitted in synchronous chunks.  A short completion advances the
-file position by the full chunk length and is eventually overwritten
-with the total request length.  The target reports success for an
-incomplete write or returns unread buffer contents as valid data.
+Patch 1 rejects nonzero reserved CONTROL bits, skips the nonexistent
+MULTIPLE_COUNT comparison and corrects the
+invalid-PROTOCOL field pointer. Patch 2 rejects unsupported service
+actions with sense data. Patch 3 honors CK_COND and generates SAT sense
+on completion. Patch 4 corrects the remaining invalid-field pointers,
+including distinguishing READ/WRITE LONG protocol and count errors.
+The four patches can be applied independently; the numbered order groups
+the related translation fixes together.
 
-The common completion path has another short-I/O case: a zero-byte
-return, such as a read at EOF after the backing file is truncated, is
-passed to errno_to_nvme_status() and becomes success.
+Changes in v3 (Damien Le Moal):
+- Patch 1: reject nonzero byte 1 bits 7:5 for ATA-32 with field pointer
+  1; retain the device multiple-mode and 12-/16-byte count checks.
+  Update its subject, commit message and CONTROL-byte tests.
+- Patches 2-4: code unchanged. Patches 2 and 3 keep Damien's
+  Reviewed-by tag; patch 4 gains the tag from his v2 review.
+Link to v2: https://lore.kernel.org/all/20261111223123952mgPDVsbO8uOyaDWL2KELB@zte.com.cn/
 
-Stop at any incomplete chunk and convert nonnegative short completions
-to -EIO in both paths.  Preserve negative errors and full completions.
+Shao Mingyin (4):
+  ata: libata-scsi: reject reserved bits in 32-byte passthru
+  ata: libata-scsi: reject unsupported ATA-32 service actions
+  ata: libata-scsi: generate SAT sense data for ATA PASS-THROUGH(32)
+  ata: libata-scsi: fix remaining passthru field pointers
 
-Fixes: d5eff33ee6f8 ("nvmet: add simple file backed ns support")
-Fixes: c6aa3542e010 ("nvmet: add error log support for file backend")
-Cc: stable@vger.kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+ drivers/ata/libata-scsi.c | 64 ++++++++++++++++++++++++++++++++++-------------
+ 1 file changed, 46 insertions(+), 18 deletions(-)
+
 ---
-Changes in v2:
-- Code unchanged; add the Christoph Hellwig Reviewed-by tag.
-Previous version: https://lore.kernel.org/all/20261111224245786kBVGPR0wSFFqHjmtHwtAJ@zte.com.cn/
-
-Tested on 7.3.0-next-20261030 (QEMU/TCG) with the loop transport and a
-file-backed namespace on tmpfs (buffered_io=1).
-
-The chunked path is only taken when the bio_vec allocation falls back
-to the mempool, so failslab was used to fail that allocation, limited to
-nvmet_file_execute_rw() with the stack-trace filter (times=1,
-ignore-gfp-wait=N).  The short completion was made deterministic by
-shrinking the backing file behind nvmet's back (ns->size is only
-revalidated on enable) and by leaving only 4 KiB of space in the tmpfs
-for the last 64 KiB chunk of a 128 KiB write.  The values below are the
-status words returned by NVME_IOCTL_IO_CMD:
-
-                              unpatched    patched
-  read  512 KiB               ret=0        ret=24582 (0x6006)
-  read  256 KiB               ret=0        ret=24582
-  read  128 KiB               ret=0        ret=24582
-  write 128 KiB               ret=0        ret=24582
-
-0x6006 contains NVME_SC_INTERNAL plus the Do Not Retry and More bits;
-the More bit records the associated error-log entry.
-Without the patch the reads report success although the tail of the
-host buffer still holds the 0x5a pattern, and the write reports success
-although only 68 KiB of 128 KiB reached the file.  Controls: without the
-injection the short read already fails with 0x6006 on both kernels
-(non-chunked path), and with the injection but a full-length read both
-return 0.
-
- drivers/nvme/target/io-cmd-file.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/nvme/target/io-cmd-file.c b/drivers/nvme/target/io-cmd-file.c
-index 695963dd932ee758b7b89cf7a3d017407a3a6716..e95ab1f08cff39b0a1147e53bbd7749a831d29a6 100644
---- a/drivers/nvme/target/io-cmd-file.c
-+++ b/drivers/nvme/target/io-cmd-file.c
-@@ -113,7 +113,7 @@ static void nvmet_file_io_done(struct kiocb *iocb, long ret)
- 	}
- 
- 	if (unlikely(ret != req->transfer_len))
--		status = errno_to_nvme_status(req, ret);
-+		status = errno_to_nvme_status(req, ret < 0 ? ret : -EIO);
- 	nvmet_req_complete(req, status);
- }
- 
-@@ -150,8 +150,11 @@ static bool nvmet_file_execute_io(struct nvmet_req *req, int ki_flags)
- 		if (unlikely(is_sync) &&
- 		    (nr_bvec - 1 == 0 || bv_cnt == NVMET_MAX_MPOOL_BVEC)) {
- 			ret = nvmet_file_submit_bvec(req, pos, bv_cnt, len, 0);
--			if (ret < 0)
-+			if (ret != len) {
-+				if (ret >= 0)
-+					ret = -EIO;
- 				goto complete;
-+			}
- 
- 			pos += len;
- 			bv_cnt = 0;
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
