@@ -1,84 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794450452;
-	b=DUSThgrEUZsFI42mtXfSreWH0hpKEz/6XFSwEHbj5yox+7mWXm2F+hilVFzPaB4D5nMD
-	 kbyDJLZZGWxlSyG8iBacwzV3mlGOabFBTXrVCrS15qh/KgzXkHsmrP0K+4apUaj7SGJjI
-	 PJ4ErSDbzEumIr4z0MNytpj2rIs0RmnBPuwhnY+fXNH5rwWNmZsXfWxVqgfJ5uNzLygSt
-	 pbRckVPkjGbKW+2aYTSuxQdHYkcGkwD8sOp9ClQkIuGMlDu7VaDyLUtvizCwJXrdePg8q
-	 pPGssigXP7z6MojzIb64L8cI75ybCZAw9vBsNj6YcWB0hBwVp/b/3lU4+9u0OkTk1fA==
+	t=1794450504;
+	b=w79RWo30b1mCDtt3+Tc+CEb9N1v8Ft0xXtYe8r/VdtwH+atAyb+vAl7DxKRRxsWstESi
+	 X+lTnptKfJ631zSorgT4dd4iibp1EwB25aJNbpN8D/7YX/GJ5J/Yzj8FQMJ+T5JWdNTsu
+	 +oDafOOkFwj4b0n8AKOiLeKZ8lYfOpSewLvhSYpT1Dyu/oCaRoMqXRrnenpSckWJ+846r
+	 iIZmbl7U+2u6kISr6cMspim7N8xidmfPpxb1aqHlvklwPhyAIjUtXyQe2S5z9jpa6YOwr
+	 OhOXKQJ++sgB8IyjtJar831183kuhQojfrqNN34PRqT31aL12VdpDk+k/xCo7Ue+nZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794450452;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
-	 X-QCInternal:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=o/YGjHWxOg+C0RRTUljMpyFDjyw3xnQBxFFx1mqH2fw=;
-	b=aaRZ/jgiUUzD7XxkjBJV8mCKCL+HM+a/Md9LWAN4dp9vNSjVpkIpVPnEEuQS2ads6uZK
-	 sL6czr89A4/LYtZllI7/3AjvzIj5S6jrJSoyrq7j4UEllZuZoTjSCM0veZSHlnTuRnPOY
-	 JgqGzs6s92B7NEjxJBC/WR37/NYwo1b+6XZ908qYfhVaMg7UkEQAqtxnHoPb0aQvo2ekg
-	 jLEw0uREjJ/wXrmbE2sfMfcJ2n/F1XmZOwv8EP8YtbtsR0P6G4pBHLTAhuMQJTztBcpBl
-	 o7LLw2x1E5zIX/y0IRwXszl81Am5jcgNerS0bIDB8oEPngCNAn4ZEdHqjg6uz0vn+Pw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794450504;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=I4EKeLYusuwV9UZSDwAKboaaUngjXvxm9EAu3qSXbis=;
+	b=t9Xi0E5E0sB058ZicnW8aggO77l1nRfEX2NqcBo87qGKaKN7GTofEDbxS2B7quFUBVYA
+	 PqxF4YWa2UzAc3VkmIrn1j4jeoihjEy91yhzCkeHH8OH78q5GTiz5txMDgL+tf4G+LOmb
+	 YN6R0bebImsijm773ebOG3bexwlEXua0SSj8mA9f9J8X0CVwrV/kKx8KRjt104J9Tbp0w
+	 Zn8Uv+t89yTvgF8eFzI001hs/MYRglbIKOAvVmVMtha9ZIXCiQ87STQAh0+sczwgJhwpc
+	 BLJoLwyc7ykDy5LlGIfe56yHf6PmDXZwgF45D82kn7Affpmxdaibz1iqwQuUhJs2z9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Lw6wL4nr;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oiyhv3ot;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A92606A31C;
-	Thu, 12 Nov 2026 02:27:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9A92606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 989F5606A323;
+	Thu, 12 Nov 2026 02:28:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Lw6wL4nr
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABMaNP02556683;
-	Thu, 12 Nov 2026 02:27:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=o/YGjHWxOg+C0RRTUljMpyFDjyw3xnQBxFF
-	x1mqH2fw=; b=Lw6wL4nr54F01438G04WQ3dVoz5XtvgNZwFPvLXUTB62Ww8ipQi
-	s2vRNbcjUpWyZ0H8jJULivZ+mXXylE90oXXmyX5l/uSGDWtzeAG6G7PrD3czXaK6
-	rFexnvbNLYUCamax/PuHOxEmY5pEvDf/bF1a8Cm7Cnfq6ifYkC2gBVz+B5PstxC/
-	8D1lZ/Ihtq04oBF2015TDFIdpqmJnNeFMW24KQE+MuUMhgUtyDnxhIP5Bd2wZLk+
-	tXRwLdrlDVJ0Zbr1HZi+svE4B0TCSpQk2ijT8oZ/PJllAHGrHabCEjzDZryCnybr
-	gXfccSwJpF+hOKoE+gW9D/tfHXFYWF6l3jA==
-Received: from aptaippmta01.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvs4m2vam-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 12 Nov 2026 02:27:27 +0000 (GMT)
-Received: from pps.filterd (aptaippmta01.qualcomm.com [127.0.0.1])
-	by APTAIPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2ROZl3682193;
-	Thu, 12 Nov 2026 02:27:24 GMT
-Received: from cse-cd02-lnx.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
-	by APTAIPPMTA01.qualcomm.com (PPS) with ESMTPS id 6AC2ROta3682182
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 12 Nov 2026 02:27:24 +0000 (GMT)
-Received: by cse-cd02-lnx.qualcomm.com (Postfix, from userid 4438065)
-	id 155F748BE8; Thu, 12 Nov 2026 10:27:23 +0800 (CST)
-From: Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, mani@kernel.org, vkoul@kernel.org,
-        neil.armstrong@linaro.org
-Cc: Sudarshan Shetty <tessolveupstream@gmail.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        qiang.yu@oss.qualcomm.com, krishna.chundru@oss.qualcomm.com,
-        peter.chen@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>
-Subject: [PATCH v1] arm64: dts: qcom: talos-evk-som: disable PCIe L1SS for QCA6698
-Date: Thu, 12 Nov 2026 10:26:19 +0800
-Message-ID: <20261112022619.277383-1-ziyue.zhang@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oiyhv3ot
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BFE51F00A05;
+	Thu, 12 Nov 2026 02:28:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794450504;
+	bh=I4EKeLYusuwV9UZSDwAKboaaUngjXvxm9EAu3qSXbis=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=oiyhv3ot5t0hTyhk+LOCNGB2tDYfrjJmpw3GAUQuxaF5/i+FjJC+XfH+Ks40jnCRr
+	 OAwtS+rwHxfwl3XxHbYmszltVWZXFd4JPMRitDyzuhT+k1QdkGk8XShwWHJTfkMOw3
+	 IbNurWr+61zDP/H/GpSJ+3F+l7sIjCVhDizSFOZFJVOD8vCpPPxsuucikaduLzhl0E
+	 AuZlFvmGum8z0qXl9GwDxWgCH+2zYQr3UGCdxw2HR++GMpn7wnnVKs2lH4yh8jIo7C
+	 IgkEJkWhycNj10xwyajofSWMcnppyU/I/7DmlD94dhwdKVeW3h6I3GiEgoNfCEEJQ6
+	 iuuQRXbNevbUQ==
+Date: Wed, 11 Nov 2026 18:28:22 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: zhu xin <zxyan0222@gmail.com>
+Cc: netdev-bot+sinfo@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ richardcochran@gmail.com, muhammad.nazim.amirul.nazle.asmade@altera.com,
+ rohan.g.thomas@altera.com, rmk+kernel@armlinux.org.uk,
+ o.rempel@pengutronix.de, wojciech.drewek@intel.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v10 0/3] net: stmmac: dwxgmac2: timestamp
+ interrupt support + Agilex5 fix
+Message-ID: <20261111182822.580e871b@kernel.org>
+In-Reply-To: <CAP7veT+buHRMu6f3o5RaKFdv3fABkWKgkO6KFn5js4PEeB8b0w@mail.gmail.com>
+References: <20261109134506.2794160-1-zxyan0222@gmail.com>
+	<179423231463.488859.16977464890948797360@kernel.org>
+	<20261111152012.3506cf35@kernel.org>
+	<CAP7veT+buHRMu6f3o5RaKFdv3fABkWKgkO6KFn5js4PEeB8b0w@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,65 +68,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-ORIG-GUID: fqJXuNKrgXthdTd0OfZXHKCLjceYURNH
-X-Authority-Analysis: v=2.4 cv=OYANnRTY c=1 sm=1 tr=0 ts=6af5240f cx=c_pps
- a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8 a=tsSK7UIgbFkQ5VEVeaMA:9
-X-Proofpoint-GUID: fqJXuNKrgXthdTd0OfZXHKCLjceYURNH
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAwOSBTYWx0ZWRfX3krIxqMnYiKd
- BvgsrCxdz3GY6uqZBM4aKynIrghctLj9AAaM/jqQT0Aa/h1gKw8Y9zLqFMWzZCIvaJCRB/AKGFU
- txSg4Oc3CbCBSqFT9xF0xAVQWM9Np9pz4BtjJohaXwi8YqMvOw9atqcSRnSaw4bXpaIQ8KTXkZM
- EEzxAbQ61OvOSie+W4HMx+o5l5eon5XAIVgm7Q6uvW9e+tR63Btg7kzCo4b9LvdBp0y7Y4d0M9Y
- MQ5CctU/EuZO6iFW2yKUGHkNcjZuDwBcCZDzOIrTJdGOJOHaM8CUnoprhQi2HbpcxQhnIxKjACm
- BOQ2G6dGLu3LSqVmsuUb6HyP83C7Rt9rTeC3sTtrVWFydk1BA0xkXtQXof1/zNvrHVP1nc7s6l2
- hOcefq7JPUkGtyB1lnzqfrx80YyI4LRx1rXJDf3mNH2Ep69TzrKbyvVfYJ6ijBXYbghL5n7ZHFh
- HuAu5+v9NL9xv+7GKew==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAwOSBTYWx0ZWRfX48NmkypOUxxC
- pQ9COTNR17X+gB5Z5f0L0dqlCO4XSKoBMdo0L4TtEMUyHGiVsiqq7OWzWsHGOw+zjT9HDRV/Cxc
- u2Qt71pSaHkXKbz5yPbhwy/3w1XrBho=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_06,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 adultscore=0 clxscore=1011 lowpriorityscore=0
- phishscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120009
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-The CLKREQ# signal for PCIe port0 is not properly routed on the
-QCS615 Talos EVK board. This prevents the QCA6698 WLAN device from
-driving CLKREQ# low to maintain the reference clock during L1 PM
-Substate (L1SS) entry. As a result, the reference clock is gated
-prematurely when L1SS is enabled.
+On Thu, 12 Nov 2026 10:18:41 +0800 zhu xin wrote:
+> On Thu, Nov 12, 2026 at 7:20=E2=80=AFAM Jakub Kicinski <kuba@kernel.org> =
+wrote:
+> >
+> > On Mon, 09 Nov 2026 13:51:54 +0000 netdev-bot+sinfo@kernel.org wrote: =
+=20
+> > >  - What hardware the change was tested on. For driver fixes please
+> > >    mention the device (and if relevant firmware version) used for
+> > >    testing, or say that the change was not tested on real hardware.
+> > >
+> > > Please do not repost the series just to address the above. Instead,
+> > > reply to this email with the missing information, so that reviewers
+> > > can take it into account. If the series needs another revision for
+> > > other reasons, please include the information in the commit messages
+> > > then. =20
+> >
+> > You are at v10 and still getting these automated emails.
+> > What's going on? =20
+>=20
+> As for what is going on: I answered the bot's full questionnaire once,
+> in a direct reply at v7 [1], and since v10 the same facts are
+> described in the cover letter.  The bot, maybe, evaluates the
+> individual commit messages, where I never put the information,
+> assuming the reply and the cover letter would count.  They do not,
+> so the emails kept coming.  I will fold the tested-on and
+> found-by-inspection statements into the commit messages with the
+> next revision, which should settle it.
 
-Add the 'aspm-no-l1ss' Device Tree property to the PCIe port0 node so
-the ASPM driver disables L1SS on this link.
-
-Fixes: 0f9e6db8a223 ("arm64: dts: qcom: talos-evk: Add support for QCS615 talos evk board")
-Signed-off-by: Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/talos-evk-som.dtsi | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi b/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi
-index b76df9d86cc0..2b1e2680eb48 100644
---- a/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi
-+++ b/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi
-@@ -382,6 +382,9 @@ &pcie_phy {
- &pcie_port0 {
- 	reset-gpios = <&tlmm 89 GPIO_ACTIVE_LOW>;
- 	wake-gpios = <&tlmm 100 GPIO_ACTIVE_LOW>;
-+	/* CLKREQ# is not properly routed on this board, L1SS is not supported */
-+	aspm-no-l1ss;
-+
- 	wifi@0 {
- 		compatible = "pci17cb,1103";
- 		reg = <0x10000 0x0 0x0 0x0 0x0>;
--- 
-2.43.0
-
+Read what I quoted. It literally tells you to put it in the commit
+message on revision. How many times do you have to receive this?
+Please either pay attention or stop sending patches.
