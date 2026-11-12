@@ -1,52 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794470969;
-	b=ogdAn3Kw52m/hqrixEUCTVNrqtCt3MiTxuXflBDMUMaIek0lvAj77NZ5mLjIgzpfKuUx
-	 ZivWoKQI9VLwRg+YNValMjKNmL9TFGFsrAasE5zUxak6POLNSeGIx4H2YINf5CfcMLqXi
-	 ow0YYp8ynvtPIBfzRxAlPY7dkd4+34D5SRXJTTJoEgPQMRyZEuoX1Q1oDLCIfd8odiU/v
-	 xS/QPbZqu02sC6RrgquxdaPxjp3Jnj04oNDTbTUQZITCCpKLrs8IsL/Zb/8dPdNT0ZncS
-	 CvRNkdTgXz3mgN+g+pnKeAEtL2YKQvqIIa7OrLk4LwDTWVoe4GujetETckjMLatYA6g==
+	t=1794470977;
+	b=naebTqLkt+3wvBeX3s9U1mRVgmq77fGhn09hKyNnWzHZ3Dgcc3bjFIySRPgrVUNJresH
+	 LCALqFEbfLlL6BfjiLTAEHr4jo5/cjSd6knSxheDvwknq8akUnrWksVAXh80R2avApsiW
+	 PISEDMD7V/SdRDAaGIhpXamfwmaAYw6n6si4XfxcZXGQpJo5zIZMwDrBR7uK/SbyxnERK
+	 lngg2ytYyh74R/sY3oBl2p9JIRT0p6wvBC3syNzThM5+sT1L0oiIl1mWkghRXS+KlLdsM
+	 PONdYOjwf3lCxBTWuyBYLOr6kd81vkG0H+fXNNGX0Ko21ig5O5lW35IStm29dbxmPhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794470969;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:To:Cc:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=988cFYCco2UVxhQOV932+iu6PadrqBML3ozuD8TRvus=;
-	b=cFkBBkCfv/VmfTDgIQ0bYruFbCOn8rWAPmb0/XyQKXLH/eudNvYhex8H9l024+AITYGq
-	 o49+QVt+fDzOR/8BphUx6MizpA5l5R9L4VijBlNpUswkPaMLdyNxR8e7h9MurHYOWBSBT
-	 lph59IdGBY5KIWDvxcnD7eq/oIxyYx6oq16ZT1DauUlWRONBZqifPXc9K6JBHQQJVluo+
-	 1Jq4QZq7urt+Rp+1LtogaCpwwyGD+b9GSa+pBQfkvsaQ7y7puV31ONttVeJ3ExA236YVl
-	 o6Nq+qlG6zVAyLspwfdkN7t8c2AwTA3C8EpfnaJXDnfzULlKo4zyKGvPUMaaqCuRBbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794470977;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=DjAl4XgOg1dS5z3yYb4d+Tk1gYH65D5OSWDssukR0vI=;
+	b=xs/W7LGZlVjI4fEpVoHC/LuClSQX3iu29ncp85thlMgJoOqrjRhD/yzFNLAdLq3QQi8T
+	 HewRxuZ9vpv4xO1mUkrUL22au9rBt6KwVld51k+ZubvnWda27cwxvl73x74uA1etQ04XY
+	 tZAc5pD1ncQh7La7iEBtIgNiP4NejRciXWUeUkJlHi7SJMTGO8bwA81CY9nhmFzWUou05
+	 dOC1ZfAwg/MX//SvK6xIUDL2ZpNXb5HIrjLerkQ7txMGz6g/+qxijbVNFCPjHRxqALs6b
+	 eMlo3lUWHXLHPrA87MegmLNzDYBSj3g9RDF92EVfG4z2i2hYHLxGt8BCp901rep8wyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=VSFkenfw;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E953D606A89C;
-	Thu, 12 Nov 2026 08:09:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E953D606A89C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=fh4UZyPm;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 189DB606A88D;
+	Thu, 12 Nov 2026 08:09:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 189DB606A88D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=VSFkenfw
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AC874A1675;
-	Thu, 12 Nov 2026 09:09:26 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1794470967; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=988cFYCco2UVxhQOV932+iu6PadrqBML3ozuD8TRvus=;
-	b=VSFkenfwKU44Z6vCXx0hx5yJkJUXNQ/2EWmT/nyBWeQSOZ8+mZ9wWJhw9nBZ6KNrYYekH3
-	leIfrilpl3mS4MGcq2Lwxyf9C8ZDl5Lm8cQt6BY4alVFkjdvwQMmMkDdm4IziIlkRp6jrc
-	1W3LMO4ZQsQ9xPATngXct2G5F/77lxgN2e+o05aFbEYUsW9Q+k1a296bndSi7Y0w2tf2wZ
-	A92dhFgiMkh95J7QMbt/8hZHdjCX8ur9vlfDW/NOwVLF6atDerihXhOTeBifuk6Gblu5Wc
-	pTUW814/UIo7sF74kYJZsczVCjVhn45N6YOroPSLANjFXPhc31/eow9ywmFqRA==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Thu, 12 Nov 2026 09:09:24 +0100
-Subject: [PATCH RESEND] serial: amba-pl011: end an RS485 transmission when
- TX is flushed
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=fh4UZyPm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=fh4UZyPmoEq0QF9EgZQer4kgYiI/sYLgAkO0qTryrvYcB3lyNuUCkN+N/XnpdSqHPYE9OoVtAuBs6
+	 KdBswuDForKH6WNa9V2RyBtSueD+6sTxCNN1+/SIUOijdg7q/VtJJqYXrvhmjFl3lgHDQxG4l1kX2F
+	 2O6hb8bhgd0XO6wk=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56af5743d197-dd8bd;
+	Thu, 12 Nov 2026 16:09:33 +0800 (CST)
+X-RM-TRANSID:2ee56af5743d197-dd8bd
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from FHB-W5100250 (unknown[36.137.216.21])
+	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96af574366b3-f8c0c;
+	Thu, 12 Nov 2026 16:09:33 +0800 (CST)
+X-RM-TRANSID:2ee96af574366b3-f8c0c
+From: Gu Bin <gubin@cmss.chinamobile.com>
+To: acme@kernel.org,
+	namhyung@kernel.org
+Cc: peterz@infradead.org,
+	mingo@redhat.com,
+	mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com,
+	jolsa@redhat.com,
+	irogers@google.com,
+	adrian.hunter@intel.com,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] perf trace: propagate evsel__set_filter() error in trace__expand_filter()
+Date: Thu, 12 Nov 2026 16:09:21 +0800
+Message-ID: <20261112080924.2082-1-gubin@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,69 +75,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-devel-nbuchwitz-pl011-rs485-dma-flush-v1-1-6b811391651d@tipi-net.de>
-To: Russell King <linux@armlinux.org.uk>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Lino Sanfilippo <LinoSanfilippo@gmx.de>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- stable@vger.kernel.org, Nicolai Buchwitz <nb@tipi-net.de>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-A TX flush during an RS485 DMA transmission only stops the DMA. Nothing
-ends the transmission afterwards, so RTS stays asserted and the bus
-stays driven until the next write.
+At the end of trace__expand_filter(), the return value of
+evsel__set_filter() is ignored. When the strdup() inside fails with
+-ENOMEM, the function returns 0 anyway, leaving evsel->filter holding
+the unexpanded filter, which still contains the symbolic constants the
+loop meant to resolve. The failure then surfaces later and indirectly:
+evlist__apply_filters() passes the unexpanded string to the tracepoint
+filter parser, which rejects the symbolic name, so perf trace fails to
+start with a filter syntax error whose real cause is the missed
+allocation.
 
-End it from the flush, unless the TX interrupt is still enabled and
-ends it itself.
+Propagate the error so the -ENOMEM is reported at the source and the
+caller fails immediately.
 
-Fixes: 8d479237727c ("serial: amba-pl011: add RS485 support")
-Cc: stable@vger.kernel.org # 6.18.x
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+Fixes: 90df0249c2ea ("perf trace: Expand strings in filters to integers")
+Signed-off-by: Gu Bin <gubin@cmss.chinamobile.com>
 ---
-A separate issue found while preparing v4 of the RS485 reconfiguration
-series:
-https://patch.msgid.link/20261021-devel-nbuchwitz-pl011-rs485-reconfig-stall-v4-0-ed10e219159a@tipi-net.de
+ tools/perf/builtin-trace.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Tested on a Raspberry Pi CM5 (PL011 on RP1 with TX DMA).
----
- drivers/tty/serial/amba-pl011.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Found by the sashiko review of the fix to the asprintf() failure path
+in the same function ([PATCH] perf trace: guard free(new_filter) to
+avoid double-free on OOM), which flagged the unchecked return value of
+evsel__set_filter() as a related pre-existing issue:
 
-diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
-index 79776a882ae35..b21de1f2c7807 100644
---- a/drivers/tty/serial/amba-pl011.c
-+++ b/drivers/tty/serial/amba-pl011.c
-@@ -343,6 +343,7 @@ struct uart_amba_port {
- };
- 
- static unsigned int pl011_tx_empty(struct uart_port *port);
-+static void pl011_rs485_tx_stop(struct uart_amba_port *uap);
- 
- static unsigned int pl011_reg_to_offset(const struct uart_amba_port *uap,
- 					unsigned int reg)
-@@ -874,6 +875,11 @@ __acquires(&uap->port.lock)
- 		uap->dmacr &= ~UART011_TXDMAE;
- 		pl011_write(uap->dmacr, uap, REG_DMACR);
+  https://sashiko.dev/#/bug/linux-cbf4bb01-a981-47dc-b440-68e5c9c3e81c
+
+diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
+index 4094141461f91..ce1a7352ea9dd 100644
+--- a/tools/perf/builtin-trace.c
++++ b/tools/perf/builtin-trace.c
+@@ -4704,9 +4704,13 @@ static int trace__expand_filter(struct trace *trace, struct evsel *evsel)
  	}
-+
-+	/* Without PIO the TX path won't run again, end an RS485 transmission */
-+	if ((port->rs485.flags & SER_RS485_ENABLED) &&
-+	    uap->rs485_tx_state == SEND && !(uap->im & UART011_TXIM))
-+		pl011_rs485_tx_stop(uap);
- }
  
- static void pl011_dma_rx_callback(void *data);
-
----
-base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
-change-id: 20261021-devel-nbuchwitz-pl011-rs485-dma-flush-5f69eafe5b6d
-
-Best regards,
---
-Nicolai Buchwitz <nb@tipi-net.de>
+ 	if (new_filter != evsel->filter) {
++		int err;
++
+ 		pr_debug("New filter for %s: %s\n", evsel->name, new_filter);
+-		evsel__set_filter(evsel, new_filter);
++		err = evsel__set_filter(evsel, new_filter);
+ 		free(new_filter);
++		if (err)
++			return err;
+ 	}
+ 
+ 	return 0;
 -- 
-Nicolai Buchwitz <nb@tipi-net.de>
+2.50.1.windows.1
+
+
 
