@@ -1,104 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794498131;
-	b=085cDBs6AzHb7v6AJbYOzfoZP45evvjD9Lt2Qr8jRZk1dExCkz+VTKpd3cm3pGiV1EUe
-	 iX3FQtDGCQQPECOmmA3YUgsp9YUFNsz84OByyoJqTmPO95WEJ+OdQiEQmDH5+D1HTX2iq
-	 zUw+HRAXjB24dYCBHS/wtLHAU2FBIQKgycjZ/RNnDwaqnwMlEcxK283YhttftJ0f4xJ/v
-	 yiaaDkfRuIx6yAwOFOriyHbIzwKxKdybgyGlMwDyr2BgSUrKjina5VMBNWHJOQT0yJjdI
-	 Ow9Sbg4NCwZgf9s1O9gT8/FQUFS4h4IdTX+sn7FbrAGjHVv+8Lgk6GQt516Qc8vewbg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794498131;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=MkF1tFvAQYdf3wIax3BOI2W5BGHe5PO8vgrcEhA+PdU=;
-	b=Ce+ApixbNzS76X31kxSgALYcZKc8Bbch/rApgad22gn0B/U2lUS3OfpI6QCOqFYECueG
-	 /Bq5PL0r0s04jm9StewhVRAdippH4d6ncQ6+aGBbVPRaBNGjrjTHfVfSnkX/qb8aCImAY
-	 xRsqHv0KdSQyGKDcGyAu+NKE58pCRT8+ra+4SVI52QVex82hpLjEbnf6O7napYutsbN4K
-	 x+352PDJhPSGqe0x5mY1SwajMffg+wJifPkhQ+U4diJmkvOCRW6EUvAP147EyLA341rFI
-	 2OW3qyPzJDw4QiO1qmEvFiTeq7dBaeJ7teBIFwbmEuhZSxqr4lr/bC9xBWQXSRmTMHA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Vn8K1WaP;
-	arc=none smtp.remote-ip=209.85.210.172
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794498132;
+	b=hdRs78jFrBQ0E9Bv7kbxPLKKDS+xUNx2/tRYxy7y7YV1d4wxFdhOaWLc19QljzoHqvgt
+	 j/elcJq2506wErpWLrxKEJgBKI5qpekHjlNhA9POvcDq+/EoDwwOTnNNEk1ITlkGhk16q
+	 L3h1IBou0mjoeXuiU3TzfyEW+aVyK+aFbJFligv0QFtVTYWRC9ffXJd97VToY/VWtCfMv
+	 NyOlLREjiCG8ZYcHRfXuNKm3EtAxsS4uSFxPZ0hgwl/EN0vcEpMRNcM+v30yruBG3+MnM
+	 x5Pe0JKBw7WAmfDVuDXhw/pbrnkNGSD2kfAXmaRwPUVMnIsEZUSvtKdzM4JWvE7HoQA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794498132;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=XuivvrA2ar/UEY5NnSXd6bET7k/G9HVfYGjVrGY7O7s=;
+	b=M3+hnRD98UfXV655T5VKTKYju5rSIFR0oc9Fst6blzgpUdSRlX4f3rav/5jzKKPTP5a7
+	 1FIc57FI8yuVoIBPDSPDDcia0EvbpBfkSQwOZnYHpuAVrTpTbVJlVRlgxld6uqKBUV5UZ
+	 XrgGKoFQW9Ue8n730VAiyMzOAQXdN4BM01RAnFpJFRhfFKP+egvr+wJ+11b3rIPnuYZKO
+	 p2JC216YFST5LqzYaU1GzuQYUCT00lhcuegQt3OIabmWY3fgfuJtpjytuI9Mjc4IxhwsD
+	 x1Ef7xMGLHIZ3k3av3QRwoBoiA1uo8s4aqxiaN6o8bS3JAYtQqDakiWEi6vckMuwkLA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=FSQq34Cu;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=720RcazJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.170
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [81.169.146.170])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF077606A88C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:42:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF077606A88C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C6E606A339;
+	Thu, 12 Nov 2026 15:42:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5C6E606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Vn8K1WaP
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8b3577deeb0so2218083b3a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:42:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794498130; x=1795102930; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MkF1tFvAQYdf3wIax3BOI2W5BGHe5PO8vgrcEhA+PdU=;
-        b=Vn8K1WaPpp8FMAVgU+vZUMVwRFFUI4t755AoIKEgrCswUC3ZSP0UUJ/zPnib9IBQGC
-         X9+N/KwEb42pnvU1ya1nRRfigI7khI+XunqZhvx0sGCHhGrWGtElHpCrtMRAfS7k6CA9
-         daHhRxv3XCzSkLUKLLYbMPZ1HwV3XwHgD7PzxH6zshmG8CBQlMSe8VWWutqB9dcsccLM
-         qt+FUCIxqMGbUIG7+vDjsD275Gsnn2Mryl1cBeeEaBTUtwOiTCNvxzbmr4lz9c0m00iP
-         Nu3bLQQby7pnsW/aDFlY99cic/DL+Hys4U8GCT0IADOE1JUwqRlToENubpBgSz4jV7OH
-         YNxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794498130; x=1795102930;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MkF1tFvAQYdf3wIax3BOI2W5BGHe5PO8vgrcEhA+PdU=;
-        b=j5R3EHT+LXBNhhyEJQuFIdq7OU27PmZUil84zfs8ULYD2olKiEN1o3/srHvSYnxUPr
-         KWFcTTZSLNEZhDp72uRkYOhKu4C2t0BqJ0NPro4SMAtA8Px4Gdj6/qhiBjxVlDUCDcNz
-         u/Msk5wCPkNt4+ptzSCEEKTf4tRnXDiQ4tBqzqu2BvHt017oYrUh1pavJR8sA6nMRuWw
-         G3OdWyM98ReH8fQrkQUOUOLiht5Me0ulMSk89EKXM6UmCwmdGqfMnIZ1+xz2q7AooFNh
-         Z8XT1qHhhEmVQPEQAom2rh41NjlY9qfRLWmd491OcpSznzO0iyD8gsJSuTB7Z3N0hvaO
-         tk3g==
-X-Forwarded-Encrypted: i=1; AL+hErFcG8N9FuRucBpw+sqHLwQljq9DKZ57E+UBqyn6JFmWnqYqaG0WqxxfbAWtW6947ogWnE1wGsOclCuTOn4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9DawRDgtlfZJpR5Ap0rpX0Vhm64p3MyUVkrYMcosOYRaluqtB2
-	sQmdgmhThwLhfcYTgyjj62JzjjGcCUFGpuanwrTMUf7n68ZcwHudpjuw5Wit5jw43cggCtbw
-X-Gm-Gg: AYBFou19DZ2WVVvLeTGL5FsO/FRqo/ZVXUtu6E/l5OeUhIBwNDSp9qSjunSl6BSYUXu
-	saezAmmEKjadh/qvKVFLecRDT6zP9k0F7yQsdQ7jl7Aq19xHhF+bwv1nZRlux/cJEFql4rhoZsY
-	0QwhXI9iGwlV2wVCYK6oo7ir5IiNki1TmfnGKEBWnrLoQjFCzD+CN0TqDR5nn4OEdavrdp0VGz5
-	2PVGnBllnk+/GIlY9JkAOwUgrXwmg0PBTNfBex0huXe5Y7A8+E54lfl4SBcD3vuRMRc1i5+anDQ
-	bq7Ape3+MpHHmS1Ix4saXfJcGAxlXf5QPq9i9Wk2GmERknfjoJ/Qg67miSw77RXGlMYgywg6eod
-	4CjF9LoNQfYaSNVR7nqr0/9ZgNhHccd5MoKZejbsCMO4oze7gnzJSZYUzU8PkDQUnjK6y/R4DrE
-	T7DyBZhtWXQme6jQoh/HxcP9siia3lr4q9enFTsf9+9xSGPc35lF8HVL4oIUKP5SCukoX/fGQEP
-	yRgjsKayjHLQmCrLc430H8vovuIuO323QSGdFR+QIG34/08Xq8lQ12B2b0ar0EVMoFmycabiapL
-	TmVeZAVlXAjrcqE6IfNr05jmLsacA3D8Dsc6uDxuoWpQyV9hB5rMVVPBbGtFQ/ZfVuMAOLqpOgp
-	eE2Ml/IPw8WGi8TIoNHPh+AD2lwA=
-X-Received: by 2002:a05:6a21:7a91:b0:3eb:aeb4:2c39 with SMTP id adf61e73a8af0-3f2fcf9f94dmr5393663637.17.1794498129688;
-        Thu, 12 Nov 2026 07:42:09 -0800 (PST)
-Received: from localhost.localdomain ([2405:9800:b901:33ad:21c4:c32f:67c1:d87c])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baa7de3619sm3790596b3a.5.2026.11.12.07.42.05
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 12 Nov 2026 07:42:09 -0800 (PST)
-From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-To: linkinjeon@kernel.org,
-	stfrench@microsoft.com
-Cc: icb@fastmail.org,
-	senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	ematsumiya@suse.de,
-	lsahlber@redhat.com,
-	hyc.lee@gmail.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v6 1/8] ksmbd: verify the signature of session binding requests
-Date: Thu, 12 Nov 2026 22:41:48 +0700
-Message-ID: <20261112154155.20255-2-mike.michalo@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261112154155.20255-1-mike.michalo@gmail.com>
-References: <20261112154155.20255-1-mike.michalo@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=FSQq34Cu;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=720RcazJ
+ARC-Seal: i=1; a=rsa-sha256; t=1794498121; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=c5/XJXRFmT90Z5bDvFSOAYPAp27gVl4tGP7mXzTMcDCAjvuWlHO2AeVJ7qmPGl6oLe
+    4ESaS6RTUaFImoXYmtxOTfJA0o/h+x4BFT7u91IjmxcIGvW8AwCchevKpahWBiHAA8+5
+    ABNAy2f/MNAW9g07EwTyLtGnCOH4eC1dKnEHWkPaM5hi1T+3fWOgJz9u1RQ8/cMVaz3y
+    shAJrUnrTXUMqMMmKNODXYoJmFnSIjx5CC4poMNORi7FVATXOwdjSSaQKUBFaVaGEKlD
+    PEXS3ZJ2YR+8pfxD7DfbV/oshtpLpvC3OA5CxmkSj5f+EWFA+LOloAlI0ftVun8uKEk2
+    PMsg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794498121;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=XuivvrA2ar/UEY5NnSXd6bET7k/G9HVfYGjVrGY7O7s=;
+    b=iSBHchM8Lqjx7U7DTKimfV8gEjoZ1QKx0unG0Pawk/Km02skTJdZg98ZjsSwZEDINE
+    Hh3f4MOS/w5ZHVXSvFS6aF3BFndv7xDpF1CgSATJdjHekn/UKZ+5J9BLBpoXMOrlF9ns
+    e1mEJk1upfv0n7ISQ0yHrqEmm+VLNTLKLqhLrSGnX25Yh2eQCo6DSeZ6FDMD9h3Vfkmt
+    LDYkJ0LaS5ScjnOsbfQ6z1zG3N1Muix0HFfvMXm3i/bCxj+oeNglfbGH1DtR4KC0cQ/p
+    vdvzr48SFVy2l7+5Y1TtUe+V1Aw3sZgFyVlUtecDLl/G56X562Gur6U9tijtHyVcD5NW
+    R+ZA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794498121;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=XuivvrA2ar/UEY5NnSXd6bET7k/G9HVfYGjVrGY7O7s=;
+    b=FSQq34CuBFk5KGPRLjeZwUxLADtdmp+bgbkxoyuDkszJ9aN3LYZA3cuFXkSgyFgAa9
+    gU1FUfZ8x8Cbm4akeS0OGsDByF26bfNs7bp8WiG/hKk64yaYJe6FQUNwhl2NQkslgilY
+    svm+9v4/9STyODW6HLwAKU1z3nY16PW7iElRumVYNDT/8CNze+CavR6STt90ZXmEH/zC
+    UOfCNXRaDsR8H8rYXHhub5rrAw4llqhbUpSXjYtQ4T2Jz+tM+0ADxu9s+Mh2DJrmoZ00
+    4TX2OMJ40BvIFxFERpAUaeGxmTxjXAXwCOT+qESToR0RDExWbdeA6cz40TL4mZWTnlD3
+    pBvA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794498121;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=XuivvrA2ar/UEY5NnSXd6bET7k/G9HVfYGjVrGY7O7s=;
+    b=720RcazJKwMGwIf7hzEywy3mCg7x9QZo245TjOZsncYPnlxS5eFViOAQU0OgBtuGRG
+    RT3IJGmt2rBhX5FZE2CA==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV35pZz8iNKp1rK7chac7b5mVucO+Qp4KTQNe8"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22ACFg1D2R
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Thu, 12 Nov 2026 16:42:01 +0100 (CET)
+Content-Type: text/plain;
+	charset=utf-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,277 +93,187 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH v2 6/9] MIPS: generic: Add MACH_INGENIC type and
+ compatible for X1600 and X2600
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <0ec3716fb00fe25b3b03a7abc45348901fee05dd.camel@crapouillou.net>
+Date: Thu, 12 Nov 2026 16:41:30 +0100
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Paul Burton <paulburton@kernel.org>,
+ "Maciej W. Rozycki" <macro@orcam.me.uk>,
+ Pengpeng Hou <pengpeng@iscas.ac.cn>,
+ "Christophe Leroy, David Heidelberg" <david@ixit.cz>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Takashi Iwai <tiwai@suse.de>,
+ Janusz Krzysztofik <jmkrzyszt@gmail.com>,
+ Paul Boddie <paul@boddie.org.uk>,
+ Olivier Louvignes <olivier@mgcrea.io>,
+ linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ letux-kernel@openphoenux.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <834D5794-64D1-4659-99B2-2ADD2AACA7A8@goldelico.com>
+References: <cover.1794471031.git.hns@goldelico.com>
+ <87a3ba40389df599efe30af922ba1564813be8f6.1794471031.git.hns@goldelico.com>
+ <0ec3716fb00fe25b3b03a7abc45348901fee05dd.camel@crapouillou.net>
+To: Paul Cercueil <paul@crapouillou.net>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-When multichannel is enabled, smb2_sess_setup() accepts a binding
-request on a new connection once it finds the session and sees
-SMB2_FLAGS_SIGNED, but never checks the signature: SESSION_SETUP is
-exempt from the generic check in __process_request(), because
-work->sess is not set for it. The request then goes through
-authentication, and the response is signed with the session's signing
-key, since the request claims to be signed.
+Hi Paul,
 
-So anyone who knows a SessionId and ClientGUID can open a connection
-and have the server sign STATUS_MORE_PROCESSING_REQUIRED responses with
-another client's session key, each with a fresh NTLM challenge and at a
-MessageId of their choice: a signing oracle.
 
-MS-SMB2 3.3.5.2.4 requires the server to verify a binding request with
-Session.SigningKey and to fail it with STATUS_ACCESS_DENIED if that
-fails. It does so while receiving the message, before the checks of
-3.3.5.5, so do it right after the check that the request is signed. The
-failure response is not signed, because work->sess is only set once the
-request has been accepted.
+> Am 12.11.2026 um 15:09 schrieb Paul Cercueil <paul@crapouillou.net>:
+>=20
+> Hi Nikolaus,
+>=20
+> Le jeudi 12 novembre 2026 =C3=A0 09:10 +0100, H. Nikolaus Schaller a =
+=C3=A9crit :
+>> Add support for the Ingenic/Lumissil X1600 and X2600 SoC by =
+introducing
+>> new machine types.
+>>=20
+>> Update the system type string mapping and add the "ingenic,x1600" and
+>> "ingenic,x2600" compatible strings to the DT match table in the =
+generic
+>> Ingenic board support.
+>>=20
+>> Note that we do not separate between e.g. X1600, X1600E, X1600H since
+>> they differ only in built-in memory size which can be handled by the
+>> boot loader.
+>>=20
+>> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+>> ---
+>>=20
+>> Notes:
+>>     Note that there is no bindings document for any of the compatible =
+values
+>>     so we don't add them.
+>>=20
+>>  arch/mips/generic/board-ingenic.c | 8 +++++++-
+>>  arch/mips/include/asm/bootinfo.h  | 2 ++
+>>  2 files changed, 9 insertions(+), 1 deletion(-)
+>>=20
+>> diff --git a/arch/mips/generic/board-ingenic.c =
+b/arch/mips/generic/board-
+>> ingenic.c
+>> index 1f4906875e7bc..5840293913977 100644
+>> --- a/arch/mips/generic/board-ingenic.c
+>> +++ b/arch/mips/generic/board-ingenic.c
+>> @@ -24,6 +24,8 @@
+>>  static __init char *ingenic_get_system_type(unsigned long machtype)
+>>  {
+>>   switch (machtype) {
+>> + case MACH_INGENIC_X2600:
+>> + return "X2600";
+>>   case MACH_INGENIC_X2100:
+>>   return "X2100";
+>>   case MACH_INGENIC_X2000H:
+>> @@ -34,6 +36,8 @@ static __init char =
+*ingenic_get_system_type(unsigned long
+>> machtype)
+>>   return "X2000";
+>>   case MACH_INGENIC_X1830:
+>>   return "X1830";
+>> + case MACH_INGENIC_X1600:
+>> + return "X1600";
+>>   case MACH_INGENIC_X1000E:
+>>   return "X1000E";
+>>   case MACH_INGENIC_X1000:
+>> @@ -146,11 +150,13 @@ static const struct of_device_id =
+ingenic_of_match[]
+>> __initconst =3D {
+>>   { .compatible =3D "ingenic,jz4780", .data =3D (void =
+*)MACH_INGENIC_JZ4780
+>> },
+>>   { .compatible =3D "ingenic,x1000", .data =3D (void =
+*)MACH_INGENIC_X1000
+>> },
+>>   { .compatible =3D "ingenic,x1000e", .data =3D (void =
+*)MACH_INGENIC_X1000E
+>> },
+>> + { .compatible =3D "ingenic,x1600", .data =3D (void =
+*)MACH_INGENIC_X1600
+>> },
+>>   { .compatible =3D "ingenic,x1830", .data =3D (void =
+*)MACH_INGENIC_X1830
+>> },
+>>   { .compatible =3D "ingenic,x2000", .data =3D (void =
+*)MACH_INGENIC_X2000
+>> },
+>>   { .compatible =3D "ingenic,x2000e", .data =3D (void =
+*)MACH_INGENIC_X2000E
+>> },
+>>   { .compatible =3D "ingenic,x2000h", .data =3D (void =
+*)MACH_INGENIC_X2000H
+>> },
+>>   { .compatible =3D "ingenic,x2100", .data =3D (void =
+*)MACH_INGENIC_X2100
+>> },
+>> + { .compatible =3D "ingenic,x2600", .data =3D (void =
+*)MACH_INGENIC_X2600
+>> },
+>=20
+> I was going to say that if you add compatibles here you'll also need =
+to add them
+> to the bindings documentation, but it seems we don't have one?
 
-smb2_check_sign_req() and smb3_check_sign_req() zero the Signature
-field in place to compute the MAC. Restore it in both before they
-return, as generate_preauth_hash() later hashes the request as received
-into the channel's SMB 3.1.1 preauth integrity hash.
+Indeed... Checkpatch even reported about.
 
-A session that is still being set up has no signing key yet: the key is
-all zeroes until authentication completes. Refuse a binding request for
-it before verifying, in both binding branches, with the
-STATUS_REQUEST_NOT_ACCEPTED that 3.3.5.5 gives for such a session
-(3.3.5.2.4 would answer STATUS_NOT_SUPPORTED, as the key is NULL), so
-that a request is never verified against a missing key. Set
-SMB2_SESSION_VALID with smp_store_release() and read the state with
-smp_load_acquire(), so that a session seen as valid has its key.
+I added that to the Notes section of the commit that we have no bindings =
+doc.
 
-Read the state once for all the checks of the binding branch, so that
-they agree. The signature check now sits between the check for a
-session in setup and the one for an expired session, and a
-reauthentication on another channel can move the session from expired
-to in progress in between, so that neither check refused the request.
+>=20
+> We have Documentation/devicetree/bindings/mips/ingenic/devices.yaml =
+for boards
+> but most SoCs listed here don't have an accompanying board.
+>=20
+> Given that it's not your mess I'm OK with the patch, but we should =
+really fix
+> this at some point.
 
-A guest or anonymous session has no real signing key either: ksmbd
-derives it from an all-zero session key, so a binding request signed
-with it proves nothing, and the other binding branch would sign its
-refusal with it. Refuse a binding request for such a session before
-verifying it, with the STATUS_NOT_SUPPORTED of 3.3.5.5, and do not
-verify against its key in the other branch.
+Agreed. Should not be too complex, I guess.
 
-The other binding branch, which rejects a binding request that is not a
-valid multichannel bind, verifies the signature as well. A missing
-negation on the multichannel flag made that branch unreachable for an
-SMB 3.x request when multichannel is disabled: such a request fell
-through to the reauthentication path instead and was answered with an
-unsigned STATUS_USER_SESSION_DELETED. Correct the condition so the
-request is verified and rejected there.
+BR and thanks,
+Nikolaus
 
-That branch signs its refusal of a verified request with the session's
-key. An SMB 3.x connection binding to an SMB 2.x session now gets there
-too, and the connection's own handler would sign with the SMB 3.x
-signing key, which such a session does not have. Sign that response
-with smb2_set_sign_rsp(), as is already done the other way round.
-
-An AI assistant was used to draft the patch and as an independent
-reviewer.
-
-Reported-by: Ian Bridges <icb@fastmail.org>
-Closes: https://lore.kernel.org/all/20261103171742.18816-1-icb@fastmail.org/
-Fixes: f5a544e3bab7 ("ksmbd: add support for SMB3 multichannel")
-Cc: stable@vger.kernel.org
-Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
----
- fs/smb/server/server.c  |  9 ++++
- fs/smb/server/smb2pdu.c | 98 ++++++++++++++++++++++++++++++++---------
- 2 files changed, 86 insertions(+), 21 deletions(-)
-
-diff --git a/fs/smb/server/server.c b/fs/smb/server/server.c
-index 064f99427ca6f..51aa981bcef4e 100644
---- a/fs/smb/server/server.c
-+++ b/fs/smb/server/server.c
-@@ -322,10 +322,19 @@ static void __handle_ksmbd_work(struct ksmbd_work *work,
- 		if (work->sess &&
- 		    (work->sess->sign || smb3_11_final_sess_setup_resp(work) ||
- 		     conn->ops->is_sign_req(work, command))) {
-+			/*
-+			 * A refused binding request is answered with the key
-+			 * of the session, which can be of another dialect
-+			 * family than this connection.
-+			 */
- 			if (command == SMB2_SESSION_SETUP_HE &&
- 			    work->sess->dialect >= SMB30_PROT_ID &&
- 			    conn->dialect < SMB30_PROT_ID)
- 				smb3_set_sign_rsp(work);
-+			else if (command == SMB2_SESSION_SETUP_HE &&
-+				 work->sess->dialect < SMB30_PROT_ID &&
-+				 conn->dialect >= SMB30_PROT_ID)
-+				smb2_set_sign_rsp(work);
- 			else
- 				conn->ops->set_sign_rsp(work);
- 		}
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 5b046f10e2ce4..7ff001dd33bf9 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -2569,6 +2569,23 @@ static int krb5_authenticate(struct ksmbd_work *work,
- }
- #endif
- 
-+/*
-+ * A binding request must be signed with the signing key of the session it
-+ * binds to (MS-SMB2 3.3.5.2.4). Check it before the request is processed
-+ * and before any response is signed with that key.
-+ */
-+static bool smb2_check_binding_sign_req(struct ksmbd_work *work,
-+					struct ksmbd_session *sess)
-+{
-+	struct ksmbd_session *prev_sess = work->sess;
-+	int ret;
-+
-+	work->sess = sess;
-+	ret = smb3_check_sign_req(work);
-+	work->sess = prev_sess;
-+	return ret;
-+}
-+
- int smb2_sess_setup(struct ksmbd_work *work)
- {
- 	struct ksmbd_conn *conn = work->conn;
-@@ -2619,6 +2636,7 @@ int smb2_sess_setup(struct ksmbd_work *work)
- 		   (server_conf.flags & KSMBD_GLOBAL_FLAG_SMB3_MULTICHANNEL) &&
- 		   req->Flags & SMB2_SESSION_REQ_FLAG_BINDING) {
- 		u64 sess_id = le64_to_cpu(req->hdr.SessionId);
-+		int state;
- 
- 		sess = ksmbd_session_lookup_slowpath(sess_id);
- 		if (!sess) {
-@@ -2646,23 +2664,50 @@ int smb2_sess_setup(struct ksmbd_work *work)
- 				goto out_err;
- 		}
- 
-+		/*
-+		 * Read the state once: a reauthentication on another channel
-+		 * can change it while this request is being checked. Pairs
-+		 * with smp_store_release() in smb2_sess_setup().
-+		 */
-+		state = smp_load_acquire(&sess->state);
-+
-+		/*
-+		 * A session that is still being set up has no signing key
-+		 * yet, so there is nothing to verify a binding request with.
-+		 */
-+		if (state == SMB2_SESSION_IN_PROGRESS) {
-+			rc = -EACCES;
-+			goto out_err;
-+		}
-+
-+		/*
-+		 * Nor has a guest or anonymous session: its signing key is
-+		 * derived from an all-zero session key. It cannot be bound
-+		 * (MS-SMB2 3.3.5.5).
-+		 */
-+		if (user_guest(sess->user) || ksmbd_anonymous_user(sess->user)) {
-+			rc = -EOPNOTSUPP;
-+			goto out_err;
-+		}
-+
- 		if (!(req->hdr.Flags & SMB2_FLAGS_SIGNED)) {
- 			rc = -EINVAL;
- 			goto out_err;
- 		}
- 
-+		/* As part of receiving the request (MS-SMB2 3.3.5.2.4) */
-+		if (!smb2_check_binding_sign_req(work, sess)) {
-+			rc = -EKEYREJECTED;
-+			goto out_err;
-+		}
-+
- 		if (memcmp(conn->ClientGUID, sess->ClientGUID,
- 			    SMB2_CLIENT_GUID_SIZE)) {
- 			rc = -ENOENT;
- 			goto out_err;
- 		}
- 
--		if (sess->state == SMB2_SESSION_IN_PROGRESS) {
--			rc = -EACCES;
--			goto out_err;
--		}
--
--		if (sess->state == SMB2_SESSION_EXPIRED) {
-+		if (state == SMB2_SESSION_EXPIRED) {
- 			rc = -EFAULT;
- 			goto out_err;
- 		}
-@@ -2679,28 +2724,30 @@ int smb2_sess_setup(struct ksmbd_work *work)
- 			goto out_err;
- 		}
- 
--		if (user_guest(sess->user)) {
--			rc = -EOPNOTSUPP;
--			goto out_err;
--		}
--
- 		conn->binding = true;
- 	} else if ((conn->dialect < SMB30_PROT_ID ||
--		    server_conf.flags & KSMBD_GLOBAL_FLAG_SMB3_MULTICHANNEL) &&
-+		    !(server_conf.flags & KSMBD_GLOBAL_FLAG_SMB3_MULTICHANNEL)) &&
- 		   (req->Flags & SMB2_SESSION_REQ_FLAG_BINDING)) {
- 		sess = ksmbd_session_lookup_slowpath(le64_to_cpu(req->hdr.SessionId));
- 		if (sess) {
--			int sign_ret;
-+			int sign_ret = 0;
- 
- 			work->sess = sess;
- 			installed = true;
--			if (sess->dialect >= SMB30_PROT_ID)
--				sign_ret = smb3_check_sign_req(work);
--			else
--				sign_ret = smb2_check_sign_req(work);
--			if (sess->state != SMB2_SESSION_VALID ||
--			    !(req->hdr.Flags & SMB2_FLAGS_SIGNED) ||
--			    !sign_ret) {
-+			/*
-+			 * Only a valid session that is not a guest or anonymous
-+			 * one has a signing key to check with
-+			 */
-+			if (smp_load_acquire(&sess->state) == SMB2_SESSION_VALID &&
-+			    !user_guest(sess->user) &&
-+			    !ksmbd_anonymous_user(sess->user) &&
-+			    (req->hdr.Flags & SMB2_FLAGS_SIGNED)) {
-+				if (sess->dialect >= SMB30_PROT_ID)
-+					sign_ret = smb3_check_sign_req(work);
-+				else
-+					sign_ret = smb2_check_sign_req(work);
-+			}
-+			if (!sign_ret) {
- 				ksmbd_user_session_put(sess);
- 				work->sess = NULL;
- 				sess = NULL;
-@@ -2939,7 +2986,12 @@ out_err:
- 			destroy_previous_session(conn, sess->user, previous_session_id);
- 		if (!ksmbd_conn_need_reconnect(conn)) {
- 			ksmbd_conn_set_good(conn);
--			sess->state = SMB2_SESSION_VALID;
-+			/*
-+			 * The session's keys are generated by now. Pairs with
-+			 * smp_load_acquire() where a binding request is
-+			 * verified with them.
-+			 */
-+			smp_store_release(&sess->state, SMB2_SESSION_VALID);
- 		}
- 	}
- 
-@@ -12911,6 +12963,8 @@ int smb2_check_sign_req(struct ksmbd_work *work)
- 
- 	ksmbd_sign_smb2_pdu(work->conn, work->sess->sess_key, iov, 1,
- 			    signature);
-+	/* Restore the request as received, for the SMB 3.1.1 preauth hash */
-+	memcpy(hdr->Signature, signature_req, SMB2_SIGNATURE_SIZE);
- 
- 	if (crypto_memneq(signature, signature_req, SMB2_SIGNATURE_SIZE)) {
- 		pr_err("bad smb2 signature\n");
-@@ -13030,6 +13084,8 @@ int smb3_check_sign_req(struct ksmbd_work *work)
- 	iov[0].iov_len = len;
- 
- 	ksmbd_sign_smb3_pdu(conn, signing_key, iov, 1, signature);
-+	/* Restore the request as received, for the SMB 3.1.1 preauth hash */
-+	memcpy(hdr->Signature, signature_req, SMB2_SIGNATURE_SIZE);
- 
- 	if (crypto_memneq(signature, signature_req, SMB2_SIGNATURE_SIZE)) {
- 		pr_err("bad smb2 signature\n");
--- 
-2.43.0
+>=20
+> Cheers,
+> -Paul
+>=20
+>>   {}
+>>  };
+>> =20
+>> @@ -188,7 +194,7 @@ static const struct platform_suspend_ops =
+ingenic_pm_ops =3D
+>> {
+>> =20
+>>  static int __init ingenic_pm_init(void)
+>>  {
+>> - if (boot_cpu_type() =3D=3D CPU_XBURST) {
+>> + if (boot_cpu_type() =3D=3D CPU_XBURST || boot_cpu_type() =3D=3D =
+CPU_XBURST2)
+>> {
+>>   if (IS_ENABLED(CONFIG_PM_SLEEP))
+>>   suspend_set_ops(&ingenic_pm_ops);
+>>   _machine_halt =3D ingenic_halt;
+>> diff --git a/arch/mips/include/asm/bootinfo.h
+>> b/arch/mips/include/asm/bootinfo.h
+>> index 2128ba9033911..f6ae983577f6f 100644
+>> --- a/arch/mips/include/asm/bootinfo.h
+>> +++ b/arch/mips/include/asm/bootinfo.h
+>> @@ -81,11 +81,13 @@ enum ingenic_machine_type {
+>>   MACH_INGENIC_JZ4780,
+>>   MACH_INGENIC_X1000,
+>>   MACH_INGENIC_X1000E,
+>> + MACH_INGENIC_X1600,
+>>   MACH_INGENIC_X1830,
+>>   MACH_INGENIC_X2000,
+>>   MACH_INGENIC_X2000E,
+>>   MACH_INGENIC_X2000H,
+>>   MACH_INGENIC_X2100,
+>> + MACH_INGENIC_X2600,
+>>  };
+>> =20
+>>  extern char *system_type;
 
