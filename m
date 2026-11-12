@@ -1,50 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794502490;
-	b=ZJBatHA/iNvYOB4BX52l+9ecSNVeb+JI1v2lMHTwHrI7aZEvahF2ZEuEqQ4PMvG2E2Wa
-	 q4C03H923D88fuaIzh+E8+ICj+1P/rfjdIwGg/mvOKKZ9fm7w4aTucrXFUa4E0oA6g06o
-	 kALO4fDp+GvzE+g9wyi7w6/LCXISwfvz27SUzCWA6MVF0O2aIftFa56f/IXG9s8EBNqec
-	 rwVDsczWLVByBrQ9szIHz+se4wsGBRT3wUUaRRtzAa4Rnm3I9IBYrR07u1gP1okGgqHDc
-	 bKfgLAsFmHMiOTxl6PD40divqghGnadZKdQuGoVCqCn2iAeNwteemISGRJm1qrvWPrQ==
+	t=1794502493;
+	b=fIvkE8rrH6V3uSo1RU6uxnWw6vqCKgEopGas7nIkVegsAhM+ozDbG9cD9nfh5jn2TSRP
+	 /SY4jTs3Vfdy/uJoB8TrGut/5hDVaqaepXXJrOhZZ02n+IPL6CQPTfc/mEV/3AVMR27Sk
+	 /Ffze98evAAruU40+zaGA0cRRNhr1GcXQy4Ibruc5HIhbX6NYGkDaxq+7R7IDwFv0s3/u
+	 1hHjE9mt+z8/VZqIheqan+jh7FC9rYhT6RFaBz3xXD/yAfz4xNzBJW9Fkg7MBn0F+ZtAv
+	 yXu0yEagicJyyQpdOMdV9OqdJtW6NLvEFjcqRGqp7oAgkzXrwjZ0BiyXzVKpHG9jjKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794502490;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=Bw9lp8JxraQCUa7imhgE/6xePoXKhhxbsG8AElA/I/0=;
-	b=FB0Pz4rdehdwY+WrZ/J74DgHntmjJvyaqOJDsVZLqsK3Eb5u+m06dPjlcR1pzKKa31TO
-	 Oy3gLvazRwL51KqmAxI5Xo5oorJiRI3wRfb3y6460x2yQybYRlAvrYl+RIGPuhyw1Zd+1
-	 Yi7OOt42NQdDayEQeD0gfWSbN8QVh9nLRYvsKy1FnLd+gvLzl3uloiAbE+nEMQUe6SJz6
-	 wylQQxSJWH8Ir3nNY6jMtZxhMnjsoLVYUustRpYI+7n7bKwe0RWTxCUARHcdmkAmVRX/g
-	 BlyA0N1HZ+iYVrrkN4RyFkAsaP/f+Tf+fReh1cGdO+hhGqUwDZoH5zByngTNq/fN5Pw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794502493;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fqqhsv4HNVlwlDwd/MGgk5Abc7qDWDaQ0rMfWr6u7Ms=;
+	b=lven5CmWxjl4mFAYDCVF3WRv5BjSHP8jj6yFcP1ni8sQkSy8OpFuMglOLSHQ9a//fgJF
+	 HdUnhltFooob1+GdYETtN06/C5xuLtzLbLWUckztXrahQwkx3SVa9vZPdHAv6FutHXix0
+	 Y5swi5RG88ma1CR8bASZzyiVmH9+gPOx0mVsvbLpBgZfrtDC6PUyATuA8h7+6X5T+t3wH
+	 aWm+nVrLxXfYL+U34vHR9MtTw8dBQT4+S1DPiD6W704vAMZ8AbHbEnBqzK+xDpZW1uTEk
+	 HgDi0xIGH5n6AjVYRYIzRuneR47Lfgp9GNfxVFbwFOQOtNtE4AZv+E74+9phSVycefg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dFGF+syu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="xtwj/7nB";
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08628606A31C;
-	Thu, 12 Nov 2026 16:54:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A63606A33A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:54:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17A63606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dFGF+syu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED3F91F000C4;
-	Thu, 12 Nov 2026 16:54:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794502489;
-	bh=Bw9lp8JxraQCUa7imhgE/6xePoXKhhxbsG8AElA/I/0=;
-	h=Date:From:To:Cc:Subject;
-	b=dFGF+syun1+iuXQ29DDghc7ae2KbAveo0mtkBhTPLqW8IDjs2YHxz4nTIDcx0V9gG
-	 dOEilNHjTlaem49/cfQMUj+MlB9pXFLpoRkMM0PQkSPHKkGHKLXRHFsAmTDP88w3R3
-	 PShSfPRPcgltE/BVzl8zIK2nYkS7RUfdL42t75uImBNYW87OSe1BUoc3YIHxdU4aCJ
-	 VymscX5hiLi65BWtHZKih2XwpmcP/qtbgVK19+SFnN1kvAZ2C0P0k2Lt6P/uiRiqE5
-	 BcPUiHci9ozb98Y22TBEDC4gkB3B5yy7eOWXU1UgZx3jjpuzJrdnMRA18NtP0M+FyT
-	 kWP4NpEl8mFTA==
-Date: Thu, 12 Nov 2026 16:54:46 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Linux Next Mailing List <linux-next@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: linux-next: Tree for Nov 12
-Message-ID: <avXvVg8Dzn73mu8_@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xtwj/7nB
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-170135e43c7so3297967c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:54:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794502491; x=1795107291; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fqqhsv4HNVlwlDwd/MGgk5Abc7qDWDaQ0rMfWr6u7Ms=;
+        b=xtwj/7nB6IzT+eKvlx6Vm43h+xfCwnWN/lGVIPTbiPNj38G8BAwDbdPde+nLaRu2ao
+         B6W696dENvc30r8NzhdXvLebPnOkJWNUQsbi2WPOBg5PJJi8aw8CuR/VuvjFyV5gb9GX
+         XvYB7h5OUTHesjQjsuxR56vez1Sab9M4Qq8G39ywpM2APZzlcYCBAZEKHAnWmScxmGXJ
+         0vv2LX95vMnt5/knfwqwW15ACi2bXGWSThqnwAFqsgPnVd5dItvu/4Lm780hsporRRa4
+         A1DxT0UcPRPgujkpTyeBlC3if61c9pOiKItUUMrtz4beGK4ZpJTfQXevC+E6ea8wmTUq
+         g+3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794502491; x=1795107291;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fqqhsv4HNVlwlDwd/MGgk5Abc7qDWDaQ0rMfWr6u7Ms=;
+        b=MEIDYvu1qXDC1pibwbYn38yb5se6PLgKLx3jrsIYZJT1VSFgx7JJMSX4IRGvbHpRf+
+         bSr9RlPKQd9jlK8FNQA6Ti0esUH37Rrnhd46Wp6m/QInFLX6D/9e5YKeG7h8rCOYl+j8
+         lB/F+RbVX+XTOnfpNthJqeSQNtr1PjJ6f/0Kmps94qDR0U2tbyJ9vNt0zmy7F7PX4OeI
+         X2wuwBwFIYE2FPCK16OivupA6qy2STTtmHkB1rGFQ1a1LYPG2mQEg8DAfsA+VzUAUzW3
+         ZUYom5TGbF0YGpKzO8iNc3RwZhyqETawUgup5lSTSRCo007gtHLv+fMYUqhaQvMLEvw2
+         lC4A==
+X-Forwarded-Encrypted: i=1; AL+hErGX5Vey1bYd1OI7eiaFEm0Pioj4yrhCr02nGB0wpQDtxAxEXWZtAHIZnDBP6TvnEKILIxV8NpE/B1XIkdo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8V/btWaVXZidCA/hObFzqRGUYVeGxaR1tnayWIKa636WhyaVts
+	1Hj9bdw0zwno0gdF3cW2bgPbYSyabau4UpZ7QZ/+LgCXNeAL74zpllzk
+X-Gm-Gg: AYBFou3NgEupHqUkuGNZ0p+gmUYgPxwgrhv7GTOMEuDrCk51VZPjYV4uu+QAf7BDCpf
+	9U23kUOjZxuCXm9SHOfcRMmy84PVQp4bsCvwYmEE3UUnnM1ZaTfNE91rbzTW2jBWYygBWuVlXGV
+	oqPZ7KKVmp0Ev7tG3IVTj2/Rc1MhxCdHZYSB0DPHshANmlZkSQTCTIuRB/GBY8a/VmFl0G9hwsq
+	gbIBTN+b9iQoLSqQqU5kEJ9jltz9aYt08VizKX8MSLbnTXd3TfX5FMDDV7Ko4cHz5aGzDPa5JZ6
+	tsyot3F9fPO6pKCZ0UAcpRiLYFvIlbW1v7LGQ+FbIs76wZGhu4uZ2ike95QnrKGudWOx7oZCCgC
+	3QSYuk+jcBaDADCd8pifWCPBRe11TzF6mkdeg/pN/MdnsFKTQFCt3A/K+COnrv/sG96I9znMMX4
+	nuQYQjkbhSncDLk2Va9Jdha+cG0AI8RstMEd5/DByTn+65BrJ2lgXudvWrLXsd60J/SPKqnvwTp
+	iN5NmBPYTBzDehLZVyOaBRW5nO3yPXIdL7+sxeFCILf+JBpDUnU/cf2Rb3QzXtST6K6bk97JLTz
+	XP3Nu98Zh05y8h9ShPyCKXcLTjmFkIor
+X-Received: by 2002:a05:701a:844d:20b0:16d:1e24:5cc3 with SMTP id a92af1059eb24-1b50312ef36mr116784c88.19.1794502490931;
+        Thu, 12 Nov 2026 08:54:50 -0800 (PST)
+Received: from omarchy ([157.10.22.132])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031468b7sm332905c88.5.2026.11.12.08.54.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 08:54:50 -0800 (PST)
+From: Jamil Khan <khanjamilahmed202@gmail.com>
+To: Joshua Grisham <josh@joshuagrisham.com>
+Cc: Jamil Khan <khanjamilahmed202@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] platform/x86: samsung-galaxybook: Re-enable ACPI features on resume
+Date: Thu, 12 Nov 2026 22:24:32 +0530
+Message-ID: <20261112165433.64461-1-khanjamilahmed202@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,82 +97,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gQ7fdVK6n+i5kaBL"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
+The driver enables the ACPI device (SDLS) and its features (notifications,
+power management, keyboard backlight, block recording) only at probe time.
+On a Galaxy Book4 (750XGK, SAM0430) this state is lost across hibernation,
+and after restore every CSFI call fails:
 
---gQ7fdVK6n+i5kaBL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+  acpi SAM0430:00: failed to execute CSFI; device responded with failure code 0xff
 
-Hi all,
+so charge_control_end_threshold, the keyboard backlight and the
+firmware-attributes all return -ENXIO until the driver is re-bound.
+The performance mode (CSXI) is not affected.
 
-Changes since 20261111:
+Add a resume callback that repeats the probe-time enable sequence in the
+same order, and use it for both system resume and restore from
+hibernation.
 
-The perf tree acquired a conflict with the perf-current tree.
+Tested with a hibernate/restore cycle on a Galaxy Book4 750XGK
+(BIOS P11CFP.025.251116.HQ): without this patch all CSFI calls fail after
+restore, with it they keep working.
 
-The vfs-brauner tree acquired a conflict with the mm-fixes tree.
+Link: https://github.com/joshuagrisham/samsung-galaxybook-extras/issues/12
+Signed-off-by: Jamil Khan <khanjamilahmed202@gmail.com>
+---
+ drivers/platform/x86/samsung-galaxybook.c | 45 +++++++++++++++++++++++
+ 1 file changed, 45 insertions(+)
 
-The v4l-dvb tree acquired a conflict with the origin tree.
+diff --git a/drivers/platform/x86/samsung-galaxybook.c b/drivers/platform/x86/samsung-galaxybook.c
+index b150e1f..27a2d27 100644
+--- a/drivers/platform/x86/samsung-galaxybook.c
++++ b/drivers/platform/x86/samsung-galaxybook.c
+@@ -1381,6 +1381,7 @@ static int galaxybook_probe(struct platform_device *pdev)
+ 
+ 	galaxybook->platform = pdev;
+ 	galaxybook->acpi = adev;
++	platform_set_drvdata(pdev, galaxybook);
+ 
+ 	/*
+ 	 * Features must be enabled and initialized in the following order to
+@@ -1432,6 +1433,49 @@ static int galaxybook_probe(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
++/*
++ * The firmware forgets that the ACPI device and its features were enabled
++ * when the system is restored from hibernation, after which every CSFI call
++ * fails with 0xff. Repeat the enable sequence from probe, in the same order.
++ */
++static int galaxybook_resume(struct device *dev)
++{
++	struct samsung_galaxybook *galaxybook = dev_get_drvdata(dev);
++	acpi_status status;
++	int err;
++
++	status = acpi_execute_simple_method(galaxybook->acpi->handle, GB_ACPI_METHOD_ENABLE,
++					    GB_ACPI_METHOD_ENABLE_ON);
++	if (ACPI_FAILURE(status)) {
++		dev_warn(dev, "failed to re-enable ACPI device on resume\n");
++		return 0;
++	}
++
++	err = galaxybook_enable_acpi_notify(galaxybook);
++	if (err)
++		dev_dbg(dev, "failed to re-enable ACPI notifications, error %d\n", err);
++
++	err = galaxybook_enable_acpi_feature(galaxybook, GB_SASB_POWER_MANAGEMENT);
++	if (err)
++		dev_dbg(dev, "failed to re-enable power management features, error %d\n", err);
++
++	if (galaxybook->has_kbd_backlight) {
++		err = galaxybook_enable_acpi_feature(galaxybook, GB_SASB_KBD_BACKLIGHT);
++		if (err)
++			dev_dbg(dev, "failed to re-enable kbd_backlight, error %d\n", err);
++	}
++
++	if (galaxybook->has_block_recording) {
++		err = galaxybook_enable_acpi_feature(galaxybook, GB_SASB_BLOCK_RECORDING);
++		if (err)
++			dev_dbg(dev, "failed to re-enable block_recording, error %d\n", err);
++	}
++
++	return 0;
++}
++
++static DEFINE_SIMPLE_DEV_PM_OPS(galaxybook_pm_ops, NULL, galaxybook_resume);
++
+ static const struct acpi_device_id galaxybook_device_ids[] = {
+ 	{ "SAM0426" },
+ 	{ "SAM0427" },
+@@ -1447,6 +1491,7 @@ static struct platform_driver galaxybook_platform_driver = {
+ 	.driver = {
+ 		.name = DRIVER_NAME,
+ 		.acpi_match_table = galaxybook_device_ids,
++		.pm = pm_sleep_ptr(&galaxybook_pm_ops),
+ 	},
+ 	.probe = galaxybook_probe,
+ };
+-- 
+2.56.0
 
-The net-next tree acquired a conflict with the origin tree.
-
-The net-next tree acquired a conflict with the net tree.
-
-The bpf-next tree acquired a conflict with the origin tree.
-
-The drivers-x86 tree acquired a conflict with the pm tree.
-
-The phy-next tree acquired a conflict with the origin tree.
-
-Non-merge commits (relative to Linus' tree): 5916
-
-
-----------------------------------------------------------------------------
-
-I have created today's linux-next tree at
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
-are tracking the linux-next tree using git, you should not use "git pull"
-to do so as that will try to merge the new linux-next release with the
-old one.  You should use "git fetch" and checkout or reset to the new
-master.
-
-You can see which trees have been included by looking in the Next/Trees
-file in the source.  There is also the merge.log file in the Next
-directory.  Between each merge, the tree was built with a defconfig
-for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
-an arm64 build of various kselftests, a KUnit build and run on arm64,
-and a native build of tools/perf.  After the final fixups (if any), I do
-an x86_64 modules_install followed by builds for x86_64 allnoconfig,
-arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
-ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
-sparc64 defconfig and htmldocs.
-
-Below is a summary of the state of the merge.
-
-I am currently merging 436 trees (counting Linus' and 135 trees of bug
-fix patches pending for the current release).
-
-Stats about the size of the tree over time can be seen at
-http://neuling.org/linux-next-size.html .
-
-Thanks to Paul Gortmaker for triage and bug fixes.
-
---gQ7fdVK6n+i5kaBL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr171UACgkQJNaLcl1U
-h9CYYwf+M5ClImY+tPOFASAkRbk0k/P/W7JFh37zWAtCSchQdYI6XFHAYQy4qaad
-OIP/I0UwXjyW846U0BGzCmvQ92OTbll0iwC5T9knSu9QRpAdWKtPxZh1FjeoirVt
-b2TguwJ7VERfjSGzz9sI4xQahSKP0JBGMGDmHgkNuIiO67g207OdhPSwwnjchQ19
-jH7Am+ypr9Kd4dpl5CicvZ9oozbybp6XgZkU3ATdxy8rNRlksUwf8xTBw2lM9lzE
-QGVr2Y5516l2f9R5Tn7Ckc9BJLwaTNguOlGldUfZtAPhzHJlCcQgxQqLKOHDJeBO
-QrpkKBV5YQ0CHRfMqSv/PSBmHZKcCg==
-=dglh
------END PGP SIGNATURE-----
-
---gQ7fdVK6n+i5kaBL--
