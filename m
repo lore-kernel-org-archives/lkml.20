@@ -1,50 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794479207;
-	b=v/rHtZajRbVRrkX2u39cHsKSc872iolqelmLFRkgTV9frOaD18yUj0dWqhqrX2SNC1P5
-	 rtr5vC2cy+qf6//VUAWjSAsYsNZTylwy4ANmGjESb9bGavXWGs6ivbuBCEzoLP/PkBHBc
-	 zyS3V19YBSUG3fn+U8KyfmFzKorVC6TiIr/L0mhdajP8QWzJmoy1sSNdODSXp+vvLWtEO
-	 cQ01H9/jJnvF638qvimnNn//zfN4TkBtQa9nPkrcwHNCw5KYmNodShqC+3NFD3uX5YYgP
-	 KM2J1bRs9/PZsLSnzzqME+6UwEGwXFNFVHeqffb+HWM0rmuGmgVX9rv/M/Pcafxl1Kw==
+	t=1794479210;
+	b=LCXjTvOmh4lub4FiVIlrJQ1zqQTU2gsA5zPKeg17JRmLMpg0w3R5jfVaLQp4UYF3bRJJ
+	 NZouMvN6klVTfCuUUy+Xfmio+V1YUQOklkqYGz/MNoALl0rHk9F9rif7Hgt3BdvujUufc
+	 QbojRAFksH73U+Cwerq7iW5lQyMQDuiricritJg0+yBSwZce5Ta0D9wNq7XVfko2qFKyx
+	 RbcL23zmCEuGxUVN00YSdR6uPoqeCbWTKRaLg2gh5jdc/zG9W3YOJr/UKKsVIFuJmwkon
+	 Oh7SUjJlhId1HSoIqJsHMEMYvkK8hfQkA1dJgiEwJ7jzphqmOY7fQR+F4VcNZqOqmoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794479207;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=BAGiVqo482Y2Wo+PAk1n3JBj92FYpa/0+d+5K1xeOuY=;
-	b=SWg+7OsIniU4j8e/PlIgjUnXqMaedMeQ/zE3AuEmgGI6ypoq31gL749rxC4u0daPdarf
-	 h9ZhE94Lg+XZUyWTwlxogW7qMvzZF0Dz9cIw4h/u1jYziFmZtQ9O0o5P0iYtRXI/sIfJv
-	 GElCidFY+052NEw2bj4p6MmBKWZzDYEm31ZoSwkEXMO5OdOjy9lUEIz+A9b2MzJ2Q8BBp
-	 eCsCm4nj/f+uRTp7TfWe44/09zCk/fbhLZKCBY3ROTZW1uZ+AmhttXgQzXMSzusW8nPkj
-	 0aTiy76HsJ4cP4KdeMedQWdjtup2P452W+cmczyvgp68hU6ZldH5JJtinPZq9zquWgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794479210;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Scanned-By;
+	bh=6llOWqJeYAhUICeHCBAXdna4LLIajW03GC3elOBHvx4=;
+	b=hhpW6kAUV0+j4N5YowhS4pR6mAr8lr3qIT6VfYKLlORNeGuh8y0Y4mKTrBaCLYas4Ey5
+	 EiVgpLou6m999pFIlUUCrnlBKhDPJc8x6TIqDoFjFPeo+UnlPJX25HsecBIt8Yff9dbAu
+	 3iWoZjGBcnNhx386l810Fzeq5JO88uCFQUuutYDOJGjUdaH4MxjKqTH6YXvie+QVYgIpV
+	 2+5YYz/COBBJ2M0MxntD0ooQk2bCnKQbyVnOooqx383UhxNOOxSY5JVHo6h9sonRhsi2s
+	 U4VHLgvG/FZHJ2tCmXOuPjTjNjFE9lS0lgYfJqLw9d6wD2PkXOZ3J9o9wlVKPPqHwTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=mBqta6sQ;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=euDFcGry;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBD2F606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:26:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBD2F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CFC7606A330
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:26:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CFC7606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=mBqta6sQ
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 252D9802;
-	Thu, 12 Nov 2026 11:24:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794479061;
-	bh=Y/lQ3pq9rgGGVd75tXp0uthRUc6fWC7EXCQMcm636I0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=mBqta6sQxO4C/KG4iD/5Q5P8iuJmcGhDCpZG2IVW2ZSqaM4FqPsFVLQq+7f4vZMkV
-	 Ij3VHJ/qEGJyqcjlv2iPMs4WFb38T2AQQrwYvKjyHpJ7oY50tavRs6j46TzMeYV2yo
-	 bgyNISVvAIhHz4i+B/MTh0cJyR/8jsxALO3mHBuY=
-Message-ID: <8c71220e-c74f-440d-879e-06434b1f3ecc@ideasonboard.com>
-Date: Thu, 12 Nov 2026 12:26:41 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=euDFcGry
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794479209;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6llOWqJeYAhUICeHCBAXdna4LLIajW03GC3elOBHvx4=;
+	b=euDFcGryuEgQLLHmExN8Ukx8Xome8BESCk6f2ahfOs5TRrjhD9mwUPvzAbAep5q0SxhJWc
+	zKd+qsCxTr2BH4kyzzmzideMj+zz1yC0gZqGXY/2B0O0nUs97wQw/GwNVMPRgljPoABbJz
+	1Eaj6EODFhChq2Io+TtthgxZIPPnrsc=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-551-u-i_fN6cN0-B-vlmLwz4og-1; Thu,
+ 12 Nov 2026 05:26:43 -0500
+X-MC-Unique: u-i_fN6cN0-B-vlmLwz4og-1
+X-Mimecast-MFC-AGG-ID: u-i_fN6cN0-B-vlmLwz4og_1794479201
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 489C71882607;
+	Thu, 12 Nov 2026 10:26:41 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 4D73C1956087;
+	Thu, 12 Nov 2026 10:26:38 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Thu, 12 Nov 2026 11:26:40 +0100 (CET)
+Date: Thu, 12 Nov 2026 11:26:37 +0100
+From: Oleg Nesterov <oleg@redhat.com>
+To: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	tz2294@columbia.edu, stable@vger.kernel.org,
+	Mani Tofigh <mt4022@columbia.edu>
+Subject: Re: [PATCH] pipe: keep per-write wakeups for EPOLLEXCLUSIVE consumers
+Message-ID: <avWUXRywbUFuLm0S@redhat.com>
+References: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
+ <avT7nQs7zYseYtMw@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,65 +82,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] drm: xlnx: zynqmp_disp: use
- dmaengine_get_copy_align() accessor
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Frank.Li@oss.nxp.com
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Michal Simek <michal.simek@amd.com>,
- "open list:DRM DRIVERS FOR XILINX" <dri-devel@lists.freedesktop.org>,
- "moderated list:ARM/ZYNQ ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev,
- Frank Li <Frank.Li@nxp.com>
-References: <20261111200739.3823753-1-Frank.Li@oss.nxp.com>
- <20261111231644.GC449775@killaraus.ideasonboard.com>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <20261111231644.GC449775@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avT7nQs7zYseYtMw@redhat.com>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Hi,
+On 11/12, Oleg Nesterov wrote:
+>
+> On 11/11, Mani Tofigh via B4 Relay wrote:
+> >
+> > From: Mani Tofigh <mt4022@columbia.edu>
+> >
+> > A task blocked in read() on a pipe can sleep while the pipe holds data,
+> > when an epoll(EPOLLEXCLUSIVE) watcher of the read end was added before
+> > it.  The watcher's entry on ->rd_wait is exclusive and sits ahead of the
+> > reader, so a write into an empty pipe wakes only the watcher.
+>
+> I am already sleeping, but at first glance this is already wrong?
+>
+> I mean, a WQ_FLAG_EXCLUSIVE waiter should not sit ahead of non-exclusive
+> waiter, no?
 
-On 12/11/2026 01:16, Laurent Pinchart wrote:
-> On Wed, Nov 11, 2026 at 03:07:37PM -0500, Frank.Li@oss.nxp.com wrote:
->> From: Frank Li <Frank.Li@nxp.com>
->>
->> Use the dmaengine_get_copy_align() helper instead of directly accessing
->> the copy_align field from the DMA device structure.
->>
->> No functional change and prepare to move struct dma_device to private.
->>
->> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> 
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> 
-> Tomi, I assume you'll push this to drm-misc. Please let me know if
-> that's not correct.
+Ah, I forgot that anon_pipe_read() uses wait_event_exclusive(), and it
+assumes that this wait-event is the only reason to set wake_next_reader...
 
-Yes, I'll pick this up.
+I seem to understand, let me think about it.
 
-  Tomi
-
->> ---
->>   drivers/gpu/drm/xlnx/zynqmp_disp.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/xlnx/zynqmp_disp.c b/drivers/gpu/drm/xlnx/zynqmp_disp.c
->> index e998f22686748..0753236b9546a 100644
->> --- a/drivers/gpu/drm/xlnx/zynqmp_disp.c
->> +++ b/drivers/gpu/drm/xlnx/zynqmp_disp.c
->> @@ -1433,7 +1433,7 @@ int zynqmp_disp_probe(struct zynqmp_dpsub *dpsub)
->>   		struct zynqmp_disp_layer *layer;
->>   
->>   		layer = &disp->layers[ZYNQMP_DPSUB_LAYER_VID];
->> -		dpsub->dma_align = 1 << layer->dmas[0].chan->device->copy_align;
->> +		dpsub->dma_align = 1 << dmaengine_get_copy_align(layer->dmas[0].chan);
->>   	}
->>   
->>   	dpsub->disp = disp;
-> 
+Oleg.
 
