@@ -1,64 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794475334;
-	b=BKxDnIHheHfKuxTYfYiSsZZqq9buL/R95/nL4OX2Fj9KcSv0rV4bfbFrYYjyiepazTrb
-	 RdX/HwXzq3m4v6KSOSNgyew3/wj/TUwJVKYslBNjvxS/PGUmBwFYdRRnjXHDn0kYR1/8+
-	 Le1JZyfa8GF0p4gdz+Pb+DzoZdWk4vl7XIBF/Ydb4iduA4tH7bPyw6wi+VZ6pK+eeesQR
-	 6w5H3SJFdEgDUegtCOXe6AcCHk+T8hZvcPRqqjZhwSFXjr3QDsFs8Cx62H2iLs5SUaTrK
-	 Cn/1kszZo/zGFkPmnBb+ZukCtrKRhcnRAkz4Ntcq/fXFLo0kvYlD39m6fWp/gXdnibA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794475334;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=lEBNes9WZ6YlYMttj1cy98GuEcLLQz3c97TIzqpDgiw=;
-	b=Mw+X0YSr2HxUp/yhYCvOfWcYVaebvHSsMm5iTKJpJj3d66FU0Lv+/C/TCqjPnwussQDk
-	 1ckblr4W5Kr9jrwq8L4la2sSWXD7CgdtASKr7BpxlSyxNMwRVAnTZoSQOV2wC3uBvTxsb
-	 cr8pIl5G1w18Ft9EMTIeU0fu1hEsi9M7IMXcUeN79X7su1gqe7bJre3H+YAdLr3+pwDN5
-	 fc2p08iiThrfDeFLEdmTZmVyoTfCooqyW8/gvKIEuzpuhLxbf3XSn0lCi4sMZOSgL3FKQ
-	 hJuZpXHJIz92dNZ4d3O8bFfHU7MfL4p3eU8iy6F0G4oBTH6xZA1mDQLzgY9R6p/VS6g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dd2hxb+z;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794475353;
+	b=DyfOZ0RvIRcYkbqe+IdqQwPQf9F1HwvOpc4jWmKizsMQCjjiWZU5CDKOShHiAMwtMO18
+	 6Ups2zzC3qA8Ihjwsr0xY+1t5V9ltXv17JOV9D3nU6q5Xe/gEqbljC0NBW8IniyfazKt9
+	 W9mcQZETm8yxQE51Zn4thE6eVKTR3WvkDxvZIIvi8dJbXcYzNgGTiRlWrMKsmu0wyYb3g
+	 1ROA/ZPUdRbvcpmynJn+0xIw0gelSu52lojtgIAghYrp98Per4CnGtfyd26V+7rK+V+Vd
+	 hGEWpeIi2b3cTs/l9feHfleABKUNWA56lYp5EK4OKAylcQlKsysvR5lqixHJedBKG/w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794475353;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=16wVqdPDZIuHoW9AEJTC3axaVHxMIkstnwglYRMIniw=;
+	b=mD5sVvV54ERiPo4EKzxBWU3skpCiaGgSTp+KBoYxMIPwwsy6gdzvRT23VNMQVytUQtVZ
+	 t1uytMU8XGH56kGMZTZE6EBgMFV+Hcis4EPcIxuntK6yqON0kpLhpGUnO+Kh+nTVBKAyj
+	 oDhBN7E8kYJT5e2uXMtTr974wf4PYsNmlWXys1b4Qu8SzIKAPmOZWaQvj0IV0yVCYOun7
+	 5/UrK9BWRmNSfvv98qKUqomXsHWPYilPtvyTTRlh7KlDYBq9BgPoK//hgak9L5C4nOYgg
+	 3MPsutV471LJHh4phgWuCQXisTbSjozUcprv7IWJliycz/6Evb8KPFfF/ZLSNcc1NFw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kAqhGWp8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17347606A31C;
-	Thu, 12 Nov 2026 09:22:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11740606A323;
+	Thu, 12 Nov 2026 09:22:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dd2hxb+z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83FD41F00A09;
-	Thu, 12 Nov 2026 09:22:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kAqhGWp8
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794475352;
+	b=eHQyUtTHvK9Qh24U/f1A4X8yuhNisxHGp6d3WrBAWr7oCKMlq2oc5SyVrkGhf8Tuf7gM
+	 qhCfgTay+cZX1HVXBAKY0yeVIBXELECpZf0ITRXvnPJHR9KkgU3FvR9vubhLavSH0IRAo
+	 bPQVC2OJOiVUYd+WVKyJIHR/9Gat2ar3/E2NmCVFrmgw95+NGMyY03i1oCrjWcjij72GN
+	 YrkEc9CJpPjRQMhfYMmVCejZ3Xs44J01Y1GO735O1NJChk8RUjijMYM7fEgScfGjkUJE/
+	 T1Yd0XxMGqNzwkvQ3Wa8ibar8kY/yR1I3fHFKvyNk+iUv9w5Hq8wOJIXgW6gwbhuyNg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794475352;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=16wVqdPDZIuHoW9AEJTC3axaVHxMIkstnwglYRMIniw=;
+	b=IRxof7TG+xAsyKiLUViLbw3ARadjbqSRCw6whFJ8TimyNCgii/jtrZJJa2gGzOanK/z9
+	 j24wP3uY+Obh3PRO2MCu6goZJyej+rakukdQT37EwLoJLd4oXWpFOdujHmI0eCUEj2l/5
+	 GwvjDO7VkUu/1niAH9LzhvePIky5SS76LOOs+dsebjFAH7wapb04iiDVz6DOkOjffpR97
+	 xsctpgg2RCVK+DGsXrjxi28G/s+s/EUq6I+t/X60H2JdgmBkPBmAfqRQRwK+skDQef/Rc
+	 S8mm0lDBPm9iKxCKDdo7nih/8fl/+vVrIyZ/Dn5iEegGZUuX36P2LRjHvW1zzVHJdIg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 0C79A1F00A07;
+	Thu, 12 Nov 2026 09:22:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794475333;
-	bh=lEBNes9WZ6YlYMttj1cy98GuEcLLQz3c97TIzqpDgiw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Dd2hxb+zBo3V5eqRPFxmMyyaeh4MczoWOPu2fljcl+Hi/GlqKioECJQFEXurY1pdw
-	 TYDqVg/w4/8eXZsZHpDG2Jq/2NGiIcUqcWgiPAyCLmc6D0PfavU7/MDwQd+hLVCDvf
-	 EBV32TpEIc55z0OwZe2k5xfDu+FcpelKvRRXcA72XT+8nTfWvO3vjanN9LJXVKg/UK
-	 fZB373KULjgugUGxbEKFyxz/Lf0imrdqp8Oivzv/QAj6IkXzmh5Q1sI9so9caPLhRj
-	 k3Y6l/qM5I7iNaHShYon/2mEOFcgc8GbQRJ94KN391W0H285epX40wECoWnv4DkGST
-	 Xs/EkqtHUNTzQ==
-From: David Hildenbrand <david@kernel.org>
-To: Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, 
- Peter Xu <peterx@redhat.com>, Lokesh Gidra <lokeshgidra@google.com>, 
- Barry Song <baohua@kernel.org>, Rik van Riel <riel@surriel.com>, 
- Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, 
- Lance Yang <lance.yang@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Chris Mason <mason@kernel.org>
-In-Reply-To: <20261111-pte_table_clamped_end-v1-0-2dbe339c487a@kernel.org>
-References: <20261111-pte_table_clamped_end-v1-0-2dbe339c487a@kernel.org>
-Subject: Re: [PATCH 0/3] mm: fix PTE table overruns with folded PMDs
-Message-Id: <179447532820.4855.13160220470264902013.b4-ty@b4>
-Date: Thu, 12 Nov 2026 10:22:08 +0100
+	s=k20260515; t=1794475352;
+	bh=16wVqdPDZIuHoW9AEJTC3axaVHxMIkstnwglYRMIniw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=kAqhGWp8d7om5nKdOFYQM6LNpUdxZevJ4FoV2RHtxsSFPA9qPwBOCimcF24gpD8lG
+	 3ltQPavyVHTrD7QSGmY1LxNfcZwHnFE64M9/e6uojPjWieu08cB6qlGj2DLdJDlMCH
+	 ss6YXPXcGMzxYdxNmcgCmn+mvbG/GmUViaCakNIs/RInJaYj6UhlF0VRJ00THP680T
+	 GX0m0tD5Kx6zrFJKPYJ0ELu77ZKbEK+xcaEFDduySjxX+PIYdSQHG9+3j4yNc8QHqp
+	 fdQ2h5You8gjw1p4SamlilfXSZG3V+A3oCtNIprQgjZWLZ1U3T0kqd+V/I2aEULfPI
+	 LU6YFT30wBLKQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8A96549430;
+	Thu, 12 Nov 2026 09:22:31 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Thu, 12 Nov 2026 09:22:32 +0000
+Subject: [PATCH v3 2/7] arm64: dts: allwinner: orangepi-zero2: Let the PHY
+ add the RX delay
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,47 +84,76 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261112-h616-zero2-dt-v3-2-1cd2664230c8@gmail.com>
+References: <20261112-h616-zero2-dt-v3-0-1cd2664230c8@gmail.com>
+In-Reply-To: <20261112-h616-zero2-dt-v3-0-1cd2664230c8@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Ryan Walklin <ryan@testtoast.com>, 
+ Andre Przywara <andre.przywara@arm.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794475350; l=1923;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=hgTnawt6aimtaYNRLXqSLgWoRIBtKR4Hz80cKcd5MZQ=;
+ b=vJ2ZDnQf7m9n3JuujGCr6FMtzvczqPGcrm49X9AJCXNCBYfWtNBiezVwEh6ut7LnS+yt/zY2F
+ olwUXyzpPADD9lT6n1X1l8Fc+mdovKmAkS6TuCgJkmdT05OuP/k0O6H
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
 
-On Wed, 11 Nov 2026 22:59:58 +0100, David Hildenbrand (Arm) wrote:
-> Fix 3 pmd_addr_end() abusers that can result in PTE table overruns with
-> folded PMDs. Let's factor out a helper from a place where we
-> recently stumbled over something related, and use it to fix these 3
-> cases.
-> 
-> I'd call these more urgent because they can corrupt memory, although
-> folded PMDs are uncommon.
-> 
-> [...]
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Applied, thanks!
+The Orange Pi Zero2 describes its RTL8211F link as "rgmii", with the
+whole RX clock delay (3100 ps, the maximum the H616 EMAC syscon can
+add) inserted by the MAC. With "rgmii" the Realtek PHY driver also
+clears the PHY's own RX delay bit, so RX sampling relies on the MAC
+delay alone and sits at the edge of the window.
 
-tree: mm/core.git
-branch: for-next-fixes
+On the board this shows up as intermittent boots with a dead receive
+path, after cold and warm resets alike: the link comes up at
+1000/full and frames are transmitted and seen by the peer, but nothing
+is ever received and the EMAC raises no RX interrupt. All EMAC clock,
+pinmux, drive strength and syscon registers are the same on good and
+bad boots. On a bad boot, setting the PHY RX delay bit and clearing
+the syscon RX delay restores reception at once, without a link reset.
 
-Applied patches will appear soon in mm-next, followed by linux-next.
+Use "rgmii-rxid" (RX delay in the PHY, none in the MAC), as the Orange
+Pi Zero3 with the same PHY already does, and as the vendor BSP does.
+The 700 ps MAC TX delay is kept. With this change 10 of 10 cold boots
+had a working receive path.
 
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
+Fixes: 5a378f9f2b15 ("arm64: dts: allwinner: h616: Add OrangePi Zero 2 board support")
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+ arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
-
-[1/3] mm/userfaultfd: fix PTE table overruns in UFFDIO_MOVE
-      https://git.kernel.org/mm/core/c/654b0d18
-[2/3] mm/rmap: fix PTE table overruns during batched unmap
-      https://git.kernel.org/mm/core/c/bd94d906
-[3/3] mm/rmap: fix PTE table overruns during batched reference checks
-      https://git.kernel.org/mm/core/c/dbedd8e6
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
+index f2e3300e078a..1fdf2d3c1a87 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
+@@ -18,9 +18,9 @@ &cpu0 {
+ };
+ 
+ &emac0 {
+-	allwinner,rx-delay-ps = <3100>;
+ 	allwinner,tx-delay-ps = <700>;
+-	phy-mode = "rgmii";
++	/* RX delay is added by the PHY, TX delay by the EMAC */
++	phy-mode = "rgmii-rxid";
+ 	phy-supply = <&reg_dcdce>;
+ };
+ 
 
 -- 
-Cheers,
+2.55.0
 
-David
 
