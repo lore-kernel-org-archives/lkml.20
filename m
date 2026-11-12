@@ -1,67 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794481990;
-	b=5A9KUzHtMhdTJu4lLhw/iynPA4KJGmCVfj7ZEOPMBq6rbgNHp83EPsdq0f1ntN3W+emq
-	 t8/UqZa5TrzQGVHPpBPIJot/H+/3rSVBpCR9USXTJksI8Js6bQ0k5SPmk0Ou/HTxo3Bek
-	 qbly2d3QOnFX+9+9g+RbjAoDwA625vGNrhI8qPHPp/BpDNgEgV8TwmjYhDlPPsO4KJOYp
-	 uTVL6dRQ1pvBI3hXNDPzNVJ4eAf78WUueSWpZXx7n8kmIIbucBHaWpHEb/00TrybgqiJp
-	 2f9GqkpvVqKNt8gwjaGw+bWE8Zx9N1kZ7mv3A0Zd119hroLA56WCoYHd2JSE/N95v3g==
+	t=1794482012;
+	b=cBvGHw8gZB6cHNNiE/l9q0moQ3oQD4Hs368Xlh/BYbL0UiMDp8EvwGYPR81hLAZQ3y7v
+	 wQJCUIbeMBw0XJRBpZRmZFHTLR8nMdtT0naKT5rUzQBzCYt1wPunTYiRQmp77ncyqeR6R
+	 p70L+zymcRQTeUHyTovfb0oSQ/ytlh2IJSraEbOhnwa14Vy3fDUAviOvGZH4XcCcyPycG
+	 kYk8+FqSd8HElHy1fOvo1Lt4tJo6hp13oozho819NNLYsolBbMqwM61KdH7URX66GgwOf
+	 W7PqHgc6QZo430arROrzVBOq8sodmuduZINZVgqumH9OidmjvKzsPvxQ1bs9gbXLxKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794481990;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=O1ylWmglCLFhGDN08Z3QqHQULQGJeVg5Vw4Vd/T+a9I=;
-	b=u4eyuA2FSe6Dy1moKfKxvH7MXVOGG4O3yYbT+xP0HJ9IsWMxpwPhvsM1eF23aVxtIjXS
-	 PcYD4EwyWGpT6iwqFW2NffICM4ZRYaGZjAXBagROu9DNBfEaQF6majwUsHl+cG1BX7ZpY
-	 B/nGHRiHG4un5O66OcjtjnGBBbbSBtwvSQWZzYMnD3kesJkSMXEZwgQQJ1vb9y3BwxPFy
-	 hzdVvdUHdThGHxJ0tpkATXQs6oLuSVBVg+zggnYGjt1XR6Guguao6QRi9wlqKgo4ZwIvG
-	 YGQZTtwTidVqvJQwh4d7as1qj6hywW9f/LFt/UvOr+cSwlR0mtwApykywlL2ZRDjExQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794482012;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=YUt79C6HsUz91WOz1S5CLRRoLkvdudsBsQ/mV3JOvoE=;
+	b=YJJzYPTUazccp5aXVYIJFS1n6xpJYNIzVYiMZneydKR3VpcgAr3Qvvkd+IVmlNqPcHFD
+	 XvDKaD4GD0RrPrQBlwgmSrs101qhAu19nlFAZR++sfT9aXpje5wjn1nO1Eb/3M5OyAz66
+	 9wp11ILeyIJgn2Jooidep3V4L0+qI2MNzeD/Yybr0cAdSgtbPiF6jqELkxXmxqeSGoWX1
+	 Cvp8mXmyAsMRP4Ua83BvWGSFE5zuP6zrXxZ+sfn+RK/2R3S/6nmYB5gr4L5EPHNpEJ65J
+	 WtyPStu1IeHuRSuF95SSnlpQ3Vw4+C62kiQO5C77tKXkAGlW/OJnj+WrDz6Dcqii0xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=FM7nupIb;
-	arc=none smtp.remote-ip=115.124.30.131
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HmebXykq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6DB606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:13:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B6DB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B34CC606A31C;
+	Thu, 12 Nov 2026 11:13:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=FM7nupIb
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794481980; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=O1ylWmglCLFhGDN08Z3QqHQULQGJeVg5Vw4Vd/T+a9I=;
-	b=FM7nupIbxP4U6L7OXvL1srusoEdjIc6zCJBefwyQtZMYCShBW1UWdF/kb+eUTWjF0CbCHQnUEOxKm0mcftHxxV1zkoqInlPJ+zrzxuntMejRcXFuzq+y0c/BIBWeSEI0pR9o3Piyd94Z5IM6FfSrwXqCzuRPhHl8h1k68xZQTCg=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XEblyLP_1794481979;
-Received: from localhost(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEblyLP_1794481979 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 12 Nov 2026 19:12:59 +0800
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-To: akpm@linux-foundation.org,
-	david@kernel.org,
-	hannes@cmpxchg.org,
-	kasong@tencent.com
-Cc: baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	baoquan.he@linux.dev,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	mhocko@kernel.org,
-	baolin.wang@linux.alibaba.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] mm: mglru: use pte_table_clamped_end() helper to calculate the end
-Date: Thu, 12 Nov 2026 19:12:39 +0800
-Message-ID: <b2386c5da61f9a15e60daa421b033bc1e0bcdd41.1794481498.git.baolin.wang@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HmebXykq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A53FD1F00A05;
+	Thu, 12 Nov 2026 11:13:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794482012;
+	bh=YUt79C6HsUz91WOz1S5CLRRoLkvdudsBsQ/mV3JOvoE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HmebXykqayv+n+a6SRF5GOasVUHmGgLAzZRnAiDodP/oKaixv8v3kYiUv6bYaNdpY
+	 H2WXSC5zpdjDgqv5LRbp4oqQbWH1UpkZ9B6nrcY1w2wxUcqJexoju25D20QZ7xaQ2p
+	 HoLZusWfcPqTwOsKDjYM51rO/guPiFxf/hOn98PmTQu9tfYbh6UD38sE6GZB/c8TBk
+	 3A4fU18SvWiu+u4MtwqLmRaXKfxhL5WntWq6qzHhVHVhoXLfwNQXJ6lJO6T1+CPOy9
+	 FjpAoAiQ8L2g23JsFiQ8s6DClYHnrcBMH52xGjZUOv1/XONgGTDcU9w7gbUca2QljL
+	 GziYz4kyYdxHA==
+Date: Thu, 12 Nov 2026 12:13:29 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ishu Brar <patches@brar.si>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+	Kuogee Hsieh <quic_khsieh@quicinc.com>, linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/6] dt-bindings: display/msm: Add SM7250 MDSS
+Message-ID: <20261112-gifted-feathered-ermine-443bae@quoll>
+References: <20261112-dpu-sm7250-v2-0-8e925a3a8a7d@brar.si>
+ <20261112-dpu-sm7250-v2-4-8e925a3a8a7d@brar.si>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,36 +65,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261112-dpu-sm7250-v2-4-8e925a3a8a7d@brar.si>
 
-Use pte_table_clamped_end() to clamp the range to the PTE table and VMA
-boundaries when batch-checking young flags, making the code more readable.
+On Thu, Nov 12, 2026 at 10:06:32AM +0530, Ishu Brar wrote:
+> +            assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK_SRC>,
+> +                              <&dispcc DISP_CC_MDSS_PCLK0_CLK_SRC>;
+> +            assigned-clock-parents = <&dsi0_phy 0>, <&dsi0_phy 1>;
+> +
+> +            operating-points-v2 = <&dsi_opp_table>;
+> +            power-domains = <&rpmhpd RPMHPD_CX>;
+> +
+> +            phys = <&dsi0_phy>;
+> +            phy-names = "dsi";
+> +
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            ports {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +
+> +                port@0 {
+> +                    reg = <0>;
+> +                    dsi0_in: endpoint {
+> +                        remote-endpoint = <&dpu_intf1_out>;
+> +                    };
+> +                };
+> +
+> +                port@1 {
+> +                    reg = <1>;
+> +                    dsi0_out: endpoint {
 
-No functional changes intended.
+You need endpoint here. A change requiring this is on the lists.
 
-Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
----
-Based on mm/core.git for-next branch.
+> +                    };
+> +                };
+> +            };
+> +
+> +            dsi_opp_table: opp-table {
+> +                compatible = "operating-points-v2";
+> +
+> +                opp-187500000 {
+> +                    opp-hz = /bits/ 64 <187500000>;
+> +                    required-opps = <&rpmhpd_opp_low_svs>;
+> +                };
+> +
+> +                opp-300000000 {
+> +                    opp-hz = /bits/ 64 <300000000>;
+> +                    required-opps = <&rpmhpd_opp_svs>;
+> +                };
+> +
+> +                opp-358000000 {
+> +                    opp-hz = /bits/ 64 <358000000>;
+> +                    required-opps = <&rpmhpd_opp_svs_l1>;
+> +                };
+> +            };
+> +        };
+> +
+> +        dsi0_phy: phy@ae94400 {
+> +            compatible = "qcom,dsi-phy-7nm";
+> +            reg = <0x0ae94400 0x200>,
+> +                  <0x0ae94600 0x280>,
+> +                  <0x0ae94900 0x260>;
+> +            reg-names = "dsi_phy",
+> +                        "dsi_phy_lane",
+> +                        "dsi_pll";
+> +
+> +            #clock-cells = <1>;
+> +            #phy-cells = <0>;
+> +
+> +            clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +                     <&rpmhcc RPMH_CXO_CLK>;
+> +            clock-names = "iface", "ref";
+> +            vdds-supply = <&vreg_dsi_phy>;
+> +        };
+> +
+> +        dsi@ae96000 {
+> +            compatible = "qcom,sm7250-dsi-ctrl", "qcom,mdss-dsi-ctrl";
+> +            reg = <0x0ae96000 0x400>;
+> +            reg-names = "dsi_ctrl";
+> +
+> +            interrupt-parent = <&mdss>;
+> +            interrupts = <5>;
+> +
+> +            clocks = <&dispcc DISP_CC_MDSS_BYTE1_CLK>,
+> +                     <&dispcc DISP_CC_MDSS_BYTE1_INTF_CLK>,
+> +                     <&dispcc DISP_CC_MDSS_PCLK1_CLK>,
+> +                     <&dispcc DISP_CC_MDSS_ESC1_CLK>,
+> +                     <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +                     <&gcc GCC_DISP_HF_AXI_CLK>;
+> +            clock-names = "byte",
+> +                          "byte_intf",
+> +                          "pixel",
+> +                          "core",
+> +                          "iface",
+> +                          "bus";
+> +
+> +            assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE1_CLK_SRC>,
+> +                              <&dispcc DISP_CC_MDSS_PCLK1_CLK_SRC>;
+> +            assigned-clock-parents = <&dsi1_phy 0>, <&dsi1_phy 1>;
+> +
+> +            operating-points-v2 = <&dsi_opp_table>;
+> +            power-domains = <&rpmhpd RPMHPD_CX>;
+> +
+> +            phys = <&dsi1_phy>;
+> +            phy-names = "dsi";
+> +
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            ports {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +
+> +                port@0 {
+> +                    reg = <0>;
+> +                    dsi1_in: endpoint {
+> +                        remote-endpoint = <&dpu_intf2_out>;
+> +                    };
+> +                };
+> +
+> +                port@1 {
+> +                    reg = <1>;
+> +                    dsi1_out: endpoint {
 
-Note that this was found while reviewing David's series:
-https://lore.kernel.org/all/c31cc8a0-c098-4784-a843-f13f51914094@linux.alibaba.com/
----
- mm/vmscan.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Here as well.
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 5495d9be90e8..804d4188e7b4 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4470,7 +4470,7 @@ bool lru_gen_look_around(struct page_vma_mapped_walk *pvmw, unsigned int nr)
- 	walk = current->reclaim_state ? current->reclaim_state->mm_walk : NULL;
- 
- 	start = max(addr & PMD_MASK, vma->vm_start);
--	end = min(addr | ~PMD_MASK, vma->vm_end - 1) + 1;
-+	end = pte_table_clamped_end(addr, vma->vm_end);
- 
- 	if (end - start == PAGE_SIZE)
- 		return true;
--- 
-2.47.3
+With these two fixed:
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
 
