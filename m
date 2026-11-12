@@ -1,105 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.24
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.245.243.92
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794501996;
-	b=3IkfNnAW1aNni5er4mwrqbCcJbcb70rFhyc5yanqA19uBlVl+ZyXDjrM7a9I5nohA+JV
-	 mTYGtXNNDBh4Fbdh0W9U3+XxiDeJLC15fCiFcCcz4pMnfh78j8c5hec9XmKC6k6r5Tz4h
-	 iGiPTDEX442M9Vt4+DGPW1aQblCBffD+pKy0bvaF33Sl2jeDVehFKmcRCMrQPB7wdHZtQ
-	 Jz9zhg05k3XOxUP3r17OdejE/3h/sgNHyKKJOfgeYmSpcSxUlECo/ex7mIjj0sbqwcu8r
-	 xlJlkN18qHkc8Y5/ZYHdrj/+aUtFwUvZqSRFp88bUs+YlhxkWNsd51Pm/XnoKvvLCrg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	b=mllLM3jtvxP53NVHFJgB3DaL6+xr4nriRjba+hLjWzvYBspAWbF4IH5h2NUGwxjiYv9F
+	 jvAN3//kTanhrgkjRPLEs496qCDVJ+1a0EEsHypH+f55jTPgcOOz45f4MKteBjUm2zx4f
+	 7ZRGxBZxU2gUdDGETGzaR5icHMKgbx2JnFEuyaUQIWYNb3z6LWuaQr9OdepZ2ICCkUxSP
+	 ZVdLxUTtKfa3+W+0KFXx5uysBSJphM24JjiF7N41LnKQCMsyVZqX47PrMPYiFYlh511WK
+	 EP/YKL2gcsswu9yaG6p6jsszzs1XOr3UMQ6ZmcDOxKfMDz+kVwt6Glo2O/K6Gg6H7kg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794501996;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-MS-Reactions:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ugRjqWRs7okEjqsQF0pwx3WV2aiCHkmskycccrDr4oA=;
-	b=TlJW0CyVJ76JmiBicwmR//bAsNFpjbsHsdiHGiunNEOITMfDfK6Oselei2Q0O9vrJbOi
-	 jO1cRxya9MhBeK34+/8fyqIk7X1cwnFQmg1HlrCom5Gm/Mj2k33IvjgQoCoPzcGQah46y
-	 vDRXwpcPIubevsGa1urQdG1niMISE7KI9NzkAPRQRJfrJ9CYlu+c9F9sH9618nA7vsgLf
-	 BR2HpwVfmMj4YWf5iKfe+T3tcne679clURAp5j4elcNZnr1x0lk0EyDp/u8DFku6ygf2a
-	 JWaBi9N+Fg3NkMHptibmMsF+k/wOLguEz0jO8SZmN+vgDlK1F/6GTbLm89rOeg58Evg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=nrO1t5T2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.24
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010024.outbound.protection.outlook.com [40.93.198.24])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=xNz64j0McT9dIRYa5D9GRgq1blnxgnKU+6IqC8Q3v5U=;
+	b=DLTHCN909Fi1Vu8Wz9nzt56V7TmOQIGwvxLgW29RlB3Z5w/fb0zYGahmiGDjuU5FE0mC
+	 78LsFq9+iujOO6SRR4KD5FGJYtSa6dmOtI2nAAxN720stme4Sups1h3CnKGYSphBuUwEq
+	 qS193BUX8B7qAoU42c/X1pdQd/8IrhjnH99PMU8cqp/jjDaCvx1HWDPyxuv15dma1q5lp
+	 3F23vyLZvwEvXoYTXIkEtIlkjMtgDRNJ6BrZAoDWMG28j/w07IggyGvu+7e7tQLJmuQ2c
+	 t+PKzXixIFijAIkkoueNndqUtEZbVlz61jYee+60KgJdBNsFu5frf7bbQmLvqexoaGg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=VRGsWl26;
+	arc=none smtp.remote-ip=44.245.243.92
+Received: from pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.245.243.92])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9467F606A330
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:46:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9467F606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F528606A8A3;
+	Thu, 12 Nov 2026 16:46:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F528606A8A3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=nrO1t5T2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jaUlz3YMFsFKMsramlKF6W+UMo02pvAbD55V2UCgm2LC6S2Z+1VFkmwnfmMAYEcJkHsJ0Bmxa0H/tVYJs+da2h8wvyJcbKKjmhUDVlBypKwYS7q+S159nJBtkHqI9rRQk+r9gmJn8PD7DBGF7Pj3A+cWKFcTFXn9OplOlbR7Fq3DxMZla9ey9D7kE8Uyn50euwqlUQP+CeHaxhiwhznCsQDGVKjifMUl0mn5oBALbaLegeLBioOxr//G4Or7zB012U6dDl/B9fpsozyGPIZbeJW841XWhapd8SFeRrvI5BvvXdcZRUBysUR3atgORtn09biiAe7qUw1zBkaJeRiHlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ugRjqWRs7okEjqsQF0pwx3WV2aiCHkmskycccrDr4oA=;
- b=QjtMjU9sGthqRKDm4VBf6IGwSjkksr7ZLu4WJcXYbdZUmkYlfiJMEZGSYouLYTY468nAWBzHBJDSGYf+b/0CSJgaELto/SQ/e9B2CRwkGHKLBqGw36KN8LwobSoWohO8qODQCIahwKgSk5jW/bBMqMZtSVNJFlS+Va+62Zrw88KyuL2NXLiCIj0swhMCmD3e1CFM2nypBmX/l8f9acbWjBZleDKQ/ElXwmfltDmW7GcfG4mZUS91DbGq5oHMow1ItTeKE/QuaT2PSaagpg5JKNqotGlls8eb1JUqmgnDjPzMZ4lQwP9/Q0nfi4eX79ppQTcY5E1hz1YiMul9CwEIDA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ugRjqWRs7okEjqsQF0pwx3WV2aiCHkmskycccrDr4oA=;
- b=nrO1t5T2dyftoAFSsIztK9B4QVLkeCKCYzm6ntwC6fHZolPqFRidsFn5WkoPqMwP9G8vNoJmkGm9BT7kaceyDX1h53u8QupAHCQJr4Foy9JL8EGWT3JedRGUyYkwVE1+AbtxXM624jmvR0lEoqnSFu890WWRUy+FQsH50fSNG3awGa5DiQwm7ZDLdI6x567oOzZhP2Wlw1Tmmss3WsNBu1YKtoZuGK4N7a9b8hx39PPnId07wzB0+lFpxp4NBhDDs9RM0qHayPr9jtPaPQkbeo4Odqb9t1uqfX9ypfHcLKab6HAap9jAeBJ15WvSrYhRCETqKkoYc6d0/MQoTgOWXw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by CH3PR12MB8356.namprd12.prod.outlook.com (2603:10b6:610:130::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
- 2026 16:46:11 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0615.007; Thu, 12 Nov 2026
- 16:46:10 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: =?utf-8?q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
-Cc: Alexandru Elisei <alexandru.elisei@arm.com>, linux-mm@kvack.org,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Hildenbrand <david@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@suse.cz>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>
-Subject: Re: [PATCH v17 00/12] migrate on fault for device pages
-Date: Thu, 12 Nov 2026 11:46:07 -0500
-X-Mailer: MailMate (3.0r7038)
-Message-ID: <A5F90AB2-917D-4A04-9A81-A55CB4FC8E66@nvidia.com>
-In-Reply-To: <61e5e0ac-dfe2-4a5a-afee-873523df18e5@redhat.com>
-References: <20261103061629.972669-1-mpenttil@redhat.com>
- <avWpWBl1nPcRVmpQ@raptor> <79f33ab0-2e43-4efb-94d0-addaf40745ec@redhat.com>
- <avXoJSGh5xjGFgod@raptor> <3A5BEC5A-BAFA-4541-8ACA-43E57C7DBCFD@nvidia.com>
- <61e5e0ac-dfe2-4a5a-afee-873523df18e5@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-MS-Reactions: disallow
-X-ClientProxiedBy: CH0PR03CA0239.namprd03.prod.outlook.com
- (2603:10b6:610:e7::34) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=VRGsWl26
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794501996; x=1826037996;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=xNz64j0McT9dIRYa5D9GRgq1blnxgnKU+6IqC8Q3v5U=;
+  b=VRGsWl26zKFYIrK9qB9P9cO92sRjJ9swVfa0mvRfWsYqYYsptSFrkMtz
+   acj2ZTKT6cNkTcbDO84C69ESgnZbbG4d8dv0Eu+2XbAmkgukesNYQJVQT
+   HH3v+iaABhLYef3nLlRhlCexRHTfj3Dc/EJZGuYu1/9+PltXHtZ0/e7Lr
+   N6WPr4ZnUtqWJ4XfU3jfJ+dTXKFrmSi2DDAU+b9X006PftnFzJ2Im5zFr
+   HQl6sijtwT7DE/Pg2Mb7XU3lAfxj7nAbXgAA65RbNAnrOkX95fgBSg5zY
+   cQAvOIY/7gPtv2A6z5Osa6c7ESVIioTuBGhv58ZztofXxEGeUQUxEc4jq
+   A==;
+X-CSE-ConnectionGUID: M3uxj+oWTaGVnVFTezF7+w==
+X-CSE-MsgGUID: T6xCuqlBQraj/j04FJr78w==
+X-IronPort-AV: E=Sophos;i="6.27,210,1787011200"; 
+   d="scan'208";a="33343779"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 16:46:36 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:5075]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.16.231:2525] with esmtp (Farcaster)
+ id ee27b830-e949-4985-8d33-62faba8a9563; Thu, 12 Nov 2026 16:46:35 +0000 (UTC)
+X-Farcaster-Flow-ID: ee27b830-e949-4985-8d33-62faba8a9563
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Thu, 12 Nov 2026 16:46:35 +0000
+Received: from dev-dsk-surenkj-2b-416930d2.us-west-2.amazon.com (10.169.26.94)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Thu, 12 Nov 2026 16:46:35 +0000
+From: Surendran Kanagaraj <surenkj@amazon.com>
+To: Jarkko Sakkinen <jarkko@kernel.org>, Peter Huewe <peterhuewe@gmx.de>
+CC: Jason Gunthorpe <jgg@ziepe.ca>, <linux-integrity@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	<linux-doc@vger.kernel.org>, Jonathan McDowell <noodles@earth.li>, "Breno
+ Leitao" <leitao@debian.org>, <nh-open-source@amazon.com>, Alexander Graf
+	<graf@amazon.de>, Gunnar Kudrjavets <gunnarku@amazon.com>, Josh Levinson
+	<joshlev@amazon.com>
+Subject: [RFC PATCH v3 8/8] tpm_crb: Raise the limits for Amazon NitroTPM
+Date: Thu, 12 Nov 2026 16:46:21 +0000
+Message-ID: <20261112164621.62645-1-surenkj@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261112163846.97654-1-surenkj@amazon.com>
+References: <20261112163846.97654-1-surenkj@amazon.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,108 +88,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CH3PR12MB8356:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7a55e315-36f9-4489-13b1-08df40dc74b8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|261009223027099003|10067099003|11063799006|4143699003|56012099006|261022105027099003|261026140227099003|261028144727099003|261026121527099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	uHiTUoWQiul0KQ/95lM2p0+q9KKdAU/rWmTDGr8DDQbrrWWkTHJv0YjknvDZ4z1dQYxwJMRSnB98hG/41lH9NxWIlS4F1SmaAwnCo3F7c1JatPF3eXJcaIIgm2tO1uGFi44VeVtGD9tvjbLdM0IiCXXgo98qTsDe0XOf8kuyKVRoMxSkcOBh6MuP/dVxVLuRGBddkY3SbEizAZ5aZCpe4bWSV83y285R0EhRmLnAsuzWpHS5IDUmls+TDizBI9qzw0He5sbEFFZQu97kpgYO3uKRa9kAYJU5lU8lEfQspGc/sZqHEA7DyoL3+mUakLPxNR+4F5EWogVRHtdt5bMClqltC4ENLfuS7svBC5Z/muULvWOVrAdnawMmb33616HiPXm58afwoNm0EPhDNS24BjBji/NvylY6fHjdhHpzqz79NjHYTmMYF6f+0aPkdZhWlFvDk9NO46AhuWbCpBN2I0SNZt/cdUETlksgr+WYK4jgIjag2bYIU0JYERmdgzNQ2Fk/ZMtbs0tYoA4eO9nj29bPH7eoXOgImIb++CXGlQyjNhzdEIDcCDsS991ii6FCHrqHSvWkR553zaZoNN7S+/NY6K/sTomoOsbNOu7vvaqbtD2gsyuU12CnJdAJXXSNn23F5+hT/pifQACpQzuaQvEUSKQpSYmdPHYoUxApwq0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(261009223027099003)(10067099003)(11063799006)(4143699003)(56012099006)(261022105027099003)(261026140227099003)(261028144727099003)(261026121527099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dlE5bzhZRGtzZWJUVU1GMjY3c0cyajZEYkVsdFdmM0NBK0QyTDRQSUN2OC9I?=
- =?utf-8?B?Z1lad25tNXFCZVRFRTFYbFFxcDlqSTRJYVFKWkYwL2hjR2dPYTBvQ2dKdzBG?=
- =?utf-8?B?cHlVZzBTOVBZK1p6WVZCYTJKTXN5WnpMRmdqdjRGVjRVdFdxdzZLSVg3azJS?=
- =?utf-8?B?Y3JkdktXeE9BeXZFZ0hWdldVTmZBV0J1YnZ6alJkWlZ3amR0SkpxNzNpWE55?=
- =?utf-8?B?bUNKZ2luRXh0eitYMlVnYmRKUjllK2pqeTBIbjNFdERrM3VvRmZRQWxIazl2?=
- =?utf-8?B?QWttOHh3U1hHeTV5RHdvL3ZqQnI2cjgzRkdwdEtiQk5kWjFiMWZwNHZEOURs?=
- =?utf-8?B?bkNEQ2d1Tnh0dkUxd1A1SVprOUpRRHIxZGpaWnRWdVQzZzhhWXV0b0lHKy8x?=
- =?utf-8?B?KzFESDByNTNVY0tIRGlBZWd2VzI2cFdnMWZYRUlHNm1vMEVnWHFFZDF3WUR4?=
- =?utf-8?B?anYvaG1DdU52REpxQVNVSDByc3F3QkE3N01tcWNmVHFyeitIeDhqNXRvcUpM?=
- =?utf-8?B?cmdhQm9DYkJ4dUh1QWd2YkF6OEY4bFFhcW4zMFRJcUVOc3JSTmtEenBVeity?=
- =?utf-8?B?VHhTQ2tTNGJLUG1yMFhBME8xdFpmL0FnSmYxSDFlN3h5S0svanJrZGJselJE?=
- =?utf-8?B?eE4wQjhNS3g2R3Yzem9WWmJJWHdYVEZodXpaQ3NvWkdzYmxQU3VXUXBLVGVX?=
- =?utf-8?B?SlpQTlBLYzFiUW5qNXFjcVpxUG5sYjVUTjNUNFVXSk9OKzNLK2hYdnIrZnJu?=
- =?utf-8?B?OUpBSlBRbEFianN5WlR6elc0disxM3BBREFha3FTVm9yYmhOS3Z4cHpiT0pJ?=
- =?utf-8?B?YXVFRlJoT0dqWWRaMTZ1VjBBWVhjTVVtTXhwSUxjVmZZbi9ORFdXeW1VU0VJ?=
- =?utf-8?B?M0V0Zlc3c1kxY051d1UwU21rSzlNSWdFV3M2LzM0b3dQcjFKaGhydklEMnVi?=
- =?utf-8?B?VS9SZlMxc0wvbkJwenpkVk5NcDEyQzV3N0RKV214Tno5VTdzYnJ5d3Y1WG9M?=
- =?utf-8?B?K0UrUDh1TnA0ajhJQ3NZM245UTZLV1NWVkZzOEpVQnN5Q0o4OEMxL0VKMjds?=
- =?utf-8?B?VFZHMy9ONVJ5RGRheVVJR3VYM1NzRzJ6QklxTTR3R3IrY1BhVytJL3BzUGtK?=
- =?utf-8?B?ZndpVTVhSXQ4L3djWHdQM1RrK2RrM29Sb2xvMTEwZmZJamJENWlrNG1hTEhw?=
- =?utf-8?B?ejRIM1FjZzhBd29sbytWVDNVN3ZVM0FrcW1tZWFiU2xwdFliUGp4R3lSVWNm?=
- =?utf-8?B?SlBiN1ZLT25DTVoyd01sMnhmWHNtbWhIemVTaXU5YW9CSmdhZEF5dVNEcW1Z?=
- =?utf-8?B?TWlaTTZnNWVVM2JZdzRtT21jRUpmdU5jT3M4YjBNeTcvcm01Z0dQQXJxN2Vj?=
- =?utf-8?B?UXJ6UEcwRkNjUExwdHNiT2VDZGN6d0g5SGN6Tm15T3ptVHk5cGd6SWM4QWRS?=
- =?utf-8?B?M3JGb01uYkwxYzNiWGtMdi9XeGFiOHNzU24xNmlncUpIZ3lCdG1MWlRqRVZz?=
- =?utf-8?B?VitLZjFwcUUrSlNTMFBnS2VtTlRBRDhxMEQ5ZVE2MXhndi8wS3NqY2doa3VH?=
- =?utf-8?B?TXd0LzN3R0VhSzVoaWRBRW1tRTY1ZFZpbVk2QjJZSEZzdVE2cXQ3end1V1NH?=
- =?utf-8?B?SFJZM2pHck1yZjJQSGxWVHQyem1NSVpqLzJYWmV3MFdLVEVicG5FQmZkaGl5?=
- =?utf-8?B?dzMzaXQwSzRFKzl5ZENlUXVwS2ZZcWUxQ3p0b0R1czJ3ZzRTU2JGZEVicWwr?=
- =?utf-8?B?U0NLU09maHdaWXJkOTVvaDMvVEZvSVFwSC9SdDh6SUxJZzZzc0lpelcyOG1T?=
- =?utf-8?B?QmMwWWtHdzFlN002YnM1eUIyTm92WnpZR1BMdVAzTmNvL0NUZUE0Nk1XVEMy?=
- =?utf-8?B?aFo3Z3FJWTdwQW8rRk1pa2laQ0ZISHEzblhBWURLekpwRjkyTGlNd1RDNHRk?=
- =?utf-8?B?MUlwRXF0Q2FTWlhVV1ZzNFVFV3p5ZnhObURINjF2VXdiTUdXaTV3dE92Y0Uz?=
- =?utf-8?B?dFZKd0xEdVM3RmRodG5FQ2ozM0l3ZXpTUDB4UEgxcjZnSWpCclJ4M0hGbmd4?=
- =?utf-8?B?Um82Nk9LRmlNUDA3cDk2NG9jVTBNWU52YkE2dCtZSzJEOGFwLytmUVlzOGta?=
- =?utf-8?B?RGxYL1hrU0gybTJubllyejJTa2dsSnJyTHkxNjNONmNjUFA3Z0NmdWhkWXUz?=
- =?utf-8?B?TEErSlJkVTd0M2xUdWsyTzk4SnMraG9MNVpFSm5RRldDNUxwc1FUdjJtakRj?=
- =?utf-8?B?SGJtbTJQRWwyT0d3VXlpb3ZjLzFha3BYalZ4Wk93SVg1ZnFOL1RPRGVRMkJQ?=
- =?utf-8?Q?1xw7vZ/AvGkqU6+N2G?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a55e315-36f9-4489-13b1-08df40dc74b8
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 16:46:10.6852
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 24JqOTHrDzmJ0qKIrqlq//cjk3J+Eo5AlvfLtf/Et6e7LcAi5rP0NLrh6YCGbNUj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8356
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC003.ant.amazon.com (10.13.139.252) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On 12 Nov 2026, at 11:44, Mika Penttil=C3=A4 wrote:
+In rare scenarios NitroTPM can enter a mode where it either sends
+TPM2_RC_RETRY for longer than LONG duration or delays
+command completion for longer than the TPM 2.0 durations allow.
+When this happens during auth session start, the driver disables
+the chip and every subsequent request fails:
 
-> On 11/12/26 18:33, Zi Yan wrote:
->> On 12 Nov 2026, at 11:24, Alexandru Elisei wrote:
->>
->>> Hi Mika,
->>>
->>> On Thu, Nov 12, 2026 at 04:00:09PM +0200, Mika Penttil=C3=A4 wrote:
->>>> Hi Alexandru!
->>>>
->>>> On 11/12/26 13:56, Alexandru Elisei wrote:
->>>>> Hi Mika,
->>>>>
->>>>> I want to help getting this series merged, and I've been familiarizin=
-g myself
->>>>> with hmm and device migration, please bare with me if the questions I=
-'m asking
->>>>> are obvious or downright silly.
->>>> Thanks for the interest and willing to help! I am preparing a v18 of t=
-he
->>>> series and plan to post it early next week.
->>> The series is big, and as far as I can tell the MM people are hard at w=
-ork
->>> reviewing bug fixes. It might be better to wait a while, to give people=
- a
->>> chance to have a look? I know that if I see a series being reposted oft=
-en,
->>> I am less inclined to review the patches since probably a new iteration
->>> will be posted soon. But I can only speak for myself, you know best.
->> Totally agree. It is better to wait until MM people finish the bug fixes=
-.
->
-> I was going to send fix series to few regressions by earlier posting -
-> no new features or anything - with the mindset that it is better then to
-> review a fixed series than known buggy.=C2=A0
+    tpm tpm0: in retry loop
+    tpm tpm0: tpm2_load_context: failed with a TPM error 0x0922
 
-https://lore.kernel.org/linux-mm/a2f584f6-e382-4876-aa6d-d5a34de6ee59@kerne=
-l.org/
+Add a quirk table to the CRB driver keyed by the vendor ID from the
+interface ID register, and apply it from ->adjust_limits(). For
+NitroTPM, raise the SHORT and MEDIUM durations to 30 s, which covers
+the longest unavailability with some headroom, and LONG to 45 s. With
+the back-off doubling from 20 ms, a 45 s LONG duration lets the driver
+resubmit a command for about 40.9 s, so the retry loop covers the
+entire unavailability window.
 
-Best Regards,
-Yan, Zi
+These are upper bounds, not expected waits. A command that completes
+sooner ends the wait as soon as the poll sees it. Add TPM_VID_AMZN
+next to the vendor ID list in tpm.h.
+
+Tested on an EC2 instance with NitroTPM by inducing multiple
+unavailability windows with no TPM errors, and in QEMU with swtpm by
+holding the TPM in TPM2_RC_RETRY and stalling command completion for
+longer than 2s.
+
+Signed-off-by: Surendran Kanagaraj <surenkj@amazon.com>
+---
+ drivers/char/tpm/tpm_crb.c | 50 ++++++++++++++++++++++++++++++++++++++
+ include/linux/tpm.h        |  1 +
+ 2 files changed, 51 insertions(+)
+
+diff --git a/drivers/char/tpm/tpm_crb.c b/drivers/char/tpm/tpm_crb.c
+index 7c1011eb855a..0e18f61cfddf 100644
+--- a/drivers/char/tpm/tpm_crb.c
++++ b/drivers/char/tpm/tpm_crb.c
+@@ -13,6 +13,7 @@
+ 
+ #include <linux/acpi.h>
+ #include <linux/highmem.h>
++#include <linux/io-64-nonatomic-lo-hi.h>
+ #include <linux/rculist.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+@@ -26,6 +27,14 @@
+ #define ACPI_SIG_TPM2 "TPM2"
+ #define TPM_CRB_MAX_RESOURCES 3
+ 
++/* TPM_CRB_INTF_ID_x vendor ID field, bits 47:32 of the 64-bit register */
++#define TPM_CRB_INTF_ID_VID(intf_id)	(((intf_id) >> 32) & 0xffff)
++
++/* Longest NitroTPM unavailability, with some headroom */
++#define TPM_CRB_AMZN_LIMIT_US		(30 * USEC_PER_SEC)
++/* LONG also bounds the retry loop: 45 s lets it resubmit for 40.9 s */
++#define TPM_CRB_AMZN_LONG_US		(45 * USEC_PER_SEC)
++
+ static const guid_t crb_acpi_start_guid =
+ 	GUID_INIT(0x6BBF6CAB, 0x5463, 0x4714,
+ 		  0xB7, 0xCD, 0xF0, 0x20, 0x3C, 0x03, 0x68, 0xD4);
+@@ -663,6 +672,46 @@ static bool crb_req_canceled(struct tpm_chip *chip, u8 status)
+ 	return (cancel & CRB_CANCEL_INVOKE) == CRB_CANCEL_INVOKE;
+ }
+ 
++/*
++ * Read the vendor ID from the interface ID register. Returns -ENODEV when
++ * the head registers are not mapped for this start method.
++ */
++static int crb_vendor_id(struct crb_priv *priv)
++{
++	u64 intf_id;
++
++	if (!priv->regs_h)
++		return -ENODEV;
++
++	intf_id = lo_hi_readq(&priv->regs_h->intf_id);
++
++	return TPM_CRB_INTF_ID_VID(intf_id);
++}
++
++/* Limits keyed by the vendor ID of the interface ID register */
++static const struct tpm_limits_quirk crb_limits_quirks[] = {
++	{
++		.id = TPM_VID_AMZN,
++		.time_us = {
++			[TPM_LIMIT_SHORT]	= TPM_CRB_AMZN_LIMIT_US,
++			[TPM_LIMIT_MEDIUM]	= TPM_CRB_AMZN_LIMIT_US,
++			[TPM_LIMIT_LONG]	= TPM_CRB_AMZN_LONG_US,
++		},
++	},
++};
++
++static void crb_adjust_limits(struct tpm_chip *chip, struct tpm_limits *p)
++{
++	struct crb_priv *priv = dev_get_drvdata(&chip->dev);
++	int vid = crb_vendor_id(priv);
++
++	if (vid < 0)
++		return;
++
++	tpm_limits_apply_quirks(p, crb_limits_quirks,
++				ARRAY_SIZE(crb_limits_quirks), vid);
++}
++
+ static const struct tpm_class_ops tpm_crb = {
+ 	.flags = TPM_OPS_AUTO_STARTUP,
+ 	.status = crb_status,
+@@ -674,6 +723,7 @@ static const struct tpm_class_ops tpm_crb = {
+ 	.cmd_ready = crb_cmd_ready,
+ 	.request_locality = crb_request_locality,
+ 	.relinquish_locality = crb_relinquish_locality,
++	.adjust_limits = crb_adjust_limits,
+ 	.req_complete_mask = CRB_DRV_STS_COMPLETE,
+ 	.req_complete_val = CRB_DRV_STS_COMPLETE,
+ };
+diff --git a/include/linux/tpm.h b/include/linux/tpm.h
+index a4b7282d88b5..f557c1a32388 100644
+--- a/include/linux/tpm.h
++++ b/include/linux/tpm.h
+@@ -220,6 +220,7 @@ static inline enum tpm2_mso_type tpm2_handle_mso(u32 handle)
+ #define TPM_VID_STM      0x104A
+ #define TPM_VID_ATML     0x1114
+ #define TPM_VID_IFX      0x15D1
++#define TPM_VID_AMZN     0x0EC2
+ 
+ enum tpm_chip_flags {
+ 	TPM_CHIP_FLAG_BOOTSTRAPPED		= BIT(0),
+-- 
+2.47.3
+
