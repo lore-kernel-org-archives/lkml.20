@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794455323;
-	b=pOkM9qE/ssW/Ij7MROQmHSDKOuxpDwSFWj+CsXaSvTRy8JvQYaOHbKuXGLL10gKO7q3Q
-	 raAlJRxnhZi2xQ7quxG5z80aYFqD0qTsFqA3Z6xCBkfMgl26kC2p3GQeXLg5AAZa5gI/Y
-	 4uLumjygci3OCRLQE3xDZUvXP/XtpBJYCR2FhgC/SAlx/LZ+zvuUNBqL1MMBn8YwZxjEF
-	 eqVHXrgZt5U/IiizKyKnjp8u0uB11KFtFnPc79nkjA/ZkOBQ05aDfZFabUa/bGTlb7pEf
-	 VWVN2fgQmzzXh5/ijLoOsnaZjo8bHsuEwKp6kWf38BICrvMmdb2hQ6NkJY/0p7b6AAA==
+	b=DtaryRBzNu9O2Rh7Ou7po18nDRY5vI3ICqGpc+s1ymO9j3fwYvi92uM105wpuIcecQHP
+	 BmaJ5wte7riOJkvDSArzvmTAR/YRiY1LaXqSUcGFcS1qOHgJ2j8DLfTnx4Bp/Oikf+ssz
+	 0Q+KXUL3u7IqhrwdJCI7BWlSlZprhmXj3R2Dem7N1OjXHYwgFdyhABNSSeDa0Ojd4cGWp
+	 UR7wnXZHicKOBaYNBLOSDmGRF/ovAhHHSq0f612RPD30LiaJoj4TfwM/zVPFoJGetEfdM
+	 S++S7KOSpyIV4QRf229tHqwvGA1h7ua9z8MvUELBuQxKrdovYikxOae2isWzjBBz12Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794455323;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=tTqwyBOLUa7ar2LGzrtuAz0U9jtDiBgCFYFPI6cb+VA=;
-	b=EGGkCFGvFUOPS2E8kR77sEs+VisaijZDwEwMhi4F6h5iIlKX7/7k63FpJM18H9xplvJd
-	 xqkKUT18y9/stwmG1fWkgjhH+qeNYsSFISR0jY77gPXs8MHIU/ChNb+TjyEgtDmo5E66Y
-	 469e3OcwohtKzSVSKgxG7NG9k30DQlexZS6F99/9niJWuUO46Sn8lSdJlOCHxBM7fToJI
-	 zOBVAtLRLX9BeY2iFFPs9rV2gpofZ/YgG0oZhhCt0gwzKxwrditpx1iosreZdOYCXm5mz
-	 cl0jMUheDevrou5w2UdUwYuNA+pAT8e08DvpHMUdbSGZsE2X+RejVqQu48ZANxCGbow==
+	bh=3GgvPJagE+zuLdLjBExn5vDk3lJnEMFjBQK/8H8lWUE=;
+	b=ACD407y6c0wggW4Z3N6OCaB6OZNpBFbpkjRS/DmOIauwmVFCECIv298U7g4m7G1TF6x0
+	 PLtDqcckJzaroB1j/gxm+zVAOAIf5uQ7Y/VXk0a/dolLkkCHvmqcs3rC+McIASj0BbbC5
+	 IhFBSWqOfV2oxzX5kxS/FSd4Q4Jrxa2zNnCqiBHHce7Y/cN2g5h+bdsjOY0Z6+X//7jpu
+	 BoEr7ORmSbD+QTOmsv7sf7FQDtP2ryqyZeEWoLATAzpu3UdwdbqIXnfXFS3hgJgGh04Fs
+	 cWG7x5wKhBgyuk1wWB/6wsKrHtI8PavkU07x/pgLqykpepB3liXdJy/tAC9Dng0BuyQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fwq7BxAZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z2UVtwHl;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1221606A31C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEE58606A321;
 	Thu, 12 Nov 2026 03:48:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fwq7BxAZ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z2UVtwHl
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794455323;
-	b=3sPTqQVss3Y3KoiA5B87NbR9FEgYwzsdETzYP0LbnHJQxh/UET8qyqKsEdxZKxpSIa0s
-	 liKGgM/bqJHU6v+FxJH/ZMFWLKmnWs7L/kJvTMbkueZaqRgNxYjHYPrYJ7Afienk7TnK2
-	 XJr2nWMMF+yb+9lrB+mkWFOViF3A/fXs+yCvHr328lPlwE2Z/I44eIME2RsEaMqF4ljFx
-	 KDlva1AUojLXJJfqIBwlE2Jsi4oMh3F3I9S2EdEv+4sNPynpQXfU4h1r6zpxSr98BwKZX
-	 rO/PBkGN0GhsvflET1NJEPuuUKWV4uyAdoPviJgKRtLV7rsD5Lu2uRi7dMi0naTiJWg==
+	b=ihqtEIQmRs6DXMFkaME1NGAzcLlgyqyCXEhVuKvQEYE1veTF2c5AKI8h7SXv16wooTm0
+	 Jid2qd3zrw9MH1mbZqRj9cWcjjuJkzwuvou3SZTUVpP6pbNRBwbiX7Hcb6keATG4vN4XH
+	 jURdnHnbECCFXQRQWmD5XOYvPe+SzNtBq0WdYk3RVXY3xTWOuKiQEre9+JVeI2DfX3WhR
+	 586geLYwnw8hSuPAJ9FSDQR8CwMUfH8fVcqvh3k8787VtsEpTkZ9jOJfvdJQG6ApPwFe1
+	 U+51IAB0O6RB7V8Cfpx/L8xlsEpk3TsDLuLXEGChE0ewrxvcwrGzotwYHcpZPnsVF0A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794455323;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=tTqwyBOLUa7ar2LGzrtuAz0U9jtDiBgCFYFPI6cb+VA=;
-	b=eaCBErdRA7NrNl9f2ksGOu89Ek4rw5XGsz/7MSjCqyxD1cMGZuuPtpYofckBcsQgzPO0
-	 5m1C2Uyw1jZi6WujBNbmCAv3vLhuXdLOgyJOR9yaqxA47kvMWKSpqKaYnxvGZpDZWBPx/
-	 1dCqrTPfQjTKCIHJKSZtsFyWp2CUPTQEQoh0hMf9uSDu8N6tRpQpilTjyef5doAxm+Lvx
-	 2G/YesZdbNTtaa+fb8gZpU7LbSWN7hmN4l4kR5DgIUQ4ay9fU8RKisHh8zTFwKTGV2SpI
-	 4E365wKsZWhzDle11O9S5hCPquJQlKOzcdM+7CktIeBTjUuJ2kztE1mVnaEnmZhGbFw==
+	bh=3GgvPJagE+zuLdLjBExn5vDk3lJnEMFjBQK/8H8lWUE=;
+	b=TqoBbZfOA/oaKhmDEVbywVEFItRbXK8LcUgyuubPnOSn4QDQYa0btnNT0vRXLn59Xw6l
+	 gCilj+ZuTpa/8Ci2q2uQG7NXJOG7t0BHLVhsw3f+JZZTzPgdN7HjC69f1f1UXjausYwlJ
+	 4OJwtmpQGF2L9nUuvZtI4Jne+g0A/NyamF18Driket38xUbwFvQwEm7HRmx5AeviuYmvD
+	 F66FFPuxoDUyuGgRgMXnVv6fZIzUav4yPbykbqam2irKhJCo32FClK+a9EQn3ZdW5M6ml
+	 dcaAIoOrWHpiKfv2qOVND9EHuBi4JQUSlC24g794UCDi4gStwArRGjM4RWRzItaonJw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CA6A91F00A07;
+	by smtp.kernel.org (Postfix) with ESMTPS id C9C0B1F00A05;
 	Thu, 12 Nov 2026 03:48:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794455323;
-	bh=tTqwyBOLUa7ar2LGzrtuAz0U9jtDiBgCFYFPI6cb+VA=;
+	bh=3GgvPJagE+zuLdLjBExn5vDk3lJnEMFjBQK/8H8lWUE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=fwq7BxAZO6nojpm70YsnhsT9+KUyknykjES8FMzQ6F2nbEk6gy4HGnoj/ZK4faZej
-	 zfGrYTsAD9UOP1trGwxBBpOvPu/lUnHD8CfHXJ4JfcWnVdXuPVsLn8xiVdO+6WepkE
-	 XGmRbV6M36AdAsWnb8tzASDY0klC5kv+tFHQsUirX+olms0/GTD5K1W5rZdB3Y0vdI
-	 7hybqilpkEDPHkivLd1qUvt2WebcFstoCEoyK3xxvPxLGKdJ7HRTCVmhW9Oi24fcmo
-	 QL2AXZ4WiOKxizlBSU6qZdh3xDrrCNQmGXyWK7n3RlYcgpTshDJ9OjL288TT3HQ9SX
-	 fFHhCZMp3b0LA==
+	b=Z2UVtwHlUmhfN0zPQEdprH0NT4ObA0aF3GwiEhrFSFfGU2aNfT9m2AxWm6YxbtEmB
+	 rEqNlVRlQp9eSvn1jNLAY3xUsnQ3lkPkyVgvsOeLYB9uVGQlVg4RZVBR5LqTVjoEqW
+	 LFqT1LZn0rLX0E11JgKx9p6oJ1ltqSErbzIJj1bLHOv3r7K/LXzO7BHH8UZRpFeTOw
+	 v46d4Ykcf3Q8as6uiXCk182rr50QIIPWNrCEKhr/mteoBuO5rKI3Fu61D/zNutelZl
+	 +dkFAEWmsD1q4JXSLSXilqfpiDVzfjYTrbVz8TtPneK1b7i0ssdoFEZJVe+qzXZpVB
+	 YTcrUW9vvIQag==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5564549275;
+	by lkml.kernel.org (Postfix) with ESMTP id 4339549273;
 	Thu, 12 Nov 2026 03:48:42 +0000 (UTC)
 From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
-Date: Wed, 11 Nov 2026 21:48:33 -0600
-Subject: [PATCH v4 2/2] staging: octeon: match exact interface names in
- pow_send_list
+Date: Wed, 11 Nov 2026 21:48:32 -0600
+Subject: [PATCH v4 1/2] staging: octeon: disable PKO before device removal
+ in probe error path
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,18 +84,18 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-octeon-init-pipeline-v1-v4-2-5b4f8e613ae1@gmail.com>
+Message-Id: <20261111-octeon-init-pipeline-v1-v4-1-5b4f8e613ae1@gmail.com>
 References: <20261111-octeon-init-pipeline-v1-v4-0-5b4f8e613ae1@gmail.com>
 In-Reply-To: <20261111-octeon-init-pipeline-v1-v4-0-5b4f8e613ae1@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
  =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794455321; l=1426;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794455321; l=895;
  i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
- bh=8E71kLdZrxiYjTNdPeIwjDJ9PhrdCS1LH+eWfrSvIbA=;
- b=5g1uRcEn9QC+kz9cnr5UIiKq5g/821Pxcu80xa98/BNR7PEqrYT612KWrPM53S8JJcA/8Yr61
- TjpDoPqjNOtAV+DN6YORQkkenMJdcOAZfYcJrlskPMcUXR8eL93uL8I
+ bh=VKtuoP+mIA1EKBGbewR+SjFHAmuHlZPHPWfuOFozPpc=;
+ b=F1Mnp1QMroNoVn8WzCbauFa49XqfvyXkl0iE1Y5QLr0PV+0/Qws99GuZRBZcml1OTMSXafk8y
+ y3rX/5VUCFbCMQ5JR5IHS5sga9AUuX2MX63rAY/a/CC+BIvDIWEClzO
 X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
  pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
 X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
@@ -106,48 +106,30 @@ Content-Transfer-Encoding: 8bit
 
 From: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
 
-cvm_oct_common_init() searches pow_send_list using strstr(), which matches
-substrings instead of exact interface names.
+cvm_oct_remove() calls cvmx_pko_disable() before removing devices and
+shutting down PKO. The err_tx error path in cvm_oct_probe() omits this
+call.
 
-Split a local copy of pow_send_list on comas with strsep() and compare
-each entry using strcmp().
+Add cvmx_pko_disable() to the probe error path to match cvm_oct_remove().
 
 Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
 ---
- drivers/staging/octeon/ethernet.c | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
+ drivers/staging/octeon/ethernet.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/staging/octeon/ethernet.c b/drivers/staging/octeon/ethernet.c
-index c77678cb351f..653cf3727ba7 100644
+index 42ec4b8324a8..c77678cb351f 100644
 --- a/drivers/staging/octeon/ethernet.c
 +++ b/drivers/staging/octeon/ethernet.c
-@@ -431,9 +431,23 @@ int cvm_oct_common_init(struct net_device *dev)
- 	 * Force the interface to use the POW send if always_use_pow
- 	 * was specified or it is in the pow send list.
- 	 */
--	if ((pow_send_group != -1) &&
--	    (always_use_pow || strstr(pow_send_list, dev->name)))
--		priv->queue = -1;
-+	if (pow_send_group != -1) {
-+		if (always_use_pow) {
-+			priv->queue = -1;
-+		} else if (pow_send_list[0]) {
-+			char list[sizeof(pow_send_list)];
-+			char *p = list;
-+			char *token;
-+
-+			strscpy(list, pow_send_list, sizeof(list));
-+			while ((token = strsep(&p, ",")) != NULL) {
-+				if (!strcmp(token, dev->name)) {
-+					priv->queue = -1;
-+					break;
-+				}
-+			}
-+		}
-+	}
+@@ -959,6 +959,8 @@ static int cvm_oct_probe(struct platform_device *pdev)
  
- 	if (priv->queue != -1)
- 		dev->features |= NETIF_F_SG | NETIF_F_IP_CSUM;
+ 	atomic_inc_return(&cvm_oct_poll_queue_stopping);
+ 
++	cvmx_pko_disable();
++
+ 	/* Free the ethernet devices */
+ 	for (int port = 0; port < TOTAL_NUMBER_OF_PORTS; port++)
+ 		cvm_oct_remove_device(port);
 
 -- 
 2.56.0
