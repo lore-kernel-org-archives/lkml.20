@@ -1,89 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794476472;
-	b=T5mlYKllEWNeFM6EJpOPsNq0x6t899uvbkthefyTAGHy0nVdamFZ/Yhdm2+tqTtRrwXr
-	 7DakC7kyHgRDGGhlkzrvfzxLenI+Bcqaa1TWp2VRqhhWT8hjWG4EAoVBbD0QtpsDOutaw
-	 rjeYi1sOdWRoA23NO3HkSuTRgeDjc/wpjOCU/nxSPW8d1F7BbLpo14XggZGoGlhAgUb4H
-	 RI2zs7CoCVg8TMW4Y09ITsK+IKpK351AtRdPvPTBY87cVdO7QebQ1PtpnOFitkock8PG9
-	 JxTKCAQEIBSry2j9+OZKRkVt3GPXTDm9d/X2m8F/K8OEPuGFPXivITteBQPI2EkRZXA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794476472;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=yISozrj+A0wzmBkiiJY/l46C1xVtCcnva6CW5NcMTdc=;
-	b=5gOlbvOSvAx/BDjJeqyD244OqQQuBhZyknwDpcohecncAomxoYJ/A2CpCKOMWQRR5BVh
-	 UcP53u5T1jcdT/Aa5BNjLJlcLehsr8qqBaSZBB2hC5Xr83G86NFkPHlfKZWj6wB8LsiNz
-	 fEwvIlWqVIzT7TIihXi6H+bMp41h2Qt/mwSnvhOH49kxUF40Rm8zn6eZSitdX28uF5bpJ
-	 iE0Fdb/0DlvUnJqDJ2IQ+mr5GNlPnjNoPHH23jdKhJWBt+g2CljzyWAWH7WD8lkdQ8Kyp
-	 UFAYzi/Q9VcUkOHjz4+JpcTXC8vSNJF/LHhs0bR5EX7dmKrmY9kP/4/JUOQK2guYuDA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=NwsLTIFD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.179
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794476478;
+	b=rBEuUXSAXjrQrcPYCn5JOtJn0Qhk/DtE7oPPnnaw9gvXng7HTRxxURqOsqBz6kY8zFCf
+	 ifD8v40FbMMtkDRTJ6BXXTkByf8H09tjBujYuuMjhB26onMcAxuj49yLpfrbrSSMbe/kg
+	 qJs6qEAQg57oF+2cpmM2nzdgdUwh6Kp/zsSb++Y3mBLORp8iNNtckWeej3wNTiqhnhcPp
+	 pYpB6UgkzxNLjEJKViCqykEsRTPCJEExOQKtsvpsP0QX8gV3AwRCWYuRA1m4MCzlBPSS4
+	 XPcYHvqdEaR142fj6v/mlcjwmgCXIj0nKYXWOct3dCLdvBIOsB0QF4MbCHqXUPXB8+w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794476478;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=LYSO9/G+nFBoVNURsqyo9sHLReLzezHi8+C++TTDM7Y=;
+	b=ubAkytt7JOtNss/pNVsNkY/FKg7SQaOgc4rXOdRZ1RX19fqO4gPh3/vPKJkovJCjK9sG
+	 S3q2CkqIh5r7+WwZp7Rtb4P/kNadHb0QbkHl/x+SxaEOq7EXp3fLorbs1FzUmRg4qBKpr
+	 bb2dsI08CzC3OECC7BgEDd4Nh6hySnm6s7JKk1tywar8EuT7ghc4uxscAZmM3MMhMrSo7
+	 47XoppOI67PEvJxm3tgzN1/QBNAXKbUzigNvLmIfArLwYaOXTpZ+0jjIOY1LhS4o3c0gb
+	 hRgMzYCdDhnWCDpxwrO54IxmwzbLo0b28SVSmZu62qyIzEeuBA+cyA1yie8W7B1TUaQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MJaPo8bf;
+	arc=none smtp.remote-ip=91.218.175.179
+Received: from mta0.migadu.com (out-179.mta0.migadu.com [91.218.175.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A65DF606A880;
-	Thu, 12 Nov 2026 09:41:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A65DF606A880
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45D25606A336
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:41:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45D25606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=NwsLTIFD
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C2DF02004B4;
-	Thu, 12 Nov 2026 10:41:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794476469;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yISozrj+A0wzmBkiiJY/l46C1xVtCcnva6CW5NcMTdc=;
-	b=NwsLTIFDUeGQVvRTMLltEWNbkWvAqrfObrOFGN+YB04qsdCPtXasemQqoa0OytLhi32yPb
-	vgYEIjjP9yfYeftU0iNCCI7FQTXF67BBA7NI3uUNBx6q7H7Ig9Bf2idEnbI4zgjWy8Y0QJ
-	WG3nRK9CvbsAntCiO8nSKTEC5pHjKRl2x0oRBNEdJQh2/wrDecw3HJU52xs3XNZlAgPtPn
-	wyy6V9hUqdbkeayO/sBkiSjZNbXi73SpiV9aGa8FvlWA2yIjIzoR3Ajx9NAJqVqY07zEMv
-	t0fZ/O+VtT919VBf9oSnqRp+qpPw18vrNS4kkw4R97Trpsn2+VdG9M6uJf7TfQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794476469;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yISozrj+A0wzmBkiiJY/l46C1xVtCcnva6CW5NcMTdc=;
-	b=B78BM9Xq5P5Z4ujzs8tSkYDqZreQ2KhzdTLPslZRgkbBfqiqMTeFBlmgZSThRy5o7HPqh2
-	kwts64W9yAMqSkd7UZ/Zhl5nXC2txVjXtOmrm84Kpha6lmkkm6cGlCUjzK3QBWvCQ8jt8u
-	+gj3CQg5VNjedi2Nhvz+3rAG4ixINt4r9OuCqBLUespGH05lWr0yrmT963afivu4IWcDM9
-	l1LzBWRTYzUnpG2ly1AlLCFY2MhIa90/DV6Ki83ep9dzdBARhCqnLrg1V+Q1My4UDWlqQ2
-	SK0Jhr2X4ABgHgfM2S4mxs5zz+LdL1A0eWwCqU3kzFvEcSqLmNJCdF9NZPfcvQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794476469; a=rsa-sha256;
-	cv=none;
-	b=V82bDT0XT/6whKCweLVsLjge9FUsw2jQdsb28W32LsTcpDCmyJhRyZP7ChSEZATWTo812Y
-	+hn6KJ82hJpzoQgoFi02ozGk3EqtUPZY291DHaktJWvCM2K4xQJMT91+iQNldr0Gmptdve
-	bGX2eHDh3ZpAYn/pkAjmRbZ5zYX1xUVQIiM31lLtSePuERiycs6Vfm76I3e0LtQT/LkyEL
-	zrDvKQGG54JFkW9ZGbjIHWkh8ptQ7cO8Iys3Vnv5hckYQa3lK4P1iqBxdwIyyUpwHhGLtV
-	a1EmU6ukboR1QV7DqAuAOiQbi3JpqTrjazGOB4Hv/yjzCvJ2rAlNWLiOAlPUMQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Message-ID: <1e434e5ab047b503e02e9ed9f3eb0aeb173d5602.camel@pengutronix.de>
-Subject: Re: [PATCH v16 0/3] reset: realtek: Add RTD1625 reset support
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Yu-Chun Lin <eleanor.lin@realtek.com>, robh@kernel.org,
- krzk+dt@kernel.org, 	conor+dt@kernel.org, cylee12@realtek.com
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	james.tai@realtek.com, cy.huang@realtek.com, stanley_chang@realtek.com
-Date: Thu, 12 Nov 2026 10:41:09 +0100
-In-Reply-To: <20261112053128.561149-1-eleanor.lin@realtek.com>
-References: <20261112053128.561149-1-eleanor.lin@realtek.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MJaPo8bf
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=MEFt2EAwBQt77VedDYefJ9IZ2Qype05DO122KbkmEHI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794476476; v=1; x=1795081276;
+ b=MJaPo8bfsoa2dlVqkiOwG1Zpdv18+RF+Fdz9rYnNYTs8NS/Ndp8g0Z4zz0p3RoXekXkm/hbi
+ qQMXHhE2ZjdfCV6yJns1DID7lYaMkWa2WQsOp0scDWYfQ1hxtillXg1YBYUxMSukZkHYPZ0aIZm
+ W4MFAQOc2EaIzAvly8HWb2YY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id f85c0bce8482aa4e;
+	Thu, 12 Nov 2026 09:41:16 +0000
+X-Mizu-Trace-ID: f85c0bce8482aa4e
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 12 Nov 2026 17:41:03 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	MD Danish Anwar <danishanwar@ti.com>,
+	Murali Karicheri <m-karicheri2@ti.com>,
+	Wojciech Drewek <wojciech.drewek@intel.com>,
+	Ravi Gunasekaran <r-gunasekaran@ti.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, 1342116488@qq.com
+Subject: Re: [PATCH net] net: hsr: clean up synced addresses and allmulti in
+ hsr_del_port()
+Message-ID: <avWJrwDyT8HJHWSN@fedora>
+References: <20261111060143.183670-1-sunwenbo@cmss.chinamobile.com>
+ <avULIJLRzOEoefJI@fedora>
+ <avUQ5dAMMRlUTNzq@fedora>
+ <20261112064459.81535-1-sunwenbo@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,29 +75,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112064459.81535-1-sunwenbo@cmss.chinamobile.com>
 
-On Do, 2026-11-12 at 13:31 +0800, Yu-Chun Lin wrote:
-> Hi all,
->=20
-> This series adds reset controller support for the Realtek RTD1625 SoC.
->=20
-> Since the reset and clock controllers share the same register space, they
-> are now decoupled via the Auxiliary Bus framework. This allows the reset
-> drivers to be submitted as a separate series.
->=20
-> [...]
+On Thu, Nov 12, 2026 at 02:44:59PM +0800, Wenbo Sun wrote:
+> Hi Hangbin,
+> 
+> Thank you very much for the Reviewed-by and for raising this question!
+> 
+> On Thu, Nov 12, 2026 at 09:05:41AM +0800, Hangbin Liu wrote:
+> > Sorry. I just got a question.
+> >
+> > hsr_del_port() is called via dev unregister or hsr_dellink() -> hsr_del_ports().
+> > The hsr_dellink() also calls unregister devices.
+> >
+> > The unregister process will stop a device if it's up. And hsr_dev_close() has
+> > called dev_uc_unsync() and dev_mc_unsync().
+> >
+> > Could you share more details on how you performed the testing?
+> 
+> Here is why hsr_dev_close() does not clean them up in those paths, and
+> how the test reproduces it:
+> 
+> 1. Call order in hsr_dellink() (net/hsr/hsr_netlink.c):
+>    hsr_dellink() calls hsr_del_ports(hsr) *before*
+>    unregister_netdevice_queue(dev, head). Inside hsr_del_ports(), every
+>    port is removed from hsr->ports via list_del_rcu(&port->port_list)
+>    and freed. When unregister_netdevice_many_notify() later invokes
+>    netif_close_many() -> hsr_dev_close(), hsr_for_each_port_rtnl(hsr,
+>    port) sees an already-empty list, so dev_uc_unsync() and
+>    dev_mc_unsync() are never called on the slaves.
 
-Applied to reset/next, thanks!
+Oh, since dev_uc_unsync() and dev_mc_unsync() is never called by
+hsr_dev_close(), should we remove them from there?
 
-[1/3] dt-bindings: reset: Add Realtek RTD1625 reset IDs
-      https://git.kernel.org/pub/scm/linux/kernel/git/pza/linux.git/commit/=
-?id=3D3b8e9b3eebd5
-[2/3] reset: Add Realtek basic reset support
-      https://git.kernel.org/pub/scm/linux/kernel/git/pza/linux.git/commit/=
-?id=3D9d125752e1a1
-[3/3] reset: realtek: Add RTD1625 reset controller driver
-      https://git.kernel.org/pub/scm/linux/kernel/git/pza/linux.git/commit/=
-?id=3D2716aec8c63a
+On the other hand, the comment of dev_uc_unsync() said it is intended
+to be called from the dev->stop.
 
-regards
-Philipp
+So we need to chose one place for these undoes. I personally agree to
+add it in hsr_dellink() as all the hsr info is remove in hsr_dellink.
+
+> 2. Similarly, when a slave is unregistered directly while hsr0 is UP,
+>    hsr_netdev_notify() (NETDEV_UNREGISTER) calls hsr_del_port(port)
+>    before any close/dellink takes place.
+> 3. Also, hsr_dev_close() never calls dev_set_allmulti(port->dev, -1)
+>    (and dev_close() preserves IFF_ALLMULTI), so the allmulti refcount
+>    leaks even if hsr0 is brought down before deletion.
+
+Yes, I see the allmulti is not called in hsr_dev_close.
+
+> 
+> Here are the exact test steps I ran in UML (using veth pairs):
+> 
+>   ip link add veth0 type veth peer name veth0p
+>   ip link add veth1 type veth peer name veth1p
+>   ip link set veth0 up && ip link set veth0p up
+>   ip link set veth1 up && ip link set veth1p up
+>   # Create hsr0 with slave1=veth0, slave2=veth1 (RTM_NEWLINK)
+>   ip link set hsr0 up
+>   # Set IFF_ALLMULTI (SIOCSIFFLAGS) and add 01:00:5e:00:12:34 (SIOCADDMULTI)
+>   # Verify IFLA_ALLMULTI on veth0 == 1 and /proc/net/dev_mcast has 01005e001234
+>   ip link del hsr0
+>   # Re-check IFLA_ALLMULTI on veth0 and /proc/net/dev_mcast
+> 
+> Observed results on unpatched kernel:
+>   [BEFORE DEL] veth0 allmulti_refcnt=1, synced_mcast(01005e001234)=1
+>   veth0: left promiscuous mode
+>   veth1: left promiscuous mode
+>   [AFTER DEL]  veth0 allmulti_refcnt=1, synced_mcast(01005e001234)=1
+> 
+> Observed results with this patch:
+>   [BEFORE DEL] veth0 allmulti_refcnt=1, synced_mcast(01005e001234)=1
+>   veth0: left promiscuous mode
+>   veth0: left allmulticast mode
+>   veth1: left promiscuous mode
+>   veth1: left allmulticast mode
+>   [AFTER DEL]  veth0 allmulti_refcnt=0, synced_mcast(01005e001234)=0
+
+Thanks, this reproducer is more detailed. Would you please
+add this info in the --- part of next patch?
+> 
+> I will also send a v2 with an updated commit message noting explicitly
+> that hsr_dev_close() sees an empty port list (along with your
+> Reviewed-by). Please let me know if you have any further questions.
+
+Please drop my reviewed by tag if the code changed.
+
+Thanks
+Hangbin
