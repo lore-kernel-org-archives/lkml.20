@@ -1,54 +1,149 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.213
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794476605;
-	b=cH81N72NsoBJZ3G5tEcY7bGDAv1G99c9SfEaPq3n2CwWtP+DIyPXbA56ep5HkCUmrUxi
-	 ivCStR4men/ezSw7NpnZMG/cUjW1wYXk3VWoJ2FVNtyHj25CDJ1SFe1V2NdXMicEemGY7
-	 AcMXWyrz26bRTtz5uQp6B77qjV+ARQUTKYM/ZtkKdG+w9gPS3N6skmJB+47XcL6g63gNN
-	 c9hxF0D5bRRcKVUBkyJgr1AmoGTYi/6IhjC8Le952E94/E0YNrjA8dUb4Lr+2CK7TZM8C
-	 3rYBOoK4Ha8iCz1uB0C/esMiLZnPxLDdBTWRM4kFlcQbecKVJjIUrEfXy/JXJkUkQDg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794476605;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=rKdnxS57GFUNzWHbYzk3wFQLMm5VzC6vH9U5Eq0QCX8=;
-	b=ELXzxQW0CsBVSWc0OvC4X61jTMAdCLGK/3XKB95uGp4PpeYTP6AO935HA7Omz4Fy4izx
-	 6JLY2Blk5JDoJ0BqEK1RGUtkDyuo1hRSUut0GMTMwL/YualV7QKxDLpAwAx2I3RrNtQQX
-	 l//BGO/WMkCDMVsIHp6aPOxzWlTlGXd7gv/i5hFCnJZKsLMkkUVO6/LjK/IPodFiHPtwI
-	 XQD4GU2aZI5QyHAKHxi3KUcrbkxtsrfQFb48ih4fJHmYtQOCXB7LXVYLbTqfH80E4ucHK
-	 GHP6UEvgkXzUoXt2QO28QruoQ4OlJfWf1tZhJRpsRDVHgh4IVUfGR5pFFOquoEMtq3A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=E6uUH2wg;
-	arc=none smtp.remote-ip=91.218.175.213
-Received: from mta0.migadu.com (out-213.mta0.migadu.com [91.218.175.213])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.86
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794476707;
+	b=ZyY/aYecsTBBY9aLtYQqr3maqU4xhlaTq/9DlswoFIl5MNmGszUMzwleGpedGX2LHjxa
+	 GSdS+SK8zzvba3WtwWDX47v3y1CwAM8NsnhDlr/60Xwp8bvFBNNsR54grFtHgTBOKlI06
+	 vKaNKqWAU+/D7UBktjZ2UAL3FrBfV9IFFoFp+4yjqekBsPwKkAriQGhlpx7EHAQFl1fRo
+	 kEspk/4yQlh68YoNuNKYl8SXtNUul39zCYNB2Mrh6ZjDkCXsjA9Hm6fMYegXCX7aJSkOA
+	 TBXJU/3M3M8+8qpre51znf9ISp9lKS+JaCkMTO2X3Y4wGebPPRvZmzO017eMjv9J6+g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794476707;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:user-agent:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=xJf86uga8LX6kAsqEqoWI3o9dyaw3uhtLJsEJED/5nY=;
+	b=vNis+vwDglCdTydLy3GC7HlwCaLzh3hF70chyr7/W/p+GwnZqKLCYHmkqZb+xIkJxE2Z
+	 YNHoVros2A+FCx27th5bXR1zYj/JqutcjdDBZlTgr1p7An61aBa4z5QKhdJUfOiZ0p7o9
+	 vFbf5X9qFQ1coXJIaHNwzJ50e6hxFEPG3Kozkak1RbPHktI0pCIyjsneVJZQ1pf1vUAx9
+	 eR26SfIlAY2R/h2+BlqBvuErSIl8ZHH0tvj3kjgtV1WouNpYjmS0bektEZ0yB9DUY7LiD
+	 FNlBTBnnTeo37UHF+rEAuyPfBuu7BBGT62SFYwz+C9aZoqJfseIjjXqE44A0iRQ8tJQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=lenze.com;
+	spf=pass smtp.mailfrom=lenze.com;
+	dkim=pass header.d=lenze.com header.i=@lenze.com header.a=rsa-sha256 header.s=selector1 header.b=Kv9PNiH9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.86
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11021086.outbound.protection.outlook.com [40.107.130.86])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16D87606A330
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:43:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16D87606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2810E606A31C;
+	Thu, 12 Nov 2026 09:45:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2810E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lenze.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lenze.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=E6uUH2wg
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4eIDGo3k+kc5buVBqIe8K9KZqyIb/OYjgJvJowIrDa0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794476602; v=1; x=1795081402;
- b=E6uUH2wgh65Zqb9Nu42SO6efv/uPlAzfhoaOOgdOikI/UMz+WOf2gKPGLD5GnA5vuFRPM+Qd
- RTUuqGyPStI+xI9jcj9noDcmbVNnZOY3mTPagkboNXx10L3Tg73El/QzoENXJvTMGuk1/BYxyVK
- kVCcYxz2u1HToVLRKFC3CbU8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 948a1701d48ce8a5;
-	Thu, 12 Nov 2026 09:43:22 +0000
-X-Mizu-Trace-ID: 948a1701d48ce8a5
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <be68fe2a-b0e8-470c-be47-26780a254d53@linux.dev>
-Date: Thu, 12 Nov 2026 17:43:11 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=lenze.com header.i=@lenze.com header.a=rsa-sha256 header.s=selector1 header.b=Kv9PNiH9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OYG6T+8zo2SIqmcQ8v3ovNiUHhQyFwnqrbaTledc0OphjjSDbPJF5eB3ETAV5a7f8zfCsz14I5SmcPu4k/SBf4ZV84jcZMof/3hng7yNRCc2heYKNoKloinwXcrAla4TXW2T0AKkHdGam25m+olb0uTzMhrwSxEkOspuDE4lTglHuz5BRU7+i86hifygsklTSVkWbUxahsovpxK6QtsklL+8FJ7R6tbIssqURqIsI+RVRLw3MlvCXe3iDK1Iu9RBM0rB/zE+n+w9m8vtKkQhxJiUr4ded9c9YqvC3y6pZbYMEVssmoxhJkTTSklvdYEJrb7hodqjJHmGTr1hCgloYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xJf86uga8LX6kAsqEqoWI3o9dyaw3uhtLJsEJED/5nY=;
+ b=JI1buZJgU4nfLVgw05NN1KF/bi9DDo+2K3OrJevp2rvcbyCDGSaR3FRHSOpaU7TZ0VO0pXIIZrxj29L7igHpInlaPMAHhUI4+lIk9Yxb2zMHYxJjEIKIJqkMZRGoH8Dfosvd5o8noiaHRTkati/g6f/BMQ+FOu4G4uGqSs5Wi3NmigJdhspzgfnltQdNZqllXbedkGSBQ16lYVISJDuJKl1ucEfV8zAA2yDN9BWkOgHba+auHGtvfSDZyhKDOQE8ojztnd0qt2Znizq5W/4wlBRL+eqlY6HJjDjbQx+jYYL9Mjv8WGv7PF1LQeZzZehsHKuQv2V/HUeNkYzhY/y3qg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=lenze.com; dmarc=pass action=none header.from=lenze.com;
+ dkim=pass header.d=lenze.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lenze.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xJf86uga8LX6kAsqEqoWI3o9dyaw3uhtLJsEJED/5nY=;
+ b=Kv9PNiH9qBC7yM+K3x/4VkTqaAQLLhifFkf7nxM9L9WyR4iFibhHnUMldn8IcFrGhp6m4O8dYzepYWZuarhjiZRKnljtNN8zubCdtOTEbeGt/9zfnOjhtqN9yt70DSvbpMkfbyzrWf3jS5U4nBcJhEz0hKhYWddF9Vd/BBQp6kT7XB6VNnviBAHy4hQc4Ji6gsxidC6+Iwhcw3FwBVOGQ9RyeiuxKl02kIbVEp8SJxR5Uv4vp5lyHzhW802uIAnt+41RzoadQx7JO7rlP2h/05PGssJny0Wl1vrwsrb84NIALZeLiJeVJflVQ1g4FRSZRk5kUngprzpSzB0MJzChnw==
+Received: from ZR6P194MB918907.EURP194.PROD.OUTLOOK.COM (2603:10a6:910:da::23)
+ by AM8P194MB1628.EURP194.PROD.OUTLOOK.COM (2603:10a6:20b:36f::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
+ 2026 09:45:01 +0000
+Received: from ZR6P194MB918907.EURP194.PROD.OUTLOOK.COM
+ ([fe80::9250:9858:e034:cd34]) by ZR6P194MB918907.EURP194.PROD.OUTLOOK.COM
+ ([fe80::9250:9858:e034:cd34%6]) with mapi id 15.21.0615.008; Thu, 12 Nov 2026
+ 09:45:01 +0000
+From: "Brandt, Oliver - Lenze" <Oliver.Brandt@lenze.com>
+To: "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>
+CC: "ulfh@kernel.org" <ulfh@kernel.org>, "jh80.chung@samsung.com"
+	<jh80.chung@samsung.com>, "shawn.lin@rock-chips.com"
+	<shawn.lin@rock-chips.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH v2] mmc: dw_mmc-pltfm: Fix usage of phase_map for SoCFPGA
+Thread-Topic: [PATCH v2] mmc: dw_mmc-pltfm: Fix usage of phase_map for SoCFPGA
+Thread-Index: AQHdcop8Kq3NbDgfOE6cAIDLsGKrMQ==
+Date: Thu, 12 Nov 2026 09:45:01 +0000
+Message-ID: <140317dff0feb9d62b580b1e3170ccb10b8af181.camel@lenze.com>
+Accept-Language: en-US, de-DE
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.56.2-0+deb13u1 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=lenze.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ZR6P194MB918907:EE_|AM8P194MB1628:EE_
+x-ms-office365-filtering-correlation-id: b5dc9114-391b-43bb-e6c9-08df40a19efb
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|38070700021|10067099003|11063799006|56012099006|261022105027099003|261022075727099003|261028144727099003|261026121527099003|261026140227099003|261021123027099003|261021121427099003|261102123227099003|261102130727099003|261009223027099003|18002099003|6133799003;
+x-microsoft-antispam-message-info:
+ 2FlHFzwotTFMTAq336bbtLd+WLGVun2jtiV+r1RNKQzs1B36mE78rKx09613w4Gk7BOivNXGW3ouKKIXL4EFdurr80PCEIKm4jv33S/DVShkl0qgj8BLoL4STarjZUwPDQZOYfUAsxwiJb8ZZ7txGLhrhOKO4iHIuZHxiF/U8f7m/xev/wvkjQCfvWC/b3MOxRAAEF3RCN+hKydrbQgX5XQk8NMQHSBLui4A7eNewBgbbKIAdK2fwYs3wvxb7RUkzAAzbfO2p3w5iW07lqGCQ3I+L3R0oLcFUkuCJYtb5Nb/q/PHgANIB261Ir+lPK/CjihEdowcU8wbHkvWnjrhBveCH7lSsoRlCpay3VY99mXRXpvGi3/u0yxsBPOZbwZ0SA8NNbmq/ZF+T+QEJ2pml5rHGQG6J/PQ1/LcI/H89YRIwDiG+qgTUQv0QgWR4xvrdXQVWQkHzk3RrL6NAeOj/wz5O9c9S7r7XyyUMAnWxIajcO65LKw9byzuVznRuvfj8+OjiDVX4PQTcQ/2NtLSQMQDCWCLZq7RGH3JGAkFu6f7/FSnCLeUihlN56/CrufV/pAFSIQdn82rlqFmOV5waZV3MyqAwqL/MjthF3jihqeXcuU/Zywb0KG83iilFi0dI3pSABwy61GZkz1VkJFv6yf9CtB5sWCk1g7SitLGMPQ=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZR6P194MB918907.EURP194.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(38070700021)(10067099003)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021123027099003)(261021121427099003)(261102123227099003)(261102130727099003)(261009223027099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?WTdMZnZTbGJsZzFlRG1lcVA2UlR1M0xJckNFNTJpTFl2b0VQSE1LOUtjdlJG?=
+ =?utf-8?B?SE4yTHlyZzUwbk9FV2VYR0plVndMR2tXbFA4bVF2bWk1QUtwU1ZyczBIVWh3?=
+ =?utf-8?B?Zm9iaUQ2eVlxb0U4OHBJQndrMW1NREhtL0FIVTQ0b00xTjJwL0grZ0Fjdlhp?=
+ =?utf-8?B?QTNMR0lCeHdRZWNUYkVWSTJSMG0zRVRwck5OOTZtQ0xFbm4xUXdqY25nMko1?=
+ =?utf-8?B?WXZuNWxmSE5yRUhDNU1mVzFyMHIzY3AzR0FMc2oxaDlEbytseDY3UTBKUU9p?=
+ =?utf-8?B?QVhpZTRoY2xUbkhaNy9JRHNhalZXb1hkVnAyeW84VnE1SUZXcC9TV2hlWXo2?=
+ =?utf-8?B?OW1ieUEyZUxNNDFxc2pJR2E4SkV6cHlVWWl6R1VUZlpXVXMvTitUcnJyWmhS?=
+ =?utf-8?B?QitDNW9DOGNydlM5RndycVRPaE1WczFneTJPYTNNQlpjU1IxcGJycTMvNWNY?=
+ =?utf-8?B?VXl1dTR2ZUVGZlVFQ0JtamhhWGFRcnN1QlBzZjh2cWNwWXR3SGpWUGEyY0N3?=
+ =?utf-8?B?aGFHM0RLYXZZeElrSnhxdnBHdFFGaXlwaHVSbEJ1cUIvazdkY0w4eklYNVpL?=
+ =?utf-8?B?ZktyaE9HQkErVFpZcWxWTi9TOUtpSTVPbkgwS2pzc1RDVklFZWZBMEhkUW5x?=
+ =?utf-8?B?ZDFiWW00RmE1WHJ1R3JLNmN2eHI5UWVDZWpseExTdFNMa2k5UE1LNDdHT21N?=
+ =?utf-8?B?NjVObzZOaC9JTmpJSzdkMFVNL04rR0xUeWRWNklYTXA3VjVIS0Z5MzlLdlBj?=
+ =?utf-8?B?Rk5DUFRVeEgzWkdVd1lma1N2SlJ3akpzcmVublgwUE9TMHFNcmR5elY1ZlYv?=
+ =?utf-8?B?MjNYdlk5ZU1VeGwxbzFvTU1rMVpLTGRoZ3FlS3dwTWZ3Wnp5aFkvZ3dCNTl0?=
+ =?utf-8?B?S256WWtvdUxwS2hSTmV3bDREUXN4Wm9McmtscjN4dUtEa2I5LzNsaHNKNnU3?=
+ =?utf-8?B?aVE1NUxkNTlSRmd2eUtoOCtBREtZZGRnbkRBak9rUjM5bi9qaTUwWHdBMkxi?=
+ =?utf-8?B?R1pWNStqVGZyN3dhbU1LeTc4MEVUaG00cWFHYjRncWZuL0orUVg3bzhPWCtV?=
+ =?utf-8?B?RXQwLzBHM2NrRmRzd2hYNmpJK20vRlpjbWpoYUN2OG1HZDVyR1RrTElFWURp?=
+ =?utf-8?B?ZE9CYUpNSjNzN210N2Q4V0pyb1JGSEdjUXN0WGJ1Y3U0STYvT3JDb3ZnVzBM?=
+ =?utf-8?B?TGlSeFFNcTIvNkMvWjYybjc3OFJPR3pkRVFVMng5U2xQSmNHdDdzc3Y5SnBT?=
+ =?utf-8?B?MTBUUGdPMU96dTU1OWVCaUJ6TjM2ZzBoeVhIc3FMLzRMKzFjcFFPMkxzQk1F?=
+ =?utf-8?B?aEtPYnZFazM5MlhmMFVvYTA3eWlYQ09GOVIyaUlwMGZ3ZE9SaXVXVmxhVm42?=
+ =?utf-8?B?UndVSzRQc080Q25jeG1GZnlkMEFQdVcvRDdSbk15UUVLTmJnWXVRK1ZOdmxH?=
+ =?utf-8?B?LzJwVjRjRFEyTmszQnB4bWRBZlFFeGY5OWlZd3FuTHE2SDFBU2RvTmc2azhP?=
+ =?utf-8?B?bjhzRmZLZm0xaXF4QjZVWGlmMDNPU3cxSCtDSmRuNDR6KzRka2lQbGZhZkRM?=
+ =?utf-8?B?SkQ3dXRxYXlYUzZSeUZQMG9obk4rVDM0NVZBU1d4Qkl0ZGlIM3N0UldSWDc5?=
+ =?utf-8?B?aitHZnovaDRXd1FZMjAwN0huTExsSm9MYUtSK3g2TGQ5UXp1VTdUY3c0d3dI?=
+ =?utf-8?B?MHJIc0Exd0xoc1lQSjBldStkNzh5K2dWSk1nbE9vcThZZ0JLbW9VSVRtS3pU?=
+ =?utf-8?B?YWhjWXROMGwzZ25hQkxkaWdOdHo0Y0VrbklMZVZ5ekxyQ2lUaTE0NE1mTERD?=
+ =?utf-8?B?d002OWl0d2tZTDUxQy93TURoOE1YeXJvUUcwZkVUcUczaE82b0JFeFNiVWR0?=
+ =?utf-8?B?bFVYNW9LUTFTS0V4QVI4eUtQbm1uVU5SNWxwN2FnTkcvU2ZueFFvUkJDU1RD?=
+ =?utf-8?B?MTNlQ3lUK0tUNVhGTTVNcjYwV3ZTL2ZpdmtMQi9FWTZlcHpTVk1ZTzVhU2RB?=
+ =?utf-8?B?Qm41VTdES2JhbXdmTk54MGF5V3dycWJOQWI5NUY0NUYzRmVmZzVERjNqcTJO?=
+ =?utf-8?B?MlR5NEdHdkpzZGloREtTckUwSzljWWdFTG02YmNpelZHWnJSN2g0MWV3akFr?=
+ =?utf-8?B?S21KbXIwNnVzeWdHOWRFSnVJdnVnZEtWbDlHQkhWa1RyYkJUbWJ0ZnpyQ0Vw?=
+ =?utf-8?B?bXc4Ymt3MEFUbjA5TkdLQm15TnlObktEYkRNcUh2VVYxT1VFUmRMZDhZNUJN?=
+ =?utf-8?B?Y3QrcEZKQzRrTWZ4bURxdDhmODM5QkVHYUswb2xtOTJ3Nkp1azYvQXVkeGFW?=
+ =?utf-8?Q?AIOq94XhbHPzjAY3um?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <79EA681AD06454428869715DF226F9B3@EURP194.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,318 +153,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] cgroup/cpuset: Keep an active housekeeping CPU in
- the top sched domain
-To: Ridong Chen <ridong.chen@linux.dev>, longman@redhat.com
-Cc: cgroups@vger.kernel.org, tj@kernel.org, hannes@cmpxchg.org,
- mkoutny@suse.com, shuah@kernel.org, mathieu.desnoyers@efficios.com,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Guopeng Zhang <zhangguopeng@kylinos.cn>, Ridong Chen <chenridong@xiaomi.com>
-References: <20261111134250.16852-1-guopeng.zhang@linux.dev>
- <20261111134250.16852-2-guopeng.zhang@linux.dev>
- <8b256809-79b1-4438-ae3e-4cceb32cd7c2@linux.dev>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <8b256809-79b1-4438-ae3e-4cceb32cd7c2@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: lenze.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZR6P194MB918907.EURP194.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5dc9114-391b-43bb-e6c9-08df40a19efb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Nov 2026 09:45:01.0590
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 37cf0ce8-ac09-4e7d-9ff2-f1da44914b3e
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1b46R2F+uREyUZg7ZKJCgnRd1niXwPsKKAc88ZGMzQuB1WJCEMOBfro6+l4LA/CUoVBVBE/41+Wn+4JCbf53ZA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8P194MB1628
 
-
-
-在 2026/11/12 11:05, Ridong Chen 写道:
-> 
-> 
-> On 11/11/2026 9:42 PM, Guopeng Zhang wrote:
->> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
->>
->> Boot-isolated CPUs remain in top_cpuset.effective_cpus, but are excluded
->> from its scheduling domain. A partition can therefore take all boot
->> domain housekeeping CPUs while leaving effective_cpus nonempty. For
->> example, on a 32-CPU system with all CPUs online and
->> isolcpus=domain,10-31:
->>
->>    echo 0-9 > A/cpuset.cpus
->>    echo root > A/cpuset.cpus.partition
->>    Oops: general protection fault
->>    RIP: 0010:build_perf_domains+...
->>
->> tasks_nocpu_error() also rejects valid CPU replacements because it does
->> not account for CPUs returned by the update. With a fresh cgroup A under
->> the same boot configuration:
->>
->>    echo 2-31 > A/cpuset.cpus
->>    echo isolated > A/cpuset.cpus.partition
->>    echo 0-4 > A/cpuset.cpus
->>    cat A/cpuset.cpus.partition
->>    isolated invalid (Parent unable to distribute cpu downstream)
->>
->> The update should return CPUs 5-31 to top_cpuset, including housekeeping
->> CPUs 5-9, and leave A valid. This replacement failure also occurs without
->> boot isolation and under populated local parents.
->>
->> Extend tasks_nocpu_error() to take an explicit mask of CPUs being
->> returned and use it for local and remote updates. Require an active
->> HK_TYPE_DOMAIN_BOOT CPU to remain in top_cpuset. For other populated
->> parents, check within their current exclusive grant so an ancestor
->> update cannot credit CPUs that the parent no longer owns.
->>
->> CPU hotplug can also empty the top scheduling domain. Pass no returned
->> CPUs during its availability check, and only invalidate a partition to
->> restore the top domain if it can return an active boot domain
->> housekeeping CPU. Still invalidate a populated partition that has no
->> active CPU of its own.
->>
->> Fixes: 9b496a8bbed9 ("cgroup/cpuset: Prevent leakage of isolated CPUs into sched domains")
->> Fixes: 0c7f293efc87 ("cgroup/cpuset: Add cpuset.cpus.exclusive.effective for v2")
->> Co-developed-by: Ridong Chen <chenridong@xiaomi.com>
->> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
->> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
->> ---
->>   kernel/cgroup/cpuset.c | 85 ++++++++++++++++++++++++++++++++++--------
->>   1 file changed, 70 insertions(+), 15 deletions(-)
->>
->> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
->> index 3052413e41e7..85f92ae0c6f4 100644
->> --- a/kernel/cgroup/cpuset.c
->> +++ b/kernel/cgroup/cpuset.c
->> @@ -1181,18 +1181,54 @@ static void update_partition_sd_lb(struct cpuset *cs, int old_prs)
->>   }
->>     /*
->> - * tasks_nocpu_error - Return true if tasks will have no effective_cpus
->> + * tasks_nocpu_error - Return true if tasks or the top domain lack active CPUs
->> + * @parent: parent partition, NULL for a remote partition
->> + * @cs: the partition
->> + * @xcpus: exclusive CPUs that @cs will hold after the update
->> + * @del_cpus: exclusive CPUs to be returned to @parent, can be NULL
->> + *
->> + * @del_cpus may include CPUs that are also in @xcpus and will stay in
->> + * @cs. They are skipped by the @xcpus check, so callers can pass the
->> + * current effective_xcpus of @cs without masking it first.
->> + *
->> + * top_cpuset always has tasks. Boot-isolated CPUs remain in its
->> + * effective_cpus but are excluded from its sched domain, which must
->> + * retain an active boot domain housekeeping CPU.
->>    */
->>   static bool tasks_nocpu_error(struct cpuset *parent, struct cpuset *cs,
->> -                  struct cpumask *xcpus)
->> +                  const struct cpumask *xcpus,
->> +                  const struct cpumask *del_cpus)
->>   {
->> +    const struct cpumask *mask;
->> +    int cpu;
->> +
->> +    /* A populated @cs must have an active CPU in @xcpus. */
->> +    if (!cpumask_intersects(xcpus, cpu_active_mask) &&
->> +        partition_is_populated(cs, NULL))
->> +        return true;
->> +
->>       /*
->> -     * A populated partition (cs or parent) can't have empty effective_cpus
->> +     * A populated @parent must keep an active CPU in @mask, either from
->> +     * its effective_cpus or from @del_cpus, that isn't taken by @cs.
->>        */
->> -    return (cpumask_subset(parent->effective_cpus, xcpus) &&
->> -        partition_is_populated(parent, cs)) ||
->> -           (!cpumask_intersects(xcpus, cpu_active_mask) &&
->> -        partition_is_populated(cs, NULL));
->> +    if (!parent)
->> +        parent = &top_cpuset;
->> +
->> +    /* CPUs outside the parent's current grant cannot be returned. */
->> +    mask = parent->effective_xcpus;
->> +    if (parent == &top_cpuset)
->> +        mask = housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT);
->> +    else if (!partition_is_populated(parent, cs))
->> +        return false;
->> +
-> 
-> The mask selection looks right to me. HK_TYPE_DOMAIN_BOOT is the right
-> one for top_cpuset, since CPUs returned by an isolated child are not in
-> HK_TYPE_DOMAIN yet. Limiting a local parent to its effective_xcpus also
-> correctly drops stale CPUs in del_cpus after the parent shrinks.
-> 
-> One corner case: validate_partition() also calls this for an invalid
-> cs whose parent is not a valid partition. If the parent is an invalid
-> partition without cpuset.cpus.exclusive, reset_partition_data() has
-> cleared its effective_xcpus, the loop does nothing, and we return true
-> when the parent is populated. The child's prs_err then changes from
-> PERR_INVPARENT to PERR_NOCPUS, which reports the wrong reason. The old
-> code did not do that. How about:
-> 
->       else if (!is_partition_valid(parent) ||
->                !partition_is_populated(parent, cs))
->               return false;
->            
-> The invalid parent case is already reported by PERR_INVPARENT/PERR_NOTPART.
-> 
-
-Hi Ridong,
-
-Thanks for the review.
-
-I tested your guard and will add it. However, I reproduced the error
-change under slightly different conditions from those you described:
-the populated invalid parent still had an explicit exclusive mask.
-In that case, v4 changes PERR_INVPARENT to PERR_NOCPUS. Your check
-preserves the original reason, and also preserves PERR_NOTPART in the
-corresponding case where the parent is a member.
-
-In the case you described, with no explicit exclusive mask and the
-parent's effective_xcpus already cleared, I get PERR_INVCPUS in both the
-base kernel and v4. compute_trialcs_excpus() also produces an empty child
-trial mask, so validate_partition() returns PERR_INVCPUS before calling
-tasks_nocpu_error().
-
-> Nit: the comment "Return true if tasks or the top domain lack active
-> CPUs" doesn't cover local parents. Maybe "Return true if @cs or @parent
-> would lack active CPUs; for top_cpuset, only active boot domain
-> housekeeping CPUs count".
-> 
-Sure, I'll update the comment.
-> 
->> +    for_each_cpu_and(cpu, mask, cpu_active_mask) {
->> +        if (cpumask_test_cpu(cpu, xcpus))
->> +            continue;
->> +        if (cpumask_test_cpu(cpu, parent->effective_cpus) ||
->> +            (del_cpus && cpumask_test_cpu(cpu, del_cpus)))
->> +            return false;
->> +    }
->> +    return true;
->>   }
->>     static void reset_partition_data(struct cpuset *cs)
->> @@ -1724,7 +1760,7 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
->>        */
->>       compute_excpus(cs, tmp->new_cpus);
->>       if (!cpumask_intersects(tmp->new_cpus, cpu_active_mask) ||
->> -        cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus))
->> +        tasks_nocpu_error(NULL, cs, tmp->new_cpus, NULL))
->>           return PERR_INVCPUS;
->>       if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
->>           return PERR_NOCPUS;
->> @@ -1828,7 +1864,7 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
->>           if (!capable(CAP_SYS_ADMIN))
->>               WRITE_ONCE(cs->prs_err, PERR_ACCESS);
->>           else if (cpumask_intersects(tmp->addmask, subpartitions_cpus) ||
->> -             cpumask_subset(top_cpuset.effective_cpus, tmp->addmask))
->> +             tasks_nocpu_error(NULL, cs, excpus, cs->effective_xcpus))
->>               WRITE_ONCE(cs->prs_err, PERR_NOCPUS);
->>           else if (prstate_housekeeping_conflict(prs, PRS_ROOT,
->>                                  excpus, tmp->delmask))
->> @@ -1961,7 +1997,8 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->>        */
->>       if ((cmd != partcmd_disable) && !newmask) {
->>           compute_excpus(cs, tmp->delmask);
->> -        nocpu = tasks_nocpu_error(parent, cs, tmp->delmask);
->> +        nocpu = tasks_nocpu_error(parent, cs, tmp->delmask,
->> +                      is_partition_valid(cs) ? cs->effective_xcpus : NULL);
->>       }
->>         if ((cmd == partcmd_enable) || (cmd == partcmd_enablei)) {
->> @@ -2497,7 +2534,9 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
->>       if (cpumask_empty(trialcs->effective_xcpus))
->>           return PERR_INVCPUS;
->>   -    if (tasks_nocpu_error(parent, cs, trialcs->effective_xcpus))
->> +    if (tasks_nocpu_error(is_remote_partition(cs) ? NULL : parent, cs,
->> +                  trialcs->effective_xcpus,
->> +                  is_partition_valid(cs) ? cs->effective_xcpus : NULL))
->>           return PERR_NOCPUS;
->>         return PERR_NONE;
->> @@ -3997,6 +4036,7 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
->>       static nodemask_t new_mems;
->>       bool cpus_updated;
->>       bool mems_updated;
->> +    bool nocpu;
->>       int partcmd = -1;
->>       struct cpuset *parent;
->>   @@ -4008,9 +4048,23 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
->>       if (!tmp || !cs->partition_root_state)
->>           goto update_tasks;
->>   -    if (is_remote_partition(cs) && (cpumask_empty(subpartitions_cpus) ||
->> -                       (cpumask_empty(&new_cpus) &&
->> -                    partition_is_populated(cs, NULL)))) {
->> +    /* Do not count any CPUs as returned during this hotplug check. */
->> +    nocpu = tasks_nocpu_error(is_remote_partition(cs) ? NULL : parent, cs,
->> +                  &new_cpus, NULL);
->> +    if (nocpu && (parent == &top_cpuset || is_remote_partition(cs))) {
->> +        /*
->> +         * Only invalidate a partition for an empty top sched domain if
->> +         * it can return an active boot domain housekeeping CPU. A
->> +         * populated partition with no active CPU must still be invalidated.
->> +         */
->> +        cpumask_and(tmp->addmask, cs->effective_xcpus,
->> +                housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT));
->> +        if (!cpumask_intersects(tmp->addmask, cpu_active_mask))
->> +            nocpu = cpumask_empty(&new_cpus) &&
->> +                partition_is_populated(cs, NULL);
->> +    }
->> +
-> 
-> This is hard to follow. nocpu is computed first and then partly undone,
-> so that only a partition owning an active housekeeping CPU gets
-> invalidated.
-> 
-
-v3 used separate branches for these cases. Adapting that structure to
-the unified helper, would something like the following be easier to
-follow?
-
-        if (parent == &top_cpuset || is_remote_partition(cs)) {
-                /*
-                 * Do not count child partition CPUs as already returned.
-                 * Only invalidate a partition for an empty top domain if
-                 * it can return an active boot domain housekeeping CPU.
-                 * A populated partition with no active CPU of its own
-                 * must still be invalidated.
-                 */
-                cpumask_and(tmp->addmask, cs->effective_xcpus,
-                            housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT));
-                nocpu = cpumask_intersects(tmp->addmask, cpu_active_mask) &&
-                        tasks_nocpu_error(NULL, cs, cs->effective_xcpus,
-                                          NULL);
-                nocpu |= cpumask_empty(&new_cpus) &&
-                         partition_is_populated(cs, NULL);
-        } else {
-                nocpu = tasks_nocpu_error(parent, cs, &new_cpus, NULL);
-        }
-
-> Do we really need this? When hotplug leaves top_cpuset with no active
-> CPU, cpuset_handle_hotplug() already clears subpartitions_cpus and
-> invalidates all the partitions under it. If we handle an empty top
-> sched domain the same way, this block can go away.
-> 
-
-The check keeps partitions that cannot return an active HK CPU from
-being invalidated just because the top domain is empty. For example,
-on a 32-CPU system with isolcpus=domain,10-31, A is an isolated partition
-holding CPU 10 and its sibling B is a root partition holding CPUs 0,2-9.
-When CPU 1 goes offline, v4 invalidates B and keeps A valid.
-
-As I understand it, if we use the reset approach, it can restore the
-top scheduling domain, but it should invalidate both A and B. If we
-eventually want the same reset policy for an empty top scheduling
-domain, I can make that change and update the existing test expectations.
-
-Thanks,
-Guopeng
-
-> Longman, what do you think?
-> 
->> +    if (is_remote_partition(cs) && (cpumask_empty(subpartitions_cpus) || nocpu)) {
->>           WRITE_ONCE(cs->prs_err, PERR_HOTPLUG);
->>           remote_partition_disable(cs, tmp);
->>           compute_effective_cpumask(&new_cpus, cs, parent);
->> @@ -4023,10 +4077,11 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
->>        * 2) parent is invalid or doesn't grant any cpus to child
->>        *    partitions.
->>        * 3) subpartitions_cpus is empty.
->> +     * 4) top_cpuset needs an active boot domain housekeeping CPU from cs.
->>        */
->>       if (is_local_partition(cs) &&
->>           (!is_partition_valid(parent) ||
->> -         tasks_nocpu_error(parent, cs, &new_cpus) ||
->> +         nocpu ||
->>            cpumask_empty(subpartitions_cpus)))
->>           partcmd = partcmd_invalidate;
->>       /*
-> 
-
+V2l0aCBhIGtlcm5lbCA3LjMuMyB3ZSBzYXcgdGhlIGZvbGxvd2luZyBvbiBhIFNvQ0ZQR0EgKEN5
+Y2xvbmUgNSkgYmFzZWQKYm9hcmQgZHVyaW5nIGluaXRpYWxpemF0aW9uIHdoZW4gdXNpbmcgYSBo
+aWdoLXNwZWVkIFNELWNhcmQ6CgogIGR3X21tYyBmZjcwNDAwMC5tbWM6IERXIE1NQyBjb250cm9s
+bGVyIGF0IGlycSA1MywzMiBiaXQgaG9zdCBkYXRhIHdpZHRoLDEwMjQgZGVlcCBmaWZvCiAgZHdf
+bW1jIGZmNzA0MDAwLm1tYzogR290IENEIEdQSU8KICBkd19tbWMgZmY3MDQwMDAubW1jOiBHb3Qg
+V1AgR1BJTwogIG1tY19ob3N0IG1tYzA6IEJ1cyBzcGVlZCA9IDUwMDAwMDAwSHogKHJlcSA0MDAw
+MDBIeiwgYWN0dWFsIDM5NjgyNUhaIGRpdiA9IDYzKQogIG1tY19ob3N0IG1tYzA6IEJ1cyBzcGVl
+ZCA9IDUwMDAwMDAwSHogKHJlcSA1MDAwMDAwMEh6LCBhY3R1YWwgNTAwMDAwMDBIWiBkaXYgPSAw
+KQogIG1tYzA6IGVycm9yIC0xMTAgd2hpbHN0IGluaXRpYWxpc2luZyBTRCBjYXJkCiAgbW1jX2hv
+c3QgbW1jMDogQnVzIHNwZWVkID0gNTAwMDAwMDBIeiAocmVxIDMwMDAwMEh6LCBhY3R1YWwgMjk3
+NjE5SFogZGl2ID0gODQpCiAgbW1jX2hvc3QgbW1jMDogQnVzIHNwZWVkID0gNTAwMDAwMDBIeiAo
+cmVxIDUwMDAwMDAwSHosIGFjdHVhbCA1MDAwMDAwMEhaIGRpdiA9IDApCiAgbW1jMDogZXJyb3Ig
+LTExMCB3aGlsc3QgaW5pdGlhbGlzaW5nIFNEIGNhcmQKICBtbWNfaG9zdCBtbWMwOiBCdXMgc3Bl
+ZWQgPSA1MDAwMDAwMEh6IChyZXEgMjAwMDAwSHosIGFjdHVhbCAyMDAwMDBIWiBkaXYgPSAxMjUp
+CiAgbW1jX2hvc3QgbW1jMDogQnVzIHNwZWVkID0gNTAwMDAwMDBIeiAocmVxIDUwMDAwMDAwSHos
+IGFjdHVhbCA1MDAwMDAwMEhaIGRpdiA9IDApCiAgbW1jMDogZXJyb3IgLTExMCB3aGlsc3QgaW5p
+dGlhbGlzaW5nIFNEIGNhcmQKICBtbWNfaG9zdCBtbWMwOiBCdXMgc3BlZWQgPSA1MDAwMDAwMEh6
+IChyZXEgMTAwMDAwSHosIGFjdHVhbCAxMDAwMDBIWiBkaXYgPSAyNTApCiAgbW1jX2hvc3QgbW1j
+MDogQnVzIHNwZWVkID0gNTAwMDAwMDBIeiAocmVxIDUwMDAwMDAwSHosIGFjdHVhbCA1MDAwMDAw
+MEhaIGRpdiA9IDApCiAgbW1jMDogZXJyb3IgLTExMCB3aGlsc3QgaW5pdGlhbGlzaW5nIFNEIGNh
+cmQKClRoZSBTRC1jYXJkIHdhcyBub3QgdXNhYmxlIGluIHRoZSBmb2xsb3dpbmcuCgpSZWFzb246
+IFNpbmNlIGNvbW1pdCAzZjE2MjhiYWE1MWUgKCJtbWM6IGR3X21tYy1wbHRmbTogVXNlIHBoYXNl
+X21hcCBmb3IKU29DRlBHQSBjbG9jayBwaGFzZSBjb25maWd1cmF0aW9uIikgaG9zdC0+cGhhc2Vf
+bWFwIGlzIHVzZWQgaW4gb3JkZXIgdG8KZ2V0IHRoZSBwaGFzZSBzZXR0aW5ncyBmb3IgTU1DX1RJ
+TUlOR19TRF9IUy4gVGhpcyBpcyBkb25lIGluIGRydl9kYXRhLT5pbml0Cihkd19tY2lfc29jZnBn
+YV9wcml2X2luaXQoKSkgd2hpY2ggaXMgY2FsbGVkIGJlZm9yZSBkd19tY2lfaW5pdF9ob3N0KCku
+IEFzCmhvc3QtPnBoYXNlX21hcCB3aWxsIGJlIGluaXRpYWxpemVkIG9ubHkgZHVyaW5nIGR3X21j
+aV9pbml0X2hvc3QoKSwgd2UnbGwKY2FsbCBkd19tY2lfc29jZnBnYV9wcml2X2luaXQoKSB3aXRo
+b3V0IHRoZSBuZWVkZWQgZGF0YS4KCkRvIGl0IGxpa2Ugb3RoZXIgdXNlcnMgb2YgZHdfbWNpX3Bs
+YXRmb20gYW5kIHVzZSBkcnZfZGF0YS0+c2V0X2lvcy4KCkZpeGVzOiAzZjE2MjhiYWE1MWUgKCJt
+bWM6IGR3X21tYy1wbHRmbTogVXNlIHBoYXNlX21hcCBmb3IgU29DRlBHQSBjbG9jayBwaGFzZSBj
+b25maWd1cmF0aW9uIikKQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKU2lnbmVkLW9mZi1ieTog
+T2xpdmVyIEJyYW5kdCA8b2xpdmVyLmJyYW5kdEBsZW56ZS5jb20+Ci0tLQpDaGFuZ2VzIGluIHYy
+OgotIEFkZCAncmV0dXJuJyBpbiBjYXNlIG9mIG1pc3NpbmcgcmVnbWFwIChTYXNoaWtvIEFJKS4K
+LSBBdm9pZCByZXBlYXRlZCBleGVjdXRpb24gKFNhc2hpa28gQUkpLgotIFdyaXRlIHJlZ2lzdGVy
+ICdoc190aW1pbmcnIGV2ZW4gaWYgTU1DX1RJTUlOR19TRF9IUyBpcyBub3QgcmVxdWVzdGVkCiAg
+KFNhc2hpa28gQUkpLgotIExpbmsgdG8gdjE6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4
+LW1tYy8yYTAzYTIyMmM0YTlkMzMwZWJjNzE1N2RlMDllYzMzZjcyODc1ZjI4LmNhbWVsQGxlbnpl
+LmNvbS9ULyN1CgogZHJpdmVycy9tbWMvaG9zdC9kd19tbWMtcGx0Zm0uYyB8IDE0ICsrKysrKyst
+LS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCspLCA3IGRlbGV0aW9ucygtKQoK
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvbW1jL2hvc3QvZHdfbW1jLXBsdGZtLmMgYi9kcml2ZXJzL21t
+Yy9ob3N0L2R3X21tYy1wbHRmbS5jCmluZGV4IGNmMzhiYjExOGRjMmMuLmI1MTU3NGEwYTFmZTEg
+MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvbW1jL2hvc3QvZHdfbW1jLXBsdGZtLmMKKysrIGIvZHJpdmVy
+cy9tbWMvaG9zdC9kd19tbWMtcGx0Zm0uYwpAQCAtNTYsMjIgKzU2LDIzIEBAIGludCBkd19tY2lf
+cGx0Zm1fcmVnaXN0ZXIoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldiwKIH0KIEVYUE9SVF9T
+WU1CT0xfR1BMKGR3X21jaV9wbHRmbV9yZWdpc3Rlcik7CiAKLXN0YXRpYyBpbnQgZHdfbWNpX3Nv
+Y2ZwZ2FfcHJpdl9pbml0KHN0cnVjdCBkd19tY2kgKmhvc3QpCitzdGF0aWMgdm9pZCBkd19tY2lf
+c29jZnBnYV9wcml2X3NldF9pb3Moc3RydWN0IGR3X21jaSAqaG9zdCwgc3RydWN0IG1tY19pb3Mg
+KmlvcykKIHsKIAlzdHJ1Y3QgZGV2aWNlX25vZGUgKm5wID0gaG9zdC0+ZGV2LT5vZl9ub2RlOwog
+CXN0cnVjdCBtbWNfY2xrX3BoYXNlIHBoYXNlOwogCXN0cnVjdCByZWdtYXAgKnN5c19tZ3JfYmFz
+ZV9hZGRyOwogCXUzMiByZWdfb2Zmc2V0LCByZWdfc2hpZnQ7CiAJaW50IGhzX3RpbWluZzsKKwlz
+dGF0aWMgaW50IHBoYXNlX2FscmVhZHlfc2V0OwogCiAJcGhhc2UgPSBob3N0LT5waGFzZV9tYXAu
+cGhhc2VbTU1DX1RJTUlOR19TRF9IU107Ci0JaWYgKCFwaGFzZS52YWxpZCkKLQkJcmV0dXJuIDA7
+CisJaWYgKCFwaGFzZS52YWxpZCB8fCBwaGFzZV9hbHJlYWR5X3NldCkKKwkJcmV0dXJuOwogCiAJ
+c3lzX21ncl9iYXNlX2FkZHIgPSBhbHRyX3N5c21ncl9yZWdtYXBfbG9va3VwX2J5X3BoYW5kbGUo
+bnAsICJhbHRyLHN5c21nci1zeXNjb24iKTsKIAlpZiAoSVNfRVJSKHN5c19tZ3JfYmFzZV9hZGRy
+KSkgewogCQlkZXZfd2Fybihob3N0LT5kZXYsICJjbGstcGhhc2Utc2QtaHMgd2FzIHNwZWNpZmll
+ZCwgYnV0IGZhaWxlZCB0byBmaW5kIGFsdHIsc3lzLW1nciByZWdtYXAhXG4iKTsKLQkJcmV0dXJu
+IDA7CisJCXJldHVybjsKIAl9CiAKIAlvZl9wcm9wZXJ0eV9yZWFkX3UzMl9pbmRleChucCwgImFs
+dHIsc3lzbWdyLXN5c2NvbiIsIDEsICZyZWdfb2Zmc2V0KTsKQEAgLTgyLDEyICs4MywxMSBAQCBz
+dGF0aWMgaW50IGR3X21jaV9zb2NmcGdhX3ByaXZfaW5pdChzdHJ1Y3QgZHdfbWNpICpob3N0KQog
+CiAJaHNfdGltaW5nID0gU1lTTUdSX1NETU1DX0NUUkxfU0VUKHBoYXNlLmluX2RlZywgcGhhc2Uu
+b3V0X2RlZywgcmVnX3NoaWZ0KTsKIAlyZWdtYXBfd3JpdGUoc3lzX21ncl9iYXNlX2FkZHIsIHJl
+Z19vZmZzZXQsIGhzX3RpbWluZyk7Ci0KLQlyZXR1cm4gMDsKKwlwaGFzZV9hbHJlYWR5X3NldCA9
+IDE7CiB9CiAKIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHdfbWNpX2Rydl9kYXRhIHNvY2ZwZ2FfZHJ2
+X2RhdGEgPSB7Ci0JLmluaXQJCT0gZHdfbWNpX3NvY2ZwZ2FfcHJpdl9pbml0LAorCS5zZXRfaW9z
+CT0gZHdfbWNpX3NvY2ZwZ2FfcHJpdl9zZXRfaW9zLAogfTsKIAogc3RhdGljIGNvbnN0IHN0cnVj
+dCBvZl9kZXZpY2VfaWQgZHdfbWNpX3BsdGZtX21hdGNoW10gPSB7Ci0tIAoyLjQ3LjMKCg==
