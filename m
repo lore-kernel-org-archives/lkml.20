@@ -1,55 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794468594;
-	b=wfw5I3CAP0as1uVrWDBc8EOv4ghaVdHTvrLmC674FvWsMvqOYDMuwLcUurDVdruWFK4f
-	 2NSwkWsY1OekuR3PW07pwpXn3PoojrxpA4IGP+M5bDYshVLDFxsPxtqKNN9jhr+98f7dD
-	 GBSAa78XLghnS8tvxb5+1AutIlZ/JS+pdx2W6AL/bTkuEY1ig2OtiCK1qTt8qBbG+KG3K
-	 rjeGhUI8HWLqosd4oO7l7uqGpsmEYsEzUqrkKiCZs8MGWvhPTyP9hmKl09hjGDTDBzst4
-	 48EUedOK/kl7DovnrthCmh+ciG7RsX3TwhYMDIXvL8gT+klGL/OW+5je7vPv+lc2hHQ==
+	t=1794468597;
+	b=AKAcBD9q2RWl9U5dcXp2SkY5v+dyYyFxTDpfW8SLYW2smRH+VBI8nT63kt21tYLMcnJK
+	 08UpA9733xwYz9XOhsC1rvpIMr8c4yj3aYBcDEkdQmtr+2xL9mPoh1gzmSBsFaX/wH5BQ
+	 fXGpyniHVl88+QZvOE2BTnsYkvDlbyA4o15Qfiq1wGzWcssrDxgvYER3NfsBHzkEX3Z3p
+	 czLY/GsboZ8bIgIzTmZa13wlsnspc0PyK15qM2EzmxV6j0jqpxhQWEuahKs0sUVDCq4er
+	 LevhpV2MF90+QanLUN0nkToKQFM8y3uREXyyymA9Ha6e9GmTJPuMPrpEkJWF0mVTQIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794468594;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=lMsj9nudmBv/iI5Os6pRVy6bLDebR7965kvSPVwO+Vg=;
-	b=nIPQnPsP1AbdMRB+P1LN7C0qCJMHvsFqv5Oi6dPGaI3/tJSwc8U8UVbdcqIHMsHjZSFc
-	 bFxQeeLOjveF5aSntiD0M2Ql/eKeWjzP4eDax8AMknr3HjgIR7F0+9zPj+MMwP9xjcG+p
-	 2ZQdwmJ/l5W1nLdbQlv1rJCDoZrG6AzP1sqd/X38xEurVYEWYE87cgTh1yO4ipLeA0huV
-	 ErnWnjEDiQuKFJQEsvPQvCHfm8LM50u7ttOr53Lj3xCKEh3dx1fWreN5qoaGwkUsXJ9ZT
-	 8cr41v07MoxhKI+pIT9KF3E+KhOcJGl399dOfhE/NEYuWZMnOB4pr25oVjOHRbfXkyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794468597;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BY8ogzTFjE1WMQglvfjtMG9sRYsnsNS31vRIHu7zQgc=;
+	b=fLQ0a7WkDV6H3hc0rZu99G2BEUcZFZmbiY/zajqsO7FUXNfXLCJDMiTjlD100l8cSw1o
+	 Wk2mWkkqnNlOsr/VL1L4FP27qNjE5At01PX9CUX5TH3zDpWJvbektuGLJxKse5+0g3g9A
+	 zk1IbxYu6ETLTL5ufAc8hsC5Yi9vNVqSnngdp4tGULvxwHgS9U5Ug9PFfVWpfGiB8Lzvv
+	 zTzHD4XstIdUxeT6qWGKN5WlX/tV23CnR1yGy1qkCvq9Tl6OeSpWG835itrJ68iiAPqCB
+	 XEgJN+7rsxCtRCaQ2kb2CeLlfe/K5CUKBoR9rzXAMwukNNEPruKobQonwEKLAjopVBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZPX1ieU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=heOlUVDT;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08777606A330
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:29:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F814606A330
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:29:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F814606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZPX1ieU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B22BB1F00A06
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:29:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794468593;
-	bh=lMsj9nudmBv/iI5Os6pRVy6bLDebR7965kvSPVwO+Vg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OZPX1ieU+LbZoavvKaae8CDwAXx0pXP/AVuIjvVIEP0B5iqW5LhQXjbWE2Nmk00ow
-	 thRg7jxz6UwzjBfNsrToylEh9RR0J02ECSLdMFzun+Fy03Ax7UAvIp7YXgdR3WaIL2
-	 2ip22Ghvkzq1/YV9OKlCgCgP34BE6rJWRjVrD1lvXNG+iF7B5fIUf3qGjn/c4nG2se
-	 ZJcnsTVICDY7h74vfvoDzKA5u78tH5xp8jkmt8jT5DLdRnoAVMMNrqSfCLxIjqt64E
-	 7S+AwaS1E5uYdLaDoPSv8bRPQqNEzzPOfry0H6Vv/RErkHpEgi+8wnZpx4COFPE6vQ
-	 +lcdFr/WJdCeg==
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c40e30c26a4so93977966b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:29:53 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErF6P/To74aLolzg5riZh7A52UBOc6nNMGQloWAmexedwMxf5fz2EhT+ulmPWa+ouT9/z2KqXk2vAw2YJD4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+gZyXaF6YIPNNBcPmOadQeHACTMrZQGRXweVjWK9ZbN3vkO+v7
-	pGPhSPCfC5B9kJgDQV8Vs1gBcPVWn5YAvHL3hlZ8uOskH/I4cbwaqmdqqL5Ef5PPQ42SObr2/P1
-	c6t/YWZSrlD6eKRr1OWZnZcj+3z0eSNk=
-X-Received: by 2002:a17:907:ea8f:b0:c25:4d9e:bb28 with SMTP id
- a640c23a62f3a-c507b396562mr148147766b.3.1794468592306; Wed, 11 Nov 2026
- 23:29:52 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=heOlUVDT
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so38773855e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:29:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794468595; x=1795073395; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BY8ogzTFjE1WMQglvfjtMG9sRYsnsNS31vRIHu7zQgc=;
+        b=heOlUVDTWOMZbiOj8L9eNeQJVLq5a1Wx2OCVR+d1Llk0fVyNvDJ759+uw7CrMYNCNV
+         NfFTC2cqxZ61O5qstKefBLQ8iQ/Am10MHBSeYO3mLSGpvXSbHkJ+dYwZ2Kdnl8ks3tvJ
+         xHN2HrS/7QVOac0rPROeJcxsgpJlRcn6CRNjQbzEBjrPBWONiT+NZmUfs/fq3T6dsA+H
+         MY3f5hH7en8FDiMOjAVVO8gNF3ODv0vTu+IihRUpkBsTrGvrb/4Odup5ELNnM0F5rcOO
+         uoglq41y9dpaorHKSh1LlxCHw0zdcxmkl64D3vSSwTPCkTRNRlZMFPweODgRjZMkUCzx
+         VxVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794468595; x=1795073395;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BY8ogzTFjE1WMQglvfjtMG9sRYsnsNS31vRIHu7zQgc=;
+        b=hoW3Btx6o7by3GVJzuoVjpkeDBYRFA9PMR9j5AC92SDtL1lZuhJ0vW6HrL7zoMGHWK
+         kqSZzHUziIZQLzzaGD+xqFpZWVqhyQU1V7gn0r9NsoD/j3Y9Wl7I5d0pn510uZUNo3K5
+         NcxAjvFre/Be5R4QcCeoS0o2/T/CL3t08LH/zMeFpgTyL1O4WeLdwWV791jEw7aMtHIR
+         gyRAU2YNTXDgye1W1lF2Cdx1wcHtX+51ZE1k2yxqFlW29KlLr1eqvJmpISxg8Y16+6Y7
+         8kOsAWsXH9XiAkFj9HmpNgjo6EYW3G/9+OwIwqsbsAztQM+rgSs/ITAdXfLlKeow4kOq
+         Eymg==
+X-Forwarded-Encrypted: i=1; AL+hErEw0y1GPEZPWAcfHMYMJiXPmQUwGqmzmciFM4p+eHf5ggDdAM01todHzTk3tMkQmsro8+NqC0SpbCJjHFE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/6ZBZHE4rHIJxfF9iFvbzCuS+a+qo9rXNnfCGJ0mqKNh1+a/MT
+	tO5oTqP5WDm8mNVhJAo/hnC3NILwoFZxtQA3jD+sSLkNDJyoikF+mAUi
+X-Gm-Gg: AYBFou0Cde2xDgz1okMIyFzOEoRG/bzxfV0U4imloY2PthGgtFlMSWw/KWVhbrpvsjT
+	QoL1eKgYu7yBWPWDkLFmjDMnpOzxchutw6Bl7RXFV0gkByZuGievImSxp4TULmZilxqJCXvfjWW
+	kyOsIZqmpv4/enNrS0XP9asgJCt0AurQhDyzjt74Eox/ChdRIWiWUPRR1Hc0al6UFlA6Eg1UEUN
+	zyrdnVsKiwlt8pcEjZB/F1tM+eTVhar79gFJLf9QqsaVuIU9KX2nJu99NuKtWbS1mo+7Ljz06YC
+	mjMtoQb0koj5iLaUunJYPCapXqNmAqmMcZoTCszhg07QnWanPLVVmHx0BqyOHu24rAUe18Pj2J4
+	TZkG5n7qbrA6+LPgjY22Vcrg7XChS7xl31WfBjvL7jtnRBQT4yE8aUxV4DVGVBVbFJiRbAAo2TP
+	vQB761KaIzIkfJphhDKZK8ctpw1jYq40QjzWm1OC8++ldb+ibw5lMf35E7iVJkZd1ql9NsRavIc
+	vtxc+TSTrKlTNy3+wqsHNSQfJVqmMSWRJ2BPCpRS3tjvJGOatjqzWlxO8hGzHjc6dKrAIZKyewt
+	u7Q3j2mkUipWatPT9d59xFxZsRFadaQZK0U=
+X-Received: by 2002:a05:600c:4f55:b0:4a7:8fe8:130c with SMTP id 5b1f17b1804b1-4ba0938197dmr97544195e9.28.1794468595304;
+        Wed, 11 Nov 2026 23:29:55 -0800 (PST)
+Received: from dev.Default ([86.127.229.203])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0951bf2asm81897575e9.4.2026.11.11.23.29.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 23:29:54 -0800 (PST)
+From: Agustin Santiago Isasmendi <isasmendi.agus@gmail.com>
+To: Russell King <linux@armlinux.org.uk>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Arnd Bergmann <arnd@arndb.de>,
+	=?UTF-8?q?Stefan=20D=C3=B6singer?= <stefandoesinger@gmail.com>,
+	Navid Ghahremani <ghahramani.navid@gmail.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org
+Subject: [PATCH v2 0/2] ARM: l2c: honour status = "disabled" on the L2 cache node
+Date: Thu, 12 Nov 2026 08:29:51 +0100
+Message-Id: <20261112072953.989664-1-isasmendi.agus@gmail.com>
+X-Mailer: git-send-email 2.30.2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,43 +101,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111222534.839117-1-koray.fra@gmail.com> <20261112031157.677256-1-icb@fastmail.org>
-In-Reply-To: <20261112031157.677256-1-icb@fastmail.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Thu, 12 Nov 2026 16:29:38 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9u1EQWXwxiGfdTyvsDCRoYpDTo97A-hqjPKZ868S+3sA@mail.gmail.com>
-X-Gm-Features: AclHuK89hAf45QYH6l79cOyFN2CoMoYTpTZ7STKRVcYi0T6MEFvVcHL7RDTmuoc
-Message-ID: <CAKYAXd9u1EQWXwxiGfdTyvsDCRoYpDTo97A-hqjPKZ868S+3sA@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: fix timestamp corruption on special values
-To: Ian Bridges <icb@fastmail.org>
-Cc: koray.fra@gmail.com, senozhatsky@chromium.org, tom@talpey.com, 
-	chenxiaosong@chenxiaosong.com, hyc.lee@gmail.com, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 12:12=E2=80=AFPM Ian Bridges <icb@fastmail.org> wro=
-te:
->
-> Hi,
->
-> On Wed, Nov 11, 2026 at 11:25:34PM +0100, koraynilay wrote:
-> > When a timestamp is being sent with "-1" or "-2" as its value because i=
-t
-> > should be ignored, as specified in MS-FSCC 2.4.7 FileBasicInformation,
-> > ksmbd would clobber it in both the xattr and on-disk value by setting i=
-t
-> > to -1.
->
-> I tested this with the ksmbd code from ksmbd-for-next. Before the
-> patch, setting any of the four times to -1 or -2 stored that value.
-> The access and write times on disk moved to 1901, and the creation
-> time in the DOS attribute xattr was overwritten. With the patch, -1
-> and -2 leave every time unchanged, and valid times are still set as
-> before. smbtorture confirms the result in the commit message, the rest
-> of its results are unchanged, and KASAN reports nothing.
->
-> Reviewed-by: Ian Bridges <icb@fastmail.org>
-> Tested-by: Ian Bridges <icb@fastmail.org>
-Applied it to #ksmbd-for-next.
-Thanks!
+Hi Russell,
+
+l2x0_of_init() finds the L2 cache node by compatible and never looks at
+its status property, so a device tree cannot keep the L2 cache off.
+Patch 2 makes it leave a disabled node alone; patch 1 notes in the
+binding that the firmware must then leave the cache disabled.
+
+The user is the ZTE ZX279128S (dual Cortex-A9, L2C-310 r3p3), where a
+PCIe read on one CPU deadlocks against an L2C-310 line operation by
+physical address or a Cache Sync on the other CPU, and the board hangs
+within seconds of WiFi traffic.  Running with the L2 cache off avoids
+it, and that was suggested as the fallback for the platform when a
+lock-based workaround was found too invasive for generic code:
+
+  https://lore.kernel.org/r/20261110153522.1620088-1-isasmendi.agus@gmail.com
+
+Whether the ZX279128S device tree disables the cache is a decision for
+that thread; this series only makes the property work.
+
+No in-tree L2 cache node is disabled, so existing device trees are not
+affected.  Tested on the ZTE ZXHN H3600 (not in mainline yet, on top of
+Navid Ghahremani's v2 platform series): with the node disabled the cache
+stays off (control register 0) and the system runs normally; with it
+enabled the cache comes up as before.  Builds without warnings with W=1
+(board config and multi_v7_defconfig); checkpatch --strict and
+dt_binding_check are clean.
+
+Changes in v2 (after Arnd's review):
+- drop the clean-invalidate-disable path for a cache the firmware left
+  enabled, and with it the "factor out the number of ways" patch: the
+  firmware is responsible for leaving the cache off, the kernel does not
+  touch a disabled node;
+- new patch 1 saying so in the binding.
+v1: https://lore.kernel.org/r/20261111133930.3665251-1-isasmendi.agus@gmail.com
+
+Agustin Santiago Isasmendi (2):
+  dt-bindings: cache: l2c2x0: a disabled node is left to the firmware
+  ARM: l2c: honour status = "disabled" on the L2 cache node
+
+ Documentation/devicetree/bindings/cache/l2c2x0.yaml | 3 +++
+ arch/arm/mm/cache-l2x0.c                            | 5 +++++
+ 2 files changed, 8 insertions(+)
+
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+-- 
+2.30.2
+
