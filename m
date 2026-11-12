@@ -1,90 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794524565;
-	b=I4qbRgSfY2sX9oRQzNj3TniLIOjO4+1iTIxLiO5ohx5S7FLdxL3n1lPuCmQwT9NZC2tR
-	 b7HtIJCxiqEkPhq+4QHIQXKUrsZz+bD46/ws3LKL004LOazV3W5XvskrM4q0dvpA69mhw
-	 7LUk+rLGqRQuetTTOu8Pl5wl+xSJPshs1sOKJHmmXt251cB3f35HNZin1Qu/zUQyhVwtj
-	 WzM+kGPYwHKps4W9MCGy7hggm+JNBzb7sVplejO4HYYCYzyzZ7HDiQVk++/6t6P1hQGTa
-	 1+j7KU6/e9n8UT2w8rTVOVqTNEpzn+ZQui5YTbc6cRJkH8hOPji3cv34eQjZPqbT2ng==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794524565;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.175
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794524660;
+	b=HNEc4ckyi4V9CyOnXI0vhQ2ZNbNn37NPZCmVtV/Il2hI5eWUASJgjly3XpVZn7xjlBdy
+	 cd4qjDunKRssLtk3H1XYRCKeCkqHCjAx6jrcHkcPgxsTGA2x0ywHyVgFCZYb6qmfA4cHR
+	 AvqfeF9tNuMXzxeRum4edQNnWrHwGCaqQwqf2OqtOrvA0wk4r3ECc/mZHdniIYAdhAv6u
+	 YKctXiSKEJat31Un9ba2Wvt5Rr2WHnJgtuxeJ6rB3yYHNlOglhhW6VT8yqSUxhSWRk9II
+	 796lQASrJ2tEJSNHa5Xgw0y13FyVc9iAuGKOBrXtjRUwW+KnbgLWrLot+d3IrC31sgQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794524660;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Message-ID:User-Agent;
-	bh=UdI2gv0nE+PpiDHQRvxALGPPGMmK/uE84Q/kSWgFWc8=;
-	b=UQOj8nZ3J7km1pBUiyvYhQf5e8+piPnDtferFPhT2VVynFE2igqN+7zST2MpZ921q7MU
-	 UJJnWma2udnF0ridD7FDOIhFH0iMVDqmiA9Wjkqw5f/Wwy4GyJC8lhAU0WdBWcIKU4pr6
-	 gl8cE0B4bDWeg3TyfINSnHj6QpIKxkTvWPv7UqzcXS5q++rB7f171wtkNkqigiPevDd53
-	 ry/EzYAtbbuijtj7Fm7Dw0vsIVTcFP/QoMb4enqgavJooo90cdVecZrnxrJgD7eu+2qFC
-	 2rtRPy/BWfNYyuA+Rl5IoAWv4ub76dhEfrmH9QT2Xj5y0b6OLD38QAJSO5JmEfcWpdw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=cl52A514;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=08MDudRooDplOYZuxvUS0XwmDlBnmweFEYBeZu/K8vU=;
+	b=grnN/yFdhQsfVhquUDnMWIwT3rAm9CpVqarZ6eIGh5hdFSKfXv0wQ/eIzUn1y2jYX2om
+	 rWQTKkQQaxNdH63AxhhwoHt31nz7sSfZORBIvbxgqD8ZyTsy5XGgTs76iowQoxtdxeOO8
+	 QAElWA1fHgPkr5kpifTDqHHK5TUWju0bH3lMgJpDzmn9xPElv3BvyfLOy8lJRkT1uvR9U
+	 iiB16/d9owmsqNbCuhoqPfGoJm3oRar/+vbIg8S4JUNj6oRGTPgipprX65X17OnTbAnzi
+	 cbYmzPJOtTZqXA95PU+jpVkq6UF8HUPNPJT2AVnrXMdF1Bjq8TWOEvHlSr2S4KU5piQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=everpuredata.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=YEuX+fX5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.175
+Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C70606A32A
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:02:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01C70606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48EE2606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:04:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48EE2606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=cl52A514
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so3200205e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:02:44 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=YEuX+fX5
+Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5eaa5e03c47so1340871e0c.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:04:19 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794524658; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lrdbg/8tOKYhgFXQD6lGRAhuY15Zt/NNj6fwI7T+VQTRg1iZtHl4lZ28/lqH4wdEXv
+         mzUxoU8tf2Z8S3VtBFdnH/WHsa81+ksKYMKtNxO4/yNn2aj6evt3oIVPZ7h9+zcFhRWh
+         cOk0f53M5btgSTLrmciBe2+ezSS9QMYmQYFVAD5mwZNpFEwGbnvofDlMkKSkxxGqKYuO
+         xXMYoxElipGEeIaxuGUp1V+Sd6YB6XeZjbaX5lgPQAK1uKRrkfXs+0Ukv4qXuAOmkQkf
+         3G8XFY2Cln+7+Es0jsJe1PImC6dvIB0xAwThsh9a/80kRuPlVw0fX6Tv0/QTb8K3G/u6
+         C3LA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=08MDudRooDplOYZuxvUS0XwmDlBnmweFEYBeZu/K8vU=;
+        fh=5xoL8Tk5g0qJ4i/rWGJF1ge9xTb6BP8YSuWI1ShlKg0=;
+        b=bzOqt/8RXYQAhnu0YYBJ9Zh/DkUpg/W81dpaKk2NrUXT2Xb/2Ld3+j/N6gfVlSILP5
+         yWlTBAWLkZAz7lBEy6x0mFPdPWjuWebfwP1njRaY5xV+waiXun4ceseMA1MKFFsG00z6
+         o6MohhZYTscXJzoYlL6ERJIDoAqi6OtIneA8N2KL5VN1Ey3aQFSQkXLE27i8N1sS4bcp
+         NWpDyK1VZL4G3hmQXOLp4DwOc/Y6J22VcQ6LBoZiJdJic4y/fF1c2umuQ9clRkF2DHqk
+         Jvh2hqDyrxgRKJyHyZjCfwBaiCGkT2mjXcCN0oBLWW0LmSA0/GPIQ/c1/GSF+RKDLYZG
+         3Qjg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794524563; x=1795129363; darn=vger.kernel.org;
-        h=user-agent:message-id:content-disposition:content-type:mime-version
-         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
+        d=everpuredata.com; s=google; t=1794524658; x=1795129458; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=UdI2gv0nE+PpiDHQRvxALGPPGMmK/uE84Q/kSWgFWc8=;
-        b=cl52A514dZp9s/iyCKuRlFULJYoeu+l+XDeZgfaa8mqtOB/O2+RLH73XsImvRmlSmN
-         HxhCuWFxKFmvtxF5R/ePkRzklwD51D1+ATvORMP+rU6PXjdu5XcOfenvXhLwY1vPvyTx
-         uiy9856AXZJMF1iGSMGU6449sTXFav1K9/l7s=
+        bh=08MDudRooDplOYZuxvUS0XwmDlBnmweFEYBeZu/K8vU=;
+        b=YEuX+fX5PVk+ImDaWF906WZy8L87NhbtVg9P43fmC2fewvrznUnbo63wuRLcy59skh
+         GnRGKrbyGMz2w/B9lWL9UatD76ON/1KxM2SwCDMcioMTi6MNw5Eb2Wc9v8T/z6fgrIB1
+         dvi3Ze6/Q1bIbPMCoQp3ukySEtx7HwxWZsI+gHk9izaRgjvZQvfYAunAsM3L1neAFMuK
+         DQ2XXlgNRvgp5N8UaJZk6uUhqBlL2qb2CoOPPXZq6dEj4MQlo4VDdBqosBvbVEfV/GQD
+         Y7LbTvm5kcgeC1iQCyQ9Lxlr7GOvxUouAI/iSUf52rUG7Q0W/y6AO1r+iSC93n+cvcoQ
+         gcZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794524563; x=1795129363;
-        h=user-agent:message-id:content-disposition:content-type:mime-version
-         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794524658; x=1795129458;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UdI2gv0nE+PpiDHQRvxALGPPGMmK/uE84Q/kSWgFWc8=;
-        b=NwMXO7hXa440ktZvMM64EU6bHDdmij5KLTeJWZjfhASjPkpR8L6Ch08PYFG+GB/qkR
-         Gzu5eDNEyUN+Xh3nOJNuAVTC9J+xxtZ65bUyoC3/enXAYeSQfnGKGyU94NDG1dHdWvbW
-         PQKFrvLNocLk7zCYb/i+A3V0UfLmB60bPPF+sx0Bn1jvy+QgUCusncocd2PJU2xR3dFs
-         ayVP+DbGvP+0reS/KSFUXwmYAoaTmJftEHUsWwc/qnI3z0pMHnhNDUwu5zYulvoKLaXA
-         zVnbiVCV84aGyS8Y50Z1tYJ5yQFmBn7A0s732BUljiJ23UTnl7qeysXDh2AFf45e3/Sb
-         9/mw==
-X-Forwarded-Encrypted: i=1; AL+hErG3zz04VA2Z0wR2+FkPe6AERsZXLR6nHfvnURcDQ+qHhKITkne9ZMFN+PFRMkO8uplolTFJ77eSLymETUM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91JzsPb2Ne/r2n1u0y0BDoNztCrMSguQRZETm8gRZVGHZMQklo
-	EZztYQNF1e4QK/mCbrqs3HS1twT8vE/kdxMAxNjwYHyaPJ3l4itq1m/wFVpwatBomRI=
-X-Gm-Gg: AYBFou3SRvj+hM9nSNOGCo1vMA5xfEwAutfE0/QqM8L0YzX4D6TOguiiuy2TVDwrdF7
-	8C9ir1eq5jsJ6Bn4YxTbwOuJ/hAI/XSZThr8Z8WPdbvCc7NNfceDoN4FTt4lMMOj+bZE326dpfY
-	8TW/hWu6nnxjUNKZbaieDppP2WYOFxzlbYnyjIGAx6QNXZX890Rbth820sfPuGxYrLNjBMXRX3c
-	7DZZeyBLERK8G6p3nhmLdmbKPgvJSa6qydbbGgKba5PCu78aYBQ4k9I72dy6KPdUysq51SnhhYV
-	2pQ7yqvhFMbq9CzJIFmFdvTxP4ergT+mkH6Bbios3LZ45YNRHibwZI1aR22PX9NcOIEHuLE6VLE
-	K6dmK6O8g3va6R5T3yuZrU9Lv6S1IbCs8wuQdAh1NxnFxXDAagj9wmNpAagQ1Vt0YF9KTG8mXyD
-	+iy3yItfAwjXzI0fWoi8ygUVoN+c4bxCFw6dQmOSd4B7ATnN4ECpenspVOagRHXSg3J6POAlRT+
-	i5URVt1+PCb2Ropgo2gO2ws+oL74ziuVynPvKBRY9mIcr429TyFBnKcRVTZ19+rX9F/WobGfMoe
-	2H1NdQzp2+dUlJTefC508eXu+Kdm02lP/Y0wfhAajvGKwgo6z9Y6xQZF2++hYsB80IyGOfc4E4Z
-	afCdr66mXvA60BUTSHp+djaow4wZtpekb+NwPClp2rxdL7AVPVkOvw4sXj1MwZMdGp2AUnYAhUZ
-	HKqMPnj59PF88y3ZMTPPFDfiJDArZk33n9/8UOZSyO+2YR4knrskiyGfn5nA==
-X-Received: by 2002:a05:600c:a596:b0:4b5:d95c:2380 with SMTP id 5b1f17b1804b1-4bb55a86fb2mr7941995e9.11.1794524563487;
-        Thu, 12 Nov 2026 15:02:43 -0800 (PST)
-Received: from [172.18.0.2] ([199.201.64.8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5720f6basm816285e9.4.2026.11.12.15.02.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 15:02:42 -0800 (PST)
-Date: Thu, 12 Nov 2026 15:02:23 -0800
-From: Chris Down <chris@chrisdown.name>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Christian Brauner <brauner@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Tejun Heo <tj@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>, Meta kernel team <kernel-team@meta.com>, linux-fsdevel@vger.kernel.org, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] kernfs: allocate inodes and dentry outside kernfs_rwsem
-In-Reply-To: <20261111215058.1837351-1-shakeel.butt@linux.dev>
-References: <20261111215058.1837351-1-shakeel.butt@linux.dev>
+        bh=08MDudRooDplOYZuxvUS0XwmDlBnmweFEYBeZu/K8vU=;
+        b=Bh4ugXxeXNuAxfMmeHLcIAHOA+4QLVe9y35iL2jNMeJRhYERhF7poEKGjZT6ZKklyV
+         JxFLFthCGukITDYm87CueC0D0fw5isJLK/0LLbXP2YG9kod23fvqVEC+ZNW66c06H7eh
+         Gy9UvNnGAJ1lepfqfYjjBrIChLLkanQEZdLqAqi4IhoKsxdVrz6Uemi8M5Gn7ZFXIPtM
+         CRjec+/57a6lxUGxZZvN8UFodObrDsAXf2BUHLFPQPzycZP/vnwH8T7hWGjBWdVGlkar
+         ephgCjes3hWLN8PQd7sxkNEeCVC8NLYcGXIhbl3bbN1HYc2d/zY7Cns5HoQNXNpb4h1J
+         pDqQ==
+X-Forwarded-Encrypted: i=1; AL+hErFr0E6K6Kp4snyjlJAu0epJr8a1GG6qNjQhKemwXTN4hX0hwkGew4Q8OkpkG+myYIGtwF8vLaoRrWwsNsU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8z5KzJ6vJGvdo4mJxDBzTMWKi+lBgLPCcbpwrwdmXGc5TS47vf
+	7POWZ1g4PwRHT9h4bmzdiuV/NXaAqp/6yqsbaYf9ZZGtyWfHQEunwTkf4rChMps/X9x/gfhDBgK
+	IUihf6myG6oIpNvJcdcQEtZE6hLJx2f1KhvbxIKr1EA==
+X-Gm-Gg: AYBFou0cYaCEw/cK4u4wfwWmzGBwqJYSwSiCFOAh9mleuAQJV44m5AtVb+Odtl9Do85
+	U7kSiGtTrQL87EGfcZuEwh+Cyec7hvZkK/5t2St+u+PH/KIyzxAgZl16HpSZRhYeLPsXVZgh1wN
+	/d58y3M/3qJU2Pnfo7K9QL2aug+L02C4ushITgRAHXyxyBr+ruER/8jMIHZFAg+cGwMsTQ2LbRB
+	V/xAmJanUf6soRJWWLS6xkRC0L7BmGQNB235cSn09Two5sz1sxurE6i51cc1rNYD1ZPl4QmIDZ8
+	6Hj0aKIG17skRFKyiPa4vuWbJ5+RWBp3qmT61FZc18ZTf1WG+/Z/ltEjru9Yh5RjP1wzITP0iDC
+	reQNqEjcSTqV2GKCVfYSzm2OtnooE3vW1ZVxkFhOUtGvQufjk6s2532Zh1J6yp4YyWp9rRT1MyB
+	qMmtST3gLCeYyfvdh44HS0sdhvOHzQlzCmqKR+6eVrRrevHdxhKLi2ko/jcAMfFou35/WVdqTVA
+	NODhds03gObUQ9ETeC62//OKPq2Dz8JUrKE9vIQYy4fWN0=
+X-Received: by 2002:a05:6122:6849:20b0:5ed:c029:411d with SMTP id
+ 71dfb90a1353d-5ee274efedcmr1175996e0c.19.1794524658165; Thu, 12 Nov 2026
+ 15:04:18 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,41 +106,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Message-ID: <20261112150223.f13e8b526933f9fd@chrisdown.name>
-User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
+References: <20261104183442.617519-1-rjethwani@purestorage.com> <20261110131222.7e228d44@kernel.org>
+In-Reply-To: <20261110131222.7e228d44@kernel.org>
+From: Rishikesh Jethwani <rjethwani@everpuredata.com>
+Date: Thu, 12 Nov 2026 15:04:06 -0800
+X-Gm-Features: AclHuK9qUUhccz7x5a5PPsAmZt6NNNYClixwKS7-w6C5DGK3uR7rry1APfVSnPE
+Message-ID: <CAKaoeS0KoGs9mZZZngwh97+8VgphrRxnHdGr-XmKUzmVp4AK6w@mail.gmail.com>
+Subject: Re: [PATCH net v6] kcm: reject attaching sockets with a ULP, and TLS
+ on KCM sockets
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org, 
+	Jiayuan Chen <jiayuan.chen@linux.dev>, syzbot@syzkaller.appspotmail.com, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Hannes Reinecke <hare@suse.de>, Sagi Grimberg <sagi@grimberg.me>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Shakeel,
+On Tue, Nov 10, 2026 at 1:12=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> wr=
+ote:
+>
+> On Wed,  4 Nov 2026 11:34:42 -0700 Rishikesh Jethwani wrote:
+> > Holding a ULP also has visible side effects: getsockopt(TCP_ULP)
+>
+> This part does not feel right to me. It's not a real ULP yet we will
+> start announcing it via all the ULP uAPI.
+>
+> If you repost please try to trim the commit message and the
+> documentation slop.
 
-Shakeel Butt writes:
->+	new = new_inode(sb);
->+	if (!new)
->+		return ERR_PTR(-ENOMEM);
+Agreed. I'll replace the dummy ULP with a bool in struct tcp_sock
+under IS_ENABLED(CONFIG_AF_KCM).
+KCM sets it on attach and clears it on detach; tls_init() checks it
+under the same socket lock.
+KCM still rejects an existing ULP, without appearing in the ULP UAPI.
 
-Not a big deal, but one thing changed from v3 that the changelog doesn't
-mention. Without an ilookup() first, every caller now needs the
-preallocated inode even when one is already hashed. Before this patch
-iget_locked() returned a hashed inode without allocating. So when
-new_inode() fails, decoding a handle for a live node whose inode is
-cached now fails with -ENOMEM, and a stale handle gets -ENOMEM instead of
--ESTALE. kernfs_iop_lookup() does the same for a node that already has an
-inode.
+I'll also trim the commit message and documentation.
 
- From a quick check I did with failslab limited to inode_cache and an fd
-held open on a cgroup2 directory, open_by_handle_at() on its handle
-succeeds without this patch and fails with ENOMEM with it.
-
-Now, new_inode() only fails there for an OOM victim, or in a memcg whose
-OOM killer is disabled or has nothing left to kill, and those tasks are
-failing most other allocations too, so I don't think it's worth
-complicating kernfs_get_inode_locked() for. But it is a second case
-besides an inactive node where an ilookup() first changes the result.
-
-Not a problem, just an observation, so feel free to add:
-
-Reviewed-by: Chris Down <chris@chrisdown.name>
-
-Thanks!
-
-Chris
+> --
+> pw-bot: cr
