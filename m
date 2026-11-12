@@ -1,91 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=50.112.246.219
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.229
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794471117;
-	b=5WhoU6UEPaO6jCjGeCxh9XdNyIW+4P3wUZoKzTvWqBzN/ZJQKevnY70PTlRdODkTdRo7
-	 NcFlWk7f4PVSU6lkOLZAHxG3Gv57aH5QI5IcireGTv1LylXFUwRqAbfjhZfaZzabp9RHS
-	 RXBDtkEpO0aDEOGQW7fYEYqhX3tU7BFEAi7VrgENzDfu93X98IxUbJW36Q8H6gBdreb5X
-	 QH70XMssCR24I+ErIznCc7yV0hVO/guG0Hx7Ktx8RNS+h6iQlv11r2ifdHypmHQleHs5n
-	 46dYLiiPzwLE1Uw2YPpKtlCsSgAu4N3U5LyJ9/Bsn9yc8p/NgiRdkOnCP0GvPfsZitw==
+	t=1794471121;
+	b=hILQ+5fI8OMybLzNMJ4gv/bI6jbtT+dmhzmXTALjzZk4KUMEoUCIEapvZNkhFCYBBD+z
+	 pHY1UApsM2kaOYLhoVOMCQJ+54Foig1d9yTDxgw3B3PIg+Dk1N890leiWDquPDHrQo140
+	 3gQldRoykc807jDSt/pEFoPlEn+NFmvd5TKwUS4tihWTQ/VO9KksHhOUZj1cY9UUZJ28F
+	 8FveoxQWZ47Nnf6LyJ2PGAVtFHO6HCZeWq983zjA6H5y6DS9yFc05jr042P3eFrPcKj/j
+	 2QUb8KlIXFRdSF2ofeDTp8E6l14kr0xbxixNQ3egEqbMQD1VedlxDraN8bXVM1mQeDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794471117;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:X-Originating-IP:X-ClientProxiedBy:
-	 Content-Transfer-Encoding;
-	bh=yRwejwn52j/pckFIXfpb6iPXXl8i/31yG967frHncGQ=;
-	b=2ZvXGcw7ZcqV7lhFR6S/I8pJa4flyNFRJGv7jevc8SlauEYpBWPI7906VY46qRJW0yyR
-	 HRsEWX85QbC0WDOQ39YU104grCq2p7B5F1qAZaVFzAEZDh4sFj5GsqNE+85DngMAr+8St
-	 dap+YcrdG8uYSQnmDPDP2Rb2b6ySJJQipja8E5E/Yeyj7xAKz7RrHWl4lGfQbv7by+Q5w
-	 CNMnZ5ZPP2iEtglMbhPmCFx6PIgnOWAp/X8gOphz3BjhUduNlskY+P3hZiGWh3MQ5Fsdc
-	 ay5ASlifbo1kxA++x/yr62uHHkPY14Dw2wGtDI12VdrWhYTueskE0XQi9z3EkTzS0QA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794471121;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=McIZmaGpPMOXjPPsjKu9t77cCTo+al4fqqHFl0JVXT8=;
+	b=l5CyLUVprhAFwo8OMw+ppZyJcbhZFmvHtxLz0+eSIRiWGSSNM0jZaNG1rI8rsRwDEVxl
+	 DxKUq/sBVtMf8nS8UBOfZ3ahmYfEcPO4YSaKJi+ocma7gtldJ/amkqu42NWXOw5zwFXv7
+	 ziMn92ceINsoqBROP5IY44cr4r8Xl6/w4WKJ+bWWO4mJWhjLjriASN+jt1whiUms1Wxt4
+	 B7OMwkNs7shMty0oeUrPjSJsM5h65x3HITe4AIB+IyELu7VtN4b3JQ8O5UiLorNi85mrL
+	 bTKjrac6ReTN39QcKWDyxxznxBncftg+4MQSeewvi+poLBCWEL+NOHPjgNU+Xh/WlTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Eop3zxX0;
-	arc=none smtp.remote-ip=50.112.246.219
-Received: from pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com [50.112.246.219])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=L9c23g6L;
+	arc=none smtp.remote-ip=95.215.58.229
+Received: from mta1.migadu.com (out-229.mta1.migadu.com [95.215.58.229])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B94B606A32D;
-	Thu, 12 Nov 2026 08:11:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B94B606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E8360A3828
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:11:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0E8360A3828
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Eop3zxX0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794471117; x=1826007117;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=yRwejwn52j/pckFIXfpb6iPXXl8i/31yG967frHncGQ=;
-  b=Eop3zxX03l9RnQYMeBxTQelYygV5Tsez/u/Rer934FkD8eqkr65+A539
-   KlAIohQfZFEGz8vZMTWPDnQNUNXaBr5KXE7I/zQF/Zr074EnJfbGySRnC
-   j3UM4iK9qabTNowb8Bj9j2NP1v/KVNS+YwDSuYCD2Udg60jo8U+BVsz6d
-   YcM+7xk8q8gF8qFvHWPDdt3qR9ljF7mX+SxVG2ZgyNRc3mFqFmSkIU+gg
-   ynvrGnNjF9qWVdga6e9KgDKZDdRcgUdXPae4GYPWJ6lmq7M2epQDceinE
-   HhE3zJpGyVSjdMFVs2rOeR8BXdIdtZm5HY0mha/wFDcbqLQH1F/3L8S/7
-   A==;
-X-CSE-ConnectionGUID: 88UP8YXmSku6Ng9uIsV3zw==
-X-CSE-MsgGUID: BDVhN59CST2+sSodA55VWA==
-X-IronPort-AV: E=Sophos;i="6.27,209,1787011200"; 
-   d="scan'208";a="33570827"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 08:11:54 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:28378]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.55.227:2525] with esmtp (Farcaster)
- id 57c27c56-a479-41ea-ac2a-2ef1fd33fc35; Thu, 12 Nov 2026 08:11:53 +0000 (UTC)
-X-Farcaster-Flow-ID: 57c27c56-a479-41ea-ac2a-2ef1fd33fc35
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 08:11:53 +0000
-Received: from dev-dsk-sieberf-metal-1a-7543e84d.eu-west-1.amazon.com
- (172.19.116.227) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Thu, 12 Nov 2026
- 08:11:49 +0000
-From: Fernand Sieber <sieberf@amazon.com>
-To: <tj@kernel.org>
-CC: <mingo@redhat.com>, <peterz@infradead.org>, <juri.lelli@redhat.com>,
-	<vincent.guittot@linaro.org>, <bsegall@google.com>,
-	<dietmar.eggemann@arm.com>, <rostedt@goodmis.org>, <mgorman@suse.de>,
-	<vschneid@redhat.com>, <kprateek.nayak@amd.com>, <hannes@cmpxchg.org>,
-	<mkoutny@suse.com>, <void@manifault.com>, <arighi@nvidia.com>,
-	<changwoo@igalia.com>, <skhan@linuxfoundation.org>, <corbet@lwn.net>,
-	<rdunlap@infradead.org>, <cgroups@vger.kernel.org>,
-	<sched-ext@lists.linux.dev>, <linux-doc@vger.kernel.org>,
-	<linux-kselftest@vger.kernel.org>, <bpf@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <nh-open-source@amazon.com>,
-	<hborghor@amazon.de>, <fmubeen@amazon.de>, <dwmw@amazon.co.uk>,
-	<karataev@amazon.com>, <sieberf@amazon.com>
-Subject: Re: [PATCH v2 0/4] sched/fair: cpu.max.runtime and idle refill for CPU credits
-Date: Thu, 12 Nov 2026 10:11:44 +0200
-Message-ID: <20261112081144.38224-1-sieberf@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <e795d4feb4a4e7ca4cf24f3cde9e301b@kernel.org>
-References: <e795d4feb4a4e7ca4cf24f3cde9e301b@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=L9c23g6L
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=U5IaE73OL1o1Rt6QlRFwjegd0n2omyditaJKMgT0+hU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794471117; v=1; x=1795075917;
+ b=L9c23g6LXgr8zLXiFjXLJk/VkOplQtTZFX084Yr8orp1ia0+hHEmIvz2iiV3BQv+R9kWN/oX
+ rA2lcdpXVaZCZKD69AGFxdPRI5zy+gDaGe/cDf9CI6iedxpx35VQOhgD5XJIQoKFd1gfrR2SaBW
+ Rztxl5AmBACLSN4wYuPYLTNo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c156e9d0543595a4;
+	Thu, 12 Nov 2026 08:11:57 +0000
+X-Mizu-Trace-ID: c156e9d0543595a4
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <69e3aa67-aa99-4d27-abd7-8faf2d58a3a9@linux.dev>
+Date: Thu, 12 Nov 2026 08:56:50 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,26 +58,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/2] Update handling of min and max channel in DisCo
+To: Charles Keepax <ckeepax@opensource.cirrus.com>, vkoul@kernel.org
+Cc: yung-chuan.liao@linux.intel.com, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+References: <20261111162445.1371853-1-ckeepax@opensource.cirrus.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+In-Reply-To: <20261111162445.1371853-1-ckeepax@opensource.cirrus.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi Tejun,
+On 11/11/26 17:24, Charles Keepax wrote:
+> The DisCo properties "mipi-sdw-min-channel-number" and
+> "mipi-sdw-max-channel-number" are both channel indexes rather than
+> counts. Update the kernel code to more accurately reflect this.
+> 
+> There are a few Qualcomm drivers that likely specify these incorrect,
+> min_ch=1, max_ch=X, rather than min_ch=0, max_ch=X-1, however these
+> should work fine as the number of supported channels is equivalent.
+> If people feel strongly I can send another series to fix those up.
+> 
+> Changes since v2:
+>  - Moved the parsing of min/max channels to only be processed if
+>    num_channels is missing
+> 
+> Changes since v1:
+>  - Update wording on min_ch/max_ch comments
+> 
+> Charles Keepax (2):
+>   soundwire: Improve channel min/max comments
+>   soundwire: Assume default maximum valid channel if not specified
+> 
+>  drivers/soundwire/mipi_disco.c | 14 ++++++++------
+>  include/linux/soundwire/sdw.h  |  4 ++--
+>  2 files changed, 10 insertions(+), 8 deletions(-)
 
-Fair point. I am happy to focus on the fair patches for now.
-
-v3, the two fair patches on their own with the bot findings fixed, is
-on the list:
-
-  https://lore.kernel.org/all/cover.1794398404.git.sieberf@amazon.com/
-
-Thanks,
-Fernand
-
-
-
-Amazon Development Centre (South Africa) (Proprietary) Limited
-29 Gogosoa Street, Observatory, Cape Town, Western Cape, 7925, South Africa
-Registration Number: 2004 / 034463 / 07
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
 
