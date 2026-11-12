@@ -1,86 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794469613;
-	b=4nVv9cLnddA70Ktjw7Lk3mkgB4U2D7rArs81xnZMQNaqmIhNplsd1Xw2VAycwIgIS9Us
-	 lDBnhCA+KM3lL5rmt3vdzvZgZFoVm5Ffxvd47m54PSbktp3uFJLVIjw9BWkM4FJ+LxKVQ
-	 wBL9D8lcRx0ymMdW5zNKfL98syX+kp0WyGkU01D5z4YmCJvAA810hiebqs1KGnsBkSuTp
-	 a7KH1tzbqfoHW2vmOocFnCEkfcru1TAUEQUGvwYzma3PpUiT8SDVAhumwATh5JOboVRNc
-	 NrFEBPdvGEFd/U6sRSGyXp4ET6/l5hMRlHdnp7p8omIt8wSDtHeDbaNYM5SADVEmUhA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794469613;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=pbiziMzLWlhNcgA6NM8EG4IF2g0QkYqVqXptOHlh2dY=;
-	b=KeGjXlVUnXdbT0e2m0OC0NanZL3EdTiuf4hjj6/bmnvamLf1aI5+whIXXW5y2qwH1Ljv
-	 veEKweKTCoikWUS8KSptL9fV9bYrRUHWHGP5dq66u6UzvbPL1Ff/2Wt3rNTATjzV7UbdV
-	 iAYs2ZBagoyu4tLPce2fu6CxN8YsZlK9GEdM/LoW9H4UfEW5RNigpY6uEKO/gruS8JjC4
-	 T3d+64SZDPg219+cHv+jG7BUdmNL3jYrzBuAq3ZGSiTNp/0NFdYyOnN3KSIddpZUR9Ypo
-	 OShXojh55Pr+D2+7xiI8VhhJviVwVk9IyvR1B95VJTX/Znc83A9GfvgWdykSha6ZOyg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cCentTSm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794469634;
+	b=bMK7rqNN4+4KCBCu1Dqs0ur77FVwmM/vwPJc92+ahCxt/GvvmUNm0qAWXUSo1xUn4EEG
+	 9gP23NMQHL6HyGCOd0EGtMS8LAyLNxfp8CodMpqlWJ2COQqI/1tJsNlNpcODvdCWo0qce
+	 TX4cXsiU94FZPZcXQpmCSUQMbShTkJfw657zijp3J39bFWa716+ANUUWGs5pLrXrlWfpV
+	 zG5W8l1tw1Cz2HPVFYa1Bs2PiWEITF4N78x4aX34DX/ndZcakMCuOLLLUwvVNopUen1jv
+	 q/W0clc5Xonkg6hSa+3SX9fADyO+AlcMq20L6obsAnd1XLKNr2wNVWyr2i7EbdiAumA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794469634;
+	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
+	 X-CM-SenderInfo;
+	bh=hciMpB2iBrxlKUun8+GSgfggA+6I78t3UIYB2K91dNo=;
+	b=XglPo+kc5nKhlu5JNsw66wqBkoFd+wngeQAHn0NeZC04gl9nKrhX617IWLr/D9efcyxA
+	 rAtSgu7iKh+Xk+CJ6YveEgy0my6WYPiktt7iHBlMPPw25jigDQHUNzIaXfpPE6nfit2sb
+	 uQYaIu+82KDdo9kgWZnDecnv/fjNS83jdk9b3eexluQ2cjERnNXZQJy308qvFoaoPt0Ya
+	 9n7//kMutuqBnDbEI29GR/vO3eSBr7Oo7yoiJBVUYP8CW/ciq53+GyKaGtbQBbbHjjvJy
+	 gZ/aoLiYlCSBBBg1afe5GrJq+dieSVovZ2VtSPuukCRMukkvEZYCAp/O5hVQYgw8lQg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.25
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 344F8606A31C;
-	Thu, 12 Nov 2026 07:46:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cCentTSm
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794469612;
-	b=JOefiyqa9wUUT+tu6lrbMDCmULuGydKTVBL1mN3KLW6mFUfohsQN4JefufyLIfyF25Fc
-	 AnAEDcr4vN6QNhw9lOAmcGD6Ixjv6asA4noWMNVH0jE5M2LiqyUwTZT1wSGC+gZ4zKJoh
-	 0/gclzQzOzUuiV6BxjvNQwSZjLJM0mHn3v5SPQWa1Q8f6W7mDyVfRKljn0/LGc/RVZ4/p
-	 yBJhBsPzfOxn9G9nJ6OiaoPREXgolkLbiWx3TlwkhSh97xwYnYsAMcekR+DEA2kjMtbth
-	 +2+5iETR+AvGiahlXj/HXquOYoJZ2AtS0JY0iJ5//BYY/1bioa5wZ2hH1vQvuGtM7Og==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794469612;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=pbiziMzLWlhNcgA6NM8EG4IF2g0QkYqVqXptOHlh2dY=;
-	b=jHfRUipEtFFfMKACfao3VZoUMFIBNpalG1Md2AovvFFkFJ9Zb1+ACOtfhwGRX8bhF8Oy
-	 mE7Y7rnGk/pkeRMHTTmODPpZF3HK22joGwtz1jq8DO0D03pd/SdCRFFstaGbhUhp+7yfZ
-	 a1OfDG3oDJBnchM9uXoKavWNhJAKPzy5IJca5JvcvE9zPI9UB8RBJyE/YICPQdZaEHPt1
-	 oomrPZM94hIw785oeIF5cdneD58N/M84mVT3qQ06gOT/SHEkFDbHusCxFXy0RoxvmvW90
-	 XBsh4KgDSvxU8/Zc/kjFwWao96P2xHhuCLZh6vBiFNUhsWZuSuLY3Il4SXsncG5Rj0w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id 992561F00A05;
-	Thu, 12 Nov 2026 07:46:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794469612;
-	bh=pbiziMzLWlhNcgA6NM8EG4IF2g0QkYqVqXptOHlh2dY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=cCentTSm35p4Px4dduKJcUSzzxsBOpl+DPx65f2aMj4tPHrlhZYLTGmxFPhNpLJsl
-	 4/BrHKY9W5qRFLAkD2KoMAIgbAKp5aqMbTo2NwJq2+JWXLsPakXcQHT+zRGz8Ih/Gg
-	 ZbRJY2SXD1EMN+a4AZCOgCRjDWC3X5S2rtxmorkoR/5cfQT36elTlhsGb4moCWq0Wa
-	 R49FzE8sKADnD+KRSfUgqCoEXYIcI4OvhX3FXNbhFa4DSoZDVrRTWjyT1c6rP3fJH2
-	 LDeXaEh2GtPtPrOgetf7svvM+2aCD9iRbI4D/XBv/kE/fgvRWVQkCEv/B5dMCVBS+Y
-	 b6mp7eO4xhRcQ==
-Date: Thu, 12 Nov 2026 08:46:47 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>, Miquel Raynal <miquel.raynal@bootlin.com>,
- linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
- imx@lists.linux.dev
-Subject: Re: [PATCH 2/2] i3c: master: svc: remove redundant
- pm_runtime_dont_use_autosuspend() calls
-Message-ID: <20261112084647.000063d7@kernel.org>
-In-Reply-To: <avTFZYWpaVd6Nm6K@lizhi-Precision-Tower-5810>
-References: <20261107-dont-use-autosuspend-i3c-v1-0-80a1546354ce@kernel.org>
-	<20261107-dont-use-autosuspend-i3c-v1-2-80a1546354ce@kernel.org>
-	<20261107133008.7d8f0bb0@systembl0wer>
-	<avTFZYWpaVd6Nm6K@lizhi-Precision-Tower-5810>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53206606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:47:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53206606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.116])
+	by APP-05 (Coremail) with SMTP id zQCowABX8rfwbvVqFLL0AA--.21672S2;
+	Thu, 12 Nov 2026 15:46:58 +0800 (CST)
+Message-ID: <b0ee28fe2a00001e4f9dcdb6239a1cafcf5e17cd.camel@iscas.ac.cn>
+Subject: Re: [PATCH v2 0/4] drm/verisilicon: misc fixes
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+	 <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Joey Lu
+ <a0987203069@gmail.com>, Han Gao <gaohan@iscas.ac.cn>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Thu, 12 Nov 2026 15:46:56 +0800
+In-Reply-To: <20261102075710.1286456-1-zhengxingda@iscas.ac.cn>
+References: <20261102075710.1286456-1-zhengxingda@iscas.ac.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,58 +58,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:zQCowABX8rfwbvVqFLL0AA--.21672S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7JF48JrWUtr1rtFy3KF4kWFg_yoWkurb_CF
+	yDuFZruw15ua95Xa1UGrs2qFZFkFsF9FWrZrW8Cw43JrnrJr15JF4DWrs3Zw1UWF4UtFs5
+	Gws7Gr4fZrsxJjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbIAYjsxI4VW3JwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z2
+	80aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAK
+	zVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx
+	8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF
+	7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI
+	8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
+	xVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
+	8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280
+	aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyT
+	uYvjxU2X_-DUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On Wed, 11 Nov 2026 14:43:33 -0500
-Frank Li <Frank.li@oss.nxp.com> wrote:
+=E5=9C=A8 2026-11-02=E4=B8=80=E7=9A=84 15:57 +0800=EF=BC=8CIcenowy Zheng=E5=
+=86=99=E9=81=93=EF=BC=9A
+> This patchset fixes several problems. The first one fixes a bug when
+> the
+> firmware did a modeset with different mode than the one picked by
+> Linux,
+> and others are fixing problems pointed by Sashiko.
+>=20
+> The fixes of atomic_disble NULL dereference is proven to be worse
+> than
+> the original, and considering Sashiko points out that clearing FB_EN
+> would prevent showing bound-but-invisible planes, this part of fix is
+> redone.
 
-> On Sat, Nov 07, 2026 at 01:30:08PM +0100, Joshua Crofts wrote:
-> > On Sat, 07 Nov 2026 12:06:24 +0100
-> > Joshua Crofts <crofts@kernel.org> wrote:
-> >  
-> > > Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
-> > > driver core is now responsible for undoing any
-> > > pm_runtime_use_autosuspend() calls on driver exit.
-> > >
-> > > Remove the redundant function calls.
-> > >
-> > > Signed-off-by: Joshua Crofts <crofts@kernel.org>
-> > > ---
-> > >  drivers/i3c/master/svc-i3c-master.c | 2 --
-> > >  1 file changed, 2 deletions(-)
-> > >
-> > > diff --git a/drivers/i3c/master/svc-i3c-master.c b/drivers/i3c/master/svc-i3c-master.c
-> > > index e700392f0801..9b845b2955be 100644
-> > > --- a/drivers/i3c/master/svc-i3c-master.c
-> > > +++ b/drivers/i3c/master/svc-i3c-master.c
-> > > @@ -2084,7 +2084,6 @@ static int svc_i3c_master_probe(struct platform_device *pdev)
-> > >  	return 0;
-> > >
-> > >  rpm_disable:
-> > > -	pm_runtime_dont_use_autosuspend(&pdev->dev);
-> > >  	pm_runtime_put_noidle(&pdev->dev);
-> > >  	pm_runtime_disable(&pdev->dev);
-> > >  	pm_runtime_set_suspended(&pdev->dev);
-> > > @@ -2101,7 +2100,6 @@ static void svc_i3c_master_remove(struct platform_device *pdev)
-> > >
-> > >  	i3c_master_unregister(&master->base);
-> > >
-> > > -	pm_runtime_dont_use_autosuspend(&pdev->dev);
-> > >  	pm_runtime_disable(&pdev->dev);
-> > >  }
-> > >
-> > >  
-> >
-> > Okay, after reading Sashiko's review it seems that this patch won't
-> > be as straight forward as I thought. I'm thinking of manually
-> > suspending the device in the remove() function or just removing
-> > dont_use_autosuspend() from the probe error path. Any thoughts?  
-> 
-> Just leave it as it now. I will fix it later.
+Ping.
 
-Cool. Thanks Frank!
+Could anyone try to do some review on this patchset?
 
--- 
-Kind regards,
-Joshua Crofts
+Thanks,
+Icenowy
+
+>=20
+> Icenowy Zheng (3):
+> =C2=A0 drm/verisilicon: disable the output before enabling it
+> =C2=A0 drm/verisilicon: nuke planes' atomic_enable hooks
+> =C2=A0 drm/verisilicon: check old state CRTC in plane atomic_disable
+>=20
+> Joey Lu (1):
+> =C2=A0 drm/verisilicon: fix DC8200 primary plane disable clearing FB_EN
+>=20
+> =C2=A0drivers/gpu/drm/verisilicon/vs_bridge.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0 8 ++++
+> =C2=A0drivers/gpu/drm/verisilicon/vs_cursor_plane.c | 35 ++++++---------
+> =C2=A0.../gpu/drm/verisilicon/vs_primary_plane.c=C2=A0=C2=A0=C2=A0 | 43 +=
++++++++---------
+> --
+> =C2=A03 files changed, 40 insertions(+), 46 deletions(-)
+
