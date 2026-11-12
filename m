@@ -1,95 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794493507;
-	b=Nj1oARHBpCcXpHX5Lt6E6UO0OVhQ2fvVJ4wDbC2gq0Vzrh1tjZ5x5BmqoJXKedyM7iF0
-	 Dbma4p5ncsiS/wjQjZ2qL157mRH+ueq/mKsp5p8S0R6+XpTdFfxcB/N+AeVJR8DBmgHYU
-	 c6zM7L/b68S5UbTNatQLOuTGyF43E3h1Efe9yXs1pVtQl1G3XDGtSvvWrvXZ59E8+mZlW
-	 fi7Vwalg2KNcBlc5nR8n+/aGLJ2WdJMCqYimVLgq396ZoPoxfxoBcJtcl3RJ3hcRCBZPl
-	 j4hFeq+3s7zFyvrSCwE9iDBMrdgCVoohDkBfebGGQ7hjDgK2vwCM3Hphsr7ZzOxpxRg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794493507;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=J6Uult9ktF6AsfA8uCRRkcCNPFzi3MjgP0Q65rwyUGk=;
-	b=UQoZoADm8/BfRwS03QQ4XexJhimG6aSfl8d8ppCci3vnFxx968vAUR6i3v5McM3O7Ll3
-	 lck3nWIt2os4opKdoqH1gyhTJ/RWleXJaDu7dodYPlge+tfwX//NMRwvXJr3mTFjMgS5U
-	 WF9JiOkgijwP+axwhBvzaIjQybU1WC8tQfppapGHNlaMhfjN79yo0Xh4/cZK2ch7/DZR3
-	 V5FE6p5XAhZVfVmU6ROpiHGXBXHa5mtvbyOJgDc2C1xKBiJw6FqxxsWeylSo59E/hkAOf
-	 wKkmWMswZBDZ0smH0dfuCLTE3UtgR79kZGqdcKBarle4uYQyDNP61QaxlNdajOrg4cQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ZbpZnXbU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794493515;
+	b=ZIu15VHXaB7z/pY7qXQXniGyRNNI3S9GnHe16EHSkpnfbkqN6zEL1Ag5SRFrGYQyM52O
+	 3KheQx/RzQTUxI3PMCRMM1ZQRAyX5YqSqbSHe9Ait85V8PyrkCFYZUNkge/IuicA/PlD7
+	 v41EYzOzYJvTXH6POvsyYou4CXap13FhMj0z+YMH824f4IjylBZpz4yJBLQpoZ33m8+ME
+	 qS+PRf6/eQ57ir3QQgSZDuvR1ziYJvAJwwHmjWThmSQu+dFMt+7h+MZQSYN7O8A2el0oe
+	 +1xr3RTD11Co+vUTFkfxbvmXebtuB2t9ShF4bD7inMSm3YU8OFkAbtnivibyyc+80eQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794493515;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=VaFyFdbYf37IpbzQa49x1rzy8WEarNi6kqPV3fC1o+k=;
+	b=tnFl9An8Bjo8W1+hI/+Nbek8vDY5wi/jjh55wkvHkga4AistZckhc9QbcceL8qROSUJW
+	 YgbzfMRurryqlxT+yhEPu+lqgc1oOxtNk8ySmR8HOVmnSTckEOLDQ188y6gcGcHZ3lN9b
+	 2IgiadT7L4lvWcBYvuAcJBLNiPqEMon9JA90do10+5Fr3mqg9yB3xZaNdeTxAwawQK7Vw
+	 pB0IficUlPeOoF8jxuL1eUOJ2EUSleAiImKrI8idsI2LN1tHhIqYeAt42PmXrBg9dp5nY
+	 QQ+GFPJ8l1hqu96WZI9rZKnXztZhB3z38KapVv9twOXa1JNlNDVXimGieYDNOPq6kDQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=UPVCyoPF;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C04D606A336
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:25:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C04D606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487C7606A336;
+	Thu, 12 Nov 2026 14:25:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 487C7606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ZbpZnXbU
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 34580201F43;
-	Thu, 12 Nov 2026 15:25:00 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794493500;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=J6Uult9ktF6AsfA8uCRRkcCNPFzi3MjgP0Q65rwyUGk=;
-	b=ZbpZnXbUIYaLl3/O0XsJUiCzexbVyik8596We2FbE77U/nzwpUcq0mcXkanqOMBEjKCj2H
-	/edNr5WkeTnHxr4VAbAp4jv0CJ+H4cPlcx9Nqyh2NTTbNNZ07DmYvdOFtVU5Spkel0PkGu
-	k7DRfXmMNkptkU6DLgDXw+Ngem9PeXfJwPUH9+tsj0efGakAr1tDvxH7gEVXUlMmzLsF9H
-	t9vOBl80oc6RvFmlzcHChAZBJbUT0guWQOOrHmhQ6T0JTVRbwAcNqSE7XavKXccZAOQzrw
-	/73NG6jE0cPcj2o5zS30nDQgxxflFyZePluO/EG7VkZRm+iWmdiyr8xCGa2LaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794493500;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=J6Uult9ktF6AsfA8uCRRkcCNPFzi3MjgP0Q65rwyUGk=;
-	b=gD0PEpOmX9GpTYsFVeD+OS+Fp5l4Nx/D/ah02/njmAXgabXL0GpWvmWXgXgSfV9uPQVpvu
-	A5D+gf20zMiRbchUGKDImrZENCtKkJYAP3PCVb3ZZzJypsYAc0IXRBU5alARN54mp46Adc
-	dcX4UW/4RVQMkxrzn6LK/2P+iXVDSmOFqoWjRN5WqVqzafwT78yLcXZdCJYdUvcODH/Z6C
-	mnkmWCvR2SZ1lZPepY0zUOYTdnGueSgBO837t89LM4Y4cjC0xKyEgIHtHpQrGoi9Alr/zE
-	Ks4ny6Y2gGumuTkgulNbkwKKTIYz+hK/X1/dLSXH+AizJZ5aBvXC276kdTuIrg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794493500; a=rsa-sha256;
-	cv=none;
-	b=Tlbqcw9uHB+z9zVkeryMAyKyY7RiycC9WG2vipjnCHPbLjArYeBY0HPBqOHtD5bUFzIF1y
-	9pZT+857oRuk3uQk92P6sykpJm8BTnPPmvk7xK4SJQKNcgh7QFv3SCgvb78ejTBSxsu4rE
-	q5c7KUA15PcM9ZbGAyIgC4FWFMscEMe4aRdNX4Jg7RZds3oJRXyoUO81yg9VaEtP7q2y5F
-	mJ4FW13FkQ3JYkzEdP/XBiDmkhsndLKVZQ1j2lra1AlY+1io21Hwy1ZcNBcyVjzOIQrqQM
-	Y8VVZd9sldpnW4j25n48twqkVvZlkO2pWEAKckZamQcXLRlSUfhNLhHuLXO6tA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Message-ID: <f5dd09632c536060d3ec1ad263c54acb3a8793b6.camel@pengutronix.de>
-Subject: Re: [PATCH] reset: rzg2l-usbphy-ctrl: add power sequencing
- dependency
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Arnd Bergmann <arnd@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney@redhat.com>, 
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, Xuyang Dong
- <dongxuyang@eswincomputing.com>, Drew Fustini	 <fustini@kernel.org>, Junhui
- Liu <junhui.liu@pigmoral.tech>, Guodong Xu	 <guodong.xu@linux.dev>, Joakim
- Zhang <joakim.zhang@cixtech.com>, Anirudh Srinivasan
- <asrinivasan@oss.tenstorrent.com>, Sven Peter <sven@kernel.org>, 
- =?ISO-8859-1?Q?Beno=EEt?= Monin	 <benoit.monin@bootlin.com>, Robert Marko
- <robert.marko@sartura.hr>, 	linux-kernel@vger.kernel.org
-Date: Thu, 12 Nov 2026 15:25:00 +0100
-In-Reply-To: <20261112133210.3004176-1-arnd@kernel.org>
-References: <20261112133210.3004176-1-arnd@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=UPVCyoPF
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=VaFyFdbYf37IpbzQa49x1rzy8WEarNi6kqPV3fC1o+k=; b=UPVCyoPFpPOx1HTruMDeJPJUAY
+	3GdeJrv2jkYlO222oTZPECS/N9JbxkFPHVMXl/JHgQU/3kYvOQM2ak0aPBju3N/qUXqzA5Jw36Qw/
+	rjs81UNilNMSCSH9jpcDrTn7Jc1j5co3Xn6qhlzZ4HlG3vvzHtvZYuufgKcOGhykanoHwODBfVczY
+	Znh92751M4i5i3uov7axz2/sCFt40NbS43E/w8fJy6U6VpCXEXzBFMD74+o+kwbZorXrgbmifzXuR
+	C9EaWjAz7wqcIaRVEvlyYX4l2DodAP6F0827LEs0JRnlA/yinm2+JAmFlzYvyK9Uxb3oNpnaKPANe
+	VQajPi8A==;
+Received: from [151.115.150.205] (port=59302 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xRVjm-00000005AE3-0HJX;
+	Thu, 12 Nov 2026 15:25:12 +0100
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: David Hildenbrand <david@kernel.org>,
+	Zi Yan <ziy@nvidia.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/khugepaged: reject shmem collapse ranges beyond i_size
+Date: Thu, 12 Nov 2026 14:23:35 +0000
+Message-ID: <20261112142335.2749597-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,22 +82,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Do, 2026-11-12 at 14:32 +0100, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
->=20
-> The dependency on CONFIG_POWER_SEQUENCING is ignored when
-> ARCH_RZG2L is enabled, and this can lead to a build failure
-> when power sequencing is in a loadable module but the
-> reset driver is built-in:
->=20
-> [...]
+MADV_COLLAPSE lets collapse_file() treat absent shmem pages as holes
+filled with zeros. It does not check i_size, which allows one present
+page to become a huge mapping that covers the whole collapse range,
+including pages beyond EOF. This makes those pages writable. A later
+file extension can expose their contents after F_SEAL_WRITE.
 
-Applied to reset/next, thanks!
+Hold inode i_rwsem in read mode while collapsing shmem so i_size
+cannot change. Reject a collapse if its page range extends past
+i_size rounded up to PAGE_SIZE. Keep i_size_read() outside the
+page-cache XArray lock because its 32-bit SMP reader is not IRQ
+safe.
 
-[1/1] reset: rzg2l-usbphy-ctrl: add power sequencing dependency
-      https://git.kernel.org/pub/scm/linux/kernel/git/pza/linux.git/commit/=
-?id=3Deac3b292a26e
+Fixes: 34488399fa08 ("mm/madvise: add file and shmem support to MADV_COLLAPSE")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ mm/khugepaged.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-regards
-Philipp
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 4bbe319..e20416a 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -2251,6 +2251,13 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ 	 */
+ 	VM_WARN_ON_ONCE(!is_shmem && !mapping_pmd_folio_support(mapping));
+ 	VM_WARN_ON_ONCE(start & (HPAGE_PMD_NR - 1));
++	if (is_shmem)
++		inode_lock_shared(mapping->host);
++	if (is_shmem &&
++	    end > DIV_ROUND_UP(i_size_read(mapping->host), PAGE_SIZE)) {
++		result = SCAN_TRUNCATED;
++		goto out;
++	}
+ 
+ 	result = alloc_charge_folio(&new_folio, mm, cc, HPAGE_PMD_ORDER);
+ 	if (result != SCAN_SUCCEED)
+@@ -2682,6 +2689,8 @@ rollback:
+ out_put:
+ 	folio_put(new_folio);
+ out:
++	if (is_shmem)
++		inode_unlock_shared(mapping->host);
+ 	VM_BUG_ON(!list_empty(&pagelist));
+ 	trace_mm_khugepaged_collapse_file(mm, new_pfn, index, addr, is_shmem, file, HPAGE_PMD_NR, result);
+ 	return result;
+-- 
+2.47.3
+
