@@ -1,66 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.228
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794451835;
-	b=W+f2eHMkPU3nRUNXekNsSarNi1h+7fhhwfbc/AUqB28pC/h+NwhEvmfz1uaPEuqLuv1U
-	 Fquhc0t3XD0j/kb8aXaZauR5EABq/bDasAY+XzS98xiRRfZgJZqj1E3OMaqr9I+pYfodm
-	 GhCkTDqs4QmTWwhJGMNTNdIye86Fs0CLkt+VGu88MfvmnsZ0I+wEHSKbayQaS704q1D6B
-	 OTC03GWpIXamesu43jvFQ3Wt2tAnvvyyA/Gj6R6Zq9bP6GYkVLUrv+SIWvyyTJvDJkLqw
-	 nndVpFyY270oRYfq1WjazbD7gplc52Y6Lyxy6AaRTmomOd2ikwl/vCRPMez7tsXdzZQ==
+	t=1794452009;
+	b=j1tqAPHTaQc/DL06ogUvHqU7Iyp9zDU3ohYjM0PDqe6zajrjj/g8gHe+PMKW35ANDkwt
+	 vhSJp4fUBKVl33YC+jOKOrZ3GajO8FVgPyNThXuuXvFL8XNoBLW/5zrP+hSLthTo9EIQb
+	 8YydJLP2cyrB+8IRjfggyYS5ZfujHvxYZRCiurIQnuCCP2weSi74Bg2oexDzWnV9CPsmI
+	 EbdzdtOmkYe4Qvei3W5Kc/JHCLkX6eRvhJxiDKWD0bdz8eW2pJYBp7tdbEcIPlFktxXXk
+	 NjY6Nf0qDwTFwgqiYpwV9HK6meee+Z30XLheAfapZ0QTPrEUZ9JSSsURiybHjtNryEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794451835;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=maHRWreeb2G3YvT5kykQ/D3QqVJ5ukp4L45ZlwGXvs8=;
-	b=yggeLxL8SRd6HsyQeQKizuq+iocXL30yB+1ZV2EFsPMpunMSv5m7a2Wtvp5w6KCE1RcV
-	 dAV/YQtepLOUYnZlSIskXqRZ63SM4WYJpsuPV0ADrQmnOZdjtSAOs6F9c5kIeF9LhK1EQ
-	 am2ugwqha4uoku3agsQLrwx31CUqmQ18cr7f+YtGGMgNRBZ/H8LJO0l+rfG4zvVzBL6kl
-	 GESYy2umNeVdq4SoVi1KaGR3MA2NQPOCDg+aFvvT9f+hP23/xWjcqdC2ZeI6BVRnlL/OY
-	 p+84ShiScrxa1xMkEzrjmYRwYnJ0J90YfV74GD6FOGxBdWnBq7CyyNCmFUv+sdAlnkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794452009;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 X-Relaying-Domain:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Nc4XLNPToEMaydN4Y5LPmHECaS4FBVXGXKRGT4Pu6v8=;
+	b=WDBCugKRVXJkhi8KWsguCGRcRn4YzErduHkpmMSQA+1Vt0egOQ6rHn0jgImqILw2ao5m
+	 NiEt8Z9pR7dztPEj2qNxT+18ZP46oVys6UEhRMCgcrfinsQRdujRbRm/zSl+O0rkVzO10
+	 kRBGn5usfBwwt3+UnjsxXhhWOipQOfU06yyr59KpjaGH0eGmfKz9B57hQYAVbieS7nYsl
+	 OWDrPt31GE8so5UpCIkWe36ClFV4ETvHhCzooitoLUQH5KlCk18scprvmyff9pePLv45x
+	 PtmkDNvFHrUeaC81V3xjO/bhJO7NAJLyLkgFX1F9ejJUZvLRN/wLWZGVN41r+9r9fDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=rKvgCkeF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=ausil.us;
+	spf=pass smtp.mailfrom=ausil.us;
+	dkim=pass header.d=ausil.us header.i=@ausil.us header.a=rsa-sha256 header.s=google header.b=akEjgfZW;
+	arc=none smtp.remote-ip=209.85.215.228
+Received: from mail-pg1-f228.google.com (mail-pg1-f228.google.com [209.85.215.228])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F4F0606A332;
-	Thu, 12 Nov 2026 02:50:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2C9606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:53:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA2C9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ausil.us
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ausil.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=rKvgCkeF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 588EF1F00A08;
-	Thu, 12 Nov 2026 02:50:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.a=rsa-sha256 header.s=google header.b=akEjgfZW
+Received: by mail-pg1-f228.google.com with SMTP id 41be03b00d2f7-cdd9d0c9bbdso1144749a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 18:53:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794451835;
-	bh=maHRWreeb2G3YvT5kykQ/D3QqVJ5ukp4L45ZlwGXvs8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=rKvgCkeFyP/AtoPWnaPDas/2Aky7LOPJG73HO5N8j9JBljhGUctT2/GnAu3coNHoj
-	 HwnL/C1/pqXAGUuGjcIAB5xNF1SL8O7n3N+dG+oWBNe8P/4ZsYPRIBJ3PAcBaTKMds
-	 V8DyKKgm7OukZgP+gQpiu3VyZTFEQHrMWUiiXb4g=
-Date: Wed, 11 Nov 2026 18:50:33 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Theodore Ts'o <tytso@mit.edu>, workflows@vger.kernel.org,
- ksummit@lists.linux.dev, Bradley Morgan <brads@mainlining.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Mark
- Brown <broonie@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, Leon Romanovsky <leon@kernel.org>,
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>, Thorsten Leemhuis
- <linux@leemhuis.info>, "Michael S. Tsirkin" <mst@redhat.com>, Kees Cook
- <kees@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, Dan Carpenter
- <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Alexei Starovoitov
- <alexei.starovoitov@gmail.com>, Julia Lawall <julia.lawall@inria.fr>, SJ
- Park <sj@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v5 3/6] agents: add a skill to determine stable tags
-Message-Id: <20261111185033.694802885eb0934ed7452d6a@linux-foundation.org>
-In-Reply-To: <avUlMcKIeJgmCg5J@laps>
-References: <20261111225940.1573565-1-tytso@mit.edu>
-	<20261111225940.1573565-4-tytso@mit.edu>
-	<20261111171055.527b4bf3da705367bc78a64c@linux-foundation.org>
-	<avUlMcKIeJgmCg5J@laps>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=ausil.us; s=google; t=1794452008; x=1795056808; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Nc4XLNPToEMaydN4Y5LPmHECaS4FBVXGXKRGT4Pu6v8=;
+        b=akEjgfZW2c9l/EHMTj/y8UJnf+VdnqxXROFLwwnOpgzYiaNGygiB1U1QeTFjG6S2Xo
+         wpcBhe3O0zcUjSOBL1aRk7UhVwVaDEqLifEJmjCtDYAlbZXSxKUSouFA6gTXOxaHP/8Y
+         22sbMMh5kr4mw2em4P75pXVFJx9MiFfXqZOlSCX/qD/aJWinzPygNUnLg7daruJADX2p
+         WEa2vGDwelccNRzRpDe79u7EIsn88utl2Q0je09uBSB5ykH1Q9uj82S6TO5JVK7yCWiP
+         2qD1lR7HrgJ+7D22rqNT10s5vr0/O5aiveqgPC3VSnxOHai4yEtQ+Q0SryW3R/LwM/Df
+         DD8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794452008; x=1795056808;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Nc4XLNPToEMaydN4Y5LPmHECaS4FBVXGXKRGT4Pu6v8=;
+        b=Gjtwzyj+BUurhOYPe5K/JcplDtIgLso3OuXuYdSuRrkRv+vEHPGw+AQ69olLlIk0QS
+         l5KfmF3JMTW5QMngESHam3bWy+HcwHJhdvXUz/h9t+MXj5aRVzhilCcfjm6m0xiv9W7+
+         q4Wpc+4dYibq3toLDQGGTjKy6LMhAU8u8XXz6HkgLXcAerOjXnpayvhjFdfuKTV1j7Vl
+         S9ev6ypqH+mzopSqvCs5vxIUNmZ8v8B2lzN2ACzIx384j63V9glkKDGZ7P7Z9/zSM4ij
+         ThLbOMUUcbHEDha9PaY8PYpC+7PyCNn9s3pESuxBKg+dsqZiFccq2TPeZtatWiqxBJS9
+         kCTA==
+X-Forwarded-Encrypted: i=1; AL+hErEKLSja7In5v14FcoZOqcS50Ha0lOl58TIG8ot1bzmkYJYp3OEPi1lQ/JmQBlilU1i6P8CRJ80Q0BnKDTM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9VUWfRJCEPBAbQrdxV2EBM052Xz6CE5GxYRQyQVmb8ICVNJSSS
+	6OC/6H7difZxdX4NfRkBUXJW1c02jnfChgTqEftjEoLu0l0qysBDIXmsHDKvipXcRjQ0YVIRnhS
+	Guz9/DoRgRsjLDAXqwGGr3Dd3xRZKU1LIKj29
+X-Gm-Gg: AYBFou15vGRWquoC7tiYTp0PT3xqpPvT2pRtuu73yRhBr9AQCnLH7hw/dX43Wgt7GsT
+	ulUIDVZ/Ceqklhu4mA3oNaNBJvMPQ2gWoPGWdeVXOTQcycBYo66Q9+xSRWAJhzMjPJ87imPvkZy
+	ueGhuBoJOysT7qwTGpdNj7PrEgbnj9Yiw9C0KonGtCbvoVx+gXuBOU39ohpauoqsrQK316WR6VZ
+	Oy+93u/4pW10snoPUN/RE+pMg33EzrfYXlMJNDQoWybegmgIKMhb2zCgaIXbo7vuY6KCLyeJa6n
+	5aRppZVJKIEnxmLbvEoXPKu5lY/GY5fkAlcDNY8DU6UP9sB24NF74frXMjzMZL6qeXqhlssnTXl
+	CJuEfow19E/znwEzfru75V/A=
+X-Received: by 2002:a17:90b:590f:b0:3ab:2c2b:1026 with SMTP id 98e67ed59e1d1-3b182eec413mr4274267a91.34.1794452007867;
+        Wed, 11 Nov 2026 18:53:27 -0800 (PST)
+Received: from thor.ausil.us (207-179-239-100.mtco.net. [207.179.239.100])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b181c053cdsm1542175a91.0.2026.11.11.18.53.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 18:53:27 -0800 (PST)
+X-Relaying-Domain: ausil.us
+From: Dennis Gilmore <dennis@ausil.us>
+To: broonie@kernel.org,
+	lgirdwood@gmail.com
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	kees@kernel.org,
+	gustavoars@kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	michael.hennerich@analog.com,
+	nuno.sa@analog.com,
+	dlechner@baylibre.com,
+	linux-spi@vger.kernel.org,
+	miriam.rachel.korenblit@intel.com,
+	linux-wireless@vger.kernel.org,
+	Dennis Gilmore <dennis@ausil.us>
+Subject: [PATCH] ASoC: soc-core: start rtd->num_components at zero
+Date: Wed, 11 Nov 2026 20:52:51 -0600
+Message-ID: <20261112025252.71375-1-dennis@ausil.us>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,78 +105,105 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, 11 Nov 2026 21:32:17 -0500 Sasha Levin <sashal@kernel.org> wrote:
+Since the conversion to devm_kzalloc_flex(), the allocator sets the
+__counted_by() counter num_components to the allocated length
+(num_cpus + num_codecs + num_platforms). This only happens when the
+compiler supports __builtin_counted_by_ref() (GCC 16 here). With
+older compilers the counter stays zero, as before.
 
-> On Wed, Nov 11, 2026 at 05:10:55PM -0800, Andrew Morton wrote:
-> >Marco had some thoughts on this just today:
-> >
-> >https://lore.kernel.org/CANpmjNMvM_TCs7Fao9+gM-NNpQyBKYumSuWOt_03ZX+tLwbjWw@mail.gmail.com
-> 
-> This makes a lot of sense.
-> 
-> >And Documentation/process/stable-kernel-rules.rst does ask for real
-> >things, not theoretical stuff.
-> 
-> We've actually dropped[1] the "theoretical" part.
-> 
-> The problem we were seeing is that bots were sending real fixes, with a solid
-> changelog, but not adding the stable@ tag.
-> 
-> Apparently our wording is pretty strong: unless you can prove that the issue is
-> real, it remains theoretical. You'd have to either show a real case where you
-> hit the bug, or to have reproduced the issue and can provide a way for us to
-> reproduce it.
-> 
-> Most bots can't actually do that for technical reasons, even if the bug is 100%
-> affecting our users, so they don't add the stable@ tag.
+snd_soc_rtd_add_component() treats num_components as the number of
+components added so far: it increments the counter and stores the
+new component at num_components - 1. Starting from the preset
+length, every component is written past the end of the allocation.
+On a link with one CPU, one codec and one platform, entries 3 to 5
+of a 3-entry array are written, and components[0] stays NULL.
 
-OK, I can see that's a problem.  The theoretical userspace-effects
-statement will help here.
+for_each_rtd_components() stops at that NULL entry, so
+soc_probe_link_components() probes no component, and
+component->card stays NULL for every component on the card. The
+first DAI .probe callback that uses its component's card then
+dereferences NULL. On an HP OmniBook X 14 (MediaTek MT8901
+SoundWire with CS42L43 and CS35L56 codecs) binding the card
+crashes in cs42l43_dai_probe():
 
-> >Also, I would keenly like to see changelogs clearly explain *why* a
-> >backport is proposed.  As I have said 1000 times, "when fixing a bug
-> >please clearly describe the userspace-visible runtime effects of that
-> >bug".  Can we pleeeeeeeeeeze get this requirement clearly enshrined in
-> >this patcset somewhere where the LLMs will read it and comply?  It's
-> >really simple for the LLMs to cook up a paragraph for this, if so
-> >directed.
-> 
-> This is a great point, and would make our lives much easier too.
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000038
+  Internal error: Oops: 0000000096000004 [#1]  SMP
+  pc : snd_soc_card_get_kcontrol+0x18/0x40 [snd_soc_core]
+  lr : snd_soc_component_get_kcontrol+0x6c/0xc0 [snd_soc_core]
+  Call trace:
+   snd_soc_card_get_kcontrol+0x18/0x40 [snd_soc_core] (P)
+   snd_soc_component_get_kcontrol+0x6c/0xc0 [snd_soc_core]
+   cs42l43_dai_probe+0xb0/0x148 [snd_soc_cs42l43]
+   snd_soc_pcm_dai_probe+0x70/0xf8 [snd_soc_core]
+   snd_soc_bind_card+0x4d4/0x8c0 [snd_soc_core]
+   call_soc_bind_card+0x70/0xf0 [snd_soc_core]
+   snd_soc_register_card+0xd8/0x110 [snd_soc_core]
+   devm_snd_soc_register_card+0x20/0x38 [snd_soc_core]
+   mt8901_card_probe+0x258/0x5c8 [mt8901_acp_sdw_legacy_mach]
+   platform_probe+0x88/0xc0
 
-Oh bless you, yes!
+Reset the counter after allocation, so components are added from
+index 0 again as they were before the conversion.
 
-> It sounds a lot like something that humans would benefit from hearing as well?
+The bug was found, and this fix written, with the help of an AI
+coding assistant (Claude). Tested on the HP OmniBook X 14: the card
+binds and playback and capture work.
 
-Humans don't read stuff ;) But it would give me something to ask them to go
-look at.  And to make their LLM go look at.
+Fixes: 4dd10fbbeb9c ("treewide: Convert devm_kmalloc() family to the devm_kmalloc_obj() family")
+Signed-off-by: Dennis Gilmore <dennis@ausil.us>
+---
+An alternative fix would be to keep num_components as the array size
+and have snd_soc_rtd_add_component() fill the first NULL slot. The
+counter would still need to be set explicitly, because the preset does
+not happen on compilers without __builtin_counted_by_ref(). Resetting it
+keeps the original design and the tighter __counted_by() bounds.
 
+Kees, the same pattern (a *_flex() allocation followed by code that uses
+the counter as a fill index starting from zero) looks to be present in
+two places converted by 69050f8d6d07 ("treewide: Replace kmalloc with
+kmalloc_obj for non-scalar types"). I have only read the code for these.
+I have no hardware for either and have not reproduced them, so please
+treat them as possible issues rather than confirmed bugs:
 
-I picture some poor downstream person looking at a screenful of AI
-babble wondering "should I add this to our kernel and if so why".  We
-should tell them!
+ - drivers/spi/spi-axi-spi-engine.c: spi_engine_optimize_message()
+   allocates p with kzalloc_flex(*p, instructions, p_dry.length + 1),
+   which presets p->length, and spi_engine_compile_message() then
+   appends with p->length++ through spi_engine_program_add_cmd().
 
-otoh, downstream people have AI too, so they can do what I do 5-10
-times per day:
+ - drivers/net/wireless/intel/iwlwifi/mld/d3.c:
+   iwl_mld_process_netdetect_res() allocates netdetect_info with
+   kzalloc_flex(..., matches, n_matches), presetting n_matches, and
+   iwl_mld_set_netdetect_info() stores at matches[n_matches] and then
+   increments it. The per-match kzalloc_flex(..., channels, n_channels)
+   has the same issue with match->n_channels.
 
-describe the worst-case userspace-visible runtime effects of this bug
-<paste>
+If they are real, the fix would be the same as here. I'm happy to send
+patches. It may also be worth a Coccinelle check for this pattern.
 
-> If so, I can send a patch tomorrow to add it to
-> Documentation/process/submitting-patches.rst and refer to it explicitly in the
-> agents file?
+ sound/soc/soc-core.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-We can't restate this too often IMO.  It's maddening.  So many
-changelogs follow this form:
-
-- here's what the code does
-- here's why that's wrong
-- here's what I did
-
-So I sit there staring at this thinking "OK, but why should I care?".
-
-Also, what's wrong with today :)
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 68b54e509b65..e4d911577c5f 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -388,6 +388,13 @@ static struct snd_soc_pcm_runtime *soc_new_pcm_runtime(
+ 		return NULL;
+ 	}
+ 
++	/*
++	 * devm_kzalloc_flex() presets the __counted_by() counter to the
++	 * allocated size, but snd_soc_rtd_add_component() uses
++	 * num_components as the number of components added so far.
++	 */
++	rtd->num_components = 0;
++
+ 	rtd->dev = dev;
+ 	INIT_LIST_HEAD(&rtd->list);
+ 	for_each_pcm_streams(stream) {
+-- 
+2.56.0
 
