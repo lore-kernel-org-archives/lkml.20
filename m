@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794480266;
-	b=HP6ghf8+JAq3e/zWGfsV577bjJiEKv45knuyrTaWTPWMNuiUazKP1McDZb0js1KGnTRv
-	 PE3lYn3s+Iwi1d6W+OsQTMSJXcv489aRzF16hxc/chv+HlLr1NMKYcMG7879/uO0fxFWG
-	 kceg48vJnbVCf+S0SAYFyoVBxKvd0wr0tBNAfSwQ6iDM1cKmR/oEVS4JZt9t5yjxTkMPa
-	 YIFBBr/onEDUKfVJgDfGlEiLeTye+bpHuXOY2U8mbaZ+ZIKbh+7aXwLmvryrooUoziTqD
-	 0Ti+opoSfX1A3Ur2p13x3gxluVWBxw5SC2Ck0T53Lf3IcqwGb3/meYK5yzL6pQDVNvQ==
+	t=1794480285;
+	b=SR6LrD/isDYHV5YTPBn9lvjRrEpCgHH6EUlAazj3VGcP/qmanwIFsjR51eyLohzvMbEw
+	 GpvpffWCQdaGeo0t8jKLWsObYlAMkjtX1Nuj5lZWJRMTWNuYUHWb8bFlmfXsx2L/PsdGR
+	 1nuhZuxopSDJWVAyTsU0t3TwgwzWGh9LlFMgCPi/IwdIvNF5c1EuG2gDDzNllOYS11gNK
+	 2Z8q7Dvp0cSDBxm4A77u8xhk/hVhghFTP4dgHAUwMLiCC8jp1NKJuQPYPBVq6ViBFHsNW
+	 dDSld8mf85xjtH6sDxgaVN+fFcOnxdl2NM6/XPzf0m+Yf4K3zL6x/WxugRlaaIbNjuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794480266;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794480285;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=c+0NQhm/2dySRhzukgerkWXzp7x9hEGESn4jnFASt64=;
-	b=w2rdgxcnt2HQh/QU2lVQseVZMEvOOU11NraoANQoQ8cmRLu2W+cop0Q+8CUr85yxfbsN
-	 pStcf8JjhSIgsMdDZ3WWdHyArV4xtSWB0BiKiY0WzQkVMvvbY0EOl84o0vCx1KnOILl/Q
-	 tgy16W/UhyzxGLTupB+lEJtLOCHEvE4dIbojbmhIIEtzdQYBkdboazJFPH1dzGVm6z90U
-	 tK087k7GpNLvX+/X4+XpNuh6rhUEGyBYq10noVD6OFpgOBxRvtw+PDDtaPjKmOFFHMWsF
-	 Bg3redT+dbnnHSIZlLPsj/DmwkxqCHH85sEnJ+SRvyQc8XPd/m26v0fYpae1/6wmWIA==
+	bh=3OeTM1TzwuEgoxs5/RujJPoBJ6uQ7k0zO4x50L7a91Q=;
+	b=qIiETX3JNiLERqgrp5doQfWRdr8GKzcpeSdpgkMBCgXIfb09HQo48/CWxfI2F6ei1IPe
+	 CtguIMavOq5gIxzulWh4AWJuIzkN1X7U/509IZUHcLnfELckeA4zxOY7YXSLTLTCj1qKv
+	 MWKuibfptGOXjY/mQ0TMEU15X5N4EFgACpkLnjHrJvh5GFwlDQCZS350ILCBRZFobplPf
+	 Fwob9rY62R48rCdK3mXsVg2rCnyU2cPUnUNfH8UJ8MSfvq/bYeQ+nlXOUj500/1hH+IEN
+	 fEJrrWBfCH9LAEQgbcMD96UC8e2QkqOBPe6Uy6PXeyJzgs4zuaOtHhbGZqyYWB7KtmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bytedance.com;
 	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b="UhkB3/vg";
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=cVu3Fhif;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD41606A327
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:44:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CD41606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7064F606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:44:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7064F606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=UhkB3/vg
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so6189933eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:44:26 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=cVu3Fhif
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36eb1cb7aabso6181397eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:44:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1794480265; x=1795085065; darn=vger.kernel.org;
+        d=bytedance.com; s=google; t=1794480285; x=1795085085; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=c+0NQhm/2dySRhzukgerkWXzp7x9hEGESn4jnFASt64=;
-        b=UhkB3/vgmHv1ldLwAept4ls7/dn/CpTbyqTnRB560UaGC1dXAiNPJ8gZ1/lamzscB3
-         K5yR2U8pqgqbVqsufERseB9J1yXWQJadj5YCL6Ln78zq95d53/uBvuhwE2yAtvqvFV1q
-         85M1MVJ37Qjcr3ezKqv5zpVTfhBMzr4NKr48UBubxvG5hY3ztCDKGIEgu44xYU4+69Zu
-         iKINFioIJ+ioPs4pgQm+fGxK4DLRm1CrRH+g+loWTVfPVlpIbKX3MgtWWfGZSAGZXO1J
-         FqYKOpj+6lle/5ovCPL2upQLRBU85X/0p6FJVya6IcG5W0wOMvunC4BcnBW1JW3jjg3Q
-         E44g==
+        bh=3OeTM1TzwuEgoxs5/RujJPoBJ6uQ7k0zO4x50L7a91Q=;
+        b=cVu3FhifDYyw/8ovEmb0XXkxrC7JTJXzQpQoB/cyBQBJEqG9ZjWpZflWP9PKQ/l9Tr
+         pS0k2Ze0U2AywiW3kAzoeBmomzV7SElEufbYjoh0FUQmD2nwHpKasPYChDhI36/Gvvph
+         3dCRjDRZDz405IRSivQLt52PQJbbB0azaAbrIfBGq6QM5bJCdGaGIbnn5bod/4Nkw7xU
+         lgu4XjVIumLaWFEOJku3iLmtNzuQDAR39FnXUAYN6mgGkA5D/6I8BaMkEiKF2NA8ADSd
+         d02EtMRqr8MPtrnRLAWnU4tfoe1R/ZgAPte+i7ahrrDzqqeWp1J+gZ+OczxMxFd1vsMF
+         D4kA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794480265; x=1795085065;
+        d=1e100.net; s=20260707; t=1794480285; x=1795085085;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=c+0NQhm/2dySRhzukgerkWXzp7x9hEGESn4jnFASt64=;
-        b=QlXqW8a8fub54fipCriBs+kZqj3t0TLj+huTkbUdtR2+b+4mTylaWwAPQ0FRIYhQA/
-         dI6bs/V49qs0/7o6D8UhiH7mW7iTKvI9528Ls58vB/nFf5pXAHoFmGFoZc3fLRUrUxpL
-         eZYsXiBx9jCpMaVkflyDVs4RXdRyBF72q+NeSvYv2Fkoqogg7iRbgi+LRNC9IyEGCEK9
-         p/bJqq96ZW4Seuhb1+EUSzr+1mlk3lZfOdQY+HTYqj2W+TeBYge1/fe4FeoJ6h0Z2KDW
-         e1V2+eXUOUauh/Yk3ibEakJ+7kaQFseEhywN8NBsW6W0Yi2jrAqe9uknvtr3e3I/i7da
-         pV5g==
-X-Forwarded-Encrypted: i=1; AL+hErHUGa+fchqJpjtfEEpJGviYfbMvCfvcAusqzyKX4gYYN0P33GyslMB8/SUyO7GT/CKu1EHbMQjjCl81JyI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8R2uF8BwY/sxTI8baSx2dBuFY0UJgeykh3qw4mb9vq74Yai7XN
-	Ho3ro9W9EOWcLnQDiRPNzRK0j9S1GiQrwrow6GyqAe19dac77t2HKxffq5iHw2A39r0=
-X-Gm-Gg: AYBFou0oJ1Lg1wfwBGg6UR1A3W2srgMwUN4wEWPpU9vCNOAiSe2pscpN1BBEUxaEMFn
-	+AtdPhYYR6ZJgLEOSjj8vZw+tfPOev3Ou8ypak2XcF6r5thgCVSnpT/eR4oEh/FOzdXbTbgPFRh
-	RAfXsfi37Du8QB5QWgQ6rOFfr2A+yQU4pMOEGzzi6Z37kdoaHg+Ug3bxgTg6DrgeoCDhPag/lgl
-	kZh/4Dl8J4wX+GJzVVLyzCWJs6PtgCYHn6OXmClf1JVFBgbgiAA0tEz9+LdrXlbyg87hj8uuvZl
-	Ir0Y5BJAeU5z+Ep6Nd/vrZb9oWQYfex1EtVt6MW+KxpTz1nwYv262zG/q7QzCViYrt/US3Jg5+H
-	NVz4O9CcF2QJgRCE7KUMBNA/m8TlnjMWS+HiEixCy7TtEuOkjUKoUW9L+FNFrrEsHxAlKwNR6N4
-	Abf11af9by2sdoTK9vnF4nfKtfUzsg+P5qejY44ly7RsxBhuScz7Na0A0cHc8AWM5LwrOK4uS2V
-	N6rS5ECGVwwEYczqt4sfkYKCZMg7HLUjCY75vftNXvys7iRKRhj75rtI6Bj84zyOV8MtrpiLHeN
-	K1kFb+46C8/NacN1zXW365gfgIM7R92BP1yklJpE84cYNuI3wvGKJLcsk5RerHr75wpW1fJ8brP
-	eG3DlS0dt/91Y
-X-Received: by 2002:a05:693c:4007:b0:369:f420:8679 with SMTP id 5a478bee46e88-37687211c14mr5675144eec.38.1794480264921;
-        Thu, 12 Nov 2026 02:44:24 -0800 (PST)
+        bh=3OeTM1TzwuEgoxs5/RujJPoBJ6uQ7k0zO4x50L7a91Q=;
+        b=BXqllLukoBPjZE1/6HYsLGC9U381YP8N5lISGg8fWe5WfLsBU2cg9Q+Au+0jJDTr+1
+         PyDSMnlD9iQJRNC8QkRoOisgAt6G+oHRMNsB7VkhV0CdnIUMlZ2yt8Wx4HIcu69d1EZY
+         QlCPWu7+4pgG7VL/niYGV880TGi1YmSx6iZ1n5Oa/Xx/Mc2fMFgAtrPWxw12Jyg+/4P8
+         GzDJAgkfDFxLRJroE7WZfTWv/7OXcP0DnNvxXQiUdaE8DIc4C03a3E4qFvG4KZSsBpk4
+         QlFh9ugrkyNEaTS3vL+WUvhN2jiNobSSRY5Th1BpeuzM3Ln7H5O2qUD4rIdsdMlc27Xh
+         3xlA==
+X-Forwarded-Encrypted: i=1; AL+hErFiFDFu2T8TNM7QlsYdacPKNt0dX4osJ6847k6DyPAo8/nd/6HJqNiFZ2sXejkGkB3JYsU4vi6cU0Yycc8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/HMuwVutS6Frw8BOVpLaKRV7mwqk57JonF7IfYA+BHSfigx+Gb
+	Z+0dynJ7hB54m/V1+cPlVhBwEJ27U5UaWe7SPDP5rXSbHVXjRpVuWNBBhEw+ljUtFwQ=
+X-Gm-Gg: AYBFou0vhjaZjGaCgjhKtoAUR40Rwd9Pf7oEpFlId6kIC76x526Xal8W+cPEfYEI3S7
+	W2DYMuTwMzAdqEOuJ/eRs2d7JzlbzMAeRrBucmcjLFg+sfvG5U5SXIsqc+hpI41z9DznmOMD0cr
+	FgDyVz1CAptuIgmTAZUxVTDj/Dle7J/TFTv+1K9+Q3ucNKDedXER0Yrv1dhzbbjomol0uuPkrLP
+	KtKRvEH0zXl/pJR29keOmijYzm2z9yR2JrScudLn9leO7u+obQV6OZBj96rI3g7m1pXFwchRlnF
+	xHt/aF582FrVvnYEBIOqBoWAree2dM1qUyrIiW7ZK4Nvm/rmfVAKRGjs1sqyUsWIMS7h07COolQ
+	QII6XnjUXjUgPI05tT7TG1B5b+dh8mc12EQ2YxrMlZ3k82nBpmavuuVBesFw/CZcEuZGB3DA25e
+	eOXO0axsyQV/JrQisj2qfZSRJWrqH9svOP3Twypjf9iu22N2qHggxUsaU9qepOXViLXMICEjeQb
+	DHtlNntkj3a6GoIRVxwcZSzSPVdrFywi9ZLKQNnpBujraRpfUEQ5bPb7x4o4VHYTDNfFrvy1qew
+	2N8BrxcBfp7gdCeT/BchYURJU4C+6tsjOv+hC0G9bX1pyytr2CSlL97RjBTpWA09sX8=
+X-Received: by 2002:a05:693c:6381:10b0:378:a35b:9e1c with SMTP id 5a478bee46e88-378a35b9e83mr512290eec.37.1794480284232;
+        Thu, 12 Nov 2026 02:44:44 -0800 (PST)
 Received: from FR9WL0RHKY.bytedance.net ([139.177.225.242])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3772121e654sm13228694eec.2.2026.11.12.02.44.05
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3772121e654sm13228694eec.2.2026.11.12.02.44.25
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 12 Nov 2026 02:44:24 -0800 (PST)
+        Thu, 12 Nov 2026 02:44:43 -0800 (PST)
 From: Yunhui Cui <cuiyunhui@bytedance.com>
 To: pjw@kernel.org,
 	palmer@dabbelt.com,
@@ -135,9 +134,9 @@ To: pjw@kernel.org,
 	bpf@vger.kernel.org,
 	linux-arch@vger.kernel.org,
 	llvm@lists.linux.dev
-Subject: [PATCH v10 6/9] riscv: implement preemptible this_cpu xchg operations
-Date: Thu, 12 Nov 2026 18:41:46 +0800
-Message-Id: <20261112104149.38589-7-cuiyunhui@bytedance.com>
+Subject: [PATCH v10 7/9] riscv: implement preemptible this_cpu cmpxchg operations
+Date: Thu, 12 Nov 2026 18:41:47 +0800
+Message-Id: <20261112104149.38589-8-cuiyunhui@bytedance.com>
 X-Mailer: git-send-email 2.39.2 (Apple Git-143)
 In-Reply-To: <20261112104149.38589-1-cuiyunhui@bytedance.com>
 References: <20261112104149.38589-1-cuiyunhui@bytedance.com>
@@ -152,134 +151,188 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Apply the recoverable per-CPU address handling to exchange operations.
+Apply the recoverable per-CPU address handling to compare-and-exchange
+operations. Providing this_cpu_cmpxchg() also allows asm-generic to derive
+this_cpu_try_cmpxchg().
 
-Use AMOSWAP for native-width and Zabha subword operations. Where Zabha is
-unavailable, use a masked LR/SC sequence that preserves neighboring fields
-in the same word.
+Use Zacas where available and LR/SC otherwise. Keep masked subword operands
+XLEN-wide so RV64 LR.W sign extension does not affect the comparison, and
+use typed helpers to separate asm-generic from the architecture cmpxchg
+macro expansion.
 
+Link: https://lore.kernel.org/r/20260826010748.zphu3wh2hlm4t4o2@offworld
 Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
 ---
- arch/riscv/include/asm/percpu.h | 92 +++++++++++++++++++++++++++++++++
- 1 file changed, 92 insertions(+)
+ arch/riscv/include/asm/percpu.h | 140 ++++++++++++++++++++++++++++++++
+ 1 file changed, 140 insertions(+)
 
 diff --git a/arch/riscv/include/asm/percpu.h b/arch/riscv/include/asm/percpu.h
-index 9ff02f3811550..810f4c5eaa508 100644
+index 810f4c5eaa508..4d2fc10cbdab1 100644
 --- a/arch/riscv/include/asm/percpu.h
 +++ b/arch/riscv/include/asm/percpu.h
-@@ -326,6 +326,81 @@ __percpu_add_return_amo_case_16(void __percpu *pcp, unsigned long val)
- 	return __percpu_add_return_8_16(pcp, val, 16);
- }
+@@ -401,6 +401,123 @@ __percpu_xchg_case_##sz(void __percpu *pcp, unsigned long val)		\
  
-+#define __PERCPU_XCHG_AMO_CASE(sfx, sz)					\
+ __PERCPU_8_16_XCHG_CASE(8, .b)
+ __PERCPU_8_16_XCHG_CASE(16, .h)
++
++#define __PERCPU_CMPXCHG_CASE(sz, lr_sfx, sc_sfx, cas_sfx)		\
 +static __always_inline unsigned long					\
-+__percpu_xchg_case_##sz(void __percpu *pcp, unsigned long val)		\
++__percpu_cmpxchg_case_##sz(void __percpu *pcp, unsigned long old,	\
++			   unsigned long new)				\
 +{									\
 +	__PCPU_OP_CONTEXT();						\
-+	u##sz ret;							\
++	const long cmp = (long)(s##sz)(u##sz)old;			\
++	unsigned long rc;						\
++	u##sz ret = (u##sz)old;						\
 +									\
-+	asm volatile (__PCPU_GPRS_BEGIN					\
-+		"amoswap" #sfx " %[ret], %[val], 0(%[addr])\n"		\
-+		__PCPU_GPRS_END						\
-+		: [gprs] "=m" (__ti->pcpu_gprs),			\
-+		  [off] "=&r" (__off), [addr] "=&r" (__addr),		\
-+		  [ret] "=&r" (ret)					\
-+		: [pcpu_offset] "m" (__ti->pcpu_offset),		\
-+		  [pcp] "r" (pcp), [val] "r" ((u##sz)val)		\
-+		: "memory");						\
-+									\
-+	return ret;							\
-+}
-+
-+__PERCPU_XCHG_AMO_CASE(.w, 32)
-+#ifdef CONFIG_64BIT
-+__PERCPU_XCHG_AMO_CASE(.d, 64)
-+#endif
-+
-+#define __PERCPU_8_16_XCHG_CASE(sz, sfx)				\
-+static __always_inline unsigned long					\
-+__percpu_xchg_case_##sz(void __percpu *pcp, unsigned long val)		\
-+{									\
-+	__PCPU_OP_CONTEXT();						\
-+	const u32 field_mask = PERCPU_8_16_GET_MASK(sz);		\
-+	const unsigned long shift = PERCPU_8_16_GET_SHIFT(pcp);		\
-+	const u32 mask = field_mask << shift;				\
-+	const u32 new_field = (val & field_mask) << shift;		\
-+	void __percpu *pcp32 = PERCPU_8_16_GET_PCP32(pcp);		\
-+	u32 old, new, rc;						\
-+	u##sz ret;							\
-+									\
-+	if (IS_ENABLED(CONFIG_RISCV_ISA_ZABHA) &&			\
-+	    riscv_has_extension_unlikely(RISCV_ISA_EXT_ZABHA)) {	\
++	if (IS_ENABLED(CONFIG_RISCV_ISA_ZACAS) &&			\
++	    IS_ENABLED(CONFIG_TOOLCHAIN_HAS_ZACAS) &&			\
++	    riscv_has_extension_unlikely(RISCV_ISA_EXT_ZACAS)) {	\
 +		asm volatile (__PCPU_GPRS_BEGIN				\
 +			".option push\n"				\
-+			".option arch, +zabha\n"			\
-+			"amoswap" #sfx " %[ret], %[val], 0(%[addr])\n"	\
++			".option arch, +zacas\n"			\
++			"amocas" #cas_sfx " %[ret], %[new], 0(%[addr])\n"	\
 +			".option pop\n"					\
 +			__PCPU_GPRS_END					\
 +			: [gprs] "=m" (__ti->pcpu_gprs),		\
 +			  [off] "=&r" (__off), [addr] "=&r" (__addr),	\
-+			  [ret] "=&r" (ret)				\
++			  [ret] "+&r" (ret)				\
 +			: [pcpu_offset] "m" (__ti->pcpu_offset),	\
-+			  [pcp] "r" (pcp), [val] "r" ((u##sz)val)	\
++			  [pcp] "r" (pcp), [new] "r" ((u##sz)new)	\
 +			: "memory");					\
-+		return ret;						\
++	} else {							\
++		asm volatile (__PCPU_GPRS_BEGIN				\
++			"0: lr" #lr_sfx " %[ret], 0(%[addr])\n"		\
++			"bne %[ret], %[old], 1f\n"			\
++			"sc" #sc_sfx " %[rc], %[new], 0(%[addr])\n"	\
++			"bnez %[rc], 0b\n"				\
++			"1:\n"						\
++			__PCPU_GPRS_END					\
++			: [gprs] "=m" (__ti->pcpu_gprs),		\
++			  [off] "=&r" (__off), [addr] "=&r" (__addr),	\
++			  [ret] "=&r" (ret), [rc] "=&r" (rc)		\
++			: [pcpu_offset] "m" (__ti->pcpu_offset),	\
++			  [pcp] "r" (pcp), [old] "r" (cmp),		\
++			  [new] "r" ((u##sz)new)			\
++			: "memory");					\
 +	}								\
 +									\
-+	asm volatile (__PCPU_GPRS_BEGIN					\
-+		"0: lr.w %[old], 0(%[addr])\n"				\
-+		"and %[new], %[old], %[inv_mask]\n"			\
-+		"or %[new], %[new], %[new_field]\n"			\
-+		"sc.w %[rc], %[new], 0(%[addr])\n"			\
-+		"bnez %[rc], 0b\n"					\
-+		__PCPU_GPRS_END						\
-+		: [gprs] "=m" (__ti->pcpu_gprs),			\
-+		  [off] "=&r" (__off), [addr] "=&r" (__addr),		\
-+		  [old] "=&r" (old), [new] "=&r" (new), [rc] "=&r" (rc)	\
-+		: [pcpu_offset] "m" (__ti->pcpu_offset),		\
-+		  [pcp] "r" (pcp32), [inv_mask] "r" (~mask),		\
-+		  [new_field] "r" (new_field)				\
-+		: "memory");						\
-+									\
-+	return (old & mask) >> shift;					\
++	return ret;							\
 +}
 +
-+__PERCPU_8_16_XCHG_CASE(8, .b)
-+__PERCPU_8_16_XCHG_CASE(16, .h)
++__PERCPU_CMPXCHG_CASE(32, .w, .w, .w)
++#ifdef CONFIG_64BIT
++__PERCPU_CMPXCHG_CASE(64, .d, .d, .d)
++#endif
++
++/*
++ * Use XLEN-wide masks to clear the upper bits of an RV64 sign-extended
++ * LR.W result before comparing a high byte or halfword.
++ */
++#define __PERCPU_8_16_CMPXCHG_CASE(sz, sfx)				\
++static __always_inline unsigned long					\
++__percpu_cmpxchg_case_##sz(void __percpu *pcp, unsigned long old,	\
++			   unsigned long new)				\
++{									\
++	__PCPU_OP_CONTEXT();						\
++	const unsigned long shift = PERCPU_8_16_GET_SHIFT(pcp);		\
++	const unsigned long field_mask = PERCPU_8_16_GET_MASK(sz);	\
++	const unsigned long mask = field_mask << shift;			\
++	const unsigned long old_field = (old & field_mask) << shift;	\
++	const unsigned long new_field = (new & field_mask) << shift;	\
++	void __percpu *pcp32 = PERCPU_8_16_GET_PCP32(pcp);		\
++	unsigned long ret32, tmp, rc;					\
++	u##sz ret = (u##sz)old;						\
++									\
++	if (IS_ENABLED(CONFIG_RISCV_ISA_ZABHA) &&			\
++	    IS_ENABLED(CONFIG_RISCV_ISA_ZACAS) &&			\
++	    IS_ENABLED(CONFIG_TOOLCHAIN_HAS_ZACAS) &&			\
++	    riscv_has_extension_unlikely(RISCV_ISA_EXT_ZABHA) &&	\
++	    riscv_has_extension_unlikely(RISCV_ISA_EXT_ZACAS)) {	\
++		asm volatile (__PCPU_GPRS_BEGIN				\
++			".option push\n"				\
++			".option arch, +zacas, +zabha\n"		\
++			"amocas" #sfx " %[ret], %[new], 0(%[addr])\n"	\
++			".option pop\n"					\
++			__PCPU_GPRS_END					\
++			: [gprs] "=m" (__ti->pcpu_gprs),		\
++			  [off] "=&r" (__off), [addr] "=&r" (__addr),	\
++			  [ret] "+&r" (ret)				\
++			: [pcpu_offset] "m" (__ti->pcpu_offset),	\
++			  [pcp] "r" (pcp), [new] "r" ((u##sz)new)	\
++			: "memory");					\
++	} else {							\
++		asm volatile (__PCPU_GPRS_BEGIN				\
++			"0: lr.w %[ret], 0(%[addr])\n"			\
++			"and %[tmp], %[ret], %[mask]\n"			\
++			"bne %[tmp], %[old], 1f\n"			\
++			"and %[tmp], %[ret], %[inv_mask]\n"		\
++			"or %[tmp], %[tmp], %[new]\n"			\
++			"sc.w %[rc], %[tmp], 0(%[addr])\n"		\
++			"bnez %[rc], 0b\n"				\
++			"1:\n"						\
++			__PCPU_GPRS_END					\
++			: [gprs] "=m" (__ti->pcpu_gprs),		\
++			  [off] "=&r" (__off), [addr] "=&r" (__addr),	\
++			  [ret] "=&r" (ret32), [tmp] "=&r" (tmp),	\
++			  [rc] "=&r" (rc)				\
++			: [pcpu_offset] "m" (__ti->pcpu_offset),	\
++			  [pcp] "r" (pcp32), [mask] "r" (mask),		\
++			  [old] "r" (old_field),			\
++			  [new] "r" (new_field),			\
++			  [inv_mask] "r" (~mask)			\
++			: "memory");					\
++									\
++		ret = (ret32 & mask) >> shift;				\
++	}								\
++									\
++	return ret;							\
++}
++
++__PERCPU_8_16_CMPXCHG_CASE(8, .b)
++__PERCPU_8_16_CMPXCHG_CASE(16, .h)
  #define _pcp_wrap(op, pcp, ...)						\
  ({									\
  	op(&(pcp), __VA_ARGS__);					\
-@@ -338,6 +413,14 @@ __percpu_add_return_amo_case_16(void __percpu *pcp, unsigned long val)
- 	(TYPEOF_UNQUAL(*__pcp_ptr))op(__pcp_ptr, ##args);		\
+@@ -421,6 +538,15 @@ __PERCPU_8_16_XCHG_CASE(16, .h)
+ 					     (unsigned long)(val));	\
  })
  
-+#define _pcp_wrap_xchg(op, pcp, val)					\
++#define _pcp_wrap_cmpxchg(op, pcp, old, new)				\
 +({									\
 +	__auto_type __pcp_ptr = &(pcp);					\
 +									\
 +	(TYPEOF_UNQUAL(*__pcp_ptr))op(__pcp_ptr,			\
-+					     (unsigned long)(val));	\
++					     (unsigned long)(old),	\
++					     (unsigned long)(new));	\
 +})
 +
  #define this_cpu_read_1(pcp)	_pcp_wrap_return(__percpu_read_8, pcp)
  #define this_cpu_read_2(pcp)	_pcp_wrap_return(__percpu_read_16, pcp)
  #define this_cpu_read_4(pcp)	_pcp_wrap_return(__percpu_read_32, pcp)
-@@ -390,9 +473,18 @@ __percpu_add_return_amo_case_16(void __percpu *pcp, unsigned long val)
- 	_pcp_wrap_return(__percpu_add_return_amo_case_64, pcp, val)
+@@ -480,11 +606,25 @@ __PERCPU_8_16_XCHG_CASE(16, .h)
+ #define this_cpu_xchg_8(pcp, val)	_pcp_wrap_xchg(__percpu_xchg_case_64, pcp, val)
  #endif
  
-+#define this_cpu_xchg_1(pcp, val)	_pcp_wrap_xchg(__percpu_xchg_case_8, pcp, val)
-+#define this_cpu_xchg_2(pcp, val)	_pcp_wrap_xchg(__percpu_xchg_case_16, pcp, val)
-+#define this_cpu_xchg_4(pcp, val)	_pcp_wrap_xchg(__percpu_xchg_case_32, pcp, val)
++#define this_cpu_cmpxchg_1(pcp, o, n)					\
++	_pcp_wrap_cmpxchg(__percpu_cmpxchg_case_8, pcp, o, n)
++#define this_cpu_cmpxchg_2(pcp, o, n)					\
++	_pcp_wrap_cmpxchg(__percpu_cmpxchg_case_16, pcp, o, n)
++#define this_cpu_cmpxchg_4(pcp, o, n)					\
++	_pcp_wrap_cmpxchg(__percpu_cmpxchg_case_32, pcp, o, n)
 +#ifdef CONFIG_64BIT
-+#define this_cpu_xchg_8(pcp, val)	_pcp_wrap_xchg(__percpu_xchg_case_64, pcp, val)
++#define this_cpu_cmpxchg_8(pcp, o, n)					\
++	_pcp_wrap_cmpxchg(__percpu_cmpxchg_case_64, pcp, o, n)
++#define this_cpu_cmpxchg64(pcp, o, n)	this_cpu_cmpxchg_8(pcp, o, n)
 +#endif
 +
  #undef PERCPU_RW_OPS
  #undef __PERCPU_AMO_OP_CASE
  #undef __PERCPU_8_16_OP_CASE
-+#undef __PERCPU_XCHG_AMO_CASE
-+#undef __PERCPU_8_16_XCHG_CASE
+ #undef __PERCPU_XCHG_AMO_CASE
+ #undef __PERCPU_8_16_XCHG_CASE
++#undef __PERCPU_CMPXCHG_CASE
++#undef __PERCPU_8_16_CMPXCHG_CASE
  #undef PERCPU_8_16_GET_SHIFT
  #undef PERCPU_8_16_GET_MASK
  #undef PERCPU_8_16_GET_PCP32
