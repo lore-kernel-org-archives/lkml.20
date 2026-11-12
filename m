@@ -1,74 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794503393;
-	b=bxoVjAsyswXhGl75SozunY7JiwFUWs+S51H2cIWd71BN9lgo309TxbUM6NhMl0mp7prs
-	 aEA9TN28WnBhQBgYEh2ZOB7BdEOK2V3GaUdOHka3gLxo1NbVXnojeQr1HUf/vw9K92GCo
-	 cO/zudTUjqwa5q73Ql2p0uPdAAQrbCFwR0OkexFcFbbQeuuwsgPFq51AxQWUNlzGKIBY1
-	 otn/qYx7L5N65A8XiyR3WMPug2E/ea5U7kmIRp9N8OL53294fOOTFBKVQV12qihLdbaXI
-	 IjYNLvOdhIRn3PNKgalGyIAL4YoIs2rdpYOAvisqPLte9HenZzs2DHzkuqiJL4PGjEQ==
+	t=1794503399;
+	b=BHk/gT5z83n7/dSo0iS1i+bUAlHll75TgzNL4eeTAeltaciae/zMa3NjHabUoKzzMKpQ
+	 +YfMM+VnL5bOpXkXdnE1vhZ7sFzZXzwN9jlCSGAquSRLcPBueaKXX9wkdUupHz1MwrQbB
+	 oPmgxzJBps1jK1D8CtU36273ZaEdnx08u6/6mxwxQLxMW3tfLjh7RWSjeOTFwMXexokuq
+	 1KS2WXgg6foXNuGd/xl7QuZnpMuxD/PDm3BFXwiCFU8cCteUyJoREGr6iqz4pIPn0CgPG
+	 W1MzetmFLDDYunw852JLDogNZ0C8uhMuSSX6zdmOougazdbGr55T+auHUXfbxbPN+fA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794503393;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=JQz1mAG4FwwJpOtTSrz+KeRLlzMJvENpxMLZke3zOIA=;
-	b=KsjIo/62zht9eg+LOjMsTYjZzqOqvOSa+1+jow4nYO03h9DbEU7JD7elgREMdovONXEX
-	 UHMuzs2nLBvO3ETRyAWCsqETscPnWcSTCgLSNWUM1PmqZDKfq0dMX+f7WzWXUKVcJ/S+M
-	 E+tXTF65ngnJWqjkBH5J1UruKWAeqe/DCztzg9ryDRFACUB3d8sh2QKAszmLXN1ccahhM
-	 kfWr5Ipxq76PfxnfHFDKL5MdcPXlVrgppr1kXFZxhjF77TDWTj7UF2VfQIzZTB7d1wcrf
-	 2Q9P7nhPouQeyo2mrlXyc22ohD2baW7B+BHs3fgFdqZwR6QcAYcYgHvvUZrozWl8UXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794503399;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=TO5hZF60fpsvaG7wW/pQxTHc33GQs6tLzXWQ6VKBs6w=;
+	b=Kb9xT3P9WX22jfYn8UIvcekYSjpDKHAvxeuNNnFL89/VnHo4hAsRfp8JgP8EYqYGvnyY
+	 LxFqVmmGAE1Yy1d4a5hmoSkV9P6Pbd8E5BS5D9bnltUfMbBFUu3XIT+7c9lDw+3jdzodW
+	 UynmA0688j6szKtOYwOpAXE6x8LSq6sbAgySZhf1kEv+b5QY9VUPREis+nzSHfApBCddj
+	 ACpxmjrrPHvY3+ZYIRZVl7A6RcwNsp7xyxzA0YZfzMjw5NOdvQJOXgnGIqQRu48ZFh5GC
+	 i/u/qwFp4ihFc6MSr+oTGA/gJ4AGKlL9rKP0bbRjes2ycWBbOV62fkv0oXj32eoxI/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=awUCTYpT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=cpcIslPG;
+	arc=none smtp.remote-ip=91.218.175.179
+Received: from mta0.migadu.com (out-179.mta0.migadu.com [91.218.175.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53264606A8A0;
-	Thu, 12 Nov 2026 17:09:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F924606A8A6
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:09:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F924606A8A6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=awUCTYpT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19A801F000C4;
-	Thu, 12 Nov 2026 17:09:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794503393;
-	bh=JQz1mAG4FwwJpOtTSrz+KeRLlzMJvENpxMLZke3zOIA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=awUCTYpTsL/Oqe6fVjS9VAtu1JcOzy/ql79vB7BsSjY2uKsKiaHY/Acj8eAp4GSv7
-	 e2YXOuKtoTEentofTPEmJdAma196fYP7qDeIgA97OToCwOhpz5uN7yk1e712OJxDHL
-	 24aLHcenx9e0ZM2r69lH7TO5CohTbnvw2lC/noUnpF8F0V9751gXt77lOpolk3gwvf
-	 VJpQwFBK5zHuosDMEMb6msCer633TwwVNaK3cGSmaEHudN6tdWc+HJMp0dyGlSYI+A
-	 x51go4dIRkKaSkbxkP+ZPxnOy4n8s7A53NYiNXDGwOmRBb8MAMG+1stdufFWxX/R3s
-	 DEaXKLRxo35iQ==
-Date: Thu, 12 Nov 2026 09:09:52 -0800
-From: Kees Cook <kees@kernel.org>
-To: Linus Torvalds <torvalds@linuxfoundation.org>
-Cc: Alejandro Colomar <alx+linux-hardening@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	driver-core@lists.linux.dev, linux-hardening@vger.kernel.org,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
-	David Hildenbrand <david@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Mike Rapoport <rppt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, Geert Uytterhoeven <geert@linux-m68k.org>,
-	justinstitt@google.com
-Subject: Re: [PATCH 2/2] devres: Provide kmalloc_obj*-style API for
- devm_kmalloc
-Message-ID: <202611120905.DF88D9849@keescook>
-References: <20260914223212.i.829-kees@kernel.org>
- <20260914223219.901347-2-kees@kernel.org>
- <20261112004039.GA523044@killaraus.ideasonboard.com>
- <avWNCC3_Ff0knO6J@devuan>
- <CAHk-=wgYBrhvo2NAG_Ja-0ovPf=xO20Gcopv9Yrr1u=QVxECZw@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=cpcIslPG
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Q718G4IRORkXt111lb1vaKDUhjnIbg9uCJWm7J0ppfo=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794503396; v=1; x=1795108196;
+ b=cpcIslPG9I+dA6Np8LmxDtYP6jNNlb8ptLb0MfC+l2eq07jBhW/gMO5Hu9qwF198n9OVrT9W
+ QwM3RULDmQQv+Wf80F0vnX5N0xFsdZg+p2IfH4G1y65xS2Fetv4GzCmyqiY7yQjfFIdHXtJOQ87
+ liUWpwlEf/7cKjKNfo24c7en+4euUsB43fecNqwx1GrTmYfwxmt9/eivrWe4rZQnd4f7BuDsx/V
+ i5Hwnmbou93gpac1lSA4UKOw3fkbzehWZ6dRZZi3kP5cujPsrzIOkjFpEZLYe8pVHLbjCIK4EO4
+ KBtqixIJX7I118TQzxUeOsqF2zOxs8XpDStZSBLPROoiA==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 33f881be3497a386;
+	Thu, 12 Nov 2026 17:09:56 +0000
+X-Mizu-Trace-ID: 33f881be3497a386
+X-Migadu-Flow: FLOW_OUT
+From: Val Packett <val@packett.cool>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Val Packett <val@packett.cool>,
+	Marc Lainez <marc.lainez@gmail.com>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	=?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>,
+	Danila Tikhonov <danila@jiaxyga.com>,
+	Sebastian Reichel <sre@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	phone-devel@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 5/5] arm64: dts: qcom: pmi632: Add battery fuel gauge node
+Date: Thu, 12 Nov 2026 14:07:31 -0300
+Message-ID: <20261112170841.2189322-6-val@packett.cool>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261112170841.2189322-1-val@packett.cool>
+References: <20261112170841.2189322-1-val@packett.cool>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,49 +87,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wgYBrhvo2NAG_Ja-0ovPf=xO20Gcopv9Yrr1u=QVxECZw@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 08:34:13AM -0800, Linus Torvalds wrote:
-> On Thu, 12 Nov 2026 at 02:13, Alejandro Colomar
-> <alx+linux-hardening@kernel.org> wrote:
-> >
-> > I suggest removing kmalloc_obj() entirely, and using kmalloc_objs()
-> > always, with a second argument of 1 when we want a single object.  This
-> > would remove the risk of that typo.
-> >
-> > I also suggest having default arguments without variadic macros.  The
-> > way to do that is using empty arguments.  Linus complained that it hurts
-> > his eyes, but it really makes these macros much safer.
-> 
-> No to both. These are both "make the code worse to catch errors that
-> the compiler should have been able to catch anyway".
-> 
-> If you *really* want to catch them, make "gfp_t" be a 'struct'. That
-> way even compilers without things like the restricted types that
-> sparse has will catch at least that one.
-> 
-> I did that many many years (argh, decades - I'm old) ago to catch all
-> the 'pte_t' etc issues when rewriting the MM layer, and it works very
-> well.
-> 
-> It's going to be somewhat painful, but ti might be worth it. People
-> who only use GFP_xyz flags to pass them around wouldn't notice.
+Add a node for the "qgauge" battery fuel gauge at 0x4800, and for the
+SDAM region at 0xb100 which contains the full charge capacity.
 
-One thing Justin was poking at was adding a "strict" mode to typedef
-that gets us a new native type that follows all the same rules as its
-underlying type, but refuses implicit casting. That way you get stuff
-like gfp_t or pid_t that still works sanely but refuses to take values
-from non-matching types (i.e. it would catch this case). It's handy for
-the Overflow Behavior Type work too (for similar reasons). e.g.:
+Signed-off-by: Val Packett <val@packett.cool>
+---
+ arch/arm64/boot/dts/qcom/pmi632.dtsi | 33 ++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-typedef __distinct unsigned int pid_t;
-
-or something like that. Then you don't need the accessors like we have
-for the struct-style wrappers.
-
--Kees
-
+diff --git a/arch/arm64/boot/dts/qcom/pmi632.dtsi b/arch/arm64/boot/dts/qcom/pmi632.dtsi
+index 82b5d7b7bb5b..5e9e82563884 100644
+--- a/arch/arm64/boot/dts/qcom/pmi632.dtsi
++++ b/arch/arm64/boot/dts/qcom/pmi632.dtsi
+@@ -163,11 +163,44 @@ pmi632_adc_tm: adc-tm@3500 {
+ 			status = "disabled";
+ 		};
+ 
++		pmi632_qgauge: fuel-gauge@4800 {
++			compatible = "qcom,pmi632-qg";
++
++			reg = <0x4800>;
++
++			interrupts = <0x2 0x48 0x0 IRQ_TYPE_EDGE_BOTH>,
++				     <0x2 0x48 0x1 IRQ_TYPE_EDGE_BOTH>,
++				     <0x2 0x48 0x2 IRQ_TYPE_EDGE_RISING>,
++				     <0x2 0x48 0x3 IRQ_TYPE_EDGE_RISING>,
++				     <0x2 0x48 0x4 IRQ_TYPE_EDGE_RISING>,
++				     <0x2 0x48 0x5 IRQ_TYPE_EDGE_RISING>,
++				     <0x2 0x48 0x6 IRQ_TYPE_EDGE_RISING>;
++			interrupt-names = "batt-missing",
++					  "vbat-low",
++					  "vbat-empty",
++					  "fifo-done",
++					  "good-ocv",
++					  "fsm-state-chg",
++					  "event";
++
++			nvmem = <&pmi632_sdam_2>;
++
++			status = "disabled";
++		};
++
+ 		pmi632_pbs_client3: pbs@7400 {
+ 			compatible = "qcom,pmi632-pbs", "qcom,pbs";
+ 			reg = <0x7400>;
+ 		};
+ 
++		pmi632_sdam_2: nvram@b100 {
++			compatible = "qcom,spmi-sdam";
++			reg = <0xb100>;
++			#address-cells = <1>;
++			#size-cells = <1>;
++			ranges = <0 0xb100 0x100>;
++		};
++
+ 		pmi632_sdam_7: nvram@b600 {
+ 			compatible = "qcom,spmi-sdam";
+ 			reg = <0xb600>;
 -- 
-Kees Cook
+2.56.0
+
