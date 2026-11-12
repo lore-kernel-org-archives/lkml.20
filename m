@@ -1,45 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794511868;
-	b=CzpTxUoghLIG32IBPWz9nbBS0DviH7M3ypR27sBkZhv+Jltyu8janeycUFQeChy4hk1I
-	 vp1NGQduy7CzLzH+GEzOfQY8ia4d/JfwGU+qbhODAULMazWIWllo5HN1T+LHkeHY7P4on
-	 OfFDfxzlyhqHwIbGNVk2Vger910Rbz1VBJafC7EoVdPmjf1TVr1C/jpmukBdADpxAgc9B
-	 zlbNiS2yIQzDJxTApRRXL2yGfxl8uXVR6YX9T1jWX/E/Ggk+tBburITAYoo3lgqApz8CW
-	 Jk3GHiNeuvJdHWWPMwDYBZjV5K4T3Z2oOjJ2VEDuInziawGogNI9pb6Rb6XX73LzpDQ==
+	t=1794511952;
+	b=urvjArM0SXo1gtuJ7ywGKXyh4V+khf5vrOcbplSxtqaUPkLw8gEexYeE//rYyrU+mBbE
+	 8uOr0cBaj4XzhWMfPpXG+RwUOWfXG+H0DlF4toF/nACqI+qLkxGqxG0cQ56YY8tcwumEp
+	 nvSJ8BKZSrHHVoHArQmN3HcLMS++kOoPBeYaoKHIvvPMwlV1pLuqv8eoFGhrnWinbg6hN
+	 7xZFjsBu2r/qKvqbzjFkGY8Op/R+O1bhhsGEk56Sb3VtXPaHdetzpZUGkFwIeiSW/2yyE
+	 kAg4NoflYYMPNvmT2JHsLhz8bxHysSstKN88/7IUYoWF7U+idCZIsVDsQIksm+B9p+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794511868;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=hOGCv8DFCDG4oqORRcTq2k8xm+GYXpzMleKYWoWudVM=;
-	b=LvR/Rgt2fSXKJgWZaG5ZofPy+usyeoKeMgLIwTetPcQ7P6nAnCFa/f2SWgX78YqjZ/Kq
-	 XU6J5GF+HSDBGEiPSTZ4+Rj0w44l3BVKGKMtGRuPWnKtBTojbnXJBZnIeZCYGlVBM5Yb/
-	 5qjdeL9DosZA30K7V0PO7T52vv/KRDx2lY1njj3AKUaOycOStwlAdU2/Kud/L/uQQWVD7
-	 MLMNi65cYFV0yS9d3JActXeKUqM0OxkAo95LrarEcpFK3vC13vjSa7yp1HZB+vdDcsmKv
-	 bkeQxDuVaTcwyGA+VjCTytg1tVpCImFbUpIsVzUO+Ce5pXyklYb8SHdXMO6KiQPQ15Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794511952;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=PY286/snnbEF5QyixUAEHWZvLTqyb1OkbulZ3V9rDhA=;
+	b=kbkfbgR8kWzZS4uTeAvdVhdAKulF+Un3Pl1XEV4sy7dxY3x1jFx5KlWdQZS3guJp7+ZK
+	 hO7plc7Rrh6YtiJamNSUxJ5JvQdh3CeT4mwnBLfn5zi87eZu9VxjVVTTo/W0TYcgmHZHl
+	 9nlEhCdPFYttfTetSiarUcrMy2Fmr6fSGgj4NLTGeLrBK8bimXBGluyEBbNvwc7il+UC0
+	 G4dEmhof5usuiYiJHeu6J17zArPSl4slEoeO5V0q9KGutTYrfASiQNB3mEcJAYxHrGOp8
+	 8x4SjFwnNR94y2GvHgu9wUKbY8wNnhv7arzK1uRk/EjJ/+s7yksWrJ3pwplwxafEEig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PudDZdk4;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=h72fjJkI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0368606A31C;
-	Thu, 12 Nov 2026 19:31:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EEFB606A31C;
+	Thu, 12 Nov 2026 19:32:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PudDZdk4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF25E1F000C4;
-	Thu, 12 Nov 2026 19:31:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794511868;
-	bh=hOGCv8DFCDG4oqORRcTq2k8xm+GYXpzMleKYWoWudVM=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=PudDZdk4CfTO9cAwPUXP3k5bcLpcc55Zj6ASERF65bNN9VVfLtVi3DU1t85bP3T4h
-	 5KZR2ziBCAnyMZMl7MWVr/QXBwgcE6XtDmiIvcb92k+ZtmanX3A3RfcIRJSpHCOJqZ
-	 s6plIbsY6VmWb5DspidZg1bzzbbC82RPqIpInht4lMLhLW1F/T/tx5+htrUDolMWtx
-	 ik26fCWfufImXfXMptZ9hxKrtllmeKwgE58y1RhtlxpDyB4jIf8Ccr5CxX6CTgZDWA
-	 gqhOzMViCnpB6tTXJmx07v1/mrJOM69ZlxKF4LrzB0a08zeY8oWvPw2suCK1n+tFQu
-	 /w7ljLzbKLSsw==
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=h72fjJkI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4F421F000C4;
+	Thu, 12 Nov 2026 19:32:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794511952;
+	bh=PY286/snnbEF5QyixUAEHWZvLTqyb1OkbulZ3V9rDhA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=h72fjJkIt+Va71O69daZ2arnUrd8jTdiBVApIAer0TGjgBuC0c3GWO2JIn7yxg1E/
+	 soIzM0uy+i9p10EcjDxQk0LUSWGF+I6AmwdRErIL/d631Pe3mbD39m2difcanToBX3
+	 d7apj2AGagrXKdki612FGoiOc60Vs8V3QXoY9gAM=
+Date: Thu, 12 Nov 2026 11:32:31 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Xionggui Chen <evers_chen@163.com>
+Cc: David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ chenxionggui@lanxincomputing.com
+Subject: Re: [PATCH] selftests/mm: Handle implicit read permissions in
+ madv_populate
+Message-Id: <20261112113231.ce39807d300f102e6763a87b@linux-foundation.org>
+In-Reply-To: <20261112031811.56500-1-evers_chen@163.com>
+References: <20261112031811.56500-1-evers_chen@163.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,48 +58,183 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v6 2/3] rust: spi: add SPI driver abstractions
-From: Mark Brown <broonie@kernel.org>
-To: Shuai Liu <847807867@qq.com>
-Cc: linux-spi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- broonie@kernel.org, ojeda@kernel.org, dakr@kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <tencent_C5AC68A2C63D42DA8E8547FEA38904F74D05@qq.com>
-References: <20261027054209.904654-1-847807867@qq.com>
- <tencent_C5AC68A2C63D42DA8E8547FEA38904F74D05@qq.com>
-Date: Thu, 12 Nov 2026 19:30:59 +0000
-Message-Id: <179451185979.339049.12323339081307899766.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1137; i=broonie@kernel.org;
- h=from:subject:message-id; bh=L6uOFQoDghj3iOooCMMgHHNF8Uh+zPJyo9fZA01cBlQ=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLK+Cf/UbOaMePxxI4f65EV+a1+waYmt67TRndG7+KleV
- tCL/lsWHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZjIUkuGv0KSZQFzst/y8kxf
- s6i1x9s+6ULAijPsRu4blqxQXfHs20NGhqY8+4XOmu6usz5PPG3B9EvlQLjb0omJf+aHph0qeHp
- 4AwsA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-> The `write()` and `read()` methods copy the data into DMA-safe bounce
-> buffers before transferring, as the SPI core requires transfer buffers
-> to be DMA-safe and the caller-provided slices may be located anywhere
-> (e.g. on the stack). `write_then_read()` does not need this, since the
-> C core's spi_write_then_read() already copies both buffers into
-> internal DMA-safe bounce buffers. `write_then_read()` additionally
-> validates that the sum of the two buffer lengths fits in `u32`, as the
-> C core sums the two lengths as `unsigned int` when sizing its bounce
-> buffer.
+On Thu, 12 Nov 2026 03:18:11 +0000 Xionggui Chen <evers_chen@163.com> wrote:
 
-I do wonder if it's more sensible to go straight to the
-spi_sync()/spi_async() APIs - these APIs you're implementing are all
-convenience wrappers at the C level, I don't know how idiomatic they are
-in Rust but if there's a more Rust native way of doing this stuff it
-might be better to go with that and then arrange to map it onto the
-lower level C APIs rather than deal with the C wrappers.  Of course if
-this is actually fairly sensible for Rust then leveraging the existing
-wrappers makes sense.
+> The madv_populate selftest assumes that a mapping created with
+> PROT_WRITE cannot be read, and expects MADV_POPULATE_READ to fail
+> with EINVAL.
+> 
+> However, some architectures, including RISC-V, may implicitly grant
+> read permission to PROT_WRITE mappings. On such architectures,
+> MADV_POPULATE_READ succeeds, causing the test to fail incorrectly.
+> 
+> Check the actual VMA permissions through /proc/self/maps and adjust
+> the expected result accordingly.
+> 
+> Add a PROT_NONE test to verify that MADV_POPULATE_READ still fails
+> with EINVAL for mappings without read permission.
+> 
+> On RISC-V with Linux 7.2.0, the original test fails 1 out of 16
+> tests, while the updated test passes all 17 tests.
 
--- 
-Mark Brown <broonie@kernel.org>
+Code looks good, thanks.
+
+The changelog is a little imprecise.  
+
+"some architectures" is too broad - this is purely riscv.
+
+The wording suggests that a readable hardware PTE alone determines the
+result.  riscv can have readable writable PTEs without setting VM_READ,
+and this test still expects EINVAL on those systems.  
+
+
+I altered the second paragraph, please review.
+
+
+From: Xionggui Chen <chenxionggui@lanxincomputing.com>
+Subject: selftests/mm: handle implicit read permissions in madv_populate
+Date: Thu, 12 Nov 2026 03:18:11 +0000
+
+The madv_populate selftest assumes that mmap(PROT_WRITE) creates a VMA
+without VM_READ and expects MADV_POPULATE_READ to fail with EINVAL.
+
+On RISC-V, commit 6c7559f22b6f ("riscv/mm: ensure PROT_WRITE leads to
+VM_READ | VM_WRITE") makes the kernel set VM_READ for mappings requested
+with PROT_WRITE.  MADV_POPULATE_READ checks this VMA permission, so it
+succeeds and the test fails incorrectly.  Whether the hardware can read a
+writable PTE does not, by itself, determine the madvise() result.
+
+Check the VMA permissions through /proc/self/maps and adjust the expected
+result accordingly.
+
+Add a PROT_NONE test to verify that MADV_POPULATE_READ still fails with
+EINVAL for mappings without read permission.
+
+On RISC-V with Linux 7.2.0, the original test fails 1 out of 16 tests,
+while the updated test passes all 17 tests.
+
+Link: https://lore.kernel.org/20261112031811.56500-1-evers_chen@163.com
+Signed-off-by: Xionggui Chen <chenxionggui@lanxincomputing.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+---
+
+ tools/testing/selftests/mm/madv_populate.c |   67 +++++++++++++++++--
+ 1 file changed, 63 insertions(+), 4 deletions(-)
+
+--- a/tools/testing/selftests/mm/madv_populate.c~selftests-mm-handle-implicit-read-permissions-in-madv_populate
++++ a/tools/testing/selftests/mm/madv_populate.c
+@@ -69,10 +69,38 @@ static void test_prot_read(void)
+ 	munmap(addr, SIZE);
+ }
+ 
++static int mapping_is_readable(void *addr)
++{
++	FILE *maps;
++	char line[256];
++	unsigned long start, end;
++	char perms[5];
++	int readable = -1;
++
++	maps = fopen("/proc/self/maps", "r");
++	if (!maps)
++		return -1;
++
++	while (fgets(line, sizeof(line), maps)) {
++		if (sscanf(line, "%lx-%lx %4s",
++			   &start, &end, perms) != 3)
++			continue;
++
++		if (start <= (unsigned long)addr &&
++		    (unsigned long)addr < end) {
++			readable = perms[0] == 'r';
++			break;
++		}
++	}
++
++	fclose(maps);
++	return readable;
++}
++
+ static void test_prot_write(void)
+ {
+ 	char *addr;
+-	int ret;
++	int ret, readable;
+ 
+ 	ksft_print_msg("[RUN] %s\n", __func__);
+ 
+@@ -80,9 +108,19 @@ static void test_prot_write(void)
+ 	if (addr == MAP_FAILED)
+ 		ksft_exit_fail_msg("mmap failed\n");
+ 
++	readable = mapping_is_readable(addr);
++	if (readable < 0)
++		ksft_exit_fail_msg("Cannot determine VMA permissions\n");
++
++	errno = 0;
+ 	ret = madvise(addr, SIZE, MADV_POPULATE_READ);
+-	ksft_test_result(ret == -1 && errno == EINVAL,
+-			 "MADV_POPULATE_READ with PROT_WRITE\n");
++
++	if (readable)
++		ksft_test_result(ret == 0,
++				 "MADV_POPULATE_READ with readable PROT_WRITE mapping\n");
++	else
++		ksft_test_result(ret == -1 && errno == EINVAL,
++				 "MADV_POPULATE_READ with write-only mapping\n");
+ 
+ 	ret = madvise(addr, SIZE, MADV_POPULATE_WRITE);
+ 	ksft_test_result(!ret, "MADV_POPULATE_WRITE with PROT_WRITE\n");
+@@ -90,6 +128,26 @@ static void test_prot_write(void)
+ 	munmap(addr, SIZE);
+ }
+ 
++static void test_prot_none(void)
++{
++	char *addr;
++	int ret;
++
++	ksft_print_msg("[RUN] %s\n", __func__);
++
++	addr = mmap(0, SIZE, PROT_NONE,
++		    MAP_ANONYMOUS | MAP_PRIVATE, 0, 0);
++	if (addr == MAP_FAILED)
++		ksft_exit_fail_msg("mmap failed\n");
++
++	errno = 0;
++	ret = madvise(addr, SIZE, MADV_POPULATE_READ);
++	ksft_test_result(ret == -1 && errno == EINVAL,
++			 "MADV_POPULATE_READ with PROT_NONE\n");
++
++	munmap(addr, SIZE);
++}
++
+ static void test_holes(void)
+ {
+ 	char *addr;
+@@ -266,7 +324,7 @@ static void test_softdirty(void)
+ 
+ int main(int argc, char **argv)
+ {
+-	int nr_tests = 16;
++	int nr_tests = 17;
+ 	int err;
+ 
+ 	pagesize = getpagesize();
+@@ -280,6 +338,7 @@ int main(int argc, char **argv)
+ 	sense_support();
+ 	test_prot_read();
+ 	test_prot_write();
++	test_prot_none();
+ 	test_holes();
+ 	test_populate_read();
+ 	test_populate_write();
+_
+
