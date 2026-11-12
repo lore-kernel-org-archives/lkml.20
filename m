@@ -1,102 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794486227;
-	b=QinqlNwyQ/I8W2GJ9TvpOvNOOiD2zBBp8ZBmYPB8Bc5q5N5r/7AULvn32D9pr1v/6d5t
-	 cQVNfS0wgU6vycxCPAPtqN35U2UwqMweA4vXENalM7izgnLp8t5ra8wS2zXNyvEnUCRbV
-	 a8So+cFiAK+1sS5a0Iv2Wl0otau4h6+8YUYIjl9XVb9kVW2vJJApo5caV7vClKVSkDg6L
-	 HIwl8tV5ck8Az0GQVqjI0Aos9w4y0HzBG0rfIJ6plhMlQjEBwLZkaiUwdOXwRfaIXEjFU
-	 AC7KWH81LyQSfuR+zYXujIzmDOs5B+Qp20T6gfEqr1hrfTdUEnizOrIoqjuHY/6hs+Q==
+	t=1794486250;
+	b=vxZeNjBLfC+qCMErh2Xkyy9enyubh9xgCIhx9afDd5L5ZmTugbtreBzEX0bxlRfHFddn
+	 1mxJ0n135jKgV+Z0KoEyUe77MF/vacX8dqWYArmulngRVsPC8wRMgFqG9iKBexwypkUq2
+	 PV6TNbDygT7XMbC7mAxmUHzLYV6A4hDtxG2R3arjZ2HZ6xC8HlZ0NHIEOr4eldkvqBABk
+	 U3fMdAm2eKNWwiuDrpBvt7D+Zbgm+nWtdmCAQhKszmBD00uB4FmnstBNTrXx+M2zMk6H9
+	 nbBGGyfkUaEckvFcTDEfSj2N2Wh6FLgTCz43Y7nQU29BbVQqK8BCnSx/n4RevTi1qbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794486227;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:
-	 X-Spam-Level:X-Spam-Flag;
-	bh=aWg2g10tjTV9nIbKRh3Ck09drDxqIeEIHJCcrhiowKw=;
-	b=rziOkgtR7On8Qktb6Fbax7pPEjtSkvSh7xeNmbY+Z+Y8xFhvz7mDltTjBvQp7a0bd5pw
-	 pIgxNX4jdf4R3nDf00e91cLh7qa38IV3U1QcVjTN4iQNsXov7vO9WrYSoOxhhRO++4s35
-	 Jaw4eaWjfjNPRDCicC1u575bQ6O0A1QIJvOtG4ZcCHN5Z+7Yn8+Er4zdWWqO4Kcyp25Rb
-	 UAbWn+PGOHibDZAlmuCzeP5ARkrJeCjjkJtbP2vpFVseDt4dLp8rHiQJn7vrI2uS/FJVy
-	 uOR1tx/4miq0LIVyNwR8y+rcYUsv6MAbSSQKXmkTVYeTIsSV11SInosfAiigI59GMKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794486250;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=/ZBMYoBxxkgJg0D0vcbzX29og9IbLQS/nBwET3T49RQ=;
+	b=b7yVpQFRIKyizBfa8sE7fcdp5wXl7wQIPFF1q3/lu5JUnWr4iDbmJmh0677oUsfnt/n1
+	 qvOyRNVDZPSliRMeIBJbj6t4Ku6MlFFspQywZKKi0RXbMwvI8rAVO5FlcdBoH3plFtY7h
+	 WFWwwLntl8lWIcwTTEiMRu786Ak/7wsVjjtJc8MhZgJ2E1Iek3PC1fP3gg98VNld2vwmM
+	 V4CzVyZidY1AyF6uIHekA3qg+R0ZmHfkUpVwicNksdDASBXrwNvPPw7x0vX+C1rQT2wKA
+	 nVxBBg7eJ/ED9zKNjqbJm8NJ9L1qAUbZGD/dB7cy6ANo9b4inYcjeEnQJBlWlLvJ5NQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vrqPUGAU;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PrAvXBEc;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vrqPUGAU;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PrAvXBEc;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L23mmaik;
+	arc=none smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69947606A31C;
-	Thu, 12 Nov 2026 12:23:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69947606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58255606A885
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:24:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58255606A885
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vrqPUGAU;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PrAvXBEc;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vrqPUGAU;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PrAvXBEc
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B1E7321E5D;
-	Thu, 12 Nov 2026 12:23:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794486218; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aWg2g10tjTV9nIbKRh3Ck09drDxqIeEIHJCcrhiowKw=;
-	b=vrqPUGAUS6KF2aJMvD+MUc2mWiUtdMZacNMISidJi40Q+CzWQ1oopwQLcnhHLkKdqWPqfB
-	j512ispzHI9aKloDq9HwYMMtT+eEIBXiZ9HjWoAbKou88fYAdImVeKweAu1I8ofnmXPm0O
-	2O1YsyoY16bMEwd9dgqYsGKdilH1ATw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794486218;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aWg2g10tjTV9nIbKRh3Ck09drDxqIeEIHJCcrhiowKw=;
-	b=PrAvXBEccmylGlU9Kh5xIg8EBVXthgD+QA3n4XO6ILjyrl2AnZ6sqGMB2GUVUsMRqj/Tmx
-	NX9rp3aZwVMl1aDQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794486218; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aWg2g10tjTV9nIbKRh3Ck09drDxqIeEIHJCcrhiowKw=;
-	b=vrqPUGAUS6KF2aJMvD+MUc2mWiUtdMZacNMISidJi40Q+CzWQ1oopwQLcnhHLkKdqWPqfB
-	j512ispzHI9aKloDq9HwYMMtT+eEIBXiZ9HjWoAbKou88fYAdImVeKweAu1I8ofnmXPm0O
-	2O1YsyoY16bMEwd9dgqYsGKdilH1ATw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794486218;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aWg2g10tjTV9nIbKRh3Ck09drDxqIeEIHJCcrhiowKw=;
-	b=PrAvXBEccmylGlU9Kh5xIg8EBVXthgD+QA3n4XO6ILjyrl2AnZ6sqGMB2GUVUsMRqj/Tmx
-	NX9rp3aZwVMl1aDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7BE1213432;
-	Thu, 12 Nov 2026 12:23:38 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id eKxzFcqv9Wp1PgAAD6G6ig
-	(envelope-from <hare@suse.de>); Thu, 12 Nov 2026 12:23:38 +0000
-Message-ID: <5a9623f9-48da-4aa2-9dcd-f7bac76d5911@suse.de>
-Date: Thu, 12 Nov 2026 13:23:38 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L23mmaik
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b56bbf8330so5339072a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:24:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794486249; x=1795091049; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/ZBMYoBxxkgJg0D0vcbzX29og9IbLQS/nBwET3T49RQ=;
+        b=L23mmaikCY+Jsd315IBXg/zTyoa42t+VmyZ8aMGiwsxXeY380o8Ap88X5Mqxl02op/
+         bHe2uj8e5n02XfWkRCEhI9hln7bZO4WxZFqr09arcjJBJPde0vc82w9kXA2I3yzvuwtY
+         s4A058wfU8lQtbpSfH9Nx3tZxRmY1tfIheJNflspNjHhCURoxKdqXL+Pt6P2OOTurmFS
+         NEYQdyw33s9Qa6EmKiWsYojXpcW1LYz9Ea7gDHvnKG2tFKQwG/KmkFHC8JaXTb4FRfwK
+         oatWn9QLLbwjn3AJDpx6X7WxREYDlaC8TiMm3heez2+AvSjmtEIS8pYMOelizS+fAVOL
+         l82Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794486249; x=1795091049;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/ZBMYoBxxkgJg0D0vcbzX29og9IbLQS/nBwET3T49RQ=;
+        b=saO/E2nevJ3JJnSPnRT2TNjenquCpSq27cIhCRmXOdoH/n7mV0PnYw1Z+vigj83IPV
+         43jkVGYjEaDdAy/4Sa19aU1Sci3JppEWH+GB0CnaxZ60Y7AvQPygg5tdYK/DSVvjWILi
+         57BNqsgStzA5tw4qDeMM3scfZLHtKZT4L5a1iDIlfnmjWYIacStbMjY0NE8DdJpgXNaL
+         uKedmkj5b7xW9sR8qYkTnRb+6+dCtzNL2DeTKAx8MpNFpYNSYKyjNAJpagnEJwB5l2BD
+         macOfHwgqVZkijI/HMzi5XEeJWXRk7BWgMhOgQpXs4/yOQxnN7686JjUx8xmfe/swics
+         PeDA==
+X-Forwarded-Encrypted: i=1; AL+hErEv5QYygPC2ptYak9SgOymJvtJqJVN8cz8xV2Tn3rXvkP/sJghbYaKtOOW6rYk3uHW6sVnDh6ymqCrpUHg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+WHO5P6dMtDGsVz6iPbTe3nmUazAhMl4xMK18wBD5eXprVQcRp
+	haHzYlH06PY6bk5MjA5CU0aaCh3EFR/JV1P8wLBLcL15nithnUFuUBY9
+X-Gm-Gg: AYBFou19zeK1K3lspT9xF+rSHy3juJFik/Jc3VLs8V2wmfr5NACmXe7w4ysHHbRLCtY
+	vdhXLyq4IPa5CJRmx1mDSPVLtm72rlBTSiraeaTR+P908uajBHy6tvCjG0YAFi1aohTP/sTz3PY
+	Jqq38lYqNOiyGlYnF3ucZ1FzjgAUfskOlrZ99ivnb54eAjPA96M3g3TtF14NG09A3jjugZrwukP
+	ZHRuLdNBiq/aLNsPru6nsctJSfSBkSVRavCSfHgCjvY0eK78rubnfCPZkHiy2bO4iw1Qx70FRU8
+	ztKGKi0YfNMyAcNPOqHZWmLiisAyvkNYzeGi01vXCR/WeADub6XutHkESPKzvARjqtNxo03JmqR
+	2y7eWJKcSvtX6v1vF+o6ZFQKNOE4w+QbImc9AlSHpT+j9ymgqd6j5upwdirHbm791xqaDL5/CgR
+	Heh4BDzhVUB+si/YBJNDJ3flT32lB9advWmagsizNFbDBhA0oPuBB0BtWNmzilFK7IJM0oW4SFi
+	AWKVESplG+B/m2qInc1zLXcOPpsSfs+iMP8bT0s2jd51JsojvHcAa45aMXnrGredUMXf0FRSLqp
+	RmYhhTfaRb7x4yaH9/txaDeYi0P19at7/75VIAcn
+X-Received: by 2002:aa7:df0e:0:b0:6b6:fed8:e3bb with SMTP id 4fb4d7f45d1cf-6b7773edf13mr3161861a12.13.1794486248604;
+        Thu, 12 Nov 2026 04:24:08 -0800 (PST)
+Received: from crispy-cucumber.local ([79.133.247.80])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b77918d094sm1835931a12.26.2026.11.12.04.24.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 04:24:07 -0800 (PST)
+From: Erikas Bitovtas <xerikasxx@gmail.com>
+Date: Thu, 12 Nov 2026 14:23:22 +0200
+Subject: [PATCH 1/2] dt-bindings: dma: qcom-gpi: add SC7180 GPI DMA
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,73 +91,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] nvme-tcp: use an aligned buffer for the TLS record
- type
-To: martin.nvme.dev@gmail.com, Keith Busch <kbusch@kernel.org>,
- Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
- Sagi Grimberg <sagi@grimberg.me>, Hannes Reinecke <hare@kernel.org>
-Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
- Martin Belanger <martin.belanger@dell.com>, stable@vger.kernel.org
-References: <20261111-nvme-tcp-live-ctrlrec-v2-0-6295202b84de@gmail.com>
- <20261111-nvme-tcp-live-ctrlrec-v2-1-6295202b84de@gmail.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261111-nvme-tcp-live-ctrlrec-v2-1-6295202b84de@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-11.79 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	TAGGED_RCPT(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,kernel.org,kernel.dk,lst.de,grimberg.me];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -11.79
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-sc7180-gpi-dma-v1-1-2a8eceb49563@gmail.com>
+References: <20261112-sc7180-gpi-dma-v1-0-2a8eceb49563@gmail.com>
+In-Reply-To: <20261112-sc7180-gpi-dma-v1-0-2a8eceb49563@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, cros-qcom-dts-watchers@chromium.org, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Erikas Bitovtas <xerikasxx@gmail.com>
+X-Mailer: b4 0.15.2
 
-On 11/11/26 9:42 PM, Martin Belanger via B4 Relay wrote:
-> From: Martin Belanger <martin.belanger@dell.com>
-> 
-> The buffers that receive the TLS record type are char arrays.
-> put_cmsg() and tls_get_record_type() access them as struct cmsghdr,
-> which needs a stricter alignment than a char array has.
-> 
-> Use a union with struct cmsghdr, sized with CMSG_SPACE(), as
-> svc_tcp_recv_cmsg() and xs_tls_read_record() in sunrpc do.
-> 
-> Fixes: 2837966ab2a8 ("nvme-tcp: control message handling for recvmsg()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Martin Belanger <martin.belanger@dell.com>
-> ---
->   drivers/nvme/host/tcp.c | 23 ++++++++++++++---------
->   1 file changed, 14 insertions(+), 9 deletions(-)
-> 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Document the device tree compatible for the SC7180 GPI DMA controller.
 
-Cheers,
+Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
+---
+ Documentation/devicetree/bindings/dma/qcom,gpi.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Hannes
+diff --git a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
+index dc7bdf7c4201..01766475d1b5 100644
+--- a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
++++ b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
+@@ -36,6 +36,7 @@ properties:
+               - qcom,qdu1000-gpi-dma
+               - qcom,sa8775p-gpi-dma
+               - qcom,sar2130p-gpi-dma
++              - qcom,sc7180-gpi-dma
+               - qcom,sc7280-gpi-dma
+               - qcom,sc8280xp-gpi-dma
+               - qcom,sdx75-gpi-dma
+
 -- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+2.56.1
+
