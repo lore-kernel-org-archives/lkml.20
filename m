@@ -1,60 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.119
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794517507;
-	b=gqi0/E53Pxp559pIctf8/ben2UFbLfkwInRExh+PjBYCqQnVLTcPfT71JVPN70H+sYme
-	 5czIBLEKjyhMo5uuZZFPvnrFrOZj89Gw3Q7fUcsj8gty/KIgNlB7st/WrwYJN3MUj+CxJ
-	 ZQphpnp0KulhMNL+Cm0VU38VVjlTD4iChVEJ1CsN9cSA+asTrP6/dxBwCTovjqIvOTSVt
-	 oy04+IOXXxGUiMSd6X+xwM2UCJr17S2KTetulMGJ1az2QKBzNL7PUJDK3H2sSh3XW3be7
-	 r3yy+KCklsiC2/kZIPLbAcDhNgTErT8ah7wlhcjjk1BK0ViRtEmRwnFdMsDHY15sWzQ==
+	t=1794517539;
+	b=g66zwt4S+xDgSLhHrahXE3sD7fAbOC8jhz8Lw9uX3s6I69G2oSDx8OEz8JksFRS0P6Ho
+	 f6GYi4y870Eq5mzT5hfddbIcjRdstWJmUilpEevr3j2lgo+rNs7XoHb6ItUfRuY7sodC1
+	 buuiuDVmcSOu0sjXeyY6Dd4CAJoxrJFZgi8OTkZz9rQDutyojNGE5wFyx5s6CB4GlKBoj
+	 j5jciF4AH9o5v4xWN5DdXmXmtxMCQyVttm97qLd80r2zwVBVMF7nW0i5qS2bWzZUM4/Ut
+	 yWyBRrZsMsiYEFBXRtIpic2AePZosPBjryDurvazs+vwq1zJ4dXM9M682CZ/9iWJTzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794517507;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ya/9Kyp75u+kv0fbcfn1s8UYrtXFsex7509YvIgb/lU=;
-	b=hVoOwp+UFxc5ha/RuUrrSRMXK3ZtU6CQzf8yRDYxM3Wqa0hB+nLMT1mcMORcV1eY+9kZ
-	 K7e0xneOrOOHhO2b+5aikpOnfasyAlte2gspoSqpOxs1oTZQtJbiMMvSWjp579LEoZVsA
-	 2KoWOMmnWDPnrVZP3t63YNArPFSSn0QP/flXFkPkNIP2uwon1W1Glqg5j3xhZPcrzQIrV
-	 kcqp8m+gnpLbkgbOzn+PPKTvYtacKHNR7wAoXTXucGLyt/mF6CulY/eT4bIhUDB+nvKCL
-	 mgaF8IoGcLwmuI/T7JH5y4BXhrHNYVzmowt55nwewuMuPVj4tcbbMyb23G2frmRJloQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794517539;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 Mail-Followup-To:MIME-Version:Content-Type:Content-Disposition;
+	bh=Nnihpci5dvzV4RG5w4j5rrlOdcTEXO4ytfQ14nCnRqw=;
+	b=0ENHSsGyepxJKjOOMA0Gwd+jkMERvzQ6JeBkjepeDoG4DsaEhiXmq0bSsCxe38EK7Cf8
+	 YgABNIjJRp1kp9IvTchsPXfSpu7BTfKhIzWk74avxlNayK6vf9lzy9DP5UpsxrfN3nV0W
+	 zl0DhLpInFcI84AB2TAFVMLd3H/jr9kASOgd+j+VPR4vBb7Q0bbMxu1C7VMJSQqljRGLP
+	 D7nnai0Qa/c1xq9vNKoL2Qkeao0BKcaUSXuqclm5hpMEqlwi2cpmGFCDTaX+mkif3Oqso
+	 0/vmHbYCxwVd0zbLVM8fR1xlYqI1X0kvF423wO/1j5ND4FfMB2Sb7kzGOMOmd2GFLcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=empyreal.works;
-	spf=pass smtp.mailfrom=empyreal.works;
-	dkim=pass header.d=empyreal.works header.i=@empyreal.works header.a=rsa-sha256 header.s=protonmail2 header.b=iDzdAXzB;
-	arc=none smtp.remote-ip=109.224.244.119
-Received: from mail-244119.protonmail.ch (mail-244119.protonmail.ch [109.224.244.119])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NlpcSvnq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AFDF606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:05:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AFDF606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=empyreal.works
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7583E606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:05:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=empyreal.works header.i=@empyreal.works header.a=rsa-sha256 header.s=protonmail2 header.b=iDzdAXzB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
-	s=protonmail2; t=1794517504; x=1794776704;
-	bh=ya/9Kyp75u+kv0fbcfn1s8UYrtXFsex7509YvIgb/lU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=iDzdAXzBb4TiDfcFH2lJuzoIhytxziXw+2Mcm+t5m4f5aRqaR1BLIcMmbKDU0vfou
-	 HzYknUda5/hFSyjyrkrY4Yiz33fWkqi4UohQjDjWw5GJrfZLoOuQXb3LbGYAZNMd4p
-	 iWqb3E58AWpJoTVAk8ahW9VyvTywxFkffEKPwSEiGS+L9rxazE5FY+bNc11TAW1Jn0
-	 pGp9XTHmCz7lh+Y+CKCprnHMOomYqmSdAqL5DYBcvc5MeK97VgwqW4DPhkXctoObW0
-	 cMmucsUbkc/2VhxAchvyZvf4Mej/wSGEdTp6WOOOQdRcNFkmnjEJoOkn/sdskGSv6u
-	 Yauo1Rdf9+X0g==
-Date: Thu, 12 Nov 2026 21:04:58 +0000
-To: Denis Benato <denis.benato@linux.dev>
-From: Andrei Rusu de Castro <arc@empyreal.works>
-Cc: Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones" <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] platform/x86: asus-wmi: write the thermal policy only when it changes
-Message-ID: <20261112-asus-wmi-tpolicy-reply2-a72710a0@empyreal.works>
-In-Reply-To: <8523039e-ba83-48f3-aec4-6d9540b9d0fe@linux.dev>
-References: <20261111-asus-wmi-tpolicy-5fbc4e09@empyreal.works> <ec9515fb-6698-4e7e-8a88-5b3fa2f50c51@linux.dev> <20261112-asus-wmi-tpolicy-reply-f7889fb1@empyreal.works> <8523039e-ba83-48f3-aec4-6d9540b9d0fe@linux.dev>
-Feedback-ID: 182420409:user:proton
-X-Pm-Message-ID: 1f4cddcd3cb3b93815bc7d6c9e5491a8fab1c0e0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NlpcSvnq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B7121F000C4;
+	Thu, 12 Nov 2026 21:05:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794517539;
+	bh=Nnihpci5dvzV4RG5w4j5rrlOdcTEXO4ytfQ14nCnRqw=;
+	h=Date:From:To:Cc:Subject;
+	b=NlpcSvnqYM03smxCXoTR3BZduo9UmbLB6uaR9Pg8Y/oJjnI2MVyuLnY1Sa1F8sbct
+	 GzcpGdE3ncJSM55SsHjp4nvvSIOGJYb2XjBi/OTr+X0cM0vF3xDMKnvwpDucYPXvC3
+	 11KgN7vBTAKoU3bt5IgT8KzEYw+CdFXmP6dKxKlA+E61pEMUiijJBC1k4Y7kvf/Zsj
+	 +mX+4YWnfMSVW9KbJRFY/+7V2yDD1X5GTpqwaPi37hBlj7s12ef9piSngcbqw+L+5A
+	 dLuPGk26NN3in/Y+zk40V0fXzbP3i32qYJOSj2tZhLJgNVRw6gYhCXaHTqZPiV4INF
+	 UdvgyIBXpZ7LQ==
+Date: Thu, 12 Nov 2026 22:05:25 +0100
+From: Gao Xiang <xiang@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-erofs@lists.ozlabs.org, LKML <linux-kernel@vger.kernel.org>,
+	Daejun Park <daejun7.park@samsung.com>,
+	Zhan Xusheng <zhanxusheng@xiaomi.com>, Chao Yu <chao@kernel.org>
+Subject: [GIT PULL] erofs fixes for 7.4-rc3
+Message-ID: <avYqFWIxinR9JB0O@MacBookPro.fritz.box>
+Mail-Followup-To: Linus Torvalds <torvalds@linux-foundation.org>,
+	linux-erofs@lists.ozlabs.org, LKML <linux-kernel@vger.kernel.org>,
+	Daejun Park <daejun7.park@samsung.com>,
+	Zhan Xusheng <zhanxusheng@xiaomi.com>, Chao Yu <chao@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,16 +61,54 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-On Thu, 12 Nov 2026 21:33:54 +0100, Denis Benato wrote:
-> How are you applying limits? The only thing that comes to mind is intel
-> rapl, but it has way lower limits than what asus validated.
+Hi Linus,
 
-With ryzenadj: it writes the package power limits directly to the SMU on
-this machine, so neither asus-armoury nor RAPL is involved, and when the
-thermal policy is written again the firmware re-applies its own table
-for that mode over them.
+Could you consider these fixes for 7.4-rc3?
 
-Andrei
+There are some recent random fixes (shown below) and a Documentation
+update on on-disk format high-level overview.
 
+Thanks,
+Gao Xiang
+
+The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
+
+  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs.git tags/erofs-for-7.4-rc3-fixes
+
+for you to fetch changes up to 7906eac042a4d6facd3b2dcebfe7179fedfcf1f2:
+
+  docs: erofs: refine the on-disk overview (2026-11-12 10:31:25 +0100)
+
+----------------------------------------------------------------
+Changes since last update:
+
+ - Fix stacked fs check for file-backed mounts with extra devices
+
+ - Disallow file-backed mounts on shared backing inodes
+
+ - Reset metadata offsets when fsoffset= is used to fix xattr reads
+   inside and outside the metabox in ont shot
+
+ - Refine on-disk format summary
+
+----------------------------------------------------------------
+Daejun Park (2):
+      erofs: apply the stacked fs check to extra file-backed devices
+      erofs: treat files shared by inode_share as stacked
+
+Gao Xiang (1):
+      docs: erofs: refine the on-disk overview
+
+Zhan Xusheng (1):
+      erofs: reset buf->off in erofs_init_metabuf()
+
+ Documentation/filesystems/erofs.rst | 120 +++++++++++++++++++++++++++---------
+ fs/erofs/data.c                     |   1 +
+ fs/erofs/super.c                    |  23 ++++++-
+ 3 files changed, 112 insertions(+), 32 deletions(-)
