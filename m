@@ -1,90 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.82
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794479123;
-	b=3E8Ls5H4r658vN0vB7OKN0oxKODBUoDZ1ybThjGWM6Bkah8F9lKJdz5GYn98heX3886A
-	 w49rWWrsZ7B1F3ffzu26gxtEyz72CdtflmO9W4lXdk+73R0wxdq1fF9uDitjJuZ8qb7OB
-	 gF8tzFWQoUmRO3XqbpTHh3mJEnuC85eSIxzMlnISf41uAa2TT2Ewkkvuq26qY4l2nnjpP
-	 BNnVrN3eEbHin0TxFfAwCScOa1zF+EK/gsjYQsgU1tgNME4vkZ7xeabdzZ6yj9TFEdaFj
-	 uAN2eVkj8gIW2vBMwOtONy9nntXWVQwFN0d0lKock/AFIUTkV+uZtTFFHsyr8NY4DBw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794479123;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=0zYpYSMRsVntsBsFlDrFrATUIagdvLEMofpH6gktL0U=;
-	b=0AdXHjW+VprgEnVi7nvswQoH6uzJfXtPSGbcRWgnxyQ20sH2DKWQAuyUVgFOnmnUzKZv
-	 zfjrcDKKy4WqLTlOSuMsN9Lic38tjdYTtCsnWjPTAIiUD9x+rTq3RGn4Lw6q5PsaKMso7
-	 /i163pf+dDHybmKzysX72OwZuE9Q8klGOtm9VBD3iXT+hGGdLMU4z0vdON9gYoLaRoOOm
-	 7qDQGX2MRAFSDBF1BUJxNHjdnOY1H+HsnIBTAUh3NQuNisZwRPbCzX2y51AHOSRjH9CWz
-	 dzPZxjLJ5AS5sfCL87GIbxRE0vsJUGtFjPQb62v9b7ET0ob/s4AONnRJZwwxh3Dw66g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=ihUoYa7v;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=H518bIu4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.82
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.82])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794479127;
+	b=idfno3zTo1rfALtRYhGP7PWfIaEHR5tbq73KxhkDLRiJeN063fjRBId9zgqDDRXbOQ2T
+	 yJLubBSAOcABmVCSwnPHAEdJXOuDjd0qhCRZBomJDvUasOrKmv5LNpi6pBqFdinapfNDb
+	 62zIhKv7Lnt0QNgDFg0RoFskjeY2KMP148S+8ovvnQcq2RApjWiF+JXjPGfW4JJ2wpBy3
+	 +sNGlJAxnIVbVbVCM0SazfR7uSKGCnZMLj3P9c0sqiReQ1rZzzePTwX1HQH/letpe6EsB
+	 s5f3sWt+a26Vx5UbYh6bh2KMY/nC35AbeoxoFuAylwsc/68iNWiYPDVlaJhY1hJfWTw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794479127;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=lxPVBhcy06dXvZmyYLom70AEmMv9TuOdMz9vd3zbC7g=;
+	b=4NPHefRwdyw3Yhce7QjFcDwndCSzm7W0w9c5//WuHOvq1wGcahhJKI38Roe21EJ10ZrD
+	 P1q9BUxI4G6tzq2en4gjWe992kmWN0iZSssyN88TRTBV/gI3uy5qToldrsA3PubnC0ioE
+	 2PwwQ06vARzpE66ynahK5QccznL3c0HElQPIJHw7f7xOQIgHWbaBgRbwiu+MwqopeCdlP
+	 0X/XPLmbyu6mafo1kUZR/mlpWbyglG9j1SZxMXU2MMbjkBQgYz4i+mp6AerrGIRXMQr7Z
+	 bzJGQXUNX0atSpGLrm7vHiTBylaj3fDt2HKYxl0ucYwKu/3fkVHFvFOB9OE1Ijx6bVw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eBKokC8Y;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5BD6606A31C;
-	Thu, 12 Nov 2026 10:25:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5BD6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4008B606A327;
+	Thu, 12 Nov 2026 10:25:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4008B606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=ihUoYa7v;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=H518bIu4
-ARC-Seal: i=1; a=rsa-sha256; t=1794479111; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=biyMaYFdU/J5OVUP2rEWr239Aj5Al9+I+EdoY0pg2kypyKFReTY/KBTKQ0ZhKIw1lS
-    5jZbdfqncxZuDmPELPczjrx0q+1JiBqkfCfJ15xBk8r4NkrNs+nbHTaZIbwvKsCsxbeW
-    JbpUBu0WIYIfH1L6XfkqjUFL4EQ/RzhLLj+wkfAnJhFZkvCO7X/lf681t92ExbHdH9Hd
-    yhzf14mkffSvFwn4BFDAtnIoeZj1oCy/JP7urDwR7xLEq6xBM3Dpag3ZrbmDPPbhhuXr
-    x4epeGBezztLxiVjJ19h+rwuHEzBeEky5N3a97J5CjHFH7fbaBfr/fPvCVZJEOyaRgIZ
-    KIvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794479111;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=0zYpYSMRsVntsBsFlDrFrATUIagdvLEMofpH6gktL0U=;
-    b=RCfpdf9XNJ94BfalP55cqT32NOzIstJu6BnzmRDDYmcM9GLEerl1pyKGKd05+f4zBV
-    IPLOujJsTEwufCisWbuuutGOmvpQpH4ZF86//46Lea4stUb+0UZ8IkvmgJusD5eEN4/B
-    7RftbYv3TipiW00QCq8c0CvHuyTtzwwVILXshSk1ATjcrXP15vrjRywW+K55ROGJmLG5
-    uatS8jFKpIYY3gN1fJFdHgo0pDtTeNvdECIfBiE57dxNGmCqktHIRzhtbL+FeR5NV5cG
-    6XNZzr1zo7vgPpPcajKnt3/wwjaPXiUuobBKfLAzHqTcAyzgO8M5o68R3B1/6OSjXSF3
-    /HAw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794479111;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=0zYpYSMRsVntsBsFlDrFrATUIagdvLEMofpH6gktL0U=;
-    b=ihUoYa7vNCDtX8fXJae8w8rV88ECl4SKrGvJUdDTPIYQYZAiUrI47ld6PTgC9zOjAH
-    gm9oNhmIOxVt0NLIDUdLZ2tSOmDaD7cCvsdUv+4XIOJL3obGSuzyf34AJQs8JIIVfKNf
-    LwpzMfEHiI/rp97HQhRNA+xVR9YnoVWlswXWjA5KTYvopt7C85csa5yVmRjAgSCiCQQa
-    RqHmVqcawvh8awzK9ZKdGN1PVzbOLJv37R5QSCafsKnW7Zs6RRRppB/1BmOxZlKz76Yx
-    9hQ/zaUlGta/TwmGkt44iaKfyzIajhCkViYVbS275w+1Sn2AhU++TLxUUZ27aI6QJLC9
-    NTTA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794479111;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=0zYpYSMRsVntsBsFlDrFrATUIagdvLEMofpH6gktL0U=;
-    b=H518bIu4BwFVb7wZMRJPtSWVSWr4YeVz9MmwEzx3Uujyn0PHk1oSDegKW54vb0U5Lx
-    tU7lsri7AMHawkW+PmAg==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV35pZz8iNKp1rK7chac7b5mVucO+Qp4KTQNe8"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22ACAPBBL9
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Thu, 12 Nov 2026 11:25:11 +0100 (CET)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eBKokC8Y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794479127; x=1826015127;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=2p/RyeiAyLTxYQvMmItUdpk9jwAXyRCO4NDKMIJUjzk=;
+  b=eBKokC8Yai7hobsEON8sanWVO8psRnczF7JGcyklkAP1K1GmSUI2M/7K
+   vVmiwvjCknbaNTDlBzslIlMg3Ry2VF14mfAv6B9UK7Ok5hPMyYPxQwwzB
+   5XgcIZvj+Yzrpb6ZFhKlVIGKIcdbI2mTwqSYsAlTnBzpOvLru1Yg7oNLW
+   DolVRFTbHos0pAI7PidiszdtE7EDUaOi+EaxdMA2PBEJpk5tzGQ7lNrYb
+   lUnZi5EM1T0cAyZ9nr9eDdL4TKDupzlAwaTeRanOdD+tT10sV7w63XTxc
+   0tEA/wMU3DigsZLVcT6UcUCM7hFeIb7pNqacNFcUVOS3xQSrfYtb+4NDD
+   w==;
+X-CSE-ConnectionGUID: mpA553NiTGGpOny7wAq2Sw==
+X-CSE-MsgGUID: ptpLpf7iRYuFoaCqXRVftA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3160834"
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="3160834"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 02:25:27 -0800
+X-CSE-ConnectionGUID: qCkVLhX8S0exzL3CKAvgRw==
+X-CSE-MsgGUID: SPIvEvuxSMyYa6gVmNCZFw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="10352881"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.68])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 02:25:22 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 12 Nov 2026 12:25:19 +0200 (EET)
+To: Hans Zhang <18255117159@163.com>
+cc: bhelgaas@google.com, mani@kernel.org, lpieralisi@kernel.org, 
+    kwilczynski@kernel.org, thierry.reding@kernel.org, ryder.lee@mediatek.com, 
+    jonathanh@nvidia.com, robh@kernel.org, linux-pci@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, linux-mediatek@lists.infradead.org, 
+    linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v3 1/5] PCI: Use pcie_get_link_speed() in pci.c
+In-Reply-To: <20261112022405.1230200-2-18255117159@163.com>
+Message-ID: <0c4e7529-c658-f841-8967-d32252e83dc5@linux.intel.com>
+References: <20261112022405.1230200-1-18255117159@163.com> <20261112022405.1230200-2-18255117159@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,62 +80,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
-Subject: Re: [PATCH] MIPS: ingenic: Work around stale L2 data after DMA on
- XBurst II
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20261111-mips-ingenic-l2-war-v1-1-0d9dec232a7a@gmail.com>
-Date: Thu, 12 Nov 2026 11:24:40 +0100
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Discussions about the Letux Kernel <letux-kernel@openphoenux.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <988F3625-C300-4C68-AC70-E371E5D9A496@goldelico.com>
-References: <20261111-mips-ingenic-l2-war-v1-1-0d9dec232a7a@gmail.com>
-To: Hunter Laux <hunterlaux@gmail.com>,
- Olivier Louvignes <olivier@mgcrea.io>,
- Paul Cercueil <paul@crapouillou.net>,
- Paul Boddie <paul@boddie.org.uk>
-X-Mailer: Apple Mail (2.3826.700.81.1.10)
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="8323328-844207116-1794479119=:1181"
 
-Hi Hunter,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-> Am 11.11.2026 um 21:47 schrieb Hunter Laux <hunterlaux@gmail.com>:
+--8323328-844207116-1794479119=:1181
+Content-Type: text/plain; charset=ISO-8859-15
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+
+On Thu, 12 Nov 2026, Hans Zhang wrote:
+
+> Replace the to_pcie_link_speed() wrapper with pcie_get_link_speed() in
+> pcie_link_bandwidth_mbps() and pcie_bandwidth_available(), and remove
+> the now-unused wrapper.  pcie_get_link_speed() performs the same lookup
+
+now unused
+
+I suppose Bjorn can take care of that while applying so no need to send=20
+another version because of this alone.
+
+Reviewed-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
+
+--=20
+ i.
+
+> with bounds checking and is already exported.
 >=20
-> No XBurst II SoC is in mainline yet; this came up on the X2600, whose
-> support I'm preparing.
-
-Well we are also preparing x2600 support...
-
-Maybe the individuals and teams working on the XBurst devices should =
-coordinate somehow
-to avoid double work and potentially incompatible fragments?
-
-E.g. by describing which hardware is available, which topics/code =
-patches are in the queue etc.
-
-Maybe for me:
-- LX16 board with X1600
-- LX20 board with X2000
-- LX26 board with X2600 (isn't running stable for unknown reasons and
-                        sometimes damages the =C2=B5SD contents but your
-                        patch didn't help to solve)
-
-In queue:
-- fixes to build a generic kernel that is differentiated to hardware by =
-different device tree binaries
-- full CGU support for x1600, x2000, x2600 including jz4730 and fixes =
-for jz4780
-- full dtsi for x1600, x2000, x2600, jz4730
-- TCU and OST fixes
-- x1600: USB/OTG/PHY
-- and more peripheral driver fixes for x2600: USB/OTG/PHY, sdhci, =
-irqchip, pinctrl
-
-Public kernel repository and (almost) latest code:
-- https://github.com/goldelico/letux-kernel/tree/letux-7.4-rc2
-
-BR and thanks,
-Nikolaus
-
+> Signed-off-by: Hans Zhang <18255117159@163.com>
+> ---
+>  drivers/pci/pci.c | 15 ++++++---------
+>  1 file changed, 6 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> index 7c6f2aba8144..594ee7aa4cad 100644
+> --- a/drivers/pci/pci.c
+> +++ b/drivers/pci/pci.c
+> @@ -6025,11 +6025,6 @@ int pcie_set_mps(struct pci_dev *dev, int mps)
+>  }
+>  EXPORT_SYMBOL(pcie_set_mps);
+> =20
+> -static enum pci_bus_speed to_pcie_link_speed(u16 lnksta)
+> -{
+> -=09return pcie_link_speed[FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta)];
+> -}
+> -
+>  /**
+>   * pcie_link_bandwidth_mbps - get the current bandwidth of a single PCIe=
+ link
+>   * @pdev: PCI device to query
+> @@ -6041,14 +6036,15 @@ static enum pci_bus_speed to_pcie_link_speed(u16 =
+lnksta)
+>   */
+>  int pcie_link_bandwidth_mbps(struct pci_dev *pdev)
+>  {
+> -=09u16 lnksta;
+> +=09u16 lnksta, lnksta_cls;
+>  =09int speed, err;
+> =20
+>  =09err =3D pcie_capability_read_word(pdev, PCI_EXP_LNKSTA, &lnksta);
+>  =09if (err)
+>  =09=09return pcibios_err_to_errno(err);
+> =20
+> -=09speed =3D pcie_dev_speed_mbps(to_pcie_link_speed(lnksta));
+> +=09lnksta_cls =3D FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta);
+> +=09speed =3D pcie_dev_speed_mbps(pcie_get_link_speed(lnksta_cls));
+>  =09if (speed < 0)
+>  =09=09return speed;
+> =20
+> @@ -6074,7 +6070,7 @@ u32 pcie_bandwidth_available(struct pci_dev *dev, s=
+truct pci_dev **limiting_dev,
+>  =09=09=09     enum pci_bus_speed *speed,
+>  =09=09=09     enum pcie_link_width *width)
+>  {
+> -=09u16 lnksta;
+> +=09u16 lnksta, lnksta_cls;
+>  =09enum pci_bus_speed next_speed;
+>  =09enum pcie_link_width next_width;
+>  =09u32 bw, next_bw;
+> @@ -6089,7 +6085,8 @@ u32 pcie_bandwidth_available(struct pci_dev *dev, s=
+truct pci_dev **limiting_dev,
+>  =09while (dev) {
+>  =09=09pcie_capability_read_word(dev, PCI_EXP_LNKSTA, &lnksta);
+> =20
+> -=09=09next_speed =3D to_pcie_link_speed(lnksta);
+> +=09=09lnksta_cls =3D FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta);
+> +=09=09next_speed =3D pcie_get_link_speed(lnksta_cls);
+>  =09=09next_width =3D FIELD_GET(PCI_EXP_LNKSTA_NLW, lnksta);
+> =20
+>  =09=09next_bw =3D next_width * PCIE_SPEED2MBS_ENC(next_speed);
+>=20
+--8323328-844207116-1794479119=:1181--
