@@ -1,63 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794449765;
-	b=YQlDackJQFcBsyIQJ0q3jWGb7v2jAXXexfh75Y5Knib7XJVvD2B7KePZRV7NYul9B5K/
-	 VDzeBW4mCwip2eK25YftovCqWjMlFKBl5MWMTNK83NmTF8LoqD2T1VbPsNqO/S6kpo5Zu
-	 Kc2WmwOhiyDbefMhoLNAkAL4iwS1oKzs/VglQNqDxUSVSCe1lFVZrDq6Q6KWTWGbRIHf9
-	 KZqlwo9N3DNzTI3c7Ura23ISyM3aP86gDnTLDamIWYuh5dtjjbeVXRv9iOWx94arnJsUj
-	 DV/H6dtSI12ssNkCoPdLT2Povckvv6WguN3WXILIHjn6FYKbe5e1HmGBl4w92wBIQbw==
+	t=1794449766;
+	b=dNfeNILpv3IGJnUOi1xSe78wX/a83B8ZBTSotwsMmfvDvaBykZ2xoal/R6XqeEItCS2Q
+	 DmAZlk+U5HfZp8vJk9aaaUHbog1Uvfo226TKI7/QYqfwkYQiyTqbDkQ0zYFJgMTtTk1WR
+	 FoQTOQq69f9YKhFppI4a3nCWWPq5r+UZFdmsphSpcvbXZ4ZgAn1F33kbC2RQdcgbFMK++
+	 yXi49b7tPG6vvHVQjKTu43hWSF17HEyoBwsaOcPMZ0V6jDmQ7aENGcaujd9u+HegTP0iK
+	 4ejybwvJKh9YpQ1c3clFuMX4owG4OkyLWuihVikq/eBERV0jcbSsOYHTNFgvmaut4BQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794449765;
-	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version:
-	 DKIM-Signature;
-	bh=qyrsc8FcIcO9n5vy1ztB9zISI0TN10UCyMD09N2OTP8=;
-	b=e+Q2A0s9FL7rtMEs4G5049M/HRIMK3reFAuNEewC2TMYx1nzEb6UQsxntBFaIcygthrt
-	 TnancaaHCretvSIb2R8KncaixbyAgaSb7RrySB/HAZafYAtmE5gPAVvqx+LsZBHIoXZ0t
-	 xmO1aKtCZfLgKgKz5f4/T430DemWesQG2fFyL4npWcw6iSnKYzPeeH2MZaY0B8tjh9bCR
-	 CenqmTjlm8RSc/Cx2tJwO46JdybJHmnpWtKGbEla9VPuHIKlgjv9YXZbYh5OPjHE7O7fa
-	 e1+2ithv5UbhsUh5x3Q86xRDRtPwXZ+iQN+HsnUj8ikzqwqpMWxtfU3XBQ+e3musTkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794449766;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=FwTv2GjEBlQR54GrEgezu3FqUMu0/uxeIqk78GyVHCk=;
+	b=btopgJN3GjnCfwuBzU07wy8j3pDMj3mMQ9LajkzpK79G1Iztxu4HfIWUjc8DqQ3iDiyq
+	 hA5WuXAk5b6Xd7gM8TF9+TwLbYhoWhJVBrAvKq3616zLyw+8VNb1GSj7nzhJJKhXK1vQL
+	 x/TeSg7EJ/9CRoR6UKYN/wkm0zJ7CFTHw9S3xJFbIWoprU6QrqZ0gTsWX2PyrzkLwCCkM
+	 56UbBN3+SgiqlxdU7pulo0kx+7t+nDdsf73fivI2Ies8Mr7hC7+JA6+KIdF2N/geGQN75
+	 JpAAoUkbby3awZMdt/qvPzol37pdoLyWGTKDtNwxNs6+nCOW+EYsSWKUa+ABBL1dOHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baidu.com;
-	spf=pass smtp.mailfrom=baidu.com;
-	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=ayoGq9rY;
-	arc=none smtp.remote-ip=180.76.5.236
-Received: from outbound.baidu.com (unknown [180.76.5.236])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id A1F94606A321;
-	Thu, 12 Nov 2026 02:16:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1F94606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TbsS8hG2;
+	arc=none smtp.remote-ip=91.218.175.42
+Received: from mta0.migadu.com (out-42.mta0.migadu.com [91.218.175.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7B6606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:16:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A7B6606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=ayoGq9rY
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.48
-From: "Li,Rongqing" <lirongqing@baidu.com>
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-CC: Viresh Kumar <viresh.kumar@linaro.org>, "linux-pm@vger.kernel.org"
-	<linux-pm@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "zhongqiu.han@oss.qualcomm.com"
-	<zhongqiu.han@oss.qualcomm.com>
-Subject: =?utf-8?B?562U5aSNOiBb5aSW6YOo6YKu5Lu2XSBSZTogW1BBVENIIHY1IDAvMl0gY3B1?=
- =?utf-8?B?ZnJlcTogYWNwaS1jcHVmcmVxOiBmaXggUC1zdGF0ZSBpbmRleCBtaXNtYXRj?=
- =?utf-8?Q?h_between_perf->states[]_and_freq=5Ftable[]?=
-Thread-Topic: =?utf-8?B?W+WklumDqOmCruS7tl0gUmU6IFtQQVRDSCB2NSAwLzJdIGNwdWZyZXE6IGFj?=
- =?utf-8?B?cGktY3B1ZnJlcTogZml4IFAtc3RhdGUgaW5kZXggbWlzbWF0Y2ggYmV0d2Vl?=
- =?utf-8?Q?n_perf->states[]_and_freq=5Ftable[]?=
-Thread-Index: AQHdbh5EiSuYkXz8G0u3sHHXQ74/gbcnOhmAgAKA9eA=
-Date: Thu, 12 Nov 2026 02:15:52 +0000
-Message-ID: <f2a529c1b4884478a0b4a8d2b470911c@baidu.com>
-References: <20261106184008.1728-1-lirongqing@baidu.com>
- <CAJZ5v0gHXCKvvHPXevx4U5WSVsS91Z3WuiMCwiYSQzQBEB5jNw@mail.gmail.com>
-In-Reply-To: <CAJZ5v0gHXCKvvHPXevx4U5WSVsS91Z3WuiMCwiYSQzQBEB5jNw@mail.gmail.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TbsS8hG2
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=QdTK9vDoJhaUIW/U2XIf5FYJQ9anojdg/JfxOCFPB4I=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794449763; v=1; x=1795054563;
+ b=TbsS8hG2H99euT9cfkFIu7YsULdZtjHsHuxSUFjw8Hba4NXZu0/Oeq3XY6uQpyx1OOqVd1DF
+ z7x4fvyzNZq/zZl6+T91em8H/T15Ux3brX+voPeNeCwq+sbApl3nH58ZfYLLQnQ4uKiDZnML1JQ
+ qApNnAS6yCS77VRM1mXrEV70=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8cb470a74291e90a;
+	Thu, 12 Nov 2026 02:16:03 +0000
+X-Mizu-Trace-ID: 8cb470a74291e90a
+X-Migadu-Flow: FLOW_OUT
+From: Hongfu Li <hongfu.li@linux.dev>
+Date: Thu, 12 Nov 2026 10:15:33 +0800
+Subject: [PATCH v3] mm/hugetlb: charge hugetlb cgroup and memcg in
+ alloc_hugetlb_folio_reserve()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,51 +60,169 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1794449755;
-	bh=qyrsc8FcIcO9n5vy1ztB9zISI0TN10UCyMD09N2OTP8=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
-	b=ayoGq9rYHAu5wTQHxSvAVBHoHyq/rupfBgyYX1mr34/feR+B+N+4vn2DjqQP3Doqs
-	 tlMrslZUyaFpurRechvmVcngNwkoa36OhvN6dDzxuzOsngEtZlhDcLsSvgkqSntQoY
-	 EVCkxzkcaOY7I+Amzl0fPGGBdfrCNZ3zRV01v6VRzsufv6zi66917UEtmAfDtaRCvB
-	 Ss3Vlh0U8pSpRnzCPZmICZQo1B7jS45qFQ8ogywKw5yxUT476xCedXGM3T7Jn7V8cD
-	 3cQ5Mdo8j/JAhg5gwhXRDRZthCcM8muPKIElM3YKyWVu+xFMq+YWylm58cm8oODWX5
-	 tnaoiUhYtD/Ag==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-for-alloc_hugetlb-1109-v3-1-7a144510a373@kylinos.cn>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNwQ6CMBBEf4Xs2Zq2AoIn/8MQA8sCq01rWiASw
+ r8L6NXjm8zMmyGQZwpwiWbwNHJgZ1c4HSLArrQtCa5XBi11qpTMReO8KI1xeO+GlnpTiT2WiCU
+ mGaV5rWAdvzw1/N6Pb8WXw1A9CPvtbWt0HHrnp9086q33kyj5TzJqoYROznmCFMdNJq/PybB14
+ YgWimVZPmoS6KLPAAAA
+X-Change-ID: 20261109-for-alloc_hugetlb-1109-0ccac58e69d1
+To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Hildenbrand <david@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Gerd Hoffmann <kraxel@redhat.com>, Dave Airlie <airlied@redhat.com>
+Cc: hongfu.li@linux.dev, Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Ackerley Tng <ackerleytng@google.com>, Gregory Price <gourry@gourry.net>, 
+ Daehyeon Ko <4ncienth@gmail.com>, Hongfu Li <lihongfu@kylinos.cn>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794449756; l=4820;
+ i=lihongfu@kylinos.cn; s=20260915; h=from:subject:message-id;
+ bh=pFMQxDRwAloKyD9un+uH5Do41KW7aYnWyhIKwB42GmM=;
+ b=/krm/uLaEvhDJqjULlNLgkdgLTXQAtC9oZ422Irx8PjuQC4YU55WHVduK3DsU3hy4K7MraGOi
+ h+Slav7AQIXDQvA+jQRTMv8UzitiRTOeRBPXBGpqA0hDZJWg0X+/dif
+X-Developer-Key: i=lihongfu@kylinos.cn; a=ed25519;
+ pk=rUpDSpB3neoNZRlGG6dHlFb3RepiJakcev+ucyqaZzw=
 
-PiA+IFBhdGNoIDEvMiBpcyB1bmNoYW5nZWQgZnJvbSB2NCBhbmQgZml4ZXMgdGhlIGNhY2hlZCBm
-cmVxdWVuY3kgdXNlZCBieQ0KPiA+IGdldF9jdXJfZnJlcV9vbl9jcHUoKSB0byBkZXRlY3QgYSBm
-aXJtd2FyZSBmcmVxdWVuY3kgY2hhbmdlIGJlaGluZCB0aGUNCj4gPiBPUydzIGJhY2suDQo+ID4N
-Cj4gPiBQYXRjaCAyLzIgaXMgbmV3IGluIHY1LiAgQXMgUmFmYWVsIHBvaW50ZWQgb3V0LCBTYXNo
-aWtvIG9ic2VydmVkIHRoYXQNCj4gPiB0aGUgZXh0cmFjdF9tc3IoKSBmYWxsYmFjayBpbnRlcmZl
-cmVzIHdpdGggMS8yIGFuZCBjYW4gcmVuZGVyIGl0DQo+ID4gaW5lZmZlY3RpdmU6IHdoZW4gdGhl
-IHN0YXR1cyByZWFkIGZyb20gdGhlIGhhcmR3YXJlIG1hdGNoZXMgbm8NCj4gPiBmcmVxX3RhYmxl
-IGVudHJ5LCBleHRyYWN0X21zcigpIHJldHVybnMgZnJlcV90YWJsZVswXS5mcmVxdWVuY3kNCj4g
-PiBpbnN0ZWFkIG9mIHJlcG9ydGluZyB0aGUgc3RhdHVzIGFzIHVua25vd24uICBJZiB0aGUgT1Mg
-aXMgYWxyZWFkeSBhdA0KPiA+IHRoZSBQLXN0YXRlIGNvcnJlc3BvbmRpbmcgdG8gZnJlcV90YWJs
-ZVswXSwgYSBmaXJtd2FyZSBzd2l0Y2ggdG8gYQ0KPiA+IGZpbHRlcmVkLW91dCBQLXN0YXRlIHRo
-ZW4gY29tcGFyZXMgZXF1YWwgdG8gdGhlIGNhY2hlZCBmcmVxdWVuY3ksDQo+ID4gZGF0YS0+cmVz
-dW1lIGlzIGxlZnQgY2xlYXIgYW5kIHRoZSBuZXh0IC0+dGFyZ2V0KCkgY2FsbCBkb2VzIG5vdA0K
-PiA+IHJld3JpdGUgdGhlIGNvbnRyb2wgcmVnaXN0ZXIuICBTbyAxLzIgYWxvbmUgZG9lcyBub3Qg
-bWFrZSB0aGUNCj4gPiBkZXRlY3Rpb24gd29yayBpbiB0aGF0IGNhc2UsIGFuZCB0aGUgdHdvIHBh
-dGNoZXMgYXJlIHBvc3RlZCB0b2dldGhlcg0KPiA+IHJhdGhlciB0aGFuIHNlcGFyYXRlbHkgYXMg
-SSBoYWQgc3VnZ2VzdGVkIGVhcmxpZXIuDQo+ID4NCj4gPiB2NDogaHR0cHM6Ly9sa21sLml1LmVk
-dS8yNjA5LjEvMDczNjkuaHRtbA0KPiA+DQo+ID4gQ2hhbmdlcyBzaW5jZSB2NDoNCj4gPiAgLSBE
-cm9wICJjcHVmcmVxOiBhY3BpLWNwdWZyZXE6IGZpeCBQLXN0YXRlIGluZGV4IG1pc21hdGNoIGlu
-DQo+ID4gICAgZXh0cmFjdF9pbygpIiwgd2hpY2ggaGFzIGJlZW4gYXBwbGllZC4gIFRoaXMgc2Vy
-aWVzIGlzIGJhc2VkIG9uIHRvcA0KPiA+ICAgIG9mIGl0Lg0KPiA+ICAtIEFkZCAyLzIgdG8gc3Rv
-cCBleHRyYWN0X21zcigpIGZyb20gbWFza2luZyBmaXJtd2FyZSBQLXN0YXRlIGNoYW5nZXMsDQo+
-ID4gICAgYXMgcmVwb3J0ZWQgYnkgU2FzaGlrbywgYW5kIG5vdGUgdGhlIGRlcGVuZGVuY3kgaW4g
-MS8yJ3MgY2hhbmdlbG9nLg0KPiANCj4gU28gU2FzaGlrbyBoYXMgZmVlZGJhY2sgb24gdGhpcyBv
-bmUgbm93Og0KPiANCj4gaHR0cHM6Ly9zYXNoaWtvLmRldi8jL21lc3NhZ2UvMjAyNjExMDYxODQw
-MDguMTcyOC0yLWxpcm9uZ3FpbmclNDBiYWlkdS4NCj4gY29tDQoNClRoaXMgZmVlZGJhY2sgaXMg
-cmVhc29uYWJsZSwgSSB3aWxsIHNlbmQgbmV3IHZlcnNpb24NCg0KdGhhbmtzDQoNCltMaSxSb25n
-cWluZ10gDQoNCg0KPiANCj4gPiAgLSAxLzI6IG5vIGZ1bmN0aW9uYWwgY2hhbmdlOyBjaGFuZ2Vs
-b2cgZXh0ZW5kZWQgdG8gc2F5IHRoYXQgaXQgZml4ZXMNCj4gPiAgICBvbmx5IHRoZSBjYWNoZWQg
-c2lkZSBvZiB0aGUgY29tcGFyaXNvbiwgYW5kIGEgZHVwbGljYXRlDQo+ID4gICAgU2lnbmVkLW9m
-Zi1ieSB3YXMgcmVtb3ZlZC4NCj4gPg0KPiA+IExpIFJvbmdRaW5nICgyKToNCj4gPiAgIGNwdWZy
-ZXE6IGFjcGktY3B1ZnJlcTogZml4IFAtc3RhdGUgaW5kZXggbWlzbWF0Y2ggaW4NCj4gPiAgICAg
-Z2V0X2N1cl9mcmVxX29uX2NwdSgpDQo+ID4gICBjcHVmcmVxOiBhY3BpLWNwdWZyZXE6IGRvbid0
-IG1hc2sgZmlybXdhcmUgUC1zdGF0ZSBjaGFuZ2VzDQo+ID4NCj4gPiAgZHJpdmVycy9jcHVmcmVx
-L2FjcGktY3B1ZnJlcS5jIHwgMTEgKysrKysrKystLS0NCj4gPiAgMSBmaWxlIGNoYW5nZWQsIDgg
-aW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkNCj4gPg0KPiA+IC0tDQo+ID4gMi45LjQNCj4g
-Pg0K
+From: Hongfu Li <lihongfu@kylinos.cn>
+
+alloc_hugetlb_folio_reserve() hands out a folio from the hugetlb pool and
+consumes a global reservation, but unlike the fault path it never charged
+the folio to the hugetlb cgroup or to the memcg.  Folios allocated for
+memfd_pin_folios() through memfd_alloc_folio() were therefore silently
+bypassing the accounting: they are never charged to the hugetlb cgroup
+usage counter (hugetlb.<size>.current or hugetlb.<size>.usage_in_bytes),
+so the limits (hugetlb.<size>.max or hugetlb.<size>.limit_in_bytes) are
+bypassed.  In cgroup v2, with memory_hugetlb_accounting enabled, these
+folios are also not accounted in memory.current and are not bounded by
+memory.max.
+
+Charge the folios to both the hugetlb cgroup and the memcg, just like
+hugetlb_alloc_folio() does.
+
+Test with a process that creates a hugetlb memfd and pins pages through
+UDMABUF_CREATE. The counters were read while the folio was still pinned:
+
+Before this patch:
+$ echo $$ > /sys/fs/cgroup/test/cgroup.procs
+$ ./memfd-alloc-folio 1 &
+$ cat /sys/fs/cgroup/test/hugetlb.2MB.current
+0
+$ cat /sys/fs/cgroup/test/memory.current
+1351680
+$
+
+After this patch:
+$ echo $$ > /sys/fs/cgroup/test/cgroup.procs
+$ ./memfd-alloc-folio 1 &
+$ cat /sys/fs/cgroup/test/hugetlb.2MB.current
+2097152
+$ cat /sys/fs/cgroup/test/memory.current
+3313664
+$
+
+memfd_pin_folios() can now fail because the memcg charge fails. Two
+tasks allocating concurrently against the same memory.max may see a
+spurious failure. That failure frees the folio, returns the global
+reservation, and undoes the hugetlb cgroup charge, so no accounting is
+left behind.
+
+Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+---
+Changes in v3:
+- Updated the commit message to describe the new -ENOMEM condition on
+  memfd_pin_folios() when the memcg charge fails, as suggested by
+  Gregory Price.
+- Added Gregory Price's Reviewed-by and Tested-by tags.
+
+Changes in v2:
+- Rebased on a tree that includes Daehyeon's "mm/hugetlb_cgroup: prevent
+  use-after-free during cgroup offlining", as suggested by Andrew Morton.
+  No functional change.
+- Since 268d64fabbf1 ("mm/hugetlb: fix NR_HUGETLB accounting for surplus
+  folios") reworked the NR_HUGETLB accounting, use mod_hugetlb_memcg_state()
+  instead of lruvec_stat_mod_folio(), called after a successful memcg
+  charge.
+- Return early once a folio has been dequeued, instead of falling
+  through to a shared return.
+- Corrected the Fixes tag to 89c1905d9c14.
+- Updated the commit message to qualify the memory.max claim: only in
+  cgroup v2 with memory_hugetlb_accounting enabled.
+---
+ mm/hugetlb.c | 33 ++++++++++++++++++++++++++++++---
+ 1 file changed, 30 insertions(+), 3 deletions(-)
+
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index da1c17f14a62..256bb2095b59 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -2223,12 +2223,19 @@ struct folio *alloc_buddy_hugetlb_folio(struct hstate *h,
+ struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
+ 		nodemask_t *nmask, gfp_t gfp_mask)
+ {
++	struct hugetlb_cgroup *h_cg = NULL;
++	size_t nr_pages = pages_per_huge_page(h);
+ 	struct folio *folio;
++	int idx = hstate_index(h);
++	int ret;
++
++	if (hugetlb_cgroup_charge_cgroup(idx, nr_pages, &h_cg))
++		return NULL;
+ 
+ 	spin_lock_irq(&hugetlb_lock);
+ 	if (!h->resv_huge_pages) {
+ 		spin_unlock_irq(&hugetlb_lock);
+-		return NULL;
++		goto err_uncharge_hugetlb_cgroup;
+ 	}
+ 
+ 	folio = dequeue_hugetlb_folio_nodemask(h, gfp_mask, preferred_nid,
+@@ -2236,11 +2243,31 @@ struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
+ 	if (folio) {
+ 		folio_set_hugetlb_restore_reserve(folio);
+ 		h->resv_huge_pages--;
+-	}
++		hugetlb_cgroup_commit_charge(idx, nr_pages, h_cg, folio);
+ 
++		spin_unlock_irq(&hugetlb_lock);
++
++		ret = mem_cgroup_charge_hugetlb(folio, current->mm,
++						gfp_mask | __GFP_RETRY_MAYFAIL);
++		if (ret == -ENOMEM) {
++			folio_put(folio);
++			/*
++			 * Skip uncharging hugetlb_cgroup since the charges
++			 * were committed to the folio and freeing the folio
++			 * would have cleared those up.
++			 */
++			return NULL;
++		}
++
++		mod_hugetlb_memcg_state(folio, nr_pages);
++
++		return folio;
++	}
+ 	spin_unlock_irq(&hugetlb_lock);
+ 
+-	return folio;
++err_uncharge_hugetlb_cgroup:
++	hugetlb_cgroup_uncharge_cgroup(idx, nr_pages, h_cg);
++	return NULL;
+ }
+ 
+ /* folio migration callback function */
+
+---
+base-commit: 2c5dafa7f289d760f4492260b0988029aab478b0
+change-id: 20261109-for-alloc_hugetlb-1109-0ccac58e69d1
+
+Best regards,
+--  
+Hongfu Li <lihongfu@kylinos.cn>
+
