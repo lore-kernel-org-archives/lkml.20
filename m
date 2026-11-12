@@ -1,100 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.85.9.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794496677;
-	b=5BmC5B4dMGs7JTnoab+Ar42VsWaqNQLw2oyUs+/DDvRTRzqRlC25ESh2Tx4mik8tnCW/
-	 yIDEdOAm38TraI4VIlrxtoQm5UIG1QAfgN582HAgiJjZsEA4UREwzzx8JMD7IHb5thTAV
-	 wZibjGReZxkINqVIuhwa0UsEt+v1OA+3YNUz88XcaYB7NuRgUreS7Q60Goe/QIObkZ+Wn
-	 3BTvfr7Uo7KAwHhiBxb3Y/fU/DE8FlLAjem+lyeDkf7s7gSPSM3c5DebCXGH5BT/qdoUy
-	 SBSssbgKlBjqdC7eTSgRWiK62cOasQ50jm/fjjyNGKom1VL+eoqSJu9WHuHynzcFpEg==
+	t=1794496696;
+	b=FuBVw00CpymvV0jS7/EYavsH/9fnfn5uF1j53CoKBL9L7QJTB+ucLC00C7eK9ZTtaItV
+	 Q8SwBwczY4AKt8//Ny3hLRwDwmA846dki1If+h6XxlZQt68XRUQCJp8TbFW0jOA5xmLfj
+	 EGPKu2XneI+tHah9r8MRAW/r2tcxjFqaEudKRIAsRNNxmqJsj7Fcn14dbxw5Y+usPYQFr
+	 buuRtddgEb9hXaLXQdw6uSALuJT9eokFtzYv1mIoPi5NqwcAM1rNVjATjViycdyF+DPYL
+	 DbSCCthfonIh5M+MCinyGqRziCBapPaChNVADfkKUVI+E4+az/VhPbEKx1/2m2rvVCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794496677;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=HcfmMvR1qzdPr89sAfJlOhAVra0ryuXlnn4zleNOQ/A=;
-	b=1rZ4KI3xLMG2yjAXukXvMmyXMVZnv6EEh2jApuFhSIq6lJuyTfmMnJdSKtl1AV8C9u+1
-	 sq0cy3t6uDwY4xvmASriwEwMRPOCBa/oYzZyaDBaV28siyrhdADtZZOatsiI6q6pH3g2g
-	 MxFNp0iT2sJxySkhwrMfrq/IIBo3KV3P9by49eC0hNj1F7zy8vMFMpumA1ktbKE/pmx/L
-	 q+ifdd2PdO5XLLOjfe2RHRmvTEO0WrwX5+rkSI0Cz7TbFrvToNIg0Ks5Ry4CCCn1shN3E
-	 ysANQR2EoQY9BZ7hqUuOY3/LWphx9+JK7K8ATtXo00APnUTi3t/7rtoX4XVogJ5yTpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794496696;
+	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version;
+	bh=r+yQthmGpU4dLS0axjn4IZvfIRlCVOqVLewaA/Ebjsk=;
+	b=HOwKldXGBVmhE1JDFgmHZA4zHtREBlUzsWIE0+7OA9huUmchBOwXAISKe+52QRb/Wom6
+	 ijMF6mp3PzA9q/aI7f5bIpJoofrj5O/4kD0g6WHdkSNY2gtpzmug/B2nfela145w/dwn5
+	 mnOPlf/HWo/sl7abC65XWqV8fdmUTTRDlvhyOZStS3lZlacndVlwk9dmw5BBTh2pmIfMf
+	 Cl52nGAJEjNGwVyI/egfArLNV6jsrbxkVVGzzFoTqvRw775HW6JrSOP9hrfcf3cOof8hu
+	 IwSZD7BXLHDwwUbwYbm8flSSDP8hYIFXV92v/+K9Zq425dtN7xSZXPmCpXLBlITkvKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mptqeHQp;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=irl.hu;
+	spf=pass smtp.mailfrom=irl.hu;
+	arc=none smtp.remote-ip=95.85.9.111
+Received: from irl.hu (irl.hu [95.85.9.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC5F60A2607;
-	Thu, 12 Nov 2026 15:17:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFC5F60A2607
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mptqeHQp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794496676; x=1826032676;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=l/sGAcCwfQqpuM7I0t6QaN2LlZZJmg+0QyYbf8b7HSU=;
-  b=mptqeHQpJSZTOSP4M25z/P/ctZ66IGcbwPp33hzoSvUF7iRlP63B0wOv
-   50vrYEJ0wW1jAdwMWwQr/ahWAPQqWUvbzi+AmSGldACwuKN/wfP+VuXbl
-   SsDmecnc4VWzFzUtwtFpSue/ErUVgfm/mS7iefxxdYTBkxJl4Ys4Aja4u
-   +wUtaGHoYr6AlxZsc2SSqb2N3raJFwoMGVEaOQ4TxOJqrNHi+ugWaCOGO
-   5xh00qRrq8fvAQVDlghzQVT3nfUhw+Xf47LEDEHHw7tWOBocmZSW3g3db
-   3546b5rSute+DjnMr+aJYZJ4KqGPb0GYRCd1P88ktaDM+yEBs7/dDyM5v
-   w==;
-X-CSE-ConnectionGUID: FfhNQK9eT2CcCrZgau8tLw==
-X-CSE-MsgGUID: 3I+HOVLeQI2cZ3qJqhqMSA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3149356"
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="3149356"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 07:17:55 -0800
-X-CSE-ConnectionGUID: wfIkWaJLRrmvIrOEp8se0Q==
-X-CSE-MsgGUID: /2i6zEKlS2WGLvvpV+ybAA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="8853135"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.6])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 07:17:49 -0800
-Date: Thu, 12 Nov 2026 17:17:46 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Alejandro Colomar <alx@kernel.org>
-Cc: linux-hardening@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Andreas Schwab <schwab@linux-m68k.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Daniel Scally <djrscally@gmail.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Len Brown <lenb@kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v4 0/6] Add strprefix() and fix a bug with it
-Message-ID: <avXYmk5sZKS0rm92@ashevche-desk.local>
-References: <cover.1794425425.git.alx@kernel.org>
- <avTIWshl9klX0obF@devuan>
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id BDD3B60A262E;
+	Thu, 12 Nov 2026 15:18:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDD3B60A262E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irl.hu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=irl.hu
+Received: from [192.168.2.4] (51b6855e.dsl.pool.telekom.hu [::ffff:81.182.133.94])
+  (AUTH: CRAM-MD5 soyer@irl.hu, SSL: TLS1.3,256bits,ECDHE_RSA_AES_256_GCM_SHA384)
+  by irl.hu with ESMTPSA
+  id 00000000000C60CB.000000006AF5D8B5.00004720; Thu, 12 Nov 2026 16:18:13 +0100
+Message-ID: <0c5d5163d292c238a27a77eda2690d8cec025b77.camel@irl.hu>
+Subject: Re: [PATCH] ALSA: hda/tas2781: Only accept CRC-less V1 data if all
+ entries are valid
+From: Gergo Koteles <soyer@irl.hu>
+To: Mohamed Yassine JEBABLI <med.jebabli@gmail.com>
+Cc: regressions@lists.linux.dev,
+  Cristian Castellano <cristian.castellano@icloud.com>,
+  stable@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+  Jaroslav Kysela <perex@perex.cz>, linux-sound@vger.kernel.org,
+  linux-kernel@vger.kernel.org,
+  Thorsten Leemhuis <regressions@leemhuis.info>,
+  Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+  Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>
+Date: Thu, 12 Nov 2026 16:18:03 +0100
+In-Reply-To: <CAN6p6iiFz-JXOt9iFUPa3x4Aqu2c96=ERf0AMZ6pPVWspd=jLw@mail.gmail.com>
+References: <20261103-tas2781-v1-nocrc-fix-v1-1-a769c27f21ce@gmail.com>
+	 <7cd4c010f13ee085e3aa4396705b6b06ed58f7e1.camel@irl.hu>
+	 <504167422048bb8197a1ca3fac079cec9dea1ae7.camel@irl.hu>
+	 <CAN6p6iiFz-JXOt9iFUPa3x4Aqu2c96=ERf0AMZ6pPVWspd=jLw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,51 +65,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <avTIWshl9klX0obF@devuan>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Nov 11, 2026 at 08:57:30PM +0100, Alejandro Colomar wrote:
+Hi Mohamed,
 
-...
+On Thu, 2026-11-12 at 16:09 +0100, Mohamed Yassine JEBABLI wrote:
+> Hi Gergo,
+>=20
+> Regarding the Q27/Q31/Q58 formats: they are not from any documentation; I
+> inferred them from the data. Reading the first word of each entry as Q27
+> gives a plausible speaker resistance (3.82 ohm on my Legion Pro 7, 3.64 o=
+hm
+> on Cristian's Yoga Pro 9), and reading the second word as Q31 gives exact=
+ly
+> its reciprocal, within 1e-4, on both machines. So, for a consistent entry=
+,
+> R0 =C3=97 InvR0 ~=3D 2^27 =C3=97 2^31 =3D 2^58.
+>=20
+> The V2 dump from the ASUS ROG Xbox Ally X thread (with a valid CRC) fits
+> the same pattern: r0 =3D 0x3c5f7222 (~7.55 ohm in Q27) and invr0 =3D 0x10=
+f615d5
+> (~0.1325 in Q31, i.e. 1/7.55).
+>=20
+> My guess is Q5.27 and Q1.31, but I have no TI reference to confirm it.
+>=20
+> Finally, all testing was done on my own hardware: the original patch was
+> tested on my Legion Pro 7 16IRX9H, and I reviewed and own the changes.
+>=20
 
-> > Testing
-> > ~~~~~~~
-> > 
-> > I haven't changed the implementation of the function meaningfully, so
-> > haven't re-run tests.  Since the changes since v2 are only about type
-> > safety and diagnostics, I have built again with 'allmodconfig', just to
-> > make sure it still compiles.
-> 
-> Ouch!  It seems I had built before adding WARN_ON_ONCE(), not after.
-> I just saw a compiler error in a background terminal after hitting send.
-> 
-> 	$ make 
-> 	  DESCEND objtool
-> 	  CC      arch/x86/purgatory/sha256.o
-> 	In file included from ./include/crypto/sha2.h:10,
-> 			 from lib/crypto/sha256.c:13:
-> 	./include/linux/string.h: In function ‘str_has_prefix’:
-> 	./include/linux/string.h:619:9: error: implicit declaration of function ‘WARN_ON_ONCE’ [-Wimplicit-function-declaration]
-> 	  619 |         WARN_ON_ONCE(len == 0);
-> 	      |         ^~~~~~~~~~~~
-> 	make[4]: *** [arch/x86/purgatory/Makefile:12: arch/x86/purgatory/sha256.o] Error 1
-> 	make[3]: *** [scripts/Makefile.build:572: arch/x86/purgatory] Error 2
-> 	make[2]: *** [scripts/Makefile.build:572: arch/x86] Error 2
-> 	make[1]: *** [/srv/alx/src/linux/linux/master/Makefile:2244: .] Error 2
-> 	make: *** [Makefile:248: __sub-make] Error 2
-> 
-> Will fix that for v5, and fully test again.
+Ah okey, these are TI fixed point formats.
 
-Are you sure that it's okay to use asm/bug.h APIs in string.h?
-The include/linux/string.h along with the backed C implementations is really
-special in the kernel. Hint: check which stages of kernel boot use it.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Thanks,
+Gergo
