@@ -1,88 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794490440;
-	b=jHal00uPQLMkyHL4A9z6+GmYbDkbvSkZ4mlYx3xui80RU8I8SZr6CwFM2ze76yk2p9W1
-	 M72L+C988Aug7RlEZw30IRrYVkM8CXNb76+K4nn0x49K5qY1601UvGax1yH2pzmc0wSa4
-	 eqZ3mmg81quWSNtXvKMKblYMkAtQwHuYhPzG0Eb3wzyzRi+4LQusxeDHVZqKyv6jriBWz
-	 U6HMFoITRoepMPA6yxSpxEtqb8XI+BfEYGLA6XVOoUkJ7sH+7ViZF+9e79x18e4z2uSBG
-	 L6RUlLUC9REZ8946OUm4kBbe61ywK0QUd7hMP9TfquJgh6dF1S/zrZ4PgdQG9KWWOpg==
+	t=1794490462;
+	b=Qxn+tiE08AHMT8Ty4pxguwyJeJGGugcDw6emnkNxIajtRN6WUWfRQPmsspA3NA91fpk1
+	 nXIF07gcWXPwUHzbq6pNOJ8luE4Z8BebYcCsQd9cDcYM0fLLopf5orUYLeqTBVDJ9nbZO
+	 UYT5JP84WBDdkdz7lak8BQlqVXOKLlR8ENh9m6wogHiiNJlfpneTAnNTLGOhhBf9uxKF+
+	 y9mlvXehApv/P2TF61txW/sBY89E+zohSFTI+fxlbZ5FtCF0zdM1Rf44G1VO0fZ70TN1T
+	 FQB4yf6rGYSXgxjsR8aQpk9TPpFbxeOADAJbw710bNTdQTr1X7TGEDv5QAhigUZqUfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794490440;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=FwL/KWXkezDHAFArKAWV6uoJFctTAPwUR8TBzgDQZkM=;
-	b=lXhZvTkBGDrBlYv5bwnD0qP6utDYXw1wlGQR9LfckZmY6oZzh70IsAb3QMvo5gv65v+l
-	 Wa+lwwn/fZ6VXq5DYlWqdrldeoI9JSM57kWOKbzmjNg7SLBBdFyJ7slNxQAM084m+SQq1
-	 7Pj1Vu11pYcUGXbba8GyV2Xj0cGOZrsE6mQ/+NSeclftaJsPN+22idsOCtSI8/OrSRPCJ
-	 JDXKVbroWZJbGhEPNg143k1GWvbvUmjwIA2sZtcKUqtOb7d1kgQvgjsArHD3b8ZenJZ8J
-	 6i+sv0bLC9qRJTmKWIk7Iu3hckGPayzAGo5xnC+y+35NBkKc75KDdNHiiNZd6CVgPgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794490462;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=MS0b8nEt88g1wfp0LivrvP9tCkFoNKaIyooh0vFsgK4=;
+	b=nZYUELNLVw0/yj1r7TTLJjOdt1yyFBj1CsVSkllbdYTzosTcGX9YD8G1mDsV4xkXnOFh
+	 RH/VsD2X1VQzW/0iRDZzQmx3Vtq/QLjjAiZsTxIrVO7v6TLFRXVJ9NveZ4DhY+SUrpFV0
+	 Z65u8POf5abyXbB/nyYBmiL+uyPTj9gVsQyFBp9KYo+2ZZXzgb5im+oFc0/zpFlPdPvUx
+	 la1wzZtIPDM30Znz+eldCpnfxXftWDZ5uXEB83AOjbiK23FtBENWDz4NQLtGRU9Vj6wo/
+	 zSI0f+OWOFQ+o9HVZgvhnu+QgI1Z0hjHTMW8xVZsnKD+Bbq47VFh3xQ7jBzsPBK02hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="mXJNNx/2";
-	arc=none smtp.remote-ip=74.125.228.139
-Received: from mail-ej2-f11.google.com (mail-ej2-f11.google.com [74.125.228.139])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hHsGRD7C;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=I5jfqXnb;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C6E606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:33:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28C6E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44AB0606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:34:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44AB0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mXJNNx/2
-Received: by mail-ej2-f11.google.com with SMTP id a640c23a62f3a-c504c069dcaso214426266b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:33:58 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hHsGRD7C;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=I5jfqXnb
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC90v692514210
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:34:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	MS0b8nEt88g1wfp0LivrvP9tCkFoNKaIyooh0vFsgK4=; b=hHsGRD7CIheVre2s
+	LWP8gjwXgsLt5YhSb8KdPblO0CHJxMoTwEJlliXeohBUyt9bGYvN5fGTChs5iPiS
+	6azkvQnMhe7LRyYNcqCZmOhbrLctwwy8iaqRXher5tl5L3Sp4z7bOY4+ar1fBG89
+	C3sz4TXbCcUpd4Rnv88Nlc9boMpjcLGZ33AJbW5oYafE0HD2Z2ojpNlFJKQCLXyJ
+	MSRib5HXQa7yqSUWkuGy6kyEYnTX9Fg5BE1sAtHEU9KwaWLPba1IM8pUvNJt/SBP
+	m5f0x0MZD2RAp5ztCgoj+cN2tcxAA1YwbYVnrw9HmcE4ojEfJh6RHXJwdui7UsBF
+	Xjg4kA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvwm1urt3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:34:21 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-947a607ec40so303860485a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:34:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794490437; x=1795095237; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FwL/KWXkezDHAFArKAWV6uoJFctTAPwUR8TBzgDQZkM=;
-        b=mXJNNx/2D9bvkGxbL6UWwG/avIeDGrhci2v0aMLsxA7DT/5Yz4ftOHqj59EKRfh4Zz
-         d07QlHaS+8sKpB3jabucAJ5AqTKh/l0io+O8RDSnOThAXqYvo6lhIjVf6MuYqgq0LcUf
-         Gfuhs3ZIyBVcb3hrtL9AK4ezUgGPq7m3550CFYJg5te+Am2IfAMWUThiRfIXcnq/bC2n
-         V1xOD6v21IgJzmUi85ke8xToh16MDap6S+Uvy9RRpT6Q+utqLJC7h5Cel+B1dU+dqUAv
-         cWC0li+6766Zs6EcZ0ua6EFtmxEYjkt56zyRXuRos7dCTE6oRa/ZQ29MERH9mwQd1qeN
-         4tzw==
+        d=oss.qualcomm.com; s=google; t=1794490460; x=1795095260; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MS0b8nEt88g1wfp0LivrvP9tCkFoNKaIyooh0vFsgK4=;
+        b=I5jfqXnbAu+K5yIZKbvly4xkMmcd+toykRbvoCSRapj5x7z51HZTGvchLU7DY5JlYn
+         GO027vlJ2p/OF99J42MLzJjegyOw51yxnm5hlK60NZ5/ROyoJ5shI23iM5QI3oxYzm34
+         CBBlNQxGVu+vzj+oHHpemo68g65fIjyV/mfi0/tQVc/KAjN3yBeAWyl8fiQDFIa3iCz2
+         pa23+/oy9mxsUk2UrKhJ9ewCwz64MuGmWxKkak6DdjoxWsa4POTORGJ6XQg/vSsx36L9
+         AFtXhBkse29ziyqrk1Ps9KVBDP1EnJ4Aa59GG1T1l8C92qRNGfP9Qcl3DN89zpYm+F31
+         BfSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794490437; x=1795095237;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794490460; x=1795095260;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FwL/KWXkezDHAFArKAWV6uoJFctTAPwUR8TBzgDQZkM=;
-        b=0Ymb325PNO9m/wZx8mu9G5j7Z6OSag1HiOPLtrNhG64G1YVwIGZRFxeqyJfU60WgLW
-         xupodIouaN1eiwlZz6HNInbnZRuQuEENs8/45eTZ5o08ilH6O+FixAtaKqih+YsveNnd
-         Yca5aTueXQXPMUDt4qWyRPT4wYZG1MF7D023cZpDbLk/vEBsyzTlaTXi7JopBWdhlCGb
-         yWo5Tvr7LSJPeKuE966PXIYK/2VT1IGiZwUZOWmjnHMtb/BvHNlKS6nzdjwqnwuzWeKC
-         62eNyNdNG7X04mkTY9pVnxl4VEbwsed7wMoDK4QCKE5YYzN4Iho1bMOEqfY/abJ9A0tW
-         MZtQ==
-X-Forwarded-Encrypted: i=1; AL+hErHPpBgkYhvNDDC+EtlboZpwnwvbQQ2hMSZqWO7z8TP10CRnUapDZoXb1ipB+MG/cRLzqrTggCdVPgXfFvo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9SxKjMcSEv/ic3UbJssFaRlRGUYgiDaPAtO0KECMYvVQWEWa+J
-	eOYWPh/h7fNF0/xV5g4wIiHtyFj1n/01WSGB0skP21LP1rPVDSh1wxuL
-X-Gm-Gg: AYBFou23gbaJmF7Gc2GSibCp6Rl1fwUJ2k2/CmtP742gcVpbhDe3uVHp7NISBORV8+w
-	jOlspkctek+AERo9UmuxkhVaWKnIYmXdj9Al8+DZgCdeqRaGG6lOViww3qACYI1mieWf7DfwOkS
-	tpurIlprIYaNKDFbtBpFC+fQ8LnK0jiZftO/FWE9xd0imWWUdXTVC5aPlwaZXsoXF6x3IVr5p5q
-	XT7PBlMhhBJbcCdmbS1zuwjwflMV/ahdfejvk6ReiDvxoS6M2MPjI5Q90N9NQzmNQhvxYD3Ej8n
-	6vxHeaaoK+MkztO6MF8A0zlx03naJHbQOIp32KnCsyWvhq+vhljqntQjqrb6S5k+mmOEew1NOi8
-	8kOX8jPmYsTE5ycXrVAZpRFAj3Hyc8fg+tORD/TODTVLAdAB2EJQcLy0WtdnfYlhLMSD4rtXncF
-	0xn+MI1tnsenZ+TWIsXDdbo2fvcJIYjKL5VANQ0IzeE/9X/McOsCapyFsyAcWeO9Mpt6gs7zGAr
-	esiU4qZLHlpJz04uN5A9RqUJsj4iynFyo4tICCmz7tJPmFQW4UkUTp5WAHdSO6A+iVZFwcgFYpb
-	BSLjwG3P10h4EFGwxRiA07GQyb487lQxSkvlgQ==
-X-Received: by 2002:a17:907:868a:b0:c3e:34fa:611d with SMTP id a640c23a62f3a-c5066b51879mr464464066b.35.1794490437222;
-        Thu, 12 Nov 2026 05:33:57 -0800 (PST)
-Received: from [192.168.100.182] ([45.249.9.114])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a3a6947sm353760066b.10.2026.11.12.05.33.53
+        bh=MS0b8nEt88g1wfp0LivrvP9tCkFoNKaIyooh0vFsgK4=;
+        b=0Ki8wE1PuwFU72VzuFnS1MaCX89vSiz1VOamaeDm37JsXZc1d1U89TUBwYN1AMfXCx
+         doAiBeertn5ChKXkidT1GJybwqt4KJvZtbe21xGVyebyFf6yUXp01PblHrMaJ9gHpPTa
+         UKhB/UQxRslal3+08E2c5+Pjj9AwDGNnsNuJ+N9xJjfKh0VjDRgKLcCPdHLFSf7WBlzL
+         dmSY9Tj1To05UrzXF6eIQq/OfmuhbKbHY8S+cNxx8jL5wo9XFL95J2XzVpqqJ1dPlbnw
+         1OsOvEOda82VHtaPrvvBBth+2cnv0tYx8zFPl+JoxN0WqdPbaO2ggyWFAZI4ujIqTRtP
+         1PkQ==
+X-Forwarded-Encrypted: i=1; AL+hErFIIax/SjcWudDSrhvte5+/M1jU3AoNuBMDEjDf54Kj+PkTvp9wLpI8yhfeQO6Egw2Nzsfi6teQrjJYo5U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/OCbND7BafvrSmJjAxOiiTMMZ/ylkOHXd7V8XJIFF69ovLOpDp
+	lJ8r5VExMqXdYL/wwVDYDHbicRQ/eWsO/fPX3nX/PsrfmineuTpfPSd15/bhPF6SAX/kfuC6O8E
+	jznmh1NIVXS5MRTDDiedPBLUuQuxVjbwx0rW+4zcmzq2xf5L8+9Azneo8AoZ/6Px3wVs=
+X-Gm-Gg: AYBFou1dgSFhx+PrMyNq1CHA2GeQQzpeD3IuRl85wEszvsBK+9AaTYw/HPPK9+f0PP1
+	jbhzCJHEQM3KAVLGYKjwCBOcxfEd1RJIhIfev5BuHopHmiFDSCbOQjpzcoSNrxePfEvdrNGRZfL
+	7EYGMrtig+t/xV3Y9X2zzugCTuR5gWh3QNRIywevzJtnXPPa924dlkpzuIM4BA56WTOltBMfFfM
+	d4QJVVu6VXdAT8Qz/kG4xp/IgfY+ccyAong6haNf8SCL/K88Gp7YiTAXcI0OzexluO8pIcBKBPB
+	xb1W8JiLe9hig4cf16tL9japgras+xxsyeH6JDn4qFxdYade07+6gzoHgh9ufEwKNCEzDUz/WjB
+	jI8hi3OPW8B/rU1R8hKd8Ad6HTF3SGAecNjxkqgJ6r77IAaShE+uxE6TKl4f0gKbMiZio2I3zYh
+	ixjSCSW13ubQ6wha1kiUEGwL4mZZBuayCSSJKQh2sGwDuvBIEAvFFcvA+VAnJnxCJzg5hwDl/Yw
+	VwtBaumW3jAclBGs44/vsr63/hE4WlnXaPGEefLnnXy
+X-Received: by 2002:a05:620a:a01b:b0:948:d833:1bee with SMTP id af79cd13be357-948d83321camr607632485a.3.1794490460257;
+        Thu, 12 Nov 2026 05:34:20 -0800 (PST)
+X-Received: by 2002:a05:620a:a01b:b0:948:d833:1bee with SMTP id af79cd13be357-948d83321camr607626985a.3.1794490459701;
+        Thu, 12 Nov 2026 05:34:19 -0800 (PST)
+Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec? (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a67ab93sm341707766b.77.2026.11.12.05.34.18
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 05:33:56 -0800 (PST)
-Message-ID: <e11f1ba6-6e56-4bac-a0cb-f9258a53f34e@gmail.com>
-Date: Thu, 12 Nov 2026 18:33:51 +0500
+        Thu, 12 Nov 2026 05:34:18 -0800 (PST)
+Message-ID: <f55dddf1-d745-471a-8001-8f9e5768d97d@oss.qualcomm.com>
+Date: Thu, 12 Nov 2026 14:34:17 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,113 +116,104 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: spacemit: Hold RTNL lock in emac_resume() and
- emac_suspend()
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>,
- Vivian Wang <wangruikang@iscas.ac.cn>, Andrew Lunn <andrew@lunn.ch>
-Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>, netdev@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Yixun Lan <dlan@kernel.org>, Chukun Pan <amadeus@jmu.edu.cn>,
- Siddharth Vadapalli <s-vadapalli@ti.com>, Tomas Hlavacek
- <tmshlvck@gmail.com>, Muhammad Bilal <meatuni001@gmail.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20261105123441.2524171-1-alitariq45892@gmail.com>
- <DMO13SWAGZAN.NYISGLGI7Y5A@linux.spacemit.com>
- <c55c5878-d9c1-4863-bc55-99d334ba2ede@gmail.com>
- <12a95b3a-9c8b-4a2d-9b81-12b3839e64a9@lunn.ch>
- <DMPNAPNEGQ5I.XYUIB7Y8HDCA@linux.spacemit.com>
- <ee3f414c-fffa-41e6-8bec-6af7ce676c4b@iscas.ac.cn>
- <DMQJ0R4QTE6R.2I492KA9N85CB@linux.spacemit.com>
-Content-Language: en-US
-From: Ali Tariq <alitariq45892@gmail.com>
-In-Reply-To: <DMQJ0R4QTE6R.2I492KA9N85CB@linux.spacemit.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH] ASoC: soc-core: start rtd->num_components at zero
+To: Mark Brown <broonie@kernel.org>, Dennis Gilmore <dennis@ausil.us>,
+        kees@kernel.org
+Cc: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, gustavoars@kernel.org,
+        linux-sound@vger.kernel.org, linux-hardening@vger.kernel.org,
+        linux-kernel@vger.kernel.org, michael.hennerich@analog.com,
+        nuno.sa@analog.com, dlechner@baylibre.com, linux-spi@vger.kernel.org,
+        miriam.rachel.korenblit@intel.com, linux-wireless@vger.kernel.org
+References: <20261112025252.71375-1-dennis@ausil.us>
+ <179448342405.66517.5463730214277229760.b4-review@b4>
+From: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Content-Language: en-US, nl
+In-Reply-To: <179448342405.66517.5463730214277229760.b4-review@b4>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=KsnYSmWN c=1 sm=1 tr=0 ts=6af5c05d cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=dp6IbyjqBwS_WhlRAgoA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: Fw_FJ3byWnRfXQNakz6uoFLP3pHGUQpR
+X-Proofpoint-ORIG-GUID: Fw_FJ3byWnRfXQNakz6uoFLP3pHGUQpR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA1MyBTYWx0ZWRfX6rCx4VCRLZSW
+ 13XFAly1dNghMdycLRjLC5+Px6XJC4Rv+3T3lRdX2aE0OWKfiYOsPURsL6dBMsZ60V+HobEFdHv
+ 8fQPTWDFkeNHZdI4+4LzvGnYV8wzPkaQTPvy451roFMr3iJy9GxGGcg9LyghaCtgh7wGtLHgzk1
+ lx4qLLsu8BBn3R88Naq+i+ORrDQ/RyoOBcbh1ItbKqT9jEaKPBHAaRODeeL5iBlC5hXJ6/0kFx5
+ zKtLQ2oUmyh+RPtivmlLpvGNdhy3E/5vkTM8HgtyH+Y3uhJaeDGHs86EZNAGVFV2Z8BYffcOrJ3
+ etGwyk23ku8YB4p4pEu1XIkNl/y0j7RNdqL9cwNrvW6UtNV8Q3+pa/Me6edp1cGv4KLUbFYxCsA
+ iBQcMZEk7pmibldreu4ITZFS8l65as/YbGH61KQ70aRgm3ZVcFpSYwsqS/1sbfae0Gt7hKJi26D
+ hcaev6f10fx4FXzEMUQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA1MyBTYWx0ZWRfX0jPYIPkUnWSA
+ EfXpBgee3SnzfhzJj/PAIjGvZseTSPrIvDblqCBK3YKi2CqkjsgjMSa0pg/OlfAjjHYSSdGsEVD
+ qOiF/nJ+03LedDCK8SS0HUaRG0UL9GQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 bulkscore=0 adultscore=0 malwarescore=0
+ spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611120053
 
+Hi Mark,
 
+I was about to send a regression bug report for 7.4-rc2 but I first
+checked the list to see if a fix was already available and I'm happy
+to report that this fixes things for me:
 
-On 11/9/26 1:10 PM, Troy Mitchell wrote:
-> On Mon Nov 9, 2026 at 7:59 AM GMT, Vivian Wang wrote:
->> On 11/8/26 15:19, Troy Mitchell wrote:
->>
->>> On Sat Nov 7, 2026 at 5:32 PM GMT, Andrew Lunn wrote:
->>>> On Fri, Nov 06, 2026 at 03:44:50PM +0500, Ali Tariq wrote:
->>>>>
->>>>> On 11/6/26 2:43 PM, Troy Mitchell wrote:
->>>>>> On Thu,  5 Nov 2026 17:34:37 +0500, Ali Tariq wrote:
->>>>>>> @@ -2056,7 +2059,9 @@ static int emac_suspend(struct device *dev)
->>>>>>>    		return 0;
->>>>>>>    	}
->>>>>>> +	rtnl_lock();
->>>>>>>    	emac_stop(ndev);
->>>>>>> +	rtnl_unlock();
->>>>>>>    	clk_disable_unprepare(priv->bus_clk);
->>>>>>>    	netif_device_detach(ndev);
->>>>>> This can deadlock. emac_stop() -> emac_down() calls
->>>>>> cancel_work_sync(&priv->tx_timeout_task) with RTNL now held, while
->>>>>> emac_tx_timeout_task() starts with rtnl_lock().
->>>>>>
->>>>> Thanks Troy, that makes sense.
->>>>>
->>>>> For the deadlock, I think the correct function to call is rtnl_trylock()
->>>>> inside the emac_tx_timeout_task(), which would return if the lock is already
->>>>> held and will hold the lock if it is not.
->>>> rtnl_trylock() is generally a workaround needed for badly written
->>>> code. Please try to avoid it.
->>> Agreed. If the reset is done in place, the work does not need RTNL at all,
->>> so .ndo_stop can keep cancel_work_sync() as is.
->>>
->> Thanks for the diagnosis and suggestions.
->>
->> Although, maybe we could simply avoid cancel_work_sync() in emac_down()?
->> emac_tx_timeout_task() checks for !netif_running and does nothing if
->> already down so it should be safe. The task cancel_work_sync() in
->> emac_remove() does cleanup on unbind so the task is not leaked.
->>
->> This seems to be the pattern in other drivers as well. What do you think?
-> That was my first thought too, but I'm not sure netif_running() is
-> enough here. emac_suspend() calls emac_stop() directly, so
-> netif_running() is still true and a pending work would stop the device
-> a second time. And since the netdev is devm-registered, emac_remove()
-> runs before unregister_netdev(), so the work could be requeued after
-> the cancel there.
+Tested-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+
+On 12-Nov-26 12:37, Mark Brown wrote:
+>> Since the conversion to devm_kzalloc_flex(), the allocator sets the
+>> __counted_by() counter num_components to the allocated length
+>> (num_cpus + num_codecs + num_platforms). This only happens when the
+>> compiler supports __builtin_counted_by_ref() (GCC 16 here). With
+>> older compilers the counter stays zero, as before.
 > 
-> So we'd still need to cancel it in suspend and remove, and at that
-> point resetting in place looks simpler to me. What do you think?
-> 
-> 
+> This doesn't apply against current code, I think this is an issue that
+> was already fixed.  Please check and resend if it's still needed.
 
-Thanks Troy, Vivian and Andrew. I'll drop rtnl_trylock().
+This applies cleanly on 7.4-rc2 and fixes a regression breaking
+audio on a lot of different devices there.
 
-I think a simpler approach here will be to go with Vivian's suggestion
-of dropping cancel_work_sync() from emac_down(), and handle Troy's two
-cases by disabling the work where the device is stopped without the core:
-
-1. Suspend: emac_suspend() calls disable_work_sync() before stopping
-    the device, and emac_resume() calls enable_work(). So the work
-    can't run while the device is suspended.
-
-2. Remove: emac_remove() uses disable_work_sync() instead of
-    cancel_work_sync(), so the work can't be queued again before the
-    devm unregister_netdev().
-
-For a normal close, the work's existing netif_running() check is
-enough, because the core clears it before calling .ndo_stop.
-
-With this, nothing waits for the work while holding RTNL, and the
-work doesn't wait for itself.
-
-v2 will have two patches. First the TX timeout fix (reported by Troy) 
-then the suspend/resume patch, which will take
-RTNL after disable_work_sync() and before the netif_running() checks.
-
-If you still prefer resetting in place, please let me know.
+If some form of this is already in ASoC-next, then that needs to be
+send to Linux as a fix ASAP.
 
 Regards,
-Ali
 
-pw-bot: cr
+Hans
+
+p.s.
+
+@Kees, have you seen Dennis' remark about the same problem with
+devm_kzalloc_flex() changing the semantics with the num-components
+counter now no longer being initialized to zero in at least 2 other
+places? :
+
+"""
+Kees, the same pattern (a *_flex() allocation followed by code that uses
+the counter as a fill index starting from zero) looks to be present in
+two places converted by 69050f8d6d07 ("treewide: Replace kmalloc with
+kmalloc_obj for non-scalar types"). I have only read the code for these.
+I have no hardware for either and have not reproduced them, so please
+treat them as possible issues rather than confirmed bugs:
+
+ - drivers/spi/spi-axi-spi-engine.c: spi_engine_optimize_message()
+   allocates p with kzalloc_flex(*p, instructions, p_dry.length + 1),
+   which presets p->length, and spi_engine_compile_message() then
+   appends with p->length++ through spi_engine_program_add_cmd().
+
+ - drivers/net/wireless/intel/iwlwifi/mld/d3.c:
+   iwl_mld_process_netdetect_res() allocates netdetect_info with
+   kzalloc_flex(..., matches, n_matches), presetting n_matches, and
+   iwl_mld_set_netdetect_info() stores at matches[n_matches] and then
+   increments it. The per-match kzalloc_flex(..., channels, n_channels)
+   has the same issue with match->n_channels.
+"""
+
+
