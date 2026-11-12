@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794515267;
-	b=UjHKV1i/+7CfQFIy87dvZaSN1/0oNCRxf+OXS0j63IheQfSfphjB5yyEpP6DLjdytzE1
-	 OrsB0xOZtqdLxW3ekupHHtdajmCWH7sv6XGnMWc/+4glRN/cS0TMju0a6nxW8f8wRvlwi
-	 HcSBoCcmYPKV2F913FU8uwM/OC1ZobDX7Tz2TJfzhM777sm8ha37u5X1zXruJemGPmo2k
-	 t05ilSlkVodmvLJOA3SC8oLjYOA3DOqdDkk20gePSJ4t/IqjAbydNLhcg7K8lM72Ji9Vn
-	 hXesAcml36Lq46vXukPsHAy4mlP3JXe/GBOneyomI0r64luTCf2J4UPn5fGvhb8625A==
+	t=1794515467;
+	b=fO5sAaHH6c/sn7dXLHStcL13HGui3Jypx0QroPgRc6pdKQ6Fuj+aCKSc9z0ZPFdMV2k+
+	 0r8EwR0F86XWNZqSgG6sNaQYto79k1oukMzyBY5DNyqAIBNAkSwFTPojtzaEZF1MtWB6d
+	 I4Qnae/HXiJwZMgahQnvMv8Zsqy3DLyAsBK3BZ1+rbWEWqSQRIrK6T8ohTex9OlOSRKy1
+	 GhKeRcOQ5ly7CEN1j7hmzZ3GYBsMJq53mIq6mjl9Z5J58HMwwpsflUE7ddHzXKKnxSIzw
+	 NIMs8r9bAt27782iUdcLNTPdvHt3G4aMrMETR4hkPd0HUtN9nzdvTeTu4j0Lx7zfWvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794515267;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Pby9+ugpd/biVYGIeo366Q1JT6Si9sJXPgtB9FpXecw=;
-	b=ubW6LXnWjxTQvdcm3wGrU+dP4UW5dfIyFmJNawUAA4TwyuDI1lgZP6VxMisTplsKShdN
-	 V1I9GNLBXJY26z/iq5vJ4vMME+9oIaP371en4igsLRHS6kS1pJD4GoQifJ1CmfCIsDyjJ
-	 KiyIN41i0zz1hZwLcuDo3j5Zyz0s/YcLhtf0fSZb1eozs0Dy0GzZYm5gWp3yMfiQtQHeS
-	 q9c/ABhVRp5wrqTJg7l6bIhDo5/cZJRHIGH60E3ZgNHJYB+YURMpJzd/4wqOnh0sz2FuA
-	 prfsF8TnuXF0kpuvYOaZjCFBGp7LWVMwJtnuuScJWz7/mN3F2Bfv+6uDbHSSr5q7YLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794515467;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=/ubvRwcccWxNSpvErPp2UoWwkLJEHMxbyrj8UkWM8eI=;
+	b=T0EoVtzmqSlCFQP564lE25ARLTTPKThy8codTa1JZOrjN7W634gy7Exs92BTUqxp7YBY
+	 2OISEPfAGaj66t+tSwT9Di4SzkKyUMgxDF+ilHWoOMv7wXbNFSkh5P2XnqHiDsmF3yXu8
+	 UwGu0dOxeh46HbaGrhijk/MUjiwnyvON3WM4Wr3VhibuBZ15DJEDaxZS9v5FcGQEl6/t1
+	 xUwJBgjiQYgPyd1EMXdmbjnERLRnM7JLC0cEp4NDGQfTdt5EcbZSDRmfwsga2RacySyG0
+	 lrXOeIz/iZqnM2p4jGDmYLKg1YME9Ey/xoBu4YGVYFLVCl0I4+WKe4ofjjgbXgyYH1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=empyreal.works;
-	spf=pass smtp.mailfrom=empyreal.works;
-	dkim=pass header.d=empyreal.works header.i=@empyreal.works header.a=rsa-sha256 header.s=protonmail2 header.b=FdLrhflr;
-	arc=none smtp.remote-ip=109.224.244.22
-Received: from mail-24422.protonmail.ch (mail-24422.protonmail.ch [109.224.244.22])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YL+30wZl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3920606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:27:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3920606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=empyreal.works
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EE4A606A31C;
+	Thu, 12 Nov 2026 20:31:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=empyreal.works header.i=@empyreal.works header.a=rsa-sha256 header.s=protonmail2 header.b=FdLrhflr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
-	s=protonmail2; t=1794515263; x=1794774463;
-	bh=Pby9+ugpd/biVYGIeo366Q1JT6Si9sJXPgtB9FpXecw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=FdLrhflrJbAQJyRy7jtVXJNRTpIgMnuuwIXYDjH3tA6u1/ovYy+2Bhd2mtZ2tjQ7H
-	 1+x2/gbv+/VEctdBR2lP3rMVykd5GVgMB7NIvHPvEV6Vw9HQuYCVs32HiyTiqTFDMp
-	 QFnfni6VOh8JlJc1SOOFURw2z8VHbinv5QH5yOL13iXVPf5mdd04Lh47eopgIFt2Gq
-	 +gA+F7lLrvwiBn7HZsJhMn0kefktIIbaXlIZYanBHHyzrp3RD4coQinXZO71CQ0YIk
-	 UOtSy44CSwWS//APvxfnUFOmQ5qT7aC4g7eK2lLgm7ce7Th/p+D2TeljIadooRX1aB
-	 Y/zEZkCRiH4XQ==
-Date: Thu, 12 Nov 2026 20:27:37 +0000
-To: Denis Benato <denis.benato@linux.dev>
-From: Andrei Rusu de Castro <arc@empyreal.works>
-Cc: Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones" <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] platform/x86: asus-wmi: write the thermal policy only when it changes
-Message-ID: <20261112-asus-wmi-tpolicy-reply-f7889fb1@empyreal.works>
-In-Reply-To: <ec9515fb-6698-4e7e-8a88-5b3fa2f50c51@linux.dev>
-References: <20261111-asus-wmi-tpolicy-5fbc4e09@empyreal.works> <ec9515fb-6698-4e7e-8a88-5b3fa2f50c51@linux.dev>
-Feedback-ID: 182420409:user:proton
-X-Pm-Message-ID: 21f4d5436e436e5e9d59d79f6ee35932e650a886
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YL+30wZl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A8471F000C4;
+	Thu, 12 Nov 2026 20:31:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794515466;
+	bh=/ubvRwcccWxNSpvErPp2UoWwkLJEHMxbyrj8UkWM8eI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YL+30wZlS3rLh0LeYgGh3r2fl8dbqxa4BVc2cZYACexmclv8smqaglQhJXIa+CBMB
+	 NU5iiWe/1RB9aPIE6m90iNaRY7mQiN5B/RT777CXw8WayNq8s5VcB6JhqOCXuZsqVI
+	 AlMn8YPLtrT5zH+2tCR3DquiYl5lbhe4gcFTXba/kohtiD1dmXn5OiwmlQo4tkCtQf
+	 3g9J6dOl8xNyD3VPu7Y8mp1Or+xSLausei4DzmwB+h3aUUksDRitynPUtLuzX9LQLl
+	 9WQ5LpsNfQtYemhDVfrP416SkjNY10qLRx+aT+azNsjqC6VwY09hCGiKg7vc/N/95p
+	 TY2jtnGIuNj0Q==
+Date: Thu, 12 Nov 2026 12:31:06 -0800
+From: Kees Cook <kees@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Alejandro Colomar <alx+linux-hardening@kernel.org>,
+	Mariia Nikitash <nikitash.mariiaw@gmail.com>, hverkuil@kernel.org,
+	mchehab@kernel.org, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+	justinstitt@google.com, morbo@google.com
+Subject: Re: [PATCH] media: radio: Replace strlcat() with seq_buf in TEA
+ drivers
+Message-ID: <202611121228.D57E624119@keescook>
+References: <20261106074639.452630-1-nikitash.mariiaw@gmail.com>
+ <20261108210232.13800dd3@pumpkin>
+ <avDmyLYpWOQ2WB-i@debian>
+ <202611120947.AC428BE4B@keescook>
+ <20261112190702.480740d2@pumpkin>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,20 +64,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112190702.480740d2@pumpkin>
 
-On Thu, 12 Nov 2026 09:32:21 +0100, Denis Benato wrote:
-> I don't agree with this: if the userspace requests a power profile
-> change the driver must honor that request.
+On Thu, Nov 12, 2026 at 07:07:02PM +0000, David Laight wrote:
+> But both snprintf() and seq_buf are far more expensive than doing the
+> strlen().
+> There is the separate issue that strlcpy() manages to needlessly inline a
+> strnlen() in a lot of the call sites - instead of deferring it to the
+> helper function.
 
-Hi Denis,
+Right, my driving goal here isn't about performance, it's about
+correctness (as much as possible given our giant codebase). We don't
+need the most perfect fast implementation if it's too easy to shoot our
+feet. strlcat() requires an external bounds that has no strict tie to
+the destination argument, and it has no bounds information at all for
+the source argument.
 
-Thanks for the review and the explanation, that makes sense. On my
-machine the package power limits are set outside asus-armoury, so the
-re-apply you suggest would not cover them, and I'll keep this change as
-a local patch instead of pursuing it here.
+If we're in fast-path, we have a different set of criteria. And seq_buf
+was actually designed for that, as it trades storage for speed: it keeps
+the needed offsets in memory, but that makes it fast for stuff like
+perf.
 
-Thanks,
-Andrei
-
+-- 
+Kees Cook
