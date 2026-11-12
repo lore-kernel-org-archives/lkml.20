@@ -1,96 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.154
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794497092;
-	b=wbSqDihNvO06KZt2gqOQWrQsldsO2sIxu5JpcKsRUlwubQbP0qN8wuJo3GZG9eztFnLk
-	 7cEXxGSYc1nOgGvufpOhSfdm6ouQV5bT0b3+Zti0cmwl7zz+pWEP2C9XKI5Xv9fBm8Mhg
-	 GgyyoQcgWnteSMpOFOXkE5JL2JsGm1qcyqAzebFEP03Ksyfy0VxnzzPbEWLMrnH0Xh0zg
-	 HixJiZ5E0OgBDUXKHQRmtD1aCRapxFXyDr5LJYr1SeiWb8mFV0ojs5wE7TzZXRYriMJSm
-	 EKs9K61lSINpAjHAZGrGuJq1Sq3XvSIUy6sKuRCVk8buXhOnk2Kwq+9zBslLDQmpw0A==
+	t=1794497136;
+	b=HMaOhisNhGHPfscxtYUEzqP4ebhZ72gOA2H3F87CzHjufDQs3jhCQgEwMk5YjSvKxAbs
+	 QgIWpMqdAAR5lpihMtdfrMjgWV0HwhmPxidfis7lHhdcg1aoz78wBbZA+nOAhNnxE6HGR
+	 0kt0OCUgHMVcIFnjD5k02Yh48jsUn42EMETm2t9lfTWZfqzCACYP2Xhlia8BSQIAlhVL2
+	 6TWM0U3OoA9vQ8TTEO0bVUztQhkyZ3/GLqdoO+a6JOaqE/sLYX5dAdFXgDQCoKimkvqRh
+	 sO+ypOP3eVf1wUdNS26nDgqZWNqj1H+ZKbzHiWwTkCiuK7qdch2QhuM5Eavz7sjUoLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794497092;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=juYtRRHMjWPIclkbiXs3Tnl2bycAjKMpFCBpuknhHPI=;
-	b=ORpBhs+VNFPwTAQhVoETIOsy+/r/1bcd3dK2zldBlZs4UbHRuTx6kgzAXXRlg1DDDhP/
-	 ueTrnxkgnrgAS2Zt97z/V7fByF9Y1ktSJWaMIR99Y1kcDybZ6bT49imyC9rtwMpE1deok
-	 yY1D32P34LOuyijrK+ni7wXUdQJJLGaxwLeL41/stk8NFyE8FMjj328jr2jkkaSMCIY/d
-	 CrdqWEMTTzJK9CiQhSNRN8Ig56bi/UbP8lykoYVMCfs6u3cXdg0oxeNxycYiFTwsk/We0
-	 ERPyB/U8Ze6wWOgJ9s/JsYzEeX+9YA3kQOVijJFGFqb4w+0EbrmBafnthKcU44oTNcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794497136;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=OxUusV0kxIEPkUTlkXJ9JrwRF0G1sxRdLTr9R3f/yFo=;
+	b=3e7nj+AnqyRDXWc83ARTzOWz4kMNEH5fSKaDGhYpCFA1Db2avfJptlCidD4gnILDyPKR
+	 p1DLgs4aSoEqN2+sNRrf4HdVOXWcImqjsl1rK4n1WxMHZueNYI/XcGDH3YDr6SFLu5eyt
+	 JzrvrIjkCjhSYnEJ1053S1zXQ7BczoWr0zuPLPre4UjZf3xigoP+doJG5rRbhEWeDAjlS
+	 0UpLBqB0Y7CT0ZLmLzU1v0ewzpaXuz1DdUcgHHrye8GstppnkrytjCrKZbeCXhFy60xuS
+	 mYteQO/kTgWzodDQh/RfI3hSFuLqCB6S2v30JrlUuBW0J/IEzIIAwp1noWLtVu3YzHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="Qi/grySZ";
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=SH5FMWEk;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=none header.from=daanbouwman.nl;
+	spf=pass smtp.mailfrom=daanbouwman.nl;
+	dkim=pass header.d=daanbouwman.nl header.i=@daanbouwman.nl header.a=rsa-sha256 header.s=fm1 header.b=Ow7w92ga;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=CJbjg1KA;
+	arc=none smtp.remote-ip=103.168.172.154
+Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF94D60A2607;
-	Thu, 12 Nov 2026 15:24:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF94D60A2607
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E07606A32E
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:25:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53E07606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=daanbouwman.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=daanbouwman.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Qi/grySZ;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=SH5FMWEk
-Date: Thu, 12 Nov 2026 16:24:46 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794497089;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=juYtRRHMjWPIclkbiXs3Tnl2bycAjKMpFCBpuknhHPI=;
-	b=Qi/grySZIrRaJ93RA5uI25BI6KfrQnUqAtF6Rf7+aMLx4D00SHjpJbLmo+BctsMkzDKGgL
-	hDMTia9tb7LorDmWBS4gloetNGV4wW7/uDabrX4VEPJnKzynlAYptW/7ZxvA/ygwiFmdDz
-	cSyvas609NCTBG4GZz3i8gafGomgy1iRG87rsG2GeTNwqC6H5zQqCc7XurQ5MUeM8pc8xE
-	NtD6HCFPbdmnqWKXPf9YciRRZAW/1ap1CgsUjkeEe67YhAv6F7tADD3NUhvKf5nNUr3/5V
-	IkRTw1aZxjFvN37fpJrqLxZWHqogT+IuG6DFgT9C1BY1LWTw3mylQ5IjSzfLig==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794497089;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=juYtRRHMjWPIclkbiXs3Tnl2bycAjKMpFCBpuknhHPI=;
-	b=SH5FMWEkY6wITOgzqZep0yejRfNPKqDYkaqq1NL0VbdxIhYTQWxNJRVzf7bmTACRuyINwU
-	Y1YAjO4K7KsRRxCw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Juri Lelli <juri.lelli@redhat.com>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>, linux-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org, rcu@vger.kernel.org,
-	linux-doc@vger.kernel.org, John Ogness <john.ogness@linutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	luca abeni <luca.abeni@santannapisa.it>,
-	Yuri Andriaccio <yurand2000@gmail.com>,
-	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
-	Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>,
-	Qais Yousef <qyousef@layalina.io>
-Subject: Re: [PATCH v2 0/7] sched: RT throttling cleanup and a bit of
- documentation
-Message-ID: <20261112152446.r1FzXVCR@linutronix.de>
-References: <20261110-sched_dl-v2-0-cc9399f7aeb1@linutronix.de>
- <c2bf89ce-b9de-43cf-839b-395d28b2275c@paulmck-laptop>
- <avXUstjABxdTZaxM@jlelli-thinkpadt14gen4.remote.csb>
+	dkim=pass (2048-bit key, unprotected) header.d=daanbouwman.nl header.i=@daanbouwman.nl header.a=rsa-sha256 header.s=fm1 header.b=Ow7w92ga;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=CJbjg1KA
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 8DD901400066
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:25:35 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Thu, 12 Nov 2026 10:25:35 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=daanbouwman.nl;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm1; t=1794497135; x=1794583535; bh=OxUusV0kxI
+	EPkUTlkXJ9JrwRF0G1sxRdLTr9R3f/yFo=; b=Ow7w92gawUnE7FyqxNasB0cg9a
+	5qz7NejX0ijBnpfPsGmDbarw2ErIoq0/pNClm4WMsenLwwdn2XjrabGZY5jXHx7l
+	fo6xmNskLtxyWE68O29JUlrDKI92HsYt4D59tTAsy7Q6dSgS9EQGiBtO1p2Xdko8
+	ycAHfGmTLem8Oj0QJUDWtZKNl5s7o6sG/ijfxR/5apRztqC/ipbmnuJrbI18GAxX
+	eqgKqgeWHEcossOqOiB9gqST5D+63TuTWYTH7q18WRfIBV6FsXnkVKGyLR0KUCmi
+	7ESnmiSA7AlQcSZRhoOTgW/ba/QYI/nn6qakZdz0TIAWf/ikCZ+9tD70Pcyg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1794497135; x=1794583535; bh=OxUusV0kxIEPkUTlkXJ9JrwRF0G1sxRdLTr
+	9R3f/yFo=; b=CJbjg1KAQPbJ2Z4FO5NPaEqx87zFRMqR97Sera5Aw9bAMRLMID3
+	xa/FZK7NNteqlfz3hD7AQYoCwouyWcRzJHvqJqHz1mXsRCw+VNySUBPdX0NS+D2l
+	EmgfJTqUU8iAwkSpszyKstuaHwsZ7/RNBaPwuKi+ZvulDu1arHMDcQS1e+MKyuTH
+	Z54p/WyeN8cVKqUEbPm26DlLHWoDJqeNCAaxdbtyu42kb9NQP4BzzdXpqEoJJGCd
+	uVnbTngdYodeTbASFeDrTeL0SJru+489UxKu8mGWUU1H3ASlJsN6TpD1yhFniS6j
+	ZTSfcz/OilLwNLXkdTjPNgQPSC6rvinAQWg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=daanbouwman.nl a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794497135; d=daanbouwman.nl;
+	mf=PGRhYW5AZGFhbmJvdXdtYW4ubmw+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:lEXPwpxtibw/tYw+9Y/fwTXLfki84EPr4QdvZjb3C+d/NaN
+	kh5M8FRd+8KAv4uqOnT/uwSkQngpevvlSv5R9JSDaPfsMQhGWaRLxrZuzkixZDKq
+	wJwEISXhhL5ZJJazd8CvUlca6y3rJ3jQwD+cz1zDcdVUj7atXrGN0VgUlBAz+bfD
+	o26PyoUGKVjCsHDQ9dSq910eiBr5Ld70nlQg8Pcydtsvt/X6B782ONwep0DW9XAT
+	fqXcumVN+9PX2ywLkGJAA3Cc0ThiG4eiKxbVyL7ObGDDHLwdrRFlljOQtY2HZ+Z6
+	IP04ay9bKJFKLkJ+6PUtF9ocf21rni+KCalNOOg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:dM4JR5TwGCN+oN4b5/XHsK6jee3EK7CnlSX52D+2uOc=:c07zY8anuh8g65MOjUyinIH3uPh7GfiWUgtFYb2C6YM=;
+X-ME-Sender: <xms:b9r1ahtpgAtb97TN6i64EaokK-Wm8JZZGetto-Zcg00a5Awd-qPeYQ>
+    <xme:b9r1alYhLyKKagK9y-PYUyS7xkwau5g9HO0lQtFxF7MfZuwDjGhbeY1ZWHay7Kq6F
+    cNYB-R2DR-uVYDqN1flhBokL8u59pCksiD-Hzq971oU7WCcEcYDT9g>
+X-ME-Received: <xmr:b9r1ajzsVEO-JW1f4ooRJUfpmN2VN1562BJeyjnqFeljAJKWc8YTeOALFg-uOR9La38tKudIP9g5DokLy2A>
+X-ME-Proxy-Cause: dmFkZTFHexHi45wj/oZspy+CZQF2pB4nZvnJvxqOtKMoY9ys9kyD+9oqLgL3XFFxTuyKFb
+    t/rBBLZPT0hTW7F5dS5+BOfN2ylM6Oy3D/qcX3hNkN90Qm5BNilwPL7iW7iaAmoGU9zzMF
+    UJ8ddHpua4mQpdkU4YQh7fe3n9x7mVnaH2UvL5BOCvf1RQ2Ttj4A5p0ZzJwwyx4+Fkt8vN
+    uVtudbNiZ2NsEPbPd5qRTP8rLDlDY03Tz/ovfJfyDNdO1zVNpUAIF6ycBA7oI5mGde2ly8
+    OlFne1TdRx7UAU7gjlAnUCM25nI/qExGuKBI7wI9krNo6bifWobmNyI+xaPlTlPN5tUvIZ
+    6pxQcWprWApG8JS9hwNb3P6vdDzoT3vaRqTtt0C3Qm6TKIo80PC3EhXv6UK9QGbt002QDy
+    Rtk3d6e+VwAsIllTlUu7qiBrjtThX+KaaHBqCUrTrWkpgoPPYRsl3f78t58QJ8whJGUPHw
+    n2FJPQYx+RhkNS6sexDoiEHf/RsO9xlXdhsrXlEqgW3+IphbXtX+XQU9hT3ipvFvGjb8ew
+    GAIyo4lfJr9HUQtMmjEfceJBCQzrNPEYJKkIdGVtYbMnWnVHfnW+ED+bjgvjPrvd2pahCa
+    p7yvJQ16jYxz6VmqpOGJs2v7/SSpUJ1ASXwS+N51/bqj7ZYiM/9iKu6qHawA
+X-ME-Proxy: <xmx:b9r1atiBhMXhJ26EaspQfJZb2VllweEZCwFDAV5wFN8U5PXPf57sUA>
+    <xmx:b9r1avk0dxRiUyhEYmBrlbF_eicqB7oe3wGocITIRWfxG7Mbwr0dag>
+    <xmx:b9r1ajiylCITzedlKfvKhrE3-gO6HQHqte5KDXWzjf0jNqXk03yMEg>
+    <xmx:b9r1aj0Gw3Q1QZwX6gpak4Oq0hrT1-5Ynh5vXjiyAIoaMNytLY5pmA>
+    <xmx:b9r1aj3VMR-FZwts2UVRzwOfDYjxb3OVwvhd-BFc2vOD_u9_l5boItqr>
+Feedback-ID: i83ce4876:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 12 Nov 2026 10:25:34 -0500 (EST)
+From: Daan Bouwman <daan@daanbouwman.nl>
+To: linux-bluetooth@vger.kernel.org
+Cc: Daan Bouwman <daan@daanbouwman.nl>,
+	stable@vger.kernel.org,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] Bluetooth: btusb: Add QCA Rome support for Surface Laptop 3 AMD (0cf3:e303)
+Date: Thu, 12 Nov 2026 16:24:26 +0100
+Message-ID: <20261112152426.10335-1-daan@daanbouwman.nl>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,29 +124,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <avXUstjABxdTZaxM@jlelli-thinkpadt14gen4.remote.csb>
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-12 16:01:06 [+0100], Juri Lelli wrote:
-> Hello,
-Hi,
+The Microsoft Surface Laptop 3 (AMD edition) uses a Qualcomm Atheros
+QCA6174 Bluetooth USB controller with USB ID 0cf3:e303. Without the
+BTUSB_QCA_ROME quirk, btusb binds to it as a generic controller and
+never loads the QCA rampatch and NVM firmware, leaving the controller in
+unpatched ROM mode where BLE connections fail with "unexpected event for
+opcode 0x2005" errors.
 
-> I wonder if this fixes is
-> 
-> https://lore.kernel.org/lkml/20261108185406.1549770-6-mathieu.desnoyers@efficios.com/
+With the quirk applied, the controller is set up correctly:
 
-Looks like it.
-I delayed the update to the thread which runs on the CPU and replaced
-the cpu_online() check with cpu_active(). It still aborts if it is not
-up. The other alternative is to skip sched_init_dl_servers() with
-RCU_TORTURE built-in.
+  Bluetooth: hci0: using rampatch file: qca/rampatch_usb_00000302.bin
+  Bluetooth: hci0: QCA: patch rome 0x302 build 0x3e8, firmware rome 0x302 build 0x111
+  Bluetooth: hci0: using NVM file: qca/nvm_usb_00000302.bin
 
-Side note: If you boot a 4 CPU system with maxcpus=2 then CPU 2+3 is
-offline. You can online them manually. sched_init_dl_servers() will not
-initialise them.
+Add 0cf3:e303 with BTUSB_QCA_ROME | BTUSB_WIDEBAND_SPEECH.
 
-> Thanks,
-> Juri
+T:  Bus=01 Lev=01 Prnt=01 Port=02 Cnt=01 Dev#=  3 Spd=12   MxCh= 0
+D:  Ver= 1.10 Cls=e0(wlcon) Sub=01 Prot=01 MxPS=64 #Cfgs=  1
+P:  Vendor=0cf3 ProdID=e303 Rev=00.01
+C:  #Ifs= 2 Cfg#= 1 Atr=e0 MxPwr=100mA
+I:  If#= 0 Alt= 0 #EPs= 3 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=02(O) Atr=02(Bulk) MxPS=  64 Ivl=0ms
+E:  Ad=81(I) Atr=03(Int.) MxPS=  16 Ivl=1ms
+E:  Ad=82(I) Atr=02(Bulk) MxPS=  64 Ivl=0ms
+I:  If#= 1 Alt= 0 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=03(O) Atr=01(Isoc) MxPS=   0 Ivl=1ms
+E:  Ad=83(I) Atr=01(Isoc) MxPS=   0 Ivl=1ms
 
-Sebastian
+Cc: stable@vger.kernel.org
+Signed-off-by: Daan Bouwman <daan@daanbouwman.nl>
+---
+
+Notes:
+    The commit message was drafted with Claude (claude-opus-5-5); I reviewed
+    the change and tested it on my Surface Laptop 3 (AMD).
+    
+    Tested on v7.2.15 with this same ID entry applied to btusb, after a cold
+    boot with my out-of-tree workaround disabled:
+     - stock btusb: no rampatch/NVM loaded, HCI version 7, BLE mouse fails
+       with "unexpected event for opcode 0x2005"
+     - patched btusb: rampatch and NVM 0x302 loaded, HCI version 8, BLE mouse
+       connects and reconnects, no 0x2005 errors
+
+ drivers/bluetooth/btusb_main.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/bluetooth/btusb_main.c b/drivers/bluetooth/btusb_main.c
+index 95398e2ca..f44b44382 100644
+--- a/drivers/bluetooth/btusb_main.c
++++ b/drivers/bluetooth/btusb_main.c
+@@ -288,6 +288,8 @@ static const struct usb_device_id quirks_table[] = {
+ 						     BTUSB_WIDEBAND_SPEECH },
+ 	{ USB_DEVICE(0x0cf3, 0xe301), .driver_info = BTUSB_QCA_ROME |
+ 						     BTUSB_WIDEBAND_SPEECH },
++	{ USB_DEVICE(0x0cf3, 0xe303), .driver_info = BTUSB_QCA_ROME |
++						     BTUSB_WIDEBAND_SPEECH },
+ 	{ USB_DEVICE(0x0cf3, 0xe360), .driver_info = BTUSB_QCA_ROME |
+ 						     BTUSB_WIDEBAND_SPEECH },
+ 	{ USB_DEVICE(0x0cf3, 0xe500), .driver_info = BTUSB_QCA_ROME |
+-- 
+2.56.1
+
