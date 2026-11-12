@@ -1,100 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794451098;
-	b=gEktqWvYs5AlM2/sDxxsTJxZ+7T4ijOjnqg5c8mI0452G2o9eVSU8C8+fXcLWL5xZaPR
-	 Kt/xPnbdE6rymZ6l0ZUDYjFH7U59dInYcqp66NpVKPOJH7s8Oy/G+tG8YIBXFepJs/7Cx
-	 FmCzrmAJhfWw0yieD38QFwG4zIpeWCW/hrtD1eWuxmzd+ObxbxeLAdB1vqNt3Pk4uZ0VL
-	 Xv5DX3+v1EcGIGJP35CORoNv/EF/v9C43QpxmdGDlK2vmju4nlU8cGFpgtpNRU991KnjM
-	 xFaWL7NfeBvI0C0XhYLhPv5J4D1XFRF+SZ70mq0rXK3hnIxWhHASnookcnMTP3SXIDg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794451098;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=pqLudJhoiPVgD2EoEahVlHAVCEoKHq8SKN8B7L0dVhY=;
-	b=0H6W9VFhL6ETa/4q2DqZ//GorqzICJY0pfftAJi77H3+CEHkqSeh9VxHDraGwu5Va//Y
-	 d3jtQM22G/NTeDn/1rWoUD1WDuxs+B89TF9rnuVXzSWpoCw4Pl2RyMoK1sSrMC19azRx9
-	 mM0tv/LUyHTJLR5G73JgEd/8vkafJ/Ax44/vyB+eHAYJ5m8Y/Qmp7y25XAjfu7BjDXTaJ
-	 9uOg83PfUT5kdnOcWOX2K1gPCNQ70pbakvGbjVmposHaO7jXQt6gjgMzbmxajMZBNlks2
-	 qdopppWSTAgNND/wHRbQNXWs30c9pZk0SyISoiTi32PiezNw6TrUCsUTZim5bYtIOfA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rto3X2gT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.52
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.33
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794451185;
+	b=TfQOsgSQkJEkezNK5pOvNYObHxVc9eCBIraveJOo0MdZ3uKrwfMcCmF9NoNQxcB2HKyN
+	 xlu6lSI0Q08kGZbT4TQfuxvJRFOE93Sus3Pgn76fjvn0DMuJ28DaPibESp+AKZbgsESla
+	 m/kG7wBmrCds3QK8hl5+F4gMwVN/xQLRyT05MDJOqy0tJTumeW4vfpDX+2eZRwmEi7AFG
+	 zu+HulbRHCf0BX0oxwUZBcL71aiC9OoiLjlVT5MIbJz4dvNwgDyKVjo4y3AZTQXzhRiqD
+	 q8Dd/FdtlKqHJH6XCrY6N0gVVDtbzWa4ro179mhIlLjuYKVpZabSw6o3G0J88Ublh2A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794451185;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Mime-Version:Subject:Reply-To:Sender:From:To:CC:X-Priority:
+	 X-Content-Kind-Code:In-Reply-To:X-CPGS-Detection:X-Drm-Type:
+	 X-Msg-Generator:X-Msg-Type:X-Reply-Demand:Message-ID:Date:
+	 X-CMS-MailID:Content-Transfer-Encoding:Content-Type:X-Sendblock-Type:
+	 CMS-TYPE:X-CPGSPASS:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
+	 X-CMS-RootMailID:References;
+	bh=wsYANF54daBhggjQ4RY4e0s/Afqnu86Njwm4rLR8ebM=;
+	b=nmvJ7ryJpvrKiSEhY05CuEzZSpLVEAC7ri/RtjKQaWpx/IIEo9CPzXZXPYoYtRJ2LTdy
+	 AxBytetFUZBeUa1Pp3ypEcwHoQNY318voBNqFro+/keH0cMNbAlJOfemJgo/9iysIn309
+	 OUoF+rx73F12x8t3g9L0x/3aRby+ARYrkxI9bZfW/dcNIDPNsZWBLO2DGNf9CozivLEHA
+	 blCsp5Nl8VXAB8Efe2rTbpApzqHaz9FvWDV8fEifxhsLBlxLrA6rvZSllg8hZqlpbp3Ne
+	 xWXQJqGLy6oviHl/DUAX3kEHM7iRrzW+PlNC1JYintYxgb4qFsHVdcB402B7wdScTMQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=larGOYB6;
+	arc=none smtp.remote-ip=203.254.224.33
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456E7606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:38:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 456E7606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97160606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:39:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97160606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rto3X2gT
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91ec2d42231so39237356d6.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 18:38:18 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794451097; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ezr1x7NArv+T6vjUXu0Ns36uGC1Pst7B0x6QNS78F645xB9KSujY05G3SqrVyejCt/
-         r8Aq1WHUdbpavZH21aWTJkwy1Qj6Se/iNHJ2ahVv5AMuBoztuWADd+Us9CSNVHA+g1DP
-         qJghN0E9d/gdDN64vqQxmhCKljtkrkQuljEDHxBwGvR0LQ1/i/k0LZJWT5N5lQpCcHgJ
-         HoLAgPLJCFMHz42Vri7pfXIKtrbuyG0uu4AoIXIroZTFR0wSG0is/KdLQMdih8qSdVnt
-         mb4igbb5arN5Zf0oD5Z9AZHwY+3MSfRSx6+UcHu50dpOWlx3cQ/WbOGYaM1ps0WX22AB
-         Hl/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pqLudJhoiPVgD2EoEahVlHAVCEoKHq8SKN8B7L0dVhY=;
-        fh=HXg7vPpCTbO+oZ62DZ4iZhJzIAafgfGwBBqQngmvBBs=;
-        b=Sgshm85BTSMhmNZTio3BBA3hWFQTLRW2n9q+u6WBeUotAMOL0AMj/n6JNbqbR9f1UW
-         2jdEu+b9X6+Bwm/paPTcImA317jXzBckq+gYyqmZFS4ZGr7ukrWVfn6tg1X5PCcgK1tS
-         efPhGljpT8fCTQiHPzxbGFpOSDJFiZz2nsc8J4NzLAbjjvo/zjGld562nRDFvlPHIisS
-         YBnpq80DUxvQKRxN1PMZw/w6GfaIHCq8ptC+1EQiCkcTBCTDw88o3gd6Qv4M45es0eNp
-         dHmnEDdS+okc6HEtLY9tYcItcjoC2/hsFzH12kO066qZt+UmfTa/Da6BZuNv6QtFxZ0i
-         jnLQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794451097; x=1795055897; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pqLudJhoiPVgD2EoEahVlHAVCEoKHq8SKN8B7L0dVhY=;
-        b=rto3X2gTCkafPRmA8ayjxjWvp5+G9QHC6JN0pCIQ6BNz+03sEbRXUWEjuBxLxOfEML
-         QuqoMtj06TE3JJhsHqEmGYhxpno8/0dBZn+sw5YaIttt2z0j7zAfBHLZU58SGI+noElv
-         CM2NRM7NPgXKX1yrrJkljUnJ0deKjxah8snqq3yFvi+859V6ctsMZXsUYfAP3ndYNDsy
-         O7o+4h0fQ5Ftyik2omW02NagBgZyI0CI7dkNqQdKErcNCDKWlZB0Pu2YjM8mvjIEVq+/
-         aDW9dD/PHad3wMoObZCRJTEL48EF+ydmDii5wLF32kqfJQEjqTveApaJFZGVN/UpK17Q
-         I5pQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794451097; x=1795055897;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pqLudJhoiPVgD2EoEahVlHAVCEoKHq8SKN8B7L0dVhY=;
-        b=fA0enW95dLRopv9gzcirACo4dI8dmSRoPnR4icjxe2oRx19QIGtjbpg/40HtgbJmKb
-         2f4BkEhGCF9tvRULek4ieSBDvOahaGNuGzVAT93K+vq1jTxU8bnOX1i6bt7AL6jpUGf5
-         NTppvnD3ZKAf8QoREdj23WM+Dq9aF6fnWHFsoFQwNdF2h9kB7hwkstFYxpjK0qqcuPgn
-         9R9Gxl6VOpkOi6FmIHN5b1Ucr2TO67xXIRAqRZDsrhL7X1emXfJLgsE9kMGhPhU4rMaz
-         6jOJy15dmhbNEeaYlWstb3eFaf9rW/8EsEuHwwITHHuHfCEd/PtwL0H51uLSxMRnz4+o
-         GakA==
-X-Forwarded-Encrypted: i=1; AL+hErEwlCpv4j86eye/KtneeQoYGjUhYwh/HshJu21VpcQwGw4g7n4lqsddBf09dH98PutmB8D1iGAenHfbkXU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8e0fOJKcFRbjhOw9dsb+ezQbHq4OrUGlT8YSgKiegRQwxx5BV9
-	pD2icHgKcz4MKnp2VCIoIP/stoJhm1fNZZQ4scaEnZS09sFLxkI330WmWQPfiVG8Cj9NedudjuW
-	TXuyiUfsrO8YSDJ3mZqoXX3c8epy2KTo=
-X-Gm-Gg: AYBFou0bI7qznsho1EzWIwgO9VwggxnsMYaSnsmqzCPITsf+BWy2X1MnjLofbzsGQQ2
-	3v3tKXi1fK3IszBOJc83BUJSf1/M66awf3iym7Kg6FwOtEYkCKi2XY+A+a8nxjCaSroidCSDaCl
-	rrPVjM0ZUWYWU8de3uEj4Gw+vLKva16jszoxi0PxdbmoScB0SuRs7AjoeGhmD97/iGu7rJGQn9E
-	6a4PUxmEIoTC+85VqFLkpisGy7O/fG3KvK9PRgAP4LNf1Ey4enODIvMa14sG6aAoTFcBEd0EUwS
-	3br12WnpH/i+uumtyRzrEpv6eBDbNfRuqrH+QnMJzhEzeachyjTQStW5RJ+KxgBSc9Kg4uAqXsD
-	HDPIm4mZh7QJQO3tfw4qLk4NOu1L0kTvOAVue
-X-Received: by 2002:a05:6214:62f:b0:91f:1383:1bea with SMTP id
- 6a1803df08f44-91f13832415mr25376006d6.2.1794451097094; Wed, 11 Nov 2026
- 18:38:17 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=larGOYB6
+Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261112023942epoutp03a326e624c5557dc5d38d1b7bf7484465~nK9e_1f_F1132111321epoutp03H
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:39:42 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261112023942epoutp03a326e624c5557dc5d38d1b7bf7484465~nK9e_1f_F1132111321epoutp03H
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1794451182;
+	bh=wsYANF54daBhggjQ4RY4e0s/Afqnu86Njwm4rLR8ebM=;
+	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
+	b=larGOYB68zTGF/VPNg5UcZBHaphn3WBqzwW0rBTTQweED3P78SUZdSej9Y3L88H18
+	 R2Gqz3LTBeGxjTtQ3GC8I+kO3BVC/TiaBitRtzkxVw13aRSQ9LIYd4zS5iRfRERxj/
+	 d4a1iRwuKUc1P5C/D+olvcl+Rha4KiZGj1GPWkBI=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261112023941epcas2p3c181fe46ed8eef70fc662c6dcef368f6~nK9enBBLN2364523645epcas2p3E;
+	Thu, 12 Nov 2026 02:39:41 +0000 (GMT)
+Received: from epcas2p4.samsung.com (unknown [182.195.38.209]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4jQ4NY2tYcz6B9m5; Thu, 12 Nov
+	2026 02:39:41 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,63 +62,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261109134506.2794160-1-zxyan0222@gmail.com> <179423231463.488859.16977464890948797360@kernel.org>
- <20261111152012.3506cf35@kernel.org> <CAP7veT+buHRMu6f3o5RaKFdv3fABkWKgkO6KFn5js4PEeB8b0w@mail.gmail.com>
- <20261111182822.580e871b@kernel.org>
-In-Reply-To: <20261111182822.580e871b@kernel.org>
-From: zhu xin <zxyan0222@gmail.com>
-Date: Thu, 12 Nov 2026 10:38:04 +0800
-X-Gm-Features: AclHuK9rCxYPptofSIgt7EF7v4G1h1kXDVVe9np1u7jTLTpnwVCKysG5CejzHGI
-Message-ID: <CAP7veTJpAMfEWQ7=Bm3iEiFC5L+WBj9PEnPQCEua6goKEP4VHA@mail.gmail.com>
-Subject: Re: [PATCH net-next v10 0/3] net: stmmac: dwxgmac2: timestamp
- interrupt support + Agilex5 fix
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: netdev-bot+sinfo@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
-	edumazet@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com, 
-	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, 
-	richardcochran@gmail.com, muhammad.nazim.amirul.nazle.asmade@altera.com, 
-	rohan.g.thomas@altera.com, rmk+kernel@armlinux.org.uk, 
-	o.rempel@pengutronix.de, wojciech.drewek@intel.com, netdev@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Subject: RE:(2) [PATCH v2 2/2] xfs: skip the fsync flush when a later flush
+ has completed
+Reply-To: daejun7.park@samsung.com
+Sender: Daejun Park <daejun7.park@samsung.com>
+From: Daejun Park <daejun7.park@samsung.com>
+To: Brian Foster <bfoster@redhat.com>
+CC: Carlos Maiolino <cem@kernel.org>, "linux-xfs@vger.kernel.org"
+	<linux-xfs@vger.kernel.org>, Christoph Hellwig <hch@lst.de>, Dave Chinner
+	<david@fromorbit.com>, "Darrick J. Wong" <djwong@kernel.org>, Amir Goldstein
+	<amir73il@gmail.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, Daejun Park <daejun7.park@samsung.com>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+In-Reply-To: <avR6G6TQehW08BD0@bfoster>
+X-CPGS-Detection: blocking_info_exchange
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <20261112023940epcms2p691f2ef101b0e3988d15c4250877dfea3@epcms2p6>
+Date: Thu, 12 Nov 2026 11:39:40 +0900
+X-CMS-MailID: 20261112023940epcms2p691f2ef101b0e3988d15c4250877dfea3
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-223,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261111142234epcas2p48d80bde0c65d09a2fd8bdfdc9bdd2b1f
+References: <avR6G6TQehW08BD0@bfoster>
+	<20261111-xfs-fsync-flush-seq-v2-0-b5c00c25d276@samsung.com>
+	<20261111-xfs-fsync-flush-seq-v2-2-b5c00c25d276@samsung.com>
+	<CGME20261111142234epcas2p48d80bde0c65d09a2fd8bdfdc9bdd2b1f@epcms2p6>
 
-On Thu, Nov 12, 2026 at 10:28=E2=80=AFAM Jakub Kicinski <kuba@kernel.org> w=
-rote:
->
-> On Thu, 12 Nov 2026 10:18:41 +0800 zhu xin wrote:
-> > On Thu, Nov 12, 2026 at 7:20=E2=80=AFAM Jakub Kicinski <kuba@kernel.org=
-> wrote:
-> > >
-> > > On Mon, 09 Nov 2026 13:51:54 +0000 netdev-bot+sinfo@kernel.org wrote:
-> > > >  - What hardware the change was tested on. For driver fixes please
-> > > >    mention the device (and if relevant firmware version) used for
-> > > >    testing, or say that the change was not tested on real hardware.
-> > > >
-> > > > Please do not repost the series just to address the above. Instead,
-> > > > reply to this email with the missing information, so that reviewers
-> > > > can take it into account. If the series needs another revision for
-> > > > other reasons, please include the information in the commit message=
-s
-> > > > then.
-> > >
-> > > You are at v10 and still getting these automated emails.
-> > > What's going on?
-> >
-> > As for what is going on: I answered the bot's full questionnaire once,
-> > in a direct reply at v7 [1], and since v10 the same facts are
-> > described in the cover letter.  The bot, maybe, evaluates the
-> > individual commit messages, where I never put the information,
-> > assuming the reply and the cover letter would count.  They do not,
-> > so the emails kept coming.  I will fold the tested-on and
-> > found-by-inspection statements into the commit messages with the
-> > next revision, which should settle it.
->
-> Read what I quoted. It literally tells you to put it in the commit
-> message on revision. How many times do you have to receive this?
-> Please either pay attention or stop sending patches.
+On Wed, Nov 11, 2026 at 09:22:19AM -0500, Brian Foster wrote:
+> Hmm.. that's kind of interesting. So IIUC unless dm can pass through a
+> preflush+data bio, it will split out the flushes and ignore any error
+> status in favor of the packaged data I/O..?
 
-Understood, I misinterpreted the rule. I will put it in v11.
-Sorry for the repeated noise.
+Yes. dm sends the empty flush first and then reissues the data without
+REQ_PREFLUSH. __dm_io_complete() drops the flush error when it reissues
+the data.
+
+I sent a fix to dm-devel. With the fix, a failed preflush fails the
+iclog write, and XFS shuts down:
+
+https://lore.kernel.org/r/20261112-dm-flush-data-error-v1-1-c83d3f8f3ac4@samsung.com
+
+[...]
+> But if you have to post this again I think it would be useful to
+> describe this caveat in the commit log description as well. If there
+> happens to be some currently unknown flush failiure scenario that
+> materializes in the future and we don't currently hit due to spamming
+> enough flushes, that would be a useful clue about a subtle behavior
+> change.
+
+Thanks, agreed. If I post a v3, the dm paragraph below the --- will move
+into the commit log of patch 2.
+
+Best regards,
+Daejun
