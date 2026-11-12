@@ -1,51 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794491955;
-	b=BdtcQSur9As4CdQxPORbjWlQfCSC9m9oQVTvftxS9rKS0VNte8JSmBGF1FHnDgu1mSIz
-	 06KxeS+xdCq/5PnkntMru88islGpK64Mxhq881xO43zEWarSqoF12G4AZeGO9aV4lKoQ3
-	 O612kuYWbby0oRw9ekSxP6qdiRni7hBVCl9FFUD49mbBsydTGJwRqJi1bt/nTSeMT7Tft
-	 Ry0gvAK4uHRULQkya2zOg587+PlSuUuqERCn3nahyvUXkJ8xCsacJPmQjBkc5HalxqlwL
-	 pl8FrF5ZtDwiUIMjrTcsooaYfqNJvow51aX/uNb6w0utoBBZ+9d6eagVr36jPNGfNFw==
+	b=5rS2e6H+Z5g7tSk8QzWf26yTRqbZflAzpya5nRHge+YoAlmpjjzOLiauQnxMydTPd2A4
+	 bw3/ymukmvgY/XO0pOrYnw9+iZNxiXW4K5ifwZdsWmlICL6ZsxkWijOi/9hwe9/c0UW28
+	 rjnHjSrSuladZrUpMazMQPLkr/Ob0oS+RcIZnHO48C66/IC4tYa10hrzotJPJBnEKerGY
+	 wJEpFux+DQJAe/RxbdjZDrMOC3+Ug/sUjh684XiNpCtpJt5A5iwGGiVudxEfdC7FQm8HU
+	 WmioAloAMXV4XUt+6uxazpyGfU6gw971MULZE0QhuqVCnm+O9dLi8W59B9vFr18gqGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794491955;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
 	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=/4QK2VEVaNUR4dD+Jet/7ljypHn8xGKD/HMMFXFMLhE=;
-	b=YaGOtYj6OvOm1cbgZukRVGOIabyvEak3uUsFWETsruQqxM/r1P+B+77y53xuYASMgxNG
-	 NJyyEdkduf2tB+F18q2YDG2ejCyn2tm6caEECbkdmOdQmRNSEzgdTrU8dpsFrrJXac6HK
-	 60h+eaOJ5Oae4bruNDCOFRozchvVruEOQLmLUdDfE2UAGExbjuDuYDof5QmZeXrQ057DH
-	 HJi+z9t1uIEZCDCSIVsGVbDCYJXXGWDoPWVjQPyPoKYgTdt4a2qkTbBhcGR9GWMObJKPo
-	 6MVuZB/bkzZMgoRK7/qk+EbNJReVI3W2G39KbHifMmvalNuiWjKM4ZrCOI9rIUaN9MA==
+	bh=gh3jxO2iwSuBlABl9q4UwPhnIEJuTZmYdNuAfXiYLcQ=;
+	b=5M5p+9oZeN6R58kT7Ko5rKlFRqAtmxz4+XMsOtQbWkIFuTDgKSpEKpzT6Jx+4SOkm9rC
+	 xu9kKYKCKG6RwvT/ZTDaBI9YxA54h5x1yqhSvKh1p2V4rsdkhnRfzcWDoQrKHOvT46Kfw
+	 DG8tszuji6bBQmH9GocmN6D+Hct+6sueS8Rx1wq4CTXwHNg7PdPKFzmYdHyKycK11Ult0
+	 g1S6hevcjxNtFZv2fo/hXbY4IfzJ1wa+ffsZVOBxrm0xUcFO1c3O5ChjrAyz+fgw3mImZ
+	 nlse5FIunPdREAU5CMKnCij1lXPPo5Nu39F4tzOeEwEuBdHWNLOm2VGvf4911CwSwSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.sdu.edu.cn;
 	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=G5U7PRNw;
-	arc=none smtp.remote-ip=101.71.155.101
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=HeJJztsL;
+	arc=none smtp.remote-ip=45.254.49.198
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B472B606A31C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 026AE606A336;
 	Thu, 12 Nov 2026 13:59:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B472B606A31C
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 026AE606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=G5U7PRNw
+	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=HeJJztsL
 Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 547738928;
-	Thu, 12 Nov 2026 21:59:04 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 54773892a;
+	Thu, 12 Nov 2026 21:59:08 +0800 (GMT+08:00)
 From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-i2c@vger.kernel.org,
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] i2c: atr: Fix potential alias mapping leak on adapter removal
-Date: Thu, 12 Nov 2026 21:59:03 +0800
-Message-ID: <20261112-88a3a7ff32-i2c-atr@mail.sdu.edu.cn>
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH net] net: ethernet: mtk_eth_soc: Fix potential PPE hash table leak
+Date: Thu, 12 Nov 2026 21:59:07 +0800
+Message-ID: <20261112-88a3a7ff32-net-mtk@mail.sdu.edu.cn>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,54 +65,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1d00e0cfa03a1kunm425011f329f5
+X-HM-Tid: 0aa1d00e1e2f03a1kunm1c09b32f29fb
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHU0dVkNOQ0tIT04eTUIYTVYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTx8fVkNCSk0aHUpLTx9LSlYeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
 	NMVUpLS1VLWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=G5U7PRNwXp0pmXHBJLe7+5q5FGjsvbQ4GNSbwdqPeF/6u92EXhZuid39c9To/DVW6/bDDoc3ovjgnqlznvP4xhlhQt8cLGr7R8FEjm2N8N5ACG5u1jrBnQt4M7zWcExQuOlzXtlc38yfcKYa/PgwqUYIBYCj98iE5XFBjmGhKrY=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
-	bh=/4QK2VEVaNUR4dD+Jet/7ljypHn8xGKD/HMMFXFMLhE=;
+	b=HeJJztsLnkngVdpJcwMvtiN91TgW368eWU+GIA2e2J/q6MHBklFcjL13c5rs1h2iiAO9NQOOIWX73WvGm24bKOVlndqsNNBnH9ojijKqZInjvXxVvFkpGj/2/cUjGFH4nJqDP9YAVYjmgK9VoBj7fDoTbVa7uNuZEIO0TI6IAFw=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
+	bh=gh3jxO2iwSuBlABl9q4UwPhnIEJuTZmYdNuAfXiYLcQ=;
 	h=date:mime-version:subject:message-id:from;
 
-Transfers to addresses without registered clients can create alias
-mappings. Removing the adapter generates no client removal notification
-for those addresses, so their mappings and alias reservations remain.
+The remove path does not destroy the PPE L2 flow hash tables. Their
+bucket tables are not device-managed and remain allocated when the PPE
+objects are released.
 
-Detach any remaining mappings after deleting the adapter and before
-freeing its alias pool and channel.
+Call mtk_ppe_deinit() after unregistering the netdevs and cancelling the
+driver work, as the probe error path already does.
 
 This issue was found by our static analysis tool under development.
 
-Fixes: c3f55241882b ("i2c: Support dynamic address translation")
-Cc: stable@vger.kernel.org
+Fixes: 33fc42de3327 ("net: ethernet: mtk_eth_soc: support creating mac address based offload entries")
 Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
 ---
- drivers/i2c/i2c-atr.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/net/ethernet/mediatek/mtk_eth_soc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/i2c/i2c-atr.c b/drivers/i2c/i2c-atr.c
-index b98442ffff94..ebade2a000b2 100644
---- a/drivers/i2c/i2c-atr.c
-+++ b/drivers/i2c/i2c-atr.c
-@@ -903,6 +903,7 @@ EXPORT_SYMBOL_NS_GPL(i2c_atr_add_adapter, "I2C_ATR");
- 
- void i2c_atr_del_adapter(struct i2c_atr *atr, u32 chan_id)
- {
-+	struct i2c_atr_alias_pair *c2a, *tmp;
- 	char symlink_name[ATR_MAX_SYMLINK_LEN];
- 	struct i2c_adapter *adap;
- 	struct i2c_atr_chan *chan;
-@@ -925,6 +926,9 @@ void i2c_atr_del_adapter(struct i2c_atr *atr, u32 chan_id)
- 
- 	i2c_del_adapter(adap);
- 
-+	list_for_each_entry_safe(c2a, tmp, &chan->alias_pairs, node)
-+		i2c_atr_detach_addr(adap, c2a->addr);
-+
- 	if (!chan->alias_pool->shared)
- 		i2c_atr_free_alias_pool(chan->alias_pool);
+diff --git a/drivers/net/ethernet/mediatek/mtk_eth_soc.c b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+index ad0fdc4133fb..08973b6f0711 100644
+--- a/drivers/net/ethernet/mediatek/mtk_eth_soc.c
++++ b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+@@ -5426,6 +5426,7 @@ static void mtk_remove(struct platform_device *pdev)
+ 	netif_napi_del(&eth->rx_napi);
+ 	mtk_cleanup(eth);
+ 	free_netdev(eth->dummy_dev);
++	mtk_ppe_deinit(eth);
+ 	mtk_mdio_cleanup(eth);
+ }
  
 
 base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
