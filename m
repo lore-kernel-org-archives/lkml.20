@@ -1,77 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794485326;
-	b=iBPWYBCXkZCR3B4f0M5zsTPKD9l5lHAm6tPOzix4PupraK0VFjR27HK/tYhV2W9iBJZ/
-	 y1JZI8LKbh7REOFIgyMGh+dJxw1w6D4tZgP3ZSOmu5NuyBAor4vwM4ib8bifN4ReNy0sp
-	 UgrFekPDiJcWVYtd977N29rlu5d5TJM/woszt2MLnXqXunQdy+uPnkX4zgqU4q1luaYLp
-	 n1n12c5CoD+LUxvbNrDCkDJx6/f4mCBpQbnfh1ZVGLJc3EoPaOCVVMbfy17LS0OOfptjJ
-	 lEOU6GHa1c9a/4eUY4sR8l8Pk1PpWMVfK+UpTq2FT+wwr+qumHpbWhugepgt50K3YIA==
+	t=1794485377;
+	b=5rUwWi21bidpUaD93gQRMQffDie/Rm4NDydp0njF4NQQGQShpwDEhQoeP7D5WQP0c1wW
+	 c7DYhTCYfYHrs8Yd4DUnQSmExfnPAqy7UcEemMEo5U0o3G+gswg0c+NoCnrcNTRaFASt2
+	 9X5raFsJLzImxdc6wcvikFm8f94U2AL9Xq8idwlek6NHVWCvTAvSd9/StiU81D7WRul/x
+	 zAODP9SMgynNUmskKixJIoY1iiPRtqwTUPSn+XGKDfmH1nKwuWjJAYwDjcPEwivoJcXRy
+	 5KhEW6g8fikIHtx0fI/V+pX0+Hkw0QOlYK+oOKOo2MWAg1qMh2ZLpOrExEVrjuWw1cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794485326;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=f1MEjtMguNEF/cHLIF6AWlz6RiobbkPLi0M5dgocHyc=;
-	b=UQtdkQNOFMVicGkaj2vobgDvL/MHtkWzX+x/BRB1EBEHhP/pwEwiLdMFHdpsItadxkvS
-	 PUXqkE26VLrCwA3yxUFsWOIX4e4t/3XwM0oHbl9CyhMtHoPn4cGKd2M8doPOKK6neVVfi
-	 7eQcHFpc5oDJAPvQF2mG/Q9WaqTbisa00q87uJ4qOB7vjGI0H86Z3YMPWLPagWWvOm2bt
-	 g8Nisi2bs1Dnn8rqNdSvOkc4Y1LEr6xkx6c1w1rdWH2qKgrVcaR8WT9YlcWj+ZZUhFn8n
-	 ssyVJxUUNqvugsBCDVcv9kkavIaTcTHaFwnukdAJZAcgrMXi+9BWkiRslOgosLX0iiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794485377;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=yVXFtg5uv6jmT0ohsABv7mNA4IYkbP/bTmshktkMt3c=;
+	b=mnXbyxev9U0RmIY3wS6O0wsoX+YXwsS99sZtx9slCZSZ23c+lOUWZHDa+j7/krW46xoT
+	 32I269pHRNkpOwXzQtXYk3xttxXGoii6VONTt+JGPhd92jhj9GOuITf+l6yf4l33PTKKE
+	 Or7iUY5nu8rq/CnjWLJmhmNj1lAUYlq+fjuSeKwxCKqK7i7H0c09KoSnvbQOh5h54P8KG
+	 XZ0oaKdd+5hY2K6jNDOlXGq3MKHEithhSe6Xd+NSsN5flcG04KcgbeKqz+xauoF3VN4yZ
+	 66teZtuI7dxQ1NXJBtl6nr69Hq1bJFIRywwD7NTkwPIQd21+vwWRhAylgblDfaluB2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=x0IvzHy+;
-	arc=none smtp.remote-ip=68.232.154.123
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KnnbIB3F;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F1C606A31C;
-	Thu, 12 Nov 2026 12:08:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25F1C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBA08606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:09:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBA08606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=x0IvzHy+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1794485326; x=1826021326;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ceqU1RzZ/17D27kp1OnRrKSKE9YXqGXBWtsvFx5l8To=;
-  b=x0IvzHy+Dq29A6TotWtTMZZy+y3fGOw7Q9+q3vhBVRnEMf5zJQcG97yQ
-   EsHlvjJYN4V5NwjRh+qyxxO7NmgW3/oWuqf1izNZIGI7WC/uw3nvaGLqm
-   y7DkpYo/5g3XuxbNKqYqebsiIFEb9w5ZRpF9+WDRDouEtYvm/fcFKWHMV
-   fI5lPZM3zH53w6bCv/HXSmB7i5i/NiCzIJ9PZVq0nK6354BCAISDFe4p8
-   c7Y1rUe5ui7B/0BjXPgDohbYvKK6EAq0OohVj4ts7KoKFDk6Mj3h9at+u
-   8fI05yP9c6FcvQec5ePaEebDR31GxZ8ZO9pkovJIyI/FacaWepH8eecI6
-   g==;
-X-CSE-ConnectionGUID: wT1Wv8j0QhCcxW2K1VU6qw==
-X-CSE-MsgGUID: pDKX+QX8TPGyf29Khy75cw==
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="65443584"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 12 Nov 2026 05:08:38 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Thu, 12 Nov 2026 05:08:38 -0700
-Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex03.mchp-main.com
- (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Thu, 12 Nov 2026 05:08:36 -0700
-Date: Thu, 12 Nov 2026 13:08:35 +0100
-From: Daniel Machon <daniel.machon@microchip.com>
-To: Rosen Penev <rosenp@gmail.com>
-CC: <netdev@vger.kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jeff Garzik
-	<jeff@garzik.org>, David Gibson <david@gibson.dropbear.id.au>, open list
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net v2] net: ibm: emac: fix MR0 write in emac_rx_enable()
-Message-ID: <20261112120835.jhn7kbktc6fpcbof@DEN-DL-M70577>
-References: <20261110014313.1586633-1-rosenp@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KnnbIB3F
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-49412eb1474so2532335f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:09:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794485375; x=1795090175; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yVXFtg5uv6jmT0ohsABv7mNA4IYkbP/bTmshktkMt3c=;
+        b=KnnbIB3F7KMniAR3dO7X6IyBVbtVQ6tOUdE6/JoML7aE/4n6QZgGrSdiBwUSrQqMFf
+         ImyIjubKr2EwQDMCrRkIPXg8JcPztoTDeMIE3QgtEeiOmzRIzrIccGTa2b+I6zMIp0n4
+         fvtn6drlA/T/F5B/c7/+9SgcGZGyH9FytYNNC9gE3wSUqSrmT82pfUIE+tkxgKh4Nk1V
+         xnlX22vuw2JT4GMm8rea8JCPhMS18lnX4VJg4oyIMZb5hmf32AdsKorEs7gr82QgPDdy
+         NfphP+0IvId6gFdVVRgr6S0u3eFgeZV9CFpIiFvn/gjOkpEDIdf/a/ACxQ5nlvlibDE7
+         sJYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794485375; x=1795090175;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yVXFtg5uv6jmT0ohsABv7mNA4IYkbP/bTmshktkMt3c=;
+        b=C6liRBk6MEYN27Yn3yWNfG7Qf6MM+C3oQ0sYvw/NUCBPVXT88yMrI4E6dvm6VqrTVr
+         GO+AoYNXg9Cu8Gsx1afukR3ngqiPgPrGa6mRfumdHmbWdNgRweH5Va5efDbuTjxNV59s
+         MtATh+fUf+X7x0cogAL1LGHmNsQ9KClsL6so54y3bi6aZczydZ21bNOAdWYZeQEQp/fs
+         y62uoJ1BLvsoZv/1eqVDN4TG6UjdLHpnGjdYjMFrFpUVUnW5kfWOptNE7QyrT7DWGrpN
+         VWGzUxLZncseeETPfxHM8SEuxX9tHTHve2ZtBx8l+XD01fzvXm9rdjnlEzf53oXOaDe4
+         +/kg==
+X-Forwarded-Encrypted: i=1; AL+hErEnWN5PrKFZKkjzSYklCxi9nuAmsPfnw9QDEwgfbAw/rEnIlUAarwQVlEKy22w3vucDbpDGki5XJJzy1nw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9JS6keWfia9scBDS5j5jI1nDTkTeeFVLwTG9uCe7V7TDTNFka+
+	jLlBESZMrrk2X6JNMl/SBty77pw2sWQGtneYwtChr3MmXjW6Rx6DsAWU
+X-Gm-Gg: AYBFou0zhTCvdcIVhY9iiX4u5QfrAO0wfdPqVZ5J360V7UyyFPV/aIwuwS3hj4mZHJp
+	vOPJoF3TTSLrAjAE8jUO9qmR52ghtCJ1BtYQ1+UKuJ8iBFc4CB68tylimrhTwzVuZxdXi6ZsInt
+	WXzfmgrqY45gFefDg/AAwiALwM2vL7h4ia+AjhOxuvGTtHSXu9Kk8LLx5QAqv0G0cPLh4tHal/h
+	eVlbxJ8E176l9xZPhb08qK6vWzS90UHIGZDkGWQxI/aiHiy8TkJNQK4IrVgYXAp7fbV6AEQ1S8k
+	7fivp6dFOPkHsCJ53Y7bO1+tHOPFpva8adPndmnPYijq4h1T/fZkc8sHwl/uQ9MOPVOTF1oGttd
+	5kaW6bu5ZjZ8vcyo2GRME3xXdq308GkfA2+nqbiydqkekyzeNDlHwYvYiq1AOzjH2JOosOLsDOF
+	B8rbZEe7VUbpJDDG+UkZ0/T13FC0h/EZOpXOQivrF0pFSExUfp+2+tPi/xnKtNvpBvaTbiF1m6c
+	WAF65aL13jCIWwCw+7QLxqGbW+F6da4eUBwzjLXEhAmOpTX67WH+Ze7ZqrBD7XvxHZvtffxorDo
+	WX+i6CEydtgnyhv/KRqpCgMb7zSc03KzuhQwM/NJTdhApOw5JW5j91rvAG/BYB/XIQ==
+X-Received: by 2002:a05:6000:288b:b0:48e:2a04:4ea3 with SMTP id ffacd0b85a97d-499c3aaa3ecmr10258629f8f.8.1794485375130;
+        Thu, 12 Nov 2026 04:09:35 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49895f4e6ffsm15149402f8f.16.2026.11.12.04.09.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 04:09:34 -0800 (PST)
+Date: Thu, 12 Nov 2026 12:09:28 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Yunhui Cui <cuiyunhui@bytedance.com>
+Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+ alex@ghiti.fr, dennis@kernel.org, tj@kernel.org, cl@gentwo.org,
+ oleg@redhat.com, ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
+ eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
+ yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
+ ihor.solodrai@linux.dev, bjorn@kernel.org, pulehui@huawei.com,
+ puranjay@kernel.org, broonie@kernel.org, dave@stgolabs.net,
+ jszhang@kernel.org, tglx@kernel.org, conor.dooley@microchip.com,
+ thuth@redhat.com, ajones@ventanamicro.com, ben.dooks@codethink.co.uk,
+ rkrcmar@ventanamicro.com, samuel.holland@sifive.com, zong.li@sifive.com,
+ debug@rivosinc.com, seanwascoding@gmail.com, andybnac@gmail.com,
+ menglong8.dong@gmail.com, cyrilbur@tenstorrent.com,
+ wangruikang@iscas.ac.cn, atishp@rivosinc.com, apatel@ventanamicro.com,
+ arnd@arndb.de, nathan@kernel.org, nick.desaulniers+lkml@gmail.com,
+ morbo@google.com, justinstitt@google.com, qingfang.deng@siflower.com.cn,
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, bpf@vger.kernel.org, linux-arch@vger.kernel.org,
+ llvm@lists.linux.dev
+Subject: Re: [PATCH v10 5/9] riscv: implement preemptible this_cpu
+ add_return operations
+Message-ID: <20261112120928.24145d44@pumpkin>
+In-Reply-To: <20261112104149.38589-6-cuiyunhui@bytedance.com>
+References: <20261112104149.38589-1-cuiyunhui@bytedance.com>
+	<20261112104149.38589-6-cuiyunhui@bytedance.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,69 +116,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261110014313.1586633-1-rosenp@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Rosen,
+On Thu, 12 Nov 2026 18:41:45 +0800
+Yunhui Cui <cuiyunhui@bytedance.com> wrote:
 
-> When an asynchronous RX disable is still in progress, emac_rx_enable()
-> waits for MR0[RXI] with
+> Apply the recoverable per-CPU address handling to add-return operations.
 > 
-> 	while (!(r = in_be32(&p->mr0) & EMAC_MR0_RXI) && n)
-> 
-> which assigns only the RXI bit to r, as & binds tighter than =. The
-> following write of r | EMAC_MR0_RXE then clears every other MR0 bit,
-> including TXE, and TX stays stopped until the watchdog resets the EMAC.
-> 
-> This path is taken when RX is restarted after an RX descriptor error.
-> 
-> Replace the open-coded loop with read_poll_timeout_atomic(), which
-> stores the full register value in r.
-> 
-> Fixes: 1d3bb996481e ("Device tree aware EMAC driver")
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  v2: use read_poll_timeout_atomic
->  drivers/net/ethernet/ibm/emac/core.c | 11 +++++------
->  1 file changed, 5 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/ibm/emac/core.c b/drivers/net/ethernet/ibm/emac/core.c
-> index 1b95b4d5deff..0311131055f7 100644
-> --- a/drivers/net/ethernet/ibm/emac/core.c
-> +++ b/drivers/net/ethernet/ibm/emac/core.c
-> @@ -24,6 +24,7 @@
->  #include <linux/string.h>
->  #include <linux/errno.h>
->  #include <linux/delay.h>
-> +#include <linux/iopoll.h>
->  #include <linux/types.h>
->  #include <linux/pci.h>
->  #include <linux/etherdevice.h>
-> @@ -248,12 +249,10 @@ static void emac_rx_enable(struct emac_instance *dev)
->  	if (!(r & EMAC_MR0_RXE)) {
->  		if (unlikely(!(r & EMAC_MR0_RXI))) {
->  			/* Wait if previous async disable is still in progress */
-> -			int n = dev->stop_timeout;
-> -			while (!(r = in_be32(&p->mr0) & EMAC_MR0_RXI) && n) {
-> -				udelay(1);
-> -				--n;
-> -			}
-> -			if (unlikely(!n))
-> +			if (read_poll_timeout_atomic(in_be32, r,
-> +						     r & EMAC_MR0_RXI, 1,
-> +						     dev->stop_timeout, false,
-> +						     &p->mr0))
->  				emac_report_timeout_error(dev,
->  							  "RX disable timeout");
->  		}
-> -- 
-> 2.56.0
->
+> Native-width AMOs return the old value, so derive the new value required
+> by the percpu API from the operand. Use Zabha for subword operations when
+> available, or a masked LR/SC sequence that returns the updated field.
 
-I think the v2 conversion to read_poll_timeout_atomic() looks good. But I wonder
-why you dropped the tested line in v2? Was this version not tested? Either way,
-the commit message should say so.
+I can't help feeling that some of this code is the same as that for
+normal atomic accesses.
+Can they me merged?
 
-/Daniel
-
+David
