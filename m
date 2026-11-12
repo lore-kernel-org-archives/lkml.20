@@ -1,59 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794483032;
-	b=WwuPET1/aki92mJ3ESHD76li902Cvna1fp3XLYj+463yBgYNk/s5mIumb39j30Qxz/TR
-	 IdQc/+eiakNO5rfJykq69bZNq3SzI4l8uImJk3P9DqmuNysjKW9uBeodLDjQZvaiwwD8l
-	 9yz4b6lmpDF+Des1+lseUeqeM32TvfUXtBqSDYm29bcUmAxGj7ftmEj6TzTb5GoNkF5iY
-	 7/WjFi8N7xlt92sFkcQ8K8gIcWbWTax2paFYK1Yb3nhnmy1mX9wm/sfFb0AWH549EIIDr
-	 teVOXHqXdsF8r7vwJzQDPj+3ffmItp390GtCR0AIFvBk+6eDVmh/zawTKJCggSKoTCw==
+	t=1794483042;
+	b=EOl9x2Gi9V2nAY/3ZpceUdYOoCNiLW93/PeJAV2ufkY99VWsLSLjDjDBFELyQlwHsXNt
+	 sL4OhmwGhOTuaCweAwYNaZ5lQO+3c0BIDm1IH7KeVdxSRU6FCNkbn3ON9I6trvvKSa5Hv
+	 Zbq5ReTWsDwWGb3zbVTj8NFK5y2VMy6exyxYcxAF3UHi1Qw8YGLA4bD7UW3zsn/elmeSk
+	 3a1Cuk4LDWPCy2AJNszv5oR2UxmgMSOge95imnFqfxtO7rHOrthTnwhP5AVL4vWGS66uD
+	 ehAWpMCQgNuGng9OsJ4DVUxPLIkeqJuiV/KXqDt/JCD0F0R1AbQjDIZUrmm+Ztz+9zA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794483032;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=F6gU4BmozjxaE/QerEOJXFIss7OYqEoODtcrPRAZu7E=;
-	b=roCznfstnrPzlylqnA5LG93HbgSwNmN+70Jzc8j6/E0BdzFhIpEYeqI8DpMzT+cw8H1s
-	 dVZwJdEtCO1ty/r075AIloDybTUvA4HjZdqgV56TBvtKlJ+ODswJzzS+CvBWPJfb0UxfG
-	 wt0iej1CJdsbXWnqskDZRtLryWPIbbeWwiLBs4N0ciTIQp5U7b6NvLijL7oo5kE3BCezY
-	 RWLZR0MJgPV3L2Kk+tNGkifZQToyAHUixumP85atJ+mlFubn00FOok+NjVPV96+IUW+QN
-	 LlY2QvJF8yWI3tEqVbzUdks6Ag03VSV+KdK1YuLY4s+fX/P+qPGN8K0ChugMFotAkOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794483042;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:From:To:CC:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Originating-IP:X-ClientProxiedBy;
+	bh=8dtoPzgIAyTZmTJOXmbFfXRIYwlyrp1T0CX/jpuE8Sc=;
+	b=EwzLFaSheyOLgMiVL4pjEfIt1ekJmCu/nVJDlbEHR69U6tEebaNS4QK8XfvPDcVtojr4
+	 aodcFpq5fmM2JJDfcKxAImW7ZpFSngoPYyK/UaYPW+E/V0jdcWjliKJzBJH8q4EQG86KU
+	 iAyH6NseKRDGK4oAw7Vuf2wW9iOwiSIw4FBqmgqwZS3ZdCdGPOHFyjHutxWrorkZqHgRi
+	 2utqZsK/oaxWggvQi2op5O1bB8I9rMUPHkTGtYoXgrZF9274jeYfjuyxl5cH5o9ee6XwJ
+	 aHFWdPmY2foPctXo2uBC3hmPRb6Sl2XCCVWV3ITi7balBvoQOJQfx0jSHrwCVcKNU+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ekj3YAJe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=JsLmb+4T;
+	arc=none smtp.remote-ip=113.46.200.222
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC09606A88F;
-	Thu, 12 Nov 2026 11:30:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5AC3606A32E;
+	Thu, 12 Nov 2026 11:30:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5AC3606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ekj3YAJe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 028221F00A05;
-	Thu, 12 Nov 2026 11:30:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794483032;
-	bh=F6gU4BmozjxaE/QerEOJXFIss7OYqEoODtcrPRAZu7E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ekj3YAJea3A+Hvwb14NKlDrVFiwuBOCv13IuASTSE91SXXW4eg3AUjZGTaUk5hZ1D
-	 3+J7D8LLu3cLnNWZu42bWDWF38N72zRMSsrywFgVgpqKGVdTNJF0ktCGSHjaJV0tp/
-	 H08GqrrCmlHSLDNxyiB0iulZrp1RVg1/4GoidyEXvVeEWy5iOrCmbgEDupnVqBupOf
-	 lHU+tyB+qIjFA1JIxkkS6ayf7f0mukcfISHR1EebBHamuEPJS1vMGxo2rUfOe+dzJj
-	 MbfYoFCg5YUCY8hUJeeG1kjENRN1Iqi4LiP1dzfC7u1N3j4yDH63RYTadqcC7p1hLk
-	 ZnWx3y1BDip4w==
-Date: Thu, 12 Nov 2026 11:30:27 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Stefan Ghetu <stefan.ghetu@nxp.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] ASoC: fsl_asrc/fsl_easrc: fix memory safety issues
-Message-ID: <df98e456-5f70-4b3a-8881-a4c1e7440632@sirena.org.uk>
-References: <20261112100105.123845-1-stefan.ghetu@nxp.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=JsLmb+4T
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=8dtoPzgIAyTZmTJOXmbFfXRIYwlyrp1T0CX/jpuE8Sc=;
+	b=JsLmb+4Tk+a7iKdRyTfJwMH5VClwAn5+pSrMX5WFckZNZJu7p1WXAYf11555CnuG5DEsfGp9k
+	BeuE9orOg/o9PoYKmww8z59bwTSx0uEfbqY/D9m0WXNHqJpX6Jrt1Xgr1Ehv7eeqGmf6oDtQjc+
+	M7ICNe9Jlqzp2nRZ8ChCv3Q=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jQJ8j2WsDzLlSW;
+	Thu, 12 Nov 2026 19:30:13 +0800 (CST)
+Received: from kwepemk300003.china.huawei.com (unknown [7.202.195.93])
+	by mail.maildlp.com (Postfix) with ESMTPS id 3A88440565;
+	Thu, 12 Nov 2026 19:30:29 +0800 (CST)
+Received: from [10.174.177.243] (10.174.177.243) by
+ kwepemk300003.china.huawei.com (7.202.195.93) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 12 Nov 2026 19:30:28 +0800
+Message-ID: <3ad97d52-9229-4b15-818e-4fcba66a0251@huawei.com>
+Date: Thu, 12 Nov 2026 19:30:27 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,37 +62,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="0/NDbg2oErjx5qhd"
-Content-Disposition: inline
-In-Reply-To: <20261112100105.123845-1-stefan.ghetu@nxp.com>
-X-Cookie: Baby On Board.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/3] mm: hugetlb: fix GFP mask propagation to CMA
+From: Kefeng Wang <wangkefeng.wang@huawei.com>
+To: Qi Zheng <qi.zheng@linux.dev>, <muchun.song@linux.dev>,
+	<osalvador@suse.de>, <david@kernel.org>, <akpm@linux-foundation.org>,
+	<azpijr@gmail.com>, <lance.yang@linux.dev>
+CC: <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>, Qi Zheng
+	<zhengqi.arch@bytedance.com>, <stable@vger.kernel.org>, "Oscar Salvador
+ (SUSE)" <osalvador@kernel.org>
+References: <cover.1794379433.git.zhengqi.arch@bytedance.com>
+ <1c5e8c4ae230dc238a16f2f42d65bffac6244ad3.1794379434.git.zhengqi.arch@bytedance.com>
+ <7def88b4-cba5-4e8b-9e68-6069c492b582@huawei.com>
+Content-Language: en-US
+In-Reply-To: <7def88b4-cba5-4e8b-9e68-6069c492b582@huawei.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemk300003.china.huawei.com (7.202.195.93)
 
 
---0/NDbg2oErjx5qhd
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Thu, Nov 12, 2026 at 12:01:00PM +0200, Stefan Ghetu wrote:
-> This series fixes memory safety issues in the ASRC and EASRC drivers
-> that can be triggered by a user with access to their PCM or compress
-> devices:
+On 11/12/2026 7:27 PM, Kefeng Wang wrote:
+> 
+> 
+> On 11/11/2026 2:46 PM, Qi Zheng wrote:
+>> From: Qi Zheng <zhengqi.arch@bytedance.com>
+>>
+>> cma_alloc_frozen_compound() uses GFP_KERNEL, allowing direct reclaim
+>> during the first MPOL_PREFERRED_MANY allocation attempt even though
+>> the caller clears __GFP_DIRECT_RECLAIM.
+> 
+> MPOL_PREFERRED_MANY is only used for the partner allocator. Without your
 
-I've got this cover letter but no patches...
+Sorry, buddy allocation
 
---0/NDbg2oErjx5qhd
-Content-Type: application/pgp-signature; name="signature.asc"
+> patches "mm: hugetlb: add CMA support for PMD-sized pages,"
+> cma_alloc_frozen_compound() is only used for huge page allocations. In
 
------BEGIN PGP SIGNATURE-----
+gigantic allocation
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr1o1IACgkQJNaLcl1U
-h9Aiogf/TPF5sHgdyas9ArjKL8tzkEJQmNb6PSOVQQkcP4LverwE7sJK2nYaWjiI
-hexouqrJ3voghfk8Sg87fXw9OJq9Q2YJ3GjRg8HRi+zHQFGr3ZREHmC77DkWvtIm
-04/mt2TiP1Aa8QJxX7HZZyH3y5CHYe6TdycteZZLphOVoyazmbZcmZAS2fvHaU8f
-cOpigk8ufTq/m6c7yRLvDPKeQ3DPcBj0YVb8weyzI/J0pklVyAB3aVnaxaihSKWo
-PaKz2YgEgSZlnM8oqaMIG/lCUNth9W4gu8P1p4fu4syFIBdKN2INVMaYq4nvNmie
-H5vcCQMupSJuyhQAKSVJ42oIiHeNug==
-=/WPG
------END PGP SIGNATURE-----
+> this case, I think we don't need the gfp flag, which is why I hardcoded
+> it, so there's no need for the Fixes tag; this patch should be part of
+> your new feature. Maybe I missed something?
+> 
+>>
+>> Pass the caller's GFP mask through the helper so CMA respects its
+>> reclaim constraints when trying the preferred nodes.
+>>
+>> Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+>> Acked-by: Muchun Song <muchun.song@linux.dev>
+>> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+>> Reviewed-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
+>> ---
+>>   include/linux/cma.h |  2 +-
+>>   mm/cma.c            | 10 ++++++++--
+>>   mm/hugetlb_cma.c    |  4 ++--
+>>   3 files changed, 11 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/include/linux/cma.h b/include/linux/cma.h
+>> index 8555d38a97b1a..4539ea5f2c4e8 100644
+>> --- a/include/linux/cma.h
+>> +++ b/include/linux/cma.h
+>> @@ -53,7 +53,7 @@ extern bool cma_release(struct cma *cma, const 
+>> struct page *pages, unsigned long
+>>   struct page *cma_alloc_frozen(struct cma *cma, unsigned long count,
+>>           unsigned int align, bool no_warn);
+>> -struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int 
+>> order);
+>> +struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int 
+>> order, gfp_t gfp);
+>>   bool cma_release_frozen(struct cma *cma, const struct page *pages,
+>>           unsigned long count);
+>> diff --git a/mm/cma.c b/mm/cma.c
+>> index 9ec1d1fd5dff5..a7c47c0e7d070 100644
+>> --- a/mm/cma.c
+>> +++ b/mm/cma.c
+>> @@ -933,9 +933,15 @@ struct page *cma_alloc_frozen(struct cma *cma, 
+>> unsigned long count,
+>>       return __cma_alloc_frozen(cma, count, align, gfp);
+>>   }
+>> -struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int 
+>> order)
+>> +struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int 
+>> order, gfp_t gfp)
+>>   {
+>> -    gfp_t gfp = GFP_KERNEL | __GFP_COMP | __GFP_NOWARN;
+>> +    /*
+>> +     * The only caller of cma_alloc_frozen_compound() is hugetlb, and
+>> +     * hugetlb constructs its gfp mask via htlb_alloc_mask(), which 
+>> already
+>> +     * sets __GFP_COMP. Check here for usecases bypassing 
+>> htlb_alloc_mask().
+>> +     */
+>> +    if (WARN_ON_ONCE(!(gfp & __GFP_COMP)))
+>> +        return NULL;
+>>       return __cma_alloc_frozen(cma, 1 << order, order, gfp);
+>>   }
+>> diff --git a/mm/hugetlb_cma.c b/mm/hugetlb_cma.c
+>> index cd6a64986278a..3e5a30571524a 100644
+>> --- a/mm/hugetlb_cma.c
+>> +++ b/mm/hugetlb_cma.c
+>> @@ -69,14 +69,14 @@ struct folio *hugetlb_cma_alloc_frozen_folio(int 
+>> order, gfp_t gfp_mask,
+>>       }
+>>       if (hugetlb_cma[nid] && node_isset(nid, *nmask))
+>> -        page = cma_alloc_frozen_compound(hugetlb_cma[nid], order);
+>> +        page = cma_alloc_frozen_compound(hugetlb_cma[nid], order, 
+>> gfp_mask);
+>>       if (!page && !(gfp_mask & __GFP_THISNODE)) {
+>>           for_each_node_mask(node, *nmask) {
+>>               if (node == nid || !hugetlb_cma[node])
+>>                   continue;
+>> -            page = cma_alloc_frozen_compound(hugetlb_cma[node], order);
+>> +            page = cma_alloc_frozen_compound(hugetlb_cma[node], 
+>> order, gfp_mask);
+>>               if (page)
+>>                   break;
+>>           }
+> 
 
---0/NDbg2oErjx5qhd--
