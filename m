@@ -1,100 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794442653;
-	b=3Dln2QmvVqk+qIj4oTQ+aP5q+zkMqxv7EXb0++TNlgIVGnTdkhlXyCRbW3leB20hLqPe
-	 /s0ZVfl9n/FFTnVqQMkRrLetkN2ezgBYXv8xrBcnRDtrg2UV+/Rq7MgrDjWbv0aJp2kep
-	 FxGB1OueZHeBnbGhWuBAUtiCu5UbhAfKPdc9A3rXR+TWm2i4PRwMfCMgMpwN4NhE9xRs0
-	 nu0UW68gvobX1BghjZyNOf/efPyEWxHcq5Y73oMZgQyFr3di6unj4mB2OU8hsU82httg+
-	 +OwSxXVXKPETCqxFfTThXGLPOLjpOZamA0DUNo18xL5i8ztFZTCy760B7a3Gs5MejNA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794442653;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=gmUxuFr1Scrtzy9jq6/XBAc+K/Jb1cYhpFQ7OvuHQow=;
-	b=DzQAYWtYIywHXI7zfWvoV/+ZuC0zmDOCXJMNXE27Pzbu5J+Nhzj8cy3dsC9wccYlJIlM
-	 69TkgnDCwFwTgl/zqXAFe2uJWffbyWVQ4qPdu8PzB6fvAubl11+NUyZRpvHHCAnoL5L8N
-	 Z9v4kG47GrbbUBFlHUl5yM235VakLfg+8WHaxwYSlNVy3xrJoPi1bnWM4JbDSWnU1gJbD
-	 LhIQ/2VVajeZj/tQOsHaVKLBbHva/dpI4VFF9PAcJy8C+YtWRm8955dNHzreqARBAN7Jh
-	 90NGjUVff6ydrFgAoMbMNJSaO7kbEnysj8qvAVyRQcuSQDpNtzQ0VNM8JldMjceKvLw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QY+9H4KB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794442674;
+	b=NxdJ5HwUjuqoqbn1mbRnnhW7Cd3qrClnDLC9QKiuFZtdPpyBKa2vHpFuv77fCSV3Qy7Y
+	 13F/PrSPTzQN5Bh5uZhX2H2XJDdpQFNt4POKnCKItpWr7mQVX49J52YJI2v3vxsFU0svR
+	 2UCNpr7/0kDPSE0P2/aLXBve8LCE56WW8Ig9NsAopGQw01F73YujPXRRn61hyqdaIyc+r
+	 eQjOBB+i5Zv8x7YhRgzTxVSn+eBRDyEBfzopq1t0jnxQrjad4IX7zjfU8ytVETHfr3Q4F
+	 ulRnJmTyXdIrmz0+e8uhpTMOBwOqDVRw2DlNvbI2fDZYr7u5H0MzuMUc+o9bmuAScjQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794442674;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ZzsPa81dpyn+F/Esmqz9jQgZ2Ln/oH57eZktwIJQp6Y=;
+	b=caWEmT+SHlNlkAC+CR0nVXuwML2A9L/v+lt/4yhicyDBEUTJgUejJeMEoRuRNGCCy7hg
+	 sfNg5uUZRdd/OpIGQRVsk5rvODcH4ALQwNEjYALBEIoiSe6gh+RKwgcY34cEszq6qDWt6
+	 R6TWEKssn2Nj6JmpCduCD901uu3OBW4Ir3rZ5WiroJzDHpZtnboSbIwAV5s02zomSU9na
+	 wTb1jiJf4qRadpqeZa3hsOB2UKjyuDvqZSDlIEdYJEK24LqSMZwfbvuxtYvp2GZBDcOAT
+	 +RcrtqnEMHL2D8h2qXRcWe4mx7tmFpyveQuRuy7n2CyRSlgY8ssNmD7ovB17uwmHacA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZEsGkfZy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4B5606A32D
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:17:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB4B5606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F879606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:17:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QY+9H4KB
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b71ee00f0dso1712a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:17:32 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794442651; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kXrvrKnLuQ9paqZbh+RgxXB9YezZrEN95Ooii04ZT4EUOSR2ECUS6UtDyfNemVTRo9
-         GItWdX7NDZB9sf1289HKDWLgPxsBVKQNLIXFXAKifsUxcX6OISP1V/zpPFSABgzuYN3T
-         oZCha4YoKq5CyWXx6ZuJ8NvP+VcnaUUGK0TxKnceHNthqffnoBOOndpWmZqk9fit838C
-         hhlV4qOePcxIu8kpwf+tGzRlbEC7+fYfVnkxKn6oPR5XkVxTl7TgU3gCQMSfbAlcQsAl
-         W/TDbaG0gHFbkAplaRDg7kcm+ax6Blt6jWiv2EEGGlG35VunvwRMFIhs/pHDRo6S/tXe
-         GLew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gmUxuFr1Scrtzy9jq6/XBAc+K/Jb1cYhpFQ7OvuHQow=;
-        fh=EMUAjtYr4YObO/Eq1WDxNeWqwd/AByprHmhN9KVi3q8=;
-        b=Mw2sbEB+YM7Xrco53mZcOkHaJQlReRFxh5ai/jSmYydnRKopKSBDFCaGHy4espWNfq
-         pD+14zRn3sjKPYlAmzkGyOc7ZFnLiAIeDWDEoZGyYnEEtt1XoHwCDNJvsOh9iiW+l8fW
-         3p8clZPZSZk7aP0adcenUYHt3D2hOwvoAidXmP5ZMGOxGD79sS42per6PES+DTmEXkA4
-         LrwK01pgWvDoIRUmDgCWoGFrTvUwYVnPedB673X7bRAmtQErRqSKcxdZZ0rEEyJZZJa8
-         JoTxWmqL3zUm3bpgjRvmrmSxfqaWofr0j+n8EhF3Hdi9CmWzAFJHTI8OGirAvbgx9ClJ
-         PaRw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794442651; x=1795047451; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gmUxuFr1Scrtzy9jq6/XBAc+K/Jb1cYhpFQ7OvuHQow=;
-        b=QY+9H4KBVMuRH6WseMYE10z/E6oHDTOxh8WTDUyV9c1OJB/L2GOFHpJ8jTAfTPyNx4
-         fnThIGMHJGQSj6hOU/X43MCGlvQdkiO64U45kfZ9SUWdV/nIBHN2yM8WjPL3ie/cE5CL
-         KfH81hSPqG3FwvK/mbyH0AKy8wh/batRMthVd52IT8+bfnWhQT7GUqM9nWa5zuL3ThA2
-         vyuaQMrfbHHFgxJvYpIprSsfvOxsGEFsy1XtwHw+8+fLUvC75LYsDziB7kDmd1lIZhDM
-         bd44g2vlfdilYjpd0y6qdWk/rMix5Y9GFOEv1PHFlj/tkpTWdZ1OlzmijfV4pNIibtQj
-         5FwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794442651; x=1795047451;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gmUxuFr1Scrtzy9jq6/XBAc+K/Jb1cYhpFQ7OvuHQow=;
-        b=qeaYm5xPeMIU+cziDiqIdk96IxZExIh74p/Uzepr1DB+L6OIwNvVUnAT485RJ0bGl7
-         wSf1L3JQ+QbjHNIWT34aN66++a3cNAPhgNulxSpiXec2NamL0jHJBY8hPwZR5VwcGtIx
-         s8qrEhKCNCDdS1VxH7Juw0J6qktVmPmsjvCrptJsKI14yTia5C6ZsEmSVQ9WTZUuzDtl
-         oUJUT0M6B+D8cdoXNfaWgf3v+E1bikqtAf1MSwbg+bb1ZT+5Tp+a/oRoatRgAv6gGh8U
-         E4LVYCr2eHtt4OJRMMcxCRPm3OUolnHH8b7RpUSJYPt4nFh2NJXY1zucv57506mcz2G5
-         2nJg==
-X-Forwarded-Encrypted: i=1; AL+hErG2PJuQPw3BKVYyY2bn52UxMGTfyZ5+kdLXw+OEwlrFGwqpynI1kpvc2719F/6u1pAjbK7Rglq47DpZIXM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/KwpWvnI7mWZJExtedwQkpxOfehARlWr7mY4Ju559niVXJJLdo
-	wOfAIG6HGyOAbBCOFT/1JoCYRP4AIrcoqCmAgTdPnOTu9FbNJEEp5nloar5BX2GTM/42mjZ4BKr
-	DiefY41/+EcbmzcA5jbXYVSfVnT91onWSvfGMkOJH
-X-Gm-Gg: AYBFou0lTl4lu2XsyRBZ7c9SrnGsVA2Y5itLEFdf1qMnet0NwqVAxzQJYwAtTybcSlO
-	2i03msR8+37lFPVQWhWs3sXsGWgDmqhysXzwPussiv36yDOWCk0J6Fallkg+J9NUVThk44q+w2j
-	rePnYp/oHmj7H6TP/YKzkNSUJzCtHawHk5T1RHhfnT9rNuFsrCY58hyoy2jCP2mckawmr1CWkE/
-	Wf5iXTPEHhGMrZkzkIxuFa3whT3Ntw4jeQbDFIgah9gE5LdhULSGj5nmJoGkGfLNvbHVOABK0Ka
-	6IHPTAYT09UG0kBlV1DBdQaI62+UgX4o2nsr0hiGc6OU4Xrec4ZTXt2LyXTRwZXcasgPbYLnFRE
-	TFboWxnyhEPTCSUozCgvuNMg50s1/+NndLf1NI0JTSNlAhbhyMBwOoxVhgdXy1X5PUmcMDuz5
-X-Received: by 2002:a05:6402:327:b0:6b1:bce6:1220 with SMTP id
- 4fb4d7f45d1cf-6b7a2a18aa4mr17979a12.12.1794442650687; Wed, 11 Nov 2026
- 16:17:30 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZEsGkfZy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B18CF1F00A07
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:17:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794442673;
+	bh=ZzsPa81dpyn+F/Esmqz9jQgZ2Ln/oH57eZktwIJQp6Y=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ZEsGkfZydFig5ZVck3lA/C5493vPLZ2sGi5g8mDO/n4GIR6AE6m9rh0/YufhB/wNp
+	 6ZOQIj9NzuSMBwYJ+Qf/JlRZbU94/OmPloQs2zcg1TG7+H4UAXDzKPzgHd3W9Fyfds
+	 eggGoZ71ipTiclI22QNuAGp+kGgeR+7qTjmSqEfqK4YRFmSLg4wha6JT7EcRyiRsml
+	 Ert/ZpEE9f/RCGAtMBIheT25jCdbNtLkbFwWS0z6SEJ5AE5sSNrjuH9eF18Bgb/ZAV
+	 qmfEtE76nCXu+2n3UO3mTHJ/m/xDhGpo7K2HNCiq020CutKBBDzhOZwMhGCPUdeYk/
+	 lYHYGFSYDIWuA==
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so556620766b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 16:17:53 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErG2TTmnaVfU1whMVoVNo+o6RG2HLBNWTgzHNNMR/5mI4wKNgtJkXMr7DlNz9gtA2tU82QMzS1fM6fp7Xyc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/5pl00pX3va2P6yXmZ/3mvCuZ8WdOVj9PUN1XKS21/JVdhEouq
+	kH0B4jZvFvlI+0dumgO83nk1gcJNhLSj6kQo1LZHt5au+pfd4nyjee+tEz34h0JyVLpfaoO/xUQ
+	//HrAgghVYlgjMnfqV/N/Gg6tOI6gASU=
+X-Received: by 2002:a17:907:980b:b0:c26:2a2:b91d with SMTP id
+ a640c23a62f3a-c506694f0b9mr345372866b.6.1794442672547; Wed, 11 Nov 2026
+ 16:17:52 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,55 +59,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1794374897.git.zack.rusin@broadcom.com> <80b2f51ddabc3824b83da48fc0def984cf808965.1794374897.git.zack.rusin@broadcom.com>
-In-Reply-To: <80b2f51ddabc3824b83da48fc0def984cf808965.1794374897.git.zack.rusin@broadcom.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Wed, 11 Nov 2026 16:17:17 -0800
-X-Gm-Features: AclHuK_V43cL9OcDFeVKDhORDjmYSlCIZPO3f49bHRt-Tpt3bJyQNBhejjxGgLw
-Message-ID: <CALMp9eQvP6hdxJ2-X5bhZHfaM5JCsvVJe07OkzTnnQhq73mW4w@mail.gmail.com>
-Subject: Re: [PATCH v3 05/12] KVM: x86: Add a unified VMware capability
-To: Zack Rusin <zack.rusin@broadcom.com>
+References: <20261112000200.3005587-1-jmattson@google.com>
+In-Reply-To: <20261112000200.3005587-1-jmattson@google.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Wed, 11 Nov 2026 16:17:40 -0800
+X-Gmail-Original-Message-ID: <CAO9r8zMD5E4LxsQsV2P5_wy2yKdqE6TSNAp6y+3SpzcMDTSUkg@mail.gmail.com>
+X-Gm-Features: AclHuK85o75-ht54CUq8k-6jkx4zbqrwa2R0Tq72RmOqP8KdGNg2NVlFa4nMQzc
+Message-ID: <CAO9r8zMD5E4LxsQsV2P5_wy2yKdqE6TSNAp6y+3SpzcMDTSUkg@mail.gmail.com>
+Subject: Re: [PATCH] KVM: nSVM: Mark VMCB_CET dirty on active VMCB in svm_set_msr()
+To: Jim Mattson <jmattson@google.com>
 Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	Doug Covelli <doug.covelli@broadcom.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
-	Shuah Khan <shuah@kernel.org>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	David Woodhouse <dwmw2@infradead.org>, Paul Durrant <paul@xen.org>, Xin Li <xin@zytor.com>, 
-	Francesco Lavra <flavra@baylibre.com>, =?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 10, 2026 at 10:05=E2=80=AFPM Zack Rusin <zack.rusin@broadcom.co=
-m> wrote:
+On Wed, Nov 11, 2026 at 4:02=E2=80=AFPM Jim Mattson <jmattson@google.com> w=
+rote:
 >
-> Add KVM_CAP_X86_VMWARE, a VM capability that takes a mask of VMware
-> interfaces to enable, with KVM_VMWARE_ENABLE_BACKDOOR enabling the
-> I/O-port and pseudo-PMC backdoor.  KVM_CHECK_EXTENSION returns the
-> supported flags.  Track the flags per VM, and keep
-> enable_vmware_backdoor as the initial value of the backdoor flag.
+> In svm_set_msr(), writes to MSR_IA32_S_CET, MSR_IA32_INT_SSP_TAB, and
+> MSR_KVM_INTERNAL_GUEST_SSP update svm->vmcb->save.{s_cet,isst_addr,ssp}
+> (which resolves to vmcb02->save when in guest mode), but mark VMCB_CET
+> dirty on svm->vmcb01.ptr instead of svm->vmcb.
 >
-> The module parameter enables the backdoor for every VM on the host,
-> whichever VMM created it.  A per-VM flag lets VMMs enable it only where
-> it is wanted, and the module parameter keeps existing VMMs working.
+> A stale VMCB_CET clean bit may result in the loss of those MSR updates.
 >
-> Use one capability, so that the hypercall and nested-backdoor flags
-> added next share its validation and rules.  Accept flags only before
-> the first vCPU is created, because vCPU setup configures #GP and RDPMC
-> interception from them, and don't allow clearing them.  Limit the flags
-> to bits 0-30, as KVM_CHECK_EXTENSION returns an int.
+> Mark VMCB_CET dirty on svm->vmcb instead of svm->vmcb01.ptr.
 >
-> Enabling the backdoor for an SEV guest still doesn't bypass the guest's
-> I/O permissions: KVM doesn't intercept #GP for SEV guests.
+> Fixes: 48b2ec0d540c ("KVM: SVM: Emulate reads and writes to shadow stack =
+MSRs")
+> Signed-off-by: Jim Mattson <jmattson@google.com>
+
+Reviewed-by: Yosry Ahmed <yosry@kernel.org>
+
+> ---
+>  arch/x86/kvm/svm/svm.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 >
-> Suggested-by: Paolo Bonzini <pbonzini@redhat.com>
-> Suggested-by: Sean Christopherson <seanjc@google.com>
-> Link: https://lore.kernel.org/r/c60b32a3-e699-4a8c-8d52-09b34c4d5269@redh=
-at.com
-> Link: https://lore.kernel.org/r/aAjrOgsooR4RYIJr@google.com
-> Link: https://lore.kernel.org/r/aAkgV3ja9NbDsrju@google.com
-> Link: https://lore.kernel.org/r/aIEkrc7Mdf2ia1Mm@google.com
-> Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
- Reviewed-by: Jim Mattson <jmattson@google.com>
+> diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+> index 136069dfcd44..eab11fe50312 100644
+> --- a/arch/x86/kvm/svm/svm.c
+> +++ b/arch/x86/kvm/svm/svm.c
+> @@ -3181,15 +3181,15 @@ static int svm_set_msr(struct kvm_vcpu *vcpu, str=
+uct msr_data *msr)
+>                 break;
+>         case MSR_IA32_S_CET:
+>                 svm->vmcb->save.s_cet =3D data;
+> -               vmcb_mark_dirty(svm->vmcb01.ptr, VMCB_CET);
+> +               vmcb_mark_dirty(svm->vmcb, VMCB_CET);
+>                 break;
+>         case MSR_IA32_INT_SSP_TAB:
+>                 svm->vmcb->save.isst_addr =3D data;
+> -               vmcb_mark_dirty(svm->vmcb01.ptr, VMCB_CET);
+> +               vmcb_mark_dirty(svm->vmcb, VMCB_CET);
+>                 break;
+>         case MSR_KVM_INTERNAL_GUEST_SSP:
+>                 svm->vmcb->save.ssp =3D data;
+> -               vmcb_mark_dirty(svm->vmcb01.ptr, VMCB_CET);
+> +               vmcb_mark_dirty(svm->vmcb, VMCB_CET);
+>                 break;
+>         case MSR_TSC_AUX:
+>                 /*
+> --
+> 2.56.0.567.gdb80ae8cd5-goog
+>
