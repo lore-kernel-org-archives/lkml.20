@@ -1,63 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794511836;
-	b=hKpZBRIxtR2N7IOCaDzs/FzW+L94hYa+QzD8oT6UHsjB4k8Oigql/XxDPKOGnIJpfaft
-	 hE8K8YEAVqXEgsk5Auj2IPKvE8ZZjCQC2VvLYmW6U1w4gHmgEr9VcxAki4syV5FunDIXp
-	 t2VwESENYq3r68ANUaj9W+yWgbOff/4Qi/cigrgnwAPqCojMt9bIrqgBBlKntPQ4yNbCI
-	 UL/1dUdqv914TzFvOR6T9z7zmUUyi/QZQ7pC+I715+vU2xfeYllvZU/ISrQBBrf1o5BjD
-	 9otFY86ZLSYmV50kdMfGugEQRzBGQ7HTt60K5ifEUDmemOdpPZWm0t3TpHEEeSd+FNg==
+	t=1794511845;
+	b=b6+fBqhuZ8D93NPg9E9OW25tvgT+wM3U+H8/LQaPaFQEk3HN69ibnL9ucdFW6hNciV8Y
+	 U4Oq/iNV/JhkcQTXixh6H2U/XzuHqlNDV+/OIapHePWwnae8xLqEzoCI8wNiK5DDNIsq6
+	 31j4c2ZS3RDgarQhABViwJU+9NvTCIKvh/jKax7jl29I9hgZc2sl7067IGMNPzUEiTaoX
+	 TWm/L2inezuUZjw4FHo05XH4WWsbatvJay67jn9xlGoEN41nVYFpdnfiztglEHcLS7T/p
+	 dfMtKAa08JvrylqthJp5FuFAF2iAhJZlCJ5qV7Wi2kPYG2mtMaoujMZZCl0QFWqCA8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794511836;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=J3WxrQRGopNDU66vbcWMRObNcRT1gSGY3aYp/KopfOU=;
-	b=KfhqeLNW7v+ka19XV2N18l+ngzRUVLQrFMLb8Nfs2m573Lh9ilbidnRBosS1jtpgE9UM
-	 quYND9lJI04u7zVxhCofqVDSt4w4CYw5wv9H1D8rBzW0vQGfTyfIqhm7l71I6jqxgCymM
-	 WFUAiM3dEYscG5js+buPZz+QD025Mb7dJjxADY1rtQqqN1CNyiANcT9l+4zZ+E/+3/nql
-	 ByCp7bN46QmK6ImZ0BJreg3YHOOaqmE6UDqhaL8VwOJFEjFyW8zeVNpDTA7Y4puR4iF0l
-	 ST70dCzVF3RLDz70Dk1t8WJbvwt+Z+JzBbK4zu15BNeaUcTzcEyuoC6aBWhmgogOMeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794511845;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:CC:Subject:
+	 User-Agent:In-Reply-To:References:Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=dVmGUOAC/RT1NKlC/mYP5cJfsGUMVjyOOI8i2FgSf+0=;
+	b=1ZAUs0M3UXINSGCozj+7XLfjlZW29uByG8jhzQAMebRyjlxICskriifDCMs3SAwddpIH
+	 7JRTI4/m2LpcNE0RRh70T3I0rwMTp6+MOwhkXEGpm0DuUf0BK4sFznR/blhEfRCNXBx55
+	 f8pNWbDKYRnhso3lL5URGuj2+l+53yOxeitE1aePHnU53Y+z/ey+RyFombnd6rIhCE7R3
+	 fmRpaCHW9Wr51tyforQqO67JBIJlqvPMPqjJRKni1uCaSHubJiMQrgaPE8muP1vABkdMO
+	 4uZ1UwLwZDqgzYugWx+VEzUZiJoD5bH2BtFN43+ErUWdsw5/w2IzhuMyuJIoSa+qQFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=EPf93kMG;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=uqwwLbb7;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3933C606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:30:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3933C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACAE0606A31C;
+	Thu, 12 Nov 2026 19:30:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACAE0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=EPf93kMG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=J3Wx
-	rQRGopNDU66vbcWMRObNcRT1gSGY3aYp/KopfOU=; b=EPf93kMGjdHYDb6ulCsz
-	OO7qAQJ66lftMg0xsz8cBWhV2jTm/17pGA2NJ5MdqAz3wMBs70btO3zMea17M7qi
-	6IdXnY5wN9nVHU6/gw4w4XXRz2hOzuPzdgyVTI6b28DWa1uwTZJ2+jBMPaQYKTg8
-	I6bnjRtpvtsKpCil9mtAQwl6VTZEoD+70JqQZ1bM8wuTqQ3qPjkc5vx4nE1jeQ2j
-	DkIXK0eLG5/UZ2DlPX4cMGhVeGbqmBf1BvT16rra1wRVt6glP0crIJtvxj6ONeRD
-	JiM2s/jevkvLUNMBxMOW7ZblgKN8I9uDqGgFf/M+2xEYhNbGfgjUziw9M7tMqAH+
-	Rw==
-Received: (qmail 1105692 invoked from network); 12 Nov 2026 20:30:31 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 12 Nov 2026 20:30:31 +0100
-X-UD-Smtp-Session: l3s3148p1@cQQ3WBlgEu4ujnsG
-Date: Thu, 12 Nov 2026 20:30:30 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Claudiu Beznea <claudiu.beznea@kernel.org>
-Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
-	robh@kernel.org, bhelgaas@google.com, p.zabel@pengutronix.de,
-	geert+renesas@glider.be, magnus.damm@gmail.com,
-	claudiu.beznea@tuxon.dev, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Subject: Re: [PATCH v7 00/14] PCI: rzg3s-host: Add PCIe hotplug support
-Message-ID: <avYT0qDVAq1tItKK@shikoro>
-References: <20261019065025.2146539-1-claudiu.beznea@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=uqwwLbb7
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D7CC6A02E2;
+	Thu, 12 Nov 2026 20:30:37 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1794511841; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=dVmGUOAC/RT1NKlC/mYP5cJfsGUMVjyOOI8i2FgSf+0=;
+	b=uqwwLbb7jyZwL+AGCWepunM4AWYUTElrxYlK50uYAQUsb6gN0Oeq93ADOF5Jm4ieuJaRCG
+	v3CxPV22oXfrwm1GceAyeL3EwazH3T0Rg+IIHrKZjaiyGDSgLd4gkl74UCsAqwto8crkId
+	mRZKkHM9+ad6H6+R5zlAm3M32gzyfEwAFYl3rcL0HJI6w+BiIzdetnnVCLSHpdYDau5wTp
+	MNqx+o/ls9kJ13UCYEMaU5D7HN1qIoXYRYgh38jQT8U65W7fnhvtACLtAsP/DJFSX4c2sx
+	765KKTUeIy+bDrWcUcWPZe3EG1vtomsADKCAHR9/ILYqtPPT9lbEzYaJRwG6PA==
+Date: Thu, 12 Nov 2026 20:30:33 +0100
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Jakub Kicinski <kuba@kernel.org>, James Clark <jjc@jclark.com>
+CC: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Doug Berger <opendmb@gmail.com>,
+ =?ISO-8859-1?Q?Th=E9o_Lebrun?= <theo.lebrun@bootlin.com>,
+ Andrew Lunn <andrew@lunn.ch>, Russell King <linux@armlinux.org.uk>,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Thomas Gleixner <tglx@kernel.org>, John Stultz <jstultz@google.com>,
+ Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>,
+ Vladimir Oltean <olteanv@gmail.com>,
+ Hubert Feurstein <h.feurstein@gmail.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_net-next_v3_0/6=5D_net=3A_mdio=3A_add?=
+ =?US-ASCII?Q?_timestamped_MDIO_writes_for_PHY_gettimex64?=
+User-Agent: Thunderbird for Android
+In-Reply-To: <20261110151602.7a065b73@kernel.org>
+References: <20261105054839.2248046-1-jjc@jclark.com> <20261110151602.7a065b73@kernel.org>
+Message-ID: <99CF7794-BD73-4E84-815F-7819AA4BBE5B@tipi-net.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,68 +77,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="RyV85lgRIjw+KpUK"
-Content-Disposition: inline
-In-Reply-To: <20261019065025.2146539-1-claudiu.beznea@kernel.org>
-
---RyV85lgRIjw+KpUK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-
-On Mon, Oct 19, 2026 at 09:50:11AM +0300, Claudiu Beznea wrote:
-> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->=20
-> Hi,
->=20
-> Series adds hotplug support for the rzg3s-host driver. This is a
-> continuation of the series John posted initially at [1]. Along with it,
-> prerequisites fixes and cleanup patches were added.
->=20
-> Series was tested on RZ/G3S and RZ/G3E boards by generating consecutive
-> link down/up events. The RZ/G3S has an I2C device which, depending on
-> the way it is programmed, it controls the state of the PCIe link. The
-> board has 3 PCIe interface: PCIE_SLOT, M.2 Key E, M.2 Key B. The
-> following script was executed for ~9 hours:
->=20
-> #!/bin/sh
->=20
-> echo performance > /sys/module/pcie_aspm/parameters/policy
->=20
-> while :; do
->         i2cset -y 1 0x18 0xf4 0x8 # Link down
->         i2cset -y 1 0x18 0xf4 0xc # Link up: PCIE_SLOT (NVMe Micron)
->         i2cset -y 1 0x18 0xf4 0x8 # Link down
->         i2cset -y 1 0x18 0xf4 0xd # Link up: M.2 Key B (NVMe Transcend)
->         i2cset -y 1 0x18 0xf4 0x8 # Link down
->         i2cset -y 1 0x18 0xf4 0xb # Link up: M.2 Key E (WiFi AX200)
-> done
-
-Tested with my G3S board and physical plug/unplug as well as the script
-above:
-
-Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
 
---RyV85lgRIjw+KpUK
-Content-Type: application/pgp-signature; name=signature.asc
 
------BEGIN PGP SIGNATURE-----
+On November 11, 2026 12:16:02 AM GMT+01:00, Jakub Kicinski <kuba@kernel=2E=
+org> wrote:
+>On Thu,  5 Nov 2026 12:48:33 +0700 James Clark wrote:
+>> PTP_SYS_OFFSET_EXTENDED uses gettimex64 to bracket each PHC read with
+>> system clock reads=2E Some PHYs have a PTP hardware clock (PHC) that is
+>> read over MDIO and sometimes multiple MDIO transfers are needed to read
+>> the clock=2E This leads to brackets in the tens of microseconds=2E
+>> Applications that synchronize the system clock from the PHC typically
+>> use the midpoint of the bracket as the system time of the PHC reading=
+=2E
+>> With multiple transfers, the midpoint of the bracket is typically far
+>> from the time when the PHC reading actually occurred=2E
+>
+>There are some AI nit picks available:
+>https://netdev-ai=2Ebots=2Elinux=2Edev/sashiko/#/patchset/20261105054839=
+=2E2248046-1-jjc@jclark=2Ecom
+>But frankly unless someone with time expertise reviews this it is going
+>nowhere=2E
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr2E9IACgkQFA3kzBSg
-Kbb9ahAAsiV3mOdb9EPgFqVKtBzJhk5UdZS9yZMihnc+JVJujGlgMFqiU8GR0oBh
-ond+Tq2lWvTyjg+djRVpCnpVx+/BLj3uxXDDzovHHF4GOs8HDJOQWohkFIi8FQsa
-uNJ6l+07jkzKUtlKisuq9Lutf8tDbsIJqqhotVQI0ygmb3OfNELN+qfaMmZu5Cba
-SN54mh3ocjhC5ERBSCXtGhnBO2Z2livPjVIV5bV67aF+GW/C4ZqhEwfXLR5jzujg
-4hiqWZEfxCjfE7pfY/5UD8apUyltuiWC6yt45HdkHiAgb+V8yPIpP4nlRUTpBQWi
-gqGC2wlHbEbLiPjpbXzzLUvUcDBbI2JLeeSQ6YQn9RoeyzPKIBZU77m7VPulZUpR
-ANCP7ewI6RL33OT3W/g4eARXHivJpeI5bTgieJeBYrAcmwJSC/PNxY+UkD89YwYS
-sVLvniCV469iOP10iiUjYnAtai2qAvhR+7cCLy6CAPWDNBgJPEAt4oRjLlSBXpeM
-64GIzxYmQ+pyKnHwAoDUCRfixNGdydDFsCTfFM8u5mdJ6eZNm0gPMGsNOgkC08Wx
-RSVoiaOvdWLdupIgnl5IavCUljvzZtZPAHcBubspk1ZAzVgIT0uA4cCv8f4ICW5F
-kCAST8oFakSg1onGjQlVJbJjkQQKxRmEYaWx875+8jXncxo5EqM=
-=34Oe
------END PGP SIGNATURE-----
-
---RyV85lgRIjw+KpUK--
+I have been quite busy with other work, but will try to make some time for=
+ a deeper look in the next days=2E
