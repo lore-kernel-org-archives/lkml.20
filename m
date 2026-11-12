@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794515210;
-	b=5jMkm4kFSIw46ZogAnuzp1QpeHM9TAjLCq9t9zQhwci15rUUtgkQWiRUff/K18/A5SOQ
-	 xWk4IlL7FVaFCXDk50ivdwBqCPENhNvZqwdoOzskUVKBcdSJnSMenGgbvYkFr5Q7C9WE8
-	 fppKbVUKrHtUVyQ9D/EFST4zWOJ97+4cxzhbJhgq9BfOTH2kYQTkWrd7pRy4ERbOQ5GCi
-	 folvbtN5lcSbiqgWvFCprXsriCIPtwJDPbd/EfJZixFFCspdKtLiel6+1L82RhAfuSv+b
-	 YHl+0cipdE7xG3E7HG8rXAI/Lt6SK6Y+G6Xzwdxix+E2u8L425UFanxhvdYPS2iOD2g==
+	t=1794515212;
+	b=Np7mc+fKLbcyphXqTRHp1L19CAciGTbUXZR7fywe0UDzAQWaS3QeCbb0UVQHHY0swPXk
+	 R8ON4MKvQxssgE4RCcaVOMOb6KC1CYr3QzggvaI9Q5ultTz+uZ9c7a2AL/lHcSM8Dvs0L
+	 HWzuCnKMOnPdEUSF8y/RCCxZOWrlCGPRAbc0FzIV5MuFNQwsle7Rd0ululBsi/UxmJ1D5
+	 HzP1vywSYSUfht8h/jbGLDOfBFXM1TeExy2LmAQY0AFTIyIIJDt1BgOwgh7kLe5UfegbF
+	 C5N7GdxUdTMqsw5GlnGEGQCv6sWXbOum7/s8+ANAMu9OoGL4aMEMVq1n7CDWDeLiSfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794515210;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer;
-	bh=i8o5XpAdxW8YK+91ZogRFhYoz3DDkqo9xO8qQk//tAA=;
-	b=Ho90L4QEWIbVqMs7XqpSqDnijaP8PkGlJfRdpXqcRmqbNGzVv/zO2GIaTekKrxakXzPz
-	 CaY2+C/NuvHm+3w6hRhhHGwv3dfvChpwffoTQ/TSGpR01k1dyHoGjLPmqbZeuzRptlZK1
-	 0QagrxcYJwhf4MVxpiUYo3hQUeZXV+fGbErJgiW+uI4AjiWUPlfQU2Ara3OfX4RJ6YQEE
-	 uNKkxUxvi6QiJ2xNcP7aXoRJfoUXdgLtWdWi/H2yOzIy62/6f31QcF6qWLFZKwflZ8wjN
-	 bjJMZrA0fupNYSF5rijezuGsU4zms3o8jzd4rc206EVzcUxfRCcYpexqnNZGlAchoqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794515212;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=BDf8OygF/dNvy9+88N2N3Xr+MCVnZBo3k5Rcl6UxDmI=;
+	b=Pr+kIsxF7NICXSkOecTTRn55vsuFiDdvSK/Q7FuiMEVoACZkuun7DqvExCU/aABR0w8r
+	 rX2ZVCBksPk2LlW7rWTJl+EkvYTy3c2f2x5V3VW+4suaZ6aPUvKUjFNSY53TS28zEFSpF
+	 WLg47k3Ny/vSPuUj0qe6B6xO3Y/gNoQKdJ5oG/1zmi96TG3HF76qWPBg7dRr74vMadBLA
+	 NH2p+KhReGowiTLH4c2Zo12BcnDxEYUR2QGYXIFIDKFgB+jccldSFhLObAYUaWAcW4brE
+	 R4Y5xc5vOwIGucXe4FtIWSb5VM1g1J1Gqa3/v2sNokgtdBnzfodq/b97L4BOW6WPFZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gtefShIE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNYup9jA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB78B606A31C;
-	Thu, 12 Nov 2026 20:26:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03CB0606A323;
+	Thu, 12 Nov 2026 20:26:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gtefShIE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 879451F000C4;
-	Thu, 12 Nov 2026 20:26:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNYup9jA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DB581F000C4;
+	Thu, 12 Nov 2026 20:26:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794515210;
-	bh=i8o5XpAdxW8YK+91ZogRFhYoz3DDkqo9xO8qQk//tAA=;
-	h=From:Subject:Date:To:Cc;
-	b=gtefShIEfOc9BWQ5+hBbq8zu7RKfK14o7pH0CVoDPx7i3B82P+z+LNXdK4BVGle1I
-	 F+Bhe3b60ipWwnO1HtmZBeZhwCGsmkTRNVF/EoCHWs+/u17U41gh6GRJiQQVvUweHZ
-	 QI5Hx0aAvRw2RzxrZiNqZmQxeoeQn0YcS82U1n0WvlgSQPqfjisGwvk4kg+dwOxkk3
-	 /AHhJ+EIORKkT3tribxYapNYBzidEZynQdrCm+Jc2whdJBuYQfxICAmp0XVZlXY+kN
-	 T9MEvXb28SE8pK7v7n/2ng9Y3FMWSciOMHi5jcC2iTvhTokLirRUnnLYFhT9RCQ6Cn
-	 TfV63A+5ofaiw==
+	s=k20260515; t=1794515211;
+	bh=BDf8OygF/dNvy9+88N2N3Xr+MCVnZBo3k5Rcl6UxDmI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=JNYup9jAI1fu8/7HSZ1BgBaAkraPgMy5dodRwdAq0Ch6+d+aAwSug1P2q2c5MkHWB
+	 /gU4nI5p+AeNj78DLjys5hHQymvkkVAGRbF1hddkfTPHQCZ697MCxohASRPJ+/SYF3
+	 kUvg6quzBxddqnq7ed9xmrl5tA/U0Y+MIJ+CJYTWh2XYx/uaWDAoDONZ9sjfA6/qQB
+	 gKA0RI8iaWGdkr9QjR5ODE8B1CeW1drewvpnnAiW1k5KzDXGADAXmPYqOq7B9SknrG
+	 gS12LxTe19y5JeBbqTdSEs9DcY//0MsGGZdmO+u5UVZ2qvD7ImGVF87zRnkKSSsYcq
+	 2YQFlAochq2tA==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Subject: [PATCH 0/2] arm64: dts: qcom: Add MSM8996 SAW3 compatible
-Date: Thu, 12 Nov 2026 14:26:38 -0600
-Message-Id: <20261112-dtbs-qcom-v1-0-1978370c7cad@kernel.org>
+Date: Thu, 12 Nov 2026 14:26:39 -0600
+Subject: [PATCH 1/2] dt-bindings: mfd: syscon: Add MSM8996 SAW3 registers
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,10 +54,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ5AMBBA4avIrDVpKyxcRSx0TBmJvw4iEXdXL
- L/k5V0gFJgEyuSCQAcLz1OESRPAvpk6UtxGg9W2MMZY1W5O1IrzqHJvs1x7jY4QYr8E8nx+r6r
- +LbsbCLd3APf9AGqydGZtAAAA
-X-Change-ID: 20261112-dtbs-qcom-5f2350f0cbec
+Message-Id: <20261112-dtbs-qcom-v1-1-1978370c7cad@kernel.org>
+References: <20261112-dtbs-qcom-v1-0-1978370c7cad@kernel.org>
+In-Reply-To: <20261112-dtbs-qcom-v1-0-1978370c7cad@kernel.org>
 To: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
@@ -66,28 +64,28 @@ Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
 X-Mailer: b4 0.16-dev
 
-'syscon' nodes are required to have specific compatibles, but the 
-MSM8996 SAW3 nodes are lacking one. This series adds one.
-
-The binding should be applied with the dts changes to avoid new 
-warnings.
-
-Rob
+Add a compatible for the MSM8996 SAW3 register bank referenced
+through qcom,saw-reg properties. The name is based on the label in .dts
+files.
 
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
-Rob Herring (Arm) (2):
-      dt-bindings: mfd: syscon: Add MSM8996 SAW3 registers
-      arm64: dts: qcom: Add MSM8996 SAW3 syscon compatible
-
  Documentation/devicetree/bindings/mfd/syscon.yaml | 1 +
- arch/arm64/boot/dts/qcom/msm8996.dtsi             | 2 +-
- 2 files changed, 2 insertions(+), 1 deletion(-)
----
-base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
-change-id: 20261112-dtbs-qcom-5f2350f0cbec
+ 1 file changed, 1 insertion(+)
 
-Best regards,
---  
-Rob Herring (Arm) <robh@kernel.org>
+diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml b/Documentation/devicetree/bindings/mfd/syscon.yaml
+index dae706ca7642..132a3374d14f 100644
+--- a/Documentation/devicetree/bindings/mfd/syscon.yaml
++++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
+@@ -110,6 +110,7 @@ properties:
+               - qcom,apq8064-mmss-sfpb
+               - qcom,apq8064-sps-sic
+               - qcom,msm8960-sps-sic
++              - qcom,msm8996-saw3
+               - rockchip,px30-qos
+               - rockchip,rk3036-qos
+               - rockchip,rk3066-qos
+
+-- 
+2.53.0
 
