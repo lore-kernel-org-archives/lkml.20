@@ -1,101 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794474028;
-	b=ia7PHps21wakxZScSPu2JBvi6rQeMPbtlZPEayUUTXnlP21vz0QO14f3e99pdSQ2YmZF
-	 sijcr9p3rukVjxfTHmzkuK5WX3x8HtfNDCV3jsGvfxQrTYdirVyDW2Y2w760OeN3RFH4w
-	 gYqda/SOD27T2vIUzCP1f/n7W+8NEPWTGT9piMHAOKWBkThtQJ9MI2FL8MgTh6+yrlk6T
-	 L/6LOodify35zbO63FahL6p/Jr68var6+YPfFZh3LfXOS4P2I2b5TLd5PfXoulXJmqAEg
-	 lXfveUtmhun/wKdIhRPTxMEd4V/2f/ZJXTgbA3f90yv3oulrS5vXDJHgGTsG7Joja2g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474028;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=MDCejDW8VBxWNNPFAIfF39q0jltnN04sCRzvotswVSc=;
-	b=KhC26RMQlknju2jb0wWhoF/wh91t1qwCEnIxFwGIgJ2W93eUSAgzV+V8f/VqViut5JV5
-	 2S+jupHwVjeseyNDKrWeO0YoN8ofF0oJ4pK/vhXeSAdiPmoLU7S811dmWDCSJ2PMdMtiA
-	 tV/VIeoGCx2xyjlHDXOBgDWlf3jfs81lg175ybnu9Wz31xTuknyOOfaUhsM7jnpyhUvXd
-	 rX8cePeDoZjXE7R2TCcN2wi++smT6u021t3/2/UsSiiT6Hx5zrJWyh7fYY3CzBDl5+J1a
-	 uOVxEjgIRUL6h7HdxAsV+80XLK7FyGMZhkOoykjFPAoMeTe86n0D3RbZ23KZ56Cy1xA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AkxPwo4U;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.169
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4947606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:00:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4947606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794474056;
+	b=HaA5/68Ca1XmV4qZR8fJiXE+0V8s5787BNIzl5Yx10DR9/ZHL8Vm1Mi8L/MCDYLme1ZL
+	 PdgmQyjw30uFZVhxd78/rL0xquHUbMDTGZkHFrPPHqDDWezwkwZhGM3Ye5G0gBGff/Xvc
+	 VNvjat16FRlmF2mqGBkhewgne0MHKJTtbGGkLP3N4ElH3if1RJnjO0LtMIQnt4Ko4qPlq
+	 YIMV67fqJ6Z4sr2kdDCJAJ6mwhsKhEDXZ7NKZn7HNdxs2OtNY0d1e8NU5Wj/W10rXF6OV
+	 A8ejQjhzdBjNT/7T8k4z0Thlyb/lRrmpywM6GarKQv35ibPOdfDegdUXAncB/PuAGLQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474056;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=DP15FYKEHXO6xoDhi4j3CgcS1prpD18B+3vZ34NHmTc=;
+	b=aPeOTTXTBsGAklXGVuVCx8BFJiTbf6Npo7Ev357rqqOr6yk/yLLFlOezdhmpz5VGBLgF
+	 x8dUb/g5Ay3Anh5ImsGwqrWpPjH5AfE5dpbxFlMMsiXH38jIBPoUBxZhc8Zydzw2REFJE
+	 gyt+AwG0hNFbFMejpP3Hj7nJX3KL2oh3uy96imqZ3zkUUZnd3WlCK9vNOGVun1+smWsVj
+	 KEuqy4lFx+sNvImvZ6CXVex3ibt7yM4rJHJn10JXQZatzGxIYiR2cllt0B7L81vIKFTTC
+	 N1CQP4sGLP5moaSdxXuH7vq4YhNaCdKlzebuA8h/G/i6HSAVytiGWZtODKTe9xV4efA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tB3cVqC9;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9996D606A31C;
+	Thu, 12 Nov 2026 09:00:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9996D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AkxPwo4U
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3ab30d04674so2120571fa.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:00:27 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794474026; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RgrC10q+GCjm7jIVhk86jC7nqivwvhIlVAuOetIaeySeuqLx+lS4CiaKf4RIT+Xcdp
-         9SQFKLn5P+Le4td7ID+/HBFqfccApyioIderQFt5BgeGNfiEYHz7gKaw0TMpYJtm/asu
-         6tHcZ+YR7fWDH4/ve+gi0jmoi8Kz4CheuD2Sq/TnaBl0ZICdpHHLBJd1iiXRPTvMwrWb
-         yhMEUPAyDJ1qoN9bhVOv78xTt9tdwlZ+Q7RHuwrL6rbxPojApT7MqoM7WkiHc1DOA+C0
-         5vRHfBJzqzjkdlcq+3Tzz+VZB5fxv8pu3/1DRU8/M+ZYUe07ZZd1DWL22LUphzGQrr5G
-         2eNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MDCejDW8VBxWNNPFAIfF39q0jltnN04sCRzvotswVSc=;
-        fh=C9zK0fc644WUVIpprHakTce2Weqdu8nDlw+2OK/roW8=;
-        b=nOPcOg+5ybNk8ofNJf5EMXmdVh//VTAynb1LhqnwKvOU1Ffn2CLBemqyC11KbGh/SY
-         YPCec6TeheCPpJgSiv+TPtoELmujCG+s0b5txfvdrSqpGDLuXuI3ThKIOuvA7J44iREa
-         33ZN93KBK6TF7epj+UViQQzFbxSeruJHqrCs20dP5UX6oYIrDtBwmdrLjFtyqjF1sHUO
-         0zy2PcP8Y5XrPTkpO3fLJDR1Weqc2c2cteB3I5OgoMB+SPOT8I6TaurJUZS7yQw8McgN
-         gLfS3CCo5g8ybNLCC4T7p+miNb8DxGhpj9LdiFqWQN5mCZqmn5yPDDM5Na9Ws4C+zW6d
-         xWaQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tB3cVqC9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794474026; x=1795078826; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MDCejDW8VBxWNNPFAIfF39q0jltnN04sCRzvotswVSc=;
-        b=AkxPwo4UuvS8Fx3lKXS3acYjGFs3MoZbrWOg9QuGvCP9brgnlVOKm22vtGKmYXzlk/
-         ZNkafoCJyRM0UfvHLil42Lvr2GEjep4oX8zR3S22ID5KKsL2bre1R3k1mxmvPj0Dm1Kf
-         un/tDjSprT/xwYUWIoh2ThkQ7lQNzu4cgzcNoDs8xJ8UkmUFPmlM8scxu7yjNQ6m6Zsx
-         gpoNv75Rla/J8/Ik9NVI3JsAGiROHf93tJp20uA79HJJ7xak01ga7+DWTUhkK+z8212y
-         qazeHq81hwYnOk8UGeKY5C63lHfdxAvC/YpiAYDsAuHWPx8sqkBS70/b+KXaqTSSWahN
-         JLTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794474026; x=1795078826;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MDCejDW8VBxWNNPFAIfF39q0jltnN04sCRzvotswVSc=;
-        b=woE/2QgjkDM5LuQhTO1TBpPd0zh6CEnM0g4FCRJ1tVjK6xFdx/ZgYhTMfBdeNnfg/P
-         Ph7ZxB/3k7R0JFy9LeH5abXbp+80jHhJtaiUL4yEFapG/MtU/BAgkoSM7izvJdfZBH5N
-         umqVjn/+SLsW1UtJ/G7j32GDDZMTIfZNnZ/Hpnsztw0ZEqasHvbqFopTSMsGvpdnDspu
-         ckQ38dL4px6HgWlVleEhBy7tBsBRB5L7w6Vpvc7un05wW20nOkwxF95cYEad4FT/ab2B
-         q7bh5kNnJQ59qL3lsKflUAbjuo/5COar8q1wLUsTDLG/e4xmVWJZ767P+C9hJHMwvnGX
-         AB+w==
-X-Forwarded-Encrypted: i=1; AL+hErGM1IATWtk10hoFZ3lBvgW7vkZBUsqlp0kCFh1DIFHj+kCMaZDk8NreoNTDgBPuChiIxCXc4z2G8q35X8s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z906sL8pIvp09HOIafeN/1ANeDf34xYUZqbLuf/3FPU8PlEwlcW
-	h5cIu0ZqPupKQlcVlqYUD4MF2v7jXN3SmZTVKRFiulB3LX9VO+sm29FQoLb1T1nWFROLI2bEgCQ
-	wyW/iC1h20GgQNojV+LAAXBrTl3V1Vc4=
-X-Gm-Gg: AYBFou3+bZTxn5owOb3AZ4J6IGx79oSfC72eFr0JDNQlE13ZPFsM1KPNuSUeXDjzIZY
-	MbNkgW4lUKTXoG8lMncbdqMWC9GUlg6bdCBImoal0NwN54rQcyELDgnnGOURuzKqfGLKS+8Y5oj
-	MqUkWsUOnOw5MH5QhWISdTHwXveqXnkVXayjfjNrpc0uU1R/ffjFKD0kDwCWajAf+Qb8JAVajuc
-	+s6mNlUawkQEmuO0Igpmv9/3LXSMaryK8kNAGBXzkJnZYQKNJoxx9+L7vS1TCV3RacflevTqkUL
-	SO7LMi2bV5v+u42hFPQsZMY4HWiNwgUzL5snAbGiszXmlqPK5zVl2XVou3r7TzVMtY0bBGTQzKp
-	FuG98OZYNH1ejMGTj6aDlFwp7np04KUjBE7aSKo0rcY4y2KbZekgt5JmRnbD1f4fWGNLAa19Vac
-	VW1rOfPLm6oeURsG68
-X-Received: by 2002:a05:6512:3e01:b0:5c0:b5c:4084 with SMTP id
- 2adb3069b0e04-5c15d54dd2bmr1732485e87.1.1794474025804; Thu, 12 Nov 2026
- 01:00:25 -0800 (PST)
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=tB3cVqC9ntwAcc0M/0QQfzsjhVr7ZZAICDPR44mCA9SC6MF4eWYA2+g4ipgOfmOwUc2AO5UbhuNri
+	 tn+GwT+cSBxFOypU4H+CHUqZNy02/VrIYbZORFvD+b5SPuffZvcxPKxTfHDqMOVsJurug/dl+B55tf
+	 nLfFR5bNn/tFfcFg=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46af58043ad8-80ab4;
+	Thu, 12 Nov 2026 17:00:51 +0800 (CST)
+X-RM-TRANSID:2ee46af58043ad8-80ab4
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.net (unknown[112.23.105.204])
+	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46af58041f7d-fa36d;
+	Thu, 12 Nov 2026 17:00:51 +0800 (CST)
+X-RM-TRANSID:2ee46af58041f7d-fa36d
+From: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
+To: Jiri Pirko <jiri@resnulli.us>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	sunwenbo@cmss.chinamobile.com,
+	1342116488@qq.com
+Subject: [PATCH net v2] team: validate the length of U32 and S32 option data
+Date: Thu, 12 Nov 2026 17:00:30 +0800
+Message-Id: <20261112090030.172342-1-sunwenbo@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.33.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,89 +75,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110-rtc-minute-alarm-v1-1-be9d7c5227a1@gmail.com> <20261110074853cc5a8882@mail.local>
-In-Reply-To: <20261110074853cc5a8882@mail.local>
-From: Arun Iyengar <aiyengar1990@gmail.com>
-Date: Thu, 12 Nov 2026 01:00:14 -0800
-X-Gm-Features: AclHuK9eG45v9F6I7GV15HBzJqSwgKITGyUk_trjz8yzMuRHSrXtJn6NP2-qWxI
-Message-ID: <CAEy9hNWaUB2rFwXFP=pmLv_Gj4Umz2CsDpN7ESJimOsVq2RzLg@mail.gmail.com>
-Subject: Re: [PATCH] rtc: Don't lose a minute-resolution alarm that rounds
- down into the past
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Alexandre,
+In team_nl_options_set_doit(), the policy for TEAM_ATTR_OPTION_DATA in
+team_attr_option_nl_policy is NLA_BINARY because the payload layout
+varies with the option type.
 
-> This is the expected behaviour, userspace has to handle the error
-> properly: the alarm can't be set, set it for a later time or stop there
-> and don't suspend.
+For TEAM_OPTION_TYPE_U32 and TEAM_OPTION_TYPE_S32, the payload is
+read directly with nla_get_u32(attr_data) and nla_get_s32(attr_data)
+without checking its attribute length. When userspace supplies a
+truncated attribute (0 to 3 bytes), nla_get_u32() or nla_get_s32()
+performs an out-of-bounds read past the attribute buffer. Conversely,
+oversized payloads (> 4 bytes) would also have trailing bytes
+silently ignored instead of being rejected as invalid input.
 
-OK. One detail: userspace gets no error in this case.
-rtc_timer_enqueue() turns the -ETIME from __rtc_set_alarm() into an
-immediate expiry and returns 0, so RTC_WKALM_SET and the wakealarm
-sysfs file succeed. What userspace gets is an RTC_AF event right away
-and a disabled alarm from RTC_WKALM_RD.
+Validate that nla_len(attr_data) equals sizeof(u32) or sizeof(s32)
+for TEAM_OPTION_TYPE_U32 and TEAM_OPTION_TYPE_S32 respectively, and
+return -EINVAL otherwise, consistent with how NLA_U32/NLA_S32
+attributes are validated and similar to commit 5bef3ac184b5 ("team:
+better TEAM_OPTION_TYPE_STRING validation").
 
-I checked that on the HYM8563 without my patch: RTC_WKALM_SET for 15 s
-ahead in the current minute returned 0 in 5 of 5 tries. rtcwake only
-checks that return value, so "rtcwake -m freeze -s 15" suspended with
-no alarm armed and did not wake up.
+This issue was identified with the assistance of an LLM-based code
+review of Netlink option handlers in the team driver, confirmed by
+sending malformed U32 (notify_peers_count) and S32 (priority) option
+attributes on a UML kernel, and verified after the patch that
+invalid lengths (0..3, 5, and 8 bytes) are rejected with -EINVAL while
+valid 4-byte options still work as expected.
 
-> Never round up, you are going to miss deadlines.
+Built with W=1 on UML, x86_64 allmodconfig, and x86_64 allyesconfig with
+zero new warnings or errors.
 
-Understood, please drop the patch. I'll fix rtcwake instead: read the
-alarm back after setting it and not suspend when it has already
-expired.
+Fixes: 3d249d4ca7d0 ("net: introduce ethernet teaming device")
+Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
+---
 
-Would you also want rtc_set_alarm() to return -ETIME when the rounding
-moves an alarm that is still in the future into the past? If the
-immediate RTC_AF is the intended signal, I'll leave the kernel as it
-is.
+Changes in v2:
+- Check exact length (!= sizeof(u32) / != sizeof(s32)) instead of
+  only rejecting truncated payloads (<), as suggested by Hangbin Liu.
+- Extended the UML test to also cover oversized option payloads.
 
-Thanks,
-Arun
+ drivers/net/team/team_core.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-On Mon, Nov 9, 2026 at 11:48=E2=80=AFPM Alexandre Belloni
-<alexandre.belloni@bootlin.com> wrote:
->
-> On 10/11/2026 07:13:47+0000, Arun Iyengar via B4 Relay wrote:
-> > From: Arun Iyengar <aiyengar1990@gmail.com>
-> >
-> > For an RTC with RTC_FEATURE_ALARM_RES_MINUTE, rtc_set_alarm() rounds th=
-e
-> > alarm down to the start of its minute, so that it never fires late. Whe=
-n
-> > the alarm is less than a minute away and in the same minute as the
-> > current time, the rounded time is already in the past.
-> > rtc_timer_enqueue() then gets -ETIME from __rtc_set_alarm() and expires
-> > the timer from the irq work right away, and the hardware alarm is never
-> > armed.
->
-> This is the expected behaviour, userspace has to handle the error
-> properly: the alarm can't be set, set it for a later time or stop there
-> and don't suspend.
->
-> >
-> > That loses every short wake alarm. With a HYM8563, which has minute
-> > resolution, "rtcwake -m freeze -s 15" sets an alarm that expires in
-> > software before the system suspends, so nothing wakes it: with the
-> > alarm set at 17:55:00 for 17:55:17, /proc/driver/rtc reads back
-> > "alrm_time: 17:55:00, alarm_IRQ: no", and the system stays in
-> > suspend-to-idle until something else wakes it.
-> >
-> > Round the alarm up to the next minute when rounding down would put an
-> > alarm that is still in the future into the past. It then fires at most
-> > 59 seconds late instead of never. Alarms that are already in the past,
-> > or that round down to a time still in the future, are handled as before=
-.
->
-> Never round up, you are going to miss deadlines.
->
->
-> --
-> Alexandre Belloni, co-owner and COO, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
+diff --git a/drivers/net/team/team_core.c b/drivers/net/team/team_core.c
+index 957cc7885d2f..8fa05c489b99 100644
+--- a/drivers/net/team/team_core.c
++++ b/drivers/net/team/team_core.c
+@@ -2833,6 +2833,10 @@ int team_nl_options_set_doit(struct sk_buff *skb, struct genl_info *info)
+ 			ctx.info = opt_inst_info;
+ 			switch (opt_type) {
+ 			case TEAM_OPTION_TYPE_U32:
++				if (nla_len(attr_data) != sizeof(u32)) {
++					err = -EINVAL;
++					goto team_put;
++				}
+ 				ctx.data.u32_val = nla_get_u32(attr_data);
+ 				break;
+ 			case TEAM_OPTION_TYPE_STRING:
+@@ -2852,6 +2856,10 @@ int team_nl_options_set_doit(struct sk_buff *skb, struct genl_info *info)
+ 				ctx.data.bool_val = attr_data ? true : false;
+ 				break;
+ 			case TEAM_OPTION_TYPE_S32:
++				if (nla_len(attr_data) != sizeof(s32)) {
++					err = -EINVAL;
++					goto team_put;
++				}
+ 				ctx.data.s32_val = nla_get_s32(attr_data);
+ 				break;
+ 			default:
+-- 
+2.33.0
+
+
+
