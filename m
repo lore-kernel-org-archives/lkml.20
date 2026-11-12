@@ -1,129 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794519861;
-	b=CGCcRgUZx838fMLt/LWhM9pbwWy1bZwnV8XwvcQaqJM2WH2O2J5TrTiLwT68FsVs+cqB
-	 53wFRC+4/rogk0UBFuGBcB3eel21mafsLYap7acs2eIsvz7OvQ54fayZ5D9n4L//2DOnP
-	 i/6cfmUCYxWNKDp5bSXwtdB7cZYJxX5BWM24liXtZ2xJBp8GrpFwIKAPhVbdEdcCUQhSr
-	 o3QuzvXThXuIaHFjK1NGkODpkraLhR2yqrGLvqd4WoWDUn961jOGn9LGLYvBgP7SHzHmh
-	 xEO719TbqoIE8FFfRRZYMRQEGYY6o+pVb1i9vojKEjnsOZZmAG62buXYABH53l/Mqug==
+	t=1794519894;
+	b=Ej2TGc+KW8NtDNtOIXS6DK4TzaKpb+kNKYbC65hj6kkEBVyrpVF2ZXm+umu3isBHKYuo
+	 0FukXKMXADh1BYzWfRFLDJTh/StmSXZPPSA1HXlSJ08vl9aiWbdofoGiArIf7ucRHMuKl
+	 dezQHB9c0h0W/1BecELkQRNWD60elMfrHanGxIYsTry4pQeEdN32EwX0z9TcSpWX44MrG
+	 rv8gLabFe2Y3i6bfuJr/r9qftCNxKHiprZGbc1mSWKZUS7K7pgIc7GsnCip6bP/4H8FPH
+	 Xb1l/EKLwg6svxftZkZ1n7KXnvA5ltX6xmmjzU+vaCWZoyv0eiHV7dmdrez5iGZ9CYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794519861;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Organization:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=ZeMxHXnCBkE76aNWIiCzfKnISExLlSlffb4po3vqmdI=;
-	b=no/GCsLhkvnA6s7GKxm4OtgPawB6utBXR6gyZEGb5nA7LfkFwchuh1aS8msdvH/fCAzh
-	 sW0WATkcrA2YcyMzOt7ACmumzY9OHHAg0oIiZIo0DeeAcLYiX4m1m0VDP7jBZxpd0oQJL
-	 1lRg0U6/WGP9G6c8+aBFekOx3D5qUS/Wrc8X3lDEWlEgFnXhHIVh7Ob4eURRtvCcJOsg7
-	 f8wXNga5TKklZ9NdJh3oOyuZ20wRKZMUdynRlRT+th1h1NDBZuDZ5Bi7XiVyvxncdthpH
-	 ehwuJb2V+qStVB+awoEpbBym7tryzuG7L2YgIgRaR63MnyXibH8B/vZDrF4Nh0eqIwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794519894;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=3CSzqFHQTKbLxnAOVTodgLNTja/P3scXuEtCdPIGKVM=;
+	b=MALof2jJa0aktLy9Xq7m7qNyGYOIBaEHiJ6eB7lggsdm3a3k4AEvdzXjeKcRomiCzHN7
+	 16gwUTwKXEBhPdUXZGemdh2QmIibGU4MfH8HjunbTwnQ37hnvTV7UJzd4sHmCta/EFLiG
+	 srO3Fz4uJFfCFlSy5LRxcS/rY+YIfXr+eUiIz0XKVPyk4ald4mMCRw04+a7ewR9C4fDIJ
+	 yZYEQJgY71Y3pdDMSagqxTbLmsuvzr+l4Z+04ptcXTLM2ygNHsXlh/7priV0+KYD0B34H
+	 0sIr5ImBcchUY2CLnvHS1RUxYDlo1O5M3UZptv9gP3hhlsRIPPJcJ445u59KBWMlFPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SWGQudK9;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZAgLUXUv;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GzPHXgCt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDB8606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:44:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FDB8606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 090F4606A31C;
+	Thu, 12 Nov 2026 21:44:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SWGQudK9;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZAgLUXUv
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACJZl6N1840824
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:44:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZeMxHXnCBkE76aNWIiCzfKnISExLlSlffb4po3vqmdI=; b=SWGQudK9aYrpfeUe
-	qRTs6vz+IblA+g6HLzEh+HNTp1JWnELbXeYXlgSZ4D2fPe+3AlgY0nfJCmojVecr
-	C+1aHyfw3yXogZgwWvUmpNvISQm8rSXicGpc0601ymsG3vVC0nnNzwu95tt4+vCs
-	Bcbxjn6HZZ1X+cJSRElTcFVnvSQtwtYku8TUD74ZDphUWF3awQLaBdGsgW4AyT6G
-	W7qzXHipUPiDrXYSvquV31srFzv4S58RZ78Y7ViWJZJBenOG9EhrEswCtIA4dsCW
-	+blKhYiBYZZmgIcAWEdkgIczvQxR8YKz9apSBUid1wHdMvLOpVaKFGoUNnLABD8m
-	RzxBcw==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwan4tkg3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:44:13 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1b3b45597c7so402806c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:44:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794519853; x=1795124653; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ZeMxHXnCBkE76aNWIiCzfKnISExLlSlffb4po3vqmdI=;
-        b=ZAgLUXUvXHLfJwIUZC1/C8MgADJ8bUzvPkeTGkQgmRFBESKj86Eb+up/j8RDo/aGan
-         hWTCNA5UNItE1z0awL2jdVixZNnuUSNZRDnNRbXuVs0fC6SN9vXM5H0w/rEL9QBXDvoF
-         e931G5J8EiW0fEmBtyEODT5lweQLwCQ7+MU6X/Pzy49lGpPBuLRjVYwd3eT62NXEti6/
-         M00s6UBc/B1F7oA5F5BBIuVnX8WQf3e+hkDxCdyDfEc7/GiZ0rYaHjUa8gelPpkVbJ5b
-         JVkvvkOQNh7yi7xMfsKwWCBynT+7hj8XNgL9vRPLfPeRBIp8To0AFs9lnAoDpw1q5d7J
-         lEaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794519853; x=1795124653;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZeMxHXnCBkE76aNWIiCzfKnISExLlSlffb4po3vqmdI=;
-        b=2Hp/ZJHEbF/99KQC+y5x++8t11JpQ70h7AkCiE2fT+a7yIU39QcmG0g/Vb4V7w7Oz9
-         RC9g22esJ262yuITEk+YOEMMvSlhJS+r0PkfXE2HJtutcA6bm+/4FX19pJlWl7vhDzpd
-         yl+dqVGvDsGh9JfvNflbOj5T59IXR/o9ykNcngL2aC9rLDmkBGyaTSGXAhws3gROnhJF
-         mMTkyy952YTzMZ3xg9jYVyaBqqHTKHyuCKFNhWxywGVsW+swrsJcP5UBaZG3YP8PkT2F
-         2/31gcwYDj0j/sMjm2/N+JJW+hoDLQ7rwBITIbURJa3tgyfplTRN2eNareBGM5Kr+Pwx
-         8d6A==
-X-Gm-Message-State: APuU4Z//7KHE3SEEDaIlHMhf9S733VSjzJGIhvBVENqQ+/Zv1kv8ydYR
-	3LK1VwuenfmWJBT8DgmVTRBbM2kLQunMJr7pmxV95w0UOyYpZ+TFZLmWde0lNikd8x+ERqs2T8+
-	urpm+bK8oN/eZ/doTqTVW11knrNcnGAw/GEar4Y4uyPRvMCIwlq4pUwbVkK18WiMZ4UU=
-X-Gm-Gg: AYBFou0fBSpmJOBrHBYb6HDHV1I0jFXE2q/ThCNKODLqzpOooWR/+2Yb+KxGBuAgeuW
-	Ja9dUdoudvImltPm6uGeSDKsMykiia1JTwqHQZ8eytOlDz94jVCv3/CGxwr+oVelrkHqEpoiRDG
-	Zn+W/xyVqSjy0gjZ+QP9f5u/dfNzXs4kNaXw7AvpHiX3XsQcboJ5ZcuxKfNaN4ybPtcbVOXdPwP
-	DIHabD1/rpbdQKswVf2zyTOpqOK2VSlwE4ZvK6CP9fmSe0Jt2D507SnRuRgEmGc9UhdH7S/3Nkc
-	X3bj8Rn9WROi6vYbxsSoec+uPsERat9BEoTPVk71y+wGiKq6pxFFt0sYc397bHJBlxMbCEhp/1h
-	Lej+gXdEyaXyA95Ll213MWZOVyMgTfqmt1HFK+WzNb+c/p+mTOSk/3P0tYap/z2dK+/yH9QQ3D5
-	uM8twP4RnKcImBssOsOO/L6iRxlTE=
-X-Received: by 2002:a05:701b:450d:20b0:181:ccdd:ed2a with SMTP id a92af1059eb24-1b50315f88bmr668899c88.43.1794519852990;
-        Thu, 12 Nov 2026 13:44:12 -0800 (PST)
-X-Received: by 2002:a05:701b:450d:20b0:181:ccdd:ed2a with SMTP id a92af1059eb24-1b50315f88bmr668878c88.43.1794519852364;
-        Thu, 12 Nov 2026 13:44:12 -0800 (PST)
-Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50319e381sm1541771c88.12.2026.11.12.13.44.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 13:44:12 -0800 (PST)
-Date: Thu, 12 Nov 2026 13:44:07 -0800
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: Cristian Marussi <cristian.marussi@arm.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
-        sudeep.holla@kernel.org, james.quinlan@broadcom.com,
-        f.fainelli@gmail.com, vincent.guittot@linaro.org,
-        etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
-        d-gole@ti.com, elif.topuz@arm.com, lukasz.luba@arm.com,
-        philip.radford@arm.com, david@kernel.org, souvik.chakravarty@arm.com,
-        leitao@kernel.org, kas@kernel.org, puranjay@kernel.org,
-        usama.arif@linux.dev, kernel-team@meta.com
-Subject: Re: [PATCH v15 23/35] firmware: arm_scmi: Add Telemetry generation
- counter event
-Message-ID: <20261112134407.0000457f@oss.qualcomm.com>
-In-Reply-To: <avYe37QP4Upvp51c@pluto>
-References: <20261109091221.2532706-1-cristian.marussi@arm.com>
-	<20261109091221.2532706-24-cristian.marussi@arm.com>
-	<20261110144635.00005964@oss.qualcomm.com>
-	<avYe37QP4Upvp51c@pluto>
-Organization: Qualcomm
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GzPHXgCt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDF341F000C4;
+	Thu, 12 Nov 2026 21:44:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794519893;
+	bh=3CSzqFHQTKbLxnAOVTodgLNTja/P3scXuEtCdPIGKVM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GzPHXgCtqMTAPKwTxtB6BR9vTwkNRKMmKqjyQ9w47suFXhMYbPsv9NPQOULIbvuoJ
+	 Nly/5kQJ5Bx8Hlzc0qWs7JJDaFpsOVfALjIT5kCuwWhMKCFgnNC6FNsazycVaLnpku
+	 J/yyumb1UXoH4r2I5HoAlNWjNeSGxyA26TuDYloNbhnoG9O+8GjseyZ7Vlzlgske9V
+	 5VNpwSVzsZPFIm+Ee1cW0FZocN0mzujejgEndyhAtP4xLoR6G6wZq9HiTftSaTvTv1
+	 TVr29VXgt7xpvRSDePx+T70833biCAdWUsDXv7Z8dVvoAn6JzPN/csYnmMsQN2tQ/w
+	 2znNcg7OJ3EsA==
+Date: Thu, 12 Nov 2026 14:44:47 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: "Ahmed S. Darwish" <darwi@linutronix.de>
+Cc: Nicolas Schier <nsc@kernel.org>, Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Julian Braha <julianbraha@gmail.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	John Ogness <john.ogness@linutronix.de>,
+	Derek Barbosa <debarbos@redhat.com>,
+	Zbigniew =?utf-8?Q?J=C4=99drzejewski-Szmek?= <zbyszek@amutable.com>,
+	Daan De Meyer <daan.j.demeyer@gmail.com>,
+	Luca Boccassi <luca.boccassi@gmail.com>,
+	linux-rt-devel@lists.linux.dev, debian-kernel@lists.debian.org,
+	linux-kbuild@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 00/10] tools: Introduce a kernel configuration checker
+Message-ID: <20261112214447.GG4107043@ax162>
+References: <20261106091922.7560-1-darwi@linutronix.de>
+ <avQNdicGzL3De556@derry.ads.avm.de>
+ <avWy2r1BcDatzwo1@lx-t490>
+ <20261112175042.GD4107043@ax162>
+ <avYQJiHwzCkzeONg@lx-t490>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -133,85 +74,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: PB5IZWovi1iQHNEQNTd8OV5vsisJB_Mi
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA4NiBTYWx0ZWRfXxzz9IEywTCMz
- 1s86LoY5Ejs1KBUn41Vue8ABtOM4xDWzgtfMdhNXi+6ssc9Te+fnyOLJoyCS96Esit5hSWxK1PM
- hZLCeuxNsoemP2UzibVY9MN3ZzNQK0E=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA4NiBTYWx0ZWRfX8MGjEvmD96FZ
- MMIcp4Ucq7Qtk5dwsd+erOiWh7x7K7affbCg6Fdolw/bjT7Jciz0Pb/JClGt82SnS+sL0yTgoqx
- Fz47fWHPpP5NtcYi+bdaFnwBc0Jv9wRbwtAof4FfAzpXxX2KgDu3uKY6tYCEouNHvp4VBAfw+B8
- aq4UI06eGHr//1+nMZZGjbYpMi+HbTnCWv923JncT4tfGwNa/RGCXpQKCXuSCTyGul+ksy5HHYL
- acW0CaGwPOvpF10GiCuh4YojHAr9aSpl6tUd1IIvwrnkyi3CWGBOg7FQu6VZRY5YJS87X1rJIKg
- Vng+gILc6R3tPsYN/AuoDTHHkkuT5Pggeo9PwRnMZodV+3VREMTmLExFuTRh1Hbvi3zmyO6KUPf
- U+gwb5AF6nMHrl6ZVsxbEi3o1IulyDC1t5LK3+HWqcaqwKsz63BYws8nO0QpuR2SMwFqpGFIoJE
- l/BOVSqlBLe/neBmZAQ==
-X-Proofpoint-ORIG-GUID: PB5IZWovi1iQHNEQNTd8OV5vsisJB_Mi
-X-Authority-Analysis: v=2.4 cv=Gd+CDgXL c=1 sm=1 tr=0 ts=6af6332e cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=7CQSdrXTAAAA:8 a=reF3IxvR5ta2O57t2W8A:9 a=CjuIK1q_8ugA:10
- a=vr4QvYf-bLy2KjpDp97w:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_03,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0 clxscore=1015
- malwarescore=0 phishscore=0 suspectscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120086
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avYQJiHwzCkzeONg@lx-t490>
 
-On Thu, 12 Nov 2026 20:17:35 +0000
-Cristian Marussi <cristian.marussi@arm.com> wrote:
-
-> On Tue, Nov 10, 2026 at 02:46:35PM -0800, Jonathan Cameron wrote:
-> > On Mon,  9 Nov 2026 09:12:09 +0000
-> > Cristian Marussi <cristian.marussi@arm.com> wrote:
-> >   
-> > > Add a per-instance generation counter to track configuration changes which
-> > > uses the common telemetry events framework.  
-> > Why?  What's the usecase for this?
-> > Needs some more information or I'd leave it for now.
-> >   
+On Thu, Nov 12, 2026 at 08:14:46PM +0100, Ahmed S. Darwish wrote:
+> On Thu, 12 Nov 2026, Nathan Chancellor wrote:
+> > What tree(s) do you envision this initially landing in and taking
+> > subsequent updates through?
+> >
 > 
-> SCMI Telemetry is specified and designed FW/Kernel side to allow for
-> multiple readers and multiple writers issuing configuration changes:
-> give that there is NO HW/FW/SPEC limitation in allowing such concurrency
-> (unlike e.g. for a serial or an RTC) the telemetry driver does NOT
-> enfroce any kind of exclusive access...last one wins when multiple
-> acctors tries to configure overlapping stuff...none of kernel problem
-> userspace should co-ordinate...and I suspect most of the time having
-> multiple apps trying to concurrently issue conflicting Telemetry request
-> would be a matter of wrong platform configuration/setup (similarly to
-> what would happen by running together all the lovely varied network
-> configiratio solution on a Linux box...)
-> 
-> As said the Kernel SHOULD NOT care, going back to the networking example
-> Kernel indeed does NOT active policy netlink access..you are free to shot
-> into your foot...
-> 
-> Anyway, co-ordinating access to the Telemetry resources in userspace can
-> be a pain, so the the generation counter is an optional mechanism to be
-> alerted when some of the Telemetry has been changed, so that userspace
-> can spot that something odd is happening (if it was unexpected) and
-> avoid to sample and analyze bogus data...
-> 
-> The generic event support upon which this is based, it is meant to
-> support future events like relaying notifications to userspace...but
-> given that notifs were NOT implemented for real, it is not present (NOR
-> the related ABI...)
-> 
-Ok. That explanation makes sense.  Given it effects how userspace will
-be written against this stack (maybe assuming folk don't just bind a single
-daemon process to it) it does have to be there fairly early. Maybe
-a follow up to the initial set like the stuff for already events.
+> Unless you have any objections, I think kbuild would be the right tree ;)
 
-Anyhow, add this info to the patch description!
+No objections from me, I just wanted to make sure we were all on the
+same page :)
 
-Jonathan
-
-> Thanks,
-> Cristian
-
+-- 
+Cheers,
+Nathan
