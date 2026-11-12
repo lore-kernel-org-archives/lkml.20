@@ -1,78 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794444117;
-	b=xIhajcLO9X80OO9OMMHkDFUDzYp8msT6RuSp1qaWLgINHGtwUsXtHiDLLOtKu8WJ1w3B
-	 6jDonNdlDHLSiIMyXb1k91uVuu8d2mr46Eq7N4GyspCddDR2uoIkZ6mMCHpt4+1Y3v3mN
-	 GMTvrjUYduLeQj69SkcWV2hWqD+QHOMAMHX//RfRtByy2Y5UEDEQCbRwqKCVHrjYzevuG
-	 y6vcQd7U/oImZKQfqXKFlX1PRnJLgUGTWFzkBrbvQUWK+8dVM+5jEvajBIUxa+X6EpTHz
-	 oDGmTZPD5RmB9Pzzkfiih4O1cNXctGFktM3Pjn7w6OYoGW9cXz5dBK1fPrzdcBl/wqw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794444117;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=RRta4FZ2e8Hmb5o5/lhGVzPWc/3peuR99+e6UdySdC4=;
-	b=Z7YshQdVzXSPwz+7oV7emTfGjP47VHVUs8VJVDMk6cXyC0GmYba9F0P8/JhWFhqQcBYZ
-	 hhy07jVzl/YLprr3uGaITaVHxGUpEa+LWvpM2XKfcVe59w6H+vq4Ko4GpPIDmXg/lya5J
-	 UDjhjuHyqO+aWIjZP9mOIe7AiK73r8ydGJbfPaD1DL3PxyGwNz22ivaMcuJzZW40tYCgC
-	 NZ+AKXWOAlSWvnK7vA2uNjQLIoD4xDW/3bFBK2B++Dci7LPF7VPzP1gp+C8k7XgIFWTSY
-	 qMO0gWvJlvhEno30cTuPc8k2yW5a2XgbdnStHeprZJflA4gojoFdQXh4hStx0cegWxg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LsHIpcUA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A88606A324;
-	Thu, 12 Nov 2026 00:41:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LsHIpcUA
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794444117;
-	b=jt94tAut3/SHYOgt678m9EXoFhSHu3ijljw36LuwC53IkNNsADmYD0kmW5UQQuKmuw0Q
-	 nm48gYqmU4QHQZYHSP7XjTxTYfYxr+uipr5MiuN7sy7j/EjsbUA2ZCxQgIpu2nfTJbJCq
-	 NKdkLnLsSLI+cY68Nj75JRObDZFGvSfRAX7TGUOKB8LslD9C/ocEtC+DYkC2SpTKA6UY5
-	 wfSO7YWYZrG63ZeUH5eWlUiIYx1k8DSFB4KbDFgEWfoVayIIWS0iKT9jIgw/M7Ca1NCh9
-	 +N0BXel9zDR7bM3gkors+DPtuqComsh8hofptqCbcmO16ijfSBZHrbgEt3SOMbKMkxg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794444117;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=RRta4FZ2e8Hmb5o5/lhGVzPWc/3peuR99+e6UdySdC4=;
-	b=M3bxMuHu2MSer5WhOD7f0unuY5pzD0kUjjZINLH6x4QCDYvE9y066uwUbS3i9xQSFMqW
-	 0DzvoZtMB0W26GNsivbaGQRuvMGdMskXlJdV7zRvZc8aVUZzcn2XDVG9Qoc4mN66ddeyv
-	 tZd4F6J6vFCcHOot+xS2ZUAmGOGXE1zI39Z1pUmxGNOkLscHuVxOF2Lj5ssMHwlnPvVCV
-	 QRncFcR5kBfTNy63cWnjTHIR2gHPOyhANGl3ym3NNvc4Dl6OD1fJYMbHTxbBlPo8yXHOh
-	 5gUq0jEZekApOtXT1pJEr9ol6RMKc8jHOWXSkdCDU+hlLnEGKL7lGlZLNCMqPyr7ScA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794444199;
+	b=HB6GzCsGhxUfTV6KE8taFbLAh3wBh7j4jhSMgVi8HwkviP5azJRqopERGgGjI4g3YlVf
+	 5O48mejFX6R8aTlA0adbY9oJ5MH2ZmFw7KBPTT8jC0SWi8C27nPDHd0hV39IbRl7x+g1f
+	 eyXYtUJfk5FRY70L1mPa4/HGQG1VwE7lh1/mx4fwrmsZx+lUQSZhdbBgrdi526hDUD5OM
+	 6If2Z1gUuesuCgZdNqksbWFZANyXXNAHN2EitZtspjPhdv4N5OzdDoVrvlGrgapFXjul2
+	 x27aljeb45pTAYUHybDuwRQj8da43hNFce8yunt8DmNmegYcXYlOYBB3H6h/RNThLeA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794444199;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Y+LIaShdy+NAueNuoaxr9CPb9YXKMHpHNsotH+IG2Ns=;
+	b=rkJrVP5sPmFj7/R4S/1Sr/TeDQYQ9pFSJEDYo3lazeWKfG4sb9b/GWghMo6qlHj643Q0
+	 cb+hlYJGzgvylU395aHrleaANNZsXLdxYGV0ma+jQLt5753Pay7QGNmsA0t/ar4UvMas0
+	 flz6pcYJJmg6ni2uGX17b7BYXemM+sxhf0RbozGdxzObmCc7KuK7wiEFL1QLSrhoa0kfG
+	 JJ1WiYiaPauTL6k6e7Jr0CVN3bKIDEDjLzFKkNWTfyXGAMQLFvQ8JQaX75W9avqJehXID
+	 ONnFWsd1Gvaq6ygdPz5INTF/1Oc1kJtQKjck3fkdCWeWLq1xB87SgPEkDC39qHu256w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=GpeRwg1C;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CB51B1F00A05;
-	Thu, 12 Nov 2026 00:41:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794444117;
-	bh=RRta4FZ2e8Hmb5o5/lhGVzPWc/3peuR99+e6UdySdC4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=LsHIpcUAJiHCUpb4x0OK3n83O3SBRyWSkfTnKKG34OVc8FQfJsJqrKO4h2HmIg7GU
-	 DiyKpx3zBsgCQOh/yWRFLYbTr2J+NbsFVZQHk0ZQ6JIjsCgFfQdMUbVSF/eE4gYWwH
-	 ozZJs0uo+XRyFL78qS+ll9PYbovMQglM8Hjb6JUXKOcTo5tzairFH9uJ2gE8cqj7Iy
-	 6aN5WUd2UrmN6gskwjdHEsxxr6jmwq63jdiXbVEqISe35q9qGJBdZa6O0XlRnfz+3l
-	 ZihPI53uQNG+nHY4fOmo8HPGi6zajvxDfxh4clQirGk4kwelPA6gMPUB0OxmcDuk7u
-	 Y3tlaGU2GmCZw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2B0A54919E;
-	Thu, 12 Nov 2026 00:41:56 +0000 (UTC)
-From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Date: Thu, 12 Nov 2026 09:41:56 +0900
-Subject: [PATCH v2] xfs: check the disk address for hardware atomic writes
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C29F8606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:43:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C29F8606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=GpeRwg1C
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 9CEAB40E021A;
+	Thu, 12 Nov 2026 00:43:16 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id hzzgz8LfwlL4; Thu, 12 Nov 2026 00:43:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1794444193; bh=Y+LIaShdy+NAueNuoaxr9CPb9YXKMHpHNsotH+IG2Ns=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=GpeRwg1Cd0PPyIBBH5I6TCZvhnzRRqW3QN1ahJbD8OHPO2zItx35OvsqblgFbNbty
+	 upwrhcRh90pXSFrarQE086Wvg10ypoIpEMXgXBi/qDs9yygoYDeYOcd5+eQfPHb37L
+	 r9bPTbY0FTTDyB8ud6tdAhX4pdCEoxOa09rOVgzzd80o4JP6Ih9SM2jzUdzE4h6AzK
+	 71O/b7S4amPYwi3w4frjH8yoAfRMhwrb3Qt2p92AfrXa/yTx1ht2miCztRIDYahTnH
+	 PZe+VySgm+kONjU5DDS5peZZ4Yu6DRRq8y8/57z4EeRlH/Ce68lgCunqcHk0nFyrdh
+	 ovxZNHoWMTxH33fAq6eiIKVl/b/06PbDRhZfgo47Nh8ZSskotPfgOIRIoR9Dy/xk7/
+	 szm9Y+6QBhWneUIjAAoEG4Eu0ajYPNtUpyKAnqfc82quXEzSWQIss/XyqwYUEpr31n
+	 ugn8oqU9khxWrGiBoGggudfxlu8OJa414xZoMxLBDmVTCyP2pcttAgFZamVOD7eyBb
+	 TC17TOno7N5IyCqX/nz6FsbMIdRr8eUms+PFQkOf3eHhB0evqTosqTkMK1FCz+QQTb
+	 SpPVpNilZw8eDi3iVZENg4Dxx70nGR0BRsrPVQrUZcTvCd6/9cloNXy8sLpUU5Gek6
+	 e7ruSw58MRakWBOPrWl8JzQE=
+Received: from stx.tnic (unknown [209.52.143.85])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 7E04D40E0218;
+	Thu, 12 Nov 2026 00:43:06 +0000 (UTC)
+Date: Wed, 11 Nov 2026 16:42:54 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Dario Ackermann <dario@darioackermann.ch>
+Cc: Thorsten Leemhuis <regressions@leemhuis.info>,
+	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
+	x86@kernel.org, tglx@kernel.org
+Subject: Re: AW: [REGRESSION] x86/microcode: boot hangs bringing up first
+ secondary CPU on i7-6700HQ, avoided by dis_ucode_ldr
+Message-ID: <20261112004254.GDavULjhoMSf2Sz5DI@fat_crate.local>
+References: <mw9nsyuj.70b4b79c-e987-49da-abe1-0164defd8d5a@darioackermann.ch>
+ <630330232567670562275469.6204.202611921938@darioackermann.ch>
+ <8a0a9e63-54c2-4e5d-9479-1e39946328c4@leemhuis.info>
+ <691747894523180440145931.1352.2026111016821@darioackermann.ch>
+ <20261110185257.GFavNoCWszSXhRkaOV@fat_crate.local>
+ <067545724320102351351556.0634.2026111194556@darioackermann.ch>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,95 +86,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-xfs-hw-atomic-align-v2-1-c90394805e7b@samsung.com>
-X-B4-Tracking: v=1; b=H4sIAFML9WoC/32NQQ6CMBBFr0Jm7RimEFBX3sOwKHWASaQ1HUQM4
- e5WDuDyveS/v4JyFFa4ZCtEnkUl+ATmkIEbrO8Z5Z4YTG4qIspx6RSHN9opjOLQPqT3mLNtq1N
- RlGVtIS2fkTtZ9uqtSTyITiF+9pOZfvZ/byYkNKYuW6rOrjB8VTvqy/dHF0Zotm37AlqwMIy4A
- AAA
-To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
-Cc: Pankaj Raghav <p.raghav@samsung.com>, 
- Pankaj Raghav <pankaj.raghav@linux.dev>, John Garry <john.garry@linux.dev>, 
- "Darrick J. Wong" <djwong@kernel.org>, Christoph Hellwig <hch@lst.de>, 
- Dave Chinner <david@fromorbit.com>, linux-kernel@vger.kernel.org, 
- Daejun Park <daejun7.park@samsung.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794444115; l=2519;
- i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=/KQlHm9zqOvC9vqKeC5B3c3hAccfr9ecgZJuujouvUg=;
- b=+lSElbUv0ZC1/gr/jZ2ThAFPuMnQ1/1sWHgTm4Nzwg96uKMPQ4ue2HxEOB/GH1spDUmkZxtpU
- L3mz5mjt69BB+UtzwNCmLcdPj8VQv1FL3xfUyfwI1AGVPNhIxHWOnC4
-X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
- pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
-X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
- auth_id=1122
-X-Original-From: Daejun Park <daejun7.park@samsung.com>
-Reply-To: daejun7.park@samsung.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <067545724320102351351556.0634.2026111194556@darioackermann.ch>
 
-From: Daejun Park <daejun7.park@samsung.com>
+On Wed, Nov 11, 2026 at 09:45:52AM +0000, Dario Ackermann wrote:
+> 6.1, and yes. I had only tested the Manjaro build before. Vanilla 6.1.189
+> also updates early to 0xf0 and brings up all eight CPUs
+> 
+> https://drop.ackd.xyz/n552vx/dmesg-6.1.189.txt
 
-xfs_bmap_hw_atomic_write_possible() checks the alignment of the encoded
-br_startblock, not of the disk address. This was harmless while atomic
-writes were capped at the greatest power-of-two factor of the group
-size.
+This one looks incomplete. Does it stop booting here?
 
-Commit ec8f62cc109a ("xfs: don't limit software atomic writes by the
-group alignment") lifted that cap. The block layer can now fail a
-misaligned write with -EINVAL, and XFS does not fall back to COW.
-Unaligned AGs, such as those made by mkfs.xfs before 6.16, and rtgroups
-made by any version can hit this.
+BUT, before we continue here, I would like you to remove the proprietary
+nvidia module completely and then try catching all dmesg again.
 
-Check the disk address instead.
+Thx.
 
-Fixes: ec8f62cc109a ("xfs: don't limit software atomic writes by the group alignment")
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
----
-The bug needs a group size that is not a multiple of the device's
-atomic write unit max. mkfs.xfs 6.16+ rounds agsize to a multiple
-of it if the device reports one at mkfs time, but never rounds
-rgsize. Before 6.16, a single device of 4 TB or more got an odd
-agsize.
-
-Tested on emulated NVMe with a 64 KiB atomic unit and boundary.
-64 KiB atomic overwrites in AG 1-3 (mkfs.xfs 6.6.0 -d agsize=262142b)
-and rtgroups 1-7 (xfsprogs 7ebfc20eb88e -r rgsize=65534b) failed with
-EINVAL before and used COW after. fstests -g atomicwrites and xfs/838
-(rt) give the same results before and after (generic/773 fails with
-ENOSPC on both).
-
-Changes in v2:
-- Explain why the check was harmless before ec8f62cc109a and which
-  filesystems are affected (Pankaj).
-- Reword the comment: an fsbno is not always a linear disk address
-  (Pankaj).
----
- fs/xfs/xfs_iomap.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/fs/xfs/xfs_iomap.c b/fs/xfs/xfs_iomap.c
-index c3465204b8d..119ff8e4c95 100644
---- a/fs/xfs/xfs_iomap.c
-+++ b/fs/xfs/xfs_iomap.c
-@@ -848,8 +848,10 @@ xfs_bmap_hw_atomic_write_possible(
- 	 * atomic writes are required to be naturally aligned for disk blocks,
- 	 * which ensures that we adhere to block layer rules that we won't
- 	 * straddle any boundary or violate write alignment requirement.
-+	 * Check the disk address: an fsbno is not always a linear disk address.
- 	 */
--	if (!IS_ALIGNED(imap->br_startblock, imap->br_blockcount))
-+	if (!IS_ALIGNED(xfs_fsb_to_db(ip, imap->br_startblock),
-+			XFS_FSB_TO_BB(mp, imap->br_blockcount)))
- 		return false;
- 
- 	/*
-
----
-base-commit: 48326a2382d80715475d10ce98734ac65d2d2150
-change-id: 20261110-xfs-hw-atomic-align-0eab6833447a
-
-Best regards,
 -- 
-Daejun Park <daejun7.park@samsung.com>
+Regards/Gruss,
+    Boris.
 
-
+https://people.kernel.org/tglx/notes-about-netiquette
