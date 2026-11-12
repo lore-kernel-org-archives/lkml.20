@@ -1,99 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794466948;
-	b=cOeZtDXLZsuGruLjKRdKxI6qvfcIOUT0ev2vB+e629wuId568OTs8VhkMazI5AZL2dIh
-	 UlK9HM5bnvLxfQtIsmCfK8sj2QcHIvJIMcnso56Y2EP25M8y4PQ1//eazW+Ea64D1luUg
-	 vWx78n4CkeulOx2dgqKYTPvAL7R0hsqrzrqolSX4Z0AuggHTXnirqmpS3V97xlHbNeRaa
-	 ZsvM/xobSKzV1Caxb2Sfphzq0cErlALXtvRxV+GEqCNlcGk8J9hspRuc5IdkeNQk8w0PV
-	 vuqJh5Bpt4ET5XH0Zu0JwqWrRC3lAFHobzqvSgkWqe/urnbvhdUdXS+Jj1mR70gZ6fw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794466948;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794467034;
+	b=W4AkU08bhxDOuJd5ucZmzlI+bJ2OLfGK9NcmujT/R8xDH9lnpN4fzk3nBbfTiQyF+bnL
+	 I/MCAI/l1Y7nHUtBQXLBGJB5jiH/h5zXu5QIrfwtSWBlzJQNd960wSpScHnNrvYBfG6oZ
+	 QW3hu43yJXqdZHQyrbXRMFFuAdfip1/zm+XwK9evJtrYHlM5GxGQJIWbY6vgrULw3sQw0
+	 EnWIp0SL19SC0hiCuKIcJp9aLGcRzzkzJlMP1EC0Xk8BJia9KshUZVIfJFAjEWeW2AwHx
+	 fk1UykeVHrbYv85U/PABD5XM9ABbtl6pa7PCvueX4wtRAWQb2448RctIi0yLub+gT5w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794467034;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=zj4daZqcOfrk9MLreCDoKv45VzLcW0kMVsw4yuRmjFc=;
-	b=dwwTIPrTZui66UE9LB75iMkl32yFRIhrwSBe6AUCfEXTcT6VjlaLiypELvnWke0HiEA3
-	 IaS58HhS4BQ8noQ1inKka01qO4saR370P17E1ir+MioQUu/kqaYu/D7YaBKZwFWt7WJ5e
-	 V3TSCAeJ6ZlAAawrMbFFCESfOro13MJ5Br14n602NixiRRZ+n3QlrtgX/deB6Ks3LIXeU
-	 oz2WBvTCONIohv3kxtp3qIysv5Y0buHHZPwNVQlSCkfnKf50LQH3+3JilnlVLrzfYMniQ
-	 5w7vM1iaQAlhOZ1ZUYXFaosSqrjqeI9ivcsOmLuja0qpNmoArR6W8RlIes/2NpkNiFw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PXWOUoJA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=MzKSTO8LvpR1kk43PP3scsPYLloAVo4g9q+JhIcdw+g=;
+	b=wjQImjS6UIprzRltqEyPkge3TSjgGgrlgbbiEC8Ojqbqza/oOBng4kk8ScCCAJTN8N3z
+	 jWXnCNJjWcAvu939z+KadTL0/PnywGoX4MvDI9dZLXnhK2ljCPWAbg6TaaAezt0TlD2QF
+	 K0DXms76TINMaX5mnIK1jl+4DNM9aILDLoRX/MWjw3h7BZlvMmAiH69T+Lq+Yf4tIOtoh
+	 VUZxvScSE47VxzXa1g2lK1NbfY72phLadZwOiaTbO+Ac4LhyaSLdyRVor75vRJIgmvEld
+	 3YG/hj2WrGdI2x4P5swoLY8XA9Ix5ETIX56Vk+AYUyLYJtQ/HxN94DoN0E7JdVQvHJQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UU4sr+KE;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qV7AOgop;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87EA1606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:02:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87EA1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD5B606A32D
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:03:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FD5B606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PXWOUoJA
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6ae305e3bd9so6171351a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:02:27 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794466946; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Qu8lJl44XEeDy3jvE9S/BAyQgZ/zOCwJz2dmClV/WfagKNpQu29FBRZWWQH3+ccI8U
-         rFSyuHq6vtxYQdZ5Y3x+Buc0ItGpVBPmQwyHkh/BnQrJwvcnUX0myLvCogcIfS3wLsK0
-         blbgLqvP8rbgJCUo+ylkg1R9o3Ah0uAk37YQLfB7J3iyk8WovqZPzDT9o5R+P0kPXSgo
-         2soh/KNdvdRUVU9ZvbbjNMvLZcxxRiPGeQt7rLcEYjzWl2wgqsgAfa7PD9jXTOyCjYKe
-         Wvz5Wf9Cu7GGYJvmrg6n76OVpRB5o5vwQZ7aKNQJ/u676lVLP0rU8+9chIACNyQXqSPK
-         jaRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=zj4daZqcOfrk9MLreCDoKv45VzLcW0kMVsw4yuRmjFc=;
-        fh=aRew4yTtYfapKsvxJj7iJdtYOMy1a0GTZyVYW/fac98=;
-        b=ew/YshkA/Y0Zs7TRpE+6jVVvmjr3xiHlwOCJa80OlGefIS3o6s6A0buBGALDvDtAQM
-         3+rRfnPJRL/xAN2qd9HYOIkrqdBqlnKNxqxrVb1pvdz/K8VxxF0JQupOqu30ud8NMajO
-         eOetX8hxzyrjRH8fx1nnNf/Blb3wxBVaP6kXrT+RjnFroIZ5MCn3q3cNjYqHXx3mzgP8
-         yZ3KMQsrLRq5Ah46SMtI9WYBEKC1vkKZHzzOshfYukPnqpIHXE0f8wWqcX0IB9lFdCwB
-         tyAIF2FkbtIP4Ti5lCiA4azvJgzxeyPQSn6k5Ctl+k3IC3WTZJyUQKYZi1AVksjDy/Nk
-         xT0Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UU4sr+KE;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qV7AOgop
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794467032;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MzKSTO8LvpR1kk43PP3scsPYLloAVo4g9q+JhIcdw+g=;
+	b=UU4sr+KEXLWG/VMn1tojphdaL3NHxohGi1XR7H6d1DZnX2DZ/Dmoe4EXaCaFOPROeVmBuD
+	2Bfbh3HCYBFXXQFQrUCiXcYUeVnOSG812IacDyGUJsnzLOreHMjOSegjGGe6KiHolligtl
+	OeRD6FxIHNmw1C/SrndI+EtsqjnDOk8=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-688-Hl8HPT92OHqpwOG7Wokpyw-1; Thu, 12 Nov 2026 02:03:50 -0500
+X-MC-Unique: Hl8HPT92OHqpwOG7Wokpyw-1
+X-Mimecast-MFC-AGG-ID: Hl8HPT92OHqpwOG7Wokpyw_1794467030
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-490a0e72578so2892854f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:03:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794466946; x=1795071746; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zj4daZqcOfrk9MLreCDoKv45VzLcW0kMVsw4yuRmjFc=;
-        b=PXWOUoJAKZe4F84y9dSv19nTvPgCLE7t3wF/6OK2ig1rLWBe5ND5kYjIbJVvKGGp0q
-         3ZSPR2Rs/JDxKAPgG6q2nLooeqGi5oap0ZDMf5HCaL4dV8JjodKNl3ACgCKeNj/dm3bJ
-         4845Q0ZgOcvEms9ueC9IhkEZMRRTZMy8yf2MN4zLR8l+o220MoW5YqaF2w1ym0hzm+V9
-         Typlt88pojHaKYcDnXIDukueDzqIYuhWX923qSm/IuM746jbl2MWtxkP/WKwPTJXvbcU
-         vAg7BaHx9f5TITUGVYdeM1RiLuZTJskUL8VtnEw0pM376PeA7Qw/dbkFu/FLO+KTuve5
-         AUPQ==
+        d=redhat.com; s=google; t=1794467029; x=1795071829; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MzKSTO8LvpR1kk43PP3scsPYLloAVo4g9q+JhIcdw+g=;
+        b=qV7AOgop0W01vPhiKpcbR1iniUM5nKXxDo0iqseOsfEa7Vdop3uUtjikrlcz9SfGhX
+         swRduSSzYFGPA6SA1t0n/QbHVPGxqpAkLR364JdwWI2FHto12oirN84ozqFqFMq20r1F
+         WUyGD/gKFIKiGOgs8EB7mvjygEmIB6oYqrdDeV6MTrTONcrBiyutaMcXH9UZPOTY+izo
+         bdNJUrD04e5vd9Ifm+3QURW2XY1Q0PG5n3UAVMkxJDF3iaDVeuxNhWZcsf/3oDmoYqfu
+         VTbWQJzjrzM8tI5fxMlDn45A68wJutyg/8IB6/YQC8CI8F4D7IsPPkKg4DmE7om/b3Tw
+         eJEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794466946; x=1795071746;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=zj4daZqcOfrk9MLreCDoKv45VzLcW0kMVsw4yuRmjFc=;
-        b=jF86iirDVvIJ2mYzWAg7YeRAbFEih+fTDgyMkDuWQi2VQtQXN65owK0tl58wWkT27/
-         lkkkXF88BFT8YxvCAAPZVobxt9x0nEgI3lD4CRU9zMU+vgxaRic0LaNNSjtSK/4A3/Yo
-         oHX9IQCCywJt16DvgWduBaCMStWrrzF6TP4VDGY8RIxtQGs4IKSM7D8uZVkpkrOwIRDd
-         nvWCqeXqiJO50Qsw+NsSzxCGNRiZIrDtKb+m9cJdMCl5tlBb1Neu5EvBheFgoPONIZmu
-         Jj2nwHPd/e8zD5vKjsTSvCtEQmxlEvwqbA9P+ByK7ghANUiSKXdkVow7Scx4MeRi3lXi
-         Nagg==
-X-Forwarded-Encrypted: i=1; AL+hErHdmWBeT1qNz9zPwklPymTEu2YVaQ5mDlXZmsIrRtZdVIcyt3vcd1jJMlhkgiDQ0cjKmR039IWmQTWB7CU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/uV6jzAoKSZpE66d9spD/q81YkufEQ3JPUwq4faqMYLsyM4B+h
-	vjvgfJaMnqHIaByPiX1snfbCdvkBgBWVpZYCsvMjv7YrvMWo7d4a/zMze35fxnoOSWP/3++9x/G
-	9CEBH4KhJckfsJwsHLBWPnAWXzQ8RRqBPk+G7eGnHpw==
-X-Gm-Gg: AYBFou1PC35SDW9yWMsk3SxZQvprZvBa2yEtDMFxP2+XF2WtlgGayR1CbyZlHkxZ0zv
-	gwrUhs0sGV5FsyOLUIyAmVk/gB94ZnKAfaUXcjo27snuKqK2niFnpg3W9XhgK72twpNeM5eNr0l
-	lUdUDMox+kQIeS8I2vyyGvQPev4qLx3qtkP0SGMHwsztecLSKer0OS2L8nwixCwsQ3VWKRBQcu6
-	9Zd7BSg4WUPMDdA6pvGMiZqm5cqJS0KcxtXQvMDSxlRtxy681N5oqvc+xFb9pFWJq1SGPImIkVD
-	ZGfkaIX9yrXWGmNU1UK4l7/S6H4fIyT6AGj/r22PyFYrmkU+VLATlps+bIWY73JEKfSCvaITBMj
-	XzzGQpXwZtmn3xsOaO1DO6sqcBkTFWK7j3f/6SW7VQ+NMRxQB7lmK6b+8cgYjIw+4FnZC1g==
-X-Received: by 2002:a05:6402:28c4:b0:6b4:602d:f1f7 with SMTP id
- 4fb4d7f45d1cf-6b7773f4731mr3380483a12.20.1794466945804; Wed, 11 Nov 2026
- 23:02:25 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794467029; x=1795071829;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MzKSTO8LvpR1kk43PP3scsPYLloAVo4g9q+JhIcdw+g=;
+        b=QaoJKtlTYxUb+QlO1a2XY+AbKDZ1hA6EssuW7Q/2UdjxvniSzcyapQ3Nsf5FI8bgYB
+         WRZuJl3hSEJgyhGo/L0aWVCreQ+WMdnVoKc5CIWl1YD02VwajHP4rlC07bXx2AKAoQGJ
+         L5/zGKpYhZpLGDnTaSHc5SzK2l6Ocmnj4ipNehV4v3nz6d9/YuiZoyAzIx+BeYPPCy2m
+         Ob4qhaaDuey5JW6GGgc1kEIoQAdC+gtsG7xiqx2AQDAe4WGdRvbQB9nzWv2ZO2KACNh+
+         xas/nJjCb91BiFBOkdZvLDndU3fKiduGLTNkvnfhgu8Yhb+uhJupGDn0l+X+1ckA/hnZ
+         gnDA==
+X-Forwarded-Encrypted: i=1; AL+hErG9Kx7xC5OIJMmrFzdAcflmX95cOK6plkleojkMu9d3c08GvagS1JvMMwKW0Q1NDa2d/o5Qqk/X0XukoqE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9jKO6SiJMmr2f0sM6Ncp5cpXdfvAvpJCZHFfDiImnFjA4Mw62r
+	nF38SGy3hPB+wB8818Wqf4OaVjUpAcnkuJIpu8Zw/wo1z0/kv9NQMlLCApcUlLmX52y9KCdNuVb
+	QnyFxyoN1wu2hWbOQmPcNg2IWrw29EYQOaBBMCqIlxGKneXDqIQWX1vuHYuA0YAFIQA==
+X-Gm-Gg: AYBFou1dA9h79v6179/3HOs3znc1avGJjq/rBMD3G3D/iymGQyZ3U4Y+9N/SgOGHBOd
+	2DEOr36lcAJCJGTB7TiDE9HO8UVi25VLbMQLWLDCSqGE4MGDukUkWdl94UkhIk+XF7Li6/wM/oD
+	i275I2kQ1QajXQYwV9Kw67xhUm7Z4/Nkx6w8X+UXXejBAftvQUWQmyLqTvkUO3VqrbRcnQbfLvk
+	oDikO59MPSm9N90K7Mhhx4XGWL5Dwu7Cf4giYfpWZfD48NTW9HJwTDttr2tnD6Ru8QFcpJE9UFQ
+	eH1Y4b+9URH9X/1hBVBmXC8qu9wjpOxt64nojFbXDQC5Fn+OhwAzWu59t9likubr6pB5z/9qzXV
+	3Hex5mcAXENfieg14/xEQ7CtKkXXGBa4EE6KVaMMPaaenkpRcGVMTCIP6Mbxq2KcU
+X-Received: by 2002:a05:600c:46c5:b0:4a1:825a:56fd with SMTP id 5b1f17b1804b1-4ba093ab88emr83497795e9.32.1794467029448;
+        Wed, 11 Nov 2026 23:03:49 -0800 (PST)
+X-Received: by 2002:a05:600c:46c5:b0:4a1:825a:56fd with SMTP id 5b1f17b1804b1-4ba093ab88emr83497045e9.32.1794467028991;
+        Wed, 11 Nov 2026 23:03:48 -0800 (PST)
+Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498369a495csm14952955f8f.55.2026.11.11.23.03.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 23:03:48 -0800 (PST)
+Date: Thu, 12 Nov 2026 08:03:45 +0100
+From: Juri Lelli <juri.lelli@redhat.com>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
+	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
+	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org, longman@redhat.com,
+	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
+	clrkwllms@kernel.org, parri.andrea@gmail.com,
+	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v5 18/29] sched/deadline: Move a task's bandwidth only
+ where room was made
+Message-ID: <avVk0UU8IRGoo77v@jlelli-thinkpadt14gen4.remote.csb>
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-19-mathieu.desnoyers@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,75 +127,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
- <20261106151947.3991524-3-vincent.guittot@linaro.org> <au38gSTzmvPKmqWT@scheduler.schedules>
- <CAKfTPtDXo8_3tfXt=UH+BKyO1rJCWjRAVXjO5nFVHO1NBd8LyA@mail.gmail.com>
- <20261109154536.GK1779021@noisy.programming.kicks-ass.net>
- <CAKfTPtAL9T0bGZdhkodC49DtNUFKJgEn9f5wLNBe_rGxzJEN0w@mail.gmail.com> <20261111090354.GG2668564@noisy.programming.kicks-ass.net>
-In-Reply-To: <20261111090354.GG2668564@noisy.programming.kicks-ass.net>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Thu, 12 Nov 2026 08:02:13 +0100
-X-Gm-Features: AclHuK9sTnZDoWNK1z60y7C5PPNcVNuqCH5Q2WF5qMfYgWqlwEG8DadJrWu2JO4
-Message-ID: <CAKfTPtBeEQU-7R0wPZeQXF6RdC_kDkbmbCcRBj_WZUCksU5gqg@mail.gmail.com>
-Subject: Re: [PATCH 02/20 v3] sched/eevdf: Reset lag at wakeup when prev CPU
- has been idle
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Kayra Cizmeci <kayracizmeci@gmail.com>, mingo@redhat.com, juri.lelli@redhat.com, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
-	linux-kernel@vger.kernel.org, lukasz.luba@arm.com, rafael@kernel.org, 
-	linux-pm@vger.kernel.org, tj@kernel.org, void@manifault.com, 
-	arighi@nvidia.com, changwoo@igalia.com, sched-ext@lists.linux.dev, 
-	qyousef@layalina.io, christian.loehle@arm.com, pierre.gondois@arm.com, 
-	sshegde@linux.ibm.com, tim.c.chen@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108185406.1549770-19-mathieu.desnoyers@efficios.com>
 
-On Wed, 11 Nov 2026 at 10:03, Peter Zijlstra <peterz@infradead.org> wrote:
->
-> On Mon, Nov 09, 2026 at 05:27:57PM +0100, Vincent Guittot wrote:
-> > On Mon, 9 Nov 2026 at 16:45, Peter Zijlstra <peterz@infradead.org> wrote:
-> > >
-> > > On Mon, Nov 09, 2026 at 04:27:14PM +0100, Vincent Guittot wrote:
-> > > > On Fri, 6 Nov 2026 at 17:22, Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
-> > > > >
-> > > > > On Fri, Nov 06, 2026 at 04:19:29PM +0100, Vincent Guittot wrote:
-> > > > > > @@ -8376,6 +8383,9 @@ static bool __dequeue_task(struct rq *rq, struct task_struct *p, int flags)
-> > > > > >
-> > > > > >       dequeue_hierarchy(p, flags);
-> > > > > >
-> > > > > > +     if (!(flags & DEQUEUE_SAVE) && !cfs_rq->h_nr_queued)
-> > > > > > +             cfs_rq->idle_seq++;
-> > > > >
-> > > > > This needs WRITE_ONCE, no?  3/20 uses READ_ONCE().
-> > > >
-> > > > I hesistated to make it WRITE_ONCE but i concluded that it was not
-> > > > strictly necessary because the READ_ONCE is only used to compare the
-> > > > value but not use it for any computation or sync so if the compiler
-> > > > wants to do any kind of optimization what we really care is : is it
-> > > > equal or not ? so any intermediate value that we would read would be
-> > > > ok
-> > >
-> > > Right, so without WRITE_ONCE() the compiler is allowed to write the word
-> > > in random order byte writes. When comparing only cares about equality,
-> > > any intermediate messed up state is not equal. And since we were
-> > > incrementing, we're not supposed to be equal to any previous snapshot.
-> > >
-> > > Therefore all is well.
-> > >
-> > > That said; we should either document the above reasoning, or just do
-> > > WRITE_ONCE() and get all the sanitizers off our back, because I'm
-> > > certain that KCSAN is going to complain about this.
-> >
-> > I agree that it needs at least a comment. I can use WRITE_ONCE but I
-> > remember seeing somethign about its cost. But does it worth having
-> > sanitizers complaining ... I will run some tests and use WRITE_ONCE if
-> > I don't see difference
->
-> Mostly it doesn't actually cost anything. The thing with WRITE_ONCE() is
-> that the compiler cannot elide or merge the stores, it is forced to
-> actually emit the store. But here we need a store anyway.
->
-> So the worst WRITE_ONCE() does it get in the way of compiler
-> optimizations, but I don't think any of them are relevant here.
+Hello,
 
-Ack
+On 08/11/26 13:53, Mathieu Desnoyers wrote:
+> Commit 7f51412a415d ("sched/deadline: Fix bandwidth check/update when
+> migrating tasks between exclusive cpusets") moves a deadline task's
+> bandwidth in two halves. cpuset_can_attach() reserves it in the
+> destination root domain. set_cpus_allowed_dl() then frees it in the
+> source, when the task's affinity changes. Its comment relies on the
+> first half: "We already made space for us in the destination domain".
+> 
+> But set_cpus_allowed_dl() runs on every change of affinity. It frees
+> the bandwidth whenever the new mask leaves the task's root domain, with
+> or without a reservation. sched_setaffinity() gets there too, if the
+> task's cpuset spans two root domains. With admission control on,
+> __sched_setaffinity() refuses such a mask. With sched_rt_runtime_us
+> at -1, nothing refuses it. The bandwidth then moves with no room made,
+> and no root domain counts it any more. The destination would underflow
+> when the task leaves.
+> 
+> Fix this by flagging the affinity changes that come with a reservation,
+> as SCA_DL_BW_RESERVED. cpuset_attach_task() sets it, through the new
+> set_cpus_allowed_bw_reserved(). set_cpus_allowed_dl() moves the
+> bandwidth only with the flag. Without it, the bandwidth stays where it
+> is counted, until the next rebuild of the accounting counts it anew.
+> 
+> The attach still flags a task that became a deadline task after
+> cpuset_can_attach(), with nothing reserved for it. "cgroup/cpuset: Give
+> back the bandwidth an attach did not move" fixes that.
+> 
+> Fixes: 7f51412a415d ("sched/deadline: Fix bandwidth check/update when migrating tasks between exclusive cpusets")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> ---
+
+...
+
+> @@ -2957,6 +2957,8 @@ extern struct task_struct *pick_task_idle(struct rq *rq, struct rq_flags *rf);
+>  #define SCA_MIGRATE_DISABLE	0x02
+>  #define SCA_MIGRATE_ENABLE	0x04
+>  #define SCA_USER		0x08
+> +/* The caller made room for the deadline bandwidth in the new root domain. */
+> +#define SCA_DL_BW_RESERVED	0x20
+
+Why not 0x10?
+
+Also, nit, the comment looks off compared to the other flags w/o
+comments. But maybe they just need to gain comments (I keep forgetting
+what SCA stands for - Set CPUs Allowed, maybe? :).
+
+Thanks,
+Juri
+
