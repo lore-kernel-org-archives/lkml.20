@@ -1,99 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794519625;
-	b=JizQu/q2WDfrTuhakUAvbaaadcpwQcgAjlUkKIkgBH+vXRQNorA3Z5HS94GXH3d2FVQE
-	 C7p40hYCga3Sau1yfCTmthV0SGAeHiyrsh6pz4ehYG6r7OrRh9kIioytiaLx3WxD7kg0O
-	 +hKR5MXmMtQJeMUEkf1SDTzcs17d+gXbO+Xa0lRrClSl54I5wtDw4l9CbJUv7KbEAToGZ
-	 Nwkg4lJA0S2TetiM3Q6gge3k+zlDzHMTtOic/45Kd92KsgF6GtTkERApiLt5ewlL1Fofy
-	 9SLBzuCLqvrns25coKV9v7uvkueJtCC4eVqId7elf3GzT27kR3NAZT+fwLTcnbeTZ4Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794519625;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794519709;
+	b=c+PwQAS69gARWQ3lZ353+RXi/2r3kbMeJ5YhDvPHfey8XzfjH4WKq9BGaGxT8YYfTSwB
+	 kJjEiD3czbsZ2p9xpqTxRJ37eonOVwQpHSw9bHIuBRjXIpy3gssCQ+V8tekgSOlwThIub
+	 FLuQI+hloDw5T16ruvqqIohqGRZhGJZsnvZHgIooMDTfa74oYudGV3G4/5srHct7GY7Lq
+	 P1wU8KjtQt1RpstGakTpxCnREdKHcOu8CAVoznMpKNjRNFZeD+SAue7PMvrS/LakQYlKI
+	 AH8mcsoOsY+lDCMKUFt/U7FHl6TnFB9UPapTTcUetyIUy+heBMupcSy/iee6AX5Di9Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794519709;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=r7tUMESnGuHT04Vkq8tfouLXmNvcHODCZ4NpjFvO4WY=;
-	b=fxz2iQAyrCAGc2I7d5lag1CUH1jHJKXJ8w0hc3hHFN2RdZqeH98Bz8LVYQggoYYmcpef
-	 Cs80JhT4tDozMciXUV+g22U10Vx9BV6Dg8L7Bgmo7v7E6E5sqjxCrOlR6+6JmlpcUbXNe
-	 bvisELjPHaWdbzkL6auIBRL5SdFNovCklecLkAImGL45/IlUC5V+0thXZnSVwTTV8/MgT
-	 Ggp2Mvj2qZ410PTreLsueMyB0uddD0z2UHTUv2hjxHRDaPdv5wjQ0tmgI3OID0gj2rdnr
-	 IU3BGzfx9H4HE0XYETksPAs3X2y2E2wePSTeqHlbu7RcWzQKAEE8qLKUuKGqi83KYPg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=M3YLsKzG5cqeB2dDG96sb0hKNdycjo/1Ky/AnQJorPs=;
+	b=kpsc5n6sygSbHSv9KJ3JodaEa8TD9PHp906oIwh0TxGGOUpfm6fC3i0eZHSB35DHiqBU
+	 vU9srK3Zltgq07BQ28IRzW5yM2TaXexOXQuSc+sXcmKiA6TtnUIVRI+ojH8ZuImL0RD6h
+	 UPHxBWveexFwICQvZfAJuT2bJT0m12lW84RnowSV5ip/lLMZhurQ5KLO0O05DaKdoXBfp
+	 mtaRrnqZW2hIDv7AfK0ZuE3POoOzN4MduBc7dwflTUI/Yr5Mtiwq3EJRmE6epGMcU9W++
+	 291iSffdnkq4F/ITX4wB6wyXzmcW5sWKMxd8vvKN38l6rYLUE5rJqlbrUhtrGbROvAA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="lwKKxJ/J";
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="l6AmSxx/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.170
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2D6606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:40:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA2D6606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA719606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:41:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA719606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lwKKxJ/J
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48df160bb9cso11546f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:40:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l6AmSxx/
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cd69954c755so315825a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:41:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794519708; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sgpC31gXjaFth4uKVhAEN0Gd2+sdVe3o2XqEv7DtXY1McE/1uO0WHMK1vHFuR8w1/5
+         w9iXEhOarqdcnUCc1jOAGpmdOaTs6PE16UZ1lRP12noENcmb5WzRKVbhTj5qyp6QcYWW
+         TiOyZw6c6wE21Td9Dts99CMeoUaai4VC/aambedWL2mblU70gYub84RAIjIprg1AXE+3
+         oGRps9kqkzJvDiDf8REDbR3xTzZ5VCf4DWpN/QsvArMcI5cwRYBKT3xLLxglUk9Sudvz
+         Lky8sGloOnR8SBZOdwb+clQd++9ZRH+hfgy2JH5onNgOYc2myRkum575N+lBKX3yydfc
+         RCIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=M3YLsKzG5cqeB2dDG96sb0hKNdycjo/1Ky/AnQJorPs=;
+        fh=SZgtw/FDX/0ihICpjQr/F4MOgCJG7gI48/9EYfRz9No=;
+        b=ZymZLxoxJqtvUeXGbyTb59DjHZ13V254kGQGgxZNBR6eVVsk4xMqhLMg68r0gUPILw
+         JbYcellPWH6v0r0/GbOrXiJjWjLWI9XtOa+oV9figsqOtf4DzgAyCrGdPm0LyDv/0I/T
+         YnyzyFy+9sQOmx9S9fLvEWedA03TxXdPBz0frRUupfxTchp1kVY3mhIyQybN7bdNRgID
+         r7JzDgJjg++Pmhg9RTxXiFk58WDNSqMqkxWBQXzw8M5pnJTJJBAbK+QbsUr9mNpGxnRn
+         rI2P2a0mojzBAO5m2YuMq6jrtihjxiVlXhtVAyDnmM+aXVQSLX+QubLRlQNCEIj8QeVn
+         0mIw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794519623; x=1795124423; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794519708; x=1795124508; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=r7tUMESnGuHT04Vkq8tfouLXmNvcHODCZ4NpjFvO4WY=;
-        b=lwKKxJ/J9/7p2JXGfMiXSJxz20fys6eBBo8AFa2LIDeMBxpFiDBrs6g4UvyDxi51q3
-         VnscTkd4nGY/6Fm4lA1hqeVSd9RfMPZK1uNSaRBvv6tQuiveQHsu0lZym718WQkD4mpK
-         ItpHzn8eIu9MfLddvRb3yoQTtUXZDWjWx+VyfkUsPqVRJmItPEwYsgs4yJ5274Sosbui
-         jpF4+RxIVAnIKoo+FkGyMINQrJUIyPXkJEjikOS/n7J6GYtxeTlnotfXJ80HjbMJ5Eyf
-         3VbzX8PCUJkNvgtLOn1HG8WuxgED/uka07orXiNRulBwHWjMWvH/bVCNh6WMBya9nJdF
-         +XPg==
+        bh=M3YLsKzG5cqeB2dDG96sb0hKNdycjo/1Ky/AnQJorPs=;
+        b=l6AmSxx/K8y3qh9zmFpdgkWR3MpQOes+RmCoESNQYBUY/buW5zHFnipPlv4E09NdYg
+         PyOciIhr4enYC9mGL9Cpgx9rMLKGs+zhsXbiFoK582CLKSH0xI0MZrcua22441AY3a8/
+         S23fadoyQdd9kIS8VCaiwr3RpeNThieSwcEy3Mqrrp6KdRwR7OkczzONhmVeRqmmswlb
+         u9AepUoIcXlhwSWnG24RlC0ibBEZgphgdMPdjz3nOWfCCF6kPMS66YX6UppFdcC0wlDE
+         s1oJ/DHThjLdChZys3WQVY6exXGCzTl66BCjURltHp/AazTMZPBm08Ss3LKLQfz6Jt90
+         VZxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794519623; x=1795124423;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794519708; x=1795124508;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=r7tUMESnGuHT04Vkq8tfouLXmNvcHODCZ4NpjFvO4WY=;
-        b=Eehvd3ou2z9YNcaYwag6hlT8bjOupEt2WFUDKyg9hY++l79jYirVxCSIJbXXWFKm1G
-         +7LxJu0RjnTn+4O8WUDYR/0I301U6WwY34xaHRWjD0WhiBIedFkjvl92e33KjGRrUQwY
-         Srquz523oE6kS9Bo4XIWD2F0lG0NVeJIdVvSKo6rtNKKeycsAZLb8+WFI4V0WVzECnau
-         71CNoRypv/1A4WkMicJZdCP51d1n4WFb13vL11+8/QPTmwQoG6NWKAhQdkXDbHkoMDLu
-         XzSMqtWH2UjmDDcUFQxroH2tjQS336lO4Cd1zozc7mtA/cWY1j5bp3NWlFNDYtdlUk1n
-         /xIg==
-X-Forwarded-Encrypted: i=1; AL+hErGSde4xt7ZvD3R3mBrdHD5P5WuKhffDqlqMzw8BMonPDJROB4PwdMrSfYQ6d/jsqIKJLjVqRRFxIbQ8qIY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+/hO7uga3KbmD26dY2V0UNKitOIQxOxZbSXBVwfGmYENzAvb7E
-	z4aRBWmnd6ejokrNH6k2C07YP0v9bbQyM4ZEvxbamGjKOThBzObg822G
-X-Gm-Gg: AYBFou0dueFaGuCMddS0REsHBt4/hkUzlOW4O623ERH+ccbhHsQ8SWbNB0sg8hD87OK
-	AWssevIHfrVV8ngbgySBiAodMCJKOCq1Ygs2QZVWjdpkx30z9gRvYEGEt7kkSeAkObqu94RVrQz
-	diM7e1mm70LLE+mf1FtGcTYxQzY7syL1QAP8oePZdtVoBI9I3zW43mSFLnXu4DIMSkQQ3O4qctx
-	rhIBlLuvGVIcvJBT5g5X2+rn801tcfCf59tQQHA51MLpvAHQYISfIYSNK7JUyZ4raS/X4Y4T+Gg
-	4iKt2xGq3W36asf+6BAuMQJlSGIOcQKChzR9IrpXbkVmvAAuYVxtcv05wLZQ9tFEBCaejf/c3wA
-	ntKt4dqhhV6vQyrEMV1DftC5csXFb4XuL56SQcr0FdXjhmCSqkhisnZx6dALgUIk3J5ceCshFua
-	OV+y1wsFduGy1crST9NIzI048N7RHl96Y54uLpqcHlvYuBF+VCElC1eEblSkAwV+T6HAkf4GQnZ
-	vfAQyO2S4YmSo7ef4Wld3jV5z2ufKd1xL+bh0SE9hHpJIZ+YbTnWmBGNN5roD7cUu+SkLRTGah8
-	vTE5JcwVsQ54EVMBJeNWDCNepxwFknTxABQS2I1yZ7BE5kJwB2htBWJsk30PaObt78YcTVEOnfk
-	BVmholAI=
-X-Received: by 2002:a05:6000:40cd:b0:492:b1c5:6dc3 with SMTP id ffacd0b85a97d-49c723fc6f9mr1514901f8f.6.1794519623235;
-        Thu, 12 Nov 2026 13:40:23 -0800 (PST)
-Received: from [127.0.0.1] (ip-109-193-028-127.um39.pools.vodafone-ip.de. [109.193.28.127])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60021375sm1279890f8f.29.2026.11.12.13.40.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 13:40:22 -0800 (PST)
-From: Marek Czernohous <mczernohous@gmail.com>
-To: Beomseok Kim <dilddream31@gmail.com>
-Cc: nouveau@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Fab Stz <fabstz-it@yahoo.fr>
-Subject: Re: [PATCH] drm/nouveau: Clear fence channel in no-signaling path
-Date: Thu, 12 Nov 2026 22:40:21 +0100
-Message-ID: <179451962164.1494544.10983579250194846394@gmail.com>
-In-Reply-To: <20260928081450.19340-1-dilddream31@gmail.com>
-References: <20260928081450.19340-1-dilddream31@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+        bh=M3YLsKzG5cqeB2dDG96sb0hKNdycjo/1Ky/AnQJorPs=;
+        b=J1h9Z3js3OtPf0wa2iRwxYQT9tFp36XiGwqXQcG+MpiusB0YtSORBIbATanYnctwwG
+         l06eg+86sbEyd8x81MKAnPDF1Dq3nh+hO25V6q9uYJ0UfkGKF8hFyTW/eRG0Nv5X8+LT
+         +D60AOmPItM+XC1vfc172+yUQSW6wQH18E88RbBFUlzAW8Z91FPf8OgykcwcHmkrQFOI
+         /Tt803oEHVVB+ADLuZAz6E2roB+1y3d2UZkGZagNqhkInb6PSfgw/sRemQhh1Ifioi12
+         L6w1nXjuqfRBp0s6PTaHeUvW4v96T30UlML8nU9e4mn+tudQ8iOd+kvMZSSadXHnBfIj
+         KJMw==
+X-Forwarded-Encrypted: i=1; AL+hErFb2pRefU9WoUlFuXDPuhshogLofqqJ7q0702higaVKYCjEKKMb9fBnoItPEQlKvOsB9ZVS1v6Ukz2TgqQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9OG8lsEk1Hi5LSnyKBkgWsy5d/qPOIiC19OXiY12VrnmScleFr
+	DEfSzNPbRQ2o9KXT522Mj947huYC2kyaxP/VkRxtFyy5G4Iik/wyvf/2sn0o0SrHv8jesadLmHH
+	+iXsJOZKih1eB4+2XVzSWMtPx+vP00LM=
+X-Gm-Gg: AYBFou07+XSeQ8XtxSqMAwLDDJ7XH7HKu3yhzKAq560GtrGs2rZ4ycq2HEpcM0Kmmjl
+	qr1B3W7XiYzr6HJlC+306PYsP4GD8tDW+ByUL67zUGIhm9sgMK6Ah+/Z4Z7tKjzQvfssuDh3NI7
+	lGTzFEMqeKuMzThPNtESuGCpxRqv+PBSyVTcZBncl/8Lvqv74N03+D7ULHQMR54RRFjPEOhCTl7
+	29enUgUPW/DlDBemsaSZ+daRVemXvr8CPNaBFhSbOQ1EHoN2lkbpgivmHtH2IV6er8oB5aKx9qd
+	JbY925GZ3TuSrdFqkUuNTuhuI3Zk6iI/dm7oDC6BAZzTi6W/DV8/aBtzPja/GqNonJ5EBtFHAfj
+	Ts1SYksYqOt9NEYT+XfXWOZ3AfhlK44HTb1TwHka7n8EeTYKHFTWbPQHSql7qufvvK+MQJ2octY
+	/5YFfrKv1zhZmnxX08zg==
+X-Received: by 2002:a17:90b:2ccf:b0:3b0:aaa3:ce75 with SMTP id
+ 98e67ed59e1d1-3b1b081866emr318496a91.3.1794519707828; Thu, 12 Nov 2026
+ 13:41:47 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,46 +105,231 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <CAAcuPuJUt=Qf6uuTVv63jiY_iCjsvjso1T=WYSFQB=i6Wzb2Vw@mail.gmail.com>
+ <CAP-5=fWYxRTZmFQZZECLapQCUug-bs3cwTmwYA5SxBy0=0bKdQ@mail.gmail.com>
+ <CAAcuPuLkaC_=c4NPxNmO3HK8dw8j=cH6M+nyfzYERMfZOKh8tA@mail.gmail.com> <CAP-5=fVr+EHr_RpLiA45ZK8OkDNG8AdmgK+pz7kxd6G3zWXO1g@mail.gmail.com>
+In-Reply-To: <CAP-5=fVr+EHr_RpLiA45ZK8OkDNG8AdmgK+pz7kxd6G3zWXO1g@mail.gmail.com>
+From: szpuszi <szpuszi@gmail.com>
+Date: Thu, 12 Nov 2026 22:41:35 +0100
+X-Gm-Features: AclHuK-yNJRex-RsbKwKnBvYiP2bsWKAs9gCK8UsPybUgdCdSZcHWabaSgM1qwk
+Message-ID: <CAAcuPuKGrssxsfCEoVHzWstrC5syZ13iV-aZ6QQm0bV2kgEzpg@mail.gmail.com>
+Subject: Re: [PATCH] tools api io: Return high-bit bytes as unsigned characters
+To: Ian Rogers <irogers@google.com>
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 28 Sep 2026 17:14:50 +0900, Beomseok Kim <dilddream31@gmail.com> wrote:
-> nouveau_fence_signal() clears fence->channel before dropping its
-> reference.  nouveau_fence_no_signaling(), however, removes an already
-> signaled fence from fctx->pending without clearing the pointer.
+Hi Ian,
 
-[...]
+I checked the Makefiles. Makefile.perf exports CFLAGS, but the libapi
+sub-make receives them through the environment. tools/lib/api/Makefile
+then replaces them with:
 
-> @@ -488,6 +488,7 @@ static bool nouveau_fence_no_signaling(struct dma_fence *f)
->  	 */
->  	if (nouveau_fence_is_signaled(f)) {
->  		list_del(&fence->head);
-> +		rcu_assign_pointer(fence->channel, NULL);
+  CFLAGS :=3D $(EXTRA_WARNINGS) $(EXTRA_CFLAGS)
 
-I think this patch fixes drm/nouveau#443 [1]. The nouveau_fence_sync()
-oopses there and in the reporter's thread [2] (MCP79, Debian 6.12.43,
-6.12.90 and 7.0.10) all fault at CR2 0x40 on the prev->cli->drm load,
-with prev taken from f->channel and prev->cli NULL. A channel's cli is
-never cleared, so prev most likely points to a freed channel. That is
-the stale pointer described above: the no-signaling path is the only
-way off fctx->pending that leaves fence->channel set, and
-nouveau_fence_context_kill() only walks fctx->pending.
+A Makefile assignment overrides an environment variable, so this
+explains why the exported -funsigned-char is lost.
 
-The fix looks right to me. enable_signaling runs under the fence lock
-(&fctx->lock) while the fence is still on fctx->pending, so the new
-store happens before nouveau_fence_context_kill() takes that lock, and
-thus before the synchronize_rcu() in nouveau_fence_context_del(). With
-fence->channel NULL, nouveau_fence_sync() falls back to dma_fence_wait()
-on an already signaled fence.
 
-Emmanuel Fleury's prev->cli check for the same oops [3] only helps when
-the freed memory reads back as zero, so I prefer this patch.
+Thanks,
+Wojciech
 
-The patch applies to 6.12.y with an offset; compile-tested there with
-W=1 only. I have asked the reporter (Cc'd) to test it.
-
-I did this review with help from Claude (claude-opus-5-5).
-
-Reviewed-by: Marek Czernohous <marek@czernohous.de>
-
-[1] https://gitlab.freedesktop.org/drm/nouveau/-/issues/443
-[2] https://lore.freedesktop.org/nouveau/b7f523dc-fe41-4514-a1a5-747005311cbe@yahoo.fr/
-[3] https://lore.freedesktop.org/nouveau/1690ea65-a1e0-4a34-bde1-bdd26e31c6c4@u-bordeaux.fr/
+On Thu, Nov 12, 2026 at 10:33=E2=80=AFPM Ian Rogers <irogers@google.com> wr=
+ote:
+>
+> On Thu, Nov 12, 2026 at 12:25=E2=80=AFPM szpuszi <szpuszi@gmail.com> wrot=
+e:
+> >
+> > Hi Ian,
+> >
+> > `tools/lib/api/Makefile` does not set -funsigned-char, so building
+> > libapi standalone (`make -C tools/lib/api` on x86_64, where char is
+> > signed by default) hits this directly: `filename__read_str()` calls
+> > `io__getdelim()` -> `io__get_char()` and silently stops on bytes in
+> > 0x80-0xff.
+> >
+> > Even if perf's -funsigned-char is also passed down to the libapi build,
+> > `io__get_char()` is a `static inline` in a public header
+> > (tools/lib/api/io.h) with fgetc()-style negative error/EOF returns.
+> > Casting to `(unsigned char)` fixes the underlying bug in the header
+> > itself rather than relying on every caller of <api/io.h> compiling
+> > with -funsigned-char. The `-fsigned-char` flag on `api-io.o` is just so
+> > the regression test keeps exercising this path under perf's default
+> > -funsigned-char build.
+>
+> It is only a bug if chars are signed. I thought by default it was
+> unspecified whether they were signed or not, hence char having 3 types
+> - signed, unsigned and unspecified. At least in the Chris Mason review
+> prompts we're pretty explicit that chars are unsigned:
+> https://github.com/masoncl/review-prompts/blob/main/kernel/subsystem/buil=
+d.md
+> ```
+> Unsigned char (-funsigned-char): Top-level Makefile enforces unsigned
+> char on all architectures. Checking char < 0 is dead code or incorrect
+> logic.
+> ```
+>
+> > If you'd also like me to check whether perf passes -funsigned-char
+> > through to the libapi build and send a separate patch for that, let me
+> > know.
+>
+> So I ran a check and I don't see `-funsigned-char` being passed into
+> libapi in the cc command line. So maybe there's a bug. I see
+> Makefile.perf exporting CFLAGS.
+>
+> Thanks,
+> Ian
+>
+> > Thanks,
+> > Wojciech
+> >
+> > On Thu, Nov 12, 2026 at 6:27=E2=80=AFPM Ian Rogers <irogers@google.com>=
+ wrote:
+> > >
+> > > On Thu, Nov 12, 2026 at 9:06=E2=80=AFAM Wojciech Szpucha <szpuszi@gma=
+il.com> wrote:
+> > > >
+> > > > From: Wojciech Szpucha <szpuszi@gmail.com>
+> > > >
+> > > > On signed-char builds, io__get_char() returns negative values for b=
+ytes
+> > > > 0x80-0xff. This makes filename__read_str() silently truncate non-AS=
+CII
+> > > > input in standalone libapi builds.
+> > > >
+> > > > Cast the byte to unsigned char before returning it as int. Add regr=
+ession
+> > > > tests compiled with -fsigned-char, since perf defaults to -funsigne=
+d-char
+> > > > and already avoids the issue.
+> > > >
+> > > > Fixes: e95770af4c4a ("tools api: Add a lightweight buffered reading=
+ api")
+> > > > Signed-off-by: Wojciech Szpucha <szpuszi@gmail.com>
+> > >
+> > > Can you provide more context of where this is a problem? The code
+> > > builds with -funsigned-char :
+> > > https://lore.kernel.org/linux-perf-users/20260306191908.2065682-1-iro=
+gers@google.com/
+> > > and so we may be failing to pass CFLAGS through properly for the liba=
+pi build.
+> > >
+> > > Thanks,
+> > > Ian
+> > >
+> > > > ---
+> > > > Tested on Ubuntu 24.04 x86_64, GCC 13.3.0: standalone libapi reads =
+0/4
+> > > > bytes before the fix and 4/4 afterwards. The API IO regression fail=
+s
+> > > > before and passes after. libapi and perf build successfully; checkp=
+atch
+> > > > passes. Full perf suite and kernel builds were not run.
+> > > >
+> > > > https://github.com/szpuszi/linux-perf-io-test/actions/runs/43257707=
+229
+> > > >
+> > > >  tools/lib/api/io.h        |  2 +-
+> > > >  tools/perf/tests/Build    |  1 +
+> > > >  tools/perf/tests/api-io.c | 33 ++++++++++++++++++++++++++++++++-
+> > > >  3 files changed, 34 insertions(+), 2 deletions(-)
+> > > >
+> > > > diff --git a/tools/lib/api/io.h b/tools/lib/api/io.h
+> > > > index 1731996b..25e2008d 100644
+> > > > --- a/tools/lib/api/io.h
+> > > > +++ b/tools/lib/api/io.h
+> > > > @@ -91,7 +91,7 @@ static inline int io__get_char(struct io *io)
+> > > >                 if (ret)
+> > > >                         return ret;
+> > > >         }
+> > > > -       return *io->data++;
+> > > > +       return (unsigned char)*io->data++;
+> > > >  }
+> > > >
+> > > >  /* Read a hexadecimal value with no 0x prefix into the out argumen=
+t hex. If the
+> > > > diff --git a/tools/perf/tests/Build b/tools/perf/tests/Build
+> > > > index 58858f3d..c3ba1fca 100644
+> > > > --- a/tools/perf/tests/Build
+> > > > +++ b/tools/perf/tests/Build
+> > > > @@ -79,6 +79,7 @@ perf-test-$(CONFIG_DWARF_UNWIND) +=3D dwarf-unwin=
+d.o
+> > > >  endif
+> > > >
+> > > >  CFLAGS_dwarf-unwind.o +=3D -fno-optimize-sibling-calls
+> > > > +CFLAGS_api-io.o +=3D -fsigned-char
+> > > >
+> > > >  perf-test-y +=3D workloads/
+> > > >
+> > > > diff --git a/tools/perf/tests/api-io.c b/tools/perf/tests/api-io.c
+> > > > index 0ba3d5cc..f283712e 100644
+> > > > --- a/tools/perf/tests/api-io.c
+> > > > +++ b/tools/perf/tests/api-io.c
+> > > > @@ -98,7 +98,7 @@ static int do_test_get_char(const char *test_stri=
+ng,
+> > > > size_t buf_size)
+> > > >         for (i =3D 0; i < strlen(test_string); i++) {
+> > > >                 ch =3D io__get_char(&io);
+> > > >
+> > > > -               EXPECT_EQUAL(ch, test_string[i]);
+> > > > +               EXPECT_EQUAL(ch, (unsigned char)test_string[i]);
+> > > >                 EXPECT_EQUAL(io.eof, false);
+> > > >         }
+> > > >         ch =3D io__get_char(&io);
+> > > > @@ -118,6 +118,7 @@ static int test_get_char(void)
+> > > >                 "12345678abcdef90",
+> > > >                 "a\nb\nc\nd\n",
+> > > >                 "\a\b\t\v\f\r",
+> > > > +               "\x7f\x80\xfe\xff",
+> > > >         };
+> > > >         for (i =3D 0; i <=3D 10; i++) {
+> > > >                 for (j =3D 0; j < ARRAY_SIZE(test_strings); j++) {
+> > > > @@ -290,6 +291,34 @@ static int test_get_dec(void)
+> > > >         return ret;
+> > > >  }
+> > > >
+> > > > +static int test_get_line_non_ascii(void)
+> > > > +{
+> > > > +       static const char test_string[] =3D "a\xc3\xa9\xff\nnext\n"=
+;
+> > > > +       char path[PATH_MAX];
+> > > > +       struct io io;
+> > > > +       char *line =3D NULL;
+> > > > +       size_t line_len =3D 0;
+> > > > +       int len, ret =3D 0;
+> > > > +
+> > > > +       if (setup_test(path, test_string, 2, &io))
+> > > > +               return -1;
+> > > > +
+> > > > +       len =3D io__getline(&io, &line, &line_len);
+> > > > +       EXPECT_EQUAL(len, 5);
+> > > > +       EXPECT_EQUAL((int)line_len, 5);
+> > > > +       EXPECT_EQUAL((int)strlen(line), 5);
+> > > > +       if (line_len =3D=3D 5)
+> > > > +               EXPECT_EQUAL(memcmp(line, test_string, 5), 0);
+> > > > +       len =3D io__getline(&io, &line, &line_len);
+> > > > +       EXPECT_EQUAL(len, 5);
+> > > > +       EXPECT_EQUAL((int)line_len, 5);
+> > > > +       EXPECT_EQUAL(strcmp(line, "next\n"), 0);
+> > > > +
+> > > > +       free(line);
+> > > > +       cleanup_test(path, &io);
+> > > > +       return ret;
+> > > > +}
+> > > > +
+> > > >  static int test_get_line(void)
+> > > >  {
+> > > >         char path[PATH_MAX];
+> > > > @@ -337,6 +366,8 @@ static int test__api_io(struct test_suite *test
+> > > > __maybe_unused,
+> > > >                 ret =3D TEST_FAIL;
+> > > >         if (test_get_line())
+> > > >                 ret =3D TEST_FAIL;
+> > > > +       if (test_get_line_non_ascii())
+> > > > +               ret =3D TEST_FAIL;
+> > > >         return ret;
+> > > >  }
+> > > >
+> > > >
+> > > > base-commit: 9d66f26fefacebfeed15de31c1123451a17ff119
