@@ -1,58 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794446821;
-	b=QCGXRf4ZSkYZrHPmpYPGEwBjLYFsXuGKuj44FN0lrPs6gqorAy4ZSpQfItQIiWSVhELU
-	 Jq+cO87TYhHu3QWJ7f8ujimY2XuFCqLeZX99oA1GuIsro1EY2jmjU+jnOb+fp8Pm+bCKY
-	 q1lTwFuR21oAwbD8R1gj5mumWd+hV4Wchp3/Xp2OwQpErWMp7Q9RL2jNLpV5h5OuJgEj+
-	 0MZtCFTNINnt+le3s5m9ZKUrUyhcrnmcwSGYySD7/B/DJgjx3Gp53ghOcNEurhwvPothm
-	 FeL0F8Xj933dCujV7b2k5RhWhET1o5tiHoyBC/5k6dnjeup/BgA+GRmuCDXu9P8UJag==
+	t=1794446829;
+	b=Jh9j2G40ClOG+epNqcZ7q6kMW8oGUbPqRP/gWt570EBr2wGF2sNaoSRlfv5TJtTxf8nv
+	 d1+trUCfzvtv3gBjmpLxbdHSpRu8rioDp8RjWgPl/BGlO/iF7FXbryz4P+xGEfTeVW1k2
+	 FiYQKx4yIdlIMqGt511qPuvMmnstkSpaPbsVGbJJqVJjejqtXu1/ptCkAnqNT+FpHGmRN
+	 n56NJgBfuTd8ge3l02RVL+Z6peG+1sypxmzusfWIkf4NwFrZ0XZtlg4q6HkXafnCr70+O
+	 kfAd43eXlGPGmenQZXnd2h9LibeCPzRhXLbklGQqx4QfgbcYtCwCXaugyAxsx4JJqJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794446821;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=5jglcQFJC9C0X33JDWPhDFdh4yOjWn4U5A67CJ3/7pE=;
-	b=gO++k1/l6a5XcJZrSIKg3BVcxCRARbL+A7oYoRRRLhxQv8M4BnaRzsxT5B7bSBXjlW24
-	 4bUcRCdR6oV1lfCY0oYaH74Q6j7HbxC4hasbQiMZ/eHQvs1ElCf9lw44KkNX64880ypKI
-	 gFdZ1mOvLS6fA/g7IoIBTVPog8wta6UZGe4Ws3IfeG/fpFxowaeR9MOSsucuA7228qsw8
-	 DJnj7wrWA9KVyXS3Eyq+uj7nUUA7+vBm7rTcdOfKBorIMrXoiKOk+/UP8Cp2IpUKIi2E4
-	 aOfTL83aRQ3B7D9D7m4N1yhNwYDB5oLFkJ7MZFeZrq0ilVd0DAVjo/nIghL21g3ah9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794446829;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=Pf+orCI2rLpYXGk3dzBIrPS1HgJeZ6wmt3S+jICR+IQ=;
+	b=LkwULk/O14UkeLo+v7TjFkuyGfeqxxiE6zMRZasQxZFwhjYKWxtpOCOQUFdwRKBBIGn2
+	 PAulTkP4qptNBXy8WscMkUA6A7ET9Yl/BEF5GXjZM0Bj5Fmjzp8hq1wxee21nPENmPlcL
+	 KQzrcZyl/MH7fE5oq2iVH4Eh0HiURd35itpzgHpDo8boHCwWj49bDvVE1XqebEBVKVlDe
+	 KeOPikVq08aEz93Pg/V2NoWIWqj940ZeP3YaBwg9z0E0CZFJi4KETSN9Z0miZvhrWLtb3
+	 SEHGDUaup+JxPdA1005Q52Ta2hFuaPIvBoovyZZaFuoGfgxw1gQKIfHdLchsGYUIqpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CpBO6Y2a;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GQYBxejX;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2514606A31C;
-	Thu, 12 Nov 2026 01:27:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 842DB606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:27:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 842DB606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CpBO6Y2a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A963B1F00A05;
-	Thu, 12 Nov 2026 01:26:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794446821;
-	bh=5jglcQFJC9C0X33JDWPhDFdh4yOjWn4U5A67CJ3/7pE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CpBO6Y2aC63x8G3TLlt5L9B134o9vBxRH+Oxv1RwYbVRHBqTmUXsFtHRsAegYqVpd
-	 5Ngjgw5BSdbjSIj6KYAdzTGQmtVjd8cX1Rv/exlrQ0C5zsNCVI95PJZX5EVWxdqX93
-	 LNQP92DzLpoxPmgQNc7gAJFsTOpnb8W8VMYtn8FsFYFIncuCrLPcdP0eIpFS+sC6/Q
-	 oPx/ftVpP2GpJZCSuAvWZxdDam3L6NxJxnr6AsgmQo0Y4GHBtgKiUaT9/zgWU3BXem
-	 iruxSswJe3rL3va8bRQY9oc4Bf6rGhClfwoDAllHy6WWN1loyKC8GlAIPl0hW+qOiz
-	 A1ZusqEc4jAJg==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Subject: [PATCH v2 02/13] tracing/probes: Enable newly appended probe when target event is enabled
-Date: Thu, 12 Nov 2026 10:26:57 +0900
-Message-ID: <179444681738.345731.16552746027049016745.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179444679892.345731.5271591537517106679.stgit@devnote2>
-References: <179444679892.345731.5271591537517106679.stgit@devnote2>
-User-Agent: StGit/0.19
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GQYBxejX
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-370f4e5cfc9so149005eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:27:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794446827; x=1795051627; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Pf+orCI2rLpYXGk3dzBIrPS1HgJeZ6wmt3S+jICR+IQ=;
+        b=GQYBxejXqj9xKMkrNLYSftKDOeRVn8MGo5YIk9XbbwLV71haYO1pTPDykyrDQahJKY
+         eIJle8vCmyIM6oge/Xx+H83+68zv1DZREQv7gig7L2mUgi+X6oJziPYhi8v4w2u3QhlU
+         9OeztHu/Txto49TDjRv+dj9WM9QfqNFpnFfr7W4zzNvykjeNaXJrf3uZDzyPDZyUYX3X
+         2YDn37cpmNmoVs8FtOZO4LXESBQoYq09d8LOuKbMKZGWgM4cjwfW96JRcHWHi4hxjgDF
+         iNZIc16V5k28cumvno3px7yJ+UHHJ5A8+p05RTuKlIe0bK0zn7V1cHhzVNc8VcDWyu4e
+         srfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794446827; x=1795051627;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Pf+orCI2rLpYXGk3dzBIrPS1HgJeZ6wmt3S+jICR+IQ=;
+        b=A+b4LxZissuOknTKcpBnngN/R0HMtk5DpeMEs3DYSKDOPvItNPghoqNy//zwMEhI9r
+         arcaLCH1EPvgv8aozAFhnnyLgsUTQRVgAIdrAhsF7n15PfeHcV5AhEtwphBKD+pnnosw
+         iZtp3VGTYIwUvoH2yh4F7Rc8+OYYGxGyAWl46uh9JHhpg2kHHExJC45yFT8sID3EpNui
+         jgAjDrdBhT0oToz7zOKAJy5QapjdbYvkB9k3y16laIP5F8NzmUbdgDPgWeBYPuM5MkTy
+         qfFmATjfB0+OZ/3nBGun822I/TlxN/etdVetGNfSWubQzd5O4U/XSfcBEt23axXABLUl
+         uUvQ==
+X-Forwarded-Encrypted: i=1; AL+hErGktXbFGeZpUb1hKtNOqVjE2V3F0gTfK9FtHAbdJwXA3f1GuQFlGt6aHr4B8mgtmWdTbDNjXTNoqe0UMzs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/wdjCT7tO2fFv+QcH4encq56r978I1dVPOtnLWQdpr22omRO94
+	VPg5qCXEfHPiTAqlU78xKos3E0r0Unp3nzPPMDfYURZnmF5peJhEnNay
+X-Gm-Gg: AYBFou0nGJLVVi7cqFw/uKscownsMzvNeCr+pyrVkYjfaJJZ7lOx5alfOilplr7aKcq
+	6axSaMSdn/XOuBRdLvuNuyC7Phe9veNt8AcvPYxA8nO2xe8Gg9bHYRzFQEiOd0MM6aS2cZjLCtP
+	az6p2tHgZY3u0u5Y5+OWTVX7Lk/wbRD2x3ChY4mq8f36YWBZg3UFSwWzxVBkt5p+CKZo+rplmBe
+	rQ0AHhUUAPkG0/Qq7ygJ46/pgIWS1/M4K2jblMNkkVm6eI4z49p5LZv3wU2VquT2cKgAA/1ruYD
+	hb+ROD+2/H2EhYxSp+0FXdoy1EfIL0+RmXV45yGuNBqWqDW7TpsnIiwM4NI96RMoHC/KRtf8Kpl
+	B/7gfT1ksWK21IV88BxVjlIlHpmBNc/jbaJ4HhN7xoJEn6VOKZldVgnDjcwhgZiDngt8F844aTj
+	x9Rznr6UEEnAyrdABXuot4M1dVCol+azggcvbFAlubXkQS7u1cv7vTHMCQhGrgI8mUbRx+wJ5AU
+	qJg0ZXCg+lzw76Lr6m2ErplBWc+doZ/V94xxIXc5XQbHXvjCPJGi88ofeA4RX3tzPapmHcdDSgh
+	O3a6GzOiJhn/809YQXnkL5y2RXRRFTbeQRjHexQftvzImU0p2PmeFGBxr/YtATRtY9s=
+X-Received: by 2002:a05:701b:42c7:20b0:1b2:5884:a039 with SMTP id a92af1059eb24-1b3c0151554mr6228487c88.0.1794446827180;
+        Wed, 11 Nov 2026 17:27:07 -0800 (PST)
+Received: from o6.lan ([2602:fce1:44f:115e::])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2ff3bsm24887181c88.11.2026.11.11.17.26.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 17:27:06 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,146 +89,96 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3] mm/zsmalloc: remove CONFIG_ZSMALLOC_STAT
+From: Xueyuan Chen <xueyuan.chen21@gmail.com>
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: Xueyuan Chen <xueyuan.chen21@gmail.com>, 
+ Minchan Kim <minchan@kernel.org>, 
+ Sergey Senozhatsky <senozhatsky@chromium.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Alex Shi <alexs@kernel.org>, 
+ Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Helen Koike <helen.fornazier@gmail.com>, 
+ Vignesh Raman <vignesh.raman@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-s390@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Nhat Pham <nphamcs@gmail.com>
+In-Reply-To: <a7b1d671-18b0-44e8-b112-ab66893b3bf4@infradead.org>
+References: <20261111-zsmalloc_stat-v3-1-2d85ed51570e@gmail.com>
+ <a7b1d671-18b0-44e8-b112-ab66893b3bf4@infradead.org>
+Date: Thu, 12 Nov 2026 09:26:55 +0800
+Message-Id: <179444681565.2553194.6533752746321637708.b4-reply@b4>
+X-Mailer: b4 0.16.0
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+On 2026-11-11 16:26 -0800, Randy Dunlap wrote:
+> 
+> 
+> On 11/11/26 4:41 AM, Xueyuan Chen wrote:
+> > CONFIG_ZSMALLOC_STAT only controls the debugfs interface. The class
+> > counters are updated regardless of this option.
+> > 
+> > Remove the CONFIG_ZSMALLOC_STAT guards and rely on the debugfs API
+> > stubs when CONFIG_DEBUG_FS=n. Skip statistics setup silently when
+> > debugfs is unavailable.
+> > 
+> > Remove the Kconfig entry and replace the existing CONFIG_ZSMALLOC_STAT
+> > settings with CONFIG_DEBUG_FS=y. Update the English and Chinese
+> > documentation to match, and clarify the pool name in the debugfs path.
+> > 
+> > Suggested-by: Nhat Pham <nphamcs@gmail.com>
+> > Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+> > Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+> 
+> Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+Thanks!
+> Thanks.
+> 
+> > ---
+> > Drop CONFIG_ZSMALLOC_STAT instead of making the counters conditional. The
+> > option only controls the debugfs interface, while the class counters are
+> > updated unconditionally. Removing it simplifies the code.
+> > 
+> > Following Nhat's suggestion, remove CONFIG_ZSMALLOC_STAT and rely on
+> > the existing debugfs API stubs when CONFIG_DEBUG_FS=n.
+> > ---
+> > Changes in v3:
+> > - Squash the three patches into one (Nhat, Sergey).
+> > - Add Nhat's Reviewed-by.
+> > - Update the documentation wording.
+> > - Link to v2: https://patch.msgid.link/20261109-zsmalloc_stat-v2-0-caee41684aba@gmail.com
+> > 
+> > Changes in v2:
+> > - Drop CONFIG_ZSMALLOC_STAT instead of making the counters conditional.
+> > - Update configuration files and documentation.
+> > - Link to v1: https://patch.msgid.link/20261106-zsmalloc_stat-v1-1-b574f4714adf@gmail.com
+> > ---
+> >  Documentation/mm/zsmalloc.rst                    |  4 +--
+> >  Documentation/translations/zh_CN/mm/zsmalloc.rst |  2 +-
+> >  arch/s390/configs/debug_defconfig                |  2 +-
+> >  arch/s390/configs/defconfig                      |  2 +-
+> >  drivers/gpu/drm/ci/arm.config                    |  2 +-
+> >  drivers/gpu/drm/ci/arm64.config                  |  2 +-
+> >  drivers/gpu/drm/ci/x86_64.config                 |  2 +-
+> >  mm/Kconfig                                       |  9 -------
+> >  mm/zsmalloc.c                                    | 33 ++----------------------
+> >  9 files changed, 10 insertions(+), 48 deletions(-)
+> 
+> 
+> -- 
+> ~Randy
+> 
+> 
 
-Unlike kprobe events, fprobe and uprobe events only register their
-underlying probes when the trace event is enabled. When a new probe is
-appended to an existing multiprobe fprobe or uprobe event that is
-already enabled, the appended probe is linked into the event's probe
-list without being registered.
-
-As a result, the newly appended probe never fires until the event is
-disabled and re-enabled. Moreover, disabling an fprobe event calls
-unregister_fprobe() on the unregistered fprobe, and opening or closing a
-perf event on an enabled uprobe event dereferences a NULL tu->uprobe in
-uprobe_apply().
-
-Register and enable the newly appended fprobe or uprobe immediately when
-the target event is already enabled.
-
-Fixes: 41af3cf587f4 ("tracing/uprobe: Add multi-probe per uprobe event support")
-Fixes: 2db832ec9090 ("tracing: fprobe-events: Register fprobe-events only when it is enabled")
-Cc: stable@vger.kernel.org
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
----
- kernel/trace/trace_fprobe.c |   14 +++++------
- kernel/trace/trace_uprobe.c |   56 ++++++++++++++++++++++++++++---------------
- 2 files changed, 43 insertions(+), 27 deletions(-)
-
-diff --git a/kernel/trace/trace_fprobe.c b/kernel/trace/trace_fprobe.c
-index 77f2228d44ba..9ab0871a6461 100644
---- a/kernel/trace/trace_fprobe.c
-+++ b/kernel/trace/trace_fprobe.c
-@@ -933,7 +933,10 @@ static int append_trace_fprobe_event(struct trace_fprobe *tf, struct trace_fprob
- 	if (ret)
- 		return ret;
- 
--	ret = trace_fprobe_verify_target(tf);
-+	if (trace_probe_is_enabled(&tf->tp))
-+		ret = __register_trace_fprobe(tf);
-+	else
-+		ret = trace_fprobe_verify_target(tf);
- 	if (ret)
- 		trace_probe_unlink(&tf->tp);
- 	else
-@@ -1520,13 +1523,8 @@ static int disable_trace_fprobe(struct trace_event_call *call,
- 		trace_probe_clear_flag(tp, TP_FLAG_PROFILE);
- 
- 	if (!trace_probe_is_enabled(tp)) {
--		list_for_each_entry(tf, trace_probe_probe_list(tp), tp.list) {
--			unregister_fprobe(&tf->fp);
--			if (tf->tuser) {
--				tracepoint_user_put(tf->tuser);
--				tf->tuser = NULL;
--			}
--		}
-+		list_for_each_entry(tf, trace_probe_probe_list(tp), tp.list)
-+			__unregister_trace_fprobe(tf);
- 	}
- 
-  out:
-diff --git a/kernel/trace/trace_uprobe.c b/kernel/trace/trace_uprobe.c
-index 146da04b93a8..14ac52aebe34 100644
---- a/kernel/trace/trace_uprobe.c
-+++ b/kernel/trace/trace_uprobe.c
-@@ -447,6 +447,28 @@ static bool trace_uprobe_has_same_uprobe(struct trace_uprobe *orig,
- 	return false;
- }
- 
-+typedef bool (*filter_func_t)(struct uprobe_consumer *self, struct mm_struct *mm);
-+
-+#ifdef CONFIG_PERF_EVENTS
-+static bool uprobe_perf_filter(struct uprobe_consumer *uc, struct mm_struct *mm);
-+#else
-+#define uprobe_perf_filter NULL
-+#endif
-+
-+static int trace_uprobe_enable(struct trace_uprobe *tu, filter_func_t filter)
-+{
-+	struct inode *inode = d_real_inode(tu->path.dentry);
-+	struct uprobe *uprobe;
-+
-+	tu->consumer.filter = filter;
-+	uprobe = uprobe_register(inode, tu->offset, tu->ref_ctr_offset, &tu->consumer);
-+	if (IS_ERR(uprobe))
-+		return PTR_ERR(uprobe);
-+
-+	tu->uprobe = uprobe;
-+	return 0;
-+}
-+
- static int append_trace_uprobe(struct trace_uprobe *tu, struct trace_uprobe *to)
- {
- 	int ret;
-@@ -466,10 +488,22 @@ static int append_trace_uprobe(struct trace_uprobe *tu, struct trace_uprobe *to)
- 
- 	/* Append to existing event */
- 	ret = trace_probe_append(&tu->tp, &to->tp);
--	if (!ret)
--		dyn_event_add(&tu->devent, trace_probe_event_call(&tu->tp));
-+	if (ret)
-+		return ret;
- 
--	return ret;
-+	if (trace_probe_is_enabled(&tu->tp)) {
-+		ret = trace_uprobe_enable(tu,
-+			trace_probe_test_flag(&tu->tp, TP_FLAG_PROFILE) ?
-+			uprobe_perf_filter : NULL);
-+		if (ret) {
-+			trace_probe_unlink(&tu->tp);
-+			return ret;
-+		}
-+	}
-+
-+	dyn_event_add(&tu->devent, trace_probe_event_call(&tu->tp));
-+
-+	return 0;
- }
- 
- /*
-@@ -1105,22 +1139,6 @@ print_uprobe_event(struct trace_iterator *iter, int flags, struct trace_event *e
- 	return trace_handle_return(s);
- }
- 
--typedef bool (*filter_func_t)(struct uprobe_consumer *self, struct mm_struct *mm);
--
--static int trace_uprobe_enable(struct trace_uprobe *tu, filter_func_t filter)
--{
--	struct inode *inode = d_real_inode(tu->path.dentry);
--	struct uprobe *uprobe;
--
--	tu->consumer.filter = filter;
--	uprobe = uprobe_register(inode, tu->offset, tu->ref_ctr_offset, &tu->consumer);
--	if (IS_ERR(uprobe))
--		return PTR_ERR(uprobe);
--
--	tu->uprobe = uprobe;
--	return 0;
--}
--
- static void __probe_event_disable(struct trace_probe *tp)
- {
- 	struct trace_uprobe *tu;
 
