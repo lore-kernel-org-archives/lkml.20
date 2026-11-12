@@ -1,69 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794488660;
-	b=bYcYMISZ3sGcbPGqzMOMpJ2/7L4yUcmfVGZ1K55qxMoKPy5AV9W9KkTwzdr2rPNXhhJ7
-	 ICQdKqZe5Z6L3FUQy3wdXiL8RWJUrIYfXS7B8BF8gXgv4aYwWqYKMunV5Qf5k54k6M1c/
-	 n1IQxzb+ixu89iztrc+vcPii8ca057Gj9tiRSHh91FRHUwhIsH58+fIYhrgOQL6e0a/bh
-	 faGWiAdyrqd+A+50AcEFdfMASPwQgEqWJP47kaWQCZXyHcKeaIxNAOgvcXRCNL7OvUIMJ
-	 m904eVe1MxPXauoVgExVqC9iTYDYs9OVLeSDXH01Ba4aGLNWzW2YBHoJX93VDvY3Xyw==
+	t=1794488699;
+	b=zd5942KvYK9k7vI5eMaNI+zdKlkHP1uSAv455/kRmXMcKtjcnM1n/+klhmGkVTBqmyTv
+	 AQPfEHdATsk8ul+uZu70bncni6YI+sXU8XFiEle6C9vvB3Uup5nNikk4mpfTVdGoIOjCi
+	 cgULWsqGW+H0gR5kiJEbCChDsAg8ra4+STXswm+7fR3h3zS2N5dsBSUcc6c/sn+Xwe5vZ
+	 5Ro/f5UZ6rTWUfV4yFQA+gNHuB5aa7AP9YoODy9gcD/V5GQTlHqZQNz5x/v4MiGEXKHiH
+	 3wDQdC+lbmm4j9xEV2O8nyhGdaGd3MC5G2REmCm5sSftQIi13FtHGTJUWwYVg0uEJhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794488660;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Subject:From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:
-	 X-Last-TLS-Session-Version;
-	bh=FazWs8jp3Tiswz7nCpkhqYJ6EHXn89P/WpbYmozbrYE=;
-	b=PrMxl0ddlO1HwMTOXllXzq58iw0RB0XJ+I4fnlidm8EsJTTnTHUD5PNDORzz4baKzC7f
-	 FneI5OtH2twmdTBEAlvDNuzzckxrF5sWwGRNom9KylDg3xXthDUWeRLCsNAyl4E4XmHNP
-	 I4IhgBqv79j2Oo9iUTvcAkynqSjInlWTvXQhlI+63M7QLpknmRWa4n2+EK7z276sLn9ss
-	 C3ItjRTAxumFnVuEEi/M4kxBfgklIf+xn/p1L/DcYgqUMWV58RQ9mOaov0q7HTnL/ji0D
-	 eFMGqCGBu+uRI8EygIs0saG2UpkdI/VlUmNrfHYjLB22Q5FALYQ98iT+s4vwK47w8uQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794488699;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=h1+IeBKxX3Rc2XWmJoyUnkuer6jdlGiO0bD9yZSARb0=;
+	b=12eQFYKG2+7v+td3Ywbjt9WBwEuHLkAbgV0AoUPMkM6aV1CGTxC9KHj+T1p8ehDShuzb
+	 1IUVzx2f8A7XClNCKp4PwxQo0JZ8bzUXiJXqn+NoDYNWcg8nOcQzYjpZ/Xn4Ru6FC0e6N
+	 zAieLPfUbLBusesrdaRta9KqWplQA8QLdhoPbnqqVra9pJr7ugyi/54j34UGPic3yUusZ
+	 +4Ucznfmnl/Bm8kAT4zXais9TNc0quFDxqapGxbygUa958wg+STVS8+ovComeXPsdyQqI
+	 PWt2zGE/oTtjBCRIGo5PBlKOOkpofVlsopYNfRYoDk12ngEJ5ljCHfzJlYwuJS2YzNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=L8vjgZzz;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f0Kx3a+8;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDBD606A32A;
-	Thu, 12 Nov 2026 13:04:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCDBD606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847D1606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:04:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 847D1606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=L8vjgZzz
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 140F74E4158C;
-	Thu, 12 Nov 2026 13:04:18 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D5662601D5;
-	Thu, 12 Nov 2026 13:04:17 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E477111BC0490;
-	Thu, 12 Nov 2026 14:04:15 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794488657; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=FazWs8jp3Tiswz7nCpkhqYJ6EHXn89P/WpbYmozbrYE=;
-	b=L8vjgZzzhUHlMXfPjZRzPq88Fvu9zCdjTzSBPbElh0dWXsdyZU+rvidedpfUDqZie9f6sM
-	9VY1a0x9J4clWOrK999ZhNqd7jD51Ud9mlHt4A0QUEOAcGpUjI36f9NfBoSloWmd2mAes0
-	6YVYV92IP41si+55QQXpYsVrTYxzS3DrIJ679QbDbT3KRVWxjgVJ6ZT/gog6HkdvkNcCfh
-	YYIuO1whK4sWbnHtot5abPliWEfeZajiIqiPjHnj9KSSz1qbgD1zaChvitc0sklHozMcEO
-	S9Peckw4UHT0UC2SoSj6GMfoE31sZNzsR2b1i1T9BeumKNukqmEviJgs0RyK3A==
-Message-ID: <cf152e73eb4585fc0592bd59882a426ef5ea398d.camel@bootlin.com>
-Subject: Re: [PATCH v2] ACPI: platform: Add basic support for ACPI 6.5 fixed
- clock resources
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>
-Cc: linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, Thomas
- Petazzoni	 <thomas.petazzoni@bootlin.com>
-Date: Thu, 12 Nov 2026 14:04:12 +0100
-In-Reply-To: <20261111100736.98364-1-paul.cercueil@bootlin.com>
-References: <20261111100736.98364-1-paul.cercueil@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f0Kx3a+8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794488699; x=1826024699;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=BWgavzikl2eqq5qY1MsW9Z4K1UaYVpg8E7kBNt+0svQ=;
+  b=f0Kx3a+8Lr+kW8mPpM/9ZVKDdx0lWphj700tNNxCX/Gn8WADZvQYr5Zg
+   pL+Ef1NRAuddC3SxWqWmBYxZB9ZYh9ecD3qxiAOjLe4pUm3HbTob+UkqY
+   tYvsFhjQZDK3+B3V8QeRJT+jvjSdGt4IZH22s1n5ZfNzO6EeoTWt9fV+n
+   Yoi19IK181UeeaeH6yMy/zBSrcdbzxMjmzTz+fCpDBu2+SXSdyBVhfkN6
+   pXgcKuw2vdBWYId4qK4kCfUbJ+gtL4+xcpYx4w/diD89aqUCMUDR1SxOT
+   UGaV6w27nOUyhwkQTOcdapVE0tZyrBYH8hScC7iHZBZ2FVf9UjuZSrXWe
+   g==;
+X-CSE-ConnectionGUID: 7GFOinmnRqG+jrRseLxdnQ==
+X-CSE-MsgGUID: 5V1oJYQeTDeXLRaZo5cm+A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3307869"
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="3307869"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 05:04:58 -0800
+X-CSE-ConnectionGUID: 2oVPJaltRN2oScohpW2vHw==
+X-CSE-MsgGUID: 2OjCO5oRRtShQEBWktvP5A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="8835411"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by orviesa009.jf.intel.com with ESMTP; 12 Nov 2026 05:04:53 -0800
+Date: Thu, 12 Nov 2026 20:56:45 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: "Tian, Kevin" <kevin.tian@intel.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>,
+	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"Li, Xiaoyao" <xiaoyao.li@intel.com>,
+	"Hansen, Dave" <dave.hansen@intel.com>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+	"kas@kernel.org" <kas@kernel.org>,
+	"seanjc@google.com" <seanjc@google.com>,
+	"mingo@redhat.com" <mingo@redhat.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"pbonzini@redhat.com" <pbonzini@redhat.com>,
+	"nik.borisov@suse.com" <nik.borisov@suse.com>,
+	"aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>,
+	"Verma, Vishal L" <vishal.l.verma@intel.com>,
+	"Peng, Chao P" <chao.p.peng@intel.com>,
+	"hpa@zytor.com" <hpa@zytor.com>,
+	"tglx@kernel.org" <tglx@kernel.org>,
+	"nicolinc@nvidia.com" <nicolinc@nvidia.com>,
+	"Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
+	"bp@alien8.de" <bp@alien8.de>, "Gao, Chao" <chao.gao@intel.com>,
+	"aik@amd.com" <aik@amd.com>, "x86@kernel.org" <x86@kernel.org>
+Subject: Re: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
+ operations
+Message-ID: <avW3jZYB5/L4WaGL@yilunxu-OptiPlex-7050>
+References: <IA3PR11MB9136FE2B23CA52EC68EF2139926E2@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <bd0f63af98521d76e0d34ea31f18accc063d1d27.camel@intel.com>
+ <IA3PR11MB9136FEF30F06D8D5118B389292692@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <a63e7dbdba277b5a551ec74d09144e97f55504dc.camel@intel.com>
+ <IA3PR11MB91369A1E95D047DBEDB53B7892722@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <f1cdd989f6bcf6a177dcd83e55fb8465e0ee849f.camel@intel.com>
+ <20261110195745.GG738765@nvidia.com>
+ <e44f3f12b3fecdc5f3c05aa1f1b0ceb1befad0b7.camel@intel.com>
+ <20261111001606.GH738765@nvidia.com>
+ <CO1PR11MB4835656CEB24B31B557162258C712@CO1PR11MB4835.namprd11.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,172 +107,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CO1PR11MB4835656CEB24B31B557162258C712@CO1PR11MB4835.namprd11.prod.outlook.com>
 
-Hi Rafael,
+On Wed, Nov 11, 2026 at 09:44:42AM +0000, Tian, Kevin wrote:
+> > From: Jason Gunthorpe <jgg@nvidia.com>
+> > Sent: Wednesday, November 11, 2026 8:16 AM
+> > 
+> > On Tue, Nov 10, 2026 at 10:25:07PM +0000, Edgecombe, Rick P wrote:
+> > > On Tue, 2026-11-10 at 15:57 -0400, Jason Gunthorpe wrote:
+> > > > On Tue, Nov 10, 2026 at 06:55:41PM +0000, Edgecombe, Rick P wrote:
+> > > >
+> > > > > Additionally, we should probably see if Jason has any opinion on the
+> > types of
+> > > > > errors that guest TSM would like to handle.
+> > > >
+> > > > Not at this point :\ And perhaps not at all.
+> > > >
+> > > > Most of this stuff will end up routing through userspace so it has to
+> > > > be compressed into a errno.'
+> > > >
+> > > > The various VMM to guest specs like GHCI are going to define their own
+> > > > contracts, and it is up to Intel to ensure that the full route from
+> > > >   this code -> attestation subsystem -> uapi -> vmm -> GHCI
+> > > >
+> > > > Preserves whatever semantics have been defined in the spec.
+> > > >
+> > > > I don't know the answer to the EBUSY question, other than
+> > > > TSM/attestation will return that to userspace. Can your VMM and GHCI
+> > > > sort it out?
+> 
+> GHCI doesn't define a EBUSY error code. So it's more a TD internal policy.
+> 
+> A status byte in the GHCI data buffer indicates whether the requested
+> operation is completed by the VMM (successfully or with error). It's
+> unreasonable to poll it indefinitely so the polling will be capped by a
+> timeout. Then a 2nd request comes and observes previous request
+> still in progress, then -EBUSY is returned.
+> 
+> Such failures (timeout or busy) before attestation passes are just
+> returned to userspace, as Jason suggested. it's fine.
+> 
+> The interesting case is about such failures after attest e.g. unlock
+> which is supposed to be a void operation. Maybe we don't need do
+> anything special in tsm core - the secure firmware maintains the
+> state machine so future lock will fail if the current state is not
+> unlocked. 
+> 
+> Anyway the success or error code from GHCI is just a hint and
+> untrusted.
+> 
+> > >
+> > > Kevin and Yilun are analyzing what kind of errors we should expect the VMM
+> > to
+> > > handle. But some of the cases Zhenzhong listed seem like they could be
+> > > situations trusted IO guests could encounter generally. Like the example
+> > > "[device] firmware hangs during lock/unlock". In that case unification in TSM
+> > > could be nice.
+> 
+> As long as we rely on the secure firmware to manage the TDI state machine
+> properly, it doesn't matter whether an uncompleted lock/unlock is caused
+> by device firmware hang, or any intermediate software layer serving the
+> GHCI call.
+> 
+> Generally for errors which confine to an assigned device, the guest just
+> keeps running. In the end the related driver stack in the guest will capture
+> the device error and quarantine the device in its own way.
+> 
+> So the TD just needs to handle errors according to the GHCI spec:
+> 
+> [GHCI general]
+> 	TDG.VP.VMCALL_INVALID_OPERAND
+> 	TDG.VP.VMCALL_SUBFUNC_UNSUPPORTED
+> 
+> [TDCM specific]
+> 	TDX_MODULE_ERROR
 
-I see Sashiko complains about this patch:
-https://sashiko.dev/#/patchset/20261111100736.98364-1-paul.cercueil%40bootl=
-in.com
+This error handling belongs to the host, guest can't understand. 
 
-But its only complaint is addressed by a second patch that was sent in para=
-llel:
-https://lore.kernel.org/linux-arm-kernel/20261103084915.8405-1-paul.cercuei=
-l@bootlin.com/T/
+> 	TDXIO_DEVICE_ERROR
 
-In retrospective I probably should have packed both into one patchset; I th=
-ought
-they were parallelizable enough to go each its own way, but that was withou=
-t
-thinking about Sashiko.
+This is actually DOE error according to GHCI spec.
 
-Cheers,
--Paul
+> 	SPDM_MESSAGE_ERROR
+> 	IDE_KM_MESSAGE_ERROR
 
-Le mercredi 11 novembre 2026 =C3=A0 11:07 +0100, Paul Cercueil a =C3=A9crit=
-=C2=A0:
-> ACPI 6.5 introduced a clock input resource descriptor, which allows to
-> specify in the ACPI tables what clocks are connected to a given device.
->=20
-> This patch adds support for the most basic clock resource, which is the
-> one that represents a fixed clock. The new code will then create a
-> clk_hw for each fixed clock resource, which is then made available to
-> the device drivers, that can obtain it through a regular call to
-> clk_get(NULL).
->=20
-> Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
->=20
-> ---
->=20
-> Related:
-> https://lore.kernel.org/linux-arm-kernel/20261103084915.8405-1-paul.cercu=
-eil@bootlin.com/T/
->=20
-> v2:
-> - Use the calculated clock name in devm_clk_hw_register_fixed_rate()
-> =C2=A0 instead of the device name
-> - Make sure clkres->scale is <=3D 2. The field is 2 bits but the value
-> =C2=A0 clkres->scale =3D=3D 3 is not defined in the spec.
-> - Compute the fraction numerator using 64-bit math, to make sure it
-> =C2=A0 won't overflow on 32-bit systems.
-> - Initialize clocks only when the device_type matches
-> =C2=A0 ACPI_BUS_TYPE_DEVICE.
-> - Use a shorter name for clocks as the hard limit is 16 characters
-> =C2=A0 including the terminator.
-> ---
-> =C2=A0drivers/acpi/acpi_platform.c | 64 +++++++++++++++++++++++++++++++++=
-+++
-> =C2=A01 file changed, 64 insertions(+)
->=20
-> diff --git a/drivers/acpi/acpi_platform.c b/drivers/acpi/acpi_platform.c
-> index 80ea7121744d..71322cdcf0dd 100644
-> --- a/drivers/acpi/acpi_platform.c
-> +++ b/drivers/acpi/acpi_platform.c
-> @@ -10,17 +10,27 @@
-> =C2=A0
-> =C2=A0#include <linux/acpi.h>
-> =C2=A0#include <linux/bits.h>
-> +#include <linux/clk-provider.h>
-> +#include <linux/clkdev.h>
-> =C2=A0#include <linux/device.h>
-> =C2=A0#include <linux/err.h>
-> =C2=A0#include <linux/ioport.h>
-> +#include <linux/kconfig.h>
-> =C2=A0#include <linux/kernel.h>
-> +#include <linux/list.h>
-> =C2=A0#include <linux/module.h>
-> =C2=A0#include <linux/dma-mapping.h>
-> =C2=A0#include <linux/pci.h>
-> =C2=A0#include <linux/platform_device.h>
-> +#include <linux/units.h>
-> =C2=A0
-> =C2=A0#include "internal.h"
-> =C2=A0
-> +struct acpi_clk_data {
-> +	struct device *dev;
-> +	unsigned int idx;
-> +};
-> +
-> =C2=A0/* Exclude devices that have no _CRS resources provided */
-> =C2=A0#define ACPI_ALLOW_WO_RESOURCES		BIT(0)
-> =C2=A0
-> @@ -130,6 +140,57 @@ static unsigned int acpi_platform_resource_count(str=
-uct
-> acpi_resource *ares, voi
-> =C2=A0	return AE_CTRL_TERMINATE;
-> =C2=A0}
-> =C2=A0
-> +static int acpi_add_fixed_clock(struct acpi_resource *res, void *d)
-> +{
-> +	static const unsigned long clk_scale[] =3D { 1, HZ_PER_KHZ, HZ_PER_MHZ
-> };
-> +	struct acpi_resource_clock_input *clkres;
-> +	struct acpi_clk_data *data =3D d;
-> +	struct device *dev =3D data->dev;
-> +	struct clk_hw *clk;
-> +	unsigned long rate;
-> +	char name[64];
-> +	int err;
-> +
-> +	if (res->type =3D=3D ACPI_RESOURCE_TYPE_CLOCK_INPUT) {
-> +		clkres =3D &res->data.clock_input;
-> +
-> +		if (clkres->mode) {
-> +			dev_warn(dev, "Only fixed rate clocks supported for
-> now.\n");
-> +			return 1; /* keep going */
-> +		}
-> +
-> +		if (clkres->frequency_divisor =3D=3D 0 || clkres->scale > 2)
-> +			return -EINVAL;
-> +
-> +		rate =3D DIV_ROUND_UP_ULL((u64)clkres->frequency_numerator *
-> clk_scale[clkres->scale],
-> +					clkres->frequency_divisor);
-> +
-> +		snprintf(name, sizeof(name), "%s-%u", dev_name(dev), data-
-> >idx++);
-> +
-> +		clk =3D devm_clk_hw_register_fixed_rate(dev, name, NULL, 0,
-> rate);
-> +		if (IS_ERR(clk))
-> +			return PTR_ERR(clk);
-> +
-> +		err =3D devm_clk_hw_register_clkdev(dev, clk, name,
-> dev_name(dev));
-> +		if (err)
-> +			return err;
-> +	}
-> +
-> +	return 1;
-> +}
-> +
-> +static void acpi_platform_init_clocks(struct acpi_device *adev)
-> +{
-> +	struct device *dev =3D &adev->dev;
-> +	struct acpi_clk_data data =3D { .dev =3D dev };
-> +	LIST_HEAD(list);
-> +	int ret;
-> +
-> +	ret =3D acpi_dev_get_resources(adev, &list, acpi_add_fixed_clock,
-> &data);
-> +	if (ret < 0)
-> +		dev_err(dev, "Failed to add clock resources: %d\n", ret);
-> +}
-> +
-> =C2=A0/**
-> =C2=A0 * acpi_create_platform_device - Create platform device for ACPI de=
-vice node
-> =C2=A0 * @adev: ACPI device node to create a platform device for.
-> @@ -196,6 +257,9 @@ struct platform_device *acpi_create_platform_device(s=
-truct
-> acpi_device *adev,
-> =C2=A0			}
-> =C2=A0			acpi_dev_free_resource_list(&resource_list);
-> =C2=A0		}
-> +
-> +		if (IS_ENABLED(CONFIG_COMMON_CLK))
-> +			acpi_platform_init_clocks(adev);
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	memset(&pdevinfo, 0, sizeof(pdevinfo));
+The above 3 errors indicate the link is broken. Guest could handle them
+by unplugging the device. But there are always link broken events at any
+time, host should handle them, guest can expect a notification from host
+to do the unplugging. That's another topic.
+
+So for TSM operations, guest kernel just keep the TDISP state unchanged
+and report error to user.
+
+BTW: UNLOCK is not needed when link is broken. So always good to let
+UNLOCK succeed.
+
+> 	TDISP_MESSAGE_ERROR
+> 	INVALID_STATE
+
+These 2 are about TDISP, guest can keep the state machine unchanged, and
+report error to user. According to TDISP spec, UNLOCK can't fail on
+these 2 errors.
+
+> 
+> For general errors let's follow the convention already established.
+> 
+> for TDCM specific ones they are not useful then let's just return a
+> single errno (e.g. -EIO) for all of them to userspace.
+
+For LOCK/RUN/GET_DEV_INFO/GET_TDI_REPORT, I agree.
+
+For UNLOCK, guest kernel could always return success. We are always safe
+to move the device to untrusted mode.
+
+> 
+> > >
+> > > For errors that indicate uncooperative or buggy host, we elsewhere warn in
+> > the
+> > > TDX wrappers. But in coco, not handling an error in the caller can be an
+> > avenue
+> > > to attack the guest. So I guess we would commonly need to handle these
+
+The secure firmware should guarantee the attack can't impact TSM
+security. For DDOS attack, the guest could always move the device to
+untrusted mode.
+
+> > errors in
+> > > the callers.
+> > 
+> > Any failure to attest should just propogate to guest userspace and
+> > userspace wil fail the attestation and not enable the device. This is
+> > fine.
+> > 
+> > All failure classes, including the cases where the guest is checking
+> > digests/etc to confirm the host has done the right thing can work like
+> > this.
+> 
+> Agree
+> 
+> > 
+> > > Zhenzhong had previously suggested a bool to set a device as bugged for the
+> > > purpose of trying to continue guest execution as well as possible in the face
+> > of
+> > > host issues.
+> > 
+> > It does not seem necessary to me, userspace is responsible. Since no
+> > device evidence could possibly have been logged the VM would fail
+> > attestation anyhow.
+> > 
+> 
+> Yeah - as said even for errors after attest passes we could rely on secure
+> firmware to do the right thing. Userspace requests unlock and downgrade
+> the trust level to DISABLED. Failures will be caught in next attempt if
+> unlock doesn't complete successfully.
+> 
+> We don't need the guest kernel to explicitly mark the buggy state. :)
