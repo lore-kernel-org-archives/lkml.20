@@ -1,80 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794468089;
-	b=UbzwGjtx4TmcNk3GyCbubnLmRoDRSNIhsn61XZcso+5ymP0RiPezVPELAePpuqg/AYS2
-	 qmjpFZiZaijnZd1kcRtjtt9W9EJGzjeWO64VLWKxtughS4J7R9dV6Q9N5WvImu9Z0iGoe
-	 kq51OcOSHiOyqQ8NGAd5zlAzTEb1Ih/JnmB2NsTT8ctFQnNx7x3I8a0ZXXomEqUE41nLJ
-	 Wy9ee9+tPnFGo+Lw2wUuopjsCVy6yPkcTMMmhEJaE5rT3rAufLv7+/goM6c66JEsLQl0x
-	 4pzS4bglGvzoAGzsRwci6WRaLC7HpRd/VtO2wIODpaapMDipzZObl979day5q6+5eFg==
+	t=1794468111;
+	b=c3htYt9FXk0V2OcY1xnqOpfMVLjk7jETCVZaVvKNQ50DPpIXUBE1Q4+UUn6IQios+sCY
+	 s0aBXHrpu1lFUMp2bPX6+UZL5fq50HrHfQdX9zozfT8FfZC7OL/9UWIMaZ2C0E8LTEMVl
+	 CnD4CW725IZ6EtKzn59uwqlYXhRFoKqvJd/l5A12g035ID28K20UmZwB0AZukUUALvjDY
+	 5nYxxbemfCoregBv+LyS1uP8oCcqgs2rHR0m4LzY2M6sPuliPrbQM2dh76ESUhbPtnVYL
+	 ZdcUCYa4adIW4tNf3t3Ud6U1DIwVC1Vbw4F1EHaf9ua/sq9P+i4HFOrVsV2XiHzv4zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794468089;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=b9hMPbpYy1Bo+raN1VtZjNXSpTP2CppG2/pJDYdMMT8=;
-	b=cRinXIcQZUdGlnW6uIXvBNRaiDyi/4H/vidgC5qfLII1OuUbw76OaheGLujIDrpO/0zX
-	 HcdbOHqrgdjHZ3UCupkw6aL428bbZpfTpsPlzQzNpQ7yOyRNIkV/tnf7z8N8LlMOvfc50
-	 ruVox1kvOhhzOzy0g01g4o27mC+O6TjA4F6ObIqSEXYZJQ6yr0E6I63AJZ2B2CI4aTFb4
-	 i9z0xhs7dfSC+eJLrN8NAhpicw233CCcHwTC05rocIF6i/0PMouJ0tCGqYezXM4a8Sngl
-	 vSM7GwEgZYBlo3K59qvrfCJlVupYl0V1vZJz5PUbAoySj2Pr3LRXKlVohz4UvydBYPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794468111;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=1b6A2kvQgpqKkzxc5p2W/1olpXK4SEEz0O9LviTyyRY=;
+	b=RDTA8I+eHSrwI/jSHljDBaHPexY8yHBTYBO3rAMellxizKVC6kF/w4bXk0NmZ+P12ud4
+	 AyaEAsq2nwp09xKY5DSWQWkMdllYrbtqfMW9MIj3m2+V18NJCahwcSx/yBqVtE7bmdI6W
+	 Wb7JSFQbMB2oA4vTwRO6CpgU+q8R8jFe6sh2hiy+d7A7346LBMFzt6p+uKWghWIQH1Gbs
+	 SET289qHvQMjHfnm1Tr1bRdGY0eEp+JLqfuLYhSwM8b44xonhtzGffS8mM9fm/XgJKB+E
+	 YA6uc2IMAbTlba5U3/sQnO0fGfVHWedZuj1FlhuxhPEy6jsvuttcvDg6LWNVbcZEATQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="L/dq1hqb";
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=KmKFLwam;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=a4Tvvwq+;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A95D60A3819;
-	Thu, 12 Nov 2026 07:21:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A95D60A3819
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68513606A333
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:21:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68513606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L/dq1hqb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794468089; x=1826004089;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=9pIw0EkGyIybt0AIDft2y1To9nOqBwl1nlcVq+8X8Hg=;
-  b=L/dq1hqbcp/pzquiYlSrjJBHopCrLo18v8+kRarNmcBbrYwc2fx501Bn
-   laln0+DcVRkgyqX+LYo+mKxsIcHBGeyDDaDp0VnYA5Bi6vAiE0jZZYFnw
-   OpN/twnp8sjRftClHuOmeG0DzSzEg8n2oxWB72DyxEZP0Ijduv1mFiUbb
-   bQdcsPwrAIvlXmAc1R+KLkgOl6VFOJSJEEJAjtN4O4ur7Zr9HaBQXlMAS
-   jFtc6A+Vua6O81xkYG/FVl+aSAJufNLcXNPD4+r7I99403e4VRJYIhgJV
-   fFlEU3rWwuXEOZvKkgpBOURKUPK3s8G2Y7+AaFBw5+4UZCOCoeVOs6OFz
-   Q==;
-X-CSE-ConnectionGUID: NMvPvHXHTPKA8B3mpiHxiw==
-X-CSE-MsgGUID: p2N0P83oQnqmVIwsMNvWWQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3142267"
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="3142267"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 23:21:29 -0800
-X-CSE-ConnectionGUID: DftPxhlhTReRFEOeCm3b/Q==
-X-CSE-MsgGUID: wtthGgguR4urkhZzLfVE2w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="10318080"
-Received: from yungchua-desk.itwn.intel.com ([10.227.8.136])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 23:21:27 -0800
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: linux-sound@vger.kernel.org,
-	vkoul@kernel.org
-Cc: vinod.koul@linaro.org,
-	linux-kernel@vger.kernel.org,
-	pierre-louis.bossart@linux.dev,
-	peter.ujfalusi@linux.intel.com,
-	bard.liao@intel.com
-Subject: [PATCH v2 5/5] soundwire: stream: Fix bandwidth leak in multi-link aggregation failure
-Date: Thu, 12 Nov 2026 15:21:05 +0800
-Message-ID: <20261112072105.1296515-6-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261112072105.1296515-1-yung-chuan.liao@linux.intel.com>
-References: <20261112072105.1296515-1-yung-chuan.liao@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=KmKFLwam;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=a4Tvvwq+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794468110;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1b6A2kvQgpqKkzxc5p2W/1olpXK4SEEz0O9LviTyyRY=;
+	b=KmKFLwamsFcabz30kspuI1sgxCuBodO+FdRuTn2P5ordb4h9H+T1cdZbD5SKhywzoub53J
+	cS6Ee3jbQQNYwk1WsmbiIO7ug+Ekhq4pXecYs5egyZWgnmdqH112BoRfzvdjCZM2Ns8hHF
+	b9RSxrDJoT+7Gh+4EzKfuHbHZqS2a+A=
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com
+ [74.125.82.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-504-z-asppnqM4a5UfkkuIvdOQ-1; Thu, 12 Nov 2026 02:21:49 -0500
+X-MC-Unique: z-asppnqM4a5UfkkuIvdOQ-1
+X-Mimecast-MFC-AGG-ID: z-asppnqM4a5UfkkuIvdOQ_1794468108
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-139b62317d0so256875c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:21:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794468108; x=1795072908; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1b6A2kvQgpqKkzxc5p2W/1olpXK4SEEz0O9LviTyyRY=;
+        b=a4Tvvwq+VczrJ5GAI8Xd3P0l34dBi3+Z8qNdTpZaLt2LY6BcqJb6sUCSar4/SNK8UA
+         +0hHpUCFsdInyJAv/dkVNwfGdE5KQ0StTFXv6+b21g07v5ebnQjDq94onq85lb8/gGin
+         H08RoRvxYGna4Qb4xXS/Bf7OVcS9CogGVLzyLQskGXtUgkf8HZPvN1mfoEWDVNMykook
+         cXIxpjoGgQJ3OdVLfhww9RNhEhULwf6MXqEIfvmt7Jt4+74SsOauiMHhdxUSyVAH+QPx
+         2IBMOQgpIEDT7iaeatSVeCUr8oV7Gy0Eq1vaNoFGNDUh7v8ag3j0JEwt+yWVxgXNYsEA
+         9euA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794468108; x=1795072908;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1b6A2kvQgpqKkzxc5p2W/1olpXK4SEEz0O9LviTyyRY=;
+        b=TzZ21envQmhJqtHDDBczuFn+Fj3PlfJDYw8bksKKpC+VhalseoCzWMDb4pS2Et4apZ
+         HWc4Vtilu5Xf9r0e8v/ni9vY/f7iNnPKxa42z16ovY1e6kWQ3kfFFbR4ihTFATI7+6nR
+         Gz45gYcUqxhqUsKpdscqx3sXmOnFSrSyeKSugPTUv9IfPMhWU97bG/ka6VDv3J/b1w9u
+         075sasBaOffXfMiYchl1pZ43UhT+m86whd7sh6LPFcn2Uj+qc6v/fk06SILwUzambkp+
+         V2e3T2uMl94Qs+ylwxlfOToCgsN35Xq5AeadB8hvVT8secOt9A+aKuD1zOJKa3o8ETyr
+         8CHQ==
+X-Forwarded-Encrypted: i=1; AL+hErHhEiVpNC1QG+Y1KN/cmH5fn8hjmHsxZ1LaWHTzpKVNiHTJM9QNEXXeFETdLIgZBoh/6kvHhneh+SKmw7E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+9dh5PyrlbYE7f/YiRRoN/53AaMJpLZorgyNTe+8BOaN47pgj3
+	OQzpzh2lUvot2rAoBhd6fHxqnt7M/pKcCxkTPVvJ7uVFD59l1b5VGEsBwP/vyMiokfFYBrh3E8g
+	ZYz94pnf7SvJE3qPDc1j9hCfYJ1tadq4p5AM+g/LnQDzZW8BXLY2/DuOf/YT3m4Rphg==
+X-Gm-Gg: AYBFou0I+qSrXvr94FnZV8cfgFjgH0ncrmQFlDRqtgPxjmMeU5qbp6Rx4lDMd/IFs+n
+	Mn3lv8Bt+aRQfuwKaaB/AjzA3qgBRY53ls9iik+74kITJDIZ/arbyAOiUslkOnxOh33N5/2s/Lx
+	0sXU0kKbcyXbh8lc6SzarH3tMQzbJvQttjKc277gJB6FPD8pExE8kmp5YXDkkuY0i8SKO/nMgLj
+	x7B+IKyEOlb0rclUpjfLlrP2xxEZ+pvWrKw0QTMbZcC1iU/VvJ4OmvUPzPWV/oWw2Gkm6oGUwzc
+	9eeY3XUK9W84UYw120/DnZNX/UK5//WWJXl8Gl6yrjPoZL3g1ajvQNqDKifBc30Kr9yjtvjeIK1
+	68GS6Hs6cS2V9lSkPtfdgfTdj6EdFsgCOKhc11nPky5CcArEKv7HRxpuBEm2cbwljijJlmyI=
+X-Received: by 2002:a05:7022:170a:b0:1b3:b3de:9232 with SMTP id a92af1059eb24-1b3c02f06bdmr4131962c88.9.1794468107358;
+        Wed, 11 Nov 2026 23:21:47 -0800 (PST)
+X-Received: by 2002:a05:7022:170a:b0:1b3:b3de:9232 with SMTP id a92af1059eb24-1b3c02f06bdmr4131931c88.9.1794468106682;
+        Wed, 11 Nov 2026 23:21:46 -0800 (PST)
+Received: from [192.168.1.102] ([117.207.221.165])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2eeffsm22991575c88.9.2026.11.11.23.21.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 23:21:46 -0800 (PST)
+Message-ID: <6c57f062-345d-4bb4-9af9-213ef2912d76@redhat.com>
+Date: Thu, 12 Nov 2026 12:51:38 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,132 +111,213 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] kho: fix bootmem sizing
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>
+Cc: Alexander Graf <graf@amazon.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Chen Pei <cp0613@linux.alibaba.com>, George Guo <guodongtai@kylinos.cn>,
+ Kexin Liu <liukexin@kylinos.cn>, Sourabh Jain <sourabhjain@linux.ibm.com>,
+ kexec@lists.infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20261104-kho-bootmem-sizing-v2-0-b0d1a834780f@kernel.org>
+ <20261104-kho-bootmem-sizing-v2-3-b0d1a834780f@kernel.org>
+Content-Language: en-US
+From: Mukesh Pilaniya <mpilaniy@redhat.com>
+In-Reply-To: <20261104-kho-bootmem-sizing-v2-3-b0d1a834780f@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-From: David Lin <david.lin@intel.com>
+Hi Mike,
 
-When preparing a multi-link aggregation stream, a failure on a subsequent
-link during _sdw_prepare_stream() causes the stream preparation to fail.
-However, the bandwidth allocated on the preceding successful links is never
-released, causing a cumulative bandwidth leak.
+On 04/11/26 10:20 pm, Mike Rapoport (Microsoft) wrote:
+> Bootmem areas are sized from overlapping views of the memory reserved in
+> memblock:
+> 
+> * the global area is sized from all reserved memory, including memory
+>   allocated on specific nodes, so on NUMA systems everything allocated
+>   on a node is accounted in both the global area and the area of that
+>   node.
+> * per-node sizes are calculated after the lowmem and the global areas
+>   are reserved. With CONFIG_NUMA=n all memblock regions belong to node 0,
+>   so the lowmem and the global areas are accounted in the size of node 0
+>   area and scaled once again.
+> 
+> As a result, bootmem is about twice bigger than it should be on NUMA
+> systems and about four times bigger with CONFIG_NUMA=n. On small systems
+> reservation of the bootmem may fail and then KHO gets disabled.
+> 
+> Make the areas cover separate parts of the reserved memory: the lowmem
+> area covers allocations below ARCH_LOW_ADDRESS_LIMIT, per-node areas
+> cover allocations above it on each node and the global area covers
+> allocations that are not bound to any node. Calculate all sizes before
+> reserving any of the areas.
+> 
+> With CONFIG_NUMA=n the global area becomes empty and it is not reserved.
+> 
+> If ARCH_LOW_ADDRESS_LIMIT covers all memory, as may happen on arm64, any
+> area can serve lowmem allocations, so don't reserve the lowmem area.
+The documentation still describes the old layout says __there is always
+a boot memory region per node plus one for node-less allocations__,
+which stops being true as soon as the global or the lowmem area is
+empty, and the lowmem area is not mentioned at all. So please update the
+documentation as well.
 
-Fix this by saving a snapshot of each bus's parameters before making any
-modifications. In case of failure, we iterate through the stream's master
-list and restore each bus to its original parameter state, ensuring an
-atomic rollback and preventing any bandwidth leaks.
+Reviewed-by: Mukesh Pilaniya <mpilaniy@redhat.com>
 
-The rollback only restores bus->params, while the lane assignments of the
-port runtimes are left untouched. Since _sdw_deprepare_stream() resets
-p_rt->lane only when the lane's used bandwidth drops to zero, a stream can
-also carry a stale lane from a previous prepare or from a failed prepare
-that was rolled back. Reset the lane of the stream being prepared to 0 in
-sdw_compute_bus_params() when no multi-lane is selected, so that the lane
-assignment matches the restored lane_used_bandwidth.
+> 
+> Bootmem sizes in MiB in x86 QEMU VMs, before -> after:
+> 
+>                      CONFIG_NUMA=y     CONFIG_NUMA=n
+>   1G,  1 node         176 ->   92       320 ->   80
+>   4G,  1 node         508 ->  332      1264 ->  316
+>   16G, 2 nodes       1268 ->  704      2944 ->  736
+>   32G, 4 nodes       2296 -> 1224      5196 -> 1300
+>   64G, 4 nodes       4344 -> 2248      9664 -> 2420
+> 
+> Fixes: 3dc92c311498 ("kexec: add Kexec HandOver (KHO) generation helpers")
+> Reported-by: Kexin Liu <liukexin@kylinos.cn>
+> Reported-by: George Guo <guodongtai@kylinos.cn>
+> Closes: https://lore.kernel.org/all/20260904025101.9959-1-dongtai.guo@linux.dev
+> Reported-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+> Closes: https://lore.kernel.org/all/20260922131217.698809-1-sourabhjain@linux.ibm.com
+> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> ---
+>  kernel/liveupdate/kexec_handover.c | 93 ++++++++++++++++++++++----------------
+>  1 file changed, 54 insertions(+), 39 deletions(-)
+> 
+> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+> index 5b1797d1289c8..c4b697a612f67 100644
+> --- a/kernel/liveupdate/kexec_handover.c
+> +++ b/kernel/liveupdate/kexec_handover.c
+> @@ -685,6 +685,7 @@ static unsigned int bootmem_scale __initdata = 200;
+>  static phys_addr_t bootmem_size_global __initdata;
+>  static phys_addr_t bootmem_size_pernode __initdata;
+>  static phys_addr_t bootmem_size_lowmem __initdata;
+> +static phys_addr_t bootmem_size_node[MAX_NUMNODES] __initdata;
+>  
+>  static int __init kho_parse_bootmem_size(char *p)
+>  {
+> @@ -754,29 +755,58 @@ static int __init kho_parse_bootmem_size(char *p)
+>  }
+>  early_param("kho_bootmem", kho_parse_bootmem_size);
+>  
+> +static phys_addr_t __init reserved_mem_size(phys_addr_t limit, int nid)
+> +{
+> +	return memblock_reserved_kern_size(limit, nid) -
+> +	       memblock_reserved_hugetlb_size(limit, nid);
+> +}
+> +
+> +static phys_addr_t __init bootmem_scale_size(phys_addr_t size)
+> +{
+> +	return size * bootmem_scale / 100;
+> +}
+> +
+> +/*
+> + * The lowmem area covers allocations below ARCH_LOW_ADDRESS_LIMIT, per-node
+> + * areas cover allocations above it on each node and the global area covers
+> + * allocations that are not bound to any node.
+> + *
+> + * The reserved memory on a node and the total reserved memory include
+> + * lowmem, so it is subtracted from both.
+> + *
+> + * If ARCH_LOW_ADDRESS_LIMIT covers all memory, any area can serve lowmem
+> + * allocations and there is no lowmem area.
+> + *
+> + * All sizes must be calculated before any area is reserved, otherwise the
+> + * areas reserved first will be accounted in the sizes of the others.
+> + */
+>  static void __init bootmem_size_update(void)
+>  {
+> -	/*
+> -	 * If fixed sizes are not provided via command line, calculate them now.
+> -	 * Remove HugeTLB allocations from it because they never get allocated
+> -	 * from bootmem.
+> -	 */
+> +	int nid;
+> +
+>  	if (bootmem_scale) {
+> -		phys_addr_t size;
+> -
+> -		size = memblock_reserved_kern_size(ARCH_LOW_ADDRESS_LIMIT,
+> -						   NUMA_NO_NODE);
+> -		size -= memblock_reserved_hugetlb_size(ARCH_LOW_ADDRESS_LIMIT,
+> -						       NUMA_NO_NODE);
+> -		size = size * bootmem_scale / 100;
+> -		bootmem_size_lowmem = size;
+> -
+> -		size = memblock_reserved_kern_size(MEMBLOCK_ALLOC_ANYWHERE,
+> -						   NUMA_NO_NODE);
+> -		size -= memblock_reserved_hugetlb_size(MEMBLOCK_ALLOC_ANYWHERE,
+> -						       NUMA_NO_NODE);
+> -		size = size * bootmem_scale / 100 - bootmem_size_lowmem;
+> -		bootmem_size_global = size;
+> +		phys_addr_t low_limit = ARCH_LOW_ADDRESS_LIMIT;
+> +		phys_addr_t lowmem, global, size;
+> +
+> +		if (low_limit >= memblock_end_of_DRAM() - 1)
+> +			low_limit = 0;
+> +
+> +		lowmem = reserved_mem_size(low_limit, NUMA_NO_NODE);
+> +		global = reserved_mem_size(MEMBLOCK_ALLOC_ANYWHERE, NUMA_NO_NODE);
+> +		global -= lowmem;
+> +
+> +		for_each_node_state(nid, N_MEMORY) {
+> +			size = reserved_mem_size(MEMBLOCK_ALLOC_ANYWHERE, nid) -
+> +			       reserved_mem_size(low_limit, nid);
+> +			bootmem_size_node[nid] = bootmem_scale_size(size);
+> +			global -= size;
+> +		}
+> +
+> +		bootmem_size_lowmem = bootmem_scale_size(lowmem);
+> +		bootmem_size_global = bootmem_scale_size(global);
+> +	} else {
+> +		for_each_node_state(nid, N_MEMORY)
+> +			bootmem_size_node[nid] = bootmem_size_pernode;
+>  	}
+>  
+>  	/*
+> @@ -785,24 +815,9 @@ static void __init bootmem_size_update(void)
+>  	 */
+>  	bootmem_size_lowmem = round_up(bootmem_size_lowmem, BOOTMEM_ALIGNMENT_BYTES);
+>  	bootmem_size_global = round_up(bootmem_size_global, BOOTMEM_ALIGNMENT_BYTES);
+> -}
+> -
+> -static phys_addr_t __init bootmem_size_node(int nid)
+> -{
+> -	phys_addr_t size;
+> -
+> -	if (bootmem_scale) {
+> -		size = memblock_reserved_kern_size(MEMBLOCK_ALLOC_ANYWHERE,
+> -						   nid);
+> -		/* Do not count HugeTLB pages. */
+> -		size -= memblock_reserved_hugetlb_size(MEMBLOCK_ALLOC_ANYWHERE,
+> -						       nid);
+> -		size = size * bootmem_scale / 100;
+> -	} else {
+> -		size = bootmem_size_pernode;
+> -	}
+> -
+> -	return round_up(size, BOOTMEM_ALIGNMENT_BYTES);
+> +	for_each_node_state(nid, N_MEMORY)
+> +		bootmem_size_node[nid] = round_up(bootmem_size_node[nid],
+> +						  BOOTMEM_ALIGNMENT_BYTES);
+>  }
+>  
+>  bool kho_bootmem_overlap(phys_addr_t phys, size_t size)
+> @@ -899,7 +914,7 @@ static void __init kho_reserve_bootmem(void)
+>  	 * memoryless nodes, as we can not allocate bootmem areas there.
+>  	 */
+>  	for_each_node_state(nid, N_MEMORY) {
+> -		if (kho_reserve_bootmem_area(bootmem_size_node(nid),
+> +		if (kho_reserve_bootmem_area(bootmem_size_node[nid],
+>  					     MEMBLOCK_ALLOC_ACCESSIBLE, nid)) {
+>  			pr_err("Failed to reserve nid %d bootmem\n", nid);
+>  			goto err_free_bootmem_areas;
+> 
 
-Fixes: 7a30292ffa2a ("soundwire: generic_bandwidth_allocation: select data lane")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Lin <david.lin@intel.com>
-Co-developed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
- drivers/soundwire/bus.h                         |  3 +++
- .../soundwire/generic_bandwidth_allocation.c    | 14 ++++++++++++++
- drivers/soundwire/stream.c                      | 17 +++++++++++++----
- 3 files changed, 30 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/soundwire/bus.h b/drivers/soundwire/bus.h
-index 44e4f5193917..476387b70472 100644
---- a/drivers/soundwire/bus.h
-+++ b/drivers/soundwire/bus.h
-@@ -155,6 +155,8 @@ struct sdw_slave_runtime {
-  *
-  * @bus: Bus handle
-  * @stream: Stream runtime handle
-+ * @params_backup: Snapshot of original bus parameters saved before stream
-+ * preparation, used for rollback recovery on failure.
-  * @direction: Data direction for Master
-  * @ch_count: Number of channels handled by the Master for
-  * this stream, can be zero.
-@@ -166,6 +168,7 @@ struct sdw_slave_runtime {
- struct sdw_master_runtime {
- 	struct sdw_bus *bus;
- 	struct sdw_stream_runtime *stream;
-+	struct sdw_bus_params params_backup;
- 	enum sdw_data_direction direction;
- 	unsigned int ch_count;
- 	struct list_head slave_rt_list;
-diff --git a/drivers/soundwire/generic_bandwidth_allocation.c b/drivers/soundwire/generic_bandwidth_allocation.c
-index 9bacde2c67a1..214a1be6c33e 100644
---- a/drivers/soundwire/generic_bandwidth_allocation.c
-+++ b/drivers/soundwire/generic_bandwidth_allocation.c
-@@ -656,6 +656,20 @@ static int sdw_compute_bus_params(struct sdw_bus *bus,
- 		list_for_each_entry(m_p_rt, &m_rt->port_list, port_node) {
- 			m_p_rt->lane = m_lane;
- 		}
-+	} else if (prepare) {
-+		/* Clear stale lane assignments when preparing on lane 0. */
-+		list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
-+			if (m_rt->stream != stream)
-+				continue;
-+
-+			list_for_each_entry(m_p_rt, &m_rt->port_list, port_node)
-+				m_p_rt->lane = 0;
-+
-+			list_for_each_entry(s_rt, &m_rt->slave_rt_list, m_rt_node)
-+				list_for_each_entry(s_p_rt, &s_rt->port_list, port_node)
-+					s_p_rt->lane = 0;
-+			break;
-+		}
- 	}
- 
- 	if (!mstr_prop->default_frame_rate || !mstr_prop->default_row)
-diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-index 06f051f03a21..7c748ba84767 100644
---- a/drivers/soundwire/stream.c
-+++ b/drivers/soundwire/stream.c
-@@ -1479,19 +1479,22 @@ static int _sdw_prepare_stream(struct sdw_stream_runtime *stream,
- 	struct sdw_master_runtime *m_rt;
- 	struct sdw_bus *bus;
- 	struct sdw_master_prop *prop;
--	struct sdw_bus_params params;
- 	int ret;
- 
-+	/* Pre-pass: snapshot original bus parameters for all masters */
-+	list_for_each_entry(m_rt, &stream->master_list, stream_node)
-+		m_rt->params_backup = m_rt->bus->params;
-+
- 	/* Prepare  Master(s) and Slave(s) port(s) associated with stream */
- 	list_for_each_entry(m_rt, &stream->master_list, stream_node) {
- 		bus = m_rt->bus;
- 		prop = &bus->prop;
--		memcpy(&params, &bus->params, sizeof(params));
- 
- 		/* TODO: Support Asynchronous mode */
- 		if ((prop->max_clk_freq % stream->params.rate) != 0) {
- 			dev_err(bus->dev, "Async mode not supported\n");
--			return -EINVAL;
-+			ret = -EINVAL;
-+			goto restore_params;
- 		}
- 
- 		if (update_params) {
-@@ -1542,7 +1545,13 @@ static int _sdw_prepare_stream(struct sdw_stream_runtime *stream,
- 	return ret;
- 
- restore_params:
--	memcpy(&bus->params, &params, sizeof(params));
-+	/*
-+	 * Revert all masters to their snapshotted original parameters.
-+	 * Any master that was not modified will safely revert to its own original state.
-+	 */
-+	list_for_each_entry(m_rt, &stream->master_list, stream_node)
-+		m_rt->bus->params = m_rt->params_backup;
-+
- 	return ret;
- }
- 
 -- 
-2.43.0
+Regards,
+Mukesh Pilaniya
 
