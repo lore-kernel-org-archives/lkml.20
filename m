@@ -1,41 +1,41 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794472675;
-	b=bdWMdGOzgCtokTu1Q6qf+1ln3fM9gVehB9cn6x29ogQyLfTXV2ROeKe5gAT50xaIQY7S
-	 mqOM5wOWqfZr1ajkkjlc5gRMQ/T3W+yYQu9PdVv19Bx5wcmo8JsbcwIeCvztnD7tezjmi
-	 miD6mhhfMICnhk7L9B2JFJetsmutQN/LGBzfG9Yeoy6C7p+qzowtX5qxiSBo/axw6h4w2
-	 uxjeVYP7RWE1au0dHjoC9ZS0gMCjQpJEhmt/6CTEvOAdTuZsmBq9lpHJPj/1jWhDEtPtz
-	 UGKTkBdiVuCFewjzdDDMjuG/jJRcebkqPn5ScVgzVk1bBzC6Ko6tSiEexYSugJJIYXg==
+	b=5bUtED+vWvtoA58/7vBCk37pZcLkuKBSmx697/k3AOjM/ARKUKlKsQBfaKWDt86cv8AZ
+	 laKr/WkB+6C3viTkqMZGVrchZosf17wpfBvSATcRiKsvZ4qPSFSb492RfhxaBmMAPAVYn
+	 BDoEy+cyiRNKh/88NWr7vCWlkzDoWbACJwpXF5GjUx4h9pD8WNmQJvwXNRUZE+1dzDPrq
+	 FIhc7TR/7Xt/laEkN4eXL614/BzalJLu3LHbVLj3DdMlmKun0/5gVKhczSMW6PHFDHM10
+	 UOr9BrOc9XxUBFGiwQLGHW5sSTxNW4lgF3o/goUXPRYuowpWTQQ1Zx76qYMnkiPh/1w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794472675;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=n7kPEgcFcju8u/KO+xsn8ju2WkIJSHLe7hU+C6onExQ=;
-	b=ayQbW4pxB7I+tUPOV7T0NeZinwPT8po8QZ3rrwGk/BULK3+ZnHQOhxRIo8Z03cPO89pY
-	 FXV7TxVyBj65R6i+P5eLKE2MSf8UR0VA/5B8RoIjzxTZx7YuaYMah0VQNjv1Le/p2/mdT
-	 dtTzrJGQnnV5EM5xnL5OQLd9cSPAq72CcNQJ45zZADB6wbyelW5k46BaJMQ/EYWzsT6W4
-	 zOhMNJ7hGESplQuBkFf8sXh7rW6iTGJKWw5dewoetQWcctWrCQdKJqeko3dKrqhjK7k9n
-	 KFBy7D4wcMLzGPKaITWgGQc28pe4kW/9La97Rcl8H1PNOPOtzzkB9kp6YQzKjoqPGtw==
+	bh=zvpxNltnoRhKlZ4umQ97ogrVT407veX7MU/gxnhUc1I=;
+	b=Cl7hHCV900XvePNcvGMQPgJ2leIBkchgzAQKqmtKLM6ZWEpS4mR+Vg/LNwBNBMTdFOPO
+	 bTAijvDD2S0QDK2aSg1Dmz6UraG6j382fr9S5EyqjGJ51wBQwqbX4L//LgvrE9zoMF7N6
+	 C9ewlN1+jiEusBfMo76fRqIxPyyU08f+H3TVjpq5ZCoExWtKwlMApxXRw4qGQSxPfYS8r
+	 PR6fb4JlQMW58fdi9tRq5YGYe2d7jxd/j+6mw/7xNqe0zli+lKgZ+b0Q0IFozSoUv4ZI0
+	 J4TeO/FBW9HEZYSDoMizQt0/UE7Ayyl8TIR4HLBMHDq9qrLNxcBDe2JzeXEJUZS1mVg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=HYI45PIN;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ZM4sIPc8;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC0E2606A8AA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABEE0606A8A3;
 	Thu, 12 Nov 2026 08:37:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC0E2606A8AA
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABEE0606A8A3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=HYI45PIN
-Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.pengutronix.de [IPv6:2a0a:edc0:0:1101:1d::ac])
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ZM4sIPc8
+Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.4.pengutronix.de [10.17.1.12])
 	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 790512023BD;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 71D65201C9E;
 	Thu, 12 Nov 2026 09:37:51 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1794472671;
@@ -43,40 +43,39 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=n7kPEgcFcju8u/KO+xsn8ju2WkIJSHLe7hU+C6onExQ=;
-	b=HYI45PINZXyJYwyzTMfQyYLiDqVyQO5UJpHx/kEPpnprGDwke9iq0Me104mR9Qzga7kfXj
-	ONE85j0UGKUB4/R+CcgRznZAN5mqY21xXlWi4PLgPRYENPDNvHPYBL6yEpS5e3CnoOgrzo
-	gCKSsXQPQdvmiTWVrh2A0sqUoW7iQS806OE4FVEWGo3pP5f58dsRqYyw43QM9KXSMsaJWD
-	yDsBzuUWhSZLOV9CVoiAAKH0Aqe9PpueucI0Ieysdzgsfw76QNVzNcW88SWG2SspUKmvbt
-	Qf72WY+5e4Osk+cZhmOP0jsDct5ZvgIQQfHLWk5TfM3yVMJEIBSL5gYaiTRHtw==
+	bh=zvpxNltnoRhKlZ4umQ97ogrVT407veX7MU/gxnhUc1I=;
+	b=ZM4sIPc8S1DcgDtXxmNAfWD+wM9kajOi06GOXIOulkPq5FZpMhR/v5u9HQh/Gml07OfRdO
+	rpuCWY26Ph8eZJyLww1mWKSBMk8YxYg1xymR1TzRdt6jr2iZ2HymDT7M1oJeNLrfVDQOTE
+	tYd9zAS22kbkbnAAl21Su2igqUET8vGJJl3AnnJp+6QnNdFG1LhifpQy4i6aBhGB46aiCw
+	1g42viDa+lOWDOjOPMmerJA7mvbKblrSjZHBkgkEiYf/Rqse7KOo/41kZR3MYeNgizCkQ+
+	WlIfidLb1Mj2qSjrJnKe0rJ4OKGMbUlM5X7JKsyYDeFHk//1kzXF/0BLWML/Kw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1794472671;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=n7kPEgcFcju8u/KO+xsn8ju2WkIJSHLe7hU+C6onExQ=;
-	b=E+PobTQ0GVyNEax/0mCGYkpE51932JrYEAJJXh7MgB5mGOZzneOqfYELKvO92RTInXdHAQ
-	XJhHvPkym4CdtJCIJMg07eRuD8sVWPK4vaQK/OINEIpY4h8jTdZjFXpVBfgXyubiwbMYH7
-	aDZ/1NQmGjXsSSQzH86LMKkI/PDG0l5rzUUhGoieCBjIp/ALu3t3gs8pXSufUMQzv+ZMuX
-	Dnok10fd5Pmvv0FW4ycf/S/yRBS/iCtDfyBS5rMnleLMzN82/OB+lVQaDqhnRu3WhZ+43l
-	Ri8I3FySPd/1jI0QoSoTpYjXssrzkBO7N+umPAxfscECg/gGlD7f/dU3hDR0QQ==
+	bh=zvpxNltnoRhKlZ4umQ97ogrVT407veX7MU/gxnhUc1I=;
+	b=UFftBhFlhfTPOLlMNePFB5JB8wBhPEiIhaWhlsMaGwohQ2NS1DdBO7Yhn/M6f3sd5J336F
+	JWyazagxrVvlBIS9sll/9XOA45zcFMTwMr1H+Tq9XKipz93oqI+fL/lugwKZ1FdrvQWiSu
+	LpgURmGCru9vff2aH3YX2fs79wHTeFCAUfECMUP7RghqgvV8N5Ew/HflZXpkWHwTLFtMue
+	KFYr3QlreMkM/2FfjfYVqHAZoVRkcxDvCLxJUEvfC07fLzAaKW7MQo2ljwlWVy4qcoN2u7
+	SNU4mCt7C14wadMB922X1UzRFqyZV6x3aT1Z891H548TcaqJxpGvZkVXGdhu4w==
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794472671; a=rsa-sha256;
 	cv=none;
-	b=TLmIi6dBQ95qP6nEVYxHKcG7RhVRJhY+al4MGwj8xQp6UQurso8Ilc0VPQaO+LtgqVYUQr
-	HNFxnG252p+oFod/308i3HPPrp0/QD4H2OoWQ7nS5YBuQRCW9lat1F55PA86XH4P1lrIrS
-	+V2+pUwoRe9/magwwwF0PPOwXxaCFP5wyiJVxt+ZXxVnfcZQQfrSSeHN+YiQMJDkRIpomm
-	uyOcx9koOt1PVow9JcIcANLuOEWFR270txkGDmm9qzgMutqARRxsGP1EWaVT6YSEFgtFXZ
-	3UxYhJDQGWaXyQUmrCW/fxsewNWB6OCO6p7U2Sc40fti4nkrFIg6QL/XCoAUAg==
+	b=S+jmSHIxcn+brHOcs4FPZ5A/5jAvVojyjNBQawPt7C28LyN4Mrjk1q89OLxhlUtD6OMEki
+	JeJBf3pXJE3hrHMh71+5Jsu/609DdEyAzDWYTvAVub7xn0lrsuR/E2GI/tEeZEPgfXnTVz
+	tLdBucFhSmvW0KB2UxnCxfxANru5Ttbjxuz2ZeaAuK8KNDcGNNJW0aki1BHQLeoNpF87aj
+	ZcXXzfb3gwOdu0hrg3Bj6OVc006ragDSq3+snOnAbzP8jYIwFY3tYmrVyghKhNnireuB92
+	2hZHDGVTJdf4MxMggAd1WSi6eqcEKUkdJ5Spc9FA+gaX+ijves8blwgV5ojJxw==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
 Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1058)
-	id 55F5A381265; Thu, 12 Nov 2026 09:37:51 +0100 (CET)
+	id 53F37381242; Thu, 12 Nov 2026 09:37:51 +0100 (CET)
 From: Oleksij Rempel <o.rempel@pengutronix.de>
-Date: Thu, 12 Nov 2026 09:37:46 +0100
-Subject: [PATCH net-next v2 03/10] net: ieee8021q: clarify the tt_to_tc()
- traffic-class mapping
+Date: Thu, 12 Nov 2026 09:37:45 +0100
+Subject: [PATCH net-next v2 02/10] net: ieee8021q: add pcp_to_tt()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,7 +87,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-rtl8365mb-dcb-ingress-v2-3-f8e6fbdf8c99@pengutronix.de>
+Message-Id: <20261112-rtl8365mb-dcb-ingress-v2-2-f8e6fbdf8c99@pengutronix.de>
 References: <20261112-rtl8365mb-dcb-ingress-v2-0-f8e6fbdf8c99@pengutronix.de>
 In-Reply-To: <20261112-rtl8365mb-dcb-ingress-v2-0-f8e6fbdf8c99@pengutronix.de>
 To: "David S. Miller" <davem@davemloft.net>, 
@@ -102,88 +101,138 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Oleksij Rempel <o.rempel@pengutronix.de>, kernel@pengutronix.de
 X-Mailer: b4 0.14.2
 
-Document that the tt_to_tc() traffic-class numbers are the pre-computed
-composition of Table I-2 (traffic type -> priority) with Table 8-5
-(priority -> traffic class). Note that Table 8-5 is the mapping for
-implementations without the credit-based shaper, so the helper's scope
-is clear; credit-based-shaper implementations use Table 34-1/34-2
-instead.
+Add a helper that maps an IEEE 802.1Q Priority Code Point (PCP) to the
+corresponding 802.1Q traffic type, complementing the existing
+ietf_dscp_to_ieee8021q_tt().
 
-The existing kdoc cited Annex I Table I-1 as the mapping basis, but
-Table I-1 only partitions traffic types into classes; it does not assign
-the class numbers.
+It is very nearly an identity map, except that PCP 0 (Best Effort) and
+PCP 1 (Background) are swapped: per 802.1Q-2022 (Annex I, Table I-2)
+Background is a lower priority than Best Effort even though it carries
+the higher PCP value. PCP 2..7 map straight through to the matching
+traffic type, and values above 7 are rejected with -EINVAL. This decodes
+the 8P0D encoding (Table 6-3), where every PCP value is a priority and
+none carries drop eligibility.
+
+Drivers that classify ingress traffic by PCP need this to map into a
+priority-ordered internal space without misordering Best Effort and
+Background. The first consumer, the realtek rtl8365mb DSA driver, lands
+later in this series.
 
 Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
 Reviewed-by: Linus Walleij <linusw@kernel.org>
-Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
 ---
-Q: Luiz: does make htmldocs build cleanly and render the diagram?
-A: No .rst under Documentation/ includes net/core/ieee8021q_helpers.c
-today, so make htmldocs does not render it. scripts/kernel-doc -rst
--Wall on the file is clean, and an htmldocs build with the file added
-to Documentation/networking/kapi.rst produced no new warning. Adding it
-to kapi.rst will follow as a separate patch.
-
 Changes in v2:
-- make the mapping diagram an RST literal block (Luiz)
-- call Tables 8-5 and 34-1/34-2 the recommended mappings, as 802.1Q does
-- keep the Reviewed-by tags: only the kdoc wording and the diagram
-  format changed
+- use a lookup table instead of the switch (Luiz)
+- check the lookup table size at build time
+- kernel-doc: cite Table 6-3 instead of Table I-7, fix the sentence on
+  7P1D/6P2D/5P3D, document the stub's return value
+- commit message: cite Table 6-3 instead of Table I-7
+- reword the @IEEE8021Q_TT_BE kernel-doc and the enum title
+- keep Linus's Reviewed-by: the mapping is unchanged
 ---
- net/core/ieee8021q_helpers.c | 31 ++++++++++++++++++-------------
- 1 file changed, 18 insertions(+), 13 deletions(-)
+ include/net/ieee8021q.h      | 15 ++++++++++++---
+ net/core/ieee8021q_helpers.c | 42 ++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 54 insertions(+), 3 deletions(-)
 
-diff --git a/net/core/ieee8021q_helpers.c b/net/core/ieee8021q_helpers.c
-index b052120e67c525ac5a45b26de4cb879a0d758d17..8fd3ea87c7bcb6d7f34a4cf5969530633edd6abb 100644
---- a/net/core/ieee8021q_helpers.c
-+++ b/net/core/ieee8021q_helpers.c
-@@ -13,10 +13,10 @@
- 	compiletime_assert(ARRAY_SIZE(tbl) == IEEE8021Q_TT_MAX, \
- 			   #tbl " size mismatch")
- 
--/* The following arrays map Traffic Types (TT) to traffic classes (TC) for
-- * different number of queues as shown in the example provided by
-- * IEEE 802.1Q-2022 in Annex I "I.3 Traffic type to traffic class mapping" and
-- * Table I-1 "Traffic type to traffic class mapping".
-+/* The following arrays map a traffic type (TT) to a traffic class (TC) for
-+ * each supported number of queues. The mapping is the traffic-type -> priority
-+ * -> traffic-class composition documented in the ieee8021q_tt_to_tc() kdoc
-+ * below, reduced for the given number of queues.
-  */
- static const u8 ieee8021q_8queue_tt_tc_map[] = {
- 	[IEEE8021Q_TT_BK] = 0,
-@@ -85,17 +85,22 @@ static const u8 ieee8021q_1queue_tt_tc_map[] = {
- };
+diff --git a/include/net/ieee8021q.h b/include/net/ieee8021q.h
+index 8bfe903dd3d00fb432b32e3150d77f3a43d00f0c..c6c8c94ec7fb39603f631d50928f2354bfcd8f81 100644
+--- a/include/net/ieee8021q.h
++++ b/include/net/ieee8021q.h
+@@ -7,11 +7,14 @@
+ #include <linux/errno.h>
  
  /**
-- * ieee8021q_tt_to_tc - Map IEEE 802.1Q Traffic Type to Traffic Class
-- * @tt: IEEE 802.1Q Traffic Type
-- * @num_queues: Number of queues
-+ * ieee8021q_tt_to_tc - Map an IEEE 802.1Q traffic type to a traffic class
-+ * @tt: IEEE 802.1Q traffic type
-+ * @num_queues: number of traffic classes (queues) available, 1..8
+- * enum ieee8021q_traffic_type - 802.1Q traffic type priority values (802.1Q-2022)
++ * enum ieee8021q_traffic_type - 802.1Q traffic types (802.1Q-2022)
   *
-- * This function maps an IEEE 802.1Q Traffic Type to a Traffic Class (TC) based
-- * on the number of queues configured on the NIC. The mapping is based on the
-- * example provided by IEEE 802.1Q-2022 in Annex I "I.3 Traffic type to traffic
-- * class mapping" and Table I-1 "Traffic type to traffic class mapping".
-+ * Return the traffic-class number for @tt. It is the pre-computed composition
-+ * of two IEEE 802.1Q-2022 mappings::
-  *
-- * Return: Traffic Class corresponding to the given Traffic Type or negative
-- * value in case of error.
-+ *   traffic type --[Table I-2]--> priority --[Table 8-5]--> traffic class
-+ *
-+ * Table 8-5 is the recommended priority-to-traffic-class mapping for
-+ * implementations that do NOT support the credit-based shaper (8.6.8.2).
-+ * Credit-based-shaper implementations have a different recommended mapping
-+ * (Table 34-1 for SR classes A and B, or Table 34-2 for SR class B only),
-+ * which this helper does not implement.
-+ *
-+ * Return: the traffic class, or a negative value on error.
-  */
- int ieee8021q_tt_to_tc(enum ieee8021q_traffic_type tt, unsigned int num_queues)
+  * @IEEE8021Q_TT_BK: Background
+- * @IEEE8021Q_TT_BE: Best Effort (default). According to 802.1Q-2022, BE is 0
+- * but has higher priority than BK which is 1.
++ * @IEEE8021Q_TT_BE: Best Effort (default). The enum value is not the 802.1Q
++ * priority. IEEE 802.1Q-2022 (Annex I.4, Table I-2) gives Best Effort priority
++ * 0 and Background priority 1, and says that priority 1 is lower than priority
++ * 0. The enum orders the traffic types lowest first, so Background is 0 and
++ * Best Effort is 1.
+  * @IEEE8021Q_TT_EE: Excellent Effort
+  * @IEEE8021Q_TT_CA: Critical Applications
+  * @IEEE8021Q_TT_VI: Video, < 100 ms latency and jitter
+@@ -38,6 +41,7 @@ enum ieee8021q_traffic_type {
+ #if IS_ENABLED(CONFIG_NET_IEEE8021Q_HELPERS)
+ 
+ int ietf_dscp_to_ieee8021q_tt(u8 dscp);
++int ieee8021q_pcp_to_tt(u8 pcp);
+ int ieee8021q_tt_to_tc(enum ieee8021q_traffic_type tt, unsigned int num_queues);
+ 
+ #else
+@@ -47,6 +51,11 @@ static inline int ietf_dscp_to_ieee8021q_tt(u8 dscp)
+ 	return -EOPNOTSUPP;
+ }
+ 
++static inline int ieee8021q_pcp_to_tt(u8 pcp)
++{
++	return -EOPNOTSUPP;
++}
++
+ static inline int ieee8021q_tt_to_tc(enum ieee8021q_traffic_type tt,
+ 				     unsigned int num_queues)
  {
+diff --git a/net/core/ieee8021q_helpers.c b/net/core/ieee8021q_helpers.c
+index bbacdfff9b4c2ec14779baa79d341527fed1920c..b052120e67c525ac5a45b26de4cb879a0d758d17 100644
+--- a/net/core/ieee8021q_helpers.c
++++ b/net/core/ieee8021q_helpers.c
+@@ -2,6 +2,7 @@
+ // Copyright (c) 2024 Pengutronix, Oleksij Rempel <kernel@pengutronix.de>
+ 
+ #include <linux/array_size.h>
++#include <linux/if_vlan.h>
+ #include <linux/printk.h>
+ #include <linux/types.h>
+ #include <net/dscp.h>
+@@ -222,3 +223,44 @@ int ietf_dscp_to_ieee8021q_tt(u8 dscp)
+ 	return SIMPLE_IETF_DSCP_TO_IEEE8021Q_TT(dscp);
+ }
+ EXPORT_SYMBOL_GPL(ietf_dscp_to_ieee8021q_tt);
++
++/* Index: the PCP, which in 8P0D is the 802.1Q priority. Priority 0 is Best
++ * Effort and priority 1 Background, the reverse of their enum order.
++ */
++static const u8 ieee8021q_pcp_to_tt_map[] = {
++	[0] = IEEE8021Q_TT_BE,
++	[1] = IEEE8021Q_TT_BK,
++	[2] = IEEE8021Q_TT_EE,
++	[3] = IEEE8021Q_TT_CA,
++	[4] = IEEE8021Q_TT_VI,
++	[5] = IEEE8021Q_TT_VO,
++	[6] = IEEE8021Q_TT_IC,
++	[7] = IEEE8021Q_TT_NC,
++};
++
++static_assert(ARRAY_SIZE(ieee8021q_pcp_to_tt_map) ==
++	      (VLAN_PRIO_MASK >> VLAN_PRIO_SHIFT) + 1);
++
++/**
++ * ieee8021q_pcp_to_tt - Map an IEEE 802.1Q PCP to a traffic type
++ * @pcp: IEEE 802.1Q Priority Code Point value
++ *
++ * Decode @pcp with the 8P0D row of Table 6-3 (IEEE 802.1Q-2022, 6.9.3). In that
++ * row the priority equals the PCP, and no PCP carries drop eligibility. Then
++ * look up the traffic type for that priority in Table I-2. The enum values of
++ * Best Effort and Background are not their priorities, see
++ * &enum ieee8021q_traffic_type.
++ *
++ * The other rows of Table 6-3 (7P1D, 6P2D, 5P3D) are not decoded here.
++ *
++ * Return: the traffic type, or -EINVAL if @pcp is above 7. Without
++ * CONFIG_NET_IEEE8021Q_HELPERS, the stub returns -EOPNOTSUPP.
++ */
++int ieee8021q_pcp_to_tt(u8 pcp)
++{
++	if (pcp >= ARRAY_SIZE(ieee8021q_pcp_to_tt_map))
++		return -EINVAL;
++
++	return ieee8021q_pcp_to_tt_map[pcp];
++}
++EXPORT_SYMBOL_GPL(ieee8021q_pcp_to_tt);
 
 -- 
 2.47.3
