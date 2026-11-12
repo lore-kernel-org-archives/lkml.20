@@ -1,90 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794446911;
-	b=WaqxopRPzknxpcz6T0GmCxkHv3ZvfUKlUSzyP0ssL/9ts5eA3qzgBd06607z2njqoiN2
-	 jZSEJMC+pY91ujiIrhHwhesJLGs7gKCGTq3p5HBmVlh9F1Lw1635EIgH+qq7rjR/pSU0M
-	 VQZnIZvx5b887YB8dS2vDt56iMBHLgTS1JmrGAKCeK56qzagF56Fqk/dsglZKFAwuWQGq
-	 5W6rE5NN0s9eehjvCb+8G5T/f3WrB7HO0vSt7T7OdfOUhy+DB651Rxbw2DB2Y/dOwQd0x
-	 HTg1Y/4i2rk2QKnzUbHVDXCEAahdaG+TxQ4KN9cAIFSOICP/sxrSQDrQvV7pjQqYvWw==
+	b=o62eOVytDhw9C3Eru0P8PxAA2YP+wuvXt2HdXT4NNOQVj93anMlIbUjfHt3jmenJOhwy
+	 hgCav93Ye8trfxH4HxYIORl4iQEeeNmAwtiiSEepGsBUoK42ctQxFz/CZm6xaEy2rrSwK
+	 v7Mf0D6KaBxDqSOwBdBGArCEOZq8ZCx36Zq2LwnsWwUj+65Ed4FIH9cO7k8hHHMdkLSBP
+	 QFXWG+kMVDbJc8OAWZHHetOA1yeRoTG/Ss8JbcJJ/hAqP7+1ueUdGbt1LsFMnZNXQzLgF
+	 jOmyrW2bLWu+xFm/RFxnJfCAMEZR2wkDdFqXD+y8hgJ1ol6D21/BGoSSnxYI9SsVAfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794446911;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=QgxpQ5gLKHclnmBlbj5HtHG0Ac9P6Hp7mPD4KZc1uro=;
-	b=ouKu5BqyfFwldGccJrfonm+hImouYNxNCQ5tsFdWEaAm2ohKCw9fUmOujPHGW+wqbr6j
-	 oD0fREQIrEQKIK8UYObfgy9a8xWU2OAjiVn/syUJ0SW8l3wx610z7qGBh38pIOQY5Ari7
-	 QQAQr6wXaXxDAluQp5qXKgMQEY8W6QHm9NZKrxLt+j5HbzmbwMLIMaPAdNPlXB+kEzX4O
-	 HKOf4YIl3qS/C09cVuGOaCPM+zKfdfhLWgW63lLCnE9CGjU4RfxUrpH2f/Oz+wyplRQ8w
-	 moBY4TjjmXmBwCr7uFeelMOpUN6sRsqv82zzhI8SbeArK1oNhZK+i2M/OxRENtR6TuA==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=EL69zpnXTdiiGn+399fnLQ95HNutCve3uZ+VvY6ocs8=;
+	b=uhOSwEFgIdnHWckDzMrj+x4QW1CuhC4GMJ4ueoNnGziLliCuzPjSyBAZW6bYdIQ+Is4M
+	 IR4tlZlBSf6hTxRi7ATPq5jGB2R6WA5vKRHtgECPw3Lx3mtVeC7QxY9sBkNNYwKp0LWiP
+	 KIgS+v68JekgWrEMqsPybQeh9dxKW10BOuvzVYMcDT0gOhmJY0AtC7QNNHhzj+UeydobD
+	 3FP0qPiC04+0lTz0MgiJzfn99a50FI2YcbpXLudng5MPun3BztV/124N5o9h5FS1kjpWS
+	 DQox/lpnf3BsgEgm+BMjOcgAxeTY1j4T7RBetsUEngS0ansGIbgAuZBLNg4GRy5XvCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RGLBEHgY;
-	arc=none smtp.remote-ip=209.85.167.178
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mM4MqIqK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A4E6606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:28:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A4E6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4ED606A323;
+	Thu, 12 Nov 2026 01:28:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RGLBEHgY
-Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-4b28d9537bcso295811b6e.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:28:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794446910; x=1795051710; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QgxpQ5gLKHclnmBlbj5HtHG0Ac9P6Hp7mPD4KZc1uro=;
-        b=RGLBEHgY35a1QJidlNJkrMPaCUinrtBouLf0UGJ87fb3AjWeLHnVYGuPvlBd1qDvQy
-         hpXYFAGP2KivHo23rZadwrWkfLqyzcQDQaHBVj97xBEnouM+X370rxkMXATRaweyAyTz
-         wVu40uame3xTaNFwNQOLAeeOl2jrnMB129VYnx28ebnEpRVA+AjzbBbher2gUSlSQU6h
-         iSCPOz9U7b0LHEQTXGjFEkEG/mS2bXb7SSvo8Sl4a9fIMxfxfLZ/JWMOREqPlXzvYfd0
-         TyLIQRQmm8ubi6kAJA2K352KL1aOeCVKBLysVwVynwu+RiSXsFpFuTBbDcBs672E+/6T
-         Uiww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794446910; x=1795051710;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QgxpQ5gLKHclnmBlbj5HtHG0Ac9P6Hp7mPD4KZc1uro=;
-        b=SJjUErpHire2CaLZfVEIFolz4QkVDHSi74jdcJoVobt5syLEBxbQ8f/lWnwmoKgGcq
-         K7QMyqKQqeudaNdeCeqtXdbaD+f7DQN7W6TugSGYxRCJ7JQvX4H8bGMt3OrRIYlgbOlQ
-         kH3CjrYFwkGY4RwG9hsbLVWONAtdCgoXB7I9eHdXLmJUelI+6jqSPqJQaJATBreWD6X7
-         OgcMoBrSiVDwI0C/6Ff/y8AR95KWSOf9hhE6dQugGmGEul6bLcUA4kwZHTSkxF0gTNTX
-         DksrolmsibtEVrLKGvAOAJtnEN6/8yQXZAOz1TPJ4FBC9WaR9rmDsRHEFFhY1gDsb/o1
-         12Bg==
-X-Forwarded-Encrypted: i=1; AL+hErF0muP+ie4WApODj1N57eLz6EOCGL7FEOju3hfNQmR/1tfP7GaiCPl4IAoyYn1i/Qo1gBTd5QepNOZke0k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Nw/+XMbDwD3bPcqxEX6+y0QMGnOKeHe2N0FqWrYeaDH2BIYo/
-	foKNKMjb3T9pgO8vcoWZg/RG1IMYcgTFf+sWCcIlpOSrZxJU5XouoLhv47s4XFHv
-X-Gm-Gg: AYBFou0y0/MOEu8vtajGDKVRIaYyFy3yFSrmi3N0hOkajLW3yuduPh1JuA+CCBQ0vY+
-	ZzVIqDWZhHnoGvQErAIF4N5OhItuPj1qoUZYJcY470oC1YalnaWTtmy2iwwIRRpPsinVH9LoJUV
-	NLC7vfev96g56FzM/n8f0BsSn/q6pLZl70vhY85j4wZJWnpOz6wv5N3J+V/V2m/lmb53n/9oUEC
-	Uno0BEiLsjKyffGfGmMp+AtLvt0bASUDRruWkVCj17mKg0w3+NFkof63zUHz8Uv0ZniiPtz1CYI
-	ExxJyk5BpT8bSG0lCLHDxd1I/xXj06ro9a1EmhBbmAqbmceoQgq0pBkKD6ZA4hXGLMkKbATNrI5
-	nufEJrvmNRuwgt54akrsAHqXjq0pM5/NpAuGcdTArQoRNrcUhAC9foKEouEsYXaWZD0uJiQpXx2
-	OS/qbj8i5gvp0hWQ2cBHJfQav7XOHEAvxqeCzO050uE3b9VBgA2Z6KPkVh9RLC0QN9+1XlM0477
-	FgHs80MhTX8tkcpKLHNpXlQQv43uFSxVOYayqYImdAmpgCAbRxCQ1CT5LO0EAP3YA93DKgOF5nD
-	6x3GOLrUeKp6vy7vvbQWvrsacI8xVilWW0gP1HcU5aDqHwycmZKm+iZWTUAEsoNC3/hbNHA0hIu
-	z0x3hcRgytOzxCLLU6kMNO3bK3p32fYUqiVSj5C5adOpQLd9dz26BaSOJCqbrxvWN4nSVYX1+ht
-	cSo1Zf3RUE9T8KR597Fss27jIBvW7/+Fer9BZAg2+J4NTX8kpO7ntl
-X-Received: by 2002:a05:6808:1792:b0:564:3fe1:2f9a with SMTP id 5614622812f47-56cd614086emr1127864b6e.17.1794446910057;
-        Wed, 11 Nov 2026 17:28:30 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56905738049sm6823481b6e.10.2026.11.11.17.28.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 17:28:29 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 11 Nov 2026 18:27:41 -0700
-Subject: [PATCH v3 02/58] mtd: acquire an MTD handle from a referenced
- class device
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mM4MqIqK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 016331F00A0D;
+	Thu, 12 Nov 2026 01:28:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794446911;
+	bh=EL69zpnXTdiiGn+399fnLQ95HNutCve3uZ+VvY6ocs8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mM4MqIqKi9yYtIwkDVVWOtqnwWMiXSv+t4SX9Lg5bkvIXspfdEpt8E3Iaj5/hL4OV
+	 NRmjsSyXPOtNRd28QREEDEdgWvI4uZeohb31WpUq3Unz4kkCLJDs4it+YJD+sCc5i6
+	 xOqyCGtPm8jsepN/kteMGDHct5kTQh6wkxIJRJoRld4Q7FbrO6DWO3m3gtIWz6sZjb
+	 JK+w2b1G2mniy/ky2Jb0FMLav+cC42K1HEcArFgdjyOhddvw5LWVzrrh5N7uahx8Ni
+	 0yjFCfyek7YjbtnzWdMMmoTvjVqml7AA8fOUY03j/k7fU/hXduYSqDg207d350DfXU
+	 Xrgdgs93wdU0w==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Subject: [PATCH v2 12/13] tracing/probes: Validate command prefix in kprobe, uprobe, and eprobe
+Date: Thu, 12 Nov 2026 10:28:27 +0900
+Message-ID: <179444690767.345731.1526332209646753028.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179444679892.345731.5271591537517106679.stgit@devnote2>
+References: <179444679892.345731.5271591537517106679.stgit@devnote2>
+User-Agent: StGit/0.19
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,118 +63,91 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-submit-rawnand-retained-handle-lifetime-v1-v3-2-ce537999741d@gmail.com>
-References: <20261111-submit-rawnand-retained-handle-lifetime-v1-v3-0-ce537999741d@gmail.com>
-In-Reply-To: <20261111-submit-rawnand-retained-handle-lifetime-v1-v3-0-ce537999741d@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- James Hilliard <james.hilliard1@gmail.com>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Jonathan Lemon <jonathan.lemon@gmail.com>, 
- Vadim Fedorenko <vadim.fedorenko@linux.dev>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-PTP OCP locates flash through the device hierarchy and uses driver data
-directly. A class-device reference does not keep an MTD registered or own
-the backing object needed by an erase or write.
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-Look up the exact device under mtd_table_mutex and acquire an ordinary MTD
-handle before returning it. Use that handle for the OCP update and release
-it on every exit. A removed device cannot be confused with a replacement
-that reuses its name or number.
+In kprobe, uprobe, and eprobe creation, trailing characters after the
+command prefix ('p', 'r', or 'e') without a ':' separator (or non-digit
+characters before ':') are silently ignored, creating a probe with the
+default event name instead of reporting a syntax error as fprobe does.
 
-Cc: Richard Cochran <richardcochran@gmail.com>
-Cc: Jonathan Lemon <jonathan.lemon@gmail.com>
-Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Reject invalid characters following the command prefix with BAD_MAXACT.
+
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 ---
- drivers/mtd/mtdcore.c   | 23 +++++++++++++++++++++++
- drivers/ptp/ptp_ocp.c   |  7 ++++++-
- include/linux/mtd/mtd.h |  1 +
- 3 files changed, 30 insertions(+), 1 deletion(-)
+ kernel/trace/trace_eprobe.c |   10 ++++++++--
+ kernel/trace/trace_kprobe.c |    3 +++
+ kernel/trace/trace_uprobe.c |   12 +++++++++---
+ 3 files changed, 20 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
-index 30b16f135f07..620326279957 100644
---- a/drivers/mtd/mtdcore.c
-+++ b/drivers/mtd/mtdcore.c
-@@ -1329,6 +1329,29 @@ struct mtd_info *get_mtd_device(struct mtd_info *mtd, int num)
- EXPORT_SYMBOL_GPL(get_mtd_device);
+diff --git a/kernel/trace/trace_eprobe.c b/kernel/trace/trace_eprobe.c
+index f65393fb1c10..f65da7b3adf4 100644
+--- a/kernel/trace/trace_eprobe.c
++++ b/kernel/trace/trace_eprobe.c
+@@ -846,12 +846,18 @@ static int __trace_eprobe_create(int argc, const char *argv[])
  
+ 	trlog = trace_probe_log_init("event_probe", argc, argv);
  
-+/**
-+ * get_mtd_device_by_dev - acquire the MTD associated with a class device
-+ * @dev: referenced MTD class device
-+ *
-+ * Return: a referenced MTD, or an error if the device has been removed.
-+ */
-+struct mtd_info *get_mtd_device_by_dev(struct device *dev)
-+{
-+	struct mtd_info *mtd;
-+	int err;
-+
-+	guard(mutex)(&mtd_table_mutex);
-+	mtd_for_each_device(mtd) {
-+		if (&mtd->dev != dev)
-+			continue;
-+		err = __get_mtd_device(mtd);
-+		return err ? ERR_PTR(err) : mtd;
+-	event = strchr(&argv[0][1], ':');
++	if (argv[0][1] != '\0') {
++		if (argv[0][1] != ':') {
++			trace_probe_log_set_index(0);
++			trace_probe_log_err(1, BAD_MAXACT);
++			return -EINVAL;
++		}
++		event = &argv[0][2];
 +	}
-+	return ERR_PTR(-ENODEV);
-+}
-+EXPORT_SYMBOL_GPL(get_mtd_device_by_dev);
-+
-+
- int __get_mtd_device(struct mtd_info *mtd)
- {
- 	struct mtd_info *master = mtd_get_master(mtd);
-diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
-index 3d26ec1f7b9e..459aeb24ae6b 100644
---- a/drivers/ptp/ptp_ocp.c
-+++ b/drivers/ptp/ptp_ocp.c
-@@ -2083,7 +2083,7 @@ static int
- ptp_ocp_devlink_flash(struct devlink *devlink, struct device *dev,
- 		      const struct firmware *fw)
- {
--	struct mtd_info *mtd = dev_get_drvdata(dev);
-+	struct mtd_info *mtd;
- 	struct ptp_ocp *bp = devlink_priv(devlink);
- 	size_t off, len, size, resid, wrote;
- 	struct erase_info erase;
-@@ -2091,6 +2091,10 @@ ptp_ocp_devlink_flash(struct devlink *devlink, struct device *dev,
- 	const u8 *data;
- 	int err;
- 
-+	mtd = get_mtd_device_by_dev(dev);
-+	if (IS_ERR(mtd))
-+		return PTR_ERR(mtd);
-+
- 	err = ptp_ocp_devlink_fw_image(devlink, fw, &data, &size);
- 	if (err)
- 		goto out;
-@@ -2120,6 +2124,7 @@ ptp_ocp_devlink_flash(struct devlink *devlink, struct device *dev,
- 		resid -= len;
+ 	if (event) {
+ 		gbuf = kmalloc(MAX_EVENT_NAME_LEN, GFP_KERNEL);
+ 		if (!gbuf)
+ 			return -ENOMEM;
+-		event++;
+ 		ret = traceprobe_parse_event_name(&event, &group, gbuf,
+ 						  event - argv[0]);
+ 		if (ret)
+diff --git a/kernel/trace/trace_kprobe.c b/kernel/trace/trace_kprobe.c
+index a42af0e66009..35568d75723c 100644
+--- a/kernel/trace/trace_kprobe.c
++++ b/kernel/trace/trace_kprobe.c
+@@ -941,6 +941,9 @@ static int trace_kprobe_create_internal(int argc, const char *argv[],
+ 			trace_probe_log_err(1, MAXACT_TOO_BIG);
+ 			return -EINVAL;
+ 		}
++	} else if (argv[0][1] != '\0' && argv[0][1] != ':') {
++		trace_probe_log_err(1, BAD_MAXACT);
++		return -EINVAL;
  	}
- out:
-+	put_mtd_device(mtd);
- 	return err;
- }
  
-diff --git a/include/linux/mtd/mtd.h b/include/linux/mtd/mtd.h
-index cd7b4671c456..745655e0d462 100644
---- a/include/linux/mtd/mtd.h
-+++ b/include/linux/mtd/mtd.h
-@@ -684,6 +684,7 @@ extern int mtd_device_parse_register(struct mtd_info *mtd,
- 	mtd_device_parse_register(master, NULL, NULL, parts, nr_parts)
- extern int mtd_device_unregister(struct mtd_info *master);
- extern struct mtd_info *get_mtd_device(struct mtd_info *mtd, int num);
-+struct mtd_info *get_mtd_device_by_dev(struct device *dev);
- extern int __get_mtd_device(struct mtd_info *mtd);
- extern void __put_mtd_device(struct mtd_info *mtd);
- extern struct mtd_info *of_get_mtd_device_by_node(struct device_node *np);
-
--- 
-2.53.0
+ 	/* try to parse an address. if that fails, try to read the
+diff --git a/kernel/trace/trace_uprobe.c b/kernel/trace/trace_uprobe.c
+index fb7991543db7..9f8f81a36192 100644
+--- a/kernel/trace/trace_uprobe.c
++++ b/kernel/trace/trace_uprobe.c
+@@ -616,9 +616,6 @@ static int __trace_uprobe_create(int argc, const char **argv)
+ 		return -E2BIG;
+ 	}
+ 
+-	if (argv[0][1] == ':')
+-		event = &argv[0][2];
+-
+ 	if (!strchr(argv[1], '/'))
+ 		return -ECANCELED;
+ 
+@@ -631,6 +628,15 @@ static int __trace_uprobe_create(int argc, const char **argv)
+ 	if (!arg || !isdigit(arg[1]))
+ 		return -ECANCELED;
+ 
++	if (argv[0][1] != '\0') {
++		if (argv[0][1] != ':') {
++			trace_probe_log_set_index(0);
++			trace_probe_log_err(1, BAD_MAXACT);
++			return -EINVAL;
++		}
++		event = &argv[0][2];
++	}
++
+ 	trace_probe_log_set_index(1);	/* filename is the 2nd argument */
+ 
+ 	*arg++ = '\0';
 
