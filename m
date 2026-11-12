@@ -1,100 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794489227;
-	b=L8e5xtI3GRukg9eNbvRFruVbdm/So3ZD9zgX/xNZHwbSYO1jofTS8EeuFbr0gDoixv2N
-	 kL7DIiui7IFbMviuhtyn+F8ffNmUWNZcSwQ7FSwVIqJhsZNvP0qjJPNVXcPUz9DkxtPMz
-	 vZ1u5vDLB0lpxKnNRpvpEmBD34roopyVf6+lJiXuNod/wSsjot/IwG+P1jxRBuJ6ogrK5
-	 w1Per4GA0zOiIZtWnXPDqtaP2SzWYiKdrd2zn7kPbfDIU/IRvaYsPN31jUPGqeR8t5Ge8
-	 NQR3agP5xXh2wC4TkQ5t2VHWTZLku4PfoCZ9A/3Xkt9CfdEeioPefBNsLoFv3mUlxUw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794489227;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794489230;
+	b=FjzF9OmshErtN5kN7EqMNRyQLzNWTXyVIqr19Xw2SDSXdjUNp99f8KNyu9IvmViXMui9
+	 Vp7/34GKJNPnI1y0UZHkBmXH/zrbFe4HDK2V+DxFGRa/vOsyeFf7aW/Zyu2w4UhEythwp
+	 GmPtQV4QSoCu4pYV0g9uN5jwEbAj+UMq90ApEfs0oE4jsljgDk7rHHmf5X8RuzcdG+491
+	 FPSiz5iRSwOblRAAD6im39Uk0PKf1k/ZKfcLAFZF3QZqVa1Mbvgu8jgYDzeHnoyWxRTaA
+	 VwkEf7vZlGTVY9F9nAnbFGEkXSTi9eHCP+EnmjCY7wnISS8XafVTdfqXnINepVA/KZw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794489230;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=tt+WFRdvrZSXnzZAVznwgbf/IavQw06AhCrvauaK6GQ=;
-	b=0Xlj0lbypCokAIR6eBz6gHXGyPdVQmf9G8SImjFGzZsi4RxwdMJhfFDLSP993nNIe0jV
-	 753Nx3djsPS/Rj4huNIhxwgLEN1nWvUP5ma4jXPRKeaA1oX/eHVLTvgPEfLxpVCXAoDO9
-	 GiPOdjBKUEF9zNBDSAGp42uf5QgqaVLjZC6LUfm2M8UCxkkEzToi6GMpGPQGkQtQ9KGvZ
-	 enPEjIoCzaaXva4AiZCBZA0XPB2XY/fBMY0QrQ/4AfnOe0POyaOaK0SMT7ONV4XnqznO0
-	 8OuY/+gzPcyXJaTIuzx/wSQgIh43cC0sBln4x/cS2cO5dny1eMirhHTL1eSfB1zNTsw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=flipper.net;
-	spf=pass smtp.mailfrom=flipper.net;
-	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=UIJzlhY6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=YU2hXqNmb7fbPgUZsnx7SG8vtJgeywnopM9Jcb/ViNQ=;
+	b=FlDN2V6Rq0qW0kMdGeLim8J5avfM48WoGBoAzpLu1QRCT66vd3qnoFkeoNf7ahZ97Ii6
+	 EuYqmE4KZhpd96PO/jyYRgkjGIHc3HViUicrOcBFYeB2XEzrSbLK71EcGqEte5sTTXPPp
+	 ABahECD76FhmAVtDwvJJf1hrPXibqBhXCFarEojj6QjynGzPZenrg3LHTmrph/k+rKcjA
+	 cnwcUZfo+lPTXbYH7Pzs1U7i+DXuG2UOMPuMmSpCbHSNWrlzVExCq/rTYXYLuJ9Dg+gKU
+	 ZBdBSSVfWXCy75DbgIW2IGPDBthnyR1ESgJ/6eD+XTxzqaoiF7ZjHAc1DNeTJucBYdg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GZgHRT+X;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F665606A334
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:13:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F665606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25C29606A8A8
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:13:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25C29606A8A8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=UIJzlhY6
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c4d2b741ed9so668993866b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:13:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794489226; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Imswsb8EcqG+jCXyg1y1RD0Qb4+ZaQM9950iOCv4TNV5J9OFPvwBNdWuUJ1Ig/cSkd
-         EWgVBjDwBmHZ/SQNbkzaeV9yzOlCdP193A5eNjLeywJw+gsEZ8iBoxAAlyRT4+LxsVqm
-         /fL/5RJ3kGys8PImB8GENkK9Ctcta33+33xQ6wK3MzH9QPLBqxqi9Wu/k7qxiMPclDvD
-         uvElt3d5LiM9fh0fC7QQhqL1k0ZtzKrqfwv45diG6dcZ9URDPH1CU1S1dCPq3ThCXMI/
-         RbrhXVEX5ZbAGwRxzpoA/xQOK2JLtcYAKqSZdzEx6Y1qq0HxaaYQhSeG23SyLUKjwMME
-         RYWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tt+WFRdvrZSXnzZAVznwgbf/IavQw06AhCrvauaK6GQ=;
-        fh=MnB/YbFG670e6X7m0od5Yb0YNTiDbZWizs1TUlaK7Nk=;
-        b=mI4CDriVRvniMZcdBrJlnEwIlA+x3WSa1naea9YGxC+P93KHyaAesQSB/wBfKL/7bc
-         8JHaITCk2Wx+LbHfEIyiWkLsm4yegEvQsXyBkOyIjzSX9VL4ISJflAsagP5raW2onzWJ
-         KiZu6CsKb1k2sXwuPvVPajLDYNHugcmSuHZJu1BSsJAp1MuuLCUCcyd7pfwKzZ41P43J
-         Q+Ca+siejMHUxNha0VZEDWheH55rv5NDm/JcBRDxqQXbl1atpb1356YuNPJeu2T/8McK
-         6KFmCB1V1AqDt+xxBMn0JCHmVqkCKANLjQQjnh2c++u2dXCxFfWWUl1Qz/qT0DG0AmzL
-         v2Cg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GZgHRT+X
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1931ff67a29so8079469c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:13:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1794489226; x=1795094026; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tt+WFRdvrZSXnzZAVznwgbf/IavQw06AhCrvauaK6GQ=;
-        b=UIJzlhY69Bayr+gzpIOO2ecPVg/Dl5b/ElSR55In6aKYxCYITsRRmqHQkg2aGzopck
-         XhZkbzsGBlmiJCKQJaArVHr90KBvTEU/MPReiE3eLnbdIQ47IeB6LEp2REoi6imJG9Uy
-         exptp/08eh/urHnv+EN3OTfET0zGOKipFDPWHJJn9wBNaKpmrGQZHcDomLzvBKmO+utO
-         TYPDbm34/J0/pW+/HNQJK4nW7o+obIIvJk0vmKX0HZ22pFcRwKG/HEHln+4Kpzo/wtHj
-         U7KgVz1pc41IG+o3pLhH7hn0tIwXhqIg5hAlbrxyLp2FCFPNpUFDTCiYPparpbP1Oqtj
-         clZw==
+        d=gmail.com; s=20260707; t=1794489229; x=1795094029; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YU2hXqNmb7fbPgUZsnx7SG8vtJgeywnopM9Jcb/ViNQ=;
+        b=GZgHRT+X+rRD6nJNeLPBXmBFnvmTUF8oOhPGSuiY9nhuowlhO+3lXFG2u8P5HVRjsG
+         HhIqZYyyXJkHFYybB3oWHoE5dEKCNDD+fwMPgrWZ/l+Ojp7aN1mILNj+58vs2XPbehzw
+         CC4yVbZu0so4a6X5bskKFY9zuXpRcZRUmuJ3xyXS11FPqV6IwNK94ybkig3W0dZlzPGp
+         EKjz4aNaJZiYVzCd3qtjhGfD1XXLZ0tL8aFiIpEE/3fWWkUvOqv/pk6zyKpkQvAOZHoR
+         nloj4v48d+i8yOIqmXrTzNb26lTTPSfZeBLxsvc4ileeb7zAmaH2lv+dB4wCcQu4qoST
+         eX8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794489226; x=1795094026;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tt+WFRdvrZSXnzZAVznwgbf/IavQw06AhCrvauaK6GQ=;
-        b=Xr0V1LK1K02AdE52B4E8GMO74JwtjaLzNyArXcpcQVTAk09HThEG9E2r31JHUmuwDC
-         aAtvxBlFlTSOhcx1woFw8ONE0khTF2wBsdVfM32aGUDqB8JY5AGwtkNoICDHOMOqxuPN
-         faGvdYlX3NYsTO7kZ+Zl6qhqVdjPEBXrTtU3J0k13vxKX1fwmsiJGvh2Jo6GpUbKSJ2O
-         lpiMoAKv10ozS02B+7TqMeYhM5Rn5SfyQczwAQ0VvlneWW6Vw9yrYdKtqKjm6lJLA54F
-         H2p3M5odeTwBaqkVzDG098+A9qnF+BAISnx4hsOE8aw3GeyH38J8FSKiwM7f33oh7lIa
-         Oldw==
-X-Forwarded-Encrypted: i=1; AL+hErHzZkvNwL81iFCcBOxdCrhYIw6C6iTtPQC9NATh+Xhrn1FJaeyb3GOpurKMQFBQai06OfQaoa6hXzy3QZE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+BsqUbTo598JPYyzMMhewKlvaC7v662YBYa7EpgKUfPle/prnn
-	bj6pdpb2r1f5BM4Ccmjc1eJOqqINGoB6sWpEZNyrwCXeTyLHUAly5ZlzPJK2CqDNhqnyTMnzDjB
-	7Qsbhi8Vt9qEgJz3KuejZFT3/IEIMZ/fuRabxkwLarg==
-X-Gm-Gg: AYBFou1OX5jXO1+8EjX1SM/o4jJvgbYtSK1e5TIbw91T9ESwhmH9dbAPC+yPC01kgir
-	UKCIbZKPdBxTTS48JrnfTOXGUB2rXxFVVfPVn0lkUZhru0H8vN7wv/GYepb5QZfU9qAPGIvjVTy
-	m/guk80Rtknx0i2CALQpquBk+IXno93CTdJchsYwGCzjsrsccDWJO6Y9y9UTufIArqJKX0uWEY6
-	KOaYBJ5YyRJ/Okv6kt1b/oaDtIvf+jrOVZ6RAsRjiRe8IlBDuOf1CK/rLqsLYMbAhevsIij6We6
-	cibW4z3gGg+VMih1Ql+uDLOExDOC2Toy1pR7u45Gd9UL3R1ecPdq54lfNCefJVjLi+w5nenGHhG
-	oZdB4BnyyFkt5iRxn4iKz/Rm2nsJY0m3vpSxSJBo2+uG9TRBHsQxan2I=
-X-Received: by 2002:a17:907:2d9e:b0:c41:6de7:7dee with SMTP id
- a640c23a62f3a-c506685458fmr461873166b.7.1794489225737; Thu, 12 Nov 2026
- 05:13:45 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794489229; x=1795094029;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YU2hXqNmb7fbPgUZsnx7SG8vtJgeywnopM9Jcb/ViNQ=;
+        b=XZHfyygVG6nNy5eRE8KavzfTaA5/7dtrxNOl3YezuciVUyNADmmfC7gZi4knisDdWN
+         ej0sLKNsJuHStDQ5iZjSJlfy3sd7aGhZavtGVtFyVYRPumS10Bje9URcvLcl8XLoDUkk
+         kH1QRCFCmTE6trhghLcFbaCwEpSJGQ8lgemgTWkMLGFce+QhkWnZRNa0dyU+UWOa/9lU
+         bSIt62iyT9DARfLwqkmQbDR2DGW//KBLR7GkKiAYGLERi5ywDpGlq46oICYIh5pNjI7V
+         Yh1fAoMaJmlh52SvkgFfSdJVzCCGePEWrQZHDkl6WRVWEFGtEkPfTd7E8x3lgJoQjil/
+         M+mA==
+X-Forwarded-Encrypted: i=1; AL+hErFGYSk5nBElSf5M3+fYpH6JKzIES8kizw2VBCBUT2kCWLBpswoQAhn4kOmfxfOymolptKxR0RHEXZsJyKM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/NH+DZsjUku17kc0cbJHXEDRLKsnMf3lbPGKRzRZXEVIM7ewtk
+	YH5xQHiLyxSUVbAYsFESR45Tv3QloSwFmzeswbsCLXhlOlv4Myz6RERu
+X-Gm-Gg: AYBFou1nh6pP+GaFWyhpHAGgxu7PqPoEGYMoVz/di6kgRPpig0unJ3rAd+ZSX4deRyW
+	wqtOI+ArGQRtqKP0bAMV6eMdXsZAoYcE80xYHxwOKKbCx+Q2/tEwQ0BmuDFHxPEBhssZzOorSHk
+	9pzMMRaWxwbC6SULUh0dK8wKo+7Azgks6VuapGs60wItMdCH1fl9Ow3D8KVEHWMmTjA7a0FhDkX
+	t9xQNAhANfaN8+mcXAA9qkNL5sUgBBkvx29c/vMcWDt3QorN3kfdMdLsgc5Pnkg6Y50aIwNOyn0
+	/lwT4BXABVAwTibnH9/wTYCABMgnsyhx6bYeoAOhFT7rq0a+1XqtnES9XbuyYjhUm6V1KGSdkzv
+	8HfCtyDvQT2NYSatI68yjGrgc4HbSRNwTk7CqNVo1VRDLSGdVMkHig7jizsSiSkHawlw3QmS0Fb
+	EcweD0CqaJSzvDYJiI8xXoznPuWX9MzoJcBV0bRWh4NWiOjRx3roiTQjYGInsnq3veDi0iyKb7H
+	8YZEVSP9wzMyi1BL+qAETdCiIB6GbC2OOvhmrPo66xxSCb0MVrw7YXVHmIGClP9raMegcgcWozd
+	n8d68moelIz0sE57h+VUpg==
+X-Received: by 2002:a05:7022:ea56:10b0:1b3:a9c6:b293 with SMTP id a92af1059eb24-1b3c032e676mr5378970c88.25.1794489229103;
+        Thu, 12 Nov 2026 05:13:49 -0800 (PST)
+Received: from xploitoverload ([2a09:bac1:36a0:120::1c5:160])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5890e04sm25449363c88.2.2026.11.12.05.13.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 05:13:48 -0800 (PST)
+From: Kalpesh Solanki <skalpesh942@gmail.com>
+To: luka.gejak@linux.dev,
+	pkshih@realtek.com
+Cc: kvalo@kernel.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kalpesh Solanki <skalpesh942@gmail.com>
+Subject: Re: [PATCH v4 3/3] wifi: rtw88: ps: trigger firmware recovery only after consecutive LPS leave failures on PCI
+Date: Thu, 12 Nov 2026 18:43:29 +0530
+Message-ID: <20261112131329.236152-1-skalpesh942@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,56 +97,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111-ufs-rpmb-bus-v1-1-b07100e53f6c@flipper.net> <b2338a8e84366980f648b0e321e9f8edaaf633a9.camel@iokpp.de>
-In-Reply-To: <b2338a8e84366980f648b0e321e9f8edaaf633a9.camel@iokpp.de>
-From: Alexey Charkov <alchark@flipper.net>
-Date: Thu, 12 Nov 2026 17:13:34 +0400
-X-Gm-Features: AclHuK83OfRmcNSAr3yNNJR2smWwrfyR_yt7neFWx9UxX0YmCS3qGDuhZxsxCk0
-Message-ID: <CAKTNdwHcCA6taSrwmJ79KYSBREkOZgWrhcnCPG0M6=5XOw7pgQ@mail.gmail.com>
-Subject: Re: [PATCH] scsi: ufs: core: Register the RPMB bus before adding
- devices to it
-To: Bean Huo <beanhuo@iokpp.de>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
-	Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	"Martin K. Petersen" <mkp@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Avri Altman <avri.altman@sandisk.com>, 
-	Can Guo <can.guo@oss.qualcomm.com>, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Bean,
+Hi Luka, Ping-Ke,
 
-On Wed, Nov 11, 2026 at 10:43=E2=80=AFPM Bean Huo <beanhuo@iokpp.de> wrote:
->
->
-> Hi Alexey,
->
-> Thanks. The code is correct, but this exact failure is already fixed in
-> Stanley's series, which has been on the list since September:
-> https://lore.kernel.org/all/20260914144910.931518-1-stanleyjhu@google.com
->
-> The order there matters. Once ufs_rpmb devices register again, which is w=
-hat
-> your patch does, two bugs come back: a use-after-free on host unbind, and
-> concurrent RPMB requests that get each other's responses. Stanley measure=
-d both
-> with KASAN. Patches 1/3 and 2/3 fix them, and 3/3 turns registration back=
- on
-> last. Taking this patch first would open that window again in mainline an=
-d in
-> stable.
->
-> So I would prefer to drop this one in favour of the series. If you have a=
- board
-> where RPMB fails today, a Tested-by on v5 would help, please have a try
-> Stanley's patches. thanks
+Thank you both for your patience while I was away, and thank you Luka for
+advocating to address the review feedback before pushing v5.
 
-Thanks a lot for pointing this out, I hadn't seen Stanley's series
-before, and it indeed covers my case and more. I've sent my tested-by
-on Stanley's v6 thread. Let's drop this patch in favor of Stanley's
-series.
+Regarding Luka's two comments on v4:
 
-Best regards,
-Alexey
+1. Redundant rtw_hci_type check in rtw_fw_recovery():
+   You are completely right. Since rtw_fw_leave_lps_check() already guards the
+   call with rtw_hci_type(rtwdev) == RTW_HCI_TYPE_PCIE, and the other callers in
+   pci.c are PCI-only, having an HCI check in rtw_fw_recovery() in main.c is
+   redundant. I have dropped it in v5.
+
+2. ps_hang_cnt on non-FW_FEATURE_LPS_C2H chipsets:
+   Excellent catch! On chipsets without FW_FEATURE_LPS_C2H (such as RTL8822B
+   and RTL8723D), the check falls back to polling REG_TCR for
+   BIT_PWRMGT_HWDATA_EN. On timeout, the driver forcefully clears this bit via
+   rtw_write32_clr(rtwdev, REG_TCR, BIT_PWRMGT_HWDATA_EN) so packets can continue
+   to be transmitted. If the firmware is frozen, it will never re-assert this
+   bit. On the next check, the register read sees the bit cleared, falsely reports
+   success, and resets ps_hang_cnt back to 0. Thus, a stuck firmware on these
+   chips could never reach RTW_PS_HANG_MAX_CNT.
+
+   In v5, I have updated patch 3/3 so that ps_hang_cnt is only incremented and
+   evaluated when FW_FEATURE_LPS_C2H is supported:
+   
+       if (rtw_fw_feature_check(fw, FW_FEATURE_LPS_C2H) &&
+           rtw_hci_type(rtwdev) == RTW_HCI_TYPE_PCIE) {
+               rtwdev->ps_hang_cnt++;
+               if (rtwdev->ps_hang_cnt >= RTW_PS_HANG_MAX_CNT)
+                       rtw_fw_recovery(rtwdev);
+       }
+
+   For C2H-capable devices (such as RTL8822C and RTL8821C), completion signaling
+   reliably accumulates consecutive timeouts when the firmware hangs, while
+   legacy chipsets without C2H retain the upstream behavior (clear TCR and warn)
+   without getting trapped in a broken counter reset loop.
+
+Regarding lore / patchwork:
+It appears v4 was either dropped by list filters or delayed during list delivery.
+I have sent out the full v5 series [PATCH v5 0/3] incorporating all the above
+changes to the mailing list.
+
+Thanks,
+Kalpesh
