@@ -1,93 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794489726;
-	b=CVzp2gJ/CmC9F1G77AnB7n4qHigcmcc16qGNdIBFCTpyXKGy9ynWMezvn8GkpJvnsjrq
-	 qxW74sYhKMGr3E7GaXTrvXk1tBj4y0Y4CSIgXh714i3ShpcexFS5356hp6YfvVn4Mg+FX
-	 PR/ESnZcdg99B0ArvAMaAsD7vg7z0LkHyrF8ElKK4+uBftckVo2NDmzsDtIL7qZKATOJe
-	 RKhfVZR2UBHZB4LD2MC6vp+ZxRClz4+svBsjiubpHJL0kZ+JHTXMJ2mCb/hTjGnKI/3Ec
-	 KF2FrEfplnEvkyj0wWNP+v56NGTrMWy/jizNvQ5EHebI1WIWGTXewhO2npW0qZ/NkXw==
+	t=1794489801;
+	b=JW2OqJx0bucDsOFFpuhjJK1MOIC8XQb6AhZktZgSi7LdM9fGLsHphlezfSvgmfdrGBL7
+	 rcCSiNN911Ucwkq2Df4sYiWzqiWywAtMs95vHViE+qcsv8R/YU2qRIsixIAhSSGyKbXHc
+	 RlNsKUkLtKlfau6qgVIJ58sh9rG5EU38nDtBKIYqHpwc09ZMWy7ddYUiw5sGNb8LHAU5f
+	 IzdpZuBk2CupZWiylvC7ShAOF3DbTJKaXlgmz9Nrr7/aHjrojNlwz91FMx7j7ppE9lOoa
+	 8fh/NvzoUNLZg9LIKrcBek5J90ny97RkFGJamJJ/ovE++ZEv46hO/Lg8BHS4XcxOVyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794489726;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794489801;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ptcaQ/mmnVBIFNqVPWzP07HOrBZ4MgjBk8UWEyOzk8M=;
-	b=BGxDfnRStvhZR4HzHIW3koBLgar4SZ0/GxpFb3etbNYw5pKaFkmFoakNhHABNqz3V8jP
-	 mU5m8r5YMmi/jGlsB00R+f3+QWVBliI4ELB2Ssrx9/M9/HWRjAZFGle6jATWC3Ugf7Lhk
-	 yzxtEyFRxxI5v4cffg789Dv9rs6YKK1Zp8pBf+AkTj2izYZuemmp/f80wLMWkwgSqZiU4
-	 vdl4tlR+tmJ7pVZ4NkbWVHr6MTScgiNQzB3YnnE/z9pRSFSM+n4PS+CvDBEwF8ZWbpzor
-	 8V9KesXCDQaoWzGx7A017+RJYYzhgCSChadv46/Qp3F3gC+i+tSaOOZjk1/KlSqEVhQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=XyKog9AQppShEJliLLK1T6Sbi2JcYrMEsnM8YpdfsIk=;
+	b=zkwufpDkA3JOHoqZQNlYULF/ndqIRuybop2bE+RARPZGVWYK4tuMrWSHfKYCMA9dSuV4
+	 4NddDREja2e+RVJVxuLWrCw0O61wOJmPHwrfkce1Jel4BmIQc0RLbaUecOEiF3kYa3Msv
+	 5svanfIe6mkKlv/owWzebnhp1RJal8c1MBqUaSg+3pgw10/cl9G5nUSpkc+6SKiPsOeIw
+	 HSG+DGWn5qCpE5jYjruuXiu6EDh6O52aiDcQyuwNxIW02SBtJb1k1lf82tyXu8rlB6THR
+	 vF+9omjViLKltcDekXEF9mNClPEZ2QLQtBKcvaUqsSyZBGJuNEc1+sB/iuAtJqFu5bQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Fl8rHSU4;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZOgb4TOp;
+	arc=none smtp.remote-ip=209.85.218.43
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906D3606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:22:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 906D3606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 348FB606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:23:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 348FB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Fl8rHSU4
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-49a92144733so647293f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:22:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZOgb4TOp
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c169ae1cb26so152208666b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:23:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794489725; x=1795094525; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ptcaQ/mmnVBIFNqVPWzP07HOrBZ4MgjBk8UWEyOzk8M=;
-        b=Fl8rHSU4VjWIvjTqKm3mv07NYIN053QH09rrgXb21gDXeSAV19IX2FEGejdMnlakW6
-         jAZBU2j66p0SGVL/kSbpF3B4hQQEdEsKr8ba9fqR2phkGt4cROZNQVjBDeYiEZd1rt7c
-         wd24DJLpwQZCMOYXTemmZ5rN1UDZlbqgucngtWShhcOyT+piSlYMivamx7I+GHrSCKDp
-         8MHlinV2bA61Zk8sz1P+75U8bsYh7aHkwv7BUKykTS7L6NPj/3IaMGEG2vpSfqmM6n1a
-         XI7MT04UzMAQcNG5W1zXlmvl3ln5ixGwEjPkhgm0Ka7O3n2kNbHBTPvVqUUsTcg/m6h+
-         JYKg==
+        d=gmail.com; s=20260707; t=1794489800; x=1795094600; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XyKog9AQppShEJliLLK1T6Sbi2JcYrMEsnM8YpdfsIk=;
+        b=ZOgb4TOpMJayI3n5uoax2RdY4eO4hWPJnYLz7ekSI9bxc4wJKYBi7L5/3iV/nz4g2D
+         qty0zPr/xwqEDBflfzPm0QIYP7hQihvCFT8WzBRX7H92eDpoKleWiOE2yTookssSpYp1
+         4iOkk6LT/bF61Ni87OJg2yZo+kc1rWnJvgHAWtiqYjs4bI8oDdq4Q7kwPwStn5Xa+sNL
+         /XYbjDrAGG5z+BHCrPv0byVDqS6XDxyb1EhIAfEMsEAQALBG6RKwzdVHn/i4SHeThqiD
+         +G3CkbtZuoTAYP/yZWk1ykRRH3K6lhrmi8s0nMDKBDAmeRrHTUoxyLLBuIKHJhNsAeWz
+         Wi6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794489725; x=1795094525;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ptcaQ/mmnVBIFNqVPWzP07HOrBZ4MgjBk8UWEyOzk8M=;
-        b=ymADGptwSbna9f2ubCgl3yagOHRsqzGEH1Ij5w356Tc+PwqiubbO3ONx/xqVCNfFQi
-         xqmZzKGCXW/1p3jB/w3lk1qX3z5B7QVEgDiD4YrehrnoW6V1rEc6JVfbfmtp5hLIfGyo
-         Px8p8QNcoWGUogXE9j25W6qMQglLeKdax2h842Yzit+g+H0+zKmBgQBcc7gDoVjoAuPY
-         3KMMChquTgsrM1HApRarwAh4VMtjk9L5BV560U3BycYGp61XTL1mG3WpTxBFwt6a3ef6
-         w98P4x8UPJQ/7WuvqUN7ED4h4xTj+CS2e9+473muEe6/5w3O+EPV2x8Eui4AaOJiit6M
-         0U9A==
-X-Forwarded-Encrypted: i=1; AL+hErGBBCrVyec6XESUus52dZYdcnV+IweWmEzuocg5tGblZp2ndSe7WnVidL+1VHY9zcmYquDNXR9OuffsMNw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/TJ3SWpU8Hs51xGzJ1oH6Fk3JWgWBdDqHpPf5f+GrO+6KKbIKb
-	tE7Zka37QgRX8vo5en97fndp60i7YKCEReHdJMrA8/dfI0Wd1El+FSOzpgceUdqvG5o=
-X-Gm-Gg: AYBFou2KV/Gwa6fmcVRed9zr77V7GWxNuHHfUj+T46jiYutEsFQlWRA5U8xRIuOhInZ
-	n64cc5Ua5zDL4JAFAzRztaJ6vj0E38O0efsFJWyx1smYI2JaM86ucBd95x4TxLaYyMCU2PRUkdf
-	yuT+pOknR9NW1gLpPIN1zUWAB6sbPOR7OVeg1J0zSzDZtBgQ6N3HvrtESIcrUDOGZZR9bOzLZb9
-	OWez0tDKG+bxz16x2/f8yB2JZj7HG2cI1lMa1KfzAg6QYKOHQjECEYbyJdeaptBmR/z8g6ICqso
-	j1PFIi7JFkI0YxNMLjRerFQm+y/V1fEzQp8Xq4zzrmyLHzH30V2W/1qVuz2kEjqqLgMwm3BL4Tn
-	G3hbF0b7DpxudCCfJwuCG9Qj7caChgRq+s/nSSY/WIbPsblgKh/bB+RUBbLpmWzzUo/ahf4G7Gn
-	Vpn82nnH2SgbRzAWibLfvhAfPayYUnk5b/8cB4LBxs9ZfOSddSDFLQlei4tc21dFfiKfa3t0/ao
-	8/FRYSxGD7TFdXlSOEUX+tPcO4BUs4zsEch2ZA0R/i/9dYZl6rS95WZM7X30eIae2tB8uwj1lj8
-	5RN0V2+Bnj6qfyQc8Ec3kRN1fxPc8LU=
-X-Received: by 2002:a05:600c:871b:b0:4ab:e27d:e241 with SMTP id 5b1f17b1804b1-4ba0938a51cmr105848555e9.15.1794489724983;
-        Thu, 12 Nov 2026 05:22:04 -0800 (PST)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba09536ebfsm131726935e9.5.2026.11.12.05.22.03
+        d=1e100.net; s=20260707; t=1794489800; x=1795094600;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XyKog9AQppShEJliLLK1T6Sbi2JcYrMEsnM8YpdfsIk=;
+        b=gUiiY0+Pmjt7XZzE+Nib+/S+AF8kxMydgBJBTZ4JMQVdmiPgJCMpzLQfTDUQTZDeml
+         jzXlnVxxebgu+KtAH70KsJMT11mvzCx8R3k7XITNiTiMtH+aD76u4xSPcUCDVU1+SG+p
+         1p6iu2jTzkp4VSKGKQPFsJnIZ/sUTrvjf2/cM+fIeW7um6DCakXjlPcNI2U1m3QietcM
+         +jRJjG/XIm+ohhC6Yc8o2rT4tqADLglVZIrAVwSP0xZkJvX11XI+S7AbBKZOPmqwEdIT
+         KdIsQ8woVGdNo26OE9H9O4I+X0t2Y9TQrJuk82B0367p9ylWsQcqMtmUtqnsx3G61gzb
+         St8Q==
+X-Forwarded-Encrypted: i=1; AL+hErFN9l00L531es+QGOroR2n0clVpIKv4eoqPmLnLWOB0XUFANS1iMZTCFLZ2FqrkQfMx74nl17n2Zuktgq8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/vSovMutZHqGvH3mb5bwBG+XAIpZaeoczSmA8LskNOkUv/mt7P
+	R3H5dOrHdK1e+7tBsAPJ/tTtMIFzlTS0dySfOI1Qis9/F0YaRo5o1go0
+X-Gm-Gg: AYBFou29IXtklWf3gysSrLMO/J3dvI0Xhisj851o/lYS9Rgk5qg8Br85q93oHsJYpK5
+	Ub4j8rKvduDjJ6sN/tVA+prLFEJoylsUzONFkd/L7FYp95qpMTbxji1cvz/614SNntorZ0/SKKM
+	e8shqFoTZVZcalxZchLvML16FovaCuNsXoAly7UwTlSeRwE7RMj++CYzIKsu3jpB7ba8kiUY72S
+	/0ZQaFLPK1pBQAEmvr//OlitA4W9RwwJ/xwbKObXpiNt4bPEkZR6GS5sHYnPOXlUo4YG46omNXk
+	m6OMR1hdhb4axDH+jhguYXZtc8eV8L2cvmUMnmp5f/KdQdyrMid1tEvttDXdmu9dgNfNPBkHBSE
+	H/Ym5FBtAc4jCy6NBlWAfpw0A3OxDmKs6Q2Wvursn3QddIGiEar/FaI9yikMiHGdG0oW99q9/tN
+	i4I+sxVuxKKRZ2XodV2jp9SSuKAim3dTrThsh5woFoXqA784+ia0/v6CYxzqO/rIGK1kaEOWMJy
+	YMcNsRPrJlQZ5zpHlLc4cuqf4wCnLm0CwWGkWywtunjKRdclaxETNWppH15GYhRtaNQKfx5SAmM
+	Tv04Vob74zZkC2Bkf/0zn2iYDn3bMmrkwAcGlSZynbxeDKX5B2EyZzSeCMa0Cd8YD9FHN+aQV2n
+	I
+X-Received: by 2002:a17:906:6205:b0:c40:9b35:ad91 with SMTP id a640c23a62f3a-c507b60db8dmr249279366b.13.1794489799362;
+        Thu, 12 Nov 2026 05:23:19 -0800 (PST)
+Received: from localhost.localdomain ([2a13:e746:396c:c600::31a])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a5704c3sm341545966b.26.2026.11.12.05.23.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 05:22:04 -0800 (PST)
-Date: Thu, 12 Nov 2026 14:22:02 +0100
-From: Petr Mladek <pmladek@suse.com>
-To: Yafang Shao <laoar.shao@gmail.com>, jpoimboe@kernel.org,
-	joe.lawrence@redhat.com
-Cc: mbenes@suse.cz, song@kernel.org, live-patching@vger.kernel.org,
+        Thu, 12 Nov 2026 05:23:18 -0800 (PST)
+From: "Kordian Chmielewski (mlody1212)" <kudzo51@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
+	bcm-kernel-feedback-list@broadcom.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v13 0/9] livepatch: Add support for scoped atomic replace
-Message-ID: <avW9ehNSLH2zcXMM@pathway.suse.cz>
-References: <20261026133651.40061-1-laoar.shao@gmail.com>
+Subject: Re: [PATCH net 0/7] net: bcm4908_enet: TX ring and DMA fixes
+Date: Thu, 12 Nov 2026 14:23:08 +0100
+Message-ID: <20261112132308.340291-1-kudzo51@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109235700.2586821-1-kudzo51@gmail.com>
+References: <20261109235700.2586821-1-kudzo51@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,82 +105,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026133651.40061-1-laoar.shao@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon 2026-10-26 21:36:42, Yafang Shao wrote:
-> Atomic replacement is currently all-or-nothing: a livepatch with
-> "replace" set either atomically replaces all previously installed
-> livepatches, or - with "replace" disabled - it replaces none. There
-> is no way to atomically replace only a selected set of livepatches
-> while keeping the rest running untouched.
-> 
-> We previously proposed a BPF+livepatch method to enable rapid
-> experimentation with new kernel features without interrupting production
-> workloads:
-> 
->   https://lore.kernel.org/live-patching/20260402092607.96430-1-laoar.shao@gmail.com/
-> 
-> In the resulting discussion, Song and Petr suggested that it should be
-> possible to selectively replace or skip individual livepatches.
-> 
-> This patchset introduces a more flexible model using two new fields in
-> struct klp_patch:
-> 
-> - provides: an unsigned int id identifying the replacement scope of
->   the livepatch. Livepatches that share the same provides id replace
->   each other, so at most one livepatch of each provides id can be
->   enabled at a time. By default (provides=0), every livepatch that
->   does not declare an explicit provides id belongs to the same scope:
->   loading a new provides=0 livepatch atomically replaces the
->   previously enabled one.
-> 
-> - obsoletes: an optional array of unsigned int ids specifying
->   additional provides ids to be replaced. This allows a new patch
->   to explicitly obsolete patches from different scopes.
-> 
-> A new livepatch atomically replaces any existing livepatch that
-> satisfies either of the following conditions:
-> 
->   1. it has the same provides id as the new patch,
->   2. its provides id is listed in the new patch's obsoletes list.
-> 
-> A new livepatch that does not replace an existing one can coexist
-> with it. In this case, the two livepatches must not modify the same
-> function, or use the state with the same id. Any attempt to load an
-> incompatible livepatch will be rejected by the kernel.
-> 
-> Previously, setting 'replace' to 0 was the only way to keep
-> certain livepatches persistent on the system, forcing developers to
-> disable atomic replacement entirely. With the introduction of provides
-> and obsoletes, developers now have a selective option to keep specific
-> livepatches persistent while maintaining atomic replacement capabilities
-> elsewhere.
-> 
-> IMPORTANT:
-> - this design deprecates the traditional non-atomic-replace model.
-> - the behavior of replacing all non-atomic-replace livepatches with a
->   single atomic-replace livepatch is also deprecated.
-> 
-> The new "provides" and "obsoletes" attributes are exposed through
-> sysfs and the kselftests cover the replacement and coexistence
-> semantics described above.
-> 
-> At present, KLP state, shadow variables, and callbacks are not
-> integrated with the new provides/obsoletes mechanism in this patchset.
-> Support for these features is deferred until Petr's klp-state-transfer
-> infrastructure is completed and merged:
-> 
->   https://github.com/pmladek/linux/tree/klp-state-transfer-v1-iter12
-> 
-> It is based on livepatching tree's for-next branch.
+A correction to the cover letter and to two changelogs: I mixed up what
+I had seen fail on the hardware with what I had found reading the code.
 
-I double checked the patchset and it looks ready for linux-next.
+Only patches 1 and 7 come from failures on the hardware. Patch 1 fixes
+the TX stall under load (seen twice, none in 8 runs with the fix).
+Patches 2 to 6 come from reading the code and have no reproducer.
 
-Just to be sure, Joe, Josh, anyone else, would you still like
-to review this patchset, please? I am going to commit it early
-next week unless anyone complains ;-)
+Patch 7: the skb_over_panic was seen only after I raised the RX
+channel's MAX_BURST to 32 by hand on a running channel. I tried that
+again today on my 6.18 tree with the patch: within seconds one frame
+was longer than the buffer, and it was dropped and counted in
+rx_length_errors instead of a panic, but the DMA then stalled and the
+board needed a reboot. With the driver's own value, 8, there were none
+in about 18 million frames. So patch 7 is hardening and belongs in
+net-next rather than net.
 
-Best Regards,
-Petr
+Two changelogs say too much. In patch 3, the TX skbs left on stop are
+leaked, not freed: the stale descriptors could send buffers nobody
+freed. In patch 6, I have no test of what the DMA does at a descriptor
+being refilled. With the patch, a 16-entry RX ring under more traffic
+than the CPU can take gave no RX or checksum errors in about 14 million
+frames, but I have not run that without the patch. Also, the panic in
+patch 7 passed 3388 to skb_put(), so the descriptor said 3392 with the
+FCS.
+
+In my earlier plan mail I wrote that RX buffers were not freed on stop
+and that RX frames longer than the buffer were passed up. Both were
+wrong: the RX buffers are freed, only unmapped with a size of 0, and
+such frames end in skb_over_panic, seen only with the raised burst.
+
+I will send a v2 with these fixed.
+
+Kordian
