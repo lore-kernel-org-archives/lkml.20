@@ -1,97 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794507088;
-	b=C632AIS6GYJsHCHlE/ydoL9046A+SoHBN4O18rKJ/vJ7JhnkxgcYVp4W1k4mv3tuIfxC
-	 DJGhOzEWUeQKJVZaoFs9Ot/L23cIfdJMfT+lCgxKSJzLclBKh2HPiwhSAXyAzh0Nm2mv0
-	 GAGVf5h2QGts1OGGU1+BBNXNx9zARvQKUjwMnPAn7rNS9kxbESfn39bht4Zqd9T9sUNr2
-	 gFtP1v3Y4myzXWjOXLrIZP+dJVPC99gvpCI/iJeEHtlhvVK+h91RU1p87In3mUhdVAe+i
-	 ONr6UVkxz/3XUAZMGqkHLAxH9mRmTNk7F0Tk5v4aR2Ho/QE2mXqWNo3AxqsyeQ1TlVQ==
+	t=1794507100;
+	b=QK0yzyMQUumKJNpP/EGkCMUVmvF3spUPUC3qt75I6hf/4i4bZeAU6RHGPSayMJMrtOJn
+	 9aKFyBct6nMABmLPQ6ZDBIZf5grvPN5QSe3sft08z5dCMZE1jyVBJvjGpS7ARHVa1Ag42
+	 9FRfYjKj1mk4xm6HfJLtaj81LCQpNuz2muJMUIfoIeiUW9ptYnDROMANE3MkB8YduQK2/
+	 ED8iDOHpgqxl7KsnF3nBWlFPUh4fYr4UfZ0tF5jp+T+OeOxNfPVETadnf7M9DmAuwFqfV
+	 TrCsrRt84CkUbo3zTGnYRNv0tdQPwUzAb1p2AxLWJP0sHRu/1kNcULBcYji7ndh6G9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794507088;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794507100;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=2gkhFUEZhZL3R13P9KqCeOSqB0UlsNfQup+MwcWDhUw=;
-	b=BghvsGtt0Wgr+OPWaFRwioAr1AlL+Oy4QufCq38Otr1QQ10W0ndF64pGAyBbsIBQJ+mv
-	 FcexqRo5hljMQbYjzRlZmsHHYokMW+G3/0l2nYJ8XqMhamGLmQqE8WjJmJF+9vFj+iZUX
-	 02pZ+m1VK8WMxWRoaE9Q0P1lKteRDqLg2TjWzg6pLDXrM6R6GzYMhSiF1r5CWbGzvFqn9
-	 yxBSqMNCUmuY9WXwk1p2XtmERrZ6STQstbowYiZfdpihHkwsTy6+NWx4xEUD4wlJEBrCP
-	 3sgek1guxYnvjoGr7jPOWkqofJUptbkTLAgeFgYs1BrPtu+pgMPv0pamuXqCS6/Sd/g==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=vbhDJD4+BQC4thd2CH24LWDde1jZ/0BhOjMBI9uZ0t8=;
+	b=EUcaTtVFN2QGsEk8LPc0jAjd+utKSV7pnbro507AboIWSIifIfLh1gpdXScSPZby2Ngc
+	 bWPx10GxMMk316eFuIx+9v+Kg7v6ee1Od1BsmE1pb8EBCcX1enyHuMTN7Vs9oktb/7q/P
+	 0XzMdKfdiosIj18q0x+B/sKJFzdu0mIOiUAJ54Yx5PADpcIigPZSuGJBzc3sCO6WdMFY+
+	 htuwLtmSnKwUC0ii1RwM1OEaxoMij5QjT7OnQWw0agxmegaHRJBO7826prtbQN4ZJtW/o
+	 c7aoNoNXB8r2W6hdul7299e+eQhY49qAHPlMWnYJdSOe8adF5kROyuKhzjLi2739USQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VlPF3Srp;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=M+YUKf86;
+	arc=none smtp.remote-ip=209.85.222.176
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04175606A33B
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:11:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04175606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D995606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:11:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D995606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VlPF3Srp
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36f6295304dso146690eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:11:27 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=M+YUKf86
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-93e635220b4so1602885a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:11:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794507087; x=1795111887; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2gkhFUEZhZL3R13P9KqCeOSqB0UlsNfQup+MwcWDhUw=;
-        b=VlPF3SrpMuhL4dauhSEeZQot8mXX4O4FbXY6Pp73CAsEyX7JANKhHwFqxavpWq1D8j
-         dXH7T43sZgKgenXAlJeuVNekRPpHy8b3/jgXE/EB0LqJuIVEU7vd4ANcaqtPcVzRZk8M
-         j1KtSjM06xCfyrcslXg3skcKAPeEpKBPW0fHV2iR3Lthq1plavgzaIzCxFkrJ5zirBKv
-         N+M6U6AaiZSUL2NRk3ZwFV0yVbAxcHUNEcfh53cYIi4Npn/2PfwIquSZGkvxppYidahW
-         k2cnn6eB8SXkyoO8HCM4f0Bh6dPckiBwhAezM1yOM5EPnZ1xi30M03SJqrYuNGtr7Miu
-         3wlg==
+        d=gourry.net; s=google; t=1794507099; x=1795111899; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vbhDJD4+BQC4thd2CH24LWDde1jZ/0BhOjMBI9uZ0t8=;
+        b=M+YUKf86JBPSifV9KHZNo/IxkhlariouSze/wFvYmxecLP4M+6xAZUhrMz8gE2MYHO
+         lYJ49kyJas62Vgxh4zG1raIwc9fO2zqjj7bJz+BNADsw6yR4eLA38ko27KzlYs3Vpy0y
+         UeDHfXAx7Tugez+dsbekHeJIex+zCllOcxf0v070kEeCohrpccAuYuwq4oubwcUfhVGb
+         m4ExPq/MTUzCs9adjOmKOJpRMD+Z4DgmQXD6QdMV8OyBgqBXTYzOV7QiruZECqK/4xt7
+         BoXXHg6uHdXiLuxrua+v0stzvXViN1wB/1q/3QErXiw5TKlV38h9pHDcTC+3HnbBwoxo
+         Z7UQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794507087; x=1795111887;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2gkhFUEZhZL3R13P9KqCeOSqB0UlsNfQup+MwcWDhUw=;
-        b=0qo94DTemFkxdkVFSCQDSUeDK3k7sBcMgZLn9z4k8gci9paTll/9X4qEewMqpi4CDv
-         NFbiXkL6ie4CCz0rv05r3Eu+P7icB9P7D0MYumN4vOS6wj+M3RcXlLhejaAYzhs5m9gu
-         7tf0YXN1+DoJhAA/4oct3Zgwp2xilc3BR0E+yS7dJ57Ny01KvGtwdDrZ8LmZdQfYE4jE
-         Eycb4lUqWwmbjo7nyz+nn/XDRz/a5e8SnMuo4pbZTEajroQzUFNUkMlVimhka4g9t7jf
-         VQ34nWCj0BzfHnrysOISSQU9I01Yob4BHXaJfLCcHHq8bBHMQxtPYr9RsYrtf2CC5sDn
-         +gjg==
-X-Forwarded-Encrypted: i=1; AL+hErE1069fq8NCMLaCiRZ4+9S3hncaYnXzja2LHnkj3pi9W3yLETnPE1IoonwEJObRdynvnYukxVosPmbmX4I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/xI6nrsjFBcZI49lhttMW0p80Zg5KnbmE+AzmJKKXEQrTEhJOK
-	v7QQE4I2U5gxucEhH2ySr4un1q0jAaqzYy6Hf6Mb9iX6ZNc7r5xxGxj6
-X-Gm-Gg: AYBFou3NVA22T+sR8YNtWdfONX7b+4htCdiXZyM9xMybjtvyeqQYQznbb7/ZP2b3TEL
-	Om+eKSIWgO6t02XSGxHk4VranA9exRBkvExQW8n77roR4J00BQeesUCTc/FQ9+vkHFbd+Q6NnzQ
-	3f9T4DuxVzz0ayZnrgNXa/pslYTQ58uISSa8Q6txI56p6qwqJyvjzjEETRFcXXkjXxLANhULDV2
-	075iiKZ/GZwN1+bqVKgjm2WIymP2FBm9QmwZFJhIj1spOYrJ//T4ZHm3vwo/KuijWykpfa4VJZM
-	t1uEv6bDeIe/eQ1WY1mXbkK4NZSd5tUNShasqCXg0PB46cZtxzsUWknUy9sKfYcpPuysle/8cYx
-	iD2QPOo51JQlzXQ8/WnrI0BGI65/44I9vzuV7HEF2vIaW6njb6OkNYHnSi0b+06kfStuNhu8Ro2
-	/X6ThVGizg1mE93aRM2waFUklhRnbDdZIxCqNwZB4CpmCbgROeRJZEmv4fQ28SeEoITEfZb78zf
-	US9ONuyCKq/mIkc2mm/1cmjV1dwcgxLsMalUZbK3o78k76b+ZAs953MP8mzoZbpsIva47/kn94U
-	T2uOEtij+DQ+IYz6QlYxcM7Y05NM99JRJTbRGiFvnA==
-X-Received: by 2002:a05:7300:d0a3:b0:367:185e:867a with SMTP id 5a478bee46e88-37687212a27mr6162231eec.38.1794507086925;
-        Thu, 12 Nov 2026 10:11:26 -0800 (PST)
-Received: from Alienware-m16.lan ([79.127.217.36])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332a77sm215678eec.4.2026.11.12.10.11.26
+        d=1e100.net; s=20260707; t=1794507099; x=1795111899;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vbhDJD4+BQC4thd2CH24LWDde1jZ/0BhOjMBI9uZ0t8=;
+        b=jMc7jC/CxTS9Gbl2cJWL0u/w4Ki8PjQjAPrhvRn48NHLzup1XN2zLCrBL4nwyGDLOC
+         7IkqiEaZL2YRpD1j4oJ/gpFIbPTLmWuo9WW4XiPdcVpCHmXC0MmIG24+3XA6u+2pWwTo
+         NSuaMiyufYTSmZIguCKLu3JRjUz7nF6vwCyJ46KlqSPQnt0Xrn2mjNLLp5IL7tbiIr1E
+         T02FHV6ioxLF1fL5M5k4uIq8jRGmu2bH+vzHEjQiBGRZpRFONSbE5sjBdiMXX1RsYHHO
+         BSVCKz6MgEBIB/o2MqPEA3Wf414dydnqWC3mLJy2C+p6b7+TKTZ17hYGcFeGiF/6klR5
+         zArw==
+X-Forwarded-Encrypted: i=1; AL+hErH/eSLQBEQSIHbAe1nzAM/gWl7J2L+/sZAHjyOFKoGc6sLrY+cvRkhhwnMWmsNa+WaRi2pXtTZz6U1DT+M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/gEbLVOwKoQQfnj/4mEg8pxqMfq3NDucHg/4N/+z/xldmVfEov
+	Rg/wH4Pi/5kwyoqJhQBZFW7LGxYgqsae1lFb7eI/PT+WTXR3izBH0gBuzlBGw0dmZlk=
+X-Gm-Gg: AYBFou3mLue8hVv3jPynaXX0tBuaqr/UPKfo1MvRiY4VuhzdfsYNBpuoDz8c2IamYzQ
+	Dggm5F9Q6N/LXOaXdqZcF5i1ruXoJdZdvB6XNqbjptxu3Srg4Nsaoua992zzNDeSpe2di4ZjrHn
+	EUxpvrY3FEnlCQICrDtxdsGM2mwezwNDtxDgEQc8alSNAChGryihH04Zypc6JkSqV0Dx+UB0D2w
+	Iu6zYBWETLE8urceGQepBvFrFVSYE+3NwWLQcmW/4frZqsq8Td+11atj34JvYlWVPcGtaok01WW
+	FT3qPWq7gO8cO++KVfdLs8o5vwPsROgf0vl25RvFjMKHnZ8AIiNIaDE0s2r7SF19UkJ91oLa02P
+	Sb7vm977NgxlTqErqmN9BdQXES26K2+qfc1yVmLVTyXUY7Hm6tcMY9YwtlLiOnGqYPaTyBNvwHB
+	o/SpB2t5VspTXkJjZ9z/Gkp5kxlmSba7GBrWFugdSh4S0wLI7UuZmNvHvstze4ZTKAkrWOc8AJ4
+	twSL2ry3bqiSWJigusIUOKJ/a5UIxQZRg3fA96+rqLY1zz6Pde0n1DkyTicTS1kkepwgkC72fZB
+	2qJYP4abLl8OwhhY9UC6Shb6swV1w8fsvHNEYsH4RGdyDAdPzViH3aN2spuHsLyJrbhwCvbAdbQ
+	ASEnz7Q0=
+X-Received: by 2002:a05:620a:410e:b0:93e:c12c:fbc4 with SMTP id af79cd13be357-9494bcaf24cmr27719385a.81.1794507098958;
+        Thu, 12 Nov 2026 10:11:38 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e7845fasm776538885a.18.2026.11.12.10.11.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 10:11:26 -0800 (PST)
-From: Andrew Luebke <andrew.luebke@gmail.com>
-To: Borislav Petkov <bp@alien8.de>,
-	Tony Luck <tony.luck@intel.com>
-Cc: Aristeu Rozanski <aris@redhat.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Andrew Luebke <andrew.luebke@gmail.com>
-Subject: [PATCH v2 2/2] Revert "EDAC/i5000: Mark as BROKEN"
-Date: Thu, 12 Nov 2026 10:11:21 -0800
-Message-ID: <20261112181121.565824-3-andrew.luebke@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261112181121.565824-1-andrew.luebke@gmail.com>
-References: <20261112181121.565824-1-andrew.luebke@gmail.com>
+        Thu, 12 Nov 2026 10:11:38 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,57 +89,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 09/13] mm/migrate_device: fix use-after-free of the
+ anon rmap
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
+ Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
+ =?utf-8?q?J=C3=A9r=C3=B4me_Glisse?= <jglisse@redhat.com>, 
+ Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, 
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+ Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
+ Chris Mason <mason@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ "Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
+ "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org
+In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-9-3d2454362e8d@kernel.org>
+References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
+ <20261111-mason-migrate-et-al-fixes-v1-9-3d2454362e8d@kernel.org>
+Date: Thu, 12 Nov 2026 13:11:36 -0500
+Message-Id: <179450709690.482102.6960491372735414259.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-This reverts commit 7556419180a3 ("EDAC/i5000: Mark as BROKEN").
+On 2026-11-11 18:13 +0000, Lorenzo Stoakes (ARM) wrote:
+> A munmap() of anonymous memory can result in a use-after-free of the
+> anonymous rmap if a concurrent device memory migration occurs and the
+> migration runs without the mmap_lock held.
+> 
+> This can occur for a long-term pin of device-coherent memory, or a driver
+> evicting its device memory by PFN.
+> 
+> Consider:
+> 
+>     eviction                        munmap()
+>     ========                        ========
+>     migrate_device_range()
+>       migrate_device_unmap()
+>         try_to_migrate()
+>                                     zap the migration entry
+>                                     unlink_anon_vmas()
+>                                       last VMA: free the anon_vma
+>     migrate_device_finalize()
+>       remove_migration_ptes()
+>         /* locks and walks the freed anon_vma */
+> 
+> If munmap() runs before try_to_migrate() instead, the folio is no longer
+> mapped and gets no migration entry. The walk still runs, and follows the
+> stale folio->mapping to the freed anon_vma.
+> 
+> Resolve this by pinning the anon rmap of each folio which possesses one in
+> migrate_device_range(), migrate_device_pfns() and
+> migrate_device_coherent_folio() before its PTEs are replaced, and
+> unpinning it once the walk is done.
+> 
+> A folio which is no longer mapped cannot be pinned and has no migration
+> entries to remove, so skip it rather than migrating it.
+> 
+> Reported-by: Chris Mason <mason@kernel.org>
+> Fixes: e778406b40db ("mm/migrate_device.c: add migrate_device_range()")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-The driver was marked BROKEN, instead of taking the slot loop fix,
-because nobody had the hardware to check it with single- and dual-ranked
-DIMMs [1]. With the previous patch it loads on an HP xw8400 (5000X) with
-all eight slots populated, reports single- and dual-ranked FB-DIMMs with
-the right size at the right branch, channel and slot, and stays clean
-under KASAN and UBSAN bounds checking.
+Was able to reproduce/observe a slab-UAF in rmap_walk_anon with KASAN
+enabled, and that this patch resolves it.
 
-Two-channel boards (5000V/5000Z) and error reporting are not tested.
+Can't say i understand the change well enough to R-by, but I can say
+this resolves a clear bug.
 
-Add myself as a reviewer for the driver, as I have the hardware to test
-future patches.
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
 
-[1] https://lore.kernel.org/all/YyxpbRkuLPIcW1Om@zn.tnic/
-
-Assisted-by: LLM
-Signed-off-by: Andrew Luebke <andrew.luebke@gmail.com>
----
-v2: add myself as a reviewer in MAINTAINERS (Boris)
-
- MAINTAINERS          | 1 +
- drivers/edac/Kconfig | 1 -
- 2 files changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 222b7fc2c3aa..e1aa80d5bda3 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -9702,6 +9702,7 @@ S:	Orphan
- F:	drivers/edac/i3200_edac.c
- 
- EDAC-I5000
-+R:	Andrew Luebke <andrew.luebke@gmail.com>
- L:	linux-edac@vger.kernel.org
- S:	Maintained
- F:	drivers/edac/i5000_edac.c
-diff --git a/drivers/edac/Kconfig b/drivers/edac/Kconfig
-index 4c70729b0d3a..63f263c4263d 100644
---- a/drivers/edac/Kconfig
-+++ b/drivers/edac/Kconfig
-@@ -218,7 +218,6 @@ config EDAC_I82860
- config EDAC_I5000
- 	tristate "Intel Greencreek/Blackford chipset"
- 	depends on X86 && PCI
--	depends on BROKEN
- 	help
- 	  Support for error detection and correction the Intel
- 	  Greekcreek/Blackford chipsets.
 -- 
-2.47.3
+~Gregory
 
