@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501446;
-	b=36k9Ai/zk6GdoOm/QATE4c1KPREsor9/sp9fB7zVNttEkZ9Nbr5bNyv1ZP+M4Bl6PGou
-	 QSPkbxVXepT+ZPgh1nkNbMLOoAOIrQj+4Wi4E8DAKimCqoJlJLuwZXdw9AHH+xsY6mE68
-	 dO1weIq4LS9puLRiRES5ycvrZJ9P2fFTXUfmUe/cijw99CdfZLyjR5q9lDntb9SBGuXkJ
-	 B0OG1dpkOQnhuXnQbbXJxtiv/ophOEsqcYDcqNBUYTaS8RKXTQPLfnzwlqdvEL03jE1z4
-	 A81/c0Hhz/PZzEgej4RRWnKLLqjYjBSvJqF3Qkion1xXdLjtxw58OAZ6i+4lo0jPHRA==
+	t=1794501452;
+	b=faTbzNO5seis4h/FZvebpiqW+Ef93rrdm4WfuBlL3cSns6Va6XkcRFSUTDwoVJe3H/Tn
+	 wnqsXfLYkXjWHrOhtFBmrcO8wfUR3l593jS/+e8Uk0Q6RbZ00wTqMHWV/ceBs3MGT9pAu
+	 WKGtkbpB1XOpJw0g2kGzXp6AACHOVq5rBmnRpAXJ241TztOoTfhavySK6MqW8Y5N0ce2Z
+	 Q3WXVeDeyleAK3Sz2iKFpgV5dAlH5h29uW/bUViIi2ylL/ZSIFyOMoAcH3IZjE5NgmztH
+	 A96Zr86+AlDkuFYA6onTcOeJCc7+FR/SMAR+D5bvqakXJkVu8dO9CPGjckj5kfH6SGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501446;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501452;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=M5yd3L4xpmBeVM5XoGF353kDrspRqwKbIMSF1r2WHMU=;
-	b=5cdImWxTdk/q4OJeHeaPXafuO4ER6gzz/BbxMOduTl0eApemnmm90j7YRJC7HL+RTidj
-	 dziW+54YpJL/NXBq+q41+AjRwE1+ZNfamB3M9E1LCvuoEdQ8gS2531gzqeeHE6cUz3gQO
-	 vdJLdumBqHK28znQybLoRmFpcFFQvqoun2jKwoctGXg1azaN1qy/O1UFJCU3469QN0sW+
-	 SIEeTUgYKllXG+4/2Q0fErSHR9fU6/QHCFfUKhVZnlwqkfRkomMCfkwsFLkLkIchk2hfZ
-	 /BJL3tZiS0Ku6YfIJmaR0qSl7itH6mrTf/nOxm/3xsXKrdtmLCrANNEDYIuVyjGUNCw==
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=FqXsbXaCFmPnB64KL5JcY5o6vyw75pQUZ8BpYM+BYNA=;
+	b=0rGvU1dLQPV/YUIeB6tcgn4J9175jhzjaAVAKyPNGdKfC2E3n9fbHoKHgKoFsJtyxDwC
+	 8Hn2XaqMQoQ5k8Nb3s/vvRo/VyD3z3WxmJYOKKaOYIANBkxMpDra7B0TbB2PQf4DRMc7k
+	 ZPF1LbLYloUFhMnojG33D0zZonobjZoy0sXQr7HhlD+YtsTZ9reX+UExPOb226pw7rhfz
+	 vcdjjImbM6QbNFBPerD+F+FhwPRKy9y167Z76qgjrYaPYgthhagNk5hNWYgrSvlzeSwmV
+	 ugxC4aI1VTLFlVRVKTWYx+YiRatdCbKnbXPvQJ2irbeyy5KFvqaGV5YFNvM3bfnKKOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nabladev.com;
 	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b="Rd9h/v7r";
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=hcZ1xmlw;
 	arc=none smtp.remote-ip=178.251.229.89
 Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2734D606A31C;
-	Thu, 12 Nov 2026 16:37:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2734D606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56BAF606A32D;
+	Thu, 12 Nov 2026 16:37:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56BAF606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Rd9h/v7r
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DB77310A716;
-	Thu, 12 Nov 2026 17:37:16 +0100 (CET)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=hcZ1xmlw
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4F7B310CC72;
+	Thu, 12 Nov 2026 17:37:24 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1794501439; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=M5yd3L4xpmBeVM5XoGF353kDrspRqwKbIMSF1r2WHMU=;
-	b=Rd9h/v7rSnKUtWdeUZfHA28W7NZgYmXtAD8dkv86sa2dlucShA2T3wevFF/tWU3aRF9b1i
-	7aLHK91cSgMZmB5Df6N85bsuSjqtBQD1yJzQpMnfLRIn2oKtDUDx06D+Ebg7cLyN5sxhwe
-	Esle93iKfga3Sspw3WDLKWvafkPlRHwcuQixxASjAR/VLaFKKB62k9QvuQ76C0GsUXZVAR
-	8UU8Su9FDvAmNrtv6c6StyvMgFnCBEGODy5F5XLn196ZqKTSlk9E0sDaBKLZRjJmCLj1bj
-	y0Mo5OuJWHndMyxa1ABh5AdC9muvQMidnHbj2t9P5xYAzCurDttjo3cO+f4XpQ==
+	s=dkim; t=1794501445; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=FqXsbXaCFmPnB64KL5JcY5o6vyw75pQUZ8BpYM+BYNA=;
+	b=hcZ1xmlwW+fEVZIeg8n+iS0iBpSHFgxMMx6Mcg+ba2LuIZoqhUBzXSvrOrEG/17VoyCEZ1
+	mAnfJFEMPTAfKCXnDliWyXcuXBNK5qIVzsTBWlkJipsykm5KgvukgPJcLB8nCTIanrUl1Z
+	wGAnb+/5MYIf18rcdVOZaJYFAPg8Gbp0LXprRaosky4BMb7IFulrHyIBKLI+oi+rJ01hg/
+	zEEo4PG+yYZTRJx1hMi5NyyQaL7GP8BKVeJNXmzV8U2zBRe6UhUg8fmaQVKsU79QqZbsP6
+	ePzNbqBnKM+nD0Z5Otk+Y6sKDHTUXsOjjs2JamIsVF0bJwOqzajIDLsnX2AEEA==
 From: Lukasz Majewski <lukma@nabladev.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -60,10 +61,12 @@ Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Lukasz Majewski <lukma@nabladev.com>
-Subject: [PATCH v2 1/3] dt-bindings: arm: fsl: Add an entry for Cloos CBASE board
-Date: Thu, 12 Nov 2026 17:37:01 +0100
-Message-ID: <20261112163703.3358164-1-lukma@nabladev.com>
+Subject: [PATCH v2 2/3] dt-bindings: trivial-devices: Add National lm77 temperature sensor
+Date: Thu, 12 Nov 2026 17:37:02 +0100
+Message-ID: <20261112163703.3358164-2-lukma@nabladev.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261112163703.3358164-1-lukma@nabladev.com>
+References: <20261112163703.3358164-1-lukma@nabladev.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,28 +79,30 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-Add an entry for the i.MX8MM Cloos CBASE board.
+Add "national,lm77" as compatible for the National (now TI) LM77
+digital I2C temperature sensor.
 
 Signed-off-by: Lukasz Majewski <lukma@nabladev.com>
 ---
 Changes for v2:
-- Place cbase in the correct order
+- Place the compatible name in correct place
 ---
- Documentation/devicetree/bindings/arm/fsl.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
-index c8290a83205b..0fd10f1a1a58 100644
---- a/Documentation/devicetree/bindings/arm/fsl.yaml
-+++ b/Documentation/devicetree/bindings/arm/fsl.yaml
-@@ -1101,6 +1101,7 @@ properties:
-           one compatible is needed.
-         items:
-           - enum:
-+              - cloos,imx8mm-cbase         # i.MX8MM Cloos CBASE Board
-               - cloos,imx8mm-phg           # i.MX8MM Cloos PHG Board
-               - tq,imx8mm-tqma8mqml-mba8mx # TQ-Systems GmbH i.MX8MM TQMa8MQML SOM on MBa8Mx
-           - const: tq,imx8mm-tqma8mqml     # TQ-Systems GmbH i.MX8MM TQMa8MQML SOM
+diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+index a8b2b9deade4..ae8f12c83043 100644
+--- a/Documentation/devicetree/bindings/trivial-devices.yaml
++++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+@@ -375,6 +375,8 @@ properties:
+           - national,lm95235
+             # Temperature sensor
+           - national,lm95245
++            # Temperature sensor
++          - national,lm77
+             # Serial Interface ACPI-Compatible Microprocessor System Hardware Monitor
+           - national,lm80
+             # Serial Interface ACPI-Compatible Microprocessor System Hardware Monitor
 -- 
 2.39.5
 
