@@ -1,107 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794483649;
-	b=3ZUZh92uKdrgPz9hjqeBBiVR6mTEBoORGdZGK6/HXa6Kmnx5N/9ClCy1IY7rL3AhgnNu
-	 74RPB2MlKAq43ciuuOoUyhIHZYcjSiFIIZJ3nXwJiuH4by/YtPzGsqQ0t0c+Vam2msdQA
-	 nVueDf26oKh+xvzZCcNMLugmYH7kFKfMz1xQY9E4FsvjUsF5QqJFCxg7EiYkaURi64AF8
-	 Bu3pYNEwiQYtRen48bH5fQ0ChQffe2uetv+BkX6MTNLwlcaUPNBhQURmpOK9hUh2JTuH7
-	 eq+2k6856ODuEXOrdJ1qA4uM3VfjWD3UlJ2IKUaFj9MeyEXzo3ObC3LSFRT0YMD1PhQ==
+	t=1794483654;
+	b=VX3tq+vUWrUi7Keg64cI4YKbZdotHULFDc4N6h0ykMuxEsP0Kqw8J7KU7MDYl/69fpT7
+	 WDazpSnB+SHRrJeXKYnJoEkB5RPY1iJGj2l7uHVk+qIpyaR8fERLG2modjQy7pJUvARmk
+	 8l/yr7rUSNq2iRUcYKN4PizfhvtvtCQX4WWO9cCiVL8HQP9gVYFjfgLVNwec0wes5sVu1
+	 ud7QE6GBSG2Xhmc1LIEiR9Btdw1MWK9YxMwLjOzm2705U8nYTyHdW30VEEwmCANYIQSBD
+	 PeN8/+xBjhPKTxhlZjhxxvFzIL8ptLHxeVb66Mb40QcEoo0P76purhnSAijM7EvmnKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794483649;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794483654;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=YeWP7Ew8IEw8W3Drb+1wADQhHaKMJ5pzT2VKjpcBucw=;
-	b=hDgaIKbI91cDb1vcgUujiB9h0NRPr9n+x07mxco6iYk7KARXKVqeyQ5ANQtG82zjJ+pU
-	 3uaIZQTD11TglDkdaMplSOLxvF9iiftdLYW7YSs6ZlwBgQwhZLjOBWGMqOsP9ywOMG5Ks
-	 tjpbykD8YLQT1VY1tjT50RqsfM84Q9g1y3EuhK4c2HulpDCaqSur6FdxOVq4L3IWYTAOV
-	 pC0F9CZj2hdQzeK4wlA/yaVfYUfwz4uKL8Q/xnFi8niGhH5uBtWGzeFwbArE8k2wecqKO
-	 BMPpZVKGZx1bTSBkEIK5gzZFs8tGYaXgkOoBhQ7p6AGYx8+HynvtTbP3b0RJhvuNXkg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=psP075VygiyE+jYbsmS7+nA19joCBiTDNicdts2qbwE=;
+	b=MU4jeA79o1toZ5vHjKIiI/7MiUpOg2Omw1rJ+2Y1k2VbJZIwbkZQ+xRWFF/6EdhjKfa3
+	 4Bz5rfTqAjci1vduIMtBfaC9XzJE/4D0YZz2meWMeW2ADc5zsxqHExrQElquAhBgO7RJl
+	 vrLePuwWQBmvbPCW0RcqOuLG2J74+VBnAdb9OHNaJT4amnhRbzJ+8kUsVYOWU5tuXSaNe
+	 2Ytk+BHdcCn4TFE26luEtfkw/BMvNiiA4QgLoWRbAiOByGTJjQCBVFg2i9fBbMmYDBcWa
+	 NHuWVSpKtYr5dt8U3krE4jzCmUo3jIDJkwHjl0JCRIANq+sAvtqFkhIQtHnfGiE/arA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M9lSSGlu;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PpBRyLbh;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFFAE606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:40:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFFAE606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 238B4606A331
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:40:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 238B4606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M9lSSGlu
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3704d30b84fso5348815eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:40:48 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PpBRyLbh
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1ae58d17cd9so3230270c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:40:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794483648; x=1795088448; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YeWP7Ew8IEw8W3Drb+1wADQhHaKMJ5pzT2VKjpcBucw=;
-        b=M9lSSGluC9eUBh+le2/2HSaG4obwS415fqaTTfOC/Frn7T52MMUAP056NfK7KWW/zx
-         9l52BkP1gdUFngvBcU934Ca2JsCItBYW9O2KBGmiYJZ56+JxorJ5F2D9Q2Y/RehO830p
-         25hQ885YT3wbx9bgJg2iX2h90wIXDZ3mEdcP9M0jMCELOMt1sfmDTm7TDVcNJsqoR8//
-         BHRmUhrrkhTe6LpYtpolp9NJPDUdmOo0XPM+UlSYWv3jOwKVNnLaBXHpLaNcwa54WS9v
-         g/dAo5DvM1qHF+xG6yRSi20/SBiCVwd/5yFsyzNCkCi1tPbDxQNHL+r7440biVIAXacw
-         zEdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794483648; x=1795088448;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794483653; x=1795088453; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YeWP7Ew8IEw8W3Drb+1wADQhHaKMJ5pzT2VKjpcBucw=;
-        b=BMAVnqbAb+pRULBc6FpsoTm84AcEql5ubDeZ+OeiTNeKdd8AHNvWX+C1gXMpm/89aH
-         sqTTW9+ZX1EZr6bkQdybL9kMQFrrHsGcpBUUj601o6uJajy4hXiv4WK/KlF7rqZQgaTZ
-         nfgvnttgapOABYDB9HBfHEqRSSpMOT1/uEMkR5mUTB0i6Pj2bVmKx1wWTfcUKJsE1giE
-         BbKYaQoO8ytoMaAazoZa5KOxyjAAw9eI+w3seNPmhZ9X4vD8DRePhGOMkx9U5XH5WA0w
-         grCQrXo4nz/QkBULsG0S71TXaVvgHyatBcgEf32v+cZPSNqpOwmKaSGGiqdY25jZ8MMO
-         xbgg==
-X-Forwarded-Encrypted: i=1; AL+hErE2Lbx0WYSpFyCxOJ+J+4ktCnhxa7agIwevRnlpwoCfBShdQRvYevVxZpkEsp78ZC+tQcmar+ZbFzLdLA0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/6dvNdBpvZ7Z/fYsZo+erzB1MiwUaoSpWQmD4eDM/WcM32XRCX
-	C58Hc7TlfnenKPK3UZ6aD1U0ysv3N4DNW3qau6Dg5dKypalYlEjzlHy7
-X-Gm-Gg: AYBFou0hSkYDfQUBmPpaaIhaStuUSWpB9vkGpa+R/nLnSA7dmmwnyQhJ9tK0WF2qFVs
-	ozEv3iwgsFVEG18uxy5JUeMe9AoKL8+8ZCevx0Z/VsIElY0G1696+7LEkVkRNu6NuidxlZUko2/
-	CF82dImDidINXYv+9ujs7tOdlClFLUGZj0MEw59ai38pF0o0fYpjlyWwYyCTtxnD/wRdqghP5vq
-	TIuLY2VNrBLAuKgwM0JvJRhXIYeGa0//ZMTyDnbAzVsxn+Cj49qO+EtaW/fbtOH1oQ5Y5KyxaMp
-	hkFvf4S6RWDa17YMeXWJc80PmBV/asQkD9zCZLK/SBl5gAUQghGQTlMXZkdSKzYS7iBM/lSkXP3
-	WnTqRpyGxTBhZ1LZd9hmCNhZEzN0Gde2EY1bNq6A2fFjY/bhmCRqN1yWbVcqVWZMqxXKndnMraB
-	w3dHrVdP9EDIQCiiLCe83915RRAOtuAq08CqGALgEv22fjdQ+9lJg2zVbtmVzclPkW4hLujSFEc
-	jH1ABxklJIIZFmaywWc8pI2Gy/eArWrzMkcfELsD5RSxHmLbOTCUIL499ItSfGxie1L4gM98yk6
-	ImZAiZOEmbQLjhwQdWPJu4a1U94UpQqNaKLrTX+QZZg=
-X-Received: by 2002:a05:7300:2d2b:b0:36d:2704:6adf with SMTP id 5a478bee46e88-3768579df8bmr7841678eec.11.1794483647847;
-        Thu, 12 Nov 2026 03:40:47 -0800 (PST)
+        bh=psP075VygiyE+jYbsmS7+nA19joCBiTDNicdts2qbwE=;
+        b=PpBRyLbhIi7Zg7x8s39UMu/YZ1Aiw+0WJDI6fbjzlQUHKim13duSFy1VzO8FJKaCPh
+         nOFwcq13+61kBK/jSEjYOpCCKOwen1vVN6yVwxipOMz6mpmHxShrAyPEZxGQVSgxE03k
+         UVlIZd8z97IYtineF/S7LnMcl/558wv8W+QsZZ7GH1w3llRkkINHTM+zdS493WMY1aJT
+         W5lXoxYrGb4PNCYPLTehB8J9BPg4UwBdqTYlGTvnOv3UngjD1Qv79BhLCDf+5ZJND+oh
+         mbY4cfrAUFDXLo1rPEvBpfoIbqqVv+4McvEAV15pJ8BLyAVK84Iy5i4HCxWf9AMOYupg
+         voBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794483653; x=1795088453;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=psP075VygiyE+jYbsmS7+nA19joCBiTDNicdts2qbwE=;
+        b=DX2931/ZkC3joUmuApPhhkygoTCqEiGal8cnauQC/KZul/P8DVTBpmUKgM9edmuYs0
+         j22z4iTu9JZbH4L5ja6lnPkYC9Ce8Kevrci7vt6GPzZRkd9FYbiYLLn8+ukWHGKEKJZg
+         E9qlmRJwTT9maa9yWC2FX9Lr7S8OhxTQ13gMSt+56fsP0FvLvCE2CShCmpDeD2B72l79
+         MD74kUIiw16RteTLkBN59me7BEz2Xb3m+Av/j4eQ7NgsIZ4MCNA7y4MXjDw9w3LQmYzq
+         NC+ku3Tmfyfi+BfLhBNMtVclfQ0qZ1R5u87DKBo2W7rUW3b8ZXTUTaPZ5+N5sUBMJqz2
+         cQpg==
+X-Forwarded-Encrypted: i=1; AL+hErF52zK5TrawWwq16aJmXNmPZiCOTfUwkRfLO9+PaTn/JiWrslbsOOZHoxP+NgdYRpOBWTLyZdEcQwmzR1Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Bth0Mekx1hq4I/6SRgUHAzGdpLfkvtoh4Z2kLF4BUJji9+pKl
+	+CcK/WzyQuzh0GSnJhzw7SVe91VfzhN7IZ0KatYKIcZIBSky/LCMaOpS
+X-Gm-Gg: AYBFou12sTh7tQfsMFYlnmivMau8G7tDFdIg8j1UajN5kuudKWHZM0PdqgnTZHd+IiC
+	l9mPib+W+pPYAWtYPpGR6kdNO0ZlcQVY7QbqUvYersbRYoIe923X4xCp709o8ryYVjMaYx6EJV7
+	/cgGSRncbz8+CRIRGJRBcwoOhzLlue3vx2OpsnHZgjOKCVaAChpGsV2adqt8s2P9S61SjskPBe3
+	9E3MKr3FCgYGr2pUmgnZm0JbNGO6IUjmJmk+qFB+BLV0JLTyBMtDFrXzEV7XyGj/msLLu8qpg2X
+	6q+T0ZCK6E2YHzRjSWn0pZTqc3OsT+ZKqS9SSSmJJRxig2zwgYSpVJiGOC+nyfU0uyxyOoWVMT/
+	BBP7OAqLxVe/gaNqyU2a8jUXbaAMGT5N53efj0Bf6iWKM6FB1P+kAvDoa6KHTq1lP8hfc2qkTRu
+	pIL63YPBkWZukMT4yIoRrHHdlbIpD2HkFiZOk2ftgH1Dw5iTgWAtztA+pUyuBFPCquiPBNMrBHM
+	h7lPx4oVShivL2MjU8bk1ypx21de9aQz62BjU/cH+2zBo5x8t/r2U7sv6cAlCw8rysouq64VSSv
+	Yyw29bLq0fXf0vzCLGDyPYDzL7PgdxivtvljY8A5Tq2kO/naoq7he5IbH/P9dTY=
+X-Received: by 2002:a05:7022:3c03:b0:195:76af:b810 with SMTP id a92af1059eb24-1b3c08751d4mr3887106c88.25.1794483652883;
+        Thu, 12 Nov 2026 03:40:52 -0800 (PST)
 Received: from DESKTOP-NM9EKIA ([180.67.33.100])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060dc0csm29448853eec.14.2026.11.12.03.40.43
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b48a9c34c9sm8428478c88.4.2026.11.12.03.40.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 03:40:47 -0800 (PST)
+        Thu, 12 Nov 2026 03:40:52 -0800 (PST)
 From: Joonhoe Kim <26rote@gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Val Packett <val@packett.cool>,
-	robin.clark@oss.qualcomm.com,
-	lumag@kernel.org,
-	abhinav.kumar@linux.dev,
-	jesszhan0024@gmail.com,
-	sean@poorly.run,
-	marijn.suijten@somainline.org,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	yongxing.mou@oss.qualcomm.com,
-	Xilin Wu <sophon@radxa.com>
-Subject: Re: drm/msm/dp: hold one runtime PM reference per plugged state
-Date: Thu, 12 Nov 2026 20:40:46 +0900
-Message-ID: <20261112114046.396-1-26rote@gmail.com>
+To: Thinh.Nguyen@synopsys.com,
+	gregkh@linuxfoundation.org
+Cc: Arun Iyengar <aiyengar1990@gmail.com>,
+	mathias.nyman@intel.com,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH RESEND] usb: dwc3: tell xHCI that it lost its state when the core is powered off
+Date: Thu, 12 Nov 2026 20:40:53 +0900
+Message-ID: <20261112114053.412-1-26rote@gmail.com>
 X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <2ndbj5fk7tnmexirfulh25kwx6pjzsmp7vjczbhqdxxuw3fm5u@qx5qumdw6ng3>
-References: <20260929130627.959-1-26rote@gmail.com> <018c6fae-49d3-4f89-8212-8c6b64a2829c@packett.cool> <2ndbj5fk7tnmexirfulh25kwx6pjzsmp7vjczbhqdxxuw3fm5u@qx5qumdw6ng3>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,15 +101,149 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Wed, 11 Nov 2026 19:13:45 +0200, Dmitry Baryshkov wrote:
-> I'll fix that while applying
+In host mode, dwc3_suspend_common() powers the core off for system
+suspend (dwc3_core_exit()) when the controller may not wake the system
+or needs a full re-init. The xHCI registers and the state saved with
+the Controller Save State command are gone then, but nothing tells
+xhci-plat: xhci_resume() takes the "state intact" path, writes the
+saved registers back and asks the controller to restore its state
+(CRS).
 
-Thanks. Please take v3 [1] instead of this one, which you also
-reviewed yesterday. It replaces this patch and depends on patch 6/9 of
-the IRQ_HPD series v8 [2], which removes the plug handler part.
+xhci-plat has a flag for exactly this, power_lost (commit 668cc6bc1178
+("usb: host: xhci-plat: allow upper layers to signal power loss"), used
+by cdns3), but dwc3 never sets it.
 
-[1] https://lore.kernel.org/all/20261024051952.2006-1-26rote@gmail.com/
-[2] https://lore.kernel.org/all/20261024-hpd-irq-events-v8-0-6ee949e7a384@oss.qualcomm.com/
+On a Lenovo TB323FU (SM8850, DWC3 + eUSB2 PHY) with a USB 2.0 hub, a
+USB 3 flash drive and a Billboard device attached, and USB wakeup
+disabled, s2idle then broke the host controller on resume: either the
+controller wrote to an address that was not mapped
 
-Thanks,
-Joonhoe Kim
+  arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402,
+    iova=0xd85e7c300, fsynr=0x3d0011, cbfrsynra=0x40, cb=13
+  xhci-hcd xhci-hcd.2.auto: WARNING: Host System Error
+  usb 1-1: hub failed to enable device, error -108
+
+or its command ring would not stop
+
+  xhci-hcd xhci-hcd.2.auto: Abort failed to stop command ring: -110
+  xhci-hcd xhci-hcd.2.auto: xHCI host controller not responding, assume dead
+  xhci-hcd xhci-hcd.2.auto: HC died; cleaning up
+  usb 1-1: PM: **** DPM device timeout ****
+  Kernel panic - not syncing: usb 1-1: unrecoverable failure
+
+With wakeup enabled (the core stays powered) the same setup survived
+every cycle.
+
+Remember that the core was powered off and hand it to xhci-plat as
+power_lost from a resume_quirk, so that xhci_resume() resets the
+controller and the devices are re-enumerated. Unlike a static
+XHCI_RESET_ON_RESUME this only applies to the resumes that follow a
+power-off; resumes with the core kept powered (wakeup enabled) and
+runtime resume keep the restore path.
+
+Same kernel and setup, 30 s RTC s2idle, wakeup disabled: without this
+change 1/1 cycles lost the controller, with it 3/3 cycles kept all
+devices. Only tested on this device.
+
+Fixes: c4a5153e87fd ("usb: dwc3: core: Power-off core/PHYs on system_suspend in host mode")
+Assisted-by: LLM
+Signed-off-by: Joonhoe Kim <26rote@gmail.com>
+---
+Resend: no replies since 2026-09-29; unchanged, still applies to
+next-20261105.
+
+Arun Iyengar's RFC for the Rockchip glue builds on this patch [1].
+On an Orange Pi 5 (RK3588S), with the core torn down for
+suspend-to-idle, he saw no "xHC error in resume" in 10 of 10 cycles.
+
+[1] https://lore.kernel.org/all/20261112-dwc3-s2idle-optin-v1-0-842e3f8413d0@gmail.com/
+
+host.c now includes ../host/xhci.h (for hcd_to_xhci_priv()) in place
+of the three xHCI headers it used, as cdns3's host.c does.
+
+ drivers/usb/dwc3/core.c |  2 ++
+ drivers/usb/dwc3/core.h |  3 +++
+ drivers/usb/dwc3/host.c | 20 +++++++++++++++++---
+ 3 files changed, 22 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+index fd5c2cd36c59..b5490b9a8474 100644
+--- a/drivers/usb/dwc3/core.c
++++ b/drivers/usb/dwc3/core.c
+@@ -2572,8 +2572,10 @@ static int dwc3_suspend_common(struct dwc3 *dwc, pm_message_t msg)
+ 		if (!PMSG_IS_AUTO(msg) &&
+ 		    (!device_may_wakeup(dwc->dev) || dwc->needs_full_reinit)) {
+ 			dwc3_core_exit(dwc);
++			dwc->xhci_power_lost = 1;
+ 			break;
+ 		}
++		dwc->xhci_power_lost = 0;
+ 
+ 		/* Let controller to suspend HSPHY before PHY driver suspends */
+ 		if (dwc->dis_u2_susphy_quirk ||
+diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
+index 608daeb7ef10..1aa898b343e6 100644
+--- a/drivers/usb/dwc3/core.h
++++ b/drivers/usb/dwc3/core.h
+@@ -1172,6 +1172,8 @@ struct dwc3_glue_ops {
+  * @suspended: set to track suspend event due to U3/L2.
+  * @susphy_state: state of DWC3_GUSB2PHYCFG_SUSPHY + DWC3_GUSB3PIPECTL_SUSPHY
+  *		  before PM suspend.
++ * @xhci_power_lost: the core was powered off for system suspend in host
++ *		     mode; xHCI must not try to restore its state on resume
+  * @imod_interval: set the interrupt moderation interval in 250ns
+  *			increments or 0 to disable.
+  * @max_cfg_eps: current max number of IN eps used across all USB configs.
+@@ -1420,6 +1422,7 @@ struct dwc3 {
+ 	unsigned		wakeup_configured:1;
+ 	unsigned		suspended:1;
+ 	unsigned		susphy_state:1;
++	unsigned		xhci_power_lost:1;
+ 
+ 	u16			imod_interval;
+ 
+diff --git a/drivers/usb/dwc3/host.c b/drivers/usb/dwc3/host.c
+index c5674161b2b0..c7143a8e3e32 100644
+--- a/drivers/usb/dwc3/host.c
++++ b/drivers/usb/dwc3/host.c
+@@ -14,9 +14,7 @@
+ #include <linux/usb/hcd.h>
+ #include <linux/bitfield.h>
+ 
+-#include "../host/xhci-port.h"
+-#include "../host/xhci-ext-caps.h"
+-#include "../host/xhci-caps.h"
++#include "../host/xhci.h"
+ #include "../host/xhci-plat.h"
+ #include "core.h"
+ 
+@@ -78,7 +76,23 @@ static void dwc3_xhci_plat_start(struct usb_hcd *hcd)
+ 	dwc3_enable_susphy(dwc, true);
+ }
+ 
++/*
++ * dwc3_suspend_common() powers the core off for system suspend in host mode
++ * when the controller may not wake the system. The xHCI registers and its
++ * saved internal state are gone then: tell xhci-plat, so that xhci_resume()
++ * resets the controller instead of restoring registers and asking it to
++ * restore a state it no longer has.
++ */
++static int dwc3_xhci_resume_quirk(struct usb_hcd *hcd)
++{
++	struct dwc3 *dwc = dev_get_drvdata(hcd->self.controller->parent);
++
++	hcd_to_xhci_priv(hcd)->power_lost = dwc->xhci_power_lost;
++	return 0;
++}
++
+ static const struct xhci_plat_priv dwc3_xhci_plat_quirk = {
++	.resume_quirk = dwc3_xhci_resume_quirk,
+ 	.plat_start = dwc3_xhci_plat_start,
+ };
+ 
+
+base-commit: 6375e61c01e93e35ee7acd336a689ac1fae4b509
+-- 
+2.43.0
+
+
