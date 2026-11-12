@@ -1,65 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.109
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794462265;
-	b=kMVhtWV6LTziCL6PHb1z5S/1J9I3CxMA/afJ31moz6P82lLLmtJG/MJd2spTPiPS3CDc
-	 znTa0HE8Alp7D1g3ENcmWGcmnODYw72wJjNn32Z0iEQM5/kyYXXZg6U0phXqa9YSbctNw
-	 awc5rLQXblVu4mA7Ng0+5q9V44jE6Pp3wKS8iXcDs5S1JJGbJeqmioo6QydOG/A1OmceZ
-	 7SmzOVw+3oIXK7PqnVP62lvYqc+OOMIJm3j4w4wU4Hghcd2Juv07OJm1HivbQSPV/9f5U
-	 P6ljU2CfBNDyopZp7MMMcvTuXfMjZC0EFIw7h3Gfqb6Guvh6LujZ9bZolJzVxAPtGkw==
+	t=1794462331;
+	b=ZnS32MApxrXdATOTJSG/4Tx5et20qSclQCmycMSwt06NpjuLzSvt8JSYI0rL6Sboebgj
+	 I6gInseUsgO0aWmpS1G4KHZ1ZREoqyNaUJdhJd62IdC6T++MXGMesgkCAYgqfiLsvZ06V
+	 tLYTp0007tETRmyESFuqLMbxMaJ6hiK7iF3pGV2m4FFLXWJsmfGLYymXqoCL2D1vhoOV2
+	 YuXup+sPrNRFOw8efx5QR2cGl503vCc+WM0texzwSSDCaqcmua1AUSn/3rJkm9cFHxPk+
+	 x3jrKPjJYSv4y+v7XOCszSkCU0hd4U33udIsEp24rjFiJ+4U6LMR1Jn9pzBmdX/fOQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794462265;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794462331;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Fv8woWOOJ+ttnnLaTVcNI3Ww0pceRpqGqBuqXsTN2+4=;
-	b=GkqEqIwsBcKiOJgq7wyysUW7nprhu3g+HDAEyCA97OCIXs+Dvb2lLzm6jQazz4lmr/RW
-	 xD4kDgIzjM3BzRw97yoOjwtcL0jXzgr1grK6AYXZIjDSgwJxWkmXX1LGQBUyoZ2JksJKu
-	 uGAAbylBURbaqepD5kEQSdyiNEBANusNuYi8kFZyu7ZsIQpD1mhHG5ytukVbqKfaBpwCH
-	 O38C/Z5pUH3/z48QvdWQBQfrVbBEpfGehAIT0nyYYrKHo941fLeVcCvx/CP1usz1C/7+7
-	 nAL9Cl4YKFRRL5BmRueodwLnEFzxhuUsGhtVAQty/owo7+XkF3HQeNsfxZ7MC8Ii0Sg==
+	bh=SZNz0UyQ3ihy+PQQPTQhzyeFWffiYmml7CaqnrvLuWo=;
+	b=WYG35rInMMimhU2KMMXD01okR1vRvOmQ5bD9MytjBZDgsw3EhDg8zMJEjxhG8nIil6FR
+	 x+QIJQujauew86EJ/mkjCR7fp9BeJ1iVA/ObAqrkZ86HhDVqUbmGHBWVtVVTldqm4pd0d
+	 0TMTsi7jkbskLECy3QqcMlLDAdmvSW4DlIARpVqF3PMXa/Lx3rPtbrzo+d+RPnWYCCDGk
+	 c81kDLJX8Iv1s3g1T9SUpIkNXciow9Co5x/pSFvH93KuTVp++4HwiAgO9GAZOCHVZ5Nz1
+	 bbzR0LfQcXbieg+7WRnSLEJDbGKxCRRx0LsJSd3/VxuydWzKz9O8wQY05+MqJ7C9yPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=X1pugFsU;
-	arc=none smtp.remote-ip=95.215.58.109
-Received: from mta1.migadu.com (out-109.mta1.migadu.com [95.215.58.109])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Esf+UV1k;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C0E606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:44:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2C0E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9166F606A321;
+	Thu, 12 Nov 2026 05:45:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=X1pugFsU
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=qFLy/cCZWRuVvp8u/NE6bm9Bg5FRKCoK1ob4wHvg3yw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794462262; v=1; x=1795067062;
- b=X1pugFsU9AEh27z/8MMTSSfTKrXyALFymEeUWIdIFDiRTe7ul65g3ASthHcUlI3FE8NN7Btw
- 9odfg8TOH97Wx1GDJD5Of+KQyA1S8jiyFnKTWmE07Dt9FczvVDHMJ/sI7AqLZCtmwCxOe9w4Xp5
- b5JAXTL6ylZDAqpUcgrC/MCY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5c3232aa448fa3e9;
-	Thu, 12 Nov 2026 05:44:22 +0000
-X-Mizu-Trace-ID: 5c3232aa448fa3e9
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 11 Nov 2026 21:44:16 -0800
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Muchun Song <muchun.song@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Dave Chinner <david@fromorbit.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Qi Zheng <qi.zheng@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Chris Mason <mason@kernel.org>
-Subject: Re: [PATCH] mm: list_lru: fix NULL deref when a folio moves to the
- root memcg
-Message-ID: <avVSEx2bbM4abwln@linux.dev>
-References: <20261112024140.648088-1-shakeel.butt@linux.dev>
- <26CC0CD2-97FE-4842-AE51-605EC77AC91D@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Esf+UV1k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD3661F00A05;
+	Thu, 12 Nov 2026 05:45:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794462331;
+	bh=SZNz0UyQ3ihy+PQQPTQhzyeFWffiYmml7CaqnrvLuWo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Esf+UV1kZR+NqxR4zt2CwZSmWn3WosEozeU3MFw/C1f3n7bpdadj1DDDf0azhcUGU
+	 omSH9FzhGQlB0p8CWyCCCZDocD16UItvzrp1Aszr8ewFg/cZ4vIyfpSjvvKALHczp0
+	 6YcMGAgtQeF8O6v3eGKqqMXYNRGeLu9Zdm1OKlhoMgFT8GhBHWM5Bg0TdypeFUBTnj
+	 2Qv6zomPuamOlm4a7PVKjxcDbCu6/7BSPbqczCHLagPdD4eUGG08206E/xtqdInMlJ
+	 YQKPI2cWNE/9QuubQhHZD262PEoOcPKX/5c8hh54D06A8TA2JzOpy7BczE3kVoqium
+	 p0xfTg0+IoY+g==
+Date: Wed, 11 Nov 2026 21:45:28 -0800
+From: Josh Poimboeuf <jpoimboe@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+	Aaron Tomlin <atomlin@atomlin.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-m68k@lists.linux-m68k.org, linux-modules@vger.kernel.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v5 07/11] objtool: cache relocations, do less work,
+ eliminate relocation hash
+Message-ID: <avVQy5UBOlu7IeQu@jpoimboe>
+References: <20261104-build-speedup-v5-0-0f6018be8dae@kernel.org>
+ <20261104-build-speedup-v5-7-0f6018be8dae@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,70 +71,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <26CC0CD2-97FE-4842-AE51-605EC77AC91D@linux.dev>
+In-Reply-To: <20261104-build-speedup-v5-7-0f6018be8dae@kernel.org>
 
-On Thu, Nov 12, 2026 at 10:49:44AM +0800, Muchun Song wrote:
+On Wed, Nov 04, 2026 at 06:20:25PM +0000, Lorenzo Stoakes (ARM) wrote:
+> Instruction relocations are looked up by destination in objtool via a hash
+> which is keyed on a 16-byte (OFFSET_STRIDE) window within the section being
+> walked.
 > 
+> It iterates through each 16-byte window, looking up relocations over
+> several passes, before moving on to the next 16-byte window, caching only
+> when a relocation is not found saving further lookups in this case.
 > 
-> > On Nov 12, 2026, at 10:41, Shakeel Butt <shakeel.butt@linux.dev> wrote:
-> > 
-> > folio_memcg_list_lru_alloc() makes sure that a folio's memcg has its
-> > own lists in a list_lru, such as the THP deferred split queue. It looks
-> > up the folio's memcg twice: a fast path under RCU checks if the lists
-> > exist, and a slow path takes a reference and allocates them. The fast
-> > path returns early for the root memcg, which uses the global lists.
-> > The slow path does not check for the root.
-> > 
-> > The memcg can change between the two lookups: when a cgroup is
-> > removed, its folios are moved to the parent memcg. If the folio is
-> > moved up to the root in between, the slow path gets the root, and
-> > __memcg_list_lru_alloc() dereferences the root's parent, which is NULL.
-> > 
-> > Users see a NULL pointer dereference oops while a THP is allocated,
-> > such as in a page fault, in khugepaged or at swap-in. tmpfs huge pages
-> > are affected too, and for them the oops can also happen in reclaim,
-> > for example in kswapd. The task that hits the oops is killed, or the
-> > machine panics if panic_on_oops is set.
-> > 
-> > The race is narrow: the folio has to be moved up to the root right
-> > between the two lookups. For example, its cgroup is directly below the
-> > root and is removed, or has its memory controller disabled, at that
-> > moment.
-> > 
-> > Fix it by skipping the root memcg in the slow path too. The root needs
-> > no lists of its own.
-> > 
-> > Fixes: ae64f07a6a40 ("mm: list_lru: introduce folio_memcg_list_lru_alloc()")
-> > Reported-by: Chris Mason <mason@kernel.org>
-> > Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-> > 
-> > ---
-> > mm/list_lru.c | 10 ++++++++--
-> > 1 file changed, 8 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/mm/list_lru.c b/mm/list_lru.c
-> > index d1d256822ccc..566691ca3dd8 100644
-> > --- a/mm/list_lru.c
-> > +++ b/mm/list_lru.c
-> > @@ -645,9 +645,15 @@ int folio_memcg_list_lru_alloc(struct folio *folio, struct list_lru *lru,
-> > 	if (likely(res))
-> > 		return 0;
-> > 
-> > -	/* Allocation may block, pin the memcg */
-> > +	/*
-> > +	 * Allocation may block, so pin the memcg. If the folio's cgroup
-> > +	 * was removed after the check above, the folio has moved up to a
-> > +	 * parent memcg, which can be the root. The root uses the global
-> > +	 * lists and has no parent, so skip it.
-> > +	 */
-> > 	memcg = get_mem_cgroup_from_folio(folio);
-> > -	res = __memcg_list_lru_alloc(memcg, lru, gfp);
-> > +	if (!mem_cgroup_is_root(memcg))
+> Improve upon this by introducing a per-section relocation cache storing the
+> first relocation at or after each 64-byte window of data (an empirically
+> determined index range), indexed by chunk.
 > 
-> How about using memcg_list_lru_allocated() to check this, it's consistent with
-> the above check?
+> The lookup is implemented an array lookup and touches no shared state, so
+> can be used from multiple threads.
+> 
+> The index runs over the relocations in offset order. Usually this is how
+> they are input, however if not, each section is sorted once, storing
+> their offsets in reloc_order[].
+> 
+> This is done lazily on lookup, so nothing pays the cost that doesn't have
+> to, and if everything is sorted nothing does.
+> 
+> The output of objtool before and after this change was confirmed to be
+> byte-for-byte identical both for x86_64 defconfig and allmodconfig with
+> gcc and clang.
+> 
+> objtool on the gcc allmodconfig vmlinux.o goes from 10.5s to 9.0s, clang
+> from 9.8s to 8.3s and gcc defconfig from 2.08s to 1.79s, with peak memory
+> down ~90 MiB on allmodconfig.
+> 
+> Similar performance was also noted on a worst case scenario for unsorted
+> input (gcc but lld for linking), which confirms that the sorting mechanism
+> works correctly with little overhead.
+> 
+> objtool on vmlinux.o is on the serial tail of every build that links
+> vmlinux, no-op builds are unchanged.
+> 
+> Whole build, 128-thread Threadripper 9980X, best of N runs:
+> 
+>                                          before   after     delta
+>                                          -------------------------------
+>   x86 defconfig, touch mm/vma.c, gcc        8.3s     8.2s    -0.14s (-2%)
+>   x86 defconfig, touch mm/vma.c, clang      7.6s     7.3s    -0.25s (-3%)
+>   x86 defconfig, clean, gcc                28.9s    28.6s    -0.22s (-1%)
+>   x86 defconfig, clean, clang              29.4s    29.1s    -0.28s (-1%)
+>   x86 allmodconfig, touch mm/vma.c, gcc    29.4s    28.0s     -1.4s (-5%)
+>   x86 allmodconfig, touch mm/vma.c, clang  27.9s    26.2s     -1.7s (-6%)
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  tools/objtool/elf.c                 | 280 ++++++++++++++++++++++++++++--------
+>  tools/objtool/include/objtool/elf.h |  10 +-
+>  2 files changed, 221 insertions(+), 69 deletions(-)
 
-Yes, that makes sense. Will send out v2.
+Urgh... so the closer I looked, the more this patch revealed itself to
+be an AI slop mess.  So I ended up completely rewriting it.
 
+You can go ahead and drop all the objtool patches from this series, I
+will repost them after some more cleanups.
+
+And I'm dropping patch 9 altogether, it's just not worth the pain...
+
+-- 
+Josh
