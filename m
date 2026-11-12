@@ -1,88 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794488617;
-	b=S7yAyzjg9pbXMEENGZc+Ed+6eoWNzLTOsOSq+/jiVo4XSvtF3RqeMvKu734BNxqOt2jE
-	 fdS0jnxLS6jIHmxnh61s0H8c7/trHTyL24EkrjsuixlBdFxTsZsznQMW+EmOnDoz0ncg+
-	 xEnBGQuqLfbnb1ssGJUQyjm8Mv1Id2VdbkUFN8j7ca2ws+3kvsfDDEEy0poHgbB96wMB4
-	 I6XyUurJfRG6Wg2gEMwkkvMvomxHQVpo5VDcXPGm+yiKBZlp+loS8aR9uxSlrt4Jf/dGh
-	 pj9X02kS8BQHu8puA3NznvxuUs9DsMoe85DbIRFJIjg0aV6ypdwTMLPTlz3al2WAzGg==
+	t=1794488660;
+	b=bYcYMISZ3sGcbPGqzMOMpJ2/7L4yUcmfVGZ1K55qxMoKPy5AV9W9KkTwzdr2rPNXhhJ7
+	 ICQdKqZe5Z6L3FUQy3wdXiL8RWJUrIYfXS7B8BF8gXgv4aYwWqYKMunV5Qf5k54k6M1c/
+	 n1IQxzb+ixu89iztrc+vcPii8ca057Gj9tiRSHh91FRHUwhIsH58+fIYhrgOQL6e0a/bh
+	 faGWiAdyrqd+A+50AcEFdfMASPwQgEqWJP47kaWQCZXyHcKeaIxNAOgvcXRCNL7OvUIMJ
+	 m904eVe1MxPXauoVgExVqC9iTYDYs9OVLeSDXH01Ba4aGLNWzW2YBHoJX93VDvY3Xyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794488617;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=xxLvafh8oElSW/f5s1DQzYPUCi1n+N6BxV/jYvId0hQ=;
-	b=UX0pHiMa/HQnZM2bQ5oCjXgZzEpg2F+Tm6LwjWp0QtOqz1JCa9iifQOJpbKjujaztkgo
-	 FTzSwrn1lPXT5/NjTqh2H7vo1x9MvGWBxWOdlnojsV2L7WAUhDnUR3pKKP52Lgwi9SCwn
-	 4ALg1+P9VLeyuxC+9gEBz2N4PHzmG+fuTwze/LhlDWHbiBgJ4pChJHQ5Rz9eTb5USnCBr
-	 ls47RYxTBKUrHFxf7aCFfr+1ZMAJlWcACa+A0Gy4ETzvsyDR9qBB0saD7V6TfS7KUX21S
-	 i/5agqJtQ6y1M8ZCaFoiFiE2MxmPScRUqLYqxqJ0u/axwNDlY3pXLBlZWQslvRT+zuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794488660;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Subject:From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:
+	 X-Last-TLS-Session-Version;
+	bh=FazWs8jp3Tiswz7nCpkhqYJ6EHXn89P/WpbYmozbrYE=;
+	b=PrMxl0ddlO1HwMTOXllXzq58iw0RB0XJ+I4fnlidm8EsJTTnTHUD5PNDORzz4baKzC7f
+	 FneI5OtH2twmdTBEAlvDNuzzckxrF5sWwGRNom9KylDg3xXthDUWeRLCsNAyl4E4XmHNP
+	 I4IhgBqv79j2Oo9iUTvcAkynqSjInlWTvXQhlI+63M7QLpknmRWa4n2+EK7z276sLn9ss
+	 C3ItjRTAxumFnVuEEi/M4kxBfgklIf+xn/p1L/DcYgqUMWV58RQ9mOaov0q7HTnL/ji0D
+	 eFMGqCGBu+uRI8EygIs0saG2UpkdI/VlUmNrfHYjLB22Q5FALYQ98iT+s4vwK47w8uQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FbFpC5Ft;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=L8vjgZzz;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A90606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:03:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99A90606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDBD606A32A;
+	Thu, 12 Nov 2026 13:04:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCDBD606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FbFpC5Ft
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4b4571ff080so46855625e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:03:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794488615; x=1795093415; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xxLvafh8oElSW/f5s1DQzYPUCi1n+N6BxV/jYvId0hQ=;
-        b=FbFpC5FtmYFLbosvpB2Z24RHv80qu5IzgGbbxLrSQDljBdZPwF+00JWXdf+r47D/Er
-         aCZv2UJBRmLOjpt49nqx1a/Eb147hUABDpXj35FxgZH4X9JFhN8OtDMaiwgqADnFDrB5
-         EtxqJHBSFY0gxJquzSkaMWcR5U04Txlqldl41ynQW5eAlJt1cIPD8pU9lgaN++tC/Veu
-         KBqvK+5quHNX5oFgiEu+fwPV64Um+2jMT+3DDF1fsgjnd0Jo4PmS2BaPy4rA47W+uZJF
-         192zCOzXBLbvDQdAv2E4yFvOLU3G+B0MHDVd0vDwBSVyIn8m3YpkvMaaUde7ezc2nu07
-         pIdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794488615; x=1795093415;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xxLvafh8oElSW/f5s1DQzYPUCi1n+N6BxV/jYvId0hQ=;
-        b=NjSZhfbu0qWcKPjryUSPrtnbSSFtBegOpD9BzLylQfW1+G2i2LoWYgV4kFpNEwHnHL
-         bGhcAt9BbITw7FoEnRgJdk5UD9b+YheWziNoi9GV89MjElsGP14Fvnvxnl8euiPKYpzN
-         JBxaFK/KkOYLEUIHBYrxjOBEZs0V0TRGHP90qh448BD3QQvINwkcLh4KfoMDg+sqPuso
-         lmM47jAIBhWhbm+l/gT2NB1coFtC5/O+nncBlP40wZ04COfeSxhtyUUvcj0EgoLt1qrn
-         deoW2WIymgzlWKi9UVj2P/dkr779BTiQenWd6S10EK/vOEaZaj2Zm47u1fsxoJhOkdUO
-         TlVw==
-X-Forwarded-Encrypted: i=1; AL+hErFwW/Ok7FmtPif7SoguXvGAzy8JlyxKlDxNgrB1FyhzPFN6s58J56Vl0lVNhh/P4idzCVLFlt1vryOJ/Y0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+7ikUQ6q+kiQUYvq9f02Kw2bh9MRWPAhQjhg5PMb8Tt6+cjibi
-	0fPQwSmtdzo3Z6pMYuDxAb0juV+pyAfn0fcEK5o2qyYeUVZXZqY323V7
-X-Gm-Gg: AYBFou0GeBptZOH67atwVsPmzM+HA0awGTOd4Dn/bsrYwvmpXfUoaIHNwLrQF6B/Tx/
-	dYukiHoEeMRHq/b65+ePJpvBA1ODFqoTip/RVcKwSPH5P3yYRKPJT16g5igx2kO5nDKVO94vcCa
-	yuGSRO+Od78iirEPTFOD2romMdB31c5ZLpjy2ffb5Sg/Rg2jtHQHu6A85OhHq7hpHxTq/rvLeZc
-	fEQVKTVITlJwNpsZd4WPG8xoGlnF0eUktUKD5HeVoaaSualnKsEv85fRQQg2R+NPp5AP8MBJKDL
-	0CpyUiFzCiBrXfI/GuyJZN8p2wQYdzbc9DA+nhNqRlHYB2E/la7a2NOu0PlstT8TwASXXw3Tgy+
-	QrGpJ62CmkXGKjd/orXY8Th01xu294o2/PbnjFoIntHfTC25A8YhsvLkh6X1kGSrrNsmJHmPqOF
-	oZgaLFsPKp25c4TJeKX/HPUGMe/7U0PJ9pQTjnAyAoaBxH5RTJF1IbW71OfxswO3As7GRIHXatt
-	cSW/EvIpLO8Vzc40iHWUrsKTrgQi2KiCvSs1EF/+SaU7bULK4JGauUIlZDkIB2WurtzGa9TSukC
-	ZfYSXwRr6TejXrgefNfQkaoG
-X-Received: by 2002:a05:600c:871b:b0:4a1:fe26:24f0 with SMTP id 5b1f17b1804b1-4ba0938a4cdmr100328715e9.20.1794488614828;
-        Thu, 12 Nov 2026 05:03:34 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e26700fsm78144135e9.10.2026.11.12.05.03.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 05:03:33 -0800 (PST)
-Message-ID: <e9033159-ffd5-4c84-b355-964687b75226@gmail.com>
-Date: Thu, 12 Nov 2026 14:03:31 +0100
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=L8vjgZzz
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 140F74E4158C;
+	Thu, 12 Nov 2026 13:04:18 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D5662601D5;
+	Thu, 12 Nov 2026 13:04:17 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E477111BC0490;
+	Thu, 12 Nov 2026 14:04:15 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794488657; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=FazWs8jp3Tiswz7nCpkhqYJ6EHXn89P/WpbYmozbrYE=;
+	b=L8vjgZzzhUHlMXfPjZRzPq88Fvu9zCdjTzSBPbElh0dWXsdyZU+rvidedpfUDqZie9f6sM
+	9VY1a0x9J4clWOrK999ZhNqd7jD51Ud9mlHt4A0QUEOAcGpUjI36f9NfBoSloWmd2mAes0
+	6YVYV92IP41si+55QQXpYsVrTYxzS3DrIJ679QbDbT3KRVWxjgVJ6ZT/gog6HkdvkNcCfh
+	YYIuO1whK4sWbnHtot5abPliWEfeZajiIqiPjHnj9KSSz1qbgD1zaChvitc0sklHozMcEO
+	S9Peckw4UHT0UC2SoSj6GMfoE31sZNzsR2b1i1T9BeumKNukqmEviJgs0RyK3A==
+Message-ID: <cf152e73eb4585fc0592bd59882a426ef5ea398d.camel@bootlin.com>
+Subject: Re: [PATCH v2] ACPI: platform: Add basic support for ACPI 6.5 fixed
+ clock resources
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>
+Cc: linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, Thomas
+ Petazzoni	 <thomas.petazzoni@bootlin.com>
+Date: Thu, 12 Nov 2026 14:04:12 +0100
+In-Reply-To: <20261111100736.98364-1-paul.cercueil@bootlin.com>
+References: <20261111100736.98364-1-paul.cercueil@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,125 +73,172 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/2] mm/huge_memory: find partially mapped shared
- folios with NO_PAGE_MAPCOUNT
-To: "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Rik van Riel <riel@surriel.com>, Vlastimil Babka <vbabka@kernel.org>,
- Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Joanne Koong <joannelkoong@gmail.com>
-References: <20261111113535.330078-1-azpijr@gmail.com>
- <4411389c-2246-4af6-9b34-10d3f259aeb4@kernel.org>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <4411389c-2246-4af6-9b34-10d3f259aeb4@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 11/12/26 1:46 PM, David Hildenbrand (Arm) wrote:
-> On 11/11/26 12:31, Jose A. Perez de Azpillaga wrote:
->> With CONFIG_NO_PAGE_MAPCOUNT, an anon large folio mapped by several MMs
->> isn't seen as partially mapped while its mapcount stays at or above the
->> number of pages. If parent and child zap the same half of a THP after
->> fork(), that half is mapped by nobody, the folio is never queued for
->> deferred split, and the memory stays allocated until every mapper is
->> gone.
-> 
-> If you follow the history on this, in e.g., some raised in my talk
-> 
-> https://share.daveh.de/s/bQsDpD7xigJ6wD8/download?path=&files=LSF_MM%2726_+Deferred_folio_splitting.pdf
-> 
-> There are a lot of questions around this.
-> 
-> In particular
-> 
-> (a) Is it really relevant in practice. The only way you can trigger this if a
-> folio becomes partially mapped *after* fork (by parent and child unmapping the
-> same pages), and the child stays alive. Once the child is gone, the folio is
-> only mapped by one process (e.g., child quit), the folio is properly detected as
-> partially mapped.
+Hi Rafael,
 
-I don't have any relevant evidence in practice. found it by just reading
-and testing in qemu. that is why I sent it as RFC.
+I see Sashiko complains about this patch:
+https://sashiko.dev/#/patchset/20261111100736.98364-1-paul.cercueil%40bootl=
+in.com
 
-> 
-> So you need a long-running parent+child, and have them both do questionable things.
-> 
-> (b) What is the overhead from having way too many folios in the deferred split list.
-> 
+But its only complaint is addressed by a second patch that was sent in para=
+llel:
+https://lore.kernel.org/linux-arm-kernel/20261103084915.8405-1-paul.cercuei=
+l@bootlin.com/T/
 
-I don't know yet. I only measured the walk in a TCG guest, nothing on
-how long the list gets
+In retrospective I probably should have packed both into one patchset; I th=
+ought
+they were parallelizable enough to go each its own way, but that was withou=
+t
+thinking about Sashiko.
 
->>
->> Patch 1 moves the split_underused_thp check out of
->> deferred_split_folio(). Patch 2 queues such folios as candidates and has
->> the shrinker walk the rmap to see which pages are still mapped.
->>
->> 512 MB of THPs with the same half zapped by every mapper, memory freed
->> by the shrinker:
->>
->>                                 before    after
->>   2M,  2 processes                0 MB   252 MB
->>   2M,  3 processes                0 MB   237 MB
->>   2M,  2 children + parent PMD    0 MB   244 MB
->>   64K, 2 processes                0 MB   252 MB
->>   64K, 3 processes                0 MB   252 MB
->>
-> 
-> Again, we can create nice scenarios that are likely not relevant in practice
-> (such as 512 MB THPs, lol), but so far I doubted that this is relevant in practice.
+Cheers,
+-Paul
 
-that's 512 MB in total, not the folio size. maybe I should have
-clarified it.
-
-> 
-> Do we have any evidence that real applications run into that and it's a problem
-> for them?
-> 
-> The memory is charged to these processes and swapout etc. would still work.
-> 
->> With patch 2 the shrinker reads shrink_underused itself, so folios
->> queued for the underused check aren't split anymore once it's turned
->> off.
->>
->> David suggested a check from the shrinker for the opposite case in [1],
->> folios marked partially mapped by a PTE by PTE unmap. The walk in patch 2
->> could clear the flag there too, this series doesn't do it.
->>
->> Questions:
->>
->> - Is an rmap walk from the shrinker fine for this? Every CoW of a page
->>   in a shared PTE-mapped folio queues a candidate, and so does the last
->>   PMD mapper when it splits its PMD.
-> 
-> You are asking the same question I asked in my LSF/MM session :)
-> 
-> I don't have a good answer to that, especially, once large folios (smaller than
-> most THPs) come into play. Like 64k folios on a 4k kernel.
-> 
->>
->> - The walk needs one bit per page, which is too much for the stack with
->>   64K pages, so I used a static bitmap under a mutex. That serializes
->>   the walks of all nodes and memcgs, and the mutex is taken with the
->>   folio locked. Where should the bitmap live?
-> 
-> Maybe one could track it a bit broader? "any page in this set of 16 pages is
-> present". Reclaiming a single 4k page from a 2M folios is barely worth it.
-> 
-
-yes, that works. maybe with the group size scaled to the folio, so the
-map is one long on the stack and 64K folio still gets one bit per page?
-
-however, maybe if I don't have real evidence, better drop it?
-
--- 
-cheers,
-jose a. p-a
+Le mercredi 11 novembre 2026 =C3=A0 11:07 +0100, Paul Cercueil a =C3=A9crit=
+=C2=A0:
+> ACPI 6.5 introduced a clock input resource descriptor, which allows to
+> specify in the ACPI tables what clocks are connected to a given device.
+>=20
+> This patch adds support for the most basic clock resource, which is the
+> one that represents a fixed clock. The new code will then create a
+> clk_hw for each fixed clock resource, which is then made available to
+> the device drivers, that can obtain it through a regular call to
+> clk_get(NULL).
+>=20
+> Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
+>=20
+> ---
+>=20
+> Related:
+> https://lore.kernel.org/linux-arm-kernel/20261103084915.8405-1-paul.cercu=
+eil@bootlin.com/T/
+>=20
+> v2:
+> - Use the calculated clock name in devm_clk_hw_register_fixed_rate()
+> =C2=A0 instead of the device name
+> - Make sure clkres->scale is <=3D 2. The field is 2 bits but the value
+> =C2=A0 clkres->scale =3D=3D 3 is not defined in the spec.
+> - Compute the fraction numerator using 64-bit math, to make sure it
+> =C2=A0 won't overflow on 32-bit systems.
+> - Initialize clocks only when the device_type matches
+> =C2=A0 ACPI_BUS_TYPE_DEVICE.
+> - Use a shorter name for clocks as the hard limit is 16 characters
+> =C2=A0 including the terminator.
+> ---
+> =C2=A0drivers/acpi/acpi_platform.c | 64 +++++++++++++++++++++++++++++++++=
++++
+> =C2=A01 file changed, 64 insertions(+)
+>=20
+> diff --git a/drivers/acpi/acpi_platform.c b/drivers/acpi/acpi_platform.c
+> index 80ea7121744d..71322cdcf0dd 100644
+> --- a/drivers/acpi/acpi_platform.c
+> +++ b/drivers/acpi/acpi_platform.c
+> @@ -10,17 +10,27 @@
+> =C2=A0
+> =C2=A0#include <linux/acpi.h>
+> =C2=A0#include <linux/bits.h>
+> +#include <linux/clk-provider.h>
+> +#include <linux/clkdev.h>
+> =C2=A0#include <linux/device.h>
+> =C2=A0#include <linux/err.h>
+> =C2=A0#include <linux/ioport.h>
+> +#include <linux/kconfig.h>
+> =C2=A0#include <linux/kernel.h>
+> +#include <linux/list.h>
+> =C2=A0#include <linux/module.h>
+> =C2=A0#include <linux/dma-mapping.h>
+> =C2=A0#include <linux/pci.h>
+> =C2=A0#include <linux/platform_device.h>
+> +#include <linux/units.h>
+> =C2=A0
+> =C2=A0#include "internal.h"
+> =C2=A0
+> +struct acpi_clk_data {
+> +	struct device *dev;
+> +	unsigned int idx;
+> +};
+> +
+> =C2=A0/* Exclude devices that have no _CRS resources provided */
+> =C2=A0#define ACPI_ALLOW_WO_RESOURCES		BIT(0)
+> =C2=A0
+> @@ -130,6 +140,57 @@ static unsigned int acpi_platform_resource_count(str=
+uct
+> acpi_resource *ares, voi
+> =C2=A0	return AE_CTRL_TERMINATE;
+> =C2=A0}
+> =C2=A0
+> +static int acpi_add_fixed_clock(struct acpi_resource *res, void *d)
+> +{
+> +	static const unsigned long clk_scale[] =3D { 1, HZ_PER_KHZ, HZ_PER_MHZ
+> };
+> +	struct acpi_resource_clock_input *clkres;
+> +	struct acpi_clk_data *data =3D d;
+> +	struct device *dev =3D data->dev;
+> +	struct clk_hw *clk;
+> +	unsigned long rate;
+> +	char name[64];
+> +	int err;
+> +
+> +	if (res->type =3D=3D ACPI_RESOURCE_TYPE_CLOCK_INPUT) {
+> +		clkres =3D &res->data.clock_input;
+> +
+> +		if (clkres->mode) {
+> +			dev_warn(dev, "Only fixed rate clocks supported for
+> now.\n");
+> +			return 1; /* keep going */
+> +		}
+> +
+> +		if (clkres->frequency_divisor =3D=3D 0 || clkres->scale > 2)
+> +			return -EINVAL;
+> +
+> +		rate =3D DIV_ROUND_UP_ULL((u64)clkres->frequency_numerator *
+> clk_scale[clkres->scale],
+> +					clkres->frequency_divisor);
+> +
+> +		snprintf(name, sizeof(name), "%s-%u", dev_name(dev), data-
+> >idx++);
+> +
+> +		clk =3D devm_clk_hw_register_fixed_rate(dev, name, NULL, 0,
+> rate);
+> +		if (IS_ERR(clk))
+> +			return PTR_ERR(clk);
+> +
+> +		err =3D devm_clk_hw_register_clkdev(dev, clk, name,
+> dev_name(dev));
+> +		if (err)
+> +			return err;
+> +	}
+> +
+> +	return 1;
+> +}
+> +
+> +static void acpi_platform_init_clocks(struct acpi_device *adev)
+> +{
+> +	struct device *dev =3D &adev->dev;
+> +	struct acpi_clk_data data =3D { .dev =3D dev };
+> +	LIST_HEAD(list);
+> +	int ret;
+> +
+> +	ret =3D acpi_dev_get_resources(adev, &list, acpi_add_fixed_clock,
+> &data);
+> +	if (ret < 0)
+> +		dev_err(dev, "Failed to add clock resources: %d\n", ret);
+> +}
+> +
+> =C2=A0/**
+> =C2=A0 * acpi_create_platform_device - Create platform device for ACPI de=
+vice node
+> =C2=A0 * @adev: ACPI device node to create a platform device for.
+> @@ -196,6 +257,9 @@ struct platform_device *acpi_create_platform_device(s=
+truct
+> acpi_device *adev,
+> =C2=A0			}
+> =C2=A0			acpi_dev_free_resource_list(&resource_list);
+> =C2=A0		}
+> +
+> +		if (IS_ENABLED(CONFIG_COMMON_CLK))
+> +			acpi_platform_init_clocks(adev);
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	memset(&pdevinfo, 0, sizeof(pdevinfo));
