@@ -1,83 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794513767;
-	b=LlkqCQ78fzDj71k+s+pyhN/vzV+SVWZxoHlh+8ZcKZQAFvPmUZStB1qBjtnge3rUZ98B
-	 7Rfs4h2hGXkWVaPPGnWhQZZY4RxR0TDg09s9f7x1OrXEhjPQ36oVAwnwfpgkFx0GmPLk9
-	 x2+jOewCOVxT8fX/mzjxgACT3QngukcOACFsOr1nqfUUsB+nwxGRL2yYpMZ7HIOH9dtTc
-	 b/oAsvM3nYcS4sqKaXnx0GwvFuCy56TDnJ0pLQUfGXYDSIiJKKWoJlijouE+v2L68Lgl/
-	 kbYDugymdKaru7jXhpZ9PRryhHJlyxsOLCQH8IzdrTVZY5Trtr29hbiylJXdapjBWiw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794513767;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=kRsJE9S/70yOGQSUq2MlgQujyTFrN9aLjM+eaSxSfek=;
-	b=IWHhX+mCtDDtzaD5+baXWoH94VbZ81GNtO+nlosxW3X2M0HP/Vb3UoA0OeKrUYalq6zZ
-	 +h6/mmZQZxIyKVItlko4ca5ecYmaIkn4PciQAkqcKDT9QJJZOKkm72L7uLIdJDzNIoY5z
-	 ZEcVytGheLpnW+oi2FGSSwxeIbpICwtCdG1g0pwpycwtZo/MLcuumGnjD004UcuPGmd6G
-	 4o5E6xr/dTNiFv8nb0EF+bk+VsY0uqUUZfl7v8OpqnRBU4hDj9IiTlzHHYrVl4kYYQR0k
-	 oIn5dbcOaK8UubZwQBxrD56gwF43xc8FckqVouP1AhdxgWZgQ5bSPY7DK/EjpNrEqrA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iXXCGePG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.162
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794513821;
+	b=GaZlRRMkG28Z/L0C8XDXHvZEZ4YD1QSNFOaBW8Akqa5/zHoka2Z7JJAeC8lIAfIftL1o
+	 AR/qoWQTviEkP4Ykt2XJhJ4Dh9Ih3ApfEezE/FveFHUJt9EaEQ8DSsxMskLahMoytwKKL
+	 WioC26O5Alkg4+up1kPDwK+qVik7wpYPLXhJp10xPaQiyNKyjHZC7b2d0HKU4e9GhdQDO
+	 uSiAP5A6/1F8lJDqpugLfDNFhYuro4nlrkf3vnrBgqVy68EIDxipK9ujGLLCgAbNQQD1V
+	 89ea3m1uOpZWhdLgOeRWonek0TWiNtl8KVkUMX/xjEHBQ3iHRfTNpdBcHAqidqxdMUg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794513821;
+	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
+	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
+	 X-SimpleLogin-Want-Signing;
+	bh=0E3W616PIIwYgmjnft8Gf472v/DbdmSZ1OX5fDFqHR4=;
+	b=pnW5FeGnmStdnZLui//u5ZnPkXvE2o2BfSiyPIrWUN24Oes0NTIp/gyfu4JfeavMtaAW
+	 CV2eTx5NkATlllTcG4FpjBj+5FM9VfvXS4sA28M8ZD6LZFtkCHGJVBhZRKpPoyui2ZFz1
+	 Byouo+psr26vjLfHSJvhWCbrenzbCUK5rL/smMMA1Q1eexzRJtoXAn7O1eSLCGWeIQ9mf
+	 VTAR8iriB1g0QB+la+XQrOPGREWfZCzkrxvvNYQ5FAi17l37RcnT3mKBT2LYsWwPQ263b
+	 Yca5r3fCj2DG+nfZJFpeNM0VrPQlXBpYV1u25/Y3udRDxtJqN5T2V48zAQUmNFUXqAA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=eldare.de;
+	spf=pass smtp.mailfrom=eldare.de;
+	dkim=pass header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=C80fJPC6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.162
+Received: from mail-200162.simplelogin.co (mail-200162.simplelogin.co [176.119.200.162])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22510606A31C;
-	Thu, 12 Nov 2026 20:02:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5130606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:03:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5130606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=eldare.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eldare.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iXXCGePG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 291CB1F000C4;
-	Thu, 12 Nov 2026 20:02:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794513766;
-	bh=kRsJE9S/70yOGQSUq2MlgQujyTFrN9aLjM+eaSxSfek=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iXXCGePGQJ3YsqnugdvJXMJeGBJiscAo887Qwn5UOj9vmXdobRDyLCxWo3h9W9Fq4
-	 94i19MI8QPzHukPl5h1iWi54+DLQqqT898RHQTKI6y7CZhH9zUEF9kLAuR9lyGfyWe
-	 tKAx0FzHMGLnQvnQsKke6tQANKJiRlF49ClwlDCnTkvK2222ZhOBIhXDK/9z8+p4cQ
-	 2qA/d1iB+ohHdfWQfI6QQr+18k6BJ7ET6iVb6rf5pEI45dfw/+xM6HOV2c5TZalwiM
-	 GLeem4S6CP5EHu7MRNHVwtxl1bcHWzEGIv2pauBU8yj1aY+WEZ4/Hb/TveVAz4xHAg
-	 TaLmZB+wbwghg==
-Date: Thu, 12 Nov 2026 12:02:44 -0800
-From: Drew Fustini <fustini@kernel.org>
-To: Radim =?utf-8?B?S3LEjW3DocWZ?= <radim.krcmar@oss.qualcomm.com>
-Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
-	Atish Patra <atish.patra@linux.dev>,
-	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
-	James Morse <james.morse@arm.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Peter Newman <peternewman@google.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Sunil V L <sunilvl@oss.qualcomm.com>,
-	Tony Luck <tony.luck@intel.com>, Weiwei Li <liwei1518@gmail.com>,
-	yunhui cui <cuiyunhui@bytedance.com>,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
-	Zeng Heng <zengheng@picoheart.com>, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, x86@kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v11 1/5] riscv_cbqri: Add capacity controller core
-Message-ID: <avYbZMGiLU6iSTj7@thelio>
-References: <20261108-dfustini-atl-sc-cbqri-dt-v11-0-33a1bf0cf01c@kernel.org>
- <20261108-dfustini-atl-sc-cbqri-dt-v11-1-33a1bf0cf01c@kernel.org>
- <DMTD6WT2DU30.AX3QK44UUYB3@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=C80fJPC6
+ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1794513813;
+	cv=none; b=VWsLIO5ZDFdFMSexR1WD0s2jyF5Ecg6aJ7egPZC5KX01jpZdaOM71xq/CWCAJKtAu4XjvqAbrOYrlEC5HOmQIXPQfHNb5cPTzcRO6cnvSDYCPxlfJ8TEp5GdssBeYJ9GfBh+ChZtDGLUT0g3Aryi7uDUkmzGVOi9kTxcM5HJEyFvMSmrR1IkD5H99LXhwW7rqcobNHbV2Ajgsj/9HwEzVVY+CcZRjUF89ICmilkPOukE3YVjZeIZxqFzMqjLXCmQKpRry5+Xy1VBL8C1nBXFXacJzjTRYDVOYYOzS+V+eqt/g60XjDAjH7G3byWQrhjyKLXjjWP4qLi7WPrQe/l/3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
+	t=1794513813; c=relaxed/simple;
+	bh=0wc9Z/4W6CTXSp1rTTaxIG30rifzfPuvCw+aRoc0wpE=;
+	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=NENS0VfnzmH5V90SmV+FD/CZVcM+m4aEp6WZtCNDPq83O0VXEXXL29H5035TNVr2Yzi09OA6BzFce2Af5FXKAzCSCqxZm2E2Qr+DvXC0Bc1N2oGoQOWcDu/b7JNKaG8vTkreYvYNT1L30l6owqNdT7ZOcwF66koOksuf+pXKKCYLOiN8JPnj/gCseqogWhUD4avWRioAIYv9FNyyn1GBpMCG+ACd3sVJgcVfG5z94zFpCkHoSSZn4bT3qCpiMTNhz0zV7CuQGjz+PNp7zYc9Qa7mIOnnkGqGZkVesvlhQPGpXSq6BrSmp4GwKqsgqg8x5Q5Qwr1lpBSVPBCYD851jw==
+ARC-Authentication-Results: i=1; mail.protonmail.ch
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=eldare.de; s=dkim;
+	t=1794513813;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0E3W616PIIwYgmjnft8Gf472v/DbdmSZ1OX5fDFqHR4=;
+	b=C80fJPC6c82t8kBWD1d1BIAZlIX8ADI7iFadx9fa7XQeUBpqdd0ZEPR2PATr9dBXbB6QB8
+	R78HVgSdpPUBG9gH2eCQtzA/ZlUTPoqX5wRQVlIWlciSmDGVeKyHob8PosYa7wzKyZ6yv5
+	uB0ewh3FaDmO2uYttqH0U4Ecn8/uGWk=
+Date: Thu, 12 Nov 2026 20:03:22 +0000
+Subject: Re: [PATCH net v5] vsock/bpf: release sock lock while waiting for
+ data in recvmsg
+In-Reply-To: <179447093204.2199510.8895677421994612994@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,206 +65,84 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <DMTD6WT2DU30.AX3QK44UUYB3@oss.qualcomm.com>
+Content-Transfer-Encoding: quoted-printable
+From: jrmmhm.kernel@eldare.de
+To: netdev-bot+sashiko@kernel.org
+Cc: Stefano Garzarella <sgarzare@redhat.com>,Bobby Eshleman
+ <bobbyeshleman@meta.com>,"David S. Miller" <davem@davemloft.net>,Eric Dumazet
+ <edumazet@kernel.org>,Jakub Kicinski <kuba@kernel.org>,Paolo Abeni
+ <pabeni@redhat.com>,Simon Horman <horms@kernel.org>,"Michael S. Tsirkin"
+ <mst@redhat.com>,Alexei Starovoitov <ast@kernel.org>,Michal Luczaj
+ <mhal@rbox.co>,virtualization@lists.linux.dev,netdev@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,stable@vger.kernel.org
+Message-ID: <179451381226.6.3359410033921765387.1767782037@eldare.de>
+References: <20261109-kbh3-1-022-fix-v2-v5-1-4d9af04f0fad@eldare.de>
+ <179447093204.2199510.8895677421994612994@kernel.org>
+X-SimpleLogin-Type: Reply
+X-SimpleLogin-EmailLog-ID: 1767782087
+X-SimpleLogin-Want-Signing: yes
 
-On Thu, Nov 12, 2026 at 05:14:50PM +0100, Radim Krčmář wrote:
+On Thu, Nov 12, 2026 at 08:08:52AM +0000, netdev-bot+sashiko@kernel.org wro=
+te:
+>> -static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock=
+, long timeo)
+>> +/* __vsock_recvmsg() doesn't wait in these states and knows what to ret=
+urn. */
+>> +static bool vsock_rx_done(struct sock *sk)
+>
+>[Severity: Low]
+>Does this comment hold for the sk_err case after a transport reset?
+[ ... ]
+>The wait loop stops on sk_err, but the code it hands off to can't
+>report that error. Could the wait path return the pending error the
+>way the native path does? If not, could the comment be reworded to
+>cover this case?
 
-Hi Radim, thanks for the review.
+I reworded the comment and kept -ENOTCONN, which the commit
+message already notes. Returning the pending error from the wait would
+bring back the copy of the native return values that Alexei asked me
+to drop in v4.
 
-> 2026-11-08T15:20:50-08:00, Drew Fustini <fustini@kernel.org>:
-> > Add the core for RISC-V CBQRI capacity controllers: the register
-> > layout, the capability probe, and the allocation operations that
-> > program a capacity block mask for an RCID and read it back.
-> >
-> > A discovery layer maps the register block and describes the controller
-> > in a cbqri_controller_info descriptor. riscv_cbqri_register_cc() probes
-> > the controller from that descriptor and adds it to the controller list,
-> > which stays private to the core. The core owns the controller state
-> > after registration, so nothing in it depends on how the controller was
-> > discovered. The caller keeps the register mapping alive.
-> >
-> > Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > Signed-off-by: Drew Fustini <fustini@kernel.org>
-> > ---
-> > diff --git a/drivers/resctrl/cbqri_devices.c b/drivers/resctrl/cbqri_devices.c
-> > +static u64 cbqri_readq(void __iomem *addr)
-> > +{
-> > +	return lo_hi_readq(addr);
-> > +}
-> > +
-> > +static void cbqri_clear_cunits(struct cbqri_controller *ctrl)
-> > +{
-> > +	if (ctrl->cc.cunits) {
-> > +		writel(0, ctrl->base + CBQRI_CC_CUNITS_OFF);
-> > +		writel(0, ctrl->base + CBQRI_CC_CUNITS_OFF + 4);
-> 
-> nit: lo_hi_writeq?
+>> +    while (!vsock_has_data(sk, psock) && !vsock_rx_done(sk)) {
+>> +        if (!timeo) {
+>> +            ret =3D -EAGAIN;
+>> +            break;
+>> +        }
+>> +        if (signal_pending(current)) {
+>> +            ret =3D sock_intr_errno(timeo);
+>> +            break;
+>> +        }
+>
+>[Severity: Low]
+>What happens when the timeout and a signal land in the same wakeup?
+[ ... ]
+>Would checking signal_pending() right after wait_woken() returns, as
+>the native loop does, make this match?
 
-Good idea, I'll switch to that.
+I'm leaving this one as is: it only changes which error a reader gets
+when the timeout and a signal land in the same wakeup, and I don't
+think that is worth another change to the loop in this patch.
 
-> > +int cbqri_apply_cache_config(struct cbqri_controller *ctrl, u32 closid,
-> > +			     const struct cbqri_cc_config *cfg)
-> > +{
-> > [...]
-> > +	mutex_lock(&ctrl->lock);
-> > [...]
-> > +out:
-> > +	mutex_unlock(&ctrl->lock);
-> > +	return err;
-> 
-> nit: guard the mutex?
+>> +        release_sock(sk);
+>> +        timeo =3D wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
+>> +        lock_sock(sk);
+>>      }
+>
+>[Severity: Medium]
+>Now that the lock is dropped around wait_woken(), can vsk->transport
+>be NULL when the loop condition is checked again?
+[ ... ]
+>Before this patch, the lock was held for the whole wait on the BPF
+>path, so this interleaving could not happen there. Would checking
+>vsock_rx_done() or !vsk->transport before vsock_has_data() in the loop
+>condition avoid the warning?
 
-Also a good idea, I'll switch for this function and also
-cbqri_read_cache_config().
+I haven't reproduced this, but the code agrees with it: v6 will check
+vsk->transport first in the wait loop, so a reader woken after its
+transport is gone no longer calls vsock_has_data(). The entry
+WARN_ON_ONCE() in vsock_bpf_recvmsg() stays as it is, so a later recv()
+on such a socket still reaches it, as it does on net today.
 
-> 
-> > +static int cbqri_probe_feature(struct cbqri_controller *ctrl, int reg_offset,
-> > +			       int operation, int *status, bool *access_type_supported)
-> > +{
-> > +	const u64 active_mask = CBQRI_CONTROL_REGISTERS_OP_MASK |
-> > +				CBQRI_CONTROL_REGISTERS_AT_MASK |
-> > +				CBQRI_CONTROL_REGISTERS_RCID_MASK;
-> > +	u64 reg, saved_reg;
-> > +	int at;
-> > +
-> > +	/*
-> > +	 * Default the output to false so the status==0 (feature not
-> > +	 * implemented) path returns a deterministic value to the caller
-> > +	 * rather than leaving an uninitialized bool.
-> > +	 */
-> > +	*access_type_supported = false;
-> > +
-> > +	/* Keep the initial register value to preserve the WPRI fields */
-> > +	reg = cbqri_readq(ctrl->base + reg_offset);
-> > +	saved_reg = reg;
-> > +
-> > +	/* Drain any in-flight firmware op before issuing our own write. */
-> > +	if (cbqri_wait_busy_flag(ctrl, reg_offset, &saved_reg) < 0) {
-> > +		pr_err("BUSY timeout before probe operation\n");
-> > +		return -EIO;
-> > +	}
-> > +
-> > +	/*
-> > +	 * Execute the requested operation with all active fields
-> > +	 * (OP/AT/RCID) zeroed except OP itself. Every bit not in
-> > +	 * active_mask is WPRI and gets carried over from saved_reg.
-> > +	 */
-> > +	reg = (saved_reg & ~active_mask) |
-> > +	      FIELD_PREP(CBQRI_CONTROL_REGISTERS_OP_MASK, operation);
-> > +	writel(lower_32_bits(reg), ctrl->base + reg_offset);
-> > +	if (cbqri_wait_busy_flag(ctrl, reg_offset, &reg) < 0) {
-> > +		pr_err_ratelimited("BUSY timeout during operation\n");
-> > +		return -EIO;
-> > +	}
-> > +
-> > +	/* Get the operation status */
-> > +	*status = FIELD_GET(CBQRI_CONTROL_REGISTERS_STATUS_MASK, reg);
-> > +
-> > +	/*
-> > +	 * Check for AT support if the register is implemented
-> > +	 * (if not, the status value will remain 0)
-> > +	 */
-> > +	if (*status != 0) {
-> > +		/*
-> > +		 * Re-issue operation with AT=CODE so the controller
-> > +		 * latches AT=CODE on supported hardware (or resets it to 0
-> > +		 * on hardware that doesn't). OP must be a defined CBQRI op
-> > +		 * here. OP=0 is a no-op and would silently disable CDP.
-> 
-> OP=0 is a reserved for future standard use.
-> (Hopefully just fails, but it could be worse if it gets implemented as
->  something other than no-op.)
+pw-bot: cr
 
-I'll reword and drop the incorrect statement that OP=0 is a no-op.
+Jerome
 
-> 
-> > +		 */
-> > +		reg = (saved_reg & ~active_mask) |
-> > +		      FIELD_PREP(CBQRI_CONTROL_REGISTERS_OP_MASK, operation) |
-> > +		      FIELD_PREP(CBQRI_CONTROL_REGISTERS_AT_MASK,
-> > +				 CBQRI_CONTROL_REGISTERS_AT_CODE);
-> > +		writel(lower_32_bits(reg), ctrl->base + reg_offset);
-> > +		if (cbqri_wait_busy_flag(ctrl, reg_offset, &reg) < 0) {
-> > +			pr_err("BUSY timeout setting AT field\n");
-> > +			return -EIO;
-> > +		}
-> > +
-> > +		/*
-> > +		 * If the AT field value has been reset to zero,
-> > +		 * then AT support is not present
-> > +		 */
-> > +		at = FIELD_GET(CBQRI_CONTROL_REGISTERS_AT_MASK, reg);
-> 
-> I think it would be safer to also check the status field.
-> 
-> I'm not too clear whether the spec actually allows returning 5 (invalid
-> AT) when the AT is invalid, but an implementation that does that
-> wouldn't surprise me.
-> 
-> (For example when an implementation supports data AT and a custom AT, so
-> code AT isn't supported, but AT in general is -- it could keep the
-> failing code AT and just report the error.)
-
-That seems reasonable. I will change it to only report AT support when
-the AT field reads back as code with status = success.
-
-> > +		if (at == CBQRI_CONTROL_REGISTERS_AT_CODE)
-> > +			*access_type_supported = true;
-> > +	}
-> > +
-> > +	/*
-> > +	 * Restore the original register value.
-> > +	 * Clear OP to avoid re-triggering the probe op.
-> > +	 */
-> > +	saved_reg &= ~CBQRI_CONTROL_REGISTERS_OP_MASK;
-> > +	writel(lower_32_bits(saved_reg), ctrl->base + reg_offset);
-> 
-> It would be better to do nothing than trigger an illegal OP.
-> All our writes should modify the non-WPRI bits anyway, so restoring them
-> does nothing.
-
-I agree. I'll drop the restore write.
-
-> > +	if (cbqri_wait_busy_flag(ctrl, reg_offset, NULL) < 0) {
-> > +		pr_err("BUSY timeout restoring register value\n");
-> > +		return -EIO;
-> > +	}
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static int cbqri_probe_cc(struct cbqri_controller *ctrl)
-> > +{
-> > [...]
-> > +
-> > +	/*
-> > +	 * The driver programs the v1.0 register layout. Controllers that
-> > +	 * report 0.x differ only in capability bits that read as zero, so
-> > +	 * they are accepted. Anything newer than 1.0 may move fields.
-> > +	 */
-> > +	if (ver_major > 1 || (ver_major == 1 && ver_minor > 0)) {
-> 
-> I think we could accept ver_major == 1 even with ver_minor > 0 since the
-> minor specifications shouldn't be doing backward-incompatible changes.
-> 
-> (If we fix the OP=0, we shouldn't be invoking any other behavior that
->  might change.)
-
-Good point. I'll skip the ver_minor check and reject ver_major > 1.
-
-> I'd be more careful about accepting anything pre-1.0, since I would
-> expect there was a breaking change in the spec somewhere, and we could
-> program it incorrectly...  Do we even care about pre-1.0 hardware?
-
-I went through the tagged drafts in the riscv-cbqri repo, v0.9.1 through
-v1.0-rc3. The registers and encodings that this driver uses are the same
-in all of them. RPFX/P were added in bits that had been reserved.
-
-If I add that information to the comment, then would that be acceptable
-to you?
-
-Thanks,
-Drew
