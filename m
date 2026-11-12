@@ -1,88 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794500495;
-	b=2GwRhcZi6wuuLIS2DarEB5x1Hp9t0PIdwbu6z/cmBYIK51YEnERksKjtAQYPu2kxx4si
-	 g7Cla11b1pQ61/RfERd4Tos2OdUHAu6Bz2HVKsPPk66qxl8y/g9/ixPo/O/30cPJB8Hr6
-	 QKyarw3n3mzkTsM1Hjz9mdutnc5P4WlLb7wH5Ca65l+OotAKJKD/w78jxrcQfKn1CL+QC
-	 wCesuMucMA3eMq6iU1vstBScJ1xtDL3M5xeBhc5jxQNmbH9c7+gjDdmlqM9p3P8WWXsHX
-	 JIuqkVRQAczJl8S1MA5N93cJZ7xZUSE+w8iSWnis7cVkbFzc1orBxwrQaNWZ94c745Q==
+	t=1794500496;
+	b=yL1tXpDPNV3JwrPApMimR3HaqNy3qHqgP+ukSsax8f1CQHHDDL9AaBLS0JdJD/fq1oO6
+	 wcle2NF3wLe4u5debsxPs0H/+eo8fDHAR+SbV+UYYCQoLQGjCH2Dyo0CM1JqoBjaD3UN+
+	 +tjXiQqU6Mec+9S4CkPWzSaWGR9Eii6dFBMoJ9p4zeXahJ4e0yHV1nFS6u5SGcK4krcy6
+	 5keur/C8GhqtbntTE3/ys4HAlzOVXnpL4LqjS9uixbODls/9/jHCTirkmGOh9dkj8QcIq
+	 tmEYFvWiQI+HsaFFbIkWi/bRINs6+JpbXmAxwB0cmJsYLBFR+OggDYYDLoP/xP+HhfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794500495;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=paD3giawAZujBoqv5ue/Jl1Wh+BLkhbSiFjUwhhSpUw=;
-	b=yqKZD74BsI71krWr1hWvzF0NIS9KxUemEZS+zpSfpcHoBoetmW5CmuFUaj0rxpMaWOvU
-	 pgqxSrKC7Ka8y7RV69sZvYV0IsNByO8CFKA1XFnImAbnGaKDumeAOEMPqo7qG6FcYYTLl
-	 O0f0lJf54og35q9/Qen5GBZw770YdW56TURcYaYUETQxZ3WSKZlovTYTvqNMcJDK9OGw9
-	 dwv4WusGtIK7j8QThM4dfM9pWTvGZ3yeW0RXeviG9NrSEyMJYpM76PWdSZdsdZy/ZOiCW
-	 EPKhT0P/v4HhzHDXSM26EsPBjhcituikI6KTpAQ1lPCg2dxaXyIWtEh4MccGXKxA2sA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794500496;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=FvwIi9PGGXoQsiA6+EZQf2O4ZXu7pd1RUjro27vdlbw=;
+	b=vhH5Rz3KKxbI6jVclscsZojABqYOHITVy/SUTWAmHxgDphuQUU+E9+LedXeMghUBwDbm
+	 Mi7ZiNhaF+rEpQutz1JY90Ek/plHE9K0ZDIIRp2vzaBC0PMlre/IIAnCPfVKAirgId5jb
+	 n6rKdZZXAVFy0unV3j4IYsjjc3JlGRy0IyczIbsMRZKsW6Xo0/uUjK5olx+w3XJHS1nR0
+	 EsaYlRggRRUTgo1FgIGEOGL3ld3mQdokh8vvcAUHaWZaX7bh9HrZEManBlc8vIxKvh17r
+	 vitjC/hZ54hB4Z4yvZJWMUv8STsYwSisPDlb9Hegywmd5Ck8F3zG4xDESGyLYldw8bA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=mMXpdOlM;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=cmpxchg.org;
+	spf=pass smtp.mailfrom=cmpxchg.org;
+	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=t3lZoFQx;
+	arc=none smtp.remote-ip=209.85.128.179
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5405D606A881;
-	Thu, 12 Nov 2026 16:21:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5405D606A881
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F249606A884
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:21:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F249606A884
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=mMXpdOlM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794500488;
-	bh=Ao2ebABVG7bIWgifXwZ2GE6bCC2jlMMyNANj8xegV0g=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=mMXpdOlMeOui3VQvSpNSxi6Y8USsb1d7lkdvAS936fBLcQ7WDcJHU2oixmSN0sDKw
-	 uvuj8P5m5AmQ+Pq7xLiDql/0bTZ9kskSnBlIa1oDzQcJCrEFKv6gmLKjxybRfEh8IN
-	 BtceEvLuWt0GztCfcu1DgA7i+AL1Fs7AJwzV1uRr7FvhurjCNKdxw+BUsvBagUd/KP
-	 iayK2JI8IIOK0RNOZ9OnZ4A7DlRdWPl1GUH33JmL2iGukCOZxPbh+7t0KGZSa3a7qJ
-	 3uMb8p1VCVmAX3RAP/m3iNyR5Qnq8JR5xPyW4o0uUvV9cd1LDdobjWN7I2rPAtJ0D1
-	 lXSpY93fPC8BA==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id CA1BF17E0564;
-	Thu, 12 Nov 2026 17:21:26 +0100 (CET)
-Message-ID: <41affe4b832c2625a2bdcbdc26f221dcb17f475d.camel@collabora.com>
-Subject: Re: [PATCH v12 1/6] firmware: meson: sm: video firmware loading via
- secure monitor
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: zhentao.guo@amlogic.com, Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl	 <martin.blumenstingl@googlemail.com>, Mauro Carvalho
- Chehab <mchehab@kernel.org>,  Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- 	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Date: Thu, 12 Nov 2026 11:21:24 -0500
-In-Reply-To: <20261022-b4-s4-vdec-upstream-v12-1-616240978792@amlogic.com>
-References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
-	 <20261022-b4-s4-vdec-upstream-v12-1-616240978792@amlogic.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-leqE8XX8WzE8OR9XUYh7"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=t3lZoFQx
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b31261e8a9so585407b3.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:21:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1794500494; x=1795105294; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FvwIi9PGGXoQsiA6+EZQf2O4ZXu7pd1RUjro27vdlbw=;
+        b=t3lZoFQxr1lPXxTLA82vL4akkgK+Z4i0FUrPphDOtx6gufFLDAaYP3+1+qy4qFJu0d
+         1csIKW51+ABMI9QXz4cRqb0/odu3azYJGU3hSav57uyWcT0KHa3hHILLarZASw9WZii7
+         b//fowF2YKcFx/9lezoZ3Y+vfjTGtbXOnv021wA5HCp/FeT0dHJFDjWaTcORPxD8TTSr
+         xw2L1xQbsNMswEbyL3SyHOq9gHlti4LaSBFi/0Myb6VryoP3Mq03D5WASMBaKd9rNUPT
+         W8kovCXoVvP8ZwN6sLzVJA+W5kc+yUgkTwDNfnND/punFpEHYiWZoYtQCYM/wzg7CFHO
+         rd1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794500494; x=1795105294;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FvwIi9PGGXoQsiA6+EZQf2O4ZXu7pd1RUjro27vdlbw=;
+        b=E7LitcsNOkjwVGhbhI6RXGy+xftmLWJt9tOXx/V7evAyeyJW7qb0f06ejTZnaYEVPN
+         MdZTneGtfHlqj3+Irj5Y3ALHEMSpizqIa3KPPHb+LtaucISef0w2Ja2jMGYNoi7TcENv
+         JoZkmitzfg6KH6hz+OgZzHzN2M+5X18uw2pKqC5g3lKy+IwJueD2vLxxmARAZPZoqyE/
+         SSuANoYYEB16GYkD+buTxTJEB1MXrimg4hkBKvtEeCWkHFvQxUlEWmyNTpPmly9gSv/7
+         D8sKvijJ6NiT+30QSsVsD/dupOIez8OwWGIu3DhPEAVMbYfWEOlHPw95ovLADtGLiz2E
+         kTMA==
+X-Forwarded-Encrypted: i=1; AL+hErEM6il5B9CnCSXYXf6oX+V2NkrQ05fMGr9dGxa0rTrzpDIgqklT0Ltg52Y8VdzAxswmaf0ESEkaoLZMAMg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9TpjK3mL4XMxxIqPV2kf2Lf6VwTFudK1nA2pu9CDDppvNlwVG5
+	7yxev7ZgwsIujVS1HoDXh8uwm49RwS85bNYcaF503unGNhD068jxQQ03JERApOxG9Xo=
+X-Gm-Gg: AYBFou3L+lTDbU8m1GKtjtoKAQ8ln0t0bEk9X9qTMMxFNdRU0yp+7NsQJMNkkdmIQeH
+	L4qexEw5ejSQ80sq5h4H/Z42YSRHfSmEdVJqlo3dP2ZsJ2ko8pX83uBmdEi+F98aOQNuiEa++mE
+	k6LpME/pHjAPz0vrdYWnyFfhMyWS+UZ7oDUTp+3GUK3+qTwjVhs7SeXCiOaims+k+y9X6VAYUUS
+	aJDDO+p53Npy/c/uXO0MWOYRI+YfNage7i7KbBzar6Fs9GDadl6sMwySCxlGYbedim8g9NPbGqT
+	7PQ8LQlxCLLUAJddvkcofzPfyGJPp2u+tG2enl0nrE/C0PO40aulw/xdbiqCw4xbxyV4mhdYQWN
+	bdxEd9LYJhjx/d0N0OHa1l2MUbDuyfKLfm5mBVr2ZMTUUYxX0VWPaueymcV9ikDrtg5MUQC9ZzQ
+	vazfiJU/b9NH7Lj1vubPU2PL/9BTPT15h3CQy97NXUxJguLg92mzai1fj78Z67huAaOHXFd8uM2
+	Rypkk1u4gN++EwMhSMpd9FLMhLGCWW52mLvP4x9Ln/S4Y4FMOKUS2ikGygAwbilKRKsStiecDfc
+	pO8AainswaGv5SNAsOc/iEVZyUtM
+X-Received: by 2002:a05:690c:9e:b0:8b3:37e1:9263 with SMTP id 00721157ae682-8b4aa3ae8demr296007b3.46.1794500493993;
+        Thu, 12 Nov 2026 08:21:33 -0800 (PST)
+Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b393426f13sm73450137b3.34.2026.11.12.08.21.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 08:21:32 -0800 (PST)
+Date: Thu, 12 Nov 2026 11:21:31 -0500
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, davem@davemloft.net,
+	terrelln@fb.com, dsterba@suse.com, yosry@kernel.org,
+	nphamcs@gmail.com, chengming.zhou@linux.dev,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-crypto@vger.kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, riel@surriel.com,
+	shakeel.butt@linux.dev, kernel-team@meta.com
+Subject: Re: [PATCH 1/2] crypto: zstd - use vmalloc() for stream workspaces
+Message-ID: <avXni0bS7twguZdt@cmpxchg.org>
+References: <20261111153532.1036709-1-usama.arif@linux.dev>
+ <20261111153532.1036709-2-usama.arif@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,63 +102,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111153532.1036709-2-usama.arif@linux.dev>
 
---=-leqE8XX8WzE8OR9XUYh7
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Wed, Nov 11, 2026 at 07:07:39AM -0800, Usama Arif wrote:
+> The zstd acomp streams retain their workspaces after the last transform
+> has been freed. The first is allocated during transform initialization;
+> additional per-CPU streams are allocated on demand. They are released
+> when the algorithm is unregistered.
+> 
+> In a 4 KiB-page x86-64 build, each stream requests 1,566,281 bytes.
+> If kvmalloc() succeeds via kmalloc(), it occupies an order-9 block
+> (2 MiB). vmalloc() needs 383 backing pages (1,532 KiB), 516 KiB fewer
+> per stream. Across 384 populated streams, that is 193.5 MiB less
+> workspace backing if all would have used kmalloc(). There is no such
+> gain when kvmalloc() already falls back to vmalloc().
+> 
+> Use vmalloc() and vfree() directly to avoid the high-order allocation.
+> This uses vmalloc address space, page tables and bookkeeping; the
+> figures above compare workspace backing only.
+> 
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 
-Hi,
+Nice catch. Given the lifetime of these streams, there really isn't
+enough turnover to justify the kmalloc optimization to begin with.
 
-Le jeudi 22 octobre 2026 =C3=A0 13:26 +0800, Zhentao Guo via B4 Relay a =C3=
-=A9crit=C2=A0:
-> From: Zhentao Guo <zhentao.guo@amlogic.com>
->=20
-> Add SM_LOAD_VIDEO_FW to the secure monitor command enum
-> to allow decoder drivers to load firmware through the meson_sm
-> interface.
->=20
-> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
-
-Any feedback from firmware/meson maintainers already ? Wouldn't this be bet=
-ter
-as its own patchset and documented as dependency ? Both ways work, but
-understand that I cannot take your patches until these are in Linus tree (w=
-on't
-build). This comments applies to patch 1/2, please coordinate and let us kn=
-ow
-what is the plan.
-
-Nicolas
-
-> ---
->  include/linux/firmware/meson/meson_sm.h | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/include/linux/firmware/meson/meson_sm.h b/include/linux/firm=
-ware/meson/meson_sm.h
-> index 3ebc2bd9a976..3b90b49d0552 100644
-> --- a/include/linux/firmware/meson/meson_sm.h
-> +++ b/include/linux/firmware/meson/meson_sm.h
-> @@ -15,6 +15,7 @@ enum {
->  =09SM_THERMAL_CALIB_READ,
->  =09SM_A1_PWRC_SET,
->  =09SM_A1_PWRC_GET,
-> +=09SM_LOAD_VIDEO_FW,
->  };
-> =20
->  struct meson_sm_firmware;
-
---=-leqE8XX8WzE8OR9XUYh7
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCavXnhQAKCRDZQZRRKWBy
-9BwSAQDf3YOlhQDwjAbF/BDv7D+x2Ha2oYxmTkfeKr8mVfUl5AEAihCoYfjm9qiJ
-KlkdjP3Jv2cYRwg7V0yeMnfijjyDCw4=
-=eTMH
------END PGP SIGNATURE-----
-
---=-leqE8XX8WzE8OR9XUYh7--
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
