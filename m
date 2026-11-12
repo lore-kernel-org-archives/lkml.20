@@ -1,103 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794517920;
-	b=oAjkqkDVSCT0CRVItOEPWsax04iJ32VluligVdXZS1SV/RLI531psQEk5i2XM63NA5r6
-	 dzq87C4SGjABnHIoEqP3PoYsVpkunpNkQoZZB5bgGyYX0ercrQf8DcwAWl4GXnODqMOtF
-	 2ZcGQz1Xii+wbyJ8ALKIwX50Z8oLxMDA2b14qCJ/rnXM/c1xnb9stgQcUQJ+TCVh6+iHJ
-	 eVqmHnOLlVy4z7HnV3y2Amt6N4voE16V4QbvPm9KrSeqAyfReo6cHTwkHWjfB52cc/o2r
-	 zP1332PwC9t6vNzZ0i8lnU6eSwU+640bzErxOTWNk0z9EA1OLHa8JnUONKK1253GKkg==
+	t=1794517972;
+	b=jN6VYXClEI2PrUFqwQVRiMg9Q2mzZsirIuKY72EzM99yQZZneYl1Pa0AzscMb6XzzLap
+	 I89CBthwOSINsoJSvJTLjzIY8GLFSJuhMh6ceX0ozolmvC5qJXE1EQhwiwICb9v8mpri4
+	 n4baMO66VoG0Ip4yQmNJqcj+r7gTwabsSklVcPvi6MfKtXTEvOnku6HpnwlFuhBJ11mn5
+	 FoT2zC6GXjKNdopQTiUWnqWK2XUJSgAxtaG1pqCbD8KZFQOHtCY+fM75xcNGogrTIdFSx
+	 K7DMsUmnahToujN2tVQeX97IKn446nYD12C8uOUOQoXVtiVR1gq9NqQr61ppiGLniCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794517920;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=sw+u/f9GrnCWR6VUs3++RZAN52TxC2uVPXknWSBOLT8=;
-	b=pSELsLONZXd8IA9UQCbNkuWpjNpOcCCUMC82xzUBTaL/jIlBdAoEM4EYusETmu21Gask
-	 bBdrpfidML1xgT1tDqHR7wLOpUFUsDPN71lI3wtnGFl8TPtxQuGropKrk0tgK+dP4F3Ex
-	 73xwcQm7t3BPozImTWUuoula/K/N0Rpdq1QjRhEY9/9dXcZjZ1ZDl2/DQgxEX/9xek8TV
-	 y7YuwuPLiBsfW5y2Rqj13mq8ptRL1Vs1pp4PZgz6QppmTJklrr53XRTwgu4nQ2cCVD9ew
-	 pDObYO6L9TTIj63Tudvhih8+FqL9aEiAFmTC35j41+XQFaxxHyremuwTE47dT3U1Uyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794517972;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=BBTphs/cyovtrCBAnbIOqmAE4r10Zj0YR0LW0CiCMwU=;
+	b=EyTTGcGVhQ7OUr75cSVmv9Ot2deJtECsRIhCEHvGvPF6A0j2mIwuAD8Ehq7tBX7eizFD
+	 isf5dthrOXGLm8uEDpPvYo/PhoXE+NPB7zNvIbQ1KOtpIysv50/QNZHBQCzy6Mwbch/u7
+	 6/RVaRxy7pG8674kogCMsEgWdhGB+ncYSp39mTMEYAiBBU6t+u1vQLFDn+inNRA+2eBmp
+	 2tQ/vWpmjt2mqxR+Y6/o4FrEn/b1r01MHoJ3QfcywnIdCkMjv4J4e2bRVdyxSG5Xg+XII
+	 nQAWybgzxrkmjzRgPKCRYt18txkKGnjPj8fIPgLK5YZ1ycfQ6HsdR9gN/UXihMQQehw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M3W0omNR;
-	arc=none smtp.remote-ip=209.85.161.46
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lst.de;
+	spf=pass smtp.mailfrom=lst.de;
+	arc=none smtp.remote-ip=213.95.11.211
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC5F5606A338
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:11:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC5F5606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M3W0omNR
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-71ab5e64742so111213eaf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:11:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794517919; x=1795122719; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sw+u/f9GrnCWR6VUs3++RZAN52TxC2uVPXknWSBOLT8=;
-        b=M3W0omNRHGTbz+A6sy4W4s2FN8ANNH6W/HkJcX8Jmcp4mXz3i3db04Rh5IzyxvmIH/
-         29sN+n/uGI7+iZF6hxoR9/97f5a5zuhbhTSSMIRHvquO6nRD+UboUCqaBgyTnIc4dPzQ
-         q4Bstw9i/TKMUTQaPmJbqK2MO5zfGHkxVSDdgjCavduFg3W0Ka0BnlrlTordrkmmrIRB
-         wxs16YJwBUBJ5vPlwvD/asTNMCWNv84zXpOjzIXfjitiNxbKd7trC0pMwwayCXMC6laL
-         OVkdv+h9rA5Ki4TQwf1cohY1XYUivG/yU7S6UtccK5UmDUNs8DeOJOwi2UU6oa2tjhMq
-         4CXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794517919; x=1795122719;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sw+u/f9GrnCWR6VUs3++RZAN52TxC2uVPXknWSBOLT8=;
-        b=cgs92xMn6K2PYV1WiyVp9PNRKAcSnso17lYgsdO0L3EiETu5s3Tgxb1210teHPaNiM
-         ScG7UPVqhJUNigGYSPvrFuaZQuEZFo1xYE5r5TAitsS7cV24fmHaz/FBfA/d4WyQH4TS
-         6EyoGHNsMVsqFcaNXlWFJxe9tNBVg4ajLG10L7FKJXXPfviUL8Asyi8g8gYopXO5ZHRd
-         VwN6cLW24KnIk38jh0dWVOsIXssyuUXNt54RKtCIEB1tCI7+29rXwuFsb2GXJD09Rn/F
-         z7CYAd59AGd5czvOjEOQuDno3cMUbMa63j1ixticd36L49sFboZ5iEZtjoiTakyFDCv+
-         aZzA==
-X-Forwarded-Encrypted: i=1; AL+hErHqONcvFtzs7RUpu1tSAn3NPOnt00j3tKGNKwY33TQrGYWlX9NqnbRoo0TVWQYvXAOYza+sTjjXsN+pKNk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/5c96HQUbSKGLVCjx7uch8AtLnqvBTef3kNcheYwoFCbFwrPia
-	LSWgI9KDuPLNiRDYRp13zyBs2qfOwSB/rTsffgtsMScCClt6X38l3yVV/TiygEiD
-X-Gm-Gg: AYBFou3JfoxeHG/gTW08eSjoTFwCFmFqtwV8sx1hVpvPwJD5DXoThnZVKSDcVNCJGlZ
-	OjzTV0rHH0ZMDuv1gq8zJCOZsq/RMDz4b9N5n95psLSNSmRi6ewG6H/tV92EFr32iZFnk+iKkQm
-	eUSUlmdGFweDAX97DG7Z6wT5AdGCOVTXXyr2m8Io150rsldCjQMh/c97YTySlNuMoPQB42thGFR
-	RVRjqcn5cShHpv7LLJc7jEa2SakVDE6H26wr8LEcIPzwgEjjjZnsXqv+iyhs+QvqclwRiPgWy2Q
-	O6FJTILQL02VXPbsUmYKltF568eedfGlvnwYkpK74hvzzom2fqlsVRoTU6IrGT/iT89ndgvFg7p
-	SZBeTBkOQCy9jRFF4/HUFelr5e78m3ICl/Zk2ML1iVeNd7IK3WaujdmInYt+3mckYApw7s6+PRG
-	wtyF0kNMIOxky/BdFQfYObrAl6g0Ln6o3gyrhZvcC6a7aEKkjn0wBLsXekNuKnuryNrNkzImssA
-	w3wJXr0jDyCTfv0NPs2Gk8EtPTNXnpvGT9gCzh/BqbqXavo1wfv6ZkJ/DaNfl9EIce/IOXIncLO
-	COvwd2UaXec0ykeibak5o0G4Jk9PjBCUKGcdJeIJE1BSjY9d0xfGizjO8b7cSP+J2GwNfhaFw88
-	=
-X-Received: by 2002:a05:6820:3383:20b0:703:8835:5fd5 with SMTP id 006d021491bc7-71ab4f55eb4mr186047eaf.25.1794517918643;
-        Thu, 12 Nov 2026 13:11:58 -0800 (PST)
-Received: from jeffmr (63-152-14-173.cdrr.qwest.net. [63.152.14.173])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71ab3f44dc4sm364257eaf.0.2026.11.12.13.11.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 13:11:58 -0800 (PST)
-From: Jeff Roach <jeff.roach0@gmail.com>
-To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	David Collins <david.collins@oss.qualcomm.com>,
-	Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
-	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-	Tingguo Cheng <tingguo.cheng@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-rtc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] soc: qcom: pmic_glink: Add GIO pmic_glink instance
-Date: Thu, 12 Nov 2026 15:11:38 -0600
-Message-ID: <20261112211138.40217-1-jeff.roach0@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <9d80c088-1a0e-48fc-9a24-09fa8c281cd7@oss.qualcomm.com>
-References: <9d80c088-1a0e-48fc-9a24-09fa8c281cd7@oss.qualcomm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C3E606A31C;
+	Thu, 12 Nov 2026 21:12:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88C3E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 67B7A68BFE; Thu, 12 Nov 2026 22:12:46 +0100 (CET)
+Date: Thu, 12 Nov 2026 22:12:46 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: shao.mingyin@zte.com.cn
+Cc: kbusch@kernel.org, axboe@kernel.dk, hch@lst.de, sagi@grimberg.me,
+	linux-nvme@lists.infradead.org, justin.tee@broadcom.com,
+	nareshgottumukkala83@gmail.com, paul.ely@broadcom.com,
+	kch@nvidia.com, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/6] nvmet-tcp: only wait for in-capsule data for
+ inline SGLs
+Message-ID: <20261112211246.GB11126@lst.de>
+References: <20261110230304050fijuDcYKyYPS3lffioSeA@zte.com.cn> <20261110230310932grXKWow1mHtiisyby_D4-@zte.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,28 +51,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110230310932grXKWow1mHtiisyby_D4-@zte.com.cn>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On 11/12/2026 3:10 PM, Fenglin Wu wrote:
-> Could you try this on your side? If it works there as well, I can
-> discuss it with the firmware team and come up with a formal fix when
-> pushing next patch.
+On Tue, Nov 10, 2026 at 11:03:10PM +0800, shao.mingyin@zte.com.cn wrote:
+> +/*
+> + * Check whether the SGL of @cmd carries in-capsule data that the host
+> + * will send right after the command PDU.  Only the offset form of the
+> + * data block descriptor is in-capsule; a regular transport SGL is
+> + * fetched through an R2T instead.
+> + */
+> +static inline bool nvmet_tcp_sgl_is_inline(struct nvmet_tcp_cmd *cmd)
+> +{
+> +	struct nvme_sgl_desc *sgl = &cmd->req.cmd->common.dptr.sgl;
+> +	u32 len = le32_to_cpu(sgl->length);
+> +
+> +	return sgl->type == ((NVME_SGL_FMT_DATA_DESC << 4) |
+> +			     NVME_SGL_FMT_OFFSET) &&
+> +		nvme_is_write(cmd->req.cmd) && len &&
+> +		len <= cmd->req.port->inline_data_size;
 
-Tried your diff (pmic_glink_gio_enable_alerts() not called) on the
-HP OmniBook X 16 (Mahua). It works:
+Nit: this would become much more readable if split into multiple
+conditions instead of this giant compound expression.
 
-- UCSI is fine again: no PPM init timeout at boot, and plug/unplug on
-  both USB-C ports creates/removes port*-partner as expected.
-- Charging works on both ports, and a USB 3 stick enumerates at
-  SuperSpeed on both ports.
-- RTC via GIO reads correct UTC.
+Otherwise looks good.
 
-Please disregard the plug/unplug sound problem from my mail yesterday.
-With the GIO modules loaded, qcom-battmgr-usb never gets a change
-uevent, but the sound works anyway on both ports when the laptop
-starts after a long power-off with the charger unplugged. So that
-uevent is not what drives it. My guess is the earlier failures came
-from leaving the charger plugged in, or from power-offs too short
-(about 10 s to 40 s) to reset the charger state between test boots.
-
-Jeff
