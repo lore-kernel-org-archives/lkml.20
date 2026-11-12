@@ -1,72 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794489204;
-	b=YTZm1SR3JkcDTfF6gbw25IrY2jXOcJ1dm+pEY7vXFGejKiRkQysaGqXYtilMYRBuNfxl
-	 NYgnJ+bGOnSB0kVrP3C1fJwRTYFBUrmU9STQ/5nFFDo/F6PiY+ZIAh2rhg7i9rz6RlsRK
-	 jXlDtrh0iNk5cY/V23G+i/WX+J79BKobUlKEvSGZ9Hb1VGd9SArHhhNTONAWR4DpL3hco
-	 d7SqvVVwqoOTH95go049vAzqUj2a23ntq62AaUrlmBJZF616gZ8UQwBEHkuNOlFMOp55T
-	 J2a/U0HGXupEqnmv+fAN0co/TJJMhae3MvQiI3BDsiHfQ9UGo19u3+IlYJnDYui2e4A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794489204;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=hFS8yRfxQ5OZUtkjC4uzd9WD96DZbQ+krAj2khYgeG8=;
-	b=lqzEnd9YrqNxa7wsZVykgKzv6YkrjrKz+ttToRjYR04W2VK0gezHknOWqMUx6kGA/2Ii
-	 swzMlN/tmyZnHg81pTMzDRT8einUKUNYHq31Oft9Zcm+W1DNmPjc6emwPNxatnYS8hulX
-	 TfhIlTXK3eNCgPs8i6de6LX0XEq5CwXOJgLIcTEt8qVTwPnutvOYF1kC2yGV7sIcBoR0T
-	 +KlCjQl5uJ4dMJd5vQ1ClHP0U0r4lshh61TOwoQPDIyZ43mf04kEWgKBjCK8VQ/MeWQ0v
-	 i9lX79odMQUpSHDNAL+6kLMUz4No7io4/eVFcwc6lvq4JXrvJ9gQ/kBHbkecv6oFbRw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=k2rEr47l;
-	arc=none smtp.remote-ip=113.46.200.218
-Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794489227;
+	b=L8e5xtI3GRukg9eNbvRFruVbdm/So3ZD9zgX/xNZHwbSYO1jofTS8EeuFbr0gDoixv2N
+	 kL7DIiui7IFbMviuhtyn+F8ffNmUWNZcSwQ7FSwVIqJhsZNvP0qjJPNVXcPUz9DkxtPMz
+	 vZ1u5vDLB0lpxKnNRpvpEmBD34roopyVf6+lJiXuNod/wSsjot/IwG+P1jxRBuJ6ogrK5
+	 w1Per4GA0zOiIZtWnXPDqtaP2SzWYiKdrd2zn7kPbfDIU/IRvaYsPN31jUPGqeR8t5Ge8
+	 NQR3agP5xXh2wC4TkQ5t2VHWTZLku4PfoCZ9A/3Xkt9CfdEeioPefBNsLoFv3mUlxUw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794489227;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=tt+WFRdvrZSXnzZAVznwgbf/IavQw06AhCrvauaK6GQ=;
+	b=0Xlj0lbypCokAIR6eBz6gHXGyPdVQmf9G8SImjFGzZsi4RxwdMJhfFDLSP993nNIe0jV
+	 753Nx3djsPS/Rj4huNIhxwgLEN1nWvUP5ma4jXPRKeaA1oX/eHVLTvgPEfLxpVCXAoDO9
+	 GiPOdjBKUEF9zNBDSAGp42uf5QgqaVLjZC6LUfm2M8UCxkkEzToi6GMpGPQGkQtQ9KGvZ
+	 enPEjIoCzaaXva4AiZCBZA0XPB2XY/fBMY0QrQ/4AfnOe0POyaOaK0SMT7ONV4XnqznO0
+	 8OuY/+gzPcyXJaTIuzx/wSQgIh43cC0sBln4x/cS2cO5dny1eMirhHTL1eSfB1zNTsw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=flipper.net;
+	spf=pass smtp.mailfrom=flipper.net;
+	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=UIJzlhY6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B252360A2610;
-	Thu, 12 Nov 2026 13:13:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B252360A2610
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F665606A334
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:13:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F665606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=k2rEr47l
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=hFS8yRfxQ5OZUtkjC4uzd9WD96DZbQ+krAj2khYgeG8=;
-	b=k2rEr47lZ+yX0EcB1+iTV1UnbdloEkv9yMsupDOd3MOLwnL7zV5rLYzMSaY8jSogwybKzQBoY
-	XQfXg6cxmJ2SMcG7IAIG+ZJwovPKaG4Msy6y+pPhG0/AXpiSoksOPZyt3YOB9YtCKtd5CurMPIc
-	gdEs1o/NuK/suohR8r0M5Dk=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jQLQr0JQdzpT13;
-	Thu, 12 Nov 2026 21:12:36 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 8E97340579;
-	Thu, 12 Nov 2026 21:13:15 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 12 Nov
- 2026 21:13:14 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
-	<james.morse@arm.com>, <babu.moger@amd.com>, <corbet@lwn.net>,
-	<skhan@linuxfoundation.org>, <rdunlap@infradead.org>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <ben.horgan@arm.com>, <fenghuay@nvidia.com>,
-	<tan.shaopeng@fujitsu.com>, <quic_jiles@quicinc.com>, <x86@kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [RFC PATCH v2 6/9] fs/resctrl: Reject mba_MBps when the maximum is only a soft limit
-Date: Thu, 12 Nov 2026 21:12:51 +0800
-Message-ID: <20261112131255.4043381-7-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261112131255.4043381-1-ruanjinjie@huawei.com>
-References: <20261112131255.4043381-1-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=UIJzlhY6
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c4d2b741ed9so668993866b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:13:47 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794489226; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Imswsb8EcqG+jCXyg1y1RD0Qb4+ZaQM9950iOCv4TNV5J9OFPvwBNdWuUJ1Ig/cSkd
+         EWgVBjDwBmHZ/SQNbkzaeV9yzOlCdP193A5eNjLeywJw+gsEZ8iBoxAAlyRT4+LxsVqm
+         /fL/5RJ3kGys8PImB8GENkK9Ctcta33+33xQ6wK3MzH9QPLBqxqi9Wu/k7qxiMPclDvD
+         uvElt3d5LiM9fh0fC7QQhqL1k0ZtzKrqfwv45diG6dcZ9URDPH1CU1S1dCPq3ThCXMI/
+         RbrhXVEX5ZbAGwRxzpoA/xQOK2JLtcYAKqSZdzEx6Y1qq0HxaaYQhSeG23SyLUKjwMME
+         RYWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tt+WFRdvrZSXnzZAVznwgbf/IavQw06AhCrvauaK6GQ=;
+        fh=MnB/YbFG670e6X7m0od5Yb0YNTiDbZWizs1TUlaK7Nk=;
+        b=mI4CDriVRvniMZcdBrJlnEwIlA+x3WSa1naea9YGxC+P93KHyaAesQSB/wBfKL/7bc
+         8JHaITCk2Wx+LbHfEIyiWkLsm4yegEvQsXyBkOyIjzSX9VL4ISJflAsagP5raW2onzWJ
+         KiZu6CsKb1k2sXwuPvVPajLDYNHugcmSuHZJu1BSsJAp1MuuLCUCcyd7pfwKzZ41P43J
+         Q+Ca+siejMHUxNha0VZEDWheH55rv5NDm/JcBRDxqQXbl1atpb1356YuNPJeu2T/8McK
+         6KFmCB1V1AqDt+xxBMn0JCHmVqkCKANLjQQjnh2c++u2dXCxFfWWUl1Qz/qT0DG0AmzL
+         v2Cg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1794489226; x=1795094026; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tt+WFRdvrZSXnzZAVznwgbf/IavQw06AhCrvauaK6GQ=;
+        b=UIJzlhY69Bayr+gzpIOO2ecPVg/Dl5b/ElSR55In6aKYxCYITsRRmqHQkg2aGzopck
+         XhZkbzsGBlmiJCKQJaArVHr90KBvTEU/MPReiE3eLnbdIQ47IeB6LEp2REoi6imJG9Uy
+         exptp/08eh/urHnv+EN3OTfET0zGOKipFDPWHJJn9wBNaKpmrGQZHcDomLzvBKmO+utO
+         TYPDbm34/J0/pW+/HNQJK4nW7o+obIIvJk0vmKX0HZ22pFcRwKG/HEHln+4Kpzo/wtHj
+         U7KgVz1pc41IG+o3pLhH7hn0tIwXhqIg5hAlbrxyLp2FCFPNpUFDTCiYPparpbP1Oqtj
+         clZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794489226; x=1795094026;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tt+WFRdvrZSXnzZAVznwgbf/IavQw06AhCrvauaK6GQ=;
+        b=Xr0V1LK1K02AdE52B4E8GMO74JwtjaLzNyArXcpcQVTAk09HThEG9E2r31JHUmuwDC
+         aAtvxBlFlTSOhcx1woFw8ONE0khTF2wBsdVfM32aGUDqB8JY5AGwtkNoICDHOMOqxuPN
+         faGvdYlX3NYsTO7kZ+Zl6qhqVdjPEBXrTtU3J0k13vxKX1fwmsiJGvh2Jo6GpUbKSJ2O
+         lpiMoAKv10ozS02B+7TqMeYhM5Rn5SfyQczwAQ0VvlneWW6Vw9yrYdKtqKjm6lJLA54F
+         H2p3M5odeTwBaqkVzDG098+A9qnF+BAISnx4hsOE8aw3GeyH38J8FSKiwM7f33oh7lIa
+         Oldw==
+X-Forwarded-Encrypted: i=1; AL+hErHzZkvNwL81iFCcBOxdCrhYIw6C6iTtPQC9NATh+Xhrn1FJaeyb3GOpurKMQFBQai06OfQaoa6hXzy3QZE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+BsqUbTo598JPYyzMMhewKlvaC7v662YBYa7EpgKUfPle/prnn
+	bj6pdpb2r1f5BM4Ccmjc1eJOqqINGoB6sWpEZNyrwCXeTyLHUAly5ZlzPJK2CqDNhqnyTMnzDjB
+	7Qsbhi8Vt9qEgJz3KuejZFT3/IEIMZ/fuRabxkwLarg==
+X-Gm-Gg: AYBFou1OX5jXO1+8EjX1SM/o4jJvgbYtSK1e5TIbw91T9ESwhmH9dbAPC+yPC01kgir
+	UKCIbZKPdBxTTS48JrnfTOXGUB2rXxFVVfPVn0lkUZhru0H8vN7wv/GYepb5QZfU9qAPGIvjVTy
+	m/guk80Rtknx0i2CALQpquBk+IXno93CTdJchsYwGCzjsrsccDWJO6Y9y9UTufIArqJKX0uWEY6
+	KOaYBJ5YyRJ/Okv6kt1b/oaDtIvf+jrOVZ6RAsRjiRe8IlBDuOf1CK/rLqsLYMbAhevsIij6We6
+	cibW4z3gGg+VMih1Ql+uDLOExDOC2Toy1pR7u45Gd9UL3R1ecPdq54lfNCefJVjLi+w5nenGHhG
+	oZdB4BnyyFkt5iRxn4iKz/Rm2nsJY0m3vpSxSJBo2+uG9TRBHsQxan2I=
+X-Received: by 2002:a17:907:2d9e:b0:c41:6de7:7dee with SMTP id
+ a640c23a62f3a-c506685458fmr461873166b.7.1794489225737; Thu, 12 Nov 2026
+ 05:13:45 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,79 +104,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+References: <20261111-ufs-rpmb-bus-v1-1-b07100e53f6c@flipper.net> <b2338a8e84366980f648b0e321e9f8edaaf633a9.camel@iokpp.de>
+In-Reply-To: <b2338a8e84366980f648b0e321e9f8edaaf633a9.camel@iokpp.de>
+From: Alexey Charkov <alchark@flipper.net>
+Date: Thu, 12 Nov 2026 17:13:34 +0400
+X-Gm-Features: AclHuK83OfRmcNSAr3yNNJR2smWwrfyR_yt7neFWx9UxX0YmCS3qGDuhZxsxCk0
+Message-ID: <CAKTNdwHcCA6taSrwmJ79KYSBREkOZgWrhcnCPG0M6=5XOw7pgQ@mail.gmail.com>
+Subject: Re: [PATCH] scsi: ufs: core: Register the RPMB bus before adding
+ devices to it
+To: Bean Huo <beanhuo@iokpp.de>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
+	Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Avri Altman <avri.altman@sandisk.com>, 
+	Can Guo <can.guo@oss.qualcomm.com>, linux-scsi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The controller lowers the maximum bandwidth control when the measured
-bandwidth exceeds the target, and relies on the hardware enforcing
-that maximum. A hard limit does not service requests above the
-maximum; a soft limit services them when no other request is waiting,
-so a group without competing traffic keeps exceeding the target and
-the controller never converges.
+Hi Bean,
 
-Add resctrl_membw::max_is_soft_limit for architectures whose maximum
-control implements only the soft limit, and refuse to mount with
-mba_MBps when it is set. Architectures that leave the flag clear are
-unchanged.
+On Wed, Nov 11, 2026 at 10:43=E2=80=AFPM Bean Huo <beanhuo@iokpp.de> wrote:
+>
+>
+> Hi Alexey,
+>
+> Thanks. The code is correct, but this exact failure is already fixed in
+> Stanley's series, which has been on the list since September:
+> https://lore.kernel.org/all/20260914144910.931518-1-stanleyjhu@google.com
+>
+> The order there matters. Once ufs_rpmb devices register again, which is w=
+hat
+> your patch does, two bugs come back: a use-after-free on host unbind, and
+> concurrent RPMB requests that get each other's responses. Stanley measure=
+d both
+> with KASAN. Patches 1/3 and 2/3 fix them, and 3/3 turns registration back=
+ on
+> last. Taking this patch first would open that window again in mainline an=
+d in
+> stable.
+>
+> So I would prefer to drop this one in favour of the series. If you have a=
+ board
+> where RPMB fails today, a Tested-by on v5 would help, please have a try
+> Stanley's patches. thanks
 
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
- fs/resctrl/rdtgroup.c   | 5 ++++-
- include/linux/resctrl.h | 2 ++
- 2 files changed, 6 insertions(+), 1 deletion(-)
+Thanks a lot for pointing this out, I hadn't seen Stanley's series
+before, and it indeed covers my case and more. I've sent my tested-by
+on Stanley's v6 thread. Let's drop this patch in favor of Stanley's
+series.
 
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index 518d89b0c67d..9f10b6ceff8a 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -2613,6 +2613,8 @@ static void mba_sc_domain_destroy(struct rdt_resource *r,
-  * The controller needs a counter for its event in every monitoring group.
-  * With assignable counters that requires a fixed assignment mode, with
-  * counters assigned automatically while the controller is in use.
-+ *
-+ * The maximum control must also be a hard limit, see max_is_soft_limit.
-  */
- static bool supports_mba_mbps(void)
- {
-@@ -2622,6 +2624,7 @@ static bool supports_mba_mbps(void)
- 	return (resctrl_is_mbm_enabled() &&
- 		r->alloc_capable && is_mba_linear() &&
- 		r->ctrl_scope == rmbm->mon_scope &&
-+		!r->membw.max_is_soft_limit &&
- 		(!rmbm->mon.mbm_cntr_assignable ||
- 		 rmbm->mon.mbm_cntr_assign_fixed));
- }
-@@ -3370,7 +3373,7 @@ static int rdt_parse_param(struct fs_context *fc, struct fs_parameter *param)
- 		ctx->enable_cdpl2 = true;
- 		return 0;
- 	case Opt_mba_mbps:
--		msg = "mba_MBps requires MBM and linear scale MBA at L3 scope";
-+		msg = "mba_MBps requires MBM, linear scale MBA at L3 scope and an enforced maximum";
- 		if (!supports_mba_mbps())
- 			return invalfc(fc, msg);
- 		ctx->enable_mba_mbps = true;
-diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
-index 10dfdca7f4bf..933bab2b8289 100644
---- a/include/linux/resctrl.h
-+++ b/include/linux/resctrl.h
-@@ -250,6 +250,7 @@ enum membw_throttle_mode {
-  * @bw_gran:		Granularity at which the memory bandwidth is allocated
-  * @delay_linear:	True if memory B/W delay is in linear scale
-  * @arch_needs_linear:	True if we can't configure non-linear resources
-+ * @max_is_soft_limit:	True if maximum control only marks traffic as low priority
-  * @throttle_mode:	Bandwidth throttling mode when threads request
-  *			different memory bandwidths
-  * @mba_sc:		True if MBA software controller(mba_sc) is enabled
-@@ -261,6 +262,7 @@ struct resctrl_membw {
- 	u32				bw_gran;
- 	u32				delay_linear;
- 	bool				arch_needs_linear;
-+	bool				max_is_soft_limit;
- 	enum membw_throttle_mode	throttle_mode;
- 	bool				mba_sc;
- 	u32				*mb_map;
--- 
-2.34.1
-
+Best regards,
+Alexey
