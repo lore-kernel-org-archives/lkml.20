@@ -1,100 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.172
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794470408;
-	b=ItEKIQ6z8toiRbnZXuko8RYW2tMBI7qX+F4QrrCfTGSk4hZ8cANaW0gnzgDGyzvJHyR8
-	 zbgEmrIl9y1Jsi0O0/64KjabNDz2kWyQm+uN91zNXi0qWCJouFT++EYfC8w6/4QVds8Nv
-	 rLCNR2k2FCcG62ERDuGRAc1mmjzmlKy/29DKTV949ywVqsQy0jLovvDdW5u/NMpY3ZomJ
-	 YJ45pl9lsctOEmktBRhxekezkgMNHwdoJex6l/mPZlzwMdhIEq5ZppuGhHMFbeWSj9gTX
-	 4Ak7kAlOnOaqHUFuf7FnqNmzyo8WD7Oxi8aYpI3zVqcaj8rkipFfeUnVT1rWq2EiTGw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794470408;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=IjS6O/6wPytjumUu5o8Aw/uVJLfMkPnSofGe6KzvM0o=;
-	b=iDAeE7wPIGghNs9H89JZkMwAa1Y//7Yi23NWr647L3bzbz1Ze3nmtBHu+f3bRVyT809i
-	 8pvV37KKNBhIvijCjRDLAOYQUYNAvcsrF00E+IBrqpDlUq/uCRkUyisrQ5B0YegpLpANk
-	 Btfyx2A453MKb+IPHuAE814ZHDJY7D8K4KQxfflR3brYfd0rzW13k4NuGVBTAWQpxiuzV
-	 WSRMR6KOULLhxf5Bx33IVvnuUe8gTu6HJtUlWupkDqgTp2x8iOTqQ9PT5YCX+KaJdkqlz
-	 gBUNDvZP0XzqpMtKPJcOjOcb3n1wKpyy72LOyniK3lmvzgEsBZrNZejEjld4I3z0RXQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GIQVWYj8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.172
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794470430;
+	b=zinOKe9amw3nqe5kCAZDVq9gQW86OhiaEG6aLSKE1B8IPhlp04BOO+fN55JDz54fFI0A
+	 jbhKqQZ0VmDLQ8G/zlNHeo/erSLn14Hp/RlxXh4CmDFR36h8DmIK88X2RTdLCJYHvco0L
+	 76e1+O7JPiI7kl68nNWpzDJjYqmwZgR4jG1Mn579+D6CzIRforfkiyCB1p+hnHy+C6ieK
+	 uCbW/F9FGoSQ2I2ciWZLxawECY6SeksH4D6uJH5AGQEkQ5L7FUVntvDtX6KoDiU31sVhH
+	 Z72tTmXsWxSi0+NgoeAQVNzKcExw14Eaki6RDYpO5iiTX/iYytlW2bNFPh7yKLRrrVg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794470430;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Se1bfOjKRl9XSzo/3dR4ZpH2Rn651jYpDTd/5c44c7Y=;
+	b=QyeRWdOe6+kQy8YivmWTx7eVIuZEGtDWRmIwQicapfCjNW5CftPfqQJxzP1fU1c767E0
+	 ltmo8SvRGq7do7nowg2y7jSxoR2SxGZlY3WYiGvPeuAc3RJ665A1Kn+4u8FxXsSuImCYl
+	 PaF2ZeARsxE4nrDmWa8FU+n+zx+CVNdL532fp1mR39nz5Rq5KxG8xae8n3QElAbl/Nj6w
+	 Jf0f4MRXnOoBA7lUzFtAJmA81Br/BIbjXjhX3uk8s1Np3v25DccZcKd0srUBmpM78y4XI
+	 mifAFc+OSWNI8Aul0OyGlcpi7NEiIhAcXj0HvbCaoN6o7crBq8aJNqvmOCLjQvaXD7Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UvyVQ5rO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D15B606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:00:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D15B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4870606A321;
+	Thu, 12 Nov 2026 08:00:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GIQVWYj8
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3adf89523d8so2024821fa.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:00:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794470406; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nk0+OuU8U+crDlDRzGoJfPxINE0dM2/yFORIIh/zibSgcS2xh365R/wbIsApU/cD8k
-         no/L4PNU8xn0jlYhSFsCHz9h0Vfxkb0959mHalsoerot6MuwCkpPkzNaFK+PxqAne3ZY
-         hSU9ekEiKapqljzefTyN7nfNkjisXsQfJNUyYCp6GkuVcm5MTdKVah5kMph2n/mVYh0a
-         s9Li7HetE17nVR+IJCn2sN6CytVriUdZGNvAqQkvaG6gmzQ2GpKwxR7aaxag0YVr7BjV
-         tB80Ps9PuLUAHe/1z1AadbbekYf2cFX/XCZNFYVhxRVe4TEX5ibStyv45KpoOKQU6pw+
-         MRgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IjS6O/6wPytjumUu5o8Aw/uVJLfMkPnSofGe6KzvM0o=;
-        fh=9ZQD6vrC2AabOXtQH2y/3IlmzY9duaNmTFfb2ASxJK0=;
-        b=SgkXw1hC2715seADTDnQCU0SegU3gapJSkbciaYSR9pF3dft1xMzkoefD4aHFyu8ao
-         aQVEC8QirfbOWrO/pwBxNxKu/onPLIakv93CALvfes9vFeespqe+RYl5qcQavx/nGAkK
-         hZMQC2dJbmmSRd6IvtUNUdUN4RsRQnKvyAZLh1hZGEnqch9UJqHubzhJ+giQdEmzuTEX
-         kNLTjz9Xoi9F25hnxfXD7PNyCqRrKvFPhBoYsFR2TEYS2iOyESTyzbUdBhnR2PiHXwy1
-         CGrkEoxxbXRmqvriWQYaJLMFvysPLo3QH1Y0VWPt8kEXUj9AGR56R4jrgGFhLqzTjlS/
-         N/sw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794470406; x=1795075206; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IjS6O/6wPytjumUu5o8Aw/uVJLfMkPnSofGe6KzvM0o=;
-        b=GIQVWYj8ZnSahGOCoPVd+jjkA2EUwTBSx8VikobH1zTBEohOrcSWHGBkOfHFsmVLqn
-         lL6NTPpr3p5XAMWWnezU8yX+YeaYl2Vy8ylOlqj9Y6r61tntidyK1n1KZTjlCBgkfT0N
-         BqLuOCoieu8CjECxn8HCttTDyoyctZ+FqCA958QArwTFRd9gS3+BuW0cr+HV3wDwpoLZ
-         OGb2AZcQi2nBlwbOgaV5DQGZsw0+uyMqx1AZs9DUOhZX+Vr+Bj4Tq4m+0TOgabmVRK1v
-         pLYBvpSsjNxAASwCn1utxnfQM965iro+s+trIIQv7WFI3v28PbmHbks8VQpVnliK39H/
-         nk9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794470406; x=1795075206;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IjS6O/6wPytjumUu5o8Aw/uVJLfMkPnSofGe6KzvM0o=;
-        b=tzVP7Qat0VwYxfRA3AalRXXL7+FpMywAiQyl+1GEteB5paqRMF1J2FMWOyYPjyR+Mv
-         f/F9RRHcsS093K7MDHizqYillBYdJVI85uofFLLyFLJolems7AVZx1Zk4ILs2ZBc0r/F
-         qWUiZT5rKXXYfzly6ze64r59r3wpdnz5Nu1xu+vr0u4FI+Ar/Kp/o/cB6NMlp1oph3Gd
-         +uQWyeP8Y9LIGwRBOAVisHCC3GHdMrApKN+FzPcW1Wbiw4xUEc/VWbTaf4tU1gIcl0iS
-         xuYhV2Idyph/gryBvAUh00tCmACXKLbDDIN5RFsgM3wd7UajtrzkO1/1IrSSUXLMhm6m
-         5X2w==
-X-Forwarded-Encrypted: i=1; AL+hErHMHLAC2TkMLMTF91IVEGvfumjBZ2JUwo/8JkIo3ks+AAfz8ripLAwdVVVdov0KCeygonw3kUfeXOafOy0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z908kjxv7nR5H7kOz73x2SpVuM2XTBHR+m0izlMm/G+YYeT3Z0k
-	jFBwqmEAVZAqxhnWBqiuIc7fas72Hp5QZrqWkv4awsB3AFIwqC+4WjGhNhK5HF1wNjMfLpq+8p9
-	n1H6T2Z1kwRjtdYhbUfPwj6R244B9tD0=
-X-Gm-Gg: AYBFou1/xc0G/AuPihJC2jGAcxxXFSQrqV5nj6A3oyZuAZNSoyl5fuelG9VYcCFwNrN
-	doAgCCgQSaymTUFPeCcK55YDJsNCVrLv3+1a0X5cfbuIY2nLDN6MgJZ/xOOmanebF4dUw2YKEWq
-	T2UIRM+V/O/R5zLfek7faFf2hnXsYwmwvFumGmco3Zeo6p1fRAwd9ocnmPP34ehHNDZstRJVllK
-	r8w8uBBy4fW1PyB+Kr+7HDcq4oIO7e/6kHd9wkMcyZsRGoTBpVGVc4IFrY3UJ4ynKhhDVqATfjX
-	lF0s94TvocPSUoey/jehRHKNnrdYWsuV8eEmurqpVjkiRiAzFnHDlUseW69NcsZ8zNeZdtNna0l
-	47lZ9yrety1oLfBYpuBuwRQNaicNdoCLMqVpFpWUaM6Q+o/JnncsS9/kOZv75Apowu8KcGTc=
-X-Received: by 2002:a05:6512:32ce:b0:5bf:d00a:b6c0 with SMTP id
- 2adb3069b0e04-5c15d61a7d2mr1922231e87.3.1794470406245; Thu, 12 Nov 2026
- 00:00:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UvyVQ5rO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBBF11F00A05;
+	Thu, 12 Nov 2026 08:00:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794470430;
+	bh=Se1bfOjKRl9XSzo/3dR4ZpH2Rn651jYpDTd/5c44c7Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UvyVQ5rOncr1SZgwbiGgK89BCLBYFNA5pL/mIzCc7IoZIUxb25ZXqqX9Fz5TpQoqw
+	 vk5SLUDi1PBS5xImiI8OStHjfbcwo5MeuJqwn8aF55/OSfDrwKU66+iwBB5Uxl3JqF
+	 +sTSjoES6szLXfRekH470CT5eMwg+y87lv7kHSXYp4B4gPRPP0g7zYHP+mS72Ss115
+	 OJ4tOhwfIq2/B7lMDXWu9tJbN2A8TAKWRkKHZMDcJ38tQqGboKBc7/xeh3yHiL0tTY
+	 uPoADT3LeQ9I5UTTczyMijk1Tx8xjfU0HeKKRhz9KhfwKklTTmg1OAb7+o9IESqSuj
+	 JmnIoowgq32GA==
+Date: Thu, 12 Nov 2026 08:00:19 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Josh Poimboeuf <jpoimboe@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+	Aaron Tomlin <atomlin@atomlin.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-m68k@lists.linux-m68k.org, linux-modules@vger.kernel.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v5 07/11] objtool: cache relocations, do less work,
+ eliminate relocation hash
+Message-ID: <avVwzFMkkDWCeWxN@gremlin>
+References: <20261104-build-speedup-v5-0-0f6018be8dae@kernel.org>
+ <20261104-build-speedup-v5-7-0f6018be8dae@kernel.org>
+ <avVQy5UBOlu7IeQu@jpoimboe>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,113 +72,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110-usb-port-pairing-v1-0-9307e29d2ed2@gmail.com>
- <20261110-usb-port-pairing-v1-1-9307e29d2ed2@gmail.com> <CAGb2v65goAuKgYu-849171FGeCxZ8Cq3GUxQLDLaHLbhRTMmqA@mail.gmail.com>
-In-Reply-To: <CAGb2v65goAuKgYu-849171FGeCxZ8Cq3GUxQLDLaHLbhRTMmqA@mail.gmail.com>
-From: Arun Iyengar <aiyengar1990@gmail.com>
-Date: Wed, 11 Nov 2026 23:59:55 -0800
-X-Gm-Features: AclHuK-RZu7t5oXW3B0hgGonN3UAbxzfPc39DI6ekhiu8UyR_6arhmtUrw5yX_k
-Message-ID: <CAEy9hNV9saBWyKxuMR5unmLjzBM2+S7u+FewEevuLV-6yo1ztw@mail.gmail.com>
-Subject: Re: [PATCH 1/4] dt-bindings: usb: generic-ehci: Allow describing the
- root hub ports
-To: wens@kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Alan Stern <stern@rowland.harvard.edu>, linux-usb@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avVQy5UBOlu7IeQu@jpoimboe>
 
-Hi Chen-Yu,
-
-On Wed, Nov 11, 2026 at 02:35 UTC, Chen-Yu Tsai wrote:
-> Would this patch covering all HCDs be better?
->
-> https://lore.kernel.org/all/20261014082037.1774672-2-wenst@chromium.org/
->
-> Also see Rob's comment about covering the port numbers.
-
-Yes, yours is better: it covers every host controller, and
-generic-ehci.yaml gets it through usb-hcd.yaml. Rob's point about the
-port numbers applies to my patch too.
-
-v2 drops this patch and builds on your patch 1 instead. Only the
-Orange Pi 5/5B DT patch, which now goes to the Rockchip tree on its
-own, needs it; that DT passes dtbs_check with your patch applied, and
-also with 'reg' limited to 1 and up as Rob suggested.
-
-The v2 cover has one question for you: patch 1 there looks the graph
-ports up by root hub port number, while you have said root hub graph
-ports should use the raw xHCI port number. Which one do you want?
-
-Thanks,
-Arun
-
-On Tue, Nov 10, 2026 at 6:35=E2=80=AFPM Chen-Yu Tsai <wens@kernel.org> wrot=
-e:
->
-> On Tue, Nov 10, 2026 at 4:20=E2=80=AFPM Arun Iyengar via B4 Relay
-> <devnull+aiyengar1990.gmail.com@kernel.org> wrote:
+On Wed, Nov 11, 2026 at 09:45:28PM -0800, Josh Poimboeuf wrote:
+> On Wed, Nov 04, 2026 at 06:20:25PM +0000, Lorenzo Stoakes (ARM) wrote:
+> > Instruction relocations are looked up by destination in objtool via a hash
+> > which is keyed on a 16-byte (OFFSET_STRIDE) window within the section being
+> > walked.
 > >
-> > From: Arun Iyengar <aiyengar1990@gmail.com>
+> > It iterates through each 16-byte window, looking up relocations over
+> > several passes, before moving on to the next 16-byte window, caching only
+> > when a relocation is not found saving further lookups in this case.
 > >
-> > The USB 2.0 lines and the SuperSpeed lanes of a USB 3 connector don't
-> > always reach the same host controller. On the Rockchip RK3588, the
-> > SuperSpeed-only USB 3.0 host 2 (xHCI) is paired on the board with one
-> > of the separate USB 2.0 hosts (EHCI/OHCI). Only the device tree knows
-> > which EHCI root hub port shares a connector with which SuperSpeed port.
+> > Improve upon this by introducing a per-section relocation cache storing the
+> > first relocation at or after each 64-byte window of data (an empirically
+> > determined index range), indexed by chunk.
 > >
-> > The USB core already reads a hub's OF graph, with one graph port per
-> > downstream port, and uses it for the port connect type. Allow the same
-> > "ports" node on EHCI controllers, so that a root hub port can be linked
-> > to its usb-connector node.
+> > The lookup is implemented an array lookup and touches no shared state, so
+> > can be used from multiple threads.
 > >
-> > Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> > The index runs over the relocations in offset order. Usually this is how
+> > they are input, however if not, each section is sorted once, storing
+> > their offsets in reloc_order[].
+> >
+> > This is done lazily on lookup, so nothing pays the cost that doesn't have
+> > to, and if everything is sorted nothing does.
+> >
+> > The output of objtool before and after this change was confirmed to be
+> > byte-for-byte identical both for x86_64 defconfig and allmodconfig with
+> > gcc and clang.
+> >
+> > objtool on the gcc allmodconfig vmlinux.o goes from 10.5s to 9.0s, clang
+> > from 9.8s to 8.3s and gcc defconfig from 2.08s to 1.79s, with peak memory
+> > down ~90 MiB on allmodconfig.
+> >
+> > Similar performance was also noted on a worst case scenario for unsorted
+> > input (gcc but lld for linking), which confirms that the sorting mechanism
+> > works correctly with little overhead.
+> >
+> > objtool on vmlinux.o is on the serial tail of every build that links
+> > vmlinux, no-op builds are unchanged.
+> >
+> > Whole build, 128-thread Threadripper 9980X, best of N runs:
+> >
+> >                                          before   after     delta
+> >                                          -------------------------------
+> >   x86 defconfig, touch mm/vma.c, gcc        8.3s     8.2s    -0.14s (-2%)
+> >   x86 defconfig, touch mm/vma.c, clang      7.6s     7.3s    -0.25s (-3%)
+> >   x86 defconfig, clean, gcc                28.9s    28.6s    -0.22s (-1%)
+> >   x86 defconfig, clean, clang              29.4s    29.1s    -0.28s (-1%)
+> >   x86 allmodconfig, touch mm/vma.c, gcc    29.4s    28.0s     -1.4s (-5%)
+> >   x86 allmodconfig, touch mm/vma.c, clang  27.9s    26.2s     -1.7s (-6%)
+> >
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 > > ---
-> >  Documentation/devicetree/bindings/usb/generic-ehci.yaml | 13 +++++++++=
-++++
-> >  1 file changed, 13 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/usb/generic-ehci.yaml b/=
-Documentation/devicetree/bindings/usb/generic-ehci.yaml
-> > index 908b02d9175e..9dcba539d60d 100644
-> > --- a/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-> > +++ b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-> > @@ -160,6 +160,19 @@ properties:
-> >        - host
-> >        - otg
-> >
-> > +  ports:
-> > +    $ref: /schemas/graph.yaml#/properties/ports
-> > +    description:
-> > +      The root hub's downstream facing ports, linked to the connectors=
- they
-> > +      are wired to. Needed when a connector's SuperSpeed lanes go to a
-> > +      different host controller, which then pairs with the root hub po=
-rt
-> > +      through the connector.
-> > +
-> > +    patternProperties:
-> > +      "^port@[1-9a-f][0-9a-f]*$":
-> > +        $ref: /schemas/graph.yaml#/properties/port
-> > +        description: Root hub port, numbered from 1.
-> > +
+> >  tools/objtool/elf.c                 | 280 ++++++++++++++++++++++++++++--------
+> >  tools/objtool/include/objtool/elf.h |  10 +-
+> >  2 files changed, 221 insertions(+), 69 deletions(-)
 >
-> Would this patch covering all HCDs be better?
+> Urgh... so the closer I looked, the more this patch revealed itself to
+> be an AI slop mess.  So I ended up completely rewriting it.
+
+Well I took time to understand, cleanup and make the patches as good as I
+could (you should have seen what it came up with originally etc.), but I
+fully get it and sorry about that! :)
+
 >
-> https://lore.kernel.org/all/20261014082037.1774672-2-wenst@chromium.org/
+> You can go ahead and drop all the objtool patches from this series, I
+> will repost them after some more cleanups.
+
+From my side will obviously drop them on any respin!
+
 >
-> Also see Rob's comment about covering the port numbers.
->
-> ChenYu
->
-> >  required:
-> >    - compatible
-> >    - reg
-> >
-> > --
-> > 2.55.0
-> >
-> >
-> >
+> And I'm dropping patch 9 altogether, it's just not worth the pain...
+
+Sure, again understood, sorry for subjecting you to it :P there's a win
+there but obviously it's all rather a trade-off!
+
+--
+Cheers, Lorenzo
