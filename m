@@ -1,67 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794474876;
-	b=iR1pnbT+OKs4hMXwqR0r9Pdk//kSB8/PDAaI2pjlFQEtSrU/0YLzag1UIwVoQkOdrucv
-	 8ii4AC/oiQcAFCfy8kj/LlpEo+tg4YplWmT3jlIPQdJDeN5hH+UBqFqML2+SrOfqBAKA4
-	 UTJG5jdFl9WjavShnFChRMz1/RPzfsdKToFStxnvO02sYz1WZVQJeHqwTMQQsKbP+XHyF
-	 B35+CS1ZNKhH4dtrUEpNiaL4mRqLxvZ98cBIxa4a93SYt6ZRB9tXWfIR4TNUIsHd+9H0a
-	 yFCCyBPZv+TRccK9ix5jXGnWnws8gOhce58cgVnca5T3A7y3tdbY9R1n8Hld/OJeIeQ==
+	t=1794474912;
+	b=aXba1PGPy0K2eUIVB6PvVPU+w8AGh0OvZRrtM3bZDpxb296JSaMqe4B7wHCyMwk4kIC/
+	 auCN6oOOISAFKDAKv8YhfxTZFwgdcwMNyqqMEY23RMsLTVxXNJhryhS/R3p/2o8lE9AK4
+	 L1M6HFJHJlvmGhw2CFNqd/VCQ0Q0VMy/2hz32fnsPhqldshdDCyHcUQVakpteF6e91ubu
+	 kFpWt2kX1ND6BpoVgL7yh0HTo8tsJIBjZc9THdPltRvzdfdX2AbRX+iEuTV6+zaezsyGG
+	 A5sSZc5Ix0Pmk0PCdTa3Z9C58zlWHD+eTwAAsXoJrXDR7z9wyRtZiHTMhRBNmmcbg7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474876;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=ukdspEzX17qncMGtu1EzFs6Nj+VLyvCmrh0bcRFleqQ=;
-	b=VZVIUO67n7t5XpLm1G0vd2ke/7bdfdyBdbhz/L4F+eIXrkTDY7N8a7Iatzhyr5c0b4/K
-	 lz9vJNYCbvDOTYRVSHufo2ZBJqK/QgbwzpaJtROw/2/JudXDwmhH4vFcfwIk2XFWahsGm
-	 1WR7NVqFUK/SpKDJCIm3TBkdYaUBoI5cQ+otqTBT0HAP9s8PBbY+4q+76SwbRH7/lwyCQ
-	 6ylJQZxlo9kM9HVk9t8ddVCvPegK5BeomhQ8lBFsiWP7X1HeGvnaZQkr0PyzwWxpaatpc
-	 pZ8RDtymRND9JY5F3lZt4uh6Fxhj0mjB/smO3OmIAyTJOqZOZZWyg6cJ7Nw7gYeS2cQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474912;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=GsxQU7PCIOfVFnHVCuEFA8lZ75gTP1s3K7X0uR8/ZKs=;
+	b=c1N5/JLptgNVrk67mWxK1KD2oW/0HtKHPlhPdjGMJJBSQLI4RuvenjebipUTezTB+9nR
+	 isTlnBnSdgHfnFiyGUk/0aJ6BVr0cnb3GC1c/9FgjrMJ4KCO6nzYmFMMOuRjKhabqcJD5
+	 Xxf4DE65fq12Of7HylbMi3mUu3e0IuJDSpyZUYMqFGmcpIa4rXoaGmT13RbeoDPCkyCHQ
+	 2Sh/uPab/1hRTTFSaft6ulAfoMh7mGOlnd7Ek3C9uso41l6WhmnP00/5cCOtoZmbQ4DEr
+	 oaLeIiwwfzLXzTSFvzZcCRxDSGGmYtkY9SkdakPQfCUSTAs66/T87wc1ea1hzialLuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=af0I1MFM;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ok8nSORB;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96BB4606A323;
-	Thu, 12 Nov 2026 09:14:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96BB4606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7EF8606A32E
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:15:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7EF8606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=af0I1MFM
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 322DF10A5C7;
-	Thu, 12 Nov 2026 10:14:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1794474869;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ukdspEzX17qncMGtu1EzFs6Nj+VLyvCmrh0bcRFleqQ=;
-	b=af0I1MFMgNA5OLs4ArEeVJmDDLIE2ofIoXUjANvrIbkkHwWZT/Af32hxkFTTGDs9hY8Hik
-	gTi146v+/dufj5vAvhTGVsU5nRJLHYXYkeC3nEENlbWxkCNGbnw621BPPbcJFT+uX/eYNU
-	ixlqdKisSOVMs6YCLzoJ+HVzm42VdrJ9SbfRLPZBPPUhx6AO/0qOIbgtGjIrTxeltkWpg5
-	mOPUxPyXQf+w66HpCAcrmoiy6SMiL6KVpgrJatfZQZ1U82W6cMEoUHyOlpE87XmW7Bvkin
-	6Rp3vZsjmt93Ma6R9oyKJY6wl4rubXlmp9gKB6fCTdsHnG6ZZGm7e9G+hfgYHg==
-Date: Thu, 12 Nov 2026 10:14:26 +0100
-From: =?UTF-8?B?xYF1a2Fzeg==?= Majewski <lukma@nabladev.com>
-To: Rob Herring <robh@kernel.org>
-Cc: Guenter Roeck <linux@roeck-us.net>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li
- <Frank.Li@nxp.com>, Shawn Guo <shawnguo@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: trivial-devices: Add National lm77
- temperature sensor
-Message-ID: <20261112101426.35732e91@wsk>
-In-Reply-To: <20261111175348.GA167782-robh@kernel.org>
-References: <20261110150243.1531953-1-lukma@nabladev.com>
-	<20b8e15f-70fb-4844-abb6-d91d7d7e9849@roeck-us.net>
-	<20261111092311.54928fd3@wsk>
-	<20261111175348.GA167782-robh@kernel.org>
-Organization: Nabla
-X-Mailer: Claws Mail 3.19.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ok8nSORB
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3700ed8dbe3so7407261eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:15:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794474911; x=1795079711; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GsxQU7PCIOfVFnHVCuEFA8lZ75gTP1s3K7X0uR8/ZKs=;
+        b=ok8nSORBKrT1BcKGw2b5VQkCgjetLaWPtoTx2ZcMID4k6GbYbbqMm+sbb5WByp/mqb
+         BPRjbv5vaFBwW2u5IQh71Nmt3/9GoWLb7yMhHLVwVGOj5BvTR0M4CoK2daub1vERJCE9
+         Er+g5HJ028l6yoc1pFkpaTu6+zwsvyUoXZ+VAf5pUu3fMSTHKCoNBsRhbw7HX5wPpSSd
+         YezEVKYY7wXOJC8kac08HlIIrdgp/nM1cB1rUJngGaxmsQ88n2axlN7p4/+Wu9swielx
+         usuXHrot8mo+oI0hX/v8t8nH5j20M+kIAM4DhNx2QEh7hM2iCco7Jytq4m3qTj5s3898
+         hrtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794474911; x=1795079711;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GsxQU7PCIOfVFnHVCuEFA8lZ75gTP1s3K7X0uR8/ZKs=;
+        b=xAXFKKdf6XXkBsrjM1UsJ7MYpUb3TkV80n9g74XL5ipqAHDbeK1roz5DSzDrElZYYb
+         c6DJ1W0pArCtEaTRpdB5I6oKORhbcyhQOFBW3g9dg6bQ969NowOprvsCs+GEaQrk0PkK
+         zo5WwFlSgf7FEDGYsvvuHVvWX94s8PyCp/h7+Moa1VJKY6uoeAUtX+L+Mg1b4TE8nvPu
+         tbxWYqMhDxon2vtTPcZAbK9bKbA9wwj2QKK4r3b3wYenhkIaBbKTGE/BFmgz0Q8DLqX1
+         jBM7dM8piKaldT/t2mZV997f4fhYyYza6qhyjn/UGUolTrXIcYoHA+yMv4RORaUxqu2I
+         Ha5w==
+X-Forwarded-Encrypted: i=1; AL+hErGBAo3Dss4n5dloPK7+h1CPSsQ3K+AZGBvznXM+A3YkG/uDaCI3S7XfF0cAJB6SQu0L/36VLebb1BqnMXc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8/OplN/MZgMJYG7uzuV0epfWRlPo3iQaX1lezRncWa07AJv+Wi
+	xL2CqRz1URLWbayAQAT9Cdcz7KZveaZ7e7u0yj0FQMjO0dUQM412YxbH
+X-Gm-Gg: AYBFou1QRWhlz9ZsjvZcW0ET7b8vAD46QX8/FJz2NP54zxpgoDtJueB5uii9lYyuuci
+	6/CER/dTWrIRwPsAR2e37ad4vOrMyA0RnGMRN/n48o0e/wNymzgokFf0dZbghqVsaXgYlPXbMi3
+	hPkDyoDKTRgJaCQ4JfyuxHwOeme+V0kmFMpvPq50bEly66SwY+vQ1TiJ/s40J/AWIAiQaYwrfln
+	DOT25bhlUXFEhSu2fSO3ryNrYAeSJwNoMVaIlrq28i4NzyaE5iVysnrtex/pNd+lwrt7/mszyGL
+	slOmRyELiMynj5sB1Ll07rojBb1hDLsAHb9Gw4CkqiB/4cn0kPz4hGaBznpIGkE+NJiw9dO5q/S
+	Kzfs/mFK+iOSiSmNo0rTz35THWBoxVtQ1/x1Esf7Los1gaVfy4r0Pxnl2EEM8MvaW28603KkzKO
+	5iybF1IaHsA/sDDL4ap2lpimJWCMVJwWi/Wqu1HGo8QCN7IsoaJsnE5UKWckyxFENPyT2+slnHz
+	UzLzuEGTEtwVE9RnHa1vZnQRVgWwqTDbuRdMs2QgB7g4kBn1vRG+98uV8ZryDgqn9PGFUOlNicx
+	EjzgFSSkYAp86K4nwiavcIwkJt3Wdas3PErRn52Db6/H
+X-Received: by 2002:a05:7300:547:b0:376:a6d7:8f51 with SMTP id 5a478bee46e88-376a6d79070mr7136789eec.12.1794474910716;
+        Thu, 12 Nov 2026 01:15:10 -0800 (PST)
+Received: from localhost.localdomain ([2406:7400:51:27a4:c2b6:f9ff:fe77:10a0])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e7d24sm40096319eec.22.2026.11.12.01.14.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 01:15:10 -0800 (PST)
+From: Amaan Cheval <amaan.cheval@gmail.com>
+To: netdev@vger.kernel.org
+Cc: joshwash@google.com,
+	hramamurthy@google.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	bcf@google.com,
+	jordanrhee@google.com,
+	przemyslaw.kitszel@intel.com,
+	maciej.fijalkowski@intel.com,
+	pkaligineedi@google.com,
+	maolson@google.com,
+	csully@google.com,
+	willemb@google.com,
+	yangchun@google.com,
+	npl@google.com,
+	awogbemila@google.com,
+	shailend@google.com,
+	nktgrg@google.com,
+	maxyuan@google.com,
+	bpf@vger.kernel.org,
+	john.fastabend@gmail.com,
+	hawk@kernel.org,
+	sdf@fomichev.me,
+	daniel@iogearbox.net,
+	ast@kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Amaan Cheval <amaan.cheval@gmail.com>
+Subject: [PATCH net v6 0/2] gve: fix RX page refcount overflow with the pagecnt bias
+Date: Thu, 12 Nov 2026 14:44:49 +0530
+Message-ID: <20261112091451.22969-1-amaan.cheval@gmail.com>
+X-Mailer: git-send-email 2.49.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,85 +122,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Hi Rob,
+gve's GQI and DQO-QPL RX paths bias every RX page's refcount to INT_MAX,
+so a single get_page() from the stack, e.g. splice() of received data,
+overflows it: splice/tee fail with EIO/EFAULT and GQI can reset the
+NIC. Patch 2 lowers the bias to USHRT_MAX, as other drivers do.
 
-> On Wed, Nov 11, 2026 at 09:23:11AM +0100, =C5=81ukasz Majewski wrote:
-> > Hi Guenter,
-> >  =20
-> > > On 11/10/26 07:02, Lukasz Majewski wrote: =20
-> > > > Add "national,lm77" as compatible for the National (now TI) LM77
-> > > > digital I2C temperature sensor.
-> > > >=20
-> > > > Signed-off-by: Lukasz Majewski <lukma@nabladev.com>
-> > > > ---
-> > > >   Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
-> > > >   1 file changed, 2 insertions(+) =20
->=20
-> Not really a trivial device as there is a T_CRIT_A signal...
->=20
-> Though I guess LM80 and probably others aren't really either.
->=20
+With the smaller bias the driver gives up its last reference on a page
+once every USHRT_MAX handoffs instead of once every INT_MAX, which is
+only safe while every consumer holds its reference until the buffer is
+recycled. That is not the case for an XDP_REDIRECT from DQO-QPL to an
+AF_XDP socket in copy mode, a path the driver never meant to support:
+commit d8a8ca14c937 dropped the queue_format check that used to refuse
+it. Patch 1 refuses XDP on any queue format the driver advertises no
+XDP features for, today DQO-QPL and GQI-RDA, so patch 2 depends on it.
+On GQI-RDA it also stops XDP_TX from writing into a TX FIFO that raw
+addressing never allocates. Trees before 6.17 still have the old check,
+so there patch 2 stands alone.
 
-Yes...
+v6:
+ - Patch 1: say the check also covers GQI-RDA and why that matters
+   (Sashiko). Message only; carried Joshua's Reviewed-by.
+v5: https://lore.kernel.org/netdev/20261109100437.331423-1-amaan.cheval@gmail.com/
+ - Patch 1: check dev->xdp_features instead of queue_format, and
+   reword the subject and message around that (Joshua).
+ - Patch 2: name INT_MAX in the subject. No code change.
+v4: https://lore.kernel.org/netdev/20261106114551.212675-1-amaan.cheval@gmail.com/
+ - Add patch 1/2 blocking XDP on DQO-QPL (Sashiko).
+ - Say "overflow" instead of "headroom"; use USHRT_MAX directly instead
+   of a macro (Maciej).
+ - Say which trees need patch 1, for stable.
+v3: https://lore.kernel.org/netdev/20261103090651.35399-1-amaan.cheval@gmail.com/
+v2: https://lore.kernel.org/netdev/20261102112613.18334-1-amaan.cheval@gmail.com/
+v1: https://lore.kernel.org/netdev/20261031173449.2439047-1-amaan.cheval@gmail.com/
 
-> > > >=20
-> > > > diff --git
-> > > > a/Documentation/devicetree/bindings/trivial-devices.yaml
-> > > > b/Documentation/devicetree/bindings/trivial-devices.yaml index
-> > > > a8b2b9deade4..9413ee0626f5 100644 ---
-> > > > a/Documentation/devicetree/bindings/trivial-devices.yaml +++
-> > > > b/Documentation/devicetree/bindings/trivial-devices.yaml @@
-> > > > -387,6 +387,8 @@ properties:
-> > > >             - national,lm85c
-> > > >               # I2C =C2=B10.33=C2=B0C Accurate, 12-Bit + Sign Tempe=
-rature
-> > > > Sensor and Thermal Window Comparator
-> > > >             - national,lm92
-> > > > +            # Temperature sensor
-> > > > +          - national,lm77   =20
-> > >=20
-> > > I'd suggest to retain alphabetic order.
-> > >  =20
-> >=20
-> > The "alphabetic" order for "national," is already "disturbed" in
-> > this file - that is why I've put it in the end.
-> >=20
-> > Now, the question - shall I "order" properly all of "national,"
-> > bindings in a single patch (including the new one)?
-> >=20
-> > Or prepare two patches:
-> > - One to make the alphabetic order for already in-tree properties=20
-> >=20
-> > and
-> >=20
-> > - Add the "national,lm77" afterwards ? =20
->=20
-> Just don't make things worse.=20
+Amaan Cheval (2):
+  gve: refuse XDP on queue formats without XDP support
+  gve: fix RX page refcount overflow from INT_MAX pagecnt_bias
 
-Ok. I will :-)
-
-> Put it after national,lm95245 and
-> before national,lm80. Then all but the first 2 are in order.
->=20
-
-+1
-
-> Rob
+ drivers/net/ethernet/google/gve/gve.h                |  2 +-
+ .../net/ethernet/google/gve/gve_buffer_mgmt_dqo.c    |  4 ++--
+ drivers/net/ethernet/google/gve/gve_main.c           |  6 ++++++
+ drivers/net/ethernet/google/gve/gve_rx.c             |  8 ++++----
+ drivers/net/ethernet/google/gve/gve_utils.c          | 12 ++++--------
+ drivers/net/ethernet/google/gve/gve_utils.h          |  2 +-
+ 6 files changed, 18 insertions(+), 16 deletions(-)
 
 
+base-commit: 21f57ec673a1917547c808cfa81890485fffa03b
+-- 
+2.47.3
 
---=20
-Best regards,
-
-Lukasz Majewski
-
---
-Nabla Software Engineering GmbH
-HRB 40522 Augsburg
-Phone: +49 821 45592596
-E-Mail: office@nabladev.com
-Managing Director : Stefano Babic
