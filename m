@@ -1,47 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794495386;
-	b=dj9FJiX+gXlo47kRoqq/5NcEeqHIdpfPVyALUAQtgeL96sCCpyigcbouj60fr6GIBNjj
-	 ZUrtN8rpwOuhl7+C6KD1MjWx/dFwpv5LKg/wv2ULPgXELZ8ZuPAIMUJBbSpA6jCYqmxB7
-	 +/wu3yEl0m1EV3lR+1fbcT2PomhRpUg2r4i9TuEl2eEVHHm+Y5ZdMWU8yDHLZxoGRqmAY
-	 6GPrs25Z6j59Vqr/C7SxCNppyX2XitURc7GTlFVlxNEkedsp39Io/f3pDHlWWWs5MUvyJ
-	 2MKRv/vbx3UYhuceNP2ynCaan/lOPBwQadtuoQvHaw/liklEvztVTu+iOnoN+Gf/8WA==
+	t=1794495447;
+	b=fYgVxUjb1z3dVfOhJzt2YFVAN3jxiFV8C2E2clmCaz4Mp1kTiyDL1Iis4AKO+tJhGQuZ
+	 utG4HT8rxHoJmhkE0ufusF0ijqg6d1ldJwD1GibOW2YosubopLlG42W6OPqBbKgrTBjnm
+	 Xq5LKcvMv15ckv82nb6xtcvmyhMwoMU204wUW+UiTh/jSt35igF07xowJAlz1epknhqzx
+	 qXoboMI4BG+zQQJaJVHIdeVGpHWy6ocNFT+XHXiIJ9eitJb4RQkAF4e68yjAGcwH6Ws26
+	 ljpO04ahpILWyK5+bjrR19gUizPyvBp08l3uikcIQZYAus9Q/3nf1Nx/vbNs8NbOVtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794495386;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=eR/dgfTX4uX3tTDw1oIx0quyMtQsSjo0do2Wb4F29/s=;
-	b=GihHFFicksl7hpdm5+gsBrmIWtt4bdP9NWIdj+9RJly92xNVyBE+emYon4ub8ECoeVRF
-	 OLrAKTCgIqoJZ/AuebTLOWc6rBpFVXyyX/dikwOKYIPR0BnIfSnEtWe6qqUyiidqRNIez
-	 M6tynTHJTXOsBSthjcuEgqml5up5e6zeb0SfP2xt1onkY54bPmPkX0DKCWS9Mwry9/50g
-	 DhiNb/vWO+/cW4mSULd0O4hz79uWw2tz8MqWS3gliyisVDAUlDL9Y+h6PGVvezI/X7nHg
-	 v8w+ys3UU1iB2RVREgSRHO1uLXD0h7rY7gxHMvZPNmhHwLQQeevE5T+8OfxeZTxdxzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794495447;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=mS1ut25pAkhX06KpI5+b6SzLMFwF8RaPMcofkkPb8+I=;
+	b=WQVawRr0OCEi6i7RGeB3arx2L3fYKO4IybcsFJwlOJrsUSCEVz/fZyCgFeXjR5pLoKPO
+	 VhvNiIQj9MhCEBVtOEi1ysTZQToqkbkhOQ3x+YnWplMVcNVTpPaVUIEw4h/H9qySWDNSe
+	 2HEexP+g2pWK4B+sZtjcY4xFOlKbk2nk8+7JeEmuPxHY8rZUAD4v+V4LyW3Lc40MCHYD/
+	 wUrlt/+ePvwFUlIXwkSJksy0nP2GPqpLNY9GdL9q7zXLsoODhwYjcpbMXPAugrqO+5fAx
+	 Fn67TPEWg4kK7xJRKORu33y/kEidxkdMNKTbA/sJ6+7KVSoaDw1TgBt7GCzU14bpsBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jFAL8ciK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.222.48
+Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com [209.85.222.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B33D606A31C;
-	Thu, 12 Nov 2026 14:56:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jFAL8ciK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0B6B1F00A06;
-	Thu, 12 Nov 2026 14:56:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794495386;
-	bh=eR/dgfTX4uX3tTDw1oIx0quyMtQsSjo0do2Wb4F29/s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jFAL8ciKEPVfAPoFJqaLI+cRjztWGxLzlgZ2ubFd8NzVcqMHflFmdg6cBG5Ea3qjr
-	 cAsCTFkQ1DLiHdTb3b7tEJx9lTfP4X3ouFkbcwzDHDtV5DVcg57mDlApUrs9lMZozH
-	 wIiyeIWYQjdjciPnOgA566JuvnvZDjabQ1Nq435e6TcbAmDdRI2w7AYsm7bZclylNn
-	 V/4Fl3/vi8CQdYAP4UiyRkaA3HmO1132K5MwyVyls4rh/T1L9eJLQdKz76LO0Y3x0a
-	 PTvQng3hL63LTAWArdr0iyj/zBtrojSGz61c3HSC2WwRH2L1u3MH3/skHjjta55OCt
-	 nILJqbzVcn2fw==
-Message-ID: <45fd1a88-8fbf-4735-9892-c374d8bf4df5@kernel.org>
-Date: Thu, 12 Nov 2026 15:56:15 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8029606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:57:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8029606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-990703f817fso2115372241.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:57:26 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794495446; x=1795100246;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mS1ut25pAkhX06KpI5+b6SzLMFwF8RaPMcofkkPb8+I=;
+        b=j/aYgaCb3sFquyJjD0+cH9b/iGe7HVhjpThxa7ezIqVdf0XSQ45aigcp8kBsEvhDMA
+         BzziJvOthk09d5JoTkgQ/qac6rBHYL8RfTNApOB9W1vb/1W+WqQA4Y7s3zLY7kTXaFQj
+         fynlL9wkiTBdxCZCKCUZTjtoLseMliVOSRnp56u9OTeUfnXFnO2wuRzwRc8H5uRH/P1H
+         1BxkcOz4eKXxFXYldvdzl7onJsXjsgbLGs6QiaqlSpcvN2/kczM0t9Lmke42VUNiF2vC
+         QNpVNZnaNl7Sncr+X8AAReMO2io3tn+SZraUx7mrOj1f/9zdk/yE1Xx3Jx6VJ26msF/Y
+         c0Nw==
+X-Forwarded-Encrypted: i=1; AL+hErGSdGOoDy7vUVziVlx4IpOswJnbkJ8dTLioESJx3Kn7vq60uOBp4vHRjAmLHMuxcOfPlYueP41UtWwA0PQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+WKHz7tJEr5qy9yASJe9mThs4QRTgEmkpISSHUMKp6uGqs5jji
+	j0KwfWPoXN1drrLhFk36QfaEUy9Xjm9RfMyR4mTNsXmai9WTwPQ7dicg6texrViuLjU=
+X-Gm-Gg: AYBFou10VJw3NE/kiwdnGeEHbwBS1lKU+W0SpVMHCSFd0G8m19vwBE1N56DhJE5LtYP
+	ZS6+L9phWrodtXOe55G3GwCBbfD4nyi8KJkjjuEvPB55og04Day/ASacIlIlcerpUvP58zjN8+v
+	KR7di6CmXp5AwBY87qHNuGZWjphvMfZJCbGYx7uqttbpUz21ZUa3dY2fuTIF+WvSAVMFccBr7zm
+	BEGbY3nAP1MuICxyasHwaHWu17XhUA3SrEMBtZnZtJEvdop5D4FkTyJzNGWqOKozkkozjij93wO
+	gAjY1UvnugBOxo4qHmarFfW1krXRkAEEHtsBKDPj9Ul8wGByIv1O6ItK6Ax3iEaXZ3Y1/DBdKlt
+	P6ss+VZiyMRcARx/+4u0flEd29csoid1uP+jn9/Se88iIZXcg1ACMqklBNTn/AZOH6U83SG7uLT
+	wgr9/ItfJ7A41FezVhy3KPD7cUE5MjopcT4YOHggaZDzxnK+FXNPpgZGp1V9lAdgaZRV1TW5Yl3
+	+HIQXaLUYdAkF+m8YatUhKJRmsnC9KR+7LBnnSVDw6LX3HwY8Z4GLFBS0LLi18LrrJZ8LCwWf7/
+	3UsP8YQv5/Hro0nPqxvjGwHyjU7X+7RtW5IlNC2UmWeEBRdzuSVPI8Na2R5/tZZygP4=
+X-Received: by 2002:a67:e7cc:0:b0:7cc:2bb7:1335 with SMTP id ada2fe7eead31-7d50619786fmr2627250137.33.1794495445681;
+        Thu, 12 Nov 2026 06:57:25 -0800 (PST)
+Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com. [209.85.217.52])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c2019bf87sm6086910241.11.2026.11.12.06.57.24
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 06:57:25 -0800 (PST)
+Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-7d2b25786d9so2275430137.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:57:24 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHZz31CaFNEIeYZCCYiyCtcf/UQCMl3QB19+ionnI4YtqjIfSH1BMuFnM/8iz1EaEkPIrgdNwv6qxDmyis=@vger.kernel.org
+X-Received: by 2002:a05:6102:f10:b0:7c3:9982:67d7 with SMTP id
+ ada2fe7eead31-7d50609c9damr2546296137.16.1794495444511; Thu, 12 Nov 2026
+ 06:57:24 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,114 +80,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/6] agents: add skills for Fixes tags, stable tags,
- similar bugs, and commit messages
-To: Theodore Tso <tytso@mit.edu>
-Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Leon Romanovsky <leon@kernel.org>,
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
- Thorsten Leemhuis <linux@leemhuis.info>, "Michael S. Tsirkin"
- <mst@redhat.com>, Kees Cook <kees@kernel.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Dan Carpenter
- <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
- Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
- Bradley Morgan <brads@mainlining.org>, Sasha Levin <sashal@kernel.org>,
- stable@vger.kernel.org
-References: <20261111225940.1573565-1-tytso@mit.edu>
- <9c5f5976-ebed-48f3-94ab-1121231af6e1@kernel.org> <avXCcPYM9VAP0JHf@mit.edu>
- <31a56051-bd63-4a39-9cad-2c9afcd98340@kernel.org> <avXOSg4jOlzBY1r5@mit.edu>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <avXOSg4jOlzBY1r5@mit.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
+ <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-5-1b2072e8c37e@ideasonboard.com>
+In-Reply-To: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-5-1b2072e8c37e@ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 12 Nov 2026 15:57:11 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdUUvhf=zEmd2tfodo7zf1hh9n8m88Okk7KZpq0n=mDR2A@mail.gmail.com>
+X-Gm-Features: AclHuK_otbzgK2u3WYfd1DmRW9SD98NHgBcVxYwHNEPtms-IkWdgisCPqESp0Ec
+Message-ID: <CAMuHMdUUvhf=zEmd2tfodo7zf1hh9n8m88Okk7KZpq0n=mDR2A@mail.gmail.com>
+Subject: Re: [PATCH v4 05/13] arm64: renesas: r8a78000: Add FCPVD and VSPD nodes
+To: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-media@vger.kernel.org, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 12/11/2026 15:42, Theodore Tso wrote:
-> On Thu, Nov 12, 2026 at 02:49:09PM -0500, Krzysztof Kozlowski wrote:
->>
->> Specification is also documentation, just like for example specification
->> for our ABI. It's also located in Documentation directory.
-> 
-> Source and header files can also contain documentation.  But we don't
-> put them in the Documentation directory because they do not contain
-> *exclusively* documentation.
+Hi Paul,
 
-The type of file and its main purpose is a C unit file. Documentation is
-only an addon to that.
+On Mon, 9 Nov 2026 at 14:35, Paul Elder
+<paul.elder+renesas@ideasonboard.com> wrote:
+> Add DT nodes for the FCPVD and VSPD IP cores in the R-Car X5H SoC.
+>
+> Use the SGD1 clock as it is likely to be the clock used for data flow.
+>
+> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-Here, the main purpose and type of file is documentation. Specification
-IS a documentation, just like in-kernel ABI specification is.
+Thanks for your patch!
 
-I found no other than RST and MD files in this patchset, so I really do
-not understand why this is not documentation.
+> --- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> @@ -1574,6 +1574,196 @@ mdlc_aon: system-controller@c1338000 {
+>                         bootph-all;
+>                 };
+>
+> +               fcpvd0: fcp@c5010000 {
 
-> 
-> If the complaint is that it is visible when we run "ls", one
+Please preserve sort order:
+  1. Sort by unit address,
+  2. Keep similar nodes together.
 
-Yes, that's one complain and making it hidden is improving the
-perception, but it does not solve the point - it's Documentation so
-should be placed in respective directory.
+[...]
 
-> compromise might be to put the skills in .agents/skills.  This is a
-> cross-harness standard which is supported by some code harneses
-> (Google Antigravity, Github Copilot, etc.).  Some harneses (including
-> Claude Code, Opencode) don't, but people who use these harneses can
-> solve it by installing their own symlink from .claude/skills,
-> .opencode/skills, etc. to the right place.
+> +               fcpvd9: fcp@c5019000 {
 
-Why does it have to be in the top-level in the first place? There is no
-point in making LLM stuff visible to humans, except maybe pleasing
-people behind upcoming IPO...
+> +               vspd0: vsp@c4800000 {
 
-Best regards,
-Krzysztof
+Do you want to sort the VSPs within the VSP group by unit address,
+or by label?
+
+By unit address:
+
+    "vspd0: vsp@c4800000"
+    "vspb0: vsp@c50c0000"
+
+Note that adding the vspd* in a later patch than the vspb*
+means the latter need to be moved in front of the fcp* :-(
+
+By label:
+
+    "vspb0: vsp@c50c0000"
+    "vspd0: vsp@c4800000"
+
+> +               vspd1: vsp@c4808000 {
+
+> +               vspd2: vsp@c4810000 {
+
+> +               vspd3: vsp@c4818000 {
+
+> +               vspd4: vsp@c4820000 {
+
+> +               vspdb0: vsp@c4828000 {
+
+> +               vspdb1: vsp@c4830000 {
+
+> +               vspdb2: vsp@c4838000 {
+
+> +               vspdb3: vsp@c4840000 {
+
+> +               vspdb4: vsp@c4848000 {
+
+>                 fcpvi0: fcp@c5030000 {
+
+Shouldn't we keep al FCP nodes together?
+Same for the VSP nodes.
+
+>                         compatible = "renesas,fcpv";
+>                         reg = <0 0xc5030000 0 0x1000>;
+
+For the contents of the nodes (except for the renesas,fcp properties,
+as I couldn't find the VSP<->FCP links in the documentation):
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
