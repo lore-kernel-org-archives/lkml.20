@@ -1,75 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=206.220.120.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794528011;
-	b=DUHi1nZkfTcWE2n4c7aV95ka2tFFGPPfjUJ6gokrZqxDRIsoMdc85iQAXB72eruzP4WY
-	 KLY2THI/YpROZDRrjrmcSZVVH2mQThLfQ5ou1yu6n214UjHtLDpg7R9yFKUhSiNZPh1ny
-	 sx3p49zjkGQ5B8I6xTXPPr7IFR50geMblxKRlZNUhsgnK57sO64+4bR59YZJQTT+sWqw7
-	 ZJ4k2hkbr+RRWoemBH8EyrDh/ajN/cMf1/gTaePG8o5nnTV55fzEv3xtDF511OwhqZJ2Y
-	 J4w0VDXzdSqx/9QGurRRA2SOvPUiNS1NnZ2KyHGW6vIZHcsEBbMeKg0/dc5fvL0qMew==
+	t=1794528012;
+	b=zNdB9Tvo73ltaL631DoLDVd60xe97ZGQthTrChVgh4U7lLgPvnq3tGGZwQOx3AiB3FOf
+	 dLJEizkpoIfDFZEK3YMXR1/RgGQqaUXYVzzRVWHr7YLnowSLN4hEtWUdh+N3o2ydlsPCo
+	 R1CEb3p+O5FH9xJHkWFRB4hj9lixjLU4obcixucqM60xsW8+Myy6gwlu+mWvl1DVPdUex
+	 FGNgWSeYyVYcnLvOnYjZgAsrKo9MCxB+JwtYfkpw69ZwgxXLEFgNnbjA1o7gqC/9OMKTx
+	 Fy59tV8Q0Hq/AZeUX4fjhwZznX8FJK9SOwpoLHFOvwdEPc8WMH96e9Ou43QCtImIFuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794528011;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=tB2CDFSNAQHG63R1fKA0lxUFEzusvt8zbvQv1xopf0Y=;
-	b=Oi/pB97OfkRuSd6whumhXTeLBRhyQPOzyJwngdox0Hb2QR/kmK7uSkIONm12tDGTIkaW
-	 gZxnn3DNO+EoIJT7Ge1h0BQm64YiUYkcs2Tgc5sJIapcv44iB2LbZ9gyT6vLGTE0vDXRL
-	 sJbFFNfRNoIDvgUJ79cUkpV8dWj4aoRqpWnv6xQto7WCTcdB6lJOjUAF0kqYSyBs8C+dd
-	 RpXzS3EMBMaeenKDb75kx+1cX1s/2EHRvd52JVsuGXhU4TzOzSFP3mXCpHvDrELxGaTDD
-	 lJsO5VURXIM0hHgYkEH9lpvWLb6IDQrHHEAjxXlrIQ2gJzLoI1tROlXbu4q1s5HZYjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794528012;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BxFdqfktbAlYgqmNp0elWzFlaF/RFGyYW+YqPLC+OiM=;
+	b=wl0EWc7EP8I2pDh5DXKSjJCAXnl5JSIhsuXqMMMNq14R9OTh3EBEcmyfJ0u94ndmY+bj
+	 m8DtouXjskHeDhyrrCr6h11NFV6YP/UXoi2SloJZkOx17PoJL0I+8bXnWyBJs09hH71EC
+	 lR0oz7q+D6MMesLEbLZHeQoYH6AdBGabcO9wVPKvDkewRvTxNCP3kDpXNDN9PrE+ng25e
+	 4nI+ARFLFwWyzlWJcoQIH3kinLmwRDjhq0vqgcrBBKg7M06Q7yEi/uP44C8DLGaC+JqeQ
+	 pPlp1FGwzmBIS388gwH8tsoD/NYFiqIUs9Skznte673kxpab9npVTm1wEWzE4itas8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="OoMAyUJ/";
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=lYXL7NEv;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=grapheneos.org;
+	spf=pass smtp.mailfrom=grapheneos.org;
+	dkim=pass header.d=grapheneos.org header.i=@grapheneos.org header.a=rsa-sha256 header.s=default header.b=cegOfyuj;
+	arc=none smtp.remote-ip=206.220.120.4
+Received: from mail.grapheneos.org (mail.grapheneos.org [206.220.120.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE0A7606A33A;
-	Fri, 13 Nov 2026 00:00:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE0A7606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8501D606A33D;
+	Fri, 13 Nov 2026 00:00:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8501D606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grapheneos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grapheneos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=OoMAyUJ/;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=lYXL7NEv
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794528007;
+	dkim=pass (2048-bit key) header.d=grapheneos.org header.i=@grapheneos.org header.a=rsa-sha256 header.s=default header.b=cegOfyuj
+Received: by mail.grapheneos.org (Postfix) id 3E4123C01F0A4;
+	Fri, 13 Nov 2026 00:00:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grapheneos.org;
+	s=default; t=1794528010;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=tB2CDFSNAQHG63R1fKA0lxUFEzusvt8zbvQv1xopf0Y=;
-	b=OoMAyUJ/fVovEwUQuTaBvbYZTnrRLX5QQkC91oB02/YyobUoIwW1FhNg+JOWuPLuGyPf2j
-	X5e3UIFCnSefmSvgweufvhRgLM0TAHAu8kEv8LImb0pfQd3Fb5Os3WLLpHKPtJQVtidJV7
-	kVDKJQINh2Q4u4vYAycblw0GdHA+cgWm+X6TAe+qn2TAxBn1pcCfqNGIV+Z7HJ4eljWdDW
-	E1fOib0GIjR3wZUD6oPZmqJeb2/ftYF8ba6veeeISqYsy7c35VhmhiKD48HJsv/pqlC7NH
-	Vb0Gd1bmqOoC14ssk4mq3Su94o9qgEaQKUoAFPcsMuIchO/G/6xV+SZ66DEhMg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794528007;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tB2CDFSNAQHG63R1fKA0lxUFEzusvt8zbvQv1xopf0Y=;
-	b=lYXL7NEvwjrqgd4ZBfhr7W9Jh6ZSAzPXE3Uq4+yYP9LpzbBB1+qQxyzNY6eoKH6d7Glw16
-	4sH4GAT17UoKLsDA==
-To: Borislav Petkov <bp@alien8.de>
-Cc: "H. Peter Anvin" <hpa@zytor.com>, Breno Leitao <leitao@debian.org>, Ingo
- Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, Sean Christopherson <seanjc@google.com>, Paolo Bonzini
- <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- vlad.wing@gmail.com, security@kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH 6.18.y] x86/cpufeatures: Make X86_FEATURE leaf 17
- Linux-specific
-In-Reply-To: <20261112233327.GBavZMx2etyTFh1be4@fat_crate.local>
-References: <20261111-stabe_srso-v1-1-45512320ba5e@debian.org>
- <20261112045703.GAavVHH8KA2yyCU7oc@fat_crate.local>
- <9492bce8-aab7-4982-8a0c-7d736c745e12@zytor.com>
- <29B14106-19E4-4589-BE40-3D42BA646CE3@alien8.de> <87o6btsl4g.ffs@fw13>
- <20261112233327.GBavZMx2etyTFh1be4@fat_crate.local>
-Date: Fri, 13 Nov 2026 01:00:07 +0100
-Message-ID: <87ik21sirc.ffs@fw13>
+	bh=BxFdqfktbAlYgqmNp0elWzFlaF/RFGyYW+YqPLC+OiM=;
+	b=cegOfyuj9tAH1EE2nrUh4S1Rc8WHw0bp2L6JpLtMjJUrCS5icll7Q3f2KE8u0ekwA1RM2k
+	eDeA/iuBvQCij+tinJgdWWAppMKnQ0Zw7yDKc6SXF2ezOqZ847FAlnH5fyftGfyz31km2+
+	iWJtTjmXKwPX0AnIuq8j0aPujf2b5VWJXQWMMxxmEvznlG4bUkHl74skhYC1JonTX8NyhI
+	9gRt3uk7FmyRqBYPmkuuj6FGE8pa6H0GHcWW99GfN+UFIkmPi1/XWwWskMr6DS3lFVAjmk
+	7b+SMnQFM6BwApl8mOM2IpRQutTMXxABX1//XSP+IrwhhTgDBhKFA/KshHhyPg==
+From: liamsmith827 <liamsmith827@grapheneos.org>
+To: netdev@vger.kernel.org
+Cc: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Liam Smith <liamsmith827@proton.me>
+Subject: [PATCH net-next v3 3/4] selftests: net: test restricted on-link fallback
+Date: Thu, 12 Nov 2026 23:59:31 +0000
+Message-ID: <20261112235932.23836-4-liamsmith827@grapheneos.org>
+In-Reply-To: <20261112235932.23836-1-liamsmith827@grapheneos.org>
+References: <20261112235932.23836-1-liamsmith827@grapheneos.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,54 +74,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12 2026 at 15:33, Borislav Petkov wrote:
-> On Fri, Nov 13, 2026 at 12:09:03AM +0100, Thomas Gleixner wrote:
->> Even if a new leaf has only _ONE_ bit defined then it's a new leaf. This
->> whole "save space" nonsense has been source of a gazillion of subtle
->> bugs in the past and we just continue to "fix" them instead of actually
->> tackling the underlying problem.
->> 
->> Linux specific leafs want to be in a space which is reserved by
->> hardware for software purposes and not arbitrarily hacked into "holes".
->> 
->> Hardware defined leafs have to be represented by a proper entry even if
->> there is only one relevant bit in a leaf.
->
-> Are you saying we should get rid of scattered.c?
+From: Liam Smith <liamsmith827@proton.me>
 
-Yes. It's an abomination as you know very well.
+Update tests now that the on-link fallback has been restricted to
+routing lookup misses for non-vrf unicast.
 
-> Well, as a matter of fact, after stopping this silly nonsense of having to add
-> a cpufeatures.h leaf just to advertise feature bits to a guests, the space
-> saving is not really important anymore. We're much better there.
->
-> So I could whack scattered.c, we make it a rule to allocate a new
-> x86_capability leaf when we need it and then we will switch to the stuff Ahmed
-> has been working on eventually, when we get that upstreamed.
+Signed-off-by: Liam Smith <liamsmith827@proton.me>
+---
+ tools/testing/selftests/net/fcnal-test.sh | 47 +++++++++++++----------
+ 1 file changed, 26 insertions(+), 21 deletions(-)
 
-Emphasis on eventually.
+diff --git a/tools/testing/selftests/net/fcnal-test.sh b/tools/testing/selftests/net/fcnal-test.sh
+index a50609535fed..c048d5be139d 100755
+--- a/tools/testing/selftests/net/fcnal-test.sh
++++ b/tools/testing/selftests/net/fcnal-test.sh
+@@ -619,17 +619,29 @@ ipv4_ping_novrf()
+ 	run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
+ 	log_test_addr ${a} $? 0 "ping local, device bind"
+ 
+-	# loopback addresses not reachable from device bind
+-	# fails in a really weird way though because ipv4 special cases
+-	# route lookups with oif set.
++	# loopback addresses not reachable from device bind, unreachable default route
+ 	for a in ${NSA_LO_IP} 127.0.0.1
+ 	do
+ 		log_start
+ 		show_hint "Fails since address on loopback device is out of device scope"
+ 		run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
+-		log_test_addr ${a} $? 1 "ping local, device bind"
++		log_test_addr ${a} $? 2 "ping local, device bind, unreachable default route"
+ 	done
+ 
++	# loopback addresses not reachable from device bind, route miss
++	log_start
++	setup_cmd ip route del unreachable default metric 8192
++
++	for a in ${NSA_LO_IP} 127.0.0.1
++	do
++		log_start
++		show_hint "Fails since address on loopback device is out of device scope"
++		run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
++		log_test_addr ${a} $? 1 "ping local, device bind, route miss"
++	done
++
++	setup_cmd ip route add unreachable default metric 8192
++
+ 	#
+ 	# ip rule blocks reachability to remote address
+ 	#
+@@ -643,10 +655,9 @@ ipv4_ping_novrf()
+ 	run_cmd ping -c1 -w1 ${a}
+ 	log_test_addr ${a} $? 2 "ping out, blocked by rule"
+ 
+-	# NOTE: ipv4 actually allows the lookup to fail and yet still create
+-	# a viable rtable if the oif (e.g., bind to device) is set, so this
+-	# case succeeds despite the rule
+-	# run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
++	log_start
++	run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
++	log_test_addr ${a} $? 2 "ping out, device bind, blocked by rule"
+ 
+ 	a=${NSA_LO_IP}
+ 	log_start
+@@ -671,10 +682,9 @@ ipv4_ping_novrf()
+ 	run_cmd ping -c1 -w1 ${a}
+ 	log_test_addr ${a} $? 2 "ping out, blocked by route"
+ 
+-	# NOTE: ipv4 actually allows the lookup to fail and yet still create
+-	# a viable rtable if the oif (e.g., bind to device) is set, so this
+-	# case succeeds despite not having a route for the address
+-	# run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
++	log_start
++	run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
++	log_test_addr ${a} $? 2 "ping out, device bind, blocked by route"
+ 
+ 	a=${NSA_LO_IP}
+ 	log_start
+@@ -692,10 +702,9 @@ ipv4_ping_novrf()
+ 	run_cmd ping -c1 -w1 ${a}
+ 	log_test_addr ${a} $? 2 "ping out, unreachable default route"
+ 
+-	# NOTE: ipv4 actually allows the lookup to fail and yet still create
+-	# a viable rtable if the oif (e.g., bind to device) is set, so this
+-	# case succeeds despite not having a route for the address
+-	# run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
++	log_start
++	run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
++	log_test_addr ${a} $? 2 "ping out, device bind, unreachable default route"
+ }
+ 
+ ipv4_ping_vrf()
+@@ -1602,10 +1611,6 @@ ipv4_udp_novrf()
+ 	run_cmd nettest -D -d ${NSA_DEV} -S -r ${a} -U
+ 	log_test_addr ${a} $? 0 "Global server, device client via IP_UNICAST_IF, local connection, with connect()"
+ 
+-
+-	# IPv4 with device bind has really weird behavior - it overrides the
+-	# fib lookup, generates an rtable and tries to send the packet. This
+-	# causes failures for local traffic at different places
+ 	for a in ${NSA_LO_IP} 127.0.0.1
+ 	do
+ 		log_start
+@@ -1613,7 +1618,7 @@ ipv4_udp_novrf()
+ 		run_cmd nettest -D -s &
+ 		wait_local_port_listen ${NSA} 12345 udp
+ 		run_cmd nettest -D -r ${a} -d ${NSA_DEV}
+-		log_test_addr ${a} $? 2 "Global server, device client, local connection"
++		log_test_addr ${a} $? 1 "Global server, device client, local connection"
+ 
+ 		log_start
+ 		show_hint "Should fail since addresses on loopback are out of device scope"
+-- 
+2.47.3
 
-So another twenty years to actually have a proper design in place for
-something which just resulted in duct tape layers since the initial
-CPUID/feature management design mistake was made twenty years ago.
-
-Until we get there we just add more duct tape which interferes with the
-cleanup, right?
-
-> Anything else missing?
-
-Yes. The fact that it's ridiculous that we still have to debate this.
-
-The time wasted on that, the time wasted by people to decode the subtle
-bugs and the amount of AI tokens wasted to come up with more duct tape
-fixes is at least an order of magnitude more expensive than funding the
-completion of the overhaul.
-
-But I just "work" here so I might be missing something important which
-justifies that ...
-
-Thanks,
-
-        tglx
