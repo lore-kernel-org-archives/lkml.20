@@ -1,80 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794455324;
-	b=iEvuQtuT13uRYLaHYfYOVwsJ+71OOQnFlrUAB0d6FSaEEMX7s2DD6LRBwPPMfFfkqWv4
-	 tzhmvaDpHf65vjL2qJG97pX8CgblPVv53uwpgTLpJ+1iUOraP6p81BNv4vxDZQfELbtG8
-	 biMLXZnw0P35x8n7pRTOJLwFwr5Fio3DqSCiPzQF/Yb64H0Dzlu1OVZfyK3VWCPFDPO4x
-	 8YlLplrcOv1hjhnLlFUv3Ga0yxa7iMvcQzV5RcYMJygjUyNIMVU62HAPE2d37q1cZ3XbN
-	 vKY4iyrzXemqFZsCSLmLwV1YTW7zYpTn9b8B2ewJoqXd12BJ3ukZLnfrDdV6HyBHgjw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794455324;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=uClz2HfIq0EkJ04cssLdIs6ZH5vakTNOTg9TTr0zwWY=;
-	b=akytZ3GFgtrKuuoO0NHdj+mQsxNrcIWTk/aORFcssD0koipytr8f0Ue7t2h4JrrQAP4y
-	 dYHMa2xCImwRiOc5JSjq2624FccGvxb2nIsBtRrJXNfgHuU2igCoJcerWGcziqqfK+wkJ
-	 D9qa8hZY+fTKmobijsYfgBwjby+iQhZ9vpsZoEQVy++Sow3tge4Nxbl9MSeK4Dd9QGDYw
-	 iXJiq/YQZykgb2SIPZj1mIlScF7Nvjpz63iTFu5uQWR2b/ORjdm/qIq8re6AbwicDo8qA
-	 OZqOlWyHq2PuUKlXzidhXqAzUkR5MZEEsO0Y+4B91cKrRl7PprZ5//CRTRV4eMgRL4A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZG9PRfXZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 492C5606A332;
-	Thu, 12 Nov 2026 03:48:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZG9PRfXZ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794455324;
-	b=dpuVB4tcgejVI0k9RkCOe1YOYCsayS7JKgNAizgSK7D6+UBAiUEcBYD/9Jej0GVeJ1PF
-	 wm625tftTaBK2a+qeZrI3cu7Nn0HfnE87JVUCT8kCpPDS0gGi0BeXiBQKx4vKZM6aXYey
-	 r5UOWLRiYFYvqXM6C+QCcOPPpUFOyatxvhiC3bL4PExJBXs0spnjgihHh3n8jiuSNGWrd
-	 ZQMI7IZ7c3jrZYUWonz0Nq5G15PKc3iQPGLyzgIOHOMqrK4792fvajXCcCJUDlX9E4m2B
-	 36Y9ETLBfyKNjVb1LZpjXtDz1WOxpQXoxlAmZKisd6njYSnjfsnXcq4hn8cUrRFhdxw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794455324;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=uClz2HfIq0EkJ04cssLdIs6ZH5vakTNOTg9TTr0zwWY=;
-	b=rTTx99JU8M2sDgSNAKX6PpKUqJO63j18Kx/s4iAwRgzSA0o5W6y2SyGKLFTVyMFIu482
-	 jZev3Lz0upKdO1pMUdQl0DeOOEWJz9rKRhXzAtYTjmsbAA7ASONsdviXjrOa5orICd/2P
-	 r0D1twNiiWAhe87mteOeV6PwE4VTFlnN7goKxXmKrx9FNNjWF5uW3yZKGHa+hET9mDnME
-	 gR3f9pN9XQKqdgNcnOPXYjrnw1SiwIm/YM9L0q1Ybmq//3EltgdeFKDrSjCGJ7ZTAxRVP
-	 fiVSXLFEkJh6hajJI+9bkFmVZIqr+Tdryrnid89UZMnmG9nqLQqMUQcrxnbEmkH9jvQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794455360;
+	b=154GJBuFrB9HCh1rVWPUzFycilDr+eNVtWWi1w4D6JbfaKnZIXB0PbVCntMah8Ttyuio
+	 la2pPBwLC/oSY/9RPTjrSRxNnEOAnk2kpgIPPoQ66jLXQTy81vCvLI8X/G6O+ifDdPuER
+	 IErrYq5GWcBx/6ApMzy36buMr/5Z3IsiKcQO0KQP1N93gMFRn8OFbKOSyf0Ysic1V8jHp
+	 BGaZoPBW4ncgU4YSds/vPaL2U6STO6kdGcktn37DW5wTFgHg0yPvagcN1uIBGDkTEzuFQ
+	 cJuPz0kdJO+xD8bpazFwYdNKARfutQ45yWpesOWuUgtNVLHiEHsLx/xZg+jZrRxlhSw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794455360;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=25tsZUpiQ0lVQNm9JwfGrkVYEdwIvgyagRg9J+KAyDA=;
+	b=rbveB4AqaeZixKZIHYI8xWqWboBxgkvxMff/bXcGymPJho1W6zOc09qbgBtVj0Nx+mHp
+	 eyA4NdeXUImoT2dko8BFED1Vdau9tvPqqTvMHXkz+BtWFQFvrMH/KP8ZstbJ6wHGFthIb
+	 ulvzPHtIRaprIckoXTVyS1vifYtGjQpkX9n8jSpvpm27ARk+P9l+Y9XfxMt7zmkMrrqw5
+	 CtewojlT58597ugwgpzUQX60pGF0lVpf0TpLmK0lEZaTUaXhFzKgAV3lM++X0bB1oA4pX
+	 NXJLr/pXuhPCPFLlvi2fKDL/VuReP5KaYOK09baBko9A7GQQ4nlXUpNaqil3Y5iE6mA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hOFGclu4;
+	arc=none smtp.remote-ip=209.85.216.48
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CA39E1F00A06;
-	Thu, 12 Nov 2026 03:48:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794455324;
-	bh=uClz2HfIq0EkJ04cssLdIs6ZH5vakTNOTg9TTr0zwWY=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=ZG9PRfXZT8XSOJuzoa1x9g3NIvoLwHC3oHXm5FPrghY6ZFXndiPJAiCttjgv+to8e
-	 BAOkM/Lhz0nWtl3jR4bWhI4Q6g/SWkfFmEiZeWihiTu/j/AROJDpmlHX0jNYmI8dd4
-	 zScYTGGxIgKgOUS9h25ZoNXe3KgI0deI1mjohoiKV2l2quJIrbbwQ2+6KJG+ZQGvg6
-	 Xus51MbDgoWQJAF8q5CmvPc9R8yNCFtiK0UbeS1WjxaxiHL5oKhHwZRcSBTmxMAxm8
-	 jpGLV2X4Hddn+r1FtclBx3WmI1tOtS6oN+xaDWaCVn0uwvxEnDDAGp+STkMehHsCmo
-	 heL9bv3hvL57Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2DEAB49261;
-	Thu, 12 Nov 2026 03:48:42 +0000 (UTC)
-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
-Subject: [PATCH v4 0/2] staging: octeon: fix probe error path and
- pow_send_list matching
-Date: Wed, 11 Nov 2026 21:48:31 -0600
-Message-Id: <20261111-octeon-init-pipeline-v1-v4-0-5b4f8e613ae1@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D425F606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:49:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D425F606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hOFGclu4
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ad41b47541so2396298a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:49:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794455359; x=1795060159; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=25tsZUpiQ0lVQNm9JwfGrkVYEdwIvgyagRg9J+KAyDA=;
+        b=hOFGclu4HudCtVI9CQuP8pEykqKRvrYhDMXesAcE3Fu7IzxEMClz7O3PelcWZZ6w25
+         eszIQU79C2e3saIwpL3wfee0hRUHfYEr1nchlZtxF9Mq6l4yiFOm0ho0oZsB5kzh6zX5
+         AURwc2ibA1EQYPnlQyhV9SkKjg6xsXTBXXzlM4S1Go8b8z9MebhuJdKjZ0by/aWiNIwp
+         H1LgIxhVyUjqYNRoYr+k7LjVC5uKyYOtG1VAaYHVZZgar3sopj7q+XzbhnOtKmDYs17k
+         xi9j4V9wu3EFFTkag2USrKV1zCFk3NUtSuwSPp2geOlL8/Z64lTkEtG+zxnWYP3dZ89K
+         AT1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794455359; x=1795060159;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=25tsZUpiQ0lVQNm9JwfGrkVYEdwIvgyagRg9J+KAyDA=;
+        b=EO/qoLUQ/IjZIhooEz68vXGzuAhm15lGqQeU9tisGD+qKvg560f+gdWzFK/kFKLvnW
+         bx8l5KRLnTUs4aJbIyAvEI+S2Do/Qytkeb/FD89gvAzzQN5nYDqV7TVUEnpmvB3jHR7U
+         C0G3h22r3NuZh3acOjSaQlG2NU3OoA9sD+Kne+P/tleFyreFgYtbDIfdTnwTxskGw58i
+         jOSibXKpzw1ydcNP1CcsN7MHAv4te+HoGMkac9MlpQ6XUwe1f8cE1h+jCOZWZlD8zHXr
+         XDXqbVlsnjp22sVxpBP0VXDJ3TABeJss/mOxr6y287UEcH0uf/IF5j5H5b8y2pyDLlnu
+         G2Bg==
+X-Forwarded-Encrypted: i=1; AL+hErEkLgs1bBWAT75sb72NIGwqPwXehTlcqnJK560kcegHptdvjAfzA5HJaBCjpR4TFh6mYHXqOFO4/1ki8KM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/hZ2PEBj33CTsKMuos5BV4hfb1Jb1rgXyl8Leu/TqVvjWkKk0Z
+	vuuROQBl3McvQjTMNBHAm1uyLhzto/2yqXp389oDUqIJh5s1ywuuf4Aj
+X-Gm-Gg: AYBFou0QWljeRDuEV+ado5WDE4wCG3b1yS1BRSQUFbeZHp7nccapByWi5gi/3baGEu7
+	lMRWLHra6HIrdRenJcc0CJUg4NxawL15LGlCgTxDaYL4bjjC6XTStFDpxzXFdJQ4VxS28Fyf8Re
+	ZmkONekbFnL1SGrmQEzi/1o4BvheKZ1YVQwTTS44R5sy1phvc4oII6TrolGh9QjodJMGofGYnZp
+	fQ2FsC2F0MEcy+DO4wxjuI0f5bNsrXTHnTowmV41OC8Ef/yKFsuEGd5Lv/P4FiiQuq6BYQyMZrZ
+	jzHd2AIjLzRD6ojjKNAUjaFKsbmdkaFc48ZUui4tEZGZlXyHsjpINtObaiQ7jVW/uihEaAnzTes
+	2WbkAg1MhqpIv8hvRdfBuDedLh/9XYC0DpSXzUvUJYlsd+9400Ve/nRuO3BGAg4kaInqTl6R3NS
+	phIAg/Yao3oSVc+gC//16yatS4PZbs8nu/9I6+d6lITkqks2cGKnoAW1gQ2/SPQJdNW29LZKDIc
+	27lU/YN93x4y0OLKj3MXEip9FpcjOyKd94o85uDp4YlDd0Z3vUC84Qpg39/2/3bTJIcAv/MxQHV
+	jYOHa2b1sfD1c4x4bpkLXwj2UsHpoKLQqAg9G3xb0GuFryVbHS77BGP1WkpNJlsb63GipR+rTk4
+	4YgWVAjrC
+X-Received: by 2002:a17:90a:da83:b0:3ac:4e18:2390 with SMTP id 98e67ed59e1d1-3b182defb03mr4367944a91.7.1794455359061;
+        Wed, 11 Nov 2026 19:49:19 -0800 (PST)
+Received: from thinkpad.tail59a646.ts.net ([112.199.224.229])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197c4eea2sm2135404a91.5.2026.11.11.19.49.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 19:49:18 -0800 (PST)
+From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
+To: TAKANO Mitsuhiro <takano32@gmail.com>,
+	linux-perf-users@vger.kernel.org
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] perf stat: Count kernel events in a group led by a tool event
+Date: Thu, 12 Nov 2026 11:49:13 +0800
+Message-ID: <20261112034914.3704801-1-hang.zhengyang1010@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <sashiko-outbox-208886@kernel.org>
+References: <20261111-tool-pmu-leader-v2-1-3faa0fb98c51@gmail.com> <20261111110616.2249764-1-takano32@gmail.com> <sashiko-outbox-208886@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,59 +101,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XNwQqDMAyA4VeRnNdha1vtTnuPsYProgZcK62UD
- fHdVz15GYNc/kC+LBAxEEa4FAsETBTJuxzyVIAdWtcjo2duEKXQnJcN83ZG7xg5mtlEE47kkCX
- OUCi0WnbSYAX5egrY0XuXb/fcA8XZh8/+KPFt+9/MUzJ8CKutUVrU5tq/WhrP1r9gM1N1cDj/7
- VSbo1TDTS27FuXRWdf1CzsENboGAQAA
-X-Change-ID: 20261108-octeon-init-pipeline-v1-e25ec64f49e3
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794455321; l=1217;
- i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
- bh=pfWq9ciDcNTGRqmqjjmBm1Xv8yHjO6TCvax7c9j/9Ic=;
- b=/dqSCqxog6vMel5jfAcPKvMGn2qelPeRikBEBJDEhqQKuyLWo5BUM++uzPbZEP6q26FW0J4u+
- sgU5qXdMn9GAbDR8v3kDJleOFHHjH+zxBXfERnnlKiWX1uuUll0PlX8
-X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
- pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
-X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
- auth_id=1410
-X-Original-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
-Reply-To: aleszlucero@gmail.com
 
-Fixed two bugs in drivers/staging/octeon/ethernet.c:
+On Wed, 11 Nov 2026 11:33:19 +0000, sashiko-bot@kernel.org wrote:
+> [...] leave tool event members enabled during -D / --control and
+> leave tool event leaders disabled during exec workloads?
 
-1. Call cvmx_pko_disable() in the cvm_oct_probe() error path to match the
-   teardown sequence in cvm_oct_remove().
-2. Split pow_send_list on commas using strsep() instead of matching
-   substrings with strstr().
+Both happen without this patch too, with tool events outside any
+group (perf-tools-next cc905a18a647):
 
-Oscar Alejandro Sánchez Lucero (2):
-  staging: octeon: disable PKO before device removal in probe error path
-  staging: octeon: match exact interface names in pow_send_list
+  $ perf stat -e user_time,system_time -- dd if=/dev/zero of=/dev/null bs=1 count=300000
+  -> user_time 0, system_time 0
 
-Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
----
-Changes in v4:
-- Build tested on mips64 (cavium_octeon_defconfig) with W=1.
-- Link to v3: https://lore.kernel.org/r/20261111-octeon-init-pipeline-v1-v3-0-e5581974fae4@gmail.com
+  $ perf stat -D 400 -e user_time,system_time -- sh -c 'dd ... ; sleep 0.6'
+  -> user_time 173 ms, system_time 137 ms, though dd ends within 400 ms
 
----
-Oscar Alejandro Sánchez Lucero (2):
-      staging: octeon: disable PKO before device removal in probe error path
-      staging: octeon: match exact interface names in pow_send_list
+The first is what TAKANO's "perf stat: Start tool events when
+enable_on_exec is used" fixes.
 
- drivers/staging/octeon/ethernet.c | 22 +++++++++++++++++++---
- 1 file changed, 19 insertions(+), 3 deletions(-)
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-change-id: 20261108-octeon-init-pipeline-v1-e25ec64f49e3
-
-Best regards,
--- 
-Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
-
-
+Thanks,
+Hang
