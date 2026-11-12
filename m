@@ -1,79 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794518472;
-	b=E/VbRW+sGdUypIQYGJH2qMaRtScAPCOK3NO5d5Zg5fucKGE+nEBXgWJtLDteEqmUVFxz
-	 jlyx+h0xXRRHbf4YpMhSJ0Kqros2DLZzBuFnjXu0Iv5NM1DRk9APZ4184kskMnLFwoy5g
-	 ajPriTpdITwtXZ6sfwnvjARS00dZ0xdugSG6R4nsIqhogWqVMUzV1k9pomRohDeZ8pMfH
-	 Rupmn/lM+H3bpLp9cp/tMCixOY3FVhk4g+3YqfV5wbO9R11MflF8oPPABcGLo0JHQGWoi
-	 a+gjm1upAA3y0DzSmKEGPXJQ3ajEgWxytl93HpIgVoYpQH6EasbfS8mrr22vUVcyBCw==
+	t=1794518499;
+	b=fEK9+Gn3VdL8QqNHofe0PxzaoyLSeZSukPEOzXNVa/wx+nTFzbPLfzcP1iwngvYGkaeL
+	 BkFICXgGx6bwTL/wevdqXK2kar+j044LoHIFqIN5hzUpY55RrrjplLpZ2m54B6rajV6Bm
+	 hxoSG8Gb8ZuLlp2c5osbem4K37gAJe/sCKG4F33KMjGBtKoJQbh+9ep0iZ5CfbRW+NNJX
+	 ZLmZQP2rvqjCq1jalwuE7Q+4Uv3IrYM+64LMlnHRyNIv86yL3zWsAc16t0inneyqFAchQ
+	 mQe6TnS6qsQ/XPSHx+giipg6Zokm9JgA7jaLClz0QcDFC/LicvrFL1pJRl2riFM+vSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794518472;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:User-Agent;
-	bh=mtkUO4l/EDx0qjj08HflpQcLxDfz4VYpO2be4/eOvKU=;
-	b=dPV+pzqq1Ijd1PORud0cod/cNDvCfcneZbRlk1f5tvtz3DOk0ypEAIXYNsTH/5iOWF9D
-	 AjXFxwSP5b+stm1U9zqUabcoHyCfylT3dq5vtT5FPFxdA5nnNnptpTuoDYL+mJoG+ZHZE
-	 J+TbNsWJuKV3PG1e2/XVXqB2Gooqm3Aec6WcJgSh4mes0TJIcMCxWZlKQQLkISQqUgrJX
-	 uUhuOS63zo1yUcZQ9lwBAdFriAk4fpZKGKnv2OjeQstVKQqXvs278xKwnng4c07bxqQLO
-	 mrlWAYuVrOiMT+TNmFi5iy2jI1DRKHbjMwXeeUyiOiB7mHrlRS2SuLIS5B1FhPpchQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794518499;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=4eqgGqhIANhj0nYQ+5ubzZJVoiDxk2sGBwrmrqN3BXk=;
+	b=tLx1wApSlg4bJUO9uf7C1C6rTkQcmjVy/3wNE7gUhlfRup/6J61ABW86KN47alzidxBE
+	 ZUIQRJUcu22Lcc0FqYDttD8u+qTxr0wxJncJIxYRUjwXf3ThepgRBFWFTkl4phoyp/rQf
+	 XIAYOHaLvnsZ+Tk/jpt0mhK1DEscNAa2v4sciIsjqZcCXDAaafZFXto9U7Zw6EUGjJvt0
+	 KperC5PKeLQl9olOW9OWgLavs5/LweGzd750dD9IyQeFCJWRHipJPIOoB4XuIBs8YivBu
+	 HAaClYzu/u3lDr/eK5xegBUenzflQoXzH5AudO7YB2m+UiZDu7RGNu2pFMYA0gws/Ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KvvpJuA5;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UVPMOnnS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243CC606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:21:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 243CC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF3E8606A31C;
+	Thu, 12 Nov 2026 21:21:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KvvpJuA5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794518471; x=1826054471;
-  h=date:from:to:cc:subject:message-id;
-  bh=dbRmGMHAvM6mCZ7s56NaDMhVjgRmnrwVFnFgM/xI0UA=;
-  b=KvvpJuA5OPwxP+o/3MZ2otY7kZWHft1Tbl5iQzncQkTr8QqcCSmGBzLi
-   8QAStD06fsXUzSrKMd1CQNc4xnX1F0fOUhsIuTEjzM384PR4/uDcZ2CEJ
-   Lp5v3sK7Tz8P3IDCgBUGFuHK65UvmGi2Ym095C/kyExeyIF+6Y+3BdqDG
-   bRml0MAOtZXiCPNNMuP+FN7adb1caX1YtXOm0xdR7Q/8CFgfa2vrx4L0v
-   WZZdwjVBwi3mziWjyhaIHZCsStMg1dUOTR6RUXEMEqVViIxG6DuuUqEEb
-   s/AFB7QVDIUY/G8F2SXxCwX77EnheER3rXbbplBKeRusTcR4KW0WSacwv
-   Q==;
-X-CSE-ConnectionGUID: cGJWjlufTJaiYJtXFbFSag==
-X-CSE-MsgGUID: ttHBX2WeSJuTrd5AtxlyZg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3352849"
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="3352849"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 13:21:10 -0800
-X-CSE-ConnectionGUID: 5KprF6oARuiz5Jh5d9dQeA==
-X-CSE-MsgGUID: fDxc8okuR6OSQmpsW6pvTQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="8695515"
-Received: from igk-lkp-server01.igk.intel.com (HELO 1073a420ae3a) ([10.211.93.152])
-  by fmviesa004.fm.intel.com with ESMTP; 12 Nov 2026 13:21:09 -0800
-Received: from kbuild by 1073a420ae3a with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xRcEE-000000000xq-3tuS;
-	Thu, 12 Nov 2026 21:21:06 +0000
-Date: Thu, 12 Nov 2026 22:20:26 +0100
-From: kernel test robot <lkp@intel.com>
-To: Rong Xu <xur@google.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Nathan Chancellor <nathan@kernel.org>,
- Masahiro Yamada <masahiroy@kernel.org>
-Subject: drivers/misc/lkdtm/lkdtm.o: error: objtool:
- execute_location.specialized.1+0x34: can't find jump dest instruction at
- lkdtm_rodata_do_nothing+0x0
-Message-ID: <202611122247.EuFOb7hi-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UVPMOnnS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1061F000C4;
+	Thu, 12 Nov 2026 21:21:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794518499;
+	bh=4eqgGqhIANhj0nYQ+5ubzZJVoiDxk2sGBwrmrqN3BXk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UVPMOnnSNBD6Ajg0ijIcJ/fQ8stFM0AIVKJJH8IDsiZzZTe1bjDhpTRO5gjXfWZBy
+	 tbLgVlsFFdOtWlI1fwzMngfZmTXoyQUp4+FtjDCsrCBUiyWE6RtU6djOT5soTVPhGA
+	 z44Tp1slG9Io7EsVPtphu9+vrdqP0A53Tjq4L1PfJ+FlX1pkKc8FT0cZZ0bZqc6GBy
+	 wITMK3Q1uR84p33Ib10kpe1TTxPhoQW6RBCpR0nS/yS91mkvisDMNkWIjQdNKlOvM1
+	 eKyE1FzJrh8kpbv13WGkXCVVNI8I+nhzttgq4ZQF3nL95sU0Ih44GzsaTp87Atdg80
+	 vB+ANY8QfWfUA==
+Date: Thu, 12 Nov 2026 22:21:35 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: David Laight <david.laight.linux@gmail.com>, 
+	Mariia Nikitash <nikitash.mariiaw@gmail.com>, dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, justinstitt@google.com, 
+	morbo@google.com
+Subject: Re: [PATCH] Input: mouse: vsxxxaa: Replace strlcat() with strscpy()
+Message-ID: <avYtm-vs_V0dPfyR@devuan>
+References: <20261104062319.288360-1-nikitash.mariiaw@gmail.com>
+ <20261105112813.13210334@pumpkin>
+ <202611121026.23C58B347@keescook>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,25 +59,110 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ahzol4ylc7553tv5"
+Content-Disposition: inline
+In-Reply-To: <202611121026.23C58B347@keescook>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   ee83899302a0457a3ba47464a13e8682bd7ba27d
-commit: 9f2aee8f7d1842be08da860e45265d30dba0d1f7 kbuild: distributed build support for Clang ThinLTO
-date:   6 months ago
-config: loongarch-randconfig-r2106-20261112 (https://download.01.org/0day-ci/archive/20261112/202611122247.EuFOb7hi-lkp@intel.com/config)
-compiler: clang version 18.1.8 (https://github.com/llvm/llvm-project 3b5b5c1ec4a3095ab096dd780e84d7ab81f3d7ff)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261112/202611122247.EuFOb7hi-lkp@intel.com/reproduce)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 9f2aee8f7d18 ("kbuild: distributed build support for Clang ThinLTO")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611122247.EuFOb7hi-lkp@intel.com/
+--ahzol4ylc7553tv5
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: David Laight <david.laight.linux@gmail.com>, 
+	Mariia Nikitash <nikitash.mariiaw@gmail.com>, dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, justinstitt@google.com, 
+	morbo@google.com
+Subject: Re: [PATCH] Input: mouse: vsxxxaa: Replace strlcat() with strscpy()
+Message-ID: <avYtm-vs_V0dPfyR@devuan>
+References: <20261104062319.288360-1-nikitash.mariiaw@gmail.com>
+ <20261105112813.13210334@pumpkin>
+ <202611121026.23C58B347@keescook>
+MIME-Version: 1.0
+In-Reply-To: <202611121026.23C58B347@keescook>
 
-All errors (new ones prefixed by >>):
+Hi Kees, Mariia,
 
->> drivers/misc/lkdtm/lkdtm.o: error: objtool: execute_location.specialized.1+0x34: can't find jump dest instruction at lkdtm_rodata_do_nothing+0x0
+> Date: 2026-11-12 10:27:58-0800
+> From: Kees Cook <kees@kernel.org>
+>
+> On Thu, Nov 05, 2026 at 11:28:13AM +0000, David Laight wrote:
+> > On Tue,  3 Nov 2026 22:23:18 -0800
+> > Mariia Nikitash <nikitash.mariiaw@gmail.com> wrote:
+> >=20
+> > > In preparation for removing the deprecated strlcat() API[1], use
+> > > strscpy() to initialize the mouse device name.
+> > >=20
+> > > The destination is zero-initialized, and the constant string fits
+> > > within the buffer. Since the return value is unused, this preserves
+> > > the existing behavior.
+> > >=20
+> > > Link: https://github.com/KSPP/linux/issues/370 [1]
+> > > Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+> > > ---
+> > >  drivers/input/mouse/vsxxxaa.c | 4 ++--
+> > >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > >=20
+> > > diff --git a/drivers/input/mouse/vsxxxaa.c b/drivers/input/mouse/vsxx=
+xaa.c
+> > > index 042a17fe81db..b3a0d7ff5738 100644
+> > > --- a/drivers/input/mouse/vsxxxaa.c
+> > > +++ b/drivers/input/mouse/vsxxxaa.c
+> > > @@ -463,8 +463,8 @@ static int vsxxxaa_connect(struct serio *serio, s=
+truct serio_driver *drv)
+> > > =20
+> > >  	mouse->dev =3D input_dev;
+> > >  	mouse->serio =3D serio;
+> > > -	strlcat(mouse->name, "DEC VSXXX-AA/-GA mouse or VSXXX-AB digitizer",
+> > > -		 sizeof(mouse->name));
+> > > +	strscpy(mouse->name, "DEC VSXXX-AA/-GA mouse or VSXXX-AB digitizer",
+> > > +		sizeof(mouse->name));
+> >=20
+> > You might as well use the 2 argument form.
+>=20
+> I'd agree: this is a true array, so the sizeof() can be dropped. But
+> it's also exactly the same binary output, so I'm fine either way:
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Indeed, the 2-arg strscpy() call would be much safer.  I'd prefer using
+it, since we can.
+
+
+Have a lovely night!
+Alex
+
+>=20
+> Reviewed-by: Kees Cook <kees@kernel.org>
+>=20
+> And I echo the surprise over strlcat being used on an empty string. :P
+>=20
+> --=20
+> Kees Cook
+>=20
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--ahzol4ylc7553tv5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr2LdkACgkQ64mZXMKQ
+wqlb/Q//Z+6oJ6b4j7TzZmc0/KZODa14tNbJCvi4tcZTLjMM9TBSIC5RD8NdQNac
+Y3ePfMFpvVnwmlRjl/pSkHH+bj6+IW4TP9BD0eT/DSG2x/LlUp1cO2+IBz9R2KZL
+H5A33gGL43Rmw80rJZWHctuqS+w1tzVv/9QA5bgUqkDsGok0pgdpZ1iw9LkIVzR7
+xPHxni0VR3sRBwWTisKnY37O2Io5QnWhHqU6SF0kx6JyqOUQQIRYt7/RcBxP4XPO
++tvvUxCvAbckY57k+uEwo1hF56sWhSBQOWX/4rfegox/74NkWrB8qrhSzXmNUBCu
+Ptjg7CVUgL0EkJ/PisFsK5aJK34UJkTLBqctbcyUYvPjHzrlaugYD2yBmexacket
+aAYLCGatrRzx6SnFBe48FFyavPZy+RpmN9B2PvmLrRv9b59t6xOl5zzl4bYueOen
+OrCWJ3xkNoFS/uv12lOVq/b8g2kePxnUdBRIx1+LZfqssAh9UepkLFE5oh2TT2pf
+rofdPWFWUUe+c7dXENeBTcIV0fJxbvI5Ed1conjA9mxKlOO0qT3dJB8FMR323kba
+mNIzKeexa5Yc/D1iLNDYcbiCBAk1WzyXlKZvvvEqa6dkIMmvVleJ89pEh5oN891p
+pjb/XXRRYQzwpjFFAUVJMxq/zFa+epmbXWAAY4ZavbwgL8/YkoQ=
+=a/wb
+-----END PGP SIGNATURE-----
+
+--ahzol4ylc7553tv5--
