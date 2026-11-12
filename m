@@ -1,57 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.213
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794452469;
-	b=qhcBlgFmIUTsEeSukcttjhYeqF8gOl0D2/m9SmdK64gjldZEPcGKSJiuLn+xicNIGW0V
-	 67bg2vd5mw+eLnbu/5dVXKAKZh3ZkRqKd4naI6A0fRGMDNIoNMy0oaD0ps0A28nXZLsm0
-	 IvwsDY54o33b72BrdTY0nMF5Wm1ft8/5pWz0o/hPVMAgGDuAAQjtLKwJwNYmhEDo7phY+
-	 MYlOfP3ik3nlKNtSYIEjwClyxGWbh7eHIpWL9BVwusO5VeqT6o+BjhA2gBnwK1kwbd0w0
-	 z/UhoOcusATqs7eCfJjGUfEl8uDTdUKpkrUxltKAU8SiS3Jt9fM6lRIeifTEyMECNVg==
+	t=1794452475;
+	b=ef3qrmxXY9FrPrl+kATPg5hmYrr+E36S9kLYblxd1q6ulpc8t+iwqWhVI8ckccrd6wxo
+	 AjalzR6dJz3nLW9WBORcqh2Biylf+98j4OXKUSi2y2x+vZqB/Vw9/WL1CcheHBhbJLVJa
+	 DY8UDwKcI2ehG7/Ft12Xa5Ouo58vJp05dsS5yAftHtfz+vpVM+ZDNedqIatgoKZ57oWVa
+	 hzriaOZ7PiQbRBBPHnG8GdudBhBr+0XlI8bYoyBVkOnEAr6+FaJ7QNZD3fM2NNmo7ukQ2
+	 ydLTnl6xPL5WMPyGPBULbjHhnvtysaNC42JstMcZYumVYoAGYSlZBL55/nGm3JIhSPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794452469;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794452475;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
-	 Cc:X-Mailer;
-	bh=O5nA+1q2Ly7KhI+4W5hR1wKCh5D14tqesJy35vJZ96Q=;
-	b=qssHFfjeUeweTDJSrm4tfM1W/reEPc+r8I1gVDvcnKveRDH2EETU2Hxl4eUzbnwCwXp6
-	 zReVtD7Oz3DeELUhEpgWJSntaqWGHloPzcFX1OYgGpER0LMmteP49OiS8tDJEKdiOYppa
-	 NPhTm4/AVZQXHBwdvXbhLkTrq4Os6BSdiTeZTbrNCRDQ11d6n2sNJxhDDme+qagClDrsv
-	 kt6I0lcqJs2U0ZHa4MLc3O7dMjvifIwJNRXHrWJVYjYDJA009FawRN7OuTXTLjZBKQ6Ed
-	 XK25NzHfq4Jm9nOyiWCi8XTUXdBCia+yVCXnRMLjpdIQJCualf+2/No3Ix9YNLd9GzA==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=qiCsHl4aLfuM0HggHI6enKIcXyGtgtMSfDyKWC1ANDc=;
+	b=dq0MN+cOKZhngSb1Mj9qM18GfSMLS8Wu+dPcxMcYCx51pOYqRqAsb3o7SADftuEdvMHp
+	 fbNCZoaQhcn1MMrVIV05fC8UUiS62RSEv6/6k0kRrmGkuThAjt/B9+5y+l1ngmQsrzwfW
+	 cJvwXnK0AsyKkSzPsaA6NRZzmCy/1ilYSHbMz3pvgAADmAy43nO3uYXVd7AQPM7zNuFvx
+	 qQCUB5IfrITFcmWyVKaNJq1em1p2xLYWMgaRUpoBbavxUGep3oqXnysr8vRDYB9LaScBF
+	 0l0O4rTz+ZF+2zFgOmONOGhTcib0l1th23HqUH95WnrjetgTzB5MrCpBm37oc2S864w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=n3+AZmDG;
-	arc=none smtp.remote-ip=91.218.175.213
-Received: from mta0.migadu.com (out-213.mta0.migadu.com [91.218.175.213])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mySbquPV;
+	arc=none smtp.remote-ip=91.218.175.217
+Received: from mta0.migadu.com (out-217.mta0.migadu.com [91.218.175.217])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8430E606A324
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:01:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8430E606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A05606A333
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:01:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99A05606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=n3+AZmDG
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mySbquPV
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=xQOp8E3Q1twQQOr51+f1UmfFBIcTlFk6WwjvK1VznqY=;
+DKIM-Signature: a=rsa-sha256; bh=1Gh4AgZD5hyucitfPZ/zkzEskQ30XUa8BCrwjOqRbDw=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794452466; v=1; x=1795057266;
- b=n3+AZmDGrPe9wqCDjY2sfFAF8k4F15byuD2zxgVOoRDjUEYA17IrTLrSqFQ8ihwwtCQ5IN8l
- CMurPCIVadZWv7NcSy7CW1g9gtA5q3fVEP07dKjClWxt4qnmFAyzEERapYYjiJviY69hUOS/9X1
- ql80AXKd2vFTPbfYlHn9nldY=
+ t=1794452472; v=1; x=1795057272;
+ b=mySbquPVo5B7rVX6O+PRKzapEWfTeRvnnrxEvo0QNp4KxuZnnuVy6ckr535EQHY0iXreJz7f
+ vlPY/radVvE7qmdX1Asd6/P0WlTpp+AyYR0H9lzn+jswzsrACHto1dsfTBcF03RQpQqx9fbH5M4
+ dyEl74IK3OL3UICrzI+P1gUs=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c51555cf0ba76343;
-	Thu, 12 Nov 2026 03:01:06 +0000
-X-Mizu-Trace-ID: c51555cf0ba76343
+Received: by smtp.migadu.com with ESMTPS id 354a4d904e250d13;
+	Thu, 12 Nov 2026 03:01:12 +0000
+X-Mizu-Trace-ID: 354a4d904e250d13
 X-Migadu-Flow: FLOW_OUT
 From: Qiliang Yuan <qiliang.yuan@linux.dev>
-Subject: [PATCH 0/2] block: make rewriting the current I/O scheduler cheap
- again
-Date: Wed, 11 Nov 2026 22:00:57 -0500
-Message-Id: <20261111-bug-block-elevator-unchanged-v1-0-583198bd4e21@linux.dev>
+Date: Wed, 11 Nov 2026 22:00:58 -0500
+Subject: [PATCH 1/2] block: don't request a module for the none elevator
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,9 +61,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAOkr9WoC/yWMQQqEMAwAvyI5b8BWqOJXxENtogallVZFEP9uc
- ec2MMwNiaNwgra4IfIpSYLPon4FuNn6iVEoO+hSG5XB4ZhwWINbkFc+7R4iHv6fElrjSFNtFFU
- N5MUWeZTr23f987xKlWWZbgAAAA==
+Message-Id: <20261111-bug-block-elevator-unchanged-v1-1-583198bd4e21@linux.dev>
+References: <20261111-bug-block-elevator-unchanged-v1-0-583198bd4e21@linux.dev>
+In-Reply-To: <20261111-bug-block-elevator-unchanged-v1-0-583198bd4e21@linux.dev>
 To: Jens Axboe <axboe@kernel.dk>, Damien Le Moal <dlemoal@kernel.org>, 
  Ming Lei <tom.leiming@gmail.com>, Nilay Shroff <nilay@linux.ibm.com>, 
  Hannes Reinecke <hare@suse.de>
@@ -73,35 +71,45 @@ Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
  Qiliang Yuan <qiliang.yuan@linux.dev>
 X-Mailer: b4 0.13.0
 
-Writing the scheduler a queue already uses to queue/scheduler takes
-about 10 ms and freezes the queue, which stalls I/O on live disks every
-time a udev rule or tuning tool sets the scheduler unconditionally.
+elv_iosched_store() calls elv_iosched_load_module() for the requested
+name before anything else, and loads "<name>-iosched" if no elevator
+type of that name is registered. "none" never is, so every write of
+"none" to queue/scheduler ends up in request_module("none-iosched").
 
-Patch 1 stops requesting a "none-iosched" module on every write of
-"none". Patch 2 returns before freezing the queue when the elevator
-wouldn't change.
+That runs a modprobe helper which can never find the module, and adds
+several milliseconds to every switch to "none", including rewrites of
+it by udev rules or tuning tools that set the scheduler on each disk.
 
-On a null_blk disk (median of 20 writes, all kernels measured in the
-same run):
+Return early for "none", like elevator_change() did before the module
+loading moved into elv_iosched_load_module().
 
-  operation                   base (ms)  patch 1 (ms)  patch 1+2 (ms)
-  none -> none                    13.09          9.06            0.08
-  mq-deadline -> mq-deadline       9.19          9.14            0.08
-  mq-deadline -> none             12.00          7.96            7.97
+Writing queue/scheduler of a null_blk disk 20 times takes (median):
 
+  operation             before (ms)  after (ms)  change
+  none -> none                13.09        9.06    -31%
+  mq-deadline -> none         11.99        7.96    -34%
+
+Fixes: 734e1a8603128 ("block: Prevent deadlocks when switching elevators")
 Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
 ---
-Qiliang Yuan (2):
-      block: don't request a module for the none elevator
-      block: return early when the elevator doesn't change
+ block/elevator.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
- block/elevator.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
----
-base-commit: 79eb6679ef6a0d5ea68da53a8321fb1dc72299b9
-change-id: 20261111-bug-block-elevator-unchanged-a6cd2d761d38
+diff --git a/block/elevator.c b/block/elevator.c
+index 66edf1a5768a8..9d9b2e84a1288 100644
+--- a/block/elevator.c
++++ b/block/elevator.c
+@@ -775,6 +775,9 @@ static void elv_iosched_load_module(const char *elevator_name)
+ {
+ 	struct elevator_type *found;
+ 
++	if (!strncmp(elevator_name, "none", 4))
++		return;
++
+ 	spin_lock(&elv_list_lock);
+ 	found = __elevator_find(elevator_name);
+ 	spin_unlock(&elv_list_lock);
 
-Best regards,
 -- 
-Qiliang Yuan <qiliang.yuan@linux.dev>
+2.43.0
 
