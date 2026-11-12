@@ -1,79 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794504476;
-	b=iipd8ejwAppv34fJQ/35bJnPpuVvPENdM9LY8UWeBJ09pCx7QNh0cF3PPs/F/TLWFgTp
-	 ONvBaBcbhF8heBwZWGEVZE0PYCQU/t7sYulg0V4/+PrjPvxQCXBpsEWzUKxd/Ho0682I+
-	 qYFdPNeYR/G9EiGgZIvIcVlK23LyhnFjRZhzmqqVL+vAvCBk6GzXrj3uZUwYI20tAz71y
-	 Ipznpvv51ShK9ASf/8MQj0cWFFlhAWzmhEdb+a3C3dkW+3i6GiQqTLfemO0nbhKofFCAo
-	 +shVYITbgB63CZPVWqhaccSQlr+2YR8LksNi1fXqPeryAPFHhql6yaujiH0igkqKGVg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504476;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FQRPAOczeChNohAnaECEMnatXU5EQobFRvNRBtV70cc=;
-	b=gAZU8AzPOVu7zwjFtKL80qf4LAa8Th28DPOiZ6ky/ktIM5xa2vGxabfAMZORhzClcVZX
-	 e/gYhL+dBuXiXKNlPO5cOapKOC2rB21lo7te8hn9SN8867JynPrkK9MwoqGDbFx8L1Wir
-	 1Y5qX77APUIhKHDbScJrcIGS6vd+4qTY5wSuUoRmq1owSlBZNYPrh/dF+uOUpz60cq2P+
-	 R+5JwGCt9clFBOUFAAAlOrxE9D8DrSPiK7rh8Ud/WJcmg7O8PLAzNJFmCE7ZYWtjKBE3m
-	 cycNtAd0UZT8g1LZlLEL3ZeeGNS7RMpOU1o2QX1Dfg26T3QqsgBUtmeFnJYHjU8j37g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ge0n0eNg;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CCF8606A89C;
-	Thu, 12 Nov 2026 17:27:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ge0n0eNg
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794504476;
-	b=qduKTI2WCWq68UTTvHHAtm8P8R999UWNGtPKsyj3fX9gBim9xKTIQ3j6mLDKihggXjd7
-	 +MvNEZ//jivUdn4MIHPADXdi+zE0sl+3puJr3p8BqUO5vPI8o7vtO5m6zlLzMlGyymZJc
-	 +aP0yZ3fHOtDFsflGb7zgazknmKqsfC6vF2IA5XZXHRS83oniK+ZyBoLNLMl1nrblbbak
-	 rFSiZZpOl1x5gH9lJmI9xvsRez5h6nT7Ap9aNxPwD81xbSPbExxxupGS59A6D+rOVJxGI
-	 F1wPfvI5AnEId0WfNQTwyFMyrmxBtghBosKf+vmsHPZUzQPj3hPgnHI2dIlPtFIyN9w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794504476;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FQRPAOczeChNohAnaECEMnatXU5EQobFRvNRBtV70cc=;
-	b=Zq7OYqf+lvdd/IOxbV1+qhyIHdLJ4/bSQnur8yzRLil/ahz5fM2/heMfnpx8INjrjsF8
-	 DwAVza5xCp2Zec0EEs+5gW2LCzg0njEiMx7kjHnVsQJF0KuxAgNmuF3r5UvG00mqNjYKC
-	 WTlGKf39Zm/yjsmKzBr0eYD4nhcp8hHR//nHP5VN1j5mgv8IKWfSwmd0bpCDKqvazQlNU
-	 KoUNbUzzZ6/MK3HWqVAz1cECRCHl4VXkec7uO8ikIxO/fVT3o6GFAqfICkZDnod/yaUNU
-	 KiF+buhQGsWgs0yQB4wkq9ZHaHS2Ua1I+Sw0EbD3xYCsa9wLfPCf2uSUU2pA1a4G7Dw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.180
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794504481;
+	b=UMTmY6f+aNr6uK0N3fKG3MfNi3KZ11ZEIVeC3Iuz6Xqw9LWlVlfl62I+IGgJ/sqtq0Vi
+	 XH5oqCPmEDU4akw8L6f3Ktfoft+57MHF4KvssqqdBeM3gr5ebF/1v0ogS9NY4X8xRWa+t
+	 Hy4q7FbZt+RipR1BFWWeHDbyo41BA9K+GVYzpP08OCYof8YHaakmRN9qe6cjXSb6t3fMc
+	 0U0gMRw3Psbbc+Go1ItCyt+ZVIRYA7FdOP3PDS7zL744OHTKH44GGnWIgmVveYCE4a/En
+	 d23JFx1m0pt2qrUy3AaHkZIT58x8uzvlem80NFpHs8qpxxFi2Dti1Gd9FAvxY/0tdeA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794504481;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=43yJTFdUbbDcIjB0kRG24W1fz7+BLtRLb3Qf1pKdb4A=;
+	b=NqFT+E6Afv1sdfSLX0vt4Hyl8x3pgf9r9NdjRaKz/rlJiKe3MCRgm9KuUCdLqvz0T5JI
+	 ePv+8CxGJJQPMvX9Ivv/9DFwQ3Wk8Ow0ecTQSkkhHihUgkj1cRQnQ6ujsbRl/+s7iEo99
+	 ynkJrntp/O9C6MQPLXQMtVG0g3zfLlS8dU6MuuzkWeLh2Pblt3HyrYdDA1QDva0P4RQLE
+	 13aUnzX3Ns5zt8/PADLCZyM1C5SbYZD58o4GKdKnqqW+djaZQnLRFL3cnwXc+/bsOGtzq
+	 UgWq+DdazkcJ9+hVxB5z16JzrL1ypHWIFz2aDENOCI8oSbPygoQCvQaGkoMdMrBFlew==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kf1C3qFM;
+	arc=none smtp.remote-ip=95.215.58.180
+Received: from mta1.migadu.com (out-180.mta1.migadu.com [95.215.58.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id DB8E81F000C7;
-	Thu, 12 Nov 2026 17:27:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794504476;
-	bh=FQRPAOczeChNohAnaECEMnatXU5EQobFRvNRBtV70cc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ge0n0eNg1KgJYvTqgfRMoSR1JPCmn5oV5ubIULSq5jOrLFx/4l3HgeYf0IJBDly3O
-	 6evaInpa5cz2s5ru9bDvwqknOs98Fx64SLWDK9UmgFpR6GbbmPmagh2aohkvHSjIil
-	 J19upDhnOciZZzR7+2vqoBJZqYdaFUaAKL/U6hvadLsM3F7GVRXo1z7K11El+PA3hB
-	 Qti2ezP2IPsAhn3h34LO8qdEi6A+EolF/sVH3g7AHUfRUdWKNqjyB35SgraSdCBhJ7
-	 sJ7/wb8I2r1xZLtQGz+cMrEYmR4CP9qZQU9Msk8NBj7htFBuXTxQKSep54VmZKAXMH
-	 x+k3FG/dJ2rbQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 69D9D45A88;
-	Thu, 12 Nov 2026 17:27:55 +0000 (UTC)
-From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 17:27:56 +0000
-Subject: [PATCH v3 2/4] can: kvaser_usb: reject devices reporting zero max
- outstanding tx
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9F1B60A382B
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:28:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9F1B60A382B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kf1C3qFM
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=X+n8YbAeZE+E340VGHNqEaiJkr3PF3d1sBfjR4hotfI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794504479; v=1; x=1795109279;
+ b=kf1C3qFMl1RK9ckPued/jfpIJAwA4tAPmcDIF+j+3VNcXNFSu2ckFixpMYuZCuH7cP1bPPEL
+ omRzOXuBepWJnQzCPKuHCGHeU+6zc8AFbNKUoTcVsYB4zuWS0LEancxdz8C8ccYfj7BTfPSkRn1
+ jzcKwAdeM6cd3k3A5wtVY7uI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6e1d540fee937292;
+	Thu, 12 Nov 2026 17:27:59 +0000
+X-Mizu-Trace-ID: 6e1d540fee937292
+X-Migadu-Flow: FLOW_OUT
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Amery Hung <ameryhung@gmail.com>,
+	Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Meta kernel team <kernel-team@meta.com>,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf-next 2/3] bpf, cgroup: Don't attach to a removed cgroup
+Date: Thu, 12 Nov 2026 09:27:14 -0800
+Message-ID: <20261112172721.440275-3-shakeel.butt@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261112172721.440275-1-shakeel.butt@linux.dev>
+References: <20261112172721.440275-1-shakeel.butt@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,80 +84,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-kvaser-usb-validate-v3-2-61587f639508@gmail.com>
-References: <20261112-kvaser-usb-validate-v3-0-61587f639508@gmail.com>
-In-Reply-To: <20261112-kvaser-usb-validate-v3-0-61587f639508@gmail.com>
-To: mkl@pengutronix.de, mailhol@kernel.org, joasantonio108@gmail.com
-Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794504474; l=1920;
- i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=CWXGNrvsTmGzERh91MhkIoNvIPE1iZLcRy1k5EnUGBw=;
- b=eWhwCB2ec+u2+vusPuOzFD336EmcdeHrufYk+hYi+V49i8qBMBj0YB8sF2wOTzoKwP/LwzN41
- SR+dSnTOsbuBz6Zxch7pFjc28hPvlebD1NxQ/Py2Sgr/HnVDovpNSeR
-X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
- pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
-X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
- auth_id=1371
-X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Reply-To: joasantonio108@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Attach gets the cgroup from an fd before it takes cgroup_mutex.  If the
+cgroup is removed in between and cgroup_bpf_release() runs first, attach
+adds a program that never runs:
 
-The number of tx contexts is taken from the max_outstanding_tx field of
-the software info reply sent by the device.  The leaf driver uses the
-value as is and the hydra driver only limits it to
-KVASER_USB_MAX_TX_URBS, so a device can report zero.
+- With BPF_PROG_ATTACH the program leaks, since nothing can detach it.
+- With a link that uses cgroup storage, the storage stays on the freed
+  cgroup's list, and freeing the map later writes to the freed cgroup.
+- A cgroup struct_ops link is attached but never called.
 
-dev->max_tx_urbs is then used as a divisor when a tx acknowledge is
-received:
+The window is small today because the release work also waits for
+cgroup_mutex.  The next patch stops that, which makes the race easy to
+hit.
 
-  kvaser_usb_leaf_tx_acknowledge()
-	context = &priv->tx_contexts[tid % dev->max_tx_urbs];
+Check cgroup_is_dead() under the lock and return -ENOENT, the error the
+fd lookup gives for a removed cgroup.  rmdir marks the cgroup dead under
+cgroup_mutex before it starts the release, so the check is exact.
 
-  kvaser_usb_hydra_tx_acknowledge()
-	context = &priv->tx_contexts[transid % dev->max_tx_urbs];
+Reproduced in a VM with debug-only delays.  With the next patch applied,
+a link attach queued behind a slow mkdir lands on the released cgroup,
+and freeing the map then hits a KASAN use-after-free in
+cgroup_storage_map_free().  BPF_PROG_ATTACH leaks the program.  With
+this patch, attach returns -ENOENT.
 
-With max_tx_urbs == 0 a tx acknowledge sent by the device while the
-interface is up is a division by zero in the URB completion handler on
-architectures that trap on it.  On architectures that do not
-trap, the index is not reduced at all and tx_contexts[], which was
-allocated with zero elements, is accessed out of bounds.
-
-A device that cannot accept any outstanding tx frame is not usable, so
-fail the probe when it reports zero.
-
-Found by LLM-assisted source review.
-
-Fixes: 082d70b6142f ("can: kvaser_usb: Comply with firmware max tx URBs value")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Fixes: 4bfc0bb2c60e ("bpf: decouple the lifetime of cgroup_bpf from cgroup itself")
+Fixes: 369d9dcd8fb8 ("bpf: Add infrastructure to support attaching struct_ops to cgroups")
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
 ---
- drivers/net/can/usb/kvaser_usb/kvaser_usb_core.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ kernel/bpf/cgroup.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/net/can/usb/kvaser_usb/kvaser_usb_core.c b/drivers/net/can/usb/kvaser_usb/kvaser_usb_core.c
-index d0a2a2a33c1c..a915e529290b 100644
---- a/drivers/net/can/usb/kvaser_usb/kvaser_usb_core.c
-+++ b/drivers/net/can/usb/kvaser_usb/kvaser_usb_core.c
-@@ -977,6 +977,12 @@ static int kvaser_usb_probe(struct usb_interface *intf,
- 		goto free_devlink;
- 	}
+diff --git a/kernel/bpf/cgroup.c b/kernel/bpf/cgroup.c
+index 9258c2669fa8..334237096759 100644
+--- a/kernel/bpf/cgroup.c
++++ b/kernel/bpf/cgroup.c
+@@ -988,6 +988,13 @@ static int __cgroup_bpf_attach(struct cgroup *cgrp,
+ 		/* replace_prog implies BPF_F_REPLACE, and vice versa */
+ 		return -EINVAL;
  
-+	if (!dev->max_tx_urbs) {
-+		dev_err(&intf->dev, "Invalid max outstanding tx (0)\n");
-+		err = -ENODEV;
-+		goto free_devlink;
++	/*
++	 * The cgroup may have been removed since the caller looked it up.
++	 * Then its bpf state may be freed, and nothing would detach this.
++	 */
++	if (cgroup_is_dead(cgrp))
++		return -ENOENT;
++
+ 	atype = bpf_cgroup_atype_find(type, new_prog->aux->attach_btf_id);
+ 	if (atype < 0)
+ 		return -EINVAL;
+@@ -3170,6 +3177,12 @@ int cgroup_bpf_struct_ops_attach(struct bpf_map *map, const union bpf_attr *attr
+ 
+ 	cgroup_lock();
+ 
++	/* See the cgroup_is_dead() check in __cgroup_bpf_attach() */
++	if (cgroup_is_dead(cgrp)) {
++		err = -ENOENT;
++		goto unlock;
 +	}
 +
- 	if (ops->dev_get_software_details) {
- 		err = ops->dev_get_software_details(dev);
- 		if (err) {
-
+ 	if (attr->link_create.cgroup.expected_revision &&
+ 	    attr->link_create.cgroup.expected_revision != cgrp->bpf.revisions[atype]) {
+ 		err = -ESTALE;
 -- 
-2.43.0
-
+2.53.0-Meta
 
