@@ -1,91 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492397;
-	b=V2AfW8NpVXzAemkNJuSWwUZUqGhqoV5LQ94V8KhjIm12sRyhmIiGgTk58Liw12aRCocI
-	 bPjP7E9MPplPn5Ev/qkbR90kDUz5Cuehg1XGxDjckkcKXS6RVMpZi7F0G4VTNEKCORXH2
-	 n+YlhpkH6a6wAvbP05eDtLm0ozXHbKyur/Z0/3PRXE4Xxnb0dnXTzesIzVtx9c8Wq6x3S
-	 AokcALNmxAgRrnf14PCl2zmCwIal7/k/sDP7+KWhcAe6DAF9TQq/+sdWMeeFXbgwZv+z0
-	 iQmZVHE4n9NzpLjQAHBKpHvxBL3QDTAOejxzTsCLkeqSBehxTpndd/8aPV0EfyQp6Rg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492397;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=LXIm36iFMZ8kOBujPBh4eH/qjfWvYnVfBxH0cH6iwsM=;
-	b=PrGRj8Z0oxy40wYOBi5wuqIBv69Ghtr4EIS2ZGManQRDcXpMphejK414teB4Kg5/1KKR
-	 9N0Goz9URpqYc5Apk0mdOb1x6UQRoHjKmz53wySUh0spQjTZXey/y3aDm8A/Vs8XEPA0V
-	 6kz4oTiC264O5cd2aiCwKjEota7l19bcTkIJr8ipPZ+le+yJGP4Fr9rSgvZSHEQoFw8sw
-	 tqojFlIJnx9PSH4GT+GXt8V3wAZ/aCy/CioeYuZnpLNJdWpgqbzXAsUCO4GXpeGBs0ZBQ
-	 AA7qqSgVoA+rw2XXteh35aF07smB59vR8NKaZKtkHJN22R/p69CH8p4UT2ppX/EBOBw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iJ0O8ptU;
-	arc=none smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794492424;
+	b=SJrZDwq6C9I8HQu6eG25hKU8l255TWDQehqAhK00cln6YUgYHDqUGIyOw+lCAbdLSXc9
+	 Lf9RA2LSGcZYs/dxSNc6RX9dzmqNrh7PsB2PK0EczIZ24x9CEYE7eKkf5gObn/EmH5y15
+	 UVi9WQn56Tg0sYLZXMWRYHWO42RnH3fpYZ+eLOx3gBySn1dx6sdKNdK+oXEXPx9XjZdGw
+	 EjVQAc6WR0kkM3D6G/6rHhIVhlbKVyb/9itWGioOd7CACnmG+CH7RV5gPks0GrSCdy+rD
+	 5oAmwPYROy0NlJ5bxJ5Hh20exAeOJsi44AdGtKzWnHBBdxszTPHucBSuyxpZ5+0Tqcw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492424;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=c2nV8waXvaFpo0M8AiTOHGTsxqmSzLegI12I30+rFUs=;
+	b=068u9a4vNIju0/+FZb1Q9ZM0eOmoBZS3WmhoG9h1g8aQhjJqiNxHo3VpTPhFPkgQ1QpL
+	 6HN3iNUty3PCoJCM8z9l6G2DSXKHhLp5jhJ2ikb+OsdD8+qFmU+GJJkpCICb8eAiNno/9
+	 WfFCc+oiS//j3kJ6ZLTOxnMZLZl5reysRl7nyUxH4hOZuk6WBd7Ws9BR3HsvsNHF3ggQv
+	 /hTsSePTmbAzIQYmxbc81W2xC6jLSH3FXVjyf6ynkE5KqQOzrRERyG+qkI8ij9pcPodSf
+	 QuYpKCo7GitazdqZbw+bWLNJA17gBihjjpiu12PFqq8TSFzB3WTCaVnaWJtl47FT6Mg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Kb9r2xBZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FF660A2627
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:06:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23FF660A2627
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E12F606A8AF
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:07:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E12F606A8AF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iJ0O8ptU
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c506094fd93so411398666b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:06:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794492396; x=1795097196; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LXIm36iFMZ8kOBujPBh4eH/qjfWvYnVfBxH0cH6iwsM=;
-        b=iJ0O8ptUFgqzUF0HS2nnVTaNoVhPcmUF74R8wDy41neP7vq8HMRXJc7K5zqFIyWN50
-         OQ2Kui+CINP4jSWel6CZfma+s5yUJ+g0EH99NZ3Zvfld8OwRHv88d2jr1L/vA3RSM74J
-         HPRGuwMFgZ4DHsxcYpPV1O/i31el9yT2KWGfyqtInfS9sidP7NwZ60CxiXUOCROqoaka
-         Dbs35OKCAs+OEVnFzQb2wsESoXa2IW/ATT6rBkW+P+HhV76RoMgrIgmiMR5kdb1KUQN+
-         fmR3iGk+RPAT7sBQAKFNlKkqseCiRLmBwx64KRd2OABz+/XaX/jJSLMVvxItD5VFNZyW
-         6qYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794492396; x=1795097196;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LXIm36iFMZ8kOBujPBh4eH/qjfWvYnVfBxH0cH6iwsM=;
-        b=fPpAjlaMBNvNPDWj6MUBmCr1KuTIadVT9LYDISE/BoCtSL5cnfM3SpPgVsTThud2Jm
-         vtSMT9rh21heZjM05HjTa9Lp5H3i1hwFzD0unko6qylihjdqh/hU39X8d4CLVZfHwTEH
-         FMQBCuveVA8Bznp02cARTTQu7RhAiq9AgWC4Cn2TxlSXl+ifnK4X32txcD9TlS2ssvSY
-         UAPkBrhO8Rlswom/h1A1l9npcbzBP/uo3iRNrsAApaUJCVx6SuXRnzdmVEfOTtnQuj3v
-         MsbJK+bzR+x9l2VVQw94lz51yW8U460PCI3IqiOVAkHOpRbkSQ8WU/dUYGTNdmSYblUA
-         a+7g==
-X-Forwarded-Encrypted: i=1; AL+hErE6iYOE66fBsPhp/7EPT3zwAulUUo4XkPMHqIl712A66e29Bzci6r9AbAwgMVP0yBbOQOwKiguGtotrnN8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+11pPinpViy3YkLDD/SrYe/uzBcGT7ldZ+cWHwmOlYIrMHZTyQ
-	F6wfK7xaJnI3GJ3h/VLiEv38XoYSuBCiqUZQRqyJr1nxcmOZssKbeEdh
-X-Gm-Gg: AYBFou0XvXd2cZ8vwOhNBCn9A87Tf1sQObGk1VbBuCoc9NpAl9OwOAoSIBQPvLc864c
-	iKvekxkTCIYkG3LkTbtl79gZm3X8k1QZCPtwJdIaF+2yJncxr+YkxS1UJz+yXEdl7rRjG0nGqWb
-	lortfvVicCpVRydBaHvMS+A9koek8z35WokxO8oftIM96VaFrE98QxzJKkMPxeNsSKZfOr8m8hd
-	o+BH9KUVK1I7jh8OiM7cGZHz76UyFQLdTeGXYZXrGqIsWfbK7nv37269KzongSC5kgtldmBgl8G
-	uEZbg+bCv5g8hO83ISrpwTFJomgXhBgMLq6QljIXvou+S+KklaExMbbOF36+LmKpa7lfWixv/HF
-	ISMVtFusswA//4lmVl2A/0+SGJZRpMBVeK5oQvgg4BXkq8Jx0YcowSKk+NP9GFmyo7qtPFgOHbv
-	JXPO6Yn34I085luf6rX5+xvFTeXuNw6TEbtIN/aQ/rxsvPieBHla2+0GZuNZybxrEn2VGzGIRd2
-	yDowhpOkoAf0QZQyIO4rDm4udOo1mlEO6h2ONTD/bt775y2+IZp2wLk6XqoTW6dIncgIPdGsbXS
-	1+xl01XWaEuQ++itOv/FxDMlNwzSZGr52LuVzINwgH6Z1gPTgOdDxUpt2uPwVBAhXPyW529KQvu
-	2XOSKMZ7LIkwmDGpcah8Ss2ArPeD64tSWRe1lYtgXpeuFzFtQYiTy6xSUIvKqLAja5K19sO3vwA
-	WwxI+N5zG9UhOS9f+KOQwBhi4e7ISCrAU5pVbvRfi95Myg/1/eNMSLQeaRr9n9OeGq/NLBWLTUs
-	dVyqTPyeVdvhw==
-X-Received: by 2002:a17:907:1b1d:b0:c4d:31c5:e30 with SMTP id a640c23a62f3a-c5066d3db13mr442488966b.49.1794492395421;
-        Thu, 12 Nov 2026 06:06:35 -0800 (PST)
-Received: from [192.168.100.100] (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a593b5esm363017266b.34.2026.11.12.06.06.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 06:06:34 -0800 (PST)
-Message-ID: <c1af6845-bfa6-480d-a240-7b918331234f@gmail.com>
-Date: Thu, 12 Nov 2026 15:06:33 +0100
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Kb9r2xBZ
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D3F0220227C;
+	Thu, 12 Nov 2026 15:06:50 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794492410;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=c2nV8waXvaFpo0M8AiTOHGTsxqmSzLegI12I30+rFUs=;
+	b=Kb9r2xBZpFmAXEj92zia/ZMTBD/9lzUm5uhm+qGTj0Vj9TApd8xQBM/sOKMJhpxqx948Wj
+	wmPVTkTPyiVuFEnzULWg5n1VkXlGbfhQiJcglO5vH+UYjYLLI+MyLrmnLh1d0ghuIIb0kV
+	V9t8ypd6VLCA9+1THbf6aPfWJkMsvEL9ucYwa/N5/W4bdttdP3yUP7WJmQ+06Wry2SU5Y1
+	JISYyxKzT8sCqhPN4JZsW44IR1uF+vUtLyT6KfzD/ocF9Xsz9ntgtfJOZIa8RYU99E/7Q0
+	QDamfaDdqpL+oszgauPbwpyYK5ArFONSVlMEY8xnI1Qf6BGojJfWzwYtfpNfcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794492410;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=c2nV8waXvaFpo0M8AiTOHGTsxqmSzLegI12I30+rFUs=;
+	b=f89lpDzW3LIYReOYcD0FHjU2VKlX4WNSRvCzDDeDxv7Dfm2Cz/YejUnWUmJuHWTndoY637
+	1mhow7P3JCWWlsNI4h9Z2C94S93RIjnRguAKBr/gqzWttK06eMCyaYJYpWJI4OZlRObAap
+	+hYhPWWGoJpkGYm8j2wBSLGBbnAtPZjuek1m1R4bzqYaZkfxahLnuUNTu/qpNKdKG5cAZt
+	gJACagI4lYUqiDESaccOQiYmJoL5AwhNhHjd6K1zeP2irKhuo/iW/ldfhf8vsxCLXyTHYC
+	3s0iShyY6bLlz8X52n5eYw24d0Lkf6ytunISa+hfv3KONUWfqA8d67Pi73StEg==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794492410; a=rsa-sha256;
+	cv=none;
+	b=F350MHBF/AKuWlPOR9h+HHLOsvF3j0OhW6vkCCkVsncg/RP1iay56sPX5e0H0l+coSkPcW
+	0hY+zvlYdyEhxK9zdZzmJCQL4HnsrkkufoP9muPFrAkgzdoUVf0sK+8V6MjnwAkGrbixtX
+	Ty3tYNruVcz6uX4+20/Pcc20u0DzbO0yJEj333UmldJsthi3eGPegs5Vvj6lZlvBBOO95E
+	4PEFrZUzlZSKRgHZNgEp0oIY2u6JvzHKfRN+sWZGf1chMclWtljwX/BNb+/KAzEn0qaT0o
+	mTlBWnjTE3tzC+lKsDIx2CoE15PATg0Kp7lnEoKZPjlJmisRB5cqGMaw9Bgxdw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <311c2e8ebfb3a35decce587b5d424046d6581539.camel@pengutronix.de>
+Subject: Re: [PATCH] reset: rzg2l-usbphy-ctrl: add power sequencing
+ dependency
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Arnd Bergmann <arnd@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney@redhat.com>, 
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, Xuyang Dong
+ <dongxuyang@eswincomputing.com>, Drew Fustini	 <fustini@kernel.org>, Junhui
+ Liu <junhui.liu@pigmoral.tech>, Guodong Xu	 <guodong.xu@linux.dev>, Joakim
+ Zhang <joakim.zhang@cixtech.com>, Anirudh Srinivasan
+ <asrinivasan@oss.tenstorrent.com>, Sven Peter <sven@kernel.org>, 
+ =?ISO-8859-1?Q?Beno=EEt?= Monin	 <benoit.monin@bootlin.com>, Robert Marko
+ <robert.marko@sartura.hr>, 	linux-kernel@vger.kernel.org
+Date: Thu, 12 Nov 2026 15:06:50 +0100
+In-Reply-To: <20261112133210.3004176-1-arnd@kernel.org>
+References: <20261112133210.3004176-1-arnd@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,61 +99,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] kernfs, sysfs: refuse splice on /sys/power/resume
-To: Tejun Heo <tj@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Ian Kent <raven@themaw.net>,
- Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
- Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Jens Axboe <axboe@kernel.dk>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- driver-core@lists.linux.dev, linux-pm@vger.kernel.org,
- autofs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
-References: <cover.1793715774.git.krystianmkaniewski@gmail.com>
- <c943b8e768ef766b0f6563b6085e99fe@kernel.org>
-Content-Language: en-US
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-In-Reply-To: <c943b8e768ef766b0f6563b6085e99fe@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 11/3/26 16:51, Tejun Heo wrote:
-> Hello, Krystian.
-> 
-> On Tue, Nov 03, 2026 at 03:57:41PM +0100, Krystian Kaniewski wrote:
->> Patch 1 adds SYSFS_LOOKUP and kernfs_ops->may_lookup. Writable opens of a
->> marked file refuse both splice directions. Their of->mutex and seq_file lock
->> use separate classes. Read-only opens retain splice support.
-> 
-> Can we be explicit and name the flag after what it does, e.g.
-> SYSFS_NO_SPLICE and kernfs_ops->no_splice?
-> 
+On Do, 2026-11-12 at 14:32 +0100, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+>=20
+> The dependency on CONFIG_POWER_SEQUENCING is ignored when
+> ARCH_RZG2L is enabled, and this can lead to a build failure
+> when power sequencing is in a loadable module but the
+> reset driver is built-in:
+>=20
+> drivers/reset/reset-rzg2l-usbphy-ctrl.o: in function `rzg2l_usbphy_ctrl_s=
+uspend':
+> reset-rzg2l-usbphy-ctrl.c:(.text+0x21c): undefined reference to `pwrseq_d=
+isable'
+>=20
+> Change the dependency to always depend on the power sequencing
+> interface.
+>=20
+> Fixes: 5ca65d048910 ("reset: rzg2l-usbphy-ctrl: Add RZ/G3L support")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-Yes, that is clearer. I renamed the flag to SYSFS_NO_SPLICE and the
-kernfs_ops member to no_splice in v3.
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 
->> The new property cannot be combined with mmap or preallocated buffers.
->> Kernfs rejects those combinations for direct callers, and sysfs rejects
->> SYSFS_LOOKUP together with SYSFS_PREALLOC before selecting operations.
->> Binary attributes do not support SYSFS_LOOKUP and reject it at creation.
-> 
-> Can we keep the rest minimal? With /sys/power/resume the only user, I don't
-> think things like the mmap and prealloc combination checks or the binary
-> attribute rejections are needed.
-> 
-> Thanks.
-> 
-> --
-> tejun
-
-Agreed. I dropped the mmap and prealloc combination checks and the binary
-attribute rejections. /sys/power/resume remains the only user.
-
-I'll send v3 shortly with these changes.
-
-Thanks,
--- 
-Krystian Kaniewski
+regards
+Philipp
