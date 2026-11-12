@@ -1,79 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794475354;
-	b=JNg72zK7rsD/++2NAE0nhQYWecjeqUlpQ/Q3x2x4Enl5QtEFslptFAgxStcmrVHYrOj8
-	 LHrd723wThKvNh18BQpKf4mV4E5wLlaArRSDd2ih/SZDAtWxLYFu9J6m2g78Jnkk3bY9W
-	 2afSJ9e7/S8wKz7JHf1dfsCl1d26YcVwe4QZX7FRaXTZAnaCNRHJFUK9LW//UpJqW2S/M
-	 NVdl1MoZ4AiFryqOi06gpHX6/DBmiZp0KqmtpklMGSepv9VCFUS4/kFFzHIcBcIfzfH0G
-	 OG+YpsclRXmsYfSni+EsYK9fXqTdjaTTPb8VgxooenWh1cgRqrK/81CFdWUXyxmLerA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794475354;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=cccUMx05jPVtgncaoOCw86iG1kz4fwGOT9LlfXUuuVA=;
-	b=s4ngLFBUBxod+xguB0cAQodMkU2ENhZ4cV/aLFwAdJfwkKqgwoDT2B9GyCcYnaqBCKAu
-	 MEP66nHdDGEjl+pqhEUu2acV7EtQ/ecQ2PJk5NkRCUEgBlA/okocsxjFu+J3PTfX9Grgd
-	 JuMzjVrkxp/erhbYqEVRdzS96Zbc8nD8TUspNGITm/3TdjYXdyYenkta734ZqNPvWV9U6
-	 o6sU5OA1rRCh2Nbe1QNeAH/AfSsSNeZWAEi95BdsfYsczdfMPDRhx2nCu6ZAaWdONnc4j
-	 yGNO4XLi6uRyrQcxgf3Bc4laQChYRTVvC5O+hp4kxGgFV/lmL/RK4sbD7XuCxaz4Nlw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KyXNeQvs;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794475402;
+	b=VQ4/smJGmxPt9hLNGCIQy01zSmilNmMuOaDvAChTLHzOJZpOSV/cnhF5gFlNVO9WTNR/
+	 maHxEuGWmIlaatxtZzUgFMv0WkIG0bW4pFEI/bbK8KlLYHCeOhnscq75RfDqHhqV3iyK5
+	 2Bqa/KI/YbDKGcko+c/GzP+l2pxXg+7wlPZgNoU57PBylzyWz732sMroXJGBFV5C/p5bb
+	 AfgYX7Y33rhGcxv/oax2tugGd2J8sV3gUNFiDZIAa0eGh526tAznl4D8ka0mP6Q3rP5IR
+	 mPPSerXwuyTw+08YsVawhDvzBym+wK668v/dn+21RdUAii+qMPakfTkIJjg1lVk4Rww==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794475402;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=NJBNFkvT5YDjO964xhAcxtFAxCPD0zQTQPZj7o7dUOk=;
+	b=tleMcZg5nSd4tEqR6izZVkfMUjBfnKsufu8A9UbHXRiRl973qBd8/cQh6KAHiua8oaJS
+	 bYDieq2N76jtPyh8AIin3m12xzRdDflg0+2utyrOJ/6NRDnfiaauji/yc/o41fwzv3tcO
+	 oGjbG/5u1lf1fGVGon7/5tTF6aB6QXq/xzixKNc6M1nEudT+uQtdZuGvWunm2sm7Yqmnd
+	 VjEArRATwTs4W3Sd1zs8GFGYIUM43dGbQllJU5lXne7zzk0a+lY2CKoaC0B594Hkxol/J
+	 cSoq58Q7xK64jepERC2RbKljS16eCT088/1TDd1BmC1mFivlNLpp684ou81m9H/IIZA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TcMzKmC7;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 226BF606A890;
-	Thu, 12 Nov 2026 09:22:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 4F718606A885;
+	Thu, 12 Nov 2026 09:23:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KyXNeQvs
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794475354;
-	b=LyNZ9op1c5KYk9xM25LpnA99F3RwtO4E+gZvmUGRRSu9bB7aguCQqggWMQSWg1Q7leHP
-	 RhaJxzPWFbgOZtYVXWBZmX7oGveoan2ry9A/o91tjrKe/kfUR2wIUTZ1jQI8yIWQIKsfO
-	 LroCAVQ2OJqHhQizYOK0pFw8YkpPe4UjXZRFUSJaxN9P43PtVWTuEumTXFl5j6j2q7+IJ
-	 YiE1NiKMHZeY1kWR5duIKDxhqidJEKkMruFEPHmwPhubf3T4GbpVjBhBN//BYtWXqifkd
-	 np39dcFKPc9mi6/ufOLWavVMxjQRyYhtSnwLtkdI9ZKXpXnt/ykULSh3f/OTjg++AqA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794475354;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=cccUMx05jPVtgncaoOCw86iG1kz4fwGOT9LlfXUuuVA=;
-	b=2JzHPD6fw3nvrLeYMYKXSyIIu3hwoIDuXiaTSWiGY6uABx1fVXxmsQ4b4I1zpvTuPSCA
-	 NoTm1ekgkHpiLeGq5PvL2/zUpaMdgDBsXkWReQ/SEgMkr8MH+offWp0GugAfrPOMSlwYc
-	 Q5a55pj9IZfBZI4Hm+Qvt3aCWXFE8focl6x0a/2QTlGcuBIvLyav39MShD+Upbw/+gSy1
-	 0E9ZtLJAQctV8kDDJsDQdZafxGyghbpohFvUo9WxTtPJ+jluxYm55p3AxYHu3V3e9ZNHs
-	 l6EB6giP/jFefgbaT8JJRdEuuv+Q9Z/COcXrHnMHcu/yfBwCbIHQSoj2mBDA070OeMA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 32A3C1F00A09;
-	Thu, 12 Nov 2026 09:22:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TcMzKmC7
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 834E11F00A05;
+	Thu, 12 Nov 2026 09:23:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794475353;
-	bh=cccUMx05jPVtgncaoOCw86iG1kz4fwGOT9LlfXUuuVA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=KyXNeQvsZakgxoPD3Dq2z4CD0q19/soPgVwSEnt9AMvm9Cem9FN3pPNxi46ywpz6z
-	 444ou63psGpc3C7UD4wSmTa0jBzbfymLHqZ8E7MlWZkfX9gs29YMDC3uiqAYO7u45N
-	 ixY2RzHNVZ24pNP8LTKgI8NA/QeocdsLnWPFAOGFnMlTW2QprrKwL5/vznjfntLcbO
-	 Wy5vZGxDo/hP8uz5ccWvahx4F4vOEFvdrEtdmsCMN6kGqdBG7zdLmOW979I/v9L/wu
-	 bp8Hd2gW0QtS+Kae8Ru1LiJW5tNWPdB3usZA1b95Yxp0M7Gyu+CiRmdLTpHbXd6NfZ
-	 r3vFxETgEydRQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B1EC249438;
-	Thu, 12 Nov 2026 09:22:31 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 09:22:34 +0000
-Subject: [PATCH v3 4/7] arm64: dts: allwinner: h616: Throttle the GPU from
- the GPU thermal zone
+	s=k20260515; t=1794475402;
+	bh=NJBNFkvT5YDjO964xhAcxtFAxCPD0zQTQPZj7o7dUOk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TcMzKmC7Ha2n5FEQp2m5GVKhZxqlMHr+9W5n7t30ZjFyERsi6OhrD1HFjk79wOM5v
+	 NeVVdPielhMtbNqRZW5cLYAs23xPGYFlke0qyoQqoK3qfjtfzcKThvOh8qh+lRL8Fp
+	 EL0AvOVn13zDDeiUhEpkLxTfkF1aYlbXHIhr55vycDnguTd0VN1WUcsXJPtUkANi/y
+	 GQy4pnAw4UBh3iZiIWfPXrvGNffueuTOikEp3WN/WKslv4Mm+nY5Y4GzJVzcmJBzW1
+	 2qyX3aDmnfrDgvvakox55jFEf+9oANMwF+4zFNiTZ9WEETSL0n7XQdj+YlL4MUejnJ
+	 eUolallksQccQ==
+Date: Thu, 12 Nov 2026 10:23:18 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Shawn Guo <shengchao.guo@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v3 0/4] arm64: dts: qcom: nord: Add USB support
+Message-ID: <qbokxcnuj26kvf6j6txxwqsplkfiqj2wiqnjaba3lropajgevn@icsafs4a5e45>
+References: <20261013-nord-usb-dwc-dts-v3-0-bcaaf3faae24@oss.qualcomm.com>
+ <avDL8IzfY1AcDjzY@zenbook>
+ <o6t6le343ifmu5w33z55ik473xfynt6urv465xe3bn7hyhmncn@7atsac6o5bwo>
+ <897d7742-fc16-466a-8a3d-985292431fb5@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,93 +64,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-h616-zero2-dt-v3-4-1cd2664230c8@gmail.com>
-References: <20261112-h616-zero2-dt-v3-0-1cd2664230c8@gmail.com>
-In-Reply-To: <20261112-h616-zero2-dt-v3-0-1cd2664230c8@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Ryan Walklin <ryan@testtoast.com>, 
- Andre Przywara <andre.przywara@arm.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794475350; l=1929;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=teKOTEf4Ehrd6NI/Dk5AeKkHXxd5JXaOLzoyVTpHUvU=;
- b=JBr93kA1oG4JitFGW184ouUFCxghNk+USgl3FzROcYvTllJd5XDtvNlH/6P/bErKNBm1n82qc
- v0uIyQJqNzbAcERbs+e6cuMCq8aWUprp0daEkJT4xR6thVHNpE5OrBl
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <897d7742-fc16-466a-8a3d-985292431fb5@oss.qualcomm.com>
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+On Thu, Nov 12, 2026 at 10:16:53AM +0100, Konrad Dybcio wrote:
+> On 11/12/26 10:15 AM, Bartosz Golaszewski wrote:
+> > On Sun, Nov 08, 2026 at 01:23:18PM -0600, Bjorn Andersson wrote:
+> >> On Tue, Oct 13, 2026 at 01:34:45PM +0200, Bartosz Golaszewski wrote:
+> >>> Note: This is v7.4 material and depends on several patches that are
+> >>> still not in linux-next. Sending it out to solicit reviews.
+> 
+> [...]
+> 
+> >>> Dependencies:
+> >>> - PMIC DTS: https://lore.kernel.org/all/20260929155152.1898666-1-shengchao.guo@oss.qualcomm.com/
+> >>> - FUSB15201: https://lore.kernel.org/all/20260916135918.1017527-1-shengchao.guo@oss.qualcomm.com/
+> >>> - USB PHY clock fix: https://lore.kernel.org/all/20261008015017.3359804-1-shengchao.guo@oss.qualcomm.com/
+> >>>
+> >>
+> >> Figured you resubmitted this because the external dependencies was
+> >> settled. Apparently not, so I had to back this out again after applying
+> >> it.
+> >>
+> >> Please resubmit once the dependencies are in linux-next.
+> >>
+> > 
+> > The only thing left is the FUSB15201 series and it's only a run-time and
+> > dtbs_check-time dependency. Can we proceed with this or do the repeater
+> > bindings need to go first?
+> 
+> We could pick it like that, but Krzysztof would reject the arm-soc PR.
+>
 
-The gpu-thermal zone only has the 110 C critical trip point, and the
-GPU node is not a cooling device. Once a board describes GPU operating
-points (panfrost devfreq), the only reaction to a hot Mali-G31 is
-therefore a shutdown.
+Ah, scratch that, there's also the PHY change[1] left.
 
-Make the GPU a cooling device and add a passive trip point at 85 C
-(2 C hysteresis) that lets the thermal core lower the GPU OPP. 85 C is
-the CPU alert level mainline uses on the H6 (same thermal sensor
-generation), and is below the 90 C at which the vendor BSP for the
-H616 throttles the GPU (it maps the GPU to its CPU "target" trip).
+Bart
 
-Boards without a GPU OPP table are not affected: panfrost then
-registers no devfreq cooling device and the map stays unbound.
-
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
- arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-index 68bd6137c316..93c3b8279241 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-@@ -162,6 +162,7 @@ gpu: gpu@1800000 {
- 			clock-names = "core", "bus";
- 			power-domains = <&prcm_ppu 2>;
- 			resets = <&ccu RST_BUS_GPU>;
-+			#cooling-cells = <2>;
- 			status = "disabled";
- 		};
- 
-@@ -1124,12 +1125,24 @@ gpu-thermal {
- 			sustainable-power = <1100>;
- 
- 			trips {
--				gpu_temp_critical: gpu-trip-0 {
-+				gpu_alert: gpu-trip-0 {
-+					temperature = <85000>;
-+					type = "passive";
-+					hysteresis = <2000>;
-+				};
-+				gpu_temp_critical: gpu-trip-1 {
- 					temperature = <110000>;
- 					type = "critical";
- 					hysteresis = <0>;
- 				};
- 			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&gpu_alert>;
-+					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
- 		};
- 
- 		ve-thermal {
-
--- 
-2.55.0
-
-
+[1] https://lore.kernel.org/all/20261008015017.3359804-1-shengchao.guo@oss.qualcomm.com/
