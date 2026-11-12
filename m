@@ -1,82 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794468780;
-	b=K9p7BT36FNHmUnQ91DpH94S6wMjVW0iKaxT1pp7XoYnZO6qnCSLILnuAmfXGRx4XGbVx
-	 dM0kQCu4+hUO7joMiiyFEn9tRCuDWfTX78GXP9U71+T1zXXAtmMwJ2q03DAEPfDkiLWLQ
-	 fYKeyI971Y9a5X4vJdGzk/iu5i5rTYBq05GQkerPjCXr9bu0n/pgT3Pr2feRiIhHfASq8
-	 4sv7m3CrV1fdsBzqfa5gtz0jz+mBMJ3Fb2rCEDksLivs4H5T3oFdKeBFOG1R5ilTspO8g
-	 GwK4npjZYAdnPAVk8h/Hd1GHlTKws3eWlMZqmxsu9Sj9Mc8O8pQVPIZP5AlkoD1YB+g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794468780;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:From:To:Cc:References:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=GKD/hRicdD0Zp5EXTL9bYM7Gn04M37SfSg+biuP32OI=;
-	b=NyQABmybhP2SW+kDIWnV/7PeBnqQhMG0OPc51h1PWMeS7FXw23nH0GG/rlFqMVtU/eHq
-	 rZwFeXkrzFShjXPDSz81ffxtRxwJJlWxQ3N4FAhO/7n9PhnyWXlRgttO0vW6r9barDOFH
-	 g4AbPypTzNOiHzc5YNkuvVfbmsDDISZqwkZWaYfqe4QYPswYd1S9rZm7Uvg9wZuG011wn
-	 H2AiCadadyQRRglFmjdw6nTVO8BAKtkamicA/bAKriHjErmd1LR14LPGbHLArTcDGmtaB
-	 MX9wSuWToGWaZYld5ZOFhdhE/a0JS2NpmxrwhGml3gvO0s+XML9luk1dpE2fVO6Dlww==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=VwFYMeCF;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794468801;
+	b=azX0eAfekeDfdQz+dutj8I9wrMGox5y/b9lUuuU8ImHh5fGDFQaxZxSupn97HlyMubn1
+	 ldLYzhKPPzzwmI7xKfXWR9SGPT4VxHoVPLVNYvlMMayvKCViMhYs/1+iHlqw/IppEXe4T
+	 01e944337dkVushdShttN8gYBCX6nJ459Oi2i4CybdJVWXkJ9M60LYEjd2uUcfSzdyS/1
+	 wrwMwgOPrYoY5ie8m+s7dVbksdkg6FCONQ21MG0BLIP/m2Cv9oYOJ6jhvFN9S/Qtw+3f9
+	 q67m73ayBZ1c/uQC94ebgX8Mn23RxjGMLQVF+G2KXqPKksLRcDkLgsT3g3vYYZfib3A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794468801;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=1O8ABzkG8YTENTJXF3DXPni2PNJOE/E2+2rzStU6Ez8=;
+	b=q01FpjApJtKuZzMmfYgyTIwC8A9SUHSViiS48sSEhklt4PAxryW0Lmq8cAYCppZFhcj8
+	 XPvgpk+JMRETkDBJrIMZOR3U0769O6Ziz45qsNdPQYRL+N9ThND5IQ37JzugIoGxB+aB3
+	 dOLPDAo6Gy+/zfsD/US/P6pt+k/QdT8g+3RIwEeoLvg6NFNjhwvVJ5oiwj4ITXy8YKMYH
+	 4/FeJV5DhLXAFChdEynyPP3FD53Xc2kSGSVETFEDdq9ZZ0cFk/ED/+v+CPcDlNN/93a5p
+	 HISNZ0mCIn8XOnbB5zqiPyQ7/tChSJPDf8TMEzTvsKpvc9QwDNEDYLY3yVjAkSwjq0A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=amYZ82FW;
+	arc=fail smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61C92606A31C;
-	Thu, 12 Nov 2026 07:33:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61C92606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB33606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:33:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CB33606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=VwFYMeCF
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2iEAV2857600;
-	Thu, 12 Nov 2026 07:32:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=GKD/hR
-	icdD0Zp5EXTL9bYM7Gn04M37SfSg+biuP32OI=; b=VwFYMeCFwpn6RuhIgKn3qS
-	ZV9WrYlgwbAFOo3eFfe4OZC2J8WuHKqckZJ1XeWjW8b93hWQNjFU8z3Upitmdq8I
-	oVN9g8QcRh3xQ2eCtFyC4NlBRYji+6Qo0doUjzGEwqOH0pOhsIDM6BU0A7/se28i
-	0u6UBR5756SiLhSmTFO6pdggvqOlryJmMTsxm2k68eWf2i5x492LpQFvGI9ZxF2T
-	qNrQzYH8XdUUotC6eFDvsdOfTUeBkYk7QPl8kXeaVROh7r5jPmAvHyDMUedl/IIY
-	B/nJnS5u8s6Ha93Z7gWt/02zMp5Sz4pxF8nRZVj3VZzTkHoA9OkhB85n2kpJpiZA
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsumv54wb-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 12 Nov 2026 07:32:32 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2Zmb63145599;
-	Thu, 12 Nov 2026 07:32:32 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hvd51wgxe-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 12 Nov 2026 07:32:32 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AC7WSO352166970
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 12 Nov 2026 07:32:28 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 758A520040;
-	Thu, 12 Nov 2026 07:32:28 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BC7D620043;
-	Thu, 12 Nov 2026 07:32:24 +0000 (GMT)
-Received: from [9.124.215.130] (unknown [9.124.215.130])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 12 Nov 2026 07:32:24 +0000 (GMT)
-Message-ID: <974cf626-37b6-4497-94e8-b9a443733dc0@linux.ibm.com>
-Date: Thu, 12 Nov 2026 13:02:23 +0530
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=amYZ82FW
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so795949a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:33:20 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794468799; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jYXNaYBrjlTiMlw/fOo+7ebPBpRyLUA5mGf2PG+fsLJgNrkJfYGL3VwwH1UqdgPAGV
+         C+cJduabxqqqvz25NCKNc+jvCdrIgVBIROe8yFpPUi1TttLyfkIf3H+sXCUMbKQG9ehl
+         Zuv+Owwv5C1K5pmxO6ldeQdvk9ZnSeNOQcBRKPJm9N4YbADiO+rt1H1Xa7Y7Rvmgkzs/
+         MD3lzkHlEEpHmAgtr2tuTB1UlYODVcES3UFjT32boDSMeuLUPmSCOFl+adzvFXMDfY2b
+         bEj9FZBfyjOiigPoigCoUFvdJrg2B0cNt+pO8gcjxXzYFTWklmoDpv4/P5tabLJIXGPc
+         82xw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=1O8ABzkG8YTENTJXF3DXPni2PNJOE/E2+2rzStU6Ez8=;
+        fh=w0/EznwQknDc9ZjczFZqxeWXetSvZIRHytVAj8CXi5g=;
+        b=caanKeSWT0omGxZQxeHIN5kB9L71LugLSC8jviNIecID5AoXHLk4wooZhrjgpdWdOI
+         8m/gDn67Ro6zLf8IH5YAEt3OwOm0vGbmWQZLiTkAEuaamwEb7i0RgzZWkBH+gOF8d5VU
+         +p3TGd+2+AFrrGL74T1EK5a3PH7FLFzrjUL+sLjCDPLCmNwt0PR3dH1y/0KQnX8uCi3j
+         fhf209XhZUqXxsTVp2g1eE2Z2H8ofe8R9lZhS4dFV5payduuYhYheqJvweKdD2JluZGS
+         05Rvr+EfWFTXU3YOkAVCLPb934JkjAd9wgAlQtuUpT787oMNv9pnYiPN4JivjTIJJOqb
+         JguQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794468799; x=1795073599; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1O8ABzkG8YTENTJXF3DXPni2PNJOE/E2+2rzStU6Ez8=;
+        b=amYZ82FW3o6g+B/GcoNBqV5OTDLk8i6gPvFLe5TaaVQamS+IHvnLV8zt5oNTkwR3jl
+         J/K3mDVJSWLJDjfnzvNRmcJUrSZjCo0jvD/eO1DlNYzeV0cmAgz3h/lEa/qUNWqqIhIY
+         kDq+f5rXK2VzB5kSYSQZBOEeQZatz0TGSSfovehcSsJ3pns0y+/SmEnwNIY+Hj2HV7z6
+         WGEwyY002cYx7a5+ikVJhYi+4iU1txTjvTjqR5NZOScN7241mI42dXXOASFUrHURMGOg
+         4j2xHzzd3s4IIN2WGMIMA8m9eKhtA9t3Vtp5JzSuGWrdStCwF0AiOWT/kNfRUmgHRrxw
+         /H1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794468799; x=1795073599;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1O8ABzkG8YTENTJXF3DXPni2PNJOE/E2+2rzStU6Ez8=;
+        b=iSy7MCokHMPs4axWyjtXiKBSJ7dFyMRlQPzXASULeVCBf97o96OgtCDitr2jNSI4ER
+         qTmwHFanEkOcdNQmpT92Ls1A00dOkFyDCMPt5E+G1UiOXGvjQrAf1NjkhHAjzTvwukXr
+         Ql3s/bWslQ4GkZoa+wkciJT0ozV+9RQ7OVumZ5mFZI11KjMHgOyovt55yKspCYLJZ2xQ
+         ckm2yb81PKCMlLVftfxx/WksaWYTwzq93jg9cDNI1mIRsPuU/0pZv/749qN+JElpyV1J
+         UtByWScdZISBN8k8UZE1kfJlov65kfo9Nl0Q6LG3pgAg0aUfIwIqXFGEpb2OrwzGE1W1
+         v2Cw==
+X-Forwarded-Encrypted: i=1; AL+hErEl3kG5+IjgFwOh9DyB2kQ1hRzWYKkzP88yi68eurJUuFNazNzxl3iJPAd46s9Zi+Nw9B+DGBhHCIz2qe4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9gSOyU2vWjvD1d6XVx8sm0UzdrAuun3N8CVWrTre3pyZ5mVppk
+	V7ze7X+pocP84rrSPlIK9zzOmCJ3WZ09X6CfqJYM1MVuwmK604B6FtSvxeNIL57IvD0BNWt3YkL
+	fLXJL7ZRY6HhW72KjvVeNCz8c+df6TUm9BQcN3+IJdQ==
+X-Gm-Gg: AYBFou2wOv6airj2xyZqUilII/0Ba66WvtO1CqHNCa1MDZmrroXVqEcppRTYcwPxG6t
+	mnojz8ES/8WWa+UfISDiO1JUXF3MNJtoyplAXzOkR747cLZewDkfrXyANXs2tRTVDg/L0PGAayC
+	m8y+6QwXffQxW7J1F02VsENIXRR6fanznxJEu117uVT63D3TP0vIvO+exSTdLAA6c0UgxEi3CmF
+	Yewkp2E7ICjYl5tZvsVFuRnzN5VzEp3MiCzIMbFDkBA6gKIZYorVSBdxqg9hlOGM2Lz8zwPJSiA
+	YW9he+GZRpW47aVARVCNFmgVtpGrtNNCvOdhEJTepwB09DSpnu+4y0QsRHh9yhZmy3Yag+Ojaqx
+	Ip/LI3MA8/3IyzJbeg5n2K3XAh1Q4W4PCfX9W7LIQ7RI/YGJTGIg585U+Zfx0HX7d8S3zJy+Ykx
+	k1eESGYqqDqlK+DBE=
+X-Received: by 2002:a05:6402:1514:b0:6b5:e088:eb92 with SMTP id
+ 4fb4d7f45d1cf-6b7777064a4mr2609898a12.34.1794468798919; Wed, 11 Nov 2026
+ 23:33:18 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,98 +104,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/1] cpuhp: Expedite RCU when toggling system-wide SMT
- mode
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-To: paulmck@kernel.org, tglx@linutronix.de, peterz@infradead.org,
-        Ingo Molnar <mingo@kernel.org>
-Cc: linux-kernel@vger.kernel.org, rcu@vger.kernel.org, aboorvad@linux.ibm.com,
-        boqun.feng@gmail.com, frederic@kernel.org, joelagnelf@nvidia.com,
-        josh@joshtriplett.org, neeraj.upadhyay@kernel.org, rostedt@goodmis.org,
-        srikar@linux.ibm.com, urezki@gmail.com,
-        Vishal Chourasia <vishalc@linux.ibm.com>, samir@linux.ibm.com
-References: <20260615042514.694993-2-vishalc@linux.ibm.com>
- <20260615042514.694993-4-vishalc@linux.ibm.com>
- <f1a04d2f-367e-4be8-b313-31a73e15bcd0@paulmck-laptop>
- <4bd12c51-414d-49b5-8fce-2a6e73a479fa@linux.ibm.com>
- <e143d10e-69b1-455d-90b3-5f29a9482c15@linux.ibm.com>
- <cda6b648-2c3a-4b01-8126-933056f221a9@linux.ibm.com>
-Content-Language: en-US
-In-Reply-To: <cda6b648-2c3a-4b01-8126-933056f221a9@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAyOCBTYWx0ZWRfX7IQvO7lwDbo9
- mQVWWgXjs4jxtgDIavGH2ajZsKClwd8J1VQt7cFOOxoHIlErs05sRLWwS/SjQQX0ltgO2gRZPVW
- UOjYyuE/cwbsyBlRIwZ+5qgfWWjIQxs=
-X-Authority-Analysis: v=2.4 cv=GISdgeNK c=1 sm=1 tr=0 ts=6af56b91 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=7ipKWUHlAAAA:8 a=Ov_r3akWpeJuxPGQIgUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=gpc5p9EgBqZVLdJeV_V1:22
-X-Proofpoint-GUID: nzGle3TTZ6k1TwgtPCc4QLDJrGvL4573
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAyOCBTYWx0ZWRfX16ydLGVuoz5C
- XzQb+vhsEZB+uxI0AVaC6+HdlQe0LgRegt2xVZG0iG8+MIhk3zUrGyNz2MmnuwSEOqMdmVx/Tyl
- odc8fbrjZ/DB9Tg7He3XXSVQTCzkji1ahgURXHDoNnPSYNM8SjAtJUc1DXIMGp7cQ34oNPbyTYb
- ST/l686GY9X5rM7K26rgfFTE7s5cQemmtFFAk54j3hbhNZwxtty98TgyWAxrKNxMFJSuClsk287
- aeE8KlFKuQuOQnkH5chvAOvYqC9V0bg2B/DU3NImp3stLQyRvoWV7E0SyfHqmcWJTc7zJTz5fXY
- RUeeSoVQl6bwLRfAR7dcNSFl8ZEzh5q5gxFUjoS3vSXYCeiMpAc2/6O61bvxITPhkpnoTh4eQE2
- byatissgikQYxEZ15/NboRfRJh0c1AA4YWiwyEKgfI5NFR0QMG1ZC+izUDk6bG9m7SRAYiGq+pQ
- SkaVdjn/subhdcWdRVw==
-X-Proofpoint-ORIG-GUID: -sd2xC3j5Eh2VxDfv3V_Zwo67C7GRNqC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 impostorscore=0 clxscore=1011 adultscore=0
- priorityscore=1501 phishscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120028
+References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
+ <20261106151947.3991524-3-vincent.guittot@linaro.org> <f0bdf36b-4453-4d2f-b82c-85d1d62c5f78@amd.com>
+In-Reply-To: <f0bdf36b-4453-4d2f-b82c-85d1d62c5f78@amd.com>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Thu, 12 Nov 2026 08:33:05 +0100
+X-Gm-Features: AclHuK92tODV1WML6aevk1idgLovQjoH53-Z16DSkLaGxCj8dkYMqR5c5OIoS3U
+Message-ID: <CAKfTPtBT1anicEwxsFRNbO4FAmfmpAWT0q-EyHqW2EHgJeORUA@mail.gmail.com>
+Subject: Re: [PATCH 02/20 v3] sched/eevdf: Reset lag at wakeup when prev CPU
+ has been idle
+To: K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
+	mgorman@suse.de, vschneid@redhat.com, linux-kernel@vger.kernel.org, 
+	lukasz.luba@arm.com, rafael@kernel.org, linux-pm@vger.kernel.org, 
+	tj@kernel.org, void@manifault.com, arighi@nvidia.com, changwoo@igalia.com, 
+	sched-ext@lists.linux.dev, qyousef@layalina.io, christian.loehle@arm.com, 
+	pierre.gondois@arm.com, sshegde@linux.ibm.com, kayracizmeci@gmail.com, 
+	tim.c.chen@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Paul, Peter, Ingo, Thomas,
+On Wed, 11 Nov 2026 at 11:04, K Prateek Nayak <kprateek.nayak@amd.com> wrote:
+>
+> Hello Vincent,
+>
+> On 11/6/2026 8:49 PM, Vincent Guittot wrote:
+> > @@ -8376,6 +8383,9 @@ static bool __dequeue_task(struct rq *rq, struct task_struct *p, int flags)
+> >
+> >       dequeue_hierarchy(p, flags);
+> >
+> > +     if (!(flags & DEQUEUE_SAVE) && !cfs_rq->h_nr_queued)
+>
+> Should this also consider DEQUEUE_CLASS which will move the task out
+> of fair class and leave the rq idle? setscheduler just adds it with
+> DEQUEUE_SAVE when moving classes.
 
+Yes you're right, we have to update idle_seq when
+DEQUEUE_SLEEP or DEQUEUE_CLASS
 
-Still seeing need to explicitly expedite during benchmarking
-while reading this patch series a while ago, reminded me again that
-we still don't have this patch in upstream.
-
-https://lore.kernel.org/all/20261015153331.1872641-1-pasha.tatashin@soleen.com/
-
->>>>
->>>> I am guessing that you will be taking this up some other path, but if
->>>> you would like it to to via RCU, please let me know.
->>>>
->>>>                             Thanx, Paul
->>>>
-
-Peter, Ingo, Thomas,
-
-Can this go via RCU tree??
-
->>>
->>> I would prefer this to go via tip tree since main change is in cpu.c
->>>
->>> Thomas, peter,
->>> What do you guys suggest? can this go via tip tree?
->>>
->>> Also, do you have any other review comments on this or test to be done?
->>>
->>
->> Gentle Ping.
->>
->> Thomas, Peter, Ingo, Can this go via tip tree?
->> Do you guys have any comments to be addressed?
->>
->> Or Do you want it to go via RCU tree?
->>
-> 
-> Gentle Reminder.
-> 
-> This might have fell through the cracks.
-> Are there any concerns still to be addressed?
-
-PS:
-I checked it still applies cleanly to tip/sched/core.
+>
+> > +             cfs_rq->idle_seq++;
+> > +
+> >       if (sched_feat(PLACE_REL_DEADLINE) && !task_sleep) {
+> >               se->deadline -= se->vruntime;
+> >               se->rel_deadline = 1;
+>
+> --
+> Thanks and Regards,
+> Prateek
+>
