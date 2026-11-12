@@ -1,58 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794510593;
-	b=wAichuU5BxvTcCSgVW4ac3i5I6nqDJlryX8bfcoTuMmrA/fbRuBZYSSjFJiRqSkRcA/p
-	 j0py5bXw+xEEifaL3KAxogqdjUU63ak20VZEQihldDohj0o3zuHPceVC4Fz5y1KbKADjY
-	 KoIv85Hs4jMBQ+W4aSXd1QwbTJhq+uB4uyzYcmVw3/4l38K5KEj6d5A8imodOYJWL+2IJ
-	 CXqu/2fdX5BXSwI/MzCyxrIGzvhkJU8LwPl0l63rRx1kVH6Ecer3uNLVKg0i0Sa6miMW4
-	 tIu6LS0l48nQuKT/AxllF9PTs6POD1ktBGE13cKBlMA122bAKe40AJX1Nw6yPooGjjw==
+	t=1794510606;
+	b=kzcZwf/DQ86QEB64IvVupxY9heJuo3jDwhLoxwp6hbLjrXkUTFaIpFM2MZmsi56ldXGc
+	 JqHW8DFeYTcsYxomuLWZ2z6mjfD9jb/pwy3N38nOpHHTebyAxC+4X06TIhpDr0UtAceL8
+	 fstFDbjJEFJskw0zjq3IIdNnkgK022X/fIohvo4yiIoL1kfyY82pMrM9oe/oIOb8Wblv0
+	 hkXMcESqPgsktcnlKpW7jjIiSNnNYcQC9DaJHq+5YpadggrEJ9e+Lurz+R/xjcqIt2l3P
+	 3THOpmlMQdPeTujID1qYMJqpYyqjnutcd4Wx0MflU6h3ai5svCA7tA+mggQGAJIHs9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794510593;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=7vhYx+mU5ZE+8csctxhRGwodyAgV5iSIPIq1rC32lzs=;
-	b=I5oPlzti9F3Lnu7W3vvjPotAgDjLO85FMGbrlTXUBkB/BfU/XQOKEHPDBC2RzZ0abylv
-	 J609uO3THjEjQKz9cayaIQOP4eRUMbtDkLbGYqTdIpCTPQIi7D95oo+5ON0ax2eOBxNdD
-	 9kn/Y2mzroX6jjZEJ4TSU5b33fhInKRIuuYwNyK6BxqWMyH8s5+vbOLT1SFUs6nKdsp/K
-	 c/Slqt2CmBe3zREEE/D244VivlHrYy8zndJKjW5v5IlP4k6PloVW0qevDRvsMy9Ae79vI
-	 Inn3brwbBGTQ/f6ikUxMRZH8Ou0XYINjHQ7QOFlzmLDVBn6xPfmYStN3kuooAYvQXmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794510606;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=k+u9ZELK0cEE6mVHbrD+EOF2KyXq+O1Ddn95XbV+VJg=;
+	b=DUlzbhRZARZ9by02ojpk8W7Zv3NbstzuICeorCYRBwf2GNgkU6EhmWa35mfnzeV8yA/m
+	 YW6U/af2bNt16if6YnwwHXYjiTAc5obatjI7MRZHmVcsfIP9KvLAEUw9zZISEt9OJHuFq
+	 tQ7fEBbN2UQL/tz2iU/6p7u4I89P0hB6EOudhdGVhxSMsX4Gl63ckfDFSAbpnE3uMS2Cy
+	 611qeJYhjQmROB4jBJawiqiuyRhNXYDYLBGQoxcwa2shmOrdw1Du4ZIViYjxS2+i/doaq
+	 5Dpk31Ly16wYfJiM5dIFJZjCcoRosGrqFZhn+qlUKW5f6cbXi2mMoZ6fshWxBE7FEXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K6mPTIqZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kGbwzMi9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88751606A8B5;
-	Thu, 12 Nov 2026 19:09:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F096606A333;
+	Thu, 12 Nov 2026 19:10:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K6mPTIqZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5DC41F000C5;
-	Thu, 12 Nov 2026 19:09:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kGbwzMi9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0894E1F000C4;
+	Thu, 12 Nov 2026 19:10:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794510593;
-	bh=7vhYx+mU5ZE+8csctxhRGwodyAgV5iSIPIq1rC32lzs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=K6mPTIqZ0PqdtRQ0N+/uG83Mvhc5SbmVq/c7r67irEj+eqMifCHccwFKgV3/nQTlx
-	 O9ey+T/MGn53XOU2RQSKWCIZKqq1vmtThLfplc9IEG4tk1ALsBZuwhrc8BUCjEoryH
-	 wFFXOMUbs1ODS++BgEpdVGqILTydG506R8ZGglXYmBDejlENdN67BGKHWuhCEv1z4B
-	 rEzcsk/K4PHb3MKBt9KSukE8IvbAdcV8Bclho6AS1k6ArThMWAyBAZkRNO3qMq97zo
-	 jVItj8fx6+yPwmqAQZomGfNgtPRqYWT0UPtFoiCfc7zTGTYtmu8EywezKmPBo1twwe
-	 EJpV8om5RPyMg==
-Date: Thu, 12 Nov 2026 21:09:48 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: =?utf-8?B?5p2O5bm/56GV?= <liguangshuo@mail.sdu.edu.cn>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org,
-	"Md. Haris Iqbal" <haris.iqbal@ionos.com>,
-	Jack Wang <jinpu.wang@ionos.com>, linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: Re: [PATCH] RDMA/rtrs: Fix potential use-after-free on client
- sysfs setup failure
-Message-ID: <20261112190948.GV8635@unreal>
-References: <ddd08640709b149408b616c3eec8fee847af757e.1793455791.git.liguangshuo@mail.sdu.edu.cn>
- <20261109111652.GD8635@unreal>
- <APEA3wD5LFuJxkDei2Ikqqq4.3.1794229006784.Hmail.202321181@mail.sdu.edu.cn>
+	s=k20260515; t=1794510606;
+	bh=k+u9ZELK0cEE6mVHbrD+EOF2KyXq+O1Ddn95XbV+VJg=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=kGbwzMi9Awtvf3OKYLK90cUD9IA4pztlDuQedtEus1Z+4oHrC3ga6M0Cd53XJ65R1
+	 HxOJz0ntN3mcQDxdM8pibJQi4UV5TfrudDHstDqyFFYGYnGiVW5hVWMGwVLKRgHscn
+	 Rf71krR3IAAe04OUnQIzLzZXa3Aa+DS1kWvIs8NaDvBPNmCFDHil2vVoVi5a255veD
+	 if6oF6lYrlFismlrXUxVFpCk/lwTUCB+J81ApNT8qX3W0xrhpx9Hc8BvtTEVbaoKJK
+	 98x99XQ/dzG5pbtB7+AB9jH/9eerG737x3KjQ1CNjNwX90T/TkuSaJpli8PUxBNGsh
+	 AgLLUaRqF8sAg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F16303924A5F;
+	Thu, 12 Nov 2026 19:10:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,52 +53,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <APEA3wD5LFuJxkDei2Ikqqq4.3.1794229006784.Hmail.202321181@mail.sdu.edu.cn>
+Subject: Re: [PATCH net v3] net: phy: c45: select BASE-T1 type for the forced
+ speed
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179451060478.599290.3189541035062475572.git-patchwork-notify@kernel.org>
+Date: Thu, 12 Nov 2026 19:10:04 +0000
+References: <20261111100053.345196-1-iustin.stolniceanu@analog.com>
+In-Reply-To: <20261111100053.345196-1-iustin.stolniceanu@analog.com>
+To: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ eichest@gmail.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 
-On Mon, Nov 09, 2026 at 08:56:46PM +0800, 李广硕 wrote:
-> Hi Leon,
-> 
-> Thanks for reviewing.
-> 
-> From: Leon Romanovsky <leon@kernel.org>
-> Date: 2026-11-09 19:16:52
-> To:  Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-> Cc:  Jason Gunthorpe <jgg@ziepe.ca>,stable@vger.kernel.org,"Md. Haris Iqbal" <haris.iqbal@ionos.com>,Jack Wang <jinpu.wang@ionos.com>,linux-rdma@vger.kernel.org,linux-kernel@vger.kernel.org
-> Subject: Re: [PATCH] RDMA/rtrs: Fix potential use-after-free on client sysfs setup failure>On Sat, Oct 31, 2026 at 10:14:46PM +0800, Guangshuo Li wrote:
-> >> rtrs_clt_create_path_files() drops the path reference on failure, but
-> >> its callers still close connections and free the path. This can access
-> >> freed memory and free the path twice.
-> >
-> >Sorry, but how?
-> >
-> Consider an allocation failure while setting the name of the path
-> kobject in rtrs_clt_create_path_files(). kobject_init_and_add() has
-> already initialized the reference count to one when setting the name
-> fails with -ENOMEM. The stats kobject has not been created yet, and
-> adding the path to clt->paths_list did not take a kobject reference.
-> 
-> The error branch then calls kobject_put(&clt_path->kobj). This drops
-> the only reference. With CONFIG_DEBUG_KOBJECT_RELEASE=n,
-> rtrs_clt_path_release() runs synchronously and calls free_path(), which
-> does kfree(clt_path).
-> 
-> Back in rtrs_clt_open(), the first statement on that error path is:
-> 
->         list_del_rcu(&clt_path->s.entry);
-> 
-> That accesses the list node embedded in the path that was just freed.
-> This is the use-after-free I meant.
+Hello:
 
-The error handling appears to be incorrect. rtrs_clt_create_path_files()
-should undo only the changes it made internally and error handling of
-call to rtrs_clt_create_path_files() should undo what was done in
-rtrs_clt_open().
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Thanks
-
+On Wed, 11 Nov 2026 12:00:53 +0200 you wrote:
+> Commit 25108a834e14 ("net: phy: c45: add support for 1000BASE-T1 forced
+> setup") made genphy_c45_pma_setup_forced() write the type selection
+> field (bits 3:0) of the BASE-T1 PMA/PMD control register (1.2100) on
+> every forced setup: 1000BASE-T1 for SPEED_1000, and 0 for everything
+> else. 0 selects 100BASE-T1, so forcing a 10BASE-T1L PHY to 10 Mbit/s
+> now also switches its PMA to 100BASE-T1, a mode it does not implement.
 > 
-> Thanks,
-> Guangshuo
+> [...]
+
+Here is the summary with links:
+  - [net,v3] net: phy: c45: select BASE-T1 type for the forced speed
+    https://git.kernel.org/netdev/net/c/df501db9b18f
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
