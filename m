@@ -1,93 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794489230;
-	b=FjzF9OmshErtN5kN7EqMNRyQLzNWTXyVIqr19Xw2SDSXdjUNp99f8KNyu9IvmViXMui9
-	 Vp7/34GKJNPnI1y0UZHkBmXH/zrbFe4HDK2V+DxFGRa/vOsyeFf7aW/Zyu2w4UhEythwp
-	 GmPtQV4QSoCu4pYV0g9uN5jwEbAj+UMq90ApEfs0oE4jsljgDk7rHHmf5X8RuzcdG+491
-	 FPSiz5iRSwOblRAAD6im39Uk0PKf1k/ZKfcLAFZF3QZqVa1Mbvgu8jgYDzeHnoyWxRTaA
-	 VwkEf7vZlGTVY9F9nAnbFGEkXSTi9eHCP+EnmjCY7wnISS8XafVTdfqXnINepVA/KZw==
+	t=1794489249;
+	b=ttdjlAO9g8/mUTVngrUSbisfmNT7T/6TqAXCi1yaC9CUqViudJlRldkuOWLcKZRJ4PF8
+	 Aqbj7jR28Pv0+Ww+MNj9Az9A0YWZ8FlW1RrHo2yLbhwr87YVmCzymCiBySWiwvV30GQMZ
+	 fgi1lr0Bl4F2ENG4Uxdos2w/YB3eqH1Rso/MZIWo9r4YHPgaK0XggSOD9LUiIARS/NHYf
+	 jcrvuqjehHalzGUk4Op1O4mQQ348tImKEzYeuRyN96p4NxWVlYtbmAfOlGiPd2cink8Yb
+	 Sjd8PB8N1t/T06M0pL2086tLMKm5YcI+6Ic6QDJjDYQyTe5K7CmSuY8971qzqeyOrSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794489230;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=YU2hXqNmb7fbPgUZsnx7SG8vtJgeywnopM9Jcb/ViNQ=;
-	b=FlDN2V6Rq0qW0kMdGeLim8J5avfM48WoGBoAzpLu1QRCT66vd3qnoFkeoNf7ahZ97Ii6
-	 EuYqmE4KZhpd96PO/jyYRgkjGIHc3HViUicrOcBFYeB2XEzrSbLK71EcGqEte5sTTXPPp
-	 ABahECD76FhmAVtDwvJJf1hrPXibqBhXCFarEojj6QjynGzPZenrg3LHTmrph/k+rKcjA
-	 cnwcUZfo+lPTXbYH7Pzs1U7i+DXuG2UOMPuMmSpCbHSNWrlzVExCq/rTYXYLuJ9Dg+gKU
-	 ZBdBSSVfWXCy75DbgIW2IGPDBthnyR1ESgJ/6eD+XTxzqaoiF7ZjHAc1DNeTJucBYdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794489249;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=yRd8+Huvlp5plhQTndzEeeQ6oPa/Jct92yGvLHnpzEw=;
+	b=UoCgGdUUMQks6/Md8GANft3LpzVuFBPGjLt92iVqSrpo0updk7aMCrzEzkUoZFdQZIV6
+	 /5T5S6Iv/KxBN8sryu/IV0LR/MuaF3q6fcIADd/Q4ut7ZmJO8Ae8fk7+QaLD1S3UZaN9i
+	 vArum2IE9GgFlVVbEYV730YX27udHIJyr9orndUq9Tgt5eWc9DaokMEtD6wemp8C4nLUL
+	 bM/urTOzf04xqPt8NXsnShvRiiULHdkyMuKd43F3U0tD6eidYvDiVUOoJbf1B7ABJf1JI
+	 +n86k7RNkL1CWksjlglGNBvbeeRZuFSac3iZ4hU1aS+5eOawbdP+nYNohwF4Kp70fQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GZgHRT+X;
-	arc=none smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25C29606A8A8
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:13:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25C29606A8A8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Ir+GhsOF;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F280A606A330;
+	Thu, 12 Nov 2026 13:14:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F280A606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GZgHRT+X
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1931ff67a29so8079469c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:13:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794489229; x=1795094029; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YU2hXqNmb7fbPgUZsnx7SG8vtJgeywnopM9Jcb/ViNQ=;
-        b=GZgHRT+X+rRD6nJNeLPBXmBFnvmTUF8oOhPGSuiY9nhuowlhO+3lXFG2u8P5HVRjsG
-         HhIqZYyyXJkHFYybB3oWHoE5dEKCNDD+fwMPgrWZ/l+Ojp7aN1mILNj+58vs2XPbehzw
-         CC4yVbZu0so4a6X5bskKFY9zuXpRcZRUmuJ3xyXS11FPqV6IwNK94ybkig3W0dZlzPGp
-         EKjz4aNaJZiYVzCd3qtjhGfD1XXLZ0tL8aFiIpEE/3fWWkUvOqv/pk6zyKpkQvAOZHoR
-         nloj4v48d+i8yOIqmXrTzNb26lTTPSfZeBLxsvc4ileeb7zAmaH2lv+dB4wCcQu4qoST
-         eX8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794489229; x=1795094029;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YU2hXqNmb7fbPgUZsnx7SG8vtJgeywnopM9Jcb/ViNQ=;
-        b=XZHfyygVG6nNy5eRE8KavzfTaA5/7dtrxNOl3YezuciVUyNADmmfC7gZi4knisDdWN
-         ej0sLKNsJuHStDQ5iZjSJlfy3sd7aGhZavtGVtFyVYRPumS10Bje9URcvLcl8XLoDUkk
-         kH1QRCFCmTE6trhghLcFbaCwEpSJGQ8lgemgTWkMLGFce+QhkWnZRNa0dyU+UWOa/9lU
-         bSIt62iyT9DARfLwqkmQbDR2DGW//KBLR7GkKiAYGLERi5ywDpGlq46oICYIh5pNjI7V
-         Yh1fAoMaJmlh52SvkgFfSdJVzCCGePEWrQZHDkl6WRVWEFGtEkPfTd7E8x3lgJoQjil/
-         M+mA==
-X-Forwarded-Encrypted: i=1; AL+hErFGYSk5nBElSf5M3+fYpH6JKzIES8kizw2VBCBUT2kCWLBpswoQAhn4kOmfxfOymolptKxR0RHEXZsJyKM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/NH+DZsjUku17kc0cbJHXEDRLKsnMf3lbPGKRzRZXEVIM7ewtk
-	YH5xQHiLyxSUVbAYsFESR45Tv3QloSwFmzeswbsCLXhlOlv4Myz6RERu
-X-Gm-Gg: AYBFou1nh6pP+GaFWyhpHAGgxu7PqPoEGYMoVz/di6kgRPpig0unJ3rAd+ZSX4deRyW
-	wqtOI+ArGQRtqKP0bAMV6eMdXsZAoYcE80xYHxwOKKbCx+Q2/tEwQ0BmuDFHxPEBhssZzOorSHk
-	9pzMMRaWxwbC6SULUh0dK8wKo+7Azgks6VuapGs60wItMdCH1fl9Ow3D8KVEHWMmTjA7a0FhDkX
-	t9xQNAhANfaN8+mcXAA9qkNL5sUgBBkvx29c/vMcWDt3QorN3kfdMdLsgc5Pnkg6Y50aIwNOyn0
-	/lwT4BXABVAwTibnH9/wTYCABMgnsyhx6bYeoAOhFT7rq0a+1XqtnES9XbuyYjhUm6V1KGSdkzv
-	8HfCtyDvQT2NYSatI68yjGrgc4HbSRNwTk7CqNVo1VRDLSGdVMkHig7jizsSiSkHawlw3QmS0Fb
-	EcweD0CqaJSzvDYJiI8xXoznPuWX9MzoJcBV0bRWh4NWiOjRx3roiTQjYGInsnq3veDi0iyKb7H
-	8YZEVSP9wzMyi1BL+qAETdCiIB6GbC2OOvhmrPo66xxSCb0MVrw7YXVHmIGClP9raMegcgcWozd
-	n8d68moelIz0sE57h+VUpg==
-X-Received: by 2002:a05:7022:ea56:10b0:1b3:a9c6:b293 with SMTP id a92af1059eb24-1b3c032e676mr5378970c88.25.1794489229103;
-        Thu, 12 Nov 2026 05:13:49 -0800 (PST)
-Received: from xploitoverload ([2a09:bac1:36a0:120::1c5:160])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5890e04sm25449363c88.2.2026.11.12.05.13.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 05:13:48 -0800 (PST)
-From: Kalpesh Solanki <skalpesh942@gmail.com>
-To: luka.gejak@linux.dev,
-	pkshih@realtek.com
-Cc: kvalo@kernel.org,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kalpesh Solanki <skalpesh942@gmail.com>
-Subject: Re: [PATCH v4 3/3] wifi: rtw88: ps: trigger firmware recovery only after consecutive LPS leave failures on PCI
-Date: Thu, 12 Nov 2026 18:43:29 +0530
-Message-ID: <20261112131329.236152-1-skalpesh942@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Ir+GhsOF
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5389C1576;
+	Thu, 12 Nov 2026 05:14:05 -0800 (PST)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 215A13F632;
+	Thu, 12 Nov 2026 05:14:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794489248; bh=w1bnY+Ps4zITYTRUimdbVrN0cNHgFPf1y5ifSbYb950=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Ir+GhsOFl4eXFwGT7DY570KXtbzdF31B+5y++WKx8y5Mt8D9PCavJtunWAPhq11FQ
+	 3y9F+FQeN7oJYgE6McH1/9bBfmGxPdH3wzJzX2m8BupRfTjtvOMcJ34FftvP/WD6se
+	 sCtXi4bJ4nt0qiwC4fHQYnZSriQiUhYjZrdlfgEs=
+Date: Thu, 12 Nov 2026 13:14:01 +0000
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Kevin Brodsky <kevin.brodsky@arm.com>,
+	Yeoreum Yun <yeoreum.yun@arm.com>, linux-hardening@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Ard Biesheuvel <ardb+git@google.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Jann Horn <jannh@google.com>, Jeff Xu <jeffxu@chromium.org>,
+	Joey Gouly <joey.gouly@arm.com>, Kees Cook <kees@kernel.org>,
+	Linu Cherian <linu.cherian@arm.com>,
+	Linus Walleij <linusw@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Maxwell Bland <mbland@motorola.com>,
+	"Mike Rapoport (IBM)" <rppt@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Pierre Langlois <pierre.langlois@arm.com>,
+	=?iso-8859-1?Q?Pierre-Cl=E9ment?= Tosi <ptosi@google.com>,
+	Quentin Perret <qperret@google.com>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
+	Yang Shi <yang@os.amperecomputing.com>,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mm@kvack.org, x86@kernel.org, Ira Weiny <iweiny@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Thomas Gleixner <tglx@kernel.org>
+Subject: Re: [PATCH RFC v10 07/22] arm64: Initialize POR_EL1 register on
+ cpu_resume()
+Message-ID: <avW7mVh-s90SdUYN@e129823.arm.com>
+References: <20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com>
+ <20261109-kpkeys-v10-7-aa6c4d9603bc@arm.com>
+ <be361be8-c5ad-4ff7-a6db-7b0815bfe1d0@sirena.org.uk>
+ <avNH_AdvK9AqvfF7@e129823.arm.com>
+ <7b92f7c8-1543-447e-8ef3-aba608141699@arm.com>
+ <6808f3a6-1c12-4cb2-a109-30704d812490@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,50 +89,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6808f3a6-1c12-4cb2-a109-30704d812490@sirena.org.uk>
 
-Hi Luka, Ping-Ke,
+On Thu, Nov 12, 2026 at 01:02:16PM +0000, Mark Brown wrote:
+> On Thu, Nov 12, 2026 at 01:38:13PM +0100, Kevin Brodsky wrote:
+> > On 10/11/2026 17:36, Yeoreum Yun wrote:
+> 
+> > > Thanks. seems required to isb() after initialising SYS_POR_EL1.
+> 
+> > Agreed (as Sashiko reported as well). Presumably that means we also need
+> > an ISB after writing to POR_EL1 in cpu_enable_poe(), as that's basically
+> > the same situation.
+> 
+> Possibly just have one before writing TCR2_EL1 rather than for each of
+> the indvididual features, that's harder to mess up?
 
-Thank you both for your patience while I was away, and thank you Luka for
-advocating to address the review feedback before pushing v5.
+I'm not sure that's necessarily better, as we'd end up executing an isb()
+even when POE or other features aren't enabled.
+Wouldn't it be better to execute an isb() only when needed?
 
-Regarding Luka's two comments on v4:
-
-1. Redundant rtw_hci_type check in rtw_fw_recovery():
-   You are completely right. Since rtw_fw_leave_lps_check() already guards the
-   call with rtw_hci_type(rtwdev) == RTW_HCI_TYPE_PCIE, and the other callers in
-   pci.c are PCI-only, having an HCI check in rtw_fw_recovery() in main.c is
-   redundant. I have dropped it in v5.
-
-2. ps_hang_cnt on non-FW_FEATURE_LPS_C2H chipsets:
-   Excellent catch! On chipsets without FW_FEATURE_LPS_C2H (such as RTL8822B
-   and RTL8723D), the check falls back to polling REG_TCR for
-   BIT_PWRMGT_HWDATA_EN. On timeout, the driver forcefully clears this bit via
-   rtw_write32_clr(rtwdev, REG_TCR, BIT_PWRMGT_HWDATA_EN) so packets can continue
-   to be transmitted. If the firmware is frozen, it will never re-assert this
-   bit. On the next check, the register read sees the bit cleared, falsely reports
-   success, and resets ps_hang_cnt back to 0. Thus, a stuck firmware on these
-   chips could never reach RTW_PS_HANG_MAX_CNT.
-
-   In v5, I have updated patch 3/3 so that ps_hang_cnt is only incremented and
-   evaluated when FW_FEATURE_LPS_C2H is supported:
-   
-       if (rtw_fw_feature_check(fw, FW_FEATURE_LPS_C2H) &&
-           rtw_hci_type(rtwdev) == RTW_HCI_TYPE_PCIE) {
-               rtwdev->ps_hang_cnt++;
-               if (rtwdev->ps_hang_cnt >= RTW_PS_HANG_MAX_CNT)
-                       rtw_fw_recovery(rtwdev);
-       }
-
-   For C2H-capable devices (such as RTL8822C and RTL8821C), completion signaling
-   reliably accumulates consecutive timeouts when the firmware hangs, while
-   legacy chipsets without C2H retain the upstream behavior (clear TCR and warn)
-   without getting trapped in a broken counter reset loop.
-
-Regarding lore / patchwork:
-It appears v4 was either dropped by list filters or delayed during list delivery.
-I have sent out the full v5 series [PATCH v5 0/3] incorporating all the above
-changes to the mailing list.
-
-Thanks,
-Kalpesh
+-- 
+Sincerely,
+Yeoreum Yun
