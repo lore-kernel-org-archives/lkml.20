@@ -1,89 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794505918;
-	b=pm0SBesw72Ts/qyg9uhrP5+vj6Vnij5J5RpiWXrAXsdLi4f/ZrhT4e4xON2QbyQqfNjl
-	 B3gpLbO8866MP43fpJpmnBMTvPa9UFlXshJi4vXrrJwIdu8YvDBTp7/5IcMFieT0tOzFX
-	 H2+T3u5L36aWuydLUx57q8kamwNqknxkMHS1tuPF0Rvc0TwYm3ZrCJVzZf1zYgneSCPo4
-	 HqtFHifubmztVtXDMpp0y37/GiCJrImMhi9jxkwlejQkbDtFdH9Xi5OUamoPvk/1Fh3Aj
-	 F5I7GyrdhsMVai3/GDuVWblJS7/X5MqnQLtCSjZyiaWB146AIokpGBDAat6X0stn+TQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794505918;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=fWLnRTHzq44+Vxh7KKtStPCPVQVw0PPt5S1VYLelmew=;
-	b=OgjSW0kx1T3XG9MwGyf/CO26PtKgNbHDw8LT0dcfIBNrEuzuSljFif4BzS6sALLqs/T7
-	 VIF0dV/02oslYZPw8+gYHPqWXdTBN6l4ZYBl0jl/03TtgWOB1uEmU8QYvEw1fv/6ZW/7b
-	 io1i9yx8HMc0ONhBtD0qZ9TOghAD9S4k0mLmCfuAw5SBVg7dhU+kBFTDkRO9WiM+RcR10
-	 e80iSM7BUfzIMfhJFtNX4TBm685Uni60PvLeEznMXMMKzHs1A+AkWaF9OtFsMXJrm6u/e
-	 9P7UrJLNdmrLyYGiIvh74qhItlTW+YQq1LoRbUPag622qoqKimWyVom156rAJ1biCDg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wPLZHWUw;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794505955;
+	b=IGR7hxLwr4dgh2RP1HYMGCLSUx86ee+jd+9BwUWlIz537wgt2B+TN9AoQ0KfjDKvE/Cm
+	 XwGoc164LSokK83e26TzW69ufz3qNDhPHDms8OLe+q1JLQWdU1CLhElCouaNMf6RJ6g8+
+	 S/GuzwovxdgCfuT3C0bN5eAfUuA6jVm+ekbvl39+HzsKnnPYbUw2RhwL9BCYx6s/UCRp8
+	 PMXHjzK3UGMDHYJXOmt0KRJ8Dm2KWAczeVMtACtIkKbej8+1ARe4WUHVzWJ8tgmixnLr7
+	 7O6Q3liqjrnw1vxAQ2PwiSTVTwr8JYpLGi2w+zMcT4w0Ssz5BSOLCw32kMUuuYenOWQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794505955;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=tL74Vsf2oZZ1Y7xWB+Ik6hgcaFq5tz8fBLDuSTQyVT8=;
+	b=H1BU6TL2RtHoYNi0xioGgEZ4OczBcILry8rxuqXJsuU6ztpi/tdLeZouOb18eK44eorj
+	 TiMzfQvb/QRH6JRifIAsXdBD+OgkvNxli45nX/om4hSEqn8uF6FOzLSUORfgWzvU1aPKH
+	 cF0IA4MSNwjK5zv1y7NkNF4NP9aJWvR+MGmA2MbxIWyqEx1KvUmbaa2rVR3Ix5H1elKpP
+	 DEIrQJuJ2I75/3rcyBHIevWpr8oOcHjDrZCm7wJRcGY/Hxr74KooBbas0LpfCkZJoR3eC
+	 KpGFGq3XRaffrEJkpgpR9P1rrlqKUoZWkXY26B2PxKczTpYKmISTAf8JgW+rSFzvTKA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Ryj073Y1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.15
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010015.outbound.protection.outlook.com [52.101.56.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61EF7606A330
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:51:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61EF7606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB4D606A31C;
+	Thu, 12 Nov 2026 17:52:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFB4D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wPLZHWUw
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-37605faade6so19182eec.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:51:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794505916; x=1795110716; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fWLnRTHzq44+Vxh7KKtStPCPVQVw0PPt5S1VYLelmew=;
-        b=wPLZHWUwS4SkAzUrIEj/S9yspQRsPrlBsgwP/pUKdTmQxCGl6I4PfcNMjKMgcxJLat
-         7+8eZmhhmNfZnSbUIEvhYhcaviJPQktGzGZsPSmo9Ijs0zO2ed2Ja6wGnwEbFPe0LpVD
-         NoxN2ku7SKy9yA8c8w1s3vDjVSJm3K3bJrYgRSnepc0SFwtxTYaW58fbEuARLZ7IiDft
-         bBAUZmoVDe2eS6Fx7N4aAAgFMN6e380of1eLKWiBHzCnt/lZYtrj0gzTwgrgWmWHoQpg
-         dzrczmESX/20YnGx2F7NFukpMI0/+H8Vr2m5xM/5ZW1wT0Zg3MYtPrjGdXV/hi++r+Wv
-         KZWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794505916; x=1795110716;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fWLnRTHzq44+Vxh7KKtStPCPVQVw0PPt5S1VYLelmew=;
-        b=q1EroR/fn3WJe/R/p+Nj2rMxEYp4tiY/jj7+gB5g0m+AbL2Kj8Wn7YZAZ+7kkfDHiD
-         m2V0shHMdb+zP1GjSbGQ49cmFymSyHiUpoSGGcE7ZC5x8MGF+QxKW/a6WIu0afJLf+Ns
-         W4RnJ/74G4qtDecGYd0p1l90dEk5h+tpA7hPrxXmyV/faVfhc1uemtUv8E3zvQl080+C
-         J0VFC+y4XmHHsv6DUKWyD3+KgPMVVyiMCPWW9Cw0RYV8V7r/UDGQiRlcTvw9wGIq9BmP
-         VGbESK4QGyzshTX4mydJpC1758iOqiOZqmGnEiE2r6FxGAGozP2g9M3cfqWO6tC0igod
-         DMvg==
-X-Forwarded-Encrypted: i=1; AL+hErG8AR5ztj3dbyS4RL+U4IUBiSlPVY97q+SQYImH92pojZDPiCQkIIVMlBOrMpP14GEOd8fFFuQu8nGzUMw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+BxsfXf2MZDD7mZLMFLo3mqka2WXxe0G6546t9OKgjyVEoKPD8
-	AosH2wzzzI6ZbGwuBDiyBee6ADd7gu5hSdJHAj5jaW3jffYz6k45/YVl
-X-Gm-Gg: AYBFou3riH/b/ueUDZlkieqOQgWzUm7q0jPTzfr0DwYmZ1LkPEF6uqFSvKXQMX1QIu5
-	P0tDhszdBDVO2kC+ihcSiDeOF32uYQiIGtF6RYLqLN99usVKiLcWdAxf3k+SrtOz6NrMKFxn+vD
-	QekIwd1l+6B2Fi48TxNFnmBfwUbGQfT+6XrF0MwTB5d/kS/6/b67l6bsTOaKTgEdpyYmXOQrvLl
-	XTuGPyFQS258B3wF5fqXxH6WncNUjetOQ9VK+zi4je1jYsxg5ADTeaJqLRexKS3MUbfHf7w4GMt
-	WOODSFFe3eVnocJdjtQh0zwAsLP5d5tIhNnJcjx4IJm7QG/2oTprvSxSv5+mfjaWtd6jTRlBpe7
-	H1bcnyG0D3LEpR9M0+s67KmVcbVH1LhGk65KSVXN+dS2zitmsbm0e8dC0A2tJG665lJRJtfEDxs
-	kdeMp98aoG6udUBC01dvs2Go7fpnIBMrM/lIG7TDQ2xM+unLYbD7EUnqOQ1PbABuLeSKWDqv8Gb
-	5yYSgoqsTE4tve/MVHHd1Aa7EIBlBgcGR+okXDNX3WTyI6haTjVydlZjMGgcJz3LoDGR7bFtMNH
-	vBPvUFDxfVLfbSgQIPYLoMVh/+t/U5gt/92A2Q==
-X-Received: by 2002:a05:7300:5621:b0:36d:cd5d:d809 with SMTP id 5a478bee46e88-37684af683dmr9424431eec.1.1794505916366;
-        Thu, 12 Nov 2026 09:51:56 -0800 (PST)
-Received: from [192.168.1.4] ([2401:4900:881d:321d:eb39:71d3:15f6:5fe0])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm237865eec.21.2026.11.12.09.51.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 09:51:55 -0800 (PST)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Thu, 12 Nov 2026 23:21:23 +0530
-Subject: [PATCH v3 3/3] dt-bindings: bus: ti,omap-l3-noc: Convert to DT
- schema
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Ryj073Y1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bJ6Q3pIlEg66es+yojQGxQRoY5wNycVb0o6y3f/2+TFST5Ije2QP2Ct+ftZE9Bd00OtbEvHmga0o2JkV4VZD4EKpYbTvIX+CC5U4Ku4dCdID1J87JMT7oSSUe8HgJoT97iLQVJpyJWQhdQ1Jz+10Pn0yDixRPTjHmjlAUQfg+FHuBfQI3VvDApiY7n150VZvfff2L3WZM96CDWiT+OdK7xSc6Smle4kO6ScrBMN0LlWAsPNyd3WvWah2YwaolJN0tyv1ZGZya9/rR+CHhpmkaXluSMo18awICwi3q9KfSivIBJMPbBHVoGpqie0AjvhL68attB664ayB6QIxJvGmzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tL74Vsf2oZZ1Y7xWB+Ik6hgcaFq5tz8fBLDuSTQyVT8=;
+ b=tII7KuW0kaWxBkbQM40oLlXss7mPt1sUDmV/MRzY7fMvAGah5JZbjy0L3p4k5/MtQ8r4stZwRBzhm1Wfa4nazIYrzqCCzCmLKKYDFMKGcLAsnGqxZBLLK0cZfRbwsKUhqXBqKdq2jsmitVOmz5Y+hdemovfqaT+Gljj3+OiXIzLVizhbzx7DaCE0h2VrJRuCq9FB2D27sJwlBekVJ7lW1MAEMRcK2OIJ1gM9v9MPE8upPSLp6WsYUMj15gSvn0EwHEqjC0bMfR0EK5tCSvGVxBYF7Rv0gnK37x3N1V6BBgWTOksz6T342kqYbXHpbJ9a5YblBMUo0ckk0ZdDXaSGig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tL74Vsf2oZZ1Y7xWB+Ik6hgcaFq5tz8fBLDuSTQyVT8=;
+ b=Ryj073Y1s13qW9HYqi2o8qOwn6u0npZ5w5A2HeseKwzzf870krVrmN/dxqCZF14lP3Jg7EWBR8nDnMM2ap3YfiYaP6MLnEF1s71BXTru7HSm6ZdOtJqcZEJCy+c02K3C58AAFIGPuB5jz+82LWGXV5LCw9sVnUSJ5CP/WCmso5HOUZrbq6YsEgdMepxNwKqTxDFV3pBsn8qIRN1ZNrde9yu9NDdwZPzUADM5Y22iz4ZK7qApCNIiPAB8cMbiVtYx6WuKma+aLSPNat9AYjkZQjABCmrHWgjQpqpqP+V5hjutcT5u7kZpuqFaL63Xb/qaXOvMDM0P/Tr+jPAA5wUs8Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM4PR12MB7742.namprd12.prod.outlook.com (2603:10b6:8:102::18)
+ by BY5PR12MB4049.namprd12.prod.outlook.com (2603:10b6:a03:201::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
+ 2026 17:52:30 +0000
+Received: from DM4PR12MB7742.namprd12.prod.outlook.com
+ ([fe80::8df:c519:298a:94f6]) by DM4PR12MB7742.namprd12.prod.outlook.com
+ ([fe80::8df:c519:298a:94f6%6]) with mapi id 15.21.0615.007; Thu, 12 Nov 2026
+ 17:52:30 +0000
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: linux-kernel@vger.kernel.org,
+	"Paul E . McKenney" <paulmck@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>,
+	Davidlohr Bueso <dave@stgolabs.net>
+Cc: rcu@vger.kernel.org
+Subject: [PATCH] torture: Forgive SMT-control failures in CPU-hotplug testing
+Date: Thu, 12 Nov 2026 12:52:20 -0500
+Message-ID: <20261112175220.767903-1-joelagnelf@nvidia.com>
+X-Mailer: git-send-email 2.54.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BN0PR10CA0009.namprd10.prod.outlook.com
+ (2603:10b6:408:143::6) To DM4PR12MB7742.namprd12.prod.outlook.com
+ (2603:10b6:8:102::18)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,144 +105,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-ti-l3-noc-v3-3-7281b1af8030@gmail.com>
-References: <20261112-ti-l3-noc-v3-0-7281b1af8030@gmail.com>
-In-Reply-To: <20261112-ti-l3-noc-v3-0-7281b1af8030@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Santosh Shilimkar <santosh.shilimkar@ti.com>, 
- Sricharan R <r.sricharan@ti.com>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
- simona.toaca@nxp.com, j.bhargav.u@gmail.com, linux-omap@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794505884; l=3333;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=WKKUN2jQjfC7QZp1fenPy2OkomRsdptL4bsEgub5sUs=;
- b=OC1C4RTN4l9W6mCWrzTTZAIVvuxMqR6iLq406lkQSIet3W+nLW5+HVOeV23STNKKosuTOx0K8
- RNQ4WzO6L0xDdaIcp5dmJ+GepcTWaTfrbCKBQongjNDNIlYSmlU7CJy
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB7742:EE_|BY5PR12MB4049:EE_
+X-MS-Office365-Filtering-Correlation-Id: 68679a83-5f69-42e6-2ab3-08df40e5b905
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|23010399003|18002099003|261009223027099003|3023799007|921020|11063799006|56012099006|10067099003|261102123227099003|261102130727099003|261022105027099003|261026121527099003|261022075727099003|261028144727099003|261021121427099003|261026140227099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info:
+	lvK3JEcpfnp1Tvlon3FX/Sxq3+oM+GyYvv86JrQmNSqOFB9MCA0rjODRQ8Qia0hrV5F9U5W8n1nYWXlwf2aE99+ub7kV87JUHeTIo6eCM2kvun3UVTpqt9CV3PZ/e8OY7wcE5iBWCfYNBVDUhIOdXohhCvVHeNJukqr25pNwbphOyOwao9PBmVXhL281EN0UnzIqBgOC/xnIxxmLdHdSl+cGsS+rL8OPEP7idc9BMV94NCNVkDGpXWioQo3EGvL+mzb6lOoU5sl+364frtawzSOcV8jCF/P75zfdpWgZozvqeTqOby0ULLnWpMnsLdAdJ8A11OHh5UZoLpJKzmxXds3sBQk9XLiw2NZBQPLfXFsKztpk4We47/HDNFB90bvEZKRn2ysT8nlLCtArxRCWS/0SAC5dB1ZsQ+4wj0G82RzNAx+SDc6Eo+NvhQzzkCufDKPmr5n9281/XeE5yG5blH0VjGurCEi86oQn8ZxKaca/8jbAAVv1twDOy6KEN4oB+BSlmK71+g9gAL/2zH+L5IqkIHV/iB7N5f2t9XiWUXXmK8jP2z930xyGy0C/+QIJ8g7buMX+T9iJuEMBAb1ndSM6x0QOV9r2drjYZ7n0uDC0cbqOhMi6vDcBHgVJck3G6BIMQHaDrpiUFqyAHZLumHbe0U48tkI5DbrgKK5vbmypPBVDA5+2BgaAsUXjl8le33dEXU8SzEV/CskEznO07Q==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB7742.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(23010399003)(18002099003)(261009223027099003)(3023799007)(921020)(11063799006)(56012099006)(10067099003)(261102123227099003)(261102130727099003)(261022105027099003)(261026121527099003)(261022075727099003)(261028144727099003)(261021121427099003)(261026140227099003)(261021123027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Xgk5v0WDeVcQS6uKmhFyD+ptGLsZv/QEnp0zoPAP2zsc/e6RnqOLP+lCTTbt?=
+ =?us-ascii?Q?YRjYmFR3tmK5LR4VKbji3v45g7VdtP69PJ1oQU80UAnOoYXZO7D9YWD6Ufp7?=
+ =?us-ascii?Q?6vGZUihP2VhiGg/wd//7TcOXIWUrhDJKqwNrCJrcwsnVN/wuvhCee70oSmYh?=
+ =?us-ascii?Q?IKVSEHVK8vdXgUbE0ybGAONX8pNgkVyyNVZM0m9YTTjf5sYB7D+4Oig8gJFH?=
+ =?us-ascii?Q?RywHdU27SvyTJMNyrFMh6/k+pvscbs9at3BegCj1N2pYEYABrkdoSQWbnZQl?=
+ =?us-ascii?Q?yXL162tuZBcDS1PHr1jt46dDycSNucGdwsdvW4CqqXnsGXdbiBYCMPu2pSTr?=
+ =?us-ascii?Q?SE6K3+p5JCOJZT6cQT+GHT8RFNce9acNs+v+T5tsiLjvX1Kr9F2bFu9ixQCD?=
+ =?us-ascii?Q?u5f9sTqfRQFS4c7TZE6qBpdI348YnEaznJALpKAfeN1bBkWCHNA9jan/PDWh?=
+ =?us-ascii?Q?mZIRlEIWn2u1NAK0EMFVf29toDEVZkUP8zwfuhWMhQ9glTNjsgzqrkGbLkHi?=
+ =?us-ascii?Q?xza6mIoGyJPt8p1Tt2kJGyPkJRHXiMW80pyiktbpoRNJHPRH9yluHBuHOiwK?=
+ =?us-ascii?Q?uPDQ3krOjzkH36y5UmnKqp3pJlEIJnCgdiid3jNwK4E/c6cioxaNKhOtkIVU?=
+ =?us-ascii?Q?TAs/VicnLeUzxg6UghsAz9NmyK12VhKH+GZilTwfgbO36VQq4zzGxsTzmf3w?=
+ =?us-ascii?Q?YgaXaBTYlloFCtj1x0WlGSvPOuqOk6OgYXfKl3uHGuEpR4PdNca5eUNv805j?=
+ =?us-ascii?Q?N/wPc8bRyex1PGDX7IahPznl9dkzmLPuJm57Mvh8Ha5kpg8pou/M8cgfKkkK?=
+ =?us-ascii?Q?DJWz+PBts7+jGNlnGiHevX6LAnJ78WeF7XC927HZyF0FqcfyHzrgV1SCwcwO?=
+ =?us-ascii?Q?TKWsY1g0/wNgEpGUT8RSiFGEL4UmgNAUXyucZng98N1h8VRGkpvSo+A/Lq7x?=
+ =?us-ascii?Q?akiRY7I3loIzYtwTJ1B3gLHDbeCS0BhaPjQ4YlNShmIMiWjlgxyH/YvsaHAt?=
+ =?us-ascii?Q?dWRBDnoPV8iYiP5Z72MaY7fQcVehRUpsmZElLcEXwVPNyGu9Cl2cr16zYN3v?=
+ =?us-ascii?Q?2n9D0rkd8Kbv2Yf+J334npE2IqKBO5ECVm6LPr5l6cOc+40/Fx0SRe/6giva?=
+ =?us-ascii?Q?BBHLtI1bLFYozYxmad6GX01sqDIZevXqUsT7pOcrX5AMHjf9PoKFdpJl2SsJ?=
+ =?us-ascii?Q?q4R1jaqsVQyEe4xOkwd6y97BwukVL5XU8adlo+E+GLySK5tkJJwkoMJJe7Aj?=
+ =?us-ascii?Q?XdpLyGn8rYueZaosqqau72Ld2C4oCf0acQsIV2Vfq4yIUfYEQSr7xt/wPgj+?=
+ =?us-ascii?Q?aei87t4j9N51ZMrOijrqXbYPV0MieVckYQlbuhs7hDXomNsnc7DJeRV/SQlB?=
+ =?us-ascii?Q?NapgVbN41ToyTe4FEazWL2zXm39MsP0A67QG2eF6LGme39oB4+y6EOicL9l/?=
+ =?us-ascii?Q?w4JHBLBtKPBuuwH1Tob7V+4ZkwA8cdXXeiYL4tL5OvLXUN2Q6QwFvnHY6jvW?=
+ =?us-ascii?Q?SlvvRM5AEptgoFVJlL5D/RyJwiiXiozmXqgoJt1XG+4h+IJXof8RFoL9BBK+?=
+ =?us-ascii?Q?H1QkaGlcIw67Aha9GehKB7gJtkZOFV9uN0++dExPbhV6nnEWR3m1ShRNqRfY?=
+ =?us-ascii?Q?skIN/pD7mDQE73ZyzjD7CsFfwg0a+dm9aG4gMq16T1PRHFzUFlq3dAW8BNhP?=
+ =?us-ascii?Q?ArXdESLJ8ySS0atgQnvYzKYV4SuJaKVR+5TdF6ODv+0EYrwB6tPJKsSdMcQu?=
+ =?us-ascii?Q?ALFqYSnuPw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 68679a83-5f69-42e6-2ab3-08df40e5b905
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB7742.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 17:52:30.7035
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KazxScXai6Febq4J67cah4D8Aga+9qRl27a+DkTfv9q2gXxownQs/465sbig15PquPvZewlE3sxrli7m1mHtHA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4049
 
-Convert the TI OMAP L3 NoC binding from text to DT schema. Drop
-deprecated ti,hwmods as it is not used anymore.
+The onoff task ends rcutorture with "End of test: RCU_HOTPLUG" if any
+CPU-hotplug attempt fails, other than -EBUSY during boot.  Toggling
+/sys/devices/system/cpu/smt/control while onoff runs causes two failures
+that are not the test's fault.  cpu_up() returns -EPERM for an SMT thread
+that SMT control keeps offline, and device_online() and device_offline()
+return 1 when the toggle already did the operation.
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+Repro: in a 16-vCPU guest (8 cores, 2 threads), run
+"modprobe rcutorture onoff_interval=1 gp_exp=0" while looping
+"echo off/on > smt/control" for 120 seconds.  This ended in RCU_HOTPLUG,
+with no reader errors.  With this change it ends in SUCCESS.
+
+Forgive these like boot-time -EBUSY, by not counting the attempt.
+
+Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
 ---
- .../devicetree/bindings/arm/omap/l3-noc.txt        | 22 -------
- .../devicetree/bindings/bus/ti,omap-l3-noc.yaml    | 71 ++++++++++++++++++++++
- 2 files changed, 71 insertions(+), 22 deletions(-)
+ kernel/torture.c | 40 ++++++++++++++++++++++++++++------------
+ 1 file changed, 28 insertions(+), 12 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/arm/omap/l3-noc.txt b/Documentation/devicetree/bindings/arm/omap/l3-noc.txt
-deleted file mode 100644
-index 66548395fbdeb..0000000000000
---- a/Documentation/devicetree/bindings/arm/omap/l3-noc.txt
-+++ /dev/null
-@@ -1,22 +0,0 @@
--* TI - L3 Network On Chip (NoC)
--
--This version is an implementation of the generic NoC IP
--provided by Arteris.
--
--Required properties:
--- compatible : Should be "ti,omap4-l3-noc" for OMAP4 family
--               Should be "ti,omap5-l3-noc" for OMAP5 family
--	           Should be "ti,dra7-l3-noc" for DRA7 family
--               Should be "ti,am4372-l3-noc" for AM43 family
--- reg:	Contains L3 register address range for each noc domain.
--- ti,hwmods: "l3_main_1", ... One hwmod for each noc domain.
--
--Examples:
--
--ocp {
--	compatible = "ti,omap4-l3-noc", "simple-bus";
--	#address-cells = <1>;
--	#size-cells = <1>;
--	ranges;
--	ti,hwmods = "l3_main_1", "l3_main_2", "l3_main_3";
--};
-diff --git a/Documentation/devicetree/bindings/bus/ti,omap-l3-noc.yaml b/Documentation/devicetree/bindings/bus/ti,omap-l3-noc.yaml
-new file mode 100644
-index 0000000000000..85f314f177379
---- /dev/null
-+++ b/Documentation/devicetree/bindings/bus/ti,omap-l3-noc.yaml
-@@ -0,0 +1,71 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/bus/ti,omap-l3-noc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/kernel/torture.c b/kernel/torture.c
+index 8c4e6b2fe8ba..b860c99e9ca7 100644
+--- a/kernel/torture.c
++++ b/kernel/torture.c
+@@ -194,6 +194,24 @@ int torture_num_online_cpus(void)
+ }
+ EXPORT_SYMBOL_GPL(torture_num_online_cpus);
+ 
++/*
++ * If the CPU-hotplug failure is not the torture test's fault, return a
++ * string saying why it is forgiven.  Otherwise, return NULL.
++ */
++static const char *torture_onoff_forgive(int ret)
++{
++	// PCI probe frequently disables hotplug during boot.
++	if (!rcu_inkernel_boot_has_ended() && ret == -EBUSY)
++		return " (-EBUSY forgiven during boot)";
++	// Hotplug is forbidden, for example by SMT control.
++	if (ret == -EPERM)
++		return " (-EPERM forgiven, hotplug forbidden)";
++	// Something else, such as SMT control, already did the operation.
++	if (ret == 1)
++		return " (already in requested state, forgiven)";
++	return NULL;
++}
 +
-+title: TI OMAP L3 Network On Chip (NoC) Interconnect
-+
-+maintainers:
-+  - Santosh Shilimkar <santosh.shilimkar@ti.com>
-+  - Sricharan R <r.sricharan@ti.com>
-+
-+description:
-+  The L3 interconnect is an implementation of the generic NoC IP provided by
-+  Arteris.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,omap4-l3-noc
-+      - ti,omap5-l3-noc
-+      - ti,dra7-l3-noc
-+      - ti,am4372-l3-noc
-+
-+  reg:
-+    minItems: 2
-+    items:
-+      - description: L3_MAIN_1 / L3F
-+      - description: L3_MAIN_2 / L3S
-+      - description: L3_MAIN_3
-+
-+  interrupts:
-+    items:
-+      - description: l3-dbg-irq
-+      - description: l3-app-irq
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - ti,omap4-l3-noc
-+              - ti,omap5-l3-noc
-+    then:
-+      properties:
-+        reg:
-+          minItems: 3
-+    else:
-+      properties:
-+        reg:
-+          maxItems: 2
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    l3-noc@44000000 {
-+        compatible = "ti,omap4-l3-noc";
-+        reg = <0x44000000 0x1000>,
-+              <0x44800000 0x2000>,
-+              <0x45000000 0x1000>;
-+        interrupts = <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 10 IRQ_TYPE_LEVEL_HIGH>;
-+    };
-
+ /*
+  * Attempt to take a CPU offline.  Return false if the CPU is already
+  * offline or if it is not subject to CPU-hotplug operations.  The
+@@ -204,7 +222,7 @@ bool torture_offline(int cpu, long *n_offl_attempts, long *n_offl_successes,
+ {
+ 	unsigned long delta;
+ 	int ret;
+-	char *s;
++	const char *s;
+ 	unsigned long starttime;
+ 
+ 	if (!cpu_online(cpu) || !cpu_is_hotpluggable(cpu))
+@@ -220,12 +238,11 @@ bool torture_offline(int cpu, long *n_offl_attempts, long *n_offl_successes,
+ 	(*n_offl_attempts)++;
+ 	ret = remove_cpu(cpu);
+ 	if (ret) {
+-		s = "";
+-		if (!rcu_inkernel_boot_has_ended() && ret == -EBUSY) {
+-			// PCI probe frequently disables hotplug during boot.
++		s = torture_onoff_forgive(ret);
++		if (s)
+ 			(*n_offl_attempts)--;
+-			s = " (-EBUSY forgiven during boot)";
+-		}
++		else
++			s = "";
+ 		if (verbose)
+ 			pr_alert("%s" TORTURE_FLAG
+ 				 "torture_onoff task: offline %d failed%s: errno %d\n",
+@@ -266,7 +283,7 @@ bool torture_online(int cpu, long *n_onl_attempts, long *n_onl_successes,
+ {
+ 	unsigned long delta;
+ 	int ret;
+-	char *s;
++	const char *s;
+ 	unsigned long starttime;
+ 
+ 	if (cpu_online(cpu) || !cpu_is_hotpluggable(cpu))
+@@ -280,12 +297,11 @@ bool torture_online(int cpu, long *n_onl_attempts, long *n_onl_successes,
+ 	(*n_onl_attempts)++;
+ 	ret = add_cpu(cpu);
+ 	if (ret) {
+-		s = "";
+-		if (!rcu_inkernel_boot_has_ended() && ret == -EBUSY) {
+-			// PCI probe frequently disables hotplug during boot.
++		s = torture_onoff_forgive(ret);
++		if (s)
+ 			(*n_onl_attempts)--;
+-			s = " (-EBUSY forgiven during boot)";
+-		}
++		else
++			s = "";
+ 		if (verbose)
+ 			pr_alert("%s" TORTURE_FLAG
+ 				 "torture_onoff task: online %d failed%s: errno %d\n",
 -- 
-2.56.0
+2.54.0
 
