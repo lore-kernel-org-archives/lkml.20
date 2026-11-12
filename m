@@ -1,82 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.29
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794449703;
-	b=TI4w318l/5xZFrQMG2dh/IxlqwybeQp8BujWIcL6CwsXp04oZUaW38LEfYkxgVQqWN1o
-	 X6kNqCmxxtCS0+uznJOM9i9FluELhXVgKCjR6m7QhFjG8px8rJvV97+LBrzLapjaS2Vsd
-	 X5/dIGtnRjyv9hz7Yi5LmphIuUMBBX6cRTMci5xF0D7dok9WL/CQKBevX72uvNBpzlqx3
-	 yOX28J+h0xFSr4inlNVHD9YXVgbUPWzu9KxtqMUZ94Q4HE2AM7SDbtedFPPFFB8jEKODg
-	 /FZjTBmJX3cSU5QX2HvkSugoOO7kKZARWr60/3bPVtzSpimNVYd22Nax5TDGEIN9Spw==
+	t=1794449708;
+	b=305mlW6TliSfdTh1j19Xy5+Tof5zInDmFrviR1Rd/hC8iS6VI7F26HPvLquUQWl+fTm8
+	 I/uSJRSsW8QlNdBD34FlIWJrEqS84lEcpgvGqrRQSmohNBppPVrhXgXi7MJT6YGz3sOsQ
+	 +wc0719tHoNjieLNBHqYlwiXGCNXjzOnTpA44GWnWeYt0zroKgjHoeSYWzkNWI+7xU3WK
+	 B+nFLHXDXIO4v0+YWsOe82N7YBWgHiKfSD39z0YjRILzQGLinGJtsGtZVigBbw9yuOBUE
+	 g7pD9bJfiV3k9+clKo/KRSqbV84cww3KVgwWZGE+GP0/gIkTo/O3D4VTVelEW8wx2Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794449703;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=1xCaH4HUY4jE9shdiHIoND7z6gJxF6tiu/0JOdXHPA4=;
-	b=iq+nxzRGz0rJBGGJ2rm0D3TdtpM9ja2+rWJlqDcef+Vp8K4EhsxI2+7FoG+UMu2LqAHh
-	 Sip93yqE5WitXTyX2n0nr0TXr0n1se60cZDfXFr96V9evXlGP/1H//X0JqHQL+hFawslD
-	 xju+uO7GcbNPVD7r2O24Hc8Uy0QfAAnkW4RX6QsQXwxOOX3ZhNNLmtXDskPRJEEj+HlXR
-	 0w7BqCvlqlrKjTPaFqwHBpUs8C97+lnXOIWjPxxSO7qbXrjCJWNPDFJzA13bT1W39d5Wc
-	 qDgDuIRUq7msScGFBr/nOe02xbLfaBk+WRH+hoibRvxHr7TbZnyOgBqYZbnLgjsUDqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794449708;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=w/G+bI1y1XPFEXnVVSbx5g6FUS3R8cb54ecVY4rT5Jo=;
+	b=OmiFVFzdq2g/0cCVl3xLvhSwXORE534M4+SPmVDNGRmT2gba4uIka2d37pJ0A/pccuvi
+	 nGnn++RYgR4s2NqO8ZAYnuZsbfye3V20D0bj4kyIOv94LqFdQhj32XIzqq78hN8DKIOBk
+	 ZfWN3QU0vdT/VY+gCIAmJ7wjrgBlf9ErDxnGSp1+HjX2R2KR/PG6CDt21xIDGDluz8lsB
+	 J3fk4iJIjtrWdc2h2M/dlVk94M/FfLksqtXYq31il6Ia+dD8Vk0hYE3OPiTPO6BqvvDbo
+	 u3m9W1YjjNa3XkUd2omCOCDa7o+LLv+IG0VP6KAFg1ExXGh/uLkKBEBUna11RBWW0ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=yH7XyaP8;
-	arc=none smtp.remote-ip=115.124.30.98
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EoJRmJLK;
+	arc=none smtp.remote-ip=91.218.175.29
+Received: from mta0.migadu.com (out-29.mta0.migadu.com [91.218.175.29])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE081606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:15:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE081606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE395606A33C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:15:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE395606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=yH7XyaP8
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794449694; h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
-	bh=1xCaH4HUY4jE9shdiHIoND7z6gJxF6tiu/0JOdXHPA4=;
-	b=yH7XyaP8QSJyiw3Il9T/GynPjqkX21pmeASQXdYBGEDauat7XdXeAFyEvaamu37VtvQpl3GKJTiHqpeyCiaio4+jpAQU+SmjDWrT77r6J4HRhwbXHdQ84mxRD5RwwMjyRYiDm264yG8cVKAzHETgjnJlLcadGKsfVoxZneR0nnw=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R821e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=28;SR=0;TI=SMTPD_---0XEaSUOK_1794449689;
-Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XEaSUOK_1794449689 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 12 Nov 2026 10:14:51 +0800
-From: fangyu.yu@linux.alibaba.com
-To: tanchi25@mails.ucas.ac.cn
-Cc: alex@ghiti.fr,
-	andrew.jones@linux.dev,
-	anup@brainfault.org,
-	aou@eecs.berkeley.edu,
-	atish.patra@linux.dev,
-	baolu.lu@linux.intel.com,
-	fangyu.yu@linux.alibaba.com,
-	gong.shuai@sanechips.com.cn,
-	guoren@kernel.org,
-	iommu@lists.linux.dev,
-	jgg@nvidia.com,
-	jgg@ziepe.ca,
-	joerg.roedel@amd.com,
-	joro@8bytes.org,
-	jroedel@suse.de,
-	kevin.tian@intel.com,
-	kvm-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	palmer@dabbelt.com,
-	pjw@kernel.org,
-	robin.murphy@arm.com,
-	skhawaja@google.com,
-	tomasz.jeznach@linux.dev,
-	vasant.hegde@amd.com,
-	will@kernel.org,
-	zong.li@sifive.com
-Subject: Re: [PATCH v7 00/10] iommu/riscv: Add hardware dirty tracking for second-stage domains
-Date: Thu, 12 Nov 2026 10:14:48 +0800
-Message-Id: <20261112021448.48441-1-fangyu.yu@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20261111150249.13262-1-tanchi25@mails.ucas.ac.cn>
-References: <20261111150249.13262-1-tanchi25@mails.ucas.ac.cn>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EoJRmJLK
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=9G2qFQ4sYFCKpZ2fPFqNG76HFv5MjfylAO8756ay2zY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794449705; v=1; x=1795054505;
+ b=EoJRmJLKm+kw70cJWNKRWqUckONbjm+w8bJvrTe2T0pBpuUrFFktrGezsExIBLjTMxZhgkFa
+ nmd3/OHl0lYIgp8tOJRdrYLXbEiOLPjpfNRxm2GY+Fo0Ia4zU/gGYjlxTIakNF13amTs5MXrib0
+ ute6cruuUDofSLNGqxXK2Qa4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id ae91a8d985c07d3d;
+	Thu, 12 Nov 2026 02:15:04 +0000
+X-Mizu-Trace-ID: ae91a8d985c07d3d
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 12 Nov 2026 10:14:50 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
+Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, 1342116488@qq.com
+Subject: Re: [PATCH net-next] ipv6: check mc_forwarding before calling
+ ip6mr_get_route()
+Message-ID: <avUhGnPJk5Kzci3E@fedora>
+References: <20261111094528.425826-1-sunwenbo@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,29 +68,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111094528.425826-1-sunwenbo@cmss.chinamobile.com>
 
->Hi Fangyu,
->
->The following QEMU patch series adds support for automatic PTE A/D updates through AMO_HWAD:
->
->https://lore.kernel.org/qemu-devel/20261108143934.129923-1-tanchi25@mails.ucas.ac.cn/
->
->It may be useful for the end-to-end dirty tracking tests mentioned in your follow-up work,
->particularly for testing G-stage dirty-bit updates triggered by DMA writes.
->
->If you notice any issues with the implementation, feedback would be very welcome.
->
+Hi Wenbo,
+On Wed, Nov 11, 2026 at 05:45:28PM +0800, Wenbo Sun wrote:
+> When CONFIG_IPV6_MROUTE is enabled, rt6_fill_node() unconditionally calls
+> ip6mr_get_route() whenever an input interface is specified and the
+> destination address is multicast.
+> 
+> However, if multicast routing is not active (i.e. no multicast routing
+> daemon is running and mc_forwarding is 0), there is no matching (S,G)
+> multicast routing cache entry, and skb->dev is NULL in the synthetic route
+> query skb allocated by inet6_rtm_getroute(). As a result, ip6mr_get_route()
+> returns -ENODEV, which causes rt6_fill_node() to jump to nla_put_failure
+> and return -EMSGSIZE to userspace ("RTNETLINK answers: Message too long").
+> 
+> In contrast, IPv4 counterpart rt_fill_info() checks
+> IPV4_DEVCONF_ALL_RO(net, MC_FORWARDING) before attempting to query
+> ipmr_get_route(), and falls back to emitting RTA_IIF and normal local
+> delivery route attributes when multicast routing is not enabled.
+> 
+> This discrepancy was identified during code audit of multicast route get
+> handling. The failure was confirmed on a UML kernel: querying an IPv6
+> multicast route with an input interface ("ip -6 route get <mcast_addr>
+> from <src_addr> ...") failed with -EMSGSIZE on an unpatched kernel.
+> 
+> Align IPv6 behavior with IPv4 by checking whether mc_forwarding is active
+> (atomic_read(&net->ipv6.devconf_all->mc_forwarding)) before calling
+> ip6mr_get_route(). When mc_forwarding is 0, rt6_fill_node() proceeds to
+> output RTA_IIF and normal route attributes.
+> 
+> Tested:
+> - On a UML kernel with CONFIG_IPV6_MROUTE=y, verified that
+>   "ip -6 route get ff0e::1 from 2001:db8::3 ..." with an input interface
+>   now succeeds and outputs the route instead of failing with -EMSGSIZE.
+> - Verified that IPv6 unicast route get and multicast route get without
+>   an input interface continue to work as expected.
+> - Built with W=1 on UML, x86_64 allmodconfig, and x86_64 allyesconfig with
+>   zero new warnings or errors.
+> 
+> Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
+> ---
+>  net/ipv6/route.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/ipv6/route.c b/net/ipv6/route.c
+> index 2eb884558c24..6dd4a70f6490 100644
+> --- a/net/ipv6/route.c
+> +++ b/net/ipv6/route.c
+> @@ -5862,7 +5862,8 @@ static int rt6_fill_node(struct net *net, struct sk_buff *skb,
+>  #endif
+>  	if (iif) {
+>  #ifdef CONFIG_IPV6_MROUTE
+> -		if (ipv6_addr_is_multicast(&rt6_dst->addr)) {
+> +		if (ipv6_addr_is_multicast(&rt6_dst->addr) &&
+> +		    atomic_read(&net->ipv6.devconf_all->mc_forwarding)) {
+>  			int err = ip6mr_get_route(net, skb, rtm, portid);
+>  
+>  			if (err == 0)
 
-Hi Tan Chi,
+In commit fd61c6ba313d ("net: ipv6: remove nowait arg to rt6_fill_node"),
+David Ahern removed the nowait arg. Should we still return immediately
+after err == 0? Also later if (err < 0), it still goto nla_put_failure
+and return -EMSGSIZE. Maybe we can carry the err to the end and return
+a more meaningful reason?
 
-Thanks for your work on adding HWAD support in QEMU. In the next
-version, I’ll include your patch in my test setup and run the
-related tests there.
+Anyway the added checking makes sense to me.
 
-Thanks,
-Fangyu
-
->Thanks,
->Tan Chi
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
