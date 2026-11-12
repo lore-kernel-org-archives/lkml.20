@@ -1,79 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794488379;
-	b=wBh41CI5TsA7aakpw9uPaD4w9Wh11TOCe4FZtk4gbF7J7kPk4/MQoSlp30VSEtt2G/7S
-	 d0BO0XUbJy1w2kHClMQl8lWOCz83+TxcTuRFjLMxKRtkUERn+wgLtKyTHMlbp4179Sqyh
-	 0dXtG7MxN4zfIxx6wHUDYG/qVHZSUXZX2dPxHz0MweDGtSrUf9UtxJVvhRlIQeboM8BcU
-	 KtCEtlER2nhIN+wVM0tAM5lJB+4SKZhi0S0hQKcNQys3jTHREEI/uvMf7jcwwurUWcazG
-	 7L4TRpSAYdC0Os9/lxF7sSKCujv/Lqfd9tD79ny4Uaw41BkIxVvZTRKFwqpmIQXA/pQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794488379;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=QbHi+525zRunXNfIuuoUlB/V5+/jcI7PNq6aGsnXADY=;
-	b=vELvhL1sOSMNU+34BuXr1ghS4wOBY2cFzApov0r00g8oSeO/sA2ILfso9JTz9B4tNKQd
-	 tZ/38UlNGGbUQBY5gpajbCVp8Rh7w82/c26pHGI9seImSDrgPRUZEL/ASNpidyAjpPBQ1
-	 LMsc2kpUJbvy5p4Nbo5yp7uURMN1ZjB+5aUNIDGm35+ygvrdTOYIeyimkuwXpQ+H5f8/N
-	 eimL2J8+WV6osItWFx8MVYYSPJt+A3aDr60VldXweL6zOMhEmpRUM9tM+QZ4ZhnArGi7p
-	 QCK++c2D8bYubEeakFvEezlpXjeWGeS4sIqeUrtfY5b3fbCFyOfMocx/p3wC+RvQ5FQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HRgTrpmF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3DF4606A8A2;
-	Thu, 12 Nov 2026 12:59:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HRgTrpmF
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794488378;
-	b=ckv9n7lIzUu4nJ2iLDWd/empNTY31smuDwrl/JNQ7LRpo3nTBKMY11FqkSy8Nv6wnv17
-	 l0cq11bHHtqxJ8KELOI/Pt1tDgrcy9S+8qrx6J/zxgNu0l8IpQhnfKTrpmUDI+yI8YLag
-	 8P09M5mMrJRlv839I6XzLLuU+KCWJkZIsjCMeI/VszecSeQP1HIIwmPe//httdAWxlPZb
-	 aPfxWZQbLc4PClG+6X5/bGSpMHdkHUd05O/Nu2RGrSMf+pkzNa4lwYTmhp7mdOkFzYXuo
-	 Iw7KWR/MfDw2dKPH0UFHjEE2NPlWJhhUib0CUxWS8M1VNMR5Luzl4JOVRGCMuxIylxA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794488378;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=QbHi+525zRunXNfIuuoUlB/V5+/jcI7PNq6aGsnXADY=;
-	b=NzQMETrL21BpS8YPkdXm4WZtsk+N6/s9pydcGHzrispqShEJhvzUnC5dvhHqnowmLe9r
-	 tNGom/SKPp7OIYkvQZkWNEYzwdWhrimrS6YdhsuS8oo6uGXlj53QjzS7cliiG+OVydUBL
-	 jRQg0EIl6G/9sX1gcD0Ac9O7fUgDCzhbfiOV8Yi1rQdapo6vteVeFgupWEu/HoCq77Rvh
-	 Rrltf+6INivnAkmxZMb8G8/V3sivI0muHdNj6KJPQr6hVItNDKN0F2uE/vr+EtObJJWOD
-	 FfRTM1X1Fav6RB8BEIH4q8Y1CI+3aDx1GOBmXGOd3gtU8gYQtGXwCkjXqH7IbW99fNQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794488393;
+	b=ZiLuG4yxuUkeUl6kbPBDD5BXWAf8t8xKocMTwPG7sT9Plzbq5D+uc4uFaf1hnrs3gd5L
+	 8XztcBYdXpOxcTQ8j9NAkiro1LmiT/aoR3YZncVjykrzjgrwzGJCVhdYcN5qLE7UZO3fz
+	 gKYqp/+fAoR3a8j3Ln3ZFFAPBGx08rU7IZhC4NE4FpQs8bA95e9tfqsbj1yyxDEbqFfXq
+	 mCiklD0+ZgtuowFOoiXVkQrvbxGHNjIgyGB6SfJsCNOBA/y6Xtm8/GjFk0/QWuk6l+XS3
+	 9ElCYenVN9wru3fBi5KpwfYnTKtgIZbNpA+PTrW6lo0of4Vw2fVltynv6HwdvgKi92Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794488393;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=G4r2wE/WPOl4l57k5noCae0ixFFRvEEiHTkO2rapLoY=;
+	b=1kiL4m5t4dI4dVJ0HvqITjGxNNsTOeQjuJYLXrGuyhzRXQK6duRhO1b7fxZCzqSL/fW/
+	 53VZCtCWS92jg/6z83rjqpJcDKzJm1kNJ8cPc3w4+EccN3PjM03yatQZ9c0cesDTsWH0a
+	 WKBEFCGoeTud07MwxnqNvQ0i08qszf3BuNvfsNP1UCw5EeVQkZOM3eUiD9opQcyhHlrSx
+	 v9fv1E0nVVlOMfEedZeNK1odiqTXZe18jKvrqlFZxnMUbXoqZnICQGpmbv5jsICpYH9eC
+	 cfW2fynY5/d7XlBcE3PUG8bSvBY/dJxf/4G2DryULjuMdLVer59jdRefuRDJgG2x4wg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=qKbKtWHN;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A20CD1F00A07;
-	Thu, 12 Nov 2026 12:59:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794488378;
-	bh=QbHi+525zRunXNfIuuoUlB/V5+/jcI7PNq6aGsnXADY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=HRgTrpmF9HXWd/vcSrMg48KtDwCnA/+YJVRqaBT7O6/Rr8ORlFxEXkSrqpq1avpSO
-	 vCv8JJEoGuAW24GKGKQW6bAa4ePi4GRXL9VA8CwOcVAocoEwpG0SZXZ8y4qXtsFLug
-	 658q3tavvGzhBZRfrGzeSrmhCf7jCFKPq1YMyEAHQ2gSSS7DjxOk0BqNlMs46yHkJM
-	 lu9zjucGZLdTmaxfOyZb+41AbE2gW2nXqjaOUuJiTmWb5YY025ITm7OnXzLe65oz8y
-	 1ylimhnIHk3TAQAowLC04hvv7y3MwSOqdGR0mdO/nIGQxlTAxLuFrUUMvHGWVDy95O
-	 aJoIEs6VfAKlA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 175CD4949B;
-	Thu, 12 Nov 2026 12:59:36 +0000 (UTC)
-From: Bryam Vargas via B4 Relay <devnull+hexlabsecurity.proton.me@kernel.org>
-Date: Thu, 12 Nov 2026 07:59:35 -0500
-Subject: [PATCH net v9 1/6] net/smc: bound the wire-controlled producer
- cursor to the RMB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE05606A889
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:59:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFE05606A889
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=qKbKtWHN
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=G4r2wE/WPOl4l57k5noCae0ixFFRvEEiHTkO2rapLoY=; b=qKbKtWHNJbJAQ1Om4NgemPPDkb
+	aPJkkAndiJXnLsfCoTYkqQ+GTnr5VAsZtfvmrw/kUNZGd8DQEtI3MSD8VEWLMyoHhGY1g/NVa4Ez/
+	1cg6iaDP+/Rclma3rfP5K8gu6TqaP5eWUa2nm0ffgDdeQEohHBopi2yxRkXpw1nQSV9MnI2RZMI05
+	lO5NXOBMBeo1g691X4Ju32/I4/gPq9SdvqCnvAC9CLvWslainLuIwHB7cTlC5vxaq/OvRKC2DqsS+
+	SY3iqzY6Pz8m/TOIZYfpPVhschO86Z7QBRHiIkbW0BHIgs6d1rodsgCm9XfqjwCF2vKT9L/zckpt0
+	SGW+M+aQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRUP6-00000007PgF-0gke;
+	Thu, 12 Nov 2026 12:59:48 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id B8E75300882; Thu, 12 Nov 2026 13:59:47 +0100 (CET)
+Date: Thu, 12 Nov 2026 13:59:47 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Qiliang Yuan <qiliang.yuan@linux.dev>
+Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] sched/fair: Avoid re-syncing runtime_enabled on root
+ domain changes
+Message-ID: <20261112125947.GZ1813469@noisy.programming.kicks-ass.net>
+References: <20261111-bug-sched-fair-offline-active-v1-0-4f54523c5a70@linux.dev>
+ <20261111-bug-sched-fair-offline-active-v1-2-4f54523c5a70@linux.dev>
+ <20261112105624.GM2668804@noisy.programming.kicks-ass.net>
+ <20261112111055.400697-1-qiliang.yuan@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,112 +76,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-b4-disp-0287c16e-v9-1-e5e8fa688177@proton.me>
-References: <20261112-b4-disp-0287c16e-v9-0-e5e8fa688177@proton.me>
-In-Reply-To: <20261112-b4-disp-0287c16e-v9-0-e5e8fa688177@proton.me>
-To: Mahanta Jambigi <mjambigi@linux.ibm.com>, 
- Dust Li <dust.li@linux.alibaba.com>, Eric Dumazet <edumazet@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>, 
- Jakub Kicinski <kuba@kernel.org>, "D. Wythe" <alibuda@linux.alibaba.com>, 
- Sidraya Jayagond <sidraya@linux.ibm.com>
-Cc: Ursula Braun <ubraun@linux.ibm.com>, 
- Wenjia Zhang <wenjia@linux.ibm.com>, Stefan Raspl <raspl@linux.ibm.com>, 
- linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Wen Gu <guwen@linux.alibaba.com>, Tony Lu <tonylu@linux.alibaba.com>, 
- Simon Horman <horms@kernel.org>, 
- Guangguan Wang <guangguan.wang@linux.alibaba.com>, 
- linux-rdma@vger.kernel.org, netdev@vger.kernel.org, 
- Hidayath Khan <hidayath@linux.ibm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794488375; l=3046;
- i=hexlabsecurity@proton.me; s=default; h=from:subject:message-id;
- bh=9ja5JoT+O2VUsGXhvlsOd1Bx55l6YLeZkBRApwlhPSc=;
- b=BK996OxiMePiy0poiokFLsk4hlFCtR1AhzXkg4ZUawq4cbA2Jttg3YCn7cT2pGbopacW6AxC+
- wmlNjg+qlIYA+XT4dcuD3rV80W3jSXD8nRYGAtI+soEvQXMLExk3Jqk
-X-Developer-Key: i=hexlabsecurity@proton.me; a=ed25519;
- pk=xw1AhCtQdvuoQc+bOQIYy9o8G++cp4/VniI2G/tc3G8=
-X-Endpoint-Received: by B4 Relay for hexlabsecurity@proton.me/default with
- auth_id=893
-X-Original-From: Bryam Vargas <hexlabsecurity@proton.me>
-Reply-To: hexlabsecurity@proton.me
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112111055.400697-1-qiliang.yuan@linux.dev>
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+On Thu, Nov 12, 2026 at 06:10:55AM -0500, Qiliang Yuan wrote:
+> On Thu, Nov 12, 2026 at 11:56:24AM +0100, Peter Zijlstra wrote:
+> > How do you end up with 4k cgroups ?!? That's wild.
+> 
+> It is common on hosts running AI agent harnesses: every agent sandbox
+> gets its own container, and each pod and container has a cgroup with
+> the cpu controller enabled, so a single kernel easily carries over a
+> thousand task groups. 4000 is the upper end of that, picked to show the
+> scaling.
 
-smcr_cdc_msg_to_host() and smcd_cdc_msg_to_host() import the peer's
-producer cursor from the wire into conn->local_rx_ctrl.prod without
-bounding it to the RMB. smc_cdc_handle_urg_data_arrival() then uses its
-count as a raw index into the RMB, so a producer cursor past
-rmb_desc->len makes the receive tasklet read past the RMB, and
-recv(MSG_OOB) hands that byte to the application.
+*groan*
 
-Bound the producer cursor count to rmb_desc->len when it comes off the
-wire, for SMC-R and SMC-D. Leave the consumer cursor alone: it indexes
-the peer's RMB, which can be larger than ours, so clamping it to our
-RMB would under-credit peer_rmbe_space and could stall sending to that
-peer. Conforming peers are unaffected.
+> > Also, why do you care about the rebuild performance? I'm not entirely
+> > sure it makes sense to add data for something that 'never' happens. Do
+> > we really need a new member variable for this?
+> 
+> On those setups it is not rare. Agent harnesses and KubeVirt both
+> hot-add and remove vCPUs at run time to follow the load, and every
+> hotplug rebuilds the sched domains of the guest.
 
-Fixes: de8474eb9d50 ("net/smc: urgent data support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Reviewed-by: Dust Li <dust.li@linux.alibaba.com>
-Reviewed-by: Sidraya Jayagond <sidraya@linux.ibm.com>
----
- net/smc/smc_cdc.h | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+So CPU hotplug is a slow path; there's nothing that's going to 'fix'
+that. If it hurts, its one of those things you need to stop doing.
 
-diff --git a/net/smc/smc_cdc.h b/net/smc/smc_cdc.h
-index 696cc11f2303..4d630a305118 100644
---- a/net/smc/smc_cdc.h
-+++ b/net/smc/smc_cdc.h
-@@ -221,7 +221,8 @@ static inline void smc_host_msg_to_cdc(struct smc_cdc_msg *peer,
- 
- static inline void smc_cdc_cursor_to_host(union smc_host_cursor *local,
- 					  union smc_cdc_cursor *peer,
--					  struct smc_connection *conn)
-+					  struct smc_connection *conn,
-+					  int max_count)
- {
- 	union smc_host_cursor temp, old;
- 	union smc_cdc_cursor net;
-@@ -235,6 +236,12 @@ static inline void smc_cdc_cursor_to_host(union smc_host_cursor *local,
- 	if ((old.wrap == temp.wrap) &&
- 	    (old.count > temp.count))
- 		return;
-+	/* The urgent path uses the producer count as a raw index into our
-+	 * RMB, so bound it. max_count == 0 leaves the consumer cursor alone:
-+	 * it indexes the peer's RMB, which can be larger than ours.
-+	 */
-+	if (max_count && temp.count > max_count)
-+		temp.count = max_count;
- 	smc_curs_copy(local, &temp, conn);
- }
- 
-@@ -246,8 +253,9 @@ static inline void smcr_cdc_msg_to_host(struct smc_host_cdc_msg *local,
- 	local->len = peer->len;
- 	local->seqno = ntohs(peer->seqno);
- 	local->token = ntohl(peer->token);
--	smc_cdc_cursor_to_host(&local->prod, &peer->prod, conn);
--	smc_cdc_cursor_to_host(&local->cons, &peer->cons, conn);
-+	smc_cdc_cursor_to_host(&local->prod, &peer->prod, conn,
-+			       conn->rmb_desc->len);
-+	smc_cdc_cursor_to_host(&local->cons, &peer->cons, conn, 0);
- 	local->prod_flags = peer->prod_flags;
- 	local->conn_state_flags = peer->conn_state_flags;
- }
-@@ -260,6 +268,9 @@ static inline void smcd_cdc_msg_to_host(struct smc_host_cdc_msg *local,
- 
- 	temp.wrap = peer->prod.wrap;
- 	temp.count = peer->prod.count;
-+	/* as in smc_cdc_cursor_to_host(): bound prod, not cons */
-+	if (temp.count > conn->rmb_desc->len)
-+		temp.count = conn->rmb_desc->len;
- 	smc_curs_copy(&local->prod, &temp, conn);
- 
- 	temp.wrap = peer->cons.wrap;
+> A rebuild runs rq_attach_root() on every active CPU, and with the rq
+> lock held and interrupts disabled it walks all task groups twice. 
 
--- 
-2.56.0
+Right, that is a bit daft. It should be relatively straight forward to
+make that one loop.
+
+> With 4000 cpu cgroups on a 32-CPU VM, one rq_attach_root() call takes
+> 188 us at the median and up to 938 us, against 2 us with both patches
+> applied (20 partition switches, 1280 calls). So every rebuild leaves
+> each CPU with interrupts off for close to a millisecond in the worst
+> case.
+
+Not ideal, but again, you did do hotplug so you get to keep the pieces.
+
+> The member is there because rq_online_fair() can't tell a rebuild from
+> a CPU coming up: the CPU is active in both cases, but only the latter
+> can have runtime_enabled out of date after unthrottle_offline_cfs_rqs().
+
+So the actual hotplug code obviously knows. It should be fairly simple
+to add a boolean argument to both functions and set the right value in
+rq_attach_root() and sched_set_rq_{on,off}line() respectively.
 
 
