@@ -1,60 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794477968;
-	b=v8f/nhd8mqyrLODfl/v8AjrDjkQp5rDqHQHsdq4+oUj171HEE+lyyCmkoSFhoVTb9qL8
-	 4fHKep0oE9j2+3opQPpNf4/B3WDnjW5RxWOt41QmK/P4h7voWxUeVH9nzT33C92Q2Nxbx
-	 eVntnSFxx0EgVOmXh0CUBfQRE24gJtGEmi2AlHm0Mi8j5TcJ6QQcBWlNPeMm0y71Ovhn9
-	 AiHyowJlWuTpjftg4f/UdyW8dpUU+p+GqV2Ts6CeG26d51GA5Z8+TCV8mE81AHInejuGI
-	 mD25/g6vNk3LGBg50BeIIcoZlGYMHm3uxYjylk+4Z7VKYsVmAHXhipboh09dQanDIlw==
+	t=1794478028;
+	b=QmMwPo5doP2Nl21ZYTVaEGXh9/+o+TWyBxEIPDwpNJyMC7w1F20cYS10jG2AShBoVjIx
+	 ypOzQ/pk8WF+Ey23hPV38YwBMUhLCF4QlC7q2RBfqIt25BcJrWtkaT2lRDIf66MBVVlb0
+	 UELpWlEu9xqZtCrAEpHJVsvO4lUiidRIPRiMzFkiRPexG9JUgy3efyONt83KZPtUqVk/Z
+	 gwrOi9u9x2msVtXUeBlwGiEl6tyLjEHUlFoAXt3Q5+NuFjDgbyNxi3hJD9hDIVcLTZtTP
+	 SB08zCaTCP75hyvbV8DdgToYpoRuOPAkWHWPn77tsZJ17woGKVf6lf5+Q3v+Qm/eVtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794477968;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=KwqEOHogSWf29GMTvbcaDBvWnXtsNEWUuQTRLlnKv3Q=;
-	b=hota5Qr4tqq1MOdtjs3SZ/FFPTpVUFH564hv/ODZ8ZMVknzUUQ+SUWLUK6NK6gDQ3I6q
-	 f0mIOvb7M5y+ZXkAnzO/YXR92xCyEJ6sGM23m4lEHP4XmL+6DeBBPy61JmF8RzcTl9dAp
-	 gJXaFPLaTVm7hAurVeTFnurjJbGj1ygLljgRXOqUZUMoPU/0fMCdz3WxVjT2TntdXnCdM
-	 AwDnoEUWJsBKagEvFDlDCnQ5wCQZWjJ773ApriV6HWyafk23hMEVYCFXJOTetBMKdbNbw
-	 1oMqMigexsDfvaZNVKsukd36inSQF/iNffHhp7mwmbFc3a0XjRN71p9kFKICKlAxzMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794478028;
+	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=YrrwumO/5raUBSV5ArMQZNK6oNAfyIqZEDeYPuOGJbc=;
+	b=bevWySO9pZzdEpjpAAKIGeqL8EIvbAkpyvhal0ymbILdwAK6JKIE+gFdz71AClVurczR
+	 U3TLlHNaONi5mEcNUFlYoRnNGlF2CU/9kABofoStNeM/PXgJOUCTcKmEuO/0AfbgYlqFT
+	 vKdAsdSeQT+V9bXFBUgZTF29jAvtRL2HPpmMQ1mp53Qm6K+qs5sR/21Ruc0D5oJXPT0Tu
+	 CriccoY8K92zzxXtwV/NcQPCXjd5JT+G6M3R6qulHpfNgCkcmPwg4hG3+0I9ZJoe2PE4z
+	 3/gsgWvDLxxtmQ5doa130wdOSk6n4OKV3aZj4Jk9c/VW4tkfclXDpbAMSSe8NPFul9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kUkHdNHq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ooT0GOf7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151AC606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:06:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C0C606A332;
+	Thu, 12 Nov 2026 10:07:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kUkHdNHq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09AA01F00A05;
-	Thu, 12 Nov 2026 10:06:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ooT0GOf7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E66081F00A06;
+	Thu, 12 Nov 2026 10:07:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794477967;
-	bh=KwqEOHogSWf29GMTvbcaDBvWnXtsNEWUuQTRLlnKv3Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kUkHdNHqa/8UOtYlysZtF0KFLAjhEFo/5to8EELIoPLiwm6VmR3IIA260N8CNGaky
-	 KkDiBeU3h0Nn2vYbZPllEeda3T6N5g11mPKNl/1Jb5vHSVIqfbsY0d/b08Ry7r0LvB
-	 T1T6TACqDbRtokbhdJvctY+41oDq+BKsiSgJ9JG69gMfZHmyX2O7bupBt6zaX993eW
-	 EoaBOx5ODQyok7TlKjgHJddYKIYisbKSvioby4lqOq2mNX1iEJh92SeWnzSDAtercv
-	 CEBk6h/ndNQrTBOMgteCIH4u6ed+BiF6254VR1/dEAT2mG1XTagp0uQVZuBmrrWoVS
-	 eCo5IxoBK9mpQ==
-Date: Thu, 12 Nov 2026 10:06:03 +0000
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Patrick DELAUNAY <patrick.delaunay@foss.st.com>
-Cc: Mark Rutland <mark.rutland@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>, dario.binacchi@amarulasolutions.com,
-	Linux STM32 <linux-stm32@st-md-mailman.stormreply.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] firmware: psci: handle unsupported SET_SUSPEND_MODE in
- PC mode
-Message-ID: <20261112-illegal-slick-rottweiler-bdc9ea@sudeepholla>
-References: <20261029191624.1.I5f8f3d75a566b72250d629ac6f43cf0d387c0218@changeid>
- <20261030-origami-tarantula-of-contentment-a70ab2@sudeepholla>
- <4690f55f-dc13-4e43-82f9-d508253f6c64@foss.st.com>
+	s=k20260515; t=1794478027;
+	bh=YrrwumO/5raUBSV5ArMQZNK6oNAfyIqZEDeYPuOGJbc=;
+	h=From:To:Cc:Subject:Date;
+	b=ooT0GOf7phxibuDjkz4U6fvVoFcnMn6rIZk3VMvKLd5HbMyL3KR7bmGG7bSsBIg5D
+	 TaXfXR1RuQF8ckiWuKb7uK31R6MRdHSkjYu07UUNypJLyKAA2nwIVWumjoyI9quS/9
+	 0029jFclb3+o1XeVyPUFR9jhK/RlnHS8YKDfu7gs6tr6YQchCmORNMOFUIR5hV2eUg
+	 wQb8eURA+3y7lDZ9ujYah5UJkyg47/Ta8GUkU4b6kdbPNxtCnlMijYJFjsF+Yii0AL
+	 3MYngPf/PfOGGdYr1uJI6C56VgqdydoL/6JLhQYCO65lMBkjvyZcBGJFk7T5mVECtW
+	 RpFnphEdD8lyQ==
+Received: from johan by xi.lan with local (Exim 4.100.1)
+	(envelope-from <johan@kernel.org>)
+	id 1xRRhx-00000001Sep-2PNC;
+	Thu, 12 Nov 2026 11:07:05 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Johan Hovold <johan@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] serial core: fix use-after-free after driver module unload
+Date: Thu, 12 Nov 2026 11:05:41 +0100
+Message-ID: <20261112100541.348390-1-johan@kernel.org>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,107 +63,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <4690f55f-dc13-4e43-82f9-d508253f6c64@foss.st.com>
 
-On Fri, Oct 30, 2026 at 11:04:51AM +0100, Patrick DELAUNAY wrote:
-> Hi,
-> 
-> On 10/30/26 09:32, Sudeep Holla wrote:
-> > On Thu, Oct 29, 2026 at 07:16:25PM +0100, Patrick Delaunay wrote:
-> > > The PSCI specification makes PSCI_SET_SUSPEND_MODE optional. If it
-> > > returns NOT_SUPPORTED when Linux requests platform-coordinated (PC)
-> > > mode, Linux can assume that PC mode is in effect. Treat this response
-> > > as success so PSCI power-domain providers can initialize when firmware
-> > > does not support OS-initiated (OSI) mode.
-> > > 
-> > > Continue to report an error when OSI mode is requested but
-> > > SET_SUSPEND_MODE is not supported.
-> > > 
-> > So, your platform advertises the presence/support for OSI mode and yet
-> > opted for not implementing SET_SUSPEND_MODE ? If so, it is indeed a
-> > firmware bug as reported.
-> > 
-> 
-> I think it is no realy a platform bug but a too strict management in Linux
-> kernel, for PSCI power domain.
-> The OSI mode is not yet supported by the STM32MP25 platform in Linux at
-> upstream but I introduce PSCI domains in device tree (but without idle power
-> domain) just to prepare this activation in next steps.
->
+Deregistering a uart driver frees the driver uart state including the
+tty ports themselves.
 
-Fair enough, that shouldn't be a problem.
+Take a reference to the uart driver module at install() so that the
+uart state and resources like the tty driver name do not go away while a
+tty is still open.
 
-> As the PSCI support is not activated in Firmware (TF-A BL31), the firmware
-> correctly expose its capacities (PSCI_OS_INIT_MODE =0) => PSCI feature
-> indicate that OSI is not supported (FF_SUPPORTS_OS_INIT_MODE = 0) =>
-> PSCI_SET_SUSPEND_MODE function is not supported (optional when OSI
-> is not supported)
-> 
-> in Linux side, the power domain driver
-> (drivers/cpuidle/cpuidle-psci-domain.c)
-> 
-> correctly check the support of OSI:
->     bool use_osi = psci_has_osi_support();
-> 
-> in STM32MP25 platform use_osi = false, so the driver request
-> Plafrom Cooordinated mode (PC mode) as expected
-> But here  the GENPD driver try to use optional function to set mode:
-> 
->     /* let's try to enable OSI. */
->     ret = psci_set_osi_mode(use_osi);
->     if (ret)
->         goto remove_pd;
-> 
+This specifically avoids use-after-free when accessing the tty port and
+crashes when accessing the tty driver name (e.g. in the tty printk
+macros) when a tty is closed after its driver module has been unloaded.
 
-IMO we should make this psci_set_osi_mode() call only when use_osi == true
-above. If it is passing false, it is setting PC mode but as comments states
-it may be assuming OSI mode and proceeding further which is completely wrong.
-I would bail out of psci_cpuidle_domain_probe() early if use_osi is false.
+It also makes sure that the uart state is still valid when waking up any
+waiters after releasing the final uart port reference in
+uart_port_deref().
 
-> And the problem occurs here because the optional function is called but the
-> normal use case is not handled (OSI mode not supported / PSCI_SET_SUSPEND_MODE
-> not supported)
-> 
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Johan Hovold <johan@kernel.org>
+---
 
-Agreed, but I would check before calling here. The proposed fix hides
-PSCI_RET_NOT_SUPPORTED error for PC-mode setting. So clear NACK for that.
+I hit this when investigating a deregistration race that can lead to a
+deadlock:
 
-> 
-> With the proposed patch, the Linux kernel can have PSCI domain in device
-> tree even when PSCI OSI support is deactivated in PSCI firmware (or not yet
-> activated): the domain are always ON (GENPD_FLAG_ALWAYS_ON).
-> 
+	https://lore.kernel.org/lkml/avSAyV6QE0Id3rAk@hovoldconsulting.com/
 
-Do you see any issue failing in psci_cpuidle_domain_probe() instead ?
+Johan
 
-> NB: I hesitate between the current patch and a patch in PSCI power domain
-> driver:
-> 
->     /* let's try to enable OSI. */
->     ret = psci_set_osi_mode(use_osi);
-> + if (ret == -EOPNOTSUPP && !use_osi)
-> +    ret = 0;
-> 
->     if (ret)
->         goto remove_pd;
-> 
 
-See above, if the driver is assuming OSI mode is set after the call like the
-comment states, it better check if use_osi = true.
+ drivers/tty/serial/serial_core.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-> but I patch PSCI firmware driver because I think it is a more generic place
-> to handle optional PSCI function.
-> 
-
-If we have to handle it in the psci, I would rather not make a call to the
-firmware if PSCI_FEATURES(PSCI_1_0_FN_SET_SUSPEND_MODE) returns not supported.
-That is the expectation for any ABI the firmware said it doesn't support.
-Making unsupported ABI call to the firmware may result in unexpected behaviour
-and must be avoided.
-
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index 2e53d194ecfe..289f767cc068 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -1930,10 +1930,25 @@ static int uart_install(struct tty_driver *driver, struct tty_struct *tty)
+ {
+ 	struct uart_driver *drv = driver->driver_state;
+ 	struct uart_state *state = drv->state + tty->index;
++	int ret;
++
++	if (!try_module_get(drv->owner))
++		return -ENODEV;
+ 
+ 	tty->driver_data = state;
+ 
+-	return tty_standard_install(driver, tty);
++	ret = tty_standard_install(driver, tty);
++	if (ret)
++		module_put(drv->owner);
++
++	return ret;
++}
++
++static void uart_cleanup(struct tty_struct *tty)
++{
++	struct uart_driver *drv = tty->driver->driver_state;
++
++	module_put(drv->owner);
+ }
+ 
+ /*
+@@ -2733,6 +2748,7 @@ static void uart_poll_put_char(struct tty_driver *driver, int line, char ch)
+ 
+ static const struct tty_operations uart_ops = {
+ 	.install	= uart_install,
++	.cleanup	= uart_cleanup,
+ 	.open		= uart_open,
+ 	.close		= uart_close,
+ 	.write		= uart_write,
 -- 
-Regards,
-Sudeep
+2.56.1
+
