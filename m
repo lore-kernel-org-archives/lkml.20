@@ -1,91 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.35.192.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794500266;
-	b=mKwvf02rUYMvHJk3VQvQBcyZSHWgblx8RduAeFgYv4Finc63K/fu7EpaX1xiliIFXWlU
-	 gGsxt8iKRhLn64tAEY92RK1VOwDZ1wR2luT8CjLaBVKCjgs+N1J4RzhBXdzqmC5m4fdPY
-	 m9vNdy+brnqYETW78mptyqoYNRNuB61cXmAUZBI/Hfwir11ByihTIEaNiJXLjbnrnH7h9
-	 fHrD5dmOwQMhwtBWqVBMt5VLPCPR6xbEke/tAaCbwlVAoJXXosQRuzfvIsJV0CBSWTcv9
-	 pz0CWWz7EoTDKHE981lYAn0H3z5owiZ7YMQY/ZN9ZzAP5CkHE8x1Ly2J506+Awm+plw==
+	t=1794500284;
+	b=r5Fg4iXk90zCoE6ApXV2Nc2iKioLoa83oveGg4w9wvpGqMNtrdy6hTDPdhUV1csdiRlc
+	 C2GLz4C66nZ71ShxAXqY9rw5TJUtcVE5d5mFcI5BfWKorFj4IQXOpJVH+egJHHgYi6Knk
+	 3hlHUoz2nT1Bv0HYs0URVikPswBbFKOJmzD50pBBlKfbUgrYSZdd0bkLjnKX/E9Ept7Yt
+	 SMrHJBkXfxyabJTWWhs3lEJ2aV4WzxS2dB1+hL8mwHvbleZgrSai2vDtWraf8znebzEpP
+	 xH+RVa6JvcgozYgGKB/CyTyEctarUbDd664lg+2WOYPC6zbKtQhiyjBJ5XX3KN4L8Ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794500266;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:X-Originating-IP:X-ClientProxiedBy:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Bkl3u1yrzp59s3UDL3os5DWL5JBWn7UxQEGVNkP9/p8=;
-	b=kIxSwxzhpD0wsL2V6eFLbIVLCKUN4ytTlsFxmJ1O3dV1Mbwee53ZnzqREezT7dDMp/nu
-	 3rF1cEIR4DackM1gX0p1A99Fe3OVzzwVVY4V5eieX8pD3tF7eC5C/1w7HPpLPyLCxQ+oo
-	 1hJf/DyoG3z84sMjtMT25rtOlTppJNR9415KgSnhhD4Xgb6U3RCFz2yy0I9IFUnhcy8o1
-	 pRtCtLmtLEIidc4d7YNuPki8uk4QPakyBANcwBcf9ZyBYTY8pQLCmGe0SaLVOQ5G48KAG
-	 ebYlcXssV+ElfHTPcgcHT3DP8SVnhqZjSYbIvJAFhYcFre9TgIXlA/uZ9x29cqQ0i0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794500284;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=9m7K9K9LtL761eVrSTnykdQPje31prtt54RRFaowtjE=;
+	b=g4bl36AAaBcqW3xdANedGvfM5E5QqALclhapeab8GZjn2n7IxDGJYgBQuuP2J8eq7/ZU
+	 GQmNCGUGAbTHTj17HKxemSrrcKRwg3lIJt1wIS1YSy/0p1ws9EnZqPuNbRCYem/WSMa/u
+	 5nTeaLIu216KedQMezxYhI6aTztcXLZLWFk5jsqtPS4Jsn5CiaxjxIXIwCXrSNbJAEAAV
+	 8DqZjPzKN+Dj0848b9L26HzwThAZixwyPmutndsh3NqxlG9tD4wcQjw/6H5Y8p0BGqw2b
+	 9JK6ASPmNp/m7hCYkP3Op/+yI1/33XHNOjD7QJ++8kh8bciatLhgiKxZE1YpNwHT+IA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=avq57mL6;
-	arc=none smtp.remote-ip=52.35.192.45
-Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=networkplumber.org;
+	spf=pass smtp.mailfrom=networkplumber.org;
+	dkim=pass header.d=networkplumber-org.20260707.gappssmtp.com header.i=@networkplumber-org.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="cYH8El/v";
+	arc=none smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A67606A32A;
-	Thu, 12 Nov 2026 16:17:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6A67606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1372606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:18:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1372606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=networkplumber.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=networkplumber.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=avq57mL6
+	dkim=pass (2048-bit key, unprotected) header.d=networkplumber-org.20260707.gappssmtp.com header.i=@networkplumber-org.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=cYH8El/v
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3b1535be329so2532502a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:18:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794500265; x=1826036265;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Bkl3u1yrzp59s3UDL3os5DWL5JBWn7UxQEGVNkP9/p8=;
-  b=avq57mL6hhPTKzTdJas3uQm2vUo2uF3uOTw9h8y+Of/DLDowhbaSQN2d
-   C+T1EVifxItSy9TmIuRmapGrU4lRoSWJ05ELQSjMyH6EIsjXRTFO6j/Q4
-   ClWmKYbYBE43ZFkUeZSKQZszaRENFa2Y2SZEVTdSMSig6uvAIkwlAaYrD
-   J61ngQ/SNmGVs1X3BMegID0+LLuFPYTYqe1P39styOXVV9rvMyX9AbRAe
-   YAMT4eTFEqiz0W9sejZfyKPRAz5TcKx9qv5F/bG7jJdltsDniU0SDE5zy
-   Gb9WgJRAJebSIeFRWOz0YMP2vpnxu88CDMIw28oMEfxirCBCbeZFyiyM7
-   w==;
-X-CSE-ConnectionGUID: H+9DJuEiQDWRHfZ0CjMOww==
-X-CSE-MsgGUID: GlF8ICTHS6iCuQiOo4YmfQ==
-X-IronPort-AV: E=Sophos;i="6.27,210,1787011200"; 
-   d="scan'208";a="33601581"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 16:17:45 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:28206]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.55.227:2525] with esmtp (Farcaster)
- id 86f286c4-0a54-4df7-adb1-46019e57f813; Thu, 12 Nov 2026 16:17:44 +0000 (UTC)
-X-Farcaster-Flow-ID: 86f286c4-0a54-4df7-adb1-46019e57f813
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 16:17:44 +0000
-Received: from dev-dsk-sieberf-metal-1a-7543e84d.eu-west-1.amazon.com
- (172.19.116.227) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Thu, 12 Nov 2026
- 16:17:40 +0000
-From: Fernand Sieber <sieberf@amazon.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
-	<vincent.guittot@linaro.org>, Shuah Khan <shuah@kernel.org>
-CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
-	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
-	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak
-	<kprateek.nayak@amd.com>, Daniel Bristot de Oliveira <bristot@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>, Josh Don <joshdon@google.com>,
-	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
-	<nh-open-source@amazon.com>, Fahad Mubeen <fmubeen@amazon.de>, "David
- Woodhouse" <dwmw@amazon.co.uk>, Misha Karataiev <karataev@amazon.com>,
-	Hendrik Borghorst <hborghor@amazon.de>, Ibrahim Elshahed <lshahed@amazon.de>,
-	Fernand Sieber <sieberf@amazon.com>
-Subject: [PATCH 5/5] selftests/sched: Add a core-sched forced-idle DL server test
-Date: Thu, 12 Nov 2026 18:15:48 +0200
-Message-ID: <20261112161548.78189-6-sieberf@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261112161548.78189-1-sieberf@amazon.com>
-References: <20261112161548.78189-1-sieberf@amazon.com>
+        d=networkplumber-org.20260707.gappssmtp.com; s=20260707; t=1794500283; x=1795105083; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9m7K9K9LtL761eVrSTnykdQPje31prtt54RRFaowtjE=;
+        b=cYH8El/vM0c2A5+6y9XzQCoxGgTV1g3bbYkJ9Pkn+phPxvFcTI2NhnNpoyYTNv3oVt
+         Oafs/qULEz0YrHyRE+G24rf0cbaM8eVEB7ZpadIH1HEkwBFIJ53Zxml9XcdCdEtL6BDj
+         9tUl8zEdJJt+4BbFtAOlof5VNkXRVnObmUYZOL+gHNcrHqSCYrI0QQuKgJmqXLQWoG3L
+         y2gOsBlZ+LKDmcUmZFJ12MSxZGBLkacWKDG/guXQKrOUD9TDIlc5nUeSsxdXqWpcVl6p
+         9yoM/wk/07Mq2gOUuSBXj1QqLvu7yCsZJMJOzqL0vBwTdIgwF7FYTJpfhWFJGdehUkEt
+         kdnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794500283; x=1795105083;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9m7K9K9LtL761eVrSTnykdQPje31prtt54RRFaowtjE=;
+        b=ebckUXpEQLVU1Rtvb0piR9IV7+F9kS6eh8x6+DYS0v/GwwEj66UhRg5LzSNPvFGkfc
+         Yb1gK/7e5JXZHmKg7Ehp9nHsc2q+9KsGGrWyYieEZeG1KeL+xG5OHG8JGoflJssMP2uT
+         cn0ZAA92E38kbVsKy9675UV0Dp1Qr2RgVxkdmTv/UN2PhK5VI/MeT1Exkds4Zadv95Es
+         P8JrQW1l2WM+LEP2PtfTqRAQJEOa04ucyzVX7WcqBdIi+MgP+WNZocDqjpEO+yqe9mOr
+         Azdu5708zk9SGUYRaVnGv3/AXavUSw8dXoLQ/V+p2HIPLrPYplAbAjKMA5Ll88FKbHP2
+         Dbdg==
+X-Forwarded-Encrypted: i=1; AL+hErH6Nht9rX7KxuCFgkqiKh1dJ67r+3qv7R8VQn60XwlsrFALkrAh64Bn70GhI7wVGWAOdkfTNM/r1CnZuQI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+WSc1xW1weElZVtIoAhSxs/hl9W6KlRM5emAwH7aWSuCViaedm
+	1yqNDKPROcQ99hIBfn9tOXZuaQzRkGlLMsLCvhSHc1MLGgwRU/KuKTrwtzXlIi2WGgk=
+X-Gm-Gg: AYBFou3lKX8yj2GEI+g8hdUiCN9Xunvo6ZTMUhQk46NDvlO+WlJuSqC1s8/dem57yr0
+	xp+1ppJZQDVVHUEXrO+h/JDWU3NhqV8DuQO89K4uf4f4x1ZprXXU142Dxq2TqDejONdXiuok9Om
+	z+VWXzn1A+tbE4eOQErbFeM6Dv58VygANGKhxZIUUmxh4f3a25imy83r3/JJz11GqZb7+z6LYqp
+	xMp9E2aRAYsw6ZuTYS7LyJb4iV/4ko3bVPMppZAYWQi9z5rHTIinZaVdHyvewPy4bncTRCnIPfk
+	56fjIYECLFTPm6Y0rBGQ3k8g0+Kp3oAGVHlD6h1TC9Pqk6M5148c7zPNReNa652m+T3sljazeeh
+	VdfDoE0NzkE2VU4PZYyz/e5RTR951NXfmWP/2SemfL7Cn2AjsdGyXFmYgJemBQVAS60hsywoo09
+	iRyPIeMXEOYYP+n5TNhzbpL37ihkHSJWfamy/eJyaYW4Mb+BglNAVUQC4zsiwXc9cpaQYw0jazF
+	53Zw1w4bZgOJ8AcZ4BW7Hkq+Mff87P8XfEjB85o0cisDsYy+vhpqT+lT08+Mp4SZreFlXQ0LAbn
+	UAXuWt3ua3oeVl5YwgqaWz0TNbh4BbUdzQCkMyMjqSteER/NdNt9IDr+9hoaulMbIedJfCb1XPk
+	=
+X-Received: by 2002:a17:90b:4a8a:b0:3b0:cc3e:68b5 with SMTP id 98e67ed59e1d1-3b182efabfemr6090892a91.21.1794500282480;
+        Thu, 12 Nov 2026 08:18:02 -0800 (PST)
+Received: from phoenix.local (204-195-112-43.wavecable.com. [204.195.112.43])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197ce460csm5132750a91.5.2026.11.12.08.18.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 08:18:02 -0800 (PST)
+Date: Thu, 12 Nov 2026 08:17:58 -0800
+From: Stephen Hemminger <stephen@networkplumber.org>
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net v2 2/3] ipv6: return EMSGSIZE when first route in
+ dump does not fit
+Message-ID: <20261112081758.70426a67@phoenix.local>
+In-Reply-To: <20261112153115.GA3255418@shredder>
+References: <20261110172925.3293312-1-stephen@networkplumber.org>
+	<20261110172925.3293312-3-stephen@networkplumber.org>
+	<20261112153115.GA3255418@shredder>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,483 +103,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ClientProxiedBy: EX19D031UWC003.ant.amazon.com (10.13.139.252) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-Nothing in selftests notices a deferred DL server that is charged for
-core-sched forced idle and so never activates: the fair server keeps its
-reservation in debugfs while the CFS tasks it reserves for get a few
-hundredths of a percent of a CPU.
+On Thu, 12 Nov 2026 17:31:15 +0200
+Ido Schimmel <idosch@nvidia.com> wrote:
 
-Add cs_dl_server_test. It pins a SCHED_FIFO 50 spinner with its own core
-cookie to one SMT sibling and an uncookied CFS spinner to the other, so
-the second sibling is forced idle whenever the FIFO task runs, then
-checks the CFS task's share of that CPU over five seconds against the
-fair server's reservation under /sys/kernel/debug/sched/. The floor is
-half the reservation, 2.5% by default, since every slice the server gets
-costs a forced-idle hand-over. It skips without SMT, without core
-scheduling, or without the debugfs reservation.
+> > 
+> > Return -EMSGSIZE in this case, as IPv4 does. This depends on the
+> > rtnl_dumpit() fix in the previous patch.
+> > 
+> > Fixes: beb1afac518d ("net: ipv6: Add support to dump multipath routes via RTA_MULTIPATH attribute")
+> > Signed-off-by: Stephen Hemminger <stephen@networkplumber.org>  
+> 
+> Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+> 
+> FWIW, given that "It takes some non real world stuff to do this", I
+> think these patches can be routed via net-next.
 
-At 2 cores x 2 threads the share measures 4.0-5.2% once both this idle
-charge and the core-wide DL server pick are fixed, and 0.0% with either
-missing, so it passes only with both.
-
-Signed-off-by: Fernand Sieber <sieberf@amazon.com>
----
- tools/testing/selftests/sched/.gitignore      |   1 +
- tools/testing/selftests/sched/Makefile        |   4 +-
- tools/testing/selftests/sched/config          |   4 +-
- .../selftests/sched/cs_dl_server_test.c       | 402 ++++++++++++++++++
- 4 files changed, 408 insertions(+), 3 deletions(-)
- create mode 100644 tools/testing/selftests/sched/cs_dl_server_test.c
-
-diff --git a/tools/testing/selftests/sched/.gitignore b/tools/testing/selftests/sched/.gitignore
-index 6996d4654d924..4e3a0254e0abc 100644
---- a/tools/testing/selftests/sched/.gitignore
-+++ b/tools/testing/selftests/sched/.gitignore
-@@ -1 +1,2 @@
- cs_prctl_test
-+cs_dl_server_test
-diff --git a/tools/testing/selftests/sched/Makefile b/tools/testing/selftests/sched/Makefile
-index 099ee9213557a..fa50d1385bd68 100644
---- a/tools/testing/selftests/sched/Makefile
-+++ b/tools/testing/selftests/sched/Makefile
-@@ -8,7 +8,7 @@ CFLAGS += -O2 -Wall -g -I./ $(KHDR_INCLUDES) -Wl,-rpath=./ \
- 	  $(CLANG_FLAGS)
- LDLIBS += -lpthread
- 
--TEST_GEN_FILES := cs_prctl_test
--TEST_PROGS := cs_prctl_test
-+TEST_GEN_FILES := cs_prctl_test cs_dl_server_test
-+TEST_PROGS := cs_prctl_test cs_dl_server_test
- 
- include ../lib.mk
-diff --git a/tools/testing/selftests/sched/config b/tools/testing/selftests/sched/config
-index 1bb8bf6d7fd4c..57b2439f75eed 100644
---- a/tools/testing/selftests/sched/config
-+++ b/tools/testing/selftests/sched/config
-@@ -1 +1,3 @@
--# empty
-+CONFIG_SCHED_CORE=y
-+CONFIG_SCHED_SMT=y
-+CONFIG_DEBUG_FS=y
-diff --git a/tools/testing/selftests/sched/cs_dl_server_test.c b/tools/testing/selftests/sched/cs_dl_server_test.c
-new file mode 100644
-index 0000000000000..38aa005080f1f
---- /dev/null
-+++ b/tools/testing/selftests/sched/cs_dl_server_test.c
-@@ -0,0 +1,402 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Verify that core-scheduling forced idle does not starve the fair deadline
-+ * server.
-+ *
-+ * A CPU is forced idle when it has runnable tasks of its own but its SMT
-+ * sibling runs a task with an incompatible core-sched cookie. If that time is
-+ * charged to the rq's deferred DL servers, the fair server's runtime drains
-+ * while it is throttled, its activation is pushed out every period, and the
-+ * CFS tasks it reserves bandwidth for get next to nothing.
-+ *
-+ * The test pins a cookied SCHED_FIFO spinner to one SMT sibling and an
-+ * uncookied CFS spinner to the other, so the second sibling is forced idle
-+ * whenever the FIFO task runs, and checks that the CFS task still gets a
-+ * sensible fraction of the fair server's reservation.
-+ *
-+ * Copyright (c) 2026 Amazon.com, Inc. or its affiliates.
-+ */
-+#define _GNU_SOURCE
-+#include <errno.h>
-+#include <limits.h>
-+#include <sched.h>
-+#include <signal.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/prctl.h>
-+#include <sys/types.h>
-+#include <sys/wait.h>
-+#include <time.h>
-+#include <unistd.h>
-+
-+#include "../kselftest.h"
-+
-+#ifndef PR_SCHED_CORE
-+#define PR_SCHED_CORE			62
-+#define PR_SCHED_CORE_GET		0
-+#define PR_SCHED_CORE_CREATE		1 /* create unique core_sched cookie */
-+#define PR_SCHED_CORE_SHARE_TO		2 /* push core_sched cookie to pid */
-+#define PR_SCHED_CORE_SHARE_FROM	3 /* pull core_sched cookie to pid */
-+#define PR_SCHED_CORE_MAX		4
-+#endif
-+
-+enum pid_type {PIDTYPE_PID = 0, PIDTYPE_TGID, PIDTYPE_PGID};
-+
-+#define SIBLINGS_LIST	"/sys/devices/system/cpu/cpu0/topology/thread_siblings_list"
-+#define FAIR_SERVER	"/sys/kernel/debug/sched/fair_server"
-+
-+#define RUN_TIME	5	/* measurement window, in seconds */
-+#define FIFO_PRIO	50
-+
-+/*
-+ * The reservation is only approached, not reached: every slice the fair server
-+ * gets costs the sibling a forced-idle hand-over, and the core-wide pick runs
-+ * at tick granularity. Ask for half of it, which is far above the few hundredths
-+ * of a percent a starved server leaves.
-+ */
-+#define MIN_SHARE_OF_RESERVATION	0.5
-+
-+/* Status a spinner child reports to the parent over its readiness pipe. */
-+#define CHILD_READY	'R'
-+#define CHILD_EPERM	'P'
-+#define CHILD_ERROR	'E'
-+
-+/* Tell the parent how setup went; it decides whether to run or to skip. */
-+static void signal_status(int fd, char status)
-+{
-+	if (write(fd, &status, 1) != 1) {
-+		ksft_perror("write to readiness pipe");
-+		exit(1);
-+	}
-+	if (status != CHILD_READY)
-+		exit(1);
-+}
-+
-+/*
-+ * Burn CPU until killed. A constant controlling expression keeps the compiler
-+ * from removing the loop, so no volatile is needed to hold it in place.
-+ */
-+static void spin_forever(void)
-+{
-+	while (1)
-+		;
-+}
-+
-+static int set_affinity(int cpu)
-+{
-+	cpu_set_t mask;
-+
-+	CPU_ZERO(&mask);
-+	CPU_SET(cpu, &mask);
-+
-+	return sched_setaffinity(0, sizeof(mask), &mask);
-+}
-+
-+/*
-+ * Read the first two distinct CPU ids out of a cpu list such as "0-1", "0,4"
-+ * or "0,4-5". Returns 0 on success, -1 if the list holds fewer than two ids.
-+ */
-+static int parse_sibling_pair(const char *list, int *sib0, int *sib1)
-+{
-+	int found = 0, sib[2] = { -1, -1 };
-+	const char *p = list;
-+
-+	while (*p && found < 2) {
-+		int first, last, n = 0;
-+
-+		if (sscanf(p, "%d-%d%n", &first, &last, &n) != 2) {
-+			if (sscanf(p, "%d%n", &first, &n) != 1)
-+				return -1;
-+			last = first;
-+		}
-+		for (; first <= last && found < 2; first++)
-+			sib[found++] = first;
-+		p += n;
-+		if (*p != ',')
-+			break;
-+		p++;
-+	}
-+
-+	if (found < 2)
-+		return -1;
-+
-+	*sib0 = sib[0];
-+	*sib1 = sib[1];
-+
-+	return 0;
-+}
-+
-+static int read_sibling_pair(int *sib0, int *sib1)
-+{
-+	char list[256];
-+	FILE *f;
-+	char *s;
-+
-+	f = fopen(SIBLINGS_LIST, "r");
-+	if (!f)
-+		return -1;
-+	s = fgets(list, sizeof(list), f);
-+	fclose(f);
-+	if (!s)
-+		return -1;
-+
-+	return parse_sibling_pair(list, sib0, sib1);
-+}
-+
-+static int read_u64_file(const char *path, unsigned long long *val)
-+{
-+	FILE *f;
-+	int ret;
-+
-+	f = fopen(path, "r");
-+	if (!f)
-+		return -1;
-+	ret = fscanf(f, "%llu", val);
-+	fclose(f);
-+
-+	return ret == 1 ? 0 : -1;
-+}
-+
-+/* Read the fair server reservation of @cpu, in nanoseconds. */
-+static int read_fair_server(int cpu, unsigned long long *runtime,
-+			    unsigned long long *period)
-+{
-+	char path[PATH_MAX];
-+
-+	snprintf(path, sizeof(path), FAIR_SERVER "/cpu%d/runtime", cpu);
-+	if (read_u64_file(path, runtime))
-+		return -1;
-+
-+	snprintf(path, sizeof(path), FAIR_SERVER "/cpu%d/period", cpu);
-+	if (read_u64_file(path, period))
-+		return -1;
-+
-+	return 0;
-+}
-+
-+/* CPU time consumed by @pid so far, in seconds, from /proc/<pid>/stat. */
-+static double process_runtime(pid_t pid)
-+{
-+	char path[PATH_MAX];
-+	unsigned long utime, stime;
-+	FILE *f;
-+	int fields;
-+
-+	snprintf(path, sizeof(path), "/proc/%d/stat", pid);
-+	f = fopen(path, "r");
-+	if (!f)
-+		return -1;
-+
-+	/* Skip the first 13 fields and read the 14th and 15th. */
-+	fields = fscanf(f, "%*d %*s %*c %*d %*d %*d %*d %*d %*u %*u %*u %*u %*u %lu %lu",
-+			&utime, &stime);
-+	fclose(f);
-+	if (fields != 2)
-+		return -1;
-+
-+	return (double)(utime + stime) / sysconf(_SC_CLK_TCK);
-+}
-+
-+static double monotonic_now(void)
-+{
-+	struct timespec ts;
-+
-+	if (clock_gettime(CLOCK_MONOTONIC, &ts))
-+		return -1;
-+
-+	return ts.tv_sec + ts.tv_nsec / 1000000000.0;
-+}
-+
-+/*
-+ * Diagnostic only: how long the FIFO task's CPU was forced idle. Needs
-+ * CONFIG_SCHEDSTATS and schedstats enabled, so it must not gate the result.
-+ */
-+static void print_forced_idle(pid_t pid)
-+{
-+	char path[PATH_MAX], line[256];
-+	FILE *f;
-+
-+	snprintf(path, sizeof(path), "/proc/%d/sched", pid);
-+	f = fopen(path, "r");
-+	if (!f)
-+		return;
-+
-+	while (fgets(line, sizeof(line), f)) {
-+		if (strstr(line, "core_forceidle_sum")) {
-+			line[strcspn(line, "\n")] = '\0';
-+			ksft_print_msg("FIFO task %s\n", line);
-+			break;
-+		}
-+	}
-+	fclose(f);
-+}
-+
-+/* Cookied SCHED_FIFO spinner. Only this task gets a cookie. */
-+static void fifo_child(int cpu, int ready_fd)
-+{
-+	struct sched_param param = { .sched_priority = FIFO_PRIO };
-+
-+	if (set_affinity(cpu)) {
-+		ksft_perror("FIFO child sched_setaffinity");
-+		signal_status(ready_fd, CHILD_ERROR);
-+	}
-+	if (prctl(PR_SCHED_CORE, PR_SCHED_CORE_CREATE, 0, PIDTYPE_PID, 0)) {
-+		ksft_perror("FIFO child PR_SCHED_CORE_CREATE");
-+		signal_status(ready_fd, CHILD_ERROR);
-+	}
-+	if (sched_setscheduler(0, SCHED_FIFO, &param)) {
-+		if (errno == EPERM)
-+			signal_status(ready_fd, CHILD_EPERM);
-+		ksft_perror("FIFO child sched_setscheduler");
-+		signal_status(ready_fd, CHILD_ERROR);
-+	}
-+	signal_status(ready_fd, CHILD_READY);
-+	spin_forever();
-+}
-+
-+/* Uncookied CFS spinner on the FIFO task's SMT sibling. */
-+static void cfs_child(int cpu, int ready_fd)
-+{
-+	if (set_affinity(cpu)) {
-+		ksft_perror("CFS child sched_setaffinity");
-+		signal_status(ready_fd, CHILD_ERROR);
-+	}
-+	signal_status(ready_fd, CHILD_READY);
-+	spin_forever();
-+}
-+
-+static char wait_ready(int fd)
-+{
-+	char status;
-+
-+	if (read(fd, &status, 1) != 1) {
-+		ksft_perror("read from readiness pipe");
-+		return CHILD_ERROR;
-+	}
-+
-+	return status;
-+}
-+
-+static void kill_child(pid_t *pid)
-+{
-+	if (*pid <= 0)
-+		return;
-+	kill(*pid, SIGKILL);
-+	waitpid(*pid, NULL, 0);
-+	*pid = -1;
-+}
-+
-+int main(void)
-+{
-+	double fifo_runtime, cfs_start, cfs_end, t_start, t_end, share, want;
-+	unsigned long long runtime, period;
-+	pid_t fifo_pid = -1, cfs_pid = -1;
-+	int fifo_ready[2], cfs_ready[2];
-+	unsigned long long cookie;
-+	int sib0, sib1;
-+	char status;
-+
-+	ksft_print_header();
-+	ksft_set_plan(1);
-+
-+	if (read_sibling_pair(&sib0, &sib1)) {
-+		ksft_test_result_skip("CPU0 has no SMT sibling\n");
-+		ksft_finished();
-+	}
-+	ksft_print_msg("SMT siblings: CPU%d (FIFO) and CPU%d (CFS)\n", sib0, sib1);
-+
-+	if (prctl(PR_SCHED_CORE, PR_SCHED_CORE_GET, 0, PIDTYPE_PID,
-+		  (unsigned long)&cookie)) {
-+		ksft_test_result_skip("core scheduling unavailable: %s\n",
-+				      strerror(errno));
-+		ksft_finished();
-+	}
-+
-+	if (read_fair_server(sib1, &runtime, &period)) {
-+		ksft_test_result_skip("cannot read " FAIR_SERVER "/cpu%d, debugfs not mounted?\n",
-+				      sib1);
-+		ksft_finished();
-+	}
-+	if (!runtime || !period) {
-+		ksft_test_result_skip("fair server on CPU%d is disabled (%llu/%llu)\n",
-+				      sib1, runtime, period);
-+		ksft_finished();
-+	}
-+	ksft_print_msg("CPU%d fair server reservation: %llu/%llu ns = %.3f%%\n",
-+		       sib1, runtime, period, 100.0 * runtime / period);
-+
-+	if (pipe(fifo_ready) || pipe(cfs_ready))
-+		ksft_exit_fail_perror("pipe");
-+
-+	fifo_pid = fork();
-+	if (!fifo_pid) {
-+		close(fifo_ready[0]);
-+		close(cfs_ready[0]);
-+		close(cfs_ready[1]);
-+		fifo_child(sib0, fifo_ready[1]);
-+	} else if (fifo_pid < 0) {
-+		ksft_exit_fail_perror("fork FIFO child");
-+	}
-+	close(fifo_ready[1]);
-+
-+	status = wait_ready(fifo_ready[0]);
-+	close(fifo_ready[0]);
-+	if (status != CHILD_READY) {
-+		kill_child(&fifo_pid);
-+		close(cfs_ready[0]);
-+		close(cfs_ready[1]);
-+		if (status == CHILD_EPERM) {
-+			ksft_test_result_skip("need privileges for SCHED_FIFO\n");
-+			ksft_finished();
-+		}
-+		ksft_exit_fail_msg("FIFO child setup failed\n");
-+	}
-+
-+	cfs_pid = fork();
-+	if (!cfs_pid) {
-+		close(cfs_ready[0]);
-+		cfs_child(sib1, cfs_ready[1]);
-+	} else if (cfs_pid < 0) {
-+		kill_child(&fifo_pid);
-+		ksft_exit_fail_perror("fork CFS child");
-+	}
-+	close(cfs_ready[1]);
-+
-+	status = wait_ready(cfs_ready[0]);
-+	close(cfs_ready[0]);
-+	if (status != CHILD_READY) {
-+		kill_child(&cfs_pid);
-+		kill_child(&fifo_pid);
-+		ksft_exit_fail_msg("CFS child setup failed\n");
-+	}
-+
-+	cfs_start = process_runtime(cfs_pid);
-+	t_start = monotonic_now();
-+	sleep(RUN_TIME);
-+	t_end = monotonic_now();
-+	cfs_end = process_runtime(cfs_pid);
-+	fifo_runtime = process_runtime(fifo_pid);
-+
-+	print_forced_idle(fifo_pid);
-+	kill_child(&cfs_pid);
-+	kill_child(&fifo_pid);
-+
-+	if (cfs_start < 0 || cfs_end < 0 || fifo_runtime < 0)
-+		ksft_exit_fail_msg("cannot read /proc/<pid>/stat\n");
-+	if (t_start < 0 || t_end <= t_start)
-+		ksft_exit_fail_msg("cannot read CLOCK_MONOTONIC\n");
-+
-+	share = (cfs_end - cfs_start) / (t_end - t_start);
-+	want = MIN_SHARE_OF_RESERVATION * runtime / period;
-+
-+	ksft_print_msg("FIFO task ran %.3fs, CFS task ran %.3fs over %.3fs\n",
-+		       fifo_runtime, cfs_end - cfs_start, t_end - t_start);
-+	ksft_print_msg("CFS share of CPU%d: %.3f%%, need %.3f%%\n",
-+		       sib1, share * 100, want * 100);
-+
-+	ksft_test_result(share >= want,
-+			 "CFS task gets the fair server reservation while forced idle\n");
-+
-+	ksft_finished();
-+}
--- 
-2.47.3
-
-
-
-
-Amazon Development Centre (South Africa) (Proprietary) Limited
-29 Gogosoa Street, Observatory, Cape Town, Western Cape, 7925, South Africa
-Registration Number: 2004 / 034463 / 07
-
+The exaggerated security argument is that malicious root in network namespace
+can do this and hide/crash ip commands and/or routing daemons in other namespace.
+Once again the analyzer is stretching pretty far to argue that.
+But then again with the current "lets chain $.01 vulnerabilities" world maybe not.
