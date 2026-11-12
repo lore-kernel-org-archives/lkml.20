@@ -1,108 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.42
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794500604;
-	b=IM34b2eXHyGWe9ncna7X43YFqZG4KBwAfd+/8UyEVht9vW2hGZcKzdWp8dC7tqjh5XrB
-	 sGrS5tHQi/H7CMVlquFw2tmOBBf5kbkdi0THxOFrvOrT4W7cebrcX0o6b2LUA9+Lm6YJO
-	 M6KStIIWhRnopFvC0DzEHkc7dQBj4TGroZ08rktL66z0fgYxlA0wp8mPJFQecUukOneug
-	 57lIKMNQjtGyIEiLehlAdQE0wLgTP92pdbinrUXLeMCtZKXgZFji4L/tcq/UtAI6QG1fd
-	 jTXdqivp4bzct49A4coyBegU/YklGkShB67vOUcCVF53oqLOVvYCzgZPFxXzzHH2ahA==
+	t=1794500608;
+	b=Gdmn3mCpwoD0NLUsd3Or2eM5FyVeyK/CTR8pQRebrn0687n/aC0R8ej6+nyHJrChp4AP
+	 7IDK0i6IqE/SrSjBTArx1wYjbxd79Bptc+UchA1E8wU+ct/KjU0LOCILARq+ACBrc9IgZ
+	 ZN2zxevyavX0PUINX/Fld1UMxjN5I8/IhDSToGHE/Bq0k2Pv5GzXUwP3pcam1Ubdx5cn0
+	 ekr3p2e704nO3tOMh4VE3YjFNElMpUW3wziRRHJxO+CYe0djP0aHt3O/eurTBr0Io9Vzy
+	 jvsS+D4PCQ/tHT2zcG0+fQgz83NBkbMc8ZLCR4S5kcM0Xep60uJ0zzB9WQxXecI+eVw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794500604;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Sg+KvGZYhVzYOkLqPIQhsfe/5idg5NwqYT0AfUXheas=;
-	b=vxFUnQtRBclbbnoztelXvvoYS/e+J8Rsa4S0/j3TCDUHazI10W69w2KChCai1xQW1STI
-	 mmkmMToLG0FFZRUza22rXeWumgJgtrQV7kaRcbB2cssXbHX990ZfElCsY+7mdW8ecsFR0
-	 2QGQLZlZKQU8TNOtK3HLQabPWXKPJU3BwU3F6As/OB5rmLC3o0jfExm+n/piyjCFoT0BZ
-	 8T9whfw4ybsl2z0b3pLrVnejrfJe2uoshOtz1DnlMO3M2yvO1lN2BCqthLwL3URKscb5w
-	 SlWgqRJLv+FvSWi/ZCK2bVAvTAz4dhk0fE9tj5MxghFo7qow3fGF8mO9XMhHH6uahyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794500608;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=pYXPlS8ROzYN1Pjw5sKrw1zWinTArIcM5b5Sg8enWjM=;
+	b=cRcSJV71yABdJ3titiQ0KZpiSCpn1W2U2Tj2mAbwPt2jmmPFHATvU7e493wyXUQmwZoM
+	 r76b8b4BHY0njJCwWPVek88k6wKFKhKhB0+TxvAvrj1pl4h5UG1ojzKsu+HxyrsuH9zfS
+	 bc1VwfHXu3jE7CnPuQ9C2J2HpaVfxxLvQlvhqyvvntWTgs3cnFOjMPwMXy7gjdxpIxdsg
+	 Kx+N4UWFYn54w4Qb9PiULOZhRxiHqlu89jlCNcthjDKO+jjsN5e/a/OXatsIjApYbpkbg
+	 GbH5QLHSa2jCZyt6QeYejQS8IosxqtYACd9D0DtnUmMYBi5DgV1NnNqpcDcnaXZIf6w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foss.st.com;
-	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=bJQwmF1H;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.42
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013042.outbound.protection.outlook.com [52.101.72.42])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQ4aHI3I;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4AE0606A321;
-	Thu, 12 Nov 2026 16:23:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4AE0606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99DEE606A327;
+	Thu, 12 Nov 2026 16:23:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=bJQwmF1H
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O57N6PFvuEOYa91l9oqgZ+y//i/WB5kWAHnDEE60gPcZBn60tNucAv5f2yTF/ASWthWY6MkP+OYpMLCe9y/BngNoTpWNYtHVZU7QwaQAsVJFHogBqST4y+iPDfW/mwQrJcCNuSWtbiB6SNAxKk7EwFxRXhG1uZxBcVgMCfhzeRUfmjhjLgYJIgXmGbs3I8OAeUcipYx5mSqHbSlzwe98DLO7mfiBXfjjsl91zyoIHrEH8Ushv56kT+R7cW0307Bs6czt0Q1x3cWBIQECXTBh98uEjMjWpfZqAXKIN5Pns/wrX7HFtZWaDKQUAk3bw+jhXWevy+4sw2zGydhP2hAiEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Sg+KvGZYhVzYOkLqPIQhsfe/5idg5NwqYT0AfUXheas=;
- b=lssxlnGn+vicS/gPfSBHNw4WzKhEUt0fIxsgerrHLS0CNLyh5+VViZLsce84CRz1MAR65DwVYRXABIoALatRdbUTOl65G2hwPpXu8HerCQ13KVNKaO/WQbFtCZWugR57vRWAN7TpcMFAf5YiySx8xG4GGyvj33ma/maMIfuhAc0cxOf3I89twmS0F5PCGhSnahrPodEtcs9jWD+3mfgNTkD2QsJ7Xrt0KyhHx3DmwMlfAYpEwHiCMLlc/m+O8l/kVqCMWCRut6/ua2P6kki3Y+PH9ds/sr97F9Lhx7fXEZUTvzAgbh7xgQOgHlgZ20Fyg/uOe6eS9EXVEuNFE1kllw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Sg+KvGZYhVzYOkLqPIQhsfe/5idg5NwqYT0AfUXheas=;
- b=bJQwmF1H9gPhl9YON8Idd2oXLd7O/o8MzKdwphbVqZP7EbAKWfsGw+AnHAhMdeMi33WmEwvloU3AI4wcDq9BzD5ydxwJtTaZzcVXzhPmLtJ/KLb9kML+euap0CR9zkEDmzyslbBNf34taX3M0LBxgsHz4FDIrPrGFftKF6r7URySPDjcly1o8kN/05K6hKds62lYBvkWPiRb8Psljse0B3Tg/4gcZW5wwJJZe4aJo5KYtzIPpCmHxucfToMyzofk6BX7OS/+UjZY/f+EQdkWk3uL4rR/0cNetJNO+qyRmoUgum+hFpzSPymhm6ro4WjrIBUYjb/rTetl9TWQBW2pfQ==
-Received: from OS6P279CA0106.NORP279.PROD.OUTLOOK.COM (2603:10a6:e10:3c::8) by
- DU2PR10MB7743.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:46e::21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.8; Thu, 12 Nov 2026 16:23:20 +0000
-Received: from WA1PEPF00009B3B.eurprd05.prod.outlook.com
- (2603:10a6:e10:3c:cafe::1a) by OS6P279CA0106.outlook.office365.com
- (2603:10a6:e10:3c::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Thu,
- 12 Nov 2026 16:23:20 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- WA1PEPF00009B3B.mail.protection.outlook.com (10.167.242.41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 16:23:19 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 12 Nov
- 2026 17:24:04 +0100
-Received: from localhost (10.48.87.100) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 12 Nov
- 2026 17:23:05 +0100
-From: Patrick Delaunay <patrick.delaunay@foss.st.com>
-To: Ulf Hansson <ulfh@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Christian Loehle
-	<christian.loehle@arm.com>, Maulik Shah <quic_mkshah@quicinc.com>
-CC: <dario.binacchi@amarulasolutions.com>, Linux STM32
-	<linux-stm32@st-md-mailman.stormreply.com>, Patrick Delaunay
-	<patrick.delaunay@foss.st.com>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <linux-pm@vger.kernel.org>
-Subject: [PATCH] cpuidle: psci: Skip SET_SUSPEND_MODE when OSI is unsupported
-Date: Thu, 12 Nov 2026 17:22:42 +0100
-Message-ID: <20261112172241.1.Ibe6dddf06a4b7e5b24af24dc85d053e36f940549@changeid>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQ4aHI3I
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794500608;
+	b=ufoCvvuLnTe6zoS6T5eL7LgjMB8Ju2U8i2b3fzHmN/xLvlFWumZuFRvYtxyqHCg/sgRx
+	 u87c7B9VoaUD2R9l83/x6raoxLLwKZHdl6dNRDC84DyMgqiOr5mI1x8n65qYeckCpjqgN
+	 DSMq6WOZ359yDt5bCw3GvyQIeuJkKzoaHwms7XVJgmkU83D4mUFLR7nxUY6ux+DWJFvlb
+	 Ne2OlfddMyrZsJWRuR9F61+/MOh3/aEZKtCOTYB+JSOW6ZaGAPXTXOJ+u2lXsxCWtm5Bn
+	 Mfq/PMDcoDMMeVyP8+8dfdCHVo0yK/9xRJJ3q/o4S2KVX8+xZB2LMa5yVXsKYUv/kkA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794500608;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=pYXPlS8ROzYN1Pjw5sKrw1zWinTArIcM5b5Sg8enWjM=;
+	b=MjvTh9xzDT/zSpenWdpLJv1d0RtrfY9Lw43P9OysK1Eezmxi91XgUP/2c35QRgL6d8dZ
+	 Ry2aJxle7jpLjmbnD74Tbgomaqa/5rtdkaclBwsdbEMesfa0YEIEamr6qKQ6jYiQqg92E
+	 FXxleM8+0WlTOYtkm3u0gpuguFZ46uiAl3bbbSquSJCMZKpmspzciFPrg1Wn3rsLqceRL
+	 mHn/JNzWw42Ay+7Oa2qANejGKFBh1usWcGSSIfmBAiN8eBaqu0opCn1GMWTMPIp7KpyCS
+	 6I+9mqju6ZJsR3k9YF+PjnxvRFVTH8iTx9Y9UbiTnSHXm8l3O6Fkerdw3g+LHyu0xvA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 81F431F000C4;
+	Thu, 12 Nov 2026 16:23:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794500608;
+	bh=pYXPlS8ROzYN1Pjw5sKrw1zWinTArIcM5b5Sg8enWjM=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=AQ4aHI3IfbnpmYX1QEJPZFbQaruMJ8sRMGxnmSG25hY8eejsCNq3BS59U88xRk8JR
+	 xN/7Mi5IErfI7K9HdSC1LN2xOsN4Sj1wT9puN4NOzI7x1hcoQZGrmq3t/NUGH9rGza
+	 sWx2+3Rpy8XgbP/3hS01m9FBWi4cnT8fnGpYD8tK85ocH1vZLVh4ZR+pbPA9KJMIXW
+	 3jYDP1KIXqQt8VMumAUB6XqnagTkFT0yneHy7p4jV3dQGkgZ2GUFlplkDtMDvnL6GU
+	 GNC0YvOn7k8VAvtyKujOu2dWd5T9SWTp6u7MmFxr3+pzH98lw/oy6W6tpFb1R6c+VY
+	 PWelC4lA6Iz6g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D6E0C45A33;
+	Thu, 12 Nov 2026 16:23:26 +0000 (UTC)
+From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
+Date: Thu, 12 Nov 2026 16:23:27 +0000
+Subject: [PATCH net v3] net: usb: smsc75xx: reject frames without a full
+ header and FCS
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,112 +83,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: WA1PEPF00009B3B:EE_|DU2PR10MB7743:EE_
-X-MS-Office365-Filtering-Correlation-Id: 46a012e4-9f5a-409d-a3d6-08df40d943a6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|7416014|23010399003|376014|36860700016|18002099003|10067099003|11063799006|261102123227099003|261021121427099003|261021123027099003|261022105027099003|56012099006|261028144727099003|261026140227099003|261026121527099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	wdxGxjGUSrvKR8BJZUi2x1qLwUtSMIIWjrAPnQaohIOekktThh0zh5Km7WiOs1IM5e8fg6hLIZkbxyQj7rFyiztVrMCWpZm4GHM9mTG50A6qUNaVXiJeU07yexkg3eFQBH5tCgvZem01yMS2a3oTGOoa+NC3lLPQmnQlOspqHEHCxka0fQ0K2P9XCtDhD2Ht0R4zVpzAcFmg71ZvvRWT0Y98Cihp0prfNQ7n4w2QDJJU4fPGQBE/KTHi3i+LiFFThoGYhDxX7J0c5y2PEE5XQ+FDyXQ4n2uIDDICh9GzNDiyhSEosGhYDAVxndnXcaGySu5upm1VICyptxE8/YUAephNyO7TgOWoHT/5vJ2RZgsO0YUkjWQvlSI3zwJfBRV1pXyCTLPZzflfZr42KXm+gi9H8IxBl+B8OE8e3/VFejE8Gc31ggcHgp23ykHXcBHFsttv+E2KhncC/hzraeASEOPMN5rk1Xqr/hfJtgKQblPofDW9kuuHb3P+pgSwYFFZzucK5p0M+RSNFi4p9hgNuVeeJA+vVFnSQiGAsx8ARgOEig8SRVbU08EngqkMBZ2YaZggASomQ08qtsckO22gqBrBEBGGJggn33/L3q4ww0QsFovG0SpKfdR07rWG+cfu1IbFo+pWvNDfgisriKE0e8VxbVlJfzgGIJ82L7X1/bE=
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(7416014)(23010399003)(376014)(36860700016)(18002099003)(10067099003)(11063799006)(261102123227099003)(261021121427099003)(261021123027099003)(261022105027099003)(56012099006)(261028144727099003)(261026140227099003)(261026121527099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	TNdOyRVOS74iH6U4QyNpJsyNtgTKta0Rr7HRML6Lr8t8gYyiETPtydBlLsz6+DrMgRwetuVJ2ikT48gen2U9LBN5qaeTTpLX7JkH3Wxm0eVgHUVODbWe1K3uwAKIn/avGsAbKdtWDgZOdE43ua8epYwiATZU2Pp1CR371wxfy183UlCatdeOlsCyoJinQx9lbRwd9gRgZ0Dhxst1lnA3ks6/6rBooiEpEO+egZcvyC4S55qKmc/Nx8+S9U6KNyC94bMaIbXXMhW7Wd/4HD3OWhxTIEMxgCyT4I2TJXkobMiCielR0+n4govLHdvhOrVUaZe0FUo57PbDKz3DxBlu5W+T+ANKr5S2hdGRhtgLFxXa99+T5rSqrCJklW1/tDvo1gbaJNga8FKWE1nibgWr5wh+PLVgaDV/WYXNsDaOkzfsQiIveGrYba4L1YIhNV7k
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 16:23:19.5753
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 46a012e4-9f5a-409d-a3d6-08df40d943a6
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	WA1PEPF00009B3B.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR10MB7743
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261112-smsc75xx-rx-fcs-v3-1-6ad0378d0384@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAP7n9WoC/3WNQQrCMBBFryKzNtKZtjG68h7iIqaTNmBbSUqIl
+ N7dkFVBXMzi/897s0Jg7zjA9bCC5+iCm6cc6uMBzKCnnoXrcgaqSCJiJcIYzLlNSfgkrAn59EW
+ qzmJnGDL19mxdKsY7TLzAI5eDC8vsP+VLxDL9FUYUKBquGvW0hpStb/2o3etk5rG4Iu15/OUp8
+ 4RSt5akakjv+W3bvhOXSvnzAAAA
+To: joasantonio108@gmail.com, steve.glendinning@shawell.net, 
+ andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org, 
+ pabeni@redhat.com, mim@microchip.com, Eric Dumazet <edumazet@kernel.org>
+Cc: netdev@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794500606; l=3488;
+ i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
+ bh=rUwS80b4pePMA3lfNfGIdy/LrPjLf6uFSScwd46/NRk=;
+ b=PjXJ+J6T52qsH1PoEBA5N2iSUdmlYhsSAul/hw6JU6yWLyzYTWSvTnAmiKua1jYn+m/UF91/+
+ hW0xqfGGr9rDJRoT4dGflYVEkjbo1Rwtl4SLnTI/KMbuPSXeJatgpsZ
+X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
+ pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
+X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
+ auth_id=1371
+X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Reply-To: joasantonio108@gmail.com
+Content-Transfer-Encoding: 7bit
 
-The PSCI cpuidle domain probe calls psci_set_osi_mode(use_osi) after
-creating the power domains. When OSI is unsupported, this still calls
-SET_SUSPEND_MODE to select platform-coordinated mode. Firmware that
-does not implement this optional function may return NOT_SUPPORTED,
-causing the probe to fail with -EOPNOTSUPP.
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-When OSI is unsupported, the PSCI specification allows the OS to assume
-platform-coordinated mode. Skip the call in that case, and request OSI
-mode only when psci_has_osi_support() is true.
+smsc75xx_rx_fixup() takes the frame length from the RX command word
+supplied by the device and strips the FCS by using "size - 4" for the
+allocation, skb_put() and memcpy() of each frame that is not the last
+one in the URB.  The length is only checked against an upper bound and
+against skb->len, so a device can report a length field of 2..5, which
+gives a size of 0..3 after RXW_PADDING is subtracted.
 
-Fixes: 12acb348fa45 ("cpuidle: psci: Move enabling OSI mode after power domains creation")
-Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
+size is a u32, so "size - 4" then wraps to 0xfffffffc..0xffffffff.
+__netdev_alloc_skb() adds NET_SKB_PAD to the unsigned length, which
+wraps back to a small value and the allocation succeeds.  skb_put()
+adds the length to the 32-bit skb->tail and skb->len, which also wrap,
+so the skb_over_panic() check does not fire.  The following memcpy()
+then tries to copy almost 4 GiB from the URB buffer into that small
+allocation and writes far beyond it.
+
+A malicious or malfunctioning USB device can use this to corrupt
+kernel memory or crash the machine.
+
+A frame that holds an FCS but less than an Ethernet header is not
+valid either.  usbnet drops it when it is the last frame in the URB,
+but the other frames go straight to usbnet_skb_return(), where
+eth_type_trans() reads an Ethernet header that was never copied into
+the new skb.
+
+Reject frames that are too short to hold an Ethernet header and an
+FCS, which covers both cases with one check.
+
+The driver does not set FLAG_RX_ASSEMBLE, so usbnet already counts
+rx_errors when smsc75xx_rx_fixup() returns 0.  Also count
+rx_length_errors for these frames, as usbnet does for the short frames
+it drops itself.
+
+Found by LLM-assisted source review.
+
+Fixes: 1b3b2d9e772b ("net: usb: smsc75xx: stop lying about skb->truesize")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
 ---
-Hi,
-
-This patch replaces the previous patch [1] in SCMI lib
-
-The PSCI specification v1.3 describes the PSCI_SET_SUSPEND_MODE with:
-
-"
-5.21 PSCI_SET_SUSPEND_MODE
-5.21.3 Caller responsibilities
-The caller must be able to cope with the following error return codes:
-* NOT_SUPPORTED, in which case the calling OS can assume the platform
-will work in platform-coordinated mode. In this case,
-the PSCI_FEATURES feature flag 0 for CPU_SUSPEND is also 0.
-"
-
-This patch implements the expected behavior:
-
-PC mode by default when OSI is not supported, i.e. CPU_SUSPEND
-(optional) are not supported; PSCI_FEATURES(CPU_SUSPEND) return
-NOT_SUPPORTED or return psci_func_id Bit[0]=0 for OS-initiated mode
-not supported.
-
-When OSI is not supported PSCI_SET_SUSPEND_MODE (optional) can report
-NOT_SUPPORTED and by default the platform will boot in
-platform-coordinated mode.
-
-[1] "firmware: psci: handle unsupported SET_SUSPEND_MODE in PC mode"
-    https://patchwork.kernel.org/project/linux-arm-kernel/patch/20261029191624.1.I5f8f3d75a566b72250d629ac6f43cf0d387c0218@changeid/
-    https://lore.kernel.org/all/20261029191624.1.I5f8f3d75a566b72250d629ac6f43cf0d387c0218@changeid/
-
-Regards,
-
-Patrick
-
- drivers/cpuidle/cpuidle-psci-domain.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/cpuidle/cpuidle-psci-domain.c b/drivers/cpuidle/cpuidle-psci-domain.c
-index 5722365b943e..eed9ad94659a 100644
---- a/drivers/cpuidle/cpuidle-psci-domain.c
-+++ b/drivers/cpuidle/cpuidle-psci-domain.c
-@@ -159,10 +159,12 @@ static int psci_cpuidle_domain_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto remove_pd;
- 
--	/* let's try to enable OSI. */
--	ret = psci_set_osi_mode(use_osi);
--	if (ret)
--		goto remove_pd;
-+	if (use_osi) {
-+		/* let's try to enable OSI. */
-+		ret = psci_set_osi_mode(true);
-+		if (ret)
-+			goto remove_pd;
-+	}
- 
- 	pr_info("Initialized CPU PM domain topology using %s mode\n",
- 		use_osi ? "OSI" : "PC");
+This issue was found with the help of an LLM-based code review tool
+(Claude).  I checked the code paths by hand against v7.4-rc3 and
+reviewed the fix myself.  It is build-tested only (W=1, arm64); I do
+not have the hardware to test it at runtime.
 ---
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-branch: master
+Changes in v3:
+- Count rx_length_errors for the rejected frames (Andrew Lunn).
+- Link to v2: https://lore.kernel.org/r/20261111-smsc75xx-rx-fcs-v2-1-216a5f26842a@gmail.com
 
+Changes in v2:
+- Also reject frames too short for an Ethernet header, combined with
+  the FCS check into a single test (review feedback on v1).
+- Subject changed accordingly; it was "net: usb: smsc75xx: reject
+  frames shorter than the FCS".
+- Link to v1: https://lore.kernel.org/r/20261110-smsc75xx-rx-fcs-v1-1-4e048bfc28f3@gmail.com
+---
+ drivers/net/usb/smsc75xx.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/net/usb/smsc75xx.c b/drivers/net/usb/smsc75xx.c
+index 6f72a3f15907..d1eca6bf7770 100644
+--- a/drivers/net/usb/smsc75xx.c
++++ b/drivers/net/usb/smsc75xx.c
+@@ -2217,6 +2217,14 @@ static int smsc75xx_rx_fixup(struct usbnet *dev, struct sk_buff *skb)
+ 				return 0;
+ 			}
+ 
++			if (unlikely(size < ETH_HLEN + ETH_FCS_LEN)) {
++				netif_dbg(dev, rx_err, dev->net,
++					  "size err rx_cmd_a=0x%08x\n",
++					  rx_cmd_a);
++				dev->net->stats.rx_length_errors++;
++				return 0;
++			}
++
+ 			/* last frame in this batch */
+ 			if (skb->len == size) {
+ 				smsc75xx_rx_csum_offload(dev, skb, rx_cmd_a,
+
+---
+base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+change-id: 20261110-smsc75xx-rx-fcs-fca968df1dce
+
+Best regards,
 -- 
-2.43.0
+Joas Antonio dos Santos <joasantonio108@gmail.com>
+
 
