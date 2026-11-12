@@ -1,121 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794499633;
-	b=3IA8tezMnKrDXFk9oce3cuscgr5Cq4BhUnfsCBqYYd8dFYSgxNfgAvqINqzshR/OJrar
-	 84ioSHMO381nzV9CtJJTTCzNygLEDai+Tudul0UN5BTuVTJZ6x3J/OWoM2m0hdCZLuamk
-	 bln+uh60tCKjdHT64pyvv+ymqA4uw1NN5MGdltjg82ACR7dgN4pgsHitUI+Z0IhNMY/eg
-	 3HLVd0FpG0dConuGCR8iukeaV/ig+1qaof0rsW2F55S6c/TMH8LnEM/ESuVgWjienp2AF
-	 C8feqyTFciksjs4cCZEvNYhEyHd6TClEXI7U1+UJ1Nl+sV0laPbR61cWLIgqEYYMKGg==
+	t=1794499658;
+	b=m84KgjGtxBZPQ2Jn450WqypdMTgdsPgKVlD+vAzqCRSzqUKGTZkrGYDEru5kEBJ0bbE3
+	 dY9nXtafUZppNoB+IuniYB7B/3vCJRv2IG5eRrrZyhNmcWuSZmNHfNHRkWMvuuydlfqSs
+	 bvYrRU7e0zg33WFu1k3bxEfGZQsxSebSdYKQSqLtMkZsH6tbXplbJ8KdmxdqEc+uk0OHU
+	 4ZzHUatEhEhRW/SxvnUnGBxtuPaZl0v41my6o6eYDVWq1txzxdG2+wzDL1z5Vlcbpa7xm
+	 glNLRf9coeOtld6ECl5g/uIT/SWuZTnfxNckw4g9sI0YgNEurgbqGTA8FnUamXfi31w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794499633;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=NnU6y4luvTuh8U9uo5pDvncjM0V/OsuTGIIKwgCmHqw=;
-	b=FzO3pKwq//QaH31tC10DZpZH5I/oeoWomUaNSWBsPOWM/cbx3btNEBK28jV4JLig6Lkp
-	 SrD9MoYW7W6C64QzoXne/i7uOadU9ItgX6gdIteTi6/Z/2Dkzvl7NS8nGRFvNaiSE/dxk
-	 FWgmX5wqMXD0DrW4HfJ2l4LhxFpbtYNwMn9vUJWvEwNGCrVxnqsepAUgbTtPOl6udZ8IX
-	 BnjfMa0a6AObJS2NX8RVknkOZrnBi5177fQ05EXJDd3nSTLs/Faa7wthVEE3oVICwXWj8
-	 uCsTTpWczrUmb5WSzCXVo0DbC6q0BuyHLwS1T3rFGb6vI9e8ASl1/wJ7puxrta2O4lg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794499658;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=ucjrn9mQAcAGfdoLop5hn5qFz37ncGRH3deckCQ4o4c=;
+	b=wGrjCMLKSRnylS1Ll+g8YMlcFikTWPKYcwYkmQdGFlOwAUr0QcNyb59UaezIjnoQDUOr
+	 wgG5MTI89sH7WqAy1fpUSCa44EzqofWgfJ8BvPsoiKd/QO+5ITHCIxQTARAEYoECoKWU4
+	 P6zBrfCbDRGQw2U41XINmJJxHZb4NorAYEvme6EcPi/8MDDw+h7Lw/dCckUsz8ri8xmt3
+	 01GkMtu3mFQ2qSyWdu6sc0X3UqANTsKv9wp05bfIt/gMm1o1rLf1NwFzUjXnL49OAV0N/
+	 iNDX8cpbXnp7E7WA0y8PNideK2s2haBmVDBuHWllvUYNCmTRytThrvYyqG821xmjU5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="aFB/Q1bx";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Wmrv7179;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=hClylBL9;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F4C606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:07:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7F4C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40FFE606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:07:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40FFE606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aFB/Q1bx;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Wmrv7179
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACFZl7q3181052
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:07:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=NnU6y4luvTuh8U9uo5pDvncjM0V/OsuTGII
-	KwgCmHqw=; b=aFB/Q1bxcYpelLMYfZoTooptWvIZo6UX7IIgZnXH6UQ+lcftOEv
-	Hi5o7GVWayaQSDX1K5054dKvvTw1/7jsBwf242mKTLPqWcnI/lcsNttovr3lFTBq
-	4wOOEHFl0oZ9b7R4MoztOTXG60bNC9N2A8uu4zGk0S6LYDdHUwm0OHMV19HNG0nn
-	1RQZPP7aBP8sGBVGBaFjdLxaffQsXZ9rei6L10YuIVmSIKfNIxiuSrxLMtR9XYQl
-	XZUDTqM254l78S3lD8DHZGM2KY3vn6AIQro/sczKL6RcaiCv9kZt8WGvmB13xZjU
-	OdniTa7pbATRWGd4o8fJI5jiSWyG7hu3dng==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwc1j151t-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:07:11 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8aa185840bdso3407500b3a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:07:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794499630; x=1795104430; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NnU6y4luvTuh8U9uo5pDvncjM0V/OsuTGIIKwgCmHqw=;
-        b=Wmrv7179I/4GLWNPvHuuQqB7EfvOgtl51h+sY2vaVpQzYrWYjJYt+gAikNoiG8pbAp
-         vmY0dEZl3ZVfQNWQhz7Acx9R1bPX47YTETpnyD09LXVvnlmCL1gIT9oxDoxehD5GQgE8
-         Xw2dzGBXsykuZr7c+B7A7jc3HEpUMl60y9S1crczKcOX+t9vYf8j0FwmLrfrZv2zW1zx
-         5QCp+j6TGszwWHTgsGi5FcPkM72UKmWx1Mr1JwdGYBbgEj1X01/FZGYwKzHgrACl9lxm
-         JUjnTtmhn0CY2SSRozn5P5zK7jbPEeQHmnVql41PwdQsUf3lTzgFaXOs0hZgjYn71uIG
-         FIGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794499630; x=1795104430;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NnU6y4luvTuh8U9uo5pDvncjM0V/OsuTGIIKwgCmHqw=;
-        b=tqfh0VvJNRPZomFBz+WBhASj87L6aHhfVAnytgknx8HCEtbrLeLkQMnWSGcCrMpiLN
-         7W8kpb6MrygKBSTQS/dQ8zGuiTuu0c5MKayJdGErnRirIYGmMGJzoHvpPq4vLsxaQokI
-         Ho9oV7J7Cglb/V42GQX7ZdXi2gfazDFaBNIJ/l9fRaGzgHHg+olc+TM5YqNoQiwnwKJk
-         gr0fhaxmo+m0I3qAWEKlAgmmAuqolgq4BHWjU7PAKORByVoGRFnJaaYZJ8exmHoHdXIn
-         LIauWb/C+tXF9MnHYyyZGt2/cAxSemywTD9QvTG4JigcbaBGDNMDrfEv+nBioH7MeDwS
-         E+lA==
-X-Forwarded-Encrypted: i=1; AL+hErFO8shCr5VvVL8gLOOTshtL2fpq/9koGWywthl1otA5l+lFOsW3psN08r+G5kiEnBOxnmwFKEdzy/vJjO4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ps4CFe1iCha2Zyvont06N7V8Txk65BrhjX+45NDLoUxoysE3M
-	+Q0WsxmjSuRJC2xc/907K6Akhc8wbQYd7DpNf/6KIV1PM6TzBQhRi8u+Yv/VZJclKL2VFeYOWve
-	sq9feGr40GhdivtSNCzdaQYKfN3tFWOrjqoO44UQ44MEUkE3U3bHKJzZM2sXapfBrBAg=
-X-Gm-Gg: AYBFou3vxwWsCSgoxkigK3pFDAIJRic2aPibm+gxh4ox8BjpS+qN0cXBWTb+HaTM2kC
-	vVU2C0d9f3zJ8W+mLjprW9O4yvQGjzs0Na1rRg0N6GBdqHwIgUZcVo2tW2yiFLfOl+K7uGqnOpb
-	S41EyQD003+XwHcqRh9XnEfr4QY3lsrxkVaNqc7GXNI9t8O57KQ8+VaXEeMzvQWMJnwFTkVeSsZ
-	mYJ73e+Zk3uKCYE2rLAo4PeMuZyCdjprK7X/6fVFubj98TC3RH2gu4ZfhScs12R2vitrcvqGmk9
-	RQiyyWKi3v3iQeWYllinWtyK2gUZr9EnkVgW5IAdnEeNKajzUj6WWRUg8YNB/b2QI4mdrNGst6v
-	wUGf10Tt9GL7RqE4l+NxyHIfdkm9ONyFWX6aP2KWRHPsVWQRw5CFzWrhD5Ttt7LGiKn/gbAfd8M
-	oioZHmKouUreTjj0wPZjpvrDXt05l48DWw9CTZ+YDqVVEboKkXBimSINWeThYl
-X-Received: by 2002:a05:6a00:189b:b0:89d:ec58:ce47 with SMTP id d2e1a72fcca58-8bc1e1d2a29mr6061960b3a.55.1794499630442;
-        Thu, 12 Nov 2026 08:07:10 -0800 (PST)
-X-Received: by 2002:a05:6a00:189b:b0:89d:ec58:ce47 with SMTP id d2e1a72fcca58-8bc1e1d2a29mr6061911b3a.55.1794499629987;
-        Thu, 12 Nov 2026 08:07:09 -0800 (PST)
-Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net. [67.168.198.145])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa1b27e8sm3588199b3a.16.2026.11.12.08.07.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 08:07:09 -0800 (PST)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
-        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] drm/msm/a8xx: Fixup hw_err_irq messages
-Date: Thu, 12 Nov 2026 08:07:06 -0800
-Message-ID: <20261112160706.387641-1-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=hClylBL9
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=ucjrn9mQAcAGfdoLop5hn5qFz37ncGRH3deckCQ4o4c=; b=hClylBL9XaqiBunicTC2CxWbHQ
+	BHlTOQea0K9VBJSGsgrZh/tTqxW/y9HOeg6KOorWpkWipfhuw8UIv+5MZu2dKEKsSdzFfTUqBHSEe
+	hm0llLGtynYqN53XtGGKC6PxhyAQq39FMTs4KCbGgZOMkXZSgljZABFo/x4r42BptYoXFRP/QBxcJ
+	SsnmY6EPZAMsw1DFBqIKhwP6f+pXC3F/rxH537jkXAJVfHqIZQBLbvAYxcnwj4agwRPP1RVzmyvjh
+	Y8iqcDZt3D5BD5yQmWVRd/OCD2PmNHLqgeq1RCqJgkP8lbQ0FVYL8LPxADjOzJL9x4XWW/YzJvWY/
+	Q0Xm33RA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xRXKl-00E5PD-2l;
+	Thu, 12 Nov 2026 16:07:32 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Thu, 12 Nov 2026 07:58:27 -0800
+Subject: [PATCH] timers/migration: Read jiffies only when the migrator walk
+ needs it
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,140 +63,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA2NCBTYWx0ZWRfX5E0LyP6Mjt0V
- yjwh5z/jRO9jiFdRJUDyXfwoPwEcaN8MlX28DZCLGeOmO+5XepBKfFFT52TGrXZyxDBT2/+GiKe
- IaCDqmxi9HlMPJmmT/zIEHbkTKRymtg=
-X-Proofpoint-ORIG-GUID: hREdYS6W3-HfPy7wWZTtgqjX-ApP-sVz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA2NCBTYWx0ZWRfX+treiuebL5yz
- dEOHKVszhupSTkDuVrK1azFUSX+eu2aNVSo/MiRU66SNWm9KvyzJo5pUVZsXRkzoF8i6ReP1lJz
- /p3kcoNTYbT+bLBVFs6zGudxo9Ag4MuG84gjubuuigfcc846RfwZYZ7bKBiXqF1e38A/13AhOwL
- OKJ5KARPRbWF4e9dfwGLEGb/GaP30cy/4vliQxuuWKwvrIYdlqqBz/RLWZa8xM4JiGWDgdp5ttf
- ABo1WyrnFFucxT5B4W1wiZs0MfZuDXSIj3qWNERxphm3FyT9cBgs8ohkV4rMeaTPFHFhHN4w5VR
- DGwyO5BT+BvxLvH32czvKHgriqBqBJ/FhWFDKQoOZccPpYU36emfVKjAxUabZdG+d7Smta/8f7S
- tOeR0YLeBGBrXg7RVMiyjToKqmN3tUb4UgpeCuMmd/UmxneHrqyhMUcrgSxKRQRmJc+kOut49yb
- u/y7JOp5Vu8HOtovdqw==
-X-Proofpoint-GUID: hREdYS6W3-HfPy7wWZTtgqjX-ApP-sVz
-X-Authority-Analysis: v=2.4 cv=Vqe2kO2n c=1 sm=1 tr=0 ts=6af5e42f cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=cmur_pPeXtk5nLvMRVkA:9 a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_02,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 priorityscore=1501 spamscore=0 adultscore=0
- bulkscore=0 impostorscore=0 malwarescore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120064
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-tmigr-lazy-jiffies-v1-1-6b7eaa38b0cd@debian.org>
+X-B4-Tracking: v=1; b=H4sIACji9WoC/x3MSQqEMBAF0KsUf21BEgcwVxEXohW7xIlEpFvx7
+ kK/A7wbSaJKgqcbUU5Nuq3wZDNC/+nWUVgHeIIzrrLWOj4WHSPP3fXjSUNQSdyXgwtFnRtTl8g
+ Ie5Sg33/atM/zAiod7GVkAAAA
+X-Change-ID: 20261112-tmigr-lazy-jiffies-c5d2f4930095
+To: Anna-Maria Behnsen <anna-maria@linutronix.de>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+ Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2641; i=leitao@debian.org;
+ h=from:subject:message-id; bh=mNO+o+UTzSEe9x7vPgjH11r8BmY+TbyzpwHl0pJr0xA=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq9eRBDg2Zf40QoNHSMqbELFW0YQJPy0lpzJgGT
+ XrW6okRMymJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavXkQQAKCRA1o5Of/Hh3
+ bWycD/9fsx9RnkbSWejYaALGpbqxp+mdXVNNqVhlvrBmB+vfb+l8qaZZXnIGopVTmK++ebq8kBr
+ V47djYCtZGmYo3Sr7PXYbl4XZDGEPl2FaKl2IyDrMYK5YTPB4tl8kZxMTi4wYGW4OIcf0mTpDyU
+ SI8LbRHbNpztKvwGfGruyPbYaiCKgPy7i8HNd9bIziJTgh5T4YT0SwdqUQw5dGbNHiNU2iQnZiA
+ vUNd9Gf7+U3fUnZ953uu84E2H0XNgayEHMlxE1cFD/GmFRRpjfGdj5KgHmmXyNB8QKzBP2G3Abo
+ N96Ifrg+e/04QDPWXYCkFRyJvCs1gR0vlIRQspcFlbT7cdljflSSJM03ApGishewsjvH0tfp1tS
+ ctglb6oiFTB7qq52M9rZfsjiaD8yDCJEC7cTzz73wVdp8SNlqWCMSyVt60CpRDUCTSTUa66XX9z
+ ZCrhWi2TpC9kOs3uod5LlUb/Q47z5YV2MroV81QPqELGOrirLFRnO3NNk3yvZGbYVdW6mTeVhuw
+ XVdmvFiBBoE5GBRMMHZb8EgADscw1Mgsl6CqE8RM0tjHxroji/7u/EQ5WUEQ+zV3PqLBQS07upW
+ 8qPMLqw1RrM6pdzOt0O7wHzW5ckOswsCzHZGjECRZVpTu6WI2Lt6Xeszh/TSYFhjmBkisBJ+GbQ
+ Io8iguIJxK1M7UQ==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-Handle all the pipes, and don't clobber 'status'.
+run_local_timers() calls tmigr_requires_handle_remote() on every tick,
+and the function starts with get_jiffies_update(). That reads
+jiffies_seq and last_jiffies_update, which the timekeeping CPU rewrites
+on every tick. As the ticks of all CPUs are aligned, every CPU takes
+these cache misses while the timekeeper is writing the lines.
 
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+For an active CPU the value is only used by the migrator of its first
+level group: tmigr_requires_handle_remote_up() stops the walk at once
+on any other CPU. With eight CPUs per group, seven out of eight active
+CPUs read jiffies and throw the value away.
+
+Check the migrator first, as tmigr_handle_remote() already does, and
+read jiffies only when the walk is going to use it.
+
+Fleet profiles show get_jiffies_update() at up to 1.7% of non-idle
+cycles on the largest AMD systems, almost all of it called from
+tmigr_requires_handle_remote().
+
+In a 72 vCPU KVM guest (AMD EPYC 9D85 host, HZ=1000) with every vCPU
+spinning in user space, get_jiffies_update() calls drop from 367k to
+46k per 5 seconds. tick_nohz_handler() duration drops also.
+
+Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
- drivers/gpu/drm/msm/adreno/a8xx_gpu.c | 58 ++++++++++++++++++---------
- 1 file changed, 38 insertions(+), 20 deletions(-)
+ kernel/time/timer_migration.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-index bbf5ca4fb6fc..a1747990e10e 100644
---- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-@@ -1048,24 +1048,37 @@ int a8xx_fault_handler(void *arg, unsigned long iova, int flags, void *data)
+diff --git a/kernel/time/timer_migration.c b/kernel/time/timer_migration.c
+index f920e73fff5112..dfa936bc485f59 100644
+--- a/kernel/time/timer_migration.c
++++ b/kernel/time/timer_migration.c
+@@ -1195,7 +1195,6 @@ bool tmigr_requires_handle_remote(void)
+ 	if (tmigr_is_not_available(tmc))
+ 		return ret;
  
- static void a8xx_cp_hw_err_irq(struct msm_gpu *gpu)
- {
--	u32 status = gpu_read(gpu, REG_A8XX_CP_INTERRUPT_STATUS_GLOBAL);
--	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
--	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
--	u32 slice = a8xx_get_first_slice(a6xx_gpu);
--	u32 hw_fault_mask = GENMASK(6, 0);
--	u32 sw_fault_mask = GENMASK(22, 16);
-+	const u32 status = gpu_read(gpu, REG_A8XX_CP_INTERRUPT_STATUS_GLOBAL);
-+	const u32 slice = a8xx_get_first_slice(to_a6xx_gpu(to_adreno_gpu(gpu)));
-+	const u32 hw_fault_mask = GENMASK(6, 0);
-+	const u32 sw_fault_mask = GENMASK(22, 16);
- 	u32 pipe = 0;
- 
- 	dev_err_ratelimited(&gpu->pdev->dev, "CP Fault Global INT status: 0x%x\n", status);
- 
--	if (status & (A8XX_CP_GLOBAL_INT_MASK_HWFAULTBR |
--		      A8XX_CP_GLOBAL_INT_MASK_SWFAULTBR))
-+#define FAULT_MASK(_pipe) (A8XX_CP_GLOBAL_INT_MASK_HWFAULT ## _pipe | A8XX_CP_GLOBAL_INT_MASK_SWFAULT ## _pipe)
-+	if (status & FAULT_MASK(BR))
- 		pipe |= BIT(PIPE_BR);
- 
--	if (status & (A8XX_CP_GLOBAL_INT_MASK_HWFAULTBV |
--		      A8XX_CP_GLOBAL_INT_MASK_SWFAULTBV))
-+	if (status & FAULT_MASK(BV))
- 		pipe |= BIT(PIPE_BV);
- 
-+	if (status & FAULT_MASK(LPAC))
-+		pipe |= BIT(PIPE_LPAC);
+-	data.now = get_jiffies_update(&jif);
+ 	data.childmask = tmc->groupmask;
+ 	data.firstexp = KTIME_MAX;
+ 	data.check = false;
+@@ -1208,11 +1207,21 @@ bool tmigr_requires_handle_remote(void)
+ 	 * set only by the local CPU.
+ 	 */
+ 	if (!tmc->idle) {
++		/*
++		 * Bail out early when not the migrator, to avoid reading
++		 * jiffies_seq, which the timekeeper writes on every tick.
++		 */
++		if (!tmigr_check_migrator(tmc->tmgroup, data.childmask))
++			return false;
 +
-+	if (status & FAULT_MASK(AQE0))
-+		pipe |= BIT(PIPE_AQE0);
-+
-+	if (status & FAULT_MASK(AQE1))
-+		pipe |= BIT(PIPE_AQE1);
-+
-+	if (status & FAULT_MASK(DDEBR))
-+		pipe |= BIT(PIPE_DDE_BR);
-+
-+	if (status & FAULT_MASK(DDEBV))
-+		pipe |= BIT(PIPE_DDE_BV);
-+#undef FAULT_MASK
-+
- 	if (!pipe) {
- 		dev_err_ratelimited(&gpu->pdev->dev, "CP Fault Unknown pipe\n");
- 		goto out;
-@@ -1076,31 +1089,36 @@ static void a8xx_cp_hw_err_irq(struct msm_gpu *gpu)
- 			continue;
++		data.now = get_jiffies_update(&jif);
+ 		__walk_groups(&tmigr_requires_handle_remote_up, &data, tmc);
  
- 		if (hw_fault_mask & status) {
--			status = a8xx_read_pipe_slice(gpu, pipe_id, slice,
-+			u32 hw_status = a8xx_read_pipe_slice(gpu, pipe_id, slice,
- 					REG_A8XX_CP_HW_FAULT_STATUS_PIPE);
- 			dev_err_ratelimited(&gpu->pdev->dev,
--					"CP HW FAULT pipe: %u status: 0x%x\n", pipe_id, status);
-+					"CP HW FAULT pipe: %u status: 0x%x\n", pipe_id, hw_status);
- 		}
- 
- 		if (sw_fault_mask & status) {
--			status = a8xx_read_pipe_slice(gpu, pipe_id, slice,
-+			u32 sw_status = a8xx_read_pipe_slice(gpu, pipe_id, slice,
- 					REG_A8XX_CP_INTERRUPT_STATUS_PIPE);
- 			dev_err_ratelimited(&gpu->pdev->dev,
--					"CP SW FAULT pipe: %u status: 0x%x\n", pipe_id, status);
-+					"CP SW FAULT pipe: %u status: 0x%x\n", pipe_id, sw_status);
- 
--			if (status & BIT(8)) {
-+			if (sw_status & A8XX_CP_INTERRUPT_STATUS_MASK_PIPE_OPCODEERROR) {
- 				a8xx_write_pipe(gpu, pipe_id, REG_A8XX_CP_SQE_STAT_ADDR_PIPE, 1);
--				status = a8xx_read_pipe_slice(gpu, pipe_id, slice,
-+				u32 opcode = a8xx_read_pipe_slice(gpu, pipe_id, slice,
- 						REG_A8XX_CP_SQE_STAT_DATA_PIPE);
- 				dev_err_ratelimited(&gpu->pdev->dev,
--						"CP Opcode error, opcode=0x%x\n", status);
-+						"CP Opcode error, opcode=0x%x\n", opcode);
- 			}
- 
--			if (status & BIT(10)) {
--				status = a8xx_read_pipe_slice(gpu, pipe_id, slice,
-+			if (sw_status & A8XX_CP_INTERRUPT_STATUS_MASK_PIPE_REGISTERPROTECTIONERROR) {
-+				u32 prot = a8xx_read_pipe_slice(gpu, pipe_id, slice,
- 						REG_A8XX_CP_PROTECT_STATUS_PIPE);
-+				u32 addr = FIELD(prot, A8XX_CP_PROTECT_STATUS_PIPE_ADDR);
-+				const char *mode = (prot & A8XX_CP_PROTECT_STATUS_PIPE_READ) ?
-+					"read" : "write";
-+
- 				dev_err_ratelimited(&gpu->pdev->dev,
--						"CP REG PROTECT error, status=0x%x\n", status);
-+						"CP REG PROTECT error, %s addr=0x%05x, status=0x%x\n",
-+						mode, addr, prot);
- 			}
- 		}
+ 		return data.check;
  	}
--- 
-2.56.0
+ 
++	data.now = get_jiffies_update(&jif);
++
+ 	/*
+ 	 * When the CPU is idle, compare @tmc->wakeup with @data.now. The lock
+ 	 * is required on 32bit architectures to read the variable consistently
+
+---
+base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+change-id: 20261112-tmigr-lazy-jiffies-c5d2f4930095
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
