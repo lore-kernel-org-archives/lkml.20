@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794516230;
-	b=wxjMOH/xX3LIqGAbR1+2d2fv7iVFWd7N2K17v8uSaDxqP+SbBiJW9yPhGdv5a75t/vz2
-	 cO9K/QmEElldXTBowEAm2OvL2XmxPbRf7KSeq0JbRyvRW8neceBfFfGis5WG6+ZZsK7sp
-	 h4+KF6GKxXtfuhiAuUovoYTzB9HXFAHtG3roQGNBIUkwO3X+5HQ6A65RIdD9KJfvmrzCx
-	 2AOTgXaAlW4zq3zAhIX2qMCvHl+KHdDrXB6vztNIwUUoH46hWAXaM5wO0l6YlztvMOfaz
-	 fYo/N6OZlj0iaA243cMT36uZ3SubQkKuRAgaUTL1AXZ7umyIJuJZEfdVXQOcWVOLLrw==
+	t=1794516232;
+	b=dACyIeWjrRY0+Gl247cllkt8/gsB74l+/dpQD9TimQFB8r6++cbcqZl2uxpxHqhevi+b
+	 aM8QxD3pXekazTarZHcOBlSJ/8j+/W0tLs3f7Y7PqslvSB1U6RJykj0p9t02EUS6Hn8zw
+	 Qyz4n28MbkJgGoHkbLeh0CTrKrS8KrlAvBgx/aAx63/FCyuADAKEMsZcVruzUO5UJi2qE
+	 mb3cO56sbaLyymM/PfTKFQQxplFbvSWI0i/c/DzhvpJ3uIj8YptKli2Uhfqn2ZESlbnrl
+	 9mlJMgZH6LAZURpYeKKwek87pNsGyU+IAkZElXBmw3Bjfx4pzJrkGo7+EyKfSyk8+7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794516230;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794516232;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=UzNzdRd0x/gC1vXrK7OIsILOVhuZjmbxPOEa7oijBv4=;
-	b=knprx/RUFur/sgw3Z5qMsouycU5MWQsTUfNPjZ5JaFSnS2r59O1ylrB+d/FTPp8ipqwp
-	 SbWJjRpX8lmKSLbWDKOUBOrVYEDAq5vYD7cWhxW8JiAurXwg0sn0J1vYRnLPDmt72Vowv
-	 g5fhtoOtbQz9baUosXoRbe7vgftDuTfYraWVPh15vWUQY12zIxMuJogcizrCP7fYIFuTb
-	 oJln2cgv3n+yXItmBG5wPxLZGmwl9Bvn4jiXo+6+rh9VtGLWONoRleQYGQCub7PorXW7/
-	 Q/xY28QNi939RRN2rIxl6TGfiAF1bV/byUZLKhXra/eHN3apZGPJ40rJk5ujw9NyJpQ==
+	bh=kZZmTvLKPr6RDSHfLfHVICLODY7eWN+PrRHMNCqmONg=;
+	b=yQHlMq/Xq1V5ctv2V7kx+1I8uSbxOR/Z7Oh5OxPO3McCL+hoHbfxH1fSsFajzFaxgtUQ
+	 FQf2KTG4lylCQehbzRKILQ9YKpO0WzWzUGxwH+V7RYbDPcNuD7SYBfzT5tI5c51smfu3S
+	 w9fad8teZYRpJnTIs4BdMbsCR+Uh+CkIL2lMS6Q6QpJW8UJc/VOEx6UM10OoDEMDb7jKG
+	 OBLoNo6Un+xyv9q1vB/7/heNfo7//8djtG4FGAmoRNWeK1iZnUp0MOjAbud7CPGElhynV
+	 EkrQmIT4Pkth9R0+3njwCfMD2ny2/IWw4Onl7MRzfzMj/T1ls+a2o+2u76aLaGy0w0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=geMJm+jq;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CbG5JYIZ;
 	arc=none smtp.remote-ip=192.198.163.9
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C5760A2629;
-	Thu, 12 Nov 2026 20:43:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64C5760A2629
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A628D60A5BCC;
+	Thu, 12 Nov 2026 20:43:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A628D60A5BCC
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=geMJm+jq
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CbG5JYIZ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794516230; x=1826052230;
+  t=1794516232; x=1826052232;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=e18J8JIuiPEJfWRhb5zkP/Dr3OwsoPb5Az1+R4Fb8mg=;
-  b=geMJm+jqQG4MwsbLbel6oNZl7Ui/RUF95ARMExWIU2VYhE4SQV6eiNmp
-   A8hMPlgYHMqfAY0R6seb3sCwhj3CXERyR6hhV5+PS1gLUIURx73JUHgkB
-   l6idGRC96c3v/bnO5MoJOu2j1NRdPjlYQ94lWm5Nxf4bK8uRCh8WQEoLu
-   jsjfTlSv/ta2KupHtWgiTU8T6PjBiQNYY//e+rS7HMryYlbH7PR54o0xH
-   4gYh8bFa6/T874ytrCTLRQ+6wp9TvYOilRgZt0GOcm4Yq7a4RdxUO7ME5
-   PDwMtcVKP7suEmQ35zFBbhniHpYWN1oYYx/kZ0qoLK5DHi+Za0+oBQk/4
+  bh=V9sNcs+cxqAurFlWbVjW4CPPNzmzPCwk6DoRhgtfR9E=;
+  b=CbG5JYIZ5YPmLNHteCqrxUSOYmMF0n/e0/1JnWEtKkbVyGG0GFZ5sbX9
+   lZXlFehPZpxHdqfj8fjJBSb7VBSBRT4/5+3cqvvEYC7PyWiTZP8Cz0FB7
+   EJP2RbArNxg/JIu8UO8WUq8Kjlc7L+WzEMV/aTBy+hIIqNZdxIF2639h5
+   Ujep+hQFEtOK4q+KAxHk9qu/k1S5LHePx1ECNrvzqcxA4D3raN4vWld39
+   hw4fZj7ySE8n8RwlXP3F/6Xx2GzX/FMh5D6Hkon4NAVG9TjNLTlSx/iJH
+   /WeZps6gToYg82T9okuVn5PN59iXKbzTzpre5MfnmecrsppOETgksHXng
    Q==;
-X-CSE-ConnectionGUID: iTZCbYqETCeFzrJ7BELRcA==
-X-CSE-MsgGUID: 6aJFmd+ETPaqoB0wQpp16w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3192288"
+X-CSE-ConnectionGUID: W162E5KgSraImyJ7Ci9yFg==
+X-CSE-MsgGUID: 2yyGz7kmS0WWvMfP2/99sg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3192306"
 X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="3192288"
+   d="scan'208";a="3192306"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 12:43:50 -0800
-X-CSE-ConnectionGUID: 64noEFMjTHiYnLlpKWmXrg==
-X-CSE-MsgGUID: /RtzGQzHRa+qSrrbacr6SA==
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 12:43:51 -0800
+X-CSE-ConnectionGUID: 0bNC+Iv+ThK8TGZhPqtTTQ==
+X-CSE-MsgGUID: jSI2Ie8vTY+Ej38T1ict6g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="9087913"
+   d="scan'208";a="9087927"
 Received: from 9cc2c43eec6b.jf.intel.com ([10.54.77.29])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 12:43:50 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 12:43:51 -0800
 From: Zide Chen <zide.chen@intel.com>
 To: Sean Christopherson <seanjc@google.com>,
 	Paolo Bonzini <pbonzini@redhat.com>,
@@ -77,9 +77,9 @@ Cc: kvm@vger.kernel.org,
 	Shukla Manali <Manali.Shukla@amd.com>,
 	Dapeng Mi <dapeng1.mi@linux.intel.com>,
 	Xudong Hao <xudong.hao@intel.com>
-Subject: [PATCH v4 13/21] KVM: x86/pmu: Emulate IA32_PERF_GLOBAL_STATUS_SET MSR
-Date: Thu, 12 Nov 2026 13:32:19 -0700
-Message-ID: <20261112203227.289379-14-zide.chen@intel.com>
+Subject: [PATCH v4 16/21] KVM: x86/pmu: Populate CPUID.0AH:ECX fixed-counter bitmap
+Date: Thu, 12 Nov 2026 13:32:22 -0700
+Message-ID: <20261112203227.289379-17-zide.chen@intel.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261112203227.289379-1-zide.chen@intel.com>
 References: <20261112203227.289379-1-zide.chen@intel.com>
@@ -94,86 +94,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Intel PerfMon v4 introduces IA32_PERF_GLOBAL_STATUS_SET (0x391) to
-allow software to set individual bits in the global status MSR. Reads
-of IA32_PERF_GLOBAL_STATUS_SET always return zero.
+PerfMon v5 adds a fixed-counter support bitmap in CPUID.0AH:ECX.
+This is a superset of EDX[4:0] which indicates the contiguous
+counters starting from 0. For backward compatibility, it's recommended
+to use the following to determine if a fixed counter is supported:
 
-IA32_PERF_GLOBAL_STATUS_SET is not part of the VM state, so it doesn't
-need to be advertised to userspace, nor saved and restored during live
-migration.
+FxCtr[i]_is_supported := ECX[i] || (EDX[4:0] > i);
 
-Always intercept IA32_PERF_GLOBAL_STATUS_SET to prevent the guest from
-modifying status bits that are not virtualized by KVM.
-
-Bit 63 (CondChgd) is architecturally reserved in STATUS_SET per the SDM.
-Reject writes to bit 63, injecting #GP for guest writes. While older
-processors had silicon errata that accepted writes without #GP (e.g.
-SKX95), strictly enforce the architectural specification for
-deterministic behavior across migrations.
+Populate CPUID.0AH:ECX with kvm_pmu_cap.fixed_cntr_mask64 when KVM
+supports PerfMon v5, and in intel_pmu_refresh(), incorporate the
+guest's ECX bits into fixed_mask for PerfMon v5+ guests.
 
 Originally-by: Yang Weijiang <weijiang.yang@intel.com>
 Signed-off-by: Zide Chen <zide.chen@intel.com>
 ---
 v4:
-- Split out CondChgd specific handling into a separate patch since it
-  impacts MSR 0x38e and 0x390 as well.
-- Move the defensive filtering code in pmu load to the new patch.
-- Do not carry over Jim's Reviewed-by due to above changes.
+- Check pmu->version directly instead of checking both kvm_pmu_cap and
+  pmu version, as pmu->version is now clamped. (Yosry, Sean)
+- Merge the blanket masking into the fixed_mask assignment. (Yosry)
 
 v3:
-- Split from combined v2 patch into standalone GLOBAL_STATUS_SET patch.
-- Always intercept IA32_PERF_GLOBAL_STATUS_SET to prevent passthrough of
-  unvirtualized status bits. (Jim)
-- Reject writing bit 63 (CondChgd) to IA32_PERF_GLOBAL_STATUS_SET. (Jim)
-- Filter out bit 63 before writing to hardware in
-  intel_mediated_pmu_load().
-- Store status set bits in a local variable in
-  intel_mediated_pmu_load(). (Yosry)
-- Move validation for MSR_CORE_PERF_GLOBAL_STATUS_SET to pmu_intel.c
-  rather than common pmu.c to avoid exposing the Intel MSR on AMD.
+- Remove '&' when populating entry->ecx. (Jim)
 ---
- arch/x86/kvm/pmu.c           | 7 +++++++
- arch/x86/kvm/vmx/pmu_intel.c | 2 ++
- 2 files changed, 9 insertions(+)
+ arch/x86/kvm/cpuid.c         | 5 ++++-
+ arch/x86/kvm/vmx/pmu_intel.c | 3 +++
+ 2 files changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
-index 7ba1a3b38184..bd5954e62080 100644
---- a/arch/x86/kvm/pmu.c
-+++ b/arch/x86/kvm/pmu.c
-@@ -855,6 +855,7 @@ int kvm_pmu_get_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
- 	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_CLR:
- 	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_SET:
- 	case MSR_CORE_PERF_GLOBAL_OVF_CTRL:
-+	case MSR_CORE_PERF_GLOBAL_STATUS_SET:
- 		msr_info->data = 0;
+diff --git a/arch/x86/kvm/cpuid.c b/arch/x86/kvm/cpuid.c
+index 427871ec365f..2a4530d000fc 100644
+--- a/arch/x86/kvm/cpuid.c
++++ b/arch/x86/kvm/cpuid.c
+@@ -1554,7 +1554,10 @@ static inline int __do_cpuid_func(struct kvm_cpuid_array *array, u32 function)
+ 
+ 		entry->eax = eax.full;
+ 		entry->ebx = kvm_pmu_cap.events_mask;
+-		entry->ecx = 0;
++		if (kvm_pmu_cap.version >= 5)
++			entry->ecx = (u32)kvm_pmu_cap.fixed_cntr_mask64;
++		else
++			entry->ecx = 0;
+ 		entry->edx = edx.full;
  		break;
- 	default:
-@@ -923,6 +924,12 @@ int kvm_pmu_set_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
- 		if (!msr_info->host_initiated)
- 			pmu->global_status &= ~data;
- 		break;
-+	case MSR_CORE_PERF_GLOBAL_STATUS_SET:
-+		if (data & pmu->global_status_rsvd)
-+			return 1;
-+		if (!msr_info->host_initiated)
-+			pmu->global_status |= data;
-+		break;
- 	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_SET:
- 		if (!msr_info->host_initiated)
- 			pmu->global_status |= data & ~pmu->global_status_rsvd;
+ 	}
 diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
-index 4d05ec50f24f..c18d24b5c385 100644
+index 0be9956810ae..d259b66abac8 100644
 --- a/arch/x86/kvm/vmx/pmu_intel.c
 +++ b/arch/x86/kvm/vmx/pmu_intel.c
-@@ -196,6 +196,8 @@ static bool intel_is_valid_msr(struct kvm_vcpu *vcpu, u32 msr)
- 	case MSR_CORE_PERF_GLOBAL_OVF_CTRL:
- 	case MSR_CORE_PERF_FIXED_CTR_CTRL:
- 		return kvm_pmu_has_perf_global_ctrl(pmu);
-+	case MSR_CORE_PERF_GLOBAL_STATUS_SET:
-+		return pmu->version >= 4;
- 	case MSR_IA32_PEBS_ENABLE:
- 		ret = vcpu_get_perf_capabilities(vcpu) & PERF_CAP_PEBS_FORMAT;
- 		break;
+@@ -593,7 +593,10 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
+ 				  find_first_zero_bit(kvm_pmu_cap.fixed_cntr_mask,
+ 						      KVM_MAX_NR_FIXED_COUNTERS));
+ 
++	/* FxCtr[i]_is_supported := ECX[i] || (EDX[4:0] > i) */
+ 	fixed_mask = BIT_ULL(nr_fixed_counters) - 1;
++	if (pmu->version >= 5)
++		fixed_mask |= (entry->ecx & kvm_pmu_cap.fixed_cntr_mask64);
+ 
+ 	/*
+ 	 * CPUID.0AH:EAX[15:8] can only enumerate contiguous counters. Clamp the
 -- 
 2.56.1
 
