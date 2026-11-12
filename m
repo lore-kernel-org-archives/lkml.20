@@ -1,91 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794524694;
-	b=CEfA3t1VLhibBiZKuXK7CfGotjM52S7lXNoCdpXRIaEYUsq3PDNxaANp2rSZ6lOOlJFB
-	 jXBlGGmcNII5Pu1p3BkYILhIfE9YouJnjrtH6SkG+9snkGRNrLi2MjIJPlHo63Hq42UXA
-	 2Ct/AF3nmEa97ORXW9O5Vb4qcKnW6oJ3FL8LyyNJwbX5PxIXm1WDpA7RXfIVA4tPaX1Pj
-	 4+sS9o5MFmw4WO17yHIZJxUkSzgVe9Aheit2Q2e5dkwGYJKGWnz34ZzF+bMUzBAzoD+2a
-	 H984PV/KbsPlrUfYCvJtq+quMq2KCBUP7h6py00i7E/AnKBImhPEfr0FXl99/09VFdw==
+	t=1794524700;
+	b=Cuqiv3xMd41pkg9POa19lr6FoL3hyMVr1txDeVGBhZM9eZLmzibNa+b45XyCsZ1SkHXO
+	 jXsBbZgj4GqFdWxBI6BQyaxpGGTPZMgnvZUmwneWwkIzfMk6wGPI4KVbntpCyB/0k60k5
+	 72oVP+DakwrCYwT6PSTJtufDypxQr/Ls9+egS4iBiVLBo1S2Q7Ds+mKl2HCbhT1CHiQIa
+	 tMhPlfRLi+27regAyjOsmcMXO0L7Q2eEHqNRmbh6uGDALpt7vRNb4PeF/LfcmywSMQink
+	 1q+xDht3agV0U2izp6zONWl7b7uUW9nEX9sX1CCxAejAfTdj6qA0grLY7r5Pfq1AA6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794524694;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794524700;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Disposition:Message-ID:User-Agent;
-	bh=f+UcsNuMg4Yueaqy8xslzDAXYJR5HIy/+gngqmLcoZw=;
-	b=oRabGktBFd3iB5K4eH9wzjNXKIH7EjPldYOGaDHL0OAvS8iKA+otkaPA4ho6GT/MRdZi
-	 Kom7Dcm4Ivxcvmgdt3Fsp5T6vnbJ/CKxxPBkcAHJlOg9YY46PJ1JbYr7k0mto8EasO3YY
-	 kDAufU5vhfcs6tf63iKn9DoOqKwAFATK8uNIo5ldZPo9jV6lqV44V9qpodfPf1IxeOHjE
-	 bgRw7VKFYRSePPcp+vmOyKuCOtrJzzTWtHJTcEO7pdzmlFukEAu8DbxNOhnusUEgWzx4e
-	 UL+WxLeMVpsBdaOq9+0uz3yB0vTjRc6vadsljZ315hLEb9mvlBubGP8HDN0SZBhvx4Q==
+	bh=p/4lk02epaMR+IsZKZ+HoxMKqUc6qVIda0VOtHn3aEc=;
+	b=VxzfQ86TPzNfs3SaGYrBuPdrQDZguv4womy3+NMKCZxx+KNVzd8s+OoOghN6MNUQPbm4
+	 U6y7Qg3d9d6q64oFt95KgI8GNmBTfP/ZRxqfzYnEx8eL46Wv358zRfUX9Um1bPjAdTDNk
+	 oRtf5tgZmJtmt8emoumgJkwSwD3K4SmdxUbFrO2i9xCUfmz9N2m0TtPCjWej12pFMzwA4
+	 66Z0CdJr27O5Nu3dFgHfAEjMnAIf8i/BHcrInLGR55ZSTqVY6EJ+WSk6PpJFDJpncJZyv
+	 8QIgPgFd6LDqXB4S3IIHMe5W2Ooy8MYi/SVGniErJIeS6Y5mZ4nYu+fwk1uwEO8xmuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chrisdown.name;
 	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=sVVDHIa6;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=X11oGv2h;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6E1606A896
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:04:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A6E1606A896
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69CEB606A338
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:05:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69CEB606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=sVVDHIa6
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48dee593f18so341235f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:04:54 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=X11oGv2h
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a214af2076so2193145e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:05:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794524693; x=1795129493; darn=vger.kernel.org;
+        d=chrisdown.name; s=google; t=1794524699; x=1795129499; darn=vger.kernel.org;
         h=user-agent:message-id:content-disposition:content-type:mime-version
          :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=f+UcsNuMg4Yueaqy8xslzDAXYJR5HIy/+gngqmLcoZw=;
-        b=sVVDHIa6u23cm6n6Dj6idhGyLsWD05OKU8iAVIgjvD2Cr5tardQsTCl67SHlqhbZDV
-         ERv72mVYEG7cWHj9u2+HJ2u/7NVHiPctQQtsIjAZw+mOXtt/ZH6QSTGpg6EN4dHF/Tmn
-         6AnsrCJkH7wP7e9hdfUhRy33Rn0Zxb9zN1ipw=
+        bh=p/4lk02epaMR+IsZKZ+HoxMKqUc6qVIda0VOtHn3aEc=;
+        b=X11oGv2hz8wSzhdTWRT+wIEc6rImT8HwmORCi8BYxaDq3oCUAZIi0PiqktrMHzo5ld
+         pAW4gc5VE7QZZBQIqGoysZWYL9WLoPNaXT0As0X2lCk9X6eBBVZ3Hrul/1q1xCq1ZeOi
+         fTOz6eqnmjisELeBqbzgriirgCWPOwReMFl8c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794524693; x=1795129493;
+        d=1e100.net; s=20260707; t=1794524699; x=1795129499;
         h=user-agent:message-id:content-disposition:content-type:mime-version
          :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=f+UcsNuMg4Yueaqy8xslzDAXYJR5HIy/+gngqmLcoZw=;
-        b=Vfx6/HHUDd/U6WARzJkQz1ZH7IZLkIsfZO8QaA6Y3vvlHfMnt6zIj02c4I9zbhnXiB
-         z+L5NWKglpaDBD7Ox/t6sva2FDcoAhEI76CEfNdB+aaDz42ZufMjtMkjGpWkusx5CDyK
-         9/Eq0xepRovFED3L3N78SThUywX4slpohgVKOXPQsyIDitV8nbY4jJ3Hd1fa/QqiLg8m
-         MYY604NTC5fahm/nVs6+EooSgWduI0zDBDKWMpcmLQFArDxR2JGzaXgDFaufWAm9nq+R
-         7r9ujnWwCIWT5Igfpd+uTcBieh7O82j54pAEE/MnidY6f3OphDcsP/kG8zqBVq6Ig7qw
-         hzDA==
-X-Forwarded-Encrypted: i=1; AL+hErEuQ6GSqifwuNmmri8ofrEpdb2tqng0/FmnkHzLc7o0/GUAaLU4eRzsdyN+LCtiXfGTAUS+Gtsq5NBrDtg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9G0Fd8tWSJttIn5Cxzqp0iHDFHC3OUN3CcqVBTc+o7/gJ+xw8m
-	KK5ZBxhBFEnJtRaraXzWyJarW/jhLNAVaKuGvap+s6usbwe93TemU4tmiqAQmheXrjc=
-X-Gm-Gg: AYBFou0fibjXx5uwo2YdpoJM2jRd3cVJZbTyK+hKXlEWpUwJiAFknMdTI/nbu4TBAKi
-	6nbBBn5WQvOx3dfBTDwQr9Lle6MB5nu1r3drfhbfhh6fNAoOO3uGGeGeGFE1/08Vi8hwaknTeql
-	K/Z9neQYGNDtIPYzBB1EQUd58QuEu9yb+caHDlPtaNIlNjHgzkKfobKqcES0n8R+n+DRtcJzhqO
-	4Y9/vb0zPxr2wBJrCLgs66MpjF59TU6P+ptmtjAC4bbugL3XbPF90YwSAWohmO8+QNyOS4rcuic
-	XlxyCWX+MJ7xP99hAcEZFj1wABeFHIKOVY8TF4J5SmJlb0HX6KcX7UNBKRFZl0I+G/oPSWHARKB
-	V80djMqLN/Ufpr2kxgvNbPSQTTwn1pCQWG5Z7bS9xewh+IK6CIaWtAnMThKif3JYRi81aVdfoSr
-	SYo5qOEN7xA/nC/vpDbnOGO1oeVb+wSsMFKqnM6eRF0BqnvumSCXAVPI+DGyIyejIqFsyaGoarH
-	rG3gBaydd/N0qt1CL7GecJ6RRVu1Ygi/UTEKLiC9F0t++tRn9vA65+R8KOUiGh+HUfiXdI/5u9P
-	0DxskK1/Uox3UKL4HHm6wZAWRf6bF1rmxVKFhuJGXfX1u2U+8uA6/U1nzDneT/l/rcCV3doljK1
-	ddLyIIf1J+uvjDMPQrXFLmSwa21pPidiCfzjMgZQYijJOm81JvM5nORbhPctXlhhvLYW5gWXOPZ
-	9BLHX8LOYq7ihaRl9bWxIgs1BKadNcwl14SNsGPMycT8fs8pLHAZIXIdxzU2SEaRyupOvWEDRAt
-	rVX7cU=
-X-Received: by 2002:a05:6000:2402:b0:493:8847:841e with SMTP id ffacd0b85a97d-49c6fd933b7mr1670741f8f.16.1794524692875;
-        Thu, 12 Nov 2026 15:04:52 -0800 (PST)
+        bh=p/4lk02epaMR+IsZKZ+HoxMKqUc6qVIda0VOtHn3aEc=;
+        b=hJ3oaiP42GLxy4QCLpf/QYNxaFKz9nzv67IypTp2S9IKeg44zFQtmsxt6kO54iF1kG
+         7b171O5D7j3TY65oL5Wixo3//n9NMsBFbLCUmnfLDmFeHC+3NAva5aSqJk1oP7rmLIlI
+         uWJ1oX1erH4CsAOoOnp7IfyxHq/tIhtBMp/Md99sXcNqYy3tyMJVwhjxYbyqw+wllhMk
+         zRieXhJJlomQ8WlIRunlWa08ORfWEvrHQMX5NQmYv48RTg1rOoJjNZF+ifO90yNYOk4u
+         SMNTu/KzO8WEZ8vlCra5WhQVVPcUoZ9jSV9g9vdjoa/c0tUbLg7A+lanBH/2W7CwpWZM
+         JUVg==
+X-Forwarded-Encrypted: i=1; AL+hErHjyPHFBqOij89NieBOsPuEwpnHmF6uSLcGTfvjkOtGYBZvh8vxV+lQuBAOozwZl/54rd+W7aZtCDFh1bA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z833MSDdhyaVdWy0G58HBeEMnpxuLvBFZjormH1o4Boj1ZVhxWj
+	LrPmVeWS86nlFMLK0D35gUjiWrodIvkIJBOpOhIiYX5dB3kGf0QitUDYtXjHP8VAX0E=
+X-Gm-Gg: AYBFou0q2/o6JyXZQH/XRGnn7rm5dbXxpYPSbOrIgSXtI9Xx9zCrLU74NX0BElIvEuz
+	QcJDDQ11KUqo3NNG0xqWQIrjKUPkEaDv5KLMoSDU7XgaoKVv37O8NajF6HqKRvuuY+lBP0VOC+d
+	gCWp+ba3Z+w/hR8+dvE8hBQX6AurKbdJrq1O5xpY9JBMOrmWC8ZDUr8fjG076F8k22GKvgx8Ezo
+	weiuVucCIHt8a7bWtbgGf4SKBFlwEqoW71vPtj26mrSTS2NzakCgK9nmniku4YQchCqv7BciDn5
+	VD9C2wMgZ9NhhUPt7EPyLCxQkga2BdOeq+a4ihGTO9mKVu5Yo1d5qCWmL9RpIbDkvs42CE/oA40
+	MbhFoh+ydBlkzFZjtnjwjmZFjLdmcicQvxXf4Dis5sYrJ/EVMu0MdnaOUhH1pAzeiV//3Jcupdl
+	39V47lMMpmX0YSpjEXzpqz82vzNNTA3qpkXsBxdxUkjv8azP948wvRosIhtNCtLeUQSPZM7S2y7
+	82F/FYFETsj+OnwlHYNyvtaf2rLaVIq/aMCUoj6aJE8/4XdvM1PaCrAZKjmyzHhh7YdO9YySHZc
+	U5xWWV5WXEEq5PuyPlVFZ4sC5zRE7B6DAMfUCaalnEmu2JTOMye+26W1OM3jDKuUzSTjrJsYWVD
+	UqBz/vaZsTvDX3xlc2dFzIdCGhwO/0qLTguX3BHJ3Pj3bTmVVGt78eTRYYaoULLgGFqD6/BYuky
+	ldYWBLgSMfCUL6eQGzWg9HXB9g7BrEEd8aOSznth3Xi5aKKB42Uk1OgX+XFg==
+X-Received: by 2002:a05:600c:4e13:b0:4ba:38a9:85e3 with SMTP id 5b1f17b1804b1-4bb55a47fabmr14344115e9.12.1794524698997;
+        Thu, 12 Nov 2026 15:04:58 -0800 (PST)
 Received: from [172.18.0.2] ([199.201.64.8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c603f4e2esm1589884f8f.36.2026.11.12.15.04.50
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55ae501bsm15846805e9.10.2026.11.12.15.04.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 15:04:52 -0800 (PST)
-Date: Thu, 12 Nov 2026 15:04:47 -0800
+        Thu, 12 Nov 2026 15:04:58 -0800 (PST)
+Date: Thu, 12 Nov 2026 15:04:53 -0800
 From: Chris Down <chris@chrisdown.name>
 To: Petr Mladek <pmladek@suse.com>
 Cc: John Ogness <john.ogness@linutronix.de>, Sergey Senozhatsky <senozhatsky@chromium.org>, Steven Rostedt <rostedt@goodmis.org>, Marcos Paulo de Souza <mpdesouza@suse.com>, Naveen Kumar Chaudhary <naveen.osdev@gmail.com>, printk@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 08/17] printk: Ensure consistent name and devname when updating preferred console
-In-Reply-To: <20261111154816.71103-9-pmladek@suse.com>
-References: <20261111154816.71103-1-pmladek@suse.com> <20261111154816.71103-9-pmladek@suse.com>
+Subject: Re: [PATCH v7 14/17] printk: Update Braille options when preferred more times
+In-Reply-To: <20261111154816.71103-15-pmladek@suse.com>
+References: <20261111154816.71103-1-pmladek@suse.com> <20261111154816.71103-15-pmladek@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,7 +96,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Disposition: inline
-Message-ID: <20261112150447.cd6d7098fc4dfe5b@chrisdown.name>
+Message-ID: <20261112150453.a18f9d1d0a874e96@chrisdown.name>
 User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
 
+Hi Petr,
+
+Petr Mladek writes:
+>Make the behavior consistent and always update pc->brl_options when
+>@brl_options are passed and they were not defined yet.
+
+This changes what users get for something like "console=ttyS0
+console=brl,ttyS0". Before, ttyS0 stayed a normal console with CON_CONSDEV
+and the Braille request was dropped. Now ttyS0 becomes the Braille console
+and, with 15/17, tty0 gets enabled as the default console instead. That
+fits with Braille always winning in 13/17, but could you say so here like
+you did there?
+
+With only this patch applied, that command line also leaves the guest
+without a console until 15/17. preferred_dev_console still points at the
+ttyS0 entry after it turns into Braille, so tty0 is not enabled as the
+default console. ttyS0 itself is only enabled as the Braille console.
+That leaves only earlyser0 registered and "Warning: unable to open an
+initial console". Going by the code, the base already ends up there for
+the reverse order (console=brl,ttyS0 console=ttyS0), and both of these
+seem to be fixed in 15/17. So maybe squashing the two is the simplest way
+to keep bisect clean.
+
+>+	/*
+>+	 * Allow to override normal console with the Braille variant,
+>+	 * for example when ttyS0 is preferred via SPCR brl,ttyS0
+>+	 * via the command line.
+>+	 */
+>+	if (brl_options)
+>+		braille_update_options(pc, brl_options);
+
+When an existing entry turns into Braille here, it keeps pc->options from
+whoever added it first, and braille_register_console() only falls back to
+"57600o8" when those are NULL. So the serial options given with the Braille
+request are dropped and the result depends on the order. The cflag of
+braille_co ends up as:
+
+     console=ttyS1,115200 console=brl,ttyS1,57600  -> B115200
+     console=brl,ttyS1,57600 console=ttyS1,115200  -> B57600
+
+Should the options from the Braille request win when the entry switches
+over here? Or would you rather leave that for the separate series about
+overriding options?
+
+Also, SPCR never adds a "ttyS" entry, it uses "uart", "pl011" and friends.
+For "uart", univ8250_console_match() succeeds when
+try_enable_braille_console() tries it, so that one ends up as a normal
+console anyway. Maybe use a second console= on the command line as the
+example. There's also an "and" missing before "brl,ttyS0".
+
+A few changelog typos while you're there: "stored only it is a new entry"
+-> "only when it is", "preferred_console[]" -> "preferred_consoles[]" and
+".brl->options" -> ".brl_options".
+
+Once those are fixed, please feel free to add:
+
 Reviewed-by: Chris Down <chris@chrisdown.name>
+
+Chris
