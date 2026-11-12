@@ -1,76 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794499421;
-	b=frz3Jrkf76YWezs3adiMe5xIlhne6RTpXtzkk0oAh/ZAoKUJQPhPGJfxG2TnOfex2YL0
-	 W2UuTzdTq+AfVLLihPbyno4jfyiNnZJai6IL69FI6lcEPFSwopQHlwfST9tHCYYHiqbN/
-	 GULOUi8DusQ5QO2n/LZR5rQSsjCh84owg+EESJm0LhbrA/vfR8LphSw+MkK5Z+EVVKJJN
-	 KE+2+eRpugrMQatkVAfisY04nw1KLMHdBAOseCknpzxt32yjg1f6Gi0ZlMCzJR/IMcjgG
-	 PmMeFt/pff5ZXsEz+itSu7YfT/m0O+XhXYKh9wTVRAK6Fg6V0QzxG7NAYpVV/IWneWg==
+	t=1794499447;
+	b=chBXZ6xSPQ89wqjVawWxt4rlbP5tBe0ejVrp/sCkhzvBFq03LVFLw+dr8HaY4Oj4tx1i
+	 R0JhXMgW59izgGqh62d0iefyRuLiLYXCYEAsSqwJGDb7ve1bbV4ny4y7kriLgGqArzLZa
+	 kd9cKDz8OqFtn0BRJT8obSyXD1ihu0k/glCFHid9MetvuhkiFQjN0KAdmd6h79Bb4md1n
+	 0zkquM5xRrCKJ1CKcCSTArL5R4Ypv/DK7Tj9xLpv1/SbRNzORZ/NsqzUtKJMU0rk2uU+D
+	 d9WSYruLV3h1PwReEZiEHTu/yiz0aELzaJsXWy3SM6PEicht4/UheSo3e/7qC4k9nSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794499421;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=OyE71Zkb3/iNBTw7B3Y5CiHqSYL/RCxpNgb4AnO35ec=;
-	b=Nn3XXjk8euIt49oPiB2KE0yRDiERwC599NYHcPvDC51vccxFKYxEDUbrYr7nSeKT7wtd
-	 mY0O9p9/txbokmI31TT1MojOmdK4XGkFj80vUVf7ljpGIl4WWIoPj+AQOlJDJl4LOvriP
-	 8qECSnyQ8SmekPU5TjF2ugRCHBjT8E4Qj+HZ7kvvEdSUhqGGLbKARqBmhcLAcdEU02sNJ
-	 u0CkNHE6LrFtuoZyFAwmJs3kzEpsw6opwnSf32P5CfJnmjAsppftpN77ZZImMaZAERnnM
-	 TiZG6JUZESakB52nYwvDFXuNqx6DWvtdb1WnBqZ5NkWHcQqyetka0MxbJ1SzFJQyW9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794499447;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=33S+qNYSGyc9SP1Rjy7h+vlSjkGvft8MHkiYlXGDjZI=;
+	b=GxuhKCSC4w3p4/hx94OZ2qAQjPm6lsZl8CfR+1AFMX6eSecp5BFremrXY05qQZWs9Uch
+	 EyxACMA9DmT3cUaRgRijzOsVdoULqx1OgVsaSMDDimfFHgX64S1uVYK79aCQRFrw3k7FV
+	 Hzy/uoh+jFwqfiAVcavE6zsf6oSzKEvQ6y8D3j7l6YAngunSt+mctvUUPaUYo1dulwyvY
+	 2sbUvAUmV+ly8YXUTNx8c5MN8VMy74pAHPK4CslBtK3sI+5whq36gN2lJM4maGXEDLxxa
+	 EzOcdv2m91vAWPv4LbFyJ5YhGTy407OUdrmJVBR1SeCaE9XaqVkWw9yIIxvcCoP7OPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SKFzgVtc;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Ma1yFGXx;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=F8KaPbg9;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6DDF606A327;
-	Thu, 12 Nov 2026 16:03:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6DDF606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0094606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:04:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0094606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SKFzgVtc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794499421; x=1826035421;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=vgX+TuR+T/y+mCUnRazPzYVyOyYgWRIMq0F8DIw16KI=;
-  b=SKFzgVtcUjg9sLRbtg8w+UbkNPyZG6zxMBhR63u0ghkn1yLtvN9f74/Z
-   08YL5zMrHKQYhGv67GHTzUqoKJU5ixnkJOqtRdZsAFpvTkRVr2VnKP0AE
-   DS8e65+/kn2XIVlBRMJ+vppUlh1ewAl/3e8KSjIzQfeJNWdH5mrQ9vJrE
-   cndl4q2pyZ98I76mxTm8ZX8NeixgF6emnFjeVoL0sF2t+e+doAKCcd8PL
-   WEM/KhMTtoqtXmE2QsyPSvtg0ymPJjyPdMINVEBC1w5DnCKaJq/N0BNva
-   xLvDEkkr/T39L0XSFXVwLRVENxuzZahEwvexymMl7/qWwcsh65qFhV1Xu
-   w==;
-X-CSE-ConnectionGUID: aVBcHn2fQSabovI4jpXDTQ==
-X-CSE-MsgGUID: EblE1RFQTc+g951iBmgp8Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3373954"
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="3373954"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 08:03:40 -0800
-X-CSE-ConnectionGUID: s55KVvyZSauzH6MOMc2QLw==
-X-CSE-MsgGUID: MsNmaZNaRfmMDF4K0cEDIg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="8865964"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.6])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 08:03:38 -0800
-Date: Thu, 12 Nov 2026 18:03:36 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Zhu Jun <zhujun2@cmss.chinamobile.com>
-Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
-	andy@kernel.org, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: potentiostat: lmp91000: Handle configuration write
- errors
-Message-ID: <avXjWG56o9_O7x9o@ashevche-desk.local>
-References: <20261112071747.154626-1-zhujun2@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Ma1yFGXx;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=F8KaPbg9
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACFZV4v1159601
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:04:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=33S+qNYSGyc9SP1Rjy7h+vlSjkGvft8MHki
+	YlXGDjZI=; b=Ma1yFGXx4I1PsAb5TX5656beIdHuj971dDQg8PRUlbgqGprvn7b
+	FpJzjtSjVPBcW2KCEopp6BwquOVFu7w/XqZrgCdqZ2WvKSn0Xyhp9E3jV687n1GV
+	qoN6LBs6HoIi9nTc9DmGqCNuOz03aaTthSFN7OpUlLwlI3QXsvfH3ekRjIOUIgMA
+	V0rgPCxScwWj9EDKtknpFDNB6uvmnWhqvwE1/bX9Pz/dtLPKRAU+Ufn12kM8s4Sh
+	46mnIJx0pywelYkHFZMBMx/g+cQRhR95r+FGOfK8ke8zeDnuyxW74z3UC5hy6EFm
+	zqySUPQoGqFwm0t3BzYgeRbEE+TLXe6Iy9Q==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw9a09t64-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:04:04 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5ece7e4af28so4481e0c.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:04:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794499444; x=1795104244; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=33S+qNYSGyc9SP1Rjy7h+vlSjkGvft8MHkiYlXGDjZI=;
+        b=F8KaPbg9dtyHNC88gk0UPLPHL31rIJL2DoxcUINpDfSc4gh+hRDErBVXZucxs8jRrT
+         Sc16gqn9c+iNe/SNBPL/sFUgU530mPUBiPrN++rZwbJ8BwWN4EPRw6x1w3/LhGnaoohP
+         nd5tSeaPiRq6/gvaRkWP/ErL9igIxEl+ElZ7AkrSto9kUd087ySqanAog69c8U6DSRxG
+         9heHHvb8c/FN5F93stkyKfIyJFXTZ8Pzxse//DHIGKPpdMepgHAz1WLPRQmyD81Xzg62
+         lUaEkpMn/cIgRWdPgHUg2hR35U1QZ7duAkhj+HD+BduAzb6c2H6H0g19x2gTh/uYPahN
+         cL+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794499444; x=1795104244;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=33S+qNYSGyc9SP1Rjy7h+vlSjkGvft8MHkiYlXGDjZI=;
+        b=PpEfQjokvTP8cCM3sYbO2PB0IujoW5VGFcAWh6q4XSIhRHTMWqzE36NcJZnzr5gd9V
+         g5YRnR4qbr1NdHGRhR4HBISqTg0Mf/wKPscGZCfO6PiYnrWTav6lLylLMrkmGPR+NTEQ
+         c2r5lrz1VF85Klsbb5NNuB4kO1wqtXqUKr0BgFGPR2nn5A4Za1/sXRc32jgSEdhxkFdT
+         LZ+EtYSwKeLlmuN8XIC7MNTIN3+3F+b/EBnOase+ZSvfzur771U+f0pwgONaocqmzHrk
+         K5ba++Yujf4MilyLZx/8iiIM8y6bMH8IQkhIDXa4h41iTnvZ9QkuAwsTgb4B8mEKVZLW
+         3IhA==
+X-Forwarded-Encrypted: i=1; AL+hErGVBwzeDegqyuO5mB0k2rNhIjmXBBA26UXTL0rdkdVAe1mySVy4BtwEUmh3H40XAFmd1Bdnm8o9UJuAEyc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+NlY+8gBdb7X6LrJzbmJezBTEILbtQprNb42TgsPcIxJ/7P4Ge
+	9X0/BSwK/hjftSfuOlkySdE+xXswaTG0wB5UXgJcr0eqsTQZ98M4z/BeLVzEXqIaMqW2dRFQspy
+	2b1mFnJC1xYKoRzyw0fOcU9//vILMcFpn7ukctWHQ5rDc8n76tr5kDVMpccvDblMe4aE=
+X-Gm-Gg: AYBFou3MLcv4IxcqTo6OdYJw0Uk4QrxckeXHUHlbMfe4cctEPCGzx4SQaY71sL23z2U
+	+rjW/FHwHwo0xarRtmMhdLDBI6Njd500nT2ZMibvY/ptjTL1CzXSkV1hY5nKmNUp5KV6nA+6AEV
+	ztiURxrMudV6em9t+oRWqNNtkULyUa2c7VGO+hVFx9jDRNCp7SbFRLoHDftBzELNeKa8dnCq0tg
+	oiybAm9VzjXp8cUGEqCa6VaaleNUFQGyO/DL4Utd81WxJoOcA5XmTygWajR1GEUdhGX6xleeMlj
+	eMF3DSOgvrBhgjJh4b8SItLhxs3s8Wuxm60yR3XCE70hJ/2d6AsY2n5MFlzBN1uFh4ExXzlSHPQ
+	SfasmTMeWlnSvpYYv0oRviSG+ODEDNN2hWN0TC7lb1HerKJ/OmQb6uYrjH9obdS5OR+YfHBqzMB
+	tYLaFiLe/Weoolmd8UutyJLvJwNnzxQkbXAmN5k8bDy02qtzRMQriPksocrucE4g==
+X-Received: by 2002:a05:6122:d12:b0:5ea:389c:520b with SMTP id 71dfb90a1353d-5ee1c3daf90mr2745025e0c.8.1794499443720;
+        Thu, 12 Nov 2026 08:04:03 -0800 (PST)
+X-Received: by 2002:a05:6122:d12:b0:5ea:389c:520b with SMTP id 71dfb90a1353d-5ee1c3daf90mr2744998e0c.8.1794499443328;
+        Thu, 12 Nov 2026 08:04:03 -0800 (PST)
+Received: from brgl-qcom.home (2a01cb1d00dc7e0089167b9b97a26c96.ipv6.abo.wanadoo.fr. [2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2842e6sm78040185e9.4.2026.11.12.08.04.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 08:04:02 -0800 (PST)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, brgl@kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [GIT PULL] power sequencing fixes for v7.4-rc3
+Date: Thu, 12 Nov 2026 17:03:59 +0100
+Message-ID: <20261112160359.52742-1-bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,76 +117,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112071747.154626-1-zhujun2@cmss.chinamobile.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 2R4q-BXX7Ak2cx4z9aaby5J5Vb2Gg8vr
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA2MyBTYWx0ZWRfXzpmjh6O1V6i/
+ hJBmnVctDauwQpV73N+0W50wN1CCuDXSO4n3Zu9m9vYQOx6DafFpkSa6Qmgdw9oqf2wQ/nC1i0P
+ ks5OoyLGr0YthWYHz40OOT8//AOjYcNCfNR/sRONaY5J15L+CgO9aFt3qDb+YAjzSGvYB6lSQ/v
+ sT1lAaIjxRtWKFheEWl1zDsEWc7o/PA/EOYWew6i2tYHk4oMacURJM09La3Y+ENzxhVlSEMJdwl
+ zcGaQ1pkrAdoERLOJ4zyD8qJVe92t/MA9JfsltTP9dlHjD4SZj8RR/NF/eiPQUZoDC2ft8wwsKp
+ FvT/40Jp440Xi3pDcfaibk8swVH8UK1L/H2h0y5KfzqwBriM7xXNcdDLj0lGo2y777W92asg+D2
+ DqlOIIq4YjgIuQIhJdhQSZ7gRry2TiKw3UKzKXVB9MQZOj8jk1+nyM3nxHZ0rGOcNoHQ0kFz2/G
+ BLVhMAi86iXdwFZyd0Q==
+X-Proofpoint-ORIG-GUID: 2R4q-BXX7Ak2cx4z9aaby5J5Vb2Gg8vr
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA2MyBTYWx0ZWRfX41ZD9GL+lcIs
+ k2hBD1gaBPBjhbrGpln75x7MI3H2XUN16ULlineYUOupBmuRcjpMFg90JNjlZdA8aRfM3YTLOpF
+ krBqD7MW6jMFNDVEV94OM6YWr8TmirU=
+X-Authority-Analysis: v=2.4 cv=COG/zhrD c=1 sm=1 tr=0 ts=6af5e374 cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8 a=Cb2_Q8YfTQsDjjc_npEA:9
+ a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_02,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 adultscore=0 spamscore=0 phishscore=0
+ lowpriorityscore=0 bulkscore=0 clxscore=1015 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120063
 
-On Thu, Nov 12, 2026 at 03:17:47PM +0800, Zhu Jun wrote:
-> lmp91000_read_config() ignores errors when unlocking and programming
-> the TIA and reference registers. Probe can then succeed even though
-> the hardware configuration does not match the parameters used to
-> interpret measurements.
-> 
-> Check the configuration writes and return the first error. After a
-> successful unlock, attempt to restore write protection even if a
-> configuration write fails, and report a relock failure as well.
+Linus,
 
-...
+Please pull the following set of power sequencing fixes for the next RC.
 
-> static int lmp91000_read_config(struct lmp91000_data *data)
->  {
->  	struct device *dev = data->dev;
->  	unsigned int reg, val;
-> -	int i, ret;
-> +	int i, ret, lock_ret;
+Thanks,
+Bartosz
 
-While at it, it's better to split semantically different variables:
+The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
 
-	int ret, lock_ret;
-	int i;
+  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
 
-> +	ret = regmap_write(data->regmap, LMP91000_REG_TIACN, reg);
-> +	if (!ret)
-> +		ret = regmap_write(data->regmap, LMP91000_REG_REFCN,
-> +				   LMP91000_REG_REFCN_EXT_REF | LMP91000_REG_REFCN_50_ZERO);
-> +
-> +	/* Restore write protection even if programming the registers failed. */
-> +	lock_ret = regmap_write(data->regmap, LMP91000_REG_LOCK, 1);
-> +
-> +	return ret ? ret : lock_ret;
+are available in the Git repository at:
 
-It doesn't use any guard()() or so, hence just make a goto instead
-(and use Elvis):
+  git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git tags/pwrseq-fixes-for-v7.4-rc3
 
-	ret = regmap_write(data->regmap, LMP91000_REG_TIACN, reg);
-	if (ret)
-		goto restore_lock;
+for you to fetch changes up to b149b12f6a52997eded725ae5deae24620dbbbff:
 
-	ret = regmap_write(data->regmap, LMP91000_REG_REFCN,
-			   LMP91000_REG_REFCN_EXT_REF | LMP91000_REG_REFCN_50_ZERO);
+  power: sequencing: pcie-m2: fix serdev controller reference leak (2026-11-12 16:59:21 +0100)
 
-restore_lock:
+----------------------------------------------------------------
+power sequencing fixes for v7.4-rc3
 
-	/* Restore write protection even if programming the registers failed. */
-	lock_ret = regmap_write(data->regmap, LMP91000_REG_LOCK, 1);
+- fix a use-after-free bug and a serdev reference leak in pwrseq-pcie-m2
+- increase WCN7850 power-up delay in pwrseq-qcom-wcn
+- make the API contract for pwrseq descriptor serialization clearer
 
-	return ret ?: lock_ret;
+----------------------------------------------------------------
+Bartosz Golaszewski (4):
+      power: sequencing: core: add a note on descriptor serialization
+      power: sequencing: pcie-m2: fix use-after-free in pwrseq_pcie_m2_vregs_enable()
+      power: sequencing: pcie-m2: use devm_mutex_init()
+      power: sequencing: pcie-m2: fix serdev controller reference leak
 
->  }
+Shuai Zhang (1):
+      power: sequencing: qcom-wcn: increase WCN7850 power-up delay
 
-Alternatively, wrap the existing function (this will make code cleaner in some
-maintainer's opinion).
-
-...
-
-In any case there is a question how may the caller distinguish the error from
-register write and from the lock restoration? And what will it do in either of
-the cases?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+ drivers/power/sequencing/core.c            |  5 +++
+ drivers/power/sequencing/pwrseq-pcie-m2.c  | 63 +++++++++++++-----------------
+ drivers/power/sequencing/pwrseq-qcom-wcn.c |  2 +-
+ 3 files changed, 34 insertions(+), 36 deletions(-)
