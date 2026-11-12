@@ -1,49 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794452025;
-	b=jZjB/FkcYgPlI+KwSKl2FJxPY9zPn3woKrvay8YEs/hy6Z1HFreMViuaV0A/zvMe72fc
-	 RH4rg+uzvlALO+2pQZrqBu6idMte8NM6kABSVXtaUwY4n8mg9QNZQo7G88WNRKGXtgHkY
-	 eCl7j+dfnCqllftNU//U9y0zZ5a+ISTehVAykSWUI8a1T9Kbi3mJfx50oxBAGXBeczT6P
-	 6dhozgRNFiEk6C/y0DwBPHTnTNj0UJ2v5idHPiwqhmBG+uXu5TGBDq+9NqKYMXpe+bxj2
-	 F04uROB5AiiREvRh4n0Cd/3tDIC15n89iEn6kdwVZKlY8XXqIOOyeSx2sKcW1IBMe9Q==
+	t=1794452027;
+	b=p6rF1tHTba9/8bURdHm1Bta96MJySKuXmKKdxgNbdS/EqlEUpBNvFsxvFeDv7jnnHApe
+	 yo/v033iM/lCur49JKyXHGdkUZwSRKOrC1e7IS4SlvRXXVEPemPrh3pbj0bRwRtyi2mEi
+	 B+Xfv9VM0a+ANIl380l9fnQVhLDyklqlVnQTC9Ii/Kv0d+z3YerkpJqX7yNQ+wn4CvquR
+	 q/AUc+jynr/5n3aFTSadwLdpUaKQ5Y5PmkLn9N4P4cXf11sjhXOHxgxi5HPTErbuskzV/
+	 IoxYMNzlqSt44ZzmheVWAH7NcSeQsxwAFyVyiir79Xx0DxqgZzQlJvP94rhvq4JfTrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794452025;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=/cOEvzfTmLtCNzwUoH+WlzB71QyL8D0I1pIinOCRzTI=;
-	b=Dul/8+2YYNWTI9GDqMy7sHX9P4hGwOHurSKNV6E8WnsnoaDUXlTR33xnnopMZaJ3PvEA
-	 SbVpZS18q4Hn76ifO0tpGYMCHUH42vjqcGR/5DOsDr+BaY8W7fJvijtlvlyaXYL3i9shQ
-	 WDYgVDkn3GrnlT9hyFhlGSELhTZkGManUNUSEIfhgkADsilH4U99QWDpFAddNzRlzTfad
-	 MjOCdec8vgkjwNIbOC+/Meq8gl0Bpwj1ChcEIN1gZediRveN7kK6Aq5VZ6wgcJWqgZY6x
-	 jqZFcaAOgRCixt8zc9IXkGUlHxruxNEqMnxrKEBvmyUpaAOxuPunIP9J7Vzny9bjGDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794452027;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=laEHbKjRx6UGZ83WAETWyeGMdYjR96+Q9+DRe2CkpWM=;
+	b=TXw2Lkszkx02nwsH+V94DBQBxkEqBcJan+Fp3S+vY3xCjfy02bLsuFml0lAOvSqta6UN
+	 JS4VDbiwMbWgsaYfzzvuEJRbVeJ3tkGPjhQvQ5/IRHnJYpiynj4ElYoEL5zXxlcfmOhxF
+	 qZmnJ3F6bOdVsESdyA9TuklhrEC/Ed82ez5XTIz+ZigGeNvt2RbCOaNfgxocy+W0yirL6
+	 /dUCuzfi+/izpOvhJIhHoSFtiRBwJQbAFYccYiHo7H699WoY6EJFd6a6gc7nTKOp9rDRn
+	 YqSiOAwdW0ombJzP0eBnHI1zSUNi3/uvt7+A4MJwtzRn+Y1H+F705dF8XOlfmKoSXOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=GwRr4NbL;
-	arc=none smtp.remote-ip=115.124.30.100
-Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Thcmsk3n;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B542606A321;
-	Thu, 12 Nov 2026 02:53:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B542606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B83606A335;
+	Thu, 12 Nov 2026 02:53:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=GwRr4NbL
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794452015; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=/cOEvzfTmLtCNzwUoH+WlzB71QyL8D0I1pIinOCRzTI=;
-	b=GwRr4NbL92PaE9dXiYqpfaEQmojlJoXCfa6qSp6fbxgp5NX9teVBnzg2EdupgfFdX/jj8Xbcz0FSRE0EUfnSfOvhd+nDcg0Qi3N+PJhFrljLap0oDnbRZu18Sf0icb9sQbHGslxknnSpCDuzDsrCQOP/3WNYmL8C492jwTifXvM=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=4;SR=0;TI=SMTPD_---0XEaSnJV_1794452014;
-Received: from 30.221.145.78(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEaSnJV_1794452014 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 12 Nov 2026 10:53:34 +0800
-Message-ID: <c5d699e4-12cd-4321-9b23-7d340ea8e959@linux.alibaba.com>
-Date: Thu, 12 Nov 2026 10:53:33 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Thcmsk3n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A2C81F00A06;
+	Thu, 12 Nov 2026 02:53:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794452026;
+	bh=laEHbKjRx6UGZ83WAETWyeGMdYjR96+Q9+DRe2CkpWM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Thcmsk3nCAaNGrh0B9hAvjc9A/dpu6nVzwiYBzSv1IQZGch06h9mXo8LVXmmRGBGa
+	 TQB9QvHsnN7Yozx8luFXmhQoS3Mr3/QaFdMKvtY0l6GHHsXscylNh2XhfdaQM/YmCf
+	 aaOYqucZLIR9X/3P2cC9VAcn6p/G0cijuUSbAaklRTvejXKj8CgyKpXFJ0sH+XxK4X
+	 mAVxDPxnRj5PoDEm+VFBjfstF0LgenNnZQkKi3oc9RzFlO8ORtPf/btp0XvWN76AV5
+	 DmbxjN0wUMiK+nWCJEM2gPYxR+REIPeztD35A+Scyovggnw1/LzbDxlKxHl7PSya5d
+	 A/sy0Nvnu8DwQ==
+Date: Thu, 12 Nov 2026 03:53:42 +0100
+From: Marek =?utf-8?B?QmVow7pu?= <kabel@kernel.org>
+To: Junyoung Jang <graypanda.inzag@gmail.com>
+Cc: Marek =?utf-8?B?QmVow7pu?= <kabel@kernel.org>, 
+	David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>, keyrings@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] platform: cznic: avoid slab-out-of-bounds write on short
+ Turris key reads
+Message-ID: <avUqKeNDFgeCx9Hi@solitude>
+References: <20261109212632.2437881-1-graypanda.inzag@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,62 +59,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] gfs2: release the statfs glock when
- gfs2_clear_beyond_eof() fails
-To: Andreas Gruenbacher <agruenba@redhat.com>
-Cc: gfs2@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261105054609.2759418-1-joseph.qi@linux.alibaba.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <20261105054609.2759418-1-joseph.qi@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261109212632.2437881-1-graypanda.inzag@gmail.com>
 
-Ping...
+Acked-by: Marek Behún <kabel@kernel.org>
 
-On 11/5/26 1:46 PM, Joseph Qi wrote:
-> gfs2_file_buffered_write() acquires the master statfs glock before
-> writing to the rindex and releases it once the write is done.  The only
-> error path in between used to be the failure of that acquisition, which
-> gfs2_glock_nq_init() unwinds by itself, so the cleanup code at the end of
-> the function never had to deal with a held statfs glock.
+On Tue, Nov 10, 2026 at 06:26:31AM +0900, Junyoung Jang wrote:
+> For 0 < buflen <= PAGE_SIZE, keyctl_read_key() allocates a temporary
+> kernel buffer of size buflen via kvmalloc() and passes it to the key
+> type's .read() callback. Only after the callback returns does it check
+> whether the returned required length exceeds buflen.
 > 
-> Commit 4982e58669b1 ("gfs2: page poisoning fix") added a call to
-> gfs2_clear_beyond_eof() right after the acquisition and made it jump to
-> out_unlock on failure.  That path only drops the inode glock and then
-> frees statfs_gh, so a failed write to the rindex leaves the master
-> statfs glock held exclusively and frees a holder that is still linked
-> into the glock's holder list.  The GL_NOCACHE demote is requested by
-> __gfs2_glock_dq(), which is never reached, so the glock stays locked for
-> the rest of the mount, and the glock and pid references taken by
-> __gfs2_holder_init() leak as well.  Walking the stale list entry later
-> on, for instance from do_promote() or from a demote callback, is a
-> use-after-free.
+> turris_signing_key_read() clamps buflen when it exceeds
+> subtype->public_key_size, but ignores the clamped value and
+> unconditionally passes subtype->public_key_size (33 or 67 bytes) to
+> memcpy(). As a result, calling KEYCTL_READ with a smaller non-zero
+> buffer (e.g., buflen=1) writes past the end of the temporary buffer,
+> triggering a kernel heap slab-out-of-bounds write.
 > 
-> gfs2_clear_beyond_eof() zeroes the space beyond eof, which for the
-> rindex ends up in adjust_fs_space(), so the call cannot be moved out
-> from under the statfs glock.  Release the holder in the error path
-> instead, guarded by gfs2_holder_initialized() so that the paths which
-> never acquired it and the one which already released it are unaffected.
+> Per the key_type .read() contract, only copy the public key when the
+> supplied buffer is large enough to hold it, and always return the
+> required size.
 > 
-> Fixes: 4982e58669b1 ("gfs2: page poisoning fix")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+> Fixes: 0b28b7080ef5 ("platform: cznic: Add keyctl helpers for Turris platform")
+> Signed-off-by: Junyoung Jang <graypanda.inzag@gmail.com>
 > ---
->  fs/gfs2/file.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/platform/cznic/turris-signing-key.c | 6 +-----
+>  1 file changed, 1 insertion(+), 5 deletions(-)
 > 
-> diff --git a/fs/gfs2/file.c b/fs/gfs2/file.c
-> index 1efd0679badd9..2452d3ecf09c7 100644
-> --- a/fs/gfs2/file.c
-> +++ b/fs/gfs2/file.c
-> @@ -1087,6 +1087,8 @@ static ssize_t gfs2_file_buffered_write(struct kiocb *iocb,
->  		goto retry;
->  	}
->  out_unlock:
-> +	if (inode == sdp->sd_rindex && gfs2_holder_initialized(statfs_gh))
-> +		gfs2_glock_dq_uninit(statfs_gh);
->  	if (gfs2_holder_queued(gh))
->  		gfs2_glock_dq(gh);
->  out_uninit:
-
+> diff --git a/drivers/platform/cznic/turris-signing-key.c b/drivers/platform/cznic/turris-signing-key.c
+> index 3827178565e2..af414e236de2 100644
+> --- a/drivers/platform/cznic/turris-signing-key.c
+> +++ b/drivers/platform/cznic/turris-signing-key.c
+> @@ -46,12 +46,8 @@ static long turris_signing_key_read(const struct key *key, char *buffer, size_t
+>  	if (!subtype)
+>  		return -EIO;
+>  
+> -	if (buffer) {
+> -		if (buflen > subtype->public_key_size)
+> -			buflen = subtype->public_key_size;
+> -
+> +	if (buffer && buflen >= subtype->public_key_size)
+>  		memcpy(buffer, subtype->get_public_key(key), subtype->public_key_size);
+> -	}
+>  
+>  	return subtype->public_key_size;
+>  }
+> -- 
+> 2.43.0
