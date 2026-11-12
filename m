@@ -1,91 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794488971;
-	b=VkDjwd+tYEatWR2a9CpmQGJ3QTBGS322itA65bvrotZ0xfQGzh01vE6GIa0GRRs541nR
-	 4sby9ZHwKml9F19xkOEds+rLD3mO0GrooQ59F5qmVr2BZpBbhJ4kcMEuEURj2m20RmdDE
-	 vgFPlZhf3JuxnsgxngPiXPyVqBQhCaV9gAzkrlYCgktEiqKXgJsfe4iyJ8fpaiyjtOL9C
-	 5l19vEZ3NHnBS8SqIIg0i3aJMijg3vjIggrKRmGYa8O1VC/FqR8URdK+EOTuVn+2D6Iq1
-	 8GNyLQixa5pcZqtpz7T5HQpaF0QqPRaL5egH6TqIxB0GqU7guJpWEYkYA28GLrCB7BQ==
+	t=1794488988;
+	b=VCHMFYE+U9pe48FtJStTlnEL+//98S8c1StVnMpGM7jA2C6XnzfvcMD/1AaENbri4Tsz
+	 Q/EqrtZ0j8F0RnsfebuBzRQaiBP99l+syp4YiaJ6xy+VxJPud7zFjF5QkFO0XQduSntZ7
+	 u61uN1bqLBcOd6ZckRYw/fQwZhYMZb93wD9heNytA7tAoEuthvStBI59KBTyAlVKJa9eu
+	 ESjH/LVH7TZGx9tUgdArdjQ5idNUv4M0B/cMLq80yWMQL/RV2BBqAMDWcpJ3SD6uwlWWt
+	 CvfBMyX4mlerkzlGsghTbMqRsJtOup0W12zaCn8W5UHc27wn/PNgN9uDIm6RmmJLvVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794488971;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=1T2riPt6TLd4tcqfYZXiptHpoqngeOa750Ao6dYlwko=;
-	b=03M5OE117xXukr8/yY5XnR83tf6NFM+0VFg9AWPlZsQxXnbfY1n5CDnDwy2F5zii5kEa
-	 zR+Q0AEWbAGhGp/m1c8zDWTV4jM2ZF2BVFVciHoO40UO2BOk3UaPXqC0zhYytJC2Usqb9
-	 R8XG709Gd9CCWixMEuNDwtd+eD2lfDWFkuwNvs89QDlkmeImBwubgvBAiHrPM7FImV8nC
-	 /oRy86Zv5xex4LseMGlgL59lUfzZmdOQ4/w/vAsZ44veKQKylmzFMYo6Ci9vblDQQcZ0F
-	 wFWIfd04ZwPVR5NgFEBeXpksh4Q7cbc7MK2/oTMv9RlnNwLMTsolQaoqDmYc9z/FDiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794488988;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=rnZ/d0xPhMRt9sEp1D0qZrWF3a3n7SkSWR02u54K31M=;
+	b=1uqdvJC+F22EsWbUcRfdbXz1uAQnvw04d0b870MZnn8sPFUqEFknZ0fg+ssHcNBpYXVD
+	 JNtEBCTUzQYMxxOGbckIOe+22vqk47XJDkyQYZp7I2KsJXY5cMTFZXH7IbRgpiQRQga0w
+	 18FanjtiBZhBzLVUt9XOu+PbumO1LVNaJ4wV2p9Gf1FHs8LVabP0zUokRqTDM5gDseUPA
+	 ZEkercaTEx7Qznw4jc7I4MheygKBWRQcDqv7QTvUXdxL6gy/cDxqm+mxe2P8h3DMcHBMN
+	 SdosSlNcnZMpg2sbkWZdblFeEuBSiNm0thAsGBlT20GpbqqoGDy8i9AQFwhVyJQXgLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qxov5I2I;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=YRAaMpF2;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C423606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:09:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C423606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96EBD606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:09:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96EBD606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qxov5I2I
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36eb1cb7aabso6356927eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:09:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794488970; x=1795093770; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1T2riPt6TLd4tcqfYZXiptHpoqngeOa750Ao6dYlwko=;
-        b=qxov5I2IZo8kun0LWvzjMa4f2Ag9JiOEzkd/e3mbn0ufvTU2tw5msqluKEwHhGKB1O
-         YoCm7YX1GvkAqtiHlE6ChKlZDLGeQbbEE+A0+ZaAQ4GgmBCxDoepbVGkfn9nHRMXGG9V
-         0eR0PISJ0vWPBN+XwFdc8xZzO8/dE2Fb6h+n9ksleDLiU4esZvV1hSQWB6pwh4Zc2w+z
-         LQH5gWQX0mUkyd73zlhxeqzyPqQj+FY3e1KR3RsYZXwz5M9N68xO8SGtxewj60yx+5bM
-         4gNg3T7UcjrktchfLCRXbTJS6wIJQ4KtVgdGeXLuU244sXeLXxq6RdTD7sk0MdblJRtF
-         u7Pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794488970; x=1795093770;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1T2riPt6TLd4tcqfYZXiptHpoqngeOa750Ao6dYlwko=;
-        b=PFF+2qdkMW15/pwakLwebKq18fqA89vrInPe5vdW+ulzZ/O8+TmqzY5+xtIYx0S12r
-         g4dD7Tu0O/i6oS+M5d51a1yK7LjqhenhV8sq2lrxzC4h4bBRTNdDweY61nplfvfn7k8T
-         Xah2N2a2XoiIof5m9hL0Zx1t8swARjuf7gNQLHB1vsvaRamNdb/W5ysjIlkQK9x+/Hpi
-         F2yn9smOtb2caMePFAs3l4se3bckA0IoTR2YkIZ5vJOtomsMim9eUl/3Zx5PKnrI00PZ
-         s8rV3T3x8ik48LfhZoFYiPV2W0s3NGx47fMaNpFCUC5NkwSrGu+C5x+U9W3yd/N+B+34
-         hdWA==
-X-Gm-Message-State: APuU4Z9tEHoe3igozEu8u0DvfqVBd6/nHxGkViwAFXOx8TDU1zTSjP8G
-	4sAaWKRMA0gotwXzNKdmLvnfI507pUMs8vXOF8wM8q4SEeamjBC1F7FnqWCvSPFt
-X-Gm-Gg: AYBFou3gwuXnfAmpI9k60+G+Kdh6fqZ1VRJeRVRMXEeDPgAuG3H3q1GrF0QcyVsGPSw
-	dSUzcHTOt5f/4P0FPEPbv80F5MdzDJGu68GFg3tgrxbmbYTWKT8tjC6bCjcis6Pipieci8uK982
-	Z8SxsArvLoYAWT8AiCmrRg8w0IE2JoRizwMQ/EqwOqDRE4BGgT22wV3JBze1/RM2F9hpG0CCKpq
-	fOJ/F/GhBRBDdrq/kHG87mikedkRiezsDibXQD0G5ib/p3pxPGJU/UbIsxg5Z07MntaERBaJfxp
-	73mMOnFLumEu9EzHLU9hL8r73FHc5QQfOgcBHl+hAmOu1nHOeQYCQ66DUQPO2ThhRi6wdVxFQIM
-	cUXdVd8JTtB4v6Ygk64aKiClVv6ISiqXgccIXjs4CyyyK117GbGWTdf6ZRJeGFEmN8V+hyFrM/w
-	WC/Y0zJe+lWu3g+SGxLSmT1MIgEkIibZXYDXlHhjpyMqhWGx9D1rx7SMnjGbFbPogLaEVaV/M+H
-	hSAoeyyCa3CKxd0FtXfaQ/i8IG0EpF+pCEa0JKwkNoQzU7MffGTjA/kkkXBDL5DtmsjHZgngCFq
-	xAkrngmPebLTEP8qA86ow95EwzJ0FiERuT/s5hEvslFe
-X-Received: by 2002:a05:7300:33a7:b0:36c:f88b:caae with SMTP id 5a478bee46e88-37686469c40mr5812080eec.22.1794488969615;
-        Thu, 12 Nov 2026 05:09:29 -0800 (PST)
-Received: from xploitoverload ([2a09:bac1:36a0:120::1c5:160])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751ff2ab59sm27030433eec.6.2026.11.12.05.09.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 05:09:28 -0800 (PST)
-From: Kalpesh Solanki <skalpesh942@gmail.com>
-To: Jay Vosburgh <jv@jvosburgh.net>,
-	netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Oliver Hartkopp <socketcan@hartkopp.net>,
-	Jiale Yao <yaojiale02@163.com>,
-	Kalpesh Solanki <skalpesh942@gmail.com>
-Subject: [PATCH] bonding: reject IEEE 802.15.4 and 6LoWPAN devices in bond_enslave
-Date: Thu, 12 Nov 2026 18:38:33 +0530
-Message-ID: <20261112130833.233208-1-skalpesh942@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=YRAaMpF2
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2iCIu2854163;
+	Thu, 12 Nov 2026 13:09:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=rnZ/d0xPhMRt9sEp1D0qZrWF3a3n7SkSWR02u54K3
+	1M=; b=YRAaMpF20FD1O3ARui0W02IFaS3IdmrCuq2048ehynm35p02CCs+9ciY+
+	2mSYzqb1d2hecKsYHrAjQLjKaAonU4JzSybNxxmgwK9gH6DPOtjkgFsdaGReo1oo
+	aOpXZVeN15WA+jti2A/qaEZtm20CISLoircLC6jXmth7kMwMXOcYlKuTsRxajA5/
+	/A2y6wyD8k+ZycUw4YxU2rL8AoVbOHXS3OiKeLhpXXvWd8Wj4X8SBhna+oefX7NP
+	sUpwpT1FArcKw9GbydMYwBPS3wFAaRrE6iKm1ZRCJ+2A7TdIK7Z8cB01/R/QGdSx
+	8hSh7DFRcAfYVAdMiCvwKzdSHMmUQ==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsuq77ewg-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 12 Nov 2026 13:09:26 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC8FvlF106626;
+	Thu, 12 Nov 2026 13:09:25 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hv4nt0gh2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 12 Nov 2026 13:09:25 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6ACD9LPr45613556
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 12 Nov 2026 13:09:21 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 705EC20040;
+	Thu, 12 Nov 2026 13:09:21 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6BFD820043;
+	Thu, 12 Nov 2026 13:09:16 +0000 (GMT)
+Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.39.18.47])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 12 Nov 2026 13:09:16 +0000 (GMT)
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+To: maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, chzigotzky@xenosoft.de
+Cc: sshegde@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+        christophe.leroy@csgroup.eu, linux-kernel@vger.kernel.org,
+        msuchanek@suse.de, ritesh.list@gmail.com, harshpb@linux.ibm.com,
+        gautam@linux.ibm.com, amachhiw@linux.ibm.com, venkat88@linux.ibm.com,
+        nnmlinux@linux.ibm.com, mkchauras@gmail.com
+Subject: [PATCH v3 0/3] KVM: PPC: BookE: Fix boot hang on preemptible kernels
+Date: Thu, 12 Nov 2026 18:39:10 +0530
+Message-ID: <20261112130913.4124175-1-sshegde@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,57 +94,71 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA1MCBTYWx0ZWRfXyZzywHB4un0M
+ m9wxQECz0fNmX9DwXAipnCuaaUYoVK4mFeDUrFPTJOAf4DczDcJcVUek28q6BDhViEgcBnnexka
+ o42+tH1csSd4dakkrrQ4ot2FAgi5s4w=
+X-Authority-Analysis: v=2.4 cv=HbCB3SE8 c=1 sm=1 tr=0 ts=6af5ba86 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=TEUKsyddKFnqGGVLVlYA:9
+X-Proofpoint-ORIG-GUID: hr7NnMY1O1eU6QKFnmSdsOdh-vKox6yF
+X-Proofpoint-GUID: Bru0rrrdTpLPq-rbqYWrAZJiCYoaPy8x
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA1MCBTYWx0ZWRfX2Dqz6ivc/Oc9
+ you88zDVd2ICI/rRhg0VY+7eO4Yptf4IiHkhHFhtpWxoA80vbolCd30Wn8BqrppvVj9xzILbzMy
+ D8U+WKeEqFAuUI253aHS+Qcf8KHfE+K22IbcEXQM3AOS1xIp7cfh7DCPTEi09boFIlT9P2cye7k
+ Wu8pRID3SyJiAdizSciv48HVg1sfWJb4DPk8w8N4Wc5jpGFzV1MLboOPv51QwIbmVUEkadnQs8w
+ B+fkXACXLOcB5pXE/sItfvyB/QWtDjLuAktt74VltdAOmmL5JFtVlA9TL0HFxHrWXL8yUpSvkTR
+ u75XU1SVJnvsYOrFSdQUdoQmW7RaqBFAJWJv8Qzg3p7CVYgZH/ZqML6VPQ5vUPi/5AKrsTdWY9v
+ yAd90z29uXqOXVSW/cGCq8I/MBQpMDmYza2opT+vuX311Thw9GLOdaM6CE5XKc64Bmie0Cu8s+P
+ 6mS5AVxkbtbWp0UrgwA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 spamscore=0 bulkscore=0 phishscore=0
+ impostorscore=0 priorityscore=1501 clxscore=1015 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611120050
 
-When the first non-Ethernet slave is enslaved to a bond,
-bond_setup_by_slave() copies slave_dev->type to the bond device.
-However, the bonding driver does not set up subsystem-specific
-mid-layer contexts or private structures:
+Christian Zigotzky had reported that preemptible kernels don't boot on
+his FSL Cyrus+ board. The board freezes on running either full/lazy
+preemption and has been an issue for a while now (years!).
 
-1. IEEE 802.15.4 routines (such as ieee802154_llsec_dump_table(),
-   nl-phy.c, and socket callbacks) identify WPAN devices by dev->type
-   alone and unconditionally dereference dev->ieee802154_ptr and
-   dev->ml_priv (ieee802154_mlme_ops). Because bonding never allocates
-   these, this results in a NULL pointer dereference.
+https://lore.kernel.org/all/b897b0fd-90f2-4215-bcd4-3714e497d773@xenosoft.de/#t
+More details in cover-letter of v2[1]
 
-2. The 6LoWPAN netdevice notifier (lowpan_event()) identifies devices
-   by dev->type == ARPHRD_6LOWPAN and treats netdev_priv(dev) as
-   struct lowpan_dev. On a bond master, netdev_priv() is struct bonding,
-   so writes to lowpan_dev(dev)->ctx.table flags on events like
-   NETDEV_DOWN corrupt the bonding driver's private state.
+v2->v3:
+- Comment removal (Mukesh Kumar Chaurasiya)
+- Add missing booke change (Sashiko)
+- Collect tags (Thanks to Mukesh Kumar Chaurasiya, Christian Zigotzky)
 
-The team driver closed an identical gap in commit 9043be310c6a ("team:
-reject CAN, IEEE 802.15.4 and 6LoWPAN devices in team_port_add"). Bonding
-previously only blocked CAN devices in commit 8ba68464e478 ("bonding:
-refuse to enslave CAN devices").
+v1->v2:
+- Re-order to avoid preempt count dance (Narayana Murty N)
+- Do only hard_irq_disable on PPC64 to avoid second warning. On PPC32
+  use local_irq_disable to acheive the same. (Ritesh Harjani)
 
-Reject ARPHRD_IEEE802154, ARPHRD_IEEE802154_MONITOR, and ARPHRD_6LOWPAN
-devices in bond_enslave().
+v2: https://lore.kernel.org/all/20261110053238.3794500-1-sshegde@linux.ibm.com/#t [1]
 
-Fixes: 8ba68464e478 ("bonding: refuse to enslave CAN devices")
-Signed-off-by: Kalpesh Solanki <skalpesh942@gmail.com>
----
- drivers/net/bonding/bond_main.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Apologies in case any nitpicks are missed.
+I'm surviving on half a night's sleep these days.
 
-diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-index 7019e5d8fdc..b3b003e39b2 100644
---- a/drivers/net/bonding/bond_main.c
-+++ b/drivers/net/bonding/bond_main.c
-@@ -1894,9 +1894,12 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
- 	struct sockaddr_storage ss;
- 	int res = 0, i;
- 
--	if (slave_dev->type == ARPHRD_CAN) {
-+	if (slave_dev->type == ARPHRD_CAN ||
-+	    slave_dev->type == ARPHRD_IEEE802154 ||
-+	    slave_dev->type == ARPHRD_IEEE802154_MONITOR ||
-+	    slave_dev->type == ARPHRD_6LOWPAN) {
- 		BOND_NL_ERR(bond_dev, extack,
--			    "CAN devices cannot be enslaved");
-+			    "CAN, IEEE 802.15.4 and 6LoWPAN devices cannot be enslaved");
- 		return -EPERM;
- 	}
- 
+As said in v2, remaining usecases of hard_irq_disable will be taken up
+later.
+
+Shrikanth Hegde (3):
+  powerpc/irq: Add ppc_hard_irq_disable()
+  KVM: PPC: BookE: Load FP and Altivec before enabling the interrupts
+  KVM: PPC: Use ppc_hard_irq_disable before guest entry
+
+ arch/powerpc/include/asm/hw_irq.h | 17 +++++++++++++++++
+ arch/powerpc/kvm/booke.c          |  6 ++----
+ arch/powerpc/kvm/powerpc.c        | 14 +++-----------
+ 3 files changed, 22 insertions(+), 15 deletions(-)
+
 -- 
-2.53.0
+2.52.0
 
