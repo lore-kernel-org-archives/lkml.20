@@ -1,111 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794493022;
-	b=AV3Ui8TP1L9JbdcI15wpvf1ePu4Xd/o2dm5Ip7vMDtQlqgoW54vGYjmAykzSjOZvVixD
-	 savMTTiqba/AZesJYolwGJTQPBY6aMe5t1KZlI0oD0dBJeI5fbkl/OrvqvVf8774k52Xq
-	 YFVTvQGj3sc7pB4ccydHjUwrem3Y5pYpMURtGrFyCprTQ4Kt3+7vkULN/EF64oI3DQQfw
-	 yCbOQz7gSBYS4QeXNYq8N55u0cQkZ8ZEm5YYXdnHUcGyREbUmoHIgWeE+px9vlMUQ1G3x
-	 LlaJ8qhGxtQt/x2wQUgrTjO5RJcJTKRvulKCC1n7vKoCgbhwkN6yVFm8ceRtpjyAo+w==
+	t=1794493028;
+	b=WckJ2g5Vh69kQt1+MW8EkGLWcfXbWI/GHFQWE8lCYfXgl2daYgahJwO7Abnh+TR/IJCr
+	 ZGYpTOV6y0cu7nLIZMEggTWbNelIe3TNmyCTAXmf716gVMtBunckPcDLKGW++lCaySryu
+	 Mx9RM1soVZfYwIGzfL+jhedSOR0ef6uyCTNbDeeUnMpastya1atoLVSFUEzSxYP5pKlCZ
+	 X/ei/x3ytjN0BECrkHTLkVeCXu85goHNjqlmdN67pQRcDFtxFEtXgzqqKNynMKBL+6Sq4
+	 3bKICbON9/gzEN4oVm7Q7rqzdM6YnmS7bsFjipdZxERJaU33FdSedISpAlJ9AzJZ3Dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794493022;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=UbnPlEC24dkXjKamOs3/pbar/DmSKOkynvOR6CwNOYI=;
-	b=cXQ+Riir7pu8RKHBg9BBCdgKhTsF+vBYj/P4zJETdW3zRrMsmf0xVly6+ytTRbCYp/zc
-	 6/QH7d5ZIyV8vHfsHEb0UBUJwPe2eybjRRKt5cLfMMZNaOJGC1Lp66+4EUv676CXhIaLU
-	 FzAu12FIMM+ztOyKNPD6zY6YTwBG67jqsh00RA5S3QkUULoFEzp+x8PwC5WiA7tZRnQ9V
-	 e2gEtfFa7YZVXbTTLu1gj2RuYZiFem1x9ipt5LSk4n/PqKFsJdPG6fw25DYpU4J0Tp1Io
-	 b7mXT6B2x+Iche1hhISD+mhCBv82uQl5++mQ4mLicKi75zptG98myaQDjuQG9UzFiRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794493028;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=qrF09GR+ihkQ4thcmIGrsAzK57Wx7VRqM+yLsEJ4p3o=;
+	b=pyTvt4xfAvdCnB4/Y4cf9rW6bOlmEY3GAvkehv9G1Ua+/vV+r0NC9TGaInx7qWUbCWUd
+	 uJEZGzN+o79fTTt92nohYobftR76TE3pxKtgKPGHo4KXLjsGFz+8kArhzekjMdmRdd8c5
+	 wJIyPFKnD3peQBtkx5KU+Hmz3A6WwGJI07QkGfXRppLCI26KAwE2GN4umCtA+j++X0JCK
+	 MRz9RwMB/rK707mVpzClPhNkrsHiL84+3xzyO4MapvYgL/polCBeGYwYuddEWvT7C4hIy
+	 5+xKd/YIslA1gxz3SvE3vpWxxZo0GVq9bIkXVm2xvmvsMNbk4Dwz4j54BlDmdMApPbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=Zo9efcIB;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=XhhVe9IY;
-	arc=none smtp.remote-ip=202.12.124.144
-Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="BUc/oAiX";
+	arc=none smtp.remote-ip=209.85.218.45
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9255606A335
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:17:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9255606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C33D606A33B
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:17:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C33D606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=Zo9efcIB;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=XhhVe9IY
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id F15AE1D00125
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:17:00 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 12 Nov 2026 09:17:01 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794493014;
-	 x=1794579414; bh=UbnPlEC24dkXjKamOs3/pbar/DmSKOkynvOR6CwNOYI=; b=
-	Zo9efcIBsV78Vf7GQOyuzvtCvTm2u3MlgEKOux4tEFcwIxcLJDAElgyImkKJZWGM
-	RW8b/ibuCWyFPs4J/4r2X14zHg295WnvPsaAeswZzrgqtWFjP5sXGAaZIE2DGyGu
-	PQzy8ZLLXtPB45VkkoDzxuXnCGMXaWwdJcwYoPZd90DojaeXxIQMrLdtgouHNmAB
-	num6RS2HUj+pD1yxMzAN1uak93kdgfOVd2YiISsSy/cWw5d54zPRYYV7aThMlAXw
-	UcVn9pirhBrOb6+N4bAQd+p+vVH/huRZfn+Ma8rq5f+viyORhqCpaX+JPDyoL90t
-	j6UVGOGE4m7h9YEfDdeawA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794493014; x=
-	1794579414; bh=UbnPlEC24dkXjKamOs3/pbar/DmSKOkynvOR6CwNOYI=; b=X
-	hhVe9IYYq7iI/u1fU8tbuZ4FHSYY/53NyzJh7/mAIFWl/8U99ycxaF1H6lANmhIi
-	bVjyp+45zE7Q1cm2do/HF2qh6F5gCGVnfE+5HuX7hPxFfoOwAXx0KjpXbwBO/tTC
-	Vd8X8OVaheeQ4buEDOoLwgmoDku1J5ST0xaZzpMHkmKi92XZvvYrGzThEY0dLGVk
-	ZjVFLII8bFfsH2lrybiI1OBpHwXL5fTtUb8xLYe4tIXAPslzLMnT39jTFz6uv5iZ
-	vRY2lie75dslydLYg5XvHDJSkKkB5EB9VoGHmQpoVpeXcwFsmaMOrqhsWRh/k//x
-	rPvQKHYw9shsucBIgAPqQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794493014; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:U1v9rdpi1bGwSznBtUuvwdbW0+au9iD9A2I3zRVuPjJSBil
-	YUhX0w1Vm+AaiekcKXp8oGEyeNwjku9ZYKEN77Jk9xaTMH3FCOfmiXS4H4kZyfz4
-	G4AvyrZfD6+pdOSQ3LC2/OQWUw52920+t0f3Mg7QSm1VCYpLqBXfmYafqXPRdHkE
-	TMCzGi+ANJNa6A6ZW0aaDzpBsj6ZqWkETWUSB7GxELfQ3Gde6pbskTedaFJK73AT
-	McYrsWLkHGUcE1HSsMc03UDFHrcXpLehyTjzgn+Ne6JZdyfPxNhX1jYNg+tSKnAc
-	owSSWJqO+L16k062CQXZGICYDk0YVR79gdZG5WA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:RJMoJlBKzRz4YafuepOWgyGgRwmbNROO/4+xzp0wgnA=:voWKWCaOGlpdmVP0Cwkilh51Ef0aw4U3oRcvlpmnlcI=;
-X-ME-Sender: <xms:Usr1asjg9G4PPrrr82juOslt7WKJN2ox9e-bN6SzpTxkGdZM0A_dDg>
-    <xme:Usr1av04JsRqLh9v9gbHE1H_izlBix8MV34vFWayd6EjzWrkxHPwiFWLrHvDmo26s
-    ovJDj8__BsFibCUgFTXI737JjmO5mwOO0BL3xeXFvJrkizs4QQO0SsY>
-X-ME-Proxy-Cause: dmFkZTGU1UV2oYSfQ0TDb1+YCaM1GfW0+RS3kK7MgTRdv3CA05JCz48Ta9CCSLlOcpZnTE
-    5+ZOMsON9AJ3ihTXUUpRdagXPodCCoX6aSe4q5jQysfDOpftb9F+DFbYH7T2XBDQ7VjKfO
-    kI6OhDcTdOghERSXPTFLEsqkUrMOnhT6vfB2kbZOXMxWGEnfDaRp9cSlFXHNSKBIf4r47G
-    4UHIhOtAVLx1q6wW8GKxQdM7x6pA399ztVauThgsUqwHlKALouxJ7qbpJSnrvVw4HdBBfn
-    rr0IGOO4fLpCz/qnjaC4U0it81fcb+Ukr6/dPb2fOTpIwMvU1Q1LkaugEouHuqsMSRrZMR
-    wV2gg/g3S07ecr7z3571XaK5lEBI91xNUybORKYiWEuNXxwFFwvfUgSLVVUKe9kW/uxhbd
-    GX8PX23AF79RywweGYodz3PlJe9ZozIMs2roOlsVr8lH0EB+TwL3walkuyEZQ+gY4fJSqa
-    PRURPvRwJTeZh3C0FKz/ZoYkgakQuZmn8A3xnYOOTXuTOsozSOJV4MTOvyXPBX0L4u6EZP
-    ZFekd1SJrKrVK/v5LX7o5DqlBAVNNSyi2f8yamaDRcunU86gEoaMyuQQj+9YR8LUFBeUyD
-    uNY4M0HCGLraPM58SZuaw6nEEdvr0veDZlNZKCN8poVAPde3S/fO9I4sgxWQ
-X-ME-Proxy: <xmx:VMr1aqkc6vj6abTdLo9cLUp0T0kq2sgpni80YY7mV3HtE5BBDfwxkA>
-    <xmx:VMr1aiR95H7Gh3yZfCsXTicuFLoqUwgsX_WWV7HkuqoxcsoHYiNRkg>
-    <xmx:VMr1aoYQy0UwsKNL0xGgEHQMls0uV32cDihyhr37Cxc9GbjGJVFSpA>
-    <xmx:VMr1aq88aO4veFItIVp-gV4Ex-D1sEipyC0nBa7yTRep2NeKu6s2tA>
-    <xmx:Vsr1aivy198MKwqJ4bN_4_eeISMyguI0Px1x3gP4D8vhBtwwmWJfmHEJ>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 78F7432A0099; Thu, 12 Nov 2026 09:16:50 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BUc/oAiX
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c506094fd93so413455466b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:17:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794493026; x=1795097826; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qrF09GR+ihkQ4thcmIGrsAzK57Wx7VRqM+yLsEJ4p3o=;
+        b=BUc/oAiX8fnhkktLnZFvgLNatm2C/o2PyMn9TAlcNkOqWquh+iDGcpCDApB4TUPIJe
+         szU1ye7M0VlqedHpuHo/UjjBFRdDNznR8n86L+9cZfulBPjCPrQtsGj7cS9Jew+uiz/j
+         BPM2QVXwGTts7clvGUtG+K8M67nUK8uC0Cy7JTV+R5igmEOwF9B6Ay83mcEKDbgyCzU8
+         0ba3S1RFeRz9kOPxUzfcbou1wF6kupEGcm1Essy2qdmZWVGY/Xt6wD9LDnb1R/zYFUWf
+         G+vAbannvJsIZA29ZLhmQMtaQPfFA7Irx7D2rAaAr+v3W5Di5r++BfmcU77pSyYkI8e7
+         hmEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794493026; x=1795097826;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qrF09GR+ihkQ4thcmIGrsAzK57Wx7VRqM+yLsEJ4p3o=;
+        b=vwS5uG8WIRfE8bH5tZpCXDHqnwGwCjxlwIevJBdhSHJFRvldWJlDyFgtPo1HKsjehA
+         okUKYlVFt8+/etDRsTWe92Nzo6zrxKcpvZn9eGkLKRKwBaRevF4ht42q3f6WUQD8BD+S
+         mKPj9+GZcZHXbX6WmzHQcOo0PM7JZ2fWxaAZ0UO96xnlQ8xsUlozHDSqG+LYNGJ77kXk
+         yoyT1BKHeLyeTk7tR4FxvhMf/VCskQw/32EpcbfIk6fEY6pCEqxzbIJLby6HPg2sYBff
+         Pq5zgMwnesvXNhdnEbF08TZ97O/z4x+cAZ17snG/jzwREfJvfI+UMDzCXyW25b3s8OMf
+         Xjpw==
+X-Forwarded-Encrypted: i=1; AL+hErG2xzVrxFRbsy8e0nkX1n0AqL69o3ssqu4GB6+7/qglymQUFwuaCT3KbWOpiDWz8xBj6L1aicZbvrcjpaU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/vwVuYdyZBwmZPxFHDINbPkD9nsjmM2OKn6/gT0VF7VJ4T99gT
+	UvYIfO40W6qQaisXTdpT60FkPeuaG/tct/XWDnKzEEj3Dbw9dGPcrcVr
+X-Gm-Gg: AYBFou0enwgjJB6rWDoRWiRAwOh2YJyWn2DvopI2bv5YunNLWZ7IeyBXAZjw0arleSg
+	dVc82Ors7qB8SAPEDHD4jcoazGePqwB/20lOlICDjyd7Jn98eaCCKp5PInBpWJ5Pc+vviVkafRz
+	kFf5UbithvAdiWgVw/kD0UeUtWb3XmYrtQP27890IUIt2V+7XK1o9p1V38os66/rS7ddehTt3Iw
+	bwDCnxIO9ZD4/WpIIgYddrvfe5731EJXawK/tltTH9KxZXraJshCc+JyVKzxbi077flPMKBE+oN
+	fbpo/f7afYt3x/riqS1EyticLayUbF5Ss2XNI6PyZ9RMpGXmNw1d+KNJTOhz/YTb7jtGzLBJkw4
+	scMKRT44yyFg85IXAXtKPK7IoarGkNp35e/jUgEwQw7CTUGo4BOVWKV77ygw48TumDX8B8suZMO
+	nP4sE9X93FWdhHHGgxcmaJcjBc/eyaEopXZED8DdQOGlbSi5k/sVmf8dflWEoQ1KdW+udivyVPZ
+	Awx3Tjudd2RI43chanOy7qz6SZdfrBChZAqq8GzIYPzmO1Zva886VeD6PEbtA4a3ZDOIblA0z5Y
+	WM/n9ek6a7z1k/xBJya4z2t/kXJXYhcPvCMn+WA4h8206tvFpPUoNHWL4oaRv+oJswGTF6QN4MB
+	cwgLjbPH1a7xwFD9kTDr5wz3ms9ESwzSplzukb6g18HIgZ+3ETWYCPzE49dD317Sxl42Vb0yHpC
+	tBs6/NRT8hMO+NuQpeZz2RUrKyUHxCufuPP5BKa60lkv7hKQb/hg==
+X-Received: by 2002:a17:906:9fc4:b0:c41:5a0e:3356 with SMTP id a640c23a62f3a-c5066cf82b8mr489669866b.41.1794493026263;
+        Thu, 12 Nov 2026 06:17:06 -0800 (PST)
+Received: from Ubuntu (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a56b772sm360156466b.16.2026.11.12.06.17.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 06:17:05 -0800 (PST)
+From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Ian Kent <raven@themaw.net>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Johan Hovold <johan@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	driver-core@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	autofs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
+Subject: [PATCH v3 0/2] kernfs, sysfs: refuse splice on /sys/power/resume
+Date: Thu, 12 Nov 2026 15:17:00 +0100
+Message-ID: <cover.1794479968.git.krystianmkaniewski@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,35 +111,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AytIAyy8u7pB
-Date: Thu, 12 Nov 2026 15:16:29 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- "Masami Hiramatsu" <mhiramat@kernel.org>
-Cc: "Christian Brauner" <brauner@kernel.org>, linux-kernel@vger.kernel.org,
- linux-kbuild@vger.kernel.org, kernel-dev@igalia.com,
- "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>,
- linux-alpha@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
- linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
-Message-Id: <d7086f73-c6c7-466f-9f33-e64af741f126@app.fastmail.com>
-In-Reply-To: <20261105-tonyk-syscall_table-v9-4-8d1275885d9c@igalia.com>
-References: <20261105-tonyk-syscall_table-v9-0-8d1275885d9c@igalia.com>
- <20261105-tonyk-syscall_table-v9-4-8d1275885d9c@igalia.com>
-Subject: Re: [PATCH v9 04/15] s390: Use the common syscall table
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 5, 2026, at 21:05, Andr=C3=A9 Almeida wrote:
-> Remove some of the duplicated code by using the common syscall number
-> table.
->
-> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> ---
->  arch/s390/kernel/syscall.c            |  2 ++
->  arch/s390/kernel/syscalls/Makefile    | 12 ++++++---
->  arch/s390/kernel/syscalls/syscall.tbl | 49 --------------------------=
----------
->  3 files changed, 10 insertions(+), 53 deletions(-)
+This series refuses splice on writable opens of /sys/power/resume and
+gives those opens separate lockdep classes, as Tejun suggested in the
+v1 discussion.
 
-Acked-by: Arnd Bergmann <arnd@arndb.de>
+The reported cycle is assembled from two operations. Splice into an
+ordinary writable kernfs file records pipe->mutex before of->mutex. A
+normal write to /sys/power/resume records of->mutex before the autofs
+pipe locks when resume_store() resolves a relative path.
+
+Patch 1 adds SYSFS_NO_SPLICE and kernfs_ops->no_splice. Writable opens
+of a marked file refuse both splice directions. Their of->mutex and
+seq_file lock use separate classes. Read-only opens retain splice
+support.
+
+Patch 2 marks /sys/power/resume. Normal reads and writes stay unchanged,
+including a write which resolves a relative path through autofs. Rafael
+acked it to go together with patch 1.
+
+Other stores also look up paths. They remain outside this minimal series
+and can be marked in follow-up patches.
+
+Tested on v7.4-rc1 in a QEMU guest with the syzbot kernel config.
+Without the series, the C and syz reproducers trigger the reported
+lockdep cycle, and a splice from the autofs daemon pipe into
+/sys/power/resume deadlocks. With the series, neither reproducer
+triggers a lockdep report although autofs receives the same requests,
+and that splice fails with EINVAL. Plain reads and writes of
+/sys/power/resume, read-only splice and splice on other sysfs and
+cgroup files work as before.
+
+v3:
+- Rename SYSFS_LOOKUP and ->may_lookup to SYSFS_NO_SPLICE and
+  ->no_splice (Tejun).
+- Drop the mmap, prealloc and binary attribute checks (Tejun).
+- Add Rafael's Acked-by to patch 2.
+
+v2:
+- Replace the v1 locking changes with per-attribute splice control.
+- Preserve splice on read-only opens.
+- Split both the open-file mutex and seq_file lock classes.
+- Reject incompatible mmap and preallocated-buffer combinations.
+- Reject SYSFS_LOOKUP on binary attributes.
+- Rebase onto v7.4-rc1.
+
+v2: https://lore.kernel.org/r/cover.1793715774.git.krystianmkaniewski@gmail.com
+v1: https://lore.kernel.org/r/cover.1792577179.git.krystianmkaniewski@gmail.com
+
+Krystian Kaniewski (2):
+  kernfs, sysfs: add SYSFS_NO_SPLICE to refuse splice on writable opens
+  PM: hibernate: refuse splice on /sys/power/resume
+
+ fs/kernfs/file.c         | 46 +++++++++++++++++++++++++++++++++++++---
+ fs/sysfs/file.c          | 18 ++++++++++++++++
+ fs/sysfs/group.c         |  4 ++--
+ include/linux/kernfs.h   |  9 ++++++++
+ include/linux/sysfs.h    | 22 +++++++++++++------
+ kernel/power/hibernate.c |  3 ++-
+ 6 files changed, 90 insertions(+), 12 deletions(-)
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.53.0
+
