@@ -1,62 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.238
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794488299;
-	b=cExOanxASZ/EZPJgpHBhOnp5gIbSC4AULwnrnqZlOysxUwqehfzNYf7HtR+L2NYgbbBd
-	 uXUaMfD/pNnynIrCf3BBCa5c772EmmD6orIfdm9/fvoJ4WclRYAvdcezai2xn0uSOwuL5
-	 iXMa/OEyGjdn9gtNgr2X8EIiF3WUEoqVdN6oXgKZIidXLSXu9ai5n2nT+rfyBDD4tS6qm
-	 MXwI9Y9StXfe4TUW39OvNKrIrsm4iUGDf6mJ3S8psoAOZXlkBrUGXxuFz4oKZaVKQRcI3
-	 IOJD7dA67/RPuxwdayAmJoNKM18iVnwxV/YTbrIaj3t0+MfGK2JOptZNpVZozDtD7Bg==
+	t=1794488342;
+	b=KQY7Md/fXo3oSLvb+y8vzyzPvxKyRIg8M6nYDXWpexxoDt6bUR7kLcjL3/ZgM/nddfbZ
+	 nD86uFeqh6+LD93VCXNeuH1NZ1MH61mLviWS8vqlQTG9Daw7mgc/it/7YJ7ucbQtN7Tmy
+	 tvdTzXRTc9NCGVZT5PJE8n4kts/evFUWqeJT1t/KCsltqmC78D6r0IRMedfsB6+r2IqDR
+	 fZLsDp+x9oQcDq3c69WPqodru7ZZ8z0KyV4V2hEQ0PSfHxG/68I9ckIEEx1lNPBJK0TeF
+	 sWvNsc6V3TIJKILEzE4ysu1Mtid7l+PVeiAKPJSZcLDIrdzz74d+Fp6AZTucQQyseYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794488299;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=DGPXITXdeh70KPetjF6F96KspBG9wr+UCHeX9/qigkk=;
-	b=0B1TaUt74CVNA8bLTq9x8h4lz9lGP5IXMJAzz1yTkREZOp5cb0IEZxkMBztPANfM8nVL
-	 JgeIew9TqbTBXGOG5zX7wVnT4Bg+Iu0BkyPcEyk05pLadQsbyG5nuwO5W+PyX7aBFLKRg
-	 pUQD1mYIuBqKijQdnXfeH30TYxs5V6bmkQ/wYKLaZUDJKz/D813ocZwHhqlzzaQWuQvGD
-	 tdzxAaEG4SAGouZhlqAmiVBDdTIIKa6gf8TYVoLZ/ekq/kQ3UKW6LL8TDD0b88HqdlBNI
-	 nwQ/NFb9mtF/qeWOkJULIrZu8mGdpwtfT5q/CIx63jw4gvwW8xv7yrgwH9ZvEnr8okA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794488342;
+	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
+	bh=QbfioGJO9aW8l9BBJUgChIfHsDQ36cO1EtliCR8l2Cc=;
+	b=4tSiD5Yy2/ZasYkx0lnxrHMiRJIkZfB+5nkBUAQOX/6ljeGIfdGZpwjm8qSxe/QX4Chd
+	 FuAV7SU5fzbrmJXzvH7/IkFKxkQUXpwn9F7X/RKIrOPkgM25DPMsnvCG8zFqGO0VDoOSq
+	 IhHstkoLR9D5k+jdYg3wm+/V1NSsfCfTIJkoC5zgMjRtA9hatZoROIU7dg/ISjcU3k7/+
+	 /osNaZLPmH/TDqPKolf/NpSgfBQi063msrzUkynNVW5a8HTyGmy7sRfIt+hF6kkIEmQws
+	 ln3ZpoOHAsn0osnAfRmgM81MeOYqKuTNHdh3IF8cYnxIRLU8nvksG25brNG+SldHClg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="W/9XjxEZ";
-	arc=none smtp.remote-ip=91.218.175.238
-Received: from mta0.migadu.com (out-238.mta0.migadu.com [91.218.175.238])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HBaRhlKM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69CE1606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:58:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69CE1606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0379E606A323;
+	Thu, 12 Nov 2026 12:59:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=W/9XjxEZ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MRWB/iNhy2/F1l9+rCKRhIaHK6gdy+Rx8uuqx60BjtM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794488295; v=1; x=1795093095;
- b=W/9XjxEZXlEz6vu7Qr2m59K+huemuJJih1F0Fnz2mj3PldFiX8SO4Bl8XlT1wESZwGxVZP1Y
- HhCSDx9nJu5eHQX4pwlyb462ekV2q7LaZGgaCbWlw1rVpmb64/FYi0wJvn/VO/lxAzo1bldle6S
- LP7DdQZRII3Bmf8aklrinx6s=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 5344362e3ada360d;
-	Thu, 12 Nov 2026 12:58:14 +0000
-X-Mizu-Trace-ID: 5344362e3ada360d
-X-Migadu-Flow: FLOW_OUT
-From: "Xu Xin (vivo)" <xu.xin@linux.dev>
-To: David Hildenbrand <david@kernel.org>
-Cc: Xu Xin <xu.xin@linux.dev>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	ljs@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 0/2] mm/ksm: clean up scan_get_next_rmap_item() initialization
-Date: Thu, 12 Nov 2026 20:57:54 +0800
-Message-Id: <20261112125754.176930-1-xu.xin@linux.dev>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HBaRhlKM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D1221F00A05;
+	Thu, 12 Nov 2026 12:59:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794488341;
+	bh=QbfioGJO9aW8l9BBJUgChIfHsDQ36cO1EtliCR8l2Cc=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=HBaRhlKMml47LCxqMg2kNawbQulMRmhVRQzpLrp1LA2sMsXq0FQ96mEHYgqO2xwb8
+	 FizyX1Xxmt4UCyXm/2VKUs4UolfIUhWl+Hr2nz4zI8pw74ALHhoN5qQituTFafrCx+
+	 5IqNrgAZad/am4Esup/rP9zGFGrDjaYzCqXI9l+IiAIqPZKw6K+xuxqRQFvBOCO3FB
+	 drJzfc7GNKpEWmxYnSVXG8PkKzBiySAajbSe93DKN8sVxHz91vVu+kZ2ZEmsaP/Qhb
+	 WoUjmQ0AA/B+H1Zdu4GCgIYUx2sh6jFmdcGlxObn7aiD7MH/FjNWAdMdUzgOMUO4di
+	 zVn03tC6RLyzg==
+Date: Thu, 12 Nov 2026 06:58:59 -0600
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,30 +51,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-Currently, scan_get_next_rmap_item() has grown quite large and complex.
-When introducing new features, such as the only-merge-zero-page mode we
-are currently working on, we don't want to add more complexity to it
-and don't want to touch rmap_item structures to avoid unnecessary overhead,
-so we need to extract some common logic.
-
-With these changes, the entry of scan_get_next_rmap_item() becomes much
-cleaner and easier to follow, instead of being cluttered with unrelated
-boilerplate such as stale stable_node pruning and cycle initialization.
-
-Let's start by cleaning up these two parts at the beginning (where I think
-abstraction is necessary), and we can continue cleaning up further if
-needed later.
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: devicetree@vger.kernel.org, daniel.lezcano@kernel.org, 
+ lukasz.luba@arm.com, linux-pm@vger.kernel.org, conor+dt@kernel.org, 
+ rafael@kernel.org, linux-kernel@vger.kernel.org, krzk+dt@kernel.org, 
+ rui.zhang@intel.com
+To: Shaunak Datar <shaunakkdatar@gmail.com>
+In-Reply-To: <20261112072925.22075-1-shaunakkdatar@gmail.com>
+References: <20261112072925.22075-1-shaunakkdatar@gmail.com>
+Message-Id: <179448831566.3881804.12223429512014814299.robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: thermal: kirkwood-thermal: Convert to DT
+ Schema
 
 
-Xu Xin (vivo) (2):
-  mm/ksm: extract helper functions for scan cycle cleanup
-  mm/ksm: add initialization helpers for scan_get_next_rmap_item()
+On Thu, 12 Nov 2026 12:59:25 +0530, Shaunak Datar wrote:
+> Convert the Kirkwood thermal binding from the legacy text format to YAML
+> schema to enable validation with dtbs_check.
+> 
+> Signed-off-by: Shaunak Datar <shaunakkdatar@gmail.com>
+> ---
+>  .../bindings/thermal/kirkwood-thermal.txt     | 15 ---------
+>  .../bindings/thermal/kirkwood-thermal.yaml    | 32 +++++++++++++++++++
+>  2 files changed, 32 insertions(+), 15 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/thermal/kirkwood-thermal.txt
+>  create mode 100644 Documentation/devicetree/bindings/thermal/kirkwood-thermal.yaml
+> 
 
- mm/ksm.c | 126 ++++++++++++++++++++++++++++++++++---------------------
- 1 file changed, 79 insertions(+), 47 deletions(-)
+My bot found errors running 'make dt_binding_check' on your patch:
 
--- 
-2.34.1
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/thermal/kirkwood-thermal.yaml:32:7: [error] no new line character at the end of file (new-line-at-end-of-file)
+
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/thermal/kirkwood-thermal.yaml: maintainers: "Nobuhiro Iwamatsu <iwamatsu@nigauri.org>" is not of type "array"
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20261112072925.22075-1-shaunakkdatar@gmail.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
