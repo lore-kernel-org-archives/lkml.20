@@ -1,56 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794524189;
-	b=QdPBhvPLLCbJaIZhBtrSRM1d/74GPJYwfRafo74sKxLvdBbUn6GYJoOUbgQcBVNxo/W3
-	 kw72NMeaLgW21oXUdX3W1DJYa8cBtbB3Rrik6q3NVrD9qEqRi0kdmRn+LvSq59/Pyy/ul
-	 axPE2m/AwA4Wez5UEeXPqSmYdo7AGIrFWmT3DaslpBgimtlwcYvkUHMov5pRsKfeEDs8z
-	 CSo3ilG7vzIsFI6wAHYTV+DhSYKS8TmSzWdVRKrnwUKTUDc99SSrScDsZ+2WePwBqypQY
-	 rgjPsNT2CnuPNyziMAfYelbFZYwH0Neoq9DHGdU0MAHZhkWwQDhTY9LkT9qQnZFs9eg==
+	t=1794524283;
+	b=OFpOIu2Gyx3/pN3Jg+6D232iiaQrOnASeczB5juU4tjUEy8whPRWJJpA37jcNCJsxyXU
+	 9tUpd25k+1cMc36xiWKHsS3LubF40ToDIIa0Obs+nHe/djbPNLIzLHQEz5oLUkwbafkeE
+	 l5/OhVnu3MRzNVFCiCINoDjxlJV87DB5b8m1DhCLQsDCIuAAh6bSqjCupXRhDgIRPwYsx
+	 l8kSDNsg6lJIeJKpOVJs3CdWSZgjKtEiRsYlxsy/OtpmwjCzdWTSMqXGc/c5+PqeZ7Q0w
+	 /3YHk/FOsQ+DOkIh58DXN66nP8GUoIOS+W3nK15+icaSeuGEXH3UyAXNPmLtznrId0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794524189;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=3LmFrsBQFbZEhx18usBDVPj20osM9FeVGPojC5J12gQ=;
-	b=OpswdMuVYOMDVbp3t5KYapquPW4l57s1yMRbT3XiaiUqK8+0ce0oUWt8x+rifQPLfryx
-	 tmCj6cFOXk3cbnJSTgCk9lurMF048xsier380nbLfKxmiWI/fGXqJe2IkwYqTQWOqFR+o
-	 toWPmkbknWk/atcVRGbyDt65l37HdQ5m/YgEnw0mLDZLnpDXdt8lk+PuHeDhM2G5aqCjA
-	 kL3pSyBUQjQK9srR5Xgnq8IszCqy+qrBpGJ/g8MhFNRMm5C4Y0UeTSAUPiCNT9sjPzHaF
-	 M9C4t6M/fT1Gy6dQy9pDVBStFycrj+8dsAxz1qbcSpi6HLeL8wb6jGXnBEkG7frJdBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794524283;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=JU2KdlNCWChtwOGEK4t+3b5U2FFf6L0dWazuccFpC00=;
+	b=wbDJ4ugW0ot16s5PFAoBloTkqps4Qupl7Jehppk+HQhnfJSJp0W6z37kKRZ+e5+L1rpI
+	 qmXiXJYT9dx749flhmyQtJgG54N2iovnORHm6F91uN4Q8/JdOy8B9ubhVBY70yHYX69KQ
+	 Ihg0V85RRJQJ+5mStGgSWmAwbgnZoVvGmCuOAOmp5xnLBXNSut/WdvxiqOhH4jt+L5DMx
+	 hbK8XwvcugXqMscM2aMj1IQKYkUgUGpXdrKF99I/FLW92rGlPVEZvHTwY70VQIuHLcLIO
+	 5nsQuDDA4eUcwuLegICJAO00MFM1zMSmi4ZRDmL5kylvrAdi/XxqYMlUGjKYUOde2Dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HllWrPif;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dLzKbq0S;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64002606A880;
-	Thu, 12 Nov 2026 22:56:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8ECC606A333
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:58:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8ECC606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HllWrPif
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8BEB1F000C4;
-	Thu, 12 Nov 2026 22:56:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794524188;
-	bh=3LmFrsBQFbZEhx18usBDVPj20osM9FeVGPojC5J12gQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HllWrPifUSJqBkdjY9YrTJzDMsN5rQUpW6Vx4PfZBFkAsYhoO8HT33ivCvtOTCtuj
-	 zvLdNe1lCLQwolmIiVhQ+NWBEI4pRdu6cmbrqxYsvFWAewlPa7jifPDtT4J3b1C6lG
-	 7fbCQ9voHcbxeFjngoMH7O2XVRMufhTrVuBP0ZndRTP0zCWo1W9cwSreWiSUOHo3uz
-	 M0v1ysihN0Yg44yNlZtCqZisx65YDM8kHbdwgcl3NPUWELg+HyYsFXeXNslX9kXnIx
-	 vEQNyAauKKkf5+oPAUG0/IztXO8zJgoOAZPpCBupJ43ZRlkA9ccutBVy5ySGQGKDCm
-	 qedFueBi7YI2A==
-Date: Thu, 12 Nov 2026 16:56:26 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Akhilesh Patil <akhilesh.patil@linux.dev>
-Cc: andy@kernel.org, krzk+dt@kernel.org, linux-rtc@vger.kernel.org,
-	akhileshpatilvnit@gmail.com, crofts@kernel.org,
-	alexandre.belloni@bootlin.com, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, conor+dt@kernel.org,
-	linux-iio@vger.kernel.org, akhilesh@ee.iitb.ac.in, jic23@kernel.org,
-	dlechner@baylibre.com
-Subject: Re: [PATCH v4] MAINTAINERS: Update Akhilesh Patil Email address
-Message-ID: <179452418643.1857011.17712598174525760162.robh@kernel.org>
-References: <20261112091641.GA3643677@u5ce4748bae3b54.ant.amazon.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dLzKbq0S
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-490d59c3f0aso99708f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:58:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794524281; x=1795129081; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JU2KdlNCWChtwOGEK4t+3b5U2FFf6L0dWazuccFpC00=;
+        b=dLzKbq0S9jffvXmHMq6+KAu1wJiPnl6u+w60yb7r5b9HWZblYVLqfAvYuYzo4ubX5o
+         yJ0U48SXMhYAfvV5F0J/XJBqSfTmDENY8FJ+bFyiBgp7tKwahFq9RSmeRh4QhzF93OZP
+         +0CHO0X6won5A3/Mly4fNV0++g4NAKTTVF2XNjwajQyNQv+YMPMbdp94Tbh5g5rzg4j4
+         J2KTGtx8P/jPq8X+fvW1h+WRjVI2/kT6fT6EolOyGG1XAjTX+rWBMCuspx/bKLO4iD9j
+         IMWZBCmP/5YtCx3ISxaGrR+NngPSUqb/r14cqDltV4gOoGPvmJDXQ1qcqpdipltnzpaV
+         XSZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794524281; x=1795129081;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JU2KdlNCWChtwOGEK4t+3b5U2FFf6L0dWazuccFpC00=;
+        b=R0SdzwZVqz7LAxM86vrGkiTurPCXvyotaKaUEK7OqgRgAwRlrNWc1Exl/z+6HsnsLn
+         iPVR1wxmh2XB91+SxoOLK8/JCMKBpZWrcP54ECQbz/KvmQ0Qx3OBpHZwPmd82IvqNvdm
+         8aV0T9IZcr+6s1ohapA5cNcN+cH4ycZfhyOuSlDPMX23DEmPC+q2shDKoPclYQVkm4fS
+         0L5grsUQKFQiPCHfj3OrNvSP8YgcB7ZRxEm3uagqKeMNHZ4VaGo9/rVtuZnOg32VSkjx
+         pjrOQH3vfeWwaync9yhcJV9xQQ6Z3O82CjIsEP8grfP7kqHa2izC8wZrlcXOkmsbsdGh
+         lurQ==
+X-Forwarded-Encrypted: i=1; AL+hErFHSuIibB1P3OaT/zvLGqMg2PF3dh+PIg9qIdu+0U0B8Hvf+DL+lNv2TN0zEQuiCT3/5pmXA6BP1rQPx8I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9sCG3W2SpGE7JGWlOpuRCjVlmFHzauEL+uD2CZD18c9aSAsdDu
+	T8RyW7mAwUajutZvp3TdEtkKYTc5GyHShe2gdv6mBqG4qouWZ51M1KXQ
+X-Gm-Gg: AYBFou3FOHHcryGNh4zTKbuVrbNDUObi20hWLXStX/4JB9RUBFUP5hXUt6rfAPWoJjf
+	RnebzdHoWtCIJ4YYaspSEFuRdjy6zGiNzmlq3THhNj1OfZ4XVZBpXnrfKrJwd1Vy3HmRPvkazoN
+	njflSLvUrlY1pQ6Zo6n7P2/o3wxZpTLGL3ZIVuCjLI07+pO6wua+fFfKjRZ8VZqIQ3EO7WRmrp+
+	1m2HM/QRCJzbRgcCaHNqGsFP8QB6qhnlfreZLF41admdgRc4w6/gh1VsnfEpZrZHPHJJnw4/xaN
+	qawwb2irfZcZNNR6OgdAIcRNcFWbrK0jf4QqDo7XhznDRTRjdjgADm1jdQVhXlym97VAcnjHBo9
+	EMasX6PAd5LdDvS/06dHHqB8eQsg9gQ0bhNCjHBfEYepNw+NVuJRrlvqOSxZns+SI37G9591LEa
+	ms+ZLvzOnw+XCpEfpA1eTRSjh53YgnC5c7eBIHGteaLNo8m8VLwlWV2xev5virWXpkLKKGB21FL
+	fVtweWC2tIi+TG9PBkbiFUiuSEecNTnBscZKJDvt9k/MtlKQK2PAhXE6HpgweMEkaEa55Ns5ajp
+	OPpuFT5H/SdiwRsTF9lrLmwRXo7tddWvm+kg0PzLFedpn8Ke9LY9K2EfIBHR4AfrJQ==
+X-Received: by 2002:a05:6000:2587:b0:490:2bd4:5c42 with SMTP id ffacd0b85a97d-49c7353bd0fmr1523749f8f.44.1794524281035;
+        Thu, 12 Nov 2026 14:58:01 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d223b21sm2000159f8f.2.2026.11.12.14.58.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 14:58:00 -0800 (PST)
+Date: Thu, 12 Nov 2026 22:57:59 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Breno Leitao <leitao@debian.org>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, linux-integrity@vger.kernel.org,
+ linux-kernel@vger.kernel.org, surenkj@amazon.com, noodles@meta.com,
+ kernel-team@meta.com
+Subject: Re: [PATCH v2 2/2] tpm: Disable TPM on TPM_RC_INITIALIZE
+Message-ID: <20261112225759.67730166@pumpkin>
+In-Reply-To: <20261112-tpm_unresponsive-v2-2-7454d2c899ef@debian.org>
+References: <20261112-tpm_unresponsive-v2-0-7454d2c899ef@debian.org>
+	<20261112-tpm_unresponsive-v2-2-7454d2c899ef@debian.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,42 +101,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112091641.GA3643677@u5ce4748bae3b54.ant.amazon.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Thu, 12 Nov 2026 04:30:18 -0800
+Breno Leitao <leitao@debian.org> wrote:
 
-On Thu, 12 Nov 2026 09:16:41 +0000, Akhilesh Patil wrote:
-> Move to my new linux.dev email address akhilesh.patil@linux.dev
-> I plan to use this email for kernel development going forward.
-> Also update email address in few yaml and driver source files.
+> From: Jarkko Sakkinen <jarkko@kernel.org>
 > 
-> Signed-off-by: Akhilesh Patil <akhilesh.patil@linux.dev>
-> ---
-> 
-> Changes in v4:
-> - No source change.
-> - Added entire change log for all versions.
-> - Link to v3:
-> https://lore.kernel.org/linux-iio/20261110052942.GA2505113@u5ce4748bae3b54.ant.amazon.com/
-> 
-> Changes in v3:
-> - Fixed order of entry in .mailmap
-> - Link to v2:
-> https://lore.kernel.org/all/20261109104443.GA531570@u5ce4748bae3b54.ant.amazon.com/
-> 
-> Changes in v2:
-> - Updated email ID in relevant device tree source files and driver source files.
-> - Link to v1:
-> https://lore.kernel.org/linux-iio/20261109063924.GA118887@u5ce4748bae3b54.ant.amazon.com/
-> 
->  .mailmap                                                      | 1 +
->  .../devicetree/bindings/iio/pressure/aosong,adp810.yaml       | 2 +-
->  Documentation/devicetree/bindings/rtc/st,m41t93.yaml          | 2 +-
->  MAINTAINERS                                                   | 2 +-
->  drivers/iio/pressure/adp810.c                                 | 4 ++--
->  5 files changed, 6 insertions(+), 5 deletions(-)
-> 
+> If the TPM has been spuriously disabled, the game is over. Let's reflect
+> this truth with TPM_CHIP_FLAG_DISABLE.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Shouldn't it be completely 'game over'?
+(aka panic time...)
 
+David
