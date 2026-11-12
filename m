@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.26
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.28
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794499608;
-	b=3YqAskgpgnhRUz335bZjPCxMRYmVHF8BiyC5Ns3PeNVBoL3Tp1T9xlIjl+lv2uw+l6+t
-	 s94O/t2uyroGQb7rziXhRxYgVJdPZ/2ZSZVW1573olybASkF7itbXJYxWfQVcwo96ar2o
-	 RVujRfOa3xTPQLEBG2YfcFicKQwjr3jgnstOMCun2rs10ttbaAaewND7Me2cJ+D5pq+Wp
-	 Pq2HYH1WRWOI0vEtCvi8VWD+k2iH0P0M/cs8oI8EM5qpvBPmu3Vmnh2HsfY3ie0F8rJQa
-	 jJIG3TFBaKo0OlmN7+goToiBEZlXKwZ1OVS9AaQE3hP2lIqQ2gHhjYHStDngyyCID1w==
+	t=1794499605;
+	b=AJn5gzQA7mEAHLWRQ7DYB7G+u8KZfTzu4VKgIW6l0rQ1dVTrC1CuPJ0ow+HAOF7EIp2n
+	 2bP6lLUeZBioOwoEtEDy3+gKMla9ur/mrQMpLhwtby2orvFC8cpmgaV1zG9K3fO2ad+GY
+	 xP6A97ZiwlwGYfCkhz9WvlmNv46jOoEj3MMuE0BCIN4COM/qwCSDDLHxX3NHE2Dn2ZjZc
+	 aA3ZTWAoDc/WRZZRQfJqGGBA0sxH3P8UKuZ+c7bdVcNcNSb9bGHNdfskOxe3Nnm83EA4E
+	 GpAa9z9kfQg7CaKXtnQp/5je8YCsEmNkzJv4b3x5XUpmxe37Rkh/cWfWjglsGqkLxyA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794499608;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794499605;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:Content-Type:Content-Disposition:
 	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
@@ -24,85 +24,73 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=X/fOu0EIwP74iv4Y49vsqZtVCb4D018mu7v86BwRqIw=;
-	b=RW41D7KRYd8aqS01riAkSnO1ZESHEAU5joSU3iZGmNtfmgM655QZawX10XelGt/AJ3b+
-	 wweKl/BruSikEkaF97iCjK5F8MPQJgQ4SkgTH2tSINJV+QrOD5LbG5APkz5tpb/o97JGv
-	 huRpbKcrYg+5c0U8fnf1bKWBH0rVNnVmYJZ5Vd63hZaYGa72gXBNsPtWSuKYEHFWyWq+M
-	 s/2FLkuUBa2dznxyKalDqPVOJLRw8x8d+v/xxFhiOG4MbbVEPFqZbwwo/tmu6w59Dl2uM
-	 0GF7hHonfNygBUfQ/2ghorGqTwpJQB5bsVqClvl1exwdGWMk4qa5U6twnPoHCf+SOyA==
+	bh=6MmXx0cIG1BO5Vq6gjwpdVoZ25cbH6TfLdbwi6a23iI=;
+	b=w4j4SnFw+xq8wyFD4pW7BqyHYMCCzioL02rkOI79VQ+i/5c1onLZZvA1qX4B1ybeAJPp
+	 X7hZ4QVrtiJpHkwdkWlGFsSnw5/y/PIdRDEZKWaV6R1lljmMFLuYLOUNUHd0A1OR0CHeB
+	 w+uzpEe1D2ADp7fkmDw+p/6qNWxMRfjh34YZ8xewhim37AOhUbfkn2RZGU10PJ/dRVm1B
+	 /jVp5AXhpiIwzI4P7DoGzXVw8GgRil6JH8W92ar4iW6v3uzRkVhV4vDR0kQdAUYbTzhUI
+	 8Ibqel0zvYUeseQZ/Ukve+wZaBe+jt1J0bZJ3eXgYL+dzruFoa0RhT8ULRUW/sAh6tw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=GE3p84jo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.26
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013026.outbound.protection.outlook.com [40.107.159.26])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Z7euJp4x;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.28
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010028.outbound.protection.outlook.com [52.101.56.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD81606A31C;
-	Thu, 12 Nov 2026 16:06:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AD81606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 472C3606A327;
+	Thu, 12 Nov 2026 16:06:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 472C3606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=GE3p84jo
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Z7euJp4x
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=djRQIKj0EMpXlVq/BZt3nW1bzolxPpa0rFgDdYhFL9t9n9bfLIEU9nrQRMbRGbl/dwODIjGK9pwM7NOrgSiNKXw09kRpxEIaVsczWVMhFDxL8bBtvHfbjpaEhu6mm+mvq1TYcVzgRTSvLmICxg8Zkliw2YyoV1cOfLVu5HlAYkEOrnhpm7vZVujSIU6AYacYWAD6EfrnY4o5DwL94B19REUL3fxL4ARHSAIQAm3k2S/oENVjlpf8Mn2wcVNUrqu00simF+x8aEkDKsrQHuXGhF9oSyRzUMVlWjj0INIS8CAQR9Nn4k5oTJ1R4KnvRqHS+siHLyTTb2sOet8LF2BCrA==
+ b=M814BBsy8lz5x9sOYsUIatxaZY9pDN4sscfVM/l19GTRlerq2vmENWxDGcXXnftwIf9FCPs3Zhl/SyE6iTBJ5mbxqx2qIyo2EKgviZiwVZvmTdMshKNLS/Kp3QKxSPYhybf1aMRzyxB5ncc+jP+u+Gv7uM7dQUtpp/jDurK9ihhyKywZIQiSr0RcNWbA2cH/JCmlSU/i6LjH8IPXNCojiP/Cqe5AWPWhYbAhG7wfCxcJrInfoTzVpCKQoDXOfza6qwcX8bg+H2boC6Rp8ovX1l73Jm9CzEH8W7xYJFm5SC8Oel028xndbpOXzHqfoPh9BghUXO4bnG4yUgyi3+ezpg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X/fOu0EIwP74iv4Y49vsqZtVCb4D018mu7v86BwRqIw=;
- b=u3SFcXAYmDczSposBvNzTat4tHhghasJ3FJRkqQI3eoufOrllKr+MwG7urzYU6zcpsO592SOUrCj64TDmMU83mPm5g5VKvaOfWVCWP/WivhNYe8U0XV0dlT0UisIMwaJhBhwsIJXGZaJ4cyo5ROx32liQ0HzOIDk4uCsB/oxBPdAoEbKvG9ZZ1Y+85JJluYkhE/pvuWlq+4fQxWkIdYpmguVlxhl2IVeWBKvfyCzg2bypPJclWOIwXpTMHqI21IS7Lmapx3lALmqO75b+aHsWRuTvCt47ng9oPFu2q02dIBZE8tyv9xPVHZ/dFz3Wb+pfCcK/w3Ejrb1DiT3MbmN9g==
+ bh=6MmXx0cIG1BO5Vq6gjwpdVoZ25cbH6TfLdbwi6a23iI=;
+ b=NUvKf8nSfqaQWFDATdrFiUFCXt35pyOxMqnUN0JgBcCRIxitveHnLyL+e5K2uqG8CthkB9K/6M9kKlvOL8xMpU29C2MoIdMh/4Sr5x4eHNfSAN+L62EyxuAPscj56XB+MFULvIMqkq8BlmO1DHvvTy5+EqdPr8vtsVWC5C08yoF6ZdVlYujlCXv0GzZ4RiFpPYX0KGZF05mLuRbwl0YpH0Zeetg3RjtpJ+vaVXwpcctiBXZBizORtEskfKQcYW8EaMB9fFEz9X9O44U3LZuKCghgdu+OHQu4K7p3UD/mp6FB94Ca50jaQxv+Cdg4w+7b0f+tnZz3UdsslrMLZAGNzw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X/fOu0EIwP74iv4Y49vsqZtVCb4D018mu7v86BwRqIw=;
- b=GE3p84joTBS/xJR5JN0mcKmchKt8lsy305o1aTegN+irSOGA77ZnFlBKq4sq84gpTVxgbhqP9o/xLzqUvmSYOfAqabzjKmKBd0+PcKbL4iBdO08Dikq4kcKSBsV4/tPjysrKLqqINSN5h8FZRvD1LvQJYBH+TEEErb34kijHv7e8nxnYcZHAT4pms529oApsyg4cN+nJR8GjZJwuOt0vZkr08xN7tBsWckMDFYSzyYcXVutjMhvg9MC1+3kHuMOuPmCFX+EuIlyHL8Opa28fGzyY1zLbl+E3ZtTvlgEBB56rkWitAijOfQx5V7hWvH25zmz6iJJ6Lv1mC8g9t4fTIQ==
+ bh=6MmXx0cIG1BO5Vq6gjwpdVoZ25cbH6TfLdbwi6a23iI=;
+ b=Z7euJp4xwQPiVBIj0BWeuNsFYuNcFQwoZ/87y6pJNtDPcYfmaK1gENX0PZrwMwv9rRYfKywrTen6ZpjmKLNBDqCXJtnkG0Kz7WtfecC0eGE66hG768QHlUNglJbX36uomqtUpIQYwvHig2ayqqSRgiBFgKLmVcDPiVn+5km2ZXiORdnAYde3uB5kX4tRHxArxxnyX38dq+GHFQy45ZAnUVrYLB8d1wuBYy1dXvce1EyRBh35xLUGHGPZYod68mheZeeAU1ATfpJF1eBmlO3D9KFEGvrVbOPClrnUL4/qY/07oBBCTDkIYXLbBzvRYfcvILRoZGf+yoxVoDo5nbXciA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by PAXPR04MB8911.eurprd04.prod.outlook.com (2603:10a6:102:20e::20) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
+ by SN7PR12MB7450.namprd12.prod.outlook.com (2603:10b6:806:29a::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Thu, 12 Nov
- 2026 16:06:43 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.009; Thu, 12 Nov 2026
- 16:06:43 +0000
-Date: Thu, 12 Nov 2026 10:06:31 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
-	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v6 7/9] dmaengine: fsl-edma: use
- dmaengine_get_dma_device()
-Message-ID: <avXkB8apdBFfWt9e@SMW015318>
-References: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
- <20261112-edma-iommu-v3-v6-7-b038edb8ce6f@nxp.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
+ 2026 16:05:15 +0000
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0615.008; Thu, 12 Nov 2026
+ 16:05:15 +0000
+Date: Thu, 12 Nov 2026 17:05:04 +0100
+From: Andrea Righi <arighi@nvidia.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Tao Cui <cui.tao@linux.dev>, tj@kernel.org, void@manifault.com,
+	changwoo@igalia.com, mingo@redhat.com, sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: Re: [PATCH 2/2] sched_ext: Block a retained donor before PI deboost
+ routes it back to sched_ext
+Message-ID: <avXjsO_fLaUC_4mG@gpd4>
+References: <20261112144935.583937-1-cui.tao@linux.dev>
+ <20261112144935.583937-3-cui.tao@linux.dev>
+ <20261112152118.GD1813469@noisy.programming.kicks-ass.net>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261112-edma-iommu-v3-v6-7-b038edb8ce6f@nxp.com>
-X-ClientProxiedBy: CYXP220CA0009.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:930:ee::17) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+In-Reply-To: <20261112152118.GD1813469@noisy.programming.kicks-ass.net>
+X-ClientProxiedBy: MI1P293CA0005.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:290:2::12) To BL1PR12MB5174.namprd12.prod.outlook.com
+ (2603:10b6:208:31c::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,113 +101,165 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PAXPR04MB8911:EE_
-X-MS-Office365-Filtering-Correlation-Id: 90302ebf-4d16-4a3b-6bff-08df40d6f1af
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|SN7PR12MB7450:EE_
+X-MS-Office365-Filtering-Correlation-Id: 649d599f-7e3e-48af-c4f3-08df40d6bd34
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|376014|1800799024|366016|19092799006|10067099003|11063799006|56012099006|261102123227099003|261009223027099003|261021121427099003|261021123027099003|4143699003|22082099003|18002099003;
+	BCL:0;ARA:13230040|7416014|366016|376014|1800799024|23010399003|10067099003|4143699003|11063799006|56012099006|261022115727099003|261026121527099003|261022075727099003|261026140227099003|261028144727099003|261022105027099003|261021121427099003|261021123027099003|261102123227099003|261009223027099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	UZJJc002611HpBFYe+ZZahmsDu+TC5NLvPGKiGNivjr6t++WQKCvu1m5dyMfY52IQZOHRkheL3ddExQ41QNLIIrXGNyrby461Fhy6vwnkva9e0h7Pi7CMsPC6hxsRSyJNJhLJod69QSuzXY7SOqhN+Hy0QPY4VGKkvCbn/+oMol21/ogbBYOWLRLbLPEEeW0ikJXIgwcBsT0A2WYqIunBDOVkr95YtGK+HwN4IGzMJhW+xbV1C7HBLBzqch7yPtEIBGWsZt7ubvKxme+sdDq6r7qi7NUN/zxPTjdDuVH97hQVN+T8+joPDAEbZJOU5/vhPr04CJBWWg6jQR4aPCg3AHI8WvYQ7Kem+hSjpMv1t+mfuo/AOF6lp/QIHV9M5HWGQxtcToW36O6DgSV3wTEU566NFkL4Zsz7M+zDLCfZC+LjiJwMBXG6dCftF4sLTP4iQxKvP0LBsqJVmnUEJGI3WukNvyJTWj2jmmRJoANUae30ZH28X33r36OdqqDuw2ovRyMU2h1R6hE5QrlMM3szRcYAx2uO0aqXoCeyKHB3LfEyK9YhG2HHwU2o76sRTcWuS/LgUcEXADx5yoVmSiSBq+oNHrmtw3lia02TmtqR6mn6h2EkAiuDq0CvHQNJKYY59UXtaNZbI3KWRsCujyLIzeRJQs1sFDt7UuDrKEdixQ=
+	0YungozPP5xs1QOIi1DDvvUSr6wYmCSxZMIOL/azvspr8fs04h9+vugny1bM8OVL2DqTjp74c6ezDccFBIujFmftMVDRAI8UOZqzUoFCRBfcwueSv9v51J0bUDd3WUrbqoRgliYcTbrKQcak6cBp2pKwDJJpVTBAL6wYQU6s/O9gmgWKCFXucEjteq8LK3NHX6XO/49XcgwmOSg5HHlSk9v6Zahdf5TweSVKr5mS6RKzLj/WLomUEslxS3QGLojDGIcvHq6+gcH1VaB6n4aFupyHXk1JIQPGL8LeOAET3mrbyyCpv67LxzqY5HaxQTbOKfFZxJimmWWl/DBRw0ckrdl8p01Co9KXcC/ELfJp+QYiUJvjMHsAkAWeb8uvpF1Ox0ZuHMZV5YRXcpvjDGjNy9lWgXyXb2LyZN/3ZaThh/biRts4M0gxF4PfniXKuOIX7I8bsK6NO61yYEEyn3EbFGljKzZwDnODpwAwCTjevZp1i4AiFLHLZosg2ioaTz/+261GaTowcI/EahjAVAU8AifOK81Epk8Mk6ofgUAk77lCyQpjCiBHiUvJJTuVoHHXcB8lqZ4BZj9Kc5oWbSENyXn0k7uBQ3JE15+7iD+pa4vHscrYAwMMWMmJo9UcNBPaZRGA2G8QNOIBFJctiBJKVREKYYyGL0d3JWFaEPOmuaE=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(1800799024)(366016)(19092799006)(10067099003)(11063799006)(56012099006)(261102123227099003)(261009223027099003)(261021121427099003)(261021123027099003)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(1800799024)(23010399003)(10067099003)(4143699003)(11063799006)(56012099006)(261022115727099003)(261026121527099003)(261022075727099003)(261026140227099003)(261028144727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?e0Lwlqfc7TiD0Nn5jeunDVwu0C1XM4U3XGIM2f4hdSX49I91hJdGYRbg6k/Q?=
- =?us-ascii?Q?9fNgVukcus8lLXRvNti2/w7QzySpCS/cFvZfhuCM8/OrtAn5PyItfi3ijsFs?=
- =?us-ascii?Q?fjqMOSli012PptoOhRmT1E1jQO0Jy+ZlWtC3wejSkXA+vSjslRe43UpmrUQF?=
- =?us-ascii?Q?eDggVflgH5hE62rpRRlPPc9YYq5HQ4q8bCtd9arJPfvpy1l3zToaR/GyTy3h?=
- =?us-ascii?Q?KJMP9vHqufpeT207a2vmGZhUExr6svi3REZqY4bz4oRpnqxqkL4sB50dB1oC?=
- =?us-ascii?Q?RseVKe5j+O8oeu/0uGbzqOxgX7EKExSN6z+EzqAe5qYUEqOriGYiL+ukKx9b?=
- =?us-ascii?Q?LaJg4dRqsdsCUuBghUAlUp4r75Y3HOSMoN84k8ccEoxqD588BV0LLn1G4CA6?=
- =?us-ascii?Q?jtIuo0gJnGPg0l4BN31Mxdr9vMnYImmqyt1WdOEXREC34n0GiBQdCh47BYB+?=
- =?us-ascii?Q?lHG4JO2LpoQI4sNtwnN0D0Hli0q60FNmhwNgnaXiefn6xQNqqcf2Zpifa/6b?=
- =?us-ascii?Q?rL9VLQmV4RVyHe1NOrVAvSRUhVRpRnBHIq1d5EhL2IuwoX96Kcz1E/0F0QBB?=
- =?us-ascii?Q?ZX0nt6Ags93+hDLEs/gUMXAziVL4X+COVZTaPDOfwZoRAEhM/YLLoL8YttgG?=
- =?us-ascii?Q?rLeHrmcQYNg/N41ELUA8zcBc7fq3QyHdq97zkf4a437ShzAlxcV/T7h1Cqli?=
- =?us-ascii?Q?i9fcfu87Ow5iVGhliCSRSIE9Y8T/nfJ4stbf30Vh7FozvL0j5JdrAQsVUwp0?=
- =?us-ascii?Q?um88q3l0PDCcFcemvxaoLGk014B+akMY1cqILLXCF78YEn3FqzbSXFHHYwe8?=
- =?us-ascii?Q?4APHLMcQHC9nudpk0nJ5sthARkJacE0oejI9jGgL1wMInuBq6wVtGIJdUKie?=
- =?us-ascii?Q?zf0Hr5Jp873uQAGLYbXYiNYy/xvJADXrxMPtBdUaMAT91MnFxe3fin+EwbOy?=
- =?us-ascii?Q?N2xAz8HAxDBk9YWEjolnKH/n/LeF8uRbnQjhYYoBYUCAgRjYB38zB03DoFNk?=
- =?us-ascii?Q?NBo2Xi5Yx08wEYNkKqQ4W5UKcS8bnJ7dnsJMZWe42O/agFcqBU6xFb/q4Q/3?=
- =?us-ascii?Q?BWExPbuGOXYCcCb6z55hx7cpYFX3PEcxLB8WaUGPmJ9maFgNpYA+Gbr/Y1Mv?=
- =?us-ascii?Q?BRhLxhuiv5B0SmC2dUAzu3wZSvNYC8z66I4GqQBToJsWaeNSaL0RdglgVA7h?=
- =?us-ascii?Q?/1hM0SerfK9vC0Xz07oda2GAf2WRJwHk1ktPTtWJXvkzvQhtf6lkEmD287Z1?=
- =?us-ascii?Q?S94uctJSPxwJi0b73qwdk7kR8GEhdATXKjh5Dl4Mf1CZXCdzs2W4faZbnp5Y?=
- =?us-ascii?Q?TEu1AZ4ty5wH50AqWEy1cV/vaaoQaaV28djPkl44VSVSVXOg3k2SWQ2LAxvs?=
- =?us-ascii?Q?DHs3DJPLpXovzNZaSkkNiMte+rbTc+YYk4hSqOIHNf0AJ8VBjM2QzHgvOs/C?=
- =?us-ascii?Q?qb+VDpIMy8/uDpp6lrpq+l6fVxNKZ8xuxeCn8Bb5LLu/xOn6MJl+5WGIrxFG?=
- =?us-ascii?Q?vfvvugRm2pzcVpJQ7mM+cOC0a5iAnitFTXlt8lW5/870Q/WX2IkNWrCqiAMe?=
- =?us-ascii?Q?iawjmUdK+b7gbFJ+k+xhp4EXKixDJT6631RsrtiS+8F12YAI/TNDh+Wy2Kxg?=
- =?us-ascii?Q?tbw2elMM1hZi9swnUIV1uCSd7RmK5GIxPsXEUVdK/eRMY0UcuwlwT9rv1IdY?=
- =?us-ascii?Q?16BUFeJcQvdrSWCS/LJ/Cph+ecr1n2QmST63ehJQKGJpzaBMkk1KrLn61v6z?=
- =?us-ascii?Q?+3wJy9rdOjsvKCgRElgC/nwOSVN2L4+XRSmxZZv4+Uxvoedc0OsN?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90302ebf-4d16-4a3b-6bff-08df40d6f1af
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+	=?us-ascii?Q?k5/aTfSTDDWoQ2o8vpxEFZcjxKzh6oS+HmcjnBFd1hX0Grj2Fnnic1c0EAEn?=
+ =?us-ascii?Q?Xls1A0BYLA1G9DR/1smtuV8PG8NCpArPjiLK8r96iwJ2Xn6ak0iKVEqNlMhl?=
+ =?us-ascii?Q?NpZ8LZHyirdS18Gw/ra2/QLa1lvhV/B0f3nD3KXXQ63IvgeuxoBUSTXMpbhe?=
+ =?us-ascii?Q?JFb3Fh0NW6xI555rrnXiYB51xzntZnVMogaLGgO23GHfGnufxBMHAmlcsRjU?=
+ =?us-ascii?Q?QmpNe1Zbuf1G4BawC85I6x6xoKX9Yf3vXk1vvpV7qLjuzpO51feYUXqUX6HS?=
+ =?us-ascii?Q?OBk/xFzk20lm2lMKP0Q5p34KEAHz+m+NMjAWNY+z8qZWHN4au5rUIIhT7P6c?=
+ =?us-ascii?Q?d53CTz0SIws+ZKj6dmRpbSkVMcufmpUshgfZ7csOKJ2WHc2+FMFFSDdHHE++?=
+ =?us-ascii?Q?BtRfbBYebzeY3lC2lqidHAiU16N1tAG/fVhOZoDuI5SgpSI/pA1oYNqMytK/?=
+ =?us-ascii?Q?0UZecXezEZ9yLIF28F9Fmlt/ZWkvvdHUu+wNJJKUgJpyaXOvojRVPcHTOgTp?=
+ =?us-ascii?Q?NlsCVIj9JMDnVkZ033Qf/J96CXevqxwmcwRD8ZKSVh4Dpcsf8uYG1ityNu0x?=
+ =?us-ascii?Q?zjMZunUyJaETYIz5+uYUkOQ+9UdlYVJPECjA0loGCWyzLexyFqGQp/jvYREh?=
+ =?us-ascii?Q?cMqEbJMmvx1yACOaOeSm6Xp/JgEW7qYthyzEUKMOhG/SPbOiFTdT6ImQtiaC?=
+ =?us-ascii?Q?9Pk2P0XJEeWlMJRrXRLzM8DwTmphND2AdVY1llKRX6xjQYr/j9AI9iC/RJsn?=
+ =?us-ascii?Q?JT5z1cPJ7J+SPJzRPPMUtCaQ0C+WIntVPGsvA0736bVSffbljbKXTHXgKy2t?=
+ =?us-ascii?Q?P/yci6eqy2AcHcGC8XWf+/3BQ99WA427fy+aSoU5O+3N90pOVpGBHuZCv3o2?=
+ =?us-ascii?Q?Qdc4wh87SuC8u0D3uIAjU5EqMGyvxs6v2BGYvU4J1S3CrgFihyiUwj7sqnCY?=
+ =?us-ascii?Q?+P1g1TEOA33RSpX/lTDm6AZMHGT6toc14NhraiOJh3jpRiswiiQ64ZuBbjTL?=
+ =?us-ascii?Q?FF42ZcwA/Y71t7u55vMpdmpQjDOWTSOa2Khv3BVrLTkrp0ng4RGqgoB3mNfW?=
+ =?us-ascii?Q?QY5DbZrXpA1ICFhJzYZkoMxr6E2erp/cOUA2GnQpkK5T89JsiVGbw/9TD5Ms?=
+ =?us-ascii?Q?ZKjA1pijpeoS16GGfBbtK3GH3zBflAb5Uyc2aVTMLFBUmfa80Y0L82aPUsBn?=
+ =?us-ascii?Q?TBR+5AOOaOch2aJO90o2SpMfuqlQxgu1IVqJLZ4IgyY698WKiEX8vNZdlTUv?=
+ =?us-ascii?Q?NvWh7dCy7ZHadP7x2CR7o2WWovUrCQF4/TlbBZRJliTZmeuwYOZ42fA0RD9p?=
+ =?us-ascii?Q?TF+PkhGDRVTpQEJlRQSJnCVxu9elIRCoHdUxPyL/rGW2fZ8BoYbkUSLQXQ89?=
+ =?us-ascii?Q?kO9xwqB5XXMDLtG4+IGtVjnCcRwN2bLXkMZBp8MvbpjdJf8LWogwiY3U4FDg?=
+ =?us-ascii?Q?hh3EE95Zp4bEgHP3fkzkGWroEF2CyPpMiF5GOrKauhm3o8K3GiYlPhyZ+hms?=
+ =?us-ascii?Q?cvmmbr6LDNFNh+iq9BNlrMvytVVlRuuf4KHRFhdaQAPptnKvp1to2zUgrnfy?=
+ =?us-ascii?Q?WZhq3iK0gKUL1jqyDbb8AF2zV8GHGmzIVjbfqzg4mg630XPIDLQohQdX/1NF?=
+ =?us-ascii?Q?0MzqxEjwM2B2Vqa3GtKz7uPhbnNjDbZ26BG9+3iMgDp3KxVnpzS/hIWJ8ZPW?=
+ =?us-ascii?Q?neZUdS3Bm4qXHHTWxyjGQtXK/zKir0tV/9pLFw3/Xrwz6iiH?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 649d599f-7e3e-48af-c4f3-08df40d6bd34
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 16:06:43.3955
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 16:05:15.3696
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vdql28pmFR6A5zxhYyLA/FQrIAvIgaH21UzgkIWaexstBcA2XDvW1aXHFlP6jVSwR8GcgIOV14fU3ogO0OnHd6ReBp/+z1n1k0VV/VQoTlnvgDcKE0e2sBWEIC5BG+2w
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8911
+X-MS-Exchange-CrossTenant-UserPrincipalName: ncP7E9LE0cE74hGmzPwD2vg6UInetUBmh+nkKAxE6MH5f16H3bqTfBxu+iarqzlmu3Hq0QL6SI8bqIHRYQFChw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7450
 
-On Thu, Nov 12, 2026 at 03:53:10PM +0800, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
->
-> Use dmaengine_get_dma_device() instead of chan->device->dev when creating
-> the TCD pool and when mapping the slave resource. This lets the driver use
-> the per-channel device once per-channel IOMMU support enables it, without
-> changing behaviour for existing users.
->
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
+On Thu, Nov 12, 2026 at 04:21:18PM +0100, Peter Zijlstra wrote:
+> On Thu, Nov 12, 2026 at 10:49:35PM +0800, Tao Cui wrote:
+> > From: Tao Cui <cuitao@kylinos.cn>
+> > 
+> > rt_mutex_setprio() is the only entry path into sched_ext that does not
+> > block a retained donor: an ext task PI-boosted by an rt waiter can
+> > block on a second kernel mutex while boosted, and on deboost is routed
+> > back to sched_ext carrying the queued+blocked state that
+> > scx_prepare_setscheduler() promises never happens; every PI cycle
+> > hands the BPF scheduler a queued+blocked donor it never admitted.
+> > 
+> > Call scx_prepare_task_sched_change() before the sched_change guard when
+> > the class change routes the task back to sched_ext, which performs the
+> > missing sched_proxy_block_task() (plus an update_rq_clock() that is
+> > harmless here: the clock was already advanced, so the second advance
+> > only applies a small delta). The boost direction (ext -> rt) needs no
+> > handling.
+> 
+> I can't understand this. And I take a very dim view of sprinking magic
+> hooks like this. So no.
+> 
+> The little I understand of things makes me think __setscheduler_class()
+> is buggy for EXT and *that* should be fixed.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Agreed on avoiding another special-case hook.
 
->  drivers/dma/fsl-edma-common.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/dma/fsl-edma-common.c b/drivers/dma/fsl-edma-common.c
-> index 513b0f4e5be2..62cd60179bc6 100644
-> --- a/drivers/dma/fsl-edma-common.c
-> +++ b/drivers/dma/fsl-edma-common.c
-> @@ -310,10 +310,10 @@ int fsl_edma_resume(struct dma_chan *chan)
->
->  static void fsl_edma_unprep_slave_dma(struct fsl_edma_chan *fsl_chan)
->  {
-> +	struct device *dev = dmaengine_get_dma_device(&fsl_chan->vchan.chan);
-> +
->  	if (fsl_chan->dma_dir != DMA_NONE)
-> -		dma_unmap_resource(fsl_chan->vchan.chan.device->dev,
-> -				   fsl_chan->dma_dev_addr,
-> -				   fsl_chan->dma_dev_size,
-> +		dma_unmap_resource(dev, fsl_chan->dma_dev_addr, fsl_chan->dma_dev_size,
->  				   fsl_chan->dma_dir, 0);
->  	fsl_chan->dma_dir = DMA_NONE;
->  }
-> @@ -321,7 +321,7 @@ static void fsl_edma_unprep_slave_dma(struct fsl_edma_chan *fsl_chan)
->  static bool fsl_edma_prep_slave_dma(struct fsl_edma_chan *fsl_chan,
->  				    enum dma_transfer_direction dir)
->  {
-> -	struct device *dev = fsl_chan->vchan.chan.device->dev;
-> +	struct device *dev = dmaengine_get_dma_device(&fsl_chan->vchan.chan);
->  	enum dma_data_direction dma_dir;
->  	phys_addr_t addr = 0;
->  	u32 size = 0;
-> @@ -1090,7 +1090,7 @@ int fsl_edma_alloc_chan_resources(struct dma_chan *chan)
->  	if (fsl_edma_drvflags(fsl_chan) & FSL_EDMA_DRV_HAS_CHCLK)
->  		clk_prepare_enable(fsl_chan->clk);
->
-> -	fsl_chan->tcd_pool = dma_pool_create("tcd_pool", chan->device->dev,
-> +	fsl_chan->tcd_pool = dma_pool_create("tcd_pool", dmaengine_get_dma_device(chan),
->  				fsl_edma_drvflags(fsl_chan) & FSL_EDMA_DRV_TCD64 ?
->  				sizeof(struct fsl_edma_hw_tcd64) : sizeof(struct fsl_edma_hw_tcd),
->  				32, 0);
->
-> --
-> 2.34.1
->
+To recap, we ran into this while developing the proxy-exec support for
+scx. Earlier versions were handling the PI deboost case too and we also
+explored passing next_class into sched_change_begin(). But that didn't
+make it into the final version and it was left as a future improvement,
+to keep things simpler.
+
+Regarding __setscheduler_class(), the task keeps its SCHED_EXT policy
+while PI moves it into RT/DL, so selecting EXT again after deboost seems
+expected. The problem is carrying the retained proxy state across that
+transition.
+
+Would it make sense to revisit the old idea passing next_class into
+sched_change_begin(), so we can handle entry into EXT consistently
+before recording the queued/running state and replace the separate
+class-entry preparation hooks?
+
+And unlike the earlier version, we could restrict this to transitions
+into EXT, leaving retained proxy state across FAIR/RT/DL transitions
+untouched. An incoming-class preparation callback would let EXT enforce
+that requirement without an EXT-specific check in each caller.
+
+That would address the transition handling generally, including PI
+deboost. Does it make sense?
+
+Thanks,
+-Andrea
+
+> 
+> > Fixes: be8be8acb268 ("sched_ext: Block proxy donors before taking control")
+> > Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+> > ---
+> >  kernel/sched/core.c    | 12 ++++++++++++
+> >  kernel/sched/ext/ext.h |  2 ++
+> >  2 files changed, 14 insertions(+)
+> > 
+> > diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> > index f7a452123ef5..dcb16b006740 100644
+> > --- a/kernel/sched/core.c
+> > +++ b/kernel/sched/core.c
+> > @@ -7816,6 +7816,18 @@ void rt_mutex_setprio(struct task_struct *p, struct task_struct *pi_task)
+> >  	if (prev_class != next_class)
+> >  		queue_flag |= DEQUEUE_CLASS;
+> >  
+> > +	/*
+> > +	 * PI boost can route @p out of sched_ext: policy stays SCHED_EXT but
+> > +	 * __setscheduler_class() follows the effective rt prio, and rt/fair
+> > +	 * may have retained @p on the rq as a blocked donor. Block it before
+> > +	 * sched_change_begin() records the queued state, the same way the
+> > +	 * other entry points into sched_ext do.
+> > +	 */
+> > +#ifdef CONFIG_SCHED_CLASS_EXT
+> > +	if ((queue_flag & DEQUEUE_CLASS) && next_class == &ext_sched_class)
+> > +		scx_prepare_task_sched_change(p);
+> > +#endif
+> > +
+> >  	scoped_guard (sched_change, p, queue_flag) {
+> >  		/*
+> >  		 * Boosting condition are:
+> > diff --git a/kernel/sched/ext/ext.h b/kernel/sched/ext/ext.h
+> > index d32bc01071b0..1a699be25331 100644
+> > --- a/kernel/sched/ext/ext.h
+> > +++ b/kernel/sched/ext/ext.h
+> > @@ -19,6 +19,7 @@ void scx_rq_activate(struct rq *rq);
+> >  void scx_rq_deactivate(struct rq *rq);
+> >  int scx_check_setscheduler(struct task_struct *p, int policy);
+> >  void scx_prepare_setscheduler(struct task_struct *p, int policy);
+> > +void scx_prepare_task_sched_change(struct task_struct *p);
+> >  bool task_should_scx(int policy);
+> >  bool scx_allow_ttwu_queue(const struct task_struct *p);
+> >  bool __scx_allow_proxy_exec(const struct task_struct *p);
+> > @@ -72,6 +73,7 @@ static inline void scx_rq_activate(struct rq *rq) {}
+> >  static inline void scx_rq_deactivate(struct rq *rq) {}
+> >  static inline int scx_check_setscheduler(struct task_struct *p, int policy) { return 0; }
+> >  static inline void scx_prepare_setscheduler(struct task_struct *p, int policy) {}
+> > +static inline void scx_prepare_task_sched_change(struct task_struct *p) {}
+> >  static inline bool task_on_scx(const struct task_struct *p) { return false; }
+> >  static inline bool scx_allow_ttwu_queue(const struct task_struct *p) { return true; }
+> >  static inline bool scx_allow_proxy_exec(const struct task_struct *p) { return true; }
+> > -- 
+> > 2.53.0
+> > 
+> > base-commit: 5b740a72b55c4267ba4d8010f17dde26b26f52d3
+> 
