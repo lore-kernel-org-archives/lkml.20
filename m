@@ -1,63 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794510586;
-	b=FRVEp5ybzKoPECqC+Ga4zZ1W2XY9NKiizWELehp7NZarQelTP14pEKaeJ3rOV1qwwySR
-	 gNFrCI6zgJ8Wg41KNUKU0OXO6EoDpgk8EkMm7X5JX1SpJk5WQBRVx1wAujyx4Te/IrEyy
-	 K8he8pIP1hMvxqiuS4ReeYBZFR5ec31YvL0NG3uerR5pNSUNNL4PkebQVpy/cRRu8cYv8
-	 EGhbsTLjNU39ulonps8Kf/mQVPo53aTAB/pCXJO0RwNEIaRxPizLAwQ5tlPL3x9wNW9a3
-	 TeEfQfNa74OMqL66yDJ2Hj7a8AfVfFqUn2OSWsNl4eAvWuQGcx/pIIHkVGEKIKFeh/g==
+	t=1794510593;
+	b=wAichuU5BxvTcCSgVW4ac3i5I6nqDJlryX8bfcoTuMmrA/fbRuBZYSSjFJiRqSkRcA/p
+	 j0py5bXw+xEEifaL3KAxogqdjUU63ak20VZEQihldDohj0o3zuHPceVC4Fz5y1KbKADjY
+	 KoIv85Hs4jMBQ+W4aSXd1QwbTJhq+uB4uyzYcmVw3/4l38K5KEj6d5A8imodOYJWL+2IJ
+	 CXqu/2fdX5BXSwI/MzCyxrIGzvhkJU8LwPl0l63rRx1kVH6Ecer3uNLVKg0i0Sa6miMW4
+	 tIu6LS0l48nQuKT/AxllF9PTs6POD1ktBGE13cKBlMA122bAKe40AJX1Nw6yPooGjjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794510586;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=sJQr+gvBgyWCXNcDuYBIUccK+tp9NBCw7G3cq8vaix0=;
-	b=JanyXVXeAg2cjXUKW6y5Pob0oQe9//aFPJy5iwpE72Zm8TEEqqEZyfWDZWWUvsbi3VKD
-	 j8URLbM9lGqTw+m4HubOPrmRJ13xnVwdL2ZicJlnTNy0FIUQu2kMA41LdEsWZKRK7LT3B
-	 SVbWCL1wEcnD1F/9qIZyZDkpXkFkp8q4tLLIe2V7SZxH50N1KRJhew6xKfj+u1M0R0zxy
-	 0m3mz5zftMLmwbc5Ca+4pO9HkVRfaTgHHMhhB5WXwn3I3pyRJV1KdPauFNzi0Dv+T8MrT
-	 tWHVHwYjBUbkPcj7GCwocH6JfnfHB5zfe+bYBtG4sIifNfA6ZWcO55ZELfJeRph2PPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794510593;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=7vhYx+mU5ZE+8csctxhRGwodyAgV5iSIPIq1rC32lzs=;
+	b=I5oPlzti9F3Lnu7W3vvjPotAgDjLO85FMGbrlTXUBkB/BfU/XQOKEHPDBC2RzZ0abylv
+	 J609uO3THjEjQKz9cayaIQOP4eRUMbtDkLbGYqTdIpCTPQIi7D95oo+5ON0ax2eOBxNdD
+	 9kn/Y2mzroX6jjZEJ4TSU5b33fhInKRIuuYwNyK6BxqWMyH8s5+vbOLT1SFUs6nKdsp/K
+	 c/Slqt2CmBe3zREEE/D244VivlHrYy8zndJKjW5v5IlP4k6PloVW0qevDRvsMy9Ae79vI
+	 Inn3brwbBGTQ/f6ikUxMRZH8Ou0XYINjHQ7QOFlzmLDVBn6xPfmYStN3kuooAYvQXmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=phrozen.org;
-	spf=pass smtp.mailfrom=phrozen.org;
-	arc=none smtp.remote-ip=46.4.11.11
-Received: from nbd.name (nbd.name [46.4.11.11])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K6mPTIqZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A054E606A338;
-	Thu, 12 Nov 2026 19:09:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A054E606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
-Received: from [2a04:4540:1403:f2fc:83ce:6656:246:c906] (helo=bertha10..)
-	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <john@phrozen.org>)
-	id 1xRaAw-002XyJ-2j;
-	Thu, 12 Nov 2026 20:09:34 +0100
-From: John Crispin <john@phrozen.org>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Christian Marangi <ansuelsmth@gmail.com>,
-	devicetree@vger.kernel.org,
-	lei.dong@airoha.com,
-	Linqi.zhang@airoha.com,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	Rajeev.kumar@airoha.com,
-	upstream@airoha.com,
-	Weifeng.xu@airoha.com,
-	zhengping.zhang@airoha.com
-Subject: [PATCH net-next] dt-bindings: net: airoha: add AN7589 MDIO controller
-Date: Thu, 12 Nov 2026 20:09:28 +0100
-Message-Id: <20261112190928.1318743-1-john@phrozen.org>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88751606A8B5;
+	Thu, 12 Nov 2026 19:09:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K6mPTIqZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5DC41F000C5;
+	Thu, 12 Nov 2026 19:09:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794510593;
+	bh=7vhYx+mU5ZE+8csctxhRGwodyAgV5iSIPIq1rC32lzs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K6mPTIqZ0PqdtRQ0N+/uG83Mvhc5SbmVq/c7r67irEj+eqMifCHccwFKgV3/nQTlx
+	 O9ey+T/MGn53XOU2RQSKWCIZKqq1vmtThLfplc9IEG4tk1ALsBZuwhrc8BUCjEoryH
+	 wFFXOMUbs1ODS++BgEpdVGqILTydG506R8ZGglXYmBDejlENdN67BGKHWuhCEv1z4B
+	 rEzcsk/K4PHb3MKBt9KSukE8IvbAdcV8Bclho6AS1k6ArThMWAyBAZkRNO3qMq97zo
+	 jVItj8fx6+yPwmqAQZomGfNgtPRqYWT0UPtFoiCfc7zTGTYtmu8EywezKmPBo1twwe
+	 EJpV8om5RPyMg==
+Date: Thu, 12 Nov 2026 21:09:48 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: =?utf-8?B?5p2O5bm/56GV?= <liguangshuo@mail.sdu.edu.cn>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org,
+	"Md. Haris Iqbal" <haris.iqbal@ionos.com>,
+	Jack Wang <jinpu.wang@ionos.com>, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: Re: [PATCH] RDMA/rtrs: Fix potential use-after-free on client
+ sysfs setup failure
+Message-ID: <20261112190948.GV8635@unreal>
+References: <ddd08640709b149408b616c3eec8fee847af757e.1793455791.git.liguangshuo@mail.sdu.edu.cn>
+ <20261109111652.GD8635@unreal>
+ <APEA3wD5LFuJxkDei2Ikqqq4.3.1794229006784.Hmail.202321181@mail.sdu.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,68 +62,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <APEA3wD5LFuJxkDei2Ikqqq4.3.1794229006784.Hmail.202321181@mail.sdu.edu.cn>
 
-The AN7589 carries the AN7583 SCU MDIO controller three times, the
-third one at offset 0xd8. Document it as a fallback pair on the AN7583
-compatible. Allow the new offset for the AN7589 only.
+On Mon, Nov 09, 2026 at 08:56:46PM +0800, 李广硕 wrote:
+> Hi Leon,
+> 
+> Thanks for reviewing.
+> 
+> From: Leon Romanovsky <leon@kernel.org>
+> Date: 2026-11-09 19:16:52
+> To:  Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+> Cc:  Jason Gunthorpe <jgg@ziepe.ca>,stable@vger.kernel.org,"Md. Haris Iqbal" <haris.iqbal@ionos.com>,Jack Wang <jinpu.wang@ionos.com>,linux-rdma@vger.kernel.org,linux-kernel@vger.kernel.org
+> Subject: Re: [PATCH] RDMA/rtrs: Fix potential use-after-free on client sysfs setup failure>On Sat, Oct 31, 2026 at 10:14:46PM +0800, Guangshuo Li wrote:
+> >> rtrs_clt_create_path_files() drops the path reference on failure, but
+> >> its callers still close connections and free the path. This can access
+> >> freed memory and free the path twice.
+> >
+> >Sorry, but how?
+> >
+> Consider an allocation failure while setting the name of the path
+> kobject in rtrs_clt_create_path_files(). kobject_init_and_add() has
+> already initialized the reference count to one when setting the name
+> fails with -ENOMEM. The stats kobject has not been created yet, and
+> adding the path to clt->paths_list did not take a kobject reference.
+> 
+> The error branch then calls kobject_put(&clt_path->kobj). This drops
+> the only reference. With CONFIG_DEBUG_KOBJECT_RELEASE=n,
+> rtrs_clt_path_release() runs synchronously and calls free_path(), which
+> does kfree(clt_path).
+> 
+> Back in rtrs_clt_open(), the first statement on that error path is:
+> 
+>         list_del_rcu(&clt_path->s.entry);
+> 
+> That accesses the list node embedded in the path that was just freed.
+> This is the use-after-free I meant.
 
-Signed-off-by: John Crispin <john@phrozen.org>
----
- .../bindings/net/airoha,an7583-mdio.yaml      | 25 +++++++++++++++++--
- 1 file changed, 23 insertions(+), 2 deletions(-)
+The error handling appears to be incorrect. rtrs_clt_create_path_files()
+should undo only the changes it made internally and error handling of
+call to rtrs_clt_create_path_files() should undo what was done in
+rtrs_clt_open().
 
-diff --git a/Documentation/devicetree/bindings/net/airoha,an7583-mdio.yaml b/Documentation/devicetree/bindings/net/airoha,an7583-mdio.yaml
-index 3e7e68ec1560..41dc295ce6cf 100644
---- a/Documentation/devicetree/bindings/net/airoha,an7583-mdio.yaml
-+++ b/Documentation/devicetree/bindings/net/airoha,an7583-mdio.yaml
-@@ -17,14 +17,20 @@ description:
-   The other 2 (that this schema describe) live under the SCU
-   register supporting both C22 and C45 PHYs.
- 
-+  The Airoha AN7589 has a third controller of this kind under the SCU.
-+
- $ref: mdio.yaml#
- 
- properties:
-   compatible:
--    const: airoha,an7583-mdio
-+    oneOf:
-+      - const: airoha,an7583-mdio
-+      - items:
-+          - const: airoha,an7589-mdio
-+          - const: airoha,an7583-mdio
- 
-   reg:
--    enum: [0xc8, 0xcc]
-+    maxItems: 1
- 
-   clocks:
-     maxItems: 1
-@@ -41,6 +47,21 @@ required:
-   - clocks
-   - resets
- 
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: airoha,an7589-mdio
-+    then:
-+      properties:
-+        reg:
-+          enum: [0xc8, 0xcc, 0xd8]
-+    else:
-+      properties:
-+        reg:
-+          enum: [0xc8, 0xcc]
-+
- unevaluatedProperties: false
- 
- examples:
+Thanks
 
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
--- 
-2.34.1
-
+> 
+> Thanks,
+> Guangshuo
