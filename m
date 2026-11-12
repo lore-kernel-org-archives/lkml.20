@@ -1,67 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=61.135.153.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.10.52.105
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794442425;
-	b=CHQ8XHlD/lAPOHU+5SwbDYkLl/sGJ8sQbptun73RhnijXjv/4V6RGBqwHNWR7REt+EZv
-	 Ut9aw8HOg+/qf2DLSz9HN6VqajbYFh3eYoaV9PL8QcxPR7uONhL8/BNSx89grHp1sHSR1
-	 4J+sZMkr5p/c48gC67vJEmpUH/oKUD7fLF7br8llY62Oro3zdRCgYC2ty5qa4V646gICn
-	 eK27qPUWv1oDR1Bgx6odgGgzEZ4WKiWxOx2rWpijNOEopVKVrEURnRbzhNyDEBXASDrTM
-	 YA/vjIT0GQW7rHKN21uSNBj5e2YENZ13I/rS1oNj2nXPBYdTYhyqJ28UfJIH7V8MGmg==
+	t=1794442449;
+	b=SRbjWhAEldsL21/SmXl5wXlri9OuJcdFR3Jk56+M40deh+zBBvHYoFpUUh+QlS20lC/7
+	 TvAFCaqudAoPsbj83pdsDC/LPod7spRh04cU1VkXd9z5Ib6jTb1dx32KdrEKt/RRVQ0qn
+	 /or1QsuIi+EIy00qq1+2r325v/Uw6WlwaIDqK6kMyALn2lktNTogKjTR+fnbQ/K41UMl+
+	 phSdM1Bqj5Qxw5/WDK6BBxfqXYN4eC/ezDKB6bcaeHAwB4V+lg7j/5rQcuGQDngtpYLAg
+	 n74GNVGrimqNo1y6+FeD05dn/bNcVHeryC9CE48szsT9FfYpFZzJm1EUs1Dn2pSoo6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794442425;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=D64g9BJ+4yZXICHv3vdK6fiAhMhXikQmmHwRmcMdR90=;
-	b=Nd6GfB48JqbLoiRPAkQMP0O6VW/Y3ZrXrkdobnJi5U4azFJ2kHnCCFGeBnW9NZtp8e9I
-	 kRxrgx4vWHBGpq7eEgNgzMYqPjM9J/X5xJVS8F6ACnViz7hG3P5BadX8gcKT6BOVHsYqf
-	 +ZNM9t7zGuxVniD/56m/AOKRy5M0LWeJVqyExzqca/MvEbK9pAkITqZro9R8EzyWtxT1N
-	 0ELCbSWthqCInpN4LhxLMkUrZmjXJ6V5rX+uFszkGzDFEy/lQPY0dMTkh/aebxDnJ8Zo2
-	 sXKtfxmZaawzvrnVM5OfnnW8WK9heP6gJQfGReRpHIN2cBDFQIvWuUrt0SP3D7/ee4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794442449;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:X-Amp-Result:Received:Received:Received:
+	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 X-MS-Has-Attach:X-MS-TNEF-Correlator:x-originating-ip:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Gjj8XrtdGf75bTN04E+EJ60Af0aZGvGLYuMFY0/g4K8=;
+	b=0LpTgcBA0Kj7TnFzXuO0d83gmXEz+w75Jmp+GdpEhhpqKnIdXUExqYtc+KpUj6mAnuWH
+	 6UEkISrHglu2mBYa68/vyG0dwms7aimZoWo3yTZ1zxdlX/K7HEuDapUYTMvBWZcnz5PMl
+	 p4f9FXR1SbE612v6ny+7Wcdoea1dwXV1Jlgh96PSe+NESuzeasDwb6YkR5My0lsPHf8uU
+	 f1eMNXkHBvyKRkaTB/9LjdxYzECpJmYJQ7zsPzqcv54xriu4aKgnvN3QGIJHY/83PAp1T
+	 asJb646hIgbBn6ddQcI9EgkvlBujrxDYECCerScLmMXYVN1Dld7MpYOaugqHLvhcDLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=nWs8+lVQ;
-	arc=none smtp.remote-ip=61.135.153.170
-Received: from smtp153-170.sina.com.cn (smtp153-170.sina.com.cn [61.135.153.170])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=infineon.com;
+	spf=pass smtp.mailfrom=infineon.com;
+	dkim=pass header.d=infineon.com header.i=@infineon.com header.a=rsa-sha256 header.s=IFXMAIL header.b=ka9qhOLh;
+	arc=none smtp.remote-ip=217.10.52.105
+Received: from smtp11.infineon.com (smtp11.infineon.com [217.10.52.105])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95200606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:13:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95200606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 506B6606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:14:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 506B6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=infineon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infineon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=nWs8+lVQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1794442421;
-	bh=D64g9BJ+4yZXICHv3vdK6fiAhMhXikQmmHwRmcMdR90=;
-	h=From:Subject:Date:Message-ID;
-	b=nWs8+lVQIUzNU0WcveGh1Cw3x8669exTaeGjNvjtSHCrfOhti80SUenEx9Vf1Mhmm
-	 TK7DJSnGRQuzMWxBDgObKypnkulVLHJWRN0x8LzGsKQ65BqaloeGDr697XGsFZFXOt
-	 VJwBUCPGQ1sa0iYqiHbgaKYRerLR7hNXiC2W105w=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.246.239.16])
-	by sina.com (10.54.253.34) with ESMTP
-	id 6AF504A900002169; Thu, 12 Nov 2026 08:13:32 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 4742026292082
-X-SMAIL-UIID: EB0B7AD7AF8746D584DAB56F33A6C72D-20261112-081332-1
-From: Hillf Danton <hdanton@sina.com>
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nbd@other.debian.org,
-	syzbot+d7d72f3d467710442af0@syzkaller.appspotmail.com
-Subject: Re: [PATCH] nbd: fix circular lock dependency
-Date: Thu, 12 Nov 2026 08:13:18 +0800
-Message-ID: <20261112001319.463-1-hdanton@sina.com>
-In-Reply-To: <c2f4dbce-f8e0-4f04-8dee-3f8d413f4d0d@acm.org>
-References: 
+	dkim=pass (1024-bit key, unprotected) header.d=infineon.com header.i=@infineon.com header.a=rsa-sha256 header.s=IFXMAIL header.b=ka9qhOLh
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=infineon.com; i=@infineon.com; q=dns/txt; s=IFXMAIL;
+  t=1794442448; x=1825978448;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=Gjj8XrtdGf75bTN04E+EJ60Af0aZGvGLYuMFY0/g4K8=;
+  b=ka9qhOLhSZNDUUHIL/4k1zEna55R0W/fuq2cIJsK5R1gU41rEW1spQG7
+   ADIXcgoBYDse81Y4CGFr3St63Dwi7LS30evIRSbkQsmSD2XwAQeXUtZbQ
+   8zWBO114was8cucWE6BerxZ9/UMqH+IZpwHWv229ClxHFidUbsmSv2JBB
+   c=;
+X-CSE-ConnectionGUID: pSyOsSnRQ+qVXrRISUb0YA==
+X-CSE-MsgGUID: tOlzg8wgQ2SHC0KGJW7FEA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="169882909"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787004000"; 
+   d="scan'208";a="169882909"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO MUCSE819.infineon.com) ([172.23.29.45])
+  by smtp11.infineon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 01:14:00 +0100
+Received: from MUCSE820.infineon.com (172.23.29.46) by MUCSE819.infineon.com
+ (172.23.29.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 12 Nov
+ 2026 01:13:59 +0100
+Received: from MUCSE815.infineon.com (172.23.29.41) by MUCSE820.infineon.com
+ (172.23.29.46) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 12 Nov
+ 2026 01:13:59 +0100
+Received: from MUCSE815.infineon.com ([fe80::b54c:c0bd:546c:c9be]) by
+ MUCSE815.infineon.com ([fe80::b54c:c0bd:546c:c9be%12]) with mapi id
+ 15.02.2562.056; Thu, 12 Nov 2026 01:13:59 +0100
+From: <Takahiro.Kuwano@infineon.com>
+To: <changhuang.liang@starfivetech.com>, <pratyush@kernel.org>,
+	<mwalle@kernel.org>, <miquel.raynal@bootlin.com>, <richard@nod.at>,
+	<vigneshr@ti.com>
+CC: <linux-kernel@vger.kernel.org>, <linux-mtd@lists.infradead.org>
+Subject: RE: [PATCH v1 3/3] mtd: spi-nor: macronix: Add 1-4-4 DTR read support
+ for MX66L1G45G
+Thread-Topic: [PATCH v1 3/3] mtd: spi-nor: macronix: Add 1-4-4 DTR read
+ support for MX66L1G45G
+Thread-Index: AQHdccU75kEGd21+l0yxtHbv82cQY7cpkaAg
+Date: Thu, 12 Nov 2026 00:13:59 +0000
+Message-ID: <ee182cedf0d94d5fa9dfc9696bb0b890@infineon.com>
+References: <20261111101240.7378-1-changhuang.liang@starfivetech.com>
+ <20261111101240.7378-4-changhuang.liang@starfivetech.com>
+In-Reply-To: <20261111101240.7378-4-changhuang.liang@starfivetech.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,63 +95,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Wed, 11 Nov 2026 09:13:45 -0800 Bart Van Assche wrote:
->On 11/11/26 3:38 AM, Guilherme Giacomo Simoes wrote:
-> > After tested, how can I mention this in my patch?
->
->If syzbot confirms the fix, you can either:
->- Add a "Tested-by: syzbot..." tag if syzkaller provides one, or
->- Mention it below the "---" separator in your patch (in the changelog/notes
->   section), e.g.:
->   Tested against syzbot reproducer via #syz test: <link-to-syzbot-result>
->
-> > What do you think now? We will call nbd_reclassify_socket() inside
-> > nbd_get_socket() and call this only one time? Or is a better way call the
-> > nbd_reclassify_socket() inside nbd_genl_reconnect_sock_cb() when we 
->have sure
-> > that we will use the socket?
->
->Calling nbd_reclassify_socket(sock) directly inside
->nbd_genl_reconnect_sock_cb() (right after nbd_get_socket()) is definitely
->the best approach:
->1. It is a 1-line addition to nbd_genl_reconnect_sock_cb().
->2. It mirrors what nbd_add_socket() already does.
->3. No code needs to be moved around, keeping the git diff minimal and making
->    the fix trivial to review and backport to stable kernels.
->
-> > What do you think:
-> > ```
-> > nbd: must reclassify socket when socket is created
-> >
-> > When we need to connect or reconnect a new socket, we need to call
-> > nbd_reclassify_socket() to ensure that a false positive lock_dep
-> > circular warning fires. [...]
-> > ```
->
-> Please use the imperative mood, e.g. as follows:
-> 
-> nbd: Reclassify sockets in the reconnect path
-> 
-> Commit d532cddb6c60 ("nbd: Reclassify sockets to avoid lockdep circular 
-> dependency") introduced nbd_reclassify_socket() to prevent lockdep false 
-> positives when NBD sockets are used in memory reclaim paths. While 
-> nbd_add_socket() reclassifies newly added sockets, 
-> nbd_genl_reconnect_sock_cb() omitted this call when replacing dead 
-> sockets during reconnection. Consequently, reconnected sockets retain 
-> the generic socket lockdep class and trigger false-positive lockdep reports.
-> 
-> Fix this by reclassifying the replacement socket in 
-> nbd_genl_reconnect_sock_cb().
-> 
-> Fixes: d532cddb6c60 ("nbd: Reclassify sockets to avoid lockdep circular 
-> dependency")
-> Reported-by: syzbot+d7d72f3d467710442af0@syzkaller.appspotmail.com 
-> Closes: https://syzkaller.appspot.com/bug?extid=d7d72f3d467710442af0
-> 
-FYI reclassifying sockets is also corrupting memory [11], so can you fix
-the corrupter before reclassifying again?
+> The MX66L1G45G supports the 1-4-4 DTR read mode. This flash uses 6
+> dummy cycles by default in 1-4-4 DTR mode.
+>=20
+> For 1S-4D-4D, its support bit is located in the 21st DWORD of the
+> BFPT table, while the dummy cycles are described in the 23rd DWORD.
+> Unfortunately, the BFPT of this flash model only provides 16 DWORDs,
+> and the kernel's SFDP parser does not derive any
+> SNOR_HWCAPS_READ_1_4_4_DTR capability from the BFPT table.
+>=20
+> Since this information is expected to be in the BFPT, add a post_bfpt
+> fixup which declares the 1-4-4 DTR read capability with the default 6
+> dummy cycles and the 3-byte address opcode (0xED).
+>=20
+> The SFDP of this part provides a 4BAIT table, which also advertises
+> the 4-byte 1-4-4 DTR opcode (0xEE). As the capability is now set
+> before the 4BAIT table is parsed, the 4BAIT parser keeps it and
+> converts the opcode to its 4-byte variant, like it does for the other
+> read commands.
+>=20
+> Add a dedicated fixup for the part (SNOR_ID 0xc2, 0x20, 0x1b) that
+> keeps the existing QPP 4-byte post-SFDP fixup and additionally
+> advertises the 1-4-4 DTR read capability in post_bfpt.
+>=20
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+> ---
 
-[11] Subject: [syzbot] BUG: spinlock already unlocked in corrupted
-https://lore.kernel.org/lkml/6aec63fd.5f5735a5.290c1c.0003.GAE@google.com/
+Reviewed-by: Takahiro Kuwano <takahiro.kuwano@infineon.com>
+
