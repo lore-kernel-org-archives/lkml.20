@@ -1,79 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794519591;
-	b=xyzfvdGxS98eHvLixMvhOhrqoh3ylktMNN33tqgoxS+aBcLYYpka5mNLzjqafbol58H3
-	 3x/0k3Onn3SBRhS5R2u5eCRvTgPxad3KgOCBx76uF8R55pol2RDLqNH7ob3zUebliL5fu
-	 l3bL+rYBXaxC51LcoanVH0neU1SRa+KWUUXF1+s1NFr7hVDbWIBj/cebK27OadnMirnQv
-	 T8TfpVRGvnBo+Uy2v53ubRIZF6aaF0/Qg7n+Y/br3EuLecpMoGpaTy6TKaGSuny4VMIuj
-	 SOc2BQ+dUezXcSuuXvlOTdt+Y1XvLL40R1lZFCSUrIuH9VL/JNnnuIXYNABjqlcJluA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794519591;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=kC3bFQJa3sH8peY8DR6++Vxef8QEFila5H495e35WVg=;
-	b=yb8AkzSKCWy+Elyp38mAyGqDv7B9FZVE4vmqdrPJ8AzaANxoOYsHEQsg3zY24WfCWWbi
-	 z9N6lq51fn8SpfJaq0WtQL7sPC1oswcKNnzm8JJhWIwsxNG+RTgEyAQtSKH3i8we/J2ag
-	 75m79WhB6jOH7ni17MizzT18ZKz6UNOGDbKR1hXEGcnumCaz7dXiJLub4EIVL6g7aqAEX
-	 ojhGKO5I1Xnp+DxMnGdslPta5xIoS+DE+RBWzr7XZcIh7R1v+qBYxPvZDJH06iYLRxWRZ
-	 Ake8XpXf/EhdlzyG/hp4/ng4R/OEMvDE9kn9wBnWTfLkfuk9hw8AxGh5J28DwhkIHzw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ONAhlEb7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF96606A31C;
-	Thu, 12 Nov 2026 21:39:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ONAhlEb7
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794519591;
-	b=NN4Byk1m3MdGXFh44S5IOt6x3kAMwRPkSZehE2R9t7UiTYM0tPG6W1xUS+bVLc9tXHMj
-	 0emEjGzoYHygk2D5MA5Z4lzfHhjUO4dZ9SCWxg6O0qH+OIPCgsF3SDSWCr5lz6VDPGIlv
-	 j5JrEX4Gjq1ugpTxMG9oNXWHPS5dgjXkDpXmeFkSoqLbxA/s/yz05BL3L4zO4uQABNds5
-	 DRV0I6876Tg/noMcBcPnHYyk6U9NyqG2V9zZh7cqMbHq/a1Z8IlHxiTMMy6Vot07qKHt6
-	 ePlnkIIJAlVwr7Oj+DdnVzfUDGygiz2L9MkC7011/TWxY94RSDNwX2xmrquT1xHkBJQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794519591;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=kC3bFQJa3sH8peY8DR6++Vxef8QEFila5H495e35WVg=;
-	b=2lycXXgm2X2NKJMrFg2bbAjqZD5erVaQJciOe64T6yX8GoLJm59rmPoaB5fswWfeJkgb
-	 Qoo0kvWWEfUHQlFACXHIRrfTGoGYeMjlyCzm4/IF31o2oNzNCBu4sCZOrTkwPNMe/E1HR
-	 Xb3ZxJtbwvd/HWd6/5fY7/JDL7sC7sBd0WZFxgXcVoww5AgzwyiD+Gd7wWlzlwE5mBdH8
-	 4ocOHtTQLAg+aoFBMkYw/3B1NZGuMyuc/haURDNDdH7kZ5NzpmAENgF7Tq1mwWNQfvHJi
-	 GQ5L7TUs4csG4Dmah+LSuKG/wNHAXGNj6yVVimVXjfgkwel5atkik2qEh95ENuTQaQg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794519625;
+	b=JizQu/q2WDfrTuhakUAvbaaadcpwQcgAjlUkKIkgBH+vXRQNorA3Z5HS94GXH3d2FVQE
+	 C7p40hYCga3Sau1yfCTmthV0SGAeHiyrsh6pz4ehYG6r7OrRh9kIioytiaLx3WxD7kg0O
+	 +hKR5MXmMtQJeMUEkf1SDTzcs17d+gXbO+Xa0lRrClSl54I5wtDw4l9CbJUv7KbEAToGZ
+	 Nwkg4lJA0S2TetiM3Q6gge3k+zlDzHMTtOic/45Kd92KsgF6GtTkERApiLt5ewlL1Fofy
+	 9SLBzuCLqvrns25coKV9v7uvkueJtCC4eVqId7elf3GzT27kR3NAZT+fwLTcnbeTZ4Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794519625;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=r7tUMESnGuHT04Vkq8tfouLXmNvcHODCZ4NpjFvO4WY=;
+	b=fxz2iQAyrCAGc2I7d5lag1CUH1jHJKXJ8w0hc3hHFN2RdZqeH98Bz8LVYQggoYYmcpef
+	 Cs80JhT4tDozMciXUV+g22U10Vx9BV6Dg8L7Bgmo7v7E6E5sqjxCrOlR6+6JmlpcUbXNe
+	 bvisELjPHaWdbzkL6auIBRL5SdFNovCklecLkAImGL45/IlUC5V+0thXZnSVwTTV8/MgT
+	 Ggp2Mvj2qZ410PTreLsueMyB0uddD0z2UHTUv2hjxHRDaPdv5wjQ0tmgI3OID0gj2rdnr
+	 IU3BGzfx9H4HE0XYETksPAs3X2y2E2wePSTeqHlbu7RcWzQKAEE8qLKUuKGqi83KYPg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="lwKKxJ/J";
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0C7751F000C6;
-	Thu, 12 Nov 2026 21:39:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794519591;
-	bh=kC3bFQJa3sH8peY8DR6++Vxef8QEFila5H495e35WVg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ONAhlEb743REUh5LubLvpfpTCXd0YgevO4W9VHM9dmHTfpisiVufiU8Efi+U6GUys
-	 dmbfox+qRkD7OeBCQpMWvcX5UcpIJklibeLeZQebfOXMHQ3UuzjWigLCTMJxfRvc6y
-	 roG/XCWk2I9UOUJzgt1eNDNudYEzQZz2uV1Jh4UCZwaJfqn2LAA0YEyYNZRXGXJpMM
-	 3nmyVY8uTrK8oEZrC8gOkMS8HKyi4WKjQU761N5S+WGiXSs/Ai6rvMoh9NcUr5PJ9T
-	 ySMtPhsPTFJ9fX4aWmrm96vMEZbx5lJnftf/wP80hpzfFD3VjmJF8ysfQyDtQjCb7i
-	 YoHY2lIFrQsPw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 88EA647513;
-	Thu, 12 Nov 2026 21:39:49 +0000 (UTC)
-From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
-Date: Thu, 12 Nov 2026 16:39:41 -0500
-Subject: [PATCH net-next v3 2/2] net: dsa: mxl-gsw1xx: reset the switch
- through reset-gpios
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2D6606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:40:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA2D6606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lwKKxJ/J
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48df160bb9cso11546f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:40:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794519623; x=1795124423; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=r7tUMESnGuHT04Vkq8tfouLXmNvcHODCZ4NpjFvO4WY=;
+        b=lwKKxJ/J9/7p2JXGfMiXSJxz20fys6eBBo8AFa2LIDeMBxpFiDBrs6g4UvyDxi51q3
+         VnscTkd4nGY/6Fm4lA1hqeVSd9RfMPZK1uNSaRBvv6tQuiveQHsu0lZym718WQkD4mpK
+         ItpHzn8eIu9MfLddvRb3yoQTtUXZDWjWx+VyfkUsPqVRJmItPEwYsgs4yJ5274Sosbui
+         jpF4+RxIVAnIKoo+FkGyMINQrJUIyPXkJEjikOS/n7J6GYtxeTlnotfXJ80HjbMJ5Eyf
+         3VbzX8PCUJkNvgtLOn1HG8WuxgED/uka07orXiNRulBwHWjMWvH/bVCNh6WMBya9nJdF
+         +XPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794519623; x=1795124423;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=r7tUMESnGuHT04Vkq8tfouLXmNvcHODCZ4NpjFvO4WY=;
+        b=Eehvd3ou2z9YNcaYwag6hlT8bjOupEt2WFUDKyg9hY++l79jYirVxCSIJbXXWFKm1G
+         +7LxJu0RjnTn+4O8WUDYR/0I301U6WwY34xaHRWjD0WhiBIedFkjvl92e33KjGRrUQwY
+         Srquz523oE6kS9Bo4XIWD2F0lG0NVeJIdVvSKo6rtNKKeycsAZLb8+WFI4V0WVzECnau
+         71CNoRypv/1A4WkMicJZdCP51d1n4WFb13vL11+8/QPTmwQoG6NWKAhQdkXDbHkoMDLu
+         XzSMqtWH2UjmDDcUFQxroH2tjQS336lO4Cd1zozc7mtA/cWY1j5bp3NWlFNDYtdlUk1n
+         /xIg==
+X-Forwarded-Encrypted: i=1; AL+hErGSde4xt7ZvD3R3mBrdHD5P5WuKhffDqlqMzw8BMonPDJROB4PwdMrSfYQ6d/jsqIKJLjVqRRFxIbQ8qIY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+/hO7uga3KbmD26dY2V0UNKitOIQxOxZbSXBVwfGmYENzAvb7E
+	z4aRBWmnd6ejokrNH6k2C07YP0v9bbQyM4ZEvxbamGjKOThBzObg822G
+X-Gm-Gg: AYBFou0dueFaGuCMddS0REsHBt4/hkUzlOW4O623ERH+ccbhHsQ8SWbNB0sg8hD87OK
+	AWssevIHfrVV8ngbgySBiAodMCJKOCq1Ygs2QZVWjdpkx30z9gRvYEGEt7kkSeAkObqu94RVrQz
+	diM7e1mm70LLE+mf1FtGcTYxQzY7syL1QAP8oePZdtVoBI9I3zW43mSFLnXu4DIMSkQQ3O4qctx
+	rhIBlLuvGVIcvJBT5g5X2+rn801tcfCf59tQQHA51MLpvAHQYISfIYSNK7JUyZ4raS/X4Y4T+Gg
+	4iKt2xGq3W36asf+6BAuMQJlSGIOcQKChzR9IrpXbkVmvAAuYVxtcv05wLZQ9tFEBCaejf/c3wA
+	ntKt4dqhhV6vQyrEMV1DftC5csXFb4XuL56SQcr0FdXjhmCSqkhisnZx6dALgUIk3J5ceCshFua
+	OV+y1wsFduGy1crST9NIzI048N7RHl96Y54uLpqcHlvYuBF+VCElC1eEblSkAwV+T6HAkf4GQnZ
+	vfAQyO2S4YmSo7ef4Wld3jV5z2ufKd1xL+bh0SE9hHpJIZ+YbTnWmBGNN5roD7cUu+SkLRTGah8
+	vTE5JcwVsQ54EVMBJeNWDCNepxwFknTxABQS2I1yZ7BE5kJwB2htBWJsk30PaObt78YcTVEOnfk
+	BVmholAI=
+X-Received: by 2002:a05:6000:40cd:b0:492:b1c5:6dc3 with SMTP id ffacd0b85a97d-49c723fc6f9mr1514901f8f.6.1794519623235;
+        Thu, 12 Nov 2026 13:40:23 -0800 (PST)
+Received: from [127.0.0.1] (ip-109-193-028-127.um39.pools.vodafone-ip.de. [109.193.28.127])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60021375sm1279890f8f.29.2026.11.12.13.40.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 13:40:22 -0800 (PST)
+From: Marek Czernohous <mczernohous@gmail.com>
+To: Beomseok Kim <dilddream31@gmail.com>
+Cc: nouveau@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Fab Stz <fabstz-it@yahoo.fr>
+Subject: Re: [PATCH] drm/nouveau: Clear fence channel in no-signaling path
+Date: Thu, 12 Nov 2026 22:40:21 +0100
+Message-ID: <179451962164.1494544.10983579250194846394@gmail.com>
+In-Reply-To: <20260928081450.19340-1-dilddream31@gmail.com>
+References: <20260928081450.19340-1-dilddream31@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,132 +103,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-mxl-gsw1xx-reset-v3-2-863e82074893@telaak.dev>
-References: <20261112-mxl-gsw1xx-reset-v3-0-863e82074893@telaak.dev>
-In-Reply-To: <20261112-mxl-gsw1xx-reset-v3-0-863e82074893@telaak.dev>
-To: Hauke Mehrtens <hauke@hauke-m.de>, Andrew Lunn <andrew@lunn.ch>, 
- Vladimir Oltean <olteanv@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Daniel Golle <daniel@makrotopia.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, netdev@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joseph Telaak <joseph@telaak.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794519588; l=3553;
- i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
- bh=WZYxeaFGDWxSpN7GzuooSUNjWaVXrTqutE63YR5JtU0=;
- b=gBIElyAt9sK0h91F8d58bV1C+Ls9eNK6vVg0iJzPMMHj54lGxmP2K0mGcfX/Zf1nnV6pB0WUe
- 0Gq71vWKYwcBLZa7K2oTk8pOtDEXMLCKA2l2wfsiOy/vxKAzYZN4lai
-X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
- pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
-X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
- auth_id=1404
-X-Original-From: Joseph Telaak <joseph@telaak.dev>
-Reply-To: joseph@telaak.dev
-Content-Transfer-Encoding: 7bit
 
-From: Joseph Telaak <joseph@telaak.dev>
+On Mon, 28 Sep 2026 17:14:50 +0900, Beomseok Kim <dilddream31@gmail.com> wrote:
+> nouveau_fence_signal() clears fence->channel before dropping its
+> reference.  nouveau_fence_no_signaling(), however, removes an already
+> signaled fence from fctx->pending without clearing the pointer.
 
-The switch keeps the configuration the bootloader left in it, and the
-driver never resets it. The MDIO core asserts and releases reset-gpios
-only for PHY devices, so a reset line described on the switch node has
-no effect either.
+[...]
 
-On the GL.iNet GL-SFT1200 the bootloader leaves each internal PHY of
-the GSW150 one MDIO address above its port. Port 0 then fails with
-"failed to connect to PHY: -ENODEV", and the PHY that answers at a
-port's address belongs to the neighboring port. After a hardware reset
-every PHY is back at its port's address and all ports work.
+> @@ -488,6 +488,7 @@ static bool nouveau_fence_no_signaling(struct dma_fence *f)
+>  	 */
+>  	if (nouveau_fence_is_signaled(f)) {
+>  		list_del(&fence->head);
+> +		rcu_assign_pointer(fence->channel, NULL);
 
-Get the reset through the reset controller API and pulse it before the
-first register access. The reset core hands a reset-gpios property to
-the reset-gpio driver, so a board that wires the reset this way needs
-CONFIG_RESET_GPIO; without it the reset is skipped. The timing follows
-the vendor's driver for the GSW150: asserted for 250 ms, then 1 s before
-the switch is accessed.
+I think this patch fixes drm/nouveau#443 [1]. The nouveau_fence_sync()
+oopses there and in the reporter's thread [2] (MCP79, Debian 6.12.43,
+6.12.90 and 7.0.10) all fault at CR2 0x40 on the prev->cli->drm load,
+with prev taken from f->channel and prev->cli NULL. A channel's cli is
+never cleared, so prev most likely points to a freed channel. That is
+the stale pointer described above: the no-signaling path is the only
+way off fctx->pending that leaves fence->channel set, and
+nouveau_fence_context_kill() only walks fctx->pending.
 
-The reset also returns the RGMII slew rates to their power-on defaults,
-so a board that uses reset-gpios sets the ones it needs in its device
-tree.
+The fix looks right to me. enable_signaling runs under the fence lock
+(&fctx->lock) while the fence is still on fctx->pending, so the new
+store happens before nouveau_fence_context_kill() takes that lock, and
+thus before the synchronize_rcu() in nouveau_fence_context_del(). With
+fence->channel NULL, nouveau_fence_sync() falls back to dma_fence_wait()
+on an already signaled fence.
 
-Signed-off-by: Joseph Telaak <joseph@telaak.dev>
----
- drivers/net/dsa/lantiq/mxl-gsw1xx.c | 26 ++++++++++++++++++++++++++
- drivers/net/dsa/lantiq/mxl-gsw1xx.h |  4 ++++
- 2 files changed, 30 insertions(+)
+Emmanuel Fleury's prev->cli check for the same oops [3] only helps when
+the freed memory reads back as zero, so I prefer this patch.
 
-diff --git a/drivers/net/dsa/lantiq/mxl-gsw1xx.c b/drivers/net/dsa/lantiq/mxl-gsw1xx.c
-index a26f78e1a4..f69856a65b 100644
---- a/drivers/net/dsa/lantiq/mxl-gsw1xx.c
-+++ b/drivers/net/dsa/lantiq/mxl-gsw1xx.c
-@@ -18,6 +18,7 @@
- #include <linux/phy/phy-common-props.h>
- #include <linux/property.h>
- #include <linux/regmap.h>
-+#include <linux/reset.h>
- #include <linux/workqueue.h>
- #include <net/dsa.h>
- 
-@@ -719,6 +720,7 @@ static int gsw1xx_serdes_pcs_init(struct gsw1xx_priv *priv)
- static int gsw1xx_probe(struct mdio_device *mdiodev)
- {
- 	struct device *dev = &mdiodev->dev;
-+	struct reset_control *reset;
- 	struct gsw1xx_priv *priv;
- 	u32 version, val;
- 	u8 shellver;
-@@ -737,6 +739,30 @@ static int gsw1xx_probe(struct mdio_device *mdiodev)
- 	if (!priv->gswip.hw_info)
- 		return -EINVAL;
- 
-+	/* The MDIO core handles reset-gpios only for PHYs. Reset the switch
-+	 * here, so it does not run with whatever the bootloader configured.
-+	 */
-+	reset = devm_reset_control_get_optional_exclusive(dev, NULL);
-+	if (IS_ERR(reset))
-+		return dev_err_probe(dev, PTR_ERR(reset),
-+				     "failed to get reset control\n");
-+
-+	if (reset) {
-+		ret = reset_control_assert(reset);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "failed to assert reset\n");
-+
-+		fsleep(GSW1XX_RESET_ASSERT_US);
-+
-+		ret = reset_control_deassert(reset);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "failed to deassert reset\n");
-+
-+		fsleep(GSW1XX_RESET_DEASSERT_US);
-+	}
-+
- 	priv->gswip.gswip = gsw1xx_regmap_init(priv, "switch",
- 					       GSW1XX_SWITCH_BASE, 0xfff);
- 	if (IS_ERR(priv->gswip.gswip))
-diff --git a/drivers/net/dsa/lantiq/mxl-gsw1xx.h b/drivers/net/dsa/lantiq/mxl-gsw1xx.h
-index 81bc00eabb..bca8e3223c 100644
---- a/drivers/net/dsa/lantiq/mxl-gsw1xx.h
-+++ b/drivers/net/dsa/lantiq/mxl-gsw1xx.h
-@@ -19,6 +19,10 @@
- 
- #define GSW1XX_SYS_CLK_FREQ			340000000
- 
-+/* Hardware reset timing of the vendor's driver for the GSW150 */
-+#define GSW1XX_RESET_ASSERT_US			250000
-+#define GSW1XX_RESET_DEASSERT_US		1000000
-+
- /* SMDIO switch register base address */
- #define GSW1XX_SMDIO_BADR			0x1f
- #define  GSW1XX_SMDIO_BADR_UNKNOWN		-1
+The patch applies to 6.12.y with an offset; compile-tested there with
+W=1 only. I have asked the reporter (Cc'd) to test it.
 
--- 
-Git-155)
+I did this review with help from Claude (claude-opus-5-5).
 
+Reviewed-by: Marek Czernohous <marek@czernohous.de>
 
+[1] https://gitlab.freedesktop.org/drm/nouveau/-/issues/443
+[2] https://lore.freedesktop.org/nouveau/b7f523dc-fe41-4514-a1a5-747005311cbe@yahoo.fr/
+[3] https://lore.freedesktop.org/nouveau/1690ea65-a1e0-4a34-bde1-bdd26e31c6c4@u-bordeaux.fr/
