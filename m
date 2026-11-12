@@ -1,103 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794507548;
-	b=Jtfq7rsztVxtIA/V5+vsxGhRStYsbW+ElZA0JkyfEmia4YyR3YRHYPHZb8rnLhDwbp9D
-	 MFNCGAjE7OH0lvP8LEe2udMf/iwoQg/fNUG3vWRvlsyG+GLlFJHdnxPYa2BkaKtfOEtDz
-	 mbmitRaMReXGtmtSYhyYgHzfcPYP6z/0dt8cyeRWI1eOmnoPclFkk4rLOs0nC6lt0bBwn
-	 B/8N8oo3MJYM28JKGGIe3RxrOJT8j+JLI5Nc0WVMikCjhf+R8gXoGptT6uyAz20n7ufUX
-	 dTsv+FYBjMvQyXPVl7a7r95/vwO+jVWYm1SHAJkvwBOc0DcsEDF2yBXbX4T2nIr4vTg==
+	t=1794507706;
+	b=UFpTn87t9bI5R6rFr2nu3BMTgq0knjPpQveZJvbbo8ay8+u001QndmXuRyX6Q1MjtQm7
+	 mNFracMb5EqJq511J2aQJzlP7rudH4vrGxwVCug8T7PJu/vDM157oo+N/CmiPfKfoOj0P
+	 XQ4J/tUXB4iVyyN2+0rGdV/bc3J3FlC5Me57MdgKDQucsUc6iMsh5rK+CmbdTflIMk8tV
+	 8YYqmZnt/j117QJzIFqnkY0NmMb0bhFF9zZL1YVFWWAF3BXEl7kZMy0vfr0wdkN9CyzLS
+	 GRft0fYjuWT4EW3ZZffeoTOo4LJhJz3/pQazfyiMsJIuTpZn2TTlucIYA6HYESosiwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794507548;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=hB0gGU6/Wvj6DY1CIjnvdF3luMseLxUER3Q6hRYFMuA=;
-	b=FOOGnVXXP+X6elzxz8zmJHZu3scQGDccW33jyn2UUouOi4Tdf7/APVDbRfI4IVbMJKuk
-	 PA+bC5X37n2hEjYyp1k+SZLMD3dDoDYaViRXVU8DWhVbDeQLEu6YMn8cucql2i/t2pXqt
-	 UAvJNEbSH6OYTyfeuoC/kmKtEigJgknsURbSDxxifhuS5YFDBBaBMvX4OBxcyEmTEv21t
-	 aAPeEQHKcHGbe90gjG/0ry1SepHe5GOtG6FXKTv4aHXJnIyq0AzidfugQ92PZCg5HwlQx
-	 QNAJ9RPUFwdwqtZEC38G5cYN0pq3ZOf9sv7ZVvCpcN+jFMc/WCL6D+KdPXvnWVkucMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794507706;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=DUsEdpIuJ3HZXB+zQOH8AaAz5Mu4kTccI9EpC3l59/c=;
+	b=5MBAqvTwDrmgiKu099oqgFbdLni74jleS0wUYjalleDG1luCKaWFmOpaE3/V4lOzks2s
+	 kVG2jMcTFk1Tltz33EhG+OdH68HxlkEgsRrJKe0KAuWziMc0gcERvaBwXXP6WfgT74bXQ
+	 qTe2iiIBwvXvE7uca3OtJB3PASdXqRD+lRRgv+yc/7HWg1NRE72UKYof7qdCzzroniCBe
+	 pfjTG5qqM8UqCKwiZVNitIyjP69dGb4hsdDimNFeM8ULRAeGfzLuCyE3DWOImOM56Qm2e
+	 OKhCTRqAqGXH8DSJKFOdw4Xev+WtcU4D7xjGAHtMoVa+q0c4+Z7yzieKOVtxurqQwPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aEzGzzhe;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=M2qB6Xze;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87427606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:19:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87427606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 768B2606A31C;
+	Thu, 12 Nov 2026 18:21:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 768B2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aEzGzzhe
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a215e64962so1218425e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:19:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794507547; x=1795112347; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hB0gGU6/Wvj6DY1CIjnvdF3luMseLxUER3Q6hRYFMuA=;
-        b=aEzGzzhe6EMFNOvAc8cfQlCBSeL+1K/zjWgyK5EZg0KOfXRvCTDR37DN6Dvaxui9Jy
-         kEyTMJCIJoM3sImYaAyUCu/k9QIQwhVdoS90OalO4Hs4hhRPcJEvLB09db+cU40pUXV5
-         drlxgDiARYvqvqh1fag3LhNQw1dMaZ2wnvqMS8k1R13dcPnLeiOXlKWwqjtgWblmifpq
-         y/WADavmJRtrqONZx6E2ynDb0r5XYhApsRbz2dpQ8JMe4c6RiphErUvuVS4pd0LxTRK5
-         DrMPuN4QUkEl1rpwRIn6qwWSb1mJQz2GPIgQboD3O5JNtxt137JkEgUXNCiYp8pr5GPs
-         d4ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794507547; x=1795112347;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hB0gGU6/Wvj6DY1CIjnvdF3luMseLxUER3Q6hRYFMuA=;
-        b=oUTJlXnqr6ScmnvzZG8erQh+N9RQYSOdyFECT8yfR9eBjfgATZ+rcAlkPUsvz9ERHz
-         ghCS/KKXb8EwoUf8QePle5lc6UhB6G6PP+zpo8mM63ou4k0LxedUWFozffZJaJH9ZCvi
-         zC+fcKkC1ih4KLF2Sq1ohl8CCXcOLrLop7iUaILhGy2yybnWvbC0m8xBMEk9wtRPoWSn
-         IJEzRdNdi2nh5ScaXZfJDTmqgatV7zs0/NYq/eGRYmHFSGXncSCm4ObzPLy7ygLu3I3X
-         ER7ZUbuRVsYfy5uD7bj8ttO5zw+mwVVbx3B4qFq5v/KzJ5bC10aQOX6uKj+ucOM1DL25
-         cWsA==
-X-Forwarded-Encrypted: i=1; AL+hErEivoh0sIs8XynBlirDV0nJOWkkTFfregJ7h8d5WMJ4xemBIh0qGzgPJFnsdp/2PBjZPbNTDw2tUD4QU54=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9PYt8jgLawUZchmHVh2kEULpc8zYf/bdS5IrIVlV58TZeXp8hY
-	vcZ0+YA7sqLKjgZTIwvID6uExYBLbELRvxoiOkLvmeD49We1v5DZz3d3
-X-Gm-Gg: AYBFou0m0hij7p6eCP2qYEB3m8R9qapmZD8lKZWEwzK3Ie2bBU4WvxD/3p+H9IW598f
-	xReb1AdxQYr6jM9OmdGAyhw//1UEeicvsADHl1uBVPNWmVDSftl90862uAJqOKkEAw3zqdOibWY
-	AXG512LRegdnuC8dmPD9ne0ik0EPG8IedkAl0nHNS8zx9KGHxUYvkBUE+w7D92/pXKg0TIMtlO7
-	9O1lykjG7zIVjBvPxPuV/0YpE+1EEyIKaleA+hRmkln/P36gd6829Tb7IRmeWeKCN/cXpi19/T7
-	f+AFNf+TAGfJP541DqQnz5eQpLAsmOuHr9v4Z2FA0CKABc+i+EZHDaa0/Jh0xx+yDKLN0Hs30WE
-	layZT1pZVNmTw5u/M6mcZaIWvQt5DWbYzou1DY09voMUYWafnA+mfbDafj4w8qdpBJLBwzgm+rN
-	kxzYwzaNGHrGeARbqN+EiDH5DuYHJpaCWPgp9vGyDH+7ptPL8EbkiLaR7EnjNHgJHyIoWRX+o8s
-	r7ppnbMxwoa2b9ZdrS+Yk1P3ljGZShsOnDTbFs1ZSK1B8p9Oj78YG6V7v+QguORGtf5XRBTCPX6
-	y7e+LzZJEngX0mD9dC/lzOo2tkKCMeOvCJuyxXmSFXcnAINDF1AqUbF+34eQvwLRnGIXBZFTfBm
-	PRQ==
-X-Received: by 2002:a05:600c:1912:b0:4a1:c5eb:b445 with SMTP id 5b1f17b1804b1-4bb55ad45admr76185e9.35.1794507546798;
-        Thu, 12 Nov 2026 10:19:06 -0800 (PST)
-Received: from andreayoga.wind3.hub ([31.189.56.146])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e27a8b0sm87629935e9.15.2026.11.12.10.19.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 10:19:06 -0800 (PST)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Petr Mladek <pmladek@suse.com>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Jiri Kosina <jikos@kernel.org>,
-	Miroslav Benes <mbenes@suse.cz>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Joe Lawrence <joe.lawrence@redhat.com>,
-	Song Liu <song@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	live-patching@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] livepatch: Fix races between stack check and module load/unload
-Date: Thu, 12 Nov 2026 19:18:55 +0100
-Message-ID: <20261112181856.234172-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <avX8UWAA4DN44p6o@pathway.suse.cz>
-References: <20261022134433.3595212-1-parri.andrea@gmail.com> <avX8UWAA4DN44p6o@pathway.suse.cz>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=M2qB6Xze
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 2D8F040E0222;
+	Thu, 12 Nov 2026 18:21:43 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id yEW-NkbnVpY4; Thu, 12 Nov 2026 18:21:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1794507700; bh=DUsEdpIuJ3HZXB+zQOH8AaAz5Mu4kTccI9EpC3l59/c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=M2qB6XzelqlHl/ESwebupW9yS+tOmL51TGYWpXIWUNJoBKSO8O6/6HVE4wcCXZQnF
+	 8BbOErJox5BK4AVxuwmb3e4eVYHtDKDGcTNMhOHeLn62OQeNehXX9uSvWJ9LyKxOul
+	 yhVO73Unqo5JZWE/FNChI8QzsG2/bJKb2Q05n2Wc+MyUmK9GV9O0B0Ln35JKi+pqed
+	 3B5DP63GE1yZmVKyQnbtRicrn2bc1xUOjg0QUrzVeg3338tmxkz4+u7NI28l67Dl/W
+	 BWJzGEMiYraUXb3whJZE6gbZ3kiBbOCFk080c8cP/MVZP7RWWJmkzrm4GHdOUSr7/a
+	 EC9zXlxoh2RxOje/iZeAlIkYSGkep5Aa0L0UYuYpAenBWmk7jfFsJHPnmg3Y28psCZ
+	 pKuqs5ryz8LaLsBqhq7RBBVNri6jad0D54RU07Qy17IjXIqtF1O2LxCZl6rrp7xIwr
+	 hkEgXVTmro+4ANQmLKk4vXec71mcfw7Et5x53KsZz1j4gyJnQ/az9R9m0MjIhyrLBz
+	 c1M06Nru5jE8OzNDu2QnAo/gToE1GBMOHQ1DgGOvCzQf1NkOL9xg05q3hNRLUrk8SR
+	 W1C2X1vN/c1OrRPC4Q1Bt2bU4WjIo2A8vwHqam2Zlcr1GOOVrxkvghqQZzgcQ+Pqkj
+	 DBCvIecubY/mzaZSwaHaHP0A=
+Received: from stx.tnic (unknown [209.52.143.85])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 9ABB840E0234;
+	Thu, 12 Nov 2026 18:21:29 +0000 (UTC)
+Date: Thu, 12 Nov 2026 10:21:25 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Breno Leitao <leitao@debian.org>
+Cc: Tony Luck <tony.luck@intel.com>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH RESEND v2] x86/mce: Rate-limit the CMCI storm transition
+ notices
+Message-ID: <20261112182125.GDavYDpdJpmpU2Piyu@fat_crate.local>
+References: <20261112-mci_ratelimit-v2-1-a9e67055526b@debian.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,17 +83,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261112-mci_ratelimit-v2-1-a9e67055526b@debian.org>
 
-Hi Petr,
+On Thu, Nov 12, 2026 at 01:56:39AM -0800, Breno Leitao wrote:
+>  void mce_track_storm(struct mce *mce)
+>  {
+>  	struct mca_storm_desc *storm = this_cpu_ptr(&storm_desc);
+> @@ -150,13 +158,17 @@ void mce_track_storm(struct mce *mce)
+>  	if (storm->banks[mce->bank].in_storm_mode) {
+>  		if (history & GENMASK_ULL(STORM_END_POLL_THRESHOLD, 0))
+>  			return;
+> -		printk_deferred(KERN_NOTICE "CPU%d BANK%d CMCI storm subsided\n", smp_processor_id(), mce->bank);
+> +		if (__ratelimit(&storm_rs))
+> +			printk_deferred(KERN_NOTICE "CPU%d BANK%d CMCI storm subsided\n",
+> +					smp_processor_id(), mce->bank);
+>  		mce_handle_storm(mce->bank, false);
+>  		cmci_storm_end(mce->bank);
+>  	} else {
+>  		if (hweight64(history) < STORM_BEGIN_THRESHOLD)
+>  			return;
+> -		printk_deferred(KERN_NOTICE "CPU%d BANK%d CMCI storm detected\n", smp_processor_id(), mce->bank);
+> +		if (__ratelimit(&storm_rs))
+> +			printk_deferred(KERN_NOTICE "CPU%d BANK%d CMCI storm detected\n",
+> +					smp_processor_id(), mce->bank);
+>  		mce_handle_storm(mce->bank, true);
+>  		cmci_storm_begin(mce->bank);
+>  	}
 
-On Thu, Nov 12, 2026 at 06:50:09PM +0100, Petr Mladek wrote:
-> I am sorry once again for the late reply. I hope that you still might
-> be able to handle the feedback and eventually test the simplified patch.
+Should we merge all the MCE ratelimiting into a single effort?
 
-I'm not planning to pursue this further, so there won't be a v3 from me.
-I'd be happy to see you, or anybody else interested, pick this work up:
-please feel free to reuse any part of v1, v2 and of the reproducer.
+https://lore.kernel.org/r/20261108143751.3af49e48@fangorn
 
-Thanks,
-  Andrea
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
