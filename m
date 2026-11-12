@@ -1,61 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.120.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794519558;
-	b=KlnWoF6G09UTNCgdAm/qtFcv0xhQGr4jGJv6/aEeXVjAf/bXzh0wzPhyyfc4qzblhjRu
-	 U/kHUO3l7ySt5z5hd6Anl+iBVlFnCQoLXKGuCQTAzuLwhVBtLLRjLaG+RAaDwl05Q/yK+
-	 pOKNNfAxL3cN2NP6D7KOgq+hd8gjK0usxOa8rBrX3wcockSDOwQHb6O6NMFMe6ak7oaHg
-	 Zp1yTAB0AzmSi2kRjBa99r91Jl4npxLCuTw4DBpYyA8AzTv9/FrmXtbTWoGmKzkAN+Bek
-	 WSLK/sakB8cKN0Ubmqam3Hz2MDflw+5kHG0CkNqnksFSvM1hkU+rq4ZYRTA//iBikEA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794519558;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-Id:In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Spam_score:X-Spam_bar;
-	bh=0l4Ddv0Qq4PeCpDiN8HnNb7+aLcX9n7N17yHgGZ7be4=;
-	b=jW0sEDW7D7MkV6m9XuFlN9af1hyGg4fHmhs2FByxYUnBhs1W1QtOyuj0JQiwchOcyP9M
-	 kLtdtc+SuVnJw5aM31zsHIXgS2eKPY0PbFQTYXEGLrMASuxxhhk03+GLiYWT/hoLp8Q6e
-	 CtTbKwnt/6f2C8uGWFQafQSvDFVbrwj0P3wW3HnZfCTJSe3o8VK/R34tLnTBwbXS+sHn9
-	 JvlXg7WLaEtb/XsCMdfTxDa8b4ZKLiLGJTPSGmFJR0Vq5G8sCgMKwMyNJpd65UF/m8eln
-	 HWBgi2P6drpgVeadOj7Fsf9kXn34N7kFQoXMfCkuSXUhdQMN9J2dGbA7idIXLDopBzw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hugovil.com;
-	spf=pass smtp.mailfrom=hugovil.com;
-	dkim=pass header.d=hugovil.com header.i=@hugovil.com header.a=rsa-sha256 header.s=default header.b=sKplMN7T;
-	arc=none smtp.remote-ip=162.243.120.170
-Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794519591;
+	b=QzwUU0ZRGwP/cm+MFmQfelHdA/RIRKLDaqQ4oAFjbGy44nHRrAgmwbKT/4U7fcEJgYcq
+	 bVd42zY7fz8fMvUQhqnJec8eBNvrqg9p5Yg/dTJWJwiPqaR6rJUNHO9jmG5IqYMx5pg5x
+	 LI+KXWhYTkhdlVrQ5fbSvxo77rlTC7HFAISSjNISkHG05Lomg2GexjMrV2IMaTCnXB6Im
+	 s45vZC75MMtXojthCK3Umdo9+kAutsQhapfeQ0KB0y3A3ot09Nu7MrfIOQo1vp3dMKADB
+	 WZtxtchsrNVBAMj7pEQ0y0+4jwODXPo47NNbv3DksEtInuOUY7y47j6aQDHMBCqwPYQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794519591;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Puf+AwKlK/UoaD94UU9LY8C6D1KGt2kJdgn/b7m046U=;
+	b=0kRboL291TQC5f5yLohFdH08Xpp3eI2UgEfHkVNcwC/AiKSpBEhRPTi1VOmxWanN6SDG
+	 FBMRyJN7fKAkw+ZwPMbKF7xatazL0x9RuSL1ParEkdU7ZJNdmynchi10NAI+nod+/fh1W
+	 /t8pJ2wccJRxbemwyvmx7L1Ggx8jV/l8c6+RASGc7FjqAjKD8IS9Ej+5sNHnNit864bCI
+	 iFk2Y7mcpvvnxu9KnSGvvOnJgvC7ttD5qOUH05+LDiDNqiAtJSoQeNgj6TWgyozuvKmWL
+	 o6CK9RkfDLN5I1iUegR8LxjzbMtxQJvYiP9HMylKlsLUl/qlAjPlJlirGo48eJ4HVxQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mhc0cVeQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3970E606A31C;
-	Thu, 12 Nov 2026 21:39:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3970E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0499B606A323;
+	Thu, 12 Nov 2026 21:39:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.a=rsa-sha256 header.s=default header.b=sKplMN7T
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
-	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
-	To:From:Date:subject:date:message-id:reply-to;
-	bh=0l4Ddv0Qq4PeCpDiN8HnNb7+aLcX9n7N17yHgGZ7be4=; b=sKplMN7TIyeyvJOliWjD0kDj6n
-	6czfO7PCdga1MNo4ymteZmZa1kuii9VYr/R7X3vaHtHsNxUT9BIbwbvdMahDKGuYQ0X+4W+Hl+ZI9
-	ckulUkSpNY+1RK9e3gSCY+YxOsxcYmjYEEeeVVEQQ/dG78Talc237wm6uTuKqFnTNrpk=;
-Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
-	by mail.hugovil.com with esmtpa (Exim 4.98.2)
-	(envelope-from <hugo@hugovil.com>)
-	id 1xRcVo-000000001Xr-23tP;
-	Thu, 12 Nov 2026 16:39:16 -0500
-Date: Thu, 12 Nov 2026 16:39:16 -0500
-From: Hugo Villeneuve <hugo@hugovil.com>
-To: laixiangwu <laixiangwu@cmss.chinamobile.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jirislaby@kernel.org>, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org
-Subject: Re: [PATCH] serial: sc16is7xx: Fix clock leak on invalid clock
- frequency
-Message-Id: <20261112163916.00d07adafb3caad1d83a2d1c@hugovil.com>
-In-Reply-To: <20261030085508.1882-1-laixiangwu@cmss.chinamobile.com>
-References: <20261030085508.1882-1-laixiangwu@cmss.chinamobile.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mhc0cVeQ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794519590;
+	b=CiDqdVHycVXnS391JWwCwbUjGH4AiLQNLIm3QCETlivtrGtvOI6jpybJLit211k0H1IZ
+	 V1V/6DNbnQ91juBpqIErAxPTT4W7jrznXFfCAHmlrCBLoTFTAskLY8tiqlaI3mBx9Tb/6
+	 MXbieaW6/W16J8RLiJukVX5a8yNLil6F6HmfXfY+hAQtzGkUO4vjXryv1tPN+1k0QX9q/
+	 NmHrw905xpycrXQkHC/pOryXI2Cd/VT6VIvs2vpyeL01Ih0VJbF2fFi2s/rWp/NLgOPGO
+	 u0NZEk4IOMSL/t/s8D969dAPlGU50gEfa158/w5SvW6Qh6qZKVHGgylqPdoOwL7NVQA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794519590;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Puf+AwKlK/UoaD94UU9LY8C6D1KGt2kJdgn/b7m046U=;
+	b=vuPB/zS5HR/AaQTjI1xentYZIofCOaWe5HCDvUpW7+QrAUEEdg5H1UcA7K5rL1O7Q3yy
+	 yThswD+8cCmJLWdsS/H5OWZStdrVJD6DMmhv0imuttM/4vfBtADw4SlaloY7zsz2sh8o8
+	 cOIzKyt+pblcKn5xSgHgb0hSKJMPE5M2VPjVvMSXXz/X+L/GXv15gxgI3abxprHF128dK
+	 FeRa5o41VxkYCkD6/6P/Upy4STngeSfPtZVkHpZaNOAoTTjUN5Ubp+WrZ/oZCKgJiKN10
+	 9XI+tt9p1fKOUmdNVcLmv80iIgZd2hRlX4uN63kpcDWV/eB4e0BeIHjWX1NlbKlruyw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 09A311F000C4;
+	Thu, 12 Nov 2026 21:39:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794519590;
+	bh=Puf+AwKlK/UoaD94UU9LY8C6D1KGt2kJdgn/b7m046U=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Mhc0cVeQqFspzY0dCwjQHldHOzsOcGtCkVpcjJ2tBD2J/iFRhN9YtG267cQ/QJWqT
+	 gVecffeqtQI/FlfL25TPZJ9TjvxxqemtXjV/DywRe+a/hPIXUUYbJkt5yPw4uW9i84
+	 nJbD0Qe4JhXh9MShS4hiU8us/dGKWdgDk+DSE2A1xJhTBDcGpRfDLpQJVquTjyfGty
+	 +8Vgjl+UppTJl9wqBssm6yIojwZ/D3W+tYSzhhKBMOcQijkBcb4cvFTXKxLWTp0ejO
+	 7aTFHFuqK0z5WFrPErS0ngjsW7Lc1/0AMg42iWHeePCgNv99SopnvyMaYV2i0FQClM
+	 GUId1N78FpzIw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 7274A4750E;
+	Thu, 12 Nov 2026 21:39:49 +0000 (UTC)
+From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
+Date: Thu, 12 Nov 2026 16:39:40 -0500
+Subject: [PATCH net-next v3 1/2] dt-bindings: net: dsa: lantiq,gswip: add
+ reset-gpios
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,104 +82,97 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261112-mxl-gsw1xx-reset-v3-1-863e82074893@telaak.dev>
+References: <20261112-mxl-gsw1xx-reset-v3-0-863e82074893@telaak.dev>
+In-Reply-To: <20261112-mxl-gsw1xx-reset-v3-0-863e82074893@telaak.dev>
+To: Hauke Mehrtens <hauke@hauke-m.de>, Andrew Lunn <andrew@lunn.ch>, 
+ Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Daniel Golle <daniel@makrotopia.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Joseph Telaak <joseph@telaak.dev>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794519588; l=2157;
+ i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
+ bh=4FEhgpkbRSKonFfieQreIMKCdNlc7jHkKu3BjReGMyw=;
+ b=b+7gb1Oc++Mwg6Q50MuJLkWAgy2Sx1MWTgsgyJaW+v7gIa39B1WPEdZ/AI527fgJvGKz2HhKB
+ GxXCULKYkq4CjJp3VSdH8SEvWowcxUlHJAIrWKcmI61xkaNC6NbQRSc
+X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
+ pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
+X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
+ auth_id=1404
+X-Original-From: Joseph Telaak <joseph@telaak.dev>
+Reply-To: joseph@telaak.dev
 Content-Transfer-Encoding: 7bit
-X-Spam_score: -2.0
-X-Spam_bar: --
 
-Hi,
+From: Joseph Telaak <joseph@telaak.dev>
 
-On Fri, 30 Oct 2026 16:55:07 +0800
-laixiangwu <laixiangwu@cmss.chinamobile.com> wrote:
+The standalone GSW1xx switches have a hardware reset input, and boards
+wire it to a SoC GPIO. Allow describing it. The SoC-integrated GSWIP
+variants have no such pin.
 
-> sc16is7xx_probe() enables the clock with clk_prepare_enable() early in
-> the probe path. If the resulting clock frequency cannot be determined
-> (neither from the clock itself, nor from the "clock-frequency" property
-> or platform data), the driver bails out with -EINVAL, but it does so
-> with a plain return, leaving the clock prepared and enabled.
-> 
-> All the later error paths of the probe already jump to the out_clk
-> label to disable the clock. Do the same here.
-> 
-> Fixes: cb1b206cff46 ("serial: sc16is7xx: Use devm_clk_get_optional()")
-> Signed-off-by: laixiangwu <laixiangwu@cmss.chinamobile.com>
-> ---
->  drivers/tty/serial/sc16is7xx.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
-> index fba588559..e464c6d72 100644
-> --- a/drivers/tty/serial/sc16is7xx.c
-> +++ b/drivers/tty/serial/sc16is7xx.c
-> @@ -1619,10 +1619,12 @@ int sc16is7xx_probe(struct device *dev, const struct sc16is7xx_devtype *devtype,
->  			freq = uartclk;
->  		if (pfreq)
->  			freq = *pfreq;
-> -		if (freq)
-> +		if (freq) {
->  			dev_dbg(dev, "Clock frequency: %luHz\n", freq);
-> -		else
-> -			return -EINVAL;
-> +		} else {
-> +			ret = -EINVAL;
-> +			goto out_clk;
-> +		}
->  	}
->  
->  	s->devtype = devtype;
-> -- 
+A reset through it returns the RGMII slew rates to their power-on
+defaults, so say so where the slew-rate properties say that the
+bootloader's configuration is otherwise preserved.
 
-You can probably switch to using devm_clk_get_optional_enabled(),
-to simplify and completely get rid of the goto and out_clk label?
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+---
+ Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-Something along:
-
-
--       s->clk = devm_clk_get_optional(dev, NULL);
-+       s->clk = devm_clk_get_optional_enabled(dev, NULL);
-        if (IS_ERR(s->clk))
-                return PTR_ERR(s->clk);
+diff --git a/Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml b/Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml
+index 49af5573e4..89f78a1bc1 100644
+--- a/Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml
++++ b/Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml
+@@ -40,6 +40,11 @@ properties:
+       - const: mdio
+       - const: mii
  
--       ret = clk_prepare_enable(s->clk);
--       if (ret)
--               return ret;
--
-        freq = clk_get_rate(s->clk);
-        if (freq == 0) {
-                if (uartclk)
-@@ -1631,10 +1627,8 @@ int sc16is7xx_probe(struct device *dev, const
-struct sc16is7xx_devtype *devtype, kthread_init_worker(&s->kworker);
-        s->kworker_task = kthread_run(kthread_worker_fn, &s->kworker,
-                                      "sc16is7xx");
--       if (IS_ERR(s->kworker_task)) {
--               ret = PTR_ERR(s->kworker_task);
--               goto out_clk;
--       }
-+       if (IS_ERR(s->kworker_task))
-+               return PTR_ERR(s->kworker_task);
++  reset-gpios:
++    maxItems: 1
++    description:
++      GPIO connected to the hardware reset input of a standalone switch.
 +
-        sched_set_fifo(s->kworker_task);
+   mdio:
+     $ref: /schemas/net/mdio.yaml#
+     unevaluatedProperties: false
+@@ -120,7 +125,8 @@ patternProperties:
+                 1: Slow
  
-        ret = sc16is7xx_reset(dev, regmaps[0]);
-@@ -1711,9 +1705,6 @@ int sc16is7xx_probe(struct device *dev, const
-struct sc16is7xx_devtype *devtype, out_kthread:
-        kthread_stop(s->kworker_task);
+               If not present, the configuration made by the switch bootloader is
+-              preserved.
++              preserved, or the power-on default after a reset through
++              reset-gpios.
+           maxlinear,slew-rate-txd:
+             $ref: /schemas/types.yaml#/definitions/uint32
+             enum: [0, 1]
+@@ -131,7 +137,8 @@ patternProperties:
+                 1: Slow
  
--out_clk:
--       clk_disable_unprepare(s->clk);
--
-        return ret;
- }
- EXPORT_SYMBOL_GPL(sc16is7xx_probe);
-@@ -1740,8 +1731,6 @@ void sc16is7xx_remove(struct device *dev)
- 
-        kthread_flush_worker(&s->kworker);
-        kthread_stop(s->kworker_task);
--
--       clk_disable_unprepare(s->clk);
- }
- EXPORT_SYMBOL_GPL(sc16is7xx_remove);
- 
+               If not present, the configuration made by the switch bootloader is
+-              preserved.
++              preserved, or the power-on default after a reset through
++              reset-gpios.
+           maxlinear,rmii-refclk-out:
+             type: boolean
+             description:
+@@ -173,6 +180,7 @@ allOf:
+         mdio:
+           required:
+             - compatible
++        reset-gpios: false
+     else:
+       properties:
+         reg:
+
 -- 
-Hugo Villeneuve
+Git-155)
+
+
