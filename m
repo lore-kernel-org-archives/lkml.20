@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794468080;
-	b=EW3vvmFlHRiYDN5WzwDq8iqslNgvbBIOEeqFh1og/Q9EPDblwDhJqly0N3qZuVOH2p80
-	 wPk1yPQmg3R1+VuuG5euU+y5XkXSLWE6vJQIgyxyTWIycgzqj15RQULX3FSY9K/nV1c/q
-	 YUU3nM4iOXKYUk1V+pXxUkfWFWqhxNuI0I1coFOmBH82hYeNEEmmQxq/a7vyiOuwhCkrD
-	 RHw45aUlBaywnV+ZyhrOezT7jXQKE875ZN57xqct4T7DK5WhwNJ2/Ol1Lbs/7oDugT1HP
-	 ZM3QCXpmLw51P0tpE6UDeUMBGt/yE9ywN0J8EJhTkeaYhft8vIZx2m/G+d55RIXTepA==
+	t=1794468085;
+	b=DnNdU9AANJ63BI2+gxVhRqojDQToVC95mybbDZeuavsSsiMGOUz7rINVMbOItHdfe15z
+	 iZT0kdFS758OVXUrU5foCYR4A+VVaQllFxjSNxl9gkmdfe+f6I94keF9vARwTk2ozTovz
+	 sD5+OQO695T870jRoqlSYXLOSF0VQVNZbqVcLt08IZ3OmqscLWtltvbRMugmLXfOBbk89
+	 M+jXj/UvItgDo0DIA4knKwbvOaP1yFWp+cGJoQlxZFNBs6MPRL3MrVm2dWerJju6jbB86
+	 z8tr4HNUkfb27WjE8iKzhhSMDAujRVzTPn2JRbLvqve+hEGGQiSP7PyPuWCnQvRPREw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794468080;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794468085;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=TEUWz1A3U7Gqq+WaX4VsmRoLtlgH2qcUgQmLzoqAAcQ=;
-	b=Y/Os95jVk7MVIZcCA6EFLgt4p9xu+F4yy7PmuSuZzcN5UEG4CispW7P68H9ujcMA5FJH
-	 /K6ZeNU+vCpn9M1/gCBeRUxHZ3Xfk1h1hxVWUyFQ7Tr5xj25v8YEoXPq9EWTkad9mkVlD
-	 +fUl0Q8kNgy2e554SbyxbSl231227p848IBaqlUiqcR9ymvX6dQM3DcKI6Ofkp3wXPD9d
-	 9sZjNV99KgxeLbYuEkdCwyp/cS9d3p7RrvZ7AwanwDCHBwMfl1+iCKQpjsDjYirBvTDMD
-	 6U8U5Ljn3uvR0Q/Am1cWO8zzWAm8uHQxbTyhnGxWzYTwK2EaymA+nfwLTE+X9JBovuw==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=h7E74qnFR66u1e+ixB5lnQ+Fn3f3hYKLD+FCUj7mqYM=;
+	b=qWZsZqpNSZpC8VCrV2PYWhLZgawhYIGYBso6u+Hg7SfALruRhkXSXv2nKUYtQ/A6wfkZ
+	 wV/cSIu9YwezL/8ejHgclkEcunPoDafkfcHvObpj/G9WOfbzmNuAtOvHLBRtUCfqjWj3r
+	 3p78YvBeYtjMNvyaJXBggCWfO5zyecSpqongXNcgkEdWv+u6mqvDl5UZmQsM1tXyq4oed
+	 iuqQGbtTv/SNeNAyUbzIGkOuXX9KrtTj/Wxxd1tUeZ8ic+1HzLdpFdS6JBBfBWVZUT8Bb
+	 EZuYi9WIf4CWuT0vJVH5B/3ei2+k90itl3Cinxffnl7/2svLYKqKx2XXRNiDBNp1v9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RqmpCobu;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a17tNtbK;
 	arc=none smtp.remote-ip=198.175.65.14
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE5B606A31C;
-	Thu, 12 Nov 2026 07:21:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BE5B606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 567CC606A8BA;
+	Thu, 12 Nov 2026 07:21:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 567CC606A8BA
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RqmpCobu
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a17tNtbK
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794468080; x=1826004080;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=ffOSj0lMPrdwDBPVlKKcfnCz+pLJiVA7EIx5B5l99cw=;
-  b=RqmpCobubLTKtenkA2iK/ho+hZo/eijIXnv+j70TjwqacPUkRI+VeTqO
-   bWjp+Jq7uIFEBUkp38InT63xufPiObxVkwxl5wwzewPgYSksmnd/PyMAK
-   NyksAOHyvA9/ai8jqYXfuQcBLiFGbaGyOJIuBTAEHdkm5GXIEaiZhZptJ
-   YE75lO1aiGnewgAPEw/2cGAj49jbt7jRk8MJi7khCjGkV0nY9+E4QiMjB
-   89P4xal89J4bBt4BRZWJdUG1jJ+UW6M56maWMuxpDbmm8Tcxr9UzcZqao
-   odDjbZvSyRt9NEyJ1ooxuH6wWYpDV9UbhSzeMa8NY6pYUZkqk/0dUD/8I
-   Q==;
-X-CSE-ConnectionGUID: DmXDHZTbQRmNx7HeKgNQQw==
-X-CSE-MsgGUID: cQYxFuZWRAm65/p9gxy3uA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3142242"
+  t=1794468085; x=1826004085;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=YYy5AfuT4YbvdI6IAVYTfWRj3kfSQroERpUxz7QVieM=;
+  b=a17tNtbKuXQm8wCnReCbpQcikQztJe+2YFU82ZIHPlzhihw5lZTdFPRg
+   oxxza9uZKfa3uE1H1rDNkDiQAHotkPUjK/c7dlkb2P3vPpSRUmJ78v2o6
+   k7sADtIU198UTgIhiQ/rYZIRZBV/Ur4U4eYStQhzB9s5ZWtg2Gsvs9xxI
+   IhUP2Hk6D/HR8007JgHaS/X4AxaLv4qtgu2cO6xE3DwZg5VHQ2YWypsW7
+   +RiYYqK/bwHkEw7ZkKvudWWVf5gn4gSqFKtaPn4Lza9la9p98CZ5ju1+2
+   k/wiv876Qla9chtLsHwzAKB0heGbKkM9sz71MtaD16yGZoowD4iMFqoe+
+   g==;
+X-CSE-ConnectionGUID: dbpOw2qqRNiCaIYBzTIxNg==
+X-CSE-MsgGUID: k4zPqfYlSfKWa6FGB1X0mA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3142258"
 X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="3142242"
+   d="scan'208";a="3142258"
 Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 23:21:19 -0800
-X-CSE-ConnectionGUID: BM8296x5TIa5P6y7b/ep6w==
-X-CSE-MsgGUID: T2maWs3gQ+6nRpP28SJ4jg==
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 23:21:25 -0800
+X-CSE-ConnectionGUID: EwN6ylz1RpKhMV34wmIBhQ==
+X-CSE-MsgGUID: a7MTK2b1SfSO9XZFC2J6vA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="10318057"
+   d="scan'208";a="10318072"
 Received: from yungchua-desk.itwn.intel.com ([10.227.8.136])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 23:21:18 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 23:21:23 -0800
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: linux-sound@vger.kernel.org,
 	vkoul@kernel.org
@@ -69,10 +69,12 @@ Cc: vinod.koul@linaro.org,
 	pierre-louis.bossart@linux.dev,
 	peter.ujfalusi@linux.intel.com,
 	bard.liao@intel.com
-Subject: [PATCH v2 0/5] soundwire: Fix bandwidth leak in multi-link aggregation failure
-Date: Thu, 12 Nov 2026 15:21:00 +0800
-Message-ID: <20261112072105.1296515-1-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH v2 3/5] soundwire: Select the correct runtime for lane allocation
+Date: Thu, 12 Nov 2026 15:21:03 +0800
+Message-ID: <20261112072105.1296515-4-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261112072105.1296515-1-yung-chuan.liao@linux.intel.com>
+References: <20261112072105.1296515-1-yung-chuan.liao@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,42 +87,81 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The existing code only copies the params from the first link to the
-bus params, but it doesn't copy the bandwidth from the other links.
-This can lead to a bandwidth leak when multi-link aggregation fails.
-Fix this by saving a snapshot of each bus's parameters before making
-any modifications.
+When multiple master runtimes exist on the same bus,
+sdw_compute_bus_params() selects the first runtime for which an
+additional lane is available. This can select an already running stream
+instead of the stream being prepared.
 
-Changes in v2:
-- Fix lane and rate group handling in the generic bandwidth allocation
-that the rollback depends on:
-  - Pass the prepare/deprepare context to compute_params().
-  - Select the runtime of the stream being prepared for lane allocation
-    instead of the first runtime on the bus, which could be an already
-    running stream.
-  - Include the current stream in the group and port computation when
-    it is prepared again from the DEPREPARED state.
-- Reset the lane of the stream being prepared to 0 when no multi-lane
-is selected, so the lane assignment matches the restored lane_used_bandwidth.
+Changing that runtime's port lanes accounts for its bandwidth again.
+If preparing the new stream fails, restoring the bus parameters leaves
+the active stream's lanes inconsistent with its bandwidth reservation.
+Depreparing the active stream can then underflow the lane bandwidth and
+leave lane 0 bandwidth reserved.
 
-Bard Liao (4):
-  soundwire: move lane bandwidth into bus params
-  soundwire: Pass prepare context to parameter computation
-  soundwire: Select the correct runtime for lane allocation
-  soundwire: Include the current stream when preparing again
+Pass the current stream and prepare context to sdw_compute_bus_params()
+and restrict lane allocation to that stream's runtime during prepare.
+Skip lane allocation during deprepare, when its bandwidth reservation
+has already been released. Keep clock recomputation and the existing
+group and port filtering unchanged.
 
-David Lin (1):
-  soundwire: stream: Fix bandwidth leak in multi-link aggregation
-    failure
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+---
+ .../soundwire/generic_bandwidth_allocation.c  | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
 
- drivers/soundwire/amd_manager.c               |  3 +-
- drivers/soundwire/bus.h                       |  3 +
- .../soundwire/generic_bandwidth_allocation.c  | 81 ++++++++++++++-----
- drivers/soundwire/qcom.c                      |  3 +-
- drivers/soundwire/stream.c                    | 25 ++++--
- include/linux/soundwire/sdw.h                 | 13 +--
- 6 files changed, 92 insertions(+), 36 deletions(-)
-
+diff --git a/drivers/soundwire/generic_bandwidth_allocation.c b/drivers/soundwire/generic_bandwidth_allocation.c
+index 1250fe21a3ff..e8e68dbe180b 100644
+--- a/drivers/soundwire/generic_bandwidth_allocation.c
++++ b/drivers/soundwire/generic_bandwidth_allocation.c
+@@ -536,8 +536,11 @@ static int get_manager_lane(struct sdw_bus *bus, struct sdw_master_runtime *m_rt
+  * sdw_compute_bus_params: Compute bus parameters
+  *
+  * @bus: SDW Bus instance
++ * @stream: SoundWire stream being prepared or deprepared
++ * @prepare: True when preparing, false when depreparing
+  */
+-static int sdw_compute_bus_params(struct sdw_bus *bus)
++static int sdw_compute_bus_params(struct sdw_bus *bus,
++				  struct sdw_stream_runtime *stream, bool prepare)
+ {
+ 	struct sdw_master_prop *mstr_prop = &bus->prop;
+ 	struct sdw_slave_prop *slave_prop;
+@@ -580,6 +583,14 @@ static int sdw_compute_bus_params(struct sdw_bus *bus)
+ 			break;
+ 
+ 		list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
++			/*
++			 * Select only the current stream's runtime. Check prepare
++			 * to avoid computing m_lane during deprepare, when the
++			 * stream's bandwidth reservation has already been released.
++			 */
++			if (m_rt->stream != stream || !prepare)
++				continue;
++
+ 			/*
+ 			 * Get the first s_rt that will be used to find the available lane that
+ 			 * can be used. No need to check all Peripherals because we can't use
+@@ -627,8 +638,8 @@ static int sdw_compute_bus_params(struct sdw_bus *bus)
+ 			}
+ 		}
+ 		/*
+-		 * Set Manager lanes. Configure the last m_rt in bus->m_rt_list only since
+-		 * we don't want to touch other m_rts that are already working.
++		 * Set Manager lanes for the stream being prepared without changing
++		 * other runtimes that are already working.
+ 		 */
+ 		list_for_each_entry(m_p_rt, &m_rt->port_list, port_node) {
+ 			m_p_rt->lane = m_lane;
+@@ -665,7 +676,7 @@ int sdw_compute_params(struct sdw_bus *bus, struct sdw_stream_runtime *stream,
+ 	int ret;
+ 
+ 	/* Computes clock frequency, frame shape and frame frequency */
+-	ret = sdw_compute_bus_params(bus);
++	ret = sdw_compute_bus_params(bus, stream, prepare);
+ 	if (ret < 0)
+ 		return ret;
+ 
 -- 
 2.43.0
 
