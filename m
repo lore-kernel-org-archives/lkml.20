@@ -1,79 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794462568;
-	b=zlLVF/t690IztlDc5KsQhGVKfSMncolwu1f6//nCBWNbF23fBFc7L6kXrU4DlJVPiHJ7
-	 SZEQihzr1g0qJYUdTwp5EH9hzCYQ1DyFK3kckbBHbr7ukvaXvpLTWgJ0qAtXArK4AF3fU
-	 f+b+pp6+crISuVJIb6ebGAN4JD3+TDDTVRm/Bagm8tp/OVgKBtqqt8GDHEfmahmjHU3Bv
-	 fd2M5pHr+vf5VyH4waxwlYG6ZJBCqK/Pgyvrizd7IIAN5i7jCyXm8n1Bg3C0omwp5EFym
-	 2rZHQJUyyfQHg00uq1DWDn4Pf7LDiAT2bwfidLv6Kv9U8HsRN7aqsjUAY9FC0nvVZPg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794462568;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=2s63RbVzPaeSMEDqulBo4WSLSy7FX64O3I4ORCTozYs=;
-	b=5Rr/nHvGbylXsh7Lx1SJlwbH1nU5TAhSLFPrlVl/l3d7W5GXdnpnx7BFrIWwnpBDnPmO
-	 7xWvE01la+rj7oX3Hu1eRoOtMfzT0NPN2y5+KKSVIjzPtEWzifdNLpH77hq00S5NvEl27
-	 tzqWb3ViF5ZXx2hs27iDAqASNCmGFHRmelhYEW4aRNP5Zt1idUt0XdyCsnBA5CiV0W0YO
-	 jQcd0VuaalpGIDpTafZ+R2fL7b3ehiFsGUvTODLQfIzzRMXftcjlwGpX5XhpSmuj7GKuz
-	 MgPk66/dYrtGrLfyQtOWrFaDZD47fq+wFv2cTKW/NAl1prLiEkO/JWdJ9kB71nwRp+Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=djkjU0yo;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794462711;
+	b=qQIp8HPVyJpTNnz/8CpJ/yWpdQ5pWHV0XNMjO95n4M1G3xDUBi6OmrsFRShaOs8siHI8
+	 tQLwUlXNLco/EQ2A4hgYS7cF0gJfUtLbj3GWC9McgtNKk539CsBih0pNhtARPwiBi5F0r
+	 /kgd6NR/DbuNxd+6/va8knQ91tJL7PvCAdFVYWDLZC0grU/TlfBbJ4CbYI043m6OJEWNQ
+	 ZIZTHr6YXtNV33GS8YwU/IXt5Nz6Z6F5J6tDcrzIIy94hSC6ZkuqUAHZo32f76RwzGund
+	 VxhqAgrF5ZLzRcIZC8ZtrBp3vJcVb+h1K2G/uxHPZP0uCU1msEBfAmWCNM3T6hZ9Eog==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794462711;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=3NTxadOVq9q3/kjBdhZTjDycpZICzYHF9v07pA6aeQ0=;
+	b=JCabUoXKss1cBD2CCB6f2N1ELiw+32XMBAfDIAY7qHiVDVTMwHse9puKz0/Yb6oyHJt7
+	 ZmMtBumiPoikg2u478Cw+CmwqVETLPv+6xI/aU9u05P/ahw/GM+lBL5djhlFGuv/KKm7O
+	 gumbGsOJQSspGyevy083eCBiUyD9BF0WfU0fk2E3dwC4yJwkPKCz5vFpji5/41Nnwhw+L
+	 Cbw0sSp9ScYlbfIbEUik3AgFr3AnvTEv36jV7PzDLBcJd34a5XvjpL7/TSi6PsX7gHKZg
+	 sutTo7TtEEtcEYsEC9IXCMun4zAFppj9aUOj3pcb+IEvNAjKDqLCfO9/vltoyNbTsbA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EanUsimx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4564C606A31C;
-	Thu, 12 Nov 2026 05:49:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4564C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6466F606A327;
+	Thu, 12 Nov 2026 05:51:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=djkjU0yo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794462568; x=1825998568;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2s63RbVzPaeSMEDqulBo4WSLSy7FX64O3I4ORCTozYs=;
-  b=djkjU0yoTEXq/KMM3jrGAIQagjKWIBkgvC79tiY/YgsJwYNszZ6oB7Tf
-   +OS6U/HPR0tqZm/4/LhxQOoV2V2u4XrzA48FlcL3U6kVdEAD3kl72BqrH
-   efBRALwkPMX6Yd7rodS+zR5JX6jWXj3jQnU72a5By4Uep6ehmQjRllorV
-   m7sJ7Y0kxNG/KYd+VcDrNyf/cAY4pXj7FCpgwIKCywxyk0uGsz/TZmSUs
-   pb4GqAI8+L7q8NwlEAOtuvvqMwZwNHoEYKPck59H4oO10astzYhq0ahSW
-   RfUaArdb7+1C0iIk6El3v5H8gXvMw3WufJMmv2LuI7dk0AclML58d9ueo
-   g==;
-X-CSE-ConnectionGUID: QZl3XOnvQqeeDUE1wN/eEQ==
-X-CSE-MsgGUID: ipIMXxI2Rxq37tqsm2zIKQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3134027"
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="3134027"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 21:49:27 -0800
-X-CSE-ConnectionGUID: O0VHcGJvQhmb85wtnPTcrg==
-X-CSE-MsgGUID: ZGiETdIkSk2f2LIvAryIkg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="8889057"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa008.fm.intel.com with ESMTP; 11 Nov 2026 21:49:26 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id 6268A99; Thu, 12 Nov 2026 06:49:24 +0100 (CET)
-Date: Thu, 12 Nov 2026 06:49:24 +0100
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Andrei Rusu de Castro <arc@empyreal.works>
-Cc: Mika Westerberg <westeri@kernel.org>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] thunderbolt: Optionally keep PCIe tunnels up through
- suspend-to-idle
-Message-ID: <20261112054924.GK259790@black.igk.intel.com>
-References: <20261111-tb-s2idle-keep-pcie-2a2a66a2@empyreal.works>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EanUsimx
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794462711;
+	b=KtfJOUz45rXqTYdTrLiM4ukYefsESBjtR4E677kEni32NbR8eatYk/xyu2eJwlegShkO
+	 5KfEakUkGJya2YMCVgeYNi5RQ2zIFkST532Xjtrkwv35E6P5XRuN2Z2SpnZJZWh2m3qWf
+	 DALXJBQX3c2X46zUCBiqTlGUuypL61M4uJZ3v/yW6lqz/nCldoZxCJP29JuDb7irWHcem
+	 cGX2cDcaAicCqxNYVCH3q5CYxQSEFg54/01GbyTJOQu9En6WCfYFnHrB115/uvbMaVRRv
+	 kHii/S4OEFxh4ItYEN/gq/48OOk4Oka/TeL38ayUtLOiP0wC6g1NfX/1w0ooVM7jsKg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794462711;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=3NTxadOVq9q3/kjBdhZTjDycpZICzYHF9v07pA6aeQ0=;
+	b=DrGAtbxrO16gTL0HuZ2+Rp92WcfS58lDEt/pvmUc/h/Oq2Z5yP0/mkIPlNLlzqV7DkHS
+	 YMZyu0IJ9manxqhSfq5uGl1MvuuTMVPq0kFva25grfI81P0hmS2SVYhq1ixWqCuxw8zgM
+	 B51E7laRqSeaGTjXi0ILlAuEIuoFJXwY1Us3JT4ZK2W0kXV5Jmis6a/Vp1MCVB25vEvrQ
+	 MLVq3VqlOv6geV4Pr5B5yTwwZfRHPjkwAylo0b0OjF/MfvPaak+CiecJpnXdiqhQAUjo3
+	 1NPBSc8791Yx/RFNfaKFF4w2i6AczbUnCDYLLHPjkiJQjzq9vGbuatlMn5e4y+iyQLw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 895891F00A05;
+	Thu, 12 Nov 2026 05:51:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794462711;
+	bh=3NTxadOVq9q3/kjBdhZTjDycpZICzYHF9v07pA6aeQ0=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=EanUsimxt0InyFP44QTwfRXLRH0MPC5SnEMZ06JbewDWWjcpHoujV0931lFOEYI1l
+	 nmSO+1ZiiDDOp5t8pqo9W0Jx+qA1nO9hecJ1+RAXDTfY/Qf3qGcB/URt9mDB0tJ2Ee
+	 Li4TsbPN/LwTggvpWIhbXh6aSgfnmoCo/5gr4HI0cSEdBEVYYU5ofstcU7gwGfr7td
+	 Z8xXrBAxC89CON1O4vOU6oN9KVauoObXBvscHUsX+PTm+kEKy0kToQMkcSLD7DZDUB
+	 fxZ1N7ldhfCYwoBHs7PNbTcPm3TfcdoB9Ti8AfF42VxxW0XqRkK/dk6jev30u5DnJE
+	 LOqbhm0wLpRXQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E2A82492D7;
+	Thu, 12 Nov 2026 05:51:49 +0000 (UTC)
+From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
+Date: Thu, 12 Nov 2026 13:50:25 +0800
+Subject: [PATCH net] MAINTAINERS: exclude CAN documentation from general
+ networking
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,37 +83,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261111-tb-s2idle-keep-pcie-2a2a66a2@empyreal.works>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261112-exclude-can-docs-from-netdev-v1-1-b5eb3ba4ae86@qq.com>
+X-B4-Tracking: v=1; b=H4sIAKBT9WoC/yXMUQrCMBCE4auUfXbBBFrRq4gPcXeiK5pI0pZC6
+ d2N+vgPw7dSRTFUOnUrFcxWLacWbteR3EO6gU1bk9/7wTnnGYs8JwVLSKxZKseSX5wwKmbuB3c
+ 4KrSPIVIj3gXRlh9/pvahy3+s0/UBGb8wbdsH5nMmjYUAAAA=
+X-Change-ID: 20261112-exclude-can-docs-from-netdev-56179ded5faf
+To: Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org
+Cc: davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com, 
+ horms@kernel.org, mkl@pengutronix.de, mailhol@kernel.org, 
+ socketcan@hartkopp.net, robin@protonic.nl, o.rempel@pengutronix.de, 
+ kernel@pengutronix.de, max@enpas.org, linux-can@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Cunhao Lu <1579567540@qq.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794462709; l=1751;
+ i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
+ bh=EDE/G8F7AsHZZC8XTFKoaDp+CkrXlJxUORBA2UZXClg=;
+ b=1DDz/uZh0nk8aI17NVbPmWi9JCFjTJQ/qWJIX9P0DEMRV0wFBnfzmYfFxSeDqYtgfSoQg8n9H
+ L7iZDPtorTZCgDjFoc9QuX6mdVSyBwZeXDXJGtstOy++hpamR+plokM
+X-Developer-Key: i=1579567540@qq.com; a=ed25519;
+ pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
+X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
+ auth_id=1177
+X-Original-From: Cunhao Lu <1579567540@qq.com>
+Reply-To: 1579567540@qq.com
+Content-Transfer-Encoding: 7bit
 
-Hi,
+From: Cunhao Lu <1579567540@qq.com>
 
-On Wed, Nov 11, 2026 at 10:57:08PM +0000, Andrei Rusu de Castro wrote:
-> Every system sleep puts the USB4 routers to sleep, which takes all
-> tunnels down, and the connection manager re-creates them on resume. A
-> PCIe device behind a tunnel disappears from the bus in between. An
-> external GPU that drives a display does not survive that: on a ROG Flow
-> Z13 (GZ302EA) with an RTX 5090 in a Razer Core X V2 driving an external
-> monitor, the GPU driver found the device gone after suspend-to-idle, the
-> enclosure was removed and re-added under a compositor still using it,
-> and the desktop froze.
+The SocketCAN, ISO-TP, J1939 and ELM327 documents are already covered by
+CAN maintainer entries, but also match the broad Documentation/networking/
+pattern in NETWORKING [GENERAL]. This makes get_maintainer.pl select
+netdev and the general networking maintainers for these CAN-specific
+documentation changes.
 
-It is supposed to work so that the tunnels get re-established before the
-native stacks are resumed, for that we have the device links. In you case
-it may be that they are missing.
+Exclude these four documents from NETWORKING [GENERAL], as is already
+done for net/can/ and the CAN selftests.
 
-> For suspend-to-idle the domain can keep running instead. Add a module
-> parameter, s2idle_keep_pcie, off by default. When it is set, the target
-> state is suspend-to-idle and the software connection manager has a PCIe
-> tunnel, leave the routers, links and control channel running and keep
-> the host interface in D0 by saving its PCI state in the noirq phase, so
-> the PCI core does not put it into D3. The devices behind the tunnel then
-> go through an ordinary PCI suspend and resume. Without a PCIe tunnel, in
-> other sleep states and with the firmware connection manager nothing
-> changes.
+Suggested-by: Jakub Kicinski <kuba@kernel.org>
+Link: https://lore.kernel.org/all/20261111161459.4879a82d@kernel.org/
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
+---
+CAN documentation changes currently match NETWORKING [GENERAL], causing
+get_maintainer.pl and b4 prep --auto-to-cc to select general networking
+recipients for CAN-specific changes.
 
-I don't think this is a good idea to be honest. We should really understand
-why the PCIe link is not coming back as it should be and for that it would
-be good if you can share full dmesg with thunderbolt.dyndbg=+p in the
-kernel command line.
+This patch excludes the SocketCAN, ISO-TP, J1939 and ELM327 documents from
+that entry. All four already have CAN maintainer entries.
+---
+ MAINTAINERS | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 222b7fc2c3aa..cb1fec8ec5f5 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -19600,6 +19600,10 @@ F:	samples/pktgen/
+ F:	tools/net/
+ F:	tools/testing/selftests/net/
+ X:	Documentation/networking/batman-adv.rst
++X:	Documentation/networking/can.rst
++X:	Documentation/networking/device_drivers/can/can327.rst
++X:	Documentation/networking/iso15765-2.rst
++X:	Documentation/networking/j1939.rst
+ X:	Documentation/networking/mac80211-injection.rst
+ X:	Documentation/networking/mac80211_hwsim/
+ X:	Documentation/networking/regulatory.rst
+
+---
+base-commit: 79eb6679ef6a0d5ea68da53a8321fb1dc72299b9
+change-id: 20261112-exclude-can-docs-from-netdev-56179ded5faf
+
+Best regards,
+--  
+Cunhao Lu <1579567540@qq.com>
+
+
