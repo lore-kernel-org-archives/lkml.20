@@ -1,110 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794505781;
-	b=EU08j1FxU8T3kRlSCo0OKcdnHCUmr6KKCLfeD4UCYA9jHcyM5H5qOqvS1blisBcYNohp
-	 dpq2cywjKtE0ookSa1OLbWBfZEFqif4tig6VnIiLw7LPpFXjAnGQJbBbRK2c7nPaQmk9B
-	 cer7TRrhJ0c+ecb+RyEv+qdNel3kXPE4rmwTTqzr79ec05xs/Vj3KGZ9AO4eFrWNwE0AQ
-	 kJM/RaN09fBpH1VlJkv/sG43eewr7Vt1wKgOnKVMeGVNe+Q1q6WLmiD4i9Oz+bl52dxXh
-	 EOi0MlUh8V9wLpUmgqStwSlGqzXs/qBWZ1v2+Z1F3XpIVelIMqzRztRWn398nR1kcpw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794505781;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=BctAhh4r+Uc7WKowrcROrcDpiSYnKeVef/cvEsV06Mg=;
-	b=RIsp/vQIddXebs8mkPqMdzpm6A/3B+JWdvFydBujzd3fhLqSk1cmtKrVhvhPo9yQv/OI
-	 q96q68twn3LhSTSnWbmJ+iTiByWOPAq0C5cMPcyXM5suAR3wF+512vt8OsMoNQT4qrL9J
-	 PN86m9fDF2M+wEu0WMpcuRwSjFPrL7tLKt68wH4J4Ol5D5qWFqitKF/s02SjV6dymozK7
-	 GFb+aS4pYtvzt9LTFPqm/hZX09Y9Z+EE+McDWXWVnju/tig/OfdL/+yGbBnlCUcdrbxR4
-	 /zjlFwANADPWvbCOo17jFL0Fg9wuqYmlw3srnvSxnrEOMH0JJTmF0bIAvgYDqHwFXMg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=QUKFC7hS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.12
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011012.outbound.protection.outlook.com [40.93.194.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794505815;
+	b=uMI9DJxiaBpB/hTsyUExV5gBgtBjkh5hov4IYDCzeCbqrjDTNWo//wfdiWYhWKeXpa3D
+	 MrbmP50Qj3QXUZP98M9+Ks1M1Z5YSzPuOP8cpVEuJsh4H/o/618O6CTValjpn/al5f5im
+	 YBGJkIY/kTKFSoHTVT63JkLZshhs2aqgDc4bUZa58AmxxBeWOHtM6ROUCpG7UhAKuL9ry
+	 tGAe9xF8BlDjIdIlRxj++UXPGOA5UN07NaiidKmtMEn/c9378gYkuGQhbcXo5Ll3xry4E
+	 XXBxgPP+RDqJ8arp+1qbq4lqpToJ/RbYrsRm1GXyN86xJMcDGnW3ODZEj3Ttfk9ZClA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794505815;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ebBi69aOwYuOv4v76Io54mnX1WxFsXlJh7CWwOPIC7M=;
+	b=l/LNdpVMLqgybrTsn0fk0/GrHKPfJeQA0kNMkRIEYdIkf/GH52Ee0nrZi2FQTzzgAv1I
+	 I8eLoAbKdi7XRsDOrOqEttA7xhxxKdKxVCnkuZromZtlLz4Oa8YgXrehDCWzX1kHgZXyy
+	 V3wVIosJVTlcki0IA0BDafA+oZcyNQuu23WkjUZ39Snj8jt6FASEhL5CkuO7bfPb0Pl3i
+	 0r8PWxfF7zaqtROPz38VcSFXQTca7PoBWYwsjiv9DEJmYJm9XLyozddLfU39tv6UviE9W
+	 ffCenaDKP2VLIQYyEuBZ/tLha/dA69vFZI8S3vSlFSLyGb+EgWqvIY5x283SMMbasgw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=cQUjrV0C;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C623606A31C;
-	Thu, 12 Nov 2026 17:49:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C623606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12F32606A331
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:50:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12F32606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=QUKFC7hS
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fB7ZsHsbnndfg/8kcp+W0zCn9BtGgbVydH6q/UAatlJ/qAOEGYi/TG4UbuuQPOWZ9mtgSSHcGlorhyl3H8AB3PwtdtHOZSMh+bh5hSwEW2h2+WlIeuy36GlMOm4jjj/a6CWv4J4Fj668pr5KPKEkwW8JDnfkxcZSvy6iv2kf9Z0KG0atfyk679aiUdrEIUBltPYyR/4j/MAUJ+ry1GeQJmsilxKi/nrtKljPnG3j+Mgtd7aBifi0oEb3bAeKNAq7gL4xjsNR5FCK1ra3dBWSn9yDXiZACi94F9M9Gplz0ySHhX21Ok5Q6zm8kSNqJL3VfI+jLk8xPhUwSs5SxYeh9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BctAhh4r+Uc7WKowrcROrcDpiSYnKeVef/cvEsV06Mg=;
- b=sdCd6Hzm7JDlakJctQaLRZynXQ/Ctx+2pGpQlfrYoBEFxm3Cc5EVtE74xFhznbfPLFO2vaHNs6Zrho3Nk80huextTDwp54Udn0H+eYHVWplPz9zfgXa3ROZIi7e7Kxqqs7M3C/UzB/scw2EjsJ/Ad3qvDM/xThC4cJtveQsjlRWAoGTOv2GOTfjJzgtBlMHhuxXmGnBvdH3W/Y9aKAeku0aBPuqM2gCDfgoYx4mvyPxNJrXiq7VgRf+uDXjuNMPGCt5ZMEvHfPRjxo119ennvIA2uosSvnq0TavvwN4ytWPXNIVRnp5q2AmfBykJ3Pca8hGBnauGFdGR6d2m6JIuYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BctAhh4r+Uc7WKowrcROrcDpiSYnKeVef/cvEsV06Mg=;
- b=QUKFC7hSUrxo8upxvRqMqrKqNIh2Q86CWPw4O9wa3LG+/MlIe8qVYXzcpG2j1q9HYZvp8sAWkSTu+MSqXeWKExDAf1851KKVZ016NPSag87kEfxf3jZaYyxzyIuWcpDT0mtBHwNWX5FO5loCGOqNLoeKj2SAmMHJiRL4lBaPwVY=
-Received: from BN0PR03CA0044.namprd03.prod.outlook.com (2603:10b6:408:e7::19)
- by LV2PR12MB5751.namprd12.prod.outlook.com (2603:10b6:408:17d::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
- 2026 17:49:37 +0000
-Received: from SJ1PEPF00002321.namprd03.prod.outlook.com
- (2603:10b6:408:e7:cafe::58) by BN0PR03CA0044.outlook.office365.com
- (2603:10b6:408:e7::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Thu, 12
- Nov 2026 17:49:37 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00002321.mail.protection.outlook.com (10.167.242.91) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 17:49:37 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
- 2026 11:49:34 -0600
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
- 2026 11:49:34 -0600
-Received: from xhdsuragupt40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Thu, 12 Nov 2026 11:49:31 -0600
-From: Suraj Gupta <suraj.gupta2@amd.com>
-To: <netdev@vger.kernel.org>
-CC: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Michal Simek <michal.simek@amd.com>,
-	<linux-kernel@vger.kernel.org>, Suraj Gupta <suraj.gupta2@amd.com>
-Subject: [PATCH net-next] MAINTAINERS: Add Suraj Gupta as AXI Ethernet co-maintainer
-Date: Thu, 12 Nov 2026 23:19:26 +0530
-Message-ID: <20261112174926.2102832-1-suraj.gupta2@amd.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=cQUjrV0C
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so1205405e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:50:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1794505812; x=1795110612; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ebBi69aOwYuOv4v76Io54mnX1WxFsXlJh7CWwOPIC7M=;
+        b=cQUjrV0CyahQPCNi5cU5YxS901CR+57CuvbolcO9byjlPxNsPnPJuVVQZ1ys9UHRm8
+         mqZAzSk0r/lFrm6wpcmNXtqZmgHG6hnPbO7peeo3fOpKgtSIdB+voi16FchZ3n+h6Bbx
+         IJqjNGaFfl7fZn3BrMYhsoj6W+RTvX45QR2gYZbvOHS0zJ+R7RhakhjFFaBh5E+ODoxw
+         +Z64DiPbwjKA2mbtzlbTRs6GWaMA0sMlfqvZFi4aZM7HnQHvEcz54q1RFHdoHgHmme+T
+         4p7vs4+77E78N8xxqNiVdlkFstEq3d0O3RbaUxXZEpQ8J+FpXo6xtp2LLGurOiYywzBW
+         ME1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794505812; x=1795110612;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ebBi69aOwYuOv4v76Io54mnX1WxFsXlJh7CWwOPIC7M=;
+        b=Uv24UbUcGdVTKL646WCeztFGppfCgl80qEKMUyqEPAakdKxNCnv93Zvi4yhELfc5Qj
+         je9MJutzIJnuB/SdUUQyNWMG1tS4NK7hyRTVqMymHVNf8Df1kQlznEaqlyZhsLW0zwvx
+         fIkM3o1i3czCy8sxeicNZm34M5sarB8Se83+aSjfGgVM0ylFQSJsPSXDWVggbPjpRYHM
+         SypTQOGwqmTvghrkN9EKSFQcKzkZP1V24KPz6CCcVTI0lbeuJp19VRTB2S4mesgH8ojt
+         aphKXHVmRaqGAe55Qy8mlTb0dDyRnp0LbcFJNKj76eVFC/jr7jAt9IwZbq5yxphFOA2+
+         4Gxg==
+X-Forwarded-Encrypted: i=1; AL+hErGvA/9xS84MqFQheu3otzNkvbw/dEZKy83muS7dSvADvKAqH8azOVvPRdznDjGPspZ7OBwNOEh7wjK4PkM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ivCcrVxIka0apXe0dNVMKoWf+UCPAQpNzX6Sk25zIikzsrySO
+	cAMab/N2F+W2hHL9RCORctyPC0XIdpCCAP8ZvGg6HkNAEBgDt2xVycQtQ/Wu5CH8szk=
+X-Gm-Gg: AYBFou3aM/spFRKAid1/mcGii+JCBcUWcF7tzSeCDmmrYKpF4CbET1BrrHsdWYlXZ8M
+	eUek3xEzFEr4kE4TtqKJlNuD8++q3hRVpJDq1JS88ge3g1sRi24UzZ2Ealmfu0z+iF9TTp6VMXP
+	lOShmd0Q8rUg6Bb7G8LEwXunmBJ+WksTSrI++m0HxTy8WVe8Fz9nwlwLpOwuKBY1jXBlE3gxf8A
+	8ZMrOwzYJSqR8XDhEGTsIqBp9VkrMjWdo7RTNhrbIfvbOMC2yP6LMbPFKDmtNHXfyG3FmJcpQMu
+	A3ZcKjV6zz0vyKRtgZxjsGAhRrfiogz2R7aDYohLs3al3yIMbAI01VHoWQnIrK7lGkWvmy0Aj43
+	0jyeKFGOEMUXi4Ee8xxtGLUri63+WDja2YCMwihIggYXfgsnxKodq2FDbgJI8Kri8c/IK/AgVHW
+	ciQhit1QUE5VNJaq/cXzY+rxn/X6sum/44nfV3rYyATCa1zlI9Biy94YYrR9SR5sSgrye7sMp22
+	ZJ626KLELoW5hzr7s5/4LyQ+5HCSDtT66VartAUCDnIB2yVoAyev7991V9iTqYo5ysTT03z7OIX
+	s4iANH/psfxgQC7DfsxJo8p8WpfV//w=
+X-Received: by 2002:a05:600c:5251:b0:4a7:4697:dae3 with SMTP id 5b1f17b1804b1-4ba0938d96dmr121010175e9.24.1794505812295;
+        Thu, 12 Nov 2026 09:50:12 -0800 (PST)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5ff2be55sm498229f8f.28.2026.11.12.09.50.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 09:50:11 -0800 (PST)
+Date: Thu, 12 Nov 2026 18:50:09 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: Andrea Parri <parri.andrea@gmail.com>
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>, Jiri Kosina <jikos@kernel.org>,
+	Miroslav Benes <mbenes@suse.cz>, Petr Pavlu <petr.pavlu@suse.com>,
+	Joe Lawrence <joe.lawrence@redhat.com>, Song Liu <song@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	live-patching@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] livepatch: Fix races between stack check and module
+ load/unload
+Message-ID: <avX8UWAA4DN44p6o@pathway.suse.cz>
+References: <20261022134433.3595212-1-parri.andrea@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,56 +101,349 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002321:EE_|LV2PR12MB5751:EE_
-X-MS-Office365-Filtering-Correlation-Id: f5c8a303-acfb-452c-f854-08df40e551dd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|261028144727099003|11063799006|56012099006|261022105027099003|261026140227099003|10067099003|261021121427099003|261026121527099003|261102123227099003|261009223027099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	X8D8x4Kyd6rmjitWe5NemWOROrjIfv4ZVYKcTQsU/xtwn/kxlrn1KmuQde+YHBG4FvNoHn3LdiT8TmvmEgwJEPi8sqagE1+zABwcbFd3Y2nlnDQMVyb6UyyuciMIGFq2u3OiYl8cnY/E49GXe2zVRfJo0hBQWhjsUbjSnu2799NBC60d3sPcS2mbJ9LD97CiDgE6dBHMbYwiZmXFgMe07gcxRKlb0ZiHMmPSgm5z8DpkbtVbVkOvpL29hwWNXLOrF+J0UfgSZSq2tbzW2hRzsG/Is1XcXVdBpQ642+9+rmZQkwPSNR8xwEhQi2JlyFCcpfcb7td5ZF1PZzvz4o7mMNx+9wi7y9CPmCq3Qna+RjRlH0pgaEGmI3qQ3o5WAQPYh/eCzbJ2O0Ej2DT5b9QKFUw/Vv25PHPJ6qD09/Ifc/P3pjZ9yC1HmmDhVdC+kc0IrCSlDTLK3bUndYj2UnDCiQD3VYoGn1Pw5M3PfuwaKu8izeDEnfD+2Oj6BNq26WLKeZ8AIkOuQFsUBAE//Sf6begmskYrvVO9z+QV7XImwpcTiBDpVgICh9K+/5ubt7AQyYDdNi95VKP869Fu7IEzj4685dulGKAsehSZhW1WQjTD/8uvSVlD7BnDJsFxsWYUSJQVIX7NxvyxtPHJzvzP9QD/buB5D0caJvmPCj1pwzILnA1Xsqo53xZ/QNNVFl/v/pdYKpogcaOxIEIeJAjvtQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(261028144727099003)(11063799006)(56012099006)(261022105027099003)(261026140227099003)(10067099003)(261021121427099003)(261026121527099003)(261102123227099003)(261009223027099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	NCPA6oSS5SKnBZc2ky38404pGjZr3aRIREDfyl8iBxvngUbZ85+izm5r3XbxtwCAwKT5TS/VZQMas1kJwd9QY6HQo5GQ0OnF16GumcmqRgkR7Yw0wnTI/uyESusSoU9FWpYiUmJMoYZADFZfoucbglQxokf8r+/1r0zOQYvJQALEGVOpxloog5039RC32ho1lLNevR3JuvUCFUXOERxod9cKXQ3jw+sFdtraf3XgTUoB62xhrTj+DuoBd6kWmaWKLjib4FqyC3F9HLz9LEJZDpHmPlw6wcpEyM6kSrDqZ3W3qLsOI9vTjzdQmznSesZt8KcFYZFDbDErr4ZwRv7Pv675Z8U3cm44c7mbk0Y+5x4LcySXtV+wOdyJX9rg9aHWfIGe0WKZxTeJnZ/OapyKo8JAWBDSYuoYZ285gcZ7bqnRSX08XnYx57MflRkX4XMQ
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 17:49:37.3799
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5c8a303-acfb-452c-f854-08df40e551dd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00002321.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5751
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022134433.3595212-1-parri.andrea@gmail.com>
 
-Add myself as co-maintainer of the Xilinx AXI Ethernet driver. I have
-been contributing patches to and reviewing patches for this driver, and
-will continue to help with review and maintenance.
+Hi,
 
-Signed-off-by: Suraj Gupta <suraj.gupta2@amd.com>
----
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+I have finally found time and energy to scratch my head around this.
+I am sorry that it took so long.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065..6979b92b938f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -30613,6 +30613,7 @@ F:	drivers/iio/adc/xilinx-ams.c
- 
- XILINX AXI ETHERNET DRIVER
- M:	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-+M:	Suraj Gupta <suraj.gupta2@amd.com>
- S:	Maintained
- F:	Documentation/devicetree/bindings/net/xlnx,axi-ethernet.yaml
- F:	drivers/net/ethernet/xilinx/xilinx_axienet*
--- 
-2.25.1
+The solution is still a bit complicated. But maybe, we could simplify
+it even more, see below.
 
+On Thu 2026-10-22 15:44:31, Andrea Parri wrote:
+> Unloading a patched module while a livepatch transition is in progress
+> can crash the kernel in klp_find_ops(), called from the scheduler.
+> 
+> The scheduler checks the stack of a task that still has to switch
+> without klp_mutex: __klp_sched_try_switch() -> klp_try_switch_task() ->
+> klp_check_stack().  The check walks the global klp_ops list and each
+> func_stack, and reads obj->patched.
+> 
+> Loading or unloading a patched module changes these lists in
+> klp_patch_func() and klp_unpatch_func() under klp_mutex only, and
+> unloading frees the ops, so the walk can follow a freed entry.
+
+To make sure that I understand it correctly. I looked at [v1] and it
+solved the problems:
+
+  + racy access to func->old_func, func->new_func, obj->patched
+    by using READ_ONCE() and WRITE_ONCE().
+
+  + UAF access to ops->node by RCU.
+
+There are few more details in v1 but they do not look that important
+for what I want to say below.
+
+[v1] https://lore.kernel.org/r/20261012140546.154730-1-parri.andrea@gmail.com
+
+> Protect the lists and obj->patched with a raw spinlock, klp_ops_lock.
+> Writers take it only around the list updates, as the ftrace calls in
+> klp_patch_func() and klp_unpatch_func() can sleep, and free the ops
+> after dropping it.  klp_check_stack() only trylocks it, and checks the
+> task again later if that fails.
+> 
+> __klp_unpatch_object() now clears obj->patched before it unpatches the
+> functions, so that the stack check skips an object whose functions are
+> being removed.
+
+So, v2 tries to solve the problems by:
+
+  + taking klp_ops_lock around manipulating: ops->node, func->stack_node,
+      ops->func_stack, obj->patched
+
+  + manipulating obj->patched after obj->funcs are ready
+    manipulating obj->patched before removing obj->funcs
+
+  + taking klp_ops_lock around klp_for_each_object() in
+     klp_check_stack()
+
+You see how the two versions are different. In fact, they have
+only the obj->patched manipulation in common.
+
+IMHO, we need to better document the solution so that
+we understand it later. Or maybe even make it easier,
+see below.
+
+
+> --- a/kernel/livepatch/patch.c
+> +++ b/kernel/livepatch/patch.c
+> @@ -22,11 +22,21 @@
+>  
+>  static LIST_HEAD(klp_ops);
+>  
+> +/*
+> + * klp_check_stack() walks klp_ops and the func_stacks from the scheduler,
+> + * without klp_mutex, while a patched module can be loaded or unloaded.
+> + * Changes to these lists and to obj->patched are made under this lock too.
+> + */
+> +DEFINE_RAW_SPINLOCK(klp_ops_lock);
+> +
+>  struct klp_ops *klp_find_ops(void *old_func)
+>  {
+>  	struct klp_ops *ops;
+>  	struct klp_func *func;
+>  
+> +	lockdep_assert(lockdep_is_held(&klp_mutex) ||
+> +		       lockdep_is_held(&klp_ops_lock));
+> +
+>  	list_for_each_entry(ops, &klp_ops, node) {
+>  		func = list_first_entry(&ops->func_stack, struct klp_func,
+>  					stack_node);
+> @@ -147,11 +157,15 @@ static void klp_unpatch_func(struct klp_func *func)
+>  		WARN_ON(unregister_ftrace_function(&ops->fops));
+>  		WARN_ON(ftrace_set_filter_ip(&ops->fops, ftrace_loc, 1, 0));
+>  
+> +		raw_spin_lock(&klp_ops_lock);
+>  		list_del_rcu(&func->stack_node);
+>  		list_del(&ops->node);
+> +		raw_spin_unlock(&klp_ops_lock);
+>  		kfree(ops);
+
+This is called for the very last entry when the 'ops' is freed.
+Is the lock really needed here?
+
+IMHO, klp_check_stack() should never see this entry because
+obj->patched is disabled before, see below.
+
+
+>  	} else {
+> +		raw_spin_lock(&klp_ops_lock);
+>  		list_del_rcu(&func->stack_node);
+> +		raw_spin_unlock(&klp_ops_lock);
+
+This is called when ops->func_stack has more entries and we
+just remove remove one.
+
+What exactly the lock synchronizes here, please?
+
+IMHO, it is related to:
+
+static int klp_check_stack_func(struct klp_func *func, unsigned long *entries,
+				unsigned int nr_entries)
+{
+[...]
+		/*
+		 * Check for the to-be-patched function
+		 * (the previous func).
+		 */
+		ops = klp_find_ops(func->old_func);
+
+		if (list_is_singular(&ops->func_stack)) {
+			/* original function */
+			func_addr = (unsigned long)func->old_func;
+			func_size = func->old_size;
+		} else {
+			/* previously patched function */
+			struct klp_func *prev;
+
+			prev = list_next_entry(func, stack_node);
+			func_addr = (unsigned long)prev->new_func;
+			func_size = prev->new_size;
+		}
+	}
+
+Now, when I look what v1 did here:
+
+  1. It used RCU to access ops and it expected that it might be NULL.
+     Also it replaced list_next_entry() with list_next_or_null_rcu().
+
+     IMHO, this is only relevant for the last entry in ops
+     which klp_check_stack() should never see as explained above.
+
+
+  2. It used READ_ONCE(func->old_func).
+
+     IMHO, the spin lock would be needed here only when
+     it synchronizes the modification of func->old_func here.
+
+     I think that we do not need the spin lock here because
+     func->old_func is cleared in klp_free_object_loaded()
+     which is called after obj->patched is cleared under
+     the spin lock.
+
+>  	}
+
+Summary: IMHO, we do not need to take the spin lock here in
+	klp_unpatch_func(). It should be enough to take
+	it around manipulating obj->patched.
+
+>  
+>  	func->patched = false;
+> @@ -191,11 +205,13 @@ static int klp_patch_func(struct klp_func *func)
+>  				  FTRACE_OPS_FL_IPMODIFY |
+>  				  FTRACE_OPS_FL_PERMANENT;
+>  
+> -		list_add(&ops->node, &klp_ops);
+> -
+>  		INIT_LIST_HEAD(&ops->func_stack);
+>  		list_add_rcu(&func->stack_node, &ops->func_stack);
+>  
+> +		raw_spin_lock(&klp_ops_lock);
+> +		list_add(&ops->node, &klp_ops);
+> +		raw_spin_unlock(&klp_ops_lock);
+
+First, this is not consistent with the "unpatch" code path
+where we take the lock around both:
+
+		list_del_rcu(&func->stack_node);
+		list_del(&ops->node);
+
+But again, this is the code path for the first entry in the freshly
+allocated "ops". Nobody could see it until obj->patched is enabled
+in klp_patch_object().
+
+   => the lock should not be needed here.
+
+> +
+>  		ret = ftrace_set_filter_ip(&ops->fops, ftrace_loc, 0, 0);
+>  		if (ret) {
+>  			pr_err("failed to set ftrace filter for function '%s' (%d)\n",
+> @@ -213,7 +229,9 @@ static int klp_patch_func(struct klp_func *func)
+>  
+>  
+>  	} else {
+> +		raw_spin_lock(&klp_ops_lock);
+>  		list_add_rcu(&func->stack_node, &ops->func_stack);
+> +		raw_spin_unlock(&klp_ops_lock);
+
+This is the code patch for adding one more entry on the stack.
+I am not sure why we would need the lock here.
+
+It might be needed only for the race in func->old_addr. But I think
+list_add_rcu() already includes the barrier.
+
+>  	}
+>  
+>  	func->patched = true;
+> @@ -221,8 +239,10 @@ static int klp_patch_func(struct klp_func *func)
+>  	return 0;
+>  
+>  err:
+> +	raw_spin_lock(&klp_ops_lock);
+>  	list_del_rcu(&func->stack_node);
+>  	list_del(&ops->node);
+> +	raw_spin_unlock(&klp_ops_lock);
+
+Like above.
+
+>  	kfree(ops);
+>  	return ret;
+>  }
+> @@ -231,6 +251,13 @@ static void __klp_unpatch_object(struct klp_object *obj, bool nops_only)
+>  {
+>  	struct klp_func *func;
+>  
+> +	/* Make klp_check_stack() skip the object before its funcs go away. */
+> +	if (obj->dynamic || !nops_only) {
+> +		raw_spin_lock(&klp_ops_lock);
+> +		obj->patched = false;
+> +		raw_spin_unlock(&klp_ops_lock);
+> +	}
+
+IMHO, this is the only location where we need to take the
+spinlock in the klp_unpatch_object_loaded() code path.
+
+> +
+>  	klp_for_each_func(obj, func) {
+>  		if (nops_only && !func->nop)
+>  			continue;
+> @@ -238,9 +265,6 @@ static void __klp_unpatch_object(struct klp_object *obj, bool nops_only)
+>  		if (func->patched)
+>  			klp_unpatch_func(func);
+>  	}
+> -
+> -	if (obj->dynamic || !nops_only)
+> -		obj->patched = false;
+>  }
+>  
+>  
+> @@ -264,7 +288,10 @@ int klp_patch_object(struct klp_object *obj)
+>  			return ret;
+>  		}
+>  	}
+> +
+
+This would deserve similar comment like klp_unpatch_object(), e.g.:
+
+	/*
+	 * Allow klp_check_stack() to check the object only after funcs
+	 * are initialized.
+	 */
+
+> +	raw_spin_lock(&klp_ops_lock);
+>  	obj->patched = true;
+> +	raw_spin_unlock(&klp_ops_lock);
+
+Also this looks important to avoid races. But maybe not because
+the main problem was when unloading the livepatched module.
+
+>  	return 0;
+>  }
+> --- a/kernel/livepatch/transition.c
+> +++ b/kernel/livepatch/transition.c
+> @@ -266,14 +269,20 @@ static int klp_check_stack(struct task_struct *task, const char **oldname)
+>  		return -EINVAL;
+>  	nr_entries = ret;
+>  
+> -	klp_for_each_object(klp_transition_patch, obj) {
+> -		if (!obj->patched)
+> -			continue;
+> -		klp_for_each_func(obj, func) {
+> -			ret = klp_check_stack_func(func, entries, nr_entries);
+> -			if (ret) {
+> -				*oldname = func->old_name;
+> -				return -EADDRINUSE;
+> +	/*
+> +	 * The lock is taken by module load/unload and by stack checks on other
+> +	 * CPUs.  Do not spin on it from the scheduler, retry the task later.
+> +	 */
+> +	scoped_cond_guard(raw_spinlock_try, return -EAGAIN, &klp_ops_lock) {
+> +		klp_for_each_object(klp_transition_patch, obj) {
+> +			if (!obj->patched)
+> +				continue;
+> +			klp_for_each_func(obj, func) {
+> +				ret = klp_check_stack_func(func, entries, nr_entries);
+> +				if (ret) {
+> +					*oldname = func->old_name;
+> +					return -EADDRINUSE;
+> +				}
+>  			}
+>  		}
+>  	}
+
+And of course, this is important.
+
+> @@ -300,7 +309,7 @@ static int klp_check_and_switch_task(struct task_struct *task, void *arg)
+>  /*
+>   * Try to safely switch a task to the target patch state.  If it's currently
+>   * running, or it's sleeping on a to-be-patched or to-be-unpatched function, or
+> - * if the stack is unreliable, return false.
+> + * if the stack is unreliable, or if klp_ops_lock is busy, return false.
+>   */
+>  static bool klp_try_switch_task(struct task_struct *task)
+>  {
+> @@ -344,6 +353,10 @@ static bool klp_try_switch_task(struct task_struct *task)
+>  		pr_debug("%s: %s:%d is sleeping on function %s\n",
+>  			 __func__, task->comm, task->pid, old_name);
+>  		break;
+> +	case -EAGAIN:	/* klp_check_and_switch_task() */
+> +		pr_debug("%s: %s:%d could not be checked, klp_ops_lock is busy\n",
+> +			 __func__, task->comm, task->pid);
+> +		break;
+
+And this.
+
+>  
+>  	default:
+>  		pr_debug("%s: Unknown error code (%d) when trying to switch %s:%d\n",
+> 
+> base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
+
+I am sorry once again for the late reply. I hope that you still might
+be able to handle the feedback and eventually test the simplified patch.
+
+Best Regards,
+Petr
