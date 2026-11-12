@@ -1,115 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794507100;
-	b=4ijmzUU+Sd9+oo6YodZS+9+AVJZ5ycGfnmO+3Um8YZjssnIfsBr64RjsyzkAJbL/bGk+
-	 d61if0T/IyfY2EKrvQX99rdBnekXOjifQBMRUksVEG+rOYJ+XMuvLik8nUKEXkkFsG1R6
-	 XMzL7pTucF7o4UepvNhA0q4mdpdSzwXPgP4gbJMHBAcejvD2vBsww/lUC5E12QnSc0m3F
-	 dU4b5iQcPGM1BANqtcr69seJf3BpjU9PPth9uNRj9vNcck6r6wqWDVWSo4loW1+PJHq7A
-	 Bd5dNlySdi0oHOOPnJPnyw+FtewBhZXsLMqT6UAYBX73fZqlggG5cajNUjPNYC5JWOg==
+	t=1794507174;
+	b=w/Bz/J9erex8EYsTamO4Ko+nmt/zFsxfawbOeTM+OkALcnX0FivEOwx4zLGiHw8OOONh
+	 I+1GNMwZnbsaFpIoWjisNLMk+GKA8097+jrlYXrHwNCrqAyCXVI18IsW+cm+b5s1Y4IJ3
+	 pWhOsSPQtKkROKWoQ4KeE3sXy+7aaeqAYHXNIW0k/FdCkQx89QeByo8CyWchY1OdwWxsB
+	 /GaQE1m0TPPlncHldsUZZDgmntUj8pu4XP+S4w0SpR9Lh4z+2CYclXI/YG2NSJbzg5pQO
+	 odpE5YDCxZ6qkTf6Zcv2MXNLBC3wFF855Zb3l+UGe3Uz6jQQ9GcRJ3OmDflILhP07zQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794507100;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:
-	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:
-	 X-Spam-Score;
-	bh=LM8wBhNRNhOCG/pAJr6opW9xMvaqFILD9ZI28NtAf/s=;
-	b=4iv1H1Su7Dp3yDzF4DXEYoc+BX3KYxeGWwWB5oTc/uSLsY+2oiXkwOIHEN5/vF4vgyu2
-	 tC4TDc7AKVAmfvTtYfRfT34GTvRzb+uRNLC5PywaaponcfDmV8huUt2mQCOOr1DNq7Gk3
-	 ybynlB3KyFc6IfEu/shd9tTJGdX2yYii/Dhn5+Aran6AoWJqpOUGTAJpruIHUXceyfIvM
-	 bNR7YriSgjn0cjCobJKVSdqO8WXIgAuIxsDUSRLx7ZSYa0jXoEppXBoykxVlB8RFa76uV
-	 oyV8eCyeS5LA2KAf3683oLFDhPUmttZnCprpewVVJ14B2v/zn6YXDvRghltVaYPCP0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794507174;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=tvPvYGksmHTWeqyNsQWxBvyC/kcPNDGmR79WDiO9WKY=;
+	b=MqiadOdcEb5DQnPdHVUTrxyb+BzN8a4noWITVy/WyHZhG45ttW5rrNRxyCdczH0uPxD7
+	 rUfU3G3UFTcgdsJflJCbYh4rKx0cjkR0587XO2HkgTjM/lyilrQtDFC+fdxefPAJ0adxd
+	 rK9t9K+sFsaA4SeLpqxOuEc6go8hVqfS4bIG4NeEzzm9j1CSIP5mnsYBhxk6r2fS7odJW
+	 DKW3GSxxwIXynanuJE7W3oRr7PH+eJ/pm2IqGnQCL28KxYlaCsNgorD3Hg3vaS3k4B9XU
+	 aj8yzIUkFtCVm94AzKNCvd3IOEADfCf+7ncrLNP5OpJm7vq+c6a+E53x1Tft0h0GE1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=bteK92xW;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=eq1GcahI;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=bteK92xW;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=eq1GcahI;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=LnA3trdc;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E7B606A334;
-	Thu, 12 Nov 2026 18:11:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48E7B606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4861D606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:12:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4861D606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=bteK92xW;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=eq1GcahI;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=bteK92xW;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=eq1GcahI
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 278691F7CE;
-	Thu, 12 Nov 2026 18:11:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794507098; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LM8wBhNRNhOCG/pAJr6opW9xMvaqFILD9ZI28NtAf/s=;
-	b=bteK92xWwILulLFJBTyYTeH+vD3loZ4YW1kYfR6l+JJ99ue9NkjEXtGZeIHk1dNko/8Iis
-	McWYgxcY6IyJu9HnmoN+WHAkBPRTVK/2zW/ugqe7dncGOmBEWr/SZxNmE6ZSylRusUnU0w
-	B6T847t9NH5kQyNpQZoMZF7aXF7dqzQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794507098;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LM8wBhNRNhOCG/pAJr6opW9xMvaqFILD9ZI28NtAf/s=;
-	b=eq1GcahIE8BIo3ZdgeXKet6VrbMMzZCM9cN5wbkl6zNBSjDCscd/CsJ9HG8MvHYUH4boqk
-	XpEzWctmukEgEdAQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=bteK92xW;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=eq1GcahI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794507098; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LM8wBhNRNhOCG/pAJr6opW9xMvaqFILD9ZI28NtAf/s=;
-	b=bteK92xWwILulLFJBTyYTeH+vD3loZ4YW1kYfR6l+JJ99ue9NkjEXtGZeIHk1dNko/8Iis
-	McWYgxcY6IyJu9HnmoN+WHAkBPRTVK/2zW/ugqe7dncGOmBEWr/SZxNmE6ZSylRusUnU0w
-	B6T847t9NH5kQyNpQZoMZF7aXF7dqzQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794507098;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LM8wBhNRNhOCG/pAJr6opW9xMvaqFILD9ZI28NtAf/s=;
-	b=eq1GcahIE8BIo3ZdgeXKet6VrbMMzZCM9cN5wbkl6zNBSjDCscd/CsJ9HG8MvHYUH4boqk
-	XpEzWctmukEgEdAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0349413432;
-	Thu, 12 Nov 2026 18:11:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id FXq8MFgB9mrpKQAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Thu, 12 Nov 2026 18:11:36 +0000
-Date: Thu, 12 Nov 2026 18:11:35 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: =?utf-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/khugepaged: reject shmem collapse ranges beyond i_size
-Message-ID: <avYBFPhB46XWAG4A@pedro-suse.tail5790ac.ts.net>
-References: <20261112142335.2749597-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=LnA3trdc
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-492fcbfaa87so26241f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:12:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794507173; x=1795111973; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tvPvYGksmHTWeqyNsQWxBvyC/kcPNDGmR79WDiO9WKY=;
+        b=LnA3trdcVWMwTnKTLbaOHOhAqd2KqrmCC1w9umS0vVBTxUNFAnMiZDPubBbugO2S0v
+         4VnrccP83ARKl0BwyWLu7FEyQ8RDPoe9yzjHqlo5sYIYg2iXigBfYbvEobN89R83NqFs
+         OvbbwXh0drfouYC0K+4L+euiT/09A1sDrNVCeFpFclI6f7Sj0G7WidM7EKN7Wm7XP8oz
+         FajxuqViOs2dYpLd2gzh63PvShJ14pIw4TbmJ3TMDIxFvIXLa97aw1fQQQrdj+4bQa3s
+         6Fg6pYv2E0fcO7xMtDOt+wIIsLMKiiPtXI3TeihSIIkZ4QqmA1MbSMro6WoWhdeJTX4n
+         sUBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794507173; x=1795111973;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tvPvYGksmHTWeqyNsQWxBvyC/kcPNDGmR79WDiO9WKY=;
+        b=r8+WlI8qCmpespOWNpmnW4VmYJZwOmjeaNebIVi9ljqwQqsKBh6eKVPftiRKBL1E/k
+         Yb3cE7hF8Gkt3c/iTNAf3ag8pJei/xVDILN93mXSExNFg0K0aAGX/X6SXGZSg0Du+r+7
+         qn6mAhNMNCn9/ktmNMd9YtEis0FbtQXuLNA30NmrvWX9gdEURk9hBAv66/N2SWn9FKfG
+         Wz7hfB45d95s8ja/HyUu2ea+mSEV4fok2atU8oTO5MdcmNZ3h8A1dv93hzuWN3aUJV4q
+         W9HYgp5TvxLdRfgDK3UslY/9ONAYZ3yySrxZLFqSd7lP0s48IOchbTbVWxfKo2QgafUo
+         W7pA==
+X-Forwarded-Encrypted: i=1; AL+hErH93f0igh3Sna/MkAGa/OgArSxOkFBP1lj9HRwCzW9s8T9l88e7iG9J61F45BaZket0Gc2ZswbztLv7eyM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z95nlbJzShF5uxXtNRi2x6S49T0KdW2YvRQvMVrjgGTxi2AFLzY
+	w5OQxR83a5E2UGV+4I7bYkRbuColSGIv8SSGoFShWdI+Vu8riTk7OzUzlJjXY8nIiBI=
+X-Gm-Gg: AYBFou09yUQQlo8lubYAAA58ENk0BXFkAD55hG3tX/EXbm5H/n7iG433TteHSgMIX8T
+	RQ/3QZplUTNb1LU16bt/sicvtkAg4kQxvgE/BdhSTKaAHUjuT1CI9OhLzg2m5nIW2Y4wBwz2mgn
+	C/KQRPRjyqm09f+Q9x5Uygowe3SORaBurLcY5bvV+Nmp9UL89QkYuxCtlXoSo8powuiQEy1m29s
+	YHn8J2JngAQJ4Y8zughDFeweS3lZXsWQxO+W+HUIohZuhkJSj1zyV2iD024jQT//JKKbTnYCGPo
+	2bBwAxQelgv3Z8VOAaVsp9t5VoYY8mjhOVWhjo/h7arbFiIM1ycxbTXPoqbPD8+Jfp3qehJMxyg
+	8QKINpy2LM8m9N6DuaPRsdqlGex0HDHaYhwISspBgUoAtHSuvSFzMuOo4OaC7QLwqy72EQ1tfY5
+	Nel0KO5p2XyCU42QjTr1d7Y5pFPI8FfG/ws9vAuL6cMvpHyNPldwPsx+uDCCluvQcMj4Iym8S0V
+	iaPPkvQzeKXcLSiNdWgHTE054Gas6vOgdqyekhwzchceLCPlkKDHdAo9mF8/oJIF7rmjsU0R7uE
+	xOzqLIGD1kDQj3ScuAv5csbLTM3l+i/cDJhBfN28vMr06YC36zdIEEPPwcm/j0gE1PfQc2Lkpu2
+	NYqdovZM=
+X-Received: by 2002:a05:6000:22c1:b0:488:83f7:6352 with SMTP id ffacd0b85a97d-49c6fc9e5bemr472663f8f.4.1794507172668;
+        Thu, 12 Nov 2026 10:12:52 -0800 (PST)
+Received: from ?IPV6:2a0a:ef40:e16:1f01:b442:1e4f:d5a4:2a21? ([2a0a:ef40:e16:1f01:b442:1e4f:d5a4:2a21])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60bb2a5dsm556563f8f.50.2026.11.12.10.12.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 10:12:51 -0800 (PST)
+Message-ID: <bbce8927-1b9b-458c-827d-46f2bb795da0@linaro.org>
+Date: Thu, 12 Nov 2026 18:12:50 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,56 +93,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261112142335.2749597-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Rspamd-Queue-Id: 278691F7CE
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -13.51
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] clk: ti: fapll: remove ti_dt_clk_name helper
+To: Brian Masney <masneyb@kernel.org>,
+ Ettore Chimenti <ettore.chimenti@linaro.org>
+Cc: Tero Kristo <kristo@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Tony Lindgren <tony@atomide.com>,
+ Michael Turquette <mturquette@linaro.org>,
+ Rouven Czerwinski <rouven.czerwinski@linaro.org>,
+ linux-omap@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261028-patch-ektor5-dm8168-clk-v2-0-dc6bf0fabae4@linaro.org>
+ <20261028-patch-ektor5-dm8168-clk-v2-1-dc6bf0fabae4@linaro.org>
+ <179444595968.1126566.13848954974182834412.b4-review@b4>
+Content-Language: en-GB
+From: Andrew Goodbody <andrew.goodbody@linaro.org>
+In-Reply-To: <179444595968.1126566.13848954974182834412.b4-review@b4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 12, 2026 at 02:23:35PM +0000, Jérémy Jean wrote:
-> MADV_COLLAPSE lets collapse_file() treat absent shmem pages as holes
-> filled with zeros. It does not check i_size, which allows one present
-> page to become a huge mapping that covers the whole collapse range,
-> including pages beyond EOF. This makes those pages writable. A later
-> file extension can expose their contents after F_SEAL_WRITE.
+On 12/11/2026 01:12, Brian Masney wrote:
+>> The fapll driver uses multiple `clock-output-names`, so we cannot use the
+>> DT helper in this driver because that would assign the first clock
+>> output name as the parent name. This change do not affect other SoCs as
+>> the only consumer is DM816x.
+>>
+>> Fixes: 9e56a7d4263c ("clk: ti: Update pll and clockdomain clocks to use ti_dt_clk_name()")
+>> Signed-off-by: Rouven Czerwinski <rouven.czerwinski@linaro.org>
+>> Tested-by: Andrew Goodbody <andrew.goodbody@linaro.org>
+>> Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
 > 
-> Hold inode i_rwsem in read mode while collapsing shmem so i_size
-> cannot change. Reject a collapse if its page range extends past
-> i_size rounded up to PAGE_SIZE. Keep i_size_read() outside the
-> page-cache XArray lock because its 32-bit SMP reader is not IRQ
-> safe.
+> I see what you are doing here but can you give a more detailed commit
+> message / argument here in favor of the change to make it easier on
+> others that will evaluate this about whether or not it should be
+> backported to a different kernel.
+> 
+> Brian
+Maybe Rouven will step in here but the main thing is that fapll.c should 
+never have been converted to use ti_dt_clk_name() as it does not work 
+with the binding [1] and usage.
 
-I don't think this is an issue. shmem/tmpfs purposefully maps with large pages
-across i_size, and collapsing across i_size is a feature, not a bug.
+eg with the node
 
--- 
-Pedro
+	main_fapll: main_fapll {
+		#clock-cells = <1>;
+		compatible = "ti,dm816-fapll-clock";
+		reg = <0x400 0x40>;
+		clocks = <&sys_clkin_ck &sys_clkin_ck>;
+		clock-indices = <1>, <2>, <3>, <4>, <5>,
+				<6>, <7>;
+		clock-output-names = "main_pll_clk1",
+				     "main_pll_clk2",
+				     "main_pll_clk3",
+				     "main_pll_clk4",
+				     "main_pll_clk5",
+				     "main_pll_clk6",
+				     "main_pll_clk7";
+	};
+
+The use of ti_dt_clk_name() results in no attempt to register the clk 
+main_fapll and duplicate attempts to register main_pll_clk1 of which the 
+second fails leading to an early exit, the clk system is left not fully 
+initialised and other problems follow with eg USB failing to init due to 
+lack of clock.
+
+Andrew
+
+1. Documentation/devicetree/bindings/clock/ti/fapll.txt
