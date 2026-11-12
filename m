@@ -1,61 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.67
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794518908;
-	b=n3Up/TcKgTSJ0nX8j6DCJKenJdhuXAgaMiUyR7PNS/8Y+ix1Q3iH+tHnENbKhM0oGkvc
-	 zgpdLcyEEEz2vPcJRST+c0hi+ilEwdGarSK06jyCLNO3qNT7MWF/VnbnSFXKkrfnkGRb6
-	 3mP2eLBKZi4wY4lJUcMDzw5HCpEcdtZK6T5A/r82UsA3SxOEH8jLuyljV/M9t7uvRyuxZ
-	 1uWfhzg/QxPt+gslAR7z4ovnguiCCtoVuDoEV+4pwgfeMx2xocA5nFd1++93mZbIReFBa
-	 pwVKHvmlpU7RteZI6WJbpHZJTgtJ1N0MFFdBGn8W1TBiP/02kPKM7xeP39JHzUVYdRA==
+	t=1794518936;
+	b=hUiilEvxmYUXFPYi8Px8EmkN67RRXQ/4J/J4p0PK40bFxlG2EsRKveQnDQvkNLJq+KZd
+	 c0mC7Ci1nE3MbXheFm8PmOGs1/M5Mj4PCWfAltk/G4L/wxDxR/bFXQZeA7f21GrJ5Cjqb
+	 Z123hfsf4VnGtUMC1MqaBtz64fd5Jj1stxUDeBJPEWtnm9r/NxYBaDfmF6DhDKXABu0iD
+	 P/pnj9Xh7giYzMjpwCuv7r6DXax/rvYJ7QqzBIYXvxIGa92rru6iaDn3yuRy/nCquE+Pi
+	 xRo/pRgDMnmHv+h/BB7B2ylMxfXWNoUfsSANHUo6OMAzKOYMgaIFEzvuN2o0e6BwXgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794518908;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=h6Eo0XlcXWzNo/1A0p0/ThIiBGDgrSwqCITWPuHtixw=;
-	b=kfEP4cELcF0caC3Ea15C4UZaYVnuLbkDqDHSSJBG0hwDmXvXLbIKz1tK4vNxvVkxGjE5
-	 YLsPNkIgReNezohooBsNLjfibLlnYVU79BQdn9qpNHcqlg7ivxEvVjBH4fuympp2YHzMe
-	 r7E2WRtsChMSZu7QdO0SInsUrCUwCrPcYw3LFu4Bf5vMU/bJuhXWxhgZsijMlhBIuav6L
-	 Anw52G/z8Cwo9Po19RmubhPHcm5yotd2EjeUmMGY0+9lhhJnGqIbA7f87Y41vyQk9WQez
-	 NsKABdlul0lVeid9DuKFg1efUv+1L2hpd05HEgdqXapp/FpYzrM8FrYSBVaPj/7angA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794518936;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=pzlq5o6tDF2OByZqSgFIlv+mTgpxtocxWTJ+jzA91r0=;
+	b=GjvT6dphAtoQpuMkQHwN50IYeTchZl0rzIdXlOrXwbeCjnZzMiIRdj5VhzRlS0BTK1Yz
+	 nYFPHY2XrFwYNMAQyt3ZAOA7ySA73hLYzIBKtCSXnlFs6wmPaJTmI6IvZOyxlEkxPZd5J
+	 D73Tn5g3LNszjSwhCIrzwz0iQM7wJKkqC/KBKEgeqqRd28z4m60cVHLAsoe4Vqr1AoFET
+	 /IrRCasDkZ0S1s72h/AHND3EDgr7ugVbezSSMEbOJdDX8QLscHINmTrIHHFvSZxiz7yZJ
+	 9rYLPX0Gff3Gkpr0fgYSaTckptuLYcnmlFxUxiFGNeIiBAASNicSfQZ81mGb8bzKOXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fiilfKCh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=K8YJUhHq;
+	arc=none smtp.remote-ip=95.215.58.67
+Received: from mta1.migadu.com (out-67.mta1.migadu.com [95.215.58.67])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8AE606A31C;
-	Thu, 12 Nov 2026 21:28:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1276A606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:28:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1276A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fiilfKCh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB9081F000C4;
-	Thu, 12 Nov 2026 21:28:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794518907;
-	bh=h6Eo0XlcXWzNo/1A0p0/ThIiBGDgrSwqCITWPuHtixw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=fiilfKChROavlxHT1KkCFLjLthg63yVRIg0vhy9Dr0ZR1LkXb3pdZM3wT5cu++9tB
-	 FN9R0SESt7jS6U7fcprTYEvbsyvmz/pTgcNzwDR5SNsCtWdhj2FMb+NaoiVS+I32WK
-	 bp8V9luAj0fhjw0ZvV2Dx4ksGq/IfVr69YsZMy7dDeJaxS9+X3cJE6c4qPXLqCJxb3
-	 LwQ5nhIo6idjJWYCZnWp13ZDgZpCjEEtAa3TMB2qMkBjLbXgZBzOvltK9kDQ3WIUqq
-	 nN66x83jRwgD93ogX39X6lqkoZxvEPLwxg7wDXHj02I2v5dOJaUgKVhax4d/QbH++9
-	 /NLizGn4uFeKA==
-Date: Thu, 12 Nov 2026 15:28:26 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Nathan Lynch <nathan.lynch@amd.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	David Rientjes <rientjes@google.com>, John.Kariuki@amd.com,
-	Jonathan Cameron <jic23@kernel.org>,
-	Kinsey Ho <kinseyho@google.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	PradeepVineshReddy.Kodamati@amd.com,
-	Shivank Garg <shivankg@amd.com>,
-	Stephen Bates <Stephen.Bates@amd.com>,
-	Tycho Andersen <tycho@kernel.org>, Wei Huang <wei.huang2@amd.com>,
-	Wei Xu <weixugc@google.com>, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v4 01/25] PCI: Add SNIA SDXI accelerator sub-class
-Message-ID: <20261112212826.GA907393@bhelgaas>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=K8YJUhHq
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=pzlq5o6tDF2OByZqSgFIlv+mTgpxtocxWTJ+jzA91r0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794518933; v=1; x=1795123733;
+ b=K8YJUhHqGxA7XgVfSepSKM8fkrUqXgSYLqwGVmNpKneIDVmRTOTBnE6MmtKFYFSllf6I7geg
+ jeb8RjD5PwnFOsup1dZOLPulv1vY78TNLD5ITrrXC0s+DfJCuDsAsOfcz5MT3VJrm3v3RA5c5Ap
+ x3vdhc3shB/6Rs8WrNdDj5T8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 831542d396af7fc5;
+	Thu, 12 Nov 2026 21:28:52 +0000
+X-Mizu-Trace-ID: 831542d396af7fc5
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 12 Nov 2026 22:28:50 +0100
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Kalpesh Solanki <skalpesh942@gmail.com>, pkshih@realtek.com
+CC: kvalo@kernel.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v5_1/3=5D_wifi=3A_rtw88=3A_clear_RTW?=
+ =?US-ASCII?Q?=5FFLAG=5FRESTARTING_on_stop_and_start_failure?=
+In-Reply-To: <20261112131401.236433-2-skalpesh942@gmail.com>
+References: <20261112131401.236433-1-skalpesh942@gmail.com> <20261112131401.236433-2-skalpesh942@gmail.com>
+Message-ID: <24B0555C-4ED8-4403-BBD1-0E82611F0BFE@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,52 +66,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-sdxi-base-v4-1-3668ccc7aab8@amd.com>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 08:49:42PM -0600, Nathan Lynch wrote:
-> Make the class code for SNIA Smart Data Accelerator Interface (SDXI)
-> functions available to both C and Rust code.
-> 
-> See PCI Code and ID Assignment spec r1.14, sec 1.19.
-> 
-> Co-developed-by: Wei Huang <wei.huang2@amd.com>
-> Signed-off-by: Wei Huang <wei.huang2@amd.com>
-> Signed-off-by: Nathan Lynch <nathan.lynch@amd.com>
+On November 12, 2026 2:13:59 PM GMT+01:00, Kalpesh Solanki
+<skalpesh942@gmail.com> wrote:
+>When mac80211 stops or suspends the device without WoWLAN,
+>drv_reconfig_complete() is never invoked with
+>IEEE80211_RECONFIG_TYPE_RESTART. If firmware recovery was in flight
+>during this transition, RTW_FLAG_RESTARTING remains set permanently,
+>blocking all subsequent firmware recoveries until the module is reloaded.
+>
+>Similarly, if rtw_core_start() fails during drv_start() in a recovery
+>restart, local->started remains false. When mac80211 cleans up via
+>cfg80211_shutdown_all_interfaces(), drv_stop() returns early without
+>calling rtw_ops_stop(), leaving RTW_FLAG_RESTARTING set permanently on
+>hardware that failed to recover.
+>
+>Clear RTW_FLAG_RESTARTING in rtw_ops_stop(), as well as in
+>rtw_ops_start() when rtw_core_start() returns an error, ensuring the
+>driver always exits the restarting state on error or teardown.
+>
+>Fixes: 5c831644e1f4 ("rtw88: handle and recover when firmware crash")
+>Cc: stable@vger.kernel.org
+>Signed-off-by: Kalpesh Solanki <skalpesh942@gmail.com>
+>---
 
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>	# pci_ids.h
+You seem to have missed it in v4 so please pick up this tag in v6.
 
-> ---
->  include/linux/pci_ids.h | 1 +
->  rust/kernel/pci/id.rs   | 1 +
->  2 files changed, 2 insertions(+)
-> 
-> diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
-> index 030c86dd6d67..dcb26f52b5a1 100644
-> --- a/include/linux/pci_ids.h
-> +++ b/include/linux/pci_ids.h
-> @@ -154,6 +154,7 @@
->  
->  #define PCI_BASE_CLASS_ACCELERATOR	0x12
->  #define PCI_CLASS_ACCELERATOR_PROCESSING	0x1200
-> +#define PCI_CLASS_ACCELERATOR_SDXI		0x120100
->  
->  #define PCI_CLASS_OTHERS		0xff
->  
-> diff --git a/rust/kernel/pci/id.rs b/rust/kernel/pci/id.rs
-> index dbaf301666e7..d714e4b83852 100644
-> --- a/rust/kernel/pci/id.rs
-> +++ b/rust/kernel/pci/id.rs
-> @@ -292,6 +292,7 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
->      SP_OTHER                   = bindings::PCI_CLASS_SP_OTHER,                   // 0x118000
->  
->      ACCELERATOR_PROCESSING     = bindings::PCI_CLASS_ACCELERATOR_PROCESSING,     // 0x120000
-> +    ACCELERATOR_SDXI           = bindings::PCI_CLASS_ACCELERATOR_SDXI,           // 0x120100
->  
->      OTHERS                     = bindings::PCI_CLASS_OTHERS,                     // 0xff0000
->  }
-> 
-> -- 
-> 2.56.0
-> 
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+
+Best regards,
+Luka Gejak
