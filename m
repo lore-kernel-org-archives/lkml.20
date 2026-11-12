@@ -1,108 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492317;
-	b=bpYVWBdVGC+AqfC1vDENkHLOJosII/dZM1u7y5lYsmLcx3MWKSaJ5ouHX+1MYI/11293
-	 ZB6OaIM6kCHzVbq7/kogenQ3IhufYqd0/xtZh0V/gCd3tBbRaVhkTugrP27FPsjKQz5cO
-	 7wHdpJxq6UodFj8XVKSZUeUlmPAC908T/O0RWN01FXWvOb8d8DxMSl4TUw90SjcGOI2NL
-	 LORalfaruTXmAmkaDlXVN/c7lkvre8F7pxp1dF48Z75lBJVK7+thmYq6QwxWxIs98WKD2
-	 X90VYmdtGS6hohHpU7ZyTHSqX3Ox7J6fuyvkb6PtvbRj0/R1T31ssUQqM0eWcCdj35Q==
+	t=1794492332;
+	b=pETL9WKiwFZsIDPcKSn2dd9i0NqbIRC325H60lKLkTjmRLGbKw1RxA3f/U8486S6xaEX
+	 O9o4VUPnANgKsb2S8ZFdMa8E7sYJ78Usa9vs98aTVt7lf/RGGKzL3QTx89weiAb3dfiz2
+	 LB6aVZRzurnLJiAMH8aZQ7t7TuvjBL9rja+eTJN2CyKil0Ay0yo3BqJJVcMyktvCRJe8+
+	 B8uC4sWhywynBmJrvc7ro7Kw+0V92e7TOSvRs0M9VC/a3Kq9wqh9rjd7EpmGzQBLmd8Cd
+	 6xi4Hh2trHgoeAC5I3Ms6pFXsBbbKUR47PEakaP+BS/CYVeovwu7ha4F6yxqNFVUjvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492317;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=qwOHr2x3L679VhytAnH3M283eQvtUAQoXPmyYPQX/nw=;
-	b=vTkP7FQMqGFYkMAV/1xsvhnf0fKUfWVVHbWf9vcrx8uKpMYbpNOxs0jsp28mlxjF9EpF
-	 rWxqCbj6RncxQjvXLiXpkzfLdfD6+JcClgTXywFXLfElpAcwR+FvZjGX+gvyUsLYPhMTs
-	 hh1wqc98MbSPfO0/Bk8TXI7BszwwuDdb0XR5eQgjpWdOSzKif/MpZm/TZmHxYTdFAXP5I
-	 fMmZgjJ3/L83Y0W6weA78Eyn0gZeoprXpJ2XX06eK9cZEua8+5i9ZZSrFDgmsa7OydVqK
-	 kMEWLUJLyI2Tw+U3fLTpvWlisTNjtEAgicZVnZBw2ZmYXSb0zarGy7OdQPcU6Baig5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492332;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=pko6mRCMfp9Cyyy/gAoWpwIveNBcnJXIKlKgVug+D/o=;
+	b=0PLuREfjwafVi3pV5h0uIYTT9YS+CUlF78PM7jYuH16kZncBvA2GI4LnCGkrdu1DWEhs
+	 f5Vtn1pudV8nHasHsYpa2nwTv7nF/RpRwy//9iN+WKbQ780dXvm9f6HUjyazKHvjk0iQW
+	 xactNKfto7GVWZGEGQ4xFglPRkO2MWWtmBOzVA6oM7I0m+QbQCP/FKIXDpewY+YQVC5y9
+	 lnh+5zdb+Oel/21iS7lPapZEWYgIaU1zaUwcMAHZvlqyNXC1QQfpWHn7XubGxIfWV82Ux
+	 rkj5B3qvyj2rFALUj4RxruzptiZJ5InHo+IXm4QfJIHMCq6mUT5fHLUdmmEezf5PQ0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="fI/l4XZW";
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=g+cw5PSh;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=Xh+h1wSV;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=FqEKdWwe;
+	arc=none smtp.remote-ip=202.12.124.158
+Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1E3606A335
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:05:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E1E3606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E273606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:05:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E273606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fI/l4XZW;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=g+cw5PSh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794492315;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qwOHr2x3L679VhytAnH3M283eQvtUAQoXPmyYPQX/nw=;
-	b=fI/l4XZWEisf4VO5sxe76eUST3pzAeeoLaztAegxnmOhpLuPXmeg3h+hJVzX+WqvZJQHqo
-	PxC7FLa+Cg0C4sXxe7zkFXZu76ztnBguHQlyJErUDCfHjUE3DybE1uWUS03VYp9b/VlNby
-	uPdT5Ue4gIu+6W1xKxPKsWNs+MGBNHY=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-614-L929vT6lOYet9-1MgPvhKQ-1; Thu, 12 Nov 2026 09:05:13 -0500
-X-MC-Unique: L929vT6lOYet9-1MgPvhKQ-1
-X-Mimecast-MFC-AGG-ID: L929vT6lOYet9-1MgPvhKQ_1794492312
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4b9f7cace4bso39959905e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:05:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794492312; x=1795097112; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qwOHr2x3L679VhytAnH3M283eQvtUAQoXPmyYPQX/nw=;
-        b=g+cw5PShQ1TmdYi/Ffx1rNJE34Y90yiPGG5zzOZ1RoI4DT9ZjcLp9bDkZDnQDXwCGW
-         n7Vnqx9eDfmgQd88aMjG7A3GtFd3Ab6OGtEixjGIigoDrq9NAYQv1T3aDP3E3FYRFHwu
-         O/3UyX8tMOBIcY8vnhAzJBC2jNnJjTar6RNuybDwIvnvvrtsTeG0lJDl+tygtU6LpQha
-         r7qmXbC7XIqF9Sh4aCHVlAyTIE9zOM1TwbeHNUizKZSZn44kT3BspMC9q8m6mgketHAa
-         44UqaWzNr/ZgOr3OQPzlMTOnbtbV/ZO7m+BgQ+2xZNLPJArYW5mKz+IftthH7BTk5j1C
-         5Uqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794492312; x=1795097112;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qwOHr2x3L679VhytAnH3M283eQvtUAQoXPmyYPQX/nw=;
-        b=wHDWN3GZLwcD8+FDyZJHuTvy5MNzTQ8HSjFaeM5uGbRVLYwdB2J8ZBnBU/zADCpNrZ
-         7ujpTXI1TgPbRhn4Q7+6HYv1+AyjoSt7EAeg+ahoo7ZQriCANpRZ3fMntdqGN9COa+ka
-         IKpeaY82x/Xr3u22Nwq/NV6OugAMhurNxYI9tLKCq0O/fPD1ONtjB5+3nlnVTUYYd9s6
-         WIPrDAB3lT8cRTu9FuRvyTM8Cg+nrcAXqSbSUT8JAvVoZCIbMPiR8CQe35SFbULD/CwY
-         VLuQ8dQpU4hBDV639pK/+n/khGbLeF/6Vm10kJijYrWJJ5JqwqfZ+eg561JUqx49OIZk
-         JD5Q==
-X-Forwarded-Encrypted: i=1; AL+hErHtIgXBc86LXysoJMmRWPi/PE6Fe03TcKFHGxk0khvNCtlhj+RjV8BfpYDpQ+MgUOpIH/jlFiA9GPUbO5g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+gHbZaVUWMA24yF0kniR2gOthaztR/STlV9m/YA3xAqC2vq8KW
-	516p6dD3HaRQmv0IIXLl9x32iK3KFiLThW9ADsf0/+E7qP1Sllv7WwYIaV3cIAhi8NDYI68HIJ3
-	Y7UX6FCo0gn+INhpXNC90stLRk2fHTkQW3+p+H3nmQtU5TG1S7FJa/ZVAWbHlMMdZxQ==
-X-Gm-Gg: AYBFou2y+xkAb5wfLJpMHOvBa6sSn4wpoDcMrigZGk2Rynf2KPSjnTvUo0SZWyLKxH1
-	fc8ujeYyXhE/oJe36BI63AyxXywTYZLNNljZi98cMpGcFSMp4/zz1ZaOuiS2ZVhaANjI61yT2OY
-	zzVRReqGOggplT8XXIoujlL0EcSUalrVzETzr+L2PA+Xq3xmyLqeKxOuDp8cNF+S8ikLfoZaIjI
-	kuD4c4TMt8oBfBxidwwMEB9DNxUb7rR+HlYl7TMP7KD36gWwCk58k1xW6T3zclgH6FYywWU5oSe
-	lGUGAzfGzuOJeTZGNEIK5H2Sp3gGD0flCm7QiHd7VBvlCLSsCMX0uwyLCq2JoD0066Mj/LcMxSG
-	rBPCeyHcrmyYmCnN3cFulBYe7YAI63ubLKw7R/qKdKQKwo2Ea79iVWIo3jOyYaGwNMgNP0+3Qr1
-	eqDlHwloWd9RJ5X1g90feIYuv5fEV1dpFCMydZGrSch9Gi
-X-Received: by 2002:a05:600c:3486:b0:4a1:d8fc:8165 with SMTP id 5b1f17b1804b1-4ba093b981fmr95344795e9.20.1794492312284;
-        Thu, 12 Nov 2026 06:05:12 -0800 (PST)
-X-Received: by 2002:a05:600c:3486:b0:4a1:d8fc:8165 with SMTP id 5b1f17b1804b1-4ba093b981fmr95343965e9.20.1794492311603;
-        Thu, 12 Nov 2026 06:05:11 -0800 (PST)
-Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498366c43f4sm19847458f8f.47.2026.11.12.06.05.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 06:05:08 -0800 (PST)
-Message-ID: <06c0d36d-3492-4fd6-a6cd-8f328b202baa@redhat.com>
-Date: Thu, 12 Nov 2026 15:05:07 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=Xh+h1wSV;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=FqEKdWwe
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 87AB27A00F6
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:05:31 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 12 Nov 2026 09:05:31 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794492325;
+	 x=1794578725; bh=pko6mRCMfp9Cyyy/gAoWpwIveNBcnJXIKlKgVug+D/o=; b=
+	Xh+h1wSVBu44nSJ74HnYBVZC3D0EBf1F6f0FHS7sToQviRCNenAi+z0CBn0Jwnox
+	ejnFqzYKhIx51SNCnaUSnZzzqrQ+wqvQckDK/fMjWzFOO2enBez9pGWqHZf9eS79
+	7TqHB9QdwSNlpvFDqzH0SPMAmX3a3kSolXe6DKs+ij1SwIupxzQzK+bPO+p5fSpZ
+	YEtrA07xt/Q5H+cyOb/m8WWQXhqCvZtYZBN5r0VTNpsWfLsx5KSYwLH1gPTz8wh7
+	aAqiDcYOqUbLfnb6FUeX3j1uLR6qs97kX1JsfW1YijTycwg1n8uBYQy+YQQIx/rG
+	6nqV9Rtub99HBhD3dooiXQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794492325; x=
+	1794578725; bh=pko6mRCMfp9Cyyy/gAoWpwIveNBcnJXIKlKgVug+D/o=; b=F
+	qEKdWweWYKGwAOqEQHtslqgHkl02o+VAPHTV+Ok0UxkqW/umCZK0USiDkcQGDmnm
+	zPqB668MutngAEMB6/B4Zt3OVm3JGZi4AHkcmcwX4RIJEQwks++WW45H32q4p+AI
+	J0HR4qb8etAY1z/DVsxOmHZ/CWUTbosqjobcqGf0CTFp5A8O1Cbr679+KBZH5Map
+	oDlpoY18EPMZynyf5mjNnsHtfwDhd/qStKlC7GIJ7InkQPO+N9RaeZWMt+FCvmZR
+	vnaSVJrvgEMOkz1zMQrY+2SUBpg1yhVk/8oOekR4AMGm6Mw7wyoDhXo4bJvfu5pD
+	tMEv9Zan5KlrwtvUv90+A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794492325; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:FiF54yRQOzh9o1Dhx6n8mSvl3v4NFaSxcaccbFPOoZ52Wl6
+	URxP4glcb8Q5o8bWlHJa4BmGcdcnnOrHF4pI8TKSp5xcKDbrbIalYgkJwHvrxmm/
+	eOAAu7nTwHHGgFavrnudxsru7oZNtQIy43mxmGh6ied/GHLd3rTBc8r2lyza/Aut
+	wv/f3pcA6APpp8dV8g3hyVDeA4AYAEPldusGO8QxatzblBKHs95z2boa4f7jyLKT
+	6fTNmAnCUlzOOtOsPZ7hZUDsiA0t7cG1Vb09GmqnbYSSkiiqPJG7yI3UTxxuLaqb
+	fZHXhQx6azXNIUKgqADTUOC7iQrGANN1cRDkCpw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:V60JOROyj/FCtqcbRKRyHTpWddfUd3jbk7dyOJsukjU=:Of2aUQiysyEawKxf7qyisIhQXXg6zSM4x99cDBoHPUk=;
+X-ME-Sender: <xms:oMf1agFOMxhRnSVLuDUoykP5UcEaUmqTFjlXdqyO2uB6F9su6yRNUw>
+    <xme:oMf1akLwZwhweZnV5ZmnIfs10GzsHsK22-pTYnrYX3V-cjegvJPl_Myftn5u0Gbwm
+    DaCWXLR_MoNxjIEU4nSmSLZrTGV1f3nnW3z6kcicXNxfBcD27jZuRoh>
+X-ME-Proxy-Cause: dmFkZTEo6VaWdj6bxILRHhv5G1jOW57ujTVJlC60OvW6f6oZAOkjAhJfLyfQ49u3ydRqSD
+    6McsbenddWiSAoIlBf0W+NIryEOud74ndQRz1ZNlMraGhXPv+PXtGwEWkyMxloBFs28AM+
+    VC192GnF3PbfCLd/7+bSFeIt/B0QBaOAfOsIn395cK3dTopXenIvBp6SQsQKB6phN+B9N8
+    64zvJ/tH5yyX1gC6DuvHI/QxWEKFFTCz3bKka6l9Oc60EMdBZdJIR7mDAcEwPZSfBGmwPb
+    2Z9OY6PpxO64z/9vBGotM7b8//4i1p4MJhV0SzERiXc9YegNJHS2YEhsW2FEyw/g3Y3ZRu
+    oYdobkUaJL2vVkuf3T68WqVhzELvAAGfVl1I02wG2/C2ee5pG4BsL99/ufnRR/RMRJfUDL
+    IAOiMCCS/0lXXQL0QiDC+S9LQxR0GnnllNps6HKEOYOzABoYBb73irVKV+/FvcBrj/lZlt
+    KNgU5rRvLdeTEsl5/OmCVzut8/pJmcfBWSq9jgtDWtKtfbYVKtPBr6tYGiNLXE4KYwDsCX
+    TuSkgz3NcCJjmEocAeYLBdE3MtcNWb4/YseBTWzbPMmhrXkYZPYwSVkCpchNqNRuriNhqE
+    AZrpEdcFFaE1gBWBqfwXUzpCNEzsnW4FNez5rGN8yS7XzeIux+zwtk8TNIAA
+X-ME-Proxy: <xmx:osf1avEZfAfXrF6erZ-8PXAN54m2ulAyFtO0FYzjsf_1FxrnbaIiCQ>
+    <xmx:osf1as8BNfiWFYPBCaJ86GPB2RJe4q470hV-HuChed5yBLL21RKeRQ>
+    <xmx:osf1asSOl9G_RlHWFW4hJcVJeg1HfYqN5torsMoo160Yk7Co8S1WEQ>
+    <xmx:osf1ahrsJhcpjQbCC8-euvDiMkYTBNRXBWR9bHNczCu6x11eef6VMw>
+    <xmx:pcf1ashlANfxc3dlsCHW7RA00z0RWpZW_h8YKAmt-y_S0kOrMRqVWIb4>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 8FB1332A0099; Thu, 12 Nov 2026 09:05:20 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,52 +115,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 3/3] selftests: tc-testing: add gact probability
- dump tests
-To: Linkui Xiao <xiaolinkui@126.com>, jhs@mojatatu.com, jiri@resnulli.us,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, horms@kernel.org
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Linkui Xiao <xiaolinkui@kylinos.cn>
-References: <20261106064114.3592670-1-xiaolinkui@126.com>
- <20261106064114.3592670-4-xiaolinkui@126.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20261106064114.3592670-4-xiaolinkui@126.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-ThreadId: A6ErS7mxpCYw
+Date: Thu, 12 Nov 2026 15:05:00 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ "Masami Hiramatsu" <mhiramat@kernel.org>
+Cc: "Christian Brauner" <brauner@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-kbuild@vger.kernel.org, kernel-dev@igalia.com,
+ "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>,
+ linux-alpha@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
+ linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
+Message-Id: <b728a698-bac7-4cfb-9eba-505f955148eb@app.fastmail.com>
+In-Reply-To: <20261105-tonyk-syscall_table-v9-1-8d1275885d9c@igalia.com>
+References: <20261105-tonyk-syscall_table-v9-0-8d1275885d9c@igalia.com>
+ <20261105-tonyk-syscall_table-v9-1-8d1275885d9c@igalia.com>
+Subject: Re: [PATCH v9 01/15] syscalls: Make --abis parsing more robust
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 11/6/26 07:41, Linkui Xiao wrote:
-> gact probability attributes are emitted by tcf_gact_dump() only when
-> tcfg_ptype is set, and budgeted for by tcf_gact_get_fill_size().  The
-> only gact cases that look at a probability today are 8e47 and ca89, and
-> both check it through `tc actions list`, which is served by the netlink
-> dump machinery and never consumes the get_fill_size() budget.  The one
-> case that uses `tc actions get`, 525f, runs against an action with no
-> probability, so the RTM_GETACTION reply path -- tcf_get_notify(), which
-> does size its skb from get_fill_size() -- is never exercised with a
-> probability, and the netrand random type is not exercised anywhere.
-> 
-> Add three cases: adding an action with a netrand probability and getting
-> it back; replacing a probability-less action with a deterministic one
-> and getting it back, covering the tcfg_ptype 0 -> non-zero transition
-> that the unconditional TCA_GACT_PROB budget in patch 1 has to cover; and
-> getting a probability-less action, whose dump must report no probability.
-> 
-> These are coverage for the dump and sizing paths that nothing tested
-> before, not reproducers: RTM_NEWACTION, RTM_DELACTION and RTM_GETACTION
-> all take
-> rtnl, so sizing and dumping always run in the same critical section
-> and a replace cannot interleave between them from userspace.  They pass
-> both before and after patches 1 and 2.
-> 
-> Verified by running the tdc gact suite (38 cases, including these
-> three) against a kernel with CONFIG_GACT_PROB=y and this series
-> applied; all passed.
-> 
-> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
-I think the value carried by the added tests is too low and new tests
-consume nipa resources. Let me apply the first 2 patches without this one
+On Thu, Nov 5, 2026, at 21:05, Andr=C3=A9 Almeida wrote:
+> Some archs Makefile have something like this as the rule for making the
+> syscall files:
+>
+>   cmd_systbl =3D $(CONFIG_SHELL) $(systbl) --abis common,$* $< $@
+>
+> The $* symbol is evaluated to the variable found at $(uapi)/unistd-%.h,
+> where % is 32 or 64, resulting in e.g. `--abis common,32`. Sometimes t=
+he
+> rule for the file won't have a %, resulting in a trailing comma e.g.
+> `--abis common,`.
+>
+> Currently this input is transformed into (common|). This is problematic
+> because grep will then match any ABI because of the trailing `|`. Make=
+ the
+> syscalls scripts more robust by removing any trailing comma.
+>
+> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
 
-/P
-
+Acked-by: Arnd Bergmann <arnd@arndb.de>
