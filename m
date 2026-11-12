@@ -1,49 +1,134 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492362;
-	b=Rag08tfOc6W76yqOVhHOVc8jHoX2AZzZrjNQ4kh5vsorIb98RuIxW9CbLrivYvZBQDwX
-	 xBaBqKP3iarzrJ6XroxTKTQCNoxkkXySbnCGVzNB69XAV6Etk9iAFNRaUnz1ULD6JfMWm
-	 UFvgi2AJwuLQX0gGlSJ7l9/NWm7eD/ZLmDkbHGqY9/2p0rahoiKIgpsMkgmLm/hD6dufP
-	 dU2RzSEjyMQT8QJ1Vd9/EM5REYo2qJ7AnGZGjrxivpBmaqfHl041UF7t/R1Gmed7leRXl
-	 F1BsXskCVJDGM8bsvG7MAnnBaxJ3P24QJWHqxM5ZMAiKNVhzke9ksXQo3fiHqaBxrWQ==
+	t=1794492369;
+	b=H2WczsOkDEAUBiIEBboTEQDnOV3iQyoGmcAd+HbMwcilufhek5dqKLNqzmueRm/zqvVG
+	 TMr6pmpP1p8vR28slZ6OA5EQvIC2bKnYQhOlRgkFQbdtbyJ84tyD5vGCGdibQZVvTQY4d
+	 p5FXgbvX3JZAlog0QR/SFWNDLysT8dkatjzPspYs+oKRtEZaeYnPT0IBYIfv63EnI17cd
+	 uCkMHoFpGdJzZYQaKsddczJoEclXyoDHkEXcip0jrBTq12gG6mMrWMgYCnY0KKmLXeb4R
+	 5fZNKVfEMjaBOOMnVEotoL/2oZ+p0hlPuP07lyXaIhg4tvI/BflABL3hqqq4KtZ0BEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492362;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=UHcEtyB0yA1THnFsWZ2Wl79PiRGX6jv8MGr7r5Mm5oQ=;
-	b=TcGthZDha1RVakDIhLZKpZFKwlycfT1XgaK1fSJTo4EGivHtg7nKkxdJTK58a5A53izz
-	 BFDWaMaw38NnOLx4u+qayGWq8dc4CiDLVwQ9ICzZ4jYpDSlHmdFkTaSnrPWzOADIGQmF3
-	 N+5Nn+0d7TMooD1NoEauxPOk6NAzFTP8ohQ8jnDtf7MarY0f3psxkPuiqXKqbm0LBCRuS
-	 tTJOwj2vQl+JgpU8NHqBDZVWX5RfIIjWLDYuwJABA66l+oaoGrTsj5zrG9hMBU38ZVYNJ
-	 wXnXnQSFE+oep53jZGoKU9DQBCWl0FfoPl756tzMhAEWzAGvem0EELJAUfh8+1ef4zQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492369;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=d26nC76YLz1Hx0CSfgosaWHEU4xoea2lRNFaxDZwsTA=;
+	b=awCkj8on/q+N1HyChJQVl9B+7+sr/zwHfLoe6Rm8Ma7/UzV4HeBHdIPo0b5TWx/cfC9P
+	 1K7Y8jotQ/83D6jP0gqRGk46W/f3OVKN3l9dAISTkauE0WxPXnNRaWYsd7pGRIvYXf/oS
+	 6zM7vutqbFDAit1gy+9uT/1gEAC4mVRGv4HoabEhPK7YdfJcRn7EXrk0FCwl7Bp7JnpNB
+	 +jhxddlD7sh27Ncy76GVz1qOsJMVKPushPyONxlgDCm4oSWn2LKgDnnFcXDGzX117pBwY
+	 4d67JNqfySds5aPFEZmUA5hzENjCSy+SpcvZ9ocMUvp54deF4FdB0QxgHN5s69XwCHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dzUgcZgR;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AC392606A321;
-	Thu, 12 Nov 2026 14:06:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC392606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MePUV0PJ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tYPab8lG;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MePUV0PJ;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tYPab8lG;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BCDC606A8AB;
+	Thu, 12 Nov 2026 14:06:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BCDC606A8AB
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dzUgcZgR
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0E7631477;
-	Thu, 12 Nov 2026 06:05:57 -0800 (PST)
-Received: from [10.0.130.226] (e127648.arm.com [10.0.130.226])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3BDF23F673;
-	Thu, 12 Nov 2026 06:05:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794492360; bh=Mxm+FO/LqIX2SxX0HPT4J1sozJkLEgywzHYHr0SPB3k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=dzUgcZgR6mSbU6ehR2kKUguPjL8mrH+cCHUyX2a5LritajwPynqZ5KV4gxy+3k6Mt
-	 cQioLIOkIoQlpW5m6VM+RmA5lltiBWC8OYCSUISQJkNAVt/CxxbDKDbvG1ttr42bRq
-	 mgm0u3bUSmSerrzgcc6q1Z1kd/cTrtGo2H8bryKk=
-Message-ID: <f8d23034-0d28-4726-829e-51cf687e5589@arm.com>
-Date: Thu, 12 Nov 2026 14:05:55 +0000
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MePUV0PJ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tYPab8lG;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MePUV0PJ;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tYPab8lG
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 5912F1F890;
+	Thu, 12 Nov 2026 14:06:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794492366; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=d26nC76YLz1Hx0CSfgosaWHEU4xoea2lRNFaxDZwsTA=;
+	b=MePUV0PJPVg6e87V3rI/oBHU/WVNpeN9fAmgxCGLxENx35oKrb0iEmR3T18rtLtVz1Vf+O
+	1G6UmmBLJXvaA1WYhfqBFsQOBOJ7IA2iBvpEpvVmXn/Cmsa4Thr80o0Lq+TtDYhKs5Kyab
+	qpmF+O8fmKXKFCYmnkRlnrBsSmTsSBg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794492366;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=d26nC76YLz1Hx0CSfgosaWHEU4xoea2lRNFaxDZwsTA=;
+	b=tYPab8lGc7bR6d9kEE9FN38yDhbA+TLnfbS8qBFT3Rs/vxGIU/l099dpGQkmH3U6mcvPbG
+	SX8CzvRsGMGv8qBw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794492366; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=d26nC76YLz1Hx0CSfgosaWHEU4xoea2lRNFaxDZwsTA=;
+	b=MePUV0PJPVg6e87V3rI/oBHU/WVNpeN9fAmgxCGLxENx35oKrb0iEmR3T18rtLtVz1Vf+O
+	1G6UmmBLJXvaA1WYhfqBFsQOBOJ7IA2iBvpEpvVmXn/Cmsa4Thr80o0Lq+TtDYhKs5Kyab
+	qpmF+O8fmKXKFCYmnkRlnrBsSmTsSBg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794492366;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=d26nC76YLz1Hx0CSfgosaWHEU4xoea2lRNFaxDZwsTA=;
+	b=tYPab8lGc7bR6d9kEE9FN38yDhbA+TLnfbS8qBFT3Rs/vxGIU/l099dpGQkmH3U6mcvPbG
+	SX8CzvRsGMGv8qBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8DBA813432;
+	Thu, 12 Nov 2026 14:06:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id RScNEcrH9WqvKgAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Thu, 12 Nov 2026 14:06:02 +0000
+Date: Thu, 12 Nov 2026 14:06:00 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
+	Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Steve Sistare <steven.sistare@oracle.com>, 
+	John Hubbard <jhubbard@nvidia.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
+	Josef Bacik <josef@toxicpanda.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev, linux-arch@vger.kernel.org, 
+	iommu@lists.linux.dev, netdev@vger.kernel.org, Chris Mason <mason@kernel.org>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/9] mm: limit pagecache folio refcount when mapping
+ pages
+Message-ID: <avXGtysfRk3uQpNu@pedro-suse.tail5790ac.ts.net>
+References: <20261110-refcount_overflow_stable-v3-0-318625d63a98@kernel.org>
+ <20261110-refcount_overflow_stable-v3-1-318625d63a98@kernel.org>
+ <avW0HGjF6wuqn12T@pedro-suse.tail5790ac.ts.net>
+ <86206f64-fefa-4a13-95bc-eddf756eecc8@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,189 +138,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ACPI: CPPC: Scale EPP values to the register width
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: viresh.kumar@linaro.org, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, zhanjie9@hisilicon.com, superm1@kernel.org,
- zhangpengjie2@huawei.com, Sumit Gupta <sumitg@nvidia.com>
-References: <20261112131316.827708-1-christian.loehle@arm.com>
- <592580a1-ba88-4e22-b586-4aa2425f9760@arm.com>
- <CAJZ5v0gXjngKSxX0Ku2wccWj9+oDQ7YqS6ziFZXDzMgm5GjVzg@mail.gmail.com>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <CAJZ5v0gXjngKSxX0Ku2wccWj9+oDQ7YqS6ziFZXDzMgm5GjVzg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <86206f64-fefa-4a13-95bc-eddf756eecc8@kernel.org>
+X-Spamd-Result: default: False [-11.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,infradead.org,google.com,suse.com,suse.cz,linux-foundation.org,nvidia.com,linux.alibaba.com,linux.dev,arm.com,intel.com,gmail.com,sk.com,gourry.net,redhat.com,cmpxchg.org,fb.com,surriel.com,szeredi.hu,zeniv.linux.org.uk,arndb.de,ziepe.ca,8bytes.org,oracle.com,toxicpanda.com,davemloft.net,kvack.org,vger.kernel.org,lists.linux.dev];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[63];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -11.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On 11/12/26 14:01, Rafael J. Wysocki (Intel) wrote:
-> On Thu, Nov 12, 2026 at 2:58 PM Christian Loehle
-> <christian.loehle@arm.com> wrote:
->>
->> On 11/12/26 13:13, Christian Loehle wrote:
->>> The EPP sysfs interface uses 0-255, but ACPI permits 4-8 bit fields.
->>> Writing 128 to a 4- or 6-bit SystemMemory field currently succeeds but
->>> stores zero, selecting maximum performance.
->>>
->>> Scale writes to supported narrow EPP registers and normalize reads to
->>> 0-255. Cover both EPP setters and cppc_get_perf() so saved firmware values
->>> round-trip correctly.
->>>
->>> Fixes: 922607a2b462 ("cpufreq: CPPC: Add support for autonomous selection")
->>> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
->>> ---
->>>  .../ABI/testing/sysfs-devices-system-cpu      |  5 ++
->>>  drivers/acpi/cppc_acpi.c                      | 46 +++++++++++++++++--
->>>  2 files changed, 47 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/Documentation/ABI/testing/sysfs-devices-system-cpu b/Documentation/ABI/testing/sysfs-devices-system-cpu
->>> index d219fc27a0c9..c63b5cfd993c 100644
->>> --- a/Documentation/ABI/testing/sysfs-devices-system-cpu
->>> +++ b/Documentation/ABI/testing/sysfs-devices-system-cpu
->>> @@ -322,6 +322,11 @@ Description:     Energy performance preference
->>>               performance increase/decrease and the result of the hardware's
->>>               energy efficiency and performance optimization policies.
->>>
->>> +             For supported EPP registers narrower than eight bits, values are
->>> +             scaled and rounded to the nearest hardware preference.
->>> +             Reads use the same 0-255 scale and may differ from the requested
->>> +             value due to the reduced precision.
->>> +
->>>               Writing to this file only has meaning when Autonomous Selection is
->>>               enabled.
->>>
->>> diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
->>> index 11a9f9eb6b4a..10b52163eb56 100644
->>> --- a/drivers/acpi/cppc_acpi.c
->>> +++ b/drivers/acpi/cppc_acpi.c
->>> @@ -38,6 +38,7 @@
->>>  #include <linux/iopoll.h>
->>>  #include <linux/ktime.h>
->>>  #include <linux/list.h>
->>> +#include <linux/math64.h>
->>>  #include <linux/mutex.h>
->>>  #include <linux/rbtree.h>
->>>  #include <linux/rwsem.h>
->>> @@ -2841,6 +2842,25 @@ int cppc_get_highest_perf(int cpunum, u64 *highest_perf)
->>>  }
->>>  EXPORT_SYMBOL_GPL(cppc_get_highest_perf);
->>>
->>> +/* Keep the EPP interface on an 8-bit scale, including firmware readback. */
->>> +static u64 cppc_scale_epp(const struct cpc_register_resource *reg,
->>> +                       u64 epp, bool to_reg)
->>> +{
->>> +     unsigned int width = reg->cpc_entry.reg.bit_width;
->>> +     u32 max;
->>> +
->>> +     if (reg->type != ACPI_TYPE_BUFFER || width < 4 || width >= 8)
->>> +             return epp;
->>> +
->>> +     max = BIT(width) - 1;
->>> +     if (to_reg)
->>> +             return DIV_ROUND_CLOSEST_ULL(epp * max,
->>> +                                          CPPC_EPP_ENERGY_EFFICIENCY_PREF);
->>> +
->>> +     return DIV_ROUND_CLOSEST_ULL(epp * CPPC_EPP_ENERGY_EFFICIENCY_PREF,
->>> +                                  max);
->>> +}
->>> +
->>>  /**
->>>   * cppc_get_epp_perf - Get the epp register value.
->>>   * @cpunum: CPU from which to get epp preference value.
->>> @@ -2850,7 +2870,15 @@ EXPORT_SYMBOL_GPL(cppc_get_highest_perf);
->>>   */
->>>  int cppc_get_epp_perf(int cpunum, u64 *epp_perf)
->>>  {
->>> -     return cppc_get_reg_val(cpunum, ENERGY_PERF, epp_perf);
->>> +     struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpunum);
->>> +     int ret;
->>> +
->>> +     ret = cppc_get_reg_val(cpunum, ENERGY_PERF, epp_perf);
->>> +     if (!ret)
->>> +             *epp_perf = cppc_scale_epp(&cpc_desc->cpc_regs[ENERGY_PERF],
->>> +                                        *epp_perf, false);
->>> +
->>> +     return ret;
->>>  }
->>>  EXPORT_SYMBOL_GPL(cppc_get_epp_perf);
->>>
->>> @@ -3150,6 +3178,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
->>>       bool auto_sel_non_pcc;
->>>       bool epp_pcc;
->>>       bool epp_non_pcc;
->>> +     u64 epp;
->>>       int ret;
->>>
->>>       if (!cpc_desc) {
->>> @@ -3159,6 +3188,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
->>>
->>>       auto_sel_reg = &cpc_desc->cpc_regs[AUTO_SEL_ENABLE];
->>>       epp_set_reg = &cpc_desc->cpc_regs[ENERGY_PERF];
->>> +     epp = cppc_scale_epp(epp_set_reg, perf_ctrls->energy_perf, true);
->>>       if (!enable && auto_sel_reg->type == ACPI_TYPE_INTEGER &&
->>>           auto_sel_reg->cpc_entry.int_value == 1)
->>>               return -EOPNOTSUPP;
->>> @@ -3177,7 +3207,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
->>>                       return ret;
->>>       }
->>>       if (epp_non_pcc) {
->>> -             ret = cpc_write(cpu, epp_set_reg, perf_ctrls->energy_perf);
->>> +             ret = cpc_write(cpu, epp_set_reg, epp);
->>>               if (ret)
->>>                       return ret;
->>>       }
->>> @@ -3205,7 +3235,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
->>>               }
->>>
->>>               if (epp_pcc) {
->>> -                     ret = cpc_write(cpu, epp_set_reg, perf_ctrls->energy_perf);
->>> +                     ret = cpc_write(cpu, epp_set_reg, epp);
->>>                       if (ret)
->>>                               goto out_unlock;
->>>               }
->>> @@ -3235,9 +3265,17 @@ EXPORT_SYMBOL_GPL(cppc_set_epp_perf);
->>>   */
->>>  int cppc_set_epp(int cpu, u64 epp_val)
->>>  {
->>> +     struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpu);
->>> +
->>>       if (epp_val > CPPC_EPP_ENERGY_EFFICIENCY_PREF)
->>>               return -EINVAL;
->>>
->>> +     if (!cpc_desc)
->>> +             return -ENODEV;
->>> +
->>> +     epp_val = cppc_scale_epp(&cpc_desc->cpc_regs[ENERGY_PERF],
->>> +                              epp_val, true);
->>> +
->>>       return cppc_set_reg_val(cpu, ENERGY_PERF, epp_val);
->>>  }
->>>  EXPORT_SYMBOL_GPL(cppc_set_epp);
->>> @@ -3496,7 +3534,7 @@ int cppc_get_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
->>>               if (ret)
->>>                       goto out_err;
->>>       }
->>> -     perf_ctrls->energy_perf = energy_perf;
->>> +     perf_ctrls->energy_perf = cppc_scale_epp(energy_perf_reg, energy_perf, false);
->>>
->>>       if (CPC_SUPPORTED(auto_sel_reg)) {
->>>               ret = cpc_read(cpu, auto_sel_reg, &auto_sel);
->>
->> +CC Sumit's actual email, sorry about that.
+On Thu, Nov 12, 2026 at 02:16:33PM +0100, David Hildenbrand (Arm) wrote:
+> > Mostly LGTM, with some comments:
+> > 
+> > Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 > 
-> So I'm assuming that this one is for Sumit to pick up and send again
-> along with a new version of
+> Thanks for the review, Pedro!
 > 
-> https://lore.kernel.org/linux-acpi/20261112080442.4007723-1-sumitg@nvidia.com/
+> > 
+> >> ---
+> >>  include/linux/mm.h | 35 +++++++++++++++++++++++++++++++----
+> >>  mm/filemap.c       |  6 ++++++
+> >>  mm/huge_memory.c   | 29 +++++++++++++++++++++++++++--
+> >>  mm/memory.c        | 33 +++++++++++++++++++++++++++++----
+> >>  mm/migrate.c       | 11 +++++++++++
+> >>  mm/userfaultfd.c   |  4 ++++
+> >>  mm/util.c          | 18 ++++++++++++++++++
+> >>  7 files changed, 126 insertions(+), 10 deletions(-)
+> >>
+> >> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> >> index 4608540e40d46..439cfe446cea4 100644
+> >> --- a/mm/huge_memory.c
+> >> +++ b/mm/huge_memory.c
+> >> @@ -1626,6 +1626,7 @@ static vm_fault_t insert_pmd(struct vm_area_struct *vma, unsigned long addr,
+> >>  {
+> >>  	struct mm_struct *mm = vma->vm_mm;
+> >>  	pgtable_t pgtable = NULL;
+> >> +	vm_fault_t ret = VM_FAULT_NOPAGE;
+> >>  	spinlock_t *ptl;
+> >>  	pmd_t entry;
+> >>  
+> >> @@ -1662,6 +1663,10 @@ static vm_fault_t insert_pmd(struct vm_area_struct *vma, unsigned long addr,
+> >>  		if (is_huge_zero_folio(fop.folio)) {
+> >>  			entry = pmd_mkspecial(entry);
+> >>  		} else {
+> >> +			if (unlikely(folio_ref_count_over_limit(fop.folio))) {
+> >> +				ret = VM_FAULT_SIGBUS;
+> >> +				goto out_unlock;
+> >> +			}
+> >>  			folio_get(fop.folio);
+> > 
+> > I see you use this pattern often. Would it make sense to have a
+> > bool folio_get_unless_overflow()?
 > 
-> Or please let me know if that is not the case.
+> I commented somewhere (in v2 I think) that I played with using
+> folio_get_checked() from #2, but didn't quite like it so I discarded it as
+> 
+> (a) it cannot be used everywhere here, as I'd need more functions to add
+> multiple references. next_uptodate_folio() also could use it as I would need yet
+> another temporary helper for a try_get().
+> 
+> (b) these changes here are going to get reverted fairly soon once I change the
+> way how mappings are refcounted (which is, unfortunately, not suitable for
+> stable, otherwise I wouldn't be throwing in this temporary change in the first
+> place)
+> 
+> So everything that is expected to stay in later patches uses the proper helper.
 
-Yup, while it fixes an issue by itself technically, I don't think there
-are any affected platforms.
-I'm hoping that Sumit this (and the limit-write-at-init) patch as a series
-for all our convenience (and hopefully to get Sashiko to review them too).
-(I guess I should've mentioned that in the notes.)
+Alright.
 
-And sorry about ACPI/CPPC having such high traffic lately, I'm expecting once
-we've got the issues ironed out and the new features supported it'll be a
-lot more boring :)
+> 
+> [...]
+> 
+> >>  
+> >> +		if (unlikely(folio_ref_count_over_limit(folio))) {
+> >> +			/* Skip this PUD; it can be faulted in later. */
+> >> +			ret = (dst_vma->vm_flags & VM_MIXEDMAP) ? -ENOMEM : 0;
+> > 
+> > A comment as to what's going on here with VM_MIXEDMAP would be useful. I guess
+> > the idea is that faulting on a mixedmap later will not necessarily hand you the
+> > exact same page fault result?
+> 
+> I can throw in a comment, yes.
+> 
+> [...]
+> 
+> >> +bool __folio_ref_count_over_limit(unsigned int ref_count)
+> >> +{
+> >> +	if (ref_count >= FOLIO_REF_COUNT_ADMIN_LIMIT)
+> >> +		return true;
+> >> +	/* Background threads must not consume admin reserves. */
+> >> +	if (current->flags & PF_KTHREAD)
+> >> +		return true;
+> >> +	/* Neither must interrupt contexts on behalf of the interrupted task. */
+> >> +	if (!in_task())
+> >> +		return true;
+> >> +	/* Capability checks are not safe with IRQs disabled. */
+> >> +	if (irqs_disabled())
+> >> +		return true;
+> >> +	/* Use the task's credentials, which filesystem overrides cannot change. */
+> >> +	return !has_capability_noaudit(current, CAP_SYS_RESOURCE);
+> >> +}
+> > 
+> > In case this function ever returns over limit, we probably want to log this
+> > in the kernel log. If this function gets the folio you could even print
+> > the problematic file offset/inode/filesystem/etc. Ratelimited of course.
+> 
+> You mean, if this function returns "true", right? Is printing always fine?
+> (e.g., irqs disabled?)
+
+Yes. As far as I know, it's always fine, even under NMI. But definitely fine
+with IRQs disabled.
+
+> 
+> > 
+> >> +EXPORT_SYMBOL_GPL(__folio_ref_count_over_limit);
+> > 
+> > I'm fairly sure this will break the build for a number of non-GPL drivers
+> > when calling folio_get() with CONFIG_DEBUG_VM=y.
+> 
+> You mean, breaking OOT drivers, right? I can switch to EXPORT_SYMBOL if that's a
+> concern.
+
+I had the impression we had some stuff in-tree that isn't marked as GPL. But a quick
+grep shows that everything is either GPL or dual-licensed.
+
+In any case, yes, this will quite possibly break debug builds for people OOT.
+I think folio_get() might be a bit too ubiquitous to do this to.
+
+-- 
+Pedro
