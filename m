@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.5
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.39
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794469747;
-	b=yXvq759dZvEmTt54LbLZkurkluvpFPNWAOR+XRgzIoK+Ul7EanFOAmV4oupz3lECKd4B
-	 00pdlKOUJyZAB1YznEy+Q4UrLTKWZGHdqWOVavF+j6i5oEPcpL+xgBtrV98jRzz8Vg6Nn
-	 GJjJiQ/WVYKk2RsoZ7j7f//FX9HSvU3kxWPmRy6GGO1owqfbH9NWnhMI4GcFkVQv4Bncw
-	 ez7nXDBJ4TRW9DkdFIstNfYsX03WbUwgCeYIvEhuNMcAXo+5sUEEjXuaAbsoFpjEoBu2m
-	 +Pf595F/Zy9jVZB/D5J3335HyoFF3Ta6FH7DCQEzR+Q330Mx79HUM8Ba5XvE46BhiCg==
+	t=1794469755;
+	b=xiNyCRimDXMvu90R1xEaJGojc9wy2c58hZGldxBtC71cIxgDaMIKchqTMsv+pBaYHohS
+	 ZeFP5zfxiCD4D/mlmwX+huVzkirUiiYSJNUoBZ+sll3jz3yi92Pa/iIIInC/G3l/1pdYy
+	 aAMfX64CckyZC8a7DTEip9NkXMKUmAMTrLWjaC4s9/8rzsgaGcgtU96RS85QYBx/GnTRg
+	 ixxH5roe2KKsXKQs7No01irwbmAKfUX9X+rrYFibvY+eF3a8pklrcW2ho2HgMVenpwSJz
+	 4l4lEFpFQDvIwCy7A36dDilrx1LXF2J5SCzsZghfuW9GGaL5dQOMpw8TwRBdzy/EmHw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794469747;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794469755;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
@@ -24,61 +24,61 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=rSRV0SRT3NU8hFSL6ZFaYWgxpdLKIFETS8XiXMi8deM=;
-	b=Nks2x+EB/TcYc1+1pEVJpsKtadPYOig/cUpafVp95gnjsoj5gQscYRw9TDHW/KwJTej5
-	 CAIa4/ZMTbSUyqMqqc0hKpriEbao0KYDkidi+atjJmVOs9FwxIFgGDMLvS9hUb4ZMbBH7
-	 fJqgDesi5fzefLp467+S4DloCC5WArb19LbHY+l/kn+V1idB/WJWd8pjpCg73OaDSvcPm
-	 zCf0D9EcAC+u9lz2am/Psrebd4NmVDsfxs48v+M/Bqe+ce4Qpu39VA59l6tRKODId/uXk
-	 Pe0GVzr8HMZRWxag6Q/eV473IT59A+yAx5hFlqLqw1dLKamkwoPkhKakQ5+73O8TMkQ==
+	bh=jzOyMwXQUb9rLQyDRbGzKyjjsNQyDBf+bYzH9snqknQ=;
+	b=Npew2Sp00kCLaOi1nq7TE+ErXGBpNKd/UAuXny6ZlVdbp1RoNJEo14ed8V1//n0fRrsX
+	 BrMetN3p+5xmbpp1O1W1SvM63xalEQRQeZPEyqfO6peKKExvkAOV+pQoSpa+G1GDu2l56
+	 THHiTiz6DhgzEuWAsnN+MIXu9QSK0f1xfBe7fIKGIokYxsXeFKkFTBBA8DV3Y9WOF0YWL
+	 fx/FNYeCzan2OwLeR2Wt4CMGrwxxzO0GTIWxpQi/XvEKkTvzeeB3h8Ot6ufnvKiHCGkdc
+	 0UQMdUOHcxaSrVZuIMJ3L8ESNK7tWV7PD8nxc+bIb9m1E3VXCd5JWFdE0sh0ZbjCj7g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.nxp.com;
 	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=g6gb6bJ+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.5
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011005.outbound.protection.outlook.com [40.107.130.5])
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=xcDvjQsF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.39
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013039.outbound.protection.outlook.com [52.101.72.39])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9230606A321;
-	Thu, 12 Nov 2026 07:49:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9230606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC8060A383D;
+	Thu, 12 Nov 2026 07:49:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FC8060A383D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=g6gb6bJ+
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=xcDvjQsF
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TxhPzgW8E9QL+m4Gj1ZgVs0zugyl5lmk7JE6BgAWlBFR/h2T2e8VKoLt/ReLvIeIyb6R08/+NQlEsN0xFY9ATSYzfN+WPsxVQKWOjAMstc+71Qmlogl/tnn60eyoENvPElJWZUWdS7G7WOsXlMsExI5FTP9FPuj7rCDxnr1mdNVAwnOpE7DfZ3ozeo4v43ltL1ju4BuFoOPMXkPvRCtPo6QqzBdy8upEn11TTfHYHVflY6Q/dwiOrbv0shFTnfbi3A9m6byEWKqiZwqgQ8xLkHbS4Akv5AwgC4kZgL0csny5b4FdAQr7k86tXQCpc2XyvXhvVB8WMDjQjJwEsZt+Cg==
+ b=l+/Dtd76490QqCSPUmS7EHXQK+LtTC4+8MDkx72MjSdxgD5Zk1iRoWHEkTTdEsw7ULjjvzhQdh+SCM9U/d/4J6BgMaYTfY3ZJU+NkQ0c0Vy0LTbRDjdb5sZJbT41ZU4K0DBLx+f5n96hGyEE5mgU2swKxnRdkYZdnvPmNq4D/ZhRMxyOzkZpoJS+XSdZ7hY+In/0R4CI3q4gA7RuDckAizNWwun/amHGi7jrAr20QQ+c2t/OCuKaNqndi3zbCWh0TaDf3rcBO+gbnYSSYYixn5NDc7F6bSQQBIVkzpjPf8vK8vnFLLDSOuGhaVjR6gAksUMJvZKJdr/AaMJts5fa2w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rSRV0SRT3NU8hFSL6ZFaYWgxpdLKIFETS8XiXMi8deM=;
- b=HMMabdYxXN+26XWShVEADEDH6xOS4lE4cLsF8kOUPnbc4I+GIGsyIz0ttU0ZyLZyF12Nb+cpGHdO+b02SkyP9zZj1ejz/WdFVofxn9CfG2Ilz0z2GDxBa3B0DqsC/hJAjqhjplMPQooAE86rWO7Oq82gCcZuGRM4gLsV3iCBVXUSp/gNShOZnMWK4NT2EXHHTaqhdmMu51B/1o4pzNJrn36x0VAgf2VwIq/HWhhTEiHcqkP+sx4nlAtXsJZuhMXeWXT7XdKwnzlGiy8i1gofAxt2ykZ64mCoPL2Y2kgZMaoAp7FLAYK6Aw+ZBRDFtrqwq8uCGlwzaVpuYs2I6ruM5Q==
+ bh=jzOyMwXQUb9rLQyDRbGzKyjjsNQyDBf+bYzH9snqknQ=;
+ b=sYxl6STSy26PqCYfSkpo+2212YonBIUpk/33ChwRB5bzsTammVHZsmdT4FYrJiOFiJihCbGDSsqJKlWS1LVcoFI6KBX6usi3Q38uwGwl6NOcOJZ7a+K6viBEphWRFGPgAQAp5L5adGMexGZkjr4UoE5QVk8RDvdsVLtMI2Wejj0UZeRVjxfHCfSUrd+SWZePUBIAtBFONcIl+Ooxb0L7DLYd3hnEmPA3LvQIsuSJpaRPPk3BsecXaboViEgdHQ4dcJ1lOBnw4CmQq7W3yjEbzDJ6xsqSsI7moLqp0JbSGuafHtHpd0C5Vi90AbwGKitjFe5B40FnjfnJLcgrFO6IjA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rSRV0SRT3NU8hFSL6ZFaYWgxpdLKIFETS8XiXMi8deM=;
- b=g6gb6bJ+xd7nZ4PTC+czcMkx0yQ/FAPi0XiithzQ/EueYctYSt/qEp2m3MqXz8J7u0r38d+jMiU5hBmAZ4/RMSldFribmpMqIS0YEUELgjfrOjQFkYOsX+DpQBnc8O0LhEnb8r1thR3vE4K5VKaY03MYu5mus4aV+Rq9j3FZ4JpYs4NoKaLpIo+1EMv5P2h279w46zlSbUHsxGb2liah/ISH79/xnaTPDLdzBbSPvE0bJNnxg5ADsGNI0oZ/7ZAC27q9jw4TjrV8LMw3V+aiKYxcmp8h6pP8IJgO0D5Z2/mFfuWj51PXUqBuvlRjP2blxnW8fZVnN6htiCwPPH04UQ==
+ bh=jzOyMwXQUb9rLQyDRbGzKyjjsNQyDBf+bYzH9snqknQ=;
+ b=xcDvjQsFUz+ukxFzwe2alJLlWnxssJMtPMqN+td4xVTJCikKL8Tb/seDZEKuZRnfRc6uw7pIs2hLE+vw3TjZbqQfPeGt7TFym9n4OQJFkiQ9xHzrYoeLaVsFVWNaN6kKy03CnFsT6z9/sqKzypNM8OVZNixZgJmxq7MGO6qsBT2e5EzfyRR/GFHr5TlkOvYv+sJWQqGd+eiSb+hgDY9xoWaLuhivvnwZBMjMftyPv3PdjEvFu8UGDllVLILvfS/vjq9pWCXVh01NJYWzVtuardm+I8n1cFLKNuZ8uMcMMK0ZGTIKT9O7XIuW89Cbdn7MWCrdMq5kT89pq/Sf0xe98Q==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by VI0PR04MB11954.eurprd04.prod.outlook.com (2603:10a6:800:31f::20) with
+ by DB9PR04MB9645.eurprd04.prod.outlook.com (2603:10a6:10:309::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
- 2026 07:48:59 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
+ 2026 07:49:11 +0000
 Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
  ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
  ([fe80::ac38:1699:6f18:c5d9%5]) with mapi id 15.21.0615.008; Thu, 12 Nov 2026
- 07:48:59 +0000
+ 07:49:11 +0000
 From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Date: Thu, 12 Nov 2026 15:53:09 +0800
-Subject: [PATCH v6 6/9] dmaengine: fsl-edma: use BIT_ULL for 64-bit channel
- mask
+Date: Thu, 12 Nov 2026 15:53:11 +0800
+Subject: [PATCH v6 8/9] dmaengine: fsl-edma: support per-channel DT child
+ nodes
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-edma-iommu-v3-v6-6-b038edb8ce6f@nxp.com>
+Message-Id: <20261112-edma-iommu-v3-v6-8-b038edb8ce6f@nxp.com>
 References: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
 In-Reply-To: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
 To: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>, 
@@ -97,8 +97,8 @@ Cc: Frank Li <Frank.Li@kernel.org>,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Peng Fan <peng.fan@nxp.com>
 X-Mailer: b4 0.16-dev-7bc12
-X-ClientProxiedBy: SI2PR02CA0002.apcprd02.prod.outlook.com
- (2603:1096:4:194::22) To AM8PR04MB7874.eurprd04.prod.outlook.com
+X-ClientProxiedBy: SI2PR01CA0012.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:191::8) To AM8PR04MB7874.eurprd04.prod.outlook.com
  (2603:10a6:20b:24d::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -110,148 +110,367 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|VI0PR04MB11954:EE_
-X-MS-Office365-Filtering-Correlation-Id: c9e3c1cb-b2b9-46e7-b7dd-08df4091696e
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|DB9PR04MB9645:EE_
+X-MS-Office365-Filtering-Correlation-Id: a9969c25-2b5f-4b6a-470d-08df409170ab
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|7416014|366016|23010399003|1800799024|22082099003|18002099003|261009223027099003|921020|261102123227099003|56012099006|11063799006|261022105027099003|261028144727099003|261021121427099003|261026140227099003|261021123027099003|10067099003;
+	BCL:0;ARA:13230040|7416014|376014|1800799024|19092799006|23010399003|366016|921020|10067099003|11063799006|56012099006|261022105027099003|261022075727099003|261028144727099003|261026121527099003|261026140227099003|261021123027099003|261021121427099003|261102123227099003|261009223027099003|22082099003|18002099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	L4rqQzc7rxWsvyrLnISotMI+IZ0FS/CQauue+OF1mOMt1fzrIO4fCiacFk3Wq+ogMbAEYubYQ7Aq1lwmNAqc9G2qxCZ75DSXFNSBtff3aFQkF+qG9fEuU9tIfnTc8qet2zhazK1s6PPBWGVBP0AP2daeYgISkVTpSQpNYId9ftWWvxByksMJpJ2u2M3rneacFrb2h+sz486eSZyyKCHxupAdWl6Gk5g9cHo4pPs6xDXo6erA9TgjVFic8GJS7+Qt3Dvc5ZwiYdVbnnqQ7HhJrmJJUiNTHEvx+2Lh2ZNAuuJGZbO6g2H15w+5vr53B1n+j3BHxkrtE7jPUNMnYC78lTqkU3bFbG4iDrqjmT86AYKOCHNhDMlJf3LrBFOnAQPwi77g1Ofd8hc+oIJdioc5HFgLedWjKgzIN8zvlNz/yk9+n0rO/OI80ybh8rOHn2ZTI3s2DbtPS2h7y1b1ktNG7FHk9w7zqKL6s5P4EHAdutQ3+PNoWsMSKygTVKTEn9LKneMHAb7AK+sIdR4Nz9PWDY0y59++hWK7TWkamYSDu5sdnNVN90/y6/bW/I3acLMafyDTm1KldQEd6hWiyQY2Dzf6SFWGf5yJpLZnwfQRqf4ZUa6Z12wGsrnvLMDIUqukM2lDee0iwNzlKVe/+8iItah+hgoA4pYz9T5VVKRoQ1o6fSvQgNKo0hmIdlUvbxdNa8KOVY2gL05BaBOJFZx/ww==
+	WCjQER1zXA5Rmlz+apbo7td6sMJ0I7DT8OfmtABMbZcqorN23WCfZ1sdD5IcRr6Z8sw+N0leh0aSmz/6QZNMY8E+WPiNC+ytqhaob7nx1ZBi5uZ2YHOftGaJyXHTiUQT1wprWCOCf7txQ5nJ5/hJmrcWxaSPhK8G/omd7Dx0mCTWXiAKl0ef24y0UdX+Gn8fXL0cvE1SQaARmwzWbLlrt81zZTLV07CXZYN+AVVKf6gnnkQDX/ZM7tFFCHSC7aYJqunBwpnwCzTarokF3Yw0jZWO8iPZDk7zBJW/saYrWqFaBXEOWFe/26de3ds+NCocgZbcOHH1Va8DebHC7Qj+c0nH9bR7/j4zAyHLUCIDVQ0Elw4tdICt1ilJYh080ciP2hFOO6Ddfk7N8ED/mVIEKvzKwcK2cywL81wYzTeMM+n10BH5Huo5kvHCnQJyd54njVqRTKtm4DfFpAdy9yPUmTudmUplm4C13OGKym+53M3tjoVweJttuJTrUusrep7NbYgzPyKOj7iOCIY+kGqnTCfgR3vaJlXE5Ek8nFtuuuzXLdSgH+9bF8rOuykC+ngD1b9dNA2J2aqACef0vQ5kssSBcsYCBbHZgsZMGB9VORMxoejBJFTfM3soLv9995XtwKaQ8DpsWVOh0Zxy3kwEXQIJlywxh+kAUJMkX2SMEycmto7eMFNz/KMuEjXIPyiss6+aU1KsIBpreUAJrUQAEg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(7416014)(366016)(23010399003)(1800799024)(22082099003)(18002099003)(261009223027099003)(921020)(261102123227099003)(56012099006)(11063799006)(261022105027099003)(261028144727099003)(261021121427099003)(261026140227099003)(261021123027099003)(10067099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(19092799006)(23010399003)(366016)(921020)(10067099003)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VW8zd0s2VDZQMnhEb2o5cGpDZEZ2YWZMbUZXaXZORXZIb0VTTHRsWE5QVGtS?=
- =?utf-8?B?dnl1aUxCV252d1VDakRPYjg0Q1VFK25OVWxsOENJNHc4WmlEa3NVdHFmbmg0?=
- =?utf-8?B?dElDY0hnd2k3SnpncUhBOTBBNHA3TzNiWDZLekppZjhEQVJMR3pHejFvMnhM?=
- =?utf-8?B?V0pweGVpWjRzd1lZS0RSQURiUjVhSEx1VExPLzJrZzFqWXErMkhlT3NGR0h5?=
- =?utf-8?B?ZTJLeGVxVDhNNi80N1F0TlViVHZoa1ozOXdZOERRd0dnMFM0aXBRZS83c2Jz?=
- =?utf-8?B?QXBiVExWbUVzRVhsRjIydHhSdG5xLzR4cFNNS05ZMW1KSm4xajR5N1Jjb002?=
- =?utf-8?B?Slc4R3laZTQ1aVpVemtteGdueCtZQlBkdG00aW1ybmdQN2VpOXRNUlMvd2dl?=
- =?utf-8?B?MVRPTlJMS0NVdzl4K1JEdjRvd2FkeDl5TUlRSTdMRjNZSmYrZkUrMGtsVWw0?=
- =?utf-8?B?dlZTSDduQW1hamwvOG44UjhCM2E5aWtneE9tWGRsNVdwcUozMno4d29ldHRN?=
- =?utf-8?B?elRXcGFPMFFaa0VZVDg4Z01zVjJYNndHT0pnWmQ4VmI5TUE0NGU2QXN5RFJF?=
- =?utf-8?B?MnE3ckM2QWgyQlhncFh6UU5wb3FCUWp2UWZwUGZDZlV2RGZkbU9ndlNjTHhl?=
- =?utf-8?B?SWRaWEhDekxZSVA4aGt5REhVUUx3aGdrQ1B1eTk3N05pb1hlTFgweGdyYTlr?=
- =?utf-8?B?Y1Y1cGhKckR0MUMzbFdNODVIRDQ4TDVlM09NTzNFTXlROG55V1JINTVPUmdn?=
- =?utf-8?B?bXpibEpYUVpsbGdaQkFQVmFGNUxDaEk5eUpxaWloZDdsM0RYNENZM2wwMy9p?=
- =?utf-8?B?VDBwcjZCMlROMUhSZ2tQM1NvdGJWdE8rZlIxYktHNEhuYXh0aE43bG85bjlr?=
- =?utf-8?B?dVN1MXpHcERrRCsxR3NESmFUbVBzdEc1aWtjSnorNWdqR1NDNDdyY0VwV0Ur?=
- =?utf-8?B?dnNSNkNYVlBpTVFmcFNOY0pwNGJCTVVnMVVRdG5ZTXZ3MjRzNmtnR3oxZmdP?=
- =?utf-8?B?MUJrOTN3REFENlBPYkNxeFdrNmJSbWYyMjdTcGgyZldrYnI4T1B3MXBWQVh5?=
- =?utf-8?B?SXRXcE9nR1FSUmxOM05FdXBVOWo4aHV2djNDbityRFZOU0gyUjRBOGx1N1JK?=
- =?utf-8?B?ZlYvS2h5alVwMFl0V1pobWd3YnlxNWtnbUUxcWhDS1g4RkJSeVZ4TlpiTUFv?=
- =?utf-8?B?bjRvWWQ1Tm1DVUtPei8zenJKcnQvRnBVcWZBUURlOFF4Q1VHYnVocHFDT2Ez?=
- =?utf-8?B?RWxaemJkVlNNUS9LQTJ6L3pHN1NZV3ZyWkcvOGVJNTR4TnBTNWVjT05Yck5I?=
- =?utf-8?B?eXo0THRVdjQ3Z2dnRnlIQ1loUkUzSzNaMDBkWWsvRVpjR2FWYkljWVJLak5N?=
- =?utf-8?B?YTR6bWVpd2Jnc3pPSDg3K3hHRmxQbGdYUHMyMG5adTZzWnZ4Y3lzUTBXNC9z?=
- =?utf-8?B?dEdiOHo0QkV4Nzc4Q29ROGtZSnJsak9Bblo2ejlkQkd6NmtyYWdpc1I0cTJT?=
- =?utf-8?B?YzBpRXFyYVVnM0xSQUU5cVZ6d2c1NlloMkM3K2pzZVEzUWpaSk92b2ZPOE0z?=
- =?utf-8?B?bmZFOWxpbE1xcVJ5TWtIYU4vb096cDFlQnpkQlpNS2drV2QyKzF3V2JhVERY?=
- =?utf-8?B?R0k2ZVo2Vm05NnpnQkwwZWtVUlllYlpwYnZ0R0Rrd29kN0JVWFRwTGFNUnFQ?=
- =?utf-8?B?WDZreVBrNGlrNXFvSU1TcFdDL1I3QWlxYmhpUVdTL3hjUDJsY2o0M0VxMVBJ?=
- =?utf-8?B?c2xIL0hwQjFudUphcE5XUm55N0NLTU9BbjFYZXBlOU1tME9zelJOL2xrVG9z?=
- =?utf-8?B?dXRrekpPaUNXMnlMblhKNjFzeGhWY3ZGeFhiTktONStSOVZKdVU0VEQ1cnpS?=
- =?utf-8?B?S0U0VGVFTnJUMFQ1M1dnOGVEWTVNRk9wNHliNkxqWWxmRjAvT3NpQW1ZUkVa?=
- =?utf-8?B?M0QzVTFuVmtZVEhYREVwUXBiN0xXUDd4WW5RWER2UFZKdEpOT3RlYmEzUWlB?=
- =?utf-8?B?QmROdUNtaDJlTmhPZ25Nd3pPT0h1QWxYV2RvVHp5NjhwdzYweFVkMVppQ2hu?=
- =?utf-8?B?emU2aWUrUWxKRTRhQ3VSaFVPRFZrZnlTcjV3WFRHSEtRelRBNy9IWFZIYzhK?=
- =?utf-8?B?SHkra2xVY3FrY2diUG9zRk1Kb0p0UmxCKzR2U29MY3huYk1NRkhyTG9yeUw5?=
- =?utf-8?B?UnJWMmZTMzE3QjBwNHdTMkhXL0FBZDNYTnhzYXZYVTN1MzFHaEJhRkNCVmR3?=
- =?utf-8?B?Tjk0QmMzYmErdFhuWkdDZ1lxRkZFR2IzOHRSOWs2MkF2WHhSc2Vob0VvaENl?=
- =?utf-8?B?NGZYVm5DU20vZnN0OVpDN0Flcy9GZFJoVXFrekg0TlNNVEd5cDIvY1hUQzRK?=
- =?utf-8?Q?TGfi+Gd567JP+I0VSZEmK03Cu92G4A6C48HyF?=
+	=?utf-8?B?S2hmZ3VlQWNTYk9DSTBGcmtBQVVpWUg1T3N1dWNhNjZ4Y2Q5NHNrWkM3NlVq?=
+ =?utf-8?B?dkJqbnJsd1czcDJiTjl2UTloY1V4RUM3NlNwSk5SQ2VYM3hSb05OZ0xTaWZr?=
+ =?utf-8?B?QS9NbDV1TU84WkVWdmNZT0duY3hFd0cwZlF3L0FRNTNqYUhqakdpT2kvcVZq?=
+ =?utf-8?B?bUFlMWdEeEt0cFF1VHVrQzlJQ0ZuZUJ1U0ZmZmg1a0xCWDV3dTR6aDhlQm5W?=
+ =?utf-8?B?TDB4ZTJGSXk3b2twUGE0clFRMUFYMDZlMUVCL3BaMkExcVh4OWEvWGR5M0RW?=
+ =?utf-8?B?NkMvaEUrWnlCRmU5VlhMaXgxNnhLdEVqZUVNbVBGSHBhaDFUbU9xdEk3eTFq?=
+ =?utf-8?B?ZDM1cGdDK2lrOWdmYnl2aGhhNUNpVVV6bEJ6MEhjdTdPMnQ4NnlQRy96aVR0?=
+ =?utf-8?B?ZVRWbEsyVTNQQWNweVNlaFg5ejY0eldBaDYyUHhocS8vOGRrWlhTVTFQakRo?=
+ =?utf-8?B?QWxGQkhVb3NqbUNCRm52SlBUZmwwU25EcjNxcnMzWklMWjJlMGt1Y2o4QS80?=
+ =?utf-8?B?R2dpek1EWjA1a2MrTkNiUXpyczV1NCtJVEtCQ2dhMzBvUkRhZzZRTExidnR0?=
+ =?utf-8?B?Z0hDZ0RvOFJyUC9YNkIzNjlDalRmSzBUNzhtbVFuTHlVc2l3NjFIUGFJL0Zh?=
+ =?utf-8?B?S3htdHUybDd1SGJidTJ6L2h0OWw2SXdDR090cURiYjJTbTl4Nm1nNXlJbTRE?=
+ =?utf-8?B?L1QydEJPMWQ3b1VBMVR4b3g0cytWcmtZRHB5bm4xMnpMTHNwUzBTM0N6ajh6?=
+ =?utf-8?B?T1BqUGRHQkxBM1BWczNpY1Y2TFRPRTByUUNLNGErb2dJY0FQM01HemxZbi9N?=
+ =?utf-8?B?WFdDVEdCb1JrUEtlY3JpRGFFSmppNlFSTGVDU05Rc2tLZmtubmdtNi85bGRU?=
+ =?utf-8?B?R011SHBBT1ZPd3FLMjBLSlZkK1hkNDY3N0hMTktFa3J2Q2p2WU9WRWRONHRM?=
+ =?utf-8?B?UW9CaVJrNVJjd05Bam5tWWs3bkxYeXVhYjlVcFJ6d3FRQ3ZtblNXUndZa1pl?=
+ =?utf-8?B?aGJQRjVZQUQ4ZW9KbXJqaTZBbWRaUmVqdGk1dFJvYWVCSUlmc3VXYWNoMFRO?=
+ =?utf-8?B?MENTTHUwVktzZzNmaEsxcmhvRThIZHN4dUFkaEdKbk9kb1lHcXM3MDZCWnha?=
+ =?utf-8?B?cjdyeXJpNWgrMExmcCtuODJDL01CS2pwL0UxSVBYZkJWVm9KMnRTVGcwQVgr?=
+ =?utf-8?B?bEU4ZWp1ekk2YU9qbVNHSHMyaDlsZ1QyeEtUZDNnT0RsMzRvRHZnRWFUM3RD?=
+ =?utf-8?B?WXZDb2dMaTdaM3ZSZ1QrdFJDNHVwdVh1MjhNTjd5THBFYlpEV2xBN0ZaSnlM?=
+ =?utf-8?B?dU1rdTdGd0FjeU5VQmd3WjB0anJXNHdMWnpvU042ZEcwa296WjZiL2t1OXlY?=
+ =?utf-8?B?ZE5HSVV0d0pWYnA2dzJxY0ZoU1VEWGRGdDgzU29VZ0pZQ2VYanlzRmVieVpV?=
+ =?utf-8?B?OFVBQXV2UkIxWFdoc2pTc3luMStBZHI2QlFsZFVpR2tnV09tVWtPZTdzMFdy?=
+ =?utf-8?B?QjhZV05rcVJaZlNYN2VpQ3VLaFdlYlJMSUFTVzZiVFVPYThZaGhOZmdBOEl1?=
+ =?utf-8?B?aWlzTjQ1dCtPUTcyOTJNSW9rTVRHbFlScE93czZsK0Y5SysrUDRiYVZJM1dH?=
+ =?utf-8?B?L0RYbzRhL2VsSWpXcWRlZ2E1VnhYMGZxajJIZGhIcXl6Y2M3cE9CWTdyVUVB?=
+ =?utf-8?B?RUFsMlVEVmxTbVhNc2s1RXNueHVsZlRaMkFkYVBwMzBSOExLSTFOVngzK1Ux?=
+ =?utf-8?B?OS9hMUlLWEVHRTN6cmdUTnE4VG96QkJ3R2FjQWdteEcwRTYwQUNMMnJhQ2g1?=
+ =?utf-8?B?aDRqdjZNdXUvb3p5Z3JCSGxVdUs3emZ2UWJNeENycCtFbW8vY1VXWUNRb012?=
+ =?utf-8?B?MUQrUUpNZldpL08xenJ3VzdteVdzQ3NEbFR6K2lvQUVzaU13ODZYdWtpYWxh?=
+ =?utf-8?B?TjE4VUxmd21Uak1QTS9yTGpHMWlYeUtiSUZiODhIeUUybXVXajM2K2cyQjVy?=
+ =?utf-8?B?NkFURnZUcHFnajNVMnR6SGhjUHd4TzRNckFiWVEvZ3BzY2EzSk5QMExGOWlp?=
+ =?utf-8?B?V3JsaGw5T2ZydU5ORFdjdlp4YnBZb1R3aG1MNlVpNTJzemNJUk5uZWlLbzlM?=
+ =?utf-8?B?SGlIb1E2RWdzOUNYcXAvSWlrWWtsNXNYTnBXb2pxL05oeXBqSXAxYTYwRmRa?=
+ =?utf-8?B?RUtqRzBEajR3T0ZhcmQ5V3lXOFB0dlI2ZCtPWmxmS1AySVFTQTlqRW4raW1E?=
+ =?utf-8?B?RDhFRFlITVliRklRSW9raXgvckJaRW0rZDFGZWw2Y2dpbXF6VVB0V2dUcEM4?=
+ =?utf-8?B?TytPT1hrUnhzUUwyK0cwaDd4U29PQWF5ZlJlZ0U4UGR5UkQ5d0VVVTNHRWxW?=
+ =?utf-8?Q?AuukPyh2U79hWzxlhMeoYRK/R3onntyeINEj3?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9e3c1cb-b2b9-46e7-b7dd-08df4091696e
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9969c25-2b5f-4b6a-470d-08df409170ab
 X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 07:48:59.5993
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 07:49:11.5900
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O+kYSA6NyLXYaBEqljqOYmnZg5xwaiTHCcgmqtHPY5OPWO4tfbEvbW0AS7OEd02kFfB2zazsWCQh7VtiISVNzd+92OMpPP6yZtrRCnjQs0mDwvyEsQ/ZK9F0bFZwjHg4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB11954
+X-MS-Exchange-CrossTenant-UserPrincipalName: JMLY3v4R6I8e2BdOQ1KOmVUXxJsEw+J6azTQnJ8xtdB4popgEdIKN39NhhVBIBvY6OWCUT+N3N6zfJuxpT3jFXtfcYkTidCvOdebeMIwHc6oHFBtg19m3wQFpG9YJhGb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9645
 
 From: Peng Fan <peng.fan@nxp.com>
 
-chan_masked is a u64 bitmap, but several checks use BIT(), which uses
-unsigned long and overflows on 32-bit architectures for channels >= 32.
-Use BIT_ULL() so the upper channels are tested correctly.
+Add support for parsing per-channel child nodes from devicetree.
+Each child node can carry its own interrupts and iommus properties.
+Child power-domains are not handled here; power domains remain attached
+at the parent level.
+
+The implementation is split into three functions:
+
+- fsl_edma_child_to_chan_id()
+- fsl_edma_configure_chan_from_dt()
+- fsl_edma_configure_chan_iommu()
+
+Child nodes beyond the configured dma-channels are ignored, which allows
+boards to reduce dma-channels without disabling every unused child node.
+If child nodes are present, every unmasked channel must have a child node
+with a valid interrupt; otherwise probe fails with an error asking for
+dma-channel-mask.  In child-node mode fsl_edma3_irq_init() does not fall
+back to the parent's flat interrupt array.
+
+The shared error IRQ remains a parent-node interrupt.  A child-node-only
+DTS without that entry simply has no shared error IRQ.
+
+Use dev_err_probe() so -EPROBE_DEFER is not logged as an error, and reject
+a channel whose iommus property did not result in an IOMMU mapping.
+
+Existing DTS without child nodes continues to work unchanged.
 
 Signed-off-by: Peng Fan <peng.fan@nxp.com>
 ---
- drivers/dma/fsl-edma-main.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/dma/fsl-edma-common.h |   1 +
+ drivers/dma/fsl-edma-main.c   | 199 ++++++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 194 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/dma/fsl-edma-common.h b/drivers/dma/fsl-edma-common.h
+index cbb077e98f55..8843dd5661fb 100644
+--- a/drivers/dma/fsl-edma-common.h
++++ b/drivers/dma/fsl-edma-common.h
+@@ -271,6 +271,7 @@ struct fsl_edma_engine {
+ 	int			txirq_16_31;
+ 	int			errirq;
+ 	bool			big_endian;
++	bool			per_chan_irqs;
+ 	struct edma_regs	regs;
+ 	u64			chan_masked;
+ 	struct fsl_edma_chan	chans[] __counted_by(n_chans);
 diff --git a/drivers/dma/fsl-edma-main.c b/drivers/dma/fsl-edma-main.c
-index 7f82dcb7831d..818b9b986f13 100644
+index 818b9b986f13..88d2b9d6b6ab 100644
 --- a/drivers/dma/fsl-edma-main.c
 +++ b/drivers/dma/fsl-edma-main.c
-@@ -123,7 +123,7 @@ static irqreturn_t fsl_edma3_err_handler_shared(int irq, void *dev_id)
- 	unsigned int ch;
+@@ -12,11 +12,15 @@
  
- 	for (ch = 0; ch < fsl_edma->n_chans; ch++) {
--		if (fsl_edma->chan_masked & BIT(ch))
-+		if (fsl_edma->chan_masked & BIT_ULL(ch))
+ #include <dt-bindings/dma/fsl-edma.h>
+ #include <linux/bitfield.h>
++#include <linux/math64.h>
+ #include <linux/module.h>
+ #include <linux/interrupt.h>
+ #include <linux/clk.h>
+ #include <linux/of.h>
++#include <linux/of_address.h>
++#include <linux/of_device.h>
+ #include <linux/of_dma.h>
++#include <linux/of_irq.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/pm_domain.h>
+@@ -400,12 +404,21 @@ static int fsl_edma3_irq_init(struct platform_device *pdev, struct fsl_edma_engi
+ 		if (fsl_edma->chan_masked & BIT_ULL(i))
  			continue;
  
- 		fsl_edma3_err_check(&fsl_edma->chans[ch]);
-@@ -397,7 +397,7 @@ static int fsl_edma3_irq_init(struct platform_device *pdev, struct fsl_edma_engi
+-		/* request channel irq */
+-		fsl_chan->txirq = platform_get_irq(pdev, i);
+-		if (fsl_chan->txirq < 0)
+-			return  -EINVAL;
++		if (fsl_chan->txirq <= 0) {
++			/*
++			 * In child-node mode, missing child nodes are rejected
++			 * by fsl_edma_configure_chan_from_dt(); do not fall
++			 * back to the parent's flat interrupt array.
++			 */
++			if (fsl_edma->per_chan_irqs)
++				continue;
  
- 		struct fsl_edma_chan *fsl_chan = &fsl_edma->chans[i];
+-		fsl_chan->irq_handler = fsl_edma3_tx_handler;
++			fsl_chan->txirq = platform_get_irq(pdev, i);
++			if (fsl_chan->txirq < 0)
++				return fsl_chan->txirq;
++
++			fsl_chan->irq_handler = fsl_edma3_tx_handler;
++		}
  
--		if (fsl_edma->chan_masked & BIT(i))
+ 		if (!(fsl_edma->drvdata->flags & FSL_EDMA_DRV_ERRIRQ_SHARE)) {
+ 			fsl_chan->errirq = fsl_chan->txirq;
+@@ -415,7 +428,11 @@ static int fsl_edma3_irq_init(struct platform_device *pdev, struct fsl_edma_engi
+ 
+ 	/* All channel err use one irq number */
+ 	if (fsl_edma->drvdata->flags & FSL_EDMA_DRV_ERRIRQ_SHARE) {
+-		/* last one is error irq */
++		/*
++		 * The shared error IRQ remains a parent-node interrupt at
++		 * index n_chans.  A child-node-only DTS without that entry
++		 * simply has no shared error IRQ.
++		 */
+ 		fsl_edma->errirq = platform_get_irq_optional(pdev, fsl_edma->n_chans);
+ 		if (fsl_edma->errirq < 0)
+ 			return 0; /* dts miss err irq, treat as no err irq case */
+@@ -703,6 +720,168 @@ static int fsl_edma3_attach_pd(struct platform_device *pdev, struct fsl_edma_eng
+ 	return -EINVAL;
+ }
+ 
++static int fsl_edma_child_to_chan_id(struct fsl_edma_engine *fsl_edma,
++				     struct device_node *child,
++				     struct resource *parent_res)
++{
++	const struct fsl_edma_drvdata *drvdata = fsl_edma->drvdata;
++	struct resource child_res;
++	u64 offset, ch_id;
++	u32 rem;
++	int ret;
++
++	ret = of_address_to_resource(child, 0, &child_res);
++	if (ret)
++		return ret;
++
++	if (!resource_contains(parent_res, &child_res))
++		return -EINVAL;
++
++	if (child_res.start < parent_res->start + drvdata->chreg_off)
++		return -EINVAL;
++
++	offset = child_res.start - parent_res->start - drvdata->chreg_off;
++	ch_id = div_u64_rem(offset, drvdata->chreg_space_sz, &rem);
++	if (rem)
++		return -EINVAL;
++	if (ch_id > INT_MAX)
++		return -EINVAL;
++
++	return ch_id;
++}
++
++static int fsl_edma_configure_chan_from_dt(struct platform_device *pdev,
++					   struct fsl_edma_engine *fsl_edma)
++{
++	struct device_node *np = pdev->dev.of_node;
++	struct resource parent_res;
++	u64 child_mask = 0;
++	bool has_children = false;
++	int i, ret;
++
++	ret = of_address_to_resource(np, 0, &parent_res);
++	if (ret)
++		return ret;
++
++	for_each_available_child_of_node_scoped(np, child) {
++		struct fsl_edma_chan *fsl_chan;
++		int ch_id, irq;
++
++		has_children = true;
++
++		ch_id = fsl_edma_child_to_chan_id(fsl_edma, child,
++						  &parent_res);
++		if (ch_id < 0) {
++			dev_err(&pdev->dev, "invalid channel in %pOFn\n", child);
++			return -EINVAL;
++		}
++
++		if (ch_id >= fsl_edma->n_chans)
++			continue;
++
++		if (fsl_edma->chan_masked & BIT_ULL(ch_id))
++			continue;
++
++		child_mask |= BIT_ULL(ch_id);
++
++		fsl_chan = &fsl_edma->chans[ch_id];
++
++		irq = of_irq_get(child, 0);
++		if (irq == -EPROBE_DEFER)
++			return -EPROBE_DEFER;
++		if (irq <= 0) {
++			dev_err(&pdev->dev,
++				"channel %d child node has no valid interrupt; add interrupts or disable it with dma-channel-mask\n",
++				ch_id);
++			return irq < 0 ? irq : -EINVAL;
++		}
++
++		fsl_chan->txirq = irq;
++		fsl_chan->irq_handler = fsl_edma3_tx_handler;
++	}
++
++	if (!has_children)
++		return 0;
++
++	fsl_edma->per_chan_irqs = true;
++
++	for (i = 0; i < fsl_edma->n_chans; i++) {
 +		if (fsl_edma->chan_masked & BIT_ULL(i))
- 			continue;
++			continue;
++		if (child_mask & BIT_ULL(i))
++			continue;
++
++		dev_err(&pdev->dev,
++			"channel %d has no dma-channel child node; add one or disable it with dma-channel-mask\n",
++			i);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int fsl_edma_configure_chan_iommu(struct platform_device *pdev,
++					struct fsl_edma_engine *fsl_edma)
++{
++	struct device_node *np = pdev->dev.of_node;
++	struct resource parent_res;
++	int ret;
++
++	ret = of_address_to_resource(np, 0, &parent_res);
++	if (ret)
++		return ret;
++
++	for_each_available_child_of_node_scoped(np, child) {
++		struct fsl_edma_chan *fsl_chan;
++		struct dma_chan *chan;
++		struct device *chdev;
++		int ch_id;
++
++		if (!of_property_present(child, "iommus"))
++			continue;
++
++		ch_id = fsl_edma_child_to_chan_id(fsl_edma, child,
++						  &parent_res);
++		if (ch_id < 0)
++			continue;
++
++		if (ch_id >= fsl_edma->n_chans)
++			continue;
++
++		if (fsl_edma->chan_masked & BIT_ULL(ch_id))
++			continue;
++
++		fsl_chan = &fsl_edma->chans[ch_id];
++		chan = &fsl_chan->vchan.chan;
++		chdev = dmaengine_chan_dev(chan);
++		chdev->dma_parms = pdev->dev.dma_parms;
++		if (fsl_edma->drvdata->flags & FSL_EDMA_DRV_TCD64)
++			dma_coerce_mask_and_coherent(chdev,
++				DMA_BIT_MASK(64));
++		else
++			dma_coerce_mask_and_coherent(chdev,
++				DMA_BIT_MASK(32));
++		ret = of_dma_configure(chdev, child, true);
++		if (ret) {
++			dev_err_probe(&pdev->dev, ret,
++				      "IOMMU config failed for channel %d\n",
++				      ch_id);
++			return ret;
++		}
++
++		if (!device_iommu_mapped(chdev)) {
++			dev_err_probe(&pdev->dev, -ENODEV,
++				      "channel %d is not behind an IOMMU\n",
++				      ch_id);
++			return -ENODEV;
++		}
++
++		chan->chan_dev->chan_dma_dev = true;
++	}
++
++	return 0;
++}
++
+ static int fsl_edma_probe(struct platform_device *pdev)
+ {
+ 	struct device_node *np = pdev->dev.of_node;
+@@ -835,6 +1014,10 @@ static int fsl_edma_probe(struct platform_device *pdev)
+ 			clk_disable_unprepare(fsl_chan->clk);
+ 	}
  
- 		/* request channel irq */
-@@ -641,7 +641,7 @@ static void fsl_edma3_detach_pd(struct fsl_edma_engine *fsl_edma)
- 	int i;
++	ret = fsl_edma_configure_chan_from_dt(pdev, fsl_edma);
++	if (ret)
++		return ret;
++
+ 	ret = fsl_edma->drvdata->setup_irq(pdev, fsl_edma);
+ 	if (ret)
+ 		return ret;
+@@ -897,6 +1080,10 @@ static int fsl_edma_probe(struct platform_device *pdev)
+ 		return dev_err_probe(&pdev->dev, ret,
+ 				     "Can't register Freescale eDMA engine.\n");
  
- 	for (i = 0; i < fsl_edma->n_chans; i++) {
--		if (fsl_edma->chan_masked & BIT(i))
-+		if (fsl_edma->chan_masked & BIT_ULL(i))
- 			continue;
- 		fsl_chan = &fsl_edma->chans[i];
- 		if (fsl_chan->pd_dev_link)
-@@ -669,7 +669,7 @@ static int fsl_edma3_attach_pd(struct platform_device *pdev, struct fsl_edma_eng
- 	dev = &pdev->dev;
- 
- 	for (i = 0; i < fsl_edma->n_chans; i++) {
--		if (fsl_edma->chan_masked & BIT(i))
-+		if (fsl_edma->chan_masked & BIT_ULL(i))
- 			continue;
- 
- 		fsl_chan = &fsl_edma->chans[i];
-@@ -797,7 +797,7 @@ static int fsl_edma_probe(struct platform_device *pdev)
- 		struct fsl_edma_chan *fsl_chan = &fsl_edma->chans[i];
- 		int len;
- 
--		if (fsl_edma->chan_masked & BIT(i))
-+		if (fsl_edma->chan_masked & BIT_ULL(i))
- 			continue;
- 
- 		snprintf(fsl_chan->chan_name, sizeof(fsl_chan->chan_name), "%s-CH%02d",
-@@ -927,7 +927,7 @@ static int fsl_edma_suspend_late(struct device *dev)
- 
- 	for (i = 0; i < fsl_edma->n_chans; i++) {
- 		fsl_chan = &fsl_edma->chans[i];
--		if (fsl_edma->chan_masked & BIT(i))
-+		if (fsl_edma->chan_masked & BIT_ULL(i))
- 			continue;
- 		spin_lock_irqsave(&fsl_chan->vchan.lock, flags);
- 		/* Make sure chan is idle or will force disable. */
-@@ -953,7 +953,7 @@ static int fsl_edma_resume_early(struct device *dev)
- 
- 	for (i = 0; i < fsl_edma->n_chans; i++) {
- 		fsl_chan = &fsl_edma->chans[i];
--		if (fsl_edma->chan_masked & BIT(i))
-+		if (fsl_edma->chan_masked & BIT_ULL(i))
- 			continue;
- 		fsl_chan->pm_state = RUNNING;
- 		edma_write_tcdreg(fsl_chan, 0, csr);
++	ret = fsl_edma_configure_chan_iommu(pdev, fsl_edma);
++	if (ret)
++		return ret;
++
+ 	ret = devm_of_dma_controller_register(&pdev->dev, np,
+ 			drvdata->dmamuxs ? fsl_edma_xlate : fsl_edma3_xlate,
+ 			fsl_edma);
 
 -- 
 2.34.1
