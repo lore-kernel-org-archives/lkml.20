@@ -1,57 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.204.27.37
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794466768;
-	b=H5utw3pk5qVWq36MEovXenu7OFlE9Xf8VpcQ5IZqdNqkt6t4RbLSbv/H1rkFMUq2WJ0/
-	 KiTBoCqetl4BAksuDbj6vvaQJmbupamkHguUylJ9riEn4BrpdXYsZ6e0TMPOFDDieXam3
-	 l32ncFX79Agghi+edECt3+SiV4eDcocbLOx2OBmiQI6asmRAUCTxsqhGzN+Y20ygmPrlC
-	 xyIKI+0BWJdjnqv9H8yiN+oDASLe+4s6ETYGs9PVPnpBoZeD3I7JJ4v27hexpz8vlhuIO
-	 skO5fe53ZBQddaAn8PdKBMFy5uKkq93HpNKtz1nUmotKWPPIyjEFisEMKT9K1iP/gJg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794466768;
-	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
-	bh=rFmoSTnSMtkYYDADZBNmxpX8TOGs3H7nLIjSIgwjVeQ=;
-	b=KMzBNpRktXslZtLcPa7IqaU3RXsetOxi4l/GDFUjIuza+HXv03MiTfnHVbDPSPCNy+C4
-	 XjKYp5XPqE2rwosS+qDBPBIY7KVXV6ErDfJS7Q32m7JV6swj8TKhAMwRdFg7za0NPtqB4
-	 U0UxOCHT9ClSKTd/mKDdTextbcayTQ7uler37nkX80H8lTblT+Xv9sNXnP7S3IzoP+lJG
-	 mQ5/B+Zw4rKsoQ2AZrxQpz68HdqB2HUCkWaE3mH6igZxnulFI33BnJXlTpwlOr2pfu5qQ
-	 aTIeUyorYpZQJ64B4bHi3m41kDwDJKSkQv5oDKAXnp7eVCNTNXqB96bzgeYgVWfVgfA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hygon.cn;
-	spf=pass smtp.mailfrom=hygon.cn;
-	arc=none smtp.remote-ip=101.204.27.37
-Received: from spam01.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E933E606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:59:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E933E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
-	by spam01.hygon.cn (Postfix) with ESMTP id 4jQB832dHXzg1cV;
-	Thu, 12 Nov 2026 14:59:15 +0800 (CST)
-Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
-	by spam01.hygon.cn (Postfix) with ESMTP id 4jQB805K3Pzg1cV;
-	Thu, 12 Nov 2026 14:59:12 +0800 (CST)
-Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp2.hygon.cn (Postfix) with ESMTPS id 4C7FC3008F62;
-	Thu, 12 Nov 2026 14:58:24 +0800 (CST)
-Received: from jianyong.hygon.cn (172.19.20.52) by cncheex04.Hygon.cn
- (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Thu, 12 Nov
- 2026 14:59:11 +0800
-From: Jianyong Wu <wujianyong@hygon.cn>
-To: <mingo@redhat.com>, <peterz@infradead.org>, <juri.lelli@redhat.com>,
-	<vincent.guittot@linaro.org>, <yu.c.chen@intel.com>,
-	<tim.c.chen@linux.intel.com>
-CC: <dietmar.eggemann@arm.com>, <rostedt@goodmis.org>, <bsegall@google.com>,
-	<mgorman@suse.de>, <vschneid@redhat.com>, <kprateek.nayak@amd.com>,
-	<linux-kernel@vger.kernel.org>, <wujianyong@hygon.cn>,
-	<jianyong.wu@outlook.com>, <liuyibin@hygon.cn>, <zhongyuan@hygon.cn>
-Subject: [PATCH v2] sched/cache: Enable LLC aggregation above the first NUMA level
-Date: Thu, 12 Nov 2026 14:54:45 +0800
-Message-ID: <20261112065445.592968-1-wujianyong@hygon.cn>
-X-Mailer: git-send-email 2.43.0
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794466783;
+	b=H5p2uFrINRpDSco2pywSUszd0Xv6Ikr1q30TN5y87wmkQc0dUUFP7rxXDEqS6RwJs0yE
+	 ObFBz4QCB2us/bFxl1sFZwG85Tcb2oprFReMrMOWtl1Vat7b3gzm+MadBN8wdiWTAKTxL
+	 OUlSgHylCYMPDivkCJw1RIfOM+AhCc7+ampA7pRYDIEsPAcmUTuDMBhzpXV21mdfgn0aK
+	 Rgr+USVO5xWcE28vSs9cYUsCiKPGI1EJUkFhgDy0HQLusqPibalX3bTbehDrulQ59rzbs
+	 7VnBC0D8YVduhH2SOBILyqX8gMyRoUC/ZtQrNu3y11Q1n6Zd4vmgSNbsvgb3qTNVmRA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794466783;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=rNduiENQ9vhtrjuPl8puxUBgMaXfaonka9e702B4Qpw=;
+	b=fpmFPmhwq/vYbw8XIdBsrhRJdZXv3fzUjLyrz2syvLTrsUQZMoG+M9hkAWLYyTcWJ3IX
+	 3MDuv2ajnZrJ8WGq7QC9uNJoiPRODGusb69P/66GrHi6LiR5sX6ncylxgStpVCm/rvdMa
+	 hCqtzHjkH7W9S6OaIE/RleOumh72XLM61a+wH3KJPOVdljR9A7j6+Bvd29Mff1YE59lRb
+	 Yy1+DMujMA+v2bJsPDzhREtzDwVe/wl3qwEzMjhTK6l7zr7e6xqZ5PVoUFLkmPXMVaeRq
+	 W6h8t87rp6/ypF+l52k/cXMkSpWwMOvsYl/FEprX7k1cTfTlOnEosKurgSAqcfEoJ4A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=glabDw3a;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43152606A32A;
+	Thu, 12 Nov 2026 06:59:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=glabDw3a
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794466782;
+	b=Ndg9ErfyuhV+WsxKY6JFCyjCM1iaNFs1yK/06QOFiFkuL+A1+LWgj2zvFyq9ScFKL6OZ
+	 Y8p8fO0h1ycqkhbGWdx9Y0f3S7M/Xgx9fpD07uhWzqmQBcAvYjTMSlxvjLZZ3O68de7QY
+	 Y37iKw0aGd4COxAmkc1usK9BVclxhM9cBA8frmc7qDO7YNd0/gSNT8I+p3/513KXutUf2
+	 vqe4ABXlW7eaz2g0X8bYdSIJzCNbWoVm99YIPClkds6GoHt1g2ENMzC/B6H4pvOoAWHQF
+	 Kp5dbB9TCvwHXSsbOj2GNo6s2q3JeRE2QT6hSfQJxycUThqRZ7e3QI1xGwy0zQ8o+dw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794466782;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=rNduiENQ9vhtrjuPl8puxUBgMaXfaonka9e702B4Qpw=;
+	b=wBlf7YYL1Tap3CY+KvXEEsDsKODnfv0Tkl+hoGct1RdRoBayYVS/AL+D/jdLeLD6KlW0
+	 Qskij0o80z6E9+lrDXxbn8+4WU8wrgvUtay4wTzvVnBW7WnF8b6QQPRw4WCDkubxuoMYQ
+	 pUzyhEXegn6n61/82PZQ/Dkyx7LBvKEdJoGCFTwdA64pFCQLZdrF0Q2yRlyW65/KXDjTD
+	 xhiqQLCa/5BLTWVyeIvorDNN+w72vgnsM1+bUn/NwgRXd4AwX5gXm95J68BCCqJANRj28
+	 YJljbkoG6hII1/uOvMcmyjzzDgrPTf6vLJP/c5yhWZWdcGcm5eOs+LnnAlF64j1RzuA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 52CA11F00A05;
+	Thu, 12 Nov 2026 06:59:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794466782;
+	bh=rNduiENQ9vhtrjuPl8puxUBgMaXfaonka9e702B4Qpw=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=glabDw3ad+goMtzBkEd9rQmqMIPvUajUtrkvKhLl2oO8khrQI4lZr5HDzbwYd6kKL
+	 CoKnm6owDfcS3C8R0ANz/yTPI+sMRblN2muX9WsacN595P/svpWVDJPkjlywGHuxzb
+	 iuow6zn+N59w2RsNlpG1wvFDAawb5Z/HZkWZxzH/wG0xylzwZvnPcUejxkJrQB/caD
+	 pWbHxCN9Nuoosg9ErNAS1d/CP1E8R3qNTQ0QxNRIUeIeFRpFmfE/uf8I7GnspO7tOh
+	 DfvOqTI7r2wq6A3YaBaF6NKM66XBLdSYgSIIdFipTQ/xbG9IBGb/eAkUgWFYO0I0a2
+	 LzNg98O6RVsEQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A3F32492F2;
+	Thu, 12 Nov 2026 06:59:41 +0000 (UTC)
+From: Weidong Wang via B4 Relay <devnull+weidongw.illinois.edu@kernel.org>
+Date: Thu, 12 Nov 2026 00:56:11 -0600
+Subject: [PATCH] ima: reject duplicate fsname= in a policy rule
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,263 +82,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: cncheex06.Hygon.cn (172.23.18.116) To cncheex04.Hygon.cn
- (172.23.18.114)
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261112-c3-n204-v1-1-dd9400b9ece8@illinois.edu>
+X-B4-Tracking: v=1; b=H4sIAAtj9WoC/yXMQQ5AMBCF4avIrDUxQ0pcRSyqBmNR0iIScXfF8
+ kv+9y4I7IUD1MkFng8JsrgITBOwk3EjK+mjgTLSiEjK5spRVihTEWNZ6aIrNcR69TzI+T017e+
+ wdzPb7Z3DfT+ayAPUawAAAA==
+X-Change-ID: 20261112-c3-n204-a82e17864b76
+To: Mimi Zohar <zohar@linux.ibm.com>, 
+ Roberto Sassu <roberto.sassu@huawei.com>
+Cc: Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
+ Eric Snowberg <eric.snowberg@oracle.com>, Paul Moore <paul@paul-moore.com>, 
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
+ linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Zijie Zhao <zijie4@illinois.edu>, 
+ Weidong Wang <weidongw@illinois.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794466781; l=3130;
+ i=weidongw@illinois.edu; s=20261108; h=from:subject:message-id;
+ bh=YGNbmdIKoUZltwnBYfWkHQKsciAD4PKBCRhCaE1+1UI=;
+ b=4mb0v9yD+DWL94QnJHXjVFAc9KVagxK9XVa02IFOvT8sgRKBXYR4REO5WY7iFuUHoGsCpmAz5
+ hptdCWvDfCFCRSHcRMOFTmcIViSfxZYjR7/IMQjnieDszYjTMNYCxoR
+X-Developer-Key: i=weidongw@illinois.edu; a=ed25519;
+ pk=DR2S1xPEa5sELrWPfOpvUphJQ2VHC+MDc/wJavE/ifg=
+X-Endpoint-Received: by B4 Relay for weidongw@illinois.edu/20261108 with
+ auth_id=1449
+X-Original-From: Weidong Wang <weidongw@illinois.edu>
+Reply-To: weidongw@illinois.edu
+Content-Transfer-Encoding: 7bit
 
-sched_balance_find_src_group() only considers group_llc_balance when
-sds.prefer_sibling is set:
+From: Weidong Wang <weidongw@illinois.edu>
 
-	if (sds.prefer_sibling && local->group_type == group_has_spare &&
-	    (busiest->group_type == group_llc_balance ||
-	     sibling_imbalance(env, &sds, busiest, local) > 1))
-		goto force_balance;
+ima_parse_rule() stores the fsname= value with kstrdup() but, unlike
+fsmagic=, fs_subtype= and the other options, does not check whether the
+rule already has one. A rule that names fsname= twice overwrites
+entry->fsname and leaks the first string.
 
-sds.prefer_sibling mirrors SD_PREFER_SIBLING of the busiest group's
-child sched domain, and sd_init() clears that flag on every SD_NUMA
-domain. So on any domain whose child is itself a NUMA domain, i.e. on
-systems with more than one NUMA level such as multiple nodes per
-socket, groups tagged with group_llc_balance by llc_balance() can
-never take the force_balance path.
+Reject the duplicate with -EINVAL, as fs_subtype= does. Such a rule used
+to be accepted with the last fsname= taking effect; giving the option
+twice was never meaningful, and the other options already reject it.
 
-Such a group falls into the !group_overloaded branch below and in the
-common case ends up in out_balanced, so a task that was placed beyond
-the first NUMA level is never pulled into its preferred LLC.
+Writing the policy requires CAP_SYS_ADMIN, so the leak is limited to a
+few bytes per malformed rule loaded by a privileged user.
 
-Only require sds.prefer_sibling for the sibling_imbalance() case,
-which is what it was originally introduced for.
+The leak was found by an AI code review agent (an LLM-based bug-finding
+tool developed by Zijie Zhao and the submitter) and confirmed on an
+unmodified kernel, without error injection, on x86_64 under QEMU with
+kmemleak: loading 64 rules with a duplicated fsname= left 64
+unreferenced objects allocated by kstrdup() in ima_parse_rule() (inlined
+into ima_parse_add_rule()); the same rules with a single fsname= left
+none. With this patch the duplicate rules are rejected and kmemleak
+reports nothing; rules with a single fsname= are still accepted.
 
-Split the condition into two explicit tests and gate the llc_balance
-one on sched_cache_enabled(), so that the non cache aware case never
-reads the group type, and the test disappears at compile time when
-CONFIG_SCHED_CACHE is off.
+The reproducer, fix and changelog were drafted with AI assistance
+(Claude), then reviewed and tested by the submitter.
 
-Reported-by: Yibin Liu <liuyibin@hygon.cn>
-Suggested-by: Tim Chen <tim.c.chen@linux.intel.com>
-Signed-off-by: Jianyong Wu <wujianyong@hygon.cn>
+Fixes: f1b08bbcbdaf ("ima: define a new policy condition based on the filesystem name")
+Cc: Zijie Zhao <zijie4@illinois.edu>
+Signed-off-by: Weidong Wang <weidongw@illinois.edu>
 ---
-v1 -> v2:
-- Split the condition into two tests and gate the llc_balance one on
-  sched_cache_enabled() via busiest_llc_balance() (Tim Chen).
-- Add schbench/hackbench results with NUMA balancing enabled and
-  disabled (Chen Yu).
-- Reword the subject and drop the Fixes tag: this enables aggregation
-  above the first NUMA level rather than fixing a bug (Chen Yu).
+Tested on v7.4-rc1 (05441d697f7f), x86_64, QEMU/KVM, kmemleak, booted
+with slab_debug=U. 64 rules written to the IMA policy file at once:
 
-v1: https://lore.kernel.org/all/20261104141313.185433-1-wujianyong@hygon.cn/
+  trigger  "dont_measure fsname=pocfsA<i> fsname=pocfsB<i>"
+  control  "dont_measure fsname=pocfsA<i>"
 
-[Testing]
+               trigger                         control
+  unpatched    accepted; 64 unreferenced       accepted; none
+               objects, all "pocfsA<i>"
+  patched      write rejected; none            accepted; none
 
-The baseline kernel is fb7bd3a2aad7. The baseline and patched kernels
-used the same boot command line.
+Without slab_debug=U kmemleak reports none of these leaks on this
+kernel: stale pointers in the per-CPU slab sheaves keep the leaked
+strings "referenced". Writing the policy more than once needs
+CONFIG_IMA_WRITE_POLICY=y, which the test kernel has. The code is
+unchanged in mainline, linux-next (next-20261111) and next-integrity.
 
-Hygon machine with the following topology:
-* 2 sockets
-* 4 NUMA nodes per socket
-* 4 LLCs per NUMA node
-* 4 cores per LLC domain
-* 2 SMT threads per core
+The reproducer is available on request.
+---
+ security/integrity/ima/ima_policy.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-With the default aggr_tolerance (1), a process is only aggregated when
-its average number of running threads is below 3.2 on this machine
-(8 CPUs per LLC, SMT-2). aggr_tolerance was set to 2 so that up to 6.4
-running threads can be aggregated. schbench with 3 and 4 worker threads
-(4 and 5 running threads including the message thread) shows the main
-difference. C2 was disabled on all CPUs for this test to reduce the jitter
-from C2 exit latency, which makes the difference between the baseline and
-patched kernels easier to see.
-
-schbench -m 1 -t $threads -r 30 -i 100, 30 runs per configuration.
-p99 wakeup latency, mean of all runs (lower is better, normalized to
-baseline):
-
-NUMA balancing enabled:
-
-threads   baseline          patched           improve
-========================================================
-3         1.000             0.781             21.9%
-4         1.000             0.742             25.8%
-
-NUMA balancing disabled:
-
-threads   baseline          patched           improve
-========================================================
-3         1.000             0.845             15.5%
-4         1.000             0.733             26.7%
-
-The fraction of runs in which all threads stayed in one LLC was also
-recorded. Thread placement was checked every 3s, and a run counts as
-aggregated only if all threads were in one LLC at every check:
-
-NUMA balancing   threads   baseline     patched
-================================================
-enabled          3         80%          97%
-enabled          4         60%          97%
-disabled         3         80%          100%
-disabled         4         53%          100%
-
-Runs with all threads in one LLC had lower p99 than runs in which the
-threads were spread over more than one LLC, so the higher aggregation
-rate with this patch accounts for the improvement.
-
-The other tests below were run with aggr_tolerance at its default (1)
-and C2 enabled; all other settings were unchanged, and only NUMA
-balancing was toggled. They show no obvious regression.
-
-hackbench:
-(lower is better, normalized to baseline; the figure in parentheses
-is the standard deviation, as a percentage of the mean)
-test cmd: hackbench -T -p -f $f -g $g -l 100000
-
-schbench:
-p99 wakeup latency (lower is better, normalized to baseline; the figure
-in parentheses is the standard deviation, as a percentage of the mean)
-test cmd: schbench -m 1 -t $threads -r 30 -w 5 -i 100
-
-Each configuration was run 10 times; configurations with large
-run-to-run variation were re-run 20-40 times.
-
-NUMA balancing disabled:
-
-fds    groups  baseline          patched           improve
-=============================================================
-2      1       1.000 (6.33%)     0.963 (2.48%)     3.69%
-2      2       1.000 (46.47%)    0.925 (19.65%)    7.53%
-3      1       1.000 (36.07%)    0.860 (25.27%)    13.99%
-4      1       1.000 (34.52%)    0.992 (39.02%)    0.79%
-4      2       1.000 (28.45%)    0.925 (31.71%)    7.48%
-8      1       1.000 (19.00%)    1.010 (12.27%)    -0.99%
-8      2       1.000 (8.94%)     0.962 (10.80%)    3.80%
-12     1       1.000 (11.83%)    0.991 (13.08%)    0.89%
-12     2       1.000 (7.16%)     1.009 (6.25%)     -0.88%
-16     1       1.000 (12.56%)    1.030 (11.36%)    -2.96%
-16     2       1.000 (9.49%)     0.997 (7.10%)     0.33%
-20     1       1.000 (4.76%)     0.999 (4.51%)     0.06%
-20     2       1.000 (3.12%)     0.971 (5.26%)     2.87%
-24     1       1.000 (8.05%)     1.017 (3.84%)     -1.66%
-24     2       1.000 (5.93%)     1.038 (5.13%)     -3.75%
-32     1       1.000 (3.77%)     0.986 (3.89%)     1.40%
-32     2       1.000 (2.76%)     1.028 (3.48%)     -2.83%
-48     1       1.000 (0.56%)     1.012 (2.06%)     -1.21%
-48     2       1.000 (2.41%)     0.989 (1.89%)     1.14%
-
-threads   baseline          patched           improve
-========================================================
-2         1.000 (7.50%)     1.046 (18.54%)    -4.56%
-6         1.000 (14.54%)    1.028 (13.17%)    -2.80%
-8         1.000 (11.12%)    0.939 (20.46%)    6.10%
-12        1.000 (14.66%)    0.996 (13.49%)    0.38%
-16        1.000 (14.12%)    1.004 (13.08%)    -0.36%
-32        1.000 (14.16%)    1.030 (12.74%)    -2.98%
-48        1.000 (23.37%)    0.932 (11.64%)    6.85%
-64        1.000 (71.38%)    0.883 (80.19%)    11.72%
-96        1.000 (2.32%)     1.025 (3.42%)     -2.46%
-128       1.000 (10.06%)    1.009 (10.12%)    -0.87%
-
-NUMA balancing enabled:
-
-fds    groups  baseline          patched           improve
-=============================================================
-2      1       1.000 (69.72%)    0.781 (39.69%)    21.88%
-2      2       1.000 (44.86%)    0.829 (22.25%)    17.08%
-3      1       1.000 (34.37%)    0.933 (32.66%)    6.75%
-4      1       1.000 (35.28%)    0.816 (39.43%)    18.38%
-4      2       1.000 (7.18%)     0.877 (28.44%)    12.35%
-8      1       1.000 (7.66%)     0.950 (8.68%)     5.05%
-8      2       1.000 (5.47%)     0.909 (12.19%)    9.08%
-12     1       1.000 (6.94%)     0.999 (8.91%)     0.15%
-12     2       1.000 (11.10%)    1.025 (8.17%)     -2.55%
-16     1       1.000 (6.95%)     0.955 (9.78%)     4.49%
-16     2       1.000 (4.78%)     1.017 (6.14%)     -1.70%
-20     1       1.000 (11.78%)    1.041 (7.17%)     -4.08%
-20     2       1.000 (2.93%)     0.957 (5.59%)     4.27%
-24     1       1.000 (3.71%)     0.982 (4.90%)     1.77%
-24     2       1.000 (3.12%)     1.018 (2.72%)     -1.80%
-32     1       1.000 (3.09%)     0.997 (2.54%)     0.33%
-32     2       1.000 (1.91%)     1.003 (2.58%)     -0.26%
-48     1       1.000 (2.76%)     1.016 (1.23%)     -1.61%
-48     2       1.000 (2.57%)     0.965 (2.14%)     3.50%
-
-threads   baseline          patched           improve
-========================================================
-2         1.000 (24.63%)    0.901 (5.05%)     9.94%
-6         1.000 (11.89%)    0.998 (6.94%)     0.19%
-8         1.000 (13.61%)    0.979 (14.44%)    2.10%
-12        1.000 (13.42%)    0.958 (16.61%)    4.18%
-16        1.000 (21.23%)    0.934 (16.92%)    6.60%
-32        1.000 (19.45%)    0.985 (12.27%)    1.48%
-48        1.000 (8.24%)     1.003 (13.56%)    -0.34%
-64        1.000 (71.56%)    1.020 (75.36%)    -1.96%
-96        1.000 (4.27%)     0.981 (2.15%)     1.90%
-128       1.000 (9.69%)     0.963 (7.86%)     3.70%
-
- kernel/sched/fair.c | 35 +++++++++++++++++++++++++++--------
- 1 file changed, 27 insertions(+), 8 deletions(-)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index cfc982205b98..01b9f7885574 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -12192,6 +12192,16 @@ static bool update_llc_busiest(struct lb_env *env,
- 	 */
- 	return sgs->nr_pref_dst_llc > busiest->nr_pref_dst_llc;
- }
-+
-+/*
-+ * The busiest group has tasks that prefer the destination LLC and
-+ * cache aware scheduling is enabled.
-+ */
-+static inline bool busiest_llc_balance(struct sg_lb_stats *busiest)
-+{
-+	return sched_cache_enabled() &&
-+	       busiest->group_type == group_llc_balance;
-+}
- #else
- static inline void record_sg_llc_stats(struct lb_env *env, struct sg_lb_stats *sgs,
- 				       struct sched_group *group)
-@@ -12210,6 +12220,11 @@ static bool update_llc_busiest(struct lb_env *env,
- {
- 	return false;
- }
-+
-+static inline bool busiest_llc_balance(struct sg_lb_stats *busiest)
-+{
-+	return false;
-+}
- #endif
+diff --git a/security/integrity/ima/ima_policy.c b/security/integrity/ima/ima_policy.c
+index 2dc1d93aa..f08ca00bd 100644
+--- a/security/integrity/ima/ima_policy.c
++++ b/security/integrity/ima/ima_policy.c
+@@ -1619,6 +1619,11 @@ static int ima_parse_rule(char *rule, struct ima_rule_entry *entry)
+ 		case Opt_fsname:
+ 			ima_log_string(ab, "fsname", args[0].from);
  
- /**
-@@ -13303,14 +13318,18 @@ static struct sched_group *sched_balance_find_src_group(struct lb_env *env)
- 			goto out_balanced;
- 	}
- 
--	/*
--	 * Try to move all excess tasks to a sibling domain of the busiest
--	 * group's child domain.
--	 */
--	if (sds.prefer_sibling && local->group_type == group_has_spare &&
--	    (busiest->group_type == group_llc_balance ||
--	    sibling_imbalance(env, &sds, busiest, local) > 1))
--		goto force_balance;
-+	if (local->group_type == group_has_spare) {
-+		if (busiest_llc_balance(busiest))
-+			goto force_balance;
++			if (entry->fsname) {
++				result = -EINVAL;
++				break;
++			}
 +
-+		/*
-+		 * Try to move all excess tasks to a sibling domain of the
-+		 * busiest group's child domain.
-+		 */
-+		if (sds.prefer_sibling &&
-+		    sibling_imbalance(env, &sds, busiest, local) > 1)
-+			goto force_balance;
-+	}
- 
- 	if (busiest->group_type != group_overloaded) {
- 		if (!env->idle) {
+ 			entry->fsname = kstrdup(args[0].from, GFP_KERNEL);
+ 			if (!entry->fsname) {
+ 				result = -ENOMEM;
 
-base-commit: fb7bd3a2aad70a76232a7168a505386d0a1396af
--- 
-2.34.1
+---
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+change-id: 20261112-c3-n204-a82e17864b76
+
+Best regards,
+--  
+Weidong Wang <weidongw@illinois.edu>
 
 
