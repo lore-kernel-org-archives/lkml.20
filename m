@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794473316;
-	b=axmFKs4py2jcsGyrsfV6EP5FhmTZPtdn+z1DJU6mHfF2ZSdKYhdbokHldmPMKtastwmi
-	 u/qa0toHwwNu1Nh1tndemyuF6s6V2OJW5FmjNWZhBLuqCQmFYsK6XC0nei6nlpaoOQ+Fc
-	 yN+79W0cqVhQuJcDf0mD/5eJpqKcbXRt+rP/N5xtoLjus3momL+i57yOJ4SJrS7cQJkz2
-	 mYWjGevq1uRQNgDWCNwM2OCJaOqm/2/Bnelr/MmlFvOYQ4WnAW8zBiZMEy4iLl/TDTU4s
-	 wnoA4m92PJW9fv1jhWfOrI+7OY69eH+mnWGj5kSQctozt53j/QK70rmcgHgLRldOdSA==
+	t=1794473317;
+	b=0EE1Jy2JyEqi1ITagRkQaL+JWDlyL6N36qh5Xi7qEcH2u2zIoXy1BCK5cQXGzV/tM8WA
+	 8xCOTDnCoJRIBBhh0S4b8oIfLJhDbWeSnfJskuh9Q7wurLR/4BFVqk/riVLpz3ZjGUaYL
+	 LwmIB35iHe4JmyyT6rVJduFOdwsCXNXB3N5VWBpdFvWj7A0L64EooeUKCSECqBYVmTwzj
+	 gkYhMU5qqdX7yhfi0pn5JRgtumBj/5UscIjmQ4U3w3YDE6ktxZvt4new9qIbkvxid6/4s
+	 tQNnLrmslQO6It3iufqVxe5WIOTe7k5ABbVIuvKjOP6MufcWK0qUOyas0o6/gIrWEiA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794473316;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794473317;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=vPoPaJYm1rVdkvIwz3bwEXUPzWyWy9GLWeLRkuftn2o=;
-	b=BFJhDOaqbaX2xckLdnYWe+rsOMZMSMN3I+2K8gAbi/mAlD5CsHrO4V6nsJq3klpwF/Ga
-	 JiXWisw93ua0Hx+6eT8NsmLTOOx6fzQEOwmwk1YrS3mzNVPfiNSkG5qwBzgwZqjTsEE4/
-	 pn6ZuBzdM/JrGi900QnccDlux/dtPyJNnKyusoffqMmcEZ8hwQI73zrI/hgQqYp//siYM
-	 uWLUhlaxqg284H0rsndg8seGggZFFypcy8QYPSistWD1vpSQOju0BXC2vYoO+q5fx8zsW
-	 WXx8FQCNge0lX+1hcBSpEF1e8EcnDx/3rHv9AKl9PZiHzzokYsrUt0HgNbRl8hm1qtA==
+	bh=SybEBamRVhhWKZBpvZM7kEpzIKLm/33VXIk0s84Bm/g=;
+	b=p8DlXyKT5JPEJx+XJXmgjDuQVAxbLvXb1ckoxBsgGCACmtekGCuoJNAKyqNP9hUAHW7v
+	 ccsNB04SPn6U6hrL/TPeuyXOjFrQVrlUjhvKMPneanPpUG1+af40FGna2mqXXD5ldD821
+	 0M1tx82gS6O5pVW642K7gJTaOE0qQy8AGNJkKEp5YgCqVBXmcrB7CGsLAt54piMSiUoop
+	 wbImBH4ZZq0yOMil3HsxW96enNPpCqvV9ldBNR2UG513zEH8CKzFKaQhhhcHBZjfwgi7N
+	 /Y7G0H99PIhzDXB1wXlIKEJJjpulOWsInijWIGZVpvBMXQpAmGMEU4locSuort4Wqdg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LNy0EA1q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MYiwuPNB;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B16BC606A888
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E829F606A88A
 	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:48:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LNy0EA1q
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MYiwuPNB
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794473316;
-	b=zysBscoLatRr/+xoVTX6Rl4kCD5PKeMM4QrKo5M1Tl9tTLu+ttLxuWYf0EfpFTFZxIBJ
-	 9GrCaFz9D7Ghd6sOZX1QjY2s7hppcqsyYDC1gJkq2IclHRFMo9IIjiS3ueStpSjkP/P9q
-	 FldzpJ+VsfNJbvHLVkHeC3aOWTGueMJvptsIx0PO0adMIITrZpcDVylxUABBPUJ0sJeFI
-	 kDy5ydHrA3zAw4cAaYb1f3IKllfzIoWvrCQVNT4dIqscm/YVjt4hzDXiHqMziut+w6xli
-	 7Ag6avzNtNFcJjykRXoWuDVwS19Xq1IccyHZcTtw7ZovgBDDmjuxSeutP3i8UofuoHg==
+	b=pcdr1G2a3dsVVjlymrMYdIU/68HYfIzrXqXzetHYxpXFd8Dx9rxiLmcUzgcTw5ZTQA8X
+	 R/LvS+Sm4/CcUXrwFirUQv0BuSz5zX+Lvis65d4w/87AHKLV/1/Lt5oUaysBZOkNzgWMF
+	 7wHa9+F0EPHy0X5B0oF+Td+8oh9TjEw0bRWufvEKxkN6S1d/BOJOomtL3uL8nKk8XNWYm
+	 GidDuVUEXVGoSZerxDD9XSzyqIR6955yDgFj7uo9/iV4kVC6oZ12TMptMrR+gVlpoznO+
+	 KE/AMtbPuITxJVa9p4RUxJkr8assvPxNWI03F+mIdPCh40M3XEmrhYKKPLzY0w1AErg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794473316;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=vPoPaJYm1rVdkvIwz3bwEXUPzWyWy9GLWeLRkuftn2o=;
-	b=Yn74STF+2G1F2jMeVHxgwmMjf857rcSeCHVMArVEeQQEUDyswuQQhuIr0yOYFuJ2nl2v
-	 7pfvf0NPUFfPKXxkO1pGvHVT3zexLnK8CnFeiiUiurXPWxWuX/V8iqgMpow1BJSnTZT+X
-	 CKE1y7sk86q44P2PopVA0qfmvuzuhZuXM8dQ/gplpGx8i3+N7/L6r1hBXSVEsA/I4wz/R
-	 thZjVWT8qFylhkFzr40S3In9nFsmeJXahchz7/xkE18Bs7pcv3YiW0OK+sQURujJlqJIY
-	 d55q573cGfyYDEM/w7zpJxXgwFDPT/XA6fTALdztfW9OmL8yQAu5NR7nz8llswImpZg==
+	bh=SybEBamRVhhWKZBpvZM7kEpzIKLm/33VXIk0s84Bm/g=;
+	b=e7pHWlNxBbTsqhECiuGtfg+0Q7A8V59lvX0Auf/W3Kq07ozz1vlHRoFYh7U8H5QZOtEd
+	 z7iZHnpAyRHdWtqLgRVgpGzyBlbUnj6JA17vRN9DYQW/1EDm/X7M7Edg5trdpK2TpAg+Z
+	 iIE8YcfM6oQFHoIxYrHwXO7iX4w8ttw3GpK1PwLJ36OEpOM0uuaLoQrk3HG22X21FgJvf
+	 6+VqwmUs2pH4BesuXaGwWGGFwSVX3x1E3adJfqNWHG8celT237VamI5g4M0kXVXa2+x+4
+	 Tc/SRrluC5qt0VTA8L7osFiSIHpiuG3aaCxBuwLiCbixAHYvcezruRHho7cLYHDpPkQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9D1AE1F00A06;
+	by smtp.kernel.org (Postfix) with ESMTPS id AED021F00A08;
 	Thu, 12 Nov 2026 08:48:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794473316;
-	bh=vPoPaJYm1rVdkvIwz3bwEXUPzWyWy9GLWeLRkuftn2o=;
+	bh=SybEBamRVhhWKZBpvZM7kEpzIKLm/33VXIk0s84Bm/g=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=LNy0EA1qWiptCnzix/+IsiQnfU7t+llJX/1LKe1COFyLNYOgd+nIZM5Ziz3Z0Q4RG
-	 dMnDeidhSkzP6gBWhbrvvjW72tMWvMz/rw9j1567lMMa/RhjwG9EDvl2Q6B4394vPu
-	 Y8KMJo8CPFsY8edWjR3LaoJA8xQT6CrKBtrIHsOvS15YludjtcFq0qEQxRbH6pNVxN
-	 JxwN8jJ0D4PrNYMJfoKL3uRC53PiMwmjnLDnxmzDiXmXKk/qeb35O7eM7nwu6FwMP1
-	 xduF3BZ7bsoUwyZtuqqP3NR2GnjmHhLHT4RqU5xJPxTNHI+zMgxYajCTiBmTrvWq8h
-	 aMx1cb6TeYwag==
+	b=MYiwuPNBqSAAMbxrxrO/QV9n9f/gRFyvZ4R6dVtckLkBZ64jg/f5y+swgRukZorDn
+	 oLSTr7o0AK5EN5GKLCDnyJgGd4SGykdsNnfsuadPbWdvOUP3V7QKIrZKHTW+VT3OfA
+	 YM1K9JsFgZafszgXbvG70c+ZpDzZzkuHSaOrKcX8krEna0JR7ohC/Yw5R7/zPqgmZW
+	 b/2lgiYHFbgk4Fydhs45iCcuh1kG3L3FJ/ocJvbwByVz7Xxa6onXEOnSsaftEsikc5
+	 0+KbwWX+oZVHXwzMTIupw2zjeOrWsnd6EPtK10fx00wm8zvb+45+JWCjmOBvp1uUH/
+	 +AR5nyY69hJMA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 16E63493DD;
+	by lkml.kernel.org (Postfix) with ESMTP id 3EC70493E5;
 	Thu, 12 Nov 2026 08:48:35 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:48:34 +0000
-Subject: [PATCH v2 01/11] drm/panfrost: Power the GPU up for a reset queued
- from the MMU code
+Date: Thu, 12 Nov 2026 08:48:36 +0000
+Subject: [PATCH v2 03/11] drm/panfrost: Don't take a reference on a mapping
+ that is being freed
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-panfrost-long-jobs-v2-1-a06830da3d99@gmail.com>
+Message-Id: <20261112-panfrost-long-jobs-v2-3-a06830da3d99@gmail.com>
 References: <20261112-panfrost-long-jobs-v2-0-a06830da3d99@gmail.com>
 In-Reply-To: <20261112-panfrost-long-jobs-v2-0-a06830da3d99@gmail.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -96,11 +96,11 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794473314; l=2612;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794473314; l=2240;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=3Nwfj5PjtSEDNrdV40YewE7S010LHXjG4GEcXIttwyU=;
- b=0ryBwxlYAwCmZkVAh7K+YyhyJgkV5eo4lx5zT8nt16/VZPa84kdzHsOr1c/ufAt9CWA/boFco
- dNMp9BI+aEeDpLRe9IHtJnI1DlLh5dvyibxixzOEuNV0jLs5xz9Xlka
+ bh=rqdqg/OAAoy83+50ChQ3aQoU7NkR4pnj4DQAb5ccFxY=;
+ b=Oyzab45fRaSg0gCSQpPedyAhPZ8VSqJ25maLTpFnmx5Sm1cIpV2KK+zz9i9BzB0yVnH1IDLF8
+ yc4H6gxvNvOAAyev8HEdZIcS8xMq+JnKj0NcBoeE8duLrwihorKerVC
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -111,61 +111,54 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-panfrost_reset_work() calls panfrost_reset() without a runtime PM
-reference. The work is queued by panfrost_device_schedule_reset(), which
-wait_ready() calls when the AS_ACTIVE bit is stuck, from MMU operations
-whose callers drop their own runtime PM reference right after. The work
-shares the ordered reset workqueue with the scheduler timeout handlers, so
-it can run well after it was queued. If the GPU has gone idle and been
-runtime suspended in between, panfrost_reset() writes JOB_INT_MASK and the
-job slot registers of a powered-off GPU, which is a synchronous external
-abort on arm64.
+addr_to_mapping() looks up the mapping that contains a faulting GPU
+address in the address space's drm_mm and takes a reference on it with
+kref_get(). But panfrost_gem_mapping_put() drops the last reference
+before panfrost_gem_mapping_release() -> panfrost_gem_teardown_mapping()
+unmaps the BO and removes its node from the drm_mm under mm_lock, so the
+lookup can find a mapping whose refcount is already zero. kref_get()
+then revives it (refcount_t warns about the addition on zero), the
+release goes on and frees the mapping and drops the BO, and the fault
+handler maps pages into a BO that is being freed.
 
-Take a runtime PM reference in the work, resuming the GPU if needed, and
-drop it after the reset. If the GPU cannot be resumed (runtime PM is
-disabled during system sleep), no job is running on it and
-panfrost_device_runtime_resume() resets it on the way back up, so just
-clear the pending flag. Resuming instead of skipping the reset when the
-GPU is suspended keeps jobs that a concurrent resume queued behind the
-pending flag from waiting for a reset that never comes.
+This takes a GPU fault on a heap BO's address while the last handle and
+the last job reference to that BO go away. Jobs hold a reference on the
+mappings of the BOs they list, so it takes a job that uses a heap BO it
+does not list; userspace on the render node can submit that.
 
-Found by code review only (Sashiko); not reproduced.
+Use kref_get_unless_zero() and treat a mapping that is being freed as
+absent: the fault is then reported as unhandled.
 
-Fixes: f9ab9c66f080 ("drm/panfrost: Reset the GPU when the AS_ACTIVE bit is stuck")
+Found by code review: the same pattern in new code of this series was
+reported by Sashiko. Not reproduced.
+
+Fixes: bdefca2d8dc0 ("drm/panfrost: Add the panfrost_gem_mapping concept")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-206548@kernel.org/
+Link: https://lore.kernel.org/all/sashiko-outbox-206570@kernel.org/
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_job.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ drivers/gpu/drm/panfrost/panfrost_mmu.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-index 3a46dd61c..0c2fda80c 100644
---- a/drivers/gpu/drm/panfrost/panfrost_job.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-@@ -810,7 +810,21 @@ static void panfrost_reset_work(struct work_struct *work)
- 	struct panfrost_device *pfdev;
+diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+index faa62643c..eaf94d47d 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+@@ -576,7 +576,13 @@ addr_to_mapping(struct panfrost_device *pfdev, int as, u64 addr)
+ 		    offset < (node->start + node->size)) {
+ 			mapping = drm_mm_node_to_panfrost_mapping(node);
  
- 	pfdev = container_of(work, struct panfrost_device, reset.work);
-+
-+	/* The work can run long after it was queued, when the GPU has gone
-+	 * idle and been runtime suspended. Power it up for the reset: its
-+	 * registers are not accessible while it is suspended. If it cannot
-+	 * be resumed (runtime PM is disabled during system sleep), there is
-+	 * no job on it, and panfrost_device_runtime_resume() resets it when
-+	 * it comes back up.
-+	 */
-+	if (pm_runtime_resume_and_get(pfdev->base.dev)) {
-+		atomic_set(&pfdev->reset.pending, 0);
-+		return;
-+	}
-+
- 	panfrost_reset(pfdev, NULL);
-+	pm_runtime_put_autosuspend(pfdev->base.dev);
- }
- 
- static const struct drm_sched_backend_ops panfrost_sched_ops = {
+-			kref_get(&mapping->refcount);
++			/* The last reference to a mapping is dropped before
++			 * panfrost_gem_teardown_mapping() takes its node out
++			 * of the address space: don't revive one that is
++			 * being freed.
++			 */
++			if (!kref_get_unless_zero(&mapping->refcount))
++				mapping = NULL;
+ 			break;
+ 		}
+ 	}
 
 -- 
 2.55.0
