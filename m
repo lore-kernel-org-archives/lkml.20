@@ -1,112 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794484974;
-	b=QCvAb6H1XBojfnw/2iNmLQsJ49Eezs6sGaUHd5xkI0pIsB+DWuP4nmmCjDQXTNu8TDWg
-	 WWlp2Gp9UFoJAlqn6rOmwF3atDCTdJ52mcKFwPqWH6yxVEm4ZipfMR1gASZhUgot+bEyE
-	 bjgCHsgVd0NcEDypjG+wQjBNy5aQ+EIYbY+bPeFOOAGDnEGNRc7uA7ELYFz2KN5wjIZ4V
-	 HCuGSILl940qcFzb8KREW9zz9gS2sxmpssrN4uaT4xbOQRTazpNQwFuHOy2BVrcKrF1mm
-	 hsERLMsK/Jz1KlAVw82A+Q9azq+BTbH/sBq3FrKwC5tFqENRDFIA8QAL3Fdc40P5cOA==
+	t=1794484975;
+	b=dau3ICzSLdxmwqOyc9StJ8TxIal/AeI87Knnumw4Y6K8UT7xIgRFKXTKsL3gbtUttVjp
+	 2fDZSozxk+uqk+FZ0VY8C+plvre9dNR9FwImjCoHXyn4WFTmNq7xxTEhV+6dVkJQwufie
+	 yl6UBiXnaFO4ihPGyngQtSkgJpIjGH/a+FnPuR5MqKqlqlvPez+15xZOqgN7QJxb2TB4V
+	 dW7W5n0AoB0cpfzNY7z2zPFcrHUDVgd/LIKJd8NqZ4vjnHmELH8uxojTL7/ift6bkyPK3
+	 33qXOoXy671ihoj38ijntyF9h8VrL2DVcj+By2NnlYVofGUz03535NQu79DCK5QgTjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794484974;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=f4QOZ/ziloNp1YzjgE4+Apo8LJ81vNJIp5Lxxwu3DGk=;
-	b=4p+bEFTNKwMCZVo1A7N19Lxw/avRQ2V2IglOmmpcemlSayWidfGXiuAxWtCTh7FAqvwt
-	 XW329xYLwKrDY3vNOkkIgsHZqXa2deNaB4RRCxNrDIMLfwng1Vbhvahlmsm2erqAboZlH
-	 3UlC00XKAkEs39F2Gx2MA6E69zlcVFY3ypvzBYCz2CqfGFBfOmUCcS3pQhiyYzxYBA8JP
-	 74k2BF03/yR8aEdUAkliJYtPEY2iEKGt/yWxGKseInvD+MgnNePPKGi39NAy/0QOZJi1Y
-	 j8qD0W7PxF8KEfel1dEkiQvTr1ZYHki3t4sq8JsxgHxg2rW1ZBoJdwxw9L7Q5vpXaEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794484975;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Ll+ifZsj7f0p421Y+dZ6l5aN1p+c086yHqt0vsBJ3Nk=;
+	b=oeY5+JWzqCKImpuUO9VlhoiFzCAATop9nxpuSbQ5hIXziT+adSTVbIbP7/q+5AOYNZSw
+	 7keFzT4g6q2SvniXFfRKfsYnsa4R4Fhtve5xBvBJQnUHbL7yy135bFFCQpl+jypCfqqbi
+	 nkI3/CIMnLrv6V8YMZWzjtOtY+up6fmLnKyQEKvtLoHTYK6Jc/nkOeCYY5+bVY6s5fXGX
+	 LS1VNDukey2HK8lTbA0wTYQQATcV5moF29vnC+Ke6FXl8U+wH6CmOvAkcIfBIiPjThfaf
+	 Ig46kRUvVcsmU1hCNle1u4PMLC/DkIgOG4VNX7+RIo1GT+i80yjP5yZhoQzXbtA84ZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="OCaT3bl/";
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=E1DfSO9F;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19389606A327
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:02:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19389606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C426606A339;
+	Thu, 12 Nov 2026 12:02:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C426606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OCaT3bl/
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-497614c95f0so2347061f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:02:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794484972; x=1795089772; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=f4QOZ/ziloNp1YzjgE4+Apo8LJ81vNJIp5Lxxwu3DGk=;
-        b=OCaT3bl/FsF4u2GHgdA2lN1oedkz2/UEv8Oos3RDlLlU8ET813dd9aI1TVGoqLuZI0
-         Cf3c6fY+8VCQcTHGfpyQJzRvmg4AjXLNyDipH4B+F8cQh0G092DJHFljEb4yd7nb1Mjn
-         droxBfrL7V7QF8R72rr74a36DJ1cJRvw1EveftmQL3or0Zyu2flnwWc760kjJdADR9CO
-         KSyBh2h8pY7CqQZCjmg25rtuUuMdf5lIbwhSjgV5kIMkoC9JUSmgEOV4A9Doap3qfC4z
-         FmVB1+f+id7Ei1/YlTCj3XFJrUzCsnYTJB7tF7JVilKonM5SQA9p7pJbSHaP/duFOBWm
-         zeog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794484972; x=1795089772;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f4QOZ/ziloNp1YzjgE4+Apo8LJ81vNJIp5Lxxwu3DGk=;
-        b=y2Wu7S762g6xeQENUHCxehvpluO95SUPJ3fwRIKprzTq7disI66BLoUZMfDXSff8IS
-         0G0Er9aUWJKgJL8nHHGzQ+aE2uHDuMaJTDwamQO/arWbml4M/a5CXdSJPvl/QoxLLfac
-         gR5xA8FJcEDo8b/51t7bCnjJrU9/58gLYsCWLuNMIqdT3LdaCJN5yNKTyImxjDguM9rr
-         WkEMJYu3l+FJBvlVlMMLZrQE1bRPcDRBZPRH8Dw6rHhJR68SFUhr+MpXdbGk7Cn1Razg
-         RLTYDxui22sXoeXNpwWKLJXuiKsW48EV7M+FtCc+U67yYBkzBiowY7mcfUC69zCruqvI
-         yHMA==
-X-Forwarded-Encrypted: i=1; AL+hErHw5SgVzlDBLy6IoMMMIsIu5kPWq/VraGmKkPE4jap9lVLd73x6wUS6ltdD+d99eA42WoF4+SqOlwQy2Ns=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+S4FLpl9mrfd3XZW7AJHiApqxKCb/19VeCfSgtDwZgw/oh0cKr
-	510L6P0tqKdgoA07YMWlZyrZlxQcBZcutUY6fRXTNJVkNJARh7+OjzxC
-X-Gm-Gg: AYBFou3r6N6ZA+azDoe6XmoV2QFIcF+yr0cIgt7XQojHjxeOqooQGAq47ni/SrNYK8l
-	LMZPnixOryyu46akQguR2ns797ca3IeRNoN5w2BBNAqV1UFJEWqRHMPLYarmp9FXBmvG1C44uLt
-	Nh7D/eySjUSFL/FdCYYE3iv3g0uxe3YIwKWbupqrzGsL9/1Oy5yjN9qzqCwPxteUu9n0uM+iMul
-	OB25+tOSo8Oeca4dkFdvFEzy2ckNtlfEofaTPj3XR8rxMT+QPBKidqEC62LfL0uBX5Mp7b7SepB
-	L6bmE+fLnrft7D0pKttur7FGVh4XgsSqkl9MfmRE6uyCdGJDGMjCj/tqLRGQmLg4n1L/yRHNveR
-	b8ikO4VkhQnRL+PL/qo6boodPP8WRFu4JaQ1eRRU/LH8nYfURQUbUQFeMNC8m/g2/4Rc8/8Vbjk
-	j7lM4CKA6y2aCfdSh26uCtS+HPi1nFVwhbhNm4L/W2RWnPB1AwfsimMPDzG8eVYcIWJJWRW5pO5
-	RQ5S+Li3C+udtqFVGLqFf37pq2Vus/xrWgx3X+2SUEy7rE3TIyLW0NnBZ6XdMAdRfypbi85IvHW
-	c5cg5/3GHz9Zff+4js44mTjCEFdEKoMPjNijkROuhZ/OOSxtQu8bVxFgmdngdSMsyA==
-X-Received: by 2002:a05:6000:460b:b0:491:1e3f:a427 with SMTP id ffacd0b85a97d-499c898168fmr8711941f8f.42.1794484971757;
-        Thu, 12 Nov 2026 04:02:51 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498367ba82csm16541261f8f.50.2026.11.12.04.02.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 04:02:51 -0800 (PST)
-Date: Thu, 12 Nov 2026 12:02:48 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Yunhui Cui <cuiyunhui@bytedance.com>
-Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
- alex@ghiti.fr, dennis@kernel.org, tj@kernel.org, cl@gentwo.org,
- oleg@redhat.com, ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
- eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, bjorn@kernel.org, pulehui@huawei.com,
- puranjay@kernel.org, broonie@kernel.org, dave@stgolabs.net,
- jszhang@kernel.org, tglx@kernel.org, conor.dooley@microchip.com,
- thuth@redhat.com, ajones@ventanamicro.com, ben.dooks@codethink.co.uk,
- rkrcmar@ventanamicro.com, samuel.holland@sifive.com, zong.li@sifive.com,
- debug@rivosinc.com, seanwascoding@gmail.com, andybnac@gmail.com,
- menglong8.dong@gmail.com, cyrilbur@tenstorrent.com,
- wangruikang@iscas.ac.cn, atishp@rivosinc.com, apatel@ventanamicro.com,
- arnd@arndb.de, nathan@kernel.org, nick.desaulniers+lkml@gmail.com,
- morbo@google.com, justinstitt@google.com, qingfang.deng@siflower.com.cn,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, bpf@vger.kernel.org, linux-arch@vger.kernel.org,
- llvm@lists.linux.dev
-Subject: Re: [PATCH v10 2/9] riscv: add infrastructure for preemptible
- this_cpu operations
-Message-ID: <20261112120248.5c8265e2@pumpkin>
-In-Reply-To: <20261112104149.38589-3-cuiyunhui@bytedance.com>
-References: <20261112104149.38589-1-cuiyunhui@bytedance.com>
-	<20261112104149.38589-3-cuiyunhui@bytedance.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=E1DfSO9F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794484976; x=1826020976;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=maRw+kmF3iMpLkKwwCjUqPLxEt+usu6mxGfGFV05qOk=;
+  b=E1DfSO9FWFkfesLlIW7jruxTxPKPnxcPbXFUB7gS7JP+4lzIP+b52TH6
+   ZBo2/2jS+IFpHKit2Tzwkq92at36CA/iYwvJIiACRPg0OurTMCBYDkEJ0
+   UCvfnP/NHCZowkJVJu5zLySB9cRPeYsg+5AO+p2KPygGJChgpymcRr0yN
+   eTU0TspVtkMDNbyK6Tk2KvZdy0CiOxjGUdqOvuK36U1EdnrT7RSbAyNSK
+   yBEltULeXeq83eatdpnE5wpvX6TOU+QJk5ndtBLJRxDNdyQixtDVIMIfD
+   nMr7C67tRwa1xrZhJ/9A6RvhQN9/uQXVui4JG9+I61C/Im7H627/gfJns
+   Q==;
+X-CSE-ConnectionGUID: sTQS4xpbRMOJJzdpkwkaMA==
+X-CSE-MsgGUID: MxxYlEYhTWiWvBlert3YJg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3177724"
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="3177724"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 04:02:55 -0800
+X-CSE-ConnectionGUID: W83PTiHRSkCMjADCXyLB1Q==
+X-CSE-MsgGUID: SNDVA9AWQ8GhoMJkGnzIug==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="8537390"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa004.jf.intel.com with ESMTP; 12 Nov 2026 04:02:51 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xRTVx-000000011Fj-0fhu;
+	Thu, 12 Nov 2026 12:02:49 +0000
+Date: Thu, 12 Nov 2026 20:02:04 +0800
+From: kernel test robot <lkp@intel.com>
+To: Paul Cercueil <paul.cercueil@bootlin.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Bharat Bhushan <bbhushan2@marvell.com>,
+	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
+	Tanmay Jagdale <tanmay@marvell.com>,
+	Jisheng Zhang <jszhang@kernel.org>,
+	Paul Cercueil <paul.cercueil@bootlin.com>
+Subject: Re: [PATCH v2 6/6] spi: cadence-xspi: Add workaround for old Marvell
+ firmwares
+Message-ID: <202611121914.Tdw8zp6W-lkp@intel.com>
+References: <20261111103541.100848-7-paul.cercueil@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,29 +90,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111103541.100848-7-paul.cercueil@bootlin.com>
 
-On Thu, 12 Nov 2026 18:41:42 +0800
-Yunhui Cui <cuiyunhui@bytedance.com> wrote:
+Hi Paul,
 
-> +/*
-> + * Mark a region where the per-CPU offset and address registers may need to
-> + * be rewritten by exception return after migration.  The three registers
-> + * must remain distinct for the whole region.
-> + */
-> +#define __PCPU_GPRS_BEGIN						\
-> +	__DEFINE_ASM_GPR_NUMS						\
-> +	__PCPU_GPRS_ASSERT_DISTINCT					\
-> +	"li %[off], " __PCPU_GPRS_VALUE "\n"				\
-> +	"sh %[off], %[gprs]\n"						\
-> +	REG_L " %[off], %[pcpu_offset]\n"				\
-> +	"add %[addr], %[pcp], %[off]\n"
-> +
-> +#define __PCPU_GPRS_END							\
-> +	"sh zero, %[gprs]\n"
+kernel test robot noticed the following build errors:
 
-Those are quite nasty with all the hidden variable names.
-It wouldn't do any harm to pass the names though.
+[auto build test ERROR on broonie-spi/for-next]
+[also build test ERROR on linus/master v7.4-rc2 next-20261110]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-David
+url:    https://github.com/intel-lab-lkp/linux/commits/Paul-Cercueil/spi-cadence-xspi-Properly-handle-errors-in-transfer_one_message/20261111-113536
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+patch link:    https://lore.kernel.org/r/20261111103541.100848-7-paul.cercueil%40bootlin.com
+patch subject: [PATCH v2 6/6] spi: cadence-xspi: Add workaround for old Marvell firmwares
+config: sparc64-allmodconfig (https://download.01.org/0day-ci/archive/20261112/202611121914.Tdw8zp6W-lkp@intel.com/config)
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261112/202611121914.Tdw8zp6W-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611121914.Tdw8zp6W-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/spi/spi-cadence-xspi.c:1234:58: error: array has incomplete element type 'const struct acpi_platform_list'
+    1234 | static const struct acpi_platform_list mrvl_platform_list[] = {
+         |                                                          ^
+   drivers/spi/spi-cadence-xspi.c:1234:21: note: forward declaration of 'struct acpi_platform_list'
+    1234 | static const struct acpi_platform_list mrvl_platform_list[] = {
+         |                     ^
+>> drivers/spi/spi-cadence-xspi.c:1239:11: error: use of undeclared identifier 'all_versions'
+    1239 |                 .pred = all_versions,
+         |                         ^
+>> drivers/spi/spi-cadence-xspi.c:1249:10: error: call to undeclared function 'acpi_match_platform_list'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    1249 |                 return acpi_match_platform_list(mrvl_platform_list) >= 0;
+         |                        ^
+   3 errors generated.
+
+
+vim +1234 drivers/spi/spi-cadence-xspi.c
+
+  1233	
+> 1234	static const struct acpi_platform_list mrvl_platform_list[] = {
+  1235		{
+  1236			.oem_id = "MRVL  ",
+  1237			.oem_table_id = "CN10K",
+  1238			.table = ACPI_SIG_DSDT,
+> 1239			.pred = all_versions,
+  1240		},
+  1241		{ }
+  1242	};
+  1243	
+  1244	static inline bool cdns_is_marvell(struct device *dev)
+  1245	{
+  1246		const char *compatible;
+  1247	
+  1248		if (has_acpi_companion(dev))
+> 1249			return acpi_match_platform_list(mrvl_platform_list) >= 0;
+  1250	
+  1251		if (of_machine_read_compatible(&compatible, 0) < 0)
+  1252			return false; /* shouldn't actually happen */
+  1253	
+  1254		return strstarts(compatible, "marvell,");
+  1255	}
+  1256	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
