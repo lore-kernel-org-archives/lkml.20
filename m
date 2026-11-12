@@ -1,111 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794461653;
-	b=HgtCHEMs3uyb+kLOsgo0GHoH8QuTSV4kBFvHp/MfeTfSXS4XdHiBGeSyL8yCvUnxmym4
-	 MajHF84SdWt6xRKhmmw7ZbXkISSFJQXA1bpxepepRtGjG9S4if57avgeltNU0VWy7TRsx
-	 qX4xHYWUY8Xo+ZaSG4lQ+tdUdpU21/YELB35M2XAcbNGnFheHlwEWtKbmDtlSLOTKzgV0
-	 Ka7O9LLq8rszF9T0u5w0USeuru4HsU3fwKCI/7B3rbpUKITUxIjB0rdB/rFdKj/yioAxN
-	 /1O3JJEIsip+LnBP77vpOO530Vvt7l397JTif2Q+fH9gdE3g8kck1YLBjpDKHwtm0Ww==
+	t=1794461655;
+	b=zBO+Tq+Cj3S0c1zWMYWEbMdO6W9iFuWdchXfSapvuXVFhQct780m5BvI38H0utcAe1Ds
+	 Clx+cUfyqpkdpx5AHw6NLS68DmQ/T2rU6HAJIs5B0xM/8vvvIWEIdbuB9l3Lxa5ElhpN5
+	 ePLDnRDQP8dOQQadoQLgWcUVd49bWNOjeuUhYqC7JGSFTOFNMY4tnpSskEIjaFrLbJmoy
+	 H2z8brxI7aFO3LwL81/PJmn/p4IkajvI75LtvzE/2PPym2u5KlQ0nSUPhI9lC0T8o2E7S
+	 nO1T7l04meAVuVYOpuiW6T5krKrSFu48NqkgrDrWuFpRlMttNW9oNYjmAU5TWMzcOKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794461653;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=ME8In8jKZ3MBzjK9cpl6qwg+uCXfpWIB8rTznMDme5s=;
-	b=zFBvKyJNiUbeIR3Mgmh3PehIK8XHy88JedZugdmBuSmKAgPDPeI0bUi0Cf2CwgFJaxHJ
-	 oUUhGQQblH1GCEfjyK3OqNV5wE960l+kRv2w62Hs2zFoyvkCJtuHKKZKPxSOfYxbVJcFj
-	 UJMP0Rp7EDXJdkTyKv658PRB9zdGOAyyXX3zTpGILZGcZKFlJdw7GVFEqGI+JJ0DkBgLz
-	 VbC1Os18Fo4rfyp3Rds+45pnhL9bBwwhiYs1UnUAnybhX+u153qqaELfvzNMZnqdR6rIf
-	 4uhCrOHuPF5Kp5gY8IWpgb7wcDfQEh0sh1KaDCOPSCwyFeMvFUeugAg3BCUXeQZr2+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794461655;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=c252PVeNh2PrNdJdZI7UG6jqVLttaOqimaOV3eONzbI=;
+	b=IqPKPk+IeErw0Xorf3SK+gc3z5Km47Mu6l6/NerHeNcB31fYg85guSF/AhNP5ZminZ4l
+	 6+SpPqSOcln3zxebmFGY3UrszJ8X3m4BJv6Q1huX6KOG6Bn6N9fb8Q3y0sx5Ag6O038ns
+	 wN5EZuITfNyZEaOxjYG+LS6INOnGZXFXXMwQ2BY6OySvXXcWlquDYxVJL3DzGBE4TqR1I
+	 VKxSt6L1o27+f1xeAAFEpBz2Tfos6higJ6/AOCr+yXsTgPCN6F2YJ+9aSEZpY6rkFcQh9
+	 11DgMeWW0nuJrwlTJ1SS6mQU/7tNkCIURmDfaDXRruxkR/dZ+1sYIzboh8RViaTSFIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hoI8KwdD;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="dfAr/Y+w";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SkK7WIKg;
+	arc=none smtp.remote-ip=209.85.214.177
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A49F1606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:34:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A49F1606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DD04606A338
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:34:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DD04606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hoI8KwdD;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dfAr/Y+w
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC4mH803893693
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:34:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=ME8In8jKZ3MBzjK9cpl6qw
-	g+uCXfpWIB8rTznMDme5s=; b=hoI8KwdDW3MCzbBlltDvc7pD6oLqh7PWNnDln5
-	KsFgC2ACwmsc+17LNe46yiksi2VVC9Ufo/fG5EtFmScq91cK4PDmVjkM7MRHjd2s
-	6XF8bB9gWHjWXxijqzZhHj02F9Se+T3dhtdoTp2FbiiWDomDiy/qMtSYCd3teQce
-	cdk5P0FxX7XQTnP6xiFqKdzzXk+sMiUesKy8OJEpzLDLrjerE5daPuPeie7VtG35
-	Fa01s0+qcrbT9UNmx0fJDhZM1GkX4TG8EzoOcm+FSz7UIJW0SRVStHDP8hfcH4mr
-	hAiuNQIAzsZ4pW/Gj+ST3Q7yUlaN/Mvg2KegcU7u+fmqJIrA==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw6re0414-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:34:11 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd0cf3b1c70so2582102a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:34:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SkK7WIKg
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e9ae391a05so3150355ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:34:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794461651; x=1795066451; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ME8In8jKZ3MBzjK9cpl6qwg+uCXfpWIB8rTznMDme5s=;
-        b=dfAr/Y+w6r5zUfjzGBMnt4WGl/qbbynZ6hJ0BwXfsOVb76fNfO0j8U3j3RWU2qRm5b
-         UbLw6acSmEL/jODizqQxfpNDRrVLKvGVfGrjyI0RA2A1l2L9Po9JtvJHv8YZ7yVeg19s
-         kd4vS+Vwaq8hf73Cv/O8SdZCa8KE3KKgqIqZL909Vdwqel16KsfLliIXSh/BMU+F5z9v
-         xTPpUCV0peo06a/1PuuLRgWElxFjxn+h8g6EalajhlZgBLbuEcubbos/LAyCBJjBfjXb
-         z+BFmr73eJNNyt7/oeFIiVclx2lxdZww0mMRBnnU1jj58YHseDHtP4lj5eYbs+NY4eWg
-         Y6/Q==
+        d=gmail.com; s=20260707; t=1794461654; x=1795066454; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c252PVeNh2PrNdJdZI7UG6jqVLttaOqimaOV3eONzbI=;
+        b=SkK7WIKg1xCe+1YxBJKV9WxzN2Yi4fyx7xmt1QBIJrMaP7itFv9wk+rXHYgjnLDZaw
+         jicciXmHzfy4wSEXQiCRAfeHQrg5ckKPlNsVFaQAZlpXiPCpuyVTGUhFWuswDi5WMrc6
+         pA0gwcwD1vuyEI4EKo/2A8hwl6YYzs4oqsqU26y5CthKAu1Mwomigaxedqe61GU9KXcP
+         VkVDxWKl89Bsd42H0dGv5A48AE7znFThst+s4/LR3XM+bNllvYdmJ6wxeo3TCUOuu9MG
+         WIdkD3RbbCsZOUiZNPXEDQv5U9+OnlDUXAGGXiCI0bCZ+EmHTbqg3uRYaSmw1HJ5mSNP
+         XLzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794461651; x=1795066451;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ME8In8jKZ3MBzjK9cpl6qwg+uCXfpWIB8rTznMDme5s=;
-        b=hRiwUNpLDKNdDQsrmbtAT14ljlDACasnrswkYLFecNZHfPZyt6zbjorMowNiLz7dxL
-         NQD16lQJV7P8SNQft5Mks1ycxQmRBuVypxwUIGh8yQOJNNhblGQtADKw6VAp6PWRFOXr
-         yjYSF00jIzpLSqJuZ/PwReSt4oWGT5gt7h6/8nNuGo7ZAoYyh5aKapQ0Tb7etaIRnjsj
-         zaaqtVAdizknQ1fAUA0mWcOxbcwIlho/JypOnu3MiIQx4kdEFKE/lGpPbiBZDkDt0vvn
-         yhKuDGLgD8lptsCMOrsxYnFK7rbZM4ITpWoNuDu0RcDzsQ/BzNHwj9aW6g5r9yEZkKI9
-         blgA==
-X-Forwarded-Encrypted: i=1; AL+hErHedrVGZmsVGA02+Yj/g01RJzP8ZJwitZgwnI4W1XwNhl4KqYrf//Smv2Gcs//mMRmS9tJBbTvOS3BEgXw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+MM1i1oGRb3rDqYCmalDIeNYsWiQ69eiXaQ9EUhSV7y8d2TCao
-	IIjp+LZU7U8TYtHCdohxDpXaePx+1lX5frQiY4SepaAJi8RKHfmiJJ10/KWxqRkQ9hxxOF+gXGA
-	gbTAMLP+tBUrhnI6zI+OcYQfnobEKNXpUiTEaoIolX8VAbp0DLZpE8S+A9v5pMdgzjIQ=
-X-Gm-Gg: AYBFou2B6j/+HLFZOhTmbxTRL0hoxAD/nsMzkksF7dLpfy57fTwf2Fpa669UtynHB+2
-	j7Wt0Poq4kxie2/I0yIIs/QsdmnfAOhBFQZ5tpZksqT+Ywl7MypMSh4CikZmVgkjWm01LdQMZg0
-	KNwiaq4Lqh3vskKi6xqnD5/ryy76DrBA3Ihv5ZlcjErQCa5Iz8yXQSwbthrttyFSZx5BNfoeJOM
-	CqU0NKxHLdsaLv9MzE35uZ29cuAxtrFJDPcjU19cMH7usZ+6LNn/CwanO/Vsp++kjBS8ZatBXkJ
-	MsPa/BZcJ73YFhnuG2cHLQkbFm37A7O7z/PLrZs3qqpJjQBG9BCVmzksSc+gz7TxLsBgfEEbCvR
-	+Vij5oLZh8K056urrlwhUmLFtCEPPe09fm3LsyHwQ+NxxVSOVsf2QAjNgQRgJgPv+UtATo/Paux
-	dwpZOltSaqWg==
-X-Received: by 2002:a17:90b:4c50:b0:3ac:b44c:2d84 with SMTP id 98e67ed59e1d1-3b182ec2106mr4744144a91.13.1794461651172;
-        Wed, 11 Nov 2026 21:34:11 -0800 (PST)
-X-Received: by 2002:a17:90b:4c50:b0:3ac:b44c:2d84 with SMTP id 98e67ed59e1d1-3b182ec2106mr4744124a91.13.1794461650555;
-        Wed, 11 Nov 2026 21:34:10 -0800 (PST)
-Received: from hu-bkalkond-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197ce55c1sm2661873a91.3.2026.11.11.21.34.06
+        d=1e100.net; s=20260707; t=1794461654; x=1795066454;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c252PVeNh2PrNdJdZI7UG6jqVLttaOqimaOV3eONzbI=;
+        b=r4BDwBGGLvll0HX5eoeC5ruV6hSN4JZHhYUwBt12OLF9vMEVbwN5/uDvCc5yv5CweN
+         3sEPibvcVd8PX/cL6RPchEFUVO+U5eTwkriZoTdLMlKuzgI+8/xQzG42H98Z3rKDTUH6
+         X0f6fx2L4tkGPC1CpTUGaPfvvcPDZ2TLz8KQZx5EE7tj2SO4pPIGVm5v21JjcZjENJ+4
+         r53nZxQmbsMYlaJwzdl0XW/T30iQtHkLwdxVBMFJQaDpjsaWnRrI3kX0AxjP+i78NIDJ
+         krx0sJ87jpl6nu61cponZubZuKm2OLlsfvYo52e0F+SsQBje7P2d8Si171zthad9tj3x
+         iThg==
+X-Forwarded-Encrypted: i=1; AL+hErET2rJ7598/WUAKUS3JNDh3WA1/C6IWoX1BCkzExKGlrqH6dTvsVaP6clDdiQ6paSkt8bN7cVKL14kMUso=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/SACfoT7/gqVC7EeoztV5KekqDkQ++tuDhxIP3WiSWQ1LBZW5a
+	JiKOGREzzX9Kms6JBlDAZdFVV9Hx/a4jiv9vmXbSH+GduM9xfgbgVQnO
+X-Gm-Gg: AYBFou2pUWMVLKoGgxrkc3PV94ZQv1cgVeWV3QsrFJsTjLBKHGhhMXZlvzvxZu/Q47m
+	9WuU1JK144rTv95ReWliAtNkaHfApJXmAL4fjHFSzv+YLLTgV9zCA5qvllwJyTni0Z2xl2LdknY
+	4CMjM+Uzg8qHsW9hnSNSIb13iVYqW8/tSsFE3qlNwL5u9jcH3y0A/DMlDdCLFid2iRQRBXVZhAF
+	Gclcqq787Bd/KnbNZnldbTbAEFD8bYoDcsG2wEscIe6VdM12iBEdb4pOlStQcZVB9Htv7cLdW7I
+	JfvOFLctwmAJVIXe22QMI44chBzt4EtWStJZtMH1PJlxz4z6qkfKCkMcxdvKqnmHwhrShIka21b
+	rTbqToBarjB11p1ffwmzFyPI3uY5nocv4Xogyd6swImydjImfF0+tMlavKoYUOPnlA0ra871BX8
+	LD6kBn2tP1DMDqiIyHlzZ/fwOrnAYCA8ER6/wkgb+tQSQkT2RCJBZ9lDnma1JrnPR4WVHq/VgAb
+	iJV9TiGc3wj6ONiZyRYL0qNuLnt5F2RZzFkAIuRsIwZeg4f4BbDkFUhOE8SqoDv0NaARiD52dzC
+	TGztVQFTq5xwEkRc7gL8D+s0//P2QG/Hg4CowROXXs+oU3K2gQ==
+X-Received: by 2002:a17:903:904:b0:2ed:1fba:e5eb with SMTP id d9443c01a7336-2edf1717c66mr12328345ad.27.1794461653827;
+        Wed, 11 Nov 2026 21:34:13 -0800 (PST)
+Received: from server227.. ([39.170.101.209])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ede2847f1fsm12557275ad.54.2026.11.11.21.34.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 21:34:10 -0800 (PST)
-From: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 11:03:43 +0530
-Subject: [PATCH] arm64: dts: qcom: eliza-mtp: Add WCD9390 USB-SS mux for DP
- alt mode
+        Wed, 11 Nov 2026 21:34:13 -0800 (PST)
+From: Zxyan Zhu <zxyan0222@gmail.com>
+To: maxime.chevallier@bootlin.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: netdev@vger.kernel.org,
+	mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	rmk+kernel@armlinux.org.uk,
+	Zxyan Zhu <zxyan0222@gmail.com>
+Subject: [PATCH net-next v2] net: stmmac: program the FSM timeout timer
+Date: Thu, 12 Nov 2026 13:33:21 +0800
+Message-Id: <20261112053321.1103678-1-zxyan0222@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,138 +105,237 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-eliza-wcd-mux-fix-v1-1-70c521781ac1@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIALZP9WoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDINBNzcmsStQtT07RzS2t0E3LrNA1MTU2NzRLtEw2TLRUAuorKEoFCoP
- NjI6F8ItLk7JSk0tABinV1gIAm72PYnUAAAA=
-X-Change-ID: 20261111-eliza-wcd-mux-fix-453716a9c1a9
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794461646; l=2340;
- i=balaji.kalkonda@oss.qualcomm.com; s=20261001; h=from:subject:message-id;
- bh=baa38kPr+hJAvV/xF+9iBrY0f4mwj5mgcjfVGbGjZd8=;
- b=Hl/+GuJtXuyNOW1pShiG2PAlTaHyD8OhvSgLvAlVVp8LP7QFAeZE7luPLGNUsyMmqOfRSNuqD
- 5YR+/hGA38FCCAlxXROXQNpKd4q08JIyw3Th1rs9vd477/If8Mg3xb5
-X-Developer-Key: i=balaji.kalkonda@oss.qualcomm.com; a=ed25519;
- pk=U+unGox551qPLS2mzIlN+b5cHksxTMGPnDwePd6KEnI=
-X-Proofpoint-ORIG-GUID: kEnY8VuF2I-EWSmBFdWTYRUPmLwVoy5G
-X-Proofpoint-GUID: kEnY8VuF2I-EWSmBFdWTYRUPmLwVoy5G
-X-Authority-Analysis: v=2.4 cv=NJhAaE6g c=1 sm=1 tr=0 ts=6af54fd3 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=jVEDQz8d6yieKVSr1KAA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAyMSBTYWx0ZWRfX+uNGywk72TfO
- fRv0ZhOzwGuIuK5jxYEO+WZXB7vrySOPSg0BrP6xS8x4sEAeyULuYpqyeqLIAQZGxBqE0wdYik7
- ievNr46qFxdkRb+yJCkd9HbR/0okts4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAyMSBTYWx0ZWRfXxQAu89kwK3pZ
- LAb1Cyk3LRrMX3RvrhPp7knb2Zv682sXB8ayeModTpXAN990ba89sc97GGCAEk5UgQ3IH/8+6JR
- +lUBtucMIrdUVMmccHzniYCHp8k24/yoaup5trfo9jCf9pjz9uSIFjoSsxi2mMWy1z10pwHs4q7
- sPhGcc1YBLLI+Ly5oS8qwx42SKO20K/zwuqj/dhryHZBVod7PFPMZ0Ihh1zg/9slanBITyo7t4D
- KFMFWNyFz/GeUuwS4re0CbzRWMm2bxqWEaoYePI2fPmJCQ4nTsFmkS82XhD1Wc+O+tIFS/bOfzM
- IpNvu7sgjVJjIigdtj33uZBT4RxdrObEoUhTH/lCUDFWY2D/eO6xP6SzKaCRPONlBoCdGcL9ysU
- +tm6iGEnX5KkeFhF8iDemBbcBGqdNEPuFMcuQjZHDVmUSy8UdSeMD0trec4+mAdP8bc0r1Kvt1x
- mSHTKfKA0k5tgsc/SkQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0 clxscore=1015
- malwarescore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120021
+Content-Transfer-Encoding: 8bit
 
-The WCD9390 USB-SS mux routes the AUX/SBU lines between the USB-C
-connector and the DP PHY, but eliza-mtp lacks the devicetree node for
-it. Without a physical path for AUX, every DPCD probe times out and
-the display never comes up:
+stmmac enables the FSM timeout checker (TMOUTEN) but never programs the
+MAC_FSM_ACT_Timer register.  Per the databook the checker only fires once
+NTMRMD is programmed with a non-zero duration; NTMRMD == 0 disables the
+timer, so with TMOUTEN set but the timer left at reset a stuck FSM is
+never reported and the advertised timeout protection is ineffective.
 
-  msm_dpu ae01000.display-controller: [drm:drm_dp_dpcd_probe [drm_display_helper]] dpu_dp_aux: 0x00102 AUX -> (ret=-110)
-  msm_dpu ae01000.display-controller: [drm:msm_dp_bridge_hpd_notify [msm]] type=10 link hpd_link_status=0x0, status=2
-  [drm:msm_dp_bridge_detect [msm]] failed to read caps
-  [drm:msm_dp_bridge_detect [msm]] aux not connected
+Program MAC_FSM_ACT_Timer right after TMOUTEN is enabled, deriving the
+TMR field (CSR clocks per 1us tic) from the CSR clock rate and defaulting
+to a 1s timeout.  A platform can override the default through the new
+ntmrmd field in stmmac_safety_feature_cfg.
 
-Add the wcd_usbss typec-mux node on i2c3, along with its supply and
-reset line, and wire its SBU endpoint to a new port on the pmic-glink
-connector. This gives the AUX/SBU signals a physical path from the
-USB-C connector through the mux to the DP PHY.
+The issue was hit in testing on dwmac4 and dwxgmac, where a stuck FSM was
+not reported through the safety interrupt despite TMOUTEN being set.
 
-Signed-off-by: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
+Signed-off-by: Zxyan Zhu <zxyan0222@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/eliza-mtp.dts | 36 ++++++++++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+v1: https://lore.kernel.org/netdev/20261111143322.2234321-1-zxyan0222@gmail.com/
+v2:
+- Rebased onto net-next.
+- Dropped the Fixes: tags (this never worked, so it's feature completion,
+  not a regression fix).
+- Specified the tested hardware (dwmac4 and dwxgmac).
 
-diff --git a/arch/arm64/boot/dts/qcom/eliza-mtp.dts b/arch/arm64/boot/dts/qcom/eliza-mtp.dts
-index ee05192adcfb..d848ae77ab85 100644
---- a/arch/arm64/boot/dts/qcom/eliza-mtp.dts
-+++ b/arch/arm64/boot/dts/qcom/eliza-mtp.dts
-@@ -96,6 +96,14 @@ pmic_glink_ss_in: endpoint {
- 						remote-endpoint = <&usb_dp_qmpphy_out>;
- 					};
- 				};
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.c  | 20 ++++++++++++++++++-
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.h  |  6 +++++-
+ .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  3 +++
+ .../ethernet/stmicro/stmmac/dwxgmac2_core.c   | 20 ++++++++++++++++++-
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    |  3 ++-
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |  8 +++++++-
+ include/linux/stmmac.h                        | 17 ++++++++++++++++
+ 7 files changed, 72 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
+index f1bb981cab7c..4ab7a3df98c6 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
+@@ -2,6 +2,7 @@
+ // Copyright (c) 2017 Synopsys, Inc. and/or its affiliates.
+ // stmmac Support for 5.xx Ethernet QoS cores
+
++#include <linux/bitfield.h>
+ #include <linux/bitops.h>
+ #include <linux/iopoll.h>
+ #include "common.h"
+@@ -184,7 +185,8 @@ static void dwmac5_handle_dma_err(struct net_device *ndev,
+ }
+
+ int dwmac5_safety_feat_config(void __iomem *ioaddr, unsigned int asp,
+-			      struct stmmac_safety_feature_cfg *safety_feat_cfg)
++			      struct stmmac_safety_feature_cfg *safety_feat_cfg,
++			      unsigned int csr_clk_mhz)
+ {
+ 	struct stmmac_safety_feature_cfg all_safety_feats = {
+ 		.tsoee = 1,
+@@ -245,6 +247,22 @@ int dwmac5_safety_feat_config(void __iomem *ioaddr, unsigned int asp,
+ 		value |= TMOUTEN; /* FSM Timeout Feature */
+ 	writel(value, ioaddr + MAC_FSM_CONTROL);
+
++	/* Program the FSM active timer so the timeout checker actually fires.
++	 * TMR is the number of CSR clocks per 1us tic, i.e. csr_clk in MHz.
++	 * Default to a 1s timeout when the platform did not select one.
++	 */
++	if (safety_feat_cfg->tmouten && csr_clk_mhz) {
++		u32 ntmrmd = safety_feat_cfg->ntmrmd;
 +
-+				port@2 {
-+					reg = <2>;
++		ntmrmd = (ntmrmd >= STMMAC_NTMRMD_1US &&
++			  ntmrmd <= STMMAC_NTMRMD_64SEC) ?
++			 ntmrmd : STMMAC_NTMRMD_1SEC;
 +
-+					pmic_glink_sbu: endpoint {
-+						remote-endpoint = <&wcd_usbss_sbu_mux>;
-+					};
-+				};
- 			};
- 		};
- 	};
-@@ -112,6 +120,34 @@ vph_pwr: regulator-vph-pwr {
- 	};
++		writel(FIELD_PREP(MAC_FSM_ACT_TIMER_NTMRMD, ntmrmd) |
++		       FIELD_PREP(MAC_FSM_ACT_TIMER_TMR, csr_clk_mhz),
++		       ioaddr + MAC_FSM_ACT_TIMER);
++	}
++
+ 	/* 4. Enable Data Parity Protection */
+ 	value = readl(ioaddr + MTL_DPP_CONTROL);
+ 	if (safety_feat_cfg->edpp)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.h b/drivers/net/ethernet/stmicro/stmmac/dwmac5.h
+index 00b151b3b688..734e7630f28d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.h
+@@ -8,8 +8,11 @@
+ #define MAC_DPP_FSM_INT_STATUS		0x00000140
+ #define MAC_AXI_SLV_DPE_ADDR_STATUS	0x00000144
+ #define MAC_FSM_CONTROL			0x00000148
++#define MAC_FSM_ACT_TIMER		0x0000014C
+ #define PRTYEN				BIT(1)
+ #define TMOUTEN				BIT(0)
++#define MAC_FSM_ACT_TIMER_TMR		GENMASK(9, 0)
++#define MAC_FSM_ACT_TIMER_NTMRMD	GENMASK(19, 16)
+
+ #define MAC_PPS_CONTROL			0x00000b70
+ #define PPS_MAXIDX(x)			((((x) + 1) * 8) - 1)
+@@ -82,7 +85,8 @@
+ #define GMAC_INT_FPE_EN			BIT(17)
+
+ int dwmac5_safety_feat_config(void __iomem *ioaddr, unsigned int asp,
+-			      struct stmmac_safety_feature_cfg *safety_cfg);
++			      struct stmmac_safety_feature_cfg *safety_cfg,
++			      unsigned int csr_clk_mhz);
+ int dwmac5_safety_feat_irq_status(struct net_device *ndev,
+ 		void __iomem *ioaddr, unsigned int asp,
+ 		struct stmmac_safety_stats *stats);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+index f8ab347f7b5b..1fd501728b18 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+@@ -169,8 +169,11 @@
+ #define XGMAC_HWFEAT_PCSEL		GENMASK(1, 0)
+ #define XGMAC_MAC_DPP_FSM_INT_STATUS	0x00000150
+ #define XGMAC_MAC_FSM_CONTROL		0x00000158
++#define XGMAC_MAC_FSM_ACT_TIMER		0x0000015C
+ #define XGMAC_PRTYEN			BIT(1)
+ #define XGMAC_TMOUTEN			BIT(0)
++#define XGMAC_MAC_FSM_ACT_TIMER_TMR		GENMASK(9, 0)
++#define XGMAC_MAC_FSM_ACT_TIMER_NTMRMD		GENMASK(19, 16)
+ #define XGMAC_MDIO_ADDR			0x00000200
+ #define XGMAC_MDIO_DATA			0x00000204
+ #define XGMAC_MDIO_C22P			0x00000220
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+index 7ad08651675e..dac85431e740 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+@@ -4,6 +4,7 @@
+  * stmmac XGMAC support.
+  */
+
++#include <linux/bitfield.h>
+ #include <linux/bitrev.h>
+ #include <linux/crc32.h>
+ #include <linux/iopoll.h>
+@@ -837,7 +838,8 @@ static void dwxgmac3_handle_dma_err(struct net_device *ndev,
+
+ static int
+ dwxgmac3_safety_feat_config(void __iomem *ioaddr, unsigned int asp,
+-			    struct stmmac_safety_feature_cfg *safety_cfg)
++			    struct stmmac_safety_feature_cfg *safety_cfg,
++			    unsigned int csr_clk_mhz)
+ {
+ 	u32 value;
+
+@@ -873,6 +875,22 @@ dwxgmac3_safety_feat_config(void __iomem *ioaddr, unsigned int asp,
+ 	value |= XGMAC_TMOUTEN; /* FSM Timeout Feature */
+ 	writel(value, ioaddr + XGMAC_MAC_FSM_CONTROL);
+
++	/* Program the FSM active timer so the timeout checker actually fires.
++	 * TMR is the number of CSR clocks per 1us tic, i.e. csr_clk in MHz.
++	 * Default to a 1s timeout when the platform did not select one.
++	 */
++	if (safety_cfg && safety_cfg->tmouten && csr_clk_mhz) {
++		u32 ntmrmd = safety_cfg->ntmrmd;
++
++		ntmrmd = (ntmrmd >= STMMAC_NTMRMD_1US &&
++			  ntmrmd <= STMMAC_NTMRMD_64SEC) ?
++			 ntmrmd : STMMAC_NTMRMD_1SEC;
++
++		writel(FIELD_PREP(XGMAC_MAC_FSM_ACT_TIMER_NTMRMD, ntmrmd) |
++		       FIELD_PREP(XGMAC_MAC_FSM_ACT_TIMER_TMR, csr_clk_mhz),
++		       ioaddr + XGMAC_MAC_FSM_ACT_TIMER);
++	}
++
+ 	/* 5. Enable Data Path Parity Protection */
+ 	value = readl(ioaddr + XGMAC_MTL_DPP_CONTROL);
+ 	/* already enabled by default, explicit enable it again */
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+index 8ae95e91a36a..395655b01ea8 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+@@ -378,7 +378,8 @@ struct stmmac_ops {
+ 			     bool srgmi_ral);
+ 	/* Safety Features */
+ 	int (*safety_feat_config)(void __iomem *ioaddr, unsigned int asp,
+-				  struct stmmac_safety_feature_cfg *safety_cfg);
++				  struct stmmac_safety_feature_cfg *safety_cfg,
++				  unsigned int csr_clk_mhz);
+ 	int (*safety_feat_irq_status)(struct net_device *ndev,
+ 			void __iomem *ioaddr, unsigned int asp,
+ 			struct stmmac_safety_stats *stats);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 552840d29668..1b3dd30db6dc 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -3691,10 +3691,16 @@ static void stmmac_mtl_configuration(struct stmmac_priv *priv)
+
+ static void stmmac_safety_feat_configuration(struct stmmac_priv *priv)
+ {
++	unsigned int csr_clk_mhz = 0;
++
+ 	if (priv->dma_cap.asp) {
+ 		netdev_info(priv->dev, "Enabling Safety Features\n");
++		if (priv->plat->stmmac_clk)
++			csr_clk_mhz = clk_get_rate(priv->plat->stmmac_clk) /
++				      1000000;
+ 		stmmac_safety_feat_config(priv, priv->ioaddr, priv->dma_cap.asp,
+-					  priv->plat->safety_feat_cfg);
++					  priv->plat->safety_feat_cfg,
++					  csr_clk_mhz);
+ 	} else {
+ 		netdev_info(priv->dev, "No Safety Features support found\n");
+ 	}
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index 00be2df63d22..cb470a153bf8 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -168,8 +168,25 @@ struct stmmac_safety_feature_cfg {
+ 	u32 edpp;
+ 	u32 prtyen;
+ 	u32 tmouten;
++	/* FSM normal-mode timeout value (MAC_FSM_ACT_Timer.NTMRMD). The TMR
++	 * field (CSR clocks per 1us) is derived from the CSR clock by stmmac.
++	 * 0 selects the default 1s timeout.
++	 */
++	u32 ntmrmd;
  };
- 
-+&i2c3 {
-+	status = "okay";
-+
-+	wcd_usbss: typec-mux@e {
-+		compatible = "qcom,wcd9390-usbss";
-+		reg = <0xe>;
-+
-+		vdd-supply = <&vreg_l7b>;
-+		reset-gpios = <&tlmm 152 GPIO_ACTIVE_HIGH>;
-+
-+		mode-switch;
-+		orientation-switch;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				wcd_usbss_sbu_mux: endpoint {
-+					remote-endpoint = <&pmic_glink_sbu>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
- &apps_rsc {
- 	regulators-0 {
- 		compatible = "qcom,pm7550-rpmh-regulators";
 
----
-base-commit: 793807ca13bf3072fc6d16ce6d90e9ab9beff2a5
-change-id: 20261111-eliza-wcd-mux-fix-453716a9c1a9
-
-Best regards,
---  
-Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
-
++/* MAC_FSM_ACT_Timer.NTMRMD timeout durations */
++#define STMMAC_NTMRMD_1US		0x1
++#define STMMAC_NTMRMD_4MS		0x2
++#define STMMAC_NTMRMD_16MS		0x3
++#define STMMAC_NTMRMD_64MS		0x4
++#define STMMAC_NTMRMD_256MS		0x5
++#define STMMAC_NTMRMD_1SEC		0x6
++#define STMMAC_NTMRMD_4SEC		0x7
++#define STMMAC_NTMRMD_16SEC		0x8
++#define STMMAC_NTMRMD_32SEC		0x9
++#define STMMAC_NTMRMD_64SEC		0xa
++
+ /* Addresses that may be customized by a platform */
+ struct dwmac4_addrs {
+ 	u32 dma_chan;
+--
+2.34.1
