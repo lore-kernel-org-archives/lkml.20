@@ -1,55 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794515633;
-	b=BbGJLWkrtnCZcAcEPM4844V9OB91pIrmhhs5nh0XX9lfWt9onil8+6LoI6F6qghZeTNL
-	 aBvC6YkSs/f1Rbf4Yvlr59074oor2Co5bJrgQySnUp5fGAQT0cfqlhtL1ppKGkKawP7RL
-	 mTgQuCulY96n5Xo0SGE/qUx3tBCoWspgMO2VM8IliqDhf5f4NJivhrhHH2OYsMFdN6vCZ
-	 FOCCx3HIZVCHolrJXKBXipebHtUe4C19yeqTcBkq2AaQbmSeCeTDJUxLA6Yr7g9ZnfT49
-	 FZTO6hHRC8i75T6i0Dpl3VVkdHlI9Rk6EObPLZ/y2LEndzumJ9K67NACoW99bEvXN9Q==
+	t=1794515637;
+	b=rR6jZEyuwoLG7jCGO0I5nZVrwjFFefeYso0JK9yBFitJJv/UNV3Kt08s6u5R+aTcNApW
+	 X5N68rApSI3d0BCZBVcTiKqP0yzhpAPI3/hgsGCzrWk0b91g3Ewao8doczGfcguAxiWwJ
+	 b5T5okGnOY8eogKv+jJO+WWjJqoKKZ5Q6AwR4adqW5p+f2PdBlf8xZu7qw9bJYFrmQ+Kl
+	 LvxXaXOFdQXdBKPhC6lTOLxmDSsTpVkNTQ8N7GpTzZZbWwP80Xg2LovH3ATPE/5vAo9B6
+	 TzhbcEpr2J2C1c66pK7GyfJImL+OdVOX6cA/13mzPRKB0H+Ilw5jrMwLjnhlfiq1ZqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794515633;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=SJVo0kq9ZIhx2MTsLF5tHAHH/u/EXnQs3SWVLemHcVA=;
-	b=tGo3t5SOtmRoJXzo7PYuLrpk8EX2eNJNS1ax4ErCYCq2A3WnmWgYQh78p2Lq8mEk61mP
-	 uFuj1OnSAICw5OM76iZx3Efw8WwpIxUt27nyBGGyUTRZqF5r9io82fMbFxHNzp3aXCdHl
-	 HxsvJlThco3hLXS7ELIJy84Z7Jon2RcCv9YFOUnwuoNYDdVDIRCKi3Cdiu533gCqN4Qaf
-	 jYrL37yTsmcyxOo7/WgtsOLGmiG2DNDIhVrLcWMR7dpxHPDk4nCamtCYfq5MgTNtagIqL
-	 QFQ8Fcsl0PjlG6k8fGMqs1ih7N+hRdc3Hp65gnhDi/HdBSPY5URlGxu3AISTBnEnYug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794515637;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=gBrVAJTdCZD3/za9gWbaVLKgy+2UrOYir7j9/p3Gzwo=;
+	b=lBkohSXsjFuEVyc/zkNgoUV7UOMd/1SmUVu3VD6UbczdDg6YxDpUXeU4uswrq7gKK5+c
+	 nZqimg8ArI5j0wGwpUR0ov6rc1tRHTOHdAO0ExyaTpar7h8594ZJiEncNyalgvF/uhNSN
+	 J1oYFCqVmiViWeByg6HKAOwe3+Yt0ccto3Hb4Repndyu5I5AoejAV14C8SQ5g88I2F9JK
+	 nJFsyEibrrqzuoCFld0cyE6L0PJqovWUgfmpXNZYhITYDPFbtR05xbhJa3wvJ5CMtuVgV
+	 HOeinrZaua7o5vusmSgJUCuxzHuPrw6E9ZEwUq45laIT7JiykYHap5mH6Lm9l06v6bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABY1QDe1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E2D606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:33:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABY1QDe1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F0F51F000C4
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:33:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794515633;
-	bh=SJVo0kq9ZIhx2MTsLF5tHAHH/u/EXnQs3SWVLemHcVA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ABY1QDe1LbATdjQXJ0YDtqjHxt1pdNX1pK2YtHFoyHiXlyIJIohHPO4bvowxjvoms
-	 tj7mnzBniHa3k6hiP8UeF4BM+2l+LIFHJThskZPImspxdCw7D5qzcIDdm1Y5i1KLMn
-	 FkBQZTI7p1e8wsAPTsUwwGYuPnJzPYN6vCvop/RwszV3wRFF0135wwmQCYRuLZa5Um
-	 pYhIKbPnt5OMPvn4woWtsqnW8aJCeKth5cUKM4wzn+uankNC41I5AnsmOo8/OJ+rS8
-	 /6SlyZ1Get56Ia0UNcrxoj7+2+jvsUa8xqUnVfDDRvp7V6WlH2O2ggJX+QEWDySPB0
-	 ZNiD/P/9KV5Bg==
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3adfcafaabbso1698571fa.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:33:52 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEBdyzxoCBIN1/fwMbpmYf+5ST/J9KeMXRBEWniA/U3ikrewiTmoIqVZ4WL0ONJhWDTOmhv/UwX38JzKIU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Saybt6SuMq6hexOSQvYe+SiKPyHwGS8p7/pXEn+tzwhx4P9cu
-	ZiXdHfXMKvmgjQMCQ962cd63csUU3lgPyz3mOY+cs/Khatv/m4vqDD9G+8qO9EEpKZezrorxOh7
-	XjTY29ME1zzL8smvm7eAHlZY2btjxUBY=
-X-Received: by 2002:a05:6512:31ca:b0:5bf:aa60:26ac with SMTP id
- 2adb3069b0e04-5c170a27234mr168752e87.67.1794515631894; Thu, 12 Nov 2026
- 12:33:51 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DCEF606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:33:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DCEF606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4cc89e86e9eso243916b6e.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:33:57 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794515636; x=1795120436;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gBrVAJTdCZD3/za9gWbaVLKgy+2UrOYir7j9/p3Gzwo=;
+        b=M5IH+DN9DcFeJfgXqLOGw8AtrVugo0ncmJmjgeV3tskOcfzdH+vBA3p1n5GcnRbyaW
+         H3+BW1rvOoO6Q5g5bMkzAR6vlCkmBhonrkRXFgocwl8W24uLFWIjJoxA+yomykK1gtfn
+         uX04ZrdRTMZyP/ActhiYmlVBVfQT7BI03RduwFai/+7QEmSatOHwp9FdFCYBRqcq7BwP
+         ArlTD3++sfch2p5NeSSuW0nShegUG301cAsBK4rM+kQlJENel/JeHiHhiyU37WQFzQtR
+         apSOtf0u1GSirlE+iOjOu3DLopTYsMR0A8S1YfKiRs5UG6Z/LggKf1eWxudSy6yoSX99
+         pNiw==
+X-Forwarded-Encrypted: i=1; AL+hErEwXUwK52jS2/OXIx391YnTRtEx6xdhub6l+tqKWvyv+IJ7Je20gqoV0SJv7l3x/T0nPt6+fXcRKwvKusc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8DYgQqOtVv/LiLAcYPSnsSYFl9f8b3T9EbKy/gtpRj8DVTtF8B
+	dEFnZCQ3XmZzDX1A87/PqcTA2WKVhe0W4lHP1qni4ujjWpgFDeh/IhR4+xGhgSxD9AF/l0mMOXq
+	ccAMpf1ndourcsM1sXc/rryLisbS/yznQskxWVvS08gEpc64FBqfU4ZvPK+k=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,63 +58,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112-rtl8365mb-dcb-ingress-v2-0-f8e6fbdf8c99@pengutronix.de> <20261112-rtl8365mb-dcb-ingress-v2-8-f8e6fbdf8c99@pengutronix.de>
-In-Reply-To: <20261112-rtl8365mb-dcb-ingress-v2-8-f8e6fbdf8c99@pengutronix.de>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 12 Nov 2026 21:33:39 +0100
-X-Gmail-Original-Message-ID: <CAD++jLm2d=xRZm1deNmi4J5AgZy1i1yqKFd2pTyJXQ7vnp2ZsA@mail.gmail.com>
-X-Gm-Features: AclHuK9yp7a2NrLjfOQFqjSofozhv3Qv7luLwSklQKps2cfMM_xtltmfP-EWkW0
-Message-ID: <CAD++jLm2d=xRZm1deNmi4J5AgZy1i1yqKFd2pTyJXQ7vnp2ZsA@mail.gmail.com>
-Subject: Re: [PATCH net-next v2 08/10] net: dsa: realtek: rtl8365mb: program
- the PCP of untagged frames
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Luiz Angelo Daros de Luca <luizluca@gmail.com>, =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
-	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, kernel@pengutronix.de
+X-Received: by 2002:a05:6808:1645:b0:4d5:27da:a496 with SMTP id
+ 5614622812f47-56e65c55d18mr343213b6e.48.1794515636371; Thu, 12 Nov 2026
+ 12:33:56 -0800 (PST)
+Date: Thu, 12 Nov 2026 12:33:56 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af622b4.ff6dfe28.557e.0019.GAE@google.com>
+Subject: [syzbot] Monthly fs report (Nov 2026)
+From: syzbot <syzbot+list2e977b7855a334fac744@syzkaller.appspotmail.com>
+To: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 12, 2026 at 9:37=E2=80=AFAM Oleksij Rempel <o.rempel@pengutroni=
-x.de> wrote:
+Hello fs maintainers/developers,
 
-> Program the PCP that the switch gives to untagged frames whenever the
-> port default priority is set.
->
-> With PCP trust, the switch classifies an untagged frame by this value.
-> The value is 0 after reset, so untagged frames would be Best Effort
-> whatever the port default priority is. PCP trust is added by "net: dsa:
-> realtek: rtl8365mb: offload DCB apptrust".
->
-> The switch also puts this value into the tag it adds on egress. So far,
-> an untagged frame that left a VLAN-tagged port carried PCP 0. With a
-> default priority set, it now carries that priority as its PCP. The
-> standards require this:
->
-> IEEE 802.1AC-2016, 13.1: "The priority parameter of the
-> M_UNITDATA.indication shall take the value of the Default Priority
-> parameter for the SAP on which the MA_DATA.indication was received."
->
-> IEEE 802.1Q-2022, 6.9.4: "For untagged frames, the priority parameter
-> signaled in the corresponding M_UNITDATA.indication is taken to be the
-> received priority."
->
-> IEEE 802.1Q-2022, 6.9.3: "The priority and drop_eligible parameters
-> are encoded in the PCP field of the VLAN tag using the Priority Code
-> Point Encoding Table for the Port". With the default priority
-> regeneration (Table 6-4) and the 8P0D encoding (Table 6-2), the PCP
-> equals the Default Priority.
->
-> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-> ---
-> Changes in v2:
-> - New in v2. PCP trust needs it, or untagged frames would be Best
->   Effort.
+This is a 31-day syzbot report for the fs subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/fs
 
-I really like the patch and the very helpful commit log.
+During the period, 2 new issues were detected and 2 were fixed.
+In total, 42 issues are still open and 644 have already been fixed.
+There are also 35 low-priority issues.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Some of the still happening issues:
 
-Yours,
-Linus Walleij
+Ref  Crashes Repro Title
+<1>  12025   Yes   KASAN: use-after-free Read in hpfs_get_ea
+                   https://syzkaller.appspot.com/bug?extid=fa88eb476e42878f2844
+<2>  10568   Yes   VFS: Busy inodes after unmount (use-after-free) (4)
+                   https://syzkaller.appspot.com/bug?extid=d569e274f46ca86f78fa
+<3>  8841    Yes   INFO: task hung in __iterate_supers
+                   https://syzkaller.appspot.com/bug?extid=b10aefdd9ef275e9368d
+<4>  2045    Yes   INFO: task hung in user_get_super (2)
+                   https://syzkaller.appspot.com/bug?extid=ba09f4a317431df6cddf
+<5>  37      Yes   KASAN: slab-use-after-free Read in lockref_get (2)
+                   https://syzkaller.appspot.com/bug?extid=227dbc9afd022922d624
+<6>  28      Yes   INFO: rcu detected stall in sys_close (7)
+                   https://syzkaller.appspot.com/bug?extid=393022c13d02e1f680e3
+<7>  26      Yes   INFO: task hung in writeback_iter (3)
+                   https://syzkaller.appspot.com/bug?extid=1e3ff4b07c16ca0f6fe2
+<8>  11      Yes   KASAN: use-after-free Read in hpfs_bplus_lookup
+                   https://syzkaller.appspot.com/bug?extid=8debf4b3f7c7391cd8eb
+<9>  11      Yes   divide error in qnx6_mmi_fill_super
+                   https://syzkaller.appspot.com/bug?extid=6a0633f11d3fb88860bf
+<10> 10      Yes   INFO: rcu detected stall in kswapd (4)
+                   https://syzkaller.appspot.com/bug?extid=f886305df0acc6fa097a
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
