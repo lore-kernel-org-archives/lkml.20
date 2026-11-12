@@ -1,60 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794481537;
-	b=jPn7mZxaVIKfFpOD78Nnsd9IjmRRHzXE0kBdY3c2AXgc4phOAM7CdDQCWV4nD9xa/6EK
-	 Ei+B0TBBF6aiTjM9vHEjVE8d0NHVQ4/2QH8HcBoCwPAyT1PPQviMAKJUD+GYPTpSw5EkX
-	 BIVs1P45k6TB7RpPxhPzSbVzz5YhoMssTWurEhH6+J1NksTg4SFvton1WBG2umbYw+2sa
-	 z+wsWC60/NUf4ctXC/gk5PawHIZWP9SnEwUMNDTReBhYRxa8xSBAOgDMHEVBYKO60buwD
-	 wl1eHOPfiBSUT1COdx1FDBl6nC6KKx8Q/+IrOPlpSCwLCav8dLXdUY8tDigXXRxQltQ==
+	t=1794481556;
+	b=omjLhdF0ZAyomikERinOWQt6NKGt+3OjMPAn6iTfDojxPVaPsTGk6Wshm2i/Mll2of48
+	 hQxCXJ4K9uejjduz0L49VVByMF1giMBwMDPJvnpLkJKoPbWQj4opgf/Q9L3AI8ej1omH3
+	 L+R+9xJblmEbZtAmeSchiQMhFCX3GbDE3zSeBvy60q7u3W28+C4R1K8cqKYJrOgPq/eOS
+	 bYrjouGanIdi79SyvQ8kga88vIrK3e9RoKI1FSfkMZSfCFxSMlr62HCOWv3lPO9BqbwcR
+	 0zX4cwn/W91nXrkSpCe+a5twQa+1sMGNw6VapLzN27W8iYks8gBXeE2NkMqI9q0tf3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794481537;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794481556;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=kiMdH9XjYH5DacKijAUOdeBwfBR491robWI4VOLItTA=;
-	b=p+thK1ZReFMWEa4iGnxiITlYFps8HRWCwtdfg5oLN6xs3YpkObN3l6c/OsEZxD/u8Y0q
-	 LSRYiF//lGTUTjxeIyiMOcDxB/MUEcgELs/2xPMpf8clmbwWjAVG+xfjcobaOMLF1IRMJ
-	 et2VcGWYDnxQSOfasdHsubvIYiB98zrZgHq/25PpPrLKXeZhpOC12qgtiu5Ns69lzXLVL
-	 88MjGeMKkdlmWAfy1iz5MlQsprptWdblAq2Lag8AnmE86RO3WFb2So/KFesB5O5DWx77W
-	 ZxfkL1SD25UoMCFXjhESVYmPldZ65k8gV9YLCF7fYPxDUVr+htM2WceBict8hQZ/fZg==
+	bh=mXTe+OT6mzHTMHVv+nfjup1kUqTXR5f3gseQxSoH7+o=;
+	b=AbjIcTr83TzM141Hpky8aUTahZRQupt42wPc/8FE14FImvotCk9LtXQqQZgYT3Lkz74I
+	 1VZ9QaRKyj1UX347hmr4F/Ccs4mqn5cWu7i2lAQG7SwDhSMdn49Mo7sS2Tx3K/lzXveCz
+	 fV5EhJJgn62M2RHcqApXWj2sloQFFBvN2z1o0+g0zqpr2wzw0XT8vsWsodOZFlJ2ax4du
+	 6TdccQJF8NDmlaZPF9F9y/CKU6GHaUnC28I05tFyhfeat32kDu59I4k6mue5GUAgJ0dgE
+	 8QSRAEgjEREhdEGrnA6TOBj8bRgg1G9dzTX5fldu6f7xqvG8xh4ElQq5r1ZmGMomSag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cvamh6QK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ljR1QnRL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F105D606A31C;
-	Thu, 12 Nov 2026 11:05:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA5F8606A321;
+	Thu, 12 Nov 2026 11:05:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cvamh6QK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0C791F00A05;
-	Thu, 12 Nov 2026 11:05:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ljR1QnRL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C33261F00A06;
+	Thu, 12 Nov 2026 11:05:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794481536;
-	bh=kiMdH9XjYH5DacKijAUOdeBwfBR491robWI4VOLItTA=;
+	s=k20260515; t=1794481556;
+	bh=mXTe+OT6mzHTMHVv+nfjup1kUqTXR5f3gseQxSoH7+o=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cvamh6QKd2uRSuQ1mKjyIBlqu2nTe4fNQxDt7l8FRBcCJRe0BVlvSXhFKGCicsWO1
-	 YHayRHdX5U++7hIh3Zt71/8EpoxZ9Wj00AWMkWvsnoc/Byvh6i2RY4g+DaTHFrhGnu
-	 DK7cxUl+rP3iWfI3zGnfjyOIwDXolTKnP3rpFJYCG/oEFv/Hasm8jTmrZJ7A3AuOFn
-	 l5UPyuJ6yBy3tdiNlz0tTmo0sx12f4kfPV8FWRnYa5Jx+sfndeGRt+U4x1VLBx//b8
-	 NQZHZoe9ljLnX5WVdL2XCMD4uHLzCscRm676uphanwZ1XLaFA81j6dfUTJWLlprVZv
-	 FBBPigtADyHxg==
-Date: Thu, 12 Nov 2026 12:05:33 +0100
+	b=ljR1QnRLgzHSvEvMfu6/ddMKedwrVFT22MBaP7lJSG8fdrJ+5NK6I05rOFtaU+Wo2
+	 S2P4S0AJACJqphkjI2TpTcDxRcV/BVcr/4UjB7DKbCuExddYyH8BKUPR6yEgpBS2KU
+	 1VT9N0hcNWcu4wXfaceL/hOteLBOwfgWLAh++gi4+qLHeXKazE604RBkMeo6yOfTCc
+	 +DSOKDTk7sC1Y0Rqvftp/vqTdimKrCMP8BVDmONpyMNL0tfSDCzzN1kl12umaNPKGa
+	 7Ni19Kk77K3bCUh/ZID2MiDJdyHkSf00VwYj1WoIjHzToP+lpMuCxsjAKAklybfB+O
+	 0Xu2X4oKf8MRw==
+Date: Thu, 12 Nov 2026 12:05:53 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Asdlerto Korry <korryasdlerto@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
-	David Heidelberg <david@ixit.cz>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, oe-linux-nfc@lists.linux.dev, 
-	netdev@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] nfc: s3fwrn5: i2c: Enable the pvdd supply
-Message-ID: <20261112-little-camel-of-certainty-c95ede@quoll>
-References: <20261111-m52xq-dts-v2-0-063289405882@gmail.com>
- <20261111-m52xq-dts-v2-3-063289405882@gmail.com>
+To: Michiel van Beers <michielvanbeers@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
+	Griffin Kroah-Hartman <griffin@kroah.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>, 
+	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: backlight: lm3630a: Add
+ led-max-microamp
+Message-ID: <20261112-subtle-kraken-of-serenity-04ea8b@quoll>
+References: <20261111-lm3630a-led-max-microamp-v2-0-aff11756e7be@gmail.com>
+ <20261111-lm3630a-led-max-microamp-v2-1-aff11756e7be@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,17 +64,23 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261111-m52xq-dts-v2-3-063289405882@gmail.com>
+In-Reply-To: <20261111-lm3630a-led-max-microamp-v2-1-aff11756e7be@gmail.com>
 
-On Wed, Nov 11, 2026 at 05:07:47PM +0200, Asdlerto Korry wrote:
-> Get and enable the optional PVDD supply before the enable GPIO is
-> driven. Boards that switch this supply from the SoC no longer have to
-> mark the regulator always-on.
+On Wed, Nov 11, 2026 at 05:21:41PM +0100, Michiel van Beers wrote:
+> The LM3630A has a full-scale current setting per control bank, from
+> 5 mA to 28.25 mA in steps of 750 uA. Boards whose LED strings are rated
+> for less than the chip default of 28.25 mA have no way to describe that
+> limit.
 > 
-> Signed-off-by: Asdlerto Korry <korryasdlerto@gmail.com>
+> Add the common led-max-microamp property to the led@0 and led@1 nodes,
+> and reference leds/common.yaml from them, where that property is
+> defined. The property is optional, so existing devicetrees remain
+> valid.
+> 
+> Signed-off-by: Michiel van Beers <michielvanbeers@gmail.com>
 > ---
->  drivers/nfc/s3fwrn5/i2c.c | 7 +++++++
->  1 file changed, 7 insertions(+)
+>  .../devicetree/bindings/leds/backlight/lm3630a-backlight.yaml  | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
