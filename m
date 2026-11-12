@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492891;
-	b=y0bJGI+PWsP31ATuxL4xBfmBBmgxfSrB/cYGV6eO39MpxM1caGAr/UU8wn2rc9G3WruC
-	 vWFEDsoc4ojvZFriUM3prdXHHIytVPOxXVeFTpc2gQLJCrrtn9e3ugjMsbs+XK+CoIzLW
-	 Qj3kRNmAggewxz+7RiQFD6odcsghFwwVrnoTXj2com7HmSyp2RSXQ/+xSGFOjW4vLSlL7
-	 9ds0fteBRrwnixUcFSxriBKeT0S9I6yt80KJZbSoJx62mKL9mqvAEEuSMdu6E1aOb64qa
-	 sP72I0lSGM8c2WgHIksfaFcPjE5qI8sciCDVu/oFZzeh8qIibqTXqsNA7NHhEDiMFEA==
+	t=1794492892;
+	b=VHLZQGokrGG9irXZnFEKj3vB8xy6CeFYSh+cVZRTsrCdY9stwR1v5qeeatzU2wIMUIf8
+	 mMxVZiiCk5uDECPeIvWjc2ONEHBPeu8toK5fPZuj13RUnttxwEWF+8iVGce5+3MnSXn68
+	 Anh4oUm/d02lQFTt6RNne444XeSELyOkTpUM10Zs9cu9z6IAC9VbgxIHd9KavLf8V5rWr
+	 Gv743yWK2qF86ya3bPF1LQ6mEmLIv6ffJubq4Dfh/NI0iumrmaW58T6ldfzS911oz6HOT
+	 68adML8kYKEXkHV7qWol40eYvPFEUn8XCO5myk3GpaMJpCKw2QFdS+QRJuF+d8/SYcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492891;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492892;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=nUse+twsJnxew4r6zwWfOwbMG43DUEVmCdyLipFzEcQ=;
-	b=mxRRNfk5pWNDFA+hO2SdFk2Oo3T9kX/tXSXMIVOIUxqPz4DrKV6j3qoOeYKb/5w7CeZr
-	 a9nlBVHctJL4dZLj9aAraN3MedSnU6sFW5aAira3RDBH9/eS/9Rhp8noJw+k4rXmpN777
-	 L9SU4Awz1KYjxQNXvQ8k8mXXb8BaHZtEsVE61awfwHc+Eql/YpaxXw563L1rvQHDX+z2K
-	 4LeJrtFLwAlvXxZInf9Q4C8QgxAivRMWIhSf/6sGjM3O6VJ2o+SE7JsEzLmyeI9iB+RRG
-	 sFVyiNJ3dlmwg2PNL37eh65u4S3YfLcAQG5H9TD5JhQuDg+7JwApghVlFlKjwlkEdnw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=qPYxO8yb9cFKKsz6ALKUIcminvOwQueZf2m4pspgC6M=;
+	b=hmVVPgwyqk4FFw5rJ4raM5qnAsW931eudEyJwuSp/KhmCkmRHyw6j1MW/g0FyPz67Z0t
+	 gocesQmb1aML/rJ6ivHPxIJ8zt3Y2bSAgTLSBt+O0ncPoG5/8Yim+FA1d3OhWxoEj0bLR
+	 XS6Qnan2ZqPwmcDxzbSbtFG/Tpf4vkTJ0Dp22ASiwVflanODm0byczt5JBa+GkgZ9qwb6
+	 Mktj5V0QwuOwg+vS7z/qH2KjE1jvcgddOkNPEW9YgcqpJLamiRbUhFMuHiQqiGx6mX0Se
+	 LBlPGjiDfFe4Xc+E1BTQy9exuHAuST5JFGIFcv2DX3ouXnamFeJoSTIVhxH9nCK1miw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=a9hYkTs5;
-	arc=none smtp.remote-ip=209.85.221.70
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=j+VoHntu;
+	arc=none smtp.remote-ip=209.85.221.69
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3563F606A327
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:14:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3563F606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F918606A330
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:14:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F918606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=a9hYkTs5
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-4915ba023d4so3126294f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:14:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=j+VoHntu
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-49337a224a8so3583488f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:14:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794492889; x=1795097689; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nUse+twsJnxew4r6zwWfOwbMG43DUEVmCdyLipFzEcQ=;
-        b=a9hYkTs5Id401mmX/DwsMx1Ln1nZfkKQ2lK00AMAqT/GMbaGQ/Tn68UaHa2BSto9lB
-         Tuhuk02Nwo8hi7mFjFvNax64TTdXr6HJp+4RSZAuzLnuJIaBeISRu+wdkOapRKWuYnDI
-         4Ao8ZUPby2vVR+6Wr6sUr1nRaUkODWxKSPXUTctovN/8rOUI5+IA/qBRVpx9j+84TLj1
-         g5Bkx12dIWKDwEleXyHPSbX52zxdgb+l1Np5+RiN+Qra7h0j9rL5vTGQ/ODzTEOYuvMm
-         aU8kS7gv2O6Qx8pbdulb2Vft2f1Ye6hOJfAywqhWpzksTMBMhSQrDGnQp5u203MqUVS8
-         kd1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794492889; x=1795097689;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1794492890; x=1795097690; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nUse+twsJnxew4r6zwWfOwbMG43DUEVmCdyLipFzEcQ=;
-        b=hQsDmOvHMYio5qI5M3L2ggCHmYu3eo7jArj7Ej5zua4AqLqTEooi4nyDpO89bf9GiD
-         uJKyIso628foKGEIgAY7NssGzs+q2mlaylM6FH7kMsBA+vx+tVXjH3Zm/tyzjKwTv/II
-         w8g9o3VoXxjU+O9S+KIMuPGKANLJiuTyhQXh6kuSPlLMY+osF7pLzKN12Zx77uZZ1VTr
-         xYFzn+YrZxmqefa7FCJ9WoEq1u0HTEqR/ZZ5uC1W3xY4/b/wq94ooSS7LVtaHj9s6hsr
-         F+sYsiRc5grYXF0kI5SYA1qcvxee+IvU5oQ4+BxhFhaYMdQV/epY1WPJuuWIJ20XonRN
-         svqA==
-X-Forwarded-Encrypted: i=1; AL+hErFjexGw9ogLF6+MXNMYxanRryX9ZNqt3fl5Y4mAs7qi83qkIRlM/M/QMXqe5N0X9rkWtzlEgOKqDzHKLwU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z++LzNAqq0xk/FNX3lZcMQEZwXD/Iv4uj/4j74zbhxKz7un6+hF
-	mXHCT7FaIqPYoIxh4ZBlIwDz3F2REXhkIWQ1lgowf1GnoxIyLtlQx97DGGb4jbzl2DIHSNCidM0
-	hluzjIhmX7lNo7DlCByMEgA==
-X-Received: from wrvc14.prod.google.com ([2002:a5d:528e:0:b0:48e:5d2f:1d09])
+        bh=qPYxO8yb9cFKKsz6ALKUIcminvOwQueZf2m4pspgC6M=;
+        b=j+VoHntuU4igrsmP6TE1OXCUM1JRlm8fXK456qTbFwNlDde40bQ21lOzivIdAbyVzS
+         Y0L44Xp0XPVQI1+XwKk83yluGoJmW0sLUeMQcKcPRd1b98j1c2ApsrZb/5h3I2MEdfjL
+         gGceVSYiKQLYZBraUJFUyyXoFdVFUgbqhriymQeyPBI4XgR2D9uStqt8DGW/VjuM0K3t
+         cNVNlmLme/bcw98AqojzrVAhWyhwqQpggTQlB6P1nTRgEjOpeCHuhGu3KOEG7p8wJy/x
+         rCvilkjR0J8RWe3WNo6Or1viY5v3MJbuA74gwTLIR214sEtRZK1AhNe5tlnEfMpSedSY
+         Yeuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794492890; x=1795097690;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qPYxO8yb9cFKKsz6ALKUIcminvOwQueZf2m4pspgC6M=;
+        b=DrZhMTHuZO/uasgF8veh44yJvxaqecRoPVehtwe8QAskz72qwpljxd6P4oLxuKJ1vY
+         iYF2rO6FqEVu5twCdFERBY94eQ5GyLQQrNuwk710DXZSzU5dPCXAyj91AZEkrON8K2Zx
+         5wdPgUHeS41ZFSphSfEuvXzixqtV/ysA+EWaqqJ1IOSRtGYqB2B0QbvypdHdSn7MGFFc
+         bxKBvUyfwWqe9ED0FmbLYiQyllwXQQp41Swd0DVJpaG22S8B8HTqokBGnmlTRsncvWe1
+         OGpqtvzO9tGQJXiZvutB1KOmWOGFmU+2//Lp87C24VzCCUFSuqKsmdTXdkniuSFko2IJ
+         Gapg==
+X-Forwarded-Encrypted: i=1; AL+hErFU8K/DDOXo2H0Xrr8tN/uvI2c2zjzgyhcDsuc/ojQxTQn9sYTlJx4IjqhUZevms2u9qsah0AWHioRrIEk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+7fu0eCN1NiVdPPM8mwA1O3bl4y6I2j1NcWs3Q5GqWSXcGpOoi
+	VvvBPSD1n5zwZw2g29FA+JegK2ME37CAtfaXEKDCBVbykxsqKUpo+Z7B08WaGtgKcHwwRrogjmh
+	OPQXvS7l0Ix1GddBf5WBsAw==
+X-Received: from wrnw1.prod.google.com ([2002:adf:ec41:0:b0:48d:efe0:5ddd])
  (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:4818:b0:48e:6f76:de9d with SMTP id ffacd0b85a97d-499c6f8c3c2mr9735852f8f.46.1794492889329;
- Thu, 12 Nov 2026 06:14:49 -0800 (PST)
-Date: Thu, 12 Nov 2026 14:14:31 +0000
+ 2002:a05:6000:250a:b0:48b:db7:86a7 with SMTP id ffacd0b85a97d-499c8c6703cmr11900707f8f.50.1794492890294;
+ Thu, 12 Nov 2026 06:14:50 -0800 (PST)
+Date: Thu, 12 Nov 2026 14:14:32 +0000
+In-Reply-To: <20261112141440.3050124-1-vdonnefort@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,9 +79,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261112141440.3050124-1-vdonnefort@google.com>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-Message-ID: <20261112141440.3050124-1-vdonnefort@google.com>
-Subject: [PATCH v1 0/9] ring-buffer: Enable Clang context analysis
+Message-ID: <20261112141440.3050124-2-vdonnefort@google.com>
+Subject: [PATCH v1 1/9] ring-buffer: Always read buffer->buffers after testing
+ the cpumask
 From: Vincent Donnefort <vdonnefort@google.com>
 To: rostedt@goodmis.org, mhiramat@kernel.org, 
 	linux-trace-kernel@vger.kernel.org
@@ -86,41 +91,76 @@ Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com,
 	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-trace_buffer::subbuf_order has caused several recent resize races from
-unguarded reads outside buffer->mutex. To prevent further regressions at
-build time, enable Clang context analysis for the ring buffer and guard
-subbuf_order with __guarded_by(&mutex).
+ring_buffer_reset_cpu() reads buffer->buffers[cpu] before testing the
+cpumask. If trace_rb_cpu_prepare() sets the bit in between, the cpumask
+check passes while cpu_buffer contains a stale value. Read
+buffer->buffers[cpu] after the cpumask test passes.
 
-  - Patches 1-3: Fix cpumask/hotplug races around buffer->buffers and
-    trace_rb_cpu_prepare().
-  - Patch 4: Fix a trace_marker resize race.
-  - Patches 5-7: Remove subbuf_order reads from the write path.
-  - Patches 8-9: Enable context analysis on ring_buffer.o and annotate
-    subbuf_order with __guarded_by(&mutex).
+While ring_buffer_peek() and ring_buffer_read_page() cannot hit this
+race because callers already check the cpumask, apply the same pattern
+for consistency.
 
-Note: Patch 5 conflicts with the series removing absolute timestamps
-[1], though both are independent on v7.4-rc1.
+Fixes: 554f786e284a ("ring-buffer: only allocate buffers for online cpus")
+Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+---
+ kernel/trace/ring_buffer.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-[1] https://lore.kernel.org/20261105202814.1350312-1-vdonnefort@google.com/
-
-Vincent Donnefort (9):
-  ring-buffer: Always read buffer->buffers after testing the cpumask
-  ring-buffer: Drop cpus_read_lock() from ring_buffer_poll_remote()
-  ring-buffer: Hold buffer->mutex in trace_rb_cpu_prepare()
-  tracing: Cache ring_buffer_max_event_size() for trace_marker
-  ring-buffer: Validate event length against rb_page_capacity()
-  ring-buffer: Introduce rb_start_write() and rb_end_write()
-  ring-buffer: Avoid reading buffer::subbuf_order on the write path
-  ring-buffer: Enable context analysis
-  ring-buffer: Annotate subbuf_order with __guarded_by(&mutex)
-
- kernel/trace/Makefile      |   2 +
- kernel/trace/ring_buffer.c | 350 ++++++++++++++++++++-----------------
- kernel/trace/trace.c       |   9 +-
- 3 files changed, 193 insertions(+), 168 deletions(-)
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 1fd28a72e6ee..bd8126f6353b 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -6340,7 +6340,7 @@ struct ring_buffer_event *
+ ring_buffer_peek(struct trace_buffer *buffer, int cpu, u64 *ts,
+ 		 unsigned long *lost_events)
+ {
+-	struct ring_buffer_per_cpu *cpu_buffer = buffer->buffers[cpu];
++	struct ring_buffer_per_cpu *cpu_buffer;
+ 	struct ring_buffer_event *event;
+ 	unsigned long flags;
+ 	bool dolock;
+@@ -6348,6 +6348,8 @@ ring_buffer_peek(struct trace_buffer *buffer, int cpu, u64 *ts,
+ 	if (!cpumask_test_cpu(cpu, buffer->cpumask))
+ 		return NULL;
+ 
++	cpu_buffer = buffer->buffers[cpu];
++
+  again:
+ 	local_irq_save(flags);
+ 	dolock = rb_reader_lock(cpu_buffer);
+@@ -6740,11 +6742,13 @@ static void reset_disabled_cpu_buffer(struct ring_buffer_per_cpu *cpu_buffer)
+  */
+ void ring_buffer_reset_cpu(struct trace_buffer *buffer, int cpu)
+ {
+-	struct ring_buffer_per_cpu *cpu_buffer = buffer->buffers[cpu];
++	struct ring_buffer_per_cpu *cpu_buffer;
+ 
+ 	if (!cpumask_test_cpu(cpu, buffer->cpumask))
+ 		return;
+ 
++	cpu_buffer = buffer->buffers[cpu];
++
+ 	/* prevent another thread from changing buffer sizes */
+ 	mutex_lock(&buffer->mutex);
+ 
+@@ -7198,7 +7202,7 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
+ 			  struct buffer_data_read_page *data_page,
+ 			  size_t len, int cpu, int full)
+ {
+-	struct ring_buffer_per_cpu *cpu_buffer = buffer->buffers[cpu];
++	struct ring_buffer_per_cpu *cpu_buffer;
+ 	struct ring_buffer_event *event;
+ 	struct buffer_data_page *dpage;
+ 	struct buffer_page *reader;
+@@ -7211,6 +7215,8 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
+ 	if (!cpumask_test_cpu(cpu, buffer->cpumask))
+ 		return -1;
+ 
++	cpu_buffer = buffer->buffers[cpu];
++
+ 	/*
+ 	 * If len is not big enough to hold the page header, then
+ 	 * we can not copy anything.
 -- 
 2.56.0.567.gdb80ae8cd5-goog
 
