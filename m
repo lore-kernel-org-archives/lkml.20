@@ -1,71 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794500089;
-	b=Le0kztb0GVjq3OoFmvywW+FKzw/hkufC2pjRcYx1UO6McyzcXeGbYeuoAYIvPsummxts
-	 niNHbvYdkL7eaH8D5LCQHvBsxx24GqM4Z1xG4q3aX5lJhTj6p0Nehk8mriGmaLpbuouAY
-	 jHjaMqTiL9UgfyZkMMbUhRo46L+W5CF57uON7zvqU6XTFkYqDdm4Ldop0/XicXrDfbAsl
-	 ZxcUGttvstM38d4imOa+s04pfALz1j152ywi6qBf9N5MOopMkFnjcVwEuCTTCwpdU0vhX
-	 u/WlPsPptyk+qMwXcfIdYhjNPZ/PtDnbmLivc6BImS4X2H4Fns9wAqboFLnkKoV8Enw==
+	t=1794500092;
+	b=303suEMfspOg7tF6+ARPX+xHE79zxOUkMVwVX2oe8V5QIrJhBaJdZGi153N340H5K0cQ
+	 QN26I3hxyDvaY0Y09ciW+9NE4+/wlHqID+LD42SFkZ0S7pw7ksnPT2VGPeE4QK1R61dwO
+	 xADvEyNbiB5uu8N5DhJP2oFUscEDOzpVC7nOhIaXZ93ZmlMhQT1kMmzxxiiUHSYA89SoW
+	 A6RoVi37GIhWckDXeW6Bn9rhsvHN3II9G2NV4qMBczOaYoSsTPEu12ly9steHBg9zenbf
+	 G5y7asTXYqFW527NRAh6Yv4cFgsuoWmJum5v0La/tYc3GeHmB9aUoeNGkJ/sWw7Hqvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794500089;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=ukWikVJElZCBqR5bD/qtuuJkXnyU4/mK68AbGnGGZZg=;
-	b=XvJ1kurtIOD09IQtaAhz5rkJAAHWossDS/j2IYGfPMtWrfVLbYveYmtafEaUY8Qa3bs4
-	 yR7aX4x3Mwz11Xr+NJK+UVm44QkF3f+lGX50p51dj8ouepY/L4tuThU9ACajKxRAexbJw
-	 GQzgJebIBJWkipMm+I8Bdn83ansAkm2juXIL9/+FQXMhHc/KE26GGOOXLcTHEKMiZ94km
-	 TxqadgTfJk5O4WkBssdlTRROVZSN/y7yvp9YJOkUB45EjQxDw9lbmDr/rJ9xDAlUqwE7/
-	 3Fncarp8khD5DVdyHaMoKBlecQ9bvDLSzXogBWNuN2P5it0WWLWMHmrAACUiAe136mA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794500092;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=HDAmKTnWtwNt6oQeDs89+IZbFvjSOCzAyd2zu2lanro=;
+	b=ZMTUaPM5IqZkQT76a9IL4qoLpAQhtTJs5KrklPvgPo41SAqTW0Gk6nLMN3dVub7e874E
+	 /VxYKfbk/NcBQH5KAD8W3APbbXbIURg+URhRLxS2TaB9bZW2cDNi2ive3wN+4P4gNVLuf
+	 nlv7anNnNQ4Ak4s03Zsbym404ywT64sFmW/nhVbNxdYm3LD8BPOQNYlKWAiDv7lcuGBiW
+	 GuvkJAmSTpvXMmRS/SkOB07hzRf2hz+9Lk64NQg0V991yp36ENG8S434MuaOeOD3ZPSQy
+	 Nb/9S9wMvRnTIapFJqBQ2GdoW5W1/gP+NolMea50BkZdqnxjVOal8dRRiXhQNp1uO3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ZoOyIESw;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=k5KUHA9a;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b1BWdK4G;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B136E606A31C;
-	Thu, 12 Nov 2026 16:14:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B136E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A52E606A31C;
+	Thu, 12 Nov 2026 16:14:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ZoOyIESw;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=k5KUHA9a
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794500084;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ukWikVJElZCBqR5bD/qtuuJkXnyU4/mK68AbGnGGZZg=;
-	b=ZoOyIESwyA8V7dXrKpBvb3fXCZECeVgwhEiygKHhajCOIn4x55M/kuEkAAreOKAxZtyeVw
-	GXasUq8HSWenyqrQvk7fALwZE8dgZ1WxxRQB22bfWuG7qPK370+QhJ6KB/mYaHMkC3uzRV
-	tGgR2WtQkxiCbDAGpEOVyeWj9If87P8qZUmzh8sp/PVTsOs2G2Ad+FaouFCdF4yU/vuCBs
-	ICEPErHGYLSwLYCvTadq/K4LU/pg7WRJnCDIrstwUSy/YkdG+CXvOYbQ4RdVIHQbmIG9lh
-	++Okg0V08AyoG6w5qs8ibXy1X+lr0mhyLm0aM6AnLZctyX90qlzjQot1c2g+cg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794500084;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ukWikVJElZCBqR5bD/qtuuJkXnyU4/mK68AbGnGGZZg=;
-	b=k5KUHA9ahaWTVMgiChBlgtjPgWV5EF/yG2cWbHAzdOna9Z+X1WQcRk3jsBCMBINZrvrYpW
-	hM5GWNAw0SPj0yDQ==
-To: tirthendu.sarkar@intel.com, Ingo Molnar <mingo@redhat.com>, Borislav
- Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org
-Cc: "H . Peter Anvin" <hpa@zytor.com>, Jonathan Corbet <corbet@lwn.net>,
- Andy Shevchenko <andriy.shevchenko@intel.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] x86/time: Enable HPET under ACPI hardware-reduced mode
- with hpet=force
-In-Reply-To: <20261005075550.463089-1-tirthendu.sarkar@intel.com>
-References: <20261005075550.463089-1-tirthendu.sarkar@intel.com>
-Date: Thu, 12 Nov 2026 17:14:43 +0100
-Message-ID: <8733t6t4b0.ffs@fw13>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b1BWdK4G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 097291F000C4;
+	Thu, 12 Nov 2026 16:14:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794500092;
+	bh=HDAmKTnWtwNt6oQeDs89+IZbFvjSOCzAyd2zu2lanro=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=b1BWdK4GmCri3jZwQ7zCyvP9ySf5WXPUrLqsDe37FLQ8qqisOOucJ/wEWa3EL89/b
+	 gz2Gmww8/8fSLYEl/wcEfm7CdrhSFG6zu17lf1tmaRVos+NexzlPnObMIp4lGd7FNa
+	 otf6D/08aMjUtvgqkueSO17OpG+qmtOPxW6pqcVkYyAu5inc6mSBPjnnEjNXGntoVh
+	 uEtq8jk4gzUnGWuxOoPa1jjYq8MMasxlpQo+fI4Pw95jujLblFSif8uPFGZ795LHCX
+	 PUEjXYiPC7bqSrLj/+XiDcghuvTad0hbbF8/LNHkenCE22ectCcTHq2k+8SDRkWVO2
+	 hAktGnFagf1CQ==
+Message-ID: <2dfe6739-2d36-4e47-b7fd-c10fb5374317@kernel.org>
+Date: Thu, 12 Nov 2026 17:14:42 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,56 +51,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] arm64: defconfig: Enable the Parade PS195 bridge
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
+ Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20261112-mahua-hdmi-v1-0-b463d7b1dd7e@oss.qualcomm.com>
+ <20261112-mahua-hdmi-v1-3-b463d7b1dd7e@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261112-mahua-hdmi-v1-3-b463d7b1dd7e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 05 2026 at 03:55, tirthendu.sarkar@intel.com wrote:
->  #include <asm/vsyscall.h>
->  #include <asm/x86_init.h>
-> @@ -72,6 +73,25 @@ static __init void x86_late_time_init(void)
->  	 */
->  	x86_init.irqs.intr_mode_select();
->  
-> +	/*
-> +	 * ACPI hardware-reduced mode unconditionally stubs .timer_init() to
-> +	 * a noop, on the assumption that no legacy timer exists. Some such
-> +	 * platforms do provide a real HPET, so let "hpet=force" give it a
-> +	 * chance to come up.
+On 12/11/2026 11:15, Nabige Aala wrote:
+> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+> 
+> Enable the PS195 bridge driver as a module for HDMI output on Glymur,
+> Mahua and Kalambo CRDs.
 
-These platforms must advertise the TSC/CPU frequency and must have a
-reliable TSC and a working APIC (deadline) timer.
+Same comments as previous patches from you. Don't send Qualcomm internal
+stuff, that's defconfig for all SoC platforms so you need to properly
+describe it. What is Glymur? Samsung Glymur? It's impossible to get what
+you are referring here to.
 
-So why on earth would they need HPET enabled. Just because some hardware
-guy deciced that it's a brilliant idea to stick an HPET in such a SoC
-does not make it useful. Nothing uses it, so why do you want to enable
-it?
+By coincidence I know what is Glymur, but how Glymur could have Parade
+chip? It's not possible.
 
-> +_     * Only hpet_enable() is wanted here, not
-> +	 * hpet_time_init(): its PIT fallback and legacy timer interrupt have
-> +	 * no hardware behind them on such platforms, and registering a PIT
-> +	 * clockevent whose interrupt can never be delivered also fails the
-> +	 * local APIC timer's calibration cross-check, disabling that too.
-
-OMG. On a platform which advertises the TSC/CPU frequency the APIC is
-not calibrated by anything. It uses the firmware/CPUID provided
-frequencies. You try to support Frankenstein's hardware monster which
-does not exist in the real world.
-
-> +	 * This also covers hardware-reduced platforms that install their own
-> +	 * .timer_init() rather than being stubbed (e.g. Intel MID, which
-> +	 * sets up the local APIC timer only). None of them enable the HPET
-> +	 * themselves, so it cannot end up registered twice.
-> +	 */
-> +	if (IS_ENABLED(CONFIG_HPET_TIMER) && acpi_reduced_hardware() &&
-> +	    hpet_force_user)
-> +		hpet_enable();
-
-TBH, that's a horrible hack.
-
-In the unexpected case that you can come up with a sensible and
-convincing rationale why enabling HPET on these platform is useful, then
-this has to be hidden in a reduced platform specific timer_init() and
-not glued into a random place.
-
-Thanks,
-
-        tglx
+Best regards,
+Krzysztof
