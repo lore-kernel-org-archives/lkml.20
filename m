@@ -1,77 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794516677;
-	b=b9PM4ub8hFf+br6B5lWtH8jedUgW1hb85jn04sP1hUYT6Ktek892yeRliJcKSGpXoVae
-	 J/13ysZtZFNoF4LZSVOytPrHAry7/aMf6yhShlCtUnQh5xaJKkUiiK0rfY+NMgszxwxj9
-	 V0mr9LG731OBzXbnHrz8NSoi+l/WJQGgiy6JR9nnoVUCqBjhyJYYBx8Q/YYV/y5pQE84L
-	 uib73IcsaizHbmEBypm0ezAP/uZ9EtutdhaXM1xNRGg4t8QmHcTJ2e6ReoVdoXVNakUoS
-	 0iBqysVV6e6CZHblFBKuqWHRLBo5beFcUtknXJpTKACRt+Wto7iU0Y/A79+shWt/TSg==
+	t=1794516785;
+	b=CxO3EfODuUXrAv18pOr3pJfXGoYYMQ9Ap+GbPkPZwCG1nnBY4nWNCITeFAvE5wXpah7l
+	 ipBN+qnicHkMn+6sn0FeRePkO48RmvYN1owTAjl5N6mp9l6e4hCJMMtkJL6ppTHaMhiy0
+	 OSWBSeZ70SM9i3MV+UQGJytoIATz2IA45NW9mulI+4FDUcSsgVDlQXwK5uk3/IDMQ9k4y
+	 GsDgR/SORyetOVurFKJKOs9ZBfx2RH0FbUU8qOVKGot7wDTFZe0lOsKPRSbtVFOC39/Al
+	 eoH8BGu4XYacWNUbZ8Gnk6tCtZbr7oclmZrScB03UgogxFI2TQIHrSIWUwSf/sCcxsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794516677;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=X8UZ37xa2ei8j05E7k5lST5ZokccD0ewFOlJ5YkttL4=;
-	b=YGv33tmDcSx4GhcjuC6CvltkPysVO5ZdPwBRIf93RKXGgss4zhIHbYxQuWZawpGnms2x
-	 /0oVkB9SMMOdGoWnzl74rSM1Ri6p5zPF3rx8wQrLfBf4JfQFVH+uiHX9Mx6qKo5aRMHQQ
-	 J/K37FYOTFojVwwlb8uS7e6MebuFEDDJ87bqUT6l92T49ZFJ4Q+JSijO+Q4xGWLSi5xPd
-	 YrS6VLdbvLJ7lqqAWJlkgCC98qPqsvq5Jf+BM6HXEN6PTcRR+VDb/BrBaGc190ge2D6Ba
-	 715MV/zurnb+oBiLs15YekU5QLxwh8W5XVeFC1dDKlmCxjZ9Zv8eIvSNFZSRt+yQ3ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794516785;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=iTM3x5PCW62ZDqiRn3t8EhwYw4e4i3P/RxCx6K46poo=;
+	b=W0y3oVmi0GBQRRhLVYPupdlkaWD+mORB5OxU2FcuEqhEOhcyqSSFCDXj+s7EIUbOnlKq
+	 vioKpr6luJfXnj4jS0dp9LR+t/9zG+33Cl1JE6NKKaw5JUonmneSPzLMHMnzpNcTJKmiB
+	 JcmCsYnQOY0t8WHHX8APawhvlpUiU4rt03HnBqfTwEyUI7IBvStLtFhiLkhEl/hzl+I3/
+	 nKGLTe2IVBGMYl2/GaBfudj8ckcZuFfUo8cV3X1MpRRx19pqZnmNDJm2v2ggf5YoApLpe
+	 OjULzdfXAW30OGOGYFb5PwNBjc9XmmitUqpjDdhJuYkETpQgFlwS1b92DJ7BsjdoHDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=h6UmzAqR;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WSRZelkC;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BB18606A31C;
-	Thu, 12 Nov 2026 20:51:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BB18606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386E1606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:53:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 386E1606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=h6UmzAqR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794516677; x=1826052677;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=nj7CICt73Q1jfoc4OB6M3IENUkX2Qo5LdJLx/vZXDnY=;
-  b=h6UmzAqRhbLEYNNebDU2UNBl90Z3HpXfTw7BFem/UeGl1188674dhcco
-   3lq0Mr6/fThGggts14BS74nZtp0TPy7K1NB459e8QA8bSnlXI1rO50AJz
-   SCKIyGKu2cgDq/Iv3HhUn0t1uLk7IowI2fmAVhK4sGiChYBQE3vAkz9EU
-   aYnx2tPuRSne2hhsjeyA/VuatD2+8K7PzR5+3FpmwABPy9GhuPvaqqRCV
-   cYfc2oUgNDrmQBeXkzb2l0Rng6z8mr7ZyoKlKhCLgSU7wppR1HwUwcazE
-   RfNVWkne9fyHK89wK0U8bTW9Xs5fPOti3sGuUaqgQJABLQJNucNsdLVp9
-   g==;
-X-CSE-ConnectionGUID: lCl8r7bDQhKtA9My3qMpiA==
-X-CSE-MsgGUID: W8gemhLdTCC/mXq2aAXAmw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3313388"
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="3313388"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 12:51:17 -0800
-X-CSE-ConnectionGUID: Vdac/Ki9RICWjyyXhMdWhQ==
-X-CSE-MsgGUID: g/eXy2feTHaBw8nfsY4mOg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="8852970"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.68])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 12:51:12 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Thu, 12 Nov 2026 22:51:09 +0200 (EET)
-To: Neko <neko205@aosc.io>, Yun Wang <7z0423arsenova@proton.me>
-cc: Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, Mingyou Chen <qby140326@gmail.com>, 
-    Ilya Gladyshev <ilya.gladyshev@linux.dev>, Armin Wolf <W_Armin@gmx.de>, 
-    Chris Taraszka <chris@miget.com>, kexybiscuit@aosc.io, jeffbai@aosc.io
-Subject: Re: [PATCH] platform/x86: bitland-mifs-wmi: Add Redmi G 2022 (TM2135)
- quirk
-In-Reply-To: <9a26c741-6217-4155-a3dc-e34b4015f71c@aosc.io>
-Message-ID: <2d2f41a0-2bc9-98e5-b6c6-5975a7e3dfb9@linux.intel.com>
-References: <20261106143114.95008-1-7z0423arsenova@proton.me> <9a26c741-6217-4155-a3dc-e34b4015f71c@aosc.io>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WSRZelkC
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so2758395e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:53:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794516784; x=1795121584; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iTM3x5PCW62ZDqiRn3t8EhwYw4e4i3P/RxCx6K46poo=;
+        b=WSRZelkCOScvaAilQASb4Fa6hpipGTcmN8pNyw1WWmyAy1kM9POtIW/MCBoX3pM5ss
+         7DDXA+7IP/HMOWxvPDX8zdsUzaQbirkfovoOsr4JuXhbBXg1dApcTsLpnqRI5Mai4Bvs
+         EoD3b6shYWROH+YT7oCeK1wb4HRx7PWaQ/EKRbpuKuc1ENzv321KHbhHpkpYFQex8Xi7
+         VRlKGh5wAUS3BwnWAfh9Rvc2dPtsNvWJQ+QczWdoDcD/XQuEP+S/p3SZpFcgLH2LehRT
+         fLkxV6TU0yFBE7WfooixzrliqtyQM4V6PxfaRQnWDRhkMicEPKr6cwSED8U5ptBORcin
+         6MyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794516784; x=1795121584;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iTM3x5PCW62ZDqiRn3t8EhwYw4e4i3P/RxCx6K46poo=;
+        b=lhX8Bcx9lD7oV4CkyIZjIBz20vaN4f8r1Q+5VnwrtWlLlTamxqIMe4KTrhKF0v8QaB
+         Eb+04HMOULrpj3P2/EbeIBDa/GAZvaRyoK7b2mRB6lchW7JHDXhdMt0ukd6kz5sUdO3D
+         KX7WL/EutA2RJwQb5UL1T32M13dIzkzF41fZIpjPK+Ota/fsL62nx/wm8RvbstqAnUoa
+         AUm93tr36/psX8fhOX0vcirXSuR5nuyu0QVtUslkQOJkOuARrCpKzGIfUGudsz8MeHWH
+         S0hzUbUkJ0xtgEHldI3NeGNkHGd+RPu9VDxaed4n2vPisACARZ88Hl7KDq0IHrJN0D7E
+         Y88g==
+X-Forwarded-Encrypted: i=1; AL+hErESo1RZqTrasSCs6PeaZrVoXd0fKuEMItUuBE43rGms0gcn85k7jAlSuMPsWNgsLbEYFaB2rFTYEVOer70=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/n+VUUXpnQArv+DvuAX+TwATFG1x8LwiUClkcvhKUjr7oUzn1Z
+	lqJz0dKu113OWByFQ2nB/7t0XswKN+IPb9N/QyD+g61okGrtPAu/aUv6
+X-Gm-Gg: AYBFou0jO3Wr5nTPSHqAG00zSiU1y6RwyAla+5130CxVI6t8B92WKJqE8Gn6NYyjqse
+	CDHcDBizvqa0Sf6erUyP1vPRFBmfkVGe0UlK/nufKyypQVvP7NuPIeUo/AI1Y1v4KaKm610JzHH
+	5lO9QPBvQEhyudE6lz5aaBmXla0EJI8eH4bBXDECOWk2InQBXW0vFAzM1boUjhJh0kRMMLNgI/I
+	dtZi32zPdqsbckKjyZyhCui21tKBOskcl4ibbvoJEltYZwaJNDIEpNLxR23zN4f7Fzym5r0MVrj
+	E51JwtzW99V1PLtOWKSSQuRdD22Ji+lQNWENSu4OmP7KaXvodVboII2VzYgL/zZ+eY+/84pRLSW
+	QKoLSKQsIf7slH44OFCrrGT57l2JWlQuqCMYzHVzLMcuu6NKeBLvqFtZzSiz4AewguA64OE418M
+	nlfF5T4PZA8xRXvoJrCjRbwLyVj7krBJwKign7Eyc0glxjdOpCjM6Xq/uCIHWYMag/yDppiz+1q
+	2iu4MXww1CrNCb8ugkSKr2b0MN50zimj9RCLm4gNfO/m3p5WceIM7F9t/j3qEANJWm5zV2Aalhs
+	z1FchD8iCSe3FIxr9EN53XDoQVzAGN1GfPTYD40GRruSd8wHHkpNmGbFZcAaZog=
+X-Received: by 2002:a05:600c:46c5:b0:4b6:5dac:b61e with SMTP id 5b1f17b1804b1-4bb55a9b453mr8505215e9.32.1794516783607;
+        Thu, 12 Nov 2026 12:53:03 -0800 (PST)
+Received: from debian (ip-78-137-176-146.broadband.digiweb.ie. [78.137.176.146])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55ae501bsm8695655e9.10.2026.11.12.12.53.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 12:53:02 -0800 (PST)
+From: Pablo Mazzini <pmazzini@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>,
+	Mark Brown <broonie@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Pablo Mazzini <pmazzini@gmail.com>,
+	Alistair Francis <alistair@alistair23.me>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	linux-hwmon@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/2] sy7636a: power the panel only during updates
+Date: Thu, 12 Nov 2026 20:52:26 +0000
+Message-ID: <20261112205228.42630-1-pmazzini@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,69 +104,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1203858437-1794516669=:1181"
+Content-Transfer-Encoding: 8bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+The SY7636A hwmon driver keeps VCOM on from probe, so a display driver
+can not power the panel only during updates.
 
---8323328-1203858437-1794516669=:1181
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Read the temperature only while the rails are on instead.
 
-On Fri, 13 Nov 2026, Neko wrote:
-> =E5=9C=A8 2026/11/6 22:33, Yun Wang =E5=86=99=E9=81=93:
-> > The Redmi G 2022 (board TM2135, BIOS RMGAD6T0P1313) implements only
-> > three modes: 0x02 for quiet, 0x01 for balanced and 0x03 for performance=
-=2E
-> > The default profile table maps balanced to 0x00, but this firmware
-> > recognizes it as the performance mode. Because the firmware does not
-> > implement the AC adapter type query, setting balanced-performance or
-> > performance fails with -ENODATA.
-> >=20
-> > Add a DMI entry with a three-entry profile table for this model and
-> > enable skip_ac_type_check. 0x04 is not used for performance: writing it
-> > succeeds and the value reads back as 0x04, but in three test runs on
-> > 7.2.11 the firmware did not emit WMI event 0x16, which it emits after
-> > every other mode change. The Fn+K hotkey also cycles only through the
-> > three modes above.
-> >=20
-> > Tested on this machine with this patch and the series it depends on,
-> > built as an out-of-tree module and loaded on a 7.2.14 kernel. Writing
-> > low-power, balanced, and performance succeeds, the profile reads back
-> > correctly, and the firmware emits one 0x16 event for each (values 2, 1,
-> > and 3). Writing balanced-performance is rejected, and Fn+K cycles
-> > through low-power, balanced, and performance.
-> >=20
-> > Claude Code (claude-opus-5-5) analyzed the ACPI tables, wrote the test
-> > scripts, specified the change and corrected this changelog. I wrote the
-> > code and the changelog and ran the tests on this machine.
-> >=20
-> > Link:
-> > https://lore.kernel.org/platform-driver-x86/OT2JfRLDi6yHShYvywRZoFBYdW-=
-TUgdKqKtahRM5b0cZxNo6eGZHnO5dKf4oYFaEtZhEsqU-Q-2OFe0D-qToJMVUrS5_d2aa2Q5LD5=
-0ISIc=3D@proton.me/
-> > Link:
-> > https://lore.kernel.org/all/BelDdF5woNEBX6dZ3_zJDEbVkifs1pdxEjtQ1yC-aKy=
-ZahijFJCllxm0l_SqZ5Hsj61D8wfJNa7uDSuNKmyyxo2S0tZp9QS5yaafeZUxvxE=3D@proton.=
-me/
-> > Suggested-by: Mingyou Chen <qby140326@gmail.com>
-> > Signed-off-by: Yun Wang <7z0423arsenova@proton.me>
->=20
-> I have tested this patch on my Redmi G 2022 (board model TM2135) and have
-> confirmed that I can now switch between "performance", "balanced", and
-> "power-saver" power profiles via the KDE power manager tray.
->=20
-> Stress testing with s-tui also shows different power draw under different
-> profiles.
->=20
-> Tested-by: Yu Pan <neko205@aosc.io>
+This is based on regulator for-7.5, which has the rest of the series.
+Patch 1 depends on "regulator: sy7636a: bind to the I2C device directly"
+there.
 
-Thanks all.
+Tested on a PocketBook Verse (B288).
 
-I've applied this patch now to the review-ilpo-next branch resolving the=20
-conflict.
+v4:
+- drop the patches applied by Mark and Guenter
+- patch 1: keep the hwmon name (Guenter)
 
---=20
- i.
+v3:
+- drop the applied patches 1-3
+- new patch: no wait when power good is already high (Mark)
+- move the I2C binding before the hwmon read change, so the hwmon driver
+  only probes once vin is on (Andreas)
+- explain in a comment why power good gates the read, and its
+  limitation (Guenter, Andreas)
 
---8323328-1203858437-1794516669=:1181--
+v2:
+- drop the DT patch keeping VCOM always-on (Andreas)
+- only wait for power good, VCOM_EN stays as it was (Andreas)
+- new patch: fix negative temperatures
+- keep the temperature in drivers/hwmon as an auxiliary driver of the
+  regulator, instead of moving it into the regulator driver (Guenter,
+  Andreas)
+- no VCOM enable at probe, which also removes the probe race
+- read power good and the temperature in one transfer (Andreas)
+
+Pablo Mazzini (2):
+  hwmon: sy7636a: read the temperature only while the rails are on
+  ARM: imx_v6_v7_defconfig: drop the SY7636A MFD option
+
+ arch/arm/configs/imx_v6_v7_defconfig |  1 -
+ drivers/hwmon/sy7636a-hwmon.c        | 35 +++++++++++++++++++---------
+ 2 files changed, 24 insertions(+), 12 deletions(-)
+
+
+base-commit: 89b552ff49551960b9e270feee888a0298a12d94
+-- 
+2.52.0
+
