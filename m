@@ -1,56 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.247
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794446682;
-	b=2o6pnPUFd4JhVi5MFs1bZi3BzM/eMWaj3fIZtrt8UQvq5RYm99uyiio9zuxszIiVvNe0
-	 RJS1kJNMi2DMaHI2x5WrP6oAsAwZ0rYtuliMCPCwBhdoTu9K46TByWpYAUZTBzphXZM1B
-	 lV3PVC672W2OUIHH4v9CpAcA82q51D/V3N8jZSWcw/P/MKugrxjhxc0kPNqqKNtwRMmQh
-	 E8hohCZcAsScR6h17ewYjnbyuSffR9JdQQXRNSt5k2Lypy/EGz3FjoCvMjL2YcsknVmpo
-	 sULkjaYyJBsN6FXK1xI2jrTO8VfgBHRe1juT+XoBNUj4AiXvbaW/T+/zWQaFDshVU2A==
+	t=1794446765;
+	b=zKw3IWdewLFiIOx7pt3jKsOPtH5bJ8rPwN2o3ptDZ/sWkxO797yukG4dRC/rgK5rkWfO
+	 FjzJIF2Iv7lB14MnhcFlPz9NoWSF+tJPB3CLfAJf9wnnA7quiYLdJS/DTu5BQHzMX9szi
+	 l+sJU9UVAmoq56QOR7mP565HEntFs4S+Avlvej0fEzskqim9H9GjrgDArdw4iS3ZCl23H
+	 ay7ipNec/zhGiFKcmlBgYXMHe530u/ohxoGbG0Pxzk2g1tX7yiLoBbjMKyN3ITGi4OiIr
+	 EsR8y3nkEt9aaiPhQQ6ZLAS/YZgsajxsm2EVwTKDZEQp2hn7sqJeY7Dsg1cpi2iUXMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794446682;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=le8//bQ1MsqlKhfhyQcaY27RPb+slISsfB6M0DEKU1Y=;
-	b=p0IcgfS0wTZm3kpHZns2d7F/L7aVg4WltExgxmVSRNp0qEE4J6yAxDyjdq1XbxV9Ax6j
-	 NtUHqys+P7WT1oo/6sMwFK2EXPIGIcq3mzIB/tzSUOC7hk/eN7lA3iBQjGASuJyKFLeQw
-	 s5hlE672tQtiT9SLr45FKHUd/+3+QB7qmPQ1MCRtpnK2zk9ERKfCNzO4mY6OBtnYCmGqZ
-	 yfbdNejMDvFFDAlKtH8E8ao7bHuqUc0Sm4SoZuhlr1TwsM5Y1W8fpGvFLnB+FVBzDTxDD
-	 utXG4I3UntnTOlTodw5+vsy14T78UDPNwPFc7VlhksEyIhSPKPxyEgRheCJoVL1KFKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794446765;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=m+Hm8h27H+tMrn8DnDQGWdsE10AXH5b7GXOSSBSzWEk=;
+	b=AQBrcfNgE2+nfvQZgRDaMHCuC0td3317jw2R8BvNiesAf26P/o0A0fCdNCNk8/q/worn
+	 cKjEPF5y6uPzHwyFNnDNmTu0hClgYXgYMVS03bNeVPVV6o9Zoeoqv7YUsjIKypvjcYQAJ
+	 5L0IOqkLijkxwPqasD47pVDcytB4pwO7oGgC/94YCNDPlWV2TMZ+y68GytvUeG5sIMoKJ
+	 /jXHyp0mBaAk/zfgcN4uifZvgnPnEvPpSMvumYdZiTcPNIEjlzSgvjvj1qFBcb9PWoBrQ
+	 1To4j0wSC1odIcNAJMwql+3dxNikCuYf/bWrgf8zpLdDgi6F8Wz/5lJxGNQ4aCj2lCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MHTXx3v6;
-	arc=none smtp.remote-ip=95.215.58.247
-Received: from mta1.migadu.com (out-247.mta1.migadu.com [95.215.58.247])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZsYPY1kc;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B12606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:24:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45B12606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3597B606A330
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:26:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3597B606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MHTXx3v6
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ulv6tsTtSPsNosfQZmLlbNP0rOnXSeLmQGkvMXd7cDg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794446679; v=1; x=1795051479;
- b=MHTXx3v6JJyx9/VKjZ34x4jjFVl8v+yXZ9eA1PkwFGR0fGEC//ZJrg15U2uhcF2AfVdoDz3Y
- YAbqsQNkbKcdxCYJ2W46VxQHPygdXW3kyqXWjMe46poAxpZi3BDbL+bLaZt8ifubh75uS7Ba4gw
- /yrk1V3QyTYYd4vQeHPniS10=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 217b7d0f88b6f002;
-	Thu, 12 Nov 2026 01:24:39 +0000
-X-Mizu-Trace-ID: 217b7d0f88b6f002
-X-Migadu-Flow: FLOW_OUT
-From: Qiliang Yuan <qiliang.yuan@linux.dev>
-Date: Wed, 11 Nov 2026 20:24:21 -0500
-Subject: [PATCH 2/2] sched/fair: Avoid re-syncing runtime_enabled on root
- domain changes
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZsYPY1kc
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1931ff67a29so6665739c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:26:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794446764; x=1795051564; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m+Hm8h27H+tMrn8DnDQGWdsE10AXH5b7GXOSSBSzWEk=;
+        b=ZsYPY1kcOQ1ZkbpwRFCLeOhKMk+CXgiVRlqpcHA2KRBb/wtWm/38P5ptumhbwtMSMs
+         4Gjx5DC55qOIiy9xR8C5F2UUSvW1hdJ46sqxWm476o9UBQbatqeXDYrDStIwCCQf9gTs
+         1Y0V+4AepBSMO5tvFvdmYXeomHELECh7nIsRzOM1ukxztuJBZWrh+f0DrI/kX+SzGMoA
+         42YkjlF71Om+oH1VlmZHRDR/0y35e3VXs9UL6FvlfOhweg6D0LxU2MTirGODKqbeDuLx
+         RajSdUIwg1iExbxEMTMSyPSPErbxU4Hg8IEeenIR/z9Ff3waNPkk/Oxjf8VEG++ZPq9T
+         OGzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794446764; x=1795051564;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m+Hm8h27H+tMrn8DnDQGWdsE10AXH5b7GXOSSBSzWEk=;
+        b=Tb6JbDOPaaJo5ORWbTwEZ/kZeDRAzvXcysU3OG/3jsXvJ4piR6p5Ojt9w9vDhAfueZ
+         sfXvj6pHkK9upqXfdW3TH1JuRU707wW3HYukTzvaNXUhuLZBFCnAUwCTHfLTHeyboNvT
+         kTEm5fBvLL5U29aSLugBEbAQPnK8tACItULP16kEdGqcM8/0WL/Gahypy2wbEWqh4Qu3
+         WzdkUgTi9JIdzMhFneXPg6grUTU5TWpwwpHwCQ9tV5TycI8B4pZAr3A5vYxUvHP0nSHE
+         pAAu0z0fOGiAsRKtY3acwriWLpLR1UTlykrCLmtucA+/NkTFyz/zbOaPIhNCN/QhEXmR
+         FXnw==
+X-Forwarded-Encrypted: i=1; AL+hErH8+AQn3Z1RSvu9IWfzj+lVE+V2rMDmuJOlrUHQzS/VhLgHzw4dq59IJguWn9gmizdwjyhyoDBtWchlQnw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ApoWXE7dKyzq71qc4dMzXtNFse+o8h1s2jSoqbEwenG5ZmeU0
+	n0dl5hHOG2JCz7uKQ74a8XsD310uZmk5//qPXVDMgTbC11pfMOKQ83Mo
+X-Gm-Gg: AYBFou2g8V4kzrFKWYN4a4P58q1ZpSvt4Y2vgweWAINqPcK2AF/sD74QOI8V/W/zSTG
+	TDAT72Nzckb2zHKr/w1sfvkNrKZpDkNLxhb1P0foEuBfoS085Ye/GWmTJi78Efh6gZ+z6iKZDMR
+	vAOkjp9arkxNJ5bF/x7mQbEKXK1pnZ2IDDDWT2rdHG7QsfA3k3GjapeAulTFuGuJg3Fek4KCuTI
+	PkrO6bys5QtIw6cXZ0WyReCBQdgPcPIOrxyOehk8vdi0IDLgQ5Lusse1SEcEJG1gW0YKB4T+MEX
+	VIMHRmlxgRmj+mmRmtH6U9jJaOp0F8SUgUi9yeI6t3Pui4NOAA8LJ2DBq5vPDh1WRNJv/jNBfAz
+	4BLiVRRbO6E2jKr9seX7+a0T3qFmC+G0Y4pJU5O7H07DFHtx75Hk6S++PLr5W4nass1FK/RDbUv
+	oOCYdnOcWYS/H85h9U+lzsTx7MOTGF6uWfxqkT0ZeCu1fsTLy2OpypYDG6Fk8+EXi3yj2ny1VXO
+	o5VwtxVyyyTgRW2l5U3V55GlPlLCcVH+TUH6+dw4WJ2Zn1cFlWIA48qG5TUF9vq6NJZC1Jtg7kA
+	c1z+C1cuqLi2sx9iVsmoflmJ7aM2c8ZVwNTOd4uOmXg/XqH/uQjsYIX9sUSLevFRwlf6NBsPDFJ
+	OS0iL
+X-Received: by 2002:a05:701b:21c3:b0:1a5:9abb:fdd7 with SMTP id a92af1059eb24-1b3c02fdb4fmr3591375c88.9.1794446764133;
+        Wed, 11 Nov 2026 17:26:04 -0800 (PST)
+Received: from [172.19.1.42] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5890e04sm20110159c88.2.2026.11.11.17.26.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 17:26:03 -0800 (PST)
+Message-ID: <c52e7b57-9d40-456c-a2f6-545c0bca9b46@gmail.com>
+Date: Thu, 12 Nov 2026 09:26:00 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,96 +93,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-bug-sched-fair-offline-active-v1-2-4f54523c5a70@linux.dev>
-References: <20261111-bug-sched-fair-offline-active-v1-0-4f54523c5a70@linux.dev>
-In-Reply-To: <20261111-bug-sched-fair-offline-active-v1-0-4f54523c5a70@linux.dev>
-To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Dietmar Eggemann <dietmar.eggemann@arm.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
- K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: linux-kernel@vger.kernel.org, Qiliang Yuan <qiliang.yuan@linux.dev>
-X-Mailer: b4 0.13.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
+To: Andy Shevchenko <andriy.shevchenko@intel.com>,
+ Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Cc: andy@kernel.org, conor+dt@kernel.org, cwweng@nuvoton.com,
+ devicetree@vger.kernel.org, dlechner@baylibre.com, jic23@kernel.org,
+ krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, nuno.sa@analog.com,
+ robh@kernel.org
+References: <20261104091136.151269-3-cwweng.linux@gmail.com>
+ <SN1PR12MB2528F7F6F04801AB698A5A60A5712@SN1PR12MB2528.namprd12.prod.outlook.com>
+ <avR2DaxSJJwpnWP9@ashevche-desk.local>
+Content-Language: en-US
+From: Chi-Wen Weng <cwweng.linux@gmail.com>
+In-Reply-To: <avR2DaxSJJwpnWP9@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-rq_online_fair() calls update_runtime_enabled(), which walks every task
-group and takes each group's cfs_bandwidth lock to copy its quota state
-into the CPU's cfs_rq. A sched domain rebuild reaches it for every
-active CPU through rq_attach_root(), with the rq lock held and
-interrupts disabled.
 
-The walk only matters when the cached state may be stale. While a CPU
-is online, tg_set_cfs_bandwidth() updates runtime_enabled on it under
-the rq lock, and it holds cpus_read_lock() so it cannot miss a CPU that
-is coming up. Only unthrottle_offline_cfs_rqs() clears runtime_enabled
-behind its back, and a CPU that has never been online has not been
-visited at all.
 
-Track this in a per-rq flag that update_runtime_enabled() sets after
-the walk and unthrottle_offline_cfs_rqs() clears, and skip the walk
-while it is set.
+Andy Shevchenko 於 2026/11/11 下午 10:05 寫道:
+> On Tue, Nov 10, 2026 at 08:08:03PM -0600, Victor Chernyakin wrote:
+> 
+> ...
+> 
+>>> +	if (!num_channels)
+>>> +		return dev_err_probe(dev, -ENOENT, "no ADC channels configured\n");
+>>> +
+>>> +	if (num_channels > MA35D1_EADC_MAX_EXT_CHANNELS)
+>>> +		return dev_err_probe(dev, -ENOSPC, "too many ADC channels\n");
+>>> +
+>>> +	channels = devm_kcalloc(dev, size_add(num_channels, 1),
+>>> +				sizeof(*channels), GFP_KERNEL);
+>>
+>> Couldn't size_add() just be regular +?
+>> (Question to Andy who originally suggested it)
+>> We've just checked that num_channels is small and won't overflow.
+> 
+> While that's true, the other aspect(s) of this is in play. Namely we want to
+> have the same pattern over the kernel that makes code robust (tomorrow some
+> cases can be modified unnoticed with opening such an issue again) along with
+> the potential of finding those patterns and update in case of mass-updates
+> of low-level API, and I have heard for the matter of fact that devm_*alloc*()
+> are in the plans to move to something like k*alloc_obj*() or k*alloc_flex().
+> 
 
-With 4000 cpu cgroups on a 32-CPU VM booted with rt_group_sched=0,
-switching a 4-CPU cpuset to a partition root and offlining or onlining
-one CPU take (median of 20 partition switches and 16 hotplug operations):
+Thanks Victor and Andy for the discussion.
 
-  operation         before (ms)  after (ms)  change
-  partition root           7.68        1.21    -84%
-  cpu offline             30.96       13.44    -57%
-  cpu online              28.48       12.82    -55%
+I'll keep size_add() for consistency and future-proofing, as Andy suggested.
 
-Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
----
- kernel/sched/fair.c  | 11 +++++++++++
- kernel/sched/sched.h |  2 ++
- 2 files changed, 13 insertions(+)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index e245a31b0544e..e2f67bdc3031e 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -7798,6 +7798,15 @@ static void __maybe_unused update_runtime_enabled(struct rq *rq)
- 
- 	lockdep_assert_rq_held(rq);
- 
-+	/*
-+	 * tg_set_cfs_bandwidth() keeps runtime_enabled up to date while the
-+	 * CPU is online, so only the first activation and the one following
-+	 * unthrottle_offline_cfs_rqs() need the walk.
-+	 */
-+	if (rq->cfsb_runtime_valid)
-+		return;
-+	rq->cfsb_runtime_valid = true;
-+
- 	guard(rcu)();
- 
- 	list_for_each_entry_rcu(tg, &task_groups, list) {
-@@ -7816,6 +7825,8 @@ static void __maybe_unused unthrottle_offline_cfs_rqs(struct rq *rq)
- 
- 	lockdep_assert_rq_held(rq);
- 
-+	rq->cfsb_runtime_valid = false;
-+
- 	/*
- 	 * The rq clock has already been updated in the
- 	 * set_rq_offline(), so we should skip updating
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 1d76950dbb0a1..1a73383204384 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -1412,6 +1412,8 @@ struct rq {
- #ifdef CONFIG_CFS_BANDWIDTH
- 	call_single_data_t	cfsb_csd;
- 	struct list_head	cfsb_csd_list;
-+	/* cfs_rq->runtime_enabled is in sync with the quota of every group */
-+	bool			cfsb_runtime_valid;
- #endif
- 
- 	atomic_t		nr_iowait;
-
--- 
-2.43.0
+Thanks,
+Chi-Wen
 
