@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794473316;
-	b=BO8m0zYeBS04rGEVL3Jt7ko8CcO0YtwZOok0IGzTrsg5jt5d67mXtR8GS0vbnfyDwuL/
-	 gsUy90hjMCvr+LJElWcHzEs/bCG4ylLMvqcZN+S8/1Zuj/n0H+jkSbhQnbSy9WZSEnzZc
-	 R3xmPdtG70j4eSO4fK8omlQkUUxZQy/Maut5ePmBBvuOYCmafXoBy30V+2Q8O7t5KFtsh
-	 X7DT0w7VowKhhPlGB+80AJeqbwL0zvoLPqMT1EgEcUc5V2inrsZtX/EbwMKIKisdW39dd
-	 JL+wSFOob0j6xMVmw3jEoMaxXQCHZT+qYnzscd/CWjlUYuT78a+LTmeJ7CHkmK2JeXg==
+	b=axmFKs4py2jcsGyrsfV6EP5FhmTZPtdn+z1DJU6mHfF2ZSdKYhdbokHldmPMKtastwmi
+	 u/qa0toHwwNu1Nh1tndemyuF6s6V2OJW5FmjNWZhBLuqCQmFYsK6XC0nei6nlpaoOQ+Fc
+	 yN+79W0cqVhQuJcDf0mD/5eJpqKcbXRt+rP/N5xtoLjus3momL+i57yOJ4SJrS7cQJkz2
+	 mYWjGevq1uRQNgDWCNwM2OCJaOqm/2/Bnelr/MmlFvOYQ4WnAW8zBiZMEy4iLl/TDTU4s
+	 wnoA4m92PJW9fv1jhWfOrI+7OY69eH+mnWGj5kSQctozt53j/QK70rmcgHgLRldOdSA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794473316;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=6R/zhoa8svTG09lSjgTlGyW8oNktUFJ95AqUC1MGVe0=;
-	b=ziRqf1OGL2zSp4nNAwzrxXfvW/DwJi3fHj3KvujoH/RJLo4NZhY6WXoZKfQORoTmU+HF
-	 hkzlwwUR7JOo64ZEg10vG3NH3Hv5nn0k9/iy9tpWQWFXdfbG+XM4ww69cXuABdiJQ795x
-	 9NCSdzq1f6sPvSjlKm79Gi7NfkGJx3+H9LCY+ZXtmm44baejB1zmXBIV1pAWUwiSvrb36
-	 4cDVbBDFndFr9l+KeW9a4iuXR1W+zUEs1vTvMCukcEk2KH6mh0zuvwIAxWdtQUdHUiHqx
-	 S+axzJHe4Jj/DgKvml3F/jqwTlXVsh+cE+rkHGDXpgffHGK7SrkD8/1jNyxJ3K1UWnw==
+	bh=vPoPaJYm1rVdkvIwz3bwEXUPzWyWy9GLWeLRkuftn2o=;
+	b=BFJhDOaqbaX2xckLdnYWe+rsOMZMSMN3I+2K8gAbi/mAlD5CsHrO4V6nsJq3klpwF/Ga
+	 JiXWisw93ua0Hx+6eT8NsmLTOOx6fzQEOwmwk1YrS3mzNVPfiNSkG5qwBzgwZqjTsEE4/
+	 pn6ZuBzdM/JrGi900QnccDlux/dtPyJNnKyusoffqMmcEZ8hwQI73zrI/hgQqYp//siYM
+	 uWLUhlaxqg284H0rsndg8seGggZFFypcy8QYPSistWD1vpSQOju0BXC2vYoO+q5fx8zsW
+	 WXx8FQCNge0lX+1hcBSpEF1e8EcnDx/3rHv9AKl9PZiHzzokYsrUt0HgNbRl8hm1qtA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UH6wTmRl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LNy0EA1q;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9985C606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B16BC606A888
 	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:48:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UH6wTmRl
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LNy0EA1q
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794473316;
-	b=ZuElMlGi4JgWvDu8OmUocCMhmJXKHTPzHV9ADF1SoDpbgEl6+0QXZIbic7SopF8JVxyd
-	 5jrpw7KDKwFTctdvtLfc1pVqPn+IWRDBPSoWSYC2Qnfhbwt1slZro6p2DX8Kg1O0mpWuV
-	 D70IB8VcYCpHf6N7adoPotCLHFUTHT1Nq0BF1Zw+mb00t46tiFXHWEGjkTEcBYw8qS33m
-	 GO85K8YiB3clYCGuN0nTzunQFsNLDxztX5kX23I/fV02RXPuY8gyYzXXWZNI/C1i+Epuq
-	 ZGjJMVMhL4pyMSF7qnNOVoLK33bRadZuBhSjGMqGvOXDiQnnV+wCRAibz/NJ9r+khmg==
+	b=zysBscoLatRr/+xoVTX6Rl4kCD5PKeMM4QrKo5M1Tl9tTLu+ttLxuWYf0EfpFTFZxIBJ
+	 9GrCaFz9D7Ghd6sOZX1QjY2s7hppcqsyYDC1gJkq2IclHRFMo9IIjiS3ueStpSjkP/P9q
+	 FldzpJ+VsfNJbvHLVkHeC3aOWTGueMJvptsIx0PO0adMIITrZpcDVylxUABBPUJ0sJeFI
+	 kDy5ydHrA3zAw4cAaYb1f3IKllfzIoWvrCQVNT4dIqscm/YVjt4hzDXiHqMziut+w6xli
+	 7Ag6avzNtNFcJjykRXoWuDVwS19Xq1IccyHZcTtw7ZovgBDDmjuxSeutP3i8UofuoHg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794473316;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=6R/zhoa8svTG09lSjgTlGyW8oNktUFJ95AqUC1MGVe0=;
-	b=CojiEI4oeTs4jhosdqk5ZDJkycWFhpzfJLYkMd7LESLTJpln/FhzV7Ec99TZHvEQzdaI
-	 YithewkH9A6r59nMiFvgZWatTAhu7v06TI01pXK7yHQXKGme5m4J9gTLICjqLw/Mz+g9f
-	 bQKutt8CrEb4JlyeO6Nzul+TwvTGKUdKhOHhmGbH5xdO7wtyerfHiXPOim2o+c4sLUEK+
-	 TG5WUcsacj6xAdShsAV2WGSAJL+dWXrjy4vza1796mp/cqhdkuxKMeLHgyt8Xp3elE6uf
-	 f/oA6EOdXC5s3sAVnCG5iW3nONv/+tAz7AsCQW0E87KHjM56WwHzb5jzy+eEUjsSmDg==
+	bh=vPoPaJYm1rVdkvIwz3bwEXUPzWyWy9GLWeLRkuftn2o=;
+	b=Yn74STF+2G1F2jMeVHxgwmMjf857rcSeCHVMArVEeQQEUDyswuQQhuIr0yOYFuJ2nl2v
+	 7pfvf0NPUFfPKXxkO1pGvHVT3zexLnK8CnFeiiUiurXPWxWuX/V8iqgMpow1BJSnTZT+X
+	 CKE1y7sk86q44P2PopVA0qfmvuzuhZuXM8dQ/gplpGx8i3+N7/L6r1hBXSVEsA/I4wz/R
+	 thZjVWT8qFylhkFzr40S3In9nFsmeJXahchz7/xkE18Bs7pcv3YiW0OK+sQURujJlqJIY
+	 d55q573cGfyYDEM/w7zpJxXgwFDPT/XA6fTALdztfW9OmL8yQAu5NR7nz8llswImpZg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9D1F51F00A07;
+	by smtp.kernel.org (Postfix) with ESMTPS id 9D1AE1F00A06;
 	Thu, 12 Nov 2026 08:48:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794473316;
-	bh=6R/zhoa8svTG09lSjgTlGyW8oNktUFJ95AqUC1MGVe0=;
+	bh=vPoPaJYm1rVdkvIwz3bwEXUPzWyWy9GLWeLRkuftn2o=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=UH6wTmRlx2e664IN0rDmGIivG4ZXZ5ulNBfLSgg2JIqXJUi1UNe4jHIzlYIPFVWv1
-	 SoSQXOnlausBeEyKsXoTOnQ5sUFUnSFLzFQF9m0pB+0/kZ3EH0drvCSDrK6I52kt7k
-	 VV7EfWhjkDQBObVyDiCCsqCPznycLdNCiNawdJJkzLhJfhGLENcL51yGTBSYB0IqFV
-	 a/RSpDIh9FjVMIxtgWVr8bP21Qxq0szvt85LlZQ0W+Sma+3YXWiQiS/7XsZNKNwhM4
-	 bxcthtQEt+XVmxL2OQlQYqNOXfEivgOZ/4+zfE+hpuFWB4W2Xt97y30qXWjnHt+pGW
-	 rkaAUy0DOZS8Q==
+	b=LNy0EA1qWiptCnzix/+IsiQnfU7t+llJX/1LKe1COFyLNYOgd+nIZM5Ziz3Z0Q4RG
+	 dMnDeidhSkzP6gBWhbrvvjW72tMWvMz/rw9j1567lMMa/RhjwG9EDvl2Q6B4394vPu
+	 Y8KMJo8CPFsY8edWjR3LaoJA8xQT6CrKBtrIHsOvS15YludjtcFq0qEQxRbH6pNVxN
+	 JxwN8jJ0D4PrNYMJfoKL3uRC53PiMwmjnLDnxmzDiXmXKk/qeb35O7eM7nwu6FwMP1
+	 xduF3BZ7bsoUwyZtuqqP3NR2GnjmHhLHT4RqU5xJPxTNHI+zMgxYajCTiBmTrvWq8h
+	 aMx1cb6TeYwag==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2A7B2493E1;
+	by lkml.kernel.org (Postfix) with ESMTP id 16E63493DD;
 	Thu, 12 Nov 2026 08:48:35 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:48:35 +0000
-Subject: [PATCH v2 02/11] drm/panfrost: Refuse to sync the CPU caches of a
- heap BO
+Date: Thu, 12 Nov 2026 08:48:34 +0000
+Subject: [PATCH v2 01/11] drm/panfrost: Power the GPU up for a reset queued
+ from the MMU code
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-panfrost-long-jobs-v2-2-a06830da3d99@gmail.com>
+Message-Id: <20261112-panfrost-long-jobs-v2-1-a06830da3d99@gmail.com>
 References: <20261112-panfrost-long-jobs-v2-0-a06830da3d99@gmail.com>
 In-Reply-To: <20261112-panfrost-long-jobs-v2-0-a06830da3d99@gmail.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -96,11 +96,11 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794473314; l=2148;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794473314; l=2612;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=sabqZXiqcOVlHYAJg0avzqnHVWyyC8nVoD/l1btGZFM=;
- b=EZaFwvzELyUZIeDpHLBigkeb0f38sxfR+QENoZ2o+SujrdnYH8BpvXs9ae9t/9l/ldZOF276x
- YSfTG2G0puWDNT6nGnOkBYQFT6SpvtrNj4eOEBTq5fOfdol2A12jwoK
+ bh=3Nwfj5PjtSEDNrdV40YewE7S010LHXjG4GEcXIttwyU=;
+ b=0ryBwxlYAwCmZkVAh7K+YyhyJgkV5eo4lx5zT8nt16/VZPa84kdzHsOr1c/ufAt9CWA/boFco
+ dNMp9BI+aEeDpLRe9IHtJnI1DlLh5dvyibxixzOEuNV0jLs5xz9Xlka
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -111,52 +111,61 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-panfrost_gem_sync() calls drm_gem_shmem_get_pages_sgt() on any BO that is
-not write-combined. Heap BOs are write-combined only on non-coherent
-GPUs; on a coherent one, a PANFROST_SYNC_BO on a heap BO reaches
-drm_gem_shmem_get_pages_sgt() with bo->base.pages being the sparse page
-array of the GPU fault handler, and drm_prime_pages_to_sg() dereferences
-the NULL entries of the chunks not faulted in yet. On a heap BO with no
-chunk faulted in yet, it instead pins the whole heap and leaves
-bo->base.pages set without bo->sgts, and the next GPU fault on the heap
-dereferences the NULL bo->sgts.
+panfrost_reset_work() calls panfrost_reset() without a runtime PM
+reference. The work is queued by panfrost_device_schedule_reset(), which
+wait_ready() calls when the AS_ACTIVE bit is stuck, from MMU operations
+whose callers drop their own runtime PM reference right after. The work
+shares the ordered reset workqueue with the scheduler timeout handlers, so
+it can run well after it was queued. If the GPU has gone idle and been
+runtime suspended in between, panfrost_reset() writes JOB_INT_MASK and the
+job slot registers of a powered-off GPU, which is a synchronous external
+abort on arm64.
 
-Heap BOs are not CPU-mappable (panfrost_ioctl_mmap_bo() refuses them, and
-panfrost_gem_create() refuses PANFROST_BO_WB_MMAP for them), so there is
-nothing to sync: return -EINVAL, as for imported BOs.
+Take a runtime PM reference in the work, resuming the GPU if needed, and
+drop it after the reset. If the GPU cannot be resumed (runtime PM is
+disabled during system sleep), no job is running on it and
+panfrost_device_runtime_resume() resets it on the way back up, so just
+clear the pending flag. Resuming instead of skipping the reset when the
+GPU is suspended keeps jobs that a concurrent resume queued behind the
+pending flag from waiting for a reset that never comes.
 
-Found by code review (Sashiko). Not tested on a coherent GPU: the
-Mali-G31 here is not coherent, so a heap BO is write-combined and the
-sync returned early before.
+Found by code review only (Sashiko); not reproduced.
 
-Fixes: 7be45f548976 ("drm/panfrost: Add a PANFROST_SYNC_BO ioctl")
+Fixes: f9ab9c66f080 ("drm/panfrost: Reset the GPU when the AS_ACTIVE bit is stuck")
 Cc: stable@vger.kernel.org
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-206561@kernel.org/
+Closes: https://lore.kernel.org/all/sashiko-outbox-206548@kernel.org/
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_gem.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/panfrost/panfrost_job.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
-index 518f24549..5d3925abd 100644
---- a/drivers/gpu/drm/panfrost/panfrost_gem.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
-@@ -569,6 +569,14 @@ panfrost_gem_sync(struct drm_gem_object *obj, u32 type, u32 offset, u32 size)
- 	if (drm_gem_is_imported(&shmem->base))
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index 3a46dd61c..0c2fda80c 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -810,7 +810,21 @@ static void panfrost_reset_work(struct work_struct *work)
+ 	struct panfrost_device *pfdev;
  
-+	/* Heap BOs are not CPU-mappable, and their pages are populated by the
-+	 * GPU fault handler, one 2 MB chunk at a time, with a page array and
-+	 * sg tables of its own: drm_gem_shmem_get_pages_sgt() must not touch
-+	 * them.
-+	 */
-+	if (bo->is_heap)
-+		return -EINVAL;
+ 	pfdev = container_of(work, struct panfrost_device, reset.work);
 +
- 	switch (type) {
- 	case PANFROST_BO_SYNC_CPU_CACHE_FLUSH:
- 	case PANFROST_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE:
++	/* The work can run long after it was queued, when the GPU has gone
++	 * idle and been runtime suspended. Power it up for the reset: its
++	 * registers are not accessible while it is suspended. If it cannot
++	 * be resumed (runtime PM is disabled during system sleep), there is
++	 * no job on it, and panfrost_device_runtime_resume() resets it when
++	 * it comes back up.
++	 */
++	if (pm_runtime_resume_and_get(pfdev->base.dev)) {
++		atomic_set(&pfdev->reset.pending, 0);
++		return;
++	}
++
+ 	panfrost_reset(pfdev, NULL);
++	pm_runtime_put_autosuspend(pfdev->base.dev);
+ }
+ 
+ static const struct drm_sched_backend_ops panfrost_sched_ops = {
 
 -- 
 2.55.0
