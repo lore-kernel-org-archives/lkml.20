@@ -1,55 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794508792;
-	b=K/hdKb/Q1f95styyflwnq3tplXLvtU57VHHQF0Otw6BedNVfA0u38YSo5vwcotZdLdlI
-	 GE+Pn2YWJKTuTE+G2bs9L2Ds5d/X6dsLHhf1lCTVYhUDv0JBkYDHhsNaUoiUZBwJDVcJJ
-	 YKuN02agXvTEV/20DwR5Is8qVn/xvIiF1TVP9tnx22gTzRJ2qnHjMU14Tc4fXEVrbWibC
-	 fhd6/YHI8OWciMLG/LWL7psjOSJG8Ut+KF6uN65kSKdNnuEROUXNSMHHU5v4AF8B/9Eq6
-	 QzsqYiEL8gBYsl5yej5CsT4/QYBTjfGe4atIGguGaLDcZ3QtlmE3bXCV2uuUdjwfp1g==
+	t=1794508806;
+	b=u4Rd9OwpqjcEAMCms1vygVtgYPqT2TAsLZvw8RRVE5vzwHe8KpoQubbmU4hTovPPmgbA
+	 bBFi2XzWsLzADwn7dHu8R3w8JwDzpxIxnDmCuO9axHwJW4zlk22UDh+uONrs2ToQXikzd
+	 gU+J22eHWbgQBLj6SXsKkZqNDvW3ySJt1dl469HuASWj0IpFWuVO8CEmzM1v1vDVFcg33
+	 vfeKYFsUouaOm1+R83+3M2pfiG4juiJlpr4O+1uUr7YSHoMre6XjUTpdENU7VKzVAEF4q
+	 OUPR+txji0KslenUEOaWpT/37d5EFkOjTHFP2OvSXMF5nrmlS2LxqLgHuV+ilwY9mXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794508792;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=7IpB5wJW74xYwGanhmC7DHQajEzsrcbC4df9jW6z3C8=;
-	b=sjoiBgLQMTxAJcZGflTaoc3KDcsxl/TVocVm/ulR1HB9y+IFXAKnAJwpqB+/Gs/cBfKF
-	 H7dbO/KLJugdFYOrcs3k+bUFTjt2azqpd4BC4KAmYJ34ygyOh+E8dunEt2Xrk4bY5PZuH
-	 aCP6LGLnXtbVSHthtPoQhhNqeNlspbriqF92UT0Yp45Vq1KgYa4BzWZj0d2dtLFs8d7Gk
-	 gvSVJiEU6I4Fh5ilK2wlcrpTFw6KIOavl+BymMkkwNGKP4gyRFiAxL3C+xJrUs9KX+JhR
-	 cxQE//1bK3nyXogM6ohqw5tQuguvdzlKgBzhAAWTjx63d4RPV3N+OmTUG4HtK/x/8fA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794508806;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=//DGCwL3Y1u1mfVqzISzAnZGj/wOqtSDLZS1SHCj9Es=;
+	b=YaAl0OFz4tRLUaFvQjlV8wpmcCB6ARTMLvJAcIcyRWGlMrk66BfxOjHdbrx4cTWcyRSI
+	 4O/LN3ulc9debkH/21CqcmjyqKu0jTabeS5JEYfLgLbxA6sITHeroXoZWUTgvnktHNAzU
+	 lC1JWAwUJjUmbGwMsbePCO9nuIsnw1OsshcwrcsyhwBLo1cPM19RTV+e2p5QBhYT+4Zt7
+	 nxzpahR4wkSc2IKjbiagIrD1Sy5gdiwb7JrIh4ooRlOXwVH0N8FyBTw5hz3/MUwLx74Mn
+	 nBDw3wRjgOMtlbAL5OQbrU+l5z02AdO30EG2BfE+wSyUJ2iL6JmHFgopqDzVG66dk8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZME8eefb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cpmtM0TP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA122606A889;
-	Thu, 12 Nov 2026 18:39:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B66C606A32E;
+	Thu, 12 Nov 2026 18:40:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZME8eefb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A13B51F000CA;
-	Thu, 12 Nov 2026 18:39:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cpmtM0TP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0753C1F000C5;
+	Thu, 12 Nov 2026 18:40:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794508792;
-	bh=7IpB5wJW74xYwGanhmC7DHQajEzsrcbC4df9jW6z3C8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZME8eefbYjJSAdhqvvEOGHQCDYSepUI/4At4ClK7DqOdbWzlskQ+Zaflf22UNPbMV
-	 UzXLHAXZgUW4PSSmk90d+x3d0rMQ5Jn12oQbg/i8X7HYh9r6m4efZVDn0VwTvk4uu8
-	 eGt7n4Y/p7N/64m7FHt//t1vug0UF4/qobL/vNiw9oqPCM166k3rlF81vV2k7m0Gou
-	 Szkfh+A/Or/flwLqATZaephn7a9zfUUbrM1vXgKWZhcm3rFdd3WQ32aUkSdRFWTR5h
-	 WOglvIAPLpfhQULwD8wknoT4+j9kEwB1Vj02WfracMFr42W2Ohg9IqzXwz3tAJNK8U
-	 F2xZrXNWt6Hzg==
-Date: Thu, 12 Nov 2026 10:39:52 -0800
-From: Kees Cook <kees@kernel.org>
-To: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-Cc: abbotti@mev.co.uk, hsweeten@visionengravers.com,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-	morbo@google.com, justinstitt@google.com,
-	codemender-patching+linux@google.com
-Subject: Re: [PATCH] comedi: comedi_bond: Refactor strlcat() to seq_buf in
- do_dev_config()
-Message-ID: <202611121039.836B308B1@keescook>
-References: <20260927060000.518354-1-nikitash.mariiaw@gmail.com>
+	s=k20260515; t=1794508806;
+	bh=//DGCwL3Y1u1mfVqzISzAnZGj/wOqtSDLZS1SHCj9Es=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=cpmtM0TPt8HPg8KetPSukxQGiC6Y8NS2UWC03RfxMyl4AkR+dA6hQ7An2GXvXzeXx
+	 3dq5u7gcnApuQvVEXmWxW16XMi0SbjazYND54ORM4+cIGHBQ3/nLy6Xr4Q7326+40N
+	 VNTMm3xBudS+qXvf0F+3LQKtLQu5YLzHinF53pgMYfIUAI8Ucgeg9SgFJSsTBzxKY3
+	 LlOjGe9DjSuCWWZMbqeP0AC4+8pmAoER9exX+G4BUUJwHxi0nJ1HQeRZCdnuTbH++P
+	 obaUe5iy90y0+S5jOWR2Q4hJJQD3L3fkO57Djd7Ly7HlDj2YqZyKN8wKMsYdGsHe+i
+	 6J6yU+Keh+cqw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F1586380AAFF;
+	Thu, 12 Nov 2026 18:40:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,94 +53,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260927060000.518354-1-nikitash.mariiaw@gmail.com>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v5] bnxt_en: Take RTNL before netif_close() when
+ aborting
+ FW reset
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179450880478.585389.16589339038635282296.git-patchwork-notify@kernel.org>
+Date: Thu, 12 Nov 2026 18:40:04 +0000
+References: <20261110044235.204386-1-bcochrane@google.com>
+In-Reply-To: <20261110044235.204386-1-bcochrane@google.com>
+To: Bryan Cochrane <bcochrane@google.com>
+Cc: michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
+ netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, sdf@fomichev.me,
+ joe@dama.to, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-On Sat, Sep 26, 2026 at 11:00:00PM -0700, Mariia Nikitash wrote:
-> From: Bill Wendling <morbo@google.com>
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Mon,  9 Nov 2026 20:42:35 -0800 you wrote:
+> netif_close() must be called with RTNL held in addition to the netdev
+> instance lock: __dev_close_many() asserts it, and the NETDEV_GOING_DOWN
+> and NETDEV_DOWN notifier chains it runs rely on it for serialization.
 > 
-> do_dev_config() builds a space-separated list of bonded devices in
-> devpriv->name by formatting each "minor:subdev " pair into a temporary
-> stack buffer with snprintf() and appending it with strlcat() in a loop.
+> Commit 004b5008016a ("eth: bnxt: remove most dependencies on RTNL")
+> replaced rtnl_lock() with netdev_lock() in bnxt_fw_reset_task() and
+> bnxt_fw_reset(). That is sufficient for the paths that only tear the
+> NIC down internally with __bnxt_close_nic(), but the abort paths close
+> the netdev via bnxt_fw_reset_abort() -> netif_close(), and the error
+> path in bnxt_fw_reset() calls netif_close() directly. Those now run
+> without RTNL and trigger a WARN_ONCE() cascade when a firmware reset is
+> aborted:
 > 
-> In preparation for removing the deprecated strlcat() API[1], use struct
-> seq_buf and seq_buf_printf() to format each entry directly into
-> devpriv->name. This avoids repeated rescanning of devpriv->name and
-> eliminates the temporary buffer.
-> 
-> Link: https://github.com/KSPP/linux/issues/370 [1]
-> Cc: codemender-patching+linux@google.com
-> Assisted-by: LLM
-> Signed-off-by: Bill Wendling <morbo@google.com>
-> Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-> ---
->  drivers/comedi/drivers/comedi_bond.c | 18 ++++++++----------
->  1 file changed, 8 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/comedi/drivers/comedi_bond.c b/drivers/comedi/drivers/comedi_bond.c
-> index 8e10ecab4f0d..a10cfbd04c72 100644
-> --- a/drivers/comedi/drivers/comedi_bond.c
-> +++ b/drivers/comedi/drivers/comedi_bond.c
-> @@ -39,6 +39,7 @@
->  
->  #include <linux/module.h>
->  #include <linux/string.h>
-> +#include <linux/seq_buf.h>
->  #include <linux/slab.h>
->  #include <linux/comedi.h>
->  #include <linux/comedi/comedilib.h>
-> @@ -170,10 +171,11 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
->  {
->  	struct comedi_bond_private *devpriv = dev->private;
->  	DECLARE_BITMAP(devs_opened, COMEDI_NUM_BOARD_MINORS);
-> +	struct seq_buf s;
->  	int i;
->  
->  	memset(&devs_opened, 0, sizeof(devs_opened));
-> -	devpriv->name[0] = 0;
-> +	seq_buf_init(&s, devpriv->name, sizeof(devpriv->name));
->  	/*
->  	 * Loop through all comedi devices specified on the command-line,
->  	 * building our device list.
-> @@ -250,15 +252,9 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
->  			}
->  			devpriv->devs = devs;
->  			devpriv->devs[devpriv->ndevs++] = bdev;
-> -			{
-> -				/* Append dev:subdev to devpriv->name */
-> -				char buf[20];
-> -
-> -				snprintf(buf, sizeof(buf), "%u:%u ",
-> -					 bdev->minor, bdev->subdev);
-> -				strlcat(devpriv->name, buf,
-> -					sizeof(devpriv->name));
-> -			}
-> +
-> +			/* Append dev:subdev to devpriv->name */
-> +			seq_buf_printf(&s, "%u:%u ", bdev->minor, bdev->subdev);
->  		}
->  	}
->  
-> @@ -267,6 +263,8 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
->  		return -EINVAL;
->  	}
->  
-> +	seq_buf_str(&s);
+> [...]
 
-If this hasn't been applied yet, a v2 with the above changed to the
-now-available seq_buf_terminate() would be nice to have. Either way:
+Here is the summary with links:
+  - [net,v5] bnxt_en: Take RTNL before netif_close() when aborting FW reset
+    https://git.kernel.org/netdev/net/c/bf83b257423b
 
-Reviewed-by: Kees Cook <kees@kernel.org>
-
-
-> +
->  	return 0;
->  }
->  
-> -- 
-> 2.43.0
-> 
-
+You are awesome, thank you!
 -- 
-Kees Cook
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
