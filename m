@@ -1,99 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794489502;
-	b=07qnK0x+7DJZNuPwYwZ7EIB6bLe5CB+iOufVQpcslsoP1YLvI91yfB9i3psnhftuWkKM
-	 6S8HNuXrT00mQyjpk2MC0+CWknM0ZPmXaqIgHFNJafxzdR7a7MPqUi4FTwSVsmD+BFOHn
-	 M2y1fzxVea1IpxCvnjuVqUS3n1pc4PyYPo1LOY2Pa894/UcGwTl6PSq0oCur7gru29sIb
-	 ZbCTuEcxFEWib5nnQWD9jDhFY0C9t1V2AQ7oiIkjU/eM5JChyJyl8QXVg29nPHOuImm/H
-	 K+G24nMGYtc7oYo8iFI14neIr7VG26GRN5EifI5MwIcrp6HFHtvIvAJD7s+vx4jZcHw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794489502;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=P+K90cZSRrlNsW4lVxe7sdjaDJizKYMoKpvz2cTLl2M=;
-	b=aff2DF11S3+/sN9fpjGLlhbms8GHzqP6KRbJ9lks94TUaWl0nhFI0q4gfwmEiDjE69RR
-	 rIYu2IZsF5dc6wbXHJtl4RetnU49GBg8OdqOPneuQLJ6/104AHyXabMf+QXdoYpKPDQWj
-	 m2/MguGPSPRsmJAN3B4fDb/Xee2JY3a8JUPdK/nDmKpsFdNxXCoMmhzvWeUSsJU6baWDW
-	 RjrDlxO9/Txt8YoO6OmbUkMwce8hQ/6lW/3LEoFmDjvMLi79hsHoU6etXYQRWEaBLVREf
-	 T9gnZfR5V7H/x0Ph6spp/AR18w8TzCG5RJIxhCyz/rZaP2FNVGITJxdlt8O+QogoOCA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=fZBueeLp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.13
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010013.outbound.protection.outlook.com [52.101.61.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794489520;
+	b=MdUHzVh1Ma0fTdCZkZ2bj6PP88JFpxhWr2cdTn9qMV0OFGoluNU6sxkl0XSjuBhm17NT
+	 q4pnIJBMIGiJAgBSIPgWdWUshQYNhz+N8sHsIDF8/4ndSKfotPIXCBI7O4rVexChbBDk1
+	 J+kfhJvAE20PZADfLBJQUhWDjBuyeoc1/FQ3ZULRQO9VQyxWAyNZlTvTOijYQbPo44suK
+	 lYJYRaFXQIgR3OVGdOFg4Xe+rtzWL59K9KUIlGXve5G+uJD+dUoG/OTrvITyS4URqPN2+
+	 5v8++kWVBNNWnR/vr6qfa4TDrpGYze/ez1B27opIQyZGG8bIiqZ+lfpnqyTJfyRyZ4g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794489520;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=0reVTygQYZvGgH/DtOXkcK6EGhSpuDmU2CumM9pari8=;
+	b=nnBb3yZVl/rIWdYv4ZP3rSbF2Iy/T2rSyym2/yW1y+HEs+J7ag0fHMJFRFbjAvvCnJbV
+	 wafH0AhhoQhK8BIZYLVpkRDdI0x/b59BZ30Wf8qlLcJs94iP+mYLrvu8TTuTNIL0R6/kj
+	 7X7L4gj/tjIgKj+YiXxUHjDXJh/sb9aqAlaji4qvk27CbPbJctdRDBqpPUHMhTEr2iOtV
+	 zVQ4m4uOppf9Hhp0Of68+xbLzCkdiQLsv7nHigAi05UXPglcDq/sGvwdxxwkPrbUxbwig
+	 zhQ9qg26UvzR+XIygNR8Me8OiRlldyo9PKGmQ8uHul/tF/6WNl96dxrl1tEKD2eG2Ew==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k6oaWtMF;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Z4kQJXkk;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A85A606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:18:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A85A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A9F606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:18:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9A9F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=fZBueeLp
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oket75ZXgxSvf5bD5N7yt2d+09rE5srriOk1xA9bgEuOVueAmxRQZOzTeUqgIHDTPCVCEmMHT78Dl35EPBdNEZ12zWb1JZjskd1pDtLt5eKOS2d1z5fuvZGENo+SPyVqzuS2uG4tUzNIhRNNU6rEHybOo/KnM4zMw33NWdT03oqRATPKmEqrmIMcihIrEuktz0wNITrAYRhEOrWKJk9itVXTs3PCE0mYZN66nfbPEfqs8DsyUgs1NaxAKkwN7YOYc9FseLM7mqyGSGybAnIXSN/l+cVeLta3MON4/FequpIsJf2BH26d0BSoTY0n1JKkz0Qxhzi3Stp/jy2XY2D75Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P+K90cZSRrlNsW4lVxe7sdjaDJizKYMoKpvz2cTLl2M=;
- b=iT4dcXTRXgz7sKz4o3QPrjt1/oQrdjtyvsfWiAhsH2oMMRxQ4sM18VMflX/h7m3UZ8Fcwr1PbZOVueWaCSPVLsuGDF2iVOHDycycY90QwBhcJ0zA/F6iDJhpNWwpKFT791EH90b3IkWtZwjJwvzNU+dy5qAlSLs5rp4VRlHievmg+PoIZzUL0A14lgy1qVvak+W81JhK8C5XQAgcfNRBiu/DQal8Y2hj1zG03Z90D9a4FFiBrI/PxziHfvJ0dZYiVw6N9kEoKs6Z+rUZ7MLhXuSPxRBb5uT/9CE9uyy7e0gOWm2bQD67odMwoqLAGKevZjzgIuW9zyWG7J5oUb5BOw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P+K90cZSRrlNsW4lVxe7sdjaDJizKYMoKpvz2cTLl2M=;
- b=fZBueeLpy6UtR8znXqokn/vyjZ5Wz1EoZGTEvaEg5yA1WoJ2vwNzlbe1glIfK+MdHyNSKrXBIR79qqj1j/PYhqiideUOOtFFt19MeElslS3iVqo1zM4mRnR5gboQIqDDWdI4tfpt1yoa0ERcitBvgbnEMumlmsk4dUpxIvNrkIcCFASWE9woaUqMSTarEF7gGxkC7pO5+uGN8F/mcKvzHzsU6oUgPD5racJHbYW9Leeec4kq7KipoJqnHYq4zXX91jvCkpxxmhiCI54gUrLOc/dPkRXQwWXhfOe6sO2m3q87rGrujOaFDlU6/d01/1yOdFVPptnDYDn5Y0QZZtpNOQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
- by BN7PPFDE2ACDA69.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6e6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
- 2026 13:17:54 +0000
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0615.008; Thu, 12 Nov 2026
- 13:17:54 +0000
-Date: Thu, 12 Nov 2026 14:17:42 +0100
-From: Andrea Righi <arighi@nvidia.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: K Prateek Nayak <kprateek.nayak@amd.com>, mingo@kernel.org,
-	juri.lelli@redhat.com, vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
-	mgorman@suse.de, vschneid@redhat.com, linux-kernel@vger.kernel.org,
-	tj@kernel.org, ziqianlu@bytedance.com
-Subject: Re: [PATCH v2 12/12] sched: Remove sched_class::balance()
-Message-ID: <avW8dhhssAucmErt@gpd4>
-References: <20261107115913.261163891@infradead.org>
- <20261107120208.153536827@infradead.org>
- <56e1d372-c938-468a-950b-4f984ad6bde1@amd.com>
- <20261112093308.GI2668804@noisy.programming.kicks-ass.net>
- <87ed02f4-f510-47a7-b3fa-30ad7909cb24@amd.com>
- <20261112103428.GL2668804@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112103428.GL2668804@noisy.programming.kicks-ass.net>
-X-ClientProxiedBy: FR4P281CA0115.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:bb::20) To BL1PR12MB5174.namprd12.prod.outlook.com
- (2603:10b6:208:31c::19)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k6oaWtMF;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Z4kQJXkk
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC91IgU4149283
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:18:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=0reVTygQYZvGgH/DtOXkcK
+	6EGhSpuDmU2CumM9pari8=; b=k6oaWtMFbt7v7dpBKEPbHRgaguk/AXr79CCMIA
+	pYowYhoiV7TQWcgNfvL9ZHp8lSojuQngdWRd5eZNNoCI52UWL5E/YHIsGxXslnm+
+	0HCsAVXhIUyPrxvx4ey3y+S0nn5xd8F5qSMZszNFrCcYnhp/KbqsJ7dFKzkrc7Xz
+	DrP7GA1rbekvL0WDG1t8e06WYdLsY8kTV48XF2x06rNB27drGlvJsz2zyX9JkvvJ
+	xlhS4svxPKicXfAJ/3sW8UQKjl674+sPOW+urnTgt90R7ZPFPXkTfKm1TWCOiWG6
+	80hGQMiAeO9wbMuYosH28vf4tmaQafsQwgUjxinUNUr7ySRg==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvxc63hxb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:18:38 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36efb506f29so1077145eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:18:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794489518; x=1795094318; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0reVTygQYZvGgH/DtOXkcK6EGhSpuDmU2CumM9pari8=;
+        b=Z4kQJXkkuBYcYZ7tSzY6NfHQhbPL/HYDW075fvGpkibLkkkdo3+HG+l2T33fhATo/a
+         yK8E82veWF9s4CygE+pXYrRHDK4m2QV2Ul5yB9Wrs9OAKmnKcLdjuDdWtV8YK52u1LZT
+         VLRrvDl6KuE0ID+oMlvl06ODtwu0Z1qKwKtz50I1KAIVAa9WXn2uuh5/ZH94uKGBeeQj
+         umQkMFPkylZwyGbDI4/AOaSVOy8tudVrsRlzt2ibSduWLEWXp/NxZPm3294eRQSxzZF5
+         DBMh3bffPWHZiDrqVmgqjNpRe+OXTYJ2BCeJuznJIkM6Uxk0LqcRjS0ECXPVVsmftUb+
+         O5nA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794489518; x=1795094318;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0reVTygQYZvGgH/DtOXkcK6EGhSpuDmU2CumM9pari8=;
+        b=nGo6UwOWNkhGjftyhbqXKZx1+DndgZASyiYAh36NzmcPrB+Hr27KiKreRxbMyqbUlw
+         +5Eri/7xyFNp6Gdw7EgD4WupI0NkrVVxwKYkMynO8gYPw2ovy5R+sY/0OUg0wEVyVzB3
+         Rj94sPzUNWjFQD2UfRRfmFODfz+0coRmvH1kLAd/BQACPYDyNkwh5eYddlQ3WEBlJvIH
+         CPAfxpYSPsK2IMoUzt+/jgm5r1RolS3ri5GNvyOKQRmlD9qB3Bb7FNSZOkUu3bCwPdO+
+         Vw/s+7prl59dOfEpgImbAmjerMts0+tEymvo5nmdgY6Km3zo+Og37tsEUPf9yDzEKXS0
+         izug==
+X-Forwarded-Encrypted: i=1; AL+hErEDaeWtAK/gtRJxERn8sx91/z6hkFaMAFdgCeFFxdjDBPlLYTvmmGzOuMd9pbZPFmrT5ArbL6H0LCc/7K4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++3R3E6s/lBRYAcG/GiLGNpKS/Zpx1pXu7TK6lyQEE89MnXnyB
+	0+2f+8QISAZr0+66yPG03q/DQGFSkl3O+/UFtYd9GUhCbMU+X51SK8iY2SVWzp3d3wlCgt/Jzo1
+	cOUb/nES3fV4EkvE3tfXap3wAqi1wFRA6rjg2bxNu99O1NIT0DD8iMxerKhXlpLMCzt8=
+X-Gm-Gg: AYBFou20NjpKvI75YuOQ9Mutu0uVA4C41PFXWNVgpuxchx55NHjWGw6pPwWtdZdIatw
+	LKaF7KUIcWKavP9U/OFeZb7K+tgBRBAeA/kGtN2rvfBkQ6NahI0KQo6pdrhkliRm8rxJ/KJeBeU
+	DWAn3jgxtk9plTkizv7VRHQ/80+yOplNIZgZOQXulfXT5VrOqNYGJbBTzvkUbm7S5wDeVS83q1v
+	5+RzSpPnwMzZMe+VUCDr7TZ7i/OcSod6wDuKXOPwuDeXRSrIZajgXLxpJTht/5dKVHqO0jA3dN+
+	l2wkeKtpKcVnr2A99/29kgmN2GVaUH+Tt6jIRxLwl6eqwCfm1fA8Q5dqSxpm2fqTsOEZukFSG6q
+	FItvYQzyu8gVsWFDPzjIUjWK59FTfhdkQuzHSRNL7Tp8YPXv2surkL6DFcuBgPbHW//CqScnRtM
+	uJkheH0nw=
+X-Received: by 2002:a05:701b:2906:b0:143:271a:3df2 with SMTP id a92af1059eb24-1b3c0361cc2mr4490664c88.44.1794489517441;
+        Thu, 12 Nov 2026 05:18:37 -0800 (PST)
+X-Received: by 2002:a05:701b:2906:b0:143:271a:3df2 with SMTP id a92af1059eb24-1b3c0361cc2mr4490638c88.44.1794489516809;
+        Thu, 12 Nov 2026 05:18:36 -0800 (PST)
+Received: from hu-kuldsing-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e7d24sm43798356eec.22.2026.11.12.05.18.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 05:18:36 -0800 (PST)
+From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] Fix MMC/UFS sequence for ICE calls
+Date: Thu, 12 Nov 2026 18:48:16 +0530
+Message-Id: <20261112-qcom_ice_pm_enable-v2-0-177e454d6f22@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,172 +114,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|BN7PPFDE2ACDA69:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8c6a742a-5762-4e59-8210-08df40bf5c1c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|23010399003|1800799024|22082099003|18002099003|261009223027099003|4143699003|11063799006|56012099006|261028144727099003|261102123227099003|261021121427099003|261022105027099003|261022075727099003|261026121527099003|261026140227099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	amCIltLUabqZ3s14fEiGiGX3iwRH+yHRWEensCIqEPFfw0XycEXIHkFq2S4lt5v7qGUWQoCqSiBkEaxeIGkUQXFEh3XTzzAiCCjwtX7G2ed5i1831szY9coj3pph/mJx3Shh4GEdibxfwfbKbc6e82ZNJHuddogDpBYcpeye0Y+Y6lsB7KsdC4YfmLZiBXsNuJ2IGx2fgqmuOSbBAsb+O6xvNhu0K4NYXhKvjL4XBNLAb1yicRYNKbCh9TBwTPaN5Y8lI7y9+CjwrnXOngySIDN03reLIYRBhUOrep6bJEnISvlJtOkXnpfLt5iBJhjrCzGRk6qLI70MF6Amso94KBZ10BX5OsEThinAQJh/z6kEj2d5RbLo5ICU1I3J49a/jBr6fMBNoqmkXHSYQMyOrhIt/ZVk2k8xLorZaIk+QB/3ZPbpHhDnoCUKCThUPAmSE7HlEsz0w/AP+g/fkrhanASi7ETMgrBe8m9JIQPExz6AyO+bUdYgd2spgpBYFSfKP4p/0Ts/wzNnP+E4KnSWYZgpiwWHhezUDk9pn5rDZjodjiOPFNgl2yyQmp1XbD7tzl9Dpfx/n0dzZLlTAu/kfC2p7gjCAPTpz8kF1BLFCt35fKN5sjvCWbjBqELtnptYscq8eFH/CIXock7r8mrPNnepH/qBWBNc2X5mAQh4x9E=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(22082099003)(18002099003)(261009223027099003)(4143699003)(11063799006)(56012099006)(261028144727099003)(261102123227099003)(261021121427099003)(261022105027099003)(261022075727099003)(261026121527099003)(261026140227099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?D9mSYSyU21vxibxzc5zLv0Rems+0B0IytcesnCBoDThNiSScuk4+JRl6st3o?=
- =?us-ascii?Q?Jjb2zf1ui+2iN776N93oNpxhcnC4X9xFWUYOdPhlhA4pt++vSFGvU9sSxXbG?=
- =?us-ascii?Q?ekLm0vgYVATVJ39b2IPPrLMgaohy22JsFRp/GLWPleR6ZsBDWqZniRx1fxqo?=
- =?us-ascii?Q?hainoayxO3jPb96IkwzbB9ox8dHn4qRe9m1kBluc+cKNugeIcku+dd5ScYYx?=
- =?us-ascii?Q?3jJyQuo1pDO8Gn9MK6364OrvtYwdlxWhcfYtPOfzRXHBSxDvJurIworhnWsr?=
- =?us-ascii?Q?WxAIHgdKY4tUJFCNgVQ03WBGbLFy+4sSFfl4D7NHc35nY4TrBFkcliiU9J9v?=
- =?us-ascii?Q?nYm2MeMm7dWt7fWNb/C+RZcWviXFa6Y2cWSt08UmCUvGkcjEH8YCaHoWxHj1?=
- =?us-ascii?Q?Tae+MpryjmbDi3M4RTSP3NNsZaj3Hw3M4BruItK5cLib6fwQixaQdXLlk8M4?=
- =?us-ascii?Q?z1vzgEn0XCrpaYg/kunzQfAHDXTIFv/aS8e12Eodj1aC2y4JDvENBGBiEUbW?=
- =?us-ascii?Q?BI0Ztq66b/us0hqALpR/ORloz+mbZBnFXGjP9cLTUa4wCU+0zKq4lnMrm4v2?=
- =?us-ascii?Q?8gRnOoImlYxM0VOZhKkh+lr4sjDTVceTDMXuk4AS/1s5x6vjnDv75Mw/OgG9?=
- =?us-ascii?Q?k2++XHO9Fp62ku5/IECqJnnjFuMCF+zeRXUkOfcf/AAxghRbjWuO6gPO1TTl?=
- =?us-ascii?Q?7h91ZeeGhhRpesFw0MbN/z9HSLMbU9JXj6t+jSM3pf4bOTzIkfiPB8qjEw9c?=
- =?us-ascii?Q?bCIxCgrzlUHK/aTw8g/ULxFr7csdxgAAt+X1oSIh5tQOtSqspeSgjRsP8x6W?=
- =?us-ascii?Q?lKEVHI48jD3meWeivSE6SeTxVRypVc44YgbEqQ9jtFbyAiK0R4oFZHfSltKD?=
- =?us-ascii?Q?PzTSjfahGyH0ASk7EYiamBBpcLf+R2OgYgbmQ/LroVfNbthzCbS0sIbw7w9k?=
- =?us-ascii?Q?La7UjZgyfOoewOXL3VzASR4nJzCJBK9DJdmYBLNbAr1Q8LgL7OFguC9ixhA3?=
- =?us-ascii?Q?yrrPoCd4yjBTii3cFjcoqrKjuFBPl2tejJf3VCDV/7HjrRnThhzAgaGirxvQ?=
- =?us-ascii?Q?vggI+703Dxe1a/w01Kl6r6SvVRNC2yL4RG++zxV8NaVoUVU9PnHWrpNfTDHi?=
- =?us-ascii?Q?SFWJG5Xiza+QD4QCRrh99QbOoAjwZ+rhe9qV2x1OitmKU1MSY4NtGiM8rOa5?=
- =?us-ascii?Q?RK/Oc3Yw7skWUKab3msCxP+RLgPcVEsPHl4AWnAvVAOArUsETWLidPir5ZgL?=
- =?us-ascii?Q?mV5ebZhiwy4C3FPA6kZkmwXKGiafRJfKSLEXIQ9V8L5KOrqz7msz/fsrHFHj?=
- =?us-ascii?Q?CpPJYaZ0JLTgqFIf6M3mRtJZkH/QSXdQI5pqmi2sGaT5DVv36F0ZMGKFrI8C?=
- =?us-ascii?Q?w6fs+vr0ALUOK44H0eHqFh1zM+cXNhFJH8GiFDa8tWMh5ZOqOXnRI1MKpL/M?=
- =?us-ascii?Q?MHaQHEPkBQtgOGH3ea7luxwvBqcIkq20AlN1iPlHcFvPfKYn0eJAIFn0bliz?=
- =?us-ascii?Q?vR211GiD0NJJDp0tHchu3A/g4AYDG8TnhHtWBzTw5UuTyRDy6PUpQOtffvZX?=
- =?us-ascii?Q?c0/PoT+rh7E2YIs7dQSjFccPMBTAHswZ+lgXxtCyRSCBObek8qTgTI/3prb3?=
- =?us-ascii?Q?ctuEIh5BPFVpEWT7wr0heXEUrl22hb+e5SX7Y+UQuzs3iyUcwMPGDdErSAX/?=
- =?us-ascii?Q?dBHsT6a2Dytbwq8OZOGEypP2HZl/LeCokUPu1zkIlywucT+C?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8c6a742a-5762-4e59-8210-08df40bf5c1c
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 13:17:54.2608
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MiY4sh1bFaoV8B5BQkHLrgOaUaffZcTju8KVZxlk2/o32S4DHiLYSUQRmWmBpi/Jv5I9v5InkzhHzDK9llxODA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPFDE2ACDA69
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJi89WoC/32NQQqDMBREryJ/3Ujyq1Zd9R5FJMZvTVGjiUqLe
+ PdGu+9m4MGbmQ0cWU0O8mADS6t22gwe8BKAauXwJKZrz4AcE8ER2aRMX2pF5diXNMiqI3ZVcY2
+ iyjKKEHxxtNTo9zn6KH7slupFaj6WDqPVbjb2c76u4vD+HqyCcdbcZBrxNFFJLO7GuXBaZOfdP
+ vQBxb7vX8i1aCDNAAAA
+X-Change-ID: 20261022-qcom_ice_pm_enable-3c5d21b99e42
+To: Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+        "Martin K. Petersen" <mkp@kernel.org>,
+        Eric Biggers <ebiggers@google.com>
+Cc: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, linux-mmc@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-scsi@vger.kernel.org, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Proofpoint-ORIG-GUID: iMH1RfLSTckiHLorH29ZFuZ3CWYPDgPV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA1MiBTYWx0ZWRfXwwKR0t/X3sQO
+ weaeSXSECeko41i1sl42urBVyQ0wZxvPzWFGHwaXNLoBOLhOhvRtKoP7C9RbcBDfTgGov1RZPrj
+ Op7f27O6NrxmjWGzbi0mAgreye+NZLl9BXzmfGaUh1PBYO916bcrEbwbKhhX57s92/tLbBhjqV1
+ FnLqgjM5f5bbMpmDp6nZQeLVKE1c83RKwrLuP1LymKuzXshxRqZY+jLC0A+cZdteuiqqHhhdiKK
+ ZrivvuWi+YboNPMv1iKfZP31iKMO6YiHwVqwivBaYfaZWkRSbQVifR0/FvQ1xLDmnIVibLa21hC
+ xOsoXP5GbUWXaQtkJvV5LY+GS2qjP+mYb00I1Zn/JI+rPHMWo66hMPZLaIwaPNrnDgV/FPXPURB
+ fBykacYPs79/DPWBia4nqmsuUf21oXjCY1wsldXzFLT3e6V8jwV5wQPqeiLuxcxsozBRn0sLxtf
+ bOWHKqBOA67wxESBvPA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA1MiBTYWx0ZWRfX7S6OzWYqB2pt
+ 1IOA0ClNizrfg/oHwige20UAIdMQ22B1uIUVBp7LdDWjpzux4Y4FIKDI61cJ2NJpV+h2KKciXWX
+ 1qPVP3cp2J4bG+ZtZ9iT1mDKx/6JMsY=
+X-Proofpoint-GUID: iMH1RfLSTckiHLorH29ZFuZ3CWYPDgPV
+X-Authority-Analysis: v=2.4 cv=O/ysLx9W c=1 sm=1 tr=0 ts=6af5bcae cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=QyXUC8HyAAAA:8 a=VwQbUJbxAAAA:8
+ a=bLk-5xynAAAA:8 a=1XWaLZrsAAAA:8 a=k6_AVi2K15u0NLJkO0wA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22 a=FO4_E8m0qiDe52t0p3_H:22 a=zSyb8xVVt2t83sZkrLMb:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 lowpriorityscore=0 priorityscore=1501
+ bulkscore=0 adultscore=0 malwarescore=0 impostorscore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611120052
 
-Hello,
+This series fixes ICE initialization sequence where ICE is modeled as a
+standalone device and referenced by storage controllers through
+qcom,ice.
 
-On Thu, Nov 12, 2026 at 11:34:28AM +0100, Peter Zijlstra wrote:
-> On Thu, Nov 12, 2026 at 03:47:00PM +0530, K Prateek Nayak wrote:
-> 
-> > >> In that case, why should RETRY_TASK want to try balance again for the old
-> > >> "rq->donor" for which we have already ran balanced for? Shouldn't it simply
-> > >> pick the task then? Am I missing something?
-> > > 
-> > > need_pull_dl_task() has '&& dl_task(prev)', so if prev was FAIR, then it
-> > > will not be true and pick will not cause it to pull another task. And
-> > > similar for RT, it checks if the current highest prio is less than the
-> > > previous prio, and if prev is FAIR that won't be the case.
-> > 
-> > Ack, but assume:
-> > 
-> >   /* RT tasks blocks */
-> >   pick_task_rt()
-> >     balance_rt()
-> >     /* Fails */
-> > 
-> >   pick_task_fair()
-> >     sched_balance_newidle()
-> >       raw_spin_rq_unlock()
-> > 
-> >       /* New RT task wakes up */
-> >       
-> >       raw_spin_rq_lock()
-> >       if (rq_modified_above()) /* True */
-> >         return -1
-> >      return RETRY_TASK;
-> > 
-> > 
-> >   pick_task_rt()
-> >     balance_rt()
-> >      need_pull_rt_task() / *Still true */
-> >        /* Again: Probably unnecessary? */
-> > 
-> >     /* But it does find an RT task so loop ends */ 
-> 
-> Ah, yes, in this case we appear to have an unnecessary balance.
-> 
-> 
-> > > So the problem is with ext :/ They need balance and pick to be one. If
-> > > we have separate loops there is the possibility of doing a balance but
-> > > then not picking it. In that case ext needs to undo the balance and we
-> > > don't have anything for that.
-> > > 
-> > > Humm...
-> > > 
-> > > Ah! we now have consistent cross-class wakeup_preempt calls. If we have
-> > > the following scenario:
-> > > 
-> > >   - only EXT tasks
-> > >   - balance_ext(), moves task from global DSQ to local DSQ
-> > >   - wakeup FAIR
-> > >       wakeup_preempt
-> > >         if (sched_class_above(p->sched_class, rq->next_class))
-> > > 	  rq->next_class->wakeup_preempt(rq, p, flags)
-> > > 	    // could move task back to global DSQ
-> > 
-> > This part I'm slightly confused about (on tip:sched/core):
-> > 
-> >   prev was RT
-> > 
-> >   pick_task_scx()
-> >     do_pick_task_scx()
-> > 
-> >       rq_modified_begin(rq, &ext_sched_class);
-> > 
-> >       dispatch_pick()
-> >         dispatch_one()
-> >           ops.acquire() <-- CPU is back in control of ext
-> > 
-> >           /* Pulls a task to local DSQ */
-> > 
-> >           /* A new RT task wakes up */
-> > 
-> >       if (!force_scx && rq_modified_above(rq, &ext_sched_class)) /* True for normal pick */
-> > 	return RETRY_TASK;
-> > 
-> >   ... goes and picks next RT task
-> > 
-> > 
-> > The ops.release() is only called when put_prev_task_scx() sees next of
-> > higher class which means the local dispatch from the pick stays that
-> > way until it is picked to run.
-> > 
-> > So, the question is, should balance_ext() do anything more than what
-> > pick is doing today to pull the task if local DSQ is empty? Am I
-> > missing something?
-> 
-> Aah, wakeup_preempt_scx() already does what it needed here. See how it
-> calls scx_schedule_reenq_local() when p's sched class isn't ext.
+Currently, ICE driver enables clocks during probe and keeps them
+prepared after probe completes. This keeps the ICE clock voted and
+hence, any key programming call from blk-crypto succeed even when
+storage driver don't have valid ice instance.
 
-Right, keep in mind that ops.cpu_acquire()/cpu_release() are deprecated,
-the balance-to-pick gap was one of the reasons for deprecating them in
-a3f5d48222532 ("sched_ext: Allow scx_bpf_reenqueue_local() to be called
-from anywhere").
+This exposes serious bug in sequencing but it works as of now because
+ice clocks are voted. Storage controller should not rely on ice clock
+state and rather ensure valid ice handle is available before any crypto
+call is triggered.
 
-Specifically, wakeup_preempt_scx() handles SCX_ENQ_IMMED tasks: tasks
-that, once inserted into a local DSQ, they must either start running
-immediately or be reenqueued back to the BPF scheduler through
-ops.enqueue(). If the CPU is unavailable because a higher class takes
-precedence, they must not remain waiting on that local DSQ. The
-scx_schedule_reenq_local() schedules this deferred reenqueuing.
+Fixing this issue require ice instance at early ufs/emmc probe so that
+correct sequence is established and ice is ready to accept key program
+calls from blk-crypto or any explicit storage operation.
 
-So, from a sched_ext perspective, we don't need an ops.cpu_release()
-notification to handle this higher-class wakeup race, since the existing
-IMMED reenqueue mechanism already covers it. Separating balance and pick
-should be possible provided rq->next_class tracking and the existing
-IMMED reenqueue checks are preserved.
+Validation:
+Tested on shikra-evk, kodiak rb3-gen2 and sm8750-mtp.
 
-Thanks,
--Andrea
+Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+---
+Changes in v2:
+- Drop patch 3/3 and post separately once 1/2 and 2/2 are merged.
+- Tag stable kernel for storage fixes.
+- Link to v1: https://patch.msgid.link/20261022-qcom_ice_pm_enable-v1-0-f7a84086c651@oss.qualcomm.com
+
+To: Adrian Hunter <adrian.hunter@intel.com>
+To: Ulf Hansson <ulfh@kernel.org>
+To: Abel Vesa <abelvesa@kernel.org>
+To: Manivannan Sadhasivam <mani@kernel.org>
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+To: "Martin K. Petersen" <mkp@kernel.org>
+To: Eric Biggers <ebiggers@google.com>
+Cc: linux-mmc@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-scsi@vger.kernel.org
+
+---
+Kuldeep Singh (2):
+      mmc: sdhci-msm: Enable ICE before enabling crypto support
+      ufs: ufs-qcom: Enable ICE before enabling crypto support
+
+ drivers/mmc/host/sdhci-msm.c | 21 ++++++---------------
+ drivers/ufs/host/ufs-qcom.c  | 29 ++++++++++++++++++++---------
+ 2 files changed, 26 insertions(+), 24 deletions(-)
+---
+base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
+change-id: 20261022-qcom_ice_pm_enable-3c5d21b99e42
+
+Best regards,
+--  
+Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+
