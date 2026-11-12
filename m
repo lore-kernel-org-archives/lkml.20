@@ -1,64 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.87
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794475082;
-	b=Zoh9LdGmhuqaQLaPmJ1rT/Hvks0NdvASajbgLT34bTOZ+MlWZmBuIYkh/seOXRdi6P09
-	 xH8fbDu7NruoHGkzFnFHlHR0GmZqSK98WdF78hVvxI67Xo6o8iFb3LQrHW6KMBGn6XbXL
-	 miAm1KxP6l1GQxhbsgN6i9VMUn7TuhDshNyNGya3A2DXCVqoC14jAg4eEdCJ46edcfpXE
-	 ROxHvRlxAIyWbwfIXIB492E0x2otI5/9fZmJZ1cUfrtWK4bgGVC4EBHaMV+Bn9pbiAipo
-	 EFDJgErscrCiPb6LUfiGaAY7fvfISLdULB+RzotbdCsiDCXAqXf7LgpTIdLnJT2fKQA==
+	t=1794475197;
+	b=vkM3sUP8msNq7d3B7jPQWX2Xd++oqsDw9orbchJjPujXkJnN0FnvXAlWak2ZJgl4He8W
+	 mw4kYFqDGD9WUb/3ROQArb0Ec7Rx46FcVxa1LjwvbqECHKors26TnObcjqkv+8cKlQ2wB
+	 2oWGvSwKY4tU/7zIQ0+e/7jODeyKSJF2VIUK/E+FzBAkNEDessuIh7m7H9uN+olSPelf0
+	 IJHq6DLQ5jZ+VDhu5ddV8ee9COkxxutkfKxwlHNGJJlpXfQVIQAmid4UNN1vy8yaLG1xc
+	 ODnCsakEsuwzkHL+Unuis3SPbKmptzgD/HdvUfvYaCeWTpAZE152cSXamS6PnIA07Lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794475082;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
-	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
-	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
-	 In-Reply-To:X-QQ-mid;
-	bh=FxECJ+at7tUmdA4jpirQioDBaofqfSHvgn+uUGiUknw=;
-	b=a/alDLprmPEqJR2GCPeD4CxnS/zR+A5X4lKCiYxN0nmHWURX4rz4TudkeTJ19jVScQt3
-	 daPc3mE2OkUBwGOStQhhu0+nrXOPWM+bAZ+gz/SEpEYxpPzuOPDQdt55+NVpqKoxjupDx
-	 E7mtXRZWFVamUInIpsIKm7QHde5eAohPj0r9uZt2LqWOjZi3uRA/M4k/WM2ZGPbnjI1Cc
-	 molQ2/iKbyyrMy8fMJ6yl1vkFgdim60d4lflBhWOE4MHlRgPfjw0LIc+5O0sTLtuu9CB1
-	 XNWz3YO+HIkSpOX/U/jdeW79zb+4vGJZy77oTNRhNXrhBQEzEbaZeoLp9YZkws7Y7Tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794475197;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BbdGJ+QfN/0a61vAo8i3jrwRHXo8FO9ut3fDr0zQx8s=;
+	b=d14HozOQz30XUX8ZKPhcBwwGPItEzelF8YV94tIbdIVbqDeCnEWq8TJBVv3x+oMDsNJj
+	 Oi0imfc8BW2kBU7z5jAy40+mOaFDqYe2DZlkDXUddIKqjJjVi8EIzWvhIC9Trr0cZ5h/b
+	 E35Wnv+vesW3ghtZhjLktmZy/iTHeeUb3Wcw0YdI788XXV6UgaCHC3jVbQkQ8RrCWxgh+
+	 2XQR6V8EmjnYBy6GUdlO/3qaXu53gUC6/cN+CIy1Y+7VOAmcIxqXYk8NDy1lJzshkHNrR
+	 SITTr81pCFACEs607Hgfp2xiHVFhWT5NcFwTdpQZ7BbBNY+K3P1cj3BIRDWU4RZ+LuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=qLeW0Xau;
-	arc=none smtp.remote-ip=162.62.57.87
-Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=G3nQzf9V;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=JtVRtgR2;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2AF4606A321;
-	Thu, 12 Nov 2026 09:18:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2AF4606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F39CB606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:19:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F39CB606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=qLeW0Xau
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794475071; bh=FxECJ+at7tUmdA4jpirQioDBaofqfSHvgn+uUGiUknw=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=qLeW0XauRtiEoT2dbWAjBO2gfFyDL+LHJV7vq0XUbVPRvPsVXOaBtCZzssuNRrLHr
-	 JnJ3QNxc0yLlR51F+YICuoRLe07rF0Fh2ysJmaFLfqusLGXoPDITzmhDAdkLQ0PwF0
-	 fmTRDxIfTmoMXoXuzT64gTu2HG9v4h7ZlwsdJSwc=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-XMAILINFO: N2nZekq4carkcWSgLcJAY8XpK+xVtIIJ0Wzo/gyWOBR9I2B/I5Eu15r0GdMhWU
-	 /0KGhzB4wIVlpqNusptcHGTNasQzVmH4xSUQzb+69ogv+JRxpFqmCnzfCKJO+w7B94VvjmcyhuG9a
-	 MK80C+/qCZFMWIMIg+g2Haqm8FlLgJ4EUTXPAeP8vS6A4MKD36mFUEsVvt8JfLwwn9gxWGLuDlW4a
-	 28KcfPDhxHRsZOr6x9SYV1qVxe2puaPVgNUM6+/MDudauksb05OP7no9K0svZmn+vS4Ut8PY7mT0H
-	 w+7dWHZZzHTh9mXKLtfgVlefWqnA/wigeSYPb6S09fD9yCUVSuCHpahAdViqVxjia8b3EwFCXTNou
-	 jmeyUz5oWZpk1bEhiPrcTBan6wUtNIJFVNnrU8BnOR8OdnAvJ7VGiNcyZtcYR3uemNDMefz5HPFqA
-	 r3nmmZ1quH6EFqAZgVkZNs3rPDX0G6iekzNNBmfxY92ejI6C/adNs13b6zIdg0kmdGFvvE02fijuy
-	 WBxpIISuk9dFSL6alMizHmZ+OnOMRJMs/7SvviNfkv8lPzQT6y9dA9AlcTK7nYNl5kI/LwZa0kvh7
-	 ZEGj+qhzC2Gm6KkJP5JyQ9aO7lc0WAZH3IEzX11V/TbK+KLrWWVRpweM0IqqW5e+9u7Yn1ng+17eZ
-	 YLan45g7yyWRkw4jLdxbDQy8vZ5cUiH0jpeD0tPf4YCrFvjnz/T8Ac73SKdE6+g1uwX4BNsarFrUI
-	 +7UKfHBXcB+BJYCFM4S/ic9Iy13FwtqLonCqG+4F0685JAr8fYRh1GoYRRKmb2bQS91LbJMjvETqX
-	 oeDeZa7ggPFqBdffEKHGh9Vw3yNH13GQ1BgzeqXlINK8v4HV+IYSWDbQEPIQWVHzgDy+GWDUVOPfg
-	 R+7C4t7jMrhkflBt5rGaHTSeVG1JZpGfgHVje3ucqPXMHRepw7aH6AbEki0rxW6Rx0YuZ/dw/Pm6A
-	 hPofonKmUVHor6ZyA6Rkjg3scLiQ3U5XVlKSU/27pAAQd1DT2EpbDj74XcSZ0jJcHCkwa891Z0DwS
-	 KiBYhDnwC1AJ26xL25zu6LONplvnMM3Zhxd7l5CDUdScWmf4IVHSXuhAHTQ==
-From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
-To: "=?utf-8?B?TWFyYyBLbGVpbmUtQnVkZGU=?=" <mkl@pengutronix.de>
-Cc: "=?utf-8?B?SmFrdWIgS2ljaW5za2k=?=" <kuba@kernel.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?ZGF2ZW0=?=" <davem@davemloft.net>, "=?utf-8?B?ZWR1bWF6ZXQ=?=" <edumazet@kernel.org>, "=?utf-8?B?cGFiZW5p?=" <pabeni@redhat.com>, "=?utf-8?B?aG9ybXM=?=" <horms@kernel.org>, "=?utf-8?B?bWFpbGhvbA==?=" <mailhol@kernel.org>, "=?utf-8?B?c29ja2V0Y2Fu?=" <socketcan@hartkopp.net>, "=?utf-8?B?cm9iaW4=?=" <robin@protonic.nl>, "=?utf-8?B?by5yZW1wZWw=?=" <o.rempel@pengutronix.de>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?bWF4?=" <max@enpas.org>, "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net] MAINTAINERS: exclude CAN documentation from general networking
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=G3nQzf9V;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=JtVRtgR2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794475196;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BbdGJ+QfN/0a61vAo8i3jrwRHXo8FO9ut3fDr0zQx8s=;
+	b=G3nQzf9VeRZQYW6rJ6HF59qJk5ITceiEwG2f+AMxq3UujANFYXUKP+lFECb4Wh88auGg6s
+	XVJ8Gb7TtoOYxLDnFxc9j80Y2LWmJ9/V3f5TOH4g82Ijt1HSfcPF7mvLQWV9dObL3jhwRz
+	hvZhmqZMsBRcyFjOutq6ZWQs5nLK6Ew=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-312-HGgMDSsVO5G6fIAzRQROmw-1; Thu, 12 Nov 2026 04:19:54 -0500
+X-MC-Unique: HGgMDSsVO5G6fIAzRQROmw-1
+X-Mimecast-MFC-AGG-ID: HGgMDSsVO5G6fIAzRQROmw_1794475194
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48e1d839ddaso2617706f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:19:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794475193; x=1795079993; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BbdGJ+QfN/0a61vAo8i3jrwRHXo8FO9ut3fDr0zQx8s=;
+        b=JtVRtgR2C0SjBS1Nj2DD5s84wQoSkzDiW6g5tqequisbAdDADpoqtam+SxCak1N20E
+         wsy31FYzdUXfK4cvt/kYHVBWjHvFFc8Ft8zxLIj5C/5YkbC92dNW5RprSKuL3QLMVnCL
+         unTKKMI2fq/SZkMWT7qFhjAu8/Kk/MdJfC0HMrsHO8Xkx433zCkLrp61/tQycThCPLSD
+         yBkPMLVncjib3/8E3Kwku3K0bBd9ilDcTs31lU9ye6UDKB8lsT72526F3Rpo8RfgT2vd
+         jXNetE64RCurGtlKTvPAoyA6DdlKiXZZuGi2GjajKD7Xd//bsXXZnQJj8bv0EXuLVcgl
+         0kbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794475193; x=1795079993;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BbdGJ+QfN/0a61vAo8i3jrwRHXo8FO9ut3fDr0zQx8s=;
+        b=oTDJI9V3W3fL7S3L1ur5/QkSN91XMtITSZPwYMByV1FX6+Z82X55cRuXXvmsqnOYEp
+         k/vCNPCDzPSla3JEo4eQBLuSuKXlChc+h4kR5pxiPGngaCeCVV63i24SqdwaFos5VsBO
+         k9sXOWOmq2L9AVL3r/qy7lojLria7KqqULjMW+oas6JIbqY+4cM9CnUOps8aBCQrF+4D
+         C6SgpzS5S1HGZcUYhIj7bXG9Y15n5u65oWBXEylMiwPw3iE+HFNFb5Os1p0H25gWX27p
+         bqPwcxYQ7nO7g9lNPlobDM7mu2477+vB6vFARslQ/ceVy9KkAIct+s9jjwOqu+5dFUyh
+         BYDw==
+X-Forwarded-Encrypted: i=1; AL+hErF+qC1OLObRFX3IpLw5pEp6oeC9H0DMl9RVsQvlG6XTdYDKZjoZtS3xgN78d5/HnXM3yRNtohpC3c1R4/Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8g9OyVO3Ndfbd+h3CAgkX9unNIy/tViHzHVlBoPAQTDKUz5wc1
+	2m8XXEEYjF4zjfrxYHbd4n4OhJAMp3Zba224E+g2T6LeIIQJhmbPmcmTCywArXbcCkBud+NU1p8
+	SgOvHVMoYHi6ueunQ+fD2JKkB1IcGY1nrP7aD2p+BXQYM7QEKLQHDnbJhrDkzJ3WOLw==
+X-Gm-Gg: AYBFou1f/nVbDzC9zTP9eHFu0B5zCk90KzMtkfngI/WDqWsiDCK6Ts0kOHu2RoQOoCl
+	jXlXV/N91fltY6NrqJDgmARw3n87yixi7SQehLCgIr8scwVXfYvvYMesgaRkVM9psP6XE9hinN9
+	IU32C42A0EsrFJLjwaKxllHD4ZJB2hPs4KtlOXnqD+wmlHBItkIT/mIOMuk2BC/nvA/4w89aS0V
+	I12/1+K5Rw2ljTIyGFsaiimQtcxwmyR723ZaLLdMNO+WY6KSuGPHyVFbp0bU8nH12ed3AgSv2L2
+	D60D2kw8invfHrac1abc45Bs6kyMkulNGP45cpROciGxKVeR52BKTpVLh8H5fPb58cQD67AWfwU
+	2zSaQy92esNe/iksMDyR/KvBXO+vhb+lTMe/VZXHBJus0GsGfC9e7GcC5caVSB2kqVZUc4V0ULq
+	+H/Hw=
+X-Received: by 2002:a05:6000:144b:b0:488:7496:15b5 with SMTP id ffacd0b85a97d-499c6f8c43cmr8114286f8f.47.1794475193476;
+        Thu, 12 Nov 2026 01:19:53 -0800 (PST)
+X-Received: by 2002:a05:6000:144b:b0:488:7496:15b5 with SMTP id ffacd0b85a97d-499c6f8c43cmr8114228f8f.47.1794475192931;
+        Thu, 12 Nov 2026 01:19:52 -0800 (PST)
+Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4988f5b1ce3sm13996822f8f.14.2026.11.12.01.19.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 01:19:52 -0800 (PST)
+Date: Thu, 12 Nov 2026 10:19:49 +0100
+From: Juri Lelli <juri.lelli@redhat.com>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
+	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
+	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org, longman@redhat.com,
+	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
+	clrkwllms@kernel.org, parri.andrea@gmail.com,
+	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v5 20/29] cgroup/cpuset: Give back the bandwidth an
+ attach did not move
+Message-ID: <avWEta7b9X4K6hF7@jlelli-thinkpadt14gen4.remote.csb>
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-21-mathieu.desnoyers@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,34 +127,89 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Thu, 12 Nov 2026 17:17:49 +0800
-X-Priority: 3
-Message-ID: <tencent_FD28A290DF67931DCD970C5042E788514006@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20261112-exclude-can-docs-from-netdev-v1-1-b5eb3ba4ae86@qq.com>
-	<20261112-polite-nano-peccary-fdf491-mkl@pengutronix.de>
-In-Reply-To: <20261112-polite-nano-peccary-fdf491-mkl@pengutronix.de>
-X-QQ-mid: xmsezb41-0t1794475069t1av64kev
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108185406.1549770-21-mathieu.desnoyers@efficios.com>
 
-SGkgTWFyYywKCj4gPsKgZGlmZsKgLS1naXTCoGEvTUFJTlRBSU5FUlPCoGIvTUFJTlRBSU5F
-UlMKPiA+wqBpbmRleMKgMjIyYjdmYzJjM2FhLi5jYjFmZWM4ZWM1ZjXCoDEwMDY0NAo+ID7C
-oC0tLcKgYS9NQUlOVEFJTkVSUwo+ID7CoCsrK8KgYi9NQUlOVEFJTkVSUwo+ID7CoEBAwqAt
-MTk2MDAsNsKgKzE5NjAwLDEwwqBAQMKgRjogc2FtcGxlcy9wa3RnZW4vCj4gPsKgwqBGOiB0
-b29scy9uZXQvCj4gPsKgwqBGOiB0b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9uZXQvCj4gPsKg
-wqBYOiBEb2N1bWVudGF0aW9uL25ldHdvcmtpbmcvYmF0bWFuLWFkdi5yc3QKPiA+wqArWDog
-RG9jdW1lbnRhdGlvbi9uZXR3b3JraW5nL2Nhbi5yc3QKPiA+wqArWDogRG9jdW1lbnRhdGlv
-bi9uZXR3b3JraW5nL2RldmljZV9kcml2ZXJzL2Nhbi9jYW4zMjcucnN0Cj4KPiBXaHnCoG5v
-dMKgZXhjbHVkZcKgdGhlwqB3aGlsZcKgImNhbiLCoHN1YmRpcj8KClN1cmUsIEknbGwgZXhj
-bHVkZSB0aGUgd2hvbGUgRG9jdW1lbnRhdGlvbi9uZXR3b3JraW5nL2RldmljZV9kcml2ZXJz
-L2Nhbi8KZGlyZWN0b3J5IGluIHYyLgoKSSB3YXNuJ3Qgc3VyZSBhdCBmaXJzdCB3aGV0aGVy
-IHRoZSB3aG9sZSBkaXJlY3Rvcnkgc2hvdWxkIGJlIGV4Y2x1ZGVkLApzbyBJIHRvb2sgYSBj
-b25zZXJ2YXRpdmUgYXBwcm9hY2ggYW5kIG9ubHkgY2hhbmdlZCB0aGUgZW50cmllcyB3aGVy
-ZQpJIGhhZCBjb25maXJtZWQgdGhlIGlzc3VlLgoKQmVzdCByZWdhcmRzLApDdW5oYW8gTHUK
-Cg==
+Hello,
+
+On 08/11/26 13:53, Mathieu Desnoyers wrote:
+> Commit 2ef269ef1ac0 ("cgroup/cpuset: Free DL BW in case can_attach()
+> fails") reserves the bandwidth of an attach as one sum.
+> cpuset_can_attach() adds up the bandwidth of the deadline tasks it
+> moves. Once all tasks pass their checks, it reserves the sum in the
+> destination root domain. If another controller refuses the attach,
+> cpuset_cancel_attach() frees the sum. If the attach goes through, the
+> move of each task uses its part of the sum.
+> 
+> But a task can change its policy, or die, before the attach:
+> 
+>  - A task that left SCHED_DEADLINE, or died, moves no bandwidth. Its
+>    part of the reservation stays in the destination's total_bw, until
+>    the next rebuild of the accounting.
+>  - A task that became a deadline task has nothing reserved. The attach
+>    still moves its bandwidth. The destination lacks it, and its
+>    total_bw underflows when the task leaves.
+> 
+> In testing, a task switched between SCHED_DEADLINE and SCHED_OTHER
+> while it was moved 200 times into a one-CPU partition root and back.
+> On v7.4-rc1 with the patches before this one, the partition's total_bw
+> ended wrong in 5 of 6 VMs with 8 CPUs. It kept up to two reservations,
+> or wrapped below zero.
+> 
+> Fix this by keeping the tally of what the attach moves, in
+> sum_moved_dl_bw. Flag the move of a task only if the rest of the
+> reservation covers its bandwidth. Once the attach is through, give back
+> what it did not move.
+> 
+> set_cpus_allowed_dl() decides the move under the runqueue lock.
+> cpuset_attach_task() does not hold it. dl_task_offline_migration() can
+> change the task's record meanwhile, for a task throttled on a CPU gone
+> offline. So the tally counts what set_cpus_allowed_dl() reports in the
+> affinity context.
+> 
+> With this patch, total_bw ended right in 6 VMs of 6. The random_mix case
+> of deadline_bw_test, added later in this series, found the bug. It could
+> no longer lower a fair server in a partition root with no room left.
+> 
+> Fixes: 2ef269ef1ac0 ("cgroup/cpuset: Free DL BW in case can_attach() fails")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> ---
+
+...
+
+> @@ -3285,17 +3299,28 @@ static void cpuset_attach_task(struct cpuset *cs, struct task_struct *task)
+>  	 * cpuset_reserve_dl_bw() made room in @cs for the bandwidth of the
+>  	 * deadline tasks that cpuset_can_attach() counted. Flag the move, so
+>  	 * that the bandwidth of this task moves with it.
+> +	 *
+> +	 * Nothing was reserved for a task that became a deadline task since.
+> +	 * Flag its move only if the rest of the reservation covers its
+> +	 * bandwidth.
+>  	 */
+> -	if (dl_task(task) && dl_task_needs_bw_move(task, cs->effective_cpus))
+> +	if (dl_task(task) && dl_task_needs_bw_move(task, cs->effective_cpus) &&
+> +	    cs->sum_moved_dl_bw + task->dl.dl_bw <= cs->sum_migrate_dl_bw)
+>  		reserved = true;
+
+Humm, this is identity-blind: it cannot tell a task that can_attach()
+counted (its bandwidth really is inside sum_migrate_dl_bw) from one that
+became a deadline task in the can_attach() -> attach() gap, for which
+nothing was reserved, can it?
+
+Say A and B, 50 each, are reserved for a sum of 100, and C becomes a
+deadline task with 70 in the gap (can_attach() <-> attach()). If C comes
+first in the taskset it passes 0 + 70 <= 100 and moves; A and B then
+fail 70 + 50 <= 100 and both properly reserved tasks are denied their
+moves?
+
+Not sure if we can consider tracking the counted tasks per task? The
+taskset is pinned between can_attach() and attach(), so we could build a
+list of (task, bw) pairs at can_attach() and let the gate check
+membership?
+
+Thanks,
+Juri
 
