@@ -1,69 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794538013;
-	b=fnuZ/jCBYwIf9FRaVxsoTDsnF/y9WD4wJkt5kCGRRg5NJumivMncoOohh4736DBmXJCF
-	 9qcHB+EO+0Fh6VuZ354GMpONqTitkZmrbV681fDAAo7w/hx8VhaSdzUPdt3QcuxiYZSig
-	 qjUHf7RuH6Qe5bn9msOfyMQycvgIu44Rf6e08v40oKaF35TS/Ncyx+WHfynwNGNB3iF/w
-	 vrMmDaerA159c/AYmRZdWVvay8pxFBGXhdqPKT5CPINXIawu8of9D547z92bYol6isOwL
-	 Zjn6ksJx6rXQA+4iDE0i8jMqWA1dGa1Rzruxq661+1SMKBFZR2P54FtcwwKrgJkeJSg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794538013;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=ZoUgNOzuky+BKyHj57K5wBljJWDfzkgnCUy7oUq6Re8=;
-	b=YCUOHCGU7FXX+LvSRuIniTfVNA7juhttqsHjuZVva9T48JtYKoxEtF52fhW8nNayik70
-	 LfwSXehEf8UfNXhJm+3FltqUmVQ3u69pPuj0uNJjjYgZGlFgthIO//e6tp9e/0uKUpn5x
-	 fMXR8SJkgb8T3rY0ClYI4wRI5687u78gHz8CurZL5Emj4II771M8OcAd6ZwhLttmWIp14
-	 cYoaIS3yCgp79O4Norn0IkJwr/QN/9ZVRaEwitBC6zsqXAj26R2Ayl2LOTHh9DJmI9dRO
-	 mgwy2K9+w940lULO/RI0BlEa/R4601LdbqUgLrN9Qld50FmLbt8mHRY4JkJonS/3T8Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=smail.nju.edu.cn;
-	spf=pass smtp.mailfrom=smail.nju.edu.cn;
-	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b="hf/a4nYQ";
-	arc=none smtp.remote-ip=54.243.244.52
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794538035;
+	b=Ause5QzljZQtZG1MGt5hGlwKXSCTZSti5MiEko0CVAkzZ+b+HnuJcsM7TM8R2DvqWfxg
+	 mwNJDuz7SNX49/ztqgwN4g6tTn1wiZPDWCCh/wCkL5Kxirh1WUPe7FXNE9Vf3dCcx6IE9
+	 s4nZf5JRtlNb+p9+Khhd+0V5rZxb9dTKLJ9E9eMY0dQeXf5Qmau/2tFXZnaPHAeU/kX3B
+	 AQwf+/doK2DkNttjKs8h0BSnN0dREDKsM+gpxjjwszNkiHsSBa9cGr/9Q91OEZTNKurV3
+	 +uV9mJFCud7n2PSDqlO3OwRxoNx76aB4v3j7ayI3g3dptPdrgleskBENu7A/9spTvPg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794538035;
+	h=DMARC-Filter:DKIM-Signature:X-MS-Exchange-Authentication-Results:
+	 Received:Received:Received:Received:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=P14KhoMXfGPni5qi61eVjUkVCq90IQqObPqvQa87lCY=;
+	b=Hl7caWFuCih4XLDRRSdtNVaykPQRDcpmOKeNq2ereNPVLvTGs+bog1JOLmPhXRy8P7qz
+	 Vblu/TOR+GKIZdbUkvqi0bMQq6SPB6EViNRRVbuTIIBqvj8t0YmJm0xdRPIfoHxU2BIyE
+	 n7R0GeR3OHEsH7hPJF4lQdBAPpLe7xTarATaTi63JI6i8+q8D3M9n+O6XeFeIkm8ceqDp
+	 6nhtTm2clNk/FgOz/IyjNlnE2Vy3zEeXFylOwDmTbX1OBgA/l8daSmBq9/7cSPswf2BAA
+	 u2uiSIlY88hBNuXjmfBYt3FHWRKBzEqgG2N9odMAz2B4dZWMt40MvTwATTwjCdbZSKA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=cimBUg+3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.50
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011050.outbound.protection.outlook.com [52.101.52.50])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D24F606A321;
-	Fri, 13 Nov 2026 02:46:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D24F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B95DE606A31C;
+	Fri, 13 Nov 2026 02:47:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B95DE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=hf/a4nYQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1794537914;
-	bh=ZoUgNOzuky+BKyHj57K5wBljJWDfzkgnCUy7oUq6Re8=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=hf/a4nYQlwoTW4l9zA6WEuTRXbWEpDseO6k7hx1o8ArQ8tjk9xkdbe3snUv36n5Dn
-	 2ueNDyrvqZyu/oY2nqAe097qLyysonaek9BE5ZZkRPL9h7XddhrlsyFPMi+idcchG2
-	 koISafbyXINVolEMZfJ7MgqXBC5mtaMwyK3QAlhk=
-X-QQ-mid: zesmtpip3t1794537908t89f91e2b
-X-QQ-Originating-IP: I7dyP3jMDpcYscZrnWzmbQ/K2dCgLhDcVhP+g+Ji61w=
-Received: from workstation-Precision-7920-Towe ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 13 Nov 2026 10:45:07 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 12657397245065214614
-From: Kang Chen <k.chen@smail.nju.edu.cn>
-To: Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>
-Cc: sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org
-Subject: [PATCH sched_ext v2 2/2] selftests/sched_ext: check that a drained DSQ iterator stays NULL
-Date: Fri, 13 Nov 2026 10:45:05 +0800
-Message-Id: <20261113024505.922854-2-k.chen@smail.nju.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261113024505.922854-1-k.chen@smail.nju.edu.cn>
-References: <20261110125113.2935742-1-k.chen@smail.nju.edu.cn>
- <20261113024505.922854-1-k.chen@smail.nju.edu.cn>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=cimBUg+3
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vMeQP/b+Diuo5Tw3nknM13XPP8n4C1NMGBn6z2rz00w7yCSGI9C4LhSoSOPXhu6yEejX0P3ax4Z0tuvyJ9V1rco3Q9zQLckfg15rrHp10fi/lWyFRotrjteTYomG47OHwQAhckUEUCKCVTEJaCb4ENRR2f7edgeBoQXsOe2w5th1rgBgCLz4zMWbf0cKk/qw8jRB5DyTz7jk3NtWrL+GxZG4l6UutoEZytiWhMZBONQQBaJsdHAPx6oorCevV6h3hrZP+AHoFPrwNmOZWubZPQYCaJUJSKlMpI7ZXkRoS1CFI2TnyPtNb8CW3vltDBdYelvgBo5F7OxNWvos8CaIhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=P14KhoMXfGPni5qi61eVjUkVCq90IQqObPqvQa87lCY=;
+ b=PTkDaHochbbbT4pHbGjzE3XxhnCu4qHhejzj2ZfxbjLT0AINPqj6VgMF6U3bgz/khhVtAfwCtuN8n5LzYZ1G44UwVEN7G51ZQjySYUCuqwbJlVPV+D0YtgLEq+BSSadyiZBWXWNXOLMGgK7wPNwMN252oggRkSb7m7DmNdJERJdMnpOeME5MnBlYXzAo1IQU4dJaFPcNWiVkFo4v0swlXybs8J6pvtU3zxdhQpvTx6n6BMD82p5FjkwdlwbsiqiqbBQCKyPROUmDAHKAvaAxr2H4BUDWrHKXDPjX5bCZHqINidHdYzd+mGem+SA7QLguOE9advhMOm/IUvRqIUPiHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none
+ action=none header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=P14KhoMXfGPni5qi61eVjUkVCq90IQqObPqvQa87lCY=;
+ b=cimBUg+3QHDKjO1NXdGDqg2AvXpoiM9kqDrinPMXFfxzhSrFFbc/DbY5HnXgWUJ4wUBtuazPsLTmqn5N56odgkfsYurJIlNNUj6xT4UPdMyW29aFrpZosG0/yI6lbqSqAAd2exbag3F5LTaIeUzUhLfyLP47XBjRdSAQ8g3HqhE=
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; dkim=none (message
+ not signed) header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS1P221CA0001.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:451::6) by
+ MW4PR12MB7192.namprd12.prod.outlook.com (2603:10b6:303:22a::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Fri, 13 Nov
+ 2026 02:43:51 +0000
+Received: from CH2PEPF00016D47.namprd02.prod.outlook.com
+ (2603:10b6:8:451:cafe::5e) by DS1P221CA0001.outlook.office365.com
+ (2603:10b6:8:451::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Fri, 13
+ Nov 2026 02:43:50 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH2PEPF00016D47.mail.protection.outlook.com (10.167.244.116) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 02:43:50 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
+ 2026 12:47:50 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
+ 2026 12:47:49 -0600
+Received: from xhdsneeli40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Thu, 12 Nov 2026 12:47:44 -0600
+From: Srinivas Neeli <srinivas.neeli@amd.com>
+Date: Fri, 13 Nov 2026 00:16:51 +0530
+Subject: [PATCH net-next v4 7/8] net: xilinx: tsn: add the endpoint TX data
+ path
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,86 +101,342 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
-X-QQ-XMAILINFO: Ml8T/6JCI2CtUq8dcZUq/vlruxBat4W0Mr494KquwvexP9ySz2vtqA0E
-	ZSgt/0yWw46fbcQltUuZejcv3m4HnYZUQ5mkFVGLr42VMF/hVgV9FVVDrPX53WEB4jg+20c
-	IA5PE2fadkXZrF4RJWxzbiM0hPLJQI9cYgVfS9BYzzeAIATrZYUuyu7UMW50Z65WrFSzUGE
-	i0CrTQx+vR0fj8lX7ziatLMNxmYPfF21HAAt6hwhSF6hp6ysRnNgAwDAgQpg0qQsyWhxWyn
-	i4G9aaGRSe2VkbVBtZAhg5e0eQgPOw3bwwF+6jAFBiQzU156oiOfmTV1+Avf9O8NBOSYRAs
-	lut1Cg79dfRO6+COybmGyEzdTZu9d7ZCTrP+ZA/KzLHyV2ND3DFTmYq2jQKhOQgr31NcJAG
-	fCkiq/iMX37kWlWqQkQP8jcS/Gl3FvBEYBgqBLGoJbEr5BlCvY7nJqPXEfX0JkmopDEdIsM
-	3Oj6oig9JrUx3lyExiLNTWDOFncdx8p44Q8GtsWeYHT2WvqvtdN8p2aORe30NeXweiXx8Lt
-	YyUzraSy2ChaqPJKYK8wms2TbMxaM9Yw2Ltk9c+SizPhkH4Zdmh8g5kfCKtAxbBFWY4wVov
-	e7wxI2OxOP1EPcfYmmNCkCSphHQnBnqcwyI2sRL/0x4goNw1PlikYruUB+Ybn2RpjYXqQ4Y
-	U4HWIRVYWgNQWlWPvtaMo7bQ/lypEbAKyS0ayPRtMEVSmEvbVerknwAdZX/oq6epMknFvOJ
-	6DvaYSiMFmAyeJ7NcvQ9jxmFhIxI170t4C6/i/dLyaTzyIy+3pVeetQwkIX+mMfp6dZl2dj
-	MYTHVGsp8pyYcjxZKxJNjJzHD5EN493PhKvdnGan8J8x4eb/foprQo2cFICaxz29u3NrcZP
-	/8C0F3LBy/UbgAaPjnP8JouofqXUIBjx8Nx8ODg+DM+7lK3nisl4yXsh+EsHoZXCVsy2lGk
-	+8uAwVXaJl2leJpW0kEWIVNT//TTp8SqRcJyezl4jz9s3qBZuwHfVkB3RhYaskQ24ttcezf
-	m2U2pkj3UpwSnXfu3PYDOYBzS4tCMmCR/AAJcPqaldLoxNgYPmrt0yITMNEja2mwGD7UEYS
-	Q==
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261113-patches_v2_external-v4-7-56bb26f042a4@amd.com>
+References: <20261113-patches_v2_external-v4-0-56bb26f042a4@amd.com>
+In-Reply-To: <20261113-patches_v2_external-v4-0-56bb26f042a4@amd.com>
+To: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>, "Michal
+ Simek" <michal.simek@amd.com>, Sebastian Andrzej Siewior
+	<bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, "Steven
+ Rostedt" <rostedt@goodmis.org>, Eric Dumazet <edumazet@kernel.org>, "Eric
+ Dumazet" <edumazet@kernel.org>
+CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-rt-devel@lists.linux.dev>, Srinivas Neeli <srinivas.neeli@amd.com>,
+	<git@amd.com>, <neelisrinivas18@gmail.com>
+X-Mailer: b4 0.16.0
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00016D47:EE_|MW4PR12MB7192:EE_
+X-MS-Office365-Filtering-Correlation-Id: 58d0f16c-717d-40ba-c14e-08df412ff2fe
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|36860700016|1800799024|82310400026|921020|10067099003|11063799006|261021123027099003|261026121527099003|261026140227099003|56012099006|261022105027099003|261028144727099003|261102123227099003|261021121427099003|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	CoGM6xgD2wOEankpt+uizDMXHTbEnCa8iMLXWqpG5/Ln5Y0tSePQ+NTt5jQxucrCLCzNM/Iw9IbGiQWSOWKhCYimtlcDV9ef0MC8Y9fAU4GsC2ECdCBtkkBhkpHjlEnqjwIaKxVEiujz6GDQp5S7O+Lga4cxUuDOkcuYKFZ/A9jl0udpYoYGHr7VGxryTSMtSTYoWDCW3baagNsgNB+3+FOa/ovUEPEcs5j6qWuj/N8J35feEIww4tYJVSEUjf+3FnRoQt0XtA6HfkE6agRz3JouN7s60ErVM+GvcVnuNexKLAi+R5IlXli/Sz0F1IOEN5zsJ8kHaLOnKZRJ+X73yNV77EaFplt2gVlhKAeQ6dG5rKkmtB/U5WUMC/xVjcQ0I4GFl6RLvkTMzYqLVW309YTcVclBAeORPikO0e7YAE/+a9a6G7Lcv3I3T5Zl/j0xT6sJ+DeynsixsIycL5n+J80Y7R2ZiaxHEzUv2CxKhOYw64Ol8bIe/b8HFqb77NQTRrJI2PN2hDyUPJiv3VIkf+S39y6VSD5X2NZWoloz3sdgXhItCrZeTBXbI28EEpRHD9x0peizFjwQipW5Ar6sZoBxxjxO+eluOQ35lZCi49OMnukgJHCXXBN5UamQG9F60lzaKw8j6LNfX4Tvg3+1BRAx02wjnd4kJhntyLHEWj5bzBCgeblbkhnk11k1pFUvmkc7x3dIcYUThJHqTsneHQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(36860700016)(1800799024)(82310400026)(921020)(10067099003)(11063799006)(261021123027099003)(261026121527099003)(261026140227099003)(56012099006)(261022105027099003)(261028144727099003)(261102123227099003)(261021121427099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	8KYrTqqTpjTk+5kpr5UaYXA1TOPGJ2gf2mv5rfrvvUJPBHpsZTWTKQ+i20IThKpxZYNf2DDaUfCRdwCgxKHBqCyUGwY66c0AtLd9petK0Y+rUo7b1h9+qwd7yfZfk54TZrEdJd+7GK3KwBTYe+T3aldNjXrZjTDkdA+GmwBbmErZg2KI+o9WAK2NwLb4oU6jnHE3MfZfawb1SfkDQ+4X4FHq61z+h15lLuy8u8ZQUUuN5RMGgWYJ25vl8pfUgjmvQs7HBk8WqA3DFZxCOO4GValM9Q+0pNwNOOAU4EH2Z7kIMy6H4hRFA+H87WMYi8cX/QaNuYCM+wByzfe+6cTymTEHG5tE/Iy/D68GZaKIkgEYYs0DhFAJEqv1WJUF0sbtpqZawLymksahGVe5QAUCdFMQWwRHjHhRiQ5KiSlZrIgpTSqXC05d8QCseg2ivgR1
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 02:43:50.5383
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 58d0f16c-717d-40ba-c14e-08df412ff2fe
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF00016D47.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7192
 
-Extend the dequeue_iter selftest: after the DSQ iterator drains, call
-bpf_iter_scx_dsq_next() once more and store the raw result.  The
-user-space test checks that at least one task was iterated and that the
-extra next() returned NULL.
+Add the transmit path so the endpoint can send frames.
 
-The test fails on a kernel without the drained cursor state: the cursor
-was unlinked and the extra next() starts again from the DSQ head.
+Select the TX channel by indexing tx_chans[] with the frame's logical
+queue. ep_init_dmaengine() fills that array in logical-queue order, so the
+index maps to the channel that queue's descriptors were set up on. The
+driver consults tx_dma_chan_map[] only to reject a queue with no mapping.
+Map the frame and submit it to that channel. Stop the queue when the ring
+runs out of space, and wake it from the completion callback once a slot
+opens.
 
-Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
+Co-developed-by: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
+Signed-off-by: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
+Signed-off-by: Srinivas Neeli <srinivas.neeli@amd.com>
+
 ---
-v2:
-- New selftest in v2.
+Changes in v4:
+- Call skb_tx_timestamp() before dmaengine_submit(). The provider can
+  start a pending descriptor from the IRQ of an earlier transfer, so the
+  completion callback could free the skb before the timestamp was taken.
+- Add .get_ts_info with ethtool_op_get_ts_info() so ethtool reports the
+  software TX timestamps the driver now generates.
+- Terminate the TX channels in ndo_stop() before netif_tx_disable(). A
+  completion that read the closing flag as false then finishes before the
+  queues are stopped and can no longer wake one while the channels are
+  freed.
+- Extend the @closing kernel-doc to the TX completion callback, which
+  tests it before waking a stopped queue.
 
- tools/testing/selftests/sched_ext/dequeue_iter.bpf.c | 7 ++++++-
- tools/testing/selftests/sched_ext/dequeue_iter.c     | 4 ++++
- 2 files changed, 10 insertions(+), 1 deletion(-)
+Changes in v3:
+- Free a DMA-error TX frame with dev_kfree_skb_any() and a completed one
+  with dev_consume_skb_any(), so dropped frames are not reported as
+  delivered.
+- Add skb_tx_timestamp() at the hardware handoff for software TX
+  timestamps.
+- Skip the queue wake in the completion callback while closing. Use
+  __netif_txq_completed_wake() with the closing flag, and set ep->closing
+  before netif_tx_disable().
+- Reword the body to state that tx_chans[] is indexed by logical queue, and
+  drop the description of a runtime channel lookup that no longer exists.
 
-diff --git a/tools/testing/selftests/sched_ext/dequeue_iter.bpf.c b/tools/testing/selftests/sched_ext/dequeue_iter.bpf.c
-index 76c2c71a90b6..38eb2df54a6b 100644
---- a/tools/testing/selftests/sched_ext/dequeue_iter.bpf.c
-+++ b/tools/testing/selftests/sched_ext/dequeue_iter.bpf.c
-@@ -18,6 +18,8 @@ UEI_DEFINE(uei);
- #define TEST_DSQ_ID 1000
+Changes in v2:
+- Take the scatterlist entry count from skb_to_sgvec() instead of assuming
+  nr_frags + 1, so dma_map_sg() cannot walk past the end of the list.
+- Check dmaengine_submit() with dma_submit_error() before advancing the ring
+  head and charging BQL, and drop the frame if the submit fails.
+- Publish the ring head with WRITE_ONCE(), paired with the READ_ONCE() on the
+  completion side.
+- Take the ring size from the channel instead of the compile-time constant.
+- Use dmaengine_prep_slave_sg() instead of calling the ops member directly.
+- Move tx_lock into the per-channel struct, mirroring rx_lock, so independent
+  TX queues do not serialise on one device-wide lock.
+- Narrow the tx_lock kernel-doc to what it actually protects.
+- Mark the ring_tail store in the completion callback with WRITE_ONCE() to
+  match the READ_ONCE() readers.
+- Use the spinlock_bh guard class in the completion callback so it matches the
+  spin_lock_bh() in the xmit path.
+- Index tx_chans directly by logical queue in ep_start_xmit() and drop the
+  phys_chan/dma_dev locals, so the transmit path no longer re-derives the
+  channel through tx_dma_chan_map.
+---
+ drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c | 161 +++++++++++++++++++++++-
+ 1 file changed, 159 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+index f179062c7d14..6e2721a74f28 100644
+--- a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
++++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+@@ -28,6 +28,8 @@
+ #include <linux/timer.h>
+ #include <linux/types.h>
  
- u64 dq_count;
-+u64 iter_count;
-+u64 next_after_drain = -1;
- 
- s32 BPF_STRUCT_OPS_SLEEPABLE(dequeue_iter_init)
- {
-@@ -47,7 +49,10 @@ void BPF_STRUCT_OPS(dequeue_iter_dequeue, struct task_struct *p, u64 deq_flags)
- 
- 	if (!bpf_iter_scx_dsq_new(&it, TEST_DSQ_ID, 0)) {
- 		while ((t = bpf_iter_scx_dsq_next(&it)))
--			;
-+			iter_count++;
++#include <net/netdev_queues.h>
 +
-+		/* NULL must stay final after the iterator is drained. */
-+		next_after_drain = (__u64)bpf_iter_scx_dsq_next(&it);
- 	}
- 	bpf_iter_scx_dsq_destroy(&it);
+ #include "xilinx_tsn.h"
  
-diff --git a/tools/testing/selftests/sched_ext/dequeue_iter.c b/tools/testing/selftests/sched_ext/dequeue_iter.c
-index f60711bf3b39..48e8c94b7bf1 100644
---- a/tools/testing/selftests/sched_ext/dequeue_iter.c
-+++ b/tools/testing/selftests/sched_ext/dequeue_iter.c
-@@ -59,6 +59,10 @@ static enum scx_test_status run(void *ctx)
- 		return SCX_TEST_FAIL;
- 	}
- 
-+	SCX_FAIL_IF(!skel->bss->iter_count,
-+		    "DSQ iterator drained no tasks");
-+	SCX_EQ(skel->data->next_after_drain, 0);
-+
- 	return SCX_TEST_PASS;
+ #define DRIVER_NAME			"xilinx_tsn_ep"
+@@ -82,6 +84,7 @@ struct skbuf_dma_descriptor {
+  * @ring_tail: consumer index
+  * @ring_size: number of slots in @skb_ring
+  * @rx_lock: serialises @ring_head between the RX callback and the refill timer
++ * @tx_lock: serialises @ring_head and @ring_tail between xmit and TX completion
+  * @rx_refill_timer: retries RX refill after an allocation failure
+  * @is_tx: true for TX channels, false for RX
+  */
+@@ -94,6 +97,7 @@ struct xlnx_tsn_ep_dma_chan {
+ 	u32 ring_tail;
+ 	u32 ring_size;
+ 	spinlock_t rx_lock;	/* serialises @ring_head */
++	spinlock_t tx_lock;	/* serialises @ring_head and @ring_tail */
+ 	struct timer_list rx_refill_timer;
+ 	bool is_tx;
+ };
+@@ -112,6 +116,7 @@ struct xlnx_tsn_ep_dma_chan {
+  * @tx_chans: array of TX channels (size @num_tx_queues)
+  * @rx_chans: array of RX channels (size @num_rx_queues)
+  * @closing: set in ndo_stop so the RX completion callback stops re-arming
++ *	and the TX completion callback stops waking a stopped queue
+  */
+ struct xlnx_tsn_ep {
+ 	struct net_device *ndev;
+@@ -311,8 +316,151 @@ static void ep_dma_rx_cb(void *data, const struct dmaengine_result *result)
+ 	ep_rx_refill(xchan, true);
  }
  
++static void ep_dma_tx_cb(void *data, const struct dmaengine_result *result)
++{
++	struct xlnx_tsn_ep_dma_chan *xchan = data;
++	struct skbuf_dma_descriptor *skbuf_dma;
++	struct netdev_queue *txq;
++	struct net_device *ndev;
++	struct scatterlist *sgl;
++	struct sk_buff *skb;
++	int sg_len;
++	int len;
++
++	scoped_guard(spinlock_bh, &xchan->tx_lock) {
++		skbuf_dma = ep_get_desc(xchan,
++					xchan->ring_tail & (xchan->ring_size - 1));
++		if (!skbuf_dma || !skbuf_dma->skb)
++			return;
++
++		skb = skbuf_dma->skb;
++		sgl = skbuf_dma->sgl;
++		sg_len = skbuf_dma->sg_len;
++
++		dma_unmap_sg(xchan->dma_dev, sgl, sg_len, DMA_TO_DEVICE);
++
++		skbuf_dma->skb = NULL;
++		WRITE_ONCE(xchan->ring_tail, xchan->ring_tail + 1);
++	}
++
++	ndev = skb->dev;
++	txq = netdev_get_tx_queue(ndev, skb_get_queue_mapping(skb));
++	len = skb->len;
++
++	if (unlikely(result->result != DMA_TRANS_NOERROR)) {
++		DEV_STATS_INC(ndev, tx_errors);
++		dev_kfree_skb_any(skb);
++	} else {
++		DEV_STATS_INC(ndev, tx_packets);
++		DEV_STATS_ADD(ndev, tx_bytes, len);
++		dev_consume_skb_any(skb);
++	}
++
++	__netif_txq_completed_wake(txq, 1, len,
++				   CIRC_SPACE(READ_ONCE(xchan->ring_head),
++					      READ_ONCE(xchan->ring_tail),
++					      xchan->ring_size), 2,
++				   READ_ONCE(xchan->ep->closing));
++}
++
+ static netdev_tx_t ep_start_xmit(struct sk_buff *skb, struct net_device *ndev)
+ {
++	struct dma_async_tx_descriptor *dma_tx_desc;
++	struct xlnx_tsn_ep *ep = netdev_priv(ndev);
++	struct skbuf_dma_descriptor *skbuf_dma;
++	int queue = skb_get_queue_mapping(skb);
++	struct xlnx_tsn_ep_dma_chan *xchan;
++	struct netdev_queue *txq;
++	int sg_len, nents, ret;
++	dma_cookie_t cookie;
++
++	if (unlikely(queue >= ep->num_tx_queues)) {
++		if (net_ratelimit())
++			netdev_warn(ndev, "Invalid TX queue %d (max %u)\n",
++				    queue, ep->num_tx_queues);
++		goto err_drop_skb;
++	}
++
++	if (ep->tx_dma_chan_map[queue] == TSN_DMA_CH_INVALID) {
++		if (net_ratelimit())
++			netdev_warn(ndev, "Logical TX queue %d has invalid DMA mapping\n",
++				    queue);
++		goto err_drop_skb;
++	}
++
++	xchan = ep->tx_chans[queue];
++
++	sg_len = skb_shinfo(skb)->nr_frags + 1;
++	txq = netdev_get_tx_queue(ndev, queue);
++
++	spin_lock_bh(&xchan->tx_lock);
++	if (CIRC_SPACE(xchan->ring_head, READ_ONCE(xchan->ring_tail),
++		       xchan->ring_size) <= 1) {
++		netif_txq_try_stop(txq,
++				   CIRC_SPACE(xchan->ring_head,
++					      READ_ONCE(xchan->ring_tail),
++					      xchan->ring_size),
++				   2);
++		spin_unlock_bh(&xchan->tx_lock);
++		if (net_ratelimit())
++			netdev_warn(ndev, "TSN TX ring full\n");
++
++		return NETDEV_TX_BUSY;
++	}
++
++	skbuf_dma = ep_get_desc(xchan, xchan->ring_head & (xchan->ring_size - 1));
++	if (!skbuf_dma) {
++		spin_unlock_bh(&xchan->tx_lock);
++		goto err_drop_skb;
++	}
++	spin_unlock_bh(&xchan->tx_lock);
++
++	sg_init_table(skbuf_dma->sgl, sg_len);
++	ret = skb_to_sgvec(skb, skbuf_dma->sgl, 0, skb->len);
++	if (ret < 0)
++		goto err_drop_skb;
++	sg_len = ret;
++
++	nents = dma_map_sg(xchan->dma_dev, skbuf_dma->sgl, sg_len, DMA_TO_DEVICE);
++	if (!nents)
++		goto err_drop_skb;
++
++	dma_tx_desc = dmaengine_prep_slave_sg(xchan->chan, skbuf_dma->sgl,
++					      nents, DMA_MEM_TO_DEV,
++					      DMA_PREP_INTERRUPT);
++	if (!dma_tx_desc)
++		goto err_unmap_sg;
++
++	skbuf_dma->skb = skb;
++	skbuf_dma->sg_len = sg_len;
++	dma_tx_desc->callback_param = xchan;
++	dma_tx_desc->callback_result = ep_dma_tx_cb;
++
++	skb_tx_timestamp(skb);
++
++	spin_lock_bh(&xchan->tx_lock);
++	cookie = dmaengine_submit(dma_tx_desc);
++	if (dma_submit_error(cookie)) {
++		spin_unlock_bh(&xchan->tx_lock);
++		skbuf_dma->skb = NULL;
++		goto err_unmap_sg;
++	}
++	WRITE_ONCE(xchan->ring_head, xchan->ring_head + 1);
++	netdev_tx_sent_queue(txq, skb->len);
++	netif_txq_maybe_stop(txq,
++			     CIRC_SPACE(xchan->ring_head,
++					READ_ONCE(xchan->ring_tail),
++					xchan->ring_size),
++			     2, 2);
++	spin_unlock_bh(&xchan->tx_lock);
++
++	dma_async_issue_pending(xchan->chan);
++
++	return NETDEV_TX_OK;
++
++err_unmap_sg:
++	dma_unmap_sg(xchan->dma_dev, skbuf_dma->sgl, sg_len, DMA_TO_DEVICE);
++err_drop_skb:
+ 	dev_kfree_skb_any(skb);
+ 	DEV_STATS_INC(ndev, tx_dropped);
+ 	return NETDEV_TX_OK;
+@@ -343,10 +491,16 @@ static int ep_open(struct net_device *ndev)
+ static int ep_stop(struct net_device *ndev)
+ {
+ 	struct xlnx_tsn_ep *ep = netdev_priv(ndev);
++	unsigned int i;
+ 
+-	netif_tx_disable(ndev);
+ 	WRITE_ONCE(ep->closing, true);
++	for (i = 0; i < ep->num_tx_queues; i++)
++		dmaengine_terminate_sync(ep->tx_chans[i]->chan);
++
++	netif_tx_disable(ndev);
+ 	ep_exit_dmaengine(ep);
++	for (i = 0; i < ndev->num_tx_queues; i++)
++		netdev_tx_reset_subqueue(ndev, i);
+ 
+ 	return 0;
+ }
+@@ -366,6 +520,7 @@ static const struct net_device_ops ep_netdev_ops = {
+ 
+ static const struct ethtool_ops ep_ethtool_ops = {
+ 	.get_drvinfo	= ep_get_drvinfo,
++	.get_ts_info	= ethtool_op_get_ts_info,
+ };
+ 
+ static struct xlnx_tsn_ep_dma_chan *
+@@ -402,7 +557,9 @@ ep_alloc_dma_chan(struct xlnx_tsn_ep *ep, struct dma_chan *dma_chan,
+ 	chan->ep = ep;
+ 	chan->ring_size = ring_size;
+ 	chan->dma_dev = dmaengine_get_dma_device(chan->chan);
+-	if (!is_tx) {
++	if (is_tx) {
++		spin_lock_init(&chan->tx_lock);
++	} else {
+ 		spin_lock_init(&chan->rx_lock);
+ 		timer_setup(&chan->rx_refill_timer, ep_rx_refill_timer, 0);
+ 	}
+
 -- 
-2.34.1
+2.43.0
 
