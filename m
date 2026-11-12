@@ -1,87 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794466933;
-	b=0VYSAJM39Knb/ET9bJxeb1O1FVbohj04sDwEjYgYUMhAo9fBFrtvOQwGyI7W+sTXJoVO
-	 u9n9Ifi7APUYpGmTgtFWHExOS0az/FDa2z2EBbm90E0eFxS7x01QmwC4eYbfPZd5gAf39
-	 ZvdpAjA8RqVqlq0k90RgM7ZrCrgacMSu7KWR1aV5NCvciIhEISTU7i4741xNkZxpLqUXz
-	 HXVq8333S5cIx+MesGYi5vLHy2TI5grvUsykVWQZZCL1O0ujXIULnvOuBLsO8dJlCc3Sb
-	 7PtMjtJf4RPbxmSkPR95TQ4/+iznoPsGoh3O9Muy1msTf0te/A8jjR2Bii9kHlDn1ng==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794466933;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794466948;
+	b=cOeZtDXLZsuGruLjKRdKxI6qvfcIOUT0ev2vB+e629wuId568OTs8VhkMazI5AZL2dIh
+	 UlK9HM5bnvLxfQtIsmCfK8sj2QcHIvJIMcnso56Y2EP25M8y4PQ1//eazW+Ea64D1luUg
+	 vWx78n4CkeulOx2dgqKYTPvAL7R0hsqrzrqolSX4Z0AuggHTXnirqmpS3V97xlHbNeRaa
+	 ZsvM/xobSKzV1Caxb2Sfphzq0cErlALXtvRxV+GEqCNlcGk8J9hspRuc5IdkeNQk8w0PV
+	 vuqJh5Bpt4ET5XH0Zu0JwqWrRC3lAFHobzqvSgkWqe/urnbvhdUdXS+Jj1mR70gZ6fw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794466948;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type;
-	bh=/4MtBLSGAeSlREMeMpXOJglcbVkwCt0++4H9V4EMMVM=;
-	b=Kcz9XslqXecRF5SIHpzMn1DsdHKQeqNj0em+uY/46G+ZyyCOTdhE1oVBiEYZz+Lzvr3D
-	 dZYPzkHB8bgXT/3Jl89fkk+dCPCysGG0LYOV6Zg52nF4XfKRGwM9lG9xMfxGOaKKp6YLo
-	 ncu3oWBuCeRtMw0JngS6mLiDKQ2jP4+viBXNQsAngsv+67CJEfFlSjSy4O2Wzz2KSQegA
-	 wHOnWI29Jxcksg0mJXVN5+9821Em2oYw2nUxmbrUNbWcTc7g/J5vA2wdWbERSsa0j4tIV
-	 9+gFzGcKoXozBUwJKViD/12LQapuOThCfqURyOydl3uVvTZbjbKgp6CCxc+CWdTd0gg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Bjvcdfpw;
-	arc=none smtp.remote-ip=209.85.208.48
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=zj4daZqcOfrk9MLreCDoKv45VzLcW0kMVsw4yuRmjFc=;
+	b=dwwTIPrTZui66UE9LB75iMkl32yFRIhrwSBe6AUCfEXTcT6VjlaLiypELvnWke0HiEA3
+	 IaS58HhS4BQ8noQ1inKka01qO4saR370P17E1ir+MioQUu/kqaYu/D7YaBKZwFWt7WJ5e
+	 V3TSCAeJ6ZlAAawrMbFFCESfOro13MJ5Br14n602NixiRRZ+n3QlrtgX/deB6Ks3LIXeU
+	 oz2WBvTCONIohv3kxtp3qIysv5Y0buHHZPwNVQlSCkfnKf50LQH3+3JilnlVLrzfYMniQ
+	 5w7vM1iaQAlhOZ1ZUYXFaosSqrjqeI9ivcsOmLuja0qpNmoArR6W8RlIes/2NpkNiFw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PXWOUoJA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A05606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:02:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8A05606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87EA1606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:02:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87EA1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Bjvcdfpw
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b65d69f5c2so598374a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:02:12 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PXWOUoJA
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6ae305e3bd9so6171351a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:02:27 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794466946; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Qu8lJl44XEeDy3jvE9S/BAyQgZ/zOCwJz2dmClV/WfagKNpQu29FBRZWWQH3+ccI8U
+         rFSyuHq6vtxYQdZ5Y3x+Buc0ItGpVBPmQwyHkh/BnQrJwvcnUX0myLvCogcIfS3wLsK0
+         blbgLqvP8rbgJCUo+ylkg1R9o3Ah0uAk37YQLfB7J3iyk8WovqZPzDT9o5R+P0kPXSgo
+         2soh/KNdvdRUVU9ZvbbjNMvLZcxxRiPGeQt7rLcEYjzWl2wgqsgAfa7PD9jXTOyCjYKe
+         Wvz5Wf9Cu7GGYJvmrg6n76OVpRB5o5vwQZ7aKNQJ/u676lVLP0rU8+9chIACNyQXqSPK
+         jaRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=zj4daZqcOfrk9MLreCDoKv45VzLcW0kMVsw4yuRmjFc=;
+        fh=aRew4yTtYfapKsvxJj7iJdtYOMy1a0GTZyVYW/fac98=;
+        b=ew/YshkA/Y0Zs7TRpE+6jVVvmjr3xiHlwOCJa80OlGefIS3o6s6A0buBGALDvDtAQM
+         3+rRfnPJRL/xAN2qd9HYOIkrqdBqlnKNxqxrVb1pvdz/K8VxxF0JQupOqu30ud8NMajO
+         eOetX8hxzyrjRH8fx1nnNf/Blb3wxBVaP6kXrT+RjnFroIZ5MCn3q3cNjYqHXx3mzgP8
+         yZ3KMQsrLRq5Ah46SMtI9WYBEKC1vkKZHzzOshfYukPnqpIHXE0f8wWqcX0IB9lFdCwB
+         tyAIF2FkbtIP4Ti5lCiA4azvJgzxeyPQSn6k5Ctl+k3IC3WTZJyUQKYZi1AVksjDy/Nk
+         xT0Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794466931; x=1795071731; darn=vger.kernel.org;
-        h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/4MtBLSGAeSlREMeMpXOJglcbVkwCt0++4H9V4EMMVM=;
-        b=BjvcdfpwCSBKwnvk9dCuZdO5bKIE7LwAVDFAJ/gmxSf74WWDcshOCc4hWUyXyWXXUr
-         4sZTuk4jlequbSGaosO1Aa9C45fjTvXFUCFwQ/9zmPG8TnCwSWyOtFW1WxdYViy06yTc
-         HyFX1dQtACLjFDtpRnNOcP/J81n1jrZC0X6gNuRiOoKvRw3BaT3Wwd6O03XwNbf5Ueuw
-         PEtIxT25lUKN7ekbFyaixdV6RqZwO4LjKFYjA5f4dlm2xzjsWBm8x1RzGDJxAAkgyreV
-         /vcr+SLLhddZFEgHZqgHxdSZH+baDtgbno3TWD21Uj+EIETHVKbPhaDJZ4K6/jVbpari
-         RNBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794466931; x=1795071731;
-        h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linaro.org; s=google; t=1794466946; x=1795071746; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/4MtBLSGAeSlREMeMpXOJglcbVkwCt0++4H9V4EMMVM=;
-        b=nLdScFwDkv3UyG0ks1SMyDcH9AcxA1MYs5K/Ava34wmDXLUlhFK+LO9xlw8q89PO0w
-         yKUvLOF+16S+7GewbvKlZTSTUPPjZZTkPhkIyhdYEgjQKoUUPm1DfzCmIMts2NNUDuT5
-         Y7sYfP6hbGo/4w2WZTBzrFYlh7zN+hnX3p2ABzdKgoO17z4SYUPst0idj5/rEC9eQ5GK
-         ulGk6Wx1/u4Un3vlt4BrAHZB6DCELKRHzqs42HYphaQGWENmcHEeFn/3OEXigO5fCErc
-         9G7fysEt6qHlretfVhH0TOjynLhEO5QzUzbbhUzU95c3DDQ/h9BuK5iabvPIV+UhaMnV
-         MO9w==
-X-Forwarded-Encrypted: i=1; AL+hErH4ZOuc+f050a6QO7n0rsK1GjjjER5BwjWXpupbhyBDng3RG+1qk04m3ZYA+Bjwt2to6cf5za2Pf/rCTmQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+e4k9qCTka+EGGbNYMBDUiWZjihFuRTT58dx4oAofdkTwytljC
-	Hoxqozv9z1g736Q8tisILY0LeXQX5N5/MyKnuyWq53X6T2dgnxRU3MCcVbJtzD46kRc=
-X-Gm-Gg: AYBFou3MDhBGGDc+LSEhiEJB5+uXwkx6i7xI+S0ZMAsDm6edY7ECDo+kth4mL3/cli/
-	pvQ58luobarE+yCyJaqdlnui6u9s7Oe9/EW6bVU7psLq+fnPkVZxogtL76cL1mV98MrifLiI4g3
-	PihIDAS/mpWes7Qtnt9v0dUlmxVtXjuMnCAZvV0qLEFKTauvc+091jQSQXATZcHNAFO1yIraGO9
-	hR4tg1ogU/16jV8nTRt+VUkWWbSW8vAzkXSHU5GcPk0fh2F+iE7q6cp7HWtA2VsZROpVly0nnFW
-	jW0+LD6yXgmC9P/IJU9cb129NZGnH25p04/+IUzdDYrGKyrXQgaZ0dBxVMy71WQDCMhtSFzxWB1
-	z7whcLH4AUPsLXs5QIJmEkdJ7JtLO3YorS6iEzMFVERdJGnIUYGasXMFI0gi5IlvuMiHXGjsHZR
-	7hOtaEIKTMB4ewMO6eYbtX3zdzsPYaXixMH2rAfeG5rZoWYWkVs8sR+82QDR5mxOOBDTXypBVKO
-	qE9dSPZ29V3DLegIQ3h/LMDr9io36nhF++8gi/lLWrUfCOvU3rblu1qA7m/qOUHaGAKU51BOkd7
-	BycITxpYrM346ZCQuOgfp5qDvQJnMxVuapD3TTfnLekawcbWw8cDC2iq7BoOfGQHE1Cmq7ANJJS
-	fz50dZsQTGnOek3tUqcIGmhJFfsREkTf4wbfaPo1qbs9Yw3EwpBUgHnUrm0v5duRrGTG3vLsM
-X-Received: by 2002:a05:6402:1e94:b0:6b5:61fe:982a with SMTP id 4fb4d7f45d1cf-6b777824953mr3292179a12.45.1794466916038;
-        Wed, 11 Nov 2026 23:01:56 -0800 (PST)
-Received: from ?IPV6:2a00:12d0:afa3:c01:92cc:e257:77ba:97a1? (2a00-12d0-afa3-c01-92cc-e257-77ba-97a1.ip.tng.de. [2a00:12d0:afa3:c01:92cc:e257:77ba:97a1])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7ada54c88sm112091a12.2.2026.11.11.23.01.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 23:01:54 -0800 (PST)
-Message-ID: <3a052d2c-8d14-4cb1-b6fd-277a6b0c8196@suse.com>
-Date: Thu, 12 Nov 2026 08:01:53 +0100
+        bh=zj4daZqcOfrk9MLreCDoKv45VzLcW0kMVsw4yuRmjFc=;
+        b=PXWOUoJAKZe4F84y9dSv19nTvPgCLE7t3wF/6OK2ig1rLWBe5ND5kYjIbJVvKGGp0q
+         3ZSPR2Rs/JDxKAPgG6q2nLooeqGi5oap0ZDMf5HCaL4dV8JjodKNl3ACgCKeNj/dm3bJ
+         4845Q0ZgOcvEms9ueC9IhkEZMRRTZMy8yf2MN4zLR8l+o220MoW5YqaF2w1ym0hzm+V9
+         Typlt88pojHaKYcDnXIDukueDzqIYuhWX923qSm/IuM746jbl2MWtxkP/WKwPTJXvbcU
+         vAg7BaHx9f5TITUGVYdeM1RiLuZTJskUL8VtnEw0pM376PeA7Qw/dbkFu/FLO+KTuve5
+         AUPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794466946; x=1795071746;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zj4daZqcOfrk9MLreCDoKv45VzLcW0kMVsw4yuRmjFc=;
+        b=jF86iirDVvIJ2mYzWAg7YeRAbFEih+fTDgyMkDuWQi2VQtQXN65owK0tl58wWkT27/
+         lkkkXF88BFT8YxvCAAPZVobxt9x0nEgI3lD4CRU9zMU+vgxaRic0LaNNSjtSK/4A3/Yo
+         oHX9IQCCywJt16DvgWduBaCMStWrrzF6TP4VDGY8RIxtQGs4IKSM7D8uZVkpkrOwIRDd
+         nvWCqeXqiJO50Qsw+NsSzxCGNRiZIrDtKb+m9cJdMCl5tlBb1Neu5EvBheFgoPONIZmu
+         Jj2nwHPd/e8zD5vKjsTSvCtEQmxlEvwqbA9P+ByK7ghANUiSKXdkVow7Scx4MeRi3lXi
+         Nagg==
+X-Forwarded-Encrypted: i=1; AL+hErHdmWBeT1qNz9zPwklPymTEu2YVaQ5mDlXZmsIrRtZdVIcyt3vcd1jJMlhkgiDQ0cjKmR039IWmQTWB7CU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/uV6jzAoKSZpE66d9spD/q81YkufEQ3JPUwq4faqMYLsyM4B+h
+	vjvgfJaMnqHIaByPiX1snfbCdvkBgBWVpZYCsvMjv7YrvMWo7d4a/zMze35fxnoOSWP/3++9x/G
+	9CEBH4KhJckfsJwsHLBWPnAWXzQ8RRqBPk+G7eGnHpw==
+X-Gm-Gg: AYBFou1PC35SDW9yWMsk3SxZQvprZvBa2yEtDMFxP2+XF2WtlgGayR1CbyZlHkxZ0zv
+	gwrUhs0sGV5FsyOLUIyAmVk/gB94ZnKAfaUXcjo27snuKqK2niFnpg3W9XhgK72twpNeM5eNr0l
+	lUdUDMox+kQIeS8I2vyyGvQPev4qLx3qtkP0SGMHwsztecLSKer0OS2L8nwixCwsQ3VWKRBQcu6
+	9Zd7BSg4WUPMDdA6pvGMiZqm5cqJS0KcxtXQvMDSxlRtxy681N5oqvc+xFb9pFWJq1SGPImIkVD
+	ZGfkaIX9yrXWGmNU1UK4l7/S6H4fIyT6AGj/r22PyFYrmkU+VLATlps+bIWY73JEKfSCvaITBMj
+	XzzGQpXwZtmn3xsOaO1DO6sqcBkTFWK7j3f/6SW7VQ+NMRxQB7lmK6b+8cgYjIw+4FnZC1g==
+X-Received: by 2002:a05:6402:28c4:b0:6b4:602d:f1f7 with SMTP id
+ 4fb4d7f45d1cf-6b7773f4731mr3380483a12.20.1794466945804; Wed, 11 Nov 2026
+ 23:02:25 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,119 +103,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] xen-blkback: do some I/O statistics rework
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger@xenproject.org>,
- Jens Axboe <axboe@kernel.dk>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org, linux-block@vger.kernel.org
-References: <20261111162058.804033-1-jgross@suse.com>
- <7af69a18-fcd7-48f9-a9e4-c2ddc060755e@suse.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <7af69a18-fcd7-48f9-a9e4-c2ddc060755e@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------XnKNkkfJknfgjGY9Ag00BvNt"
+References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
+ <20261106151947.3991524-3-vincent.guittot@linaro.org> <au38gSTzmvPKmqWT@scheduler.schedules>
+ <CAKfTPtDXo8_3tfXt=UH+BKyO1rJCWjRAVXjO5nFVHO1NBd8LyA@mail.gmail.com>
+ <20261109154536.GK1779021@noisy.programming.kicks-ass.net>
+ <CAKfTPtAL9T0bGZdhkodC49DtNUFKJgEn9f5wLNBe_rGxzJEN0w@mail.gmail.com> <20261111090354.GG2668564@noisy.programming.kicks-ass.net>
+In-Reply-To: <20261111090354.GG2668564@noisy.programming.kicks-ass.net>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Thu, 12 Nov 2026 08:02:13 +0100
+X-Gm-Features: AclHuK9sTnZDoWNK1z60y7C5PPNcVNuqCH5Q2WF5qMfYgWqlwEG8DadJrWu2JO4
+Message-ID: <CAKfTPtBeEQU-7R0wPZeQXF6RdC_kDkbmbCcRBj_WZUCksU5gqg@mail.gmail.com>
+Subject: Re: [PATCH 02/20 v3] sched/eevdf: Reset lag at wakeup when prev CPU
+ has been idle
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Kayra Cizmeci <kayracizmeci@gmail.com>, mingo@redhat.com, juri.lelli@redhat.com, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	linux-kernel@vger.kernel.org, lukasz.luba@arm.com, rafael@kernel.org, 
+	linux-pm@vger.kernel.org, tj@kernel.org, void@manifault.com, 
+	arighi@nvidia.com, changwoo@igalia.com, sched-ext@lists.linux.dev, 
+	qyousef@layalina.io, christian.loehle@arm.com, pierre.gondois@arm.com, 
+	sshegde@linux.ibm.com, tim.c.chen@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------XnKNkkfJknfgjGY9Ag00BvNt
-Content-Type: multipart/mixed; boundary="------------znQNYWv2cH6gyTbCeqXfd0fm";
- protected-headers="v1"; hp="clear"
-Message-ID: <3a052d2c-8d14-4cb1-b6fd-277a6b0c8196@suse.com>
-Date: Thu, 12 Nov 2026 08:01:53 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] xen-blkback: do some I/O statistics rework
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger@xenproject.org>,
- Jens Axboe <axboe@kernel.dk>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org, linux-block@vger.kernel.org
-References: <20261111162058.804033-1-jgross@suse.com>
- <7af69a18-fcd7-48f9-a9e4-c2ddc060755e@suse.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <7af69a18-fcd7-48f9-a9e4-c2ddc060755e@suse.com>
+On Wed, 11 Nov 2026 at 10:03, Peter Zijlstra <peterz@infradead.org> wrote:
+>
+> On Mon, Nov 09, 2026 at 05:27:57PM +0100, Vincent Guittot wrote:
+> > On Mon, 9 Nov 2026 at 16:45, Peter Zijlstra <peterz@infradead.org> wrote:
+> > >
+> > > On Mon, Nov 09, 2026 at 04:27:14PM +0100, Vincent Guittot wrote:
+> > > > On Fri, 6 Nov 2026 at 17:22, Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
+> > > > >
+> > > > > On Fri, Nov 06, 2026 at 04:19:29PM +0100, Vincent Guittot wrote:
+> > > > > > @@ -8376,6 +8383,9 @@ static bool __dequeue_task(struct rq *rq, struct task_struct *p, int flags)
+> > > > > >
+> > > > > >       dequeue_hierarchy(p, flags);
+> > > > > >
+> > > > > > +     if (!(flags & DEQUEUE_SAVE) && !cfs_rq->h_nr_queued)
+> > > > > > +             cfs_rq->idle_seq++;
+> > > > >
+> > > > > This needs WRITE_ONCE, no?  3/20 uses READ_ONCE().
+> > > >
+> > > > I hesistated to make it WRITE_ONCE but i concluded that it was not
+> > > > strictly necessary because the READ_ONCE is only used to compare the
+> > > > value but not use it for any computation or sync so if the compiler
+> > > > wants to do any kind of optimization what we really care is : is it
+> > > > equal or not ? so any intermediate value that we would read would be
+> > > > ok
+> > >
+> > > Right, so without WRITE_ONCE() the compiler is allowed to write the word
+> > > in random order byte writes. When comparing only cares about equality,
+> > > any intermediate messed up state is not equal. And since we were
+> > > incrementing, we're not supposed to be equal to any previous snapshot.
+> > >
+> > > Therefore all is well.
+> > >
+> > > That said; we should either document the above reasoning, or just do
+> > > WRITE_ONCE() and get all the sanitizers off our back, because I'm
+> > > certain that KCSAN is going to complain about this.
+> >
+> > I agree that it needs at least a comment. I can use WRITE_ONCE but I
+> > remember seeing somethign about its cost. But does it worth having
+> > sanitizers complaining ... I will run some tests and use WRITE_ONCE if
+> > I don't see difference
+>
+> Mostly it doesn't actually cost anything. The thing with WRITE_ONCE() is
+> that the compiler cannot elide or merge the stores, it is forced to
+> actually emit the store. But here we need a store anyway.
+>
+> So the worst WRITE_ONCE() does it get in the way of compiler
+> optimizations, but I don't think any of them are relevant here.
 
---------------znQNYWv2cH6gyTbCeqXfd0fm
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMTIuMTEuMjYgMDc6MzQsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAxMS4xMS4yMDI2
-IDE3OjIwLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gU29tZSByZXdvcmsgb2YgdGhlIGJs
-a2JhY2sgc3RhdGljcyBkYXRhIGhhbmRsaW5nLg0KPj4NCj4+IEp1ZXJnZW4gR3Jvc3MgKDMp
-Og0KPj4gICAgeGVuLWJsa2JhY2s6IFJlbW92ZSBzdGF0aXN0aWNzIGxvZ2dpbmcgb24gY29u
-c29sZQ0KPj4gICAgeGVuLWJsa2JhY2s6IG1vdmUgc3RhdGlzdGljcyBkYXRhIGludG8gc3Vi
-LXN0cnVjdHVyZQ0KPj4gICAgeGVuLWJsa2JhY2s6IG1ha2Ugc3RhdGlzdGljcyBkYXRhIHBl
-cnNpc3RlbnQgYWNyb3NzIGRpc2Nvbm5lY3QvY29ubmVjdA0KPiBSZXZpZXdlZC1ieTogSmFu
-IEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPg0KDQpUaGFua3MuDQoNCj4gSW4gdGhlIGxh
-c3QgcGF0Y2ggYSBicmllZiBjb21tZW50IG9uIHRoZSBnbG9iYWwgc3RhdHMgaW5zdGFuY2Ug
-bWF5IGJlDQo+IHdvcnRoLCB0byBpbmRpY2F0ZSBpdCdzIGd1YXJkZWQgYnkgdGhlIHJpbmdz
-IGxvY2suDQo+IA0KPiBBbHNvLCBkbyBJIG1heWJlIGdldCBhIFJlcG9ydGVkLWJ5OiBvbiB0
-aGUgbGFzdCBwYXRjaD8NClllcyB0byBib3RoLiA6LSkNCg0KDQpKdWVyZ2VuDQo=
-
---------------znQNYWv2cH6gyTbCeqXfd0fm--
-
---------------XnKNkkfJknfgjGY9Ag00BvNt
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmr1ZGEFAwAAAAAACgkQsN6d1ii/Ey+j
-5Qf/VkOKnOQT0F4EOFuBzac7B3dirk00TyTViv89zfyTCzNWvQ1NhWRd612k2Xgs3lS/oMFgAlZt
-8xcOpUaNnM+ubudMuiHRsf94cKCdh2EubF04ANK9kn012eDseJjkCweKmxjVDDoPM/A1BVSwq5yQ
-aTE8k+xGcOzKNYrGHwaFiC1C/jsIcw4DN+CCV/vPDL0iIkhFP0qWbOE8d7kQ0czpFzwJBXAI6LBQ
-r/PKwaH/JwSwwW28ipAGIYNwTdlJWfsu18dP/C3j/A4UOiFGDFTWlFq31EaSvZkKmMSl+tQ2LHse
-EX30z7qV/A7ZAEiQet8JXCQ9qtLsznVIwO+Q8Zn1JQ==
-=hvYA
------END PGP SIGNATURE-----
-
---------------XnKNkkfJknfgjGY9Ag00BvNt--
+Ack
