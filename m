@@ -1,56 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794486021;
-	b=VVjZxjoMwl+p8Ybxfm8Miz1cfPMffDIVC2TPokKIxlsXsyFV5hNiRI1dOvPn6Q4BGuSS
-	 p6w3VQyrHzPwZkng32ihetGPLHqo+u1P5/JfODbVyNr+4ESZuEtH3+WdLxTzUJYvtoH3q
-	 WTY6C3U0E4wb8ef+Nj98h/HI/gc9mt7KBZm5XtLal7GrqMDVgvFy5J9luV687P0GE3hM+
-	 /o4BoRQgdsWSJ9jQtCloAbM+GFOUbvpLN1x1H01d6FTNb8/qqcTJ9VGkFXqUMN6qAdTDe
-	 +GqZz37JDRq44n4oq466W50EI0xnKQXDLz3gJXINXAOahvSmkrope6PowfchL1o2v9A==
+	t=1794486058;
+	b=UuAe9sxtZR7NIIDSMbUjvwPgFU0lSZ7tCFbdVbNhVYVyi7kK3b0YZSwikOJ2dGSe3hx5
+	 EBriIfb0GNtXBZVwsEXpg+zaKz1ITnXTap7yUXbZDBxu2z1oLq9igO5lKdCSx7LI6niUV
+	 Qjmg1othburL48iGQv0Ha+pKbdJuvt9eQ1sKp0mEGew3DSPWW4BMyZAR23ub5VnImmxw0
+	 7oUMsvEaInauzTEGfTcDgnNYnc0L8zvZkBacEq5PZDd94SkdopspLmotK6oXDGMStrPBi
+	 3EDhquYH76+ats+08J2muJK6HlzGVzDWprdxMcwKpuVyMAc0+G5OF3Oq1WfN1dnCscA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794486021;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VG4ibvh6nxXQ0qIYLiGl4aEGTtxF3L9vWHyMTCZCIEQ=;
-	b=aVn33lVaHf7fxmrkSOrBc7Gm/yIp/y9cyXMXhH9aUEChNoyCOlypTM3oOKrlBuiKCkHo
-	 Rx6zEL9qifoFqZZ9lceYaoWboP6vY9W/j47Z41Z4xIdsDjJFFkrEoPMi+caob6pegwFux
-	 k3EibwzMigSzVTeyrJ0y0z3yJDBLNGjaZMBpJDRezl6dGHyD3qtGn1fblmSmjAyhG2dgB
-	 ucWNfFnKwK4I9yNW3wcJPD6QKmDcfTxDZgMngXFSJkCMzDXKDQ/4IEsvO4zMwpDOMjuy8
-	 rHTJLHuZni+8QZK+td7vr87ehTOqf8WFuUn5QZ+PylmyHe0kRQv3jEplyBOFpLkRDcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794486058;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=6qULDUmO4UBM9C1l6Ed5iYgq4aFZP2+fuD2zoUz0J8o=;
+	b=JSg6eFmLvRmCYeDgm5gE0sO4ZdLR/Awf/RfxfW8ud8Nlqp6yz2DkErLizakXbRQZyrxx
+	 Euc1XZx6s/dhjewuS0EqLacb7awMVaoDnrpHT7g9dfEj7CIySyY6SrEF3K24EIM1Q8T9g
+	 V5uHRfQoR4JEVe+GQZn0u/ml88MMRUJ7roDvRaGK0JzlP5ELbLie2hcvNamCDdwq2QACc
+	 F8MqqjkNm6qF8gccgiJJOnE4y8hdNYa37nneaHAa9GTFsgqFdJN0P+TCpgrzJC5Cc3Ivn
+	 w3s4ST5BTjD5v5UHnL6RRISYiZBkp/2BallNep+s5KRzzS8oXAX1YeFcSOF1cvfD5ww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QNcnWw8J;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Iimse1XT;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15DA2606A333
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:20:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B530606A31C;
+	Thu, 12 Nov 2026 12:20:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B530606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QNcnWw8J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A33E41F00A05;
-	Thu, 12 Nov 2026 12:20:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794486020;
-	bh=VG4ibvh6nxXQ0qIYLiGl4aEGTtxF3L9vWHyMTCZCIEQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QNcnWw8JP2dYKGfFeDoCDIndoy7/rNnerrfu+gun40tmG2sSLwGEU9mhoYzr2U+EK
-	 RftKsXs3JlU4GPq1/eAxOPvBk1NS/9UfjZHnTb7MIXRimM9h9pIgq/hRXGghZdtcjH
-	 +QDW1OP1UUEk90b09h/4j/Nf4O/ASSbrbW57jBkytbxBLt05NF7DO9WaafuHQzGTLh
-	 9l9mt0hbLZJzZB6gWiPcjZm/EppxzIQESchHyRvRp74OuRu4w1foOR+dGrZIlAsfWF
-	 S3uDpySOkQ7sdmlFw+j/nz2Qmwp36uIBUphnPf/klYEnHg/U3oJuq/ec/3DixfpQSE
-	 BtUKnQcutr+3g==
-Date: Thu, 12 Nov 2026 20:00:06 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: hu.shengming@zte.com.cn
-Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	alex@ghiti.fr, akpm@linux-foundation.org,
-	baolin.wang@linux.alibaba.com, wangruikang@iscas.ac.cn,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	zhang.run@zte.com.cn, luo.haiyang@zte.com.cn
-Subject: Re: [PATCH] riscv: mm: Limit per-page TLB flushes for large PTE
- batches
-Message-ID: <avWqRtXhDwSDqlgs@xhacker>
-References: <20261112110525378dgDlKhA-G74_y3b6ZeZkz@zte.com.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Iimse1XT
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=6qULDUmO4UBM9C1l6Ed5iYgq4aFZP2+fuD2zoUz0J8o=; b=Iimse1XToPEzotyQ9ZSJJnyJuW
+	7N1d72j/yPmxF54swibO2hFX58qEyWuxxrsTtZiFecDdm2np3YN18ncbWtoXQJLhBxHmGAbkCBKfv
+	GbpAUC5MxVVCjXOuMjDmKI3sk7PqF7HAffwSV7zI/EDWXwF0e/AtGgowoscASfIykjI88zSSAbskh
+	rVE5yhxYIa+k//fQ+bEfxLN7/RcDNvCQ4aN4Sv0+eH8c0Qi7VZW1G3EW3p9IS9z4S4l1MUzAxsVpr
+	VnJJqZKVK0RnErDez8er6HPtShqmTdeRMTitHIYFAmE28id6Fiw2AEswxL74KF5MYneHh7mTqv6NL
+	I6AfmWag==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xRTnR-00Dxtm-2Z;
+	Thu, 12 Nov 2026 12:20:54 +0000
+Date: Thu, 12 Nov 2026 04:20:49 -0800
+From: Breno Leitao <leitao@debian.org>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org, surenkj@amazon.com, 
+	noodles@meta.com, kernel-team@meta.com
+Subject: Re: [PATCH 0/2] tpm: Stop retrying TPMs that have stopped working
+Message-ID: <avWtchlNNu6DWfKa@gmail.com>
+References: <20261111-tpm_unresponsive-v1-0-42ac1b965eb9@debian.org>
+ <avTsh6pCI-sRGAJp@kernel.org>
+ <avTvq4VaYbxMnZl9@kernel.org>
+ <avTwXhEGwVj71VmH@kernel.org>
+ <avUdBbvxxFgXkUJI@kernel.org>
+ <avUeC_szxkCe5GtG@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,72 +72,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261112110525378dgDlKhA-G74_y3b6ZeZkz@zte.com.cn>
+In-Reply-To: <avUeC_szxkCe5GtG@kernel.org>
+X-Debian-User: leitao
 
-On Thu, Nov 12, 2026 at 11:05:25AM +0800, hu.shengming@zte.com.cn wrote:
-> From: Shengming Hu <hu.shengming@zte.com.cn>
+On Thu, Nov 12, 2026 at 04:01:47AM +0200, Jarkko Sakkinen wrote:
+> On Thu, Nov 12, 2026 at 03:57:29AM +0200, Jarkko Sakkinen wrote:
+> > On Thu, Nov 12, 2026 at 12:46:57AM +0200, Jarkko Sakkinen wrote:
+> > > On Thu, Nov 12, 2026 at 12:43:59AM +0200, Jarkko Sakkinen wrote:
+> > > > $ tpm2sh return-code 256
+> > > > TPM_RC_INITIALIZE
+> > > > 
+> > > > I.e. TPM has not been properly initialized by TPM2_Startup().
+> > > > 
+> > > > I.e. TPM is also saying that it is *disabled*.
+> > > > 
+> > > > So acting on this proven fact  makes most sense to me.
+> > > 
+> > > 
+> > > Actually, should we even disable TPM if it returns this error code
+> > > already at the level of tpm_transmit(). It is a guaranteed dead-end
+> > > to any possible TPM operation.
+> > > 
+> > > I.e. while this fixes hwrng issue I think it might be addressing the
+> > > issue at a wrong level.
+> > 
+> > I leave room for figuring out 1/2 but for the second issue I would just
+> > do what the attached patch does and call it a day.
+> > 
+> > Br, Jarkko
 > 
-> On systems without Svvptc, update_mmu_cache_range() performs one local
-> TLB invalidation per PTE. With 4 KiB pages, installing a PTE-mapped
-> 1 MiB anonymous folio requires 256 SFENCE.VMA instructions, or 256
-> SINVAL.VMA instructions bracketed by SFENCE.W.INVAL and
-> SFENCE.INVAL.IR.
+> > From 093124e51a26de8191e21ce41988532ea7e0bc8a Mon Sep 17 00:00:00 2001
+> > From: Jarkko Sakkinen <jarkko@kernel.org>
+> > Date: Thu, 12 Nov 2026 03:55:00 +0200
+> > Subject: [PATCH] tpm: Disable TPM on TPM_RC_INITIALIZE
+> > 
+> > If the TPM has been spuriously disabled, the game is over. Let's reflect
+> > this truth with TPM_CHIP_FLAG_DISABLE.
+> > 
+> > Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+> > ---
+> >  drivers/char/tpm/tpm-interface.c | 5 +++++
+> >  drivers/char/tpm/tpm2-cmd.c      | 2 ++
+> >  2 files changed, 7 insertions(+)
+> > 
+> > diff --git a/drivers/char/tpm/tpm-interface.c b/drivers/char/tpm/tpm-interface.c
+> > index 470b2da3234e..1f1e22341155 100644
+> > --- a/drivers/char/tpm/tpm-interface.c
+> > +++ b/drivers/char/tpm/tpm-interface.c
+> > @@ -256,6 +256,11 @@ ssize_t tpm_transmit(struct tpm_chip *chip, u8 *buf, size_t bufsiz)
+> >  		if (rc == TPM2_RC_TESTING && cc == TPM2_CC_SELF_TEST)
+> >  			break;
+> >  
+> > +		if (rc == TPM_RC_INITIALIZE) {
+> > +			chip->flag |= TPM_CHIP_FLAG_DISABLE;
+> > +			break;
+> > +		}
+> > +
 > 
-> Apply the existing local TLB range-flush policy to PTE batch updates.
-> When nr exceeds tlb_flush_all_threshold, use local_flush_tlb_all_asid()
-> to replace per-page invalidations with a single ASID-wide SFENCE.VMA.
-> This orders the PTE writes before subsequent implicit page-table
-> accesses and invalidates translations for the entire batch. As with
-> range flushes, this may also evict unrelated translations for the same
-> ASID.
-> 
-> Benchmark results from will-it-scale's page_fault1_processes under
-> QEMU 9.1.93 (qemu-9.2.0-0.3.rc3.fc40), with svvptc=false and
-> CONFIG_TRANSPARENT_HUGEPAGE=y (higher is better):
+> Sorry, should be TPM2_RC_INITIALIZE. 
 
-Can you test on real hw rather than on qemu to get the performance numbers?
+Ack. Thanks for the suggestion, I will include it on my v2 then, but,
+while testing, I needed to change a few things:
 
-> 
-> Folio size      Before       After     Change
-> =============================================
-> 4 KiB           116537      113503      -2.6%
-> 512 KiB        1431962     1977519     +38.1%
-> 1 MiB          1528457     2208209     +44.5%
+1) The check needs to go before the RETRY/TESTING break, otherwise an
+   RC_INITIALIZE reply leaves the loop before reaching it.
 
-Since one page is the most case, if we really regressed about 2.6%, then I
-think we need to evaluate whether the gain deserves the pay.
+2) It needs to skip TPM2_Startup:
+          if (rc == TPM2_RC_INITIALIZE && cc != TPM2_CC_STARTUP) {
 
-> 
-> Signed-off-by: Shengming Hu <hu.shengming@zte.com.cn>
-> ---
->  arch/riscv/include/asm/pgtable.h | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pgtable.h
-> index 2ebd5fa5adc5..ebe42fcf35ae 100644
-> --- a/arch/riscv/include/asm/pgtable.h
-> +++ b/arch/riscv/include/asm/pgtable.h
-> @@ -571,6 +571,11 @@ static inline void update_mmu_cache_range(struct vm_fault *vmf,
->  	if (riscv_has_extension_unlikely(RISCV_ISA_EXT_SVVPTC))
->  		return;
-> 
-> +	if (nr > tlb_flush_all_threshold) {
+A TPM that is already started answers TPM2_Startup with
+TPM_RC_INITIALIZE as well, so without the cc check a redundant
+TPM2_Startup disables a healthy TPM. I hit it with swtpm's vTPM proxy,
+which sends its own TPM2_Startup right after the one from
+tpm2_auto_startup().
 
-unlikely(...)
+Let me respin a v2 with these changes I have been testing, and we can
+continue on that thread.
 
-> +		local_flush_tlb_all_asid(asid);
-> +		return;
-> +	}
-> +
->  	if (riscv_has_extension_unlikely(RISCV_ISA_EXT_SVINVAL)) {
->  		local_sfence_w_inval();
->  		while (nr--)
-> -- 
-> 2.25.1
-> 
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+Thanks for the review and suggestion,
+--breno
