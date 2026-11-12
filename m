@@ -1,65 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794521528;
-	b=Cw7ovdr3lzIIA+Knfyk1mo5f0bpsMn9ajodoBzeN84YTc513ZJUATzj0LWLuEtWgcScR
-	 U7XK6NFe7XkGAyxCZGF2kGj8xximsXGwwK4CIk2VvM9M9v22d2gNJDP/hVAaxGP9L26Tr
-	 eVOfDxauX/eGqkPOuVrXe4qlOHDlaDfbNhvMNAD760+isgBaHpW/sJhkJNfEBOCwd3CnL
-	 +Owv4CZaE/cetSdKkbwRtqfXSyhFqDKsCaIOpQzxfrhsKTBk4dKCQyIlY1U8lH7QVu+lN
-	 Cfz1TdPR5lv7rz26kpx4EwcmnbBq80xU9SNfLAhdBFizndiGzdjCgo0Gysn1yiSBnhg==
+	t=1794521592;
+	b=DBpTNjxUySXP56RKseVXYyhsLzx/AnNrUDnB1lKq4HgMD0NaqOmJzFADGg1qkpd+pILb
+	 4oCIjI0JcGr+vkBqn6QRwAG2/NeWyWjbzLTtU+SK1/If9hSiNTo7HVDr5mrncJzCP4x42
+	 szLthN3YImvEAigyYB4T8pxlR4Of2oNvGwJuSkSmYxkAXDvgHdXTJSBfXvb/hfSws5Z+K
+	 fQG9670dsEnwl6+fRRdqrylzxnI560GkNhtECGOdNlAf4JKRokgMkm1KUtNBplEMEqoOZ
+	 G9fVPL9SFbUhlaOsb69Vp8cA6oY30Ursy7/xXQEPlNK1awCKfJSPE0CX4FhbDFMi6Xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794521528;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=t00do0jJ4W8smIEqCmR7k5PqPqH32OiueXWr4IKc+gM=;
-	b=fSstx5mazd7qUBEG4/Dnjocd6N8NoKynyuwu+pINwbPfCAARmR+iewXbVaZYLNEDZwUj
-	 L29unkBiHrA4GSE6iuvjjLdtOQEEnUcZbum+r6XtBienNiKk9aiBsjKJi742sJ0FTdnJf
-	 Q8N1yVGvdnW+F7jie6bbGUqBTU5I+PYEBV4OJTNl90E9SS7xkiMMDzHnjjO6KGp9K9g9U
-	 LugfF6bgOKwGt++qD0rxyj2Y95R52A5SaE85Hv/9T8XZA3N0vF8h0cpCEQRrMGAGY3RhR
-	 aHrpVYDPfJeo+4bmjjRv/BOT9RxMEIVAqHdDCFqPZehdpGOtZrVkVhFUYQMOEV1He0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794521592;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=kTdo+kO/ZFnoi8WBOH10hGoTbRODmVYIrrHV4RIL5fA=;
+	b=xWL1hOARfBva0ZqHxhyh6oOU/T+3anc2vLmO5V+pFgoo6Puj9YfAQxY+nDeyapLeLTMj
+	 IbFnqCuzUN03yql/GK9ExHz6Wi3IcrI4m0ymSKB7J73ghcPkiCpxege43O3RZbqZiex0K
+	 /JlRhp0lI8JyT5/O7oqB1hADMJ060uXrqN0pR0HZjpiHbMQQEaAn+V2BOlBagu2ZAoyIs
+	 dsMAsq2FYJcPxmpNtFOsxDvkilWsuzUxs6TWmnf8+b1fuSk5c4VZW1UlMZuu8QPL8lh7x
+	 0DsHAPAL7pPi7yIKFEtooZG04brkqlHC5Lm2S+r1w1I1e4/QcIC5BZeVAF2dUrIJf4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E1VyRmI9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=iaYl8CJG;
+	arc=none smtp.remote-ip=95.215.58.216
+Received: from mta1.migadu.com (out-216.mta1.migadu.com [95.215.58.216])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B203E606A31C;
-	Thu, 12 Nov 2026 22:12:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E942E606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:13:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E942E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E1VyRmI9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5703C1F000C4;
-	Thu, 12 Nov 2026 22:12:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794521528;
-	bh=t00do0jJ4W8smIEqCmR7k5PqPqH32OiueXWr4IKc+gM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E1VyRmI9g3+1qY+epWD1f/m8KECBHUQoraDUIqR+VX7TkrsF2SWRcl6nrzXAmSasV
-	 rbgFqWvawRLppzkucb3dVShvlzaJgiLIHeln44L5VMqyA7WXgVeM1ytSOCd2uCGV3E
-	 Ck3Svl+rrInl5R6NrV0csjswggbb2yw+WhLafBaqvijrl3h+fP5g7YINzU+X2Cg+Ez
-	 aff/XMllIi0O6ndZEQ/AF57yAnd5xucSbWkepSATPzZoR0MskG2dDvc2/3x2EMQ3As
-	 eyjZ7CeiD0IzZLxQ0f2LdAl5GrVT2uaID74KtGXfz1SJ6OtD2lX2cHrbVgV3LfCvMU
-	 cJZJvQzH6Vr6g==
-Date: Thu, 12 Nov 2026 16:12:05 -0600
-From: Rob Herring <robh@kernel.org>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: Saravana Kannan <saravanak@kernel.org>,
-	Frank Rowand <frowand.list@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Grant Likely <grant.likely@secretlab.ca>,
-	Grant Likely <grant.likely@linaro.org>,
-	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
-	David Daney <david.daney@cavium.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 0/6] of: teach overlay code to keep /aliases in sync
-Message-ID: <20261112221205.GA1425386-robh@kernel.org>
-References: <20261014-nh-of-alias-overlay-v8-0-0f74f05ac762@nexthop.ai>
- <20261105124030.GA1449284-robh@kernel.org>
- <DMNRHQBO1JLB.3IO0N8NYJML4G@nexthop.ai>
- <20261106132432.GA2551143-robh@kernel.org>
- <DMOE1TFEAB6G.EC2KYRBTZR9@nexthop.ai>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=iaYl8CJG
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=SBKlid3rP+qCHPEj+Z0hRqE3CyPPTMKLsXSlj3BJE+c=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794521590; v=1; x=1795126390;
+ b=iaYl8CJGgnyl+5hL1pofzDwkBpk0CDE8yh15YaEbJw4NLc5S2i5xWHovQGaTnX6ARYyJcqGL
+ 5ub1HZYjIwxeE2g5m1V5jSKFBeUk2gZGg3YTdwLADNruTbBWmI3oY4JB3+ywis2IH8k2jHe6DCf
+ byWolOUof+FhzolNqXwmoxVQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 140af9af48ba9318;
+	Thu, 12 Nov 2026 22:13:08 +0000
+X-Mizu-Trace-ID: 140af9af48ba9318
+X-Migadu-Flow: FLOW_OUT
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Dave Chinner <david@fromorbit.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Meta kernel team <kernel-team@meta.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Chris Mason <mason@kernel.org>
+Subject: [PATCH] mm: list_lru: don't use a new memcg's lists for an offline memcg
+Date: Thu, 12 Nov 2026 14:12:48 -0800
+Message-ID: <20261112221248.3512447-1-shakeel.butt@linux.dev>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,58 +72,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DMOE1TFEAB6G.EC2KYRBTZR9@nexthop.ai>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 06, 2026 at 11:51:52AM -0800, Abdurrahman Hussain wrote:
-> On Fri, Nov 06, 2026 at 07:24:32AM -0600, Rob Herring wrote:
-> > What I would like is aliases are not supported in overlays (applied
-> > after boot).
-> >
-> > Don't we already have consistent naming on hotpluggable devices such as
-> > network adapters? All that is solved in userspace. Why do we need DT to
-> > solve this here?
-> 
-> Netdevs can be renamed, and that is why userspace can solve it for them.
+A memcg's list_lru lists are found by its kmemcg_id, which is its
+private ID. Offlining a memcg moves its lists to the parent and frees
+the ID right away, with no RCU grace period. The next new memcg can get
+the same ID and allocate its own lists at that index.
 
-I don't think that was always true, so if it can be added for network 
-devices, it can be added for anything. But netdev is a bit special...
+A caller that holds only the RCU read lock, such as
+__folio_unqueue_deferred_split(), can still hold the offline memcg. If
+it is preempted until the ID is reused, it then locks the new memcg's
+list and unlinks a folio that now sits on the parent's list, without
+holding the parent's lock. A concurrent change to the parent's list can
+then leave a pointer to a freed folio on it.
 
-> i2c adapters can't be renamed.
+Users see list corruption reports, crashes or silent memory corruption
+when memory cgroups are removed and created while THPs are freed, on
+kernels with preemptible RCU, which is the default on x86 and arm64.
+They can also see a warning from memcg_reparent_list_lru_one() when the
+new memcg is removed, because the wrong unlink made its count negative.
 
-I didn't say rename. /dev/input/ has unstable indices *and* stable 
-paths. IIRC, udev creates all the stable symlinks. Disks have links by 
-uuid and label.
+Fix it by recording the owning memcg in each list_lru_memcg, and by
+treating the index as empty when its lists belong to another memcg. The
+lookup then moves up to the parent, whose list holds the folio.
 
-> I'm also not sure "after boot" is a clear boundary. 
+Fixes: 28e98022b31e ("mm/list_lru: simplify reparenting and initial allocation")
+Reported-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+---
+ include/linux/list_lru.h |  2 ++
+ mm/list_lru.c            | 18 +++++++++++-------
+ 2 files changed, 13 insertions(+), 7 deletions(-)
 
-I mean bootloader applied before Linux is entered.
+diff --git a/include/linux/list_lru.h b/include/linux/list_lru.h
+index a450fffe1550..6ef5bc539606 100644
+--- a/include/linux/list_lru.h
++++ b/include/linux/list_lru.h
+@@ -38,6 +38,8 @@ struct list_lru_one {
+ 
+ struct list_lru_memcg {
+ 	struct rcu_head		rcu;
++	/* owning memcg, only compared and never dereferenced */
++	const void		*memcg;
+ 	/* array of per cgroup per node lists, indexed by node id */
+ 	struct list_lru_one	node[];
+ };
+diff --git a/mm/list_lru.c b/mm/list_lru.c
+index ca8de3793166..560190d5b348 100644
+--- a/mm/list_lru.c
++++ b/mm/list_lru.c
+@@ -72,12 +72,15 @@ static int lru_shrinker_id(struct list_lru *lru)
+ }
+ 
+ static inline struct list_lru_one *
+-list_lru_from_memcg_idx(struct list_lru *lru, int nid, int idx)
++list_lru_from_memcg(struct list_lru *lru, int nid, struct mem_cgroup *memcg)
+ {
++	int idx = memcg_kmem_id(memcg);
++
+ 	if (list_lru_memcg_aware(lru) && idx >= 0) {
+ 		struct list_lru_memcg *mlru = xa_load(&lru->xa, idx);
+ 
+-		return mlru ? &mlru->node[nid] : NULL;
++		/* Lists at a reused index belong to another memcg. */
++		return mlru && mlru->memcg == memcg ? &mlru->node[nid] : NULL;
+ 	}
+ 	return &lru->node[nid].lru;
+ }
+@@ -91,7 +94,7 @@ lock_list_lru_of_memcg(struct list_lru *lru, int nid,
+ 
+ 	rcu_read_lock();
+ again:
+-	l = list_lru_from_memcg_idx(lru, nid, memcg_kmem_id(*memcg));
++	l = list_lru_from_memcg(lru, nid, *memcg);
+ 	if (likely(l)) {
+ 		lock_list_lru(l, irq, irq_flags);
+ 		if (likely(READ_ONCE(l->nr_items) != LONG_MIN)) {
+@@ -132,7 +135,7 @@ static inline bool list_lru_memcg_aware(struct list_lru *lru)
+ }
+ 
+ static inline struct list_lru_one *
+-list_lru_from_memcg_idx(struct list_lru *lru, int nid, int idx)
++list_lru_from_memcg(struct list_lru *lru, int nid, struct mem_cgroup *memcg)
+ {
+ 	return &lru->node[nid].lru;
+ }
+@@ -313,7 +316,7 @@ unsigned long list_lru_count_one(struct list_lru *lru,
+ 	long count;
+ 
+ 	rcu_read_lock();
+-	l = list_lru_from_memcg_idx(lru, nid, memcg_kmem_id(memcg));
++	l = list_lru_from_memcg(lru, nid, memcg);
+ 	count = l ? READ_ONCE(l->nr_items) : 0;
+ 	rcu_read_unlock();
+ 
+@@ -502,11 +505,10 @@ static void memcg_reparent_list_lru_one(struct list_lru *lru, int nid,
+ 					struct list_lru_one *src,
+ 					struct mem_cgroup *dst_memcg)
+ {
+-	int dst_idx = dst_memcg->kmemcg_id;
+ 	struct list_lru_one *dst;
+ 
+ 	spin_lock_irq(&src->lock);
+-	dst = list_lru_from_memcg_idx(lru, nid, dst_idx);
++	dst = list_lru_from_memcg(lru, nid, dst_memcg);
+ 	spin_lock_nested(&dst->lock, SINGLE_DEPTH_NESTING);
+ 
+ 	list_splice_init(&src->list, &dst->list);
+@@ -602,6 +604,8 @@ static int __memcg_list_lru_alloc(struct mem_cgroup *memcg,
+ 			if (!mlru)
+ 				return -ENOMEM;
+ 		}
++		/* Set before the lists are published, and never changed after. */
++		mlru->memcg = pos;
+ 		xas_set(&xas, pos->kmemcg_id);
+ 		do {
+ 			xas_lock_irqsave(&xas, flags);
+-- 
+2.53.0-Meta
 
-> Overlays applied by
-> drivers such as lan966x_pci, or for an FPGA on an x86 host, are applied
-> during probe. They describe fixed, soldered-down hardware in the same
-> way a base DT would. The same /aliases node gives stable numbering when
-> it is in the base DT and is silently ignored when it comes from an
-> overlay, even though it is written to the live tree and visible in
-> /proc/device-tree.
-
-How aliases interact with an ACPI system is another aspect I have yet to 
-consider...
-
-> If an alias is a request, as you said, then honoring it when possible
-> and falling back with a warning when it isn't can't break a working
-> system. Today such a request is simply never honored. That was the
-> regression you were worried about, and the fallback covers it.
-
-Right, but there is no fallback for some cases. Having that is the only 
-way this could work.
-
-> If you still don't want overlays to set aliases, is there another way
-> you'd accept to get stable bus numbers for hardware described by an
-> overlay? I'm happy to rework the series in a different direction.
-
-Stable bus numbers is a solution to your problem. What's the problem you 
-are trying to solve?
-
-Rob
