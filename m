@@ -1,99 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794504757;
-	b=uQRZPz3G7SxV735GYKUy/SBZ4DN2twegR8zdBxNwxUKj7KYeFscnRvb3iJLm1eE/X254
-	 U5d5H0ANBlCl4MBCxu3pvhToD/g79o+QP98c52mXz3CGaZ2SbbkNfjr0XROqCndPrEqBM
-	 l7UQCr8mshzbqFlYz2iOteVR9Oebt0cOnSh7ZFHYJaVbemBtcJOVPh7IpXuxPP1vuwHgR
-	 kLpaVl1Bf4LbC9DKiLFJqAQI7f6c0oLToWE3zPoY6Px5fxip7VmpizkY+gl9ywmoIX4t+
-	 9HmBdQK+b+MulYw8uc5viPk3wvQHLPfsENtC8yW9qrKFa9P5E2CcyPUKGRCgq7HiXMQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504757;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794504768;
+	b=RaWoMhb9qcy46x7J0aJC0IePAO2jTjCEaPW1Ilhk3ZKWLlg00uUlDpV8Di9PN/QuCGrs
+	 p6D7kTsdcQzhRK2jA1NBBcuCtldDVBCmNZJFMRy39NLiXaTsQnu5X5aIMv2+bR4t437wV
+	 mOvyPbb5WJsTWKwoMaGqA+fJdO9lXwwFQ//xE91tCorXrUJab6nBk3OMp5rTTbAAE0epg
+	 iQFsAHllkFT/0IiDQOIGZdAkBy3g05nEPkZVfddOacRAucZr6hucIBYITlVEsvlM1Vbkk
+	 fBLT8RZxLguUXc3Nk0OTkHKC8OAI2yi4MCa9AgJDsy/EN1Q7zUzfGsQQ2SJkNvs4nOw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794504768;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=uvlpRV6PcTM08/lEakwe3Mf9uWtn57n5IAUH/fdgelQ=;
-	b=Z6uRcEz/qEc2Of3imh0WzUQm4GAe+2e01cJvfO84zezsChNWhwFrbF81NKP2XiJqGkJl
-	 lsV+Gvi90bB+EcWhyl88qxl3OmrdWi36OEGAvkkuA1RuIXVtBbC+Xtohn0bAh9i25FeY+
-	 OHFY94TV3MBrfvW9q92EldVY/Hiv2ktvpwaJvR7e3O+SBizMIABSnmKw6N+A90sPUQmOG
-	 rx2yCqjudL+FUgzoaudJyap08qbm3qTj/FWuy7vZ3e8kQ0zWsvjJRXpVMAoh5g4rDfkzP
-	 ARVaFOsqR2TZCqSA7GIMjeajzptcHzWAYPxtTNQXLclTy3rSUsnyMbVsIEa/WpjP6SA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=2P7y66CJkgPkQFRhmo0DMWA/bXlScTLG8J7BrBYV+lk=;
+	b=qrh3FyLeWs2LbHUxpnC3CYSKbcZ+5I/BTrGwMiG5Fd0bPDRwM0zKlD49lWOp8SCD5ZdC
+	 7FOFN2pHCGT7l0ojFJkfy88CgaF/+s3k57S2nckvbtewDbQ+OA6Doac9gKoFvJaeLJM5g
+	 jaFEP1RwxjU2QuM/Drsn6mlaMiXTC01UX0tlQndlDDAqmTzPYwbymvF7u1a4V4mPa5vY/
+	 B3HFUap+3qoaEBWACs1Bhd/eLE9lEIfStfgXtVL6O4jDq6lqhgr6Jo9A/pM0ogbdZmOhM
+	 V5BZ1rFVf3KAhXi9+o1HIRJBmRMKNXghKA0a5wLgKuiX3ckk9s1PnOpo3evBr6KTObg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cPYgXY+E;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.171
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=URrmeF5c;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFFF8606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:32:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFFF8606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76911606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:32:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76911606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cPYgXY+E
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3adf222704dso1908001fa.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:32:36 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794504755; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cFsqqKn2ItDYsfo5a0lrDWhOZtyG0ExHmMueBX6be1TCz8325bbswNYIG+WoEiPfHH
-         5Ntidqp78nYdkfESVdhWuYLLOTWbYGYr33JvVWw75XfRHpPmVR5EUKH24TvR2TgrK3LY
-         Y+D4iud/Wm0sHHE+VnsmoP4qOfq1C6gAP8qQv+TFrZJL6VsZiDxNNxhGJmEhFlc5W2RF
-         u+F4imZfOjLgPTkUXkNNi0qelmQpQVQKi0iSWtEiSsKQQyO2D9ngUIFVLllYmfOpx/tG
-         ZouG6FfssByTavrolVdTvynn0xQeZCHZ5Cp1HExyn0wFc092X8Y2On3NDzg8NDcK05AN
-         tyLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=uvlpRV6PcTM08/lEakwe3Mf9uWtn57n5IAUH/fdgelQ=;
-        fh=t3msxd4bEwjXEEpMUk+VABZZLm9LOLPPV4gxFrSm+w4=;
-        b=pgmYINq3tQdK7toKDBdYV5jN5nlV//vyX3hAEoGNTwRpDVNA1L8dj762VxIue+qqBQ
-         h6R0xZrHlLaiNYau2Z8GUszMYrXWbRa8O1QFqysGplyrSMphFnPUNNxln652/pbXspGt
-         aqsj5OAYydIq/XacHgehG19LyTIOiCiSlJ1Ia7cgp2Gn8P8E2WMSDWLh3cTouCEuYryj
-         +/cLIRDE76Qev8gPlR7gxzDPlKDP90zZ/JpanpKhEM1UWX/AEyW+W5I6DaJyOVGQHB5/
-         cA8EcmIEdRxRS8uVUHwQ0/L8NZSms1Wj1Qsq8rGMl6BZhOaMUputDIgg453AvxoFXPjt
-         jpuA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=URrmeF5c
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-170135e43c7so3366603c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:32:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794504755; x=1795109555; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uvlpRV6PcTM08/lEakwe3Mf9uWtn57n5IAUH/fdgelQ=;
-        b=cPYgXY+E7vomXUXiemWyiQitJ8jT6w2ZLe7bOXWEzdEWJS94K5FgEdC+j00BRJeUuk
-         C36z8XglLt3Bhpy9JGLe1SD8KgMGBjK7qulURDLvHYBM+pt7dwbpkAQZWyYaz7aCk3+d
-         FE29rmRQyOJJOLGci7tIyAWGAambKQJhElA9pyZ2JmYPlZ6/oKXEgkNHihpt/dSxFhfw
-         V28x/gsoDAXdfjbCAF+Bby5x3K4v9sgtU54H5jb1BMGYQCD5lDt88fqHRs7UE69ZZR6s
-         +12A9ZV/AA9AlZ6vG9CVlI2E862CXkHOHhGtDbakt+WpxKFh3T9mto/7COtk1K23IhWD
-         tlCw==
+        d=gmail.com; s=20260707; t=1794504767; x=1795109567; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2P7y66CJkgPkQFRhmo0DMWA/bXlScTLG8J7BrBYV+lk=;
+        b=URrmeF5c0SbsojMvZyjAMSTqt88/Qys43b6EJjLmH5dEEx2zb+zcRfU97xxR6rxy4S
+         ORKgajaVa/Q8loV8yZnGJ92Mly42tP4X13cnbGxzgTMf4P5EOKtNSn4aHrlV4nXIowB6
+         XRBpg9ehKPLzjnbSXumcW30h7Ow78enYGXc+jY+Npu8EbhMUuoDYN00I1rJWdny41sjl
+         n4TKSMhdO9kWOO7bRAqJ/KVYMLY8CguyGwmGVQ4U9kx9cyCXMTSnlrM4ICYUkyH2Y6CZ
+         aKqyT8DmJlJ1lipVuZYMFS0aTKN+AVGpXwU8ysYOibKQFCKa8AS9P9auLK65OFWuIT/M
+         2V0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794504755; x=1795109555;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=uvlpRV6PcTM08/lEakwe3Mf9uWtn57n5IAUH/fdgelQ=;
-        b=VxrIv/+Nflk+QI4mRURl0QvxxZx4NAhAv+m3+2mdQVYrkHQGo3pgf4FOKTukMw/dOa
-         AIMqxipNRowM9xNjCYu3QG+FAj4A9if6A+e2NSfx9roPZKv3NgbAaTHK/yAU5Ig3f/A8
-         z6Qof1a03C+GAJnxO0cUssmr0/8/O06/YR/aSf7/Nnp1VLy7CtzTmhZCtDNnS2TQb4Uz
-         ddVgu6u3J1G06EWQ6KqUuULoG8mDKA+yrYIYBgE350uEV5JSm/SJWluGBl6+FLX4UKY7
-         O+Qwzf29R+llEpF9JFtWBGChf583NfO/wKJk/fZItDTODRujH0IKHLzEwktQaTPHk607
-         IJqQ==
-X-Forwarded-Encrypted: i=1; AL+hErE2DX1f3FRhrmtHPQTDlNFggc9EsUviXkMkE58fHtSHquK9G3z5Zyy6QPkpLEcHih9qQc4+hhS4ORfyCwU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mUBgukjKzzSIuTAdPAhQpr6Z1VYm3cwd3k8yydu375swClhzu
-	p8FAhxj4enGWIeoJCQMeHEhznrMVAdCOZtS8baC4tlijL5RgABGFr1Pe3Q18p2Xbj5YLHN4fgSU
-	eSi5otwM/2lwFQivI/Kb2QuWfsIJc558=
-X-Gm-Gg: AYBFou3AvgJ7yjJODPhwuIe+IZ2FRJcfjrQwh1l8aH8k8y5VC022BT+u7laXnz93IA0
-	wmE+1kjgvdttErQK/t1kzH3Fqoj67b3CDgrCL2iGRSshntHXKkkvZw9T/CYjHC4nH1BBwe9dvpV
-	pc9kxS9yQ/AONNBDVKnHupalvvOHUMuMwZcnEIFhZJ6x0kt1jtbI3jPv5epq+SJ0mwygsYZu7nm
-	HyRm8YwWsqTu3LlTO4g57JNuVvJhmeUMnjjkRr90kc+khPjx1r1Ckl5ZH00xK7UJvSjBswkWFJA
-	w/XdvYokrm0LQuSuC27curX0rhglsxc/WN0y3DV90VvZx7KLPQm5iowbB3uSbSAjL0GQZeykaRx
-	RvdgME5BYRrZbz0uqsK41m6R5v5DnWr3Na+asncfyJblT9/qOUE0TG8PmwNb7stE5QWX9H7Q=
-X-Received: by 2002:a05:6512:1288:b0:5c1:5703:46ed with SMTP id
- 2adb3069b0e04-5c170a00a41mr22428e87.6.1794504754625; Thu, 12 Nov 2026
- 09:32:34 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794504767; x=1795109567;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2P7y66CJkgPkQFRhmo0DMWA/bXlScTLG8J7BrBYV+lk=;
+        b=ZLgVjpEqBd+Z2CjjgjNV2PIhoaJXB7lTmEQsCSP94uV4hR7CuC3DfQdxN+jrKTM4MQ
+         W7i/DhT/wtHy8z6eOOiMHOq4z0o6/6HX31pSOtg1w51Sc61SafITjeBDLEYqbNC3fXe1
+         7OBqPaBaLLLu3IiugV558YCugn542sm4MPFyPBYqUwMV/WgvatOX+y6s8X9l1Z3qMH2T
+         zZLV0cS2XsV3Oqbp0uyKLe6TRwHcY4Z5YkVvNhDO3/gQRiP7dGUoamfUygyUsXaeAmvB
+         d1E9iVFjQRUXlmo5qhW8xYVG7+zEW58XtSp0exp7Hv24l+bzLuFhXQ8up6OpsdObOsaT
+         gLPA==
+X-Forwarded-Encrypted: i=1; AL+hErGRG4WMtgIsbrmm6s+PtHmXV+ehay2O+zMiAgZV2KL5pcXlpn+VJMF/9uTrvuEMJyk4SxgG+PmwOqaBiv0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8PBEjQ/xJDtYQDH1XvBFuaJs5xZNNfGZunvXtKhYYfyTr5YOB1
+	TpB6qx3ZzXZ1CmJpxLl3EujYayFWeI2rhljdP/BtSStVL5CxJToeZD05
+X-Gm-Gg: AYBFou1B7ejY+SMcxFZxs8b3YWdIpLzP8Q8hvQ486G4tXfMNqhGFOXjWjWUw1iicYRa
+	D9+/Owig6DCvhMcdMT9dwYmbu2309ewRsk8CGjptC6Hrk1Wx3MQiov7np3kB2cBsopTeMR/ihri
+	bcJ43uXoD28aUO0N2FsGUjoo3RAeGQvzieyk7d/Auru6LBTVjd+N0+JBBbsLlgHKmJIOVQPHOx+
+	tc3frdPLRJ9pY055k0JFCQcOkeUuN64i5spbLdZw8wf0TZHqutjVk0ZctM+HhSHi3SwWWiez1r+
+	jXNSSi/ZOpd+iFcsO6kifU63Aq00vEwmT0xv3W0KXWRkXYEokU73+bAo9elPuWGsOOca2bneCJV
+	zidl4ETHBhD46SXtdbF7vwBPfRZGngSHeak6/humE+4on7bo+xJhnl7O+uEVyHfsbuFYhkQYbBx
+	KYU0aC8+/t+2A1K/+fRcSo6SyMdUBa0Hbjusy5iRmolSoC1uHKQNhaHjSUh2NawpGjMBgSawtJy
+	cLqzWxvesJVS+0aQ9B6cvm9/eh8dcW0mib+iWYGBcsPNrnKsEboiy640FsBoQf1vxJvxZEfE+HL
+	AsAFbUFQGvQ9Bj0hsppGNwmn6zWRcN8R+xYCZzrOiw==
+X-Received: by 2002:a05:701b:4248:10b0:1b3:b455:93db with SMTP id a92af1059eb24-1b503131b06mr213096c88.24.1794504767334;
+        Thu, 12 Nov 2026 09:32:47 -0800 (PST)
+Received: from a1-free ([161.33.196.121])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50316e008sm379345c88.6.2026.11.12.09.32.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 09:32:44 -0800 (PST)
+From: TAKANO Mitsuhiro <takano32@gmail.com>
+To: linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>
+Cc: Ian Rogers <irogers@google.com>,
+	James Clark <james.clark@linaro.org>,
+	John Garry <john.garry@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	TAKANO Mitsuhiro <takano32@gmail.com>
+Subject: [PATCH v8 0/1] perf jevents: Check the keys of the JSON tables
+Date: Thu, 12 Nov 2026 17:32:40 +0000
+Message-ID: <20261112173241.197996-1-takano32@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261112162823.139419-1-takano32@gmail.com>
+References: <20261112162823.139419-1-takano32@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,59 +102,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112-iommu-probe-race-v1-1-8c0b986b7e6e@gmail.com>
-In-Reply-To: <20261112-iommu-probe-race-v1-1-8c0b986b7e6e@gmail.com>
-From: Arun Iyengar <aiyengar1990@gmail.com>
-Date: Thu, 12 Nov 2026 09:32:23 -0800
-X-Gm-Features: AclHuK9Z7jBSZWw9Fn8TnUnk2iUH3q-Sin-aeWc7hO6RSzhS2Undt4qpZ9_1474
-Message-ID: <CAEy9hNXRwH9qD-=Gj3NiY=ZVrVq02hAj0dPU+o8YfEmCcbSdNg@mail.gmail.com>
-Subject: Re: [PATCH] iommu: Don't let a driver bind while bus_iommu_probe()
- still probes its device
-To: aiyengar1990@gmail.com
-Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	"Rob Herring (Arm)" <robh@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Tudor Ambarus <tudor.ambarus@linaro.org>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Please don't apply v1, and it should not go to stable. On re-reading
-I found three problems:
+v8 of the check.  Two things the review found are fixed, and one is left
+alone on purpose.
 
-1. "A fwspec without a group means a probe is in progress" does not
-   hold on ACPI. On the driver bind path acpi_iommu_configure_id()
-   creates a fwspec, and nothing there probes the device or frees the
-   fwspec. So a device whose IOMMU probe failed earlier would get
-   -EPROBE_DEFER from iommu_device_use_default_domain() on every bind
-   attempt, where today it binds without the IOMMU. OF does not have
-   this, because of_iommu_configure() either probes or frees.
+  - --check takes the directory to check as its own argument, so it no
+    longer needs the arch and model the generator takes.  The test calls
+    "jevents.py --check <dir>" and nothing else.
+  - the test takes the interpreter from PYTHON (python3 by default) and
+    exits 2 when it is not there, the same way it does when the generator
+    is not installed.
 
-2. Drivers with driver_managed_dma never call
-   iommu_device_use_default_domain(), so the window stays open for
-   them (e.g. pcieport with a modular IOMMU driver), and the changed
-   WARN condition can then hide it.
+The check itself is unchanged: walk, set difference against the list of 51
+keys, print the file that carries the bad key, exit 1.  On today's tree it
+reports 19 keys in four tables:
 
-3. Replaying dma_configure for a device whose driver is inside probe()
-   is wider than I described. It applies to every such device on the
-   bus that has no group yet, including a client that went ahead
-   without its IOMMU after the deferred probe timeout; that client
-   would get its group and default domain while its driver is probing,
-   without a warning.
+  arch/arm64/ampere/ampereonex/mmu.json    PublicDescrition   16 objects
+  arch/x86/amdzen4/cache.json              BriefDescript6ion   1 object
+  arch/x86/amdzen5/load-store.json         BriefDescript6ion   1 object
+  arch/x86/amdzen6/load-store.json         BriefDescript6ion   1 object
 
-The race itself is as in the commit message: the client's dma_configure
-sees the dev->iommu or fwspec of a concurrent bus_iommu_probe() replay
-while iommu_probe_device_lock is dropped.
+The third point was that the test checks a temporary table and never the
+tables in the tree, so a misspelling could come back unnoticed.  That is
+right, and it cannot be added yet: the tree still carries the two
+misspellings above, and a test that fails as soon as it lands is not one
+anyone wants.  Once the patches that fix them are in, the test can run
+against the tree as well - I would rather add that as a second step than
+bake a list of known-bad files into the test now.
 
-For v2 I intend to mark the in-progress probe explicitly in dev->iommu,
-have of_iommu_configure() and acpi_iommu_configure_id() defer any caller
-other than the replay while the mark is set, and leave the replay
-condition and iommu_device_use_default_domain() alone. The other
-ordering in the commit message (the client sets dev->driver before the
-replay check) would then still warn, although nothing is wrong there
-besides the warning; I would look at that separately. If you would
-rather see this solved another way, please say so.
+Changes since v7:
 
-Tudor: you are on Cc because this is the same "!dev->iommu" gate on the
-readiness check as in your thread
-<20260323-iommu-ready-check-v1-1-5f6fef8f9f59@linaro.org>, for a
-different case (one IOMMU, concurrent bind).
+  - --check takes the directory itself; arch and model are not needed
+  - the test uses PYTHON and exits 2 when the interpreter is missing
+
+TAKANO Mitsuhiro (1):
+  perf jevents: Check the keys of the JSON tables
+
+ tools/perf/pmu-events/jevents.py        | 41 +++++++++++++++++++++++++
+ tools/perf/tests/shell/jevents_check.sh | 29 +++++++++++++++++
+ 2 files changed, 70 insertions(+)
+ create mode 100755 tools/perf/tests/shell/jevents_check.sh
+
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-- 
+2.53.0
+
