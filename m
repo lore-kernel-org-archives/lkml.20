@@ -1,79 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794490771;
-	b=UfjH7fQ9/pev6eBGaG450Sn9W2DCw0Zu6P2FVFv5eDAtYOs9T2s5ExnIjX4FawdsWvol
-	 BVuOw8H1tqgWo4huD7KkHoMlcOpu9zm59utDmWbvSXMSLiQdKAyaMAv9RPwvVNOKzFqer
-	 cqEhQGy+8JBYBhQTrjQ8o5gYRlZfKgCw6lCdy7NAVmzdU0Z5adwAYJqQ91HA2/e6SmA6I
-	 j88RplwpoBa7FV523y2BZMtsVDw0cZ1jI1+uwmPirIofdMNdGHynENdmMbCFWk08d7chc
-	 yBbVx9ya3Z348qEIaV4qsguwDCDxnlEGFohWXPXVb7lsRR2fnyLVuFT5BLgiDtUAVZQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794490771;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NjeXHJ0/wwse89OwYMk3lb2/lokGK5EV8MiE+1eixis=;
-	b=fvyJHiHULacaOg+CQ9fhirfqHXewQ9ebVuTD8OJ8rgOsco7iQAtqR+qRz2xI25GBrT+Y
-	 8w9+pYjqZa/BnQpZIqTEBnHRvte8cgJ+NmIrkIXqHCJiR7uWhZzccDk0Q5Un6mzg7JKMV
-	 57dGZHoNXlX7E4C6H4kN/cqFDeKGh9LZLKCFvuxVdEbJVpXWPpuQ4sXOrMssreH8rNKzK
-	 eP8hH+5/29JzZuSrInW3GyRFBEbzWiJmMd8mvhh4ONOtGb6BX1IYQkrK1TzC93QTCmJ9v
-	 WsMCm6mG/usii6fTOnP7rKEqLLVh83vhfL/UtDnhrENQNor0691+9gds4npponD9Zog==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qcw3W9V2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CEE6606A327;
-	Thu, 12 Nov 2026 13:39:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qcw3W9V2
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794490770;
-	b=iiOgwpkfqZax2XMydxG3uWruSkw2uKl3ez1jyXYHG2OJORVuaUmRg2wBrUm2itsPLtHh
-	 pkwJnsHRyuuTHa53udQHLP6guRJLOUO2Jc8jhzPDIWl+y0uAkLv2bRCNUk//mEY424Irw
-	 gFUkauLW/GUS1aC1yQftpsdNvDH5P7SyoaNOTrbEKLclI/nigbE37t9pc9bBem58DiAw/
-	 dLTdvyI0m7e8p19JA35iLLqYiLaV085IrtFT6zyRWPPbivNb1IYWxwp5E0ZL6Xkk3wcan
-	 PnQjbILKGnOhttRflqLVuK37TJho068CJ/pW5nC5p46IzMQl5KuKL1OJpD9O9sBnNYA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794490770;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NjeXHJ0/wwse89OwYMk3lb2/lokGK5EV8MiE+1eixis=;
-	b=MkJ6VI+LnEEHIta/E517E1xVgQs61Cq2q71hOkGuV5OC9o68qp+XPsXnik3mgoxrUwkg
-	 Oy03lHVjQEkrDv2aE2mEL+Ie+ubZ9SjUfnlNoAaa50qgcFmFP8Cyijj40OzpU9/GXB7xZ
-	 wB6BSevK7jZVnEmfNokp8Yvw/vHT/yYTBfehU7eYidaZ1dl9wUHHmYidYmyf70DekTxLn
-	 EsIE/G092fhlDqv2cpt/7W6KBH4XVwOdnHn/jyd7iek3UaTL4EoqqGRUK4jLqjMiQnVNC
-	 GjX3o3bzuPTiLN+09Ot6ATSju4ElrbI3miJYaBWXH/pyoPNYhOII9wVXDu2RX7P3rNw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794490796;
+	b=kIXgjGFBrEQ6WYIE6h2Rp4u/IAac29X25uKlU4LW4MvCl7Xqa62yXZO3oxogzsT5F9Go
+	 hG2cjREENrk9derLgIjW7QgWbuT1N3Dc4vnswrm8amQcxrvPLeEh3a6+rj3CUaiCZsWQH
+	 URxQKaSbJz8JNtSp80QVHJKfW0MYF2stLLrUdKEjHKeLFxaY0TW6IeopYwKIDCfufFC5L
+	 rqE/g5DK4D/auX+iYt8JBp9WS3u5e00AUuD1qQEJNazMKoYzrBSTg+6GD5K2GQ9i0FFft
+	 GMmKYylPj1jT2RAH8z94O7u+hRBIjsoW6GOOc64mc/jTyi4tsL7uWKKr/xnQB2RRN8Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794490796;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=seWLHQeXZyZ8tmRvofieMn9RmSQ51of6+PAgiTZQrds=;
+	b=brZkNUmXxPi0xxxzMCr3lN+zqmjnqgE2wwqC7g6duiPnmxPSZZptgMrKPme/S1hJpHzI
+	 rFaS0M7Z5ShFGrNXZKnWGrcmzs97P1OpLgTQuKNBlSEUOC67JmcR4oA0c4O2QRQmwcT+z
+	 OGEQhRQsmvzbkNXSdv4Lb3Q07clhizE1GJ8n9m9ycNcwju74Jsn++fZ0ZiyDyqAzqPV4a
+	 uv4sHzS5rmglwtlrvBZWLIS15fc79yStcUikht7iUXJwTN8HNCaiypukw+Pfs1yXh0N6s
+	 7hsECc/FLkBnH7CHsbB3aFFwC+lohl4owppfrCQBTcDIP4nLjaHCcpoOMFzZPTs/Z8g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=flipper.net;
+	spf=pass smtp.mailfrom=flipper.net;
+	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=BJRYcCaz;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1D8B61F00A10;
-	Thu, 12 Nov 2026 13:39:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794490770;
-	bh=NjeXHJ0/wwse89OwYMk3lb2/lokGK5EV8MiE+1eixis=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Qcw3W9V21KKKg3qNLdBbWhlwTevkk7pzutkukAPmnO+kWd+begFIiQ1zKRN72Vsmg
-	 zliDLNTfQxaNNQx9jCqWlQMifgRdYq7zxD0jQ7ptiZ85p5p4+xRwOpS4NJgETcaXc2
-	 SEFCl2Ml1ezmVcUMIieKYlsQufzzkX7bZUUyLahrNCv1eldkX3StneN/YI48gbSzx5
-	 DfRIiX4QJAj4xhhTrGlGIooxX6Hv/rjLUQ0Gv/Fsy0Z7GN10wWOioEsn6VQW0uzM2r
-	 hLEAE8orBpjI0+qXbgBi7B7cI4qcNbXmZcUlImQIl2+FqarpR8yCxM0f4VvQ6E4Sv4
-	 6LCJUVt7lR/7A==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 98AC24951A;
-	Thu, 12 Nov 2026 13:39:29 +0000 (UTC)
-From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 13:39:30 +0000
-Subject: [PATCH net v3 2/2] nfc: st21nfca: prevent double completion of SE
- APDU request
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E898E606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:39:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E898E606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=BJRYcCaz
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so32404145e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:39:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1794490794; x=1795095594; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=seWLHQeXZyZ8tmRvofieMn9RmSQ51of6+PAgiTZQrds=;
+        b=BJRYcCazv7TcWMeW5VaDg5GiMEt2ICDbqfTH5xn2VjEDibc6O/rn8lTxMgAoC2W1AT
+         h5R50DLodlK1gFxfIHNcnJ04ZsvhhiLiDr27bjALZqteuvqLyn1x6jchmigUqPAHD6pw
+         ITsLuzHNhejyIZ4GwuczyXOhRA7j92W25HiUcYZWNtynDSDSGVqAqaQcbkyHR8FhGXBI
+         kxpapwY4PWlhS8vKFlR9HzI1Nqd5FRNkaJYoj5fzL1HbfOLCugSaM9jvVtb7lajP+x+b
+         41x40WEsKIJHmOnXHgKhdWU9Rxsc4R6zD1yhjEWfHL409PyslfIb0eyqpYDkwYFLcP0k
+         CzIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794490794; x=1795095594;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=seWLHQeXZyZ8tmRvofieMn9RmSQ51of6+PAgiTZQrds=;
+        b=Cqdv0zFnKMAjhhEcvIa2dHG0MaZuimJv/ErDKfMxbnm8AbOyNK3Rh/8olt0DRSr8oj
+         PNJ5pPKUgD6yCfDfxeA5BJWRQGARQPiWe8ilpBN0nNmNukpPApF153TiRLrwR1aZrG9t
+         qRZcxyr7aKpikTI9UQxcCdw6YFwUTtrkWGIDf4qeZJcuAxEujYvavWr/J3eyMappyyuD
+         4XvA81gthPmZDiN/WQALegefWTj3xiwlc6Bn/8FMct/WgOtH5qeZb5i1UIwgcWEuzweJ
+         ijbPV9z2jYPZlf9NdzNYn6uEpTTCdiwcWOJ9ejbfny2Tzmy7b9W/DLkS/qmjPjXkScHK
+         MKhQ==
+X-Forwarded-Encrypted: i=1; AL+hErHwBX9QTs3OJ0Ts0Btx8Kmxjt87Hki1TCLSlvKW3iSyJ5RhIEMyD3djJaY0dzCy9wa2LmYb4ysAG6cDsH8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9s0om4tzqpqH23XyI5g5T7cc5jJRaP21xSqoQg61mDivr71lLN
+	wL4Id0rExbeOkHDztqpsQaIAiyKMb4/FC/3l0DGEk2I55syo+AzhvZZVyeuwJNDViCQ=
+X-Gm-Gg: AYBFou3zmP9A1ZxpsF4ZLVVH0vhkoLX0L9vMQnJcO55XFT2SSpXuqFcyaOei3sqy1Pq
+	gkNGYEBFIBfPazGWmK4S2OUfwgLdYNapf7LcgolmroxUo7O9CJZw+MifLvyjGI7JG8CEyyERsXt
+	u6efR7OZzpSP/RqkSQwt0rG2YHG58fTZ7BlC+6JefjM2Rw0Cq758pbpoRMSHnJ6kOuDoeSH544x
+	W8hBo5L31E+KeThCJShxQPrt5EuzfZIDWYd4s1PoqSP5g1kstPJTwQQaw5eO7PqMSreG3l03uzN
+	ngNjN90pZ0+xYiyhMCVyakHpe+ioJ4rg4QuSMK2sZAHw0pXGlasAjJg3BHvakw1lLbcZ91vhgqE
+	iiAoxkOF8Sy7YqAxO9eUv8Sg3odapUVH4/Z7kPy9YxFMNYyWFguWFX6t2X3bc4z5fGf/hj2gPNZ
+	/NRNC9RtntV85ZG1Hqs5KI8CgjRObCjFmMybO4wcGbHdSbNBINYihWVW/MGYWwMcmG/ShaaUkHs
+	d9yBdOKMaOjmzRYmzmHaEekDDPlC53GLeH5UmncomocpnHysRHJh6tkNehn64QzqKutz3fZRGO8
+	P/TFl5rBQhrjftkjLYM3+xm2eiEGL1PqO0MAOyoq0S98B8ozKmJv3AUbmDk8akyBVCaqVq9mZns
+	VFJLWv4RaJg==
+X-Received: by 2002:a05:600c:350b:b0:4a1:dda8:eb73 with SMTP id 5b1f17b1804b1-4ba09381815mr103259415e9.27.1794490794383;
+        Thu, 12 Nov 2026 05:39:54 -0800 (PST)
+Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498366c30b1sm16920643f8f.46.2026.11.12.05.39.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 05:39:54 -0800 (PST)
+From: Alexey Charkov <alchark@flipper.net>
+Date: Thu, 12 Nov 2026 17:39:33 +0400
+Subject: [PATCH] wifi: mt76: mt7921u: Don't reset the USB device on probe
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,112 +93,82 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-st21nfca-v2-v3-2-c81702269e01@gmail.com>
-References: <20261112-st21nfca-v2-v3-0-c81702269e01@gmail.com>
-In-Reply-To: <20261112-st21nfca-v2-v3-0-c81702269e01@gmail.com>
-To: david@ixit.cz, krzk@kernel.org, joasantonio108@gmail.com
-Cc: oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, horms@kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794490768; l=3240;
- i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=vqHaopVgmvBm60zL9N9NShO0nqLNUceOzRe4TpLFHXE=;
- b=aOASxBBDF+J49IECQQPB6r/37593fsh0gpF67cWJQhtGpM6W4vvqwtg8wq87QCpiYLbNpLlNg
- 5cascdw5MWQA70BDjszptYvxSBe6BEZ3ItpftG8pYyChuSp1Um1mz1t
-X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
- pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
-X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
- auth_id=1371
-X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Reply-To: joasantonio108@gmail.com
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-mt7921u-bt-reset-v1-1-65587a4d7b81@flipper.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMAyA4VchPdPElkyHr0I4uFG0JoBZhzEhv
+ LtTjt/h/zcwSSoG12qDJG81XeYCqiuIj9t8F9ShGPjEZyJinPKlZVoxZExikrFp2PuR2+idg5K
+ 9koz6+S+7/rCt4Skx/z6w719iTb5JdAAAAA==
+X-Change-ID: 20261112-mt7921u-bt-reset-33288f29c855
+To: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>, 
+ Ryder Lee <ryder.lee@mediatek.com>, Shayne Chen <shayne.chen@mediatek.com>, 
+ Sean Wang <sean.wang@mediatek.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Alexey Charkov <alchark@flipper.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2245; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=bL8RpPYoSxUEiC5G0bR5mu2gXixb1LSpx/iep6yWC+k=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWR9Pbhgrt6mzODDqpa1AcI8vMX9clPd5p0T8ZCc7n2x7
+ eh0vXj7joksDGJcDJZiiixzvy2xnWrEN2uXh8dXmDmsTCBDpEUaGICAhYEvNzGv1EjHSM9U21DP
+ 0EjHWMeIgYtTAKY6VpSR4YpHVJWeiTaD1rrw3dzTQ2qnHJB+bV301oJh4tMCzoQiYYa/ApGuEpd
+ lBdsN7G/ov652P2JZ3fTkZdhDPtOXO4wTPjgyAAA=
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+MT7921AUN modules are composite USB devices: btusb drives Bluetooth on
+interfaces 0-2 and mt7921u drives Wi-Fi on interface 3. Resetting the
+whole device from the Wi-Fi probe unbinds btusb, which has no
+pre_reset/post_reset handlers, and since interfaces probe in order, btusb
+is usually still downloading its firmware when that happens. The unbind
+disables the Bluetooth interrupt endpoint under the running setup, so
+HCI_Reset times out waiting for its event, and the Wi-Fi probe stalls for
+about 5s until the Bluetooth power-on work gives up:
 
-Use the spinlock added in the previous commit to prevent completing an
-SE APDU request more than once.  Without this, the timeout work handler
-(st21nfca_se_wt_work) and the EVT_TRANSMIT_DATA event handler can both
-invoke the callback for the same request.  The callback frees its
-context, so the second call is a use-after-free followed by a double
-free.
+  Bluetooth: hci0: urb 00000000c4b7b871 failed to resubmit (2)
+  Bluetooth: hci0: Opcode 0x0c03 failed: -110
 
-Check bwi_active under the lock in both completion paths and only
-complete a request that is still pending.  A response that arrives
-after the timeout still gets its EVT_SE_END_OF_APDU_TRANSFER, as
-before, but no callback.
+Drop the reset. The USB core resets the port in hub_port_init() before
+addressing any newly connected device, using the same hub_port_reset()
+that usb_reset_device() ends up in, so the probe-time call repeats a
+reset that has just happened. A rebind without re-enumeration resets the
+Wi-Fi subsystem through mt792xu_wfsys_reset() on both disconnect and
+probe.
 
-Also reject a new SE APDU request in st21nfca_hci_se_io() with -EBUSY
-while one is in progress, instead of overwriting the callback and
-context of the pending request.  The callback is not called in that
-case, so free the context like the -ENODEV path does; nfc_se_io() does
-not free it once the driver has been called.
-
-Found by LLM-assisted manual code review.
-
-Fixes: 2130fb97fecf ("NFC: st21nfca: Adding support for secure element")
-Cc: Simon Horman <horms@kernel.org>
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Fixes: 0d2afe09fad5 ("mt76: mt7921: add mt7921u driver")
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
- drivers/nfc/st21nfca/se.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
+ drivers/net/wireless/mediatek/mt76/mt7921/usb.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/nfc/st21nfca/se.c b/drivers/nfc/st21nfca/se.c
-index 03a30f797ff8..63a88a61d310 100644
---- a/drivers/nfc/st21nfca/se.c
-+++ b/drivers/nfc/st21nfca/se.c
-@@ -228,6 +228,12 @@ int st21nfca_hci_se_io(struct nfc_hci_dev *hdev, u32 se_idx,
- 	switch (se_idx) {
- 	case ST21NFCA_ESE_HOST_ID:
- 		spin_lock(&info->se_info.se_lock);
-+		if (info->se_info.bwi_active) {
-+			spin_unlock(&info->se_info.se_lock);
-+			/* The callback is not called, see the comment below */
-+			kfree(cb_context);
-+			return -EBUSY;
-+		}
- 		info->se_info.cb = cb;
- 		info->se_info.cb_context = cb_context;
- 		info->se_info.bwi_active = true;
-@@ -269,6 +275,10 @@ static void st21nfca_se_wt_work(struct work_struct *work)
- 						se_info.timeout_work);
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7921/usb.c b/drivers/net/wireless/mediatek/mt76/mt7921/usb.c
+index 2fdecf239125..90b9bdf15e9a 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7921/usb.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7921/usb.c
+@@ -181,7 +181,6 @@ static int mt7921u_probe(struct usb_interface *usb_intf,
+ 		.write_copy = mt792xu_copy,
+ 		.type = MT76_BUS_USB,
+ 	};
+-	struct usb_device *udev = interface_to_usbdev(usb_intf);
+ 	struct ieee80211_ops *ops;
+ 	struct ieee80211_hw *hw;
+ 	struct mt792x_dev *dev;
+@@ -205,8 +204,6 @@ static int mt7921u_probe(struct usb_interface *usb_intf,
+ 	atomic_set(&dev->mt76.bus_hung, false);
+ 	mt792xu_reset_work_init(dev);
  
- 	spin_lock(&info->se_info.se_lock);
-+	if (!info->se_info.bwi_active) {
-+		spin_unlock(&info->se_info.se_lock);
-+		return;
-+	}
- 	info->se_info.bwi_active = false;
- 	cb = info->se_info.cb;
- 	cb_context = info->se_info.cb_context;
-@@ -383,6 +393,7 @@ int st21nfca_apdu_reader_event_received(struct nfc_hci_dev *hdev,
- 					u8 event, struct sk_buff *skb)
- {
- 	int r = 0;
-+	bool active;
- 	se_io_cb_t cb;
- 	void *cb_context;
- 	struct st21nfca_hci_info *info = nfc_hci_get_clientdata(hdev);
-@@ -395,6 +406,7 @@ int st21nfca_apdu_reader_event_received(struct nfc_hci_dev *hdev,
- 		cancel_work_sync(&info->se_info.timeout_work);
+-	usb_reset_device(udev);
+-
+ 	usb_set_intfdata(usb_intf, dev);
  
- 		spin_lock(&info->se_info.se_lock);
-+		active = info->se_info.bwi_active;
- 		info->se_info.bwi_active = false;
- 		cb = info->se_info.cb;
- 		cb_context = info->se_info.cb_context;
-@@ -405,7 +417,9 @@ int st21nfca_apdu_reader_event_received(struct nfc_hci_dev *hdev,
- 		if (r < 0)
- 			goto exit;
- 
--		cb(cb_context, skb->data, skb->len, 0);
-+		/* The request may have been completed by the timeout already */
-+		if (active)
-+			cb(cb_context, skb->data, skb->len, 0);
- 		break;
- 	case ST21NFCA_EVT_WTX_REQUEST:
- 		mod_timer(&info->se_info.bwi_timer, jiffies +
+ 	ret = __mt76u_init(mdev, usb_intf, &bus_ops);
 
--- 
-2.43.0
+---
+base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
+change-id: 20261112-mt7921u-bt-reset-33288f29c855
 
+Best regards,
+--  
+Alexey Charkov <alchark@flipper.net>
 
