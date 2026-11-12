@@ -1,97 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794451057;
-	b=vZcCJnCHC4OJYbaSBWvDGR4EMRaKKXoffMGkTfpvgHSkG+yw6WX/fZ8UVo+HRxRapVK8
-	 rLvMCK94URe4Bkhl+wfm8g74cmT29xUEc9zxPEFDo72x/S+fJwiep6G5XAF8Htz9Q7ENw
-	 wF86qre/btzoQapfoGK4A/M5Lw2V656sKOfHFiTM3JReTIMFNBVv4nv3S/AaGgKOvdki1
-	 qtxRCDrXcEv05BJheFwbyXT3qxUTTdE1udB+Bn72jKqfoZGXdJpzx0NnMAka4xS9EJWuG
-	 ZGcjWET4oiELjKirH9vCyMuctoz8yfaw4GBFwtqi15NKmjAfOKm7NvfhCurF6jaLwpQ==
+	t=1794451059;
+	b=YkJU+txb+newKpqsoTUmpR5sDwaBRO+QHDMqq7H//gfFL5U7zL0sfF4+yKk7dQZLEaj1
+	 4hDTDunjFEcV3TSQO4F5CY8JBmznAHF08yGL6NDXh9hbdJoSgLU1zIH+wXwa7Cc9Xd6p+
+	 hxSyAOnwpRIKZqKGGUgidYWg7YbVpWoPs3E0Achdjf6aRFH1ZElPttRlv4GMcSWlYo+9M
+	 J2DTg95pN7AtlNlSVupU5k9gGFgSGG0xzXHZvp+r1w//AR6a28gLpkUX9m9Iy4aNWipvK
+	 EU6B3dtJ/K7n8iOF+V7fZRL4vSBsEoQ4paiCrBs+VBNVuJBsbMX7Z7A8j9foJIhS/pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794451057;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=c9xgNWOsmEBMJb5AmiaBWGNZYkreLzhpNHe1txX3rSk=;
-	b=hKh98nEdv0OaBeHXjalojWXr26XqV4n0o+umsVpw3CRjTSPlatIf4MtIgofDxR0dzMte
-	 r1FA1+JQN/3acgMkVAHy04jzGb+Ls0zJpletEizDYEmhHX13qVxOTrGA6CvVz/gTi1JFK
-	 VvftlPlL2ZYOHcvAR6xv8SA2sYZWy+/M16IVoaqIP+K4Vy41enzwmhXURm2cgVJEXPr/y
-	 lcmMMeDHLZQtab897zfID3dOhVQQFdE7nyTvdfk8/uSUixIUSNGWCG72SOClPCK1SZsbp
-	 oD3WHOgcR3KRlT8t7OevJnRErv5fzn4mwnvtHp26jgokkmbhEadE5/24vSkuAYnpKUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794451059;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=fMa1F596zZeCN4DtEvr02egD3NFnabU1nIZffJ3y2Fs=;
+	b=cW6N6QW960dVsQtZtWQFJVaOLmST9haEu25awyajqfA8aL/DY3sgigi7qDYQKlL+MOyh
+	 SX95pqk7R1eM1PK3hC3QPTBd25nwt/TIIDD2lz2GtWmwpDZRdqP4X8GbBJGLG6jruDtU1
+	 rqUJ2Xf4k3qO2/8uwr3lKEQg09EbF9VDJ87IzrTnDPPnjND2h3Rjx45fTIT1Hiiiq0qCZ
+	 llKbVMacMjjnVc1zN5ut45Z63VIku0xTgyGBxbM1611W5Gb+HbDY6mGM06HciBziwv+pg
+	 HkGkM7Dz7wb/5ZmlKHq6xQgMMYSacDG67acJ45EMMNkKD76QYZSVhqC2pZcMfCx50RQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l4JV7fhZ;
-	arc=none smtp.remote-ip=209.85.160.54
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=IfLpwo4i;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4174D606A880
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:37:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4174D606A880
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 098F3606A88A;
+	Thu, 12 Nov 2026 02:37:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 098F3606A88A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l4JV7fhZ
-Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-475920b9ca2so1271606fac.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 18:37:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794451056; x=1795055856; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c9xgNWOsmEBMJb5AmiaBWGNZYkreLzhpNHe1txX3rSk=;
-        b=l4JV7fhZd3EzCLYf9koPOJx6IibW41InTvQxeGYdhmCKU0GgA3Rfa2BRDMIQ/mmkSD
-         Kqxj5i102jUaS1b/fBp3H9kEYFYolKiR55AUVJGNU9KR19gNwz9nXecntFwR/19gSdd1
-         A9gUeNcdGg+dlGnsEPz74LKuVBh6vpVfeNoCXuymQlN1vNb7txqujn3B5Hrxj7fmzpFQ
-         fdqi7LvEQuZGGkQKwb+44VBcpHCtGdhwBGDkXlHlCAabM09TXuM37yQ3jL68q+W/SJe6
-         p49kgi0cbkFSJPcAYxzi5HNNt3eQX8lADOg5LZgkOFOhiLX+jvz8SMfEha54P9s5kWRv
-         NRFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794451056; x=1795055856;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c9xgNWOsmEBMJb5AmiaBWGNZYkreLzhpNHe1txX3rSk=;
-        b=Tn1/YUEZRsz27XrCnvxyYgfod34xzgMBSsZxqZPLlSqUlyrMpNqTUt3enqGkHokDxC
-         /zv84m0+qQR876uZWTc4QwJVgBeL/1ToknkXrj4hmmURbdgaZOPmZ1WXSp4vb+mkJ5uD
-         0A3dNjQkbb1TPfWVk8RAtSlX/vTh5IAoysEdk7se87RCiqqfiohkTd6Epg/7PAUTbZEa
-         O+YPxcB8fofdO6LCc+X2cnvHuJsrr0jTo3Qa32QiNMhR+tmNJaFHhwob87cfG/lbsTK3
-         HDrdpUcwknml8Nw2tQwknWYuwxCUUKlfyq1PUUpCt5Iy4YpYxcOEP2kytZ2CV+Ncafcx
-         8uzg==
-X-Forwarded-Encrypted: i=1; AL+hErFLZ8MLDZl49hEEbba0dEDIoaTfOu/yxL/6DH11a2HhA9n/CNXVrPKjl4I1C7jcrxdj96qb/G51QfN0rUQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/U+uMVQCP+7TCa42BVP6vxt0VNWjYGY8MHbKUAV/0vLcnndsvZ
-	xtRKxvPy6yTKsAZKJ48LUG72IPVYm8DTRLOh/Ib72YCsKe5zHrp35C7zEEIDIA==
-X-Gm-Gg: AYBFou2B8uIrjUZCZUxIDQBh3CI/Fd+U629DGsXBXz7Zx53doVEWC7rG+9Vn/3xqR1O
-	4zl9n8mq/6bUi9ljUfW3ZQKUK7KoXazgwc9UAqUCV3YgKzZVhh+9rUKA22gVsKnmzvONVmyB0aW
-	wUz8lgJ9kES+dlq/1vn0qNMBbKUpS/u5IM5kwLE2eHAcRAcn3XeCBBZ78c9rUPVzagum4jy1d+V
-	ylev5NIQVr5ralMP/Aap//dLxX9AaAKT7Fc1G8DePPuipqQdxb117JH/HoXfBT8ylIxGCcw8MTT
-	VjH+665PsJAxXtC6j4qkJo84U+oY5FKnOz2UKPT9Nt83E49dwq9y5kXnJnZy3sZeUiU8x/HI9nO
-	kRRI6xiwU2OYhxecaYnD/ECEw9RmOy6+6+PcSIUssR88wBKvKAQWhwLnKfIovThqPuMRlNlWpUE
-	92QiJK18gg6cXHLtx02IWhRSuGBp1WMJlAZdAZZVznBnKLWCKrNWnbSESBnIIFHnud7nQxDknVL
-	7T0cIE4wWqtmgEblEBi6y3gv8VdZkbqXUNc7kxy2Z5D9LCsje/HRCKL9HRqW3zPuzfqeuY0+6Eq
-	0XE630IG+l+FY+zkMbIpY8WJIn+9cxpITMbT+uoNSdscpQ==
-X-Received: by 2002:a05:6870:d608:b0:4a7:443a:e6cd with SMTP id 586e51a60fabf-4ae4685074amr3726728fac.6.1794451056147;
-        Wed, 11 Nov 2026 18:37:36 -0800 (PST)
-Received: from localhost.localdomain ([2600:1702:4ff0:baa0:5054:ff:fe3d:4ddb])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ae22f6a1c7sm4327310fac.6.2026.11.11.18.37.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 18:37:34 -0800 (PST)
-From: Will Porter <mrwillporter@gmail.com>
-To: Christian Ruppert <arc@gmx.li>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Neil Andrews <neil@androos.io>
-Subject: [RFC PATCH 2/6] ALSA: mixer_audient: Use the cache of usb_mixer_elem_info
-Date: Wed, 11 Nov 2026 20:37:16 -0600
-Message-ID: <20261112023720.1503814-3-mrwillporter@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261112023720.1503814-1-mrwillporter@gmail.com>
-References: <avOFQAGTVkCXgs2l@khmer.arcnet>
- <20261112023720.1503814-1-mrwillporter@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=IfLpwo4i
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794451057;
+	bh=lUDmKjtljGQw127/vFvt2r0JrBvNqetevLUcJso/6hs=;
+	h=From:Date:Subject:To:Cc:From;
+	b=IfLpwo4ivjWYLXGC3jzRWCcE78/65qO9rAG9w2IqBclGvj561Li5P0T0X1Fe73pwr
+	 eHRN86E43Mbapmo60lpHTwp3OU9E2oYDz9MwrAzQDW1T8jYQLMYMkRnXV+VyUjn/6U
+	 TlP2Y0MhBzksj4hfFOmnJARMAphqzb7FJmNpS/oVDc0eq+SyhV05ZkG2j8/UfFX8Ig
+	 /9pFNGAa6IkNUgUWl1Vo5FsEs1NaIKCalA8TIWwHkc/OD9gXxd6wREY8UuOktIovh2
+	 BTRDg62qO6mWijKFFI5/ToRvnmfMQA+IFbGTtORKqZG52iepVSO6IiSv04dl6k+2EC
+	 i4P6uH51iQTFw==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 08D6417E0240;
+	Thu, 12 Nov 2026 03:37:37 +0100 (CET)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id B87D948002C; Thu, 12 Nov 2026 03:37:36 +0100 (CET)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Thu, 12 Nov 2026 03:36:40 +0100
+Subject: [PATCH] clk: rockchip: rk3576: create proper platform device
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,306 +65,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-rk3576-clk-platform-device-v1-1-2f3ac9f09403@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CQAxA4auQrm1CS4DoVYiLYeho5TcdICaEu
+ zvq8lu8d0AUU4lwyw4w2TXqPCXQJQP/dNNDULtk4JwrImK0vijrCv3Q4zK4Ncw2YpdCL0jsAud
+ lfW05QBosJkHfv3lz/ztu7Uv8+j3CeX4AnojzKn4AAAA=
+X-Change-ID: 20261112-rk3576-clk-platform-device-12af20579b2f
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Heiko Stuebner <heiko@sntech.de>, 
+ Elaine Zhang <zhangqing@rock-chips.com>, Liang Chen <cl@rock-chips.com>, 
+ YouMin Chen <cym@rock-chips.com>, Finley Xiao <finley.xiao@rock-chips.com>
+Cc: linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, Dragan Simic <dsimic@manjaro.org>, 
+ Detlev Casanova <detlev.casanova@collabora.com>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4298;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=lUDmKjtljGQw127/vFvt2r0JrBvNqetevLUcJso/6hs=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr1JnDFs9N+ORoHA/zkD4paMpzY9YFK/0oca
+ aypg7XvG9a81IkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9SZwAAoJENju1/PI
+ O/qapGgP/3JYeHHE33FqJeXoA82rbh5VSH7oTa/FIq4xjf4mwBhcFMDYgd735i22DjNDHjct9BD
+ RakcG3HSMNLVymfiAPEGtWFP9IgXDwwNJo4EU1ixpKzXyVLKn1jaL/ylpkhxsHzU+vjUCZTlhah
+ 2j7LgwQ4U/yg0NK6RVTIT+YAUYx9fNxVDj+SfAdBFJaB/BjDRClh8Y1oKOVj3ju0RMRlVLd9+kY
+ eWGR3c3QpMKk08SjtHSu881mncwflJm+eIM8IHzqiEN8UG48U6elwtoU+an/h4r/q7gdf36KNTi
+ Hl2wJaD84fGquOkiIpVgh3eM45/gEZhIrpIl0SZ1bL2M7n8yDAxqsA3s1+dKFJr21xiLw5ZeUwc
+ /pnscgSnLLQfMkWTgqcjP1ogxve7ylFCi+eU/GK0gmhSW7ub3oDcJpyhaEfllCO9kT0qKakNbdU
+ PLWK5/dge5IigT4jhCboWewhJY7FAdSeuDNJPoxOeJgzXbFJwf/+39WVs9royCGivZ14g/5Z6zr
+ jEz+walFZ/Dl9IEDYQ7qwHO0pqSRVxbIgMaGMB1mEVhMRLzVGeDUCAfHgxzQ/d8T6fewtKIRm8x
+ 1wMlx2vg1s/FsyQ2HvYfJIB93vc3LdL4LZ21dH960hFbxuI4kA6cJ2J/rcRgl9nPIEjsZParQk8
+ QBl1/jS73SbMNciNYXfUoZg==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-A cached control keeps its values in an array that is allocated after
-the element and reached through elem->private_data. Every struct
-usb_mixer_elem_info already has fields for this: the cached bitmap and
-the cache_val[] array.
+When RK3576 clock controller support was upstreamed, it copied the
+vendor kernel's logic. That code makes no sense as it contains a
+bunch of unused code (clk_rk3576_probe is never called as the DT
+node is already initialized; if it would be called, the clock tree
+would be registered twice).
 
-Use bit i of elem->cached and elem->cache_val[i] for element channel i.
-The bit means what the valid flag meant: a transfer confirmed the
-value. A successful read or write records the value and sets its bit.
-A failed transfer leaves the cached value and the bit unchanged. Remove
-the cache struct, its accessor and the extra allocation.
+Let's switch the driver to use the same style as RK3588: Continue to
+initialize the clock tree early via rk3576_clk_init executed by
+CLK_OF_DECLARE_DRIVER before the device model is initialized, but
+don't mark the DT node as processed.
 
-The generic cache holds MAX_CHANNELS values, so refuse a control with
-more hardware channels. No control in the tables has more than two.
+Later the device driver is probed for the DT node and registers the
+resets as well as the restart handler. It also officially becomes
+responsible for the DT node, which fixes all device link messages for
+power-domains with a clock phandle:
 
-The generic notify paths clear the cache of an element unless
-get_cur_broken is set. A write-only control cannot read its value back
-after that, so set get_cur_broken for the cached FORCE_SET controls.
-The notify paths do not reach these elements today, because the
-elements do not set their unit id.
+Failed to create device link (0x180) with supplier soc for <device node>
 
-No functional change for the controls in the tables.
+Note that the supplier is 'soc' here, because there is no device for
+the clock-controller before this change.
 
-Assisted-by: Claude:claude-fable-5-2
-Assisted-by: Claude:claude-sonnet-5-5
-Signed-off-by: Will Porter <mrwillporter@gmail.com>
+Ideally at some point we move the clock tree registration to the
+device driver and get rid of the early init completely, but the
+upstream kernel is not yet ready for it on the Rockchip platform.
+This gets us at least in the right direction.
+
+Fixes: cc40f5baa91b ("clk: rockchip: Add clock controller for the RK3576")
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- sound/usb/mixer_audient.c | 131 +++++++++++++++++---------------------
- 1 file changed, 60 insertions(+), 71 deletions(-)
+That's 16 scary looking error messages less printed during boot on that
+platform while reducing lines of code and modernizing the driver :)
+---
+ drivers/clk/rockchip/clk-rk3576.c | 39 ++++++++++++++++++---------------------
+ 1 file changed, 18 insertions(+), 21 deletions(-)
 
-diff --git a/sound/usb/mixer_audient.c b/sound/usb/mixer_audient.c
-index df1e25a55a7a9..35b562b3aac51 100644
---- a/sound/usb/mixer_audient.c
-+++ b/sound/usb/mixer_audient.c
-@@ -555,24 +555,13 @@ static inline u16 snd_audient_kctl_channels(struct snd_kcontrol *kctl)
+diff --git a/drivers/clk/rockchip/clk-rk3576.c b/drivers/clk/rockchip/clk-rk3576.c
+index 2cdd667f4004..577100659593 100644
+--- a/drivers/clk/rockchip/clk-rk3576.c
++++ b/drivers/clk/rockchip/clk-rk3576.c
+@@ -1733,6 +1733,8 @@ static struct rockchip_clk_branch rk3576_clk_branches[] __initdata = {
+ 			RK3576_CLKGATE_CON(59), 5, GFLAGS),
+ };
+ 
++static struct rockchip_clk_provider *rk3576_early_ctx;
++
+ static void __init rk3576_clk_init(struct device_node *np)
+ {
+ 	struct rockchip_clk_provider *ctx;
+@@ -1802,12 +1804,10 @@ static void __init rk3576_clk_init(struct device_node *np)
+ 	rockchip_clk_register_branches(ctx, rk3576_clk_branches,
+ 				       ARRAY_SIZE(rk3576_clk_branches));
+ 
+-	rk3576_rst_init(np, reg_base);
+-
+-	rockchip_register_restart_notifier(ctx, RK3576_GLB_SRST_FST, NULL);
+-
+ 	rockchip_clk_of_add_provider(np, ctx);
+ 
++	rk3576_early_ctx = ctx;
++
+ 	return;
+ 
+ err_free_pmu0:
+@@ -1817,35 +1817,27 @@ static void __init rk3576_clk_init(struct device_node *np)
+ 	return;
  }
  
- /*
-- * A cached value is valid once a transfer confirmed it: a read, or a write
-- * that succeeded. A probe transfer that fails leaves it invalid. CACHE |
-- * FORCE_SET without INIT_HW keeps the earlier behaviour: the init value is
-- * assumed, without a transfer.
-+ * A cached control keeps its values in the cache of struct
-+ * usb_mixer_elem_info: bit i of elem->cached and elem->cache_val[i] for
-+ * element channel i. The bit is set once a transfer confirmed the value: a
-+ * read, or a write that succeeded. A probe transfer that fails leaves it
-+ * clear. CACHE | FORCE_SET without INIT_HW keeps the earlier behaviour: the
-+ * init value is assumed, without a transfer.
-  */
--struct snd_audient_cache_entry {
--	u32 value;
--	bool valid;
+-CLK_OF_DECLARE(rk3576_cru, "rockchip,rk3576-cru", rk3576_clk_init);
+-
+-struct clk_rk3576_inits {
+-	void (*inits)(struct device_node *np);
 -};
 -
--/* Cache entry of element channel i, or NULL for an uncached control. */
--static inline struct snd_audient_cache_entry *
--snd_audient_cache_slot(struct usb_mixer_elem_info *elem, unsigned int i)
--{
--	struct snd_audient_cache_entry *const cache = elem->private_data;
--
--	return cache ? cache + i : NULL;
--}
+-static const struct clk_rk3576_inits clk_rk3576_cru_init = {
+-	.inits = rk3576_clk_init,
+-};
++CLK_OF_DECLARE_DRIVER(rk3576_cru, "rockchip,rk3576-cru", rk3576_clk_init);
  
+ static const struct of_device_id clk_rk3576_match_table[] = {
+ 	{
+ 		.compatible = "rockchip,rk3576-cru",
+-		.data = &clk_rk3576_cru_init,
+ 	},
+ 	{ }
+ };
  
- #define AUDIENT_REQTYPE_SET (USB_DIR_OUT | USB_TYPE_CLASS \
-@@ -621,26 +610,28 @@ static inline int snd_audient_set_cur(struct usb_mixer_interface *mixer,
- }
- 
- 
--static int snd_audient_raw_get_one(struct usb_mixer_interface *const mixer,
-+static int snd_audient_raw_get_one(struct usb_mixer_elem_info *const elem,
- 			const struct snd_audient_ctrl_type *const ctype,
--			struct snd_audient_cache_entry *const slot,
--			const u8 cidx, u32 *const value)
-+			const unsigned int ch, const u8 cidx,
-+			u32 *const value)
+ static int clk_rk3576_probe(struct platform_device *pdev)
  {
-+	struct usb_mixer_interface *const mixer = elem->head.mixer;
-+	const bool cache = ctype->flags & SND_AUDIENT_CTYPE_FLAGS_CACHE;
- 	int ret;
- 	__le32 buf = 0;
- 	s32 val;
+-	const struct clk_rk3576_inits *init_data;
++	struct rockchip_clk_provider *ctx = rk3576_early_ctx;
+ 	struct device *dev = &pdev->dev;
++	struct device_node *np = dev->of_node;
  
--	if (slot && slot->valid) {
--		*value = slot->value;
-+	if (cache && test_bit(ch, elem->cached)) {
-+		*value = elem->cache_val[ch];
+-	init_data = device_get_match_data(dev);
+-	if (!init_data)
+-		return -EINVAL;
++	if (!ctx)
++		return -ENODEV;
  
- 		return ctype->len;
- 	}
+-	if (init_data->inits)
+-		init_data->inits(dev->of_node);
++	rk3576_rst_init(np, ctx->reg_base);
++
++	rockchip_register_restart_notifier(ctx, RK3576_GLB_SRST_FST, NULL);
  
- 	/*
--	 * Cached FORCE_SET controls are treated as write-only: an invalid
--	 * cache entry does not trigger a GET.
-+	 * Cached FORCE_SET controls are treated as write-only: a clear
-+	 * cache bit does not trigger a GET.
- 	 */
--	if (slot && (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_FORCE_SET))
-+	if (cache && (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_FORCE_SET))
- 		return -ENODATA;
- 
- 	ret = snd_audient_get_cur(mixer, ctype, cidx, &buf);
-@@ -654,27 +645,27 @@ static int snd_audient_raw_get_one(struct usb_mixer_interface *const mixer,
- 
- 	*value = val;
- 
--	if (slot) {
--		slot->value = val;
--		slot->valid = true;
-+	if (cache) {
-+		elem->cache_val[ch] = val;
-+		set_bit(ch, elem->cached);
- 	}
- 
- 	return ret;
+ 	return 0;
  }
- 
--static int snd_audient_raw_set_one(struct usb_mixer_interface *const mixer,
-+static int snd_audient_raw_set_one(struct usb_mixer_elem_info *const elem,
- 			const struct snd_audient_ctrl_type *const ctype,
--			struct snd_audient_cache_entry *const slot,
--			const u8 cidx, const u32 value,
--			bool force)
-+			const unsigned int ch, const u8 cidx,
-+			const u32 value, bool force)
- {
-+	struct usb_mixer_interface *const mixer = elem->head.mixer;
- 	int ret;
- 	u32 val;
- 
- 	if (force) {
- 		val = !value;		/* just make it different */
- 	} else {
--		ret = snd_audient_raw_get_one(mixer, ctype, slot, cidx, &val);
-+		ret = snd_audient_raw_get_one(elem, ctype, ch, cidx, &val);
- 		if (ret == -ENODATA)	/* FORCE_SET and not cached yet */
- 			val = !value;	/* just make it different */
- 		else if (ret < 0)
-@@ -690,9 +681,9 @@ static int snd_audient_raw_set_one(struct usb_mixer_interface *const mixer,
- 		if (ret < 0)
- 			return ret;
- 
--		if (slot) {
--			slot->value = value;
--			slot->valid = true;
-+		if (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_CACHE) {
-+			elem->cache_val[ch] = value;
-+			set_bit(ch, elem->cached);
- 		}
- 	}
- 
-@@ -724,9 +715,8 @@ static int snd_ctl_audient_boolean_get(struct snd_kcontrol *kctl,
- 		u32 buf;
- 		int ret;
- 
--		ret = snd_audient_raw_get_one(mixer, ctype,
--					      snd_audient_cache_slot(elem, i),
--					      base + i, &buf);
-+		ret = snd_audient_raw_get_one(elem, ctype, i, base + i,
-+					      &buf);
- 		if (ret == -ENODATA)	/* unknown write-only value: off */
- 			buf = ctype->min.integer;
- 		else if (ret < 0)
-@@ -767,9 +757,8 @@ static int snd_ctl_audient_boolean_set(struct snd_kcontrol *kctl,
- 							  : ctype->min.integer;
- 		int ret;
- 
--		ret = snd_audient_raw_set_one(mixer, ctype,
--					      snd_audient_cache_slot(elem, i),
--					      base + i, buf, false);
-+		ret = snd_audient_raw_set_one(elem, ctype, i, base + i,
-+					      buf, false);
- 		if (ret < 0)
- 			return ret;
- 
-@@ -839,9 +828,8 @@ static int snd_ctl_audient_integer_get(struct snd_kcontrol *kctl,
- 		s32 val;
- 		int ret;
- 
--		ret = snd_audient_raw_get_one(mixer, ctype,
--					      snd_audient_cache_slot(elem, i),
--					      base + i, &val);
-+		ret = snd_audient_raw_get_one(elem, ctype, i, base + i,
-+					      &val);
- 		if (ret == -ENODATA)	/* unknown write-only value: minimum */
- 			val = ctype->min.integer;
- 		else if (ret < 0)
-@@ -890,9 +878,8 @@ static int snd_ctl_audient_integer_set(struct snd_kcontrol *kctl,
- 						   ctl_val->value.integer.value[i]);
- 		int ret;
- 
--		ret = snd_audient_raw_set_one(mixer, ctype,
--					      snd_audient_cache_slot(elem, i),
--					      base + i, val, false);
-+		ret = snd_audient_raw_set_one(elem, ctype, i, base + i,
-+					      val, false);
- 		if (ret < 0)
- 			return ret;
- 
-@@ -940,9 +927,8 @@ static int snd_ctl_audient_enum_get(struct snd_kcontrol *kctl,
- 		int item;
- 		int ret;
- 
--		ret = snd_audient_raw_get_one(mixer, ctype,
--					      snd_audient_cache_slot(elem, i),
--					      base + i, &val);
-+		ret = snd_audient_raw_get_one(elem, ctype, i, base + i,
-+					      &val);
- 		if (ret == -ENODATA)	/* unknown write-only value: init */
- 			val = ctype->init;
- 		else if (ret < 0)
-@@ -990,9 +976,8 @@ static int snd_ctl_audient_enum_set(struct snd_kcontrol *kctl,
- 		const unsigned int item = ctl_val->value.enumerated.item[i];
- 		int ret;
- 
--		ret = snd_audient_raw_set_one(mixer, ctype,
--					      snd_audient_cache_slot(elem, i),
--					      base + i, e->values[item], false);
-+		ret = snd_audient_raw_set_one(elem, ctype, i, base + i,
-+					      e->values[item], false);
- 		if (ret < 0)
- 			return ret;
- 
-@@ -1072,24 +1057,28 @@ static int snd_audient_add_ctrl(struct usb_mixer_interface *mixer,
- 		return -EINVAL;
- 	}
- 
--	elem = kzalloc(sizeof(*elem)
--		       + ((ctype->flags & SND_AUDIENT_CTYPE_FLAGS_CACHE)
--			  ? (sizeof(struct snd_audient_cache_entry)
--			     * ctrl->hwchannels)
--			  : 0),
--		       GFP_KERNEL);
-+	if (ctrl->hwchannels > MAX_CHANNELS)
-+		return -EINVAL;
+@@ -1858,4 +1850,9 @@ static struct platform_driver clk_rk3576_driver = {
+ 		.suppress_bind_attrs = true,
+ 	},
+ };
+-builtin_platform_driver_probe(clk_rk3576_driver, clk_rk3576_probe);
 +
-+	elem = kzalloc_obj(*elem);
- 	if (!elem)
- 		return -ENOMEM;
- 
- 	elem->head.mixer = mixer;
- 	elem->channels = ctrl->channels;
- 
--	if (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_CACHE)
--		elem->private_data = elem + 1;
-+	/*
-+	 * The generic notify paths clear the cache of an element unless
-+	 * get_cur_broken is set. A write-only control cannot read its value
-+	 * back after that.
-+	 */
-+	if ((ctype->flags & SND_AUDIENT_CTYPE_FLAGS_CACHE) &&
-+	    (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_FORCE_SET))
-+		elem->get_cur_broken = 1;
- 
- 	/*
- 	 * A failed probe transfer must not fail the card: warn and keep the
--	 * control. Its cache entry stays invalid, so a readable control reads
-+	 * control. Its cache bit stays clear, so a readable control reads
- 	 * the device again on its next get, and a write-only control shows an
- 	 * unknown value until a put succeeds.
- 	 */
-@@ -1097,8 +1086,7 @@ static int snd_audient_add_ctrl(struct usb_mixer_interface *mixer,
- 		int i;
- 
- 		for (i = 0; i < ctrl->hwchannels; i++) {
--			ret = snd_audient_raw_set_one(mixer, ctype,
--						      snd_audient_cache_slot(elem, i),
-+			ret = snd_audient_raw_set_one(elem, ctype, i,
- 						      ctrl->val_offs + i,
- 						      ctype->init, true);
- 			if (ret < 0)
-@@ -1106,20 +1094,21 @@ static int snd_audient_add_ctrl(struct usb_mixer_interface *mixer,
- 					       "%s: cannot set channel %d (%d)\n",
- 					       ctrl->name, i, ret);
- 		}
--	} else if (elem->private_data) {
--		struct snd_audient_cache_entry *const cache = elem->private_data;
-+	} else if (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_CACHE) {
- 		int i;
- 
- 		for (i = 0; i < ctrl->hwchannels; i++) {
-+			u32 val;
-+
- 			if (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_FORCE_SET) {
--				cache[i].value = ctype->init;
--				cache[i].valid = true;
-+				elem->cache_val[i] = ctype->init;
-+				set_bit(i, elem->cached);
- 				continue;
- 			}
- 
--			ret = snd_audient_raw_get_one(mixer, ctype, cache + i,
-+			ret = snd_audient_raw_get_one(elem, ctype, i,
- 						      ctrl->val_offs + i,
--						      &cache[i].value);
-+						      &val);
- 			if (ret < 0)
- 				usb_audio_warn(mixer->chip,
- 					       "%s: cannot read channel %d (%d)\n",
--- 
-2.47.3
++static int __init rockchip_clk_rk3576_drv_register(void)
++{
++	return platform_driver_register(&clk_rk3576_driver);
++}
++core_initcall(rockchip_clk_rk3576_drv_register);
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261112-rk3576-clk-platform-device-12af20579b2f
+
+Best regards,
+--  
+Sebastian Reichel <sebastian.reichel@collabora.com>
 
