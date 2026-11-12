@@ -1,96 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.28
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794455019;
-	b=nzjNynEGiNyQbypnPFYiBDJWNoEMng4cPtab0RoHo0E5vYNfXXzjDSKjjveKEGeZVOTZ
-	 JuxgejI+vb1XiESvaMYzIEm6nH3CS9ArMcKb7ZkQCoaQLQxjHlp/SfmU3u6SdF0dnGleO
-	 45a4MJycvjW2Ekt4ED7x/wTj/l0wdOq7xr/zju3jtDb++wlTadGAOF6moLSuSqo4wTiBz
-	 AEjYFQOrwjPwsQAxZ0zbOX1ui5hdSNqaYc7vKaai637VjXCWLDn4ofbZApC/qHPuTf/Vw
-	 Y7VnoZ5qkuYU2PnP8SaBFPvcujwu1BlSA1vv5RohrHjs63uNf5AHuZRqyYgq+rUXPuQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794455019;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-AtpMessageProperties:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=NJMwcWoBbRRwdFVEIbPy/4zLZPiPK3HDQkAF5jZ5Pws=;
-	b=bHRw4BTVULDQeDcW17vm2yoFNlHH2nH41Yn/87wPszUDTMnx23OjHGF9+Pzgyyi6ZWlM
-	 X51VTSAMb0KHfQ41Si/NlgpWz+MmKXQxP8HG25YK5Adq4voyXS/+Vg2KmdF2mVuO38IKu
-	 w3qsoGd5ZxCpQAQEiNEvYu54k9xnuZI6QZUW6h3kXHBwDWkGWVZO//ZRBYVxAQzSMp6kT
-	 ulDPbei3iKiEkF/Dx7ekc4hNELVXXjfbZY+5Wdcj8m23LYqWMfwOaoW7Uyrn0jamwbMAF
-	 vzNdkCCrk+B53OGCwnYRooY99PHFnD3xpbRgDDXb1Ivy/l02jKqJl3/pLa4qQCTEo5w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=altera.com;
-	spf=pass smtp.mailfrom=altera.com;
-	dkim=pass header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=aWpcx+MZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.28
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011028.outbound.protection.outlook.com [52.101.52.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794455167;
+	b=MzwphZ7oJgkfUOVZ5kE/jZM/sThQrRSqipwU9YM+Vt1mLjr68f672CnRxQ5mTbQQ8Bta
+	 AWPAYp3lf9sJ76lVr06wJZmJr2ZJrZXemYCMs52aS5vHXPvCzKobVfo3Izlh0WAAT9iHx
+	 hrqwDDoH0t3l1hFk3/MOj0WHkvTxGL2klMSTiGoQBZDV9x8nFm0M1wFDDrHoRrMKuBP88
+	 b7DfaNzwSFjWfjRmmBavhg90meDJQBqzoQ+XX2STumhOeyzViGzXgDgrR6HQYf/hIlcgn
+	 mTolWCJPn/6TU8qtOQRkqRBDF724ZjG6m/zKKq+DFZT8yACK5Ey+pd4BqiakXQN/eOw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794455167;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=JdZEQXD1LnxY/7fSoWWoTeFvDJfFMcLXYTDCBTSvcT4=;
+	b=BTZwBT89blQIzusfkNOtaWKmh5Shj/vDZm2UBYoUsTgRABqBxn1IF++88z8cbrIG8pWG
+	 Gvl3GruK/KSV22Zd7KOQgoPJhz6QTObDDMdTmWmGoOyw7ffrVm4MUDjKC8sCtX17Wlyza
+	 K3g66KyVFZh6/X0P6MykHaN9cHCs537BNYMHD9IKJruQQZf+gQqP7W4ZK2BvZRyo+UNNE
+	 +jNnv3E6SoG7WxpEE3ZipUtgPEjPc9XnfRW5Sp1rbtNfO4jP+9e2pUHywduwSRCJLVlQq
+	 1zPLSIHzws4VI0KCQ7cm33gBtwo1HxSCEvgaJRVgZV6o5oTO+L4Nn8u2VUi9a3hOrFg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="qUB8T/rG";
+	arc=none smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00C4B606A31C;
-	Thu, 12 Nov 2026 03:43:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00C4B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C404606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:46:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C404606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=aWpcx+MZ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rk79N041xnOIhzLncRGDbiZs6R89TS//fbGWYvhoPPjI4p/u9TAxQpTiOlJg0LFNqB4aRtpSz56WC2boJR903GwvBJmK8cjzvm0hBlVuLAPO2GkuJpb01Gjwb5+rEgIeIsMhkSood6UCYBvFx4+R2X9qqHdotXmnY/dVsVSS5h6svWoIhTSLwrBnc1yHKjwbVifCzjCybJ/iY1Q1Jg0bl/abC4ALZVlSjUrMaX5QxVdqx8Rzk3ds6irZ88w+LHSi6IQ4tF9HMqQPItr2gkqFjUW+1beJYo1dp7pB30YZlyUnuMzwbNPQiu1I0O3fsV6Jw4ZFCMe6j+P0Tl+bhgo8gA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NJMwcWoBbRRwdFVEIbPy/4zLZPiPK3HDQkAF5jZ5Pws=;
- b=wFtP65m4L3kC7+gdD72EABbMZGiTF8uPdZe8gJUREPk+WMxgavizfIQMRCIW6hxO21quwdcDxNIVRzLZTuSIx4+GRxGMhODVGtjnf6RJV1smy4IHbd0WDk6nS7mblARbLtdbBOEL/VQEVjYgCA3eCEPnfxJ1j/RNPnXhF+Lw84rmLqbUrlCEyp2LdlNsa04qKDNVTu3NPaDcK0ij1ItWsmDStKn52ccOPNWtzBdvdqruR5xvzCCGxRae7LRTyRn4MbY0Tg2Ch6VaOxOZgN9wpPMB83ulzX/sDyO49kSK7diNM4VgzSODzsG0N/0JrsVr47KzK4BlnvFc9yJv0kqlEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NJMwcWoBbRRwdFVEIbPy/4zLZPiPK3HDQkAF5jZ5Pws=;
- b=aWpcx+MZ5bnyoCnfhJKO79tfCJM2XtWDJx9HH4W2gUqih8mspLfSSB8RtvNc3Xrsk0av3iDku+ueXkjdvDm9Xq5CJSD26dluDIxo0FIRhf3xZdetBiGxgqJMPnT+erZ2AsdejEXDR+84rg/YucnRP6wh6Ur89wkHLR+cSjXsLRv3RHAEsVIwyRtZy/ubVB8AH7F39O+BN2ZcHPef8lbgQfIOOkKQbYZZTV9mqtVXNQxODy13GiMeFk3vNlQtFGGkgSfZ4pqgCbyRl9zr6+ZrotjNbMub6EhEYftHNIuZcG2Enb8xK8IX0jj1UtjwFwLsHRmzSzjcE6ifwEGSZJV8vA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from SJ0PR03MB5950.namprd03.prod.outlook.com (2603:10b6:a03:2d3::20)
- by SA5PR03MB8477.namprd03.prod.outlook.com (2603:10b6:806:47a::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
- 2026 03:43:34 +0000
-Received: from SJ0PR03MB5950.namprd03.prod.outlook.com
- ([fe80::53a0:bf93:6b6b:de01]) by SJ0PR03MB5950.namprd03.prod.outlook.com
- ([fe80::53a0:bf93:6b6b:de01%3]) with mapi id 15.21.0615.007; Thu, 12 Nov 2026
- 03:43:34 +0000
-From: tze.yee.ng@altera.com
-To: Moritz Fischer <mdf@kernel.org>,
-	Xu Yilun <yilun.xu@intel.com>,
-	Tom Rix <trix@redhat.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Alan Tull <atull@opensource.altera.com>,
-	Matthew Gerlach <mgerlach@opensource.altera.com>,
-	linux-fpga@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
-Subject: [PATCH v4] fpga: altera-freeze-bridge: clear all illegal request bits
-Date: Thu, 12 Nov 2026 11:43:30 +0800
-Message-ID: <72504835fca6acc0c6bbed589f5917c8e60ffc74.1794453791.git.tze.yee.ng@altera.com>
-X-Mailer: git-send-email 2.43.7
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR03CA0133.namprd03.prod.outlook.com
- (2603:10b6:a03:33c::18) To SJ0PR03MB5950.namprd03.prod.outlook.com
- (2603:10b6:a03:2d3::20)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qUB8T/rG
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1b3b4bcbfc9so1613843c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:46:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794455166; x=1795059966; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JdZEQXD1LnxY/7fSoWWoTeFvDJfFMcLXYTDCBTSvcT4=;
+        b=qUB8T/rGtQfsOJoeKM1R7BNXsNfI66/ERZsBmz6w4JsH58+OrRnY8+ISdlDdnYxiPd
+         i3OjMcLrSxCk5jcQc04NGxAUaC0dhlgg0XF8u1wzoNzOFckx8fX94dS1f33gU6vVo68z
+         xgqFk2EmWz+dm6OSVqe6KdTFisngB2ZWAeIEognIdzgpSJVKmAbyP/208T/c7Xza+aD8
+         bb5BrkIn9TH3M65NjbM/GJJ9YkONqUwSgqCSDuRLscYYZanKDFWavtPcAigOwAmQMTpW
+         17zxeuMk8DpQaDTjfY4rdADEw8C5XtPVnGsC36pJvBQVchZxJ34EW/8VIzAhgAyafa5p
+         CU1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794455166; x=1795059966;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JdZEQXD1LnxY/7fSoWWoTeFvDJfFMcLXYTDCBTSvcT4=;
+        b=AxiHxDUwvYwZDb8o0eckncX/OTxdqCwGAjhA57cAxs1xSqr20hnnRbD2aa36mIhWuK
+         /TI3YvQixp8ftLpDHSAa7CkGQshwWgwe+kUfBar6d2FHN7VRnXpSR0k7NxBORDOC87Eo
+         /NvurBfb9CEhrf0z53YlDLMBQBd0zxL6p0R0vuBGf7ATtKt/NkVIOKPkhyzuPinHGhj2
+         hdJYkhPY3oOLnEiqnq2qZl0hvoloHFj9j/Ny5EhXC/h/A4kpjzj12z8D9t6EtUPOCQjR
+         oIfUMMmMMSAMhy3IF4FqfR98OjbQfXBX1Xpn+Pg1EteRME17DTll4E2Oinn54e3oab2O
+         M+2A==
+X-Forwarded-Encrypted: i=1; AL+hErEDIDJKW+WKwT2XGa5UEJQobsu80/0VfDlJzWFKEMfHIRmj/DJU+cWevO/58eM+P3jkzxlfNmIRk+sN8fo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/oWKHYtwvn+Qpj4YVJHQJF/wNhfF8jZDt+UhGshcLfENWSTBln
+	MXtwRuIU4f6i7E09SfZfzztPPxkSucWk9Qd/+QScG94SrAU9UXO7fENalgcKlOIw7dbtrg==
+X-Gm-Gg: AYBFou3Yh/Vgh8WYZwSBYFXV84gv21RmfPdDkvvVUBd0vSgO/voTYoe+EXn487upP6M
+	GU29Rb5AfbYzckXBbWB07XJtcJ4bHFGn8TS862UFHKToXFgQc82P6nIVSupR55WkPNMjyYhPV7s
+	nSpbuRUGd7O11jOzDEQHRUZs0Ng8I7/mNBdL3/wN/FjOTSOr8dTqS1UaPo4QzhiaxbLub2keN5V
+	ENtzLt/4QpAufz4AwALHi1PfVNR7rbFZhvFCpjNoiVJVqtT3r+mbdJZGod7u3E7S9zuYiNxxAiS
+	zcBnQkq5YtW60ccHetWdWpYjc5pXlVB03Rdjzkk3wAqTdmGGjFsSIJvjrb6XQhetE0VJzpkrWEJ
+	mUshtwlm7tBGVAlRInh3j4JYfHuia0YACq53+PcENSiuMjKPQIY6AdXukEr1/HLNz0DdMRaYbsr
+	/SU7WrQtcm+W0ANBjovUTFHVoDA0su8LzSZCFlFhz7qbpEyws8kGRvqHviBUftYxw66I9/lSBkD
+	SUQkNCzQYO8yU9UBDALxhrkzB6j+R5Xcqat1Yo1XkUhaUJ3yHeQFNyo5BcL39JwbnjLxfJupdHp
+	tPEEgQCwcMc1yPvQ27SO1qi1EwTafA==
+X-Received: by 2002:a05:7022:7e82:b0:17e:ee5f:6715 with SMTP id a92af1059eb24-1b3c0329d7emr4637526c88.27.1794455166079;
+        Wed, 11 Nov 2026 19:46:06 -0800 (PST)
+Received: from localhost ([27.7.22.22])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2fc09sm43137065c88.10.2026.11.11.19.46.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 19:46:04 -0800 (PST)
+Date: Thu, 12 Nov 2026 09:16:01 +0530
+From: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+To: Richard Cheng <icheng@nvidia.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dan Williams <djbw@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Breno Leitao <leitao@debian.org>, Ira Weiny <iweiny@kernel.org>,
+	Li Ming <ming.li@zohomail.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+	linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, David Hildenbrand <david@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>,
+	Kiryl Shutsemau <kas@kernel.org>, Harry Yoo <harry@kernel.org>
+Subject: Re: [RFC PATCH 5/5] cxl/region: Register device poison before
+ exposing RAM
+Message-ID: <avU2eZwBnHGvSPUf@acer-nitro-anv15-41>
+References: <20261010162017.62506-1-shaikhkamal2012@gmail.com>
+ <20261010162017.62506-6-shaikhkamal2012@gmail.com>
+ <atCGJHmnk8Ll8pA_@MWDK4CY14F>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,114 +116,430 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB5950:EE_|SA5PR03MB8477:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5801aa7f-47b8-4837-349e-08df406f20ba
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|18002099003|6133799003|261009223027099003|55112099003|260925022911599003|11063799006|56012099006|260925021911599003|261021121427099003|261102123227099003|261021123027099003|261022075727099003|260925021311599003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	KEJIneQEdtE67rPoRjLPo5YBwBkV08jGJXwzv55AbtwU52GxVsvBuXQLRLi/JunZ7soDNPym5yS6ErSQ5ZPBSYgLzjtRqKtGkBFIVZ0tkpqihwfGAZdXLnP2PIinnXcPK6eMKkjX8RQiqG8+sffLRtJH98oRhjpkExnvj4fu8NkI27y8saKN3qcCrRKcLdE8IfCt/rPbFCPS2L5Zy3eNHfh4vzgq48ig5bJ3P8qEc4DwqvwuVTyxx58uwGvciUQUzF42skqisGdhB+C4Jz2PfM5tUYhQ+ed6ARKn+mDVTqVhW7ny/aOlnIBKDyB634oBnhh7meB9CF8jc8cqmnW0RasQwujFbiHwmaikLt+EcxkxMvjEMkJx6mAWZJjMwjqn/jzf0vzBaQb6PEsvwDyDukDOnch5FV74Cf3Dj0EMD5BzCAuDfFsjIuKwAGU/TrjQ3I7dbvdzSyICTHWf8fCFHvDL0ecKu9Symd/KUiof4y/K7BeBHpLQK7cv9GDKCI4kWlBwpvlVX1N2KR05whPmR05Nu9x+/8+KFESdJ3JPpbR+tjLWj9U8OPfZvAihmjypBP5jhqkgNscza3PDs34jESuUCfcdzos76zldUn1WtVmneiV3GLPQkAP2FzsjIG1Q
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5950.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(18002099003)(6133799003)(261009223027099003)(55112099003)(260925022911599003)(11063799006)(56012099006)(260925021911599003)(261021121427099003)(261102123227099003)(261021123027099003)(261022075727099003)(260925021311599003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Gl+CAYmT93hLYAeRnqGa3Y4OeJykzLadJD1bIs0JBegrGF7LaUGoRhcIFN92?=
- =?us-ascii?Q?uRqnQh6LAh9F1AeuqOLDFbTQP2n2T5DAPOZJX6570jiTq7Ni1kzbX0Pv3tCl?=
- =?us-ascii?Q?JK5EBMqzK8LAHojBdsr+M+vIP8GpnYiQxY/RkgDV2FyOAHHrIH9fv8DkPifE?=
- =?us-ascii?Q?Bhofa3rrYj4QUOFzeu0M+kaRiLASJ6taFYf29oLdkOKCJ1Eo2Jnkl4ir59HJ?=
- =?us-ascii?Q?lUzyznSl80BWZVgA5KJtZY3xuMSL0yFvQjD4X4TyqcFE4DY+8cOKNE31YsTe?=
- =?us-ascii?Q?QtNXZWrlLVOG47AL1tRSKZdYHoKT5/RzmpFFvhi/WdIzxEk+DSm0DrtoEWOy?=
- =?us-ascii?Q?BiAWmsMmYZvKS0nDsdTuKeC938Eu7iZRRELb9WwKFFCXUWVd57Nd2fbuSw2J?=
- =?us-ascii?Q?C9PZxRngvY7uQToKP3klcDLRVNyBneaiJAcfRO7Ap8aI9XJy3qE9vHiLW5/f?=
- =?us-ascii?Q?nFtldf5rTiPSVs2yikTODVquKgwrgaFHIydGpEzVC27JRnYd85Xn2B+UpTbQ?=
- =?us-ascii?Q?F6o1klHOiCVrXdmPs7zmwIgr3hHD2nNOlOE9t8eF4gsk43qBNLt2V8Jik+Gg?=
- =?us-ascii?Q?TEzWMiSeZqFRxoGeoWmx1uPLnhO2M8Id28l7RG15A9kY7dUgU0L4I9aFOtJ6?=
- =?us-ascii?Q?qfaGP8eAhqY8/MG3mXpruXgVLxcnxvxDbsEbKObaBJw5Iog6WVBusRy8BIoE?=
- =?us-ascii?Q?xTpMQCrw0rZZjlZQub3pQw0bQw9ADpZFa9xC0y8pOvVIlHD5cogDbAtZPjtW?=
- =?us-ascii?Q?bCD72lV/ynTOXvL9uDe1RJW9Rx28Q9sFVUYV15pFvCwDP6oXYAkSsylzMYOz?=
- =?us-ascii?Q?dKAjGuNU3bMFdNidwf1r7JgnekBi6yzcNWTjjI54Xziytvp7zNHutpwBE+UP?=
- =?us-ascii?Q?CSmdKjznqBagImr9huQxoepwcxwzgZNrvFOFtKejgaU5IDjn5Hj93FosJMsF?=
- =?us-ascii?Q?Fi55mGjRB3TkHqwaquOyhv5s/THlD4keWbGMmyd82rratlrtOQLDNST5BddD?=
- =?us-ascii?Q?7BTrOqaUCDl2QMLAKUxufYjd95jtee7XqlhDQZxUefyP5hFJ7oFFHcLvqQr0?=
- =?us-ascii?Q?mzlj/jNMg0M0Hh4iC73Jz1LdClJl8fbDor2abcWq4hrtHPps84iYLGPRj2r3?=
- =?us-ascii?Q?X7TLz5HkoM16cAIW/9vFY6Cq57If3Rkh0gntdfDOvsocwxF/GtHeailQ1X06?=
- =?us-ascii?Q?V7S4kq8KOz6HLlorNK9utE/ezfCnmwfE22kaGR/r7pNY7xmFKxIT+/TqHo2N?=
- =?us-ascii?Q?9BBhjDD3P8hEYsAN3K4meZxGyjQhraUgrWdijralt2Akuzx7W69arcDLqyAv?=
- =?us-ascii?Q?2DRDMEeEh7Bvc+LLt9QTkiUSaW95ATJ57oVBVGMtClB2bkwj42XPS9stKfkk?=
- =?us-ascii?Q?N3l1kNIfDvOCsqlpNAqAu8cEeTd/tm3wFOx8wVsP9kKgkzifY1MbEBuG7phW?=
- =?us-ascii?Q?QmXjBMFL3Iw3lkh/8N/ACxLo/BRjdl4ImYFIg5TXjZbTLZeIQ10/lk9QS8YW?=
- =?us-ascii?Q?LH8EiH/SXo9oKDvvI21YS0bVVIRp22nj0FDI+ILL+MOCBZds5HqnTAg89cE/?=
- =?us-ascii?Q?FMRNg+CL3k+XTczuwbfRQMolqFEl5uU3+8ek30W9K354+t9gP8WCVGosrbN/?=
- =?us-ascii?Q?evBfjeQtUZH+uc53bpURoGshGbe+XQpBwNico+pQL0Ppgx9rb1r+AeZ6r4IE?=
- =?us-ascii?Q?GJs67YrMc7sndi44MAnJD+tQh7i1R+S7vHRw1KnFBW5GzGbZj4M3XVdGrBAu?=
- =?us-ascii?Q?DusUN+rj0Q=3D=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5801aa7f-47b8-4837-349e-08df406f20ba
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5950.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 03:43:34.7420
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oWkE/JzMms+UQ7omQNl08yymQLNL09vUfKHpEirjnH9G5jnOlDcmaXxYeEvEtwt+tjV0ka+qKeVPMu+MkMTOYQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PR03MB8477
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <atCGJHmnk8Ll8pA_@MWDK4CY14F>
 
-From: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+On Thu, Oct 15, 2026 at 03:59:13PM +0800, Richard Cheng wrote:
+> On Sat, Oct 10, 2026 at 09:50:13PM +0800, Shaikh Kamaluddin wrote:
+> > The trigger_poison_list interface may retrieve poison after CXL memory
+> > is already online, which is too late to prevent known-bad frames from
+> > entering the page allocator.
+> > 
+> > During RAM-region probe, retrieve a poison-list snapshot for each
+> > participating endpoint decoder. Validate each record against the
+> > decoder's assigned DPA range, translate its poisoned DPA units to HPA
+> > and PFN, and collect the affected PFNs in an xarray. Coalesce consecutive
+> > PFNs and register the resulting ranges with the pre-online hwpoison
+> > registry before creating the DAX region.
+> > 
+> > When Get Poison List is supported, abort region probe if the list is
+> > incomplete, malformed, or cannot be translated. If volatile poison-list
+> > retrieval is unsupported, preserve the existing behavior and warn that
+> > poison cannot be withheld before memory onlining.
+> > 
+> > Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+> > ---
+> >  drivers/cxl/core/region.c | 322 ++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 322 insertions(+)
+> > 
+> > diff --git a/drivers/cxl/core/region.c b/drivers/cxl/core/region.c
+> > index c72524923b38..e3ffa77927df 100644
+> > --- a/drivers/cxl/core/region.c
+> > +++ b/drivers/cxl/core/region.c
+> > @@ -14,6 +14,7 @@
+> >  #include <linux/string_choices.h>
+> >  #include <cxlmem.h>
+> >  #include <cxl.h>
+> > +#include <linux/memory-failure.h>
+> >  #include "core.h"
+> >  #include "mce.h"
+> >  
+> > @@ -3038,6 +3039,323 @@ int cxl_get_poison_by_endpoint(struct cxl_port *port)
+> >  	return rc;
+> >  }
+> >  
+> > +/*
+> > + * Device-reported poison is gathered at RAM-region probe, before the range
+> > + * reaches dax/kmem, and registered with the pre-online registry so the
+> > + * frames it covers are withheld when the memory is onlined.
+> > + */
+> > +static int cxl_poison_store_pfn(struct xarray *pfns, u64 hpa)
+> > +{
+> > +	return xa_err(xa_store(pfns, PHYS_PFN(hpa), xa_mk_value(1),
+> > +			GFP_KERNEL));
+> > +}
+> > +
+> > +static int cxl_poison_store_hpa(struct cxl_region *cxlr, struct xarray *pfns,
+> > +				u64 hpa)
+> > +{
+> > +	struct cxl_region_params *p = &cxlr->params;
+> > +	int rc;
+> > +
+> > +	/* Outside this region: not ours to withhold. */
+> > +	if (!cxl_resource_contains_addr(p->res, hpa))
+> > +		return -ERANGE;
+> > +
+> > +	rc = cxl_poison_store_pfn(pfns, hpa);
+> > +	if (rc || !p->cache_size)
+> > +		return rc;
+> > +
+> > +	/*
+> > +	 * An extended linear cache makes the same DPA visible a second time
+> > +	 * at hpa - cache_size. Match the translation used by the
+> > +	 * cxl_general_media and cxl_dram trace events.
+> > +	 */
+> > +	if (WARN_ON_ONCE(hpa < p->res->start + p->cache_size))
+> > +		return -ERANGE;
+> > +
+> > +	return cxl_poison_store_pfn(pfns, hpa - p->cache_size);
+> > +}
+> > +
+> > +static int cxl_poison_record_to_pfns(struct cxl_region *cxlr,
+> > +				     struct cxl_memdev *cxlmd,
+> > +				     const struct cxl_poison_record *record,
+> > +				     struct xarray *pfns)
+> > +{
+> > +	struct cxl_region_params *p = &cxlr->params;
+> > +	u64 raw = le64_to_cpu(record->address);
+> > +	u64 units = le32_to_cpu(record->length);
+> > +	u64 dpa = raw & CXL_POISON_START_MASK;
+> > +	u8 source = raw & CXL_POISON_SOURCE_MASK;
+> > +	u64 length, end, step, cur;
+> > +
+> > +	if (!units ||
+> > +	    check_mul_overflow(units, (u64)CXL_POISON_LEN_MULT, &length) ||
+> > +	    check_add_overflow(dpa, length, &end))
+> > +		return -EPROTO;
+> > +
+> > +	/*
+> > +	 * A corrected error never reaches the poison list, so every record
+> > +	 * is uncorrectable. Only a failure of the device's own media is
+> > +	 * withheld: External poison was written by the host into healthy
+> > +	 * media and a rewrite or Clear Poison recovers it, and Injected
+> > +	 * poison is a test artifact. Withholding either would make a
+> > +	 * recoverable state permanent.
+> > +	 */
+> > +	if (source != CXL_POISON_SOURCE_INTERNAL) {
+> > +		dev_dbg(&cxlr->dev, "%s: dpa %#llx source %u not withheld\n",
+> > +			dev_name(&cxlmd->dev), dpa, source);
+> > +		return 0;
+> > +	}
+> > +
+> > +	/*
+> > +	 * Translate once per unit of HPA contiguity rather than per 64
+> > +	 * bytes. Consecutive DPAs within an interleave granule map to
+> > +	 * consecutive HPAs, and a granule no larger than a page lies within
+> > +	 * one page, so stepping by min(granule, PAGE_SIZE) from an aligned
+> > +	 * start reaches every page the record covers.
+> > +	 */
+> > +	step = clamp_t(u64, p->interleave_granularity, CXL_POISON_LEN_MULT,
+> > +		       PAGE_SIZE);
+> > +
+> > +	for (cur = ALIGN_DOWN(dpa, step); cur < end; cur += step) {
+> > +		u64 hpa = cxl_dpa_to_hpa(cxlr, cxlmd, max(cur, dpa));
+> > +		int rc;
+> > +
+> > +		/* Not mapped by this region; nothing here to withhold. */
+> > +		if (hpa == ULLONG_MAX)
+> > +			continue;
+> > +
+> > +		rc = cxl_poison_store_hpa(cxlr, pfns, hpa);
+> > +		if (rc)
+> > +			return rc;
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int cxl_region_collect_decoder_poison(struct cxl_region *cxlr,
+> > +					     struct cxl_endpoint_decoder *cxled,
+> > +					     struct xarray *pfns)
+> > +{
+> > +	struct cxl_memdev *cxlmd = cxled_to_memdev(cxled);
+> > +	struct cxl_poison_snapshot snapshot;
+> > +	int rc;
+> > +
+> > +	rc = cxl_poison_snapshot_init(cxlmd, &snapshot);
+> > +	if (rc == -EOPNOTSUPP) {
+> > +		dev_info(&cxlr->dev,
+> > +			 "%s: no Get Poison List support, nothing withheld\n",
+> > +			 dev_name(&cxlmd->dev));
+> > +		return 0;
+> > +	}
+> > +	if (rc)
+> > +		return rc;
+> > +
+> > +	rc = cxl_get_poison_by_decoder(cxled, &snapshot,
+> > +				       CXL_POISON_QUERY_PREONLINE);
+> > +	if (rc == -EFAULT) {
+> > +		/*
+> > +		 * The device keeps no poison list for volatile ranges, which
+> > +		 * CXL r3.2 8.2.9.8.4.1 permits. Online the region as today.
+> > +		 */
+> > +		dev_info(&cxlr->dev,
+> > +			 "%s: no volatile poison list, nothing withheld\n",
+> > +			 dev_name(&cxlmd->dev));
+> > +		rc = 0;
+> > +		goto out;
+> > +	}
+> > +	if (rc)
+> > +		goto out;
+> > +
+> > +	/*
+> > +	 * Withholding from a partial list would online the region on the
+> > +	 * belief that every bad frame had been named.
+> > +	 */
+> > +	if (snapshot.truncated ||
+> > +	    (snapshot.device_flags & CXL_POISON_FLAG_OVERFLOW)) {
+> > +		dev_err(&cxlr->dev, "%s: poison list incomplete\n",
+> > +			dev_name(&cxlmd->dev));
+> > +		rc = -EOVERFLOW;
+> > +		goto out;
+> > +	}
+> > +	if (snapshot.device_flags & CXL_POISON_FLAG_SCANNING) {
+> > +		dev_err(&cxlr->dev, "%s: media scan in progress\n",
+> > +			dev_name(&cxlmd->dev));
+> > +		rc = -EBUSY;
+> > +		goto out;
+> > +	}
+> > +
+> > +	for (u32 i = 0; i < snapshot.nr_records; i++) {
+> > +		rc = cxl_poison_record_to_pfns(cxlr, cxlmd,
+> > +					       &snapshot.records[i], pfns);
+> > +		if (rc)
+> > +			break;
+> > +	}
+> > +out:
+> > +	cxl_poison_snapshot_destroy(&snapshot);
+> > +	return rc;
+> > +}
+> > +
+> > +static unsigned int cxl_count_poison_ranges(struct xarray *pfns)
+> > +{
+> > +	unsigned long index, previous = 0;
+> > +	unsigned int nr = 0;
+> > +	void *entry;
+> > +	bool first = true;
+> > +
+> > +	xa_for_each(pfns, index, entry) {
+> > +		if (first || index != previous + 1)
+> > +			nr++;
+> > +		first = false;
+> > +		previous = index;
+> > +	}
+> > +	return nr;
+> > +}
+> > +
+> > +/*
+> > + * The xarray holds each PFN once and xa_for_each() walks them in ascending
+> > + * order, so runs of consecutive indices are exactly the sorted,
+> > + * nonoverlapping ranges preonline_hwpoison_register() requires.
+> > + */
+> > +static int cxl_pfns_to_ranges(struct xarray *pfns,
+> > +			      struct preonline_hwpoison_range **ranges_out,
+> > +			      unsigned int *nr_ranges_out)
+> > +{
+> > +	struct preonline_hwpoison_range *ranges;
+> > +	unsigned long index, previous = 0, run_start = 0;
+> > +	unsigned int nr_ranges, nr = 0;
+> > +	void *entry;
+> > +	bool first = true;
+> > +
+> > +	nr_ranges = cxl_count_poison_ranges(pfns);
+> > +	if (!nr_ranges) {
+> > +		*ranges_out = NULL;
+> > +		*nr_ranges_out = 0;
+> > +		return 0;
+> > +	}
+> > +
+> > +	ranges = kvmalloc_array(nr_ranges, sizeof(*ranges), GFP_KERNEL);
+> > +	if (!ranges)
+> > +		return -ENOMEM;
+> > +
+> > +	xa_for_each(pfns, index, entry) {
+> > +		if (first) {
+> > +			run_start = index;
+> > +			previous = index;
+> > +			first = false;
+> > +			continue;
+> > +		}
+> > +		if (index == previous + 1) {
+> > +			previous = index;
+> > +			continue;
+> > +		}
+> > +		ranges[nr++] = (struct preonline_hwpoison_range) {
+> > +			.start_pfn = run_start,
+> > +			.nr_pages = previous - run_start + 1,
+> > +		};
+> > +		run_start = index;
+> > +		previous = index;
+> > +	}
+> > +	ranges[nr++] = (struct preonline_hwpoison_range){
+> > +		.start_pfn = run_start,
+> > +		.nr_pages = previous - run_start + 1,
+> > +	};
+> > +
+> > +	WARN_ON_ONCE(nr != nr_ranges);
+> > +	*ranges_out = ranges;
+> > +	*nr_ranges_out = nr;
+> > +	return 0;
+> > +}
+> > +
+> > +static void cxl_unregister_device_poison(void *data)
+> > +{
+> > +	preonline_hwpoison_unregister(data);
+> > +}
+> > +
+> > +static int cxl_region_register_device_poison(struct cxl_region *cxlr)
+> > +{
+> > +	struct cxl_region_params *p = &cxlr->params;
+> > +	struct preonline_hwpoison_range *ranges = NULL;
+> > +	struct preonline_hwpoison *handle;
+> > +	unsigned int nr_ranges = 0;
+> > +	unsigned long nr_frames = 0;
+> > +	struct xarray pfns;
+> > +	int rc = 0;
+> > +
+> > +	lockdep_assert_held(&cxl_rwsem.region);
+> > +	lockdep_assert_held(&cxl_rwsem.dpa);
+> > +
+> > +	/* The region may have been decommitted while the lock was dropped. */
+> > +	if (p->state < CXL_CONFIG_COMMIT)
+> > +		return -ENXIO;
+> > +
+> > +	if (test_bit(CXL_REGION_F_NORMALIZED_ADDRESSING, &cxlr->flags)) {
+> > +		dev_info(&cxlr->dev,
+> > +			 "normalized addressing, poison not translated\n");
+> > +		return 0;
+> > +	}
+> > +
+> > +	xa_init(&pfns);
+> > +
+> > +	for (int i = 0; i < p->nr_targets; i++) {
+> > +		struct cxl_endpoint_decoder *cxled = p->targets[i];
+> > +
+> > +		if (!cxled->dpa_res || !resource_size(cxled->dpa_res))
+> > +			continue;
+> > +		rc = cxl_region_collect_decoder_poison(cxlr, cxled, &pfns);
+> > +		if (rc)
+> > +			goto out;
+> > +	}
+> > +
+> > +	if (xa_empty(&pfns))
+> > +		goto out;
+> > +
+> > +	rc = cxl_pfns_to_ranges(&pfns, &ranges, &nr_ranges);
+> > +	if (rc)
+> > +		goto out;
+> > +
+> > +	rc = preonline_hwpoison_register(ranges, nr_ranges, &handle);
+> > +	if (rc == -EOPNOTSUPP) {
+> > +		/* No poison tracking in this kernel; nothing to withhold. */
+> > +		rc = 0;
+> > +		goto out;
+> > +	}
+> > +	if (rc)
+> > +		goto out;
+> > +
+> > +	for (unsigned int i = 0; i < nr_ranges; i++)
+> > +		nr_frames += ranges[i].nr_pages;
+> > +	dev_warn(&cxlr->dev,
+> > +		 "withholding %lu frame(s) reported poisoned by the device\n",
+> > +		 nr_frames);
+> > +
+> > +	rc = devm_add_action_or_reset(&cxlr->dev, cxl_unregister_device_poison,
+> > +				      handle);
+> 
+> Hi Shaikh,
+> 
+> I think you are trying to propose the architecture as the following ?
+> - CXL region driver collects the device's poison info and owns the registration
+> - MM use the registration to keep poisoned pages out of the page allocator
+>   when memory is onlined
+> - DAX/kmem adds and removes the corresponding system RAM
+> 
 
-A Partial Reconfiguration Region Controller can be connected to one or
-more Freeze Bridge. Each Freeze Bridge has an illegal_request bit
-represented in the freeze_illegal_request register. Bit i is the bridge on
-freeze interface i. Unlike the status and control registers, which act on
-all bridges collectively, this register reports each bridge individually.
+Yes, that's how the RFC works today. If we go with Dave's suggestion below,
+only the first point changes: CXL only provides the entries, and MM owns
+them.
 
-Writing a literal 1 clears only bit 0 and leaves the illegal request
-latched for every other bridge. Write back the value just read instead, so
-the set-to-clear applies to whichever Freeze Bridge reported the request.
+> The registration belongs to the driver, but the memory that needs it can
+> outlive the driver binding.
+> 
+> Unbinding the driver doesn't necessarily remove the memory. If some mem blocks
+> are still online, removal of the range can fail.
+> When driver cleanup removes the registration, MM loses poison info of those
+> memory blocks as well.
+>
 
-Fixes: ca24a648f535 ("fpga: add altera freeze bridge support")
-Cc: stable@vger.kernel.org # v4.10+
+You're right. If any block is still online, dev_dax_kmem_remove() can't
+remove the range and leaves all its blocks in place, but the devm action
+still drops the entries. Blocks that were online are fine, their bad
+frames are already marked. The problem is a block that was offline: it
+can be onlined later, and its bad frame then goes to the buddy.
 
-Signed-off-by: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
-Signed-off-by: Tze Yee Ng <tze.yee.ng@altera.com>
----
-Changes in v4:
-- Restore the narrative opening sentences from v2; the earlier rewrite read
-  too much like a dense hardware spec (Xu Yilun).
+> I don't have a good idea how we should re-design the ownership here, maybe
+> we can discuss about it.
+>
 
-Changes in v3:
-- Reword the commit message in imperative mood (Xu Yilun).
-- Describe the freeze_illegal_request register layout: one write-1-to-clear
-  bit per Freeze Bridge via the Conduit Merger, versus the collective
-  status/ctrl registers (Xu Yilun).
+Hand the poison info to MM when the memory is added. The driver's
+registration only has to live until add_memory_driver_managed().
+At that point MM copies the registered ranges inside the added
+range and keeps them with the memory blocks (or the memory group
+dax/kmem already registers), and frees them when the memory is
+removed. After that the driver binding doesn't matter. Hook A
+already makes its decision at add time, so both hooks would read
+MM's copy.
 
-Changes in v2:
-- Add "Cc: stable@vger.kernel.org # v4.10+" into the signoff area so the
-  stable-kernel rule is satisfied (reported by kernel test robot).
-- Remove Chiau Ee's signoff as he is no longer working on this patch.
+Does that sound right? If so I'll do it this way in v2.
 
-Link v3:
-https://lore.kernel.org/all/13856736bdb808b64826aab337d9919abeb3ea5c.1791253862.git.tze.yee.ng@altera.com/
----
- drivers/fpga/altera-freeze-bridge.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/fpga/altera-freeze-bridge.c b/drivers/fpga/altera-freeze-bridge.c
-index 30d03ba14481..cc0c320538da 100644
---- a/drivers/fpga/altera-freeze-bridge.c
-+++ b/drivers/fpga/altera-freeze-bridge.c
-@@ -51,7 +51,7 @@ static int altera_freeze_br_req_ack(struct altera_freeze_br_data *priv,
- 		if (illegal) {
- 			dev_err(dev, "illegal request detected 0x%x", illegal);
- 
--			writel(1, csr_illegal_req_addr);
-+			writel(illegal, csr_illegal_req_addr);
- 
- 			illegal = readl(csr_illegal_req_addr);
- 			if (illegal)
--- 
-2.43.7
-
+> Best regards,
+> Richard Cheng.
+> 
+> 
+> 
+> 
+> > +out:
+> > +	kvfree(ranges);
+> > +	xa_destroy(&pfns);
+> > +	return rc;
+> > +}
+> > +
+> > +static int cxl_region_scan_device_poison(struct cxl_region *cxlr)
+> > +{
+> > +	int rc;
+> > +
+> > +	/* Nothing would consume the result. */
+> > +	if (!IS_ENABLED(CONFIG_MEMORY_FAILURE))
+> > +		return 0;
+> > +
+> > +	ACQUIRE(rwsem_read_intr, region_rwsem)(&cxl_rwsem.region);
+> > +	rc = ACQUIRE_ERR(rwsem_read_intr, &region_rwsem);
+> > +	if (rc)
+> > +		return rc;
+> > +	ACQUIRE(rwsem_read_intr, dpa_rwsem)(&cxl_rwsem.dpa);
+> > +	rc = ACQUIRE_ERR(rwsem_read_intr, &dpa_rwsem);
+> > +	if (rc)
+> > +		return rc;
+> > +
+> > +	return cxl_region_register_device_poison(cxlr);
+> > +}
+> > +
+> >  struct cxl_dpa_to_region_context {
+> >  	struct cxl_region *cxlr;
+> >  	u64 dpa;
+> > @@ -4262,6 +4580,10 @@ static int cxl_region_probe(struct device *dev)
+> >  					p->res->start, p->res->end, cxlr,
+> >  					is_system_ram) > 0)
+> >  			return 0;
+> > +		rc = cxl_region_scan_device_poison(cxlr);
+> > +		if (rc)
+> > +			return rc;
+> > +
+> >  		return devm_cxl_add_dax_region(cxlr);
+> >  	default:
+> >  		dev_dbg(&cxlr->dev, "unsupported region mode: %d\n",
+> > -- 
+> > 2.43.0
+> > 
