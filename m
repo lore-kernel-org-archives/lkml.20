@@ -1,45 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794473240;
-	b=z+DYETQNazAG5gJp1IiRM4bBzgGb4TbflTiYoDMAedHnsKwpIiRKucBzT4evxNiR6FSr
-	 BSWjAPP0uwBfqiRqmG8VH6lswbNMAQec2dgScmgyfj+wsEVKogOp4lJ4iWl3A8dHcWKg4
-	 DPu6snqDCcYKGX7O8S7+5lw7IoyTd66Pzf1FDUlPqUcQGLhgSPgJ2tcFZ1Kb/rvDlCCDz
-	 DW7HKIoef9RSdZDDwRg3l24lPBbnSgNSBfruGbID97teip420IGyW5J3fkZuHag63xVFJ
-	 mf5ETQhVLAS/XIq+VI0dGSc1NyQ5125SL4sW/BnGYJhlDEJbrrrxd+mALOH+H6dGXdQ==
+	t=1794473241;
+	b=1H55iJzDgxGsLfdTwbQ3rjVGgEgBh4WOiKiuF9gktw4r8vMu1FziBHMk7a3C+Vf+gAb1
+	 6ytk8Yzvt1ZFcaF7uGURurPlISXthoY6mnvYsT+tIEcJMCRBGpCuCfLqxaQTF/fYJr6lz
+	 pgGoT5FMaVs2OvvcDfG2oiOcpypgXjtVuCZ7CP8X2Y5UzPVWfS60Xuzy1uqJ51M3TY6Jw
+	 u+NLQO6CrSXDYKd1zh0+sUin+TUHYJ/YWumn3VOcVSC9kqlvqEaFuRS7EsWYPPAI+zBzL
+	 2YQrWVmv4Endp9kxjl6snjbnyW2m8cfkodUHlsvssCUz6pfpGjORJCROFLthdGxYWsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794473240;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794473241;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Xy7BfJcLhr14wy0P22XNlMbRYmvGrhreOYOllQIDkoE=;
-	b=PvZSY97VB9YgahhwZfkL8NCqvZqWltGKkQFLAxtwyipUVkE/5WQYefhVp2qnZzBcvK3O
-	 pQ3gg0o0FbnliQKCXzMLBlANVDBwAvTFWBO9nrr9nwFHBH3G0kHlxyQrIjwSL+NbediP7
-	 zokqX2wuN8eFDVMWDW75jFxhxBmY/qutVKdEYkqFgp1g00CGT8SS+ZmiyodallBA1kst5
-	 a3rfxh0w+DxyG84hN4JlbJsZh7WdWMecgWG63BPO7aaax/MHpE1VtvEn4y/cUvVH+GISd
-	 1VjIUpP3BNtrQatzi1W8VvfST6JHHHE4z6tMosMqvMS++Deu9yVpDo/w172d7Fub7CQ==
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=IuEo+Yi04Yv9K5s/ToDHf1mLoQ9aV0vni1jo7HIQfu8=;
+	b=GHsMZL1KvcIj0ff1j+TS5JxijuKC2HncCkm7XCc3X3dBXYoyUERf6UBZEFieG8mmHnOc
+	 4h5MHmw5ymGpVVEs8u5eMKiVEjvAbrY910C2bam1kaam9gH//amc9fgmg0H51bkr3CaAG
+	 HV2MDyabbQYRrKx1YLEHLdBB3TyKthVP2dzRbcG9xAQ/ScTHWOv6AGIGMCR/ONGMvwWsm
+	 oFg7lDbqUgSG3VM3zslp+oYIzWTsraiNj7ATbKz0BmYgTVSw4TMQNgUsaHXnkzrJtub+t
+	 OvX+ihqamnuSmv6h18ZuvWafzRjCZruhJ+SKArbXAFKYqObosG7wJnwu1aK3jtMFijQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.microsoft.com;
 	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b="h/yT52D3";
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=qs6Gn4hi;
 	arc=none smtp.remote-ip=13.77.154.182
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3F342606B589;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3F325606B587;
 	Thu, 12 Nov 2026 08:47:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F342606B589
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F325606B587
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=h/yT52D3
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=qs6Gn4hi
 Received: by linux.microsoft.com (Postfix, from userid 1186)
-	id A7CD820B716B; Thu, 12 Nov 2026 00:47:16 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com A7CD820B716B
+	id 7F38220B7168; Thu, 12 Nov 2026 00:47:16 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 7F38220B7168
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
 	s=default; t=1794473236;
-	bh=Xy7BfJcLhr14wy0P22XNlMbRYmvGrhreOYOllQIDkoE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=h/yT52D3DUV7R73y6okYIUPswlLGpsrjvFnoFsAVB6V6cDb6Jx7Vz1SAqVQh2lxeX
-	 X6dZfFPNHZzTU5QCRH7f+t7OGn6FQrlQvhfS44cARs8fK9+0STZ4CtLc1yGuxKF8SG
-	 5+GyWq4jNLN1ITQ/zwwzAioL4SEuIMqcoy3G1qq8=
+	bh=IuEo+Yi04Yv9K5s/ToDHf1mLoQ9aV0vni1jo7HIQfu8=;
+	h=From:To:Cc:Subject:Date:From;
+	b=qs6Gn4hiQT80citANbsHhVcxThoYltayH/1SbV+3DF7c+uXgf8MbQSkgAx39r8tCB
+	 m4gHOhS2m5vPUCGu/a7MtbUjnq/nzdAwfo5sMYjCQtn6d9wx3urT4om2OL//+CsCe7
+	 8F4xnIqQYD+t8FIGV9ygevsKmU95ddPPCTCZ1Y2o=
 From: Konstantin Taranov <kotaranov@linux.microsoft.com>
 To: kotaranov@microsoft.com,
 	snsanghvi@microsoft.com,
@@ -48,12 +47,10 @@ To: kotaranov@microsoft.com,
 	leon@kernel.org
 Cc: linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH rdma-next v11 3/9] net/mana: Extend GDMA encoding for new RDMA WQEs
-Date: Thu, 12 Nov 2026 00:47:10 -0800
-Message-ID: <20261112084716.1483342-4-kotaranov@linux.microsoft.com>
+Subject: [PATCH rdma-next v11 0/9] RDMA/mana_ib: Add kernel RC and fast registration support
+Date: Thu, 12 Nov 2026 00:47:07 -0800
+Message-ID: <20261112084716.1483342-1-kotaranov@linux.microsoft.com>
 X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261112084716.1483342-1-kotaranov@linux.microsoft.com>
-References: <20261112084716.1483342-1-kotaranov@linux.microsoft.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,178 +64,99 @@ Content-Transfer-Encoding: 8bit
 
 From: Konstantin Taranov <kotaranov@microsoft.com>
 
-Extend mana_gd_post_work_request() to support extra-large OOB data and
-fixed-size WQEs. These formats are supported only for power-of-two WQE
-sizes.
+Add kernel RC QPs and fast-registration MRs to the MANA RDMA driver
+for kernel consumers such as NVMe/RDMA and NFS/RDMA.
 
-For fixed-size WQEs, use num_pad_sge to specify the padding size. Encode
-the WQE header fields required by RC QPs based on the WR flags.
+Implement QP creation and state management, work request posting,
+completion processing, and error handling. Use the RDMA core's generic
+queue drains for kernel RC QPs, with software-flush notification in the
+posting paths. Kernel RC QPs require extended-WQE and power-of-two-SQ
+hardware support.
 
-Signed-off-by: Konstantin Taranov <kotaranov@microsoft.com>
----
+v11:
+- Patch 09: Reset kernel QPs before destruction unless already in RESET
+  or INIT, and always clean CQEs. Keep shared-CQ cleanup under one
+  uninterrupted CQ lock.
+v10:
+- Patch 01: Remove the FMR page-count limit check
+- Patch 02: Remove the minimum firmware send-SGE check, kernel QP
+  queue prevalidation
+- Patch 06: Remove send-SGE and READ-SGE limit checks and message-
+  length overflow validation
+
+v9:
+- Patch 07 and 09: Retire acknowledged successful unsignaled WQEs with
+ a full WC array to avoid deferring rearming.
+
+v8:
+- Patch 06: Annotate rc_send.immediate and immediate_ext as __le32
+
+v7:
+- Patch 09: Include GSI QPs in deferred ERR handling.
+- Patch 09: Complete software-flush setup even if the deferred firmware
+  ERR request fails. An error CQE guarantees whole-QP DMA shutdown for
+  all QP types.
+- Drop patch 10 to use the generic SQ/RQ drains for RC.
+
+v6:
+- Patch 08: Notify software flushes after posting to error-listed QPs.
+  Add reporting pending software flush for IB_CQ_REPORT_MISSED_EVENTS.
+- Patch 09: Check fenced WQEs on error cqes to prevent flushing completed WQEs.
+  Add mana_ib_cq_clean on QP reset to discard stale CQEs. QID 0 is an invalid
+  value for RNIC and safe dor discarding. Add error_pending flag to prevent
+  a deffered ERR request to error reset QPs.
+
+v5:
+- Patch 01: Reject max_num_sg above MANA_MAX_FMR_PAGES.
+- Patch 02: Validate kernel QP queue sizes and SGE limits to prevent
+  overflows. Ensure that queue size cannnot be 0.
+- Patch 06: Preserve fence flags on unsignaled WQEs. Check message
+  length and read sges before posting a wqe.
+- Patch 08: Remove the unused QP state field.
+
+v4:
+- Patch 01: Use an explicit 64-byte FMR MST alignment
+- Patch 02: Validate that the RNIC firmware reports at least two send
+  SGEs and subtract the reserved SGE only for RNIC-based mana_ib.
+- Patch 07: Add missing wqe_size to shadow wqe for SEND/Write, and
+  return a missed-event hint for cached CQEs when CQ is armed
+
+v3:
+- Patch 07: Mask arm_psn to 24 bits before ringing the doorbell.
+- Patch 08: Exclude userspace QPs from kernel software-state handling
+  and CQ error-list insertion, and unlink UC QPs during destruction.
+
 v2:
-- Reject fixed WQEs that cannot fit the header, aligned OOB and SGEs.
+- Patch 03: Validate fixed-WQE capacity for the header, OOB and SGEs.
+- Patch 04: Preserve UC QP modification support.
+- Patch 08: Skip software CQ notifications for direct-polling CQs.
+- Patch 09: Flush that ERR work during QP teardown.
+- Patch 10: Limit drain callbacks to RC QPs and avoid completion
+  callbacks for direct-polling CQs.
 
- drivers/net/ethernet/microsoft/mana/gdma_main.c | 55 +++++++++++++++++++++----
- include/net/mana/gdma.h                         | 21 +++++++---
- 2 files changed, 63 insertions(+), 13 deletions(-)
+Konstantin Taranov (9):
+  RDMA/mana_ib: Allocate and map fast-registration MRs
+  RDMA/mana: Create and destroy kernel RC QPs
+  net/mana: Extend GDMA encoding for new RDMA WQEs
+  RDMA/mana_ib: Maintain kernel RC QP state
+  RDMA/mana_ib: Post receive WRs on kernel RC QPs
+  RDMA/mana_ib: Post send and memory-management WRs on RC QPs
+  RDMA/mana_ib: Poll RC completions using PSN and FSN progress
+  RDMA/mana_ib: Flush and notify CQs when kernel QPs enter ERR
+  RDMA/mana_ib: Handle error CQEs for kernel QPs
 
-diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-index 05ba7055405d..2717889e626e 100644
---- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
-+++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-@@ -1699,8 +1699,27 @@ static u32 mana_gd_write_client_oob(const struct gdma_wqe_request *wqe_req,
- 	header->num_sge = wqe_req->num_sge;
- 	header->inline_oob_size_div4 = client_oob_size / sizeof(u32);
- 
-+	if (client_oob_size == INLINE_OOB_EXTRA_LARGE_SIZE) {
-+		/* Extra large oob is encoded as 7 */
-+		header->inline_oob_size_div4 = 7;
-+		/* Extra large oob has 8 byte padding  */
-+		client_oob_size += 8;
-+	}
-+
-+	if (wqe_req->wqe_size_in_bu) {
-+		header->num_sge = (wqe_req->wqe_size_in_bu * GDMA_WQE_BU_SIZE
-+			- sizeof(struct gdma_wqe) - client_oob_size) / sizeof(struct gdma_sge);
-+		header->num_pad_sge = header->num_sge - wqe_req->num_sge;
-+	}
-+
-+	header->check_rsn = !!(wqe_req->flags & GDMA_WR_CHECK_RSN);
-+	header->check_sn = !!(wqe_req->flags & GDMA_WR_CHECK_SN);
-+	header->fence = !!(wqe_req->flags & GDMA_WR_FENCE);
-+	header->fence_extended = !!(wqe_req->flags & GDMA_WR_FENCE_EXTENDED);
-+	header->generation1 = !!(wqe_req->flags & GDMA_WR_GENERATION_1);
-+
- 	if (oob_in_sgl) {
--		WARN_ON_ONCE(wqe_req->num_sge < 2);
-+		WARN_ON_ONCE(wqe_req->num_sge < 1);
- 
- 		header->client_oob_in_sgl = 1;
- 
-@@ -1714,8 +1733,10 @@ static u32 mana_gd_write_client_oob(const struct gdma_wqe_request *wqe_req,
- 	/* The size of gdma_wqe + client_oob_size must be less than or equal
- 	 * to one Basic Unit (i.e. 32 bytes), so the pointer can't go beyond
- 	 * the queue memory buffer boundary.
-+	 * The exception is when the WQE size is fixed and a power of 2, as
-+	 * such a wqe cannot go beyond the queue memory buffer boundary.
- 	 */
--	ptr = wqe_ptr + sizeof(header);
-+	ptr = wqe_ptr + sizeof(struct gdma_wqe);
- 
- 	if (wqe_req->inline_oob_data && wqe_req->inline_oob_size > 0) {
- 		memcpy(ptr, wqe_req->inline_oob_data, wqe_req->inline_oob_size);
-@@ -1724,8 +1745,8 @@ static u32 mana_gd_write_client_oob(const struct gdma_wqe_request *wqe_req,
- 			memset(ptr + wqe_req->inline_oob_size, 0,
- 			       client_oob_size - wqe_req->inline_oob_size);
- 	}
--
--	return sizeof(header) + client_oob_size;
-+	/* The hw requires that (gdma_wqe + client_oob_size) is sge size aligned */
-+	return ALIGN(sizeof(struct gdma_wqe) + client_oob_size, sizeof(struct gdma_sge));
- }
- 
- static void mana_gd_write_sgl(struct gdma_queue *wq, u32 sgl_offset,
-@@ -1784,7 +1805,8 @@ int mana_gd_post_work_request(struct gdma_queue *wq,
- 		return -EINVAL;
- 
- 	if (wq->type == GDMA_RQ) {
--		if (client_oob_size != 0)
-+		if (client_oob_size != 0 &&
-+		    client_oob_size != INLINE_OOB_SMALL_SIZE)
- 			return -EINVAL;
- 
- 		client_oob_size = INLINE_OOB_SMALL_SIZE;
-@@ -1792,15 +1814,32 @@ int mana_gd_post_work_request(struct gdma_queue *wq,
- 		max_wqe_size = GDMA_MAX_RQE_SIZE;
- 	} else {
- 		if (client_oob_size != INLINE_OOB_SMALL_SIZE &&
--		    client_oob_size != INLINE_OOB_LARGE_SIZE)
-+		    client_oob_size != INLINE_OOB_LARGE_SIZE &&
-+		    client_oob_size != INLINE_OOB_EXTRA_LARGE_SIZE)
- 			return -EINVAL;
- 
- 		max_wqe_size = GDMA_MAX_SQE_SIZE;
- 	}
- 
- 	sgl_data_size = sizeof(struct gdma_sge) * wqe_req->num_sge;
--	wqe_size = ALIGN(sizeof(struct gdma_wqe) + client_oob_size +
--			 sgl_data_size, GDMA_WQE_BU_SIZE);
-+	if (wqe_req->wqe_size_in_bu) {
-+		wqe_size = wqe_req->wqe_size_in_bu * GDMA_WQE_BU_SIZE;
-+		oob_len = ALIGN(sizeof(struct gdma_wqe) + client_oob_size,
-+				sizeof(struct gdma_sge));
-+		if (wqe_size < oob_len ||
-+		    wqe_req->num_sge > (wqe_size - oob_len) / sizeof(struct gdma_sge))
-+			return -EINVAL;
-+	} else {
-+		wqe_size = ALIGN(sizeof(struct gdma_wqe) + client_oob_size +
-+				 sgl_data_size, GDMA_WQE_BU_SIZE);
-+	}
-+	/* Ensure the WQE size is a power of 2 when a fixed wqe size or extra large OOB are used.
-+	 * Otherwise, the WQE may cross the queue memory buffer boundary, which is not allowed.
-+	 */
-+	if (wqe_req->wqe_size_in_bu || client_oob_size == INLINE_OOB_EXTRA_LARGE_SIZE) {
-+		if (!is_power_of_2(wqe_size))
-+			return -EINVAL;
-+	}
- 	if (wqe_size > max_wqe_size)
- 		return -EINVAL;
- 
-diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
-index 332f394b82e1..508da28591ae 100644
---- a/include/net/mana/gdma.h
-+++ b/include/net/mana/gdma.h
-@@ -56,6 +56,11 @@ enum gdma_work_request_flags {
- 	GDMA_WR_OOB_IN_SGL		= BIT(0),
- 	GDMA_WR_PAD_BY_SGE0		= BIT(1),
- 	GDMA_WR_IB_SGL			= BIT(2),
-+	GDMA_WR_CHECK_SN                = BIT(3),
-+	GDMA_WR_CHECK_RSN               = BIT(4),
-+	GDMA_WR_FENCE                   = BIT(5),
-+	GDMA_WR_FENCE_EXTENDED          = BIT(6),
-+	GDMA_WR_GENERATION_1            = BIT(7),
- };
- 
- enum gdma_eqe_type {
-@@ -219,8 +224,8 @@ struct gdma_wqe_request {
- 		struct ib_sge *ib_sgl;
- 	};
- 	u32 num_sge;
--
--	u32 inline_oob_size;
-+	u16 wqe_size_in_bu;
-+	u16 inline_oob_size;
- 	const void *inline_oob_data;
- 
- 	u32 flags;
-@@ -538,7 +543,9 @@ void mana_gd_ring_dim(struct gdma_queue *cq, u32 mod_usec, bool mod_usec_vld,
- 		      u32 mod_comps, bool mod_comps_vld);
- 
- struct gdma_wqe {
--	u32 reserved	:24;
-+	u32 num_pad_sge	:5;
-+	u32 generation1	:1;
-+	u32 reserved	:18;
- 	u32 last_vbytes	:8;
- 
- 	union {
-@@ -548,9 +555,13 @@ struct gdma_wqe {
- 			u32 num_sge		:8;
- 			u32 inline_oob_size_div4:3;
- 			u32 client_oob_in_sgl	:1;
--			u32 reserved1		:4;
-+			u32 check_rsn		:1;
-+			u32 fence		:1;
-+			u32 fence_extended	:1;
-+			u32 reserved1		:1;
- 			u32 client_data_unit	:14;
--			u32 reserved2		:2;
-+			u32 check_sn		:1;
-+			u32 reserved2		:1;
- 		};
- 	};
- }; /* HW DATA */
+ drivers/infiniband/hw/mana/cq.c                 | 356 ++++++++++++++++++--
+ drivers/infiniband/hw/mana/device.c             |   2 +
+ drivers/infiniband/hw/mana/main.c               |   8 +-
+ drivers/infiniband/hw/mana/mana_ib.h            | 142 +++++++-
+ drivers/infiniband/hw/mana/mr.c                 |  84 ++++-
+ drivers/infiniband/hw/mana/qp.c                 | 332 +++++++++++++++++--
+ drivers/infiniband/hw/mana/shadow_queue.h       |  22 ++
+ drivers/infiniband/hw/mana/wr.c                 | 423 +++++++++++++++++++++++-
+ drivers/net/ethernet/microsoft/mana/gdma_main.c |  55 ++-
+ include/net/mana/gdma.h                         |  38 ++-
+ 10 files changed, 1386 insertions(+), 76 deletions(-)
+
 -- 
 2.43.0
 
