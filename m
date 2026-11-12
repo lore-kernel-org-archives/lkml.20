@@ -1,121 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794482991;
-	b=HPT8/O4A12N/5y9fjvfUakma/qqqKceyMa9HdPUNihFHewOw6qcwu7rFoqSe/Aq9Pw9o
-	 9D1zTYjKNZXcihNMdAXBKwtCroI5g/Vtba70euGZhR3/VqjBjDnLisgSD9l/6ijquBzdv
-	 oa4DEuus2VeQ9LYMJV7f79KiNFymqCuunlqxAWSmfLKUFbE7LmmGblVQdnBfizsNF0Pzh
-	 8vMoSvTjfMfBQ0wLYGOUZJAPGIUpL/ZaR9jP29JCMXkLqBkTLSe6XPxJH+/nLuEnbxm/h
-	 Osw210AaqYEJV2+KBXTL6FLKvBdJz1YxV+yvdqCuJlFkHK1JK6QnzaaRj2LF/TuscyQ==
+	t=1794483012;
+	b=L1sJFyVRhWA+ksXq4NYadzzsdnjEUM8oNpbAhzcZpbviQLy+jLNNn7MQYTPSU1yQRDtY
+	 KAlrWwiSpno4jghfLKQsSFCGJURkWbjfvjsXijS0bZCCpbHyVTVSvqL593rlCwqvwZHVB
+	 5I8JokhgFiUj3p9BVov0JIrRSZzf05dLNvPikHLmu81F5G+/qs4rEKq3taS1jyk0gj87J
+	 QML5iUA9wPHahvlIQYwHqcuD+EQjqQaisQ1QB5ekeF3UFyIonPOmhq5oV7QxvzQW7pZJU
+	 /G3c7GBxu59b9aSmX1W8QFQWgCiacK0KLskito73/M1Pd1tXarZ9jBzvQdtxq2oYveQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794482991;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=pYLOaavEbW4iApPv81a0Y6PhFd+cCkE0qo7yuiEZUSk=;
-	b=hP85OUDbFGTapu9M7RdXuP3xTiltnhmnKp5DYoKS2khHw7QlmhOndtTYS9crjvCPNrq2
-	 AemcGE3aXKk9y0W32WUDZjYAdkq84Om6Zem5PAZwm1FLDRCNquFYGdP/shD4+dxoIzO+L
-	 Eze1jbaKFY0lX/RAqOkPJPx+2PyNhKGl//T76BDwoJ3HrEoiFOdx4DGex1XYs0fRB3eS8
-	 k+PtEnf4/AjX4MOlJwD6tBDis/DEm1K0bum8BQtm8wEWLZq9JDLMs5sb1i+hzMtSRd+YU
-	 oNqK7IMq9cgtWwCS26ci7laW+iBnZ9HL8lt2L+p2PhZCdfAVh2zqgS0Cl5ie1GRIaAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794483012;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=71eXGQdP5orJZyLCzWbG5FrSvWsmlQU9DIpmcnIuT1I=;
+	b=hIy3gWDIrA3TxmP3UWellvR/nHrSKCTf3FPZpJmhC4W6Knir2XUx0S8r6c4/ZL7LPbqy
+	 r9XGmFoM+zBDrUE7wfhxMHSECFRp6e8LW/91bT7JakWbFqBOjVQpAzE5uCWY+hwCBp/01
+	 Ct0AAQse/IFCpNodz9HOadtdb+4hpseOFomoH2+rSF0YKm2naJah3Rt1OGKBfChvCpzXY
+	 3/9IDvRrKYZuijt7IntzsrZM+r/oZzwnHIqcnwtHPYx+KJN5AUJ8wnpQYDNH84f4/W5Fv
+	 5gsstE3vCNIln+thpCwDW5e8qb01R9lcLauONttdPmot3pBqxpk3rpIFTeGcuFg22SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=to54GCkb;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PitML+Rd;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RBEjlCSn;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=H28d6Wmt;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TaWgKLUk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881AB606A881;
-	Thu, 12 Nov 2026 11:29:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 881AB606A881
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3324606A895;
+	Thu, 12 Nov 2026 11:30:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=to54GCkb;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PitML+Rd;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RBEjlCSn;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=H28d6Wmt
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 611621F797;
-	Thu, 12 Nov 2026 11:29:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794482988; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pYLOaavEbW4iApPv81a0Y6PhFd+cCkE0qo7yuiEZUSk=;
-	b=to54GCkbVCxZ/diMW7G1IQMQmvUBWfc5Wqj4nB8bVynPIC35nDFaOUT2N1/+x14fNa4GN+
-	ZtdrOhOCyzgQVjrP7/CPLe+SxOgAmak8BCpALmBIL+TfgTzL+sv5iMeO+rKbcRBgiBii89
-	DVgQEmudKgjG8yNJWaTG3Kq7tH53vBs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794482988;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pYLOaavEbW4iApPv81a0Y6PhFd+cCkE0qo7yuiEZUSk=;
-	b=PitML+Rd6/FbAjxbvTklfUFViCbOjw8a1WGmn4hm/6lqgYw7cY1kVdbgx5j1LshRZ1X4gr
-	nXwmwm63Q6pJ0eDQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794482987; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pYLOaavEbW4iApPv81a0Y6PhFd+cCkE0qo7yuiEZUSk=;
-	b=RBEjlCSnA8LAIUw6maTMYmC9YmKjx8cNXuuzzU/05zLDHMSLZKvqSSKaqdvqXmE4wez30Z
-	F9xbJL3MacPWJy6t5qzGxCYw7eMxkU0qPJ8m00waC6DOXtHzaiIwuke3lzea3mMW8sxZFY
-	e9y0jqy8PlI3CBJVqM6G0boPmyhZg/I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794482987;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pYLOaavEbW4iApPv81a0Y6PhFd+cCkE0qo7yuiEZUSk=;
-	b=H28d6WmtFpXtb7/PfdZN+l4eTWOzSM8zFwUNiUoO+uHIkm0bS4pvFCih97Uu1qR13Z1mSp
-	0RMwitGiLi88qCDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D3ACE134A0;
-	Thu, 12 Nov 2026 11:29:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id FKaQKCij9WrVBgAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Thu, 12 Nov 2026 11:29:44 +0000
-Date: Thu, 12 Nov 2026 11:29:43 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Jann Horn <jannh@google.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
-	=?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	Yu-cheng Yu <yu-cheng.yu@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
-	Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, Chris Mason <mason@kernel.org>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	"Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
-	"Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>
-Subject: Re: [PATCH 03/13] mm: cachestat: restart the walk after each entry
-Message-ID: <avWjDYe8QqLtEBX_@pedro-suse.tail5790ac.ts.net>
-References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
- <20261111-mason-migrate-et-al-fixes-v1-3-3d2454362e8d@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TaWgKLUk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 201871F00A05;
+	Thu, 12 Nov 2026 11:30:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794483012;
+	bh=71eXGQdP5orJZyLCzWbG5FrSvWsmlQU9DIpmcnIuT1I=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=TaWgKLUkHNHi5N1Egi50k6plrFr+ducVKv1DY5+VQJFIWTAaa7vFpDqClSsKs4hAp
+	 H0+BMeYUvayjR3hGtq7saJUyYo8a0b7koTHyJXkoiMfJVeMNhYyyYnEw9Z1aE9UGnX
+	 OtFEqTIvnILejIeU8vkKe8d09bNktmcLwtnz+LF/P0MhgVfUjxmVDRvU5x7U9/wNoZ
+	 r3wF6y8TCErWZ/ucAxJ+RTZPdGouYP7AgvrkDNCxhUwE+Rz5Qf/M3J2rzuRO528uJi
+	 DX1O+2BHqt+M2fdatAXs15ml2J+GguKhvNh3XF3QHOJxESNxmqNW1dL80/Bte/6wQE
+	 W9zrhtY7j277Q==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 1483E3AA9F6B;
+	Thu, 12 Nov 2026 11:30:12 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,87 +53,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-3-3d2454362e8d@kernel.org>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[42];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RL3mhzhn45zpqpmgqn4z7synfm)];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,infradead.org,google.com,suse.com,linux.dev,linux-foundation.org,suse.cz,gmail.com,cmpxchg.org,nvidia.com,intel.com,sk.com,gourry.net,linux.alibaba.com,tencent.com,redhat.com,linux.intel.com,gentwo.org,nxp.com,fb.com,kvack.org,vger.kernel.org,alien8.de];
-	TAGGED_RCPT(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -11.80
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next] net: ethernet: adi: adin1110: Fix phy_device
+ leak in
+ probe_netdevs()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179448301067.2033939.14773001196867592120.git-patchwork-notify@kernel.org>
+Date: Thu, 12 Nov 2026 11:30:10 +0000
+References: <1793949783000.333861.5224091507677300156@cmss.chinamobile.com>
+In-Reply-To: <1793949783000.333861.5224091507677300156@cmss.chinamobile.com>
+To: Xia Yan <yanxia@cmss.chinamobile.com>
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, kuba@kernel.org,
+ pabeni@redhat.com, edumazet@kernel.org, davem@davemloft.net,
+ alexandru.tachici@analog.com, ciprian.regus@analog.com,
+ linux-kernel@vger.kernel.org, yana06070@163.com
 
-On Wed, Nov 11, 2026 at 06:13:17PM +0000, Lorenzo Stoakes (ARM) wrote:
-> From: Chris Mason <mason@kernel.org>
-> 
-> cachestat() can leave cached pages out of its counts. This happens if
-> the entry that the call has just counted is replaced by a larger folio
-> that starts in the same XArray slot.
-> 
-> The issue is that filemap_cachestat() walks the page cache under the RCU
-> read lock, so racing concurrent collapse/split is possible.
-> 
-> Thus, an entry can be replaced immediately after the walk has returned
-> it. When that happens, the next xas_find() skips the sibling entries that
-> point to the slot of that entry, since ordinarily they belong to that
-> entry.
-> 
-> However a concurrent collapse_file() or __filemap_add_folio() (when
-> replacing a shadow entry) can store a larger folio in the slot, in which
-> case the sibling entries belong to the new folio and the walk still skips
-> them.
-> 
-> Consider:
-> 
->     cachestat                         collapse
->     =========                         ========
->     count a 64-page folio in slot 8
->                                       store a 512-page folio in slot 8,
->                                       with sibling entries in slots 9-15
->     xas_find() starts at slot 8
->     and skips slots 9-15
->       /* 448 pages are never counted */
-> 
-> Also consider:
-> 
->     filemap_cachestat()                  __filemap_add_folio()
->     ===================                  =====================
->     counts the shadow entry in slot 0
->                                          slot 0: a folio of 32 pages
->                                          slots 1-31: siblings of slot 0
->     xas_find() skips slots 1-31
->       /* 31 pages are never counted */
-> 
-> Essentially the fact that large folios might be present means we cannot
-> safely continue the XArray walk, and must reset the iterator each time.
-> 
-> Fixes: cf264e1329fb ("cachestat: implement cachestat syscall")
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> [ ljs: squashed 2 commits, fixed up comment in code, and commit message ]
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Hello:
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+This patch was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
+On Fri, 06 Nov 2026 15:23:03 +0800 you wrote:
+> adin1110_probe_netdevs() probes each port with get_phy_device(), which
+> allocates a phy_device without registering it. The pointer's only use
+> is phydev_name() for the phy_connect() call, and phy_connect() attaches
+> the device the earlier bus scan registered, not the one allocated here.
+> port_priv->phydev is then overwritten with the phy_connect() result and
+> the allocated object is lost.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next] net: ethernet: adi: adin1110: Fix phy_device leak in probe_netdevs()
+    https://git.kernel.org/netdev/net-next/c/acdf2d09fa18
+
+You are awesome, thank you!
 -- 
-Pedro
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
