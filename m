@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.107
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794495002;
-	b=4pMQPbHxQmXnpt/1C4JvOIFgr6XeNJyCZXAwZMHeHy3u2ONvNtY7pY09k1mBMoHm3wME
-	 AfQ2kxzKLdNQ47B/vAY/0jvbm1YDbJxQsC51IAzg3FpXfSL2r6Qd/leQXhp3rZAxQhlBs
-	 ExxXJRSPLpTGNywk3e8KUybxFUuyHsK8VeDw8ZHT/cV7jNgtd2UPkxjzxInixXvSYCDUC
-	 8OCwmGwu/D2fJ6YXeH3KIVSTiTXZxsKvVMIRl+AN2gNfUMdJnbd6P5I7FjOGyXSaxxs/e
-	 SdBq5+7SNrMATAw0bEm03I6qgikbwFNid0LMXfo6saj6vp/2ah7w6b7OWdivv3h+HMQ==
+	t=1794495010;
+	b=ikkE8coaOhwCDz8mqimamExjatutCp1mh59um4bkjf1hWM+gmlG8gYflx21/EaV209BQ
+	 poslHNuE7K3Tj6uqwbYbQxNeOOE3auLZnNxbaKSKlQ3RxrntjpMdzHbPiE7d7XNvnb3m4
+	 fFx8hFEu3fb+hs5gNnpXbsmIR6gEhRgyh23SopqHhXQXwce0GPCaGq5yuX0HVvXgx5X7J
+	 g8z7TmOPrp+XAXdp88MCQFCG5AvKhXBwzI09+o8brEKjQmHiH5zCMVH0R+pKKAj4z22yT
+	 EP8dpH8UJjxMijMNIGSq+JoLrI2isKyhdXNcJbYw3w1VmQp3CQLSnFLMcf2S2E0+pZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794495002;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794495010;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=LdP00xaRudb52/LsBw7dU8aWxZVXiu8lJBJmgivD284=;
-	b=t7RAXhYqt5Rm6C/nDI0TffKSod4TA2QZ/7ihTnceGpU39cG7K/+3HTysAQfPtOfcAYBN
-	 Aj38GEpeXiKECMH6piODfbvQQl+mSni+DrTjnbhinQXeZChfhbmouGrlL6kA+R3rhj7Jh
-	 gd8X9B184e1VrSPsLz9FECY6IBTxkD25apq88zmPN9Df774akp6aT6y1l89qO94QBtNsB
-	 qwx/H7Vwu7tcIPoHQwsAV16vHLFlWkwjgQiavGlqB2KDN1Ea5l76sXhuOSw/xUuwRdJzm
-	 qYRUJpTZOAh9Sa/FIGHl9xU+qGpZIIyJeNO3UhFj7dVe34kkn6igtFwmFiJMo5A7X5g==
+	bh=fKhNVS4HIbJOghQyFAYDyIQH4s/FReGVb6zBWdLmzR4=;
+	b=C1WV4dmT8O0FwiVmSMDR0QuUYnww673vPWio4i7bYyRmTUUYVU9/ajSD0Ny6Z0syHTsi
+	 dH6JH0AOd0PkBZkb1UVSCGIKGv4J57hZNwXX6g0elOOTS1mq9zJW/IVljlNZH/DpNYck1
+	 0O6HEtaQa0ZBxY/IjzBnsHAXQlz+uvMg8HJi1/n6f6+zN8IqS267UwJnjfTAxVo2ctF5p
+	 v5iCRw6xSXk0OCQqJrF88jnnTUujgLdXXrFz1YslBqfxfujMBIVNvho8OZReqkHSGjEbF
+	 StNWAxh2kNbfoGasw+Ig3aCNxL/U6GGN6sF+zYd4P2Ya7GBEqhIv/0LeK+oG9kwqp+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xcIwmSyT;
-	arc=none smtp.remote-ip=95.215.58.107
-Received: from mta1.migadu.com (out-107.mta1.migadu.com [95.215.58.107])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VgtrlgrF;
+	arc=none smtp.remote-ip=91.218.175.16
+Received: from mta0.migadu.com (out-16.mta0.migadu.com [91.218.175.16])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E00606A32E
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:50:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6E00606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328B0606A330
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:50:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 328B0606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xcIwmSyT
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VgtrlgrF
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=VR44OXmMFC5Ziuz2RAZRy7KzJEZP4oWMUQ30NNHSlsk=;
+DKIM-Signature: a=rsa-sha256; bh=KG9+P7EeigIaTfG3TpucRpnUPoNln70sSanoxbchnvI=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794494999; v=1; x=1795099799;
- b=xcIwmSyTjhIjxHb3LrVUVNylcyg0sc2pTEcm8nd0tKL7PKZZZLxSNtrkVXXF0XBoaGXGvNQ4
- 2St2569UEGCMghATDJyou+hx806TEXBVqzbTkN6w6yqBkWsSni4HtURw3qmw9pc8XE28n6yQFST
- whWlJ2UzumtDKNDpGJ1L87Tw=
+ t=1794495008; v=1; x=1795099808;
+ b=VgtrlgrFSZRND/KG4Eiwkv/bvfUqhpJO9HtTOyyU2ZShdzTQGoTCcXtWQB9TKFwGv816ydHf
+ aGyhKJmmL2LAxiswRs7ymGAmCsLKG1sQzMrmKpPJ+rOMkvowXZC9tc7FkFudeh8+IqvA09kIm8/
+ bIaeCjR5iifzkXJK6jYinMXI=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 72b595bf3f24a98d;
-	Thu, 12 Nov 2026 14:49:59 +0000
-X-Mizu-Trace-ID: 72b595bf3f24a98d
+Received: by smtp.migadu.com with ESMTPS id 58f4540b9f06cb52;
+	Thu, 12 Nov 2026 14:50:06 +0000
+X-Mizu-Trace-ID: 58f4540b9f06cb52
 X-Migadu-Flow: FLOW_OUT
 From: Tao Cui <cui.tao@linux.dev>
 To: tj@kernel.org
@@ -59,9 +59,9 @@ Cc: void@manifault.com,
 	bpf@vger.kernel.org,
 	cui.tao@linux.dev,
 	Tao Cui <cuitao@kylinos.cn>
-Subject: [PATCH 1/2] sched/core: Pass ENQUEUE_RQ_SELECTED on initial enqueue
-Date: Thu, 12 Nov 2026 22:49:34 +0800
-Message-ID: <20261112144935.583937-2-cui.tao@linux.dev>
+Subject: [PATCH 2/2] sched_ext: Block a retained donor before PI deboost routes it back to sched_ext
+Date: Thu, 12 Nov 2026 22:49:35 +0800
+Message-ID: <20261112144935.583937-3-cui.tao@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261112144935.583937-1-cui.tao@linux.dev>
 References: <20261112144935.583937-1-cui.tao@linux.dev>
@@ -78,51 +78,70 @@ Content-Transfer-Encoding: 8bit
 
 From: Tao Cui <cuitao@kylinos.cn>
 
-select_task_rq() sets WF_RQ_SELECTED and ttwu_do_activate() maps it to
-ENQUEUE_RQ_SELECTED so enqueue_task_scx() knows whether ops.select_cpu()
-ran. wake_up_new_task() also calls select_task_rq() but activates the
-new task without the flag, so on the fork path ops.enqueue() never sees
-SCX_ENQ_CPU_SELECTED and SCX_EV_SELECT_CPU_FALLBACK never counts a
-fork-path fallback: a misbehaving select_cpu() leaves no trace in the
-counters, and schedulers testing SCX_ENQ_CPU_SELECTED run a redundant
-select_cpu_dfl() on tasks select_cpu() already placed.
+rt_mutex_setprio() is the only entry path into sched_ext that does not
+block a retained donor: an ext task PI-boosted by an rt waiter can
+block on a second kernel mutex while boosted, and on deboost is routed
+back to sched_ext carrying the queued+blocked state that
+scx_prepare_setscheduler() promises never happens; every PI cycle
+hands the BPF scheduler a queued+blocked donor it never admitted.
 
-Set ENQUEUE_RQ_SELECTED on the initial enqueue when select_task_rq() was
-called, matching the wakeup path. Only sched_ext consumes the flag.
+Call scx_prepare_task_sched_change() before the sched_change guard when
+the class change routes the task back to sched_ext, which performs the
+missing sched_proxy_block_task() (plus an update_rq_clock() that is
+harmless here: the clock was already advanced, so the second advance
+only applies a small delta). The boost direction (ext -> rt) needs no
+handling.
 
-Fixes: 9b671793c7d9 ("sched_ext, scx_qmap: Add and use SCX_ENQ_CPU_SELECTED")
+Fixes: be8be8acb268 ("sched_ext: Block proxy donors before taking control")
 Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 ---
- kernel/sched/core.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ kernel/sched/core.c    | 12 ++++++++++++
+ kernel/sched/ext/ext.h |  2 ++
+ 2 files changed, 14 insertions(+)
 
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 04b62c16fa8c..f7a452123ef5 100644
+index f7a452123ef5..dcb16b006740 100644
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -5016,6 +5016,7 @@ void wake_up_new_task(struct task_struct *p)
- 	struct rq_flags rf;
- 	struct rq *rq;
- 	int wake_flags = WF_FORK;
-+	int en_flags = ENQUEUE_NOCLOCK | ENQUEUE_INITIAL;
+@@ -7816,6 +7816,18 @@ void rt_mutex_setprio(struct task_struct *p, struct task_struct *pi_task)
+ 	if (prev_class != next_class)
+ 		queue_flag |= DEQUEUE_CLASS;
  
- 	raw_spin_lock_irqsave(&p->pi_lock, rf.flags);
- 	WRITE_ONCE(p->__state, TASK_RUNNING);
-@@ -5029,11 +5030,13 @@ void wake_up_new_task(struct task_struct *p)
- 	 */
- 	p->recent_used_cpu = task_cpu(p);
- 	__set_task_cpu(p, select_task_rq(p, task_cpu(p), &wake_flags));
-+	if (wake_flags & WF_RQ_SELECTED)
-+		en_flags |= ENQUEUE_RQ_SELECTED;
- 	rq = __task_rq_lock(p, &rf);
- 	update_rq_clock(rq);
- 	post_init_entity_util_avg(p);
- 
--	activate_task(rq, p, ENQUEUE_NOCLOCK | ENQUEUE_INITIAL);
-+	activate_task(rq, p, en_flags);
- 	trace_sched_wakeup_new(p);
- 	wakeup_preempt(rq, p, wake_flags);
- 	if (p->sched_class->task_woken) {
++	/*
++	 * PI boost can route @p out of sched_ext: policy stays SCHED_EXT but
++	 * __setscheduler_class() follows the effective rt prio, and rt/fair
++	 * may have retained @p on the rq as a blocked donor. Block it before
++	 * sched_change_begin() records the queued state, the same way the
++	 * other entry points into sched_ext do.
++	 */
++#ifdef CONFIG_SCHED_CLASS_EXT
++	if ((queue_flag & DEQUEUE_CLASS) && next_class == &ext_sched_class)
++		scx_prepare_task_sched_change(p);
++#endif
++
+ 	scoped_guard (sched_change, p, queue_flag) {
+ 		/*
+ 		 * Boosting condition are:
+diff --git a/kernel/sched/ext/ext.h b/kernel/sched/ext/ext.h
+index d32bc01071b0..1a699be25331 100644
+--- a/kernel/sched/ext/ext.h
++++ b/kernel/sched/ext/ext.h
+@@ -19,6 +19,7 @@ void scx_rq_activate(struct rq *rq);
+ void scx_rq_deactivate(struct rq *rq);
+ int scx_check_setscheduler(struct task_struct *p, int policy);
+ void scx_prepare_setscheduler(struct task_struct *p, int policy);
++void scx_prepare_task_sched_change(struct task_struct *p);
+ bool task_should_scx(int policy);
+ bool scx_allow_ttwu_queue(const struct task_struct *p);
+ bool __scx_allow_proxy_exec(const struct task_struct *p);
+@@ -72,6 +73,7 @@ static inline void scx_rq_activate(struct rq *rq) {}
+ static inline void scx_rq_deactivate(struct rq *rq) {}
+ static inline int scx_check_setscheduler(struct task_struct *p, int policy) { return 0; }
+ static inline void scx_prepare_setscheduler(struct task_struct *p, int policy) {}
++static inline void scx_prepare_task_sched_change(struct task_struct *p) {}
+ static inline bool task_on_scx(const struct task_struct *p) { return false; }
+ static inline bool scx_allow_ttwu_queue(const struct task_struct *p) { return true; }
+ static inline bool scx_allow_proxy_exec(const struct task_struct *p) { return true; }
 -- 
 2.53.0
 
