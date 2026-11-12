@@ -1,77 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794494807;
-	b=ETYxwoSwJapfoDgmWZs1pX6JILOsRmIcsIUAeG5U68LK3pvWiBK+lA6a0ClCd06o8fVP
-	 KE5KvJvwACOfMxsU5oaZa0a3aTjnLDCRh5SWWuysYY73a3sok6p8ay910BAqQedzB85hL
-	 itmzT1DZsyziAW/RHcDoxQzeN6tXwaCzmjY1SZ+LMiwqRt6gyvMXxgQ/KcYEGxyReFC5L
-	 MSGGzU8wdMvo9MoZ3KRh+ZVlt/HkeHI5VaFeEjIQ/4oFS22IakLt3GyUFUcFvxvVfeVuL
-	 W8HM3gUe7Kpz0R9XaXHNWYgEItKBvEmxQICHmCRTNYjjHO+HIqStHqWYUUhQpKaBjbg==
+	t=1794494810;
+	b=PJlewGlh8g5KXQmNiio/5LjasGGBFwKz0JDBBv4VDwDfWo6mxYOohn4Tqi4MXykrs4Cf
+	 bHAKuWmjy19E412E4EQ4Mb8uBnrR7uKjp58sGnqHCZQkYmGeQ8j2hbwbvkrQV5GKydk16
+	 jFKHIXHSXuqm4dUriMn7j9C4aRrk6GoI205PKxGEqYoLAsFbg1jL0d7zymsYWHCf9n22e
+	 qipk7rzerglOoHSxKLhCfT5oJWTd6Bco6bu0VwMKIW0KGaOzqVWqKilJmHIG4SiQ4aLXj
+	 WOIuEwM0reqXT6ASUe9I4c7zCkU4HDkTQ4ip1Bl6QODN5ZCab73WRzcvE2lnKd1WU1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794494807;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=DeS1JutKTfuhS5q6pNbvmoX+jSrEwDPcQETf0SHwj/c=;
-	b=M6fy5/vwCa2lj57WVljaPamwM0JXGgEP7XCKyV0hpihnPSHyDrhKpZI3Vp88I0r4tWn2
-	 F2ueYr2QQtscBhY+i4kXuWXw23XfvD4dVimK45xe24GUMnF7yNozpiF7tVEp4TD6dUqwa
-	 uh7YKA/nXNUlihVlRH4+Z1avDYxrrU4sIf2vYdJ5tVsS1aFw3aQvKrl4kGgCxXSfk9ODu
-	 6rAb5zmYPIcYl6xWIvukHDESiZXTib+WFpNX01dCmGO1ek0Oss8QHQzOHAW1sUqN9J4zI
-	 gMEvasQdBequ1/HXiKz2Tsr2rXe5ng8UFxFhtbp5tk60OsJsj/ULIhLfv7W9z3HhAuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794494810;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Subject:User-Agent:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=GW1J6s7aL2zvtC13WpFK94wE9d4airqES1RCBPqtr2M=;
+	b=lVqpZApcPOZrR/MA2ntELAHpGSZkufy0vJjPwKQS8M2McOUj9Ija52tEslvRTi/8SGlb
+	 4wlHzV4lRlu9aJy2UKMVXkA++aAM5gtnom2jQwgaZVnCLXU5hs+8yz3o1fjBqZSruAHOB
+	 zP34rmbdz9C+UrSh1b12T1EknIYSuwnc7vYR1VHlgdV1f+FiKKh817Uu8IZyseZc1Yny2
+	 ClN18x2PXUKQvQV1rjl6ZXt7VJSRSiFMRrUXjPiGbb8Yc84e+SLvIzH61QWs9macPRthz
+	 IdvldX5Kj6V9M1KKuqsEZvo8US4PxS796wUIb62JWzrz+Xo7qv6EY6eagTkEUauiYpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
+	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.179
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B5ie9Sbk;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8793A606A335
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:46:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8793A606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339A6606A332
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:46:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 339A6606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5ee1e4e3abcso559515e0c.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:46:47 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794494806; x=1795099606;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B5ie9Sbk
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36dbde64409so8541409eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:46:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794494809; x=1795099609; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:to:from:date:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=DeS1JutKTfuhS5q6pNbvmoX+jSrEwDPcQETf0SHwj/c=;
-        b=b3YvZJBXiF4kpdc5/jG1J02sgJACEJaaFjK4QaGcOKbxml3OItOp/9vP2mfDODIf5A
-         619HI7e3q9xdwre+FQVafN7PB9ieSZrVvtpxKa7ZQqp6TlW8XAv5fu3lFaLPRKcEBK32
-         cv4ilQ9njDQr8mZRckm80KoGqqWJzDa/fca/Pm/q0NkrQ/iwuk2LndCCHZy/Y51EO9XU
-         m32tasgPezA8yL7AO+sNESyqPX52lPmW0m0GPhITnUwq6lRaGG4LotCx/348HpARDQ9k
-         h5ybfONs3t6r636I8y5BazOXk/bq0Tq1aFVTb7xoa65Vn6qttImx/wHxxXQWWjhqF6l9
-         c/DA==
-X-Forwarded-Encrypted: i=1; AL+hErFmeCaUqlKLLEOM19gFr0TDlS5+0/h5WN2tEg8ip8zllRcztmGG31q+SHird6yUsUUekMb1iIYYRBcIF48=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9vQQVcgm1zQhziKhqICamz/SXXeLEutRJ9ajmiwwldMeTwCiUU
-	ri5YDzf+yQRJf41e9xpmDzwqQFAXatfzEBfej5YTTzB9NNiKM4VDlG+eSnEmDELiI9o=
-X-Gm-Gg: AYBFou2/HjKBV9IoCvifL+IYnwZTPkmMgfxFUw3w1GCks4ULQf4vgFcmECTSXxDpVf/
-	vpYrWIUO49DGlCjmliu4yS059ZYPV3OhraYkUOsUdVcP/WWT+zJZCtSaQXfYq0zrTNGMKkqi/Tm
-	CBFUoX+QF01POP43Wffu41Rqz/fkd6V5u1SNNIMQLQVUG6PXZNGyHQWPbRQ5TWAhezENd847Xnj
-	Lxq//4tlCEHOFJ5cgmM/9pzraYgn8Luxk3F1oSBB6OSbfWujwteiXVIFWWy2z+WDR9I3XMkkaVI
-	KqvBzujuF5q1HG5Tg+sio0kVL3bzZRU4TmKFtAbdLx844ct42vzXxh3Cg/M/HKqVT4vcb+Iqjex
-	yc8EI4tG4qhD7ScUmJKq8Ak+ANjaCL2PCSQ1OLkvq7WttyPavYAM24OUJZXrHef+zJXGHdSdOub
-	f2p3jiIy/eOIq3IKqpmEauikU+8yN+209LLkv7eOylfLqc/H50TIj9IKmjsOc2vu0SRvPHomeGT
-	RM4E/054dHrXfk6HsmjBBJucAvyEkycqjNxs/RarsoK+4I3IdDzCTAtDnX6FAh/LRvkpkjujMdB
-	pce0WIcvnsPGo450xARTetQDV0ZnYzUfS1RehHxG1pFcaivwJTqTBrtq6tp8/GkBl3xFN+Z+521
-	6cjjUH8WNq4okWRV4
-X-Received: by 2002:a05:6122:1797:b0:5ea:d32a:16de with SMTP id 71dfb90a1353d-5ee1c44ac5dmr2135167e0c.15.1794494806611;
-        Thu, 12 Nov 2026 06:46:46 -0800 (PST)
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com. [209.85.221.180])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee3246f80asm60712e0c.13.2026.11.12.06.46.45
-        for <linux-kernel@vger.kernel.org>
+        bh=GW1J6s7aL2zvtC13WpFK94wE9d4airqES1RCBPqtr2M=;
+        b=B5ie9Sbk0h0ROlG5e70AX9jsL+iKEdl5R+SqOO+0e/f+zcG2//r+6xJSJaXzM7yXmB
+         bZgvfZ+iA2nav/8AycjLNu1CizbhripoJ642uoYr4akc+mggEeGuliAIXpvvTeIELebu
+         vvh8f3EZjTlIb+HBY+QtvI2Kf889Ei1fVf5Nj5AbQZABx97e4ot0IqJBv0kHaVVP2Pkt
+         +rVxIrhMsygSJJr4glSnP/OTNlK61vufHrXiE+jfwW82wKO17ULrO3RLaSVkyvhe0aC+
+         ahPcvS3VAY6mJgU6TvtX3cBIC+fPVWfPwJk78TBWJv2ms8TuYcKg0j4Zeg/aNtxqHq6b
+         nQCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794494809; x=1795099609;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GW1J6s7aL2zvtC13WpFK94wE9d4airqES1RCBPqtr2M=;
+        b=gHzwlqn04SDIu35XPkbVCQzsAqux+BFrNLVOpJiZt8A00nrEdt9BWpmXFCzWfF4yWe
+         sKYeX9/rsP4kq26nMFo6Axya4FRdOfvzeMBZdiUJFGvwedmxjCL/FtaiayW9oKTyKbJa
+         wJQ8JD3XokwYTwOs4GQkX7kxZAv0RqWhIoaNwG7Qr8VJPtNJxFgRkqr8wS0m6F0cPw3K
+         hefB7iRC68DDM1va/abQU8uTdfCjJJngC+dwZ0g2S3Sd8oafciOLcG86OYgPLCPY+ZDo
+         d3dvO7zbaLpTC3Zr7zQSuwyXnQMVAMpdw3PYksW+boQrVBHI8wTgqpth2S0i1uiJw58R
+         Ki0w==
+X-Forwarded-Encrypted: i=1; AL+hErFCPJom8ywlxjZkWNM9c/RY8rK9GszE5u0exvXS+Nt/E/7u6YRkPp7QO377BciZFqJI5HDcPatozpyndLs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/CrCOrkI/pBV7OljbbHr6NusuBr9waD6paNX+sNpEVwTYODSFB
+	fif+Y5yIUkrdvugmKC0eKHdJgNDxM9VpFje7hM5o1Hg/WQsYEgBJ2mE3MsfTLQ==
+X-Gm-Gg: AYBFou0sxifEdXqIo5tyPKqaKHgUrZV04IGssqMiWt4YVZnq1xhPA/8Y5SGO+QpkigN
+	VdyjmMBrpQBftZeHKKUelXz4E53kraL8+wcoZH665vsoiInZvJnHFMmJa0WIJguw3X1b5d39TQm
+	Os2yZWQG2Ab9neqZVXOwjF3MSwnshdm9nepaGnfrXBuddUDAEA/8a8OzzyUf2/c2xNhyu8hFOG4
+	6C0hj6J4/uC2EC+gaGjXYc1GEJP6qrPwx1fHS5ouEMKnw989Cl4VaCZAnCKTkdGGepf8++e2Hi6
+	g1zQ6l0NVA0Zan4eRXLKhNa2fxxvaInfY7nCiU3WaLb6DwdjUCHZHpDUVXRAsK5jAUAdPc1i0/U
+	ZJN2AqcbZKkqe2jcPCJQQ5Uu49LOc6mwGtH0n+gq8/p2U8pwtkaCrk3Lfw/ocnzvRpgSSUD0x67
+	s+iN2XP8mwsgSWcNNT5ZlhceF1XarNhBYhjVWVPELcgIm+yeUKJ3RAJS7cD4lM2T5zA8Tmr0Txe
+	BoHpRC1Z0AwkOX9JXslrr/Qfga3BAearYRH9vf4ynFFTKi/MruAn8eCe/dgSHV+K2ho8f8E+Oap
+	D/u7teqwHgnB22L4ni3CXirzUJWaGbafDIAJoFrJF/C73gxvHJmH2+uIvCYuXX49gqrkqAdG5GS
+	v0OR15njHAZG2fiN4eh/DG08=
+X-Received: by 2002:a05:7301:470c:b0:36a:12c4:8bd6 with SMTP id 5a478bee46e88-37686171f1bmr5787039eec.22.1794494809135;
+        Thu, 12 Nov 2026 06:46:49 -0800 (PST)
+Received: from ehlo.thunderbird.net (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37925e611e4sm285392eec.20.2026.11.12.06.46.47
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 06:46:45 -0800 (PST)
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5eaf169fe3dso1398730e0c.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:46:45 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGutFyJ/Pwks8d0V6754iPKhN43oTq/PyJ9gMP25uabInbhrWPqL7VCM+X6PvEtnv1owaISd7VKDgPvmro=@vger.kernel.org
-X-Received: by 2002:a05:6122:398e:b0:5ce:d56f:efac with SMTP id
- 71dfb90a1353d-5ee1c4995fdmr2096272e0c.21.1794494805148; Thu, 12 Nov 2026
- 06:46:45 -0800 (PST)
+        Thu, 12 Nov 2026 06:46:48 -0800 (PST)
+Date: Thu, 12 Nov 2026 06:46:47 -0800
+From: "Derek J. Clark" <derekjohn.clark@gmail.com>
+To: Aaron Ma <aaron.ma@canonical.com>, Mark Pearson <mpearson-lenovo@squebb.ca>,
+ Rong Zhang <i@rong.moe>, Hans de Goede <hansg@kernel.org>,
+ =?ISO-8859-1?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_platform/x86=3A_lenovo-wmi-ot?=
+ =?US-ASCII?Q?her=3A_Deconflict_battery_with_thinkpad=5Facpi?=
+User-Agent: Thunderbird for Android
+In-Reply-To: <20261112074823.853819-1-aaron.ma@canonical.com>
+References: <20261112074823.853819-1-aaron.ma@canonical.com>
+Message-ID: <68B20AF1-0037-4810-98B8-49E3CBF17E92@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,71 +101,173 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
- <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-3-1b2072e8c37e@ideasonboard.com>
-In-Reply-To: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-3-1b2072e8c37e@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 12 Nov 2026 15:46:34 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdVKr2fGN3k0LYHhoFp3Rp7_=KfTB6tQkGYDof0Em0HVtA@mail.gmail.com>
-X-Gm-Features: AclHuK-vYdrIZUHe9zqdC5qY90reiPN1Oa4nwuum4GsEnnZB7I1s1LzmhCydy1o
-Message-ID: <CAMuHMdVKr2fGN3k0LYHhoFp3Rp7_=KfTB6tQkGYDof0Em0HVtA@mail.gmail.com>
-Subject: Re: [PATCH v4 03/13] arm64: renesas: r8a78000: Add FCPV[BI] nodes
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-media@vger.kernel.org, 
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Paul,
-
-On Mon, 9 Nov 2026 at 14:35, Paul Elder
-<paul.elder+renesas@ideasonboard.com> wrote:
-> Add DT nodes for the FCPVB and FCPVI IP cores in the R-Car X5H SoC.
+On November 11, 2026 11:48:23 PM PST, Aaron Ma <aaron=2Ema@canonical=2Ecom>=
+ wrote:
+>ThinkPads expose battery charge thresholds and charge_behaviour through
+>thinkpad_acpi's ACPI battery hook using raw sysfs attribute groups=2E The
+>Lenovo WMI "Other Mode" driver also registers a power_supply_ext for
+>charge_behaviour and charge_types on systems advertising those WMI
+>capabilities=2E
 >
-> Use the SGD1 clock as it is likely to be the clock used for data flow.
+>When lenovo-wmi-other registers first, thinkpad_acpi fails to create a
+>duplicate charge_behaviour sysfs attribute and unregisters its battery
+>extension=2E Conversely, registering or updating any power_supply_ext on
+>the same battery runs sysfs_update_groups(), which removes standard
+>power-supply attributes not owned by power_supply_core and wipes out
+>thinkpad_acpi's charge_control_start_threshold,
+>charge_control_end_threshold, and charge_behaviour files=2E
 >
-> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Tested-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-
-Thanks for your patch!
-
-> --- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
-> @@ -1574,6 +1574,78 @@ mdlc_aon: system-controller@c1338000 {
->                         bootph-all;
->                 };
+>Deconflict both ideapad_laptop (VPC2004 with GBMD and SBMC) and
+>thinkpad_acpi (LEN0268, LEN0068, or IBM0068 with BDSG and BICG) via a
+>table check when the corresponding driver is enabled in Kconfig, and
+>update the force_load_psy_ext description accordingly=2E
 >
-> +               fcpvi0: fcp@c5030000 {
+>Fixes: 9ca8fc065b88b ("platform/x86: lenovo-wmi-other: Add WMI battery ch=
+arge limiting")
+>Signed-off-by: Aaron Ma <aaron=2Ema@canonical=2Ecom>
 
-Please preserve sort order:
-  1. Sort by unit address,
-  2. Keep similar nodes together.
+Hi Aaron,
 
-> +               fcpvb0: fcp@c5038000 {
+Looks good, thanks=2E I'll test it in a couple of days=2E I have one quest=
+ion below but it's not blocking for me, I just want to check my assumption =
+is correct=2E
 
-Do you want to sort the FCPs within the FCP group by unit address,
-or by label?
+Reviewed-by: Derek J=2E Clark <derekjohn=2Eclark@gmail=2Ecom>
 
-For the contents of the nodes:
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+>---
+>Changes in v2:
+>- Consolidate IdeaPad and ThinkPad deconfliction into a table of ACPI
+>  device IDs, method pairs, and driver configuration checks, as suggested
+>  by Derek J=2E Clark=2E
+>- Check GBMD and SBMC for IdeaPads, and BDSG and BICG for ThinkPads,
+>  instead of relying only on ThinkPad ACPI device presence=2E
+>- Check whether the corresponding driver is enabled before looking up
+>  its ACPI device, including for ideapad_laptop=2E
+>- Update the force_load_psy_ext description to cover both drivers=2E
+>
+>v1: https://lore=2Ekernel=2Eorg/platform-driver-x86/20261111083529=2E7272=
+85-1-aaron=2Ema@canonical=2Ecom/
+>
+> drivers/platform/x86/lenovo/wmi-other=2Ec | 51 ++++++++++++++++++-------
+> 1 file changed, 38 insertions(+), 13 deletions(-)
+>
+>diff --git a/drivers/platform/x86/lenovo/wmi-other=2Ec b/drivers/platform=
+/x86/lenovo/wmi-other=2Ec
+>index bd64e7b44669d=2E=2E14b2c3f4cc7ae 100644
+>--- a/drivers/platform/x86/lenovo/wmi-other=2Ec
+>+++ b/drivers/platform/x86/lenovo/wmi-other=2Ec
+>@@ -189,10 +189,10 @@ MODULE_PARM_DESC(relax_fan_constraint,
+> static bool force_load_psy_ext;
+> module_param(force_load_psy_ext, bool, 0444);
+> MODULE_PARM_DESC(force_load_psy_ext,
+>-	"This option will skip checking if the ideapad_laptop driver will confl=
+ict "
+>+	"This option will skip checking if the ideapad_laptop or thinkpad_acpi =
+driver will conflict "
+> 	"with adding an extension to set the battery charge behavior and batter=
+y charge "
+> 	"control end threshold=2E It will also skip checking if the BIOS report=
+s that "
+>-	"those features are fully supported=2E It is recommended to blacklist t=
+he ideapad "
+>+	"those features are fully supported=2E It is recommended to blacklist t=
+he conflicting "
+> 	"driver before using this option=2E");
+>=20
+> /* =3D=3D=3D=3D=3D=3D=3D=3D HWMON (component: lenovo-wmi-capdata 00 & fa=
+n) =3D=3D=3D=3D=3D=3D=3D=3D */
+>@@ -905,17 +905,32 @@ static acpi_status lwmi_acpi_match(acpi_handle hand=
+le, u32 lvl,
+> 	return AE_CTRL_TERMINATE;
+> }
+>=20
+>+struct lwmi_psy_deconflict {
+>+	const char *hid;
+>+	char * const *methods;
+>+	bool driver_enabled;
+>+};
+>+
+>+static char * const lwmi_ideapad_psy_methods[] =3D { "GBMD", "SBMC" };
+>+static char * const lwmi_thinkpad_psy_methods[] =3D { "BDSG", "BICG" };
+>+
+>+static const struct lwmi_psy_deconflict lwmi_psy_deconflict_list[] =3D {
+>+	{ "VPC2004", lwmi_ideapad_psy_methods, IS_ENABLED(CONFIG_IDEAPAD_LAPTOP=
+) },
+>+	{ "LEN0268", lwmi_thinkpad_psy_methods, IS_ENABLED(CONFIG_THINKPAD_ACPI=
+) },
+>+	{ "LEN0068", lwmi_thinkpad_psy_methods, IS_ENABLED(CONFIG_THINKPAD_ACPI=
+) },
+>+	{ "IBM0068", lwmi_thinkpad_psy_methods, IS_ENABLED(CONFIG_THINKPAD_ACPI=
+) },
+>+};
+>+
+> /**
+>  * lwmi_om_psy_ext_init() - Hooks power supply extension to device batte=
+ry
+>  * @priv: Pointer to the lwmi_om_priv drvdata=2E
+>  *
+>- * Checks if the ideapad_laptop driver is going to manage charge attribu=
+tes first,
+>- * then if not, hooks the battery to our WMI methods if they are support=
+ed=2E
+>+ * Checks if the ideapad_laptop or thinkpad_acpi driver is going to mana=
+ge
+>+ * charge attributes first, then if not, hooks the battery to our WMI me=
+thods
+>+ * if they are supported=2E
+>  */
+> static void lwmi_om_psy_ext_init(struct lwmi_om_priv *priv)
+> {
+>-	static const char * const ideapad_hid =3D "VPC2004";
+>-	acpi_handle handle =3D NULL;
 
-Gr{oetje,eeting}s,
+I'm assuming this was moved to avoid handling cleanup each loop?
 
-                        Geert
+Thanks,=20
+- Derek
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> 	unsigned int props =3D 0;
+> 	int ret;
+>=20
+>@@ -928,14 +943,24 @@ static void lwmi_om_psy_ext_init(struct lwmi_om_pri=
+v *priv)
+> 	if (force_load_psy_ext)
+> 		goto load_psy_ext;
+>=20
+>-	/* Deconflict ideapad_laptop driver */
+>-	ret =3D acpi_get_devices(ideapad_hid, lwmi_acpi_match, &handle, NULL);
+>-	if (ret)
+>-		return;
+>+	for (unsigned int i =3D 0; i < ARRAY_SIZE(lwmi_psy_deconflict_list); i+=
++) {
+>+		const struct lwmi_psy_deconflict *entry =3D &lwmi_psy_deconflict_list[=
+i];
+>+		acpi_handle handle =3D NULL;
+>=20
+>-	if (handle && acpi_has_method(handle, "GBMD") && acpi_has_method(handle=
+, "SBMC")) {
+>-		dev_dbg(&priv->wdev->dev, "ideapad_laptop driver manages battery for d=
+evice\n");
+>-		return;
+>+		if (!entry->driver_enabled)
+>+			continue;
+>+
+>+		ret =3D acpi_get_devices(entry->hid, lwmi_acpi_match, &handle, NULL);
+>+		if (ret || !handle)
+>+			continue;
+>+
+>+		if (acpi_has_method(handle, entry->methods[0]) &&
+>+		    acpi_has_method(handle, entry->methods[1])) {
+>+			dev_dbg(&priv->wdev->dev,
+>+				"ACPI device %s manages battery for device\n",
+>+				entry->hid);
+>+			return;
+>+		}
+> 	}
+>=20
+> load_psy_ext:
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
