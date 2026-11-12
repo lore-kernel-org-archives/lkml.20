@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794490491;
-	b=X4byEJGTllo63jKKYVzz+gsTbuW4b3NjZg3YeZHGAMU5fowKhDOkBHO1FJOM6jLTmxXg
-	 jfVpPc2OmDTpZkEjP6cD3oSD9MmcisALkrn4UI3QldMZhJyhbpmAzbeTjvZ5wTql0Rwab
-	 OEm1G6CEQHMaqzQiDc1kcvdZvuxWUYYABxh1aNsKJBVYrnNhH4tN4Y0rDWfOG9MwoKt9L
-	 uVlqMzYPHek0P1WdtHSy1huXdKmB17+PVcYOhYRITNs3yEC54nWpgKOqvy26aU/RrwU0N
-	 mCZaIQyG6nqKjM0gXxQu3c4Ea7t466HvAC28lqVneG8EJUageaw8pr6j+qNa1YbndNw==
+	t=1794490492;
+	b=TRlH7D/PgJ4n6G8v/dfeJt7ybd9Og3WbkVd2GEnGFuub6hj/OSfbc8kZW+9F8Zkkxc9g
+	 QZUvmYaZeuLdtwnbp0vCLrzYJG1sQDJGXLMB8OTu+ljZLb8Pz9XArvBqaqtKT2R1B84kp
+	 hW9qwYFCcoKvwYu8eRBMkbKkwdzBm47+oolb86YxRywiMIQrw7n4bwaBMoHziSu99IZ3U
+	 LrhYpIKP/cx767YPkFluGg6qy27o4jxBdJgH9DSHwslx2/bNu0eJY290SDt+ZH4MEbF18
+	 qThPjcPaZ/MfxZsHknJYthAN04FM7iAJDQYI5nx5keI8++9YV8JqYeZblE4w+9CjbbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794490491;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794490492;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=VAYr9WX92dg3SvFjZudKbj8hGUmjBf0kHQsMj3Huy2A=;
-	b=Apy0rVWMXMo0+qwzTD1P8BvBQr4pNIZrGrD0pnGdBzhpypbP5HG7AOkiwPZFmxy0Xsrv
-	 UWehmoJeCOxAJKk7NgQRsPsH331IY2mkzcuYPf1OxKwRievjDEcIWSJ8cs5w+7gy4+ibl
-	 9WuvHFe8EWdkAAEUb1uz1scobliCrMxCTwFt8a4XzIJEhvEPyhS6JiXu2QVnLHyNNQA1H
-	 BkKsNwkF9UwQhl5bgZnOpWL6dZM3HppPfudVfvUIzEmaDjsH2cPIsJ4nTPMN/r8dp45OZ
-	 6RRQW+6LrlENksdCTyFmIcksknZIQ6+Vs3HaNNtC98SpjlIDXEO0S+jUBjlWwVSlk6A==
+	bh=aF0m0nqSwM4uqo2e3paTNsAMlJ7uv60BjNcXZG7EYjA=;
+	b=LuA/MtsWi6b0Plnhv8qThVEzEClObfqupkSNzLgrsb48UmKvBqGYGAz4rO57JC5UrakR
+	 UHNAmslpIoFte4VcXGCsD1cGGN5jlzgh4hyRw7Zx4eVWDfRJAoSmys9uIDcHAHN7NL+lm
+	 J0TzQhcXGoOqzQxP30b/wPGICQcmxFrv6ymE9WCzcSu3LS5L9dEP5SIiGxldPcyL38trX
+	 BaGxU2tJCMbC6bNrWTaYZNEhUhu90nw0qt+e6EQHmJrKDTcu066LY3ZqnFDyCYowLVw6k
+	 LFWchRZRAKT1bHPH7k2uJnrguPmDwAqqyMgqm3i2/zeQMN5pmir28+BvGgrKSqzNFvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=gxvGi8l5;
-	arc=none smtp.remote-ip=113.46.200.220
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=YLuP2sUE;
+	arc=none smtp.remote-ip=113.46.200.218
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D892D606A8BF
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:34:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D892D606A8BF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F95F60A260E
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:34:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F95F60A260E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=gxvGi8l5
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=YLuP2sUE
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=VAYr9WX92dg3SvFjZudKbj8hGUmjBf0kHQsMj3Huy2A=;
-	b=gxvGi8l5GYdAixG1QRWsiSMLXXsHyOINqSPUArEqcmmeWhWDwV6nk3CkHtY7MDp+FMWYyzx6n
-	HOBPUbx0XU/w94jHsTYt7dspTnSwdWfKEmGxB/qdyl9efuTCs2wvrwlVEjkDtbQfNn79EZnH2fE
-	I8C2D6gS4O3csk5lTZtUg8E=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4jQLwW62KXz12LD4;
-	Thu, 12 Nov 2026 21:34:51 +0800 (CST)
+	bh=aF0m0nqSwM4uqo2e3paTNsAMlJ7uv60BjNcXZG7EYjA=;
+	b=YLuP2sUEmJchwn4zsu7nGYAFFX0oppBEnsVCc3AQoH7ldJMk/l/QqhJfRvPxVOhmep+L1kTAs
+	imzeWBfOLWaD3D7EjIHtkOsPd1IcBiHJ4meOueDCppdIMY+bR/jnvlfkGVG2DQL892cgl7b+Kw9
+	Kt/r6Gld6fFLI9uohxdmsEE=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jQLvd2s1CzpT0q;
+	Thu, 12 Nov 2026 21:34:05 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 4125240575;
-	Thu, 12 Nov 2026 21:34:46 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id E2E4940538;
+	Thu, 12 Nov 2026 21:34:44 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 12 Nov
- 2026 21:34:44 +0800
+ 2026 21:34:43 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
 	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
@@ -77,9 +77,9 @@ To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
 	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
 	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
 	<kexec@lists.infradead.org>
-Subject: [PATCH v8 07/11] powerpc: kexec_file: Use the common segment helpers
-Date: Thu, 12 Nov 2026 21:34:14 +0800
-Message-ID: <20261112133418.4044428-8-ruanjinjie@huawei.com>
+Subject: [PATCH v8 06/11] x86: kexec_file: Use the common segment helpers
+Date: Thu, 12 Nov 2026 21:34:13 +0800
+Message-ID: <20261112133418.4044428-7-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261112133418.4044428-1-ruanjinjie@huawei.com>
 References: <20261112133418.4044428-1-ruanjinjie@huawei.com>
@@ -97,91 +97,108 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-load_elfcorehdr_segment() builds the elf core header from the powerpc
-crash memory ranges and places it as a segment.  The header needs
-powerpc specific post processing, so keep building it here, but use
-kexec_add_elf_core_header() to place it.
+crash_load_segments() open codes the elf core header loading: it builds
+the header, accounts for crash hotplug and places the segment.
 
-elf64_load() also loads the initrd by hand, use kexec_add_initrd()
+Use kexec_prepare_elf_core_header() and kexec_add_elf_core_header()
+instead.
+
+bzImage64_load() also loads the initrd by hand, use kexec_add_initrd()
 for it.
 
-Cc: Michael Ellerman <mpe@ellerman.id.au>
-Cc: Nicholas Piggin <npiggin@gmail.com>
-Cc: Christophe Leroy <chleroy@kernel.org>
+Cc: Thomas Gleixner <tglx@kernel.org>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: H. Peter Anvin <hpa@zytor.com>
+Cc: x86@kernel.org
 Cc: Andrew Morton <akpm@linux-foundation.org>
 Cc: Baoquan He <baoquan.he@linux.dev>
 Cc: Mike Rapoport <rppt@kernel.org>
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- arch/powerpc/kexec/elf_64.c       |  9 ++-------
- arch/powerpc/kexec/file_load_64.c | 14 ++++----------
- 2 files changed, 6 insertions(+), 17 deletions(-)
+ arch/x86/kernel/crash.c           | 25 +++++--------------------
+ arch/x86/kernel/kexec-bzimage64.c |  8 +-------
+ 2 files changed, 6 insertions(+), 27 deletions(-)
 
-diff --git a/arch/powerpc/kexec/elf_64.c b/arch/powerpc/kexec/elf_64.c
-index d9a466cd602e..1ef444494641 100644
---- a/arch/powerpc/kexec/elf_64.c
-+++ b/arch/powerpc/kexec/elf_64.c
-@@ -96,18 +96,13 @@ static void *elf64_load(struct kimage *image, char *kernel_buf,
+diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
+index e6f23933a6df..8d56d39ebbd5 100644
+--- a/arch/x86/kernel/crash.c
++++ b/arch/x86/kernel/crash.c
+@@ -354,14 +354,12 @@ int crash_load_segments(struct kimage *image)
+ 				  .buf_max = ULONG_MAX, .top_down = false };
  
- 	kexec_dprintk("Command line: %s", cmdline ? cmdline : "");
+ 	/* Prepare elf headers and add a segment */
+-	ret = crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &kbuf.buffer,
+-				    &kbuf.bufsz, &pnum);
++	ret = kexec_prepare_elf_core_header(image, IS_ENABLED(CONFIG_X86_64),
++					    &pnum);
+ 	if (ret)
+ 		return ret;
  
--	if (initrd != NULL) {
+-	image->elf_headers	= kbuf.buffer;
+-	image->elf_headers_sz	= kbuf.bufsz;
+-	kbuf.memsz		= kbuf.bufsz;
++	kbuf.memsz = image->elf_headers_sz;
+ 
+ #ifdef CONFIG_CRASH_HOTPLUG
+ 	/*
+@@ -374,28 +372,15 @@ int crash_load_segments(struct kimage *image)
+ 		pnum += 2 + CONFIG_NR_CPUS;
+ 
+ 	if (pnum < (unsigned long)PN_XNUM) {
+-		kbuf.memsz = pnum * sizeof(Elf64_Phdr);
+-		kbuf.memsz += sizeof(Elf64_Ehdr);
+-
+-		image->elfcorehdr_index = image->nr_segments;
+-
+-		/* Mark as usable to crash kernel, else crash kernel fails on boot */
+-		image->elf_headers_sz = kbuf.memsz;
++		kbuf.memsz = pnum * sizeof(Elf64_Phdr) + sizeof(Elf64_Ehdr);
+ 	} else {
+ 		pr_err("number of Phdrs %lu exceeds max\n", pnum);
+ 	}
+ #endif
+ 
+ 	kbuf.buf_align = ELF_CORE_HEADER_ALIGN;
+-	kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
+-	ret = kexec_add_buffer(&kbuf);
+-	if (ret)
+-		return ret;
+-	image->elf_load_addr = kbuf.mem;
+-	kexec_dprintk("Loaded ELF headers at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
+-		      image->elf_load_addr, kbuf.bufsz, kbuf.memsz);
+ 
+-	return ret;
++	return kexec_add_elf_core_header(image, &kbuf);
+ }
+ #endif /* CONFIG_KEXEC_FILE */
+ 
+diff --git a/arch/x86/kernel/kexec-bzimage64.c b/arch/x86/kernel/kexec-bzimage64.c
+index 3aa77006adab..c8e285c9a4c6 100644
+--- a/arch/x86/kernel/kexec-bzimage64.c
++++ b/arch/x86/kernel/kexec-bzimage64.c
+@@ -626,19 +626,13 @@ static void *bzImage64_load(struct kimage *image, char *kernel,
+ 
+ 	/* Load initrd high */
+ 	if (initrd) {
 -		kbuf.buffer = initrd;
 -		kbuf.bufsz = kbuf.memsz = initrd_len;
-+	if (initrd) {
  		kbuf.buf_align = PAGE_SIZE;
- 		kbuf.top_down = false;
+ 		kbuf.buf_min = MIN_INITRD_LOAD_ADDR;
 -		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
 -		ret = kexec_add_buffer(&kbuf);
 +		ret = kexec_add_initrd(image, &kbuf);
  		if (ret)
- 			goto out;
+ 			goto out_free_params;
  		initrd_load_addr = kbuf.mem;
+ 
+-		kexec_dprintk("Loaded initrd at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
+-			      initrd_load_addr, initrd_len, initrd_len);
 -
--		kexec_dprintk("Loaded initrd at 0x%lx\n", initrd_load_addr);
+ 		setup_initrd(params, initrd_load_addr, initrd_len);
  	}
  
- 	ret = get_reserved_memory_ranges(&rmem);
-diff --git a/arch/powerpc/kexec/file_load_64.c b/arch/powerpc/kexec/file_load_64.c
-index 0cf03cee35a7..77652db7d1ca 100644
---- a/arch/powerpc/kexec/file_load_64.c
-+++ b/arch/powerpc/kexec/file_load_64.c
-@@ -416,9 +416,8 @@ static int load_elfcorehdr_segment(struct kimage *image, struct kexec_buf *kbuf)
- 	/* Fix the offset for backup region in the ELF header */
- 	sync_backup_region_phdr(image, headers, false);
- 
--	kbuf->buffer = headers;
--	kbuf->mem = KEXEC_BUF_MEM_UNKNOWN;
--	kbuf->bufsz = headers_sz;
-+	image->elf_headers = headers;
-+	image->elf_headers_sz = headers_sz;
- 
- 	/*
- 	 * Account for extra space required to accommodate additional memory
-@@ -427,13 +426,9 @@ static int load_elfcorehdr_segment(struct kimage *image, struct kexec_buf *kbuf)
- 	kbuf->memsz = headers_sz + kdump_extra_elfcorehdr_size(cmem);
- 	kbuf->top_down = false;
- 
--	ret = kexec_add_buffer(kbuf);
--	if (ret) {
--		vfree(headers);
-+	ret = kexec_add_elf_core_header(image, kbuf);
-+	if (ret)
- 		goto out;
--	}
--
--	image->elf_load_addr = kbuf->mem;
- 
- 	/*
- 	 * If CONFIG_CRASH_HOTPLUG is enabled, the elfcorehdr kexec segment
-@@ -442,7 +437,6 @@ static int load_elfcorehdr_segment(struct kimage *image, struct kexec_buf *kbuf)
- 	 * memory in the FDT prepared for kdump.
- 	 */
- 	image->elf_headers_sz = kbuf->memsz;
--	image->elf_headers = headers;
- out:
- 	kfree(cmem);
- 	return ret;
 -- 
 2.34.1
 
