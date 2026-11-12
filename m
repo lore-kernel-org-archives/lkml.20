@@ -1,101 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794464249;
-	b=YwW5KROLqbfrxHHiDC4OcPm035tJWWgQa6inMFGqT10iOT1/3lYUmnKDfq8prQo9q3kX
-	 4jqgAlNx5L18OykdF38cEYL3KXTlQ6lNDltswef5OzWpwAFnk/bmPfM9ZtrvPfF8kGyfW
-	 uADQxXnYvO9H0akKIiLE5ck5tPBj9uxSUuMC5XpNwfUaRggmDkH01a/rErJ077EljatjK
-	 lDdc4E4Pm/LcZYdfyPNLQAXD+8mpI+07Cz+GGPFNKCFwx/fJeeBB6BQUJngHIqV50L+7k
-	 C+GWl18tk+zjheNovQYEeYq8IJdfzbx9zDxg40xrQUSZnSDQyqUaZUNsNLttbZKW3CQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794464249;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.199
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794464264;
+	b=yfZuyKQv5zlzIsj/VbKVistUykzdouGwc+azQczoRlFDUS/ZLNoZgWsQZxFtba/hR86r
+	 1+/JYL4iKg6l7KBXIraiJcaMzFoUNlWLVIrjLJZjC6YL+ZYoCK3I+Pswsgh1P1e+l6sR7
+	 1UgUDMLwd2MQLqFXb9I9WrFDwPIupnjrJQ8MqnckFtRSCytuhm7hp35K8J8U7dAkmuF/j
+	 LnaUv9QMXk0Iz6E/DUXBDpQrlnopqzDgqh1NfwWuR+dWIWRnfOUPUO0ofY+M6CIQgPSbP
+	 S1d5+74dUqgn14mxLL5D2cilq8X6/i2RlmiLBkgHpZcFLlgQNjUWZmu4wWOYnyaEymg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794464264;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=LBkvWiELYKcawLYZyUR8viHzi3N0cQ25eaouxLSJFuI=;
-	b=jH+2YYG0UursQEOdrF6DLbhmOOQG+UbM36pjDbVaMi/egxBaWRAXVph255H+8P1D7Ls/
-	 tmouyyn2o/rg7czr1jklzHFFdx6uMhA6U7ssk8+D4KfshlJQV7xzwxj9qj0v9Ot3aS2uN
-	 D+5/x5W/1mp1N/OQBHIiKZDB8WHuJz2Pa0r81SdSRFZuwI4gHv/ebo8d1MaNV9vyVJBph
-	 U6Ua0CGaBxCLOMJnmuDbgnIQ8R/Eq1qA21dfuuVSXhNPVodKOgdzNZ+DJsMmxBDCmYVtP
-	 sA1pjs6gj0rCeSSueBAfWgKWzv7nkXiIIS/AX6v+Gg6I8/7hxz/xT6qT7T2bSTMHlNg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BEvEvhBA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=njjyBXz9L58T+lg+LdB1WaYpD3pBpeVCDltq1wefIsE=;
+	b=11j0XiGhCx0leHK+cSgzOV2cQg6P0AzfyiS73jQmnPusBUr3cwGbynKMbQxXqMdtMQHm
+	 vkUIjNpHzIWeIxVe1onbMw+JRd+XpGqwrOiv15K8R2RmRZFsEJjQ3/TNcwsJ2VC3aeqBx
+	 lNnawKE2ocq2mg23HiVC1LCIBC0eKixaC/TPY/9bM+Wzb/XZnlLQTONaKwhvKuSzQGZhJ
+	 dghIJwu8EKfBQxh2p0LdPSssTecNfqbCSls7+PYZrYnA+eRrtDckVmBy9QrDbrBQWdVR9
+	 wxyzrsDfETO0f6K/kLS+oXWWi672HXxHu8Rhhsp9Ega9cJfP2ZHk9/b/M8fzxUDRn9A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--yidilin.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SPRgMWhb;
+	arc=none smtp.remote-ip=209.85.215.199
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5757606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:17:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5757606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04799606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:17:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04799606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--yidilin.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BEvEvhBA
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c169ae1cb26so84556666b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:17:28 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794464247; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nUgeE9iO84tuprKQPbMwJS/6JTr7L3WJlxbAJYhzca+6xRiL4mlsZ+OmhROcAiltmp
-         DK9lUa0kqoe3/DyU2MaPCfHxjsQZhkFhDDqYTy45nSc4sSmEpjWLvk5wuhdoRqImLSYw
-         TlFgoh7VFXkORn4+ck2b6rQ7G0ifBVVWgYOCpPvFjDszt0aUSDyaDhPYAL5nAzxtJWPi
-         3h0YlGJE2RXHj/v2JOJ0D6OIhKnUHbkJO7bBw/oY7QD7iMcNrrjVDufzFWA0zK70H8DH
-         6Ji/H8b7qMywMXKF/M5xcXzJRR0EvQs8a7oFjHh928jOxuE0PPnXUx7NyfIiK4eouefm
-         B8sA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=LBkvWiELYKcawLYZyUR8viHzi3N0cQ25eaouxLSJFuI=;
-        fh=dE2LSfuTW4gBTB8e2ATvPDY1Myr5CFBORPXL/7/AFZA=;
-        b=G0/xcOgDMQC0Y3Ik2AoVJCVID+i8hwhZaiVEH62NrXUU4ItQw6u/3WZ5CC+jY1SXL8
-         RTYjosPHQi1apS+5jCRgbohwpA2S4XDSFUx6XDdfm8M+66UqhiaH4exFwvIoCBpbgtRD
-         gc8LCrYhL+Mbj8CGIKcdXrY9s2FMJFXmtDzxCxTE1QW9q/eefS7AURkTaB5NT3v8bQmE
-         7lrI8BT2m3qd/rmw55ni6fu9aZgDcAg2EQG+ld7FVBVXakUGtYXUBjw7AUWU9IBo55kN
-         P3eeW3TGynKmMKscD/UZQDKnuDKwsWb4dMJK0Otgp4CvXzJ5gfVsK2lIiCPOLFfTgIB8
-         Xg1g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SPRgMWhb
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cdd48746a49so2260187a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:17:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794464247; x=1795069047; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LBkvWiELYKcawLYZyUR8viHzi3N0cQ25eaouxLSJFuI=;
-        b=BEvEvhBAped+W5UE0YDULfJk/MUxg512y1lESWE230SPAvsBVXdB3keD/zpqDobK0u
-         7COYueevNkjlf0zFKBFHoXcBzhi4QEIEfN5Kg4heVi/9xtJ2zZNL7w3fXYlRamv43NdM
-         eCGXRU3y4VqWzSfkmvdr1pzQXmm4r+ToFh5kGf6hEraJnfOKZV+8mCkSZNy/rzNuDxJr
-         fa8j5QyIbKMMLqTEBTuEQfN5vlbbRpqk+SRZqVtOoRN0vwOpRyevhlHlrg96k8o83YiX
-         QO6x6FbUgpXUgzY3Bu4Si7EFbB3bi8mBaFssTI2UeO07Df3kl1nvqGp3+e4/Ly3z/l2B
-         2idg==
+        d=google.com; s=20260707; t=1794464263; x=1795069063; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=njjyBXz9L58T+lg+LdB1WaYpD3pBpeVCDltq1wefIsE=;
+        b=SPRgMWhblnd+Ga/qY57+ocGprUbNr7GYnQWOcGtuNm4qKxURRcq/aXuGVEbr6R0n44
+         V2a93kCqR2azy3Mg1vkWU9uI8pNOb83JObpH3cFSd4wAVk2xshDpJM/Q2f5Qj0Am3sk+
+         mzAZvGWRIbcCIoIDLIdWakagn8ozTgiWhQ1h+i/axrOvZdDmd1NmBoxOyni8IWRv5wPB
+         MuiaBaFna+S57Zxe12b3zGrHjHH5POsNudJ3mVSjSV71LrUQDeR9zBPf/ecH9No7ecqa
+         6qglTgoCMB0SRpoCUG6xk7JfRmEDFo80snEDyiOqowG6FmNwSdHKDD8sWNiiUwOMZYgI
+         3fHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794464247; x=1795069047;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794464263; x=1795069063;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LBkvWiELYKcawLYZyUR8viHzi3N0cQ25eaouxLSJFuI=;
-        b=QPhKHIskmYxVqIcR+OkXmNM5bEMtMGu5jUbmSlTgC7S/kqhnAIqx2tPkC2CCCorKjO
-         dLulnxKppcoYTIzIUIcHachznydJqEPZdFHS1nD8jk1XZrxCpFQLZpMS58t6ZzGsF0L+
-         tCgdmgJwc+IPB20ED/ephZZyu13wGZOrh61JxPp2hKs0IFMJ4VOOhYTDW11e65zpP/9I
-         JLOBvGyjwSre9o1D/QKLYK3PCLVpa4Vk1nHS+6IEtg3GmvXOpkfE8MR/vQhrkXNsR3zT
-         WNCU13w9xUvvzRWviLWUw9bc3h9v90plpwVWkwPF4vhZI1CSVgw7OXrYX2GBtpOxxjLI
-         SG4Q==
-X-Forwarded-Encrypted: i=1; AL+hErEyjhGNKHNn/6X2wOwxDyhNsmO6siN0ai9imxmAM9v53RUd/QR6Xs+ApC33pUFkQK3/2Z9xWs/QGsGj3RQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z899s66FXYFOvwR3vmfX00HsdduQJe5wSZcjqpwasJWSqyntL8D
-	y4s23edB50svkbC2b8MxujmhyLydGIhF73Bz18ier4hbjjvfRZLryTm46oSVacoaBJLg77ieVFm
-	fDoMVTlx16AVDr8H3Xjsy3Ymt/MCkJg==
-X-Gm-Gg: AYBFou0Upg28uRFTb3Dda7asyNFECwZWs+wEhZCw3nvSgbO1FaYD40xFvMhKmEmJgLj
-	zQcWZ6wd8aJCBd+QqAgJXhtRXPUr/A6VxEPJRHV75zdBa/mGzoJk7tJeIH1AgL/fQFyUHO878Hs
-	vhjHaV+Q31ZzFMB5iWEYWndYXNImqRpVVO7ygMyZWCUZucDWFlkbx+ISVocoqD7nqPLafhcqdnt
-	YkSNAtmXK9oIwLE1U02BZspu5o0ZH+LKMDpCymLsbYevrCjcs/iHRNj3uUFW/YlZ7dCFF55tPqb
-	cJI5bm9V/D5OOrKccqqY9ehRmGa0K+WeOSeaUjqhC0odRC7+ngjiBjqUM6KrK1lm3gyawcFo67P
-	R9d6vDNGF6T6BEOrVVjKH6evRTm4EKzVwqtEF3f36+0pKGImjhFx/cjj48FzIBDnf0QvrQgsQna
-	MN2ETx5iKLPO+8SjylyTyMnEK2ajB9qyx26PkQAgyeJO6b13BEYwJ9XE0lsUyb/Wrgpmh+
-X-Received: by 2002:a17:906:d54e:b0:c50:8612:d441 with SMTP id
- a640c23a62f3a-c508612d6e1mr32110666b.21.1794464246673; Wed, 11 Nov 2026
- 22:17:26 -0800 (PST)
+        bh=njjyBXz9L58T+lg+LdB1WaYpD3pBpeVCDltq1wefIsE=;
+        b=HiXuT+2vQfnY2hs5KBsCAgOmTN08xEfYWB4KGVEqyePK4qWs16kG81sp+cg1odJCll
+         jREt8/mmCaVJtq1gn9t/kMFFDR9QtNpftxGtyM+i/baJ+zemk2gFYUtlcImjFU7HX9Gg
+         HM0XF3PMqdbwFPDeXOwDo4xaXHdRB65wNbnbtmYI+39qNNtAEFNvG2De/oeUjukRrv2k
+         wgz/pQtMJH2ZCFwgPqAsAQXznfAsEELgCMucLJnACucijI3lccOnoeTpx5DkvwHT6iHA
+         /cokxMC7u5mpYxFKgYXC4CQrP1bA+2iC+LakavdfVVhdzoR3azhq8TXTql/FWUMcxdSy
+         rypA==
+X-Forwarded-Encrypted: i=1; AL+hErFT/iszx1oWuvuAEwJHC9txFht7efqzQNKIfQlD6fc842+Qa9z4DNdOYv3pG3+467PNaxDDqbrrLqng5yA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+MUWirYzWltuwBDn9RD/0gOegiKju5XKmYymI4Z0gWkKIfh0RA
+	FldDXG/Mu6Ie+B+7qy1tbBH1XZIQ51a2M9oWsoEGWQnkgcmTcjpfQkSuCURNKrw1VO9bmF1QiCZ
+	3l6JG/YLFig==
+X-Received: from pjbga7.prod.google.com ([2002:a17:90b:387:b0:3ab:3979:1be4])
+ (user=yidilin job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2584:b0:3ac:7556:8eed
+ with SMTP id 98e67ed59e1d1-3b182f8532dmr4081954a91.44.1794464263018; Wed, 11
+ Nov 2026 22:17:43 -0800 (PST)
+Date: Thu, 12 Nov 2026 14:17:36 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,251 +75,162 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261110043016.56986-1-mhun512@gmail.com> <179445789040.2199510.7426210198945271595@kernel.org>
-In-Reply-To: <179445789040.2199510.7426210198945271595@kernel.org>
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Thu, 12 Nov 2026 01:17:14 -0500
-X-Gm-Features: AclHuK_N4Kjnino_xgsBrqlpbKR-zvn6NbL5YTvL81RB09JJGEvG7Ht4_NlvG2c
-Message-ID: <CAGEsz8Gocd4J8-K0sngFmF6NwQqNQh5KtCMp8GrM8fusCNaF5A@mail.gmail.com>
-Subject: Re: [PATCH net] net: usb: rtl8150: fix rx tasklet use-after-free on disconnect
-To: netdev-bot+sashiko@kernel.org
-Cc: petkan@nucleusys.com, andrew+netdev@lunn.ch, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
-	linux-usb@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, ae878000@gmail.com
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
+Message-ID: <20261112061736.4014993-1-yidilin@google.com>
+Subject: [PATCH] drm/mediatek: dp: Wait for the complete AUX reply before
+ reading it
+From: Yidi Lin <yidilin@google.com>
+To: Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Fei Shao <fshao@chromium.org>, 
+	dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Yidi Lin <yidilin@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Oliver,
+mtk_dp_aux_wait_for_completion() returns for a read as soon as the RX
+FIFO write pointer is non-zero, i.e. when the first byte of the reply
+has arrived. The rest of the reply is still on the AUX line, so
+mtk_dp_aux_read_rx_fifo() sleeps 500-1000 us before reading each byte
+of an I2C-over-AUX reply and 100-200 us before each byte of a native
+reply. The FIFO is drained this way even for DEFER replies, which carry
+no data.
 
-Thanks for reviewing the patch and preparing the additional fix.
-Please go ahead and submit it. I appreciate your help with addressing
-the URB resubmission issue.
+A 16-byte EDID read therefore takes about 16 ms, although the reply is
+complete within about 300 us of the request.
 
-Thanks,
-Myeonghun
+Wait for the AUX receive-complete (or 400 us timeout) interrupt status
+instead, which the write path already relies on, and drain the RX FIFO
+without delays. Poll every 20 us instead of every 100-500 us.
 
-2026=EB=85=84 11=EC=9B=94 11=EC=9D=BC (=EC=88=98) =EC=98=A4=ED=9B=84 11:31,=
- <netdev-bot+sashiko@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 (2) =C2=B7 Medium: 1 =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] The patch's new tasklet_kill() calls in rtl8150_disconnect()
->   cannot reliably stop rx_fixup() when it keeps rescheduling itself, and=
-=E2=80=A6
->
-> Pre-existing issues:
-> - [High] This problem wasn't introduced by this patch, but the stale
->   dev->rx_skb pointer can lead to a double free or a device DMA into=E2=
-=80=A6
-> - [High] This problem wasn't introduced by this patch, but pegasus.c, the
->   driver rtl8150 was derived from, has the same late-completion tasklet=
-=E2=80=A6
->
-> --
->
-> net: usb: rtl8150: fix rx tasklet use-after-free on disconnect
->
-> This adds a second tasklet_kill() in rtl8150_disconnect(), placed after
-> unlink_all_urbs(). It is meant to drain an RX tasklet that a late
-> read_bulk_callback() could have scheduled after the first kill, before th=
-e
-> driver data is freed.
->
-> > diff --git a/drivers/net/usb/rtl8150.c b/drivers/net/usb/rtl8150.c
-> > index d51e43170e033..98c36c3779564 100644
-> > --- a/drivers/net/usb/rtl8150.c
-> > +++ b/drivers/net/usb/rtl8150.c
-> > @@ -971,6 +971,8 @@ static void rtl8150_disconnect(struct usb_interface=
- *intf)
-> >               tasklet_kill(&dev->tl);
-> >               unregister_netdev(dev->netdev);
-> >               unlink_all_urbs(dev);
-> > +             /* A completion may have scheduled it after the first kil=
-l. */
-> > +             tasklet_kill(&dev->tl);
->
-> [Severity: Medium]
-> Can this tasklet_kill() actually end the rx_fixup() reschedule loop that =
-the
-> commit message describes?
->
-> The commit message says "disabled endpoints make RX resubmissions fail, s=
-o
-> rx_fixup() can keep rescheduling itself". It then says "tasklet_kill()
-> drains any late tasklet and prevents self-rescheduling".
->
-> rtl8150_driver has no soft_unbind, so usb_unbind_interface() disables the
-> endpoints before calling ->disconnect(). The device is still attached, so
-> usb_submit_urb() passes its -ENODEV check. usb_hcd_link_urb_to_ep() then
-> returns -ENOENT, or -EPERM while usb_kill_urb() is in progress:
->
-> drivers/usb/core/hcd.c:usb_hcd_link_urb_to_ep() {
->     ...
->         if (unlikely(!urb->ep->enabled)) {
->                 rc =3D -ENOENT;
->                 goto done;
->         }
->     ...
-> }
->
-> In rx_fixup(), -ENODEV is the only error that skips the reschedule, and
-> nothing checks RTL8150_UNPLUG:
->
-> drivers/net/usb/rtl8150.c:rx_fixup() {
->     ...
-> try_again:
->         status =3D usb_submit_urb(dev->rx_urb, GFP_ATOMIC);
->         if (status =3D=3D -ENODEV) {
->                 netif_device_detach(dev->netdev);
->         } else if (status) {
->                 set_bit(RX_URB_FAIL, &dev->flags);
->                 goto tlsched;
->         }
->     ...
-> tlsched:
->         tasklet_schedule(&dev->tl);
-> }
->
-> tasklet_kill() only returns once the waiter sets TASKLET_STATE_SCHED
-> itself:
->
->         wait_on_bit_lock(&t->state, TASKLET_STATE_SCHED, TASK_UNINTERRUPT=
-IBLE);
->
-> tasklet_action_common() clears TASKLET_STATE_SCHED and wakes the waiter
-> just before it calls t->callback(t). rx_fixup() then sets the bit again
-> before it returns. All of this runs in non-preemptible softirq context.
->
-> On a CONFIG_SMP=3Dn non-RT kernel, or when the waiter runs on the same CP=
-U as
-> the tasklet, process context would only ever see TASKLET_STATE_SCHED set.
-> Wouldn't rtl8150_disconnect() then sleep in TASK_UNINTERRUPTIBLE forever
-> while ksoftirqd keeps running rx_fixup()?
->
-> The first tasklet_kill() already had this limitation. The new call relies
-> on the same assumption to close the use-after-free.
->
-> For tasklet_kill() to be reliable here, would rx_fixup() and the resched
-> path in read_bulk_callback() need to stop resubmitting and rescheduling
-> once RTL8150_UNPLUG is set?
->
-> >               free_all_urbs(dev);
-> >               free_skb_pool(dev);
-> >               dev_kfree_skb(dev->rx_skb);
->
-> [Severity: High]
-> This is a pre-existing issue, but can dev->rx_skb still be stale when it =
-is
-> freed here?
->
-> read_bulk_callback() passes dev->rx_skb to the stack, and if the pool is
-> empty it leaves the pointer unchanged:
->
->         netif_rx(dev->rx_skb);
->         ...
->         skb =3D pull_skb(dev);
->         spin_unlock_irqrestore(&dev->rx_pool_lock, flags);
->         if (!skb)
->                 goto resched;
->
->         dev->rx_skb =3D skb;
->
-> The pool has only RX_SKB_POOL_SIZE (4) entries, and only rx_fixup() refil=
-ls
-> it. rx_fixup() is also the only place that replaces the pointer. If every
-> GFP_ATOMIC allocation in fill_skb_pool() fails, it just reschedules:
->
->         skb =3D pull_skb(dev);
->         spin_unlock_irq(&dev->rx_pool_lock);
->         if (skb =3D=3D NULL)
->                 goto tlsched;
->         dev->rx_skb =3D skb;
->
-> Suppose rtl8150_disconnect() runs in that state. The tasklet_kill() calls
-> stop the loop but leave the pointer as it is. Would dev_kfree_skb(dev->rx=
-_skb)
-> then double free an skb that the network stack already consumed?
->
-> Something similar looks possible across close and open. rtl8150_close()
-> does not kill the tasklet or clear rx_skb. rtl8150_open() then reuses a
-> non-NULL rx_skb as the bulk-in buffer:
->
->         if (dev->rx_skb =3D=3D NULL)
->                 dev->rx_skb =3D pull_skb(dev);
->         ...
->         usb_fill_bulk_urb(dev->rx_urb, dev->udev, usb_rcvbulkpipe(dev->ud=
-ev, 1),
->                       dev->rx_skb->data, RTL8150_MTU, read_bulk_callback,=
- dev);
->
-> Could the device then DMA packet data into freed memory?
->
-> [Severity: High]
-> This isn't a bug introduced by this patch, but pegasus.c, which rtl8150 w=
-as
-> derived from, seems to have the same late-completion tasklet problem. Thi=
-s
-> patch doesn't change it.
->
-> In pegasus read_bulk_callback(), when the resubmit fails, rx_tl is schedu=
-led
-> without checking PEGASUS_UNPLUG again:
->
->         else if (rx_status) {
->                 pegasus->flags |=3D PEGASUS_RX_URB_FAIL;
->                 goto tl_sched;
->         }
->         ...
-> tl_sched:
->         tasklet_schedule(&pegasus->rx_tl);
->
-> During unbind the endpoints are already disabled, so the resubmit fails w=
-ith
-> -ENOENT. It fails with -EPERM once usb_kill_urb() has set urb->reject.
->
-> The only tasklet_kill() is in pegasus_close(), and it runs before the URB=
-s
-> are killed:
->
->         tasklet_kill(&pegasus->rx_tl);
->         unlink_all_urbs(pegasus);
->
-> pegasus_disconnect() then goes from unlink_all_urbs() to free_netdev()
-> without draining the tasklet:
->
->         unregister_netdev(pegasus->net);
->         unlink_all_urbs(pegasus);
->         free_all_urbs(pegasus);
->         ...
->         free_netdev(pegasus->net);
->
-> Consider a completion that passes the netif_running() check before
-> __dev_close_many() clears __LINK_STATE_START. If it reaches
-> tasklet_schedule() after the tasklet_kill() in pegasus_close(), rx_tl is
-> left pending with no later kill.
->
-> rx_fixup() returns early on PEGASUS_UNPLUG, so there is no endless loop.
-> It still reads pegasus->flags, though, and tasklet_action_common() touche=
-s
-> the tasklet_struct inside netdev_priv(). Could either of those run after
-> free_netdev()?
->
-> Does pegasus_disconnect() need a tasklet_kill(&pegasus->rx_tl) after
-> unlink_all_urbs() too?
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20261110043016.56986-1-mhun512%40gmail.com
+Reading the 256-byte EDID through the DP AUX DDC adapter drops from 266
+to 6.5 ms on an MT8189 Chromebook, and from 547 to 23 ms on an MT8196
+Chromebook whose panel defers every 16-byte read once. A 16-byte DPCD
+read drops from about 4.7 to 0.5 ms.
+
+Signed-off-by: Yidi Lin <yidilin@google.com>
+---
+ drivers/gpu/drm/mediatek/mtk_dp.c | 64 ++++++++++++-------------------
+ 1 file changed, 25 insertions(+), 39 deletions(-)
+
+diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
+index f656b85b84212..b2f7f42cbe715 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dp.c
++++ b/drivers/gpu/drm/mediatek/mtk_dp.c
+@@ -45,7 +45,8 @@
+ #define MTK_DP_4P1T 4
+ #define MTK_DP_HDE 2
+ #define MTK_DP_PIX_PER_ADDR 2
+-#define MTK_DP_AUX_WAIT_REPLY_COUNT 20
++#define MTK_DP_AUX_POLL_US 20
++#define MTK_DP_AUX_TIMEOUT_US 10000
+ #define MTK_DP_TBC_BUF_READ_START_ADDR 0x8
+ #define MTK_DP_TRAIN_VOLTAGE_LEVEL_RETRY 5
+ #define MTK_DP_TRAIN_DOWNSCALE_RETRY 10
+@@ -825,20 +826,18 @@ static void mtk_dp_aux_fill_write_fifo(struct mtk_dp *mtk_dp, u8 *buf,
+ }
+ 
+ static void mtk_dp_aux_read_rx_fifo(struct mtk_dp *mtk_dp, u8 *buf,
+-				    size_t length, int read_delay)
++				    size_t length)
+ {
+ 	int read_pos;
+ 
+ 	mtk_dp_update_bits(mtk_dp, MTK_DP_AUX_P0_3620,
+ 			   0, AUX_RD_MODE_AUX_TX_P0_MASK);
+ 
++	/* The complete reply is in the RX FIFO, so read it without delays. */
+ 	for (read_pos = 0; read_pos < length; read_pos++) {
+ 		mtk_dp_update_bits(mtk_dp, MTK_DP_AUX_P0_3620,
+ 				   AUX_RX_FIFO_READ_PULSE_TX_P0,
+ 				   AUX_RX_FIFO_READ_PULSE_TX_P0);
+-
+-		/* Hardware needs time to update the data */
+-		usleep_range(read_delay, read_delay * 2);
+ 		buf[read_pos] = (u8)(mtk_dp_read(mtk_dp, MTK_DP_AUX_P0_3620) &
+ 				     AUX_RX_FIFO_READ_DATA_AUX_TX_P0_MASK);
+ 	}
+@@ -864,33 +863,28 @@ static void mtk_dp_aux_set_length(struct mtk_dp *mtk_dp, size_t length)
+ 	}
+ }
+ 
+-static int mtk_dp_aux_wait_for_completion(struct mtk_dp *mtk_dp, bool is_read)
++static int mtk_dp_aux_wait_for_completion(struct mtk_dp *mtk_dp)
+ {
+-	int wait_reply = MTK_DP_AUX_WAIT_REPLY_COUNT;
+-
+-	while (--wait_reply) {
+-		u32 aux_irq_status;
+-
+-		if (is_read) {
+-			u32 fifo_status = mtk_dp_read(mtk_dp, MTK_DP_AUX_P0_3618);
+-
+-			if (fifo_status &
+-			    (AUX_RX_FIFO_WRITE_POINTER_AUX_TX_P0_MASK |
+-			     AUX_RX_FIFO_FULL_AUX_TX_P0_MASK)) {
+-				return 0;
+-			}
+-		}
+-
+-		aux_irq_status = mtk_dp_read(mtk_dp, MTK_DP_AUX_P0_3640);
+-		if (aux_irq_status & AUX_RX_AUX_RECV_COMPLETE_IRQ_AUX_TX_P0)
+-			return 0;
++	u32 aux_irq_status;
++	int ret;
+ 
+-		if (aux_irq_status & AUX_400US_TIMEOUT_IRQ_AUX_TX_P0)
+-			return -ETIMEDOUT;
++	/*
++	 * Wait until the whole reply has been received. The RX FIFO write
++	 * pointer becomes non-zero as soon as the first byte of the reply
++	 * arrives, while the rest of the reply is still on the AUX line, so
++	 * it cannot be used to tell that the reply is complete.
++	 */
++	ret = regmap_read_poll_timeout(mtk_dp->regs, MTK_DP_AUX_P0_3640,
++				       aux_irq_status,
++				       aux_irq_status &
++				       (AUX_RX_AUX_RECV_COMPLETE_IRQ_AUX_TX_P0 |
++					AUX_400US_TIMEOUT_IRQ_AUX_TX_P0),
++				       MTK_DP_AUX_POLL_US, MTK_DP_AUX_TIMEOUT_US);
++	if (ret)
++		return ret;
+ 
+-		/* Give the hardware a chance to reach completion before retrying */
+-		usleep_range(100, 500);
+-	}
++	if (aux_irq_status & AUX_RX_AUX_RECV_COMPLETE_IRQ_AUX_TX_P0)
++		return 0;
+ 
+ 	return -ETIMEDOUT;
+ }
+@@ -928,7 +922,7 @@ static int mtk_dp_aux_do_transfer(struct mtk_dp *mtk_dp, bool is_read, u8 cmd,
+ 	mtk_dp_aux_request_ready(mtk_dp);
+ 
+ 	/* Wait for feedback from sink device. */
+-	ret = mtk_dp_aux_wait_for_completion(mtk_dp, is_read);
++	ret = mtk_dp_aux_wait_for_completion(mtk_dp);
+ 
+ 	*reply_cmd = mtk_dp_read(mtk_dp, MTK_DP_AUX_P0_3624) &
+ 		     AUX_RX_REPLY_COMMAND_AUX_TX_P0_MASK;
+@@ -952,15 +946,7 @@ static int mtk_dp_aux_do_transfer(struct mtk_dp *mtk_dp, bool is_read, u8 cmd,
+ 				   AUX_TX_AUXTX_OV_EN_AUX_TX_P0_MASK |
+ 				   AUX_RESERVED_RW_0_AUX_TX_P0_MASK);
+ 	} else if (is_read) {
+-		int read_delay;
+-
+-		if (cmd == (DP_AUX_I2C_READ | DP_AUX_I2C_MOT) ||
+-		    cmd == DP_AUX_I2C_READ)
+-			read_delay = 500;
+-		else
+-			read_delay = 100;
+-
+-		mtk_dp_aux_read_rx_fifo(mtk_dp, buf, length, read_delay);
++		mtk_dp_aux_read_rx_fifo(mtk_dp, buf, length);
+ 	}
+ 
+ 	return 0;
+-- 
+2.56.0.611.g1030f0b940-goog
+
