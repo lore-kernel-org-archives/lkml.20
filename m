@@ -1,127 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794468028;
-	b=o4ghNMvRSN/wgy+t/9xD4sB/jRYEdJra1ez5pzf0Wh83gRornLK7/sOGv5Zv9pAyxwao
-	 BlLNRimwr2MjqolgtqUVbEfQ1UAtvM+C04jN3qsTzb1KSXxgZYEGwmace4E8Xw/enHUeH
-	 849MsOz6ufflSU5NdCcSbk2eVsKewpIyxUezsOdwNwJ77cMfgxWLPDErkS22d+AiQALRo
-	 4GXuqHjloAQHMl5X2TmZK8+FomK+g/KwdNo1ti3GaXZs230m4NhQjBtyrPUyWOLCZeKFP
-	 FVoET3sOSdnZKV0x/fFTNUpsbyq/UW5Sk6xItG72Rx3ZdJuVtaO1QwpBYx8Rc05QCig==
+	t=1794468035;
+	b=YeVEfkA977Jvpu+BN7DaI/YRHkY+EQZOGIgVYPRRkECFzm4QL2GO/PIMF35RAuyNIq2S
+	 QmkEXqPTBq+wanu1mE8l387IafzlgxKfDlTcVaVki0PKgQSMOjX46BJ+qKZuf3ZwQSXkG
+	 ZXQ3ckXQTIk3lYKZ7ICun3Xaddig5pkK3r7o/8FtfFIFfsGVSm1xoPpVOGjnJDDkoN1tS
+	 l0szhOGb7NRPXOA3HDYv50gk42YOTWBxHHmaB2SJ+61/LQU8XwrZChdYSOmzPZdOPskjt
+	 FF5R1P5LH/UwnvwV5Xu/HO7eyZqkuNNIVAVDgO7clAqlW+OoFIZ99OzEcI3aT+pPOxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794468028;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=4qfL7piDG4Rh9USRDzIt+sOlvyefKyWytxUWwXJiZms=;
-	b=O+/90EBDJlWLbsAkEZyBx1GNeIITNbk8RWPrD/fMdhur/2W8CVZ+9sEOrdkEGv3JGG+/
-	 PL5B5HsJZgwYUU00CjAlkkU4aV6P7mrG6EL18Zlqjnw/ZzE8ieFD8S3DbpNYZE+NzHR88
-	 sFyfMoVd7BZ7gvV+9GRWe2VUyRCPfeQVazX0DOPIvJ5pHRsAvv5bs3002MgGsT3m6RUhz
-	 WdfpyDe4KnmYogYTvGzlNXk6CAAmYQVq2jkauBI0u5OdmGlTKZAUCh41a5EqdA2mZr1sc
-	 G2BbOLXL64mpjhRMPEUK6Eojc2frJUs81UWhAZcXpm7x+RQ1aFTzAk4eqO9BZd844Gg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794468035;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=z9Dk6L/CtbBkYN6Qu4Qi5kHl7KQrluvS9Xb8JC02QIo=;
+	b=zOJtx/OLSogrsEv1EI0IJfcHFZYWGEi8Tp2qK2ntPyDzOwA3Rv9t9bsJU7lBmrurvOCz
+	 L0BCBoRqAmR9KSqBp7yr0u5dRYsGPV+UoYKBOrEirSTPCYyUNcNkrLFMUPpz26zUp29z5
+	 stnAsV6v1MdfbSqWyDJpvXJEDmxM7U9wv+EVlksmrc9glHDrh8oJ2rVIOmuciV/dwIzMj
+	 w7t1u7vu5E7Gh5rzyCXdxeqXt5yZZn2xgq8NyfPadHVuDUxU/YeNig8/JPrbzYC0ZxljM
+	 9jUdrsB6/SeGOKChiLAXHsMRzVU6F8kRbZnty8VCxBbnnNvQJrnQqVmhpYI0R934BXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=o7kINskI;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HqWfq3Nj;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=X6CTVz45;
+	arc=none smtp.remote-ip=162.62.57.252
+Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27F3E606A8A3
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:20:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27F3E606A8A3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D95606A8B9
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:20:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09D95606A8B9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=o7kINskI;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HqWfq3Nj
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2Zk3c904025
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:20:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=4qfL7piDG4R
-	h9USRDzIt+sOlvyefKyWytxUWwXJiZms=; b=o7kINskIVSfsohNxfhtPNksdu4R
-	nwr4fsYh+RohlDcR5574SVPu4Ekm8w5eA/XkoaxitHR0S+qnfgXlNrwQO5P2JJmw
-	twkMcpVrjKQllZ+if7BAw3m0cO4WvskP041LRMGPzMoFWobpOltVQlGx+aawk/jS
-	TO6FvF+RYnlOw11m0vOZIhhoMhrYURWk8h4CePPNdSJzxt0lxEQbJH1mDtVLhHfN
-	BmWuTtLClpEO380/+MTCI+iCU0sRFC+bx5ahid7OWjrH9Ip2/IeP5UjKrrRrD99T
-	XBPeLIO2fg0sN+kx1cqcORzaA48SpQ4Cc4FrFPluFxQNrk9Gt/0wjrAuR6w==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvt1ubfce-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:20:27 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd5e8574384so207419a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:20:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794468027; x=1795072827; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4qfL7piDG4Rh9USRDzIt+sOlvyefKyWytxUWwXJiZms=;
-        b=HqWfq3NjQsajwFW4bSYoH7mLXQa/AEjMwUBNC3IPxJklUJO2VW9Y1Jkb12WKBssz6u
-         XUSat+/kiE4pfj9nNdkdg/1T/0qjw2gFVugYs1vX+1G9Ul1JOgZH7/Yr2kofZWTsd+/c
-         I0oHbnCfQP6x3e837gJLAAGOcwe7gHwJdx4zl+yAL70cv1Adz7iMvomODH/iSwZMrXB3
-         tN6X3fdi8MJougx18d29VI7T9mPcR+qok2xoWDyBPcN7lTpoPT4qYz2LKm9Fi0mgVvKs
-         +VpkZdGGcQvi75a08smVZdBynBDPTr9x3DsodoWQXuySrLch4dTwi9BjeApTF4Ne6EOs
-         i67Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794468027; x=1795072827;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4qfL7piDG4Rh9USRDzIt+sOlvyefKyWytxUWwXJiZms=;
-        b=zizzz2ie+4vz08ed0Zzpp/pFVVFtnP+CdDbx2e8/zwU8UmirXNCJ0f5M9SDVZPqHsE
-         URkYm4MeD0F6RX7jn218BqFZXc9f+lO6XDl4RjBYR9hPMIQ8nwySUk2EdwVPZy1jYyIN
-         5ZJWmFyNRJRGJM9g5JyCDHzRE8XE6hFw604YaCD21UyBvyVFHMmWcOmjvki0BPb5AscS
-         prtFA6rmcyUo8epm7lSbJRbylUz55r2bEoOZsAxrrPvMr8pJymqhBUOpJjcfacTU7OT3
-         wx9ZrFQI10GwaHHSdIcz2dySQzzm6z3LL9tpglQmisLVb50WxzFdcyH/PUGhgJxBmgcg
-         Oe3g==
-X-Forwarded-Encrypted: i=1; AL+hErHySW3FF2CAOVeGRYjNL9Dwnq+9pR/fExYd7bn1g5CYidhiWTsuQ8cRj6mMliptdjzsS81TUZAbroiSTp0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/SqqoJ2wiwVbFtv9OEexvhcBeogicJBTPldhZTQ8hTZkp0VmK3
-	kwCzjarkPYQT3/RXtc4GMOI3QPENozSI0FeAzensXu3rWs+ZBmxOfFeCiBZU78L3G3muObdGctc
-	jCJHG0YZvc6cqxehwQ4W25HjeaWBn1pE4GIeEojs3Wkm2g60hNbovLLNTZbJ/6spl9pw=
-X-Gm-Gg: AYBFou02JXFDs5X8+FRv+bL28o7HPJ0uRFqCnDpzMIQzVoqNsMWhxLbnOesErMO2G+N
-	nVLoCFrHXg3zyq8hZXZrGDxg1cxfghMc1mKoKCQDB/9niJC8FahWl7Ty4pmZVdXr/WB1CAAlBtr
-	jCCPxw2MQmwb1gFSEyeBZvPF9Lns3VL0b3rwr1iVCE1ZhWnp9ChXY+huA0SNguWiavdWwZ9PRdj
-	m4rXUIOafi8UvExDKO1vaga6hzmABFZq6BT1bQGDYtBEty/nkMtZxtdDJFoNU/SvrgxBmXxJvFd
-	wyAm9n2ctcWTS365Ukmb34L0dCHR9qhONje2Saa/5Y0m0hfzIggtGK2VUQ4/cBDg9VPcZCo1DbG
-	TqSGnuAUC7EVw5vD5wTXl7YSReRlHD9oTVcM5Wt3F7ZJeHu+jAPOi05ONsv36ggYa+uDNCHSAXO
-	vb9g==
-X-Received: by 2002:a17:90b:2ecb:b0:3b0:d0be:f02c with SMTP id 98e67ed59e1d1-3b183000402mr6586917a91.6.1794468026618;
-        Wed, 11 Nov 2026 23:20:26 -0800 (PST)
-X-Received: by 2002:a17:90b:2ecb:b0:3b0:d0be:f02c with SMTP id 98e67ed59e1d1-3b183000402mr6586876a91.6.1794468026028;
-        Wed, 11 Nov 2026 23:20:26 -0800 (PST)
-Received: from sdciot-sh07-lnx.qualcomm.com ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197c73e27sm3149185a91.9.2026.11.11.23.20.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 23:20:25 -0800 (PST)
-From: Linghui Wu <linghui.wu@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-        Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>,
-        Hangtian Zhu <hangtian.zhu@oss.qualcomm.com>,
-        Shuai Zhang <shuai.zhang@oss.qualcomm.com>, linux-pm@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Linghui Wu <linghui.wu@oss.qualcomm.com>
-Subject: [PATCH v4 1/3] dt-bindings: regulator: qcom,wcn3990-pmu: document wakeup-source
-Date: Thu, 12 Nov 2026 15:20:07 +0800
-Message-ID: <20261112072009.3815276-2-linghui.wu@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=X6CTVz45
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794468024; bh=z9Dk6L/CtbBkYN6Qu4Qi5kHl7KQrluvS9Xb8JC02QIo=;
+	h=From:To:Cc:Subject:Date;
+	b=X6CTVz45h7o4eSPq/GCx7wuITkzmyN1iUScQ5OqcDxp7rhaxEM3CDmXy5X1e7RxL6
+	 iZhGU9W223Dc12+aJgiW6owidetBsB7pYg687nu9bM0i40XWif9j2kRSt71jiMSOp+
+	 WKE88tYUAAYbiv4cQgSNCq6E5tENa9B5ZSScRJcg=
+Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.199])
+	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
+	id 516A584F; Thu, 12 Nov 2026 15:20:22 +0800
+X-QQ-mid: xmsmtpt1794468022tcv0o3hbz
+Message-ID: <tencent_E85C7718E930963979DF267ADC15B1B70907@qq.com>
+X-QQ-XMAILINFO: NAvVT23RIZvIo/dhvDJZagL02641seSODukoWMlxOYUDFpXNa6gnKylHthNS+R
+	 ztUH3xJJco5wgXLQitGUOKHUabZCHp+iC9cQq7QnQ4SPPDFhOHbbbKOG/18HxA81ZvxNqWN64IXo
+	 tK4fU8aCe4SVF9brl3WI+LtOS8qW17o/nj1oF53DfNYn7Z4jDJX7ue50WDYQ/nIB+hlg/i/OfVT6
+	 W1xQlEjIV0YdLzoyDEgziRw6Y129cYyylFe812v0KIMA7k8ovTUEw3SGQ+1VdbVprwWLvUT9SCIM
+	 pVBkq9aAu+/gMYRsb/B6PUExTbxvxdzRw2/j23uMrCpIJckEbVE1SkNf1LZQjV8+Kn+T0gRbIkT0
+	 lNvsc3+TEpEVoLuPpMWW3zDZnQRka4Ng1RsvezFi57XEKLrq8LMHWi9hPZR/xBe15Wzemdyp+PHi
+	 LYDIWl5VSTN4fTJv4Wk5RD77LMYzlzHF1jYxFalgSezAs9sN+h3jXrJafKCuAXWpron67TS101+j
+	 kCEc7KFurBZmFLNLV5W3Qgj2RYq3qBE5+Qy5xXK8lszobCCBMGWBH1zZU4skH4Cy46TidqFtHs9Z
+	 tZ/nIMA/dypbxIgdjgzusL+ojOv26+cMjAFkcZyVr6ZPrukQHTBqjOVf8KnUgtZ0H4neY2BTWffT
+	 0hqgDefpb5LujrouJBWFRVibwdO/dxUvsooI6Sx/nMzdaNojorVubAk1nMo8nTNvAaxDZm/UT4CO
+	 u4Q5CGXkCmfqUcfDFCehL2S/pP/5HdXl5cynBAMC2til97uOOryGQsOdGIXxIHt9d279pcw88meV
+	 jmj1eufRmQU6fRZ8aVRaHhVMxRkvKJG46q67LdFQZVlE4l8Bj5PbdEZGbIp9h0l1pvqfo3GOR7PF
+	 SDR9PHKor4dGx2cYkhcsf82TcdsovAGmXAQMSjTgykF0fI2Dg/WL4W+hngFPd0/HjtTwh6XKUGXC
+	 0k121tDv8U0vngn6VxGNNsSTr9nLMh1FWHQnBaAsMjMC90so+0U8goLgEB46srCoRbu6L3oUTCpz
+	 hMziIq0GZwLj03x6YPKlWfaih/KRAvSoVCVWaZi0G4270+QyPeW0Q+qo9z3JU=
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+From: Shuai Liu <847807867@qq.com>
+To: Andreas Gruenbacher <agruenba@redhat.com>,
+	gfs2@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org,
+	syzbot+0423714c06c369318794@syzkaller.appspotmail.com,
+	847807867@qq.com
+Subject: [PATCH] gfs2: Fix premature disposal of quota data with pending changes
+Date: Thu, 12 Nov 2026 15:20:22 +0800
+X-OQ-MSGID: <20261112072022.209228-1-847807867@qq.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261112072009.3815276-1-linghui.wu@oss.qualcomm.com>
-References: <20261019093911.3199891-1-linghui.wu@oss.qualcomm.com>
- <20261112072009.3815276-1-linghui.wu@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,69 +79,83 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAyOSBTYWx0ZWRfX1FA7Q236yE/o
- b4rbPyJWy+8FrbZlXmnOu1TMlcWtIwimIon8CBb9G+k8B0wVQ4N2aUZrjs9Hq/8dbWdCVwxBkxe
- I2iNpODkCKQuDUjWJKjMjfGET2kwMbQ=
-X-Proofpoint-GUID: NfYRrdj3R4cIVQqENVmxHPwm493GvP06
-X-Proofpoint-ORIG-GUID: NfYRrdj3R4cIVQqENVmxHPwm493GvP06
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAyOSBTYWx0ZWRfX6H1rDJcVVPWV
- r4uguZCyV/xuyC66o/u4Rrj7OblLmjf5bAiGfbmVyGTM8PFIMkLQttnFYSBn2hlPMmDBsY1HeLf
- 90xxCPN2LDbqucdWQ6utITkwX9Q1MiP1bPZNwUx6LXIicXuZ75W9NZfycfixsCixTsyOSaMgVsL
- Xa1p3fG8DOBZei2dJOJkSkOOsfJBgva/9/LN0MBk1qM7z5E49NeHzf7VLlyQLwBhev/y/+wv71D
- t3WhDT4BrQa8UV4XQ9mOJjjQZ6dn/En8Xahq7W/QeagKegaLAhXgN+C3iXD+C5O+zUPnAzzo1E1
- pAewBjxSrCnfR7Nd1caljnTK/Jl15USOyn7SHCJkvV3t8ByU0Eyq2qSFBPSwme5N+NB36DhFOf+
- mz5cQZQ2HU7jDqCT5h0sDTlcsYDs8+HX6qCU4rEoCSC+EOe8plkPQGZ0azerSJ6MZXLXSJ7iwxu
- KFS6yvTi1VC3f9njBDw==
-X-Authority-Analysis: v=2.4 cv=LvcHWXdc c=1 sm=1 tr=0 ts=6af568bb cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=brVOnVl_E7YOJ4RIXMgA:9 a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 adultscore=0 suspectscore=0 impostorscore=0
- malwarescore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611120029
 
-The SW_CTRL GPIO can be used as a wake signal on platforms where the WCN
-device needs to wake the application processor.
+Quota data structures with a pending quota change (QDF_CHANGE set) hold
+a reference to the quota data structure, which is dropped when the change
+slot becomes unused in do_qc().  That reference is taken by __qd_hold()
+when a change slot becomes used, but commit bb73ae8ff394 ("gfs2: Fix
+initial quota data refcount") stopped taking it for the quota data
+structures created by gfs2_quota_init() at mount time.
 
-Document wakeup-source and require the existing swctrl-gpios property
-when wakeup-source is present.
+As a result, when gfs2_quota_sync() or gfs2_quota_unlock() syncs a parked
+quota data structure with a pending change, do_qc() drops the reference
+taken by qd_grab_sync() instead of the reference that should have been
+held for the pending change.  This leaves the quota data structure with
+a reference count of zero on the LRU list while the sync path is still
+using it, so the shrinker can dispose of it before the sync path is done
+with it, resulting in:
 
-Signed-off-by: Linghui Wu <linghui.wu@oss.qualcomm.com>
+  gfs2: fsid=...: warning: assertion "!qd->qd_slot_ref" failed -
+        function = gfs2_qd_dispose, file = fs/gfs2/quota.c, line = 130
+  kernel BUG at fs/gfs2/quota.c:331!
+  ...
+  Call Trace:
+   qd_put
+   gfs2_quota_sync
+   gfs2_quotad / gfs2_sync_fs
+
+Fix this by taking the reference held for the pending quota change in
+gfs2_quota_init() as well, and by dropping that reference (along with
+the associated quota slot reference) in gfs2_quota_cleanup().
+
+Reported-by: syzbot+0423714c06c369318794@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=0423714c06c369318794
+Fixes: bb73ae8ff394 ("gfs2: Fix initial quota data refcount")
+Signed-off-by: Shuai Liu <847807867@qq.com>
 ---
- .../devicetree/bindings/regulator/qcom,wcn3990-pmu.yaml     | 6 ++++++
- 1 file changed, 6 insertions(+)
+The bug was located and the fix drafted with the help of an AI coding
+assistant (GLM via the Trae IDE); the analysis, testing and submission
+were reviewed and are certified by the human submitter.
+---
+ fs/gfs2/quota.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/regulator/qcom,wcn3990-pmu.yaml b/Documentation/devicetree/bindings/regulator/qcom,wcn3990-pmu.yaml
-index 9a7abc878b83..f0372e28c99e 100644
---- a/Documentation/devicetree/bindings/regulator/qcom,wcn3990-pmu.yaml
-+++ b/Documentation/devicetree/bindings/regulator/qcom,wcn3990-pmu.yaml
-@@ -42,6 +42,8 @@ properties:
-     maxItems: 1
-     description: GPIO line indicating the state of the clock supply to the BT module
+diff --git a/fs/gfs2/quota.c b/fs/gfs2/quota.c
+index b2984fb7b35c3..f8ac274b99db8 100644
+--- a/fs/gfs2/quota.c
++++ b/fs/gfs2/quota.c
+@@ -1470,7 +1470,13 @@ int gfs2_quota_init(struct gfs2_sbd *sdp)
+ 			if (qd == NULL)
+ 				goto fail_brelse;
  
-+  wakeup-source: true
-+
-   clocks:
-     maxItems: 1
-     description: Reference clock handle
-@@ -67,6 +69,10 @@ required:
-   - vddrf-supply
-   - vddch0-supply
- 
-+dependentRequired:
-+  wakeup-source:
-+    - swctrl-gpios
-+
- additionalProperties: false
- 
- examples:
+-			qd->qd_lockref.count = 0;
++			/*
++			 * The pending quota change holds a reference to the
++			 * quota data structure, just like when a change slot
++			 * becomes used in do_qc().  It is dropped when the
++			 * change slot becomes unused (in do_qc()) or in
++			 * gfs2_quota_cleanup().
++			 */
+ 			set_bit(QDF_CHANGE, &qd->qd_flags);
+ 			qd->qd_change = qc_change;
+ 			qd->qd_slot = slot;
+@@ -1542,6 +1548,16 @@ void gfs2_quota_cleanup(struct gfs2_sbd *sdp)
+ 	spin_lock(&qd_lock);
+ 	list_for_each_entry(qd, &sdp->sd_quota_list, qd_list) {
+ 		spin_lock(&qd->qd_lockref.lock);
++		if (test_and_clear_bit(QDF_CHANGE, &qd->qd_flags)) {
++			/*
++			 * Drop the references held for the pending quota
++			 * change.  The change remains in the quota change
++			 * file and will be picked up again by
++			 * gfs2_quota_init() on the next mount.
++			 */
++			qd->qd_lockref.count--;
++			slot_put(qd);
++		}
+ 		if (qd->qd_lockref.count != 0) {
+ 			spin_unlock(&qd->qd_lockref.lock);
+ 			continue;
 -- 
 2.43.0
 
