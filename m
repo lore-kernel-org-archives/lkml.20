@@ -1,50 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794466196;
-	b=SGeDRRdpvG/ZPc/S+N64VSYdklmXMRr5KpiZv5sjyDSszIM2KkV/MkP/O82BkCau/4CR
-	 tRk79UgKyuuO2anRDbwwpXR/wX5/Hlrwx7LANnQou47zEquphHmne1EY/kYxQHQu5V+OT
-	 2favwtxDR7McZN2WuYaGI65fEgmfEPFG9WekQFp5ZwSNSaGvFgyLbrVNm1GOO3qZs5yvQ
-	 OY9DRJYyWuKbTDyPAJb5K+qqQ5/IvVv65bwVYYdy/cVrzPM/tOu7g5vn+X55TCVDX9+/U
-	 lA4vPOAGRrV6JAl13Db6T9GbEwnTv+pnOm2YTQwBFo6pe3kb9xoFhQCMX9prdWjxRLA==
+	t=1794466198;
+	b=UTaZSW6XNMZdC55rFz4NnvQioHKgxXCa3KJLX/gjWn61ZsLKZBU0w6TO+4NmbIJFYQNu
+	 MAMDPbH65IEFbBRjKIgk9SBS4DebNgC5itlVGmWHObRg1TC9RCXS9g+kSWnbbNKdb/5GR
+	 +b9i37NqYufYixAqNEKga+iI2pL+suM2uzWbZ1uIEfLDgeMgp7q8OQfVnJSqtHxZj8mMy
+	 6BrJ9jzm6lu+zLQY7CMIVBbkSP7gCDKi5Gt2QtP5cz8iVRV1z06dyVkleqEgBdZZnaP03
+	 hWWDhzZK8KIVd+5KDCXSvZCUYuzSsr2O2Hc0bNZ/AYvc44lPZQu4JT8pbSyerNw9wOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794466196;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=NZKRk1AFmd3ydu5tNOE5gom10bGB7qb39YsRre330QI=;
-	b=yhBZz/OubrPYHuqO1cxjAX+5iFgBk7eV2n/11mMRy3W+Z9dQKBDNovGZ5JYNV/yyAyAW
-	 oPViupWi/qI/KIc98wnz2ZWe0ZOVYZrUrGZjDA6fs3KpT4nKq50EK37ct6iR/SrJtBFU6
-	 739RgogLmyowEwyhmTkzXReTBpqPtvIfsmQkZ823XS+2n5ba8QpE0SvA60I02R2dSPfoB
-	 dg4zocT+RA8nDi1nXSGMSWZW8Lh2oHAzzhEmjwFIY+NrcxfmIT7GDtFl+phYBYIpVp+Uv
-	 f1UQyVZM0rPGFF5DOg1dt9oS6W21e9Hz2oJ1PBjXQQqgquvK3dEtdfGDoG2ouD2bLTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794466198;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=+F52bmHA0YPZtsmxGOVRSP0y4qFlAaBYlea7RyACx8E=;
+	b=hZMkTas/cq2wAsauHa9MKhr2E2lQh0yaqya+wnY/2/bATsR8p1tX/RVMom87m0eOKIU4
+	 L/mIHenBDIpL0R235HThvaF5TzSoxFoT7XiFXrYtM7xXVgEPAEO+8ZQGaCQFlzjnLFUlG
+	 eaFAalPcWTwdnkJK+mNtyZBmol1TRO9TGBfFXvZFRuHxekmyPMVe/t/H0puSHzhuP5fvL
+	 SLrxIMg5wKLGVERiVVPL7i3mOUT2S+xoYrUPSMTNILkVRfs0nTgoU2H5NxFP9t8w9szLN
+	 N8tYLoMB9ofPs6bn3K7jKPf09cDS268Id2vSPr8K6/nMjQtaGzxA6RFy2U3WQ0yG56A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=beiVkKg1;
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HhrMj1gM;
+	arc=none smtp.remote-ip=209.85.210.177
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A91606A8BD;
-	Thu, 12 Nov 2026 06:49:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33A91606A8BD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B0060A261A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:49:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74B0060A261A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=beiVkKg1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=NZKRk1AFmd3ydu5tNOE5gom10bGB7qb39YsRre330QI=;
-	b=beiVkKg1r6lSfls/xX2Cng4ZCp1/HPiznkpfhXQzg/ZeuuOzOYQj6da5bklcJr
-	U39C+S/4mS+qCvAzgqZrFA+LPW1x0vlxFVfpvIEXO+ebivGvSDXXpsacJ67yPc52
-	i6+gah8DxbNTHvvzXgH5GQFwOb+x/ZYHRnNXazVI63q+4=
-Received: from [IPV6:2409:8900:1a93:3634:9bae:9736:f6e5:b25c] (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDHpBB0YfVqTEgEHA--.47534S2;
-	Thu, 12 Nov 2026 14:49:26 +0800 (CST)
-Message-ID: <9c227fe2-3344-4aba-8559-6ae456da355c@163.com>
-Date: Thu, 12 Nov 2026 14:49:24 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HhrMj1gM
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8b66d1a08ccso510455b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:49:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794466198; x=1795070998; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+F52bmHA0YPZtsmxGOVRSP0y4qFlAaBYlea7RyACx8E=;
+        b=HhrMj1gM1Dx7RyNnsbLEfL1xhogW+Zt5L/2DFDSwxKFGP0Q+cHMcGl4cwFPGxS6Nl2
+         MRznm48j6WsfVRz02JYj9kbaJ8aRlkK2AarTH23gf+9y3OMViJO2uapbEg/DM4tdxKZL
+         z07ZAsGAyLo+gz6yguJVB5P29K4F/xr1dm2ycG4C9GjenmTTfxhgWVoIAvigJNNnjCV3
+         43kccBdXJ5mzAMm5oVtxfQgR3z/wnnPVhw4v0SpbT7qjKyvZnx1/QZhyGJ+FoMeooQq9
+         vZ3MKDptp3oEMQkGZERJLTQfR7B5sMzI2eP5XvvqmOk7ZUrxLNQljmV9CUI0SsEhRhsJ
+         hUlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794466198; x=1795070998;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+F52bmHA0YPZtsmxGOVRSP0y4qFlAaBYlea7RyACx8E=;
+        b=c5kVSzk/G47n+sdmLo2+gutE5sWtxgBbO4ojecx96IA1ThZ1RxQM3m3WqUbWwrxb7j
+         ETz9kKDYHrT93mDE53KO7H131PBzaUDfSAGpT2IfzoeVxe/MZCnaFdGjLCfWVVAIRLcj
+         Q8fDtYLmjCdYubuIBG/58S3207KBsNq6bIDObL77iAhWiWin6hcjpbhqE9gZdfTc3JEu
+         3YoK+OWounPsQGOMq3Ps/kftAL14gXUceMhQZ3NSEpzvdSq6r/hTE3COPmJY+yaS3aCh
+         9Unos9f8WsoTX7oTOinJAjIlH8JA5JHxwD8oRW7+Jmdlqbep0YBw+K+h5YMBAXkYNzGV
+         hgpA==
+X-Forwarded-Encrypted: i=1; AL+hErG4c0yzf+Ms7ZvNwrWOfAYIKEtz1gmSoqVYu51/IPGJ0Zj7pbgvwuUbnwIDeSf7f2nXrYEGRFMPcixJuTk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z95anVMIUopNmecb0o8uLr1L4C0QF6lMui4RCUvKWbSOPGQwjws
+	XhKS43MIDtS442RGoGqyyfuGswcutyMET1hAi3fvXpZkKyfd5oG0o8LN
+X-Gm-Gg: AYBFou3WHtWzNO1X1Cnwm7lv83FOxxzCqD+M6sCaMBOlDZAR5y+Nmz2sBJIXVYxF1oT
+	T2HRCVixm05gFqomyssY1Ot4j1Zaifgs65db+tGw67w6QEge5XppMiTaLHofyCyZpvijZOVuElW
+	t4FZ/U5WqtrAhrnh3Xwr9nNiU7QkkbvwadTsJ7EzIHqV1n1de21Wu77NCvNhLiP199DTZeFb9BN
+	Xr3+GSmPPCliR92C3FYOoTq6QwLa33GxkPxMuyShQrCeu4vKRRFjgrAVMQkEbgudLABrgWJQFu8
+	QZnMX0bAForSn3t9sZ2AcVCD1wGLRj8yzm6YDopE2nAxyMxgcTrELmlHAh72bnUcOMiT4usnnbp
+	isP+HC3Fxsbci1FrWkXlY1J5ag1j3MNBUd4uIFZth2y0pvpigrYel8cndkp9DE8x7INtA3aqKg5
+	KXrLNETmAI1SqYxKDtscbSAL1SwZ6HLUj+0RZ/fEYZEVP2Iss/Bs23XFCjX1qsI5DOaVwheVJpl
+	e+nuPaq7UDpjaUHB8CRmfMBlE/J9loLaldr3gEeD7ZN5A+S7rtvUHLYoi8QmyRqn7YJS/SwEWbg
+	hIduuk9UhoJHaTur/OuOg89rKGmnax/W/khWHT7Uc8963lK04hAqZmwjIzWFQOYz0Ad1G4PPVw/
+	dDgbZx9e+yC8B0qO6db+7+oTeRVbf5X0aimzPl4izXVCC7Hw=
+X-Received: by 2002:a05:6a00:4b0d:b0:89f:3053:9af2 with SMTP id d2e1a72fcca58-8bc1b9f004fmr4813563b3a.12.1794466197865;
+        Wed, 11 Nov 2026 22:49:57 -0800 (PST)
+Received: from localhost.localdomain ([183.96.175.225])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baab1228e2sm3097511b3a.41.2026.11.11.22.49.54
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 11 Nov 2026 22:49:57 -0800 (PST)
+From: Joonho Lee <mynameisjune111@gmail.com>
+To: linux-sound@vger.kernel.org
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	anton.yakovlev@opensynergy.com,
+	mst@redhat.com,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	Joonho Lee <mynameisjune111@gmail.com>
+Subject: [PATCH v31 06/17] ALSA: virtio: propagate playback send failures through ACK
+Date: Thu, 12 Nov 2026 15:49:18 +0900
+Message-ID: <20261112064929.11211-7-mynameisjune111@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261112064929.11211-1-mynameisjune111@gmail.com>
+References: <20261112064929.11211-1-mynameisjune111@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,469 +107,454 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ntfs: don't let a fatal signal interrupt metadata
- reads
-To: xkeyC <xkeyc@qq.com>, Namjae Jeon <linkinjeon@kernel.org>,
- Hyunchul Lee <hyc.lee@gmail.com>
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <tencent_AF42E4D94D935F34EB985032150C6AD0DF08@qq.com>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <tencent_AF42E4D94D935F34EB985032150C6AD0DF08@qq.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDHpBB0YfVqTEgEHA--.47534S2
-X-Coremail-Antispam: 1Uf129KBjvAXoW3tw13uw18KFy3uFWDKw1fCrg_yoW8AF4xZo
-	WSya129w4Fq3W7Aa4q9wsrXw1DX398Gws3JF43CrWDu3ZFg3yq9w4xJwsrWry3Gw1rGrn8
-	CryxJF1rtrW3J343n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxU8ApeUUUUU
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RiOWWr1YXi2RwAA3R
 
+Propagate playback submission failures through ACK and commit indirect
+accounting only after transport submission succeeds. Keep the PCM state
+and buffer-access checks synchronized with playback transfer admission.
+The existing capture ACK callback and initial queue reservation behavior
+remain together until the request-owned capture conversion in patch 12.
+That conversion introduces RX reservation, validation and refill as one
+contract.
 
+Fixes: fe981e67568c ("ALSA: virtio: use ack callback")
+Assisted-by: LLM
+Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
 
-在 2026/11/12 11:29, xkeyC 写道:
-> read_mapping_folio() returns -EINTR when the caller has a fatal signal
-> pending while it waits for the read it submitted. ntfs reads its metadata
-> through it and treats the failure as a volume error, so killing a task
-> that waits on a metadata read turns the volume read-only with
-> errors=remount-ro. A read that is part of an update also stops the update
-> half way: killing an rm can leave clusters allocated in $Bitmap, an MFT
-> record in use without a directory entry, or a directory index with
-> entries that point to freed records. Killing a mount makes it fail with
-> bogus $AttrDef and $UpCase errors, or leaves the volume mounted read-only
-> with a bogus $MFTMirr or $BadClus error.
-> 
-> Add ntfs_read_metadata_folio(), which waits for the read uninterruptibly,
-> and use it for metadata reads. Named stream contents, compressed data and
-> the read-only bitmap scans through ntfs_get_locked_folio(), whose callers
-> do not report a volume error, keep using read_mapping_folio(). A named
-> stream write that is interrupted that way no longer reports a volume
-> error either. A killed task now waits for its metadata read to complete,
-> as it does on filesystems that use the buffer cache.
-> 
-> Closes: https://github.com/namjaejeon/linux-ntfs/issues/98
-> Fixes: 11ccc9107dc4 ("ntfs: update runlist handling and cluster allocator")
-> Fixes: 115380f9a2f9 ("ntfs: update mft operations")
-> Fixes: af0db57d4293 ("ntfs: update inode operations")
-> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
-> Fixes: 0a8ac0c1fa0b ("ntfs: update directory operations")
-> Fixes: 5218cd102aec ("ntfs: update misc operations")
-> Fixes: 6251f0b0de7d ("ntfs: update super block operations")
-> Fixes: 8506a8031ebf ("ntfs: validate and reserve bad clusters at mount")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: xkeyC <xkeyc@qq.com>
-> ---
-> v2:
-> - Keep reads of named stream contents killable in writes too, and don't
->    report -EINTR from them as a volume error (Hyunchul)
-> - Also convert the mount-time reads of $LogFile, $MFTMirr, hiberfil.sys,
->    $AttrDef, $UpCase and $BadClus (Hyunchul)
-> - Add the missing Fixes tags (Hyunchul)
-> 
-> v1: https://lore.kernel.org/ntfs/tencent_2859327A0C68D0D0429ED90F931234059808@qq.com/
-> 
-> Reproducers and logs: https://github.com/xkeyC/linux-ntfs/tree/eintr-repro
-> 
-> In QEMU (KASAN, lockdep, reads throttled), killing rm, ls -l, fallocate,
-> dd, a named stream write or mount partway through turned the volume
-> read-only or failed the mount within a few runs without this patch, and
-> ntfsck found damage after rm. With it, 20 runs of each kept the volume
-> read-write and ntfsck clean. The reporter of the GitHub issue confirmed
-> that v1 fixes the cases there.
-> 
-> Developed with an AI coding assistant (Claude Code), which wrote the
-> change and the reproducers and ran the tests.
-> 
->   fs/ntfs/aops.c     | 58 ++++++++++++++++++++++++++++++++++++++++++++++
->   fs/ntfs/attrib.c   |  2 +-
->   fs/ntfs/bdev-io.c  |  2 +-
->   fs/ntfs/bitmap.c   |  7 +++---
->   fs/ntfs/dir.c      |  4 ++--
->   fs/ntfs/inode.c    | 21 ++++++++++++++---
->   fs/ntfs/lcnalloc.c |  2 +-
->   fs/ntfs/logfile.c  |  4 ++--
->   fs/ntfs/mft.c      | 20 ++++++++--------
->   fs/ntfs/ntfs.h     |  4 ++++
->   fs/ntfs/super.c    | 14 +++++------
->   11 files changed, 107 insertions(+), 31 deletions(-)
-> 
-> diff --git a/fs/ntfs/aops.c b/fs/ntfs/aops.c
-> index ad781674fe..767aecf423 100644
-> --- a/fs/ntfs/aops.c
-> +++ b/fs/ntfs/aops.c
-> @@ -7,6 +7,7 @@
->    * Copyright (c) 2025 LG Electronics Co., Ltd.
->    */
->   
-> +#include <linux/swap.h>
->   #include <linux/writeback.h>
->   
->   #include "attrib.h"
-> @@ -304,6 +305,63 @@ static int ntfs_swap_activate(struct swap_info_struct *sis,
->   			&ntfs_read_iomap_ops);
->   }
->   
-> +/**
-> + * ntfs_read_metadata_folio - read a metadata folio, ignoring fatal signals
-> + * @mapping:	address space of the metadata inode or block device
-> + * @index:	page cache index to read
-> + *
-> + * Like read_mapping_folio(), but the wait for the read cannot be interrupted,
-> + * so a fatal signal cannot fail a metadata read in the middle of an update.
-> + * The caller must not hold the lock of the folio at @index.
-> + *
-> + * Return: the uptodate folio with a reference held, or an ERR_PTR().
-> + */
-> +struct folio *ntfs_read_metadata_folio(struct address_space *mapping,
-> +				       pgoff_t index)
-> +{
-> +	struct folio *folio;
-> +	bool read_failed = false;
-> +	int err;
-> +
-> +	folio = filemap_get_folio(mapping, index);
-> +	if (!IS_ERR(folio)) {
-> +		if (folio_test_uptodate(folio))
-> +			goto out;
-> +		folio_put(folio);
-> +	}
-> +repeat:
-> +	folio = __filemap_get_folio(mapping, index, FGP_LOCK | FGP_CREAT,
-> +				    mapping_gfp_mask(mapping));
-> +	if (IS_ERR(folio))
-> +		return folio;
-> +	/* $MFT updates clear uptodate under the folio lock, so check it locked. */
-> +	if (folio_test_uptodate(folio)) {
-> +		folio_unlock(folio);
-> +		goto out;
-> +	}
-> +	if (read_failed) {
-> +		folio_unlock(folio);
-> +		folio_put(folio);
-> +		return ERR_PTR(-EIO);
-> +	}
-> +
-> +	/* ->read_folio() unlocks the folio when the read completes. */
-> +	err = mapping->a_ops->read_folio(NULL, folio);
-> +	if (err) {
-> +		folio_put(folio);
-> +		if (err == AOP_TRUNCATED_PAGE)
-> +			goto repeat;
-> +		return ERR_PTR(err);
-> +	}
-> +	folio_wait_locked(folio);
-> +	read_failed = !folio_test_uptodate(folio);
-> +	folio_put(folio);
-> +	goto repeat;
+---
+sound/virtio/virtio_pcm.h     |    6 +
+ sound/virtio/virtio_pcm_msg.c |   12 ++
+ sound/virtio/virtio_pcm_ops.c |  237 ++++++++++++++++++++++++++++++++++++-----
+ 3 files changed, 228 insertions(+), 27 deletions(-)
 
-Hi xkeyC,
-    Could we keep the reference here and recheck uptodate under the 
-folio lock? We're dropping it even when the read succeeded, so reclaim 
-could remove the folio before the next lookup and we'd have to read it 
-again. We'd still need to check the mapping after taking the lock.
-
-Thanks,
-Baolin.
-
-> +out:
-> +	folio_mark_accessed(folio);
-> +	return folio;
-> +}
-> +
->   const struct address_space_operations ntfs_aops = {
->   	.read_folio		= ntfs_read_folio,
->   	.readahead		= ntfs_readahead,
-> diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-> index 800e53df57..cf73fa4c33 100644
-> --- a/fs/ntfs/attrib.c
-> +++ b/fs/ntfs/attrib.c
-> @@ -2323,7 +2323,7 @@ int ntfs_attr_set(struct ntfs_inode *ni, s64 ofs, s64 cnt, const u8 val)
->   
->   	index = ofs >> PAGE_SHIFT;
->   	while (cnt) {
-> -		folio = read_mapping_folio(mapping, index, NULL);
-> +		folio = ntfs_read_metadata_folio(mapping, index);
->   		if (IS_ERR(folio)) {
->   			ret = PTR_ERR(folio);
->   			ntfs_error(VFS_I(ni)->i_sb, "Failed to read a page %lu for attr %#x: %ld",
-> diff --git a/fs/ntfs/bdev-io.c b/fs/ntfs/bdev-io.c
-> index 4f27eed3b0..afb1d1df37 100644
-> --- a/fs/ntfs/bdev-io.c
-> +++ b/fs/ntfs/bdev-io.c
-> @@ -99,7 +99,7 @@ int ntfs_bdev_write(struct super_block *sb, void *buf, loff_t start, size_t size
->   	for (; idx < idx_end; idx++, from = 0) {
->   		u32 len;
->   
-> -		folio = read_mapping_folio(sb->s_bdev->bd_mapping, idx, NULL);
-> +		folio = ntfs_read_metadata_folio(sb->s_bdev->bd_mapping, idx);
->   		if (IS_ERR(folio)) {
->   			ntfs_error(sb, "Unable to read %ld page", idx);
->   			return PTR_ERR(folio);
-> diff --git a/fs/ntfs/bitmap.c b/fs/ntfs/bitmap.c
-> index af86fb1c19..0ad80255d6 100644
-> --- a/fs/ntfs/bitmap.c
-> +++ b/fs/ntfs/bitmap.c
-> @@ -36,8 +36,7 @@ int ntfs_bitmap_check_used(struct ntfs_volume *vol, s64 start, s64 count,
->   		return -EROFS;
->   
->   	while (count) {
-> -		folio = read_mapping_folio(mapping,
-> -					   start >> (PAGE_SHIFT + 3), NULL);
-> +		folio = ntfs_read_metadata_folio(mapping, start >> (PAGE_SHIFT + 3));
->   		if (IS_ERR(folio))
->   			return PTR_ERR(folio);
->   
-> @@ -203,7 +202,7 @@ int __ntfs_bitmap_set_bits_in_run(struct inode *vi, const s64 start_bit,
->   
->   	/* Get the page containing the first bit (@start_bit). */
->   	mapping = vi->i_mapping;
-> -	folio = read_mapping_folio(mapping, index, NULL);
-> +	folio = ntfs_read_metadata_folio(mapping, index);
->   	if (IS_ERR(folio)) {
->   		if (!is_rollback)
->   			ntfs_error(vi->i_sb,
-> @@ -267,7 +266,7 @@ int __ntfs_bitmap_set_bits_in_run(struct inode *vi, const s64 start_bit,
->   		folio_unlock(folio);
->   		kunmap_local(kaddr);
->   		folio_put(folio);
-> -		folio = read_mapping_folio(mapping, ++index, NULL);
-> +		folio = ntfs_read_metadata_folio(mapping, ++index);
->   		if (IS_ERR(folio)) {
->   			ntfs_error(vi->i_sb,
->   				   "Failed to map subsequent page (error %li), aborting.",
-> diff --git a/fs/ntfs/dir.c b/fs/ntfs/dir.c
-> index 9fb5bb3d35..ce87799a28 100644
-> --- a/fs/ntfs/dir.c
-> +++ b/fs/ntfs/dir.c
-> @@ -327,8 +327,8 @@ u64 ntfs_lookup_inode_by_name(struct ntfs_inode *dir_ni, const __le16 *uname,
->   	 * of PAGE_SIZE and map the page cache page, reading it from
->   	 * disk if necessary.
->   	 */
-> -	folio = read_mapping_folio(ia_mapping, vcn <<
-> -			dir_ni->itype.index.vcn_size_bits >> PAGE_SHIFT, NULL);
-> +	folio = ntfs_read_metadata_folio(ia_mapping, vcn <<
-> +			dir_ni->itype.index.vcn_size_bits >> PAGE_SHIFT);
->   	if (IS_ERR(folio)) {
->   		ntfs_error(sb, "Failed to map directory index page, error %ld.",
->   				-PTR_ERR(folio));
-> diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
-> index 62dd5bd5bb..b7fb57d084 100644
-> --- a/fs/ntfs/inode.c
-> +++ b/fs/ntfs/inode.c
-> @@ -3773,8 +3773,14 @@ s64 ntfs_inode_attr_pread(struct inode *vi, s64 pos, s64 count, u8 *buf)
->   
->   	index = pos >> PAGE_SHIFT;
->   	do {
-> -		/* Update @index and get the next folio. */
-> -		folio = read_mapping_folio(mapping, index, NULL);
-> +		/*
-> +		 * Update @index and get the next folio.  The contents of a named
-> +		 * stream are user data, so a fatal signal may still stop that read.
-> +		 */
-> +		if (ntfs_inode_is_named_stream(ni))
-> +			folio = read_mapping_folio(mapping, index, NULL);
-> +		else
-> +			folio = ntfs_read_metadata_folio(mapping, index);
->   		if (IS_ERR(folio)) {
->   			err = PTR_ERR(folio);
->   			break;
-> @@ -3926,9 +3932,18 @@ static s64 __ntfs_inode_non_resident_attr_pwrite(struct inode *vi,
->   				break;
->   			}
->   		} else {
-> -			folio = read_mapping_folio(mapping, index, NULL);
-> +			/*
-> +			 * Named stream contents are user data; keep that read
-> +			 * killable, as in ntfs_inode_attr_pread().
-> +			 */
-> +			if (ntfs_inode_is_named_stream(ni))
-> +				folio = read_mapping_folio(mapping, index, NULL);
-> +			else
-> +				folio = ntfs_read_metadata_folio(mapping, index);
->   			if (IS_ERR(folio)) {
->   				ret = PTR_ERR(folio);
-> +				if (ret == -EINTR)
-> +					break;
->   				ntfs_error(vi->i_sb, "Failed to read a page %lu for attr %#x: %ld",
->   						index, ni->type, PTR_ERR(folio));
->   				break;
-> diff --git a/fs/ntfs/lcnalloc.c b/fs/ntfs/lcnalloc.c
-> index 3ebcac4c28..7e00016f42 100644
-> --- a/fs/ntfs/lcnalloc.c
-> +++ b/fs/ntfs/lcnalloc.c
-> @@ -340,7 +340,7 @@ struct runlist_element *ntfs_cluster_alloc(struct ntfs_volume *vol, const s64 st
->   		if (vol->lcn_empty_bits_per_page[index] == 0)
->   			goto next_bmp_pos;
->   
-> -		folio = read_mapping_folio(mapping, index, NULL);
-> +		folio = ntfs_read_metadata_folio(mapping, index);
->   		if (IS_ERR(folio)) {
->   			err = PTR_ERR(folio);
->   			ntfs_error(vol->sb, "Failed to map page.");
-> diff --git a/fs/ntfs/logfile.c b/fs/ntfs/logfile.c
-> index 2f27ae7a39..cdc951309d 100644
-> --- a/fs/ntfs/logfile.c
-> +++ b/fs/ntfs/logfile.c
-> @@ -367,7 +367,7 @@ static int ntfs_check_and_load_restart_page(struct inode *vi,
->   		to_read = le32_to_cpu(rp->system_page_size) - size;
->   		idx = (pos + size) >> PAGE_SHIFT;
->   		do {
-> -			folio = read_mapping_folio(vi->i_mapping, idx, NULL);
-> +			folio = ntfs_read_metadata_folio(vi->i_mapping, idx);
->   			if (IS_ERR(folio)) {
->   				ntfs_error(vi->i_sb, "Error mapping LogFile page (index %lu).",
->   						idx);
-> @@ -514,7 +514,7 @@ bool ntfs_check_logfile(struct inode *log_vi, struct restart_page_header **rp)
->   				kunmap_local(kbase);
->   				folio_put(folio);
->   			}
-> -			folio = read_mapping_folio(mapping, idx, NULL);
-> +			folio = ntfs_read_metadata_folio(mapping, idx);
->   			if (IS_ERR(folio)) {
->   				ntfs_error(vol->sb, "Error mapping LogFile page (index %lu).",
->   						idx);
-> diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
-> index 89288b7943..3601f77eee 100644
-> --- a/fs/ntfs/mft.c
-> +++ b/fs/ntfs/mft.c
-> @@ -143,7 +143,7 @@ static inline struct mft_record *map_mft_record_folio(struct ntfs_inode *ni)
->   	}
->   
->   	/* Read, map, and pin the folio. */
-> -	folio = read_mapping_folio(mft_vi->i_mapping, index, NULL);
-> +	folio = ntfs_read_metadata_folio(mft_vi->i_mapping, index);
->   	if (!IS_ERR(folio)) {
->   		u8 *addr;
->   
-> @@ -549,8 +549,8 @@ static int ntfs_sync_mft_mirror_unit(struct ntfs_volume *vol,
->   	if (unit->folio_ofs + unit->len > folio_size(source))
->   		return -EIO;
->   
-> -	mirror = read_mapping_folio(vol->mftmirr_ino->i_mapping,
-> -				    mirror_file_ofs >> PAGE_SHIFT, NULL);
-> +	mirror = ntfs_read_metadata_folio(vol->mftmirr_ino->i_mapping,
-> +					  mirror_file_ofs >> PAGE_SHIFT);
->   	if (IS_ERR(mirror))
->   		return PTR_ERR(mirror);
->   
-> @@ -1023,7 +1023,7 @@ static bool mft_reserved_is_free(struct ntfs_volume *vol,
->   	if (!m)
->   		return false;
->   
-> -	folio = read_mapping_folio(vol->mft_ino->i_mapping, index, NULL);
-> +	folio = ntfs_read_metadata_folio(vol->mft_ino->i_mapping, index);
->   	if (IS_ERR(folio))
->   		goto free_m;
->   
-> @@ -1199,8 +1199,8 @@ static s64 mft_bitmap_alloc_free_rec(struct ntfs_volume *vol,
->   		 * for a zero bit.
->   		 */
->   		if (size) {
-> -			folio = read_mapping_folio(mftbmp_mapping,
-> -					ofs >> PAGE_SHIFT, NULL);
-> +			folio = ntfs_read_metadata_folio(mftbmp_mapping,
-> +							 ofs >> PAGE_SHIFT);
->   			if (IS_ERR(folio)) {
->   				ntfs_error(vol->sb, "Failed to read mft bitmap, aborting.");
->   				return PTR_ERR(folio);
-> @@ -1392,8 +1392,8 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
->   	 * to us.
->   	 */
->   	ll = lcn >> 3;
-> -	folio = read_mapping_folio(vol->lcnbmp_ino->i_mapping,
-> -			ll >> PAGE_SHIFT, NULL);
-> +	folio = ntfs_read_metadata_folio(vol->lcnbmp_ino->i_mapping,
-> +					 ll >> PAGE_SHIFT);
->   	if (IS_ERR(folio)) {
->   		up_write(&mftbmp_ni->runlist.lock);
->   		ntfs_error(vol->sb, "Failed to read from lcn bitmap.");
-> @@ -2207,7 +2207,7 @@ static int ntfs_mft_record_format(const struct ntfs_volume *vol, const s64 mft_n
->   	}
->   
->   	/* Read, map, and pin the folio containing the mft record. */
-> -	folio = read_mapping_folio(mft_vi->i_mapping, index, NULL);
-> +	folio = ntfs_read_metadata_folio(mft_vi->i_mapping, index);
->   	if (IS_ERR(folio)) {
->   		ntfs_error(vol->sb, "Failed to map page containing mft record to format 0x%llx.",
->   				(long long)mft_no);
-> @@ -2725,7 +2725,7 @@ int ntfs_mft_record_alloc(struct ntfs_volume *vol, const int mode,
->   	index = NTFS_MFT_NR_TO_PIDX(vol, bit);
->   	ofs = NTFS_MFT_NR_TO_POFS(vol, bit);
->   	/* Read, map, and pin the folio containing the mft record. */
-> -	folio = read_mapping_folio(vol->mft_ino->i_mapping, index, NULL);
-> +	folio = ntfs_read_metadata_folio(vol->mft_ino->i_mapping, index);
->   	if (IS_ERR(folio)) {
->   		ntfs_error(vol->sb, "Failed to map page containing allocated mft record 0x%llx.",
->   				bit);
-> diff --git a/fs/ntfs/ntfs.h b/fs/ntfs/ntfs.h
-> index fac72d40f5..f33df986f5 100644
-> --- a/fs/ntfs/ntfs.h
-> +++ b/fs/ntfs/ntfs.h
-> @@ -294,6 +294,10 @@ static inline int ntfs_ffs(int x)
->   	return r;
->   }
->   
-> +/* From fs/ntfs/aops.c */
-> +struct folio *ntfs_read_metadata_folio(struct address_space *mapping,
-> +				       pgoff_t index);
-> +
->   /* From fs/ntfs/bdev-io.c */
->   int ntfs_bdev_read(struct block_device *bdev, char *data, loff_t start, size_t size);
->   int ntfs_bdev_write(struct super_block *sb, void *buf, loff_t start, size_t size);
-> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-> index 71f0aea46b..af97afe6a7 100644
-> --- a/fs/ntfs/super.c
-> +++ b/fs/ntfs/super.c
-> @@ -1187,8 +1187,8 @@ static bool check_mft_mirror(struct ntfs_volume *vol)
->   				folio_put(mft_folio);
->   			}
->   			/* Get the $MFT page. */
-> -			mft_folio = read_mapping_folio(vol->mft_ino->i_mapping,
-> -					index, NULL);
-> +			mft_folio = ntfs_read_metadata_folio(vol->mft_ino->i_mapping,
-> +							     index);
->   			if (IS_ERR(mft_folio)) {
->   				ntfs_error(sb, "Failed to read $MFT.");
->   				return false;
-> @@ -1196,8 +1196,8 @@ static bool check_mft_mirror(struct ntfs_volume *vol)
->   			kmft_base = kmap_local_folio(mft_folio, 0);
->   			kmft = kmft_base;
->   			/* Get the $MFTMirr page. */
-> -			mirr_folio = read_mapping_folio(vol->mftmirr_ino->i_mapping,
-> -					index, NULL);
-> +			mirr_folio = ntfs_read_metadata_folio(vol->mftmirr_ino->i_mapping,
-> +							      index);
->   			if (IS_ERR(mirr_folio)) {
->   				ntfs_error(sb, "Failed to read $MFTMirr.");
->   				goto mft_unmap_out;
-> @@ -1395,7 +1395,7 @@ static int check_windows_hibernation_status(struct ntfs_volume *vol)
->   		goto iput_out;
->   	}
->   
-> -	folio = read_mapping_folio(vi->i_mapping, 0, NULL);
-> +	folio = ntfs_read_metadata_folio(vi->i_mapping, 0);
->   	if (IS_ERR(folio)) {
->   		ntfs_error(vol->sb, "Failed to read from hiberfil.sys.");
->   		ret = PTR_ERR(folio);
-> @@ -1460,7 +1460,7 @@ static bool load_and_init_attrdef(struct ntfs_volume *vol)
->   	while (index < max_index) {
->   		/* Read the attrdef table and copy it into the linear buffer. */
->   read_partial_attrdef_page:
-> -		folio = read_mapping_folio(ino->i_mapping, index, NULL);
-> +		folio = ntfs_read_metadata_folio(ino->i_mapping, index);
->   		if (IS_ERR(folio))
->   			goto free_iput_failed;
->   		addr = kmap_local_folio(folio, 0);
-> @@ -1526,7 +1526,7 @@ static bool load_and_init_upcase(struct ntfs_volume *vol)
->   	while (index < max_index) {
->   		/* Read the upcase table and copy it into the linear buffer. */
->   read_partial_upcase_page:
-> -		folio = read_mapping_folio(ino->i_mapping, index, NULL);
-> +		folio = ntfs_read_metadata_folio(ino->i_mapping, index);
->   		if (IS_ERR(folio))
->   			goto iput_upcase_failed;
->   		addr = kmap_local_folio(folio, 0);
-> 
-> base-commit: 2b4bb6d6d8fe8315a655cb63f186013bfb45dd21
-
+diff --git a/sound/virtio/virtio_pcm.h b/sound/virtio/virtio_pcm.h
+--- a/sound/virtio/virtio_pcm.h
++++ b/sound/virtio/virtio_pcm.h
+@@ -33,6 +33,10 @@
+  * @xfer_xrun: Data underflow/overflow state (0 - no xrun, 1 - xrun).
+  * @stopped: True if the substream is stopped and must be released on the device
+  *           side.
++ * @prepared: True after device PREPARE and the core pointer reset succeed;
++ *            protected by @lock.
++ * @preparing: ACK gate through teardown and prepare's core reset;
++ *             protected by @lock.
+  * @suspended: True if the substream is suspended and must be reconfigured on
+  *             the device side at resume.
+  * @msgs: Allocated I/O messages.
+@@ -56,6 +60,8 @@
+ 	bool xfer_enabled;
+ 	bool xfer_xrun;
+ 	bool stopped;
++	bool prepared;
++	bool preparing;
+ 	bool suspended;
+ 	struct virtio_pcm_msg **msgs;
+ 	unsigned int nmsgs;
+diff --git a/sound/virtio/virtio_pcm_msg.c b/sound/virtio/virtio_pcm_msg.c
+--- a/sound/virtio/virtio_pcm_msg.c
++++ b/sound/virtio/virtio_pcm_msg.c
+@@ -260,6 +260,18 @@
+ 				dev_err(&vdev->dev,
+ 					"SID %u: failed to send I/O message\n",
+ 					vss->sid);
++				msg->length -= n;
++
++				/*
++				 * Do not leave earlier messages queued without notifying
++				 * the device when a later message could not be added.
++				 */
++				if (msg_count != vss->msg_count &&
++				    !(vss->features &
++				      (1U << VIRTIO_SND_PCM_F_MSG_POLLING)) &&
++				    virtqueue_kick_prepare(vqueue))
++					virtqueue_notify(vqueue);
++
+ 				return rc;
+ 			}
+ 
+diff --git a/sound/virtio/virtio_pcm_ops.c b/sound/virtio/virtio_pcm_ops.c
+--- a/sound/virtio/virtio_pcm_ops.c
++++ b/sound/virtio/virtio_pcm_ops.c
+@@ -97,6 +97,38 @@
+ static int virtsnd_pcm_sync_stop(struct snd_pcm_substream *substream);
+ 
+ /**
++ * virtsnd_pcm_close_ack() - Update PCM prepare admission state.
++ * @substream: Kernel ALSA substream.
++ * @preparing: True while driver prepare and the core pointer reset are active.
++ *
++ * Context: Process context.
++ */
++static void virtsnd_pcm_close_ack(struct snd_pcm_substream *substream,
++				  bool preparing)
++{
++	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
++
++	scoped_guard(pcm_stream_lock_irqsave, substream) {
++		guard(spinlock_irqsave)(&vss->lock);
++		vss->prepared = false;
++		vss->xfer_enabled = false;
++		vss->preparing = preparing;
++	}
++}
++
++/* Keep completed RX data valid while RELEASE drains the device queue. */
++static void virtsnd_pcm_block_ack(struct snd_pcm_substream *substream)
++{
++	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
++
++	scoped_guard(pcm_stream_lock_irqsave, substream) {
++		guard(spinlock_irqsave)(&vss->lock);
++		vss->preparing = true;
++		vss->xfer_enabled = false;
++	}
++}
++
++/**
+  * virtsnd_pcm_open() - Open the PCM substream.
+  * @substream: Kernel ALSA substream.
+  *
+@@ -115,7 +147,8 @@
+ 	snd_pcm_hw_constraint_integer(substream->runtime,
+ 				      SNDRV_PCM_HW_PARAM_PERIODS);
+ 
+-	vss->stopped = !!virtsnd_pcm_msg_pending_num(vss);
++	scoped_guard(spinlock_irqsave, &vss->lock)
++		vss->stopped = !!vss->msg_count;
+ 	vss->suspended = false;
+ 
+ 	/*
+@@ -219,6 +252,8 @@
+ 	struct virtio_device *vdev = vss->snd->vdev;
+ 	int rc;
+ 
++	virtsnd_pcm_close_ack(substream, false);
++
+ 	if (virtsnd_pcm_msg_pending_num(vss)) {
+ 		dev_err(&vdev->dev, "SID %u: invalid I/O queue state\n",
+ 			vss->sid);
+@@ -254,6 +289,8 @@
+ {
+ 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+ 
++	virtsnd_pcm_close_ack(substream, false);
++
+ 	/* If the queue is flushed, we can safely free the messages here. */
+ 	if (!virtsnd_pcm_msg_pending_num(vss))
+ 		virtsnd_pcm_msg_free(vss);
+@@ -262,17 +299,18 @@
+ }
+ 
+ /**
+- * virtsnd_pcm_prepare() - Prepare the PCM substream.
++ * virtsnd_pcm_prepare_device() - Prepare the PCM substream on the device.
+  * @substream: Kernel ALSA substream.
+  *
+  * Context: Process context.
+  * Return: 0 on success, -errno on failure.
+  */
+-static int virtsnd_pcm_prepare(struct snd_pcm_substream *substream)
++static int virtsnd_pcm_prepare_device(struct snd_pcm_substream *substream)
+ {
+ 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+ 	struct virtio_device *vdev = vss->snd->vdev;
+ 	struct virtio_snd_msg *msg;
++	int rc;
+ 
+ 	if (!vss->suspended) {
+ 		if (virtsnd_pcm_msg_pending_num(vss)) {
+@@ -287,16 +325,14 @@
+ 		struct snd_pcm_runtime *runtime = substream->runtime;
+ 		unsigned int buffer_bytes = snd_pcm_lib_buffer_bytes(substream);
+ 		unsigned int period_bytes = snd_pcm_lib_period_bytes(substream);
+-		int rc;
+ 
+ 		rc = virtsnd_pcm_dev_set_params(vss, buffer_bytes, period_bytes,
+-						runtime->channels,
+-						runtime->format, runtime->rate);
++						 runtime->channels,
++						 runtime->format, runtime->rate);
+ 		if (rc)
+ 			return rc;
+ 	}
+ 
+-	vss->xfer_xrun = false;
+ 	vss->suspended = false;
+ 	vss->msg_count = 0;
+ 	virtsnd_pcm_msg_reset(vss);
+@@ -311,7 +347,33 @@
+ 	if (!msg)
+ 		return -ENOMEM;
+ 
+-	return virtsnd_ctl_msg_send_sync(vss->snd, msg);
++	rc = virtsnd_ctl_msg_send_sync(vss->snd, msg);
++	if (rc)
++		return rc;
++
++	scoped_guard(spinlock_irqsave, &vss->lock) {
++		vss->xfer_xrun = false;
++	}
++	return 0;
++}
++
++/* Keep ACK closed through the core's locked pointer reset. */
++static int virtsnd_pcm_prepare(struct snd_pcm_substream *substream)
++{
++	virtsnd_pcm_close_ack(substream, true);
++	return virtsnd_pcm_prepare_device(substream);
++}
++
++/* Complete admission only after the linked core prepare action ends. */
++static void virtsnd_pcm_prepare_complete(
++	struct snd_pcm_substream *substream, bool success)
++{
++	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
++
++	scoped_guard(spinlock_irqsave, &vss->lock) {
++		vss->prepared = success;
++		vss->preparing = false;
++	}
+ }
+ 
+ /**
+@@ -338,6 +400,8 @@
+ 
+ 		scoped_guard(spinlock_irqsave, &queue->lock) {
+ 			guard(spinlock)(&vss->lock);
++			if (vss->preparing || !vss->prepared)
++				return -EBADFD;
+ 			if (vss->direction == SNDRV_PCM_STREAM_CAPTURE)
+ 				rc = virtsnd_pcm_msg_send(vss, 0, vss->buffer_bytes);
+ 			if (rc)
+@@ -356,10 +420,12 @@
+ 
+ 		return virtsnd_ctl_msg_send_sync(snd, msg);
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+-		vss->suspended = true;
++		scoped_guard(spinlock_irqsave, &vss->lock)
++			vss->suspended = true;
+ 		fallthrough;
+ 	case SNDRV_PCM_TRIGGER_STOP:
+-		vss->stopped = true;
++		scoped_guard(spinlock_irqsave, &vss->lock)
++			vss->stopped = true;
+ 		fallthrough;
+ 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+ 		scoped_guard(spinlock_irqsave, &vss->lock) {
+@@ -393,11 +459,16 @@
+ 	struct virtio_snd *snd = vss->snd;
+ 	struct virtio_snd_msg *msg;
+ 	unsigned int js = msecs_to_jiffies(virtsnd_msg_timeout_ms);
++	bool stopped;
+ 	int rc;
+ 
++	virtsnd_pcm_block_ack(substream);
++
+ 	cancel_work_sync(&vss->elapsed_period);
+ 
+-	if (!vss->stopped)
++	scoped_guard(spinlock_irqsave, &vss->lock)
++		stopped = vss->stopped;
++	if (!stopped)
+ 		return 0;
+ 
+ 	msg = virtsnd_pcm_ctl_msg_alloc(vss, VIRTIO_SND_R_PCM_RELEASE,
+@@ -425,7 +496,8 @@
+ 		return !rc ? -ETIMEDOUT : rc;
+ 	}
+ 
+-	vss->stopped = false;
++	scoped_guard(spinlock_irqsave, &vss->lock)
++		vss->stopped = false;
+ 
+ 	return 0;
+ }
+@@ -442,6 +514,10 @@
+ virtsnd_pcm_pb_pointer(struct snd_pcm_substream *substream)
+ {
+ 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
++
++	scoped_guard(spinlock_irqsave, &vss->lock)
++		if (vss->xfer_xrun)
++			return SNDRV_PCM_POS_XRUN;
+ 
+ 	return snd_pcm_indirect_playback_pointer(substream,
+ 		&vss->pcm_indirect,
+@@ -461,41 +537,144 @@
+ {
+ 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+ 
++	scoped_guard(spinlock_irqsave, &vss->lock)
++		if (vss->xfer_xrun)
++			return SNDRV_PCM_POS_XRUN;
++
+ 	return snd_pcm_indirect_capture_pointer(substream,
+ 		&vss->pcm_indirect,
+ 		vss->hw_ptr);
+ }
+ 
++struct virtsnd_pcm_transfer {
++	struct snd_pcm_indirect indirect;
++	int error;
++};
++
+ static void virtsnd_pcm_trans_copy(struct snd_pcm_substream *substream,
+ 				   struct snd_pcm_indirect *rec, size_t bytes)
+ {
+ 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
++	struct virtsnd_pcm_transfer *transfer =
++		container_of(rec, struct virtsnd_pcm_transfer, indirect);
++
++	if (transfer->error)
++		return;
++
++	transfer->error = virtsnd_pcm_msg_send(vss, rec->sw_data, bytes);
++}
++
++/* Caller holds vss->lock. */
++static void virtsnd_pcm_transfer_failed(struct virtio_pcm_substream *vss)
++{
++	vss->xfer_enabled = false;
++	vss->stopped = true;
++	vss->xfer_xrun = true;
++	vss->substream->runtime->stop_operating = true;
++}
++
++/* The caller holds the PCM lock, also used by DROP and state transitions. */
++static int virtsnd_pcm_ack_state(struct snd_pcm_substream *substream)
++{
++	switch (substream->runtime->state) {
++	case SNDRV_PCM_STATE_XRUN:
++		/* The member is already XRUN; avoid stopping its linked group twice. */
++		return -EBADFD;
++	case SNDRV_PCM_STATE_PREPARED:
++	case SNDRV_PCM_STATE_RUNNING:
++	case SNDRV_PCM_STATE_PAUSED:
++	case SNDRV_PCM_STATE_DRAINING:
++		if (atomic_read(&substream->runtime->buffer_accessing) < 0)
++			return -EBADFD;
++		return 0;
++	default:
++		return -EBADFD;
++	}
++}
++
++static int virtsnd_pcm_pb_ack(struct snd_pcm_substream *substream)
++{
++	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
++	struct virtio_snd_queue *queue = virtsnd_pcm_queue(vss);
++	struct virtsnd_pcm_transfer transfer = {};
++	int rc;
++
++	rc = virtsnd_pcm_ack_state(substream);
++	if (rc)
++		return rc;
++
++	scoped_guard(spinlock_irqsave, &queue->lock) {
++		guard(spinlock)(&vss->lock);
++		if (vss->preparing || !vss->prepared)
++			return -EBADFD;
++		if (vss->stopped)
++			return -EBADFD;
++		if (vss->xfer_xrun) {
++			rc = -EPIPE;
++		} else {
++			transfer.indirect = vss->pcm_indirect;
++			rc = snd_pcm_indirect_playback_transfer(substream,
++							       &transfer.indirect,
++							       virtsnd_pcm_trans_copy);
++			if (!rc)
++				rc = transfer.error;
++		}
++		if (rc)
++			virtsnd_pcm_transfer_failed(vss);
++		else
++			vss->pcm_indirect = transfer.indirect;
++	}
++	if (rc) {
++		dev_err(&vss->snd->vdev->dev,
++			"SID %u: playback ACK transfer failed: %d\n",
++			vss->sid, rc);
++		return -EPIPE;
++	}
++
++	return 0;
++}
++
++static void virtsnd_pcm_legacy_capture_copy(struct snd_pcm_substream *substream,
++				   struct snd_pcm_indirect *rec, size_t bytes)
++{
++	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+ 
+ 	virtsnd_pcm_msg_send(vss, rec->sw_data, bytes);
+ }
+ 
+-static int virtsnd_pcm_pb_ack(struct snd_pcm_substream *substream)
++static int virtsnd_pcm_cp_ack(struct snd_pcm_substream *substream)
+ {
+ 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+ 	struct virtio_snd_queue *queue = virtsnd_pcm_queue(vss);
+-
++	int rc;
++
++	rc = virtsnd_pcm_ack_state(substream);
++	if (rc)
++		return rc;
+ 	guard(spinlock_irqsave)(&queue->lock);
+ 	guard(spinlock)(&vss->lock);
+-
+-	return snd_pcm_indirect_playback_transfer(substream, &vss->pcm_indirect,
+-						  virtsnd_pcm_trans_copy);
+-}
+-
+-static int virtsnd_pcm_cp_ack(struct snd_pcm_substream *substream)
+-{
+-	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+-	struct virtio_snd_queue *queue = virtsnd_pcm_queue(vss);
+-
+-	guard(spinlock_irqsave)(&queue->lock);
+-	guard(spinlock)(&vss->lock);
++	if (vss->preparing || !vss->prepared)
++		return -EBADFD;
++	if (vss->xfer_xrun)
++		return -EPIPE;
++	if (vss->stopped &&
++	    substream->runtime->state != SNDRV_PCM_STATE_DRAINING)
++		return -EBADFD;
+ 
+ 	return snd_pcm_indirect_capture_transfer(substream, &vss->pcm_indirect,
+-						 virtsnd_pcm_trans_copy);
++						 virtsnd_pcm_legacy_capture_copy);
++}
++
++/**
++ * virtsnd_pcm_reset() - Reset PCM pointers.
++ * @substream: Kernel ALSA substream.
++ *
++ * Context: PCM stream lock held.
++ * Return: 0 on success, -errno on failure.
++ */
++static int virtsnd_pcm_reset(struct snd_pcm_substream *substream)
++{
++	return snd_pcm_lib_reset(substream);
+ }
+ 
+ /* PCM substream operators map. */
+@@ -507,6 +686,8 @@
+ 		.hw_params = virtsnd_pcm_hw_params,
+ 		.hw_free = virtsnd_pcm_hw_free,
+ 		.prepare = virtsnd_pcm_prepare,
++		.prepare_complete = virtsnd_pcm_prepare_complete,
++		.reset = virtsnd_pcm_reset,
+ 		.trigger = virtsnd_pcm_trigger,
+ 		.sync_stop = virtsnd_pcm_sync_stop,
+ 		.pointer = virtsnd_pcm_pb_pointer,
+@@ -519,6 +700,8 @@
+ 		.hw_params = virtsnd_pcm_hw_params,
+ 		.hw_free = virtsnd_pcm_hw_free,
+ 		.prepare = virtsnd_pcm_prepare,
++		.prepare_complete = virtsnd_pcm_prepare_complete,
++		.reset = virtsnd_pcm_reset,
+ 		.trigger = virtsnd_pcm_trigger,
+ 		.sync_stop = virtsnd_pcm_sync_stop,
+ 		.pointer = virtsnd_pcm_cp_pointer,
