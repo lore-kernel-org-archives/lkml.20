@@ -1,108 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501870;
-	b=0CvNAca2HzuMva6XX8Kc6l1WtHRl74BIez8OjET5vo3XzMS1HBRIreYg1yQeDXuflUnF
-	 W26QPaCiCMEW/Dysy72ffuwbYAYKjXjJ7Bz4nAlzZZ9tuB9WzXbyJ2TR9cSivh/MvA9NI
-	 XRi6poE6nQeMJUGCCPjWDPctLfAQAXiRqnzzSPMsLrtIjCEIkema+7ONggirI/rQCFYxi
-	 nsqUWBYFKAUpBaMIH5FJjbpmLaZj+nBc9TtJG7d76SF+Y3wy7fYY3irJ0dSQ6iUZqQACu
-	 hpY64nBV9yaSJ2KEv1YiE41WMQSmr/9ZJ2TOy0t+sbUnrQnZ/qpjRWK0vJ35y4Z/Www==
+	t=1794501875;
+	b=ejd7AV1SUmjEeE3DzSwVXfDulzm37ZfMnkH9wnTInxFM6ekEmzai6Qc3Agr3JSiDIzgV
+	 fjNKmXojpJVMwWKOBtydptaCl9QJFSG7Ee6xvHD3NYbcWW/vgAk+gT+xSyCESoUFmOdI4
+	 4aRA5eRltd0ck50U2NzU1ER39PQ4FA6G9EzeVFxMgz+3GSZexgb3o6BNAhomcDIEyv1OB
+	 ePknHrAjboasQIAHio9eva/BT8JTzD61gSrUUN9fVSpyKO1y3BtAlPuM53pEoz3HasgZy
+	 0K/NLYaJG8u+8x6oTrT2NKatF8d8ViyoSeEN1mUI6yeCx+/o944c2nEUumtfOMWyNGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501870;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=W0tJRUuqq9I/mLQynKz/Dyg/O4hVratqHBUQ/E2JNFQ=;
-	b=pzAs4W+JdN4pD7c6UIixlZjWU3W3yefWsjBaLyNWHufUZDzPNqCxGlF0LYz4fPdfDw9K
-	 3ABQjXNpK2Y1pTenyc8lyxDGtTiOb62WL3e1Jh1TFRSwt7nVHKOldT2V4YaY1kxIY0jvs
-	 Dl94ppJbWET6wqOFXAjRltN0pYZ6dmsw7br4QvctUXfJAP1n2OujjANOA9ABHPrWHQA2Q
-	 5b6Rr5OudckkKSf/GufMSEQ5+F8coL8u/UglRLcLuzm1iz/rLnrIbPPf/yOH6jTA8u9nj
-	 fPmq4ty6Z5WioUkseuMoVO2t0C8Q7nfg4mJ0xoMIUZoT9aJSjDYuH/GB4zjxyPaRXvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501875;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=z3ViWfJ9W+khV6jKvNxkFVN2vN2++OeGsa5sOa2jAVQ=;
+	b=2foLb5pilY95CMG/w3CwxwktQtsLtXxd5VoOJ1LhVdgA84SgKAEVS0Wl29tX1fIsjM/v
+	 3GSz6rU85z4G6E7lX5SdeVGb7KrUQ/UVsy0nD6aWXknnAUDbcmbaUaR5q0t38ScRxTy3O
+	 6v5poIaSBYt41F2DESsMjgWzsqwLGXOoFUOlFAWk8Oe6rF896tqTEYpTHUIVUHeIrvcB2
+	 oPi5RxiOsPR3w5Riy3BMAOFF+wBxXmf+VjAQmomDcXM1QPh8DCEzaUY91R9yjAVLiRaBC
+	 FAXxqpYf/gp3ytwZONriiQWaUMjWAsk9v63Yzth6uTaFrP/2FNKg/gE2SEaHGxj5uEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PCY4MVVt;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Pg1++4Ht;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZSr+Xzy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0031D606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:44:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0031D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D43B606A32E;
+	Thu, 12 Nov 2026 16:44:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PCY4MVVt;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Pg1++4Ht
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794501868;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=W0tJRUuqq9I/mLQynKz/Dyg/O4hVratqHBUQ/E2JNFQ=;
-	b=PCY4MVVtjmr/1IB5tnQNj2pWBfHhK9Rg0cR9AlYKaDk3v7BXroYP/qWa66+bZZdR9RyIuh
-	X+pkjNGtwPcSwMYidLdUyWv58DjVzK4lMAEL1RUhiojUuxeX6unNPEilQdy3Z9ZgYh8OL7
-	2UtNC3asFQgtiAiQPdXzT4iwHj40w9k=
-Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
- [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-589-JJx1Zqz6OtGn-rYi3x0b2A-1; Thu, 12 Nov 2026 11:44:26 -0500
-X-MC-Unique: JJx1Zqz6OtGn-rYi3x0b2A-1
-X-Mimecast-MFC-AGG-ID: JJx1Zqz6OtGn-rYi3x0b2A_1794501865
-Received: by mail-lf1-f71.google.com with SMTP id 2adb3069b0e04-5bfd95238e3so8943e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:44:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794501865; x=1795106665; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=W0tJRUuqq9I/mLQynKz/Dyg/O4hVratqHBUQ/E2JNFQ=;
-        b=Pg1++4HtMYk/RIAn8jHFo+/DPee4AzQYNXS1vZzB9EIUwS2yZ8/+plCquojLwb+7vL
-         6I/kJkoKRilBa9wLuOFu2557ATnDlyYmkxlKQOm+/z6huUSIEof4QpSFVKU5ZZRt+3uN
-         0nrzVH/3cG+fWPf+Gi1sb2jdWtoZXrblVZYCc57ViPObu3ckIfk3qmE21u4CsVBBJW9X
-         95d+YHIUxhlYLfBxWd7BCBZ0jgTVnFWNZlhb8sW1V6ehtxA2V/ECta3Xpv1thJYt+xYn
-         g1MOzPYJWo+VE6FmEnOl0an4IjMU4iA4WKfz93c5PsO9aMJT0kNXEqAb/G9yca50Lom7
-         EC9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794501865; x=1795106665;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W0tJRUuqq9I/mLQynKz/Dyg/O4hVratqHBUQ/E2JNFQ=;
-        b=0Aig1wLDcMz8kpl7FPMQycdDlD35UKLmvut2XhaM7uuIpXSTt8k3dvvI/Uot4XaHn5
-         yoMgg0JNNXp2oqeL65ESTNwOD1L8g0gg1YxPZNZI9U3kPShAXc+l+orTHfSkfAOCZbGp
-         ZW0VfHbbFwik4t7mMEDQFra3eGHUkHqmkyZk5NvV2nbhGOD8E2hL3W7AIZKjm4Ty8TcQ
-         wNQ3KEqAwTSEt0lvoWHOeNyWdopoM2R8ycsK2B3mxdKZketykTp4KF+4tB+dWXLJ5RqZ
-         peaYpAlr9vdoyOXnR6xx8tnkX5oSuNgmtS9Zuiz/+lDGoU4AZzF5h6ClOfX9tops4g0G
-         lA+A==
-X-Forwarded-Encrypted: i=1; AL+hErEychSXQ4jxZWvS+l/0GKpEIino2UNSDVIuX6L+uAY9jbPqe9P98eJ6EKgCpUH23epYUpCFUp5DolmUNpM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9qVzfbahNFiCx6lTAsk1T/v7T4NUEh8B5upXD++97YEs7n1V/R
-	Pw+nIHX7QJklerImt36SXmpv3dGKFRymXxun1FO8jqPoSgagFPmAAdwXgl9D1xsfMWeh4SgCbZQ
-	0eFXhSKRa2zZIfbrfLJVscbOsPIuPp+OE3O0Tu0v/aFX0kJSh/urpwh4jEDmG/TOD
-X-Gm-Gg: AYBFou2k7ThOwJfkGHkQ4DYSCM1DLjAAhW0bszlfQF60W07lXnVKpe93HLu4/oLVRxS
-	xpIFVMd/4k4F1B8XjmHlAWNrVprZzn9r4RszlSpjDAPXa2DVpswgj8tJFPbZ1z+PXCeD8WKCkCQ
-	R0jLeJDfV/1W3QA9jLvLbDjocygMICJ2bNl8NHXul56EEmkFoAlFk1WOXiNUwCIDWAHB7O5kryA
-	9b+V33nTpmMBHHRo+V0IedXVQs9QlhmMro/bb6v4QObjZWjxNdT25T5aoLaA4lvFX6dqFZY5ivR
-	U+JsU75JISZnCgMRBVYFwJiLpESmRoQ/ApB7+LuABR7fM0mgr2xHHFgJzl8wbU8nIcQnqG7vxN5
-	9xYBqrEBx7YbdhkBNaikQIK2DDg5/6xft9SDW8u7KrjjkWgq2lEPM765tqSBm1+QwShPZ1yKgVB
-	vy2c08
-X-Received: by 2002:a05:6512:2303:b0:5bf:ca51:e2a6 with SMTP id 2adb3069b0e04-5c164ece630mr1090709e87.40.1794501864877;
-        Thu, 12 Nov 2026 08:44:24 -0800 (PST)
-X-Received: by 2002:a05:6512:2303:b0:5bf:ca51:e2a6 with SMTP id 2adb3069b0e04-5c164ece630mr1090706e87.40.1794501864387;
-        Thu, 12 Nov 2026 08:44:24 -0800 (PST)
-Received: from [192.168.1.86] (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae2b780c49sm183231fa.19.2026.11.12.08.44.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 08:44:23 -0800 (PST)
-Message-ID: <61e5e0ac-dfe2-4a5a-afee-873523df18e5@redhat.com>
-Date: Thu, 12 Nov 2026 18:44:23 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZSr+Xzy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 154421F000C8;
+	Thu, 12 Nov 2026 16:44:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794501874;
+	bh=z3ViWfJ9W+khV6jKvNxkFVN2vN2++OeGsa5sOa2jAVQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aZSr+XzyEtwhvDw3MrhY+Ck11MPK+xpKHGFqub+SieyaGcwHTo0cxeO/xn1ijmMWQ
+	 4L+2lxL1x1uE51enm/D0/sLf3MTn/SjVKdGKiK4nIF44oczOzjzkv1PMxT+ewuOEB2
+	 QNtHipzl7S59V2X4V4d6tl59HAaY441SCchQ7PivDpXq6ryIB9B+ArXkkFozrlddMy
+	 9Yprwgk2b0yZ/qlbTN2K6j6MAGAB+CdbJA3SAQTSo89sOtVPjnq42NCFdeWV8d0lVh
+	 FSttW9QRRjDH3brY2JnjumOeXYbjgIX4/5q8dbR03/sVcyI5w/1DBLAhOzPfLHr/MS
+	 1y7fNFL1yz6lA==
+Date: Thu, 12 Nov 2026 17:44:31 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Mattijs Korpershoek <mkorpershoek@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Michael Riesch <michael.riesch@collabora.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
+Message-ID: <avXrRoIt0slXyaWs@houat>
+References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
+ <xhkdby0boob5n.fsf@mkorpers-koolstof.csb>
+ <685c60fb-f209-42e8-8d75-7e65ca5353c9@kernel.org>
+ <avMM6a6xcDHT-zCR@houat>
+ <5bb26065-d876-4ed9-bb80-a9567a369b5c@kernel.org>
+ <avMgJ7MFks0sKD7T@houat>
+ <eb8ac54c-a357-4378-8d85-d14855a094e8@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,68 +65,199 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 00/12] migrate on fault for device pages
-To: Zi Yan <ziy@nvidia.com>, Alexandru Elisei <alexandru.elisei@arm.com>
-Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@suse.cz>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>
-References: <20261103061629.972669-1-mpenttil@redhat.com>
- <avWpWBl1nPcRVmpQ@raptor> <79f33ab0-2e43-4efb-94d0-addaf40745ec@redhat.com>
- <avXoJSGh5xjGFgod@raptor> <3A5BEC5A-BAFA-4541-8ACA-43E57C7DBCFD@nvidia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
-In-Reply-To: <3A5BEC5A-BAFA-4541-8ACA-43E57C7DBCFD@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="phinazzthwazdk47"
+Content-Disposition: inline
+In-Reply-To: <eb8ac54c-a357-4378-8d85-d14855a094e8@kernel.org>
 
 
-On 11/12/26 18:33, Zi Yan wrote:
-> On 12 Nov 2026, at 11:24, Alexandru Elisei wrote:
->
->> Hi Mika,
->>
->> On Thu, Nov 12, 2026 at 04:00:09PM +0200, Mika Penttilä wrote:
->>> Hi Alexandru!
->>>
->>> On 11/12/26 13:56, Alexandru Elisei wrote:
->>>> Hi Mika,
->>>>
->>>> I want to help getting this series merged, and I've been familiarizing myself
->>>> with hmm and device migration, please bare with me if the questions I'm asking
->>>> are obvious or downright silly.
->>> Thanks for the interest and willing to help! I am preparing a v18 of the
->>> series and plan to post it early next week.
->> The series is big, and as far as I can tell the MM people are hard at work
->> reviewing bug fixes. It might be better to wait a while, to give people a
->> chance to have a look? I know that if I see a series being reposted often,
->> I am less inclined to review the patches since probably a new iteration
->> will be posted soon. But I can only speak for myself, you know best.
-> Totally agree. It is better to wait until MM people finish the bug fixes.
+--phinazzthwazdk47
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
+MIME-Version: 1.0
 
-I was going to send fix series to few regressions by earlier posting -
-no new features or anything - with the mindset that it is better then to
-review a fixed series than known buggy. 
+On Tue, Nov 10, 2026 at 03:43:59PM +0100, Hans Verkuil wrote:
+> On 10/11/2026 15:17, Maxime Ripard wrote:
+> > On Tue, Nov 10, 2026 at 02:30:51PM +0100, Hans Verkuil wrote:
+> >> On 10/11/2026 13:33, Maxime Ripard wrote:
+> >>> Hi Hans,
+> >>>
+> >>> On Tue, Nov 10, 2026 at 01:08:05PM +0100, Hans Verkuil wrote:
+> >>>> On 23/10/2026 14:26, Mattijs Korpershoek wrote:
+> >>>>> Hi everyone,
+> >>>>>
+> >>>>> On Thu, Oct 01, 2026 at 14:55, Mattijs Korpershoek <mkorpershoek@ke=
+rnel.org> wrote:
+> >>>>>
+> >>>>>> On media-centric camera pipelines, every entity is known at boot t=
+ime
+> >>>>>> and described statically (for example via device-tree).
+> >>>>>>
+> >>>>>> The V4L2 framework assumes that every entity of the camera
+> >>>>>> pipeline is always present. This is a reasonable assumption for
+> >>>>>> integrated cameras in laptops or phones. However, in automotive sy=
+stems,
+> >>>>>> cameras (e.g. rear-view or surround-view) can be damaged or discon=
+nected.
+> >>>>>> When the framework assumes all sensors are present, a single missi=
+ng
+> >>>>>> camera can prevent the entire pipeline from operating.
+> >>>>>
+> >>>>> This series has been discussed at the Camera & ISP "unconference" in
+> >>>>> Pragues (during Linux Plumbers)
+> >>>>>
+> >>>>> The notes can be found here:
+> >>>>> https://lore.kernel.org/linux-media/20261021224119.GA383235@killara=
+us.ideasonboard.com/T/#u
+> >>>>
+> >>>> What is missing in this discussion is how userspace can indicate tha=
+t it
+> >>>> actually can handle partially instantiated pipelines.
+> >>>>
+> >>>> Today if one or more parts do not come up, the devices nodes are als=
+o not
+> >>>> created. This is typically exactly what you want.
+> >>>
+> >>> That's very arguable? We have plenty of other examples where we allow=
+ to
+> >>> show a software representation of something that isn't available in
+> >>> hardware, starting with virtually any memory buffer allocation, but a=
+lso
+> >>> disabled CPUs, swapped pages, etc.
+> >>>
+> >>> For things a bit more related to drivers, things like USB root hubs a=
+re
+> >>> also pretty analogous. The "root" device will always be created, even=
+ if
+> >>> devices connected to it are non-functional, missing or whatever. It's
+> >>> the primary interface that these devices might or might not attach to.
+> >>>
+> >>> So it's a bit hard to understand why the device nodes not showing up =
+is
+> >>> exactly what we always want.
+> >>
+> >> It's simply how V4L2 works today: video devices do not appear until
+> >> all components are instantiated.
+> >=20
+> > Sure but that's exactly what we're trying to change.
+> >=20
+> >> Most video devices consist of multiple devices (bridges, i2c devices,
+> >> etc.) and unless all are found and initialized, you can't capture. So
+> >> bridge drivers postpone creating the video/media devices until
+> >> everything is there.
+> >>
+> >> That also means that applications can safely assume that if a video de=
+vice appears,
+> >> it is functioning.
+> >=20
+> > Ish. The only safe assumption you can make about this is that it was
+> > functional at probe time. Anything after that is very much up in the
+> > air. If the device broken after probe for example, or if we have no way
+> > to tell if it's functional to begin with, that assumption is no longer
+> > true. So sure, that's what applications have been doing so far because
+> > there was no better way to do it, but I wouldn't qualify it as a "safe"
+> > assumption.
+> >=20
+> >> If we add fault tolerance, and you allow video devices to appear even =
+if they are
+> >> not functioning (or partially functioning), then that contract breaks.
+> >>
+> >>>
+> >>>> But here you allow partial instantiation, and how does userspace
+> >>>> signal that? It must be an 'opt-in' mechanism, but how is that done?
+> >>>> There are no devices yet, so that can't be used, so what alternatives
+> >>>> are there?
+> >>>>
+> >>>> We've been discussion Fault Tolerant V4L2 for many years now, and ev=
+ery time
+> >>>> I raise this issue, but I never received any proposals.
+> >>>>
+> >>>> This must be solved.
+> >>>
+> >>> Is there any way to? You're saying at the same time that we must not
+> >>> create the device, but that an application would need to signal to th=
+at
+> >>> device that it can indeed be created. It's a circular dependency that
+> >>> cannot be solved on a per-device basis.
+> >>>
+> >>> During the meeting, we had a discussion that the media device should =
+be
+> >>> created as a "skeleton", and then as other devices probe they would f=
+ill
+> >>> in the blanks. How would that not work? Also what is your main concern
+> >>> exactly that makes you ask to not do that in the first place (or make=
+ it
+> >>> opt-in)?
+> >>
+> >> Applications today assume that everything works when the device nodes =
+appear.
+> >>
+> >> If you change the behavior, then they just see a skeleton driver and h=
+ow
+> >> would they know that they need to wait until all components are found =
+and
+> >> it is ready for use? Or what to do if some parts are faulty?
+> >=20
+> > I really think that this discussion is not solely about probe. It's
+> > something we discussed during the meeting, but I think we should try to
+> > handle "my device was broken at probe" and "my device became broken
+> > while the system was up" exactly the same way.
+>=20
+> If the HW breaks after probe, then you get EIO etc. errors. It's very rar=
+e and
+> the only requirement in that case is that you return an error and don't c=
+rash
+> the kernel. It's accepted that if the HW breaks, the application breaks a=
+s well.
+> And you have to replace your hardware.
 
+It's very rare, but it's also because v4l2 has largely side-stepped
+entire use-cases. It's incredibly rare for a sensor to stop working but
+not the CPU on a phone. It's very likely to happen on a car. The only
+difference is that v4l2 is marginally used on cars.
 
->
-> Thanks.
->
->
-> Best Regards,
+> It's been working like that for >23 years (that's when I started working =
+with
+> V4L). This also means that for >23 years applications have exactly this e=
+xpectation
+> of how video devices behave. It's really part of the uAPI even though I d=
+on't
+> think it is ever explicitly stated.
+>=20
+> To be clear: I really want to see Fault Tolerant V4L2 happening. It's cle=
+arly
+> very useful for a specific type of use-case.
 
-Thanks,
+It's not clear what you take out of that discussion though then. If
+you're stating that we shouldn't reevaluate ever the fact that a driver
+should only probe if it's functional at probe, and then report EIO, that
+means we can't handle the "it was broken before boot" and "it became
+broken after boot" after the same way. So do you disagree with that
+design goal and would prefer something else? ..
 
---Mika
+> But first we need a solution for this specific uAPI issue. Note that this=
+ is
+> now to opt-in to Fault Tolerance, but in the future we might have other o=
+pt-ins
+> as well that modify the behavior.
 
+=2E.. Or are you open to letting device probe even if we don't know
+whether they are functional or not, but only with an opt-in toggle?
 
-> Yan, Zi
->
+Maxime
 
+--phinazzthwazdk47
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCavXs7wAKCRAnX84Zoj2+
+dn4fAYC/JDY8AKZhObf7Q/W8WYJ0pGQR7XXN3SzC8C3F9ASAmRP/hWn7/fA4OyjS
+2icHROQBgKG3AffCWtHNQ601Yqp9DYljm2AnooBU76FpG/JHBRc1O1XMwXpTPdgS
+qfkAl/Wqpw==
+=Kltg
+-----END PGP SIGNATURE-----
+
+--phinazzthwazdk47--
