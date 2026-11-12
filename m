@@ -1,83 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794523499;
-	b=klmF2otAgG8pRfoaCHW8rU4wlIwkHjlaGJnVJS6TI0mv4bS4dy74J4fjXFW2tIWjuLBV
-	 qwPTRie12GeqgqIxeVokxUbaNSkFiPZqWuxf/PJgqtEmZAIw7yAVtAFwfLqCw0d9dFzHb
-	 HTDVOEMPvziLoAw5MOEZDHAKktkolVTQRcMI/WR5yct56juxcUygMHX51d+uWOVVWgmWD
-	 1SAyTfLbKHcmdob5NguQSYBPcZs1Elm0YaV051zcARIchybRiKYyr7OTZtIKKY16G5eQC
-	 8cHBZJC2cpwyx6vKFdxUgYYOZR1bAU7iHrTNESXZxcpAbiyhA/GjY31AM+T8bjSoJ5A==
+	t=1794523509;
+	b=Pkmq+Bol6cqsfxurrvrtjM+yZMzhze7y5yq0AVoGGsNQgH5DkcjfH3Cw0MNk5e6M218v
+	 Kn1FSMAJbEk0Dr2m7WLvEfElYDhB1LCrr0p6AQMa3qBvStLAA10lgxqgwiOM7whngMBE8
+	 kWQCWVOFLz+4jqTe3pU8ptOmdqb6Wnhb3oOqz2lXZLACzEtJbxC7wVBwxizJRvkyV4oUu
+	 gduLRT6xP3hQDxXCFy5v6vsZLaW2Jaq9abI5w97h7+LO0Qu6xCBGdF1BV7yvK+lz46R3F
+	 Q71NhiXLFkKxmU/uPgCniZ6tBEu7gXtj393CcK2jd/Z+T9gnijNpz181ErVFBBd/Vaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794523499;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794523509;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=afihCwaweNiVKsVg+YutBoDQwrNLI3A1qT+IzWvjoio=;
-	b=PKg1Wv/zqnzizIklEDXvxNW9uRxVVXk5+b1k32ksZRib5HlZ5wnHJZY+XVTpZ5DLVDEK
-	 N4pxe4JLAD3GpUPz5WiZUqmdctiJD4io5kicbW82QDjtALtKYuewjVYsbpQwaVCGxYEQd
-	 ftihpK8t6+w6K+t/MB69WBUB/5z+jxZbPSNtLp9uSCCkDIcVCD5j+H2O7u2ujtgXui6MC
-	 Oj1XYA7RxaS9KLI7q9AjRKcQR+wWm/skSRDftwosYyPdQCK5fx2xasczI6dOuVFKZVMZG
-	 IdxGw+HOkS7WL1gaxVb7BG4h32JadHkEiGgfxpIy7ooEtWQe4RU0Iu1/4N+7OgDgU8g==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8tqnSgVZpqPW8BsWNmooETTnIE7/WkUkogSOJRF5jZI=;
+	b=4Zd4Adz/y4APwJ1alHPJkW4V47ra7wfnHYmYnnKsMg/UU4ZS7yf4px87ttA/47qxzxht
+	 7x6sSYSOXIAagDXQoJqKTRe8/KOWKMcokzL4dJ4R2yYf/V7Bfoyp0XnJyjSFa/sbG+5gg
+	 6eaZ/fQv0pQNBeRbTdJ9NI9Do80gaewlV1KLX62kdgUiL2L5YD3qUsUA0YzQQcp+tNlk8
+	 BzHHs5EflJWRrPFsFYKwbeY8w1UDdomtv+OxWL23KCSSiYeTY6m0AKSGNJmWvmitSmlC+
+	 /V/S7q7ro2+i3i5//yjNzv5N5FcdUoMQsK4LO+nfjQRoHZM2YG+Y1CZn7xeufPXnEbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=AcAVkfOj;
-	arc=none smtp.remote-ip=209.85.161.42
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gaYyOYy3;
+	arc=none smtp.remote-ip=209.85.215.174
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05D79606A32A
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:44:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05D79606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F613606A337
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:45:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F613606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=AcAVkfOj
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-705cb6ceebaso352021eaf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:44:58 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gaYyOYy3
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cdb75699c7cso130060a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:45:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1794523498; x=1795128298; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=afihCwaweNiVKsVg+YutBoDQwrNLI3A1qT+IzWvjoio=;
-        b=AcAVkfOjkQSdoVtH+9OLXEJQBQp2t8ZbFDq89fPWB7IeggvCLJhUXFGrNObr5HlHWP
-         0TfsWFM2M0g6s5piLPlsky4HgDj9QghV9jsfi7aN/cDrW9IlSnOez5WiF8WkB2WpFYpr
-         QZQcJ3luqmITNdWnBY1qRGF7JYw3RAgeQiokY=
+        d=gmail.com; s=20260707; t=1794523507; x=1795128307; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8tqnSgVZpqPW8BsWNmooETTnIE7/WkUkogSOJRF5jZI=;
+        b=gaYyOYy3ceE2MsM1X6p0A1KQqpuy4aosm6kLHi2JCVy3IPVy2YUDQERQJomEdX/fZ5
+         cNngAAfWiPPBjiJY+EI9u5bESaDUZYR/3ga3veG8oY0/UQ0e6kLX2OHmEg2le9L7lb5B
+         BRXfdgA8Gc9acr5gP7GEWG6GTKVTZ79cKiml6J+9ED7q2wCh6xt0e6/zdBvF1vlpr5Ub
+         RYjOMGaKCC1Rb6CEj9yYM5fp5PjUAVm+S1IsrOui2OHj57dJAYy+j/L2cCKcfYw6eMva
+         tJw8IjGHzbiviLK+FgfbTRYD+64okgN1hsDM6UN4w6r/U6qiD6V/5SMQs41FkWpfz1o2
+         udew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794523498; x=1795128298;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794523507; x=1795128307;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=afihCwaweNiVKsVg+YutBoDQwrNLI3A1qT+IzWvjoio=;
-        b=MBk+kOyjnSofgSv4Oiy3iq4A7bvfLLLRefVQSPYrVBQdxRWLlL1BMcxL2a+TdS2OpE
-         ik3umDKIhems3rA1PbZ4UBn7LoDJylp76vDG2S6yiaXLPK/M5wabpN6bBszxi+xjD0is
-         gPJh60SZnzKUIfQMvDJhP4ioGIet4CSI68D0qTYqTggKYv8tWmKdW5l8oO0BflWxAc+i
-         QNpGhr4K0fG6j5X4IhFiVL8f2e9G7fCamWQUSfMwCW3sXGWLM8rFWi/lnrZ5XvveF7Zw
-         sxe01Q8ZOCizOvejMvQ2yXoW4h5rRlOW9xOOO1xysvODCB/HiZYfy7tvpqdA91JRpwmd
-         Aa6g==
-X-Gm-Message-State: APuU4Z++J98YlMRSyy64Orkv9fNBJ+TPLnmlUhmtPK2FB721wqRpggUs
-	qTpNNti2ryHtDCEPUnBw5QGJj7CNYbTC7q6gUuR70RjTH97jspt24PF594HWjjgeaOo=
-X-Gm-Gg: AYBFou17HG6cMiSjvH8eRW7MjmbSMCH44K05LqG5ERJzzKWTd8uWOAVJANaIR+LNyVs
-	FZutHbUrn5o5z1ogs/BaOQJwcg26kGvo4CQ4rtYZHgFqZyj3z7YaZVNHYzf2862NMYAwD4cL3Qc
-	MSNcHOzVYPPJjroN1drTUZ05S7+mZEATVpOQz+x3uIBLpH22SW0vhBr3G9B0ysCfAmlYMTPOzQz
-	AZ5zEwa9/LRKTP+6AG2rZ13PDFaQZUJJIqoAqGYwyOCbeMWnb07K4/Q6u01R/PUzSkFSogYaE9A
-	aVZbG9Kc8rW7sEs8GHUPXyComUGn7jYJb9Pp5WeZ3LRwL8I7Kbk39L+86Wlea5c7ng7tQ8zUBV8
-	IcEZw5Ht4/Xypfr0wLTEaYGXitp0R0G8lNxciU1dXHFb7s6QFc7rNwT9kRtJCQAS29GgoRNxeE+
-	IMZ1AFZTjDR0KrQuGU2wGKTkQ2z6tIW85CtGkH/Ff5CFCGOarC8+CCa5s7GHfEBOK7G/p6AgpVy
-	mXOG8WqgFOp8xois8FSKzTJd9HihCqTeJ0xZqLReI3JiCD73LGuezMsnvue4dZFL4HaPLr3fy7E
-	455ivOyYuIKxDndvaq9tGAv0xoHHFqVbw76M5bc=
-X-Received: by 2002:a05:6820:2218:b0:70a:df8e:8f64 with SMTP id 006d021491bc7-71ab4f0c26fmr517770eaf.22.1794523497862;
-        Thu, 12 Nov 2026 14:44:57 -0800 (PST)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71ab42c41e9sm479599eaf.6.2026.11.12.14.44.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 14:44:56 -0800 (PST)
-Message-ID: <f849dfc1-c7ab-4285-b668-b37eb15e37b4@linuxfoundation.org>
-Date: Thu, 12 Nov 2026 15:44:54 -0700
+        bh=8tqnSgVZpqPW8BsWNmooETTnIE7/WkUkogSOJRF5jZI=;
+        b=pejIjrI04e1/pjP2yKbRLar0TbdVAJhi7rw/gZTPp3pvubDlgFmTM54nuxdEup4iUf
+         cgFSVYvsTv5Az7HoO80MrlwaA1QfwWiy7hTf+zNgyrUD/zB8Ej/lqgXfUXG5r6AKi4HG
+         r9Po6/hNLW37MNJMFqDJufnCNlwFukIqiZSsmuEFULZMvoem3JkSNy/UH5KqOmCX/VNq
+         3Fqa5AcjsgOd83IfpJ+L2PPDpD6Z549Nc6T0+9DC69QvNx9bxU2qUudupMZSM9FhMbSS
+         Fc5mjrtFBAhQ3v20OzBJhzm3x+pypwdjzC42HFw/VCBEDRfrfC+C0+fI7MWxuHayDTai
+         2uEg==
+X-Forwarded-Encrypted: i=1; AL+hErESZwoDb+uFry/E9D3csN4fPrQZeBkYACKYFP9FHYa5/1euLUUjv18E9RPG9AxDFwCLTDNKuyfNqkahH5A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/VSMpw+SpufbUp+HifZrqi0vc/y5oy4m/Dr9vpbRB4vU0ov0/M
+	Rl3M2FKb4opd30f7SE10uvcPrq8VyIqxw45sd3gIj+Cbwdcu83ZkVaNu
+X-Gm-Gg: AYBFou3pPTM6p3amL6jj5Ys7FE3MGU/sEw4zQA6/w4EtxgEhjuASjS0sxo7VG+6+wIJ
+	bq289yw3mh0W/K+Ow3OjUeSsSdjxhHtyVyOi6lAAZebUKwonw1IMGrcKRI7LyZK5zLBtYTb8nDG
+	rZ+CUgj/d1ydBorXt/bCIIx18oFBYa4CKVfIW5PdEjS1t/9tMG8EcmuJJkMz5gpRF7fvN+1Kbh1
+	YSFcKnMGz3EVliDDwONrFrpZNIHty5r+seNAlVweZ6nkz+1r1VFPnja0SeyXA7hJnzVrHaDUzkF
+	xLdaZ3osehjhTRef+4ex93BgwJsJeruwrVDrBLYE6OIZwhoFAmCt7EmiwQWn3VNOihlHl8NKA+D
+	vLAjjqQ+obTiNAQKuJsBmXgaxp/0SVN04nZkKsr/u4qFcgOpMCc9tHtCyqLw1/EboWtT7YOsymq
+	VlHdZAN8E7Y7+pl4AHAqQWb80ult9VS7AZ3TE4p/sANq2XqKbJtFS8MIqvWeeq8MceAHaOsgUs2
+	ANFTJt4cEn5QRxoX9i2Aot36msG5GdzWUGMEzgwoAzwf4GWTY1DWOQfvxE+hP70z/0aYgBLiqjH
+	o4d3MA9x727z0GYA37hgADI4LkSMOLn3vU2Dubc0dImypm58ZdbHM/pOVW00aysYpKIp0IY4lng
+	/l5n1xCSkSHO0ikil+SUlgEWGvBH9MPjm5vvbC/MN/KEsiFKW8R5ybzmTd5VHthOvCyxXVf8dm4
+	Bylg==
+X-Received: by 2002:a17:90b:4c49:b0:3ac:9772:8da3 with SMTP id 98e67ed59e1d1-3b1b0a3a7fbmr402428a91.31.1794523507457;
+        Thu, 12 Nov 2026 14:45:07 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3b708adsm37073a91.4.2026.11.12.14.45.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 14:45:06 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Radu Rendec <radu@rendec.net>,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mips@vger.kernel.org
+Subject: [PATCH 0/4] irqchip/ath79-misc: probe as a platform driver
+Date: Thu, 12 Nov 2026 14:44:41 -0800
+Message-ID: <20261112224445.213324-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,53 +109,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usbip: tools: add --sockfd option to usbip attach
-To: Raul E Rangel <rrangel@chromium.org>,
- Valentina Manea <valentina.manea.m@gmail.com>, Shuah Khan
- <shuah@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- Hongren Zheng <i@zenithal.me>, Shuah Khan <skhan@linuxfoundation.org>
-References: <20261021214808.58609-1-rrangel@chromium.org>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20261021214808.58609-1-rrangel@chromium.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/21/26 15:48, Raul E Rangel wrote:
-> 'usbip attach' always opens its own TCP connection to --remote. A client
-> that reaches the USB/IP server some other way, for example over a UNIX
-> domain socket or a channel forwarded by a multiplexed SSH connection,
-> therefore has to expose a listening TCP port on the local host just so
-> usbip can connect back to it. Any local user can connect to that port
-> while it is open.
-> 
-> Add a '--sockfd <fd>' option (short option '-s') that attaches the
-> device over an inherited, already-connected stream socket instead.
-> '--sockfd' and '--remote' are mutually exclusive. Because sudo closes
-> file descriptors >= 3 by default but preserves stdin, the typical
-> invocation passes the socket as stdin:
-> 
->    sudo usbip attach --sockfd 0 --busid <busid>
-> 
-> The descriptor must be a connected SOCK_STREAM socket: fstat() must
-> report S_ISSOCK, getsockopt(SO_TYPE) must return SOCK_STREAM and
-> getpeername() must succeed. Both AF_UNIX and AF_INET/AF_INET6 sockets
-> are accepted, since vhci_hcd only requires a SOCK_STREAM socket. For
-> AF_INET/AF_INET6 sockets, TCP_NODELAY and SO_KEEPALIVE are set as
-> usbip_net_tcp_connect() does.
-> 
-> The connection recorded in /var/run/vhci_hcd/port<N> for 'usbip port'
-> uses the numeric peer address and port for AF_INET/AF_INET6 sockets.
-> UNIX sockets have no port, so 'unix' and '-' are recorded instead; this
-> keeps read_record() working and 'usbip port' shows
-> 'usbip://unix:-/<busid>'.
-> 
-> Update doc/usbip.8 and the usage text accordingly.
+The MISC interrupt controller of the Atheros/Qualcomm ath79 SoCs is
+cascaded from a CPU interrupt, and all of its users are platform
+devices. It is still initialized from IRQCHIP_DECLARE, before the early
+initcalls, only because the MIPS perf code asks for the performance
+counter overflow interrupt, which goes through it, from an
+early_initcall.
 
-Does this patch fix a problem or does this add an enhancement?
-What doesn't work without this patch?
+Patch 1 makes the MIPS perf code look up that interrupt when the first
+event is created, which is when it is requested. Patch 2 makes the ath79
+MISC driver create the mapping at that point. Patch 3 then converts the
+driver to IRQCHIP_PLATFORM_DRIVER with device-managed resources, which
+also fixes the leak of the register mapping on its error path. Patch 4
+adds COMPILE_TEST coverage, which a platform driver makes possible.
 
-thanks,
--- Shuah
+Patch 3 depends on patch 1: without it, perf would ask for the interrupt
+before the controller has probed and would lose its overflow interrupt.
+Patch 1 touches only arch/mips, so the series could go through the MIPS
+tree with an ack for the irqchip patches, or through irqchip with an ack
+for patch 1.
+
+The other users of get_c0_perfcount_int() (generic/GIC, Malta, Lantiq,
+Ralink) return an interrupt that is set up at boot, so calling it later
+does not change anything for them. The perf boot message no longer
+prints the interrupt, which is not known at that point.
+
+Tested on a TP-Link Archer C7 v2 (QCA9558), with the device tree from
+the pending series that adds it: the MISC controller probes as a
+platform device, its users (UART, GPIO, watchdog) probe with nothing
+left deferred, and perf record gets its samples from the overflow
+interrupt on MISC 5. Each patch builds with W=1 (mips, clang), and
+with patch 4 the driver also builds with W=1 for arm64, x86_64 and a
+non-ath79 MIPS kernel (Lantiq).
+
+An AI coding assistant (Claude Code, Claude Opus 5.5) was used to write
+the patches, test them on the router over its serial console, and draft
+the commit messages and this cover letter.
+
+Rosen Penev (4):
+  MIPS: perf: look up the PMU interrupt when it is requested
+  irqchip/ath79-misc: map the performance counter interrupt on demand
+  irqchip/ath79-misc: convert to a platform driver
+  irqchip/ath79-misc: allow COMPILE_TEST builds
+
+ arch/mips/kernel/perf_event_mipsxx.c |  30 +++++---
+ drivers/irqchip/Kconfig              |  14 ++++
+ drivers/irqchip/Makefile             |   2 +-
+ drivers/irqchip/irq-ath79-misc.c     | 108 ++++++++++++++-------------
+ 4 files changed, 88 insertions(+), 66 deletions(-)
+
+
+base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
+-- 
+2.56.1
+
