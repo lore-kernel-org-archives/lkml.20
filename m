@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794514219;
-	b=f64pvlxqhStq54pDBMTYHmo8hv2PYWBbI1OX5FzSwuvO7EgyP6oYSnz5mtXZ5nvPV1t7
-	 7ZxUJfyayEmO0+BhGUucqcO16h0e32FoGqdEkfTYpLWkl2PqBniw90Ld5Nkbx8wdOm1vt
-	 ctfWbVMVdXNr34smOzDxHyh4sy1SYQQc90kNYt68dcAZXqzKXKkMv/Uuv4ZCTgfWsqu+t
-	 /eKLNiUYpS0sfWFJJ8HOaejVPR+XP2LHGQp7wXrx8SiBYxwjdZkB1fIlngTiS0Ho6dGpq
-	 1PPsA0IYoCzYfCia3mIL0vlo1hPmxm0a22IHo8nwQR+Ajg5Bvb9ogB554+k1w29xqXw==
+	t=1794514336;
+	b=k1MBx7w126aj13cgoZ0g6JHl9IdvMEu9Sac7gwemLicTl+3mlwB4Hy/J5l5hygUJPlmD
+	 dJFZ6tkvwM4zBJGVQTbi5bwcbrcCEoS33gIpv5geB8/Zfio75SA3fl876BmYqurJHALsB
+	 BRKN7G3fyjGmueesH8TF+OgUpU+w8LOZ13RdB9tDEd9UP4hiAcyMvpInikWt8lBUtOUj7
+	 FgNF5Jv8kHFLtOUudQ3+LHx5L5E2jBM4zHdOmf7Jz8pE3fo5oAYFTD2jlkfGtN/kQPqDQ
+	 IJM0qPg0nm1Ht0DpjmUg6AGelyJFzaEX1Y7fO77Od4s4I5+wmatMEnOfBydcrzYHdMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794514219;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=wMV2nsSJl6xGkmfUvtbbR/+a8KpdpyQgadjZKqs++do=;
-	b=sV5PWv/f+gx9MCUApa28YJAnVkAuSVOAK+fZDzC5juG5jp652xjCW8IZuQKZOFKDDeGK
-	 EnjErO3sUoZ9D+rTZxDPKLFIX3IWOLLYxoJ/S4q/Rowe/BmV9LPsqiEOZnXp7M/icKlqR
-	 9/OpVOkAd1JHxFLLolPESdqlpC7IOJsRykptcLrJXpDp6jpYsnWO4AXMHHclPRBDNqwBn
-	 gAN1gS8WeEhPdY6FQedRJkqQY/KEdlYvtgUJSbru+FBbSvtZQaz7n1XeO31WAY50asDOr
-	 hzmOAp7VqvQ1I4JPRndFHd1iW6kLPABJWWTO98q2c4bZ4waRiTew/OqtOsOFtuHTpmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794514336;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=enhyFaTlmSe8qk8N5fvqsVTmYc4LqDIJpmhNr1L+Z9o=;
+	b=DyadpI3Cx0/U8cYgzsvOQUvv6tCLPSaY/o5glU/eRDn7e2L0k5i6yFVLioGFq/P4V7np
+	 hukKGaO7BNPXKgfJca3nvfqKxpx8Tg7qa0TefMr7EzMXLH/cAQuEZbVo8wNOLA85ofAQH
+	 000+qib5ORQV/3E1a7nQrsy7Y+AqLF01mfzfarDrx2u5H/D/VWbZ+p5O2TgFnSdRBQBI5
+	 S+i0Ag7e2Crip4XX3FygzO92irKCJOs+t5yM8TRbeKaG0a/CkbmpXhDQqaXvWFcsnYUi8
+	 9qs2p3HnodMkkKV7DRCP/+vcpCyn4ZhlgX0h2qjg6Dq7Ldw9KBkRiPNf+Dj9ZuSMQbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oea7d9WU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=COQMd70Z;
+	arc=none smtp.remote-ip=74.125.82.46
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B99606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:10:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B2B606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:12:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45B2B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oea7d9WU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7257E1F000D1
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:10:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794514219;
-	bh=wMV2nsSJl6xGkmfUvtbbR/+a8KpdpyQgadjZKqs++do=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=oea7d9WUqHfzTiVDkeGIwXaDwNGtKAsIjeW8Srs0B6AWiHDKuEHRiwsRKjYojdpsx
-	 7RaAYliRpnn+q32nc86uPyUgUH5kBGvd8lyGlID1GQi6PMuW3eJwD4q0fGY+eGxpxh
-	 G/dVgcs4JmZvF6xdUO8R+AyC2RVfQ+FgzwHR8ps68aYqcRznRMwx6fKk1lzjsJb8w7
-	 jvdDu5Hi7EEpXebatOZGC2xNsTwjrpnoPqXeWr4xsuE2t1hZeVJgXNv4ZHAvFlsxnn
-	 dlkRUvKvDty2e0Izi/Q2byXB1ICX5ATqK8/Rv8E2z54xYityDhVNInLGhp3uCSkT2c
-	 CV7gt3++aUZsw==
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3ae22dcfdc3so1606221fa.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:10:19 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEX3TijzUhMVlPNrGlcfOCGT004kjwurSuNkm9IwkJdQUXHU6kCql5sByGO1J0CnT+6fYp/sBHp1FG8S1I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/O4N5u+gKm69emtnRgSEhfCjoKQePmf7m12IgRRjrxzAYubBhO
-	HIdLgfdPZiaqUok7f8lQTaRJDcWDteVVECmDSyP7mzUqpMifDVDbq8kzIdayRZUEWYhM1VK4+a1
-	JeV3U5SAJWx7KeoCkSzWLBfKnX4FUnjo=
-X-Received: by 2002:a2e:a917:0:b0:3a8:bd3d:546d with SMTP id
- 38308e7fff4ca-3ae2b4b615fmr2200351fa.5.1794514217867; Thu, 12 Nov 2026
- 12:10:17 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=COQMd70Z
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1a8cc11ac42so153618c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:12:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794514335; x=1795119135; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=enhyFaTlmSe8qk8N5fvqsVTmYc4LqDIJpmhNr1L+Z9o=;
+        b=COQMd70Z413zqJ2b83x0DveGH91bv22XH6Fu5Dh63m8XVUoTwCuc5f9GtEnVzY+Bkd
+         yJf/TdgURq9P7AeNueC4IPw6YG+Sja1eGXQOZjEsW+kTQDMf+09aw/UCMNIV8SBLIrkc
+         G+pq0dssMQUu1Ft7e1uefalVUKBIN3N8abtazJY90TRuUtWk0lKH6UFyDEGAcsrVBxd8
+         Pu7ZlpM6GNbVQmZgPZu40vf4795fG446BJ57Ic2YuFq5QDRXnzEEZdUTWTJhik0n3/52
+         iygA3IjK3CHG4/+BQpyVkxvmqeQ8p+vjpir+UsOOOZEieT45XErNImj71yXK0/i4TzJ7
+         GkJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794514335; x=1795119135;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=enhyFaTlmSe8qk8N5fvqsVTmYc4LqDIJpmhNr1L+Z9o=;
+        b=RuU4tn8OoKY68sUjWZ8btroCOHKB+29vuJdtCpIPdbWhypAq0qAUOrI5dXGWQmgFFU
+         Q+pG35J/tV0xLBjf/A56fx8aQNqGIJSuSrIeaTVbw7ahyJb8jNH3WlmKDFpveRRnW8Yu
+         eno9CmtItTXRA7Loas8fF7o6LtuQYUltMvZcPMVgpA6l7yhqOWRC3l0cdHaVVvXPdBey
+         LoCrEUVJF9Ix0+3jJCFXbv5tPz5ZeLXH6CVV1otQ8bvHfe3ACOdBcvXmFMNc06EVDpjw
+         coKgDFJb7h1Hc9PdZ7xKWPpJ0hGSQgvMMTpij9zAASHaRADhQwKiUpESaaXlwBR+70N1
+         P2gQ==
+X-Forwarded-Encrypted: i=1; AL+hErHX+ekkgNpEZcrwOTYT6wI2CLN8ZdmV+DrJjhzdUXTPCmCS4dWyTSh5a8F5KLtXHUqtBp/vXIYkjQu94C0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9EBoTUlWrDVq5TrNJuldtbe0dCQ7GuCVF8NklRnHis0vpBxXKH
+	IKXAwApRxS+OHAk9wZjg48OT4IkNjUDmHkCNiuljr9Mf2/lh2o82269e
+X-Gm-Gg: AYBFou2NnJsG9hU340Kj+Fz6+TYVWVx+ULOy1tm14jo8DAQXW2UR+nSTWrDPNlVx8E5
+	TAsYzS9k5HHmNuYPNTJF/n+xy24P6UBgB/CobzD+EAro+1dyDSYKLTBSoZ0tja0zjjkTy4dovQ8
+	TvnPVKDmJdZzPB0CX36Yu8+5uxscxl7TB31m5zEdlQ/gP/SiPh9y5kHJZTvrHJs2iVx/DJwBrce
+	OueearGXjr+VzUg/SkeEp0/XNdnnMOzP6h41mY8rVfpqwyKES3smdAPCI+PvEW3e+3F98ijnA3L
+	QBkDlDCo6y1iNSJ8vLQ1PZvELggi6ukCwcEthuwqnUMsrR7TbI7ggpCn4H0d33GRHO3qhj3o77C
+	T0GW6DNpOVL6wEGoCXS4SyywAlFWF3dTKR6UitswdlQ7A/GRRBSgThbdm2CTQ7exPlTTeJPBYeq
+	PB3QhrCJDQzprpNONjssUk1dePdORFbNL1c5VA6V7JbBEI5rdL7/F79Tn1AtVww1KRLJpPy8XP9
+	PwtIi8dQe7+mKkN8SuncIcRlun/kU6OUEHDPOYY9/UYfS7d651zD4VP83fvustJy/Eg2qKJrfj4
+	+wkH8gO2SZFCl+7Hg10I1ZpJsKlvBhSfnN1cYfeREBMoIW563B/3AXI6G8NtVSNjVAaOPR9eBJu
+	Myxtj5KWWowDV3mphfxvdJN+b9tAflb/ZaI5KT7u/fN/arz8DOwzJJxBUYFmxPaeW2S+kTFLsjV
+	8CpzNGd0liSjKkH/7ao6mWapqONo+Li2gfnSCoburRkg==
+X-Received: by 2002:a05:7022:299:20b0:1a9:cad6:5b58 with SMTP id a92af1059eb24-1b503150119mr501572c88.39.1794514335221;
+        Thu, 12 Nov 2026 12:12:15 -0800 (PST)
+Received: from kapoor.iiserb.ac.in ([203.18.51.239])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50313d8f5sm1908017c88.3.2026.11.12.12.12.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 12:12:14 -0800 (PST)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: accel: mc3230: Leave chip in standby on mount matrix probe failure
+Date: Fri, 13 Nov 2026 01:42:08 +0530
+Message-ID: <20261112201208.476450-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261110070206.1452-1-laixiangwu@cmss.chinamobile.com>
+References: <20261110070206.1452-1-laixiangwu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,65 +104,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <auzlLwlleGLPsLcw@google.com> <CAJZ5v0g25xQeRaLJWJyAo2fcJko+gZ7w6JhX7FzMgRx2+uuimw@mail.gmail.com>
- <au0oKFb9CmNzc6Cg@google.com> <CAJZ5v0hKpjMsGQm8Cpa89x5wkNxqkggDNbp+eQ0S-E52DETWjQ@mail.gmail.com>
- <avOw_4ZkqtKFHu1B@google.com> <2c3bda2b-ccc3-4430-8e09-81b25f6fcda7@rowland.harvard.edu>
- <avSa97F1Nu1LTSCA@google.com> <fc43eb13-816b-4cd0-9711-848fdab605ef@rowland.harvard.edu>
- <avUHG8mLuTOUMr8O@google.com> <CAJZ5v0j+8_fOc_EEGx4tquqcaH3-nmHd0YMJRb38t2Rw40iV3g@mail.gmail.com>
- <avXs826ikSctpUnA@google.com>
-In-Reply-To: <avXs826ikSctpUnA@google.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 12 Nov 2026 21:10:05 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0irBvT=cnK6qTwvoKr+G7cmyFsRFz8yrKo=P=W2euVujw@mail.gmail.com>
-X-Gm-Features: AclHuK__4os0EMcsZRKi_kFGQIBcp-RMR8mLlriuERmrjM4SgFsglhioQkJ6M6o
-Message-ID: <CAJZ5v0irBvT=cnK6qTwvoKr+G7cmyFsRFz8yrKo=P=W2euVujw@mail.gmail.com>
-Subject: Re: [PATCH v2 3/5] PM: runtime: Propagate last_busy from dependent to dependency
-To: Brian Norris <briannorris@chromium.org>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Fabrice Gasnier <fabrice.gasnier@st.com>, linux-pm@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, Ulf Hansson <ulfh@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
-	Andy Shevchenko <andy@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alan Stern <stern@rowland.harvard.edu>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 5:44=E2=80=AFPM Brian Norris <briannorris@chromium.=
-org> wrote:
->
-> On Thu, Nov 12, 2026 at 05:13:09PM +0100, Rafael J. Wysocki (Intel) wrote=
-:
-> > On Thu, Nov 12, 2026 at 1:24=E2=80=AFAM Brian Norris <briannorris@chrom=
-ium.org> wrote:
-> > > I'll give this some time in case Rafael had any other thoughts/replie=
-s,
-> > > but unless something major changes, I'll plan to write/test/submit v3
-> > > where rpm_idle() calls pm_runtime_mark_last_busy() (part of Rafael's
-> > > proposal), and *not* make it conditional (i.e., no
-> > > pm_runtime_use_autosuspend_always()).
-> >
-> > That will work for me.
-> >
-> > > (Or, Rafael is free to do so, since it's his idea. Just let me know s=
-o I
-> > > don't waste my time on it. But I figure he'd rather someone else do t=
-he
-> > > work.)
-> >
-> > I can cut that patch.  It is going to be a one-liner if I'm not
-> > mistaken and I'd like to write a changelog for it.
->
-> OK.
->
-> There's potentially quite a bit of follow-up, including patch 5 of this
-> series (to drop now-redundant .runtime_idle() callbacks), but I can roll
-> that separately if you'd like. (Would you want to make an immutable
-> branch for other subsystems to pick the 1-liner up? Or just apply such
-> patches to your tree, as it seems the IIO maintainer was probably OK
-> with that?)
+On Tue, Nov 10, 2026 at 03:02:06PM +0800, Xiangwu Lai wrote:
+> The mount matrix is read from firmware only and does not need the
+> chip at all, so move it before the WAKE transition.  That way the
+> chip is only woken up once the remaining steps cannot fail anymore.
 
-Either of the above is workable in principle, depending on how the
-cards will fall.
-
-If need be, I can create an immutable branch.
+Reviewed-by: Arnav Kapoor <kapoorarnav43@gmail.com>
