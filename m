@@ -1,96 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794470103;
-	b=2J6035YxWO9DnahfesBwAxHGf4apfen+Phh9wISaInhrxK5dW65xl1tVgYfS/XwLPMDL
-	 USn4MiizrClH4kWMM1YqEpD6XrQoJ7jDcZjBxrHvg7jv60oAChXhUvQudkdqcgLVRiiF4
-	 xvJKQ3AO+XDB19HBTwmNeEXJdCf3KxxFL5dBnzsmPV4E41eV7gEKqo4uKJCfNGGpFltx3
-	 52tO4cGedsFmP04qykjkUesEQFPwYh3p7s+xPNH2eU8bL0N4bQcvKYAIAUjXiA6PHWPnk
-	 v8o1K+f+uW9sSm4V+7fSYjxmhoz0PtrEeS2pErdFtQ9N/J8MSncdMOmak1ueNV72DJQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794470103;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9MfmP8CUu4hZ4XmurNDFRFxv/TJ/BsNwOyCw1nzKGdw=;
-	b=g+2O8HECdhTc/s+RAC+Cay31Q5IugzLoaVPlnCUJ5NtQuaAekzyUgjSyP3Iwq719UKqj
-	 qGDz93g24PRG8fmRcRPPbVWJtr2lHEua3+TK40gbq2vbmtlvWj60GDBCLCYKaj874n/0m
-	 mfGEhgtE4RPG0FTZYdQA0yiqxjgSq0TdCsBEOocfv4jV3YeJX+Iq7OEn8WURp64HDu7lC
-	 81Vm26S2txs45KnPgD+7ygQq7dRJzEBnFIFzYrCkHrbNNaPBwWfZSe0K6POz1mUVFaJ1T
-	 kqyqy1yE3GBb6einrDKkdii2iOcHr0BnjZDfO5jJKV1tFcLCRYRLpXSoZ25NWAtr+aQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iiitd.ac.in;
-	spf=(null) smtp.mailfrom=iiitd.ac.in;
-	dkim=pass header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=g9+gt+d9;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.100
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794470197;
+	b=cyMH7MaNFRNXNapVyCotBHxbbiOUzVU4HH23A8n8Jud5jaBh8UOAKXW4K2bOzFPNG7ia
+	 SO0F3mpPi51V9tvZhQJmNVL9JsQn5WX158UsynJxHP5Kk2HJgI6UTAc9vUcJAecFNAgE6
+	 /1iMAY6OIDn85Aar/tYDBW8TcYoOn79kTWN5aWl3/AwazLwgHDJiyeR5U5WRQNap1ERVy
+	 2mBDfXkyAnHGRmNzeqplbdyvzdJtizjAhhYlGuC5EPaVw7/6nQ2eW8h/bRrNa9U585Ruo
+	 bOzYJyRbqjekRYobgIJSOKbgh3kNf2OuPM5kBnyvmFwHeyYdjg5A9vDgIe8khr2PSEg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794470197;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=6vDUKpyBzR1KWHb3bWMOUi0dyvPuZLNXwU6MhPz/uPY=;
+	b=VL/8LNQHFsw4LMuTuU8c/OTlIEn3PSavFvU+H7PfR819WjGPR7tsGrAL/dw+GGlDSuNj
+	 0h3eHIySEY3RNSH8LWpuFpjSe6A5GPh1grTKHvjyyLNU9yFohcaD2o6HC19+Z+qLaaN0s
+	 Z7/0orJIxcISfCK1kk9R+c2mZlA9n29o01VRumTbIA/B/U4WYvtMuxEdwatt8qu+Xf+9U
+	 8Jq9ZlsqjQTqhcHM5rD9EQaYIGNdTHDSUFk62gKJIjhlTHGl2vudozhS/qDps/aii9wHc
+	 MgYQVVPQPQYfiaq8ClT20h5ghVC0rW0o/nimxFtYHsDyRXahTHZvxx7zkgzAmqs7bEQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=starfivetech.com;
+	spf=pass smtp.mailfrom=starfivetech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.100
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2100.outbound.protection.partner.outlook.cn [139.219.146.100])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A808B606A334
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:54:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A808B606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iiitd.ac.in
-Authentication-Results: smtp.subspace.kernel.org; spf=tempfail smtp.mailfrom=iiitd.ac.in
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=g9+gt+d9
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36eb1cb7aabso6000422eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:54:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=iiitd.ac.in; s=google; t=1794470095; x=1795074895; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9MfmP8CUu4hZ4XmurNDFRFxv/TJ/BsNwOyCw1nzKGdw=;
-        b=g9+gt+d9iPMMqLhspZsy7g3mdTh88vkwtR+CIuTZMLa4Gik2Q4h8qrX5tc8U7iG1rs
-         vLQSskA97r0w9s8b8Ry1E7MMg5jgMwk9u8glfY6ASApU6IrBioTWRPW0Ik08aQPYrTvz
-         7L754KGrn5UQs8go7wUJ7xgeqg0iR3LlpiC/0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794470095; x=1795074895;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9MfmP8CUu4hZ4XmurNDFRFxv/TJ/BsNwOyCw1nzKGdw=;
-        b=yTFQTFVqMB6yOtGE/MayWJEXatJqqBNZMVgmn8b8Of1n40tjPm8Qesr1iObIrKuxpZ
-         PuQXOEUVjUysYOMqa+Ecdc1qzbXPOCMmiwIRlxkbQ/t6sfdRnf7X8c/5PPSiY+62vXVb
-         UPcUJsjJtkodzq/KHWGMQQMw9wigRyYalYTunWV71TwhZa9wVZdQMrkVK5hWXjFm3GkB
-         lggDCXvG5aPAHYuQ2GpK82tZtVAB4aOyilu+3pbGYNHS+/H3K8BA5evZ2i4sP5G2KRNE
-         8P6MxgVFH7S4CdIg5ZNTnz0+ERwXHZd682tnFVXmmnyD38NOzavZqohQ4ABa65mgpRSg
-         UqGQ==
-X-Forwarded-Encrypted: i=1; AL+hErE5d6tQV2paSTiIyCaxYTeYqA90caJhJmiE2343aaIADhxwCpy0SPaG8o5RgpjwlmYxClD2JHqaPzX/sEU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9nSNOui3FKMsrX34J5yua5BkJk/ciBteuxakW+2WGxIBTqhoty
-	BEH73NmSYxg3w4u8CvhwondARwqpPS0RNRvn4jNTwlpCg3QffszlwPpLVaWSe8Xv2js=
-X-Gm-Gg: AYBFou1pMvp/MHDaJMKjcCvmE7wFuZ6hUVQXbZJb6HO1A4h5WOQN2n1QbKDjAzkKYS5
-	JolIpiFfD1eAH/qGAHQ08bziJJx26w+6KxG5azmP50duI+gyvxtNdtZtKE/mGAqd/L1zPo+XOg8
-	HOVHIpEvVlj9U6oGFFY9qu+3Kas+EjzlF4F1nTzEHF4XJfUXq8aw1dV7cLcdEO4uf/ws5E1e+2Y
-	TOAYA+AdMah8LCotPCeDQjYCFhd8U86SdxJS2gxcbU1Wq4j2fr+XetyUpTDV7S+ipWTqfla94TA
-	hPiHASfZfG7hW6UAx7SsHhWX8gywRExwmbE0R1/lTsG+ZLnfkS9ow1dk0ghj085d1RuCE0ub7i7
-	qjk3kFZCBCVqEnH3uXYb6PoC+cplVmC8AMdXhrlUA7yBAiOhaoVtkcIjLpS0l2sbjduM6Ww0ga6
-	8Z+PPZkF6fIzbbyLSTfmFwYoPbj/X8IVGm85RHpDXyrE6CkJihgfgTcorx8cfLGplCZmceQmvdw
-	I5ORyvFGeGDQGTEVh3Su6MrQUtZe3+FITEeY1wXnwOKQLJIQTxjWmjeiw4JC/4l/dDe5YB1WAY+
-	UDeUmIxx15FWfA1glL4WX1AtVRkuvzLzy8cgv86Hyjh7uAjKWaH+lBLaT710y3iHHISOpTgdnIB
-	Gt94riarjY/CL8mxz2FJB8jXzFnVnsZJXYhP5rf/xGvUmqG7OySScYEKq0OaESBv1
-X-Received: by 2002:a05:693c:8344:b0:376:5b1b:c22d with SMTP id 5a478bee46e88-376831888d7mr4481214eec.4.1794470094622;
-        Wed, 11 Nov 2026 23:54:54 -0800 (PST)
-Received: from iiitd-S2600STB.iiitd.edu.in ([103.25.231.160])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3766146551asm15484180eec.1.2026.11.11.23.54.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 23:54:54 -0800 (PST)
-From: Piyus Kedia <piyus@iiitd.ac.in>
-To: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Piyus Kedia <piyus@iiitd.ac.in>,
-	Kapil Vaswani <kapil@presceralabs.ai>
-Subject: [PATCH net] net/sched: act_csum: bound the IPv6 jumbo payload length
-Date: Thu, 12 Nov 2026 13:24:45 +0530
-Message-Id: <20261112075445.3555341-1-piyus@iiitd.ac.in>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B41606A337;
+	Thu, 12 Nov 2026 07:56:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12B41606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JZ8P2CNpa45lsUMErcqEvaCcHi/QSr2mo+9iPM1ARNx2d7DCTWsnksj/t3PsHox9P9++LK1T1HEgbbG9V5LTtOWwxJUjQz7pnbVDScF/JKlzD0ig6QnLaMe0M8Xz1jAyaHlYq+01MN/zfci6+cel/ZMaeScWmOSzN3f26GfNLf7+gSjoSMq01Om2r85NvPipOrhTyyxMvDm6YY4LtHaEeytz4lMFgYn3zkId+NG3yVrjop5yEp2/pkI08C8uecJ3KN+ZKvxOn2Egg3JRIj/tA62pAq/Pg2sxii/XWNx2ikuyPv0WOaBoF2ORNP1KLIddJZvNJ8Sh2aZQ7Xsopk9MiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6vDUKpyBzR1KWHb3bWMOUi0dyvPuZLNXwU6MhPz/uPY=;
+ b=jCE3gD4TZmddF5oVC/M4HQUglr1tQY7AOe4+jte3vAiyL8RFxgIQVPY1r/tQ+kCuE8kRHvzCFgoP/z4nP3/uvaD0kyCjDHImAp1k/FRMhQmETXtwlB2yfUDnflI/hjrnkfFPUkn8G6VVBj0xFwAHHxQeArYMTKekqtv7XzqU02rO6Pe9UsBofNP1Azi/nF85Ue6igwElRNqn/6+tw/5OzbDluBbfgMccU4qWa2nQFdd5MtRLJDi+ksR6yBWlHels8Lw6/OP/Lh6K5FNLLGJu4qZBpER5n1iUJPX1c9jOWCgjI8Ov6VvTK0D/YFzxIucm3unVBH6S3EJI27cj8aXl1g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ0PR01MB1111.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:e::7) by ZQ0PR01MB0999.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:e::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
+ 2026 07:56:24 +0000
+Received: from ZQ0PR01MB1111.CHNPR01.prod.partner.outlook.cn
+ ([fe80::d777:e23a:d111:5fa1]) by
+ ZQ0PR01MB1111.CHNPR01.prod.partner.outlook.cn ([fe80::d777:e23a:d111:5fa1%6])
+ with mapi id 15.21.0615.009; Thu, 12 Nov 2026 07:56:24 +0000
+From: Minda Chen <minda.chen@starfivetech.com>
+To: Alim Akhtar <alim.akhtar@samsung.com>,
+	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	Ajay Neeli <ajay.neeli@amd.com>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Pedro Sousa <pedrom.sousa@synopsys.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Bean Huo <beanhuo@micron.com>,
+	Stanley Jhu <stanleyjhu@google.com>,
+	Conor Dooley <conor@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-scsi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Minda Chen <minda.chen@starfivetech.com>
+Subject: [PATCH v4 0/4] Add StarFive JHB100 soc UFS platform driver
+Date: Thu, 12 Nov 2026 15:56:12 +0800
+Message-Id: <20261112075616.118436-1-minda.chen@starfivetech.com>
+X-Mailer: git-send-email 2.17.1
+Content-Type: text/plain
+X-ClientProxiedBy: ZQ0PR01CA0035.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:2::21) To ZQ0PR01MB1111.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:e::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,176 +98,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ0PR01MB1111:EE_|ZQ0PR01MB0999:EE_
+X-MS-Office365-Filtering-Correlation-Id: 646e969e-4a8c-4e83-0558-08df409272a8
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|52116014|366016|1800799024|921020|38350700014|261026140227099003|56012099006|10067099003|261022105027099003|261021121427099003|261021123027099003|261026121527099003|261022075727099003|261028144727099003|261102123227099003|261009223027099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	dnMLH3q+W8PD2C+iD+/DV2q+5ugr2rh8i8QB5+z3WJDRZTEnwrqsiljWq//UE/AWuw2UrojP74Bd+E858YahWFyNPK4EByoqKJv/UFYC4YYmKzya/RDefun8LaK+uggCYLMOrllxHCPAm/8gs5PIsfEy616ZcdVkGAh9OsTejHa4bb8cCHAckwtfRq9FleqOkp/NW2ojlmlgIoU/V+Yf8MCgibM4aKcJzFTfdlS1Ab1fl6qgl+J0GmULuW6i0fdaMdyLYimjpnMC2Su98Y2YI5E9jMGyf7XCHpWJaOAS7p8S+NlWLXmppp+4AAeqANLG8hoWQrpzzpgOn/ST5plxPF/5/wQocnfyr4lepLwhzPteBh58FMluMXriNppCKlxz++K8rcF7BFil9jKWXZYJAxBuwyrS7ld7nzZXJ3WNdduUNds4N6+v05bkVSyvYbVfgMue/YhgXTL7pFUqKoTeg3Ou8NDCXTmH4zeRsQPqI7UNfuTzY0P8n91cn3nKcY3uxnQhOCaBMpVg4oLJBEnQtNw8R/xXi+4wdymCbNqx/YltOrXFDMWpgpXWsAp7PgzDW/BhUUFuRtPrUgRqIF9IZw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB1111.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(52116014)(366016)(1800799024)(921020)(38350700014)(261026140227099003)(56012099006)(10067099003)(261022105027099003)(261021121427099003)(261021123027099003)(261026121527099003)(261022075727099003)(261028144727099003)(261102123227099003)(261009223027099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Zc4D4AAwWJgbQQGCd0ZJnhwi1u/NjrL7b99ro0ySHPBhZ9d3MmfIkYXYnfaO?=
+ =?us-ascii?Q?dzWMaNPkQTqqJyv5UI7C/h7SxM93RgQGqckdc8GoUX16a5x68Z8FzVSPpNry?=
+ =?us-ascii?Q?B0VfzV1SDAWA2B4mUmNHvD4T2Ci8W/d1pdHlcDNnQlQ+DZsLBC72/jt5kRvD?=
+ =?us-ascii?Q?EQKoMxIl6q4lA49WD6VB3EYkTAQgqWgoKulYa26YcGRkITFqMfUjIDngKlas?=
+ =?us-ascii?Q?j2aY0QEmMAnUEzRR/+pjnBW4yA+V1wigr3folQjRqGa9S1/0TeTFKtaLwJR2?=
+ =?us-ascii?Q?CRovVhWC7GQGXq90jeUyaI/iZIZQ++mEDKCMPmFXUZJcmI5WI0BMp9Mrq4y7?=
+ =?us-ascii?Q?rSSG/c8Q94LKGGarffgRaos5SG0DkPwYnXrfJNOdBVqONpX6dm9ljD+g+nKP?=
+ =?us-ascii?Q?Dc0LiXaQS6VZBwaLc4W/ani5R8K1DmBDh1na57N58cf85WkrhXiYEaeSKGLB?=
+ =?us-ascii?Q?53wLRSm6JfIuJB4/2B1bkwwlhJOS6NzU+ftFe71r3gzBvO1ClpkLpXRk9e2u?=
+ =?us-ascii?Q?qFv/h7VaGDt9VIUfRX9WQiJuBzeEWrTDq4qI8uNKIpMn7p5K+fobWb0SbyD9?=
+ =?us-ascii?Q?8z1lx4BVO3L1zN8p88G2FqqssX6B7IjkSwunDRJMnpyngm54P6h9QqpENNa+?=
+ =?us-ascii?Q?HLmZEeV2CgfVq81tgOSjsX6R6b8mTj/3IO7cdDxIKJXFewfUqtFwvpxzmF7j?=
+ =?us-ascii?Q?exzUM24ZtQCSLlz1+uNXcDmFyxQ7k45a+QlDjUGNhR0Ve1CAtjSwgcis3Lm6?=
+ =?us-ascii?Q?QC6eH5KLI1hTWH7MMnuEK60xVxaMQ91mvwp/zbsYMcBwmpE0Z/7NllurVSUp?=
+ =?us-ascii?Q?WMLHw1ufd/U8AGxuqQCwWBZCYDP7gm917MWnz6EBq9tuI2Iu2ULZYYmrNqWZ?=
+ =?us-ascii?Q?qjDzMML4AiVVwfMHelnX7v4P+JeirE9k/ifMQbzRP8pNbg4JICeEzS2TNdCU?=
+ =?us-ascii?Q?p9rXPAQrim+8wnAHe4RNIDaMwe9XvX91UI/E/Wkoe+yhEblkLKCMiGD/cCx7?=
+ =?us-ascii?Q?/UkYUVVXSm6tdVlMjdHBGmCcVIcgnh0p9hI3PrXP9kLSqO9xquQJq7xQOSmn?=
+ =?us-ascii?Q?hCbNQOotsWRrZeFc8dD56/NOlBdafVNPC5KXBs5EP7xASzd6ke9P87dOPTVP?=
+ =?us-ascii?Q?bVIMY4hqogvQGyNIxUoQBURpYgwrRVXANqMMwhW0wsVQ/ZsKGKaMGRm6Z5ZU?=
+ =?us-ascii?Q?ttOpIb6Wdkbo/O5vLJGIxwRsFPUA45pV9BhJ7BkapXRQOMzeOJDv7WxWbQBt?=
+ =?us-ascii?Q?QIvDM/kif9/YJx//kTpMSW7kSfXA+3W6EXzRc6vqfGFoDSyjxf56cyI53z1o?=
+ =?us-ascii?Q?wokOiLEEQVVcSSWixMeCXzXsVmsfwyTpkoxGsCxthmvnys1Dlfcek71fc3CT?=
+ =?us-ascii?Q?h1YH0+a5vHtwhNCRru4f/m1pUddqSuexeLnXbIDyawosqugiDByiCFII0hap?=
+ =?us-ascii?Q?MZEgmQfI0yZRR8htmvfFcMgnMqgOsnjhgcN5wUfWvX2H+jo+XAP81fcr2AB/?=
+ =?us-ascii?Q?0Q5qNyn3ULe1DKlgjvPqkMN7rpnCks7D0XnP3dnSHM5kfipC86x4MOKObnnh?=
+ =?us-ascii?Q?Q+0EC2VhwBjijQmnN00RJgD6obGgSQW0uTt/j/59nHdhMVP5j4iLXZ12AS+P?=
+ =?us-ascii?Q?y4hjewKYoUMzhTjkeMdjlU1xQ976ztV0jR+j7KjnzlVonEMqZBS4rmgaiuyN?=
+ =?us-ascii?Q?gH3MPIHbCRHT1jD3hzMoWXB6nUHCBnPUwESx/F4rkxuLYXP8xgtq0OPKygRA?=
+ =?us-ascii?Q?/BPdzINyqkZcgsC07Py27lxxrR/7vTs=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 646e969e-4a8c-4e83-0558-08df409272a8
+X-MS-Exchange-CrossTenant-AuthSource: ZQ0PR01MB1111.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 07:56:24.4262
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UH44uM8nplVR2/+JJYkRNOf6F4IMZYltPtSzRvkFYS7eQGmignz8kA0zDHjhCCT4i9zXYN6bR+u5pJLH2OYWsDLuYn5qlxLtJB+wlim+e+U=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB0999
 
-tcf_csum_ipv6_hopopts() takes the payload length out of a hop-by-hop
-jumbo option and stores it unchecked:
+JHB100 is a Starfive new RISC-V SoC for datacenter BMC (BaseBoard
+Managent Controller). Similar with Aspeed 27x0.
 
-	case IPV6_TLV_JUMBO:
-		optlen = xh[off + 1] + 2;
-		if (optlen != 6 || len < 6 || (off & 3) != 2)
-			/* wrong jumbo option length/alignment */
-			return 0;
-		*pl = ntohl(*(__be32 *)(xh + off + 2));
+JHB100 contain 1 UFS 3.1 interface and using Synopsys designware
+UFS controller/unipro/M-PHY. The ufs-starfive.c contain JHB100
+UFS platform driver, unipro driver and M-PHY driver.
 
-tcf_csum_ipv6() then hands ipl = *pl + sizeof(struct ipv6hdr) to the
-per-protocol handlers as the extent of the packet, so a 32-bit value
-chosen by whoever built the header reaches the length they read.
+The patch base on kernel v7.4-rc1
 
-Both guards downstream fail on such a value.  In
-tcf_csum_skb_nextlayer(), ipl + ntkoff is an unsigned int plus an int, so
-an ipl just under 2^32 wraps to a small number and pskb_may_pull()
-succeeds without pulling anything, while ipl < hl stays false precisely
-because ipl is huge.  tcf_csum_ipv6_udp()'s UDPLITE arm then admits any
-16-bit length, since ul <= ipl - ihl compares against ~4.29e9, and
-csum_partial() reads that many bytes off the end of the skb.  (The plain
-UDP arm is not affected: it requires ul == ipl - ihl.)
+previous link:
+v1:
+https://patchwork.kernel.org/project/linux-scsi/cover/20260421091215.120632-1-minda.chen@starfivetech.com/
+v2: can't find. (send them 2026.05.09)
+v3: https://patchwork.kernel.org/project/linux-scsi/cover/20260911102359.83288-1-minda.chen@starfivetech.com/
 
-With payload_len 0xFFFFFFCA, a UDPLITE header claiming 60000 bytes and a
-704-byte skb, KASAN reports:
+changes:
+v4:
+patch1: and operating-table-v2 to required attribue and add it to
+example dts
+Add new patch2 to make PHY register DME attribute tables per-call
+to fix sashiko ai review bug.
+new patch3 change commit message.
+new patch4 fix sashiko ai review bug.
+1. remove the main clock and make it enable in core clk
+function.
+2. add phy_rst flag and phy reset assert while phy init failed.
 
-  BUG: KASAN: slab-out-of-bounds in csum_partial+0x103/0x1f0 lib/checksum.c:119
-  Read of size 4 at addr ffff8880259642c0 by task syz-executor/13111
-   tcf_csum_ipv6_udp+0x19e/0x250 net/sched/act_csum.c
-   tcf_csum_ipv6+0x63c/0x780 net/sched/act_csum.c:549
-   tcf_csum_act+0x34d/0x480 net/sched/act_csum.c:601
-   tcf_action_exec+0x109/0x390 net/sched/act_api.c:1161
-   tcf_classify+0x13d/0x440 net/sched/cls_api.c:1875
-   tc_run+0x31a/0x460 net/core/dev.c:4491
-   __dev_queue_xmit+0x1a7e/0x2390 net/core/dev.c:4890
-   ip6_output+0x280/0x400 net/ipv6/ip6_output.c:248
-   rawv6_send_hdrinc+0xb90/0x1170 net/ipv6/raw.c:663
-   rawv6_sendmsg+0x10d3/0x1260 net/ipv6/raw.c:908
-  The buggy address belongs to the object at ffff888025964000
-   which belongs to the cache skbuff_small_head of size 704
-  The buggy address is located 0 bytes to the right of
-   allocated 704-byte region [ffff888025964000, ffff8880259642c0)
+v3:
+follow sashiko AI review comments to modify the patch
+patch1: remove freq hz setting.
+        syscon change to phandle because this is no argument.
+patch3: Call ufshcd_pltfrm_remove(pdev) and add exit function in
+module remove functions.
+v2:
+patch1 rename dts binding doc from starfive,ufs to starfive,jhb100-ufs
 
-The packet is generated locally through a raw AF_INET6 socket with
-IPV6_HDRINCL and leaves an Ethernet device, so skb_network_offset() is
-non-zero and the sum above wraps.  Reaching it needs a clsact qdisc with
-a csum action carrying TCA_CSUM_UPDATE_FLAG_UDPLITE, which is
-CAP_NET_ADMIN in the network namespace - reachable by an unprivileged
-user through a user namespace.  The folded checksum of the out-of-bounds
-bytes is written into the packet and transmitted.
+Minda Chen (4):
+  scsi: ufs: dt-bindings: starfive: Add UFS Host Controller for JHB100
+    SoC
+  scsi: ufs: amd-versal2: Make PHY register DME attribute tables
+    per-call
+  scsi: ufs: dwc: Rename amd-versal2 read/write PHY API and move to dwc
+    common file
+  scsi: ufs: starfive: Add UFS support for StarFive JHB100 SoC
 
-Bound the length the way nf_ip6_check_hbh_len() already does for the same
-option: a jumbogram carries payload_len 0 and more than IPV6_MAXPLEN
-bytes, and the length it claims must be backed by the skb.  Once *pl is
-bounded, ipl cannot exceed skb->len, the sum in
-tcf_csum_skb_nextlayer() no longer wraps, and the UDPLITE comparison is a
-real bound again.
+ .../bindings/ufs/starfive,jhb100-ufs.yaml     |  81 +++++
+ MAINTAINERS                                   |   6 +
+ drivers/ufs/host/Kconfig                      |  13 +
+ drivers/ufs/host/Makefile                     |   1 +
+ drivers/ufs/host/ufs-amd-versal2.c            |  85 ++----
+ drivers/ufs/host/ufs-starfive.c               | 283 ++++++++++++++++++
+ drivers/ufs/host/ufshcd-dwc.c                 |  61 ++++
+ drivers/ufs/host/ufshcd-dwc.h                 |  20 ++
+ 8 files changed, 482 insertions(+), 68 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/ufs/starfive,jhb100-ufs.yaml
+ create mode 100644 drivers/ufs/host/ufs-starfive.c
 
-Per Documentation/process/generated-content.rst: the out-of-bounds read
-was found by an AI-driven fuzzing harness, developed
-jointly by Kapil Vaswani and myself, which exercised the csum action
-under KASAN on x86_64.  The root-cause analysis, this changelog and the
-patch were written with the assistance of a large language model, 
-and reviewed by hand; the before/after testing below
-the --- was run by us.
 
-Fixes: eb4d40654505 ("net/sched: add ACT_CSUM action to update packets checksums")
-Signed-off-by: Kapil Vaswani <kapil@presceralabs.ai>
-Signed-off-by: Piyus Kedia <piyus@iiitd.ac.in>
----
-Tested on 7.3.1 with KASAN, in a single-VM qemu rig, same .config and
-same image before and after; only net/sched/act_csum.o and the relink differ
-(kernel build #2 unpatched, #3 patched):
-
-              jumbo length  payload_len   before            after
-  variant A   0xFFFFFFCA    16            KASAN, VM lost    ok, exit 0
-  variant B   0xFFFFFFCA    0             KASAN, VM lost    ok, exit 0
-  control     none (PadN)   16            not run           ok
-
-  before, variant A: Read of size 4 at addr ffff888024cb6340, task 11851
-  before, variant B: Read of size 4 at addr ffff88805fe8e9c0, task 9555
-
-Both faulting runs reach csum_partial() through the trace above.  After the
-patch both programs run to completion with every setup step succeeding and
-all four sendto() calls accepted, so the packets do travel the egress path
-and the action simply refuses the length:
-
-  ntkoff=14 pl=0xffffffca ipl=0xfffffff2 ipl+ntkoff=0x00000000 \
-      ipl-ihl=0xffffffc2 ul=60000
-
-The control is the same program with the jumbo option replaced by a PadN and
-a UDP-Lite length of 8, which is inside the packet.  It was run on the
-patched kernel only, since what it is there to show is that the patch did
-not break the path: the walker still accepts an ordinary hop-by-hop option
-and csum_partial() still runs over the 8 bytes the packet really has.  Only
-an unbacked jumbo length is rejected.
-
-Reproducer: not included here.  This bug was found with AI assistance, which
-Documentation/process/security-bugs.rst says to treat as public; the same
-paragraph says not to post the reproducer publicly.  It is a short shell
-script plus a ~40-line C sender, tested, and available on request.
-
-Conditions it needs: a clsact qdisc with a csum action carrying
-TCA_CSUM_UPDATE_FLAG_UDPLITE, on an Ethernet-type device, with the packet
-locally generated so that skb_network_offset() is 14 and the sum in
-tcf_csum_skb_nextlayer() can wrap.  CAP_NET_ADMIN in the network namespace,
-which CONFIG_USER_NS makes reachable by an unprivileged user.
-
- net/sched/act_csum.c | 25 +++++++++++++++++++++----
- 1 file changed, 21 insertions(+), 4 deletions(-)
-
-diff --git a/net/sched/act_csum.c b/net/sched/act_csum.c
-index 5fff52a8ca90..eab8cdf6745b 100644
---- a/net/sched/act_csum.c
-+++ b/net/sched/act_csum.c
-@@ -449,7 +449,8 @@ static int tcf_csum_ipv4(struct sk_buff *skb, u32 update_flags)
- 	return 0;
- }
- 
--static int tcf_csum_ipv6_hopopts(struct ipv6_opt_hdr *ip6xh, unsigned int ixhl,
-+static int tcf_csum_ipv6_hopopts(struct sk_buff *skb,
-+				 struct ipv6_opt_hdr *ip6xh, unsigned int ixhl,
- 				 unsigned int *pl)
- {
- 	int off, len, optlen;
-@@ -463,13 +464,29 @@ static int tcf_csum_ipv6_hopopts(struct ipv6_opt_hdr *ip6xh, unsigned int ixhl,
- 		case IPV6_TLV_PAD1:
- 			optlen = 1;
- 			break;
--		case IPV6_TLV_JUMBO:
-+		case IPV6_TLV_JUMBO: {
-+			unsigned int avail = skb->len - skb_network_offset(skb);
-+			u32 pkt_len;
-+
- 			optlen = xh[off + 1] + 2;
- 			if (optlen != 6 || len < 6 || (off & 3) != 2)
- 				/* wrong jumbo option length/alignment */
- 				return 0;
--			*pl = ntohl(*(__be32 *)(xh + off + 2));
-+			pkt_len = ntohl(*(__be32 *)(xh + off + 2));
-+			/* RFC 2675: a jumbogram carries payload_len 0 and more
-+			 * than IPV6_MAXPLEN bytes.  Reject anything else, and
-+			 * anything the skb cannot back: callers take this as
-+			 * the extent of the packet and read that far into it.
-+			 */
-+			if (pkt_len <= IPV6_MAXPLEN ||
-+			    ipv6_hdr(skb)->payload_len)
-+				return 0;
-+			if (avail < sizeof(struct ipv6hdr) ||
-+			    pkt_len > avail - sizeof(struct ipv6hdr))
-+				return 0;
-+			*pl = pkt_len;
- 			goto done;
-+		}
- 		default:
- 			optlen = xh[off + 1] + 2;
- 			if (optlen > len)
-@@ -521,7 +538,7 @@ static int tcf_csum_ipv6(struct sk_buff *skb, u32 update_flags)
- 				goto fail;
- 			ip6xh = (void *)(skb_network_header(skb) + hl);
- 			if ((nexthdr == NEXTHDR_HOP) &&
--			    !(tcf_csum_ipv6_hopopts(ip6xh, ixhl, &pl)))
-+			    !(tcf_csum_ipv6_hopopts(skb, ip6xh, ixhl, &pl)))
- 				goto fail;
- 			nexthdr = ip6xh->nexthdr;
- 			hl += ixhl;
-
-base-commit: a2fd526d644233d6a892c28173f07c61e21e4c93
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.34.1
+2.17.1
 
