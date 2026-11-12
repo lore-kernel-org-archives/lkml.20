@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794468637;
-	b=IOppVwsyIS5mZJq+0wTkg2MdgrlagHC3oLXH/rPsKHl/YceBvGNp77yJa0zBWXc/Iq8+
-	 aAlE50oQFWcbUjbq21MaG+VaSZQXjGlohoYyibK0o3wBo00O/VOLuCuIfezX3+BkLxS2f
-	 2Z1y8h9NnpjdxijCDcSN0j4LO2Arh8PFKtfDO9KqfK8Srj6U8jq/OO8ez7pzKL4E7l6At
-	 l9UIHQMXZ6/+3KRPEnpymIZ7OXO79YWSzWPcciINgJ+dJUQkOaC6aeC9kuDIVMA+oVesE
-	 8e2BsK6eyWOfhIaPHWMtk9trWAikhTU5pmAWK1ot0eJ2POF7B/3WNpjes6ZNWqDPnLQ==
+	t=1794468699;
+	b=YYuRn2SUxHGKxNxH7GER62c+BJOn+V5ISXKj+bh8tc+Q86HwCoa7EA/OLRuQNkFh7vN6
+	 uAvkHXr0yJ5a5Ifis+ox36BOeoL76XDDp53tnrjULtr3IKqePx5+fxPtlHAwS6zdMkb0q
+	 gHYGGxMNhro9qRBFfueLRp8tYnxmoMDNdyb1+BRcEo1+t60Qm+fLcY5IjIUtrpobFwII2
+	 DuJri6DkmSdY1H2WJB8wxnMvi0wGugXFP0ZXYFo8SuLe73W7RmxGJCDUEZnSo+1Wnxxjz
+	 rvTVAKq/K7gaHuEFh1Omhfp/OHAa8OaHTnGMVyCI0bZ4qF2iVov43FH8ym2apfWW0jA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794468637;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794468699;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=PwsB3w3IGTBBRMoLaneSoM4ODkNVnmOpEafVevDzJLw=;
-	b=WhqE19B8tfpHnyE3awyb57xJJ7GtUgYxDe6phXhCNXA3YJGD6oeL/faidUGOB+0u/hv0
-	 Yl7jVA5N5syVGK1N9kl2xK/mAK5FqZpK0eLTz2WdSA8Rkt0h+1CuYR0T3V4v2ulKrNu37
-	 1CONK7o9ynf0xVImk9zrQTz9ltxKPy3X2I6Xin4PA3DOQX6tLQqxWulsR7YrhOOMPTBmD
-	 80fxGKLErKf3IZQCpxCV6sFDM9m3pHBZHxqKPPT3Y/glOhRlu5z55vTJUayPK0vll9pIm
-	 wwkB5HIkdH2lDbjHVIKDstpBeB3/3B+vDewt0ijfEXEsBynKlyEJ/3Z7CPACXM/zseg==
+	bh=YkSv46yCHtIqoXvtaUlGuoA5bkCcyG3dKOTi+O8s+8o=;
+	b=nhfTqvq9jWYmh3wlEvc1BpwGs+ekjl89p+mOzix3t53H5aPFAwWbO246eF8xDc7SdWx8
+	 FiD5JVSwsf10/TaVu8uApBWZIrDqVQ4NePnPjt2BxzwYe028i4RWz/KdPdBTKUJ55ass2
+	 CnUZUuPvPopBP5G59TG7rkKE/8SCc12jlZPDrkNy5gIrROAQUHfMhN4PUw8clOmG2BVCb
+	 LnQF+euJDXTd0COuiuvEEzn4X9LmROV5Osnq/iRPfwipXMUrfAfQbm5OpJSni/xyWUXYV
+	 3N4+bAAxqFcVdFn1uPI0j7VuTeHcRANOJ3Iyr9xpeoKGty2yxzVREYxWvBHpDxpqItA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=DPMA3dk4;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NA+Y8Lq+;
+	arc=none smtp.remote-ip=91.218.175.22
+Received: from mta0.migadu.com (out-22.mta0.migadu.com [91.218.175.22])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37A63606A31C;
-	Thu, 12 Nov 2026 07:30:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37A63606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59EF606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:31:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C59EF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=DPMA3dk4
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=PwsB3w3IGTBBRMoLaneSoM4ODkNVnmOpEafVevDzJLw=; b=DPMA3dk4FDl/bjba/fpoYHDgfR
-	PF+VSqLj8OtUIoi3igaR/h/ivDQ4MMJ6ij6D4xIpO7nUdLVMkhYysTQq5NbImlkBKw2GpjZW8caUB
-	zkJD+w9D0bIosY2DtvnYPM5frL8eeLHy/iMgD16Crs2xMUSTXDdbqinaUgzhUVpfA16yqHtjGYoKN
-	cwDfPCuX4S7EB0LCYbqTdlX6yqmFphTSPpyFxmQWOzSfgL4WkFVBtKLyJiX4KSpm0gYCQqmtyjyge
-	CSIHdyxonT2OEHj3kidFXuxDh9X6v2BAe8xFpfL7k4SxtM4vP4obUdcZXnBL85oDq3DhZc0ANia9H
-	HEcR+A3Q==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRPGT-00000008w2P-3Sb5;
-	Thu, 12 Nov 2026 07:30:34 +0000
-Message-ID: <f49599ba-7fcb-4c24-a94f-28fa953e8b00@infradead.org>
-Date: Wed, 11 Nov 2026 23:30:32 -0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NA+Y8Lq+
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=c6rVmPURZ3DT+JjErkgtV1mxI38IznosT0ADdpGxR3o=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794468695; v=1; x=1795073495;
+ b=NA+Y8Lq+cDGqZtzw4xGR7Z+rYhlYc5kEZj9Wf2Hmn89XoCjPbSUTy0bPCgWjC3gyr6BdN93c
+ dC2ocsMaJpeagEvb78VirV/+2BWUhRbdDe7rev1Y9Mb5hCh5YGA1p4FraGwo6qC7NQCIepltXUr
+ MfBgol3hXaLgGn6MND2cWhuQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 13c0695ddd446293;
+	Thu, 12 Nov 2026 07:31:35 +0000
+X-Mizu-Trace-ID: 13c0695ddd446293
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7df44933-e92e-4f1c-9b26-22a1a298ca16@linux.dev>
+Date: Thu, 12 Nov 2026 15:32:58 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,112 +59,80 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] netlink: specs: rt-route: move fixed-header to
- operations list
-To: Hangbin Liu <hangbin.liu@linux.dev>, David Ahern <dsahern@kernel.org>,
- Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Donald Hunter <donald.hunter@gmail.com>
-Cc: Wessel Jacobi <wessel@jacobi.pw>, linux-doc@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Hangbin Liu <liuhangbin@kylinos.cn>
-References: <20261112-ynl_fixed_header-v1-1-8475ea19e409@kylinos.cn>
+Subject: Re: [PATCH v4 2/9] mm/kmsan: skip vunmap_range_noflush when KMSAN is
+ disabled
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: Uladzislau Rezki <urezki@gmail.com>, Dev Jain <dev.jain@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-mm@kvack.org,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20261110112546.261415-1-hao.ge@linux.dev>
+ <20261110112546.261415-3-hao.ge@linux.dev>
+ <CAJuCfpHneeqRFOXyzCPPPa66xfn7Oa1n5m2N67o_pVwJfNgeXg@mail.gmail.com>
 Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20261112-ynl_fixed_header-v1-1-8475ea19e409@kylinos.cn>
+From: Hao Ge <hao.ge@linux.dev>
+In-Reply-To: <CAJuCfpHneeqRFOXyzCPPPa66xfn7Oa1n5m2N67o_pVwJfNgeXg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Hi Suren
 
+On 2026/11/12 06:10, Suren Baghdasaryan wrote:
+> On Tue, Nov 10, 2026 at 11:24 AM Hao Ge <hao.ge@linux.dev> wrote:
+>>
+>> kmsan_vmap_pages_range_noflush() returns 0 when kmsan_enabled is
+>> false.  The unmap side does not, so it still walks the shadow and
+>> origin page tables even though KMSAN never installed any metadata
+>> there.
+> 
+> Note that KMSAN_WARN_ON() can reset kmsan_enabled flag, so the fact
+> that it's false does not mean that metadata was never installed. I
+> think a proper bailout should depend on CONFIG_KMSAN, not on
+> kmsan_enabled.
 
-On 11/11/26 10:46 PM, Hangbin Liu wrote:
-> From: Hangbin Liu <liuhangbin@kylinos.cn>
-> 
-> Wessel reported that fixed-header is not shown in the generated HTML
-> page like rt-link.yaml. The doc generator only renders fields on each
-> entry in the operations list, not operations-level keys. Move
-> fixed-header onto each operation so it appears in the HTML.
-> 
-> Reported-by: Wessel Jacobi <wessel@jacobi.pw>
-> Closes: https://patch.msgid.link/8610ee11-e1dc-481a-9654-11188a06786a@jacobi.pw
-> Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+Sorry, I did not realize this logic.
 
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-Tested-by: Randy Dunlap <rdunlap@infradead.org>
+I will go through the code again and will probably drop
+this patch in the next version.
 
-Thanks.
+Thanks
+Best Regards
+Hao
 
-> ---
-> I'm not very sure whether we should also set `fixed-header` for
-> `newroute-ntf` and `delroute-ntf`, since these notifications are identical
-> to `getroute`. But because `fixed-header` is defined at the operations
-> level, I've added it to all list fields to match the existing behavior.
 > 
-> I rebuilt the HTML documentation, and now `fixed-header` shows up correctly.
-> ---
->  Documentation/netlink/specs/rt-route.yaml | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/netlink/specs/rt-route.yaml b/Documentation/netlink/specs/rt-route.yaml
-> index 48d1659f20f3..b5786b465eef 100644
-> --- a/Documentation/netlink/specs/rt-route.yaml
-> +++ b/Documentation/netlink/specs/rt-route.yaml
-> @@ -708,13 +708,13 @@ attribute-sets:
->  
->  operations:
->    enum-model: directional
-> -  fixed-header: rtmsg
->    name-prefix: rtm-
->    list:
->      -
->        name: getroute
->        doc: Dump route information.
->        attribute-set: route-attrs
-> +      fixed-header: rtmsg
->        do:
->          request:
->            value: 26
-> @@ -772,6 +772,7 @@ operations:
->        name: newroute
->        doc: Create a new route
->        attribute-set: route-attrs
-> +      fixed-header: rtmsg
->        do:
->          request:
->            value: 24
-> @@ -808,6 +809,7 @@ operations:
->        name: delroute
->        doc: Delete an existing route
->        attribute-set: route-attrs
-> +      fixed-header: rtmsg
->        do:
->          request:
->            value: 25
-> @@ -815,11 +817,13 @@ operations:
->      -
->        name: newroute-ntf
->        doc: Notification about a created route.
-> +      fixed-header: rtmsg
->        value: 24
->        notify: getroute
->      -
->        name: delroute-ntf
->        doc: Notification about a deleted route.
-> +      fixed-header: rtmsg
->        value: 25
->        notify: getroute
->  
-> 
-> ---
-> base-commit: c88fd6989aea9237a60a4859139a265bfb7ddc0b
-> change-id: 20261112-ynl_fixed_header-2d7acfcb54f8
-> 
-> Best regards,
-> --  
-> Hangbin Liu <liuhangbin@kylinos.cn>
-> 
-> 
-
--- 
-~Randy
+>>
+>> Add the matching early return.
+>>
+>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>> Reviewed-by: Dev Jain <dev.jain@arm.com>
+>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+>> ---
+>>  mm/kmsan/hooks.c | 3 +++
+>>  1 file changed, 3 insertions(+)
+>>
+>> diff --git a/mm/kmsan/hooks.c b/mm/kmsan/hooks.c
+>> index a706666db097..107f66841274 100644
+>> --- a/mm/kmsan/hooks.c
+>> +++ b/mm/kmsan/hooks.c
+>> @@ -138,6 +138,9 @@ static unsigned long vmalloc_origin(unsigned long addr)
+>>
+>>  void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end)
+>>  {
+>> +       if (!kmsan_enabled)
+>> +               return;
+>> +
+>>         __vunmap_range_noflush(vmalloc_shadow(start), vmalloc_shadow(end));
+>>         __vunmap_range_noflush(vmalloc_origin(start), vmalloc_origin(end));
+>>         flush_cache_vmap(vmalloc_shadow(start), vmalloc_shadow(end));
+>> --
+>> 2.25.1
+>>
