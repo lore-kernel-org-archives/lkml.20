@@ -1,111 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492394;
-	b=MXBD6NmKxiRoTC56nLoIIKL3EzCG36hbMDP5Uq1NqeZeucHwc5JU2YvCxbT+4WY+S/8+
-	 gZYYx5VQ/BANocGvIwQ720ZlTPTxxjH2BLaguHc45flBQ9J6eb18kV/VhltomlGdIRxYE
-	 T3cTV7JlOOeDwP4hfOYUt/PNRxv7yYbX1wO6lpBVnqhoHF01oioO4/VyCVRwHEwpR9pom
-	 U/zMySPZaL9yzXOK3B5gM407ezuIGfJOopASjZwvLaX5PEsm4gjG5MXEvLHdnHtkZ2wUu
-	 64GOAyD8GeQ+AtWj/VS+MRUc0WTrK780TsSqKkKsQt6WZ5rotpF+Kq8/gTmcYMl3FgA==
+	t=1794492397;
+	b=V2AfW8NpVXzAemkNJuSWwUZUqGhqoV5LQ94V8KhjIm12sRyhmIiGgTk58Liw12aRCocI
+	 bPjP7E9MPplPn5Ev/qkbR90kDUz5Cuehg1XGxDjckkcKXS6RVMpZi7F0G4VTNEKCORXH2
+	 n+YlhpkH6a6wAvbP05eDtLm0ozXHbKyur/Z0/3PRXE4Xxnb0dnXTzesIzVtx9c8Wq6x3S
+	 AokcALNmxAgRrnf14PCl2zmCwIal7/k/sDP7+KWhcAe6DAF9TQq/+sdWMeeFXbgwZv+z0
+	 iQmZVHE4n9NzpLjQAHBKpHvxBL3QDTAOejxzTsCLkeqSBehxTpndd/8aPV0EfyQp6Rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492394;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=/KkZMOTLKDJQcKnM7ovd2Dn2GxF4wr8aJ6Z+ZtRW5lE=;
-	b=YOmXLFWA8B1pPB8krQ0qRwXMQNCjDStV1jxsZL+890T0QgvBZV6z8sFEOPO7pY4mG/6f
-	 Y7SGbnSWRojvwNcRBG8a2O6ouB7RwSRKpWzEINBcPLy+OBZ7jCb2Lsd+A2udyMYPlGbEu
-	 AdL0V3eyv6MVkTEnNsZDGyqfcoNBhxeV8kT7jYCkehou8K1DGEMR5ejpu4EMD2PZdYH14
-	 Q2ph5z9z449DWqs8GKwhehZv7ZqU3m6J88/XhnQg7lUEADXFN0RJy+5TvHxZ9y5Hn9Hui
-	 cPRCJ9r47ys/BYRQcLX0O+kz5qfvy4A4oAD/nc43na+riokYeiu8ofL9V+xhjqg6shQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492397;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LXIm36iFMZ8kOBujPBh4eH/qjfWvYnVfBxH0cH6iwsM=;
+	b=PrGRj8Z0oxy40wYOBi5wuqIBv69Ghtr4EIS2ZGManQRDcXpMphejK414teB4Kg5/1KKR
+	 9N0Goz9URpqYc5Apk0mdOb1x6UQRoHjKmz53wySUh0spQjTZXey/y3aDm8A/Vs8XEPA0V
+	 6kz4oTiC264O5cd2aiCwKjEota7l19bcTkIJr8ipPZ+le+yJGP4Fr9rSgvZSHEQoFw8sw
+	 tqojFlIJnx9PSH4GT+GXt8V3wAZ/aCy/CioeYuZnpLNJdWpgqbzXAsUCO4GXpeGBs0ZBQ
+	 AA7qqSgVoA+rw2XXteh35aF07smB59vR8NKaZKtkHJN22R/p69CH8p4UT2ppX/EBOBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=dbjy4+Z+;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=jsamXKKy;
-	arc=none smtp.remote-ip=202.12.124.144
-Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iJ0O8ptU;
+	arc=none smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D962760A2600
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:06:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D962760A2600
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FF660A2627
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:06:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23FF660A2627
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=dbjy4+Z+;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=jsamXKKy
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id 2C65B1D000BC
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:06:33 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 12 Nov 2026 09:06:33 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794492386;
-	 x=1794578786; bh=/KkZMOTLKDJQcKnM7ovd2Dn2GxF4wr8aJ6Z+ZtRW5lE=; b=
-	dbjy4+Z+hJnfJusW9p8xSSYAEHXM0zVp+ypHcRANXar9+N2RjAIg+JldE6pUGthp
-	Lvcf/Il+pN0sPVy+sxMeIf+JTov5CMU2K32yZ/91Q/G9C6rw2DxdJsg3dvCdYINe
-	EZQIbjT5sgD6XZ2/0RlJvQdicjt3v/H97hdIRVlmLB+2Enpu2MAwsGFPpoSgHY3h
-	U/KqHJ8Q4wyStF8q5qjnAquoxMKJSUP3plId0gsAywmBcuZe4QC2OjfVCtQlfWeg
-	WckoId/GvVfsqcgNt0Mb9R3kAnXzNV4NdTHqP8PgOThH7Ok2u7Pv6iJwvu7KJGGs
-	ynGZl9a+iBbiVcEBjx2Pgg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794492386; x=
-	1794578786; bh=/KkZMOTLKDJQcKnM7ovd2Dn2GxF4wr8aJ6Z+ZtRW5lE=; b=j
-	samXKKyQcrlGQtGpvUpGp+oRp4ujEWwheRFlyTS2oKjFrvqZ3OJxT8zQVo2wtSLS
-	y2z2lUqhHGGDXKE4iIcBBKaVCcF1lMPae/SfaTKgolpV5+DZeNIeL2EiEwsB5HLH
-	YteQ+sMl05mL6Qa0MSed67pdWOcmw8DNNuVOC9XMWEuw/WAQuv+u6ukp0fxBH8GI
-	3rD8uEkVbMZ/dnaUPE1rIBadBBBHId7UKltBuZT+ikbKxQcprio7MuSLVpk6vDRc
-	Yj9DsT4AwO7GP+IqZsaBHdQHfxLsvMG77YBI021VzcHYu9yE7k4H9lqZPrHCcIyS
-	Ymo++NmJ9mCgfJnKZjwwg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794492386; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:BkEC50Z1W53c6caK4HphqilALZu3j0CxEiSeGj80xU1rOBM
-	GO41AgAHm1RtG9xVD/vUgOSFg20l5jMIlaElv0cn56/GN1YOXozwo2SVFxoN4dlF
-	ZCsiwURlAqHoLdqVC01Bxk6JWhWaglb82965QlY8pBcB9ABIgBcp+6A3YZibr1Zk
-	kDPSydxRsHZ0DVvF2X6C+9Lzp0GEM2JylMg2hY4YP99nDJJP1VSGmsSh3sSKvSWo
-	9AE7UfiTAZVxTPeL3YV/uxqijMdGOWwCo6rcr6y/7VcQrid6P3QB5HRRzBiDf7Ad
-	eSyVKo6s/saDpCY7Ye7Jb3w+h7GUvOcXZhC1sYw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:TDEx+2XEDPCwv4i3FL9YSLCi5D8dWp2o3/cQgDiP8ns=:JHxY1gVMr5Yna58r7UfKvy6gRlQIWiwsrWDbIJI7G2c=;
-X-ME-Sender: <xms:38f1ap_rJ_jsCsMQ41MAW2hQ3TzEVmEcFUvryDJReN1fekLFDTRq9g>
-    <xme:38f1aogA03r26N-KGCidodJks_jV2i2QBQITe8K6lqxYzUtCzOaUbofdiK9mgnl9w
-    4ZSp7imGgtUt91NUthq-qz5A_onLXGmHwQOGqHgoeFbSVisrMxAOq7c>
-X-ME-Proxy-Cause: dmFkZTGPYkBCc9nvzgnh9CGa6gZKRI+IcEF1fg2G7Wyq7UzVQeV6zNhlYgHQfreqw2bxe9
-    xQstIULovF3CK4uhQpR8cEZz7AA0ChTcc22sELOJwvqNoYuolmsRFj0T0BBjeZiEwJOfuC
-    8YQUZSg/a2Pp3PAfG0BJ1TzmC3yOR/962VxYr9uTD3HHZcQj7wOtSY5EZ9rz/FmieEs2pt
-    ukVFgDGlkLdaPqPT+/JFhrt3WarMufiyGKdUxGynEAYbzdq/V972kexsOQnXXscwtAYcd8
-    d+KOCpTn2YnKI3/alMszUky1iaLkLaklciJetmtygaZapBAqTDBO66YloxtQj3IKN6cSTA
-    MAGBcSvHE8mQzLvD1RdfnfYWV44W4zZqHFWnK46VkpMPCkZtCvdy1JS+zAdg6ODYWBgKsD
-    G8sSlbHqlM7hd4t9mTGAxa1B+jPcF0JHXlo4G4Ns5UrWM79As6MJBBbDQ9pzNL5wmKmp89
-    HsTHn1gVjydVG6zngECVmN2OdrumnMCfS/7D+j5FlgpCnRuWsk1vNcaAv2ujcn89BUVEfq
-    aLFNbpWVHAZQkgKGXB3cfnG5iKu8XvVRhSk8NbFtdT58W6T/GXeZegPtC8Q5A4B0/fsRCc
-    JckAnzZnlsR81jRCGZDPK88pufnNmWTUXHHxN6EbStsauEOutjojfgYf/PJw
-X-ME-Proxy: <xmx:4cf1alh_NXAllw19P2oRA6fO455cK5nUCq3vAi2OiZ7imJsGjryqrw>
-    <xmx:4cf1aqe7-r9GX8R86cK8PdYqUuBHWMw1K7V0irj7LBNAkhvArEZsOw>
-    <xmx:4cf1ak1gMTN2vGrJp-SfOWzM_3j-zFtVjwOA2HoRHWTsnOzc4VECqA>
-    <xmx:4cf1amr-GAxp0EUs_TeKwqgOPFj_tHkZmUeu7dDGJJqE9zrC2m2dMg>
-    <xmx:4sf1agKKrF8Afl_meq1aS-zdAZZTmLJ8mGoP55xmG21a__LtfRPA2OIF>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 0959B32A0099; Thu, 12 Nov 2026 09:06:23 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iJ0O8ptU
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c506094fd93so411398666b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:06:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794492396; x=1795097196; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LXIm36iFMZ8kOBujPBh4eH/qjfWvYnVfBxH0cH6iwsM=;
+        b=iJ0O8ptUFgqzUF0HS2nnVTaNoVhPcmUF74R8wDy41neP7vq8HMRXJc7K5zqFIyWN50
+         OQ2Kui+CINP4jSWel6CZfma+s5yUJ+g0EH99NZ3Zvfld8OwRHv88d2jr1L/vA3RSM74J
+         HPRGuwMFgZ4DHsxcYpPV1O/i31el9yT2KWGfyqtInfS9sidP7NwZ60CxiXUOCROqoaka
+         Dbs35OKCAs+OEVnFzQb2wsESoXa2IW/ATT6rBkW+P+HhV76RoMgrIgmiMR5kdb1KUQN+
+         fmR3iGk+RPAT7sBQAKFNlKkqseCiRLmBwx64KRd2OABz+/XaX/jJSLMVvxItD5VFNZyW
+         6qYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794492396; x=1795097196;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LXIm36iFMZ8kOBujPBh4eH/qjfWvYnVfBxH0cH6iwsM=;
+        b=fPpAjlaMBNvNPDWj6MUBmCr1KuTIadVT9LYDISE/BoCtSL5cnfM3SpPgVsTThud2Jm
+         vtSMT9rh21heZjM05HjTa9Lp5H3i1hwFzD0unko6qylihjdqh/hU39X8d4CLVZfHwTEH
+         FMQBCuveVA8Bznp02cARTTQu7RhAiq9AgWC4Cn2TxlSXl+ifnK4X32txcD9TlS2ssvSY
+         UAPkBrhO8Rlswom/h1A1l9npcbzBP/uo3iRNrsAApaUJCVx6SuXRnzdmVEfOTtnQuj3v
+         MsbJK+bzR+x9l2VVQw94lz51yW8U460PCI3IqiOVAkHOpRbkSQ8WU/dUYGTNdmSYblUA
+         a+7g==
+X-Forwarded-Encrypted: i=1; AL+hErE6iYOE66fBsPhp/7EPT3zwAulUUo4XkPMHqIl712A66e29Bzci6r9AbAwgMVP0yBbOQOwKiguGtotrnN8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+11pPinpViy3YkLDD/SrYe/uzBcGT7ldZ+cWHwmOlYIrMHZTyQ
+	F6wfK7xaJnI3GJ3h/VLiEv38XoYSuBCiqUZQRqyJr1nxcmOZssKbeEdh
+X-Gm-Gg: AYBFou0XvXd2cZ8vwOhNBCn9A87Tf1sQObGk1VbBuCoc9NpAl9OwOAoSIBQPvLc864c
+	iKvekxkTCIYkG3LkTbtl79gZm3X8k1QZCPtwJdIaF+2yJncxr+YkxS1UJz+yXEdl7rRjG0nGqWb
+	lortfvVicCpVRydBaHvMS+A9koek8z35WokxO8oftIM96VaFrE98QxzJKkMPxeNsSKZfOr8m8hd
+	o+BH9KUVK1I7jh8OiM7cGZHz76UyFQLdTeGXYZXrGqIsWfbK7nv37269KzongSC5kgtldmBgl8G
+	uEZbg+bCv5g8hO83ISrpwTFJomgXhBgMLq6QljIXvou+S+KklaExMbbOF36+LmKpa7lfWixv/HF
+	ISMVtFusswA//4lmVl2A/0+SGJZRpMBVeK5oQvgg4BXkq8Jx0YcowSKk+NP9GFmyo7qtPFgOHbv
+	JXPO6Yn34I085luf6rX5+xvFTeXuNw6TEbtIN/aQ/rxsvPieBHla2+0GZuNZybxrEn2VGzGIRd2
+	yDowhpOkoAf0QZQyIO4rDm4udOo1mlEO6h2ONTD/bt775y2+IZp2wLk6XqoTW6dIncgIPdGsbXS
+	1+xl01XWaEuQ++itOv/FxDMlNwzSZGr52LuVzINwgH6Z1gPTgOdDxUpt2uPwVBAhXPyW529KQvu
+	2XOSKMZ7LIkwmDGpcah8Ss2ArPeD64tSWRe1lYtgXpeuFzFtQYiTy6xSUIvKqLAja5K19sO3vwA
+	WwxI+N5zG9UhOS9f+KOQwBhi4e7ISCrAU5pVbvRfi95Myg/1/eNMSLQeaRr9n9OeGq/NLBWLTUs
+	dVyqTPyeVdvhw==
+X-Received: by 2002:a17:907:1b1d:b0:c4d:31c5:e30 with SMTP id a640c23a62f3a-c5066d3db13mr442488966b.49.1794492395421;
+        Thu, 12 Nov 2026 06:06:35 -0800 (PST)
+Received: from [192.168.100.100] (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a593b5esm363017266b.34.2026.11.12.06.06.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 06:06:34 -0800 (PST)
+Message-ID: <c1af6845-bfa6-480d-a240-7b918331234f@gmail.com>
+Date: Thu, 12 Nov 2026 15:06:33 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,41 +95,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AgHRK7OsiQZc
-Date: Thu, 12 Nov 2026 15:05:52 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- "Masami Hiramatsu" <mhiramat@kernel.org>
-Cc: "Christian Brauner" <brauner@kernel.org>, linux-kernel@vger.kernel.org,
- linux-kbuild@vger.kernel.org, kernel-dev@igalia.com,
- "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>,
- linux-alpha@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
- linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
-Message-Id: <e993ddca-9e64-4a78-adf5-a105dd5d6254@app.fastmail.com>
-In-Reply-To: <20261105-tonyk-syscall_table-v9-2-8d1275885d9c@igalia.com>
-References: <20261105-tonyk-syscall_table-v9-0-8d1275885d9c@igalia.com>
- <20261105-tonyk-syscall_table-v9-2-8d1275885d9c@igalia.com>
-Subject: Re: [PATCH v9 02/15] syscalls: Create unified partial table for all archs
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/2] kernfs, sysfs: refuse splice on /sys/power/resume
+To: Tejun Heo <tj@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Ian Kent <raven@themaw.net>,
+ Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+ Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ driver-core@lists.linux.dev, linux-pm@vger.kernel.org,
+ autofs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
+References: <cover.1793715774.git.krystianmkaniewski@gmail.com>
+ <c943b8e768ef766b0f6563b6085e99fe@kernel.org>
+Content-Language: en-US
+From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+In-Reply-To: <c943b8e768ef766b0f6563b6085e99fe@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 5, 2026, at 21:05, Andr=C3=A9 Almeida wrote:
-> To take advantage of the subset of syscall numbers that are guaranteed=
- to
-> be shared, create a new table and adapt generation scripts to use it. =
-In
-> that way, every new syscall can be added to a single file.
->
-> Create special ABIs in order to make the table work for different arch=
-s:
->
->  - `clone3` for archs that use the common clone3 entry
->  - `__clone3` for archs that use their own special entry point
->
-> Create flags for syscall Makefiles to use the common table.
->
-> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> ---
+On 11/3/26 16:51, Tejun Heo wrote:
+> Hello, Krystian.
+> 
+> On Tue, Nov 03, 2026 at 03:57:41PM +0100, Krystian Kaniewski wrote:
+>> Patch 1 adds SYSFS_LOOKUP and kernfs_ops->may_lookup. Writable opens of a
+>> marked file refuse both splice directions. Their of->mutex and seq_file lock
+>> use separate classes. Read-only opens retain splice support.
+> 
+> Can we be explicit and name the flag after what it does, e.g.
+> SYSFS_NO_SPLICE and kernfs_ops->no_splice?
+> 
 
-Acked-by: Arnd Bergmann <arnd@arndb.de>
+Yes, that is clearer. I renamed the flag to SYSFS_NO_SPLICE and the
+kernfs_ops member to no_splice in v3.
+
+>> The new property cannot be combined with mmap or preallocated buffers.
+>> Kernfs rejects those combinations for direct callers, and sysfs rejects
+>> SYSFS_LOOKUP together with SYSFS_PREALLOC before selecting operations.
+>> Binary attributes do not support SYSFS_LOOKUP and reject it at creation.
+> 
+> Can we keep the rest minimal? With /sys/power/resume the only user, I don't
+> think things like the mmap and prealloc combination checks or the binary
+> attribute rejections are needed.
+> 
+> Thanks.
+> 
+> --
+> tejun
+
+Agreed. I dropped the mmap and prealloc combination checks and the binary
+attribute rejections. /sys/power/resume remains the only user.
+
+I'll send v3 shortly with these changes.
+
+Thanks,
+-- 
+Krystian Kaniewski
