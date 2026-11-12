@@ -1,56 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794475719;
-	b=owyoat8YDyhUWAzSvNQh+2c2fx8XTA1HgS5mD+TGmdXLkdcwdRSLki55JMa/gFMVH+Ag
-	 z+AyA+dA7vqgqivzHHQVitWz6abM3rqznuNtQ/2PgwIDbibCDhn+HuycbCgah9sGgRqf8
-	 jx/6oqd/CVr1m2/WrO8Zms8UUXyiK3Pwi/b+HHFV/spYgaf79cPYeWg3FPG31DTblkuRU
-	 i/J0+7SlVS90cE8xwvMuNrlEy/LLcTDdVB95OoBA2b7T89nPFBN+hscbpmjYnl+eN+Iic
-	 /AcGgIpaTz5nm9Q85LJp10T53z5f27bwB3JIv2uUQ6ETIpmYbN2zg7v32aZBc5siiDw==
+	t=1794475718;
+	b=tnUECwb2vP5JBiu5OCSfDWp3VvVqjWbeqy0c6gWNlwA4D6JX1vO1mqP40JvkFQwHEbWm
+	 EAEKkoSeT608885R8LGObm6ebX2Mfl0hwtpETmBJOnCak04ExeLgynRNn5dEqhexKvwPk
+	 9bx5JZRnHsx3w+dq1uQZXxi/5YbAgGxZcuMB3rqbWCO9brnkr8qu3OAyybrc88ywnGa1q
+	 XpWuBpMD4j7OlmkPModB68RPafDrfGAfIySwHjxyImVlIGQwU4IGjDtF4Mn4MxklW5oU8
+	 KnK0yRW2flg4FVuPlLsPNjEbYSw8Xixed+IpIt5fM2HRj287KdovRydkxhvq+2oPDKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794475719;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=Oh7pEweTka3zkQsRuXJERHa5bAXzxW+yDE0QBxnaa64=;
-	b=vuXo0LlFOawRIaUFvGjw+PQN/ix4PeKTyegHElbjfMiRkzxYnFhAAxtWI+7Ucvw133wK
-	 xYGTDYtSpdxEfBHELfr/yGYDnBXw3I5IYcJk+d0CQLf92nWIoXKMVmdNOaG6ch3QZsTgG
-	 ua6qg9GLYNxh/rou1M2FyA5Ae8OxGfkTZ8MHevsdLBZhhGuHNIBezBZfsh5NmgF82sr4R
-	 Rhe8vmX6FdAXUlb2G2hz45LQxTwJljlc7P0GciCDyefCn0jKTqHg4NzT4b8jD11uUIjOH
-	 XZNWhUgLz8PDoEEEvZT1D5ip7y92FRJ4Y17D4iBOO/9UgWsadcg22QARR+REaWAIZNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794475718;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=KbuCzE0byKrCqNBQq3LoAsHfLXabBhfbTAhCl8zjbwc=;
+	b=PrWpkjMigf55XohNY6BHpbK6zvsnPqRypVCUlMwZzT3WctcCvU9zjSwAnsVIExriaY3n
+	 czAHbIYkQ8cdNNxRsmy/pj5T+V2V5+kY++x8mcl8sN4Hz1WGejU8YGz9a5b1CUftkUPDz
+	 wFXg3vWnf0j5DCIdC0HAp6pUV5nipPkAsZ4kNrACqlHxnkiWobFdW+6ST+XOhTD3Az6cT
+	 ysFLrwGcIT/ANGwvBS2CqPQaz3SrQEYE8eDYba8LaKALZRFlyLOlVr7BKpKgCaxP1OaTv
+	 OFHga9891oIvj9SRSqPWWItFRGFM5Q2Lyo2zmmV35xpsY1I0bSXVVKhsVWuvY0d3CPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LsH37w4b;
-	arc=none smtp.remote-ip=95.215.58.158
-Received: from mta1.migadu.com (out-158.mta1.migadu.com [95.215.58.158])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TKMPx+yy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A82606A33D
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:28:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38A82606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 1DE80606A32A;
+	Thu, 12 Nov 2026 09:28:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LsH37w4b
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7opVJAHK0m5GwSlc4qZV3y00qwxR2kUqAzycyzdxJUA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794475717; v=1; x=1795080517;
- b=LsH37w4btILyvaCXtGlsdRrrbYGldAUJR601UJtjk54cN2+CXEBDrT0kw2kD/okGRY+J70It
- ZtDnszW1+kOW93jQJcI1Mt30x0V3GEkuq7fvDLIi7T89O7a3sC87Z53NSEgqD06ppPm9ZXE62S6
- wEGFRa8POXNFaIOU9YsBlCXs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id ac79973681355c66;
-	Thu, 12 Nov 2026 09:28:37 +0000
-X-Mizu-Trace-ID: ac79973681355c66
-X-Migadu-Flow: FLOW_OUT
-From: Hangbin Liu <hangbin.liu@linux.dev>
-Date: Thu, 12 Nov 2026 17:27:56 +0800
-Subject: [PATCH net-next v3 1/5] seg6: split final End process out of
- flavor processing
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TKMPx+yy
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 340691F00A07;
+	Thu, 12 Nov 2026 09:28:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794475717;
+	bh=KbuCzE0byKrCqNBQq3LoAsHfLXabBhfbTAhCl8zjbwc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TKMPx+yyqE6y3ZOzeXSPsNoAzxOG2USiaLHYaHfyR9cg5vIUQumBRe15h6yS5cR3x
+	 FVZnNPJL0Bx/Fndef5b5qMdbYf1riQhYWjcpvVsGObnVPj/82NGgI8uQ3JW/hlc4Pf
+	 eg9QQaDyrdUJNKa/kvYtya0saHYhKK754EH8R+1JlRKFKArBLKfeq6E2dySTH4Dq6G
+	 4sMBC9tDplocbPJgqRlWoKKH12TTGMN7rhfhtuFUQa5c7oToT6ohNaHHRSVlOjeqiN
+	 yhHlSctVeRzcWLnbBF0dKTE3VSG6zmVGpSL1WB7lSfGrP06dtmBK5LVe+tI0/9ttru
+	 R81d42DfGZ+SA==
+Date: Thu, 12 Nov 2026 10:28:34 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Vinod Koul <vkoul@kernel.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Subject: Re: [PATCH v18 0/2] phy: qcom: add the SGMII SerDes PHY for
+ firmware-managed systems
+Message-ID: <rrwzar7uq3sxkwsio727mt3sgxg32m4beewjswboklk5mcnggk@iv2yk3bbqraq>
+References: <20261103-sa8255p-eth-phy-v18-0-b00cc2fa0404@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,88 +62,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-srv6_flavors_endx-v3-1-c9177bbbd965@kylinos.cn>
-References: <20261112-srv6_flavors_endx-v3-0-c9177bbbd965@kylinos.cn>
-In-Reply-To: <20261112-srv6_flavors_endx-v3-0-c9177bbbd965@kylinos.cn>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>, 
- Andrea Mayer <andrea@common-net.org>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>
-Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- Hangbin Liu <liuhangbin@kylinos.cn>
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103-sa8255p-eth-phy-v18-0-b00cc2fa0404@oss.qualcomm.com>
 
-From: Hangbin Liu <liuhangbin@kylinos.cn>
+On Tue, Nov 03, 2026 at 11:35:51AM +0100, Bartosz Golaszewski wrote:
+> Vinod: Sorry for the noise but sashiko pointed out I forgot about one
+> comment from Krzysztof. This still should be good to go, there were no
+> more sashiko comments and this is just a rebase + a commit message tweak.
+> 
+> Add support for the firmware-managed variant of the Serdes PHY present
+> on the Qualcomm sa8255p platforms.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
 
-Move the final End forwarding step out of end_flv8986_core() and return
-success to the caller instead.
+Hi Vinod!
 
-Currently end_flv8986_core() performs both RFC8986 flavor processing and
-final End forwarding by calling input_action_end_finish(). That couples
-flavor handling with the End-specific forwarding path, which makes it
-unable to reuse the same flavor logic for other End variants.
+This is now reviewed and has no sashiko comments, could you please queue
+this in next to allow us to proceed with associated DTS changes making
+use of this driver?
 
-Split the two steps so input_action_end() does:
-  1) end_flv8986_core() for flavor processing
-  2) input_action_end_finish() for final forwarding
-
-This keeps end_flv8986_core() focused on RFC8986/PSP flavor semantics
-and makes it easier to plug the same flavor core into End.X/T later.
-
-Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
----
- net/ipv6/seg6_local.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
-index f71e47b5e764..65d552f87fa3 100644
---- a/net/ipv6/seg6_local.c
-+++ b/net/ipv6/seg6_local.c
-@@ -885,6 +885,9 @@ static struct ipv6_sr_hdr *seg6_flv8986_get_srh(struct sk_buff *skb)
- 
- /* process the packet on the basis of the RFC8986 flavors set for the given
-  * SRv6 End behavior instance.
-+ *
-+ * Returns with skb freed on failure. On success, the caller must complete
-+ * final processing and forward the packet.
-  */
- static int end_flv8986_core(struct sk_buff *skb, struct seg6_local_lwt *slwt)
- {
-@@ -945,7 +948,7 @@ static int end_flv8986_core(struct sk_buff *skb, struct seg6_local_lwt *slwt)
- 		goto drop;
- 	}
- 
--	return input_action_end_finish(skb, slwt);
-+	return 0;
- 
- drop:
- 	kfree_skb_reason(skb, reason);
-@@ -957,6 +960,7 @@ static int input_action_end(struct sk_buff *skb, struct seg6_local_lwt *slwt)
- {
- 	const struct seg6_flavors_info *finfo = &slwt->flv_info;
- 	__u32 fops = finfo->flv_ops;
-+	int ret;
- 
- 	if (!fops)
- 		return input_action_end_core(skb, slwt);
-@@ -970,7 +974,11 @@ static int input_action_end(struct sk_buff *skb, struct seg6_local_lwt *slwt)
- 	 * information extracted from the packet, e.g. presence/absence of SRH,
- 	 * Segment Left = 0, etc.
- 	 */
--	return end_flv8986_core(skb, slwt);
-+	ret = end_flv8986_core(skb, slwt);
-+	if (ret)
-+		return ret;
-+
-+	return input_action_end_finish(skb, slwt);
- }
- 
- /* regular endpoint, and forward to specified nexthop */
-
--- 
-2.56.0
-
+Thanks,
+Bartosz
