@@ -1,77 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794510500;
-	b=p9ebgQDQ9qDSA0hCCjg2rNt9UDK378y8XlzvuVuC4W7MLGR2iYwcHLlQirX66yaSTrAY
-	 g1YzOzKp/53d0A7Bl8fECm526dMenbO1x8z9RACmqBcQ0k+qktChlZuDSnDERuqYiOxQ5
-	 fhDPMLzz8+9AZbHxT4cZfL3+LMETG3aAz1JjjmmecXkFmupg4o3/PL4fk6oepgeuWS4rZ
-	 QQwCDKQBasZG5JI3aGN8x1xoWjtQyXd+f0k8n8puwBBixnrgoDcJ3QusB9vcWT8hnkux0
-	 unLkZf/zaiyF8aN+Ywy25vWyjOMOr9i99k2kbipK0mnh9xrtfW3AMscBzgXtWCQBLTw==
+	t=1794510567;
+	b=O4uuCVUQsAQOPOinQPQazHwxud4T/vJZzaJnAYEgZQPThnl8QVvnM3IXcUEu1+x1XVX4
+	 Xou9q/MfDXw6ysxG7QlUM0YfXVLQL3oqfOL7qtmZMM7ZX/Z0+6g7WSkibgC9xDggPXK3D
+	 aUZlcYvbWi4jwDMIKHmyYtTZYQX+n3avARE5+HnJAAnJFA3P9keSN38P2aZtrrpovh4TN
+	 2/Z8QwP3iUyJmoHGqm7v1zzwf5i/NAOiuBfSV7xzOpuWTG13fD8AWMln8XuseLpuAGuQ3
+	 EzcJPqCs15cQAIu4Dbv7WAZzg8Ok8UtWTCCW0EOgauClJCRf0TaD5cycW4ltul4SBzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794510500;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=x7avfF8CE7MQkedzx8waSCJsEYoj4qczcsv6b4mLDHA=;
-	b=je0aiEt3OqQcYJAkr1fOGUs6qpU/BFBeF5Cala5VnaOCuQHEW/mAKQYSNz/hyqKulOgj
-	 anQY/UYDveunC2AqCH83oqx6BUlO96z3cT1QepIs9STfCvWDtjru+dkr2beEhTJXk9k5E
-	 yVyH/GGIEHfmP3qv7w/9oBIy/sgJpp1xsssaTlOXxolsHCi3vASmuB9oh68lc8Wmkl7Ad
-	 WPfM/PppXLg4j9IL/pr7vhmxGEIYGf9gwLCcVnUE5KLLhzFZrxGfAH++mkOx3Lx6uyZC6
-	 hIAiPcDAagSlS8HxCDhWPAInC6O4prfkyMOJMoHtv+qWkmCoaM58QM09Di1QPhVNz7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794510567;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=c1dni8wQl+kQkoRfg2fRmlfc/EYuUZuhfj3zW0/x6MU=;
+	b=vfI09W2nospcVlqG/wlSvA87jkLKfMmZoOXxf1Zfv7+bcmCwYAvKz+x2ovQLSyl1s8RO
+	 4D+2umr1s+VE2AJmRvW3aMmG+WIS2LFe4ZhmvdlwTV6iG06A7eI3Z9U9vLpZsMZpmrqy0
+	 EozlBNsy4t9r35X4S1xUx7r+VPBVbykEdkmwsfddGjLj0rmwSo8ujElKkOa4Ytkb0MkxF
+	 OjMunbrHk4f2f2pB7fyev+uv2b4YcqTGfHuMTmMTuuNcmYfcpkoTWLcd/+4ZWatYwlmdV
+	 M9U8L/uBFvOexJjZ15zkxLpmq8oDGqIMfSFOWssKOOKH8yhnuAu5IjxsVB/NwHY/o/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
+	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.222.43
-Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com [209.85.222.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PpIKNO9i;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5458606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:08:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5458606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A40606A883
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:09:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0A40606A883
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-99c0c1d07feso131227241.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:08:19 -0800 (PST)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PpIKNO9i
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-37628596783so358479eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:09:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794510566; x=1795115366; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c1dni8wQl+kQkoRfg2fRmlfc/EYuUZuhfj3zW0/x6MU=;
+        b=PpIKNO9iCXFN0JuyGZ/RjZ00OHOtXTxwdAm4SLsStsWOLkqrrwwVw0caO0Ele+3UrT
+         GxTZPKtkK51agJTDDENcxoOs0wyewqtU13D1SGzYQB14hbh+382ev0/qIpmG701aBiuJ
+         4W8Z7iwA52jkHhetKcadgSjc6RFvrHLBovzVvAIMGDJOt77cAYhORPDFKD+tjbiS8OYk
+         7d8uU3QRfp0pX9o+fiwGd2YvMiP9Busry76kmVmG/GIoXyQYHnPZyGQm/GdfBv/fL3X1
+         HBrtnY+BdBEIN2CyYcKuCWAMWA8/Jm/pyolaf0VaUdNYJfdJqd1EVuybQ0mF/RGhzbCG
+         DBbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794510499; x=1795115299;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=x7avfF8CE7MQkedzx8waSCJsEYoj4qczcsv6b4mLDHA=;
-        b=C2JyYq0gALwrvfebN5Rr9w+QBtyRepKfrjQswzHR/UaZcl/9NhFY3SfxombOz1tNga
-         1J19GJHzWoFn9au25yUCVWPvbh4WdPq95NJkt6ynW3BuGk9Lqa4/Efx0jFi8XxLU9SKo
-         PgDSd+wzVQvehAKia+Yo/xr4W0NvLYAUfwcq4p3SgMt32N2GZIP8WxyLxK9wg0RnAYRu
-         VQhod/fC9DKUKqF0LdZeymJT8+Txz1wIADMllWFfJH28MnuioWuO3Ho2fMngjzGus9Q7
-         ymlToBVUeo24/IAxaiAblynY/hp96t1Qhj1wnNHlNNclpN4UFblrCRqEr8PzNS5ow6y+
-         k+Rw==
-X-Forwarded-Encrypted: i=1; AL+hErHPB9xshUYu7N4w5dPiVhrdpN/bLmFWhJVCaqnt/pO1xyQKTFQljFXecLQazRLDd1/8XDeq5Vy/iFcJWp8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z93yI3L6kmO+4EbHuX3oKf5XkkkpPG/zytgUqXh/J43E46pDUOg
-	mcYDpWRVDwwhTbyrj7c0uyEF86w5VZtvFLFRv1JMJdo8LVO6PbKUnmAWwLvAZ7AwYuM=
-X-Gm-Gg: AYBFou2XEKhdP4Qw5NQKaczkNaGc4Py6huGOSJYVgvRMN/ETMrsEXBWlxYqpeNlccBe
-	Yc/adRjSOtQh+Re9lyK13pHMZiz090UNULmHPHwo5Es3YTLD+HAIfj3p6EiTcrcJqEtXPpB/XAP
-	156TNF6YWkkZGKxurLjcPdjvQsGFLzpc2X+b9Y5IDd3yXRAo70SVdaU7y/vIZmGP9CdR9MTQIrY
-	FvJSM4z/2qxyyGNDX0rjrbqkbJHBE67T7g9R7tr85QfWALeVmY8/QKs7Y6KbwFld7E2kAibtLdm
-	DFs977ib7IcMgQfCj1pel9aLF9K/3nGLKWK5ojwMBhU8Wqzlt7oFQdXParUbNr2d7RDaQtAc6HK
-	YlVehO3wRi7h6EBp1cCu65YYXO9/9AqqlGIpKrpxGus+xDEGr+Fv0c5SktW/Q2uRA8evJHJl562
-	HI9wz5ZFl6ygOgv+y7BZxBtDh1r4tK0x0JEAuVQzpjR9HgH6mqyLH+jcxVqgA5SSCkPNRC73T1z
-	TmFmNNn2VdkUIV76cJaUFZ9KoGgAibpTAWDu+x5GeU7wt+nbzeTTDK7BTp3DqL8uHe74mbQkVey
-	xwUn+g91Y4y2Nmkr0g2cQrZHDKOBIW8XMT2Jzr90fObCgP8TZZJOSDJaexrGiA1MENfohQbFzvE
-	OJ3vYFD/uFG1z
-X-Received: by 2002:a05:6102:32d2:b0:7cb:bb33:8413 with SMTP id ada2fe7eead31-7d64d6ed86emr72390137.9.1794510498537;
-        Thu, 12 Nov 2026 11:08:18 -0800 (PST)
-Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com. [209.85.222.49])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c84271587sm236470241.6.2026.11.12.11.08.02
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 11:08:06 -0800 (PST)
-Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-998749fe872so137569241.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:08:02 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFZNi+mrF7qGmwmn82V+kUuaTMWZPbYDD8AronC9ESiEp7PN5rKq/NSsZPdkuNJ/YlBMvTV6A4/brdBrMY=@vger.kernel.org
-X-Received: by 2002:a05:6102:c15:b0:7d2:8dd0:2eb with SMTP id
- ada2fe7eead31-7d64d6ed886mr73919137.8.1794510481935; Thu, 12 Nov 2026
- 11:08:01 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794510566; x=1795115366;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c1dni8wQl+kQkoRfg2fRmlfc/EYuUZuhfj3zW0/x6MU=;
+        b=faf0vYz9izTFNaXERRb83S7zibN1BQWouFxf6T19n9WOrtbTwucgLQ0NdViSng+4YQ
+         hLSYKaLqfS4orpLcnyIX/zbQHFubAPoiserBy65fdgZKjO+RDpib2iV03BIMFpkuoAiG
+         tZo9Hz5YOUxYLHZ1NlnJFz89k+J30L9C1ODsUtPzwY5c10IHROBdVicOEyNJrG+A7+7x
+         cphNO/hbK4JLQi9lTh/VeGommnJ5n+YbveWep97RySFPWVjOb+Offle06TroosSoJTeD
+         YL5wPKQ6dD0BE1wIgWynkLwqIHP+1mNEWQu73ZrTIociTTilWGDXj+IFzot+a5lYTfrK
+         7sIg==
+X-Forwarded-Encrypted: i=1; AL+hErGoRTWSiQmJWMBezOz+lm/a/YUSssq5icbFqyHNS4djTFceh7kmUY8ipPDCaSG3joP069MteM6JbTS9lAE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+sSxNguiZQMK1MVaMowLtw67zn7pepTTDuSqysY69wTVTBCMlj
+	Z2+YxNgx4N+NtdoCvhwPNyzKTW2j7l0Bu/or0Sml/GjStLgTPX+m7BZu
+X-Gm-Gg: AYBFou0kwq80vsUHZrVaOa7mD6CIJ0Pd0lss65UglAf42hQCS14us5672Pyc8bjgkRL
+	Lix0loNw8TqGcVOcpYWpO9Xfx9hktcfaEvjlMQsxNc4nII2FBYeyISyNI/BuRe5S4FWIV6mfZ4y
+	LbCiqtb4kiAJ6neFMf1MuaSIWXHwIlEUdRjknGOUfPhFiFYvozCqs7aaZyTUEmst5q25SYzhje4
+	1top+eoiCWnEh5C6JtsJNjND1f7owzjMfed9mjdxD3tO7xsMHqfSf5DLL76OCEILkA4+ZBAfy0o
+	oXx22O1LABAM8UVqo6wYkQur2v463v8oZLwHyEh90o1EzWg47eIm5N0UkdXEjdqRYhmyX8eZ6Uv
+	7IkakweWcGthxGws7WDn3yRt16LLWjhFoDIe4AvM6GngpcJjF7iCywWj2xDjz8Mr4cRh3r/6PPw
+	aRDhHqRVQjeQoI0oliYPwlY2h9rPaHuwkz9zvDK0r7vUGAB/AP36tYLJbnfegC7F/TC6ZOF/Ufe
+	7MCkmXmZgTNb873alNwjViAQb6PH68PEjf1Ygb91d8bRUxwTeF1p8RqY+waPd3ziZPxZCxnZQC9
+	zSEfKrb/
+X-Received: by 2002:a05:693c:8816:20b0:36f:350b:3838 with SMTP id 5a478bee46e88-379671247e7mr76378eec.31.1794510566008;
+        Thu, 12 Nov 2026 11:09:26 -0800 (PST)
+Received: from eldorado ([2600:8802:b00:1f88::287])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bad6casm395674eec.26.2026.11.12.11.09.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 11:09:25 -0800 (PST)
+From: Florian Fainelli <f.fainelli@gmail.com>
+To: linux-mips@vger.kernel.org
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	linux-doc@vger.kernel.org (open list:DOCUMENTATION),
+	linux-kernel@vger.kernel.org (open list),
+	linux-perf-users@vger.kernel.org (open list:PERFORMANCE EVENTS SUBSYSTEM),
+	"Maciej W. Rozycki" <macro@orcam.me.uk>
+Subject: [PATCH 0/3] MIPS: SiByte: Add HW PMU support
+Date: Thu, 12 Nov 2026 11:09:13 -0800
+Message-ID: <20261112190916.3725141-1-f.fainelli@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,47 +112,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112-work-procfs-oldmem-v1-0-ecdcafd99265@kernel.org> <20261112-work-procfs-oldmem-v1-2-ecdcafd99265@kernel.org>
-In-Reply-To: <20261112-work-procfs-oldmem-v1-2-ecdcafd99265@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 12 Nov 2026 20:07:50 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdUgOGjwOUMxSabUgtaVeKZW1wx78XOJL8joGKkZEj7RZw@mail.gmail.com>
-X-Gm-Features: AclHuK8l5OcVstuPYNpoHJ657hIuMQK5i9ySH9sE9lHb16H-lVuh0fnzCqi0JCs
-Message-ID: <CAMuHMdUgOGjwOUMxSabUgtaVeKZW1wx78XOJL8joGKkZEj7RZw@mail.gmail.com>
-Subject: Re: [PATCH RFC 2/4] sh/crash_dump: check ioremap() in copy_oldmem_page()
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Breno Leitao <leitao@debian.org>, 
-	Chris Mason <mason@kernel.org>, Thomas Gleixner <tglx@kernel.org>, x86@kernel.org, 
-	kexec@lists.infradead.org, linuxppc-dev@lists.ozlabs.org, 
-	linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
-	loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
-	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	David Hildenbrand <david@kernel.org>, stable@vger.kernel.org, 
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Thu, 12 Nov 2026 at 17:43, Christian Brauner <brauner@kernel.org> wrote:
-> copy_oldmem_page() maps a page of the old kernel with ioremap() and
-> copies from it without checking whether the mapping worked. If it
-> didn't, the copy reads from an offset into the NULL page.
->
-> Return -ENOMEM like the other architectures do. read_from_oldmem() turns
-> that into -EFAULT like any other short copy.
->
-> Fixes: 4d5ade5b29c6 ("sh: kdump support.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+This patch series resurrects the SiByte HW PMU support which used to be
+supported with oprofile but was later removed.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Florian Fainelli (3):
+  MIPS: SiByte: Wire up the CPU interrupt controller
+  MIPS: perf: Add SB1 userspace callchain unwinding
+  MIPS: perf: Add SB1 and SB1A performance counter support
 
-Gr{oetje,eeting}s,
-
-                        Geert
+ Documentation/arch/mips/index.rst       |   1 +
+ Documentation/arch/mips/sb1-pmu.rst     | 162 ++++++++++
+ arch/mips/include/asm/mach-sibyte/irq.h |  10 +
+ arch/mips/kernel/perf_event.c           | 106 ++++++-
+ arch/mips/kernel/perf_event_mipsxx.c    | 373 +++++++++++++++++++++++-
+ arch/mips/sibyte/bcm1480/irq.c          |   7 +-
+ arch/mips/sibyte/sb1250/irq.c           |   3 +
+ include/linux/cpuhotplug.h              |   1 +
+ 8 files changed, 647 insertions(+), 16 deletions(-)
+ create mode 100644 Documentation/arch/mips/sb1-pmu.rst
+ create mode 100644 arch/mips/include/asm/mach-sibyte/irq.h
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.53.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
