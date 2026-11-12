@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794488000;
-	b=ofYdlhXGD+Q9UWHkwom9Om+96LYpKeSvzzb1XlgDGUkSS+uok0bIOJ6WokrLaOZswvfN
-	 FFZA+d6o4HorFH25zOW0BXptbllgcu9M2ul8y0Gn54Wm6VdU6pIjQxocLn5WuEdmzxThY
-	 deFDMx/67qL2yGa2Bh8kBu+8UKp5sKNSZ9+AOip6EBsDNwsG5Y5RbcuFnkUmaIynRBXte
-	 6iMrA75nfR+LTly8agDG99TLeShv4sXtUIT6gFIYy+/DJlyFR1Q/E1aaPHTJBfyN8zb4r
-	 YEziOEP4QgJ1FiDjvs8T7hE3QIPL5RNaSHeKgUXTvxAinBMH3Fx551r7UDsPtO2DDhA==
+	t=1794488029;
+	b=Mt4wLo5zui+6rCXhMG3KAQQMksXDe4MpIgzdhAD1ZO5xmlMXa6A2W5vCOvPwq08Ow0xA
+	 rV3y36LQhMUYLCfKklVOr6wE1XAhCOv/eaOZBM2nmWtZENzr4L9KoCpmBJGCgS81KeaWy
+	 zJf+PnB0wp2NvTPPq0porzmhyfdfsjGKtrBUJIV2gSZyMa2xOA0uJge57D4QG4YpeA8tV
+	 fdLe9bhWSxvEnUlKgJKY0Mkd+/14bR6TK+zh9eQB5uo8QzLoiwK5zziq+P4DPi4hp8hJ7
+	 cYvMIkHg9eJMfq47Z67XngerLVNByEL6Ow+xKv+UeR0YV/SeBcshzSSDmm3qR+zqZ0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794488000;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=jGP1b9jLSQAhw1LFbHdnVE1Cm2LzDCydg1pHvlgHSlU=;
-	b=Sj9x83KclBtY8NKcDBSieVHmnzi1fEGcU3M9HSiU4OP+EKNK48dbdwNUzQPc9rDurIs3
-	 6xtt3EYJkQW67LGUc06IuxE8R+5GkpMw+Lxd643SpfqfJUIW5/7buzhdhpvrRtPJjW0nK
-	 vaTkdPsudv52twM6dVp/RgsuTB7qYGDLDUSxcpIEQtm/bhCMGv9YXBS9Ji0JfQjKvqKV9
-	 Ftx+P8J5s+4VthXQyztSI8/ajyqGQko76xVa02sYdvzwUBLsEvsJHw6aGij6kLQZrndlo
-	 HKa4qPsVQcoynMR4/oYn7NjPVEObuJVvD5YTzGU8wpwNMY7wKvhEZ02X7B/xtV2jU2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794488029;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=2SfI1Ism+5ilI2yQhrJEphs77J0IHLC7svD8evqdJ+c=;
+	b=Y6JFsHH8+LjtMdOesf3JKVjlpvTzNQUT1Hy25YJwiZQUM/N8nAjLSXDxhSrt5Edd4ac5
+	 CijKoOH57zKMeK4LigTtRAwgQ3VLK/2O6hs/OxTb/Goc83fa+tQMe1KmKdtgGC84kdfaA
+	 Y/BmeLtwpVkJKBxYKPUXRtHNkBQ7zRYwTi3NLPq0NvxasbJM+Z5kyXqGIWcPEcaA60VTw
+	 /6nH2OV9OXdAA40jecDyYzV0iLuFPMr/P86AVstpUn7XR//4w3DekdMUbDpHpLKwh7Gq7
+	 YH8tS+YucSJiH9ldOyaGhQtzJdmda2elqhiCM6xwJ526Bwzq9+8TeLZakCOGF2PeH3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=m0BvharU;
-	arc=none smtp.remote-ip=185.70.43.166
-Received: from mail-43166.protonmail.ch (mail-43166.protonmail.ch [185.70.43.166])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZxqeL4J;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1976606A32A;
-	Thu, 12 Nov 2026 12:53:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1976606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6060C606A31C;
+	Thu, 12 Nov 2026 12:53:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=m0BvharU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1794487998; x=1794747198;
-	bh=jGP1b9jLSQAhw1LFbHdnVE1Cm2LzDCydg1pHvlgHSlU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=m0BvharUtArG4OstXIzrvNfYNCC4VZhvXTlvV9msTyo7x6bfiVWEAQE3QcXUBin17
-	 ub8mMN8L6PHCPEYXlNqEhJS7oBDtkHv3VVY5cd/r7f1MAqwfu7EMSRcowTj2HnZtnl
-	 LU/ZuilRJb+1nmqI6MvC5mGv8VCGVWCVpgKVgIRozLTAo6XVcdxBqwKtgsMlhC+y3v
-	 vR995jHgD6DhGvPmkZrSkwqnulBRwduA0fs4FezDJJJpflEH0e5gELUVYFkWTQ+hMV
-	 No907ESqdTkXIgLwP98X69v9GqQNY3NLuAhM+BkS2IPvKHYpetIGwegv/3QMr8da3o
-	 SLmaVZkaNGGFA==
-Date: Thu, 12 Nov 2026 12:53:13 +0000
-To: Vinod Koul <vkoul@kernel.org>
-From: Aiden Isik <aidenisik@protonmail.com>
-Cc: aidenisik@member.fsf.org, Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, Sylwester Nawrocki <s.nawrocki@samsung.com>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org
-Subject: Re: [PATCH 2/2] phy: exynos5-usbdrd: Add support for the Exynos5515 usbdrd phy
-Message-ID: <Dhrinh2IqyBByHLyFp_SHX9igTjQgKk4G62C1vp6tHdO8QkM4kiFDLaExxnZeljVMXJ8YksFrLRDRT9voAj6LiJYqPvrUg3nFVNFzi7C9Bc=@protonmail.com>
-In-Reply-To: <avWeJqbpbLcWgq_R@parshuram>
-References: <20261022-for-next-lucky7-usb-phy-v1-0-2e47f8484bf4@member.fsf.org> <20261022-for-next-lucky7-usb-phy-v1-2-2e47f8484bf4@member.fsf.org> <avWeJqbpbLcWgq_R@parshuram>
-Feedback-ID: 46524699:user:proton
-X-Pm-Message-ID: cb3b8ddeefb938cd47e6dcf3bc37b5939fef5922
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZxqeL4J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5E311F00A05;
+	Thu, 12 Nov 2026 12:53:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794488028;
+	bh=2SfI1Ism+5ilI2yQhrJEphs77J0IHLC7svD8evqdJ+c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eZxqeL4JRZct0SGU6JGFkA7wIy5CX6amIYnbY7wk2/pQhUkZZ0URZ/ajj+ks6uW+m
+	 Vc0UICK9M4JGuQANKuekkGWjGw/Y1lLfUV0DIL6/7rMMczGwZcioHRENshAOk83XlT
+	 qhc2R5eGXa2ZPEdBagY27MDxRPpBbqZknCs/FSfHuemJFvmM7LQ66kMUAJBw8w6kFa
+	 Tfd+rrc27i2NRJfnIrkYLNVUeYhejIXCKUuFqQdnMLo7DmjftabuZZyMffPFVI2AYA
+	 NUJvduI6tPwBhx3AZVPlnAnxSc1Hi5wg8Wr1dpMQw0KTZIt8A8we5s4Wx2BQeVOCJx
+	 LMcNKV/PrCXhw==
+Date: Thu, 12 Nov 2026 06:53:46 -0600
+From: Rob Herring <robh@kernel.org>
+To: Vinod Koul <vkoul@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wesley Cheng <quic_wcheng@quicinc.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: phy: qcom: Relax required supplies
+Message-ID: <20261112125346.GA3821108-robh@kernel.org>
+References: <20261021022446.3619435-1-robh@kernel.org>
+ <avWbmsjkYo2LMJKs@parshuram>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,25 +63,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avWbmsjkYo2LMJKs@parshuram>
 
-Hi Vinod,
++Konrad
 
-> .n_phy_cfg does not exist.. Please fix this
+On Thu, Nov 12, 2026 at 04:27:30PM +0530, Vinod Koul wrote:
+> On 20-10-26, 21:24, Rob Herring (Arm) wrote:
+> > For the QUSB2 PHY binding, keep the three regulator supplies required
+> > except for legacy IPQ6018 nodes that do not describe the board rails.
+> > 
+> > This relaxes the requirements for the IPQ5210 as well as if it is
+> > compatible with IPQ6018, then it shouldn't have more required
+> > properties either.
+> 
+> Hey Rob,
+> 
+> This fails for phy/next I see vdd-supply has been moved around..
 
-As stated in the cover letter, this is introduced by dependency [1]:
+The change in question[1] should not be applied until the .dts changes 
+in the series are applied. It introduces a bunch of warnings. Can the
+QCom folks stop doing that! Coordinate applying the series or take 
+the binding and dts changes in 1 tree. Given the patch series is 2+ 
+months old, I'd be surprised if the rest gets applied.
 
-> This patchset also depends on [1], due to using an
-> exynos5_usbdrd_phy_drvdata member > (.n_phy_cfg) which was introduced to =
-fix
-> an out-of-bounds access bug.
+This patch OTOH fixes warnings.
 
-> [1] - https://lore.kernel.org/all/20261020063559.3530901-1-selvarasu.g@sa=
-msung.com/
+Rob
 
-Which has since been merged by yourself. I assume you just
-looked at these patches in a different order so saw mine first?
 
-Kind Regards,
-- Aiden Isik
+[1] https://lore.kernel.org/all/qusb2phy-v2-1-4c3f980a4560@oss.qualcomm.com
