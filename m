@@ -1,57 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794493164;
-	b=DNVP6ROkqb1l4uGhIXNd99UNDJvxrX277bpCYDAqePHP6Y4adr2CBVvcUNj+CoV5WijD
-	 IAaBM3HiEOphWyLZuLlxIPorStecy4U4r2Yi4tCjbFz4KjvHn2FZ2kLI9ga/izhhVcbaZ
-	 z1EgbZTuLsQoyZ7g2xHoXoWuYpGF3oYFhwRhOojlgWhvx/y/JeY8Gat9wYaeFmA2oXM0d
-	 74pj1VsndthVw7YV+F9zRJ2Cp/yKe02EtZQoCG+HELOKuXh6ofyDm7tj0qkWVVluYZGdg
-	 kcBdnvtQ2YLlpF2nKPZkvCJQc2PQalhVZXPP2lpvOwJj2e9CMqJBEgmEIiCNnyO7tlw==
+	t=1794493171;
+	b=1FKEs7VwA1+KK+g6OzZ4DvIvdAiar+BFyN/xVQUa2+4OYSTV3lGxzPFhBCoRItt5iV6d
+	 auNmT8Y82ZDIsZM6v9GF5s0Dv4iE6syayFnEULj7u3PWZZ75OUQnaf01y9e80kpWW0HZu
+	 hugLU5yu/SdXPOMD227lJaZpiIUFlSHyW2JNaTuBGG8Ik+SyQPf7I+sPeUOhFF4V/iw2B
+	 9TDnTnM6H56Qg3M8cDlMOpZUla8+HFzp8uKojRLQ3ZUZSOnPqz5INfc7gFJ7deb2GAvc+
+	 DKL8tNlGTqfyATeDEuxyo1O/Koi5JL2bQoxXeTVk6Fnie+mAyPl1L//JtphyIluXzdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794493164;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=pnCp5Ux0GmDJfIuw584yh8GGWEqd7YbOTNLion6nYJM=;
-	b=a8scACp/OjUjJVMpl3HP+3x66VksIc2vjpxN/gB2ZKrzMudZWDxqvkT6MyVCznJE17Q1
-	 hnYOmHRK9Bq+zrC+Px3+GXxcwmD2u5L1EVb5IOckgaRQg5efTrRCZcwRxVexx60Tgsc14
-	 qcQYngbmSx20fHTlRwRIFHjWScmzHGPm7lqEiJAeFjxyJaXbGgzQCDWZg2R1Y/xVh9JIM
-	 2QPaGP6Mrq9DWL06DXSAS8pLS9GZnG3pTY9C+CL3jfGgqsU2tYEo2LmuWX2za5cM70Xxi
-	 qM2eHFUq66rtYFMkKcmvyMOPx1wj9Fup7g953L+WFyb4Z5N7HkapSvThEb/WbAil9Tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794493171;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=TcEjjUuJIiNJuc7sk4kV9FAQq6x0S4IRWvvkq+L9Mq8=;
+	b=03zNRzjNvbkBjvOrZ0nI8Wlx4fXUtnQw9VqS3L6cBOfa/FMg81xuuQRHxqmZjd21SUXq
+	 7uNyjc/LLfcl4KGrDlcg5D0auxcxUAlGts9mq0KHmSU9LTipcB0vvEtyEeZYk/58CRnsF
+	 1CJS74NZewZUB5HjefMWBDbfQ1In0SSLZbZ/vcE0oj1UBKhrTtAWmh654htpCH4E5aAee
+	 55B8H0Kn98gI7NwxUXnJcW8aLGAOMFnQHjaZJDmfRuPYBwWnTrnG9OIPvLc7LSRBgkBxj
+	 BsvfO4/0X686Z+jpq9P0LklIu2an9Uq/z6POgwAcYp5wd0AkF6gMLHk/dgOJUj7gPcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pmawl4IX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LJcyFiN0;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57A6606AE02;
-	Thu, 12 Nov 2026 14:19:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D3F6071162;
+	Thu, 12 Nov 2026 14:19:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1D3F6071162
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pmawl4IX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48B3F1F00A05;
-	Thu, 12 Nov 2026 14:19:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794493164;
-	bh=pnCp5Ux0GmDJfIuw584yh8GGWEqd7YbOTNLion6nYJM=;
-	h=Date:From:To:Cc:Subject;
-	b=Pmawl4IXvD46kT3nXUm4DQuk7jnYsH97i5h7Uj6VJpfRi8GsSik6xGrYu6Bmk9a1C
-	 ncPyvbnl7A2fVEKqH2OWDVyQ+lnVDagAj8c6q7dakbzuhlsJO5DWxukleySO7eVIQY
-	 C2l2eeskTBNucC7+PdJxQKo9127jx/zl9U9WtN1bIoDBmct146ZFkEcMye8S1+Cp1W
-	 qlyalpQO4RLWwl/5qLlYTcxM1xLYdB1O8bfJ2EUIkH/xlGE6dK1yeVt/olgA2s+dZN
-	 61R7QvnraDJ9GyFS5U4+btHBf347F4sEjD0llTqdNBYHDoiNPlQjn+JN5jetQEwgYi
-	 hcq6+q8qPt/rw==
-Date: Thu, 12 Nov 2026 14:19:19 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>, bpf <bpf@vger.kernel.org>,
-	Networking <netdev@vger.kernel.org>
-Cc: Kees Cook <kees@kernel.org>, Kees Cook <kees+treewide@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the bpf-next tree with the origin tree
-Message-ID: <avXK527T4yDydgya@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LJcyFiN0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794493171; x=1826029171;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=xUcvKCihTmlSdXDnXczK6IdehGxQgFiGfelnPTO5NZg=;
+  b=LJcyFiN08ttYI9b/kTcxHOKosHQFpImkNd2XqnAddq9DkGxcDaTtxSwT
+   Wh3phQ0UZM5mzxTlcKraolPxN7x/8rdgiWSirZgqToXbqBpZiKYSHD0Xi
+   Bet4OAEprcKQ77pOE/hRlJri5Jr6ZSvBsNzdJBcwAXfuh5uUYEqxjG42F
+   xBGr4tY9oa7186F/JtmoGA84AwYckQqFhCx8d/84m1Y7lpEHu2/s7G45n
+   qeNvxPh4ba8EXkE3QzBWlo404WMCvJVWsGIMmVMtnn7KKSjw9N+W2r4lN
+   NKfkBJZqmY6yWCGeBgG50T42YTQPaC/xGvgOAaS8a8XOacSdnzbb58Ndb
+   g==;
+X-CSE-ConnectionGUID: sPs7N/qFTCyzQ8oAnKBgiQ==
+X-CSE-MsgGUID: 468b2IqxS+atp7EOU40qQw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3377859"
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="3377859"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 06:19:30 -0800
+X-CSE-ConnectionGUID: ZVQCAMdzST2lgoFt9Ge3Xw==
+X-CSE-MsgGUID: xnW23FrMTdu/RqPo1wuDmA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="8668810"
+Received: from yungchua-desk.itwn.intel.com ([10.227.8.136])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 06:19:29 -0800
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: linux-sound@vger.kernel.org,
+	vkoul@kernel.org
+Cc: vinod.koul@linaro.org,
+	linux-kernel@vger.kernel.org,
+	pierre-louis.bossart@linux.dev,
+	peter.ujfalusi@linux.intel.com,
+	bard.liao@intel.com
+Subject: [PATCH v3 5/5] soundwire: stream: Fix bandwidth leak in multi-link aggregation failure
+Date: Thu, 12 Nov 2026 22:19:05 +0800
+Message-ID: <20261112141905.1372770-6-yung-chuan.liao@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261112141905.1372770-1-yung-chuan.liao@linux.intel.com>
+References: <20261112141905.1372770-1-yung-chuan.liao@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,139 +84,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="QRzQixSA9p0gQ/D0"
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+From: David Lin <david.lin@intel.com>
 
---QRzQixSA9p0gQ/D0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+When preparing a multi-link aggregation stream, a failure on a subsequent
+link during _sdw_prepare_stream() causes the stream preparation to fail.
+However, the bandwidth allocated on the preceding successful links is never
+released, causing a cumulative bandwidth leak.
 
-Hi all,
+Fix this by saving a snapshot of each bus's parameters before making any
+modifications. In case of failure, we iterate through the stream's master
+list and restore each bus to its original parameter state, ensuring an
+atomic rollback and preventing any bandwidth leaks.
 
-Today's linux-next merge of the bpf-next tree got a conflict in:
+The lane assignments are stored in the port runtimes rather than in
+bus->params, so they are not restored with the snapshot. Reset the lanes of
+the stream to 0 during the rollback so that they match the restored
+lane_used_bandwidth. Otherwise, the stale lanes would be used by the port
+computation of other streams on the same bus. Skip this when the parameters
+were not updated, as the lanes are still valid in that case.
 
-  kernel/bpf/scev.c
+A previous prepare can also leave a stale lane behind, because
+_sdw_deprepare_stream() resets p_rt->lane only when the lane's used
+bandwidth drops to zero. Reset the lanes of the stream being prepared in
+sdw_compute_bus_params() when no multi-lane is selected.
 
-between commit:
+Keep curr_bank and next_bank when restoring the snapshot. The failure may
+happen after the register bank has already been switched, and restoring the
+old values would make them differ from the hardware.
 
-  0af298e62e5cf ("treewide: refresh kmalloc_obj() conversions")
+Fixes: 7a30292ffa2a ("soundwire: generic_bandwidth_allocation: select data lane")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Lin <david.lin@intel.com>
+Co-developed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+---
+ drivers/soundwire/bus.h                       |  3 ++
+ .../soundwire/generic_bandwidth_allocation.c  | 14 +++++++
+ drivers/soundwire/stream.c                    | 40 +++++++++++++++++--
+ 3 files changed, 53 insertions(+), 4 deletions(-)
 
-=66rom the origin tree and commits:
+diff --git a/drivers/soundwire/bus.h b/drivers/soundwire/bus.h
+index 44e4f5193917..476387b70472 100644
+--- a/drivers/soundwire/bus.h
++++ b/drivers/soundwire/bus.h
+@@ -155,6 +155,8 @@ struct sdw_slave_runtime {
+  *
+  * @bus: Bus handle
+  * @stream: Stream runtime handle
++ * @params_backup: Snapshot of original bus parameters saved before stream
++ * preparation, used for rollback recovery on failure.
+  * @direction: Data direction for Master
+  * @ch_count: Number of channels handled by the Master for
+  * this stream, can be zero.
+@@ -166,6 +168,7 @@ struct sdw_slave_runtime {
+ struct sdw_master_runtime {
+ 	struct sdw_bus *bus;
+ 	struct sdw_stream_runtime *stream;
++	struct sdw_bus_params params_backup;
+ 	enum sdw_data_direction direction;
+ 	unsigned int ch_count;
+ 	struct list_head slave_rt_list;
+diff --git a/drivers/soundwire/generic_bandwidth_allocation.c b/drivers/soundwire/generic_bandwidth_allocation.c
+index 9bacde2c67a1..214a1be6c33e 100644
+--- a/drivers/soundwire/generic_bandwidth_allocation.c
++++ b/drivers/soundwire/generic_bandwidth_allocation.c
+@@ -656,6 +656,20 @@ static int sdw_compute_bus_params(struct sdw_bus *bus,
+ 		list_for_each_entry(m_p_rt, &m_rt->port_list, port_node) {
+ 			m_p_rt->lane = m_lane;
+ 		}
++	} else if (prepare) {
++		/* Clear stale lane assignments when preparing on lane 0. */
++		list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
++			if (m_rt->stream != stream)
++				continue;
++
++			list_for_each_entry(m_p_rt, &m_rt->port_list, port_node)
++				m_p_rt->lane = 0;
++
++			list_for_each_entry(s_rt, &m_rt->slave_rt_list, m_rt_node)
++				list_for_each_entry(s_p_rt, &s_rt->port_list, port_node)
++					s_p_rt->lane = 0;
++			break;
++		}
+ 	}
+ 
+ 	if (!mstr_prop->default_frame_rate || !mstr_prop->default_row)
+diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
+index 06f051f03a21..bc0e2d5eaf0c 100644
+--- a/drivers/soundwire/stream.c
++++ b/drivers/soundwire/stream.c
+@@ -1477,21 +1477,26 @@ static int _sdw_prepare_stream(struct sdw_stream_runtime *stream,
+ 			       bool update_params)
+ {
+ 	struct sdw_master_runtime *m_rt;
++	struct sdw_slave_runtime *s_rt;
++	struct sdw_port_runtime *p_rt;
+ 	struct sdw_bus *bus;
+ 	struct sdw_master_prop *prop;
+-	struct sdw_bus_params params;
+ 	int ret;
+ 
++	/* Pre-pass: snapshot original bus parameters for all masters */
++	list_for_each_entry(m_rt, &stream->master_list, stream_node)
++		m_rt->params_backup = m_rt->bus->params;
++
+ 	/* Prepare  Master(s) and Slave(s) port(s) associated with stream */
+ 	list_for_each_entry(m_rt, &stream->master_list, stream_node) {
+ 		bus = m_rt->bus;
+ 		prop = &bus->prop;
+-		memcpy(&params, &bus->params, sizeof(params));
+ 
+ 		/* TODO: Support Asynchronous mode */
+ 		if ((prop->max_clk_freq % stream->params.rate) != 0) {
+ 			dev_err(bus->dev, "Async mode not supported\n");
+-			return -EINVAL;
++			ret = -EINVAL;
++			goto restore_params;
+ 		}
+ 
+ 		if (update_params) {
+@@ -1542,7 +1547,34 @@ static int _sdw_prepare_stream(struct sdw_stream_runtime *stream,
+ 	return ret;
+ 
+ restore_params:
+-	memcpy(&bus->params, &params, sizeof(params));
++	/*
++	 * Revert all managers to their snapshotted original parameters.
++	 * Any manager that was not modified will safely revert to its own original state.
++	 */
++	list_for_each_entry(m_rt, &stream->master_list, stream_node) {
++		enum sdw_reg_bank curr_bank = m_rt->bus->params.curr_bank;
++		enum sdw_reg_bank next_bank = m_rt->bus->params.next_bank;
++
++		m_rt->bus->params = m_rt->params_backup;
++		/* The hardware bank may already have been switched */
++		m_rt->bus->params.curr_bank = curr_bank;
++		m_rt->bus->params.next_bank = next_bank;
++
++		/*
++		 * The lane_used_bandwidth of this stream was reverted above, so clear its
++		 * lanes too; a stale lane would be used by other streams' port computation.
++		 */
++		if (!update_params)
++			continue;
++
++		list_for_each_entry(p_rt, &m_rt->port_list, port_node)
++			p_rt->lane = 0;
++
++		list_for_each_entry(s_rt, &m_rt->slave_rt_list, m_rt_node)
++			list_for_each_entry(p_rt, &s_rt->port_list, port_node)
++				p_rt->lane = 0;
++	}
++
+ 	return ret;
+ }
+ 
+-- 
+2.43.0
 
-  e2f3d29e88d08 ("bpf: Refine registers linked by scalar evolution at condi=
-tional jumps")
-  aba76dc75e35f ("bpf: Construct scalar evolution expressions without alloc=
-ations")
-  cfef7bfa2c2a1 ("bpf: Give SSA names to the values that scalar evolution d=
-oes not track")
-
-=66rom the bpf-next tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc kernel/bpf/cfg.c
-index 1b04538351a1f,bbcf42eae9d92..0000000000000
---- a/kernel/bpf/cfg.c
-+++ b/kernel/bpf/cfg.c
-diff --cc kernel/bpf/scev.c
-index db123ef1f0718,b413998d9cf93..0000000000000
---- a/kernel/bpf/scev.c
-+++ b/kernel/bpf/scev.c
-@@@ -1260,23 -2430,13 +2430,13 @@@ static int compute_scev_for_loop(struc
-  	u32 r;
- =20
-  	if (log_level2)
-- 		bpf_log(&env->log, "Computing SCEV for loop at %d:\n", cur_header);
-+ 		bpf_log(&env->log, "Computing SCEV for %s at %d:\n",
-+ 			cur_loop ? "loop" : "subprog", first);
- =20
-- 	/*
-- 	 * For irreducible loops, and for loops nesting a loop with a truncated
-- 	 * exit list, just assume that everything is clobbered for now.
-- 	 */
-- 	if (!can_compute_loop_scev(cur_loop)) {
-- 		header_env =3D get_loop_env(scev, cur_header, cur_header);
-- 		if (!header_env)
-- 			return -ENOMEM;
-- 		/* The freshly allocated environment has all expressions unknown. */
-- 		bitmap_fill(cur_loop->store_base_regs, REGS_NUM);
-- 		header_env->empty =3D false;
-+ 	if (!cur_loop && !can_compute_subprog_scev(env, sub))
-  		return 0;
-- 	}
- =20
- -	cur_env =3D kzalloc(sizeof(*cur_env), GFP_KERNEL_ACCOUNT);
- +	cur_env =3D kzalloc_obj(*cur_env, GFP_KERNEL_ACCOUNT);
-  	if (!cur_env)
-  		goto nomem;
-  	if (log_level2) {
-@@@ -1724,25 -3142,27 +3142,29 @@@ void bpf_free_scev(struct bpf_verifier_
-  int bpf_init_scev(struct bpf_verifier_env *env)
-  {
-  	struct scev *scev;
-+ 	u32 r;
- =20
- -	scev =3D kzalloc(sizeof(struct scev), GFP_KERNEL_ACCOUNT);
- +	scev =3D kzalloc_obj(struct scev, GFP_KERNEL_ACCOUNT);
-  	if (!scev)
-  		return -ENOMEM;
-  	env->scev =3D scev;
-  	bpf_mark_reg_known_scalar(&scev->zero_reg, 0);
-- 	bpf_mark_reg_unknown_imprecise(&scev->unknown_reg);
-- 	/* A power of two for hash & (exprs_ht_cnt - 1)` indexing. */
-- 	scev->exprs_ht_cnt =3D roundup_pow_of_two(max(256U, DIV_ROUND_UP(env->pr=
-og->len, 4)));
-- 	scev->exprs_ht =3D kvzalloc_objs(*scev->exprs_ht, scev->exprs_ht_cnt,
-- 				       GFP_KERNEL_ACCOUNT);
-- 	if (!scev->exprs_ht)
-- 		goto nomem;
-- 	if (expr0(scev, UNKNOWN) < 0 || expr0(scev, OPAQUE)  < 0)
-+ 	bpf_mark_reg_unknown(&scev->unknown_reg);
-+ 	setup_initial_loop_env(&scev->identity_env);
-+ 	if (grow_exprs(scev, roundup_pow_of_two(REG_EXPR_ID(REGS_NUM))))
-  		goto nomem;
-+ 	scev->exprs[UNKNOWN_EXPR_ID] =3D (struct expr){ .op =3D UNKNOWN };
-+ 	scev->exprs[OPAQUE_EXPR_ID] =3D (struct expr){ .op =3D OPAQUE };
-+ 	for (r =3D 0; r < REGS_NUM; r++)
-+ 		scev->exprs[REG_EXPR_ID(r)] =3D (struct expr){ .op =3D REG, .is_vn =3D =
-true,
-+ 							     .params =3D { r, 0 } };
-+ 	for (r =3D 0; r < REG_EXPR_ID(REGS_NUM); r++)
-+ 		set_expr_base(scev, &scev->exprs[r], r);
-+ 	scev->exprs_cnt =3D REG_EXPR_ID(REGS_NUM);
- -	scev->envs =3D kvcalloc(env->prog->len, sizeof(*scev->envs), GFP_KERNEL_=
-ACCOUNT);
- -	scev->discovered =3D kvcalloc(env->prog->len, sizeof(*scev->discovered),=
- GFP_KERNEL_ACCOUNT);
- +	scev->envs =3D kvzalloc_objs(*scev->envs, env->prog->len,
- +				   GFP_KERNEL_ACCOUNT);
- +	scev->discovered =3D kvzalloc_objs(*scev->discovered, env->prog->len,
- +					 GFP_KERNEL_ACCOUNT);
-  	if (!scev->envs || !scev->discovered)
-  		goto nomem;
-  	/*
-
---QRzQixSA9p0gQ/D0
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr1yucACgkQJNaLcl1U
-h9Cszwf/QQGXNv+K8uQHamz2z0m++d+2ZMVpeQltNLm/SwHnDwLCmFBs+ksb+Evz
-zKotMgOIYBwQKGpACEjS2jderRG68rNVeM56t3lXMwAXeh7noaIDCFHW0CdtvMa/
-lqzDgckxEGTIKUMNz3ez3QIrv2Y1QsKl0B2j1ok2HEoHk2Db7mrrTkfb3tR5LdAM
-f2qzkU+b7BKHGtxfSYQ76dwzbUUxvdxT3JJxMuVZpiaxEAX/vUDBD122urvPJ31s
-4Lq1jV57NYMRwzhuqcpzkviyjyOFprtUst+LiH5JmJczizGAPLdgYrNj4jMdujgy
-zjJW+HjA1wi3yyxoCBegw8paZrv6ig==
-=CBu9
------END PGP SIGNATURE-----
-
---QRzQixSA9p0gQ/D0--
