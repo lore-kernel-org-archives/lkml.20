@@ -1,80 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794477893;
-	b=BQr0lTyi8drg1ragX+Na0tWGFBiS4U+vHUDG2zxXp5rQ2BINkGPAZKvgANB4+0zljZI2
-	 IBzETBVJYSzbvLOy0uvmpTnSoUWG4fZpkRUYWJQGxp5n73ZH0RY5gaA5xL/9OjXr25qCZ
-	 97+9Cf5ft9ZlrhuJFJGs3NoakJ4eIiZICuss56tv2N4vaACkdtBk/SK4sMHbSJ8gmx14h
-	 OmkQRCxOg4S01RmiAWrGwTzRg1AqsVkjPj84JA6X8/SJ+5qr9g1z8PmV4KZW69eQJhHb3
-	 T3RfAB7+9wTVtz5GWj3snxbPqQG2gPGjj/xglRZxipnzEHbUw62lGkOhJ0mv5E0WgPQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794477893;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794477901;
+	b=q3rGQEEzsglv1KtGQKxQ8Pnq2hu9kXHPAnqe4s04Oct9yMtfeaQyBabqXeKKIHfDVbl4
+	 bJHp8l+P6nfZTI7GYEhGK8VbkD6IiQvYrA/edsP91PueXqdalVWD+00GVHbbJpE4DVxTu
+	 xCCUKgVRt2KkjFgkNs69aqU58iEfN6R63bCr75Ydv0Jbth2/GRf/epRLnVkYPUBEjwAR0
+	 vYMQZfqSJhRhV6NO1eRkavpeOiAatIxL8urFS2PWqDcjHrstncuUP5Mx1kv2PTrczdgfW
+	 lDouAMzMHInV85obG8zejQEY8MXIb3Y9miXbC61ed4lnjfaGxykkTt/se6gwMYqvi4A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794477901;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
 	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=NBN+ait1vnoTBJpyFDKCXrZkJDvsdxTXfqwXVO+djQA=;
-	b=0OoqBUkFSHyURp7Hj79+Fqm0jZ3Wc4X4KoOTP/yo3JwDlkPr8il/DCNOpoEC8MoxfKQD
-	 9KlwtPMiyh1fJOfX9dXfVgYXNppijfSQow62DlIlgvw9u8Sj4NH7FSslRyEN+PIv6i3+d
-	 /a0yR3QwCYVoyYzLnWmTX4OR8baElaXFXP+XtXfDTqDLVi6FHCR0gfbA7iM6cDV7t+s5R
-	 VWwP2fN8uYSUAULJwCDRuuRoWQaIWcaqSoAf3Md1Gy7GTn86Mk10J/9+Y9u9wpMRi5tFu
-	 MRU801+gyr1QuiiPjzHpGRvv/xel7U5S7xfiKRLIS3SU985B8uXPIY/mTFloutfH3Sw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tgla4Qya;
-	arc=fail smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	 X-Debian-User;
+	bh=srD7b7Ep/Si4Uv1VqcvOlOJ9O0diFeTtKplDChpFe6g=;
+	b=sBYvLXTEK+/PDLSwWwu5KYpsbIN4pUxY7AOBdLYKiqbzJTE1FZTQxqdSlo3ndU8rsQkI
+	 s0TM837Bp+Gpix4F8/NwBZ7XhmtZJ7gRtUngRzovhG367KqBl8pfGLjRviBN0zQ5SFUEP
+	 WMnTlX8RmNowUubwkL2p+FfcarxV7dOHHZS3Hpv/4Y+gIVxmcc7mxgMPqehVpFleYaZvC
+	 RPQURGA21NPOTdXZOhb84o5VfoJnQO0CgW2uvx38JS6G9i/z3NUG4G8YXOVEgPbQDjUCt
+	 WdxctXBkM9n0yWIdzQcodDzRjLKOWI3Kdd0YO+zIf3zExJt+TVU6Scmv5X97Nz27k3g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=TcCv8MYk;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B1E606A323;
-	Thu, 12 Nov 2026 10:04:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A12DB60A2608
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:05:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A12DB60A2608
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tgla4Qya
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794477893;
-	b=Qppcik8BOBo9jGhMxI8CJytgjES9e5xFumsbryYlE86DWESzKZuktbKE3nhuRoi3Hn0X
-	 vJ8wWMGb3A528M8IeuNjpO2fScXHKPitr176EAgHPJlxuUcR3fQWwCNKDWML5AO887p8R
-	 wZIZSusEac8/5/j6rMebZOMvMpz27VBXxN3XwFMrgliMmktVi2B6hs186LtZQNaSUu+JM
-	 aC2wid7AREjp5QummgHiJSwAvMML9Dq6mBE8X8WrZYnSLXtH2TbJp0U1fBYE8ic9WGX2Y
-	 H1KfPrP1LPAeYgQJRtvzH8fO6eE7paKs9w9jFmpNSAOVc21nuXN7awKnWroOPt+OKbA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794477893;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=NBN+ait1vnoTBJpyFDKCXrZkJDvsdxTXfqwXVO+djQA=;
-	b=rj5RSIMEuyh42Ih85i50j6WR2q874iYKNbwANGpkbbQPAvoIcTVpi4LKb7mw6ehGCa7v
-	 Kr2QEsC8wkTaVyuW4Ypithg2HR0C8mwcuxwWMGLxspU3mvz0X5MmgYP2WuEo91HKh0FdA
-	 5Ka85MDYw2dyU/clbB7FKytOCmNcYLPWKrOw+o7RKsA2O0rIEMjlpuOQuZ5nS6GLRxnzD
-	 i0Xm+sxfySz2GuPDImB5RdnoR57Jqoqpzoi/SgzlYJnRwGeyzXSRGseFBdseu8dw0FBhT
-	 7+CNuoymBXkNKBG5WHJ1wv23GnSV1fITSP+hZpvOIZ572h6dwz2Q8ft5JvHUd+vcRyA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 97B2C1F00A05;
-	Thu, 12 Nov 2026 10:04:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794477893;
-	bh=NBN+ait1vnoTBJpyFDKCXrZkJDvsdxTXfqwXVO+djQA=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=Tgla4QyawhwHRk+ClDd1ZWHhF7CNLrZoz9nUrpN6aE8M1gAdvZ3sbPBaxWfyBSUI6
-	 nl8IRgThN+EIuCFjQtft8vdPVYRbEuNVtymf5N+k5wQ1QtWYmHt5k4vdIZllZBACsN
-	 na4E/KABrUTrKV56VZtVkrKTpg6o13SU5P4FYXDCkDbA0HrSMH0OVulUwwkCSX2T7R
-	 evdea6dqlCdCvpD5rVAtn6cDd7D23Sq+itIW6gYTf5/PuBiyG9rAaxyRUeamvuoxb4
-	 d46UZpU6v/FfAPZk6UQAfCnKvjYwKEmndcXd/mCDUMjXeURSo2VPlFyBJg4MRU2DlQ
-	 wf8ODlkWsWX+A==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2935A49454;
-	Thu, 12 Nov 2026 10:04:52 +0000 (UTC)
-From: Suyuan Wang via B4 Relay <devnull+shyckless.gmail.com@kernel.org>
-Subject: [PATCH net 0/2] nfc: llcp: clone LSM attributes; st21nfca: fix skb
- leak
-Date: Thu, 12 Nov 2026 10:04:47 +0000
-Message-Id: <20261112-nfc-v1-0-ab0ef166f382@gmail.com>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=TcCv8MYk
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=srD7b7Ep/Si4Uv1VqcvOlOJ9O0diFeTtKplDChpFe6g=; b=TcCv8MYkIVyCdESd9ViyissnNb
+	ADAi+Ci5YmHVu2Vj55Ao1yjPViMWUCPBkeTLqb5YhOXzVq4rMEKaUPr4HA6FD0fDIziXWmUD4x1Qi
+	fPoFiAhjWJEJrSPLoMyHsKjI5uljG7+W+ISyE/UwcDVMpneFThzje/jE/qXUyyAiQHm6ppUcT7jrk
+	k5h6+S1C10sjUp0midAhGihYhHjjeP+FuFiFotqrCPJjX4xwrVI9SfEG704EII8nZZIO93UxL39EX
+	pBVJljmr+uTlvT2RK3mnUiRh9CiYipq2/KCQ32ttj5nG6nhrtO18/VCouYAdeO1z+pzCrxjyFG1rt
+	ogJH2dIQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xRRfn-00DssJ-2G;
+	Thu, 12 Nov 2026 10:04:52 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Thu, 12 Nov 2026 02:04:18 -0800
+Subject: [PATCH] slab: allow sheaves for SLAB_NOLEAKTRACE caches
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,59 +64,140 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAD+P9WoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQ0Mj3by0ZF0TAyMTY5PkNNM0c0sloMqCotS0zAqwKdFKeaklSrEQweL
- SpKzU5BKQfqXaWgCGgPcdbAAAAA==
-X-Change-ID: 20261112-nfc-402434cf5f79
-To: netdev@vger.kernel.org, david@ixit.cz
-Cc: edumazet@kernel.org, kuba@kernel.org, horms@kernel.org, 
- oe-linux-nfc@lists.linux.dev, linux-kernel@vger.kernel.org, 
- pabeni@redhat.com, davem@davemloft.net
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794477891; l=1045;
- i=shyckless@gmail.com; s=default; h=from:subject:message-id;
- bh=B38C6ONQmhZ5MxbMTghSPgEXPV1HxFO4pL6qucWz2bg=;
- b=g5PE+Tt1to59OrPXU0EY0UM620cssI/6vUBUL6uWiUgm6jHzBvfJZhO7JsqNS+vpp3fLXE11t
- wnt7fL8T3E/ANAZMy4wnSNuSe6su9GbtCG5arKSjOtM+s7pDaIJRhbp
-X-Developer-Key: i=shyckless@gmail.com; a=ed25519;
- pk=pMtccVGiWES3bV+7YBFuBclkvq2n2HBHQ5azaBrK2lY=
-X-Endpoint-Received: by B4 Relay for shyckless@gmail.com/default with
- auth_id=1498
-X-Original-From: Suyuan Wang <shyckless@gmail.com>
-Reply-To: shyckless@gmail.com
+Message-Id: <20261112-kmemleak_sheaves-v1-1-e40e3d73b253@debian.org>
+X-B4-Tracking: v=1; b=H4sIACeP9WoC/x3MWwqDMBAF0K0M99uAE7FgtiKlpPVWBx8tGRBB3
+ HuhZwHnhLMYHUlOFO7m9tmQRCvBa8rbyGADkiDW8aaqdZhXrgvz/PCJeaeHZ9M22naah6ioBN/
+ Ctx3/sr9f1w96GXE0YgAAAA==
+X-Change-ID: 20261110-kmemleak_sheaves-b3531591ad21
+To: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
+ Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+ David Rientjes <rientjes@google.com>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+ Catalin Marinas <catalin.marinas@arm.com>, Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4171; i=leitao@debian.org;
+ h=from:subject:message-id; bh=MLIdxiVYr0DykPJmiS1vQneQqXpmkadDVW7FJlirFLM=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq9Y9A2ObEikrSuWD4D6AfZFba14UUyXj1BQJy6
+ oYycboraESJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavWPQAAKCRA1o5Of/Hh3
+ bXCUEACZgA+GkTSzeaJdyEh+2nSyorQzJFWP6Jv3W5KJgVCECtKeKV4Yd04X9XYCIG+aEFuPat9
+ r/gz/uZJqKRwnJeWCkgCdJaguu0OduUm2JJphP4vG9inC8fBun2FIp8scbxNq/RR+YjD0JaG8yd
+ C1Fm/XwMXFShRrq6PlSCUGgkCCTRZkNbVa5aqN8JOwI1gw189SpWd6Ogmm4YfJIGVNd48tqtoRS
+ XOt71tuBzhve29nFhpluf8Imf24owalpf6AwT4UzM6WanaXZx+hAAHBg841jWlXhBcIr3uLpuOH
+ xvErIDZuCSALHJ1nNkOOosMp9XGSU9b/VKU9+Y2ASG46r+ZbT5FpsTURY1EfGmH78pJasoGD8+Y
+ 667J4m03ddSbCHSY7l+y8/G0kOy1PoAobo6ATGCvhnrdkkMrguLr/v+DhF7FEKH7qDMqe+EVHvf
+ /LlgKQ7dhMqDg49aITqq+cirxiaEOrcLqGEA2Pm2Mzm4AzOD/DH3FKquCQol+gN2rLSE7Z2HYSw
+ 6CWqem4nea9Bs3Qk4vPN0j3q+LFGtx3gteJ63JeQdBvxXhhrd7VnYdiaTLH/4ThMZDbq2k1ABjj
+ vQP0/cmM9eS4WYO+e5NUFb35TSJ0yllhLPHeaRIcbOcGitn/6RrwmeJAufpM6/hA3m7WXwoqYPh
+ x4Y66BjwKQ5QMnQ==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-Hi,
+This is a patch that makes kmemleak cheaper to run, by letting
+kmemleak's own metadata cache use a _new_ sheaves type. The flag only
+makes that possible without recursion.
 
-Two unrelated NFC fixes. Both came out of a static analysis run, and I
-checked them by hand on next-20261109.
+The cost today:
+  * every allocation kmemleak tracks needs one kmemleak_object from
+    object_cache. An RCU callback frees it later.
 
-The first one makes LLCP accepted sockets inherit the listener's LSM
-attributes. nfc_llcp_recv_connect() never calls security_sk_clone(),
-which bluetooth, iucv and vsock all had to add for the same reason.
+Why that's slow:
+  * object_cache has no sheaves, so each of those allocations and frees
+    goes to the shared slab lists under n->list_lock.
+     - On meta's fleet kmemleak kernels, list_lock is the second most
+       contended lock, after kmemleak_lock.
+     - About 88% of that wait is RCU callbacks freeing kmemleak objects.
 
-The second one plugs an skb leak in st21nfca: the ATR_REQ skb is never
-freed after the HCI layer has copied it.
+Why sheaves aren't allowed:
+  * a sheaf is a kmalloc object. Tracking it makes kmemleak allocate
+    another kmemleak_object, which needs a sheaf, and so on.
 
-Both are compile tested only. I don't have ST21NFCA hardware, and I
-haven't set up SELinux with an LLCP peer to test the first one.
+When I reported the recursion in [1], I suggested keeping
+SLAB_NOLEAKTRACE caches away from sheaves, and commit e47c897a2949
+("slab: add sheaves to most caches") did that. It stopped the
+recursion, but it took the sheaves away from the whole cache, although
+only the kmemleak tracking of the sheaf itself recursed.
 
-Thanks,
-Suyuan
+Commit 17c38c88294d ("slab: remove cpu (partial) slabs usage from
+allocation paths"), from the same series, then left these caches with
+no per-CPU caching at all.
 
+In hindsight, skipping kmemleak only for the
+sheaf itself, as the new SLAB_ALLOC_NO_LEAKTRACE does, would have been
+the better fix.
+
+Link: https://lore.kernel.org/all/aW_NK2NXVgtuzCVH@gmail.com/ [1]
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
-Suyuan Wang (2):
-      nfc: llcp: Clone LSM attributes to newly created child sockets
-      nfc: st21nfca: Free the ATR_REQ skb after sending it
+ mm/slab.h |  1 +
+ mm/slub.c | 19 +++++++++++--------
+ 2 files changed, 12 insertions(+), 8 deletions(-)
 
- drivers/nfc/st21nfca/dep.c | 9 ++++++---
- net/nfc/llcp_core.c        | 3 +++
- 2 files changed, 9 insertions(+), 3 deletions(-)
+diff --git a/mm/slab.h b/mm/slab.h
+index e94ac63d10dc03..7b20f10aa46a2e 100644
+--- a/mm/slab.h
++++ b/mm/slab.h
+@@ -23,6 +23,7 @@
+ #define SLAB_ALLOC_NEW_SLAB	0x02 /* a flag for alloc_slab_obj_exts() */
+ #define SLAB_ALLOC_NO_RECURSE	0x04 /* prevent kmalloc() recursion */
+ #define SLAB_ALLOC_NO_OBJ_EXT	0x08 /* prevent obj_exts array allocation */
++#define SLAB_ALLOC_NO_LEAKTRACE	0x10 /* skip kmemleak tracking */
+ 
+ #define SLAB_FREE_DEFAULT	0x00 /* no flags */
+ #define SLAB_FREE_NOLOCK	0x01 /* spinning not allowed */
+diff --git a/mm/slub.c b/mm/slub.c
+index 8369853ddca721..f19e20b6f9a4fa 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -2850,6 +2850,13 @@ static struct slab_sheaf *__alloc_empty_sheaf(struct kmem_cache *s, gfp_t gfp,
+ 	if (s->flags & SLAB_KMALLOC)
+ 		alloc_flags |= SLAB_ALLOC_NO_RECURSE;
+ 
++	/*
++	 * kmemleak allocates its metadata from SLAB_NOLEAKTRACE caches, so
++	 * tracking their sheaves would recurse into kmemleak.
++	 */
++	if (s->flags & SLAB_NOLEAKTRACE)
++		alloc_flags |= SLAB_ALLOC_NO_LEAKTRACE;
++
+ 	sheaf_size = struct_size(sheaf, objects, capacity);
+ 	sheaf = kmalloc_flags(sheaf_size, gfp | __GFP_ZERO, alloc_flags, NUMA_NO_NODE);
+ 
+@@ -4727,7 +4734,8 @@ bool slab_post_alloc_hook(struct kmem_cache *s, gfp_t flags, size_t size,
+ 		if (init && p[i] && !is_kfence_address(p[i]))
+ 			memset(p[i], 0, zero_size);
+ 
+-		if (alloc_flags_allow_spinning(ac->alloc_flags))
++		if (alloc_flags_allow_spinning(ac->alloc_flags) &&
++		    !(ac->alloc_flags & SLAB_ALLOC_NO_LEAKTRACE))
+ 			kmemleak_alloc_recursive(p[i], s->object_size, 1,
+ 						 s->flags, init_flags);
+ 		kmsan_slab_alloc(s, p[i], init_flags);
+@@ -7987,13 +7995,8 @@ static unsigned int calculate_sheaf_capacity(struct kmem_cache *s,
+ 	if (IS_ENABLED(CONFIG_SLUB_TINY) || s->flags & SLAB_DEBUG_FLAGS)
+ 		return 0;
+ 
+-	/*
+-	 * Bootstrap caches can't have sheaves for now (SLAB_NO_SHEAVES).
+-	 * SLAB_NOLEAKTRACE caches (e.g., kmemleak's object_cache) must not
+-	 * have sheaves to avoid recursion when sheaf allocation triggers
+-	 * kmemleak tracking.
+-	 */
+-	if (s->flags & (SLAB_NO_SHEAVES | SLAB_NOLEAKTRACE))
++	/* Bootstrap caches can't have sheaves for now (SLAB_NO_SHEAVES). */
++	if (s->flags & SLAB_NO_SHEAVES)
+ 		return 0;
+ 
+ 	/*
+
 ---
 base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
-change-id: 20261112-nfc-402434cf5f79
+change-id: 20261110-kmemleak_sheaves-b3531591ad21
 
 Best regards,
 --  
-Suyuan Wang <shyckless@gmail.com>
-
+Breno Leitao <leitao@debian.org>
 
