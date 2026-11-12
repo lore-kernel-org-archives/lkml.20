@@ -1,49 +1,145 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794480198;
-	b=kMw4uISQinIS4FrDYAGI6OS/hteYVjmokBjeQvLWsoRGadb3tbDowPWlxBD1GmgXNp+j
-	 WqncAgWusU3+/aZX01Vpi4YkDlzX1ow/YPwSKa2xxonjo1KecDWq39H/ZmlfxqzqZI9WW
-	 wKhx9xqCX7EC4Opk5IxOvptPQj9cJ2uXVCH0m4fsBHDTv0t7zUJiahoEy1LY2QAFKn8x4
-	 1PmzyjvtHe7T7ah1Euni1QMCOim4B/UNa0+kKnOoSxVBsp7KGj/8uZPoHBMtbNA82MTJO
-	 84Syt1128lM+vyP+m+17ivNKJiiCQrEUpa98tVrKMAKmRlQ9zC5Y6s+LKFaTPQ75o5A==
+	t=1794480208;
+	b=N0cc6DRt3LMHvtzmSZyRXAYqcz3dENOIkgNiftDwoZZV4A6xNAX/t5rStsUlFqiXOvpc
+	 WEZQXu1sb4Z4Xt4+knJ4RWV1IUJIkPg8a9gOXLiKND01uap82t2y01NY+9vfyw65WGTDl
+	 8H8frtUpPxw6HhCQdSWWOmEOa1q/6FEihRBiTwIODa76C6mrd633QozRzWj1SBJFfeZOA
+	 p796/9Lpn7Tp/4IkNvvYhIqR+hp8cxQlexBs9WY11RD3VTPiyDlEi3GTxA79Jom8aarIj
+	 QYi5CTdZZWF/wjIJDiqoXXEACrGhpprK1ihlI3EEdbKHHCDI4LkKskJ9iWlEOOW1QxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794480198;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=X2j4x6ETnjsd3Kk7UiXLGfpl+QRCIcV4hL4S2HQyUOs=;
-	b=mN9AC0Ex7B+D5atKdwsnTFBIYednTNBMHoCZPCvPbFbLDadCI3Nb0+UBTKX550SfRzT8
-	 0U3gFmbqNUNuKVegrien2LL3msCz+aYUuazxcFYG8gjZUUmNLw2qx7SK6wIfIfZvc4JIQ
-	 XOuomNXOcmycIvBE2GCjUWN3e1u0vuP3kxJZ1dbLiN7iFuB8s4ez4qvyXhSnNv0d4TWG2
-	 dF1NedfWdcxVedU3pOqMkBAcb7tfvRKiZb0155hjkmiy/dwKQzGYdFpco01WWq8wB5+H+
-	 GBwnU8FZxBtyqhcZXGITaCeAqBezlg2lraF80m7nclPEtDFSu5qtUy2042HOx/nbO3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794480208;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=tKHbJSnTS/xgwwH8xY3FZeNU74t03Ua9SzHRVgCuNfk=;
+	b=fpILIfGUhSaDrfnzaQvB0dgDKrRK7l/Ch5R2PUaPJYOCEiAF4f5h2CFY4urrYbOg0XBw
+	 WXJ7dOCQ15jWY+ljepw7dSNECbZ9oTzUQsho5JLly2comG2vlcQ4FSR/Yx1I9K7/dJghs
+	 o/3jeG97abdBUxYtLGXXgmWbp0BgT+RYt+mabgL5zirlr7M7FMDnBdZ8ZljvbXiiy4fT3
+	 PEyXPPQUtcyx4APdInMIoQpbXa2OTg7ccEGVv19qlC/M6dS+j4xoUX+94pQnriCwYqfwj
+	 t/KAidMS4fHzB9tMGmtJeeIqI7mmkoZjHn4OGyNMcYeB6gvF6uoq9Dy/9rrP8Yay0fQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="sz/bRcPX";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 787B4606A336;
-	Thu, 12 Nov 2026 10:43:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 787B4606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=FCxhZTnA;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A437606A885
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:43:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A437606A885
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=sz/bRcPX
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9CC8C153B;
-	Thu, 12 Nov 2026 02:43:14 -0800 (PST)
-Received: from [10.0.129.47] (e122027.cambridge.arm.com [10.0.129.47])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 76C8C3F673;
-	Thu, 12 Nov 2026 02:43:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794480197; bh=xDR73f4nxpZk5DSaOewf66eooDmTQ5dy0pwmOSiLIuw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=sz/bRcPXFEyNa7belfSW5kTpVnMxp65VhQF1lieCCf0rIAi0oiwk3xn+JZFcig9CD
-	 1gcmn08lsRczfyJ6K8ZbBvOpIDzJ9EnXmgUZqfKoqEarzelQvs12nZW7bi6qrs3iCC
-	 KiUIJYqG1GFIcWLl7RHP5oXDUOBXgOfs70RBQC7E=
-Message-ID: <1e02dfff-c1ad-46bb-9834-fd4bbaa46179@arm.com>
-Date: Thu, 12 Nov 2026 10:43:13 +0000
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=FCxhZTnA
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3700ed8dbe3so7557071eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:43:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1794480207; x=1795085007; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tKHbJSnTS/xgwwH8xY3FZeNU74t03Ua9SzHRVgCuNfk=;
+        b=FCxhZTnAeK7n/dzZlGfF22knsUTMPuXwGQSbxR9VnkVe3ltOK6T1yguzUaHIKK2Vr7
+         rjXbtbB0TyoD8eWSwZPFSE/msrGdN2FQwWdsktysafMpuWSRc9ArZ8STX8HGMDTONHsY
+         jfy5b3ErpckgJQzRehMt/SpYX5rJwmWgSpmg8CSNgpaEK90R08nR/dPJWQDT+eV5nfKN
+         T/Kz96UKOCz9F5DXzqEzESLKHD8y3gXh0W3l6c+sqjYAEnUT7eAh/TQrZ5r68xEB4oqL
+         xerL5YQGYOR7YA1cV3TWRypuC2VcIuMPF524ziJF9beW5zLwnIy4+TWQg8WRaFVCuEzg
+         K6ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794480207; x=1795085007;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=tKHbJSnTS/xgwwH8xY3FZeNU74t03Ua9SzHRVgCuNfk=;
+        b=KCMYRJdo43ucZyQ9EO2kNkE7Uwbzkudo7yiPMFF/fNCH+064ynkRi3P7gsF6XLikHB
+         y1nmMW3S8XW72BMiS8MfFeMUl3M/v9kxfYArydspQDjtrZeFGuyZH5AST2I53WF5i0yl
+         GnEW0aT4EYm08EnUT2ZZbQj4MtPAUEdflpecv/vHtDOThUyjqS7qkNVRd5KDNsbHZoUe
+         xDVNZmOCXza77ZWftQ8eNE8umacaP/rAA8JH1GcJnedjfGljLeT3v93NExaRhIJEAx6M
+         NjPGkv5ElzzMmNSm3WVvl3qaTBxdwSeEXNym+s6boL8XHX5Vf+341YjPIfG5ykiqQuDU
+         FuOw==
+X-Forwarded-Encrypted: i=1; AL+hErFSTd9X9VdgORfDQIzMCwhErfcoGmz0PDJ8W5zdt5y69FSNlD5KZzjzSqjliQVd3Uj/2A0jI+ru1RbakEM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/N+w8vElrhjw5sdDbyscL2DR8jjNZIYhw90OMimp+5wUKbexWE
+	lbOXuOCQUWzeY1xxhl4wIm8oZg9AGXkmph4ksisAAOQ4knxffqjCmMrQ56dyfsItrRM=
+X-Gm-Gg: AYBFou2L/JgrEbBgSZOLKadQCGcYHnO34vFfhN9WGtqP6xqkjftiLNU5Oy2pymXRRrB
+	RyYLzoB6Z0XFqb+OP1WAjJc3q3aOHfj1b36l1HYIFugxo+mu9/e1Y6CFvl+QN7sNxWW3GqeD9vS
+	vpVap0lfiwycZP9dJX85VDAnrY95061oqfVP66cOAo1F/hd/17lLIxIoo1pJ34MMnE8vANTAiSB
+	Zf/9DmyVQURs2NMnc3qbC4mvPKbPrqP2Hy7ir21friiD4ojp+8V8tLgA9/9ARaqIY2DQ2UO9DOs
+	bxg5EsJ/GXUWDgs0EcHR8EED7dfehONfXSFntXczIPDhjL76fCHEmmEzjylgdGvHVT1PkllIKzB
+	34Q4WbOlLrLvZguA85rEI5aIAe6n98j7GWKpj4yx6zUMbKDVw/RXhFDgdh948IwLkF8Jt6kS9+q
+	UvqvVHbCt4JJPy3H/lQpgvOWbWtRKgQgicZKPH1B6FDgJpW2vRtr+MOv+P/3FvAvgB6bqtozNqd
+	XCQMmMuf0up58b8h1hjNylyD9L/CZEDfwQokfs4/oYo81phkKMU/86vQhBBBXPF5239YGkOwhzz
+	HrLRoVwOGjMg26NUmvQrx13yLJDldAZ8s8OJpc0xVgY4S7+dF822tveg0KOFPLQlpMg=
+X-Received: by 2002:a05:7300:bf9c:b0:36e:1fbe:3571 with SMTP id 5a478bee46e88-3768366a461mr5368073eec.3.1794480207004;
+        Thu, 12 Nov 2026 02:43:27 -0800 (PST)
+Received: from FR9WL0RHKY.bytedance.net ([139.177.225.242])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3772121e654sm13228694eec.2.2026.11.12.02.43.08
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 12 Nov 2026 02:43:26 -0800 (PST)
+From: Yunhui Cui <cuiyunhui@bytedance.com>
+To: pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	dennis@kernel.org,
+	tj@kernel.org,
+	cl@gentwo.org,
+	oleg@redhat.com,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	bjorn@kernel.org,
+	pulehui@huawei.com,
+	puranjay@kernel.org,
+	broonie@kernel.org,
+	cuiyunhui@bytedance.com,
+	dave@stgolabs.net,
+	david.laight.linux@gmail.com,
+	jszhang@kernel.org,
+	tglx@kernel.org,
+	conor.dooley@microchip.com,
+	thuth@redhat.com,
+	ajones@ventanamicro.com,
+	ben.dooks@codethink.co.uk,
+	rkrcmar@ventanamicro.com,
+	samuel.holland@sifive.com,
+	zong.li@sifive.com,
+	debug@rivosinc.com,
+	seanwascoding@gmail.com,
+	andybnac@gmail.com,
+	menglong8.dong@gmail.com,
+	cyrilbur@tenstorrent.com,
+	wangruikang@iscas.ac.cn,
+	atishp@rivosinc.com,
+	apatel@ventanamicro.com,
+	arnd@arndb.de,
+	nathan@kernel.org,
+	nick.desaulniers+lkml@gmail.com,
+	morbo@google.com,
+	justinstitt@google.com,
+	qingfang.deng@siflower.com.cn,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	bpf@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: [PATCH v10 3/9] riscv: implement preemptible this_cpu read and write operations
+Date: Thu, 12 Nov 2026 18:41:43 +0800
+Message-Id: <20261112104149.38589-4-cuiyunhui@bytedance.com>
+X-Mailer: git-send-email 2.39.2 (Apple Git-143)
+In-Reply-To: <20261112104149.38589-1-cuiyunhui@bytedance.com>
+References: <20261112104149.38589-1-cuiyunhui@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,132 +149,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/12] KVM: arm64: guest_memfd: Check mmap support when
- preparing memslot
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
- Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>,
- Oliver Upton <oliver.upton@linux.dev>, Zenghui Yu <yuzenghui@huawei.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Joey Gouly <joey.gouly@arm.com>, Alexandru Elisei
- <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>,
- Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev,
- Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
- Gavin Shan <gshan@redhat.com>, Shanker Donthineni <sdonthineni@nvidia.com>,
- Alper Gun <alpergun@google.com>, "Aneesh Kumar K . V"
- <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>,
- Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Kohei Enju <enju.kohei@fujitsu.com>
-References: <20261111145758.217946-1-steven.price@arm.com>
- <20261111145758.217946-3-steven.price@arm.com>
- <fbc33983-cb8a-48e4-854f-ce009cc5668f@arm.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <fbc33983-cb8a-48e4-854f-ce009cc5668f@arm.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11/11/2026 15:21, Suzuki K Poulose wrote:
-> On 11/11/2026 14:57, Steven Price wrote:
->> Check the guest_memfd backing file when deciding whether an arm64
->> memslot has mappable memory rather than checking whether the slot is
->> gmem only. A public helper function is added to be able to reuse the
->> static kvm_gmem_supports_mmap() function.
->>
-> 
-> Please could you explain why we need this ? Why not rely on
-> kvm_memslot_is_gmem_only(), which already tells
-> kvm_gmem_supports_mmap() ? With inplace conversion support gmem supports
-> mmap.
+Apply the recoverable per-CPU address handling to read and write
+operations.
 
-Unless I'm missing something it's still possible to create a guest_memfd
-that doesn't support mmap() by not passing the GUEST_MEMFD_FLAG_MMAP
-flag. So kvm_memslot_is_gmem_only() doesn't actually guarantee that it's
-a guest_memfd that supports mmap().
+Keep the address calculation and memory access in the same inline assembly
+block, and use naturally sized loads and stores while preserving the type
+semantics of the generic percpu API.
 
-> 
->> Signed-off-by: Steven Price <steven.price@arm.com>
->>
->> ---
->> Changes since v1:
->> - New patch in v2. Check the guest_memfd backing file rather than the
->>    memslot flag when deciding whether arm64 can map the backing memory.
->> ---
->>   arch/arm64/kvm/mmu.c     | 7 ++++---
->>   include/linux/kvm_host.h | 1 +
->>   virt/kvm/guest_memfd.c   | 6 ++++++
->>   3 files changed, 11 insertions(+), 3 deletions(-)
->>
->> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
->> index 1db10d8d6db7..a146f6cde3d0 100644
->> --- a/arch/arm64/kvm/mmu.c
->> +++ b/arch/arm64/kvm/mmu.c
->> @@ -2839,10 +2839,11 @@ int kvm_arch_prepare_memory_region(struct kvm
->> *kvm,
->>           return -EFAULT;
->>         /*
->> -     * Only support guest_memfd backed memslots with mappable memory,
->> since
->> -     * there aren't any CoCo VMs that support only private memory on
->> arm64.
->> +     * Protected VMs currently require guest_memfd backed memslots with
->> +     * mappable memory to support shared mappings.
->>        */
->> -    if (kvm_slot_has_gmem(new) && !kvm_memslot_is_gmem_only(new))
->> +    if (kvm_arch_has_private_mem(kvm) && kvm_slot_has_gmem(new) &&
->> +        !kvm_gmem_slot_supports_mmap(new))
+Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
+---
+ arch/riscv/include/asm/percpu.h | 85 +++++++++++++++++++++++++++++++++
+ 1 file changed, 85 insertions(+)
 
-Sashiko has identified I've screwed up this condition though.
-kvm_arch_has_private_mem(kvm) shouldn't be in there as that allows a
-non-private VM to bind a non-mmappable gmem.
-
->>           return -EINVAL;
->>         /* guest_memfd is incompatible with MTE. */
->> diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
->> index e7fc94e2910a..f65728a713ec 100644
->> --- a/include/linux/kvm_host.h
->> +++ b/include/linux/kvm_host.h
->> @@ -2614,6 +2614,7 @@ static inline bool kvm_is_private_gfn(struct kvm
->> *kvm, gfn_t gfn)
->>     #ifdef CONFIG_KVM_GUEST_MEMFD
->>   bool kvm_gmem_is_private_gfn(struct kvm *kvm, gfn_t gfn);
->> +bool kvm_gmem_slot_supports_mmap(const struct kvm_memory_slot *slot);
->>   bool kvm_arch_supports_gmem_init_shared(struct kvm *kvm);
->>     static inline u64 kvm_gmem_get_supported_flags(struct kvm *kvm)
->> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
->> index 8c97a69b16dc..3dd8d227bebb 100644
->> --- a/virt/kvm/guest_memfd.c
->> +++ b/virt/kvm/guest_memfd.c
->> @@ -442,6 +442,12 @@ static bool kvm_gmem_supports_mmap(struct inode
->> *inode)
->>       return GMEM_I(inode)->flags & GUEST_MEMFD_FLAG_MMAP;
->>   }
->>   +bool kvm_gmem_slot_supports_mmap(const struct kvm_memory_slot *slot)
->> +{
->> +    /* The guest_memfd file is pinned while preparing a new memslot. */
-> 
-> We should gate this on kvm_slot_has_gmem() and how do we ensure that the
-> call comes after it is prepared ?
-
-I'm not sure what you mean by "gate this on kvm_slot_has_gmem()" - yes
-this function only makes sense on a gmem slot - the user above checks
-that first. I'm not sure what value the function should call if you call
-it on a non-gmem slot?
-
-Thanks,
-Steve
-
->> +    return kvm_gmem_supports_mmap(file_inode(slot->gmem.file));
->> +}
->> +
->>   static vm_fault_t kvm_gmem_fault_user_mapping(struct vm_fault *vmf)
->>   {
->>       struct inode *inode = file_inode(vmf->vma->vm_file);
-> 
-> 
-> Cheers
-> Suzuki
+diff --git a/arch/riscv/include/asm/percpu.h b/arch/riscv/include/asm/percpu.h
+index 59f7d44f7d3fe..ae7c123a48093 100644
+--- a/arch/riscv/include/asm/percpu.h
++++ b/arch/riscv/include/asm/percpu.h
+@@ -4,6 +4,7 @@
+ #define __ASM_PERCPU_H
+ 
+ #include <linux/bits.h>
++#include <linux/compiler.h>
+ #include <linux/stringify.h>
+ #include <linux/thread_info.h>
+ 
+@@ -52,6 +53,90 @@
+ #define __PCPU_GPRS_END							\
+ 	"sh zero, %[gprs]\n"
+ 
++#define __PCPU_OP_CONTEXT()						\
++	struct thread_info *__ti = (struct thread_info *)current;	\
++	unsigned long __off, __addr
++
++#define PERCPU_RW_OPS(load, store, sz)					\
++static __always_inline unsigned long					\
++__percpu_read_##sz(const void __percpu *pcp)				\
++{									\
++	__PCPU_OP_CONTEXT();						\
++	unsigned long val;						\
++									\
++	asm volatile (__PCPU_GPRS_BEGIN					\
++		load " %[val], 0(%[addr])\n"				\
++		__PCPU_GPRS_END						\
++		: [gprs] "=m" (__ti->pcpu_gprs),			\
++		  [off] "=&r" (__off), [addr] "=&r" (__addr),		\
++		  [val] "=&r" (val)					\
++		: [pcpu_offset] "m" (__ti->pcpu_offset),		\
++		  [pcp] "r" (pcp)					\
++		: "memory");						\
++									\
++	return (u##sz)val;						\
++}									\
++									\
++static __always_inline void __percpu_write_##sz(void __percpu *pcp,	\
++				       unsigned long val)		\
++{									\
++	__PCPU_OP_CONTEXT();						\
++									\
++	asm volatile (__PCPU_GPRS_BEGIN					\
++		store " %[val], 0(%[addr])\n"				\
++		__PCPU_GPRS_END						\
++		: [gprs] "=m" (__ti->pcpu_gprs),			\
++		  [off] "=&r" (__off), [addr] "=&r" (__addr)		\
++		: [pcpu_offset] "m" (__ti->pcpu_offset),		\
++		  [pcp] "r" (pcp), [val] "r" ((u##sz)val)		\
++		: "memory");						\
++}
++
++PERCPU_RW_OPS("lbu", "sb", 8)
++PERCPU_RW_OPS("lhu", "sh", 16)
++
++#ifdef CONFIG_64BIT
++PERCPU_RW_OPS("lwu", "sw", 32)
++PERCPU_RW_OPS("ld", "sd", 64)
++#else
++PERCPU_RW_OPS("lw", "sw", 32)
++#endif
++
++#define _pcp_wrap(op, pcp, ...)						\
++({									\
++	op(&(pcp), __VA_ARGS__);					\
++})
++
++#define _pcp_wrap_return(op, pcp, args...)				\
++({									\
++	__auto_type __pcp_ptr = &(pcp);					\
++									\
++	(TYPEOF_UNQUAL(*__pcp_ptr))op(__pcp_ptr, ##args);		\
++})
++
++#define this_cpu_read_1(pcp)	_pcp_wrap_return(__percpu_read_8, pcp)
++#define this_cpu_read_2(pcp)	_pcp_wrap_return(__percpu_read_16, pcp)
++#define this_cpu_read_4(pcp)	_pcp_wrap_return(__percpu_read_32, pcp)
++
++#ifdef CONFIG_64BIT
++#define this_cpu_read_8(pcp)	_pcp_wrap_return(__percpu_read_64, pcp)
++#endif
++
++#define this_cpu_write_1(pcp, val)					\
++	_pcp_wrap(__percpu_write_8, pcp, (unsigned long)(val))
++#define this_cpu_write_2(pcp, val)					\
++	_pcp_wrap(__percpu_write_16, pcp, (unsigned long)(val))
++#define this_cpu_write_4(pcp, val)					\
++	_pcp_wrap(__percpu_write_32, pcp, (unsigned long)(val))
++
++#ifdef CONFIG_64BIT
++#define this_cpu_write_8(pcp, val)					\
++	_pcp_wrap(__percpu_write_64, pcp, (unsigned long)(val))
++#endif
++
++#undef PERCPU_RW_OPS
++#undef __PCPU_OP_CONTEXT
++
+ #include <asm-generic/percpu.h>
+ 
+ #endif /* __ASM_PERCPU_H */
+-- 
+2.39.5
 
