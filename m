@@ -1,58 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794447758;
-	b=wAbsEnmfm9ovyRtd1LjskSUGeAuOuSgJMBRZ6ya2/kC0GLEFjqSSQh68Uvx87DlalyxW
-	 kyFE76GS/QwWBrob0/UXSsnwr2IBSVleely5p+LtVincJnkxNiDmuGC/PSgXm4q8yyCgd
-	 AarEQ6ugoQ7rLh5eaXI5hoIZcO2H1ZJl3vlcLIguM5sJHthek8NkcfcKTL/Y/9Cq5Y8kf
-	 efa6LWGpL/VmtMshpGJIQ51/1/0mXr6pNsfboxpy2cvLDphYRnNj3hsVXOD3baC8Qq+to
-	 oJ1CEXqotsO8WRPxdpQfHr9EpPjvgZ9+b1C7HdmUlEbh0pSrVR7+AHNIuU3wcOM6pUQ==
+	t=1794447780;
+	b=ea/FVXE3v/CS5+x73u6lA5naKt+B8iC/i5wC/X7lMvdPESuUmQdVhHV0sHF1jvVwpy1i
+	 ktTqBrcyrdxQUXNutYVpea5yBIZT+dkwU5ojLdfu8IeQrTUJLJ1lxsJYnKQypFmkExEhy
+	 C+MmdPVKRUYfuAgdO/dQ7q5lXTzdvBVuDP3xZ+IUXAfmwIvmyzzYTJN+A+CehwbBsXO67
+	 xNl7F2wFpsdNOlP1ItN02rHzsI+FCDmwYUmXf7/UfBIsVS4nnyDqYUHB0DjAUuNuiWajO
+	 a/6tqDnniJoz7dSy+npxFgAAAUHcagMUrCBYrgGdd7kET/MBIN6M5Mwt5lmObJSb86A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794447758;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=qW9MSBzHosQ7hdtobAJ7KEVajyY4W/gqzP4pj0COmPc=;
-	b=XNZZgIoS+bCoR8nJAW2c+UEbCNArPudZ65oKirlxZVNM+uApyucFBf82+vpL/dpR0rMC
-	 pvbM7ypAKSFohgI3uuE+96yXkZvxk76tn/rGi9lGx/XZ6jpnNp5XxaTxh7vRMjk+Cii73
-	 QYImnEkxNTZ3uPemEbqTCMGZPe8CXph5EKtgz2YjnaEwNaPVT35K5P5vCE9oNhAW1vp4k
-	 KwdT0J1f2BZi/K6dO5dD2A3fucAa6VckXzlS4cAvc0bCoeblviHvJOoq545TSMoa811xX
-	 Y6rSgYa0UbL8dRhJuaM7VMUAKI1m3WtskotjvXu6/+T70TvIXZLhwfdv6MhZ1zykJnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794447780;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=RydkAwhCHaAKlfAub9w35tVkjVw3id/z9+LZoN9cN3s=;
+	b=KCRCg3ZaXwl0CrMfFdsye9MdWw9bEvV9ZiNo3aKvnVB2LHRIW49bvI9UbCNj6eOAQys/
+	 64oDsYCPmyrrBVm71BWnHtwKhLpcUXOPuFTtdIb+eKgi/bWvXp/a2OnRY1fHTpSU4PPMy
+	 FYZdTWkctoYxBnQjrcx/8pw9EbEOzmEGw+xV30aQywmWH+x0bybwVr8kSG81uwcNNkwgG
+	 aCVg43OMaCBSVuK2R5TQrp8w+vRWnILCT4ZvSrf6/x1ZCRKmAeIstZE3jfHh4ja2Vj+my
+	 Ly26Ibw4Poaiq8taptzQVqvzsPyvOrYcjTI67fjUiJFYtXZDv5GThhKjyY81r4Zs8+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=VPfINziM;
-	arc=none smtp.remote-ip=113.46.200.224
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=qyp+1ySN;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 519F3606A323;
-	Thu, 12 Nov 2026 01:42:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 519F3606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D18606A324;
+	Thu, 12 Nov 2026 01:43:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46D18606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=VPfINziM
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=qW9MSBzHosQ7hdtobAJ7KEVajyY4W/gqzP4pj0COmPc=;
-	b=VPfINziMutmXzV51O0x5Q8I/yYikzzBejH83e1meaMnYhaleoueAtFgbUctSPO5l8+ER9+kwc
-	VjpVw9ZxTtA7rGXfplerLYkNHJXidhA38iozeWzw9VZis0gAOobg+DSyVkQkPzy8zyCLHbUzi+A
-	5r0i0vA4P5rDJXYTNFq2d54=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jQ36K1vHHz1cyS0;
-	Thu, 12 Nov 2026 09:42:17 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 2D61340578;
-	Thu, 12 Nov 2026 09:42:33 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 12 Nov
- 2026 09:42:31 +0800
-Message-ID: <7d27b172-d186-4b7a-87af-d0d25554b964@huawei.com>
-Date: Thu, 12 Nov 2026 09:42:31 +0800
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=qyp+1ySN
+Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CCD5E33D;
+	Thu, 12 Nov 2026 02:40:34 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794447635;
+	bh=mbqc4reuJ5uBUi3+eZMvhNNKUYHa01GKz4Io2SYawNA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=qyp+1ySNielkdl0+WhADvwJC2XanDvORnzB3mO35LsdWGnWfo8J/2OEdTcOqSBYcu
+	 D/WsJgfwElxahNpwMU1hHy25tzzEwM7EOgi1eKF0VoE7u0Bv65N+C+DBwaYKq0s1fj
+	 1QcAyKfs/dcLEttWGWavP7I52moXsHbWCpoMn8Aw=
+Date: Thu, 12 Nov 2026 03:42:57 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	linux-media@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 03/11] media: imx8-isi: Support mbus_code filtering in
+ format enumeration
+Message-ID: <20261112014257.GB449716@killaraus.ideasonboard.com>
+References: <20260929-isi_imx952-v4-0-e69f89c7c651@oss.nxp.com>
+ <20260929-isi_imx952-v4-3-e69f89c7c651@oss.nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,87 +70,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 RESEND 7/7] fs/resctrl: Add info/moveable_mon_group
-To: Reinette Chatre <reinette.chatre@intel.com>, <tony.luck@intel.com>,
-	<Dave.Martin@arm.com>, <james.morse@arm.com>, <babu.moger@amd.com>,
-	<corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
-	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <ben.horgan@arm.com>,
-	<fenghuay@nvidia.com>, <tan.shaopeng@fujitsu.com>, <will@kernel.org>,
-	<gshan@redhat.com>, <zengheng4@huawei.com>, <jic23@kernel.org>,
-	<x86@kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-doc@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
-References: <20261110133938.3768632-1-ruanjinjie@huawei.com>
- <20261110133938.3768632-8-ruanjinjie@huawei.com>
- <efd9c3d5-a732-47bf-bca1-50a8650fd0ef@intel.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <efd9c3d5-a732-47bf-bca1-50a8650fd0ef@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260929-isi_imx952-v4-3-e69f89c7c651@oss.nxp.com>
 
+On Tue, Sep 29, 2026 at 04:52:24PM +0800, Guoniu Zhou wrote:
+> Extend mxc_isi_format_enum() to accept a v4l2_fmtdesc pointer instead
+> of a plain index, so it can filter formats by mbus_code when set. This
+> is used by the capture path to enumerate only formats compatible with
+> the connected subdev output.
 
-
-在 2026/11/12 2:34, Reinette Chatre 写道:
-> Hi Jinjie and Ben,
-
-Hi Reinette,
+It's not in this patch, mxc_isi_format_enum() is used for M2M only. It
+will only be used in the capture path in patch 04/11.
 
 > 
-> On 11/10/26 5:39 AM, Jinjie Ruan wrote:
->> Moving a MON group into the mon_groups directory of another CTRL_MON
->> group changes the CLOSID of the group while its RMID stays the same.
->> Where the RMID is only meaningful together with the CLOSID, as on arm64
->> MPAM, the move changes the RMID index of the group and is rejected with
->> -EOPNOTSUPP.
->>
->> Userspace cannot tell whether the move is supported without trying it.
->> Add "info/moveable_mon_group", which reads 1 when a MON group can be
->> moved to another CTRL_MON group and 0 when the move is rejected, and
->> refer to it where resctrl.rst describes the move.
->>
->> Suggested-by: Ben Horgan <ben.horgan@arm.com>
->> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> For the M2M device, the V4L2 framework clears mbus_code to 0 for
+> devices without V4L2_CAP_IO_MC (v4l2-ioctl.c), so this change has no
+> effect on M2M format enumeration.
 > 
-> Do you find that this binary "supported/unsupported" accurately captures
-
-I think this behavior is deterministic on MPAMv1, so that's enough for mpam.
-
-> everything that MPAM may ever want to do in this area? Could it be that, for
-
-That would be what the new version of MPAM does (such as v2 mentioned
-below), the behavior of the mapmv1 version is already determined..
-
-> example, one day MPAM may be asked to support the move of a monitor group to
-> support scenarios where the reset of monitor counts is acceptable to the customer
-> and availability of PMG will be managed as part of the scenario needing support?
-
-As stated in the MPAM manual, MPAMv2 completely separates PARTID and
-PMG, allowing for more flexible and fine-grained monitoring statistics
-across partitions, so the CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID will not
-set for v2, However, it might need to be changed to a dynamic switch..
-
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+> ---
+> Changes in v4:
+> - New patch
+> ---
+>  drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h  | 2 +-
+>  drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c   | 2 +-
+>  drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c | 6 +++++-
+>  3 files changed, 7 insertions(+), 3 deletions(-)
 > 
-> When adding a new interface it helps to consider future possible changes and
-> aim to create an interface that solves the immediate problem while leaving room
-> for future enhancements. If we do not do that the interface becomes a maze due
-> to new files just being added to address the problem of the day.
-> 
-
-I agree with your idea. We need to think twice before we act.
-
-> I would like to propose that this patch be submitted separately with the goal
-> to obtain more feedback on the new interface. 
-
-I don't object, but I understand this is the same thing as the previous
-patch. I'd like to hear Ben's advice.
-
-> 
-> Reinette
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> index 58b47335afc7..a30633a7e2e9 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> @@ -322,7 +322,7 @@ mxc_isi_bus_format_by_index(unsigned int index, unsigned int pad);
+>  const struct mxc_isi_format_info *
+>  mxc_isi_format_by_fourcc(u32 fourcc, enum mxc_isi_video_type type);
+>  const struct mxc_isi_format_info *
+> -mxc_isi_format_enum(unsigned int index, enum mxc_isi_video_type type);
+> +mxc_isi_format_enum(const struct v4l2_fmtdesc *f, enum mxc_isi_video_type type);
+>  const struct mxc_isi_format_info *
+>  mxc_isi_format_try(struct mxc_isi_pipe *pipe, struct v4l2_pix_format_mplane *pix,
+>  		   enum mxc_isi_video_type type);
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c
+> index b729eecad0fe..1178947bb548 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c
+> @@ -492,7 +492,7 @@ static int mxc_isi_m2m_enum_fmt_vid(struct file *file, void *fh,
+>  		MXC_ISI_VIDEO_M2M_OUT : MXC_ISI_VIDEO_M2M_CAP;
+>  	const struct mxc_isi_format_info *info;
+>  
+> -	info = mxc_isi_format_enum(f->index, type);
+> +	info = mxc_isi_format_enum(f, type);
+>  	if (!info)
+>  		return -EINVAL;
+>  
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
+> index f45c2aae59ce..0d87a1082727 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
+> @@ -482,13 +482,17 @@ mxc_isi_format_by_fourcc(u32 fourcc, enum mxc_isi_video_type type)
+>  }
+>  
+>  const struct mxc_isi_format_info *
+> -mxc_isi_format_enum(unsigned int index, enum mxc_isi_video_type type)
+> +mxc_isi_format_enum(const struct v4l2_fmtdesc *f, enum mxc_isi_video_type type)
+>  {
+> +	unsigned int index = f->index;
+>  	unsigned int i;
+>  
+>  	for (i = 0; i < ARRAY_SIZE(mxc_isi_formats); i++) {
+>  		const struct mxc_isi_format_info *fmt = &mxc_isi_formats[i];
+>  
+> +		if (f->mbus_code && fmt->mbus_code != f->mbus_code)
+> +			continue;
+> +
+>  		if (!(fmt->type & type))
+>  			continue;
+>  
 
 -- 
-Best regards,
-Jinjie
+Regards,
 
+Laurent Pinchart
