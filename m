@@ -1,112 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794475949;
-	b=uDHQNXhuXIeq4Yaza6ktA4/Jb6U9Yk+QFrYvgDE7JwQl2q5fFEA8way1TK94aGKBJpWx
-	 owqoR0E2vojOVwoHNffwd0JmsPEvCnJmYMx9Wo9lTlGyjcgndIj3MycIl3YDL8Grac8mH
-	 rGYkW0PJKWTo1MebMx36M/blq+Q4ZbZc/xlwYaUwVwZwhX6Rte7quiWkFTYpWOQ38liLE
-	 e8XaUvIvnZVnw8c6Jhymvz0WCCxOVi3kjgudhr/S/TDsKQGG6ElIAKpM+IDaaBKGIOcmb
-	 Jl6D4kARUUxdBfErYKtaPa6INL1c7QdvCNvOGNPlhcKGV8VedoYkoAcq4LPfIoNzo2w==
+	t=1794475960;
+	b=Pj/C5RqpRUA4YUdZbMX4lwslyuiSXA8iAIlahiDUKzNkmp5hkAH0M9t9/3gCB1EDJsHE
+	 6PxdSCIgPmdzQVCIlH+NsREBtW3b3JyABf67fpNH3ocb/5HOmN0LUcx7BlcpabqkoSD24
+	 P3DSobC/yPYshGD135Dtz7bD6fw9NzhPrMGA9MMGWLRqKfll/q5O/zptS2B8A4nZHrxOu
+	 rQClwKDhV3ZM+wAnjWImj5KCd6GlhwbdvYLxZMlU7Z06TB+QekD/pzmTki/lKziAs8pKw
+	 iS2aW76oN/5QwPKLPzUsxeGWDZCsH24HwNdktjIdFSusHWAYXPkMrYYWATKuGct2fGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794475949;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=OOR9CZ751DrXMTQaYLwERcixWRWhOaaQJxaNRIejM+8=;
-	b=btzyNsKlsFNcuLo8/vI4hy2V5M2j5KhEGrq3O3xb3wG0RfjR7dIo6C/EOyapz8GAfetR
-	 GLgANBJMnfBz9b5i61f+pmLSIFTAt96OYy05zRO/FvCHMe8N9QInADlI4G2JdNZOPg67d
-	 DiCyNYt/jPo3f4Bw3Pfh6emA0102GPwE20QaeZDqtgG/v6fsx/nyYDpGdnymLZnUny7P4
-	 iPf23ErPMETWRjRsr00X5Kk2NEiIhtIZr54sYKKJsrnajgmGW0/enH35Vvo0hCenfRBAb
-	 l1cG3NVlzGrz9YBtsHLOqgoButcNPO6htiayVUHnYxpYKZvrgU5IjMv1YfHpHydPZxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794475960;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/ULzW8QvK/EALUnGSLdjbhj8msZl7UoNbmnKkjE1SLk=;
+	b=X+GleR/FDhK9xrJNjPtDWuC/9oTS1XXy40X1ciTnH+bTl46I0jVqVWFvqN8zAPRq4aTG
+	 J+u8E52iyFP24udR1RsOuRd8zPxw56oJcMZOBVPdmTUaMCg/sCZNpeYpg4fiCxIP3UiWn
+	 qOQ7A28hr4TQBAn+4MkfeQavxo0FdZQzlW7R05BmizTfdG9OjfSiiBDLYlmeS9Zs5B44G
+	 9+I6+uI43TrAfItP/Z7oYA2iUGDPs17sd0U3wWIVQCCwSpx8rzdljNZYK2ho2FJJYLin4
+	 gkJnrhucz6r5lW4iHBrs1l8qB3NZJKqwaQ4DfPRqZN5e9NjwW6TnRC2BLH7+sN94S5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="VmF/cr7R";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gyW6ckro;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lit0Km8m;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F964606A32A
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:32:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F964606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D80F606A32D
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:32:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D80F606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VmF/cr7R;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gyW6ckro
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC9D4T5904025
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:32:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	OOR9CZ751DrXMTQaYLwERcixWRWhOaaQJxaNRIejM+8=; b=VmF/cr7RgX5IKly5
-	nB8ld7K5D9AzKUIOEugReBYCnCvRZHnKq8ckwwPd3MdCpgn6tDd93WdjDdaA9b6E
-	l0WSMXMRdGhMoIrK7QPZTPN+yMR0023gcBHh+rvBynvJ6qVGJarBEd/2K6ZAWKcl
-	DHi3lT7Rw+HeUI4zOpJDUzpLh8wrBibWKeYtghBDeSUwZ46uA/eFcxHiB0sK1pwR
-	DYEhD6popASG7J9wELjVH56JMoJgHLIZ5uDiOiSzXEzXW4T4vJilMgZ9OWfhQ/3i
-	nfMcHwtge9Ud3f8pW9WhIPlx4NMjYvP6zLErMZjKSranHj4kj8rXupXMGGXtMg4U
-	sLscUA==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvt1uby4w-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:32:28 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ad53f538d2so3440760a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:32:28 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lit0Km8m
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso8652398eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:32:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794475948; x=1795080748; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OOR9CZ751DrXMTQaYLwERcixWRWhOaaQJxaNRIejM+8=;
-        b=gyW6ckrov3M5yBCbcMW0mWhIqlGVNHcXVKEsGDNHo19LczygTWQY8iWplZMQFu7fI0
-         Uan+uKmJMV2UXf5Fr6Wa9wolBUvviENzn8K0lTCUUmXhCvuAPUr9OrOZn+8zP7K8/W8R
-         e31Da0SLlAK8B20rBfkoUCgzuY8bBCoRPWK0dP77ql7fJyRjbd6SyCZoqniZW+LUhCeF
-         ZmD1NPp5hgTlDt58hOHepmZi44CDD25JTt3qvGCR0UbCyiLmNabox/qKTcFDQVCyhmLg
-         1PLCEr/POPKI+qqDHnlUvCIbyL6ksCpEqNh7MG8Zr0HrniAZI1H6VS4+3niL5NEWkacb
-         oMOw==
+        d=gmail.com; s=20260707; t=1794475959; x=1795080759; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/ULzW8QvK/EALUnGSLdjbhj8msZl7UoNbmnKkjE1SLk=;
+        b=lit0Km8mvglgymTRvaRLszRSu5Xws6AsI+wO6OwqZNtSKLDnyLrjFShCFZh0jttFgr
+         8GWqcFsh86QJnqCvBXs6qiC/a0qvAbQiSGiAdUxaJ7KYr6wNRrVOtL/FK4ss1QgWpkDP
+         gnPWP92wapYaDxAGLpt5zJ3MvPKVnkJmR200ONNFXSDF0ix6y5zunPVUeydck8obyFGA
+         5ggOqyy5aURLmNbNemvbgVl4l1+qbtUnsJMao7gwkdFs4YAcMMleNiFAtifiwI/EfeXK
+         63f6xvelUsyNroVw3jC62FZdVTXAtSs8ikTcfQZpA/JUTCEN3xCLSvll015vUQDC0Fam
+         iDGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794475948; x=1795080748;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794475959; x=1795080759;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OOR9CZ751DrXMTQaYLwERcixWRWhOaaQJxaNRIejM+8=;
-        b=0zvHcRz9iCn3F1h6/uGWKZpBGLR2D5r/IcbwtOj36QKNa6TcxtOTU2duTMgO2cP3an
-         n2WRtkuo/Eyo6Toau6AqwmZLrdKM6kOsazrSz2SmSomWa6uMBh17TwneGojwqJfuqmHk
-         oqXilHbrKpNEeutWHmcHsifyd+MHe/uCZ3Cwx4ZyYeCoWlknG/fUmZ9x18Edqy3cxLre
-         vqR2db+w5E0CIPusr9Dt3skiIWPjLYiK/l2NieAcJ7LhucBsW1/R5jbyEFHRy/tTo1Fh
-         OL8zz8N159nO6lysdLnWkbelLIR5hwR8yvMuBGmeeZ2VekEGkhVitSGu/jr2Blmwd8mr
-         TziQ==
-X-Forwarded-Encrypted: i=1; AL+hErEwFopx/Dab5r7Mp3Zwi3lXCgNRDkVWzBqj9epjtcDQWC1z3zpPb/AL8Wdkn+iKZ6DbYCcViDHveBgzsV0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ii9uODL4VV2uyvvOITdk8R2pvfcr3i5TOyEvS1QW1C5qEI/uq
-	WDcxI6Jt3HT7ZE6Jr8e7f9Z9iD2hWhF+FzkZm74a3pw0v36h6CFHqR7t4sq3Mcio3ZDykEhkBgM
-	kAVfToSGBh8F0/Oqvinfhu75BJUgTvJ6vUSDckc7iuXafCj/jHA/NAbyDrn84EH5/eN0=
-X-Gm-Gg: AYBFou0E/YOoKEDTGRmY288mL8KVUV1B3ICONawZFBw7SMh4CI7d4fRIKCuKOQttTc9
-	uFbEf1VrsOqKAk15fCtCgwFlEkmLPP8Y29qYgc8FIqoMQYcMu5EYU9DRQikREDQakVbSFFpooGV
-	Ca7u6qtUsq17r+ERjzaxKR0/iblKKLEk44hXS29XFVDlultiTkUA3VCbmbFUixCD4FhWVAZa+vD
-	ojlUc7VQDGnxbqfivOj2XYRRsXSwv70cM+HCW35fmJY0mxywWA653SegqvHuu/qoG3jAyr/D1WI
-	fYgOk7F570XlXrPOTlbnrqtB3FiFXDakaeSArPRrc3LZZwV724MlHcv7v8Rz9uqSHi3hEFYFXtt
-	5pkNRAG2KzOOmbkyF4ca9Hb0VX9OcJ/EgTqM3KKpOvvof9J8FtbNx+2AMgluWXhd5zsj6eHbJtA
-	NF
-X-Received: by 2002:a17:90b:1647:b0:3a8:c0cd:57f9 with SMTP id 98e67ed59e1d1-3b182f26a0emr5088693a91.25.1794475947509;
-        Thu, 12 Nov 2026 01:32:27 -0800 (PST)
-X-Received: by 2002:a17:90b:1647:b0:3a8:c0cd:57f9 with SMTP id 98e67ed59e1d1-3b182f26a0emr5088666a91.25.1794475946998;
-        Thu, 12 Nov 2026 01:32:26 -0800 (PST)
-Received: from [10.217.216.70] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197c768e8sm3803578a91.11.2026.11.12.01.32.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 01:32:26 -0800 (PST)
-Message-ID: <28202f96-f234-4c7c-be6b-3019e119bb0a@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 15:02:20 +0530
+        bh=/ULzW8QvK/EALUnGSLdjbhj8msZl7UoNbmnKkjE1SLk=;
+        b=Mqw6zwQrrXoGH7VZUpHfHQjOGEKNdhsJHad4ZDuXDaNIKMeXdYlqFncgx7RUe+JKwH
+         Am2Na/A4rJCmHsscgXSDg3xwghopTGrScwTjuEo80IcIoLn6gK0W5MG8gkgOTqJkfEEc
+         5mthBLaP2IIlx7v0hkpi2HkuwikIXjMOKzW+VI+7BiEMJcGO1pJWu4OXnNqnr3f/I9lh
+         7tfQ0ziifw7Zp6vr105RfdKyQOZpyAhsymaloLcc9Eq+ZswQvd2KW6MjY9x5oURSkWVS
+         usTiZ3HGmqvkfZZ4EpUqm/6AJ2v7M6szddPpUH8xDzioKGwT/2op9cBfyTp1V3PNyR5x
+         PsDQ==
+X-Forwarded-Encrypted: i=1; AL+hErFI6XYMBDA9HUP5UOrE9rQjlpcrX+cjqBibMkZbetechduWfrbuAl7+vev0LltfV2/Ibad/6Yg7Zql9aSI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9uQ9NdhsQnt9u2Q/xouUXh84k0D8pqEhR2PfDyW7/1eVVkLDkm
+	qrDWeeAflJKc1BpO6/Cdn5EDN7JG3GMtXfU7n//PQfhJdFORj006YCNB
+X-Gm-Gg: AYBFou0L2LS2ac0oEK5mPV5EmsdJhMkL2yu5kfMWJtkx5zjty/oYMxZIZ0uF75nLhyU
+	FXSReW8tX8MsmeJTqQmRUlTyAQD0gj7KVPh6aBe3GZBbYhiM1stkjE3XHpxd1yF4IGsHsx49DjR
+	3vfeuKCZsaxnwmV389n/9td2K75lP5EwEIGjUnxS5Jhgwjy1hSxYLaAADNVW1KqBKa50A+rPK6a
+	kY6iH2By1lk3yWXQ0udUWOz84OnN5PZUdoSkoDHWCr/MblbnlZnOGN5Ugl8Yc4O+0ljI9tl0FLf
+	p5WEUYAGlSStIV9bp5wSYfGGWq+XzejWoZUvs6y9EoHOh5qrjI5hYF5PYrKOGhlKEdXwhiGjqLp
+	87rYQClZUgbPjgGgKYPOtDLRvYFMmR4Ej5zJFZi/ZYGncSkwF5vrS0+3eZd1T/zEVViH+1IPXZQ
+	eRVEV8eTnmTXoWu3px4A/JBPLbm16MtrdE1Zf97538vSChuQh6HXIMGpOjeEZfkYA43C45Aa5rh
+	zue+chQ4AIbYIVTwC1/6IE8esE3kzHN1NoUmBO0SyCnMAXpLSMU3WnKaaoWFGE1uP3lzLJS53Yr
+	9IutyjAc9mqiP6MmJslnoYw7S2f+2VGvn8F4ZLEBTehnqw3SMOxQZ3Xy4XOVYjPCWmc=
+X-Received: by 2002:a05:7300:1899:b0:376:b957:c01 with SMTP id 5a478bee46e88-376b9570fd3mr6726823eec.16.1794475959004;
+        Thu, 12 Nov 2026 01:32:39 -0800 (PST)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520bfb58dsm45498133eec.18.2026.11.12.01.32.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 01:32:38 -0800 (PST)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: liubaolin12138@163.com,
+	ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhanxusheng@xiaomi.com,
+	stable@vger.kernel.org
+Subject: [PATCH v3] ntfs: trim the sizes after a short write
+Date: Thu, 12 Nov 2026 17:32:33 +0800
+Message-ID: <20261112093233.1118469-1-zhanxusheng1024@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,126 +98,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/10] dt-bindings: ptp: Document TSCSS hardware on
- Qualcomm QDU1000 SoC
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Richard Cochran <richardcochran@gmail.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller"
- <davem@davemloft.net>,
-        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Eric Dumazet <edumazet@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-References: <20261108-tscss-v2-0-d5f575010427@oss.qualcomm.com>
- <20261108-tscss-v2-2-d5f575010427@oss.qualcomm.com>
- <20261109-sticky-caiman-of-research-65e9a4@quoll>
-Content-Language: en-US
-From: Imran Shaik <imran.shaik@oss.qualcomm.com>
-In-Reply-To: <20261109-sticky-caiman-of-research-65e9a4@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzNyBTYWx0ZWRfXwCbWHF3cMmdK
- rxftNEznklXGHmerZkN6DpseUGTLt8Ctn7+EcPBEsxInoVNecjadIXVaDU09SwiCtpQH/kcpoof
- bEWqKzQQeka9j+3EkenQJBJre+cprrs=
-X-Proofpoint-GUID: jO6HeFnFAEz3iRbP_5aQdEwxCmqPf2id
-X-Proofpoint-ORIG-GUID: jO6HeFnFAEz3iRbP_5aQdEwxCmqPf2id
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzNyBTYWx0ZWRfX5J2UbEjcnKcD
- J4IweWN5R3PA1Anj9Dwh3EKJTeJsPUKnJzKuOc9J/ClIkTpkxuB2h8hQrTmVyyiHkU2A9b8RbFz
- nyzSJGnMa2EuZ6FehlPv+Vy1xhuDYCfTcdpulj4FrcBQ+/LBWPBRixe0qETgyqzijxIkrNDlKZL
- rWJwSLIlsQHVKM2i210fw1CcBuKWRGvRMVkISDdBLDawi8RwgD5jh6E66p/mP9o6NkwO4tOpNzQ
- GTYjmQix7vUvFRH19k3Yhh3pGaTnsUuU2MiIH4Kv4Imjyqmiwo7c25ERJ91o7BEvI3+s9TqzKQR
- /GfQuvmmDrBLfmkjYPOP7tlzniAaplQBXOrpRVv322APf++EyLQvZcmYD+jHZDQqKRMBqrpUkUC
- bO4eKAWWZURSPiy3Ioj613aMlytISY6G9rNltcLg9djdimarWnYrqKhx9D6HhhvYHxUIEPBTya1
- rGp098V2sEtZ3PAmnaw==
-X-Authority-Analysis: v=2.4 cv=LvcHWXdc c=1 sm=1 tr=0 ts=6af587ac cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=VFrjYgP8P-MpaLTDB6EA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 adultscore=0 suspectscore=0 impostorscore=0
- malwarescore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611120037
+Content-Transfer-Encoding: 8bit
 
+From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
+ntfs_file_write_iter() moves the data size and, for a non-resident
+uncompressed file, the initialized size to pos + count before the copy.
+__ntfs_extend_initialized_size() only zeroes [old initialized size, pos),
+so the range [pos, pos + count) is initialized only by the copy itself.
+When iomap_file_buffered_write() copies less than count, it returns a
+positive short count and the error rollback at out: does not run.  The
+file keeps the size pos + count, and [pos + ret, pos + count) reads back
+whatever the freed clusters held before, also after a remount.  A local
+user can read the old contents of freed clusters this way.
 
-On 09-11-2026 06:19 pm, Krzysztof Kozlowski wrote:
-> On Sun, Nov 08, 2026 at 06:48:23PM +0530, Imran Shaik wrote:
->> Add Devicetree bindings for the Timestamp Counter Subsystem (TSCSS) found
->> on Qualcomm QDU1000 SoC.
->>
->> TSCSS is a time synchronization subsystem composed of two main blocks:
->> Timestamp Counter (TSC) and Event Timestamp Unit (ETU). The TSC block
->> provides a continuously running counter used for timekeeping, while the
->> ETU captures timestamps for external hardware event triggers.
->>
->> Co-developed-by: Taniya Das <taniya.das@oss.qualcomm.com>
->> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
->> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
->> ---
->>   .../bindings/ptp/qcom,qdu1000-tscss.yaml           | 170 +++++++++++++++++++++
->>   1 file changed, 170 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/ptp/qcom,qdu1000-tscss.yaml b/Documentation/devicetree/bindings/ptp/qcom,qdu1000-tscss.yaml
->> new file mode 100644
->> index 000000000000..52a063ec4b78
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/ptp/qcom,qdu1000-tscss.yaml
->> @@ -0,0 +1,170 @@
->> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/ptp/qcom,qdu1000-tscss.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Timestamp Counter Subsystem (TSCSS) on Qualcomm QDU1000 SoC
->> +
->> +maintainers:
->> +  - Imran Shaik <imran.shaik@oss.qualcomm.com>
->> +  - Taniya Das <taniya.das@oss.qualcomm.com>
->> +
->> +description: |
->> +  Qualcomm TSCSS is a time synchronization subsystem composed of two main
->> +  blocks - the Timestamp Counter (TSC) and the Event Timestamp Unit (ETU).
->> +
->> +  The TSC block is a timestamp generator that maintains a running counter used
->> +  for system timekeeping, and is functional with just the AHB and counter
->> +  clocks.
->> +  The ETU block captures TSC timestamps for external hardware events. Each
->> +  ETU slice binds a slice number to an external event selector, and
->> +  generates its own interrupt when that event is triggered.
->> +
->> +properties:
->> +  compatible:
->> +    const: qcom,qdu1000-tscss
-> 
-> I failed to spot the difference against your binding at patch #1. How do
-> they differ?
-> 
+Run the existing rollback for a short write as well, and roll the two
+sizes back to the end of what was written instead of to the old sizes.
+A short copy that ends inside a block can also leave the rest of that
+block, and of the block holding pos + count, cached as read from disk,
+so clear the page cache from the new initialized size to EOF before
+shrinking it.
 
-The ETU interrupt wiring between the QDU1000 and SA8775P/QCS8300 is
-different.
-The SA8775P/QCS8300 share one summary interrupt across all ETU slices,
-and the QDU1000 has each slice with its own interrupt line. Due to this,
-kept them as separate bindings.
+Fixes: b041ca562526 ("ntfs: update iomap and address space operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+---
+v3: clear the cache up to EOF, not up to the extended initialized
+size, which left the rest of the block holding pos + count (Baolin).
+v2: also clear the cached tail of the last block, which v1 left in
+place when the write stayed inside the old data size (Baolin).
 
-Can add them into one file with an if/then on compatible if you'd
-prefer. Please let me know.
+v2: https://lore.kernel.org/all/20261112030815.982026-1-zhanxusheng1024@gmail.com/
+v1: https://lore.kernel.org/all/20261111093459.660484-1-zhanxusheng1024@gmail.com/
 
-Thanks,
-Imran
+Tested in a VM on ntfs-next b025f526c5d0, with all free space filled
+with a known pattern first.  Short buffered writes of 4M, old data
+readable after drop_caches and after remount, 3 runs each:
+
+                                    unfixed    v1     v2     v3
+  fallocated, ends block-aligned    3137536    0      0      0
+  fallocated, ends inside a block   3141332    212    0      0
+  fallocated, unaligned start       3137536    412    0      0
+  same, pos + count in that page    -          -      436    0
+  append                            3137536    0      0      0
+
+A short write 1M past EOF, O_DIRECT, resident and compressed files and
+full writes give the same results with v3 as with v1.
+---
+ fs/ntfs/file.c | 35 ++++++++++++++++++++++++++++-------
+ 1 file changed, 28 insertions(+), 7 deletions(-)
+
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index 3213a0c9f96b..aa58afd729d0 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -928,10 +928,21 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 		ret = iomap_file_buffered_write(iocb, from, &ntfs_write_iomap_ops,
+ 				&ntfs_iomap_folio_ops, NULL);
+ out:
+-	if (ret < 0 && ret != -EIOCBQUEUED) {
++	/*
++	 * Both sizes were moved to end before the copy, so a short write,
++	 * like a failed one, must take back what it did not write.
++	 */
++	if (ret < count && ret != -EIOCBQUEUED) {
++		loff_t new_init_size = old_init_size;
++		loff_t new_data_size = old_data_size;
+ 		int init_err = 0;
+ 		int data_err = 0;
+ 
++		if (ret > 0) {
++			new_init_size = max(old_init_size, pos + ret);
++			new_data_size = max(old_data_size, pos + ret);
++		}
++
+ 		/*
+ 		 * Like ntfs_setattr_size(): __ntfs_attr_truncate_vfs()
+ 		 * expects the invalidate lock held across the size
+@@ -940,13 +951,23 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 		filemap_invalidate_lock(vi->i_mapping);
+ 
+ 		/* ntfs_attr_set_initialized_size() rejects a resident one. */
+-		if (ni->initialized_size != old_init_size &&
++		if (ni->initialized_size != new_init_size &&
+ 		    NInoNonResident(ni)) {
+ 			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
+ 
++			/*
++			 * A short copy can leave the rest of a block read
++			 * from disk in the cache, also past the temporarily
++			 * extended initialized size.  Clear everything that
++			 * is no longer initialized, as
++			 * __ntfs_extend_initialized_size() does.
++			 */
++			truncate_pagecache_range(vi, new_init_size,
++					max_t(loff_t, i_size_read(vi),
++					      ni->initialized_size) - 1);
+ 			mutex_lock(&mrec_ni->mrec_lock);
+ 			init_err = ntfs_attr_set_initialized_size(ni,
+-					old_init_size);
++					new_init_size);
+ 			mutex_unlock(&mrec_ni->mrec_lock);
+ 		}
+ 		/*
+@@ -955,13 +976,13 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 		 * the uninitialized tail, so skip it unless the rollback
+ 		 * above restored that size.
+ 		 */
+-		if (ni->data_size != old_data_size && !init_err) {
++		if (ni->data_size != new_data_size && !init_err) {
+ 			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
+ 
+-			truncate_setsize(vi, old_data_size);
++			truncate_setsize(vi, new_data_size);
+ 			mutex_lock(&mrec_ni->mrec_lock);
+-			data_err = __ntfs_attr_truncate_vfs(ni, old_data_size,
+-					old_data_size);
++			data_err = __ntfs_attr_truncate_vfs(ni, new_data_size,
++					new_data_size);
+ 			mutex_unlock(&mrec_ni->mrec_lock);
+ 			/* Like ntfs_setattr_size(): stay on the durable size. */
+ 			if (data_err)
+
+base-commit: b025f526c5d04929212c9d5fb7ffc96608f3eacc
+-- 
+2.43.0
+
