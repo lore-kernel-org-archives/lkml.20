@@ -1,74 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.54.11.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794457531;
-	b=WYJ/nWwClDmCCWrG1UxnhrQNF4ptIKXoVPDM8yiTugEzRBUYoke7Bl+MXLS9XHbnC0qW
-	 LO9wl9Hg1HutITSOVKWHFX3Zrp6WDBV6w/QMEipxYODkzYesBIx3sjzVamR1iCXfVlmxt
-	 jBIlqxgsEDIA4SBhard8lZ9Mn+tD1A5bKVTnopvM5vx7JzI8Q9Q8rviecvJjdPfS/wvMq
-	 FykikCIRfnTsgRMCYyPwjr5KkVPPJzfMSW8WSc1g8CnZltl6IMHlOlb/960xg5T9WxZcj
-	 vLK71zolTZ4oGKifbZeC4zQ/b5E4Y67z4ovVSEqTnlOtnUeFgYpW+jAaGlZ0/LYtUAw==
+	t=1794457614;
+	b=LcJhYGjWJGD69Seve9L0Xw/QY7s0cs1dOvqEgMJlPcLaXm8gKXvpchuK6FS0e8z0crB5
+	 MPjccrPFdPMUp0eGzeoGXWXcPZWbv4pbYp+LMEAucuoe7C6v/OXfL10+0WUFVIlbhz08X
+	 uuQVhogL3es4eBjLkWuFd0llzrgWtyoI6dxHKwaFdLJWZlJ3EkTrg77NbaOjFRuw7lzDQ
+	 XO2G1jHA6VKsSBripadiwdEq1G2qFUc5OMezEWcvRkqjJCRGjMC9XjjGDQfKBrlKAiuJ9
+	 PUFwgRQFePryqnf2tv6CMvUIgbS0EMJfZ4dQbW/9/HLk2DvUPK06vaEt//a35b5I6NA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794457531;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794457614;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
 	 In-Reply-To;
-	bh=x2OyaPiM8VzNGwESrDCi29D4joiGpyq5DaOagbQ+zgY=;
-	b=0gKqe2yBehOWYRX9mdcWjYcN3IygZtdkxFYICz8ujdMEMOHWHSU3LUNT4FlQgPIIXr0E
-	 zVo2v32XvH92BEgvgc/5cfNycJ70w7pZKLnTLV3ZZMZl6yauIWKHIaGPOV/ENPkWyvOCp
-	 tLbsz4teKCGU7hhD3bKwKEO3QRL1YCp3aBpn0Xee3fcXonU1VwZ9/X1/tqdh7ZrL9WUsX
-	 9iNU/O1U5B2ONxH+pSTxPtTUFxkM0WRlvfrwxgyHjpQqD6T7M3xUbP3sqwV31i7l49DiB
-	 b6vM3VcCLUyZ8tiJLbgpmx60FwEoR//e3vzCF+fggSrT99fDXEoHdDZ+7ZP/jav7lPA==
+	bh=o16nXbhGdI38NCz7kOzBXJZ5FkGZMWTru7Q24mnBhwI=;
+	b=nraOHL/sr86lFHmB0fbm1Tp2vtzXRxGxP9FkUNe3AJycHIzjn1fs4xvQiBsv0zOOh4Xe
+	 Q2orIArXQgeLdoRk2rSjccx/4HGgQQS8le8h2GOFtgtbwEdREcmncWnOtK75ifdnW0Yv/
+	 5BaRql+GHKqtdo9RlHEIkOvnTLiOp8x08JyOHxSv13OfxRb0SienSFVKJUbRt6NWNX8Cc
+	 kSKfjgV6kDkTLkIul/6KQFM40p8mCpfkhmc+UK1PchNl5NNZUsnK/AhBCbpmZQpcRCj1z
+	 s0ClLQf2DviegUX5cBAZPy5NoUJhGDmutcEoaLkbKpNexmVrnvUZ/Vba5EHIELqRZwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KS/SlFsa";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=inf.ufrgs.br;
+	spf=pass smtp.mailfrom=inf.ufrgs.br;
+	dkim=pass header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=WDsKcABb;
+	arc=none smtp.remote-ip=143.54.11.23
+Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2899B606A321;
-	Thu, 12 Nov 2026 04:25:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E4C606A321;
+	Thu, 12 Nov 2026 04:26:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0E4C606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KS/SlFsa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF4F81F00A05;
-	Thu, 12 Nov 2026 04:25:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794457530;
-	bh=x2OyaPiM8VzNGwESrDCi29D4joiGpyq5DaOagbQ+zgY=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=KS/SlFsaO11cfINJh2wnQGU1PW/lBLhuEZSyxX1GOutuwsoFsc7yWfaiADTDaGziJ
-	 WDGrrW7mWK3XnyqZmnxomH8XSsjOCCEm45GXVpeiuMnJlTh8eOXQH8+6Q1Jiv+mSkr
-	 3W5Szl4ZmbtMOvP0r+5O6XnvBqX4EmQvlSad/C75NYI9l622MpqSkxKjpbox/+tkEs
-	 tyD1ygzXAIlfwPqqmhheqcpp548rHrwmnX58RWfDYkel1GuTF8fCA7pxEu+9deAelg
-	 7FdOCca8RWfTplFoLZU4J4feakYNFhj8yxWZCPBPhk3HPxle1mkQ+b+ZUkdKB7Qq4q
-	 wXdkJ2PRE4r1w==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 7F146CE28E6; Wed, 11 Nov 2026 20:25:30 -0800 (PST)
-Date: Wed, 11 Nov 2026 20:25:30 -0800
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: linux-kernel@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	Puranjay Mohan <puranjay@kernel.org>, rcu@vger.kernel.org
-Subject: Re: [PATCH v2 4/7] srcu: Add irqsave variants of the atomic SRCU
- readers
-Message-ID: <408366d0-3612-47a2-bfce-7ee52828f3ae@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261111145949.70845-1-mathieu.desnoyers@efficios.com>
- <20261111145949.70845-5-mathieu.desnoyers@efficios.com>
- <0f5b9d22-353a-4e30-91e1-aeea47461583@paulmck-laptop>
- <31ba97d2-f02e-4c43-a9a6-5ed49263c511@paulmck-laptop>
- <9207ad1c-fe1c-4041-80c2-52723bc58486@efficios.com>
- <9fc742ab-457c-41e2-ba05-0ef0bb15d00b@paulmck-laptop>
- <fc1bbc25-a410-42bd-b5b9-d734d2444b70@efficios.com>
- <78c1a437-ee80-4e83-8806-a7f7113a4b63@paulmck-laptop>
- <b81abda5-e882-42e8-b780-6db34fdd0092@efficios.com>
+	dkim=pass (2048-bit key, unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=WDsKcABb
+Received: from DESKTOP-PJTTJ93.localdomain (unknown [189.6.233.4])
+	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 6138C12110C;
+	Thu, 12 Nov 2026 01:26:50 -0300 (-03)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
+	s=dkim2026; t=1794457610;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=o16nXbhGdI38NCz7kOzBXJZ5FkGZMWTru7Q24mnBhwI=;
+	b=WDsKcABbFgleyajAD6gyO8RY/kTGzL2BlrUgxBbqEIq6TLP0eoYrC0E5X1ZbEOBO7Pdwsf
+	XrfmxZQ/q+qeCvSjL0B7ijfPCYoAbW+P1iThiLWRAtfiPvlJLPCdTq7w5U3uj3c4debVhY
+	dbuJ4kNZrps6ZTVxnkZhb4ErfWthlrcM+zcUKGPF7qrPwFx1B8Mn0dKFnkcMV4RBcxOCGv
+	9GG88n+CLwd3FNEogn+mn96CJ8B9fyjSscoJ5yNSC+295LmZ37ojCt6kaXdLAtMrsafRtR
+	PPOQ3ddFSe5Juf0PHtnAYmg3U1zZ/0ek+hlIMMfmTMVT3+5Be2MLiW5zZX9GYw==
+Date: Thu, 12 Nov 2026 01:26:43 -0300
+From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Cc: linux-fsdevel@vger.kernel.org, brauner@kernel.org, djwong@kernel.org, 
+	hch@lst.de, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 5/8] fat: drop ->write_begin() and ->write_end()
+ usage from fat_cont_expand()
+Message-ID: <avU_DoFlFP9s6OeF@DESKTOP-PJTTJ93.localdomain>
+References: <20261031164326.278125-1-matheus.aalmeida@inf.ufrgs.br>
+ <20261031164326.278125-6-matheus.aalmeida@inf.ufrgs.br>
+ <87eccvtllo.fsf@mail.parknet.co.jp>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,55 +68,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <b81abda5-e882-42e8-b780-6db34fdd0092@efficios.com>
+In-Reply-To: <87eccvtllo.fsf@mail.parknet.co.jp>
 
-On Wed, Nov 11, 2026 at 09:50:26PM -0500, Mathieu Desnoyers wrote:
-> On 2026-11-11 21:13, Paul E. McKenney wrote:
-> [...]
-> > I used the same trick that I have used elsewhere, keeping a separate
-> > variable for the tag ("--qemu-args") and the argument itself, as shown
-> > in the diff below on top of my earlier patch.
-> [...]
-> > +             --configs "SRCU-P" "${qemu_tag}" "${qemu_args}" --trust-make
-> 
-> This works on x86.  On arm64 both variables are empty, so kvm.sh gets
-> two empty arguments.  A kvm.sh --dryrun with "" "" in that place stops
-> with:
-> 
->     Unknown argument
-> 
-> Dropping the quotes does not help: the value has a space in it.  So I
-> think this one needs either the ${qemu_arg:+...} form, or a test around
-> the torture_set call.
+On Sun, Nov 08, 2026 at 11:59:47PM +0900, OGAWA Hirofumi wrote:
+>Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
+>
+>> fat_cont_expand() currently relies on ->write_begin() and ->write_end()
+>> to zero the new file range. These callbacks will no longer be available
+>> after the iomap conversion, so a new method for zeroing is needed.
+>>
+>> Zero new ranges folio-by-folio instead.
+>>
+>> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+>> ---
+>>  fs/fat/file.c | 122 +++++++++++++++++++++++++++++++-------------------
+>>  1 file changed, 76 insertions(+), 46 deletions(-)
+>>
+>> diff --git a/fs/fat/file.c b/fs/fat/file.c
+>> index 177a26186ddc..8689cbbdad13 100644
+>> --- a/fs/fat/file.c
+>> +++ b/fs/fat/file.c
+>> @@ -18,6 +18,8 @@
+>>  #include <linux/security.h>
+>>  #include <linux/falloc.h>
+>>  #include <linux/fileattr.h>
+>> +#include <linux/rmap.h>
+>> +#include <linux/writeback.h>
+>>  #include "fat.h"
+>>  
+>>  static long fat_fallocate(struct file *file, int mode,
+>> @@ -353,68 +355,96 @@ static int fat_preallocate(struct inode *inode, loff_t new_size)
+>>  	return fat_add_clusters(inode, nr_cluster);
+>>  }
+>>  
+>> -static int fat_cont_expand_simple(struct inode *inode, loff_t size)
+>> +static int fat_zero_and_extend(struct inode *inode, loff_t new_size)
+>>  {
+>> +	struct msdos_inode_info *mi = MSDOS_I(inode);
+>>  	struct address_space *mapping = inode->i_mapping;
+>> -	const struct address_space_operations *aops = mapping->a_ops;
+>> +	loff_t pos = i_size_read(inode), fpos, next;
+>> +	loff_t old_size = pos;
+>>  	struct folio *folio;
+>> -	void *fsdata = NULL;
+>> -	int err;
+>> +	size_t from, to;
+>> +	pgoff_t index;
+>>  
+>> -	err = aops->write_begin(NULL, mapping, size, 0, &folio, &fsdata);
+>> -	if (err)
+>> -		goto out;
+>> +	while (pos < new_size) {
+>> +		index = pos >> PAGE_SHIFT;
+>>  
+>> -	err = aops->write_end(NULL, mapping, size, 0, 0, folio, fsdata);
+>> +		folio = read_mapping_folio(mapping, index, NULL);
+>
+>Hm, is this reading blocks from the device for zeroing blocks even if
+>page is completely unwritten block? If so, we would not want to read
+>from the device.
+>
 
-Ah, you need the kvm.sh hunk of this commit in my -rcu tree:
+It doesn't read from the device when the start of the folio is >=i_size.
+However, looking at it again I realized that I am needlessly zeroing the
+folios twice. I'll have to change this for the v2.
 
-436f3c6b27de ("torture.sh: Add hazptr torturing")
+>> +		if (IS_ERR(folio))
+>> +			return PTR_ERR(folio);
+>>  
+>> -out:
+>> -	return err;
+>> +		folio_lock(folio);
+>> +		if (folio->mapping != mapping) {
+>> +			folio_unlock(folio);
+>> +			folio_put(folio);
+>> +			continue;
+>> +		}
+>> +		folio_wait_stable(folio);
 
-Which I clearly need to extract from hazard pointers and get more widely
-available.  Diff shown below.
-
-> > I will add it there, also.
-> > 
-> > And to the --do-rcutorture stuff as well.
-> 
-> Sounds good.
-
-							Thanx, Paul
-
-------------------------------------------------------------------------
-
-diff --git a/tools/testing/selftests/rcutorture/bin/kvm.sh b/tools/testing/selftests/rcutorture/bin/kvm.sh
-index 32c3199976388..86dd5c131d226 100755
---- a/tools/testing/selftests/rcutorture/bin/kvm.sh
-+++ b/tools/testing/selftests/rcutorture/bin/kvm.sh
-@@ -271,6 +271,9 @@ do
- 	--trust-make)
- 		TORTURE_TRUST_MAKE="y"
- 		;;
-+	"")
-+		# torture.sh can pass empty arguments.  Ignore them.
-+		;;
- 	*)
- 		echo Unknown argument $1
- 		usage
+Thanks,
+Matheus
