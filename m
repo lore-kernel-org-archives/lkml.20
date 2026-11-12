@@ -1,74 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794524361;
-	b=CYeSi5g2WuE4n2sym6rek7FfSvVH4C9geVhvyP4oe0kdS0RpRxhTf7yxbmkje3TPZ1jN
-	 LYgJl7XsweUovpWZ5HpgP9vx3vcS92yOzsu6oaceu303ZS28MpstyhnqFIDoaqWKGVb8/
-	 8ae/uuael9EdMqlyi3k3QCRLaZFMJviXEB8Hel4voz1h/Y/oW0dud4DXcOxRgRuHk2hoI
-	 wY9veqUuS8B89HKFmwc5nh2ph0GRzM0KqP+WxEJhfZUCe43cyXDFJlsDyAn4eDsqnKdGk
-	 FGmcPdVRJ4xkQ4M4iswRKU8MRrWBW3FJwVjtWIewProbqfNviUBbM9H1DbRtoDg8oHg==
+	t=1794524362;
+	b=eMHCPLxellDXRGGDhMFeuWaBUUGpkQ+1zLsSJJhCipeU3mS3gmlL4ovrCF9bzYA6Xl8p
+	 VdWZUUU7+St2sX9DDU4cKLE2Kxx+RcNXjy4K6fxL5fRw7TU6VMUlUUYKX0n6q5GaXkNsE
+	 ZWIt+UZin+KOmYcDb+SVXnyyiLXaTD0nTZMs1n5k34ZsG5VdxUaqkMSPSIbMNs1xPvc1v
+	 U61qoXEeVlsTmvGJTekJeqxtmW8dE9K2c5Z+moZQo4pKJe/liBUDgTH1gECsTfjqbGTsQ
+	 Mgq3HLtn/E4PI95mXwbDFFKpTgJha1wRkN6dFX9YYlJS+2U28Z/u7J1hTYr70O3IcCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794524361;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794524362;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=ggLv8tMyYzCgQoxMfN/mL1izecY+0udo6MWNPS8D3rg=;
-	b=s1/Y5Z6c5J4w5iWOOJwaPD1Jx6AFQrOORzUtaGb1Ej6IyYYhS2ioNytG4preUN5mfGv9
-	 XvRfZP8LXq2QPok+DxaFxwETIXmIheiKIw8k61J9ZjGxDErvoinkmRlE9UwcSn/qA03jo
-	 HNFTMhQMw3q0TNlPaz3TVWezXV3GLfyTbgR/A4iNjzoNPgygvjR8qb5JH6XAFnfGLwmAr
-	 9/FkBMpewi6wK6VXVk/owBb+93ttegKyL0LSonGVufMHw3F/kDrv/5ZT/ZIpoEXs/I3Ha
-	 CuW4h9P79YlWNZ5YRFFmcqlVdnDKy4vlS7RzFJymK9PiMIvFAprZsebCfGzznUwdqhA==
+	bh=2S+1oVmF7ABvevxRP1h0vhmyM1Y1t2gXt3/NcgVPU8s=;
+	b=cl5FL1KtkHG1JAPWTsSEfd5ihtbC2Th32RCnRJn8BFoWsmkI3s8R/y1jcSeRaUilskRM
+	 wT/OeIUoEiP0n1u9ja/YmMl+TWs/ThjqbNXK6RFVdvlthx/Xzb7p9R6OyNmnqc/OndGgp
+	 EdudV088+IAU+Lzpn22Zhm8rjlFACWnTRlf/Iqkyt1hTvd0oGh8MVuu7WsficXopV2HZp
+	 TpLR4bnk22tkFnukgY7OPI9+2VvhU2xnJv/8vj1FXQer4mNmIzHse1OeCCbg2fKbW++vO
+	 b6pj556WIeoyvL6cEURgMGBZe+nTYMtZ1kD+5gSS+dX3vcYSRgBYByYSV8nlbyuYN5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=telaak.dev;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=74.125.224.52
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
+	arc=none smtp.remote-ip=209.85.128.170
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A7260A262E
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:59:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9A7260A262E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562A560A263F
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:59:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 562A560A263F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-67c00f291e1so267216d50.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:59:19 -0800 (PST)
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b0dba37a7fso4959787b3.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:59:21 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794524359; x=1795129159;
+        d=1e100.net; s=20260707; t=1794524360; x=1795129160;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ggLv8tMyYzCgQoxMfN/mL1izecY+0udo6MWNPS8D3rg=;
-        b=DbTv6uO88m8BrF7q8+NLrxN5HDGBv/Q0YVLIpNJH1E+gcty4OL5/3w+4tCvVQ7qA6P
-         2lzYv9+ap+wCFp7Th7/1jHVJEL+MJNoUG9yXzE8HfKu0pf4E/4eMJe1hR6gOhs7wpWzh
-         d2OSOx6NQRelW9CT87B7X7QYBVXy35+6MV+fhFMICozSVctcmdz1pe/fbDDOR1OIlv1P
-         rWkjGniuV5Yz+s5UJPx+3QMLiwkeqRiXOtITKDEFZr7GfKJq7wrEJN/7bZOwxacLoGUb
-         NHZAdpHmT4/nIkmPB/wHMcrDvAuIU4Z4f11ox80VWnfLhj8Dd2wbZGXnIeXqJl0siB8J
-         OPQA==
-X-Forwarded-Encrypted: i=1; AL+hErGHRoVT8Rg9YvqexwSisq7J/ba9KtaBdDB8B0b94qXzArPJ2plVLX0dCULTPQil0OgLWB/bO/wMMhQLZNs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+NiujpJGPdUnunaL+evA4USbBkN/RfegRPIi/dpgWWclt3/fuC
-	kiExK+Zai6Fi190YqCSxPF7UEcUb/PG3Pa/SUTiOjERZqvKBayqg6Da9
-X-Gm-Gg: AYBFou104lHN0aGfTh7BVWBbgi1/RHGYLZK6DjVOY9Ip6penq8zqnzq4XGPZI61RhYM
-	NcOR+VGuhv27h6xiimjPl7NQ0rOQ1kt1CRyoaJWp7f07FkOJOLDEZ773mm7prieLMHwsq7CMSEJ
-	XqdZyyROYfZXDMFLEoW3K0ooeEdMtCyp8AjPk7XchewHDsoS24IHfR/JWQjZWmIwFwgq1oGYIsM
-	d4/27WaRQ9CL6upIYrWNM56qpV52s7dk6mYDE0r+MwbmG7vfCxyXtBAowAnO0831rQc4E+a4bTe
-	6HK9sDgCqJVja+OFismUGYgbknXXzwtfaIdR6BDwo40N6YLpJ1QSgiGsb6uaST3JwFtvzvEaBWq
-	E6dqkQvvHGbERgOrI/VfkI2ovDIBccKRmJhRTy0tDoFXzbSBsxkgpj8ASpBwK3LNJ6tON2dxObx
-	qOyX1BCisHDhU1uAmDxrcHyEYwkbr77wetEpGehz6xxkb4ayBM45dRaJn7zsi0lAU+Y/SLzltX8
-	0qhAxJ0c81+RWnY1isnH0eiKog9xVrDJEiNStINhIYW9DXhWbzmah7h1eeU5DOkFClzZD4UQW4u
-	gudYEZ7fPWrQpnQbZn7w+mE+V/l46C5yWsqTDZ7InqJe+29vyHoSzQlZvNq4MN4nCHvMw35E4ES
-	0gGCw9hHFRLghNqUzm019TrfjckVK/3DNLgcOMCBnIjHZtJ9aFgXnoES3vcg6kk3TQm97Li5UFZ
-	y1Lvkt/fphFCSTB2O27wh8j4Y0
-X-Received: by 2002:a05:690e:478f:20b0:67b:ef6f:4b68 with SMTP id 956f58d0204a3-67d893e58f7mr350163d50.19.1794524358262;
-        Thu, 12 Nov 2026 14:59:18 -0800 (PST)
+        bh=2S+1oVmF7ABvevxRP1h0vhmyM1Y1t2gXt3/NcgVPU8s=;
+        b=lXJjI5aho/pHR7LNVDZHam09lTa5c3r2gsiQ11EtYbMBRCxUCV7DIeMAb+xOEfMTyn
+         wb2Rj556QOl4DDaSsjA/Qb5TJ5hE+uzH3wik1Ja3Xk8HDtTfuDBD5L6/4rK6KsK4Dvj3
+         3zKfN6kN51wXTx+YdQys4sUP0AbHbU1gGpILUfye3EaQTjvh5U7sjF2dh3P8NPtHOJpn
+         m0hEwYDe4ET21Ukgy8sB+NFnpX126ME63orChtyrZgOjYyzlCvLeyTbzNERmuJU/X9Y3
+         88r8JYzsxyUp4dtiWCHDWiBB2ctRyzI9jIP9Q2kcYdQ3bna6/YNoTMjMovKraAV3B8nq
+         3FyA==
+X-Forwarded-Encrypted: i=1; AL+hErHaqGqdRGXOVQcItPlTqXNtk4bGKkqfliJV9SUjxSAmuTcZJAVBjpRJM95RowoYktGbwlcXdEBYgdiMh9A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/quwxyoOfk1FLIgC0uzoLJHTkItQEjsjuu+RPMtHCRa+rq/ckv
+	PlfU1zhM1oXoEmf+sYSGrV4JXIjOcScyX4T9uSeIfx/EyMJveSkb7396
+X-Gm-Gg: AYBFou1QR98N4jQocAXFBFTBoIGPAW+C60dAZyn7cGKAQNspGa66T+bIp/ugl8pO+L7
+	PK4Gquqe6wKfXQxbcckmKjNE32jkF5YZ9QGZHr+xQu6Iv/T8JEWK1oRqLI1x/NleK9Lbf3TZ1zx
+	q+rFylvHd2JzkkkZrLc9PB/zM53kMIKckSeDwifE/jS7KzuyVAN2LGHwuQQJ449wmlD3gbURTFO
+	Bg/UDajonro9Zrfvpd43ujuoReY+HcEFMSW6x5DtoLQJQ3xm4hNi5TuWwwjJYmHTCjbRPPMp1q+
+	ouelFMcWD1EGBou+g2/siz3bMWM8FMMDw53DNzT46WIJgtIYWsTMYWrXGlxT8XHgQuhi6l4T/DL
+	2arVuJtts/IDu0EO9rS/A7dl99bvW+EUkd115bfloFd5saMf662fbLgynhsdaPest1kJ6vLnqTO
+	+u6hchjhus2oLN7ofcHz1QZvb03+eWunlx9m0KWpLfbPr183bjI9dG+nXMLaDsX0sh/ty9pIMib
+	hsRmwpUjw1xxleKjmhcyPnEj0wic2ksdgBiHTdH47vvWhtCS5Z+ud52Ts6AMU1LEabH0dWaLHWg
+	CJjEoRbxJi5R30p8RAnemrvlAnjmczheR6k894cjUI3r4Y6bDMmt9tUkEkx5/4b/2Tq8JL4y5kl
+	+UnJFkVw2u2hACAmGAxDrj70BzI0ReRZTsM5WQU9QaOYZAgE01HIJx+94vTKGF+GQ9v+upCEFCW
+	a6CVtI/pf5hE8WHWmRiJzT+SvyfhE=
+X-Received: by 2002:a05:690c:c510:b0:8b4:aa69:a749 with SMTP id 00721157ae682-8b4aa69be0amr5479297b3.1.1794524359991;
+        Thu, 12 Nov 2026 14:59:19 -0800 (PST)
 Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([71.68.170.161])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa8f354asm7261077b3.14.2026.11.12.14.59.16
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa8f354asm7261077b3.14.2026.11.12.14.59.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 14:59:17 -0800 (PST)
+        Thu, 12 Nov 2026 14:59:19 -0800 (PST)
 From: Joseph Telaak <joseph@telaak.dev>
-Date: Thu, 12 Nov 2026 17:58:56 -0500
-Subject: [PATCH RFC 06/13] drm/powervr_sgx: Load and start the microkernel
+Date: Thu, 12 Nov 2026 17:58:57 -0500
+Subject: [PATCH RFC 07/13] drm/powervr_sgx: Add GEM objects, VMs and
+ dma-buf sharing
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,7 +81,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261112-powervr-sgx-v1-6-c69b84bac011@telaak.dev>
+Message-Id: <20261112-powervr-sgx-v1-7-c69b84bac011@telaak.dev>
 References: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
 In-Reply-To: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
 To: dri-devel@lists.freedesktop.org, 
@@ -102,1790 +103,1711 @@ Cc: imagination@lists.freedesktop.org, Frank Binns <frank.binns@imgtec.com>,
  linux-kernel@vger.kernel.org, Joseph Telaak <joseph@telaak.dev>
 X-Mailer: b4 0.16.0
 
-The GPU runs a microkernel on its shader unit. Load it with
-request_firmware(), check its header (magic, interface version,
-features, image CRC, entry points and patch sites), and refuse an image
-that doesn't declare secure mode, in which no client page directory maps
-the firmware's memory.
-
-Build the microkernel's control blocks and entry PDS programs in kernel
-memory, run the core's init script, kick the first event and wait for
-the microkernel to report it is running. Stopping is the microkernel's
-power-off, then the cores held in reset.
-
-Commands reach the microkernel through a kernel-owned ring (the kernel
-CCB); a command is done when the microkernel's read offset passes it.
+- GEM shmem objects below 4 GiB, mapped write-combined. A code object
+  has no CPU mapping; its contents come through UPLOAD_CODE.
+- VM contexts on drm_gpuvm, one GPU page directory each, with VM_BIND
+  mapping and unmapping inside the fixed heaps. An unmap invalidates the
+  GPU's directory and table caches and waits for the VM's jobs before
+  the pages go.
+- dma-buf export and import (import on x86 only for now). The SGX
+  doesn't snoop the CPU's caches, so an import is written back once when
+  it is imported, through the exporter's vmap, and the byte ranges a job
+  lists are flushed before it runs and, where it writes, again before
+  its fence signals.
+- Firmware objects a client releases wait until the GPU can no longer
+  use them; a VM's mappings go when its handle and its last context are
+  gone.
 
 Signed-off-by: Joseph Telaak <joseph@telaak.dev>
 ---
- drivers/gpu/drm/powervr_sgx/pvrsgx_ccb.c  | 204 +++++++++
- drivers/gpu/drm/powervr_sgx/pvrsgx_ccb.h  |  52 +++
- drivers/gpu/drm/powervr_sgx/pvrsgx_fw.c   | 731 ++++++++++++++++++++++++++++++
- drivers/gpu/drm/powervr_sgx/pvrsgx_fw.h   |  77 ++++
- drivers/gpu/drm/powervr_sgx/pvrsgx_fwif.h | 519 +++++++++++++++++++++
- drivers/gpu/drm/powervr_sgx/pvrsgx_pds.c  |  97 ++++
- drivers/gpu/drm/powervr_sgx/pvrsgx_pds.h  |  37 ++
- 7 files changed, 1717 insertions(+)
+ drivers/gpu/drm/powervr_sgx/pvrsgx_gem.c   | 120 +++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_gem.h   |  46 ++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_kobj.c  | 285 ++++++++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_kobj.h  |  82 +++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_prime.c | 203 ++++++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_prime.h |  26 +
+ drivers/gpu/drm/powervr_sgx/pvrsgx_vm.c    | 799 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/powervr_sgx/pvrsgx_vm.h    |  69 +++
+ 8 files changed, 1630 insertions(+)
 
-diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_ccb.c b/drivers/gpu/drm/powervr_sgx/pvrsgx_ccb.c
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_gem.c b/drivers/gpu/drm/powervr_sgx/pvrsgx_gem.c
 new file mode 100644
-index 000000000..351a7f930
+index 000000000..b22b819b0
 --- /dev/null
-+++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_ccb.c
-@@ -0,0 +1,204 @@
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_gem.c
+@@ -0,0 +1,120 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/* Copyright © 2026 Joseph Telaak */
 +
-+/*
-+ * The kernel CCB: a ring of 256 commands the host writes and the microkernel
-+ * reads. The host advances the write offset and rings
-+ * EUR_CR_EVENT_KICK; the microkernel advances the read offset as it takes each
-+ * command. Neither raises an interrupt by itself, so a command is complete, as
-+ * far as the ring is concerned, once the read offset has passed it.
-+ */
++#include <drm/drm_gem.h>
++#include <drm/drm_prime.h>
++#include <drm/drm_vma_manager.h>
 +
-+#include <drm/drm_print.h>
-+
-+#include <linux/delay.h>
-+#include <linux/io.h>
-+#include <linux/jiffies.h>
-+#include <linux/string.h>
-+
-+#include "pvrsgx_ccb.h"
-+#include "pvrsgx_device.h"
-+
-+#define CCB_WO 0
-+#define CCB_RO 1
-+
-+static u32 *ccbctl(struct pvrsgx_device *sdev)
-+{
-+	return sdev->fw.cpu[PVRSGX_FW_CCBCTL];
-+}
-+
-+void pvrsgx_ccb_reset(struct pvrsgx_device *sdev)
-+{
-+	memset(sdev->fw.cpu[PVRSGX_FW_CCB], 0, PVRSGX_CCB_SLOTS * PVRSGX_CCB_CMD_WORDS * 4);
-+	ccbctl(sdev)[CCB_WO] = 0;
-+	ccbctl(sdev)[CCB_RO] = 0;
-+	*(u32 *)sdev->fw.cpu[PVRSGX_FW_KICKER] = 0;
-+	/*
-+	 * @ccb_issued carries on: a job sent after a restart has a higher sequence
-+	 * than any count read before it, so a stale count can't complete it.
-+	 */
-+}
-+
-+/* Commands the microkernel has taken off the ring since the driver loaded. */
-+u64 pvrsgx_ccb_consumed(struct pvrsgx_device *sdev)
-+{
-+	u32 ro = READ_ONCE(ccbctl(sdev)[CCB_RO]);
-+	unsigned long flags;
-+	u64 consumed;
-+
-+	/* The read offset is GPU-written: trust it only as an index. */
-+	spin_lock_irqsave(&sdev->ccb_spin, flags);
-+	consumed = sdev->ccb_issued - ((ccbctl(sdev)[CCB_WO] - ro) & (PVRSGX_CCB_SLOTS - 1));
-+	spin_unlock_irqrestore(&sdev->ccb_spin, flags);
-+	return consumed;
-+}
-+
-+/* Write one command and ring the doorbell, with ccb_lock held. */
-+static int ccb_write(struct pvrsgx_device *sdev, enum pvrsgx_kcmd type, u32 cache_control,
-+		     const u32 data[6], u64 *seq)
-+{
-+	u32 *ctl = ccbctl(sdev), *cmd, wo;
-+	unsigned long timeout = jiffies + msecs_to_jiffies(500);
-+
-+	wo = ctl[CCB_WO];
-+	while (((wo + 1) & (PVRSGX_CCB_SLOTS - 1)) ==
-+	       (READ_ONCE(ctl[CCB_RO]) & (PVRSGX_CCB_SLOTS - 1))) {
-+		if (time_after(jiffies, timeout)) {
-+			drm_err(&sdev->base, "kernel CCB full (wo %u ro %u)\n", wo, ctl[CCB_RO]);
-+			return -EBUSY;
-+		}
-+		usleep_range(500, 1000);
-+	}
-+
-+	cmd = (u32 *)sdev->fw.cpu[PVRSGX_FW_CCB] + wo * PVRSGX_CCB_CMD_WORDS;
-+	cmd[0] = type;
-+	cmd[1] = cache_control;
-+	memcpy(&cmd[2], data, 6 * sizeof(u32));
-+
-+	/* Command, then offset, then doorbell. */
-+	wmb();
-+	spin_lock_irq(&sdev->ccb_spin);
-+	ctl[CCB_WO] = (wo + 1) & (PVRSGX_CCB_SLOTS - 1);
-+	sdev->ccb_issued++;
-+	if (seq)
-+		*seq = sdev->ccb_issued;
-+	spin_unlock_irq(&sdev->ccb_spin);
-+	*(u32 *)sdev->fw.cpu[PVRSGX_FW_KICKER] =
-+		(*(u32 *)sdev->fw.cpu[PVRSGX_FW_KICKER] + 1) & 0xff;
-+	/* The command and the kicker count reach memory before the kick. */
-+	wmb();
-+	sgx_wr(sdev, SGX_CR_EVENT_KICK, SGX_CR_EVENT_KICK_NOW);
-+	return 0;
-+}
-+
-+/*
-+ * BRN_28889: a BIF directory or table invalidate and a data invalidate never
-+ * go in one command. The BIF part goes first, alone, and the microkernel must
-+ * have taken it before the data part is sent. An invalidate waiter
-+ * (pvrsgx_ccb_after_invalidate()) waits for the first, which carries the BIF
-+ * part.
-+ */
-+static int ccb_split_inval(struct pvrsgx_device *sdev, u32 *cache_control)
-+{
-+	static const u32 none[6];
-+	unsigned long timeout = jiffies + msecs_to_jiffies(500);
-+	u64 seq;
-+	int err;
-+
-+	if (!(sdev->family->quirks & PVRSGX_QUIRK_BRN_28889) ||
-+	    !(*cache_control & PVRSGX_CC_INVAL_DATA) ||
-+	    !(*cache_control & ~PVRSGX_CC_INVAL_DATA))
-+		return 0;
-+	err = ccb_write(sdev, PVRSGX_KCMD_PROCESS_QUEUES, *cache_control & ~PVRSGX_CC_INVAL_DATA,
-+			none, &seq);
-+	if (err)
-+		return err;
-+	while (pvrsgx_ccb_consumed(sdev) < seq) {
-+		if (time_after(jiffies, timeout)) {
-+			drm_err(&sdev->base, "BIF invalidate not taken (BRN_28889)\n");
-+			return -ETIMEDOUT;
-+		}
-+		usleep_range(100, 200);
-+	}
-+	*cache_control = PVRSGX_CC_INVAL_DATA;
-+	return 0;
-+}
-+
-+int pvrsgx_ccb_send(struct pvrsgx_device *sdev, enum pvrsgx_kcmd type,
-+		    const u32 data[6], u64 *seq)
-+{
-+	u32 cache_control;
-+	int err;
-+
-+	/* Types past the microkernel's command table are refused. */
-+	if (type >= PVRSGX_KCMD_MAX)
-+		return -EINVAL;
-+
-+	mutex_lock(&sdev->ccb_lock);
-+	cache_control = sdev->fw.cache_control;
-+	err = ccb_split_inval(sdev, &cache_control);
-+	if (!err)
-+		err = ccb_write(sdev, type, cache_control, data, seq);
-+	if (!err)
-+		sdev->fw.cache_control = 0;
-+	mutex_unlock(&sdev->ccb_lock);
-+	return err;
-+}
-+
-+void pvrsgx_ccb_after_invalidate(struct pvrsgx_device *sdev, struct pvrsgx_inval_wait *w,
-+				 u32 cache_control)
-+{
-+	unsigned long flags;
-+
-+	if (READ_ONCE(sdev->lost)) {
-+		w->done(w);
-+		return;
-+	}
-+	mutex_lock(&sdev->ccb_lock);
-+	sdev->fw.cache_control |= cache_control;
-+	w->seq = sdev->ccb_issued + 1;
-+	mutex_unlock(&sdev->ccb_lock);
-+	spin_lock_irqsave(&sdev->inval_lock, flags);
-+	list_add_tail(&w->node, &sdev->inval_waits);
-+	spin_unlock_irqrestore(&sdev->inval_lock, flags);
-+}
-+
-+/* For status dumps: how much work still waits for an invalidate. */
-+u32 pvrsgx_ccb_inval_pending(struct pvrsgx_device *sdev)
-+{
-+	struct pvrsgx_inval_wait *w;
-+	unsigned long flags;
-+	u32 n = 0;
-+
-+	spin_lock_irqsave(&sdev->inval_lock, flags);
-+	list_for_each_entry(w, &sdev->inval_waits, node)
-+		n++;
-+	spin_unlock_irqrestore(&sdev->inval_lock, flags);
-+	return n;
-+}
-+
-+/*
-+ * Run what waited for an invalidate the microkernel has now taken; all of it
-+ * once the GPU is stopped. A restart empties the ring, so everything sent
-+ * before it counts as taken: the GPU was reset, and the first command after
-+ * the start carries an invalidate of its own.
-+ */
-+void pvrsgx_ccb_inval_reap(struct pvrsgx_device *sdev, bool all)
-+{
-+	struct pvrsgx_inval_wait *w, *tmp;
-+	unsigned long flags;
-+	LIST_HEAD(done);
-+	u64 consumed;
-+
-+	spin_lock_irqsave(&sdev->inval_lock, flags);
-+	consumed = all || READ_ONCE(sdev->lost) ? U64_MAX : pvrsgx_ccb_consumed(sdev);
-+	list_for_each_entry_safe(w, tmp, &sdev->inval_waits, node) {
-+		if (w->seq <= consumed)
-+			list_move_tail(&w->node, &done);
-+	}
-+	spin_unlock_irqrestore(&sdev->inval_lock, flags);
-+	list_for_each_entry_safe(w, tmp, &done, node) {
-+		list_del(&w->node);
-+		w->done(w);
-+	}
-+}
-diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_ccb.h b/drivers/gpu/drm/powervr_sgx/pvrsgx_ccb.h
-new file mode 100644
-index 000000000..2968cb41b
---- /dev/null
-+++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_ccb.h
-@@ -0,0 +1,52 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/* Copyright © 2026 Joseph Telaak */
-+
-+#ifndef PVRSGX_CCB_H
-+#define PVRSGX_CCB_H
-+
-+#include <linux/list.h>
-+#include <linux/types.h>
-+
-+struct pvrsgx_device;
-+
-+/**
-+ * struct pvrsgx_inval_wait - Work that waits for a BIF invalidate to run
-+ * @node: In pvrsgx_device.inval_waits.
-+ * @seq: The kernel CCB command that carries the invalidate.
-+ * @done: Called, in process context, once the microkernel has taken it.
-+ */
-+struct pvrsgx_inval_wait {
-+	struct list_head node;
-+	u64 seq;
-+	void (*done)(struct pvrsgx_inval_wait *w);
-+};
-+
-+/* Kernel CCB command types. */
-+enum pvrsgx_kcmd {
-+	PVRSGX_KCMD_TA = 0,
-+	PVRSGX_KCMD_TRANSFER = 1,
-+	PVRSGX_KCMD_POWER = 3,
-+	PVRSGX_KCMD_PROCESS_QUEUES = 7,
-+	PVRSGX_KCMD_MAX = 11
-+};
-+
-+/* Cache control: invalidates the microkernel runs before the command. */
-+#define PVRSGX_CC_INVAL_BIF_PT	0x1
-+#define PVRSGX_CC_INVAL_BIF_PD	0x2
-+#define PVRSGX_CC_INVAL_BIF_SL	0x4
-+#define PVRSGX_CC_INVAL_DATA	0x8
-+
-+/* A kernel CCB command: entry, cache control, six data words. */
-+#define PVRSGX_CCB_SLOTS	256
-+#define PVRSGX_CCB_CMD_WORDS	8
-+
-+int pvrsgx_ccb_send(struct pvrsgx_device *sdev, enum pvrsgx_kcmd type,
-+		    const u32 data[6], u64 *seq);
-+u64 pvrsgx_ccb_consumed(struct pvrsgx_device *sdev);
-+void pvrsgx_ccb_reset(struct pvrsgx_device *sdev);
-+void pvrsgx_ccb_after_invalidate(struct pvrsgx_device *sdev, struct pvrsgx_inval_wait *w,
-+				 u32 cache_control);
-+void pvrsgx_ccb_inval_reap(struct pvrsgx_device *sdev, bool all);
-+u32 pvrsgx_ccb_inval_pending(struct pvrsgx_device *sdev);
-+
-+#endif /* PVRSGX_CCB_H */
-diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_fw.c b/drivers/gpu/drm/powervr_sgx/pvrsgx_fw.c
-new file mode 100644
-index 000000000..b3c0d1891
---- /dev/null
-+++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_fw.c
-@@ -0,0 +1,731 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Copyright © 2026 Joseph Telaak */
-+
-+/*
-+ * Loading and starting the microkernel: the buffers, constants, PDS programs
-+ * and init scripts it needs.
-+ *
-+ * The host interface is version 1 of the microkernel's own
-+ * (DRM_POWERVR_SGX_FW_IF_V1). The microkernel file's header lists its entry
-+ * points and patch sites.
-+ */
-+
-+#include <drm/drm_print.h>
-+
-+#include <linux/bitfield.h>
-+#include <linux/crc32.h>
-+#include <linux/delay.h>
-+#include <linux/firmware.h>
-+#include <linux/interrupt.h>
-+#include <linux/iopoll.h>
-+#include <linux/module.h>
-+#include <linux/pci.h>
-+#include <linux/seq_buf.h>
++#include <linux/dma-buf.h>
++#include <linux/pagemap.h>
 +#include <linux/sizes.h>
 +#include <linux/slab.h>
-+#include <linux/string.h>
 +
 +#include <uapi/drm/powervr_sgx_drm.h>
 +
-+#include "pvrsgx_ccb.h"
-+#include "pvrsgx_core.h"
-+#include "pvrsgx_device.h"
-+#include "pvrsgx_fw.h"
-+#include "pvrsgx_fwif.h"
-+#include "pvrsgx_kobj.h"
-+#include "pvrsgx_mmu.h"
-+#include "pvrsgx_pds.h"
++#include "pvrsgx_drv.h"
++#include "pvrsgx_gem.h"
 +
-+/* The microkernel file's header. */
-+#define UKFW_MAGIC0		0x35584753	/* "SGX5" */
-+#define UKFW_MAGIC1		0x4e524b55	/* "UKRN" */
-+#define UKFW_HEADER_MIN		0x60
-+#define UKFW_IF_MAJOR		1
-+#define UKFW_FEATURES		(PVRSGX_UKFW_CLEANUP_V2 | PVRSGX_UKFW_SECURE | \
-+				 PVRSGX_UKFW_DONE_SEQ | PVRSGX_UKFW_SINGLE_CONTEXT)
-+/* Bits 16-31: the microkernel's own build variants, nothing the host must know. */
-+#define UKFW_FEATURES_PRIVATE	GENMASK(31, 16)
-+#define UKFW_MAX_IMAGE		(CODE_ARENA_SIZE - PDS_BYTES - 0x10)
++/* The GPU has 32-bit physical addresses and a 4 GiB address space. */
++#define PVRSGX_BO_MAX_SIZE	SZ_1G
 +
-+struct ukfw_header {
-+	__le32 magic[2];
-+	__le32 header_size;
-+	__le32 interface;
-+	__le32 features;
-+	__le32 image_size;
-+	__le32 image_crc32;
-+	__le32 n_entries;
-+	__le32 entries_off;
-+	__le32 n_patches;
-+	__le32 patches_off;
-+	__le32 core_rev;
-+	__le32 reserved[4];
-+	char build_id[32];
-+};
-+
-+struct ukfw_pair {
-+	__le32 a, b;
-+};
-+
-+enum ukfw_patch_value {
-+	UKFW_TA3DCTL = 1,
-+	UKFW_HOSTCTL,
-+	UKFW_CCBCTL,
-+	UKFW_CCB,
-+	UKFW_MISC,
-+	UKFW_PDTABLE,	/* single-context cores only */
-+};
-+
-+/* The POWER command: data word 1. */
-+#define POWER_OFF			1
-+
-+/* The microkernel's timer runs at 1 kHz. */
-+#define UKERNEL_TIMER_HZ	1000
-+
-+/*
-+ * Where each buffer lives: its offset in the kernel data or code arena, and
-+ * its size.
-+ */
-+static const struct {
-+	bool code;
-+	u32 offset, size;
-+} layout[PVRSGX_FW_NBUF] = {
-+	[PVRSGX_FW_CCB] = { false, 0x0000, 0x2000 },
-+	[PVRSGX_FW_CCBCTL] = { false, 0x2000, 0x8 },
-+	[PVRSGX_FW_KICKER] = { false, 0x2010, 0x4 },
-+	[PVRSGX_FW_TA3DCTL] = { false, 0x3000, sizeof(struct pvrsgx_fw_ta3d_ctl) },
-+	/* Right after the control block, which fills 0x3000-0x30ff. */
-+	[PVRSGX_FW_HOSTCTL] = { false, 0x3100, 0x44 },
-+	[PVRSGX_FW_MISC] = { false, 0x3160, 0x54 },
-+	/* The image at 0, then the PDS programs from its end. */
-+	[PVRSGX_FW_UKERNEL] = { true, 0x0000, 0 },
-+	[PVRSGX_FW_PDS0] = { true, 0x000, 0x18 },
-+	[PVRSGX_FW_PDS1] = { true, 0x020, 0x38 },
-+	[PVRSGX_FW_PDS2] = { true, 0x060, 0x18 },
-+	[PVRSGX_FW_PDS3] = { true, 0x090, 0x100 },
-+	[PVRSGX_FW_PDS4] = { true, 0x190, 0x68 },
-+};
-+
-+static_assert(0x3000 + sizeof(struct pvrsgx_fw_ta3d_ctl) <= 0x3100);
-+
-+#define PDS_BYTES	0x200
-+
-+#define DATA_ARENA_SIZE	0xe000
-+#define CODE_ARENA_SIZE	0xe000
-+
-+static u32 *fw_words(struct pvrsgx_device *sdev, enum pvrsgx_fw_buf b)
++/* A code object's contents are validated: no other way to reach them. */
++static struct dma_buf *pvrsgx_gem_export(struct drm_gem_object *obj, int flags)
 +{
-+	return sdev->fw.cpu[b];
++	if (to_pvrsgx_bo(obj)->flags & DRM_POWERVR_SGX_BO_CODE)
++		return ERR_PTR(-EPERM);
++	return drm_gem_prime_export(obj, flags);
 +}
 +
-+/* The TA3D control block as the microkernel left it (in-flight slot, PB state). */
-+void pvrsgx_fw_dump(struct seq_buf *sb, struct pvrsgx_device *sdev, unsigned int b,
-+		    const char *name)
++/* Every CPU mapping, the dma-buf's included, needs ALLOW_CPU_ACCESS. */
++static int pvrsgx_gem_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
 +{
-+	const u32 *w = fw_words(sdev, b);
++	if (!drm_gem_is_imported(obj) &&
++	    !(to_pvrsgx_bo(obj)->flags & DRM_POWERVR_SGX_BO_ALLOW_CPU_ACCESS))
++		return -EINVAL;
++	return drm_gem_shmem_object_mmap(obj, vma);
++}
 +
-+	seq_buf_printf(sb, "%s @ 0x%08x:", name, sdev->fw.addr[b]);
-+	for (u32 i = 0; i < layout[b].size / 4; i++)
++static void pvrsgx_gem_free(struct drm_gem_object *obj)
++{
++	struct pvrsgx_bo *bo = to_pvrsgx_bo(obj);
++
++	if (drm_gem_is_imported(obj) && !iosys_map_is_null(&bo->import_map))
++		dma_buf_vunmap_unlocked(obj->import_attach->dmabuf, &bo->import_map);
++	drm_gem_shmem_object_free(obj);
++}
++
++static const struct drm_gem_object_funcs pvrsgx_gem_funcs = {
++	.free = pvrsgx_gem_free,
++	.export = pvrsgx_gem_export,
++	.print_info = drm_gem_shmem_object_print_info,
++	.pin = drm_gem_shmem_object_pin,
++	.unpin = drm_gem_shmem_object_unpin,
++	.get_sg_table = drm_gem_shmem_object_get_sg_table,
++	.vmap = drm_gem_shmem_object_vmap,
++	.vunmap = drm_gem_shmem_object_vunmap,
++	.mmap = pvrsgx_gem_mmap,
++	.vm_ops = &drm_gem_shmem_vm_ops,
++};
++
++struct drm_gem_object *pvrsgx_gem_create_object(struct drm_device *drm, size_t size)
++{
++	struct pvrsgx_bo *bo = kzalloc_obj(*bo);
++
++	if (!bo)
++		return ERR_PTR(-ENOMEM);
++	bo->base.base.funcs = &pvrsgx_gem_funcs;
++	/* The GPU doesn't snoop the CPU caches. */
++	bo->base.map_wc = true;
++	return &bo->base.base;
++}
++
++int pvrsgx_ioctl_create_bo(struct drm_device *drm, void *data, struct drm_file *file)
++{
++	struct drm_powervr_sgx_ioctl_create_bo_args *args = data;
++	struct drm_gem_shmem_object *shmem;
++	int err;
++
++	if (args->_padding_c || (args->flags & ~PVRSGX_BO_FLAGS_MASK) ||
++	    !args->size || !PAGE_ALIGNED(args->size) || args->size > PVRSGX_BO_MAX_SIZE)
++		return -EINVAL;
++	if ((args->flags & DRM_POWERVR_SGX_BO_CODE) &&
++	    (args->flags & DRM_POWERVR_SGX_BO_ALLOW_CPU_ACCESS))
++		return -EINVAL;
++
++	shmem = drm_gem_shmem_create(drm, args->size);
++	if (IS_ERR(shmem))
++		return PTR_ERR(shmem);
++	to_pvrsgx_bo(&shmem->base)->flags = args->flags;
++	/* Pages the GPU can address. */
++	mapping_set_gfp_mask(shmem->base.filp->f_mapping,
++			     (GFP_HIGHUSER & ~__GFP_HIGHMEM) | __GFP_DMA32);
++
++	err = drm_gem_handle_create(file, &shmem->base, &args->handle);
++	drm_gem_object_put(&shmem->base);
++	return err;
++}
++
++int pvrsgx_ioctl_get_bo_mmap_offset(struct drm_device *drm, void *data, struct drm_file *file)
++{
++	struct drm_powervr_sgx_ioctl_get_bo_mmap_offset_args *args = data;
++	struct drm_gem_object *obj;
++	int err;
++
++	if (args->_padding_4)
++		return -EINVAL;
++
++	obj = drm_gem_object_lookup(file, args->handle);
++	if (!obj)
++		return -ENOENT;
++	if (!(to_pvrsgx_bo(obj)->flags & DRM_POWERVR_SGX_BO_ALLOW_CPU_ACCESS)) {
++		err = -EINVAL;
++		goto out;
++	}
++	err = drm_gem_create_mmap_offset(obj);
++	if (!err)
++		args->offset = drm_vma_node_offset_addr(&obj->vma_node);
++out:
++	drm_gem_object_put(obj);
++	return err;
++}
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_gem.h b/drivers/gpu/drm/powervr_sgx/pvrsgx_gem.h
+new file mode 100644
+index 000000000..5f8c4ab94
+--- /dev/null
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_gem.h
+@@ -0,0 +1,46 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/* Copyright © 2026 Joseph Telaak */
++
++#ifndef PVRSGX_GEM_H
++#define PVRSGX_GEM_H
++
++#include <drm/drm_gem_shmem_helper.h>
++
++#include <linux/atomic.h>
++#include <linux/iosys-map.h>
++#include <linux/types.h>
++
++struct drm_device;
++struct drm_file;
++
++struct pvrsgx_bo {
++	struct drm_gem_shmem_object base;
++	u64 flags;
++	/** @code_end: A code object's end of the furthest upload (under the resv lock). */
++	u64 code_end;
++	/**
++	 * @code_abs: The code has absolute targets, checked for the object's start
++	 * at @code_place instructions from its USSE heap's base (resv lock).
++	 */
++	bool code_abs;
++	s64 code_place;
++	/**
++	 * @code_unmapping: A code object's mappings that are unmapped but that the
++	 * GPU may still fetch from: the jobs before the unmap or the BIF invalidate
++	 * after it are not done. UPLOAD_CODE treats them as live mappings.
++	 */
++	atomic_t code_unmapping;
++	/** @import_map: An import's CPU mapping, from its exporter, for the cache flushes. */
++	struct iosys_map import_map;
++};
++
++static inline struct pvrsgx_bo *to_pvrsgx_bo(struct drm_gem_object *obj)
++{
++	return container_of(to_drm_gem_shmem_obj(obj), struct pvrsgx_bo, base);
++}
++
++struct drm_gem_object *pvrsgx_gem_create_object(struct drm_device *drm, size_t size);
++int pvrsgx_ioctl_create_bo(struct drm_device *drm, void *data, struct drm_file *file);
++int pvrsgx_ioctl_get_bo_mmap_offset(struct drm_device *drm, void *data, struct drm_file *file);
++
++#endif /* PVRSGX_GEM_H */
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_kobj.c b/drivers/gpu/drm/powervr_sgx/pvrsgx_kobj.c
+new file mode 100644
+index 000000000..8b21315e9
+--- /dev/null
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_kobj.c
+@@ -0,0 +1,285 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/* Copyright © 2026 Joseph Telaak */
++
++/*
++ * Kernel-owned objects at device-wide addresses: render contexts' and RT
++ * datasets' firmware structures, parameter buffers, free lists, region headers.
++ * The 3D parameters range (PB, free list, scratch, background block) is per VM
++ * instead: the DPM numbers PB pages from the heap base, so a second context's PB
++ * at a higher device-wide address hangs the GPU.
++ *
++ * Releasing one does not free it at once: a render already handed to the
++ * microkernel may still read it. Released objects are freed once every render
++ * submitted before the release has completed. A PB descriptor waits for the
++ * next restart instead: the microkernel remembers the last PB's address to
++ * skip reloading its free list, so a new PB at a freed one's address must not
++ * appear while it runs.
++ *
++ * Unmapping is not the end either: the BIF may hold a translation of the
++ * object's pages until it is invalidated, and the microkernel invalidates only
++ * for the cache control word of a command it takes, before it moves the read
++ * offset on. So a reaped object is unmapped, the invalidate is queued for the
++ * next command, and its pages and address are freed once the kernel CCB has
++ * consumed that command. A hardware unit's late write then faults instead of
++ * landing in a page the kernel has handed out again.
++ */
++
++#include <linux/mm.h>
++#include <linux/seq_buf.h>
++#include <linux/slab.h>
++
++#include "pvrsgx_ccb.h"
++#include "pvrsgx_kobj.h"
++#include "pvrsgx_fw.h"
++#include "pvrsgx_mmu.h"
++#include "pvrsgx_vm.h"
++
++struct krange {
++	u32 start, end, pte;
++};
++
++/* Each range in the core's layout (pvrsgx_core.c). */
++static struct krange krange(const struct pvrsgx_device *sdev, enum pvrsgx_krange r)
++{
++	const struct pvrsgx_heap_layout *h = pvrsgx_heaps(sdev);
++
++	switch (r) {
++	case PVRSGX_KRANGE_KDATA:	/* past the firmware's own arenas (pvrsgx_fw.c) */
++		return (struct krange){ h->kernel_data.base + 0x10000, h->kernel_data.end,
++					SGX_MMU_PTE_CACHECONSISTENT | SGX_MMU_PTE_EDMPROTECT };
++	case PVRSGX_KRANGE_KCODE:
++		return (struct krange){ h->kernel_code.base + 0x10000, h->kernel_code.end,
++					SGX_MMU_PTE_CACHECONSISTENT };
++	case PVRSGX_KRANGE_SYNC:
++		return (struct krange){ h->sync.base, h->sync.end, SGX_MMU_PTE_CACHECONSISTENT };
++	case PVRSGX_KRANGE_3DPARAMS:
++		return (struct krange){ h->params_3d.base, h->params_3d.end, 0 };
++	case PVRSGX_KRANGE_TADATA:
++	default:
++		return (struct krange){ h->ta_data.base, h->ta_data.end, 0 };
++	}
++}
++
++int pvrsgx_kobj_init(struct pvrsgx_device *sdev)
++{
++	mutex_init(&sdev->kobj_lock);
++	INIT_LIST_HEAD(&sdev->graveyard);
++	INIT_LIST_HEAD(&sdev->kobj_unmapped);
++	for (int r = 0; r < PVRSGX_KRANGE_COUNT; r++) {
++		struct krange kr = krange(sdev, r);
++
++		drm_mm_init(&sdev->krange[r], kr.start, kr.end - kr.start);
++	}
++	return 0;
++}
++
++struct pvrsgx_kobj *pvrsgx_kobj_create(struct pvrsgx_device *sdev, enum pvrsgx_krange range,
++				       u32 size, u32 min_addr, struct pvrsgx_vm *vm)
++{
++	struct pvrsgx_kobj *o;
++	struct krange kr = krange(sdev, range);
++	u32 start = max(min_addr, kr.start);
++	/* A 3D-params object without a VM is the device's: the PB (pvrsgx_render.c). */
++	bool per_vm = range == PVRSGX_KRANGE_3DPARAMS && vm;
++	int err;
++
++	/* Clients' ioctls create these: charge them to the caller. */
++	o = kzalloc_obj(*o, GFP_KERNEL_ACCOUNT);
++	if (!o)
++		return ERR_PTR(-ENOMEM);
++	o->range = range;
++	o->mm = per_vm ? &vm->params : &sdev->krange[range];
++	mutex_lock(&sdev->kobj_lock);
++	err = drm_mm_insert_node_in_range(o->mm, &o->node, PAGE_ALIGN(size), PAGE_SIZE,
++					  0, start, kr.end, DRM_MM_INSERT_LOW);
++	mutex_unlock(&sdev->kobj_lock);
++	if (err)
++		goto err_free;
++
++	if (per_vm)
++		o->km.mmu = vm->mmu;
++	err = pvrsgx_kmem_alloc(sdev, &o->km, o->node.start, size, kr.pte,
++				__GFP_ACCOUNT);
++	if (err)
++		goto err_node;
++	memset(o->km.cpu, 0, o->km.size);
++
++	if (per_vm) {
++		o->vm = pvrsgx_vm_get(vm);
++	} else if (vm) {
++		err = pvrsgx_mmu_map_pages(vm->mmu, o->node.start, o->km.pages, o->km.npages, 0);
++		if (err)
++			goto err_kmem;
++		o->vm = pvrsgx_vm_get(vm);
++	}
++	mutex_lock(&sdev->ccb_lock);
++	sdev->fw.cache_control |= PVRSGX_CC_INVAL_BIF_PT | PVRSGX_CC_INVAL_BIF_PD;
++	mutex_unlock(&sdev->ccb_lock);
++	return o;
++
++err_kmem:
++	pvrsgx_kmem_free(sdev, &o->km);
++err_node:
++	mutex_lock(&sdev->kobj_lock);
++	drm_mm_remove_node(&o->node);
++	mutex_unlock(&sdev->kobj_lock);
++err_free:
++	kfree(o);
++	return ERR_PTR(err);
++}
++
++static void kobj_unmap(struct pvrsgx_kobj *o)
++{
++	struct pvrsgx_vm *vm = o->vm;
++
++	if (vm && o->km.mmu != vm->mmu)
++		pvrsgx_mmu_unmap(vm->mmu, kobj_va(o), o->km.size);
++	pvrsgx_mmu_unmap(o->km.mmu, o->km.dev_addr, o->km.size);
++}
++
++/* An unmapped object, after the invalidate: nothing can reach it now. */
++static void kobj_free(struct pvrsgx_device *sdev, struct pvrsgx_kobj *o)
++{
++	struct pvrsgx_vm *vm = o->vm;
++
++	pvrsgx_kmem_release(&o->km);
++	mutex_lock(&sdev->kobj_lock);
++	drm_mm_remove_node(&o->node);
++	mutex_unlock(&sdev->kobj_lock);
++	kfree(o);
++	/* Last: the node may belong to the VM's own allocator. */
++	pvrsgx_vm_put(vm);
++}
++
++void pvrsgx_kobj_release(struct pvrsgx_device *sdev, struct pvrsgx_kobj *o)
++{
++	if (IS_ERR_OR_NULL(o))
++		return;
++	mutex_lock(&sdev->kobj_lock);
++	o->grave_seq = sdev->renders_submitted;
++	o->grave_restarts = READ_ONCE(sdev->restarts);
++	list_add_tail(&o->grave, &sdev->graveyard);
++	mutex_unlock(&sdev->kobj_lock);
++}
++
++/*
++ * Unmap what was released before a render that has now finished, and free
++ * what was unmapped before a command the microkernel has since taken.
++ * renders_done U64_MAX (unbind, the GPU stopped) frees everything at once.
++ */
++void pvrsgx_kobj_reap(struct pvrsgx_device *sdev, u64 renders_done)
++{
++	struct pvrsgx_kobj *o, *tmp;
++	bool all = renders_done == U64_MAX;
++	u32 restarts = READ_ONCE(sdev->restarts);
++	u64 seq = 0, consumed;
++	LIST_HEAD(dead);
++
++	mutex_lock(&sdev->kobj_lock);
++	list_for_each_entry_safe(o, tmp, &sdev->graveyard, grave) {
++		/* A restart forgets everything the old run pointed at. */
++		if (all || o->grave_restarts != restarts ||
++		    (o->grave_seq < renders_done && !o->until_restart))
++			list_move_tail(&o->grave, &dead);
++	}
++	mutex_unlock(&sdev->kobj_lock);
++
++	if (!list_empty(&dead)) {
++		list_for_each_entry(o, &dead, grave)
++			kobj_unmap(o);
++		/* The next command carries the invalidate. */
++		mutex_lock(&sdev->ccb_lock);
++		sdev->fw.cache_control |= PVRSGX_CC_INVAL_BIF_PT | PVRSGX_CC_INVAL_BIF_PD;
++		seq = sdev->ccb_issued + 1;
++		mutex_unlock(&sdev->ccb_lock);
++	}
++
++	mutex_lock(&sdev->kobj_lock);
++	list_for_each_entry(o, &dead, grave)
++		o->flush_seq = seq;
++	list_splice_tail_init(&dead, &sdev->kobj_unmapped);
++	/*
++	 * After a restart the ring starts over empty, so everything sent before it
++	 * counts as consumed: the GPU was reset, and the first command after the
++	 * microkernel's start carries an invalidate of its own.
++	 */
++	consumed = all ? U64_MAX : pvrsgx_ccb_consumed(sdev);
++	list_for_each_entry_safe(o, tmp, &sdev->kobj_unmapped, grave) {
++		if (o->flush_seq <= consumed)
++			list_move_tail(&o->grave, &dead);
++	}
++	mutex_unlock(&sdev->kobj_lock);
++	list_for_each_entry_safe(o, tmp, &dead, grave)
++		kobj_free(sdev, o);
++}
++
++void pvrsgx_kobj_fini(struct pvrsgx_device *sdev)
++{
++	/*
++	 * Freeing can release more: a VM's last object frees the VM, which
++	 * drops its PB reference, and the PB's objects join the graveyard.
++	 */
++	for (;;) {
++		bool empty;
++
++		mutex_lock(&sdev->kobj_lock);
++		empty = list_empty(&sdev->graveyard) && list_empty(&sdev->kobj_unmapped);
++		mutex_unlock(&sdev->kobj_lock);
++		if (empty)
++			break;
++		pvrsgx_kobj_reap(sdev, U64_MAX);
++	}
++	for (int r = 0; r < PVRSGX_KRANGE_COUNT; r++)
++		drm_mm_takedown(&sdev->krange[r]);
++	mutex_destroy(&sdev->kobj_lock);
++}
++
++/* For status dumps: what waits to be freed. Never sleeps: false if busy. */
++bool pvrsgx_kobj_pending(struct pvrsgx_device *sdev, struct pvrsgx_kobj_counts *c)
++{
++	struct pvrsgx_kobj *o;
++
++	if (!mutex_trylock(&sdev->kobj_lock))
++		return false;
++	memset(c, 0, sizeof(*c));
++	list_for_each_entry(o, &sdev->graveyard, grave) {
++		c->graveyard++;
++		c->graveyard_pages += o->km.npages;
++	}
++	list_for_each_entry(o, &sdev->kobj_unmapped, grave) {
++		c->unmapped++;
++		c->unmapped_pages += o->km.npages;
++	}
++	mutex_unlock(&sdev->kobj_lock);
++	return true;
++}
++
++void pvrsgx_kobj_drop(struct pvrsgx_device *sdev, struct pvrsgx_kobj **o)
++{
++	pvrsgx_kobj_release(sdev, *o);
++	*o = NULL;
++}
++
++/* A kernel object into *dst, which stays NULL on failure. */
++int pvrsgx_kobj_new(struct pvrsgx_device *sdev, struct pvrsgx_kobj **dst,
++		    enum pvrsgx_krange range, u32 size, u32 min, struct pvrsgx_vm *vm)
++{
++	struct pvrsgx_kobj *o = pvrsgx_kobj_create(sdev, range, size, min, vm);
++
++	if (IS_ERR(o))
++		return PTR_ERR(o);
++	*dst = o;
++	return 0;
++}
++
++void pvrsgx_kobj_dump(struct seq_buf *sb, const char *name, struct pvrsgx_kobj *o, u32 off,
++		      u32 bytes)
++{
++	const u32 *w = (const u32 *)((const u8 *)kobj_cpu(o) + off);
++
++	seq_buf_printf(sb, "%s @ 0x%08x:", name, kobj_va(o) + off);
++	for (u32 i = 0; i < bytes / 4; i++)
 +		seq_buf_printf(sb, "%s%08x", i % 8 ? " " : "\n  ", READ_ONCE(w[i]));
 +	seq_buf_puts(sb, "\n");
 +}
 +
-+u32 pvrsgx_fw_hostctl(struct pvrsgx_device *sdev, unsigned int word)
-+{
-+	return READ_ONCE(fw_words(sdev, PVRSGX_FW_HOSTCTL)[word]);
-+}
-+
-+void pvrsgx_fw_hostctl_set(struct pvrsgx_device *sdev, unsigned int word, u32 v)
-+{
-+	WRITE_ONCE(fw_words(sdev, PVRSGX_FW_HOSTCTL)[word], v);
-+}
-+
-+/*
-+ * Fill one of the microkernel's limm placeholders (word 0 0x?dbeef, the value
-+ * bits of word 1 clear): bits 0-20 to word 0, 21-25 to word 1 bits 4-8, 26-31
-+ * to word 1 bits 12-17.
-+ */
-+static int fw_limm(struct pvrsgx_device *sdev, u32 off, u32 v)
-+{
-+	u32 *i = (u32 *)((u8 *)sdev->fw.cpu[PVRSGX_FW_UKERNEL] + off);
-+	bool ok = (i[0] & 0x1fffff) == 0xdbeef && !(i[1] & 0x0003f1f0);
-+
-+	if (off > sdev->fw.image_size - 8 || !ok) {
-+		drm_err(&sdev->base, "%s: no patch placeholder at +0x%x\n", sdev->fw.name, off);
-+		return -EINVAL;
-+	}
-+	i[0] = (i[0] & 0xffe00000) | (v & 0x1fffff);
-+	i[1] = (i[1] & 0xfffc0e0f) | ((v >> 17) & 0x1f0) | ((v >> 26) << 12);
-+	return 0;
-+}
-+
-+/*
-+ * The microkernel's control block, rebuilt at every start: after a reset it
-+ * must not find the previous run's render in flight.
-+ */
-+static void ta3dctl_fill(struct pvrsgx_device *sdev)
-+{
-+	struct pvrsgx_fw_ta3d_ctl *t = sdev->fw.cpu[PVRSGX_FW_TA3DCTL];
-+	struct pvrsgx_fw *f = &sdev->fw;
-+
-+	memset(t, 0, sizeof(*t));
-+	t->self = f->addr[PVRSGX_FW_TA3DCTL];
-+	t->host_ctl = f->addr[PVRSGX_FW_HOSTCTL];
-+	t->ccb_ctl = f->addr[PVRSGX_FW_CCBCTL];
-+	t->ccb = f->addr[PVRSGX_FW_CCB];
-+	t->kernel_pd = pvrsgx_mmu_pd_addr(sdev->kernel_mmu);
-+	/* A fresh microkernel counts finished jobs from 0. */
-+	WRITE_ONCE(sdev->done_seq, 0);
-+}
-+
-+/*
-+ * The open microkernel's entry programs and patches, from its file header.
-+ * A PDS program it doesn't list enters where program 0 does: its event entry
-+ * dispatches every event itself.
-+ */
-+static int fw_build_open(struct pvrsgx_device *sdev)
-+{
-+	static const enum pvrsgx_fw_buf value_buf[] = {
-+		[UKFW_TA3DCTL] = PVRSGX_FW_TA3DCTL,
-+		[UKFW_HOSTCTL] = PVRSGX_FW_HOSTCTL,
-+		[UKFW_CCBCTL] = PVRSGX_FW_CCBCTL,
-+		[UKFW_CCB] = PVRSGX_FW_CCB,
-+		[UKFW_MISC] = PVRSGX_FW_MISC,
-+	};
-+	struct pvrsgx_fw *f = &sdev->fw;
-+	u32 entry[5];
-+	int err = 0;
-+
-+	/* The header check guarantees program 0 is listed. */
-+	for (u32 i = 0; i < f->n_entries; i++)
-+		if (!f->entries[i][0])
-+			memset32(entry, f->entries[i][1], ARRAY_SIZE(entry));
-+	for (u32 i = 0; i < f->n_entries; i++)
-+		entry[f->entries[i][0]] = f->entries[i][1];
-+	for (u32 p = 0; p < ARRAY_SIZE(entry); p++)
-+		pvrsgx_pds_entry(sdev, PVRSGX_FW_PDS0 + p, entry[p]);
-+
-+	for (u32 i = 0; i < f->n_patches && !err; i++) {
-+		u32 v = f->patches[i][1];
-+
-+		if (v == UKFW_PDTABLE && !f->pdtable.pages) {
-+			drm_err(&sdev->base, "%s: a PD table patch on a multi-context core\n",
-+				f->name);
-+			return -EINVAL;
-+		}
-+		err = fw_limm(sdev, f->patches[i][0],
-+			      v == UKFW_PDTABLE ? f->pdtable.dev_addr : f->addr[value_buf[v]]);
-+	}
-+	if (err)
-+		return err;
-+	return 0;
-+}
-+
-+/* Upload and patch the microkernel and assemble its entry programs. */
-+static int fw_build(struct pvrsgx_device *sdev, const u8 *image)
-+{
-+	struct pvrsgx_fw *f = &sdev->fw;
-+
-+	memcpy(f->cpu[PVRSGX_FW_UKERNEL], image, f->image_size);
-+
-+	return fw_build_open(sdev);
-+}
-+
-+/* Copy n pairs at off of the file, or NULL if they run past its end. */
-+static u32 (*ukfw_table(const u8 *data, size_t size, u32 off, u32 n))[2]
-+{
-+	const struct ukfw_pair *src = (const void *)(data + off);
-+	u32 (*t)[2];
-+
-+	if (!n || n > 64 || off > size || n * sizeof(*src) > size - off || !IS_ALIGNED(off, 4))
-+		return NULL;
-+	t = kmalloc_array(n, sizeof(*t), GFP_KERNEL);
-+	if (!t)
-+		return NULL;
-+	for (u32 i = 0; i < n; i++) {
-+		t[i][0] = le32_to_cpu(src[i].a);
-+		t[i][1] = le32_to_cpu(src[i].b);
-+	}
-+	return t;
-+}
-+
-+/*
-+ * The microkernel file: check the header and take
-+ * its image and tables into f. -ENOENT if data is not one; on -EINVAL, *why
-+ * says what is wrong. f's tables and image are the caller's to free either way.
-+ */
-+static int ukfw_parse(const u8 *data, size_t size, struct pvrsgx_fw *f, const char **why)
-+{
-+	const struct ukfw_header *h = (const void *)data;
-+	u32 hsize, isize, iface;
-+	bool entry0 = false;
-+
-+	if (size < UKFW_HEADER_MIN || le32_to_cpu(h->magic[0]) != UKFW_MAGIC0 ||
-+	    le32_to_cpu(h->magic[1]) != UKFW_MAGIC1)
-+		return -ENOENT;
-+	hsize = le32_to_cpu(h->header_size);
-+	isize = le32_to_cpu(h->image_size);
-+	iface = le32_to_cpu(h->interface);
-+	f->features = le32_to_cpu(h->features);
-+	*why = "bad sizes";
-+	if (hsize < UKFW_HEADER_MIN || !IS_ALIGNED(hsize, 8) || hsize > size ||
-+	    !isize || !IS_ALIGNED(isize, 8) || isize > size - hsize || isize > UKFW_MAX_IMAGE)
-+		return -EINVAL;
-+	*why = "interface or features not supported";
-+	if (iface >> 16 != UKFW_IF_MAJOR ||
-+	    (f->features & ~(UKFW_FEATURES | UKFW_FEATURES_PRIVATE)))
-+		return -EINVAL;
-+	*why = "image CRC mismatch";
-+	if (crc32_le(~0, data + hsize, isize) != ~le32_to_cpu(h->image_crc32))
-+		return -EINVAL;
-+
-+	*why = "bad entry or patch table";
-+	f->n_entries = le32_to_cpu(h->n_entries);
-+	f->n_patches = le32_to_cpu(h->n_patches);
-+	f->entries = ukfw_table(data, size, le32_to_cpu(h->entries_off), f->n_entries);
-+	if (f->n_patches)
-+		f->patches = ukfw_table(data, size, le32_to_cpu(h->patches_off), f->n_patches);
-+	if (!f->entries || (f->n_patches && !f->patches))
-+		return -EINVAL;
-+	for (u32 i = 0; i < f->n_entries; i++) {
-+		if (f->entries[i][0] > 4 || f->entries[i][1] >= isize ||
-+		    !IS_ALIGNED(f->entries[i][1], 8))
-+			return -EINVAL;
-+		entry0 |= !f->entries[i][0];
-+	}
-+	for (u32 i = 0; i < f->n_patches; i++) {
-+		if (f->patches[i][0] > isize - 8 || !IS_ALIGNED(f->patches[i][0], 8) ||
-+		    f->patches[i][1] < UKFW_TA3DCTL || f->patches[i][1] > UKFW_PDTABLE)
-+			return -EINVAL;
-+	}
-+	if (!entry0)
-+		return -EINVAL;
-+
-+	f->image_size = isize;
-+	f->image = kmemdup(data + hsize, isize, GFP_KERNEL);
-+	return f->image ? 0 : -ENOMEM;
-+}
-+
-+static int ukfw_load(struct pvrsgx_device *sdev, const struct firmware *fw)
-+{
-+	const struct ukfw_header *h = (const void *)fw->data;
-+	struct pvrsgx_fw *f = &sdev->fw;
-+	const char *why = "";
-+	u32 iface;
-+	int err;
-+
-+	err = ukfw_parse(fw->data, fw->size, f, &why);
-+	if (err == -EINVAL)
-+		drm_err(&sdev->base, "%s: %s\n", f->name, why);
-+	if (err)
-+		return err;
-+	/*
-+	 * Secure mode keeps the firmware out of every client directory, which a
-+	 * single-context core can't do: there the image must not claim it.
-+	 */
-+	if (pvrsgx_core_single_context(sdev->family)) {
-+		if ((f->features & (PVRSGX_UKFW_SECURE | PVRSGX_UKFW_SINGLE_CONTEXT)) !=
-+		    PVRSGX_UKFW_SINGLE_CONTEXT) {
-+			drm_err(&sdev->base, "%s: not an image for a single-context core\n",
-+				f->name);
-+			return -EINVAL;
-+		}
-+	} else if (f->features & PVRSGX_UKFW_SINGLE_CONTEXT) {
-+		drm_err(&sdev->base, "%s: an image for a single-context core\n", f->name);
-+		return -EINVAL;
-+	} else if (!(f->features & PVRSGX_UKFW_SECURE)) {
-+		drm_err(&sdev->base, "%s: not a secure-mode image; clients would reach the firmware\n",
-+			f->name);
-+		return -EINVAL;
-+	}
-+	iface = le32_to_cpu(h->interface);
-+	if (h->core_rev && le32_to_cpu(h->core_rev) != sdev->core_rev)
-+		drm_warn(&sdev->base, "%s: validated on core revision 0x%x, this is 0x%x\n",
-+			 f->name, le32_to_cpu(h->core_rev), sdev->core_rev);
-+	drm_info(&sdev->base, "%s: open microkernel %.32s, interface %u.%u, features 0x%x\n",
-+		 f->name, h->build_id, iface >> 16, iface & 0xffff, f->features);
-+	return 0;
-+}
-+
-+/*
-+ * Single-context cores: the microkernel loads list 0 from this table, by the
-+ * slot a HW context names, so no directory address it loads is GPU-writable.
-+ * Read-only on the GPU, between the code arena and the kernel code objects.
-+ * Every slot no VM holds names the firmware's directory.
-+ */
-+#define PDTABLE_OFFSET	0xf000
-+#define PDTABLE_SLOTS	(PAGE_SIZE / sizeof(u32))
-+
-+/* The PD table sits past the code arena, inside the kernel code heap's first 64 KiB. */
-+static_assert(PDTABLE_OFFSET >= CODE_ARENA_SIZE);
-+static_assert(SZ_64K - PAGE_SIZE >= PDTABLE_OFFSET);
-+
-+static int pdtable_init(struct pvrsgx_device *sdev)
-+{
-+	struct pvrsgx_fw *f = &sdev->fw;
-+	int err;
-+
-+	if (!pvrsgx_core_single_context(sdev->family))
-+		return 0;
-+	err = pvrsgx_kmem_alloc(sdev, &f->pdtable,
-+				pvrsgx_heaps(sdev)->kernel_code.base + PDTABLE_OFFSET, PAGE_SIZE,
-+				SGX_MMU_PTE_READONLY, 0);
-+	if (err)
-+		return err;
-+	memset32(f->pdtable.cpu, pvrsgx_mmu_pd_addr(sdev->kernel_mmu), PDTABLE_SLOTS);
-+	return 0;
-+}
-+
-+/* A slot naming directory pd, for a new VM; its HW contexts carry the slot. */
-+int pvrsgx_fw_pd_slot_get(struct pvrsgx_device *sdev, u32 pd)
-+{
-+	int slot = ida_alloc_range(&sdev->fw.pd_slots, 1, PDTABLE_SLOTS - 1, GFP_KERNEL);
-+
-+	if (slot < 0)
-+		return slot;
-+	WRITE_ONCE(((u32 *)sdev->fw.pdtable.cpu)[slot], pd);
-+	/* In memory before any command names the slot. */
-+	wmb();
-+	return slot;
-+}
-+
-+/* The VM is gone: its slot names the firmware's directory again. */
-+void pvrsgx_fw_pd_slot_put(struct pvrsgx_device *sdev, int slot)
-+{
-+	WRITE_ONCE(((u32 *)sdev->fw.pdtable.cpu)[slot], pvrsgx_mmu_pd_addr(sdev->kernel_mmu));
-+	/* The slot names the firmware's directory before another VM can take it. */
-+	wmb();
-+	ida_free(&sdev->fw.pd_slots, slot);
-+}
-+
-+/* The arenas and the built image, once the file is loaded. */
-+static int fw_arenas(struct pvrsgx_device *sdev)
-+{
-+	const struct pvrsgx_heap_layout *h = pvrsgx_heaps(sdev);
-+	struct pvrsgx_fw *f = &sdev->fw;
-+	u32 pds_base;
-+	int err;
-+
-+	f->interface = DRM_POWERVR_SGX_FW_IF_V1;
-+
-+	/*
-+	 * The PTE flags: data read-write and EDM-protected where the core allows
-+	 * it, code read-only.
-+	 */
-+	err = pvrsgx_kmem_alloc(sdev, &f->data, h->kernel_data.base, DATA_ARENA_SIZE,
-+				SGX_MMU_PTE_CACHECONSISTENT |
-+				(sdev->family->data_no_edmprotect ? 0 : SGX_MMU_PTE_EDMPROTECT), 0);
-+	if (err)
-+		return err;
-+	err = pvrsgx_kmem_alloc(sdev, &f->code, h->kernel_code.base, CODE_ARENA_SIZE,
-+				SGX_MMU_PTE_READONLY, 0);
-+	if (err)
-+		return err;
-+	err = pdtable_init(sdev);
-+	if (err)
-+		return err;
-+
-+	pds_base = ALIGN(f->image_size, 0x10);
-+	for (int b = 0; b < PVRSGX_FW_NBUF; b++) {
-+		struct pvrsgx_kmem *km = layout[b].code ? &f->code : &f->data;
-+		u32 off = layout[b].offset;
-+
-+		if (b >= PVRSGX_FW_PDS0 && b <= PVRSGX_FW_PDS4)
-+			off += pds_base;
-+		f->addr[b] = km->dev_addr + off;
-+		f->cpu[b] = (u8 *)km->cpu + off;
-+	}
-+	return fw_build(sdev, f->image);
-+}
-+
-+int pvrsgx_fw_init(struct pvrsgx_device *sdev)
-+{
-+	struct pvrsgx_fw *f = &sdev->fw;
-+	const struct firmware *fw;
-+	int err;
-+
-+	ida_init(&f->pd_slots);
-+	f->name = sdev->core->fw_name;
-+	err = request_firmware(&fw, f->name, sdev->base.dev);
-+	if (err) {
-+		drm_err(&sdev->base, "no microkernel: %s (%d)\n", f->name, err);
-+		return err;
-+	}
-+	err = ukfw_load(sdev, fw);
-+	if (err == -ENOENT)
-+		drm_err(&sdev->base, "%s: not a microkernel file\n", f->name);
-+	release_firmware(fw);
-+	if (err)
-+		return err;
-+	return fw_arenas(sdev);
-+}
-+
-+void pvrsgx_fw_fini(struct pvrsgx_device *sdev)
-+{
-+	kfree(sdev->fw.entries);
-+	kfree(sdev->fw.patches);
-+	sdev->fw.entries = NULL;
-+	sdev->fw.patches = NULL;
-+	kfree(sdev->fw.image);
-+	sdev->fw.image = NULL;
-+	pvrsgx_kmem_free(sdev, &sdev->fw.pdtable);
-+	pvrsgx_kmem_free(sdev, &sdev->fw.code);
-+	pvrsgx_kmem_free(sdev, &sdev->fw.data);
-+	ida_destroy(&sdev->fw.pd_slots);
-+}
-+
-+/* USE_CODE_BASE's data master for the pixel windows and for the microkernel's. */
-+#define USE_CODE_BASE_DM_PIXEL		1
-+#define USE_CODE_BASE_DM_UKERNEL	3
-+
-+static u32 use_code_base(struct pvrsgx_device *sdev, u32 n)
-+{
-+	return sdev->cr->use_code_base0 + 4 * n;
-+}
-+
-+/* A code base's value: the address in the core's unit, and the data master. */
-+static u32 use_code_base_val(struct pvrsgx_device *sdev, u64 addr, u32 dm)
-+{
-+	const struct pvrsgx_core_regs *cr = sdev->cr;
-+
-+	return (u32)(addr >> cr->use_code_base_addr_shift) | dm << cr->use_code_base_dm_shift;
-+}
-+
-+/*
-+ * The event program's address as the event PDS base register takes it. A core
-+ * without EDM_VERTEX_PDSADDR_FULL_RANGE holds 26 bits there, the 64 MiB above
-+ * PDS_EXEC_BASE that PDS code may lie in: taken as an offset from that base,
-+ * which is an assumption.
-+ */
-+static u32 event_pds_addr(struct pvrsgx_device *sdev)
-+{
-+	u32 a = sdev->fw.addr[PVRSGX_FW_PDS0] & ~0xfu;
-+
-+	if (!(sdev->family->features & PVRSGX_FEATURE_EDM_VERTEX_PDSADDR_FULL_RANGE))
-+		a -= pvrsgx_heaps(sdev)->pds_pixel.base;
-+	return a;
-+}
-+
-+/* Where the event PDS registers are a guess, the address must read back before any kick. */
-+static int check_event_pds(struct pvrsgx_device *sdev)
-+{
-+	u32 want = event_pds_addr(sdev), got;
-+
-+	if (!sdev->family->event_pds_guessed)
-+		return 0;
-+	got = sgx_rd(sdev, sdev->cr->event_pds_base);
-+	if (got != want) {
-+		drm_err(&sdev->base,
-+			"event PDS base 0x%04x reads 0x%08x, not 0x%08x; not starting the microkernel\n",
-+			sdev->cr->event_pds_base, got, want);
-+		return -EIO;
-+	}
-+	return 0;
-+}
-+
-+/* Init script part 2: the core's script, then the bases. */
-+static int init_script_part2(struct pvrsgx_device *sdev)
-+{
-+	const struct pvrsgx_core_family *fam = sdev->family;
-+	const struct pvrsgx_heap_layout *h = pvrsgx_heaps(sdev);
-+	const struct pvrsgx_core_regs *cr = sdev->cr;
-+	struct pvrsgx_fw *f = &sdev->fw;
-+	int err;
-+
-+	for (u32 i = 0; i < fam->num_init_regs; i++)
-+		sgx_wr(sdev, fam->init_regs[i].reg, fam->init_regs[i].val);
-+	/*
-+	 * Code bases 0-9 the pixel shader heap, 10-13 the vertex shader heap, 15
-+	 * ours. A client's PDS program can name any of them, so 14 is a second
-+	 * name for 0 rather than whatever it held.
-+	 */
-+	for (u32 i = 0; i < 10; i++)
-+		sgx_wr(sdev, use_code_base(sdev, PVRSGX_USSE_PIXEL_BASE_INDEX + i),
-+		       use_code_base_val(sdev, h->usse_pixel.base + (i << PVRSGX_USSE_WINDOW_LOG2),
-+					 USE_CODE_BASE_DM_PIXEL));
-+	sgx_wr(sdev, use_code_base(sdev, PVRSGX_USSE_SPARE_BASE_INDEX),
-+	       use_code_base_val(sdev, h->usse_pixel.base, USE_CODE_BASE_DM_PIXEL));
-+	for (u32 i = 0; i < 4; i++)
-+		sgx_wr(sdev, use_code_base(sdev, PVRSGX_USSE_VERTEX_BASE_INDEX + i),
-+		       use_code_base_val(sdev, h->usse_vertex.base + (i << PVRSGX_USSE_WINDOW_LOG2),
-+					 0));
-+	sgx_wr(sdev, use_code_base(sdev, PVRSGX_USSE_UKERNEL_BASE_INDEX),
-+	       use_code_base_val(sdev, h->kernel_code.base, USE_CODE_BASE_DM_UKERNEL));
-+	sgx_wr(sdev, cr->pds_exec_base, h->pds_pixel.base);
-+	sgx_wr_opt(sdev, cr->cr_b30, 0x100);	/* unnamed; its start value */
-+	sgx_wr(sdev, SGX_CR_EVENT_KICKER, f->addr[PVRSGX_FW_KICKER]);
-+	sgx_wr(sdev, cr->event_pds_base, event_pds_addr(sdev));
-+	sgx_wr(sdev, cr->event_pds_data0, 1);
-+	sgx_wr(sdev, cr->event_pds_data1, 6);
-+	/* Before the events are enabled, so a wrong guess starts nothing. */
-+	err = check_event_pds(sdev);
-+	if (err)
-+		return err;
-+	sgx_wr(sdev, cr->event_pds_enable, cr->event_pds_enable_all);
-+	return 0;
-+}
-+
-+static void deinit_script(struct pvrsgx_device *sdev)
-+{
-+	const struct pvrsgx_core_regs *cr = sdev->cr;
-+
-+	sgx_wr(sdev, cr->event_pds_enable, 0);
-+	sgx_wr(sdev, cr->event_pds_base, 0);
-+	sgx_wr(sdev, cr->event_pds_data0, 0);
-+	sgx_wr(sdev, cr->event_pds_data1, 0);
-+	sgx_wr(sdev, use_code_base(sdev, PVRSGX_USSE_UKERNEL_BASE_INDEX), 0);
-+	sgx_wr(sdev, SGX_CR_EVENT_HOST_ENABLE, 0);
-+	sgx_wr(sdev, SGX_CR_EVENT_HOST_ENABLE2, 0);
-+	sgx_wr(sdev, SGX_CR_CLKGATECTL, 0);
-+	sgx_wr_opt(sdev, cr->clkgatectl2, 0);
-+}
-+
-+/*
-+ * Start: clocks, init script part 1, reset, part 2, then the first event kick,
-+ * and the microkernel's init entry sets INIT_COMPLETE.
-+ */
-+int pvrsgx_fw_start(struct pvrsgx_device *sdev)
-+{
-+	const struct pvrsgx_core_regs *cr = sdev->cr;
-+	u32 *hc = fw_words(sdev, PVRSGX_FW_HOSTCTL);
-+	bool first = !sdev->fw_started, was_powered = READ_ONCE(sdev->powered);
-+	int err;
-+
-+	WRITE_ONCE(sdev->powered, true);
-+
-+	/*
-+	 * A restart starts from a fresh image and empty arenas: the microkernel
-+	 * changes both as it runs, and a module reload (which recovers) is
-+	 * exactly this.
-+	 */
-+	if (!first) {
-+		sdev->fw_gen++;
-+		/*
-+		 * After a hang the clocks are on and the cores may be busy. After a
-+		 * clean stop (runtime suspend) they are gated and quiet already, and
-+		 * a register read there can hang the SoC.
-+		 */
-+		if (was_powered) {
-+			/* What an unload and reload (which recovers) does in between. */
-+			deinit_script(sdev);
-+			sgx_wr(sdev, SGX_CR_SOFT_RESET, cr->soft_reset_bif | cr->soft_reset_cores);
-+			sgx_rd(sdev, SGX_CR_SOFT_RESET);
-+			/* Behind gma500 bus mastering is the display's too: leave it. */
-+			if (sdev->pdev)
-+				pci_clear_master(sdev->pdev);
-+			fsleep(10000);
-+			if (sdev->pdev)
-+				pci_set_master(sdev->pdev);
-+		}
-+		memset(sdev->fw.data.cpu, 0, sdev->fw.data.size);
-+		memset(sdev->fw.code.cpu, 0, sdev->fw.code.size);
-+		err = fw_build(sdev, sdev->fw.image);
-+		if (err)
-+			return err;
-+		/*
-+		 * Nothing the old run pointed at matters any more. Freeing can take
-+		 * locks a fence waiter holds, so the reap work does it, not a reset.
-+		 */
-+		WRITE_ONCE(sdev->restarts, sdev->restarts + 1);
-+		queue_work(sdev->free_wq, &sdev->reap_work);
-+	}
-+	memset(hc, 0, layout[PVRSGX_FW_HOSTCTL].size);
-+	hc[HOSTCTL_UK_TIMER_CLOCK] = sdev->core->clock_hz / UKERNEL_TIMER_HZ;
-+	hc[HOSTCTL_FLAGS] = HOSTCTL_HOST_BGBLOCK;
-+	/* The power status starts clear at every start. */
-+	hc[HOSTCTL_POWER_STATUS] = 0;
-+	pvrsgx_ccb_reset(sdev);
-+	ta3dctl_fill(sdev);
-+	/* The first command invalidates the directory cache, keeping what a reap queued. */
-+	sdev->fw.cache_control |= PVRSGX_CC_INVAL_BIF_PD;
-+
-+	/* Every unit's clock gated automatically, but the DPM's: it stays on. */
-+	sgx_wr(sdev, SGX_CR_CLKGATECTL,
-+	       (SGX_CLKG_ALL(cr->clkgatectl_units, SGX_CLKG_AUTO) & ~cr->clkgatectl_dpm) |
-+	       field_prep(cr->clkgatectl_dpm, SGX_CLKG_ON));
-+	sgx_wr_opt(sdev, cr->clkgatectl2, SGX_CLKG_ALL(cr->clkgatectl2_units, SGX_CLKG_AUTO));
-+	sgx_wr(sdev, cr->event_pds_enable, 0);
-+	sgx_wr(sdev, SGX_CR_EVENT_TIMER, 0);
-+
-+	pvrsgx_reset(sdev, true);
-+
-+	*(u32 *)sdev->fw.cpu[PVRSGX_FW_KICKER] = 0;
-+	err = init_script_part2(sdev);
-+	if (err)
-+		return err;
-+
-+	hc[HOSTCTL_INIT_STATUS] = 0;
-+	/* The image and the host control block are in memory before the kick. */
-+	wmb();
-+	/* The init kick; a core with one kick register (BRN_22934) takes it there. */
-+	if (cr->event_kick2)
-+		sgx_wr(sdev, cr->event_kick2, cr->event_kick2_now);
-+	else
-+		sgx_wr(sdev, SGX_CR_EVENT_KICK, SGX_CR_EVENT_KICK_NOW);
-+
-+	err = pvrsgx_poll(sdev, &hc[HOSTCTL_INIT_STATUS], HOSTCTL_INIT_COMPLETE,
-+			  HOSTCTL_INIT_COMPLETE, 500000);
-+	if (err) {
-+		drm_err(&sdev->base,
-+			"microkernel did not start (init status 0x%x, event status 0x%x; BIF int 0x%x fault 0x%x req 0x%x)\n",
-+			hc[HOSTCTL_INIT_STATUS], sgx_rd(sdev, SGX_CR_EVENT_STATUS),
-+			sgx_rd(sdev, SGX_CR_BIF_INT_STAT), sgx_rd(sdev, SGX_CR_BIF_FAULT),
-+			sgx_rd(sdev, SGX_CR_BIF_MEM_REQ_STAT));
-+		return err;
-+	}
-+	sdev->fw_running = true;
-+	sdev->fw_started = true;
-+	if (first || sdev->reset_count != sdev->reset_logged) {
-+		drm_info(&sdev->base, "microkernel started%s\n", first ? "" : " again");
-+		sdev->reset_logged = sdev->reset_count;
-+	}
-+	return 0;
-+}
-+
-+/*
-+ * Every unit and the BIF held in reset, at once and without the microkernel:
-+ * no GPU memory access after this returns. For a hang, before the jobs' memory
-+ * can go, and when the device is lost.
-+ */
-+void pvrsgx_fw_halt(struct pvrsgx_device *sdev)
-+{
-+	const struct pvrsgx_core_regs *cr = sdev->cr;
-+
-+	sgx_wr(sdev, SGX_CR_SOFT_RESET, cr->soft_reset_bif | cr->soft_reset_cores);
-+	sgx_rd(sdev, SGX_CR_SOFT_RESET);
-+	if (sdev->pdev)
-+		pci_clear_master(sdev->pdev);
-+}
-+
-+/* Ask the microkernel to power off, then hold the cores in reset. */
-+void pvrsgx_fw_stop(struct pvrsgx_device *sdev)
-+{
-+	const struct pvrsgx_core_regs *cr = sdev->cr;
-+	u32 *hc = fw_words(sdev, PVRSGX_FW_HOSTCTL);
-+	u32 data[6] = { 0, POWER_OFF };
-+
-+	if (sdev->fw_running) {
-+		if (pvrsgx_ccb_send(sdev, PVRSGX_KCMD_POWER, data, NULL) ||
-+		    pvrsgx_poll(sdev, &hc[HOSTCTL_POWER_STATUS], HOSTCTL_POWMAN_POWEROFF_COMPLETE,
-+				HOSTCTL_POWMAN_POWEROFF_COMPLETE, 500000))
-+			drm_warn(&sdev->base, "microkernel did not power off\n");
-+		/* Wait for the clocks to gate; the DPM's stays on. */
-+		for (int i = 0; i < 500; i++) {
-+			if (!(sgx_rd(sdev, cr->clkgatestatus) & ~cr->clkgatestatus_dpm))
-+				break;
-+			usleep_range(100, 200);
-+		}
-+		WRITE_ONCE(sdev->powered, false);
-+		synchronize_irq(sdev->irq);
-+		deinit_script(sdev);
-+		sdev->fw_running = false;
-+		sgx_wr(sdev, SGX_CR_SOFT_RESET, cr->soft_reset_bif | cr->soft_reset_cores);
-+		sgx_rd(sdev, SGX_CR_SOFT_RESET);
-+	} else if (READ_ONCE(sdev->powered)) {
-+		/* A failed start: the clocks are on, the microkernel isn't. */
-+		WRITE_ONCE(sdev->powered, false);
-+		synchronize_irq(sdev->irq);
-+		sgx_wr(sdev, SGX_CR_SOFT_RESET, cr->soft_reset_bif | cr->soft_reset_cores);
-+		sgx_rd(sdev, SGX_CR_SOFT_RESET);
-+	}
-+}
-diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_fw.h b/drivers/gpu/drm/powervr_sgx/pvrsgx_fw.h
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_kobj.h b/drivers/gpu/drm/powervr_sgx/pvrsgx_kobj.h
 new file mode 100644
-index 000000000..92dfa0898
+index 000000000..8af216e66
 --- /dev/null
-+++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_fw.h
-@@ -0,0 +1,77 @@
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_kobj.h
+@@ -0,0 +1,82 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/* Copyright © 2026 Joseph Telaak */
 +
-+#ifndef PVRSGX_FW_H
-+#define PVRSGX_FW_H
++#ifndef PVRSGX_KOBJ_H
++#define PVRSGX_KOBJ_H
 +
-+#include <linux/bits.h>
-+#include <linux/types.h>
++#include <drm/drm_mm.h>
 +
-+struct pvrsgx_device;
-+struct seq_buf;
-+
-+/* Fixed device-virtual layout. */
-+#define PVRSGX_HEAP_3D_PARAMS		0x10000000u
-+#define PVRSGX_HEAP_TA_DATA		0x20000000u
-+#define PVRSGX_HEAP_SYNC		0x2d000000u
-+#define PVRSGX_HEAP_PDS_PIXEL		0x2e000000u
-+#define PVRSGX_HEAP_KERNEL_CODE		0x30000000u
-+#define PVRSGX_HEAP_PDS_VERTEX		0x30400000u
-+#define PVRSGX_HEAP_KERNEL_DATA		0x32000000u
-+#define PVRSGX_HEAP_USSE_PIXEL		0x37000000u
-+#define PVRSGX_HEAP_USSE_PIXEL_SIZE	0x00500000u
-+#define PVRSGX_HEAP_USSE_VERTEX		0x3c000000u
-+#define PVRSGX_HEAP_USSE_VERTEX_SIZE	0x00200000u
-+#define PVRSGX_HEAP_GENERAL		0x3e000000u
-+#define PVRSGX_HEAP_TEXTURE		0xf0000000u
-+
-+/* Each USE code base register covers a 512 KiB window. */
-+#define PVRSGX_USSE_WINDOW_LOG2		19
-+#define PVRSGX_USSE_PIXEL_BASE_INDEX	0
-+#define PVRSGX_USSE_VERTEX_BASE_INDEX	10
-+#define PVRSGX_USSE_SPARE_BASE_INDEX	14
-+#define PVRSGX_USSE_UKERNEL_BASE_INDEX	15
-+
-+/* Host control block words. */
-+#define HOSTCTL_INIT_STATUS		0
-+#define HOSTCTL_POWER_STATUS		1
-+#define HOSTCTL_UK_LOCKUPS		3
-+#define HOSTCTL_UK_TIMER_CLOCK		6
-+#define HOSTCTL_INTERRUPT_FLAGS		8
-+#define HOSTCTL_INTERRUPT_CLEAR		9
-+#define HOSTCTL_ASSERT_FAIL		14
-+
-+#define HOSTCTL_FLAGS			15
-+
-+/* HOSTCTL_FLAGS: the host writes the background object's PDS words. */
-+#define HOSTCTL_HOST_BGBLOCK		BIT(0)
-+
-+/* Feature bits of the microkernel file's header. */
-+#define PVRSGX_UKFW_CLEANUP_V2		BIT(0)	/* accepted, unused */
-+#define PVRSGX_UKFW_SECURE		BIT(1)
-+/* It counts finished jobs in pvrsgx_fw_ta3d_ctl.done_seq, then interrupts. */
-+#define PVRSGX_UKFW_DONE_SEQ		BIT(2)
-+/*
-+ * Runs on list 0 with the jobs, directories from the PD table, the firmware
-+ * directory back on list 0 before any completion (single-context cores).
-+ */
-+#define PVRSGX_UKFW_SINGLE_CONTEXT	BIT(3)
-+
-+#define HOSTCTL_INIT_COMPLETE		BIT(0)
-+#define HOSTCTL_POWMAN_POWEROFF_COMPLETE BIT(3)
-+#define HOSTCTL_INTERRUPT_HWR		BIT(0)
-+#define HOSTCTL_INTERRUPT_ACTIVE_POWER	BIT(1)
-+
-+int pvrsgx_fw_init(struct pvrsgx_device *sdev);
-+int pvrsgx_fw_pd_slot_get(struct pvrsgx_device *sdev, u32 pd);
-+void pvrsgx_fw_pd_slot_put(struct pvrsgx_device *sdev, int slot);
-+void pvrsgx_fw_fini(struct pvrsgx_device *sdev);
-+int pvrsgx_fw_start(struct pvrsgx_device *sdev);
-+void pvrsgx_fw_stop(struct pvrsgx_device *sdev);
-+void pvrsgx_fw_halt(struct pvrsgx_device *sdev);
-+u32 pvrsgx_fw_hostctl(struct pvrsgx_device *sdev, unsigned int word);
-+void pvrsgx_fw_hostctl_set(struct pvrsgx_device *sdev, unsigned int word, u32 v);
-+void pvrsgx_fw_dump(struct seq_buf *sb, struct pvrsgx_device *sdev, unsigned int b,
-+		    const char *name);
-+
-+#endif /* PVRSGX_FW_H */
-diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_fwif.h b/drivers/gpu/drm/powervr_sgx/pvrsgx_fwif.h
-new file mode 100644
-index 000000000..9fa7b64c0
---- /dev/null
-+++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_fwif.h
-@@ -0,0 +1,519 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/* Copyright © 2026 Joseph Telaak */
-+
-+#ifndef PVRSGX_FWIF_H
-+#define PVRSGX_FWIF_H
-+
-+#include <linux/bits.h>
-+#include <linux/build_bug.h>
-+#include <linux/stddef.h>
-+#include <linux/types.h>
-+
-+/*
-+ * Structures the host writes and the microkernel reads, in the microkernel's
-+ * layout. The SGX and its x86 hosts are both little-endian, so the fields are
-+ * plain u32. Fields the driver leaves zero are padding here.
-+ */
-+
-+/**
-+ * struct pvrsgx_fw_ta3d_ctl - The microkernel's control block
-+ *
-+ * The host fills the addresses;
-+ * the rest is the microkernel's live state, zero at every start.
-+ */
-+struct pvrsgx_fw_ta3d_ctl {
-+	/** @self: Device address of this block. */
-+	u32 self;
-+	/** @host_ctl: Device address of the host control block. */
-+	u32 host_ctl;
-+	/** @ccb_ctl: Device address of the kernel CCB's write and read offsets. */
-+	u32 ccb_ctl;
-+	/* private: */
-+	u32 pad_0c[19];
-+	/* public: */
-+	/** @ccb: Device address of the kernel CCB. */
-+	u32 ccb;
-+	/** @kernel_pd: Physical address of the firmware's page directory. */
-+	u32 kernel_pd;
-+	/* private: the microkernel's own state, to the block's end (word 0x3f) */
-+	u32 uk_60[15];
-+	/* @done_seq: Jobs finished since the start, with PVRSGX_UKFW_DONE_SEQ. */
-+	u32 done_seq;
-+	u32 uk_a0[24];
-+};
-+
-+static_assert(offsetof(struct pvrsgx_fw_ta3d_ctl, ccb) == 0x58);
-+static_assert(offsetof(struct pvrsgx_fw_ta3d_ctl, done_seq) == 0x9c);
-+static_assert(sizeof(struct pvrsgx_fw_ta3d_ctl) == 0x100);
-+
-+/* struct pvrsgx_fw_ta_cmd.ta_flags */
-+#define PVRSGX_TA_FIRST_KICK		BIT(0)
-+#define PVRSGX_TA_LAST_KICK		BIT(1)
-+#define PVRSGX_TA_FIRST_RENDER		BIT(4)	/* the RT dataset's first render */
-+#define PVRSGX_TA_FLAGS_BASE		0x60	/* set on every kick */
-+
-+/* struct pvrsgx_fw_ta_cmd.ta_flags2 */
-+#define PVRSGX_TA2_RENDER		BIT(22)	/* this kick starts the 3D */
-+
-+/* struct pvrsgx_fw_ta_cmd.flags_3d */
-+#define PVRSGX_3D_RENDER		BIT(10)
-+#define PVRSGX_3D_FRAME_SHIFT		14
-+
-+/**
-+ * struct pvrsgx_fw_ta_cmd - One TA kick
-+ *
-+ * The header and tail come from the client's streams and the kernel's own
-+ * structures; the shared part carries the synchronization.
-+ */
-+struct pvrsgx_fw_ta_cmd {
-+	/** @size: The command's size in bytes. */
-+	u32 size;
-+	/** @ta_flags: PVRSGX_TA_*. */
-+	u32 ta_flags;
-+	/** @bg_pds: Background object PDS words: secondary, middle, primary. */
-+	u32 bg_pds[3];
-+	/** @ta_ctl: Two constant control words. */
-+	u32 ta_ctl[2];
-+	/** @flags_3d: 3D flags, on the scene's last kick. */
-+	u32 flags_3d;
-+	/** @frame: The RT dataset's frame counter. */
-+	u32 frame;
-+	/** @pb_desc: Device address of the parameter buffer descriptor. */
-+	u32 pb_desc;
-+	/* private: */
-+	u32 pad_28[4];
-+	/* public: */
-+	/** @render_details: Device address of the render details. */
-+	u32 render_details;
-+	/** @rt_deps: Device address of the render-target dependency block. */
-+	u32 rt_deps;
-+	/** @rt_data: Device address of the RT data. */
-+	u32 rt_data;
-+	/** @rt_data_entry: Device address of this render's RT data entry. */
-+	u32 rt_data_entry;
-+	/* private: */
-+	u32 pad_48[4];
-+	/* public: */
-+
-+	/** @ready: Set when the command may run. */
-+	u32 ready;
-+	/* private: */
-+	u32 pad_5c[6];
-+	/* public: */
-+	/** @sync3d_write_pending: The 3D sync's write-ops-pending value. */
-+	u32 sync3d_write_pending;
-+	/** @sync3d_write_complete: Its write-ops-complete address. */
-+	u32 sync3d_write_complete;
-+	/** @sync3d_read_pending: The 3D sync's read-ops-pending value. */
-+	u32 sync3d_read_pending;
-+	/** @sync3d_read_complete: Its read-ops-complete address. */
-+	u32 sync3d_read_complete;
-+	/* private: */
-+	u32 pad_84[109];
-+	/* public: */
-+
-+	/** @te_aa: Tiling engine anti-aliasing word. */
-+	u32 te_aa;
-+	/** @te_mtile: Macrotile boundaries in X and Y. */
-+	u32 te_mtile[2];
-+	/** @te_screen: Last tile in X (bits 0-11) and Y (bits 12 on). */
-+	u32 te_screen;
-+	/** @mt_tiles: Tiles per macrotile. */
-+	u32 mt_tiles;
-+	/** @ta_flags2: PVRSGX_TA2_* and the client's kick flags. */
-+	u32 ta_flags2;
-+	/** @vdm_base: Device address of the kick's VDM control stream. */
-+	u32 vdm_base;
-+	/** @vdm_ctl: Constant word next to it. */
-+	u32 vdm_ctl;
-+	/** @region_headers: This render's region header array. */
-+	u32 region_headers;
-+	/** @tail_pointers: The tail pointer array. */
-+	u32 tail_pointers;
-+	/** @eps: Two floats, 1e-6. */
-+	u32 eps[2];
-+	/** @screen_size: (height - 1) << 16 | (width - 1). */
-+	u32 screen_size;
-+	/* private: */
-+	u32 pad_26c[2];
-+	/* public: */
-+	/** @params_base: Base of the 3D parameters heap the PB is in. */
-+	u32 params_base;
-+	/* private: */
-+	u32 pad_278[11];
-+	/* public: */
-+	/** @rt_flags: RT data flags. */
-+	u32 rt_flags;
-+	/* private: */
-+	u32 pad_2a8[6];
-+};
-+
-+static_assert(offsetof(struct pvrsgx_fw_ta_cmd, ready) == 0x58);
-+static_assert(offsetof(struct pvrsgx_fw_ta_cmd, te_aa) == 0x238);
-+static_assert(offsetof(struct pvrsgx_fw_ta_cmd, params_base) == 0x274);
-+static_assert(offsetof(struct pvrsgx_fw_ta_cmd, rt_flags) == 0x2a4);
-+static_assert(sizeof(struct pvrsgx_fw_ta_cmd) == 0x2c0);
-+
-+/**
-+ * struct pvrsgx_fw_rt_deps - A render target's dependency block
-+ *
-+ * What the 3D signals when it finishes: one destination sync, whose
-+ * write-ops-complete the microkernel sets to the pending value plus one.
-+ */
-+struct pvrsgx_fw_rt_deps {
-+	/** @access: Device address of the access word. */
-+	u32 access;
-+	/** @num_dst: Destination syncs, 1. */
-+	u32 num_dst;
-+	/** @read_pending: The destination's read-ops-pending value. */
-+	u32 read_pending;
-+	/** @read_complete: Its read-ops-complete address. */
-+	u32 read_complete;
-+	/** @write_pending: Its write-ops-pending value. */
-+	u32 write_pending;
-+	/** @write_complete: Its write-ops-complete address. */
-+	u32 write_complete;
-+	/* private: */
-+	u32 pad_18[4];
-+};
-+
-+static_assert(sizeof(struct pvrsgx_fw_rt_deps) == 0x28);
-+
-+/**
-+ * struct pvrsgx_fw_rt_entry - One of an RT dataset's two render slots
-+ *
-+ * Frames alternate between the two.
-+ */
-+struct pvrsgx_fw_rt_entry {
-+	/** @hw_render_ctx: Device address of the HW render context. */
-+	u32 hw_render_ctx;
-+	/** @render_details: The render in flight; the microkernel's. */
-+	u32 render_details;
-+	/** @mt_units: Tiles per macrotile >> 4. */
-+	u32 mt_units;
-+	/** @mt_bytes: Tiles per macrotile * 0xc. */
-+	u32 mt_bytes;
-+	/** @bg_block: Device address of the background object block. */
-+	u32 bg_block;
-+	/** @ta_data: The 0x88-, 0x40- and 0x50-byte TA data blocks. */
-+	u32 ta_data[3];
-+	/** @tail_pointers: The tail pointer array. */
-+	u32 tail_pointers;
-+	/** @tail_pointers_size: Its size in bytes. */
-+	u32 tail_pointers_size;
-+	/** @num_rts: Render targets, 1. */
-+	u32 num_rts;
-+	/* private: */
-+	u32 pad_2c;
-+	/* public: */
-+	/** @entry_word: Device address of the slot's status word. */
-+	u32 entry_word;
-+	/** @unk_34: 0x10. */
-+	u32 unk_34;
-+};
-+
-+static_assert(sizeof(struct pvrsgx_fw_rt_entry) == 0x38);
-+
-+/**
-+ * struct pvrsgx_fw_rt_data - An RT dataset's RT data
-+ */
-+struct pvrsgx_fw_rt_data {
-+	/** @rt_word: Device address of the dataset's status word. */
-+	u32 rt_word;
-+	/* private: */
-+	u32 pad_04;
-+	/* public: */
-+	/** @padded_tiles_x: Tiles in X, padded to whole macrotiles. */
-+	u32 padded_tiles_x;
-+	/* private: */
-+	u32 pad_0c[2];
-+	/* public: */
-+	/** @num_entries: Render slots, 2. */
-+	u32 num_entries;
-+	/** @entry: The render slots. */
-+	struct pvrsgx_fw_rt_entry entry[2];
-+};
-+
-+static_assert(sizeof(struct pvrsgx_fw_rt_data) == 0x88);
-+
-+/**
-+ * struct pvrsgx_fw_pb_desc - Parameter buffer descriptor
-+ *
-+ * Page numbers count from the 3D parameters heap.
-+ */
-+struct pvrsgx_fw_pb_desc {
-+	/* private: */
-+	u32 pad_00;
-+	/* public: */
-+	/** @pages: Pages in the PB. */
-+	u32 pages;
-+	/** @free_head: Free list head: last page << 16 | first page. */
-+	u32 free_head;
-+	/** @free_tail: (last page - 1) << 16. */
-+	u32 free_tail;
-+	/** @free_list: Device address of the free list. */
-+	u32 free_list;
-+	/* private: */
-+	u32 pad_14;
-+	/* public: */
-+	/** @free_head_copy: The free list head again. */
-+	u32 free_head_copy;
-+	/** @free_tail_copy: The tail word again. */
-+	u32 free_tail_copy;
-+	/* private: */
-+	u32 pad_20[2];
-+	/* public: */
-+	/** @ta_threshold: Pages the TA may use: pages + 0x10. */
-+	u32 ta_threshold;
-+	/** @zls_threshold: Pages for depth/stencil load/store: the request. */
-+	u32 zls_threshold;
-+	/** @global_threshold: The request. */
-+	u32 global_threshold;
-+	/** @pds_threshold: min(ZLS, TA) - 0x100. */
-+	u32 pds_threshold;
-+	/** @blocks: Device address of the PB block list. */
-+	u32 blocks;
-+};
-+
-+static_assert(sizeof(struct pvrsgx_fw_pb_desc) == 0x3c);
-+
-+/**
-+ * struct pvrsgx_fw_render_details - Per-dataset render details
-+ *
-+ * Fields named unk_* hold values a render needs whose meaning isn't known.
-+ */
-+struct pvrsgx_fw_render_details {
-+	/** @req_base_3d: 3D request base: the PB's 1 MiB-aligned base. */
-+	u32 req_base_3d;
-+	/** @zls_base: Depth/stencil request base, 1 MiB aligned. */
-+	u32 zls_base;
-+	/** @unk_08: 0x80. */
-+	u32 unk_08;
-+	/** @unk_0c: 0xf0000. */
-+	u32 unk_0c;
-+	/** @rt_ctl: Bit 31. */
-+	u32 rt_ctl;
-+	/** @depth_bias_units: glPolygonOffset units. */
-+	u32 depth_bias_units;
-+	/** @depth_bias_factor: glPolygonOffset factor, a float. */
-+	u32 depth_bias_factor;
-+	/* private: */
-+	u32 pad_1c;
-+	/* public: */
-+	/** @region_headers: This render's region header array. */
-+	u32 region_headers;
-+	/* private: */
-+	u32 pad_24;
-+	/* public: */
-+	/** @region_headers_next: The next render's. */
-+	u32 region_headers_next;
-+	/** @zls_ctl: Depth/stencil load and store control. */
-+	u32 zls_ctl;
-+	/** @depth: Depth buffer address - @zls_base, twice. */
-+	u32 depth[2];
-+	/** @stencil: Bit 31 | stencil buffer address - @zls_base, twice. */
-+	u32 stencil[2];
-+	/** @bg_depth: Depth every tile starts from, a float. */
-+	u32 bg_depth;
-+	/** @unk_44: 0x300. */
-+	u32 unk_44;
-+	/** @bg_object: 0x2000000 | (background block - PB base) >> 4. */
-+	u32 bg_object;
-+	/* private: */
-+	u32 pad_4c;
-+	/* public: */
-+	/** @rt_flags: RT flags, 0x88. */
-+	u32 rt_flags;
-+	/* private: */
-+	u32 pad_54;
-+	/* public: */
-+	/** @unk_58: 0x30. */
-+	u32 unk_58;
-+	/** @pixel_event_pds: End-of-tile PDS program. */
-+	u32 pixel_event_pds;
-+	/** @pixel_event_rows: Its data rows. */
-+	u32 pixel_event_rows;
-+	/** @unk_64: 1. */
-+	u32 unk_64;
-+	/** @unk_68: 1. */
-+	u32 unk_68;
-+	/* private: */
-+	u32 pad_6c[24];
-+	/* public: */
-+	/** @unk_cc: 0x100. */
-+	u32 unk_cc;
-+	/** @sync: Device address of the render-details sync word. */
-+	u32 sync;
-+	/* private: */
-+	u32 pad_d4;
-+	/* public: */
-+	/** @rt_data: Device address of the RT data. */
-+	u32 rt_data;
-+	/** @rt_data_entry: This render's RT data entry. */
-+	u32 rt_data_entry;
-+	/* private: */
-+	u32 pad_e0[9];
-+	/* public: */
-+	/** @unk_104: 1. */
-+	u32 unk_104;
-+	/* private: */
-+	u32 pad_108[2];
-+	/* public: */
-+	/** @word8: Device address of an 8-byte kernel word. */
-+	u32 word8;
-+	/** @bg_pds_word: Device address of the background object's primary PDS word. */
-+	u32 bg_pds_word;
-+	/* private: */
-+	u32 pad_118[9];
-+	/* public: */
-+	/** @unk_13c: 0x7c00000. */
-+	u32 unk_13c;
-+	/* private: */
-+	u32 pad_140[43];
-+};
-+
-+static_assert(offsetof(struct pvrsgx_fw_render_details, unk_cc) == 0xcc);
-+static_assert(offsetof(struct pvrsgx_fw_render_details, unk_104) == 0x104);
-+static_assert(offsetof(struct pvrsgx_fw_render_details, unk_13c) == 0x13c);
-+static_assert(sizeof(struct pvrsgx_fw_render_details) == 0x1ec);
-+
-+/* struct pvrsgx_fw_hw_render_ctx.flags */
-+#define PVRSGX_HW_RENDER_CTX_VALID	BIT(0)
-+#define PVRSGX_HW_RENDER_CTX_OWN_PB	BIT(5)
-+
-+/**
-+ * struct pvrsgx_fw_hw_render_ctx - A render context, as the microkernel sees it
-+ */
-+struct pvrsgx_fw_hw_render_ctx {
-+	/** @flags: PVRSGX_HW_RENDER_CTX_*. */
-+	u32 flags;
-+	/* private: */
-+	u32 pad_04;
-+	/* public: */
-+	/** @page_dir: Physical address of the context's page directory. */
-+	u32 page_dir;
-+	/** @ccb: Device address of the context's command ring. */
-+	u32 ccb;
-+	/** @ccb_ctl: Device address of its write and read offsets. */
-+	u32 ccb_ctl;
-+	/* private: */
-+	u32 pad_14;
-+	/* public: */
-+	/** @pb_desc: Device address of the PB descriptor. */
-+	u32 pb_desc;
-+	/** @scratch: Device address of the microkernel's per-context scratch block. */
-+	u32 scratch;
-+	/* private: */
-+	u32 pad_20[8];
-+	/* public: */
-+	/** @pid: The creating process. */
-+	u32 pid;
-+};
-+
-+static_assert(sizeof(struct pvrsgx_fw_hw_render_ctx) == 0x44);
-+
-+/**
-+ * struct pvrsgx_fw_hw_transfer_ctx - A transfer context, as the microkernel sees it
-+ */
-+struct pvrsgx_fw_hw_transfer_ctx {
-+	/** @flags: 1. */
-+	u32 flags;
-+	/* private: */
-+	u32 pad_04;
-+	/* public: */
-+	/** @page_dir: Physical address of the context's page directory. */
-+	u32 page_dir;
-+	/** @ccb: Device address of the context's command ring. */
-+	u32 ccb;
-+	/** @ccb_ctl: Device address of its write and read offsets. */
-+	u32 ccb_ctl;
-+	/* private: */
-+	u32 pad_14[37];
-+	/* public: */
-+	/** @pid: The creating process. */
-+	u32 pid;
-+	/* private: */
-+	u32 pad_ac[2];
-+};
-+
-+static_assert(offsetof(struct pvrsgx_fw_hw_transfer_ctx, pid) == 0xa8);
-+static_assert(sizeof(struct pvrsgx_fw_hw_transfer_ctx) == 0xb4);
-+
-+/* struct pvrsgx_fw_transfer_cmd.flags */
-+#define PVRSGX_TRANSFER_DST_TWIDDLED	BIT(3)
-+
-+/**
-+ * struct pvrsgx_fw_transfer_cmd - One transfer: a 3D render of a background object
-+ *
-+ * The first words are 3D registers in the
-+ * render details' encoding; the shared part carries the destination sync.
-+ */
-+struct pvrsgx_fw_transfer_cmd {
-+	/** @bg_object: 0x2000000 | (background block - @req_base_3d) >> 4. */
-+	u32 bg_object;
-+	/** @unk_04: 0x200. */
-+	u32 unk_04;
-+	/** @bg_depth: Depth every tile starts from, a float. */
-+	u32 bg_depth;
-+	/** @unk_0c: 3. */
-+	u32 unk_0c;
-+	/* private: */
-+	u32 pad_10;
-+	/* public: */
-+	/** @unk_14: 0x100. */
-+	u32 unk_14;
-+	/** @req_base_3d: 3D request base, 1 MiB aligned. */
-+	u32 req_base_3d;
-+	/** @rt_ctl: Bit 31. */
-+	u32 rt_ctl;
-+	/** @rt_flags: 0x88. */
-+	u32 rt_flags;
-+	/** @pixel_event_pds: End-of-tile PDS program. */
-+	u32 pixel_event_pds;
-+	/** @pixel_event_rows: Its data rows. */
-+	u32 pixel_event_rows;
-+	/** @unk_2c: 1. */
-+	u32 unk_2c;
-+	/** @first_tile: First tile, x << 16 | y. */
-+	u32 first_tile;
-+	/** @last_tile: Last tile, x << 16 | y. */
-+	u32 last_tile;
-+	/** @unk_38: 0x80. */
-+	u32 unk_38;
-+	/** @pds_exec_base: PDS execution base: the pixel PDS heap. */
-+	u32 pds_exec_base;
-+	/* private: */
-+	u32 pad_40[25];
-+	/* public: */
-+	/** @size: The command's size in bytes. */
-+	u32 size;
-+	/** @flags: PVRSGX_TRANSFER_*. */
-+	u32 flags;
-+	/* private: */
-+	u32 pad_ac[33];
-+	/* public: */
-+	/** @num_dst: Destination syncs, 1. */
-+	u32 num_dst;
-+	/** @dst_read_pending: The destination sync's read-ops-pending value. */
-+	u32 dst_read_pending;
-+	/** @dst_read_complete: Its read-ops-complete address. */
-+	u32 dst_read_complete;
-+	/** @dst_write_pending: Its write-ops-pending value. */
-+	u32 dst_write_pending;
-+	/** @dst_write_complete: Its write-ops-complete address. */
-+	u32 dst_write_complete;
-+	/* private: */
-+	u32 pad_144[20];
-+	/* public: */
-+	/** @unk_194: 0x7c00000. */
-+	u32 unk_194;
-+	/* private: */
-+	u32 pad_198[10];
-+};
-+
-+static_assert(offsetof(struct pvrsgx_fw_transfer_cmd, size) == 0xa4);
-+static_assert(offsetof(struct pvrsgx_fw_transfer_cmd, num_dst) == 0x130);
-+static_assert(offsetof(struct pvrsgx_fw_transfer_cmd, unk_194) == 0x194);
-+static_assert(sizeof(struct pvrsgx_fw_transfer_cmd) == 0x1c0);
-+
-+#endif /* PVRSGX_FWIF_H */
-diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_pds.c b/drivers/gpu/drm/powervr_sgx/pvrsgx_pds.c
-new file mode 100644
-index 000000000..14afb4814
---- /dev/null
-+++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_pds.c
-@@ -0,0 +1,97 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Copyright © 2026 Joseph Telaak */
-+
-+/*
-+ * The PDS programs that enter the microkernel, assembled at load.
-+ */
-+
-+#include "pvrsgx_fw.h"
-+#include "pvrsgx_pds.h"
-+
-+/*
-+ * DOUTU word 0 for microkernel code at device address a: code base 15 plus the
-+ * 512 KiB segment, then the offset in the segment in 8-byte instructions, << 4.
-+ * Bit 27 is set on every microkernel entry.
-+ */
-+u32 pvrsgx_doutu(u32 kcode, u32 a)
-+{
-+	u32 off = a - kcode, seg = off >> 19;
-+
-+	return ((seg + 15) & 15) | 0x8000000 | (((off - (seg << 19)) * 2) & 0x3ffff0);
-+}
-+
-+void pvrsgx_pds_ds(struct pvrsgx_pds *p, unsigned int r, u32 v)
-+{
-+	unsigned int k = r & 0x3f;
-+
-+	p->w[(k >> 1) * 4 + (r >= 0x40 ? 2 : 0) + (k & 1)] = v;
-+}
-+
-+static void pds_emit(struct pvrsgx_pds *p, u32 i)
-+{
-+	p->w[p->data + p->pc++] = i;
-+}
-+
-+static unsigned int ds0w(unsigned int r)
-+{
-+	return r >= 0x80 ? r - 0x40 : r;
-+}
-+
-+/* MOVS: four words from one DS0 pair and one DS1 pair to a DOUT destination. */
-+void pvrsgx_pds_movs(struct pvrsgx_pds *p, unsigned int dest, unsigned int a,
-+		     unsigned int b, unsigned int c, unsigned int d)
-+{
-+	unsigned int src[4] = { a, b, c, d }, r1 = 0, r2 = 0, sel = 0;
-+
-+	for (int i = 0; i < 4; i++) {
-+		unsigned int s;
-+
-+		if (src[i] >= 0x40 && src[i] < 0x80) {
-+			r2 = (src[i] - 0x40) >> 1;
-+			s = 2 + (src[i] & 1);
-+		} else {
-+			r1 = ds0w(src[i]) >> 1;
-+			s = ds0w(src[i]) & 1;
-+		}
-+		sel |= s << (11 - 2 * i);
-+	}
-+	pds_emit(p, (u32)PDS_CC_ALWAYS << 24 | r1 << 18 | r2 << 13 | sel | dest);
-+}
-+
-+void pvrsgx_pds_halt(struct pvrsgx_pds *p)
-+{
-+	pds_emit(p, 0xaf000000u);
-+}
-+
-+struct pvrsgx_pds pvrsgx_pds_prog(struct pvrsgx_device *sdev, enum pvrsgx_fw_buf b,
-+				  unsigned int data)
-+{
-+	return (struct pvrsgx_pds){ sdev->fw.cpu[b], data, 0 };
-+}
-+
-+/* Start the microkernel at offset e: DOUTU with word 1 = 2. */
-+void pvrsgx_pds_entry(struct pvrsgx_device *sdev, enum pvrsgx_fw_buf b, u32 e)
-+{
-+	struct pvrsgx_pds p = pvrsgx_pds_prog(sdev, b, 4);
-+	u32 doutu = pvrsgx_doutu(pvrsgx_heaps(sdev)->kernel_code.base,
-+				 sdev->fw.addr[PVRSGX_FW_UKERNEL] + e);
-+
-+	if (sdev->family->features & PVRSGX_FEATURE_PDS_DATA_INTERLEAVE_2DWORDS) {
-+		pvrsgx_pds_ds(&p, PDS_D0(0), doutu);
-+		pvrsgx_pds_ds(&p, PDS_D0(1), 2);
-+		pvrsgx_pds_movs(&p, PDS_DOUTU, PDS_D0(0), PDS_D0(1), PDS_D1(0), PDS_D0(0));
-+	} else {
-+		/*
-+		 * Whether the data store interleaves one word at a time is unknown:
-+		 * the memory row [doutu, 0, 0, 2] gives DOUTU (doutu, 2, 0)
-+		 * under either layout.
-+		 */
-+		pvrsgx_pds_ds(&p, PDS_D0(0), doutu);
-+		pvrsgx_pds_ds(&p, PDS_D0(1), 0);
-+		pvrsgx_pds_ds(&p, PDS_D1(0), 0);
-+		pvrsgx_pds_ds(&p, PDS_D1(1), 2);
-+		pvrsgx_pds_movs(&p, PDS_DOUTU, PDS_D0(0), PDS_D1(1), PDS_D0(1), PDS_D0(0));
-+	}
-+	pvrsgx_pds_halt(&p);
-+}
-+
-diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_pds.h b/drivers/gpu/drm/powervr_sgx/pvrsgx_pds.h
-new file mode 100644
-index 000000000..c5d1453c9
---- /dev/null
-+++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_pds.h
-@@ -0,0 +1,37 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/* Copyright © 2026 Joseph Telaak */
-+
-+#ifndef PVRSGX_PDS_H
-+#define PVRSGX_PDS_H
-+
++#include <linux/list.h>
 +#include <linux/types.h>
 +
 +#include "pvrsgx_device.h"
 +
-+/*
-+ * PDS assembly. A program is its data segment in 16-byte rows of
-+ * DS0 DS0 DS1 DS1, then code. Operands are unified register numbers: DS0 words
-+ * 0x00-0x3f, DS1 words 0x40-0x7f, inputs from 0x80 (DS0 words 0x40 on).
-+ */
-+#define PDS_D0(n)		(n)
-+#define PDS_D1(n)		(0x40 + (n))
-+#define PDS_CC_ALWAYS	7
-+#define PDS_DOUTU		5
++struct pvrsgx_vm;
 +
-+/* A PDS program being assembled into a firmware buffer. */
-+struct pvrsgx_pds {
-+	u32 *w;
-+	unsigned int data;	/* data segment words */
-+	unsigned int pc;
++/**
++ * struct pvrsgx_kobj - A kernel-owned object the firmware or the TA/3D reads
++ *
++ * Its address is unique across the device and the firmware's directory maps it,
++ * and a VM also maps the ones the TA and 3D use under its directory. The 3D
++ * parameters range is the exception: per VM, from the heap base, mapped only in
++ * that VM's directory. A client can never map anything in these ranges
++ * itself.
++ */
++struct pvrsgx_kobj {
++	/** @km: Its memory. */
++	struct pvrsgx_kmem km;
++	/** @node: Its place in @mm. */
++	struct drm_mm_node node;
++	/** @mm: The range allocator @node came from. */
++	struct drm_mm *mm;
++	/** @range: The range it was allocated in. */
++	enum pvrsgx_krange range;
++	/** @vm: Also mapped in this VM's directory, or NULL. */
++	struct pvrsgx_vm *vm;
++	/** @until_restart: Once released, kept until the next microkernel start. */
++	bool until_restart;
++	/** @grave: In pvrsgx_device.graveyard once released. */
++	struct list_head grave;
++	/** @grave_seq: pvrsgx_device.renders_submitted when it was released. */
++	u64 grave_seq;
++	/** @flush_seq: Once unmapped, the kernel CCB command whose cache control frees it. */
++	u64 flush_seq;
++	/** @grave_restarts: pvrsgx_device.restarts when it was released. */
++	u32 grave_restarts;
 +};
 +
-+u32 pvrsgx_doutu(u32 kcode, u32 addr);
-+void pvrsgx_pds_ds(struct pvrsgx_pds *p, unsigned int r, u32 v);
-+void pvrsgx_pds_movs(struct pvrsgx_pds *p, unsigned int dest, unsigned int a,
-+		     unsigned int b, unsigned int c, unsigned int d);
-+void pvrsgx_pds_halt(struct pvrsgx_pds *p);
-+struct pvrsgx_pds pvrsgx_pds_prog(struct pvrsgx_device *sdev, enum pvrsgx_fw_buf b,
-+				  unsigned int data);
-+void pvrsgx_pds_entry(struct pvrsgx_device *sdev, enum pvrsgx_fw_buf b, u32 e);
++static inline u32 *kobj_cpu(struct pvrsgx_kobj *o)
++{
++	return o->km.cpu;
++}
 +
-+#endif /* PVRSGX_PDS_H */
++static inline u32 kobj_va(struct pvrsgx_kobj *o)
++{
++	return o->km.dev_addr;
++}
++
++int pvrsgx_kobj_init(struct pvrsgx_device *sdev);
++void pvrsgx_kobj_fini(struct pvrsgx_device *sdev);
++struct pvrsgx_kobj *pvrsgx_kobj_create(struct pvrsgx_device *sdev, enum pvrsgx_krange range,
++				       u32 size, u32 min_addr, struct pvrsgx_vm *vm);
++void pvrsgx_kobj_release(struct pvrsgx_device *sdev, struct pvrsgx_kobj *o);
++void pvrsgx_kobj_reap(struct pvrsgx_device *sdev, u64 renders_done);
++
++/* Objects and pages waiting in the graveyard, and unmapped ones waiting for the invalidate. */
++struct pvrsgx_kobj_counts {
++	u32 graveyard, unmapped;
++	u64 graveyard_pages, unmapped_pages;
++};
++
++bool pvrsgx_kobj_pending(struct pvrsgx_device *sdev, struct pvrsgx_kobj_counts *c);
++
++struct seq_buf;
++struct pvrsgx_vm;
++
++int pvrsgx_kobj_new(struct pvrsgx_device *sdev, struct pvrsgx_kobj **dst,
++		    enum pvrsgx_krange range, u32 size, u32 min, struct pvrsgx_vm *vm);
++void pvrsgx_kobj_drop(struct pvrsgx_device *sdev, struct pvrsgx_kobj **o);
++void pvrsgx_kobj_dump(struct seq_buf *sb, const char *name, struct pvrsgx_kobj *o, u32 off,
++		      u32 bytes);
++
++#endif /* PVRSGX_KOBJ_H */
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_prime.c b/drivers/gpu/drm/powervr_sgx/pvrsgx_prime.c
+new file mode 100644
+index 000000000..e6aca1145
+--- /dev/null
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_prime.c
+@@ -0,0 +1,203 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/* Copyright © 2026 Joseph Telaak */
++
++/*
++ * Buffers imported from other devices. The GPU doesn't snoop the CPU caches
++ * and can only reach the low 4 GiB, so an import needs a reachability check
++ * when it is mapped, and cache flushes of the bytes each job lists
++ * (&drm_powervr_sgx_job.cache_ranges) around it.
++ */
++
++#include <drm/drm_cache.h>
++#include <drm/drm_file.h>
++#include <drm/drm_gem_shmem_helper.h>
++
++#include <linux/device.h>
++#include <linux/dma-buf.h>
++#include <linux/ktime.h>
++#include <linux/overflow.h>
++#include <linux/scatterlist.h>
++#include <linux/slab.h>
++
++#include <uapi/drm/powervr_sgx_drm.h>
++
++#include "pvrsgx_drv.h"
++#include "pvrsgx_gem.h"
++#include "pvrsgx_job.h"
++#include "pvrsgx_prime.h"
++#include "pvrsgx_trace.h"
++
++/*
++ * The GPU's MMU takes 32-bit addresses. An import was mapped for our device,
++ * whose DMA mask is 32 bits, so the DMA API already keeps every address below
++ * 4 GiB (bouncing if it must, synced through the dma-buf's CPU access calls);
++ * check the addresses only, never the exporter's pages.
++ */
++bool pvrsgx_prime_reachable(struct sg_table *sgt)
++{
++	struct scatterlist *sg;
++	unsigned int i;
++
++	for_each_sgtable_dma_sg(sgt, sg, i) {
++		if (upper_32_bits(sg_dma_address(sg) + sg_dma_len(sg) - 1))
++			return false;
++	}
++	return true;
++}
++
++#define PVRSGX_MAX_CACHE_RANGES	64
++
++#define CACHE_RANGE_FLAGS	(DRM_POWERVR_SGX_CACHE_RANGE_FLAG_READ | \
++				 DRM_POWERVR_SGX_CACHE_RANGE_FLAG_WRITE)
++
++/* A range's flags, and its rows inside an object of obj_size bytes. */
++static int cache_range_check(const struct drm_powervr_sgx_cache_range *r, u64 obj_size)
++{
++	u32 rows = max(r->rows, 1u);
++	u64 span, end;
++
++	if (!r->flags || (r->flags & ~CACHE_RANGE_FLAGS) || !r->size)
++		return -EINVAL;
++	if (rows > 1 && r->stride < r->size)
++		return -EINVAL;
++	if (check_mul_overflow((u64)(rows - 1), (u64)r->stride, &span) ||
++	    check_add_overflow(span, r->size, &span) ||
++	    check_add_overflow(r->offset, span, &end) || end > obj_size)
++		return -EINVAL;
++	return 0;
++}
++
++/* The job's cache ranges, checked, each holding a reference on its object. */
++int pvrsgx_prime_ranges(struct drm_file *file, const struct drm_powervr_sgx_obj_array *arr,
++			struct pvrsgx_job *job)
++{
++	struct drm_powervr_sgx_cache_range *in;
++	int err = 0;
++
++	in = pvrsgx_obj_array_get(arr, sizeof(*in), PVRSGX_MAX_CACHE_RANGES);
++	if (IS_ERR_OR_NULL(in))
++		return PTR_ERR_OR_ZERO(in);
++	job->ranges = kvcalloc(arr->count, sizeof(*job->ranges), GFP_KERNEL);
++	if (!job->ranges) {
++		err = -ENOMEM;
++		goto out;
++	}
++	for (u32 i = 0; i < arr->count; i++) {
++		struct pvrsgx_cache_range *r = &job->ranges[i];
++
++		r->obj = drm_gem_object_lookup(file, in[i].handle);
++		if (!r->obj) {
++			err = -ENOENT;
++			break;
++		}
++		job->nranges++;
++		err = cache_range_check(&in[i], r->obj->size);
++		if (err)
++			break;
++		/*
++		 * Our own objects are write-combined: nothing to flush. A re-imported
++		 * dma-buf of ours comes back as such an object, so it isn't refused.
++		 */
++		r->import = drm_gem_is_imported(r->obj);
++		r->offset = in[i].offset;
++		r->size = in[i].size;
++		r->stride = in[i].stride;
++		r->rows = max(in[i].rows, 1u);
++		r->write = in[i].flags & DRM_POWERVR_SGX_CACHE_RANGE_FLAG_WRITE;
++	}
++out:
++	kvfree(in);
++	return err;
++}
++
++/*
++ * The GPU's accesses don't snoop the CPU caches, not even through
++ * cache-consistent PTEs. Our own objects are write-combined on the CPU; an
++ * import may be cached. Before a job every range it lists is written back and
++ * dropped (the GPU reads what the CPU wrote, no dirty line lands on its output
++ * later), and after it the ranges it wrote are dropped again (no stale line
++ * hides its output). An importer may not touch the attachment's pages, so the
++ * flushes go through the exporter's own CPU mapping, taken at import.
++ */
++static u64 range_flush(const struct pvrsgx_cache_range *r)
++{
++	const struct iosys_map *map = &to_pvrsgx_bo(r->obj)->import_map;
++
++	/* I/O memory isn't cached. */
++	if (!r->import || map->is_iomem)
++		return 0;
++	if (r->rows == 1 || r->stride == r->size) {
++		drm_clflush_virt_range(map->vaddr + r->offset, r->size * r->rows);
++	} else {
++		for (u32 y = 0; y < r->rows; y++)
++			drm_clflush_virt_range(map->vaddr + r->offset + (u64)y * r->stride,
++					       r->size);
++	}
++	return r->size * r->rows;
++}
++
++/* The whole of an import, at import. */
++static void import_flush(struct drm_gem_object *obj)
++{
++	const struct iosys_map *map = &to_pvrsgx_bo(obj)->import_map;
++
++	if (!map->is_iomem)
++		drm_clflush_virt_range(map->vaddr, obj->size);
++}
++
++void pvrsgx_prime_flush(struct pvrsgx_job *job, bool after)
++{
++	u64 t0 = trace_pvrsgx_flush_imports_enabled() ? ktime_get_ns() : 0, bytes = 0;
++
++	for (u32 i = 0; i < job->nranges; i++) {
++		if (!after || job->ranges[i].write)
++			bytes += range_flush(&job->ranges[i]);
++	}
++	if (job->nranges)
++		trace_pvrsgx_flush_imports(job->hw_fence ? job->hw_fence->seqno : 0,
++					   job->nranges, bytes,
++					   t0 ? ktime_get_ns() - t0 : 0, after);
++}
++
++struct drm_gem_object *pvrsgx_prime_import_sg_table(struct drm_device *drm,
++						    struct dma_buf_attachment *attach,
++						    struct sg_table *sgt)
++{
++	struct drm_gem_object *obj;
++	struct iosys_map map;
++	int err;
++
++	/* An import's flushes are CPU cache flushes of its vmap, which only x86 has here. */
++	if (!IS_ENABLED(CONFIG_X86))
++		return ERR_PTR(-EOPNOTSUPP);
++	/*
++	 * The exporter's mapping is taken once here and kept for the import's
++	 * life. A job's cache ranges are flushed through it in run_job and at
++	 * completion, inside the fence-signaling path, where a vmap can't be
++	 * taken: it may sleep and allocate. The importer never touches the
++	 * attachment's pages.
++	 */
++	err = dma_buf_vmap_unlocked(attach->dmabuf, &map);
++	if (err)
++		return ERR_PTR(err);
++	obj = drm_gem_shmem_prime_import_sg_table(drm, attach, sgt);
++	if (IS_ERR(obj)) {
++		dma_buf_vunmap_unlocked(attach->dmabuf, &map);
++		return obj;
++	}
++	to_pvrsgx_bo(obj)->import_map = map;
++	/*
++	 * Only the bytes a job lists are flushed around it: what the CPU still
++	 * holds of the rest (its zeroing, say) reaches memory now, or the GPU
++	 * could see the pages' earlier contents.
++	 */
++	import_flush(obj);
++	return obj;
++}
++
++void pvrsgx_prime_put(struct pvrsgx_job *job)
++{
++	for (u32 i = 0; i < job->nranges; i++)
++		drm_gem_object_put(job->ranges[i].obj);
++	kvfree(job->ranges);
++}
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_prime.h b/drivers/gpu/drm/powervr_sgx/pvrsgx_prime.h
+new file mode 100644
+index 000000000..dd0332f34
+--- /dev/null
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_prime.h
+@@ -0,0 +1,26 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/* Copyright © 2026 Joseph Telaak */
++
++#ifndef PVRSGX_PRIME_H
++#define PVRSGX_PRIME_H
++
++#include <linux/types.h>
++
++struct dma_buf_attachment;
++struct drm_device;
++struct drm_file;
++struct drm_gem_object;
++struct drm_powervr_sgx_obj_array;
++struct pvrsgx_job;
++struct sg_table;
++
++bool pvrsgx_prime_reachable(struct sg_table *sgt);
++struct drm_gem_object *pvrsgx_prime_import_sg_table(struct drm_device *drm,
++						    struct dma_buf_attachment *attach,
++						    struct sg_table *sgt);
++int pvrsgx_prime_ranges(struct drm_file *file, const struct drm_powervr_sgx_obj_array *arr,
++			struct pvrsgx_job *job);
++void pvrsgx_prime_flush(struct pvrsgx_job *job, bool after);
++void pvrsgx_prime_put(struct pvrsgx_job *job);
++
++#endif /* PVRSGX_PRIME_H */
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_vm.c b/drivers/gpu/drm/powervr_sgx/pvrsgx_vm.c
+new file mode 100644
+index 000000000..b12d39062
+--- /dev/null
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_vm.c
+@@ -0,0 +1,799 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/* Copyright © 2026 Joseph Telaak */
++
++/*
++ * VM contexts on drm_gpuvm. The client picks every address inside the heaps
++ * DEV_QUERY reports. VM_BIND maps and unmaps through drm_gpuvm's split and
++ * merge steps; an unmap takes the page tables down at once and lets go of the
++ * objects once every job submitted before it is done, from a fence callback.
++ */
++
++#include <drm/drm_drv.h>
++#include <drm/drm_exec.h>
++#include <drm/drm_gem.h>
++#include <drm/drm_print.h>
++#include <drm/drm_syncobj.h>
++
++#include <linux/device.h>
++#include <linux/dma-resv.h>
++#include <linux/module.h>
++#include <linux/overflow.h>
++#include <linux/pm_runtime.h>
++#include <linux/scatterlist.h>
++#include <linux/sizes.h>
++#include <linux/slab.h>
++#include <linux/uaccess.h>
++
++#include <uapi/drm/powervr_sgx_drm.h>
++
++#include "pvrsgx_ccb.h"
++#include "pvrsgx_device.h"
++#include "pvrsgx_drv.h"
++#include "pvrsgx_fw.h"
++#include "pvrsgx_gem.h"
++#include "pvrsgx_job.h"
++#include "pvrsgx_mmu.h"
++#include "pvrsgx_render.h"
++#include "pvrsgx_validate.h"
++#include "pvrsgx_prime.h"
++#include "pvrsgx_vm.h"
++
++/* The client heaps, the same in every VM, from the core's layout. */
++static void client_heaps(const struct pvrsgx_device *sdev,
++			 struct drm_powervr_sgx_heap heaps[DRM_POWERVR_SGX_HEAP_COUNT])
++{
++	const struct pvrsgx_heap_layout *h = pvrsgx_heaps(sdev);
++	const struct {
++		const struct pvrsgx_va_range *r;
++		u32 usse_base_index;
++	} from[DRM_POWERVR_SGX_HEAP_COUNT] = {
++		[DRM_POWERVR_SGX_HEAP_GENERAL] = { &h->general },
++		[DRM_POWERVR_SGX_HEAP_PDS_PIXEL] = { &h->pds_pixel },
++		[DRM_POWERVR_SGX_HEAP_PDS_VERTEX] = { &h->pds_vertex },
++		[DRM_POWERVR_SGX_HEAP_USSE_PIXEL] = { &h->usse_pixel,
++						      PVRSGX_USSE_PIXEL_BASE_INDEX },
++		[DRM_POWERVR_SGX_HEAP_USSE_VERTEX] = { &h->usse_vertex,
++						       PVRSGX_USSE_VERTEX_BASE_INDEX },
++		[DRM_POWERVR_SGX_HEAP_TEXTURE] = { &h->texture },
++	};
++
++	for (int i = 0; i < DRM_POWERVR_SGX_HEAP_COUNT; i++) {
++		bool usse = i == DRM_POWERVR_SGX_HEAP_USSE_PIXEL ||
++			    i == DRM_POWERVR_SGX_HEAP_USSE_VERTEX;
++
++		heaps[i] = (struct drm_powervr_sgx_heap){
++			.base = from[i].r->base,
++			.size = from[i].r->end - from[i].r->base,
++			.page_size_log2 = SGX_MMU_PAGE_SHIFT,
++			.usse_base_index = from[i].usse_base_index,
++			.usse_window_log2 = usse ? PVRSGX_USSE_WINDOW_LOG2 : 0,
++		};
++	}
++}
++
++/* The heap holding all of [addr, addr + size), or -1. */
++int pvrsgx_heap_find(const struct pvrsgx_device *sdev, u64 addr, u64 size)
++{
++	struct drm_powervr_sgx_heap heaps[DRM_POWERVR_SGX_HEAP_COUNT];
++	u64 end;
++
++	if (check_add_overflow(addr, size, &end))
++		return -1;
++	client_heaps(sdev, heaps);
++	for (int i = 0; i < ARRAY_SIZE(heaps); i++) {
++		if (addr >= heaps[i].base && end <= heaps[i].base + heaps[i].size)
++			return i;
++	}
++	return -1;
++}
++
++int pvrsgx_query_heap_info(struct pvrsgx_device *sdev, void __user *ptr, u32 *size)
++{
++	struct drm_powervr_sgx_heap heaps[DRM_POWERVR_SGX_HEAP_COUNT];
++	struct drm_powervr_sgx_dev_query_heap_info info = {};
++	int err;
++
++	if (!ptr) {
++		*size = sizeof(info);
++		return 0;
++	}
++	err = copy_struct_from_user(&info, sizeof(info), ptr, *size);
++	if (err)
++		return err;
++
++	client_heaps(sdev, heaps);
++	if (info.heaps.array) {
++		err = pvrsgx_obj_array_put(&info.heaps, heaps, sizeof(heaps[0]), ARRAY_SIZE(heaps));
++		if (err)
++			return err;
++	}
++	info.heaps.stride = sizeof(heaps[0]);
++	info.heaps.count = ARRAY_SIZE(heaps);
++
++	*size = min_t(u32, *size, sizeof(info));
++	return copy_to_user(ptr, &info, *size) ? -EFAULT : 0;
++}
++
++struct pvrsgx_vm *pvrsgx_vm_get(struct pvrsgx_vm *vm)
++{
++	kref_get(&vm->ref);
++	return vm;
++}
++
++struct dma_resv *pvrsgx_vm_resv(struct pvrsgx_vm *vm)
++{
++	return drm_gpuvm_resv(&vm->gpuvm);
++}
++
++static const struct drm_gpuvm_ops pvrsgx_gpuvm_ops;
++
++/* A mapping. Once unmapped, it keeps its object until the jobs before the unmap are done. */
++struct pvrsgx_va {
++	struct drm_gpuva base;
++	struct drm_gem_object *obj;
++	struct list_head free_link;
++};
++
++static struct pvrsgx_va *to_pvrsgx_va(struct drm_gpuva *va)
++{
++	return container_of(va, struct pvrsgx_va, base);
++}
++
++/*
++ * What an unmap or a teardown lets go of once every job on the VM so far is
++ * done. A teardown also takes the mappings down then.
++ */
++struct pvrsgx_vm_free {
++	struct dma_fence_cb cb;
++	struct work_struct work;
++	struct pvrsgx_inval_wait inval;
++	struct drm_device *drm;
++	struct dma_fence *fence;
++	struct list_head vas;
++	struct pvrsgx_vm *vm;
++	bool teardown;
++};
++
++/* The BIF may hold walks of what changed: the next command drops them. */
++static void vm_invalidate(struct pvrsgx_device *sdev, bool data)
++{
++	mutex_lock(&sdev->ccb_lock);
++	sdev->fw.cache_control |= PVRSGX_CC_INVAL_BIF_PT | PVRSGX_CC_INVAL_BIF_PD |
++				  (data ? PVRSGX_CC_INVAL_DATA : 0);
++	mutex_unlock(&sdev->ccb_lock);
++}
++
++/* A code object counts its unmapped mappings until vas_free() (pvrsgx_bo.code_unmapping). */
++static bool va_obj_is_code(struct pvrsgx_va *v)
++{
++	return to_pvrsgx_bo(v->obj)->flags & DRM_POWERVR_SGX_BO_CODE;
++}
++
++/* Unlink a removed mapping from its object, keeping a reference on freed. */
++static void va_unlink_locked(struct drm_gpuva *va, struct list_head *freed)
++{
++	struct pvrsgx_va *v = to_pvrsgx_va(va);
++
++	v->obj = va->gem.obj;
++	drm_gem_object_get(v->obj);
++	if (va_obj_is_code(v))
++		atomic_inc(&to_pvrsgx_bo(v->obj)->code_unmapping);
++	drm_gpuva_unlink(va);
++	list_add_tail(&v->free_link, freed);
++}
++
++static void vas_free(struct list_head *list)
++{
++	struct pvrsgx_va *v, *tmp;
++
++	list_for_each_entry_safe(v, tmp, list, free_link) {
++		list_del(&v->free_link);
++		if (va_obj_is_code(v))
++			atomic_dec(&to_pvrsgx_bo(v->obj)->code_unmapping);
++		drm_gem_object_put(v->obj);
++		kfree(v);
++	}
++}
++
++/* Every mapping down, onto freed. Nothing may submit to the VM any more. */
++static void vm_unmap_all(struct pvrsgx_vm *vm, struct list_head *freed)
++{
++	struct drm_gpuva *va, *next;
++
++	drm_gpuvm_for_each_va_safe(va, next, &vm->gpuvm) {
++		struct drm_gem_object *obj = va->gem.obj;
++
++		pvrsgx_mmu_unmap(vm->mmu, va->va.addr, va->va.range);
++		drm_gpuva_remove(va);
++		dma_resv_lock(obj->resv, NULL);
++		va_unlink_locked(va, freed);
++		dma_resv_unlock(obj->resv);
++	}
++}
++
++/* The invalidate has run: nothing can reach the unmapped pages any more. */
++static void vm_free_done(struct pvrsgx_inval_wait *w)
++{
++	struct pvrsgx_vm_free *f = container_of(w, struct pvrsgx_vm_free, inval);
++
++	vas_free(&f->vas);
++	pvrsgx_vm_put(f->vm);
++	dma_fence_put(f->fence);
++	drm_dev_put(f->drm);
++	kfree(f);
++}
++
++static void vm_free_work(struct work_struct *work)
++{
++	struct pvrsgx_vm_free *f = container_of(work, struct pvrsgx_vm_free, work);
++	struct pvrsgx_device *sdev = to_pvrsgx_device(f->drm);
++
++	f->inval.done = vm_free_done;
++	if (f->teardown) {
++		mutex_lock(&f->vm->lock);
++		vm_unmap_all(f->vm, &f->vas);
++		mutex_unlock(&f->vm->lock);
++	}
++	/*
++	 * The BIF caches walks only of a directory a job ran on, and a restart or
++	 * power-off drops them: then there is nothing to wait for.
++	 */
++	if (!READ_ONCE(sdev->powered) ||
++	    READ_ONCE(f->vm->ran_gen) != READ_ONCE(sdev->fw_gen) + 1) {
++		vm_free_done(&f->inval);
++		return;
++	}
++	pvrsgx_ccb_after_invalidate(sdev, &f->inval, PVRSGX_CC_INVAL_BIF_PT |
++				    PVRSGX_CC_INVAL_BIF_PD | PVRSGX_CC_INVAL_DATA);
++}
++
++static void vm_free_cb(struct dma_fence *fence, struct dma_fence_cb *cb)
++{
++	struct pvrsgx_vm_free *f = container_of(cb, struct pvrsgx_vm_free, cb);
++
++	queue_work(system_dfl_wq, &f->work);
++}
++
++/*
++ * Run f once every job submitted to vm so far is done, without waiting for
++ * them. With none left, at once if now is set (the caller holds no VM lock).
++ */
++static void vm_free_after_jobs(struct pvrsgx_vm *vm, struct pvrsgx_vm_free *f, bool now)
++{
++	struct dma_fence *fence = NULL;
++
++	f->drm = &vm->sdev->base;
++	drm_dev_get(f->drm);
++	f->vm = pvrsgx_vm_get(vm);
++	INIT_WORK(&f->work, vm_free_work);
++	if (dma_resv_get_singleton(pvrsgx_vm_resv(vm), DMA_RESV_USAGE_BOOKKEEP, &fence)) {
++		/* No memory for a fence array: wait here instead. */
++		dma_resv_wait_timeout(pvrsgx_vm_resv(vm), DMA_RESV_USAGE_BOOKKEEP, false,
++				      MAX_SCHEDULE_TIMEOUT);
++		fence = NULL;
++	}
++	f->fence = fence;
++	if (fence && !dma_fence_add_callback(fence, &f->cb, vm_free_cb))
++		return;
++	if (now)
++		vm_free_work(&f->work);
++	else
++		queue_work(system_dfl_wq, &f->work);
++}
++
++static struct pvrsgx_vm_free *vm_free_alloc(void)
++{
++	struct pvrsgx_vm_free *f = kzalloc_obj(*f);
++
++	if (f)
++		INIT_LIST_HEAD(&f->vas);
++	return f;
++}
++
++/*
++ * On a single-context core the microkernel puts list 0 back on the firmware's
++ * directory when it raises its interrupt, which can come after a job's
++ * completion shows. Before a VM's directory is freed, list 0 must not hold it.
++ * A suspended core holds nothing: the next start's reset sets list 0.
++ */
++static void vm_pd_unload(struct pvrsgx_device *sdev, struct pvrsgx_mmu *mmu)
++{
++	struct device *dev = sdev->base.dev;
++	u32 pd = pvrsgx_mmu_pd_addr(mmu);
++
++	if (!pvrsgx_core_single_context(sdev->family))
++		return;
++	if (IS_ENABLED(CONFIG_PM) && pm_runtime_get_if_active(dev) <= 0)
++		return;
++	if (READ_ONCE(sdev->powered) && sgx_rd(sdev, SGX_CR_BIF_DIR_LIST_BASE0) == pd) {
++		drm_dbg_driver(&sdev->base, "list 0 still on a released VM's directory\n");
++		sgx_wr(sdev, SGX_CR_BIF_DIR_LIST_BASE0, pvrsgx_mmu_pd_addr(sdev->kernel_mmu));
++	}
++	if (IS_ENABLED(CONFIG_PM))
++		pm_runtime_put(dev);
++}
++
++static void vm_release(struct kref *ref)
++{
++	struct pvrsgx_vm *vm = container_of(ref, struct pvrsgx_vm, ref);
++	LIST_HEAD(freed);
++
++	/* No job holds this VM any more, so nothing on the GPU uses it. */
++	vm_unmap_all(vm, &freed);
++	vas_free(&freed);
++	if (vm->pb)
++		pvrsgx_pb_unmap(vm);
++	drm_mm_takedown(&vm->params);
++	if (vm->pd_slot)
++		pvrsgx_fw_pd_slot_put(vm->sdev, vm->pd_slot);
++	vm_pd_unload(vm->sdev, vm->mmu);
++	pvrsgx_mmu_destroy(vm->mmu);
++	/* The directory and its pages may come back as another VM's. */
++	mutex_lock(&vm->sdev->ccb_lock);
++	vm->sdev->fw.cache_control |= PVRSGX_CC_INVAL_BIF_PT | PVRSGX_CC_INVAL_BIF_PD |
++				      PVRSGX_CC_INVAL_DATA;
++	mutex_unlock(&vm->sdev->ccb_lock);
++	mutex_destroy(&vm->lock);
++	drm_gpuvm_put(&vm->gpuvm);
++}
++
++void pvrsgx_vm_put(struct pvrsgx_vm *vm)
++{
++	if (vm)
++		kref_put(&vm->ref, vm_release);
++}
++
++void pvrsgx_vm_user_get(struct pvrsgx_vm *vm)
++{
++	atomic_inc(&vm->users);
++}
++
++/*
++ * The handle or a context is gone. With neither left, nothing can submit to
++ * the VM again: once its jobs are done, unmap and release every object. The
++ * VM itself can live on much longer, held by its contexts' kernel objects
++ * until a later render (pvrsgx_kobj.c), but the client's memory goes then.
++ */
++void pvrsgx_vm_user_put(struct pvrsgx_vm *vm)
++{
++	struct pvrsgx_vm_free *f;
++	LIST_HEAD(freed);
++
++	if (!atomic_dec_and_test(&vm->users))
++		return;
++
++	f = vm_free_alloc();
++	if (f) {
++		f->teardown = true;
++		vm_free_after_jobs(vm, f, false);
++		return;
++	}
++	/*
++	 * No memory to defer it: wait for the jobs here. The pages then go before
++	 * the invalidate has run; nothing of this VM can run again, and the next
++	 * scene's directory switch invalidates before any translation.
++	 */
++	dma_resv_wait_timeout(pvrsgx_vm_resv(vm), DMA_RESV_USAGE_BOOKKEEP, false,
++			      MAX_SCHEDULE_TIMEOUT);
++	mutex_lock(&vm->lock);
++	vm_unmap_all(vm, &freed);
++	mutex_unlock(&vm->lock);
++	vm_invalidate(vm->sdev, true);
++	vas_free(&freed);
++}
++
++struct pvrsgx_vm *pvrsgx_vm_create(struct pvrsgx_device *sdev)
++{
++	struct drm_gem_object *r_obj;
++	struct pvrsgx_vm *vm;
++
++	vm = kzalloc_obj(*vm);
++	if (!vm)
++		return ERR_PTR(-ENOMEM);
++	vm->mmu = pvrsgx_mmu_create(sdev);
++	if (IS_ERR(vm->mmu)) {
++		struct pvrsgx_mmu *mmu = vm->mmu;
++
++		kfree(vm);
++		return ERR_CAST(mmu);
++	}
++	r_obj = drm_gpuvm_resv_object_alloc(&sdev->base);
++	if (!r_obj) {
++		pvrsgx_mmu_destroy(vm->mmu);
++		kfree(vm);
++		return ERR_PTR(-ENOMEM);
++	}
++	if (pvrsgx_core_single_context(sdev->family)) {
++		pvrsgx_share_fw_heaps(sdev, vm->mmu);
++		vm->pd_slot = pvrsgx_fw_pd_slot_get(sdev, pvrsgx_mmu_pd_addr(vm->mmu));
++		if (vm->pd_slot < 0) {
++			int err = vm->pd_slot;
++
++			drm_gem_object_put(r_obj);
++			pvrsgx_mmu_destroy(vm->mmu);
++			kfree(vm);
++			return ERR_PTR(err);
++		}
++	}
++	drm_gpuvm_init(&vm->gpuvm, "powervr_sgx", 0, &sdev->base, r_obj,
++		       0, BIT_ULL(sdev->family->va_bits), 0, 0, &pvrsgx_gpuvm_ops);
++	drm_gem_object_put(r_obj);
++	vm->sdev = sdev;
++	drm_mm_init(&vm->params, pvrsgx_heaps(sdev)->params_3d.base,
++		    pvrsgx_heaps(sdev)->params_3d.end - pvrsgx_heaps(sdev)->params_3d.base);
++	mutex_init(&vm->lock);
++	kref_init(&vm->ref);
++	atomic_set(&vm->users, 1);
++	return vm;
++}
++
++/*
++ * What a HW context's directory word holds: the directory's address, or on a
++ * single-context core its slot in the microkernel's PD table.
++ */
++u32 pvrsgx_vm_pd_word(const struct pvrsgx_vm *vm)
++{
++	return vm->pd_slot ?: pvrsgx_mmu_pd_addr(vm->mmu);
++}
++
++struct pvrsgx_vm *pvrsgx_vm_lookup(struct pvrsgx_file *sfile, u32 handle)
++{
++	struct pvrsgx_vm *vm;
++
++	xa_lock(&sfile->vms);
++	vm = xa_load(&sfile->vms, handle);
++	if (vm)
++		pvrsgx_vm_get(vm);
++	xa_unlock(&sfile->vms);
++	return vm;
++}
++
++void pvrsgx_vm_destroy_all(struct pvrsgx_file *sfile)
++{
++	struct pvrsgx_vm *vm;
++	unsigned long handle;
++
++	xa_for_each(&sfile->vms, handle, vm) {
++		xa_erase(&sfile->vms, handle);
++		pvrsgx_vm_user_put(vm);
++		pvrsgx_vm_put(vm);
++	}
++}
++
++int pvrsgx_ioctl_create_vm_context(struct drm_device *drm, void *data, struct drm_file *file)
++{
++	struct drm_powervr_sgx_ioctl_create_vm_context_args *args = data;
++	struct pvrsgx_file *sfile = to_pvrsgx_file(file);
++	struct pvrsgx_vm *vm;
++	int err;
++
++	if (args->_padding_4)
++		return -EINVAL;
++
++	vm = pvrsgx_vm_create(to_pvrsgx_device(drm));
++	if (IS_ERR(vm))
++		return PTR_ERR(vm);
++	err = xa_alloc(&sfile->vms, &args->handle, vm, xa_limit_32b, GFP_KERNEL);
++	if (err)
++		pvrsgx_vm_put(vm);
++	return err;
++}
++
++int pvrsgx_ioctl_destroy_vm_context(struct drm_device *drm, void *data, struct drm_file *file)
++{
++	struct drm_powervr_sgx_ioctl_destroy_vm_context_args *args = data;
++	struct pvrsgx_vm *vm;
++
++	if (args->_padding_4)
++		return -EINVAL;
++
++	vm = xa_erase(&to_pvrsgx_file(file)->vms, args->handle);
++	if (!vm)
++		return -ENOENT;
++	/* Contexts and jobs that use it keep it until they are done. */
++	pvrsgx_vm_user_put(vm);
++	pvrsgx_vm_put(vm);
++	return 0;
++}
++
++#define PVRSGX_MAX_BIND_OPS	256
++
++/* One op of a VM_BIND and what it needs, all gathered before anything changes. */
++struct bind_op {
++	struct drm_powervr_sgx_vm_bind_op in;
++	/* MAP: the object, its pages, its link to the VM, the new mapping. */
++	struct drm_gem_object *obj;
++	struct sg_table *sgt;
++	struct drm_gpuvm_bo *vm_bo;
++	/* MAP: [0]. UNMAP: the pieces a split may leave at either end. */
++	struct pvrsgx_va *va[2];
++};
++
++struct bind_ctx {
++	struct pvrsgx_vm *vm;
++	struct bind_op *op;
++	int next_va;
++	struct list_head *freed;
++};
++
++static struct pvrsgx_va *bind_take_va(struct bind_ctx *b)
++{
++	struct pvrsgx_va *v = b->op->va[b->next_va];
++
++	b->op->va[b->next_va++] = NULL;
++	return v;
++}
++
++/* The steps below can't fail: bind_prepare() checked and allocated everything. */
++static int bind_step_map(struct drm_gpuva_op *op, void *priv)
++{
++	struct bind_ctx *b = priv;
++	struct bind_op *o = b->op;
++	struct pvrsgx_va *v = bind_take_va(b);
++
++	WARN_ON(pvrsgx_mmu_map_sgt(b->vm->mmu, op->map.va.addr, o->sgt, op->map.gem.offset,
++				   op->map.va.range,
++				   pvrsgx_validate_pte_flags(to_pvrsgx_bo(o->obj))));
++	drm_gpuva_map(&b->vm->gpuvm, &v->base, &op->map);
++	drm_gpuva_link(&v->base, o->vm_bo);
++	return 0;
++}
++
++static int bind_step_remap(struct drm_gpuva_op *op, void *priv)
++{
++	struct bind_ctx *b = priv;
++	struct drm_gpuva *va = op->remap.unmap->va;
++	struct pvrsgx_va *prev = NULL, *next = NULL;
++	u64 addr, range;
++
++	drm_gpuva_op_remap_to_unmap_range(&op->remap, &addr, &range);
++	pvrsgx_mmu_unmap(b->vm->mmu, addr, range);
++	if (op->remap.prev)
++		prev = bind_take_va(b);
++	if (op->remap.next)
++		next = bind_take_va(b);
++	drm_gpuva_remap(prev ? &prev->base : NULL, next ? &next->base : NULL, &op->remap);
++	if (prev)
++		drm_gpuva_link(&prev->base, va->vm_bo);
++	if (next)
++		drm_gpuva_link(&next->base, va->vm_bo);
++	va_unlink_locked(va, b->freed);
++	return 0;
++}
++
++static int bind_step_unmap(struct drm_gpuva_op *op, void *priv)
++{
++	struct bind_ctx *b = priv;
++	struct drm_gpuva *va = op->unmap.va;
++
++	pvrsgx_mmu_unmap(b->vm->mmu, va->va.addr, va->va.range);
++	drm_gpuva_unmap(&op->unmap);
++	va_unlink_locked(va, b->freed);
++	return 0;
++}
++
++static void pvrsgx_gpuvm_free(struct drm_gpuvm *gpuvm)
++{
++	kfree(container_of(gpuvm, struct pvrsgx_vm, gpuvm));
++}
++
++static const struct drm_gpuvm_ops pvrsgx_gpuvm_ops = {
++	.vm_free = pvrsgx_gpuvm_free,
++	.sm_step_map = bind_step_map,
++	.sm_step_remap = bind_step_remap,
++	.sm_step_unmap = bind_step_unmap,
++};
++
++static bool ranges_overlap(u64 a, u64 as, u64 b, u64 bs)
++{
++	return a < b + bs && b < a + as;
++}
++
++/* The op's own arguments, and its object for a map. */
++static int bind_op_check(struct drm_file *file, struct pvrsgx_vm *vm, struct bind_op *o)
++{
++	const struct drm_powervr_sgx_vm_bind_op *in = &o->in;
++	u64 end;
++	int heap, err;
++
++	if (in->flags || in->_padding_24 || !in->size || !PAGE_ALIGNED(in->size) ||
++	    !PAGE_ALIGNED(in->device_addr) || check_add_overflow(in->device_addr, in->size, &end) ||
++	    end > BIT_ULL(vm->sdev->family->va_bits))
++		return -EINVAL;
++	if (in->op == DRM_POWERVR_SGX_VM_BIND_OP_UNMAP)
++		return in->handle || in->bo_offset ? -EINVAL : 0;
++	if (in->op != DRM_POWERVR_SGX_VM_BIND_OP_MAP || !PAGE_ALIGNED(in->bo_offset))
++		return -EINVAL;
++	heap = pvrsgx_heap_find(vm->sdev, in->device_addr, in->size);
++	if (heap < 0)
++		return -EINVAL;
++
++	o->obj = drm_gem_object_lookup(file, in->handle);
++	if (!o->obj)
++		return -ENOENT;
++	if (check_add_overflow(in->bo_offset, in->size, &end) || end > o->obj->size)
++		return -EINVAL;
++	err = pvrsgx_validate_vm_map(vm->sdev, vm, heap, to_pvrsgx_bo(o->obj), in->bo_offset,
++				     in->size);
++	if (err)
++		return err;
++	o->sgt = drm_gem_shmem_get_pages_sgt(to_drm_gem_shmem_obj(o->obj));
++	if (IS_ERR(o->sgt)) {
++		err = PTR_ERR(o->sgt);
++		o->sgt = NULL;
++		return err;
++	}
++	if (drm_gem_is_imported(o->obj) && !pvrsgx_prime_reachable(o->sgt))
++		return -EFAULT;
++	return 0;
++}
++
++/*
++ * With vm->lock and every object involved locked: check each op against the
++ * VM as it is (the ops don't overlap, so none depends on another) and allocate
++ * what applying it takes.
++ */
++static int bind_prepare(struct pvrsgx_vm *vm, struct bind_op *ops, u32 n)
++{
++	for (u32 i = 0; i < n; i++) {
++		struct bind_op *o = &ops[i];
++		u64 addr = o->in.device_addr, size = o->in.size;
++		int nva = o->in.op == DRM_POWERVR_SGX_VM_BIND_OP_MAP ? 1 : 2;
++		int err;
++
++		if (o->in.op == DRM_POWERVR_SGX_VM_BIND_OP_MAP) {
++			if (drm_gpuva_find_first(&vm->gpuvm, addr, size))
++				return -EEXIST;
++			err = pvrsgx_validate_vm_link(to_pvrsgx_bo(o->obj), addr, o->in.bo_offset);
++			if (err)
++				return err;
++			err = pvrsgx_mmu_reserve(vm->mmu, addr, size);
++			if (err)
++				return err;
++			if (!o->vm_bo) {
++				o->vm_bo = drm_gpuvm_bo_obtain_locked(&vm->gpuvm, o->obj);
++				if (IS_ERR(o->vm_bo)) {
++					err = PTR_ERR(o->vm_bo);
++					o->vm_bo = NULL;
++					return err;
++				}
++			}
++		}
++		for (int k = 0; k < nva; k++) {
++			if (!o->va[k])
++				o->va[k] = kzalloc_obj(*o->va[k]);
++			if (!o->va[k])
++				return -ENOMEM;
++		}
++	}
++	return 0;
++}
++
++static void bind_apply(struct pvrsgx_vm *vm, struct bind_op *ops, u32 n, struct list_head *freed)
++{
++	struct bind_ctx b = { .vm = vm, .freed = freed };
++
++	for (u32 i = 0; i < n; i++) {
++		struct bind_op *o = &ops[i];
++
++		b.op = o;
++		b.next_va = 0;
++		if (o->in.op == DRM_POWERVR_SGX_VM_BIND_OP_MAP) {
++			struct drm_gpuvm_map_req req = {
++				.map.va.addr = o->in.device_addr,
++				.map.va.range = o->in.size,
++				.map.gem.obj = o->obj,
++				.map.gem.offset = o->in.bo_offset,
++			};
++
++			WARN_ON(drm_gpuvm_sm_map(&vm->gpuvm, &b, &req));
++		} else {
++			WARN_ON(drm_gpuvm_sm_unmap(&vm->gpuvm, &b, o->in.device_addr, o->in.size));
++		}
++	}
++}
++
++/* Wait, interruptibly, for every wait op; find every signal op's syncobj. */
++int pvrsgx_ioctl_vm_bind(struct drm_device *drm, void *data, struct drm_file *file)
++{
++	struct drm_powervr_sgx_ioctl_vm_bind_args *args = data;
++	struct pvrsgx_vm_free *f = NULL;
++	struct bind_op *ops = NULL;
++	struct drm_powervr_sgx_vm_bind_op *in;
++	struct pvrsgx_vm *vm;
++	struct drm_exec exec;
++	u32 n = args->ops.count;
++	int err;
++
++	/* A synchronous bind takes no fences (drm-vm-bind-async.rst). */
++	if (args->flags != DRM_POWERVR_SGX_VM_BIND_FLAG_SYNC || !n || args->sync_ops.count)
++		return -EINVAL;
++
++	vm = pvrsgx_vm_lookup(to_pvrsgx_file(file), args->vm_context_handle);
++	if (!vm)
++		return -ENOENT;
++	in = pvrsgx_obj_array_get(&args->ops, sizeof(*in), PVRSGX_MAX_BIND_OPS);
++	if (IS_ERR(in)) {
++		err = PTR_ERR(in);
++		goto out_vm;
++	}
++	ops = kvcalloc(n, sizeof(*ops), GFP_KERNEL);
++	f = vm_free_alloc();
++	if (!ops || !f) {
++		err = -ENOMEM;
++		goto out;
++	}
++	for (u32 i = 0; i < n; i++) {
++		ops[i].in = in[i];
++		err = bind_op_check(file, vm, &ops[i]);
++		if (err)
++			goto out;
++		for (u32 k = 0; k < i; k++) {
++			if (ranges_overlap(in[i].device_addr, in[i].size, in[k].device_addr,
++					   in[k].size)) {
++				err = -EINVAL;
++				goto out;
++			}
++		}
++	}
++
++	mutex_lock(&vm->lock);
++	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT | DRM_EXEC_IGNORE_DUPLICATES, 0);
++	drm_exec_until_all_locked(&exec) {
++		err = 0;
++		for (u32 i = 0; i < n && !err; i++) {
++			struct drm_gpuva *va;
++
++			if (ops[i].obj) {
++				err = drm_exec_lock_obj(&exec, ops[i].obj);
++				drm_exec_retry_on_contention(&exec);
++				continue;
++			}
++			drm_gpuvm_for_each_va_range(va, &vm->gpuvm, in[i].device_addr,
++						    in[i].device_addr + in[i].size) {
++				err = drm_exec_lock_obj(&exec, va->gem.obj);
++				drm_exec_retry_on_contention(&exec);
++				if (err)
++					break;
++			}
++		}
++	}
++	err = err ?: bind_prepare(vm, ops, n);
++	if (!err)
++		bind_apply(vm, ops, n, &f->vas);
++	drm_exec_fini(&exec);
++	mutex_unlock(&vm->lock);
++	if (err)
++		goto out;
++
++	vm_invalidate(vm->sdev, false);
++	/*
++	 * The objects unmapped stay until every job submitted before now is done
++	 * and, if the VM ran one since the GPU started, the BIF invalidate has run.
++	 */
++	if (!list_empty(&f->vas)) {
++		vm_free_after_jobs(vm, f, true);
++		f = NULL;
++	}
++
++out:
++	if (ops) {
++		for (u32 i = 0; i < n; i++) {
++			kfree(ops[i].va[0]);
++			kfree(ops[i].va[1]);
++			if (ops[i].vm_bo) {
++				dma_resv_lock(ops[i].obj->resv, NULL);
++				drm_gpuvm_bo_put(ops[i].vm_bo);
++				dma_resv_unlock(ops[i].obj->resv);
++			}
++			if (ops[i].obj)
++				drm_gem_object_put(ops[i].obj);
++		}
++		kvfree(ops);
++	}
++	kfree(f);
++	kvfree(in);
++out_vm:
++	pvrsgx_vm_put(vm);
++	return err;
++}
+diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_vm.h b/drivers/gpu/drm/powervr_sgx/pvrsgx_vm.h
+new file mode 100644
+index 000000000..9a9a95262
+--- /dev/null
++++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_vm.h
+@@ -0,0 +1,69 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/* Copyright © 2026 Joseph Telaak */
++
++#ifndef PVRSGX_VM_H
++#define PVRSGX_VM_H
++
++#include <drm/drm_gpuvm.h>
++#include <drm/drm_mm.h>
++
++#include <linux/kref.h>
++#include <linux/mutex.h>
++#include <linux/types.h>
++
++struct drm_device;
++struct drm_file;
++struct pvrsgx_device;
++struct pvrsgx_file;
++struct pvrsgx_pb;
++
++/**
++ * struct pvrsgx_vm - A VM context: one page directory
++ *
++ * Maps only the client heaps, plus (later) the kernel-owned structures the TA
++ * and 3D read under it. Never the kernel code or data heaps: that is what keeps
++ * a client's tasks away from the firmware's memory. A single-context core is
++ * the exception: there every VM shares the firmware heaps' page tables.
++ */
++struct pvrsgx_vm {
++	/** @gpuvm: The GPU VA manager. */
++	struct drm_gpuvm gpuvm;
++	/** @sdev: The device. */
++	struct pvrsgx_device *sdev;
++	/** @mmu: Its page directory and tables. */
++	struct pvrsgx_mmu *mmu;
++	/** @params: 3D parameters addresses of this VM's kernel objects (pvrsgx_kobj.c). */
++	struct drm_mm params;
++	/** @pb: The device's parameter buffer, mapped here by the first render context. */
++	struct pvrsgx_pb *pb;
++	/** @pb_nodes: @pb's PB and free list in @params. */
++	struct drm_mm_node pb_nodes[2];
++	/** @lock: Serializes binds, the teardown and @pb's mapping. */
++	struct mutex lock;
++	/** @ref: Held by the handle, its contexts and their jobs. */
++	struct kref ref;
++	/** @users: The handle and the live contexts; at zero its mappings go. */
++	atomic_t users;
++	/** @ran_gen: &pvrsgx_device.fw_gen + 1 at its last job sent; 0 before any. */
++	u32 ran_gen;
++	/** @pd_slot: Its slot in the microkernel's PD table (single-context cores), or 0. */
++	int pd_slot;
++};
++
++struct pvrsgx_vm *pvrsgx_vm_create(struct pvrsgx_device *sdev);
++u32 pvrsgx_vm_pd_word(const struct pvrsgx_vm *vm);
++struct pvrsgx_vm *pvrsgx_vm_get(struct pvrsgx_vm *vm);
++void pvrsgx_vm_put(struct pvrsgx_vm *vm);
++void pvrsgx_vm_user_get(struct pvrsgx_vm *vm);
++void pvrsgx_vm_user_put(struct pvrsgx_vm *vm);
++struct dma_resv *pvrsgx_vm_resv(struct pvrsgx_vm *vm);
++struct pvrsgx_vm *pvrsgx_vm_lookup(struct pvrsgx_file *sfile, u32 handle);
++void pvrsgx_vm_destroy_all(struct pvrsgx_file *sfile);
++int pvrsgx_heap_find(const struct pvrsgx_device *sdev, u64 addr, u64 size);
++
++int pvrsgx_ioctl_create_vm_context(struct drm_device *drm, void *data, struct drm_file *file);
++int pvrsgx_ioctl_destroy_vm_context(struct drm_device *drm, void *data, struct drm_file *file);
++int pvrsgx_ioctl_vm_bind(struct drm_device *drm, void *data, struct drm_file *file);
++int pvrsgx_query_heap_info(struct pvrsgx_device *sdev, void __user *ptr, u32 *size);
++
++#endif /* PVRSGX_VM_H */
 
 -- 
 2.50.1
