@@ -1,84 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.245.243.92
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501996;
-	b=mllLM3jtvxP53NVHFJgB3DaL6+xr4nriRjba+hLjWzvYBspAWbF4IH5h2NUGwxjiYv9F
-	 jvAN3//kTanhrgkjRPLEs496qCDVJ+1a0EEsHypH+f55jTPgcOOz45f4MKteBjUm2zx4f
-	 7ZRGxBZxU2gUdDGETGzaR5icHMKgbx2JnFEuyaUQIWYNb3z6LWuaQr9OdepZ2ICCkUxSP
-	 ZVdLxUTtKfa3+W+0KFXx5uysBSJphM24JjiF7N41LnKQCMsyVZqX47PrMPYiFYlh511WK
-	 EP/YKL2gcsswu9yaG6p6jsszzs1XOr3UMQ6ZmcDOxKfMDz+kVwt6Glo2O/K6Gg6H7kg==
+	t=1794502002;
+	b=aIClw4XGFgs3hijVZRfoG9IE9PIsePud0TjAFTNK51ZV5HUkLBfQyZCYhkAYmXVKY46q
+	 bTHsARYeGQlYX2TBXopPAyF5gGOg3R6eSw++ebcIaUg0Q9Ihcyn0UHclfcHwdN62vzovA
+	 RwdwtkidEaurH/gXJxwYuLy0eDu1fIRAZdjY60E55+a3vmEq6izP4jjixmiTMPcLai9o5
+	 N7o5+YAB60ZknC1dm8dI9fJuIRJiX90tncnI8EtoO8GPOS6rEesh9yeQQQNpEhyqISlWs
+	 eBUonBxT/TEGkdEXfX4cKha0t10OWnAIU8ncR6bCJWt9x3c0WjcNEpdATAW6zruBs2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501996;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=xNz64j0McT9dIRYa5D9GRgq1blnxgnKU+6IqC8Q3v5U=;
-	b=DLTHCN909Fi1Vu8Wz9nzt56V7TmOQIGwvxLgW29RlB3Z5w/fb0zYGahmiGDjuU5FE0mC
-	 78LsFq9+iujOO6SRR4KD5FGJYtSa6dmOtI2nAAxN720stme4Sups1h3CnKGYSphBuUwEq
-	 qS193BUX8B7qAoU42c/X1pdQd/8IrhjnH99PMU8cqp/jjDaCvx1HWDPyxuv15dma1q5lp
-	 3F23vyLZvwEvXoYTXIkEtIlkjMtgDRNJ6BrZAoDWMG28j/w07IggyGvu+7e7tQLJmuQ2c
-	 t+PKzXixIFijAIkkoueNndqUtEZbVlz61jYee+60KgJdBNsFu5frf7bbQmLvqexoaGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794502002;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=8ta6z27u8peSSt/lY40ST0jGo2ndF4PI28VpJFYCRxE=;
+	b=XibcMuudrnZN0Gof8QK86XFHgkhu1YIsi99EoCVGUK1RavzmWf2iSuKlsTby8nPgkqBi
+	 koIgd6IeFiWr+vQR4dUQTG+G3i2Oi3EASaJsI3bdjewwO87roXJzIAx3oEsfIIKrIOAq7
+	 86oxYT8qpIZw8yPIiYyS2YUumgJztrFsR+8nsIJaaAkygyHirv1JTVDXUWdwa64uwrgBQ
+	 kFcnnDkOqnuTzGEIJJ/3LqGtGPvql1MYgS7XQmYl+2vInKrzKY1gCoTTCzm5uB2IXrXLR
+	 6UyJ7+ELsCmWTensgjWdaYClQBihIkXJgkg1hZI+4KHV0j2l2Qu5yS/owOkKsyvI0GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=VRGsWl26;
-	arc=none smtp.remote-ip=44.245.243.92
-Received: from pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.245.243.92])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MxD0Jq9D;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F528606A8A3;
-	Thu, 12 Nov 2026 16:46:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F528606A8A3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15285606A885
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:46:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15285606A885
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=VRGsWl26
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MxD0Jq9D
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1aefd1bf74aso14358c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:46:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794501996; x=1826037996;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=xNz64j0McT9dIRYa5D9GRgq1blnxgnKU+6IqC8Q3v5U=;
-  b=VRGsWl26zKFYIrK9qB9P9cO92sRjJ9swVfa0mvRfWsYqYYsptSFrkMtz
-   acj2ZTKT6cNkTcbDO84C69ESgnZbbG4d8dv0Eu+2XbAmkgukesNYQJVQT
-   HH3v+iaABhLYef3nLlRhlCexRHTfj3Dc/EJZGuYu1/9+PltXHtZ0/e7Lr
-   N6WPr4ZnUtqWJ4XfU3jfJ+dTXKFrmSi2DDAU+b9X006PftnFzJ2Im5zFr
-   HQl6sijtwT7DE/Pg2Mb7XU3lAfxj7nAbXgAA65RbNAnrOkX95fgBSg5zY
-   cQAvOIY/7gPtv2A6z5Osa6c7ESVIioTuBGhv58ZztofXxEGeUQUxEc4jq
-   A==;
-X-CSE-ConnectionGUID: M3uxj+oWTaGVnVFTezF7+w==
-X-CSE-MsgGUID: T6xCuqlBQraj/j04FJr78w==
-X-IronPort-AV: E=Sophos;i="6.27,210,1787011200"; 
-   d="scan'208";a="33343779"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 16:46:36 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:5075]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.16.231:2525] with esmtp (Farcaster)
- id ee27b830-e949-4985-8d33-62faba8a9563; Thu, 12 Nov 2026 16:46:35 +0000 (UTC)
-X-Farcaster-Flow-ID: ee27b830-e949-4985-8d33-62faba8a9563
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 16:46:35 +0000
-Received: from dev-dsk-surenkj-2b-416930d2.us-west-2.amazon.com (10.169.26.94)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 16:46:35 +0000
-From: Surendran Kanagaraj <surenkj@amazon.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>, Peter Huewe <peterhuewe@gmx.de>
-CC: Jason Gunthorpe <jgg@ziepe.ca>, <linux-integrity@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	<linux-doc@vger.kernel.org>, Jonathan McDowell <noodles@earth.li>, "Breno
- Leitao" <leitao@debian.org>, <nh-open-source@amazon.com>, Alexander Graf
-	<graf@amazon.de>, Gunnar Kudrjavets <gunnarku@amazon.com>, Josh Levinson
-	<joshlev@amazon.com>
-Subject: [RFC PATCH v3 8/8] tpm_crb: Raise the limits for Amazon NitroTPM
-Date: Thu, 12 Nov 2026 16:46:21 +0000
-Message-ID: <20261112164621.62645-1-surenkj@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261112163846.97654-1-surenkj@amazon.com>
-References: <20261112163846.97654-1-surenkj@amazon.com>
+        d=gmail.com; s=20260707; t=1794502001; x=1795106801; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8ta6z27u8peSSt/lY40ST0jGo2ndF4PI28VpJFYCRxE=;
+        b=MxD0Jq9DO9ouHSvfsFJ7aC987hgsLKY6IoGYhYxocG3/5DJWWtzX+tSaqLcorBnVSD
+         wPv2YDjYCBZlYzYtPpDXcUjbYlpK1PAmR5+5GmIDSbuRraG4U2pO0iYcJ/SdRn5aO0d7
+         R1J9qS5cuxmV9Ql+L+gmszHXHtunL7xdO1/zKehLgE3QCFXlb6RSl3OOgA4kfEfSFRCW
+         DLckACnA2Z7TWLvUcHJx7jiiqlX7PeEW9jRBizj6D86CKMdsSTvSYSWvQWIoPgOB1Pw8
+         OF5UkTaFTfsjn89VVnpjv/NO1NHh2z/w1kbu1hCsqqPnKbDnC62ObhLeMMmnwNuPKSRe
+         FtMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794502001; x=1795106801;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8ta6z27u8peSSt/lY40ST0jGo2ndF4PI28VpJFYCRxE=;
+        b=f4pECYOxUj7E/2AkGcLscsU9Y9oghc2fMrcKVyy1L95bj231Ruc3bePdCi5THt3I96
+         zDESkC36YGCN+Y4+07nYsF8EUQhlMAjs+9oETgctf53t0PlkV4cAfyEh9YJlUozwbAg4
+         ZFxcoOpkP+vZJXouY+g9ux3AE+Amk6zk5kOrd4pXPbd/uyX1FwAktLNgDI5YUNA8XO+O
+         RCHKKtcCV431eout/xCthIGpzMPNzth94QaNuEUSWr0lzagDwdjznWabL3TYhfZPohX9
+         weqTnWp7Pqbe7G/1NmT8VNE4YjQ912OMXR0GovMnzFEEkcIGJzK50hrJc3r2X4DvNWmm
+         wBsw==
+X-Forwarded-Encrypted: i=1; AL+hErGFNMZTMAsMTcAXaBGAwy+Si8FnfuSj8djT+NppOrcCJTCV5tdXd7eoEfdi2Z0eJr/hgj48dSrJvvz+vJ0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9L2j+PQyf8jt18ayyqflbvBRbTfm111TAnmE3E8j7xMD0+az0/
+	h4dReE7RZJq5aHjY6veZWE15GymQTncNNX/RDuyjpKuiei5jwW9TPb1f
+X-Gm-Gg: AYBFou0uYUrJEkFm+4AHwD4tZWxxlu+WL1CliT0KJoxIhfXMAa9BcBZcKL4LJ4uMrmC
+	VvRCPPDe4Ij0PR/AyCNGxlPIBZ7402YU0DhenbcjK80Xku8k4MhJAqCCbNlz0h9Kir6itmd/RQk
+	1g7tBOKAB8S+zy51xYKtCtyleXAJNjkyUlUFwjmUFAHZgeY5aV109uUJ8CfkBGUUvy4yRnO+w7Q
+	h40bOckEf/fnNwfZ5WGyu36EiDaUtQD7Xh2CnObDQoIBui3aUbK2BnnLncZMYlkI+FU1l9wX03Z
+	AYAkbILAiPPBWsS1GnAMEmnMq1wBbmqDSJhim0AFtr9+Ub+3cc9U40MKsHpvCqOG+g/r8/638DR
+	+nH2pCp3l+fgk4npSw41QJWv5x6dL5B8dc4rdzAByzC1PLj+qZtY6Or9/rKS1DCBcH4u980haw2
+	n20pu2jBVcSLfuyBXy5sh+HW3sZp42MEBbUB820Bz4TE6yxG03aB4jJ8NBxkoasrTBcQseEuIwH
+	FaVFGtZB03WhP4vEUct1b5mWBvphUiqqtyn8gC1dRIaR9/ZrPY+tntEn7UZ4cBtvhql6PMtw8WP
+	u80HXO1lN0tmbA9lqEFLPdeaTYMOiqEyO09vbMZKF92gdSzxx0uHRzanCB/y48hbZhi9whioIBg
+	kmyPuH7aDw6tOc13G3biMpczTulE/HdE1KtJxcROy7e5XWg==
+X-Received: by 2002:a05:7022:ea8d:b0:145:ac96:3917 with SMTP id a92af1059eb24-1b4f5f734bamr2615650c88.21.1794502000878;
+        Thu, 12 Nov 2026 08:46:40 -0800 (PST)
+Received: from acemagic-m1.tail4fb79.ts.net ([2401:7400:c804:b668:2c54:4647:b67e:c94c])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50300e5dcsm287090c88.0.2026.11.12.08.46.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 08:46:39 -0800 (PST)
+From: Ho Jie Feng <hjf3108@gmail.com>
+To: Stanislaw Gruszka <stf_xl@wp.pl>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ho Jie Feng <hjf3108@gmail.com>
+Subject: [PATCH wireless-next v3 5/7] wifi: rt2800usb: enable RX bulk aggregation
+Date: Fri, 13 Nov 2026 00:45:39 +0800
+Message-ID: <20261112164544.3176458-6-hjf3108@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261112164544.3176458-1-hjf3108@gmail.com>
+References: <20261112164544.3176458-1-hjf3108@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,136 +100,291 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC003.ant.amazon.com (10.13.139.252) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-In rare scenarios NitroTPM can enter a mode where it either sends
-TPM2_RC_RETRY for longer than LONG duration or delays
-command completion for longer than the TPM 2.0 durations allow.
-When this happens during auth session start, the driver disables
-the chip and every subsequent request fails:
+Enable RX bulk aggregation on high speed USB, to receive more
+frames per URB.
 
-    tpm tpm0: in retry loop
-    tpm tpm0: tpm2_load_context: failed with a TPM error 0x0922
+RX buffers are now 24KB, so reduce it to 16 buffers instead of 128,
+so that they take 512 KB in total instead of 4 MB.
 
-Add a quirk table to the CRB driver keyed by the vendor ID from the
-interface ID register, and apply it from ->adjust_limits(). For
-NitroTPM, raise the SHORT and MEDIUM durations to 30 s, which covers
-the longest unavailability with some headroom, and LONG to 45 s. With
-the back-off doubling from 20 ms, a 45 s LONG duration lets the driver
-resubmit a command for about 40.9 s, so the retry loop covers the
-entire unavailability window.
+Test results:
+   before after
+TX 30.5   30.5
+RX 67.8   80.9
 
-These are upper bounds, not expected waits. A command that completes
-sooner ends the wait as soon as the poll sees it. Add TPM_VID_AMZN
-next to the vendor ID list in tpm.h.
+This code references the mt7601u driver.
 
-Tested on an EC2 instance with NitroTPM by inducing multiple
-unavailability windows with no TPM errors, and in QEMU with swtpm by
-holding the TPM in TPM2_RC_RETRY and stalling command completion for
-longer than 2s.
-
-Signed-off-by: Surendran Kanagaraj <surenkj@amazon.com>
+Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
 ---
- drivers/char/tpm/tpm_crb.c | 50 ++++++++++++++++++++++++++++++++++++++
- include/linux/tpm.h        |  1 +
- 2 files changed, 51 insertions(+)
+ .../net/wireless/ralink/rt2x00/rt2800usb.c    | 32 +++++--
+ .../net/wireless/ralink/rt2x00/rt2800usb.h    |  6 ++
+ drivers/net/wireless/ralink/rt2x00/rt2x00.h   |  3 +-
+ .../net/wireless/ralink/rt2x00/rt2x00dev.c    | 84 +++++++++++++------
+ .../net/wireless/ralink/rt2x00/rt2x00mmio.c   |  2 +-
+ .../net/wireless/ralink/rt2x00/rt2x00usb.c    |  5 +-
+ 6 files changed, 100 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/char/tpm/tpm_crb.c b/drivers/char/tpm/tpm_crb.c
-index 7c1011eb855a..0e18f61cfddf 100644
---- a/drivers/char/tpm/tpm_crb.c
-+++ b/drivers/char/tpm/tpm_crb.c
-@@ -13,6 +13,7 @@
+diff --git a/drivers/net/wireless/ralink/rt2x00/rt2800usb.c b/drivers/net/wireless/ralink/rt2x00/rt2800usb.c
+index 387c07e225..be58d72105 100644
+--- a/drivers/net/wireless/ralink/rt2x00/rt2800usb.c
++++ b/drivers/net/wireless/ralink/rt2x00/rt2800usb.c
+@@ -301,15 +301,15 @@ static int rt2800usb_enable_radio(struct rt2x00_dev *rt2x00dev)
+ 		return -EIO;
  
- #include <linux/acpi.h>
- #include <linux/highmem.h>
-+#include <linux/io-64-nonatomic-lo-hi.h>
- #include <linux/rculist.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
-@@ -26,6 +27,14 @@
- #define ACPI_SIG_TPM2 "TPM2"
- #define TPM_CRB_MAX_RESOURCES 3
+ 	rt2x00_set_field32(&reg, USB_DMA_CFG_PHY_CLEAR, 0);
+-	rt2x00_set_field32(&reg, USB_DMA_CFG_RX_BULK_AGG_EN, 0);
++	rt2x00_set_field32(&reg, USB_DMA_CFG_RX_BULK_AGG_EN,
++			   rt2x00dev->rx->usb_maxpacket >= 512);
+ 	rt2x00_set_field32(&reg, USB_DMA_CFG_RX_BULK_AGG_TIMEOUT, 128);
+ 	/*
+ 	 * Total room for RX frames in kilobytes, PBF might still exceed
+ 	 * this limit so reduce the number to prevent errors.
+ 	 */
+ 	rt2x00_set_field32(&reg, USB_DMA_CFG_RX_BULK_AGG_LIMIT,
+-			   ((rt2x00dev->rx->limit * DATA_FRAME_SIZE)
+-			    / 1024) - 3);
++			   (rt2x00dev->rx->data_size / 1024) - 4);
+ 	rt2x00_set_field32(&reg, USB_DMA_CFG_RX_BULK_EN, 1);
+ 	rt2x00_set_field32(&reg, USB_DMA_CFG_TX_BULK_EN, 1);
+ 	rt2x00usb_register_write(rt2x00dev, USB_DMA_CFG, reg);
+@@ -478,6 +478,27 @@ static void rt2800usb_work_txdone(struct work_struct *work)
+ /*
+  * RX control handlers
+  */
++static unsigned int rt2800usb_get_rx_seg_len(void *data, unsigned int len)
++{
++	unsigned int min_seg_len = RXINFO_DESC_SIZE + RXWI_DESC_SIZE_4WORDS +
++				   RXD_DESC_SIZE;
++	unsigned int rx_pkt_len;
++	u32 word;
++
++	if (len < min_seg_len)
++		return 0;
++
++	word = rt2x00_desc_read(data, 0);
++	rx_pkt_len = rt2x00_get_field32(word, RXINFO_W0_USB_DMA_RX_PKT_LEN);
++
++	if (WARN_ON_ONCE(RXINFO_DESC_SIZE + rx_pkt_len + RXD_DESC_SIZE > len) ||
++	    WARN_ON_ONCE(rx_pkt_len & 0x3) ||
++	    WARN_ON_ONCE(rx_pkt_len < min_seg_len))
++		return 0;
++
++	return RXINFO_DESC_SIZE + rx_pkt_len + RXD_DESC_SIZE;
++}
++
+ static void rt2800usb_fill_rxdone(struct queue_entry *entry,
+ 				  struct rxdone_entry_desc *rxdesc)
+ {
+@@ -706,6 +727,7 @@ static const struct rt2x00lib_ops rt2800usb_rt2x00_ops = {
+ 	.clear_beacon		= rt2800_clear_beacon,
+ 	.get_tx_data_len	= rt2800usb_get_tx_data_len,
+ 	.fill_rxdone		= rt2800usb_fill_rxdone,
++	.get_rx_seg_len		= rt2800usb_get_rx_seg_len,
+ 	.config_shared_key	= rt2800_config_shared_key,
+ 	.config_pairwise_key	= rt2800_config_pairwise_key,
+ 	.config_filter		= rt2800_config_filter,
+@@ -725,8 +747,8 @@ static void rt2800usb_queue_init(struct data_queue *queue)
  
-+/* TPM_CRB_INTF_ID_x vendor ID field, bits 47:32 of the 64-bit register */
-+#define TPM_CRB_INTF_ID_VID(intf_id)	(((intf_id) >> 32) & 0xffff)
+ 	switch (queue->qid) {
+ 	case QID_RX:
+-		queue->limit = 128;
+-		queue->data_size = AGGREGATION_SIZE;
++		queue->limit = 16;
++		queue->data_size = MAX_RXBULK_SIZE;
+ 		queue->desc_size = RXINFO_DESC_SIZE;
+ 		queue->winfo_size = rxwi_size;
+ 		queue->priv_size = sizeof(struct queue_entry_priv_usb);
+diff --git a/drivers/net/wireless/ralink/rt2x00/rt2800usb.h b/drivers/net/wireless/ralink/rt2x00/rt2800usb.h
+index 9e180e9e41..2fae79072f 100644
+--- a/drivers/net/wireless/ralink/rt2x00/rt2800usb.h
++++ b/drivers/net/wireless/ralink/rt2x00/rt2800usb.h
+@@ -29,6 +29,12 @@
+  */
+ #define TXINFO_DESC_SIZE		(1 * sizeof(__le32))
+ #define RXINFO_DESC_SIZE		(1 * sizeof(__le32))
++#define RXD_DESC_SIZE			(1 * sizeof(__le32))
 +
-+/* Longest NitroTPM unavailability, with some headroom */
-+#define TPM_CRB_AMZN_LIMIT_US		(30 * USEC_PER_SEC)
-+/* LONG also bounds the retry loop: 45 s lets it resubmit for 40.9 s */
-+#define TPM_CRB_AMZN_LONG_US		(45 * USEC_PER_SEC)
-+
- static const guid_t crb_acpi_start_guid =
- 	GUID_INIT(0x6BBF6CAB, 0x5463, 0x4714,
- 		  0xB7, 0xCD, 0xF0, 0x20, 0x3C, 0x03, 0x68, 0xD4);
-@@ -663,6 +672,46 @@ static bool crb_req_canceled(struct tpm_chip *chip, u8 status)
- 	return (cancel & CRB_CANCEL_INVOKE) == CRB_CANCEL_INVOKE;
++/*
++ * RX buffer size
++ */
++#define MAX_RXBULK_SIZE			24576
+ 
+ /*
+  * TX Info structure
+diff --git a/drivers/net/wireless/ralink/rt2x00/rt2x00.h b/drivers/net/wireless/ralink/rt2x00/rt2x00.h
+index ace06ba73d..7b1a32d3e1 100644
+--- a/drivers/net/wireless/ralink/rt2x00/rt2x00.h
++++ b/drivers/net/wireless/ralink/rt2x00/rt2x00.h
+@@ -600,6 +600,7 @@ struct rt2x00lib_ops {
+ 	 */
+ 	void (*fill_rxdone) (struct queue_entry *entry,
+ 			     struct rxdone_entry_desc *rxdesc);
++	unsigned int (*get_rx_seg_len) (void *data, unsigned int len);
+ 
+ 	/*
+ 	 * Configuration handlers.
+@@ -1460,7 +1461,7 @@ void rt2x00lib_txdone(struct queue_entry *entry,
+ void rt2x00lib_txdone_nomatch(struct queue_entry *entry,
+ 			      struct txdone_entry_desc *txdesc);
+ void rt2x00lib_txdone_noinfo(struct queue_entry *entry, u32 status);
+-void rt2x00lib_rxdone(struct queue_entry *entry, gfp_t gfp);
++void rt2x00lib_rxdone(struct queue_entry *entry, unsigned int len, gfp_t gfp);
+ 
+ /*
+  * mac80211 handlers.
+diff --git a/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c b/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
+index baf5d039bc..dc6a7d12b2 100644
+--- a/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
++++ b/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
+@@ -765,35 +765,14 @@ static int rt2x00lib_rxdone_read_signal(struct rt2x00_dev *rt2x00dev,
+ 	return 0;
  }
  
-+/*
-+ * Read the vendor ID from the interface ID register. Returns -ENODEV when
-+ * the head registers are not mapped for this start method.
-+ */
-+static int crb_vendor_id(struct crb_priv *priv)
-+{
-+	u64 intf_id;
-+
-+	if (!priv->regs_h)
-+		return -ENODEV;
-+
-+	intf_id = lo_hi_readq(&priv->regs_h->intf_id);
-+
-+	return TPM_CRB_INTF_ID_VID(intf_id);
-+}
-+
-+/* Limits keyed by the vendor ID of the interface ID register */
-+static const struct tpm_limits_quirk crb_limits_quirks[] = {
-+	{
-+		.id = TPM_VID_AMZN,
-+		.time_us = {
-+			[TPM_LIMIT_SHORT]	= TPM_CRB_AMZN_LIMIT_US,
-+			[TPM_LIMIT_MEDIUM]	= TPM_CRB_AMZN_LIMIT_US,
-+			[TPM_LIMIT_LONG]	= TPM_CRB_AMZN_LONG_US,
-+		},
-+	},
-+};
-+
-+static void crb_adjust_limits(struct tpm_chip *chip, struct tpm_limits *p)
-+{
-+	struct crb_priv *priv = dev_get_drvdata(&chip->dev);
-+	int vid = crb_vendor_id(priv);
-+
-+	if (vid < 0)
-+		return;
-+
-+	tpm_limits_apply_quirks(p, crb_limits_quirks,
-+				ARRAY_SIZE(crb_limits_quirks), vid);
-+}
-+
- static const struct tpm_class_ops tpm_crb = {
- 	.flags = TPM_OPS_AUTO_STARTUP,
- 	.status = crb_status,
-@@ -674,6 +723,7 @@ static const struct tpm_class_ops tpm_crb = {
- 	.cmd_ready = crb_cmd_ready,
- 	.request_locality = crb_request_locality,
- 	.relinquish_locality = crb_relinquish_locality,
-+	.adjust_limits = crb_adjust_limits,
- 	.req_complete_mask = CRB_DRV_STS_COMPLETE,
- 	.req_complete_val = CRB_DRV_STS_COMPLETE,
- };
-diff --git a/include/linux/tpm.h b/include/linux/tpm.h
-index a4b7282d88b5..f557c1a32388 100644
---- a/include/linux/tpm.h
-+++ b/include/linux/tpm.h
-@@ -220,6 +220,7 @@ static inline enum tpm2_mso_type tpm2_handle_mso(u32 handle)
- #define TPM_VID_STM      0x104A
- #define TPM_VID_ATML     0x1114
- #define TPM_VID_IFX      0x15D1
-+#define TPM_VID_AMZN     0x0EC2
+-void rt2x00lib_rxdone(struct queue_entry *entry, gfp_t gfp)
++static void rt2x00lib_rxdone_skb(struct queue_entry *entry)
+ {
+ 	struct rt2x00_dev *rt2x00dev = entry->queue->rt2x00dev;
+ 	struct rxdone_entry_desc rxdesc;
+-	struct sk_buff *skb;
+ 	struct ieee80211_rx_status *rx_status;
+ 	unsigned int header_length;
+ 	int rate_idx;
  
- enum tpm_chip_flags {
- 	TPM_CHIP_FLAG_BOOTSTRAPPED		= BIT(0),
+-	if (!test_bit(DEVICE_STATE_PRESENT, &rt2x00dev->flags) ||
+-	    !test_bit(DEVICE_STATE_ENABLED_RADIO, &rt2x00dev->flags))
+-		goto submit_entry;
+-
+-	if (test_bit(ENTRY_DATA_IO_FAILED, &entry->flags))
+-		goto submit_entry;
+-
+-	/*
+-	 * Allocate a new sk_buffer. If no new buffer available, drop the
+-	 * received frame and reuse the existing buffer.
+-	 */
+-	skb = rt2x00queue_alloc_rxskb(entry, gfp);
+-	if (!skb)
+-		goto submit_entry;
+-
+-	/*
+-	 * Unmap the skb.
+-	 */
+-	rt2x00queue_unmap_skb(entry);
+-
+ 	/*
+ 	 * Extract the RXD details.
+ 	 */
+@@ -809,7 +788,7 @@ void rt2x00lib_rxdone(struct queue_entry *entry, gfp_t gfp)
+ 		rt2x00_err(rt2x00dev, "Wrong frame size %d max %d\n",
+ 			   rxdesc.size, entry->queue->data_size);
+ 		dev_kfree_skb(entry->skb);
+-		goto renew_skb;
++		return;
+ 	}
+ 
+ 	/*
+@@ -893,8 +872,65 @@ void rt2x00lib_rxdone(struct queue_entry *entry, gfp_t gfp)
+ 	rx_status->antenna = rt2x00dev->link.ant.active.rx;
+ 
+ 	ieee80211_rx_ni(rt2x00dev->hw, entry->skb);
++}
++
++void rt2x00lib_rxdone(struct queue_entry *entry, unsigned int len, gfp_t gfp)
++{
++	struct rt2x00_dev *rt2x00dev = entry->queue->rt2x00dev;
++	struct skb_frame_desc *skbdesc, *frame_skbdesc;
++	struct sk_buff *skb;
++	unsigned int seg_len;
++	u8 *data;
++
++	if (!test_bit(DEVICE_STATE_PRESENT, &rt2x00dev->flags) ||
++	    !test_bit(DEVICE_STATE_ENABLED_RADIO, &rt2x00dev->flags))
++		goto submit_entry;
++
++	if (test_bit(ENTRY_DATA_IO_FAILED, &entry->flags))
++		goto submit_entry;
++
++	if (rt2x00dev->ops->lib->get_rx_seg_len) {
++		skb = entry->skb;
++		skbdesc = get_skb_frame_desc(skb);
++		data = skb->data;
++
++		while ((seg_len = rt2x00dev->ops->lib->get_rx_seg_len(data, len))) {
++			entry->skb = __dev_alloc_skb(seg_len, gfp);
++			if (!entry->skb)
++				break;
++
++			skb_put_data(entry->skb, data, seg_len);
++
++			frame_skbdesc = get_skb_frame_desc(entry->skb);
++			memset(frame_skbdesc, 0, sizeof(*frame_skbdesc));
++			frame_skbdesc->desc = skbdesc->desc;
++			frame_skbdesc->desc_len = skbdesc->desc_len;
++
++			rt2x00lib_rxdone_skb(entry);
++
++			data += seg_len;
++			len -= seg_len;
++		}
++
++		entry->skb = skb;
++		goto submit_entry;
++	}
++
++	/*
++	 * Allocate a new sk_buffer. If no new buffer available, drop the
++	 * received frame and reuse the existing buffer.
++	 */
++	skb = rt2x00queue_alloc_rxskb(entry, gfp);
++	if (!skb)
++		goto submit_entry;
++
++	/*
++	 * Unmap the skb.
++	 */
++	rt2x00queue_unmap_skb(entry);
++
++	rt2x00lib_rxdone_skb(entry);
+ 
+-renew_skb:
+ 	/*
+ 	 * Replace the skb with the freshly allocated one.
+ 	 */
+diff --git a/drivers/net/wireless/ralink/rt2x00/rt2x00mmio.c b/drivers/net/wireless/ralink/rt2x00/rt2x00mmio.c
+index 93f76acf3d..a1d8b8d13d 100644
+--- a/drivers/net/wireless/ralink/rt2x00/rt2x00mmio.c
++++ b/drivers/net/wireless/ralink/rt2x00/rt2x00mmio.c
+@@ -78,7 +78,7 @@ bool rt2x00mmio_rxdone(struct rt2x00_dev *rt2x00dev)
+ 		/*
+ 		 * Send the frame to rt2x00lib for further processing.
+ 		 */
+-		rt2x00lib_rxdone(entry, GFP_ATOMIC);
++		rt2x00lib_rxdone(entry, entry->skb->len, GFP_ATOMIC);
+ 	}
+ 
+ 	return !max_rx;
+diff --git a/drivers/net/wireless/ralink/rt2x00/rt2x00usb.c b/drivers/net/wireless/ralink/rt2x00/rt2x00usb.c
+index c9fbc3710f..4519a20a7f 100644
+--- a/drivers/net/wireless/ralink/rt2x00/rt2x00usb.c
++++ b/drivers/net/wireless/ralink/rt2x00/rt2x00usb.c
+@@ -345,6 +345,7 @@ static void rt2x00usb_work_rxdone(struct work_struct *work)
+ {
+ 	struct rt2x00_dev *rt2x00dev =
+ 	    container_of(work, struct rt2x00_dev, rxdone_work);
++	struct queue_entry_priv_usb *entry_priv;
+ 	struct queue_entry *entry;
+ 	struct skb_frame_desc *skbdesc;
+ 	u8 rxd[32];
+@@ -365,7 +366,9 @@ static void rt2x00usb_work_rxdone(struct work_struct *work)
+ 		/*
+ 		 * Send the frame to rt2x00lib for further processing.
+ 		 */
+-		rt2x00lib_rxdone(entry, GFP_KERNEL);
++		entry_priv = entry->priv_data;
++		rt2x00lib_rxdone(entry, entry_priv->urb->actual_length,
++				 GFP_KERNEL);
+ 	}
+ }
+ 
 -- 
-2.47.3
+2.53.0
 
