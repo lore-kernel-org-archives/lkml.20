@@ -1,55 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794522865;
-	b=fSpc0iGKRMWwlF3FXasa33SU4xzHiEa3qszbDPwOCF3dp8jAY6YzSI52scRhb/M9tAcN
-	 k0abWNqou5ESXNSCCNgMYPOQsyIz8L5/bSS+tu/HuiVAVh8LsarDT86DzwsQfQ1Sf0Q/d
-	 oQdVYF2/pcSIO4RFojhRdM5QJvbH56Ko4mX32Y1S0Kdd+L2xyI4O0yTjOGX8QTyg17HY1
-	 GhwgDgfJb3qFKeVOUWEg/RkIiW2ZmO2tzveK1YXXBe7vlXi2Sb8vu/xOUoiwkgEbjbf+0
-	 bRZpTuaXsHhVwxxEQi+0R+8o/obxT4wLstJbIcbbOmFPvuJYfOpLE40fKfsdRbxrfMA==
+	t=1794522887;
+	b=VoUm6L2dTZAv6j1UmcbnRh/x4Jnvv3ZDrflxVH6Bb9A7541p32Lx/+MaRKYlyHp7N5Lw
+	 Fi4LyqO20pbbXK7Go/x2GZmdmUw7BqzCapRNkn0/fFEOPjQ5p/LrzpTecb2QFk+7bTYmr
+	 3L9UPlpL+wMcd+RRfzRBpvUV9MWou8TEj7wDcREr10e2KzNQmMMYgVUIc0Asoy2uRHFYd
+	 swU3MiJDwT7bWHS07NzE9fpjK2nub85KxhAXcQ3D63TWZLCdOPbz31ei7Ko/Zx7gfh52y
+	 9PMmyiDZ9S4gnr68jg0ZoNlFF4GC1Q4s36MLZAnb8QrxYMKhxsibu81o/lQq1gytWNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794522865;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=xGWAwNDnbQAoH+VcWS/eK1bc8gnUFywi2IqyuToUcKQ=;
-	b=B187oyuZhIWYkYE4x6/TVDWxoZnO07e/OJhR/xvQt4MfIz00udFrXglRGpSEbFa1YyWa
-	 seDaJTXGAdeR32feD16fiuofE7ZswHzBc21mm4LUw/4UAecI2KoAxAOHyfo8iWI5fg9bg
-	 DZ3Hl1cgW4QwlMGNzlL3Bvi3RaZdE588Q0wiRGY9e2/iQHXb5tAdoX5SEyvlnpTRs9BrT
-	 1YDBrW0Ppadna9EI5NP6Av5tF0lkMTW0dhTolKjmkIYSRrvN2/B1bGBZSh+O65pLdcasW
-	 kCksAFFZ7lJ5qHD+J1MPnbC/wY4Btu3lWSq4mBRbD+jeRF3bYf+HaOHAxPdDS3NOzNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794522887;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=stCSDCk1Xz9wPGWW1xwLdd2SYAWvhjzP8nY3HJs1wdU=;
+	b=eA3u3fZEk4pjQO3kgwoZSeb13j1/VrXmKrpHyJZjhQfyLsyVqRMvc5qNEoJ7GK+S4VR5
+	 O06ViZM7SwGmouf6P5kmxh5dV30nayymT9EfxS4kPSBy1wYAtoiT4s3hJyNqnhShHgGim
+	 HICwu5EPMPbjV/cRXY7eHO1eOubBqq6R8v9I4uk2rpvbOMZCILOJQ4RLCr/v8NCcB9oN3
+	 egtRayVDRMjkYcTrUBtBvYj3kA27KfK/28JrQU+ERxNbTyaFLHINC0lHjfLVR3zPn0oJ1
+	 5rIIpsxmEX8+0A06IoQWpFSGzvUVTM+iZSpP1HDGD1NJd4icccTqvdDRHwPtvhKXumQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2U5ZZm6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fi6Dqt0V;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC23606A332
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:34:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8696C606A323;
+	Thu, 12 Nov 2026 22:34:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8696C606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2U5ZZm6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 426CC1F000C6
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:34:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794522865;
-	bh=xGWAwNDnbQAoH+VcWS/eK1bc8gnUFywi2IqyuToUcKQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=E2U5ZZm6jS8B4+jl80YtHjY4vgWgA2R8mTKPHpxwuyA5oK9Q+ZugRcJ4NBriynvOz
-	 hjS0onr5yTTyNLmulKlpnexs6WqMXTLzUQLAwP1ZNqIQg6I+aobsX0OXjWUWfcvH3y
-	 lZJT+mIRjhEeIn5XqEMLt6fylWHq51LGTGUhcjnXW0s1jOZH6+LvQMKw/8Dj1BdH1s
-	 05Cq0jyjtd7dFftXd984daBsEKn+4r6nsxhrc+NacXIU3zZXwqPhUidhfWBntT55tB
-	 roT2O5nP875Tnmq5tehni48fus36Jiv9f/O7sZfWFe9IUNUCKvQJDNWD3Wi5kAXUnR
-	 GS4wJRr6/GUdQ==
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c50933bdf4bso20251866b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:34:25 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGmjYWvJ40uU3ZroaDk8AYzPzgjCbHp4zKMRZJ9brDl+1QjjrrqF5vEsSIeqAXWWNGgmaFNMsYDzd63zc8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9k6KeIuMoRpy0uX1qdGaU4YosM+FZljNuZPaGI7yzl+1mg3j3l
-	mo4Ar/JO7wpYmd3x5TNXSPBwBNqKnFWwu+2RKW3gjvZdPtISJUO5G4aFipRIkt5mZn3wXjyQL68
-	lOcY6NCDGbmkExhBO72AaVDsau7Vrc00=
-X-Received: by 2002:a17:907:7b8c:b0:c42:bc58:f21 with SMTP id
- a640c23a62f3a-c50963856f2mr54017766b.15.1794522864032; Thu, 12 Nov 2026
- 14:34:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fi6Dqt0V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794522888; x=1826058888;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=GnYlyiHsQlWyu80oZdVgy0nS70dYZn1om8cq+Q2hwLo=;
+  b=fi6Dqt0VTjF+2WHStac0ZPX+t7kpx0DD8WLOR8u6pLKBfWg8C/LSYdr2
+   vstCOwD5+s3Q6kvvIW7GsqgKmtHmcct7UoNvGVLHUK7aWxpvXH4f9YaWC
+   SppWcFb6ghbs7QG0p64T0nGyRwxzlzhwdoJLSjo5QHWqj30Yk2CDcQDQl
+   6xwr6IFt2y9DSspvr+uTgl+pcWU0k0HaM6YvVYUxf38XmIa6mvSPpH6Yv
+   uFPXIZygPrRUll3YCJnqo0Bj4Qs6dZciS5p1bfmFzwUHjQPuh2CEcaDV2
+   9+vi4saoOWnnkPUIG3yVeZHlqHUoMVtepxYwD/5Y0OLJ5tu1qNAlX4912
+   Q==;
+X-CSE-ConnectionGUID: 36qICpPWT3een8bIKOUnXg==
+X-CSE-MsgGUID: 3wo1nL7yQ3yZPO4QjDQNTA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3181922"
+X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
+   d="scan'208";a="3181922"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 14:34:48 -0800
+X-CSE-ConnectionGUID: A1hu9ftDQMWpmm3BF2lIXQ==
+X-CSE-MsgGUID: Xbn59vmBSn+BHgZPRHv4/g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
+   d="scan'208";a="8846765"
+Received: from vcostago-desk.jf.intel.com (HELO vcostago-desk) ([10.98.24.84])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 14:34:47 -0800
+From: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Kristen Accardi <kristen.c.accardi@intel.com>, "David S. Miller"
+ <davem@davemloft.net>, linux-crypto@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/4] crypto: iaa - use RCU per-package WQ tables
+In-Reply-To: <avRHIuISSNUxfAU4@gondor.apana.org.au>
+References: <20261019-iaa-crypto-wq-tables-v1-0-fab67b2a1538@intel.com>
+ <20261019-iaa-crypto-wq-tables-v1-3-fab67b2a1538@intel.com>
+ <avRHIuISSNUxfAU4@gondor.apana.org.au>
+Date: Thu, 12 Nov 2026 14:34:46 -0800
+Message-ID: <87pkw9u1a1.fsf@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,45 +81,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112111637.184045-1-koray.fra@gmail.com> <20261112182737.1659245-1-icb@fastmail.org>
-In-Reply-To: <20261112182737.1659245-1-icb@fastmail.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Fri, 13 Nov 2026 07:34:11 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8k8uTW_rLRADHz9mA5VFm2RZj1v6r=H+jEF95912XTfQ@mail.gmail.com>
-X-Gm-Features: AclHuK-zDwCv6-7jAZ86Bdbg7IgiGEAgY_lu7kOXMxGX-tXuRmxUNiiyyi_ewJs
-Message-ID: <CAKYAXd8k8uTW_rLRADHz9mA5VFm2RZj1v6r=H+jEF95912XTfQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] ksmbd: fix negative timestamps being saved to disk
-To: Ian Bridges <icb@fastmail.org>
-Cc: koray.fra@gmail.com, pc@manguebit.org, senozhatsky@chromium.org, 
-	tom@talpey.com, chenxiaosong@chenxiaosong.com, hyc.lee@gmail.com, 
-	ronniesahlberg@gmail.com, sprasad@microsoft.com, bharathsm@microsoft.com, 
-	linux-cifs@vger.kernel.org, samba-technical@lists.samba.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Fri, Nov 13, 2026 at 3:27=E2=80=AFAM Ian Bridges <icb@fastmail.org> wrot=
-e:
+Hi,
+
+Herbert Xu <herbert@gondor.apana.org.au> writes:
+
+> On Mon, Oct 19, 2026 at 04:06:22PM -0700, Vinicius Costa Gomes wrote:
+>> rebalance_wq_table() gives CPU n all the WQs of IAA device
+>> n / cpus_per_iaa. The flat index ignores package boundaries, so a CPU
+>> can be paired with a device on another package, and each CPU sends all
+>> its requests to one device while the other devices of its package stay
+>> idle. The table is also rebuilt in place, so a request issued during a
+>> probe or remove can read a NULL WQ and fail with -ENODEV.
+>> 
+>> Replace it with one table per package, holding the WQs of every IAA
+>> device on that package, and have each CPU round-robin over its package's
+>> table. Rebalance builds the whole set of tables and publishes it with
+>> rcu_replace_pointer(). The submit paths look the WQ up, and take their
+>> reference on it, inside an RCU read-side section.
+>> 
+>> - A package without IAA devices gets a copy of another package's table,
+>>   so the lookup needs no fallback.
+>> - Every table has room for all the WQs, a few pointers more than it
+>>   needs, so they can be sized without counting per package.
+>> - If a rebalance fails, the current tables are kept. On removal they
+>>   are cleared instead, because they still hold the removed WQ. Removal
+>>   then waits for a grace period before returning, because the idxd_wq
+>>   can be freed after that.
+>> 
+>> Signed-off-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+>> ---
+>>  drivers/crypto/intel/iaa/iaa_crypto.h      |   7 -
+>>  drivers/crypto/intel/iaa/iaa_crypto_main.c | 346 ++++++++++-------------------
+>>  2 files changed, 117 insertions(+), 236 deletions(-)
 >
-> Hi,
+> Please respond to this comment:
 >
-> On Thu, Nov 12, 2026 at 12:16:36PM +0100, koraynilay wrote:
-> > When setting a timestamp before epoch 0, ksmbd converts it from NT
-> > format to Unix format without normalizing it, leading to the nanosecond=
-s
-> > field to be saved (on-disk too) as a negative number, which leads to a
-> > garbled stat command output and a reported +4 seconds in the timestamp.
+> https://sashiko.dev/#/patchset/20261019-iaa-crypto-wq-tables-v1-0-fab67b2a1538%40intel.com
 >
-> I tested this with the ksmbd code from ksmbd-for-next. Before the
-> patch, setting an access or write time before 1970 with a fraction of
-> a second stored the wrong time on disk. The stored time was about four
-> seconds late, stat showed garbage for the fraction, and a query over
-> SMB returned the wrong time too. With the patch, the time on disk and
-> the time returned over SMB match the time that was set. Times after
-> 1970, and whole seconds before it, behave as before. smbtorture gives
-> the same results as without the patch, and KASAN reports nothing.
->
-> Reviewed-by: Ian Bridges <icb@fastmail.org>
-> Tested-by: Ian Bridges <icb@fastmail.org>
-Applied it to #ksmbd-for-next.
-Thanks!
+
+Weird that I haven't received any notification about these comments.
+
+Anyway, as I moved some code around, sashiko considers it a "new" issue,
+but from a quick look, it's a pre-existing one. Doesn't seem too hard to
+fix, will include the fix on v2.
+
+
+Cheers,
+-- 
+Vinicius
