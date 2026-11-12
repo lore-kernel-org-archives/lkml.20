@@ -1,49 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794498792;
-	b=Uo3qBkpxZV/fEvFawvo56+K/BKrrnuY7DB21F5iTlo0or3gsmx53keNb6yXUGUXKo1yJ
-	 xwas26kLoSUV77IyRpDrDZ3agcxHFAtxU3I0kTEwjfYhmxST0syfJDkXyUjG8rnbxlse4
-	 qQhx2MWJOv4y2x1907XA5852iqLZuSfOTO5XVNpm48crm90E0qh7ZYNfPV6lTf2PPqe3f
-	 4jLmvBFgPARqfNJMbiHdTuxZdHZPNBuzFYaPExKuLxB0UtYKWK64oyFDSre8lle8XjSpx
-	 YmC5eUoy4CKNhDlOSD+VjlUMPMBAMspTpBrPJP3kgiutWe9X4IfEG1vjD3Trpf03JeQ==
+	t=1794498793;
+	b=qZXZP1Ovi5DPWMjdtnvfVreWXJNW1JRhZJGApywea2y7dpXIwRRvykAVueFPaYsQ+bUO
+	 +bLrdvIN5RMK5DeCxRTQHBPLQEi1FI2uKjSkKd5OvRS61CN54HIXW4pHUhbM9qfN6RJ5D
+	 LLweeZ11bED6P8DFjkFma3tPsbeTBCDwBd4mO7+kh8GIhUHWGf/HzM1zr6+RT4xGQ2bqU
+	 lUi4wrzK1cxOJMRYnqEfxliY97IgttybUfHqNkculq1gNCRjJC8sUlXGid9VRKVrga75V
+	 kk64KosQsGJCM35c1PNjatzBuXSavEybPW9vTgINhL9rMuXF8ySbrBy6uaDR4ItWNHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794498792;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status;
-	bh=c+np+Xd0I/hXH0zU12ECwbLh7vS9VjIre4LIOHAqNCE=;
-	b=GVd89nqMDbo1W5nq2060PVvVyF2DKjjlPWaWCz7Wb5ptB1lFjLeBChH4TozswHliGu8C
-	 uHH109PtMPnhrj86NdVg0vJvXDrVH6qHHS89WqQ8wXN49+mc8mJbl4ua32YiSno7ss8+M
-	 AnpsuHTI0DJUCXwreHNNdGB3Kqn1EFJDnMRhFTbhTCsphFyh+YXmGWOcvm+z+a9ebtsn6
-	 TiR53MtewT2tq3ttjFcQE9Kw7X3kZhqbfpAZAwxV/T5uVsS2qO0ZDBZoKpdg6YtblavVY
-	 +NAulJ7xMwJCalNtB9n1tt2ChVdE59pNSySCh1SBC5uJfQB6NXnHUxCExGpGx9VOKtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794498793;
+	h=DMARC-Filter:DKIM-Signature:To:From:Received:X-Original-From:
+	 Content-Transfer-Encoding:In-Reply-To:Date:Content-Type:Cc:
+	 Mime-Version:X-Lms-Return-Path:X-Mailer:References:Subject:
+	 Message-Id;
+	bh=K06gDojWKv8kBAvBJxxG/GcVlghtU9ORU6nDXVfY6I8=;
+	b=mD9NHsfOeWei6QqyJCVLQzzqpbtY0yJzEjvJ2TLGJWE0FXKzRHshBE0wkNY82DqJFCdC
+	 Ns6XPd9b4PywgGEywOeG93Hg8qN3duZrCc01mIvPSpF99TjQW3MKGxb7EYffijmG6ncj/
+	 Yy/tRPaWyRGNhPYleym5I1p6jGzQo2zo8SF1LhFxmYSEkSsTaZ3L23bPEzirA1zQk9ZwP
+	 1utkhFvO5jTuYneBFFpb3ZJr7BvceHoUKCO88O6qiWHOSL3BOArZwO9Pi/YM5uln2b/+w
+	 UqQ3y79608sRnDj+VzZhnvonOHF5BCftvczSke399A21mccI/Q18fr30tU+931HPlJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=whut.edu.cn;
-	spf=pass smtp.mailfrom=whut.edu.cn;
-	arc=none smtp.remote-ip=45.254.49.197
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=fygo.io;
+	spf=pass smtp.mailfrom=fygo.io;
+	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=VTWXN3z9;
+	arc=none smtp.remote-ip=209.127.231.42
+Received: from va-2-42.ptr.blmpb.com (va-2-42.ptr.blmpb.com [209.127.231.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BBBD606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:53:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BBBD606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=whut.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=whut.edu.cn
-Received: from Mogu.localdomain (unknown [220.168.84.219])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5479c1088;
-	Thu, 12 Nov 2026 23:53:04 +0800 (GMT+08:00)
-From: Haoming Gao <Naixumogu@whut.edu.cn>
-To: tomeu@tomeuvizoso.net
-Cc: heiko@sntech.de,
-	ogabbay@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Naixumogu@whut.edu.cn
-Subject: [PATCH drm-misc-fixes] accel/rocket: publish read fences for input buffers
-Date: Thu, 12 Nov 2026 23:53:00 +0800
-Message-ID: <20261112155300.299899-1-Naixumogu@whut.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF2E606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:53:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AF2E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=VTWXN3z9
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1794498786;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=K06gDojWKv8kBAvBJxxG/GcVlghtU9ORU6nDXVfY6I8=;
+ b=VTWXN3z99V84dXz4X2YnvQJBl2bivIy6UCL3sKIFP5K8tzZUXHgMkR7doTzOW4h2a459jd
+ i6yOXd4BvlvfYxVSJ2dol0taxI1v75LxX2UYwAZBJCoXdccRjztsytik+/d99tITogWrwu
+ I+iMvwk7K83iIbKLpv0VjAJo0cr93zkOTjk+1mOAh3TdKduKp4KJiDwUAo6JdykdxAfND4
+ Mk1wyidcorL8mWSr9vYr+xJM5HZ6jk/LHkpMv7V5XjjGyZbqjgH4CkVy4KLwVp7/EOMKRO
+ foDP5p8YO3I0EoAZ7mDHwXYW7SbOWT8QqXirVewzOxD/8gzVoIougXjw9TxW5A==
+To: "Chen Fan" <fan.chen@easystack.cn>
+From: "Coly Li" <colyli@fygo.io>
+Received: from smtpclient.apple ([120.245.65.72]) by smtp.larksuite.com with ESMTPS; Thu, 12 Nov 2026 15:53:05 +0000
+X-Original-From: Coly Li <colyli@fygo.io>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261105131954.1195428-1-fan.chen@easystack.cn>
+Date: Thu, 12 Nov 2026 23:52:52 +0800
+Content-Type: text/plain; charset=UTF-8
+Cc: <kent.overstreet@linux.dev>, <linux-bcache@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,64 +62,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1d0766ad503a1kunm90ffcb87766e
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQxoaVk0ZQ0NCH01LTUlDS1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUtVSk1DVUNPVUlKQllXWRYaDxIVHRRZQVlLVUtVS1VLWQ
-	Y+
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26af5e0e2+dd5749+vger.kernel.org+colyli@fygo.io>
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
+References: <20261105131954.1195428-1-fan.chen@easystack.cn>
+Subject: Re: [PATCH 1/1] bcache: fix use-after-free when waiting for dirty-init threads
+Message-Id: <9E1C5618-2488-4291-9DDA-83143B4FD3BC@fygo.io>
 
-Fix the bug that a fence is not attached to a BO reservation when the BO is
-read. An exported input buffer can appear writable while an accepted Rocket
-job is still reading it, allowing a later writer to overwrite data in use.
+Hi Chen Fan,
 
-Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
-Signed-off-by: Haoming Gao <Naixumogu@whut.edu.cn>
----
+Thanks for the patch.=20
 
-Notes (rocket-submit):
-    Based on drm-misc-fixes at bafda823590ddf7031ecb765d673572fae7ab44a.
-    
+> 2026=E5=B9=B411=E6=9C=885=E6=97=A5 21:19=EF=BC=8CChen Fan <fan.chen@easys=
+tack.cn> =E5=86=99=E9=81=93=EF=BC=9A
+>=20
+> We use multiple threads to count dirty sectors in parallel (read-only).
+> bch_sectors_dirty_init() waits for the last dirty-init thread to set
+> state.started to 0.
+>=20
+> However, after the last thread sets state.started to 0 but before it call=
+s
+> wake_up(&state->wait), bch_sectors_dirty_init() may observe started =3D=
+=3D 0,
+> return from wait_event() directly, and free local variable state.
+> The subsequent wake_up(&state->wait) then accesses freed memory, because
+> bch_sectors_dirty_init() has already exited.
+>=20
+> Fix this by using a completion to wait for all dirty-init threads, so tha=
+t
+> no dirty-init thread can still access state after the wait completes.
+>=20
+> This issue was triggered in our environment with the following stack:
+> ------------[ cut here ]------------
+> [30433.391386] Internal error: Oops: 0000000096000047 [#1] SMP
+> [30433.585804] CPU: 54 PID: 48242 Comm: bch_dirtcnt[1] Kdump: loaded Tain=
+ted: G  6.6.0-98.0.0.90.aarch64 #1
+> [30433.718972] Call trace:
+> [30433.722722]  native_queued_spin_lock_slowpath+0x33c/0x420
+> [30433.729401]  __wake_up_common_lock+0xbc/0x118
+> [30433.735050]  __wake_up+0x20/0x38
+> [30433.739575]  bch_dirty_init_thread+0x1c0/0x1f8 [bcache]
+> [30433.746169]  kthread+0xf0/0x108
+> [30433.750583]  ret_from_fork+0x10/0x20
+> [30433.755425] Code: 91002020 8b040284 f862d8a5 aa0403e2 (f8256841)
+>      ---[ end trace ]---
+>=20
+> Signed-off-by: Chen Fan <fan.chen@easystack.cn>
 
- drivers/accel/rocket/rocket_job.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index c3edb94355a3..7aa7bbfce036 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -201,12 +201,13 @@ static int rocket_acquire_object_fences(struct drm_gem_object **bos,
- 
- static void rocket_attach_object_fences(struct drm_gem_object **bos,
- 					int bo_count,
--					struct dma_fence *fence)
-+					struct dma_fence *fence,
-+					enum dma_resv_usage usage)
- {
- 	int i;
- 
- 	for (i = 0; i < bo_count; i++)
--		dma_resv_add_fence(bos[i]->resv, fence, DMA_RESV_USAGE_WRITE);
-+		dma_resv_add_fence(bos[i]->resv, fence, usage);
- }
- 
- static int rocket_job_push(struct rocket_job *job)
-@@ -248,7 +249,10 @@ static int rocket_job_push(struct rocket_job *job)
- 		drm_sched_entity_push_job(&job->base);
- 	}
- 
--	rocket_attach_object_fences(job->out_bos, job->out_bo_count, job->inference_done_fence);
-+	rocket_attach_object_fences(job->in_bos, job->in_bo_count,
-+				    job->inference_done_fence, DMA_RESV_USAGE_READ);
-+	rocket_attach_object_fences(job->out_bos, job->out_bo_count,
-+				    job->inference_done_fence, DMA_RESV_USAGE_WRITE);
- 
- err_unlock:
- 	drm_gem_unlock_reservations(bos, bo_count, &acquire_ctx);
+Recently I am overwhelmed by the CVE flood, let me respond you (and other p=
+atches) next week.
 
-base-commit: bafda823590ddf7031ecb765d673572fae7ab44a
--- 
-2.43.0
+Best regards,
 
+Coly Li
