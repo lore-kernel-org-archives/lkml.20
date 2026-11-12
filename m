@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794469020;
-	b=JJfIeVVk2yCnTFnwEj1Y09Hv/DrdNG5aZd6cGjwfnrAkd1nqhHWdqJqrVxwBXcrFGS+9
-	 8iJJgK1Tdl4JVcQTwBxdjr52YPOs4oYnd/wjjXav0LSLilRRVNoDRgB4Xzdo27ndv0JxK
-	 jsulu+61aJ/v13wz4jOogqYfjTrmhgVqf9WceJlz0BDahMVtfDnTYM8tW63cR3gkAYi/+
-	 XKFMGghbIJ/1nyw4ynpZP1K5gBNFGjWxFmG8vjkBjqZhb1zEQbLQhMEUPFiQWiQdyk049
-	 sh1DIGcGXsk38g5wYAeUzYNki4jwBx/BhgZaCCaNud6uZV6NVpxzbbP7zIpNmA4KOQQ==
+	t=1794469021;
+	b=p4qi/jmrRRY+D9EORuPu3wOIwcSXgKBKL+OQEagXWmq48wrQOhrRgKrlfQsvzx3r7e57
+	 50MH7cTgk3A2OdE/kcsGuRj9Gymki1IfUmiO1MsR4Bu6WJBvdT97Hd99AlSBfu13kRgvb
+	 ooDSDW6hhm/0cjcZYvApsUvy1qIMK/a1g6kjQAjmnWLhmpWb27MPxz1XIDdyyWx4SLcd6
+	 bbSMGg4w3vZ0U/IJFExrxUxLKj5SyNQd77G+3SFeLyOE5VcgiFEouAuQ1HcaPiab0q2Su
+	 2dPtbKDwKHyn3e+DbaGLV+5byS7KCA7Q4D2qnE9b2utiPR2ED1Psl18uRvriEOOB9LQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794469020;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794469021;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=daE8MXWR+70jv4rmZgj2YMuLQMKh5NK2VDS/ud4GVlw=;
-	b=lFjF+zKwsN5rq1vnpGrEgmPmAPmSvAlm1zudm7XN3IneLC9T4UtPr4yw1G2O1r71SSal
-	 eS2BdZdRSqlAbdAJuCa7TDigyFjjdoffbJ7ZS8R+zal72ZZWISC8MUVxQ1BsrGX1fUQh9
-	 +43o3Yo2uJexIPaloZrHV+jrZ6/0xVB5/z86pj/uC9cHv4CYooRChjqPow6LnL3cq0o/c
-	 F+nbvr792E2NSKAms4EfiCSh7jq4KeEVMK4A1gXOjEaKQnVqtzbTiNfBeuEQ0mSZJYz+l
-	 XXCzI8TcH+nCigwaIlMgTdD6CYBzV/mwPLyncEhIlOncRJSRSyJ1nRxD3Z4tVOCY/pQ==
+	bh=BNlbXj4myEQl9D4QxNd0FjgoFzNKFTReth511L/Q1es=;
+	b=vtQk1Bk2KrGRIxibwbUYPAbtAstw/JsgDG7xhwDuzMGrSBxI5xv3N4Gv5SvQz0B3jbf5
+	 RmRLpstwIpVooPBf/8b08QzaAnusYg5N6SCsc1eogMy5GWLrHEh5rWtRfsmQv2pmx6LiS
+	 Qt9WZMBpcid4X/s6VU+G8wYYDR2QowvTIlWy6o/DfJDO9Tf2wJujoiwhayNHSjwiIMkm/
+	 qi3dI9w3Vdgmu3aLbRTGXnyfcL6wFGW//Dw2RejAe4zEF4/FkkrCyKU+x2zgT6su3h6jw
+	 vOQH+Cli7nC0oTJe61D3O8gLVh7eyFtusndd7nu8rSTQ3dPYhjqMnjHaaDxDwi0r+kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="fo/Rtk9F";
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=UYseDDZl;
 	arc=none smtp.remote-ip=117.135.210.2
 Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56812606A327;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78D8F606A31C;
 	Thu, 12 Nov 2026 07:36:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56812606A327
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78D8F606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=fo/Rtk9F
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=UYseDDZl
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=da
-	E8MXWR+70jv4rmZgj2YMuLQMKh5NK2VDS/ud4GVlw=; b=fo/Rtk9Fs4DIFk12SP
-	Xc6Up9/yTMMocQvvgUbHfpXv8FDLz2bRHddH0b8+IWBOkMg7XtPS0nJXFnXaSnb8
-	ahZq5jHzZy3GtZRLS96OVwH9E2DoU/24MIgIDz80ofeymnp0PAdl3KsYO1SW3F/l
-	nNGe4WNUMBveIzy8kwwugcGOQ=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=BN
+	lbXj4myEQl9D4QxNd0FjgoFzNKFTReth511L/Q1es=; b=UYseDDZlMGODcp/ZS1
+	wtBt68ZsxZtJm9+/TKJndXISRXnj7sGA/BZakLFIhUZNUgOoBxc+NotkN+LtEJU8
+	S4mugwedOyGEYxNpxK5JeImVEVnG/PL4YlisiaSBcbNul8gVvOjL06n5hh+Irdom
+	jMn1otPkJvsHOgN4hYwxq94go=
 Received: from localhost.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgCHaRhtbPVq_SySFA--.53017S5;
-	Thu, 12 Nov 2026 15:36:30 +0800 (CST)
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgCHaRhtbPVq_SySFA--.53017S6;
+	Thu, 12 Nov 2026 15:36:36 +0800 (CST)
 From: Qunqin Zhao <zhaoqunqin@163.com>
 To: bp@alien8.de
 Cc: tony.luck@intel.com,
@@ -50,13 +50,12 @@ Cc: tony.luck@intel.com,
 	chenhuacai@kernel.org,
 	zhaoqunqin@loongson.cn,
 	linux-kernel@vger.kernel.org,
+	Wusheng <wusheng@loongson.cn>,
 	Wang Jinwei <wangjinwei@loongson.cn>,
-	Dongyan Qian <qiandongyan@loongson.cn>,
-	Chao Li <lichao@loongson.cn>,
 	Huacai Chen <chenhuacai@loongson.cn>
-Subject: [PATCH v7 3/4] EDAC/loongson: Get DIMM size from ACPI _DSM method
-Date: Thu, 12 Nov 2026 15:36:10 +0800
-Message-Id: <20261112073611.25770-4-zhaoqunqin@163.com>
+Subject: [PATCH v7 4/4] EDAC/loongson: Add CS4-7 timeout filter for cross-node access
+Date: Thu, 12 Nov 2026 15:36:11 +0800
+Message-Id: <20261112073611.25770-5-zhaoqunqin@163.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20261112073611.25770-1-zhaoqunqin@163.com>
 References: <20261112073611.25770-1-zhaoqunqin@163.com>
@@ -70,94 +69,111 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgCHaRhtbPVq_SySFA--.53017S5
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Zr13ZryrCw4DAF1xWF4DJwb_yoW5Jr1xpF
-	43u34fKr47trnruwsIkry5CF13u3s3JF9rGFWxJ3yj9w1DC34UXFy5GFW3JF98A34rJFWU
-	ZF4kCwsY9F1DJr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j2eHDUUUUU=
-X-CM-SenderInfo: 52kd01pxqtx0i6rwjhhfrp/xtbC7R5SkWr1bH7fpgAA3E
+X-CM-TRANSID:PSgvCgCHaRhtbPVq_SySFA--.53017S6
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZFy7GFyUCF45Xw18Ar1xAFb_yoW5tr4Upr
+	W5Ca15trW8KrnF9w1vyrWDZa45CFZ3tFW7WrZay34fur1qy34DZry5WrW2vrn8A34Fkrn8
+	Xw1rKr4xCa1UA3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5R6wUUUUU=
+X-CM-SenderInfo: 52kd01pxqtx0i6rwjhhfrp/xtbC7gRUk2r1bITnPQAA3A
 
-From: Wang Jinwei <wangjinwei@loongson.cn>
+From: Qunqin Zhao <zhaoqunqin@loongson.cn>
 
-Add support to retrieve DIMM size from ACPI _DSM method instead
-of using hardcoded values.
+On Loongson 3C6000 multi-node systems, when the EDAC driver running
+on one node accesses the memory controller registers of another node,
+the read operation may timeout and return random values. This causes
+false CE error reports because the random values in CS0-3 (low 32 bits)
+are misinterpreted as valid ECC error counts.
 
-1. Add loongson_get_dimm_size_acpi() to call ACPI _DSM method
-   to Get DIMM size in MB.
+For cross-node accesses, check CS4-7 (high 32 bits) of the ECC
+count register. If the valid-cs-bits firmware property is set and
+the high bits are non-zero, it indicates a timeout or random value,
+so skip the report and return the previous count.
 
-2. Update dimm_config_init() to use the size from ACPI, with
-   fallback to default 1 MB if ACPI method fails.
+To avoid undefined behavior on 8-CS systems where valid_cs_bits=64,
+guard the shift with a bounds check (valid_cs_bits < 64).
 
-3. Add ACPI UUID and DSM function definitions for EDAC.
-
-The DIMM size is passed from UEFI through ACPI OperationRegion
-and _DSM method, enabling correct display of memory size in
-/sys/devices/system/edac/mc/mc*/size_mb.
-
-Cc: Dongyan Qian <qiandongyan@loongson.cn>
-Cc: Chao Li <lichao@loongson.cn>
+Signed-off-by: Wusheng <wusheng@loongson.cn>
 Signed-off-by: Wang Jinwei <wangjinwei@loongson.cn>
 Signed-off-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
 Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
 ---
- drivers/edac/loongson_edac.c | 32 ++++++++++++++++++++++++++++++--
- 1 file changed, 30 insertions(+), 2 deletions(-)
+ drivers/edac/loongson_edac.c | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/edac/loongson_edac.c b/drivers/edac/loongson_edac.c
-index 4ee9dcb3d5..413ca654b4 100644
+index 413ca654b4..831111fa6f 100644
 --- a/drivers/edac/loongson_edac.c
 +++ b/drivers/edac/loongson_edac.c
-@@ -13,6 +13,8 @@
- #include "edac_module.h"
+@@ -30,6 +30,7 @@ struct loongson_pvt {
+ 	 */
+ 	int last_ce_count;
+ 	u32 mcs_per_node;
++	u32 valid_cs_bits;
+ };
  
- #define ECC_CS_COUNT_REG	0x18
-+#define LOONGSON_EDAC_DSM_UUID "65d0431b-7eb8-46df-b914-b7d568553140"
-+#define LOONGSON_EDAC_DSM_FUNC_GET_DIMM_SIZE   1
+ static int read_ecc(struct mem_ctl_info *mci)
+@@ -39,11 +40,21 @@ static int read_ecc(struct mem_ctl_info *mci)
+ 	int cs;
  
- /* Memory controller index invalid due to inability to read it from ACPI, etc */
- #define MC_IDX_INVALID		BIT(16)
-@@ -68,13 +70,39 @@ static void loongson_check(struct mem_ctl_info *mci)
- 			     0, 0, 0, 0, 0, -1, "error", other_detail);
+ 	ecc = readq(pvt->ecc_base + ECC_CS_COUNT_REG);
+-	/* cs0 -- cs3 */
++	/* Discard the read value if any invalid bit is set to 1 */
++	if (pvt->valid_cs_bits < 64 && (ecc >> pvt->valid_cs_bits)) {
++		edac_mc_printk(mci, KERN_DEBUG, "ECC read invalid, skip: 0x%llx\n", ecc);
++		return pvt->last_ce_count;
++	}
++
++	/* cs0 -- cs7 */
+ 	cs = ecc & 0xff;
+ 	cs += (ecc >> 8) & 0xff;
+ 	cs += (ecc >> 16) & 0xff;
+ 	cs += (ecc >> 24) & 0xff;
++	cs += (ecc >> 32) & 0xff;
++	cs += (ecc >> 40) & 0xff;
++	cs += (ecc >> 48) & 0xff;
++	cs += (ecc >> 56) & 0xff;
+ 
+ 	return cs;
+ }
+@@ -112,13 +123,15 @@ static void dimm_config_init(struct mem_ctl_info *mci)
+ 	dimm->grain = 8;
  }
  
-+static u32 loongson_get_dimm_size_acpi(struct device *dev)
-+{
-+	acpi_handle handle = ACPI_HANDLE(dev);
-+	union acpi_object *obj;
-+	u32 size_mb = 1;
-+	guid_t guid;
-+
-+	if (!handle)
-+		return size_mb;
-+
-+	if (guid_parse(LOONGSON_EDAC_DSM_UUID, &guid))
-+		return size_mb;
-+
-+	obj = acpi_evaluate_dsm(handle, &guid, 0,
-+				LOONGSON_EDAC_DSM_FUNC_GET_DIMM_SIZE, NULL);
-+	if (!obj)
-+		return size_mb;
-+
-+	if (obj->type == ACPI_TYPE_INTEGER)
-+		size_mb = (u32)obj->integer.value;
-+
-+	ACPI_FREE(obj);
-+	return size_mb;
-+}
-+
- static void dimm_config_init(struct mem_ctl_info *mci)
+-static void pvt_init(struct mem_ctl_info *mci, void __iomem *vbase, u32 mcs_per_node)
++static void pvt_init(struct mem_ctl_info *mci, void __iomem *vbase,
++		     u32 mcs_per_node, u32 valid_cs_bits)
  {
- 	struct dimm_info *dimm;
-+	struct device *dev = mci->pdev;
- 	u32 size, npages;
+ 	struct loongson_pvt *pvt = mci->pvt_info;
  
--	/* size not used */
--	size = -1;
-+	size = loongson_get_dimm_size_acpi(dev);
+ 	pvt->ecc_base = vbase;
+-	pvt->last_ce_count = read_ecc(mci);
+ 	pvt->mcs_per_node = mcs_per_node;
++	pvt->valid_cs_bits = valid_cs_bits;
++	pvt->last_ce_count = read_ecc(mci);
+ }
+ 
+ static int loongson_probe(struct platform_device *pdev)
+@@ -127,7 +140,7 @@ static int loongson_probe(struct platform_device *pdev)
+ 	struct mem_ctl_info *mci;
+ 	struct device *dev = &pdev->dev;
+ 	void __iomem *vbase;
+-	u32 mcs_per_node;
++	u32 mcs_per_node, valid_cs_bits;;
+ 	int ret;
+ 
+ 	vbase = devm_platform_ioremap_resource(pdev, 0);
+@@ -162,7 +175,10 @@ static int loongson_probe(struct platform_device *pdev)
+ 	if (device_property_read_u32(dev, "mcs-per-node", &mcs_per_node) || mcs_per_node == 0)
+ 		mcs_per_node = 4;
+ 
+-	pvt_init(mci, vbase, mcs_per_node);
++	if (device_property_read_u32(dev, "valid-cs-bits", &valid_cs_bits))
++		valid_cs_bits = 32;
 +
- 	npages = MiB_TO_PAGES(size);
++	pvt_init(mci, vbase, mcs_per_node, valid_cs_bits);
+ 	dimm_config_init(mci);
  
- 	dimm = edac_get_dimm(mci, 0, 0, 0);
+ 	ret = edac_mc_add_mc(mci);
 -- 
 2.47.2
 
