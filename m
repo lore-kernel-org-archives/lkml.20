@@ -1,101 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794498349;
-	b=MGvZ1kiVIu6TOm9IOZwoYhQMSlW6XDjqygak9DBZ73ErmuvEZ9t4LOL5xKQahPigCH84
-	 mGbS/L/TrtqkTETzQzEuGDJ5qaYf9644vy9a8RMmSkwJDoYU8mNJ3noL/TRar3Eqr0w0U
-	 r8BRlAacZyaHeTyAIrgQf8OgOgpBabnhH30ZhUKc9AXjQJE5UlvhFqKv7xPqH8n0J22fW
-	 rhXTFcx04lXMGKjui6raYJbtgya2ROgAghq4YPHp9wtzuuQ639ERk7wPIGakbKvDyBFIH
-	 dRD8Ol/RSSvre/tAOKPhG6uvz7mKC4K4dxe36JeyuetJCaIbFaSmMqFgBE6aI+ecELQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794498349;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=kA9f5sjuaRG2vzctzCp8dttJKbGRMLmrAhhg35dIa8A=;
-	b=jlVCm1jTq8Yl1t1su7KqbRMy/DiQwDCeEdJYY5FJIu0qLdjDDN4x0Wj+Nbb8hUnHErGI
-	 0rkNPfAU1sISyKFyrcS4IaqNH6ESslayacyoMhv15PbP8tCGUz8wHbOrvU0iEXyKHXnXJ
-	 4nkj8zXJkFmfOZQEvgtKmRHgaI062UqETv+btzdSMjI5+gwZrxGu7pBmBiN6J+b0loO3Z
-	 xGXQ+RnArWzYXebxlVQ7p+yeUG5vqv9+thDDAM5xA948tnRRiftTfJ5cR8Lh/RT6jlEt0
-	 VEBdIG65NigWnrUJdDiFODyiB1uTUdtYhlbVm9UuYWyIYBcSp9MlT5iXtjPPU5ThQ9A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t5IAeqLQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794498359;
+	b=AApPjz9bC4/e4kYcIW0OipT+3V+IwY11iE/VRD2uWBH0X8e30cCdYMS9BL2SQKCq23rb
+	 tY7GqYbNf+OvG3s/y0RcqssWEoDDB+ZKWpZhCWQCc8GIisX73ZoBqsIU0qiepvUdi+7ZV
+	 JtHVwXqLA6PlP7aou/xmuVQY4iJ3NRRdVse8j68xD30EtQPjq417jUo0poxq84jRvZXF2
+	 xked6cGRUfhdytRv6KlIDoqTKWucD737E1WwBYn5t5DH6nkdU/ICXmL9jc6A5umAAjUAO
+	 M909lsa33hw+tZtFMDEogPbVUCiRbHqXviLGF559TstV4reFS6TzKpVEx1V6yq54lUA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794498359;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=jfSIQmPFwdN9GPMgvzjz1BR7/Ta6DUUXWzOCdxMud3I=;
+	b=f1ZPylDmjGo8T+D0NS4p4z4wW/oZANjYOqxyNDg4TdZQ9C/KiBWu3eQjeOQ0ma8JTh/X
+	 GnAOaUj3pRKyP3+4PmTsqnmI6cMJBd9OQype/BXyuqx2hKpHc7a/vVPPUdbtOX5a/U+5f
+	 PuasgG0iNznSAUhNtzNqgRNbF6SfCkbqn/9o0fhQX7Ueq2CaOuXZ4PQ4GNt3Nz1FYICuo
+	 MjlS/z/Tqt90bHCWBzLV+B7AS96OqMEylQmRYE3U1uructuGZ7hwNyI5ET1b8eXHOORI7
+	 ct7x/XWJdY7n7IlrfabDm9OAecZT9zF1dviH0Uxn/N6JDghCkjGvdxvXVjWAKKrNNqg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=deKwVwLZ;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0893D606A32E
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:45:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0893D606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D36AB606A31C;
+	Thu, 12 Nov 2026 15:45:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D36AB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t5IAeqLQ
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-49a92144733so732247f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:45:48 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794498347; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GoLYU1S+Zjh6IO/TpmDaoP1Z2VsjPu7rL1yW04/wFwk75ryaDstRG0LFKYVQ6WOzRD
-         m7lsB17U6HRHDW+Ya6OCP6JDUhsfNGCDaUJmbBspiuR5EHk/WCzhxGn8MLQkuyDWxMto
-         pzLE6ZreHXXqvwqwNOrosIxMDrqrw/5ESclx8XXevnqMoX/01t2yuUBiCwRF+dWMLcX0
-         xa5eWMsdjsSNhY16P6P9qI2Sg0LPj1LIBejz46IpRqSplkJHqMgnt1ninVal1qBXk5Z7
-         uF0d+IVwsNQHAvJ3emJdKlCrpMAqG9A+DihTfASe5fPt2bemuWOUr7s9KwjG/lMWzAsu
-         ihdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kA9f5sjuaRG2vzctzCp8dttJKbGRMLmrAhhg35dIa8A=;
-        fh=htvEEUpHDtk2QlMAU++y3A8XIg2wFFB4FT4cjDPjVKM=;
-        b=SZK0dYSTa4Szd+tafFs+BeYTEbLzOnHvVFUY6UvNgT6UCoLGF+l32PM+c9UCKR7BQP
-         hxddANRzYpXPs96988alCqkAC3w/cwLHc5pE4rOAnTKRvg/XvFiGqfRL6e85UqWdDLva
-         i2oQ2h9ilg7A8dfdrqBxlCfk5A6uVYCmtpvb3lhilKQkDaqBJM+HCn7pfH631dl6IwrA
-         Ay66UZDEiJ0WAGkDq/fdDkenN9oW+mJruXTH2dq6+8UKDbQnc0D6G+mSVR/GF2l9HcmM
-         e4m69mnVe+Ms5ZZt2cNERaie5y4OIXxWFo+Sm8Qt3wGwM7tIjJ9qfu6WmI+TRdDidv/i
-         M0lg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794498347; x=1795103147; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kA9f5sjuaRG2vzctzCp8dttJKbGRMLmrAhhg35dIa8A=;
-        b=t5IAeqLQr9OcHYi8yhMFHhoseNHSIfksSOPQzSaawIg5iGhwqBaIMRcFuPa3Gnqs9c
-         KWukp4xG7jDNeBEGoHt6R7U+ONdyuVkFP1gp1WXElW+hb/h28JMjMSdKuFkknOiz44nZ
-         ybH0dhS7SYOkJ74wvVginP3x47g32Ylcswl51n2b3oU/ME6V/CkJ9Youba4Xjt5pQiXg
-         /yBG9eRep4q01kfLVLJF8cTYFmXXNxJAXedGxNQvDsihb/w2j9fEgFSoPbaCxjwC+fcJ
-         7vapEoboNwU+ernq4iLWgpDUl299l+KVASTIyQMUbTohCjjjvstkQuOo0kgw4Wcp+WF0
-         xEXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794498347; x=1795103147;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kA9f5sjuaRG2vzctzCp8dttJKbGRMLmrAhhg35dIa8A=;
-        b=wINpsCgR8SZqU4qCCAVjTZa9Vtn/gv3qEHRh7BoBc2VmmTkPXvCwsUE4EOxN7Ht6/O
-         yveXwG6futaWxtPEK92b/CUozmN9jIGuOD/899vBms5PTJjdZfpdiyVNCvCP/7VKZTQT
-         uUGU+edWO9z8hmhiRBJxPRn+XwYzpk7tRNSZfwqHlauzR7cpfDAMjjyEbuHxPh0LLhGv
-         UR1TimVJS9KGJAUcFCDjGcyDMfg7A+kHFclO9ioIq78FeCAVG1XIU1WCUDXWHFu/yqsq
-         7coD2pnJuVRFT8IVbtbbFnY/E7U9Xulhhs8zq5J3MScViGkQ8/cIh3n6wD4wL210TUOs
-         eENQ==
-X-Forwarded-Encrypted: i=1; AL+hErF6kSBs5NB2mi69L4kJK6/ZeVkw/JZWoCa9KOc2Nu1/SjgDkOa1A0TMYZDT9pLmM3+P0sYTa1z+7BVGqIU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9N4VMfKwv+/f6kRF7h3Xui/KVY01sVBiZo3xN4DYJs5g+ef0AQ
-	vhTIXTrmVmPSjMfqhWeWvepTJqXZNgUeaNZ2N3Lnsh8fk97HgRLvPmIoF39X4BM1BEj39yHQSht
-	UpT24LQuWa+AcW5BU6mUWxkWqYPtK370=
-X-Gm-Gg: AYBFou0sjYRyiNzwOdah5tlP54Mpm8NQjGkTWzyLpTcdVJ0KE8SNAMyvndIwxQznH3/
-	q/qqlpf0dIlw+/tbAMck+HLapCgWGuT4r1QIhiYFg/cjV3MtxnqzqaD/vnXiG9is+2ICgBz9VBP
-	dEe/WYXdSHbHqMWXj2iK+jKVkervdjUTHd8mjne3PW8H3yQ5RD8LUpCvVR86h1uG8wI29FJElOP
-	gPR3lomVf8JTz0SN1bnVcyFK/CS3/ichwD8KyR6DvBdwZ0RGB+k+tpjGC+zNDEBDoDUNI44h/lE
-	vo3gzVivYBwq83OaPZR09isWmTotL5DKyed/FY3FZXiClC6B0jbG4tJaYOgxQzlyRAbQEYr8dmM
-	fya41qfnyJ01bR24JuYA9NIJJzy4veZu2YFX8Ue0G6VvQmVaNawp6XbFNyYv7P6tI93q8PXYDUX
-	Z+1udqOfEGEJVbHeY60jt/jfv3xxkT7FIPkcqmOnrqtlEJZumcnnrP
-X-Received: by 2002:a05:6000:2308:b0:48c:5304:5e50 with SMTP id
- ffacd0b85a97d-499c0781a7bmr11850028f8f.0.1794498347231; Thu, 12 Nov 2026
- 07:45:47 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=deKwVwLZ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=jfSIQmPFwdN9GPMgvzjz1BR7/Ta6DUUXWzOCdxMud3I=; b=deKwVwLZyTuJqbP/Oac9WXhyP+
+	7gyEYkFb3L8eKsRFvQNyJjpuUZQ/SB+iFhxs5M7PXA8iPHxr17VuLipKvWpmJzeos8a0cBZDh8SCz
+	EfAxmuW4lcUI90bBOihrFVwz9HqvifXjtcQvn6Qa0d0r5hClG+PW3Oqc8NnN9Kn9qeEUlEDsyOyT4
+	m6IOipUib49vEzY0ByzgBdOLp6fhN2wNvL92FzxP33GDn0mv0cGAX2cHo9Q/p4ZnonhrXQSNrV5p5
+	QNNitUwXUETvnk0WucYQrNT3AodV/zmeEH8hTG3Wdn68l7VUOpZeIU8npqam47KHv6ovY5vbcR9MW
+	kBa8hg6A==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xRWzp-00E4ip-2s;
+	Thu, 12 Nov 2026 15:45:54 +0000
+Date: Thu, 12 Nov 2026 07:45:49 -0800
+From: Breno Leitao <leitao@debian.org>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org, surenkj@amazon.com, 
+	noodles@meta.com, kernel-team@meta.com
+Subject: Re: [PATCH v2 1/2] tpm: Disable a TPM that stops responding
+Message-ID: <avXfIroRj3CXvr7L@gmail.com>
+References: <20261112-tpm_unresponsive-v2-0-7454d2c899ef@debian.org>
+ <20261112-tpm_unresponsive-v2-1-7454d2c899ef@debian.org>
+ <avXGjiejK2ZlldKs@kernel.org>
+ <avXHGmmdY-CVgxEf@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,44 +70,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112-zswap-zero-limit-v1-1-19f33081b09e@perfloop.ai>
- <CAO9r8zP1o+L-akRDJx80bgGj8bf9rdN09t5upPfkduSmNKwpKQ@mail.gmail.com> <CAEEBa3VA2vycMaRCe4K-qnO3SGCuvAqhECmjmk6PQC3xxERiLw@mail.gmail.com>
-In-Reply-To: <CAEEBa3VA2vycMaRCe4K-qnO3SGCuvAqhECmjmk6PQC3xxERiLw@mail.gmail.com>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Thu, 12 Nov 2026 08:45:35 -0700
-X-Gm-Features: AclHuK9YTgclXVDvcKdpOmhHB6JA7-MrKBIZCLI9W7C--1NSD0gtJgLIGYRP7cw
-Message-ID: <CAKEwX=NVox_NYML-5Gg6W_gDt-j6gquk3sba9hmbvz-U+t=ehA@mail.gmail.com>
-Subject: Re: [PATCH] mm: zswap: honor zero cgroup limits after successful reclaim
-To: =?UTF-8?Q?Tom=C3=A1s_Senart?= <ts@perfloop.ai>
-Cc: yosry@kernel.org, akpm@linux-foundation.org, hannes@cmpxchg.org, 
-	roman.gushchin@linux.dev, tj@kernel.org, chengming.zhou@linux.dev, 
-	mkoutny@suse.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	mhocko@kernel.org, shakeel.butt@linux.dev, muchun.song@linux.dev, 
-	cerasuolodomenico@gmail.com, linux-kselftest@vger.kernel.org, 
-	shuah@kernel.org, cgroups@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avXHGmmdY-CVgxEf@kernel.org>
+X-Debian-User: leitao
 
-On Wed, Nov 11, 2026 at 5:55=E2=80=AFPM Tom=C3=A1s Senart <ts@perfloop.ai> =
-wrote:
->
-> On Thu, Nov 12, 2026 at 12:28 AM Yosry Ahmed <yosry@kernel.org> wrote:
-> > Why is that a problem? Setting memory.zswap.max to 0 while the cgroup
-> > has active swapping processes is naturally racy. The limit can be set
-> > to 0 right after we check it again anyway?
->
-> Agreed on the race, this doesn't try to fix it.
->
-> The case here is different: with the limit already at 0, every store
-> writes back an old entry and then stores the new page anyway, until
-> the pool drains. It's bounded, so if it's not worth a special case,
-> happy to drop it.
+On Thu, Nov 12, 2026 at 04:03:06PM +0200, Jarkko Sakkinen wrote:
+> On Thu, Nov 12, 2026 at 04:00:50PM +0200, Jarkko Sakkinen wrote:
+> > On Thu, Nov 12, 2026 at 04:30:17AM -0800, Breno Leitao wrote:
+> > > A TPM that stops responding fails each command only after the transport
+> > > timeout, and its callers keep sending more: the hwrng thread every 10
+> > > seconds forever, and userspace through /dev/tpmrm0. Each attempt holds
+> > > tpm_mutex for the whole timeout and logs an error:
+> > > 
+> > >   tpm tpm0: invalid TPM_STS.x 0xff, dumping stack for forensics
+> > >   tpm tpm0: tpm_try_transmit: send(): error -62
+> > >   tpm tpm0: tpm_try_transmit: send(): error -62
+> > >   ...
+> > > 
+> > > The core already stops using a TPM it cannot trust: tpm_try_get_ops()
+> > > fails with -EIO once TPM_CHIP_FLAG_DISABLE is set, which
+> > > tpm2_load_null() does when it cannot restore the null key. Set the same
+> > > flag once 60 commands in a row have timed out.
+> > > 
+> > > A completed command, whatever its TPM return code, resets the count.
+> > > Some TPMs stall for half a minute, time out a handful of commands, and
+> > > then recover, so a short streak must not disable them.
+> > > 
+> > > With only the hwrng retrying every 10 seconds, 60 timeouts take more
+> > > than ten minutes. A userspace poller gets there sooner, but each of its
+> > > commands still waits out the transport timeout.
+> > > 
+> > > The limit is the tpm.max_unanswered boot parameter, so that slow
+> > > pre-production parts, such as FPGA prototypes, can raise it, or set it
+> > > to 0 to never disable the TPM. A disabled TPM stays disabled until the
+> > > driver is rebound or the machine reboots.
+> > > 
+> > > Signed-off-by: Breno Leitao <leitao@debian.org>
+> > > ---
+> > >  drivers/char/tpm/tpm-interface.c | 15 +++++++++++++++
+> > >  include/linux/tpm.h              |  1 +
+> > >  2 files changed, 16 insertions(+)
+> > > 
+> > > diff --git a/drivers/char/tpm/tpm-interface.c b/drivers/char/tpm/tpm-interface.c
+> > > index e0385b16616b46..b7865ccb799289 100644
+> > > --- a/drivers/char/tpm/tpm-interface.c
+> > > +++ b/drivers/char/tpm/tpm-interface.c
+> > > @@ -40,6 +40,11 @@ module_param_named(suspend_pcr, tpm_suspend_pcr, uint, 0644);
+> > >  MODULE_PARM_DESC(suspend_pcr,
+> > >  		 "PCR to use for dummy writes to facilitate flush on suspend.");
+> > >  
+> > > +static unsigned int tpm_max_unanswered = 60;
+> > > +module_param_named(max_unanswered, tpm_max_unanswered, uint, 0444);
+> > > +MODULE_PARM_DESC(max_unanswered,
+> > > +		 "Disable the TPM after this many commands in a row time out (0 = never).");
+> > 
+> > Documentation/admin/kernel-parameters.txt update is also needed.
+> > 
+> > tpm_max_missed_responses is what I would suggest, because it is more
+> > accurate e.g., on stating what is being counted :-)
+> > 
+> > 
+> > > +
+> > >  /**
+> > >   * tpm_calc_ordinal_duration() - calculate the maximum command duration
+> > >   * @chip:    TPM chip to use.
+> > > @@ -268,6 +273,16 @@ ssize_t tpm_transmit(struct tpm_chip *chip, u8 *buf, size_t bufsiz)
+> > >  		delay_msec *= 2;
+> > >  		memcpy(buf, save, save_size);
+> > >  	}
+> > > +
+> > > +	if (ret >= 0) {
+> > > +		/* we are good, reset nr_unanswered */
+> > 
+> > I'm not a huge fan in general of third person plural in the source code
+> > comments. Probably a comment here is not needed at all as it does not
+> > state anything that would not be obvious (i.e. something nothing
+> > non-obvious is documented).
+> > 
+> > > +		chip->nr_unanswered = 0;
+> > > +	} else if (ret == -ETIME &&
+> > > +		   ++chip->nr_unanswered == tpm_max_unanswered) {
+> > > +		dev_err(&chip->dev, "%u commands in a row timed out, disabling the TPM\n",
+> > > +			chip->nr_unanswered);
+> > > +		chip->flags |= TPM_CHIP_FLAG_DISABLE;
+> > > +	}
+> > >  	return ret;
+> > >  }
+> > >  
+> > > diff --git a/include/linux/tpm.h b/include/linux/tpm.h
+> > > index 0db277af45c393..e8191585a68e7a 100644
+> > > --- a/include/linux/tpm.h
+> > > +++ b/include/linux/tpm.h
+> > > @@ -131,6 +131,7 @@ struct tpm_chip {
+> > >  	struct hwrng hwrng;
+> > >  
+> > >  	struct mutex tpm_mutex;	/* tpm is processing */
+> > > +	unsigned int nr_unanswered;	/* commands in a row that timed out */
+> > 
+> > This would be then nr_lost_responses.
+> 
+> Oops sorry.
+> 
+> I mean nr_missed_responses (and I would prefer "missed" over "lost").
 
-Yeah I don't think zswap.max =3D 0 is special here. We can violate the
-limit by changing zswap.max to a value lower than zswap.current. In
-future zswap_store() attempt, we will let it proceed if it shrinks at
-least one page.
+Ack, respining...
 
-The hope is that in the long run, the violation is bounded and
-self-correcting, because the number of objects in zswap will decrease
-or remain unchanged after every zswap_store() call.
+--breno
