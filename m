@@ -1,53 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794447169;
-	b=fOh//VXTIN+VCGREg63NXEAPgJbMpyNB2Prt9cTQw27/mrXuoXs1QS/BDy3W6Zz9m2Dg
-	 mjAEDuFKUAdkdF4+9+ND7bMdle7UvCkh5VN8hltpjRFK5zHSEvYmQ/CHBs/UrsMIoQ4up
-	 KUgJHykhI8lj1G7FpPPeT5LvsNX6LNVfl1Tu8RtdVg7QXduEDi3cJoVxodTck5jQSULo2
-	 erH/VS/ob4/o7wJToHKFC03yl+yutWT5IqcJZimwOHjzhcFAtrQV+ysaVE3W1TeFkA7Et
-	 UwRx0MiMzi0+yW+ovYWuMZgZsHWRYgF8pp+aFSLzvybOpEYjvcBTgiNeO4nz6wThzxA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794447169;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=StFp1g4ubx1WuclDmg58dMlRXvni7TqI4/w/yKHNuxg=;
-	b=3l/YCf4ex/pbYg0yz+09mpL2QwwYsxmWG7LwQ0UfjMdmXnfvgyEeMTmhKqs646GcFE7H
-	 TrjA3qe+Xjqys5GDUhbV+rVNvb+N+h5Qr6M4riNm+jx64kn82wI8bzPCD8hRnZB70Dld9
-	 Cz+OBOInxpcAILWCcwzG9eBSzDLJrIf0MZNFCkbEXexPZIzjRJ8XLfUR6kTzfMMNLEMnR
-	 FqSuOlULcKnmOBo7d8wbzmSdfmaaq1tymWGYyqxTVcNgNLZ7X48jOLnyHUmWuRe48Jfqk
-	 i3Ll//02oPbPiXGLG74SAKeRpzxn0foWbNmDevllbNg4uljN2iQJUCHKUfUGYJuYUhA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=Igalia.com;
-	spf=pass smtp.mailfrom=Igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=s2opkGXr;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.191.109
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794447174;
+	b=bew1OR0meIkFOOoDVJ01o4r4eBWWzsOYxWCpwMBY/vFnHhej+bZmSfrqaxxaZ5mpydDC
+	 OeFaH4OU4xNMCWWHPPhxXwmuP8HHDm+yso8qqRatu9JDf0/okRS0eW23KlKfFZvMNCHOu
+	 LjtfXORuU5jQgvQsZf51bCVGHfC3HP0w/GXqp/0x43oLDOGrKLeCwVabfxSOoHK62hRqq
+	 DDM+knJQZfpW/tTH0bqnW9ryimt5px5MpQMn3L8iEBL5Q8Is+qrMOdot6nd1lq/3ajsE/
+	 KrTOzsat25ti17IPEs2vdYPW4UOq2VH3PtHuex0Nho11Jtjqa9Ax11e49AgLFwcsPMw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794447174;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=kL3qS2X4V0rTwk0XQZV8vV6zPfc+zr3/+ZkOSUt7vNw=;
+	b=h7SwdyPAQQryZv9wkCaaf0NPIXP1gJaQCDgkKNS1anTc/J7kbEHPHlG86Fza4IkdDyRp
+	 Ddz6+W7a5rkm6Vnfla1oJ/CurJuRTggf5lRvhtbZRaJRBSzXqU7C31BDcGjWpX/qiRcur
+	 K6z0YaWisLxzCIhck6XWj4gBeZZ8pPjZsWjFT6PzyXqQjQ72rnnoBB3DmEnqK/Ntfr0Pm
+	 18iLGJfX6pPGGhQm4O3a4SuYGeYcUjYoxBqiMnxQvGjgl6E1pe6yltC6RTIpPYDsgIqj7
+	 OC3vSG1w2DhF67BSrQRXLvnTKa6EGKh/rAgLsl+5B3lfXFx74ClOEC40Yk1XriOv9Dg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b="KLRRA/Vy";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.191.109
+Received: from YQZPR01CU011.outbound.protection.outlook.com (mail-canadaeastazon11020109.outbound.protection.outlook.com [52.101.191.109])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66123606A327;
-	Thu, 12 Nov 2026 01:32:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66123606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=Igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=Igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B4D2606AD69;
+	Thu, 12 Nov 2026 01:32:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B4D2606AD69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=s2opkGXr
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=StFp1g4ubx1WuclDmg58dMlRXvni7TqI4/w/yKHNuxg=; t=1794447167; x=2109807167; 
-	b=s2opkGXr94lW9bexnnxDQQjbuy1cjwunD43MvT59+dt6FfKoYImurtv/ouXw+h9LDX6xZh89523
-	QskCDo8qLYjsMczoDKZNHMpD0FLhqh4eUbt1UBqbCRG6KkGrTstBfJ8QaNpYVKFFUCy1CEmuxZj89
-	bd3Htrgxa1DCoDvrBYRDk+KyMhLXJMO8AHjTcQPGgQkV4YDVNBgLpT/H/o/+AiVX1OdgJ70UvgWNg
-	ABEhNKpV/lbANRyixsfFXa7dgGCjmWuMxDR6G/2PIgbzR7rEOY1/mqI3ObwiNsrtpke9SyueDbaA3
-	lvVgNzEs3DxznRbcou2g89lVZI3dYh/DQWcw==;
-Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91] helo=[192.168.1.133])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xRJfi-009F3i-Aj; Thu, 12 Nov 2026 02:32:14 +0100
-Message-ID: <ee8a57d3-d290-4a20-a3ca-ac8e17a7561c@Igalia.com>
-Date: Wed, 11 Nov 2026 17:32:05 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=KLRRA/Vy
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ySGtFzVxYM4viNY/CIGCNV4jPlKPcaSmXc3CrZqJBtZvzxpMVNBmpkgCPyG8StdnQoEVpQIOL/lLXXLcaVMcgp3dY+SYAwKC7HNt2fM2oTdhxGUyVxpZiOm+NVfH6hKc2V6gOTASBdx5O30dx7gcBAJoQL+ktMEvY83S+ehvJPddirpurqStrRrEo0y28Ej8qwcIJkXCvwX+32PdaQsSyr19RRPUnUEs2Yh80AxjkkTt4WZjHh2Xa8ivQhIKHhBCpEM68Uk55POaVdLsPeEtFWaHYci1I4KESCamdMbEKV/L0U58RmxkGxm6GI8zeWPQ31dkV70npApQpvn0zbgrOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kL3qS2X4V0rTwk0XQZV8vV6zPfc+zr3/+ZkOSUt7vNw=;
+ b=xEqA1qn6ac8GuiVhwM9PG5QxQ8RfeyU1mpS8Z3Gr5OyK7JnoxddNn3xOWFozW73ufomalrZv9tGrHfplOs40rlhZMUEDHuQCk5uT6LpUdO1avx21MzO4ZV6jFEHiyk1+/5xf+ssK9xLGDI8DkIAXAMPAOpbQkI7LnVS4gkf6f49krb7D1cvYnOdsyO8wbleo7f3qom+Otc4EYmcmkK0BtmS0dLi+n38GwY1pqO7hU+qL0EiJHX+JzI52gOmTURu7LIDpaz0+qPV7EN4tPet+mFx5ZjSuPwowdfetW3OlQ3nZc6/RCYverAtqqHcqxp1xN34LH2nW73m2gV5Unc8eaw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kL3qS2X4V0rTwk0XQZV8vV6zPfc+zr3/+ZkOSUt7vNw=;
+ b=KLRRA/VyUBtpI+ACIf7+Re3TNJb6O9KgwF0Ar1gcnpWv5rFmTK5xvAPQhBblxhPh3o9oJOS1FhR+ySop/E7BkQ7tgKQVooXU7Tq3uO4qkgD5QCOWFtQkV/9n7HA9CM4ohKifrzeZKUnHqucjFUQEzUXdsKKT2rT+bfYI5uDeQga5BClZ1y70vOlP9XgHXxe3fQIZuemkXUWfzJ4xptwsRW+6Qjn4XhPCOSFXv1YwYoowCOtceuEjnlOo6dbb3XB8JUknISM6jYW8gKevB7gwYb+SmsEyzM3OT22vkvDLXM7vHl+L+G35KdFO9iTjTsB26HYfdONNsMeBmDkyAG1reg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by YT2PR01MB8232.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:b3::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
+ 2026 01:32:50 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0615.008; Thu, 12 Nov 2026
+ 01:32:50 +0000
+Message-ID: <fc1bbc25-a410-42bd-b5b9-d734d2444b70@efficios.com>
+Date: Wed, 11 Nov 2026 20:32:48 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/7] srcu: Add irqsave variants of the atomic SRCU
+ readers
+To: paulmck@kernel.org
+Cc: linux-kernel@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+ Joel Fernandes <joelagnelf@nvidia.com>, Josh Triplett
+ <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>,
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
+ Davidlohr Bueso <dave@stgolabs.net>, Kunwu Chan <kunwu.chan@gmail.com>,
+ Puranjay Mohan <puranjay@kernel.org>, rcu@vger.kernel.org
+References: <20261111145949.70845-1-mathieu.desnoyers@efficios.com>
+ <20261111145949.70845-5-mathieu.desnoyers@efficios.com>
+ <0f5b9d22-353a-4e30-91e1-aeea47461583@paulmck-laptop>
+ <31ba97d2-f02e-4c43-a9a6-5ed49263c511@paulmck-laptop>
+ <9207ad1c-fe1c-4041-80c2-52723bc58486@efficios.com>
+ <9fc742ab-457c-41e2-ba05-0ef0bb15d00b@paulmck-laptop>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <9fc742ab-457c-41e2-ba05-0ef0bb15d00b@paulmck-laptop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQZPR01CA0040.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:86::10) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,144 +111,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 07/10] drm: writeback: don't destroy the shared
- writeback properties
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Mihail Atanassov <mihail.atanassov@arm.com>, Eric Anholt <eric@anholt.net>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Brian Starkey <brian.starkey@arm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
-References: <20261111-wb-drop-encoder-v8-0-62948ed87d13@oss.qualcomm.com>
- <20261111-wb-drop-encoder-v8-7-62948ed87d13@oss.qualcomm.com>
-Content-Language: en-GB
-From: John Harrison <John.Harrison@Igalia.com>
-In-Reply-To: <20261111-wb-drop-encoder-v8-7-62948ed87d13@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT2PR01MB8232:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b5d88b5-97fe-43ee-a950-08df405cdd0d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|23010399003|376014|7416014|366016|1800799024|10067099003|4143699003|5023799004|56012099006|261026121527099003|261021121427099003|261102123227099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	LvKh5O41hdB72FjzS5vrZ3gISfjsVpfZZMHOl1bO2hQRCb7mmbQ7Dc4LtTBdEbcRzCPbs782N+FbhMp/p96C/gA01BUy+3QnWMRUq5/DQ+qz1weWkghntwUMh7GjHXKnyx+C78HQohZR/HfzuBo1U1ufcP1yQNgufX9qk2Lin6PS/4W07QNOwScl7AAT7wwDyW8VT9VICIpF+6BebHZTt1K3MOgpIedCadSA/G6nXXJP5G6OtykD3lR+Jke2w/EFZiGpTaATXNNeKyyw76her0YEjzy3n9FKyHTFbML6b6GTT3VfLFVZymovCclDBoiiU8uqzCKaLNxY9+LavtyO9h3SxTv0Hpa21ewzquVyiOvFiDhibqi+u49tfogVPrT4yV0EwiPv4TJ+A/wcIKaXElycBEtYHcN30JblFV6+BvKupk2eumXAV7lTaJo28ZrvM8UWKYr9Ulvj3OdV8lTO8v+dzJdyPnkp4YPaa5mn7is0SBqLtCdtm0e1yiB6R0hImnvO7XLM2AFTmNHtDeYLroG0OlTSdrrSgx5fE5DdEC0mylbcXjU3GewyZ2HalFbompopSsiMuXdN1kUjp8tAlvafoZF4kA07sOvBzTox4I4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(376014)(7416014)(366016)(1800799024)(10067099003)(4143699003)(5023799004)(56012099006)(261026121527099003)(261021121427099003)(261102123227099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RlZEdmxvVDdLY0dTWU9IL0JEL0hhSEFCWDJ2L0JqeW9OL3NPWTdrdm8wUnow?=
+ =?utf-8?B?NThlYjNXY2hEZ0FKbUUvQk5ML1BJaHE5S1E4ZE5JR1FBWlpnVzg4Y1VLeTZq?=
+ =?utf-8?B?Z0MwcmxLOEhHUVdNQ2NiQ2haNmxFdFZidFBhNFVtSzNMU2VFT25UQ1NwQnJS?=
+ =?utf-8?B?L0lrOWpEY0JtNDI4OU1wUDVhdkh1eGRyemZoUXlDSmRBZDZOcXZzRDMwZFg5?=
+ =?utf-8?B?YjVsWU9FYjVHaW4rNWczNDBuWks2WFNxK3Q3dkhTRTJZd2hFelFXbnRHV3R5?=
+ =?utf-8?B?MXp5YllBWTdDYWs2UVdNcE1YUEM2QUVZMU4wNkNHMUIvcXZpdmZjbGRXWTJG?=
+ =?utf-8?B?QzJJNUkyNlQ4OThyZnNaTjdIY0UrOGpKUVNrS1dOT0h0a3JBdUZUNzhHTVJS?=
+ =?utf-8?B?ZFlWZlJFWlZONjE2S0U5bUtWK2d6S3FXWVE2eWxyOXNaWUdjdzhrdFZrdkxS?=
+ =?utf-8?B?N3BMSDRJN1BiSXNESEQzY0RzcHFaM0U0K2w4b1JQSWgxbVNQamZwS1ZoUldk?=
+ =?utf-8?B?ZzFSSU94ZkkvTjBBTGpoUDVnUGJGMUZQUXUwTDNIWVRqSmROWjVuQXB2dnBO?=
+ =?utf-8?B?NXVMUGFIUTZJMWFSVzVoTjhialZ3dlY0QVV2Ni9QTUVWOSs2OEhpMGpNY012?=
+ =?utf-8?B?UVFHU2lMQXp0UmM0Tm0yb3dIbDBza0JwVS85YXFWOEI4R0VMMnFSdGx6OG91?=
+ =?utf-8?B?WUU1cWorcGFhYVhHd1pnNm4wSTV1dmVpS0NLM2dIMVFCRVNhaGtoR25OdVZP?=
+ =?utf-8?B?NGZPWnNDRnEyVHpaeEkxZy9RbXJFdVJaWlNiMkMrbVhZKzdDWlFlTmRoYnE3?=
+ =?utf-8?B?d3dUSmFzQ1NRNFg5UnMrZlpGOXF3ZW43SW9IT3VJMlBRcmRDS0FZLzY0L2Fq?=
+ =?utf-8?B?YUFvdGZtRkFEZ1BXYjNiOXl1TmxLeHQwRHhXQVlWUklXN0xTczM1VXJYNWZ0?=
+ =?utf-8?B?RXFkelBsVUVPYkNlOHZLVXN2VG9JTmJMc21zcGQ0ZjdGMlVSOGNmZUhOTS9N?=
+ =?utf-8?B?RVB2eGhSMytUY3hIYndjRTAvVmhyTzFZM2VqY005WUtxL0xuWWZSODRxT0FD?=
+ =?utf-8?B?QjBuelhVUmNEUzVqTEtOcFdNMjVMSTVFRVVoMzJUbkZQYkhlRXlYN0NIeVhn?=
+ =?utf-8?B?ZFBNVnMxWW1XWWFzaVZoNGlsc3d2S1JpZ281NXIzU1h0cVR4U2xuUk9LV09T?=
+ =?utf-8?B?NFdBcElCT2JVVC9kS0pXTjhHa0E4NDJMWDh5NjJqZkRuVzEraUUvS25DZkM4?=
+ =?utf-8?B?Mmc5R1R4VTBBbE1ab3dUT1ZqTWw1UWF6dlR2ajFyRnJXc2RZTWJHc3NJTU1a?=
+ =?utf-8?B?UGZMc2xBdjBBM3BlNWQ1ajZxRXNTblJ2ZmtHQlZqSGJTa3BpWDJhUEZPVTR1?=
+ =?utf-8?B?SGcvRTZqaGpWS1RucG9NS2FlMlpydnVMU3hZVXhOc2Yzb1JzVDJkQWVDaWZi?=
+ =?utf-8?B?MndQSGI3MGhpcUpjTm96djV3WlhPMGNkeWdoYkN4ZFBEZ3NkMFBUNjNIdjc3?=
+ =?utf-8?B?SUJjMjVwbVdCTWlSVE81d3haNitlSVRmZWlyb1RyeU9FbUVUMGRETXc0SWl6?=
+ =?utf-8?B?RjBSWmdkMXZJRXI4Q2ZtRlBaaWYxbmc5aktBQi9QQ0xmK2FNSTJtRGlSSFNq?=
+ =?utf-8?B?UzVXNmhmZU94NkZoNkhiZG9JY2p1N0tBdGs2QTNpL1dObDlwVDRCZytub1I5?=
+ =?utf-8?B?MHY1OUF6MVZ2QUdtbHA4N3d3RXQ2UTk2TDZvTXBBZHk4NnByRnJTVGM1SGpS?=
+ =?utf-8?B?ODYzZzRsb2ZudmU0YnR3dlRlTGdGZDNRMGQwaEpaN3ZmQmI0ZGExb2FFL0Fp?=
+ =?utf-8?B?RUpXVmJ0ay9WOGtoci9ERTZRbFB5R0MrdTNFeUpmc3BWM3dyRS92VjVXQmJM?=
+ =?utf-8?B?MlI1aDg1Mmd0UkM1bitXUzZ2RVVNZ3NwKzBaajB3MENJTUM2czJIdkFSTzlx?=
+ =?utf-8?B?TWxSa0JzVWYvMFFmOVQwSjVETjdpTmRkMGFIaWU1bU10QjE5b0U3aDd4Wm9B?=
+ =?utf-8?B?NGUva21YUytYZEQvdnF5NU5NdWdwTnFub09IeTNOVHFCTUJCVXFXaklEREJ1?=
+ =?utf-8?B?UStTVzhoNGYxU2dHcUFiSmJYUkw4K0E4citac0VFUG5SY0Ewd29kM2JnZGVZ?=
+ =?utf-8?B?SDB3YWRPQUtFdW1jMFFlV2ZLVGRpNlAvMGtscTA3N011b2RjNy9NVFU5Szd3?=
+ =?utf-8?B?R3drQjg4cm5OZHVOcTltc0ZaUk9Bd3RaenI1VVlvNW96WmphWUFXdHN1QXU4?=
+ =?utf-8?B?YnFDVno2ck8ydEFVbzlXRkxaR1gxTWwyakhWVG8zdTlaNTNKV1ZnTyticy85?=
+ =?utf-8?B?Zk9ieWMxUHZxempiU1hES1pDSmNXYzZpckdUUDRvemJtUTBQNHYvVm9QZktJ?=
+ =?utf-8?Q?F/E3+pIU+qeV+a1AZhffhlWm2XI0Bo5ueuiVGgrAEv1pX?=
+X-MS-Exchange-AntiSpam-MessageData-1: hWDDh/4VOmW58f+t5gMGz6Wv/OICtdLeLRA=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b5d88b5-97fe-43ee-a950-08df405cdd0d
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 01:32:50.0593
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tjcmZNXTHiVlxPEWkYluX9cSCBZMfEOMEVX6+JcnDbFfNwhtCjt/HcSxActKmHOiZ+HQwDJtPrYDlnOKNWfQWkOSAhPgGULV0wVu7qmg8Dk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT2PR01MB8232
 
-On 11/10/26 16:42, Dmitry Baryshkov wrote:
-> The writeback properties are created once per device and attached to
-> every writeback connector. Nevertheless, a failing
-> __drm_writeback_connector_init() destroys all three of them. If an
-> earlier writeback connector has already been registered (komeda and
-> rcar-du create one per CRTC), it is left holding stale property
-> pointers. The drmm cleanup action likewise destroys them as soon as the
-> first connector goes away.
->
-> Leave the properties alone. They are on the device's property list, so
-> drm_mode_config_cleanup() destroys them together with all other
-> properties.
-This does appear to be the actual behaviour. More importantly, it is 
-also the intended behaviour according to various comments sprinkled 
-around the property creation functions.
+On 2026-11-11 19:07, Paul E. McKenney wrote:
+[...]
+> Although that doesn't help on my laptop, it does work on my x86 test
+> system.
 
-Reviewed-by: John Harrison <John.Harrison@Igalia.com>
+Is the laptop a hybrid CPU, with P-cores and E-cores?  KVM gives its
+guests no PMU on those.  kvm_init_pmu_capability() in arch/x86/kvm/pmu.c
+clears enable_pmu under X86_FEATURE_HYBRID_CPU.
 
-> Fixes: 2f3f4a73631b ("drm: writeback: Add missing cleanup in case of initialization failure")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->   drivers/gpu/drm/drm_writeback.c | 34 ++++++----------------------------
->   1 file changed, 6 insertions(+), 28 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
-> index 89c36f1414ce..2f6a7b50336c 100644
-> --- a/drivers/gpu/drm/drm_writeback.c
-> +++ b/drivers/gpu/drm/drm_writeback.c
-> @@ -148,22 +148,6 @@ static int create_writeback_properties(struct drm_device *dev)
->   	return 0;
->   }
->   
-> -static void delete_writeback_properties(struct drm_device *dev)
-> -{
-> -	if (dev->mode_config.writeback_pixel_formats_property) {
-> -		drm_property_destroy(dev, dev->mode_config.writeback_pixel_formats_property);
-> -		dev->mode_config.writeback_pixel_formats_property = NULL;
-> -	}
-> -	if (dev->mode_config.writeback_out_fence_ptr_property) {
-> -		drm_property_destroy(dev, dev->mode_config.writeback_out_fence_ptr_property);
-> -		dev->mode_config.writeback_out_fence_ptr_property = NULL;
-> -	}
-> -	if (dev->mode_config.writeback_fb_id_property) {
-> -		drm_property_destroy(dev, dev->mode_config.writeback_fb_id_property);
-> -		dev->mode_config.writeback_fb_id_property = NULL;
-> -	}
-> -}
-> -
->   /**
->    * __drm_writeback_connector_init - Initialize a writeback connector
->    *
-> @@ -198,20 +182,18 @@ static int __drm_writeback_connector_init(struct drm_device *dev,
->   	int ret = create_writeback_properties(dev);
->   
->   	if (ret != 0)
-> -		goto failed_properties;
-> +		return ret;
->   
->   	connector->interlace_allowed = 0;
->   
->   	ret = drm_connector_attach_encoder(connector, enc);
->   	if (ret)
-> -		goto failed_properties;
-> +		return ret;
->   
->   	blob = drm_property_create_blob(dev, n_formats * sizeof(*formats),
->   					formats);
-> -	if (IS_ERR(blob)) {
-> -		ret = PTR_ERR(blob);
-> -		goto failed_properties;
-> -	}
-> +	if (IS_ERR(blob))
-> +		return PTR_ERR(blob);
->   
->   	INIT_LIST_HEAD(&wb_connector->job_queue);
->   	spin_lock_init(&wb_connector->job_lock);
-> @@ -234,9 +216,6 @@ static int __drm_writeback_connector_init(struct drm_device *dev,
->   	wb_connector->pixel_formats_blob_ptr = blob;
->   
->   	return 0;
-> -failed_properties:
-> -	delete_writeback_properties(dev);
-> -	return ret;
->   }
->   
->   /**
-> @@ -295,8 +274,8 @@ EXPORT_SYMBOL(drm_writeback_connector_init);
->    * @dev: DRM device
->    * @data: Pointer to the writeback connector to clean up
->    *
-> - * This will decrement the reference counter of blobs and destroy properties. It
-> - * will also clean the remaining jobs in this writeback connector. Caution: This helper will not
-> + * This will decrement the reference counter of blobs. It will also clean the
-> + * remaining jobs in this writeback connector. Caution: This helper will not
->    * clean up the attached encoder and the drm_connector.
->    */
->   static void drm_writeback_connector_cleanup(struct drm_device *dev,
-> @@ -306,7 +285,6 @@ static void drm_writeback_connector_cleanup(struct drm_device *dev,
->   	struct drm_writeback_job *pos, *n;
->   	struct drm_writeback_connector *wb_connector = data;
->   
-> -	delete_writeback_properties(dev);
->   	drm_property_blob_put(wb_connector->pixel_formats_blob_ptr);
->   
->   	spin_lock_irqsave(&wb_connector->job_lock, flags);
->
+> Perhaps something like the following would be helpful in keeping this
+> well-tested?
 
+Yes, that would help.  Three comments on the patch:
+
+[...]
+> +             qemu_args='--qemu-args "-cpu host,pmu=on"'
+[...]
+> +             --configs "SRCU-P" ${qemu_args} --trust-make
+
+1) The quotes inside the variable stay literal.  The expansion is split
+    on spaces, so kvm.sh gets three words:
+
+        --qemu-args
+        "-cpu
+        host,pmu=on"
+
+    A kvm.sh --dryrun with these arguments stops with:
+
+        --qemu-args (qemu arguments) ""-cpu" must match "^-"
+
+    Keeping only the value in the variable works:
+
+        qemu_arg="-cpu host,pmu=on"
+        [...]
+        --configs "SRCU-P" ${qemu_arg:+--qemu-args "$qemu_arg"} --trust-make
+
+    It expands to two words when set, and to nothing when empty.  I
+    checked it with kvm.sh --dryrun only.
+
+2) nmi_readers and nmi_calls both default to true.  So the two boot
+    arguments change nothing.  They are fine if you want them explicit.
+
+3) The "atomic-srcu" run just above also runs readers in NMI, by
+    default.  It still starts without a PMU, so it keeps printing the
+    "went untested" lines.  It could take the same qemu argument.
+
+Thanks,
+
+Mathieu
+
+-- 
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
