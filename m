@@ -1,82 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794460191;
-	b=YydkyqvNq6SAM9C6jAzwJfuInIkHWrGhRY8dr9lGA2ng/dCmD54fXrfStY4HMyhL7GoC
-	 KwckVDk2lYluMLXSAeIbOjnCT50A7Q0osCF5gYl6+oyBzsSPtlw3Ask8IrIj6DBhmJ9ws
-	 ANIMxJcNhFrdoDJ4Idh+8tCQcAor7ExaUbxHVDUowfXJuDN4ZxCgTv0+7PcT688zwrcUM
-	 zTETx1GSZG/Pil6gDqyg8K6tBTt3j27S8YleL1j1dwyMUpSujJloHnJP5rKKfjBLc281b
-	 aLZCOsqgkTCVaompuDvCNcfKBN6EQluPmgs1dDGlgNjyrnJfb2GepUaVsXa/+ij/Ewg==
+	t=1794460321;
+	b=XQj12EoK6TWfEWNCoGQ9joGWw4ucPGVhiVEgJlMZvTP+Fon2CR6I08dza0Gg58vWWYXz
+	 eFpj7jT1qTU3GRuUArc19pIfae7UzjbEacUWX428totJU3zYhtF2B3BuL6oYZ4aT0lOq6
+	 pJ2857N2lbitdLXYIAUYnRn1yq0PAxfRlP8dY5njZoVXwW8kqvFe9YRfhxYpX5j68P1ke
+	 G4T1x3H9ec2z3SBy/TzukXc3xdXv++xU0UFHOTRBlPJVMoBoxh6+Lqz+kiJZu9tI4Du5e
+	 WA0BUMaG1Jho4hueO4jAWsUI1kJ8vUyYnSJ4tWf3wZOc7OxWOZKMQGCNtCG9uK0ufHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794460191;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=nVVIfN4BTkm5Q9xCDqSEMw7hlfWL7ACUPVcuHFZ/o3g=;
-	b=SMRLO2xDlwSiozn82XgngJ0sTR3wFJRpnzbX+GMa9mjZY3l6xUGOSDKeTqGXDJGGReor
-	 zMFlYNWv5fX6EStLQrTBu0h0pKkYbgefLOfuxKU0Fdoy+MkRDMyGuO9HfQG5KJnm3ZLLp
-	 RTyr3IwGbEY9j2aSSkkQs7KclFAL4q1oET6JxVKZvYJVqSZ/5TOkbTsrJldH8TTlYHvxt
-	 3p7H05MREg250goVGsOd9e/PSiU6kanAHGo4Iz3UfFhnOGXB41ZB3oAU8hA3RVJohvBx+
-	 whb5ZgPZS+ztejstWh4RiUbEm4jpVG1Gk4bqDs7Ky6Y8lM/ZxGvlExHH6jtKsYCHGLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794460321;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=dDh8yKX+7rfX2dtQgzkKkYKJk63NQ3CPpnXsSD2zHz4=;
+	b=5Vd1FIFb5vwSNQsxILmzlH6kxRHfR6YR1A8rIEInJCrZyGK9X1wcMH7uJ6pkXwgnSRzu
+	 CIYZfsNcxbFzFapE3E8wh8bDVmv+BEzojoZ4SkoeSj4t+3lONatcEMZXKOoeS++NWvYZe
+	 1IJEqXMpDU9EDRdF0HySLxWZxg5jrfVeSkOnM/vDx1dOvBuMtfme5X70I77r6SebNOYJv
+	 zTD9D6v8RZZY5A2LQKR4jf7dSvDCWxqLDNPIfLQavE+NMdAgJgEwm9QiIC75ja0IdqxDX
+	 iI6Zd9q1LN5RkDlfd4rr4PQy9SqF8PNjw0y1edPZLBFwGQTF1tTsKtWwQl1xV3V1MDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=OlG5tUX1;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qACmN6IL;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D2E606A31C;
-	Thu, 12 Nov 2026 05:09:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84D2E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48EF4606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:12:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48EF4606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=OlG5tUX1
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2iXeY1214888;
-	Thu, 12 Nov 2026 05:09:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=nVVIfN
-	4BTkm5Q9xCDqSEMw7hlfWL7ACUPVcuHFZ/o3g=; b=OlG5tUX1O2ww6cm14macBK
-	cjdgAgo854InLT7kSM7FJBlU0ki9XlUW6NlQAycQTkwTh+HDjEbPX3cQvzHZs6zm
-	KnoQoE5MO47PSQIRmChH5gDaAm9K/vycIVK8ulHnbbe34AuQfZMIap6DN3IU+DQM
-	GO/fMKgGYq+U0XuXx4v9P66yTDkWnjRlghuRnxmZ9dc1CDTzNVm2qSsqPBD5tJ3t
-	CcQiv8l0f5RD/w4Z2iA1PaZL4IYYH1QMQ04qiTZdeL789Gt31X7YKUe2nLm8FHvj
-	PuYoaETiuPCHOcTWdYaJRlNC42SnLcgUac7/sq0B8YOEJLPfRkLftjJ6sxwkxnew
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsuntdwak-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 12 Nov 2026 05:09:18 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2ZnlC016704;
-	Thu, 12 Nov 2026 05:09:17 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hv3327f2u-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 12 Nov 2026 05:09:17 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AC59DeP48890152
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 12 Nov 2026 05:09:13 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E9F1720043;
-	Thu, 12 Nov 2026 05:09:12 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3CA882004E;
-	Thu, 12 Nov 2026 05:09:04 +0000 (GMT)
-Received: from [9.39.17.134] (unknown [9.39.17.134])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 12 Nov 2026 05:09:03 +0000 (GMT)
-Message-ID: <1d170fb4-7e78-4c8c-9cd0-642973dd9163@linux.ibm.com>
-Date: Thu, 12 Nov 2026 10:39:03 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qACmN6IL
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so7660305eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:12:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794460320; x=1795065120; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dDh8yKX+7rfX2dtQgzkKkYKJk63NQ3CPpnXsSD2zHz4=;
+        b=qACmN6ILw09v5mnwZwrM8NnQsdypPx3wC17jLbqp8osE+yYeizjTrePkbj4yep/0GZ
+         sj61FBKipcxeF5j5h/mqPQCRSpc7WjzP0G6M73yVFvVNjfGXIrkaQaW6cP9ql6gf4mcY
+         bjd1UkBeaQ8LroKft1ZYvp98nPUSuYgsZXffaI4ndNWP4Woc9IiTz4IcuAvV2VFYO7jA
+         PWJP2A1wzdZEpehTqzj66mSOqZyyn9PNOnSxfeGKdwxvCCY2aVqIMiK8TbYysvg5MFCZ
+         FhAQbpblrgh3n/vLZh9A9ODHcbOC6431KCwf/NrVHIKSsSpV8phvsyyUYpxMvkqKZfNk
+         PRIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794460320; x=1795065120;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dDh8yKX+7rfX2dtQgzkKkYKJk63NQ3CPpnXsSD2zHz4=;
+        b=EEESXwcK/vtCrcIkQn/l/U12Z9s6rfJ3y64hlh9KPteW2i0Vg88jNnmc+NdkHxYwxm
+         QmhsnWIoy6XFjCEam0ZcUikDoQ10DNflvfQkaj+Pz3kgjQIasNNbaENxaT97JV0Drf7P
+         ozcxq6s0yqovZgRYeA4jZFRCfNdF9GO1VKVqKaRvDY+KBLeJATnlPYbrHhFvgM7/02Ue
+         mQWObFHY99WgAC7rFHjxSCR6tBZDuDaawxKTCfXpOiSE/8rUHbBzREaCwPtMAWfM35bk
+         P1CNctwYoRzZcJdsMGysyilXC7FQvuviaf7r9L4ySjziaDjJ45dsYfgc925gjXJABx/G
+         bRZA==
+X-Forwarded-Encrypted: i=1; AL+hErFuABikzM+TkpWKROncUhSrb0CsBhoY/5Vf+iDnNRf3fuQ7EgkNQeLgpx6rGj8pwIHKT64UhaJhjF0ET/o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+jJAE/COO5GiUZZ6bj6X/yStRULueS39bQlPqQ6G+DzkylpnDU
+	kmthyyQiUityURCXOQLP9LLJRYOwX4vvxK7R0OR6FPXsx0qn5/RTDZuG
+X-Gm-Gg: AYBFou38lqSTOvMUR05htGWpHOxyR2I6F8QmPSSA8wqkHdM3Zrfvoehx0ob5JK5Y0Z+
+	Aupm6Dfnb0UrshNs8LfNVTXsFs5NhtihTma9ojtW1yejArcSI/O5UXOXISxJY8dv/ah0iieMsMX
+	h/P2/2HizEkVRoOTgsTKg2k2pUmaMIunAxt3qNNlw6PotwzwWXA5pzpnkkAk/Dz81I5tmrjLVnA
+	+nnjq3IDKAT1hUzvcpWHWkAmm61kUA1ZGNv9IGxlyM0zKz8+eI9OHWGCfscSbuKB7a+EV49st97
+	cp60bqk21OoUNObIPLOuX7kyMP9DJ5mDetYuNd8Ancw0EcOJ3hRIeXEgL5uVqHuAJWNagEl+DXQ
+	zPbjXuM0HRTRvTM8BierxsR+CT1lSaHDSZNGiuIG6j/r/BZmKN/HT9GCDqKYv4YUIBICM7JEY9D
+	S6gPtgu0vkrDm7Hx0+q2bPpp3cNk5ybpiwZF3V71QHmvsNOSPZg/ch2gmm3cP4pVnxzCByde4tf
+	qCHYSvoQCjvujvD1oIJM+zAVJOY9rxFsAEl0Z9eS8I9Wp3BWZTquuvG26a9t17nJAmInLumiNPD
+	V62it9rLE6Q9lIjpsPs/SvJp4Q2lP9U2X4KPfx9qqgzsX/Uwe6wraNo=
+X-Received: by 2002:a05:7301:4543:b0:36c:a44c:1763 with SMTP id 5a478bee46e88-37686d32a29mr4366851eec.32.1794460320211;
+        Wed, 11 Nov 2026 21:12:00 -0800 (PST)
+Received: from acemagic-m1.tail4fb79.ts.net ([2401:7400:c804:b668:37ea:9b2d:3d7a:8379])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfdfadsm26095228eec.19.2026.11.11.21.11.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 21:11:59 -0800 (PST)
+From: Ragul Balaji <ragulbaby@gmail.com>
+To: linux-wireless@vger.kernel.org
+Cc: hjf3108@gmail.com,
+	Ragul Balaji <ragulbaby@gmail.com>,
+	Arend van Spriel <arend.vanspriel@broadcom.com>,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 01/10] wifi: brcmsmac: make d11.h self-contained
+Date: Thu, 12 Nov 2026 13:11:28 +0800
+Message-ID: <20261112051142.2797529-2-ragulbaby@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261112051142.2797529-1-ragulbaby@gmail.com>
+References: <20261112051142.2797529-1-ragulbaby@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,148 +101,230 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] sched: Expose writable interface for preferred CPUs
- mask
-To: Yury Norov <ynorov@nvidia.com>
-Cc: Maxim Kuvyrkov <maxim.kuvyrkov@grdncc.com>,
-        Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-        Thomas Gleixner <tglx@kernel.org>, Juri Lelli <juri.lelli@redhat.com>,
-        Vincent Guittot <vincent.guittot@linaro.org>,
-        Yury Norov <yury.norov@gmail.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Andrea Righi
- <arighi@nvidia.com>, Ben Segall <bsegall@google.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Dietmar Eggemann <dietmar.eggemann@arm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Heiko Carstens <hca@linux.ibm.com>, Johan Hovold <johan@kernel.org>,
-        Jonathan Corbet <corbet@lwn.net>,
-        K Prateek Nayak <kprateek.nayak@amd.com>, Mel Gorman <mgorman@suse.de>,
-        Mete Durlu <meted@linux.ibm.com>, Randy Dunlap <rdunlap@infradead.org>,
-        Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Steven Rostedt
- <rostedt@goodmis.org>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Valentin Schneider <vschneid@redhat.com>,
-        Vasily Gorbik <gor@linux.ibm.com>, linux-kernel@vger.kernel.org,
-        linux-doc@vger.kernel.org, driver-core@lists.linux.dev,
-        linux-s390@vger.kernel.org
-References: <20261101192203.6979-1-ynorov@nvidia.com>
- <A2B09626-39F0-4EC3-B57D-CD83D77DD208@grdncc.com>
- <1d1b22ce-fdf1-47ad-99ec-8c9925ea7275@linux.ibm.com> <avSorfTkB3pZX2ic@yury>
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-Content-Language: en-US
-In-Reply-To: <avSorfTkB3pZX2ic@yury>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAxOCBTYWx0ZWRfX311hCVMLD0Hc
- Kt4HlOAhsQOnWUC78GYq0edsRUwn/hPsvXRE3OjmQrYBWkTXjJYTVt//CaMzQmiyJiFcEeQt4dq
- vo3NkFb+W8PLaZnW49I/NRYDGE9AFmQsWN780tb+WzHjhYt7Ch9fNLotNoO3RYhwzKaCzd7+N6B
- /c4T1cKQhIBP1tyR2piSpOenZ8vV6pDAPEY4Jny41DxLMvLJ/d9RdrCu4v5NImh0fjwgko8Ww4R
- k02HM7PxH0hpwyse1d7IJlrZ2QYsCAjR+uh2DTSX+4lfHqxFlmTA2fEpmACYtQyummjm59IghOZ
- KB0fLOcg8MW5xJV6vsKAuKhDvJGxXWuY33rCcHefh3ifSIoe5Rh4qXTT3MGTLAJvo2uBfJA8ipK
- 2BhVQr7fsdkOVlneP2+PTyDyqKDyn6Be1T5jFxK1ITZ2yxdTZp3hA1RowSimbEnYHk/anYWRRmI
- ZCD8oJrRiuO6BsiXcjg==
-X-Proofpoint-ORIG-GUID: mwJVrk1495EbgCbioZERqcZZWLE3v8di
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAxOCBTYWx0ZWRfX90f2Q/uxeZHe
- BwIB1tOEwf31qkUi5OKpqWym4bFrZxa0Gc7VkteZXl9nM1Kv2x61K2UKk2Wbk43/y8QCoyE1H6x
- avmCGoBVhmICPW77VY2mhOr/bWo8nnI=
-X-Authority-Analysis: v=2.4 cv=euZKXYpX c=1 sm=1 tr=0 ts=6af549fe cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=Ikd4Dj_1AAAA:8
- a=9Qk1hqGbzmtnogXl2ysA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: eD0RfhbmiDm4gZvmVYr9UM_KGr6YPB50
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 suspectscore=0 spamscore=0 priorityscore=1501
- lowpriorityscore=0 bulkscore=0 impostorscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120018
+Content-Transfer-Encoding: 8bit
 
+d11.h includes pub.h and dma.h, but it needs only the two DMA register
+layouts from dma.h for struct d11regs and nothing from pub.h. Move
+struct dma32diag and struct dma64regs into d11.h next to the register
+map that embeds them, and drop both includes.
 
+The TXFID_* masks describe the TxFrameID field of struct d11txh.
+Define them in d11.h next to the header that carries the field,
+so that it can be shared with other code.
 
-On 11/11/26 11:11 PM, Yury Norov wrote:
-> On Tue, Nov 10, 2026 at 02:45:58PM +0530, Shrikanth Hegde wrote:
->> Hi,
->>
->> On 11/10/26 8:45 AM, Maxim Kuvyrkov wrote:
->>>> On Nov 2, 2026, at 08:21, Yury Norov <ynorov@nvidia.com> wrote:
->>>>
->>>> The preferred CPU mask currently lets the steal governor reduce vCPU
->>>> demand when physical CPUs are contended. This series adds manual control,
->>>> opening more use cases.
->>>>
->>>> For example, setting CPUs aside for selected fair tasks at runtime while
->>>> steering other fair tasks toward the remaining CPUs.
->>>
->>> Hi Yury,
->>>
->>> I've been trying to do this with crutches in user-space for a long time.  Thanks for implementing this in the kernel, and with a convenient user interface.
->>>
->>>>
->>>> A user can mark a CPU non-preferred and pin a workload to it. Fair tasks
->>>> whose affinity includes preferred CPUs are steered away, while tasks
->>>> whose allowed CPUs contain no preferred CPU can still run there. The CPU
->>>> stays online, task affinity is preserved, and the selection can be
->>>> reversed without rebooting:
->>>>
->>>>      # rmmod steal_governor
->>>>      # echo 0 > /sys/devices/system/cpu/cpu3/preferred
->>>>      # taskset -c 3 ./my_workload
->>>>      # echo 1 > /sys/devices/system/cpu/cpu3/preferred
->>>
->>> My use-case (being a compiler optimization engineer) is to pin benchmarks to specific cores, and stop the system from using those cores even when the cores are idle.  This prevents L1/L2 cache pollution and makes performance numbers more stable.
->>>
->>
->> Do you change it when running workload based on any signal/event? or you set it before starting it?
->>
->> If it is set before starting, you might as well offline the CPUs to achieve the same. I assume you are
->> managing the preferred CPUs manually with write interface. You can do the same for online state.
->> (Though it takes a longer)
-> 
-> How that? I tried, and offlining destroys the affinity, as it should:
-> 
+pub.h and d11.h both define the PHY types of the PhyVersion register,
+with the same values. Add the ones that only pub.h has, PHY_TYPE_A,
+PHY_TYPE_G, PHY_TYPE_LP and PHY_TYPE_HT, to d11.h, and drop the list
+in pub.h.
 
-You are doing "hotplug when workload is running".
+This prepares d11.h for use outside brcmsmac. No functional change.
 
->    # taskset -c 3 sh -c 'while :; do :; done' &
->    [1] 380
->    # taskset -pc "$pid"
->    pid 380's current affinity list: 3
->    # echo 0 >/sys/devices/system/cpu/cpu3/online
->    [  115.767634] process 380 (sh) no longer affine to cpu3
->    [  115.772881] smpboot: CPU 3 is now offline
->    taskset -pc 380
->    pid 380's current affinity list: 0-2,4-7
-> 
-> Did you mean something else, maybe?
+Signed-off-by: Ragul Balaji <ragulbaby@gmail.com>
+Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+---
+ .../broadcom/brcm80211/brcmsmac/ampdu.c       |  1 +
+ .../broadcom/brcm80211/brcmsmac/d11.h         | 43 ++++++++++++++++++-
+ .../broadcom/brcm80211/brcmsmac/dma.h         | 27 ------------
+ .../broadcom/brcm80211/brcmsmac/main.h        | 11 +----
+ .../broadcom/brcm80211/brcmsmac/phy/phy_hal.h |  1 +
+ .../broadcom/brcm80211/brcmsmac/pub.h         | 10 -----
+ .../broadcom/brcm80211/brcmsmac/rate.h        |  1 +
+ 7 files changed, 45 insertions(+), 49 deletions(-)
 
-What matters is how/when you start the workload.
- From the use case, I see it is about using only specific set of CPUs and there is no explicit affinity assigned.
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/ampdu.c b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/ampdu.c
+index fc7a5dd2e5..b42e43c883 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/ampdu.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/ampdu.c
+@@ -19,6 +19,7 @@
+ #include "scb.h"
+ #include "phy/phy_hal.h"
+ #include "antsel.h"
++#include "dma.h"
+ #include "main.h"
+ #include "ampdu.h"
+ #include "debug.h"
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/d11.h b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/d11.h
+index 0c685eeaed..78cbfceab9 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/d11.h
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/d11.h
+@@ -20,8 +20,33 @@
+ #include <linux/ieee80211.h>
+ 
+ #include <defs.h>
+-#include "pub.h"
+-#include "dma.h"
++
++/* DMA structure:
++ *  support two DMA engines: 32 bits address or 64 bit addressing
++ *  basic DMA register set is per channel(transmit or receive)
++ *  a pair of channels is defined for convenience
++ */
++
++/* 32 bits addressing */
++
++struct dma32diag {	/* diag access */
++	u32 fifoaddr;	/* diag address */
++	u32 fifodatalow;	/* low 32bits of data */
++	u32 fifodatahigh;	/* high 32bits of data */
++	u32 pad;		/* reserved */
++};
++
++/* 64 bits addressing */
++
++/* dma registers per channel(xmt or rcv) */
++struct dma64regs {
++	u32 control;	/* enable, et al */
++	u32 ptr;	/* last descriptor posted to chip */
++	u32 addrlow;	/* desc ring base address low 32-bits (8K aligned) */
++	u32 addrhigh;	/* desc ring base address bits 63:32 (8K aligned) */
++	u32 status0;	/* current descriptor, xmt state */
++	u32 status1;	/* active descriptor, xmt error */
++};
+ 
+ /* RX FIFO numbers */
+ #define	RX_FIFO			0	/* data and ctl frames */
+@@ -658,8 +683,12 @@ struct d11regs {
+ #define	PHY_TYPE(v)		((v & PV_PT_MASK) >> PV_PT_SHIFT)
+ 
+ /*== phy types (PhyVersion:PhyType field) ==*/
++#define	PHY_TYPE_A		0	/* A-Phy value */
++#define	PHY_TYPE_G		2	/* G-Phy value */
+ #define	PHY_TYPE_N		4	/* N-Phy value */
++#define	PHY_TYPE_LP		5	/* LP-Phy value */
+ #define	PHY_TYPE_SSN		6	/* SSLPN-Phy value */
++#define	PHY_TYPE_HT		7	/* HT-Phy value */
+ #define	PHY_TYPE_LCN		8	/* LCN-Phy value */
+ #define	PHY_TYPE_LCNXN		9	/* LCNXN-Phy value */
+ #define	PHY_TYPE_NULL		0xf	/* Invalid Phy value */
+@@ -787,6 +816,16 @@ struct d11txh {
+ 
+ #define	D11_TXH_LEN		112	/* bytes */
+ 
++/* TxFrameID */
++/* seq and frag bits: SEQNUM_SHIFT, FRAGNUM_MASK (802.11.h) */
++/* rate epoch bits: TXFID_RATE_SHIFT, TXFID_RATE_MASK ((wlc_rate.c) */
++#define TXFID_QUEUE_MASK	0x0007	/* Bits 0-2 */
++#define TXFID_SEQ_MASK		0x7FE0	/* Bits 5-15 */
++#define TXFID_SEQ_SHIFT		5	/* Number of bit shifts */
++#define	TXFID_RATE_PROBE_MASK	0x8000	/* Bit 15 for rate probe */
++#define TXFID_RATE_MASK		0x0018	/* Mask for bits 3 and 4 */
++#define TXFID_RATE_SHIFT	3	/* Shift 3 bits for rate mask */
++
+ /* Frame Types */
+ #define FT_CCK	0
+ #define FT_OFDM	1
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/dma.h b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/dma.h
+index 7905fd0817..d2f00d699f 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/dma.h
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/dma.h
+@@ -25,33 +25,6 @@
+ #define	DMA_TX	1		/* TX direction for DMA */
+ #define	DMA_RX	2		/* RX direction for DMA */
+ 
+-/* DMA structure:
+- *  support two DMA engines: 32 bits address or 64 bit addressing
+- *  basic DMA register set is per channel(transmit or receive)
+- *  a pair of channels is defined for convenience
+- */
+-
+-/* 32 bits addressing */
+-
+-struct dma32diag {	/* diag access */
+-	u32 fifoaddr;	/* diag address */
+-	u32 fifodatalow;	/* low 32bits of data */
+-	u32 fifodatahigh;	/* high 32bits of data */
+-	u32 pad;		/* reserved */
+-};
+-
+-/* 64 bits addressing */
+-
+-/* dma registers per channel(xmt or rcv) */
+-struct dma64regs {
+-	u32 control;	/* enable, et al */
+-	u32 ptr;	/* last descriptor posted to chip */
+-	u32 addrlow;	/* desc ring base address low 32-bits (8K aligned) */
+-	u32 addrhigh;	/* desc ring base address bits 63:32 (8K aligned) */
+-	u32 status0;	/* current descriptor, xmt state */
+-	u32 status1;	/* active descriptor, xmt error */
+-};
+-
+ /* range param for dma_getnexttxp() and dma_txreclaim */
+ enum txd_range {
+ 	DMA_RANGE_ALL = 1,
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/main.h b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/main.h
+index 2d133264f4..9cb09c8a13 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/main.h
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/main.h
+@@ -22,6 +22,7 @@
+ #include <brcmu_utils.h>
+ #include "types.h"
+ #include "d11.h"
++#include "pub.h"
+ #include "scb.h"
+ 
+ #define	INVCHANNEL		255	/* invalid channel */
+@@ -85,16 +86,6 @@
+ #define BRCMS_IS_MIMO_PREAMBLE(_pre) (((_pre) == BRCMS_GF_PREAMBLE) || \
+ 				      ((_pre) == BRCMS_MM_PREAMBLE))
+ 
+-/* TxFrameID */
+-/* seq and frag bits: SEQNUM_SHIFT, FRAGNUM_MASK (802.11.h) */
+-/* rate epoch bits: TXFID_RATE_SHIFT, TXFID_RATE_MASK ((wlc_rate.c) */
+-#define TXFID_QUEUE_MASK	0x0007	/* Bits 0-2 */
+-#define TXFID_SEQ_MASK		0x7FE0	/* Bits 5-15 */
+-#define TXFID_SEQ_SHIFT		5	/* Number of bit shifts */
+-#define	TXFID_RATE_PROBE_MASK	0x8000	/* Bit 15 for rate probe */
+-#define TXFID_RATE_MASK		0x0018	/* Mask for bits 3 and 4 */
+-#define TXFID_RATE_SHIFT	3	/* Shift 3 bits for rate mask */
+-
+ /* promote boardrev */
+ #define BOARDREV_PROMOTABLE	0xFF	/* from */
+ #define BOARDREV_PROMOTED	1	/* to */
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_hal.h b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_hal.h
+index cab08f0669..7ffff7f519 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_hal.h
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_hal.h
+@@ -10,6 +10,7 @@
+ #ifndef _BRCM_PHY_HAL_H_
+ #define _BRCM_PHY_HAL_H_
+ 
++#include <linux/bcma/bcma.h>
+ #include <brcmu_utils.h>
+ #include <brcmu_wifi.h>
+ #include <phy_shim.h>
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/pub.h b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/pub.h
+index bfc63b2f05..c366a75710 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/pub.h
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/pub.h
+@@ -24,16 +24,6 @@
+ 
+ #define	BRCMS_NUMRATES	16	/* max # of rates in a rateset */
+ 
+-/* phy types */
+-#define	PHY_TYPE_A	0	/* Phy type A */
+-#define	PHY_TYPE_G	2	/* Phy type G */
+-#define	PHY_TYPE_N	4	/* Phy type N */
+-#define	PHY_TYPE_LP	5	/* Phy type Low Power A/B/G */
+-#define	PHY_TYPE_SSN	6	/* Phy type Single Stream N */
+-#define	PHY_TYPE_LCN	8	/* Phy type Single Stream N */
+-#define	PHY_TYPE_LCNXN	9	/* Phy type 2-stream N */
+-#define	PHY_TYPE_HT	7	/* Phy type 3-Stream N */
+-
+ /* bw */
+ #define BRCMS_10_MHZ	10	/* 10Mhz nphy channel bandwidth */
+ #define BRCMS_20_MHZ	20	/* 20Mhz nphy channel bandwidth */
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/rate.h b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/rate.h
+index 5bb88b78ed..2b10fd5427 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/rate.h
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/rate.h
+@@ -19,6 +19,7 @@
+ 
+ #include "types.h"
+ #include "d11.h"
++#include "pub.h"
+ #include "phy_hal.h"
+ 
+ extern const u8 rate_info[];
+-- 
+2.53.0
 
-Sequence1:
-1. You are setting preferred CPUs.
-2. You start the workload. Workload finishes using preferred CPUs.
-3. You set the preferred same as active.
-
-In that sequence, offlining the CPUs is going to be similar. You are managing preferred CPUs, you can as well manage
-offline CPUs. Most of the workload check the CPU state before assigning any explicit affinity or spawning threads etc.
-
-Sequence 2:
-1. workload is long running job. Lets say comprising of warmup/steady/closure phases.
-2. You only to run on specific CPUs during steady phase.
-3. You fallback to active during closure phase again.
-
-In that sequence what you said about offline breaking affinities is very much possibility. It is
-good to set preferred CPUs in this sequence.
-
-but reading maxim's description it fitted Sequence1.
