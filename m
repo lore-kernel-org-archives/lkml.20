@@ -1,65 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794449911;
-	b=Rda4ErifzOBSJBNWcjMRbvMh+V2BP6xEcxIJ+MFYYsAAVSs9/hUuk/MC+Pdl9eJsDfLr
-	 8eFoOXNA0s6nIj+PeNmhFGW2TTmpW3n3WT24c/HjQV/+i/39hGCVpT3ridvdtu4ykg4ag
-	 nOzhpDXUhaxK8WtKlc8B0h1THkOEsevgF9NUGHFC3shgkLYImPHQk3PynNxKqPlXf7vhL
-	 AHE3kUjbv0ZgzKUTOHUF9xHy/ltuxNTN7RGZ4Qod+Qm/NHMD7AuwFDd3lwxxcRN+fM3Iv
-	 YeK43oKutv0U6Vk/UCFK9UbLWncj4cBqcotFHwJt2jGZjm5Kh3YOybR54zPGVicJn7A==
+	t=1794449921;
+	b=HKrmFikkB0mrAkntDyL5tgCKhljNtg8cBgrtYyOQuTjf58wpUm46LtcJpHt8TUaoLQHb
+	 86HIIaSbQ/a6MEwOoCc6OEpBw54DKtYDDyX6wE0XTif2LxEcCSOjXoNDS6RaqZIxCPCKy
+	 3yZRNVtKjP5qxQRm24Sr00hcSe1o2F9JVuj5gofQeN55bDQoFnkUoMiVzlnxLDaGA1396
+	 XuW9aVgvqLO0sbd3YG26cEsGOBMU9gFhEMfNT9RV9iU+zgplwIogoMyHH1hvjTvONuj6i
+	 gAW64MAGO35wB1GncqkgiOFflD9lNZg6k+f8ok4taehyutaupdOAgwyJXvAZZYU6q7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794449911;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794449921;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=2EhXVjmJ93wNlqrQ6N4F3pddlf9oxCctxxqON2Q9SIA=;
-	b=isKaQwqY227fVKzfVCIVqyM1ye+Z7o+goJxdFJ11ZuR0hukqq+ugi8VT27swy9QgBQuj
-	 UIlxC7n5JoLqWzFj0WFBPph0IjCibUeo6LbiSxzL8qTghvViCL6Quw2ng0HYlqjXL+MpK
-	 12Mez6GBh3HfyGHjpXWb5nNqzN8ZvLvsgXDTn4ct66SSpCHK7Jusz75vqD///XHtgcEt7
-	 WjQPeEsb2I0ndX9kbglRyeaRKn/IlS+lrxqLlZqqAU8kqQwM8B6skrFpLNvj49PVGM6Yi
-	 RIQCXYDpCTHWrNRQ1EZZyVrmfcSsf26t8pL/Li2qZGeldx3M9DuetNaO0NDLJLAtK3A==
+	bh=CZv79iT2eXbG/Mcdgarmuyf58eRe5wSuvqyXJmkt4sQ=;
+	b=JFDwSyN+X5MhRoyfYBLh6A8Snfz0r/tPKrP7pajPTY6iggvrMok9sDSfCzXzGJdX6lnD
+	 uv837hc+BP8qobAcjo4+xiAe4Lf/NnaFg/mXdOTpNAYRXN8bn4GAeir5Wr32slmJc3oPt
+	 y/v3E36MAkDVeifxZvENL0jThhA0UUusk08OgFxe/8PMXwoo1ahMS+ezpeCP0wHxd58M+
+	 Bd3P3VIgwxcwDdygnWsz2euNy+4A5BHMFu4ZYvv7yP0fkfpPs8rZ1JNi7m7n97G29Hp+z
+	 NVY5YTK/o2CQFOuZTNafl8GkDBh5gqrpXvKcpSVlCdC5VgqVm6hFDRuGPnkjckfHbRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="GSFDs8w/";
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1ED7C606A31C;
-	Thu, 12 Nov 2026 02:18:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1ED7C606A31C
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=vjWvrism;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9639A606A31C;
+	Thu, 12 Nov 2026 02:18:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9639A606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=GSFDs8w/
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=vjWvrism
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=GSFDs8w/hYulX9Wy6qz9A45I/9MqWVtAGnZOC/5u0rxGFKt8LdFvNDuuPabELQrqZcr3/KTuqs4kk
-	 eWlzmxdq/dl3KlP+i7rqzcohI65s5c+9UORqX6bD9Q9tp2UhdM8hvtz5m5s/GsjX7SFEUnd8dXBeWc
-	 TZlmAO7JrUqOZkxw=
+	b=vjWvrism1syyVWxYROFzz3LX2P9y7jvqdC0wMJxzzLqYtJ9NmsfwSHQIXZu63iReW9dXaZ9RjgQnU
+	 c8rBqy29ZWwHQB6y9MAMPXQpxWdV8SAhvE+J/07B/mvDmFeU4d/dpBnLXCG9EZ+7vLDvGGTmQEXVnt
+	 YKbIllXgcKNHVsJM=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46af521f42a3-7c25e;
-	Thu, 12 Nov 2026 10:18:28 +0800 (CST)
-X-RM-TRANSID:2ee46af521f42a3-7c25e
+	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af521fbded-a876c;
+	Thu, 12 Nov 2026 10:18:38 +0800 (CST)
+X-RM-TRANSID:2ee36af521fbded-a876c
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
-	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46af521f3b2a-eee1b;
-	Thu, 12 Nov 2026 10:18:28 +0800 (CST)
-X-RM-TRANSID:2ee46af521f3b2a-eee1b
+	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56af521fc744-eedce;
+	Thu, 12 Nov 2026 10:18:38 +0800 (CST)
+X-RM-TRANSID:2ee56af521fc744-eedce
 From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-To: vkoul@kernel.org,
-	yung-chuan.liao@linux.intel.com
-Cc: pierre-louis.bossart@linux.dev,
-	linux-sound@vger.kernel.org,
+To: bryan.odonoghue@linaro.org
+Cc: heikki.krogerus@linux.intel.com,
+	linux-arm-msm@vger.kernel.org,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-Subject: [PATCH] soundwire: mipi_disco: Put fwnode on property array read errors
-Date: Thu, 12 Nov 2026 10:18:27 +0800
-Message-ID: <20261112021827.1835-1-laixiangwu@cmss.chinamobile.com>
+Subject: [PATCH] usb: typec: tcpm: qcom: Release connector fwnode after regulator lookup
+Date: Thu, 12 Nov 2026 10:18:36 +0800
+Message-ID: <20261112021836.1851-1-laixiangwu@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,106 +72,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sdw_master_read_prop() and sdw_slave_read_dpn() take a fwnode
-reference with device_get_named_child_node() and already release it
-on the -ENOMEM and success paths.  However, the error paths added for
-the property array reads jump straight out without dropping the
-reference, leaking it on every failed read.
+pmic_typec_port_probe() looks up the "connector" child node with
+device_get_named_child_node(), which takes a reference on the
+returned fwnode.  The node is only used for the VBUS regulator lookup
+from the connector node and the reference is never dropped, so every
+probe leaks one fwnode reference.
 
-Release the reference on those error paths as well, matching the
-existing -ENOMEM handling in the same functions.
+Release the reference right after the regulator lookup, mirroring
+the parent driver which already manages its own reference on the
+same node.
 
-Fixes: a489afc105ed ("soundwire: mipi_disco: add error handling for property array read")
+Fixes: 506927b6bf29 ("usb: typec: tcpm: qcom: prefer VBUS supply from the connector node")
 Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
 ---
- drivers/soundwire/mipi_disco.c | 28 +++++++++++++++++++++-------
- 1 file changed, 21 insertions(+), 7 deletions(-)
+ drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/soundwire/mipi_disco.c b/drivers/soundwire/mipi_disco.c
-index 259ad98b5..65f8a41e6 100644
---- a/drivers/soundwire/mipi_disco.c
-+++ b/drivers/soundwire/mipi_disco.c
-@@ -96,8 +96,10 @@ int sdw_master_read_prop(struct sdw_bus *bus)
- 		ret = fwnode_property_read_u32_array(link,
- 				"mipi-sdw-clock-frequencies-supported",
- 				prop->clk_freq, prop->num_clk_freq);
--		if (ret < 0)
-+		if (ret < 0) {
-+			fwnode_handle_put(link);
- 			return ret;
-+		}
- 	}
- 
- 	/*
-@@ -132,8 +134,10 @@ int sdw_master_read_prop(struct sdw_bus *bus)
- 					       scales_prop,
- 					       prop->clk_gears,
- 					       prop->num_clk_gears);
--		if (ret < 0)
-+		if (ret < 0) {
-+			fwnode_handle_put(link);
- 			return ret;
-+		}
- 	}
- 
- 	fwnode_property_read_u32(link, "mipi-sdw-default-frame-rate",
-@@ -262,8 +266,10 @@ static int sdw_slave_read_dpn(struct sdw_slave *slave,
- 			ret = fwnode_property_read_u32_array(node,
- 					"mipi-sdw-port-wordlength-configs",
- 					dpn[i].words, dpn[i].num_words);
--			if (ret < 0)
-+			if (ret < 0) {
-+				fwnode_handle_put(node);
- 				return ret;
-+			}
- 		}
- 
- 		fwnode_property_read_u32(node, "mipi-sdw-data-port-type",
-@@ -305,8 +311,10 @@ static int sdw_slave_read_dpn(struct sdw_slave *slave,
- 			ret = fwnode_property_read_u32_array(node,
- 					"mipi-sdw-channel-number-list",
- 					dpn[i].channels, dpn[i].num_channels);
--			if (ret < 0)
-+			if (ret < 0) {
-+				fwnode_handle_put(node);
- 				return ret;
-+			}
- 		}
- 
- 		nval = fwnode_property_count_u32(node, "mipi-sdw-channel-combination-list");
-@@ -325,8 +333,10 @@ static int sdw_slave_read_dpn(struct sdw_slave *slave,
- 					"mipi-sdw-channel-combination-list",
- 					dpn[i].ch_combinations,
- 					dpn[i].num_ch_combinations);
--			if (ret < 0)
-+			if (ret < 0) {
-+				fwnode_handle_put(node);
- 				return ret;
-+			}
- 		}
- 
- 		fwnode_property_read_u32(node,
-@@ -347,14 +357,18 @@ static int sdw_slave_read_dpn(struct sdw_slave *slave,
- 			dpn[i].lane_list = devm_kcalloc(&slave->dev,
- 							dpn[i].num_lanes, sizeof(*dpn[i].lane_list),
- 							GFP_KERNEL);
--			if (!dpn[i].lane_list)
-+			if (!dpn[i].lane_list) {
-+				fwnode_handle_put(node);
- 				return -ENOMEM;
-+			}
- 
- 			ret = fwnode_property_read_u32_array(node,
- 						       "mipi-sdw-lane-list",
- 						       dpn[i].lane_list, dpn[i].num_lanes);
--			if (ret < 0)
-+			if (ret < 0) {
-+				fwnode_handle_put(node);
- 				return ret;
-+			}
- 		}
- 
- 		fwnode_handle_put(node);
+diff --git a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
+index d3523435f..084e8e9a8 100644
+--- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
++++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
+@@ -733,6 +733,8 @@ int qcom_pmic_typec_port_probe(struct platform_device *pdev,
+ 	pmic_typec_port->vdd_vbus = devm_of_regulator_get_optional(dev,
+ 								   to_of_node(connector),
+ 								   "vbus");
++	fwnode_handle_put(connector);
++
+ 	if (pmic_typec_port->vdd_vbus == ERR_PTR(-ENODEV))
+ 		pmic_typec_port->vdd_vbus = devm_regulator_get(dev, "vdd-vbus");
+ 	if (IS_ERR(pmic_typec_port->vdd_vbus))
 -- 
 2.50.1.windows.1
 
