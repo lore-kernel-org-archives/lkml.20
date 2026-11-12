@@ -1,88 +1,154 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794469968;
-	b=kRg3oV8q8Pet6KRVRHiEDl5DZGLCDK2xzIh4IPcL+xr2roFrPqFAiwHN/kbVoE60XmLS
-	 om1SKgLb8+SV3gj8grOEI+8utyICWweEACkN/OBqbI72/OFcPuh0YMYXt2VxJS29Unw6g
-	 s7aWdjKX6u5QvUqAlquDSUrAuJPbvhoimVBEgwCcgPkA6ZCiObNV+GNhA9DIjlHnSW6W0
-	 s0ib4ZdotEXUI3nB37adDDElsx9TdghUY1s027pKnUDjo4krZ8zKFSnMZ7dFbIpWySyAe
-	 OTnMBhCs+2XCeYNSxScsjxpfjApX86/M7FPchjIjIKHtGAWbvxt+T1tm7WRqlXg1Rlw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794469968;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=g8AhcBKXX6u9q0M0CVMCOKRVoJRFPnXIpVIntJS4u+k=;
-	b=kKkcNAIUrYO17CORIouBPXWMcAL3B+H9S0sowU9iWB5XUSLCwydbgEzxa4d0eJZPsThZ
-	 EBUQb6v1sUlWdRKMUVnqaFhy3gzjwno+HiLT72qDeQVuNMX6SUG/THr6Mt/6rnSJi4P9x
-	 23/uETynBgEycZGpNSvx+TGx7jLTRo8T1hmD+Ju/aONvn/35M1cU6Ev0XJeevJFPG9ez4
-	 X2ZExkQ89aknaXutCjU/6CH9o8jAP6ZpFlAsn0ry/khRmMHu/TO2+GtBmpj86OexbpzZ2
-	 TwuHBy6YqvVdZKU3fdm1xZcKEuLVcc4TsXvasOyBC4R5QztRxeNnixTl407u0d350/Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=D2Npc0+B;
-	arc=none smtp.remote-ip=209.85.210.182
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.57
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794469958;
+	b=BAEO/WccBCE0KDMpTcdnVNHDsLmfmtNXJil+WqJmcnTuY8Z/pyL1ivOqo2DjKckT4aLk
+	 VxARXocSZooZSWw4QHEUBDQrHxgFI61si5qrc4BOsM7VPjDZVyc1x8xZjsDdHU8DpuL3h
+	 El4Kg7PVsG18oWxAEJov+b/22T4A8fgkQdwdgNS3vsX8JCY4diwg1imk03T4V2hJ9pqer
+	 uhH5Yx5UXxRveRiwvRc3kZ256i3Dh6hVrk/HoZ3eLiC8xESOnyh8VG+FGS5OJUecY5MLe
+	 /hPTM2+HZ89sEP3j1j/ODWifI+z/rGSZ+mC/5hNvwkmmZzFVxmoTOiatmgaNe9nMXOA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794469958;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 user-agent:x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:
+	 x-ms-exchange-atpmessageproperties:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=DAdoh7LSZQ3MVvnG5z0mguhiK4+VIj8eqZUgj3VlfGk=;
+	b=CVpkeIxhrxfRoRuNoH5lVI3sgHDnyqM/YwrYL8zhXOOLncpPFAbz8tsZ1zkIjLydJwGJ
+	 ShmqoKCj4whtQWCzQBwMRwILC4NYM4fwy7yTC6qt8zHpk/00sgTx61S2e33Ea7KmrCZTv
+	 vPFhgqr146tQJjoxKC5eh29Nn1hgYrE3p8/Ys/EMde96aiuGYpPNL82mHxj1sULpBYPeu
+	 yx1YXsUPqMsOlx3PctcO86w7CjAuNsUlYJqpgNXKOfAKpGD1fQpzEtfAnX6yFKcjZNoV9
+	 vY6FTpL39bqYskwsEkle+0Lez0RFl6Ux1FZp1x+hD7TexE3z60aLkP3+8+OzN1cCI7w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=siemens.com;
+	spf=pass smtp.mailfrom=siemens.com;
+	dkim=pass header.d=siemens.com header.i=@siemens.com header.a=rsa-sha256 header.s=selector2 header.b=iOEYTj1L;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.57
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013057.outbound.protection.outlook.com [52.101.83.57])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C737606A332
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:52:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C737606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 434C6606A335;
+	Thu, 12 Nov 2026 07:52:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 434C6606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=D2Npc0+B
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8b67f25e6e1so1999811b3a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:52:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794469968; x=1795074768; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g8AhcBKXX6u9q0M0CVMCOKRVoJRFPnXIpVIntJS4u+k=;
-        b=D2Npc0+BcTpjl3FZaT/WnrqMvbpKzCr+TWHSCUGIfEjM8tyMz8grdX9fqbNvQ5k+XB
-         CtylkQMkEsK+WfOWl4tgf81GEUlvMsmNo6Tbjp4nuLinH75j7LHw1JgGnx/IPZrxOaw4
-         pCV8jN+hRh+ItbUn0kvaClbPIy/5efk13Pfc/+q9vfz7Z4oLTyrBlXG6EOPLQS9qnJnD
-         gvAkB5P9qoWR79haODjpuGcKUCn63P3r6T22ToIiGRLhvbA5cWNlIckwvh9UerowRzcl
-         fchve9yOMWXtKPoypF39dgWPes2TwzoAGtHZrcjm/mCzFmud/bPjjCBCrXh2Q1ocHiUa
-         h3pQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794469968; x=1795074768;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g8AhcBKXX6u9q0M0CVMCOKRVoJRFPnXIpVIntJS4u+k=;
-        b=l9/eMG9oe+43hGWYYERMvhN4la6lmDZZC1Cer1rHUczcA7sbEmXfa/Ff605W5f7/8Y
-         o7FO7q0UKIpAixxPYaWTHhJAKsqKIr8PDHi7+g1KBgsLJaWGqGFfW7jXgRLSyUM6/Bkn
-         n9YMbtN9ikjxjbSE3TXcvYhSfMofsXjQKmJ8y9eBp62UDT2DwoMErTYJ2E/K74StvELv
-         2YnOh8gowmqhDN5k6JKMFxUUQjf4T116zSABKV7/59wC9cH/AJHXgRjKHJGtf2mB2qSM
-         mBVSLBBPk5TM+PgBSZfTo0Eib5OMvvUiMX8tQmJ9guDnnM22iYROxtlGAfLv0LtVLicY
-         iYxw==
-X-Forwarded-Encrypted: i=1; AL+hErHdk9F3zeHR24PC1rTpWMmZtqDHPWx3tvhW9TIuJJGBbqLpkfoIF0SHhvn/6eFVPiZkceuH/xewwErygwk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ZXRtyeX3oxdPPYWdcI8sCME8w1jsnY/LJbKkYEqqE2z6jGGCX
-	IMVW4JnRZGE1SBQKk3okQZBOMRIPFDSTcxnCayvq2eV6NF4Prj4kW1qfAVLWKnKWKsE=
-X-Gm-Gg: AYBFou2OSaA415cNvp/NLoW3LT0VKuYxPO6K9tTlNooXuDmaS8B5vdjgutr9wTPsjk1
-	N+SGMs41YeunDi/pJv4NlFvknT0SE9+CduBsQYULG4hmidOtYmpQVqsPd8/Cwn/12cmNtgbPaZm
-	/8fRyLMRUwZAl5tEgAn0nuGl9ocM+7sHTdqm1N+12FA7haTcjIXSll10ANim6NGq/aECM4HJF0S
-	nXMYTNMCjxkBt1lciGEQb7sPoGjKNzT58H9l0rHrXnbasYW6jTdgtjeYGhGMckTv2yZFOXxqjTa
-	N4K9Op5vxZhX7GMWrgWBLd7tUnIR65Dnbn2EY8HbtKyXW1W7GcVf7wV/L7zyDUu2p1FdUj9kZmY
-	Bjy2nf6MyAybBamwgcdMYxQrZS/JhMGfHfilyynwKjeZqes9mHK2VCKAHhZDcSjIlyeiIjlow0w
-	IiQzokO+C2C2fYwEDK7EPHBDoXIc9eOqRJZOmPPrhHWg0qtDcBI26v9kUOHCz3ms0WW9OhN+Plz
-	2oFBoHLQMKurN14WT+weoLBVwtwKX0FxFTg+4o40XyvEMpVDBlas2BZUHhVTy8BIyZZ7dcdr4jf
-	NASXi6qySrKO4Wcwivbraek9/YqYKw==
-X-Received: by 2002:a05:6a00:2290:b0:883:904e:da56 with SMTP id d2e1a72fcca58-8bc1c2a8880mr4908334b3a.36.1794469967620;
-        Wed, 11 Nov 2026 23:52:47 -0800 (PST)
-Received: from [127.0.1.1] ([116.237.168.131])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baab5f3f99sm3131256b3a.51.2026.11.11.23.52.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 23:52:47 -0800 (PST)
-From: Jun Nie <jun.nie@linaro.org>
-Date: Thu, 12 Nov 2026 15:52:07 +0800
-Subject: [PATCH 6/8] drm/msm/dpu: Make writeback interface reallocatable
+	dkim=pass (2048-bit key, unprotected) header.d=siemens.com header.i=@siemens.com header.a=rsa-sha256 header.s=selector2 header.b=iOEYTj1L
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=knqMEpRsXjaf+33Hh+jEdhvgxr3jiAxhxKRFnECPa9WymRCEQK8WFup7zh7vkRv6aP3z/bwqLefIJKF/eP6UxmSwf9L0LkJReFo9VOKgfSjzFB/+fhFCIyrctyF+XiPA1vtdsSe0xLpPYYCIkh1xJQYg+sdCU/3u6wPKTGOFBjIlcgM0YXAqKWIE0unTZCQRZeX9DkotoobWJf2U4vwxxMiPSbYY5Pn//4OALM4HGMMVEvblWuHaieLw1tzBI8koECOz72XjyNgXRnpYLD4LhkjEPPH5ikdHhpRnhX/nZjbeFAasLcwZzSQgDwXxxBGIYt3762BPnjYlGfpEU3O06g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DAdoh7LSZQ3MVvnG5z0mguhiK4+VIj8eqZUgj3VlfGk=;
+ b=rmFpKqNVLc6Zw8dA5Yfllg8KTWJd+qYk5vJTekLaGxyszcGjIupjVb8RvTcfaolrFycFYIh7hwi4/5PJnJPW5yXy4Mwpxxg+RLy3ZhjZfJvo+ahQdMFQqJgURefKCzGMoSCNF/DCYwadUNzSpOMgt9isPYk16cWEPp4j7XqBu/O/CnZpzHHZmTrN1KtrNTEpX4m6gOtg7hc9wXQCL/Fi1oNnoDG1XTDP56V7/Ahye54mwpECBamYF9xXQEFZkRNZAggwEQ+B8i3ZOtAkVIjrma4DkB6zsBP47CT5c0ENW4GezBB6N2eL3Ai0A2JQr650AvIpgbYOP7IKiKwIk81NDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siemens.com; dmarc=pass action=none header.from=siemens.com;
+ dkim=pass header.d=siemens.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siemens.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DAdoh7LSZQ3MVvnG5z0mguhiK4+VIj8eqZUgj3VlfGk=;
+ b=iOEYTj1LSZOPtqaCElWJ3KICVqyxjGcXMOOIxAECAe0BmBQ3y93hIs+kvCUJeXBMMqJ2UyNbknf4AOR+hm57V1800fsW2+aMVPCgN1mH2q9ECVPoT2JT1sOHqlFJL2mCe2DnFe9jm9IPYXercP+JPCBUXOiyHwbU0br0ybBsFfpG2f+ODiLZOl3mMnAPqMPII9zYZquzbtyKk7yITt352d/aoUOx2GPEcBzO+TnipzngjPGZHRZpmja+pMfsbwMt6lRMqxeMwO5WdmB2sbXV5Uwh03IrMuJ6emI8TxpCNIqb1Swqbts/AYY023rl0fbzEHNm0/YMZqVGwMcInzMqcQ==
+Received: from AM7PR10MB3956.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:17e::10)
+ by GVSPR10MB901912.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:718::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.0; Thu, 12 Nov
+ 2026 07:52:33 +0000
+Received: from AM7PR10MB3956.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::c54c:ccd8:ebbf:477c]) by AM7PR10MB3956.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::c54c:ccd8:ebbf:477c%3]) with mapi id 15.21.0639.000; Thu, 12 Nov 2026
+ 07:52:33 +0000
+From: "Moessbauer, Felix" <felix.moessbauer@siemens.com>
+To: Mikhail Malyshev <mike.malyshev@gmail.com>, Jens Axboe <axboe@kernel.dk>,
+	"io-uring@vger.kernel.org" <io-uring@vger.kernel.org>
+CC: Pavel Begunkov <asml.silence@gmail.com>, Josef Bacik
+	<josef@toxicpanda.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: Re: [PATCH] io_uring/io-wq: apply the current cpuset to new workers
+Thread-Topic: [PATCH] io_uring/io-wq: apply the current cpuset to new workers
+Thread-Index: AQHdcfmANWPqBFpjNkqX9tZrkILVRrcqEZmA
+Date: Thu, 12 Nov 2026 07:52:33 +0000
+Message-ID: <b95051ac2caf63d3266bd02b326d0e0166a138b6.camel@siemens.com>
+References: <20261111162705.1150983-1-mike.malyshev@gmail.com>
+In-Reply-To: <20261111162705.1150983-1-mike.malyshev@gmail.com>
+Accept-Language: de-DE, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.56.2-10+b1 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siemens.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AM7PR10MB3956:EE_|GVSPR10MB901912:EE_
+x-ms-office365-filtering-correlation-id: c5ba1fa2-7c96-49ae-8849-08df4091e931
+x-ms-exchange-atpmessageproperties: SA
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|22082099003|18002099003|261009223027099003|55112099003|11063799006|56012099006|10067099003|261102123227099003|261022105027099003|261022075727099003|261028144727099003|261021135927099003|261026140227099003|261026121527099003|261021121427099003|261021123027099003|38070700021;
+x-microsoft-antispam-message-info:
+ Qyqj7SGTPAawE0iCF2QTjf6Tw8t20+09SEAN2aDwuO0IqEQsW0qOEiqkd8bYk9IfQ3FK57VzLrhpBiaCxXEDZXNorBOyWHEDuG6lNjDG+iifdygo3m//BrRTshhjQIlIhvw7QfXrFsFjmwBCTCqufI1fYZlxatWSat3ZosaRQRM2oo9+3RONAjbQeqG1KXvmLrnNQDTR3OoyY7gayccZqFuXRVSTzKP/QHQccunA7FcL6XykbmfZJHE9Y91i3hezdxKWZR+QNDDCKX0h9r123etiqkX7vISEEH1LzEM4BdWUbutA2VJ+1DzeeAOoSnbWWmHWW0MWz0OQpmKmh16Ccz2hscPgh12qsT8mJoAdunqmG9MGKjq5FmJozwhS8Wj3TPOJCzoRZpr9A05JNL5ZGOVXdxI8WYNoL6el4Q93Xf6oLOO+v5txOMlkgFMsgUomvVGHp6VkQckQJVDOflZi59nmeptwXKp/Tbq1uFp4OS6DtfyswyrLSntevmqGPbg7LJfh5lODh2/jpB129pOxRNGiqKpJ2HVhVRiC6ESH9k3+hUjuEgkWIVuDfYlmXFk4J+bobWk1gFTnKDYOmWeF9YqspBDhS7W5h/9S6MzOw1z9Zia8NjRtGlCPP00ibM8EYpV8kW4CG96jlQA6B0uY6bzpamIDtGH5ewpMiWBVXy22rQvHvmUuZoSlO8rXVM6k6BfdO1t8af/pp2KJXDpM7g==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM7PR10MB3956.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(22082099003)(18002099003)(261009223027099003)(55112099003)(11063799006)(56012099006)(10067099003)(261102123227099003)(261022105027099003)(261022075727099003)(261028144727099003)(261021135927099003)(261026140227099003)(261026121527099003)(261021121427099003)(261021123027099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?UHI5ckJBZHBZMWF5eDllei9PUElScEtZY0p2YTRZZnArWU9iL01wYW15QjF0?=
+ =?utf-8?B?UGh1MlRHZlVxUG15MDJhMzZIeTZOLzdpVXFnSU5RMTd6Um4wdVZZSjZjV1Y1?=
+ =?utf-8?B?Tkh4SE4wVFdPdFVNc1l3MzdPNHg3eFNYMExtcHNDdEpTeUJqVmhscy9GNk4v?=
+ =?utf-8?B?b3B1bWJCbVFKdWhCQ0hnN1FZaGRiRGFSMkdJUjc3QXd4aHkycGZoT2hpamZu?=
+ =?utf-8?B?cit2WEFoam1HU3lXeGZRRWMyQkpoNVdieTNEMlBiN0pBcFZiZ2FpSkIyVUJW?=
+ =?utf-8?B?akU2NEMzaTFhWmZxSlAwZ2dsZ1F5NlB6ZXE1Qld4ZjhzL2kzazFVRW5TWEcy?=
+ =?utf-8?B?VU92dGhEbUY5Si85UkhyVGkzaHAzclhmNGZDcC93TjlBbkZUTmdwRy9XRnZQ?=
+ =?utf-8?B?ZnI4a05xRUtEL2NDOXVNaHl1N0VEb2JzNkNndWxUdTkrNVJYSjJLQ2Mrb1kx?=
+ =?utf-8?B?eVUxcmxRdkZNaGhUcUQxUk5mZTBjdHh2VURTOUhvMWxXdmhjckFYZjhSc2tG?=
+ =?utf-8?B?MzlRU2l1NndKLy95RmoxVU95L1BFWDI1RnlQRUtKeU45a1lHbVZRSXp4a0VW?=
+ =?utf-8?B?Mm9pVjRKbUVVM3p1Q0NPS0pGLytSeUw3ZFFZSjZkWS92TFpqbGNVZk1yZExB?=
+ =?utf-8?B?ajlRbzlSbnR1TnNDVThNbitXWjJrMkp6bDVCNjB3blhndmN2VHJmc1VDM1Js?=
+ =?utf-8?B?eEVUQzZMQnJhVVYwUE94cWV1RnlxanJuUGlTYmNzemdjWFNTd3lESlB4eUg0?=
+ =?utf-8?B?U2Y1SXlZTFJUUnllS0JTVk54OC9rZjJyaGd5aWM5ZHBER3hsYUZXU3BqaDho?=
+ =?utf-8?B?WlIyZWYzVnVNR1JDcGRJNzhvL2svNFE2Y3ZsOXRsYjZJV0xVK0dMa0dEMlZ6?=
+ =?utf-8?B?OFJNRlN5cE85dlRsajJHYlBmdjB2cEdzVjJMQ3FaOVhrUG1FTXJ5WldnOGgz?=
+ =?utf-8?B?Y2JyeTJXQzJnK2tWNktnZDJtQ1N4ZGV2M3dEVTVhQWI4N2orM1VKUGhOSjlD?=
+ =?utf-8?B?THBwclkzYURpSTVvYWVBYlFueFoxcHFTU0VXSkZxaG1vRWlBd28yWFQ5eU90?=
+ =?utf-8?B?dVp4WklYbmYxUFdBUkFTdUdWU05BYy9kWkJLbWlLL01ZUG41Umh5L2NIVnJt?=
+ =?utf-8?B?a3pVeWNNUmYxVEFyb254SE4zUElwWUZIK1p6TWdvSm56QjJabkZlTGcxaU15?=
+ =?utf-8?B?QkYxUnZBRE5GTXF2b0RHNGpXNnlMdzU0TG9YdGNpNGNjeUFmcWpFdHRKVW55?=
+ =?utf-8?B?cjJ1SjRab21VVE5yRHQ1ckh1WGJqN0Zwa01OWWM5dE02OGJudXRrNmE3cTlJ?=
+ =?utf-8?B?Slk0ZHFVUklzNThSanEva25DT3JhRjJSQnNnOHNVYk0vcGlZMHdKcStKS0Ez?=
+ =?utf-8?B?V3JrMW1pWjEvUGxBQWtRYjhJb2VxUVJXYUdMeXlneWdWR3luSkdnaFBtaEo0?=
+ =?utf-8?B?Yk5PeXNzMVZGM01HekY2cEhadW04MzJFOXRONlJ1NkttNzZXTlRWQ2dlbU1r?=
+ =?utf-8?B?VStwdU94THVRc3dOWHFIM3N3ckkrRTI5MUM5S0syTHp0eUVMeVVsY0ZFN0Ru?=
+ =?utf-8?B?TlcwTzNtMkR6UFJSVzdwTXdtMXRSc3d5NC9WdG5CTjRDU3dwR3JoQUlrOU5J?=
+ =?utf-8?B?WEFHRXpsRFFXZUlnVm5YaEFaVThoZS9ZQ3ptdlRQU0JPMHM4SXFXNVRCOWhK?=
+ =?utf-8?B?UmZJOVYvRU5zY05lNyswN2pWM25TNUsvekRNMkhuWG4yUVkyTS9CZjdxTHJU?=
+ =?utf-8?B?TVNkelZqaWtQYloyUlMrMVBXUW54RkNLbjR4SGltTCtrbDlPa2tsOG1Lb1lR?=
+ =?utf-8?B?a1orQkEvQnpHMTVydWtZU0l5R3liM2F5dHYzZXl1UGN0dmp1KzRJYldtek0w?=
+ =?utf-8?B?M3BpdUcrZng4QndmOUR3UUQ4aFhGSU84RW1SUGdneTFtTUtrSlhNNWcrU2xW?=
+ =?utf-8?B?dkRHUDljZDBEZS93UWlGSFJDTHc2VkFraEwyTlJpMU1YZG85K1VtbURvUVNp?=
+ =?utf-8?B?SmFLTE1hSnZKM3NPQVJJS1FNcW4xZWdOc0JkUllWZjVNaWpJMDdhZzdTL1or?=
+ =?utf-8?B?MElUcVF2Wnl1elpXNG9DbENXRUY4UUZqM1IyM2V3VDN1ZlpUaCtoMTBnMTlG?=
+ =?utf-8?B?MGJYVkF5bGUvSEZMQUl3eU1hOWhobE1WOUh1b0JEZXg0Z1N1TThSczdZWjRk?=
+ =?utf-8?B?RG9BTUlrczVNaWE4WC9uZDNpRVdLQ1BKTzFaM1JCMi8wRlo3NVE5ZDJsR2xC?=
+ =?utf-8?B?b2RIaytPOGdudGRaZnFLMDUxSnVlK3ZQd2JsUHBsS29saHEvQ2VDSVl4NDFk?=
+ =?utf-8?B?dTlzZFNDQTNkakxJcVluSk9QWktMdWR6TFBGbTF3V3VleXllYlczUT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <4B3E5B215BD84E418CE10580EE1E0F09@EURPRD10.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,546 +158,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-cwb-upstream-v1-6-a6a88d928aa4@linaro.org>
-References: <20261112-cwb-upstream-v1-0-a6a88d928aa4@linaro.org>
-In-Reply-To: <20261112-cwb-upstream-v1-0-a6a88d928aa4@linaro.org>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jun Nie <jun.nie@linaro.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794469928; l=17305;
- i=jun.nie@linaro.org; h=from:subject:message-id;
- bh=QHlsqEMhbMBWURU/fzCVHZeCr5Dgp9EmOzVDPiskrNQ=;
- b=StpQcMojVCJ6GTRj8sfRFRk1zF4Z1KIv71uskOqOSrwnmiqlgVnqj5wYbyAvrOSOpFRxXOq6R
- nCtaWR4hqB/BPEddFifRL3hdO3SThPlMoziNOmaCV5QMsuUc7E4QB7X
-X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
- pk=O9aRQ3+xXWihQiRRgStCET+eFXx1EZs43Fh0Xh+8Bu4=
+X-OriginatorOrg: siemens.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM7PR10MB3956.EURPRD10.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5ba1fa2-7c96-49ae-8849-08df4091e931
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Nov 2026 07:52:33.6277
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: xn9Z2xi53uyr3UX89cj6VyUL00RabYYZLQJ6o57E+HkJhBkIh2YMybwHMSBtqC43fjpzKLDBrDwEYY+6vWXqjNSiWiUO1y2Yiq1FHlVKdPU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVSPR10MB901912
 
-Currently, only a single writeback interface is supported even when
-the hardware provides two. A single writeback interface has limited
-bandwidth and only supports up to two mixers.
-
-Make the writeback interface reallocatable so that two writeback
-interfaces can be attached to a single CRTC pipeline. This enables
-quad-pipe use cases and provides higher writeback bandwidth.
-
-Signed-off-by: Jun Nie <jun.nie@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 145 +++++++++++++++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |   2 +
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    |   8 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h          |  11 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  45 +++----
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h            |   1 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             |  64 +++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h             |  24 ++++
- 9 files changed, 274 insertions(+), 27 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 11eae4b19684..2f19ecfb6020 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -57,6 +57,7 @@
- 
- #define MAX_CHANNELS_PER_ENC 4
- #define MAX_CWB_PER_ENC MAX_CHANNELS_PER_ENC
-+#define MAX_WB_PER_ENC 2
- 
- #define IDLE_SHORT_TIMEOUT	1
- 
-@@ -141,6 +142,7 @@ enum dpu_enc_rc_states {
-  * @hw_dsc:		Handle to the DSC blocks used for the display.
-  * @dsc_mask:		Bitmask of used DSC blocks.
-  * @cwb_mask:		Bitmask of used CWB muxes
-+ * @wb_mask:		Bitmask of used WB muxes
-  * @intfs_swapped:	Whether or not the phys_enc interfaces have been swapped
-  *			for partial update right-only cases, such as pingpong
-  *			split where virtual pingpong does not generate IRQs
-@@ -184,10 +186,12 @@ struct dpu_encoder_virt {
- 	struct dpu_encoder_phys *cur_slave;
- 	struct dpu_hw_pingpong *hw_pp[MAX_CHANNELS_PER_ENC];
- 	struct dpu_hw_cwb *hw_cwb[MAX_CWB_PER_ENC];
-+	struct dpu_hw_wb *hw_wb[MAX_WB_PER_ENC];
- 	struct dpu_hw_dsc *hw_dsc[MAX_CHANNELS_PER_ENC];
- 
- 	unsigned int dsc_mask;
- 	unsigned int cwb_mask;
-+	unsigned int wb_mask;
- 
- 	bool intfs_swapped;
- 
-@@ -1128,6 +1132,143 @@ void dpu_encoder_cleanup_wb_job(struct drm_encoder *drm_enc,
- 	}
- }
- 
-+static void dpu_encoder_update_wb_info(int num_wb,
-+				       struct dpu_encoder_virt *dpu_enc,
-+				       struct msm_display_info *info)
-+{
-+	info->intf_type = INTF_WB;
-+	info->is_cmd_mode = false;
-+	info->h_tile_instance[info->num_of_h_tiles++] = dpu_enc->hw_wb[0]->idx;
-+	if (num_wb == 2) {
-+		info->h_tile_instance[info->num_of_h_tiles++] =
-+			dpu_enc->hw_wb[1]->idx;
-+		info->num_of_h_tiles = 2;
-+	} else {
-+		info->num_of_h_tiles = 1;
-+	}
-+}
-+
-+static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
-+				 struct dpu_kms *dpu_kms,
-+				 struct msm_display_info *disp_info);
-+
-+static int dpu_encoder_reinit(struct dpu_encoder_virt *dpu_enc,
-+		struct dpu_kms *dpu_kms,
-+		struct msm_display_info *disp_info)
-+{
-+	int ret;
-+
-+	ret = dpu_encoder_setup_display(dpu_enc, dpu_kms, disp_info);
-+	if (ret) {
-+		DPU_ERROR("failed to setup encoder\n");
-+		return ret;
-+	}
-+
-+	memcpy(&dpu_enc->disp_info, disp_info, sizeof(*disp_info));
-+
-+	DPU_DEBUG_ENC(dpu_enc, "re-inited\n");
-+
-+	return ret;
-+}
-+
-+static int dpu_encoder_reinit_writeback(struct dpu_kms *dpu_kms,
-+				    struct dpu_encoder_virt *dpu_enc,
-+				    struct dpu_global_state *global_state,
-+				    struct drm_crtc_state *crtc_state,
-+				    int num_wb)
-+{
-+	struct msm_display_info info;
-+	int i, rc = 0;
-+
-+	dpu_enc->wb_mask = 0;
-+	for (i = 0; i < MAX_WB_PER_ENC; i++)
-+		dpu_enc->hw_wb[i] = NULL;
-+
-+	memset(&info, 0, sizeof(info));
-+	dpu_rm_release_all_wb(global_state, crtc_state->crtc);
-+	for (i = 0; i < num_wb; i++) {
-+		dpu_enc->hw_wb[i] = dpu_rm_reserve_wb(&dpu_kms->rm, global_state,
-+						      crtc_state->crtc->base.id);
-+		if (!dpu_enc->hw_wb[i]) {
-+			DPU_ERROR("Failed to get the %s writeback controller\n",
-+				  i ? "2nd" : "1st");
-+			return -EBUSY;
-+		}
-+		dpu_enc->wb_mask |= BIT(dpu_enc->hw_wb[i]->idx - WB_0);
-+	}
-+
-+	dpu_encoder_update_wb_info(num_wb, dpu_enc, &info);
-+	rc = dpu_encoder_reinit(dpu_enc, dpu_kms, &info);
-+	if (rc) {
-+		DPU_ERROR("Re-init encoder failed for writeback\n");
-+		return rc;
-+	}
-+
-+	return rc;
-+}
-+
-+static void dpu_encoder_virt_remove_phys_encs(
-+		struct drm_device *dev,
-+		struct dpu_encoder_virt *dpu_enc,
-+		struct dpu_encoder_phys *phy)
-+{
-+	DPU_DEBUG_ENC(dpu_enc, "num_phys_encs %d\n", dpu_enc->num_phys_encs);
-+
-+	if (dpu_enc->disp_info.intf_type == INTF_WB) {
-+		dpu_encoder_phys_wb_deinit(dev, phy);
-+
-+		dpu_enc->phys_encs[dpu_enc->num_phys_encs - 1] = NULL;
-+		--dpu_enc->num_phys_encs;
-+	}
-+}
-+
-+static int dpu_encoder_release_wb_phys(struct dpu_encoder_virt *dpu_enc, struct dpu_kms *dpu_kms)
-+{
-+	if (dpu_enc->num_phys_encs == 2)
-+		dpu_encoder_virt_remove_phys_encs(dpu_kms->dev,
-+			dpu_enc, dpu_enc->cur_slave);
-+
-+	if (dpu_enc->num_phys_encs)
-+		dpu_encoder_virt_remove_phys_encs(dpu_kms->dev,
-+			dpu_enc, dpu_enc->cur_master);
-+
-+	dpu_enc->num_phys_encs = 0;
-+	dpu_enc->cur_slave = NULL;
-+	dpu_enc->cur_master = NULL;
-+
-+	return 0;
-+}
-+
-+static int dpu_encoder_virt_atomic_check(struct drm_encoder *encoder,
-+			    struct drm_crtc_state *crtc_state,
-+			    struct drm_connector_state *conn_state)
-+{
-+	struct msm_drm_private *priv;
-+	struct dpu_kms *dpu_kms;
-+	struct dpu_encoder_virt *dpu_enc;
-+	struct dpu_global_state *global_state = dpu_kms_get_global_state(crtc_state->state);
-+	int num_lm = dpu_crtc_get_num_lm(crtc_state);
-+	bool clone_mode = drm_crtc_in_clone_mode(crtc_state);
-+	int num_wb = max(1, num_lm / 2);
-+	int ret = 0;
-+
-+
-+	dpu_enc = to_dpu_encoder_virt(encoder);
-+	priv = encoder->dev->dev_private;
-+	dpu_kms = to_dpu_kms(priv->kms);
-+	global_state = dpu_kms_get_global_state(crtc_state->state);
-+
-+	if (clone_mode && encoder->encoder_type == DRM_MODE_ENCODER_VIRTUAL) {
-+		if (num_wb == dpu_enc->num_phys_encs)
-+			return 0;
-+		dpu_encoder_release_wb_phys(dpu_enc, dpu_kms);
-+		ret = dpu_encoder_reinit_writeback(dpu_kms, dpu_enc, global_state,
-+						   crtc_state, num_wb);
-+	}
-+
-+	return ret;
-+}
-+
- static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
- 					     struct drm_crtc_state *crtc_state,
- 					     struct drm_connector_state *conn_state)
-@@ -2680,6 +2821,9 @@ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
- 			DPU_ERROR_ENC(dpu_enc, "failed to add phys encs\n");
- 			break;
- 		}
-+
-+		DPU_DEBUG_ENC(dpu_enc, "%s add %d phyenc\n", dpu_enc->base.name,
-+			      dpu_enc->num_phys_encs);
- 	}
- 
- 	mutex_unlock(&dpu_enc->enc_lock);
-@@ -2720,6 +2864,7 @@ static void dpu_encoder_frame_done_timeout(struct timer_list *t)
- 
- static const struct drm_encoder_helper_funcs dpu_encoder_helper_funcs = {
- 	.atomic_mode_set = dpu_encoder_virt_atomic_mode_set,
-+	.atomic_check = dpu_encoder_virt_atomic_check,
- 	.atomic_disable = dpu_encoder_virt_atomic_disable,
- 	.atomic_enable = dpu_encoder_virt_atomic_enable,
- };
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-index 0bfbce317575..b8c8222a03b2 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-@@ -352,4 +352,6 @@ void dpu_encoder_frame_done_callback(
- void dpu_encoder_phys_init(struct dpu_encoder_phys *phys,
- 			   struct dpu_enc_phys_init_params *p);
- 
-+void dpu_encoder_phys_wb_deinit(struct drm_device *dev,
-+				struct dpu_encoder_phys *phys_enc);
- #endif /* __dpu_encoder_phys_H__ */
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-index 7d3528907670..6f40a420f30b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-@@ -711,3 +711,11 @@ struct dpu_encoder_phys *dpu_encoder_phys_wb_init(struct drm_device *dev,
- 
- 	return phys_enc;
- }
-+
-+void dpu_encoder_phys_wb_deinit(struct drm_device *dev,
-+				struct dpu_encoder_phys *phys_enc)
-+{
-+	struct dpu_encoder_phys_wb *wb_enc = to_dpu_encoder_phys_wb(phys_enc);
-+
-+	drmm_kfree(dev, wb_enc);
-+}
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index ba1554095a33..16544ca69a2c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -25,6 +25,7 @@
- #define DPU_MAX_IMG_HEIGHT 0x3fff
- 
- #define CRTC_QUAD_MIXERS	4
-+#define CRTC_DUAL_WB		2
- 
- #define MAX_XIN_COUNT 16
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h
-index cfdbb5bb2a0f..8149bad5963b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h
-@@ -65,6 +65,7 @@ struct dpu_hw_wb_ops {
-  * @ops: function pointers
-  */
- struct dpu_hw_wb {
-+	struct dpu_hw_blk base;
- 	struct dpu_hw_blk_reg_map hw;
- 
- 	/* wb path */
-@@ -75,6 +76,16 @@ struct dpu_hw_wb {
- 	struct dpu_hw_wb_ops ops;
- };
- 
-+/**
-+ * dpu_hw_wb - convert base object dpu_hw_base to container
-+ * @hw: Pointer to base hardware block
-+ * return: Pointer to hardware block container
-+ */
-+static inline struct dpu_hw_wb *to_dpu_hw_wb(struct dpu_hw_blk *hw)
-+{
-+	return container_of(hw, struct dpu_hw_wb, base);
-+}
-+
- struct dpu_hw_wb *dpu_hw_wb_init(struct drm_device *dev,
- 				 const struct dpu_wb_cfg *cfg,
- 				 void __iomem *addr,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index da3556eb6ecc..135626c88691 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -715,37 +715,39 @@ static int _dpu_kms_initialize_hdmi(struct drm_device *dev,
- }
- 
- static int _dpu_kms_initialize_writeback(struct drm_device *dev,
--		struct msm_drm_private *priv, struct dpu_kms *dpu_kms,
--		const u32 *wb_formats, int n_formats)
-+		struct msm_drm_private *priv, struct dpu_kms *dpu_kms)
- {
- 	struct drm_encoder *encoder = NULL;
- 	struct msm_display_info info;
--	const enum dpu_wb wb_idx = WB_2;
-+	const u32 *wb_formats;
-+	int n_formats;
-+	int max_wb = min(2, dpu_kms->catalog->wb_count);
-+	int rc = 0;
- 	u32 maxlinewidth;
--	int rc;
- 
- 	memset(&info, 0, sizeof(info));
--
--	info.num_of_h_tiles = 1;
--	/* use only WB idx 2 instance for DPU */
--	info.h_tile_instance[0] = wb_idx;
- 	info.intf_type = INTF_WB;
-+	info.num_of_h_tiles = 1;
-+	info.h_tile_instance[0] = dpu_kms->catalog->wb[0].id;
-+	info.is_cmd_mode = false;
- 
- 	maxlinewidth = dpu_rm_get_wb(&dpu_kms->rm, info.h_tile_instance[0])->caps->maxlinewidth;
-+	maxlinewidth *= max_wb;
- 
- 	encoder = dpu_encoder_init(dev, DRM_MODE_ENCODER_VIRTUAL, &info);
- 	if (IS_ERR(encoder)) {
--		DPU_ERROR("encoder init failed for dsi display\n");
-+		DPU_ERROR("encoder init failed for writeback\n");
- 		return PTR_ERR(encoder);
- 	}
- 
-+	wb_formats = dpu_kms->catalog->wb[0].format_list;
-+	n_formats = dpu_kms->catalog->wb[0].num_formats;
-+
- 	rc = dpu_writeback_init(dev, encoder, wb_formats, n_formats, maxlinewidth);
--	if (rc) {
-+	if (rc)
- 		DPU_ERROR("dpu_writeback_init, rc = %d\n", rc);
--		return rc;
--	}
- 
--	return 0;
-+	return rc;
- }
- 
- /**
-@@ -781,20 +783,9 @@ static int _dpu_kms_setup_displays(struct drm_device *dev,
- 		return rc;
- 	}
- 
--	/* Since WB isn't a driver check the catalog before initializing */
--	if (dpu_kms->catalog->wb_count) {
--		for (i = 0; i < dpu_kms->catalog->wb_count; i++) {
--			if (dpu_kms->catalog->wb[i].id == WB_2) {
--				rc = _dpu_kms_initialize_writeback(dev, priv, dpu_kms,
--						dpu_kms->catalog->wb[i].format_list,
--						dpu_kms->catalog->wb[i].num_formats);
--				if (rc) {
--					DPU_ERROR("initialize_WB failed, rc = %d\n", rc);
--					return rc;
--				}
--			}
--		}
--	}
-+	rc = _dpu_kms_initialize_writeback(dev, priv, dpu_kms);
-+	if (rc)
-+		DPU_ERROR("initialize_WB failed, rc = %d\n", rc);
- 
- 	return rc;
- }
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-index e39831a397b1..cb5edeae8e56 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-@@ -133,6 +133,7 @@ struct dpu_global_state {
- 
- 	uint32_t sspp_to_crtc_id[SSPP_MAX - SSPP_NONE];
- 	uint32_t cwb_to_crtc_id[CWB_MAX - CWB_0];
-+	uint32_t wb_to_crtc_id[WB_MAX - WB_0];
- };
- 
- struct dpu_global_state
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-index 9519cc59e9f3..7d0d3d497c22 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-@@ -755,6 +755,8 @@ void dpu_rm_release(struct dpu_global_state *global_state,
- 	_dpu_rm_clear_mapping(&global_state->cdm_to_crtc_id, 1, crtc_id);
- 	_dpu_rm_clear_mapping(global_state->cwb_to_crtc_id,
- 			ARRAY_SIZE(global_state->cwb_to_crtc_id), crtc_id);
-+	_dpu_rm_clear_mapping(global_state->wb_to_crtc_id,
-+			ARRAY_SIZE(global_state->wb_to_crtc_id), crtc_id);
- }
- 
- /**
-@@ -878,6 +880,34 @@ void dpu_rm_release_all_sspp(struct dpu_global_state *global_state,
- 		ARRAY_SIZE(global_state->sspp_to_crtc_id), crtc_id);
- }
- 
-+void dpu_rm_release_all_wb(struct dpu_global_state *global_state,
-+			   struct drm_crtc *crtc)
-+{
-+	uint32_t crtc_id = crtc->base.id;
-+
-+	_dpu_rm_clear_mapping(global_state->wb_to_crtc_id,
-+		ARRAY_SIZE(global_state->wb_to_crtc_id), crtc_id);
-+}
-+
-+struct dpu_hw_wb *dpu_rm_reserve_wb(struct dpu_rm *rm,
-+				    struct dpu_global_state *global_state,
-+				    uint32_t crtc_id)
-+{
-+	int wb_idx;
-+
-+	for (wb_idx = 0; wb_idx < ARRAY_SIZE(rm->hw_wb); wb_idx++) {
-+		if (!rm->hw_wb[wb_idx])
-+			continue;
-+
-+		if (global_state->wb_to_crtc_id[wb_idx])
-+			continue;
-+
-+		global_state->wb_to_crtc_id[wb_idx] = crtc_id;
-+		return rm->hw_wb[wb_idx];
-+	}
-+	return NULL;
-+}
-+
- static char *dpu_hw_blk_type_name[] = {
- 	[DPU_HW_BLK_TOP] = "TOP",
- 	[DPU_HW_BLK_SSPP] = "SSPP",
-@@ -989,6 +1019,40 @@ int dpu_rm_get_assigned_resources(struct dpu_rm *rm,
- 	return num_blks;
- }
- 
-+int dpu_rm_get_assigned_wb(struct dpu_rm *rm,
-+	struct dpu_global_state *global_state, struct drm_crtc *crtc,
-+	struct dpu_hw_wb **blks, int blks_size)
-+{
-+	uint32_t crtc_id = crtc->base.id;
-+	struct dpu_hw_wb **hw_blks;
-+	uint32_t *hw_to_crtc_id;
-+	int i, num_blks, max_blks;
-+
-+	hw_blks = rm->hw_wb;
-+	hw_to_crtc_id = global_state->wb_to_crtc_id;
-+	max_blks = ARRAY_SIZE(rm->hw_wb);
-+
-+	num_blks = 0;
-+	for (i = 0; i < max_blks; i++) {
-+		if (hw_to_crtc_id[i] != crtc_id)
-+			continue;
-+
-+		if (num_blks == blks_size) {
-+			DPU_ERROR("More than %d WB assigned to crtc %d\n",
-+				  blks_size, crtc_id);
-+			break;
-+		}
-+		if (!hw_blks[i]) {
-+			DPU_ERROR("WB unavailable to assign to crtc %d\n",
-+				  crtc_id);
-+			break;
-+		}
-+		blks[num_blks++] = hw_blks[i];
-+	}
-+
-+	return num_blks;
-+}
-+
- static void dpu_rm_print_state_helper(struct drm_printer *p,
- 					    struct dpu_hw_blk *blk,
- 					    uint32_t mapping)
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-index 9b2ea51608de..2723f78dc175 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-@@ -93,6 +93,13 @@ int dpu_rm_get_assigned_resources(struct dpu_rm *rm,
- 	struct dpu_global_state *global_state, struct drm_crtc *crtc,
- 	enum dpu_hw_blk_type type, struct dpu_hw_blk **blks, int blks_size);
- 
-+/**
-+ * Get WB hw resources of the given type that are assigned to this crtc.
-+ */
-+int dpu_rm_get_assigned_wb(struct dpu_rm *rm,
-+	struct dpu_global_state *global_state, struct drm_crtc *crtc,
-+	struct dpu_hw_wb **blks, int blks_size);
-+
- void dpu_rm_print_state(struct drm_printer *p,
- 			const struct dpu_global_state *global_state);
- 
-@@ -106,6 +113,15 @@ static inline struct dpu_hw_intf *dpu_rm_get_intf(struct dpu_rm *rm, enum dpu_in
- 	return rm->hw_intf[intf_idx - INTF_0];
- }
- 
-+/**
-+ * dpu_rm_release_all_wb - Given the CRTC, release all WB
-+ *	blocks previously reserved for that use case.
-+ * @rm: DPU Resource Manager handle
-+ * @crtc: DRM CRTC handle
-+ */
-+void dpu_rm_release_all_wb(struct dpu_global_state *global_state,
-+			     struct drm_crtc *crtc);
-+
- /**
-  * dpu_rm_get_wb - Return a struct dpu_hw_wb instance given it's index.
-  * @rm: DPU Resource Manager handle
-@@ -116,6 +132,14 @@ static inline struct dpu_hw_wb *dpu_rm_get_wb(struct dpu_rm *rm, enum dpu_wb wb_
- 	return rm->hw_wb[wb_idx - WB_0];
- }
- 
-+/**
-+ * dpu_rm_reserve_wb - Reserve the WB for the provided CRTC
-+ * @dpu_kms: dpu_kms handle
-+ */
-+struct dpu_hw_wb *dpu_rm_reserve_wb(struct dpu_rm *rm,
-+				    struct dpu_global_state *global_state,
-+				    uint32_t crtc_id);
-+
- /**
-  * dpu_rm_get_sspp - Return a struct dpu_hw_sspp instance given it's index.
-  * @rm: DPU Resource Manager handle
-
--- 
-2.53.0
-
+T24gV2VkLCAyMDI2LTExLTExIGF0IDE2OjI3ICswMDAwLCBNaWtoYWlsIE1hbHlzaGV2IHdyb3Rl
+Ogo+IFNpbmNlIGNvbW1pdCA4NGVhY2YxNzdmYWEgKCJpb191cmluZy9pby13cTogaW5oZXJpdCBj
+cHVzZXQgb2YgY2dyb3VwIGluCj4gaW8gd29ya2VyIiksIGlvX3dxX2NyZWF0ZSgpIGNvcGllcyB0
+aGUgY3B1c2V0IG9mIHRoZSBjcmVhdGluZyB0YXNrIGludG8KPiB3cS0+Y3B1X21hc2ssIGFuZCBp
+b19pbml0X25ld193b3JrZXIoKSBnaXZlcyBlYWNoIG5ldyB3b3JrZXIgdGhhdCBjb3B5Lgo+IEEg
+Y3B1c2V0IGNoYW5nZSwgb3IgYSBtb3ZlIG9mIHRoZSB0YXNrIHRvIGFub3RoZXIgY2dyb3VwLCB1
+cGRhdGVzIHRoZQo+IHdvcmtlcnMgdGhhdCBleGlzdCBidXQgbm90IHRoZSBjb3B5LCBzbyB3b3Jr
+ZXJzIHN0YXJ0ZWQgbGF0ZXIgcnVuIG9uCj4gdGhlIENQVXMgdGhlIGNncm91cCBoYWQgd2hlbiB0
+aGUgaW8td3Egd2FzIGNyZWF0ZWQsIHdoaWNoIG1heSBzaW5jZQo+IGhhdmUgYmVlbiBnaXZlbiB0
+byBvdGhlciB0YXNrcy4gV29ya2VycyBjb21lIGFuZCBnbyBmb3IgdGhlIGxpZmUgb2YgdGhlCj4g
+aW8td3EsIGFuZCBhIHdvcmtlciB0aGF0IGNwdXNldCBtb3ZlZCBpcyBhbHNvIHJldGlyZWQgYXQg
+aXRzIG5leHQgaWRsZQo+IHRpbWVvdXQgYW5kIHJlcGxhY2VkIG9uIHRoZSBvbGQgQ1BVcy4KCkhp
+LAoKdGhhdCdzIGEgdmFsaWQgZmluZGluZy4KCj4gCj4gS2VlcCB3cS0+Y3B1X21hc2sgZm9yIHRo
+ZSBhZmZpbml0eSBvZiB0aGUgaW8td3EgaXRzZWxmLCBhbGwgQ1BVcyBvciB0aGUKPiBtYXNrIHNl
+dCB3aXRoIElPUklOR19SRUdJU1RFUl9JT1dRX0FGRiwgYW5kIGludGVyc2VjdCBpdCB3aXRoIHRo
+ZSBjcHVzZXQKPiBvZiB0aGUgd29ya2VyIHdoZW4gdGhlIHdvcmtlciBzdGFydHMsIGZhbGxpbmcg
+YmFjayB0byB0aGUgY3B1c2V0IGlmIHRoZQo+IHR3byBkbyBub3QgaW50ZXJzZWN0LCBhcyBfX3Nl
+dF9jcHVzX2FsbG93ZWRfcHRyKCkgZG9lcy7CoAo+IAoKV2h5IG5vdCBzaW1wbHkgZmFpbCB0aGUg
+d29ya2VyIGNyZWF0aW9uIGlmIHRoZSBpbnRlcnNlY3Rpb24gaXMgZW1wdHk/Ckp1c3QgZmFsbGlu
+ZyBiYWNrIG1lYW5zIHRoYXQgdGhlIHdvcmtlciB0aHJlYWRzIHJ1biBvbiBDUFVzIHdoZXJlIHRo
+ZXkKLSBpbnRlbnRpb25hbGx5IC0gc2hvdWxkIG5vdCBydW4uCgo+IFVzZSB0aGUgc2FtZQo+IG1h
+c2sgaW4gdGhlIGlkbGUgZXhpdCB0ZXN0LCBhbmQgZ28gYmFjayB0byBhbGwgQ1BVcyB3aGVuIHRo
+ZSByZWdpc3RlcmVkCj4gYWZmaW5pdHkgaXMgcmVtb3ZlZC4KPiAKPiBGaXhlczogODRlYWNmMTc3
+ZmFhICgiaW9fdXJpbmcvaW8td3E6IGluaGVyaXQgY3B1c2V0IG9mIGNncm91cCBpbiBpbyB3b3Jr
+ZXIiKQo+IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCj4gU2lnbmVkLW9mZi1ieTogTWlraGFp
+bCBNYWx5c2hldiA8bWlrZS5tYWx5c2hldkBnbWFpbC5jb20+Cj4gLS0tCj4gVGVzdGVkIG9uIHg4
+Nl82NCB1bmRlciBRRU1VL0tWTSAoOCBDUFVzLCBjZ3JvdXAgdjIsIFBST1ZFX0xPQ0tJTkcsCj4g
+REVCVUdfQVRPTUlDX1NMRUVQLCBDUFVNQVNLX09GRlNUQUNLKSBvbiBpb191cmluZy03LjQgd2l0
+aCBhbmQgd2l0aG91dAo+IHRoaXMgcGF0Y2guIEEgdGVzdCBwcm9ncmFtIGJsb2NrcyByZXF1ZXN0
+cyBpbiBpby13cSB3b3JrZXJzIGFyb3VuZAo+IGNwdXNldCBjaGFuZ2VzIGFuZCBjaGVja3MgdGhl
+IGFmZmluaXR5IG9mIGV2ZXJ5IHdvcmtlcjoKPiAKPiAgIGNhc2UgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICB3aXRob3V0ICAgd2l0aAo+ICAgY3B1c2V0IDItMyAtPiA0
+LTUsIG5ldyB3b3JrZXJzICAgICAgICAgICAgICAgIEZBSUwgICAgICBwYXNzCj4gICBpZGxlIHdv
+cmtlciByZXRpcmVkIGFmdGVyIHRoZSBjaGFuZ2UgICAgICAgICAgRkFJTCAgICAgIHBhc3MKPiAg
+IGNwdXNldCBncm93cyAyLTMgLT4gMi01ICAgICAgICAgICAgICAgICAgICAgICBGQUlMICAgICAg
+cGFzcwo+ICAgdGFzayBtb3ZlZCB0byBhIGNncm91cCB3aXRoIDQtNSAgICAgICAgICAgICAgIEZB
+SUwgICAgICBwYXNzCj4gICBJT1JJTkdfUkVHSVNURVJfSU9XUV9BRkYgMi0zLCBjcHVzZXQgMy02
+LCAgICAgRkFJTCAgICAgIHBhc3MKPiAgICAgdGhlbiA0LTUsIHRoZW4gdW5yZWdpc3Rlcgo+ICAg
+Q1BVIG9mZmxpbmUgYW5kIG9ubGluZSAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgICBw
+YXNzCgpUaGlzIHRlc3QgcHJvZ3JhbSBzaG91bGQgYmUgYWRkZWQgdG8gdGhlIGxpYnVyaW5nIHRl
+c3RzdWl0ZSwgc2hvdWxkbid0Cml0PwoKPiAKPiBObyBsb2NrZGVwIG9yIHNsZWVwaW5nLWluLWF0
+b21pYyByZXBvcnRzLiBUaGUgbGlidXJpbmcgdGVzdCBzdWl0ZSBnaXZlcwo+IHRoZSBzYW1lIHJl
+c3VsdHMgd2l0aCBhbmQgd2l0aG91dCB0aGUgcGF0Y2ggKGlvd2FpdCBmYWlscyBpbiBzb21lIHJ1
+bnMKPiBvbiBib3RoIGtlcm5lbHM6IDUgYW5kIDcgb2YgMjApLiBBIGxpYnVyaW5nIHRlc3QgZm9y
+IHRoaXMsCj4gdGVzdC9pb3dxLWNwdXNldC5jLCBmb2xsb3dzIHNlcGFyYXRlbHk7IGl0IGZhaWxz
+IHdpdGhvdXQgdGhlIHBhdGNoIGFuZAo+IHBhc3NlcyB3aXRoIGl0Lgo+IAo+IFRoZSBjb3N0IGlz
+IG9uZSBjcHVzZXRfY3B1c19hbGxvd2VkKCkgcGVyIHdvcmtlciBzdGFydCBhbmQgcGVyIGlkbGUK
+PiB0aW1lb3V0IG9mIGEgd29ya2VyLCBub3QgcGVyIHJlcXVlc3Q6IDAuMy0wLjQgdXMgYWdhaW5z
+dCBhYm91dCA2MCB1cwo+IGZvciBjcmVhdGVfaW9fd29ya2VyKCksIG1lYXN1cmVkIHdpdGggdGhl
+IGZ1bmN0aW9uIGdyYXBoIHRyYWNlci4KPiAKPiBUaGUgcGF0Y2ggYXBwbGllcyB1bmNoYW5nZWQg
+dG8gZm9yLTcuNS9pb191cmluZyBhbmQgdG8gNi4xOC55LCB3aGVyZQo+IHRoZSByZXN1bHRzIGFy
+ZSB0aGUgc2FtZS4gVGhlIGJ1ZyB3YXMgZmlyc3Qgc2VlbiBvbiByZWFsIGhhcmR3YXJlIHdpdGgK
+PiA2LjE4OyB0aGUgZml4IHdhcyB0ZXN0ZWQgb25seSB1bmRlciBRRU1VLiBOb3QgdGVzdGVkOiBh
+cmNoaXRlY3R1cmVzCj4gb3RoZXIgdGhhbiB4ODZfNjQsIGFuZCBjZ3JvdXAgdjEgY3B1c2V0cy4K
+ClNob3VsZG4ndCB0aGF0IGFsc28gYXBwbHkgdG8gNi4xMiAoaXQgdGVjaG5pY2FsbHkgZG9lcyBu
+b3QgYXBwbHkgYnV0CnNlbWFudGljYWxseSBpdCBzaG91bGQpPyAKCkJlc3QgcmVnYXJkcywKRmVs
+aXgKCj4gCj4gVGhpcyBwYXRjaCB3YXMgZGV2ZWxvcGVkIHdpdGggQ2xhdWRlIENvZGUgKEFudGhy
+b3BpYywgQ2xhdWRlIE9wdXMgNS41KS4KPiBUaGUgcHJvYmxlbSBjYW1lIHVwIHdoaWxlIEkgd29y
+a2VkIHdpdGggaXQgb24gQ1BVIGlzb2xhdGlvbiBmb3IgVk1zIGluCj4gRVZFIChMRiBFZGdlKTog
+YXNrZWQgd2hldGhlciBRRU1VJ3MgaW8td3Egd29ya2VycyBjYW4gYXBwZWFyIGFmdGVyIGEgVk0K
+PiBoYXMgc3RhcnRlZCwgaXQgZm91bmQgaW4gdGhlIGNvZGUgdGhhdCB3b3JrZXJzIHN0YXJ0ZWQg
+YWZ0ZXIgYSBjcHVzZXQKPiBjaGFuZ2Uga2VlcCB0aGUgb2xkIENQVXMsIGFuZCByZXByb2R1Y2Vk
+IHRoYXQuIEl0IHRoZW4gd3JvdGUgdGhlIGZpeCwKPiB0aGUgY2hhbmdlbG9nLCB0aGUgdGVzdCBw
+cm9ncmFtIGFuZCB0aGUgUUVNVSBzZXR1cCwgYW5kIHJhbiB0aGUgdGVzdHMKPiBhYm92ZS4gSSBo
+YXZlIHJldmlld2VkIHRoZSBwYXRjaCBhbmQgdGhlIHRlc3QgcmVzdWx0cy4KPiAKPiAgaW9fdXJp
+bmcvaW8td3EuYyB8IDQ0ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0t
+LS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAzOSBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQo+
+IAo+IGRpZmYgLS1naXQgYS9pb191cmluZy9pby13cS5jIGIvaW9fdXJpbmcvaW8td3EuYwo+IGlu
+ZGV4IDkyZGY1NGM2ZjUwY2EuLmYyZjNjM2FhZDE5YjUgMTAwNjQ0Cj4gLS0tIGEvaW9fdXJpbmcv
+aW8td3EuYwo+ICsrKyBiL2lvX3VyaW5nL2lvLXdxLmMKPiBAQCAtNzQxLDYgKzc0MSwzNCBAQCBz
+dGF0aWMgYm9vbCBpb193b3JrZXJfcmV0aXJlKHN0cnVjdCBpb193cV9hY2N0ICphY2N0LCBzdHJ1
+Y3QgaW9fd29ya2VyICp3b3JrZXIpCj4gIAlyZXR1cm4gZmFsc2U7Cj4gIH0KPiAgCj4gKy8qCj4g
+KyAqIFRoZSBDUFVzIGEgd29ya2VyIG9mIEB3cSBydW5zIG9uOiB0aG9zZSBvZiB0aGUgaW8td3Eg
+YWZmaW5pdHkgdGhhdCB0aGUKPiArICogd29ya2VyJ3MgY3B1c2V0IGFsbG93cywgb3IgdGhlIGNw
+dXNldCBpZiB0aGV5IGhhdmUgbm9uZSBpbiBjb21tb24sIGFzIHRoZQo+ICsgKiBzY2hlZHVsZXIg
+ZG9lcyB3aXRoIGEgdGFzaydzIHJlcXVlc3RlZCBhZmZpbml0eSB3aGVuIGl0cyBjcHVzZXQgY2hh
+bmdlcy4KPiArICogUmVhZCB0aGUgY3B1c2V0IGVhY2ggdGltZTogaXQgY2FuIGNoYW5nZSB3aGls
+ZSB0aGUgaW8td3EgZXhpc3RzLgo+ICsgKi8KPiArc3RhdGljIHZvaWQgaW9fd3Ffd29ya2VyX2Nw
+dXMoc3RydWN0IGlvX3dxICp3cSwgc3RydWN0IHRhc2tfc3RydWN0ICp0c2ssCj4gKwkJCSAgICAg
+IHN0cnVjdCBjcHVtYXNrICpjcHVzKQo+ICt7Cj4gKwljcHVzZXRfY3B1c19hbGxvd2VkKHRzaywg
+Y3B1cyk7Cj4gKwlpZiAoY3B1bWFza19pbnRlcnNlY3RzKGNwdXMsIHdxLT5jcHVfbWFzaykpCj4g
+KwkJY3B1bWFza19hbmQoY3B1cywgY3B1cywgd3EtPmNwdV9tYXNrKTsKPiArfQo+ICsKPiArLyog
+SXMgdGhlIGN1cnJlbnQgd29ya2VyIG9uIGEgQ1BVIHRoYXQgYSBuZXcgd29ya2VyIHdvdWxkIG5v
+dCBnZXQ/ICovCj4gK3N0YXRpYyBib29sIGlvX3dxX3dvcmtlcl9vZmZfY3B1cyhzdHJ1Y3QgaW9f
+d3EgKndxKQo+ICt7Cj4gKwljcHVtYXNrX3Zhcl90IGNwdXM7Cj4gKwlib29sIG9mZjsKPiArCj4g
+KwlpZiAoIWFsbG9jX2NwdW1hc2tfdmFyKCZjcHVzLCBHRlBfS0VSTkVMKSkKPiArCQlyZXR1cm4g
+ZmFsc2U7Cj4gKwlpb193cV93b3JrZXJfY3B1cyh3cSwgY3VycmVudCwgY3B1cyk7Cj4gKwlvZmYg
+PSAhY3B1bWFza190ZXN0X2NwdShyYXdfc21wX3Byb2Nlc3Nvcl9pZCgpLCBjcHVzKTsKPiArCWZy
+ZWVfY3B1bWFza192YXIoY3B1cyk7Cj4gKwlyZXR1cm4gb2ZmOwo+ICt9Cj4gKwo+ICBzdGF0aWMg
+aW50IGlvX3dxX3dvcmtlcih2b2lkICpkYXRhKQo+ICB7Cj4gIAlzdHJ1Y3QgaW9fd29ya2VyICp3
+b3JrZXIgPSBkYXRhOwo+IEBAIC04MTksOCArODQ3LDcgQEAgc3RhdGljIGludCBpb193cV93b3Jr
+ZXIodm9pZCAqZGF0YSkKPiAgCQl9Cj4gIAkJaWYgKCFyZXQpIHsKPiAgCQkJbGFzdF90aW1lb3V0
+ID0gdHJ1ZTsKPiAtCQkJZXhpdF9tYXNrID0gIWNwdW1hc2tfdGVzdF9jcHUocmF3X3NtcF9wcm9j
+ZXNzb3JfaWQoKSwKPiAtCQkJCQkJCXdxLT5jcHVfbWFzayk7Cj4gKwkJCWV4aXRfbWFzayA9IGlv
+X3dxX3dvcmtlcl9vZmZfY3B1cyh3cSk7Cj4gIAkJfQo+ICAJfQo+ICAKPiBAQCAtODcwLDkgKzg5
+NywxNiBAQCB2b2lkIGlvX3dxX3dvcmtlcl9zbGVlcGluZyhzdHJ1Y3QgdGFza19zdHJ1Y3QgKnRz
+aykKPiAgc3RhdGljIHZvaWQgaW9faW5pdF9uZXdfd29ya2VyKHN0cnVjdCBpb193cSAqd3EsIHN0
+cnVjdCBpb193cV9hY2N0ICphY2N0LCBzdHJ1Y3QgaW9fd29ya2VyICp3b3JrZXIsCj4gIAkJCSAg
+ICAgICBzdHJ1Y3QgdGFza19zdHJ1Y3QgKnRzaykKPiAgewo+ICsJY3B1bWFza192YXJfdCBjcHVz
+Owo+ICsKPiAgCXRzay0+d29ya2VyX3ByaXZhdGUgPSB3b3JrZXI7Cj4gIAl3b3JrZXItPnRhc2sg
+PSB0c2s7Cj4gLQlzZXRfY3B1c19hbGxvd2VkX3B0cih0c2ssIHdxLT5jcHVfbWFzayk7Cj4gKwkv
+KiBXaXRob3V0IGEgbWFzaywgdGhlIHdvcmtlciBrZWVwcyBpdHMgY3JlYXRvcidzIENQVXMuICov
+Cj4gKwlpZiAoYWxsb2NfY3B1bWFza192YXIoJmNwdXMsIEdGUF9LRVJORUwpKSB7Cj4gKwkJaW9f
+d3Ffd29ya2VyX2NwdXMod3EsIHRzaywgY3B1cyk7Cj4gKwkJc2V0X2NwdXNfYWxsb3dlZF9wdHIo
+dHNrLCBjcHVzKTsKPiArCQlmcmVlX2NwdW1hc2tfdmFyKGNwdXMpOwo+ICsJfQo+ICAKPiAgCXJh
+d19zcGluX2xvY2soJmFjY3QtPndvcmtlcnNfbG9jayk7Cj4gIAlobGlzdF9udWxsc19hZGRfaGVh
+ZF9yY3UoJndvcmtlci0+bnVsbHNfbm9kZSwgJmFjY3QtPmZyZWVfbGlzdCk7Cj4gQEAgLTEzNjks
+NyArMTQwMyw3IEBAIHN0cnVjdCBpb193cSAqaW9fd3FfY3JlYXRlKHVuc2lnbmVkIGJvdW5kZWQs
+IHN0cnVjdCBpb193cV9kYXRhICpkYXRhKQo+ICAKPiAgCWlmICghYWxsb2NfY3B1bWFza192YXIo
+JndxLT5jcHVfbWFzaywgR0ZQX0tFUk5FTCkpCj4gIAkJZ290byBlcnI7Cj4gLQljcHVzZXRfY3B1
+c19hbGxvd2VkKGRhdGEtPnRhc2ssIHdxLT5jcHVfbWFzayk7Cj4gKwljcHVtYXNrX2NvcHkod3Et
+PmNwdV9tYXNrLCBjcHVfcG9zc2libGVfbWFzayk7Cj4gIAl3cS0+YWNjdFtJT19XUV9BQ0NUX0JP
+VU5EXS5tYXhfd29ya2VycyA9IGJvdW5kZWQ7Cj4gIAl3cS0+YWNjdFtJT19XUV9BQ0NUX1VOQk9V
+TkRdLm1heF93b3JrZXJzID0KPiAgCQkJCXRhc2tfcmxpbWl0KGN1cnJlbnQsIFJMSU1JVF9OUFJP
+Qyk7Cj4gQEAgLTE1NzQsNyArMTYwOCw3IEBAIGludCBpb193cV9jcHVfYWZmaW5pdHkoc3RydWN0
+IGlvX3VyaW5nX3Rhc2sgKnRjdHgsIGNwdW1hc2tfdmFyX3QgbWFzaykKPiAgCQllbHNlCj4gIAkJ
+CXJldCA9IC1FSU5WQUw7Cj4gIAl9IGVsc2Ugewo+IC0JCWNwdW1hc2tfY29weSh0Y3R4LT5pb193
+cS0+Y3B1X21hc2ssIGFsbG93ZWRfbWFzayk7Cj4gKwkJY3B1bWFza19jb3B5KHRjdHgtPmlvX3dx
+LT5jcHVfbWFzaywgY3B1X3Bvc3NpYmxlX21hc2spOwo+ICAJfQo+ICAJcmN1X3JlYWRfdW5sb2Nr
+KCk7Cj4gIAo+IAo+IGJhc2UtY29tbWl0OiAzOWM3MjEwZTk3MDIwMGY4YjE3ZGUzNzY3YzczZWZl
+NjQxNzNhOTVmCj4gLS0gCj4gMi40My4wCg==
