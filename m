@@ -1,98 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.185.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794504937;
-	b=n37W1nqN7wvV2DIt/TPinSmFRrKhDfo4ecQFRgYOSmTdBeigplXAC9u1JEm6uFlK5K2F
-	 0Bn1FdFCS4CLB0XZeptC2pK6N0UStQtyEM0XhuyrlRIcZxsWqcY7znCa3gIKqN3iD8/M5
-	 xvEgAGSE+ZbXEuHs9O9m8K4rYQA3hMeVnmzYYuko5nk7NRxaZJ/6ajYe6jNhnKcX4q2ug
-	 3J3i6mlwLWZ1OlAL0nlkoT1YksJ3aBAAND4JPNX8M74XtiiPaEP1wKewOVV3cM7Yq/c0i
-	 zQEeITbx90ho6BajTYzCPHePh8p30TVxnwtPNUQDJoY3iivLaU5a/bKkZVpCIjXvyOw==
+	t=1794504949;
+	b=WTvjcc74+iJx2gd1T+8SEBUpW1CVJbEtTCja6z8EASuw48C81H4NtS8oGE9MH4kWognu
+	 Jh0eKa3lmKnZ/k4YYW1MfEMFubc4f5tyM+kqXzdR1ROLfntdxnEXP3Ih5NOZHCfCr1a5g
+	 5Zp1HxwOu45CPDY4qtTG+0QQ0a+bUt7BEJTUnUnHMpQw0z8AfaAOsh0wynqXq3E8bP2N7
+	 Mv6gudmn1C+E6ps/cJ75b5N3cNHjKG2AbyTGLj6XmiN+WZZzygcBp/Rdyn9XCVUJB5jli
+	 tXn21h1Q7p111DElVVHoxL8ogwpyMoPC+i3ICVVwPWUh3mpNGg7vUouONtfl2DtkcVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504937;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=XkIbYXadeaMG9HKV2rC3JRZDLd4J3RXCWFCJdXi08X0=;
-	b=IkpcafbI7hb76SAD3tQr+fNdPeer2pitj7+1vtcjJWnuH4VmUcKGFzuKSY39jArLXC3P
-	 M6NTWjjuK2FfRdAs8VP31dJKZBB6mAmNqyZF229op8KmQmCNyHL2seR2mI0rP+p8jIGs1
-	 OAwaWhkwq/S6k5f7Y3zJXHGiwXtk7Y+D5a1PJlnRsMsgzPycMY+kwnensGE9tbp5ov1g8
-	 s3iCw9z9zP//JMsxpJhi3d+XKclxYdKo5w+wO43ljLfFsiNZsb6Yj0gPlhOrzE5baYIBJ
-	 GEIqPy1ZYp1QeN4inw63k19dRxLCk2kunK6xnNalDx6eU84NaF5Xx3w7aaIY5iAjy+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794504949;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer;
+	bh=lIElPgc3zQAUQPuvQ54S5XZb2V9/VuZ+xDRzMf9i5eQ=;
+	b=AvSZG0kb0DVFcz03i3Pho0mjRdiPri81VBbmBeDapEyjjrY5+TA8nb5Eh7Ld+bAP2r7B
+	 cRTN5zAUqZvWRYXconVDKd9Vji1/kqo1l2xIB1vks1Y8aaVnibf51c7WvYHcLvJI4CzVJ
+	 Tv7JtfzqXSv98WFKWmCj3mi5TGNIg/Bu9rPFSSX9npL5B5oOrP9RAJdf0HcE4VlL2fsqJ
+	 HWLmfAzxd5pYK8GzBRjwek4f/TlE1PkR6BvJf9dvgJspcydkXU+90JLsgcoM8Y1+M8pxi
+	 n1HhqS3jY0g9FSBsAbD160tnZlvYSwXstqG/h4Umi7+x45FU6wS16vVHM+DWFbpPjMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LIMP2nB3;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=Xm6wupfJ;
+	arc=none smtp.remote-ip=66.163.185.32
+Received: from sonic313-9.consmr.mail.ne1.yahoo.com (sonic313-9.consmr.mail.ne1.yahoo.com [66.163.185.32])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90AD7606A8A0
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:35:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90AD7606A8A0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D057606A8B8
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:35:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D057606A8B8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LIMP2nB3
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-492fcbfaa88so3074604f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:35:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794504936; x=1795109736; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XkIbYXadeaMG9HKV2rC3JRZDLd4J3RXCWFCJdXi08X0=;
-        b=LIMP2nB3cPMUdhws5RaIXR4tga9oAlQTraWtWrHTJKOqs5l0cXKzgKLK7GCwR58MIR
-         V0+47hH9R5MrphjjrCXy5PNmubHhEyJwWQyX+OAPcp1UrfnxUJP/zwQSU0PcsmJcKeJO
-         ZEVVgeEfZy+Kj3YWrlSmySRLjJGWy85AIg5gQU5hbH6iUea8dXk2Z6XoyI4PSe5UhkoX
-         WXtiL25Qpd1k7lOn6PIPnJfJhks4HD+3lSMpGNr3lKjeXEiI9niaqqzJnyLdud7j9e7C
-         pc2g/aov7gImzhFjDKgQSkGKy24pzW7kE+CPEL09oDrlTkH3Br51aO3wyoV9OUOHqXAw
-         XE3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794504936; x=1795109736;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XkIbYXadeaMG9HKV2rC3JRZDLd4J3RXCWFCJdXi08X0=;
-        b=B7lGZ/6jc9IikBdsDsiuL9qK7E/O4TUNYFFDM/d9qz061k0Utv3csCHmsDyAJpe8nL
-         MUg73DtPa7p1gX4bBo8OZjH4XgJCuYF62BdCf5ca8swTh7XvcGvL79Upnde93xphzvDb
-         v2/7JH4aO1mxtvx48rfYzGQSrNIqbmcWy86wEVvD2oxsKYgo6IscFv4DM+ROG306mWRt
-         3Bn5mUcF13+WtcYEa+ZH4JtBY+pq41ggHWDwlg+dux/VanRm465FYbQwvcmQbr3ESwA4
-         VC6Y60gxS+Gncn95BVhjUKZph4sB4DWV+hgqu4jAvSjf+m5pPoAjV1WozfwLN6jUyeW8
-         urIQ==
-X-Forwarded-Encrypted: i=1; AL+hErHHlQP8gBCurFM8aP0zM9gXpxKTxFheIqB+a5RIhgeBbohHezRlPwCcxo5hHaVfjJ0snoDM44CIhRS71Rs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+5ie16ueap3F0HrCMSXq5b3YdGJcOIgghypQT+SoIEoBixE9p0
-	H5SONi/AcJ8v6xGcbra17JLKMxQ3XjYhHttwgpZTTmVvKv3pr4KrP6KE
-X-Gm-Gg: AYBFou1Uj0FR8am9QpE/aNZQnawYEJzTpub7iMi07+YpOQCU59a1FJDgmArhgjxAGek
-	5kzUWQwmr3Vv2gNQOFyV7ukhyWD5Lqk2GOKrprCTG7Ca2qeFgTBMnkbUi/QNq+w+kyZGWpOsp9v
-	+k/Kbu2wa4UzfqtBDp4ssmy8PjQg06vikbMEJQcumXKqNv6bSMgN1vrv13aiyqF6UEaHgYwJDD4
-	gqZpq5+ilHF47geBUqy7EnlFQyn82gAvmjY7xuP+Hz6upifouLGbUVFrj9GYz/mp9AaQlWd210a
-	JVQUPbSVvRkm84DqFQL6RUlZ5RGM3B60Q57PLjp/34gbtwCiybzssf/rG04eA3TzIUx3twhZT0i
-	9d3QjQz5ZigoLfNN+AvJQuTLAOXSBkARKdoEjyWxdpnq7JsHxBC9Fgms1O5gkktokiuV3Nv1ASd
-	sUez2S2y6wR+5fj3E09J7dzpsLmxoVuAqNN+j4SvrkbpTI6Gqv7oZ6MnURcoRbgueuHCvL5UGgA
-	IU1JAzTToMNrJONw08VSAu/JOOnW6Xc6W0lgEEGgW9EAegunuM+1ei0EVxxKb+GzMhdI+1rwhF1
-	BkWkqV85xherE2kcfoLp5wef30N0gr0Lbdfo7wUghF0yZOfH/oqi4UYH
-X-Received: by 2002:a05:6000:4693:b0:490:c68e:5d5d with SMTP id ffacd0b85a97d-49c74864785mr53180f8f.49.1794504935838;
-        Thu, 12 Nov 2026 09:35:35 -0800 (PST)
-Received: from localhost.localdomain ([188.190.249.216])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm401037f8f.23.2026.11.12.09.35.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 09:35:35 -0800 (PST)
-From: Vladyslav Tymoshchuk <tvlad744@gmail.com>
-To: yzddMr6 <yzddmr6@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Melody Olvera <melody.olvera@oss.qualcomm.com>,
-	Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] soc: qcom: llcc-qcom: Reserve ISLAND1 ways on SM8750
-Date: Thu, 12 Nov 2026 19:35:23 +0200
-Message-ID: <20261112173523.1474-1-tvlad744@gmail.com>
-X-Mailer: git-send-email 2.45.1.windows.1
-In-Reply-To: <20261111-sm8750-llcc-island1-v1-1-64055702ca3f@gmail.com>
-References: <20261111-sm8750-llcc-island1-v1-1-64055702ca3f@gmail.com>
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=Xm6wupfJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794504948; bh=lIElPgc3zQAUQPuvQ54S5XZb2V9/VuZ+xDRzMf9i5eQ=; h=Date:Subject:From:To:References:In-Reply-To:Content-Type:From:Subject:Reply-To:Content-Type; b=Xm6wupfJJNfpS9YssZPwMl1awk844B8TijM3BdeK3uFjR4NJW6YlUW6CdMriq7Ri1H1BAmU5Mr8wt9gMTdjmuB9z9XU0JNoOu7KtIbGGQLjcqMDbaWmtCGNTpqCQyv8GfXSAZPaBxuHSn1rEk7xQmm5/pf6k5LWOfp+Yl/FFTrXnTuuiDP8xZQn4YoMr00PqVlXPIGDu1OPSkGWumUvAXtTunIApbpLuPgRn4+5zqyuM+aJBOZNEqAJQTsQ8qbXemxGSJmnzpTfgVG5WXolPcKmRH2Ffh0143Kz3ROzjxcoYrXWkVTGulOzAYqv+pA7y8cxQ/CMmjn2rjCnKOBssbA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794504948; bh=JzjFn4juoCV2RXHzY5eDLyNUgHgjSjFHzl0vrS86+l2=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=f4m/ndQGBQHS4aiw6X0xBKhuEeF9stfJ8btUK+uoEwoXWc0+6FvW+5OShUFr8OdBL/tOhfavKfILl8QkJ9ukiwQGSkzm9zixMNvJIM4lHrcPMSBRk4wZOnV1b2PmNbJsBmOjEsz2G2j0kQ52H1VxHBleXrFX1Ve+6UWOaphEEEOQuIRlYD7QW8s+PYGBYTEfqc0m97us1rFljYStpZpnd57XFZr5S2mgfwfZDtPqa2fkofR+bE35knHqOEhQGcy+eaOHswUGnWqutnQ5LtKuUA6EEc9WXaHXtHspji+1/TBi3DV1Tk7yIpcdbTYRUt7n9iqQqZOKdK0mRpluNir1lQ==
+X-YMail-OSG: Ong5Kd0VM1k314xWfOH19msxYd7lqLCMn_oCZrxvOrS4VdO7INhvq9YARvRee3e
+ yOAtIp_Nt8hyQTwvLyODM7NxwvKC0dd9ZWZwJ8hyk2Sg6O6FHTMdUgkt.3YGeJWJcoDxybGaLbwo
+ xSEPBdq6B.XZ._vjzK1ucxQHO0Wc.7Rs39Nk7xi2AHPjYdNys2DXxvMAKifYFmSqq_ep.u1lZn9G
+ wQKYcly1_31D5YikNPOj47oPquFtHivBK4I42CnLAheQpn.dOjc6HndkCqdWRe.7gbLb.ZsnMK2u
+ lr4eIg0g50DmbhdNoupIyVCcYiKekHoDBOyDzlQWldwcceFJSmU9y7wHfK9Fd5ml5aHvzoojZ7VM
+ CW0XMxlQTg2.o082Uut3UzLO8bxPLdJ7kP8WTGgSk_dxTBZXoJ7hfA2TW_Br9b33aApr.TVAFgl6
+ 6CoSen88llrPIlN04Wr.0f5srnDtVmplkYN.OSVN0_smapzO1WnEDsfv6huh1ID4pSWWRlXCCq_D
+ saRQ5MomFnaWTFEFlmbnKeEOFznKvrh5_SWV5r85KUAlFUS6GGvFA01fuAdyFa.Urdlb3gNxQRDv
+ jP6eoKjYvZnllcPbvTUP1ttVeOdlOBfh.o5CkRrOi3fEd30fO0YG9be1MYB.1I7cCTOJFG0Cr6yj
+ SgKkbIC_UJ3GNWjcq0g.NCdbQs.eRtSQi6DS7yI0UBN1b1bVUPZ1v2577mugPhRIKLfsG62MzxBN
+ gil3JhtI_hjcFi_72XtNQD5597VCfvojmsUKZgocmqlnV0GoEFym.NWojp56efrkYxWwf6gmxr3A
+ ZWaXEViKiYE2nN4F4KsLO_RQSOcifQ.x4USBmAx0roteYGaCzC7AeLl1X1N6DBILemfYSiinbuWw
+ 4bpa.iQn_uc.DEGsyRpgLwph1iJtEoga.ye5A5v1E6QRUw7809n4o6SlLvQLDv8xrs_ezvysBs8g
+ Zczx.f8sbgSrmbanLXbqKRONeial1o88B9L_wasOJhr9H2iT6dWZUkpBrQn2LKToqee_LUoggnV0
+ _sDJjuMNMR7lHYZjh72BkIvk.KWRgy4gum8uk8XMBicErcUhBBK6JgPbmi7UTm41.e3xcZwUlaqC
+ IXp_eMFVQ3zH9Bi1nsNsjjHgFNOGs.3op9CQIDIFIsTqKgRvYpLusZOd.0piCVU96fssGHksX9sO
+ GE01T5aW3GAWn4zHGg2H8.hyTm0SGTKTAmUo4Iwq0GwHVpRjXRQ5sZxfsHo3Z2NrPL7G.7H5m9rE
+ Tcm5HrhnYnjk.Mw1MzgO8Eq9b6wBrkKIM_lMeJEYlE2LlkJlKcow8TPNaJIxReYwi2PS_oXWwKZq
+ a61sv8IrxwlpexxTBii32yDM2orcepHpHmPkH88Yusl1gDnFYu.JSg21a1bDgS5ui2yb1G.wpl8D
+ 0p0KdRTFEDtMl2mkhxKQE8mKxH3WKcF4wJxp_LhrMaFxU3wcbYoGG3wcQCw5.WgOfHbVBg3AO5d.
+ kctpisRN01mY94veZkAEi17VwT1WBsjrTce0unkHjYmgaft6jwN_ePe1CLiR3pW1JGg39CV_2IPV
+ gyrIotYRDgfXZwfoPDvihRET7HdEPxmh.MALmcOwXI6GGuftBptK505BPzIZnW1horYFpBvreDDJ
+ KD49dycNhhbOrFf_K6ZxkVHeeBjeKhggZFKdQBrgy6RDi0U61hQTmbWCK8wPQgGc.4jRuUsB_7Wi
+ TRkN7IBpP74NTszI9S330DB_Shp3vl9RcE18zxqZZJfaM3QZ8HuRCTYw8UBg1RLP9TpUPdxpfQ35
+ ff0WTD5QvJxTvplnykuhy38PFxcd0goXXPLRJyL.KUJNlTj5FtInbQ72uQBe0grJy.ExFbAthAVD
+ .XI4Oirop0mq5flwtEdW.gBk7G0T628S7wl5KTWyWIJ4fd5GXVgGqOUh.0lm01YBLJCOPqMOf7vX
+ P0Ozux_i2vwfSz9icXvG8SNFdOX0Uc3nnqFhPnvEKVGqNKn_A3bQusfwf4r.UxeG5fjc0ukd_.BV
+ EhSysjV0rd9jXRT4oimmcLwiPe9ZgnovWx9LVuVz.wD6EQN_8Ty8..DxAl3A_SGKyG4fcZ6dpnuB
+ HhVVNA037RnAmhPh2JWzPZSkA8daXuzImcDifZkk7BdZuFCgfFIBxdXDIXHlvsjbN9Wlo6fFIq1I
+ 5uUW6k5c371Yh3zcMqzqdOO_P0AzgBFGU4wsYiuhcIuf7zbkQA3xgQC3V0BtbMxCGfcireVViYwu
+ CXK0b8ps2ilhdusZ1MvxQWSp3vtJhGD.zGQVIu1x6nVZRHYhlZ82O2Ccu.mzSZyUUEIQNNqLfHfe
+ a5NYvXKOb6rnahf5PD4vikcQzeSEIJasyUKJkgvLN
+X-Sonic-MF: <namiltd@yahoo.com>
+X-Sonic-ID: b02481b8-19dd-429d-96e9-06b6e379fcfd
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic313.consmr.mail.ne1.yahoo.com with HTTP; Thu, 12 Nov 2026 17:35:48 +0000
+Received: by hermes--production-ir2-5dd9bf4598-b6ftf (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 3042556b733bdb82afada3b444a10d44;
+          Thu, 12 Nov 2026 17:35:42 +0000 (UTC)
+Message-ID: <226b2171-8cfb-4176-af14-d252bcc6240d@yahoo.com>
+Date: Thu, 12 Nov 2026 18:35:40 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,52 +84,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH net-next v10 05/12] net: dsa: realtek: rtl8365mb: set RGMII
+ mode for family D
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alvin.sipraga@analog.com, gusfmora@gmail.com, kuncy7@gmail.com,
+ fabianotassotti@gmail.com, gabonpivovich@gmail.com, contact@c127.dev
+References: <d9da17af-f49e-4878-a8dd-59a8919e6930@yahoo.com>
+Content-Language: pl
+In-Reply-To: <d9da17af-f49e-4878-a8dd-59a8919e6930@yahoo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.26943 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-On Wed, Nov 11, 2026 at 03:21:13PM +0800, yzddMr6 wrote:
-> With this table, system suspend can reset the SoC once nothing votes
-> for the LPASS core. On a Xiaomi Pad 8 Pro with the LPASS_HW_MACRO_VOTE
-> and LPASS_HW_DCODEC_VOTE votes released, 16 suspend attempts (15 with
-> s2idle, one with PSCI system suspend) ended in a reset. The PMIC PON log
-> shows only PS_HOLD-triggered resets and no PMIC fault.
+On family D, RGMII on extension interface 1 needs three things that
+the other families do not: the EXT1 RGMII TX clock delay field in
+EXT_TXC_DLY (0x13f9, bits [5:3]) must be cleared, the pin mux in the
+top-level configuration register must be set up, and SerDes 1, which
+shares the pins, must be disabled.
 
-I tried the patch on another SM8750 tablet, the OnePlus Pad 3, which has
-what looks like the same symptom: the SoC resets about a minute after
-s2idle entry, and the PMIC PON log shows a PS_HOLD warm reset followed
-by a PS_HOLD hard reset.
+The vendor RGMII setup for EXT1 clears the RGMII field of EXT_TXC_DLY
+(0x13f9, bits [5:3]) in addition to programming TXDELAY in RGMXF.
+Do the same. The init jam table writes 0x0090 to this register, which
+leaves the field at 2, so without the clear an extra TX delay would be
+applied on top of tx-internal-delay-ps. Clearing it makes
+tx-internal-delay-ps the only source of TX delay.
 
-It does not cure the reset here. The tree is v7.3-rc5 with out-of-tree
-board support, without Ajay's series. Each run is one 60 s s2idle on
-battery with the USB cable disconnected:
+If the internal MAC4 block occupies extension 1, do not advertise RGMII
+for port 7 in phylink_get_caps(), so the configuration is refused before
+any EXT1 register is touched. This mirrors the vendor RTL8367D API, which
+returns an error for RGMII on port 7 when UTP port 4 uses the RGMII
+interface. The driver logs an error naming the conflict. RGMII is the
+only interface of port 7 this driver implements, so port 7 then has no
+supported interface: phylink_create() fails for it, and if it is a CPU
+port the switch does not probe.
 
-  this patch, Wi-Fi WoWLAN enabled                    reset
-  this patch, Wi-Fi WoWLAN disabled                   reset
-  this patch, rpmhpd domains left at their highest
-    corner (rpmhpd sync_state callback removed)       reset
-  no patch, MC0 kept voted in the sleep set           resumes
+When MAC4 does not own the pins, bind the RGMII/MII pins to MAC7 and
+disable SerDes 1, which shares them. The TX delay field, the pin mux and
+the SerDes 1 disable are all programmed before RGMII is selected, so the
+shared pins are never driven by RGMII and SerDes 1 at the same time.
 
-The last line is a local workaround in the interconnect driver that
-keeps a minimal MC0 vote in the sleep bucket. It is the only thing that
-avoids the reset on this tablet so far, and with it cxsd, aosd and ddr
-in qcom_stats stay at 0. The first three runs are without it.
+The family D branch is not reachable until the chip table entry is
+added in the last patch.
 
-> Holding LPASS_HW_MACRO_VOTE or LPASS_HW_LPR_VOTE across suspend let one
-> s2idle cycle each resume, but cxsd did not increase in either case.
+Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+---
+ drivers/net/dsa/realtek/rtl8365mb_main.c | 70 +++++++++++++++++++++++-
+ 1 file changed, 68 insertions(+), 2 deletions(-)
 
-On this tree the two votes do not seem to be dropped: with all five
-macro codecs runtime suspended, clk_summary still shows LPASS_HW_MACRO
-and LPASS_HW_DCODEC with a prepare count of 6 (LPASS_HW_LPR_VOTE is 0).
-I read that on the workaround kernel while awake, not during suspend,
-and the codecs have no system sleep callbacks here. So the resets above
-most likely happened with both votes held, which is the state your
-tablet resumes in.
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
+index 27a6917..bdc29d0 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_main.c
++++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
+@@ -334,6 +334,12 @@
+ #define   RTL8365MB_SDS_OPTION_ARM_KEY		0x0249
+ #define RTL8365MB_SDS_OPTION_REG		0x13C1
+ 
++#define RTL8365MB_D_SDS_MISC_MODE_FIELD_MASK		GENMASK(4, 0)
++/* Shared "disable" encoding for both SDS_MISC's and SDS1_MISC0's
++ * 5-bit mode fields.
++ */
++#define RTL8365MB_D_PORT_SDS_MODE_DISABLE		0x1f
++
+ /* Embedded DW8051 microcontroller control registers. The microcontroller
+  * can run firmware to manage the SerDes link, but this driver keeps it in
+  * reset and disabled: phylink already performs the link management that
+@@ -466,6 +472,20 @@
+ #define   RTL8365MB_PORT_MISC_CFG_VLAN_EGRESS_MODE_MASK		GENMASK(5, 4)
+ #define   RTL8365MB_PORT_MISC_CFG_CONGESTION_SUSTAIN_TIME_MASK	GENMASK(3, 0)
+ 
++/* EXT_TXC_DLY holds a 3-bit TX clock delay per external interface, for
++ * RGMII ([2:0] EXT0, [5:3] EXT1, [8:6] EXT2) and separately for GMII.
++ * Only the EXT1 RGMII field is used here, and it is cleared in RGMII
++ * mode so that tx-internal-delay-ps is the only TX delay applied.
++ */
++#define RTL8365MB_D_REG_EXT_TXC_DLY				0x13f9
++#define   RTL8365MB_D_EXT1_RGMII_TX_DLY_MASK			GENMASK(5, 3)
++
++#define RTL8365MB_D_REG_TOP_CON0				0x1d70
++#define   RTL8365MB_D_MAC7_SEL_EXT1_MASK			BIT(13)
++#define   RTL8365MB_D_MAC4_SEL_EXT1_MASK			BIT(12)
++
++#define RTL8365MB_D_REG_SDS1_MISC0				0x1d78
++
+ /**
+  * enum rtl8365mb_vlan_egress_mode - port VLAN egress mode
+  * @RTL8365MB_VLAN_EGRESS_MODE_ORIGINAL: follow untag mask in VLAN4k table entry
+@@ -1263,6 +1283,32 @@ static int rtl8365mb_ext_config_rgmii(struct realtek_priv *priv, int port,
+ 	if (ret)
+ 		return ret;
+ 
++	if (rtl8365mb_is_d(priv) && extint->id == 1) {
++		ret = regmap_update_bits(priv->map,
++					 RTL8365MB_D_REG_EXT_TXC_DLY,
++					 RTL8365MB_D_EXT1_RGMII_TX_DLY_MASK, 0);
++		if (ret)
++			return ret;
++
++		/* Bind the RGMII/MII pins to MAC7. MAC4 does not own them:
++		 * RGMII is not advertised otherwise, see
++		 * rtl8365mb_phylink_get_caps().
++		 */
++		ret = regmap_update_bits(priv->map,
++					 RTL8365MB_D_REG_TOP_CON0,
++					 RTL8365MB_D_MAC7_SEL_EXT1_MASK,
++					 RTL8365MB_D_MAC7_SEL_EXT1_MASK);
++		if (ret)
++			return ret;
++
++		ret = regmap_update_bits(priv->map,
++					 RTL8365MB_D_REG_SDS1_MISC0,
++					 RTL8365MB_D_SDS_MISC_MODE_FIELD_MASK,
++					 RTL8365MB_D_PORT_SDS_MODE_DISABLE);
++		if (ret)
++			return ret;
++	}
++
+ 	ret = regmap_update_bits(
+ 		priv->map, RTL8365MB_DIGITAL_INTERFACE_SELECT_REG(extint->id),
+ 		RTL8365MB_DIGITAL_INTERFACE_SELECT_MODE_MASK(extint->id),
+@@ -1830,6 +1876,8 @@ static void rtl8365mb_phylink_get_caps(struct dsa_switch *ds, int port,
+ 		rtl8365mb_get_port_extint(ds->priv, port);
+ 	struct realtek_priv *priv = ds->priv;
+ 	struct rtl8365mb *mb = priv->chip_data;
++	u32 data;
++	int ret;
+ 
+ 	config->mac_capabilities = MAC_SYM_PAUSE | MAC_ASYM_PAUSE |
+ 				   MAC_10 | MAC_100 | MAC_1000FD;
+@@ -1859,8 +1907,26 @@ static void rtl8365mb_phylink_get_caps(struct dsa_switch *ds, int port,
+ 	 * which remain unimplemented.
+ 	 */
+ 
+-	if (extint->supported_interfaces & RTL8365MB_PHY_INTERFACE_MODE_RGMII)
+-		phy_interface_set_rgmii(config->supported_interfaces);
++	if (extint->supported_interfaces & RTL8365MB_PHY_INTERFACE_MODE_RGMII) {
++		/* On family D the EXT1 pins are shared with MAC4 (UTP port 4).
++		 * If MAC4 owns them, RGMII on this port cannot work.
++		 */
++		if (rtl8365mb_is_d(priv) && extint->id == 1) {
++			ret = regmap_read(priv->map, RTL8365MB_D_REG_TOP_CON0, &data);
++			if (ret)
++				dev_err(priv->dev,
++					"failed to read TOP_CON0, RGMII on port %d disabled: %pe\n",
++					port, ERR_PTR(ret));
++			else if (data & RTL8365MB_D_MAC4_SEL_EXT1_MASK)
++				dev_err(priv->dev,
++					"port %d: EXT1 is owned by MAC4, RGMII cannot be used\n",
++					port);
++			else
++				phy_interface_set_rgmii(config->supported_interfaces);
++		} else {
++			phy_interface_set_rgmii(config->supported_interfaces);
++		}
++	}
+ 
+ 	if (extint->supported_interfaces & RTL8365MB_PHY_INTERFACE_MODE_SGMII &&
+ 	    mb->sds_supported)
+-- 
+2.53.0
 
-> All of these suspend tests were done with a USB cable connected.
-
-Does your tablet also resume with the cable disconnected? And does your
-tree leave anything voted on MC0 in the sleep set?
-
-I can run other variants here if that is useful.
-
-Thanks,
-Vladyslav
