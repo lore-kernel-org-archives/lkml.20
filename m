@@ -1,55 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794452480;
-	b=RV+3Hee1cTfutIM1g8Gj4agbMdlxbp3D8JuD15Ai01apFL8OY3kqRH7DUCVBLGY29N2Z
-	 C5HN9Ojtm8pK2ELmF83Dg1M/CvnB2YRDCkIrdTgewiF4Nju+K6NhDbAassH7iMQgucfrQ
-	 tw+kMAdPtk8sOHQDSRwyK8Csu237VULPkK6sfnsdtGUJ/ZF9jbk6JvSjIAvdnSzpbQOHQ
-	 GhOJYBcBnvIxsfu2ohLcOFF5JMDCZPCwvmqnLslhja87rq+cjIwqNV97oKNGMqq+O+VbR
-	 968CicfruTOc3Dpauq4ldVuMbnCEKt3OGbPV8Z2jnD+NoRTU/ywt3kutJySJc9SgwKA==
+	t=1794452503;
+	b=ERUJIAu7YxHmFWqUu1O6UqV+oCcUJeIW/Px7Ti/WS81yyAU8rTllGugA14kb1NgllE6+
+	 JZWunzY7nMpI779cgpzgjB5DZRfVJJYFiG9yhApmG2/0UgtdC20lNT+MBjKXS2yn/0Av+
+	 k5OHaQyP32TruMPszjM4sqwW3o56FPa2iL+TpUb7OP+k+flHSyYh3b/e41cXNOQHBA1eK
+	 BfwkZT00sEHux46b+hJso716K4GFe/lI12U4AgTURLznMJadBu8MeD/5H/wijuc51p4eZ
+	 Hwx/Tu+wjyAPsJaY6Mo/Qi1XgHXB1D1+9GiosJcpLKW7YvaXTRJ3oy0F4Zt5QlzpXAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794452480;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=qdQW5oVjkGqg2J4U43crSPdqlobSwyO9kA5oXI4dqTg=;
-	b=tyQ20j1+jakaACANUAebn50HesS7h7EWVYXRpV6K3MtC1uGLI3GgUZml7xxLPvZoLUuv
-	 tgQD/6lNHOaYJrKiZCTuuYuvPoj7+f6GXHr5ULR+msEZJyFNNYO0ma6p1OoIAlwpkWFry
-	 y2ur2lzk6SmQTmUVZs6mWri2GkH/m7EOsHHJHxESI8meKhGlHKPB3IwnGySmZCmcKWOoV
-	 s7Ocz7WDVO4yZBzgQqy8SYZcy9UJ2DFD6uXlkRvbJnxaPdHRH1NZrk0egkGvj4cEWX6d5
-	 mJWj/yjTMiC38ErVyq+1RF9M7z/rUpNN6kz0wXTzBJ6C4r1ae2pFvMxqYlHZqVM0YiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794452503;
+	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=mfqw0Szp0ZQ6xYRIyk+DFZw+eQ0wewSh/eb/WKajXfY=;
+	b=tCxRr8+ZWbOOhXGigYS0hlEhDLUkigK+QrYhWpRHBwV3Y38uwsuME/7LQ+a3Z4VV+e09
+	 9zTc+1eegHTwKtyqy5AKh0g4DM+HHpZmtyf8fN6oYxli+b8NGEt7OdMtWaKQMLMHd4jkA
+	 IRG2yvlzL9dP7E/IeAgXhPqwQS4USlJxGAgJ9op5Op+JgskBFXp9vjVbape0z11ODfoGi
+	 AjAvhNOJ9lNslwDbifKjeV6C8i4IkKBZVMiq9/2wmQ4ebO76OS3ndvIhwMqHdw7RroBss
+	 4fawS2uRjufT9aLFqOptl620Ml4QYvwC0mAS/PWRRXC4t2YC22bGp3H9/BP/ptOkH6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=P6dY1R5M;
-	arc=none smtp.remote-ip=91.218.175.221
-Received: from mta0.migadu.com (out-221.mta0.migadu.com [91.218.175.221])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=WZVjOCYt;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 333DC606A8A0
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:01:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 333DC606A8A0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B36606A321;
+	Thu, 12 Nov 2026 03:01:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75B36606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=P6dY1R5M
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/LXm5rupOhDmcZE6DqDDNi3ON4n/NXEt6TSkFB6oXko=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794452477; v=1; x=1795057277;
- b=P6dY1R5MsH+NhS0D/64V7Q1Fwo5bvh9+3HEixa2thnFx84z2doevvOAlBwP0Fj3RxsmhirSw
- ZkpKg6l0V2G+W9RAnmgoqaF3wI7iXbgh/WTS2De8cHjalNYTZdqqcPpRlLnEtx8CokEWFNmwO+K
- 4lEbxTBQ3q7RpDzRauF+A+yo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5c8fe64fbd3047ea;
-	Thu, 12 Nov 2026 03:01:17 +0000
-X-Mizu-Trace-ID: 5c8fe64fbd3047ea
-X-Migadu-Flow: FLOW_OUT
-From: Qiliang Yuan <qiliang.yuan@linux.dev>
-Date: Wed, 11 Nov 2026 22:00:59 -0500
-Subject: [PATCH 2/2] block: return early when the elevator doesn't change
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=WZVjOCYt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=mfqw0Szp0ZQ6xYRIyk+DFZw+eQ0wewSh/eb/WKajXfY=;
+	b=WZVjOCYt0LZUOOBZv3uPGv286LAJgkF4imL2O1C8FFVWxti4G7FHhdLgUHjHgy
+	lyVrd3M+ajNgrAdSOnojtBlkXdXvRU1HlsaO6CLlpZerZ7NLuB8HLxUts9diqPbj
+	8dDsfHpsnaZAGyf2ohFAvrLbDjRDbXR5ACy/pXq+XLSkM=
+Message-ID: <f14dcc5f-09a3-4c0d-9936-41fe5f912bf8@163.com>
+Date: Thu, 12 Nov 2026 11:01:21 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,93 +51,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] PCI: pciehp: Use PSN macro for Physical Slot Number
+ consistently
+To: bhelgaas@google.com
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260315154507.126524-1-18255117159@163.com>
+Content-Language: en-US
+From: Hans Zhang <18255117159@163.com>
+In-Reply-To: <20260315154507.126524-1-18255117159@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-bug-block-elevator-unchanged-v1-2-583198bd4e21@linux.dev>
-References: <20261111-bug-block-elevator-unchanged-v1-0-583198bd4e21@linux.dev>
-In-Reply-To: <20261111-bug-block-elevator-unchanged-v1-0-583198bd4e21@linux.dev>
-To: Jens Axboe <axboe@kernel.dk>, Damien Le Moal <dlemoal@kernel.org>, 
- Ming Lei <tom.leiming@gmail.com>, Nilay Shroff <nilay@linux.ibm.com>, 
- Hannes Reinecke <hare@suse.de>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Qiliang Yuan <qiliang.yuan@linux.dev>
-X-Mailer: b4 0.13.0
+X-CM-TRANSID:_____wD3X0YLLPVqGoibHQ--.26691S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Zw13GFyrXF18uw4DWF13XFb_yoW8ury5pr
+	W7KryjkF48Krsrua1Sv3WDCr1fW3ZxCrWDCrWDCr1a9FySyw18AFyjkw4aqw4SgF4UXryr
+	Gr90v34kCFyq9F7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zKYLPbUUUUU=
+X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbC7AwmyWr1LAzcFwAA37
 
-Writing the scheduler a queue already uses to queue/scheduler used to
-be a no-op. elevator_change() now only checks for an unchanged elevator
-after freezing the queue, and doesn't treat "none" on a queue without
-an elevator as unchanged at all, so that case also quiesces the queue
-in elevator_switch() and resets nr_requests.
+Hello Bjorn,
 
-Every such write therefore drains in-flight I/O and waits for an RCU
-grace period. udev rules and tuning tools that set the scheduler
-unconditionally stall I/O on live disks each time they run.
+Gentle ping.
 
-Check under elevator_lock whether anything would change before
-allocating scheduler resources and freezing the queue. Elevator changes
-of a queue are already serialized by QUEUE_FLAG_NO_ELV_SWITCH,
-registration and update_nr_hwq_lock, so drop the check under the freeze.
+Best regards,
+Hans
 
-Writing the current scheduler to queue/scheduler of a null_blk disk 20
-times takes (median):
-
-  operation                 before (ms)  after (ms)  change
-  none -> none                     9.06        0.08    -99%
-  mq-deadline -> mq-deadline       9.14        0.08    -99%
-
-4k random reads at queue depth 1 for 10 seconds, while "none" is
-written to queue/scheduler every 50 ms:
-
-  metric             before  after  change
-  IOPS               342609 395915    +16%
-  max latency (us)    10839    978    -91%
-
-Fixes: b07a889e83355 ("block: move q->sysfs_lock and queue-freeze under show/store method")
-Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
----
- block/elevator.c | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
-
-diff --git a/block/elevator.c b/block/elevator.c
-index 9d9b2e84a1288..979203f518ada 100644
---- a/block/elevator.c
-+++ b/block/elevator.c
-@@ -654,10 +654,24 @@ static int elevator_change(struct request_queue *q, struct elv_change_ctx *ctx)
- {
- 	unsigned int memflags;
- 	struct blk_mq_tag_set *set = q->tag_set;
-+	bool unchanged;
- 	int ret = 0;
- 
- 	lockdep_assert_held(&set->update_nr_hwq_lock);
- 
-+	/*
-+	 * Callers serialize elevator changes of this queue, so q->elevator is
-+	 * stable here. Skip freezing the queue if nothing would change.
-+	 */
-+	mutex_lock(&q->elevator_lock);
-+	if (q->elevator)
-+		unchanged = elevator_match(q->elevator->type, ctx->name);
-+	else
-+		unchanged = !strncmp(ctx->name, "none", 4);
-+	mutex_unlock(&q->elevator_lock);
-+	if (unchanged)
-+		return 0;
-+
- 	if (strncmp(ctx->name, "none", 4)) {
- 		ret = blk_mq_alloc_sched_res(q, ctx->type, &ctx->res,
- 				set->nr_hw_queues);
-@@ -677,8 +691,7 @@ static int elevator_change(struct request_queue *q, struct elv_change_ctx *ctx)
- 	 */
- 	blk_mq_cancel_work_sync(q);
- 	mutex_lock(&q->elevator_lock);
--	if (!(q->elevator && elevator_match(q->elevator->type, ctx->name)))
--		ret = elevator_switch(q, ctx);
-+	ret = elevator_switch(q, ctx);
- 	mutex_unlock(&q->elevator_lock);
- 	blk_mq_unfreeze_queue(q, memflags);
- 	if (!ret)
-
--- 
-2.43.0
+On 3/15/26 23:45, Hans Zhang wrote:
+> Replace open-coded bit shift in PSN macro with FIELD_GET() to improve
+> readability and consistency. Additionally, convert a direct FIELD_GET()
+> call in pciehp_hpc.c to use the PSN macro instead.
+> 
+> This makes the code easier to understand and maintain by using the same
+> accessor everywhere for the Physical Slot Number.
+> 
+> Signed-off-by: Hans Zhang <18255117159@163.com>
+> ---
+>   drivers/pci/hotplug/pciehp.h     | 2 +-
+>   drivers/pci/hotplug/pciehp_hpc.c | 2 +-
+>   2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/pci/hotplug/pciehp.h b/drivers/pci/hotplug/pciehp.h
+> index debc79b0adfb..e0d5d24b3351 100644
+> --- a/drivers/pci/hotplug/pciehp.h
+> +++ b/drivers/pci/hotplug/pciehp.h
+> @@ -159,7 +159,7 @@ struct controller {
+>   #define ATTN_LED(ctrl)		((ctrl)->slot_cap & PCI_EXP_SLTCAP_AIP)
+>   #define PWR_LED(ctrl)		((ctrl)->slot_cap & PCI_EXP_SLTCAP_PIP)
+>   #define NO_CMD_CMPL(ctrl)	((ctrl)->slot_cap & PCI_EXP_SLTCAP_NCCS)
+> -#define PSN(ctrl)		(((ctrl)->slot_cap & PCI_EXP_SLTCAP_PSN) >> 19)
+> +#define PSN(ctrl)		FIELD_GET(PCI_EXP_SLTCAP_PSN, (ctrl)->slot_cap)
+>   
+>   void pciehp_request(struct controller *ctrl, int action);
+>   void pciehp_handle_button_press(struct controller *ctrl);
+> diff --git a/drivers/pci/hotplug/pciehp_hpc.c b/drivers/pci/hotplug/pciehp_hpc.c
+> index 4c62140a3cb4..8f6c583a96dd 100644
+> --- a/drivers/pci/hotplug/pciehp_hpc.c
+> +++ b/drivers/pci/hotplug/pciehp_hpc.c
+> @@ -1059,7 +1059,7 @@ struct controller *pcie_init(struct pcie_device *dev)
+>   		PCI_EXP_SLTSTA_DLLSC | PCI_EXP_SLTSTA_PDC);
+>   
+>   	ctrl_info(ctrl, "Slot #%d AttnBtn%c PwrCtrl%c MRL%c AttnInd%c PwrInd%c HotPlug%c Surprise%c Interlock%c NoCompl%c IbPresDis%c LLActRep%c%s\n",
+> -		FIELD_GET(PCI_EXP_SLTCAP_PSN, slot_cap),
+> +		PSN(ctrl),
+>   		FLAG(slot_cap, PCI_EXP_SLTCAP_ABP),
+>   		FLAG(slot_cap, PCI_EXP_SLTCAP_PCP),
+>   		FLAG(slot_cap, PCI_EXP_SLTCAP_MRLSP),
 
