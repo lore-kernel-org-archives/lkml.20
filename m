@@ -1,125 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.90.104.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794486537;
-	b=h1vO7ols53JtS06gSusi36bOyGK3hYCmZTLsgVLZdttOb4GBL3Anw20gsCLY6iH4RaOO
-	 4i/s1PvH9C27X67n9fwMTLJ8zAxnrbclBqK3N18h0TjjmTeLF7+OdPfDi+zD1SDj07EDs
-	 FiUTaDpOFRAPdwQKKsmWd9DmPYGko8xMcTHozhgq9WlFfUSpdOLuLeLNFjCi5lM/wzsez
-	 ztGU8PvN97x9b65yHZmLC6PKfc3a1PKPo27tcj1CROKD4dlata3JM7Yga2TQgZJ+fENdA
-	 6X+yLUAA7HwNqmk/1qkbxIbVQGE2p/RPEtiskKYjnvrnpYIkBKpbDiNh2fDYokX/2ig==
+	t=1794486563;
+	b=5e8qNIjtrd/3vOmaoLby7/5jtTb/rP0wX+7UyNPkMDIAcDNggXPC0wzyxnxZ5pbJqz0b
+	 0YnvpU5AbhtFdu54Xh8M9E1QVCfURRpkIAEw0zRzfV9rmOgMOE7KxlVP3oQlmFBcD9zNS
+	 Zp9+1coKJzc/X6x+fT+LdMuObEaWQyPxUr8CzU+VT4LmVvAyxejBhOkGfTHMRr1hwhT+B
+	 PcBBj5e9ZR48kVQGPXbX7sDpQdBV70PWkXYozjpvxacb5Jn668Yf9Ek7Irf1VtWmGE3ry
+	 BvMYx3pgc4J0GK3ewY3vl7QfOw+mqR0YqPEEev7g4l/5K/09R/42vAWheZbciT5oEDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794486537;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=qGWIy9jrwH5t2YwM/1gqH/yjp5nXKZYTPr3EnVErx6Q=;
-	b=BqQpRhZrWmKfBY1CvFAjj0JVMlpKl6L8aXK+4BaUgO46do7nMYx5XCTOOkk++500C0uN
-	 PnKjRZAVXvbWmsCvgQY/FNoAv3EDQBYwtDnBR54+AQB4o+voN0M7kGKuINzjFW9nyvGEm
-	 Ya5o6rT2CXJmTb+7dOBXp6Ghec4Rgwd29KHUUI1lZLJVkpZXmF2Je/EpScG0E9ZUww5LF
-	 2m0q5/sal/eg+y3uWOMmcmUvbplNVsnHalgK49EYVCbGM0aVFIew9xjj9mX/oMCAGpqNJ
-	 pytZSrv3l0V8sHG5dxPey2waUJiTzuPHZN8Sunee/ww6rkfymQZYtAjD8iBICj9nQww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794486563;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=QaXA/7h5BauqhBFtUqFVgi+smZWJ+Dj+75buKP6hI5k=;
+	b=ABgAQtvIbW8vIKlpn8WqZUBmSkiRo1TrtcN7bQ/MFEtNj4sjbPF3igVbyoNBCKoOlq2T
+	 LVClJiQg+jynn5fKOXWYCQd+PVSOJP/hdwD0m25t9lWIaVNyJcdjEaqY5EjQU9zmxMlir
+	 FLQJqOZ0ECfYp/zePGOxA6XkrZQkECM8mYC7F0SybrjKmF4tbrG7mbPNS6J7/4F1gD1Tk
+	 cQOi8jS/otiiOl0WiTxxoIZJooMd8vGxPbm7t9ltmZ6YtAw/iw05XHHHQXEzPrsbJUsRa
+	 tv9nmtE73QmXcpRNnBBkeTnixHRj/TAJEor25dr6lQCAset+YwElAEooh+uPZR8jR8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=cpLtdDDm;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SDOOkIMu;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=cpLtdDDm;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SDOOkIMu;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1CC8606A327;
-	Thu, 12 Nov 2026 12:28:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1CC8606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=cpLtdDDm;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SDOOkIMu;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=cpLtdDDm;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SDOOkIMu
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id BDD531F388;
-	Thu, 12 Nov 2026 12:28:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794486534; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qGWIy9jrwH5t2YwM/1gqH/yjp5nXKZYTPr3EnVErx6Q=;
-	b=cpLtdDDmyE3zufzafwIxz2avs3IEH+P9VxuhjgmnooAzAhIFht1q11S8RNbPG+tWFkMs1X
-	p0Yo8uTA5MjM0fcTXKw7hJYRXDHwxC8SZYUWXtZ/FGR9IUBlBe0eO0FIyNdU5n9bSJnB8e
-	OMosXMbCLf0WBdQvC+SSCCoa7y9jJuI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794486534;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qGWIy9jrwH5t2YwM/1gqH/yjp5nXKZYTPr3EnVErx6Q=;
-	b=SDOOkIMuS+3Vq06vEb82CmSuINp9k+XDhDTnLMbqnXQzXgjOB+7GC+fw9pvWIgwKVdQwxq
-	/vQYWUOBmpmHVABQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794486534; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qGWIy9jrwH5t2YwM/1gqH/yjp5nXKZYTPr3EnVErx6Q=;
-	b=cpLtdDDmyE3zufzafwIxz2avs3IEH+P9VxuhjgmnooAzAhIFht1q11S8RNbPG+tWFkMs1X
-	p0Yo8uTA5MjM0fcTXKw7hJYRXDHwxC8SZYUWXtZ/FGR9IUBlBe0eO0FIyNdU5n9bSJnB8e
-	OMosXMbCLf0WBdQvC+SSCCoa7y9jJuI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794486534;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qGWIy9jrwH5t2YwM/1gqH/yjp5nXKZYTPr3EnVErx6Q=;
-	b=SDOOkIMuS+3Vq06vEb82CmSuINp9k+XDhDTnLMbqnXQzXgjOB+7GC+fw9pvWIgwKVdQwxq
-	/vQYWUOBmpmHVABQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2AC1C13432;
-	Thu, 12 Nov 2026 12:28:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id lxSfOgOx9Wo5RAAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Thu, 12 Nov 2026 12:28:52 +0000
-Date: Thu, 12 Nov 2026 12:28:50 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Jann Horn <jannh@google.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
-	=?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	Yu-cheng Yu <yu-cheng.yu@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
-	Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, Chris Mason <mason@kernel.org>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	"Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
-	"Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 01/13] mm/mmap: free gathered pages before MMF_OOM_SKIP
-Message-ID: <avWw2I3Or0z1OmqE@pedro-suse.tail5790ac.ts.net>
-References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
- <20261111-mason-migrate-et-al-fixes-v1-1-3d2454362e8d@kernel.org>
- <avWgulaWoKBfIFlo@pedro-suse.tail5790ac.ts.net>
- <avWtxdIHSJJ_uNwG@gremlin>
- <avWunRPQJQctsvYl@gremlin>
+	dmarc=pass header.from=mobileye.com;
+	spf=pass smtp.mailfrom=mobileye.com;
+	arc=none smtp.remote-ip=23.90.104.144
+Received: from esa1.hc555-34.eu.iphmx.com (esa1.hc555-34.eu.iphmx.com [23.90.104.144])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D9FB0606A880;
+	Thu, 12 Nov 2026 12:29:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9FB0606A880
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
+  t=1794486562; x=1826022562;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=4GzglnkQNuQ8DhvKxqKfR7Zw2ujdVo4Myqgpt01y1tY=;
+  b=dKZxuCV87cPgdUgUKEJhYrwwpzLFDIsem7DSaAfCd7116YvjOjN1238z
+   MxIY0p57qrK0n/z6BrDlt1x/wQHuD61oEwE+1rNXXDD2jjt6908MBrWbW
+   EDV9HgQbgB+kSys7+9P0zHIr9Rx+4BMGnuOF6Ej84d8ztmJJVKo8taHfc
+   2+sLILYHmk0kyGKrSP70Tt9l1ufIG4Klh9yoFSU8VhSEnxauu07J4aMDy
+   fW5CSr/57k+W9E4NA4urqmUqcJVzNQIUvXDDdLLUV8OOx21qEauwIccT2
+   orn1zonCj2ZFfnpwcT/qolHuBMh24kF3QydIfwJYU7PnZEbx3NHIn6Bbl
+   w==;
+X-CSE-ConnectionGUID: Jly7lB5MTe+QEe3/IDSYWg==
+X-CSE-MsgGUID: 6+IBlxmQQBipKgRCnhuKIw==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from unknown (HELO ces02_data.me-corp.lan) ([146.255.191.134])
+  by esa1.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 14:29:18 +0200
+X-CSE-ConnectionGUID: hXjRCfEvR3eNRQkxbYdwlA==
+X-CSE-MsgGUID: EGuZD5xpRaabhMTf+twnoQ==
+Received: from unknown (HELO epgd071.me-corp.lan) ([10.154.54.2])
+  by ces02_data.me-corp.lan with SMTP; 12 Nov 2026 14:37:25 +0200
+Received: by epgd071.me-corp.lan (sSMTP sendmail emulation); Thu, 12 Nov 2026 14:29:16 +0200
+From: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Date: Thu, 12 Nov 2026 14:28:58 +0200
+Subject: [PATCH v2 1/6] MIPS: CM: Make cm_core_lock raw spinlocks
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,64 +65,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avWunRPQJQctsvYl@gremlin>
-X-Spamd-Result: default: False [-11.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[43];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RL3mhzhn45zpqpmgqn4z7synfm)];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,infradead.org,google.com,suse.com,linux.dev,linux-foundation.org,suse.cz,gmail.com,cmpxchg.org,nvidia.com,intel.com,sk.com,gourry.net,linux.alibaba.com,tencent.com,redhat.com,linux.intel.com,gentwo.org,nxp.com,fb.com,kvack.org,vger.kernel.org,alien8.de];
-	TAGGED_RCPT(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -11.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-i6500-cm3-pmu-v2-1-cd2569571819@mobileye.com>
+References: <20261112-i6500-cm3-pmu-v2-0-cd2569571819@mobileye.com>
+In-Reply-To: <20261112-i6500-cm3-pmu-v2-0-cd2569571819@mobileye.com>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jiaxun Yang <jiaxun.yang@flygoat.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Will Deacon <will@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
+ Gregory CLEMENT <gregory.clement@bootlin.com>, 
+ =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
+ Fu Chao-Ying <chao-ying.fu@globalfoundries.com>
+Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-rt-devel@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-perf-users@vger.kernel.org, linux-hardening@vger.kernel.org, 
+ Paul Burton <paulburton@kernel.org>
+X-Mailer: b4 0.16.0
 
-On Thu, Nov 12, 2026 at 12:18:46PM +0000, Lorenzo Stoakes (ARM) wrote:
-> On Thu, Nov 12, 2026 at 12:17:21PM +0000, Lorenzo Stoakes (ARM) wrote:
-> > On Thu, Nov 12, 2026 at 11:21:38AM +0000, Pedro Falcato wrote:
-> > > Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-> >
-> > Thanks!
-> >
-> > > > diff --git a/mm/mmap.c b/mm/mmap.c
-> > > > index 7618e72766a5..4cb18b217048 100644
-> > > > --- a/mm/mmap.c
-> > > > +++ b/mm/mmap.c
-> > > > @@ -1313,11 +1313,18 @@ void exit_mmap(struct mm_struct *mm)
-> > [ ... ]
-> > > > +	if (mm_is_oom_victim(mm))
-> > > > +		tlb_flush_mmu(&tlb);
-> > >
-> > > I see there's a different tlb_flush_mmu() call below (in the actual function).
-> > > Is tlb_flush_mmu() idempotent?
-> >
-> > No, tlb_flush_mmu() is cromulent.
+From: Paul Burton <paul.burton@mips.com>
 
-Naturally.
+cm_core_lock is used to protect access to a CPU's core-other/redirect CM
+register block. Since each CPU sees its own copy of this block, we need
+to ensure that critical sections holding a cm_core_lock run on one CPU -
+ie. we need to disable preemption.
 
-> 
-> (kidding, yes it's idempotent :P)
+Use raw_spinlock_t to implement cm_core_lock in order to provide the
+guarantees we need on PREEMPT_RT systems.
 
-Great! Thanks for the cromulent reply.
+Signed-off-by: Paul Burton <paul.burton@mips.com>
+Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+---
+ arch/mips/kernel/mips-cm.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/arch/mips/kernel/mips-cm.c b/arch/mips/kernel/mips-cm.c
+index 7c9c5dc38823..3bfe85e86a9a 100644
+--- a/arch/mips/kernel/mips-cm.c
++++ b/arch/mips/kernel/mips-cm.c
+@@ -179,7 +179,7 @@ static char *cm3_causes[32] = {
+ 	"0x19", "0x1a", "0x1b", "0x1c", "0x1d", "0x1e", "0x1f"
+ };
+ 
+-static DEFINE_PER_CPU_ALIGNED(spinlock_t, cm_core_lock);
++static DEFINE_PER_CPU_ALIGNED(raw_spinlock_t, cm_core_lock);
+ static DEFINE_PER_CPU_ALIGNED(unsigned long, cm_core_lock_flags);
+ 
+ phys_addr_t __weak mips_cm_phys_base(void)
+@@ -309,7 +309,7 @@ int mips_cm_probe(void)
+ 	mips_cm_is64 = IS_ENABLED(CONFIG_64BIT) && (mips_cm_revision() >= CM_REV_CM3);
+ 
+ 	for_each_possible_cpu(cpu)
+-		spin_lock_init(&per_cpu(cm_core_lock, cpu));
++		raw_spin_lock_init(&per_cpu(cm_core_lock, cpu));
+ 
+ 	return 0;
+ }
+@@ -347,8 +347,8 @@ void mips_cm_lock_other(unsigned int cluster, unsigned int core,
+ 		 * mips_cm_lock_other() leading to a deadlock or a nice warning
+ 		 * with lockdep enabled.
+ 		 */
+-		spin_lock_irqsave(this_cpu_ptr(&cm_core_lock),
+-				  *this_cpu_ptr(&cm_core_lock_flags));
++		raw_spin_lock_irqsave(this_cpu_ptr(&cm_core_lock),
++				      *this_cpu_ptr(&cm_core_lock_flags));
+ 	} else {
+ 		WARN_ON(cluster != 0);
+ 		WARN_ON(block != CM_GCR_Cx_OTHER_BLOCK_LOCAL);
+@@ -359,8 +359,8 @@ void mips_cm_lock_other(unsigned int cluster, unsigned int core,
+ 		 * race with us.
+ 		 */
+ 		curr_core = cpu_core(&current_cpu_data);
+-		spin_lock_irqsave(&per_cpu(cm_core_lock, curr_core),
+-				  per_cpu(cm_core_lock_flags, curr_core));
++		raw_spin_lock_irqsave(&per_cpu(cm_core_lock, curr_core),
++				      per_cpu(cm_core_lock_flags, curr_core));
+ 
+ 		val = FIELD_PREP(CM_GCR_Cx_OTHER_CORENUM, core);
+ 	}
+@@ -380,11 +380,11 @@ void mips_cm_unlock_other(void)
+ 
+ 	if (mips_cm_revision() < CM_REV_CM3) {
+ 		curr_core = cpu_core(&current_cpu_data);
+-		spin_unlock_irqrestore(&per_cpu(cm_core_lock, curr_core),
+-				       per_cpu(cm_core_lock_flags, curr_core));
++		raw_spin_unlock_irqrestore(&per_cpu(cm_core_lock, curr_core),
++					   per_cpu(cm_core_lock_flags, curr_core));
+ 	} else {
+-		spin_unlock_irqrestore(this_cpu_ptr(&cm_core_lock),
+-				       *this_cpu_ptr(&cm_core_lock_flags));
++		raw_spin_unlock_irqrestore(this_cpu_ptr(&cm_core_lock),
++					   *this_cpu_ptr(&cm_core_lock_flags));
+ 	}
+ 
+ 	preempt_enable();
 
 -- 
-Pedro
+2.43.0
+
