@@ -1,55 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794497961;
-	b=oxbOYJNgMdUFi7eErjHX2FMCGbhqWenAOzgvEaH+TZ4nslcpuhw+XcL0xOrIpAHUaCCM
-	 IFFgfEoHGN4MNBkGOuuZKX8Vu2sHmAa+wANxplInLa2+YGV6CSdvT4rSpdokt7fVrKgsw
-	 AO7t+e450j930DDJely8zZ8Vso3ChTU/ENqaWysfbn+ptpQQATRnWVzOTyOg5NiDtPL0j
-	 +g3gHetpsLcg2miv/87SToM1huZcoJHPvz/ou0j+lOCYeL4C5TnDlzs5J52g9uD0l80re
-	 QjWgIQGy+64vGXg1y0Cs5qC6MIhjiLKW2wwF+u6xj66gUX9XNMxc13vT7td9wP6nYBQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794497961;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:To:From:
-	 Subject:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=JNnYp35o/nf6vmTuNBxPUZDLjYmnLfH8FNhphGFUILw=;
-	b=t1oo9soDbcr3YAzPCSECDNMcqEwEVpLDzwmZogwGiLNkrz1McQbIQ4cEvLhpUC+0hsfO
-	 np9Ewf/W1T5RUrEsyXjX0xyesZiPxe6+R7o6rHXRyHcA6MrE/fPc0NdzWkdcz1IXwqIYU
-	 9iP3xfsWNaqfmvdCktsTe4EtMp8K5HvG05lhfihPmBJ6CJ0zQHgDf0q6VlEB08Morc5i6
-	 hSQyFwORSBfVts50Fd512KyCvJBwBzMMyMl+PrBiINUUpqYriE1e8uJkfb7x/+4XnKcls
-	 wMyjic5i8mzWg1gs6qwjmUxAcTReGhEi/J5p37yhVsIWNt2kLqc0f/yTEGPfp4HUXPA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=wD5zPBe6;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794497976;
+	b=tSbQrY8XkvJmQ6IgchIwzfdFSVbbzB6GTee6Zn2yO+Hh1dGUHWwyrEEbVwdSB5nilVKV
+	 fPXYXGtzXZpFRixq0joJqUOXxyngPG5tjxmLzAbdKfWGq1HYkpTsQ05YxkL5YXbYhly/M
+	 HJ8YLx59nVbS7y+gpxlxJrHy8kIdp9R7Bv1LpL4Tgo7hdQ6umVg8EAyOXcYILq/Jyu1u7
+	 HqIff0zNQwCuKxGdQTLZR7+wezMRQ4ELHQ6w1Q+DS8YOjsJhL7ixtLH9AxpzxUAZUEKhZ
+	 litniFPPO3j0fK0ooTiYWL/27/4QkZkQYkSwrJ35xSE4ITjSm/bjLEwecNvqxCWv5GA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794497976;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type;
+	bh=ZxYoe/p2LIG1FpzD841r8W7HIaR163eDCLpsGJEmtz4=;
+	b=es1IfPLga81GLz+egQ0f5lvavAKI+TMA5vDB8aQfGd4h1lvobjNz+AQFN166PIWAbP3M
+	 An97V79vQTGz2Qnh4++TR8RtfeJEuBKYIwL3eiIy640acuOtg0NIyMAahI0zdTxXH76KA
+	 dK5SByaX1KPHf64nKg4dGrM6EweYX80MTvzOXmi0dv2gvjn4PNyYOgN8NFM8uOXU1NEyv
+	 HX9xOq7By6aPFjsl/+QRYJ7OFvr2SWoMdvoYFi6xaERC9JP+Tk1wc6QydZvSurTWtNkS7
+	 hYS1f2YwLrqkxsZuGxaUzt1sAMXdYeVGe/ld49WDfXHdkta1it5dgG3RGC1ucwizjww==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=TMZvkvEz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591E2606A330
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:39:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 591E2606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6850606A31C;
+	Thu, 12 Nov 2026 15:39:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6850606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=wD5zPBe6
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id CA7AEC79A9C;
-	Thu, 12 Nov 2026 15:39:21 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7BD705FF85;
-	Thu, 12 Nov 2026 15:39:19 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8C23B11BC12B5;
-	Thu, 12 Nov 2026 16:39:07 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794497954; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=JNnYp35o/nf6vmTuNBxPUZDLjYmnLfH8FNhphGFUILw=;
-	b=wD5zPBe6kaum/BhnlH6o+LaQ7BAShR19kjnPomalW1TpQGj6uPuqzef7EcWSGlDS1OF8SH
-	DSTpRZNPSr6dZhWViBlT+EdYHo/E2WR0ink4eAqmHj8FvCWiZztJ7R+X9Mxi9SAh75cIfW
-	9ndpaN6jBbDTTQ6PBJ5Y3SUlTGmj99QYHcxyy4vsV5txUrG6ak/t7JCioBN+gM3RkPDBn8
-	aaK7KGVaPok38beWMpECPkVhTserR9yBDYI0SwAlrvXJM8LFO+qk9Tv6SJJVrJA2HMa3Lo
-	xkBkqyucxvXaR2FllFwFLk2SWwCN4yi4rZvDSaRP0v1dgw0sLMDEO5w4PAAqgA==
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=TMZvkvEz
+ARC-Seal: i=1; a=rsa-sha256; t=1794497921; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=e/RhxOn5ZE0GIfqtyMkE4SA323oUNLcLNsDzDC0bxw5Lmw+u7YS8ekFpYwSu0BY8ELnQ87/3WcamBHwEuBBKBE4oBtHcH5q4mt2speMuOCVQRejjbbngwtu/pE1DmEHPhxyrXB9ofArKer3hr4vbfxw3Gq+BYOkz9bseOVlp2M4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794497921; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=ZxYoe/p2LIG1FpzD841r8W7HIaR163eDCLpsGJEmtz4=; 
+	b=K+ItBK/Xmnb5dfc2IGUa7D0pRLFGS6GE2q9hag7rI9bKFhfHv6yR1GxwBK1VqPAHKQE8+Ro/DSgFXZwcCuZSEFx0kjBtEvSYh+7twKi3GlcWJ5wYGliCERGm9fVc9DFNqPw7RE99ZhFUoigXW43z8OjZklumOQ8i0whT2c+1gfY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=TMZvkvEz9E7Hwt+AShVd/pvqYCuNkFiAApgjem2APnmeAPfce8adjZ10vxZF0XPekund8Jjy1qJ6LJwVPH8Xjr7NES/NSXYdY2Gn3TDDkleaozIxJ1NDVSEOZskU2S28Fhy0J/JLOUAfYPTtVFEDmoXqcnnQ5NhKNCKNKNf95JM=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=ZxYoe/p2LIG1FpzD841r8W7HIaR163eDCLpsGJEmtz4=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794497919967991.7552714395808;
+	Thu, 12 Nov 2026 07:38:39 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Vidith Madhu <vmadhu@nvidia.com>
+Cc: Xaver Hugl <xaver.hugl@gmail.com>,
+ "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ Leo Li <sunpeng.li@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Daniel Stone <daniels@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andyshrk@163.com>,
+ Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ wayland-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2 11/27] drm: Implement VRR rate limiting
+Date: Thu, 12 Nov 2026 16:38:30 +0100
+Message-ID: <c17LZzRKRUiGxCCOaF_S9w@collabora.com>
+In-Reply-To: <ebaad99a-ef6e-3829-2c27-5ccd5dc1b498@nvidia.com>
+References:
+ <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
+ <20261105-vrr-limiter-uapi-v2-11-55f4215be2c2@collabora.com>
+ <ebaad99a-ef6e-3829-2c27-5ccd5dc1b498@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,108 +85,136 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 12 Nov 2026 16:39:06 +0100
-Message-Id: <DMTCFJVH99S4.27AWO8PN3ZPK7@bootlin.com>
-Cc: "Damon Ding" <damon.ding@rock-chips.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>
-To: "Jun Yan" <jerrysteve1101@gmail.com>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Heiko Stuebner"
- <heiko@sntech.de>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v3] drm/bridge: analogix_dp: use devm_phy_optional_get()
- for the DP PHY
-X-Mailer: aerc 0.22.0
-References: <20261110023721.2014061-1-jerrysteve1101@gmail.com>
-In-Reply-To: <20261110023721.2014061-1-jerrysteve1101@gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 
-Hello,
+On Thursday, 12 November 2026 06:35:44 Central European Standard Time Vidith Madhu wrote:
+> 
+> On Thu, 5 Nov 2026, Nicolas Frattaroli wrote:
+> 
+> > Currently, VRR is allowed to use the entire range advertised by the
+> > sink's EDID. Userspace may find it desirable, however, to limit this
+> > range, or set a fixed target rate entirely. The latter is mainly useful
+> > for multimedia playback applications, where judder can be avoided by
+> > matching the content's frame rate precisely.
+> > 
+> > With the new VRR target frame rate properties, the necessary
+> > infrastructure is in place to allow implementing this.
+> > 
+> > Add the necessary logic to hdmi_validate_vrr, as well as the VRR
+> > helpers. Since not every target rate can be reached precisely, the
+> > per-frame error is calculated, and dithered one row at a time across
+> > subsequent frames. This means some frames are one vtotal larger than
+> > others, so that averaged over the frames, the desired target rate is
+> > achieved. Such dithering is explicitly permitted by HDMI, and is still
+> > considered a constant target frame rate.
+> > 
+> > Co-developed-by: Derek Foreman <derek.foreman@collabora.com>
+> > Signed-off-by: Derek Foreman <derek.foreman@collabora.com>
+> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > ---
+> >  drivers/gpu/drm/display/drm_hdmi_state_helper.c | 134 +++++++++++++++++++++---
+> >  drivers/gpu/drm/drm_crtc_helper.c               |  34 +++++-
+> >  include/drm/drm_crtc.h                          |   3 +
+> >  include/drm/drm_crtc_helper.h                   |   2 +
+> >  4 files changed, 156 insertions(+), 17 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > index ce680eaa5047..846f7a72fddc 100644
+> > --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > @@ -5,6 +5,7 @@
+> >  
+> >  #include <drm/drm_atomic.h>
+> >  #include <drm/drm_connector.h>
+> > +#include <drm/drm_crtc_helper.h>
+> >  #include <drm/drm_edid.h>
+> >  #include <drm/drm_modes.h>
+> >  #include <drm/drm_print.h>
+> > @@ -1051,15 +1052,60 @@ static int hdmi_calculate_vtotal(const struct drm_display_mode *mode,
+> >  	return 0;
+> >  }
+> >  
+> > +static int hdmi_validate_vrr_limits(struct drm_crtc_state *crtc_state, u16 vrr_min)
+> > +{
+> > +	struct drm_crtc_vrr_state *vrr_state = &crtc_state->vrr_state;
+> > +	const struct drm_display_mode *mode = &crtc_state->mode;
+> > +	u32 limit_d;
+> > +	u8 round;
+> > +	int ret;
+> > +
+> > +	/* No limiter, don't need to validate, but reset the error */
+> > +	if (!drm_crtc_helper_vrr_is_fixed_rate(vrr_state)) {
+> > +		vrr_state->per_frame_err = 0;
+> > +		vrr_state->cur_err = 0;
+> > +		return 0;
+> > +	}
+> > +
+> > +	/* Don't allow rates equal to or below the minimum VRR rate / 1.001 */
+> > +	if (cmp_fraction(vrr_state->vrr_min_n, vrr_state->vrr_min_d,
+> > +			 vrr_min * 1000, 1001) < 0)
+> > +		return -EINVAL;
+> > +
+> > +	if (check_mul_overflow(mode->crtc_htotal, vrr_state->vrr_min_n, &limit_d))
+> > +		return -ERANGE;
+> > +
+> > +	ret = hdmi_calculate_vtotal(&crtc_state->mode, vrr_state->vrr_min_n,
+> > +				    vrr_state->vrr_min_d, &vrr_state->base_vtotal,
+> > +				    &vrr_state->denom, &vrr_state->per_frame_err);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	/* Allow rounding up for the vtotal check below */
+> > +	if (vrr_state->per_frame_err >= vrr_state->denom / 2)
+> > +		round = 1;
+> > +	else
+> > +		round = 0;
+> > +
+> > +	if (vrr_state->base_vtotal + round < mode->crtc_vtotal)
+> > +		return -EINVAL;
+> > +
+> > +	return 0;
+> > +}
+> > +
+> I believe in the previous revision we discussed factoring out the 
+> protocol-agnostic validation of the CRTC frame limit ranges properties
+> (e.g. checking against min/max_vfreq, checking for a degenerate range)
+> to the main CRTC atomic check path. Is that still the intention?
 
-On Tue Nov 10, 2026 at 3:37 AM CET, Jun Yan wrote:
-> The DP PHY is optional: the Rockchip RK3399 eDP controller (used as the
-> internal eDP port) has no separate PHY device and relies on its built-in
-> PHY, which is programmed directly through the GRF registers, so its DT
-> node carries no "phys"/"phy-names" property.
->
-> Requesting the PHY with devm_phy_get() therefore returns -ENODEV (or
-> -ENOSYS when CONFIG_GENERIC_PHY is disabled) and the driver logs a
-> misleading "no DP phy configured" error at probe time before falling back
-> to a NULL phy.
->
-> Use devm_phy_optional_get() instead, which returns NULL when the PHY is
-> absent and otherwise behaves identically, and drop the manual -ENODEV/
-> -ENOSYS handling. This also removes the spurious error message.
->
-> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
-> Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
-> ---
-> Changes in v3:
->   - Add missing changelog entries and reference links
->   - Link to v2: https://lore.kernel.org/dri-devel/20261013134659.335829-1=
--jerrysteve1101@gmail.com/
->
-> Changes in v2:
->   - Added comments to explain the changes made.
->   - Link to v1: https://lore.kernel.org/dri-devel/20260924020417.868588-1=
--jerrysteve1101@gmail.com/
->
->  .../drm/bridge/analogix/analogix_dp_core.c    | 22 ++++++-------------
->  1 file changed, 7 insertions(+), 15 deletions(-)
->
-> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers=
-/gpu/drm/bridge/analogix/analogix_dp_core.c
-> index 6df6963740d2..637b1bff0f6c 100644
-> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> @@ -1426,21 +1426,13 @@ analogix_dp_probe(struct device *dev, struct anal=
-ogix_dp_plat_data *plat_data)
->  	if (ret)
->  		return ERR_PTR(ret);
->
-> -	dp->phy =3D devm_phy_get(dp->dev, "dp");
-> -	if (IS_ERR(dp->phy)) {
-> -		dev_err(dp->dev, "no DP phy configured\n");
-> -		ret =3D PTR_ERR(dp->phy);
-> -		if (ret) {
-> -			/*
-> -			 * phy itself is not enabled, so we can move forward
-> -			 * assigning NULL to phy pointer.
-> -			 */
-> -			if (ret =3D=3D -ENOSYS || ret =3D=3D -ENODEV)
-> -				dp->phy =3D NULL;
-> -			else
-> -				return ERR_PTR(ret);
-> -		}
-> -	}
-> +	/*
-> +	 * RK3288/RK3399 use Analogix DP controller built-in PHY,
-> +	 * no extra PHY configuration is required.
-> +	 */
-> +	dp->phy =3D devm_phy_optional_get(dp->dev, "dp");
-> +	if (IS_ERR(dp->phy))
-> +		return ERR_CAST(dp->phy);
+I think the validate limit function could be moved to the CRTC helpers.
+I did try to move the whole hdmi_validate_vrr logic to CRTC, but that
+doesn't work because a lot of it requires the connector.
 
-The original code ignbores -ENOSYS, devm_phy_optional_get() does not. So,
-either -ENOSYS was just impossible, or this patch potentially changes the
-behaviour.
+I'll move the limit validation to the protocol-agnostic CRTC helpers then
+and have the passed-in params be whatever the CRTC doesn't know of itself,
+so that it's at least reusable for non-HDMI-state-helper drivers.
 
-Can you elaborate on that?
+> 
+> >  static int hdmi_validate_vrr(struct drm_connector *connector,
+> >  			     struct drm_atomic_commit *state)
+> >  {
+> >  	struct drm_connector_state *new_conn_state =
+> >  		drm_atomic_get_new_connector_state(state, connector);
+> > +	struct drm_connector_state *old_conn_state =
+> > +		drm_atomic_get_old_connector_state(state, connector);
+> >  	struct drm_crtc_state *new_crtc_state =
+> >  		drm_atomic_get_new_crtc_state(state, new_conn_state->crtc);
+> >  	struct drm_crtc_vrr_state *vrr_state =
+> >  		&new_crtc_state->vrr_state;
+> > +	struct drm_crtc_vrr_state *old_vrr_state;
+> > +	struct drm_crtc_state *old_crtc_state = NULL;
+> >  	struct drm_display_info *info = &connector->display_info;
+> >  	const struct drm_display_mode *mode = &new_crtc_state->mode;
+> >  	struct drm_device *dev = connector->dev;
+> > @@ -1068,10 +1114,14 @@ static int hdmi_validate_vrr(struct drm_connector *connector,
+> >  	u32 min_vfreq_d = 1;
+> >  	u32 max_vfreq_n = info->hdmi.vrr_cap.vrr_max;
+> >  	u32 max_vfreq_d = 1;
+> > +	bool is_fixed;
+> >  
+> [snip]
 
-Luca
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+
+
