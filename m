@@ -1,54 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794504055;
-	b=HzDEWlWTt4IlWFa2LemZdcS+QE5hQCW0BBS1lcj2tigipnbiFnOIVTtDdlwnzUCuJGG2
-	 9Bw2D8gubUOyOePI1gSLOCQEpj9hDny3BRYZL8v74UCBiuVqxkHOLazIuquu8908rJcA1
-	 DeNuW6dgo1v+fzsAehqCEqAsPPL97KBuO9reVO6P71t5r3YBqYpWvRdHBXWDjdfK3k5Hm
-	 WYbWhAEKY9JlS3aXo4v1GwDty46KODSyVzX+XGQxjqWODgbmifd1wP1kpKNduZj6uuZyf
-	 CXdWxbi2lbKPdsnV8R9EfLwJUl0dgWd9Cdy/bP4IVJht6iicrHMPqU66eB8JTvX7Btw==
+	t=1794504079;
+	b=yY0Tc325u2Vc3UscTzJFk/3XDmYbQX1EWP1wRj8jZDLwVBVUz5Xe3eNSQuw8OjOR/TKV
+	 orGaIpPeSLq4V8JcvK/atbIcHW2waO5Gmkv8SgpA6VYKMXabbMnEbqynpEZGJNmAkmoqC
+	 BR2Y1aH//JiV8B3oQ5Nj4uZ0r8LqqZ422HtZMwOA55NpHrfz+DTKaVOaDVVy5kOmaY2Ew
+	 xziU0eU50LcgA/qj4zgyBJ/GpV1k4Uf2Rjd0dCh99n2caXkjv45ffpw+x2Wpj0L/lVzAt
+	 xPO9dED24plktSwteheprsYfiv2OKnfDxW5lK9eGQhJ+k+nhKh3U3OOgP5KZObnjuDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504055;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=Uk6HeYEyo2FP7r6+k7lA8Af1r3w/MyfSTl61Tnmm320=;
-	b=SkXYBKzVc4Yb4nKuZq1aC4Pk7nFLnHggD7FnntXO8ONQXOvg8JQlhdggqFKbGrF5kole
-	 izoQ2vOquSd1MysND/5HsZpgZ4o89R8Od1QlhLOoRU7JSt/W5QpeJ2QUvQxGO99Ac2Fhr
-	 9r9SwD+oZLrunf5LOTBwsqeBUeRGkSosarh+/lw9tUjQOxo260y25Dr+zalvEjY8fuWdU
-	 D/sYF6K77sP4R/rBLpRoyNLYYNANC3heo3tw1Z7PF/u47sE4HIX69w/vheB2SbMqCzWwF
-	 Kn9gN1X06t+7f3/zzyuSqRij5Ady7DRLG1A6XrF+7RmVODYA6/plxldiTt1488IMdbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794504079;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=eXdLq4VpQrc3pLNlS0vz0mjfNa2LKyEz8zqt+39dnpA=;
+	b=l5aWpGcm822ttwC9YHSLVsS6FH/PTMBHkyB7dZEvjHj8ehmhY/1oigYFJz4gfNX4jGy3
+	 QYGNdwOCUjuR1K594yTpYr4SvygO4muwa4/EmFzndwoETTf13beDWZP2mSPFiiHoVBptI
+	 j37A4bcCnUtA0e2Gii7kcUnuAPl+44KzPQ5E7SCmvJj+DXvYM6oOhOwvKmtomwInTPjQy
+	 43zYLHbnvBPNS+BEMIYZJ5BsYI/nCcb3AhVHvpgVucBBBhtob8Dpumekgc1ehXU3+xR4O
+	 ey3UMBLPerhKmQJdxv40IaKD2U6KvGcHWmgKO67/Yw+xZqC1aUYCV+EjMnI7Gl/Hqsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Nfke2sL/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00E6E606A32E
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:20:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00E6E606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4f8281066c4so5068468b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:20:54 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794504054; x=1795108854;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Uk6HeYEyo2FP7r6+k7lA8Af1r3w/MyfSTl61Tnmm320=;
-        b=iFolK4C68xTmUSoEy0RA+UurNxhN7Yh6NOdxE3sVNRbU6zgCxpEm7Z9FRbRTKER6pf
-         fB8p7p3dY+IRcjtCrBh7kmd4oWqmqUnC8WZ3mElP3+PSen51ThB36RcZC0IeRJITgJmJ
-         sMutNhI0cn1/3aj6YTE5q0WDs6Z8xvnohdEWgDwm+eO/SFT6Z++GY2nryHJd0JFn95mK
-         b0c7cTYetQEZ+0yMW0a++CS8LNamSmKWmvIViu8c0USAE3ZzPW8yXDDoDGDTN2TkqUs3
-         KevpL1FE7Lbe+JMt5oQusud37UY6EJCBDuKrRt5NH/D3Qg1LFAExCmGAI/W73flu/xJF
-         Q6dA==
-X-Forwarded-Encrypted: i=1; AL+hErErSZ9dRzHQLMAFuPHyJpUYwQ7IN/5EeKx35W6YUwRK6g00Qf6cnrlZRVCn/Cz1i0AA5pd0aVi9sJN3Enw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/40yoAhXGnPUVmHlyRZdQ27HGcaoAirBW6peBhsasnv1b6i2Ov
-	6HREgmAJQ1JlqtYF4X9XPSA/Fi71zpLOi3YFhJktXS09y4joOpFP9Sv5SuuDAiO7U71FMg5jpQw
-	PyZNtHUWQtMW+nN+uhpKIm7W4/6qN532Nb3CXW4rRjXgkH3SmMh6m45gc6Y8=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E6D9606A31C;
+	Thu, 12 Nov 2026 17:21:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nfke2sL/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B27BA1F000C4;
+	Thu, 12 Nov 2026 17:21:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794504078;
+	bh=eXdLq4VpQrc3pLNlS0vz0mjfNa2LKyEz8zqt+39dnpA=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=Nfke2sL/sXeXWgIPPISdEdw7sGin5a53bUK+xzslYxXJR8Tg627nY3WJIABgaNWPL
+	 w8zG2LCYd4bNIlUQ3kZMoQDOvih/c48INhQ/T/rkT7SCqoQg47iBwFezynk9plkpSU
+	 cEixol31RYjGYIcQkK3ZcLBQEGnO7KDDL8mZJN+/FY2viUkvLoEbiTC90iKvBbXVdg
+	 jQPhSS1WVZvlAshJ7PRvufjMAa+dQ9dnR1ICF+j0EYTEElM3j2vCtBsT345WiUR1ah
+	 Trpk0bf2Y27/gKgcemJUuZhgG0zjmXStvRRryH4Y4Crq9XuWgpiZQYl4KNKmRc+U9K
+	 5aCfwZy0GaI5g==
+Message-ID: <c4bcc25b-636c-4eb9-ad04-3c267af877ce@kernel.org>
+Date: Thu, 12 Nov 2026 18:21:09 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,238 +51,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3c47:b0:4c4:a240:9c3a with SMTP id
- 5614622812f47-56b9325040amr5327684b6e.4.1794504054006; Thu, 12 Nov 2026
- 09:20:54 -0800 (PST)
-Date: Thu, 12 Nov 2026 09:20:53 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af5f575.b350cda4.2b6a63.0000.GAE@google.com>
-Subject: [syzbot] [wpan?] KASAN: invalid-free in hwsim_update_pib
-From: syzbot <syzbot+8a8482d4c33cc58babb4@syzkaller.appspotmail.com>
-To: alex.aring@gmail.com, linux-kernel@vger.kernel.org, 
-	linux-wpan@vger.kernel.org, miquel.raynal@bootlin.com, netdev@vger.kernel.org, 
-	stefan@datenfreihafen.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] arm64: defconfig: Enable the Parade PS195 bridge
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
+ Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20261112-mahua-hdmi-v1-0-b463d7b1dd7e@oss.qualcomm.com>
+ <20261112-mahua-hdmi-v1-3-b463d7b1dd7e@oss.qualcomm.com>
+ <2dfe6739-2d36-4e47-b7fd-c10fb5374317@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <2dfe6739-2d36-4e47-b7fd-c10fb5374317@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On 12/11/2026 17:14, Krzysztof Kozlowski wrote:
+> On 12/11/2026 11:15, Nabige Aala wrote:
+>> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+>>
+>> Enable the PS195 bridge driver as a module for HDMI output on Glymur,
+>> Mahua and Kalambo CRDs.
+> 
+> Same comments as previous patches from you. Don't send Qualcomm internal
+> stuff, that's defconfig for all SoC platforms so you need to properly
+> describe it. What is Glymur? Samsung Glymur? It's impossible to get what
+> you are referring here to.
+> 
+> By coincidence I know what is Glymur, but how Glymur could have Parade
+> chip? It's not possible.
 
-syzbot found the following issue on:
+And good examples:
+8b8d8aa9d482b08d5315e4d26631b9891c90e02e
+6f422914412bde4c431706079525c581bf439e03
 
-HEAD commit:    793807ca13bf Add linux-next specific files for 20261110
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=13724cad580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8005ef7c0a8a924b
-dashboard link: https://syzkaller.appspot.com/bug?extid=8a8482d4c33cc58babb4
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17b01a4e580000
-
-AI-generated root cause summary:
-In drivers/net/ieee802154/mac802154_hwsim.c, hwsim_del() frees the simulated
-hardware's physical layer information base (phy->pib) via kfree_rcu() prior to
-unregistering the hardware via ieee802154_unregister_hw(). During
-ieee802154_unregister_hw(), slave network interfaces are closed, and an ongoing
-scan is aborted through mac802154_slave_close() -> mac802154_abort_scan_locked()
--> drv_set_channel() -> hwsim_hw_channel(). hwsim_hw_channel() accesses the
-already-queued phy->pib and calls hwsim_update_pib(), which invokes kfree_rcu()
-on the exact same PIB object a second time, causing a double-free and
-use-after-free.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=8a8482d4c33cc58babb4
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+8a8482d4c33cc58babb4@syzkaller.appspotmail.com
-
-==================================================================
-BUG: KASAN: double-free in kfree_rcu_sheaf mm/slab_common.c:1693 [inline]
-BUG: KASAN: double-free in kvfree_call_rcu+0x9c/0x440 mm/slab_common.c:2056
-Free of addr ffff888077e0ab80 by task syz-executor416/6057
-
-CPU: 1 UID: 0 PID: 6057 Comm: syz-executor416 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report_invalid_free+0xea/0x110 mm/kasan/report.c:557
- check_slab_allocation+0xbc/0xe0 mm/kasan/common.c:-1
- kasan_slab_pre_free include/linux/kasan.h:202 [inline]
- __kfree_rcu_sheaf+0x126/0x690 mm/slub.c:6299
- kfree_rcu_sheaf mm/slab_common.c:1693 [inline]
- kvfree_call_rcu+0x9c/0x440 mm/slab_common.c:2056
- hwsim_update_pib+0x276/0x400 drivers/net/ieee802154/mac802154_hwsim.c:119
- hwsim_hw_channel+0x178/0x2b0 drivers/net/ieee802154/mac802154_hwsim.c:131
- drv_set_channel+0xfe/0x280 net/mac802154/driver-ops.h:240
- mac802154_scan_cleanup_locked+0x116/0x280 net/mac802154/scan.c:72
- mac802154_abort_scan_locked+0xa3/0xe0 net/mac802154/scan.c:92
- mac802154_slave_close+0xc9/0x2e0 net/mac802154/iface.c:306
- __dev_close_many+0x361/0x6e0 net/core/dev.c:1836
- netif_close_many+0x249/0x660 net/core/dev.c:1862
- unregister_netdevice_many_notify+0x7aa/0x1dc0 net/core/dev.c:12729
- unregister_netdevice_many net/core/dev.c:12831 [inline]
- unregister_netdevice_queue+0x2f5/0x340 net/core/dev.c:12627
- unregister_netdevice include/linux/netdevice.h:3511 [inline]
- ieee802154_remove_interfaces+0x162/0x1a0 net/mac802154/iface.c:714
- ieee802154_unregister_hw+0x62/0xe0 net/mac802154/main.c:284
- hwsim_del+0x49c/0x500 drivers/net/ieee802154/mac802154_hwsim.c:1016
- hwsim_del_radio_nl+0x110/0x150 drivers/net/ieee802154/mac802154_hwsim.c:361
- genl_family_rcv_msg_doit+0x233/0x340 net/netlink/genetlink.c:1114
- genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
- genl_rcv_msg+0x614/0x7a0 net/netlink/genetlink.c:1209
- netlink_rcv_skb+0x226/0x4a0 net/netlink/af_netlink.c:2585
- genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
- netlink_unicast_kernel net/netlink/af_netlink.c:1336 [inline]
- netlink_unicast+0x8ef/0xa80 net/netlink/af_netlink.c:1362
- netlink_sendmsg+0x7f0/0xb20 net/netlink/af_netlink.c:1921
- sock_sendmsg_nosec+0x14e/0x190 net/socket.c:800
- __sock_sendmsg net/socket.c:818 [inline]
- __sys_sendto+0x408/0x5a0 net/socket.c:2283
- __do_sys_sendto net/socket.c:2290 [inline]
- __se_sys_sendto net/socket.c:2286 [inline]
- __x64_sys_sendto+0xde/0x100 net/socket.c:2286
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x00007f8868cf0b77
-Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-RSP: 002b:00007ffeb08d8fe0 EFLAGS: 00000202 ORIG_RAX: 000000000000002c
-RAX: ffffffffffffffda RBX: 000055555ef33400 RCX: 00007f8868cf0b77
-RDX: 000000000000001c RSI: 00007ffeb08d91e0 RDI: 0000000000000003
-RBP: 0000000000000003 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000032
-R13: 00007ffeb08d9040 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
-
-Allocated by task 13:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3f/0x90 mm/kasan/common.c:79
- poison_kmalloc_redzone mm/kasan/common.c:412 [inline]
- __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:429
- kasan_kmalloc include/linux/kasan.h:267 [inline]
- __kmalloc_cache_noprof+0x31c/0x600 mm/slub.c:5678
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- hwsim_update_pib+0x7e/0x400 drivers/net/ieee802154/mac802154_hwsim.c:103
- hwsim_set_promiscuous_mode+0x196/0x2e0 drivers/net/ieee802154/mac802154_hwsim.c:326
- drv_set_promiscuous_mode+0x154/0x2d0 net/mac802154/driver-ops.h:127
- drv_start+0x4db/0x1000 net/mac802154/driver-ops.h:167
- mac802154_scan_worker+0x8e6/0xe60 net/mac802154/scan.c:248
- process_one_work kernel/workqueue.c:3511 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3594
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3675
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Last potentially related work creation:
- kasan_save_stack+0x3e/0x60 mm/kasan/common.c:57
- __kasan_record_aux_stack+0xc5/0xe0 mm/kasan/generic.c:561
- __kfree_rcu_sheaf+0x136/0x690 mm/slub.c:6304
- kfree_rcu_sheaf mm/slab_common.c:1693 [inline]
- kvfree_call_rcu+0x9c/0x440 mm/slab_common.c:2056
- hwsim_del+0x476/0x500 drivers/net/ieee802154/mac802154_hwsim.c:1014
- hwsim_del_radio_nl+0x110/0x150 drivers/net/ieee802154/mac802154_hwsim.c:361
- genl_family_rcv_msg_doit+0x233/0x340 net/netlink/genetlink.c:1114
- genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
- genl_rcv_msg+0x614/0x7a0 net/netlink/genetlink.c:1209
- netlink_rcv_skb+0x226/0x4a0 net/netlink/af_netlink.c:2585
- genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
- netlink_unicast_kernel net/netlink/af_netlink.c:1336 [inline]
- netlink_unicast+0x8ef/0xa80 net/netlink/af_netlink.c:1362
- netlink_sendmsg+0x7f0/0xb20 net/netlink/af_netlink.c:1921
- sock_sendmsg_nosec+0x14e/0x190 net/socket.c:800
- __sock_sendmsg net/socket.c:818 [inline]
- __sys_sendto+0x408/0x5a0 net/socket.c:2283
- __do_sys_sendto net/socket.c:2290 [inline]
- __se_sys_sendto net/socket.c:2286 [inline]
- __x64_sys_sendto+0xde/0x100 net/socket.c:2286
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff888077e0ab80
- which belongs to the cache kmalloc-64 of size 64
-The buggy address is located 0 bytes inside of
- 56-byte region [ffff888077e0ab80, ffff888077e0abb8)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff888077e0a000 pfn:0x77e0a
-flags: 0xfff00000000200(workingset|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000200 ffff88813ff308c0 ffffea0001ee43d0 ffffea000086b9d0
-raw: ffff888077e0a000 0000000000200019 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5010, tgid 5010 (udevd), ts 50265114608
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1880
- prep_new_page+0x22/0xb0 mm/page_alloc.c:1888
- get_page_from_freelist+0x22a1/0x22e0 mm/page_alloc.c:3970
- __alloc_frozen_pages_noprof+0x211/0x450 mm/page_alloc.c:5512
- alloc_slab_page mm/slub.c:3384 [inline]
- allocate_slab+0x7d/0x5e0 mm/slub.c:3499
- new_slab mm/slub.c:3550 [inline]
- refill_objects+0x2d5/0x350 mm/slub.c:7524
- refill_sheaf mm/slub.c:2917 [inline]
- __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4809
- alloc_from_pcs mm/slub.c:4885 [inline]
- slab_alloc_node mm/slub.c:5019 [inline]
- __do_kmalloc_node mm/slub.c:5528 [inline]
- __kmalloc_noprof+0x476/0x710 mm/slub.c:5554
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- tomoyo_encode2 security/tomoyo/realpath.c:45 [inline]
- tomoyo_encode+0x2ad/0x570 security/tomoyo/realpath.c:80
- tomoyo_realpath_from_path+0x5fd/0x640 security/tomoyo/realpath.c:283
- tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
- tomoyo_check_open_permission+0x229/0x470 security/tomoyo/file.c:776
- security_file_open+0xa9/0x240 security/security.c:2761
- do_dentry_open+0x495/0x1360 fs/open.c:977
- vfs_open_consume+0x4a/0x350 fs/open.c:1131
- do_open fs/namei.c:4851 [inline]
- path_openat+0x16fc/0x20f0 fs/namei.c:5016
- do_file_open+0x23e/0x4a0 fs/namei.c:5045
-page last free pid 16 tgid 16 ts 50082662316 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1422 [inline]
- __free_frozen_pages+0xd1a/0xe10 mm/page_alloc.c:2978
- rcu_do_batch kernel/rcu/tree.c:2651 [inline]
- rcu_core+0x92e/0x1230 kernel/rcu/tree.c:2920
- handle_softirqs+0x265/0x8d0 kernel/softirq.c:669
- run_ksoftirqd+0x36/0x60 kernel/softirq.c:1133
- smpboot_thread_fn+0x5f8/0xb30 kernel/smpboot.c:162
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Memory state around the buggy address:
- ffff888077e0aa80: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
- ffff888077e0ab00: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
->ffff888077e0ab80: 00 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc
-                   ^
- ffff888077e0ac00: 00 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc
- ffff888077e0ac80: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-==================================================================
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Best regards,
+Krzysztof
