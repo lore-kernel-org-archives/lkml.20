@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794473701;
-	b=oXMKg8TcD7zB+r+UjzoFhRlVmY1oPN8lYNtjwUfLS0kAUngbwRXPNqduqdjK3f+1opKN
-	 +8x/dJJ8Yn94vTG+qC5qy0Fkq9o6F0DT+ZyWs3HWaUTiQJMZ9a1ZE3dwqbxBMNQoO089e
-	 KIWZlsTum7V97vygskuuD0lr/SUfjS7H47baSzO6c3J0uUawEnOHgu9k+ohdh/t33wTD7
-	 i74CSL+QZFVXgTHsbFZcNrl5beI7q6MSQTDbApuJHebNAjlOukz6GsXxfVosKOftE2orh
-	 NHpoTOz8G3mjLNpnoGEVxxWzSsRPTeldifL4L+xyOz1zMuCRXwIESLOZJtc7rUb5C+Q==
+	t=1794473697;
+	b=Yga5nJMN0Jv8MPCv8n32AI/yIWxQ/BY+0XdknyY772mPfUIXiGNM2wMoBCKIinBO/XbO
+	 hGtky9GN2fK02eJFBg7XAhLbu478skB2uA//OMAp8pghtHhFRoEzxc2l4+Ra8Cw0cpQHh
+	 MKovAFGFf8m3MYJC4ptbLTUW7Bcm+rbpmVQg90k538JhZpb4MP6GpodtN365nrkbivcMy
+	 hDf1MNplQDk+JtjgFUDSleSCQ9CCqBWnKE9KNsvBnXgqHlMg+ehWs25Pa3uPK1bT8KTrb
+	 BYzIZcnrv4aH30a8fiGYJE+YeNTq7Jkwc2S0Gux7vs8aOsiWgAZBKUXGuGg6ATnjpqA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794473701;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794473697;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1y1/WcfP5SBksAqFnL1f1IVrkMBg2fcta5eEl97OK2c=;
-	b=sr72RudkwJigt3q9RgyVXughr0+k76lEnP/leSefMpZo1hvQgEyfTJUFxG+BOjouxIA7
-	 sUDOJDESjI7eDH3QVkQBGRKwAXcOQNu1Nh3vS++TsCko6LrsTujEtsxuWkqweY9S7938r
-	 s4zPYTkjG7fteMWpQ0dIl0Fp0ac6t/ko1iqzMRu3rtaXQtgPyhC3kXg9hBHlkncCGNnXz
-	 yCSrkQGZXqI9N9Hj4a/rUpzTtwsECBjpbTfVtjEcpmUEcYp6iA3TJfNEm599KU567zStJ
-	 C/Rhb/ULagMN/cwHrpvnNQsHk1MHFvi3GHpoexXOlMWH8Ro/RReJxqPtlTf6zFOxczg==
+	bh=GAmODtzajJ/vJ0gUPo7wNiXWbv7xMaGq87L/wvHWZBA=;
+	b=dIy3kGiyMadwRErjwfq2mxadAx+8Xk9Jwzse75NsVU/qBTXrmFGwacT7SBrdFaSWphRV
+	 /yFLiD0zyWUduJT1yDR87P24nQkfARrepYi4b5Z+ZaJv+5PJ+YEdGTCUP2+Fx+d/88RbD
+	 5DrGj3C/iIS1LaXk2bT6r5nxgyorhr1ArV3jChO54+wdMA0+MRroo9F22FX4ImIMOgisY
+	 LROIvlxrQic0db53UYA2ktmCxIKFuBLIlhdOqODip2cOqLa/tSkralu1N1JmmhIfcYMWP
+	 GI2w/IFp8Nl4isKJgGgi/TvtDV/JKIdknJRLhnVmMoefxsfiDILYAsTlNSbztElkjRg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K1rv9F9K;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dv+oEpyB;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B599C606A33B;
-	Thu, 12 Nov 2026 08:55:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD29606A33E;
+	Thu, 12 Nov 2026 08:54:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K1rv9F9K
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dv+oEpyB
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794473701;
-	b=TqyAT0bSVJnET1zYAHkuOJVFNFN34xd8/fEhByJtafQVJGM3s74MJGCOuFSPBaw9W3jv
-	 7q3B/l0VORvyMOC1GCUppEKXEeW7EjTsJgkrjHtnOIa6nyZ5h4m6NZNiIukV+ShrtvTtt
-	 uD7P4Y5/qYVzgLWI6zpmhLn6pgAM66E26a8yQKkn7Qb20ld31etW1EwH+9cgSugJn4wXT
-	 kA+uPsJ8T7vCW3McLFQfn02NY7JpP4NrPdQzcOOKvDkmNjO+Rw3z9kF7R+71QlC1kwnJF
-	 eJvLBUCA+YBVdolHxW0+c4eWBi5dJPB1UePmlHju5BtvciavMGyRMqCO1WgA/XAnEGg==
+	t=1794473697;
+	b=1jMiWImKTb71EJAGeqPxSXJjuneNfPn+yAz4xJuNuB4IYwiiJNqGKII1nqINqt0Oc78x
+	 mJkMqLrYa2zAVRLfIJobATa3SpeqBoOTR1OAxjpeAaUYPDapVC0biooesv7WqabtvlhZ+
+	 X/Mo6HHIF6Wrk4soYjsepCad5/fvm/d+cXjOO7bzamBYSsAuJQSAeuMFBN5nVLHnb3SvJ
+	 Gy/NcGTyzmidgOkvlbxCPC954z8Y/Jm5oBGcP5wyQfheh7BJEE/UtwnEYxBYyZNfW7vZF
+	 VBnUplw0ZOErV1nKqcvngwJdC75OCjbFBg9Ppqn2WGVKJanfUHzMG2WxlcyQ+p7qx7A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794473701;
+	c=relaxed/relaxed; t=1794473697;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1y1/WcfP5SBksAqFnL1f1IVrkMBg2fcta5eEl97OK2c=;
-	b=g6IBjbj21IflpgxWX63sPjurfhv8Vp3urdjk1ODIpCSzlcL9FTwGa5psTA5DpjTR9QCc
-	 Vz9CG9B8C+N2NDT3y0+vGowGpJZqLRgC/zWiXh5Tgux2M1d+WiDBHdpqit+MiESfVYntp
-	 mPrD21hXZEA2GuPVrKjEl7BfUm+B4qxWqEOTEabRB9sYglAklq1p3sM9tv88aEpKRZw99
-	 kkqVO2rNGy6Pp4Kby1lU8ORQ4fdZ/cU+Orc/gKruSuKuE1SkAPJflRMoR49OG7r7MKXmD
-	 ra1i6d0APcd3YIn4CsapWUsBGxpcohsy5a6ODKypui0uGSDoHTnddE3s3TICuJ+Ua0A==
+	bh=GAmODtzajJ/vJ0gUPo7wNiXWbv7xMaGq87L/wvHWZBA=;
+	b=BDRxuCpGDs2p2XP19locKxVyIA0ac/wnTKoH/BUSFqAWj3ZRVsUBGOmQvvsFq96sj9BO
+	 XB3WFq4EN97B2HfYOJd0GXLLZdF7KVFDbMOV7EG9uWkjhyXz5Kzi3O3dtBzpRmFxdlIf7
+	 3lwulH8z9BisBXVrqEdhjATsddAmoWYQ9iGMAjgiB+zH56tpHqh3OPoE+JPXY1xodh53M
+	 NbJOB3Ys/iPNjUX6nEqcWwzeS50rX1zwjA6lzWr5TqF2vTYppLNrKfc1QAccQ5mK7q+Yz
+	 8ONYxdbs3cn0Qdm//tsuLsmt7e67b0Sh0Jy1KEMgwhKbPKGLjLzMz4GHRUtJ6hKGUFQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4E1241F00A06;
-	Thu, 12 Nov 2026 08:55:00 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 716BF1F00A0A;
+	Thu, 12 Nov 2026 08:54:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794473701;
-	bh=1y1/WcfP5SBksAqFnL1f1IVrkMBg2fcta5eEl97OK2c=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=K1rv9F9KZJAwt+2baEnPdiImF9nV87UMfoQIu1JmHPMi1hRnPw+gazWy9rpr4cBhw
-	 tdzmQ12NIQOJpfApSc9NUlNgoAngFGDi0qO5SoTUD231lo51G5JjdOPBk0hb72Q/yb
-	 EmIwSfOKbiTG/2MroHZXL7vcBrbeEIoqOruOTGA3i87mv3qUfOgAdY7+doINDVAoKx
-	 RnJSd7TBUkClPgf17DoBr52+V8zlms8FeUIMpha0tI2WfhhKh9uFjTiW+6qXYEV3EO
-	 fFg0gEsrevqgspOh1rXrqNIib5nFikq2QbSoLR8wHSXhzJ7WCnCRGDOnOeJwban/KN
-	 IXV2o82N3oqjw==
+	s=k20260515; t=1794473697;
+	bh=GAmODtzajJ/vJ0gUPo7wNiXWbv7xMaGq87L/wvHWZBA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=dv+oEpyBu36hcaVZLgIjIUXVHVb63sxVL3l+JXdFIaJAAtfKQFusrFhGRWegSSTAs
+	 hUxXiMcs0bbfd8bcO3Waz7srQj1Dh7EsB241ibuni/cj2vYDOzgU3y8ERCfr6GNfiI
+	 uoS7LILQ2mBMXeiNfgLPT4zsrZiYhVgl9c9rf0cYqN6HNS1wjdz7a2WTZrK/OTRkH1
+	 PUE2Kq4DrDQBDNWX8EDtpdntevcPi1CHn803p45S478f8Q+/EWlK8tWX/e+TBhXoDM
+	 llismTpRAF1nQ6CByQOv7oklJuiG5+exGOtTcGEvWn52ka9EQNcYfLGP2ZF7a5u0F0
+	 NxBMZ9mBKDOfA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D6A6B493D5;
-	Thu, 12 Nov 2026 08:54:59 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id F30DF49401;
+	Thu, 12 Nov 2026 08:54:55 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:55:00 +0000
-Subject: [PATCH] media: verisilicon: Check the CAPTURE buffer size when a
- decode job starts
+Date: Thu, 12 Nov 2026 08:54:56 +0000
+Subject: [PATCH v2 2/6] media: verisilicon: Find the second MPEG-2 field
+ without top_field_first
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,26 +84,28 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-hantro-dec-size-check-v1-1-e5f1180b625f@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QqCQBCF4VeRuW6gHWoVXyW60PGok6CxYxGJ7
- 95Wl9+B82/kSAanutgo4Wluy5wRDgXp2MwD2LpskqPEEIJwHte0cAdltzdYR+jEfdWcWqlKied
- I+XtP6O31616uf/ujvUHXb4z2/QPmcRH5eQAAAA==
-X-Change-ID: 20261112-hantro-dec-size-check-f8a4b2872656
+Message-Id: <20261112-hantro-codec-fixes-v2-2-f44424df585b@gmail.com>
+References: <20261112-hantro-codec-fixes-v2-0-f44424df585b@gmail.com>
+In-Reply-To: <20261112-hantro-codec-fixes-v2-0-f44424df585b@gmail.com>
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
  Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
  Philipp Zabel <p.zabel@pengutronix.de>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Andrzej Pietrasiewicz <andrzej.p@collabora.com>
+ Sebastian Fricke <sebastian.fricke@collabora.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Jeffy Chen <jeffy.chen@rock-chips.com>, Tomasz Figa <tfiga@chromium.org>
 Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Arun Iyengar <aiyengar1990@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794473699; l=5619;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794473695; l=7659;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=92PcgP27BM8JLOKwI+obstcAlHRvFAhAEyuDObXEIr8=;
- b=Ori6G9ZMLO2rfDUSBzAxBcY6QDgGGECnTRbCEIWdaZwdTgLlRxvwwCNM/c8P7/n3Ij3rXCnSF
- I1+5LCf6vERBaWRlQkyEWFebgvqQxnSpRimp6vkm5EIHvAsDUK9ZowW
+ bh=I7zmqlMx+hMV7YYngac8E4NYGa6wp3wrWqDQDzG0598=;
+ b=8zWuHzBhK8C/RIbWo+La0lT/QW9BYfD5Jk2ivTx9bRyIyjvFON77S9mhy0xZx57bAzpPE11tn
+ wOIRdlYLSr7Af7x0m5LR+cdKTCrK3VvdKlL7fuxAA3hQruWIDC7OPjg
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -114,138 +116,170 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-The CAPTURE buffers of a decoder are checked against the CAPTURE format
-when they are queued, in hantro_buf_prepare(). Since commit bbd267daf4fc
-("media: verisilicon: vp9: Allow to change resolution while streaming")
-the format can change while buffers are allocated and queued: S_FMT on
-the OUTPUT queue resets the CAPTURE format to the new size, and the
-HEVC, VP9 and AV1 controls reset it when the bit depth changes (AV1 also
-when film grain turns the post-processor on), the latter when the
-controls of the request are applied for the job.
+The second field of a field-coded P frame can predict from the first
+field of the same frame, which is already in the destination buffer. The
+G1 and VPU2 back-ends then point the reference of that parity at the
+current buffer, and both back-ends tell the first field from the second
+one with V4L2_MPEG2_PIC_FLAG_TOP_FIELD_FIRST: a top field is the first
+field if the flag is set, a bottom field if it is not.
 
-A CAPTURE buffer that was queued before such a change can be smaller
-than the new format needs, and the decoder, or the post-processor, is
-started on it with the new size all the same.
+But top_field_first is always 0 in a field picture (ISO/IEC 13818-2,
+6.3.10: "In a field picture top_field_first shall have the value '0'").
+So the top field of every top-field-first frame is taken as a second
+field, and predicts from the not-yet-decoded bottom field of the buffer,
+while the bottom field is taken as a first field and loses its
+reference to the top field. The error grows over the GOP: the field
+picture conformance streams of ISO/IEC 13818-4 decoded at 6-25 dB
+against FFmpeg (tcela-8, tcela-9, tcela-10, and sony-ct1/2/4 once they
+switch to field pictures).
 
-Check the buffer of the job against the CAPTURE format again when the
-job starts, and return the buffers of the job with an error if it is too
-small. The controls of the request have to be applied before that, so
-apply them in device_run() instead of hantro_start_prepare_run(), which
-every codec calls before it reads a control.
+The uAPI has no flag for this, but the second field is the one of
+opposite parity that follows the first with the same OUTPUT timestamp,
+the two fields being decoded into one CAPTURE buffer held with
+V4L2_BUF_FLAG_M2M_HOLD_CAPTURE_BUF. Track that in the context and use
+it in both back-ends. This also replaces the VPU2 back-end's test of
+V4L2_MPEG2_PIC_TOP_FIELD, a picture_structure value, against the flags.
 
-Fixes: bbd267daf4fc ("media: verisilicon: vp9: Allow to change resolution while streaming")
+Fixes: ceaac6dc5b7a ("media: rockchip/vpu: Add support for MPEG-2 decoding on RK3288")
+Fixes: 879dee56a40c ("media: rockchip/vpu: Add MPEG2 decoding support to RK3399")
 Cc: stable@vger.kernel.org
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-This check is for all the Hantro decoders. The AV1 decoder, which is
-programmed with the frame size of its controls rather than the size of
-the formats, also gets a check of the frame against the CAPTURE format
-in patch 6 of the series "media: verisilicon: Fix MPEG-2 field pictures,
-4K VP8 and the AV1 tile buffers" v2, sent shortly before this patch. The
-two patches do not depend on each other.
+ .../platform/verisilicon/hantro_g1_mpeg2_dec.c     |  8 +++---
+ drivers/media/platform/verisilicon/hantro_hw.h     |  8 ++++++
+ drivers/media/platform/verisilicon/hantro_mpeg2.c  | 31 ++++++++++++++++++++++
+ .../verisilicon/rockchip_vpu2_hw_mpeg2_dec.c       |  8 +++---
+ 4 files changed, 47 insertions(+), 8 deletions(-)
 
-Tested on an Orange Pi 5 (RK3588S), on a 7.3-based tree with the patch
-ported to its device_run(), which other pending series have changed. A
-CAPTURE buffer is queued for a 640x368 OUTPUT format, the OUTPUT format
-is then set to 1920x1088 while streaming and a request is queued: for
-H.264, VP8 and MPEG-2 on the VPU121 and for AV1 on the VPU981 the
-request completes with both buffers flagged V4L2_BUF_FLAG_ERROR, and so
-does an AV1 request whose sequence control switches an 8-bit context to
-10 bits. The fluster H.264 (JVT-AVC_V1, JVT-FR-EXT) and VP8 runs on the
-VPU121 give the same per-test results as an earlier run on the same
-board, and so do four fluster AV1 runs on the VPU981 (203/242). In a
-fifth AV1 run av1-1-b8-06-mfmv also failed, with one decoder timeout and
-no reject; it passed in the other four runs.
-
-This patch was developed with Claude (Anthropic) as a coding assistant:
-it wrote the code and the commit message, and I reviewed it and tested
-it as described above.
----
- drivers/media/platform/verisilicon/hantro_drv.c    | 37 ++++++++++++++++++----
- .../platform/verisilicon/hantro_g1_mpeg2_dec.c     |  1 -
- 2 files changed, 31 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-index 26e5d5547466..c496df1d5652 100644
---- a/drivers/media/platform/verisilicon/hantro_drv.c
-+++ b/drivers/media/platform/verisilicon/hantro_drv.c
-@@ -130,12 +130,6 @@ void hantro_watchdog(struct work_struct *work)
- 
- void hantro_start_prepare_run(struct hantro_ctx *ctx)
+diff --git a/drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c b/drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c
+index 6a942f4b8a2d..5f1ce21fa6e3 100644
+--- a/drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c
++++ b/drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c
+@@ -97,6 +97,9 @@ hantro_g1_mpeg2_dec_set_buffers(struct hantro_dev *vpu, struct hantro_ctx *ctx,
  {
--	struct vb2_v4l2_buffer *src_buf;
--
--	src_buf = hantro_get_src_buf(ctx);
--	v4l2_ctrl_request_setup(src_buf->vb2_buf.req_obj.req,
--				&ctx->ctrl_handler);
--
- 	if (!ctx->is_encoder && !ctx->dev->variant->late_postproc) {
- 		if (hantro_needs_postproc(ctx, ctx->vpu_dst_fmt))
- 			hantro_postproc_enable(ctx);
-@@ -164,6 +158,24 @@ void hantro_end_prepare_run(struct hantro_ctx *ctx)
- 			      msecs_to_jiffies(2000));
+ 	dma_addr_t forward_addr = 0, backward_addr = 0;
+ 	dma_addr_t current_addr, addr;
++	bool second_field;
++
++	second_field = hantro_mpeg2_dec_second_field(ctx, pic, src_buf->timestamp);
+ 
+ 	switch (pic->picture_coding_type) {
+ 	case V4L2_MPEG2_PIC_CODING_TYPE_B:
+@@ -126,10 +129,7 @@ hantro_g1_mpeg2_dec_set_buffers(struct hantro_dev *vpu, struct hantro_ctx *ctx,
+ 	/* Set forward ref frame (top/bottom field) */
+ 	if (pic->picture_structure == V4L2_MPEG2_PIC_FRAME ||
+ 	    pic->picture_coding_type == V4L2_MPEG2_PIC_CODING_TYPE_B ||
+-	    (pic->picture_structure == V4L2_MPEG2_PIC_TOP_FIELD &&
+-	     pic->flags & V4L2_MPEG2_PIC_FLAG_TOP_FIELD_FIRST) ||
+-	    (pic->picture_structure == V4L2_MPEG2_PIC_BOTTOM_FIELD &&
+-	     !(pic->flags & V4L2_MPEG2_PIC_FLAG_TOP_FIELD_FIRST))) {
++	    !second_field) {
+ 		vdpu_write_relaxed(vpu, forward_addr, G1_REG_REFER0_BASE);
+ 		vdpu_write_relaxed(vpu, forward_addr, G1_REG_REFER1_BASE);
+ 	} else if (pic->picture_structure == V4L2_MPEG2_PIC_TOP_FIELD) {
+diff --git a/drivers/media/platform/verisilicon/hantro_hw.h b/drivers/media/platform/verisilicon/hantro_hw.h
+index 13e573f1f19d..303e42b08c40 100644
+--- a/drivers/media/platform/verisilicon/hantro_hw.h
++++ b/drivers/media/platform/verisilicon/hantro_hw.h
+@@ -171,9 +171,14 @@ struct hantro_hevc_dec_hw_ctx {
+  * struct hantro_mpeg2_dec_hw_ctx
+  *
+  * @qtable:		Quantization table
++ * @field_ts:		OUTPUT timestamp of the last field picture decoded, if it
++ *			was the first field of a frame
++ * @field_structure:	picture_structure of that field, 0 if there is none
+  */
+ struct hantro_mpeg2_dec_hw_ctx {
+ 	struct hantro_aux_buf qtable;
++	u64 field_ts;
++	u8 field_structure;
+ };
+ 
+ /**
+@@ -567,6 +572,9 @@ int hantro_g1_mpeg2_dec_run(struct hantro_ctx *ctx);
+ int rockchip_vpu2_mpeg2_dec_run(struct hantro_ctx *ctx);
+ void hantro_mpeg2_dec_copy_qtable(u8 *qtable,
+ 				  const struct v4l2_ctrl_mpeg2_quantisation *ctrl);
++bool hantro_mpeg2_dec_second_field(struct hantro_ctx *ctx,
++				   const struct v4l2_ctrl_mpeg2_picture *pic,
++				   u64 timestamp);
+ int hantro_mpeg2_dec_init(struct hantro_ctx *ctx);
+ void hantro_mpeg2_dec_exit(struct hantro_ctx *ctx);
+ 
+diff --git a/drivers/media/platform/verisilicon/hantro_mpeg2.c b/drivers/media/platform/verisilicon/hantro_mpeg2.c
+index 04e545eb0a83..e5d70c64d7a7 100644
+--- a/drivers/media/platform/verisilicon/hantro_mpeg2.c
++++ b/drivers/media/platform/verisilicon/hantro_mpeg2.c
+@@ -35,10 +35,41 @@ void hantro_mpeg2_dec_copy_qtable(u8 *qtable,
+ 	}
  }
  
 +/*
-+ * The CAPTURE buffers of a decoder are checked against the CAPTURE format when
-+ * they are queued, but the format can change while they are queued.
++ * Tell whether a field picture is the second field of its frame, which
++ * decides where its references are: the second field can predict from the
++ * first one, already decoded into the same buffer. top_field_first can't
++ * tell, it is always 0 in field pictures (ISO/IEC 13818-2, 6.3.10). The
++ * second field is the field of opposite parity decoded right after the
++ * first one, with the same OUTPUT timestamp.
 + */
-+static bool hantro_dec_dst_buf_fits(struct hantro_ctx *ctx,
-+				    struct vb2_v4l2_buffer *dst)
++bool hantro_mpeg2_dec_second_field(struct hantro_ctx *ctx,
++				   const struct v4l2_ctrl_mpeg2_picture *pic,
++				   u64 timestamp)
 +{
-+	unsigned int i;
++	struct hantro_mpeg2_dec_hw_ctx *mpeg2 = &ctx->mpeg2_dec;
++	bool second;
 +
-+	for (i = 0; i < ctx->dst_fmt.num_planes; i++) {
-+		if (vb2_plane_size(&dst->vb2_buf, i) <
-+		    ctx->dst_fmt.plane_fmt[i].sizeimage)
-+			return false;
++	if (pic->picture_structure == V4L2_MPEG2_PIC_FRAME) {
++		mpeg2->field_structure = 0;
++		return false;
 +	}
 +
-+	return true;
++	second = mpeg2->field_structure &&
++		 mpeg2->field_structure != pic->picture_structure &&
++		 mpeg2->field_ts == timestamp;
++
++	mpeg2->field_structure = second ? 0 : pic->picture_structure;
++	mpeg2->field_ts = timestamp;
++
++	return second;
 +}
 +
- static void device_run(void *priv)
+ int hantro_mpeg2_dec_init(struct hantro_ctx *ctx)
  {
- 	struct hantro_ctx *ctx = priv;
-@@ -182,6 +194,19 @@ static void device_run(void *priv)
+ 	struct hantro_dev *vpu = ctx->dev;
  
- 	v4l2_m2m_buf_copy_metadata(src, dst);
- 
-+	/*
-+	 * Apply the controls of the request first: they can change the bit
-+	 * depth, and with it the CAPTURE format.
-+	 */
-+	v4l2_ctrl_request_setup(src->vb2_buf.req_obj.req, &ctx->ctrl_handler);
++	ctx->mpeg2_dec.field_structure = 0;
+ 	ctx->mpeg2_dec.qtable.size = ARRAY_SIZE(zigzag) * 4;
+ 	ctx->mpeg2_dec.qtable.cpu =
+ 		dma_alloc_coherent(vpu->dev,
+diff --git a/drivers/media/platform/verisilicon/rockchip_vpu2_hw_mpeg2_dec.c b/drivers/media/platform/verisilicon/rockchip_vpu2_hw_mpeg2_dec.c
+index 50a3a3eeaa00..57907dd5ea9c 100644
+--- a/drivers/media/platform/verisilicon/rockchip_vpu2_hw_mpeg2_dec.c
++++ b/drivers/media/platform/verisilicon/rockchip_vpu2_hw_mpeg2_dec.c
+@@ -100,6 +100,9 @@ rockchip_vpu2_mpeg2_dec_set_buffers(struct hantro_dev *vpu,
+ {
+ 	dma_addr_t forward_addr = 0, backward_addr = 0;
+ 	dma_addr_t current_addr, addr;
++	bool second_field;
 +
-+	if (!ctx->is_encoder && !hantro_dec_dst_buf_fits(ctx, dst)) {
-+		v4l2_ctrl_request_complete(src->vb2_buf.req_obj.req,
-+					   &ctx->ctrl_handler);
-+		hantro_job_finish(ctx, VB2_BUF_STATE_ERROR);
-+		return;
-+	}
-+
- 	ret = ctx->codec_ops->run(ctx);
- 	if (ret)
- 		hantro_job_finish(ctx, VB2_BUF_STATE_ERROR);
-diff --git a/drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c b/drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c
-index 6a942f4b8a2d..1cc74f52daa9 100644
---- a/drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c
-+++ b/drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c
-@@ -156,7 +156,6 @@ int hantro_g1_mpeg2_dec_run(struct hantro_ctx *ctx)
- 	src_buf = hantro_get_src_buf(ctx);
- 	dst_buf = hantro_get_dst_buf(ctx);
++	second_field = hantro_mpeg2_dec_second_field(ctx, pic, src_buf->timestamp);
  
--	/* Apply request controls if any */
- 	hantro_start_prepare_run(ctx);
- 
- 	seq = hantro_get_ctrl(ctx,
+ 	switch (pic->picture_coding_type) {
+ 	case V4L2_MPEG2_PIC_CODING_TYPE_B:
+@@ -129,10 +132,7 @@ rockchip_vpu2_mpeg2_dec_set_buffers(struct hantro_dev *vpu,
+ 	/* Set forward ref frame (top/bottom field) */
+ 	if (pic->picture_structure == V4L2_MPEG2_PIC_FRAME ||
+ 	    pic->picture_coding_type == V4L2_MPEG2_PIC_CODING_TYPE_B ||
+-	    (pic->picture_structure == V4L2_MPEG2_PIC_TOP_FIELD &&
+-	     pic->flags & V4L2_MPEG2_PIC_TOP_FIELD) ||
+-	    (pic->picture_structure == V4L2_MPEG2_PIC_BOTTOM_FIELD &&
+-	     !(pic->flags & V4L2_MPEG2_PIC_TOP_FIELD))) {
++	    !second_field) {
+ 		vdpu_write_relaxed(vpu, forward_addr, VDPU_REG_REFER0_BASE);
+ 		vdpu_write_relaxed(vpu, forward_addr, VDPU_REG_REFER1_BASE);
+ 	} else if (pic->picture_structure == V4L2_MPEG2_PIC_TOP_FIELD) {
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261112-hantro-dec-size-check-f8a4b2872656
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+-- 
+2.55.0
 
 
