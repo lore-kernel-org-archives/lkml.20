@@ -1,59 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794499658;
-	b=m84KgjGtxBZPQ2Jn450WqypdMTgdsPgKVlD+vAzqCRSzqUKGTZkrGYDEru5kEBJ0bbE3
-	 dY9nXtafUZppNoB+IuniYB7B/3vCJRv2IG5eRrrZyhNmcWuSZmNHfNHRkWMvuuydlfqSs
-	 bvYrRU7e0zg33WFu1k3bxEfGZQsxSebSdYKQSqLtMkZsH6tbXplbJ8KdmxdqEc+uk0OHU
-	 4ZzHUatEhEhRW/SxvnUnGBxtuPaZl0v41my6o6eYDVWq1txzxdG2+wzDL1z5Vlcbpa7xm
-	 glNLRf9coeOtld6ECl5g/uIT/SWuZTnfxNckw4g9sI0YgNEurgbqGTA8FnUamXfi31w==
+	t=1794499668;
+	b=dEX/O85+hr5bSzjDPbycBmq5lsUEVRzq1kKyGzsS6t7U897QuEnc9W89JIgqn3n/OqJm
+	 J9crPtD6qaerbEL1XzQsQC7uTxLGwowd88xcPW3UeNFzzSCnldeVnmElwI1QS1ozJPw52
+	 Ov9YFsF+pAsX7TK64YDFl4YU2YG9IRWyg5ET8yF+i3xz4JtPEu0yvOpGZnO31hKloiFqZ
+	 hwCBUVWuHCTfwL0r+0R1+fug5hW448tb2hR7biD4Neu7PNTno6cnHzep7LeCPh7wtFGv3
+	 Re5YGMQIRgbhdganfZZ7+/yUCD68mudLbrmyeMmbdDeZV1viCtjeDIuk91plHsGS64A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794499658;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=ucjrn9mQAcAGfdoLop5hn5qFz37ncGRH3deckCQ4o4c=;
-	b=wGrjCMLKSRnylS1Ll+g8YMlcFikTWPKYcwYkmQdGFlOwAUr0QcNyb59UaezIjnoQDUOr
-	 wgG5MTI89sH7WqAy1fpUSCa44EzqofWgfJ8BvPsoiKd/QO+5ITHCIxQTARAEYoECoKWU4
-	 P6zBrfCbDRGQw2U41XINmJJxHZb4NorAYEvme6EcPi/8MDDw+h7Lw/dCckUsz8ri8xmt3
-	 01GkMtu3mFQ2qSyWdu6sc0X3UqANTsKv9wp05bfIt/gMm1o1rLf1NwFzUjXnL49OAV0N/
-	 iNDX8cpbXnp7E7WA0y8PNideK2s2haBmVDBuHWllvUYNCmTRytThrvYyqG821xmjU5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794499668;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:Date:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=GxEAh1VPtSYJm7RgQ8GwuBf7Xw9of2C5ciQVntp50E0=;
+	b=fTI+TwfdGM2X+A3Tlggc6PSJIFRzKSC2Ohetj/EWgdwQnCA+psAYVRV+q3q3EfjBkukO
+	 eKboB5CRjb7Oh3xs6wOu5o/+/QpgZr4jdRkWlXLjbfv+2OH7y3WjwUaTAjWKspWNqiw97
+	 /t39GQyMaqNdZUO3de6B/w0t6qQe1EKpW1ngaSoC6WfC45cfosJzZidx26Xrk4MvhC+6P
+	 7tpFotso3JJJ3gUqHdnrHeNhPvaI21QR2nidon9csDS/blmhWETXcPMUXVmSrbzrUFMQo
+	 2iOk+0NNpM9FVFsusqoDa/9WDKX5bO0IUteGPcl2GVPWX83Xp6I5sl6vn4DqV0+y6mQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=hClylBL9;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=TP3FNqnB;
+	arc=none smtp.remote-ip=162.62.58.216
+Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40FFE606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:07:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40FFE606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72BDF606A32E;
+	Thu, 12 Nov 2026 16:07:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72BDF606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=hClylBL9
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=ucjrn9mQAcAGfdoLop5hn5qFz37ncGRH3deckCQ4o4c=; b=hClylBL9XaqiBunicTC2CxWbHQ
-	BHlTOQea0K9VBJSGsgrZh/tTqxW/y9HOeg6KOorWpkWipfhuw8UIv+5MZu2dKEKsSdzFfTUqBHSEe
-	hm0llLGtynYqN53XtGGKC6PxhyAQq39FMTs4KCbGgZOMkXZSgljZABFo/x4r42BptYoXFRP/QBxcJ
-	SsnmY6EPZAMsw1DFBqIKhwP6f+pXC3F/rxH537jkXAJVfHqIZQBLbvAYxcnwj4agwRPP1RVzmyvjh
-	Y8iqcDZt3D5BD5yQmWVRd/OCD2PmNHLqgeq1RCqJgkP8lbQ0FVYL8LPxADjOzJL9x4XWW/YzJvWY/
-	Q0Xm33RA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xRXKl-00E5PD-2l;
-	Thu, 12 Nov 2026 16:07:32 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Thu, 12 Nov 2026 07:58:27 -0800
-Subject: [PATCH] timers/migration: Read jiffies only when the migrator walk
- needs it
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=TP3FNqnB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794499661; bh=GxEAh1VPtSYJm7RgQ8GwuBf7Xw9of2C5ciQVntp50E0=;
+	h=From:To:Cc:Subject:Date;
+	b=TP3FNqnBPbHOWz6OGI0NiaRMQCeo8Ph+Womix3t9hLHDIwvKypNaMF8wOzRB+R4Yc
+	 AkxGfcNWoGPgRRXEYqU+dUveBZx+TgYVzYwNaOYFCKGfCDcWPwh0QFqoyL/CVz2Z0w
+	 x0VPno+JaHufd/cTm85g4OBdDDxjiVyabaW6GGUg=
+Received: from [172.18.4.77] ([202.113.185.209])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id 1E7B98F9; Fri, 13 Nov 2026 00:07:39 +0800
+X-QQ-mid: xmsmtpt1794499659tr0eenu2o
+Message-ID: <tencent_444214B18F57945FAADD37F108ABD3A22906@qq.com>
+X-QQ-XMAILINFO: NYXSVuwhoxRbJ+PBQO6iO+2Qb3cYRBc/B4kjx1OTwvBa+gMuvI8lRkK7cayto/
+	 Pm/QnoaHNXbgzcfiBXM32OuKDKXE5U9V6yW63MaOHcsGBBZJcxhcROf14ynK+txvuJhRmnL09SkE
+	 IqW+Tj0iI7fr295urfw7Vav3QIhLjngZc0gZtkwcHK2Li5ugIxboNlP+5hCvuMG538C+STTAGLS4
+	 1eOpXUAMXPkFc6Fu/jhOVsQ8XYTxVYaVARiOaHlhn7EDZD0n64MKixv2k3+snLBFyEsX0yszv5gZ
+	 4w5BGNZoWzv3natZdmGNuxus3H58Kuh/qPQsBSlF2ayvBaz5TVJkorAMaHvutpnMT/UM/iVUuIxC
+	 1NcHCrjHus5k1KWAaGcHLZrAZYQJQ2VS0hENiDoasgN1y0POfMHOzF7yQVXaXvTt3l/eS0Pnmqaq
+	 Xue9gRom4QAuC9rQgRxHIqD3edKN1pk+Yn2mCHA7l+dEX60fo0mbJY97HaiYS12lPZZTXJlok1lm
+	 OwVTPotYyWUdZefAeP4NdC3qSbDEzk2eywz2Hg38X96fc3G3V60ShNAD1D3cTBuPSgFgidNJYc8Y
+	 G0C/G8MzTTMxuzfIqCo3bq/Zw612JNlJYJZY1ndfaYEYe27OkcANyCozPOhtpfDukU2DXK8r1bGb
+	 xV/z0CA/HDvjseEP/tLWj+25t3B38gsBwYc+BtP4/fl4bfK0K02psKImcrGTWQf9phCwu0QhBUjE
+	 E7plNn7XbEZKHnzh3QxM+tMnn/EnF+auKXQkdUoorow3IzF1ufl2q/AOwYkAvd7v+hGdMXCLkPgB
+	 YQPPjmhAjbhm4B2LIIKJsAXRjLb+27ITd4gfDWOisw5z716+TEIkNKcUVYxny6KpyhsY9uueJCht
+	 jcv9ZgzQtkWNrxC5mt4TrZummofFxxJ6OxhP6NPNwOvP14kl4cb76E8m+b0iP6tInMb7mx+L4aNl
+	 zbS+6BQDNZRjEMWQ50+vhFVQfPCHE/HV6lsJhbJ6JXvjTZDJ5b9aBGaWLZLWUPwBit+AGx0pRZmy
+	 WlM6XJA7K2rQJ1SkmLjqXyNut/VvQ=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Guikun Yang <yangguikun19@qq.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [Bug report] partitions/aix: unbounded lvname string read panics the
+ boot partition scan (regression in v7.1)
+X-OQ-MSGID: <aix-lvname-oob-20261112@qq.com>
+Date: Thu, 12 Nov 2026 20:00:00 +0800
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,105 +77,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-tmigr-lazy-jiffies-v1-1-6b7eaa38b0cd@debian.org>
-X-B4-Tracking: v=1; b=H4sIACji9WoC/x3MSQqEMBAF0KsUf21BEgcwVxEXohW7xIlEpFvx7
- kK/A7wbSaJKgqcbUU5Nuq3wZDNC/+nWUVgHeIIzrrLWOj4WHSPP3fXjSUNQSdyXgwtFnRtTl8g
- Ie5Sg33/atM/zAiod7GVkAAAA
-X-Change-ID: 20261112-tmigr-lazy-jiffies-c5d2f4930095
-To: Anna-Maria Behnsen <anna-maria@linutronix.de>, 
- Frederic Weisbecker <frederic@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, 
- Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2641; i=leitao@debian.org;
- h=from:subject:message-id; bh=mNO+o+UTzSEe9x7vPgjH11r8BmY+TbyzpwHl0pJr0xA=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq9eRBDg2Zf40QoNHSMqbELFW0YQJPy0lpzJgGT
- XrW6okRMymJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavXkQQAKCRA1o5Of/Hh3
- bWycD/9fsx9RnkbSWejYaALGpbqxp+mdXVNNqVhlvrBmB+vfb+l8qaZZXnIGopVTmK++ebq8kBr
- V47djYCtZGmYo3Sr7PXYbl4XZDGEPl2FaKl2IyDrMYK5YTPB4tl8kZxMTi4wYGW4OIcf0mTpDyU
- SI8LbRHbNpztKvwGfGruyPbYaiCKgPy7i8HNd9bIziJTgh5T4YT0SwdqUQw5dGbNHiNU2iQnZiA
- vUNd9Gf7+U3fUnZ953uu84E2H0XNgayEHMlxE1cFD/GmFRRpjfGdj5KgHmmXyNB8QKzBP2G3Abo
- N96Ifrg+e/04QDPWXYCkFRyJvCs1gR0vlIRQspcFlbT7cdljflSSJM03ApGishewsjvH0tfp1tS
- ctglb6oiFTB7qq52M9rZfsjiaD8yDCJEC7cTzz73wVdp8SNlqWCMSyVt60CpRDUCTSTUa66XX9z
- ZCrhWi2TpC9kOs3uod5LlUb/Q47z5YV2MroV81QPqELGOrirLFRnO3NNk3yvZGbYVdW6mTeVhuw
- XVdmvFiBBoE5GBRMMHZb8EgADscw1Mgsl6CqE8RM0tjHxroji/7u/EQ5WUEQ+zV3PqLBQS07upW
- 8qPMLqw1RrM6pdzOt0O7wHzW5ckOswsCzHZGjECRZVpTu6WI2Lt6Xeszh/TSYFhjmBkisBJ+GbQ
- Io8iguIJxK1M7UQ==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
 
-run_local_timers() calls tmigr_requires_handle_remote() on every tick,
-and the function starts with get_jiffies_update(). That reads
-jiffies_seq and last_jiffies_update, which the timekeeping CPU rewrites
-on every tick. As the ticks of all CPUs are aligned, every CPU takes
-these cache misses while the timekeeper is writing the lines.
+Hi Jens,
 
-For an active CPU the value is only used by the migrator of its first
-level group: tmigr_requires_handle_remote_up() stops the walk at once
-on any other CPU. With eight CPUs per group, seven out of eight active
-CPUs read jiffies and throw the value away.
+Booting a kernel with CONFIG_AIX_PARTITION=y on a disk whose AIX LVM
+logical volume name area contains no NUL byte panics during the
+automatic partition scan. The name is read from disk into a
+kmalloc(16384) buffer and then handed to seq_buf_printf() as a C
+string, so vsnprintf() walks past the end of the allocation:
 
-Check the migrator first, as tmigr_handle_remote() already does, and
-read jiffies only when the walk is going to use it.
+  BUG: KASAN: use-after-free in string+0x4a9/0x4f0
+  Read of size 1 at addr ffff888004ab4000 by task swapper/0/1
+   string
+   vsnprintf
+   seq_buf_printf
+   aix_partition+0xd42
+   msdos_partition
+   bdev_disk_changed
+   disk_scan_partitions
+   virtblk_probe
+  unable to handle page fault for address: ffff888004ab4000
+  Oops: 0000 [#1] SMP DEBUG_PAGEALLOC KASAN NOPTI
+  Kernel panic - not syncing: Fatal exception
 
-Fleet profiles show get_jiffies_update() at up to 1.7% of non-idle
-cycles on the largest AMD systems, almost all of it called from
-tmigr_requires_handle_remote().
+## How the bound was lost
 
-In a 72 vCPU KVM guest (AMD EPYC 9D85 host, HZ=1000) with every vCPU
-spinning in user space, get_jiffies_update() calls drop from 367k to
-46k per 5 seconds. tick_nohz_handler() duration drops also.
+The lack of NUL termination in on-disk lvname strings is a known
+property. d43fdae7ba ("partitions/aix: append null character to print
+data from disk", 2018) says so explicitly and bounded the pr_warn()
+consumer with a local buffer:
 
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- kernel/time/timer_migration.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+  char tmp[sizeof(n[i].name) + 1]; // null char
+  snprintf(tmp, sizeof(tmp), "%s", n[i].name);
 
-diff --git a/kernel/time/timer_migration.c b/kernel/time/timer_migration.c
-index f920e73fff5112..dfa936bc485f59 100644
---- a/kernel/time/timer_migration.c
-+++ b/kernel/time/timer_migration.c
-@@ -1195,7 +1195,6 @@ bool tmigr_requires_handle_remote(void)
- 	if (tmigr_is_not_available(tmc))
- 		return ret;
- 
--	data.now = get_jiffies_update(&jif);
- 	data.childmask = tmc->groupmask;
- 	data.firstexp = KTIME_MAX;
- 	data.check = false;
-@@ -1208,11 +1207,21 @@ bool tmigr_requires_handle_remote(void)
- 	 * set only by the local CPU.
- 	 */
- 	if (!tmc->idle) {
-+		/*
-+		 * Bail out early when not the migrator, to avoid reading
-+		 * jiffies_seq, which the timekeeper writes on every tick.
-+		 */
-+		if (!tmigr_check_migrator(tmc->tmgroup, data.childmask))
-+			return false;
-+
-+		data.now = get_jiffies_update(&jif);
- 		__walk_groups(&tmigr_requires_handle_remote_up, &data, tmc);
- 
- 		return data.check;
- 	}
- 
-+	data.now = get_jiffies_update(&jif);
-+
- 	/*
- 	 * When the CPU is idle, compare @tmc->wakeup with @data.now. The lock
- 	 * is required on 32bit architectures to read the variable consistently
+At that time the other consumer was equally bounded:
 
----
-base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-change-id: 20261112-tmigr-lazy-jiffies-c5d2f4930095
+  char tmp[70];
+  snprintf(tmp, sizeof(tmp), " <%s>\n", n[lv_ix].name);
+  strlcat(state->pp_buf, tmp, PAGE_SIZE);
 
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
+c2d466b9fe ("block: partitions: Replace pp_buf with struct seq_buf")
+removed that pair in favour of a direct call, as part of eliminating
+local tmp buffers:
+
+-				char tmp[70];
+-				snprintf(tmp, sizeof(tmp), " <%s>\n",
+-					 n[lv_ix].name);
+-				strlcat(state->pp_buf, tmp, PAGE_SIZE);
++				seq_buf_printf(&state->pp_buf, " <%s>\n",
++					       n[lv_ix].name);
+
+seq_buf_printf() bounds the destination, but the source is now the raw
+on-disk string with no length limit, so the read is unbounded. The
+pr_warn() path kept its 2018 buffer and is still safe; only this
+consumer regressed.
+
+alloc_lvn() fills the whole allocation from disk with no terminator
+handling (block/partitions/aix.c):
+
+  size_t count = sizeof(struct lvname) * LVM_MAXLVS;   /* 64 * 256 */
+  p = kmalloc(count, GFP_KERNEL);
+  read_lba(state, lba, (u8 *)p, count);
+
+struct lvname is just char name[64], and lv_ix is bounded by
+state->limit (DISK_MAX_PARTS = 256, equal to LVM_MAXLVS), so the array
+index itself is in range - it is the string read that runs off the end
+of the 16 KiB object.
+
+## Affected versions
+
+Checked by fetching block/partitions/aix.c at each tag:
+
+  v7.0      char tmp[70] + snprintf   bounded
+  v7.1      seq_buf_printf            unbounded
+  v7.2      seq_buf_printf            unbounded
+  v7.3      seq_buf_printf            unbounded
+  v7.4-rc2  seq_buf_printf            unbounded
+
+So this is a regression introduced in v7.1 and still present in
+mainline.
+
+## Reproduction
+
+The trigger is the boot-time partition scan; no userspace action, no
+race, no special mount options. CONFIG_AIX_PARTITION=y is already
+enabled in distribution kernels.
+
+An image whose lvname area is filled with non-NUL bytes panics 3/3.
+The negative control differs only in having a NUL-terminated short
+name: the same code path parses it normally and prints
+"vda1 <lv000000>" with no KASAN report.
+
+## Suggested fix
+
+Restore the read bound. Either give the conversion a precision:
+
+-	seq_buf_printf(&state->pp_buf, " <%s>\n", n[lv_ix].name);
++	seq_buf_printf(&state->pp_buf, " <%.*s>\n",
++		       (int)sizeof(n[lv_ix].name), n[lv_ix].name);
+
+or terminate every name once, right after the read in alloc_lvn(),
+which also covers any future consumer:
+
+  if (read_lba(state, lba, (u8 *)p, count) < count) {
+          kfree(p);
+          return NULL;
+  }
++ for (i = 0; i < LVM_MAXLVS; i++)
++         p[i].name[sizeof(p[i].name) - 1] = '\0';
+  return p;
+
+I prefer the second: the 2018 fix bounded one consumer at a time, and
+this regression happened because the other one lost its buffer.
+Terminating at the source removes that class of mistake.
+
+Reproducer (image builder for both the positive and negative case,
+serial logs) available on request. Happy to send this as a patch if
+you prefer.
+
+Fixes: c2d466b9fe ("block: partitions: Replace pp_buf with struct seq_buf")
+
+Thanks,
+Guikun Yang
 
