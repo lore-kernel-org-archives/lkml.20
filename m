@@ -1,71 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.14
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794502829;
-	b=qJOwjPY2RfYqLXxUdQLsW21UDNAPWK2qTrwH53vi1jhyrK8VgpREXzk19bnmTr+uTrfz
-	 HK8sMuwxBO3lA/3btItWVuzRIXNybpkOpUHlo+dxdn/z62qNIEob0pcMS6PBrvLpqiZ+N
-	 k22UKvfSeECxVp0CGi1K5i7eAJ+Eq3N27OErnIgA8iz15bpJYWgMCRO6zUSLBNmCvWDqp
-	 ujcBwjcblok8z7UizUwAEQOp92EMOVN6aBXDJLkCK1YBj9nL6NSRjJH31bu5MkVpXeUbv
-	 WUiJtr4z+DmIduUqlMIhHMBs1S8688kug0oJklJX8OFltcL8+mXOWI7Nj1xbOtsslMQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794502829;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=20COfZBXKoF31H3NvbH4xjKTPwP93OWDxjdERo8n5E4=;
-	b=hCMM+f0LAkchAQI48MVZ7DGR61YYbdlRhISoGq9V3kjQABKPi5FlYisaBmsSlsAHbo5u
-	 BzXxh+Fp9QhJEEjNBonY2IUkdYPwV/5grhwjNVziZHMwctWsrFDGMdrGtZ5mGboHuRRzX
-	 7Hh9LGid8OFPjdmcsvXjeBw7WtH37LvxuOHGl2Zcy4s7omKYW982Rwgldv17ae509mwk2
-	 kd8CgVsZTwiDyFilYMnNrYUlUNd9L6hT5ni6TkmZJr3Oq3EpNuRJCPnQe3xeMWqEmGBpc
-	 aZyWFZZGW1kDky6cl6Of+iDFs1YGqWcRjl8pUSIPzrIYYa89wyxD1sRpd8MAi7uIMtg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CyvK1ljY;
-	arc=none smtp.remote-ip=91.218.175.14
-Received: from mta0.migadu.com (out-14.mta0.migadu.com [91.218.175.14])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794502872;
+	b=JTQhyCw6Kwi/8MAIgf88aIkuG6JN0vNVgVcdwMXZDtauyZliUp2FVqjYsKyQ4g+NcbwZ
+	 u6STzFePoOIQi6jjAsGdUcLELD5Z9E3RC1FedUiD6TeaS3sBs9xH8RYS8kSb5SLle4uZD
+	 xE8faFSEqw0fnTStGLQ/rXUy1rglDb6OcJR4LssplnaJVsuVtswsWPBDeELNVufOFKGk2
+	 2gvkzlP3T4iCYTijA1KhZCnXWURNK6clCFXIU2uVk1rXrOD7wACgISD41vM7H0j6mQnWC
+	 t/rS6GuHAC0OKAgqokLAKkdr9AOeuNC0e4lr2fz+rHcLGjP7EtQ8mZVZhMWzGiCf/Ww==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794502872;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-ZohoMailClient;
+	bh=S0Djhj317bAJw99HOfElnFwv7DFAEhfTOOS3rSerALU=;
+	b=j+8kCLrIPqcv/9mbOb0TGxis+mtXqPEAYzi7pkkKo43jhQPqdS+2B1zLK6qkisk2DfMI
+	 G+t3Wzq89d5UQ2Ff/qHQAK8zS6NOg95VtiyTv63+YRZglO0hdBYSkhHg9w7OyTOr0Xepw
+	 QADtmdXhqVPWb0vIjRAWX49rt1JinGeyUCsSP6RzA3pgoVa4zuTkk1ifQLIyFPpLfUAph
+	 /E9uHqHghr5YmTtgIzO3xbvFNIJ3Toa9srrCOasuWuIDh/VugGBBwNcElPYlwYbRcCgKM
+	 LLIC3zBx/Sg5T/ji3vZ7X7uhrj04prNbZj2qXXUSh29P1W3cWIh8M9y3ylileLMEKwg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b="A/s3fdqQ";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36B14606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:00:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36B14606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2904B606A333;
+	Thu, 12 Nov 2026 17:01:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2904B606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CyvK1ljY
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yKUtsHF/2fwhRnmNjv/gYBbo8M716rJzJqy5QbQim/g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794502826; v=1; x=1795107626;
- b=CyvK1ljYW9A+IsXI1Ym3i/7vcyWaaSEUCUzFnhJCzbOT27vau+O9Tmsu4ciVtIcqfbWagP74
- k15DdSefjbmCiT12Tt7kK61x+TtKsotgGrDqmaU80jR0iq9k1KHvm1ifHU6nNXHJNLDdiM93hSx
- LHyRtDB5D07/vTLNCQD0LbpE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 584a0733ec27085c;
-	Thu, 12 Nov 2026 17:00:23 +0000
-X-Mizu-Trace-ID: 584a0733ec27085c
-X-Migadu-Flow: FLOW_OUT
-From: Aditya Garg <aditya.garg@linux.dev>
-To: Lukas Wunner <lukas@wunner.de>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	=?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-Cc: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Andre Eikmeyer <dev@deq.rocks>,
-	Yossef Osman <yossef.osman@proton.me>,
-	Alexander Fischer <alexander.fischer@kait2en.org>
-Subject: [PATCH RESEND] drm/i915/psr: enable PSR on Apple T2 eDP panels
-Date: Thu, 12 Nov 2026 22:29:56 +0530
-Message-ID: <20261112165956.61633-1-aditya.garg@linux.dev>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=A/s3fdqQ
+ARC-Seal: i=1; a=rsa-sha256; t=1794502839; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=DAKREL9V0IlgieN5NFG8GJ8dbYMDyROTfXFO9KZ/cZvPj7KYx1LeO7Fg8WLF0QCvtdLpfybMZleouAfseg4tHpPgPfYMgbDAigzo4EtQjAB7uslZ1bfUsuz371OjTmflKzIaAqp8Jj7dUQV75YiuejMP7UfjggFIQ2i1jLvSSrc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794502839; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=S0Djhj317bAJw99HOfElnFwv7DFAEhfTOOS3rSerALU=; 
+	b=L8lIeUqDTOLAIUZrqB9adJMbV0J31J+E+687fzw5YYWxYeUkF07ZdC+aFe8ZRK3HDywS4qp44Y6oSdWdvd4ainhk4DGBN4sHntHpQxQq/+qSrslhVDHCyOCjawneVMgqKGzNyx28py5YWS/chcaIOGY7EpICrJIfCRM9iFQcMYw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=A/s3fdqQ5G5Uq2vSKyamL+hStPttYixO7TR9jq5/1RQyjJsop0RvUcKRPjNp2+eWNhI7K89EpkvSgCPtr2th/nacDpMwGPFUeYSNwmAHFeEnWWEFWdk2r85UOaaUeDglBjHTWrkW9+l+SDKUH3FDBRJv7eWERRtCKfnqFAA/wpY=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=S0Djhj317bAJw99HOfElnFwv7DFAEhfTOOS3rSerALU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794502835473479.78633642671866;
+	Thu, 12 Nov 2026 09:00:35 -0800 (PST)
+From: Daniel Almeida <daniel.almeida@collabora.com>
+Subject: [PATCH 0/6] rust: iommu: add a paging domain abstraction
+Date: Thu, 12 Nov 2026 14:00:07 -0300
+Message-Id: <20261112-b4-iommu-domain-v1-0-c29e86788dda@collabora.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,205 +60,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqAIBCF4avErBuwMBddJVqYTjWBGloRRHfP6
+ u2+xfsvSBSZErTFBZEOThx8RlUWYGbtJ0K22VCLWlV5OEjk4NyONjjNHkeptCLZCCMs5NcaaeT
+ zK3b977QPC5ntzcB9Pyf+NtNzAAAA
+X-Change-ID: 20261111-b4-iommu-domain-f46a6e450c0d
+To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>
+Cc: iommu@lists.linux.dev, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
+ Detlev Casanova <detlev.casanova@collabora.com>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>
+X-Mailer: b4 0.15.2
+X-ZohoMailClient: External
 
-From: Alexander Fischer <alexander.fischer@kait2en.org>
+This series adds a Rust abstraction for IOMMU paging domains. A driver
+can allocate a domain, attach it to its device, map pages into it, and
+install a handler for its faults.
 
-Commit 1035f4a65f58 ("drm/i915: Disable PSR in Apple panels")
-disabled PSR on all Apple sinks until i915 gained the required panel
-handling.
+This will be used by the upcoming rkvenc driver that my colleagues
+Detlev Casanova, Nicolas Dufresne and I are working on. More details on
+this driver can be found by watching Nicolas Dufresne's talk at LPC 2026
+[0].
 
-An AUX trace on a MacBookPro16,2 running macOS 15.7.7 shows the
-following writes when the panel is powered on:
+As part of the security model, each client will have its own IOMMU
+domain. This is needed as the submission model will let userspace set
+most of the encoder's registers directly, so the kernel cannot check
+every memory access that a job makes the encoder do. With a single
+domain, one client could make the encoder read or write the memory of
+another client.
 
-  DPCD 0x321 = 0x3c
-  DPCD 0x4d2 = 0x01
-  DPCD 0x4d1 = 0x03
-  DPCD 0x170 = 0x01 (DP_PSR_ENABLE without CRC verification)
+With a domain per client, the encoder can only reach the memory of the
+client whose job it is running, and any other access faults. The fault
+handler added in patch 6 lets the driver identify the faulting client
+and terminate its session.
 
-Five seconds later, a write of 0x01 to DPCD 0x4d4 occurs between the
-BanksiaTcon FIFOEnter() and SRDEnter() events. This register is the
-vendor trigger for entering self refresh.
+Patches 1 and 2 prepare for Domain::map(). Patch 1 moves the protection
+flags from the io-pgtable module to kernel::iommu, and patch 2 makes
+SGTable::as_raw() visible to the crate.
 
-With the three setup writes, CRC verification disabled, and the 0x4d4
-trigger added to i915's existing PSR enable sequence, the tested panels
-enter PSR1.
+Patch 3 adds Domain, a paging domain that is allocated for a bound
+device and freed on drop. Domain::new() is unsafe: the caller must
+ensure that the IOMMU driver behind its device sets a domain up fully
+when it is allocated and allows concurrent use of it.
 
-Implement this handling as an i915 DPCD quirk. Match the Apple PCI
-subsystem vendor in the quirk table, and limit the quirk to Apple-OUI
-eDP sinks on systems containing an Apple T2. All other Apple sinks
-retain the existing NO_PSR quirk. Override the VBT PSR flag for
-matching panels because Apple leaves it clear.
+Patch 4 adds Domain::attach(), which returns an Attachment that
+detaches the domain on drop. Devices that share their IOMMU group with
+other devices are not supported.
 
-The same sink-side protocol may also be present on T1 and Apple silicon
-systems, but leave those systems unchanged until it has been tested
-with their display drivers.
+Patch 5 adds Domain::map(), which maps pages at an IOVA chosen by the
+caller and returns a Mapping that unmaps them on drop. The pages come
+from a MapSource, initially a boxed SGTable that owns its pages.
 
-Tested on MacBookPro15,1, MacBookPro15,2, MacBookPro16,1,
-MacBookPro16,2 and MacBookAir9,1, covering four panel device IDs. All
-five enter PSR1 after boot and across suspend/resume, report
-DP_PSR_SINK_ACTIVE_SINK_SYNCED, and show no sink errors.
+Patch 6 adds Domain::with_fault_handler(), which allocates a domain
+with a FaultHandler installed. One handler can serve several domains.
 
-Tested-by: Andre Eikmeyer <dev@deq.rocks>
-Tested-by: Yossef Osman <yossef.osman@proton.me>
-Signed-off-by: Alexander Fischer <alexander.fischer@kait2en.org>
-Signed-off-by: Aditya Garg <aditya.garg@linux.dev>
+This is based on v7.4-rc1.
+
+[0]: https://www.youtube.com/watch?v=75E15eHY7ac
+
 ---
-Changes in v4:
-- Rebase onto drm-tip; use drm_dp_dpcd_write_byte() for the new
-  writes to match the conversion of intel_psr.c
+Daniel Almeida (6):
+      rust: iommu: move the protection flags to the module root
+      rust: scatterlist: make SGTable::as_raw() visible to the crate
+      rust: iommu: add the paging domain abstraction
+      rust: iommu: add Domain::attach()
+      rust: iommu: add Domain::map()
+      rust: iommu: add Domain::with_fault_handler()
 
-Changes in v3:
-- Match the Apple PCI subsystem vendor in the DPCD quirk table
-  (Lukas Wunner)
-
-Changes in v2:
-- Use pci_dev_present() instead of pci_get_device()/pci_dev_put(),
-  which also drops the local PCI_DEVICE_ID define (Lukas Wunner)
+ rust/kernel/iommu/domain.rs  | 425 +++++++++++++++++++++++++++++++++++++++++++
+ rust/kernel/iommu/mod.rs     |  18 ++
+ rust/kernel/iommu/pgtable.rs |  16 +-
+ rust/kernel/scatterlist.rs   |   3 +-
+ 4 files changed, 446 insertions(+), 16 deletions(-)
 ---
- drivers/gpu/drm/i915/display/intel_psr.c    | 28 +++++++++++++++++++--
- drivers/gpu/drm/i915/display/intel_quirks.c | 28 +++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
- 3 files changed, 55 insertions(+), 2 deletions(-)
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261111-b4-iommu-domain-f46a6e450c0d
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 00d0146b2..c3bde5b64 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -228,6 +228,9 @@ static bool psr_global_enabled(struct intel_dp *intel_dp)
- 
- 	switch (intel_dp->psr.debug & I915_PSR_DEBUG_MODE_MASK) {
- 	case I915_PSR_DEBUG_DEFAULT:
-+		if (intel_has_dpcd_quirk(intel_dp, QUIRK_APPLE_PSR_HANDSHAKE))
-+			return true;
-+
- 		return intel_dp_is_edp(intel_dp) ?
- 			connector->panel.vbt.psr.enable : true;
- 	case I915_PSR_DEBUG_DISABLE:
-@@ -667,7 +670,8 @@ static void _psr_init_dpcd(struct intel_dp *intel_dp, struct intel_connector *co
- 	drm_dbg_kms(display->drm, "eDP panel supports PSR version %x\n",
- 		    connector->dp.psr_caps.dpcd[0]);
- 
--	if (drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_NO_PSR)) {
-+	if (drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_NO_PSR) &&
-+	    !intel_has_dpcd_quirk(intel_dp, QUIRK_APPLE_PSR_HANDSHAKE)) {
- 		drm_dbg_kms(display->drm,
- 			    "PSR support not currently available for this panel\n");
- 		return;
-@@ -807,19 +811,36 @@ static void _panel_replay_enable_sink(struct intel_dp *intel_dp,
- 	drm_dp_dpcd_write_byte(&intel_dp->aux, PANEL_REPLAY_CONFIG3, panel_replay_config_3);
- }
- 
-+/* Undocumented Apple eDP sink registers */
-+#define APPLE_PSR_SETUP_1	0x321
-+#define APPLE_PSR_SETUP_2	0x4d2
-+#define APPLE_PSR_SETUP_3	0x4d1
-+#define APPLE_PSR_TRIGGER	0x4d4
-+
-+static void psr_apple_prepare_sink(struct intel_dp *intel_dp)
-+{
-+	drm_dp_dpcd_write_byte(&intel_dp->aux, APPLE_PSR_SETUP_1, 0x3c);
-+	drm_dp_dpcd_write_byte(&intel_dp->aux, APPLE_PSR_SETUP_2, 0x01);
-+	drm_dp_dpcd_write_byte(&intel_dp->aux, APPLE_PSR_SETUP_3, 0x03);
-+}
-+
- static void _psr_enable_sink(struct intel_dp *intel_dp,
- 			     const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_display *display = to_intel_display(intel_dp);
-+	bool apple_psr = intel_has_dpcd_quirk(intel_dp, QUIRK_APPLE_PSR_HANDSHAKE);
- 	u8 val = 0;
- 
-+	if (apple_psr)
-+		psr_apple_prepare_sink(intel_dp);
-+
- 	if (crtc_state->has_sel_update) {
- 		val |= DP_PSR_ENABLE_PSR2 | DP_PSR_IRQ_HPD_WITH_CRC_ERRORS;
- 	} else {
- 		if (intel_dp->psr.link_standby)
- 			val |= DP_PSR_MAIN_LINK_ACTIVE;
- 
--		if (DISPLAY_VER(display) >= 8)
-+		if (DISPLAY_VER(display) >= 8 && !apple_psr)
- 			val |= DP_PSR_CRC_VERIFICATION;
- 	}
- 
-@@ -835,6 +856,9 @@ static void _psr_enable_sink(struct intel_dp *intel_dp,
- 
- 	val |= DP_PSR_ENABLE;
- 	drm_dp_dpcd_write_byte(&intel_dp->aux, DP_PSR_EN_CFG, val);
-+
-+	if (apple_psr)
-+		drm_dp_dpcd_write_byte(&intel_dp->aux, APPLE_PSR_TRIGGER, 0x01);
- }
- 
- static void intel_psr_enable_sink(struct intel_dp *intel_dp,
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 7d7db774d..8e9c851c2 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -9,6 +9,7 @@
- 
- #include "intel_display_core.h"
- #include "intel_display_types.h"
-+#include "intel_dp.h"
- #include "intel_quirks.h"
- 
- static void intel_set_quirk(struct intel_display *display, enum intel_quirk_id quirk)
-@@ -100,6 +101,25 @@ static void quirk_disable_psr2(struct intel_display *display)
- 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
- }
- 
-+static void quirk_apple_psr_handshake(struct intel_dp *intel_dp)
-+{
-+	static const struct pci_device_id t2_ids[] = {
-+		/* Apple T2 */
-+		{PCI_DEVICE(PCI_VENDOR_ID_APPLE, 0x1801)},
-+		{}
-+	};
-+	struct intel_display *display = to_intel_display(intel_dp);
-+
-+	if (!intel_dp_is_edp(intel_dp))
-+		return;
-+
-+	if (!pci_dev_present(t2_ids))
-+		return;
-+
-+	intel_set_dpcd_quirk(intel_dp, QUIRK_APPLE_PSR_HANDSHAKE);
-+	drm_info(display->drm, "Applying Apple PSR handshake quirk\n");
-+}
-+
- struct intel_quirk {
- 	int device;
- 	int subsystem_vendor;
-@@ -289,6 +309,14 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
- 		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
- 		.hook = quirk_disable_edp_panel_replay,
- 	},
-+	/* Apple T2 eDP panels */
-+	{
-+		.device = DEVICE_ID_ANY,
-+		.subsystem_vendor = PCI_VENDOR_ID_APPLE,
-+		.subsystem_device = PCI_ANY_ID,
-+		.sink_oui = SINK_OUI(0x00, 0x10, 0xfa),
-+		.hook = quirk_apple_psr_handshake,
-+	},
- };
- 
- void intel_init_quirks(struct intel_display *display)
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
-index 970a4fe52..7b863d408 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.h
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-@@ -23,6 +23,7 @@ enum intel_quirk_id {
- 	QUIRK_EDP_LIMIT_RATE_HBR2,
- 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
- 	QUIRK_DISABLE_PSR2,
-+	QUIRK_APPLE_PSR_HANDSHAKE,
- };
- 
- void intel_init_quirks(struct intel_display *display);
--- 
-2.56.0
+Best regards,
+--  
+Daniel Almeida <daniel.almeida@collabora.com>
 
