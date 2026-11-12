@@ -1,90 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.174
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794506094;
-	b=fsaoMl4KAKFTCNDH9Qkxw0DL0LXi5Zt0nrcug/55nXDc+FgRQ0u8j198/6ScvX+4Sg4X
-	 8rDVCOQhRCiOKqZqzt0AeaYWq1AySvKlCUQxQlko8dCFCkEMB7tvJjfyh6MEn0jYTy7WY
-	 GitIznKWBBK2eT1TakxZWoAeTY8kL8gmkVBnUUoO/24fw4peL8AdT8KCoDjA622vf9J96
-	 n03UplmXohHfcB0tT8w5/kLA8PNHTeMSPLqzSPbB5E5PkHKJ0OcK1XySKmXmJTtJlqIvd
-	 dSYPJD5mizXFuYP8+gk+6d4lQcS9NRWM0Cgv8NEREZvJLgH+HehYpo9vNACk+TQOYsw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794506094;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=nLM7EJdjaO037/pI6q4xA/LTKNh0utgwqJExJ58n90k=;
-	b=cj/gq1fNvWB/ZPuVb7Hm8hS96ll9OL9deyOqu4SaNhZZhy5unwJes4TSnb7Qbs9p+4xn
-	 6VwG7NpxsFdDIc+jfFzF8Ddjs3YI6fgcH9i9ObqwtJDiRwbKt05QzTB+Cf47jY7WLSgHB
-	 Hdg3mRB34zHLHjjUp+J0t/EKWqgYvfR11jWzuy+psB9tPC2MHJhRURuCCdA+C/JKcULQr
-	 vAOIkNpQgLDGM9j+vPGfT2+DCxOaEgel91LGM88ZQdzGhAvJ8HwlbklOSv6innxMDBNKU
-	 uOYxlnq7vVxgXmcoaxkxBlQbIJ5q3tkw7df6esauK9ZPvuHHKtH3+KL9qCcZXBqXosQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=AZ8UYX+B;
-	arc=none smtp.remote-ip=209.85.208.174
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794506097;
+	b=iuBKWa8Mj201/1RaW9fXk7+N1qPW0Q8IsMRhsmMhIXJNswqo4wRtTdzHqSy9WjRdahNQ
+	 tvyRQVuweg8feyWVy6U4nHdBm4Wc/WXVYgimc9XoX51ZxmME/19aSE6sU+VSVCPWXOhx2
+	 u1VU/4VaLhSRzpdLiRRjOhLvFkp/Z8+QwC+URoKWeGOnrT/lZGDBdY/Tjprsa5nQ2GeSx
+	 /x0Xj/nHlK/L8PikR7mmgHD/s29mGs308XAYoyaObK3nVjNL6khXoeskLPFRDJ0l1/8EN
+	 YxsZI1UMvh3kGmvxznWGIMRrrQcp2B12lVmtJZ0qQJBiAAdPBWPyQVSSkeskIfJbAcQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794506097;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
+	bh=x7mY0QkAA7+F0qadZebt54AEahfN8uYW+BAmTwfPG3M=;
+	b=GlW2wbpqL9UjRaSXCgDf1AZwvevnM82AoXH978TjUZhdiYPgTOI+2x1Ilk5zrjKj+O0V
+	 kuC3abCVT5fF4AFJ2hpAT6SnBIcGvQzJCplZF3y3XgOW5EkBnva1PbSNyNKKKkBZYwUu3
+	 PYmgTLaIdnTdrJ8vf1MQivCSgutCM37K+JWu+rAyKqzEEQTBf5r0zRhAoevvq/kL/EOl1
+	 BG2ziLHx7/8PnMoOfwj2V+YPcyCl+hjcjCj4Ou5Pr4qgvA31SD+CVv7lavND36oh250XM
+	 Di3ZCWvBmnsp3c2oN51F8po0uY+ne1gAowXNkqeIDnGz6BfOCxgHqVKrtP7tiC/MurA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b="P/U3LNyZ";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B5C8606A333
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:54:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B5C8606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F7A5606A327;
+	Thu, 12 Nov 2026 17:54:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F7A5606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=AZ8UYX+B
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3ae1fd4252fso175961fa.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:54:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1794506091; x=1795110891; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nLM7EJdjaO037/pI6q4xA/LTKNh0utgwqJExJ58n90k=;
-        b=AZ8UYX+BJwa+R9pmN44bF5ax/kzTyasztIxh4+Er7FEXpRlX03/tDgwqF4UHWvXRSg
-         VRyu1oyRcAEXCHcBNJwheqh7t3e5yh88VhnoEeFlPZrfEduzMDYvfLVB1xz2mYY3KahG
-         g29oYYmlZLJvvh54GKJUjD0xwypctk66AQzkg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794506091; x=1795110891;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=nLM7EJdjaO037/pI6q4xA/LTKNh0utgwqJExJ58n90k=;
-        b=mwFRA3JPumr6aiuKp06o4aWuahER8tMAzIJ/WTxnIGqeLLGn/k7AVo9hO9cfVTxyKo
-         lunrDiXIHN87WKOX38Ligoy1zOh4obqwd7uG3uX1SFvGdX8uKEZqFbGoTvErgEnMDgWy
-         1z69m/3Hiine4pj26Cq1Wogup+VdAThefOlN5TtO4KKJVj2S5KKDYfVJ0w5XCQpVzAY5
-         LuQFAhw4hdTMiBelFJQnk4upayiai3VJ9JL27t3DPqWK/I5AoeFcPcDS7xM39nCSWVlt
-         xSZRv2d0I2KKES3JeWNM2KKL23FZt7JzKgNCRSYUyU8tOVApS2HKiIGUG56MFA1GjbRm
-         5uSw==
-X-Forwarded-Encrypted: i=1; AL+hErGptOEWHnbaqi8GfKWst5jmsZBtq2rpddolFEPmjvkJpXqOJjbyj4Jo0igV+SaGV2SMjLY51xPaUXQCwWc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+dCa3G8/efiTYcEvjoULt24sHqX7wo0gg1aC3HvbB7+64o+s8F
-	he2DMWQ4i9aiEcO/02HC4Q/OuZH9ywtArQuHBSBacpB35bUNcvlixByq0ZJaK7BlHNKcnnVfLxx
-	QKil4+7sRaw==
-X-Gm-Gg: AYBFou3/bYOet+ZxvZxUIDKVND03fcJtNGIKXRLqNc2yu1+l9HW/0W92By1lrU0vSJR
-	wFM0FZAIaIy0jXFHpwNjJTRFa6AKhZHYueO9IEJsV1EEZwzXgD2tUIBBbjkMbZrG3YMF6mzXAno
-	+0hiEqkh19W5E1iQI4UzxgZe51MK+qiu9SEj79Y4zxeMY+e1sqhRM2hmEk489miJedeN8dncVMh
-	3uHdIcCfMIL6OEfkZoRymos2WsRyYrjb8ESfsyMMqXGyh+2IeybqjV1LUhEyr7imsaeslaYPPxC
-	TS869NOQUINU76Bm6Z1Er9zkhundOv1vA2Gm5OO/DuAW9eJ9eTnGPD2Pb7yiKvyu/MxuCvBHZXQ
-	mtDKE6fUCqxhX6RPEL1qKIeeCjin37z1DC70QLruRtWOYjdKDGVG+pWM6glYe0fn88MZPvMwhvZ
-	DdAB7JOb3N4CLac/q8g7sLaEF81z3NTmAHG9rzNZw7rFe3xXhzXfjY6/UCuUtbGgh/ApEMoBXF6
-	ZCPcwuu+/zvMkl1kW15LKDN2Y7lSlukt0FRlwmylKnjoyOe3xqpKC3tQGTyG6DimqvuRUr2dtKz
-	WiUJYccbRGJUUAq0X9gCruQGI14d5cMH6kscZBtZUHvm9NcuTthW3QpKYefPKYIy4sXnk5H/QZ8
-	7Ag==
-X-Received: by 2002:a2e:bea4:0:b0:3ac:dc69:e62a with SMTP id 38308e7fff4ca-3ae2b42eeb8mr1272111fa.2.1794506090906;
-        Thu, 12 Nov 2026 09:54:50 -0800 (PST)
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com. [209.85.167.54])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae2b7ae914sm693181fa.26.2026.11.12.09.54.50
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 09:54:50 -0800 (PST)
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5be3d5927ceso64456e87.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:54:50 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErE5PzjjXRS1nMeo4/Mo0lLsIxb2Mxpl/AZVK4DMIXHOcnYT/qymLjRAH0mVXRnh0RSv/XuTx7HztxTRs08=@vger.kernel.org
-X-Received: by 2002:a17:907:d86:b0:c50:62ff:efe2 with SMTP id
- a640c23a62f3a-c5066b2da47mr541451166b.21.1794505688483; Thu, 12 Nov 2026
- 09:48:08 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=P/U3LNyZ
+ARC-Seal: i=1; a=rsa-sha256; t=1794506063; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=YP0VuVHtqkoP3vvWrWVO+IFSspkJFfLBxMs+YqF2GuH2TiacdWheNcCdRFBCmrihWdjzNJr2xXswl3uGpnqyVJ8A/HoPHq1auSV9Ay7FU90967GYz7qUbGtEW1GngAFaZx9AlnkzO024uGWgl0PjpOeGZSn7JBpXdcvgBBKax6c=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794506063; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=x7mY0QkAA7+F0qadZebt54AEahfN8uYW+BAmTwfPG3M=; 
+	b=aB2xo/SS5m3J9DdaaHq2K/7uXVKg3Qo3O+XutwTiKsvRCCzwjUB+m4Xuy2Kx+UprHgENp4m8PTYmILL+bN/e73u9/2sBqyQjetScRdY2xxNBM1UlsrEfpFVIy0Ob6wa1sogDk5WMEWEIPh86prR4/i8Vu+Nz2kLo2g9sow8f3uA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: a=rsa-sha256; b=P/U3LNyZkalp59qqfe8xjF50DNrkH4QmUDeokvp3eI9VL32p4EMlE0FYgK2cVvwJywNjf4j+oZ8ZdQT/f1bZBfVdQ+AcPpy7mM78yzCeyww/1GcLNizihQuERAa4gXjvO0SS93rv2ZtEdaozIOyeHEP+l1ucG/aYrPV7jLEzYTRcBeqyIOMAqse1+cwOW36YtiHlI/1AyaGobN8gmujK+4lspyV7LfYORVorKQRwkt7s04DQk2Y6lx5CxY5L9Lcb/0vcxmXLHitehc05nL+fFFAzODqz51enZSfo4JZEK9JfHcKA1cl2k0E5lLyxDiwAYqkYmzOmoJR1eliXPgCE7Q==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=x7mY0QkAA7+F0qadZebt54AEahfN8uYW+BAmTwfPG3M=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794506062086245.89522074931494;
+	Thu, 12 Nov 2026 09:54:22 -0800 (PST)
+From: Rong Zhang <i@rong.moe>
+Date: Fri, 13 Nov 2026 01:53:57 +0800
+Subject: [PATCH v3 4/9] HID: haptic, multitouch: Fix haptic device
+ double-free and unnecessary allocation
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,48 +60,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260914223212.i.829-kees@kernel.org> <20260914223219.901347-2-kees@kernel.org>
- <20261112004039.GA523044@killaraus.ideasonboard.com> <avWNCC3_Ff0knO6J@devuan>
- <CAHk-=wgYBrhvo2NAG_Ja-0ovPf=xO20Gcopv9Yrr1u=QVxECZw@mail.gmail.com> <avX3Y08tF8Z0C4LH@devuan>
-In-Reply-To: <avX3Y08tF8Z0C4LH@devuan>
-From: Linus Torvalds <torvalds@linuxfoundation.org>
-Date: Thu, 12 Nov 2026 09:47:51 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wi1U9ry+MmK2_z7E=0KPpNG9zF212t-YmB8gc-qsUvp0A@mail.gmail.com>
-X-Gm-Features: AclHuK8TqtfSnV8lmNLmK3LZjOEY1Z81GA-4LECZ876wsZ5FbRi5al1rfBz408g
-Message-ID: <CAHk-=wi1U9ry+MmK2_z7E=0KPpNG9zF212t-YmB8gc-qsUvp0A@mail.gmail.com>
-Subject: Re: [PATCH 2/2] devres: Provide kmalloc_obj*-style API for devm_kmalloc
-To: Alejandro Colomar <alx+linux-hardening@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kees Cook <kees@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, driver-core@lists.linux.dev, 
-	linux-hardening@vger.kernel.org, Lorenzo Stoakes <ljs@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	Geert Uytterhoeven <geert@linux-m68k.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-hid-haptic-kmod-v3-4-e7dfa8766c0d@rong.moe>
+References: <20261113-hid-haptic-kmod-v3-0-e7dfa8766c0d@rong.moe>
+In-Reply-To: <20261113-hid-haptic-kmod-v3-0-e7dfa8766c0d@rong.moe>
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+ Angela Czubak <aczubak@google.com>, Henrik Rydberg <rydberg@bitmath.org>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Rong Zhang <i@rong.moe>
+X-Mailer: b4 0.17-dev-ce4c1
+X-ZohoMailClient: External
 
-On Thu, 12 Nov 2026 at 09:33, Alejandro Colomar
-<alx+linux-hardening@kernel.org> wrote:
->
-> I don't agree that the code is worse.  It's _different_, just like Rust
-> forces one to write different code
+The haptic device is allocated by devm_kzalloc(), which will be freed by
+devres on HID device release. At that time, the ff core has already
+freed it on input device release previously, causing double-free.
 
-different *is* worse. We do not want to have random strange syntax
-that differs from all normal rules for some little unimportant detail
-when I already outlined something that has standard C syntax and is
-superior from a technical angle.
+Allocate the haptic device using kzalloc_obj() to ensure its release can
+be safely delegates to the ff core.
 
-Code needs to be legible, and that means that it should follow a
-pattern that people are used to, not have random single-byte markers.
+The allocation code is also moved to hid-haptic.h, so that it can be
+replaced by a stub in !CONFIG_HID_HAPTIC builds, eliminating the
+meaningless alloc-and-free sequence.
 
-The goal is to be readable to *HUMANS*. And no, removing the (more
-common) function to allocate just a single object in favor of using a
-"1" is not human-friendly. And adding a pointless "," to make a
-compiler think it's not a missing argument is not human-friendly.
+Fixes: 8d0bf7908b5a ("HID: multitouch: add haptic multitouch support")
+Signed-off-by: Rong Zhang <i@rong.moe>
+---
+Changes in v3:
+- Correct the Fixes: tag (thanks Sashiko)
+---
+ drivers/hid/hid-haptic.h     | 17 +++++++++++++++++
+ drivers/hid/hid-multitouch.c | 39 +++++++++++++++++++++++++++++----------
+ 2 files changed, 46 insertions(+), 10 deletions(-)
 
-And honestly, I don't think Rust is a great example of human-friendly either.
+diff --git a/drivers/hid/hid-haptic.h b/drivers/hid/hid-haptic.h
+index cd4d9c74d2dc..7878cd73ccdb 100644
+--- a/drivers/hid/hid-haptic.h
++++ b/drivers/hid/hid-haptic.h
+@@ -5,6 +5,7 @@
+  *  Copyright (c) 2021 Angela Czubak <acz@semihalf.com>
+  */
+ 
++#include <linux/err.h>
+ #include <linux/hid.h>
+ 
+ #define HID_HAPTIC_ORDINAL_WAVEFORMNONE 1
+@@ -54,6 +55,17 @@ struct hid_haptic_device {
+ };
+ 
+ #if IS_ENABLED(CONFIG_HID_HAPTIC)
++static inline struct hid_haptic_device *hid_haptic_alloc(struct hid_device *hdev)
++{
++	struct hid_haptic_device *haptic;
++
++	haptic = kzalloc_obj(struct hid_haptic_device);
++	if (haptic)
++		haptic->hdev = hdev;
++
++	return haptic;
++}
++
+ static inline bool hid_haptic_connected_to_input(struct hid_haptic_device *haptic,
+ 						 struct input_dev *input)
+ {
+@@ -80,6 +92,11 @@ void hid_haptic_pressure_reset(struct hid_haptic_device *haptic);
+ void hid_haptic_pressure_increase(struct hid_haptic_device *haptic,
+ 				  __s32 pressure);
+ #else
++static inline struct hid_haptic_device *hid_haptic_alloc(struct hid_device *hdev)
++{
++	return ERR_PTR(-EOPNOTSUPP);
++}
++
+ static inline bool hid_haptic_connected_to_input(struct hid_haptic_device *haptic,
+ 						 struct input_dev *input)
+ {
+diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
+index 5eea774dee44..a9c8396c804e 100644
+--- a/drivers/hid/hid-multitouch.c
++++ b/drivers/hid/hid-multitouch.c
+@@ -34,6 +34,7 @@
+ #include <linux/bitmap.h>
+ #include <linux/bits.h>
+ #include <linux/device.h>
++#include <linux/err.h>
+ #include <linux/hid.h>
+ #include <linux/module.h>
+ #include <linux/slab.h>
+@@ -2129,11 +2130,18 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		dev_err(&hdev->dev, "cannot allocate multitouch data\n");
+ 		return -ENOMEM;
+ 	}
+-	td->haptic = devm_kzalloc_obj(&hdev->dev, *(td->haptic));
+-	if (!td->haptic)
++
++	td->haptic = hid_haptic_alloc(hdev);
++	if (IS_ERR(td->haptic)) {
++		ret = PTR_ERR(td->haptic);
++		if (ret == -EOPNOTSUPP)
++			td->haptic = NULL;
++		else
++			return ret;
++	} else if (!td->haptic) {
+ 		return -ENOMEM;
++	}
+ 
+-	td->haptic->hdev = hdev;
+ 	td->hdev = hdev;
+ 	td->mtclass = *mtclass;
+ 	td->inputmode_value = MT_INPUTMODE_TOUCHSCREEN;
+@@ -2178,12 +2186,14 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 
+ 	ret = hid_parse(hdev);
+ 	if (ret != 0)
+-		return ret;
++		goto out;
+ 
+ 	if (mtclass->name == MT_CLS_APPLE_TOUCHBAR &&
+ 	    !hid_find_field(hdev, HID_INPUT_REPORT,
+-			    HID_DG_TOUCHPAD, HID_DG_TRANSDUCER_INDEX))
+-		return -ENODEV;
++			    HID_DG_TOUCHPAD, HID_DG_TRANSDUCER_INDEX)) {
++		ret = -ENODEV;
++		goto out;
++	}
+ 
+ 	if (mtclass->quirks & MT_QUIRK_FIX_CONST_CONTACT_ID)
+ 		mt_fix_const_fields(hdev, HID_DG_CONTACTID);
+@@ -2193,7 +2203,7 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 
+ 	ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT);
+ 	if (ret)
+-		return ret;
++		goto out;
+ 
+ 	ret = sysfs_create_group(&hdev->dev.kobj, &mt_attribute_group);
+ 	if (ret)
+@@ -2202,10 +2212,19 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 
+ 	mt_set_modes(hdev, HID_LATENCY_NORMAL, TOUCHPAD_REPORT_ALL);
+ 
+-	if (!td->is_haptic_touchpad)
+-		devm_kfree(&hdev->dev, td->haptic);
++	ret = 0;
+ 
+-	return 0;
++out:
++	/*
++	 * Don't double free when the haptic device has been delegated to the ff
++	 * core.
++	 */
++	if (td->haptic && !td->is_haptic_touchpad) {
++		kfree(td->haptic);
++		td->haptic = NULL;
++	}
++
++	return ret;
+ }
+ 
+ static int mt_suspend(struct hid_device *hdev, pm_message_t state)
 
-              Linus
+-- 
+2.55.0
+
