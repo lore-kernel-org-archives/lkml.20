@@ -1,81 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.35.192.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794452872;
-	b=u+xu58aPL4nr97WmS5LrR0CuMxdK70GroTxkpAFq+5DtVymT711Gp3IbRosYvc2DetiL
-	 g4/DZ3txYaOXTIcZytWMjAofAT+GRSXuECBL8w1AHbZyNplrhEEU3H5gXHZNY7iu5FYO5
-	 O0oozf/vdMDvnDCV5EF3l1dKswHaoJn54YUiIFBGqDq6WopGCZ7USs71Ni5Ee52czPCk2
-	 0NgVH/1eY65X8vhYWbYP1LVjJVPlOU0IXB8uE/F6vX884KKKk+ObGv6DLQX0xt2MwO6oB
-	 lrytn3rFZqxnUim0P5zTylVE596r+p7b5kUPljSztlIMbGwbZTgKmRqOeiFD8RByL5A==
+	t=1794452902;
+	b=zHAdai2E3s/y+6VXV41FMvyUY8KI1+fad9u1gQ4pGAprm18ZbUNI3BR1tpV9KzAbuchy
+	 4qsYKuIgII9UvE/m2gGhwOR4Q4ApHi3F30xfSvu5y5dMpHHcoD9PYmw1kAFIH5fBnbLfA
+	 sEv+iGOARBaPYLJ5dqcwUDQN0ScF5zvnIZ//OVHGM3r4rPjY0LvuFkv57+wq0l6EoPfcC
+	 5z/WGF08mxKDmqgAAW/Qgfc1YWWMXBEFmq/ZZIdH74HJT53ZJoC72/F/XM2hPBvHvr85G
+	 GVMyuM1Y2fO2hnKe0zUH+VLbXZbRBxmxe3Pgz3eQ7B6/TZIaWecOBK66BUPyF7gLO+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794452872;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=fQsuB7GfIq/2n8sFtAgqwdloEx0U9ITEEJnXkB9GA/0=;
-	b=B+JDHBKuvavWAkIfivTSUpBZYLAwW6tKmfvmkQoJoUC/mj92EVZXFZFCr+b0XBhxtxnW
-	 D6MinaoRa7ZI7rvb6xTh415yFJFEZN74BsFDyxPS9OwLn+d6yFTwvnU/mcGtriIILhXLS
-	 ezL/bGZFlXKfDx7XrISVqORWDy9MgY/t6u1CNu632irVMCH2vAOd9WSCkCQ+BjxMk4OJF
-	 LoHSDIEMzlWeXRSu1YMGfBXFSoMx8JPtt/t8lUjwkTXc1WvEP2R/4zUe4km620JpEE1Z9
-	 1HXVQAtMS+HsUUzffnYLYI5klzCt2SPuNErgR1IUWHocv4JarjAkHIzHFm1CpgepYng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794452902;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=UeXaSvr4SrCTOf1iO2sie7UdIT4yjGWoYerMUs70xPo=;
+	b=2EkDIde1CE29HmzevxSv9JIzppgilaJDDuCBJrhuL6fGAaoDk+HyTegGpEha79/crF6P
+	 NLC5eTv9Q9mWiZevlUGjglPD3k0b0cqhUXa5m872tGKckPez70aTIvAJtqBTSNK2oYBPd
+	 iJ35aUxC+ZG6HqTsMvs6aq6lBRu/vzTKDpqjEu6HgpxM/Rcxb7XHj0V2ozGVYNMEBgYw/
+	 xyP5LmgnYMrMEn3QGuy4gS2Qly0dMfl4pe7/ydNMDkY0oMsLPdR1B2vynMEp9wEHsdO+4
+	 RDs+HvhB0YDYA6WNoeq+ILZZUVqiYoFwmS00dvQSCcCEGPPFXH7p1EVoikRvaSa8Zqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=H4LpPzFq;
-	arc=none smtp.remote-ip=52.35.192.45
-Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vdpjTSsd;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B2B606A335
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:07:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2B2B606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11A1C606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:08:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11A1C606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=H4LpPzFq
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vdpjTSsd
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36dbde64409so7656200eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:08:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794452871; x=1825988871;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=fQsuB7GfIq/2n8sFtAgqwdloEx0U9ITEEJnXkB9GA/0=;
-  b=H4LpPzFqsEgpqJP+IY2a1ZwNa2UkXyPMzyORqSjQiIjfQzO6k0CXJeb0
-   wTnlEUoxZxMJSCmMSxzF8EzKP076A64+CFhK6JLj+Fg57cW5seN3wymrP
-   TOHt6TOowtsRkyuUM0NvsH5N3QpxWPGtsbZkI3DU8BazRNmrN+COTbS43
-   slGzFqvGdUcdOvy2cZmIyAgCCBPCKSSn3O89gjS30KXrZVnKwps5eYmbk
-   2zO+fNePOTiAEb4xExdB4u3qEE+q4q1KDpPV7mPJgSBvmXpBd5vx00wZ2
-   dwS2XujSywoVOmPIDP//YTYPcLmeLLKoznuN8A1gTNDNZ+uRZWbH6zBPx
-   g==;
-X-CSE-ConnectionGUID: s/XhQPqWRGSXA+7Buha8VA==
-X-CSE-MsgGUID: wMZLGeSfTKqTu0UiaOwzBg==
-X-IronPort-AV: E=Sophos;i="6.27,208,1787011200"; 
-   d="scan'208";a="33546948"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 03:07:51 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:4665]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.55.227:2525] with esmtp (Farcaster)
- id d2365406-8730-4e33-ac82-a0aa9f23506a; Thu, 12 Nov 2026 03:07:51 +0000 (UTC)
-X-Farcaster-Flow-ID: d2365406-8730-4e33-ac82-a0aa9f23506a
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.217) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 03:07:50 +0000
-Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 03:07:49 +0000
-From: Alexander Graf <graf@amazon.com>
-To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>
-CC: Arnd Bergmann <arnd@arndb.de>, <nh-open-source@amazon.com>, "The AWS Nitro
- Enclaves Team" <aws-nitro-enclaves-devel@amazon.com>
-Subject: [PATCH 09/19] nitro_enclaves: Do not return enclave threads to a replaced CPU pool
-Date: Thu, 12 Nov 2026 03:07:05 +0000
-Message-ID: <e13de8c105a9131c65672c31db28db0629f66663.1794393487.git.graf@amazon.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <cover.1794300000.git.graf@amazon.com>
-References: <cover.1794300000.git.graf@amazon.com>
+        d=gmail.com; s=20260707; t=1794452901; x=1795057701; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UeXaSvr4SrCTOf1iO2sie7UdIT4yjGWoYerMUs70xPo=;
+        b=vdpjTSsdvfq0rjq3o32YqhchwDrQfUeCgA3g/VNqySe5KDnAFreNsIcdqOJpTogRZi
+         PtXQimxXqJpjJzolRRmrW0AGtrxeWj4cpWBAmcmEwp59qoWHtFbUtXyo6+CS3PoRt+CK
+         PQ1IED9andLLO9c6xRInaU47xKN+8CEY1Q0SoJ90cngYFEUZlvaVXXm1Z9RE59kI4vox
+         amu9A2THiD/UO+CwKIPmhsq9Z/nT7bRmk9piwzUScRWXVvCdW1K58Z7NM4R2k0jSM2pn
+         YmlmukTdCxrMjqkZV94GPO4c5TCFzCQcSiKdjOTpqVBaKzS62rQzMZc/OACLobQW6HnD
+         dkHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794452901; x=1795057701;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UeXaSvr4SrCTOf1iO2sie7UdIT4yjGWoYerMUs70xPo=;
+        b=n7HMvOLzCXrCbQSP/vouRIy+xJpbfeFezYiV5tUzZ6cU0Jks1Wk4UV8lVCu1mossdy
+         whOTmzxZlS0kPK88ytvo39beh8+IAjaBTTf2U4IgYknZzrGBimyyulWP4GSh64wNSa16
+         g57kdJISUvdNV4zpCKAWp+lpZWkN9TURpTX1hJKNtYCXSDRjzLHUdLth3/62sZMEtMVu
+         P6RpfU2+ccrj6Qllqer1iaEZ7Tssihf+hczfU7CAVvfbEXe6Gsq66XkvAVAcLqWkXEx9
+         MLdl7uL7mNTXfZUpgo3/aHiYrx3ng4oyIiWhYoSY2rOFGW0oVCxijbSwVuGo//Jt393h
+         fIDw==
+X-Forwarded-Encrypted: i=1; AL+hErG6yNC7wik7F1dZrBPXxxAMitjZP/IW1hkxti2p9JsLXn9gIFz9ISeoYyOkI0KgwhcwqQQJLJ3qZnZcN08=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/5+L/ImJOx2N1hf4isZ/7VoilEvsDvqEk5/G1hmyLoUClu04Dg
+	8Um9mdx1ZbGfVeW444DSEXudyouZS73S1WaPYKBSYI7IuvpCfKQq7ljZ
+X-Gm-Gg: AYBFou1OIOCCWcCbdrbcLe1i2N+Ve+4Azx9jPm7fy2apJoBncfdnFaZBH4+m7JvsRn9
+	zDDvZfyJPKoU6oU3GL3J8quirWBG7X6aBE46H1aqph1Hqg/1YEUjjYWbynpXsfX/ZxbEyiCckQ0
+	3IQ0CowWVfrIo70TcoHin6RJSpMFTV3NUVgLMbbPEd/wd8LFRh/g4J4lLmoplVzt1yICCHzpwE+
+	UQwORjm50t/EG5MC/PNym5v/R67LskS0KQTjAIh8VQFy0upaNX7+o1BwK8iCddzl1bvrqQf3ast
+	1xq2rRAiDCh5KS7nTUJ6AsvGVNAHzU3kJmMW+JVkT2bZj8jrr0eH3xqq7+cqMMF390owcFCLzXK
+	ixedZ/UpTGy9wgVDs/ROHpcdbA/ySAYkyzm2AGerS6djg6vm9GIkP94TOyf6V7dfsHQEX9GPivd
+	Bx5zbfogobcJEQuJ1NZQGuTUM6+3YavDs9mxV6n6tNZTOkL75rqnblxzpsUZXDTBSm9CRZeNqTX
+	eDuweUZ8smsXYdex5alFtkaLFA+rzFhl+59TWXXlmPLQ4ybs5hL6ELYP+pemx+WFCimiX7YL46L
+	VuPfUL2KGsXofcsW8WMlcfA8R+NwutTO4OfJ+kmQrms26w==
+X-Received: by 2002:a05:7300:6dac:b0:369:f9da:a70f with SMTP id 5a478bee46e88-37685b7f916mr6937512eec.17.1794452900796;
+        Wed, 11 Nov 2026 19:08:20 -0800 (PST)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060899asm20406158eec.11.2026.11.11.19.08.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 19:08:20 -0800 (PST)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: liubaolin12138@163.com,
+	ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhanxusheng@xiaomi.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] ntfs: trim the sizes after a short write
+Date: Thu, 12 Nov 2026 11:08:15 +0800
+Message-ID: <20261112030815.982026-1-zhanxusheng1024@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,153 +99,121 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-A write to ne_cpus checks that no enclave exists, drops
-enclaves_list_mutex and then replaces the CPU pool, so an NE_CREATE_VM
-in between gets an enclave whose release writes into the freed pool.
-Hold the mutex across the check, the teardown and the setup, and take it
-and ne_devs.lock killable, as the ioctls do.
+From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-Fixes: 9c8eb50fe9e2 ("nitro_enclaves: Add logic for terminating an enclave")
-Signed-off-by: Alexander Graf <graf@amazon.com>
+ntfs_file_write_iter() moves the data size and, for a non-resident
+uncompressed file, the initialized size to pos + count before the copy.
+__ntfs_extend_initialized_size() only zeroes [old initialized size, pos),
+so the range [pos, pos + count) is initialized only by the copy itself.
+When iomap_file_buffered_write() copies less than count, it returns a
+positive short count and the error rollback at out: does not run.  The
+file keeps the size pos + count, and [pos + ret, pos + count) reads back
+whatever the freed clusters held before, also after a remount.  A local
+user can read the old contents of freed clusters this way.
+
+Run the existing rollback for a short write as well, and roll the two
+sizes back to the end of what was written instead of to the old sizes.
+A short copy that ends inside a block can also leave the rest of that
+block cached as read from disk, so clear the page cache beyond the new
+initialized size before shrinking it.
+
+Fixes: b041ca562526 ("ntfs: update iomap and address space operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 ---
- drivers/virt/nitro_enclaves/ne_misc_dev.c | 76 +++++++++++------------
- 1 file changed, 37 insertions(+), 39 deletions(-)
+v2: also clear the cached tail of the last block, which v1 left in
+place when the write stayed inside the old data size (Baolin).
 
-diff --git a/drivers/virt/nitro_enclaves/ne_misc_dev.c b/drivers/virt/nitro_enclaves/ne_misc_dev.c
-index ac33fbcd41f35..0a1080443fc72 100644
---- a/drivers/virt/nitro_enclaves/ne_misc_dev.c
-+++ b/drivers/virt/nitro_enclaves/ne_misc_dev.c
-@@ -137,37 +137,6 @@ struct ne_phys_contig_mem_regions {
- 	struct range  *regions;
- };
- 
--/**
-- * ne_check_enclaves_created() - Verify if at least one enclave has been created.
-- * @void:	No parameters provided.
-- *
-- * Context: Process context.
-- * Return:
-- * * True if at least one enclave is created.
-- * * False otherwise.
-- */
--static bool ne_check_enclaves_created(void)
--{
--	struct ne_pci_dev *ne_pci_dev = NULL;
--	bool ret = false;
--
--	down_read(&ne_devs.lock);
--
--	ne_pci_dev = ne_devs.ne_pci_dev;
--	if (ne_pci_dev) {
--		mutex_lock(&ne_pci_dev->enclaves_list_mutex);
--
--		if (!list_empty(&ne_pci_dev->enclaves_list))
--			ret = true;
--
--		mutex_unlock(&ne_pci_dev->enclaves_list_mutex);
--	}
--
--	up_read(&ne_devs.lock);
--
--	return ret;
--}
--
- /**
-  * ne_setup_cpu_pool() - Set the NE CPU pool after handling sanity checks such
-  *			 as not sharing CPU cores with the primary / parent VM
-@@ -176,7 +145,8 @@ static bool ne_check_enclaves_created(void)
-  *			 pool after the checks passed.
-  * @ne_cpu_list:	The CPU list used for setting NE CPU pool.
-  *
-- * Context: Process context.
-+ * Context: Process context. This function is called with the ne_pci_dev enclave
-+ *	    mutex held, if there is a NE PCI device.
-  * Return:
-  * * 0 on success.
-  * * Negative return value on failure.
-@@ -385,7 +355,8 @@ static int ne_setup_cpu_pool(const char *ne_cpu_list)
-  *			    CPU pool.
-  * @void:	No parameters provided.
-  *
-- * Context: Process context.
-+ * Context: Process context. This function is called with the ne_pci_dev enclave
-+ *	    mutex held, if there is a NE PCI device.
-  */
- static void ne_teardown_cpu_pool(void)
- {
-@@ -435,15 +406,37 @@ static void ne_teardown_cpu_pool(void)
- static int ne_set_kernel_param(const char *val, const struct kernel_param *kp)
- {
- 	char error_val[] = "";
-+	struct ne_pci_dev *ne_pci_dev = NULL;
- 	int rc = -EINVAL;
- 
- 	if (!capable(CAP_SYS_ADMIN))
- 		return -EPERM;
- 
--	if (ne_check_enclaves_created()) {
-+	rc = down_read_killable(&ne_devs.lock);
-+	if (rc)
-+		return rc;
-+
-+	ne_pci_dev = ne_devs.ne_pci_dev;
-+
+v1: https://lore.kernel.org/all/20261111093459.660484-1-zhanxusheng1024@gmail.com/
+
+Tested in a VM on ntfs-next b025f526c5d0, with all free space filled
+with a known pattern first.  Short buffered writes of 4M, old data
+readable after drop_caches and after remount, 3 runs each:
+
+                                    unfixed    v1     v2
+  fallocated, ends block-aligned    3137536    0      0
+  fallocated, ends inside a block   3141332    212    0
+  fallocated, unaligned start       3137536    412    0
+  append                            3137536    0      0
+
+A short write 1M past EOF, O_DIRECT, resident and compressed files and
+full writes give the same results with v2 as with v1.
+---
+ fs/ntfs/file.c | 33 ++++++++++++++++++++++++++-------
+ 1 file changed, 26 insertions(+), 7 deletions(-)
+
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index 3213a0c9f96b..1779110a0c4f 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -928,10 +928,21 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 		ret = iomap_file_buffered_write(iocb, from, &ntfs_write_iomap_ops,
+ 				&ntfs_iomap_folio_ops, NULL);
+ out:
+-	if (ret < 0 && ret != -EIOCBQUEUED) {
 +	/*
-+	 * Keep the enclave list from gaining an entry while the pool is being
-+	 * replaced, so that no enclave ends up holding a core count that
-+	 * describes a pool that is already gone. The list lives in the PCI
-+	 * device, which is not bound yet when this runs for a value given on
-+	 * the kernel command line; nothing can create an enclave then either.
++	 * Both sizes were moved to end before the copy, so a short write,
++	 * like a failed one, must take back what it did not write.
 +	 */
-+	if (ne_pci_dev) {
-+		rc = mutex_lock_killable(&ne_pci_dev->enclaves_list_mutex);
-+		if (rc)
-+			goto unlock_devs;
-+	}
++	if (ret < count && ret != -EIOCBQUEUED) {
++		loff_t new_init_size = old_init_size;
++		loff_t new_data_size = old_data_size;
+ 		int init_err = 0;
+ 		int data_err = 0;
+ 
++		if (ret > 0) {
++			new_init_size = max(old_init_size, pos + ret);
++			new_data_size = max(old_data_size, pos + ret);
++		}
 +
-+	if (ne_pci_dev && !list_empty(&ne_pci_dev->enclaves_list)) {
- 		pr_err("%s: The CPU pool is used by enclave(s)\n", ne_misc_dev.name);
+ 		/*
+ 		 * Like ntfs_setattr_size(): __ntfs_attr_truncate_vfs()
+ 		 * expects the invalidate lock held across the size
+@@ -940,13 +951,21 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 		filemap_invalidate_lock(vi->i_mapping);
  
--		return -EPERM;
-+		rc = -EPERM;
-+
-+		goto unlock;
- 	}
+ 		/* ntfs_attr_set_initialized_size() rejects a resident one. */
+-		if (ni->initialized_size != old_init_size &&
++		if (ni->initialized_size != new_init_size &&
+ 		    NInoNonResident(ni)) {
+ 			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
  
- 	ne_teardown_cpu_pool();
-@@ -454,7 +447,7 @@ static int ne_set_kernel_param(const char *val, const struct kernel_param *kp)
++			/*
++			 * A short copy can leave the rest of the last block
++			 * cached as read from disk.  Clear what is no longer
++			 * initialized before shrinking the initialized size.
++			 */
++			if (ni->initialized_size > new_init_size)
++				truncate_pagecache_range(vi, new_init_size,
++						ni->initialized_size - 1);
+ 			mutex_lock(&mrec_ni->mrec_lock);
+ 			init_err = ntfs_attr_set_initialized_size(ni,
+-					old_init_size);
++					new_init_size);
+ 			mutex_unlock(&mrec_ni->mrec_lock);
+ 		}
+ 		/*
+@@ -955,13 +974,13 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 		 * the uninitialized tail, so skip it unless the rollback
+ 		 * above restored that size.
+ 		 */
+-		if (ni->data_size != old_data_size && !init_err) {
++		if (ni->data_size != new_data_size && !init_err) {
+ 			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
  
- 		param_set_copystring(error_val, kp);
- 
--		return rc;
-+		goto unlock;
- 	}
- 
- 	rc = param_set_copystring(val, kp);
-@@ -464,11 +457,16 @@ static int ne_set_kernel_param(const char *val, const struct kernel_param *kp)
- 		ne_teardown_cpu_pool();
- 
- 		param_set_copystring(error_val, kp);
--
--		return rc;
- 	}
- 
--	return 0;
-+unlock:
-+	if (ne_pci_dev)
-+		mutex_unlock(&ne_pci_dev->enclaves_list_mutex);
-+
-+unlock_devs:
-+	up_read(&ne_devs.lock);
-+
-+	return rc;
- }
- 
- /**
+-			truncate_setsize(vi, old_data_size);
++			truncate_setsize(vi, new_data_size);
+ 			mutex_lock(&mrec_ni->mrec_lock);
+-			data_err = __ntfs_attr_truncate_vfs(ni, old_data_size,
+-					old_data_size);
++			data_err = __ntfs_attr_truncate_vfs(ni, new_data_size,
++					new_data_size);
+ 			mutex_unlock(&mrec_ni->mrec_lock);
+ 			/* Like ntfs_setattr_size(): stay on the durable size. */
+ 			if (data_err)
+
+base-commit: b025f526c5d04929212c9d5fb7ffc96608f3eacc
 -- 
-2.47.1
+2.43.0
 
