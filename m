@@ -1,66 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794508701;
-	b=wteecmL+Ze1OKZfQG7DZP4ns+76kdrxKe/LI/j1HuQtfWAYaPchFCUrRm4AGq4c3ZHQy
-	 15WTc1ksalsXb7C2yrBGs0eEeZYb2nonr5ueT+WSIQ2pi6dG7strwWJ2ilkC3/j/os9Ql
-	 XUxOrf6x/EGcFZ+AaD+o7VU9OINO67XbqDNh2J6u3SAW+UZHtiaL+NF09MQdsyhJqXjJb
-	 1IIC0/v7kvuBFtQVRnMKjonezVS6IIGXw3/J/WCQpr42ty+0/j79X1DgA6qHC7wArVxXG
-	 XXpFAx6trNRKL3n+yzZXBfY992bQqkJzGlC6Y2gM4DMAFnqaLa16W2AZ/cVOqnX1IUw==
+	t=1794508779;
+	b=E6DTfvyYfG4yz1yc1ziwrXRd6dREdm9ABqFcZ5SusjDXbFw0Axp3uyaDZX0JnI4BJYp+
+	 A//zWB7UuWEYZ2+5/2aiRk8Hd8R7w3c+JPUvMTQaUkhokYAdFie71zqNJqpDfwL2gVgiG
+	 YMsJ4ouegvm7In+YbTPK/qKfrrRy0qMeLu1FfKH4W80jTVZxQwUfvuGh/woZxhFy+zIQw
+	 afJGwTbkHH3Da8PzcrlnSt4uXLrUEYQvLMHCLJxL94+ZO+1jOhbPj931ruURGA+39WMkw
+	 98Ghul4UX3qpNNIvqycRKAdhAu+gwzR7ae/gAxV/TndPPCH9nFMXc6c6CG3/H3ra7lQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794508701;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=L7x9fVXIk3YLtUocHW/Jzi76+9mdCpISM1XeN9QuiyM=;
-	b=wXW3HeHiz6fW37PcusSPZr5Vsv7bMO7KYzyTO6tRytNlkA1yXZCTcACLPLvQcAGawwJ/
-	 49rvM76EKU1HF3u30Dl4xTFHUyIGUYWTJb49c5eRZjQPxTfiptY1eTuSvbs7JVsmDqM91
-	 KFFBpbdibJ3PkAw4MGmWu/HPMe77zVLaFoIpieUF2cs//uVOcAhgNs9rJ30jqhhGcnIMG
-	 tBAuXLb/lSnvf4zSQLT9q3BOHSQhRmc7wFpFP3JjC3NZe/vWChe0ByDZlmdfliuzK/0oD
-	 x8IIaxHU+KaX/tyXOchjILZejdsd6VyFwAKXSLodv3doRCuh7XKpQcJz3o10uvTS12A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794508779;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=gcJK9aNGFdibIIhndF5zzviRUAhRSCw1NuaopYZSjL8=;
+	b=s8N5rlYHXFUm4vGoiq/8QsIw0Wc42rFy+IVADzZUYJTLk4Yvanwe98RYAJYsKVSK1V3r
+	 GRcQLKfK8NWD/l4pmmpTL6y3brKsIb/bKb4vTms33whce4EakbCsLi7zYd9dNLB0yFwbc
+	 vn0yhk3d+Vicvcyk0xG1v930gGb9PJ/KMufyD0h88wGQMFrj/JyJONh0VHhRMHuZQNxb+
+	 RNlDZbKD3frnb9O+itlDWaGkWA5pj3PSb7kiUsATiU5yGsrhbUlhD7Gq5mXIu1SF4wuVG
+	 3NCZFzb6V7KrJmb1dnpdLVcks0/4AH0T3pboY4RA6CQJCrc4BRS3kuK/j/13WtA/YEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LEBUXzPW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fDtdxhcr;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XiKYTxHM;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mgTQ9d9m;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7dbsVIWh;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C33606A33F;
-	Thu, 12 Nov 2026 18:38:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF90606A321;
+	Thu, 12 Nov 2026 18:39:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BF90606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LEBUXzPW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29B1E1F000C9;
-	Thu, 12 Nov 2026 18:38:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794508701;
-	bh=L7x9fVXIk3YLtUocHW/Jzi76+9mdCpISM1XeN9QuiyM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LEBUXzPWAsbf071BULHrEEhI/zwFZI/qjjvxJA4hgrD4BGpODUz6udClZy8WSqDAY
-	 WHXI5JIWFzz7RltAvOzuy0YhZwGckicTTpUVYk2KIcL9P1JX1hP6Am+YBf5LvPwuDm
-	 MxyTWs1q+85eYL8pLvDQgRdBYD0uJskQvCm0pzTnx9hVm6sUupUnF9t5GfLSQPMHOE
-	 9jEqd/MNMtUEbamgYO8Olx4/uIDkiR37I68rjLDz2Mb7U+29XTOCUngF/WCVFgxcA4
-	 CdRYJQ7U7T0GosfI7GRu6po5gmyylXm6zZO7Xl0+CziIXhBsqnTC1A0XUHICDidBh1
-	 y2bP54tP4rPxg==
-Date: Thu, 12 Nov 2026 18:38:16 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Gabriel FERNANDEZ <gabriel.fernandez@foss.st.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Christophe Roullier <christophe.roullier@foss.st.com>,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/5] dt-bindings: arm: stm32: Add clock-controller
- sub-node to STM32MP2 SYSCFG
-Message-ID: <20261112-worsening-yahoo-323ef21dc921@spud>
-References: <20261110-ups_mp25_clk_syscfg-v1-0-667829cd290a@foss.st.com>
- <20261110-ups_mp25_clk_syscfg-v1-2-667829cd290a@foss.st.com>
- <20261110-confidant-bundle-08385b99bd78@spud>
- <c4f08bb7-cea5-4f79-8a11-4045220f3b89@foss.st.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fDtdxhcr;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XiKYTxHM;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mgTQ9d9m;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7dbsVIWh
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3C3ED21E87;
+	Thu, 12 Nov 2026 18:39:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794508775; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gcJK9aNGFdibIIhndF5zzviRUAhRSCw1NuaopYZSjL8=;
+	b=fDtdxhcrvoNiWcmvZCnhjNXIA12n9e6T/YKrokGyqzbKQl8FrTbK2AEYymvaa+4bRWcrkd
+	wOKtVzZe7/rDr7v/UA6pSI8fgACobxWqt97sKKOHJovKpki+7VaLfeH/qCBJPdIvwRYmUI
+	QWDupK4o7PdM+1saizbnZnPjdB4bvUE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794508775;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gcJK9aNGFdibIIhndF5zzviRUAhRSCw1NuaopYZSjL8=;
+	b=XiKYTxHMbfE8KjmeOn0oUL2GwOUEHzovv3i+KwI3+IQFD38ahLNvVg8lbCIZD03Wg+2GNY
+	NseJ6yakqOFN2UAA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=mgTQ9d9m;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=7dbsVIWh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794508774; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gcJK9aNGFdibIIhndF5zzviRUAhRSCw1NuaopYZSjL8=;
+	b=mgTQ9d9mIM0SRjM7E/M+DO+fu6gAX1gGSrpE5fWQJT0PegPSO+bc5itQtTKzquNbq89cpB
+	F0CZohZn79mrCHi4KbWOT8ed8J3YMFu1+upkSbkB0EjScEXoD3Tg+2zY2kYx6ywG2gJkv0
+	L5TUUgB7uF2x9LNC8c/ngHGEhKH0PeA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794508774;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gcJK9aNGFdibIIhndF5zzviRUAhRSCw1NuaopYZSjL8=;
+	b=7dbsVIWhcHQxM37UJHa9+S3p+ddN6Yv3nGKX9xDSSof0X+EkJ1U/MqOTVubl0Q8yZt4p7J
+	7mLI1IqU8J7SvTAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BB5A313432;
+	Thu, 12 Nov 2026 18:39:33 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id PD85JOUH9moNRgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 12 Nov 2026 18:39:33 +0000
+Date: Thu, 12 Nov 2026 19:39:33 +0100
+Message-ID: <87h5hlrj16.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Shengyu Qu <wiagn@4d2.org>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	hulianqin@vivo.com,
+	i@rong.moe,
+	g@b4.vu,
+	jon@soh.re,
+	hhkieu@gmail.com,
+	panxucc@gmail.com,
+	wiagn233@outlook.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] ALSA: usb-audio: Add native DSD support for NiceHCK Octave
+In-Reply-To: <20261112173131.86655-1-wiagn@4d2.org>
+References: <20261112173131.86655-1-wiagn@4d2.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,134 +119,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hlndOg5Yw8RzH+lw"
-Content-Disposition: inline
-In-Reply-To: <c4f08bb7-cea5-4f79-8a11-4045220f3b89@foss.st.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: 3C3ED21E87
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,outlook.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[perex.cz,suse.com,vivo.com,rong.moe,b4.vu,soh.re,gmail.com,outlook.com,vger.kernel.org];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.51
 
---hlndOg5Yw8RzH+lw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Thu, 12 Nov 2026 18:31:31 +0100,
+Shengyu Qu wrote:
+> 
+> NiceHCK Octave is an OEM of TTGK TT39039F01-PROMAX[1] and supports DSD64/
+> DSD128/DSD256/DSD512[2].
+> 
+> It advertises the UAC2 RAW_DATA format on altsetting 4 of its playback
+> interface, but without the DSD_RAW quirk flag the driver exposes it only as
+> a SPECIAL format that cannot be used.
+> 
+> Add QUIRK_FLAG_DSD_RAW for the device (USB ID 3302:39c3), so the altsetting
+> is exposed as DSD_U32_BE, enabling native DSD playback.
+> 
+> [1] https://www.audiosciencereview.com/forum/index.php?threads/nicehck-octave-dongle-dac.65535/post-2390027
+> [2] https://szttgk.com/product/HIFIAUDIOMODULE/846.html
+> 
+> Signed-off-by: Shengyu Qu <wiagn@4d2.org>
 
-On Thu, Nov 12, 2026 at 09:36:59AM +0100, Gabriel FERNANDEZ wrote:
-> Hi Conor,
->=20
-> Thanks for review
->=20
-> On 11/10/26 19:54, Conor Dooley wrote:
-> > On Tue, Nov 10, 2026 at 11:42:17AM +0100, Gabriel Fernandez wrote:
-> > > The LTDC pixel clock multiplexer of the STM32MP23x and STM32MP25x
-> > > SYSCFG is described by a clock-controller sub-node of the SYSCFG node.
-> > >=20
-> > > Add this sub-node to the SYSCFG binding. It is required on STM32MP23x
-> > > and STM32MP25x and not allowed on the other SoCs.
-> > >=20
-> > > Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-> > Why does this need a child node at all, can't the clock controller
-> > properties go straight into this syscon node?
-> >=20
-> > Cheers,
-> > Conor.
->=20
-> I sent a v2 [1] shortly before your reply, which explains this in the
-> commit message, but the question still applies to it, so let me answer
-> here.
->=20
-> From a hardware point of view, the mux inputs could indeed be described
-> in the SYSCFG node. The problem is that this node is a "syscon": when
-> the syscon core creates the regmap of the node (syscon_node_to_regmap()
-> or syscon_regmap_lookup_by_*()), it takes the first clock of the node as
-> the clock of the registers, keeps it prepared and enables/disables it
-> around each register access.
->=20
-> The SYSCFG has no clock gate in the RCC, so this first clock would be
-> the LTDC kernel clock, i.e. the first input of the mux. It would then be
-> enabled on every SYSCFG access by all the users of this syscon (PCIe,
-> ComboPHY, Ethernet, OMM...).
+Applied now.  Thanks.
 
-Why are any of these things getting probed before the clock controller?
-I had it in my head that clock initialisation was done super early on,
-before smp even begins, so the clock driver would probe and generate the
-regmap before this can happen?
 
->=20
-> Registering our own regmap with of_syscon_register_regmap() from the
-> SYSCFG driver doesn't solve it either: these users reach the SYSCFG
-> through vendor phandles (st,syscon, st,syscfg-amcr) or by compatible,
-> which are not tracked by fw_devlink, so one of them can create the
-> syscon regmap, with the clock, before the SYSCFG driver probes.
->=20
-> Apart from adding a dummy clock in first position, which would describe
-> something which doesn't exist in the hardware, I didn't find a way to
-> keep these properties in the SYSCFG node. So the mux is described by a
-> sub-node with its own clock inputs, like the USB2 PHYs of the SYSCFG
-> which are already described as sub-nodes.
->=20
-> In v2, the '#clock-cells' property of the SYSCFG node is deprecated, so
-> that the sub-node is the only provider of this clock. No driver ever
-> registered a clock on the SYSCFG node, so this doesn't change anything
-> for existing devicetrees.
->=20
-> [1] https://lore.kernel.org/r/20261110-ups_mp25_clk_syscfg-v2-0-624559bb8=
-ec7@foss.st.com
->=20
-> Best regards,
->=20
-> Gabriel
->=20
->=20
-> >=20
-> > > ---
-> > >   Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml | =
-6 ++++++
-> > >   1 file changed, 6 insertions(+)
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-sys=
-con.yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-> > > index a559f8b03b84..38c844e8f19d 100644
-> > > --- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-> > > +++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-> > > @@ -45,6 +45,10 @@ properties:
-> > >     "#size-cells":
-> > >       const: 1
-> > > +  clock-controller:
-> > > +    type: object
-> > > +    $ref: /schemas/clock/st,stm32mp25-syscfg-clk.yaml#
-> > > +
-> > >   patternProperties:
-> > >     "^phy@2[48]00$":
-> > >       type: object
-> > > @@ -80,6 +84,7 @@ allOf:
-> > >           - "#address-cells"
-> > >           - "#clock-cells"
-> > >           - "#size-cells"
-> > > +        - clock-controller
-> > >           - phy@2400
-> > >           - phy@2800
-> > >       else:
-> > > @@ -87,6 +92,7 @@ allOf:
-> > >           '#address-cells': false
-> > >           '#clock-cells': false
-> > >           '#size-cells': false
-> > > +        clock-controller: false
-> > >           phy@2400: false
-> > >           phy@2800: false
-> > >=20
-> > > --=20
-> > > 2.43.0
-> > >=20
-
---hlndOg5Yw8RzH+lw
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavYHlwAKCRB4tDGHoIJi
-0qQzAP485R+QaU2P6b2L0zrS4zCbRiMyXVxuo3+/WUU3dc7jMgEAkdBGsN+zsL7t
-gKc+WZyW1vlVRn7hzQFLhLkjB2PatgQ=
-=UEaX
------END PGP SIGNATURE-----
-
---hlndOg5Yw8RzH+lw--
+Takashi
