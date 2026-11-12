@@ -1,56 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794449766;
-	b=dNfeNILpv3IGJnUOi1xSe78wX/a83B8ZBTSotwsMmfvDvaBykZ2xoal/R6XqeEItCS2Q
-	 DmAZlk+U5HfZp8vJk9aaaUHbog1Uvfo226TKI7/QYqfwkYQiyTqbDkQ0zYFJgMTtTk1WR
-	 FoQTOQq69f9YKhFppI4a3nCWWPq5r+UZFdmsphSpcvbXZ4ZgAn1F33kbC2RQdcgbFMK++
-	 yXi49b7tPG6vvHVQjKTu43hWSF17HEyoBwsaOcPMZ0V6jDmQ7aENGcaujd9u+HegTP0iK
-	 4ejybwvJKh9YpQ1c3clFuMX4owG4OkyLWuihVikq/eBERV0jcbSsOYHTNFgvmaut4BQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794449766;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=FwTv2GjEBlQR54GrEgezu3FqUMu0/uxeIqk78GyVHCk=;
-	b=btopgJN3GjnCfwuBzU07wy8j3pDMj3mMQ9LajkzpK79G1Iztxu4HfIWUjc8DqQ3iDiyq
-	 hA5WuXAk5b6Xd7gM8TF9+TwLbYhoWhJVBrAvKq3616zLyw+8VNb1GSj7nzhJJKhXK1vQL
-	 x/TeSg7EJ/9CRoR6UKYN/wkm0zJ7CFTHw9S3xJFbIWoprU6QrqZ0gTsWX2PyrzkLwCCkM
-	 56UbBN3+SgiqlxdU7pulo0kx+7t+nDdsf73fivI2Ies8Mr7hC7+JA6+KIdF2N/geGQN75
-	 JpAAoUkbby3awZMdt/qvPzol37pdoLyWGTKDtNwxNs6+nCOW+EYsSWKUa+ABBL1dOHw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TbsS8hG2;
-	arc=none smtp.remote-ip=91.218.175.42
-Received: from mta0.migadu.com (out-42.mta0.migadu.com [91.218.175.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.69
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794449820;
+	b=niH2GF84hfG29/0HKDLbRM3P+h2EFPuYq4k4rSRDD4eYnm1En+WCeT6TngHUidiC7BsX
+	 vh1HM0I5te/k9ypmu7hTtlJuqqI+Himr3OpS+JVRPr/AQ2BE5H5COK2wW3ebxwO5iOkgN
+	 UFhB1dkkz9dbq12A+FwFT+OyW+IC8b+bP0myxuOHdD1ecVfr9LqVave+HoiqdavoXkDF+
+	 6odK0fxlYhFet/DOYztnDNe3mRSBwh0CNU1/zioaCjtZuE6EdRNq4BReUKMUSyHXVncu1
+	 4XIoZK6P7lmpG7CJOuqDAPkTTN8UJG9EWUioUHb7OfVjitHcuauW5mYH20yN7YzonAQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794449820;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=eyRIiBAFu2SpbOBwKvnYZ8pUhbfFagSF6LXukhchBnw=;
+	b=hi+DK2hMx4eRUIcrQQQxN9tVTShvcALDmuSnD+9Q1Jwlvw6/Rd4DtGAXntJM+ycdW6zO
+	 RJBeMwWwNlfw8k+WO2cg68k6MIAi3I31HvgD5/KGSPlPUG50hoNom4rsrFzCEd2Blc9O5
+	 0D7wwQPvF50b6zXMOL2HIIBIPXea4ysQkGGRwpU0jVB3/bW6Mxj6Y1BnUC1DahUuircii
+	 kYeg0aBcUeqympjCRtnYt/J+y1UffBmp/RWeDdw2BuAct3tbw4w0A0cUHowVBJ2ax6iFA
+	 gupnJ4uCnmytvtf4uCLGCIsmumc6l7q6CipbMqYavW6l5KAvw2tCt77l+5Q9v5mdECQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Ev+SsUh7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.69
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010069.outbound.protection.outlook.com [52.101.69.69])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7B6606A324
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:16:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A7B6606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9B0606A321;
+	Thu, 12 Nov 2026 02:16:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC9B0606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TbsS8hG2
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=QdTK9vDoJhaUIW/U2XIf5FYJQ9anojdg/JfxOCFPB4I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794449763; v=1; x=1795054563;
- b=TbsS8hG2H99euT9cfkFIu7YsULdZtjHsHuxSUFjw8Hba4NXZu0/Oeq3XY6uQpyx1OOqVd1DF
- z7x4fvyzNZq/zZl6+T91em8H/T15Ux3brX+voPeNeCwq+sbApl3nH58ZfYLLQnQ4uKiDZnML1JQ
- qApNnAS6yCS77VRM1mXrEV70=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8cb470a74291e90a;
-	Thu, 12 Nov 2026 02:16:03 +0000
-X-Mizu-Trace-ID: 8cb470a74291e90a
-X-Migadu-Flow: FLOW_OUT
-From: Hongfu Li <hongfu.li@linux.dev>
-Date: Thu, 12 Nov 2026 10:15:33 +0800
-Subject: [PATCH v3] mm/hugetlb: charge hugetlb cgroup and memcg in
- alloc_hugetlb_folio_reserve()
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Ev+SsUh7
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rZ9MksyNzyBbH1vwAzlUxEC3h0mlixPIOgO/R3nreVDxjCn0ctU6m4uM1siJF1LmS7rN9MV9OUsMO8r7uwKLRsjNkX08tVWEFimfei4q5zmM94YkEb9Ls51cekCPLn6bqPxKOFTubHigUbnnV4B2fRZwDlHxQboKKA+gS0BUaDEKQMBXj7YqoElW4LYrAS96i8+9i92gjyzVYuQ8+cq1l09kw61/KzfXH0zb1mf+Fa8oCsmNCIJhehOyB5U/VZ7yY7/EpjMJrLHEMmCDePSshf5Sre3l1E1u/6NTMYwVU/ZZrp5P7qFXucq/Yunkoeq8VUYLVk9Tq9dmLuCjUE3fow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eyRIiBAFu2SpbOBwKvnYZ8pUhbfFagSF6LXukhchBnw=;
+ b=fwtxyVhwsRSOgPeLlLuyff0bnQCQipapnMf5OdMJkBJ6mL8tcF2BHxLr3TX0yJ/3GGPuPvgbF3wRS+e8YmiFdNBwf94kH/5fx0yeCZwLKIVR7rpchQLQYbgB7o+Uqrofm9u48hLLlsqAdHIRwD5LFHpmFLhxmMbcQGM6w0pEpFsMcrlupdhofbVq6Wg+VA1ce4rTee1nI8yRF2UfzI+ZhhPDQoJRh9ljyEUpRgEzkuqCXc1At2DcOUOkW92TaUTyNB3Tkyp6Yhm3A7oZlnbtk68dnH7/urOINf2KLoViyY/RmfneNH7GA8Rpm6yd0gWr8ynKFR0q6awvbJ2U9unLyw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eyRIiBAFu2SpbOBwKvnYZ8pUhbfFagSF6LXukhchBnw=;
+ b=Ev+SsUh7hc6FXeroqKpmBxx0k2QWfti/evRePkBeVxeGJwRvWFhZR8NXt/twx77GXrAh5DnNMezo5keALoktUxdyQznqIjKMxIAOuVv2pvqVl9XhZWOg6rALlaD5hS22M+GwirnccpWlCkfqrfzjFiu5mEwN94qoHQD10Jg3l7RkmjfM4u+0/vXITsph4ak30rYqPvlWae5U/L7MKCGAd8mp0e24JS8+MExQcQouWzvpW8WqQqiL7PytgGNlUZV8WZk+holbT2qKRZCG+oFx3T9yrZHe3iNTJhpvZN+biXsyJkiKQMwLhFplqVe00DxQdjpDnnI2SFSIKPvZbWYorw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AM9PR04MB8522.eurprd04.prod.outlook.com (2603:10a6:20b:431::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 12 Nov
+ 2026 02:16:56 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.007; Thu, 12 Nov 2026
+ 02:16:56 +0000
+Date: Wed, 11 Nov 2026 20:16:39 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Peng Fan <peng.fan@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
+	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v5 2/7] dmaengine: add a bus for DMA channel devices
+Message-ID: <avUhh6_vdOg-g1qf@SMW015318>
+References: <20261111-edma-iommu-v3-v5-0-2537cebe6ca2@nxp.com>
+ <20261111-edma-iommu-v3-v5-2-2537cebe6ca2@nxp.com>
+ <avSmdAQhFqKIOMis@SMW015318>
+ <avUH9MXGu5AzEkv/@shlinux89>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avUH9MXGu5AzEkv/@shlinux89>
+X-ClientProxiedBy: PH8P220CA0015.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:345::23) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,169 +113,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-for-alloc_hugetlb-1109-v3-1-7a144510a373@kylinos.cn>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNwQ6CMBBEf4Xs2Zq2AoIn/8MQA8sCq01rWiASw
- r8L6NXjm8zMmyGQZwpwiWbwNHJgZ1c4HSLArrQtCa5XBi11qpTMReO8KI1xeO+GlnpTiT2WiCU
- mGaV5rWAdvzw1/N6Pb8WXw1A9CPvtbWt0HHrnp9086q33kyj5TzJqoYROznmCFMdNJq/PybB14
- YgWimVZPmoS6KLPAAAA
-X-Change-ID: 20261109-for-alloc_hugetlb-1109-0ccac58e69d1
-To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Gerd Hoffmann <kraxel@redhat.com>, Dave Airlie <airlied@redhat.com>
-Cc: hongfu.li@linux.dev, Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Ackerley Tng <ackerleytng@google.com>, Gregory Price <gourry@gourry.net>, 
- Daehyeon Ko <4ncienth@gmail.com>, Hongfu Li <lihongfu@kylinos.cn>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794449756; l=4820;
- i=lihongfu@kylinos.cn; s=20260915; h=from:subject:message-id;
- bh=pFMQxDRwAloKyD9un+uH5Do41KW7aYnWyhIKwB42GmM=;
- b=/krm/uLaEvhDJqjULlNLgkdgLTXQAtC9oZ422Irx8PjuQC4YU55WHVduK3DsU3hy4K7MraGOi
- h+Slav7AQIXDQvA+jQRTMv8UzitiRTOeRBPXBGpqA0hDZJWg0X+/dif
-X-Developer-Key: i=lihongfu@kylinos.cn; a=ed25519;
- pk=rUpDSpB3neoNZRlGG6dHlFb3RepiJakcev+ucyqaZzw=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM9PR04MB8522:EE_
+X-MS-Office365-Filtering-Correlation-Id: 74f9d641-3084-4472-8a67-08df4063067c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|19092799006|261021123027099003|261022105027099003|261021121427099003|4143699003|11063799006|261028144727099003|56012099006|5023799004|261022075727099003|261102124527099003|261026121527099003|261102123227099003|261026140227099003|22082099003|18002099003|261009223027099003|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	7KA+Ie+76sVt1INwv0d/GqhV1Msgunkk0PXZ2NsFoF9f8V35Bd5d+y2iggoRDbSIPAGd2e832jWhDE5QxeXtckttbtW4QE4VqTKMZdj5ObWiqZ3fwR5naaWksAVTuOAnuDWVpnBTwRTMtn89CZTw8NIqUNtSENM8RsOY5Vd4HW5AHHU7/s4/NN9XZILvMLCzxJZWWzU2j/+H0GUE5GHCrWG6mI89DCQ5LKkhGrbR7P0cFLiiX8cgKVlxtcUurvPHrhLQN8lWsq9Hb4dBR2LPZdQ0wzAxUrDz0+MYl5O6ahKAc1hW2j1OhTBH1mLVEH8+jqCg74LUEi8DEY47GpgKOrTJH+9vTNfkFskrGeq5atxkYhkuC6M5PGGnuWXBQ8mtr3yK+RNylW/jmHRLACkDlhFXHCMmV7PWgpDBjO7UXQZeknvNFSCmdE9R9+5137iAZI8P9gCrQtdsebBoTrlf4Z3bO8OpLr7H+XwE6HHlpuMXGX5tUHsX4breZEF/BOl4mWfVHegDaGI/6uLqPsX0cCl4Z12rYEpfhcxtj8SiKyKR0UQSNxscyaB99l2kRLbN7vCYVC7cOtOKQos1RAhX2M7hJ64fChnCNDYDrn6+/bI8u0GQbmVaFYMIl0HRl8w6
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(19092799006)(261021123027099003)(261022105027099003)(261021121427099003)(4143699003)(11063799006)(261028144727099003)(56012099006)(5023799004)(261022075727099003)(261102124527099003)(261026121527099003)(261102123227099003)(261026140227099003)(22082099003)(18002099003)(261009223027099003)(6133799003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?3X/3d9BqBOMNXH0aG5m+q6MBrzlm8+KFNOMjEg9Uu6dqzYpqgQMmiTlywq72?=
+ =?us-ascii?Q?3FdBp8mZrpxnQMoEXoaaiwCNhpRkmMs8th3e/w4qHFERTNOUPhNGiybwazko?=
+ =?us-ascii?Q?7fzRX7cjhToOYeDjxuEJreKbGnvguy77xhEGFiegqFRDPC5+vn+WKiudsZpE?=
+ =?us-ascii?Q?oqX5CyDDxul058XnXTOa65A2T24TeBLa1gR/0hSNtet1Y3AFriHA+M/RMpg5?=
+ =?us-ascii?Q?nO4s4H6oULt/XxHGfTrRa/secd2FSnT9MRiwZnAlcMBztAXecPV+87HqL5Ce?=
+ =?us-ascii?Q?5HnuYDPAOPuh+sCGPqJkyJxLOolePOJWigopwLDhiPO4f29fACGq9QpeDD99?=
+ =?us-ascii?Q?hVCSGEjPazh+DcI4hOBBYr6NxD3DSJXcAK5Qh0MtMe5beBX+Tdmep4AMDtw3?=
+ =?us-ascii?Q?fURnv/yT0/N/66dbJcbu2WwWn6BXaOHvZOkTdJTzZkFBd1ft/8LdqCmCFLk7?=
+ =?us-ascii?Q?Z+zqW8hnIXqA3Qy6coeBA7zCgjDiOkaHR4SsURDKnjgEYbkStuHNuC+icwEL?=
+ =?us-ascii?Q?+s9/7BBKiYAV7JO8k3GZb5Od7o9BU6LGfyfCS1m3tdHHfIAEJTteWJcTNhOM?=
+ =?us-ascii?Q?+mEUzbgnO5hWmka0m9UWix4S2HMTcd+fxccQ7/VKaIIjwF7o12BafXN5u+UZ?=
+ =?us-ascii?Q?KQirfhu3MMjVPKamzhW45mo9YjQWPXmtrb7Y6NPJmsyQnUpZnFJ1FxDgcGx8?=
+ =?us-ascii?Q?Yk5AOKpUugRhgsrlzQMkrcVfxIjbRmWPu2kQIbZ7UcBsbZP9Tq7PC6HHEW8r?=
+ =?us-ascii?Q?b0N9LUBNA111ffYheW+CJKwi0RNQ8Yl7h3TMrTXNkkGLLvFyI0mcofs0x9pv?=
+ =?us-ascii?Q?8aGRl4xMZO1hP5f/1FCY2j/1KEy3vhz1dCTQXNJjkLJaheaSaVcmjHXGYfuS?=
+ =?us-ascii?Q?yU1H83g852vRgHI92s8FyStzmFrqGb1ILRJnq4FREMEg5NYTchml90lq9Q+4?=
+ =?us-ascii?Q?7heBZRhesT/rBdDwG+WwIbC+SUewt3KFumeieCwcdCYmYaZk53XzG9ASiFo/?=
+ =?us-ascii?Q?9q3ICBSpJQLw/zMS2WMXor+qUVS/nRT6i75EGAjPrJ886wINbATcmMiPBhZL?=
+ =?us-ascii?Q?U1sngfBmkuu6ZFolsbvkmbQeDnRPHYj+6Om8NPQdlNFWoG1q9fwhvpcsgP1J?=
+ =?us-ascii?Q?gSSHi3/cAZG32naXXyfIueeGP2+QQRQlhuT6Rw6H+Q7q5+EIZ8OEfbOt9TUV?=
+ =?us-ascii?Q?tJqA5B2teSpYsBWy9pNbMUF5Af+ZwGV5sN1a11QLCukSf/KlGdLV66BkPAHI?=
+ =?us-ascii?Q?Aha+W8gapUwS7t3mkZOEiT4DA/b3dwrUJkDx8bKkopZgW1V97bbGOSX6EXo+?=
+ =?us-ascii?Q?q2GoJZWhsABnvkwuhq6S6O2h1kdpQLM0ctWcX1J/O88hT3cYpNq2ZsxXuYV+?=
+ =?us-ascii?Q?+bs1sO2Tp0cgrfSDv1Tbli+2QrEoTkrCD9M5UAsY9Os5uE4T7l1SaZ17fUon?=
+ =?us-ascii?Q?z7m26eX+QaPr75eIVg4b0/6I3c2ZglxpxhZHcvdGoGuBJRkDNMzkJxZgPyWA?=
+ =?us-ascii?Q?oSGmmCq39C4puuG5Z1qatH9bdUoHSPEJDogo8VvGZshPeggUIc/1Neym4MYU?=
+ =?us-ascii?Q?x/xAFdkAmd6LUS0hKb0pE0/r5TjnnHtJb4pqD3xQUzRlxKxbgf3rfN+k81JY?=
+ =?us-ascii?Q?kruTc18r8r9LaVhOduNjL3/uJjWOSkl3dJk4NdOKrF9a6EzozGoLbdIHp2PT?=
+ =?us-ascii?Q?qBVA3sXqkBRivOibU8BHMspXLklmuWceMjspo0tSgiH4/bQbVFlU0JSj1H9V?=
+ =?us-ascii?Q?pOTSoLSVb24GrwgyqCh3j9jFZrLLcmWxlFwTbBj38IfPM+LK2upX?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74f9d641-3084-4472-8a67-08df4063067c
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 02:16:56.6891
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PhlRRRhHP+DnbFA4IdpbzTVY6quxe703hOQYzaCAU/UEgPtfO9BDwWUJ5Zw1qEgh6PJFqdaXLezLtZ7SAN4QUHO9U4GqTPJ8mQM0HuNO/wsw25vHWHTd5rdncScq+s3B
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8522
 
-From: Hongfu Li <lihongfu@kylinos.cn>
+On Thu, Nov 12, 2026 at 08:27:32AM +0800, Peng Fan wrote:
+> On Wed, Nov 11, 2026 at 11:31:32AM -0600, Frank Li wrote:
+> >On Wed, Nov 11, 2026 at 09:47:30PM +0800, Peng Fan (OSS) wrote:
+> >> From: Peng Fan <peng.fan@nxp.com>
+> >>
+> >> DMA channel devices are currently created as class devices without a bus.
+> >> This works for sysfs, but it prevents per-channel DMA/IOMMU configuration:
+> >> of_dma_configure() only probes the IOMMU when dev->bus is set, and the
+> >> IOMMU core only installs probe/release notifiers for buses listed in
+> >> iommu_buses[].
+> >>
+> >> Drivers that need per-channel IOMMU support currently work around this by
+> >> assigning dev->bus after device_register(). That leaves the bus subsystem
+> >> reference count unbalanced because bus_add_device() already ran with a NULL
+> >> bus, and bus_remove_device() will later drop a reference that was never
+> >> taken.
+> >>
+> >> Add a dedicated bus for DMA channel devices and register it during
+> >> dmaengine initialisation.  Use core_initcall so the bus exists before any
+> >> IOMMU driver can call iommu_device_register(), which iterates iommu_buses[]
+> >> and fails on an unregistered bus.  The match callback always reports no
+> >> match, so no driver can bind to these devices.  A follow-up patch will
+> >> register the channel devices on this bus.
+> >>
+> >> Clean up the unmap pools if dmaengine initialisation fails after they have
+> >> been allocated.
+> >>
+> >> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> >> ---
+> >>  drivers/dma/dmaengine.c   | 28 +++++++++++++++++++++++++---
+> >>  include/linux/dmaengine.h |  4 ++++
+> >>  2 files changed, 29 insertions(+), 3 deletions(-)
+> >>
+> >...
+> >
+> >> diff --git a/include/linux/dmaengine.h b/include/linux/dmaengine.h
+> >> index 805668fbe437..14d8f182c7cb 100644
+> >> --- a/include/linux/dmaengine.h
+> >> +++ b/include/linux/dmaengine.h
+> >> @@ -412,6 +412,10 @@ struct dma_chan_dev {
+> >>  	bool chan_dma_dev;
+> >>  };
+> >>
+> >> +#ifdef CONFIG_DMA_ENGINE
+> >> +extern const struct bus_type dma_chan_bus_type;
+> >
+> >New API, need use dmaengine prefix, dmaengine_chan_bus_type
+>
+> Fix in v6.
+>
+> >
+> >Not sure how other dmaengine support it before? Maybe already block for
+> >long time.
+>
+> In drivers/dma/tegra186-gpc-dma.c:
+> 1543       if (use_iommu_map) {
+> 1544                chdev->bus = pdev->dev.bus;
+>
+> I used similar method, but Sashiko spotted issue for v1 [1], we have to
+> add a new bus to handle it.
+>
+> "
+> Does this illegally modify the bus type of an already-registered device?
+>
+> This is executed after dmaenginem_async_device_register() has already called
+> device_add(). Since bus_add_device() is never executed, won't device_del()
+> invoke bus_remove_device() during driver unbinding or removal, causing a fatal
+> reference count underflow and use-after-free on the global platform_bus_type
+> subsystem?
+> "
+>
+> [1] https://lore.kernel.org/dmaengine/20260916160608.099201F000FF@smtp.kernel.org/
 
-alloc_hugetlb_folio_reserve() hands out a folio from the hugetlb pool and
-consumes a global reservation, but unlike the fault path it never charged
-the folio to the hugetlb cgroup or to the memcg.  Folios allocated for
-memfd_pin_folios() through memfd_alloc_folio() were therefore silently
-bypassing the accounting: they are never charged to the hugetlb cgroup
-usage counter (hugetlb.<size>.current or hugetlb.<size>.usage_in_bytes),
-so the limits (hugetlb.<size>.max or hugetlb.<size>.limit_in_bytes) are
-bypassed.  In cgroup v2, with memory_hugetlb_accounting enabled, these
-folios are also not accounted in memory.current and are not bounded by
-memory.max.
+Can you add it to commit message to know why need add new bus type
 
-Charge the folios to both the hugetlb cgroup and the memcg, just like
-hugetlb_alloc_folio() does.
+Frank
 
-Test with a process that creates a hugetlb memfd and pins pages through
-UDMABUF_CREATE. The counters were read while the folio was still pinned:
-
-Before this patch:
-$ echo $$ > /sys/fs/cgroup/test/cgroup.procs
-$ ./memfd-alloc-folio 1 &
-$ cat /sys/fs/cgroup/test/hugetlb.2MB.current
-0
-$ cat /sys/fs/cgroup/test/memory.current
-1351680
-$
-
-After this patch:
-$ echo $$ > /sys/fs/cgroup/test/cgroup.procs
-$ ./memfd-alloc-folio 1 &
-$ cat /sys/fs/cgroup/test/hugetlb.2MB.current
-2097152
-$ cat /sys/fs/cgroup/test/memory.current
-3313664
-$
-
-memfd_pin_folios() can now fail because the memcg charge fails. Two
-tasks allocating concurrently against the same memory.max may see a
-spurious failure. That failure frees the folio, returns the global
-reservation, and undoes the hugetlb cgroup charge, so no accounting is
-left behind.
-
-Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
----
-Changes in v3:
-- Updated the commit message to describe the new -ENOMEM condition on
-  memfd_pin_folios() when the memcg charge fails, as suggested by
-  Gregory Price.
-- Added Gregory Price's Reviewed-by and Tested-by tags.
-
-Changes in v2:
-- Rebased on a tree that includes Daehyeon's "mm/hugetlb_cgroup: prevent
-  use-after-free during cgroup offlining", as suggested by Andrew Morton.
-  No functional change.
-- Since 268d64fabbf1 ("mm/hugetlb: fix NR_HUGETLB accounting for surplus
-  folios") reworked the NR_HUGETLB accounting, use mod_hugetlb_memcg_state()
-  instead of lruvec_stat_mod_folio(), called after a successful memcg
-  charge.
-- Return early once a folio has been dequeued, instead of falling
-  through to a shared return.
-- Corrected the Fixes tag to 89c1905d9c14.
-- Updated the commit message to qualify the memory.max claim: only in
-  cgroup v2 with memory_hugetlb_accounting enabled.
----
- mm/hugetlb.c | 33 ++++++++++++++++++++++++++++++---
- 1 file changed, 30 insertions(+), 3 deletions(-)
-
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index da1c17f14a62..256bb2095b59 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -2223,12 +2223,19 @@ struct folio *alloc_buddy_hugetlb_folio(struct hstate *h,
- struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
- 		nodemask_t *nmask, gfp_t gfp_mask)
- {
-+	struct hugetlb_cgroup *h_cg = NULL;
-+	size_t nr_pages = pages_per_huge_page(h);
- 	struct folio *folio;
-+	int idx = hstate_index(h);
-+	int ret;
-+
-+	if (hugetlb_cgroup_charge_cgroup(idx, nr_pages, &h_cg))
-+		return NULL;
- 
- 	spin_lock_irq(&hugetlb_lock);
- 	if (!h->resv_huge_pages) {
- 		spin_unlock_irq(&hugetlb_lock);
--		return NULL;
-+		goto err_uncharge_hugetlb_cgroup;
- 	}
- 
- 	folio = dequeue_hugetlb_folio_nodemask(h, gfp_mask, preferred_nid,
-@@ -2236,11 +2243,31 @@ struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
- 	if (folio) {
- 		folio_set_hugetlb_restore_reserve(folio);
- 		h->resv_huge_pages--;
--	}
-+		hugetlb_cgroup_commit_charge(idx, nr_pages, h_cg, folio);
- 
-+		spin_unlock_irq(&hugetlb_lock);
-+
-+		ret = mem_cgroup_charge_hugetlb(folio, current->mm,
-+						gfp_mask | __GFP_RETRY_MAYFAIL);
-+		if (ret == -ENOMEM) {
-+			folio_put(folio);
-+			/*
-+			 * Skip uncharging hugetlb_cgroup since the charges
-+			 * were committed to the folio and freeing the folio
-+			 * would have cleared those up.
-+			 */
-+			return NULL;
-+		}
-+
-+		mod_hugetlb_memcg_state(folio, nr_pages);
-+
-+		return folio;
-+	}
- 	spin_unlock_irq(&hugetlb_lock);
- 
--	return folio;
-+err_uncharge_hugetlb_cgroup:
-+	hugetlb_cgroup_uncharge_cgroup(idx, nr_pages, h_cg);
-+	return NULL;
- }
- 
- /* folio migration callback function */
-
----
-base-commit: 2c5dafa7f289d760f4492260b0988029aab478b0
-change-id: 20261109-for-alloc_hugetlb-1109-0ccac58e69d1
-
-Best regards,
---  
-Hongfu Li <lihongfu@kylinos.cn>
-
+>
+> Thanks
+> Peng
+>
+> >
+> >Frank
+> >
+> >> +#endif
+> >> +
+> >>  /**
+> >>   * enum dma_slave_buswidth - defines bus width of the DMA slave
+> >>   * device, source or target buses
+> >>
+> >> --
+> >> 2.34.1
+> >>
+> >
