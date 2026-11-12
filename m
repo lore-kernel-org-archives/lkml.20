@@ -1,63 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794450677;
-	b=Y1PWkjd9156gBBlFfAy0hSD41IepEQRJwWEawLo6SPtcFhrAXNeShLWcRa0pmmFm6LDv
-	 xcLdJ64z+GARef3TxzaZMetNCog1xl/3M7N+yBQJb4FnxeR18yFMrvHT6VrZeZDdQmmzo
-	 xiMPx9/v8Vvwqve4xcEipByUfKMeXW75ehAvtN4hQ4Fv2LGqCxvDhlHAzY95UAvv8g0Jq
-	 SWviU0cansK9pN4wCpaGvJJmsu0zsw2PL9qcwa79mePHxmbxS2vqILeY+KqCrfPqyrPbn
-	 h64oy9oGMxJyTp2KZgiJin7rwN7RceBNYThOpMjUa11LTRhPG6Tc5VYL/5U7vtgBSDg==
+	t=1794450683;
+	b=Kb/MnMhoPm3Jd81sqDniG6mOrTb2wnHVEEWwAFNfEAZNGBC/ch7lHixwIqpNl/grxZSF
+	 El1yoq4a+HTnWhKu1oUCCZIahcpH5mZbqIwEHhZpft0a4IKW0lduzYZFsj91xrCRxiMAu
+	 lh00VjmYQ9hayzDdsLQtqTxGgAbaXZ7n9C7pVATaS7MiClIJR+MWbj6gOPg/1jOcuJgOV
+	 YLrPwXQthwgv5ufiozeD631sAxtN5dXwHP3iWSx7DrTap2gctg1DhyZ39mBjlVm654fdp
+	 VQ3pO4i6FukdJN5k7LMbhKlTGQLCFJTnFpXagHbx2OyvW+2riZBmqdku12sHUhP55Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794450677;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794450683;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=1XJFoaIeUqhO0GefopNaJ1CQoEbP0xbppbD7iy2MzDI=;
-	b=QjJvZRcNJrmNgeHZzea0ekV8bj2YD2o5CXLzjPdramd6VUMx75GpuQK2DTvWwpi10tn+
-	 WwPxBILPpxy4HRWa7YjIfxrWICPCIpoTW+t/roGxpCZeThHO1jtrTP8U+qIEC2FHv0We1
-	 qrSbyRSEYuC6/jvJ8AKeMyZt6mRWJS1ndx37+zHgdKzzoe+yIrBP0jE8o6NoD2Xe+ntbJ
-	 PQUkDo99pDlGzOFdIeukVBmYlltgxT0zEipaD0WP77AwjXfz6VCYUGG58mpgvM2YiSzhf
-	 4b30VUBegt62P+D1pNDUz0stLrHG3632ViwPYFuvF2ZoDyfy9LLzkX61VkQ2E7AQ+Lg==
+	bh=4aQHBiqJ06U37j0N40/YP+bLbY78zhD+Fcv1k2FBL0c=;
+	b=SL1pbkhXmXtxlBtlr5lTYey4u2e3pQ97gG3GSzM5Ag0zzBwEJIcAF0QX2DqY82xYzSgw
+	 Wg3nNo+xh+xYpBc+CfU9QIOru6pOSrlLuVrZafZMrAimknxBsLTlszHjQtIXNZIbZvz8d
+	 Eb/jMZ5do/8zZamUXF5mU2RD50T4aUt6AkMW+zl/h8+Ig4Bpa72TsCncLJ6xgtuKWz+Ls
+	 Zgl+aDTjPUEWhUxBAjNSxTm/JY1dcuXC49qcZZ2sJPppkbIDwa7O0jk8lo6HtQH9K03nv
+	 WX+s4vSW0SoPkKto5zd7hQfCk1dk7iFZ8Y2Fz4VL8LOVEU2NuEZiA1tBBUH2YyXA59A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="ue//+4Na";
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AFF3E606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:31:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFF3E606A323
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=WFx08cKh;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2B191606A332
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:31:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B191606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ue//+4Na
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=WFx08cKh
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=ue//+4Na8qSQfgP+w+BaKdv5dLlTANRQCuTL3dRnC81CjMEQuz5nY644acWsRzucDv8ShCxOb76+6
-	 fW++2EUslu8/MNrChAm2InzfbXtrp1bA6i7cQratTN3N++Y+xbIA5EaoohkkCMOgpor9Ek5V8gW+JH
-	 NobywREsMDS02ywU=
+	b=WFx08cKhj65W8B/25YY/WT4NVFKCWadtE15HrlGmeAgx+8pEvWHscA6ss2Lvt4kuzDfhGPzu97kWr
+	 RNC4ikYTPlpRGuKLytaY4fSTTu0kLGO+n+8nQZ+rR+7LfXjiv276hMmfags829gatR3nIBxT3skzL9
+	 oA2nKudcY/+BizMA=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af524f214d-a8ade;
-	Thu, 12 Nov 2026 10:31:15 +0800 (CST)
-X-RM-TRANSID:2ee36af524f214d-a8ade
+	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46af524f8601-7c5c7;
+	Thu, 12 Nov 2026 10:31:21 +0800 (CST)
+X-RM-TRANSID:2ee46af524f8601-7c5c7
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from devin-VMware-Virtual-Platform (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46af524f10ff-ef405;
-	Thu, 12 Nov 2026 10:31:15 +0800 (CST)
-X-RM-TRANSID:2ee46af524f10ff-ef405
+	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66af524f610c-ef34a;
+	Thu, 12 Nov 2026 10:31:20 +0800 (CST)
+X-RM-TRANSID:2ee66af524f610c-ef34a
 From: Zhu Jun <zhujun2@cmss.chinamobile.com>
-To: rafal@milecki.pl
-Cc: srini@kernel.org,
+To: chleroy@kernel.org
+Cc: linuxppc-dev@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Zhu Jun <zhujun2@cmss.chinamobile.com>
-Subject: [PATCH] nvmem: layouts: u-boot-env: Put cell nodes on registration failure
-Date: Thu, 12 Nov 2026 10:31:14 +0800
-Message-ID: <20261112023114.118202-1-zhujun2@cmss.chinamobile.com>
+Subject: [PATCH] soc: fsl: qbman: Release the private memory node reference
+Date: Thu, 12 Nov 2026 10:31:19 +0800
+Message-ID: <20261112023119.118215-1-zhujun2@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,36 +71,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-u_boot_env_parse_cells() takes a reference to each matching child node
-before registering its cell. nvmem_add_one_cell() transfers that reference
-to the cell on success, but does not release it if cell allocation or
-initialization fails.
+qbman_init_private_mem() obtains a node reference through
+of_parse_phandle() or of_find_compatible_node(), but never releases it.
+The reference leaks on successful initialization and on errors after the
+lookup.
 
-Drop the node reference when registration fails, preserving the existing
-behavior of continuing with the remaining environment variables.
+Use automatic cleanup to release the reference on every return path once
+the reserved memory lookup and any reg property update are complete.
 
 OpenAI Codex assisted with analysis and patch preparation.
 
-Fixes: 7c8979b42b1a ("nvmem: u-boot-env: use nvmem_add_one_cell() nvmem subsystem helper")
+Fixes: 42d0349784c7 ("soc/fsl/qbman: Add common routine for QBMan private allocations")
 Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
 ---
- drivers/nvmem/layouts/u-boot-env.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/soc/fsl/qbman/dpaa_sys.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/nvmem/layouts/u-boot-env.c b/drivers/nvmem/layouts/u-boot-env.c
-index 33ec2350386f..f4839571b794 100644
---- a/drivers/nvmem/layouts/u-boot-env.c
-+++ b/drivers/nvmem/layouts/u-boot-env.c
-@@ -78,7 +78,8 @@ static int u_boot_env_parse_cells(struct device *dev, struct nvmem_device *nvmem
- 			info.read_post_process = u_boot_env_read_post_process_ethaddr;
- 		}
- 
--		nvmem_add_one_cell(nvmem, &info);
-+		if (nvmem_add_one_cell(nvmem, &info))
-+			of_node_put(info.np);
- 	}
- 
- 	return 0;
+diff --git a/drivers/soc/fsl/qbman/dpaa_sys.c b/drivers/soc/fsl/qbman/dpaa_sys.c
+index 3504ff557231..e9c37c45dd58 100644
+--- a/drivers/soc/fsl/qbman/dpaa_sys.c
++++ b/drivers/soc/fsl/qbman/dpaa_sys.c
+@@ -37,7 +37,7 @@
+ int qbman_init_private_mem(struct device *dev, int idx, const char *compat,
+ 			   dma_addr_t *addr, size_t *size)
+ {
+-	struct device_node *mem_node;
++	struct device_node *mem_node __free(device_node) = NULL;
+ 	struct reserved_mem *rmem;
+ 	int err;
+ 	__be32 *res_array;
 -- 
 2.51.0
 
