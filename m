@@ -1,63 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794450713;
-	b=S09L+DhId4fmsEE6vXWCwDe/TjicRP70qJqn6G0eIpHoVqAndnsZQF6yuxdKqlFFCc1K
-	 DByJDvyGyLLHajDeSXU/c6O9iKY240ZQVcd0Wh+vfNEy9pNDwyn9nLYd5FewA/yXcmC0W
-	 QNlUu1Guwr0SLrTXDQQdWvD82/IpmZ2KL7kzkkgtXBnQk6yxf20oRozVWrpCzp6rOpWqA
-	 Z+GuVFam6U366T3MeSBO/7VdHL9qfGxgSvyIcpWpWxHR0rHeEvqgOKGZxuOJd8QnJjQs7
-	 exdmPjTxTCdPMBTYGzzM0jLiSG4e2WWLjxP6F6Vf2OcUtp3s2CRwS6FKfv5aj/r8Tuw==
+	t=1794450711;
+	b=gLcFaXssVBmFXo+Skj8a/eGSxERZJv4b0T2PwST4mr/0dhzLGDt24euHr70d0S0lqr4T
+	 wxTm1P/BDiCAyl/LjRFly6aclwiNlkORQTEAomwCeJaOWPC12dUX71ej6kQ9SPfXMl2ex
+	 2D5CSA63vgLJEFOBmVkbZho7bepu7nk5ZmMWE4ZKiZRHHkA0tb6DLUPRG2hcormLxTo1S
+	 ER7mFdHs0nkfWo6GxdOTrfemwQWSv7CPc1bIGaqHLteNc8sKGOP2WuYtapYYT2s/4sHAM
+	 TY5N7Hj9+nrBEw/EEx1jQXfPtTqLoXPLcSxSGCwVhSHGjZIy7bBVjPene5m3vmWhw1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794450713;
-	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version:
-	 DKIM-Signature;
-	bh=106R9NHLZDPVgqbUWKzQsjr2DZl4ZoklnZjSboLCT4Q=;
-	b=2cQj7Qq/3+rprg85eaksxjoGDaJQX6KMhyPCKFWgYRXtSOIc4cBW3k1JLXaeTZi5Lj5E
-	 kBJvaoPUhkpwmgkDksZLhMrZmKfDMaOBpt87hmX4E9oIp1pHTwjcDCjATdIV/m5cmoSP4
-	 AurHWBFGeP+v1FoMS+Tm70tDHAX13G+vKzYhCRA/jNUh+gPDGFnKDGwdFtnkjTC0/ayca
-	 Ktl6wo1M1P8Rc0yTp8lO8zeJukzSNiYY8fcT96hzHEcWdJpMNwr6qaWHuL03E18kmt+sd
-	 jX9sTFZ1GXlNoiHqhzMLz3767JDNbq61la7duPQPIWb+5oA3MNgWGjRByXf41VB/o8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794450711;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=oW9LBVkT640ce0ePnpl977J2xg0Su5DYXjUCivzDXK0=;
+	b=avS9K4S6gsOyGexXgUhObhUkWsQ4Xwuk8NqP4Cj0H81aq4wlIKa2R/iBW57xuUtVsdEj
+	 cMH0jKAfbuoLmI2XNp/wx5l6jVP5URQUctrmRkyNals4y6zhjQuc4xOx12mlO2wJA430o
+	 A5EFkeFxtaqj+65KM2EboNRTPXQxVuhE+/rBderggPIx3zvJ3+ZFp/zQLhbme9A/+Hg1+
+	 QC657MZXQmfq58sJz5ANsJgOg26H++FEs+aZ1Vyw1Pl7zUXnP4z2xT8C3FcRGhGhHu+1V
+	 jGwj/v6TOb9fkfKP0JebK+uupAn3Ot6HNPOzdAMJESI74qxxXJ10GlTOZVDmbZDvZ1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baidu.com;
-	spf=pass smtp.mailfrom=baidu.com;
-	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=CnDNojeJ;
-	arc=none smtp.remote-ip=180.76.5.236
-Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id A107C606A334;
-	Thu, 12 Nov 2026 02:31:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A107C606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=lxQxAWEH;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D455606A32E;
+	Thu, 12 Nov 2026 02:31:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D455606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=CnDNojeJ
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.48
-From: "Li,Rongqing" <lirongqing@baidu.com>
-To: Farhan Ali <alifm@linux.ibm.com>, Bjorn Helgaas <bhelgaas@google.com>,
-	Niklas Schnelle <schnelle@linux.ibm.com>, Manivannan Sadhasivam
-	<manivannan.sadhasivam@oss.qualcomm.com>, Frank Li <Frank.Li@nxp.com>,
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: =?utf-8?B?562U5aSNOiBb5aSW6YOo6YKu5Lu2XSBSZTogW1BBVENIXSBQQ0k6IE9ubHkg?=
- =?utf-8?B?cmVzdG9yZSBzdGF0ZSB0aGF0IHdhcyBzdWNjZXNzZnVsbHkgc2F2ZWQgYXJv?=
- =?utf-8?Q?und_a_reset?=
-Thread-Topic: =?utf-8?B?W+WklumDqOmCruS7tl0gUmU6IFtQQVRDSF0gUENJOiBPbmx5IHJlc3RvcmUg?=
- =?utf-8?B?c3RhdGUgdGhhdCB3YXMgc3VjY2Vzc2Z1bGx5IHNhdmVkIGFyb3VuZCBhIHJl?=
- =?utf-8?Q?set?=
-Thread-Index: AQHdcNUWC1MIoRMMhkuS1koLpaMYRLcnFZEAgAKkULA=
-Date: Thu, 12 Nov 2026 02:31:46 +0000
-Message-ID: <286a648d13724bafa9daa2797fd44f83@baidu.com>
-References: <20261110053348.2419-1-lirongqing@baidu.com>
- <04e0b460-da19-458b-a042-753608e67c68@linux.ibm.com>
-In-Reply-To: <04e0b460-da19-458b-a042-753608e67c68@linux.ibm.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=lxQxAWEH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1794450707;
+	bh=oW9LBVkT640ce0ePnpl977J2xg0Su5DYXjUCivzDXK0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lxQxAWEHg9RM5Dlk0JUdbgcBUqGvtK49bO8hQaxltLgeDuXbEj5bIZvpils1txTHH
+	 6d9eq3LGvchsnLS/NNk1VC9AcUl5h8t5DSQbhRcXvdl/ZA12MqGSobmNqOxQsmQHj5
+	 RZmF+fHG2P+ZDp426o9gaOkYWTow+65NUlSgzwvq6Z2aOeYfGKbvfO66JuPH+JhPVM
+	 0CfxJ4LdsDt9pfe7iDE5/rgS4mzM5COSftIbY2apGnSBKGtkbzGjZ1hOU0XcGGYb4M
+	 SpvvA3aU7aJMJjHlY7ndp6gAagkMYOZMcgKgPQpHH8K+aNedYmoB0amQNNSBLBBqgF
+	 dWVMm1eYwb9YQ==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jQ4CR2QqFz4wGx; Thu, 12 Nov 2026 13:31:47 +1100 (AEDT)
+Date: Thu, 12 Nov 2026 12:44:36 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Simon Glass <sjg@chromium.org>
+Cc: Doug Anderson <dianders@chromium.org>,
+	Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Saravana Kannan <saravanak@kernel.org>, Devicetree@vger.kernel.org,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Julius Werner <jwerner@chromium.org>,
+	Brian Norris <briannorris@chromium.org>,
+	linux-kernel@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
+Subject: Re: [PATCH v3 07/15] devicetree: Add DeviceTree live tree
+ representation
+Message-ID: <avUZ-uqxLAu2ICyJ@gractus.seuss>
+References: <20261101220224.1436242-1-dianders@chromium.org>
+ <20261101220224.1436242-8-dianders@chromium.org>
+ <CAFLszTgY5oOMYQjsk2sg-8w88uKq2hOqEiF4o5iAi5pMC8TZGw@mail.gmail.com>
+ <CAD=FV=V3CMALQsKUc-jDzvsH45y_h4hNxtjYXxaHOwyCsZ3s7Q@mail.gmail.com>
+ <avPZeSgU8ABix34f@gractus.seuss>
+ <CAFLszTiUYv2rx2OzvLR6UyO-uoya0WthPsr+oohQtCa+_itZsw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,42 +79,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1794450709;
-	bh=106R9NHLZDPVgqbUWKzQsjr2DZl4ZoklnZjSboLCT4Q=;
-	h=From:To:Subject:Date:Message-ID:Content-Type;
-	b=CnDNojeJPMgf5Uj5ji6GK/F7QLxkjhCOUMF6f/UXW/gX2XiAmjuCq4COTbcDaHAbp
-	 +wdmCdAPEVGRVoRBr8R0rtRR78duWiJ+iGd9dn1YIqcD0mwopHokHBHJyp0GQHof9Y
-	 KsLqJ940wpvFl86PXRyn5V23myf07IRAvmQsKGh0dWqOi9aPviBQiZuU8PZB9DYwB8
-	 EIOUv5aaVy/IV3wfUZzdmj4c6njIZ4ACcGO9XgC0TQtKJsFBFKWjMatccPXG/B7bMQ
-	 /cswzQRCtv2DZhX6pxrlALLy5itMkfhpveTffCcsdtlyVI512io1uEas++p9RO+Mxp
-	 ag7ikiixggMOA==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5IRHMQ0nbuFKtWRc"
+Content-Disposition: inline
+In-Reply-To: <CAFLszTiUYv2rx2OzvLR6UyO-uoya0WthPsr+oohQtCa+_itZsw@mail.gmail.com>
 
-DQo+ID4gcGNpX2Rldl9zYXZlX2FuZF9kaXNhYmxlKCkgcmV0dXJucyBlYXJseSB3aGVuIGNvbmZp
-ZyBzcGFjZSBpcw0KPiA+IGluYWNjZXNzaWJsZSwgd2l0aG91dCBzYXZpbmcgYW55dGhpbmcsIGJ1
-dCBwY2lfZGV2X3Jlc3RvcmUoKSBjYWxscw0KPiA+IHBjaV9yZXN0b3JlX3N0YXRlKCkgdW5jb25k
-aXRpb25hbGx5IGFuZCBwY2lfcmVzdG9yZV9zdGF0ZSgpIGRvZXMgbm90DQo+ID4gbG9vayBhdCBz
-dGF0ZV9zYXZlZC4gQWZ0ZXIgdGhlIHJlc2V0IG1ha2VzIGNvbmZpZyBzcGFjZSBhY2Nlc3NpYmxl
-DQo+ID4gYWdhaW4sIHRoZSBhbGwtemVybyBvciBzdGFsZSBzYXZlZF9jb25maWdfc3BhY2VbXSBh
-cnJheSBpcyB3cml0dGVuDQo+ID4gYmFjayB0byB0aGUgZGV2aWNlLCBjbGVhcmluZyBDb21tYW5k
-LCBCQVJzIGFuZCwgZm9yIGJyaWRnZXMsIHRoZSBidXMgbnVtYmVyDQo+IHJlZ2lzdGVycy4NCj4g
-Pg0KPiA+IENsZWFyIHN0YXRlX3NhdmVkIHdoZW4gdGhlIHNhdmUgaXMgc2tpcHBlZCBhbmQgb25s
-eSByZXN0b3JlIHdoZW4gYQ0KPiA+IHN0YXRlIHdhcyBzYXZlZC4NCj4gDQo+IFdlIHNob3VsZCBh
-bHdheXMgaGF2ZSBhIHZhbGlkIHN0YXRlIG9mIHRoZSBkZXZpY2Ugc2F2ZWQgYXQgZW51bWVyYXRp
-b24gZHVlIHRvDQo+IGNvbW1pdCBhMmYxZTIyMzkwYWMgKCJQQ0kvRVJSOiBFbnN1cmUgZXJyb3Ig
-cmVjb3ZlcmFiaWxpdHkgYXQgYWxsIHRpbWVzIikuIEluDQo+IHBjaV9kZXZfc2F2ZV9kaXNhYmxl
-KCksIGlmIHRoZSBkZXZpY2UgaXMgaW5hY2Nlc3NpYmxlIHRoZW4gd2Ugd2FudCB0byBhdm9pZA0K
-PiBzdG9yaW5nIGEgc3RhdGUgdGhhdCBjYW4gY29ycnVwdCB0aGUgZGV2aWNlIG9uIHJlc3RvcmUu
-DQo+IFNpbmNlIHdlIGFsd2F5cyBoYXZlIGEgdmFsaWQgc3RhdGUsIHdlIHdvdWxkIHJlc3RvcmUg
-dG8gdGhlIGxhc3QgZ29vZCBzdGF0ZS4NCj4gDQpZb3UncmUgcmlnaHQsIHBsZWFzZSBkaXNyZWdh
-cmQgdGhpcyBwYXRjaC4NCg0KSSBtaXNzZWQgdGhhdCBhMmYxZTIyMzkwYWMgKCJQQ0kvRVJSOiBF
-bnN1cmUgZXJyb3IgcmVjb3ZlcmFiaWxpdHkgYXQNCmFsbCB0aW1lcyIpIGFscmVhZHkgc2F2ZXMg
-YSB2YWxpZCBzdGF0ZSBhdCBlbnVtZXJhdGlvbiBhbmQgZGVsaWJlcmF0ZWx5DQpkcm9wcyB0aGUg
-c3RhdGVfc2F2ZWQgY2hlY2sgaW4gcGNpX3Jlc3RvcmVfc3RhdGUoKS4gU2tpcHBpbmcgdGhlIHNh
-dmUNCndoZW4gY29uZmlnIHNwYWNlIGlzIGluYWNjZXNzaWJsZSBrZWVwcyB0aGF0IGxhc3QgZ29v
-ZCBzdGF0ZSwgYW5kIHRoZQ0KdW5jb25kaXRpb25hbCByZXN0b3JlIHdyaXRlcyBpdCBiYWNrIGFm
-dGVyIHRoZSByZXNldC4gR2F0aW5nDQpwY2lfZGV2X3Jlc3RvcmUoKSBvbiBzdGF0ZV9zYXZlZCB3
-b3VsZCBpbnN0ZWFkIGxlYXZlIHRoZSBkZXZpY2UgYXQgaXRzDQpwb3dlci1vbiBkZWZhdWx0cy4g
-VGhpcyBjYW1lIGZyb20gY29kZSBpbnNwZWN0aW9uIG9mIHRoZSByZXNldCBwYXRoLCBub3QgDQpm
-cm9tIGEgZmFpbHVyZSBvbiBhIHNwZWNpZmljIGRldmljZSBvciBkcml2ZXIuDQoNClNvcnJ5IGZv
-ciB0aGUgbm9pc2UuDQoNCltMaSxSb25ncWluZ10gDQoNCg==
+--5IRHMQ0nbuFKtWRc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Nov 11, 2026 at 08:15:06PM +0000, Simon Glass wrote:
+> Hi,
+>=20
+> On Tue, 10 Nov 2026 at 21:16, David Gibson <david@gibson.dropbear.id.au> =
+wrote:
+> >
+> > On Fri, Nov 06, 2026 at 06:43:18PM -0800, Doug Anderson wrote:
+> > > Hi Simon,
+> > >
+> > > On Wed, Nov 4, 2026 at 6:08 AM Simon Glass <sjg@chromium.org> wrote:
+> > > >
+> > > > Hi Doug,
+> > > >
+> > > > On Sun, Nov 1, 2026 at 4:02 PM Douglas Anderson <dianders@chromium.=
+org> wrote:
+> > > > >
+> > > > > Add `devicetree.py` providing `DeviceTree`, a non-flattened in-me=
+mory
+> > > > > representation of a devicetree node and its subtree:
+> > > >
+> > > > Please can you start with the motivation, i.e. why a live tree is
+> > > > needed and what will use it? The list below mostly repeats the
+> > > > docstrings.
+> > >
+> > > Makes sense. In my draft v4 I've updated the commit message to lead
+> > > with the motivation and condensed the summary so it doesn't repeat the
+> > > docstrings:
+> > >
+> > >     `pylibfdt`'s `Fdt` and `FdtRo` classes operate directly on flatte=
+ned
+> > >     device tree blobs, where inserting or deleting nodes and properti=
+es
+> > >     shifts subsequent node offsets. That works well for in-place quer=
+ies and
+> > >     localized edits, but makes multi-tree comparison, structural diff=
+ing,
+> > >     and bottom-up tree construction (as needed by the upcoming `fdtfa=
+ctor`
+> > >     tool) awkward and error-prone.
+> > >
+> > >     Add `pylibfdt/devicetree.py` providing `DeviceTree`, an in-memory=
+ live
+> > >     tree representation where each node holds `props` (a dict mapping
+> > >     property name to `libfdt.Property`) and `children` (a dict mappin=
+g child
+> > >     node name to child `DeviceTree`), along with `unflatten()` and
+> > >     `flatten()` to convert between `FdtRo`/`Fdt` blobs and live trees=
+, and
+> > >     helpers for path lookup, node creation, and pre-order traversal.
+> > >
+> > >     Add unit tests in `tests/devicetree_tests.py` covering `DeviceTre=
+e`
+> > >     round-tripping, subtree unflattening, duplicate-name and corrupt-=
+tree
+> > >     rejection, and navigation helpers.
+> > >
+> > > > > diff --git a/devicetree.py b/devicetree.py
+> > > > > new file mode 100644
+> > > > > index 0000000..f81b8fc
+> > > > > --- /dev/null
+> > > > > +++ b/devicetree.py
+> > > > > @@ -0,0 +1,226 @@
+> > > > > +# SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-2-Clause)
+> > > > > +"""devicetree - Non-flattened in-memory device tree representati=
+on in Python."""
+> > > >
+> > > > I'd forgotten about this but PyPI has Zephyr's python-devicetree
+> > > > [1][2], which installs a top-level 'devicetree' package.
+> > > >
+> > > > I'm not sure what to suggest. Would libfdt_devicetree be too awful?
+> > >
+> > > Right. I'm OK with libfdt_devicetree. David: do you have any
+> > > objections?
+> >
+> > Don't love it, but can't quickly think of a better option.
+>=20
+> Would libfdt_tree be better?
+
+Not really.  The problem with all of the above is that they're making
+this library which is about managing a non-flattened device tree a
+part of the library/project/namespace that's explicitly about
+flattened device trees.
+
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--5IRHMQ0nbuFKtWRc
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmr1GfoACgkQzQJF27ox
+2GeXgxAAoKC6fcUEV2dhIvnIqdbOp2miRRKifOw0IYUSclRQ/wE7dMfNRjmk5KJc
+AkoSJpUGEw+c1ToEkTBHxfmwlRVPhTBT+/0Exg9lvOHyyn+CVbpHkmOHcDCnE9Zt
+QsWj1JWoHTzMeOSTrtyno4lL+KGdfBpvw1ZU4Tu/GLbVAczK68uu4arZehCCX1m/
+x5jBUbQluZ4+OzQynK4KDnDV/wdBLp/yjeAUJkdp3TeWvWH9pyTUFWdKlv6pfU8u
+3uR91vmYip4CEkASOZWtaAzEM6LnveIChrI27chlSNhTbD9+uZ/ndUsGxcd8405i
+XwH+s8t+CTC25e1teB8Q6NHPfv4jPB+w9yMVTjYUkuGgmXiz7/InbQgNjEzc3v//
+3VuxSdMVg09EZ+XrvsqsG1UO4VYiHRybtHadnhf+u/weR9yDWCSnqBLycTXdZKe3
+vScWN86HwzyrR0XP2l2UwqghlaWDcCu0pjlDL/rlqs/EmeH5MACrm8i8iwTfGg4j
+bjUOZkhc4W8EsoCqd90bdpPhZJwhL+Fcld+CP6Kh5v2LE+5dXRFmluf9a1AQUaOP
+eR93LSCg3YhIV6o+AIiVtfNWg7w+4xvSf3bG/E5pzKw1ucaXqu56s+6VflF0x7Xk
+0K4aoY3ST14t0ZsBGg5NAvA60BBC0i5EBsf3PArF8JjTOXtk16A=
+=7oZ2
+-----END PGP SIGNATURE-----
+
+--5IRHMQ0nbuFKtWRc--
