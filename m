@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794490484;
-	b=kpuThYF9wQESfE5YVsFeCRaIz/3zlVHIM6mH0voaZz7qITQxOCY3Wvp4ybNodqukN5Kf
-	 ZITenc6q+yhK03Oc6lsQEHxxxtXf9GDESRzm9kPfEsbzNI6WSXag+ORS6yN31NxW4oYH6
-	 56Nur0TeVj0Fkj+si01sQk1/c/WQcBbttxFm1Nemgf4KrFUVh1c/MYYbSv2eLMId2Ph+M
-	 EU9vCtLCbOH6McX4Dnn6VBvhQjP3m9WBOSayKY/q0Unteq2tL0iwDm7o2efFDatw4Qh40
-	 B2VtDFEmMdpVHahh0cHWqfKl6wZCFZzOJd8ApEeYdLZxPG7yb7MPDuh748UAecWJ3EQ==
+	t=1794490485;
+	b=brhmM1aXOkTq2cmXGDGE1PWEnEEBwaYXvd4X+bizqIrVdjkzxdrsROy6/74fNnAw2W/t
+	 whYmg0DB5A+zYdmsKYlukQjERNvcuTfP919tOqy54VBkV/uzYAS923mCUncr/WlkeqYqC
+	 qr/TblBA9W8ga+ngx7BQbK+wi3OsvORhA5tTVo6ALnbTtkLNBTAfRQazQxPe9LpphbIgP
+	 /pssHBdS8LIlQfU/EXukL/qLRH4ZNhAmGss1TKhtT6JY6sAae1UnYTxQwETyZvH1EpotF
+	 VectNbGFB41O23zMRR0wKIMepS47gO1zy9/TivNS4IsQszWqTaZzEy9kGWZEzsgIeqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794490484;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794490485;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=HVSl6b5c2ppW1s1gs/r7uBuxxOLF4+FVkqsE8xMgcNA=;
-	b=XSD9loPZWLht5vSTzRjZ71onWHcs77STlehk471YMHqfKXpwTi0UkAyh9UTtuL3oC/Cr
-	 Z93lqbyiewO9G4Gk4rP4/PXs8qnVAMeUeFOS/QgTSs4csoM7hMXmYi9QrHAABle6uRRN3
-	 2Ip1/u5Zkx51mc6m7Q2fFy39cCNEWql7EDL0BtPxqpFEzDEN7vrXrIaeMub1x1RkVhXPe
-	 l508bC3raklZst95OvPZGWa1GgoV5dbsFsfIDLaXUcwtQihJ5ryMIqMDPIJsAJxy9/jyo
-	 TWz7X8Wp2354R42+5x7/qK2xzKjfduSscc+Sn2hja+Ptzco6NKSHR67hUX/QszQk+xA==
+	bh=ZBHTfkePstkdhYPStihPwpZhe6evYsJ4HxGFWI7xQIQ=;
+	b=fU7YyztJrl9fNN7NmFS0TcjwRUynM1MXHDieDiy+EsDGn/oeXxBAo+y48QGjyAoRVzYC
+	 LESSnV3Ab/otwNk0iD8Vd+C7uA0SVFK0WyjWVBLZyc8sXgmkBoMlLIMXP/zX7kbURJ6zB
+	 Yl2UayyCGG7YkhRUhjZoN6X0J2XnrtbiZBjcGSQSc4Xf9RvlkBo7PC3ruqHgqewa51ill
+	 vZ0Mhz/LQHm1z/z+OvdsBp/qGh1zW2AkR3unAuQAwLh0uytIaeq0tI/Ykp9lb8sX2RUzO
+	 UASBSO8SE69gdcgn41Es3076QVHmvOFpJrgQo4/cBP7mIy8bt/BDj7QFiKUfS3Rd6Xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=NpzGw6+M;
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=WXo9wn0N;
+	arc=none smtp.remote-ip=113.46.200.218
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9794B606A331
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:34:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9794B606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B7DF606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:34:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B7DF606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=NpzGw6+M
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=WXo9wn0N
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=HVSl6b5c2ppW1s1gs/r7uBuxxOLF4+FVkqsE8xMgcNA=;
-	b=NpzGw6+Maniy/c5MFunJnf7wYcJsTElQBOF11nkTDHOYpouatcIxn5TFiqapwtGxM9OjZyrR1
-	TjAEvlfSdFw+Eht4lbqYKdx5cVBPVpmFaS4uJrWbfyerOyiQmo7VA/zEJ3wsz3dYt2x3UKAuBRS
-	2WydvfmGfe+/sQQ/ctn39Lw=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jQLw40lGjz1K97J;
-	Thu, 12 Nov 2026 21:34:28 +0800 (CST)
+	bh=ZBHTfkePstkdhYPStihPwpZhe6evYsJ4HxGFWI7xQIQ=;
+	b=WXo9wn0NXhZX7pp7ZUMh/iOPIRLVlUIH2p8LTgXE7ANDOBqTMLMcJn+ioAx56LEYcQClNy3LR
+	fhpJPlEmx97/Kbdl53DCIYli9z7cMxKnOY197T93hS34sNl3vH29acpUDwGroc1TguVRSPeD6C6
+	amzAd2VIz8neRJeZS5pH9T0=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jQLvT1T7hzpStr;
+	Thu, 12 Nov 2026 21:33:57 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 1616940586;
-	Thu, 12 Nov 2026 21:34:38 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id B50E040579;
+	Thu, 12 Nov 2026 21:34:36 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 12 Nov
- 2026 21:34:36 +0800
+ 2026 21:34:35 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
 	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
@@ -77,12 +77,10 @@ To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
 	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
 	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
 	<kexec@lists.infradead.org>
-Subject: [PATCH v8 01/11] kexec: Free the elf core header in kimage_file_post_load_cleanup()
-Date: Thu, 12 Nov 2026 21:34:08 +0800
-Message-ID: <20261112133418.4044428-2-ruanjinjie@huawei.com>
+Subject: [PATCH v8 00/11] kexec: Rework segment loading and fix CMA retries
+Date: Thu, 12 Nov 2026 21:34:07 +0800
+Message-ID: <20261112133418.4044428-1-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261112133418.4044428-1-ruanjinjie@huawei.com>
-References: <20261112133418.4044428-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,138 +95,86 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-The elf core header buffer is generic state, but arm64, LoongArch,
-RISC-V, x86 and powerpc each free it in their post-load cleanup.  Move
-it into the generic cleanup, which also gives the loader a helper to
-release it on error.
+ARM64, LoongArch, RISC-V, x86 and powerpc build the elf core header
+and place it together with the initrd and the DTB with almost identical
+code.
 
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Huacai Chen <chenhuacai@kernel.org>
-Cc: Palmer Dabbelt <palmer@rivosinc.com>
-Cc: Alexandre Ghiti <alexghiti@rivosinc.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: Michael Ellerman <mpe@ellerman.id.au>
-Cc: Nicholas Piggin <npiggin@gmail.com>
-Cc: Christophe Leroy <christophe.leroy@csgroup.eu>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Mike Rapoport <rppt@kernel.org>
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
- arch/arm64/kernel/machine_kexec_file.c     | 4 ----
- arch/loongarch/kernel/machine_kexec_file.c | 4 ----
- arch/powerpc/kexec/file_load_64.c          | 4 ----
- arch/riscv/kernel/machine_kexec_file.c     | 4 ----
- arch/x86/kernel/machine_kexec_64.c         | 4 ----
- kernel/kexec_file.c                        | 9 +++++++++
- 6 files changed, 9 insertions(+), 20 deletions(-)
+This series reworks that path into common helpers that the architectures
+reuse, and fixes the CMA page and elf core header leaks in the arm64
+and LoongArch placement retry loops.
 
-diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
-index 14f453dd0946..097ee397e949 100644
---- a/arch/arm64/kernel/machine_kexec_file.c
-+++ b/arch/arm64/kernel/machine_kexec_file.c
-@@ -32,10 +32,6 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
- 	kvfree(image->arch.dtb);
- 	image->arch.dtb = NULL;
- 
--	vfree(image->elf_headers);
--	image->elf_headers = NULL;
--	image->elf_headers_sz = 0;
--
- 	return kexec_image_post_load_cleanup_default(image);
- }
- 
-diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/kernel/machine_kexec_file.c
-index 0fe60907b97f..f16d9ab14726 100644
---- a/arch/loongarch/kernel/machine_kexec_file.c
-+++ b/arch/loongarch/kernel/machine_kexec_file.c
-@@ -28,10 +28,6 @@ const struct kexec_file_ops * const kexec_file_loaders[] = {
- 
- int arch_kimage_file_post_load_cleanup(struct kimage *image)
- {
--	vfree(image->elf_headers);
--	image->elf_headers = NULL;
--	image->elf_headers_sz = 0;
--
- 	return kexec_image_post_load_cleanup_default(image);
- }
- 
-diff --git a/arch/powerpc/kexec/file_load_64.c b/arch/powerpc/kexec/file_load_64.c
-index bd80c5fb1b1f..0cf03cee35a7 100644
---- a/arch/powerpc/kexec/file_load_64.c
-+++ b/arch/powerpc/kexec/file_load_64.c
-@@ -841,10 +841,6 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
- 	vfree(image->arch.backup_buf);
- 	image->arch.backup_buf = NULL;
- 
--	vfree(image->elf_headers);
--	image->elf_headers = NULL;
--	image->elf_headers_sz = 0;
--
- 	kvfree(image->arch.fdt);
- 	image->arch.fdt = NULL;
- 
-diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
-index 26cd2a8bd0cd..1d67fb42617a 100644
---- a/arch/riscv/kernel/machine_kexec_file.c
-+++ b/arch/riscv/kernel/machine_kexec_file.c
-@@ -29,10 +29,6 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
- 	kvfree(image->arch.fdt);
- 	image->arch.fdt = NULL;
- 
--	vfree(image->elf_headers);
--	image->elf_headers = NULL;
--	image->elf_headers_sz = 0;
--
- 	return kexec_image_post_load_cleanup_default(image);
- }
- 
-diff --git a/arch/x86/kernel/machine_kexec_64.c b/arch/x86/kernel/machine_kexec_64.c
-index c3f4a389992d..0a66cc268ee7 100644
---- a/arch/x86/kernel/machine_kexec_64.c
-+++ b/arch/x86/kernel/machine_kexec_64.c
-@@ -600,10 +600,6 @@ int arch_kexec_apply_relocations_add(struct purgatory_info *pi,
- 
- int arch_kimage_file_post_load_cleanup(struct kimage *image)
- {
--	vfree(image->elf_headers);
--	image->elf_headers = NULL;
--	image->elf_headers_sz = 0;
--
- 	return kexec_image_post_load_cleanup_default(image);
- }
- #endif /* CONFIG_KEXEC_FILE */
-diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
-index b668ce8d68ee..1f128c6e6fa3 100644
---- a/kernel/kexec_file.c
-+++ b/kernel/kexec_file.c
-@@ -102,6 +102,13 @@ int kexec_image_post_load_cleanup_default(struct kimage *image)
- 	return image->fops->cleanup(image->image_loader_data);
- }
- 
-+static void kexec_free_elf_headers(struct kimage *image)
-+{
-+	vfree(image->elf_headers);
-+	image->elf_headers = NULL;
-+	image->elf_headers_sz = 0;
-+}
-+
- /*
-  * Free up memory used by kernel, initrd, and command line. This is temporary
-  * memory allocation which is not needed any more after these buffers have
-@@ -120,6 +127,8 @@ void kimage_file_post_load_cleanup(struct kimage *image)
- 	kfree(image->cmdline_buf);
- 	image->cmdline_buf = NULL;
- 
-+	kexec_free_elf_headers(image);
-+
- 	vfree(pi->purgatory_buf);
- 	pi->purgatory_buf = NULL;
- 
+The patch organization is as follows:
+
+- Patch 1 moves the release of the elf core header into the generic
+  post-load cleanup, so that the architectures no longer free it
+  themselves.
+
+- Patch 2 adds the common helpers
+
+- Patches 3-7 convert arm64, LoongArch, RISC-V, X86 and Powerpc to
+  reuse the common helpers
+
+- Patches 8-11 fix the CMA pages leaked by the retry loops and
+  the loop that makes no progress
+
+Tested with kexec_file_load() on arm64, LoongArch, RISC-V, X86 and
+Powerpc under QEMU, including the CMA retry paths, loading a crash
+kernel and booting the second kernel, with the agent help.
+
+This series is also available at:
+	https://github.com/ruanjinjie-eng/linux/tree/kexec_rework_cma_bugfx_v9
+
+Changes in v8:
+- Rework the common code as Mike suggested: the core provides building
+  blocks and the architectures uses them (Mike)
+- Build the elf core header once and only place it on the retries (Mike)
+- Keep the segment order and the arch placement policy unchanged (Mike)
+- Convert x86 and powerpc as well
+- Move the CMA fixes to the end of the series (Mike)
+- Link to v7: https://lore.kernel.org/all/20261026075201.699550-1-ruanjinjie@huawei.com/
+
+Previous Versions are as below:
+- v6: https://lore.kernel.org/all/20260921090450.807575-1-ruanjinjie@huawei.com/
+- v5: https://lore.kernel.org/all/20260918100442.3841135-1-ruanjinjie@huawei.com/
+- v4: https://lore.kernel.org/all/20260907125404.922123-1-ruanjinjie@huawei.com/
+- v3: https://lore.kernel.org/all/20260826092541.3905933-1-ruanjinjie@huawei.com/
+- v2: https://lore.kernel.org/all/20260729031235.2840255-1-ruanjinjie@huawei.com/
+- v1: https://lore.kernel.org/all/20260723131242.1537633-1-ruanjinjie@huawei.com/#t
+
+Jinjie Ruan (11):
+  kexec: Free the elf core header in kimage_file_post_load_cleanup()
+  kexec: Add helpers to load the elf core header, initrd and FDT
+  arm64: kexec_file: Load the other segments with common helpers
+  LoongArch: kexec_file: Load the other segments with common helpers
+  riscv: kexec_file: Load the extra segments with common helpers
+  x86: kexec_file: Use the common segment helpers
+  powerpc: kexec_file: Use the common segment helpers
+  kexec: Extract kexec_free_segment_cma() from kimage_free_cma()
+  kexec: Add kexec_rollback_segments() helper
+  arm64: kexec_file: Fix CMA segment placement retries
+  LoongArch: kexec_file: Fix CMA segment placement retries
+
+ arch/arm64/include/asm/kexec.h             |   4 +-
+ arch/arm64/kernel/kexec_image.c            |  15 ++-
+ arch/arm64/kernel/machine_kexec_file.c     |  87 ++++----------
+ arch/loongarch/include/asm/kexec.h         |   3 +-
+ arch/loongarch/kernel/kexec_efi.c          |  15 ++-
+ arch/loongarch/kernel/kexec_elf.c          |   3 +-
+ arch/loongarch/kernel/machine_kexec_file.c |  80 +++++--------
+ arch/powerpc/kexec/elf_64.c                |   9 +-
+ arch/powerpc/kexec/file_load_64.c          |  18 +--
+ arch/riscv/include/asm/kexec.h             |   4 +-
+ arch/riscv/kernel/kexec_elf.c              |   3 +-
+ arch/riscv/kernel/kexec_image.c            |   3 +-
+ arch/riscv/kernel/machine_kexec_file.c     |  83 ++++----------
+ arch/x86/kernel/crash.c                    |  25 +----
+ arch/x86/kernel/kexec-bzimage64.c          |   8 +-
+ arch/x86/kernel/machine_kexec_64.c         |   4 -
+ include/linux/kexec.h                      |  14 +++
+ kernel/kexec_core.c                        |  25 +++--
+ kernel/kexec_file.c                        | 125 +++++++++++++++++++++
+ 19 files changed, 254 insertions(+), 274 deletions(-)
+
 -- 
 2.34.1
 
