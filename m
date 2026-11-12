@@ -1,123 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794484842;
-	b=m6EMod9lqPVN19lnTQJ7ZUwPwnxV717HgiwAWB0ZXrSsBwNHDXutJwLxMp64uDMjTNRH
-	 ajrfDvdDOBQQYsG2FT0Gy607x4bnxDtbeoTgMeyysx89LaTD+tDCwSywqpkwENmfDQUx8
-	 EMutjl6Pwr27CAJt1V38M40e8YChqp60a2ibtAAQ8HLxV8MqsA4XrtuUHX2dNUA6xqgby
-	 LTz/U+supqeyEyFKzaRbVSYFqEDnGZCmlbJkOPTHRMEqTgHeIg+4Y7zcb3KSfI+q6dvoC
-	 5NkRHEYKfCNA0vINtFEj9SXiLJT0awnLm/DfgZmMXyOMTbGAPDlpL0aZuzl5QS0NRxA==
+	t=1794484844;
+	b=mYGcUhCS0Pkwb0wxPaq8OOC7wsoDadq+2CW5DE3SgCAdn8+rmC3gj1RrN8Bi4X9zNaRL
+	 yq9MNXPKi6UkjX5lozo2cIln6lAw1V7a2HhTdcohrlzkdkkKCdLqpBqHHQP5b10kJoE4u
+	 bjCmLaKZksFCY1uLZ/3xj8BPTPI3v/L0jI7w/U/SyNYmvziEqike5HqB93Fr58B+4Fzr6
+	 bDgHuVSSpq3koaoVHwx+lIiBsyQmFQgEWueQtL8xj5w2MD/wLqhWfVZFtS5ePpRuP7K4U
+	 5YYoj2kk/C4HKCwm/C+AgNabOwslA9LfWnyX7Zc34pDujhZfkTuT/Qzkyjy1u2Gjkzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794484842;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Ir4bcmZQPxDiDN8eVbAoOquK5iknnaDWcLFSx2kItTg=;
-	b=lJhWqdlXFXt3Y7uTYyOGC4kCkInkGXCGOgxBliofzWgfev0GZEzQI1fjqIGn6IdnCVEZ
-	 rav8o6obuLjKOCryKLgK5LVS1pP1tOMAfdqJ7y1C/TaAZgHpXpArir5hs3riyPjA9CXHp
-	 TLUZmFp3N2SMwK1U1RTcIaZGdyWpEZPkyWAnoAMYIEnynGGOaX0j6U110YVgltGtsu1+F
-	 VFovUQCIEbo87SfOP0uX2pTJBKw7B4f5LF07u0ZTPeDrFmqt27hP2lbPc+iwaD252i/Lt
-	 LNj1eOrGIiTMDsyAEvoWHhAsbwJP6L5intVV8x8/EfPJ+ZglODamjFYFXVYta7BTqFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794484844;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=RgE6qh5s5sRj9jwHdylaP3f2Qab7dZpbONrZPzb6Q24=;
+	b=P4p2TdaQfs1M8eFS6cQWsxSoo3LkXK8LHrBQxjczPa/FDwLj1MhIWnY4C/uNFDmCk1+B
+	 AQCOi2BNFUrw7IOSiySw3adRQe2wk7PVsMQMBZXyscpXYtyGti/jOWEwL9E6F2DqJxBdX
+	 rvsxEqoE4TKsXCRe6YjIUOFzhGZlX1hxwbZT0Zwg8BtWBE8lkPJKodm0YjA1GB3yrlJOc
+	 9GwUYwXW9/5dztH9GGlw/McVw0RWswNDLD880xQqMi7Qx8WwTX3Oi9C+ybr6SpcxekBbT
+	 dthIR6MX9ooweRo2gn+ObolA00/sf6XJZmFvAQPbBM9G/Ii3fZpxialPmadOZ8mamPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kw2NHAls;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TJqZu9r6;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QWecKIxK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C16606A32D
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:00:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83C16606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7306C60A2622;
+	Thu, 12 Nov 2026 12:00:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kw2NHAls;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TJqZu9r6
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACBf9bo442019
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:00:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=Ir4bcmZQPxD
-	iDN8eVbAoOquK5iknnaDWcLFSx2kItTg=; b=kw2NHAlstCoLUs53DnzXQVPvSnh
-	CdQPJRduh1AC3WIKI7S+VPD06JgicADKxe37p2dzKejFIDME1RbSfsnN7ACfs4Va
-	dz+wQ9DVzxOsFLpNL4JN4tHCTLIURkep/2Gztiz97PFYn6QCfHLk0xWYHOiRjyfA
-	Z3bbV9KZ8IjZKojHlPdlYBJOStYn2mc1GUmTPQw/VBsB+DNWdq+xaJv/WEOibQoh
-	MAjkUN3RSLIe4oFQDEYwsEs1yKX9qIoi/Z+teAKStE+RARphjqT66/2xSqF6bCPw
-	Fr4ZzK7ddnyWBPlowcrEAerv63CYMFJ/3We3GtvgkRcjnCyUhVaL463uk7Q==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw7nc1aw5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:00:40 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-946038e22f5so994761685a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:00:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794484840; x=1795089640; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ir4bcmZQPxDiDN8eVbAoOquK5iknnaDWcLFSx2kItTg=;
-        b=TJqZu9r62yzm4lBq0iPmGILz01RypeCvNnYbaLBeqLFK/52ltiv1hWN887MzY1Ba7p
-         oOdYgXTjb35X+4JP7p6Bx5Z3CDc/QMsSA5iqXm6GZnKrPWwYAABks10nqLyoNAcwgO06
-         KThkyj39JvPIds8giY/d51NvCphTg2z3NI2qyFCn2S+f747UaXPlb02Ar2QWeEBXUBNQ
-         vqXndRgMaLIcCjgQMKY+Fts9Tv2+vu0+g0fYckL5ojHV+IZ67kyHKyjrHd5aqj+0Cvar
-         p57RVq0cdGaYkrU5p0B5w2AVIabTIMJEKVwQlwMTKJzz4vzLmH5umYwYnm5vyzEN/lnz
-         UGRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794484840; x=1795089640;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ir4bcmZQPxDiDN8eVbAoOquK5iknnaDWcLFSx2kItTg=;
-        b=SvfSEHrKuwDuGGzooXuW6yyNWYk3rVg99S3soxgh8DfofgC9QXPEZeDrB9+xredpSD
-         xXXdwi2PoOiXBwCBW/c7JTRioqp/oF1shr969ed/3blqqt6wfaKudp5wb+IA0O2dYFxh
-         aeKwTCMjWu9wiEqxzasTFwYvFeaAGpFz05Sp5buNAjjz/OH2C7mAU/Kdp7FWwFAwx/X6
-         wFY/xkuXhOvgc9m8AjELne3J90U73hpP6BY6Wnqld4s7w8mLp7WGaKROkJgljwjR1FDU
-         DPTMQitGzTYLUtC1upmJaIgoLvCNCstuBGSZMh+D5aU+iW669dCP3WwZtYxHxjUxVYU3
-         Plog==
-X-Forwarded-Encrypted: i=1; AL+hErG28UyEY0BL7HQMkxRrXYJfJnkOI4Vp1RL9Kt0pjDMA5j0e7hnPAXGRK92bOL85MTJuzcTWbFZ7LpgyVgA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+f5Qshx0qWLwly5e0afKrAeCXyhlr/vC7k0E49m9DUaf/5kbun
-	fa0QTD+uAV2FlbQl6PWjEs/A0KRAOxr9/fvLlQhBCB/1Su46F4bZK09zw91tpxuc87QtHaDPhoC
-	zno2s9NP6bTgQfR1LBHRY2JR2h2+F7at3TWsyoQPfq8ZUeB2dw+vRSpUUPObuhU5TOAY=
-X-Gm-Gg: AYBFou2usE3BGSzGo9iOKJ4iH3H9u98inl2MsCISKR+AfVJcbRP3Kl28hG8vaI7dBOo
-	Z6UvybsjzDHt1nlb+4bU9htGnVCEO39wQPI/XHqz+OzffE4O9+aUefDnJwzIf1rNJkcEGJzH5Sh
-	sB0iZv2oMu1o04ORRizghur5LI1/zpS2WNy/QVto6y0PEjARsnBTUZoEaJktKKPGqjUVu6UEsH9
-	JEbkGKcfgGeeOemF+4HLOdvZXK8ExYH+WhLjEpzOIBGF+1h8F1lW9kBcWVIIfSB+sFVLMOd99f+
-	rozN2zZLq76oD0QAOmy0PjQz9t2sqbyoRa3ywpxGlRXKNo0ne75Ia/EJ1Xu/r0bfgjblsFY9rD9
-	y7Z0TvqU3iYSOMuSaRUfaHVVSEQlLJqtY+f+8FJj6AdtN7l7FixlpyShPToeAUQ==
-X-Received: by 2002:a05:620a:458d:b0:93f:22ae:f8ff with SMTP id af79cd13be357-947b00388f9mr873952085a.46.1794484839907;
-        Thu, 12 Nov 2026 04:00:39 -0800 (PST)
-X-Received: by 2002:a05:620a:458d:b0:93f:22ae:f8ff with SMTP id af79cd13be357-947b00388f9mr873944285a.46.1794484839405;
-        Thu, 12 Nov 2026 04:00:39 -0800 (PST)
-Received: from quoll ([178.197.218.7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983585c4fdsm16682052f8f.10.2026.11.12.04.00.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 04:00:38 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Dang Huynh <danct12@riseup.net>,
-        =?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bhupesh Sharma <bhupesh.sharma@linaro.org>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v2 2/2] arm64: dts: qcom: sm8150: Fix missing wake-gpios in PCI
-Date: Thu, 12 Nov 2026 13:00:32 +0100
-Message-ID: <20261112120030.99510-4-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112120030.99510-3-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261112120030.99510-3-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QWecKIxK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12B991F00ACE;
+	Thu, 12 Nov 2026 12:00:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794484844;
+	bh=RgE6qh5s5sRj9jwHdylaP3f2Qab7dZpbONrZPzb6Q24=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=QWecKIxKs35TuANprpL/3f2b7njVWU06zNP1skmCV8jJmjsplVVOIaG3N5rM1fvcb
+	 q6vA5nM/HPHHhq6T+4jCYyMhJfU7GU8IdekVwfl2u2Lbk8Eak7IiwaMrm+MxvYzlP2
+	 rd/zFraYKNf5DU0gMHQkhUbZyEgE644qW9FafHub6PczRrvQdSC47A7iOjvoCLzRj3
+	 /92bE5Ypm6c1wsICrYRYXl6asMpcnZkn6KTx0T6BswkJtk69w0wxNatNbKYzLZ+ttF
+	 D9F7tb0uJLuYVVzsPA4n+hPckYcZJfPg2vVqBkYAS2sxquXkHgUPVQofHvfpbfFUFI
+	 QxniGEugdCGXw==
+Subject: Re: [PATCH net-next v2 5/7] net: phy: adin1100: Skip the soft reset
+ on ADIN1110/ADIN2111
+From: netdev-bot+sashiko@kernel.org
+To: iustin.stolniceanu@analog.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, parthiban.veerasooran@microchip.com,
+ hkallweit1@gmail.com, linux@armlinux.org.uk, marcelo.schmitt@analog.com,
+ alvin.sipraga@analog.com, ciprian.regus@analog.com, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Thu, 12 Nov 2026 12:00:42 +0000
+Message-ID: <179448484265.2199510.11571056279428140346@kernel.org>
+In-Reply-To: <20261109085952.105331-6-iustin.stolniceanu@analog.com>
+References: <20261109085952.105331-6-iustin.stolniceanu@analog.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,83 +66,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1111; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=XRwVuxCDW7jPoUec1ZcnX+Mrz7qzgQAPPCrZ/RAYEVE=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq9apfXDbhXQQ/RyD6WxLabDOBsbrKY5kRok9kc
- JzSJmExpaWJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCavWqXwAKCRDBN2bmhouD
- 1zxnD/9A9wsqYLVW+NlmF1ZtFAkdexSReqXpkF7A5xHItGhA5l4DOtiKGggZf0AeH8AsNGIEMkX
- kf+AlVFcYV3jprmWQJ2B8shVfFfsfhEBRimLh9RKrVQDHkPR0/EQbTTp32gzo658KavirxRAYLM
- AoUUCtsghaLsLpLWP1HQtunFWEEKSJCFVbOdKHOUsXGijuL82AQTmV0l7K6lj3snzSmZWEC0jlY
- L3gfuYUAUmco270vTtPhXpr6+hA6Dsl5CXpvGiRCFlORizB2WBguUpx67NR155WnnpmYoJMp34X
- ZTfCxghnZQFS6GKxUHSB380FvGTVR5hQ+pyfLrLlbSE7rLErfJw2t7MsMAFUx4sz8e40JBa9FsK
- taBFA74Tk9NKM3AxI5WzhBdo01lWDlu08m5gzf0OVHrDL71oeM9UISkE+pPgPR+AUR2nFwj9KUs
- k5DURpDlfCY+LvxxFgLEVSjdwZAcKSyB6AMbMTLeJryO+GOKVIiujp2RqxucNrA4/zFxfwvPKPa
- 0vHNGoprO4pe2oIzS+6GswxsZXIdfERXFHXIpoCuZ2IRhJCKN5pInMfPsCO4sRhv9rFmmz9fLoO
- MdcIGkwY/EVfoHeMm/qwNpUTOLJBbaKZxQPQJ/DHARc0ZH9KC1jswsKD7CX1t9EYkELcpcmPWLe j/trJ480wGM/+sw==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: 37u681zxMBd-NPMFdjqXuhcDoUbqrXbF
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA0NyBTYWx0ZWRfX2TXai7v1iO27
- hiJB0kIegiipwB6aHSR41CBuDg71KoeHdHu1M/c36Q1mE9jQRwxrbmnzHFl9scj5Fm6zykw3qU/
- thSM1SPaNrS5q7ISmEPoL3IUqAHHTmE=
-X-Proofpoint-GUID: 37u681zxMBd-NPMFdjqXuhcDoUbqrXbF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA0NyBTYWx0ZWRfXzDwCr0A7puPx
- U7WD4zqLDgm1Ix+mFEgzMzwEjtjyodQoqVqikGXKKlUmluX12tLpTJQzg5sKBSo8AOI3mtpg8wD
- kpRv+SXX2JPQp4hW/+yIi9uOlnmX7W0A0EhZUg/8gYL3okHD8vDCMonBCR2gcE09pEH0vB40YIl
- rV5gcsVj0quOqbBumgCR+pYEP7eIUYNos/PRtGgopTD9jBKXof01rqS2lR3BvKM1WvmEpRdRk5i
- uD53zQUGIMdGEXq3NNOT6LAsIbLAFubN1pLQ8sf3HS8j6biPKEklIZCWw81uqCk9vEY03xRzD8Q
- Hw1ilH0Fj+rvImH0dJxtI0suw5rFPXLjGhrSHF3WyUo6pFIt8RScZ9VCuuTJpeSAm3tPZGopbBM
- wd3JoeOuudbWEPFRj6x2rNfeH2qGwkAj4o3Q6OT3n6Jgc2Z1I/frDhRjtgo6tnoKDHgmdieE/9D
- JpDBzMy9XpEU/ju8Pwg==
-X-Authority-Analysis: v=2.4 cv=A8b5rKWG c=1 sm=1 tr=0 ts=6af5aa68 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=OK2SU7EW0iCpRKP1AM4A:9 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 spamscore=0 clxscore=1015 impostorscore=0
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120047
 
-Qualcomm PCI bindings do not allow an "enable-gpio" property.  Linux
-drivers do not use it, either.  The pin matches slot wake-gpios, though.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Fixes: a1c86c680533 ("arm64: dts: qcom: sm8150: Add PCIe nodes")
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
----
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Changes in v2:
-1. Use wake-gpios instead
----
- arch/arm64/boot/dts/qcom/sm8150.dtsi | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+- [Medium] The commit message says the whole-chip CRSM_SFT_RST is "not an
+  issue with the generic SPI protocol" because adin1110 configures the…
+- [Low] The patch justifies dropping .soft_reset with "The MAC driver
+  already resets the chip before attaching the PHY".
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/qcom/sm8150.dtsi
-index 293fcbacff34..328e8be1638f 100644
---- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
-@@ -2019,8 +2019,6 @@ pcie1: pcie@1c08000 {
- 
- 			power-domains = <&gcc PCIE_1_GDSC>;
- 
--			enable-gpio = <&tlmm 104 GPIO_ACTIVE_HIGH>;
--
- 			pinctrl-names = "default";
- 			pinctrl-0 = <&pcie1_default_state>;
- 
-@@ -2033,6 +2031,7 @@ pcie@0 {
- 
- 				phys = <&pcie1_phy>;
- 				reset-gpios = <&tlmm 102 GPIO_ACTIVE_HIGH>;
-+				wake-gpios = <&tlmm 104 GPIO_ACTIVE_HIGH>;
- 
- 				#address-cells = <3>;
- 				#size-cells = <2>;
+--
+
+net: phy: adin1100: Skip the soft reset on ADIN1110/ADIN2111
+
+This patch removes .soft_reset from the ADIN1110 and ADIN2111 entries in
+the adin1100 PHY driver. On these MAC-PHYs, CRSM_SFT_RST resets the whole
+chip, which would undo the configuration that the upcoming OPEN Alliance
+TC6 support does in oa_tc6_init() before the PHY is attached.
+
+> This is not an issue with the generic SPI protocol, where the adin1110
+> driver configures the MAC in ndo_open, after phy_connect(). The OPEN
+> Alliance TC6 protocol support, added in a following patch, configures
+> the device in oa_tc6_init() before the PHY is attached, and the
+> configuration would be lost.
+
+[Severity: Medium]
+Does this hold on the resume path as well? phy_init_hw() is not only
+called at attach time. mdio_bus_phy_resume() also calls it when the PHY
+was suspended by the MDIO bus and mac_managed_pm is not set:
+
+drivers/net/phy/phy_device.c:mdio_bus_phy_resume() {
+    ...
+	ret = phy_init_hw(phydev);
+    ...
+}
+
+adin1110.c has no dev_pm_ops and never sets mac_managed_pm. The adin1100
+driver provides .suspend, so on system resume with the interface up, the
+sequence before this patch was:
+
+mdio_bus_phy_resume()
+  phy_init_hw()
+    adin_soft_reset()
+      CRSM_SFT_RST (whole-chip reset)
+
+Would that wipe what adin1110_net_open() programmed: CONFIG2 CRC_APPEND,
+the IMASK1 interrupt mask, the MAC address filter slots and CONFIG1 SYNC?
+Nothing in adin1110 writes them back. The link can then come up while
+the MAC is still at reset defaults, and it stays that way until the
+interface is taken down and up.
+
+If so, this patch also fixes an existing resume regression on the generic
+SPI path. Could the commit message describe that? And should it carry a
+Fixes: tag so stable picks it up? The tag would probably be:
+
+Fixes: 875b718ac380 ("net: phy: adin1100: add PHY IDs of adin1110/adin2111")
+
+> diff --git a/drivers/net/phy/adin1100.c b/drivers/net/phy/adin1100.c
+> index b946cb86b6c41..ddb91b0e7081f 100644
+> --- a/drivers/net/phy/adin1100.c
+> +++ b/drivers/net/phy/adin1100.c
+> @@ -341,7 +341,6 @@ static struct phy_driver adin_driver[] = {
+>  		PHY_ID_MATCH_MODEL(PHY_ID_ADIN1110),
+>  		.name			= "ADIN1110",
+>  		.get_features		= adin_get_features,
+> -		.soft_reset		= adin_soft_reset,
+
+[Severity: Low]
+With .soft_reset gone, does anything on the generic SPI path still wait
+for the chip reset to finish before the PHY is accessed?
+
+The commit message says "The MAC driver already resets the chip before
+attaching the PHY". However, adin1110_probe() writes the reset and goes
+straight to MDIO bus registration:
+
+drivers/net/ethernet/adi/adin1110.c:adin1110_probe() {
+    ...
+	ret = adin1110_write_reg(priv, ADIN1110_RESET, ADIN1110_SWRESET);
+	if (ret < 0)
+		return ret;
+
+	ret = adin1110_register_mdiobus(priv, dev);
+    ...
+}
+
+There is no sleep and no poll of STATUS0.RESETC there. The commit message
+itself says MDIO reads return stale data until the reset completes. The
+oa_tc6 patch in this series ("net: ethernet: oa_tc6: Allow custom reset
+settle time values") says the ADIN1110 can need up to 10 ms after a
+software reset.
+
+Before this patch, phy_connect()->phy_attach_direct()->phy_init_hw()->
+adin_soft_reset() polled for SYS_RDY:
+
+	return phy_read_mmd_poll_timeout(phydev, MDIO_MMD_VEND1, ADIN_CRSM_STAT, ret,
+					 (ret & ADIN_CRSM_SYS_RDY),
+					 10000, 30000, true);
+
+That was the only readiness check on this path. phy_init_hw() now goes
+straight to config_intr(), which does a read-modify-write of
+ADIN_PHY_SUBSYS_IRQ_MASK. phy_attach_direct() then calls adin_resume().
+Either of these can run inside the reset window.
+
+The practical impact looks small, since the MDIO scan already raced this
+reset before the patch.
+
+The TC6 path handles this in oa_tc6_sw_reset_macphy(): it calls fsleep()
+for the settle time and then polls RESETC. Could adin1110_probe() do the
+same before calling adin1110_register_mdiobus()?
+
+>  		.probe			= adin_probe,
+>  		.config_aneg		= adin_config_aneg,
+>  		.read_status		= adin_read_status,
+
+[ ... ]
+
 -- 
-2.53.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109085952.105331-1-iustin.stolniceanu%40analog.com
