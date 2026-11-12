@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794515212;
-	b=Np7mc+fKLbcyphXqTRHp1L19CAciGTbUXZR7fywe0UDzAQWaS3QeCbb0UVQHHY0swPXk
-	 R8ON4MKvQxssgE4RCcaVOMOb6KC1CYr3QzggvaI9Q5ultTz+uZ9c7a2AL/lHcSM8Dvs0L
-	 HWzuCnKMOnPdEUSF8y/RCCxZOWrlCGPRAbc0FzIV5MuFNQwsle7Rd0ululBsi/UxmJ1D5
-	 HzP1vywSYSUfht8h/jbGLDOfBFXM1TeExy2LmAQY0AFTIyIIJDt1BgOwgh7kLe5UfegbF
-	 C5N7GdxUdTMqsw5GlnGEGQCv6sWXbOum7/s8+ANAMu9OoGL4aMEMVq1n7CDWDeLiSfA==
+	t=1794515213;
+	b=gQSTP/RIvIR4imRnIFgKTa4Rvm/GWO7vq3tqZ/yanfvuFj+T9UqxsnjcDdt+038Pxq2j
+	 5wuI9+/9uIEqrDiWL1cgiaLDTXQZRc16HtZINmkBspCTO8QHtEbVH2hRUpSw9dsHPVw8+
+	 l9aCE1k1JEhpHtDcgvhf5fUEFdCiJGGYgHPCbemE9w26zyzd7OzhMJjkgxQMKO8AHfXsr
+	 BMXaao33Sd6v6FGTb6E67pGCplSGGQHFlOJCbJF5b8u77S1989BKS7dC3VlHBMK9z8osz
+	 hasw5MYSnB2o93gc4ZysToBCQASeZOj621D/JRu8GrGH7UQ0JsOL+O+VZAOb1QyeSbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794515212;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794515213;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=BDf8OygF/dNvy9+88N2N3Xr+MCVnZBo3k5Rcl6UxDmI=;
-	b=Pr+kIsxF7NICXSkOecTTRn55vsuFiDdvSK/Q7FuiMEVoACZkuun7DqvExCU/aABR0w8r
-	 rX2ZVCBksPk2LlW7rWTJl+EkvYTy3c2f2x5V3VW+4suaZ6aPUvKUjFNSY53TS28zEFSpF
-	 WLg47k3Ny/vSPuUj0qe6B6xO3Y/gNoQKdJ5oG/1zmi96TG3HF76qWPBg7dRr74vMadBLA
-	 NH2p+KhReGowiTLH4c2Zo12BcnDxEYUR2QGYXIFIDKFgB+jccldSFhLObAYUaWAcW4brE
-	 R4Y5xc5vOwIGucXe4FtIWSb5VM1g1J1Gqa3/v2sNokgtdBnzfodq/b97L4BOW6WPFZQ==
+	bh=h52PbRLs3BhHWhaWn3yt701jVm/FG9nSnjuZD0Gdqg4=;
+	b=rvvgN7UsKSnOjA1UHw9OaltPgufR3ltLETuFR9fAk3nevNjuj1NUW0JGvWERDiNv9UBT
+	 mhmC86NwaUMlgKKa+RgNIGo+kaUEL4pfdGS7lFsSHxzxJj1veb1MU4WWP/8S9KK49uX6u
+	 2vwgLTC0L0bxUSL8SIc/edQ4hn15l0ukMSqOXUMatRyxrqIfcf4ryP0ytZ9TiBjjhC19o
+	 EzUa7jKVAoWTZ//u9qvFsbX/zgk7Yxx6TYQRsAyFJ6EW7fHNTOu7xQKYWiOmVJBW5LESu
+	 IjAN4B+let+RxiKeN2Y1l3r537VNimKgECFTNkiOwJkL6UWhPmbYUhDOERf7n0Hy2Nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNYup9jA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BRjXeQNv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03CB0606A323;
-	Thu, 12 Nov 2026 20:26:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19FCB606A88D;
+	Thu, 12 Nov 2026 20:26:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNYup9jA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DB581F000C4;
-	Thu, 12 Nov 2026 20:26:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BRjXeQNv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3A131F000CB;
+	Thu, 12 Nov 2026 20:26:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794515211;
-	bh=BDf8OygF/dNvy9+88N2N3Xr+MCVnZBo3k5Rcl6UxDmI=;
+	s=k20260515; t=1794515212;
+	bh=h52PbRLs3BhHWhaWn3yt701jVm/FG9nSnjuZD0Gdqg4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=JNYup9jAI1fu8/7HSZ1BgBaAkraPgMy5dodRwdAq0Ch6+d+aAwSug1P2q2c5MkHWB
-	 /gU4nI5p+AeNj78DLjys5hHQymvkkVAGRbF1hddkfTPHQCZ697MCxohASRPJ+/SYF3
-	 kUvg6quzBxddqnq7ed9xmrl5tA/U0Y+MIJ+CJYTWh2XYx/uaWDAoDONZ9sjfA6/qQB
-	 gKA0RI8iaWGdkr9QjR5ODE8B1CeW1drewvpnnAiW1k5KzDXGADAXmPYqOq7B9SknrG
-	 gS12LxTe19y5JeBbqTdSEs9DcY//0MsGGZdmO+u5UVZ2qvD7ImGVF87zRnkKSSsYcq
-	 2YQFlAochq2tA==
+	b=BRjXeQNvaEQxzOwQwSI+pRxy3ZR2EGQyhC5EaYaeyAkf96CK/fr1TgwFY0oR7ck+a
+	 LB/qveDWi+//v8nDIhd8mscM2Pfy9COoZflv7ElcD8KtEKLnqfU3GxLKsWn2w6Wt91
+	 4u8SJxZ5hofZkp6CHwaVKA95BPL5kBJUknLuU8g8rnkGLDnB6R/LMoCifNgAO+7peH
+	 u6CcvFA7bMIvLvQ8N94VuuFnt1xBZCLWu0mKMagP5wblZo1DKNjTDKUby2rrTGL5/D
+	 lZm4RiQcnrphb52X3RlYGCQQTII2SDIvJy+FgDjn9v5Pb+XTpvKAJsVIjMyTm2KHgu
+	 K2DT+JglQ/9/Q==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Thu, 12 Nov 2026 14:26:39 -0600
-Subject: [PATCH 1/2] dt-bindings: mfd: syscon: Add MSM8996 SAW3 registers
+Date: Thu, 12 Nov 2026 14:26:40 -0600
+Subject: [PATCH 2/2] arm64: dts: qcom: Add MSM8996 SAW3 syscon compatible
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-dtbs-qcom-v1-1-1978370c7cad@kernel.org>
+Message-Id: <20261112-dtbs-qcom-v1-2-1978370c7cad@kernel.org>
 References: <20261112-dtbs-qcom-v1-0-1978370c7cad@kernel.org>
 In-Reply-To: <20261112-dtbs-qcom-v1-0-1978370c7cad@kernel.org>
 To: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -64,27 +64,27 @@ Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
 X-Mailer: b4 0.16-dev
 
-Add a compatible for the MSM8996 SAW3 register bank referenced
-through qcom,saw-reg properties. The name is based on the label in .dts
-files.
+'syscon' nodes are required to have specific compatibles. Add
+"qcom,msm8996-saw3" compatible to the MSM8996 SAW3 syscon block.
 
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- Documentation/devicetree/bindings/mfd/syscon.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/qcom/msm8996.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml b/Documentation/devicetree/bindings/mfd/syscon.yaml
-index dae706ca7642..132a3374d14f 100644
---- a/Documentation/devicetree/bindings/mfd/syscon.yaml
-+++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
-@@ -110,6 +110,7 @@ properties:
-               - qcom,apq8064-mmss-sfpb
-               - qcom,apq8064-sps-sic
-               - qcom,msm8960-sps-sic
-+              - qcom,msm8996-saw3
-               - rockchip,px30-qos
-               - rockchip,rk3036-qos
-               - rockchip,rk3066-qos
+diff --git a/arch/arm64/boot/dts/qcom/msm8996.dtsi b/arch/arm64/boot/dts/qcom/msm8996.dtsi
+index 1267c56d586b..4e8eb82420e2 100644
+--- a/arch/arm64/boot/dts/qcom/msm8996.dtsi
++++ b/arch/arm64/boot/dts/qcom/msm8996.dtsi
+@@ -3793,7 +3793,7 @@ frame@98c0000 {
+ 		};
+ 
+ 		saw3: syscon@9a10000 {
+-			compatible = "syscon";
++			compatible = "qcom,msm8996-saw3", "syscon";
+ 			reg = <0x09a10000 0x1000>;
+ 		};
+ 
 
 -- 
 2.53.0
