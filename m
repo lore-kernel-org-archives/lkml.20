@@ -1,74 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794507725;
-	b=2tkyAiajSt8D+af0T0delbAKopp+m2+3DxBj7S7h2MH1s177cApFwztulN1lfBuueCBQ
-	 0G5J2pPA5rIny4JxheSvImlXlgNr2OFKd8WW3Q7wLxP022OGVLQlQMRkcFFAyVEyZtpi5
-	 JumcvABkHHXGqfJFq0Mwa5qKLWb/j8TrS4Y7ad7ZUx4YGkE5rLCcehTxC6sdWe79+bK8o
-	 W3k4Ke471k+jC82S3W92DMicwJueStOqSf6ma5xGmzm0w49/6yGwRYJkmvIDZNsT1xiwP
-	 GlGel1PGEFXpXXPEWTM//Y275F3tsULkGAGYxkARWgmYLONSbhuyEAdLPqnAX9ZO7Jg==
+	t=1794507728;
+	b=ON3NlfpzBxpy+BxLyjqZS+OSlJfSfd2tAQbrJ5uxnZHZW6YkBc28E9Bzq3OFbjExrI0n
+	 rBl8AMJcQlYZEVWC8SA5MlYK46ZyGdbs6SiiVcGbJrF2kpcKlWh2Rruf2og03RO5ys2GP
+	 fKhNPEcd4uH15N+NOzvwOWSOqJfBzAGEBo5bunAP0T/15ABU4nUBE5BXFEhn2Qe4ASwtY
+	 mF0lRWkqVr7qZAhJiRqtGs99UU6G8H/TcldepZEnEOrffCAjpk1mWZ31BI4gK5l6DBCMv
+	 HE9ZJF/65yBJUsdXa9jGIhVh1nJIG0lgMKOfY9TYmvbuX+6rtNp8T2KdsjmctKj6low==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794507725;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=/9R53hS2lq3Ijq537Vl1ow/wvMt9akHjDmPhIy8wjS8=;
-	b=eTKlL/gJEU43ydRvl1n4KgT8cv5WLUt8jD5dS+AzpzBK9QYB+2OrpbJZYRiRnC9CCljU
-	 7X4kCmae57UXbxUGFbWJDtjQJoLF9mp2NRFH9C4808PgumYcTh9VWDEkqpkGNyOV4schZ
-	 QUML2kvwRjIsDrpfTy0g5lLi4Mjsa+XT6gy3M2DTiUHEQngW3JpuJH6mkfG0pHt7o80ul
-	 tFLxOIZwtyM7GmRHr97UQCBP9SNvQUvP4a44lMyH9g3UrLQal5MTHZ2mbNhyOY3ev5yYU
-	 37meOzs5rQcawcyt+tfqYp2Ge+P5q99kTlZgr0YrwX4qZoHLa4ZEKRH2hd5gUDRH9cg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794507728;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=oLqDOK1wn++paaGO0cvuM15nLhAeIY/Tb/2qpBfiiSk=;
+	b=WqlCL+MJ87u4tAzMUigxYE9xwHYNvfeQI9n5V/ukSsqGdNZUwXJkGG/kfS1TyabXOnt3
+	 MiOItyJWYU0eROW9Eolp+DR/FsTGQTiVXhr4iao1z9U8ak3UOVyO40qoJB9H2sSXoEGh2
+	 429DM9LWSM1IqvjlWoyYNGvakwV4yN1oKxUx+a421BBs+1qofAZKctHHINyCKNTZjgP5l
+	 oHUYMS4po1F/oE9ivDNcKK3UqOsEOW/T9Ng03sGhsV0la1lrAUQWN/3nRsoSVroAdF04l
+	 Gw+7/asuymyIx40O3o5jBk6+rFT33LMnKTmAUU6yG0kbVTaBent6zIfkiT7yjeZ9Q3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--justinstitt.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=e+Fu5t0w;
-	arc=none smtp.remote-ip=209.85.160.72
-Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QzdwkSyJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BCB0606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:22:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BCB0606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--justinstitt.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82386606A323;
+	Thu, 12 Nov 2026 18:22:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=e+Fu5t0w
-Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-46509ab0149so60191fac.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:22:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794507723; x=1795112523; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/9R53hS2lq3Ijq537Vl1ow/wvMt9akHjDmPhIy8wjS8=;
-        b=e+Fu5t0wQU/zqG3zMaP0dIhN10Fv0XsJiWYtR+kmFemhiVnwSgWH69gnd+sVSms2dr
-         +zV0RzMuP8v9E9n6uz1OZXptheMpHQWozcGws+r58DJc1lc9wckLdaxzEshISrJkR7ZG
-         2tuZR4PDgGp7P++qpuNyedALlzvC0XlQle605w92KYNfuOJ4oq3a6n8qTnbtqtLd+0/1
-         /SXXon+J7ZYXflap70qN5CCLqlDGlamI1d6jkt72PkE+GeFVW2+q1wjjjp8DCqnHLx5c
-         KuNQ/OgdfDMbP3a3dZy9Q7ggQ6rW7PV9EH1QKALzeOjnEDaTKmHfcGEpb24UhsSjPSgD
-         EsVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794507723; x=1795112523;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/9R53hS2lq3Ijq537Vl1ow/wvMt9akHjDmPhIy8wjS8=;
-        b=WzQ2k9YlTTt7udsl59YM5K4BDGyg6bU5mc7YSEyj/l0Tw0YR+7zrkMUAc+pW9TEjvC
-         /k/D2DFEMGHatq6lodQ/YX8LjZfODZXP7xY7rL9bd1NlD7mgnAfUWDlheYnrnlzpcXfq
-         4tcy4KlmkhTdGZT1zbii2jf5NPBB6v4PIFa1+XhoVuvg02ox7ucyXUMvNjNFQ61OrOVs
-         ZTZB/gmCmXEGBEfAY5ZVpmSs3Svjr1IrNGxdTgJ+gsNhQEWxlg81WNq6oPv/jY7lBe8V
-         XH+NojcNUuf7EtJab9/grWCtZbf8OPDCgW+FiHjn5cZHnUKCn8wS1NkykUN7Ze+nQwJL
-         0TwQ==
-X-Forwarded-Encrypted: i=1; AL+hErEz+oD5Ho7whmjv6iCg4d5t6I8rjvToujwTUvNJ0NaTADQM3hI+dtuxpUs8CmM7wQVe8mPk1uPcAyWsWsw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9IBWZGY608Tu2SedSMP9ZnLvsYbTuGxNsK/xH2aGmtAhZkDodF
-	pNe8rovjIJxjB1JaRyxboTZlRIuZgeJKornZR8NOLyWe0r5a6dupj2kVP58vQS7Y+d+9WHvmSYS
-	W9iAdchy5qIyL+GAssZnSduXHwg==
-X-Received: from iohf17-n2.prod.google.com ([2002:a05:6602:a5d1:20b0:9c7:6dd9:edb5])
- (user=justinstitt job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6871:6687:b0:4a7:d759:9b8a with SMTP id 586e51a60fabf-4afdf7a6881mr466138fac.53.1794507722962;
- Thu, 12 Nov 2026 10:22:02 -0800 (PST)
-Date: Thu, 12 Nov 2026 10:22:02 -0800
-In-Reply-To: <CAHk-=whAF3brA9Wrcf3KDhNn_653zhUsoqe1MSneYJWtS5505Q@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QzdwkSyJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A2531F000C5;
+	Thu, 12 Nov 2026 18:22:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794507728;
+	bh=oLqDOK1wn++paaGO0cvuM15nLhAeIY/Tb/2qpBfiiSk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QzdwkSyJepQlosvHP+r8r+gkxkNnnUB2w29n2MC59zPKguX96IhdSOe3OtW7+ZfZ0
+	 zvqQ342AOVVFYCKaz1bno2D5aJ65HZpK59Pd9LmkYIy+T2Vt1paxCPvfX30GnLQc9N
+	 yL6/SbYxTtC8Pr+1etcpI2H6U+Tn5n5omwheMbj7i0vAKjVMQ8jBRmFI2Qn1S7BDmo
+	 mTwo0x2O6IWMFYi3y8Lr+XU8LtggRNwRPCoGHglLsMtmWOWJYV4tbHT8OQ2uvTR9w1
+	 Itr2cuT6Oq0pbrO/AKZqe3V47CgWxE/azj9tx6292EZ8yuFqjaCTS4gjIozmWkBsB0
+	 v4wvtuAC4PIOg==
+Date: Thu, 12 Nov 2026 10:22:07 -0800
+From: Kees Cook <kees@kernel.org>
+To: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+Cc: mkp@kernel.org, linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	morbo@google.com, justinstitt@google.com,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH] scsi: target: iscsi: Replace strlcat() with snprintf()
+Message-ID: <202611120959.62EE8ECF@keescook>
+References: <20261110093137.37744-1-nikitash.mariiaw@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,61 +57,166 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20260914223212.i.829-kees@kernel.org> <20260914223219.901347-2-kees@kernel.org>
- <20261112004039.GA523044@killaraus.ideasonboard.com> <avWNCC3_Ff0knO6J@devuan>
- <CAHk-=wgYBrhvo2NAG_Ja-0ovPf=xO20Gcopv9Yrr1u=QVxECZw@mail.gmail.com>
- <202611120905.DF88D9849@keescook> <CAHk-=whAF3brA9Wrcf3KDhNn_653zhUsoqe1MSneYJWtS5505Q@mail.gmail.com>
-Message-ID: <avYBdaCYclTyX9pX@google.com>
-Subject: Re: [PATCH 2/2] devres: Provide kmalloc_obj*-style API for devm_kmalloc
-From: Justin Stitt <justinstitt@google.com>
-To: Linus Torvalds <torvalds@linuxfoundation.org>
-Cc: Kees Cook <kees@kernel.org>, Alejandro Colomar <alx+linux-hardening@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, driver-core@lists.linux.dev, 
-	linux-hardening@vger.kernel.org, Lorenzo Stoakes <ljs@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	Geert Uytterhoeven <geert@linux-m68k.org>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110093137.37744-1-nikitash.mariiaw@gmail.com>
 
-Hi,
-
-On Thu, Nov 12, 2026 at 09:23:18AM -0800, Linus Torvalds wrote:
-> On Thu, 12 Nov 2026 at 09:09, Kees Cook <kees@kernel.org> wrote:
-> >
-> > One thing Justin was poking at was adding a "strict" mode to typedef
+On Tue, Nov 10, 2026 at 01:31:37AM -0800, Mariia Nikitash wrote:
+> In preparation for removing the deprecated strlcat() API[1], replace
+> the strlcat() call with snprintf() to construct the AuthMethod value
+> directly from param->value.
 > 
-> Honestly, the sparse setup is superior. It does that 'strict' thing
-> (except it calls it 'nocast') _and_ it has 'bitwise' that is a nocast
-> that also disallows non-bit type checks (which is *very* useful for
-> things like "this is a big-endian value: you can only do bitwise
-> checks against other big-endian values).
-
-
-Cool. I wasn't super familiar with how sparse handled `nocast` and
-`bitwise` but your insights led me to look into it deeper. I'll take
-these learnings over to clang when I get around to implementing strict
-types :)
-
+> Since buf1 contains unmodified copy of param->value, formatting
+> original value and suffix together preserves the NUL-terminated
+> output, including partial or omitted ",None" suffixes when the
+> 256-byte buffer is too small.
 > 
-> So the compiler addition may be worth it, but  even the "poking at" is
-> weaker than what sparse already does.
+> Link: https://github.com/KSPP/linux/issues/370 [1]
+> Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+> ---
+>  drivers/target/iscsi/iscsi_target_tpg.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/target/iscsi/iscsi_target_tpg.c b/drivers/target/iscsi/iscsi_target_tpg.c
+> index 99772364c88e..aad82a37538f 100644
+> --- a/drivers/target/iscsi/iscsi_target_tpg.c
+> +++ b/drivers/target/iscsi/iscsi_target_tpg.c
+> @@ -624,7 +624,7 @@ int iscsit_ta_authentication(struct iscsi_portal_group *tpg, u32 authentication)
 
-Right but I suppose the benefit is that compiler-enforced things are
-caught vastly more often than sparse-enforced things. Plus, like I said
-above, maybe I can aim to reach relative feature parity with sparse's
-own analysis on this type of stuff.
+OMG this whole function makes me weep. Also, I think it has an out of
+bounds write in it too:
 
-FYI, there's some prior design with `strong` typedefs [1] in the form of
-a wg14 proposal. I've also been keeping a close eye on that stuff as it
-develops because it's essentially strict/distinct types with a different
-name.
+  echo None > .../tpgt_1/param/AuthMethod
+  echo 1    > .../tpgt_1/attrib/authentication
 
-[1]: https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3320.htm
+and I don't think it handles the truncation case. This is a good candidate
+for a full seq_buf rewrite, IMO.
 
-Justin
+>  		none = strstr(buf1, NONE);
+>  		if (none)
+>  			goto out;
+> -		strlcat(buf1, "," NONE, sizeof(buf1));
+> +		snprintf(buf1, sizeof(buf1), "%s," NONE, param->value);
+>  		if (iscsi_update_param_value(param, buf1) < 0)
+>  			return -EINVAL;
+>  	}
+
+And doesn't need memset either. e.g.:
+
+diff --git a/drivers/target/iscsi/iscsi_target_parameters.h b/drivers/target/iscsi/iscsi_target_parameters.h
+index 38d2238dfe08..da720f6be5c1 100644
+--- a/drivers/target/iscsi/iscsi_target_parameters.h
++++ b/drivers/target/iscsi/iscsi_target_parameters.h
+@@ -41,7 +41,7 @@ extern int iscsi_change_param_value(char *, struct iscsi_param_list *, int);
+ extern void iscsi_release_param_list(struct iscsi_param_list *);
+ extern struct iscsi_param *iscsi_find_param_from_key(char *, struct iscsi_param_list *);
+ extern int iscsi_extract_key_value(char *, char **, char **);
+-extern int iscsi_update_param_value(struct iscsi_param *, char *);
++extern int iscsi_update_param_value(struct iscsi_param *, const char *);
+ extern int iscsi_decode_text_input(u8, u8, char *, u32, struct iscsit_conn *);
+ extern int iscsi_encode_text_output(u8, u8, char *, u32 *, u32,
+ 			struct iscsi_param_list *, bool);
+diff --git a/drivers/target/iscsi/iscsi_target_parameters.c b/drivers/target/iscsi/iscsi_target_parameters.c
+index 2b318b13268e..34846f5b641c 100644
+--- a/drivers/target/iscsi/iscsi_target_parameters.c
++++ b/drivers/target/iscsi/iscsi_target_parameters.c
+@@ -642,7 +642,7 @@ int iscsi_extract_key_value(char *textbuf, char **key, char **value)
+ 	return 0;
+ }
+ 
+-int iscsi_update_param_value(struct iscsi_param *param, char *value)
++int iscsi_update_param_value(struct iscsi_param *param, const char *value)
+ {
+ 	kfree(param->value);
+ 
+diff --git a/drivers/target/iscsi/iscsi_target_tpg.c b/drivers/target/iscsi/iscsi_target_tpg.c
+index 99772364c88e..6d2cdfa89be5 100644
+--- a/drivers/target/iscsi/iscsi_target_tpg.c
++++ b/drivers/target/iscsi/iscsi_target_tpg.c
+@@ -8,6 +8,7 @@
+  *
+  ******************************************************************************/
+ 
++#include <linux/seq_buf.h>
+ #include <linux/slab.h>
+ #include <target/target_core_base.h>
+ #include <target/target_core_fabric.h>
+@@ -579,8 +580,9 @@ int iscsit_tpg_del_network_portal(
+ 
+ int iscsit_ta_authentication(struct iscsi_portal_group *tpg, u32 authentication)
+ {
+-	unsigned char buf1[256], buf2[256], *none = NULL;
+-	int len;
++	DECLARE_SEQ_BUF(s, 256);
++	char old[256], *p = old, *tok;
++	const char *str;
+ 	struct iscsi_param *param;
+ 	struct iscsi_tpg_attrib *a = &tpg->tpg_attrib;
+ 
+@@ -590,44 +592,33 @@ int iscsit_ta_authentication(struct iscsi_portal_group *tpg, u32 authentication)
+ 		return -EINVAL;
+ 	}
+ 
+-	memset(buf1, 0, sizeof(buf1));
+-	memset(buf2, 0, sizeof(buf2));
+-
+ 	param = iscsi_find_param_from_key(AUTHMETHOD, tpg->param_list);
+ 	if (!param)
+ 		return -EINVAL;
+ 
+ 	if (authentication) {
+-		snprintf(buf1, sizeof(buf1), "%s", param->value);
+-		none = strstr(buf1, NONE);
+-		if (!none)
+-			goto out;
+-		if (!strncmp(none + 4, ",", 1)) {
+-			if (!strcmp(buf1, none))
+-				sprintf(buf2, "%s", none+5);
+-			else {
+-				none--;
+-				*none = '\0';
+-				len = sprintf(buf2, "%s", buf1);
+-				none += 5;
+-				sprintf(buf2 + len, "%s", none);
+-			}
+-		} else {
+-			none--;
+-			*none = '\0';
+-			sprintf(buf2, "%s", buf1);
+-		}
+-		if (iscsi_update_param_value(param, buf2) < 0)
++		/* Remove "None" from the list, unless it is the only entry. */
++		if (strscpy(old, param->value) < 0)
+ 			return -EINVAL;
++		while ((tok = strsep(&p, ","))) {
++			if (!strcmp(tok, NONE))
++				continue;
++			if (seq_buf_used(&s))
++				seq_buf_putc(&s, ',');
++			seq_buf_puts(&s, tok);
++		}
++		if (!seq_buf_used(&s))
++			goto out;
+ 	} else {
+-		snprintf(buf1, sizeof(buf1), "%s", param->value);
+-		none = strstr(buf1, NONE);
+-		if (none)
++		if (strstr(param->value, NONE))
+ 			goto out;
+-		strlcat(buf1, "," NONE, sizeof(buf1));
+-		if (iscsi_update_param_value(param, buf1) < 0)
+-			return -EINVAL;
++		seq_buf_printf(&s, "%s,%s", param->value, NONE);
+ 	}
++	if (seq_buf_has_overflowed(&s))
++		return -EINVAL;
++	str = seq_buf_str(&s);
++	if (strcmp(str, param->value) && iscsi_update_param_value(param, str) < 0)
++		return -EINVAL;
+ 
+ out:
+ 	a->authentication = authentication;
+
+-- 
+Kees Cook
