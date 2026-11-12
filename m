@@ -1,55 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794511349;
-	b=t/Oeq9jKcstK8VKGWBJU5z2mnBxSnbEyZk8JGd+rd1RXzS9yIyys1CKPJjHEvYliyCGv
-	 7cXrrv8R1btea/EnQus87FGNcEQZFhTCgJLPdVZAATF5h0k1LR4w3Kk4CpY/bP05Ee0Nb
-	 mUZMMeE5XWh36nPHj8E0pMDJFxb6NvJdtGNrCsJSWMb+EokdVBOivtmMa1trU0L/dD+vd
-	 K3eyfMMcy+9vPiBLveHu7X0X9JD49oEQgw2JCvdybOEH5+htvTLOLcphAx8A6PiB0FnL+
-	 7oXaM3H+hO+HC0kzYpyrHtoRxwDGRE4r1ntTy7SXIowNT9x/cvEMWWxKUMELC1+O9Gg==
+	t=1794511425;
+	b=bzhSV7ln2RXmXBKEllc7iNFrTXrQfgbDfzkFZkF9DFVoDCI3sd6XYkVGgrPkijZrIIb1
+	 ca9O4OKQ2jAMu+N5SWnHby0GduTS+bcuPNauAtPC/621J74fhNEIWDfjEOwyOjmfw4YWg
+	 AlGZI3fU2aNH3d5JXXl/MKsKUiZfZ9Wx9aRp61rsGNhPkxNfCqjKC8nGgzC8rjU+VGG3z
+	 XjVTClOUMT9WiwIuSekiz5hTqLjNZNjwfxTrAs3nAwoxDgMyZ/pc8dtrTJlvgI3+3EtGz
+	 v93xXCvRAU1LVBnwL5QU+274OimhCFEOBKohNrBNPOI6hYLBH8vV6uWlF1QJnHHKwVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794511349;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=eKEe30sKgUjFzvZ2CgdBS8YcRmwTAfqhuKIIKVboUOA=;
-	b=FSItqPHTakttqNY/31HBja94YLF559NLUP58zRKhExUZsRzx6jnAHzxJvbsTbFYsaiFi
-	 zoYNiskLeswII2wFZFIMfut1rAc+pgXgkrwn/XcjknMCfumtEEgwrJXBzdBXxV7N1fKzb
-	 uk7U2iBAp4qQFwrHr+qxw8bagFl60eheWLgcHcHxiIjs03Z6bIHLLXZjlC8Uwb/MhJETO
-	 CYFa3Zi6HJpYBKPPYPa8O/BwiU1UfpoohR3kGbyg+9MQTciNBfrizQ15XuB2YOvJlNvrX
-	 PkRqvFpBJHvJYx6ti+sgw4k24q0tD/ve2pXXRmwHhV14rYZah/rUdLdT0u7780gpKag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794511425;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/4AacCwXyjEM4aiyhOWViwFiZiWmZmzTtz1jPZz02aw=;
+	b=fyAAuVv8P427xD6nHzjrjweAn80H/txTNTM8jBC9bb5yEo9Fk7KG2O8HUsPj4JcjjaxM
+	 WsySKcGYc0rWnirvRlVTaUqbrGHfxZcfxXiO1+AJo4O6At8UPVxNDjFkiogeOk2z/9FoV
+	 DEM41kJvJFVoSXCVFdK4II+L30VT1ekZ5wiyGuNF596bkCqYxS5VRYh92E1EOv1CfLzRP
+	 QyvOln2dxXWJcD00aVgJAjDlaLtiA9te6Tb3QQ5/7tPMLmCziV/UVyTJfe+03HX4nt5K3
+	 6jtqLYX2uH7wjZx8+1ivV9qgrtia9RnB7mIg8vInbwR97+ZTv//yA8KHcWwLIDNXI/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bdf7MvZa;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D9B5TVgz;
+	arc=none smtp.remote-ip=209.85.219.49
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B9C606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:22:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E06606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:23:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62E06606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bdf7MvZa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EAE21F000C9
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:22:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794511349;
-	bh=eKEe30sKgUjFzvZ2CgdBS8YcRmwTAfqhuKIIKVboUOA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=bdf7MvZaAhnATHsUyEBrdPOmkBPZwsuzAUmn7cqKmMa4cRO9i0WcPi1CgouyW1JVl
-	 UcnecQOSp3UE2a3KiB/v1p0EyZMZaTyEG6XI0uFsbUyi+LZnPwwi3bpLXBOZDyaN3U
-	 hcVywCRG6T/yI6KBy/xMW5EnGJr3JDvhx25GrjTlgB3ZEsR+q9ZwTztrsr+QPIoYSi
-	 +shqKDoRb2W2XGOwA+f1wxe3xgyBS2egq/QaNKfyAIQmwexp8BmMLr+AGUaZaJOlN1
-	 jiGPmfwCnHMojtIfZstOIGmRK9FYOJJ06wuylmzloGifz9w/dUDnksiyHDXbYrewqq
-	 LFgJlqjg+ZwMA==
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b577addee9so276475a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:22:29 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGfeTG4TrJk7rULMHWjQ2r/bdZFt4/spZt/L5B2JhO4b0h3dpv3ro74zLLgnQQfV8hFV2IJZ8yvz6QwyD8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/0uqB0sBCa/bwBqiQgi5NID+reV2iKLAEzspHyXhbhO2xxQ+MI
-	4Hh9JyMSpB+63tJsDeBowbXrWBNDdnWjQSL81l1yaQsz6hcoi8fEy55lDxs6R5iBU5tWa7KIt47
-	06nAJiZquZBdXZ40Xe3ufNohf4wSn+g==
-X-Received: by 2002:a05:6402:4243:10b0:6b1:bb19:deb3 with SMTP id
- 4fb4d7f45d1cf-6b7c0c500d7mr438413a12.25.1794511348048; Thu, 12 Nov 2026
- 11:22:28 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D9B5TVgz
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91ea3f6a506so1719746d6.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:23:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794511424; x=1795116224; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/4AacCwXyjEM4aiyhOWViwFiZiWmZmzTtz1jPZz02aw=;
+        b=D9B5TVgz8Jd7oaBGVGeBqm0Wg/G+OfkjJ8YALUnsRwbRAt5U+uv5wEdAMiTvt6CF0d
+         mcCPF5k5JqUAnI/J0BhG4kgJpHFXRfLv4BxyqETtnkNMEedoezAkeaeSyyDBS5J4Jqex
+         U97CVjR7Pmg503v72rDM7fn0E98SABlEgwocDhw6Iv4vUswSYANH44HatL2S8NlQQqcV
+         q0uSvMBAZj6qut3wYcY8dwx1xCUscO7erZgHbcLDYtFZcG4s1Vpa1szP0a0jlskbMRV9
+         Xrnlgohyq7Aj9U9pTgh64EvslpuDD3V0EzFWFZSfVuDaDy/j4hF2ZUyAnMjc1UUJ05pK
+         Igyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794511424; x=1795116224;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/4AacCwXyjEM4aiyhOWViwFiZiWmZmzTtz1jPZz02aw=;
+        b=oeiTqZbsKdRa6ERNH4zY7CJ8ucgJz/Cu9HbA1Qs0D5t4PKGtGCPu87HFLPi4cMty4Q
+         APrDwKdwYdaMWJOnmkrlq3T33ysMV/AAUj3+U1PlgO1tXlVnULn6JN+LbX280n1wti/O
+         KCYGJGFQnI6OjQ9FOogPSOZXk5ZFl3kk9T1PtgzOBfKg15t2Ss7qh2mfwMI2f+ICbZVx
+         /FtlRLD45SX1GMZNeNZcpB/o3Ppay1L8fXjpRBQTbMs21kMi6SEm0rRK05ISXDa9xw4K
+         l8RkEIsVVooWH21AUn76x42vDdjsEjlRDBJ/VTrnDyxcGeKsGsV03ycn16mOpDPofhLi
+         H3xg==
+X-Forwarded-Encrypted: i=1; AL+hErHNnepCYZWnHibIJJBeYB65N6bHPDmRBvFIypWSdlRJqwaT1hKiDPlPZFJPSVReNIZrgF28C97QeJwFBO0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/V2aPqr3N3rWJarVqnEUMbAGVtsfziIugqqzU0fReJE/HiIhI1
+	zYEQvEfDRB0Se9Am+GbKlQ0QknykvCCFWRmAEM50zScky+6bELEtKeo3
+X-Gm-Gg: AYBFou3O98MolJma2hGamFaz9J+nOp5gorXEVivX67wgg/y3mW6kRxUw9eYXbt0ejwb
+	e9Xy6O6LTRtJ2UIAK41LW69kserDfAlFsBJXfRzM3KrnXSdSRadHk+CiptuLi08B5Zuw2OGxNPM
+	ghdDDYEwQsDkJgcZVh5XXxy8lDvZGrzThV6ApCT62jmqfX2HlxpkgQcGWFl8lt89tgMnk9XxaOs
+	evIOK2UVfeakEUuFJih+mG/eBlD0/JP231/W/HmuDr12rxWquZSS6OvJ7iASrjfcVgduEu+4hX9
+	K+Zf7nds0iTY2CCTdbkqpyxW97mc0xUlcwDL0vG18CkoPYigMn0fpBHvwkNCwjoyC7+LPgpc3LP
+	vrpkh9cnDQirYrG+iFfF8fStW2k0YJKUvIgp49t9PbIWUpezEuYQtrXTc7uv3vjdcFEF061B/KC
+	vsjPzIBmOeYp9lmMummNVo5h2bCsE78Egi6xC0LRkYpRew4tsegc/ylYrUCc4aHZRm3gUC/5pAJ
+	ZMOHQWgQ9pW5zwZQEkjo+md+RdtNogdRGEs3EU+66PFV9SZeF4RnIoedm+4XYAFR1pa+Ez0Lwzo
+	HGSNg4k6+nejUX58DC3suLiIsHQsH4H7fCh4rl0E/67bS5jfagUk
+X-Received: by 2002:a05:6214:1c4e:b0:91f:1544:3eff with SMTP id 6a1803df08f44-91f24256486mr4682686d6.51.1794511424421;
+        Thu, 12 Nov 2026 11:23:44 -0800 (PST)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d780e8sm2938026d6.27.2026.11.12.11.23.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 11:23:43 -0800 (PST)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: Wei Liu <wei.liu@kernel.org>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Dexuan Cui <decui@microsoft.com>,
+	Stanislav Kinsburskii <skinsburskii@linux.microsoft.com>
+Cc: Nuno Das Neves <nunodasneves@linux.microsoft.com>,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yuho Choi <oss.patchbox@gmail.com>
+Subject: [Question] mshv: unpopulated parts of a movable region after removal
+Date: Thu, 12 Nov 2026 14:23:38 -0500
+Message-ID: <20261112192341.1412177-2-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,158 +99,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021022446.3619435-1-robh@kernel.org> <avWbmsjkYo2LMJKs@parshuram>
- <20261112125346.GA3821108-robh@kernel.org> <avX9Qrcapcnutdgh@baldur>
-In-Reply-To: <avX9Qrcapcnutdgh@baldur>
-From: Rob Herring <robh@kernel.org>
-Date: Thu, 12 Nov 2026 13:22:16 -0600
-X-Gmail-Original-Message-ID: <CAL_JsqLGqYAd-BedjNCCmxByJQ_z2Cij9J_z-ifiX9iJs_gqSg@mail.gmail.com>
-X-Gm-Features: AclHuK8_kIf7XzeWGReWc3eG8QnzvITOafe7fZqs02NgfRS8BOSjQMTL0cAbEpA
-Message-ID: <CAL_JsqLGqYAd-BedjNCCmxByJQ_z2Cij9J_z-ifiX9iJs_gqSg@mail.gmail.com>
-Subject: Re: [PATCH v2] dt-bindings: phy: qcom: Relax required supplies
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Wesley Cheng <quic_wcheng@quicinc.com>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 12:30=E2=80=AFPM Bjorn Andersson <andersson@kernel.=
-org> wrote:
->
-> On Thu, Nov 12, 2026 at 06:53:46AM -0600, Rob Herring wrote:
-> > +Konrad
-> >
-> > On Thu, Nov 12, 2026 at 04:27:30PM +0530, Vinod Koul wrote:
-> > > On 20-10-26, 21:24, Rob Herring (Arm) wrote:
-> > > > For the QUSB2 PHY binding, keep the three regulator supplies requir=
-ed
-> > > > except for legacy IPQ6018 nodes that do not describe the board rail=
-s.
-> > > >
-> > > > This relaxes the requirements for the IPQ5210 as well as if it is
-> > > > compatible with IPQ6018, then it shouldn't have more required
-> > > > properties either.
-> > >
-> > > Hey Rob,
-> > >
-> > > This fails for phy/next I see vdd-supply has been moved around..
-> >
-> > The change in question[1] should not be applied until the .dts changes
-> > in the series are applied. It introduces a bunch of warnings.
->
-> I don't understand. The change you present here relates to ipq5210 and
-> ipq6018.
->
-> That change doesn't touch these two IPQs, so what are you suggesting?
-> Are we talking about the same warnings?
+Hi,
 
-This is what I get with phy-next because it has the binding change
-from [1], but not the .dts changes in the series:
+I have a question about how a movable memory region is unmapped when it
+is removed (mainline 067c5c24cef2), and would appreciate your view.
 
-arch/arm64/boot/dts/qcom/apq8096-db820c.dtb: phy@7411000
-(qcom,msm8996-qusb2-phy): "power-domains" is a required property
-        from schema $id:
-http://devicetree.org/schemas/phy/qcom,qusb2-phy.yaml
-arch/arm64/boot/dts/qcom/apq8096-db820c.dtb: phy@7411000
-(qcom,msm8996-qusb2-phy): "required-opps" is a required property
-        from schema $id:
-http://devicetree.org/schemas/phy/qcom,qusb2-phy.yaml
+When a movable region is created, mshv_map_user_memory() maps its whole
+GPA range with HV_MAP_GPA_NO_ACCESS. mshv_region_range_fault() later
+fills in the page array and remaps the faulted pages with access, and
+mshv_region_interval_invalidate() remaps invalidated pages with no
+access again and clears their entries in the page array.
 
-(and then duplicated for every 8996 board).
+When the region is destroyed, mshv_region_destroy() calls
+mshv_region_unmap(), which goes through mshv_region_process_range().
+That walk skips the entries that have no page, so only the parts that
+currently have pages are unmapped. The parts that were never faulted in,
+or were invalidated, are not unmapped. Before commit abceb4297bf8
+("mshv: Fix huge page handling in memory region traversal"), the whole
+GPA range was unmapped with one hv_call_unmap_gpa_pages() call.
 
-> > Can the QCom folks stop doing that! Coordinate applying the series or
-> > take the binding and dts changes in 1 tree.
->
-> I assume you're referring to "QCom folks" in the sense "any maintainer
-> touching a binding change related to a qcom platform"?
+If I read this correctly, the hypervisor keeps those GPAs mapped with no
+access after the region is removed. A guest access to them would then
+come back as HVMSG_GPA_INTERCEPT rather than HVMSG_UNMAPPED_GPA, and the
+mappings would stay until the GPAs are mapped again or the partition is
+destroyed.
 
-No, primarily you and the submitter I guess. Submitters should be
-aware of dependencies in their series and suggest how things are
-merged. Otherwise, it falls on you to care that warnings are getting
-introduced.
+Is this intended, for example because the hypervisor treats a no-access
+mapping like an unmapped GPA? Or should mshv_region_destroy() unmap
+these parts as well? If so, does the unmap need to follow how they were
+mapped: 4K pages when the region is created, and large pages when an
+invalidated range covered a huge page?
 
-I would not care so much when there are transient warnings in next,
-but I don't want to be the one chasing them down. But AFAICT, it's
-always me. No one beats me to it and I'm not all that fast in
-noticing. I just compare all the warnings by platform for Linus vs.
-next with "gl-diff-dtb-warning -p arm64" from this repo[2], and look
-for things moving in the right direction. Of course this is all after
-applying which isn't ideal.
+I found this during in-house security research and have not reproduced it.
 
-> Do you have some CI/guidance/tooling for Vinod (and other subsystem
-> maintainers) to perform system-wide DT-validation when considering
-> merging a binding change?
-
-This one is an ABI break because it adds new required properties. I do
-have some tooling that looks for ABI changes, but haven't committed it
-because I haven't figured out the best way to deploy it. I think for
-anything that is an ABI change, the binding and dts files need to go
-in together.
-
-I think it is time to reconsider the default of bindings go in with
-the driver. That works okay for new bindings as long as the platform
-maintainer doesn't take .dts changes before bindings land (also an
-issue). However, for cases like this, we need the opposite order. We
-need to figure something out because this is only going to be more of
-an issue as we get to warning free (and we are close).
-
-> I unfortunately only spotted the one-way dependency when glancing at the
-> seris and thereby ignored the dts patches waiting for the binding to be
-> merged.
->
-> > Given the patch series is 2+ months old, I'd be surprised if the rest
-> > gets applied.
->
-> I've applied the two dts changes today, and they do resolve a number of
-> warnings - presumably the ones that you're talking about, but I don't
-> think the ones that this patch aim to fix?
-
-Other than the warnings it introduces, the [1] series fixes this one warnin=
-g;
-
-      3 phy@7411000 (qcom,msm8996-qusb2-phy): "vdd-supply" is a
-required property
-
-
-> > This patch OTOH fixes warnings.
-> >
->
-> What warnings? Can you please provide actionable context when you're
-> pointing out these issues.
->
-> Is it the three "'x-supply' is a required property" warnings from
-> ipq6018-cp01-c1.dtb? It seems unlikely that there's one chip that
-> doesn't depend on those supplies.
-
-Of your 20 unique warnings, it's these 10:
-
-      1 qusb@59000 (qcom,ipq6018-qusb2-phy): "vdd-supply" is a required pro=
-perty
-      1 qusb@59000 (qcom,ipq6018-qusb2-phy): "vdda-pll-supply" is a
-required property
-      1 qusb@59000 (qcom,ipq6018-qusb2-phy): "vdda-phy-dpdm-supply" is
-a required property
-      1 phy@79000 (qcom,ipq8074-qusb2-phy): "vdd-supply" is a required prop=
-erty
-      1 phy@79000 (qcom,ipq8074-qusb2-phy): "vdda-pll-supply" is a
-required property
-      1 phy@79000 (qcom,ipq8074-qusb2-phy): "vdda-phy-dpdm-supply" is
-a required property
-      1 phy@59000 (qcom,ipq8074-qusb2-phy): "vdd-supply" is a required prop=
-erty
-      1 phy@59000 (qcom,ipq8074-qusb2-phy): "vdda-pll-supply" is a
-required property
-      1 phy@59000 (qcom,ipq8074-qusb2-phy): "vdda-phy-dpdm-supply" is
-a required property
-
-Rob
-
-> > [1] https://lore.kernel.org/all/qusb2phy-v2-1-4c3f980a4560@oss.qualcomm=
-.com
-
-[2] https://gitlab.com/robherring/ci-jobs
+Thanks,
+Yuho
