@@ -1,102 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794486841;
-	b=EuYfJAdpYku1whgXKbSp9XjspJjfAThsSGXKNxRVuYl19S+n0n2ZsBe5ISsGWAHjcq6H
-	 NzdTB+EsJqhUjf1yy9t+AYabRGl2Q6yc81sVBK4hJ1GxvjuR3jdzVLWsUukPH55yBID+/
-	 pPIZZ/ssZAFHp1ck/OqZ7Da7Ay1VZL34uZBzZiFB0qBeL2/+3pCpAcuojGBelpS3OvTle
-	 2j1LxLIYFnTZ4Ve4aEfHv3+i9zxOt4zKUk3iIQYwr+8cHY7Kv9zxXqWnCBmTGiyB3v8Ya
-	 +2Z8D73htXKDHW7BWIAbOc4XBOvQdhh6rh9msgICfvwimb2NLFH7UXC0/ErcEhjhCBA==
+	t=1794486873;
+	b=CamCgaUMpcsiPmkceBfKgcdgeSjNz2esadEXOYS+E51STFGgG5cImMXCzVdzQQq76EMl
+	 ZYeA29IojAIgdBu56V0usWiZfA3FPVP3aFqOBm01gmBokuX4L/56OKwMsz3q2ufCzVDQX
+	 opEAAl4cu7EetpqTP1cR/OiyC6wxZYEuES0zkjDXAPqYQNDyNoFxivZvx5PtipOWqRtYs
+	 0I9kJbla6NY8+OpqblnKyHZyT/0vFXQePwPtrqYER6FpUkvUyHiTrg0Da/OmECcENPPg7
+	 BI46o1xKWlXFiab9TN3gDo1oAC3i1WF/3SPCzp+qqUDyxueBbushvhFnP1JeSVuX/3Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794486841;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794486873;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=nKmlHtAvoB0yUtbhRvNeCYmD52AQBw/3HL4TeYlZEfM=;
-	b=40rgcJ6dOe9rwkuKsYom6LC0kb6uG++SJ7O2DZwSgHyb6bCONTFsH3U5YpilIFrIxzf4
-	 C7Nvamc+Z4+QDaJQ2bOWh34BZOKs9GfEGYSwj4h+6AhzP6njX9s3agmVU1rrilgb6fdWq
-	 KmEPT6zAJGrp2Mr3pUtVhNQSmwjHq4Ar+RYLyCJOwoZ4bFVZy9nAEMsL1vln02dllH1aC
-	 b81o5GdT2WUhEwdBnZBeNRcMerSXJQiKMjaw7+qPPUa/wfyRwC6QfrS/y7rAL7KXryBGN
-	 wqqFR7EHnyoLFfO4RBfc8wBHWlI7rvwht31DNUBg/ZekK8+XZt2AGa/AwtRtbQOPE/Q==
+	bh=eNXeH5LCrfgsfYlStn+hfE2r3BpfJ4YwRHB6pNDWPmY=;
+	b=vh80Rw6Ij9U/Li/cD5cIPzq0hv0wrY1D8OkDRxDqon0rMqpLSYG8WtUZrneZcSi0uTg2
+	 MODfidoEAYtqoNrk4RtqYRAXCd89DHYjMgmp35Vnqap5MeWc0vKl+seLZnmS2X6VyP6x7
+	 9iZ1n4QcuAIryccof0Qvh7px4fMpozwXwLP77k6/dWGUJhN3hjgQv8qPDTlq8Oe1rDQOQ
+	 1lNkzdZQ0YipvV0mBVSNC920cIAcpti3ES9BzW1dKAjKEiq5rOBjxdSULdc8qP/0DPfvG
+	 4v226gr3Ak47aUsNEmZx67wj7ITy/hTAMgW7BWIcLwRI/PJ+cyaO296PvgXN0APfdFw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ukDlUA80;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	dmarc=pass header.from=flipper.net;
+	spf=pass smtp.mailfrom=flipper.net;
+	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=sCPuYaXh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CDE6606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:34:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CDE6606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 691D8606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:34:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 691D8606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ukDlUA80
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-491971ac844so3906052f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:34:00 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794486839; cv=none;
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=sCPuYaXh
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b6e8b6d424so6304075a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:34:32 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794486871; cv=none;
         d=google.com; s=arc-20260327;
-        b=Js9QjWkvmx+h4nXUHSVMKmXoygU3WzpB2UNcnzDJAfNWz/HeV5lzffWy5NTVdN8WXO
-         HebZWMy8CLIbWvRlm6hzZ5iqJAH1aN+uIhHCQBQkbBcmGJVQuk4Z+hgqz4Dv1EIkf2z8
-         sbTVcsdE2GU24JGrmFy1VGd7yjf2VoTzmjP08N+NrSjQO2fq1SQpha+QAF0qM5oGvOEo
-         Y6kRdHl/CKTHduu5KhDMiCwk7nyv2sqDZFVhqMU1h8cBp+XMa5ueeRYRhMrCX9ySSOhM
-         qxYiJjG45GWm86ubO4FqYalNH/s1sXdyQdgEwhQAzVhIjm6rHtYP4QeoM/QBHqeeTFNv
-         0I5g==
+        b=scRSHvyjRKag3Gp3ChTbf5+lMjKHIo9DitOYNGC/JwNpqPEjEJMuYchMCDHQ+gi4cG
+         teAVaVPA4+m8plGY6zYaX9D6C/SCh8SM5sKhkQpqWI/DobLIWzdzdnkPQlnK3prGXzPi
+         wvDicOWibL9ja3weHs+0Pn98kwgNhSbjXFdvcpUjH30oybHC8Fws6XOTVCx3QWRd95lK
+         kroZuks+Rvys/vd1IBXLW2ON1iE5dAA1qNeXFwRgGRZzbBK8ei3DPC8JwjotoucomWwv
+         zJ5YjdEI1WAGGio198Eg0DPcBvURds6H6iXuH+jceME1I5ZxvfhGp/ZaEs7kK5bnJ2h3
+         LdkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=nKmlHtAvoB0yUtbhRvNeCYmD52AQBw/3HL4TeYlZEfM=;
-        fh=xxio0uQdBa43KL99f9qHxAOMQlD7XhgQar1crupx9tE=;
-        b=ApfZ8OzJ3T5J+ZegyOR1/14rIU+tk0+xQ2Rz6QOKOAeUdZnSgUW9vAPxzwh5l3016U
-         C0njiuy3wNOVFuFsSCMMTZDnJ/ETbYw88L5XqMj0tx3zj/fkUsR1qf64vTyiFV5ddJqd
-         FHJ7S4BallhnoynJMvSGIAHytqP7VuTn92trEP9ah1FZAylUu7EI72Qbymq2aUhroXDd
-         q2/d9wU9QGa6GaS1Kr5/5xPGwTYv8Wfmh99Z2swuLN5Ilb38wpnOqX578gKymq43inXG
-         v6qyTnz/BPB90a4Hmno+exjQSZ19ZCg94tFrV8b8BTeW7EG6pC25UOJWecgTCh/L02p2
-         0pCw==;
+        bh=eNXeH5LCrfgsfYlStn+hfE2r3BpfJ4YwRHB6pNDWPmY=;
+        fh=QCo+w8FeWbgWBN3CHiVMSe0GzwG36pJ3AT60Jc9t7lc=;
+        b=G1Z4RHAJPq6ZG97zOUya3JfINpglb3LB8fj1mFyHKtCMiBll30GuVZciSsLPpIFvuH
+         VI/e1qcYOhnyBKJqzrr6l/bdbkxu6UchL4dKlNxNkOh+FxPY/plWWrPZMPxRU499UYhD
+         39rfie8mbjnC5FWnwyVTwBPKZ8mDaB0NaIvLazm327uMjaTr2Ljdx87piDReAYACwpP2
+         buB6KfyWgMCC24sMKa87LsD0lM18n0BuDxFM9NUjutLRkrdpghz83dVFN/tFrECIpV07
+         mv3a2MKY7x99wnP7oaftSByQ0oWb4NdMDRKFskbPIRxiRfgm5C+4PxeW6ktv2Z/CpYm0
+         7qfg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794486839; x=1795091639; darn=vger.kernel.org;
+        d=flipper.net; s=google; t=1794486871; x=1795091671; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=nKmlHtAvoB0yUtbhRvNeCYmD52AQBw/3HL4TeYlZEfM=;
-        b=ukDlUA80+m/vZiV/Ig5PjyV4dpsLQJVhgoByqqX7Na9XtPRe96KKXgb2FAld3B5vxD
-         7o7gfyFGeLIu/DFnp89aiUdKjvy8Zq0qFDCcxIwKrdBasaQYYVPWRCWXYt0+VtbUBXeO
-         XMauR/2pmRNb0HqxiNROjPKs3GsqcbRyr8Z9488y1RJhXHYKOBALi+wz7wYiv/AHcxtX
-         /DQ7dm064H/WLAsFXzKl3piUg5KbukdCRuFLVXxO3JQdsw1VEV47FQFWRBZNB/4rOWs1
-         //V3d+Q2UcDrxr5nvPd99RmB9dBOwGrgEtKy74YkGOob3GjE0C4aVgdV7Uc4x62Yn7l5
-         4d5g==
+        bh=eNXeH5LCrfgsfYlStn+hfE2r3BpfJ4YwRHB6pNDWPmY=;
+        b=sCPuYaXhuvX3OKDkIpxYBuIbiKheZ8SR1EBQVIL3zARYV4e17hLKFLTcb6vXqiQeZa
+         l0dHGIT75gnoqD7nst/Bj8nmCNuP+3whj284/D+u/Qe1edeJpcn7gIqz3GQzzQnFiXgj
+         J6nzTeTaHknSowu3C5i1X2QuvTDidqE2sy+QOUCb1/xCnXkgmODIroj5BddNzfLxPhTu
+         3LE+Pki662mNfR32peU1FBjXyWP7JUavOTneDKFgMB+DTcZfiCV4CuBWm2fVS8p8Ml5U
+         OOXLVbD2VnielBdjLss7W7xZ5IPtNwl9IBMY7Nb5KlR0EEefoAQyvMq8bXyWyn71Wxgr
+         BLDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794486839; x=1795091639;
+        d=1e100.net; s=20260707; t=1794486871; x=1795091671;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nKmlHtAvoB0yUtbhRvNeCYmD52AQBw/3HL4TeYlZEfM=;
-        b=1numEdgONVrG2TufMoxZSRfRaWuX+drZaB0vRXq0Igv4vHcBhJAbK5uZi/FuXcQzlF
-         5+bmpVKlLmUdpWC3lNNnCQIivIjnjVAzrW5qLLDSSexkCFzZ6Qn2NoAE4niW6iyiCGlr
-         DWA+UfdX2wUMwYSGG/IJMPUg2Pqf19Zp7/bJfVYzsUYN6vOZ1OotDXpIX2YFtRzyzL8p
-         xevD8pZkxjuA1zDqttO3aqoUCnr7Bk28FdWXbgaiLogPFvueKflWHoTeg9eWjSPGLLpZ
-         u26Zg4Czx7cYYIza1M2oyRI5cs4ghpulAYFsnktdxh6l2PsXt7Ut7L6YU3cOzAavuYno
-         TH8A==
-X-Forwarded-Encrypted: i=1; AL+hErF3Jp+6DgTWQwbknjSdVoRr2yGG8L4l2v2SmKjJ58/oCNGQwpMXq9TBO1WzjNw6Vl+m55Wxu64YKZIFjOk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+l6vwYRi4sjFi3tlGVXxI3PC3j+9sTRoRXqToXm1LqWsYXGotK
-	EaingCiOezo0OxOy8J3LcXpBnnp7cEQBrVqlWy1oTNC4Qhc4OBV9D3ceZdYG7U1SiquoBt9g6hl
-	uIliRXkxEdW9FjhQ+kuinpspMphf9Qc4=
-X-Gm-Gg: AYBFou3qMq10psZJs5+XxtG3q8f/B9pyD5cYiK+ta7mZ+tOUBJdXd3D/pJ0WWgheJlT
-	BrUg+pXlCr/C9bIlYoqT0WorHnOrRQeqSz/yiggXp0zFD/jUUgHnWxUnbupl06zsSDdRnx8qJiC
-	D8qNNq3pO0qz9D/S89f5iBxGlwjLhTIsz7hrEXVpwJkhooGBIS47diC6x1/Igjqsy47uJqyZtnk
-	mvWmKDaHd5/JgvmyQ53nou5FIyAfiJc3OeFFvl6CbKlq5pYZkA5U7k51QJdE6jbiBa9AfDQORxF
-	hCRR8dkzdgVxf5a3HF9JBIpY3iC4zNOiQ9Cu23ajxqLFhchlF67s4O84XWH/a4SbQkNhP7ToEZx
-	frSiJYoiueYkx9zg5WVGZWi7nJjaiUPVu4VzVYQON/BlWiR+e7oY/NBFoP2xX34diqUDv4GMDdf
-	oJw7tlcT301pzc2NhNbbImy0iv+qUdngbrgFbR7hPUE51Oek++wa+KVJgnijek547PpePkf3hNu
-	g==
-X-Received: by 2002:a05:6000:4310:b0:48e:870:7791 with SMTP id
- ffacd0b85a97d-499c6e96824mr9018890f8f.26.1794486839273; Thu, 12 Nov 2026
- 04:33:59 -0800 (PST)
+        bh=eNXeH5LCrfgsfYlStn+hfE2r3BpfJ4YwRHB6pNDWPmY=;
+        b=2k3kxygw7NDBnS3ZcOmWQNj6PmBAaXS8rId8vkan9FcJLq/dYjOL1ElLkaB2a4YQZX
+         8ofVjQfpTMklXQHMkhI5ynt9yOKBaWGnDArUe5UdfT76hUYJBTGjpWav2YL+5lWnfFLi
+         iTZEEmgcPKfFL+VwKETHsnvmEmYYy4pfHmLijFFaVYeXK6/rooM8pk7BKOXqJ89+iwh0
+         ssDETbH0U5u7Q7Cg43gN4K5pPyeBoBFd5+D6Wwgd+xORwBSlzujzuL/gYT2qPa7gmhYU
+         qG57pQpwoFxhw667WBMhgrRLrKU+1KZ38fiYA+/acOS1LB0sDE93TUXAn0J+mHAR3lYd
+         duVQ==
+X-Forwarded-Encrypted: i=1; AL+hErEGDUTCDTdvPxcSfPd4M1CjfjI81l950oMm+XFDhj9O0Km58CmUJnSl/JzF+fu3jCviIV+il7u9DEi4KdM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8lxytFRZidl/xVYnoZQoaBeTTbdQ9Tjc3qnq/yvZ8bWksVMFXC
+	sBTveWaAO3wwtYL+g+IswrYsWkYRZiB0GzvBzqDjkWPFh30QD4SNNNMng2gsHtsDNwGIWidxqkP
+	9bLw+4TyDAxK8pt4M3zpnvzSf5dvBY5huExo+FjGo/A==
+X-Gm-Gg: AYBFou3fAORlZzjzpP6WDBvNTOS6qRrZ2YiCeuxMwOm6CSH/nBq931iPogAiaVLvBV3
+	pKvdQ3sa9W1VqDFCHxvkxjRhZr/bzUrJRoKssxYh1/2ayGGnGwvhWmZApkSVgV4C1orI3rMtPKN
+	J067xLTqxmngCRRs14GP9z8iqV158sErVyY2MHHPm7nkdfLrYhLfAoDBFOakUBp1HTqmzu8DhbD
+	ckir/prwVInUGTHZ0eXuEQjwW+OvRn06S136JO4ujkGYrqi81Z3+sdh+RhYpI9pLpiSCz/9zHoB
+	yTeAkrBBjMIop4VdJO1l/eIco3C5doum+l9TGMeUI06B/JxijnB7u5m7Aon0EIrz6YmKySq88hN
+	l7tMCbj9Hs40gQ5Ukxft/+mwb4j24LzALzGzOwNeNggoSAQQ7p8/P1UbgzmdnDmcbSLyT
+X-Received: by 2002:a17:907:3f8f:b0:c40:f9ea:7387 with SMTP id
+ a640c23a62f3a-c506686227fmr432811366b.6.1794486870749; Thu, 12 Nov 2026
+ 04:34:30 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,87 +104,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org> <20261111-mason-migrate-et-al-fixes-v1-3-3d2454362e8d@kernel.org>
-In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-3-3d2454362e8d@kernel.org>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Thu, 12 Nov 2026 05:33:47 -0700
-X-Gm-Features: AclHuK_RzWviJR9jmvlK9oBAFygOMVFIIWMHi8nCFGJAgeBhxOkAfyb2dvI3XUA
-Message-ID: <CAKEwX=N-YqgrZTpoxLoKYTnxT2QR4Z4_ohw+SBR+M7CErBDbOA@mail.gmail.com>
-Subject: Re: [PATCH 03/13] mm: cachestat: restart the walk after each entry
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	David Rientjes <rientjes@google.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, 
-	Pedro Falcato <pfalcato@suse.de>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Usama Arif <usama.arif@linux.dev>, Kairui Song <kasong@tencent.com>, 
-	Balbir Singh <balbirs@nvidia.com>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, 
-	Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, 
-	Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, Peng Fan <peng.fan@nxp.com>, 
-	Josef Bacik <jbacik@fb.com>, Chris Mason <mason@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	"Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
-	"Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>
+References: <20261112004112.3059801-1-stanleyjhu@google.com> <20261112004112.3059801-4-stanleyjhu@google.com>
+In-Reply-To: <20261112004112.3059801-4-stanleyjhu@google.com>
+From: Alexey Charkov <alchark@flipper.net>
+Date: Thu, 12 Nov 2026 16:34:19 +0400
+X-Gm-Features: AclHuK9VdUPb8KJpIagx3SivUuengHjj43Y_p7OZLWE06PaZD5Va3YxyrQkDtm4
+Message-ID: <CAKTNdwHj2YGwX6mGxCbsDv_H95y+ofKGit8R7aLiEOCx0RdWQA@mail.gmail.com>
+Subject: Re: [PATCH v6 3/3] scsi: ufs: rpmb: Drop the unregistered ufs_rpmb bus
+To: Stanley Jhu <stanleyjhu@google.com>
+Cc: "Martin K . Petersen" <mkp@kernel.org>, Jens Wiklander <jenswi@kernel.org>, linux-scsi@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Bart Van Assche <bvanassche@acm.org>, Avri Altman <avri.altman@sandisk.com>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@iokpp.de>, 
+	Bean Huo <beanhuo@micron.com>, Can Guo <can.guo@oss.qualcomm.com>, 
+	Ulf Hansson <ulfh@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+	Shyam Saini <shyamsaini@linux.microsoft.com>, =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
+	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 11, 2026 at 11:14=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.=
-org> wrote:
+On Thu, Nov 12, 2026 at 4:41=E2=80=AFAM Stanley Jhu <stanleyjhu@google.com>=
+ wrote:
 >
-> From: Chris Mason <mason@kernel.org>
+> ufs_rpmb_probe() assigns ufs_rpmb_bus_type to dev.bus without ever
+> calling bus_register(). Since commit 36f35b8df697 ("driver core: reject
+> devices with unregistered buses"), device_register() rejects
+> unregistered buses with -EINVAL and UFS RPMB region registration fails.
 >
-> cachestat() can leave cached pages out of its counts. This happens if
-> the entry that the call has just counted is replaced by a larger folio
-> that starts in the same XArray slot.
+> ufs_rpmb_bus_type defines no callbacks and has no drivers, and
+> consumers look up regions through /sys/class/rpmb. Drop
+> ufs_rpmb_bus_type and leave dev.bus unset.
 >
-> The issue is that filemap_cachestat() walks the page cache under the RCU
-> read lock, so racing concurrent collapse/split is possible.
->
-> Thus, an entry can be replaced immediately after the walk has returned
-> it. When that happens, the next xas_find() skips the sibling entries that
-> point to the slot of that entry, since ordinarily they belong to that
-> entry.
->
-> However a concurrent collapse_file() or __filemap_add_folio() (when
-> replacing a shadow entry) can store a larger folio in the slot, in which
-> case the sibling entries belong to the new folio and the walk still skips
-> them.
->
-> Consider:
->
->     cachestat                         collapse
->     =3D=3D=3D=3D=3D=3D=3D=3D=3D                         =3D=3D=3D=3D=3D=
-=3D=3D=3D
->     count a 64-page folio in slot 8
->                                       store a 512-page folio in slot 8,
->                                       with sibling entries in slots 9-15
->     xas_find() starts at slot 8
->     and skips slots 9-15
->       /* 448 pages are never counted */
->
-> Also consider:
->
->     filemap_cachestat()                  __filemap_add_folio()
->     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D            =
-      =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->     counts the shadow entry in slot 0
->                                          slot 0: a folio of 32 pages
->                                          slots 1-31: siblings of slot 0
->     xas_find() skips slots 1-31
->       /* 31 pages are never counted */
->
-> Essentially the fact that large folios might be present means we cannot
-> safely continue the XArray walk, and must reset the iterator each time.
+> Fixes: b06b8c421485 ("scsi: ufs: core: Add OP-TEE based RPMB driver for U=
+FS devices")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Bean Huo <beanhuo@micron.com>
+> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+> ---
 
-Hmmm, cachestat is inherently racy, for performance's sake.
+Thanks a lot, Stanley! Works like a charm on my Rockchip RK3576 with
+two UFS 2.2 parts, FORESEE C2G071 and BIWIN BWU2A0526B128G.
 
-OTOH, it does seem a bit silly to undercount purely because we race
-with an operation that does not change the answer (collapse/split).
+Tested-by: Alexey Charkov <alchark@flipper.net>
 
-Johannes, how do you feel about this tradeoff?
+Best regards,
+Alexey
