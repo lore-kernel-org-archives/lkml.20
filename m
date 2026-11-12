@@ -1,57 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794474227;
-	b=UaVlmWo7cNNUrsOWRVleetX4SpBlb9ciQpBFjd9tWSLAZqN36eChjG9P0iLMjJuW68ly
-	 YGD25RKUxFDr98S2o8ZgE87QRtU3lUjtGliXAda1OJnsohp3bn+WrkZgISVI2zIuuQ6tJ
-	 sRVTn/MCTp4FLtUuFu45OKm75+euGzLHjNJyUKcAqXtT2WUdV55eMx7qq514e2UCZ0MoS
-	 jWUt3qApmOJNNaMB3usY7tuff8/PldvkmbpIqFy1kpLxnaMUBJQBt83Lx6GQUtNQtgWNY
-	 nmbMTUUlErgcGUDiAn+vM917xkbiygusd03ymxvEbSciRywn3Pl2KX2F2yP+whhgC4g==
+	t=1794474231;
+	b=gcWA1rvEkMVVzY7uZYglu3A/NUEzH1Kt7Z4ZuaqFyeVzCXfw7eKTpKNE28GFdNq6dDXL
+	 yLk3vWvxifo2MZROSiB7qtiwi7ySbbOljUAT2muEJhcQlFgRkjiwxUee1xZVeszoAQWLZ
+	 IT62JBhkEIhJbKK8xqdy58JZ7gRJ5U252wdSz66HgVzbJRs22bhLJiGXo+XhpbMBY0en9
+	 raEwh7xQ1DIYoCd2OZRuChX9iscFUeNDD0eBVeW9mESR8EFIy2QdshANBvpWXq6oJ36Oa
+	 XGqeN4S7nqnkhVjoLl0tXgjZcPuKmQcLO3zDq+3gq+9FHDCONqpeesQJkx/kKcx4sTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474227;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474231;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=vXl5m73IC1Qj9DQkgemcl355Soy8bxLPr8ADXHnlPs0=;
-	b=Wu3ZD3gq3ycHM+UM+0zLZOClyRD2TC/EJvyGUINfvlp5nFtprDjGDvfR7y5iLi7dT5yT
-	 zZA8PV7D69pqZwHtUu3JRzYo4UtOjqtw47AgHrxNPxsQtXA8o9MY/JhyfZVZ+810WdZqW
-	 LmzDxedRd+Ea6i0+4E2utQ4SaCNjjBkmnN5fKJPHn13Giab7tFfoAOjG0fGJlDUNRcKfE
-	 onlt6M9ODVxRYts8XpBeUGY4UY1bqAHlSdvIBb5JlxCvhS2eGNT5nhJIIiAa6ZHOYi8TX
-	 15MjjOtTLR6fnqOOe9SIu1qVBq/TkoViV02SdLjXZFP9F4yPaDKaHuoJwclVZKyEvUA==
+	bh=WQnZsJLH2M1dTlVyLgeRf55jDtYtcurGIQfRD7ez1uU=;
+	b=pmfXGAkANUf5+0vVrxQeQPOYwUxrysaC3UUwp1Zy/mBXlxmAGScgPxS1ahBFVmfBpFGM
+	 h1zndH8mx130lxCHVuVay4fNN8dRMA4gDEec70K4DCx6J0MfulcXtBQQ573yyIdGDR9rS
+	 IQCfDS5ZRYtRUNC0IWjmi50RXvBI1+ZJDiATaj2sUohzna9bXGF/SyTRxSPlv/u+5bXYJ
+	 9Fc0NloHzLd4ZA+tTC+cYMhv/nNJE3sYpp6m/au+KfoJtbWYZEPckhUF0p7MOztBwlJeW
+	 xWLqMB231P3Hc/TbUkjfKgjO7oN2tVhVmkDohDZDHSo/lDMqBTbkZ7raIWKjMBEuXwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="oO/wsfao";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nsIowRd/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021C360A2601
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:03:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FE31606A32D;
+	Thu, 12 Nov 2026 09:03:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oO/wsfao
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3C271F00A09;
-	Thu, 12 Nov 2026 09:03:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nsIowRd/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 333F81F00A05;
+	Thu, 12 Nov 2026 09:03:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794474226;
-	bh=vXl5m73IC1Qj9DQkgemcl355Soy8bxLPr8ADXHnlPs0=;
+	s=k20260515; t=1794474230;
+	bh=WQnZsJLH2M1dTlVyLgeRf55jDtYtcurGIQfRD7ez1uU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=oO/wsfaoYIUlyNJL3r5/8ieWCg1w9lIqjxjxPPbrU4kRaY7gEweaXTBdQKwjVsmOt
-	 4f2Trpu/65POQguNuQK178OyPiCKuuN2HEf/q0sMfyC9N6nLaKnD4IokeQGbDFvTus
-	 lWePLSyaOS8F4M9YUmF7Wzx0J/K9XTCU4sZ6r9gwRfrpogppH5EtVuRJLoeQJCVpSD
-	 6BfcN7eyc/KO/JUkr8eMYtTsG9GJ79j1TbeHPK5sMHYwZ4aIEvPrXx5Dc3Quj0ozPq
-	 h67r49bx6RQhLOh7SHExZdGhnR4nhxcrWXCPY2B6T7dz1DBQAs+w8sU7UXbeOo57YV
-	 LyiCAAWPdGBqA==
+	b=nsIowRd/5N1YLDeHmfHPiMGlzrFN2dGE2GgzLzxhtfAivRapUQJ+KGa6R/M4zAF97
+	 8mmGmoPhVs0e+XTfOFfgyOvwi6ii1WS+hIq9K9BdbaVTta1pDBhc4IFDzkAnPBG74A
+	 yqSeTerwr0Mbji8FX0ZjfbGOWystLGKVp77SHvzHIlIkkIEE4F5aL91TjQq3Tegsuc
+	 2wp+HnxFhV/Z/+hBk/zm/pznIVxrWAuvTFgCZsCJ/XFp3ZDkdSynv5mv5Lo8Y6BP59
+	 wyDgKwxombqRHlS8k+BM/m1HDL1YWC0TSxynkv1ue+kvrVbnybhT5rur9/zvgHvAI1
+	 kfuEQmox4QlwA==
 From: Vinod Koul <vkoul@kernel.org>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- =?utf-8?q?=C5=A0t=C4=9Bp=C3=A1n_Daleck=C3=BD?= <daleckystepan@gmail.com>
+To: Michael Burch <me@michaelburch.net>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261001151939.23658-1-daleckystepan@gmail.com>
-References: <20261001151939.23658-1-daleckystepan@gmail.com>
-Subject: Re: [PATCH] phy: marvell: a3700-comphy: Guard missing polarity
- argument
-Message-Id: <179447422457.428158.9677225220979087471.b4-ty@kernel.org>
-Date: Thu, 12 Nov 2026 14:33:44 +0530
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
+ Qiang Yu <qiang.yu@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Hans de Goede <johannes.goede@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ regressions@lists.linux.dev
+In-Reply-To: <20261013-qmp-pcie-skip-reset-revert-v1@michaelburch.net>
+References: <20261013-qmp-pcie-skip-reset-revert-v1@michaelburch.net>
+Subject: Re: [PATCH] Revert "phy: qcom: qmp-pcie: Skip PHY reset if already
+ up"
+Message-Id: <179447422684.428158.9271110060803827650.b4-ty@kernel.org>
+Date: Thu, 12 Nov 2026 14:33:46 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,24 +69,26 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
 
-On Thu, 01 Oct 2026 17:19:38 +0200, Štěpán Dalecký wrote:
-> The Armada 3700 COMPHY binding specifies #phy-cells = <1>, so PHY
-> references supply only the port argument. However,
-> mvebu_a3700_comphy_xlate() unconditionally reads args[1] to select TX
-> and RX polarity inversion. The PHY core does not initialize its
-> of_phandle_args structure, and the phandle parser fills only the
-> supplied cells, leaving args[1] uninitialized.
+On Tue, 13 Oct 2026 09:22:49 -0500, Michael Burch wrote:
+> This reverts commit 910b828b22b7b91054b3bd4be676a017444b0e00.
+> 
+> That commit skips the no-csr reset assert/deassert (and the 200-300us
+> settle) whenever the bootloader already brought the PCIe QMP PHY up:
+> 
+>   skip_reset = qmp->skip_init &&
+>                !qphy_checkbits(pcs, cfg->regs[QPHY_PCS_STATUS],
+>                                cfg->phy_status);
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] phy: marvell: a3700-comphy: Guard missing polarity argument
-      commit: 24314440a82bd2bb66049af4de8f89939a1fd77f
+[1/1] Revert "phy: qcom: qmp-pcie: Skip PHY reset if already up"
+      commit: 9a07dfa7f6fe34e230de183c02a8180529091649
 
 Best regards,
 -- 
