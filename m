@@ -1,88 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794505899;
-	b=jC6kONnMOhjeKvhbrehq7rX82pn5sBM0xDJZi4gb8gQc1nzwR1HsTPYUjkvHcM0cvUGr
-	 gEYDZkWRKgD+GSclJZPh7iU5LmydNvjfCbOReVAHZSjWN1o28Fig/7GdEIGYEGDLVE2dF
-	 ffIhr/HYUhlkFVgZGKDryWuTrCn0vW9CW+noPBt9rh9tYn+scLzb2v7ZiunkUHftAtbx5
-	 RKIQai7q66eLqTOnfUhQ9Mij1sQjNfKSN2AdqVd395roHmcgSdh561bPRehSVDRh/QBr9
-	 pPClLWU3DNUVTVYHJbxiIZ0ljaNHXf7HzGh16pa0EX+O1lBicIJFgX82KFEMXj9XRoA==
+	t=1794505906;
+	b=bwdiNEZ0TymJCz6bRrsrebcfQV0MLx60iOlF/UlD9tvjAZTf0SmWRVvGNoIGVo3Q+Pi4
+	 k7Pq1JDXi/zGQK/nXeC27+nrAeyOAfPqsSYvcFa+orBBIMtWqlOPV5VYdduwPCRTXBOGd
+	 gpCCLgvpg8u/X6x5TTyY1kH3upX55epVTvSJQvD6Z0MvEi1UdDu1w46QoXpqgsvG1UsN8
+	 +CatGF45gWX0a3f60H9JKxaCet70S8aC3SdHMb3L8ENySzK3b5INhNGDTgN7711BegNlH
+	 TpQqwxh7j6OCZnzDHPoajce0JPR2LEWAcBtt1sDnaJFkt6xCK74ck87j02CwDTnTLbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794505899;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794505906;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=xTM3U6ionLwQwBCZKrKDTUJU3GHvWNey1cmCtm96z1Q=;
-	b=wbuSwmXrYadJZ+eZS7jpYwxXog+r/sBxvlqA5yrnJRvlfjLg5+bcm9Shh0QqManzK011
-	 jbpHK6HDD0FGcjT2ulK/xT40j6VQ7xO52t3uwKY3KgfWiWxcZtskiUaYuOOhmoNfQh6Hn
-	 /YN2/pIRFcwEIHK41igZ6wg/yWOx7TVJ4LTAK1OmWru4NyjonPtabIpHNEEdkSfLhi2uN
-	 EuhkNx0wZKeLWxajEOMrhCaBX+u+uBmGqXui3xXEPUj2e5iPcLsZKlalw0FVVGcPtWdco
-	 hwbmpM+OiRJrVZNtvfuW+/tQVHCtZiKnr5csF2pMsAkzms6DP+4CLvhVqFHtEDPXm3w==
+	bh=G84wSK0nUUfLUVTY4c0GD6hajZc/iWKJjasXJCCFPjQ=;
+	b=Zr93dkbED74Kuh6wGHqvhNU7br2jWVhk5BFGI1kqfI4FMFpVyoSF1JUIH8ytaMi8ykee
+	 ZzT8grN6+5fkjZiDh3hJAh5WiS8LOz1P/aqGJqHNcpKNG64ppYFyG5Aqcnu3dNeMJtbAV
+	 dyJHz/pJAlP5/fsdRq+wVZtsBEZ7L7ycCP7CILl5ktxIfdShiP89EP4MzX35Da4Oacwk6
+	 1g1bC64q3arPQ65D/ERKfkDgLw+nUvX4nNANExFK+uhmT9WPm6RU1KqlJ9/ob+qzvjXpj
+	 KCyCF7Mfdl0u4Ea6iYCueLIBC0bhIhqzK8HEm3AVUVFhmyNdTIZ3PXmJVQJ799vToxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yYGQnnHL;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FuMkdfEd;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715AD606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:51:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 715AD606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE4A606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:51:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AE4A606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yYGQnnHL
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36d1b3b9974so11454eec.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:51:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FuMkdfEd
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-37123334649so16262eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:51:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794505898; x=1795110698; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xTM3U6ionLwQwBCZKrKDTUJU3GHvWNey1cmCtm96z1Q=;
-        b=yYGQnnHLNjRjFwShlE2IOVRkXRmHyVnARUO+zC0acUnBWnv3O4iH2uz3OaXdDxBMxx
-         Vfu3DADmmwaG0+a2PYRTZiA0cb6Hya5GgZ7PVno5tcog8X5KH8BZypFtYZGQUl0hMmsS
-         L/MbTg5TgzSVEoj2S4hRL5SrGjcpiaBCPOP/G3w5P8ivQw7Dn896G0MSUEa8g8BXsqim
-         kA5sCS7E0CixFpkXsIhQXmI8meqn6CCeMWD6QDVoZOsOqZuvlqkx6MWf+1NxWQw9Zs8T
-         N/4CwmxiPvVIl5uDs7GHz1qZRlAxUq87ua0jOl7bHEmrg3EEwLiW610R5Rtqic17oR74
-         YKbw==
+        d=gmail.com; s=20260707; t=1794505904; x=1795110704; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=G84wSK0nUUfLUVTY4c0GD6hajZc/iWKJjasXJCCFPjQ=;
+        b=FuMkdfEdlT1P3ev4PXKojTkMlNnor+zR4f51g4QXzaiybAr3MJuD2VEwcHXwMRzkpB
+         IpPNuAoLeKgkVngpP8BEayNI11G07++miWdVFE92eJONoz33xhxqDcUv3CLM6a4rumGU
+         23Bwj13+8MvpX4SA4s/gw8Arg8rxYUQIOb2PcxkpVmzEEM/I16PEmkUiD7qKtbuFt1Gc
+         TkDg6PwMExUNpMY84GPEXCTyT059IZL+OSHLHm33wKWRK368ltivq7eoqGhWYm07dMsd
+         1xiR/FwcP8m9+c96Hc1IGnNpAg3ieVFKT7S2zUSccoYVmYWoYHh3eG4J3BcJ44lP7dZf
+         1Epg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794505898; x=1795110698;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=xTM3U6ionLwQwBCZKrKDTUJU3GHvWNey1cmCtm96z1Q=;
-        b=mHwS4VC5z6W96gfCBzs8zlX/ptJp3zDWYmOQn3Hc9SCfmxwfFk68v2A4LFM5G84Lx7
-         Q35qy5ahUuMWn5zx6E011Nkbqp/xpK7dhkeppMK9NbVzK6zRWUEsRH3y1bkaVScIOcBg
-         di72ILwi+s7oN8p//zppyjPHjNJDw3a/iIP1LQ0C500Fok6Sldk20Bsos4xl1OUYBUhe
-         YosInx1OjXis48m3htI0yWw+61kWUhfBpSl3conx9/EV7QR2ns+ONvqJLo6cZdVet/1U
-         lU6MzmlW1aPoTQ/m62dc38zwRMLw1sbaXWBPGhYt8TGaJJoXD/uWnT5300s8gBFno9Qm
-         4wmQ==
-X-Forwarded-Encrypted: i=1; AL+hErFs8vxix3Ok5UbCeU0lF1cbTIWoByqLr+gjsR0mRrgaPCA/xt4ruvAAs0qic22BT0sga/3dj56KofraKpc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9GAN8GkNhus+OCFtfbtWYx14/IyRG1FVj7RfkhoWlVD7tOxyMS
-	ZM5WVQzNqoLgVKqdbKzoZc49oVx1i9xjfuUWBV0x1p9p4Z7TbyCSpbw0
-X-Gm-Gg: AYBFou0YifmFMnjC83ZTGOYibmUa6zdXWPzZ2LaVykaar4Ucwybobs6zIhsipPzU+Bn
-	2wrFVh5oEIyiYaaFo/z+j6EOulvkeaGAMQOFRI4G0fuJFk/BMcLmfjexYf9dzzHumFyCmk7DSup
-	vXIRLrtc/TGu19NQGZ9zWQbwhmQFEKj/VNmkvFmLGfvyHV4FfkjcHCJXZB86yjR7/xU1fYtIYYX
-	qrG1RSGkYzQ71SC/ig/aCmpD3Os1eo2Qy1RXU+1IH7Y9/e13PJ/TatFfMSye8dohD9Za2xgSYPP
-	hvYOI+plBWzW7CJx/yctwkS6GHbmLojOBaGpCZMzWD0gD5GK4o+RN5eLX08UrgCcu7+K0Sv8isu
-	/02YkOPPFmWuhlYnY7emwpAUrQgl/MAntDSjPWLY+Uipyh8FVWF/Cn27z3gml1+gF8L4zBi/Bd/
-	cxLo0MnKab4iFSlr4PGndtZtroYokAmVcRJV5Zb/Oh6rirElvnHUs7MvSRS3mArybxRrSeeYt3E
-	JFnL5r+HCSLMJSCPkPv/OtBt0/+jq1HH9CJiV8ZIjG8U1/oRga6h37wnpVgR+BDg+iaDfCZ6bQc
-	678t1RUmIrWQ/m+VA89qOu+StVmVmtRu1y4TqA==
-X-Received: by 2002:a05:693c:20cd:20b0:375:f846:5b3f with SMTP id 5a478bee46e88-3767fe8f34bmr9670635eec.0.1794505890231;
-        Thu, 12 Nov 2026 09:51:30 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794505904; x=1795110704;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G84wSK0nUUfLUVTY4c0GD6hajZc/iWKJjasXJCCFPjQ=;
+        b=MB+U6j6FGLEeOU6/dRrjFdxxU/hZ0YQlHVIgeqewR/U5z+OAHdwX/ASPxla+UN7hZc
+         /kkyYF4W0NizWgFsieOsBerT7KIGHh/Bd/dz/6l+5dfETT4o7LNs/6LBIvkmDfsD7zYk
+         hRWnuSyZLieDvht7Kj1azgo9IVkTgGXY8QR8XfZ00lq+G/ojaXZ2V0MGo/aXOTPpiCRa
+         6uA+F/cj3pAPFmcoVfnE9uuf2adR0yKt7GRCclGxTyoQQ13+ziC0iV2QUI9ut2EbCOJa
+         k1YwYjhoE7t+nMdMCvbdTgajGsc8qzEKRk0BvH2jzz0S57UUAV14f9vMdGQ6biTBruLx
+         yySA==
+X-Forwarded-Encrypted: i=1; AL+hErEDquPcbauaXq74Q+sLQlJSG1zuvXtJab6DuEkjwgaLYW5POXBqSpOM25wqhd9EXeVDKjB7Q6eVYRj71gk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+GISt8mbdccKv8MsQQX+NTrhIdltx8xnJZRo3uUqUYKVk2f15m
+	Z9oKSMduGFiAVU+NLS1DNFmr6TaRIweFvv0gmDDV7nYuznlCHSpyyI/2
+X-Gm-Gg: AYBFou2KeZxmfNtHJOf0ELjKCnEKdamFOe7xT7lBY043PbkyPHbTGw1h7t+1DgR6yUF
+	hzXop2F1H7yR7qnIBfka3GxKziEEkue3joXPwiZlkVwKovAXtTWnVPBkf0MUE+zOXjWTMS4v9Bm
+	xtYC/ltZZ3uGhFxQ3iUde1MjfmMlVGpP1DP7q2ZmtQ8A+hLmOKzV4+N3Os6MitT+KT9r/B4hXuC
+	RTxHuZeWuuc05FF22MYniweaxsNv7L6d/W6/xXoSY8OIR4ezcKSTRCLuFQ5WkVFxUmQpUJE3zCq
+	nTJhFmt8sxA8WxPV/ep0GJlik2trlcpv9tdGS4HUZz4TzKiS8tTztZaD5R4vuulJghn/7iqY+/x
+	WbW7JuwBEsq5X7K5rkKQmpfs0+xJqDQHUWzYLdUxc0ZH4dFhKQ9+JVr/mrfOdjx+6sMhcKhfB9O
+	cy5Evh4EGTFn2lRBwUFt52fS5erfFIfqIe8kfeq+X6sv8jNa7C7CQwHEMhk/VlYagBKShrFUnx5
+	yGFRtPQI4nCrkGkwX4ltD165HXEb2ElCqBt8+BjHlXqbqdQou44UbeuKRwavkpA0/DXXONXBBsb
+	gAZiBz1xopomj8peqjsqWWgBOVvzExRxawjbSA==
+X-Received: by 2002:a05:693c:26c5:b0:35e:d21c:f33e with SMTP id 5a478bee46e88-3768460b9dbmr8682787eec.1.1794505904425;
+        Thu, 12 Nov 2026 09:51:44 -0800 (PST)
 Received: from [192.168.1.4] ([2401:4900:881d:321d:eb39:71d3:15f6:5fe0])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm237865eec.21.2026.11.12.09.51.24
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm237865eec.21.2026.11.12.09.51.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 09:51:29 -0800 (PST)
+        Thu, 12 Nov 2026 09:51:43 -0800 (PST)
 From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Subject: [PATCH v3 0/3] dt-bindings: bus: omap-l3: Convert to DT schema
-Date: Thu, 12 Nov 2026 23:21:20 +0530
-Message-Id: <20261112-ti-l3-noc-v3-0-7281b1af8030@gmail.com>
+Date: Thu, 12 Nov 2026 23:21:21 +0530
+Subject: [PATCH v3 1/3] ARM: dts: omap36xx: Add unit address to ABB
+ regulator node
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,11 +95,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/02Nyw7CIBQFf6Vh7TU8rAFX/odxQS/QYmoxUImm6
- b9baoxdTnJmzkSSjd4mcqomEm32yYdhAbGrCHZ6aC14szDhlB8ZpRxGD72AISBwaRxqyZzBmiz
- 7R7TOv9bW5frl9GxuFscSKIvOpzHE93qWWdn9umLTzQwYqMYwiRqFsOrc3rXv9xjupHQz/5uMq
- q3JgUJNlZUHWWvmxNac5/kDnnpZFe4AAAA=
-X-Change-ID: 20261002-ti-l3-noc-28dfca81fdc5
+Message-Id: <20261112-ti-l3-noc-v3-1-7281b1af8030@gmail.com>
+References: <20261112-ti-l3-noc-v3-0-7281b1af8030@gmail.com>
+In-Reply-To: <20261112-ti-l3-noc-v3-0-7281b1af8030@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
  Santosh Shilimkar <santosh.shilimkar@ti.com>, 
@@ -109,55 +108,39 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
  simona.toaca@nxp.com, j.bhargav.u@gmail.com, linux-omap@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794505884; l=1687;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794505884; l=884;
  i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=TVUUWGiB0r3bg0BiSKSrtHKyzz1fTiSm8J5D5VjMdbM=;
- b=j4ViMz3Xe/DKIXBX0OiFHV3H4AaAeqciPcJf7/6rwiei4dIrMfFiPBGN9AWPQmSXK8+LRpZIJ
- JQUDgNALrsPAVoJ5IGNxcNGCp8KvA/0aNky4nELThs4Ck3/4Za96Jun
+ bh=mRJd2FscObSZq+5xKtM7LxfhPVQc620l8Gz6i2pWC0w=;
+ b=73oBRMlA0aezchojrsi8CDd4YUWZTmGd3KfiThi3FVMNXut3eaeP4Vpx7Iiqnm8AEN+HkOgzQ
+ z3fo53GUh2uA7OlcdF3z/Tp27siGOYFxTa3YVcqCwgICd1lne2/bdsO
 X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
  pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-This series converts the TI OMAP L3 binding from text to DT schema.
+The ti,abb-v1 node abb_mpu_iva has a reg property but no unit address,
+which violates the devicetree rule that the unit address must match
+the first reg entry.
 
-The text binding grouped OMAP3 (SMX IP) and OMAP4+ (Arteris NoC IP)
-together. split into two schemas because OMAP3 (SMX) and OMAP4+ (Arteris
-NoC) are different hardware IPs.
-
-- patch 1 adds a missing unit address to the ABB regulator node in the
-  OMAP36xx devicetree to fix a validation warning. 
-- patch 2 converts OMAP3 L3 SMX interconnect.
-- patch 3 converts the OMAP4+ L3 NoC interconnect.
+Add unit address to the ABB node in omap3.
 
 Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 ---
-Changes in v3:
-- Split bidning into two SMX and NOC variants.
-- Fix reg maxItems to 2 for ti,dra7-l3-noc L3_MAIN_2 is a submodule of
-  L3_MAIN_1.
-- Link to v2: https://lore.kernel.org/r/20261109-ti-l3-noc-v2-0-509e8485a1f3@gmail.com
+ arch/arm/boot/dts/ti/omap/omap36xx.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes in v2:
-- Move binding to bindings/bus/
-- Rebase to latest mainline rc
-- Add unit address to regulator-abb-mpu node
-- Link to v1: https://lore.kernel.org/r/20261003-ti-l3-noc-v1-1-9bd18cac33e9@gmail.com
+diff --git a/arch/arm/boot/dts/ti/omap/omap36xx.dtsi b/arch/arm/boot/dts/ti/omap/omap36xx.dtsi
+index c217094b50abc..6df66eb7e7eeb 100644
+--- a/arch/arm/boot/dts/ti/omap/omap36xx.dtsi
++++ b/arch/arm/boot/dts/ti/omap/omap36xx.dtsi
+@@ -92,7 +92,7 @@ uart4: serial@49042000 {
+ 			clock-frequency = <48000000>;
+ 		};
+ 
+-		abb_mpu_iva: regulator-abb-mpu {
++		abb_mpu_iva: regulator-abb-mpu@483072f0 {
+ 			compatible = "ti,abb-v1";
+ 			regulator-name = "abb_mpu_iva";
+ 			#address-cells = <0>;
 
----
-Bhargav Joshi (3):
-      ARM: dts: omap36xx: Add unit address to ABB regulator node
-      dt-bindings: bus: ti,omap3-l3-smx: Convert to DT schema
-      dt-bindings: bus: ti,omap-l3-noc: Convert to DT schema
-
- .../devicetree/bindings/arm/omap/l3-noc.txt        | 23 -------
- .../devicetree/bindings/bus/ti,omap-l3-noc.yaml    | 71 ++++++++++++++++++++++
- .../devicetree/bindings/bus/ti,omap3-l3-smx.yaml   | 68 +++++++++++++++++++++
- arch/arm/boot/dts/ti/omap/omap36xx.dtsi            |  2 +-
- 4 files changed, 140 insertions(+), 24 deletions(-)
----
-base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
-change-id: 20261002-ti-l3-noc-28dfca81fdc5
-
-Best regards,
 -- 
-Bhargav
+2.56.0
 
