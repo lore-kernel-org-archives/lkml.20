@@ -1,47 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794500092;
-	b=303suEMfspOg7tF6+ARPX+xHE79zxOUkMVwVX2oe8V5QIrJhBaJdZGi153N340H5K0cQ
-	 QN26I3hxyDvaY0Y09ciW+9NE4+/wlHqID+LD42SFkZ0S7pw7ksnPT2VGPeE4QK1R61dwO
-	 xADvEyNbiB5uu8N5DhJP2oFUscEDOzpVC7nOhIaXZ93ZmlMhQT1kMmzxxiiUHSYA89SoW
-	 A6RoVi37GIhWckDXeW6Bn9rhsvHN3II9G2NV4qMBczOaYoSsTPEu12ly9steHBg9zenbf
-	 G5y7asTXYqFW527NRAh6Yv4cFgsuoWmJum5v0La/tYc3GeHmB9aUoeNGkJ/sWw7Hqvw==
+	t=1794500097;
+	b=AJMnw5tnmuQfmR3G9hEB+14ETvDUHWJZxjy2Ng7GNwTfEhnyKQ34TBcPHifbOK48Bg6G
+	 R5LAR/L319B62sIUMwR5FtyD0G/r9jVxNYftRQU/3XH3hvSFhnvMWTFPfwN9aeZV5BVIu
+	 Fi3OlllDK1o1O/pmQuEaFA8MDiQpmGVGH0rB8bXFomdOag9xUliy+z3f2mFrjjc4ppre4
+	 SN2aEPASIEs7+NIgZX8UWgczGH0PwHiAYCi2AK1uFP5N5ByPjvJftG/Rg/Tl8UTguzm6R
+	 JhqRJrbgEHbeIufgNisL6YJztg6JyKwxDoaThYBivTpqSiYXC54amJri3ozgHry81ZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794500092;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=HDAmKTnWtwNt6oQeDs89+IZbFvjSOCzAyd2zu2lanro=;
-	b=ZMTUaPM5IqZkQT76a9IL4qoLpAQhtTJs5KrklPvgPo41SAqTW0Gk6nLMN3dVub7e874E
-	 /VxYKfbk/NcBQH5KAD8W3APbbXbIURg+URhRLxS2TaB9bZW2cDNi2ive3wN+4P4gNVLuf
-	 nlv7anNnNQ4Ak4s03Zsbym404ywT64sFmW/nhVbNxdYm3LD8BPOQNYlKWAiDv7lcuGBiW
-	 GuvkJAmSTpvXMmRS/SkOB07hzRf2hz+9Lk64NQg0V991yp36ENG8S434MuaOeOD3ZPSQy
-	 Nb/9S9wMvRnTIapFJqBQ2GdoW5W1/gP+NolMea50BkZdqnxjVOal8dRRiXhQNp1uO3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794500097;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 From:Subject:Cc:To:References:In-Reply-To:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=VFyW3FlcFVuCcTw1UrnIFaWy9gAZYFzgF43VrM5oqOQ=;
+	b=raaXm/x3NHfU+vh3OnyioiOv7THrwkE8MFOpnYKNgtMRxIgStb0Qy+miG6nfUSrQzJ1F
+	 +iepZcjH0XQFDXDq9RyweQJVI9loWGfT3MKStyFGrgLQCU1H19VSO0u3LgUYC8gd6iI0R
+	 cQSryRbgzxzz8OWL98SMJ0mXeb2xjJ6u554oczu0fUOBULvaa10ZcI0PMq+dk7v7UmJJq
+	 D7lIEncmE0R/d9olSChOfVNM8tAZOP4iEXdh5RPYEdG1Ie/hxo7wN1Y7v1WovWy2SIHuG
+	 9T14IGlXHi5Yb1ud69nNaUTqZpjEQt2W0hhf5RrPaBuxAO353j6QvOFQPXdDvG7E3mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b1BWdK4G;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KMK6QB0C;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MwZumgfo;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A52E606A31C;
-	Thu, 12 Nov 2026 16:14:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE1F606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:14:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEE1F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b1BWdK4G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 097291F000C4;
-	Thu, 12 Nov 2026 16:14:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794500092;
-	bh=HDAmKTnWtwNt6oQeDs89+IZbFvjSOCzAyd2zu2lanro=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=b1BWdK4GmCri3jZwQ7zCyvP9ySf5WXPUrLqsDe37FLQ8qqisOOucJ/wEWa3EL89/b
-	 gz2Gmww8/8fSLYEl/wcEfm7CdrhSFG6zu17lf1tmaRVos+NexzlPnObMIp4lGd7FNa
-	 otf6D/08aMjUtvgqkueSO17OpG+qmtOPxW6pqcVkYyAu5inc6mSBPjnnEjNXGntoVh
-	 uEtq8jk4gzUnGWuxOoPa1jjYq8MMasxlpQo+fI4Pw95jujLblFSif8uPFGZ795LHCX
-	 PUEjXYiPC7bqSrLj/+XiDcghuvTad0hbbF8/LNHkenCE22ectCcTHq2k+8SDRkWVO2
-	 hAktGnFagf1CQ==
-Message-ID: <2dfe6739-2d36-4e47-b7fd-c10fb5374317@kernel.org>
-Date: Thu, 12 Nov 2026 17:14:42 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KMK6QB0C;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MwZumgfo
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACFZq2B1652705
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:14:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	VFyW3FlcFVuCcTw1UrnIFaWy9gAZYFzgF43VrM5oqOQ=; b=KMK6QB0C53FsJS4C
+	tFzPmI8KYZXPG9YLJzFIHsq2h7uTULHaITsbeYFUIXrtAyTo9VDxZNrFSqDkzJpq
+	mC8m8R/fymWFTkZR+zYJufGcFbmWp/MxWX76MlvAFLbG9FoP2f+z+rKCIxe+RYZp
+	fNg29Szh9iFitCyIbL9cy/C2Vl7m85c3g6TI51EIbHfLC9h8O0jJ6fgHrtpY4rGL
+	08kayBMDGukcYg/QNo/plpZ072zNL/DySCmPjrKsTCznHdBeN8UXVE0looqITHXV
+	CSjb2q9owW+uO5CsIU7QdGzYYy2A7CSYd9P6FRWnSeZKPdrXY2GcO5p65ofbSXCx
+	kI4SBw==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvxc647y3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:14:55 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7d2deae0bbcso847014137.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:14:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794500095; x=1795104895; darn=vger.kernel.org;
+        h=in-reply-to:references:to:cc:subject:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=VFyW3FlcFVuCcTw1UrnIFaWy9gAZYFzgF43VrM5oqOQ=;
+        b=MwZumgfoEOm5d26AKGeVF65ngzTwLKH5CVc8lCagWrkvFp+Laj1xFDiVulfoZ6aP6M
+         2bMP/gM3aFt/xrqyyrxmIaPowRezw+WFEg1Xj2rAtLAT5oYWhShXy01Hy4Q0hO57amq1
+         9Pm/1P1gME8FlVN3D0CwElj/dFC4Ts8OeSginsjNlPOm6dBJXBpM9PkQqQF0KPw+y2u0
+         tMnVJTK92rVjYrvtz8+6yrT9ErXXNdjiiPO2zOQx1dcqTeUvuE7CbXdbzir8PC82RRLM
+         w6zLnI0Ryk3lRoUKHTh38BdOX+GyjqUg4wAaUbMMyYc8XLQiXkM6jO+CbLw54WRyBkD4
+         gIQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794500095; x=1795104895;
+        h=in-reply-to:references:to:cc:subject:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VFyW3FlcFVuCcTw1UrnIFaWy9gAZYFzgF43VrM5oqOQ=;
+        b=jvclNMtd419HOj/sylZSA8V2WEXgcn4QpjuAew7S1aEHv3NYNQ8p8RE2pyHA6Ls17S
+         SniAkZR4oT6fqmSAqrOn/L/1Uy/+tLwO6S/1amrLw+44QaXoq4xr6ZDNSIdk0xcvh5C/
+         m+0xwc3fuNwx+RAHK9OUUX7WL/dlChYEsi7WU+9OgIEGVVgnZ8KZWwKv8Zxb5sb+UyBM
+         o4l2QYFlMStt2ex1vl50+3NG91EEx8CH4jsCWNV29gc3wpIVEliOba2QszUFoH4mcs3C
+         VJZTLndR21QBh1Px1ZmVDfGVcjGJ2Ebfev5wPo6x+MozmGMVM6HJP8iL4nLpX5qQKXsF
+         AQIg==
+X-Forwarded-Encrypted: i=1; AL+hErGK8Ic8JHvpfqBaVDahRdod0v6Ia/bnX2I/qFppeNl3xXaA+lc1AqBf6uRk9DvSI5YYWRRy7yl+zXoWMgg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+poV8pGmv2Clml3AJBYdazHJT1y+Thaq6HyepS4KU4KHIaj7w5
+	rdjxxfaTf+5L1A19MP0hzjBbjBt7G29Fbwcz5r4CZtWW/x0LiOb4x+hYC1f9VWk8U2IihQIX3zR
+	TrqPHjyZNZXSkQje7HzFu2Q1iRsT3VlkOm/mbKc4IULGM2d61RAxsb6qRn7eeBhaaUjc=
+X-Gm-Gg: AYBFou28toPHYmx0CdZY5pfOaJ0ODP2U9LRyRuwkLkBUGh80sdGFtll9tHtOKrn8UxI
+	6XQCeTqBZuoQcvvAomAR5oYuBnCdnaveS419dv9SMcXoezy153+MT72QqUdNwcIJRA8Lp+toTFJ
+	d6bORc9CqS64w18pFDLXM4KYRF1Do5j+ZXfItTGmOvVPSKPlF5Pt/md2DVUg05nzzpR/UQ/XVDQ
+	YLw1s+Kd+3v0UmEiIir0ssqA/Bb6XG/8Nfwtqb2vIC0+FgoLpap2w0Hbb9iVPFYeWVSppdnOD+y
+	9EPMFh8nT3IAeh/N//5Ls39/Pp3PuSNYhx1fR1WLfLlITwM9qHw6DUbZUYJZN8P5lPqxtDKA1qB
+	nW+YO44mG+FfcWos9hTfMCNsRMrTM56DaJhFCMP3EOVWQmBemPakEK/OFWIXpZt3/pf38rIXEtp
+	KN8qsuAeaeE+M=
+X-Received: by 2002:a67:e109:0:b0:7ae:c2ca:8e1 with SMTP id ada2fe7eead31-7d4fb25077cmr1920141137.11.1794500094931;
+        Thu, 12 Nov 2026 08:14:54 -0800 (PST)
+X-Received: by 2002:a67:e109:0:b0:7ae:c2ca:8e1 with SMTP id ada2fe7eead31-7d4fb25077cmr1920099137.11.1794500094134;
+        Thu, 12 Nov 2026 08:14:54 -0800 (PST)
+Received: from localhost (ip-86-49-245-11.bb.vodafone.cz. [86.49.245.11])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2842e6sm78783665e9.4.2026.11.12.08.14.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 08:14:53 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,88 +111,270 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] arm64: defconfig: Enable the Parade PS195 bridge
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
- Mahadevan P <mahadevan.p@oss.qualcomm.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20261112-mahua-hdmi-v1-0-b463d7b1dd7e@oss.qualcomm.com>
- <20261112-mahua-hdmi-v1-3-b463d7b1dd7e@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261112-mahua-hdmi-v1-3-b463d7b1dd7e@oss.qualcomm.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Thu, 12 Nov 2026 17:14:50 +0100
+Message-Id: <DMTD6WT2DU30.AX3QK44UUYB3@oss.qualcomm.com>
+From: =?utf-8?q?Radim_Kr=C4=8Dm=C3=A1=C5=99?=
+ <radim.krcmar@oss.qualcomm.com>
+Subject: Re: [PATCH v11 1/5] riscv_cbqri: Add capacity controller core
+Cc: "Catalin Marinas" <catalin.marinas@arm.com>,
+        "Jonathan Cameron"
+ <jic23@kernel.org>,
+        "Shaopeng Tan" <tan.shaopeng@jp.fujitsu.com>,
+        "Zeng
+ Heng" <zengheng@picoheart.com>, <linux-kernel@vger.kernel.org>,
+        <linux-riscv@lists.infradead.org>, <x86@kernel.org>,
+        <devicetree@vger.kernel.org>, <linux-doc@vger.kernel.org>
+To: "Drew Fustini" <fustini@kernel.org>,
+        "Adrien Ricciardi"
+ <aricciardi@baylibre.com>,
+        "Alexandre Ghiti" <alex@ghiti.fr>,
+        "Albert Ou"
+ <aou@eecs.berkeley.edu>,
+        "Atish Patra" <atish.patra@linux.dev>,
+        "Babu
+ Moger" <babu.moger@amd.com>, "Ben Horgan" <ben.horgan@arm.com>,
+        "Borislav
+ Petkov" <bp@alien8.de>,
+        "Chen Pei" <cp0613@linux.alibaba.com>,
+        "Conor
+ Dooley" <conor.dooley@microchip.com>,
+        "Conor Dooley" <conor+dt@kernel.org>,
+        "Dave Hansen" <dave.hansen@linux.intel.com>,
+        "Dave Martin"
+ <Dave.Martin@arm.com>,
+        "Fenghua Yu" <fenghuay@nvidia.com>,
+        "Gong Shuai"
+ <gong.shuai@sanechips.com.cn>,
+        "Gong Shuai" <gsh517@gmail.com>, <guo.wenjia23@zte.com.cn>,
+        "James Morse" <james.morse@arm.com>,
+        =?utf-8?q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>,
+        "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, <liu.qingtao2@zte.com.cn>,
+        "Liu Zhiwei"
+ <zhiwei_liu@linux.alibaba.com>,
+        "Palmer Dabbelt" <palmer@dabbelt.com>,
+        "Paul Walmsley" <pjw@kernel.org>,
+        "Peter Newman" <peternewman@google.com>,
+        "Reinette Chatre" <reinette.chatre@intel.com>,
+        "Rob Herring"
+ <robh@kernel.org>,
+        "Samuel Holland" <samuel.holland@sifive.com>,
+        "Sunil V
+ L" <sunilvl@oss.qualcomm.com>,
+        "Tony Luck" <tony.luck@intel.com>, "Weiwei
+ Li" <liwei1518@gmail.com>,
+        "yunhui cui" <cuiyunhui@bytedance.com>,
+        "Zhanpeng Zhang" <zhangzhanpeng.jasper@bytedance.com>
+References: <20261108-dfustini-atl-sc-cbqri-dt-v11-0-33a1bf0cf01c@kernel.org> <20261108-dfustini-atl-sc-cbqri-dt-v11-1-33a1bf0cf01c@kernel.org>
+In-Reply-To: <20261108-dfustini-atl-sc-cbqri-dt-v11-1-33a1bf0cf01c@kernel.org>
+X-Proofpoint-ORIG-GUID: tYC6_7r9yL7CbrCy9Aq1uPKzcu6Lq_TI
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA2NCBTYWx0ZWRfX2194EsgnUS10
+ 699ZrlXE/O/viZnDh7V9HH49zxycqO1gFr2OCyWGVYrMpULvgD4IA2ZTdUUtns/Nrj15zwW6ndm
+ 8EIIz1zXWSq+gXTndjyOnEZa65xmlzttCKb97Jj8w6SAuSn7rHfNWOeGPTC9gmu/N/EDasQth6A
+ iP92fNVZ6wON+3JdCKrWsaSoS4i5Ynr++7of2iR9xbixGZz6Qy9lxfQkM8eSi0PUTGzbzbzxV34
+ qTV1910KExGNJWppwaqnukH86F0Ostv8I9zk9lgi8TgFjZ0GGz1Dp4Fn/4WRbtVCkN3FSiENpr+
+ kUPz8+1Wg8mLd2bKA6YbzZvFJzPmq/GTG5QWhbZZjDz7vNxq53IIRnZdN5ANrBsLsMxHTDITJN3
+ lVRTmul9lcN6kNrkXhthrzc6M7UoBSIrF76S55LPDOhE6oVtoO8eUW2mGj9UvuxtOkrY+hWEOvi
+ NZsXXvWW5P7eI4spa7Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA2NCBTYWx0ZWRfX6qyhFrLUeyu/
+ FpfgEKb4Uj6Sh6+I+TXP9iOUBhi8YJeMsTgMu/+7Ty8TIw/NHuvq2nuU2MuoE/u6NGpP48QLHFA
+ Sd4589PrEQIGfVkOPHsnxddod4QW7PI=
+X-Proofpoint-GUID: tYC6_7r9yL7CbrCy9Aq1uPKzcu6Lq_TI
+X-Authority-Analysis: v=2.4 cv=O/ysLx9W c=1 sm=1 tr=0 ts=6af5e5ff cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=4CXLxsOAgPM/krjtHEZQyA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M51BFTxLslgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=IpJZQVW2AAAA:8 a=MPNzcpqd3dBX2N5RN88A:9 a=QEXdDO2ut3YA:10
+ a=gYDTvv6II1OnSo0itH1n:22 a=IawgGOuG5U0WyFbmm1f5:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_02,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 lowpriorityscore=0 priorityscore=1501
+ bulkscore=0 adultscore=0 malwarescore=0 impostorscore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611120064
 
-On 12/11/2026 11:15, Nabige Aala wrote:
-> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> 
-> Enable the PS195 bridge driver as a module for HDMI output on Glymur,
-> Mahua and Kalambo CRDs.
+2026-11-08T15:20:50-08:00, Drew Fustini <fustini@kernel.org>:
+> Add the core for RISC-V CBQRI capacity controllers: the register
+> layout, the capability probe, and the allocation operations that
+> program a capacity block mask for an RCID and read it back.
+>
+> A discovery layer maps the register block and describes the controller
+> in a cbqri_controller_info descriptor. riscv_cbqri_register_cc() probes
+> the controller from that descriptor and adds it to the controller list,
+> which stays private to the core. The core owns the controller state
+> after registration, so nothing in it depends on how the controller was
+> discovered. The caller keeps the register mapping alive.
+>
+> Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> Signed-off-by: Drew Fustini <fustini@kernel.org>
+> ---
+> diff --git a/drivers/resctrl/cbqri_devices.c b/drivers/resctrl/cbqri_devi=
+ces.c
+> +static u64 cbqri_readq(void __iomem *addr)
+> +{
+> +	return lo_hi_readq(addr);
+> +}
+> +
+> +static void cbqri_clear_cunits(struct cbqri_controller *ctrl)
+> +{
+> +	if (ctrl->cc.cunits) {
+> +		writel(0, ctrl->base + CBQRI_CC_CUNITS_OFF);
+> +		writel(0, ctrl->base + CBQRI_CC_CUNITS_OFF + 4);
 
-Same comments as previous patches from you. Don't send Qualcomm internal
-stuff, that's defconfig for all SoC platforms so you need to properly
-describe it. What is Glymur? Samsung Glymur? It's impossible to get what
-you are referring here to.
+nit: lo_hi_writeq?
 
-By coincidence I know what is Glymur, but how Glymur could have Parade
-chip? It's not possible.
+> +int cbqri_apply_cache_config(struct cbqri_controller *ctrl, u32 closid,
+> +			     const struct cbqri_cc_config *cfg)
+> +{
+> [...]
+> +	mutex_lock(&ctrl->lock);
+> [...]
+> +out:
+> +	mutex_unlock(&ctrl->lock);
+> +	return err;
 
-Best regards,
-Krzysztof
+nit: guard the mutex?
+
+> +static int cbqri_probe_feature(struct cbqri_controller *ctrl, int reg_of=
+fset,
+> +			       int operation, int *status, bool *access_type_supported)
+> +{
+> +	const u64 active_mask =3D CBQRI_CONTROL_REGISTERS_OP_MASK |
+> +				CBQRI_CONTROL_REGISTERS_AT_MASK |
+> +				CBQRI_CONTROL_REGISTERS_RCID_MASK;
+> +	u64 reg, saved_reg;
+> +	int at;
+> +
+> +	/*
+> +	 * Default the output to false so the status=3D=3D0 (feature not
+> +	 * implemented) path returns a deterministic value to the caller
+> +	 * rather than leaving an uninitialized bool.
+> +	 */
+> +	*access_type_supported =3D false;
+> +
+> +	/* Keep the initial register value to preserve the WPRI fields */
+> +	reg =3D cbqri_readq(ctrl->base + reg_offset);
+> +	saved_reg =3D reg;
+> +
+> +	/* Drain any in-flight firmware op before issuing our own write. */
+> +	if (cbqri_wait_busy_flag(ctrl, reg_offset, &saved_reg) < 0) {
+> +		pr_err("BUSY timeout before probe operation\n");
+> +		return -EIO;
+> +	}
+> +
+> +	/*
+> +	 * Execute the requested operation with all active fields
+> +	 * (OP/AT/RCID) zeroed except OP itself. Every bit not in
+> +	 * active_mask is WPRI and gets carried over from saved_reg.
+> +	 */
+> +	reg =3D (saved_reg & ~active_mask) |
+> +	      FIELD_PREP(CBQRI_CONTROL_REGISTERS_OP_MASK, operation);
+> +	writel(lower_32_bits(reg), ctrl->base + reg_offset);
+> +	if (cbqri_wait_busy_flag(ctrl, reg_offset, &reg) < 0) {
+> +		pr_err_ratelimited("BUSY timeout during operation\n");
+> +		return -EIO;
+> +	}
+> +
+> +	/* Get the operation status */
+> +	*status =3D FIELD_GET(CBQRI_CONTROL_REGISTERS_STATUS_MASK, reg);
+> +
+> +	/*
+> +	 * Check for AT support if the register is implemented
+> +	 * (if not, the status value will remain 0)
+> +	 */
+> +	if (*status !=3D 0) {
+> +		/*
+> +		 * Re-issue operation with AT=3DCODE so the controller
+> +		 * latches AT=3DCODE on supported hardware (or resets it to 0
+> +		 * on hardware that doesn't). OP must be a defined CBQRI op
+> +		 * here. OP=3D0 is a no-op and would silently disable CDP.
+
+OP=3D0 is a reserved for future standard use.
+(Hopefully just fails, but it could be worse if it gets implemented as
+ something other than no-op.)
+
+> +		 */
+> +		reg =3D (saved_reg & ~active_mask) |
+> +		      FIELD_PREP(CBQRI_CONTROL_REGISTERS_OP_MASK, operation) |
+> +		      FIELD_PREP(CBQRI_CONTROL_REGISTERS_AT_MASK,
+> +				 CBQRI_CONTROL_REGISTERS_AT_CODE);
+> +		writel(lower_32_bits(reg), ctrl->base + reg_offset);
+> +		if (cbqri_wait_busy_flag(ctrl, reg_offset, &reg) < 0) {
+> +			pr_err("BUSY timeout setting AT field\n");
+> +			return -EIO;
+> +		}
+> +
+> +		/*
+> +		 * If the AT field value has been reset to zero,
+> +		 * then AT support is not present
+> +		 */
+> +		at =3D FIELD_GET(CBQRI_CONTROL_REGISTERS_AT_MASK, reg);
+
+I think it would be safer to also check the status field.
+
+I'm not too clear whether the spec actually allows returning 5 (invalid
+AT) when the AT is invalid, but an implementation that does that
+wouldn't surprise me.
+
+(For example when an implementation supports data AT and a custom AT, so
+code AT isn't supported, but AT in general is -- it could keep the
+failing code AT and just report the error.)
+
+> +		if (at =3D=3D CBQRI_CONTROL_REGISTERS_AT_CODE)
+> +			*access_type_supported =3D true;
+> +	}
+> +
+> +	/*
+> +	 * Restore the original register value.
+> +	 * Clear OP to avoid re-triggering the probe op.
+> +	 */
+> +	saved_reg &=3D ~CBQRI_CONTROL_REGISTERS_OP_MASK;
+> +	writel(lower_32_bits(saved_reg), ctrl->base + reg_offset);
+
+It would be better to do nothing than trigger an illegal OP.
+All our writes should modify the non-WPRI bits anyway, so restoring them
+does nothing.
+
+> +	if (cbqri_wait_busy_flag(ctrl, reg_offset, NULL) < 0) {
+> +		pr_err("BUSY timeout restoring register value\n");
+> +		return -EIO;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int cbqri_probe_cc(struct cbqri_controller *ctrl)
+> +{
+> [...]
+> +
+> +	/*
+> +	 * The driver programs the v1.0 register layout. Controllers that
+> +	 * report 0.x differ only in capability bits that read as zero, so
+> +	 * they are accepted. Anything newer than 1.0 may move fields.
+> +	 */
+> +	if (ver_major > 1 || (ver_major =3D=3D 1 && ver_minor > 0)) {
+
+I think we could accept ver_major =3D=3D 1 even with ver_minor > 0 since th=
+e
+minor specifications shouldn't be doing backward-incompatible changes.
+
+(If we fix the OP=3D0, we shouldn't be invoking any other behavior that
+ might change.)
+
+I'd be more careful about accepting anything pre-1.0, since I would
+expect there was a breaking change in the spec somewhere, and we could
+program it incorrectly...  Do we even care about pre-1.0 hardware?
+
+> +		pr_warn("CC at %pa reports CBQRI version %d.%d, skipping\n",
+> +			&ctrl->addr, ver_major, ver_minor);
+> +		return -ENODEV;
+> +	}
+
+Thanks.
