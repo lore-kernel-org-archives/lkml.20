@@ -1,67 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794513709;
-	b=1UpAHl+hacaR9iHoTi2E6yHw3oO8VmZ/YSObxQuz+3cT2MX66lByg6rzfuVhexirPCFr
-	 dOjtAvMxqWJwpMH5eejd2O+CrTkHt0Fy/4nhZQ3sfQd5OfRS1uiLOtrRja7Vh8DWjwtNV
-	 ZUZAbCJ0k2YTmIRwebVqaBQjXN5rfEZ8MT86q6xWXAKiDD2XYlheLOBnbYqawaY4VVrRL
-	 hLbMm03daY5XhWWdK++gp6oqa0oPMc8WDPAJkrZKolRYrxardetHxkPOkUrgow812mRbr
-	 5F7jpP5pFtm5HS1xPeyDaK2IwVRrto3n1K5+3tuAoo7WruUUVlJQIPSQktrg/Hn4pTA==
+	t=1794513767;
+	b=LlkqCQ78fzDj71k+s+pyhN/vzV+SVWZxoHlh+8ZcKZQAFvPmUZStB1qBjtnge3rUZ98B
+	 7Rfs4h2hGXkWVaPPGnWhQZZY4RxR0TDg09s9f7x1OrXEhjPQ36oVAwnwfpgkFx0GmPLk9
+	 x2+jOewCOVxT8fX/mzjxgACT3QngukcOACFsOr1nqfUUsB+nwxGRL2yYpMZ7HIOH9dtTc
+	 b/oAsvM3nYcS4sqKaXnx0GwvFuCy56TDnJ0pLQUfGXYDSIiJKKWoJlijouE+v2L68Lgl/
+	 kbYDugymdKaru7jXhpZ9PRryhHJlyxsOLCQH8IzdrTVZY5Trtr29hbiylJXdapjBWiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794513709;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=y2HwTF1YMo0f9rY3awZ8X1TzkkuJLbUU0MmU+IWgVZ4=;
-	b=k0l+Szk6wayCsG+PTQEo3c7u8lhbzw4QjEHoFxjESBVDb36tPs/SVrsHRgE2zHjtnh98
-	 uqEEbnyqb/5n2pC0ZIAHtx/IRztpvCxVMasYRl/GGV1JnqmtSroAHyZ9qp7VoGCH3P4dY
-	 APgC4oGjHByuV1n2yKhT4CDF+ccIobNP/Pe0s1WmzeboL4PvvhZgaEMbedvHNncmL00LZ
-	 PuerBCg0PEi7bDaoBUUdf6Smk92FqyNS2ahrf2QWDFseQk3vWDSljP6ta8NfbJ6lZct/m
-	 X7FaKfdTnkEt4eZh02tEy5pzvHzT08Atn8a3mQZ4tDgDy7TltgEUhX73AZx0E0VmgPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794513767;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=kRsJE9S/70yOGQSUq2MlgQujyTFrN9aLjM+eaSxSfek=;
+	b=IWHhX+mCtDDtzaD5+baXWoH94VbZ81GNtO+nlosxW3X2M0HP/Vb3UoA0OeKrUYalq6zZ
+	 +h6/mmZQZxIyKVItlko4ca5ecYmaIkn4PciQAkqcKDT9QJJZOKkm72L7uLIdJDzNIoY5z
+	 ZEcVytGheLpnW+oi2FGSSwxeIbpICwtCdG1g0pwpycwtZo/MLcuumGnjD004UcuPGmd6G
+	 4o5E6xr/dTNiFv8nb0EF+bk+VsY0uqUUZfl7v8OpqnRBU4hDj9IiTlzHHYrVl4kYYQR0k
+	 oIn5dbcOaK8UubZwQBxrD56gwF43xc8FckqVouP1AhdxgWZgQ5bSPY7DK/EjpNrEqrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NZeOtxtB;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iXXCGePG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A64A606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:01:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A64A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22510606A31C;
+	Thu, 12 Nov 2026 20:02:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NZeOtxtB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794513708;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=y2HwTF1YMo0f9rY3awZ8X1TzkkuJLbUU0MmU+IWgVZ4=;
-	b=NZeOtxtBqe3kz5RV9hS9BwXnXr7vGOUN/ht9VlzqX5TXMqlk4Q5765aRRN1VCjDlstVBqg
-	FQht5SH2sYPMcQTzBn1Dkzjc2AYJvD+vDLO2jVZlOJFdnlIhulk5/NSu+VNC8sGzby5XY7
-	9JFsYd0oAf7M2i90OEXdNUbBDrTWEds=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-90-DC2VcjLZPSy1gaYdteKPtg-1; Thu,
- 12 Nov 2026 15:01:46 -0500
-X-MC-Unique: DC2VcjLZPSy1gaYdteKPtg-1
-X-Mimecast-MFC-AGG-ID: DC2VcjLZPSy1gaYdteKPtg_1794513704
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9888D1800352;
-	Thu, 12 Nov 2026 20:01:44 +0000 (UTC)
-Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 161501800446;
-	Thu, 12 Nov 2026 20:01:42 +0000 (UTC)
-Message-ID: <a13ef6be-fa53-4d80-b768-2d8a16467fa4@redhat.com>
-Date: Thu, 12 Nov 2026 15:01:41 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iXXCGePG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 291CB1F000C4;
+	Thu, 12 Nov 2026 20:02:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794513766;
+	bh=kRsJE9S/70yOGQSUq2MlgQujyTFrN9aLjM+eaSxSfek=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iXXCGePGQJ3YsqnugdvJXMJeGBJiscAo887Qwn5UOj9vmXdobRDyLCxWo3h9W9Fq4
+	 94i19MI8QPzHukPl5h1iWi54+DLQqqT898RHQTKI6y7CZhH9zUEF9kLAuR9lyGfyWe
+	 tKAx0FzHMGLnQvnQsKke6tQANKJiRlF49ClwlDCnTkvK2222ZhOBIhXDK/9z8+p4cQ
+	 2qA/d1iB+ohHdfWQfI6QQr+18k6BJ7ET6iVb6rf5pEI45dfw/+xM6HOV2c5TZalwiM
+	 GLeem4S6CP5EHu7MRNHVwtxl1bcHWzEGIv2pauBU8yj1aY+WEZ4/Hb/TveVAz4xHAg
+	 TaLmZB+wbwghg==
+Date: Thu, 12 Nov 2026 12:02:44 -0800
+From: Drew Fustini <fustini@kernel.org>
+To: Radim =?utf-8?B?S3LEjW3DocWZ?= <radim.krcmar@oss.qualcomm.com>
+Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
+	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
+	Atish Patra <atish.patra@linux.dev>,
+	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
+	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
+	Gong Shuai <gong.shuai@sanechips.com.cn>,
+	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
+	James Morse <james.morse@arm.com>,
+	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+	Peter Newman <peternewman@google.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Sunil V L <sunilvl@oss.qualcomm.com>,
+	Tony Luck <tony.luck@intel.com>, Weiwei Li <liwei1518@gmail.com>,
+	yunhui cui <cuiyunhui@bytedance.com>,
+	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
+	Zeng Heng <zengheng@picoheart.com>, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org, x86@kernel.org,
+	devicetree@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v11 1/5] riscv_cbqri: Add capacity controller core
+Message-ID: <avYbZMGiLU6iSTj7@thelio>
+References: <20261108-dfustini-atl-sc-cbqri-dt-v11-0-33a1bf0cf01c@kernel.org>
+ <20261108-dfustini-atl-sc-cbqri-dt-v11-1-33a1bf0cf01c@kernel.org>
+ <DMTD6WT2DU30.AX3QK44UUYB3@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,170 +87,207 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v3 3/3] cgroup/cpuset: Check remote partition
- underneath before making an invalid partition valid
-To: Guopeng Zhang <guopeng.zhang@linux.dev>,
- Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20261111020204.1660055-1-longman@redhat.com>
- <20261111020204.1660055-4-longman@redhat.com>
- <fe7aa630-d323-4981-9f89-0958cb6204a2@linux.dev>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <fe7aa630-d323-4981-9f89-0958cb6204a2@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+In-Reply-To: <DMTD6WT2DU30.AX3QK44UUYB3@oss.qualcomm.com>
 
-On 11/11/26 10:27 AM, Guopeng Zhang wrote:
->
-> 在 2026/11/11 10:02, Waiman Long 写道:
->> When re-evaluating an invalid local partition via partcmd_update,
->> update_parent_effective_cpumask() does not check whether a descendant
->> remote partition is using its exclusive CPUs, promoting the cpuset to a
->> valid partition root over the remote partition. This condition should only
->> be possible if parent is the top_cpuset and exclusive_cpus isn't empty.
->>
->> This leaves an active remote partition underneath a valid
->> local partition root with overlapping exclusive CPUs, breaking
->> scheduler domain partitioning and triggering warnings in
->> compute_partition_effective_cpumask() and generate_sched_domains().
->>
->> Fix that by checking the effective_xcpus against subpartitions_cpus
->> when an underneath remote partition is possible to make sure that all
->> the exclusive CPUs are available before allowing the invalid partition
->> to be switched back to valid.
->>
->> Also make sure that effective_xcpus is non-empty before swtiching an
->> invalid partition back to valid.
->>
->> Add a test case in test_cpuset_prs.sh to verify that an invalid partition
->> with a remote partition underneath cannot be switched back to valid
->> with a hotplug event.
->>
->> Fixes: 181c8e091aae ("cgroup/cpuset: Introduce remote partition")
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Link: https://sashiko.dev/#/bug/linux-47715b89-d5fb-4731-b7c9-070773c6ff75
->> Signed-off-by: Waiman Long <longman@redhat.com>
->> ---
->>   kernel/cgroup/cpuset.c                        | 42 ++++++++++++-------
->>   .../selftests/cgroup/test_cpuset_prs.sh       |  4 ++
->>   2 files changed, 30 insertions(+), 16 deletions(-)
->>
->> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
->> index 8b684361c94e..af5fd543fe88 100644
->> --- a/kernel/cgroup/cpuset.c
->> +++ b/kernel/cgroup/cpuset.c
->> @@ -2034,11 +2034,7 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->>   		 * tasks_nocpu_error() with this very mask, and a failing
->>   		 * write is routed to partcmd_invalidate instead.
->>   		 */
->> -		if (is_partition_invalid(cs)) {
->> -			adding = false;
->> -			deleting = cpumask_and(tmp->delmask,
->> -					newmask, parent->effective_xcpus);
->> -		} else {
->> +		if (is_partition_valid(cs)) {
->>   			cpumask_andnot(tmp->addmask, cs->effective_xcpus, newmask);
->>   			adding = cpumask_and(tmp->addmask, tmp->addmask,
->>   					     parent->effective_xcpus);
->> @@ -2046,6 +2042,17 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->>   			cpumask_andnot(tmp->delmask, newmask, cs->effective_xcpus);
->>   			deleting = cpumask_and(tmp->delmask, tmp->delmask,
->>   					       parent->effective_xcpus);
->> +		} else {
->> +			deleting = cpumask_and(tmp->delmask,
->> +					newmask, parent->effective_xcpus);
->> +
->> +			/* Check if a remote partition may be underneath */
->> +			if ((parent == &top_cpuset) &&
->> +			    !cpumask_empty(cs->exclusive_cpus) &&
->> +			    cpumask_intersects(tmp->delmask, subpartitions_cpus)) {
->> +				part_error = PERR_REMOTE;
->> +				deleting = false;
->> +			}
->>   		}
->>   
->>   		/*
->> @@ -2126,34 +2133,37 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->>   		} else if (is_partition_invalid(cs)) {
->>   			struct cgroup_subsys_state *css;
->>   			struct cpuset *child;
->> -			bool exclusive = true;
->>   
->>   			/*
->>   			 * Convert invalid partition to valid has to pass the
->> -			 * cpu exclusivity test when cpuset.cpus.exclusive is
->> -			 * empty as well as the housekeeping check.
->> +			 * following tests:
->> +			 * 1) housekeeping CPU conflict check
->> +			 * 2) cpu exclusivity test when cpuset.cpus.exclusive is
->> +			 *    empty.
->> +			 * 3) if parent is top_cpuset, none of the effective_xcpus
->> +			 *    (tmp->delmask) are in subpartitions_cpus, if not a
->> +			 *    remote partition may be underneath.
->>   			 */
->>   			if (prstate_housekeeping_conflict(cs->partition_root_state,
->>   							  parent_prs, tmp->delmask, NULL)) {
->>   				part_error = PERR_HKEEPING;
->> -				goto write_error;
->> -			}
->> -			if (cpumask_empty(cs->exclusive_cpus)) {
->> +			} else if (cpumask_empty(cs->exclusive_cpus)) {
->>   				rcu_read_lock();
->>   				cpuset_for_each_child(child, css, parent) {
->>   					if (child == cs)
->>   						continue;
->>   					if (!cpusets_are_exclusive(cs, child)) {
->> -						exclusive = false;
->> +						part_error = PERR_NOTEXCL;
->>   						break;
->>   					}
->>   				}
->>   				rcu_read_unlock();
->> +			} else if ((parent == &top_cpuset) &&
->> +				   cpumask_intersects(tmp->delmask, subpartitions_cpus)) {
->> +				part_error = PERR_REMOTE;
->>   			}
-> Hi,Longman
->
-> I think this check can still miss a remote partition during hotplug.
-> When CPU hotplug leaves no active CPU available to the top partition,
-> cpuset_handle_hotplug() clears subpartitions_cpus before walking the
-> descendants. The remote partitions are still valid at that point.
->
-> An invalid parent is visited before its remote descendant. Since the
-> mask is empty, this check allows the parent to become valid and add
-> its exclusive CPUs back to subpartitions_cpus. When the remote
-> descendant is visited later, those CPUs are already back in the mask,
-> so it passes the subset check and stays remote. We are then left with
-> a valid remote partition below a valid local partition, and
-> compute_partition_effective_cpumask() warns about the remote child.
->
-> Could we check whether there is still a valid remote partition below cs
-> before allowing cs to become valid? subpartitions_cpus may have been
-> cleared by hotplug, so the lack of overlap does not tell us that the
-> remote partition has actually been disabled.
+On Thu, Nov 12, 2026 at 05:14:50PM +0100, Radim Krčmář wrote:
 
-Yes, this is a corner case that I am aware of. Thanks for letting me 
-know about that.
+Hi Radim, thanks for the review.
 
-Right now, only invalid local partition has the ability to switch back 
-to valid when the condition is right. Remote partition has no such 
-capability at the moment. So a remote partition should always be 
-invalidated when top_cpuset run out of active CPU. One way to handle 
-this situation is to switch back to chain all remote partition in a 
-linked list. We can then work the remote partition linked list when that 
-happens and determined if we can their effective_xcpus back to 
-subparttitions_cpus or has to disable it before going down to do 
-hierarchical cpuset walk. This will avoid the corner you are talking 
-about. It will be a separate patch. I will update the patch description 
-to add this limitation and a todo item.
+> 2026-11-08T15:20:50-08:00, Drew Fustini <fustini@kernel.org>:
+> > Add the core for RISC-V CBQRI capacity controllers: the register
+> > layout, the capability probe, and the allocation operations that
+> > program a capacity block mask for an RCID and read it back.
+> >
+> > A discovery layer maps the register block and describes the controller
+> > in a cbqri_controller_info descriptor. riscv_cbqri_register_cc() probes
+> > the controller from that descriptor and adds it to the controller list,
+> > which stays private to the core. The core owns the controller state
+> > after registration, so nothing in it depends on how the controller was
+> > discovered. The caller keeps the register mapping alive.
+> >
+> > Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> > Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> > Signed-off-by: Drew Fustini <fustini@kernel.org>
+> > ---
+> > diff --git a/drivers/resctrl/cbqri_devices.c b/drivers/resctrl/cbqri_devices.c
+> > +static u64 cbqri_readq(void __iomem *addr)
+> > +{
+> > +	return lo_hi_readq(addr);
+> > +}
+> > +
+> > +static void cbqri_clear_cunits(struct cbqri_controller *ctrl)
+> > +{
+> > +	if (ctrl->cc.cunits) {
+> > +		writel(0, ctrl->base + CBQRI_CC_CUNITS_OFF);
+> > +		writel(0, ctrl->base + CBQRI_CC_CUNITS_OFF + 4);
+> 
+> nit: lo_hi_writeq?
 
-Cheers,
-Longman
+Good idea, I'll switch to that.
 
+> > +int cbqri_apply_cache_config(struct cbqri_controller *ctrl, u32 closid,
+> > +			     const struct cbqri_cc_config *cfg)
+> > +{
+> > [...]
+> > +	mutex_lock(&ctrl->lock);
+> > [...]
+> > +out:
+> > +	mutex_unlock(&ctrl->lock);
+> > +	return err;
+> 
+> nit: guard the mutex?
+
+Also a good idea, I'll switch for this function and also
+cbqri_read_cache_config().
+
+> 
+> > +static int cbqri_probe_feature(struct cbqri_controller *ctrl, int reg_offset,
+> > +			       int operation, int *status, bool *access_type_supported)
+> > +{
+> > +	const u64 active_mask = CBQRI_CONTROL_REGISTERS_OP_MASK |
+> > +				CBQRI_CONTROL_REGISTERS_AT_MASK |
+> > +				CBQRI_CONTROL_REGISTERS_RCID_MASK;
+> > +	u64 reg, saved_reg;
+> > +	int at;
+> > +
+> > +	/*
+> > +	 * Default the output to false so the status==0 (feature not
+> > +	 * implemented) path returns a deterministic value to the caller
+> > +	 * rather than leaving an uninitialized bool.
+> > +	 */
+> > +	*access_type_supported = false;
+> > +
+> > +	/* Keep the initial register value to preserve the WPRI fields */
+> > +	reg = cbqri_readq(ctrl->base + reg_offset);
+> > +	saved_reg = reg;
+> > +
+> > +	/* Drain any in-flight firmware op before issuing our own write. */
+> > +	if (cbqri_wait_busy_flag(ctrl, reg_offset, &saved_reg) < 0) {
+> > +		pr_err("BUSY timeout before probe operation\n");
+> > +		return -EIO;
+> > +	}
+> > +
+> > +	/*
+> > +	 * Execute the requested operation with all active fields
+> > +	 * (OP/AT/RCID) zeroed except OP itself. Every bit not in
+> > +	 * active_mask is WPRI and gets carried over from saved_reg.
+> > +	 */
+> > +	reg = (saved_reg & ~active_mask) |
+> > +	      FIELD_PREP(CBQRI_CONTROL_REGISTERS_OP_MASK, operation);
+> > +	writel(lower_32_bits(reg), ctrl->base + reg_offset);
+> > +	if (cbqri_wait_busy_flag(ctrl, reg_offset, &reg) < 0) {
+> > +		pr_err_ratelimited("BUSY timeout during operation\n");
+> > +		return -EIO;
+> > +	}
+> > +
+> > +	/* Get the operation status */
+> > +	*status = FIELD_GET(CBQRI_CONTROL_REGISTERS_STATUS_MASK, reg);
+> > +
+> > +	/*
+> > +	 * Check for AT support if the register is implemented
+> > +	 * (if not, the status value will remain 0)
+> > +	 */
+> > +	if (*status != 0) {
+> > +		/*
+> > +		 * Re-issue operation with AT=CODE so the controller
+> > +		 * latches AT=CODE on supported hardware (or resets it to 0
+> > +		 * on hardware that doesn't). OP must be a defined CBQRI op
+> > +		 * here. OP=0 is a no-op and would silently disable CDP.
+> 
+> OP=0 is a reserved for future standard use.
+> (Hopefully just fails, but it could be worse if it gets implemented as
+>  something other than no-op.)
+
+I'll reword and drop the incorrect statement that OP=0 is a no-op.
+
+> 
+> > +		 */
+> > +		reg = (saved_reg & ~active_mask) |
+> > +		      FIELD_PREP(CBQRI_CONTROL_REGISTERS_OP_MASK, operation) |
+> > +		      FIELD_PREP(CBQRI_CONTROL_REGISTERS_AT_MASK,
+> > +				 CBQRI_CONTROL_REGISTERS_AT_CODE);
+> > +		writel(lower_32_bits(reg), ctrl->base + reg_offset);
+> > +		if (cbqri_wait_busy_flag(ctrl, reg_offset, &reg) < 0) {
+> > +			pr_err("BUSY timeout setting AT field\n");
+> > +			return -EIO;
+> > +		}
+> > +
+> > +		/*
+> > +		 * If the AT field value has been reset to zero,
+> > +		 * then AT support is not present
+> > +		 */
+> > +		at = FIELD_GET(CBQRI_CONTROL_REGISTERS_AT_MASK, reg);
+> 
+> I think it would be safer to also check the status field.
+> 
+> I'm not too clear whether the spec actually allows returning 5 (invalid
+> AT) when the AT is invalid, but an implementation that does that
+> wouldn't surprise me.
+> 
+> (For example when an implementation supports data AT and a custom AT, so
+> code AT isn't supported, but AT in general is -- it could keep the
+> failing code AT and just report the error.)
+
+That seems reasonable. I will change it to only report AT support when
+the AT field reads back as code with status = success.
+
+> > +		if (at == CBQRI_CONTROL_REGISTERS_AT_CODE)
+> > +			*access_type_supported = true;
+> > +	}
+> > +
+> > +	/*
+> > +	 * Restore the original register value.
+> > +	 * Clear OP to avoid re-triggering the probe op.
+> > +	 */
+> > +	saved_reg &= ~CBQRI_CONTROL_REGISTERS_OP_MASK;
+> > +	writel(lower_32_bits(saved_reg), ctrl->base + reg_offset);
+> 
+> It would be better to do nothing than trigger an illegal OP.
+> All our writes should modify the non-WPRI bits anyway, so restoring them
+> does nothing.
+
+I agree. I'll drop the restore write.
+
+> > +	if (cbqri_wait_busy_flag(ctrl, reg_offset, NULL) < 0) {
+> > +		pr_err("BUSY timeout restoring register value\n");
+> > +		return -EIO;
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int cbqri_probe_cc(struct cbqri_controller *ctrl)
+> > +{
+> > [...]
+> > +
+> > +	/*
+> > +	 * The driver programs the v1.0 register layout. Controllers that
+> > +	 * report 0.x differ only in capability bits that read as zero, so
+> > +	 * they are accepted. Anything newer than 1.0 may move fields.
+> > +	 */
+> > +	if (ver_major > 1 || (ver_major == 1 && ver_minor > 0)) {
+> 
+> I think we could accept ver_major == 1 even with ver_minor > 0 since the
+> minor specifications shouldn't be doing backward-incompatible changes.
+> 
+> (If we fix the OP=0, we shouldn't be invoking any other behavior that
+>  might change.)
+
+Good point. I'll skip the ver_minor check and reject ver_major > 1.
+
+> I'd be more careful about accepting anything pre-1.0, since I would
+> expect there was a breaking change in the spec somewhere, and we could
+> program it incorrectly...  Do we even care about pre-1.0 hardware?
+
+I went through the tagged drafts in the riscv-cbqri repo, v0.9.1 through
+v1.0-rc3. The registers and encodings that this driver uses are the same
+in all of them. RPFX/P were added in bits that had been reserved.
+
+If I add that information to the comment, then would that be acceptable
+to you?
+
+Thanks,
+Drew
