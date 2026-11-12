@@ -1,68 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794463734;
-	b=EcthJXRSwi6mQD3oLKMe5NSk1BbSNmNaUUl7TnOLXIuYyvrBf+eT55Iu7eCyJGBc2zJo
-	 DaAWxvNNkPHV95y1rZKaOavV2bpKDtGyKv6frwxh+lLiTxOklhE2b9y9NlnTGTUzWKDyk
-	 qHeN0woYWKY/aOY7/WcLs0DGtOgUCbn580oNbVzGBQbNdrCfPxvlb5rp2HRKeH6Q4ICVV
-	 OAKt9aPvE2LBhcpolFNw2/3KcDR/2d1xNPj/2ZHD64Log0Y21d2rvui6xXHmkwzVvoGf0
-	 uFVSN4rCNMsxUicgGyM5ZBvCfH9mXiy2cZriRT9F1KlWhCK544vY/TTllMlwF7HVOHg==
+	t=1794463788;
+	b=BdjFkEn6q/tCvm7RexNbEPXu18Or8ryoF7jylEQzXmp8bILArEJ4TZ2zz3x1txJXJ022
+	 M72QjsMf+tK15zLH0t4Pk7fO371HjLCvOoSmSSM5pX4z5USCWV+g7WI/ObupgFsTOjiJf
+	 hq4qzn9YpV22cHH26dRQgT/EApGsaXJy8ANuMTsrjcwkcDWTaDHR3vGOFjv2BiIOeuWKb
+	 DaX0qG0v0eKSL8gSfsPXioNgs1AIm3WT8PkvCRqblJG6JIb0NozIr6lJ44lglkVQuNzKd
+	 88R2Q3t/riUIxrZrSVNImXKVO/QcVMJBqEaX3v7dq8WXOjQFVjdR137XLMZEQaxJlNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794463734;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794463788;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=d34XSrfuMx+vANo8jvzVnrlWSb6uHMB5+ZtwtuhDdLs=;
-	b=MXSd6EmPHFcnsElAlCb0GS+GcXLlFYJtMIVpNapB5JNlo26vGLNkP9LUi/v0xzN1rAPU
-	 1F2onykjvdt4pULsgF5gTKt/0inouicWuZmtqkMjfwqVzUbgAUvgKQq28QvEbIz/vbHkc
-	 MBbxe10tkn0X8rDEMDJNNKa+H/aDy/C0Rzqg6V5R8WCQ/91f8xw9NnROW2GiCjgnziJiY
-	 SJpYxU3GqJr//SYrt/2uEaHyVf2sBlOPOwjwewnxqHI9Kcx0Qkb7uxybxi5ldkyZIwaoJ
-	 V45ny3e6VPAg+diA3FhbjgIvknfj7+NOhdDWplMAY5k/P3YZqPKwu2tbwNLUglrDqog==
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QegnHOVCQQW8xmm91W7f7yhk5Ynl+/Lq21GOFV5KI54=;
+	b=NC49MCxDl8Z72mMydrGewxhbt/ZKYxR5d75+b28NHRsn+fCZaENAC0hWnIhAzT/XQIC4
+	 J4rK+adjre8X2PH9TR0eIvqO0z9OqqQeOjtN7UcmNfjpDzCo1FJaXxuKyk22GjJb1FnTs
+	 E08L9zG4dosUdSfeQhaBylQA1vel74kALG2UB8jrLZk6TeMVMSo8hgizh4OOv+PhX2qyE
+	 scH9iz3NTnGri9os0+qRGpEfTRlLEc1EpzlOgi+YEHIs6YdUPxGBbQtX5B1utnJ26EqKL
+	 c0FBk4TNoj0oJ/Syw/VgIYEaSsSOQ0Rptjv2asEoctAS2ZlMXzJWvFpP5EU4k2LrRrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tAewpM9D;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2F66F606A31C;
-	Thu, 12 Nov 2026 06:08:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F66F606A31C
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=KcD6ihXE;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D3DDB606A324;
+	Thu, 12 Nov 2026 06:09:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3DDB606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tAewpM9D
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=KcD6ihXE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=tAewpM9D7SOhLkTmMhP3nlB3KiDT/XyHa5JzzTpKDcGXR0mtmjfSIrqSZ/OBk/n4s54JMkyPrbNBk
-	 RC4VRjrP5tLP0wGwnn7qpSFeze9AFubAqnS1X3PkISVE7Ucs9LqnPeH0vDtWuYTCRQYtwbHWmu9YLa
-	 iVZtkq8vKaj6Aa18=
+	b=KcD6ihXEUQY8BX0JOD60Eylbgh2PvkFZ/xn0v0mqNKGerQZmffmx9UvDfM6f3UEzhqBVWFNR/mfhE
+	 CT9HgI5zoz2Vy38Q1hR0MytKZExRIVpBS4PPCLJmJNowsOOzCa7AMZ9valQNZ3mi4dvqOOrb5HylFu
+	 0YbSaBErXMbBeiJM=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af557eecba-aa656;
-	Thu, 12 Nov 2026 14:08:48 +0800 (CST)
-X-RM-TRANSID:2ee36af557eecba-aa656
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66af5582126f-aafb7;
+	Thu, 12 Nov 2026 14:09:44 +0800 (CST)
+X-RM-TRANSID:2ee66af5582126f-aafb7
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af557ed187-f46a4;
-	Thu, 12 Nov 2026 14:08:48 +0800 (CST)
-X-RM-TRANSID:2eea6af557ed187-f46a4
+	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96af55826aaa-f4fb1;
+	Thu, 12 Nov 2026 14:09:44 +0800 (CST)
+X-RM-TRANSID:2ee96af55826aaa-f4fb1
 From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-To: linux-sound@vger.kernel.org
-Cc: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] soundwire: mipi_disco: Put fwnode on property array read errors
-Date: Thu, 12 Nov 2026 14:08:44 +0800
-Message-ID: <20261112060846.1898-1-laixiangwu@cmss.chinamobile.com>
+To: vkoul@kernel.org,
+	yung-chuan.liao@linux.intel.com
+Cc: pierre-louis.bossart@linux.dev,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Subject: [PATCH v2] soundwire: mipi_disco: Put fwnode on property array read errors
+Date: Thu, 12 Nov 2026 14:09:42 +0800
+Message-ID: <20261112060943.1916-1-laixiangwu@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.50.1.windows.1
-In-Reply-To: <sashiko-outbox-210194@kernel.org>
-References: <sashiko-outbox-210194@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,26 +72,123 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+sdw_master_read_prop() and sdw_slave_read_dpn() take a fwnode
+reference with device_get_named_child_node() and already release it
+on the -ENOMEM and success paths.  However, the error paths added
+for the property array reads jump straight out without dropping the
+reference, leaking it on every failed read.  The lane-list support
+in sdw_slave_read_dpn() is even missing the put on its -ENOMEM path,
+unlike the other array allocations in the same function.
 
-thanks for the review.
+Release the reference on those error paths as well, matching the
+existing -ENOMEM handling in the same functions.
 
-Both Fixes tag corrections are right: the subject uses "mipi-disco",
-and the lane-list error paths (including the -ENOMEM one, which was
-missing the put unlike its siblings) were introduced by 71b405b18444.
-v2 carries both Fixes tags and mentions the -ENOMEM fix explicitly.
+Fixes: a489afc105ed ("soundwire: mipi-disco: add error handling for property array read")
+Fixes: 71b405b18444 ("soundwire: mipi-disco: add support for DP0/DPn 'lane-list' property")
+Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+---
+Changes in v2:
 
-The clock sysfs buffer overflow is also real: prop->num_clk_freq and
-prop->num_clk_gears are taken from firmware-supplied properties
-without an upper bound, and the show callbacks use unbounded
-sprintf().  It is already being addressed by an in-flight patch from
-Weigang He, so I did not duplicate it:
+- Fix the subject of the first Fixes tag to match the commit title
+  ("mipi-disco" instead of "mipi_disco") and add a second Fixes tag
+  for the lane-list error paths, which were introduced by a different
+  commit and also cover the missing put on the lane-list -ENOMEM
+  path (suggested by Sashiko AI review).
+- Note: an earlier attempt to fix these leaks using __free() was
+  posted in 2024 but never merged:
+  https://lore.kernel.org/all/20241019-mipi_disco-of_node_put-v1-1-1de27e6852c4@gmail.com/
 
-  https://lore.kernel.org/all/20260926042935.2284011-1-geoffreyhe2@gmail.com/
+Link: https://lore.kernel.org/all/20261112021827.1835-1-laixiangwu@cmss.chinamobile.com
+ drivers/soundwire/mipi_disco.c | 28 +++++++++++++++++++++-------
+ 1 file changed, 21 insertions(+), 7 deletions(-)
 
-v2 follows shortly.
+diff --git a/drivers/soundwire/mipi_disco.c b/drivers/soundwire/mipi_disco.c
+index 259ad98b5..65f8a41e6 100644
+--- a/drivers/soundwire/mipi_disco.c
++++ b/drivers/soundwire/mipi_disco.c
+@@ -96,8 +96,10 @@ int sdw_master_read_prop(struct sdw_bus *bus)
+ 		ret = fwnode_property_read_u32_array(link,
+ 				"mipi-sdw-clock-frequencies-supported",
+ 				prop->clk_freq, prop->num_clk_freq);
+-		if (ret < 0)
++		if (ret < 0) {
++			fwnode_handle_put(link);
+ 			return ret;
++		}
+ 	}
+ 
+ 	/*
+@@ -132,8 +134,10 @@ int sdw_master_read_prop(struct sdw_bus *bus)
+ 					       scales_prop,
+ 					       prop->clk_gears,
+ 					       prop->num_clk_gears);
+-		if (ret < 0)
++		if (ret < 0) {
++			fwnode_handle_put(link);
+ 			return ret;
++		}
+ 	}
+ 
+ 	fwnode_property_read_u32(link, "mipi-sdw-default-frame-rate",
+@@ -262,8 +266,10 @@ static int sdw_slave_read_dpn(struct sdw_slave *slave,
+ 			ret = fwnode_property_read_u32_array(node,
+ 					"mipi-sdw-port-wordlength-configs",
+ 					dpn[i].words, dpn[i].num_words);
+-			if (ret < 0)
++			if (ret < 0) {
++				fwnode_handle_put(node);
+ 				return ret;
++			}
+ 		}
+ 
+ 		fwnode_property_read_u32(node, "mipi-sdw-data-port-type",
+@@ -305,8 +311,10 @@ static int sdw_slave_read_dpn(struct sdw_slave *slave,
+ 			ret = fwnode_property_read_u32_array(node,
+ 					"mipi-sdw-channel-number-list",
+ 					dpn[i].channels, dpn[i].num_channels);
+-			if (ret < 0)
++			if (ret < 0) {
++				fwnode_handle_put(node);
+ 				return ret;
++			}
+ 		}
+ 
+ 		nval = fwnode_property_count_u32(node, "mipi-sdw-channel-combination-list");
+@@ -325,8 +333,10 @@ static int sdw_slave_read_dpn(struct sdw_slave *slave,
+ 					"mipi-sdw-channel-combination-list",
+ 					dpn[i].ch_combinations,
+ 					dpn[i].num_ch_combinations);
+-			if (ret < 0)
++			if (ret < 0) {
++				fwnode_handle_put(node);
+ 				return ret;
++			}
+ 		}
+ 
+ 		fwnode_property_read_u32(node,
+@@ -347,14 +357,18 @@ static int sdw_slave_read_dpn(struct sdw_slave *slave,
+ 			dpn[i].lane_list = devm_kcalloc(&slave->dev,
+ 							dpn[i].num_lanes, sizeof(*dpn[i].lane_list),
+ 							GFP_KERNEL);
+-			if (!dpn[i].lane_list)
++			if (!dpn[i].lane_list) {
++				fwnode_handle_put(node);
+ 				return -ENOMEM;
++			}
+ 
+ 			ret = fwnode_property_read_u32_array(node,
+ 						       "mipi-sdw-lane-list",
+ 						       dpn[i].lane_list, dpn[i].num_lanes);
+-			if (ret < 0)
++			if (ret < 0) {
++				fwnode_handle_put(node);
+ 				return ret;
++			}
+ 		}
+ 
+ 		fwnode_handle_put(node);
+-- 
+2.50.1.windows.1
 
-Best regards,
-Xiangwu Lai
 
 
