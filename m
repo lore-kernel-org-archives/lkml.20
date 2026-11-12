@@ -1,100 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794499284;
-	b=VJfFIinbDGwsTqooJIbgisO/nkbOxUh+5Xm6eLlYa221PM29oXa//6R3S77DGK0rDVEr
-	 HK3Phm4KbPS8ve+yaqkfs0TOwmbr077/dvSF4WAbrrlvlDsCO5/M+zx6hBRyd1L0aWhL/
-	 o1a9m72GGCTQLIbfBXKeUdVUc7VWLVaTUQ4VSlGOVexbrBCc8Izu5/nD18AhuxapPAAFP
-	 SQTP71lDUIPUVUx9V6p8JiBt6tJhcjRB6FzdAF3mebcGebGBLJTt1qjUVdjL2nHL1Tm4M
-	 z6rwAJNGGg3kpgGaw7PMjCGAanlOAnDO9DCPgDmgApLcjp6x3krayOHMIBWKAagnayQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794499284;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=K30WU9LcDm9KOHnUzmPG5F9Q3grxCVKpIQuAPTV3Oio=;
-	b=WBvSdtyLllkv5j/iLfNm8AGk1ZPQD/CAVavch0mKie7J+pFcKOODJ62m28xiWOh3CMun
-	 DLUTBiS6CJLjqdebmPYybuJz7JfvRSMgEZztAzoGB1meK2sf2JZD2hVL4QqtNnhgEwI4J
-	 8Q6F2jZmL9t+9OX0TMrDH03VH6kOMqHdACffAHNwVZSKTWjFiJocjZJ/a8pwGHbc4HGys
-	 gx2Jq+Qa8iAy7pPJ0S+Z7tvbI3rBz+ZcfvVNZIfTjEMltSW2Z0KcVCTAhB1IO2yoRUvBY
-	 AsxbJ14w06AiVXjBQO60ww88D5yWAXCP62KOUKrC9C4G2TAb/KIQa709MFVUf33sgUQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=asQ6Kkgb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794499302;
+	b=cI8TdWvbCQl1jYf+rjzHVEEMN0F81HtVVzvuWj/WiqBYUMGHwhXCKaqhWV31ql7Toi4T
+	 KglPw4oC/eWM38IrQrGK6Ixpx/ovE8xZlE3DXo59x6pqbFyZzi55EeIYkWPpsV5H27dXe
+	 7cK/S3gC6diVt13wgFMkuoyLa4qQ2ZwQQbDiNd2io+WZK+Vkv+ORGMb2BQQIUudMN1BeG
+	 rSblrBdrgwDyRT6m02I7h+Ql0SivputkekhbMjsGI5kzQ9cp64OY0O2Qs1y+oQ9QlQ1gE
+	 JIeZDP45yf8IZQfyhlGgb3mthqVKZzwkLwiqCcSWZLVcictGed+Mmqtv98b6gRkm3ew==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794499302;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=kjiQ212yf1PFzgc0XMcYedCjf1x/Z7XdUe85fS5QUeM=;
+	b=DcsVPBDk8nYt+1dglhRruZgsDC3gffzeUJeUePx7mX2SiYXbgvl3/AOLiFJxRMbuCzz7
+	 PoYjuJIcDGwIUnDcuuWIsWOfI5OO65NiQmQXaGfdPvr+PbcnO7GzRakD1hyZdrK5S8plE
+	 PsUXMYgz5M1ZgVytGYgTYt+QnlZpKIO+hko+zXw/BihRGfzY6qZ0uu3ltEimBBVe5+Y1e
+	 ctJ6fvDEpql463eMfJRscZ1nuefJrFu8fWU6PdOHITsf8BNgQTz2+N2rXQW0kRCTZJQ54
+	 8g/U6SpkjI5Wy3e52lkwmM2rY7ToGmhLmqWcXFXRvyiX8bcjeTSZP4sfMsojuMLSrpA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=JakJZCtG;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33F83606A332
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:01:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33F83606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B1A606A327;
+	Thu, 12 Nov 2026 16:01:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55B1A606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=asQ6Kkgb
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so55530835e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:01:23 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794499282; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CHLquuq//qXHoSqGDfHK0OehBBzyeitJ2K8xTPf+kDzp9VzKK3xAKzTEapJ7iJBk//
-         xQnylGyRdF1UPDEXMsSfvtY2CEN0ahmh/PE9A0Zh4sOijwMOJwGRO5cZoIHofjUyw8PE
-         SHuCfnkiAO5cr+TlqUFtki0zORbnQV2HiLpWdYXmJh+qc+7PHpCnoJpgkLbwzLJYQBAJ
-         FUYahJM/tnOkmVj03bz19tlHqMehmoSssTABHyW/5X2AsqpjpRFs/OL/S45062kmwUpl
-         Kh+LID4vgx1T3fyWAJfQiuH308J0p1h3hE0JyAtgZZrjTkNnkOEFBDrc0ihNK+36X4DX
-         peQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=K30WU9LcDm9KOHnUzmPG5F9Q3grxCVKpIQuAPTV3Oio=;
-        fh=FqPzrEt9TlbZFJHm1aTxRS9BxnGsc4Qu7+xcIPssyQw=;
-        b=sAp3tH7gFIT2LOwa3NNG7N36OD4VPAj/Tpgh9Rxk9g9rjbXm3TfBI8Ndh3iGQpn+Sq
-         81+CSBDusoNKJzRpcx2Be/9hKw0xKtfDNLpJLim8CtOpomVxN7RUyrpa24UZl24RePRh
-         ioeLsFyqPzBZOI0+DEFbiuOyuU8o5SAJhqymvino+6Ps6YoLi4qgs/ePHMP+aXNK1iAO
-         ojm80GhmGoyJuOfxRYfqYqaW+ziT3cRSKxeUMJIW1SU2OwQOvL8FiqcalpRgq0ZnFIiA
-         UAbj4RcFg62s8xK0F8yBS15EzVOv/frOmVL5YM3Pkcmu6LiMwicQp7RMbDyxdwLC8ufT
-         8P/Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794499282; x=1795104082; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=K30WU9LcDm9KOHnUzmPG5F9Q3grxCVKpIQuAPTV3Oio=;
-        b=asQ6KkgboxQr2Mix4uFXV97OZ4yQDaOEh9XXJvisPx2EPGhn5J8mcUoEZGV1Qeagb0
-         Ai7PxqX8tEH8mdpe/wwT65dwo+YA6B9kehSmgtkDDpS13Hr62CAOHX7C5QdKM+IGnSfI
-         QkCMfS34Um5jNw5/L/5hM0f9cN8RySssd5TviZczWCdI7osE4Z8oZQAb9qD794opBVCq
-         gpAzdC2ceN0QkqGe+vB6SzZyXV84S/smCWXulY4TtzR5YGtNMSBL48Is2CzXKFW2QfGf
-         6O0jxlFZn87zP3M5OnX6S5Pxeu/cFTk/Et89FxtMSHEkDVN1+uecNnARomY1gctIsF1O
-         qqgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794499282; x=1795104082;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K30WU9LcDm9KOHnUzmPG5F9Q3grxCVKpIQuAPTV3Oio=;
-        b=DZYJuvNqxaREGJdgdfjmuZPgdeuipXss3xacyyI/mLOQ/+4Od5vSpOEl4Gu63bLDuZ
-         RvZUDEKPS46H8yvd4yawpuJlYoi1+U/AkBxZltu0Ax9aNAtD0qEeOfd1G0sglTfctHs8
-         0+44zaM86Vi/bhxUjA5026wGv6sNoinTCu8NCtyU0H2CQmQN3BvZi/o1qnDKWP1IShL3
-         vTYFdlMSbJkiKV8PWP+rgvglTwc/AmNnHf/exKngimYAE48o6lYKtTlZjaYwdTXC8cbN
-         BvqvA7Z7o0aJEb2Q+kwY22tY/O6pMwUze5zQNo4wsPd1fEMVaja5LvFFalVwFWv3cKUX
-         VPUg==
-X-Forwarded-Encrypted: i=1; AL+hErHofoFHjXlcYK2zPALpa0e75ZGlFPup96D597VuOR0S+zJk6vNWHZ26aIvZXuRsPPVTuh/AlMeSlKji1Dw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z87nGQc8Ta2ioHQgalCtsqD6dc6jPo2b2YLN7rgQpjDHW4yPcvR
-	2T4n2NA7f0riRmaSlt/RXi8PPAJyLbSBcNHDskJ228eEaNPNyJ19/W0x5noT/HFoO7wTYubXULY
-	wHISk+m9R6YQTmpb+0P0z/Egp53UX9CU=
-X-Gm-Gg: AYBFou2VpAItHczj8aSP1c0jVUie2sqJlYbyL1EPd4uwqfvnIagpXg6MyZ1KGi9A1KA
-	1juoB5ZWip76MHaiLpd8C/ChS152JrAAsWqis0hz3rYJ9Ij6/AwjNrXI1a4gfpZ3JVpQGIHKj8B
-	dHO5RVQAi6YolEmwe55MvZp3+wSqNIV8v3eeT7jUXFsvqpWKM8tVgWhwCfCgTAUil9Z8S57rBYf
-	v6Q7mL8rCyV7G5/DJP5O0EB1qH5rs2TtqqthLu00lfjpct3gC9ZY4UcUZw0/LZUOnG1x315xCf3
-	tnRiKX5PYqDqwmzI9s75CTp7GLO2psm40M70yBDRPdspDdeotL/h/5rAggqZpKUoFjWGLiOuiat
-	uC9MCu43lpumfeaDvPGF/ilJmrhwkobQXV9t+roCyBVOm9iTvcMY3v+uSIA1fHs7a6km6sA==
-X-Received: by 2002:a05:600c:1d29:b0:4a6:42cc:bf65 with SMTP id
- 5b1f17b1804b1-4ba0938182bmr115084735e9.17.1794499282029; Thu, 12 Nov 2026
- 08:01:22 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=JakJZCtG
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=kjiQ212yf1PFzgc0XMcYedCjf1x/Z7XdUe85fS5QUeM=; b=JakJZCtGHFNweWgQDckDwc0f5Z
+	gsEb4L65dV9gyPS6dxEOn6flj6hHJf0j9l0KfYyRTX3FB56NwnktQDJxy5EzK7QjlVIuYsB4voQdX
+	wf6IXeLZ+Y7Zmh2/hMxOkA9JHeunIixny+YI819lSOor57L6jqA6D4owpapY9dAqUw+66ZmJ8/mal
+	cE3oGap/WnkYIumfG6du72z4m3sc2fp0SgEeK+sIqNN2b0v3xSRGWEzKVgcGjixJ7fNXi6LhMYz3u
+	lf57jd1GfuVYO8KixWLbVQO659mxDvVJR0vWB6kj890Qwrf+pVEXfviobjk6mL1rg7r9Re9lyng9C
+	FEO6xd8g==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRXF3-00000008iFE-0mpe;
+	Thu, 12 Nov 2026 16:01:37 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 30AD33005AF; Thu, 12 Nov 2026 17:01:36 +0100 (CET)
+Date: Thu, 12 Nov 2026 17:01:36 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Tao Cui <cui.tao@linux.dev>
+Cc: tj@kernel.org, void@manifault.com, arighi@nvidia.com,
+	changwoo@igalia.com, mingo@redhat.com, sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: Re: [PATCH 2/2] sched_ext: Block a retained donor before PI deboost
+ routes it back to sched_ext
+Message-ID: <20261112160136.GF1922751@noisy.programming.kicks-ass.net>
+References: <20261112144935.583937-1-cui.tao@linux.dev>
+ <20261112144935.583937-3-cui.tao@linux.dev>
+ <20261112152118.GD1813469@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,137 +71,204 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104165504.2430480-1-kunwu.chan@gmail.com>
- <20261104165504.2430480-10-kunwu.chan@gmail.com> <381033ae-d65e-44de-bbe7-69f707405f40@paulmck-laptop>
-In-Reply-To: <381033ae-d65e-44de-bbe7-69f707405f40@paulmck-laptop>
-From: KunWu Chan <kunwu.chan@gmail.com>
-Date: Fri, 13 Nov 2026 00:01:10 +0800
-X-Gm-Features: AclHuK_r0z0qzRgTWpnMwVZyYzYAfYE6f8hG1Sg9QutknQhxmorMBRwJwam3dq4
-Message-ID: <CAN_Opa9F9prFRqta5KwCHoQHrmsOEB4_m2tst0+0VY+fh5o2cg@mail.gmail.com>
-Subject: Re: [PATCH 09/28] hazptrtorture: Add READERS4 and READERS0 torture configs
-To: paulmck@kernel.org
-Cc: boqun@kernel.org, mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com, 
-	corbet@lwn.net, mingo@redhat.com, frederic@kernel.org, 
-	neeraj.upadhyay@kernel.org, josh@joshtriplett.org, urezki@gmail.com, 
-	dave@stgolabs.net, stern@rowland.harvard.edu, parri.andrea@gmail.com, 
-	will@kernel.org, dhowells@redhat.com, j.alglave@ucl.ac.uk, 
-	luc.maranget@inria.fr, akiyks@gmail.com, dlustig@nvidia.com, 
-	joelagnelf@nvidia.com, skhan@linuxfoundation.org, rdunlap@infradead.org, 
-	longman@redhat.com, rostedt@goodmis.org, qiang.zhang@linux.dev, 
-	brads@mainlining.org, linux-kernel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, lkmm@lists.linux.dev, linux-doc@vger.kernel.org, 
-	rcu@vger.kernel.org, linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112152118.GD1813469@noisy.programming.kicks-ass.net>
 
-On Wed, Nov 11, 2026 at 5:37=E2=80=AFAM Paul E. McKenney <paulmck@kernel.or=
-g> wrote:
->
-> On Thu, Nov 05, 2026 at 12:54:27AM +0800, Kunwu Chan wrote:
-> > Add READERS4 and READERS0 configs to cover reader-active and
-> > reader-free synchronize paths.
-> >
-> > Both use the PREEMPT baseline and hazptr-stack torture type,
-> > with four readers for READERS4 and no readers for READERS0.
-> >
-> > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
->
-> For these, why not just add '--bootargs "hazptrtorture.nreaders=3D0"'
-> to the kvm.sh command line, for example in torture.sh?  Ditto for the
-> four-readers case.
->
-Hi Paul,
+On Thu, Nov 12, 2026 at 04:21:18PM +0100, Peter Zijlstra wrote:
+> On Thu, Nov 12, 2026 at 10:49:35PM +0800, Tao Cui wrote:
+> > From: Tao Cui <cuitao@kylinos.cn>
+> > 
+> > rt_mutex_setprio() is the only entry path into sched_ext that does not
+> > block a retained donor: an ext task PI-boosted by an rt waiter can
+> > block on a second kernel mutex while boosted, and on deboost is routed
+> > back to sched_ext carrying the queued+blocked state that
+> > scx_prepare_setscheduler() promises never happens; every PI cycle
+> > hands the BPF scheduler a queued+blocked donor it never admitted.
+> > 
+> > Call scx_prepare_task_sched_change() before the sched_change guard when
+> > the class change routes the task back to sched_ext, which performs the
+> > missing sched_proxy_block_task() (plus an update_rq_clock() that is
+> > harmless here: the clock was already advanced, so the second advance
+> > only applies a small delta). The boost direction (ext -> rt) needs no
+> > handling.
+> 
+> I can't understand this. And I take a very dim view of sprinking magic
+> hooks like this. So no.
 
-Agreed. I wanted to keep the zero- and four-reader cases as
-explicit, repeatable tests. I'll drop the separate configs and
-retain them as scripted PREEMPT runs, passing nreaders=3D0 or 4
-and torture_type=3Dhazptr-stack through --bootargs.
+Ooh, is this the thing from here:
 
-Thanks,
-Kunwu
+  https://patch.msgid.link/20260924075925.GE4121620%40noisy.programming.kicks-ass.net
 
->                                                         Thanx, Paul
->
-> > Acked-by: Bradley Morgan <brads@mainlining.org>
-> > ---
-> >  .../selftests/rcutorture/configs/hazptr/READERS0 | 16 ++++++++++++++++
-> >  .../rcutorture/configs/hazptr/READERS0.boot      |  2 ++
-> >  .../selftests/rcutorture/configs/hazptr/READERS4 | 16 ++++++++++++++++
-> >  .../rcutorture/configs/hazptr/READERS4.boot      |  2 ++
-> >  4 files changed, 36 insertions(+)
-> >  create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/R=
-EADERS0
-> >  create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/R=
-EADERS0.boot
-> >  create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/R=
-EADERS4
-> >  create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/R=
-EADERS4.boot
-> >
-> > diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/READERS0=
- b/tools/testing/selftests/rcutorture/configs/hazptr/READERS0
-> > new file mode 100644
-> > index 000000000000..c5b12f3bef74
-> > --- /dev/null
-> > +++ b/tools/testing/selftests/rcutorture/configs/hazptr/READERS0
-> > @@ -0,0 +1,16 @@
-> > +CONFIG_SMP=3Dy
-> > +CONFIG_NR_CPUS=3D16
-> > +CONFIG_PREEMPT_NONE=3Dn
-> > +CONFIG_PREEMPT_VOLUNTARY=3Dn
-> > +CONFIG_PREEMPT=3Dy
-> > +CONFIG_HZ_PERIODIC=3Dn
-> > +CONFIG_NO_HZ_IDLE=3Dy
-> > +CONFIG_NO_HZ_FULL=3Dn
-> > +CONFIG_HOTPLUG_CPU=3Dy
-> > +CONFIG_SUSPEND=3Dn
-> > +CONFIG_HIBERNATION=3Dn
-> > +CONFIG_DEBUG_LOCK_ALLOC=3Dn
-> > +CONFIG_PROVE_LOCKING=3Dn
-> > +CONFIG_DEBUG_OBJECTS_RCU_HEAD=3Dn
-> > +CONFIG_DEBUG_KERNEL=3Dy
-> > +CONFIG_HAZPTR_DEBUG=3Dy
-> > diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/READERS0=
-.boot b/tools/testing/selftests/rcutorture/configs/hazptr/READERS0.boot
-> > new file mode 100644
-> > index 000000000000..f5564c218902
-> > --- /dev/null
-> > +++ b/tools/testing/selftests/rcutorture/configs/hazptr/READERS0.boot
-> > @@ -0,0 +1,2 @@
-> > +hazptrtorture.nreaders=3D0
-> > +hazptrtorture.torture_type=3Dhazptr-stack
-> > diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/READERS4=
- b/tools/testing/selftests/rcutorture/configs/hazptr/READERS4
-> > new file mode 100644
-> > index 000000000000..c5b12f3bef74
-> > --- /dev/null
-> > +++ b/tools/testing/selftests/rcutorture/configs/hazptr/READERS4
-> > @@ -0,0 +1,16 @@
-> > +CONFIG_SMP=3Dy
-> > +CONFIG_NR_CPUS=3D16
-> > +CONFIG_PREEMPT_NONE=3Dn
-> > +CONFIG_PREEMPT_VOLUNTARY=3Dn
-> > +CONFIG_PREEMPT=3Dy
-> > +CONFIG_HZ_PERIODIC=3Dn
-> > +CONFIG_NO_HZ_IDLE=3Dy
-> > +CONFIG_NO_HZ_FULL=3Dn
-> > +CONFIG_HOTPLUG_CPU=3Dy
-> > +CONFIG_SUSPEND=3Dn
-> > +CONFIG_HIBERNATION=3Dn
-> > +CONFIG_DEBUG_LOCK_ALLOC=3Dn
-> > +CONFIG_PROVE_LOCKING=3Dn
-> > +CONFIG_DEBUG_OBJECTS_RCU_HEAD=3Dn
-> > +CONFIG_DEBUG_KERNEL=3Dy
-> > +CONFIG_HAZPTR_DEBUG=3Dy
-> > diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/READERS4=
-.boot b/tools/testing/selftests/rcutorture/configs/hazptr/READERS4.boot
-> > new file mode 100644
-> > index 000000000000..0d0df3f7dca4
-> > --- /dev/null
-> > +++ b/tools/testing/selftests/rcutorture/configs/hazptr/READERS4.boot
-> > @@ -0,0 +1,2 @@
-> > +hazptrtorture.nreaders=3D4
-> > +hazptrtorture.torture_type=3Dhazptr-stack
-> > --
-> > 2.43.0
-> >
+where you need to block a task because ext doesn't want to support
+proxy-exec?
+
+Why can't anybody search email these days..
+
+Something like so? Although I note the scx_block_proxy_donor() thing has
+gotten more complicated, so perhaps this needs a little more?
+
+Andrea?
+
+---
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 1a088d4576f5..1c1e669473a6 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -11252,8 +11252,13 @@ void sched_change_end(struct sched_change_ctx *ctx)
+ 	 */
+ 	WARN_ON_ONCE(p->sched_class != ctx->class && !(ctx->flags & ENQUEUE_CLASS));
+ 
+-	if ((ctx->flags & ENQUEUE_CLASS) && p->sched_class->switching_to)
+-		p->sched_class->switching_to(rq, p);
++	if ((ctx->flags & ENQUEUE_CLASS) && p->sched_class->switching_to) {
++		bool block = p->sched_class->switching_to(rq, p);
++		if (block && p->is_blocked && ctx->queued) {
++			block_task(rq, p, READ_ONCE(p->__state));
++			ctx->queued = false;
++		}
++	}
+ 
+ 	if (ctx->queued)
+ 		enqueue_task(rq, p, ctx->flags);
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index f74ffb3b1aca..4440e32236b3 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -46,21 +46,6 @@ bool __scx_allow_proxy_exec(const struct task_struct *p)
+ 	return !sch || (sch->ops.flags & SCX_OPS_ENQ_BLOCKED);
+ }
+ 
+-/*
+- * End retained proxy execution before changing @p's BPF scheduler ownership.
+- * Called with @p's pi and rq locks held immediately before
+- * sched_change_begin(). The caller must pass DEQUEUE_NOCLOCK so the rq clock
+- * is updated only once.
+- */
+-void scx_prepare_task_sched_change(struct task_struct *p)
+-{
+-	lockdep_assert_held(&p->pi_lock);
+-	lockdep_assert_rq_held(task_rq(p));
+-
+-	update_rq_clock(task_rq(p));
+-	scx_block_proxy_donor(task_rq(p), p);
+-}
+-
+ /*
+  * NOTE: sched_ext is in the process of growing multiple scheduler support and
+  * scx_root usage is in a transitional state. Naked dereferences are safe if the
+@@ -5004,12 +4989,12 @@ static void prio_changed_scx(struct rq *rq, struct task_struct *p, u64 oldprio)
+ {
+ }
+ 
+-static void switching_to_scx(struct rq *rq, struct task_struct *p)
++static bool switching_to_scx(struct rq *rq, struct task_struct *p)
+ {
+ 	struct scx_sched *sch = scx_task_sched(p);
+ 
+ 	if (task_dead_and_done(p))
+-		return;
++		return false;
+ 
+ 	scx_enable_task(sch, p);
+ 
+@@ -5020,6 +5005,8 @@ static void switching_to_scx(struct rq *rq, struct task_struct *p)
+ 	 */
+ 	if (!scx_is_cid_type() && SCX_HAS_OP(sch, set_cpumask))
+ 		scx_call_op_set_cpumask(sch, rq, p, (struct cpumask *)p->cpus_ptr);
++
++	return !scx_allow_proxy_exec(p);
+ }
+ 
+ static void switched_from_scx(struct rq *rq, struct task_struct *p)
+@@ -8947,10 +8934,8 @@ static void scx_root_enable_workfn(struct kthread_work *work)
+ 
+ 		if (old_class != new_class)
+ 			queue_flags |= DEQUEUE_CLASS;
+-		if (new_class == &ext_sched_class) {
+-			scx_prepare_task_sched_change(p);
++		if (new_class == &ext_sched_class)
+ 			queue_flags |= DEQUEUE_NOCLOCK;
+-		}
+ 
+ 		scoped_guard (sched_change, p, queue_flags) {
+ 			scx_set_task_slice(p, READ_ONCE(sch->slice_dfl));
+diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
+index ff0a3d508533..961694e4c27c 100644
+--- a/kernel/sched/ext/internal.h
++++ b/kernel/sched/ext/internal.h
+@@ -2300,7 +2300,6 @@ struct task_struct *scx_task_iter_next_locked(struct scx_task_iter *iter);
+ bool scx_set_task_slice(struct task_struct *p, u64 slice);
+ void scx_task_slice_ended(struct rq *rq, struct task_struct *p);
+ void scx_task_unlink_from_dsq(struct task_struct *p, struct scx_dispatch_q *dsq);
+-void scx_prepare_task_sched_change(struct task_struct *p);
+ void scx_dispatch_dequeue(struct rq *rq, struct task_struct *p);
+ void scx_do_enqueue_task(struct rq *rq, struct task_struct *p, u64 enq_flags,
+ 			 int sticky_cpu);
+diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
+index b5d92d89629b..e73f3474d685 100644
+--- a/kernel/sched/ext/sub.c
++++ b/kernel/sched/ext/sub.c
+@@ -1647,7 +1647,6 @@ static void scx_rehome_task(struct scx_sched *to, struct task_struct *p)
+ 	lockdep_assert_held(&p->pi_lock);
+ 	lockdep_assert_rq_held(task_rq(p));
+ 
+-	scx_prepare_task_sched_change(p);
+ 	scoped_guard (sched_change, p,
+ 		      DEQUEUE_SAVE | DEQUEUE_MOVE | DEQUEUE_NOCLOCK) {
+ 		scx_disable_and_exit_task(scx_task_sched(p), p);
+@@ -1680,7 +1679,6 @@ static void scx_punt_task(struct scx_sched *to, struct task_struct *p)
+ 	lockdep_assert_rq_held(task_rq(p));
+ 	WARN_ON_ONCE(!READ_ONCE(to->bypass_depth));
+ 
+-	scx_prepare_task_sched_change(p);
+ 	scoped_guard (sched_change, p,
+ 		      DEQUEUE_SAVE | DEQUEUE_MOVE | DEQUEUE_NOCLOCK) {
+ 		scx_disable_and_exit_task(scx_task_sched(p), p);
+@@ -2459,7 +2457,6 @@ void scx_sub_enable_workfn(struct kthread_work *work)
+ 		if (!(p->scx.flags & SCX_TASK_SUB_INIT))
+ 			continue;
+ 
+-		scx_prepare_task_sched_change(p);
+ 		scoped_guard (sched_change, p,
+ 			      DEQUEUE_SAVE | DEQUEUE_MOVE | DEQUEUE_NOCLOCK) {
+ 			/*
+diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
+index e0c10a5dbda2..cda367bd92af 100644
+--- a/kernel/sched/idle.c
++++ b/kernel/sched/idle.c
+@@ -547,7 +547,7 @@ static void task_tick_idle(struct rq *rq, struct task_struct *curr, int queued)
+ 	update_curr_idle(rq);
+ }
+ 
+-static void switching_to_idle(struct rq *rq, struct task_struct *p)
++static bool switching_to_idle(struct rq *rq, struct task_struct *p)
+ {
+ 	BUG();
+ }
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 1d76950dbb0a..979c520034b1 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -2782,7 +2782,7 @@ struct sched_class {
+ 	 */
+ 	void (*switching_from)(struct rq *this_rq, struct task_struct *task);
+ 	void (*switched_from) (struct rq *this_rq, struct task_struct *task);
+-	void (*switching_to)  (struct rq *this_rq, struct task_struct *task);
++	bool (*switching_to)  (struct rq *this_rq, struct task_struct *task);
+ 	void (*switched_to)   (struct rq *this_rq, struct task_struct *task);
+ 	u64  (*get_prio)     (struct rq *this_rq, struct task_struct *task);
+ 	void (*prio_changed) (struct rq *this_rq, struct task_struct *task,
+diff --git a/kernel/sched/stop_task.c b/kernel/sched/stop_task.c
+index 1e0109ec36b3..b7541bb7b593 100644
+--- a/kernel/sched/stop_task.c
++++ b/kernel/sched/stop_task.c
+@@ -78,7 +78,7 @@ static void task_tick_stop(struct rq *rq, struct task_struct *curr, int queued)
+ {
+ }
+ 
+-static void switching_to_stop(struct rq *rq, struct task_struct *p)
++static bool switching_to_stop(struct rq *rq, struct task_struct *p)
+ {
+ 	BUG(); /* its impossible to change to this class */
+ }
