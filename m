@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794502872;
-	b=YbqQFKe3pPip5TXzX+V2NSqjlsewppAFyfzSuZpSXxFcyBeSLV0p59DFz/f6UsqlBTwX
-	 VbdiNbgNWvw2VQILV1AyT42LnU+QyXaJpp4ulL9CbWDPnDvBmmq6R/vS4cNA4mXmaxDnx
-	 A9jBB7dV9QPvURppDL+Mze69pefQv9hTwvbWtN5v+ouKWj/BkjANbjGnCBwSt1cruo7Uj
-	 BLEK9EF2RHfb4QqAlhyr8h0DjMbqf9m4Y6ifF0S6VvPRb4o07Q9Hd+oLnA0eajOdhZyEH
-	 ZEsSBxasK0xWXIIjDjta/5BdkxE5tRi8djsBICu/edpJMy0EBdEfg8bFdGOK05Rv1tg==
+	t=1794502880;
+	b=rW4LbVCPd/ayZZIeE/JfjvcLqgEoDOI/rrClK4UtZTZxr2ydQ83kaaRaE5hOqicN+AmV
+	 WzQxzras5V6NHg2beUeGA5xvbDFtXcmgH8mKs9yAQQ8xetiOm0eDX9tiGImMBbw0ysCnb
+	 c7fgIFqEhqrnDLxwv2IGrcoYhfk2XugWf14QlFinYeQA0GCDTlxirR8HurdLMgh1m9RxM
+	 bYwZBlKsUzXbeMSMZcKNJqE+w4wg0FWgpo0z6C/huJN07E7K1K4TqvPLZurgxYeWBGF2e
+	 cSHoO5QkmVJB9RLRtMdHVApuLAQqm19b7jhdm9L9YolHbaxCGBd3pgg2uGMn/G1dg0w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794502872;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794502880;
 	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
-	bh=OEbtzU9uwmtl0K0JSe5qb3/CsbblUiOI+QqP89nwPNM=;
-	b=Qzem+Rt6GpQDR3RGLLf3xvi6zpE6vyBoiqOFEtvyvr2vfzlRHfX+XCh3zIp+3dY9nOOR
-	 7ZEmShRZXluCBLDcU/aT4sQW+9hTMkmG0Lk3ig4DqmaW+ImKaJoR/iOFqWRJGK/zxUSIQ
-	 BIPstuixT2ZUs9zLiCLN4BbkdpMglmhr35dvhp0gwDnvfz3FTmnRqTLB9XwfEoGaMM3xv
-	 2s8xGYTaavjQpr5bI/TPXBAXyD1bw+z0JKrtu2yv1BjBSL63pCe2RTzoX4S+CHjVhmmPs
-	 OVkIy6m3BzSnwAMhFicG44Ew1Oo6ynDK33JNAfJQYhgGsuyp8OrSbfJKGystxgxYj3g==
+	bh=TtYqv35d/hIFrfEOxRg2mF77Izfl5YEa1ki7sh6I1ZA=;
+	b=o2oQMqs/sDYZc9WxI9FmBiB/vtc+fnAiGbukhqgD3vFzGPbphSx3tliYOa2hPZ1Fke4w
+	 ojmlnT7CggDSBv/TkyBhdWqhPOo/uyayL7UBY6mQ6f344siEDLrRQG+MrhF/JZERWA0ue
+	 3NiQvz/z3EilhvFlLa06bchAPSbI+KJvTvYLCpWhV8l83WHFslrMtb7W4gL4yJjMPQ18M
+	 wNSvYzZaMsub1PN3EPJ0tkjZX3pYOiyvFlggRvOugz8knFvug47XijqI+KMIbzTUNPTMk
+	 f8/LiLye1oKR9MSujQGUkAkDr5CrLbJp6/085oRgQtqs3S2aLShy2yATwhorrAG/3Dg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=FaCgRDER;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=GMVFhPIB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2444F606A32A;
-	Thu, 12 Nov 2026 17:01:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2444F606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D40D1606A894;
+	Thu, 12 Nov 2026 17:01:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D40D1606A894
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=FaCgRDER
-ARC-Seal: i=1; a=rsa-sha256; t=1794502845; cv=none; 
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=GMVFhPIB
+ARC-Seal: i=1; a=rsa-sha256; t=1794502852; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=naELY/sGfNqfN0+4LrmZM5yu9ttDQOK7XzPmaCEruZF3mWlnVDY51JjQR8inlHsSn5Eqvib8/KVcQg0vhLqHlrysyRNPBlz9VAtzizLYZFbDC0W2H2k6qxSG3BioxO8hr9slidZBhRinQGm1B3GoUpdnlTu4Jawukntg6siYBys=
+	b=G04TUT7EN1HbycSFfu62DSpu1EZNheXoz/HbGS0oNyISqVFhdcGdhvTQuX6Wh/FNDheWMdUkWocXIyfO9WblWsOI26TvckV3u9QAxwD92cInKxNKu482DUHOjh0k68mgmq7rGlHetkJkS05Z6XC+x17jHsdbcdQomKNyzg7RjVw=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794502845; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=OEbtzU9uwmtl0K0JSe5qb3/CsbblUiOI+QqP89nwPNM=; 
-	b=PN3DwRAKT7RSbm1Ww+XqW41GpkOYgTwnMHplYwEOoC7PwmKczBeHOwAguKP4BVQ9hgsajQLnHI3CYje8j/fvLExTdZn4MrMUOxuVXvMJxrKZrX7MKHJZ0Z0qmuY2scaOT9m23vbqgi0pvJbVHq4byqeHU20jRIUEE/XDU6G8sxU=
+	t=1794502852; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=TtYqv35d/hIFrfEOxRg2mF77Izfl5YEa1ki7sh6I1ZA=; 
+	b=SHtWqRW3Ci1UBQpxi/XG1e78CeE0FV2KBcS/9x1hYoWV52fHTyZzW7FV0mPlWnRzymyPNuNlhafw4Ek5LgeTFb2fPeLT0K3H05RYvPWVuldfukR1tvjUPjZvWUYAKKp5IcgRdaiZlnjBijcIZMGtci0sdqwj8gvbt01yJMiAZdE=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=collabora.com;
 	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
 	dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=FaCgRDERCBbXzy6c/UzYrzS+EGGeX7XhEeR5kVYvNrj3FxrV0Ka0kKvgukpq12ANyP4EoA+JPxWlKsw1XvniQPGD/q5t26sFrkZQV0Q/pSRzVsl69JAkcgzcUnJV2qqf0Rn/5wqthaOsMAUrBYDQQbUZxsMG9iuLppdNttGjeDM=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=OEbtzU9uwmtl0K0JSe5qb3/CsbblUiOI+QqP89nwPNM=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794502843756120.57863446500517;
-	Thu, 12 Nov 2026 09:00:43 -0800 (PST)
+DKIM-Signature: a=rsa-sha256; b=GMVFhPIBTILMgcg/vnKWK4hN1kbbN3/uXcUkMy7jCmaJ8YGeZpjjDjJ6YgspdhYfSK0DlgWVEKnZfU9bdkiN4K2Ken2lPw531ht11CA4xt4hDgOirVkpzsOp+Igrggra8gOlm6OobiC5LccDFAoDyO3Oy2/T72rpdDO60LhlCcs=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=TtYqv35d/hIFrfEOxRg2mF77Izfl5YEa1ki7sh6I1ZA=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794502849482807.6283680977111;
+	Thu, 12 Nov 2026 09:00:49 -0800 (PST)
 From: Daniel Almeida <daniel.almeida@collabora.com>
-Date: Thu, 12 Nov 2026 14:00:08 -0300
-Subject: [PATCH 1/6] rust: iommu: move the protection flags to the module
- root
+Date: Thu, 12 Nov 2026 14:00:09 -0300
+Subject: [PATCH 2/6] rust: scatterlist: make SGTable::as_raw() visible to
+ the crate
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,7 +62,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-b4-iommu-domain-v1-1-c29e86788dda@collabora.com>
+Message-Id: <20261112-b4-iommu-domain-v1-2-c29e86788dda@collabora.com>
 References: <20261112-b4-iommu-domain-v1-0-c29e86788dda@collabora.com>
 In-Reply-To: <20261112-b4-iommu-domain-v1-0-c29e86788dda@collabora.com>
 To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
@@ -84,70 +84,32 @@ Cc: iommu@lists.linux.dev, rust-for-linux@vger.kernel.org,
 X-Mailer: b4 0.15.2
 X-ZohoMailClient: External
 
-The protection flags are the IOMMU_* flags from include/linux/iommu.h,
-and are not specific to io-pgtable. Domain::map(), added later in this
-series, takes them too.
+SGTable::as_raw() is private to the scatterlist module. Domain::map(),
+added later in this series, needs the raw table to pass its scatterlist
+to iommu_map_sg().
 
-Move them to kernel::iommu and re-export them from the pgtable module,
-so that existing users do not need to change.
+Make it pub(crate).
 
 Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
 ---
- rust/kernel/iommu/mod.rs     | 16 ++++++++++++++++
- rust/kernel/iommu/pgtable.rs | 16 +---------------
- 2 files changed, 17 insertions(+), 15 deletions(-)
+ rust/kernel/scatterlist.rs | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/rust/kernel/iommu/mod.rs b/rust/kernel/iommu/mod.rs
-index 1423d7b19b57..afc9cfffb656 100644
---- a/rust/kernel/iommu/mod.rs
-+++ b/rust/kernel/iommu/mod.rs
-@@ -3,3 +3,19 @@
- //! Rust support related to IOMMU.
+diff --git a/rust/kernel/scatterlist.rs b/rust/kernel/scatterlist.rs
+index 3a5250f85000..a68a9bbb38ed 100644
+--- a/rust/kernel/scatterlist.rs
++++ b/rust/kernel/scatterlist.rs
+@@ -147,8 +147,9 @@ pub unsafe fn from_raw<'a>(ptr: *mut bindings::sg_table) -> &'a Self {
+         unsafe { &*ptr.cast() }
+     }
  
- pub mod pgtable;
-+
-+/// Protection flags used with IOMMU mappings.
-+pub mod prot {
-+    /// Read access.
-+    pub const READ: u32 = bindings::IOMMU_READ;
-+    /// Write access.
-+    pub const WRITE: u32 = bindings::IOMMU_WRITE;
-+    /// Request cache coherency.
-+    pub const CACHE: u32 = bindings::IOMMU_CACHE;
-+    /// Request no-execute permission.
-+    pub const NOEXEC: u32 = bindings::IOMMU_NOEXEC;
-+    /// MMIO peripheral mapping.
-+    pub const MMIO: u32 = bindings::IOMMU_MMIO;
-+    /// Privileged mapping.
-+    pub const PRIVILEGED: u32 = bindings::IOMMU_PRIV;
-+}
-diff --git a/rust/kernel/iommu/pgtable.rs b/rust/kernel/iommu/pgtable.rs
-index 5f9b42ca92c2..695b62eb4835 100644
---- a/rust/kernel/iommu/pgtable.rs
-+++ b/rust/kernel/iommu/pgtable.rs
-@@ -23,21 +23,7 @@
++    /// Obtain the raw `struct sg_table *`.
+     #[inline]
+-    fn as_raw(&self) -> *mut bindings::sg_table {
++    pub(crate) fn as_raw(&self) -> *mut bindings::sg_table {
+         self.inner.0.get()
+     }
  
- use bindings::io_pgtable_fmt;
- 
--/// Protection flags used with IOMMU mappings.
--pub mod prot {
--    /// Read access.
--    pub const READ: u32 = bindings::IOMMU_READ;
--    /// Write access.
--    pub const WRITE: u32 = bindings::IOMMU_WRITE;
--    /// Request cache coherency.
--    pub const CACHE: u32 = bindings::IOMMU_CACHE;
--    /// Request no-execute permission.
--    pub const NOEXEC: u32 = bindings::IOMMU_NOEXEC;
--    /// MMIO peripheral mapping.
--    pub const MMIO: u32 = bindings::IOMMU_MMIO;
--    /// Privileged mapping.
--    pub const PRIVILEGED: u32 = bindings::IOMMU_PRIV;
--}
-+pub use super::prot;
- 
- /// Represents a requested `io_pgtable` configuration.
- pub struct Config {
 
 -- 
 2.56.0
