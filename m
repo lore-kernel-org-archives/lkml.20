@@ -1,48 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.72.103
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.72.83
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794444433;
-	b=EMtbKDWWczSl/OU9PZ3gMdS2ayUrGxyn26qakujwhCzY0Orvjldd1FIjenqhq7FsodGP
-	 dqBq5tRo7uQ6xyGVEsbOCKGvwdpqw78Yn3cSDljVVu4Kju6qvwaAOIxY75dmhjVlbmLu0
-	 oWxIiIh4KirCYfrGWI/NDW92PjeoOqfYKEo8CWTVwpl60YFWjjGSXOAw5vJZ2F94YOjlg
-	 gbaE/29yIF4AYpf7EbKKdbD2p/u9EY9KqCdlxOckiRpQfNOHsElE6yM/VwV306Pdztg7d
-	 s/C6av8G3kGkLS5RyIoT+642mf+P7z5WohT0EC94roSVvGGP8MGH2gxkkWdCKZ4XyiA==
+	t=1794444435;
+	b=S1m3M6LeUOTNXoJD0PzSASzzio2n/aK5ez9pZVKGxYTNeyEQJ1gADiTdsoMmadvRCkoE
+	 pw1d+cukCwNqkiH1U8sPS/S2srmYg+HtbHBWRfRUc8IuquLu57nGNYUvc41MfwMTgtlvP
+	 1YXO1fgVQXGvS/z4kPkVRSuAUUlwcFaNA/QK1tqWXfwLr/tS5aQcOyfYIrbVBcWzXYK41
+	 Jb8f6HktNgR0GEWKeTT79fOHtQd/IrMukvdNKO0FxIJJu/F2RpX/UGKWZpBQuc6+HhmQi
+	 85h7eb9hENyJM2npGM4F0Ej3yb6GGKqmau8s1zlCydFmkZQGmEVZjt7gUB32IhN3iIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794444433;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794444435;
 	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Info-Out:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-JNJ;
-	bh=XbrOo4huBxc2L0xUVgvUtiLAkLCu0nqc4PmTkdL7jno=;
-	b=Rz/4RYTplZ5WUq6W+I9cWre//vl7OHU+PZhb+Wcvr64So3gg/sGSDp0kBe8iVSfFGjGg
-	 bPIdsWzxKMi401/C2tBkBNoPBvkMwhbwOYOukGwgulyc6v2zA5z42rkjukX+Qt7hNF3x7
-	 sDUiMUBaKVGw6qLrVnwmF57Lf4nzQ/8aB/PIPM7o9zqPTXo4VT5usMhIvwC+31XBKmXU2
-	 zPjjowSDRTq5Gk4TE79Hb5xfUergc2PBwbEZVbmyJ3xfJtdWT58eyWCzR0LXeDSiEsYeZ
-	 n8Cbmldo9qoKMMt++tLfII+fn5g78sW/umWC3hHkOgYAg2cr1ROpe6gDfaMxEitLxNw==
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Info-Out:X-JNJ;
+	bh=6FnrMatbIm7w3exd0SYt59kCqIln8Ce3NVwV6c1+Ago=;
+	b=qCVgSygwONLhmWTVsqEC/QV0xGHUxqTuszZl13gG2SuyHjrIoURKy6dYMGoW+w1zrj6+
+	 8z7BpXU0kNDKSDrnrWOwNj8MNjHvQaLwk1+1FMtcRXiqkPFPq438AgIWSmaTj4BkBG1Hg
+	 90ELZsLnZWnmX+XhkjW0GD9dv9GA1MJXtlEWTQ2lyJ4KPfTLm/Gt8GZIfySU26GYcV4ad
+	 yFyUG8Z4eLp0QyMLCeYqCysr82aBLYmOmQskIUnk/PzpQ2v4Vd6xL6CoklGAJCgS3WQgI
+	 HHslZ4MDSM9C+d36a/AjdxBYPGMgRVfxWAgDKbxIZjgeovWwlFdHqPuleFBtvFbZlCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=icloud.com;
 	spf=pass smtp.mailfrom=icloud.com;
-	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=I9c7LqFG;
-	arc=none smtp.remote-ip=57.103.72.103
-Received: from outbound.ms.icloud.com (ms-2005j-snip4-11.eps.apple.com [57.103.72.103])
+	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=QEsCelNC;
+	arc=none smtp.remote-ip=57.103.72.83
+Received: from outbound.ms.icloud.com (ms-2005b-snip4-11.eps.apple.com [57.103.72.83])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11980606A334
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:47:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11980606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5010B606A884
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:47:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5010B606A884
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=I9c7LqFG
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=QEsCelNC
 Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-3a-20-percent-0 (Postfix) with ESMTPS id 45AE318004BA;
-	Thu, 12 Nov 2026 00:47:08 +0000 (UTC)
-X-ICL-RepId: 01a1cd39-0380-728f-a833-7c436969ede5
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1794444432; x=1825980432; bh=XbrOo4huBxc2L0xUVgvUtiLAkLCu0nqc4PmTkdL7jno=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=I9c7LqFGQPC4hc1j883OqiSDgYE7IJNWYG15Bc+xeEZF72THLRHv00wP+6LxBfI9KWN21zFfzG0oLxaHDd3wgrLKz2im4/qheCerstXsDeehhxVS7zsbRRS1bLc/yCG+6JTC4lZ1bArcQ/bl5ILTAVcp3JYYaGyJzPTJUltvDX6TDUBoXnZCJhzQEi4CJBdSjlpjCNEVTThvPMYLjJff54cC/9W2gQSJIfU1+n/I0u17qGYe90tBGFJnk7JLz+iRTv0gWXBmF0hzgn7cLa+YGxeh/9MMyqWFv9dGiYVA4v3WvqoVDBoKqo41aMfvubIn06iB3imnSPWlfLmeQiv3rw==
+	by p00-icloudmta-asmtp-us-west-3a-20-percent-0 (Postfix) with ESMTPS id D9A5A1800340;
+	Thu, 12 Nov 2026 00:47:09 +0000 (UTC)
+X-ICL-RepId: 01a1cd39-09cd-769f-8328-3df42a1f331e
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1794444433; x=1825980433; bh=6FnrMatbIm7w3exd0SYt59kCqIln8Ce3NVwV6c1+Ago=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=QEsCelNCQrdSjDD+nrgtKQXirtedyUqnXBJHp/e7RtMNMrOiF0c5jluHpcYBMY5hzSBD7GNJmYY9ktU9tnmwpMd6LTYQAnKZ3kLV14k12nkq46OS7qwfp2KEMqm4HRAG2JeVcTtRsJHpnPYUNpGmYf434n1uH8uKtrN9jUTrWWnlm0cQ9MjOLdTTVitdLQfvesBqADdjx2C1zUFyjYg7yZ2sm3X+I4CXNMHa7rmigUigfW5iVVJxWGNdffFe/MHtgFZl05byNUzoloMEvNTEETFhMfU24FLx2MguA7tMP2YMIVc20oGhCcDV3Aq2ldHWETueHqEHiVwskb8dcHQY6Q==
 Received: from bigre.tail98293.ts.net (unknown [17.156.208.39])
-	by p00-icloudmta-asmtp-us-west-3a-20-percent-0 (Postfix) with ESMTPSA id B663D1800357;
-	Thu, 12 Nov 2026 00:47:05 +0000 (UTC)
+	by p00-icloudmta-asmtp-us-west-3a-20-percent-0 (Postfix) with ESMTPSA id 8A992180049C;
+	Thu, 12 Nov 2026 00:47:07 +0000 (UTC)
 From: Vincent Cloutier <vincent.cloutier@icloud.com>
 To: linux-media@vger.kernel.org
 Cc: devicetree@vger.kernel.org,
@@ -61,10 +60,12 @@ Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Purism Kernel Team <kernel@puri.sm>,
 	Vincent Cloutier <vincent@cloutier.co>
-Subject: [PATCH v2 0/3] media: i2c: Add Samsung S5K3L6 and Librem 5 rear camera
-Date: Wed, 11 Nov 2026 19:46:33 -0500
-Message-ID: <20261112004636.739749-1-vincent.cloutier@icloud.com>
+Subject: [PATCH v2 1/3] dt-bindings: media: i2c: Add Samsung S5K3L6 image sensor
+Date: Wed, 11 Nov 2026 19:46:34 -0500
+Message-ID: <20261112004636.739749-2-vincent.cloutier@icloud.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261112004636.739749-1-vincent.cloutier@icloud.com>
+References: <20261112004636.739749-1-vincent.cloutier@icloud.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,124 +76,178 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAwMiBTYWx0ZWRfX2LD5oNNx4wel
- DQBrYC1DtHdZp5j25LvjfxeG06Q1ThoXhcMNCUPbLa5EqtTkU5RMZw7LO/M82MPUYSDDwr9xgUC
- RJlNv8zeqkssQbXqnl6TOWz4PmqIxmsRQAepITjy8l48yMbRymjXtFfhTbXNUUUkI549oT9wbLq
- OM1VBHbXXa/TyL0mnOrvlRUU2mRBfgl2LfeC4h/1NQl5+swtyWoCfudqAaRwpLQungzxHiaIPAh
- 3wvF4sh3kFpvcV28f6FiBp8zBVgy01iNbZy7UQK75/9mL6ApyRX3EqT0Zuy9IADPqPsopYUJv3G
- N68wvqXXPkoB8T7D5OwtKYWsXy5cFexfBP74F9lkbu0tHMDzQHSayfCcBt/nSw=
-X-Authority-Info-Out: v=2.4 cv=DPIacCNb c=1 sm=1 tr=0 ts=6af50c8e
+X-Proofpoint-GUID: mCkIAs5iizF8qSrwxp7-xExqekHrwKfG
+X-Proofpoint-ORIG-GUID: mCkIAs5iizF8qSrwxp7-xExqekHrwKfG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAwMiBTYWx0ZWRfXyJBuCkS/WpMK
+ +AuHTlkLVAKu9hPL3T5qn/nGHhO0SulWVOovX1L2PZuXbgD/roc5/c5G+DhXdD+HQYhhdRRU0dp
+ bEPIPYwwiuK7N/LJNGGQjV5qTXz/+hNIyWpuI9Yw2LFNgW6mhCkdZoyzcIDxPUaO5JcQ593ECW5
+ j+k/98X8LPIMMta4eM1JwI6v9L7Y/IlZzJJfn+QdxTiSwHECF8Myo8fjDM1SBlywmrMnoHEzryd
+ XMTJ5s004My4KF7Dq6yW2Z13fHOEf6zkwS/NmgXwI4qBTMPrdjnXWb31lgzvOynsTyNJdovPgYU
+ H1slGuTc/ZqIwnmIcJBMozBKYH+Rt2LQYs6zfFZCEpM7+FaNU+RXKPt6V3gYDQ=
+X-Authority-Info-Out: v=2.4 cv=CKonnBrD c=1 sm=1 tr=0 ts=6af50c90
  cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
  a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10
- a=5j__JWfIoqoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=kibvr5HLtuNvmma_iept:22
- a=NVRLzpS9o0UsCidzZbzm:22 a=VwQbUJbxAAAA:8 a=v3ZZPjhaAAAA:8
- a=Td3DOQvXE0cbqhFbeG0A:9
-X-Proofpoint-GUID: V9lDdZNu0kPE1xwmJrEcl88tXz0EzloH
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAwMiBTYWx0ZWRfX4vmFs7WVeV90
- vMc9I214PFlmf3KTuvFncIjsyckYeNM2yYiN7QQzD1UXjwOGh8Bm4YFHVVdJTFd9fsqNbWr89bw
- K7mpD4HYai8gpT7MwESvq/b2msuwVAs=
-X-Proofpoint-ORIG-GUID: V9lDdZNu0kPE1xwmJrEcl88tXz0EzloH
-X-JNJ: AAAAAAABUoX1BC//txojkthr/46AsiV8JAB8JP4pp5G3al/KmSo03UqV0f+q+ZixGTTInc
- OXBe1pDxfgVBnkehI6/ZL2LmjxoLtVAUduJxqWJwDeuoTin7/eQI/qWPjwAaAv2r5RofP7
- Ktq59XbM8eKa1haKofGs+UJ/IG3dlsxyISf1NndcA/khSd3JBi5qfULkB4wc2DnRF49zdZ
- RT3iZKOYiBpT+nI2+Lo/Ugewm7RtBWvIVYfgSLUl9SsDZ3imnLuz/eCY4CMVDZ3hKkQ+9h
- qR3hML4T/pkW7C91cAm5O0dMWJx9CU5O998qsjZ0hOTSiaQ+SEi3P61GPSt7CmyQyatWVM
- Sc+5+a7lnjo07yE2oZThOmCM35+1mNKovOP9q7kMCzc1ov7VNq3vhuN7IBZ8+IX1w1Ncbo
- qke6XQV6AHg3nI16r3ScNythuknBATDcU3XIMTivVmOl1z61MIY9aHXElU6CgHickCsYXg
- th6EzV2D45huPByTXQg3dnH2kDnnM3rLYCwYF095Ngzqv/t3jrbrdniM/c9POKWwKbh1u4
- FefBF1LTKCOFDi2zgZTQQJijD1d4wbMUGfzBAtHo7WG1Lek8XIupJnvElZ9iO0RifIW+5I
- aR2VecAirYihU+YrFY+mAFJy9/Ryh6yAAsEOLJkRs/R5zMa2UAX12trF9+k8ywVBuuwfm4
- nWhF1aaIeyQqr3ZkvZi2miXwtjwYLpnxRz/5V9mjFNChXYDSneKlmn4n21SzPOr05k8pXz
- Drbrvl7nZjPx5wpyyPbEetmWVnV8fvIyxx3vIt6+sgo4fIfIDXQ+Z6O2QVoyODKJLvTFl9
- ispM4TYPEmmWhIk4A51jnrHr6+zuqn0mksqKSUyOsVh94gZTs0kdLy8/mv6Y+Fl6CiEJjJ
- 19WORXSJg/jW+jv2+3PDt0Iu1ihFghRYwe7NkUSa1ghm9yRuEV2fodxdZcKatJvzHB62X2
- D7lITo/cm02I2SX+cVfN7xN7XvQMo/+kDym37EcdGZsItZPvmhAn2l5dMkYH/mPFiRYN/w
- jaOPU6DWNiEaIfKKppmxDYlwJ2AMAMQ60nL737ix0rpBiX/XFpY4eyL5EhLZNwxOcU+xop
- 1aWu3DFmye3wrhcawsn0pPdaB0T1HKUeyFWITCa7yCXtvxhw95Kubh5xkh+qqX772WM/3U
- DaCZxVcuhyKBy9xJzvtPOktLWA/j7pctbOEJ7UKzAMozkRgXNYY0tNjOW+4oUMAAT+aYd0
- expJsC55tGd6Z+nmi8olVkHS4uJP0vkKGIHJ4xbeTBi8it+jvkFOrNv7hnVvWWOZK5hJ05
- jxi2gKRHXrL34AvCvc5oOtuEB6MP+mP2Le4t5cWr7EwHM7LCRDJ1Bt9KOXVkwMo4A4pV0h
- AJ+3euuf69QEux6jOasawjuYF19U6HbSGulvbSP9qBRKl3H5Ohgg/J0=
+ a=5j__JWfIoqoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=gEfo2CItAAAA:8
+ a=PATYgFbvzVY5AvWytYoA:9 a=sptkURWiP4Gy88Gu7hUp:22
+X-JNJ: AAAAAAABRrZqAteUHqI2jmCDYGTolY80O6enx2RfnqMv2dKoHsOZH17FkSi7/z+1Os9+5X
+ g3VPGd6PNhwgCTN2wjHyiNEXYZBIgVWD9qdhvbwJYVuVQjCRV5AiTgUiq1fDbPiRYV01sa
+ CQrjHhM711VzRL/4NbM9ztjcA+HC79Mu3l7l1EwuXv35mbQvBiruhZDgylimbKfSA9pN1X
+ PTqrTWxWR46nEwpahDrNmMl6wRF+xRIIQkRhyQuSrF0Dhrj6lPWFb5JEJYPTpxEsKI+rC/
+ 3crmDO8E68UWsVvGHcFR4t0mUtTLx64vj/sanDtEmiQhREXKWl2lu3O6hxlAg9l/+S94Bd
+ o1WxVV0d60gKM0A1muAZKcCZ8gLa35Kk0SlAPR7IVHKypHwXjwN49FStDBSeMFX/S0XERl
+ XnZ6FB7OoGq+Qqp6ZiUvejy4fx4zl3rOpNZPhsuZ4C3a3oN8Fgn/7fgrsH6MQU854s2aKK
+ DZ6TErzcIwSEWvGATQWuZTuXvuszECxM+k94D4sR/4BAhyYBEqP96xSqV4ScsEz39c0DZL
+ FayuBLqc2vAKVXlYN/WjxW7LxYZQsxgcST8Ramg8Pd/jRBUQL1QKzz28IQcI5/13ddjlWM
+ HcSYT/pInbSH57Q0ILA0/UQsuOe22LkTfAco1RS6mP/LHYJiPq6IassfuClBCqEJShKIXB
+ AseJuqVgNRfTij96sIXAJVswX7EVskVJZFSAhg6Q83SVJiar2yaJOda5Hh8Ykp6cNGaZFu
+ StKpWxjVhdIPSFGNV4Lg27CtmD9pxB8MpfAZksPzg2ULe6B6cYv5jeSu9T9tQ2Xv/3sxzx
+ H9+KyO6gvQjeIUVslNxj/b0x1vXmCAW64643M3MPqn2xIGrpxEWYb9SvK+9nXw9pT6r3NF
+ FuL9g9oDQXccxWLImOS0Gvkb/A6czNgHOHoiGFWQ+sE/UMEZWju0MW+YVd/pL2EmDQ1vsQ
+ Fg9BfQ==
 
 From: Vincent Cloutier <vincent@cloutier.co>
 
-Add initial support for the Samsung S5K3L6 raw Bayer image sensor and
-describe the Purism Librem 5 rear camera and second CSI-2 capture path.
+Add a devicetree binding for the Samsung S5K3L6 13MP raw Bayer image
+sensor.
 
-The driver targets the validated Librem 5 configuration: a 25 MHz input
-clock, two CSI-2 lanes, and RAW8/RAW10 SGRBG modes at 1052x780, 2104x1560
-and 4208x3120. It uses CCI regmap, runtime PM, endpoint validation and the
-subdev stream API, with exposure, gain, blanking, link-frequency,
-pixel-rate, test-pattern and firmware orientation controls.
+Describe the validated two-lane MIPI CSI-2 configuration used by the
+Librem 5 rear camera, including its supplies, input clock, reset GPIO and
+three link frequencies. Require the endpoint and reset GPIO: the driver
+uses hardware reset to stop the sensor if an I2C standby write fails.
 
-The sensor driver is a rewrite of the Librem 5 downstream implementation,
-not a direct forwarding of its bring-up history. Thanks to Martin
-Kepplinger, Dorota Czaplejewicz and Sebastian Krzyszkowiak for the original
-driver, mode tables, controls, power sequencing and tuning.
-
-The Purism kernel team is Cc'd for review. Would you be willing to join as
-maintainers of the S5K3L6 binding and driver? For now, only I am listed;
-I will add you if you agree.
-
-Focus-actuator and flash integration are deferred; this series adds the
-sensor capture path only.
-
-Changes since the RFC:
-- Drop the media-driver reset workaround, as suggested by Philipp Zabel.
-  The base already includes 71827776667f ("reset: imx7: Correct polarity
-  of MIPI CSI resets on i.MX8MQ"), so no reset prerequisite is needed.
-- Refresh onto media-committers.git next, fetched November 8, 2026, at
-  v7.4-rc1 (6628e7d4c6b2).
-- Remove redundant minItems/maxItems from the binding's fixed
-  link-frequency item list, as required by current dtschema. The three
-  frequencies and two-lane configuration are unchanged.
-- Adapt set_fmt and get_selection to the V4L2 client-info API. The mode
-  tables, requested-link-rate/line-length writes and PLL sequencing are
-  unchanged from the actual mailed RFC driver.
-- Reject active-format changes during streaming, retaining TRY negotiation.
-- Recover failed stream stops with hardware reset before releasing the PM
-  reference, and reset after failed starts. Reinitialize on an immediate
-  restart and cache controls while reset is held. Require reset-gpios for
-  this recovery path; the Librem 5 already supplies it.
-- Clamp the exposure default when reducing its range, require a port
-  endpoint, add MAINTAINERS coverage and document the register provenance
-  and deliberate extra reset pulse.
-- Support control setup and streaming with CONFIG_PM disabled.
-- Propagate exposure-update errors before reducing frame length. Restore
-  exposure-range metadata on VBLANK failure, and roll back mode-dependent
-  controls and mode selection on a failed active-format change.
-
-Previous version:
-https://lore.kernel.org/all/20260626000715.1111803-1-vincent.cloutier@icloud.com/
-Reset review:
-https://lore.kernel.org/all/d80cecc3f317e4493207ea3c347dd144390d299f.camel@pengutronix.de/
-
-Tested on Librem 5r4 on November 12 (UTC) with the v7.4-rc1 carry using the
-sensor source from this series. All six size/bit-depth combinations pass
-captures and sustained streaming, as do all 30 directed mode transitions,
-controls, test patterns and runtime PM. Reducing VBLANK clamps exposure and
-updates its range without interrupting capture. Active-format changes during
-capture return EBUSY; TRY succeeds without changing active state. There are
-no EOF timeouts. This is carry-based coverage, not a clean submission-base
-boot. Error paths and PM-disabled setup have host-side coverage; no physical
-I2C fault injection or new system-suspend cycle was performed.
-
-Vincent Cloutier (3):
-  dt-bindings: media: i2c: Add Samsung S5K3L6 image sensor
-  media: i2c: Add Samsung S5K3L6 image sensor driver
-  arm64: dts: imx8mq-librem5: Add rear camera
-
- .../bindings/media/i2c/samsung,s5k3l6.yaml         |  118 +++
- MAINTAINERS                                        |    7 +
- arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi  |   51 +
- drivers/media/i2c/Kconfig                          |   10 +
- drivers/media/i2c/Makefile                         |    1 +
- drivers/media/i2c/s5k3l6.c                         | 1192 ++++++++++++++++++++
- 6 files changed, 1379 insertions(+)
+Signed-off-by: Vincent Cloutier <vincent@cloutier.co>
+Assisted-by: OpenCode:GPT-6.1 Sol
+---
+ .../bindings/media/i2c/samsung,s5k3l6.yaml    | 118 ++++++++++++++++++
+ 1 file changed, 118 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml
- create mode 100644 drivers/media/i2c/s5k3l6.c
 
+diff --git a/Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml b/Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml
+new file mode 100644
+index 000000000000..097593d74780
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml
+@@ -0,0 +1,118 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/samsung,s5k3l6.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Samsung S5K3L6 13MP MIPI CSI-2 image sensor
++
++maintainers:
++  - Vincent Cloutier <vincent@cloutier.co>
++
++description: |-
++  The Samsung S5K3L6 is a raw Bayer image sensor with a MIPI CSI-2 image
++  data interface and an I2C-compatible control bus.
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: samsung,s5k3l6
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    description: Reference to the sensor input clock.
++    maxItems: 1
++
++  reset-gpios:
++    description: Active-low reset GPIO, also used to recover from I2C errors.
++    maxItems: 1
++
++  vdda-supply:
++    description: Analog power supply.
++
++  vddd-supply:
++    description: Digital core power supply.
++
++  vddio-supply:
++    description: Digital I/O power supply.
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++              - const: 2
++
++          link-frequencies:
++            items:
++              - const: 537500000
++              - const: 600000000
++              - const: 625000000
++
++        required:
++          - data-lanes
++          - link-frequencies
++
++    required:
++      - endpoint
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - reset-gpios
++  - vdda-supply
++  - vddd-supply
++  - vddio-supply
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/imx8mq-clock.h>
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        camera@2d {
++            compatible = "samsung,s5k3l6";
++            reg = <0x2d>;
++
++            clocks = <&clk IMX8MQ_CLK_CLKO2>;
++            assigned-clocks = <&clk IMX8MQ_CLK_CLKO2>;
++            assigned-clock-rates = <25000000>;
++
++            reset-gpios = <&gpio1 26 GPIO_ACTIVE_LOW>;
++            vdda-supply = <&reg_camera_vdda>;
++            vddd-supply = <&reg_camera_vddd>;
++            vddio-supply = <&reg_camera_vddio>;
++
++            orientation = <1>;
++            rotation = <270>;
++
++            port {
++                camera_out: endpoint {
++                    data-lanes = <1 2>;
++                    link-frequencies = /bits/ 64
++                        <537500000 600000000 625000000>;
++                    remote-endpoint = <&mipi_csi2_in>;
++                };
++            };
++        };
++    };
++...
 
 base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
 2.56.0
+
