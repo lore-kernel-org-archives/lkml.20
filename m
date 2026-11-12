@@ -1,69 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.68.63.162
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794497216;
-	b=jeRToelSliHx7n88U/5g0Fw9RNbgaYov33s7r/C5hGrwJUnTh0ueffFhuazBs4xKakwL
-	 AFj0VM2zyrJBrChs9b2gplo6UbgJsPit/rAEf5F/4CF9QR3x+mAL7Ry7wNQ1PkNChjvw3
-	 fdYpQzr9zywLSS1vaiAPaZxrVfoErwDW/rWIGg3GLNC7IEkNba5LwxCVR7BOM5+QJhjcF
-	 i8RHhCPuw5YVW+5hCE5ku1syIb3M58gvooZF+bZ01D657Sy5FZu/rjh3qZKfOjXx/fqH0
-	 36hGYncdYzIB7XlX8ffWpFE5iTsgiZV145bdhWxVI60fFzNYkg7gtHA/9I11e4DdG8g==
+	t=1794497332;
+	b=zwNhVYDoqfq9uYoSiNu0loh525P3qWZ0rTb/FodQaRky9DzGqHttS4Vn73OAipZeHe4v
+	 6OEeAivc1b069VCeOq12djPX39r7Z/Fkngc2axI5C3mlxCtDwgi/EBdabKnlacWPWero2
+	 kguJsdh0zTrBBEvWu9o1VRuu1tE1jDWhQAsf9SkX7ZFvGDJVuABBlHaXaAh4XA26fHsRL
+	 MfjshgrNqz7/g059+xb7kuylFI89yOhwlOrpz/efAKfN96Cw7md4mHEHApSd5bFDQKTlB
+	 iJWHxQ8yucnfe4IULwL+mlX42b5YBJ6oMVmYF8XgzPKCP1WVItW/bpZWvVl77OJ9UkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794497216;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Content-Language:Cc:Subject:To:Content-Type:Content-Transfer-Encoding:
-	 X-PPP-Message-ID:X-Rspamd-Server:X-Rspamd-Queue-Id:X-NC-CID;
-	bh=Nt+yBHmXSjaIToP16PMOG2IX8UplziGRkLpPT0bEWH8=;
-	b=U9LaRBvUv+bnX2Ah3vyfdZ4vqrCz7JpbUtHKo24y2CC2oiyLAmc1RrOuUDfwjBOGq+cx
-	 9WCoQN2JkZbIviHubP2owfcOJhXPaMOlPfE7xjoT4encf2Ax0y/PJ2MoeqHmzB/e0CrKX
-	 OeYz7QX/UeS269aAyhQ+wBigZgYoJvcw0gCfzg7y1O7dnL9qExazWgdMxUIo0NpenIuJx
-	 zldReX1LOtsxJfDPA1CAW//CEJypFcjRrFFkKKLUzX2eLBxz3DWX7Sh+ktWgctGMOKetU
-	 CAax8q5ovPWgtGzJM3kU2/eN6qAVcnwTf18FP39bTBGWpQrlwfCO+VQJNhUhtNx/7sA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794497332;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:
+	 X-Spam-Level:X-Spam-Flag;
+	bh=TnX57kfpDTvM/Hg1CJe7VJGQwZbWZtV4xHRKwoUkMr4=;
+	b=IaXS8YTITxBOkx3Z9h72Tii/7mJ7lR0nnClB/iUDTWIqI0wrem7ezL4YWG8yF4KG7sKL
+	 DrCiq6KK4qBYr4xUILc4J4WAsh4zejuENnaNpjsTgxPod8NPDPKGoQ8LpKY1pmQhMm+gh
+	 wn2YWcBjieKjmU3cGDj6x7hpYh2Fielh5WVMpi0NewZlN59NEHMX7S/5tel6nfSNv23en
+	 YS9UdyBqeOAejEQgqnoEhCMIHfciWcMP1gI031+GU2feGsSK1hDIpoHGNf4aLTSwzd5+3
+	 VmrJBGeufi3K9xm8QrceFSvY2VanD3xNLAsIjVIZ9Akp8uX5X4QhofiZrdS+zQj6ezA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=leemhuis.info;
-	spf=pass smtp.mailfrom=leemhuis.info;
-	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=PVdBHDbE;
-	arc=none smtp.remote-ip=188.68.63.162
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.162])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="da0OI6a/";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tcpNguDb;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="da0OI6a/";
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tcpNguDb;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FC0606A338
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:26:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6FC0606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC0B606A338
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:28:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCC0B606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=PVdBHDbE
-Received: from mors-relay-8201.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4jQPPd4G62z3tsv;
-	Thu, 12 Nov 2026 16:26:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1794497205;
-	bh=Nt+yBHmXSjaIToP16PMOG2IX8UplziGRkLpPT0bEWH8=;
-	h=Date:From:Cc:Subject:To:From;
-	b=PVdBHDbE7aSp3TrlBVrtb73R/eDBQBv+8Om42CimsAiDYlT6aLEluyf3euzsHTSQ9
-	 ElLg3U8W+JJrVD3GXB71UTGKVokWWPTgQQ2fNQ82iZxSw3M9L67nA90XIHh5mzWs07
-	 cvXzn0tpaaDtvXPD4vHfaAs2x/EY7JVY0gYqy3TYwNq+4JLAqrQGKwacKtgUqc4ha6
-	 BpCaE900NmTvPk7XNoznpHwgMWoJ7FDN8QK/A7uKR6mR0AdvHrVR9si+L18eaLW+63
-	 n9PoFrVv/DRoKeU3F9pkfsNgjRWhO/ZPqY2TD+kRSY+PFICmBg1cCK+6pWUwxlGK22
-	 Vm787b+TjjveQ==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4jQPMd0C3yz42bb;
-	Thu, 12 Nov 2026 16:25:01 +0100 (CET)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=da0OI6a/;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tcpNguDb;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=da0OI6a/;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tcpNguDb
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jQPMc2QjYz8svW;
-	Thu, 12 Nov 2026 16:24:59 +0100 (CET)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id A82F75F9ED;
-	Thu, 12 Nov 2026 16:24:54 +0100 (CET)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <f03086b6-7fb1-4b52-859e-78cd52c9177d@leemhuis.info>
-Date: Thu, 12 Nov 2026 16:24:53 +0100
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 90C5B1FB7F;
+	Thu, 12 Nov 2026 15:28:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794497329; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TnX57kfpDTvM/Hg1CJe7VJGQwZbWZtV4xHRKwoUkMr4=;
+	b=da0OI6a/TVHq5+9utQ+WQwjitbXcD20zMOa4MSKB+Y6cP8iO0i4ZZp17h2jxV58QdvadSV
+	lyCfEVAwlpakJ7m5h+ru41uQpUzKiyB8ARg2SkOjkNjhiPdh7beJfYdR4oOB4I2zh3w23w
+	/KLgTNcqhTR+UpNTOOLz5v5h85R5vXk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794497329;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TnX57kfpDTvM/Hg1CJe7VJGQwZbWZtV4xHRKwoUkMr4=;
+	b=tcpNguDbaUNhSHHHZYLmmrBR2c5ymbUEMFIoXmXQmFfnWec7GiMYz93bjPD4c1yRz/sRIf
+	tUTa/rTtS5tLnXAw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794497329; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TnX57kfpDTvM/Hg1CJe7VJGQwZbWZtV4xHRKwoUkMr4=;
+	b=da0OI6a/TVHq5+9utQ+WQwjitbXcD20zMOa4MSKB+Y6cP8iO0i4ZZp17h2jxV58QdvadSV
+	lyCfEVAwlpakJ7m5h+ru41uQpUzKiyB8ARg2SkOjkNjhiPdh7beJfYdR4oOB4I2zh3w23w
+	/KLgTNcqhTR+UpNTOOLz5v5h85R5vXk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794497329;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TnX57kfpDTvM/Hg1CJe7VJGQwZbWZtV4xHRKwoUkMr4=;
+	b=tcpNguDbaUNhSHHHZYLmmrBR2c5ymbUEMFIoXmXQmFfnWec7GiMYz93bjPD4c1yRz/sRIf
+	tUTa/rTtS5tLnXAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 49DC2134A0;
+	Thu, 12 Nov 2026 15:28:49 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id l1jtCDHb9WqVAgAAD6G6ig
+	(envelope-from <hare@suse.de>); Thu, 12 Nov 2026 15:28:49 +0000
+Message-ID: <e59c66fd-a50c-4a34-9d00-33e53f007e2c@suse.de>
+Date: Thu, 12 Nov 2026 16:28:48 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,212 +107,139 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-Cc: Linux kernel regressions list <regressions@lists.linux.dev>,
- LKML <linux-kernel@vger.kernel.org>
-Subject: regressions with available fixes that take their time towards
- mainline as of post 7.4-rc2
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <179449709545.2619925.1359828242195083426@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: A82F75F9ED
-X-NC-CID: /aEkXTqnkxjOfkyGknT0I8F98S7rnm0EPw87pNxsy40/DRTSXM4=
+Subject: Re: [PATCH v2 2/2] nvme-multipath: don't wait for a grace period in
+ nvme_mpath_set_live()
+To: Qiliang Yuan <qiliang.yuan@linux.dev>, Keith Busch <kbusch@kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
+ Sagi Grimberg <sagi@grimberg.me>, Nilay Shroff <nilay@linux.ibm.com>
+Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261111-bug-nvme-mpath-set-live-srcu-v2-0-fc772914d293@linux.dev>
+ <20261111-bug-nvme-mpath-set-live-srcu-v2-2-fc772914d293@linux.dev>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20261111-bug-nvme-mpath-set-live-srcu-v2-2-fc772914d293@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-13.29 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-0.998];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:email,imap1.dmz-prg2.suse.org:helo,suse.de:email]
+X-Spam-Score: -13.29
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-Hi Linus!
+On 11/11/26 2:10 PM, Qiliang Yuan wrote:
+> When a path goes live, nvme_mpath_set_live() waits for an SRCU grace
+> period of the namespace head before kicking the requeue work, so that
+> bios which found no usable path are on the requeue list by the time it
+> runs.
+> 
+> The ANA work calls nvme_mpath_set_live() for every namespace that
+> becomes optimized or non-optimized, one after another, so an ANA change
+> waits for one grace period per namespace.
+> 
+> Start the grace period with start_poll_synchronize_srcu() instead and
+> have nvme_requeue_work() wait for it only if it has not completed yet.
+> Take the cookie under head->lock, so that concurrent callers store
+> their cookies in order and the requeue work never sees an older one.
+> The grace periods of all namespaces then run in parallel, and requeue
+> work kicked for other reasons finds the cookie completed and does not
+> wait.
+> 
+> Flipping an ANA group from inaccessible to optimized ten times over
+> nvme-tcp loopback, nvme_read_ana_log() takes (median, min-max in
+> parentheses):
+> 
+>    namespaces  before (ms)          after (ms)        change
+>           256  51.9 (42.5-85.4)     8.9 (2.6-12.0)      -83%
+>          1024  157.5 (133.5-179.6)  49.5 (32.8-67.1)    -69%
+> 
+> Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
+> ---
+>   drivers/nvme/host/multipath.c | 15 ++++++++++++++-
+>   drivers/nvme/host/nvme.h      |  1 +
+>   2 files changed, 15 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
+> index a92a05b1f925a..9c1023102902c 100644
+> --- a/drivers/nvme/host/multipath.c
+> +++ b/drivers/nvme/host/multipath.c
+> @@ -712,6 +712,11 @@ static void nvme_requeue_work(struct work_struct *work)
+>   		container_of(work, struct nvme_ns_head, requeue_work);
+>   	struct bio *bio, *next;
+>   
+> +	/* Let bios that found no usable path reach the requeue list first. */
+> +	if (!poll_state_synchronize_srcu(&head->srcu,
+> +					 READ_ONCE(head->requeue_srcu_cookie)))
+> +		synchronize_srcu(&head->srcu);
+> +
+>   	spin_lock_irq(&head->requeue_lock);
+>   	next = bio_list_get(&head->requeue_list);
+>   	spin_unlock_irq(&head->requeue_lock);
+> @@ -767,6 +772,7 @@ int nvme_mpath_alloc_disk(struct nvme_ctrl *ctrl, struct nvme_ns_head *head)
+>   	mutex_init(&head->lock);
+>   	spin_lock_init(&head->requeue_lock);
+>   	INIT_WORK(&head->requeue_work, nvme_requeue_work);
+> +	head->requeue_srcu_cookie = get_completed_synchronize_srcu();
+>   	INIT_WORK(&head->partition_scan_work, nvme_partition_scan_work);
+>   	INIT_DELAYED_WORK(&head->remove_work, nvme_remove_head_work);
+>   
+> @@ -849,9 +855,16 @@ static void nvme_mpath_set_live(struct nvme_ns *ns)
+>   			__nvme_find_path(head, node);
+>   		srcu_read_unlock(&head->srcu, srcu_idx);
+>   	}
+> +	/*
+> +	 * Have nvme_requeue_work() wait for the grace period instead of
+> +	 * blocking here, so that namespaces going live together, e.g. on
+> +	 * an ANA change, do not wait for one grace period each. Start it
+> +	 * under head->lock so that the newest cookie is stored last.
+> +	 */
+> +	WRITE_ONCE(head->requeue_srcu_cookie,
+> +		   start_poll_synchronize_srcu(&head->srcu));
+>   	mutex_unlock(&head->lock);
+>   
+> -	synchronize_srcu(&head->srcu);
+>   	nvme_mpath_revalidate_zones(head);
+>   	kblockd_schedule_work(&head->requeue_work);
+>   }
+> diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
+> index 8833a463f1c84..3fff9b394b1cd 100644
+> --- a/drivers/nvme/host/nvme.h
+> +++ b/drivers/nvme/host/nvme.h
+> @@ -587,6 +587,7 @@ struct nvme_ns_head {
+>   		__guarded_by(&requeue_lock);
+>   	spinlock_t		requeue_lock;
+>   	struct work_struct	requeue_work;
+> +	unsigned long		requeue_srcu_cookie;
+>   	struct work_struct	partition_scan_work;
+>   	struct mutex		lock;
+>   	unsigned long		flags;
+> 
+Looks good.
 
-How much do you care about the following you wrote earlier this year in
-https://lore.kernel.org/all/CAHk-%3Dwi86AosXs66-yi54%2BmpQjPu0upxB8ZAfG%2BLsMyJmcuMSA@mail.gmail.com/
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 
-""[...] if it's a regression with a known commit that caused it, I think
-the rule of thumb should generally be "[fix] within a week", preferably
-before the next rc.""
+Cheers,
 
-I'm asking, as I see regressions left and right taking much longer --
-even when they easily could be fixed within that timeframe or maybe a
-little more. And my efforts to motivate people to get at least somewhat
-closer to that rule of thumb seem less and less fruitful, as people
-ignore me partially or completely -- just like the "Expectations and
-best practices for fixing regressions" in
-Documentation/process/handling-regressions.rst, which even give a bit
-more time than your rule of thumb.
-
-Of course I could ask you every week to pull some fixes directly (like I
-did the past cycle) or even collect them in a tree and submit them as PR
-to you (the idea came up there). But well, bypassing subsystem
-maintainers' knowledge and their CIs should be an exception, as it will
-lead to problems or disaster sooner or later for obvious reasons (and I
-guess won't scale either).
-
-I also fully understand that the AI patch influx is a reason why some
-regressions take longer to get fixed, as my inquiries and prodding put
-even more load on already overloaded people. At the same time the
-current patch volume seems to be the new normal for at least the near
-future. And overall the core problems that lead to slowly fixed
-regressions from what I see are the same as before, they just occur more
-often.
-
-The core problem is basically: the "no regression" rule is well known,
-but people interpret vastly differently how to realize it in practice --
-and often it's reviewing, committing, and mainlining fixes, as outlined
-a few months ago here in an analysis for the maintainers summit:
-https://lore.kernel.org/ksummit/75dc0e2d-2deb-4776-977c-1de7c33465e1@leemhuis.info/
-
-Instead of approaching this from a theoretical and retrospective side,
-let me this time point out regressions that are unfixed right now
-despite available fixes:
-
-
-######
-# drm/msm/a8xx: failure during boot
-
-Caused by 93b6c8d10fad (v7.4-rc1). Known before the merge window.
-Proposed fix is a oneliner submitted to a different subsys on
-2026-10-21. It got two Tested-by:, but no reply from the maintainer yet.
-A prod from me about one week after submission didn't have any effect
-afaics:
-https://lore.kernel.org/all/20261021080517.2161-1-okerixx@gmail.com/
-
-Report:
-https://lore.kernel.org/lkml/ar_AuRr1eaZzOfw9@baldur/
-
-Side note: here the msm maintainer explains why he mainlined the culprit
-despite the known regression:
-https://lore.kernel.org/lkml/CACSVV00x091i7BKW+bj0RUnkd4rOrHXbhZ4zF6SuTU1NAqsFTA@mail.gmail.com/
-
-On a wider note:
-There is no way for maintainers to automatically filter patch
-submissions that fix user-reported recent regressions, which would allow
-maintainers to prioritize such fixes (and me to better keep an eye on
-those, too). This could have helped here, as the maintainer recently
-applied fixes to his fixes branch, so it not like he is on vacation of
-something like that. So he might not even be aware the patch fixes a
-regression (that, admittedly, is strictly speacing a problem of another
-subsystem, as it exposed it) -- or was unavailable for some time and
-when coming back simply deleted old mails (which I can relate to, but
-well, it's bad when it comes to regression fixes).
-
-
-######
-# phy: qcom: qmp-pcie: link never retrains and the root port comes up
-with no endpoint
-
-Caused by 910b828b22b7 (v7.3-rc1). A revert was posted about a month ago:
-https://lore.kernel.org/lkml/20261013-qmp-pcie-skip-reset-revert-v1@michaelburch.net/
-
-I prodded the thread about two weeks ago; three days later it got
-"Reviewed-by" from a subsystem reviewer. Today the maintainer finally
-accepted the patch, so maybe it will hit mainline soon now.
-
-On a wider note:
-Might be a variant of the problem mentioned above: maintainers have no
-way to automatically filter and prioritize patch submissions that fix
-user-reported and recent regressions.
-
-Could also be confusion on how to handle user-reported regressions from
-recent development cycles. Lorenzo voiced those recently:
-https://mastodonapp.uk/@ljs/117191681502501017 But he is not the only
-one from what I see; that has always been the case, but it seems your
-recent statement "Non-critical fixes to long-standing issues are simply
-not appropriate for this late in the release cycle." in the Linux
-7.1-rc5 announcement made this worse. Or maybe I'm confused, as I assume
-the follow statement of yours is still true:
-
-"I do consider "regression in an earlier release" to be a regression
-that needs fixing. There's obviously a time limit: [...]"
-https://lore.kernel.org/all/CAHk-=wis_qQy4oDNynNKi5b7Qhosmxtoj1jxo5wmB6SRUwQUBQ@mail.gmail.com/
-
-
-######
-# arm64: dts: imx8qm-ss-conn: USB 3.0 broken on Apalis iMX8QM
-
-Caused by 73c3b40e536d (v7.4-rc1). Known for two weeks. Author and
-committer is also the maintainer for the area in question. Posted a
-revert nearly a week ago, but it is no heading towards mainline so far
-afaics:
-https://lore.kernel.org/lkml/20261106161809.3512378-1-Frank.Li@oss.nxp.com/
-
-
-######
-# drm/msm/dp: SoC to reset
-
-Caused by 1bda647ce61b (v7.4-rc1). Know for a week. The affected user
-reported this by way of posting a patch for it, but it didn't get a
-reply yet.
-https://lore.kernel.org/lkml/20261104072048.3486286-1-burke.cates@gmail.com/
-
-On a wider note: I see more users that are affected by a regression are
-directly posting a patch for it. Those fixes thus lack a "Reported-by:"
-tag, which makes it even harder for reviewers and maintainers to see
-when a patch is a regression fix and prioritize those.
-
-
-######
-# drm: amdgpu: Black screen after boot with newer kernels in multi-GPU
-system
-
-Caused by 11c141672045 (v7.3-rc1). Known for 10 weeks, bisected about a
-month ago. Reported at least six times by now afaics:
-https://gitlab.freedesktop.org/drm/amd/-/work_items/5762
-https://gitlab.freedesktop.org/drm/amd/-/work_items/5979
-https://gitlab.freedesktop.org/drm/amd/-/work_items/5806
-https://gitlab.freedesktop.org/drm/amd/-/work_items/6120
-https://lore.kernel.org/amd-gfx/20261014080523.186533-1-rezanikzadch@gmail.com/
-https://lore.kernel.org/amd-gfx/CAGxFSwnJYc03fN+XWU8oLW9EbXhmetQuj1s3-m8UdZHoBdGJ8Q@mail.gmail.com/
-
-Fixes are being prepared for more than three weeks now, but not yet ready:
-https://lore.kernel.org/lkml/20261019-vfct-regression-v1-0-5a63ddd378dd@amd.com/
-https://lore.kernel.org/lkml/20261111-vfct-regression-v6-0-393797bbb6e3@amd.com/
-
-A revert was considered and even submitted a month ago, but not
-performed because it would "trade one regression for annother":
-https://lore.kernel.org/dri-devel/20261019194106.2796150-1-alexander.deucher@amd.com/
-
-Might be the case, albeit the changes that would have been reverted do
-not have a Fixes: tag. So this is not a clear case and might be a misfit
-in this mail, still wanted to mention it due to the relatively huge
-number of reports and the time it takes so far to get this resolved.
-
-
-######
-# ntfs3: SEEK_DATA reports WOF compressed files as holes, cp creates
-zero-filled copies
-
-Caused by c61326967728 (v7.0-rc1). The affected user reported this by
-way of posting a patch for it more than a month ago now, but it didn't
-get a reply yet.
-https://lore.kernel.org/lkml/20261005223318.19303-1-marcin@mennemann.net/
-
-
-######
-# wifi: iwlwifi: BE200: Wi-Fi interface becomes unusable due to firmware
-faults
-
-Known since the end of June. Two reports, both reporters saw the issue
-starting to happen around the 7.1 timeframe -- but the cause was later
-bisected to the 6.5 change e9b63341dc15, so it looks like something
-(another kernel change, firmware, ...) exposed the problem earlier this
-year:
-https://bugzilla.kernel.org/show_bug.cgi?id=221675
-https://bugzilla.kernel.org/show_bug.cgi?id=221898
-
-A fix was attached to bugzilla and confirmed to be working at the end of
-August -- and even merged to iwlwifi tree back then. It was then posted
-to the lists end of September:
-https://lore.kernel.org/all/20260930122439.08094e4c344f.Ic0a4bf544fd6ebaf1fc62b40bf463bd289e58cf0@changeid/
-
-Since then it's also in -next, these days as fdd83f3ad06a26 ("wifi:
-iwlwifi: honor the per-channel 320 MHz regulatory flag"). Near the end
-of the latest merge window I asked why it's taking so long, but in reply
-I only got "You really need to stop pressuring people. Everyone's
-overloaded. Heaping more on doesn't help.". The fix from what I see is
-still not on its way towards mainline. That being said: it feels a bit
-like I'm missing something here -- but OTOH from both reports (one of
-them linked in the fix) it looks like it's a recent regression that
-takes quite a while to get fixed, despite an available fix.
-
-######
-
-Ciao, Thorsten
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
