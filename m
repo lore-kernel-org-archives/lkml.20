@@ -1,63 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794467843;
-	b=014Ll3ZFJXkqxRn8zqG60JWH0txx+N/C6OnmRzVb012cEUaYmE88YROzmfylA8hQblHg
-	 qswhv+fZAEj2ZEYe52xNGIMlxdPiP6VHoiR7CjFf7Mqe9e0x6rtIrwi9f35dFspKoBRaI
-	 X3HtXKo6yXHkQL41lMiFCZpxAXa3OSyp8uRkIbigwC5DZXVuupo3uTlYbFTjnl1BPQkEZ
-	 tSnj23VOMgDEv9pcMJYxdL62FASMwLeOfLdha6Dk/cqqcEUzZCAvQ2yTL6G+VbDnrjuNG
-	 7gOOZiUjVoji3UZ3HydXQARsXbslfqJ6PNy9JRiTsyb5RybO6nyyEuDR2eMyzpDbIPg==
+	t=1794467846;
+	b=t88+dZOefPjaGvIZv59lofiLZAJtp2kP7EP6d0FJf8Eu7tQ7JempAZoN3l2LZqBX/hUr
+	 qX8bxx2DhcExZ3msQbzkMdR31zdItaJ3mykLv8lOyfmVKCFCPltQNMQQaNWjyfJErTXYS
+	 ov1ZtpyyGyKsGQ1JpiwCXXuy/zRUgQVCUoB6SnvEqriOmwHXKp4r045zfhCYRscx5qZGr
+	 YnI3ufRI2QPCfKpjxi2U9zE2FNjF8G8oKubcG57LBpgDUsaVsvLUi8OW2XpA10lXUfI7p
+	 rg2Gbne/IIkJL9sM4UbYyOToh58x15tqldtBWHjDZSdbzeoJSjpkbHkRcDNosEKwhhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794467843;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794467846;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Y9mFAcJSAVxyNmz8kQNK+Ob8oGC1edSsJJjdeUbiSaY=;
-	b=IzDxKyaGy8eC8Ge582QjwbDrRcUoHT3v7pZY5X2ROu78eefPVU3ER7LpF0e0yCSpJ5cl
-	 hWb8EOiJnjCMpoqbshWCigGlpERpPvYncAwDDyjOwR7Ve1hAo3VGz8NYStzyvSRXoURQp
-	 Mh6klJEzUPdZplWIFawkUVeKSFXogxRfl2y/vMf59O1BknHd5f8yqNEyduQ+eGnThbv8F
-	 oRJ7zRZ7pHmccUrreLgzuyJh6v+cg65xPSbfD212FWwOiWE6vCiVPr5oattSmR/gZb4bH
-	 6bT+wasdP6DU2jDb8e7KBDTf1aR11THx1Os1OUlTkbGXAyYQQNQDwrlSgbEc5qYdcFg==
+	bh=ETG2r6xcANES8ls4NekjnSw6kcURnMiwQbnXx3FK7m4=;
+	b=Tx1KqhcTr8eecyblZ7LWVzCUfIZm01I3WPy4DSAT77p1H5Psv8bvmiy4pt/6foS5q0eQ
+	 9ky9h9xxOSb9Zorw1IGuzEoJJ11wKqAxCt1v3GznSa81WdqNUG+/pfiNH+tkyY4SfY1l6
+	 KHhVeMm6FiNkebT+nhOFEk5fw3LQspczfcAh6bg4iTxAA8NBU3Rd7yKldaTha+98HxZFz
+	 J1PDI3RMPvuszX3DFxwKEGqEb0S1jpccnILkqF+Q3aoMXBgDmOVJw8R7pw2MEhNm/wLg8
+	 7rjzc5xoo6cbyY0+t0qvoyYcQdvVubvphMklf4MNw8byUqss9j2SLJV3REQK08F+MWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tnL8CcYy;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=nSJxNIf3;
 	arc=none smtp.remote-ip=111.22.67.135
 Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2A7C2606A332;
-	Thu, 12 Nov 2026 07:17:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A7C2606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9DB4660A3832;
+	Thu, 12 Nov 2026 07:17:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DB4660A3832
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tnL8CcYy
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=nSJxNIf3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=tnL8CcYy5pw9pEtg0NMKNSbHuvDgtECm3Wgig2M9/DSCbFGz+oLb3XjL6WIUUTNbYhKCtIH52I0n2
-	 kXp62eQx3OHOJA2I3qUUDrR+b4WqKpFBzifdvfakP6sAPATgI2KdiXfgGb6fea2XZc6m0JZxkIClw3
-	 MeNpwkavIdC2MZd4=
+	b=nSJxNIf3ybX4NBp7AM4epEJ6VVn3R3wvLfSAB8z2ZFp7Jbc1mV2cCY95RlIyldZ85jd+LnhG6Ot/C
+	 3JZ6NXi6mcGCFt+NJpKN5C0AYPaBlmkr68Twlu28hf4UEJn9uxMrwMNGH4Z4YiQB1Y56Gn7gLvnTNG
+	 B/IMnTQV0Jd8g5M4=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af567fea35-ab3d8;
-	Thu, 12 Nov 2026 15:17:19 +0800 (CST)
-X-RM-TRANSID:2ee36af567fea35-ab3d8
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76af568043f7-dfe68;
+	Thu, 12 Nov 2026 15:17:24 +0800 (CST)
+X-RM-TRANSID:2ee76af568043f7-dfe68
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee26af567febf7-f70f7;
-	Thu, 12 Nov 2026 15:17:19 +0800 (CST)
-X-RM-TRANSID:2ee26af567febf7-f70f7
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af568032f9-f685c;
+	Thu, 12 Nov 2026 15:17:24 +0800 (CST)
+X-RM-TRANSID:2eea6af568032f9-f685c
 From: Zhu Jun <zhujun2@cmss.chinamobile.com>
-To: bhelgaas@google.com
-Cc: linux-pci@vger.kernel.org,
+To: gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Zhu Jun <zhujun2@cmss.chinamobile.com>
-Subject: [PATCH] PCI: cpqhp: Release the device reference on config read failure
-Date: Thu, 12 Nov 2026 15:17:17 +0800
-Message-ID: <20261112071718.154545-1-zhujun2@cmss.chinamobile.com>
+Subject: [PATCH] usb: usb3503: Propagate resume errors and unwind the clock
+Date: Thu, 12 Nov 2026 15:17:23 +0800
+Message-ID: <20261112071723.154558-1-zhujun2@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,34 +70,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-cpqhp_save_config() obtains a PCI device reference before saving its
-configuration space. If a configuration read fails, the function
-returns before reaching the matching pci_dev_put().
+usb3503_resume() ignores failures when enabling the reference clock
+and restoring the hub mode. It can report a successful resume while
+the hub remains unusable. A failed mode switch also leaves the clock
+reference enabled.
 
-Drop the lookup reference on that error path as well as on success.
+Stop if clock preparation fails. Return the mode-switch result and
+disable the clock when restoring the mode fails.
 
-Fixes: 12a9da0fcb14 ("PCI Hotplug: cpqphp: don't use pci_find_slot()")
+Fixes: ecdc071d02a0 ("usb: usb3503: add PM functions")
 Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
 ---
- drivers/pci/hotplug/cpqphp_pci.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/usb/misc/usb3503.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/pci/hotplug/cpqphp_pci.c b/drivers/pci/hotplug/cpqphp_pci.c
-index 81c58b1ec200..c24d311c8e44 100644
---- a/drivers/pci/hotplug/cpqphp_pci.c
-+++ b/drivers/pci/hotplug/cpqphp_pci.c
-@@ -409,8 +409,10 @@ int cpqhp_save_config(struct controller *ctrl, int busnumber, int is_hot_plug)
+diff --git a/drivers/usb/misc/usb3503.c b/drivers/usb/misc/usb3503.c
+index 9f356b4bd84e..bcc6174b80d1 100644
+--- a/drivers/usb/misc/usb3503.c
++++ b/drivers/usb/misc/usb3503.c
+@@ -353,10 +353,17 @@ static int __maybe_unused usb3503_suspend(struct usb3503 *hub)
  
- 			for (cloop = 0; cloop < 0x20; cloop++) {
- 				rc = pci_bus_read_config_dword(ctrl->pci_bus, PCI_DEVFN(device, function), cloop << 2, (u32 *) &(new_slot->config_space[cloop]));
--				if (rc)
-+				if (rc) {
-+					pci_dev_put(new_slot->pci_dev);
- 					return rc;
-+				}
- 			}
+ static int __maybe_unused usb3503_resume(struct usb3503 *hub)
+ {
+-	clk_prepare_enable(hub->clk);
+-	usb3503_switch_mode(hub, hub->mode);
++	int ret;
  
- 			pci_dev_put(new_slot->pci_dev);
+-	return 0;
++	ret = clk_prepare_enable(hub->clk);
++	if (ret)
++		return ret;
++
++	ret = usb3503_switch_mode(hub, hub->mode);
++	if (ret)
++		clk_disable_unprepare(hub->clk);
++
++	return ret;
+ }
+ 
+ static int __maybe_unused usb3503_i2c_suspend(struct device *dev)
 -- 
 2.51.0
 
