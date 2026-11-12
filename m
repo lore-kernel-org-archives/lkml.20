@@ -1,90 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794446978;
-	b=Mr878DHe16LFax1lgIeb7cJWhRM1zItx3E5FnywWcub+uD+5CuyfuFpHOjilLLRVI4Fx
-	 tfon8K+GMSNBryI4ax2tLUVQgrDJmreJzQzkgzAK7eWYfWQ5ANJbcHLfSOJY1laqkHI8+
-	 TBUlAqWIbOt6b0wj7/KAtMKup6gKWep3wqmBdq1zP4WnEvmHAdaSV+LbL0JM4MlRx+Zzz
-	 QQYnFatjquqHXTxLMKiCkcam+qWHnx6Y44lr9ivxlr/zGs3MIyeypLXbvdsPL43gZtNWO
-	 s1OSdG+4FXTHJCxaBFG0uBfyIpzrH6d7J/PNSrYrAbvx9jcqDMcGf/24NlpqSlz1BsQ==
+	t=1794447002;
+	b=Esgv/YrnNat60L6OmEtuChshdRpFAmFyNiUwSbcaRZGkbbi16WKUh9cnqDTSCsDzTCwx
+	 QUflOlapUbPrKNFnjjf2pgaygfx160P9AcTPQtm+MqMl/fxrMx0h40yTb/KhwsuF8SLRP
+	 mOEoVyQa4O6DhSMTchSJxbokbTMUv3cAPPbMlywzBmD/4I0MadRllfkVw5IaYHLzf8uWZ
+	 Wzanhe61qRiakiP+ba1mLvokZREgEc+vd0KrBbrraF8CNd7Y3WJlG9O3jIhMn14W2OrXm
+	 MrbNQTDQxvs2BRZFZFAP5vIsqobbhfmieRnVDHSHiWsmtlo1PIUathlgStVJo6R8ZDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794446978;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=TgpmpZ4pfdhPSQN8Lt2sCe99k1YkMabGCeM8pnp6dxQ=;
-	b=zU982PlFIs2cRIX7Uxf4dy3/BB7dW6BZZoICPITAYQeMbCn6DhJIDHkXPC8l5rGMLMD5
-	 kVUbaiaUO8MeBxmy/hrawSLnrZeTk5kE6m6WCxBwt0cPS0mUy11d/SUo14v8907rWRzGN
-	 IG1rgV+RCUIReE/2ckxD06sH0qTZoyynjWZFAHR80x4DpyYiccmFB3e9i8tyD/3tVsrK3
-	 97p/uYezZ6sA/e45CzUmobIUcMPmlz/Fn8MIqn74hYr7qLlHApb3LpqitnZVqTtkO2DWj
-	 UskQi28CI5Y8Zg+nojqdnIFLit7n/gs5nTPOsvMixAHSFcM+OdRrYqqaGrY7yEBCpew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794447002;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Mq/jGeJ1kGXXos6D0p95YO4hddT5N8ASO2P3gIqnfss=;
+	b=hMqxqKYShc5IdNwWVABsRyKScqzRFaMqSqoty994ydxQr3Lnukf+cnBfTY5KFuWICo0x
+	 +rwsmAaiDIXQyIBt/zhEo8fGmFVjnN2fpd0lDpDmwiSu6aMgZE1ZIfNxt2zOuFLvlx8w7
+	 OE/WQjd7uJgu0OMItypYgqQO9T9jJKazav9nZtWtgfmscbdqygb5NqpaEHpxQ+N081184
+	 wqZ3nBoSct85ZCcRaPFSHtY4Bmn5AWgOJCkscfqor25LF4rh7JUXBgwofJ0SUTlWd+Gbu
+	 igqFu759Uu2l6C51jCvRgk8y2EIe494Y6l/iN7NGHxmS1DJWSLi9j+ogjZXim/0Rgfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jA2otSCU;
-	arc=none smtp.remote-ip=209.85.167.173
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iWYShvXE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93AF60A380C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:29:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B93AF60A380C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD7F606A880;
+	Thu, 12 Nov 2026 01:30:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jA2otSCU
-Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-539a57a0b1fso1481576b6e.2
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:29:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794446977; x=1795051777; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TgpmpZ4pfdhPSQN8Lt2sCe99k1YkMabGCeM8pnp6dxQ=;
-        b=jA2otSCUXJl/6HrZoBjT/x33YiEFvH4oZ/GMPTJNJoGRHHSTn+c8U/c4gl+WM7e//5
-         Sx6QR15+u8oWKTgChIn/ygoiN60g431gw6Bu9yrhdwuDNFCO85DgdCCrwisBdKBg0x75
-         UXowm+QWBOIHk+cNHq8U3p6wNyuT4e8b8NLg2p3gLJSN4sKUdwHMYdAm0mCsUqzScJfo
-         1geyxjOP+AnqeQX0ui17cwDp58PnyYEFko/YmAsgtZAhBDOVtDN95ykGICSr0IVE0MDG
-         M3mDh3REq9HaXFBLhwX76pk/n/BmyVbPSZmY+Fg0oSQS6EqV7x1NAY6+Ncs6Ud4kjTLl
-         1lLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794446977; x=1795051777;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TgpmpZ4pfdhPSQN8Lt2sCe99k1YkMabGCeM8pnp6dxQ=;
-        b=TDC6u5Euqo11HnXidJWp/Sql5o2SPtWqZsf2UizMwXfRdKUd3XrqAEYWq3oJW0fgRx
-         Z8/WH6ng9SNdY76IhmQb6KQ9/Pkm1TiGKzoPPatCGP5gCYT6PLjgLAcrrcPnhPC3GY/8
-         pdhw0d466FmYghDg4DTV2GdAXQx1UFXRmlqsz/dy2ey9Dse12YqufBugXeOrVzODCb+o
-         NjyDwYn/CCq3j8vHWjVzqss3ct7QW33Bpqumt6Ezo9e/mDa7c/jFUE58J7xruD89UvEY
-         gWPpk02f4Gm29UZjemN5B0LYBgCMtyQpkruKzHEh4M4qEtCFQ1+zrZ7aRSPLKP4Nf3be
-         LqNA==
-X-Forwarded-Encrypted: i=1; AL+hErEzvW9icyg0B2pr7EjKnKpIx+x5Kk0wVme7fEAmFEH5zCMvZOJ35PI03KbvemHYm6qywwU41/r06gV5/D8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z88mF7TLOKpVCTWn6acLyXWrEVN0t1bt4ekCZPxKGU+Jhv3WC7Q
-	gX5dM6W+mfPyFwdQMlYpV9s3tYHxDqrTJUiOMk3PpWn94V+gss+O+IuC
-X-Gm-Gg: AYBFou0I3EH4n4KfKlv5eLet1uYJg0MlFyTN2C8fe/NAk//+vlCfq3aPexpv+V59bWS
-	0EBmNgARw16K05zsE4bhhZ9izfHoHAhLNK+g5eCfNy7pKy9oOXwSewPv+ij8GszHJekDm+iR2eb
-	IRyGmg099gZrXgX6wDho9dv5faqk55KSAX7KTRNk/mwph4Px9Tsbk6l+FudGVxNk9Mz4KHUN19S
-	0i1p10hzJZRKyCLincEgSpBdGsUdBj4J4wnMcidFp3rg/yOrJh2YCsn7SH0MF2zfSKe7rxARftU
-	KLVuZucebI8/EcvceoKwq3IqnjmlAGgKs21Jal70m3cbZ33SixcqKmnsXff3+CRlKkNsBPVQUIu
-	IZehEAhu91FpBOfe3lzOC56udMq5gjMM1qqlb0iDsWugGVHdCRT81/qxur3I92FRizfTTqGtRvS
-	oCQR4sDsj5RLpIlnbnPYqqMnyEMX/gegMML++UAag6b+FxLdZinAWfgZn4ZqpcYo992SYVwJqx/
-	ZgZeTDzaBmMZ+WBQNkvwGFhZIlefyVWz/jSxOCzLJfCe2F92myz/nj+E+qaZRNIPtxPhBA4rVhT
-	phy7WA8IFYHBdOfn0nUjYoe0lMfP+mFf+lSUm9ndwOz9rtqb6nXjsPBmF5gEy2HN+woMQUxcshT
-	RzZMtx51dgNcWgJOnAhEr5Io/W3MXAJUV4ZdWcqVWLeVWnOCDEB7wJMEzY1G7lrEtrO9IdJFNKg
-	f1Z9m98doLrGfrzf9eEbR6WAGDAuHQ6qRxdRjuo7w89nlY78ywGZkH
-X-Received: by 2002:a05:6808:2384:b0:55c:a67:d111 with SMTP id 5614622812f47-56b962938femr3705666b6e.19.1794446972046;
-        Wed, 11 Nov 2026 17:29:32 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56905738049sm6823481b6e.10.2026.11.11.17.29.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 17:29:31 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 11 Nov 2026 18:28:37 -0700
-Subject: [PATCH v3 58/58] mtd: rawnand: diskonchip: retain chip state
- across removal
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iWYShvXE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 976A71F00A08;
+	Thu, 12 Nov 2026 01:30:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794447002;
+	bh=Mq/jGeJ1kGXXos6D0p95YO4hddT5N8ASO2P3gIqnfss=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=iWYShvXE+v5oGFNXO1K5u0zwED1XMRYvN4zj5eYCJCoYp3vhh8gBsWTSo2VxZ1qD6
+	 3Q8YpRo0M3w6LWsF1rTtA1aSZRfDFqKpVZrBaYpHTI1FGT/tsra+A3F1Oj+5GrO59o
+	 twP82U9XQ49hjTOfoJ+EhMBHb0pvrNJNDVVaT4v7cMBU5c82flD20OZo/4Q+hNtaoP
+	 z8S63wgyN72edM6J9IIrQ6L61t9XrjBDv2yATLDp5GrZFnjCZpBUOzpW6S/GqwHQZq
+	 XWFo79Vhsk65+b+N3WNp+yoi4wZK3B/P5yPobnAjC27lw+1p/u8vTveib5lK8fTlEK
+	 lwfY8Igfe4KLw==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,81 +51,175 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-submit-rawnand-retained-handle-lifetime-v1-v3-58-ce537999741d@gmail.com>
-References: <20261111-submit-rawnand-retained-handle-lifetime-v1-v3-0-ce537999741d@gmail.com>
-In-Reply-To: <20261111-submit-rawnand-retained-handle-lifetime-v1-v3-0-ce537999741d@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Subject: Re: [PATCH v2 1/4] dt-bindings: clock: Add Siflower SF19A2890
+ clock manager
+From: Brian Masney <masneyb@kernel.org>
+To: Joseph Telaak <joseph@telaak.dev>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+ linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Brian Masney <masneyb@kernel.org>
+In-Reply-To: <20261111-sf19a2890-sysm-v2-1-d2fcb723e4f1@telaak.dev>
+References: <20261111-sf19a2890-sysm-v2-0-d2fcb723e4f1@telaak.dev>
+ <20261111-sf19a2890-sysm-v2-1-d2fcb723e4f1@telaak.dev>
+Date: Wed, 11 Nov 2026 20:29:53 -0500
+Message-Id: <179444699398.1126566.18079369824329437583.b4-review@b4>
+X-Mailer: b4 0.17-dev-7ca47
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4539; i=masneyb@kernel.org;
+ s=20250903; h=from:subject:message-id;
+ bh=OrUYxx88NbEJGdzMRTIiV7RLdbl6H+Bpa1NcCXGtC0A=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLK+ik25WH39d8jdF0suq/etZz3yJGZK/XM1gc0inf/33
+ 4x9fmv7x45SFgYxLgZZMUWWJblGBRGpq2zv3dFkgZnDygQyhIGLUwAmcsqckWHWqn+OBdc8XwZI
+ m27mC9IW7Uz6HnBu/bbP16++X8fiUJHHyNCrcy2SK4pdw2RnuKvcIt5z9Qv29ns7WX1KK6/esb7
+ BmxEA
+X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-MTD references may outlive a partially published registration failure.
-Disconnect before unmapping the device and freeing the hardware ECC
-codec, while retaining chip metadata until the final MTD reference is
-released. Install lifetime ownership before the late initializer
-publishes partitions.
+Hi Joseph,
 
-Run NAND cleanup during disconnection; the final core-owned put only
-releases retained allocation and layout data.
+> The clock manager of the Siflower SF19A2890 holds the SoC's PLLs and
+> the muxes and dividers that derive the bus, CPU and peripheral clocks
+> from them. The peripherals' own gates and resets are in separate
+> blocks.
+> 
+> The header is Chuanhong Guo's, from his SF19A2890 branch, without the
+> count at its end.
+> 
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+> ---
+>  .../bindings/clock/siflower,sf19a2890-clk.yaml     | 57 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  7 +++
+>  include/dt-bindings/clock/siflower,sf19a2890-clk.h | 27 ++++++++++
+>  3 files changed, 91 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.yaml b/Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.yaml
+> new file mode 100644
+> index 000000000000..9b72f14c2bd9
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.yaml
+> @@ -0,0 +1,57 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/siflower,sf19a2890-clk.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Siflower SF19A2890 clock manager
+> +
+> +maintainers:
+> +  - Joseph Telaak <joseph@telaak.dev>
+> +
+> +description: |
+> +  The clock manager of the Siflower SF19A2890 holds the SoC's three PLLs
+> +  (CPU, DDR and common) and the clock muxes with dividers that derive the
+> +  bus, CPU and peripheral clocks from them. The peripherals' own clock
+> +  gates and resets are in separate peripheral clock and reset managers.
+> +
+> +  The clocks are defined in include/dt-bindings/clock/siflower,sf19a2890-clk.h.
+> +
+> +properties:
+> +  compatible:
+> +    const: siflower,sf19a2890-clk
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: 12 MHz oscillator
+> +      - description: 40 MHz oscillator
+> +
+> +  clock-names:
+> +    items:
+> +      - const: osc12m
+> +      - const: osc40m
+> +
+> +  "#clock-cells":
+> +    const: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - "#clock-cells"
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    clock-controller@19e01000 {
+> +        compatible = "siflower,sf19a2890-clk";
+> +        reg = <0x19e01000 0x800>;
+> +        clocks = <&osc12m>, <&osc40m>;
+> +        clock-names = "osc12m", "osc40m";
+> +        #clock-cells = <1>;
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 93abbb315065..ce8d0596939c 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -25698,6 +25698,13 @@ N:	sifive
+>  K:	fu[57]40
+>  K:	[^@]sifive
+>  
+> +SIFLOWER SF19A2890 CLOCK DRIVERS
+> +M:	Joseph Telaak <joseph@telaak.dev>
+> +L:	linux-clk@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.yaml
+> +F:	include/dt-bindings/clock/siflower,sf19a2890-clk.h
+> +
+>  SILEAD TOUCHSCREEN DRIVER
+>  M:	Hans de Goede <hansg@kernel.org>
+>  L:	linux-input@vger.kernel.org
+> diff --git a/include/dt-bindings/clock/siflower,sf19a2890-clk.h b/include/dt-bindings/clock/siflower,sf19a2890-clk.h
+> new file mode 100644
+> index 000000000000..a9fc9ecf4520
+> --- /dev/null
+> +++ b/include/dt-bindings/clock/siflower,sf19a2890-clk.h
+> @@ -0,0 +1,27 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/mtd/nand/raw/diskonchip.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+The license is different compared to siflower,sf19a2890-clk.yaml. Is that
+expected?
 
-diff --git a/drivers/mtd/nand/raw/diskonchip.c b/drivers/mtd/nand/raw/diskonchip.c
-index 540b6baf8bb1..2c6d0c0fdb2d 100644
---- a/drivers/mtd/nand/raw/diskonchip.c
-+++ b/drivers/mtd/nand/raw/diskonchip.c
-@@ -1466,7 +1466,6 @@ static int __init doc_probe(unsigned long physadr)
- 	nand->bbt_td		= (struct nand_bbt_descr *) (doc + 1);
- 	nand->bbt_md		= nand->bbt_td + 1;
- 
--	mtd->owner		= THIS_MODULE;
- 	mtd_set_ooblayout(mtd, &doc200x_ooblayout_ops);
- 
- 	nand->controller	= &doc->base;
-@@ -1494,13 +1493,21 @@ static int __init doc_probe(unsigned long physadr)
- 	ret = nand_scan(nand, numchips);
- 	if (ret)
- 		goto fail;
--
--	ret = doc->late_init(mtd);
-+	ret = nand_set_lifetime(nand, nand);
- 	if (ret) {
- 		nand_cleanup(nand);
- 		goto fail;
- 	}
- 
-+	ret = doc->late_init(mtd);
-+	if (ret) {
-+		nand_disconnect(nand);
-+		free_rs(doc->rs_decoder);
-+		iounmap(virtadr);
-+		mtd_put_master(mtd);
-+		goto error_ioremap;
-+	}
-+
- 	/* Success! */
- 	doclist = mtd;
- 	return 0;
-@@ -1535,11 +1542,11 @@ static void release_nanddoc(void)
- 		nextmtd = doc->nextdoc;
- 		ret = mtd_device_unregister(mtd);
- 		WARN_ON(ret);
--		nand_cleanup(nand);
-+		nand_disconnect(nand);
- 		iounmap(doc->virtadr);
- 		release_mem_region(doc->physadr, DOC_IOREMAP_LEN);
- 		free_rs(doc->rs_decoder);
--		kfree(nand);
-+		mtd_put_master(mtd);
- 	}
- }
- 
+> +#ifndef __DT_BINDINGS_CLOCK_SIFLOWER_SF19A2890_CLK_H
+> +#define __DT_BINDINGS_CLOCK_SIFLOWER_SF19A2890_CLK_H
+> +
+> +#define CLK_PLL_CPU		0
+> +#define CLK_PLL_DDR		1
+> +#define CLK_PLL_CMN		2
+> +#define CLK_MUXDIV_BUS1		3
+> +#define CLK_MUXDIV_BUS2		4
+> +#define CLK_MUXDIV_BUS3		5
+> +#define CLK_MUXDIV_CPU		6
+> +#define CLK_MUXDIV_PBUS		7
+> +#define CLK_MUXDIV_MEM_PHY	8
+> +#define CLK_MUXDIV_UART		9
+> +#define CLK_MUXDIV_ETH_REF	10
+> +#define CLK_MUXDIV_ETH_BYP_REF	11
+> +#define CLK_MUXDIV_ETH_TSU	12
+> +#define CLK_MUXDIV_GMAC_BYP_REF	13
+> +#define CLK_MUXDIV_M6250_0	14
+> +#define CLK_MUXDIV_M6250_1	15
+> +#define CLK_MUXDIV_WLAN24_PLF	16
+> +#define CLK_MUXDIV_WLAN5_PLF	17
+> +#define CLK_MUXDIV_USBPHY_REF	18
+> +#define CLK_MUXDIV_TCLK		19
+> +#define CLK_MUXDIV_NPU_PE_CLK	20
+
+This is the only one that has a suffix of _CLK. Can that be dropped for
+consistency?
+
+Brian
 
 -- 
-2.53.0
-
+Brian Masney <masneyb@kernel.org>
