@@ -1,64 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.29
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794449708;
-	b=305mlW6TliSfdTh1j19Xy5+Tof5zInDmFrviR1Rd/hC8iS6VI7F26HPvLquUQWl+fTm8
-	 I/uSJRSsW8QlNdBD34FlIWJrEqS84lEcpgvGqrRQSmohNBppPVrhXgXi7MJT6YGz3sOsQ
-	 +wc0719tHoNjieLNBHqYlwiXGCNXjzOnTpA44GWnWeYt0zroKgjHoeSYWzkNWI+7xU3WK
-	 B+nFLHXDXIO4v0+YWsOe82N7YBWgHiKfSD39z0YjRILzQGLinGJtsGtZVigBbw9yuOBUE
-	 g7pD9bJfiV3k9+clKo/KRSqbV84cww3KVgwWZGE+GP0/gIkTo/O3D4VTVelEW8wx2Jw==
+	t=1794449765;
+	b=YQlDackJQFcBsyIQJ0q3jWGb7v2jAXXexfh75Y5Knib7XJVvD2B7KePZRV7NYul9B5K/
+	 VDzeBW4mCwip2eK25YftovCqWjMlFKBl5MWMTNK83NmTF8LoqD2T1VbPsNqO/S6kpo5Zu
+	 Kc2WmwOhiyDbefMhoLNAkAL4iwS1oKzs/VglQNqDxUSVSCe1lFVZrDq6Q6KWTWGbRIHf9
+	 KZqlwo9N3DNzTI3c7Ura23ISyM3aP86gDnTLDamIWYuh5dtjjbeVXRv9iOWx94arnJsUj
+	 DV/H6dtSI12ssNkCoPdLT2Povckvv6WguN3WXILIHjn6FYKbe5e1HmGBl4w92wBIQbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794449708;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=w/G+bI1y1XPFEXnVVSbx5g6FUS3R8cb54ecVY4rT5Jo=;
-	b=OmiFVFzdq2g/0cCVl3xLvhSwXORE534M4+SPmVDNGRmT2gba4uIka2d37pJ0A/pccuvi
-	 nGnn++RYgR4s2NqO8ZAYnuZsbfye3V20D0bj4kyIOv94LqFdQhj32XIzqq78hN8DKIOBk
-	 ZfWN3QU0vdT/VY+gCIAmJ7wjrgBlf9ErDxnGSp1+HjX2R2KR/PG6CDt21xIDGDluz8lsB
-	 J3fk4iJIjtrWdc2h2M/dlVk94M/FfLksqtXYq31il6Ia+dD8Vk0hYE3OPiTPO6BqvvDbo
-	 u3m9W1YjjNa3XkUd2omCOCDa7o+LLv+IG0VP6KAFg1ExXGh/uLkKBEBUna11RBWW0ow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794449765;
+	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version:
+	 DKIM-Signature;
+	bh=qyrsc8FcIcO9n5vy1ztB9zISI0TN10UCyMD09N2OTP8=;
+	b=e+Q2A0s9FL7rtMEs4G5049M/HRIMK3reFAuNEewC2TMYx1nzEb6UQsxntBFaIcygthrt
+	 TnancaaHCretvSIb2R8KncaixbyAgaSb7RrySB/HAZafYAtmE5gPAVvqx+LsZBHIoXZ0t
+	 xmO1aKtCZfLgKgKz5f4/T430DemWesQG2fFyL4npWcw6iSnKYzPeeH2MZaY0B8tjh9bCR
+	 CenqmTjlm8RSc/Cx2tJwO46JdybJHmnpWtKGbEla9VPuHIKlgjv9YXZbYh5OPjHE7O7fa
+	 e1+2ithv5UbhsUh5x3Q86xRDRtPwXZ+iQN+HsnUj8ikzqwqpMWxtfU3XBQ+e3musTkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EoJRmJLK;
-	arc=none smtp.remote-ip=91.218.175.29
-Received: from mta0.migadu.com (out-29.mta0.migadu.com [91.218.175.29])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE395606A33C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:15:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE395606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=baidu.com;
+	spf=pass smtp.mailfrom=baidu.com;
+	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=ayoGq9rY;
+	arc=none smtp.remote-ip=180.76.5.236
+Received: from outbound.baidu.com (unknown [180.76.5.236])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id A1F94606A321;
+	Thu, 12 Nov 2026 02:16:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1F94606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EoJRmJLK
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=9G2qFQ4sYFCKpZ2fPFqNG76HFv5MjfylAO8756ay2zY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794449705; v=1; x=1795054505;
- b=EoJRmJLKm+kw70cJWNKRWqUckONbjm+w8bJvrTe2T0pBpuUrFFktrGezsExIBLjTMxZhgkFa
- nmd3/OHl0lYIgp8tOJRdrYLXbEiOLPjpfNRxm2GY+Fo0Ia4zU/gGYjlxTIakNF13amTs5MXrib0
- ute6cruuUDofSLNGqxXK2Qa4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id ae91a8d985c07d3d;
-	Thu, 12 Nov 2026 02:15:04 +0000
-X-Mizu-Trace-ID: ae91a8d985c07d3d
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 12 Nov 2026 10:14:50 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, 1342116488@qq.com
-Subject: Re: [PATCH net-next] ipv6: check mc_forwarding before calling
- ip6mr_get_route()
-Message-ID: <avUhGnPJk5Kzci3E@fedora>
-References: <20261111094528.425826-1-sunwenbo@cmss.chinamobile.com>
+	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=ayoGq9rY
+X-MD-Sfrom: lirongqing@baidu.com
+X-MD-SrcIP: 172.31.50.48
+From: "Li,Rongqing" <lirongqing@baidu.com>
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+CC: Viresh Kumar <viresh.kumar@linaro.org>, "linux-pm@vger.kernel.org"
+	<linux-pm@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "zhongqiu.han@oss.qualcomm.com"
+	<zhongqiu.han@oss.qualcomm.com>
+Subject: =?utf-8?B?562U5aSNOiBb5aSW6YOo6YKu5Lu2XSBSZTogW1BBVENIIHY1IDAvMl0gY3B1?=
+ =?utf-8?B?ZnJlcTogYWNwaS1jcHVmcmVxOiBmaXggUC1zdGF0ZSBpbmRleCBtaXNtYXRj?=
+ =?utf-8?Q?h_between_perf->states[]_and_freq=5Ftable[]?=
+Thread-Topic: =?utf-8?B?W+WklumDqOmCruS7tl0gUmU6IFtQQVRDSCB2NSAwLzJdIGNwdWZyZXE6IGFj?=
+ =?utf-8?B?cGktY3B1ZnJlcTogZml4IFAtc3RhdGUgaW5kZXggbWlzbWF0Y2ggYmV0d2Vl?=
+ =?utf-8?Q?n_perf->states[]_and_freq=5Ftable[]?=
+Thread-Index: AQHdbh5EiSuYkXz8G0u3sHHXQ74/gbcnOhmAgAKA9eA=
+Date: Thu, 12 Nov 2026 02:15:52 +0000
+Message-ID: <f2a529c1b4884478a0b4a8d2b470911c@baidu.com>
+References: <20261106184008.1728-1-lirongqing@baidu.com>
+ <CAJZ5v0gHXCKvvHPXevx4U5WSVsS91Z3WuiMCwiYSQzQBEB5jNw@mail.gmail.com>
+In-Reply-To: <CAJZ5v0gHXCKvvHPXevx4U5WSVsS91Z3WuiMCwiYSQzQBEB5jNw@mail.gmail.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,73 +67,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111094528.425826-1-sunwenbo@cmss.chinamobile.com>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1794449755;
+	bh=qyrsc8FcIcO9n5vy1ztB9zISI0TN10UCyMD09N2OTP8=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+	b=ayoGq9rYHAu5wTQHxSvAVBHoHyq/rupfBgyYX1mr34/feR+B+N+4vn2DjqQP3Doqs
+	 tlMrslZUyaFpurRechvmVcngNwkoa36OhvN6dDzxuzOsngEtZlhDcLsSvgkqSntQoY
+	 EVCkxzkcaOY7I+Amzl0fPGGBdfrCNZ3zRV01v6VRzsufv6zi66917UEtmAfDtaRCvB
+	 Ss3Vlh0U8pSpRnzCPZmICZQo1B7jS45qFQ8ogywKw5yxUT476xCedXGM3T7Jn7V8cD
+	 3cQ5Mdo8j/JAhg5gwhXRDRZthCcM8muPKIElM3YKyWVu+xFMq+YWylm58cm8oODWX5
+	 tnaoiUhYtD/Ag==
 
-Hi Wenbo,
-On Wed, Nov 11, 2026 at 05:45:28PM +0800, Wenbo Sun wrote:
-> When CONFIG_IPV6_MROUTE is enabled, rt6_fill_node() unconditionally calls
-> ip6mr_get_route() whenever an input interface is specified and the
-> destination address is multicast.
-> 
-> However, if multicast routing is not active (i.e. no multicast routing
-> daemon is running and mc_forwarding is 0), there is no matching (S,G)
-> multicast routing cache entry, and skb->dev is NULL in the synthetic route
-> query skb allocated by inet6_rtm_getroute(). As a result, ip6mr_get_route()
-> returns -ENODEV, which causes rt6_fill_node() to jump to nla_put_failure
-> and return -EMSGSIZE to userspace ("RTNETLINK answers: Message too long").
-> 
-> In contrast, IPv4 counterpart rt_fill_info() checks
-> IPV4_DEVCONF_ALL_RO(net, MC_FORWARDING) before attempting to query
-> ipmr_get_route(), and falls back to emitting RTA_IIF and normal local
-> delivery route attributes when multicast routing is not enabled.
-> 
-> This discrepancy was identified during code audit of multicast route get
-> handling. The failure was confirmed on a UML kernel: querying an IPv6
-> multicast route with an input interface ("ip -6 route get <mcast_addr>
-> from <src_addr> ...") failed with -EMSGSIZE on an unpatched kernel.
-> 
-> Align IPv6 behavior with IPv4 by checking whether mc_forwarding is active
-> (atomic_read(&net->ipv6.devconf_all->mc_forwarding)) before calling
-> ip6mr_get_route(). When mc_forwarding is 0, rt6_fill_node() proceeds to
-> output RTA_IIF and normal route attributes.
-> 
-> Tested:
-> - On a UML kernel with CONFIG_IPV6_MROUTE=y, verified that
->   "ip -6 route get ff0e::1 from 2001:db8::3 ..." with an input interface
->   now succeeds and outputs the route instead of failing with -EMSGSIZE.
-> - Verified that IPv6 unicast route get and multicast route get without
->   an input interface continue to work as expected.
-> - Built with W=1 on UML, x86_64 allmodconfig, and x86_64 allyesconfig with
->   zero new warnings or errors.
-> 
-> Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-> ---
->  net/ipv6/route.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-> index 2eb884558c24..6dd4a70f6490 100644
-> --- a/net/ipv6/route.c
-> +++ b/net/ipv6/route.c
-> @@ -5862,7 +5862,8 @@ static int rt6_fill_node(struct net *net, struct sk_buff *skb,
->  #endif
->  	if (iif) {
->  #ifdef CONFIG_IPV6_MROUTE
-> -		if (ipv6_addr_is_multicast(&rt6_dst->addr)) {
-> +		if (ipv6_addr_is_multicast(&rt6_dst->addr) &&
-> +		    atomic_read(&net->ipv6.devconf_all->mc_forwarding)) {
->  			int err = ip6mr_get_route(net, skb, rtm, portid);
->  
->  			if (err == 0)
-
-In commit fd61c6ba313d ("net: ipv6: remove nowait arg to rt6_fill_node"),
-David Ahern removed the nowait arg. Should we still return immediately
-after err == 0? Also later if (err < 0), it still goto nla_put_failure
-and return -EMSGSIZE. Maybe we can carry the err to the end and return
-a more meaningful reason?
-
-Anyway the added checking makes sense to me.
-
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+PiA+IFBhdGNoIDEvMiBpcyB1bmNoYW5nZWQgZnJvbSB2NCBhbmQgZml4ZXMgdGhlIGNhY2hlZCBm
+cmVxdWVuY3kgdXNlZCBieQ0KPiA+IGdldF9jdXJfZnJlcV9vbl9jcHUoKSB0byBkZXRlY3QgYSBm
+aXJtd2FyZSBmcmVxdWVuY3kgY2hhbmdlIGJlaGluZCB0aGUNCj4gPiBPUydzIGJhY2suDQo+ID4N
+Cj4gPiBQYXRjaCAyLzIgaXMgbmV3IGluIHY1LiAgQXMgUmFmYWVsIHBvaW50ZWQgb3V0LCBTYXNo
+aWtvIG9ic2VydmVkIHRoYXQNCj4gPiB0aGUgZXh0cmFjdF9tc3IoKSBmYWxsYmFjayBpbnRlcmZl
+cmVzIHdpdGggMS8yIGFuZCBjYW4gcmVuZGVyIGl0DQo+ID4gaW5lZmZlY3RpdmU6IHdoZW4gdGhl
+IHN0YXR1cyByZWFkIGZyb20gdGhlIGhhcmR3YXJlIG1hdGNoZXMgbm8NCj4gPiBmcmVxX3RhYmxl
+IGVudHJ5LCBleHRyYWN0X21zcigpIHJldHVybnMgZnJlcV90YWJsZVswXS5mcmVxdWVuY3kNCj4g
+PiBpbnN0ZWFkIG9mIHJlcG9ydGluZyB0aGUgc3RhdHVzIGFzIHVua25vd24uICBJZiB0aGUgT1Mg
+aXMgYWxyZWFkeSBhdA0KPiA+IHRoZSBQLXN0YXRlIGNvcnJlc3BvbmRpbmcgdG8gZnJlcV90YWJs
+ZVswXSwgYSBmaXJtd2FyZSBzd2l0Y2ggdG8gYQ0KPiA+IGZpbHRlcmVkLW91dCBQLXN0YXRlIHRo
+ZW4gY29tcGFyZXMgZXF1YWwgdG8gdGhlIGNhY2hlZCBmcmVxdWVuY3ksDQo+ID4gZGF0YS0+cmVz
+dW1lIGlzIGxlZnQgY2xlYXIgYW5kIHRoZSBuZXh0IC0+dGFyZ2V0KCkgY2FsbCBkb2VzIG5vdA0K
+PiA+IHJld3JpdGUgdGhlIGNvbnRyb2wgcmVnaXN0ZXIuICBTbyAxLzIgYWxvbmUgZG9lcyBub3Qg
+bWFrZSB0aGUNCj4gPiBkZXRlY3Rpb24gd29yayBpbiB0aGF0IGNhc2UsIGFuZCB0aGUgdHdvIHBh
+dGNoZXMgYXJlIHBvc3RlZCB0b2dldGhlcg0KPiA+IHJhdGhlciB0aGFuIHNlcGFyYXRlbHkgYXMg
+SSBoYWQgc3VnZ2VzdGVkIGVhcmxpZXIuDQo+ID4NCj4gPiB2NDogaHR0cHM6Ly9sa21sLml1LmVk
+dS8yNjA5LjEvMDczNjkuaHRtbA0KPiA+DQo+ID4gQ2hhbmdlcyBzaW5jZSB2NDoNCj4gPiAgLSBE
+cm9wICJjcHVmcmVxOiBhY3BpLWNwdWZyZXE6IGZpeCBQLXN0YXRlIGluZGV4IG1pc21hdGNoIGlu
+DQo+ID4gICAgZXh0cmFjdF9pbygpIiwgd2hpY2ggaGFzIGJlZW4gYXBwbGllZC4gIFRoaXMgc2Vy
+aWVzIGlzIGJhc2VkIG9uIHRvcA0KPiA+ICAgIG9mIGl0Lg0KPiA+ICAtIEFkZCAyLzIgdG8gc3Rv
+cCBleHRyYWN0X21zcigpIGZyb20gbWFza2luZyBmaXJtd2FyZSBQLXN0YXRlIGNoYW5nZXMsDQo+
+ID4gICAgYXMgcmVwb3J0ZWQgYnkgU2FzaGlrbywgYW5kIG5vdGUgdGhlIGRlcGVuZGVuY3kgaW4g
+MS8yJ3MgY2hhbmdlbG9nLg0KPiANCj4gU28gU2FzaGlrbyBoYXMgZmVlZGJhY2sgb24gdGhpcyBv
+bmUgbm93Og0KPiANCj4gaHR0cHM6Ly9zYXNoaWtvLmRldi8jL21lc3NhZ2UvMjAyNjExMDYxODQw
+MDguMTcyOC0yLWxpcm9uZ3FpbmclNDBiYWlkdS4NCj4gY29tDQoNClRoaXMgZmVlZGJhY2sgaXMg
+cmVhc29uYWJsZSwgSSB3aWxsIHNlbmQgbmV3IHZlcnNpb24NCg0KdGhhbmtzDQoNCltMaSxSb25n
+cWluZ10gDQoNCg0KPiANCj4gPiAgLSAxLzI6IG5vIGZ1bmN0aW9uYWwgY2hhbmdlOyBjaGFuZ2Vs
+b2cgZXh0ZW5kZWQgdG8gc2F5IHRoYXQgaXQgZml4ZXMNCj4gPiAgICBvbmx5IHRoZSBjYWNoZWQg
+c2lkZSBvZiB0aGUgY29tcGFyaXNvbiwgYW5kIGEgZHVwbGljYXRlDQo+ID4gICAgU2lnbmVkLW9m
+Zi1ieSB3YXMgcmVtb3ZlZC4NCj4gPg0KPiA+IExpIFJvbmdRaW5nICgyKToNCj4gPiAgIGNwdWZy
+ZXE6IGFjcGktY3B1ZnJlcTogZml4IFAtc3RhdGUgaW5kZXggbWlzbWF0Y2ggaW4NCj4gPiAgICAg
+Z2V0X2N1cl9mcmVxX29uX2NwdSgpDQo+ID4gICBjcHVmcmVxOiBhY3BpLWNwdWZyZXE6IGRvbid0
+IG1hc2sgZmlybXdhcmUgUC1zdGF0ZSBjaGFuZ2VzDQo+ID4NCj4gPiAgZHJpdmVycy9jcHVmcmVx
+L2FjcGktY3B1ZnJlcS5jIHwgMTEgKysrKysrKystLS0NCj4gPiAgMSBmaWxlIGNoYW5nZWQsIDgg
+aW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkNCj4gPg0KPiA+IC0tDQo+ID4gMi45LjQNCj4g
+Pg0K
