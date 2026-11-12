@@ -1,96 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.3
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794500571;
-	b=5aak8pNPKAMzOFjmQ1iTvccsldvQHZevwgRaCfmqDe0AgZB0ouhW0lCmJWjK+/Ze+l2x
-	 pF+akzXduP5VPosuOONo+SD3kCzzy3/Q2PPsirKS0Q8WSVJYR1xrG1LTfuJe9WOxOy1dB
-	 PSQiipUB4yqb+T7jCXxuva9hc02FWMfZY6NdOWmmt1Bkda1/ux1Fx8eQjM37N/Rv5tzor
-	 qPjXpsF8+Ad/egWXq33YbCWX5AoXCdl4kvIggmKq/6yfNl5nL384n6ShGCvq84Ebyty2u
-	 Ykgezz7jQKFAkxO1CM6WBx1iwqpwaMo/pqigRofJL3k7aVGVDdSY4bdJDaZVnCbciTA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794500571;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
-	 X-MS-Reactions:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=79rcoSt8s5Y+EgIGO9Ymf5+bH+zeCuM9e526bzHMD+0=;
-	b=rfJ6Qpc9+0yybpuGOW5pqUvmOf7gpUE+4eKxidb5qAX8ri38T60y5CZC1+A/moYbslas
-	 OE0JSUV7PYOgLAaZaDU6u11BNqNhTUGySWJh+p6Z+OhGWaCtoHH1paoKrM5EbAGpOldvn
-	 wBAL91kc2wdU9gKewcF0QW+ZnENL1L009XfrgeIeG4w4iyfm/fUlsE3TMw5qnlX58ZUVW
-	 0YuN4RmAqHwUkCP0xsVVVFwp/f0EXRYUNw2GgNaYrCa/tMKPZwcaAZuvUJefZKt/w6ZY9
-	 kllDrTROE7ZRdy0vfpeN/Kj7py39koPSrWG7qdOYXZn+1Pq048TioaQAScF4RJUg67A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=bBKMZjqP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.3
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011003.outbound.protection.outlook.com [52.101.52.3])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794500603;
+	b=gntDkhboOiQz+8FaIAXEqC6Pj6Zx+pHX4mNcTMo4sswuZxGmmA2vfhqgqIK/q90QSmz7
+	 pQu6apBcHJsTMQ5tBqZ2rrPxgYmI42HpfD/D1GZ/m+dzv9XN8D/mlaDOwsS3Ei2vX8bi6
+	 RzCNwVCdocCbT/YqKFTelmRtsvZDNvTv7fo/YYyK9sKglXC7r0XkiDASToVCTe8/rL3mQ
+	 AaDyaO43Cp6o8AAilc9VcfSVsUzFkWciKexaPPjnfx4IzbbOgFI+Ct4iXy93ewDtPBdWy
+	 y6SOybaD1oGurVdW4GBoPyLsqNm7sQvk1LO3R8PysFtSRjg3wW19NEUyV+dI7+QceAA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794500603;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=bsHjPOn7EQIvjeBJsa/4uXXhWDfByDTlEDjI43xq1Rg=;
+	b=5ockU9PsacBD+t14dAbeoKg/Sy5G3PVKRhW5ne1Rpo28U4qcMIRM5Y9cyuIq99HI7UMC
+	 Hv/jxOpehs9gonKJ7KzASPImNg6eHupdTTNYe0CrrdmeOxxlK1bS+kLXFINO8zbPVra5l
+	 RFQBVurKiGk0YqW0bfnyK2K0aNx3JY+DH/P/XpLNuNM8JzZyxBewn6fYMqWOu46MtbLfq
+	 sTPbzEHcm2hBT//GcGUCyRHpG276HSv06x5glwsB6QUq0tdH7BkIJ0h56oJgnqU+Kdsep
+	 rQmXP/37205mM+aoSCMtMjJVnOiJfM8xBQVDCf3BOKhy1MgM5JJvJDeAGc8QganOU5w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UhesNISn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0153E606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:22:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0153E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DCA7606A31C;
+	Thu, 12 Nov 2026 16:23:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=bBKMZjqP
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FFGAvcYR5GNO8SEKnGUj9gTw9Hlb62xLhtdvV0xyc+butUqhmLKz9shGlwGFVDgUWTfBDhplynqIGNMoIngSDb6DArb5341at0qd+HMusXoizJ2y4U1+9YUSt2dcIYIaajxPczOyJoxcgqViblrgLmcIslSTmSSKUwGZKFKcyJYW7VElt5DhxP6J9ajFJ5hcfqSj3VRM68XRLyxk0Ucc5jfNOQ/5gvICIvYS3YiKCR1RvX4uxWSUtbQntQsdxnD4kPMrQeZRMp6NE16hMFyScRJPzW1sajRzNBt86nxVLdZOhQLhs6OFN8349CKovzsdMpcGaKRE4NK6Jk2ulfE91Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=79rcoSt8s5Y+EgIGO9Ymf5+bH+zeCuM9e526bzHMD+0=;
- b=DQorXj25dDKbt3DIR+IZwsq3fuTKqVMiC0DKMzqnFAcb5UKy41TUvfs+n7d3l2ZOW72ytBoaX3crabfaarsHOsra9wx58lWV5ga4d6XVt+ruXu0206Rbeb2aa2dlvkCw4NlDykzX9FL//ZI5RuTTOBBnlqFwdeOpv8BYERf1UBXwWIZM6tlALkz3VKVfbbLvlVx7uvQ1easnvyl1a/5nOG+JEyRPShzTVDB6H0sHVG5zY3ducbRntd2C3bAj5m7O/v1k66Qkr6dWSsdq2g9cl4Ab/lPMFGknQDh0CgnFkN3S9nQ9NbTkw9HD8PxeF32zAx3YXGddastlCmQLmEpf+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=79rcoSt8s5Y+EgIGO9Ymf5+bH+zeCuM9e526bzHMD+0=;
- b=bBKMZjqPfc0mP2dZgl667e947V+8O0fxquzUO8aE8iJP8WPEZdNuWs+Ko8vFRtLYvxk7YxlTXfI6yPmo8IV1974OH+3GHuMJZX+JKlO3kMRWDYxSwr9z8vqP22W21csM3eCkuAcaDHiKbxxmuPgAAHlJTnEO/lScQtPZubxr8S3woe2wsxQf3rMGwrESYnsJFWw+DtRSCw8odZ1p78hfxLkkFfXvY4RT2/1JeLgsvM0MhJqKcBcPKoJS9KWseuIiZztLnHKkefU/ZuzkQJ4myEKzKGKzTAxEj2OawXXQ23PU5AZOsfxrD5vtH5bi6wOMzDIxD1FzAuUx6gZ60NDTpQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by DM4PR12MB6544.namprd12.prod.outlook.com (2603:10b6:8:8d::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.13; Thu, 12 Nov 2026 16:22:44 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0615.007; Thu, 12 Nov 2026
- 16:22:41 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Gregory Price <gourry@gourry.net>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH v2] mm/page_alloc: only skip kswapd nodes below their
- kswapd watermark
-Date: Thu, 12 Nov 2026 11:22:39 -0500
-X-Mailer: MailMate (3.0r7038)
-Message-ID: <C5C863CC-A524-4CA1-B76E-0FA22B166DB6@nvidia.com>
-In-Reply-To: <20261110224432.2347606-1-joshua.hahnjy@gmail.com>
-References: <20261110224432.2347606-1-joshua.hahnjy@gmail.com>
-Content-Type: text/plain
-X-MS-Reactions: disallow
-X-ClientProxiedBy: YT4P288CA0080.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d0::15) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UhesNISn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD23F1F000C4;
+	Thu, 12 Nov 2026 16:23:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794500602;
+	bh=bsHjPOn7EQIvjeBJsa/4uXXhWDfByDTlEDjI43xq1Rg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UhesNISnz1XXxAnSYD8cJ2LAInSMyJdo93FnmHXmAeAytdHghUo2RCOVedONnMfCa
+	 wiGelD/aZ53X6EYQ4RxHSHD4AdnIVDRoG15RL/o6vmZGqbsqAXTDBqIKHRcCyFKMme
+	 VKHf0W4tSN9I+fX/k7nxYItp1BnDzkUJe93p5v6zLnaBAvSPQGZQyjsTg0TTwVbhno
+	 3daJoP8JecyYB3723QifpZbwB1NOo9MFJAEFENH05DGEcdznMDDvGIK7PoJVT0QUPY
+	 bixEHNHkI+wIDgIeEf1T9uVXn0kQ53CO5JnAAg+Bhl9e2D20wkmGnnUvofNCwPf4oi
+	 EfNZpbkBxwlUw==
+Message-ID: <96e6d746-a14f-448d-a2b5-4e94d27aa4ec@kernel.org>
+Date: Thu, 12 Nov 2026 17:23:14 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,125 +51,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DM4PR12MB6544:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9bdeba6a-1377-4f94-4407-08df40d92ce8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|23010399003|7416014|1800799024|18002099003|22082099003|3023799007|11063799006|261009223027099003|56012099006|10067099003|261022105027099003|261026140227099003|261021121427099003|261022075727099003|261021123027099003|261102123227099003|261028144727099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	B+Jqi8Wckx5PGme2GoHowqcOn96p3+Av6CYFRNxWkuuTiQWGFNIsZ+ozYtED0qSgnXvkpccRFLIL2QOf0OHvubPA2yYU8uc4oBdRRr2F3b0SH2xzqSDbNndblnpuR3PV7Oxa/bGlUSJGUI5oGdn+/sPjNywCRFFCBAx9RWwIfwEhCapfp7ZAndQdw668O2TgkrA/2A/SkC0v4UWBqtVuA/2Dh6fLfp6pOo+FulN4jQZjjg6hiOvQxLYswPbA1WsbBjcC9L20rpmCtOcgt1jR5ZOuIGtwn+o6W5r05VoRQObewYakYRzclSkSF9Sq6LRFgCi02pTfSmyKU7uksYYpvvA45zAbUyAXyADCpT8Hj2C9Bh1W0hhHTZK4IK9M9HRfQ/We5UZ5d4v7FihpHoUqEEixhuxwDFlifOcd1hVQR6wIh6cUdO24lmIljONOimy6xdZVAOvDyj/2IN7O9foCno1eZXX4Bi4HzjR9ylNi/JVrt2T4DqT1N7Yt68wIVKoNSEd/4nEam8yfhHdhVELBKpj3pH0zpgeONBHRV1K0s6xH0w/ZYTzwQR2aoHAhv5jy2MiWcofyzp7uO3riFpj5h2PFcDB9wN9qB/ndoTth3+ICD9dqDPvZqlWrCUVAujIku5nZY8AF6er8OxCDzeuEbMFU5JD7zqfia38Wr66jRFs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(7416014)(1800799024)(18002099003)(22082099003)(3023799007)(11063799006)(261009223027099003)(56012099006)(10067099003)(261022105027099003)(261026140227099003)(261021121427099003)(261022075727099003)(261021123027099003)(261102123227099003)(261028144727099003)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?eyEVxSZPrOmYIZ9EWPrnlZ8gRMLYuAqrrpPd6jD8F2WTyeF0xge+d0T3EXj4?=
- =?us-ascii?Q?gotVniNA2K+m5D2NHFI+6vjoss3KwATYIKyH5dYhCQsOkKYJFt6ORVkaAUhq?=
- =?us-ascii?Q?k/sW7B7DBeCXjaHeThlhhnmYkoS+Fen7xJmaMFTQg3Htbc0WqYAGnCIX6mob?=
- =?us-ascii?Q?uX/gJDfav13zOyf1j78PGLgTzzc6brNN4Fidzu/7eR1HA2VLD27YurEAnprG?=
- =?us-ascii?Q?n/llWkGb4ZH9RaM5KH1sF27tEVxvemAUGQVTx2RpPWlYv5MMsvwlapb43yxw?=
- =?us-ascii?Q?3FU28zUyXdIaAbW8OQU8y8uXp9zZayf6roeS4Yqb9cAqqlQv+1K6ibnUNJVG?=
- =?us-ascii?Q?fkQCfCxQr1T7NifDtzN+xnU9n8jFSyVT3smkTbMhCsaYMndKXqsxmP8YzlQS?=
- =?us-ascii?Q?6/69jffZv1VRhDZEe5Za8WS/PujrZwpwuwSmuRuNiYWD06UrkYQg1K/yJbYf?=
- =?us-ascii?Q?B2orc9ExpFlwoWSbN0uuCcWYvZDYKj1MNCf8c/+XaqYmsx+57CLUU/6GpSzo?=
- =?us-ascii?Q?0LkYV998Q1pPpfY19CyUk/PD3uzrfDyK1bHHpbAxtUuy7HYFA9mzXRyoeY6V?=
- =?us-ascii?Q?vOhNEIRq6YvybDe0oDtlGI3UYRhH7ReTG6GCrUp1T8JsgW5VhF0Y1J7Jh9zZ?=
- =?us-ascii?Q?8PX7cpJmIRDQIKRGfTho1PML/Gk+BgwkA/Gsd1rNl1KH0XCyChzlFNfbFL7d?=
- =?us-ascii?Q?jLsn3Lc89AYEQ4fLqCmGNz/iJ0gkPf9zlodmNsmrhMR/SBaDWaC5XlilAJql?=
- =?us-ascii?Q?j8/rOo6YJbv6BIjBUQ1yqLrMYgv4OPpHgRr8YgthLgqDZb3qDQm3gcS63WMy?=
- =?us-ascii?Q?e7vFDhc5sDnT1qhHNTArcqSGJscdAMOcEsxFnLvFCf7XWuHus/UCM5B+W2Wq?=
- =?us-ascii?Q?uDOwMF/v2Ok+kP3m1qMJJkFEqHflKyzytkGsLxPAQwL+dvi5BPvmzG4iTY+Y?=
- =?us-ascii?Q?zlHQnXUdfa5bHV8scT0CmcMcWWwU19HgHzS0NxTWv18gdZFlr3cctCV+gS9A?=
- =?us-ascii?Q?NoNAlslReMPCfKSdDxCM3c5t2ZUIXhNIr7CXQMC86XxKC0hsQ9bWwYtyom2r?=
- =?us-ascii?Q?vxgRN/N00bJdC5OjfplNgT/J3t30xlOygIxcNNtGFGooedWKLrBzxXRBpaB1?=
- =?us-ascii?Q?hMtPsy2VMW9mtuXUZdewVCx/0VVTl7BmMMZnXseSBWWx0cthoWXvkNAVlcj9?=
- =?us-ascii?Q?pkOvpKfgKZNtHrQ2MMN2RbGnpmAKSMZ+9ke9lNKorVW6XczeINCcPRgcRbcf?=
- =?us-ascii?Q?uMjYAQMKVxQusZAk0ez068jN7lDCc9g2Ok5W5vXodFSKcpTFaAWuwkvaxqKn?=
- =?us-ascii?Q?SyNp7eOl1pkP9UQlpAy6y41UlfISkynRETL1kq2vcV2JRAgY+RvfVIIgeFp+?=
- =?us-ascii?Q?bEuncXNezgTEhNBBuxIaxtcUT8bjQB/+OrNolvWMOVcSQSFmjIUYTAUau3Dp?=
- =?us-ascii?Q?SraHw2mqq6C2P+cykAqQ/lhn1JNEwVJyRz6PCTLJRh5jClNNzZXHt55BRLfO?=
- =?us-ascii?Q?Aa8uXxRaCO6YIxWe25QM13TV0PXvqC7YjVii28tQwXJSlwf2xzUWiku21uC1?=
- =?us-ascii?Q?7OkBTUhweGKAl95Z20rDL7CWg0jufWMWhlGgCPIQnoMr2lV1AT4K4T33DVAE?=
- =?us-ascii?Q?d4LVEmbqNLjoEAfWWTIDOr/btfKEZx+UYMIvcyE/vjL6JBg8N4jaaQMYgkak?=
- =?us-ascii?Q?s47tF+mUAS1UV/9mOwVw+3lp6B2m2YyGOMbfIPTpZdeN1k9u?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9bdeba6a-1377-4f94-4407-08df40d92ce8
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 16:22:41.7710
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2dR/8kwrLABCoqgI2mtGSO0DAK+uEhBScQihxE6mUpoOh0gxtphMuro2wRF7gg32
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6544
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] dt-bindings: display: bridge: Add Parade PS195
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
+ Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20261112-mahua-hdmi-v1-0-b463d7b1dd7e@oss.qualcomm.com>
+ <20261112-mahua-hdmi-v1-1-b463d7b1dd7e@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261112-mahua-hdmi-v1-1-b463d7b1dd7e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 10 Nov 2026, at 17:44, Joshua Hahn wrote:
-
-> Commit 19c5fb83f2a4 ("mm: page_alloc: avoid kswapd thrashing due to
-> NUMA restrictions") makes get_page_from_freelist() skip any node with an
-> active kswapd on the first pass through the zonelist, so unrestricted
-> allocations don't immediately consume the memory kswapd is freeing.
->
-> But kswapd is also woken for high-order requests. With THP defrag set to
-> defer, each THP fault that fails on a fragmented node wakes kswapd at
-> PMD order. kswapd reclaims a batch, wakes kcompactd, and sleeps until
-> the next failed fault, so it stays awake much of the time even on a node
-> with plenty of free order-0 memory. This means those order-0 allocations
-> get directed elsewhere.
->
-> This was observed on some Meta production workloads running on 2-NUMA
-> systems, where processes with a preference for node0 allocations
-> continuously allocated order-0 pages on node1, despite node0 having
-> hundreds of GB of free memory.
->
-> Only skip a zone with an active kswapd if it is also below kswapd's
-> target watermark.
->
-> On a 2-NUMA VM with a 60G node0 and a 20G node1, with THP enabled=always
-> and defrag=defer, I ran a process that prefers allocating on node0.
-> With a fragmented node0:
-> - Before the patch, 68% of pages were served from node0
-> - After the patch, 100% of pages were served from node0
->
-> One remaining gap is that since this uses kswapd's own threshold,
-> unrestricted allocations can take what kswapd frees above the target
-> watermark. The current code already lets such allocations drain from the
-> high to the low watermark while kswapd sleeps.
->
-> One potential solution, as hinted by Johannes in the discussion from the
-> original fix [1] is to add some kind of fudge factor (for instance,
-> wmark_pages + high_wmark_pages - low_wmark_pages).
->
-> But in tests that I ran in a VM where the allocation demand outpaces
-> kswapd, about 4% more pages landed on the busy node and kswapd reclaimed
-> about 15% more, but kswapd still finished and slept. So let's hold off
-> on the fudge factor until it becomes an observable issue in workloads.
->
-> [1] https://lore.kernel.org/linux-mm/20251001164131.GB1597553@cmpxchg.org/
->
-> Fixes: 19c5fb83f2a4 ("mm: page_alloc: avoid kswapd thrashing due to NUMA restrictions")
-> Suggested-by: Daniel Hodges <hodgesd@meta.com>
-> Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+On 12/11/2026 11:15, Nabige Aala wrote:
+> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+> 
+> Add bindings for the Parade PS195 DisplayPort to HDMI bridge, describing
+> its power supplies, optional reset GPIO and display ports.
+> 
+> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
 > ---
-> v1 --> v2:
-> - Added a Fixes tag and separated this from the other cleanup patches
-> - Check zone_watermark_fast with no flag to match the call in
->   pgdat_balanced().
-> - Calculates mark outside the zone_watermark_fast check to match the
->   style for the other zone checks.
-> - Wordsmithing commit message to explain the unaddressed gap.
-> - Yes, this is ugly. I have another series to clean this code up but
->   I wanted this to be a feature-minimal patch so that it could be
->   easily backported. Things will be much prettier once those are landed.
->
->  mm/page_alloc.c | 23 ++++++++++++++++-------
->  1 file changed, 16 insertions(+), 7 deletions(-)
->
-Makes sense.
+>  .../bindings/display/bridge/parade,ps195.yaml      | 98 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  6 ++
+>  2 files changed, 104 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/bridge/parade,ps195.yaml b/Documentation/devicetree/bindings/display/bridge/parade,ps195.yaml
+> new file mode 100644
+> index 000000000000..089191570ef0
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/bridge/parade,ps195.yaml
+> @@ -0,0 +1,98 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/bridge/parade,ps195.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Parade PS195 DisplayPort to HDMI protocol converter
+> +
+> +maintainers:
+> +  - Mahadevan P <mahadevan.p@oss.qualcomm.com>
+> +
+> +description:
+> +  The PS195 converts DisplayPort input to HDMI output. Firmware loaded from
+> +  an external SPI flash handles link training, EDID access and hotplug
+> +  detection. This binding describes operation without host control of
 
-Acked-by: Zi Yan <ziy@nvidia.com>
+Please post complete binding.
 
-Best Regards,
-Yan, Zi
+> +  the device registers. The optional I2C control port is not required for
+> +  display operation. Reset may be controlled by a GPIO or released by a
+
+So this can does not have to be connected to I2C bus at all? I checked
+datasheet and it does not really mention having SDA/SCL floating
+(disconnected).
+
+Best regards,
+Krzysztof
