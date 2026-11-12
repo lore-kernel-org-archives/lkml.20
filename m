@@ -1,103 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.189
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794464757;
-	b=G+g6Ji8XzJ9so8KCKvTQ2chGiIKF0LdHn+KUinZft5KRZB9MPAmFze8x/z0g7fjNhQjc
-	 TI0jEpOc7bz79JGju2yS+93RQ9EnZAsnFbPdygCskmCu3WJIc3VU1GftlLOavo+bAjVr/
-	 ziFFWT7TPP7NlseGmQaXdIqSWxfIWeLJDyzM9ZoXHRRWcgbXUjLY6XJaC47+jJPSnWwLS
-	 FdoZS7JmGNoqL0i41Lv2ypgkc7XidLHlpyxgFvUQZdTHRJQHhR1MbxvXLem3JdYtosdUR
-	 0VEZ3Hod68TeWFyyteySCjoQ4pNtAuOMeib5J5JLx1mcSBNZrtXMoFEQUkjaqYVAptg==
+	t=1794464794;
+	b=1aoIvnabpcx3ZX9EeaPbpicWIiIBc0qk80TkiKucTfmDyT/DDtUeL/CHzaUMHPXsqE6K
+	 y0kO1jD7GjMrqyIn9q10PPPZilta+4TkiiDa50RbD7kofb7NkzcLxAUeuj925RdYXqgLD
+	 LkAsxj4ctbhbZAYtdF7DuNMJ8cURILJiJ9/OyrhzGEt10w1yBpwcRPrrGjXtH9w+oFcxi
+	 Oe3eJbRgkOTGWcf7jSN5hrTrqWnunT42rM9Qnnteqva1zR3d+Q5bo3nvgnCos7o/PuW7+
+	 pF6WcDKnte8cgDjU5cE2vjkRL0S1YqnS2LmqbMUJtzvPUPuGOg2qDkX/L7ksGlfmBXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794464757;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=0Lrn8/IzG4OPTLUo+SJwEmycT247APyWguHaVOjjaKQ=;
-	b=Lrhkeo8M91CBr51do+tHdaZjUky6oClDXAot1UAFDjSYp4NIhmKT3/2JiF8anbtp5XMY
-	 6S1ZcQd2Sh3Z82w8F3blx7KNJ3BJYFQ51k4SywYwuGUdo+vqz10RRV7q54/dhftx+B2dj
-	 q5ohLM+huecBUKkCB8jPjOR92tKMRr2pEBVYdmqEI9pBcZ4Hb+VMAIquvNbFe6FFFtQUY
-	 6gWgoqPbmeRQQgAVL0V0hyHQ4aZ5Etv9wfysTClbv+Ex270dC3GvX1MQCUiUYLZEwke0d
-	 tgi5F/CYFMh9KgM0sjpz5Jj3XbHPo4k4DNrq33R67ExCEnCNjORb4VM9eJ13rZkM8wg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794464794;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=FzuBWSCpGeQukn6FXOSBWpNu0IM30YG8f/xbcMJEj9M=;
+	b=GTPkphCQM3RIBt5VvVA08dDsTsXYFjqPOCv1Wq2wTpH/g0SXvb8DGcwRu3z0gM8eG6wZ
+	 ijKUgx5Ydrowe6Fm72Chzi2HX+DCwzoHqOfv02ETSuvg4+76egbT9Zerws83bMYnfUUcz
+	 YnohJ1iWQXAk9p9SX/AqLWh2I3oPyq0qBcgWkanK8RZu84Pp0TYRqSf4cJgJQfU9dztzE
+	 RcAXOW94ZlN8mxj3ywNca91BZpdMvQrdv0xWOZeysF0q5KoZe+WppsQEwNHtLTk2i+sej
+	 opr38dINwpXdo94i3ZpbyCzn3kW7XGVD/v9WQ20udt4yyMtyk0AjWQAcgoM+hv4Tnjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GhUqZ9ha;
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xdv6OXXd;
+	arc=none smtp.remote-ip=91.218.175.189
+Received: from mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4CB560A5BE5
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:25:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4CB560A5BE5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92E1D606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:26:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92E1D606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GhUqZ9ha
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e946155442so31907395ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:25:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794464756; x=1795069556; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0Lrn8/IzG4OPTLUo+SJwEmycT247APyWguHaVOjjaKQ=;
-        b=GhUqZ9haNHgqG19bv1O4RvaGQz3IC3/C/oVeAEpm0LaGjZkz8yeyCWQqV0/InY0q/o
-         yzW2u9uddjiqrq12k6OR4um6L1ElxXM4QeSvx+/sXFhG5i0vo/hzMwaX987rGBQn0/4q
-         TU/vENuUNRIKZg7V0VojwxyA9gwukKrG+xR5e4TQAnaELhRq/2JjGI0OzG7yDRCMWwwA
-         riPJSSstR3+jerR4mEcU980n7zY0IvebrMNNgSRAKolkKlD0mjqoKCNvE9YVmZr+jnVW
-         FTmy38r5Dk3rZRK3VyAC1W05FFJ3xx8wTQYPX12I5rS/qpbRAXqYkS6Hrkk/L0g0qCou
-         WYEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794464756; x=1795069556;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0Lrn8/IzG4OPTLUo+SJwEmycT247APyWguHaVOjjaKQ=;
-        b=LIq3eIzYCHEtj5JQfNHxABFBm8W6b7dSyE2cquZ43t5RnZoJBoUjmVA8vf6/7BzECD
-         BSU1QktW7SlbAMi1MnOJO4INnhMARDUd+KJi0p3jI6KxfG2igYc3Nd259ytt+SNN7Ske
-         1iDKKnsJaOBNCcrJxN9vn/Qc+D8w0norN0oFQsC+Dh26C6JQPjJwPML+Ix2xivTNbmJa
-         TzcsCl9uIMgR2uUWYkRW3nW2E3RhAC25y7BcxNef4NkpmRAdBLXxOq5YdXYkcOD6Gkgf
-         tT85S8j3rY2fuYzG8gzpEtSswHFt7Sgb+uNTGhA+o2E8qo61Leq/p2gHMn+tvhrtqL5e
-         LA7A==
-X-Forwarded-Encrypted: i=1; AL+hErE1dhQSd2t3cw3jcfJ8L8rfsLgDSKfy/kk6lvvdOXdHGbuLW3zFkYbboCuFlykgyonq02Re7xAvrXF9Hfk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9sA2gBsFwjuTUOYx9oslDqj1bNF4D/4EzFTUXm3OO4yMbq7xa8
-	/OqCMMCktBgGjQkgfmMUFQ0Ap2yG+/Mr6HNlqPx1JxEc9rBIpHJmk5N2
-X-Gm-Gg: AYBFou3r0vEaabJzaLDUARC4n1aaMLn7j2JGcn7RIF33d5fcuEno5WLwYNHgMmG9NQq
-	ri2/A7Isb5YKGMFKoD8whv5ejQ8cBGCizA8icEWVfZJE2yyIu1QmBj44QJZhXy36LueFNa7rSIb
-	YWZv6sZTXJnwdKY05xbFuyDF8Kkci7VYQeoogYsf4hPoDig9M1uAnNUGFenhQhWq5O3oyvpBjRR
-	hoS5UJiNXSrFiZxwqG6fUhTN13D88RJ5aKvXriYpEUopa+v+zSsZlsennhEUxbo7YPnkSwy5P3L
-	D+rJpOvPJRwh47XspHb/xC12l2sTFNEG9ZQuiZ13B6o+6ES4DfY1YyRjSEtUfHuWAEWMFLA6XGL
-	rbpD9jt7RDcT3W8/y8e7enQfpsVWZiYe096i6GRh/+Ls5eu6MTaXfp6OKlyPeRBRc5WXFdqEr51
-	9OObxjnsfqpkAp1c0QLrwCyNP2yTaQzarwfyRRn+Yb7VWTHs1AiLFdVKVDr6rCEbqQYOgxgsIYc
-	l7rMb00nWC2lQqaNEPXB01VisRl/4TUCCFzDY2rndFYt3NjJKckCVV2biXJ0GUdKtjmYTHLwhci
-	29MydV5d/taBlg1R+3RjlrxxM2rPwaKBBB+6GxK65FJn7BEzejSfcqHvh4eP4YwXlguMLbXVPwg
-	RspaTgeX+WZfl898LOzVXaJoAlGlA4o9uS3uQX5669FW5EHc=
-X-Received: by 2002:a17:903:3c68:b0:2ed:12a1:c4aa with SMTP id d9443c01a7336-2edd77874b6mr52224775ad.31.1794464756137;
-        Wed, 11 Nov 2026 22:25:56 -0800 (PST)
-Received: from localhost.localdomain ([183.96.175.225])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6a3e61bsm26979965ad.11.2026.11.11.22.25.52
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 11 Nov 2026 22:25:55 -0800 (PST)
-From: Joonho Lee <mynameisjune111@gmail.com>
-To: linux-sound@vger.kernel.org
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	anton.yakovlev@opensynergy.com,
-	mst@redhat.com,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	Joonho Lee <mynameisjune111@gmail.com>
-Subject: [PATCH v30 17/17] ALSA: virtio: preserve playback progress across pause and buffer access
-Date: Thu, 12 Nov 2026 15:24:46 +0900
-Message-ID: <20261112062446.159-18-mynameisjune111@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261112062446.159-1-mynameisjune111@gmail.com>
-References: <20261112062446.159-1-mynameisjune111@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xdv6OXXd
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=YSdVHcPOxp7Mxpr75S83EeGKEHU4uT3ofCAOXt4L8qg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794464790; v=1; x=1795069590;
+ b=xdv6OXXdejomL8Jyz21uc0ZO1TWdK2t3WFcFLwxceXm+B0C0fNYTeZ7LwgHTkmy16OJ29GNk
+ izgILyNfylss6MC2zDXOz4c+0rS0DOdEGwM0hqjnTrytoKxV3wbmWkq74DfSFK34no72/4fqXNT
+ YodGPR3YUvWpYFCabU8JqSAg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8df4261c904f80f8;
+	Thu, 12 Nov 2026 06:26:30 +0000
+X-Mizu-Trace-ID: 8df4261c904f80f8
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <73501214-76ff-4716-bb8e-f83fff26bfba@linux.dev>
+Date: Thu, 12 Nov 2026 14:27:55 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,343 +58,396 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 7/9] mm/vmalloc: undo partial mappings inside the
+ mapping functions
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: Uladzislau Rezki <urezki@gmail.com>, Dev Jain <dev.jain@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-mm@kvack.org
+References: <20261110112546.261415-1-hao.ge@linux.dev>
+ <20261110112546.261415-8-hao.ge@linux.dev>
+ <CAJuCfpFHaahsCNkXCOn8ks65yj_bPy33cOLZ5BW=rtTOuedLqw@mail.gmail.com>
+Content-Language: en-US
+From: Hao Ge <hao.ge@linux.dev>
+In-Reply-To: <CAJuCfpFHaahsCNkXCOn8ks65yj_bPy33cOLZ5BW=rtTOuedLqw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-TX completions can arrive after PAUSE closes transfer admission.
-Preserve that progress and schedule catch-up when the stream resumes or
-a rejected pause restores RUNNING. Cache device latency in stream-owned
-state so a late completion does not need to dereference the ALSA
-runtime. Clear both the cache and runtime delay on prepare and before
-RESET observes the hardware pointer.
+Hi Suren
 
-A playback pointer callback can also invoke ACK while the core has
-closed buffer-access admission, after the pointer helper has already
-accounted for completed hardware bytes. Track that callback context and
-refill only previously committed data using pcm_indirect.appl_ptr. Keep
-rejecting other ACKs while the gate is closed, and use the
-snd_pcm_indirect_playback_transfer_appl_ptr() for the refill. If
-runtime->control is absent, route the condition through the common
-playback validator and XRUN error path rather than returning before
-transfer failure handling.
+Thanks for your review.
 
-Use the existing indirect hw_queue_size to keep outstanding TX below one
-physical ring: buffer_bytes - period_bytes. Equal modulo cursors then
-mean no unobserved completion, and a non-interrupt HWSYNC cannot consume
-a hidden full-ring wrap before deferred period work. Continue using the
-ordinary ALSA pointer update for silence, drain, stop-threshold and
-wakeup policy.
+On 2026/11/12 09:15, Suren Baghdasaryan wrote:
+> On Tue, Nov 10, 2026 at 11:25 AM Hao Ge <hao.ge@linux.dev> wrote:
+>>
+>> The vmap entry points may install some PTEs and then fail, leaving a
+>> partial mapping behind.
+>>
+>> The callers do not agree on who cleans it up. pcpu_map_pages() and
+>> kmsan_ioremap_page_range() roll back what they mapped, while
+>> vm_module_tags_populate() and the __GFP_NOFAIL retry loop in
+>> __vmalloc_area_node() expect a clean range from the mapping function.
+>> For them the leftovers stay mapped, and the next attempt to map the
+>> same range trips the WARN_ON(!pte_none()) in vmap_pages_pte_range().
+>> A leftover huge pmd is even worse. During the retry, vmap_try_huge_pmd()
+>> calls pmd_free_pte_page() on it, and the x86 implementation cannot
+>> tell a leaf entry from a page table and frees the mapped page.
+>>
+>> After discussing with Suren and Ulad, we decided to put the rollback
+>> into the entry points of the vmap API rather than into every
+>> low-level helper. __vmap_pages_range_noflush() undoes the whole range
+>> it was asked to map when it fails, and vmap_page_range() undoes its
+>> range for the ioremap-style mappings.
+>>
+>> The rollback is __vunmap_range_noflush(), which only clears the PTEs.
+>> No TLB flush is needed, nothing has touched the mapping yet.
+>> vmap_pages_range_noflush() also drops the KMSAN metadata of the
+>> failed mapping.
+>>
+>> The undo walk skips its cond_resched() when the caller's gfp mask
+>> cannot block. __vmalloc() with GFP_ATOMIC or GFP_NOWAIT can run in
+>> atomic context, where cond_resched() cannot schedule.
+>> __vunmap_range_noflush() takes a can_resched argument for that, which
+>> the sleepable callers pass as true.
+>>
+>> Suggested-by: Uladyslau Rezki <urezki@gmail.com>
+>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+>> ---
+>>  include/linux/kmsan.h |  8 ++++--
+>>  mm/kmsan/hooks.c      | 18 ++++++++-----
+>>  mm/kmsan/shadow.c     |  7 ++---
+>>  mm/vmalloc.c          | 61 +++++++++++++++++++++++++++++++++----------
+>>  mm/vmalloc.h          |  6 +++--
+>>  5 files changed, 72 insertions(+), 28 deletions(-)
+>>
+>> diff --git a/include/linux/kmsan.h b/include/linux/kmsan.h
+>> index 7da9fd506b39..0016c032d1e7 100644
+>> --- a/include/linux/kmsan.h
+>> +++ b/include/linux/kmsan.h
+>> @@ -150,11 +150,14 @@ int __must_check kmsan_vmap_pages_range_noflush(unsigned long start,
+>>   * kmsan_vunmap_kernel_range_noflush() - Notify KMSAN about a vunmap.
+>>   * @start: start of vunmapped range.
+>>   * @end:   end of vunmapped range.
+>> + * @can_resched: whether the unmap walk may call cond_resched(); pass
+>> + * false from atomic context.
+>>   *
+>>   * KMSAN unmaps the contiguous metadata ranges created by
+>>   * kmsan_map_kernel_range_noflush().
+>>   */
+>> -void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end);
+>> +void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end,
+>> +                               bool can_resched);
+>>
+>>  /**
+>>   * kmsan_ioremap_page_range() - Notify KMSAN about a ioremap_page_range() call.
+>> @@ -355,7 +358,8 @@ static inline int __must_check kmsan_vmap_pages_range_noflush(
+>>  }
+>>
+>>  static inline void kmsan_vunmap_range_noflush(unsigned long start,
+>> -                                             unsigned long end)
+>> +                                             unsigned long end,
+>> +                                             bool can_resched)
+>>  {
+>>  }
+>>
+>> diff --git a/mm/kmsan/hooks.c b/mm/kmsan/hooks.c
+>> index 107f66841274..0cd1edaa1120 100644
+>> --- a/mm/kmsan/hooks.c
+>> +++ b/mm/kmsan/hooks.c
+>> @@ -136,13 +136,16 @@ static unsigned long vmalloc_origin(unsigned long addr)
+>>                                                  KMSAN_META_ORIGIN);
+>>  }
+>>
+>> -void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end)
+>> +void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end,
+>> +                               bool can_resched)
+>>  {
+>>         if (!kmsan_enabled)
+>>                 return;
+>>
+>> -       __vunmap_range_noflush(vmalloc_shadow(start), vmalloc_shadow(end));
+>> -       __vunmap_range_noflush(vmalloc_origin(start), vmalloc_origin(end));
+>> +       __vunmap_range_noflush(vmalloc_shadow(start), vmalloc_shadow(end),
+>> +                              can_resched);
+>> +       __vunmap_range_noflush(vmalloc_origin(start), vmalloc_origin(end),
+>> +                              can_resched);
+>>         flush_cache_vmap(vmalloc_shadow(start), vmalloc_shadow(end));
+>>         flush_cache_vmap(vmalloc_origin(start), vmalloc_origin(end));
+>>  }
+>> @@ -171,8 +174,9 @@ static void kmsan_iounmap_pages(unsigned long start, unsigned long end)
+>>                 if (origin)
+>>                         __free_pages(origin, KMSAN_IOREMAP_META_ORDER);
+>>         }
+>> -       __vunmap_range_noflush(shadow_start, shadow_end);
+>> -       __vunmap_range_noflush(origin_start, origin_end);
+>> +       /* ioremap metadata mappings are always GFP_KERNEL, so resched is safe. */
+>> +       __vunmap_range_noflush(shadow_start, shadow_end, true);
+>> +       __vunmap_range_noflush(origin_start, origin_end, true);
+>>         flush_tlb_kernel_range(shadow_start, shadow_end);
+>>         flush_tlb_kernel_range(origin_start, origin_end);
+>>  }
+>> @@ -207,7 +211,7 @@ int kmsan_ioremap_page_range(unsigned long start, unsigned long end,
+>>                 mapped = __vmap_pages_range_noflush(
+>>                         vmalloc_shadow(start + off),
+>>                         vmalloc_shadow(start + off + PAGE_SIZE), prot, &shadow,
+>> -                       PAGE_SHIFT);
+>> +                       PAGE_SHIFT, gfp_mask);
+>>                 if (mapped) {
+>>                         err = mapped;
+>>                         goto ret;
+>> @@ -217,7 +221,7 @@ int kmsan_ioremap_page_range(unsigned long start, unsigned long end,
+>>                 mapped = __vmap_pages_range_noflush(
+>>                         vmalloc_origin(start + off),
+>>                         vmalloc_origin(start + off + PAGE_SIZE), prot, &origin,
+>> -                       PAGE_SHIFT);
+>> +                       PAGE_SHIFT, gfp_mask);
+>>                 if (mapped) {
+>>                         err = mapped;
+>>                         goto ret;
+>> diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
+>> index 2166086d3dc3..452760a333e4 100644
+>> --- a/mm/kmsan/shadow.c
+>> +++ b/mm/kmsan/shadow.c
+>> @@ -247,7 +247,7 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
+>>         origin_end = vmalloc_meta((void *)end, KMSAN_META_ORIGIN);
+>>         kmsan_enter_runtime();
+>>         mapped = __vmap_pages_range_noflush(shadow_start, shadow_end, prot,
+>> -                                           s_pages, page_shift);
+>> +                                           s_pages, page_shift, gfp_mask);
+>>         kmsan_leave_runtime();
+>>         if (mapped) {
+>>                 err = mapped;
+>> @@ -255,12 +255,13 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
+>>         }
+>>         kmsan_enter_runtime();
+>>         mapped = __vmap_pages_range_noflush(origin_start, origin_end, prot,
+>> -                                           o_pages, page_shift);
+>> +                                           o_pages, page_shift, gfp_mask);
+>>         kmsan_leave_runtime();
+>>         if (mapped) {
+>>                 /* Undo the shadow mapping set up above. */
+>>                 kmsan_enter_runtime();
+>> -               __vunmap_range_noflush(shadow_start, shadow_end);
+>> +               __vunmap_range_noflush(shadow_start, shadow_end,
+>> +                                      gfpflags_allow_blocking(gfp_mask));
+>>                 kmsan_leave_runtime();
+>>                 err = mapped;
+>>                 goto ret;
+>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+>> index 3f98056f8c7e..d1986f68eab4 100644
+>> --- a/mm/vmalloc.c
+>> +++ b/mm/vmalloc.c
+>> @@ -372,8 +372,12 @@ int vmap_page_range(unsigned long addr, unsigned long end,
+>>         if (!err)
+>>                 err = kmsan_ioremap_page_range(addr, end, phys_addr, prot,
+>>                                                ioremap_max_page_shift);
+>> -       if (!err)
+>> +       if (err) {
+>> +               /* Callers are ioremap and arch setup code, always sleepable. */
+>> +               __vunmap_range_noflush(addr, end, true);
+>> +       } else {
+>>                 flush_cache_vmap(addr, end);
+>> +       }
+>>
+>>         return err;
+>>  }
+>> @@ -429,7 +433,7 @@ static void vunmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
+>>  }
+>>
+>>  static void vunmap_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
+>> -                            pgtbl_mod_mask *mask)
+>> +                            pgtbl_mod_mask *mask, bool can_resched)
+>>  {
+>>         pmd_t *pmd;
+>>         unsigned long next;
+>> @@ -451,12 +455,14 @@ static void vunmap_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
+>>                         continue;
+>>                 vunmap_pte_range(pmd, addr, next, mask);
+>>
+>> -               cond_resched();
+>> +               /* The undo path may run in atomic context. */
+>> +               if (can_resched)
+>> +                       cond_resched();
+>>         } while (pmd++, addr = next, addr != end);
+>>  }
+>>
+>>  static void vunmap_pud_range(p4d_t *p4d, unsigned long addr, unsigned long end,
+>> -                            pgtbl_mod_mask *mask)
+>> +                            pgtbl_mod_mask *mask, bool can_resched)
+>>  {
+>>         pud_t *pud;
+>>         unsigned long next;
+>> @@ -476,12 +482,12 @@ static void vunmap_pud_range(p4d_t *p4d, unsigned long addr, unsigned long end,
+>>                 }
+>>                 if (pud_none_or_clear_bad(pud))
+>>                         continue;
+>> -               vunmap_pmd_range(pud, addr, next, mask);
+>> +               vunmap_pmd_range(pud, addr, next, mask, can_resched);
+>>         } while (pud++, addr = next, addr != end);
+>>  }
+>>
+>>  static void vunmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
+>> -                            pgtbl_mod_mask *mask)
+>> +                            pgtbl_mod_mask *mask, bool can_resched)
+>>  {
+>>         p4d_t *p4d;
+>>         unsigned long next;
+>> @@ -496,7 +502,7 @@ static void vunmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
+>>
+>>                 if (p4d_none_or_clear_bad(p4d))
+>>                         continue;
+>> -               vunmap_pud_range(p4d, addr, next, mask);
+>> +               vunmap_pud_range(p4d, addr, next, mask, can_resched);
+>>         } while (p4d++, addr = next, addr != end);
+>>  }
+>>
+>> @@ -512,7 +518,8 @@ static void vunmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
+>>   *
+>>   * This is an internal function only. Do not use outside mm/.
+>>   */
+>> -void __vunmap_range_noflush(unsigned long start, unsigned long end)
+>> +void __vunmap_range_noflush(unsigned long start, unsigned long end,
+>> +                           bool can_resched)
+>>  {
+>>         unsigned long next;
+>>         pgd_t *pgd;
+>> @@ -529,7 +536,7 @@ void __vunmap_range_noflush(unsigned long start, unsigned long end)
+>>                         mask |= PGTBL_PGD_MODIFIED;
+>>                 if (pgd_none_or_clear_bad(pgd))
+>>                         continue;
+>> -               vunmap_p4d_range(pgd, addr, next, &mask);
+>> +               vunmap_p4d_range(pgd, addr, next, &mask, can_resched);
+>>         } while (pgd++, addr = next, addr != end);
+>>
+>>         if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
+>> @@ -538,8 +545,9 @@ void __vunmap_range_noflush(unsigned long start, unsigned long end)
+>>
+>>  void vunmap_range_noflush(unsigned long start, unsigned long end)
+>>  {
+>> -       kmsan_vunmap_range_noflush(start, end);
+>> -       __vunmap_range_noflush(start, end);
+>> +       /* The unmap paths are sleepable, keep the resched point. */
+>> +       kmsan_vunmap_range_noflush(start, end, true);
+>> +       __vunmap_range_noflush(start, end, true);
+>>  }
+>>
+>>  /**
+>> @@ -727,18 +735,32 @@ static int vmap_pages_range_noflush_walk(unsigned long addr, unsigned long end,
+>>   * The caller is responsible for calling flush_cache_vmap() after this
+>>   * function returns successfully and before the addresses are accessed.
+>>   *
+>> + * On failure the mapping is torn down before returning, so a retry
+>> + * sees a clean range. When @gfp_mask cannot block, the teardown
+>> + * skips cond_resched(), it may run in atomic context.
+>> + *
+>>   * This is an internal function only. Do not use outside mm/.
+>>   */
+>>  int __vmap_pages_range_noflush(unsigned long addr, unsigned long end,
+>> -               pgprot_t prot, struct page **pages, unsigned int page_shift)
+>> +               pgprot_t prot, struct page **pages, unsigned int page_shift,
+>> +               gfp_t gfp_mask)
+>>  {
+>> +       int err;
+>> +
+>>         if (WARN_ON_ONCE(page_shift < PAGE_SHIFT))
+>>                 return -EINVAL;
+>>
+>>         if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC))
+>>                 page_shift = PAGE_SHIFT;
+>>
+>> -       return vmap_pages_range_noflush_walk(addr, end, prot, pages, page_shift);
+>> +       err = vmap_pages_range_noflush_walk(addr, end, prot, pages, page_shift);
+>> +
+>> +       /* Undo the PTEs installed before the failure. */
+>> +       if (err)
+>> +               __vunmap_range_noflush(addr, end,
+>> +                                      gfpflags_allow_blocking(gfp_mask));
+> 
+> I remember we discussed this before that __vunmap_range_noflush() will
+> be unmapping the entire range between addr and end instead of the
+> range vmap_pages_range_noflush_walk() actially mapped and your reply
+> was that this keeps things simple and avoids adding extra code in the
+> common path when we do not fail. This was bothering me, so I looked a
+> bit deeper and I think there is an issue with this approach.
+> vmap_pages_pte_range() fails with -EBUSY if it encounters an already
+> installed PTE. So, if this happens, we immediately bail out of mapping
+> the range and will be unmapping the entire range, including these
+> existing PTEs. I don't think that's ok.
+>
 
-Check for pending progress or a latched transfer error again in the
-period worker under the PCM stream lock. A queued notification can
-outlive a paused RESET or an earlier pointer observation. Calling the
-period helper without new progress after resume can turn equal cursors
-into a false wrap when the core has backdated its pointer timestamp.
+You were right, I did not really think the -EBUSY case through.
+when the walk trips over a PTE that is already there, everything
+from that point on is somebody else's mapping, and the undo as
+it stood would clear it. sorry for this.
 
-This reduces queued buffering by one period. With two periods, only one
-period can be queued.
 
-The final candidate was tested on ARM64 QEMU with KASAN and lockdep.
-RW/MMAP boundary pause, release, HWSYNC/poll, drop and reopen passed
-with two- and eight-period rings. RW/MMAP also passed accepted RESET
-from PREPARED followed by DRAIN and reopen, and accepted RESET while
-RUNNING after the full 2,048-frame buffer became available.
+> A fix might be quite simple. vmap_pages_range_noflush_walk() already
+> counts how many pages we processed in nr variable. If we propagate
+> that one level up then we could unmap only the range we actually
+> mapped.
 
-A separate paired RW/MMAP gate fixture reproduced the baseline failure.
-The generic ALSA indirect helper invokes ACK for each pointer callback
-but masks its internal -EBADFD. Once hw_ptr == hw_io with no completion
-outstanding, virtio period-work progress suppresses further callbacks,
-so there is no ACK to retry the refill. Baseline stopped after 3,072
-completed bytes with 1,024 bytes in sw_ready. The candidate drained
-sw_ready and completed 4,096 bytes without any further client ACK. A
-test-only hook changed appl_ptr to 2,560 while only 2,048 frames were
-committed; the candidate refilled only committed data. The hostile
-mutation used a test-only kernel hook because ARM64 control-page mmap is
-unsupported. KASAN and lockdep reported no diagnostics.
+Right, thank you very much for helping sort this out. This makes
+it a lot clearer.
 
-Assisted-by: LLM
-Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
+Thanks
+Best Regards
+Hao
 
----
-sound/virtio/virtio_pcm.c     |    3 ++
- sound/virtio/virtio_pcm.h     |   13 ++++++++
- sound/virtio/virtio_pcm_msg.c |    8 ++---
- sound/virtio/virtio_pcm_ops.c |   69 ++++++++++++++++++++++++++++++-----------
- 4 files changed, 70 insertions(+), 23 deletions(-)
-
-diff --git a/sound/virtio/virtio_pcm.c b/sound/virtio/virtio_pcm.c
---- a/sound/virtio/virtio_pcm.c
-+++ b/sound/virtio/virtio_pcm.c
-@@ -338,6 +338,9 @@
- 	}
- 
- 	if (vss->direction != SNDRV_PCM_STREAM_CAPTURE) {
-+		/* Ignore stale work after RESET rebases the playback cursors. */
-+		if (!virtsnd_pcm_playback_progress_pending(vss))
-+			return;
- 		snd_pcm_period_elapsed_under_stream_lock(substream);
- 		return;
- 	}
-diff --git a/sound/virtio/virtio_pcm.h b/sound/virtio/virtio_pcm.h
---- a/sound/virtio/virtio_pcm.h
-+++ b/sound/virtio/virtio_pcm.h
-@@ -53,6 +53,7 @@
-  *        substream operators, including @stopped.
-  * @buffer_bytes: Current buffer size in bytes.
-  * @hw_ptr: Substream hardware pointer value in bytes [0 ... buffer_bytes).
-+ * @playback_latency_bytes: Device delay cached independently of the ALSA runtime.
-  * @capture_ready: Managed-mode bytes copied but not yet acknowledged by ALSA;
-  *                 always zero in free-running mode.
-  * @capture_boundary: ALSA boundary captured for this prepared epoch.
-@@ -84,6 +85,8 @@
-  * @capture_reset_observing: Reclaim staged samples during RESET pointer capture.
-  * @indirect_reset_observing: Suppress ordinary ACK refill during RESET pointer
-  *                            capture; protected by the PCM stream lock.
-+ * @playback_pointer_active: Internal playback ACK context; protected by the
-+ *                           PCM stream lock.
-  * @suspended: True if the substream is suspended and must be reconfigured on
-  *             the device side at resume.
-  * @pause_restart_state: Device-side state for opt-in pause compatibility.
-@@ -113,6 +116,7 @@
- 	bool resetting;
- 	size_t buffer_bytes;
- 	size_t hw_ptr;
-+	u32 playback_latency_bytes;
- 	size_t capture_ready;
- 	snd_pcm_uframes_t capture_boundary;
- 	u64 capture_copied_total;
-@@ -140,6 +144,7 @@
- 	bool control_uncertain;
- 	bool capture_reset_observing;
- 	bool indirect_reset_observing;
-+	bool playback_pointer_active;
- 	bool suspended;
- 	enum virtio_pcm_pause_restart_state pause_restart_state;
- 	struct virtio_pcm_msg **msgs;
-@@ -179,6 +184,14 @@
- 	return schedule_work(&vss->elapsed_period);
- }
- 
-+/* Caller holds the PCM stream lock so RESET cannot rebase these cursors. */
-+static inline bool
-+virtsnd_pcm_playback_progress_pending(struct virtio_pcm_substream *vss)
-+{
-+	guard(spinlock_irqsave)(&vss->lock);
-+	return vss->xfer_xrun || vss->hw_ptr != vss->pcm_indirect.hw_io;
-+}
-+
- /*
-  * ALSA may observe a subperiod tail before its period callback. Keep actual
-  * unread occupancy separate from pointer observations and notification state;
-diff --git a/sound/virtio/virtio_pcm_msg.c b/sound/virtio/virtio_pcm_msg.c
---- a/sound/virtio/virtio_pcm_msg.c
-+++ b/sound/virtio/virtio_pcm_msg.c
-@@ -1033,12 +1033,10 @@
- 	/* Keep latched errors until prepare establishes a fresh epoch. */
- 	vss->msg_count--;
- 
--	if (vss->xfer_enabled) {
--		struct snd_pcm_runtime *runtime = vss->substream->runtime;
--
--		runtime->delay = bytes_to_frames(runtime, latency_bytes);
-+	/* A queued request can outlive the ALSA runtime after hw_free. */
-+	vss->playback_latency_bytes = latency_bytes;
-+	if (vss->prepared && !vss->preparing)
- 		virtsnd_pcm_schedule_period_elapsed(vss);
--	}
- 	if (!vss->msg_count)
- 		wake_up_all(&vss->msg_empty);
- }
-diff --git a/sound/virtio/virtio_pcm_ops.c b/sound/virtio/virtio_pcm_ops.c
---- a/sound/virtio/virtio_pcm_ops.c
-+++ b/sound/virtio/virtio_pcm_ops.c
-@@ -770,6 +770,13 @@
- 		memset(&vss->pcm_indirect, 0, sizeof(vss->pcm_indirect));
- 		vss->pcm_indirect.sw_buffer_size = vss->buffer_bytes;
- 		vss->pcm_indirect.hw_buffer_size = vss->buffer_bytes;
-+		if (vss->direction == SNDRV_PCM_STREAM_PLAYBACK) {
-+			/* Keep unobserved completions below one physical ring. */
-+			vss->pcm_indirect.hw_queue_size = vss->buffer_bytes -
-+				snd_pcm_lib_period_bytes(substream);
-+			vss->playback_latency_bytes = 0;
-+			substream->runtime->delay = 0;
-+		}
- 		if (vss->direction == SNDRV_PCM_STREAM_CAPTURE) {
- 			vss->capture_boundary = substream->runtime->boundary;
- 			rc = virtsnd_pcm_capture_refresh_mode_locked(vss,
-@@ -1200,7 +1207,8 @@
- 		}
- 
- 		if (running) {
--			if (vss->direction == SNDRV_PCM_STREAM_CAPTURE)
-+			if (vss->direction == SNDRV_PCM_STREAM_CAPTURE ||
-+			    virtsnd_pcm_playback_progress_pending(vss))
- 				virtsnd_pcm_schedule_period_elapsed(vss);
- 			return 0;
- 		}
-@@ -1222,7 +1230,8 @@
- 				return -ECANCELED;
- 			vss->device_running = true;
- 		}
--		if (!rc && (vss->direction == SNDRV_PCM_STREAM_CAPTURE))
-+		if (!rc && (vss->direction == SNDRV_PCM_STREAM_CAPTURE ||
-+			    virtsnd_pcm_playback_progress_pending(vss)))
- 			virtsnd_pcm_schedule_period_elapsed(vss);
- 		return rc;
- 	case SNDRV_PCM_TRIGGER_SUSPEND:
-@@ -1272,7 +1281,8 @@
- 				virtsnd_pcm_trigger_failed(vss, epoch);
- 			} else if (virtsnd_pcm_start_queue(vss, epoch)) {
- 				virtsnd_pcm_trigger_failed(vss, epoch);
--			} else if (vss->direction == SNDRV_PCM_STREAM_CAPTURE) {
-+			} else if (vss->direction == SNDRV_PCM_STREAM_CAPTURE ||
-+				   virtsnd_pcm_playback_progress_pending(vss)) {
- 				virtsnd_pcm_schedule_period_elapsed(vss);
- 			}
- 		}
-@@ -1605,6 +1615,7 @@
- {
- 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
- 	struct snd_pcm_runtime *runtime = substream->runtime;
-+	snd_pcm_uframes_t position;
- 	size_t hw_ptr;
- 	bool paused_pointer = false;
- 	bool defer_work = false;
-@@ -1622,6 +1633,7 @@
- 		}
- 		if (!paused_pointer)
- 			hw_ptr = vss->hw_ptr;
-+		runtime->delay = bytes_to_frames(runtime, vss->playback_latency_bytes);
- 	}
- 	if (paused_pointer) {
- 		if (defer_work)
-@@ -1629,8 +1641,11 @@
- 		return virtsnd_pcm_cached_pointer(runtime);
- 	}
- 
--	return snd_pcm_indirect_playback_pointer(substream,
--		&vss->pcm_indirect, hw_ptr);
-+	vss->playback_pointer_active = true;
-+	position = snd_pcm_indirect_playback_pointer(substream,
-+						     &vss->pcm_indirect, hw_ptr);
-+	vss->playback_pointer_active = false;
-+	return position;
- }
- 
- /* Caller holds vss->lock. */
-@@ -1745,9 +1760,9 @@
- /* Caller holds @vss->lock and the PCM stream lock. */
- static int virtsnd_pcm_playback_ack_validate(struct virtio_pcm_substream *vss,
- 					     struct snd_pcm_runtime *runtime,
--					     const struct snd_pcm_indirect *rec)
--{
--	snd_pcm_uframes_t appl_ptr;
-+					     const struct snd_pcm_indirect *rec,
-+					     snd_pcm_uframes_t appl_ptr)
-+{
- 	snd_pcm_uframes_t appl_diff;
- 	snd_pcm_uframes_t signed_max;
- 	snd_pcm_uframes_t back;
-@@ -1761,7 +1776,7 @@
- 	unsigned int hw_queue_size;
- 
- 	if (!runtime->control || !runtime->boundary ||
--	    runtime->control->appl_ptr >= runtime->boundary ||
-+	    appl_ptr >= runtime->boundary ||
- 	    rec->appl_ptr >= runtime->boundary)
- 		return -EPIPE;
- 
-@@ -1776,7 +1791,6 @@
- 		return -EPIPE;
- 
- 	/* Match the indirect helper's appl_ptr boundary-wrap calculation. */
--	appl_ptr = runtime->control->appl_ptr;
- 	if (appl_ptr >= rec->appl_ptr) {
- 		appl_diff = appl_ptr - rec->appl_ptr;
- 	} else {
-@@ -1868,7 +1882,8 @@
- 	return -EPIPE;
- }
- 
--static int virtsnd_pcm_pb_ack_locked(struct snd_pcm_substream *substream)
-+static int virtsnd_pcm_pb_ack_locked(struct snd_pcm_substream *substream,
-+				     snd_pcm_uframes_t appl_ptr)
- {
- 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
- 	struct snd_pcm_runtime *runtime = substream->runtime;
-@@ -1892,13 +1907,13 @@
- 				return -EBADFD;
- 			transfer.indirect = vss->pcm_indirect;
- 			rc = virtsnd_pcm_playback_ack_validate(vss, runtime,
--							       &transfer.indirect);
-+							       &transfer.indirect, appl_ptr);
- 			if (rc == -EBADFD)
- 				return -EBADFD;
- 			if (!rc)
--				rc = snd_pcm_indirect_playback_transfer(substream,
--									&transfer.indirect,
--									virtsnd_pcm_trans_copy);
-+				rc = snd_pcm_indirect_playback_transfer_appl_ptr(
-+					substream, &transfer.indirect,
-+					virtsnd_pcm_trans_copy, appl_ptr);
- 		}
- 		if (!rc)
- 			rc = transfer.error;
-@@ -1937,8 +1952,6 @@
- 	case SNDRV_PCM_STATE_RUNNING:
- 	case SNDRV_PCM_STATE_PAUSED:
- 	case SNDRV_PCM_STATE_DRAINING:
--		if (atomic_read(&substream->runtime->buffer_accessing) < 0)
--			return -EBADFD;
- 		return 0;
- 	default:
- 		return -EBADFD;
-@@ -1949,6 +1962,8 @@
- static int virtsnd_pcm_pb_ack(struct snd_pcm_substream *substream)
- {
- 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	snd_pcm_uframes_t appl_ptr;
- 	int rc;
- 
- 	if (vss->indirect_reset_observing)
-@@ -1956,7 +1971,21 @@
- 	rc = virtsnd_pcm_ack_state(substream);
- 	if (rc)
- 		return rc;
--	return virtsnd_pcm_pb_ack_locked(substream);
-+	if (atomic_read(&runtime->buffer_accessing) < 0) {
-+		if (!vss->playback_pointer_active)
-+			return -EBADFD;
-+		/*
-+		 * Pointer accounting already consumed completed hardware bytes.
-+		 * Refill committed data without admitting a new application
-+		 * pointer while a buffer operation has closed ACK admission.
-+		 */
-+		appl_ptr = vss->pcm_indirect.appl_ptr;
-+	} else if (runtime->control) {
-+		appl_ptr = READ_ONCE(runtime->control->appl_ptr);
-+	} else {
-+		appl_ptr = 0;
-+	}
-+	return virtsnd_pcm_pb_ack_locked(substream, appl_ptr);
- }
- 
- static int virtsnd_pcm_capture_ack(struct virtio_pcm_substream *vss,
-@@ -2087,6 +2116,8 @@
- 	rc = virtsnd_pcm_ack_state(substream);
- 	if (rc)
- 		return rc;
-+	if (atomic_read(&substream->runtime->buffer_accessing) < 0)
-+		return -EBADFD;
- 	return virtsnd_pcm_cp_ack_locked(substream);
- }
- 
-@@ -2229,6 +2260,8 @@
- 		guard(spinlock)(&vss->lock);
- 		if (vss->msg_count)
- 			return -EBUSY;
-+		vss->playback_latency_bytes = 0;
-+		runtime->delay = 0;
- 	}
- 	vss->indirect_reset_observing = true;
- 	rc = snd_pcm_lib_reset(substream);
+> 
+>> +
+>> +       return err;
+>>  }
+>>
+>>  int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
+>> @@ -750,7 +772,18 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
+>>
+>>         if (ret)
+>>                 return ret;
+>> -       return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
+>> +
+>> +       ret = __vmap_pages_range_noflush(addr, end, prot, pages, page_shift,
+>> +                                        gfp_mask);
+>> +       /*
+>> +        * The page tables undo themselves on failure. Tear down the
+>> +        * metadata that was fully set up before the mapping failed.
+>> +        */
+>> +       if (ret)
+>> +               kmsan_vunmap_range_noflush(addr, end,
+>> +                                          gfpflags_allow_blocking(gfp_mask));
+>> +
+>> +       return ret;
+>>  }
+>>
+>>  static int __vmap_pages_range(unsigned long addr, unsigned long end,
+>> diff --git a/mm/vmalloc.h b/mm/vmalloc.h
+>> index d8372a4f65c4..9ea28845f713 100644
+>> --- a/mm/vmalloc.h
+>> +++ b/mm/vmalloc.h
+>> @@ -40,10 +40,12 @@ void clear_vm_uninitialized_flag(struct vm_struct *vm);
+>>
+>>  int __must_check __vmap_pages_range_noflush(unsigned long addr,
+>>                 unsigned long end, pgprot_t prot,
+>> -               struct page **pages, unsigned int page_shift);
+>> +               struct page **pages, unsigned int page_shift,
+>> +               gfp_t gfp_mask);
+>>
+>>  void vunmap_range_noflush(unsigned long start, unsigned long end);
+>>
+>> -void __vunmap_range_noflush(unsigned long start, unsigned long end);
+>> +void __vunmap_range_noflush(unsigned long start, unsigned long end,
+>> +                           bool can_resched);
+>>
+>>  #endif /* __MM_VMALLOC_H */
+>> --
+>> 2.25.1
+>>
