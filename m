@@ -1,57 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794513362;
-	b=Ppya1c/lIq+wVJlZO7blk57RaxZgABjcx1ayr1mQJ6/fmP9LImtuG/AALwony+uzaGtv
-	 bzLOS1cWPgYvaC0spgbIsGKpWrhbMfMzTvl0aFJuLx9ssq8YaX+8niyP/+GRS0pYKvq0c
-	 ecb7xzwI8EPcjp2EcCz/BH30LC1i4thnH/8rpy0+g8XozafV8J93IsHr0X11CpjfrkMLM
-	 7+FPt73+ODJMX4WSyM074rQ+Lpkzc+zcLPo59JE4C18B3UpX2avGCdmP49VLzTRPBe1hU
-	 49ajVE9ttATKDb6thz5BdVAtKhadzJwamQRR4L9KNpDm25MC+yP0024aT6y8OLyszpA==
+	t=1794513382;
+	b=bxHNFK9jd/73TVBxDJkqLanozQ7FQbKaFJeUcOFe2VAxOwH5+NtVNlcu7xNQUpIoVMbl
+	 8cEP9+NlkPGXp+Odxajg8OWAUGahWxqsvUXmaS2AiCK6nr1Yx2xNF6pPGWtUeoakUZa71
+	 zr/wF3P1qXZsgT8tcquXXNGSo9DibQUKwQtvLf38jLLO0D3lO/jkxPx1Buf2ORDC41W8X
+	 r682LBs3J4IVPpayuXVV1O2gsTTIiU4FNA5yEhXItE89jgwThGor+oLjwrq1OpG9RTk+/
+	 gErHF7eSK4cUI0Nus0Lhb8F47WZHhkCkPHxu403eQJWiIkxd0fmP1rVOWqHLvb3PK1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794513362;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/DVz9TcMzmRhI4NAq0Bx3DDA+PaOD3fbYpa1xG77J98=;
-	b=FMN6vQf4G3DJAquDMSmLuNOSPrrf7LqipLHJ4yG/jK4CyBQK5L6fLCii5NFGUuRGqlYP
-	 nU+IVgUz3ryzCPBl+MlzTe78rKESDm38Yk9c78jvnejBbASAExSVYpnvC2eX7nWlF4IZu
-	 XbaiFO4/BvfjvEke4hoFdXvOyxvQV7Orlecsvt57x/l5y7X2srJayzgXWItfgj28v2YxG
-	 zbg1fVsp8V7TgHxftB3QpfETyDqQloz+yOt82O0L3YIZinVdFg6vJuurI2fIxgpQGXUd8
-	 qbn2Aa0byEZAoAv3ODEIdx+9g4weWrTG/lsOGfGlbpjwGOmi+hwLRcIlfG/8tm6TJvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794513382;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=dy7J2cqt4EEbhgyUkhhB/eUew1aRMhzOU6Itpm1/KVM=;
+	b=sZ5Yh+073HsQy45fAb6K/1JCAa9U10BUA6GhNpTqdU1IB7/JppCQZBBMB9Fzzk+QMtY9
+	 +acR1KtpUWsLXWcMYc2YDv1WnY1TdiYdvPrMB0yuZeGJw+9bXwoJCcLcrLOHneiMBzjSH
+	 0LcGDKJ987yY9NHOSkq+lC5NnQo94EwpMkQbLJt54DpQJsS5q3bscnlVrMxmyE+qYsYm1
+	 raZ9AV6bq96Mzb3Umf6AoGNq7lH4eJW5mLfjBFPEa/qNtR6ztW+ikN/labufhujbRmwc2
+	 6NK8QEx48HOhJan9RGUHRRF5CJgSRF84nTXXD7W63gn6gaBEm/aDeWHiPSgTy7xb73w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eXTAheRB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38932606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:56:02 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eP3Lmg48;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6FA08606A31C;
+	Thu, 12 Nov 2026 19:56:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FA08606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eXTAheRB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04C4D1F000C4;
-	Thu, 12 Nov 2026 19:55:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794513362;
-	bh=/DVz9TcMzmRhI4NAq0Bx3DDA+PaOD3fbYpa1xG77J98=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eXTAheRBiXvSIWFMTLXBhb3k8aCTQf5sIn3X3vLWvl1WBSbLRGNP0YplzVv8SOypX
-	 DtGLthT7Qi5esc4ctzgtSrhoMOXpbVbotkhM1fjdltQjdvwgDWZ3gWbJsXmClNMsP+
-	 cHZHoB2RkkveFBPonlCc0X23P8hmYiUX9BJw+Ybhxpkxj4ZqmxM8+47qtcuKUEmxwz
-	 dMIinoOq+ie1zHHAlNURtxmtlx5c6Jd68l4BgLCYGA4T1IKB7TB63JUWJjkXZzgOGj
-	 EtAX4DJOCTWU4tTjW5G9+Ps+vqqTQX0xqbnO6PEP0rFdsmWT7aTSwGFUxij5TpRspd
-	 HNWbvB8Y5tJRA==
-Date: Thu, 12 Nov 2026 19:55:56 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, 
-	Gregory Price <gourry@gourry.net>, Vlastimil Babka <vbabka@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com
-Subject: Re: [PATCH v2] mm/page_alloc: only skip kswapd nodes below their
- kswapd watermark
-Message-ID: <avYQcqVZvRevtCxM@gremlin>
-References: <20261110224432.2347606-1-joshua.hahnjy@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eP3Lmg48
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A540A339;
+	Thu, 12 Nov 2026 11:56:18 -0800 (PST)
+Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4216A3F632;
+	Thu, 12 Nov 2026 11:56:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794513381; bh=MSLq4lZa+23a127MIJrZJzb7fcJCl4lsinfpBlFpp+U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=eP3Lmg48Ypld/7C31ui42awQpCJDOfAsfarhWTq9s+PV9zm8lGkhvmKby+wskzJXX
+	 lsrCENHkmeQWPeCvlsYrMdy89v5MHnw5d6yo9On8UMikdy6OPQ2m4oOuYSPZSfhiPU
+	 Bv9EX+f7Z/nU1dSAWXE7IziRUbNBJ2QxyGl+vt6k=
+Date: Thu, 12 Nov 2026 19:56:10 +0000
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: Cristian Marussi <cristian.marussi@arm.com>,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
+	sudeep.holla@kernel.org, james.quinlan@broadcom.com,
+	f.fainelli@gmail.com, vincent.guittot@linaro.org,
+	etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
+	d-gole@ti.com, elif.topuz@arm.com, lukasz.luba@arm.com,
+	philip.radford@arm.com, david@kernel.org,
+	souvik.chakravarty@arm.com, leitao@kernel.org, kas@kernel.org,
+	puranjay@kernel.org, usama.arif@linux.dev, kernel-team@meta.com
+Subject: Re: [PATCH v15 10/35] firmware: arm_scmi: Add Telemetry resources
+ enumeration
+Message-ID: <avYZ2t_GoT7BN2nU@pluto>
+References: <20261109091221.2532706-1-cristian.marussi@arm.com>
+ <20261109091221.2532706-11-cristian.marussi@arm.com>
+ <20261112100145.00000560@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,131 +72,90 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261110224432.2347606-1-joshua.hahnjy@gmail.com>
+In-Reply-To: <20261112100145.00000560@oss.qualcomm.com>
 
-On Tue, Nov 10, 2026 at 02:44:31PM -0800, Joshua Hahn wrote:
-> Commit 19c5fb83f2a4 ("mm: page_alloc: avoid kswapd thrashing due to
-> NUMA restrictions") makes get_page_from_freelist() skip any node with an
-> active kswapd on the first pass through the zonelist, so unrestricted
-> allocations don't immediately consume the memory kswapd is freeing.
->
-> But kswapd is also woken for high-order requests. With THP defrag set to
-> defer, each THP fault that fails on a fragmented node wakes kswapd at
-> PMD order. kswapd reclaims a batch, wakes kcompactd, and sleeps until
-> the next failed fault, so it stays awake much of the time even on a node
-> with plenty of free order-0 memory. This means those order-0 allocations
-> get directed elsewhere.
->
-> This was observed on some Meta production workloads running on 2-NUMA
-> systems, where processes with a preference for node0 allocations
-> continuously allocated order-0 pages on node1, despite node0 having
-> hundreds of GB of free memory.
->
-> Only skip a zone with an active kswapd if it is also below kswapd's
-> target watermark.
->
-> On a 2-NUMA VM with a 60G node0 and a 20G node1, with THP enabled=always
-> and defrag=defer, I ran a process that prefers allocating on node0.
-> With a fragmented node0:
-> - Before the patch, 68% of pages were served from node0
-> - After the patch, 100% of pages were served from node0
->
-> One remaining gap is that since this uses kswapd's own threshold,
-> unrestricted allocations can take what kswapd frees above the target
-> watermark. The current code already lets such allocations drain from the
-> high to the low watermark while kswapd sleeps.
->
-> One potential solution, as hinted by Johannes in the discussion from the
-> original fix [1] is to add some kind of fudge factor (for instance,
-> wmark_pages + high_wmark_pages - low_wmark_pages).
->
-> But in tests that I ran in a VM where the allocation demand outpaces
-> kswapd, about 4% more pages landed on the busy node and kswapd reclaimed
-> about 15% more, but kswapd still finished and slept. So let's hold off
-> on the fudge factor until it becomes an observable issue in workloads.
->
-> [1] https://lore.kernel.org/linux-mm/20251001164131.GB1597553@cmpxchg.org/
->
-> Fixes: 19c5fb83f2a4 ("mm: page_alloc: avoid kswapd thrashing due to NUMA restrictions")
-> Suggested-by: Daniel Hodges <hodgesd@meta.com>
-> Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+On Thu, Nov 12, 2026 at 10:01:45AM -0800, Jonathan Cameron wrote:
+> On Mon,  9 Nov 2026 09:11:56 +0000
+> Cristian Marussi <cristian.marussi@arm.com> wrote:
+> 
+> > Add basic Telemetry allocation and initialization routines, introducing and
+> > wiring-up the logic needed to enumerate all the SCMI Telemetry resources
+> > optionally using a lazy on-demand scheme: this approach factors in the
+> > flexibility needed to minimize the amount of initialization work based on
+> > the effective access pattern used by the upper layer ABI.
+> > 
+> > Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
+> 
+> Hi Cristian,
+> 
+> This stretches across the patch set but first elements related to it are
+> in this patch.  How do we handle larger values of de_data_sz?
+> 
 
-LGTM and:
+We dont. This was somethig that was on my todo list initially, but then
+I realized that there was NO FW-side plan to actually implement anything
+larger than 64bit.
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> The spec allows (and it's useful for things like histograms)
+> DEs to have an integer multiple of 64 bits for a single element.
+> In the shared memory buffer that just ends up with a bunch of matching
+> IDs with discovery via the parsing done in this patch.
 
-> ---
-> v1 --> v2:
-> - Added a Fixes tag and separated this from the other cleanup patches
-> - Check zone_watermark_fast with no flag to match the call in
->   pgdat_balanced().
-> - Calculates mark outside the zone_watermark_fast check to match the
->   style for the other zone checks.
-> - Wordsmithing commit message to explain the unaddressed gap.
-> - Yes, this is ugly. I have another series to clean this code up but
->   I wanted this to be a feature-minimal patch so that it could be
->   easily backported. Things will be much prettier once those are landed.
->
->  mm/page_alloc.c | 23 ++++++++++++++++-------
->  1 file changed, 16 insertions(+), 7 deletions(-)
->
-> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> index 8532af052d74b..56121c3f9c4a7 100644
-> --- a/mm/page_alloc.c
-> +++ b/mm/page_alloc.c
-> @@ -45,6 +45,7 @@
->  #include <linux/mmu_notifier.h>
->  #include <linux/migrate.h>
->  #include <linux/sched/mm.h>
-> +#include <linux/sched/sysctl.h>
->  #include <linux/page_owner.h>
->  #include <linux/page_table_check.h>
->  #include <linux/memcontrol.h>
-> @@ -3799,6 +3800,9 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
->  	struct zoneref *z;
->  	struct zone *zone;
->  	struct pglist_data *last_pgdat = NULL;
-> +	enum zone_watermarks kswapd_watermark =
-> +		sysctl_numa_balancing_mode & NUMA_BALANCING_MEMORY_TIERING ?
-> +		WMARK_PROMO : WMARK_HIGH;
->  	bool last_pgdat_dirty_ok = false;
->  	bool no_fallback;
->  	bool skip_kswapd_nodes = nr_online_nodes > 1;
-> @@ -3866,16 +3870,21 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
->  		}
->
->  		/*
-> -		 * If kswapd is already active on a node, keep looking
-> -		 * for other nodes that might be idle. This can happen
-> -		 * if another process has NUMA bindings and is causing
-> -		 * kswapd wakeups on only some nodes. Avoid accidental
-> -		 * "node_reclaim_mode"-like behavior in this case.
-> +		 * If kswapd is already active on a node and the zone is below
-> +		 * its kswapd watermark for this request, keep looking for
-> +		 * other nodes that might be idle. This can happen if another
-> +		 * process has NUMA bindings and is causing kswapd wakeups on
-> +		 * only some nodes. Avoid accidental "node_reclaim_mode"-like
-> +		 * behavior in this case.
->  		 */
->  		if (skip_kswapd_nodes &&
->  		    !waitqueue_active(&zone->zone_pgdat->kswapd_wait)) {
-> -			skipped_kswapd_nodes = true;
-> -			continue;
-> +			mark = wmark_pages(zone, kswapd_watermark);
-> +			if (!zone_watermark_fast(zone, order, mark,
-> +					ac->highest_zoneidx, 0, gfp_mask)) {
-> +				skipped_kswapd_nodes = true;
-> +				continue;
-> +			}
+And I know that the spec allows it, but supporting this possible, but
+currently NON-implemented, feature would have added some non trivial
+complexity across all the stack to the benefit of no one.
 
-Much better thanks!
+When someone will implement for real such big DE FW-side, the change
+will follow and of course there will need to be an ABI change.
 
->  		}
->
->  		cond_accept_memory(zone, order, alloc_flags);
-> --
-> 2.53.0-Meta
->
+Given that I am currently in fact shedding a lot of already supported
+and tested features (groups/single_sample/notifs etc etc) to slim down
+the series dropping stuff that is indeed not implemented FW side (as we
+discussed), and would never be used, I would put this kind of support
+for big-data DEs in the same category of future possible work...
 
---
-Cheers, Lorenzo
+This remind me, though, that I wanted to place a check on de_data_sz
+so as to bailout with -ENOTSUPP when such data appears with the current
+implementation...
+
+> 
+> The only (I think) today to dump that from this patch set is
+> to use the shmti dump interface.  That's not exactly nice!
+> 
+> I messed around with (well chatted with an LLM about) a couple of
+> options.
+> 
+> 1. Make the whole stack aware of multi line DEs. So all the requests
+>    get to return more data.
+> 2. Adding indexing so you can get a multi line DE in multiple calls.
+>    That makes the interface for a bulk read a bit odd.  Userspace will
+>    have to be cleverer given variable sized elements.
+> 
+> Given this is a ABI related aspect, needs figuring out sooner rather
+> than later I think.
+> 
+
+Talking about the ABI, since you mentioned in the other patches:
+
+As of now only the ABI_VERSION IOCTL is 'size-versioned' and there are
+flags to indicate supported features (both HW and ABI feats) AND fields
+with reserved spare space scattered all around IOCTLs so that it should
+be possible to add minor features using spare space and flags without
+changing ABI version, up to a certain point of course: if the changes
+are too radical a new ABI needs to be introduced and  ABI VERSION will
+be bumped.
+
+This seemed an acceptable middle ground to me to avoid the complexity of
+having all the IOCTL structs 'size-versioned' and related flexibility that
+maybe is unneeded in this case...but I could be wrong (maybe the delayed
+future possible work to support >64bit DEs is a good reason to have an
+ABI that is more flexibile without the new of breaking changes...)
+
+Beside this I did not find really so many examples of ABIs using full
+per-IOCTL size versioning, and given my relative small experience on
+this and the lack of feedback till now (beside a lot of chats witth LLMs
+:P) I stick with this easier ABI layout.
+
+Thanks,
+Cristian
+
