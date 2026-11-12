@@ -1,69 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492768;
-	b=oGwj0DmJCl0BwVVKAIdECiQheRA0zsVhWv4sdHYM6VQrJRVgxyMur/Kj6fah9cvcerUC
-	 SDCZ/2v3NVy7OntXoZOaNx3nWV2Qd3Lg0hCDZk/eaAOKKt1j7tQxbxMc/ZBAc0Q0L/4Ys
-	 AtgA5XSziMLxcyL2vbo9KZ3USm3BFmCxRpQXKuONwepZz9s/G67SJfpLDya+5mwpfTXwk
-	 2YJxUi7TvG5EVqi/pK7RghiEzrZVf3bAiR9K4zRDqqSZCon7A0wNlLlSNlSpb9R/lJoAB
-	 NdB5CIQI8J8jD+sAae9jK2fW0fcBYJNlVHvf7qwfdWVhyIOCyMddX868F1fPavx6xyg==
+	t=1794492774;
+	b=EVwqfnJplifftoWugTfkm/kTk2EpE+RsntVTIJWCQHml2fephL33FwJT0VPm5BsLpvrn
+	 WZUQAr7bXzaAT8Sa61XX61rkwBJqq0euwxer9Qqd8L6mjrAFT0IQgqtXPsfJIjkmC3CsC
+	 cq5l3kLPyqkdTksPQ/uWyCjJgDtC6JRUbenhGVd7LHryB9kenANw/fxh3DTzx1VKeWsu9
+	 XahVIVtTaaa3rQHeohRvq8KELz4+RoCsfkXD/6oi+0Kb0b4pA0Pq55COT8kvR3ETTZCJr
+	 3KbAhRNQep7TmFXFSR+XtkiVnwTo3RKD/p112T2rE4XWzl1ppewYqgm2FFqkgr+899Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492768;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492774;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
 	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
 	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
 	 X-Fangmail-MID-QID;
-	bh=uAaMckiUXxw4IdBaoACknRIY+JszX/Q5mOBdDQpj4AQ=;
-	b=dGJ9R2rKFQIWHI5Q+/22G22KnWK7URhV9N0fmaMXUmyAYD4pOdWXVBD++/Acczq4tB0f
-	 3GcmxGKDjLN1oEnnVmjnGyrC7Q1b4XQKNhsuz09eDn3FR4/yFYhkjq5Uecw6gv6dNkm7t
-	 ScRZEFWHpxqYBOETnY863FjoL4WziSrciiXg96qDYoWbuWRFJNWOGbkiWSBYilEuww25b
-	 3gJB6XyBNDFOduGRxRDSOyc3bU1KN5nOfkuIjSX6lVthExgnQgo5Rdz783XuVk3ahRozn
-	 cWKvk1Q2TXj4cycnw+q0iSPdKrUKw5hrxMZaG+zJJEi+F0Y9Y6qzO5flNJMbSVV6eUg==
+	bh=C33IcFxkCejtNL06E1fQzKXXWvVqitln+U/Dyb3IHY0=;
+	b=Mdtnla/fNi0NWu7nFStvxEZ0KfOoXLOvFVAxUAQoAdrjl1pY5KvgV/ipsGF8mE/6A6DC
+	 Wav1pYaEFWAghu2R4AxyjbNU0RdW4r9cY8w/TtYSHXm4/I2WnYgbn5qIE8/73KqwRlDwQ
+	 CMPllcKBZvykON1HVLjPDYGuO/7/MBYuq3+PBzUIYfBM8vw41b8nG00/MNjFVWTX9aBGT
+	 h9eGsXk0/hWczGj74lqDn9oFqb7bvv/PKb13bTNAKARz/OlmU2xE3gKOaCGUtP+fpZ7Zs
+	 NUnHVA9BUTtCQCywTGDe8cnezpgYus1I9dFlPFamVN1KWcCoYlAQJ00vaEQKSoz//Mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=tNTcfNij;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=TBk7U3hX;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F00A7606A321;
-	Thu, 12 Nov 2026 14:12:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F00A7606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70F9606A33F;
+	Thu, 12 Nov 2026 14:12:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D70F9606A33F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=tNTcfNij
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=TBk7U3hX
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jQMmG27qfz5BNRf;
-	Thu, 12 Nov 2026 22:12:46 +0800 (CST)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jQMmG00mFz5B17f;
+	Thu, 12 Nov 2026 22:12:45 +0800 (CST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
 	s=z202610; t=1794492766;
-	bh=lfLONSZ7AKeagsPWTOixQKRehAD9SeRR+DnpuXAqa1w=;
+	bh=5AGiSFjrfxLpPQtCABfNmTgTRij8Rox0DcLnnsS33Cg=;
 	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=tNTcfNijQIwp52W6/heY40fYzs6TEiZl6MiedKGYDd1hAcDDpeBLMGU3DCYT4d6Su
-	 irRWLNG9GhyaX5wEB7VwTsO31fhtMKrZdP60HN4OcGHkkE7DkV76L9cMwSSF1qOATK
-	 NurEpHYBcqFPYikL7PSos5GYR6keophbgKgmm/VESqrGeywTQlC3UEQUc7lEQmwBQr
-	 peGWny7K3spQS2g3QaFba4i35XaNfHcxJOsLP+1rPG0c0B2c83Fw6dDN6Sl8yU9EDy
-	 qrnaotZOCXHp0+xiTMENc4txBdaofPWCcsk5x0c4slbGMM540kMrT0G4qlX+T2bdUy
-	 1CQ2s5jfEYR1w==
-Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl2.zte.com.cn with SMTP id 6ACECbh8055529;
-	Thu, 12 Nov 2026 22:12:37 +0800 (+08)
+	b=TBk7U3hXYhYY3xnN6uLkZ4S0SsC4L2YLU5gOMgZLyZMKFouZIE0ae94AwYgwSloZs
+	 Blol6AJRg4m/O907hvMAGR7jMSPrJ/7hRn1VmY2RqKeB57JYV92BAnAWwCplggvhN6
+	 RY9Uxk/fIeIX89TrYHurwKHmeAOTFRLyhRsoRtfS03IFnNDGAClkO+GTE9yIvkRrMl
+	 4ArBXdizAUM7RZvi2WIglwlZV6xPJHRAh+iEi0Bzm/HdJ6PV/L3SMeL2dCmL52fNzV
+	 aVZ7GbtbigbFyqBsEia1xwMIYm/jJwaeSHonHpMp0TYcIxx+libvSeIgMcpqKE0NbY
+	 tjjoet9urJjrg==
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl1.zte.com.cn with SMTP id 6ACECgsc063423;
+	Thu, 12 Nov 2026 22:12:42 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp01[null])
+Received: from mapi (xaxapp04[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Thu, 12 Nov 2026 22:12:41 +0800 (CST)
-X-Zmail-TransId: 2af96af5c959a0c-dd182
+	Thu, 12 Nov 2026 22:12:45 +0800 (CST)
+X-Zmail-TransId: 2afb6af5c95d1ce-e293e
 X-Mailer: Zmail v1.0
-Message-ID: <20261112221241130kVJ1BhZ8c_PrjeuELo51I@zte.com.cn>
+Message-ID: <20261112221245617fVtCglossnmJqcYZwdF9-@zte.com.cn>
 In-Reply-To: <20261112221230052E8YTrPU5pi8AJJy6dnh9E@zte.com.cn>
 References: 20261112221230052E8YTrPU5pi8AJJy6dnh9E@zte.com.cn
-Date: Thu, 12 Nov 2026 22:12:41 +0800 (CST)
+Date: Thu, 12 Nov 2026 22:12:45 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,81 +76,67 @@ Mime-Version: 1.0
 From: <shao.mingyin@zte.com.cn>
 To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
 Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDMvNV0gYXRhOiBhaGNpOiByZWxlYXNlIFFvcklRIGFuZCBTZWF0dGxlIHBsYXRmb3JtIHJlc291cmNlcyBvbiByZW1vdmFs?=
+Subject: =?UTF-8?B?W1BBVENIIDUvNV0gYXRhOiBhaGNpX3NlYXR0bGU6IHNlcmlhbGl6ZSBTR1BJTyByZWdpc3RlciB1cGRhdGVz?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6ACECbh8055529
+X-MAIL:mse-fl1.zte.com.cn 6ACECgsc063423
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Thu, 12 Nov 2026 22:12:46 +0800
+X-SOURCE-IP: 10.5.228.132 unknown Thu, 12 Nov 2026 22:12:46 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF5C95E.000/4jQMmG27qfz5BNRf
+X-Fangmail-MID-QID: 6AF5C95D.000/4jQMmG00mFz5B17f
 
 From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-The QorIQ and Seattle drivers enable platform clocks, PHYs and
-regulators during probe, but their port operations inherit directly
-from ahci_ops. This omits the platform host_stop callback, so device
-removal releases the resource handles without undoing their enables.
-Repeated unbind and bind cycles can leave enable counts unbalanced.
+seattle_transmit_led_message() updates a controller-wide SGPIO
+register before taking ap->lock. Concurrent LED updates for different
+ports can therefore read the same register value and overwrite each
+other's changes, leaving activity, locate or fault LEDs in the wrong
+state. The lock currently protects only the saved LED state.
 
-Inherit from ahci_platform_ops so that host teardown disables the
-platform resources after stopping the ports. Cover both Seattle
-operation tables, including the variant without SGPIO support.
+Take the shared host lock before reading the SGPIO register and hold
+it through the write and the saved-state update, so that each update
+preserves the other ports' LED bits.
 
-Fixes: ecfb4598512a ("ahci: added a new driver for supporting Freescale AHCI sata")
 Fixes: 535dac4ab5f4 ("ata: add AMD Seattle platform driver")
 Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
 Tested on next-20261105 in an x86-64 QEMU/KVM guest with KASAN and
-lock checking. TEST-ONLY hooks supply RAM-backed AHCI registers and
-observable clock, PHY and regulator providers, retaining the original
-QorIQ and both Seattle operation tables and probe rollback paths.
+lock checking. Two kernel threads on separate CPUs call the original
+LED callback for synthetic libata ports verified to share the host
+lock, using a RAM-backed SGPIO register and TEST-ONLY MMIO observers.
+The observer waits only when unlocked, with IRQs enabled; it never
+waits for another thread while holding the callback's spinlock.
 
-Each variant runs 12 start/devres-release cycles: unpatched, clock and
-PHY counts grow to 12 and all four regulators remain enabled; patched,
-ports stop before one platform host_stop and all counts return to zero.
-Per variant, 12 IRQ activation failures and 12 PHY enable failures also
-leave resources balanced in both kernels, without duplicate disables.
-Firmware discovery, full host registration and real SATA I/O are outside
-this test.
+In 1025 controlled update pairs, the unpatched kernel loses register
+bits 897 times (including expected 0x900, actual 0x100); the patched
+kernel loses none. Another 256 pairs with IRQ-disabled entry preserve
+all updates after the fix. Saved PMP LED states and entry IRQ state
+are correct in both kernels; 482 invalid-PMP calls return -EINVAL.
+This tests callback synchronization, not Seattle hardware or LED I/O.
 
- drivers/ata/ahci_qoriq.c   | 2 +-
  drivers/ata/ahci_seattle.c | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/ata/ahci_qoriq.c b/drivers/ata/ahci_qoriq.c
-index fc6b8cd75b..3e3ce1a02b 100644
---- a/drivers/ata/ahci_qoriq.c
-+++ b/drivers/ata/ahci_qoriq.c
-@@ -147,7 +147,7 @@ static int ahci_qoriq_hardreset(struct ata_link *link, unsigned int *class,
- }
- 
- static struct ata_port_operations ahci_qoriq_ops = {
--	.inherits		= &ahci_ops,
-+	.inherits		= &ahci_platform_ops,
- 	.reset.hardreset	= ahci_qoriq_hardreset,
- };
- 
 diff --git a/drivers/ata/ahci_seattle.c b/drivers/ata/ahci_seattle.c
-index 9758fa0260..0187eb2d27 100644
+index 9758fa0260..a398778ebf 100644
 --- a/drivers/ata/ahci_seattle.c
 +++ b/drivers/ata/ahci_seattle.c
-@@ -48,7 +48,7 @@ struct seattle_plat_data {
- };
+@@ -92,6 +92,8 @@ static ssize_t seattle_transmit_led_message(struct ata_port *ap, u32 state,
+ 		return -EINVAL;
+ 	emp = &pp->em_priv[pmp];
  
- static struct ata_port_operations ahci_port_ops = {
--	.inherits		= &ahci_ops,
-+	.inherits		= &ahci_platform_ops,
- };
++	spin_lock_irqsave(ap->lock, flags);
++
+ 	val = ioread32(plat_data->sgpio_ctrl);
+ 	if (state & ACTIVITY_MASK)
+ 		val |= 1 << ACTIVITY_BIT_POS((ap->port_no));
+@@ -110,8 +112,6 @@ static ssize_t seattle_transmit_led_message(struct ata_port *ap, u32 state,
  
- static const struct ata_port_info ahci_port_info = {
-@@ -59,7 +59,7 @@ static const struct ata_port_info ahci_port_info = {
- };
+ 	iowrite32(val, plat_data->sgpio_ctrl);
  
- static struct ata_port_operations ahci_seattle_ops = {
--	.inherits		= &ahci_ops,
-+	.inherits		= &ahci_platform_ops,
- 	.transmit_led_message   = seattle_transmit_led_message,
- };
+-	spin_lock_irqsave(ap->lock, flags);
+-
+ 	/* save off new led state for port/slot */
+ 	emp->led_state = state;
