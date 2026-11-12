@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794498145;
-	b=xl3YI13A7Gv38NTh+5G6X7sJ/w1A0k8uFvsjeGvyVJpCI73EllsVa6+FNaKbW4aqmVks
-	 GFzAuaWyBE9Tio56wTj/KlrzlLR55b1cuX+mr+8tvfQCsdR1CkRqF4uWY437uDv6WWeum
-	 0YSKmQlBK2AVTga4hco7b8H4T9QO1K6VkGPCLeYXk6QxlswjyZo6ooHJ8687u2IE0KWNO
-	 bQaJmMcE7d1epKRnjxE81dmV7HFireHk8FfKU4lJqQnrAFX8HfLaUpIWW8llz3eb221T0
-	 r7uAKSi7hGomZSDI8jjkVGImdIXCQ5Q5vERRSZS5CblCIGHfPo1HZN5xr2sv1owSGfQ==
+	t=1794498150;
+	b=4jH2oXJfkBowBQEwsqa9j4VmCwH3tE3xqPkTohkhTbbtA1fsJ3QROzcjDryKFZQdhyQW
+	 HCzVLy7uKO+2G6hwhwecWKiJGLNlkmCSluPPC00bXSnx/mBR/MvsV7P8EGtqHEVa5QOoW
+	 LpKW8MFkRQ4CUZke12FsFZ6DynAgoJRjpqyYDRS66e63eNCmKSP7MWJAyywY9CA6TV/5+
+	 CGCCRu4SZ797AFDHRVALXZUXx1MC/P3EZoG2EpJJcJ8BYubhiPUt5JMMg7u6YsHBoCzKW
+	 gSl5+kV8A0ITf7MSSG2VOOgXrR758z0ANsgTPbLvzUuOCRDK82Jb1TrqkGzJh9KFYgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794498145;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794498150;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=qPdK+vh8/g3uS3dMRmESD66VYLEkQ0XCEscEZnuHhMY=;
-	b=mVfIV2y9mOG9jWvz7D/bJ6TIP83kfvmXHVMKy3vLkd+HaJaQiOUw/ekReSOcm4TgBbpg
-	 ZDX1jxW4wbxa+xmVcdvT+es7yN0cBG3di69NfVXBwHyYBZKHgaofQkp0sFa1LjS75ZJoc
-	 RBTVXnN2VabbbhDRrH27Sh0Ha10NZdMqgJ8N+GYvAx2ka13j+dkH0HEbDdfbMLMqprqxB
-	 4CoTGGBOmT6VgWg5T7YB7jXbgXPNL86yOiBPlSN0M+8L4wF11Bp0/4sdRRUYttMljE7Vd
-	 +jvqT2QK748KHLJQQWEdY74E99h2bhgfrSsorFXgk49MreKfULrj2ZprSBoQz5pFFSw==
+	bh=HBLCGcqufQIhkN3sBdqHjkVXfZZ4ZTmimDtIq4+w0iU=;
+	b=V4st0uedkWEfmERYMVsYUKcbtvWrP42FQC/dO/rw8SfZad2PCY7kdvOyJIDI3sLs3Fme
+	 ftcjr+Fy+wVGvTfJwuuG/MrT01gEfWgFM9qNymRxn3m2JSUev9QKmIF/Ev+rX/fuIL3hl
+	 nebVRHD6JEKAPO1wO6qvFvoiF+GqtAIvjM8l5BNAmNaSB4a6S2ANtVZRmPOuZnjW1UQWz
+	 Y+dcrfeGqocGCemu7LbelJqO9fglFVLAeq8iXEOBru9fv6tBHuSUIVbZuEI+9OO+T6oTt
+	 kYCU8I5z4HmxKeWvBFl3YwZyaM6QPBFl2X1JZOp2M53hse1nyaijtu/tgUDFd/vmMrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UNzXi57n;
-	arc=none smtp.remote-ip=209.85.210.174
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q0BCfTY5;
+	arc=none smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E1B606A32D
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:42:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3E1B606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75CE606A89D
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:42:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D75CE606A89D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UNzXi57n
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8b4c8b51b58so3170453b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:42:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q0BCfTY5
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8a39e5161c1so3371478b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:42:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794498144; x=1795102944; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794498149; x=1795102949; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qPdK+vh8/g3uS3dMRmESD66VYLEkQ0XCEscEZnuHhMY=;
-        b=UNzXi57nIEINpiLTnoJVLHkb3iSpvqvZxAH5zhOTFLYYq3JC2pBwTtCUqR8HLWWJl7
-         dvWdgn8wrADdnYvaeFX/6i5X9sWXAY8dacQSJHpex7H2cPFJjHpqvyb162Z/U+flSnTM
-         yI0nxbIsMix1Gdwd5Qgg91zBnzU0CsqOFM/glgCb+b3W5ftAKLobixe5X+rPKSDr8jPp
-         UNz3vCCdBePGqrOih0FXIwxBvUWNTzJmSOngSzsivXe1+V1R0yO5dm+s24qtTCHIzPY8
-         z5D287sbnTS/dZgPYoIlqyguRO95+dC+xkLVtW7x3xdRJg76TcqVosKokof0NIHRmWRk
-         +QYQ==
+        bh=HBLCGcqufQIhkN3sBdqHjkVXfZZ4ZTmimDtIq4+w0iU=;
+        b=q0BCfTY5Rtk/u+c1WRC+vhl5bYaNgeAz/F0fVXViwEGncWv1eFzIWRapxJ7b/nGHcg
+         74ySBPr8UY4G6hDI0KvwNEYmG9+UAv911kQUjyqQj6HJzTZkFsN8Tcca/S43Wfw8QCjT
+         9kelHhqR+Ri5DO6izPoCKHpuHR6L/kNsCEaLwMHNboygQtruOQMH7ozYh/BvKzck/AGS
+         U88L3vAqjkBVMYVXua5bAvX+T0mTNUOFlkJPWE6VNlpqA643S/gpfk/nhd1fnzGSH13q
+         PQw1pvC5boWSzTl+05NCUpU1Y/k3Ld+qJUlOGeC6DThi/u6i7+oVtfnTvlX2b5b0wG58
+         vY9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794498144; x=1795102944;
+        d=1e100.net; s=20260707; t=1794498149; x=1795102949;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qPdK+vh8/g3uS3dMRmESD66VYLEkQ0XCEscEZnuHhMY=;
-        b=GxdKi5WAX8j6lcyiodU1OKw0PU0QJFtlOuZe6RAKeEKFvOn83NdmuZKSeJiC4glDxP
-         vDQseXD94jwfSLWvb/PZPb/7x1ZtocFmJFt34Sc7UDmNB7P2NUQn8aSBTOOTBUai0Ylr
-         BIcaEf4kZO2dxO0vZ6Q9Tforn3w+UWvWXIPzMy3xvQgIDL28Yf+sQONqlEnA3hXSICXI
-         SLBRXGrOf66sZnctoeT8iyw16R7eWI3HaVvSbMb8YzlLGcrgIxF3UHZJCRGOPLhzGw//
-         fmRGGcOgakbJvImZQn8f7JW172Q/rt/vBTbAbaf95qam6lYAzM6EbmH5rae8japYprK8
-         kodg==
-X-Forwarded-Encrypted: i=1; AL+hErHuNi6kbpoJmaKWGmLofih3E3iYBKY20gsQR33tOMtr/08s5kdw0N8DoiwROwVPRtkGQ/XtudInsFOD0bc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+rCiqXu0w1wK9IijU9JTZVA84wIPliWihSrKXCBNDiiIpgmS0/
-	pEkYpPQUAgsyaYMNxDA4X5S972pw2zX93JP/01tvRw+c/tdC99jo3V+4
-X-Gm-Gg: AYBFou2DrhlbTmpBvcKPlpYMrzwkUoW6hI34FGFLCLZAPkcqUuUNJNcmX3XawrwIpvU
-	RlRckrLN6seynSnzFAtzpVTHee2LCiOTGs8gE17DobCbrHUbssW+z/5D763i8t1UYJbQ0hsoQCE
-	OG2vzjfNLz5ZiuN41WCGowSN8NPValTiaHKK4lFSDYNVk1+GLOl/02OkP4uZkO2p2MlnPZXDBlb
-	lq4h6x64xkQyo6Extd/U9jToRiNP3aGSrFbCNjt+nO79VVVQN/lz1LP5mqV72BC07eUdO/R5pnh
-	3JgmVy0CWGLe990dNNuWiiQIWrn3HxSFueNwqhSp25otBAsCkMqzop4gFMo2SRQEeBKMBOp+35A
-	9XW01V3UUWU5E7ppfnFhJHgq8Qillq1E82seOqzUPHYiVpxC3hk1OXT9oK+iIQZdwwP4IkqRQlV
-	P2D27LeiVwZ7aS3z+jyAPX7yjXMrp3mTUj46BJ5snazT0AfQwLtvU89mg8xEtYJZU4n7yIGtoBM
-	3I5Q7OnH5Ehowq2+ZKkbpzL1D7xexo34/OFT6H4gdd/4MZf+tUqTCYkU0j77ObqUlQqmGfYbuYl
-	mE655vDXzm3I9suYySc0FJaGCEJIQnLEV9dOOQ7ikjL3fhQ8ZGyoI3V6drQtk6QMvqKtj0wbHsj
-	rNGBbh+nuC2l4/1oHnQu+OhrUj/A=
-X-Received: by 2002:a05:6a00:21ca:b0:89f:1b32:29a5 with SMTP id d2e1a72fcca58-8bc195038abmr5834051b3a.7.1794498144019;
-        Thu, 12 Nov 2026 07:42:24 -0800 (PST)
+        bh=HBLCGcqufQIhkN3sBdqHjkVXfZZ4ZTmimDtIq4+w0iU=;
+        b=yP8XDz0CZFs3Ga8+/pxoOhADlpSkwPCzHwYaeyGtmUTI33RleqUlPDiBKHKJAUR6dQ
+         dCxPiGeImlJsrPtSakUyfi18Zd4GR9nUAooZVA0WI4Fodm2VfrSuKEcPz/PiJHqloyPd
+         6C2l2kisB2l7lyxMsnbQHJI1MInoVrIEJgBTh3l8d0M0QD7x1yQWBiQG878MRZGlDIgm
+         oeoF/TcyzbntafVCF03vhvAb/E8Ng3rhY+6aZoF+8+imiYNGwFTE2UT1hXmgRUn5jCiX
+         gxwfMuLOpIyRdkm1iHFkCwhbjqDODZGxNEsuVqRPev0zQiqn15l6l/JarCV0GACUHNjC
+         zQUg==
+X-Forwarded-Encrypted: i=1; AL+hErEO+9xGXT11mOlBlaKJvFkVNP0wyliHvXWk08hF1nZ6V2DAgu/d4aqxA9qWhXYSwBDzcazZpgRf/1QJ05s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z879kBDg5mm10l8yGXudY1F6c/HwueNBY1zitdcgD7KdXsew207
+	zYgo4Sj3T8iufDL8NGIzwfTyN5UYX0qIjI/5JNFojR2vzVcYuVjKGkoM
+X-Gm-Gg: AYBFou0bKxlqCnlFxLczMmht85AhmuJEvLxq/15Shv3ZmbI12hfEUGHeLQCAbWtuzT8
+	YUrPPt0lyZtde6i2LOyWpq/L43AlZWvqrF137GgxkaMvYg0xiLtJMZwof0xPx/Ny5HG0fvIPMQV
+	aZR0Fu5a6m2U4w4Wj1QJmkJrT5S2tgIjQznl702Pswnpv1zfX1q2FevN7iJjWz9B6LsV6D4wV09
+	Dneb63NxdT5tmFJh2zn5Lshx+zDSf4T2t1AQCsr6pPYY56U/chn4zgxbgoIqtCRA5bKraPnUfAs
+	168m4O5vfeNghs/Gq0idkeYjwSMOOatmSOsMM9Xjty4FscfCmpiFKIUhuzMQYNpZdSZRdkr6mw/
+	p37lGmwhEENCbRZ/4XjXpeGFxMVyqnT1gkgD5R3FbDrPvjiv3EkF8wXpWNvTWwUrqDLP00qrjMW
+	ackI0pR7qbR2HbrZ5xymgYEgcVdS03ToB14qdF/DtfW5LMvcL9HjcvLdgHgtX3bTB8/IoLy2pea
+	8ebEVFsMDgQUGnBnoMy1xdhbLoAN/kIlr5a6Lc3XyXuS/a8PxA7yjVLNw263T6YImE9hzR1UwWi
+	Lu4yG2HD/iDjnHCBT/2psUXsmtrAjQgAgq3/UEyEbTBdJ1WelpCfnAu/OH2BNgJZuosmniW96Sm
+	uPb/LPTXVjBr88+lwl+FJNo1jmME=
+X-Received: by 2002:a05:6a21:6450:b0:3e2:86b6:9be8 with SMTP id adf61e73a8af0-3f2fe0a8506mr5804970637.35.1794498149028;
+        Thu, 12 Nov 2026 07:42:29 -0800 (PST)
 Received: from localhost.localdomain ([2405:9800:b901:33ad:21c4:c32f:67c1:d87c])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baa7de3619sm3790596b3a.5.2026.11.12.07.42.19
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baa7de3619sm3790596b3a.5.2026.11.12.07.42.24
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 12 Nov 2026 07:42:23 -0800 (PST)
+        Thu, 12 Nov 2026 07:42:28 -0800 (PST)
 From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
 To: linkinjeon@kernel.org,
 	stfrench@microsoft.com
@@ -93,9 +93,9 @@ Cc: icb@fastmail.org,
 	linux-kernel@vger.kernel.org,
 	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v6 4/8] ksmbd: refuse a binding request on a connection that is already a channel
-Date: Thu, 12 Nov 2026 22:41:51 +0700
-Message-ID: <20261112154155.20255-5-mike.michalo@gmail.com>
+Subject: [PATCH v6 5/8] ksmbd: check a request before signing STATUS_NETWORK_SESSION_EXPIRED
+Date: Thu, 12 Nov 2026 22:41:52 +0700
+Message-ID: <20261112154155.20255-6-mike.michalo@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261112154155.20255-1-mike.michalo@gmail.com>
 References: <20261112154155.20255-1-mike.michalo@gmail.com>
@@ -110,44 +110,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-smb2_sess_setup() refuses a binding request for a session that the
-connection already uses, but is_ksmbd_session_in_connection() only
-knows the sessions created on the connection, not the ones it was bound
-to as a channel. A connection that is already a channel of a session
-can therefore bind to it again. The new binding legs are verified and
-signed with the session key at that connection's MessageIds, and on
-completion generate_signingkey() replaces the channel's signing key,
-while register_session_channel() keeps the old channel entry.
+When a session's Kerberos ticket has expired, smb2_check_user_session()
+returns -EKEYEXPIRED and __handle_ksmbd_work() signs the
+STATUS_NETWORK_SESSION_EXPIRED response if the request has
+SMB2_FLAGS_SIGNED set. This happens before __process_request(), which
+is where the MessageId and the request signature are checked. So the
+response is signed with the session's key for a request whose
+signature was never verified, at a MessageId that was never checked.
 
-Refuse such a request with STATUS_REQUEST_NOT_ACCEPTED, as MS-SMB2
-3.3.5.5 does for a session that is already in Connection.SessionTable,
-which a binding adds the session to (3.3.5.5.3).
+Anyone who can inject requests into the connection can then get
+responses signed with that key at MessageIds of their choice: a
+signing oracle. A Kerberos reauthentication keeps the session's keys, so
+the effect lasts for the rest of the session.
+
+MS-SMB2 checks the MessageId (3.3.5.2.3) and the signature (3.3.5.2.4)
+before the session (3.3.5.2.9). Do the same: sign the response only if
+the request passes both checks, and otherwise answer with an unsigned
+STATUS_INVALID_PARAMETER or STATUS_ACCESS_DENIED, as
+__process_request() does.
+
+For a later command of a compound, the response that is current at this
+point is still the previous one, so the old code re-signed that response
+instead. Leave the expired response of such a command unsigned.
 
 An AI assistant was used to draft the patch and as an independent
 reviewer.
 
-Fixes: f5a544e3bab7 ("ksmbd: add support for SMB3 multichannel")
+Fixes: a47634cd729b ("ksmbd: expire SMB sessions when Kerberos tickets expire")
+Reported-by: Ian Bridges <icb@fastmail.org>
 Cc: stable@vger.kernel.org
 Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
 ---
- fs/smb/server/smb2pdu.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ fs/smb/server/server.c | 28 +++++++++++++++++++++++++++-
+ 1 file changed, 27 insertions(+), 1 deletion(-)
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index a15dd200645bb..186a497f83c62 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -2765,7 +2765,9 @@ int smb2_sess_setup(struct ksmbd_work *work)
- 			goto out_err;
- 		}
+diff --git a/fs/smb/server/server.c b/fs/smb/server/server.c
+index 51aa981bcef4e..ca0c78447f454 100644
+--- a/fs/smb/server/server.c
++++ b/fs/smb/server/server.c
+@@ -107,6 +107,32 @@ static inline int check_conn_state(struct ksmbd_work *work)
+ 	return 0;
+ }
  
--		if (is_ksmbd_session_in_connection(conn, sess_id)) {
-+		/* This connection must not already be using the session */
-+		if (is_ksmbd_session_in_connection(conn, sess_id) ||
-+		    lookup_chann_list(sess, conn)) {
- 			rc = -EACCES;
- 			goto out_err;
- 		}
++/*
++ * The keys of a session whose Kerberos ticket has expired are still valid,
++ * so STATUS_NETWORK_SESSION_EXPIRED is signed. Check the MessageId and the
++ * signature first (MS-SMB2 3.3.5.2.3 and 3.3.5.2.4), so that the key never
++ * signs a response to a request it did not sign.
++ */
++static void ksmbd_sign_expired_rsp(struct ksmbd_work *work)
++{
++	struct ksmbd_conn *conn = work->conn;
++
++	/*
++	 * For a later command of a compound, the current response is still
++	 * the previous one here, so signing would corrupt that response.
++	 * Leave this one unsigned.
++	 */
++	if (work->next_smb2_rcv_hdr_off)
++		return;
++
++	if (ksmbd_verify_smb_message(work))
++		conn->ops->set_rsp_status(work, STATUS_INVALID_PARAMETER);
++	else if (!conn->ops->check_sign_req(work))
++		conn->ops->set_rsp_status(work, STATUS_ACCESS_DENIED);
++	else
++		conn->ops->set_sign_rsp(work);
++}
++
+ #define SERVER_HANDLER_CONTINUE		0
+ #define SERVER_HANDLER_ABORT		1
+ 
+@@ -265,7 +291,7 @@ static void __handle_ksmbd_work(struct ksmbd_work *work,
+ 					rsp_hdr = ksmbd_resp_buf_curr(work);
+ 					if (rc == -EKEYEXPIRED && work->sess &&
+ 					    conn->ops->set_sign_rsp)
+-						conn->ops->set_sign_rsp(work);
++						ksmbd_sign_expired_rsp(work);
+ 					else
+ 						rsp_hdr->Flags |= SMB2_FLAGS_SIGNED;
+ 				}
 -- 
 2.43.0
 
