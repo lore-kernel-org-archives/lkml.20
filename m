@@ -1,78 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794466605;
-	b=A7HkJnUEZ4qYD8mpEHybaoK83o1C34DC9d9mYmMNuz13HEpu2Z5YjkWrTrKtZKn1UMOY
-	 cdHEoxh44Ionadc41XpV32r06ZNorxe8iTuGZFuv7Q8mB8r+RIGs5UfyNgzyWfepBiI+f
-	 QuGmy6fg6Y56RH7ZGoJoUKRdlmXx2LBg/TmdPlYlRYVsTf8c+ptzyzarRLjUaFpIkvdcg
-	 edzwhPBch5AwxQ9syBZa0jAQQXU4EjVh9tEoAGSi/ShoNiRVyKoMWiqb38QXkDAEvB0o5
-	 KxiAqZS8Vcc6403+2o/oRN5tHpQMsqt/yahWG+uYgG3qb3QPyXRimKHMg7L+8eQQHsw==
+	t=1794466622;
+	b=RFEkwzsVdGnNCumK/YjUjBFrszCvHCYEXXwZEXhoeebLqTUmlryxb/ZbUofRCXjVJTlO
+	 782BHqm38/x9wejqaq7mcZJ/X5g+EwjREF7BqVKS8ApRGEZZ7H1IekF8MQxNiqpo291xk
+	 vtkXJGo/2nrOfYBk48jNF7q3u3cyyQdVXThxhjoSYpcoAXT4OfbIOPmCfEo/ZcjnXzDJD
+	 Dcr5WTojKCUlM5uEd2IxANsyq6QdZeGJOHQ+Ozzf0f0qQGSPKdlJqWclsrMoOgLvI6um8
+	 OzVu8Hw+2XszbXyUQ2aWcL/q7iwwBThxsJs4tGOePXd/z86MBaSC6wqHi6hA6oxnzrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794466605;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=Ix74LSl5qRLb02pi/asTcn2VdzYi6cghGTmwBn7ornk=;
-	b=bhOob+TUfHeBwgu7FCx0oY8T+5sQMyViw8MBbret6Fpqmel+BCjZaKkJ2D2UopXCAG7R
-	 T5cRiHjNwBsR19AqlR8NQvkTSaY0Wt/RPhr3lDQhjengF1yCFsHFRU2PAMSfVxxO9kT6k
-	 qAqW1xgJvSvdQl/lWxMA1OK/wOESJfOhnaT9p53hPaIIbvQm8Qe8TBUVNb5rRsejK2DEv
-	 /etgZn7LFwzoJP47urIDWQuZHKH4wnOR89GYO5YAgBfLwWeoeLq48R5Eaejp8H9NeUlTH
-	 sV1FGw4u/iyuVgVXm3Fq34n5FAwpzt6NTLFaF2RnELMkmPH9TD3PRJUa+ZbLaqTwzzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794466622;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=JO6FW3tawApcJIwTTcR4zJNDJEYR841HkFnpVbs8+pI=;
+	b=2PTs0SEPAQKAHdHOE5Rku1qqJpbGwm7ERhfdWi2bnOJUhIJHAzY8S7bdg/R1+Xjam4jT
+	 m+qJrdKh1WHjCCzix/BBA6dnc6KTOia0A3/KQ1vGPLi4vk+WNVX+m1PmMorcS1gZxvt9H
+	 1/R0N5DkmPKx0WUsy4zJqfrdFP0Z5WOWEVZlnYvpYoE9KW3jHYH5eXHfGtQBmo+CSMMl8
+	 eL1KQsl/1/hZdS7iwgPSuCD/fSG3zmLvpyz9JNrT86AdMw9IRDFvs6vP+3s24eKqcfH2Q
+	 bAP6d4l1DE0DAhqCp8suRld5G2iUbjdgMYYkgSy2cJv2bqZxAfyIv7BdCOgDFbGUUdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cMOg96us;
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=MSaSPZrw;
+	arc=none smtp.remote-ip=115.124.30.99
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A060606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:56:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A060606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E2F606A323;
+	Thu, 12 Nov 2026 06:56:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44E2F606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cMOg96us
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794466605; x=1826002605;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=8iTWUlQ4QhM12UeFeyZ/FZKti6wV6wr0cS46tNo0NpQ=;
-  b=cMOg96ustU9jOosciEqrpLP4w2Udo7IObRQsJL4Z1dK9OE1jWiu/LYNM
-   q+e3lVtUqvJWqTokSoQemV1V9Y49ZLg86tf2nvoMy+IGzr4TYsGczbL+H
-   W0A2LmDv+hdQTiZshcLoyTYdYcUDx9Z0vvNIqdqVqTOru5nKVgofk8bZI
-   IDlebYxc69l5xe4JF0ttRoEsPGJ2yEINxVbHjiHcl6qVhhPSWA0PsBdr6
-   9UJ7iE11g+sJW0I+5JM5uBpsa7ciow2moCqif0nb/UGmC9ZSc8EUed3SV
-   Wk9CCKcsj+/vswD1Ny/VQ6iLt7Z4lnnw97JXlnRNZx5I3GAuJ6F79gOmQ
-   w==;
-X-CSE-ConnectionGUID: yFdLJYQNSWaP2mYaGX6JTQ==
-X-CSE-MsgGUID: rJ0LCoO1T2OnnfVvBpU2yQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3275379"
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="3275379"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 22:56:44 -0800
-X-CSE-ConnectionGUID: ZBTbt0LGSpKdX4glZ/3O6A==
-X-CSE-MsgGUID: 0VodtLolQEK0/fsGAxoFpg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="8683592"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.6])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 22:56:42 -0800
-Date: Thu, 12 Nov 2026 08:56:40 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>
-Subject: Re: [PATCH v1 2/4] regmap: Drop never used devm_regmap_*_free() APIs
-Message-ID: <avVjKPairv4zkB4o@ashevche-desk.local>
-References: <20261110093820.454682-1-andriy.shevchenko@linux.intel.com>
- <20261110093820.454682-3-andriy.shevchenko@linux.intel.com>
- <179442294226.513646.6459407661987242086.b4-review@b4>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=MSaSPZrw
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794466616; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=JO6FW3tawApcJIwTTcR4zJNDJEYR841HkFnpVbs8+pI=;
+	b=MSaSPZrwSImpTjQeit7lfj3V7ivitCBnkn4/es+8mH5j77EqkfPublLS0WOasMlSPZoSZtVAY98yov4tdN23/CzsvVFv8s+eyQXgStJ9m8xndSdXNLNOKY/ECSMSRzBmNNVeRn8p4gfKrElg//KP+JJhkSwXDG7DMyVdYJE+Dls=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R601e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=22;SR=0;TI=SMTPD_---0XEbCXrk_1794466612;
+Received: from 30.74.144.134(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEbCXrk_1794466612 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 12 Nov 2026 14:56:54 +0800
+Message-ID: <dc7e9478-6f03-4ee9-bf41-ebfc4a8f7edb@linux.alibaba.com>
+Date: Thu, 12 Nov 2026 14:56:52 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,30 +53,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179442294226.513646.6459407661987242086.b4-review@b4>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] mm/huge_memory: prevent losing PG_waiters in
+ __split_folio_to_order()
+To: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Ye Liu <ye.liu@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261110-fix-split_folio_to_order-race-v4-1-cc5042f33408@nvidia.com>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261110-fix-split_folio_to_order-race-v4-1-cc5042f33408@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 11, 2026 at 06:49:02PM +0000, Mark Brown wrote:
-> > devm_regmap_field_free() was introduced in 2013 and was never ever used.
-> > devm_regmap_field_bulk_free() was introduced in 2020 and the same story.
-> > 
-> > Drop never used APIs.
+
+
+On 11/11/26 11:19 AM, Zi Yan wrote:
+> __split_folio_to_order() calls prep_compound_page() on each new head page
+> to create a compound page after clear_compound_head(). prep_compound_page()
+> uses non atomic __SetPageHead(). It is mostly OK, since the folio is locked
+> and frozen and no one else is supposed to modify the folio's flags.
 > 
-> I tend to think that if we have allocation functions we should have
-> matching release functions, this avoids cross tree annoyances and bugs
-> due to people using inappropriate release functions which actually
-> exist rather than adding the ones they should use.
+> However, code calling migration_entry_wait() can reach the folio by PFN,
+> then access its flags. It is because softleaf_entry_wait_on_locked() used
+> by migration_entry_wait() sets PG_waiters concurrently without taking a
+> reference and the frozen refcount during split cannot block it. Meanwhile,
+> __SetPageHead() does a plain read and write, so PG_waiters atomically set
+> by softleaf_entry_wait_on_locked() will be lost if the set happens after
+> __SetPageHead()'s read and before its write.
+> 
+> One example code interleaving:
+> 
+> CPU0: __split_folio_to_order(new_order>0)  CPU1: do_swap_page()
+> 
+> 1. clear_compound_head(new_head)
+>     new_head->compound_info = 0
+>     (page_folio(new_head) == new_head now)
+> 
+>                                             2. migration_entry_wait()
+>                                               softleaf_to_folio(entry)
+>                                               page_folio() -> new_head
+>                                               (not the old head any more)
+> 
+> 3. prep_compound_page(new_head, new_order)
+>       __SetPageHead(new_head)
+>         tmp = new_head->flags.f  <-- load; PG_waiters == 0 in tmp
+> 
+>                                             4. folio_set_waiters(new_head)
+>                                               set_bit(PG_waiters, &flags.f)
+>                                               enqueue on waitqueue, sleep
+> 
+> 5.     new_head->flags.f = tmp | (1UL << PG_head)
+>         <-- store; overwrites step 4, PG_waiters == 0 again
+> 
+> Later, folio_unlock(new_folio) sees no PG_waiters, skips folio_wake_bit(),
+> and CPU1 can remain blocked indefinitely.
+> 
+> Fix it by setting PG_head along with other flags in new_folio->flags before
+> smp_wmb() and clear_compound_head(). The remaining compound page metadata
+> is set after clear_compound_head(). In that way, after
+> clear_compound_head() makes new_folio visible, nothing overwrites the
+> PG_waiters from softleaf_entry_wait_on_locked() by modifying
+> new_folio->flags non-atomically.
+> 
+> While at it, use data_race() to suppress the KCSAN issue reported by Ye
+> Liu's patch (the second Closes) on reading folio->flags in
+> __split_folio_to_order().
+> 
+> Suggested-by: Kiryl Shutsemau <kas@kernel.org>
+> Reported-by: David Hildenbrand <david@kernel.org>
+> Closes: https://lore.kernel.org/all/DMHE8BEEER1H.2BIY52NXATPIA@nvidia.com/
+> Reported-by: Ye Liu <ye.liu@linux.dev>
+> Closes: https://lore.kernel.org/all/20261029-data_race_huge_mem-v1-1-112e331291c1@linux.dev/
+> Fixes: c010d47f107f6 ("mm: thp: split huge page to any lower order pages")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
+> ---
 
-In general yes, but for devm_*() it makes not much sense as proven by dozens
-of dropped "release/free" type of devm_*() calls in the past. Also as commit
-message says for more than 10 years nobody used it even once. What does make
-you think there eventually be at least a single user?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Make sense to me.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
