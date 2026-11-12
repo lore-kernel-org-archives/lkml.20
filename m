@@ -1,60 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794481860;
-	b=Yo73ZAx1YaksqtSlKUIEli37bQwpzG4kUbyGTn6/u8zCSWQPz5q0b6WQnynGWLChdV2G
-	 BOtecgL5ZQjWRpyJ8JjgVruNjSgqbKcYty8+OeFjg46TOXfIPCTefTs6BGRsLofMCH8b8
-	 pK8kB9lN5heZG52HmFidlBNzMLvKCTDetziOYF3tECqm7LBItwZbD+FxST/Hwrt1OeFow
-	 VHMqSTEqYPgHTp+57J6R/sRNJSFL9F3IOEaNxZrLx2BGfUkyrBea+Rvq7vvTDnHsyEDR2
-	 BXpv+o4EH5QyP0wR2J5P0gc6HJQUp9Ky0WRLb3jVmpi6DotgBdx/XutJKu6xInl+eTg==
+	t=1794481867;
+	b=aLdBwqM+r/m66BxkqdwCjg7R8JRaScL0ccBG2k8NjtbGOugpCUUlIllS7UumI142BVqk
+	 Q2DDaiOGLVh3ZFYrJFuo4JzltcidIBmzTlzokbKcgwfg+cR/maQ6unuGn3KAXmggGLdf2
+	 uTmvZ+fFpFQ2yHUOUJDknBGvizapwE06oX1+uzuqm38QCUib2icbsULsm0Av3eyPDES7u
+	 jJDqUtokzi9TCXOaz72B2GyDY1D+ej5hWfslQ3rCdOYB8wPkB8moz6H6Q6yZQFoMXsoEf
+	 70fBb36fF/WNp8EsOmNEuH7HlyFV9AGwdw9oXEO+009S5XUe26K39mhRL12x3UwKh1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794481860;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ektZNdoDRs4nbYgB95A+evTohYyvZ+c3ZHsun85mrNk=;
-	b=fFbRzDMMJc4iT5yGBO3XjFc329NGqrwPv9Y0MZKuVFRKdqqg6F8a9raUSdVNFX2zaoyD
-	 WkICPLiS4g7pEAF2gyY9p/2tMT8ef2ZomIS2aZANJKZadEFQ4rAuQim6RHvBc004O67X4
-	 u14oLznBH+XxGpLBZ4UVFMD9AmqCBhCwO1BQTavWebpi+xLuvRs+b5Mv91au6RE0Kbo3n
-	 10ILRTWFsKibVSEaZnbtkMw+febivwMMx8gjMNw48eb7rgMvBUp/wcHJfy505D3RzEiye
-	 xyTUEtRmws6cxQJCL1EbEryyTRXOyHejqzHrUq2oY5tzeNuIWM8AQEfjz3rPu+0Q9Lg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794481867;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=94XR5gOk8DlPYDFwu+IBAqEZksNGwvd6rrUPYI6phV0=;
+	b=J89yKRS4HUnWbaVGatppLhruWeDa3Ih6BfHyFcHEAee8XbyHQQHl6cR9oLkIl3JEFbfQ
+	 WSH/ElOu7T2myVbEaktpJ9eW6IWtsehFujXNJTGhUHnO2eboMWAleFikqf1+d77pTKvvg
+	 79XgzXezZ66H3iYECgzzQeq4Qzk05Sp88ab5BdHGtab1jHHlmNksRhR8PbDNiCLi1dit4
+	 5JYFEwXG2V2z2wE2b2s49YOCGP3Fonj1PwsIFPPQOmMgQxVrKnR2CVbThTb6lPPgdc4U6
+	 EWk/gZc+R73NPILc60JDRSsTgxuASuMJlpAs5V490CmpQ6hWsqF751r/IwPMhbHjxgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BwtDVxcr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WuFV0D4I;
+	arc=none smtp.remote-ip=95.215.58.78
+Received: from mta1.migadu.com (out-78.mta1.migadu.com [95.215.58.78])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2825A606A31C;
-	Thu, 12 Nov 2026 11:11:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC18606A333
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:11:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEC18606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BwtDVxcr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 182F21F00A05;
-	Thu, 12 Nov 2026 11:10:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794481859;
-	bh=ektZNdoDRs4nbYgB95A+evTohYyvZ+c3ZHsun85mrNk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BwtDVxcrJDfKDI+sNi5mUcOqiYck2I0tcD04KbCSmrlsFNsp8iy2H0NSgZfTs6nQL
-	 UqhE0LLuBc4NGVQX5rq7sxaVHvir0+MGbNrfZ81U2xeent/FHcvng2rTPmxY4Z5RDL
-	 cnDV9KWGV1fef1OllxITvJDrlN2i0eW4mpFyo2Td1oZp9h8ec11zAf0YDaAMcDRxr7
-	 cNcG3ZLa5Awm2hhqOabCa0RQEC0Z8TXy4zEZkeXUl8PweS+LCVK+YOorDmkVVOFKIs
-	 nZMkj65GTyc+wJwnWv+VPH+/lI1eC3bFtaq0ikhgar2blqlEQ8LXOcRPEDZBWYYNrI
-	 c198QFJyWiJ7A==
-Date: Thu, 12 Nov 2026 12:10:56 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vincent Cloutier <vincent.cloutier@icloud.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Purism Kernel Team <kernel@puri.sm>, Vincent Cloutier <vincent@cloutier.co>
-Subject: Re: [PATCH v2 1/3] dt-bindings: media: i2c: Add Samsung S5K3L6 image
- sensor
-Message-ID: <20261112-dainty-groovy-jaguar-7cdd26@quoll>
-References: <20261112004636.739749-1-vincent.cloutier@icloud.com>
- <20261112004636.739749-2-vincent.cloutier@icloud.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WuFV0D4I
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=94XR5gOk8DlPYDFwu+IBAqEZksNGwvd6rrUPYI6phV0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794481863; v=1; x=1795086663;
+ b=WuFV0D4IDTJHZIBsD2JEUD2SF6saq5ozXTLrdBP1x/JVwnk/ocPbJH8QSzHJoyt3pemLOsjI
+ GLl7+JKnbBYBZpehchfo4JF5ZgLFYYVBKEGBKPpyY1aSC21Hebl1a0XMYDdp7QztyzkfviRbvRI
+ T6Y1ardMbJVI2ia0tbyh64aQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b717040691903752;
+	Thu, 12 Nov 2026 11:11:03 +0000
+X-Mizu-Trace-ID: b717040691903752
+X-Migadu-Flow: FLOW_OUT
+From: Qiliang Yuan <qiliang.yuan@linux.dev>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Qiliang Yuan <qiliang.yuan@linux.dev>,
+	Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] sched/fair: Avoid re-syncing runtime_enabled on root domain changes
+Date: Thu, 12 Nov 2026 06:10:55 -0500
+Message-ID: <20261112111055.400697-1-qiliang.yuan@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261112105624.GM2668804@noisy.programming.kicks-ass.net>
+References: <20261111-bug-sched-fair-offline-active-v1-0-4f54523c5a70@linux.dev> <20261111-bug-sched-fair-offline-active-v1-2-4f54523c5a70@linux.dev> <20261112105624.GM2668804@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,61 +75,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261112004636.739749-2-vincent.cloutier@icloud.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 07:46:34PM -0500, Vincent Cloutier wrote:
-> From: Vincent Cloutier <vincent@cloutier.co>
-> 
-> Add a devicetree binding for the Samsung S5K3L6 13MP raw Bayer image
-> sensor.
-> 
-> Describe the validated two-lane MIPI CSI-2 configuration used by the
-> Librem 5 rear camera, including its supplies, input clock, reset GPIO and
-> three link frequencies. Require the endpoint and reset GPIO: the driver
-> uses hardware reset to stop the sensor if an I2C standby write fails.
-> 
-> Signed-off-by: Vincent Cloutier <vincent@cloutier.co>
-> Assisted-by: OpenCode:GPT-6.1 Sol
+On Thu, Nov 12, 2026 at 11:56:24AM +0100, Peter Zijlstra wrote:
+> How do you end up with 4k cgroups ?!? That's wild.
 
-Drop tag. Also, your SoB is supposed to be the last one.
+It is common on hosts running AI agent harnesses: every agent sandbox
+gets its own container, and each pod and container has a cgroup with
+the cpu controller enabled, so a single kernel easily carries over a
+thousand task groups. 4000 is the upper end of that, picked to show the
+scaling.
 
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
+> Also, why do you care about the rebuild performance? I'm not entirely
+> sure it makes sense to add data for something that 'never' happens. Do
+> we really need a new member variable for this?
 
-> ---
->  .../bindings/media/i2c/samsung,s5k3l6.yaml    | 118 ++++++++++++++++++
->  1 file changed, 118 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml b/Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml
-> new file mode 100644
-> index 000000000000..097593d74780
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml
-> @@ -0,0 +1,118 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/samsung,s5k3l6.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Samsung S5K3L6 13MP MIPI CSI-2 image sensor
-> +
-> +maintainers:
-> +  - Vincent Cloutier <vincent@cloutier.co>
-> +
-> +description: |-
+On those setups it is not rare. Agent harnesses and KubeVirt both
+hot-add and remove vCPUs at run time to follow the load, and every
+hotplug rebuilds the sched domains of the guest.
 
-Drop |-
+A rebuild runs rq_attach_root() on every active CPU, and with the rq
+lock held and interrupts disabled it walks all task groups twice. With
+4000 cpu cgroups on a 32-CPU VM, one rq_attach_root() call takes 188 us
+at the median and up to 938 us, against 2 us with both patches applied
+(20 partition switches, 1280 calls). So every rebuild leaves each CPU
+with interrupts off for close to a millisecond in the worst case.
 
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
-
+The member is there because rq_online_fair() can't tell a rebuild from
+a CPU coming up: the CPU is active in both cases, but only the latter
+can have runtime_enabled out of date after unthrottle_offline_cfs_rqs().
