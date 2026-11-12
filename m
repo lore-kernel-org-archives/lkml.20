@@ -1,60 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794481257;
-	b=pv1YzTcKBMsG6Wn97hDfjYQPcqqLIr1N/+rvKYvtTlrZqWquDdXxuemkTZPoS881x0mh
-	 fna7FQkPGDKU/Z4IkANJWCbccMWarDIDqrLDTVWsFtgXPP8UrsL0bjQP5f4trxuxUXyBi
-	 6oqufYF1HA/7MwAuVAccgm5/iTfDP8oNUa/z1okjzUnl9d/CqwNOIdJV0c+rENO6KBoFp
-	 1h00LwjRTWTN5L3zAPsPAW8GcUZa5Bnf4vS9bX09e1B9psbjkQGrvbuHmRHj0GG6f8m4i
-	 3vlknKnKqUjLtuhVr1ZwA9MHu/Z6wPX2eBTUEpyUKwPKMUkbusU7/8zc5XFwBVDzaHg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794481257;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=L15bPl1z+TmuF5jLbulKy1ru9ueDI4BOgxdDiM49enM=;
-	b=0nuPH1NVvT1wUSSRuJj0BFxXO4zYBfKMdoDp3FyaC93UT4DG4KKG6IaLL1hFMur1GOJP
-	 2JkB5KleMPIWOjbEfdhyy7VUi1GSJcnLpdqqq10AZTkFOSutr/EGZWwl317IfnYd0GvhR
-	 q59vD2VukbVkBWDVmxG/m3RBaJ7wJX/VGaUK7TEDgvHADyAg87ewa4V8HAO6Etg2y1BU7
-	 ifpDATXFYYPU+eEVyvI+/BSkztoLGUPjpWdDoL8ixURkFhDd87IXsRTBSfSEhg9AyTUHX
-	 WETjxpPM4kH9LtZy9lUG0r3TW/Ydlg3vJaRb4HbHI3Ahh+2m2Ddty9qAGJMSzWdtuWg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HG93I0MV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794481277;
+	b=1jmL9ZvdLSNz24wtCmA0Ipz/Sr7pntgd1sAnpPq9xhw2AMt29b0xDHTvYCASl8HzlDiq
+	 nLXclj7km/zJmBjeaYB7Oeq5g0i8KGpgXMeTmGh/gI+S7bhTlVFIdSZRWJGkC1zZgru+u
+	 /huRv+aahNkuwVL/i9ueeICuDEBGzioIWoF4Ia1Wz9OLGa8/xiuwgRDPt128QFcGnVEHH
+	 n5mrnwTmNemjRZo5UM8DkRG2xXoFZbs+tkYpAwIkjjJy/Nfcpun6mw0IY19GiJSZfOCOe
+	 M1QtNvi+lZYzIuiLgsE+xkOCskmobuFO4MbG5YmgCVozgNTc80q8sIQdAdxS4+RPHQQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794481277;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=GJZQxw9zDWRdmABPU+9ukcbzOtmQvhuN4+cXGWOZDYU=;
+	b=ffDTa3u+3YFyqf3ZhECy69NshFhuy6z5CdeDvJdi9wHnvxeB1mMlNMDGE1zCdHN2qD/u
+	 BDo7NJ2TNP5Ad8iIboox40tj0Mft4emNUC0C19V7B94OBNHOXoENsRu76Sovp+m5LX6nq
+	 TqCLvnus+EqD/AX3ut33gWNlKeOW++QMIG9BCQ9XCpGxB5Qj2UwFTI7OxG9fd9PkeMqOn
+	 HhVXsuc+ywqBAqVUtCcZnhYksGGQyqc8VTTKxhQjGX7vLJi7tgmGFTnMQi+BbxurFCY9m
+	 KI+UwZy6yWLODMAKbzFRu+k2TIzqhJrl+X9Drh1AgmNJKm0yKrA9FY7HqCri0u8sMPQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=URemDzHK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51684606A33B;
-	Thu, 12 Nov 2026 11:00:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9597606A333
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:01:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9597606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HG93I0MV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA2211F00A05;
-	Thu, 12 Nov 2026 11:00:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794481257;
-	bh=L15bPl1z+TmuF5jLbulKy1ru9ueDI4BOgxdDiM49enM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HG93I0MVe39n3RDSb7W8ehFki5M1rlw8aRYeBdvPEVB0a1nl7/qMXCIgzNC+4VyXQ
-	 TfpgiVDWNJSYXsGx4LS5/NUKA4RLAf19EcR4qAAF6GdhXaoUbzwXlBjQfK1h5OevQS
-	 WnO0+bQpoQcMkPJ5N0DF9betT39K6qBIx/Z3HjlasETY+0EUmCeBYPJ3jqYiMNSxVP
-	 1da/N7mPXrVVf1Eh6TpSfc9525/WPsyVVMs0ftgLXokZ/ENbh2Z2c/RtHYS4EzpY1E
-	 vo/xlnLUztiZLQm2RRu5t73YgYu5OC3yjKEv/oRAGTMpQn/wl9Ub84G4jVZ5YO5qJQ
-	 wX6Ntfz/8gnNQ==
-Date: Thu, 12 Nov 2026 12:00:52 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Asdlerto Korry <korryasdlerto@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
-	David Heidelberg <david@ixit.cz>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, oe-linux-nfc@lists.linux.dev, 
-	netdev@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] dt-bindings: arm: qcom: Add Samsung Galaxy M52 5G
-Message-ID: <20261112-tough-sparkling-raven-bf33fb@quoll>
-References: <20261111-m52xq-dts-v2-0-063289405882@gmail.com>
- <20261111-m52xq-dts-v2-1-063289405882@gmail.com>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=URemDzHK
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C9F882006B6;
+	Thu, 12 Nov 2026 12:01:13 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794481273;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GJZQxw9zDWRdmABPU+9ukcbzOtmQvhuN4+cXGWOZDYU=;
+	b=URemDzHKEzKZcnP7DjrGSnTIbB+oeJByzv8XRaSrlgT8co8cBGHlaxatK11/OiwLQjD02n
+	kqtN1MC3/trS60DEKaJb70+t5aFBoVQ6qJC9qtt5gvvssXbl7A947lH28ifO/5LWfIADMN
+	7fu6W5jJ0q3mwlzHoUhucNr+H+k8LXwk6fmnVM5Z2zgrBqJ+itIztq/WsTIQXPDEndPBxV
+	jd6h9QK9psBGt1L4jO06MwaUgJV4+FvEOwU81HnCexs/dNq8HnTXcK7RUnck34WqkjWqCq
+	2kMo8UUGyv6fqhvoVCoM2Ni6mhlFbA+x77T1dAGImGNmdPYHR9PCFIuwE+w0ow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794481273;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GJZQxw9zDWRdmABPU+9ukcbzOtmQvhuN4+cXGWOZDYU=;
+	b=UmGtaCRCYjlXOvbswqJo9Dat/MXlntHcwqR8H8hDVXCnl9IoCxtDOREtoBlfIDHF7kaBEP
+	dvtW5fhL+63iOUjWgyFMZp1X/OYUPb1neskeNGRSGHcw4b/KYufYCia8KyIiCiM3UWMT9v
+	W85fwtNcGlFeriGWXnNQ2QltcW3/hlkv4YkUl567X/1gSWhsL2bVvyr7bTfqfQlfVg65Yf
+	syms4eoKqDFjyuqWYTXplSRxvq+cgOA4drt4Hvoaxtascc0QI21mZBnxmkRiRnUTywUj2Z
+	ajQno5aehJg4bvo53+73gqSvHiY1pLJzVJt0INUJ7j5jyNTDmfQ1kNwCkDIq2Q==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794481273; a=rsa-sha256;
+	cv=none;
+	b=Ai9KxwBTPCcDV6TYrJCuErsOOfOOfzW1wE3RWpqq+ab71qjc3A1IhuRczj6EOS4qWALgh/
+	yDNySx8EPKavx3ozZO9rg+YDpDRHFwm1qNfujKu25/UxzeG6O+xobkRPlwSBXzS0LNNhOE
+	vQzijG6J4tMsvC+ys+NIAntIAPD/6MZlh5TGhP2Y0qred00RuentUsGqOPn8t+GrPiCnh3
+	VqRRRuMWVICmPl+c3hitlrFndCNMzSf/bwNAndRG+rRJEd2A5EgdKyjaI/Zp5OlNowrxVr
+	10WsDpBFu1K+b8XTafOG1ogbtIOqpIQb2d95rikjNL02ILfGatSTX4ty1w4gBQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <146c8dcecd2b976b5a9cd57e4db57dba66e12ea3.camel@pengutronix.de>
+Subject: Re: [PATCH v14] reset: zte: Add a zx297520v3 reset driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Stefan =?ISO-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Date: Thu, 12 Nov 2026 12:01:13 +0100
+In-Reply-To: <20261109-zx29reset-v14-1-1a05aaa7309a@gmail.com>
+References: <20261109-zx29reset-v14-1-1a05aaa7309a@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,21 +91,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261111-m52xq-dts-v2-1-063289405882@gmail.com>
 
-On Wed, Nov 11, 2026 at 05:07:45PM +0200, Asdlerto Korry wrote:
-> Document the Samsung Galaxy M52 5G (samsung,m52xq) smartphone, which is
-> based on the Qualcomm SM7325 SoC.
-> 
-> Signed-off-by: Asdlerto Korry <korryasdlerto@gmail.com>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
->  1 file changed, 1 insertion(+)
+On Mo, 2026-11-09 at 23:08 +0300, Stefan D=C3=B6singer wrote:
+> This drives the MFD child devices created by the zte-zx297520v3-crm
+> driver.
+>=20
+> [...]
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Applied to reset/next, thanks!
 
-Best regards,
-Krzysztof
+[1/1] reset: zte: Add a zx297520v3 reset driver
+      https://git.kernel.org/pub/scm/linux/kernel/git/pza/linux.git/commit/=
+?id=3Dfbcd5a23e147
 
+regards
+Philipp
