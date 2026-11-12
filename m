@@ -1,68 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794496220;
-	b=vNGq6m7jF84pDjTCoF67QBJr30ypB+BuupdCZ0PxWXqtto6CeFDtlmc3Gz6EW7ZjqnZ+
-	 ff4Q+g2teCpv3n495xdSDTPYKEJcyE7VIPoP+gPTY2EssLOXGnc2sJFiSz/ut5Ri8DeJj
-	 1aawvDm9XjPhvs6ZAVTYzFdKTWo0hsFPEt68Wo3AmsCdsbKOHC7zFEE3Pomkf+0h/OPoe
-	 EApixMqkaq8TKRSxA7taIGTVmKB1jeqQhOdQHyHhQmIet+fvXJChIXwggmMsMaWUXfWvs
-	 eZ3TW4MfZQXKlppgiQvnbV3CEwircYRcwwx7qKMumCg7yK5Rum5lamUUifc942pYg5Q==
+	t=1794496224;
+	b=snOZgEZSfH67YC3QbQJaqI6QaqQshkzrSwZOYAnixq4IbX+FQCQEC0RAaMHSuJLMZEX9
+	 kyV0aEXUiWKEyY/jfFlfSaGcuRifEGxKPP177ILqFMqZm3dkRCQFJXtkWFiK+9gxk1h8z
+	 f1btavPRMhxhiqW6Dp+t9bCEsK+vSshgX3SIfWtcefqulvAc7KW/j9Ck/ypK2Akc3Z3Df
+	 1JAIuHNYwpykwsAHyinONBkD/R1cbdyC3scodUQlnRa9qNJp79HntbxtWyVvrqexghbfy
+	 WEql4Z6w6+mWYOktv1i0g/UqWa8s8ZT8XqGsD9Zz7H9jaWCDHW8Y2xfTjaU8kTQQdLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794496220;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=reuptjqlwF1l2qQU+pOSgmAUmz0f784Lhxxdtt7p17o=;
-	b=f6LNtDOBPl9sZLVHkVBAblFOmoU63ohYkZSV9oUTLHVOcA0Fr6s9lJRw3VrawhJW6KLT
-	 NrRBdLsXIIQDePhvZ4VhyyA2i4pvyIhYAuXz2srCMgH2M/CZ2GUzoTAdbJa0/eL76nd0X
-	 MriMusyDlfXLZuOlo0tK+BC48z1jiAYjAqmrK6EThoVojSCPc1a9gRbkwkyESL2T86quW
-	 Bj+6r0P3jXy0Ym2hpNyZi6/fgJhdq4r8u2gKI5vedJDJP/wHm8Y+6gn4hjNaFoyDQB0y3
-	 yLJoYlATcSCFM008uezRYojighP2M57leGhM7mb0P2Kef7G2cVivE4OMHYT8uplbCOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794496224;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=eCnP3f/5sYjDgXu5gjLcJGqvVbM8pnJiTnh+Y99hcQc=;
+	b=BjjtmEFPke+RJ9ALOm57CbBnucRcKJffAwfUBk8HBZfCfV+xe/ixYuPs52BlN17Os+nl
+	 NiFehmKb9RV020nj44tWe9Y/p+y8saUyZRAE2Oi6sG2wsYBVkrwBhVm3OlpG25PSFrezD
+	 bF7FKk0bK8gkEqSCPMVTAx+g6bOAF2D3j2Fas78XdVIEUxy/LK2mtMHkylpk46TPrKnol
+	 e7HwZFfmCKD/pOZ+8aNl+Wq73nVErMVrAmce9qIsHbTZKg4R5E09v/4Wc5qn27H7heW8N
+	 JBrTbK5Tl5W4eb9/3/a9BZG2cYNLihSxzSqrXDWC8nWt56Dcinrh+CI15yTcpvQqD8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=U8ZCOrxR;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FO5t0psT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672FB606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:10:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 672FB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6569E606A321;
+	Thu, 12 Nov 2026 15:10:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=U8ZCOrxR
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=reuptjqlwF1l2qQU+pOSgmAUmz0f784Lhxxdtt7p17o=; b=U8ZCOrxR2ArtBnFgGjrTECJ99W
-	16d/aQh0WPOBPpOUkbCQLdHxt20l56FW+wG5/Gq4V/Ytg3vzAgKXkulctJGR2zcOEJLzoW8nW8q96
-	qoXBuJHQL0QxfDW/eAMM5Prq+4mlX239JUztUGT9Q7d+kGaH2LgDqmaJY8mkMUG1yKLfZBQ0z873S
-	fYyBFRvUZ4DGytXU1LCx8RWWyr4M7QHQ2I2+tX38WlBluN7+n3GYEi2CzjeOTV/q0n7wsEzjZniRr
-	sC33Bf9/9zm2mxA536TxpB5etA/JEdnY0JbiTyquC7Mv7pMFltwK0hkOXHgn3Z3hjpNaebvDGfKk0
-	hhwiZF/w==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRWRH-0000000ATro-4BsO;
-	Thu, 12 Nov 2026 15:10:11 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 9C6DF30057E; Thu, 12 Nov 2026 16:10:10 +0100 (CET)
-Date: Thu, 12 Nov 2026 16:10:10 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Kayra Cizmeci <kayracizmeci@gmail.com>
-Cc: mingo@kernel.org, linux-kernel@vger.kernel.org, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, kprateek.nayak@amd.com, joshdon@google.com,
-	tj@kernel.org, jakub@okonski.org
-Subject: Re: [PATCH 2/3] sched/fair: Make cfs_rq::idle the sum of ancestor
- tg::idle
-Message-ID: <20261112151010.GB1813469@noisy.programming.kicks-ass.net>
-References: <20261105165525.011876858@infradead.org>
- <20261105170157.616859418@infradead.org>
- <avXFHBcVoMkZY6uL@scheduler.schedules>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FO5t0psT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34B841F00A05;
+	Thu, 12 Nov 2026 15:10:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794496223;
+	bh=eCnP3f/5sYjDgXu5gjLcJGqvVbM8pnJiTnh+Y99hcQc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=FO5t0psTMMZWTQWrqQmrvKX36gkiFfAvWR4ZiJcJQPFqWVcWeZ6he0Lnaz9j6IYXe
+	 OEhcfG3tlmlZ/fATPT5sFcQSt7MVxQJvfaGiDGWXbrugT/e9zrsByvjQuURudjIKql
+	 gtAG65W3qOmSeFUxExq7PhBgy3xrfs6MpgPQ2jKTx248VgzHeub57/eF3bpAJsts6c
+	 OGSCZc/p5egFjnMBgPqeFROyK9o1O2FzrbS6UGt8xstf9stnD3hpsFKzx85K9HsqhR
+	 kF8f7qvoEkDB6/QcIXpKjVxAjj4hT5qouLyrG2HDncrZTR16M4thCL4WmT+Fa9EI/F
+	 beW8/QL8AEP5Q==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: Stanislav Fomichev <sdf.kernel@gmail.com>
+Cc: Magnus Karlsson <magnus.karlsson@intel.com>, Maciej Fijalkowski
+ <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>,
+ kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard
+ Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, Pavel
+ Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, Andrii
+ Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar
+ Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau
+ <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song
+ <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis
+ <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
+ Mina Almasry <almasrymina@google.com>, "Mike Marciniszyn (Meta)"
+ <mike.marciniszyn@gmail.com>, Weiming Shi <bestswngs@gmail.com>, Nikolay
+ Aleksandrov <razor@blackwall.org>, David Wei <dw@davidwei.uk>, Alexander
+ Lobakin <aleksander.lobakin@intel.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Stuart Clark <stuclar@meta.com>
+Subject: Re: [PATCH net-next v1 07/11] xsk: Deliver provider chunks without
+ copying
+In-Reply-To: <avT3vVT8iyKqyW8q@devvm16445.scu0.facebook.com>
+References: <20261110102039.1002605-1-bjorn@kernel.org>
+ <20261110102039.1002605-8-bjorn@kernel.org>
+ <avT3vVT8iyKqyW8q@devvm16445.scu0.facebook.com>
+Date: Thu, 12 Nov 2026 16:10:21 +0100
+Message-ID: <87qzgqqe5e.fsf@all.your.base.are.belong.to.us>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,57 +81,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avXFHBcVoMkZY6uL@scheduler.schedules>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 12, 2026 at 05:02:27PM +0300, Kayra Cizmeci wrote:
-> :-(.
-> 
-> Look here: https://lore.kernel.org/oe-kbuild-all/202611121431.06YgiErz-lkp@intel.com/
-> 
-> On Thu, Nov 05, 2026 at 05:55:27PM +0100, Peter Zijlstra wrote:
-> > Rather than keeping cfs_rq::idle as a copy of tg::idle, make it the sum of
-> > all ancestor tg::idle. This makes it trivial to tell if the current cgroup
-> > is marked idle somewhere along its ancestral path.
-> > 
-> > This makes se_id_idle() behave differently. Notably is will now be true
-> > when there is a idle cgroup anywhere in the ancestor path. This
-> > addresses an issue where preemption of cgroup::idle was overlooked when
-> > flattening the runqueue.
-> > 
-> > Fixes: 85570f10a4c6 ("sched/eevdf: Move to a single runqueue")
-> > Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-> > ---
-> >  kernel/sched/core.c  |    2 -
-> >  kernel/sched/debug.c |    1 
-> >  kernel/sched/fair.c  |   73 ++++++++++++++++++++++++++++++++-------------------
-> >  kernel/sched/sched.h |    4 +-
-> >  4 files changed, 50 insertions(+), 30 deletions(-)
-> > 
-> > --- a/kernel/sched/core.c
-> > +++ b/kernel/sched/core.c
-> > @@ -8970,7 +8970,7 @@ void __init sched_init(void)
-> >  		rq->nr_running = 0;
-> >  		rq->calc_load_active = 0;
-> >  		rq->calc_load_update = jiffies + LOAD_FREQ;
-> > -		init_cfs_rq(&rq->cfs);
-> > +		init_cfs_rq(&rq->cfs, NULL);
-> >  		init_rt_rq(&rq->rt);
-> >  		init_dl_rq(&rq->dl);
-> >  #ifdef CONFIG_FAIR_GROUP_SCHED
-> > --- a/kernel/sched/debug.c
-> > +++ b/kernel/sched/debug.c
-> > @@ -1090,6 +1090,7 @@ void print_cfs_rq(struct seq_file *m, in
-> >  	SEQ_printf(m, "  .%-30s: %d\n", "h_nr_runnable", cfs_rq->h_nr_runnable);
-> >  	SEQ_printf(m, "  .%-30s: %d\n", "h_nr_queued", cfs_rq->h_nr_queued);
-> >  	SEQ_printf(m, "  .%-30s: %d\n", "h_nr_idle", cfs_rq->h_nr_idle);
-> > +	SEQ_printf(m, "  .%-30s: %d\n", "idle", cfs_rq->idle);
-> 
-> idle is only in the CONFIG_FAIR_GROUP_SCHED :-(.
-> So as the robot says, this breaks compiling in !CONFIG_FAIR_GROUP_SCHED.
-> 
-> AFAICT tho, moving this down below in CONFIG_FAIR_GROUP_SCHED next to
-> h_load and other guys will solve the issue no?
+Stanislav Fomichev <sdf.kernel@gmail.com> writes:
 
-Yeah, pushed out again, lets see if the robots find more ;-)
+> On 11/10, Bj=C3=B6rn T=C3=B6pel wrote:
+
+>> diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
+>> index 113b0b08356d..b419c673e3f1 100644
+>> --- a/net/xdp/xsk.c
+>> +++ b/net/xdp/xsk.c
+
+>> @@ -453,8 +501,14 @@ static int xsk_rcv_check(struct xdp_sock *xs, struc=
+t xdp_buff *xdp, u32 len)
+>>=20=20
+>>  static void xsk_flush(struct xdp_sock *xs)
+>>  {
+>> +	struct xsk_pp *pp =3D xs->pool->pp;
+>> +
+>> +	if (pp)
+>> +		xsk_pp_flush(pp);
+>>  	xskq_prod_submit(xs->rx);
+>> -	__xskq_cons_release(xs->pool->fq);
+>> +	/* A provider releases FILL entries under its lock. */
+>> +	if (!pp)
+>> +		__xskq_cons_release(xs->pool->fq);
+>>  	sock_def_readable(&xs->sk);
+>
+> optional nit:
+>
+> if (pp) {
+> 	pp_flush
+> 	prod_submit
+> } else {
+> 	prod_submit
+> 	cons_release
+> }
+>
+> sock_def_readable
+>
+> (hard to follow these scattered if(pp) checks :-( )
+
+Sure, will do!
+
+>
+>>  }
+>>=20=20
+>> @@ -464,6 +518,11 @@ int xsk_generic_rcv(struct xdp_sock *xs, struct xdp=
+_buff *xdp)
+>>  	int err;
+>>=20=20
+>>  	err =3D xsk_rcv_check(xs, xdp, len);
+>> +	/* Only the NAPI of the queue feeds a memory provider socket. */
+>> +	if (!err && xs->pool->pp) {
+>> +		xs->rx_dropped++;
+>> +		err =3D -EOPNOTSUPP;
+>> +	}
+>
+> This is confusing? Why even call xsk_rcv_check for pp case?
+
+Hmm! I think you're right here... this was a (is it bound) check. I
+might have been wrong in my reply to Maciej as well. I'll drop this.
+
+>>  	if (!err) {
+>>  		spin_lock_bh(&xs->pool->rx_lock);
+>>  		err =3D __xsk_rcv(xs, xdp, len);
+>> @@ -488,7 +547,26 @@ static int xsk_rcv(struct xdp_sock *xs, struct xdp_=
+buff *xdp)
+>>  		return xsk_rcv_zc(xs, xdp, len);
+>>  	}
+>>=20=20
+>> -	err =3D __xsk_rcv(xs, xdp, len);
+>> +	if (!xs->pool->pp) {
+>> +		err =3D __xsk_rcv(xs, xdp, len);
+>> +	} else {
+>
+> [..]
+>
+>> +		/* A CPUMAP program runs XDP on another CPU, not in NAPI. */
+>> +		if (unlikely(!xdp_rxq_info_is_reg(xdp->rxq))) {
+>> +			xs->rx_dropped++;
+>> +			return -EINVAL;
+>> +		}
+>> +
+>> +		err =3D xsk_pp_rcv_zc(xs->pool->pp, xs, xdp);
+>> +		if (err !=3D -EXDEV)
+>> +			return err;
+>> +
+>> +		/* Copy only packets of the queue, from its NAPI */
+>> +		if (unlikely(!xsk_pp_queue_buf(xs->pool->pp, xdp))) {
+>> +			xs->rx_dropped++;
+>> +			return -EINVAL;
+>> +		}
+>> +		err =3D xsk_pp_rcv_copy(xs, xdp, len);
+>
+> Move this into __xsk_rcv_pp ?
+
+Yes.
+
+
+Bj=C3=B6rn
