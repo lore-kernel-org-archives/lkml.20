@@ -1,145 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794480285;
-	b=SR6LrD/isDYHV5YTPBn9lvjRrEpCgHH6EUlAazj3VGcP/qmanwIFsjR51eyLohzvMbEw
-	 GpvpffWCQdaGeo0t8jKLWsObYlAMkjtX1Nuj5lZWJRMTWNuYUHWb8bFlmfXsx2L/PsdGR
-	 1nuhZuxopSDJWVAyTsU0t3TwgwzWGh9LlFMgCPi/IwdIvNF5c1EuG2gDDzNllOYS11gNK
-	 2Z8q7Dvp0cSDBxm4A77u8xhk/hVhghFTP4dgHAUwMLiCC8jp1NKJuQPYPBVq6ViBFHsNW
-	 dDSld8mf85xjtH6sDxgaVN+fFcOnxdl2NM6/XPzf0m+Yf4K3zL6x/WxugRlaaIbNjuQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794480285;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=3OeTM1TzwuEgoxs5/RujJPoBJ6uQ7k0zO4x50L7a91Q=;
-	b=qIiETX3JNiLERqgrp5doQfWRdr8GKzcpeSdpgkMBCgXIfb09HQo48/CWxfI2F6ei1IPe
-	 CtguIMavOq5gIxzulWh4AWJuIzkN1X7U/509IZUHcLnfELckeA4zxOY7YXSLTLTCj1qKv
-	 MWKuibfptGOXjY/mQ0TMEU15X5N4EFgACpkLnjHrJvh5GFwlDQCZS350ILCBRZFobplPf
-	 Fwob9rY62R48rCdK3mXsVg2rCnyU2cPUnUNfH8UJ8MSfvq/bYeQ+nlXOUj500/1hH+IEN
-	 fEJrrWBfCH9LAEQgbcMD96UC8e2QkqOBPe6Uy6PXeyJzgs4zuaOtHhbGZqyYWB7KtmA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=cVu3Fhif;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794480301;
+	b=FTcR5OI4x9YlGAggOGiJXao3G7Yh3bPrGELr3I2kLKulYE8WTUTlKX+4v/0sUaNJGNG0
+	 uUOzUecnjo4GyDnAYH18N1Tcps0ZWfr/JzUgzew304IrJ1SWxLi7y0/TmQ1mAwZJ269w6
+	 onTolQniwt4lU2m0ono7rsXl7WLSQYvO8PfXFqsPnCp0BIry8vGcFnPBQkOB0/SKkEA0u
+	 jhqX4O2N/Xg9dAsyuSUbz/GCNWatVugZHblrjn1FWFlqfU+hXJD9A35f4dE1xhbumB43S
+	 Ob4phL3F34bsLtuAjn1vj2BrPB+EGzkjkgmHhjpJde9xXTUvZpuBvLHSEV/4uiLMOIw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794480301;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=gNJYfmM2kuv0Gwf5YN1v+SnattZ+NzIUMGWD4NeUeS4=;
+	b=v/zMdge6zQnjGeKH6gRA2yPNPqwpZSAcarjXxWPJVBiQO73kzfDw7yd+o2xD0ROO5cRB
+	 FkzevVSEhgRrAcAEhGrlawLXpqW350aWVRZQT6KFECKGFX1wtku9QxNQ0crZVLFD+Vinl
+	 pM72VzxPvWEidyuNeWGpR2wr0EyD24J495wrA3iMqJr74zHSI0w2zFxdtClFuxq/DP4JA
+	 2kV+EoD3i3AAYOntmqndukPWU5pBcdwAVPNGPs/sAZ6B7OBKzdMkboz1hBV6PIXY/ZjVO
+	 caMHpSyNtiDWzTWT5OafJzeT27UlzolSdwRny1np5iJwg0RVzJ+SSfipFmDqTzjuO+w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jsdi5c1G;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D1B606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:45:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jsdi5c1G
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794480300;
+	b=cn+qkfFM1AeU5qXFeelw9xMEXIHylQLb92GetQsuPt3CHCnHPVVIJ3zZ4MXfmIRRJmZi
+	 qDpYLAOhYs7RzyEVHGupB2oZwHxpodrOhng5g7j1yrHrgobdzfX4fjsmAQmACImI/mBMO
+	 IrDJO0zbXviYAvu4cv70DllXG2526Kj7ZCqZgBD+6eMCoMxs3KVUYFk9vRCw0orqYWhfa
+	 kea25O5EjL8/FHogL0NiOhbVp/9HwNmY2UJkAaul2eOh8HXScvAIW6ub8LiNkMP/muQW+
+	 MnxJD9wF/FJ+IwEykvcOx6ET7XtS0z6i4arwuUJ+Dkvmumd2PXW1/JklRMP6muiiasg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794480300;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=gNJYfmM2kuv0Gwf5YN1v+SnattZ+NzIUMGWD4NeUeS4=;
+	b=xVcftjoSGQlmutdF4BTqTiWbSgZDsFIfxVoNwYTLN/qBrP2UHM7gh/l4z7LhhSS17qqn
+	 5ZzRgJ3EkHY29zkGAw8bHMn3BbXFNXZpD0XVcz8wNXlDTdwG4IyXg81t6WU8R/Ni0uE7x
+	 h2PdoYVOn6P8gU6Z6JXBCILUiSdNEoSRuFiDQ2DxpbuOz4a/olQIUoIIVsIChVAKbKny2
+	 1hsnhUsLXnKXre1X3tGfW8S0uWmDDozur2IiSm7s/GWNDipobepSA7mfjFfIxWjtRJ86e
+	 JYbl11GWnlnRokMWa9p38CG7GZ7uRRPuQkJ7J6uKwEaCDotoiI+QS9LPvHGBCqRcvTQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7064F606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:44:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7064F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=cVu3Fhif
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36eb1cb7aabso6181397eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:44:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1794480285; x=1795085085; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=3OeTM1TzwuEgoxs5/RujJPoBJ6uQ7k0zO4x50L7a91Q=;
-        b=cVu3FhifDYyw/8ovEmb0XXkxrC7JTJXzQpQoB/cyBQBJEqG9ZjWpZflWP9PKQ/l9Tr
-         pS0k2Ze0U2AywiW3kAzoeBmomzV7SElEufbYjoh0FUQmD2nwHpKasPYChDhI36/Gvvph
-         3dCRjDRZDz405IRSivQLt52PQJbbB0azaAbrIfBGq6QM5bJCdGaGIbnn5bod/4Nkw7xU
-         lgu4XjVIumLaWFEOJku3iLmtNzuQDAR39FnXUAYN6mgGkA5D/6I8BaMkEiKF2NA8ADSd
-         d02EtMRqr8MPtrnRLAWnU4tfoe1R/ZgAPte+i7ahrrDzqqeWp1J+gZ+OczxMxFd1vsMF
-         D4kA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794480285; x=1795085085;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=3OeTM1TzwuEgoxs5/RujJPoBJ6uQ7k0zO4x50L7a91Q=;
-        b=BXqllLukoBPjZE1/6HYsLGC9U381YP8N5lISGg8fWe5WfLsBU2cg9Q+Au+0jJDTr+1
-         PyDSMnlD9iQJRNC8QkRoOisgAt6G+oHRMNsB7VkhV0CdnIUMlZ2yt8Wx4HIcu69d1EZY
-         QlCPWu7+4pgG7VL/niYGV880TGi1YmSx6iZ1n5Oa/Xx/Mc2fMFgAtrPWxw12Jyg+/4P8
-         GzDJAgkfDFxLRJroE7WZfTWv/7OXcP0DnNvxXQiUdaE8DIc4C03a3E4qFvG4KZSsBpk4
-         QlFh9ugrkyNEaTS3vL+WUvhN2jiNobSSRY5Th1BpeuzM3Ln7H5O2qUD4rIdsdMlc27Xh
-         3xlA==
-X-Forwarded-Encrypted: i=1; AL+hErFiFDFu2T8TNM7QlsYdacPKNt0dX4osJ6847k6DyPAo8/nd/6HJqNiFZ2sXejkGkB3JYsU4vi6cU0Yycc8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/HMuwVutS6Frw8BOVpLaKRV7mwqk57JonF7IfYA+BHSfigx+Gb
-	Z+0dynJ7hB54m/V1+cPlVhBwEJ27U5UaWe7SPDP5rXSbHVXjRpVuWNBBhEw+ljUtFwQ=
-X-Gm-Gg: AYBFou0vhjaZjGaCgjhKtoAUR40Rwd9Pf7oEpFlId6kIC76x526Xal8W+cPEfYEI3S7
-	W2DYMuTwMzAdqEOuJ/eRs2d7JzlbzMAeRrBucmcjLFg+sfvG5U5SXIsqc+hpI41z9DznmOMD0cr
-	FgDyVz1CAptuIgmTAZUxVTDj/Dle7J/TFTv+1K9+Q3ucNKDedXER0Yrv1dhzbbjomol0uuPkrLP
-	KtKRvEH0zXl/pJR29keOmijYzm2z9yR2JrScudLn9leO7u+obQV6OZBj96rI3g7m1pXFwchRlnF
-	xHt/aF582FrVvnYEBIOqBoWAree2dM1qUyrIiW7ZK4Nvm/rmfVAKRGjs1sqyUsWIMS7h07COolQ
-	QII6XnjUXjUgPI05tT7TG1B5b+dh8mc12EQ2YxrMlZ3k82nBpmavuuVBesFw/CZcEuZGB3DA25e
-	eOXO0axsyQV/JrQisj2qfZSRJWrqH9svOP3Twypjf9iu22N2qHggxUsaU9qepOXViLXMICEjeQb
-	DHtlNntkj3a6GoIRVxwcZSzSPVdrFywi9ZLKQNnpBujraRpfUEQ5bPb7x4o4VHYTDNfFrvy1qew
-	2N8BrxcBfp7gdCeT/BchYURJU4C+6tsjOv+hC0G9bX1pyytr2CSlL97RjBTpWA09sX8=
-X-Received: by 2002:a05:693c:6381:10b0:378:a35b:9e1c with SMTP id 5a478bee46e88-378a35b9e83mr512290eec.37.1794480284232;
-        Thu, 12 Nov 2026 02:44:44 -0800 (PST)
-Received: from FR9WL0RHKY.bytedance.net ([139.177.225.242])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3772121e654sm13228694eec.2.2026.11.12.02.44.25
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 12 Nov 2026 02:44:43 -0800 (PST)
-From: Yunhui Cui <cuiyunhui@bytedance.com>
-To: pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	dennis@kernel.org,
-	tj@kernel.org,
-	cl@gentwo.org,
-	oleg@redhat.com,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	bjorn@kernel.org,
-	pulehui@huawei.com,
-	puranjay@kernel.org,
-	broonie@kernel.org,
-	cuiyunhui@bytedance.com,
-	dave@stgolabs.net,
-	david.laight.linux@gmail.com,
-	jszhang@kernel.org,
-	tglx@kernel.org,
-	conor.dooley@microchip.com,
-	thuth@redhat.com,
-	ajones@ventanamicro.com,
-	ben.dooks@codethink.co.uk,
-	rkrcmar@ventanamicro.com,
-	samuel.holland@sifive.com,
-	zong.li@sifive.com,
-	debug@rivosinc.com,
-	seanwascoding@gmail.com,
-	andybnac@gmail.com,
-	menglong8.dong@gmail.com,
-	cyrilbur@tenstorrent.com,
-	wangruikang@iscas.ac.cn,
-	atishp@rivosinc.com,
-	apatel@ventanamicro.com,
-	arnd@arndb.de,
-	nathan@kernel.org,
-	nick.desaulniers+lkml@gmail.com,
-	morbo@google.com,
-	justinstitt@google.com,
-	qingfang.deng@siflower.com.cn,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	bpf@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: [PATCH v10 7/9] riscv: implement preemptible this_cpu cmpxchg operations
-Date: Thu, 12 Nov 2026 18:41:47 +0800
-Message-Id: <20261112104149.38589-8-cuiyunhui@bytedance.com>
-X-Mailer: git-send-email 2.39.2 (Apple Git-143)
-In-Reply-To: <20261112104149.38589-1-cuiyunhui@bytedance.com>
-References: <20261112104149.38589-1-cuiyunhui@bytedance.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 2CF221F00A05;
+	Thu, 12 Nov 2026 10:45:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794480300;
+	bh=gNJYfmM2kuv0Gwf5YN1v+SnattZ+NzIUMGWD4NeUeS4=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=jsdi5c1GBH8k2pDgBAWE7SfbBQ71ofyY31dcvukqzXUsWpdb0YmX8YkRydigew1Bp
+	 CjizL+FR6M/XTqMASJ+ErD1AYeoVnEl09v/0BUawv4rn3+3Rjkl53lxG61m9wP3L9p
+	 07xsVp5Ybar4ZBntzGCf0YJURRCIQNysBAMV0s1n7+2/6dg1Vbllpk+V4jK9y54mOY
+	 fwBVWzxMn8Dn765hD9bsKoQxMH8ZOAHXfhTkIq/zlCkH6laLSH3vz86FbawLTf/rja
+	 1S/6BLtW+NKqXR87wXi7VqfmGyUt0N/lnm13J5+ePj9EAhXHt2/r41II+xUiaM/faf
+	 w7A5XS/zFLTiw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 80D9449470;
+	Thu, 12 Nov 2026 10:44:59 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Thu, 12 Nov 2026 10:44:59 +0000
+Subject: [PATCH] drm/debugfs: Accept "reset" with a trailing newline in
+ edid_override
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -149,193 +83,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261112-drm-debugfs-edid-reset-v1-1-4cd19d83cd22@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCQAxG4auUrA1kBq3gVcRFO/lbI1glaUUov
+ bujLr/FeysF3BB0alZyvCzsMVWkXUPl2k0j2LSasuQ2pSSsfmdFv4xDMNSUHYGZ5SD7Lktpj5q
+ oxk/HYO/f+Hz5O5b+hjJ/b7RtHyvh3QV6AAAA
+X-Change-ID: 20261110-drm-debugfs-edid-reset-0504a20c67d1
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794480299; l=2159;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=q9OBm8AG1wALzNkA2iDL4Ckkgs47X7jT9hCbulBfsn4=;
+ b=keagsGyaqUeHySKh+LwDiP92tHC1f78fQ47av3Plpx/nKzMNDn0IEVDiy9T1pC99dh+CH2lM5
+ eHHLirfi9NSBqjuKaVQy9r9IyGuD68thYQjHso7mtgqDOqh70X64/yr
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Apply the recoverable per-CPU address handling to compare-and-exchange
-operations. Providing this_cpu_cmpxchg() also allows asm-generic to derive
-this_cpu_try_cmpxchg().
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Use Zacas where available and LR/SC otherwise. Keep masked subword operands
-XLEN-wide so RV64 LR.W sign extension does not affect the comparison, and
-use typed helpers to separate asm-generic from the architecture cmpxchg
-macro expansion.
+Writing "reset" to a connector's edid_override debugfs file removes the
+override, but only when exactly those five bytes are written. The
+obvious
 
-Link: https://lore.kernel.org/r/20260826010748.zphu3wh2hlm4t4o2@offworld
-Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
+  echo reset > /sys/kernel/debug/dri/0/HDMI-A-1/edid_override
+
+writes "reset\n", which is handed to drm_edid_override_set() as an EDID
+and rejected with -EINVAL, leaving the override in place. A test
+harness that cleared its override this way kept running on the
+overridden EDID until the next reboot.
+
+Accept a single trailing newline as well. An EDID is at least 128
+bytes, so a six-byte "reset\n" can't be a valid override.
+
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- arch/riscv/include/asm/percpu.h | 140 ++++++++++++++++++++++++++++++++
- 1 file changed, 140 insertions(+)
+Found and tested on an Orange Pi 5 (RK3588S), with this change on a 7.3
+based kernel: with the HDMI connector's own EDID written to
+edid_override, "echo reset > edid_override" succeeds and edid_override
+reads back empty, and "printf reset" (no newline) still succeeds. On
+drm-misc-next the patch is build-tested only (arm64 and x86_64, W=1).
 
-diff --git a/arch/riscv/include/asm/percpu.h b/arch/riscv/include/asm/percpu.h
-index 810f4c5eaa508..4d2fc10cbdab1 100644
---- a/arch/riscv/include/asm/percpu.h
-+++ b/arch/riscv/include/asm/percpu.h
-@@ -401,6 +401,123 @@ __percpu_xchg_case_##sz(void __percpu *pcp, unsigned long val)		\
+This patch was developed with Claude (Anthropic) as a coding assistant:
+it wrote the code and the commit message, and I reviewed and tested it
+as described above.
+---
+ drivers/gpu/drm/drm_debugfs.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
+index a72f9723d3a9..3c6290457fa3 100644
+--- a/drivers/gpu/drm/drm_debugfs.c
++++ b/drivers/gpu/drm/drm_debugfs.c
+@@ -569,7 +569,12 @@ static ssize_t edid_write(struct file *file, const char __user *ubuf,
+ 	if (IS_ERR(buf))
+ 		return PTR_ERR(buf);
  
- __PERCPU_8_16_XCHG_CASE(8, .b)
- __PERCPU_8_16_XCHG_CASE(16, .h)
-+
-+#define __PERCPU_CMPXCHG_CASE(sz, lr_sfx, sc_sfx, cas_sfx)		\
-+static __always_inline unsigned long					\
-+__percpu_cmpxchg_case_##sz(void __percpu *pcp, unsigned long old,	\
-+			   unsigned long new)				\
-+{									\
-+	__PCPU_OP_CONTEXT();						\
-+	const long cmp = (long)(s##sz)(u##sz)old;			\
-+	unsigned long rc;						\
-+	u##sz ret = (u##sz)old;						\
-+									\
-+	if (IS_ENABLED(CONFIG_RISCV_ISA_ZACAS) &&			\
-+	    IS_ENABLED(CONFIG_TOOLCHAIN_HAS_ZACAS) &&			\
-+	    riscv_has_extension_unlikely(RISCV_ISA_EXT_ZACAS)) {	\
-+		asm volatile (__PCPU_GPRS_BEGIN				\
-+			".option push\n"				\
-+			".option arch, +zacas\n"			\
-+			"amocas" #cas_sfx " %[ret], %[new], 0(%[addr])\n"	\
-+			".option pop\n"					\
-+			__PCPU_GPRS_END					\
-+			: [gprs] "=m" (__ti->pcpu_gprs),		\
-+			  [off] "=&r" (__off), [addr] "=&r" (__addr),	\
-+			  [ret] "+&r" (ret)				\
-+			: [pcpu_offset] "m" (__ti->pcpu_offset),	\
-+			  [pcp] "r" (pcp), [new] "r" ((u##sz)new)	\
-+			: "memory");					\
-+	} else {							\
-+		asm volatile (__PCPU_GPRS_BEGIN				\
-+			"0: lr" #lr_sfx " %[ret], 0(%[addr])\n"		\
-+			"bne %[ret], %[old], 1f\n"			\
-+			"sc" #sc_sfx " %[rc], %[new], 0(%[addr])\n"	\
-+			"bnez %[rc], 0b\n"				\
-+			"1:\n"						\
-+			__PCPU_GPRS_END					\
-+			: [gprs] "=m" (__ti->pcpu_gprs),		\
-+			  [off] "=&r" (__off), [addr] "=&r" (__addr),	\
-+			  [ret] "=&r" (ret), [rc] "=&r" (rc)		\
-+			: [pcpu_offset] "m" (__ti->pcpu_offset),	\
-+			  [pcp] "r" (pcp), [old] "r" (cmp),		\
-+			  [new] "r" ((u##sz)new)			\
-+			: "memory");					\
-+	}								\
-+									\
-+	return ret;							\
-+}
-+
-+__PERCPU_CMPXCHG_CASE(32, .w, .w, .w)
-+#ifdef CONFIG_64BIT
-+__PERCPU_CMPXCHG_CASE(64, .d, .d, .d)
-+#endif
-+
-+/*
-+ * Use XLEN-wide masks to clear the upper bits of an RV64 sign-extended
-+ * LR.W result before comparing a high byte or halfword.
-+ */
-+#define __PERCPU_8_16_CMPXCHG_CASE(sz, sfx)				\
-+static __always_inline unsigned long					\
-+__percpu_cmpxchg_case_##sz(void __percpu *pcp, unsigned long old,	\
-+			   unsigned long new)				\
-+{									\
-+	__PCPU_OP_CONTEXT();						\
-+	const unsigned long shift = PERCPU_8_16_GET_SHIFT(pcp);		\
-+	const unsigned long field_mask = PERCPU_8_16_GET_MASK(sz);	\
-+	const unsigned long mask = field_mask << shift;			\
-+	const unsigned long old_field = (old & field_mask) << shift;	\
-+	const unsigned long new_field = (new & field_mask) << shift;	\
-+	void __percpu *pcp32 = PERCPU_8_16_GET_PCP32(pcp);		\
-+	unsigned long ret32, tmp, rc;					\
-+	u##sz ret = (u##sz)old;						\
-+									\
-+	if (IS_ENABLED(CONFIG_RISCV_ISA_ZABHA) &&			\
-+	    IS_ENABLED(CONFIG_RISCV_ISA_ZACAS) &&			\
-+	    IS_ENABLED(CONFIG_TOOLCHAIN_HAS_ZACAS) &&			\
-+	    riscv_has_extension_unlikely(RISCV_ISA_EXT_ZABHA) &&	\
-+	    riscv_has_extension_unlikely(RISCV_ISA_EXT_ZACAS)) {	\
-+		asm volatile (__PCPU_GPRS_BEGIN				\
-+			".option push\n"				\
-+			".option arch, +zacas, +zabha\n"		\
-+			"amocas" #sfx " %[ret], %[new], 0(%[addr])\n"	\
-+			".option pop\n"					\
-+			__PCPU_GPRS_END					\
-+			: [gprs] "=m" (__ti->pcpu_gprs),		\
-+			  [off] "=&r" (__off), [addr] "=&r" (__addr),	\
-+			  [ret] "+&r" (ret)				\
-+			: [pcpu_offset] "m" (__ti->pcpu_offset),	\
-+			  [pcp] "r" (pcp), [new] "r" ((u##sz)new)	\
-+			: "memory");					\
-+	} else {							\
-+		asm volatile (__PCPU_GPRS_BEGIN				\
-+			"0: lr.w %[ret], 0(%[addr])\n"			\
-+			"and %[tmp], %[ret], %[mask]\n"			\
-+			"bne %[tmp], %[old], 1f\n"			\
-+			"and %[tmp], %[ret], %[inv_mask]\n"		\
-+			"or %[tmp], %[tmp], %[new]\n"			\
-+			"sc.w %[rc], %[tmp], 0(%[addr])\n"		\
-+			"bnez %[rc], 0b\n"				\
-+			"1:\n"						\
-+			__PCPU_GPRS_END					\
-+			: [gprs] "=m" (__ti->pcpu_gprs),		\
-+			  [off] "=&r" (__off), [addr] "=&r" (__addr),	\
-+			  [ret] "=&r" (ret32), [tmp] "=&r" (tmp),	\
-+			  [rc] "=&r" (rc)				\
-+			: [pcpu_offset] "m" (__ti->pcpu_offset),	\
-+			  [pcp] "r" (pcp32), [mask] "r" (mask),		\
-+			  [old] "r" (old_field),			\
-+			  [new] "r" (new_field),			\
-+			  [inv_mask] "r" (~mask)			\
-+			: "memory");					\
-+									\
-+		ret = (ret32 & mask) >> shift;				\
-+	}								\
-+									\
-+	return ret;							\
-+}
-+
-+__PERCPU_8_16_CMPXCHG_CASE(8, .b)
-+__PERCPU_8_16_CMPXCHG_CASE(16, .h)
- #define _pcp_wrap(op, pcp, ...)						\
- ({									\
- 	op(&(pcp), __VA_ARGS__);					\
-@@ -421,6 +538,15 @@ __PERCPU_8_16_XCHG_CASE(16, .h)
- 					     (unsigned long)(val));	\
- })
- 
-+#define _pcp_wrap_cmpxchg(op, pcp, old, new)				\
-+({									\
-+	__auto_type __pcp_ptr = &(pcp);					\
-+									\
-+	(TYPEOF_UNQUAL(*__pcp_ptr))op(__pcp_ptr,			\
-+					     (unsigned long)(old),	\
-+					     (unsigned long)(new));	\
-+})
-+
- #define this_cpu_read_1(pcp)	_pcp_wrap_return(__percpu_read_8, pcp)
- #define this_cpu_read_2(pcp)	_pcp_wrap_return(__percpu_read_16, pcp)
- #define this_cpu_read_4(pcp)	_pcp_wrap_return(__percpu_read_32, pcp)
-@@ -480,11 +606,25 @@ __PERCPU_8_16_XCHG_CASE(16, .h)
- #define this_cpu_xchg_8(pcp, val)	_pcp_wrap_xchg(__percpu_xchg_case_64, pcp, val)
- #endif
- 
-+#define this_cpu_cmpxchg_1(pcp, o, n)					\
-+	_pcp_wrap_cmpxchg(__percpu_cmpxchg_case_8, pcp, o, n)
-+#define this_cpu_cmpxchg_2(pcp, o, n)					\
-+	_pcp_wrap_cmpxchg(__percpu_cmpxchg_case_16, pcp, o, n)
-+#define this_cpu_cmpxchg_4(pcp, o, n)					\
-+	_pcp_wrap_cmpxchg(__percpu_cmpxchg_case_32, pcp, o, n)
-+#ifdef CONFIG_64BIT
-+#define this_cpu_cmpxchg_8(pcp, o, n)					\
-+	_pcp_wrap_cmpxchg(__percpu_cmpxchg_case_64, pcp, o, n)
-+#define this_cpu_cmpxchg64(pcp, o, n)	this_cpu_cmpxchg_8(pcp, o, n)
-+#endif
-+
- #undef PERCPU_RW_OPS
- #undef __PERCPU_AMO_OP_CASE
- #undef __PERCPU_8_16_OP_CASE
- #undef __PERCPU_XCHG_AMO_CASE
- #undef __PERCPU_8_16_XCHG_CASE
-+#undef __PERCPU_CMPXCHG_CASE
-+#undef __PERCPU_8_16_CMPXCHG_CASE
- #undef PERCPU_8_16_GET_SHIFT
- #undef PERCPU_8_16_GET_MASK
- #undef PERCPU_8_16_GET_PCP32
--- 
-2.39.5
+-	if (len == 5 && !strncmp(buf, "reset", 5))
++	/*
++	 * An EDID is at least 128 bytes, so "reset" with the trailing newline
++	 * that "echo reset" adds can't be mistaken for one.
++	 */
++	if ((len == 5 || (len == 6 && buf[5] == '\n')) &&
++	    !strncmp(buf, "reset", 5))
+ 		ret = drm_edid_override_reset(connector);
+ 	else
+ 		ret = drm_edid_override_set(connector, buf, len);
+
+---
+base-commit: cb0a63f0c96e8ecb90199eeb99cc2a7fcfa703d4
+change-id: 20261110-drm-debugfs-edid-reset-0504a20c67d1
+
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
+
 
