@@ -1,112 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.39
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794487122;
-	b=FI79IsJDoBkiX++y2WCeqayDgJnKCuaZpxKnWmHzJxCJIoR6Pa6eIkoadEGNTxwObgIW
-	 HMlFEV8EZ90Zet5xBGK5YtKr1I5pj5Ah4a++4Ab9eNXP9qslVGrjpCtg1DqO0dt6XEaQA
-	 vwfHJSLSetoXi7wEF8LRYZBky2kNySr0sVWnyjefFEx+snVhMoc7qaOF77WQB0Dpzqn8e
-	 PKNxuySKDpz7hkbWCPIKc92UVb2Xuy1D/2VgDnvkg1Evo68Dk2Gsw4vmD6IGVk64fQIkY
-	 aAqfna7idKbyU4gUvr9+ccRt7xdnVeh/LEAOK9lp0gOwDzaUnmLkY6aynoMP22OsU5g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794487122;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=S5oFQseRt+fiSR99Xed21cobMb05spzKxa0Xf8/I4rI=;
-	b=o8E/rsozTHMzmCZOBhpk0glFyA6zRW8zCPaQgIRn5MTGq67Tpk67vgwGoYOESyNtdhqM
-	 WJLiz2M1E+V3g2A62Ow+OjirBfnbb2VUQSdg/Doc8jtJFylSXzq1H5XUnCj1xhoo/VJei
-	 pcUJEFF7yfT3JJx3tub1fqf5GgP2HRcVqtHmTwEUhLME0rzka1wnOXmJ0qODGr2gNvllZ
-	 1GWwADf45+Sm1lKAaATjoEd99qh4AyvMSpPkPQNF48VTnzpu6NnLytW+KwLECKlIF4WXt
-	 fkVLl5jWjNCndc5XRdT4Knnx4bIGe17RcQ96uSCIDzStqr5qqCX3gaFz1YnTaZIvGog==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YnPSPZAh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.39
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013039.outbound.protection.outlook.com [40.93.201.39])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794487146;
+	b=c/0j4iIKUjeE5gW+B1GAGYa6N5T0Ki6TWfVw+TQYila8QWc4Edt8O3e0zrWK9Mr2/fKF
+	 vGRkH04CMnsfG008B67kI1mVuoNeqIPxoyHYQFEnYmmtOVj3ERXOadi2UBglRIaRfNM/j
+	 BJpo83xFGqTrYEefutqs8A3/RyFzgXEzwaYd2aPVkaVpkJP6lQ8YczLWsp7Vng3GlyAQ9
+	 4x46Wtqj9SJN747kLEXqbSbXSHSwJd9R135XY4QAyr5DwGvI70KGPu8Um75cld+6c5vpo
+	 6ZHP+u1V13RcoWZfAp9ypW53ZFthFhfS/U7u9fwe5yIYfqfgcLemA7nt2SetvaYmGjg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794487146;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=4zLWZGgkuL5QGLEn/c6m5YMqj6fz95cJUh8MEYG4flg=;
+	b=SEl8DRpAfQsbA2NpOF+7LGYj1N+xgpEqtShtdjzIsC4Dbc4ClHasQ6xf+coqWAacoV41
+	 GIO9jgY7BqT2ejtXGXJdmCVxrk/ebrKzzxCV5bm3hlik9UgLY7Fk4LU0pgXn6bw6Dvn4b
+	 GzJ7lDa2nOuJZ9PR1JOGSla8DL0ONZgD+VNKKh74HqbN/SwW+QqW2vNrOpweFXx7FCtwI
+	 heX0irSruw4BDKCR7mbm0oKcVAIYCjWtCq9GUOGx4vMnSFjiqWHKKtLyg136zRs0qEB/V
+	 6/Ypc1dMFOdJU/GRGBZxbW9XypL7cCcfyPr/7l8ZszFKF3O5EhU540j4B+8QdsvI/kQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=iblguaoc;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3EEC606A321;
-	Thu, 12 Nov 2026 12:38:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3EEC606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DDF5606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:39:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DDF5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YnPSPZAh
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t5GkqfGFxFhSJ3f7hb7XndKMBJpJX/3KEpH69Z7TdWJmIvaNYHbnD1Dk622GSij0sDrpCdUiXpVThYraLSTT35IY+8OZa6sZdAhS5TdpKujjnvhEjj7yUpeRaowiWU9qbyL/gsauSSdiFUMyM+8TbA8WJ1g3u40tmU8NKF6g85YNu128/HfUK3i9r0NLYZr61pF7rsaDmcUr4R46x3GDsucWgs5BJofRMNU4J3Q/QY9SiUAZjHLDHndCAjJU/OEhhEbRy1GI9AHxZxSNes4PbbsyTb+XaZG44Pyg7bkuWY909Fo6p8jjuzkNobc/a255y5nVABx8CP0eEnJxeZ3/3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S5oFQseRt+fiSR99Xed21cobMb05spzKxa0Xf8/I4rI=;
- b=NFWkVxOzuA929oXmGyHedzXu30AQm7JkDFwpqWdaCwreCW6Z32A5bNW5iSJhC8ZedJmDgzyadNL5iPyvYzfOm00IRxrSJAv0PtCYiJaIP5ApL0bm6bU8vPEGNth3RvvDAEiTmbWEwQXmfVnHO8zjvTjx+0tGyoIIAPdNTuC0RBQ7U7D2HVgZgCGlz/+OGWq0Qd8PTJpRu2TVCT3tJ2Vx5/rfKHYRP+HFsZXJTXGnMY4i2OryvLZHoWziSp0QimH/aqPegU9NrEtImEWJLZgmplqeBS5BI/Obl6a/9k4e1lvEkJRT+7J/0MVNJ7Qbs+KHT5jQ6c+2nscrSMX31OL6xQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S5oFQseRt+fiSR99Xed21cobMb05spzKxa0Xf8/I4rI=;
- b=YnPSPZAhiKbcwziM4b7xBmy/d86ngbt0H2fxNl0lPz2+G81iHz3LPVlA/hFlnmoDTvwhbxyLtQFoDBjyGq56VbOWwBkIPEJoEISmcl8qlmx4sVM7Xd2zx0hbVHW1EXQ+EUO/VKiN5Q4EgcmH9NtDSqo61aDSRrVFE/BjOVGngHA=
-Received: from PH7PR03CA0028.namprd03.prod.outlook.com (2603:10b6:510:339::18)
- by IA1PR12MB6186.namprd12.prod.outlook.com (2603:10b6:208:3e6::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
- 2026 12:37:05 +0000
-Received: from PH3PEPF00059619.namprd05.prod.outlook.com
- (2603:10b6:510:339:cafe::66) by PH7PR03CA0028.outlook.office365.com
- (2603:10b6:510:339::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
- Nov 2026 12:37:05 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- PH3PEPF00059619.mail.protection.outlook.com (10.167.243.23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 12:37:04 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
- 2026 06:37:00 -0600
-Received: from amd-B550M-DS3H.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Thu, 12 Nov 2026 06:36:56 -0600
-From: Syed Saba Kareem <syed.sabakareem@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-CC: <Vijendar.Mukunda@amd.com>, <anson.tsao@amd.com>,
-	<Sunil-kumar.Dommati@amd.com>, <mario.limonciello@amd.com>, "Siva Subramanian
- Ravi Saravanan" <sravisar@amd.com>, Syed Saba Kareem
-	<Syed.SabaKareem@amd.com>, Venkata Prasad Potturu
-	<venkataprasad.potturu@amd.com>, Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	"Pierre-Louis Bossart" <pierre-louis.bossart@linux.dev>, "open list:AMD ASoC
- DRIVERS" <linux-sound@vger.kernel.org>, open list
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v4 6/6] ASoC: amd: acp: enable function topologies for ACP7.B and ACP7.F SoundWire
-Date: Thu, 12 Nov 2026 18:05:41 +0530
-Message-ID: <20261112123603.2891858-7-syed.sabakareem@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261112123603.2891858-1-syed.sabakareem@amd.com>
-References: <20261112123603.2891858-1-syed.sabakareem@amd.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=iblguaoc
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=4zLWZGgkuL5QGLEn/c6m5YMqj6fz95cJUh8MEYG4flg=; b=iblguaoce3+HnY9wIYcJerw9oD
+	9ESXB6nOa1eb780W8wKHoHlr7CK8LVT3khPuPDELh5dx1Jd5kPFZWY4H5odhYz0ErzJwCX9GThRC1
+	Q+dNt1ZU5bvgNDgte2iWfSA8GhiDnpC0DgeNHfnRDODrY4kMABIioUVrWGA+Sd1jHMDn7rnVqLnwU
+	p5Xomt5ihkbymBX2y3bRq+8hSQ4o9MZ933T1x7FeKB6ProuLvIAMpof7u6mddL4AYL8IwWx5r6rld
+	BVg5sihi6fn5eCmKX5GbUwjYUmXvRIHlj4GCze1VbuFJ8+OYhDEVhLh+f0TwkTdhY2sAWwIzl31YW
+	m5zvI8bw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRU4r-00000007HbG-0g5n;
+	Thu, 12 Nov 2026 12:38:53 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id B647430066A; Thu, 12 Nov 2026 13:38:52 +0100 (CET)
+Date: Thu, 12 Nov 2026 13:38:52 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Josh Don <joshdon@google.com>
+Cc: Kayra Cizmeci <kayracizmeci@gmail.com>, mingo@kernel.org,
+	linux-kernel@vger.kernel.org, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, kprateek.nayak@amd.com, tj@kernel.org,
+	jakub@okonski.org
+Subject: Re: [RFC][PATCH 3/3] sched/eevdf: Fix sched idle task group
+ preemption
+Message-ID: <20261112123852.GE1922751@noisy.programming.kicks-ass.net>
+References: <20261105165525.011876858@infradead.org>
+ <20261105170157.765325702@infradead.org>
+ <CABk29Nujsg7FNY4yJ3Yd0maT0GEtvxacUWvTDiT5HD=-YVqTvg@mail.gmail.com>
+ <avMeP-80bZz-zdtO@scheduler.schedules>
+ <CABk29NsBzdEYOdLqj9HsrCqO6RzW_G574RzY+=vJp+564R2u=w@mail.gmail.com>
+ <20261112123119.GX1813469@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,189 +76,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH3PEPF00059619:EE_|IA1PR12MB6186:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee84228d-069d-448b-d01a-08df40b9a885
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|10067099003|11063799006|56012099006|261021121427099003|261009223027099003|261102123227099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	b+SxkV7NmOsOqNEJ6jZTGnWcr90Uf5VmPLrldKjYjVtDUYnXWNSuLTf2wsgmQ4cUEHuJat+lRHnXhO+7daJvOg869Ezu4zFiH1bXMYYcExP3yMHpTfVpOjpONE3FT8+Q7eTsOzZAPZKqMuRksSwEZlmxE6HGuYscFKtalAUX/fUAubuq80lq76sf89EjT3dSTxcQuKQ+yvJe1v6MgQKAFWtBUdYSlmPG03OfDa3RbxPfohzuJe1zNBDCaeD5BUCS0+Dix3XKPEcHQfAnZz8SjFtm60lelNdqi43VKARXwEo462LuGgKqjC/KxCOpcsThc7TV9yZDCFspj+GejH+EYhLIHJZtJsMTTyLKmt8cFDBCWXgYZJGdfuSEf5DHyjQBBs/t7j9LcSXDHrpan441GaMDOnZVxA6gIl8p1NJAaTvVdjJgxlWL+5+5CDE1dm1ODhmz/27W0fplfksSn2xKfIYwhQr4DyKzK0svz2FGSWDUxL6N5L6RVZ8cBg80ROPvWDTId0eayzquX050p+tuHTrWea/JpdWmXQ3BbtsGDW26uCtTNlPUnr33a94zNYLvs0tI6qbSzOnFRORxEksseAlTZqFgjN/5929XnLFSkRtHnG+fno3ceOHiVuO5izrYuirLIr18rDw6cWOuj6wi/MyU0a9f5UdSqHYNeRx3gKjlLHaF70NpEeiDOXj6tYKNemqUDoMj16miYp+DA7UiEg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(10067099003)(11063799006)(56012099006)(261021121427099003)(261009223027099003)(261102123227099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	133tYAw6I+yYkTLjz3Kap6IRWgpU5XCBAnl8UXlKIJqn5buroJ8/eS0kZ4WUgN2pGPc3A6YgB/Qvbh4HHLtDasD/tKjkopa6iASMjb3nfHFO7yT+IyWFdKVvzHhsNPaFNg+WVheGdzKpqEaPU3+cDuWvxeXcfVGnko9vl1Hjg58zF+Xo9RtArPo5wZjmC/A6AoIDEW2N9cOmgrjlAghl3ujigFV+dp3oLsy5KFmvJkPSmss2gprTh3LFYoJMCVo8bR1zsUxoUEkvQMo61Twt7qY3euGJG9iKe0zgVhjtebwbd3YVNTeSTWmRUuI6XJn1VbkhOFqrZe0woOfeQWUgJtPvD9Ehl7N7EUdY+za9nbuvZYIieIjHTFkQhIR53yCRn3IEdHl3rZTIi4x9gnaFgEPdVrIWYOyj3jc0KXZhYWgroT06qP7DPOb/O7BpLFqA
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 12:37:04.9747
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee84228d-069d-448b-d01a-08df40b9a885
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	PH3PEPF00059619.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6186
+In-Reply-To: <20261112123119.GX1813469@noisy.programming.kicks-ass.net>
 
-From: Siva Subramanian Ravi Saravanan <sravisar@amd.com>
+On Thu, Nov 12, 2026 at 01:31:19PM +0100, Peter Zijlstra wrote:
+> On Tue, Nov 10, 2026 at 09:51:21AM -0800, Josh Don wrote:
+> > On Tue, Nov 10, 2026 at 6:20 AM Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
+> > >
+> > > Hi Josh!
+> > >
+> > > On Mon, Nov 09, 2026 at 04:10:30PM -0800, Josh Don wrote:
+> > >
+> > > > >  /*
+> > > > > - * Preempt the current task with a newly woken task if needed:
+> > > > > + * Preempt an idle entity in favor of a non-idle entity (and don't preempt
+> > > > > + * in the inverse case).
+> > > > > + */
+> > > > > +static inline enum preempt_wakeup_action
+> > > > > +wakeup_preempt_sched_idle(struct sched_entity *cse, struct sched_entity *pse)
+> > > > > +{
+> > > > > +       int cse_is_idle, pse_is_idle;
+> > > > > +
+> > > > > +       cse_is_idle = se_is_idle(cse);
+> > > > > +       pse_is_idle = se_is_idle(pse);
+> > > > > +
+> > > > > +       if (cse_is_idle || pse_is_idle) {
+> > > > > +               find_matching_se(&cse, &pse);
+> > > > > +               WARN_ON_ONCE(!pse);
+> > > > > +
+> > > > > +               cse_is_idle = se_is_idle(cse);
+> > > > > +               pse_is_idle = se_is_idle(pse);
+> > > >
+> > > > now that se_is_idle() is checking for any ancestors with idle, this
+> > > > doesn't appear to be correct. Some motivaing examples:
+> > >
+> > > So we want to keep the idle difference between groups with idle
+> > > ancestors? FWIW, I asked about this but then thought it was knowingly
+> > > and that was what we wanted. I'm still not sure what we want...
+> > 
+> > cgroup properties are cgroup hierarchy position relative, this just
+> > maintins that behavior for cpu.idle as well. There was a more
+> > extensive discussion on this in the previous RFC, which is how we
+> > landed back on the find_matching_se() restoration.
+> 
+> Well, I'm still not convinced we need this.
+> 
+> Realistically idle means: "don't care, run whenever you have a minute".
+> To then preempt such a task for another such a task just because its
+> somewhere else in the hierarchy makes no sense, you don't care about
+> either of them, we shouldn't be preempting.
+> 
+> Anyway, I've pushed out the first two patches to queue/sched/urgent
+> since they address the worst of it. We can chew on all this a bit more I
+> suppose. But I cannot convince myself that there is any situation in
+> which we (should) actually care about the timeliness of anything in a
+> cgroup::idle container.
 
-Set get_function_tplg_files for all the ACP7.B and ACP7.F SoundWire
-machine entries. The SOF core tries the function topologies first and
-falls back to the monolithic topology if any of them is missing, so
-existing setups keep working. The monolithic topology is still required
-as its presence is checked when the SOF firmware file profile is set up.
-
-Signed-off-by: Siva Subramanian Ravi Saravanan <sravisar@amd.com>
-Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
----
- sound/soc/amd/acp/amd-acp7x-acpi-match.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
-
-diff --git a/sound/soc/amd/acp/amd-acp7x-acpi-match.c b/sound/soc/amd/acp/amd-acp7x-acpi-match.c
-index 786ee5796ee6..b71060c9ecb0 100644
---- a/sound/soc/amd/acp/amd-acp7x-acpi-match.c
-+++ b/sound/soc/amd/acp/amd-acp7x-acpi-match.c
-@@ -8,6 +8,7 @@
- 
- #include <sound/soc-acpi.h>
- #include "../mach-config.h"
-+#include "amd-sof-function-topology-lib.h"
- 
- static const struct snd_soc_acpi_endpoint single_endpoint = {
- 	.num = 0,
-@@ -513,6 +514,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7b_sof_sdw_machines[] = {
- 		.drv_name = "amd_sof_sdw",
- 		.sof_tplg_filename = "sof-acp7b-rt721-l0-rt1320-l3.tplg",
- 		.fw_filename = "sof-acp7b.ri",
-+		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
- 	},
- 	{},
- };
-@@ -525,6 +527,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
- 		.drv_name = "amd_sof_sdw",
- 		.sof_tplg_filename = "sof-acp7f-rt721-l0-rt1320-l3.tplg",
- 		.fw_filename = "sof-acp7f.ri",
-+		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
- 	},
- 	{
- 		.link_mask = BIT(0) | BIT(1),
-@@ -532,6 +535,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
- 		.drv_name = "amd_sof_sdw",
- 		.sof_tplg_filename = "sof-acp7f-rt721-l0-rt1320-l1.tplg",
- 		.fw_filename = "sof-acp7f.ri",
-+		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
- 	},
- 	{
- 		.link_mask = BIT(0),
-@@ -539,6 +543,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
- 		.drv_name = "amd_sof_sdw",
- 		.sof_tplg_filename = "sof-acp7f-rt721-l0.tplg",
- 		.fw_filename = "sof-acp7f.ri",
-+		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
- 	},
- 	{
- 		.link_mask = BIT(0),
-@@ -546,6 +551,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
- 		.drv_name = "amd_sof_sdw",
- 		.sof_tplg_filename = "sof-acp7f-rt722-l0.tplg",
- 		.fw_filename = "sof-acp7f.ri",
-+		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
- 	},
- 	{
- 		.link_mask = BIT(0) | BIT(1),
-@@ -553,6 +559,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
- 		.drv_name = "amd_sof_sdw",
- 		.sof_tplg_filename = "sof-acp7f-cs42l43-l0u0-cs35l56x4-l1u3210.tplg",
- 		.fw_filename = "sof-acp7f.ri",
-+		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
- 	},
- 	{
- 		.link_mask = BIT(0) | BIT(1),
-@@ -560,6 +567,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
- 		.drv_name = "amd_sof_sdw",
- 		.sof_tplg_filename = "sof-acp7f-cs42l45-l1u0-cs35l63x4-l0u0246.tplg",
- 		.fw_filename = "sof-acp7f.ri",
-+		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
- 	},
- 	{
- 		.link_mask = BIT(0) | BIT(1),
-@@ -567,6 +575,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
- 		.drv_name = "amd_sof_sdw",
- 		.sof_tplg_filename = "sof-acp7f-cs42l45-l0u0-cs35l63x2-l1u01.tplg",
- 		.fw_filename = "sof-acp7f.ri",
-+		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
- 	},
- 	{
- 		.link_mask = BIT(0) | BIT(1),
-@@ -574,6 +583,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
- 		.drv_name = "amd_sof_sdw",
- 		.sof_tplg_filename = "sof-acp7f-cs42l45-l0u0-cs35l63x2-l1u13.tplg",
- 		.fw_filename = "sof-acp7f.ri",
-+		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
- 	},
- 	{
- 		.link_mask = BIT(0) | BIT(1),
-@@ -581,6 +591,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
- 		.drv_name = "amd_sof_sdw",
- 		.sof_tplg_filename = "sof-acp7f-cs42l45-l1u0-cs35l63x2-l0u01.tplg",
- 		.fw_filename = "sof-acp7f.ri",
-+		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
- 	},
- 	{
- 		.link_mask = BIT(1),
-@@ -588,6 +599,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
- 		.drv_name = "amd_sof_sdw",
- 		.sof_tplg_filename = "sof-acp7f-cs42l43-l1u0-cs35l56x4-l1u0123.tplg",
- 		.fw_filename = "sof-acp7f.ri",
-+		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
- 	},
- 	{
- 		.link_mask = BIT(1),
-@@ -595,6 +607,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
- 		.drv_name = "amd_sof_sdw",
- 		.sof_tplg_filename = "sof-acp7f-cs35l56x4-l1u3210.tplg",
- 		.fw_filename = "sof-acp7f.ri",
-+		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
- 	},
- 	{
- 		.link_mask = BIT(0),
-@@ -602,6 +615,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
- 		.drv_name = "amd_sof_sdw",
- 		.sof_tplg_filename = "sof-acp7f-cs42l43-l0u1.tplg",
- 		.fw_filename = "sof-acp7f.ri",
-+		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
- 	},
- 	{
- 		.link_mask = BIT(0),
-@@ -609,6 +623,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
- 		.drv_name = "amd_sof_sdw",
- 		.sof_tplg_filename = "sof-acp7f-cs42l43b-l0u1.tplg",
- 		.fw_filename = "sof-acp7f.ri",
-+		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
- 	},
- 	{
- 		.link_mask = BIT(0),
-@@ -616,6 +631,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
- 		.drv_name = "amd_sof_sdw",
- 		.sof_tplg_filename = "sof-acp7f-cs42l45-l0u0.tplg",
- 		.fw_filename = "sof-acp7f.ri",
-+		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
- 	},
- 	{
- 		.link_mask = BIT(1),
-@@ -623,6 +639,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
- 		.drv_name = "amd_sof_sdw",
- 		.sof_tplg_filename = "sof-acp7f-cs42l45-l1u0.tplg",
- 		.fw_filename = "sof-acp7f.ri",
-+		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
- 	},
- 	{},
- };
--- 
-2.43.0
-
+Perhaps even to the point that we should have idle (either the task or
+the cgroup property) imply an extra long slice length, much like how it
+implies a very low weight.
