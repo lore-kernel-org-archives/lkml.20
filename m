@@ -1,112 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794450101;
-	b=iMo4uL/Fc9D/+iCprXPC5VdSV+XXh5ACYezYT9B14GiruNq4hGEYO0NKyCJ+MVlA7DJS
-	 f8rP3I0VLfMuaWuymwdgJZ27vlZ3x+krhjaJgUu1UFTzz2Fp94Xukw+wJlTtCdPrYBksv
-	 O5YIdCzUl6k8Tl4pKEGvWed5EoMuLw2YxEUivsgoYVHBQcmeCBj4l5fPh7a0Wk6ScjaxV
-	 i60qiXIDFm22VyK6wopfy6sDRKxSpNTn4hCg/k3gmmE4n1P8l8g6T9A1bmrQeyVP+0b23
-	 XkLdXhoMV1kkef9SLOVaTQR0UeAvGdMqO+WuCGveeY28KM5tUrmR8QdgnblYKNDBPtQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794450101;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Rq7GooCIZ7G/d81xEEdoUjPL+7aCqzIfy3ZyVlLQm9c=;
-	b=cdlzrgoGwgFiFK3ZRnpwtidNADDkKO271IhH3G6NyefXwto7L9ElgUSTMvpsDgrgXT9A
-	 ixuSXUCReOgmsy4DowZmGWnFL04NBGpAg0xFSpbZstfCWWY8hV6QYICkIOYoCcJV/l1Ja
-	 3IvkEl/H/O8uEQpv1AMojYJvBzfQ+WFJ0zo7YpCpSXjOcJRRH3bXw4bnEHQoGkVzjbrbS
-	 33V/k+7KMUOIusPO0vfkZO2w6ybiHl4mT7u0EKBJ9qQh7v1OJw5sKlZGfo5afVLr+HW8q
-	 CqWnDfhhrEUkQvEkZEjxWWnngy0zJNoq5iSSWfVpzTDwF7QT51XMsEaGuqgds0vWJDA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nlYlPo9Y;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BMWtHGOC;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794450109;
+	b=hS8RHrDJmeUy348kJH3rCCv5++C73SBkSPKGzCYOkqwwMvuhXyKdwtAo6O1d+ajWhqTN
+	 0wx7R07CNdzKu4XtXrJPUhcatHSzSa69MwZwIISU6+V9rX7L7oPxSwKX4lqF5Uu5QpC25
+	 Us5RQD0SiOGGpmB/0p3vMjynGgeRSlrosogww5I2BT7v+ttwHXr7UaYxHGFwQ1HhlYNgB
+	 GMcbHBgplJq7GN7/DVzyAVjkHFGsf3V4AQjU0mpkk0vE9NVVvdZBkDClR8nP3O8Jl7g24
+	 qFQbtJJ2tSPmhkZK6D25NYWTYxwbLfSRIYwuL8uwpRbkhW9UQRNgiYTCM+mWEIZP95A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794450109;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Bw239Pgdn3QC0cdzWj3Bt2TXtO4xGoScoP4AqGL7gJk=;
+	b=nbHMndaw8tyXHPfzsGRXQ4oY0hBzY5Z78bAX2jsVfneXeMmEE/87n/36L1TmqNJr9qv3
+	 BN2a+yje+IWY3J4KVdciBXmeZs8jbtkcrifEVi5fpLDdqCTq/VToD4auxOv9U1QMFmGEj
+	 Fp83quCQNRKsZQDry5HKvlBQKQjUSjBtUghAw95JeJ2/YliLnzWrSTbShv3pPVTp09g1p
+	 Brh2sxQZqnbQHfzInWeAQvpUhOhBkK17G5tVZJ/y0V+dZGNn3+lG786rByIGCnZ6aScCP
+	 esYPTHMU27NnNnNMFonSs6qoBzGGMRtH507FypUJoHe2mXUiuYlyJydRFfts9wGEm8g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.131
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022131.outbound.protection.outlook.com [40.107.75.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7442D606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:21:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7442D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nlYlPo9Y;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BMWtHGOC
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABMb1OZ961211
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:21:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Rq7GooCIZ7G/d81xEEdoUjPL+7aCqzIfy3ZyVlLQm9c=; b=nlYlPo9YvJkpg/IW
-	fz55gQzv0lahwyRwsOUoXxUnlDf7T9g2B+AQBD8thk83ZytRXSZXEyPL4y1mARGN
-	Ajm6Q3/2BJB1gQBUbX1GNf619a2K3RoKce1heUyBG+EWsrSxdEZLWT99WZ+VDgWW
-	uy6H5km6m3hYDs5Xj88gbkzodviQ0y07Sy922WT0Gg07yYq3p/giNyncoqC6NmGs
-	tKVhTmBNQ2BQA5RQysGrwHQ49KrqEI8t8iSqfQSH9Z273CquwuJqfpEvV+K6OciK
-	Llede7IsBngZy/unLu5RhXWQ/FMHg2pSLbreb00NOfQLIHPhZoH6bhKw7GHJ9qY3
-	XjjsCA==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvtymt7x2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:21:39 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b167bc8e16so2284377a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 18:21:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794450098; x=1795054898; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Rq7GooCIZ7G/d81xEEdoUjPL+7aCqzIfy3ZyVlLQm9c=;
-        b=BMWtHGOCvxUWPWhPrjE2Com6EMfLRj6npCxBupiXycUB1CDyi4ilu3qpSbDLmOe/B5
-         0iI7Sl07IOJQolfoQRFLlL1HSZ2fw7HEyib6V0SkGnMoXTXUmlKgOPDH7snGivqiqLmg
-         //4KhOKWnXE0X3Krp5KxSOwJNzrdqvUfLHnUGZufwfX9ZV1ypgaPAg0t8Fo6ufMleWB9
-         6fP0dVlaRpRM7F+x0h1GjtqUb8zi0SNB14Sg8PsRPIWvm4S85RwA1dGkekHZnfWUoqJ8
-         w3rMDezBcV+PpLx5b8FLjNSdbagIQSBOs/krYQFJCmS76uSt7IZ01WyNQe71v/eiPZbW
-         BgIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794450098; x=1795054898;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Rq7GooCIZ7G/d81xEEdoUjPL+7aCqzIfy3ZyVlLQm9c=;
-        b=DH7cPVBJ0wzmdxud4cWDy4rrKHIOTZqgwJfk3pTDvSp93rIxG9l1kvBtC88LpRQLVY
-         RdtyIh+CLiCnGtVUznue50tkitg++QX94Y3LiUhr3YDlOk/8bPfA7fvW/4Cv1DKf1GeB
-         lrhBGIdXqa9BcCl1SXVnVL2zZesh25NsszvQOYS+s3yK0uaOQ58jkE65goGJ8Uicjoa6
-         d+ZIsSJsryUezzOsy3R8w4bx+SsqkBVrAlkZHI/pC0mZ8xrp2XLrUFnSRGmwPEwK90sg
-         HbYTJ32H4oHyghQtma7gti0S8LK4A+WZi+G6cFSn6boz9FF32NRY28NJBEoynLHP0Z4C
-         6yyg==
-X-Forwarded-Encrypted: i=1; AL+hErEOyZMixWBS8e1fA4bvrYnj1+0bumnH3zXj8PMcn5qR540VWYNL3l7dpr/egTgb5GuT04HFB6lnkxlRv84=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+TkHxqliB4VQdHVXTvGlQK1FFjr+zLmZiQBvKoHqNMWaBmnG9p
-	G59ehDxkznon3vZ+L4gneHhydurVDR1Bv825pTzw+6ZNaqpw27vZHsCbSvkN30y+TuJFqYTNQN8
-	EO904YlHc4x5jh4rjgVn0WXXKYmRJS/s/O0OiASiWfwVn7X6tGtlBsLAyAykvlWLw2Bw=
-X-Gm-Gg: AYBFou1ubaQ91XKUsAu4rAKeNpm7jZ9r9JNdZzxpVL4GtL3iS7RuaDViHSAc4vbVW4R
-	l6deUm/gPVkwVITO1Ck5DCMhATmRweQXp1Yw+dSmeqmTS6MNPU3aNwAMr3HoZtgeq8cljYm5LLH
-	BbHBp33SwUvSWzF2yTvmsdbp686FikGpYbdQnu4DC9K3Dqv5N6Qckd3VQYUFFXMdMPsBUJ6sliK
-	52baKPvusz6pQGdIOiwTrIUZ5Qtq+XdupuAxBKEKoRNBmRMttNhoWBSKDDAjTqBzbYQ4gcEEIBr
-	YGuu7RCu2mqsthqxmEUqdd7VO+CwITDoIe594bHiodDQYcFh84pwXFKjdwJovww+O26wiGUxHU2
-	Sk233OR5t0rHhsNmG0sa0RWB1i1iWZ2Ni9AR3R1PVKD0g4fWXTtiYbOMcpS/M6v0W32ElFurFW/
-	er
-X-Received: by 2002:a17:90b:388a:b0:3ac:a993:5b5c with SMTP id 98e67ed59e1d1-3b182e13d4emr4150514a91.6.1794450097983;
-        Wed, 11 Nov 2026 18:21:37 -0800 (PST)
-X-Received: by 2002:a17:90b:388a:b0:3ac:a993:5b5c with SMTP id 98e67ed59e1d1-3b182e13d4emr4150494a91.6.1794450097226;
-        Wed, 11 Nov 2026 18:21:37 -0800 (PST)
-Received: from [10.64.69.173] ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197c9d7c1sm1880088a91.17.2026.11.11.18.21.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 18:21:36 -0800 (PST)
-Message-ID: <fbacc809-7931-4613-ad49-59e74852394f@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 10:21:30 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7039E606A321;
+	Thu, 12 Nov 2026 02:21:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7039E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yST1DK3RHjX9VL59Yd9PKaDfaZG6ps6AZYMI3MlXIZDJHWq+AvlykZopm/jQbdC2ezUUyuNf2DusIgR7/u/PGdgpl4FzekXJEFbMabo9IHA1qNep/fJIi7mcp25xm3vQCw9yLWRpDI464FhXJwP714tmp1LG4L7j41V3OhGDXb3eYdtvLrQwlEN+tRU73MEgcSlhENUCjpAKsuTFtrPCI/cusualentc8iPvLx6dE0vr6BYyglX9CGmXwYDhxDg+DDbQxh872RFv25BNSdpk8lknOPmM67pD1lNE3MTIbkGplHnEKr1UDRveRXtS7H9PbpeRBroKZ5pWHMGJbLqCIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Bw239Pgdn3QC0cdzWj3Bt2TXtO4xGoScoP4AqGL7gJk=;
+ b=iiCTLls5hhV6QKmIBfKkroCnIclL5ReRhNFC4Og1uKSIOoeKCaBXVhiDbqX737wMDp7SqOHtpPVeBibzFtRRpF15rB9IBxLhhXwOoOU1P6BC2cPVBhHBSu9PhRopuU5wJTMjqvT2sX8o8+yrQwaSF89lyT73FYTlGJcl02p7WnG5B9q/Cfoo9+RPx5114sRl8AyI5QVZgj0MtqHvBVjlguDBYYCTcLWjSSyL5CBafzbSUFJX6pdizMVfvHoa7nT3eXiBFhnn0Pe4+MuBib2SSpHut7WuMTGBrAqjupfR3HIqO0S1kKs0wqzyy4UyiGq1On4vo4+VFs7+AewAGlplCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cadence.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SE2P216CA0115.KORP216.PROD.OUTLOOK.COM (2603:1096:101:2c9::16)
+ by PS1PPFC5EBD37C3.apcprd06.prod.outlook.com (2603:1096:308::265) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.0; Thu, 12 Nov
+ 2026 02:21:44 +0000
+Received: from OSA0EPF000000C8.apcprd02.prod.outlook.com
+ (2603:1096:101:2c9:cafe::2b) by SE2P216CA0115.outlook.office365.com
+ (2603:1096:101:2c9::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
+ Nov 2026 02:21:44 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ OSA0EPF000000C8.mail.protection.outlook.com (10.167.240.54) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 02:21:43 +0000
+Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 5564D4102E62;
+	Thu, 12 Nov 2026 10:21:42 +0800 (CST)
+From: Hongliang Yang <hongliang.yang@cixtech.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Peter Chen <peter.chen@kernel.org>,
+	Pawel Laszczak <pawell@cadence.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Gary Yang <Gary.Yang@cixtech.com>,
+	Fugang Duan <fugang.duan@cixtech.com>
+Cc: linux-usb@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	cix-kernel-upstream@cixtech.com,
+	hongliang.yang@cixtech.com
+Subject: [PATCH v8 0/2] Add CIX Sky1 USBSSP controller support
+Date: Thu, 12 Nov 2026 10:21:39 +0800
+Message-ID: <20261112022141.4136099-1-hongliang.yang@cixtech.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,89 +108,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 02/29] drm/msm/dp: add support to send ACT packets for
- MST
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar
- <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org,
-        Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20261110-msm-dp-mst-v8-0-d040fb33db5f@oss.qualcomm.com>
- <20261110-msm-dp-mst-v8-2-d040fb33db5f@oss.qualcomm.com>
- <ebgbhztbeifcty7tlzwykvwcfrn3bwsktfyy63nu4ocvygnqnm@prggbz5tzmct>
-Content-Language: en-US
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <ebgbhztbeifcty7tlzwykvwcfrn3bwsktfyy63nu4ocvygnqnm@prggbz5tzmct>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: LfqHnz6Vr68SKwPOiPJ0V2fTUhRmuDf_
-X-Proofpoint-ORIG-GUID: LfqHnz6Vr68SKwPOiPJ0V2fTUhRmuDf_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAwOSBTYWx0ZWRfX6ekewMFDalzI
- hippw1WozFi3MJo6UcSAnMKZmTBiA/TM/pT8ohzGbt3RlsLf8VTKCCFUNhZcETNmdWm928hEJe6
- Wafs7vXAssU2Std17enIu9PTVcLJ8baHWiGOd5xBVHY2NizlKRKAYPfBxaoj/vAYhtmYInnCMK5
- ujlU5AaZlqa/m8vYX8H5YCprXpjeDxZQ8BCC4mXS5PAHGqRMiBXeihkH1Ft6W5u/iCJTWqo1TTN
- /pQ0PkaX+U1GkG6kaag4WiuvsJP6xb7Ugv8EtsOWSOHMLj+A1EwOetKXoUcNh+kGONCfdJiqQd7
- dEA/6NkDLNsUDffM7fG3hdROTvUMtRRI94P1z1WoYN8JskZZNQ7rzBGG48cVUm4z1im0zTZ+ktS
- zZQOhxArdcB0ecQglUp25ykMuk8nLh9pLCzceGLn1YUlGJhsJ+OT/tzKZlpipmC9IRaH15afuCt
- 1pUN0pDO9eZlS0Pmebg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAwOSBTYWx0ZWRfX9vhjfDW2sYTL
- vtlN3ZW/06P/sL/tcPa2yEOAd27Ic7KE/6lCh5joY2NBsbuaH+M1k85JT6W5mizmpWpjSA8fs1+
- shJ8bQzANnjIQhWPEqXj8YWkhh5H6cs=
-X-Authority-Analysis: v=2.4 cv=Q4BHcI2a c=1 sm=1 tr=0 ts=6af522b3 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=lBWZ1gcxILu1McdKNGgA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_06,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0
- adultscore=0 suspectscore=0 clxscore=1015 bulkscore=0 malwarescore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611120009
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000C8:EE_|PS1PPFC5EBD37C3:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 924fb4a3-6962-4d4d-0840-08df4063b1c0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|7416014|376014|23010399003|1800799024|18002099003|6133799003|261009223027099003|921020|56012099006|261026121527099003|261021121427099003|261102123227099003|261022105027099003|261022075727099003|261026140227099003|261028144727099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	C9+70ulsYmDNrAcXhuTfvNtV1NeUFBsqYMpADr6tfie4Qf+cDLgQxL4Idk/lXU+HmBPwz2cwYqWtcMKUKMYn01EAq5c/AZb4U1lWJ7rjSx5CEqo8J5p+JykkdXwbPhfVaVoiMn/P2HX08zWAVXbMY9HWjAb8fGq5qJ3jQ31Q2WeyWyC9X42VPFI80kVx6gyv5k2W5Nb9Kg53DKlO5CZvHpetQd6cpLpTXvj2cAIco7JkTsZhZPo8NMCtUsemSTl8DQpd4AMHfqiRM1lgoCnTS05R1AiPVAmsbfxioxO0wJRhcN8+TKOIWvwqglXMclDioB4UmKazG2zKtMWRkJi5KqaoG25nf2e5B7xl8lBtKFUjZ3Xv51yXnm1+RS5EXcF7nCXDaNTrqg2UEHA9qwIzlRurOIDS+wus8DC4hfS5pO+rlTz8Apf0y4xqeJXhANnfTuumXKX30ecvn14NYTlSJByiU1ydyRZ0uBOS7OGtMHsRIEabPaKHVP22TPhF9HvRTLvPw9MBGDOnSYl6Ytx5/nRqhFP1nbYPdCr92Wo+qug8hvh8QOiCyudBzag88sgdh3KTybvW+s85LETwGbYg4z7eFD/6B01uuSlDODbm/G0AXy3+ILSh0TvpwyeNPbivurp51Z8zIyEP32MIJilxD92oB/gqwuskuq5XgbnX+pEcxy82vSUMAXBixT1uSkuhggD9m/yd5/juSgXS+f3tU6ua6INbNS5e/H05sNWHTNs5fjR8yURFrDTCk747QlTN
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(7416014)(376014)(23010399003)(1800799024)(18002099003)(6133799003)(261009223027099003)(921020)(56012099006)(261026121527099003)(261021121427099003)(261102123227099003)(261022105027099003)(261022075727099003)(261026140227099003)(261028144727099003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	safCjRFSERugEJGuj9pmZ5wt7h+JULb1Uv6AO4YNmgDxDBTbs5/+SEzmj3lNo6Oe2Yg0GemdpaKHyZkq+FZBcfBvcgJyyQuJ1obu4oeX70upv7QoC2K9c47fy/sGB5IEGMujBH2Jg4tCC17SnGzVMY4BIlU+T2A62mXJNJLatiCLUjeCNdZM9owxS9Vu40/AToL6jEOi/8op3PpzrVcOpzndOc0cf1zus0DevkGjRXfVA7Er/I1KYObQGXuegiS5K7giLkwL9sUeKqrZnFMm3LSXP6dM0nQ39dYBXlTaZ2ylCIEywOl4TIwmIvC+7PBozlEeSem6nzk0sbgtcR16NHzUnRQiD3PK3Y5p5qQIhuitBh6hE4lKixXwXn0aDInlbJDYMdZsz8+wGqysf9jItr88r5uxHF6yL1vw4hem029sx3nAvUQPKQdAw2qRaeFe
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 02:21:43.5101
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 924fb4a3-6962-4d4d-0840-08df4063b1c0
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	OSA0EPF000000C8.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PS1PPFC5EBD37C3
 
+This series adds support for the Cadence USBSSP DRD controller
+integrated in the CIX Sky1 SoC: the device tree binding and the glue
+driver. It is a USB series only. The arm64 device tree nodes belong to
+the SoC subsystem, so they are not part of this series and will be sent
+separately once the binding is accepted.
 
+Tested on Radxa Orion O6 (Sky1) in host mode, together with the CIX
+USB3 PHY series posted separately. The series applies on top of
+v7.4-rc1.
 
-On 11/11/2026 10:41 PM, Dmitry Baryshkov wrote:
-> On Tue, Nov 10, 2026 at 12:54:23PM +0800, Yongxing Mou wrote:
->> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>
->> Whenever virtual channel slot allocation changes, the DP
->> source must send the action control trigger sequence to notify
->> the sink about the same. This would be applicable during the
->> start and stop of the pixel stream. Add the infrastructure
->> to be able to send ACT packets for the DP controller when
->> operating in MST mode.
->>
->> Add REG_DP_MST_ACT, the ACT trigger register used by this sequence.
->>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->> ---
->>   drivers/gpu/drm/msm/dp/dp_ctrl.c    | 44 ++++++++++++++++++++++++++++++++++++-
->>   drivers/gpu/drm/msm/dp/dp_ctrl.h    |  5 ++++-
->>   drivers/gpu/drm/msm/dp/dp_display.c |  3 ++-
->>   drivers/gpu/drm/msm/dp/dp_display.h |  1 +
->>   drivers/gpu/drm/msm/dp/dp_reg.h     |  1 +
->>   5 files changed, 51 insertions(+), 3 deletions(-)
->>
-> 
-> Is Sashiko comment valid? Otherwise LGTM.
-> 
-The comment is valid, but the issue was not introduced by this patch. It 
-was introduced by "38e4b12149792 drm/msm/dp: move the pixel clock 
-control to its own API".
+Each controller is described as one address range in the USB30 Type-A
+DRD RCSU block at 0x091c0000, starting at its AXI cache attribute strap
+register and ending after its AXI clock status register. The two Type-A
+controllers interleave their strap and status registers in that block:
 
-Would you prefer a separate change to fix this issue, or should I fix it 
-directly in this patch? If the latter, I’ll try to send the next version 
-soon to keep this series moving forward.
+  0x300  STRAP_PIN0     stream ID           USB4
+  0x304  STRAP_PIN1     stream ID           USB5
+  0x30c  STRAP_PIN3     clock enables       USB4, USB5
+  0x314  STRAP_PIN5     awcache/arcache     USB4
+  0x324  STRAP_PIN9     awcache/arcache     USB5
+  0x328  STRAP_PIN10    USB2 PLL            USB4
+  0x400  STRAP_STATUS0  AXI clock state     USB4
+  0x410  STRAP_STATUS4  AXI clock state     USB5
+
+Only STRAP_PIN3 is common to both controllers; every other register is
+read or written by one of them. There is no contiguous window that
+covers the registers of one controller only, so the two ranges overlap.
+The range is mapped with devm_ioremap() instead of
+devm_platform_ioremap_resource(): requesting the region would make the
+second controller fail with -EBUSY.
+
+Thanks to Krzysztof Kozlowski for the review of the earlier versions.
+
+Changes in v8:
+- Fix the example: the USB3 PHY is a single provider shared by both
+  controllers, so the core node references one phandle. The example
+  still carried the per-lane two-PHY form that v5 of the PHY series
+  used. Keep the USB2 PHY reference and describe it as usb-nop-xceiv,
+  since it needs no configuration.
+- Add the vendor prefix to the two board properties: cix,ssp-disable
+  and cix,u3-port-disable.
+- Driver: do not assert the resets in system suspend/resume, and do not
+  cache the wakeup state; the child device that owns the wakeup
+  interrupt is asked instead.
+- Driver: rewrite shutdown() to use the same teardown as remove(), and
+  allocate the child platform data with kzalloc() so that
+  platform_device_release() can free it.
+- Driver: only set PS_PME_En when wakeup is requested, and return
+  -ETIMEDOUT when the controller does not reach D3 or does not leave
+  it.
+
+Changes in v7:
+- Describe the RCSU registers of each controller as one address range
+  starting at its AXI cache attribute register, instead of two 16-byte
+  register slots, and drop the reg-names property.
+- Map that range with devm_ioremap(); request_mem_region() cannot be
+  used because the two Type-A controllers share the block and their
+  ranges overlap.
+- Take the offset of the AXI clock status register from per-compatible
+  driver data (0xec on Type-A, 0xf0 on Type-C), instead of two
+  reg-names.
+- Dropped #syscon-cells from the S5 system controller binding: the
+  property does not exist in the kernel, and the series no longer
+  touches bindings/soc/cix.
+- Removed the arm64 dts from the series: it is a separate SoC patchset.
+
+Changes in v6:
+- Dropped the simple-bus RCSU container; each node is placed at the
+  address of its glue registers and the core is a child at its own
+  address.
+- Replaced the usbN aliases and the undocumented id property with the
+  register offset and bit position arguments of cix,usb-syscon.
+- Converted probe error paths to dev_err_probe().
+- Removed the unused over-current GPIO handling and the unused dr_base
+  and cdnsp_pdev fields.
+- Fixed the 125us prescaler value: time * frequency - 1.
+- Made the AXI halt writes read-modify-write so the preserved and RW1C
+  bits of XEC_AXI_CAP keep their state.
+
+Changes in v5:
+- Dropped the cix,sky1-usbss-rcsu syscon binding and the cix,usb-rcsu
+  phandle; the glue registers are described in the controller node.
+- Added the MAINTAINERS entry for the glue driver.
+
+Changes in v4:
+- Split the combined PHY/USBSSP series into two independent series.
+- Restructured the RCSU registers as a shared syscon region with offsets
+  (reverted in v5).
+- Fixed the indentation reported by checkpatch.
+
+Changes in v3:
+- Fixed the interrupt specifiers of the core nodes: the Sky1 GICv3 uses
+  four cells, so every entry needs the fourth (empty) cell.
+- PHY driver: assert the resets before registering the PHY provider,
+  disable clocks in LIFO order, and fix the error unroll path so clocks
+  that were never enabled are not disabled.
+
+Changes in v2:
+- Split the single binding into a PHY binding and a USBSSP binding.
+- clock-names: apb/ref for the PHY, sof/axi/lpm/apb for the controller.
+- reset-names: core/apb instead of reset/preset.
+- Dropped axi_bmax_value from DT; it is a driver constant.
+- Added the MAINTAINERS entries.
+
+Changes in v1: initial version.
+
+Hongliang Yang (2):
+  dt-bindings: usb: Add CIX Sky1 USBSSP controller
+  usb: cdns3: Add CIX Sky1 glue driver
+
+ .../bindings/usb/cix,sky1-usbssp.yaml         | 163 +++++
+ MAINTAINERS                                   |   2 +
+ drivers/usb/cdns3/Kconfig                     |  13 +
+ drivers/usb/cdns3/Makefile                    |   1 +
+ drivers/usb/cdns3/cdnsp-sky1.c                | 663 ++++++++++++++++++
+ drivers/usb/cdns3/cdnsp-sky1.h                |  99 +++
+ 6 files changed, 941 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
+ create mode 100644 drivers/usb/cdns3/cdnsp-sky1.c
+ create mode 100644 drivers/usb/cdns3/cdnsp-sky1.h
+
+--
+2.54.0
+
