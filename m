@@ -1,62 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.120.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794519235;
-	b=TPlUiDip3nNKgnA7rK9uc65qQ/vRgg3vO65PslSfUH74q2/xNHjwQGKuuYyVl7VKxpvc
-	 HGUzaapCgYxDGXJRt6u67ymQ5XSa8SxmGeQp3X/V6xkFjfobgGz1xPegKWPEWZDoacFiD
-	 wu7jvn+waUPx/OmXRWCe0WQMtVpeWdra+SI1rP5OrkWEXOELMnngS9o240Pq4hNjmlRYY
-	 IQgIgGVyip9D7IfiNwkTcJZipUQbAMS7/AgTlMxD11/b3R1aJaBlTWhqSLucOOPAQU+Tb
-	 a0LpeK9s1it8rjNyCVwa7cJWppcctVqoqKfJ/uoVyrImXtMdTtKTCqfz3c6hEoUWxwA==
+	t=1794519305;
+	b=C7dLBelEo1H7RRRktKnhrpYNwXq8oxctpnJyNXO+ryyQVlxjL1SSOqcbj8M4wiXGX5FJ
+	 v+0IN1ytwgHNl3s1lV9ZtgG3k5co3ZyXMA4AMU/llNqkLqWaTxjuY5tvCAtqlMUshgoFz
+	 05iz06zAUqUe+/oNMUrNhX9MCVCE4DQ2aXv4hPSPXWmFg3hMnRUe9jJWFldI0SHiVPHtk
+	 G4vaano4DkLbLs0D8kA6mwUBs9bNxDkj1FJT+UI4G+xB3iNvQl74H/CFPnYe3GfEMgkcD
+	 MGERu7g83vq6sMAtJC6z3KdUGneHcx49qA0u9LkjwPQF6zvITu43DHhw/dEkf9YVLvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794519235;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-Id:In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Spam_score:X-Spam_bar;
-	bh=ZkfjOcGD68zvM8CNOAYZXKLRmL3LY6QqhMS04Y1mQno=;
-	b=2Py4WhMHG++5WEBSSHyzX7gWALY5Nt5nXncZ8JNCUUljXylqZNe7iU3+LvuksO5mxyZm
-	 Y1YifTvnHEpWxtMg6AlCCThoYke9iJcqKkmBWgaGRoOK/8ZuREZQP4mfmzjMwXsFCt0X1
-	 PwzQ1i4FajblRRrxW8Ccw08WXOlPSm5ceuAJjGMY0t+0b0V9Ykdv0YtaIoS1Z+m+g51Zg
-	 S8DcNR0/gTE2y2lRczOyvaXLGiGE/bC/20jdU55jQQNZgRfUqiYrnd+eE9MVJYd2xnm/O
-	 2ZNIp2kxy5GXvDFAfqJhtn3o851LX9Z23fVyNfsZdK0hnFVsz171Kw+MOTVAWd92G/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794519305;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=BhcCDoIl9otRnW4ujBdyNoukGej6r/uzdNbV6Dh8hRc=;
+	b=c6BFtO2IvDSVc4TGMLIxn0L3COdbnvai7iNUBIzLy/6CH2OJbMb38BEX7iJxfRlr05/E
+	 Qgk6SuElKinqG+R3T696HSy/XW01dpoBpl5xi0a5Iw0DkEcGABzMDSCZ4NwTyrYE4S2QB
+	 bX3NTyNSv4+Gix7oBbRqN5INMZ81OgM9YBWibEBzPSwtxb+QKim33Y63sQ8c1cIbxmBQE
+	 TXPhpJPl2GpnOTnTDvp8Iknu3BwxkrfL3cbGSRzAqF1gJKT5prIqQnVeLm/raozPnbuuT
+	 xRb+Bsi9eFlVOMj2wo62zmMuXZ7RK2Dfx4An+GOWZMu7hkh2R1GzbrVHYeVtzydNLdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hugovil.com;
-	spf=pass smtp.mailfrom=hugovil.com;
-	dkim=pass header.d=hugovil.com header.i=@hugovil.com header.a=rsa-sha256 header.s=default header.b=PxoNfaly;
-	arc=none smtp.remote-ip=162.243.120.170
-Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kXc7Y1nZ;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C876606A31C;
-	Thu, 12 Nov 2026 21:33:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C876606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EC3D606A321;
+	Thu, 12 Nov 2026 21:35:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EC3D606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=hugovil.com header.i=@hugovil.com header.a=rsa-sha256 header.s=default header.b=PxoNfaly
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
-	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
-	To:From:Date:subject:date:message-id:reply-to;
-	bh=ZkfjOcGD68zvM8CNOAYZXKLRmL3LY6QqhMS04Y1mQno=; b=PxoNfalynU4ZZB4aayfBSVr8DH
-	Z+NzPDpsjQAY/QYdz8pLk10uEg0pdR0nH5mXewEwAGs926bUQ0kVyosrxKRAP1dhyCwZyG5f0G/ta
-	mqGCWhP3L4RMlUxyEZ9xByiztQzwTCDIfLNPrPzOm0oJEu3psTEMrvMmyJs0ZNJ5vzCw=;
-Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
-	by mail.hugovil.com with esmtpa (Exim 4.98.2)
-	(envelope-from <hugo@hugovil.com>)
-	id 1xRcQU-000000001UY-24MA;
-	Thu, 12 Nov 2026 16:33:46 -0500
-Date: Thu, 12 Nov 2026 16:33:45 -0500
-From: Hugo Villeneuve <hugo@hugovil.com>
-To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jirislaby@kernel.org>, linux-serial@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] serial: sc16is7xx: Fix clock leak on invalid clock
- frequency
-Message-Id: <20261112163345.a88ea8ac42f58d1a38c3e069@hugovil.com>
-In-Reply-To: <20261112021335.1774-1-laixiangwu@cmss.chinamobile.com>
-References: <2026111106-drowsily-dexterity-bddd@gregkh>
-	<20261112021335.1774-1-laixiangwu@cmss.chinamobile.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kXc7Y1nZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794519304; x=1826055304;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=qiPKcs32cIql2L4FKZiiE+381T/H6p7Ydei/f5AE/Xk=;
+  b=kXc7Y1nZakc4z6acqtuMcvVf6lPAD6UaTf1jv00vuJ820ElUNxVTJ7v3
+   qCXIygQKo6GCfbAFAL1TYnwK/rBPSHKuFhaFVFlSfjRJEPB44Cqz4OjnX
+   Pkuw3iwcmW1ldvbqhjR05l3L3ptVi2Dhn3n4wXq4YcNOvY8aHVX7KHjDc
+   uCx7ZRJlKcSw6S9JvsnL3j3ZbYBesWGzcHk42wHPAIELDE8VTYHc5mg7j
+   Hh0hK/nPqGmBYVVOSGVhpvpbFkgQ1gO8IL8JJAw1fUFEdNtK0rzlR4Fpb
+   0YmBKchY0W7IvjyliatlSvNUuppZ6dgMaTgNV7BvKCQHrbekPWSTXBf+7
+   A==;
+X-CSE-ConnectionGUID: USrtO+7WSb+9wuzokFUi7w==
+X-CSE-MsgGUID: bavmjwhsT7Ozu9u+/Ojdag==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3337894"
+X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
+   d="scan'208";a="3337894"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 13:35:04 -0800
+X-CSE-ConnectionGUID: RpXP1+IKRjCrp7G288nWEQ==
+X-CSE-MsgGUID: 7Z8WZBzRQqymuNkyk7JalA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
+   d="scan'208";a="9317428"
+Received: from zzombora-mobl1 (HELO kekkonen.fi.intel.com) ([10.245.244.107])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 13:34:59 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 153E5121B71;
+	Thu, 12 Nov 2026 23:34:59 +0200 (EET)
+Date: Thu, 12 Nov 2026 23:34:59 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Jani Nikula <jani.nikula@intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-pci@vger.kernel.org,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH v1 1/1] media: Consolidate AtomISP v2 PCI IDs in the
+ pci_ids.h
+Message-ID: <avYxAxh61Rv956SO@kekkonen.localdomain>
+References: <20261002094813.856439-1-andriy.shevchenko@linux.intel.com>
+ <asFuWAQUPxETWqDL@kekkonen.localdomain>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,41 +97,22 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Spam_score: -2.0
-X-Spam_bar: --
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asFuWAQUPxETWqDL@kekkonen.localdomain>
 
 Hi,
 
-On Thu, 12 Nov 2026 10:13:34 +0800
-Xiangwu Lai <laixiangwu@cmss.chinamobile.com> wrote:
+On Sun, Oct 04, 2026 at 12:06:32AM +0300, Sakari Ailus wrote:
+> > Assuming that media subsystem is the main beneficiary I think it is the best
+> > to route it via that tree. For others (i915, PCI, PDx86), please Ack if you
+> > are agree.
 
-> Hi Greg,
-> 
-> sorry for the missing context.  The patch I was pinging is:
-> 
->   serial: sc16is7xx: Fix clock leak on invalid clock frequency
->   https://lore.kernel.org/all/20261030085508.1882-1-laixiangwu@cmss.chinamobile.com/
-> 
-> sc16is7xx_probe() enables the clock with clk_prepare_enable() early
-> in the probe path.  If the clock frequency cannot be determined
-> (neither from the clock itself, nor from the "clock-frequency"
-> property or platform data), the driver bails out with -EINVAL
-> without disabling the clock again, while the later error paths of
-> the probe already jump to the out_clk label.  The patch makes this
-> error path jump to out_clk as well, so the clock is disabled like
-> on the other error paths.
-
-It is better to simply reply to the original email, to have the full
-context, without having to click on a link to see the original message.
-
-> 
-> It was submitted on Oct 30.  Is there anything blocking it, or does
-> it just need more time?
-
-I'll reply in the original email...
+Just checking -- are the respective maintainers fine with merging this via
+the media tree?
 
 -- 
-Hugo Villeneuve
+Regards,
+
+Sakari Ailus
