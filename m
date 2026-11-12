@@ -1,54 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794510568;
-	b=n5XaIqI9apzBzh/f2vyv/jx+JktzFFW7T9zMTViFdsF2T/dp8NSjhL3VA8Iyky1i1I8Z
-	 oyBTeGVS8ontXD27X+28u0y3LNA4Z5k0+FFDwpywa97dJt7YTxWDwZI86tbMEglhuESQJ
-	 lPk/M3O36qyYQnN26krN8FoxQWiahwEYjkaZHMz6oM8qQh5Fnzm1bh65QCxe6sAfGz2jr
-	 Gh86qKxVQQgmv1diNReZQvSD687swENj8UPsXttjnQeNH1L63A3vUhkAAtf8F7bLZnyyo
-	 Z7Zi+FWYiBLJLzUc5vAkqibpsiytZhVT2aIe5qzusgMKYGhAvSvv//ED7L2KVjgXa6A==
+	b=vyTtgfTSr5wfa8IfvvgtM59/0ncsc043dtFgI0mLbcOn62ftAfQvwhBmrPMScIZeCtRQ
+	 3E5V3z736RvTmkVLiAADsFFfIfNxyWH0HeTC02PmY25lkqrLR8TNVZAqjTX8OZTK4Nyru
+	 eBKu8wmmsDnGnAK8eAE1bFn+skRil3vwSAfvxQsuP/Rb5CXRWtvtqOciFc/uUtvBY/Ohu
+	 ChsEEgPvRjysQ9mc+rgdafrFdh6hy/tRjXhN5oXXrLpXgIsPHZWiT+Ab+JlbmUFKeAyvR
+	 7+K7fMMKbCclx1miTuY7PkBY+Ck6LlLGc3r3wKsUGGWrejO2Ct4Y9F0oCB0Cyo9dieg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794510568;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=X4RkaRO34zwhb3y2ZY0P2m2fdXJ0xGr/34bmaboHeu4=;
-	b=xhae8qtGTqy/6wlWaukfPXw4UGG2nzyekO/C+iuryQ0TUodujugTxOX1CnuPocWbi5od
-	 9Ad7gtrMvUXbJpYOZJoVP/GRLdZbb/Cguy8UDHYjTAjfIi11HtVNNurUxud8jbJzLmJM9
-	 NScJ/Mr3W7b6hwdj5eMzvFsAwNy846759B4lB35SfnhmwIGfIvgiYRameWSHnHTujs63t
-	 l+mgrHmn2EvXRzlKph1V76czlRwGMxMn0ubEIPIuNO3lxw43Q/Wj9SQeozBUkYoFUdT9J
-	 /0f7sSQhKq3vVRWFhGdbGIPyLBrrHh9bRpo9Zm4YCwlhh0+tTlVkrBFqiyzix9ZTEYQ==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=MZNgkM904EAWrQX1/wn3079usEV+qyaStHRPZPAF7SI=;
+	b=JR538ooNQLRFU31W8p4IvkTKI/PJleKxHT816cnjh7lokKXvC8ppkCa4Jsl/5Uc9+Ig9
+	 0OE0KMbi8hE7O6z++Nl+aL5RTiRzMq5HX2NweCz1pFypYfiCqiy7kONe3SB1e0krYCJxM
+	 2V1lbeH/Ga98sLPR+CH4KW6v8j+aVm+OKXrv8vUAkfk6vD85BVXz0qFXMKDgqf6pihYts
+	 ZiQzirxgvIqIwCQpdsriZ5M105ZmzJdH0pSq5FrZ1gDr1LZrzSBsI6Y2kQV8bn0GT35lA
+	 YRMRNhlRgZWtqgp6yR0RCO9LToXsdVafrxpNXbUQqBUK8bwBFbCLKhQ0ZnjQqv6wfBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=S2gujuqj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aFOHzwr+;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8E360A2603;
-	Thu, 12 Nov 2026 19:09:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9072560A2611
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:09:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9072560A2611
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=S2gujuqj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E2571F000D0;
-	Thu, 12 Nov 2026 19:09:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aFOHzwr+
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3282db206d3so50842eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:09:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794510567;
-	bh=X4RkaRO34zwhb3y2ZY0P2m2fdXJ0xGr/34bmaboHeu4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=S2gujuqjXs2blV+0XNHq59fKnWACZiB0i6K46vLyBMO/cIx0epicB10t6biaJ9RHb
-	 KgesT8UlQAAJvF1/fmi/0MmHOopQ5FSK45vM4NfLxi/uzUnieX4vgafxyDxzrtVDk0
-	 +brVPx8wr0M6i0K4FwtKi7AaSZ63+65M1meJZVaw=
-Date: Thu, 12 Nov 2026 11:09:27 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Phillip Lougher <phillip@squashfs.org.uk>
-Cc: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, Christian
- Loehle <christian.loehle@arm.com>
-Subject: Re: [PATCH v2 17/22] Squashfs: don't store large export table
- indexes in memory
-Message-Id: <20261112110927.6add17b0552922c5b6b93515@linux-foundation.org>
-In-Reply-To: <20261111234402.252354-18-phillip@squashfs.org.uk>
-References: <20261111234402.252354-1-phillip@squashfs.org.uk>
-	<20261111234402.252354-18-phillip@squashfs.org.uk>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gmail.com; s=20260707; t=1794510568; x=1795115368; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MZNgkM904EAWrQX1/wn3079usEV+qyaStHRPZPAF7SI=;
+        b=aFOHzwr+z8zfgGiL1j1rwCghO1Ql13ceA2/l19mnVX3+A4Z1VSMWWt+qtrXpIF9dVm
+         xP9qqXjBHwJLedf8HGLSfuB/Arq9IhZCgyOBld5Tcef2QNShcFLC3V2uc/ZrEQ8k4Vp+
+         EQ26nGWObftWoBoOYWBYTAI8XDKD7NkNvlIJ+S8rVSfHrfEPtAnw6awCBCZiwItIZu9p
+         c0dBFRKOkMbFSmWOgqvAjBtWp+yXa3E553xB7a7rZGeeyTEpOkGieqQoJLM80V/d4mza
+         TpEH5Ge3ToJQ355jUSj9/Oin+ERklDzkempk3wTPV0ZuXJ7KCDWwqRn/jOAf/FzS32Uq
+         jQiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794510568; x=1795115368;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MZNgkM904EAWrQX1/wn3079usEV+qyaStHRPZPAF7SI=;
+        b=Ot+aESuwDl7wT8wxZUS2FNlVwVTC5AfargCp91nIQSuGnC/g0YV5gQpqZ9qJx9CbkV
+         cU6IRlr2T8CGlArmybNUAHQH4HMNMXUjaxth+j61PJVMNNl/AMl+TYWkh1lkJLlte2Eg
+         uZhdah1oJkot4LMJVPAnxS/4Qlqiv6iuR+M4cKVSSAfYRzl408I9CoNvG6bCQKfW1BJz
+         J03CGHGGdXWaRfmR+MoZbMmoXOQi33Ovtqw/4PwPhBFNvHHnHyt3nD9sSXhHZi6Mqa2y
+         J+38h6ps2c517Y3peIwn4tLLmYf5u3pH+QVodH+tHCb0uHy7p8JwFqzI1WY+S5HsVeXq
+         Hmdg==
+X-Forwarded-Encrypted: i=1; AL+hErHrEutAUs595vOFP2agFZ73oJFjHdxyXco7hsBJ3VuoL76b/va8MhpcuXBZmlDxU/RkC8m6FmhcIDX84PE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/XM99DcHxUcc6SIyz7mIpYiRPhHUwkmRzdCNxIZBmGKl8PQRNh
+	PkAkKwX2NI1B4ETYlyr3qv6stq6ilYreEcwfYlp/Iog3YvBXpp7KeMy7
+X-Gm-Gg: AYBFou0gO2Ty/J714NYV6tbenA1IMb2JB6W1ZoHqGLPvtJV8ioAucfceW+qk0hybyqu
+	9g2gXybua7OEeycVx5cOWx3aO+dRU4kbDB/aIr4DKT+iMEQjB1Xhlq/cIgJesg9t11waUZL2GGI
+	AZV3F0tAwmGh3FfSOJPKNb02U2T93elHmMMvO+fNdMg/WVI/e9cDgM4pbl2O268t0gbGa5mFCUk
+	cHiwqnvIrHg4qEtrUuFcjgwjNVofxhE5s5VNq5US7C52v+PwqHkP8OH4LIocrgunq7/VZCMGBpB
+	boSJMDXiS6FM6r3oTDddE9yF9gNpLUpc3fSHpAhNGUn1QQpoqhzTUp51aZS558Al4sHo1GGo8/T
+	wGIyY6XMJoArqsEKL6JKn6LtD5pgSn+Njnb92q2QBEeOQOLW5TP19gKp1EFzRCC67tOVp6eRM9q
+	PeMVdSN5P3cAHbQNg2PqLvlOW2GQlm4Mhh1C14UjFvkXnidMh8Zwn9cLFdKsBpGo1oBsqLlNK2v
+	VRLXC/Uc6FFNG/glqX0AlUEFJcASCvEGXKZDKdBV6fMjWHhvUXbslWSDjEauCBaKfQOA/DJLlkH
+	3rbD9wYJ
+X-Received: by 2002:a05:7301:fd09:b0:36d:4570:a32d with SMTP id 5a478bee46e88-37963953f0amr89550eec.2.1794510567383;
+        Thu, 12 Nov 2026 11:09:27 -0800 (PST)
+Received: from eldorado ([2600:8802:b00:1f88::287])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bad6casm395674eec.26.2026.11.12.11.09.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 11:09:26 -0800 (PST)
+From: Florian Fainelli <f.fainelli@gmail.com>
+To: linux-mips@vger.kernel.org
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	linux-doc@vger.kernel.org (open list:DOCUMENTATION),
+	linux-kernel@vger.kernel.org (open list),
+	linux-perf-users@vger.kernel.org (open list:PERFORMANCE EVENTS SUBSYSTEM),
+	"Maciej W. Rozycki" <macro@orcam.me.uk>
+Subject: [PATCH 1/3] MIPS: SiByte: Wire up the CPU interrupt controller
+Date: Thu, 12 Nov 2026 11:09:14 -0800
+Message-ID: <20261112190916.3725141-2-f.fainelli@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261112190916.3725141-1-f.fainelli@gmail.com>
+References: <20261112190916.3725141-1-f.fainelli@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,213 +114,94 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, 11 Nov 2026 23:43:57 +0000 Phillip Lougher <phillip@squashfs.org.uk> wrote:
+Initialize the MIPS CPU interrupt controller on SB1250 and BCM1480 so
+CPU-local interrupts have a configured irq_chip and handler. Reserve IRQs
+128 through 135 above both interrupt mapper ranges, and dispatch BCM1480
+IP7 through the CPU controller as SB1250 already does.
 
-> When mounting a Squashfs filesystem, the code reads the entire
-> export table indexes into memory.  Their size is determined by the
-> number of inodes in the filesystem.  For the maximum inode
-> count of 2^32, this will allocate and read 32 MiB.
-> 
-> This is an excessive and unnecessary amount of memory because the
-> indexes do not need to be read into memory in their entirety.  In
-> addition kmalloc() is used to allocate memory, and this can fail when
-> large amounts of memory are requested.  Kmalloc() on modern kernels is
-> usually limited to 4096 KiB.  If panic-on-warn is set, then failure to
-> allocate memory will result in a kernel panic.
-> 
-> This commit uses a 4 page cache if the size of the export table indexes
-> are 4 pages in size or larger.  A simple and fast lookup array is
-> retained where the total index size is less than 4 pages in size, which
-> is the vast majority of Squashfs filesystems.
+This provides the CPU-local IP7 interrupt needed by the SB1 performance
+counters without overlapping the SiByte interrupt mapper IRQ numbers.
 
-Thanks.  This patch didn't anticipate the presence of Christian's
-"squashfs: identify device in mount errors".  To make life easier I've
-staged Christian's patch behind this 22-patch series.
-
-This required a bit of rework of Christian's patch.  While in there I
-filled in a few more places which needed Christian's treatment and I
-made the whole thing more 80-column friendly where that made sense.
-
-Please check:
-
-From: Christian Loehle <christian.loehle@arm.com>
-Subject: squashfs: identify device in mount errors
-Date: Sat, 12 Sep 2026 15:53:14 +0100
-
-Squashfs mount failures reported through fs_context do not identify the
-backing device, fix this by printing the block device.
-
-Repeated automount failures used to be ambiguous, for example:
-  Filesystem uses "xz" compression. This is not supported
-
-All of the affected errors occur after get_tree_bdev() has opened the
-block device and setup_bdev_super() has assigned sb->s_bdev.  Use it to
-identify the failing Squashfs image even when the mount is retried.  For
-example, the error above now reads:
-  Filesystem on loop0 uses "xz" compression. This is not supported
-
-Link: https://lore.kernel.org/20260912145314.788588-1-christian.loehle@arm.com
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Phillip Lougher <phillip@squashfs.org.uk>
+Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
 ---
+ arch/mips/include/asm/mach-sibyte/irq.h | 10 ++++++++++
+ arch/mips/sibyte/bcm1480/irq.c          |  7 ++++++-
+ arch/mips/sibyte/sb1250/irq.c           |  3 +++
+ 3 files changed, 19 insertions(+), 1 deletion(-)
+ create mode 100644 arch/mips/include/asm/mach-sibyte/irq.h
 
- fs/squashfs/super.c |   48 ++++++++++++++++++++++++------------------
- 1 file changed, 28 insertions(+), 20 deletions(-)
-
---- a/fs/squashfs/super.c~squashfs-identify-device-in-mount-errors
-+++ a/fs/squashfs/super.c
-@@ -151,26 +151,26 @@ static int squashfs_parse_param(struct f
- }
+diff --git a/arch/mips/include/asm/mach-sibyte/irq.h b/arch/mips/include/asm/mach-sibyte/irq.h
+new file mode 100644
+index 000000000000..b7073830d2ec
+--- /dev/null
++++ b/arch/mips/include/asm/mach-sibyte/irq.h
+@@ -0,0 +1,10 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef __ASM_MACH_SIBYTE_IRQ_H
++#define __ASM_MACH_SIBYTE_IRQ_H
++
++/* Keep CPU-local interrupts above both SiByte interrupt mapper ranges. */
++#define MIPS_CPU_IRQ_BASE	128
++
++#include <asm/mach-generic/irq.h>
++
++#endif
+diff --git a/arch/mips/sibyte/bcm1480/irq.c b/arch/mips/sibyte/bcm1480/irq.c
+index 4c18a2c755d2..5eff85a8659b 100644
+--- a/arch/mips/sibyte/bcm1480/irq.c
++++ b/arch/mips/sibyte/bcm1480/irq.c
+@@ -15,6 +15,7 @@
+ #include <asm/irq_regs.h>
+ #include <asm/signal.h>
+ #include <asm/io.h>
++#include <asm/irq_cpu.h>
  
- static const struct squashfs_decompressor *supported_squashfs_filesystem(
--	struct fs_context *fc,
-+	struct super_block *sb, struct fs_context *fc,
- 	short major, short minor, short id)
- {
- 	const struct squashfs_decompressor *decompressor;
+ #include <asm/sibyte/bcm1480_regs.h>
+ #include <asm/sibyte/bcm1480_int.h>
+@@ -242,6 +243,8 @@ void __init arch_init_irq(void)
+ 	unsigned int imask = STATUSF_IP4 | STATUSF_IP3 | STATUSF_IP2 |
+ 		STATUSF_IP1 | STATUSF_IP0;
  
- 	if (major < SQUASHFS_MAJOR) {
--		errorf(fc, "Major/Minor mismatch, older Squashfs %d.%d "
--		       "filesystems are unsupported", major, minor);
-+		errorf(fc, "Unsupported older Squashfs %d.%d filesystem on %pg",
-+		       major, minor, sb->s_bdev);
- 		return NULL;
- 	} else if (major > SQUASHFS_MAJOR || minor > SQUASHFS_MINOR) {
--		errorf(fc, "Major/Minor mismatch, trying to mount newer "
--		       "%d.%d filesystem", major, minor);
-+		errorf(fc, "Major/Minor mismatch, trying to mount newer %d.%d filesystem on %pg",
-+		       major, minor, sb->s_bdev);
- 		errorf(fc, "Please update your kernel");
- 		return NULL;
- 	}
++	mips_cpu_irq_init();
++
+ 	/* Default everything to IP2 */
+ 	/* Start with _high registers which has no bit 0 interrupt source */
+ 	for (i = 1; i < BCM1480_NR_IRQS_HALF; i++) {	/* was I0 */
+@@ -337,7 +340,9 @@ asmlinkage void plat_irq_dispatch(void)
  
- 	decompressor = squashfs_lookup_decompressor(id);
- 	if (!decompressor->supported) {
--		errorf(fc, "Filesystem uses \"%s\" compression. This is not supported",
--		       decompressor->name);
-+		errorf(fc, "Filesystem on %pg uses \"%s\" compression. This is not supported",
-+		       sb->s_bdev, decompressor->name);
- 		return NULL;
- 	}
+ 	pending = read_c0_cause() & read_c0_status();
  
-@@ -217,7 +217,8 @@ static int squashfs_fill_super(struct su
- 	TRACE("Entered squashfs_fill_superblock\n");
+-	if (pending & CAUSEF_IP4)
++	if (pending & CAUSEF_IP7)
++		do_IRQ(MIPS_CPU_IRQ_BASE + 7);
++	else if (pending & CAUSEF_IP4)
+ 		do_IRQ(K_BCM1480_INT_TIMER_0 + cpu);
+ #ifdef CONFIG_SMP
+ 	else if (pending & CAUSEF_IP3)
+diff --git a/arch/mips/sibyte/sb1250/irq.c b/arch/mips/sibyte/sb1250/irq.c
+index 57943fe3ac03..2df115269f81 100644
+--- a/arch/mips/sibyte/sb1250/irq.c
++++ b/arch/mips/sibyte/sb1250/irq.c
+@@ -15,6 +15,7 @@
+ #include <asm/signal.h>
+ #include <asm/time.h>
+ #include <asm/io.h>
++#include <asm/irq_cpu.h>
  
- 	if (!devblksize) {
--		errorf(fc, "squashfs: unable to set blocksize\n");
-+		errorf(fc, "squashfs: unable to set blocksize on %pg\n",
-+		       sb->s_bdev);
- 		return -EINVAL;
- 	}
+ #include <asm/sibyte/sb1250_regs.h>
+ #include <asm/sibyte/sb1250_int.h>
+@@ -225,6 +226,8 @@ void __init arch_init_irq(void)
+ 	unsigned int imask = STATUSF_IP4 | STATUSF_IP3 | STATUSF_IP2 |
+ 		STATUSF_IP1 | STATUSF_IP0;
  
-@@ -246,7 +247,8 @@ static int squashfs_fill_super(struct su
- 	sblk = squashfs_read_table(sb, SQUASHFS_START, sizeof(*sblk));
- 
- 	if (IS_ERR(sblk)) {
--		errorf(fc, "unable to read squashfs_super_block");
-+		errorf(fc, "unable to read squashfs_super_block on %pg",
-+		       sb->s_bdev);
- 		err = PTR_ERR(sblk);
- 		sblk = NULL;
- 		goto failed_mount;
-@@ -271,7 +273,7 @@ static int squashfs_fill_super(struct su
- 
- 	/* Check the MAJOR & MINOR versions and lookup compression type */
- 	msblk->decompressor = supported_squashfs_filesystem(
--			fc,
-+			sb, fc,
- 			le16_to_cpu(sblk->s_major),
- 			le16_to_cpu(sblk->s_minor),
- 			le16_to_cpu(sblk->compression));
-@@ -295,8 +297,8 @@ static int squashfs_fill_super(struct su
- 	 * block size (by default 128K).  This is currently not supported.
- 	 */
- 	if (PAGE_SIZE > msblk->block_size) {
--		errorf(fc, "Page size > filesystem block size (%d).  This is "
--		       "currently not supported!", msblk->block_size);
-+		errorf(fc, "Page size > filesystem block size (%d) on %pg is not supported",
-+		       msblk->block_size, sb->s_bdev);
- 		goto failed_mount;
- 	}
- 
-@@ -355,7 +357,8 @@ static int squashfs_fill_super(struct su
- 	msblk->read_page = squashfs_cache_init("data",
- 		SQUASHFS_READ_PAGES, msblk->block_size);
- 	if (IS_ERR(msblk->read_page)) {
--		errorf(fc, "Failed to allocate read_page block");
-+		errorf(fc, "Failed to allocate read_page block for %pg",
-+		       sb->s_bdev);
- 		err = PTR_ERR(msblk->read_page);
- 		goto failed_mount;
- 	}
-@@ -394,7 +397,8 @@ static int squashfs_fill_super(struct su
- 	err = squashfs_read_xattr_id_table(sb, msblk->xattr_id_table,
- 				&msblk->xattr_table, &msblk->xattr_ids);
- 	if (err < 0) {
--		errorf(fc, "unable to read xattr id index table");
-+		errorf(fc, "unable to read xattr id index table on %pg",
-+		       sb->s_bdev);
- 		if (err != -ENOTSUPP)
- 			goto failed_mount;
- 	}
-@@ -405,7 +409,7 @@ allocate_id_index_table:
- 	msblk->id_table = squashfs_read_id_index_table(sb,
- 		le64_to_cpu(sblk->id_table_start), next_table, msblk->ids);
- 	if (IS_ERR(msblk->id_table)) {
--		errorf(fc, "unable to read id index table");
-+		errorf(fc, "unable to read id index table on %pg", sb->s_bdev);
- 		err = PTR_ERR(msblk->id_table);
- 		msblk->id_table = NULL;
- 		goto failed_mount;
-@@ -421,13 +425,15 @@ allocate_id_index_table:
- 	err = squashfs_read_inode_lookup_table(sb, msblk->lookup_table,
- 			next_table, msblk->inodes);
- 	if (err < 0) {
--		errorf(fc, "unable to read inode lookup table");
-+		errorf(fc, "unable to read inode lookup table on %pg",
-+		       sb->s_bdev);
- 		goto failed_mount;
- 	}
- 
- 	err = squashfs_inode_lookup_start(sb, 1);
- 	if (err < 0) {
--		errorf(fc, "unable to read inode lookup table");
-+		errorf(fc, "unable to read inode lookup table on %pg",
-+		       sb->s_bdev);
- 		goto failed_mount;
- 	}
- 	next_table = msblk->lookup_table_start = err;
-@@ -450,13 +456,15 @@ handle_fragments:
- 	err = squashfs_read_fragment_index_table(sb, msblk->fragment_table,
- 			next_table, fragments);
- 	if (err < 0) {
--		errorf(fc, "unable to read fragment index table");
-+		errorf(fc, "unable to read fragment index table on %pg",
-+		       sb->s_bdev);
- 		goto failed_mount;
- 	}
- 
- 	err = squashfs_frag_lookup_start(sb, 0);
- 	if (err < 0) {
--		errorf(fc, "unable to read fragment index table");
-+		errorf(fc, "unable to read fragment index table on %pg",
-+		       sb->s_bdev);
- 		goto failed_mount;
- 	}
- 	next_table = msblk->fragment_table_start = err;
-@@ -502,7 +510,7 @@ check_directory_table:
- 	return 0;
- 
- insanity:
--	errorf(fc, "squashfs image failed sanity check");
-+	errorf(fc, "squashfs image on %pg failed sanity check", sb->s_bdev);
- failed_mount:
- 	squashfs_cache_delete(msblk->block_cache);
- 	squashfs_cache_delete(msblk->fragment_cache);
-_
++	mips_cpu_irq_init();
++
+ 	/* Default everything to IP2 */
+ 	for (i = 0; i < SB1250_NR_IRQS; i++) {	/* was I0 */
+ 		__raw_writeq(IMR_IP2_VAL,
+-- 
+2.53.0
 
