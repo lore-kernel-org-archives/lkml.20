@@ -1,100 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794474570;
-	b=K84c6r+3d/WFrdeSEsixTl6zSdBCScMSMlUbNUQlbfzE5MFV3rZ8EBQZ3/aJcK3KZO2M
-	 JbJslwLAmeGOIIdrKP7BVQJrwGHQndM9RKrfONGv+vWPDCBk/SRVsIhNZO/ssAqwYgpXi
-	 QUc9DAGTDLfpl3i5hcIztUYPEOF+uQMMRK1vPJCNdXJhVtMQXHmGxGF6L+UMKGxfB4kH3
-	 jBtKTHXe7+uTM1xRsX7hOSkvSu3RXMqEtoBq6kUcZhAjV/lAsy3JDcvqWt2JCIup1CdlF
-	 4g27cwSyfHs1PMr+v5ZQ3aCK/HFoDEh93rwxfJHQeNEsKhvlRFGuQHRwO97Fl5x8Haw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474570;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=UC1VFMCdsJy8HJueFJ4vPvh9lfR0tlzAuULdL6Oym6I=;
-	b=G8EZs9JmnY1ZvmMjUx5871RVzxho0nb2Uksb+3KBL5odI8sGAhLmOJf2L6w2XgQRJGDy
-	 2DvFjiomzxLF38KTwURc0yvcVDSGaucSbTcOXizketRfE58MNbru5fBAtmg5DU3tFQwlN
-	 p/uH6mFLX3GkFwjLrNKuYIZHrcFcyBo/tTAH//iva94+6/JoK+UNYelpdScA/orxct9Tb
-	 6XCtoAqQzA9YvM/W1/WniZ2m9T2/wEVRr96XflsikIori5c3s5jQv5iOxZLE8VLKohzhm
-	 qMyCNZS8p3YbqRvxPdkiF9TL8mXvL3oxelYmEMpcyxm0EE6msYAIrPJA9KOJW881N6g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BTQ70lWv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794474588;
+	b=RuFrCsE7wgE+RdPiZo5rmGKblUNCzO4obtHuHkRScyP3sQrEaVN6sp57MCewJrVufH1U
+	 6NwOQgBtqCZFYy12G5MnjGhovSToUDuYqBdHuymRtKO7zbqN2shO2JrpnKNUbCSH51Otr
+	 T37DeKIIaZA0Eq5oZvU2SskW7xsBsY9qbYKQvhhPHHdBK+1gkB2t80j9OkgBrmVvYlV1r
+	 w6Bv8YCcxyS4k/J06GJR4mZUCwRdjod/3/3JaPqvfE03c+3G/yz94kyzNPTtdh1ym6Scq
+	 bcF/OYokCvBCj9js6+TARfATVv/o68JALspf154iU01ozXc911lBwc7Nldh61ViW7VA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474588;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=j/okRcwCmJah376/pTXlDGHeTd3yv114IA7qsrwTRhM=;
+	b=JeO9NJIRzLWV/3fywxCgr3jv2YXP8m5lBny3wdKRxZBGoB/++ETN51TxrVoFbj8yDLSK
+	 rmhIF7aTY4mglPydjRKfPfEDtvpzTaYIXv6aQ9sZoT4Ctt8eSIefv9p6nY0zIoU7EyHUZ
+	 3I6l5xnwNQUwayRgh6kE1GPtfv9DxRtetQ9gZXIzprEBuZ3R8WAVrHUXVE2nEVkUWHDln
+	 cIgMxoe/cJwAlvwutOMKnIrZZHmTTI/qDMtzm77mfl4Wc/1g2APwQ3NksdUyxaPRFytDv
+	 muFewGbHKIq5XSOOSbkFXdT1b6Oqkbw4Wr9M8PtWXTOZoyH4OrgrvR4Yzz09IHmo16g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eHxjzh9f;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FAF606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:09:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52FAF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96D9606A31C;
+	Thu, 12 Nov 2026 09:09:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BTQ70lWv
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3b0e61a4decso3093530a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:09:29 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794474569; cv=none;
-        d=google.com; s=arc-20260327;
-        b=azNz6p4bLvFF0ipl893OIfH7E9oO0LNdYBz1znCz5SHOZYh0qHjqGLMv6BTdpSHvRL
-         LZS6ysQ4KGZY+Wh49TctMb9bdDJciV4E3UnvpX7vvutxPA0HFGYn3PCm5CBLXYPOyEWI
-         HcBdQ3kPKfNwfuPAnU0KS5W8a9UWyntwzY6nuidCyjfH+5Iqf1RntlwMqbi2EWQoPrzI
-         2AqfOvaRzmj4h6Ynkh+Yb3JHNXjhspSzOBotnbnMSdu3jvBYT75n9JWoHssNBrxDULHT
-         hfV0IHD8/H1QL60HoHX/NBcYGKDlFJWwYoaMXcBbE6APoCo5tFPoR51INecvlVCKMj8o
-         C9IQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=UC1VFMCdsJy8HJueFJ4vPvh9lfR0tlzAuULdL6Oym6I=;
-        fh=s8LMiAyOLYn1s6kIoRq/RUmxBZGcIB74ZzLpCdJCiKY=;
-        b=DyHkfoaFr4IE2S2BWnBT1Pruz2OsoCW0JFq9hWijDKM8C+695ySV7IsZG6m7G/9gmx
-         1/vTust1Ac9NpraW6tQWI5xbyTUQ5kIfRvtau4+sQtFQe/fHi0SbZ2llJDxa6Fcl6WP+
-         B0z1P1BaVIPnMNiMpEuZlQs0Yk44UixAFWApb1O1rI4s2GLiYIVY2qE9sQYQKKYB6xGk
-         0BW5Ki+qL+b5rrytgEQwe3Ig4pTd7fhDDAqiyBnRkR5/cOi9wGltMIkvZUGgigW6Of5C
-         jqyzhKEFH6CyHMxSrMrKBKhexGo4DmIIKJSZ9lIiWtBZK/immjfH1HgfHKOAYhkbbDuP
-         GJXQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794474569; x=1795079369; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UC1VFMCdsJy8HJueFJ4vPvh9lfR0tlzAuULdL6Oym6I=;
-        b=BTQ70lWvFNuSLgFt7TPP8jO7aRQrgictIqaJkvYVwxfCVKt94For0Em5dIM/T3/e/p
-         V3tO8e4apQBUPqw+fNkqfOMMAQRk+F6xwfdaVn901eAf+L+eOonhxH/VgTK8CcPJIFAM
-         Z0HJdPZ+MKtUEl5umuWI+EkUbm6v8B4SqUcJ8BzRPxmucMckwRTPebfdrLdyz/Ve+hOI
-         ajAbO+N7jrU8puNH19kdDLtbc4c8W2Zry03S0GUU6w/DmKp50jUV40rsuI2/mJoo2NBn
-         p3b29SfKb+puP3zEWpuirRYH3Ru4PUdboUxq/GEWhIHNl8S7OT01TOYwCvEJYT02rvJv
-         u/CA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794474569; x=1795079369;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UC1VFMCdsJy8HJueFJ4vPvh9lfR0tlzAuULdL6Oym6I=;
-        b=d8vAUD/zKcTxGZesNIN85eso7SKTg7K3xyP4ZIohnwawwhdaZK9qaopeo1lwmmrxga
-         tKGdxzlfGSI8P2vU3tulbNxPkeEWI8prrnHQ2YkjOJch6EGp59eBt+z9su0atquOAX5r
-         N1F2SlhMaWSxwWquOQNq/jD5z7j6FvYCMuqJ09NUJppXNw2r5acGIHCVVpahfZ4AmbEH
-         jjUYHVdhg4tttv5YUsoQHcSBHYJe7YWBRAv9hvuTwzNIVpAOcAdlKzeA4Hf9eFE14Ebf
-         zT4A9mkZhyJSpV7TSkmfccZLMNhrOuaPJFrd1xklkZCO1BmVvCpuB2vj6b8/KnCTCP3G
-         p8Zw==
-X-Forwarded-Encrypted: i=1; AL+hErEGGpxPRvpiJ4LCaWLk3hs0dLUlOAf6SfJLpRzHnMPczc1fVokRE5CDelmWe1hW26/uYV4ZVnaaCz2pylM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+9rif1SZnFzTX/QX3bLkmy1/JmlTMFw4hSgUQCYADVfiYylsAf
-	rfuYOe3HV+Gz8bVPS6kwZfeU9UVk/l4ve4kxE3nakyC51tOn7Jg59nxi40avcptOr5gun5uWJ4t
-	dsg3ZHIMOBFWYaKi+sXyibq0XpV09OiA=
-X-Gm-Gg: AYBFou3uJchqHBBjytaJcIYNti80n7Ct8eOq/rP3sdLW3kAcN5jBkccT3J3HAUDVnK3
-	b8RsWHYhZPmKwlQJd7jnbdeMXfu+B3t4lL+ngy2pxRRbhaN3qp3GjlFIscEeOwtVLXTwMxsNDQb
-	DaD4gsgvIyZsbHxJ0MRCq+RlB85NXFG9z4zMQiBelNcHttFSrkf3WOMCgC+p+LZfi0XwoF/xcKO
-	5H+jNQwlcHrwMBwzDT7Qbdq/CQRi5JMLWwpzFxF89YL50/m5R52Mfi32xIyZCtaab2WpLfk+YZD
-	4s+fVZdy+JrGL1F5b8MazJqlF0h3no8uaMGv/KoWZJn24ySbquzlevXAub/lTsuAMLqJV+PL/AR
-	HwS71BmWrIO5Qrg2DW3o+IHRWg9HzesRHjKkwa4BkPn2W2/3LBismQ6dTTw==
-X-Received: by 2002:a17:90b:2d8b:b0:3ab:be66:ddbe with SMTP id
- 98e67ed59e1d1-3b182edaee6mr4922233a91.28.1794474568658; Thu, 12 Nov 2026
- 01:09:28 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eHxjzh9f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 307DE1F00A05;
+	Thu, 12 Nov 2026 09:09:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794474588;
+	bh=j/okRcwCmJah376/pTXlDGHeTd3yv114IA7qsrwTRhM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=eHxjzh9fX6/euYdOb/lVF0eGeyRB12MW7G+QY46JREN7vpgh9olDCgsYLX/pAzEQX
+	 IGV5dxMZ7b0c/DriZU6Eme05voULqlWWyL3IXZnyQuLunihl0MdTtGN8aeINL0bNWG
+	 Vm79nqp0mr4XhYQNoFSuzkSP/JNGzToHNTIe1C4Q8AqHz6YasMr9/u7NXCsOdcxrmr
+	 qlsPUcih2RuGYOTdpHqFhif7yvJqhVUn10NeLQxRNQA1wgBo2pXA0iV8g9cNF8it3I
+	 BAI5M6gxZVmyY0MT0oebPTr+QHkn1U6hPQGcF4Fxua1lNp6LLOh76Ogg8tgrazzQuo
+	 l0nwe7VmuIDqw==
+Message-ID: <32ad880e-5946-4703-9c6f-43ff59da39af@kernel.org>
+Date: Thu, 12 Nov 2026 10:09:37 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,77 +51,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110120743.6301-1-stefan.ghetu@nxp.com> <20261110120743.6301-5-stefan.ghetu@nxp.com>
-In-Reply-To: <20261110120743.6301-5-stefan.ghetu@nxp.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Thu, 12 Nov 2026 17:09:13 +0800
-X-Gm-Features: AclHuK-JKdWd-ygPOBooCSX9cuJhp4rfiioKNxZzndhr2LBJ_ZnCQJKwcXGP6Go
-Message-ID: <CAA+D8APshfNo5Ubooq=DnETHeUsAm35Z=LaHUa2hh-p6S5L3xA@mail.gmail.com>
-Subject: Re: [PATCH 4/5] ASoC: fsl_easrc: fix context ownership on repeated
-To: Stefan Ghetu <stefan.ghetu@nxp.com>
-Cc: Mark Brown <broonie@kernel.org>, linux-sound@vger.kernel.org, daniel.baluta@nxp.com, 
-	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>, 
-	Nicolin Chen <nicoleotsuka@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linuxppc-dev@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] virtio_console: copy pipe buffers in splice_write()
+To: Arnd Bergmann <arnd@arndb.de>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Christian Brauner <brauner@kernel.org>
+Cc: Matthew Wilcox <willy@infradead.org>, "Kirill A. Shutemov"
+ <kas@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Miklos Szeredi <miklos@szeredi.hu>, Amit Shah <amit@kernel.org>,
+ Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>,
+ Bernd Schubert <bschubert@ddn.com>, Hugh Dickins <hughd@google.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
+ virtualization@lists.linux.dev, Netdev <netdev@vger.kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ Malin Jonsson <malin.jonsson@est.tech>, Richard Weinberger <richard@nod.at>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, Nishanth Menon <nm@ti.com>,
+ Frank Li <frank.li@nxp.com>
+References: <20261110145241.536019-1-kas@kernel.org>
+ <20261110145241.536019-2-kas@kernel.org>
+ <avNuQqLf9CG9dSsE@casper.infradead.org>
+ <20261111-heimreisen-ungeziefer-empfunden-a892571f2c07@brauner>
+ <20261111-thunfisch-wirbt-waldrand-822275b2d3b1@brauner>
+ <CAHk-=wjPY=kfgnmtx4COEQjD5UzKx9m2-=KLGAZP4d=RKEH+pg@mail.gmail.com>
+ <20261111-stumpf-montag-miterleben-c4e2feac8090@brauner>
+ <CAHk-=wjGXBnme-N+HvbzHH40ftb7Suc=kZVT5cuintQWyMHJ7Q@mail.gmail.com>
+ <e94bdf7c-eae6-4f64-bf93-0aeedca1a22e@app.fastmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <e94bdf7c-eae6-4f64-bf93-0aeedca1a22e@app.fastmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 10, 2026 at 8:08=E2=80=AFPM Stefan Ghetu <stefan.ghetu@nxp.com>=
- wrote:
->
-> hw_params() can be called again without hw_free() in between.
-> fsl_easrc_hw_params() then requests a second context while the stream
-> still owns the first one, which is never released. After close, that
-> easrc->pair[] entry points to freed memory and is dereferenced by
-> fsl_easrc_runtime_resume() on the next open.
->
-> The EASRC slots depend on the number of channels, so release the owned
-> context before requesting a new one, and make
-> fsl_easrc_release_context() ignore a context it does not own.
->
-> Fixes: 955ac624058f ("ASoC: fsl_easrc: Add EASRC ASoC CPU DAI drivers")
-> Signed-off-by: Stefan Ghetu <stefan.ghetu@nxp.com>
+On 11/12/26 09:55, Arnd Bergmann wrote:
+> On Wed, Nov 11, 2026, at 20:26, Linus Torvalds wrote:
+>> On Wed, 11 Nov 2026 at 10:53, Christian Brauner <brauner@kernel.org> wrote:
+>>>
+>>> If that's the official new stance than I'm very happy.
+>>
+>> I definitely want to remove HIGHMEM entirely in the not too distant
+>> future. And before we remove it, we can most definitely document the
+>> fact that we will not be worried about insane users.
+>>
+>> And things like security issues count as "insane user": if you use
+>> HIGHMEM outside of controlled embedded setups or museum pieces you get
+>> to keep both pieces when it breaks.
+>>
+>> IOW, it's legacy. We should aim to not introduce *new* bugs to it, but
+>> if there are pre-existing bugs they very much count as "don't care",
+>> this will be removed soon.
+> 
+> Agreed. There is also the option of adding Kconfig dependencies to
+> mark things that are known broken with highmem when we either know
+> that it is buggy, or we have a good reason to break something that
+> none of those remaining users should be using.
+> 
+>> I think the only reason it wasn't removed a couple of years ago
+>> already is basically a few old 32-bit ARM platforms that still used
+>> it.
+>>
+>> Those platforms still exist, and I predict that they'll still exist
+>> next year, but if those users have to stay at the current LTS kernel,
+>> that's fine.
+> 
+> I tried to push for what I thought was an aggressive timeline
+> last year, but that would still keep the Arm bits for a couple more
+> LTS releases and only gradually reduce the scope of highmem in the
+> meantime, removing support from architectures, file systems, and
+> drivers where possible. See https://lwn.net/Articles/1051010/
+> for a summary of my talk in Tokyo, including the slides and
+> a link to the video for anyone wanting more details.
+> 
+> I also prepared a number of patches towards this, but have so
+> far not been great at following up to get them merged, sorry
+> about that.
 
-Reviewed-by: Shengjiu Wang <shengjiu.wang@gmail.com>
+I think we can already start at removing CONFIG_HIGHPTE now, right?
 
-best regards
-shengjiu Wang
-> ---
->  sound/soc/fsl/fsl_easrc.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/sound/soc/fsl/fsl_easrc.c b/sound/soc/fsl/fsl_easrc.c
-> index 5d715bc07357..ae0fbf6c316b 100644
-> --- a/sound/soc/fsl/fsl_easrc.c
-> +++ b/sound/soc/fsl/fsl_easrc.c
-> @@ -1347,6 +1347,10 @@ static void fsl_easrc_release_context(struct fsl_a=
-src_pair *ctx)
->
->         guard(spinlock_irqsave)(&easrc->lock);
->
-> +       /* Nothing to release if the context is not owned by @ctx */
-> +       if (easrc->pair[ctx->index] !=3D ctx)
-> +               return;
-> +
->         fsl_easrc_release_slot(easrc, ctx->index);
->
->         easrc->channel_avail +=3D ctx->channels;
-> @@ -1500,6 +1504,12 @@ static int fsl_easrc_hw_params(struct snd_pcm_subs=
-tream *substream,
->         snd_pcm_format_t format =3D params_format(params);
->         int ret;
->
-> +       /* hw_params() may be called again without hw_free() in between *=
-/
-> +       if (ctx_priv->ctx_streams & BIT(substream->stream)) {
-> +               ctx_priv->ctx_streams &=3D ~BIT(substream->stream);
-> +               fsl_easrc_release_context(ctx);
-> +       }
-> +
->         ret =3D fsl_easrc_request_context(channels, ctx);
->         if (ret) {
->                 dev_err(dev, "failed to request context\n");
-> --
-> 2.53.0
->
+-- 
+Cheers,
+
+David
