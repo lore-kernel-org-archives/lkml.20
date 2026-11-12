@@ -1,113 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794472400;
-	b=NWB8W5+fhvG14W+g4G/4UeUiiLcTbN8XWF8vJFFRpEjr5t0ZuCkvXJnSpBPaWeOvhTwF
-	 qRSvhodS11Lq8wWpyWTI3I2ApCDfUl18fvcC8evlszaJIf7MwKnnj1awDbPjnOK3CBnwA
-	 iPw5L9UcLdrLmhfHI6InhnZQVnxrDPKlTpGyDOGOKal4b06pgncjvRdvfmgllk7+mbYc9
-	 Kf7IyD4EJEgRFzZo4Ql7ZYkvAG6GQIzYCVNXWjIjEUPSu5hXDVgVwmvkUzGIBKWFcAUjv
-	 IyTqIZ6LrZ9arYtNKLT9WpomEcux4BHw2zU6txB4ybzAxqH4pY0ZfKRBpiQkD4ZYhyQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472400;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794472390;
+	b=KrTcQmeQfk2iwgBBR65OhU76L+OlSaX37L3GFVcfXAQao3WJw9I6GnTame+npsytYjC0
+	 uC8pg6ytUTueF9kwzB9qRZZlFTOVpBUwBFJbkIq/f4P9c/mA1lhy4AmZa86kc0+Mph/0w
+	 YisybxzIXqJAFd91cujR64tmXppmUCXq4U8GCPonRz9sZit99AX9YrxRSfHZxvH0W1Wpq
+	 RhwEN2oYpefP3Xab1KuaL/aUWuAJ90LjEX3F7pMKYiEMJ9DTNm2PZCRwgf98pmbNHGfUY
+	 0hAcoOxKw7liwPf4SfDL0q5Nloy0xEF+zfKo1FgIdFpFJVfAPzvdI1ckmesb/chpvXg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472390;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=4Lf+BjBplOw5ns4wmveNHeka2IFU7MjRDChdBQ5kg2o=;
+	b=1t9Bgv3MWPZn8xcJaXe41w8Dw27R8ZCpCv+hD0Z9MKGi9i5W0bBK1ljwS60RbcvWJ5K4
+	 Dji5ffb7dMSM5RxpuWnUCMXZEPYbwQsekFrRdHw8m3a7Ji54ZBTQm0XBDr32s7K79It9I
+	 QGQ9KBbT1fcC6PgVHWP+eRXTUgJX5ynKTt9f5XUVNau2klaKONDbGcitHtDh4IYLPqYZ1
+	 zxyGGS7aG3n76Shct8R1yEDA0ZB+fE+VFOEbHWy59XMVmwd/CDbcnuSu0JT8EJ/s/Mf8E
+	 O0ZVoo6HwZodXkVgJWTx2gwz21daiGiZK7wuFcxV08WyM3e/vn0bOvxjfOqtIW4evPQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hGQNC8jY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBEAC606D2E6
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:33:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hGQNC8jY
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794472390;
+	b=BfjgUQhbfJQSNbM9E+gpBJWa5Z8PHEcgi2+quCEZXr999KtvQkFp7K9ryWwenMnqb66R
+	 Hi5esWAfq1hK0LsawYSOkPE3nfM0wEOCCZN0VqN+TOwtvbF6D8MqlqdIOui4OjB8BosbO
+	 JhC22P4n9XPoMLOn/6iP7RoklXcUlgJ51LaxvnBcV2rawtMjuWOePEcqiCPBWBUf98H2k
+	 GLUuRqenEyB3VzkYghQP41guplAtv7q58dXOVnbPk8SPQjqnRp/tbWbUlTmpy7LV1BMB0
+	 lj4x6wJ7n6GsuvEziB2D6OV8q3tK5QlZ4DlafNDDDTr9xYfICHVwyS2h9Md+BhCe/Iw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794472390;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=PO7c9o0yG0Z1EDbhW+OqM/Ij43hLdl7lNBk4x9MT9E8=;
-	b=JFEKoRQ25D4jPIb82nXatcMu8NAnoIsgauiXolv65oueVR+KBE2jC2yubht32Ii6g/y5
-	 jG10ipyWE911EQjdCeWqmAu6SZrH+IT8JuJ8lbfpknDe6jvCiaWZz4aT5SOH0yt1h+p/g
-	 Rg2bBItxyiz5a4ZPDJJyJbMHpUh0ps5s9MJukdf/O/06rhtUPCboQg96KcKIPb3L7sd+U
-	 XZYiGdvKVFbPLddDIQCYBvuYbbKHF48Qac7p+XO61XFV8c8qtYFD5zVG16gKiCftu3U8f
-	 FW5fCK8aFUUh0AW7K3wxWHY/AHTWfh3PyxZHFPoXS23s+MvecfjVNB1rLkf+JpY5XMA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mS57UF3t;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=deHAO5QJ;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=4Lf+BjBplOw5ns4wmveNHeka2IFU7MjRDChdBQ5kg2o=;
+	b=XIfBnlvDn52yoYIwlA4A2ty4bxXnjOXgYVX3usWuQQu6x/O8gx3siVQJ/PozExSbk2dO
+	 Tj26cyCtzaTCVoUMz5V/LGu/TkiWgfZUaSB+fV8BzHKxmyprgaQHtLKKVZAAkVoN8XZzR
+	 Ms88CsSovOAPgcHMbaBh8Z3m3WXG/TQBem2kmirga02rHO9i4bGuOZnXDjItkU+HRkk1Z
+	 CCeOXXK7X+QI9/E12V+5tf3yXn61Jh+/ro/IRvGYrPjx/+tfcZJRagDLe++rWQLdHcQD0
+	 Lmzh2wMf7JdRYwmZYrFMFI6ZgXxX5MQyr7DfJSQT2owcn4PHWLaY+BFLnvjz1GgRYvw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B6E606A336
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:33:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37B6E606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mS57UF3t;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=deHAO5QJ
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2ZkII904025
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:33:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PO7c9o0yG0Z1EDbhW+OqM/Ij43hLdl7lNBk4x9MT9E8=; b=mS57UF3tUgxFrlxj
-	xB1z4moWrZ/cepUsWIaj9Xw4c6DddzWGrWZ5DN3zr0NQZUhDRUr22twDmG1EZFY1
-	LeTcCeOKTsdTpFAU7H14mr/i1GzX+0G6dUcQIPT+XI2ROlQcZLiZ9uC+hg1x2RMZ
-	RwSgCOMRN2cPqipFt0gpaknCXNO8ErZ0g8xpNrGrWzumyQMTrsU7/SleTwJomSSv
-	q2KeSy5KdoAOg2B3QjmkcAP6W5+52pQlX6chy3AOiMSiJs0lpUJ1ppqzz1XjOyPF
-	zbTI59XXvaL9zAs7VaqRL2EWi/HPBSyfcBzTbDMs15Y0/NZTBuEcJ5eo/WZnMcN4
-	bsnKag==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvt1ubr56-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:33:19 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ed2c307e62so60592415ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:33:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794472399; x=1795077199; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PO7c9o0yG0Z1EDbhW+OqM/Ij43hLdl7lNBk4x9MT9E8=;
-        b=deHAO5QJdC7izzzDIrwzT1rO5HAJPJDzT2o7VL41v/IZ/CcOGLssP0CvZkMUmEDPFw
-         ZegcWUOo0n/y+cumHkgVn6YYqUeuW7QQMfqblCD9uUWgy7R4kAZ2qhSNypfhecKZ6Qb3
-         +hZQ3xCZTnAl2AVADlXr0d4RHKnTiU6Ck6AtvBHW4LRC6qMMU4HvUwq33WmZly87wxVf
-         +Z6ytCMH/zIEQW04OGLhqoXtjl2WZUh1AP5RHfSZ86hLdUKVaZCXy9Ro2E7mMOU9vX7P
-         3du4QclaoEJcT/lDy2WNS90xDGWZQGDDgU5/2C44cq63NPyHBAXY7K2un+vMbHLqHzXa
-         SG3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794472399; x=1795077199;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PO7c9o0yG0Z1EDbhW+OqM/Ij43hLdl7lNBk4x9MT9E8=;
-        b=DiRFuxbqEvXiYXr/0COyOUu3sWd0S/rANCcjA40Xa8xUIr/4rx4yYVWF4a0zlTz75V
-         khCQ7+dy8Mo2Ttgp509YP5LxidmuD1jTuzN9rJs/ksJEJRA29+lfKMpMhrNeWF/u7Pd9
-         ++5rT3lbugkERuJizRBYSTD8+tOOi14wBjUuyseGoFrriyENcKDPJm5q+1z0pK96A0dX
-         HjLmMOTH9piuKRN9FwBj79idSWCUbHQ84b6nnD08tw7V1O33wCfQGPUNlvX8WauXtlmY
-         o36psQBdSBahnm/yzCTKlyNcHvQSS2K2XSSOZv7G4cx51WjwLQWCXp8M3rU98JrIY7TN
-         qAWg==
-X-Forwarded-Encrypted: i=1; AL+hErEesUbJs0ZPON3U4ilNy7i0Pjtpj8KkhWMHvzmVxNrnF0S1FYjerIDKvq+Bg2PYbsIgHvNwK80GySkkagg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+SJ1QyXFAdVadIO394fFHEIM/lcTHHi/l4mD2eavjKBUlcHSdr
-	4yagUjgIff8eCzwaiL8AOi63743PrJCvyITMn0grCSP9Bauaf6Ljf8SErGj+7+4jmEwzmUVLova
-	9unXr3gL0RR9dE29Z0aIhSXSTTH9zBPq2cTJPl2D4cEuk2229vpPjCfsoHzQ9A7gmx5c=
-X-Gm-Gg: AYBFou3/F+96YWJu2u78YFvPpfLL7OBN/O3RTU8U75Smjon1dfBfG0Ib24nO9JVjM2z
-	fFzuj2jEnAaa6N8nABQcADe8dBUu5CKvfG7iPixf4eICy8deXBqCVocRg4YQlooevE+2DVtPjzF
-	Z+zrlM5mgJ9ykpobimCD9uZLrJqWdea3swbTS33cK/vAJWM5NhDFj6rdAErjLQqwrVlrkQ87wDK
-	Uqz2WGP8y02Tx/t/mGR9m5EmjriITZHm5Z+qhea+76j2qT/09oBl7KKIv+Bott/5k04I4D3yNuZ
-	Hyu8puSuCPW/tHa0n4uDZbXDEFPdMAbmnBq+pgfI8CNtJrGcjGRdcEqMh71CDpiafKUqWmM628G
-	eNJfrZm88BFYCrxp+lI4/Q4YDh06f7Ak3CcZZSGafI1gB/yV6FBWT9rC2ftA2HMbME4k/2gSPh/
-	mdLtu43ZVW3GbEHivTi9qTN0cHwxTQFn0S8LaCCU89x6tBTne9bYpQc7L7uGLKC814T5R32jzGh
-	Q==
-X-Received: by 2002:a17:90a:da83:b0:3ac:4e18:2390 with SMTP id 98e67ed59e1d1-3b182defb03mr4885545a91.7.1794472398789;
-        Thu, 12 Nov 2026 00:33:18 -0800 (PST)
-X-Received: by 2002:a17:90a:da83:b0:3ac:4e18:2390 with SMTP id 98e67ed59e1d1-3b182defb03mr4885514a91.7.1794472398263;
-        Thu, 12 Nov 2026 00:33:18 -0800 (PST)
-Received: from hu-madhgane-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197ce55c1sm3518029a91.3.2026.11.12.00.33.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 00:33:17 -0800 (PST)
-From: Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 14:02:24 +0530
-Subject: [PATCH ath-next 10/15] wifi: ath12k: add Wi-Fi 8 MHI config for
- QCN9575
+	by smtp.kernel.org (Postfix) with ESMTPS id EC2111F00A0B;
+	Thu, 12 Nov 2026 08:33:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794472390;
+	bh=4Lf+BjBplOw5ns4wmveNHeka2IFU7MjRDChdBQ5kg2o=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=hGQNC8jYPUA1F3igG6TCQladrqtoML6HcXMOvmx3ibkU7NMh/3Mn718TeUIq9D81p
+	 vQqrLI7rj9m36DNs16LEtvsvGWazQiA4hAmahbBqUObhYvppY0eHFP1b/btvbxAuUo
+	 wtxFUgAsfUttaRXaa7dPyQ9rJaqCVAjsi7ur81b236CzMk+AveUq/2lDhX+u/ub/dT
+	 p1tMKjrLiyCEGWCnaFR2ITLSXrpJRvPLsqU7uBh2CDi9xzKoKmMmDW72eMYNHlkpPn
+	 KToqgN7jeqAJX7D5YEnsdFzJcpGzoDEr9CQLlhzPGraIXsFWq68AWpI7KpGJL4KFKU
+	 DEkZImTW2z8QA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9FC5F493B6;
+	Thu, 12 Nov 2026 08:33:06 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Thu, 12 Nov 2026 08:33:09 +0000
+Subject: [PATCH v2 5/9] drm/rockchip: vop2: Balance window fetches across
+ both AXI ports on RK3588
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,193 +84,578 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-wifi8_qcn9575_bringup-v1-10-3f30fbc2bb69@oss.qualcomm.com>
-References: <20261112-wifi8_qcn9575_bringup-v1-0-3f30fbc2bb69@oss.qualcomm.com>
-In-Reply-To: <20261112-wifi8_qcn9575_bringup-v1-0-3f30fbc2bb69@oss.qualcomm.com>
-To: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
-        Nathan Chancellor <nathan@kernel.org>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Bill Wendling <morbo@google.com>,
-        Justin Stitt <justinstitt@google.com>
-Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
-        ath12k@lists.infradead.org, linux-kernel@vger.kernel.org,
-        llvm@lists.linux.dev,
-        Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
+Message-Id: <20261112-vop2-fixes-v2-5-8218c1cf8ac8@gmail.com>
+References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
+In-Reply-To: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andyshrk@163.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Piotr Zalewski <pZ010001011111@proton.me>, 
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzMyBTYWx0ZWRfXyRNlJ6XrK4Fr
- wrDc4G8dZ07VYnmOqWj6SgspO5Ufm8GTIJOfOK7ydhhYz3UcUpqtZpt5shLUplmGezdHCD4nCGT
- NKIA4JryfVfgW1ehXssfFuAHPs4hZxk=
-X-Proofpoint-GUID: UBPvEVNd79MiVsWS8-VYa12RL_fIKPlN
-X-Proofpoint-ORIG-GUID: UBPvEVNd79MiVsWS8-VYa12RL_fIKPlN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzMyBTYWx0ZWRfX7KKeVn+7/6CT
- Xtct63p8jghjaktPIiOvfZFlGQGgHdClvZCpAzd+VML7KZNQWvhbBnwKenTaMrOpb4UmlJZZnju
- AykaMH+osn4ZPzbzOx1FmyVjtZa5m8DpVWnrW/IEjNIGlxrvkOBADlBSsRiOQ0vi82KNAl2IfvI
- wJODPMi27Ihmu9aQdvdQhVu+OumB7yCwbLpy0Cep9VBs5efBrojXqfqzE7Eom/ISN+iJE35b3v+
- ovhU48I3r2HH5bRWkJbjDIPQJCsFBG+Isr1G46KvqFGhojSfLnUi+RR5PVUl2xxhF4byKaL7EhK
- Yy7/CzsbQgbUI8s/6ux7WXYy0lf7ev4UUtZ6UTxc4JPri4a4W0wPnKnNqQ2NSLchSP9DJvOKISp
- 130P5NjuGUxxf/B7TRNTTRhgg1um9/0U9eTZn2ziYLhwls9ltfDMh2GwY1comynxWO5FSkj7dRk
- v5F1qIokFjwPsoucAMw==
-X-Authority-Analysis: v=2.4 cv=LvcHWXdc c=1 sm=1 tr=0 ts=6af579cf cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=FOB8LY2opcXQ8BbJJMkA:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 adultscore=0 suspectscore=0 impostorscore=0
- malwarescore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611120033
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472385; l=18937;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=wLRGmyxbi57Me7M7zLM78ZmA0J2fyvmOZ9HyFnNQdEo=;
+ b=Vzldd8DYPOIgf1Lt1YAzfg9NBpnlTLj+fuTEhlr67VXyLWtba3wEEvAxO5qAyK9vC2P8FaCnj
+ DO4t38kIwEwDwPyk3uXuNClTmrTbBDL/TIkwTaQ+zHYwBDwOxOVmt2R
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Implement the MHI controller configuration for QCN9575.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Add ath12k_wifi8_mhi_config_qcn9575 with IPCR channels 20 and 21 and
-control and data event rings in wifi8/mhi.c, and export it through
-wifi8/mhi.h. Update the QCN9575 hw params entry to use
-ath12k_wifi8_mhi_config_qcn9575. Build wifi8/mhi.c from wifi8/Makefile.
+The RK3588 VOP2 fetches through two AXI read ports. Every window has a
+fixed default port in rk3588_vop_win_data: Cluster0/1 and Esmart0/1 use
+AXI0, Cluster2/3 and Esmart2/3 use AXI1. The port is chosen by a per
+window register (CLUSTER_CTRL[13] / ESMART_AXI_CTRL[1]), though, and it
+is programmed on every plane update.
 
-Tested-on: QCN9274 hw2.0 PCI WLAN.WBE.1.6-01243-QCAHKSWPL_SILICONZ-1
-Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
+One port can't sustain two full screen 4K@120Hz layers. With the
+console on Cluster0 (the primary plane of video port 0) and a video on
+Esmart0 (its overlay plane), both on AXI0, HDMI 3840x2160@120 reports
+POST_BUF_EMPTY on about half of all lines (~120000 per second) and the
+picture is scrambled. The VOP read rate measured with the DDR PMU drops
+from the expected 6.3 GB/s to 3.2 GB/s: the fetch collapses instead of
+merely saturating. Measured at 4K@120Hz, XR24 primary plane:
 
-Signed-off-by: Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
+  Cluster0 + Esmart0 (AXI0 + AXI0)	~120k POST_BUF_EMPTY/s
+  Cluster2 + Esmart2 (AXI1 + AXI1)	~100k/s
+  Esmart0 + Esmart1  (AXI0 + AXI0)	~90k/s (XR24 both)
+  Cluster0 + Esmart2 (AXI0 + AXI1)	0, 9.2 GB/s read
+  Cluster0 + Cluster2 (AXI0 + AXI1)	0, 8.6 GB/s read
+
+Moving Esmart0 to AXI1 at runtime (with no other change) makes the
+first case clean. Raising ACLK_VOP from 750 to 850 MHz, or changing
+the NoC QoS priority or mode of the VOP ports, makes no difference,
+and neither does the buffer placement (both planes scanning out the
+same buffer fail the same way). So the limit is per port, and the
+fixed assignment puts both layers of the most common configuration on
+the same port while the other one sits idle. Lower modes are affected
+too: the same port also carries Cluster1 for a second display, and
+under DDR contention from other masters a 4K@60Hz port with the
+console, an overlay and a second display underflows for short bursts.
+
+Choose the port of a window when it starts fetching instead. The atomic
+check assigns the ports from the whole new state and keeps the
+assignment in a private object for the next check. The port of a window
+is also stored in its plane state, and that is what the plane update
+programs: commits on different video ports aren't ordered against each
+other, so the private state of a commit may already be replaced and
+freed when its planes are updated. A window that keeps fetching keeps
+its port, so an active layer is never moved. The windows
+that start fetching, the busiest first, each get the port that leaves
+the busier port least loaded, preferring the default one on a tie. The
+load of a window is its estimated fetch rate: source size x bits per
+pixel of all its planes x refresh rate.
+
+A window must not share an AXI read ID with another window on the same
+port. The IDs in the table are unique per default port, and mirrored
+between the two ports (Cluster0/Cluster2, Esmart0/Esmart2, ...), so a
+window can always use the port its mirror isn't on. A window that is
+switched off keeps fetching until the next frame start of its video
+port, so its read IDs stay in use for a window that starts on another
+video port in the same commit, and until the commit that switched it
+off is done.
+
+This is only enabled for RK3588, where it was measured.
+
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/net/wireless/ath/ath12k/wifi8/Makefile |  1 +
- drivers/net/wireless/ath/ath12k/wifi8/hw.c     |  3 +-
- drivers/net/wireless/ath/ath12k/wifi8/mhi.c    | 70 ++++++++++++++++++++++++++
- drivers/net/wireless/ath/ath12k/wifi8/mhi.h    | 10 ++++
- 4 files changed, 83 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 330 ++++++++++++++++++++++++++-
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  42 ++++
+ drivers/gpu/drm/rockchip/rockchip_vop2_reg.c |   3 +-
+ 3 files changed, 370 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/ath12k/wifi8/Makefile b/drivers/net/wireless/ath/ath12k/wifi8/Makefile
-index b1b90c109c76..051c6447d35c 100644
---- a/drivers/net/wireless/ath/ath12k/wifi8/Makefile
-+++ b/drivers/net/wireless/ath/ath12k/wifi8/Makefile
-@@ -4,4 +4,5 @@ ath12k_wifi8-y += core.o \
- 		  hal.o \
- 		  hal_qcn9575.o \
- 		  hw.o \
-+		  mhi.o \
- 		  pci.o
-diff --git a/drivers/net/wireless/ath/ath12k/wifi8/hw.c b/drivers/net/wireless/ath/ath12k/wifi8/hw.c
-index bffd1081fd2f..428d6b2b4418 100644
---- a/drivers/net/wireless/ath/ath12k/wifi8/hw.c
-+++ b/drivers/net/wireless/ath/ath12k/wifi8/hw.c
-@@ -13,6 +13,7 @@
- #include "../mhi.h"
- #include "hal.h"
- #include "hw.h"
-+#include "mhi.h"
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index 7c157f5c1734..684fa46924e7 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -23,6 +23,7 @@
  
- static const struct ath12k_hw_params ath12k_wifi8_hw_params[] = {
- 	{
-@@ -64,7 +65,7 @@ static const struct ath12k_hw_params ath12k_wifi8_hw_params[] = {
- 		.num_tcl_banks = 0,
- 		.max_tx_ring = 0,
+ #include <drm/drm.h>
+ #include <drm/drm_atomic.h>
++#include <drm/drm_atomic_state_helper.h>
+ #include <drm/drm_atomic_uapi.h>
+ #include <drm/drm_blend.h>
+ #include <drm/drm_crtc.h>
+@@ -1231,6 +1232,314 @@ static int vop2_plane_atomic_check(struct drm_plane *plane,
+ 	return 0;
+ }
  
--		.mhi_config = NULL,
-+		.mhi_config = &ath12k_wifi8_mhi_config_qcn9575,
- 
- 		.wmi_init = NULL,
- 
-diff --git a/drivers/net/wireless/ath/ath12k/wifi8/mhi.c b/drivers/net/wireless/ath/ath12k/wifi8/mhi.c
-new file mode 100644
-index 000000000000..04eb1f1650c3
---- /dev/null
-+++ b/drivers/net/wireless/ath/ath12k/wifi8/mhi.c
-@@ -0,0 +1,70 @@
-+// SPDX-License-Identifier: BSD-3-Clause-Clear
++static bool vop2_win_axi_ids_clash(const struct vop2_win *a, const struct vop2_win *b)
++{
++	u8 ida[] = { a->data->axi_yrgb_r_id, a->data->axi_uv_r_id };
++	u8 idb[] = { b->data->axi_yrgb_r_id, b->data->axi_uv_r_id };
++	int i, j;
++
++	for (i = 0; i < ARRAY_SIZE(ida); i++)
++		for (j = 0; j < ARRAY_SIZE(idb); j++)
++			if (ida[i] == idb[j])
++				return true;
++
++	return false;
++}
++
 +/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ * The VOP2 on RK3588 has two AXI read ports. Each window has a default port
++ * (&vop2_win_data.axi_bus_id), but the port is selected by a per window
++ * register, so any window can fetch through either one as long as its read
++ * IDs are unique on that port.
++ *
++ * A single port can't sustain much more than one full screen 4K@120Hz
++ * layer: two such layers on the same port (e.g. Cluster0 and Esmart0, the
++ * default primary and overlay planes of video port 0) make the window
++ * line buffers run dry, the fetch rate collapses and the video port
++ * reports POST_BUF_EMPTY on most lines, which scrambles the picture. The
++ * same layers fetched through different ports are fine. Raising ACLK or
++ * the NoC priority of the VOP doesn't help, the limit is per port.
++ *
++ * So the atomic check assigns a port to every window that starts fetching,
++ * from the whole new state: a window that keeps fetching keeps its port,
++ * and the new ones, the busiest first, get the port that leaves the busier
++ * of the two ports least loaded, preferring the default one. A window
++ * never gets a port on which another window may still fetch with one of
++ * its read IDs.
++ *
++ * The assignment of all windows is kept in a private object for the next
++ * atomic check. The plane update takes the port of its window from the
++ * plane state instead: commits on different video ports aren't ordered
++ * against each other, so a later one may have replaced and freed the
++ * private state by the time the planes of this one are updated.
 + */
++#define to_vop2_axi_state(s) container_of(s, struct vop2_axi_state, base)
++#define to_vop2_plane_state(s) container_of(s, struct vop2_plane_state, base)
 +
-+#include "../mhi.h"
-+#include "mhi.h"
++static struct drm_private_state *vop2_axi_duplicate_state(struct drm_private_obj *obj)
++{
++	struct vop2 *vop2 = container_of(obj, struct vop2, axi_obj);
++	struct vop2_axi_state *state;
 +
-+static const struct mhi_channel_config ath12k_wifi8_mhi_channels_qcn9575[] = {
-+	{
-+		.num = 20,
-+		.name = "IPCR",
-+		.num_elements = 32,
-+		.event_ring = 1,
-+		.dir = DMA_TO_DEVICE,
-+		.ee_mask = 0x4,
-+		.pollcfg = 0,
-+		.doorbell = MHI_DB_BRST_DISABLE,
-+		.lpm_notify = false,
-+		.offload_channel = false,
-+		.doorbell_mode_switch = false,
-+	},
-+	{
-+		.num = 21,
-+		.name = "IPCR",
-+		.num_elements = 32,
-+		.event_ring = 1,
-+		.dir = DMA_FROM_DEVICE,
-+		.ee_mask = 0x4,
-+		.pollcfg = 0,
-+		.doorbell = MHI_DB_BRST_DISABLE,
-+		.lpm_notify = false,
-+		.offload_channel = false,
-+		.doorbell_mode_switch = false,
-+	},
++	state = kmemdup(to_vop2_axi_state(obj->state),
++			struct_size(state, win, vop2->registered_num_wins),
++			GFP_KERNEL);
++	if (!state)
++		return NULL;
++
++	__drm_atomic_helper_private_obj_duplicate_state(obj, &state->base);
++
++	return &state->base;
++}
++
++static void vop2_axi_destroy_state(struct drm_private_obj *obj,
++				   struct drm_private_state *state)
++{
++	kfree(to_vop2_axi_state(state));
++}
++
++static struct drm_private_state *vop2_axi_create_state(struct drm_private_obj *obj)
++{
++	struct vop2 *vop2 = container_of(obj, struct vop2, axi_obj);
++	struct vop2_axi_state *state;
++	int i;
++
++	state = kzalloc(struct_size(state, win, vop2->registered_num_wins),
++			GFP_KERNEL);
++	if (!state)
++		return ERR_PTR(-ENOMEM);
++
++	for (i = 0; i < vop2->registered_num_wins; i++)
++		state->win[i].bus = vop2->win[i].data->axi_bus_id;
++
++	__drm_atomic_helper_private_obj_create_state(obj, &state->base);
++
++	return &state->base;
++}
++
++static const struct drm_private_state_funcs vop2_axi_state_funcs = {
++	.atomic_create_state = vop2_axi_create_state,
++	.atomic_duplicate_state = vop2_axi_duplicate_state,
++	.atomic_destroy_state = vop2_axi_destroy_state,
 +};
 +
-+static struct mhi_event_config ath12k_wifi8_mhi_events_qcn9575[] = {
-+	{
-+		.num_elements = 32,
-+		.irq_moderation_ms = 0,
-+		.irq = 1,
-+		.data_type = MHI_ER_CTRL,
-+		.mode = MHI_DB_BRST_DISABLE,
-+		.hardware_event = false,
-+		.client_managed = false,
-+		.offload_channel = false,
-+	},
-+	{
-+		.num_elements = 256,
-+		.irq_moderation_ms = 1,
-+		.irq = 2,
-+		.mode = MHI_DB_BRST_DISABLE,
-+		.priority = 1,
-+		.hardware_event = false,
-+		.client_managed = false,
-+		.offload_channel = false,
-+	},
-+};
++/* Bytes per second the window fetches, from all planes of the framebuffer */
++static u64 vop2_plane_axi_load(const struct drm_plane_state *pstate,
++			       const struct drm_display_mode *mode)
++{
++	const struct drm_format_info *info = pstate->fb->format;
++	u64 pixels = (u64)(drm_rect_width(&pstate->src) >> 16) *
++		     (drm_rect_height(&pstate->src) >> 16) *
++		     drm_mode_vrefresh(mode);
++	u32 bits = 0;
++	int i;
 +
-+const struct mhi_controller_config ath12k_wifi8_mhi_config_qcn9575 = {
-+	.max_channels = 30,
-+	.timeout_ms = 10000,
-+	.use_bounce_buf = false,
-+	.buf_len = 0,
-+	.num_channels = ARRAY_SIZE(ath12k_wifi8_mhi_channels_qcn9575),
-+	.ch_cfg = ath12k_wifi8_mhi_channels_qcn9575,
-+	.num_events = ARRAY_SIZE(ath12k_wifi8_mhi_events_qcn9575),
-+	.event_cfg = ath12k_wifi8_mhi_events_qcn9575,
-+};
-diff --git a/drivers/net/wireless/ath/ath12k/wifi8/mhi.h b/drivers/net/wireless/ath/ath12k/wifi8/mhi.h
-new file mode 100644
-index 000000000000..7a229ea378d2
---- /dev/null
-+++ b/drivers/net/wireless/ath/ath12k/wifi8/mhi.h
-@@ -0,0 +1,10 @@
-+/* SPDX-License-Identifier: BSD-3-Clause-Clear */
++	/* Single plane formats like YUV420_8BIT have no cpp */
++	if (info->num_planes == 1)
++		return div_u64(pixels * vop2_get_bpp(info), 8);
++
++	for (i = 0; i < info->num_planes; i++)
++		bits += drm_format_info_bpp(info, i) /
++			(i ? info->hsub * info->vsub : 1);
++
++	return div_u64(pixels * bits, 8);
++}
++
++/* The CRTC state of the plane if its window fetches in the new state */
++static const struct drm_crtc_state *
++vop2_plane_fetch_crtc_state(struct drm_atomic_commit *state,
++			    const struct drm_plane_state *pstate)
++{
++	const struct drm_crtc_state *cstate;
++
++	if (!pstate->crtc || !pstate->fb || !pstate->visible)
++		return NULL;
++
++	cstate = drm_atomic_get_new_crtc_state(state, pstate->crtc);
++
++	return cstate && cstate->active ? cstate : NULL;
++}
++
 +/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ * Whether a window that doesn't fetch in the new state may still fetch while
++ * a window starts on @crtc. The window registers are latched at the frame
++ * start of their video port: a window switched off in this commit stops
++ * together with the new one only on the same video port, and one switched
++ * off in an earlier commit once that commit is done.
 + */
++static int vop2_win_may_fetch(struct drm_atomic_commit *state,
++			      struct vop2_win *win, const struct drm_crtc *crtc,
++			      bool *fetching)
++{
++	const struct drm_plane_state *old = drm_atomic_get_old_plane_state(state, &win->base);
++	struct drm_crtc_commit *commit;
++	int ret;
 +
-+#ifndef _ATH12K_WIFI8_MHI_H
-+#define _ATH12K_WIFI8_MHI_H
++	if (old) {
++		*fetching = old->crtc && old->crtc != crtc;
++		return 0;
++	}
 +
-+extern const struct mhi_controller_config ath12k_wifi8_mhi_config_qcn9575;
-+#endif /* _ATH12K_WIFI8_MHI_H */
++	ret = drm_modeset_lock(&win->base.mutex, state->acquire_ctx);
++	if (ret)
++		return ret;
++
++	commit = win->base.state->commit;
++	*fetching = commit && !try_wait_for_completion(&commit->flip_done);
++
++	return 0;
++}
++
++static u8 vop2_axi_pick_bus(u8 def, const u64 *bus_load, const bool *clash, u64 load)
++{
++	if (!clash[def ^ 1] &&
++	    (clash[def] || max(bus_load[def ^ 1] + load, bus_load[def]) <
++			   max(bus_load[def] + load, bus_load[def ^ 1])))
++		return def ^ 1;
++
++	return def;
++}
++
++static int vop2_axi_check(struct vop2 *vop2, struct drm_atomic_commit *state)
++{
++	unsigned int n = vop2->registered_num_wins;
++	const struct vop2_axi_state *old;
++	struct drm_private_state *priv;
++	struct vop2_axi_state *new;
++	unsigned long start = 0;
++	bool changed = false;
++	unsigned int i, j;
++	int ret;
++
++	if (!(vop2->data->feature & VOP2_FEATURE_AXI_BALANCE))
++		return 0;
++
++	for (i = 0; i < n; i++)
++		if (drm_atomic_get_new_plane_state(state, &vop2->win[i].base))
++			changed = true;
++
++	if (!changed)
++		return 0;
++
++	priv = drm_atomic_get_private_obj_state(state, &vop2->axi_obj);
++	if (IS_ERR(priv))
++		return PTR_ERR(priv);
++
++	new = to_vop2_axi_state(priv);
++	old = to_vop2_axi_state(drm_atomic_get_old_private_obj_state(state,
++								     &vop2->axi_obj));
++
++	for (i = 0; i < n; i++) {
++		const struct drm_plane_state *pstate;
++		const struct drm_crtc_state *cstate;
++
++		new->win[i] = old->win[i];
++
++		pstate = drm_atomic_get_new_plane_state(state, &vop2->win[i].base);
++		if (!pstate)
++			continue;
++
++		cstate = vop2_plane_fetch_crtc_state(state, pstate);
++		new->win[i].load = cstate ? vop2_plane_axi_load(pstate, &cstate->adjusted_mode) : 0;
++		new->win[i].active = cstate && old->win[i].active;
++		if (cstate && !old->win[i].active)
++			start |= BIT(i);
++	}
++
++	while (start) {
++		u64 bus_load[VOP2_SYS_AXI_BUS_NUM] = { };
++		bool clash[VOP2_SYS_AXI_BUS_NUM] = { };
++		const struct drm_plane_state *pstate;
++		struct vop2_win *win;
++		unsigned int k = n;
++		u8 bus;
++
++		for_each_set_bit(j, &start, n)
++			if (k == n || new->win[j].load > new->win[k].load)
++				k = j;
++
++		win = &vop2->win[k];
++		pstate = drm_atomic_get_new_plane_state(state, &win->base);
++
++		for (j = 0; j < n; j++) {
++			struct vop2_win *w = &vop2->win[j];
++			bool fetching = new->win[j].active;
++
++			if (j == k || (start & BIT(j)))
++				continue;
++
++			if (fetching)
++				bus_load[new->win[j].bus] += new->win[j].load;
++
++			if (!vop2_win_axi_ids_clash(win, w))
++				continue;
++
++			if (!fetching) {
++				ret = vop2_win_may_fetch(state, w, pstate->crtc, &fetching);
++				if (ret)
++					return ret;
++			}
++
++			if (fetching)
++				clash[new->win[j].bus] = true;
++		}
++
++		bus = vop2_axi_pick_bus(win->data->axi_bus_id, bus_load, clash,
++					new->win[k].load);
++		if (clash[bus]) {
++			drm_dbg_kms(vop2->drm, "%s: no AXI port with free read IDs\n",
++				    win->data->name);
++			return -EINVAL;
++		}
++
++		new->win[k].bus = bus;
++		new->win[k].active = true;
++		start &= ~BIT(k);
++	}
++
++	/* The plane update programs the port from the plane state */
++	for (i = 0; i < n; i++) {
++		struct drm_plane_state *pstate;
++
++		pstate = drm_atomic_get_new_plane_state(state, &vop2->win[i].base);
++		if (pstate)
++			to_vop2_plane_state(pstate)->axi_bus = new->win[i].bus;
++	}
++
++	return 0;
++}
++
++static struct drm_plane_state *vop2_plane_create_state(struct drm_plane *plane)
++{
++	struct vop2_plane_state *vpstate;
++
++	vpstate = kzalloc_obj(*vpstate);
++	if (!vpstate)
++		return ERR_PTR(-ENOMEM);
++
++	__drm_atomic_helper_plane_state_init(&vpstate->base, plane);
++	vpstate->axi_bus = to_vop2_win(plane)->data->axi_bus_id;
++
++	return &vpstate->base;
++}
++
++static struct drm_plane_state *vop2_plane_duplicate_state(struct drm_plane *plane)
++{
++	struct vop2_plane_state *vpstate;
++
++	if (WARN_ON(!plane->state))
++		return NULL;
++
++	vpstate = kmemdup(to_vop2_plane_state(plane->state), sizeof(*vpstate),
++			  GFP_KERNEL);
++	if (!vpstate)
++		return NULL;
++
++	__drm_atomic_helper_plane_duplicate_state(plane, &vpstate->base);
++
++	return &vpstate->base;
++}
++
+ static void vop2_plane_atomic_disable(struct drm_plane *plane,
+ 				      struct drm_atomic_commit *state)
+ {
+@@ -1418,7 +1727,8 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
+ 		afbc_en ? "AFBC" : "", &yrgb_mst);
+ 
+ 	if (vop2->version > VOP_VERSION_RK3568) {
+-		vop2_win_write(win, VOP2_WIN_AXI_BUS_ID, win->data->axi_bus_id);
++		vop2_win_write(win, VOP2_WIN_AXI_BUS_ID,
++			       to_vop2_plane_state(pstate)->axi_bus);
+ 		vop2_win_write(win, VOP2_WIN_AXI_YRGB_R_ID, win->data->axi_yrgb_r_id);
+ 		vop2_win_write(win, VOP2_WIN_AXI_UV_R_ID, win->data->axi_uv_r_id);
+ 	}
+@@ -1565,8 +1875,8 @@ static const struct drm_plane_funcs vop2_plane_funcs = {
+ 	.update_plane	= drm_atomic_helper_update_plane,
+ 	.disable_plane	= drm_atomic_helper_disable_plane,
+ 	.destroy = drm_plane_cleanup,
+-	.atomic_create_state = drm_atomic_helper_plane_create_state,
+-	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
++	.atomic_create_state = vop2_plane_create_state,
++	.atomic_duplicate_state = vop2_plane_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
+ 	.format_mod_supported = rockchip_vop2_mod_supported,
+ };
+@@ -2086,7 +2396,7 @@ static int vop2_crtc_atomic_check(struct drm_crtc *crtc,
+ 	if (nplanes > vp->nlayers)
+ 		return -EINVAL;
+ 
+-	return 0;
++	return vop2_axi_check(vp->vop2, state);
+ }
+ 
+ static void vop2_crtc_atomic_begin(struct drm_crtc *crtc,
+@@ -3016,6 +3326,13 @@ static int vop2_bind(struct device *dev, struct device *master, void *data)
+ 	if (ret)
+ 		return ret;
+ 
++	if (vop2_data->feature & VOP2_FEATURE_AXI_BALANCE) {
++		ret = drm_atomic_private_obj_init(drm, &vop2->axi_obj,
++						  &vop2_axi_state_funcs);
++		if (ret)
++			goto err_crtcs;
++	}
++
+ 	if (vop2->version >= VOP_VERSION_RK3576) {
+ 		struct drm_crtc *crtc;
+ 
+@@ -3060,6 +3377,8 @@ static int vop2_bind(struct device *dev, struct device *master, void *data)
+ 	return 0;
+ 
+ err_crtcs:
++	if (vop2->axi_obj.state)
++		drm_atomic_private_obj_fini(&vop2->axi_obj);
+ 	vop2_destroy_crtcs(vop2);
+ 
+ 	return ret;
+@@ -3074,6 +3393,9 @@ static void vop2_unbind(struct device *dev, struct device *master, void *data)
+ 	if (vop2->rgb)
+ 		rockchip_rgb_fini(vop2->rgb);
+ 
++	if (vop2->axi_obj.state)
++		drm_atomic_private_obj_fini(&vop2->axi_obj);
++
+ 	vop2_destroy_crtcs(vop2);
+ }
+ 
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+index 1c2d7d97a6c2..48a852fec2bf 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+@@ -8,6 +8,7 @@
+ #define _ROCKCHIP_DRM_VOP2_H
+ 
+ #include <linux/regmap.h>
++#include <drm/drm_atomic.h>
+ #include <drm/drm_modes.h>
+ #include <dt-bindings/soc/rockchip,vop2.h>
+ #include "rockchip_drm_drv.h"
+@@ -29,6 +30,7 @@
+ #define VOP2_FEATURE_HAS_VO1_GRF	BIT(2)
+ #define VOP2_FEATURE_HAS_VOP_GRF	BIT(3)
+ #define VOP2_FEATURE_HAS_SYS_PMU	BIT(4)
++#define VOP2_FEATURE_AXI_BALANCE	BIT(5)
+ 
+ #define WIN_FEATURE_AFBDC		BIT(0)
+ #define WIN_FEATURE_CLUSTER		BIT(1)
+@@ -221,6 +223,40 @@ struct vop2_win {
+ 	enum drm_plane_type type;
+ };
+ 
++/**
++ * struct vop2_axi_win - AXI read port use of a window
++ * @load: estimated fetch rate in bytes/s, 0 if the window doesn't fetch
++ * @bus: AXI read port the window fetches through, or last fetched through
++ * @active: the window fetches
++ */
++struct vop2_axi_win {
++	u64 load;
++	u8 bus;
++	bool active;
++};
++
++/**
++ * struct vop2_axi_state - AXI read port assignment of all windows
++ * @base: private object state
++ * @win: one entry per window, indexed like &vop2.win
++ */
++struct vop2_axi_state {
++	struct drm_private_state base;
++	struct vop2_axi_win win[];
++};
++
++/**
++ * struct vop2_plane_state - plane state of a window
++ * @base: DRM plane state
++ * @axi_bus: AXI read port the window fetches through, the default one of
++ *	the window unless the atomic check assigned one
++ *	(VOP2_FEATURE_AXI_BALANCE)
++ */
++struct vop2_plane_state {
++	struct drm_plane_state base;
++	u8 axi_bus;
++};
++
+ struct vop2_video_port_data {
+ 	unsigned int id;
+ 	u32 feature;
+@@ -356,6 +392,12 @@ struct vop2 {
+ 	 */
+ 	struct mutex ovl_lock;
+ 
++	/**
++	 * @axi_obj: AXI read port assignment of the windows (&struct
++	 * vop2_axi_state), with VOP2_FEATURE_AXI_BALANCE only
++	 */
++	struct drm_private_obj axi_obj;
++
+ 	/* must be put at the end of the struct */
+ 	struct vop2_win win[];
+ };
+diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+index 7c48b440cb29..83203d18865b 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
++++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+@@ -2577,7 +2577,8 @@ static const struct vop2_data rk3576_vop = {
+ static const struct vop2_data rk3588_vop = {
+ 	.version = VOP_VERSION_RK3588,
+ 	.feature = VOP2_FEATURE_HAS_SYS_GRF | VOP2_FEATURE_HAS_VO1_GRF |
+-		   VOP2_FEATURE_HAS_VOP_GRF | VOP2_FEATURE_HAS_SYS_PMU,
++		   VOP2_FEATURE_HAS_VOP_GRF | VOP2_FEATURE_HAS_SYS_PMU |
++		   VOP2_FEATURE_AXI_BALANCE,
+ 	.nr_vps = 4,
+ 	.max_input = { 4096, 4320 },
+ 	.max_output = { 4096, 4320 },
 
 -- 
-2.34.1
+2.55.0
+
 
