@@ -1,89 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794446765;
-	b=zKw3IWdewLFiIOx7pt3jKsOPtH5bJ8rPwN2o3ptDZ/sWkxO797yukG4dRC/rgK5rkWfO
-	 FjzJIF2Iv7lB14MnhcFlPz9NoWSF+tJPB3CLfAJf9wnnA7quiYLdJS/DTu5BQHzMX9szi
-	 l+sJU9UVAmoq56QOR7mP565HEntFs4S+Avlvej0fEzskqim9H9GjrgDArdw4iS3ZCl23H
-	 ay7ipNec/zhGiFKcmlBgYXMHe530u/ohxoGbG0Pxzk2g1tX7yiLoBbjMKyN3ITGi4OiIr
-	 EsR8y3nkEt9aaiPhQQ6ZLAS/YZgsajxsm2EVwTKDZEQp2hn7sqJeY7Dsg1cpi2iUXMg==
+	t=1794446803;
+	b=yt+B+rqNSllGcmUTyeACKcO4jFPfPgKOI+dmvjoUfN6INJfAaTWXosQgDy/Yx6ilmfCC
+	 +SA8Rh3AlIYYLCyhnCe5Zw8hnZ/8QWxzyn1E9tH4WNAJn+cvW6FUK2vnKJDBgpfkM3lPR
+	 a8NZK7EZlbZPgmAJQYsnjotGXfWdTMQmLGLWC+HYr5RQ1Qp4sN08zgIhNdCIIGkb8To+f
+	 0ZNOizqAa+TQ7UEb4F92y4bT9hSsQEtFScqL6eYtf4SGkgvV+uSxXBkk3oEYQ49veP+9d
+	 u7jmHte2zsBFFXmATF4LSeda7QyzXI1hKpDlUpHhJOX432vgFD6SHpnwXYfKvrcmzjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794446765;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=m+Hm8h27H+tMrn8DnDQGWdsE10AXH5b7GXOSSBSzWEk=;
-	b=AQBrcfNgE2+nfvQZgRDaMHCuC0td3317jw2R8BvNiesAf26P/o0A0fCdNCNk8/q/worn
-	 cKjEPF5y6uPzHwyFNnDNmTu0hClgYXgYMVS03bNeVPVV6o9Zoeoqv7YUsjIKypvjcYQAJ
-	 5L0IOqkLijkxwPqasD47pVDcytB4pwO7oGgC/94YCNDPlWV2TMZ+y68GytvUeG5sIMoKJ
-	 /jXHyp0mBaAk/zfgcN4uifZvgnPnEvPpSMvumYdZiTcPNIEjlzSgvjvj1qFBcb9PWoBrQ
-	 1To4j0wSC1odIcNAJMwql+3dxNikCuYf/bWrgf8zpLdDgi6F8Wz/5lJxGNQ4aCj2lCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794446803;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 User-Agent:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=+YyEBXhjgmcMZn37iI1dqgWfoqMUWMnkNaOebmcsRTc=;
+	b=0r14S4SzNvsWbd+XPcmjp4X6EOuuikSK8SxZq6BlirlN4rnbdvEBVy+puw8vBJCPw89B
+	 wMgAKQhnwDbCwGK/8kCLZ39x0pQtCiFd76/1SJbkR7Gt69DM5uZUiOfnD0LCIGIrrpEIx
+	 gl+MxsWNtULUNYqLzaUxnNui5EOoT89F4zvU7Bm2ZvX4R7jnswjZxYqu+XVX3Q9e5a0Hr
+	 1sheWzXHUKyVdcLYVW9NYos+8lbX4/9SMPs+U/9rLJtr+ScjAMqc/V+1psN6XD8M+JU/P
+	 N/Kc9+TX8QGCZp9MH07qoKBq1ifaVFIwGoVoVExchmYC10KigrejWoEXH9RtiKMopkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZsYPY1kc;
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KUyPXbpH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3597B606A330
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:26:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3597B606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E5D606A31C;
+	Thu, 12 Nov 2026 01:26:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZsYPY1kc
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1931ff67a29so6665739c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:26:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794446764; x=1795051564; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m+Hm8h27H+tMrn8DnDQGWdsE10AXH5b7GXOSSBSzWEk=;
-        b=ZsYPY1kcOQ1ZkbpwRFCLeOhKMk+CXgiVRlqpcHA2KRBb/wtWm/38P5ptumhbwtMSMs
-         4Gjx5DC55qOIiy9xR8C5F2UUSvW1hdJ46sqxWm476o9UBQbatqeXDYrDStIwCCQf9gTs
-         1Y0V+4AepBSMO5tvFvdmYXeomHELECh7nIsRzOM1ukxztuJBZWrh+f0DrI/kX+SzGMoA
-         42YkjlF71Om+oH1VlmZHRDR/0y35e3VXs9UL6FvlfOhweg6D0LxU2MTirGODKqbeDuLx
-         RajSdUIwg1iExbxEMTMSyPSPErbxU4Hg8IEeenIR/z9Ff3waNPkk/Oxjf8VEG++ZPq9T
-         OGzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794446764; x=1795051564;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m+Hm8h27H+tMrn8DnDQGWdsE10AXH5b7GXOSSBSzWEk=;
-        b=Tb6JbDOPaaJo5ORWbTwEZ/kZeDRAzvXcysU3OG/3jsXvJ4piR6p5Ojt9w9vDhAfueZ
-         sfXvj6pHkK9upqXfdW3TH1JuRU707wW3HYukTzvaNXUhuLZBFCnAUwCTHfLTHeyboNvT
-         kTEm5fBvLL5U29aSLugBEbAQPnK8tACItULP16kEdGqcM8/0WL/Gahypy2wbEWqh4Qu3
-         WzdkUgTi9JIdzMhFneXPg6grUTU5TWpwwpHwCQ9tV5TycI8B4pZAr3A5vYxUvHP0nSHE
-         pAAu0z0fOGiAsRKtY3acwriWLpLR1UTlykrCLmtucA+/NkTFyz/zbOaPIhNCN/QhEXmR
-         FXnw==
-X-Forwarded-Encrypted: i=1; AL+hErH8+AQn3Z1RSvu9IWfzj+lVE+V2rMDmuJOlrUHQzS/VhLgHzw4dq59IJguWn9gmizdwjyhyoDBtWchlQnw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ApoWXE7dKyzq71qc4dMzXtNFse+o8h1s2jSoqbEwenG5ZmeU0
-	n0dl5hHOG2JCz7uKQ74a8XsD310uZmk5//qPXVDMgTbC11pfMOKQ83Mo
-X-Gm-Gg: AYBFou2g8V4kzrFKWYN4a4P58q1ZpSvt4Y2vgweWAINqPcK2AF/sD74QOI8V/W/zSTG
-	TDAT72Nzckb2zHKr/w1sfvkNrKZpDkNLxhb1P0foEuBfoS085Ye/GWmTJi78Efh6gZ+z6iKZDMR
-	vAOkjp9arkxNJ5bF/x7mQbEKXK1pnZ2IDDDWT2rdHG7QsfA3k3GjapeAulTFuGuJg3Fek4KCuTI
-	PkrO6bys5QtIw6cXZ0WyReCBQdgPcPIOrxyOehk8vdi0IDLgQ5Lusse1SEcEJG1gW0YKB4T+MEX
-	VIMHRmlxgRmj+mmRmtH6U9jJaOp0F8SUgUi9yeI6t3Pui4NOAA8LJ2DBq5vPDh1WRNJv/jNBfAz
-	4BLiVRRbO6E2jKr9seX7+a0T3qFmC+G0Y4pJU5O7H07DFHtx75Hk6S++PLr5W4nass1FK/RDbUv
-	oOCYdnOcWYS/H85h9U+lzsTx7MOTGF6uWfxqkT0ZeCu1fsTLy2OpypYDG6Fk8+EXi3yj2ny1VXO
-	o5VwtxVyyyTgRW2l5U3V55GlPlLCcVH+TUH6+dw4WJ2Zn1cFlWIA48qG5TUF9vq6NJZC1Jtg7kA
-	c1z+C1cuqLi2sx9iVsmoflmJ7aM2c8ZVwNTOd4uOmXg/XqH/uQjsYIX9sUSLevFRwlf6NBsPDFJ
-	OS0iL
-X-Received: by 2002:a05:701b:21c3:b0:1a5:9abb:fdd7 with SMTP id a92af1059eb24-1b3c02fdb4fmr3591375c88.9.1794446764133;
-        Wed, 11 Nov 2026 17:26:04 -0800 (PST)
-Received: from [172.19.1.42] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5890e04sm20110159c88.2.2026.11.11.17.26.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 17:26:03 -0800 (PST)
-Message-ID: <c52e7b57-9d40-456c-a2f6-545c0bca9b46@gmail.com>
-Date: Thu, 12 Nov 2026 09:26:00 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KUyPXbpH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4237C1F00A06;
+	Thu, 12 Nov 2026 01:26:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794446802;
+	bh=+YyEBXhjgmcMZn37iI1dqgWfoqMUWMnkNaOebmcsRTc=;
+	h=From:To:Cc:Subject:Date;
+	b=KUyPXbpHSB9nY2FL1WkId3QaCaryu5mOCZQ0mg8StEbgu3nNlLWbnYLnDU0oXeOTy
+	 A0CoD3PjkfHoi6ZqZYXb1WLev5OQYYirs1zVFqjNg8iTJlCSRt4yZMemxj+jPRNqZ8
+	 LIYV9JvZGWBbdAMYNj/zeNnWMDehEXTiHGMFOTtJU0Cm3jWFPx9eWU3rR48evzQezk
+	 G8WJByJerlUF9q6CVtRRy3J0xknJjxmsf7KrFLZzAldBCBNRStOVZIWrSrwu1z4P7G
+	 ZM/jvR/5g790OYQlpjvwWYUuRzKzpgI00bCpyBj0oIIVhgD4C5QwVXD6RxR0R2c9iy
+	 DpP0cRsOPKftg==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Subject: [PATCH v2 00/13] tracing/probes: Fix various bugs in dynamic probe events
+Date: Thu, 12 Nov 2026 10:26:39 +0900
+Message-ID: <179444679892.345731.5271591537517106679.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+User-Agent: StGit/0.19
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,56 +59,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
-To: Andy Shevchenko <andriy.shevchenko@intel.com>,
- Victor Chernyakin <chernyakin.victor.j@outlook.com>
-Cc: andy@kernel.org, conor+dt@kernel.org, cwweng@nuvoton.com,
- devicetree@vger.kernel.org, dlechner@baylibre.com, jic23@kernel.org,
- krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, nuno.sa@analog.com,
- robh@kernel.org
-References: <20261104091136.151269-3-cwweng.linux@gmail.com>
- <SN1PR12MB2528F7F6F04801AB698A5A60A5712@SN1PR12MB2528.namprd12.prod.outlook.com>
- <avR2DaxSJJwpnWP9@ashevche-desk.local>
-Content-Language: en-US
-From: Chi-Wen Weng <cwweng.linux@gmail.com>
-In-Reply-To: <avR2DaxSJJwpnWP9@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
+Hi,
+
+This is the 2nd version of the series fixing several bugs in dynamic
+probe events (kprobe, fprobe, uprobe, and eprobe) and BTF/fetch-argument
+handling.
+
+Here is the previous version:
+  https://lore.kernel.org/all/179418408457.227715.1485179201014819821.stgit@devnote2/
+
+This version fixes some comments pointed by Sashiko, and add a new
+bugfix[09/13].
+
+- [01/13] Check whether the target event is enabled or busy before
+  unlinking a sibling probe during multiprobe unregistration, and add
+  the missing checks to trace_uprobe and trace_eprobe.
+- [02/13] Enable newly appended fprobes and uprobes immediately when
+  the target multiprobe event is already enabled, matching trace_kprobe
+  behavior.
+- [03/13] Fix BTF bitfield parsing for non-kflag bitfields (such as
+  enum bitfields), select a narrow container fetch type to avoid
+  out-of-bounds buffer writes, and compute bitfield extraction
+  parameters from the container width with bounds validation.
+- [04/13] Add missing BTF_KIND_PTR, NULL, and BTF_KIND_INT checks in
+  btf_type_is_char_ptr() and btf_type_is_char_array().
+- [05/13] Use explicit fixed-width integer types (s8/u8, s16/u16,
+  s32/u32) in eprobe get_event_field() so 1-byte signed fields are
+  properly sign-extended under -funsigned-char.
+- [06/13] Disallow attaching eprobes to fprobe events to prevent
+  potential recursion issues, matching kprobes and uprobes.
+- [07/13] Check FETCH_OP_UDEREF before advancing the fetch instruction
+  pointer in finalize_fetch_insn() so user-space dereference string
+  arrays emit FETCH_OP_ST_USTRING instead of FETCH_OP_ST_STRING.
+- [08/13] Reject array specifiers on non-dereference string sources
+  (such as $comm or symstr) in finalize_fetch_insn().
+- [09/13] Fix memory leak of tail in __trace_uprobe_create() when
+  generating a default event name.
+
+Minor updates/cleanups:
+- [10/13] Allow the symstr type on function entry arguments ($argN) in
+  return probes (FETCH_OP_EDATA).
+- [11/13] Reject empty fetch expressions before :%pd and :%pD in
+  traceprobe_expand_dentry_args().
+- [12/13] Validate the command prefix in kprobe, uprobe, and eprobe
+  creation when the colon separator is omitted so invalid prefixes are
+  rejected.
+- [13/13] Propagate actual error return codes in eprobe and fprobe
+  creation paths instead of overwriting them with -EINVAL.
+
+Changes in v2:
+- [03/13] Check (bitoffs % 8) in get_bitoffset_of_field() so unaligned
+  byte-sized kflag=0 bitfields also record ctx->last_bitsize.
+- [08/13] Add Fixes and Cc: stable tags.
+- [09/13] Newly added to fix tail memory leak in
+  __trace_uprobe_create().
+
+Notes:
+- These bugs were identified and the fixes and cover letter were
+  prepared with the assistance of an LLM coding assistant.
+
+Thank you,
+
+---
+base-commit: be94710b1f6ba1bea33e73129c110af80e999b2d
+
+Masami Hiramatsu (Google) (13):
+      tracing/probes: Check enabled and busy state before unlinking sibling probes
+      tracing/probes: Enable newly appended probe when target event is enabled
+      tracing/probes: Fix BTF bitfield parsing and out-of-bounds buffer write
+      tracing/probes: Fix missing BTF kind checks in char pointer/array helpers
+      tracing/eprobe: Fix 1-byte signed field fetch in get_event_field()
+      tracing/eprobe: Disallow attaching eprobes to fprobe events
+      tracing/probes: Fix user-space dereference string array store type
+      tracing/probes: Reject array count on non-dereference string sources
+      tracing/uprobes: Fix memory leak of tail in __trace_uprobe_create()
+      tracing/probes: Allow symstr type for function entry arguments in return probes
+      tracing/probes: Reject empty fetch expression for %pd and %pD
+      tracing/probes: Validate command prefix in kprobe, uprobe, and eprobe
+      tracing/probes: Propagate error codes in eprobe and fprobe creation
 
 
-Andy Shevchenko 於 2026/11/11 下午 10:05 寫道:
-> On Tue, Nov 10, 2026 at 08:08:03PM -0600, Victor Chernyakin wrote:
-> 
-> ...
-> 
->>> +	if (!num_channels)
->>> +		return dev_err_probe(dev, -ENOENT, "no ADC channels configured\n");
->>> +
->>> +	if (num_channels > MA35D1_EADC_MAX_EXT_CHANNELS)
->>> +		return dev_err_probe(dev, -ENOSPC, "too many ADC channels\n");
->>> +
->>> +	channels = devm_kcalloc(dev, size_add(num_channels, 1),
->>> +				sizeof(*channels), GFP_KERNEL);
->>
->> Couldn't size_add() just be regular +?
->> (Question to Andy who originally suggested it)
->> We've just checked that num_channels is small and won't overflow.
-> 
-> While that's true, the other aspect(s) of this is in play. Namely we want to
-> have the same pattern over the kernel that makes code robust (tomorrow some
-> cases can be modified unnoticed with opening such an issue again) along with
-> the potential of finding those patterns and update in case of mass-updates
-> of low-level API, and I have heard for the matter of fact that devm_*alloc*()
-> are in the plans to move to something like k*alloc_obj*() or k*alloc_flex().
-> 
+ kernel/trace/trace_eprobe.c |   39 ++++++++++++------
+ kernel/trace/trace_fprobe.c |   26 ++++++------
+ kernel/trace/trace_kprobe.c |   11 +++--
+ kernel/trace/trace_probe.c  |   91 ++++++++++++++++++++++++++++++++++---------
+ kernel/trace/trace_uprobe.c |   79 +++++++++++++++++++++++++------------
+ 5 files changed, 168 insertions(+), 78 deletions(-)
 
-Thanks Victor and Andy for the discussion.
-
-I'll keep size_add() for consistency and future-proofing, as Andy suggested.
-
-Thanks,
-Chi-Wen
-
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
