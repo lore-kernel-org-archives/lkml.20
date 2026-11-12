@@ -1,52 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794442692;
-	b=nzpQwt/yL0y+3zxhn/V/bQA6ote9BHV2FV4DZlXzeZCUcVf9u3b4lr0XkujC4/F+MVRG
-	 +/eUxb4/v32Ha7XVXPF5cUUsOVHe80mCzL+XOmPWytea+HwIhGB0tFF8T9yGBvcY/bzno
-	 eVJfIDpoWgYdsAiJc2j+vGk07ZAJqgwSJLiKyvqctEXySrCoYyjt6cTwAT/cLW9PHB+YP
-	 6cJ7DpZhn6QJCORAjbTCuQNeGCxbk2oNgDzz5M4ecehzNv3ylpEsZr8HDCVusud12jIws
-	 pCckrDhektcmZAHHoDiNiiKn5ZzBROoIuoqOtyWFN5VHhvlRyi0j22ko/eFaqtiJ1Ew==
+	t=1794442696;
+	b=UziF9pYybGtPMpxASpliqvDm5Ji+DmEbAc/cjUGM+SH51IfwdxAuXRepDwk04pARx6o9
+	 7Jiwb7Gm+ahPni9Zsx/k5ar/Z9WbZ7zaG/CO8NpgWIy2mAbHbHJ3HC1JMdoqB/6OwvLUb
+	 AwzQ+zVw86HQXOPLBjrxBTPgJoCJ0laj/YIaMD9/lqZkEFg6ygGs+M2ZWZOTNS+C6cNOM
+	 QgIq35mG0hFgqvnYsj4hagl/X23tzJW4vCLboTgYHsNr2vnjtcdSJoykzaY1Zwvu3cRoj
+	 H6wRv83Fe3admz5+B18kIv3eCMZZiwmwvibZxh1P7ipSatiMmRD34t3GN/pXx7yq5Nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794442692;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=O3I8mf8n3FTJhmHTEesrftYjlGJiq3bHpKQ86tB55E0=;
-	b=pIAAYOizWfsjVoRN+Kmvf6eQx80SRZwjcYQdNhI1u7KpXVzhFVHAXmYQM8X7x4Eb7j4P
-	 di+xdLuPS6Wp6TwM4JZNMWXe2JQNzdGyN8izdcx0ZaNGIIz8ULp8yyyKwBuvXv/bEto3M
-	 Na6Mp71cQSE2UOiMg9OlWWoNW/EPH8d48BsXG4MnWcz+bvbFZz5Wvy6YcQlJ3RRyBKVk7
-	 Um7zqrwzOYcNHOFXyWRMHsXTkulJ3W3XfeeUMyh5j26f9XldLtGZZfKqbRHie2NYTA8OS
-	 D9wLlZjCZS7VpG+YUoEreCRM6LDONz/84NHNQ0nWhZ/t/frW3MqrvpbShnh1mRni3TQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794442696;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=z3bxrbFKkTpEcIw/694YZcQAAJ2hY4OxEzRQP2+fKzs=;
+	b=itBY2W+zsFNtA6++3UNSmvOFlhx3OCno+sbB78YTYKvU486MmzIpCRPCYOb6Se6K3cim
+	 HCryow2PzDUK5GQiE6zcUw/y9C/VDzkHS0UKq+f47LQfKbPDvOAPYezdWwEbNSbMCxAFD
+	 uia+HE5v/nfOv6OCQmqYbp4PwtVfJ6M4ANePDb6JiZIzRmwK09uBWca/buAAyPVlyVGj3
+	 8verijT+ZJur04/tizdpjS85TEZo0YKkHUSJIVbLeoiQJLIFm0hwZDgKWQHOP6wVgKOlV
+	 MW6fsmw1revGouPp3x6i2/5pcJVGjIzr+Z8jrBKPUM/8RFjYAsgWgOhHScGAXAXU1DA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S413R+Bc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=ZrRhNlrY;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 6D167606A32E;
-	Thu, 12 Nov 2026 00:18:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE60F606A326;
+	Thu, 12 Nov 2026 00:18:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE60F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S413R+Bc
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 932981F00A0D;
-	Thu, 12 Nov 2026 00:18:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794442692;
-	bh=O3I8mf8n3FTJhmHTEesrftYjlGJiq3bHpKQ86tB55E0=;
-	h=Date:From:To:Cc:Subject;
-	b=S413R+Bc22sJoo2RIkHceaS+59Pmlo6oabqwwvtpdBxK9l3OFjYrYKQ7dV6Go59IN
-	 4cLpBhUq5Mh8XGtjnoKmk3hTiG+E0dIWYupcKkqWyKvqeg+IIe7yV+qVgzc4nw9hom
-	 IkDFPQZPzV8yXcKaSFQ0eRMynDAbhz5GW6/gwGDj1r2+BgyPcIexkVM29lbdvu4vp/
-	 r154R11iK9Is3AFiGYsSM3fwfx+hQUkc6wFm9hWkFm6mqjRiLLk/4K284MBQgIf5zI
-	 b8PCk72rw8Z02JxuLlu+SojsccTY2Yb08ny2B7neR2aNB+6mPq8Xh8oKvWVydrjUEw
-	 wqF1AVQr/5wPw==
-Date: Thu, 12 Nov 2026 02:18:08 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [GIT PULL] TPM DEVICE DRIVER changes for v7.4-rc3
-Message-ID: <avUFwDt0ZQjf2os-@kernel.org>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=ZrRhNlrY
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A6EDB40E0222;
+	Thu, 12 Nov 2026 00:18:13 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id JJGyk9gKJ3av; Thu, 12 Nov 2026 00:18:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1794442690; bh=z3bxrbFKkTpEcIw/694YZcQAAJ2hY4OxEzRQP2+fKzs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZrRhNlrYInjq8W95c6Wszmwi9s0dscV7SbTx6PBfhuQlvPM+g3g3FcJQBcKN9Mmft
+	 bGgQCsyDk2BU/ZmP1FMQctzE0fm/eIF1949yiJeNL6QD84Id+So5ztIHGkePqRMxG2
+	 Q6Qe5aHsT3aCLsTDi8elt3HRkbgRGTvxm+l4CAeEjA1qVXxdeQ2HaohYZWlN/3pAhF
+	 7OxV8y04OI4WpAVichrFIPl92wfzz+Vqcd4LJ5KbxaiRzaZ3QwwK7spApt+WGGM3yc
+	 YM17jXn76MpIosY0fWerrnCno1ONS72eunXlyepBMSQK7PexqGk9zJ6I3YvUR5D+oX
+	 0eUetBeCGWeqPdst/0VNG3H91M64/U9nymmUXABbUrJ5jEanZkZS0lzuNdU9K6syRl
+	 FiZhqavdQmo76RwoSgmD8Wm3AWEGcaT1MI3fgkxjlwfkntrkBmqWGr0qO0PhYhlPFu
+	 DvE3bJioOZ+9c2kZTlw3yZUbTfmINiGaNl8Dtt3rk8EkWIarBjErObyMQCqJ0qy1Xd
+	 OvyVXHelsNGfeRW3kcmIeY/ryVO1VdKOuD4hIxuAYSGBtnjjAd8d9uim+BQjmuwRro
+	 kldIFzVlFjeNSnw8du4WwSbnI7jmUrzeP35WKUt/+vSWq4UCxKj8uhjc3MuACkaBB5
+	 pOUH/S8apA6Q4C5sk+S/q9Dc=
+Received: from stx.tnic (unknown [209.52.143.85])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id BB26940E0218;
+	Thu, 12 Nov 2026 00:18:03 +0000 (UTC)
+Date: Wed, 11 Nov 2026 16:17:52 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Andrew Luebke <andrew.luebke@gmail.com>
+Cc: Tony Luck <tony.luck@intel.com>, Aristeu Rozanski <aris@redhat.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] EDAC/i5000: Fix the slot loop and re-enable the
+ driver
+Message-ID: <20261112001752.GCavUFsCwZIRkfLI7T@fat_crate.local>
+References: <20261111232529.407154-1-andrew.luebke@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,58 +81,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+In-Reply-To: <20261111232529.407154-1-andrew.luebke@gmail.com>
 
-The following changes since commit b3dfbde62cf1981c4638939c159dfd087b7a72e9:
+On Wed, Nov 11, 2026 at 03:25:27PM -0800, Andrew Luebke wrote:
+> Analysis and test kernels were prepared with LLM help; the tests ran on my
+> hardware.
 
-  Merge tag 'linux_kselftest-fixes-7.4-rc3' of git://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest (2026-11-09 16:39:05 -0800)
+Just out of curiosity, was all the energy you've spent on fixing this
+- especially the AI tokens - worth the effort?
 
-are available in the Git repository at:
+This chip is documented on something called the retro web:
+https://theretroweb.com/chips/317 and it says it is from 2006 and it sports
+DDR2 memory. So that is retro alright.
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/jarkko/linux-tpmdd.git tags/tpm-v7.4-rc3
+The HP xw8400 has a whopping quad-core Xeon in it.
 
-for you to fetch changes up to 03fcb358249dc715124b3616f814ea0ecc6ec36c:
+But whatever...
 
-  tpm: acpi: Fix memory leak at tpm_read_log_acpi() error path (2026-11-10 14:52:19 +0200)
+Now, if you really wanna do this, can I jot you down as the one who will be
+testing any future patches for that driver?
 
-----------------------------------------------------------------
-[GIT PULL] TPM DEVICE DRIVER changes for v7.4-rc3
+-- 
+Regards/Gruss,
+    Boris.
 
-Briefly described this PR tag contains the following bug fixes:
-
-  1. Add the missing check of the return value of crypto_kpp_set_secret()
-     when creating an authenticated HMAC session.
-  2. Check the payload size of EVENT_TAG entries before reading them, in
-     order to avoid out-of-bounds reads with a truncated TPM 1.x event
-     log.
-  3. Flush the timeout work outside buffer_mutex in tpm_common_read(), as
-     the work itself takes the same mutex, which can lead to a deadlock.
-  4. Fix a memory leak of the event log buffer in the error path of
-     tpm_read_log_acpi().
-
-No other bigger story here except as I've put tpm2-sessions.c to my private
-"address the vector" TODO-list. It's something I'd really like to refurbish
-in near future as secure boot enabled hibernate will also depend on it (an
-upcoming feature).
-
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-
-----------------------------------------------------------------
-Eric Biggers (1):
-      tpm: Check return value of crypto_kpp_set_secret()
-
-Guanglei Zhu (1):
-      tpm: eventlog: check the payload size before reading tag events
-
-Hyunjung Ko (1):
-      tpm: flush timeout work outside buffer_mutex to avoid deadlock
-
-Takashi Iwai (1):
-      tpm: acpi: Fix memory leak at tpm_read_log_acpi() error path
-
- drivers/char/tpm/eventlog/acpi.c  |  4 +---
- drivers/char/tpm/eventlog/tpm1.c  |  7 +++++++
- drivers/char/tpm/tpm-dev-common.c | 12 +++++++++++-
- drivers/char/tpm/tpm2-sessions.c  |  4 +++-
- 4 files changed, 22 insertions(+), 5 deletions(-)
+https://people.kernel.org/tglx/notes-about-netiquette
