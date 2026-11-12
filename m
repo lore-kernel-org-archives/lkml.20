@@ -1,113 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794474940;
-	b=2yR/cfQf5+6AHosjOtiMOcD5GvFeteKUwaraV/qNJrxox3ma2i7mBQ4Zy3q85Es3cvFv
-	 pXcd2HrSyiuC2QzO627TC36yDpH1/U6oZysgxIa/SpuclMG3cX3PVCyj+QeDzIFA0EUkO
-	 o/ALpWPu+Wd2iL3SNKOeiCoFTLr5UaG1xPNqqcIW8DlaTNJ8egQJw/zjmkoMMFx+wDw2d
-	 IOn8jbAy4B4GD1ymhZG35lsQFY4j3ow36EgwFBKbH4Holj7dDK+brZTuWqNfX86iBLhus
-	 Gt9ZMacoKFzXuHlPMu3qQyTRuxylr9XPT5Hoxg0ZXdSf9ZdjTlOVGjr/Rq24RbHwYlw==
+	t=1794474960;
+	b=EMMS+VN441anWfdrQfAcpb9NeEwl+jEh3H7gXyOV3BRn1vp3TCD5xCgbyo9WGKE6hBpD
+	 oc9ci/PcAE5xJDs/6S9qSwZeoCfiuoxkgNJk+GLmwj6GW5XgeAu+rASCMEabDdiTlayaM
+	 Cas9w5z/y6PlL9tKkXr5Dj1GTKr9q5AOe67hFanlfZpMoDnbuIXwNb5gyjgpcnW6C6EJl
+	 r7BfQ4Wnhpr3rWDjUovKHiB2PN4N6tzqW3AQW7YrLr5fnu6Y+/1l9oFWisXg3Plc68sXz
+	 lS9hvO7k37Mydlc7wYvcVoSZHkg19VPFAPFBxooqvngG8HV+KOl+2P5yeQaE+AMssfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474940;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=in0wT3kSv8v4L0CNiG/ZIgaYFBbYCntKXbAs/Vd5cP4=;
-	b=XDCMVPAItqSq7QlvQA3HRR4vzO/JRxYm3HAoWtux2VRsE3iFj6f4Xkyawz7WLmWlsHmd
-	 fgJjk/z1y7xjMSGDulAfOeOg0kp78Reb4l1oIP9MsO20FpWBcG29Xg8n18CUAykjSJn0h
-	 7mVIKRwvrr+9NC7/wK2d12BCIFN1jH+wIDChqYJ1AHCF4Jq4isAGdetsufvMV+xLV9GRn
-	 973WOuf/KoHhqD8cT/UcqMjexY2xWtg6V+D75Jyy4yUWs/J9WLWlAfL3xMY009ShApoyX
-	 XMM385RHgnqjVyOpV+bByv9iaW7VfvlTZhz7lLfFvDJzXuLw4NqGOrs6OrngGyV6lqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474960;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=MEnoxCVc3mFsHG46MOit1/TCAB8kmZyxFDbzRzr1Hwg=;
+	b=DD/kP40Jp+pKrazTxxrt3fDIJdgLecUT3D2zHW6pgNM2331yZNRSozO4C8HNu1ftpcFU
+	 XZPf5pqVfCkNrxJC1XwhUxJDn1qUy+Wr3W0SowPhxndWI7xrb90vrVeJdZEB7FrmLmR/L
+	 gQEkaDLByPcauaCO6TUG3+wIJVA4sAog42l1TL26x0Mf0iovoHKPY5AN2W5JD+RXx/mVK
+	 zHEvxN7KS3bVgzBgtWSRk86hxEmyfQrqNEnbo+9milaZWHJ0P7zyLPbqM0EpQE/ijdYss
+	 gZYGgtD3sRqIv4VJQ00taZZBlhOreg1xA+18b1+ZLq9c2hcyoBbUcI+A9EZ6Z9Nqtqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=aMuTvq3q;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RBjixnsW;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PqDq8bmM;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Z1yUwpIg;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8252E606A891
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:15:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8252E606A891
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822DC606A32D
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:15:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 822DC606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=aMuTvq3q;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RBjixnsW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794474938;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=in0wT3kSv8v4L0CNiG/ZIgaYFBbYCntKXbAs/Vd5cP4=;
-	b=aMuTvq3qIoH43sv+1a7P8mAUyk7hzIxGncQhFZS7l5317fpGTaPqEkVvZk8AEWtDZgKSf/
-	TaUUy3y1dNhIVRxz2oO0WwtmwY2WePLpuTTo+D0BoeK6BYN8YQ/YcUyZS/yDPgRp54OsGX
-	Tk62qEa3stwnAzxKVZq2EX1rI2opIuU=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-595-rEcwnDQkOsqeK_dPZwFGMg-1; Thu, 12 Nov 2026 04:15:37 -0500
-X-MC-Unique: rEcwnDQkOsqeK_dPZwFGMg-1
-X-Mimecast-MFC-AGG-ID: rEcwnDQkOsqeK_dPZwFGMg_1794474936
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-490d2ac331bso3553544f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:15:37 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PqDq8bmM;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Z1yUwpIg
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC9E8SA480590
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:15:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	MEnoxCVc3mFsHG46MOit1/TCAB8kmZyxFDbzRzr1Hwg=; b=PqDq8bmMBO3nXfxg
+	aSqmeUQiTKT/yujxY7YIbp9ISBVRoCWHUkhBG+ZQW4PKPkfKUY6STNVS/L+1cxYz
+	SNiRyHQZsNJMbiALMTPbQ0j8zArDup57HdMCO+HOUWfiN22b5FdhaAf0DvFgvzpv
+	npm8GB+mnNKP2Oh217jLN4ZDXKYtAUvhGbgEp55P/JIwbYxTgO+tLRs4Fg4hn2tQ
+	0p1/xxlVKRcr+K7krvBTRli16kzrU8MMVPGSiYH+051WDMdIWNTTOiCgnpPLm10g
+	a/gRG1BV0URfMYAoIzlhvxcauWH7j3mxXieU+idb2B0ulluVgS5fGMJ3Kr8Zg5sF
+	Sz/0Hw==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwan4r07x-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:15:58 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd60e4e8bc3so2770863a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:15:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794474936; x=1795079736; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=in0wT3kSv8v4L0CNiG/ZIgaYFBbYCntKXbAs/Vd5cP4=;
-        b=RBjixnsW08WSzYaCIeMMgfDMxPNjBHIl29W/hMUL87tEOBmVisUX3PMetALgCVp1OX
-         TZbZ1VfJRXWZ8BFWFchwd7tgIJoXRAMZ1nRX5repU5Q31o9xRq0O705WrzyZCRzxWddb
-         YzmuGdP+BRePNQ1n67DeI4eA92tJVnyS+DaC8eQoIrM/soc8PR2bRDqAqpO4lWc9OeBY
-         c5+uNuKmNSGznIGKIs8ZALZpia3CJOVSRzKC0zetFO/gA8PKmjmviNBxx4Fe7zOqIGOM
-         D98ld0NhCtGmG7X8A60u7hB2G3VvOiQYhEqVBCgco8EMqeWC5jtGqCnPUtPrqYNvdkS7
-         AcfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794474936; x=1795079736;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1794474957; x=1795079757; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=in0wT3kSv8v4L0CNiG/ZIgaYFBbYCntKXbAs/Vd5cP4=;
-        b=DggoZNW1XIHY4r0sdzM/dgK0qrgHT4K/sthBvdyLebXy+ZrfNnY6ZNPeK1fEhsxLyT
-         GDiLMdM4kf6xrdHyXj3WV5UJvgXOOVeg4iXxUKrXNOd2c5ckbd3RFgG9erL3JCoN76JL
-         hpUnuVubLjOOHsLxqO6w72Ll2b/LoOci0jInofkUFY+tJd5h3tnQzDUso7QHXn3mZlFg
-         mpUryqzQYOR0kHfz0re1cp7T3tU+GzBTtUQQuEp8c1u5hkilgCVRYtYTZwQ5NdGZDoji
-         qhS3aLQzaJhbsNml239YctLnwxsf4SQk+Mnw0aGXG89HbGCOK+WXtKB5udCHTH3pP2di
-         EEXw==
-X-Forwarded-Encrypted: i=1; AL+hErEYGSqgEhqu6dzei585hjCp5ZUY6D203N0I9rg0Qtiq4G+Y/JOuwNBEFMbLONc31jEwnW+1FBozDc49VtI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/IBdK/F+ZaEa4eBpQubHy0sLokY8Pt5rMmpgT7ejuhMS1QNnGF
-	eJiRQJasZ1QB+986TiYOo2W4/CFTzxi9KnFD8TqMzYdljwSlMB6rTmD1ECoSutciNT5sN+8qAtG
-	H8MTsLpLfmst99LENwjHh09P68IFjwFb0+6PGmIdylUSRB2wFmgwX3fFV6+vG7kSK1g==
-X-Gm-Gg: AYBFou1K3zCDrSWi7JqOVXnUuKFIb9w6j2qlXyF33Y/v1+U9m2Yq5sgmo13xP/lyJS8
-	AHrGVPW78cxy76Kbq0CpCMHqDeLxpKhlJSsWGYjq4G16AxuPeZk7ZoRB4Rjpq989W72Cb1tXBIV
-	z31cl0OyKodzaixiLFhlXpzcwHUfSqZa4JJKMvViCsCKc4xN9jON4/i78dvtzlo9YVEq5OqP/1b
-	lZX9ALP4ocNYiZkwxotiq20/pX+QYmYQGC7aQOD43Xd9k7mL6hq+/5aGYDBgUxiZujGw8NMth5l
-	TtGD48ejuRpd6oOpTCkdYr12vhZMXh8Z+9zaAeI6/i5DJC4SgLLHLmkwNe3JaybS2figqh74Vix
-	cmd1BAzCMtCsci1YYqJVyJsUFzOrUkg55qyALi+Mbmg==
-X-Received: by 2002:a05:6000:4b13:b0:487:88b:4681 with SMTP id ffacd0b85a97d-499c6027597mr7970525f8f.10.1794474935555;
-        Thu, 12 Nov 2026 01:15:35 -0800 (PST)
-X-Received: by 2002:a05:6000:4b13:b0:487:88b:4681 with SMTP id ffacd0b85a97d-499c6027597mr7970448f8f.10.1794474934931;
-        Thu, 12 Nov 2026 01:15:34 -0800 (PST)
-Received: from redhat.com ([2a0d:6fc0:1511:2900:ff37:b35c:a97:952d])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498361f674fsm15808324f8f.33.2026.11.12.01.15.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 01:15:34 -0800 (PST)
-Date: Thu, 12 Nov 2026 04:15:31 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: zhaoguohan@kylinos.cn
-Cc: jasowangio@gmail.com, eperezma@redhat.com, xuanzhuo@linux.alibaba.com,
-	kvm@vger.kernel.org, virtualization@lists.linux.dev,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] vhost: set dirty log bits without pinning pages on
- x86
-Message-ID: <20261112040926-mutt-send-email-mst@kernel.org>
-References: <20261112085631.128819-1-zhaoguohan@kylinos.cn>
- <20261112085631.128819-2-zhaoguohan@kylinos.cn>
+        bh=MEnoxCVc3mFsHG46MOit1/TCAB8kmZyxFDbzRzr1Hwg=;
+        b=Z1yUwpIgZ5OKhJJroG610EXma8lJiCg/jLUvWXgxwk5Htt2oMWZBVm5gRp2E7ixvPp
+         xl4hlk4BX2M6Elri0UjwpXXKrlbOD/5geTU3ibUB5HMHymK5CQk0SCeTrdQgtOnJ9ibo
+         3iPOhQSHKe/26gbdJrFtmpv2uagIu/VWbzm2Y0UJubrRwLw4CU26pap2PiMOPulCB1Rv
+         D0JQxsofS6h9ts2qGLhkEUzZ28FTpeyDiASrNgApPBbMrP9qCHNAw7YlFuJ1UdyVlckD
+         RLw0uEbVp2KZ/V4TolRAHmQMIW/wDm4TDDuoLTcyCPz4gmlA11sG7+vNpSclwaOjRfpI
+         YvZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794474957; x=1795079757;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MEnoxCVc3mFsHG46MOit1/TCAB8kmZyxFDbzRzr1Hwg=;
+        b=rC5yQvvQuIlDCKQSuna50vWJlNUP97i9wMHLBQsUeCgHNL0wkPKZsdcNhsO0KMQ7xP
+         sfTPlIEiUfNZ9qBQe/Ld78QQeuhONUxBvXdt6gRIFfaBxUjC8jjW8cipYq5YRNLZpSGi
+         cshWyN0qUVRdyrSgVaoLjoWCabCh2GgqCnDWTxRoRHG90syFBcXIpiPAqXDnhE1lazjf
+         BGzuDeXkTpL2cGp/fVZJhvquZGWBlwqKRm2h9kw5BrlkzKQTBYoVmclBDhj1cLavKHE1
+         5UqMZ5h0ZIXRtV7+9IFRsJv3doVxe/cB01SSqQy6bE7ytUqgbFOu7iIev73HbeB93u/+
+         MUew==
+X-Forwarded-Encrypted: i=1; AL+hErHw4uh2vsDYzq5OHi2WICuMplH/39whYzbd+KBa8t+rIGvE0h+nWVCV/RUTup7ULuUS6LDNTDXSaJrZ98k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+36sadZW45Cx8Ato7I+eVINKqTOhmK5Ye4bwulQcZgJJDLpCkk
+	zVrOpWXfMGPYe+xyOcsKZudMhONvm6yfKuOlvccd0U/Dqez1mxVfgw7peQpYaHypc3OLQ3SzIJz
+	OlIszG295EujrrWiVtkUTq+YOMB6UQXrRVVTFqguLXDGkrx32jdswU/Ug2rmZyj+RSoc=
+X-Gm-Gg: AYBFou0DB7WJowGGW8guoMvmKW2X6deNyrGsyOx9O1Gl7gOaNssKxP5l8kMqND+fNO2
+	bXAlXx4aREgYDj4GqMwyZ5BRv2GUh4OXET8Q2gRYBlEd9uoZmyv+tBwy+3oNMr1sLvRNtDYY0tK
+	l3+WEww2kndhFrCFbKWqJtX30ilE4VruvZYARqK8zQ16CdTibbTMbfVmQXaNLgAw/pI93uHBKA0
+	XElCJXmbrAayFtLXCs4MV+67INRRu4gD/LHydBrs+VSpRTjNZ9ir0AMwtsMu6BbnDy/vqC/8AEO
+	4o04l/pHjrIzwFXeL9JhTdRJR0HX7yZm4ojreoboMAWbqSzVQjHAkiQ+/rGb8BazARuNJQqjUaD
+	+EBtWUB7F+ZjYxWbL2CstiRWB6DdkYZo2JOyZvv0PawAJULZRgDPHgObpT/+mkBCOi1gs+wuwmq
+	rNX391EvkGXx01yy355eBjtgvcLz2Z7oNURtLShMSO
+X-Received: by 2002:a05:6a21:498a:b0:3e2:b295:7678 with SMTP id adf61e73a8af0-3f2fdfa38ffmr4070804637.50.1794474957497;
+        Thu, 12 Nov 2026 01:15:57 -0800 (PST)
+X-Received: by 2002:a05:6a21:498a:b0:3e2:b295:7678 with SMTP id adf61e73a8af0-3f2fdfa38ffmr4070779637.50.1794474957003;
+        Thu, 12 Nov 2026 01:15:57 -0800 (PST)
+Received: from [10.217.219.121] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bd30c8e6d4sm1051351b3a.48.2026.11.12.01.15.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 01:15:56 -0800 (PST)
+Message-ID: <6ed0793c-76ce-4d04-af5f-8987311c5c0f@oss.qualcomm.com>
+Date: Thu, 12 Nov 2026 14:45:51 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,135 +116,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112085631.128819-2-zhaoguohan@kylinos.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 2/5] include: linux: phy: Add phy attribute "type" and
+ associated helpers
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-usb@vger.kernel.org,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+References: <20260913-eusb2-interrupt-v8-v8-0-0f505b9c394b@oss.qualcomm.com>
+ <20260913-eusb2-interrupt-v8-v8-2-0f505b9c394b@oss.qualcomm.com>
+ <asNji2_GUda8x245@parshuram>
+ <3a3cf540-816f-41a3-b31d-2902e7f4cf01@oss.qualcomm.com>
+ <033c8432-4a03-4f38-b0a3-28f5d551b0ef@oss.qualcomm.com>
+ <avV4B4g-NWtZbLuX@parshuram>
+Content-Language: en-US
+From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+In-Reply-To: <avV4B4g-NWtZbLuX@parshuram>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: cfvhQpECZcg83vnIxigigefU-Acq8pLQ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzNiBTYWx0ZWRfX6Y+9aJP4AjCD
+ Efdv8w2Wq6XVEfFu+otyFka8Xad8WBoWRzSnbM4iF78KpEaegqBIJuYZ77xKQXEJExOMYz/t4ee
+ OUBP/8DP5IrnoUFAMz+uWK0CBuzA1so=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzNiBTYWx0ZWRfX1DQUGwWhID5B
+ 3G8SpjGzCtwk+a1kmjyuywPn9sOF+qftPbIirwX76CTpAt8eCm2xaQzRHis9C5zg80y114TAP9s
+ GvhcpNhdm4MH7JOEHA3yIMM5MIqQbyBPFmjvzUXsSrvIqWJM+Z4caq+e9mxX2cBsuUToRHOi/zR
+ x6W7IoDtuB5p2tg4zM9f7H3O3Pe3ru5rdzT8oXO4lqT/P5gie16F8CISmMHhVb6FUMYwcR3sua0
+ 2MBlrey73ApJbM1DuF9tm8epvjTfsda2evu1rhyn69VNfRmuUvs/Mo6dwRofNifeXYym3s3hP9Y
+ 2dffaZqbPsh2QWKssf1QNM/qJknottyz0DGtfXcAYjgl2vQMTRqk9qInLYAjH0/cFngSr/2jvi/
+ rVxBoZtKGcW8ISSPiXmDWQIfji4iS5fxOOUvLpD89CSWkLXLcZ5Fjm0KqttJCmv4nnpphqdsAFu
+ 5a6b20K5FZhbOVOsURA==
+X-Proofpoint-ORIG-GUID: cfvhQpECZcg83vnIxigigefU-Acq8pLQ
+X-Authority-Analysis: v=2.4 cv=Gd+CDgXL c=1 sm=1 tr=0 ts=6af583ce cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=DY95BI2w6Jwo1tMKFB0A:9 a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0 clxscore=1015
+ malwarescore=0 phishscore=0 suspectscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120036
 
-On Thu, Nov 12, 2026 at 04:56:30PM +0800, zhaoguohan@kylinos.cn wrote:
-> From: Khan Zhao <zhaoguohan@kylinos.cn>
+
+
+On 11/12/2026 1:55 PM, Vinod Koul wrote:
+> On 27-10-26, 13:37, Krishna Kurapati wrote:
+>>
+>>
+>> On 10/9/2026 10:29 PM, Krishna Kurapati wrote:
+>>>
+>>>
+>>> On 10/5/2026 2:14 PM, Vinod Koul wrote:
+>>>> On 13-09-26, 20:10, Krishna Kurapati wrote:
+>>>>> In cases like USB High-speed phys which can be either USB2 or
+>>>>> EUSB2, it is
+>>>>> required to know the type of phy (rather than the operating
+>>>>> mode) because
+>>>>> DP and DM interrupt lines need to be configured differently for each of
+>>>>> them.
+>>>>
+>>>> Does the controller care? In preceding patch you defined the EUSB2 in dt
+>>>> type, so this describes the hardware. So phy knows it is usb or eusb...
+>>>>>
+>>>
+>>> Controller is agnostic of whether the phy is usb2 or eusb2. Phy does now
+>>> its type, but it needs to communicate the same to controller.
+>>>
+>>>>> Add support to cache the PHY_TYPE and add the following helpers:
+>>>>>
+>>>>> - phy_set_type() for the phy drivers (like m31_eusb2 or snps-eusb2) to
+>>>>> declare what type of PHY they are (in this case PHY_TYPE_EUSB2).
+>>>>>
+>>>>> - phy_get_type() for the consumers (like USB controllers) to query the
+>>>>> type of phy connected to them.
+>>>>
+>>>> I am not convinced that this is the way to go... Driver already knows
+>>>> the type and should use it...
+>>>> we alreayd have mode, i am inclined to not say yes to adding type here
+>>>>
+>>>
+>>> "Mode" attribute describes the current operating scenario of the phy
+>>> (device mode, host mode, high speed, super speed etc.,). But it doesn't
+>>> describe the type of hardware and hence a new attribute.
 > 
-> set_bit_to_user() pins the log page with pin_user_pages_fast(), maps it
-> with kmap_atomic(), sets one bit and then unpins the page and marks it
-> dirty. This runs for every bit set in the dirty log, e.g. on each used
-> ring update while logging is enabled for live migration.
+> Not really. A combo phy can be usb/type c and we do set that mode...
 > 
-> log_write() always passes a byte address and a bit number in [0, 7], so
-> the update can be done as a byte-sized cmpxchg on the user address. On
-> x86, try that first using unsafe_try_cmpxchg_user() inside a
-> user_access_begin()/user_access_end() section with page faults disabled.
-> If the access faults (page not present, read-only or needing COW), or
-> the cmpxchg loses to concurrent updates of the same byte four times in
-> a row, fall back to the existing pin/kmap/set_bit path, which can fault
-> the page in.
-> 
-> unsafe_try_cmpxchg_user() is only implemented on x86, so other
-> architectures keep using the existing path.
-> 
-> On an x86_64 KVM guest (i7-12800HX host), a synthetic used-ring
-> workload with logging enabled went from 243.60 to 171.11 ns per
-> descriptor, averaged over five alternating runs. This is the
-> end-to-end cost per descriptor, not live migration performance.
-> 
-> Signed-off-by: Khan Zhao <zhaoguohan@kylinos.cn>
-> ---
->  drivers/vhost/vhost.c | 50 ++++++++++++++++++++++++++++++++++++++-----
->  1 file changed, 45 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/vhost/vhost.c b/drivers/vhost/vhost.c
-> index e29f154706da..9c3045504709 100644
-> --- a/drivers/vhost/vhost.c
-> +++ b/drivers/vhost/vhost.c
-> @@ -2527,11 +2527,7 @@ long vhost_dev_ioctl(struct vhost_dev *d, unsigned int ioctl, void __user *argp)
->  }
->  EXPORT_SYMBOL_GPL(vhost_dev_ioctl);
->  
-> -/* TODO: This is really inefficient.  We need something like get_user()
-> - * (instruction directly accesses the data, with an exception table entry
-> - * returning -EFAULT). See Documentation/arch/x86/exception-tables.rst.
-> - */
-> -static int set_bit_to_user(int nr, void __user *addr)
-> +static int set_bit_to_user_slow(int nr, void __user *addr)
->  {
->  	unsigned long log = (unsigned long)addr;
->  	struct page *page;
-> @@ -2550,6 +2546,50 @@ static int set_bit_to_user(int nr, void __user *addr)
->  	return 0;
->  }
->  
-> +#ifdef CONFIG_X86
-> +static bool set_bit_to_user_fast(int nr, void __user *addr)
-> +{
-> +	u8 __user *p = addr;
-> +	u8 old;
-> +	int retries = 4;
-> +	bool success = false;
-> +
-> +	/*
-> +	 * log_write() passes a byte address and a bit number in [0, 7].
-> +	 * On x86, update just that byte to avoid crossing a page boundary.
-> +	 * Bound retries so a contended byte cannot hold up the worker.
-> +	 */
-> +	pagefault_disable();
-> +	if (!user_access_begin(p, sizeof(*p)))
-> +		goto out;
-> +	unsafe_get_user(old, p, fault);
-> +	do {
-> +		if (unsafe_try_cmpxchg_user(p, &old, old | BIT(nr), fault)) {
-> +			success = true;
-> +			break;
-> +		}
-> +	} while (--retries);
-> +fault:
-> +	user_access_end();
-> +out:
-> +	pagefault_enable();
-> +	return success;
-> +}
 
-Yes we wanted this for the longest time!
-But can we use the nice scoped_user_rw_access API?
-Something like:
+In this case, the type can be "QMP_COMBO" and the mode can be: 
+"USB3"/"USB3 + 2 Lane-DP"/"4-Lane DP".
 
+QMP Phys can be Combo/Uni phy type but the mode they operate in could 
+change at runtime.
 
-        pagefault_disable();
-        scoped_user_rw_access(p, efault) {
-                unsafe_get_user(old, p, efault);
-                do {
-                        if (unsafe_try_cmpxchg_user(p, &old, old | BIT(nr), efault)) {
-                                success = true;
-                                break;
-                        }
-                } while (--retries);
-        }
-        pagefault_enable();
-        return success;
-efault:
-        pagefault_enable();
-        return false;
-
-
-maybe?
-
-
-
-> +#else
-> +static bool set_bit_to_user_fast(int nr, void __user *addr)
-> +{
-> +	return false;
-> +}
-> +#endif /* CONFIG_X86 */
-> +
-> +static int set_bit_to_user(int nr, void __user *addr)
-> +{
-> +	if (set_bit_to_user_fast(nr, addr))
-> +		return 0;
-> +	/* Resolve faults, or use the native bit layout on other architectures. */
-> +	return set_bit_to_user_slow(nr, addr);
-> +}
-> +
->  static int log_write(void __user *log_base,
->  		     u64 write_address, u64 write_length)
->  {
-> -- 
-> 2.43.0
-
+Regards,
+Krishna,
