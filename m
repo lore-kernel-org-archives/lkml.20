@@ -1,104 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794498167;
-	b=Qe7Ji/mEEtWBc7wzj9/UGGIidWjr8SBmfGuPA5jJjkc+EMAwohqAx63LQh7J+Kc/RJU1
-	 gwtWkjkpwpVC6k7fN+1G7jtmBhJjwu6J+EiKbmtUvlZKirXtpTwYZiHc5vGcfIoOPpMw3
-	 y7otY95P0rVOzU0OR1lHt/w3tZtTEliw63ShAETvPqnErJTd1IpDas91uNzqRJ1iYiNNF
-	 Y5NoTSYqJrmlX86c87p1/sYUHnyeUCvL7UjxyVw0u8y0VFqVYC1NLcBsP3uTwNgkHS9aC
-	 kr2dR5oaY5pHMvtNVrbtkAinML6WFVoDWtNu8Aa6UzKtamcr1IyyRY6whk6GC9cGPNQ==
+	t=1794498221;
+	b=xIouhSWFHIZN1MfQbIc0sRty+cBX/Q/xJUeiBYfwycfJuWgTgdF21Qu+JkdkPieb4tWa
+	 8gIfpkGVCWAPVtROcSNd/IoTKsZEQ2b56nmE1+WooGMJbZZIBgyVmxddfO6mRfIN1o+n0
+	 bNDv/2xRc8suzw1lsIQY49fejJe92LWL2PRvy9LVTedXNN7SAEUPasqwjZuk7aSz9IXkt
+	 93iOqWXi9n5R7n46lqurJjqHG98Zbqc3wVenklW+IJOmoNsgqdCkgAHu80ggv+qda94v3
+	 nke+W/8IzE5SlY966xSuHr3I2LYpTx6dtlQpaTlE6i64eu4DfYXMceDcpZbpyfhHkMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794498167;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=cmrDW5oxPDCT6kNIjHKrqyE0Mun040k//ijsfC3fuC4=;
-	b=bIgzqtODkgf/7U3OXTyr+IN7T2iGY2EwK5EGwGkQdkpzcjbZWOYY//+0eQi9Q6G9qMNL
-	 6EraGSeuwlUned/qwVUMb27KqelUHbbbW2ob+r3TcK8FhFX2mcfrrzeTlH84pVXeVUTQW
-	 Jve7KMehl86K/x/KneDeRCCeBAl6N8tQFYiVLXWMWeYBusQhI0D7F6l0mfaTFCvUmd6rI
-	 VSwivlsTpy4kEWqfyj2EkK1da3VPdGxcCaHYmOc5E2zZZYaVa7m/kcIfmOz5bxvtc9JfV
-	 4ojthkfVHKPgaPYgNQNKXdZF8un4Hu+JeCr2cVxRj7tQMc6oHkwAFl6oyq1GpXq2AIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794498221;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=AXjF5Xr7Atd3+mDcEtd63hJAJlVdSKEvK6/8nYg5gzQ=;
+	b=uhk+KvAgTyPoSFaWvwLYOfjlF0s+a8ZqZCG9ENbvQpAvaimwMJO3lr0sJSiwutYa8eMt
+	 g/HwwV9ASBaFwPIgbWwsZ2h4fLHG0KTv5yqL2vUklDFgxkk6zMBRpmbvqy+yj1ngfvdpm
+	 JfocDHgFRPdZBqyPWm8VDQAh0LT85IWBXFZfi/+Me5UH2F5n2DHSTRPwazuN+OsOErQQT
+	 wCChqosLmOYxpbBlXj+Bp4XYtWiPBxTBEtyw/kzu2gofxgSOgyjpecpMjBJ3zhOBgW51i
+	 bifal0DsIDbNcGulSzVigUT86D33Ck/IdHlFh7CuTqp50vqOLt8yS/hIU44bN14SdNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NGJJyN8T;
-	arc=none smtp.remote-ip=209.85.210.177
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=uNUDF0Aw;
+	arc=none smtp.remote-ip=44.202.169.35
+Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49B1606A882
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:42:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C49B1606A882
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE9D606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:43:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAE9D606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NGJJyN8T
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8a05b210703so2369775b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:42:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794498166; x=1795102966; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cmrDW5oxPDCT6kNIjHKrqyE0Mun040k//ijsfC3fuC4=;
-        b=NGJJyN8TLSDamU3rlphuj3kbaO7HtRQ+QACITfzPw2oi0pUl6jR6URruPdxiTnB37+
-         BJ7R33Md8sNrKXt4PgmVq1Py7w15J2125Cf+GOqvXBOdZjySYIS5rbQgvt4nGhNujzPR
-         NW2UQTbHqSyfpyoYsqQhY62cXrhe03fm00X6evuTsI+8Xw1ns6AIENVTiHshu0TlXz9k
-         oruS63smbKmK8JB4nWI0mbEq8INxrXczDIBLN2qvJovvz2XvGbyQ2ovQBZvMbc01KR/y
-         dJVUdeKEpLBVyOn21YRVJ+Sma3Ti3eVF6qv0c4/WCNercGcVCTNvbBVWzJy7/o5LkO9b
-         4RjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794498166; x=1795102966;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cmrDW5oxPDCT6kNIjHKrqyE0Mun040k//ijsfC3fuC4=;
-        b=vHNWsjUmb3wkERQFF6EwULbeIhoUehJq0MqULgNGIkgc9dwARwrm5w+b7UuT9+1IvU
-         qgs3skZsfcbFHsKRQ1S4UQAl/mjcHsA5aD++4DY5J5nFrdhIK9MWNRIdSctxpk1UsyKf
-         y9WQ7Z6mTdOo6lr9sMgQTsok+gN3PJpKaqTjTLehwxTtoLgDPUQ8G5ZU72Ayt5xS4/aj
-         Hotp2G/Xw7/bOd8U5mVm5UgULxbzkE7eMnQ7JLjYD3bz/Oze+f02kVNL0SFQWhQT51r7
-         C/G+rtD9SeCdUXeEqQwZ48BJKP976qfdCCMofGE1iDtsi3Q7z2x7FREBPn51hsiXjDZQ
-         BhhA==
-X-Forwarded-Encrypted: i=1; AL+hErEmE0AydT9iUJIrHQpNPfHlaHuUuKLnF+AGmZqi7kmyI2GWGxOsggr0lMnfJANVl1slVzVnfqay+w3YA3I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9vG01UeWT02sG7eIyhYlGN46QdNUBrW3a8Iuc3whVtukG4CbY7
-	jJuMiSs6P9IX1xkpNdpfnxye1WAaTM57oiaOH9OGUKSHlmPsGTxKUo+k
-X-Gm-Gg: AYBFou1VDosUM9kQFy7djzlOv9gJWiiohy/tAYErJTdmM5qzadaDGiA/5PfU2v6lFN5
-	ge7m7771qPtv74VFmPO5p0pzSoLkBSfUHat9FkKVIvwQ3xRJNV9+z0lyuHSQKmr/Opq5sOjBig0
-	h167sTnoiZQ3NEEuMi8kAv2JkU/k79Zt32ZH43G7YOIPMeSHLT3aCumd98RIn9DVfIRstVtjLgq
-	PJKP2F+pVxZpKKwa7m30GamJluVdCQqHQ3PJtVxAj10lsrdxMaT9J8jtHoZUZzLyRY2AEsPJtBC
-	E/3J2v06sCvGp+yWdYRtVMGeQwFvf3RmjTfvXx5icAiBopEdmqvkrVBaBxsUzXL02C67T60zkId
-	Dy6dISmpgtXNWKWz8LZsPgLvqyp0lpaDCPmCwakit4FVZpdcWVkz1sxhvbOwB2Y49AxTdjK78KT
-	10ENdiVJsE2NR6bba7XWTGgs+dTh5i4/yTt2r38AgmLT9cHlNku97q5w4+wW+mT/COwhpPEDSsi
-	SarVBeKUv9c7DBiQ+iJ6n9LmfHfPhBiJhNVEBQDtLSewWwD1Gj1ZDIWuwqU/+szEtg/0GeY5XMQ
-	DmEQbGFrBMsE0pmb+8jOJYkY5E/7UGYtf9cE5IH34a6cpnD1VNVBeiIjtoJkEyuGaFzozSHzvNB
-	PMLGP+JTqfwOWnCu+xn9wp636GL17fKaDZ0LzbrFctu+gBv41
-X-Received: by 2002:a05:6a00:9087:b0:87d:430:1437 with SMTP id d2e1a72fcca58-8bc1def0ad5mr5929164b3a.38.1794498166048;
-        Thu, 12 Nov 2026 07:42:46 -0800 (PST)
-Received: from localhost.localdomain ([2405:9800:b901:33ad:21c4:c32f:67c1:d87c])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baa7de3619sm3790596b3a.5.2026.11.12.07.42.41
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 12 Nov 2026 07:42:45 -0800 (PST)
-From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-To: linkinjeon@kernel.org,
-	stfrench@microsoft.com
-Cc: icb@fastmail.org,
-	senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	ematsumiya@suse.de,
-	lsahlber@redhat.com,
-	hyc.lee@gmail.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v6 8/8] ksmbd: account for the credits of a request on a failed session
-Date: Thu, 12 Nov 2026 22:41:55 +0700
-Message-ID: <20261112154155.20255-9-mike.michalo@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261112154155.20255-1-mike.michalo@gmail.com>
-References: <20261112154155.20255-1-mike.michalo@gmail.com>
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=uNUDF0Aw
+Received: from eig-obgw-6006b.ext.cloudfilter.net ([10.0.30.211])
+	by cmsmtp with ESMTPS
+	id ROmzx3yrM4vCDRWxZxfN3b; Thu, 12 Nov 2026 15:43:34 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id RWxZx9doKFhzrRWxZx5aYi; Thu, 12 Nov 2026 15:43:33 +0000
+X-Authority-Analysis: v=2.4 cv=JY+8rVKV c=1 sm=1 tr=0 ts=6af5dea5
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
+ a=e2gy4MqllTPD0vipTP0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=AXjF5Xr7Atd3+mDcEtd63hJAJlVdSKEvK6/8nYg5gzQ=; b=uNUDF0AwiqBF
+	spOG0t8xpfFRgMDvs/SPOquv0zaK2Xa8VlLUKou4WWhypvZSzPjkVN8jo3DXyEOW06oJqSRsA9MyK
+	B8yL+oDOHv7ZJ92KuUd+cQk3NyMbF/B1RDjwInz28dqKvYoUWs8MjJY1+7sy4Sr7nRpXclozeLu1O
+	QI3Ww2/teyTpAN5yzzb7vwp36654/JJnwp6kLRQHz+nmp8Irwph+iayUs60DBpYnIssZZGBfNIZtk
+	PwgmNoyEx8hbuElVvvKBjBMfO5G8UqQLweuhwb2JG05vyFp+m5Mng0Mev0DoiWyIBWcKQwr1srjhs
+	n6GImWbrmhxkglVDvAcvbQ==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:36476)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xRWxY-00000003Xni-38ON;
+	Thu, 12 Nov 2026 21:13:32 +0530
+Message-ID: <ed830d96-9dd2-4ba9-8d5c-c2ee4c9485b7@roeck-us.net>
+Date: Thu, 12 Nov 2026 07:43:31 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,107 +76,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] hwmon: (dell-smm) Add Dell Pro Precision 7 16 PW716260
+ to fan control whitelist
+To: Shady Abu-Hussein <shady.abh@gmail.com>, =?UTF-8?Q?Pali_Roh=C3=A1r?=
+ <pali@kernel.org>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261111150435.75965-1-shady.abh@gmail.com>
+ <20261111172733.84217-1-shady.abh@gmail.com>
+ <96902e72-6a75-42b4-9d30-ea54e82ee933@roeck-us.net>
+ <0734cdde-3c63-4a53-b405-5cf741f3a5e2@gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
+ RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
+ nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
+ 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
+ gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
+ IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
+ kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
+ VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
+ jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
+ BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
+ ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
+ CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
+ oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
+ VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
+ 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
+ onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
+ DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
+ rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
+ WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
+ qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
+ 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
+ qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
+ 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
+ pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
+ J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
+ pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
+ 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
+ ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
+ I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
+ nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
+ HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
+ JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
+ H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
+ njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
+ dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
+ j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
+ scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
+ zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
+ RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
+ F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
+ FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <0734cdde-3c63-4a53-b405-5cf741f3a5e2@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xRWxY-00000003Xni-38ON
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:36476
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 5
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfCzXReroNc9Y9nx2V7lXSDhMeWkbsjEaHQrhUAcTUcHVMydugrsA+KXAHSz5AMa1zBp6WkUaK7NjKASnr3AC4gW42mRmNBpj2+jRVtZuOxqKZLlnn4+6
+ sosqkihfeksUyP2qVh0Ej24rmeOB6wLIupxUMU6rG1fFh8/FkJMHIjmu0ECFMDNqPqCyMvWzA6kxjLsr5hqpK1gM+nS16RBLsFq8xuAZp7Uem7SKRIJvXaGn
 
-A request on an unknown, invalid or expired session is answered by
-__handle_ksmbd_work() without reaching the code that calls
-smb2_set_rsp_credits(). Its credit charge is never taken off
-conn->total_credits, and the response grants no credits.
+On 11/12/26 07:23, Shady Abu-Hussein wrote:
+> v2 only changes the Signed-off-by/Author to use my real name instead of a handle, per the automated DCO review on v1 — no code or commit message changes otherwise.
+> 
+And that is a reason to not provide a change log ?
 
-The client has spent those credits all the same. Each such request
-leaves ksmbd's count of the client's credits too high by its charge,
-which reduces what later responses can grant, and a client that keeps
-getting these errors runs out of credits. Since the command sequence
-window was added in commit fd8c97d7c1cc ("ksmbd: implement the command
-sequence window"), this also ends the connection: after NEGOTIATE, the
-second request that names an unknown session is already outside the
-window. A client whose session has expired loses a credit with every
-request, until it can no longer send the SESSION_SETUP that would
-reauthenticate it.
+Guenter
 
-MS-SMB2 has the server consume a credit for every request but CANCEL
-(3.3.4.1.2) and put the credits it grants in an error response as in
-any other (3.3.4.4). Charge the request's credits and grant the ones it
-asks for, as for a request on a valid session, before the response is
-signed, except for an SMB2 CANCEL, which consumes no credit. This
-response ends the work, so it reports the credits granted for the whole
-compound, also when it answers a CANCEL that follows commands that were
-granted credits.
-
-An AI assistant was used to draft the patch and as an independent
-reviewer.
-
-Fixes: 0626e6641f6b ("cifsd: add server handler for central processing and tranport layers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
----
- fs/smb/server/server.c | 46 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 46 insertions(+)
-
-diff --git a/fs/smb/server/server.c b/fs/smb/server/server.c
-index 52eee04e0d93a..e91e3a1459e5c 100644
---- a/fs/smb/server/server.c
-+++ b/fs/smb/server/server.c
-@@ -132,6 +132,41 @@ static void ksmbd_sign_expired_rsp(struct ksmbd_work *work)
- 		conn->ops->set_sign_rsp(work);
- }
- 
-+/*
-+ * Charge the credits of a request that is answered without going through
-+ * __process_request(), and grant the ones it asked for. This response ends
-+ * the work, so it carries the credits granted for the whole compound.
-+ */
-+static int ksmbd_set_failed_rsp_credits(struct ksmbd_work *work)
-+{
-+	struct ksmbd_conn *conn = work->conn;
-+	struct smb2_hdr *rsp_hdr;
-+	int rc;
-+
-+	if (!conn->ops->set_rsp_credits)
-+		return 0;
-+
-+	/*
-+	 * An SMB2 CANCEL consumes no credit (MS-SMB2 3.3.4.1.2), but its
-+	 * response may still end a compound whose earlier commands were
-+	 * granted credits.
-+	 */
-+	if (conn->ops->get_cmd_val(work) != SMB2_CANCEL_HE) {
-+		spin_lock(&conn->credits_lock);
-+		rc = conn->ops->set_rsp_credits(work);
-+		spin_unlock(&conn->credits_lock);
-+		if (rc < 0)
-+			return rc;
-+	}
-+
-+	if (work->next_smb2_rcv_hdr_off)
-+		rsp_hdr = ksmbd_resp_buf_next(work);
-+	else
-+		rsp_hdr = ksmbd_resp_buf_curr(work);
-+	rsp_hdr->CreditRequest = cpu_to_le16(work->credits_granted);
-+	return 0;
-+}
-+
- #define SERVER_HANDLER_CONTINUE		0
- #define SERVER_HANDLER_ABORT		1
- 
-@@ -300,6 +335,17 @@ static void __handle_ksmbd_work(struct ksmbd_work *work,
- 				else
- 					conn->ops->set_rsp_status(work,
- 						STATUS_USER_SESSION_DELETED);
-+				/*
-+				 * The request has used its credits, so charge
-+				 * them and grant new ones in this response, as
-+				 * for a request on a valid session, and before
-+				 * the response is signed.
-+				 */
-+				if (ksmbd_set_failed_rsp_credits(work)) {
-+					conn->ops->set_rsp_status(work,
-+						STATUS_INVALID_PARAMETER);
-+					goto send;
-+				}
- 				if (conn->ops->is_sign_req(work, conn->ops->get_cmd_val(work))) {
- 					struct smb2_hdr *rsp_hdr;
- 
--- 
-2.43.0
+> 
+> On 12/11/2026 15:18, Guenter Roeck wrote:
+>> There is no change log. What changed in v2 ? Do you really expect me to
+>> track that down myself ?
+>>
+>> Guenter 
+> 
 
