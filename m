@@ -1,79 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794472909;
-	b=kBHdQNDWxtdAtIeJRKw69bXPSHtgLXXTGO140cRluS1aRdcfiIdnsX+BOT3xOeJAe1bQ
-	 97R1zlaMdtgQrL2RvNOMsEr6QMINn4s02Gy+qX/IpNe8RWJgdTgjn/x+wR2ORzCx/rpk0
-	 joscYNahyBRGABmviZCro129q+p+AWbqKNIMdDqidigUhqdpr9l4DNY7gdBZCSwuxWyX7
-	 T0sXwpCi1so9caE4ryqWnBXwGFhawMJVmLTWTMupZu666EfDEAynTHb0OZgkADgzq9bk4
-	 nPbp0VuPEAM3K0URZrLVtKJSi7h2ciXYfWBzSuLVQxJcxLc8OIEywIge3AU6YZbV5kA==
+	t=1794472908;
+	b=0Ya4cXqWoPHVeTEOXWOadeRJ1uB3EDR6/AFqazgW622vys8/pzTBdHKzQAhtStmKgxrG
+	 NjwbvX6P1RSBGXj797VAUphkv+99eEjnICmOnqE7qNtaeJQE742IFtIur3I4gNMIBP4VM
+	 ozLRl8Rbm5R0ogGZL1dV/8BhHGSzputATDa6TljtbY/hKLTXC+3AXM4ynrSiuZYZ23dzN
+	 8G0dxeKikiiPD6UgyYzZIG3es+a4NlGrrucsKLOmQCLjuBunKUblIgxfKS3fQAdOH2ajk
+	 JAHyjzWgRzts0UOfo3tURiGN+4WIlgunCIsN0ok+KMQRbyh/ElwSYTymnLOM+2evi5A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472909;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=7j4ZkRwyXw7fmRhYE9lsi9fnMe99t0IsGQ1HSh6+zso=;
-	b=kzZkjWF97VpPSvG/58AW3a9AR2NfhcwRkgcMiERuUSD6agtw6suyjUK2WHnn1zegFS/4
-	 y/A5JezciBCCji6M3wZMt2bXZP6CUzQ5Yqs8dPHjGFR3TmCuaTQS6D3m6/zYshuoESpwq
-	 2t22Z4dyzDFNkYsoyGf02d/qonNfBc2k8CuBZJP3sy6E/8RhkCVZj8BD3Dw73g5rrJjkq
-	 Tk21Wc87dniklpytQBe5fUwN3l/S2z+aJumkH4upaK2nAnWB2YarSJNNC//RnAUHLt4jl
-	 SjIQTtfV+IzD1nJw7dimg3GBOJo1ZgBP9Hm/xsHaTzBV7jmfQdinKAO32m6yywiwIBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472908;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=cOZOcx0Mu9HyNEyLOdYNEnsYBK2dtuXmhg8/FXfAGjg=;
+	b=lSJpvIDdWB6xoHQ5dfaQXsqnNgU4gZ5lJIr93dGotWfpS5uLcbp6v3O8QghWOs2M9TFc
+	 z0uQ7Ig3sVK2/V9XyM4385IHOA1sFAmsL52EQkkcANeZunETk7vy/jfw/NE/OEpOF4IXP
+	 aAq+1NnhcCoT6kB7E4nDyUI4EoyPJc28aHkVK0RNwOiHOLbklDKAcjq0+TSyH6LVjN3t5
+	 BhXx1+T8OApa2BE26OXIJuN0GPPT8gxruQR0lBK5e6Tmqw87kxD0VquANwOSxxj2NM/ZM
+	 TGyMIfQjnrfrKWuBaahas6MRy0zpy4yuC/7mo/c57KgP2EXKDcz8SNQTr03MUlDIS4Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HNt4lR5O;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C5xqkIVF;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB52606C839;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5B93606C82D;
 	Thu, 12 Nov 2026 08:41:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HNt4lR5O
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C5xqkIVF
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794472908;
-	b=Kfh5sG2hjb3rydiXRatVMywSRDQocLG9KlbGYohSdZIMQIMW74GBGpjWN39KcXG8Xd0Q
-	 u58LDdXOEVrB6ArL9e/JfS66imXMUVxrfTxVcNH9XdhA7vmH9EV1UCbToIUXEyEGU2y/W
-	 9q+T+1a7kFSt1NllEigWW7ouOqN7Fmvjdl1ARzArTFPUysTPPEBoH/YODy3vfwOnWCxoN
-	 pi9cK08sWjM288tPE0LnIc6+iTW3s3eq7HD/fxICdeTJhD1EBwZYR2fJPkXpMA2d4Z27Y
-	 1QF/Gio6SnNJW+ugwlcz1SMpyQxzjBZk3zMeMz3BQb21PUvFeZXfDcK7qzo/+5vim3g==
+	b=IyRk5o3fdl2Mkm3fODFjLtfEztDpa5yabMmiaMDbou56QgUEA2Ozm8jcPu7P0yJ7C+K3
+	 hTouAO5bN3DiVmyIAEKXcmU/Ya/KecBrofNzZPptNnKhA8+4vYnPd4F+Qzqq5rjWyNwtz
+	 wI6XPwJ0ANJcs3lA10O5yitAP3/KsQDYlqIarLbGSJ5lJnaydrIVLcfxE+enk83RV1N5E
+	 iO/+5xf2V5yaB2uDmuBsc0Ygd6ZJsVRQhT6th9Ss6sIE8Dnhsj5qUwU++1SaLci0hoX8J
+	 aUGMEpkOtuuCKmvPLFG0Aj79O4OZIYFZYqt+CW1aBZEZzEd3Hi47AQ7GPxnyRMGcKwg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794472908;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=7j4ZkRwyXw7fmRhYE9lsi9fnMe99t0IsGQ1HSh6+zso=;
-	b=CveUSkcr2SeZx1160NxomlqsQWTCF+O/bFPNRcsDyMZK45SJ2NV2wWOSRHfeSBkkSt8d
-	 bkwTIh0N4LbC5gb8ff9SFYFGur7QTu2ES060SwImG34qV1RE/yhZPyjYyaIy3lZc7tGcf
-	 IzifoHHBvPtuhe8XX5XIkEPpk/yUfZbGJo3C0roeZZdMN7LEntlTDPpTLdsN4++gExRVN
-	 DMwXEuSDhY7bheqraPfE3IzfxZzmYialdbJRf7hM7/i2YVFSSGygbwqe3W2jGILi8T7YV
-	 WNLPFjriHyHaEBYKBnKfp8mf9ReMb8TB9jrkwE1JuEAmlveaSKn/0jAnfwzVbHhSfPw==
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=cOZOcx0Mu9HyNEyLOdYNEnsYBK2dtuXmhg8/FXfAGjg=;
+	b=QiF3GPUEKQOa9FhrIolusbGbHn6mRtLBdQdgZNHDgOxyu+IkNEe68foYe5pkqZTHisuN
+	 xAtbXgLJqKlxY/uwdce+F/oxWyumBtIpdbJr84rA9lAehS67ZR0P78+UG2IhLVDh6scRj
+	 ZSrKqjSngDP06sqmUeOcgs0GTQIKtE89ImnSjVfcL4igxUeoT1fDSTWy3KX+8YEKSKA7V
+	 rJ8TPRjBXBt6d60lsymkv5bdj7hCLDTj4JOiZ5k40LKJxE7U8CcUlgn3S3uB6Rhtbjw11
+	 +cjp/uR/eHcnvvwLsDPJju4CWJvO3o66vYV14wf/+p/bjJYkFQimoHv+hzRRM9fx1sg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B1AD51F00A0B;
+	by smtp.kernel.org (Postfix) with ESMTPS id B1A8B1F00A07;
 	Thu, 12 Nov 2026 08:41:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794472908;
-	bh=7j4ZkRwyXw7fmRhYE9lsi9fnMe99t0IsGQ1HSh6+zso=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=HNt4lR5OCdkNXd2V606MySq0Y6wAGv95tQGRUV80IVqb0slK+mJoDh0BsNjBCYdKt
-	 5nI/f870NJK1QQgCt9TYKtaR1VjtTBWcUyYPGdySFrvhG/Jpbs9dd/Pll00W8HSXUF
-	 pUixb33jzrB+hz3TWlnNbADABXPs7KnMIZcBqxCHW1mD+Jd1VB2+ebbYrN+QViqc2w
-	 HkGFSExDi8usTB7SUWQXhYV8f9eAxuWaxT51tGfnZpkJriU8gUvOuHZD7Iil2WbMzR
-	 CKZVp1cjbWcRVhfC5pcJlq92LKRrTZeFPqX98ToBNuEeaBIraG6lmwL+V4O9oJybjV
-	 9gQWMCVsaOdzw==
+	bh=cOZOcx0Mu9HyNEyLOdYNEnsYBK2dtuXmhg8/FXfAGjg=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=C5xqkIVFcXa2Er8OpXLp0CrJD/qDyPZbRPo2JhNEr75D1dslMHGuaAVoCixhq8sqj
+	 UwCKmawRJ1qUWuUgqIF8P8XXzM5oQmrZBRpcxxyQdiYwZz7mQfXu1mg1nmvg5LGrJL
+	 tzJ5dFaR6LOXjZP4UXgDN8wfSeG49TFLWoqUwJF6oSax670YdetQwyY4M55zGgk5E+
+	 hOmTD8QgANWd5iu/rI+Lw82WrFtrrO5hJyVKUujf0ZXZz2AWkmBmq7xsL2+lNcbPhb
+	 pe9WY2IsGnxoo35RKYQQN6r4DUQsNiVPS4vKiFjqqEmxOPfR6a6FWxQo+ZTa4Cjb2h
+	 hh2LwTK5M69kw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3DBD9493D5;
+	by lkml.kernel.org (Postfix) with ESMTP id 10827493CA;
 	Thu, 12 Nov 2026 08:41:47 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:41:48 +0000
-Subject: [PATCH net-next v2 2/2] net: stmmac: dwmac-sun8i: Enable jumbo
- frames up to MTU 2018
+Subject: [PATCH net-next v2 0/2] net: stmmac: dwmac-sun8i: Jumbo frames and
+ an RX_TH fix
+Date: Thu, 12 Nov 2026 08:41:46 +0000
+Message-Id: <20261112-sun8i-emac-jumbo-v2-0-aca0cf23cf17@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,9 +85,12 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-sun8i-emac-jumbo-v2-2-aca0cf23cf17@gmail.com>
-References: <20261112-sun8i-emac-jumbo-v2-0-aca0cf23cf17@gmail.com>
-In-Reply-To: <20261112-sun8i-emac-jumbo-v2-0-aca0cf23cf17@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6DIBREr2L+ur8BNQa66j0aF0g/iinQABob4
+ 92rdt3ly8y8WSFRtJTgVqwQabbJBr9DeSlAD8r3hPa5M5SsbDjnDNPkhUVySuM4uS5gLSpppKh
+ VoyTss3ckY5dT+QBPGT0tGdpfkqZuJJ0P49EdbMohfs73mZ+L/0czR4ai7gxjJI1R1b13yr6uO
+ jhot237Alda2frMAAAA
+X-Change-ID: 20261110-sun8i-emac-jumbo-4839f984a6a9
 To: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
  Andrew Lunn <andrew+netdev@lunn.ch>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
@@ -100,129 +104,66 @@ Cc: netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, Corentin Labbe <clabbe.montjoie@gmail.com>, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472906; l=4734;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472906; l=2223;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=ZPiyfCZmfSnwUUZ2KWrlwC/8CYyWh0WpVDKIRZLdbyA=;
- b=0IUWEE0Wk0sl3sXsxfCbIwPqGk+0GPYaoUwZ0ZQ9e3Gu9EoHTdRH04zVOqGDJWJA31Sb3Mjw7
- 2BID/ohoa4nCptmWbC2IZbGeDXOTyFq/y57Y/myP9y7JLcMJEQKQiFv
+ bh=4lSOCGIxuhr5scVSNymqWxWTq8eeBYQM5ER9DID9Zyk=;
+ b=8f+Qdim9xm+qJ7Nqsq62ye44HOsAZgiddAr0jN0CQpUvgGKZYonOGdxtlRWyHja9k02ORMRlz
+ 1VDwiIjldWeC16DzPzfuMVXbGC6rEq1jOCRMrrKL1v98YFevFuiQsCz
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
  auth_id=1480
 X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
 Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+The sun8i EMAC advertises a maximum MTU of 3712, but drops every frame
+longer than 1518 bytes. Patch 2 sets the receiver's jumbo frame enable
+bit and limits the MTU to what fits in one normal descriptor buffer
+(2018). Patch 1 corrects two swapped RX threshold values; no in-tree
+Allwinner board uses RX threshold mode, so none is affected.
 
-The sun8i EMAC advertises a maximum MTU of 3712, but no frame larger
-than the standard 1518 bytes is actually received: on an H616 board
-(Orange Pi Zero2, RTL8211F over RGMII) every ping above 1472 bytes with
-DF set is lost, and the rx_length counter goes up for each one.
+Tested on an Orange Pi Zero2 (H616, RTL8211F over RGMII) at 1 Gbit/s,
+with a 7.3 kernel carrying both patches:
+- MTU 2000 and 2018: pings with DF set up to the full MTU pass in both
+  directions, iperf3 gives 955 Mbit/s to the board and 905 Mbit/s from
+  it, and the rx_length and rx_crc_errors counters stay at 0.
+- Setting MTU 2019 is refused.
+- At MTU 1500, a 90 minute run (bulk transfers up to 256 MiB both ways,
+  iperf3 853/873 Mbit/s, 1000 pings each of 56, 1472 and 8000 bytes)
+  had no loss and no new error counters.
 
-There are two independent limits:
+In that 7.3 kernel, frames longer than 2044 bytes were dropped by a
+local norm_desc change; v7.4-rc2 does the same through commit
+834ec9530832 ("net: stmmac: drop split frames on AF_XDP zero-copy RX"),
+which patch 2 now relies on.
 
-1. EMAC_RX_CTL0 bit 29 (JUMBO_FRM_EN) is never set, so the receiver
-   rejects frames longer than 1518 (1522 with a VLAN tag) bytes. The
-   Allwinner BSP driver (sunxi-gmac) sets this bit unconditionally at
-   init. Set it in core_init as well; core_init runs after every DMA
-   soft reset, including the one done by an MTU change.
+These patches were developed with Claude (Anthropic) as a coding
+assistant. It investigated the problem and wrote the code and the commit
+messages; I reviewed them, and they were tested on an Orange Pi Zero2
+(H616) as described above.
 
-2. The EMAC has no Synopsys HW feature register, so stmmac uses normal
-   descriptors in chain mode and, without enh_desc, sets max_mtu to
-   SKB_MAX_HEAD(NET_SKB_PAD + NET_IP_ALIGN), which is 3712 with 4K
-   pages. That value is not a hardware limit. The descriptor buffer
-   size field is 11 bits wide (the same in the BSP and the QEMU model),
-   so ndesc_init_rx_desc() caps each RX buffer at 2047 bytes, and
-   ndesc_get_rx_status() discards any frame that needs a second
-   descriptor. On TX, stmmac_xmit() only splits jumbo frames for
-   enh_desc, and norm_set_tx_desc_len_on_chain() masks the length to
-   11 bits, so a linear frame longer than 2047 bytes would be silently
-   truncated.
-
-Moreover, the RX DMA only fills a multiple of 4 bytes of a buffer: on
-the H616, with 2047 programmed, a 2044 byte frame (FCS included) is
-received in one descriptor and a 2045 byte frame already spills into a
-second one. The usable size is therefore 2044 bytes, the same value as
-DESC_BUF_MAX in the original sun8i-emac submission and in the U-Boot
-driver.
-
-Limit max_mtu so that a frame with two VLAN tags and the FCS fits in
-2044 bytes (MTU 2018). A device tree max-frame-size can still lower it.
-Longer frames from the wire span two descriptors and are dropped as a
-whole by stmmac_rx(), which drains the descriptors of a split frame
-since commit 834ec9530832 ("net: stmmac: drop split frames on AF_XDP
-zero-copy RX").
-
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 24 +++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+Changes in v2:
+- Patch 1: add the Fixes: tag, and correct the commit message: RX
+  threshold mode depends on snps,force_thresh_dma_mode, not on RX
+  checksum offload (Sashiko AI review)
+- Cc Corentin Labbe (author of the Fixes: target)
+- Rebased onto current net-next; patch 2 unchanged
+- Link to v1: https://patch.msgid.link/20261110-sun8i-emac-jumbo-v1-0-84bf00e9ffa3@gmail.com
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-index 0c82662fbe6e..a18d3daf6a3f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-@@ -6,6 +6,7 @@
-  */
- 
- #include <linux/clk.h>
-+#include <linux/if_vlan.h>
- #include <linux/io.h>
- #include <linux/iopoll.h>
- #include <linux/mdio-mux.h>
-@@ -219,12 +220,25 @@ static const struct emac_variant emac_variant_h616_emac1 = {
- 
- /* Used in RX_CTL0 */
- #define EMAC_RX_RECEIVER_EN             BIT(31)
-+#define EMAC_RX_JUMBO_FRM_EN		BIT(29)
- #define EMAC_RX_DO_CRC BIT(27)
- #define EMAC_RX_FLOW_CTL_EN             BIT(16)
- 
- /* Used in TX_CTL0 */
- #define EMAC_TX_TRANSMITTER_EN  BIT(31)
- 
-+/* The buffer size field of the EMAC DMA descriptors is 11 bits wide, and
-+ * the RX DMA only fills a multiple of 4 bytes of a buffer: with 2047
-+ * programmed, frames longer than 2044 bytes spill into a second
-+ * descriptor. The stmmac normal descriptor code used for this EMAC only
-+ * handles frames that fit in a single RX descriptor and a single TX
-+ * descriptor buffer. Bound the MTU so that a frame, including two VLAN
-+ * tags and the FCS, always fits in 2044 bytes.
-+ */
-+#define EMAC_MAX_FRAME_LEN	2044
-+#define EMAC_MAX_MTU		(EMAC_MAX_FRAME_LEN - ETH_HLEN - \
-+				 2 * VLAN_HLEN - ETH_FCS_LEN)
-+
- /* Used in EMAC_TX_FLOW_CTL */
- #define EMAC_TX_FLOW_CTL_EN             BIT(0)
- 
-@@ -645,6 +659,15 @@ static void sun8i_dwmac_core_init(struct mac_device_info *hw,
- 
- 	v = (8 << EMAC_BURSTLEN_SHIFT); /* burst len */
- 	writel(v, ioaddr + EMAC_BASIC_CTL1);
-+
-+	/* Without JUMBO_FRM_EN the receiver flags every frame longer than
-+	 * 1518 bytes (1522 with a VLAN tag) as a length error, so any MTU
-+	 * above 1500 is unusable. Frames are still bounded by the RX
-+	 * descriptor buffer size, see EMAC_MAX_MTU.
-+	 */
-+	v = readl(ioaddr + EMAC_RX_CTL0);
-+	v |= EMAC_RX_JUMBO_FRM_EN;
-+	writel(v, ioaddr + EMAC_RX_CTL0);
- }
- 
- static void sun8i_dwmac_set_mac(void __iomem *ioaddr, bool enable)
-@@ -1209,6 +1232,7 @@ static int sun8i_dwmac_probe(struct platform_device *pdev)
- 	plat_dat->mac_setup = sun8i_dwmac_setup;
- 	plat_dat->tx_fifo_size = 4096;
- 	plat_dat->rx_fifo_size = 16384;
-+	plat_dat->maxmtu = min(plat_dat->maxmtu, EMAC_MAX_MTU);
- 
- 	ret = sun8i_dwmac_set_syscon(&pdev->dev, plat_dat);
- 	if (ret)
+---
+Arun Iyengar (2):
+      net: stmmac: dwmac-sun8i: Fix the RX_TH threshold encoding
+      net: stmmac: dwmac-sun8i: Enable jumbo frames up to MTU 2018
 
--- 
-2.55.0
+ drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 29 +++++++++++++++++++++--
+ 1 file changed, 27 insertions(+), 2 deletions(-)
+---
+base-commit: c88fd6989aea9237a60a4859139a265bfb7ddc0b
+change-id: 20261110-sun8i-emac-jumbo-4839f984a6a9
+
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
 
