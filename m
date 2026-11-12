@@ -1,111 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794464314;
-	b=05Dc+c4oawFsf88/vyq5T2rswwpMiQ4apuE6bFbMKvFiDXnygS9XwnzKqvEO2SBJCe12
-	 B7+UVUJJ9z1Lb3WUfiwcsO8QXoZCKmXgJoS/6y6qfyFuj5n87rkdMOSioaBS4ACmAnWtO
-	 +b5ymcEhLZxIrn6VNAcA86OfZ8+WQfOrDPypf/Pfs2358Nwqe7VPc5+zsDwe8UpiVKf9O
-	 8bSCXv897QlhCPnfewLJWnvjPVMUKvq0+ee0NAgATcLhnRM3mwBpxaaC5AAFCWcHlBk4b
-	 E7FtBIrT/3xUvXgHfB8XAZSzWIPnIfBgAmd2r9rC+fzEHQ8XuotXkaLBGypwiTVdI/A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794464314;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ZQE4wH07HskksBy081BLQaHeHPxim4J9SFvGunClQ0Y=;
-	b=ughV5MuhkWY5GSolw8Kw37bdoI5gYDItPENpsSb1ywH+4r/lwL/8IyczncTadx39kqGg
-	 LptjDELcRVD7ERVqnAupOUbNjPnBa19UG4hea9c0R7+lUYtD/T/Qp1Z9jJ9+lJk9Y/iWP
-	 CyzEubpiJmu8w5CrF0tOw6vU01oYgYbnjRtBEk26p5hzllQm4a18iZ17E1v9i9izhY+jG
-	 m8QTpsmzGj5K7C/EMisqSkvXeDWJR5aYD1PkVM6MHNm6g16HHNMdP6CPHo8KcDdKjujwz
-	 hVG9wPNLxFGrthkhef06+rovX6+5G4zkBojdNDwwJIaf5L7ERB0auwcsxgfPwLeuxOQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dR9VBBX7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.15
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012015.outbound.protection.outlook.com [40.107.200.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794464379;
+	b=xFx5PSYKBDS50SRnQLeYeyelJEc/VPmbwloj8mckGnxv4wP3YeiuflH2PfV/yCuG36D9
+	 ji+CuXolv2FDxOceUYmuxg6HiEu+jlcuYiN17yqLRHKjUUiXyTXMemIwE/n2F+yHl5bb8
+	 qKl1IX9h0ifTwn3lbSZRZZkB6+5kU1pEeiNvMqjeZcbxzExFftphSMEJGZlSHWtSUfpvF
+	 LhhMmfRmOOg5arFdzcSWp0CDklaHelyDmqvzhkS9qwY47kO2K9ccG1jRa1Jk+21Bd1oRw
+	 vQXDW1iyGGZ+z5SMtyiDSmPcYJ6aiVS1m0hWh2WsJPty9+0QMvHCobuqbfivvDMoZzA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794464379;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=uA08ZWVt/bTm0lpe94c2sMUhRAmYMvhXE/vdrih5bQE=;
+	b=JKjGbigRB7vZ2wcHV4XUvFuA1bN8jFd1B4wpydo8IGbOgP5ySkXQEofXtxEpy0uaMiSf
+	 CfDcZi3cxKwIFyQtUH7n0D/Gz6IFHHaxM/SFNm7HJrMxVNTh25g0sUwMDohzNcCz4Mc4G
+	 YFmCC+xCSL1dTf16rprVBnPq2L6XR6uNysFR4dTF4DMfOFcClF8PZE4luREp4K0K9auFC
+	 QtxvBacWKEVsfP6BY+1nghPJ7FCx42D2za9Pu0NpDjtCxFvkNObDOciMd7ffKk07WpKRk
+	 GuS+vOU+KREzjtJxcDw1OzOKvcjE9QHgiX1yweOfYygEOPsrtN8CeGSivoVKs0RSmpg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cC3QylXu;
+	arc=none smtp.remote-ip=209.85.214.199
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B42B606A338;
-	Thu, 12 Nov 2026 06:18:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B42B606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06903606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:19:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06903606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dR9VBBX7
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=twN1qiGmhTKcRdK14xaii7vjLpn5dgWxrtFzq+4AVxtTGz5HYiE4pthVRZISwHFF81SkLUwgMDlSGeZWE91YCucOFkn45hSH8QCWWL2aYBTwj4iNXChz4Omlw5kmbtEqlk32GddczijcdvhNdvHa0Jvd8+e6BcqbmmX8hGxCfu/m/T/RLH9uwCeyX73TbO7Aq+5LwuGtDc5IGR7/2HWZSjStkg2L5JdpUfi84Paa7mUSjDqa/r9o6/dmFywz+XvTBv13lurOc2aNlO0U7x/Re6VnCyHYfMyykfR8nS/1j+DugNU/aO77EwOM1K6rwItawCTjOB+itKZn7/ad+EQtbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZQE4wH07HskksBy081BLQaHeHPxim4J9SFvGunClQ0Y=;
- b=MRnXScW6mPKbFIzgSFV/cXS5kQB1QMw9irpNj+7NNTrT17VkmsBqrUQr3frn4ma7t88MTUqCYzQHxTN5J+6oYR0zF7uZywUcBeQbjmUxkxi4cMq4qxsR0BkXAvHsr1lM6Mj/Sgwy6Ea5DQGAiBtxA+ZwPkQNrDWvlvU7WZYo1oTT0Ayb3nYswag4ADtb0rrDwJ/TpDLtN0LDYUr0S0vaAue5IJPhjqVlejcs1It8Z+xAjXERSZfMdBIZ4xAvXtWoAcLL1ivSb23XCmdA1ilmKJtdZJ+jNS3AQo+OkkfkVRmNRgJqis/wjDbxwBDFJHYfqMMSY5g/kbcM+m0hD7+I1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZQE4wH07HskksBy081BLQaHeHPxim4J9SFvGunClQ0Y=;
- b=dR9VBBX7mRwx1MP721tQC3kEQJrAguuugeEmaGwArivsBf7ZhGUandfkA64RGDkrT7QTsc3iRyaPVdH8Sc7o/Et0WCWwKg84chXAugmctJTSWiJHYr5laxZemIL3noYi6TCOeECoWXW0NPqpj5Kk8z9YYa8iqBRAjODYWEq7jqutH5zjfiNFqW1l2ebTxbC9yd0xW6Gqlxh3xEFZAX0qT6+65eM+vg1D907O67jCphhjEP4QpQ8xehu1HlYc573wl62b+jqwzBKJyInEFq8O8ojvKqXpP68DvcoRUgo0SV9LhG60TgvzG4NFCdkbEgE6spQf2DdT/bvOYsMmluBmtQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB4914.namprd12.prod.outlook.com (2603:10b6:208:1c4::16)
- by CY1PR12MB9604.namprd12.prod.outlook.com (2603:10b6:930:108::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 12 Nov
- 2026 06:18:28 +0000
-Received: from BL0PR12MB4914.namprd12.prod.outlook.com
- ([fe80::4921:cbe6:78cd:b445]) by BL0PR12MB4914.namprd12.prod.outlook.com
- ([fe80::4921:cbe6:78cd:b445%4]) with mapi id 15.21.0615.007; Thu, 12 Nov 2026
- 06:18:27 +0000
-Date: Thu, 12 Nov 2026 00:18:21 -0600 (CST)
-From: Vidith Madhu <vmadhu@nvidia.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-cc: Xaver Hugl <xaver.hugl@gmail.com>, 
-    "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
-    Leo Li <sunpeng.li@amd.com>, Harry Wentland <harry.wentland@amd.com>, 
-    Fangzhi Zuo <Jerry.Zuo@amd.com>, Daniel Stone <daniels@collabora.com>, 
-    Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-    Maxime Ripard <mripard@kernel.org>, 
-    Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-    Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
-    Andrzej Hajda <andrzej.hajda@intel.com>, 
-    Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-    Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-    Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-    Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-    Sandy Huang <hjc@rock-chips.com>, 
-    =?ISO-8859-15?Q?Heiko_St=FCbner?= <heiko@sntech.de>, 
-    Andy Yan <andyshrk@163.com>, 
-    =?ISO-8859-15?Q?Michel_D=E4nzer?= <michel.daenzer@mailbox.org>, 
-    dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-    linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-    linux-arm-kernel@lists.infradead.org, kernel@collabora.com, 
-    Derek Foreman <derek.foreman@collabora.com>, 
-    wayland-devel@lists.freedesktop.org
-Subject: Re: [PATCH v2 17/27] drm/connector: Add "Media" VRR display mode
- for QMS
-In-Reply-To: <20261105-vrr-limiter-uapi-v2-17-55f4215be2c2@collabora.com>
-Message-ID: <3e4c8552-5dc0-f189-dee8-2ca0ebe01629@nvidia.com>
-References: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com> <20261105-vrr-limiter-uapi-v2-17-55f4215be2c2@collabora.com>
-Content-Type: text/plain; charset=US-ASCII
-X-ClientProxiedBy: SJ2P221CA0010.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:a03:5db::19) To BL0PR12MB4914.namprd12.prod.outlook.com
- (2603:10b6:208:1c4::16)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cC3QylXu
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ea71803effso39661615ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:19:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794464378; x=1795069178; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uA08ZWVt/bTm0lpe94c2sMUhRAmYMvhXE/vdrih5bQE=;
+        b=cC3QylXuOkBJcuiM26egHlrAWxVqHaqwt7BW3rf3hfWxts2eQCo99NOFUNM9OThYbC
+         br5d6PQW4MGr4O/mvH6l7VhpT15vMaPdsFoS/4yAfJLR3TrmATfGFHHIpo1I//vetc2X
+         9Ne/PJ0MMwWo1kVhTpmr7rcPdBKvETkknFA2m1aXj5WROYKdMQv07jihN4MqSihTkivW
+         tD11w8Q20dbeGJhyWBNdxGrRIYxqDSfM/WddJcx43zH3UT+cL/57uAGUKpNlF4nrvrLc
+         A3jg3w3rNR+X8MeRpKW/z0IYA37SRMvMA427qYqQTO3CpTYBOirRUlOwwQeM/pmGvdFY
+         xtLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794464378; x=1795069178;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uA08ZWVt/bTm0lpe94c2sMUhRAmYMvhXE/vdrih5bQE=;
+        b=TuJihng75yTAAPVyTss0WHdfOyv18b7fghsrUOR2F2MnxY4fPywSZMwwhHUBGWZn4L
+         J0Fsc3VAgV73hcsOpJx5aDSOTGbbJym/7SgZHNSijFngU71biI2d3G7ukTzSNK5VYdd3
+         o7yFqEjRtzppZ7IL9/scPFagBytrUzwfB9IyKiIRoznkK9HSxbRR18efk37thWaC8Gxh
+         IJTG9x+yHhhyoKDDrzm89LHt8zjXHN+pYZyNjVCKx+4FsYxMgluZ3ysJkXbv8/0Qkqcu
+         LU+7HojX5abD0O2l8P1tc9tL8VbxcE7PNN3vu7ERb73hm4MgAPXMxs6TdZ55/OHRgJuh
+         if+w==
+X-Forwarded-Encrypted: i=1; AL+hErHJPgz24Y2JuyeW/qUZOILLSGgZCQeDCmqIBEK6yYr/HOJLask4ErbwQSEVeKmCOKaQ2wK/pyBX4v+z9ZE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9R/DGfR34KObLj//aqOPqXR0SM5Cm5zbNl9UVWrOrEOnfg0sGD
+	LNUTKfiCucTEPSekOO7NrmF+SW1Alo/HuEKyZKS2sDmrZ5tVja/OeLMMEPNv96EvrVTIisJuB3M
+	TT6yuww==
+X-Received: from plbja7.prod.google.com ([2002:a17:902:efc7:b0:2eb:16af:1567])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:fc4d:b0:2e9:9a19:c43
+ with SMTP id d9443c01a7336-2edd7ab1fefmr46833585ad.15.1794464378116; Wed, 11
+ Nov 2026 22:19:38 -0800 (PST)
+Date: Thu, 12 Nov 2026 06:19:37 +0000
+In-Reply-To: <20261111023222.77227-1-sunwenbo@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,157 +77,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB4914:EE_|CY1PR12MB9604:EE_
-X-MS-Office365-Filtering-Correlation-Id: 00ecfe5f-0317-458c-7b36-08df4084c373
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|22082099003|18002099003|261021135927099003|3023799007|261022105027099003|56012099006|10067099003|261009223027099003|261028144727099003|261026140227099003|261021123027099003|261102130727099003|261022113327099003|261009221227099003|261021121427099003|261026121527099003|261102123227099003|261022075727099003|11063799006|4143699003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	7ap2RKfZ2jcc2TKYc74ETJo5FWJy7Ez5VkBrUV47LZyJLPolXpYt0MNL41Q3GrAFWPPlhoSOXxRoBX3xHHWy64zretiEGQnFaZX5GEwSU+ci3GpoEeVUYQKfMf7vwV43wSlNyaOJ2+2g7dwoMyrO2SkRzwtHp2HEk0Gk0wmIB0QBglQe1q6lSdxeBnLNwnqCDYZgM1YLADnb8Xyw+NMXcQMRppPjH0aeNHFKUg6ALgvr0wJt809yKGGi93X3oWB+0evf/r+CCLVjsEJ9H1xOwbGHvG4bu9FIoEkMYuTpxlwF3uzVoCE+gH9YH/9amt5vewtVmbHEkMmZrJutZDDAJhC97DoKLPaOT+hu6qxKGhfAlg+EGiclk9c4qKmyYi3pkDI9DzsLuDByrLDUH9mUG3Gk+aTUYyLz6teLEZZ3NUfagvLFPw5zIEowCSiRj0A8XU6uYsHTnTY2j27Sq7VJKK6NVNsEtctYtCKro3dGuLpNQsffA65QWI0lDLUBrdb3OecQixF33A2rOg7y/jn7GoziX3brhUk+YaCcJb6RoUxK2x8Bon5Fg8JiPSMvwvxA68LNDw9fOh5P8u6J+YT1X0jeFDCcQiRsvB16swGDPU0T7EEvIrE/RRfcZmj8/TNnl6AT9fCgnJ52AYdKSGwF47vAJwsK5W8IbstP5l3BEKY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB4914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(22082099003)(18002099003)(261021135927099003)(3023799007)(261022105027099003)(56012099006)(10067099003)(261009223027099003)(261028144727099003)(261026140227099003)(261021123027099003)(261102130727099003)(261022113327099003)(261009221227099003)(261021121427099003)(261026121527099003)(261102123227099003)(261022075727099003)(11063799006)(4143699003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Rs1j8hAfNwBmcKnIXuQbZ9L9SrX3EUhKTzgXBp20Narsv/4SeSgkKiZXG+5A?=
- =?us-ascii?Q?cUq72M4/TXnmCBXNMsnRSL4bEUwtRVugS0EnbaOMMSZrc97L80ytDtKTq8rW?=
- =?us-ascii?Q?WjF2q99YyQuMIe3VCTDNlTAU9fMn+QFnG59OshmKifnC/5OooIUSPKPTb9eQ?=
- =?us-ascii?Q?xo2TADD5z4Dmsa6pRawvJgu88g7ixDPcKdj6yQ6JahMkXEBFW4EsfServuez?=
- =?us-ascii?Q?aYHtLSREE1KbEy1HbLS5izLM4+hqqQTYwAP/KymHzco4r3t0yUh5JfPpcOlv?=
- =?us-ascii?Q?hGP9p1PAs2Awfx/e8SpTXgQuiGXdxuEPfmJ+wB1KBGGOspWVChwKdKpSbpYr?=
- =?us-ascii?Q?ZfvkIKUucumNh+cMsvIJOcje3gqutjyCFj+VBa8DoaykwMrEUyk/7ymPmm02?=
- =?us-ascii?Q?Yq9MkzkZUkifo6mrFJAwPcavXQZ1GKs5VEMvmIeCO7f315xvVICqlJimJRPJ?=
- =?us-ascii?Q?dDF6lMSTonGYVdrneBiD7D9Wb8HXvmiJwZalgpk4ytOyQjR+JZbz5pymGmcJ?=
- =?us-ascii?Q?zFu4DoL9Ej3UA9MTlOOJYDcFmLkcXnKbpm2Eet7ZclZ9W1d8WyyGvHs3AP6N?=
- =?us-ascii?Q?hQ9899JFbnYHfsZAPbwwUALni2TPx1vWcsTfldB0xOsGqMhpSf4KaNyFLJvW?=
- =?us-ascii?Q?h1p+xfnGN/DQN6LnI91s8vj/Aps8MWAMCq7Rf4bNVaOVBA+4SrETxS5nNQ6u?=
- =?us-ascii?Q?hfNjVyJ6P6mkpRjGZO3cPMvgsemshzU+weL6gqg0h9nUR+X7fPDZHusNG0t4?=
- =?us-ascii?Q?CMXc9931078YHXu1Q7Wo8lkUKyALGIHvXxfa+8Dm6lH56ELBzzCFB8DQgLpj?=
- =?us-ascii?Q?HwwMYljpbnLtxh2SjeUAALkXj2RorpygCDaZGh6Rr3fjiKHlVC/GkcD1y9V7?=
- =?us-ascii?Q?PO+dUWHWpsWeJyfJjSVihQ9vq840SKNVyXl0EsOLlUxnE0BLQKSXhYwguZiN?=
- =?us-ascii?Q?JgGHSKa7CRZpBsZSaW8/a3jJJ1zKIMnddwUCYGyBsgEJxHCjvzN3dVKYahhs?=
- =?us-ascii?Q?8xgiEHVRsjLbwuls1/XGKQHBIMMIXiKQZv8qhZZ5PsgPLYknUZ0fQ0gdCsfc?=
- =?us-ascii?Q?uVwns7Uxm6MfKkp2muj5O02TCNQca5XDhuEdK4xqCvDQ7yXw+yq/Z0kSoqZ1?=
- =?us-ascii?Q?OYSJn+NnqYTEqjpc9sCdDL1wXHAP/pDsHfoDXnPkehG6A41sXVw6VffK6qM0?=
- =?us-ascii?Q?X+hVqkZC12QYbXahxI1eQFL+4HolfB5+iwRgs8DPGORPs6cej76bGQ+Lwmbf?=
- =?us-ascii?Q?MyB2/QgMj4uBsrPIibmQVYlPbiszL1vdhSreycNk5Rdib/JeYftyVDFS/a5a?=
- =?us-ascii?Q?Df9wt0ZWgB2U9vQAY1HT8eawC8i5pgWDqsddXt4c3HXYzvwwJ4zo1pAdafV7?=
- =?us-ascii?Q?U+13UTpfIk293Nv53oiCH7DZvFVnEcNy/pJGATUS+mdScJS7TALGqyiK+XvY?=
- =?us-ascii?Q?xF8YQQ4qxnYe60rSjX86LjHe+8MwnPmhzk+u+XgJrKkdPpntBOUYsFfSsvCe?=
- =?us-ascii?Q?IkOj1Mswxt7gpL6jjDpLHCuoO6DyFvXyRfi8DebNfJ2wtwQbAkwHzDupQesE?=
- =?us-ascii?Q?eIDFo+Cj1391tacjX8gLa9+A84cvpd5U5xmJqyO0VvQq5n6PQuI4tin2/D2+?=
- =?us-ascii?Q?2jWARmvgLqlO3JQAS+p0uV+UhAl195T/1GKkFeLPBbWSQ+Oh3rr/HpeklaV8?=
- =?us-ascii?Q?nv2FKiJjcgPyNl0yR7yRYwko4BzfXCW2BOPMku+x7tRAfifD?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00ecfe5f-0317-458c-7b36-08df4084c373
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 06:18:27.0615
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4/8BAtq163Nr/aODFj8mnjYBYgPcKBqI7V2bVt/iZeh+2mBzt7XrjbIUjQDlscBZmwA08CsZBqBmL5mefkhXxA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9604
+Mime-Version: 1.0
+References: <20261111023222.77227-1-sunwenbo@cmss.chinamobile.com>
+Message-ID: <avVaUr1ZOMeEEXsf@google.com>
+Subject: Re: [PATCH net] af_unix: Inherit SO_INQ in unix_stream_connect()
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, willemb@google.com, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 1342116488@qq.com
+Content-Type: text/plain; charset="us-ascii"
 
+On Wed, 11 Nov 2026 10:32:22 +0800, Wenbo Sun wrote:
+> When SO_INQ is enabled on a listening AF_UNIX SOCK_STREAM socket,
+> accepted sockets created by unix_stream_connect() do not inherit
+> u->recvmsg_inq from the listener, unlike TCP_INQ, AF_VSOCK SO_INQ,
+> and AF_UNIX SO_RIGHTS_NOTRUNC. As a result, recvmsg() on the
+> accepted socket never puts an SCM_INQ control message unless SO_INQ
+> is set again after accept().
+> 
+> Copy otheru->recvmsg_inq to newu->recvmsg_inq in
+> unix_stream_connect() using READ_ONCE() to pair with the lockless
+> WRITE_ONCE() in unix_setsockopt().
+> 
+> Found during LLM-assisted code review of unix_stream_connect() while
+> comparing option inheritance between SO_INQ and SO_RIGHTS_NOTRUNC.
+> 
+> Confirmed on UML (x86_64) by enabling SO_INQ on a listening AF_UNIX
+> SOCK_STREAM socket before listen() and accept(), sending data from a
+> connected client, and observing that recvmsg() on the accepted socket
+> returned no SCM_INQ control message.
+> 
+> Tested on UML (x86_64) against the reproducer, verifying that
+> recvmsg() on the accepted socket now returns the expected SCM_INQ
+> control message, and ran the tools/testing/selftests/net/af_unix/scm_inq
+> selftest (all 6 test cases passed).
+> 
+> Fixes: df30285b3670 ("af_unix: Introduce SO_INQ.")
+> Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
 
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
 
-On Thu, 5 Nov 2026, Nicolas Frattaroli wrote:
-
-> HDMI includes a feature called "Quick Media Switching", or QMS for
-> short, which builds upon the existing VRR to allow for quick switching
-> between a select few common frame rates.
-> 
-> Add a new VRR display mode, "VRR_DISPLAY_MODE_MEDIA", to the
-> vrr_display_mode connector property, in order to expose support for
-> this.
-> 
-> Additionally, add a boolean flag to the connector's HDMI sub-struct with
-> which source-side support for QMS can be indicated, as well as the QMS
-> tfr byte to the HDMI state sub-struct.
-> 
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> ---
->  drivers/gpu/drm/drm_connector.c |  6 ++++++
->  include/drm/drm_connector.h     | 14 ++++++++++++++
->  2 files changed, 20 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index 21222214a843..f7d619926e2d 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -1456,6 +1456,7 @@ DRM_ENUM_NAME_FN(drm_get_tv_mode_name, drm_tv_mode_enum_list)
->  static const struct drm_prop_enum_list drm_vrr_mode_enum_list[] = {
->  	{ VRR_DISPLAY_MODE_GAME,   "Game" },
->  	{ VRR_DISPLAY_MODE_OFF,    "Off" },
-> +	{ VRR_DISPLAY_MODE_MEDIA,  "Media" },
->  };
->  DRM_ENUM_NAME_FN(drm_get_vrr_mode_name, drm_vrr_mode_enum_list)
->  
-> @@ -2593,6 +2594,11 @@ EXPORT_SYMBOL(drm_mode_create_scaling_mode_property);
->   *	    - Game - set display to game mode if display supports it,
->   *	      regardless of CRTC state
->   *	    - Off - set display to VRR disabled mode, regardless of CRTC state
-> + *	    - Media - a "media" VRR mode that only supports a select number of
-> + *	      common media refresh rates as fixed targets, but does so with
-> + *	      possibly better display-side processing. In the HDMI display
-> + *	      protocol, this is QMS (Quick Media Switching), though the mode
-> + *	      enum itself is vendor-agnostic
->   *
->   * VRR Limiter/Target Properties
->   * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index 4801bb2769e1..41f272afbb1e 100644
-> --- a/include/drm/drm_connector.h
-> +++ b/include/drm/drm_connector.h
-> @@ -829,6 +829,8 @@ enum vrr_display_mode {
->  	VRR_DISPLAY_MODE_GAME = 0,
->  	/** @VRR_DISPLAY_MODE_OFF: Turn off VRR on the display */
->  	VRR_DISPLAY_MODE_OFF,
-> +	/** @VRR_DISPLAY_MODE_MEDIA: Protocol-agnostic fixed rate media mode */
-> +	VRR_DISPLAY_MODE_MEDIA,
->  	/** @VRR_DISPLAY_MODE_COUNT: Sentinel, not a valid mode, keep last */
->  	VRR_DISPLAY_MODE_COUNT
->  };
-> @@ -1241,6 +1243,12 @@ struct drm_connector_hdmi_state {
->  	 * deliberately not requested by the helper.
->  	 */
->  	bool scrambler_needed;
-> +
-> +	/**
-> +	 * @qms_tfr_byte: Target frame rate byte for HDMI QMS, or 0 if QMS is
-> +	 * not in use.
-> +	 */
-> +	u8 qms_tfr_byte;
->  };
->  
->  /**
-> @@ -2270,6 +2278,12 @@ struct drm_connector_hdmi {
->  	 */
->  	bool scrambler_enabled;
->  
-> +	/**
-> +	 * @qms_supported: Whether the connector supports HDMI Quick Media
-> +	 * Switching (QMS) on the source side, irrespective of display support.
-> +	 */
-> +	bool qms_supported;
-I'm not really understanding why a source-side capability is being 
-captured at the connector level. The way I envisioned this is that
-source-side Media-VRR support can be determined by whether the driver
-attaches the CRTC frame limit properties. The ability to maintain an
-arbitrary fixed refresh rate (implied by attaching the properties) should
-be the only QMS-specific requirement the source needs to support.
-
-Thanks,
-Vidith 
-> +
->  	/**
->  	 * @scdc_work: Work item currently used to monitor sink-side scrambling
->  	 * status and retry setup if the sink resets it.
-> 
-> -- 
-> 2.56.0
-> 
-> 
+Thanks
