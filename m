@@ -1,110 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794459266;
-	b=FSe1lM80AxS6itEc9f9MnvFbRplKMfdHRtGdq4T/wd+YCArA3bmI+PEM7Hex41TBZMW9
-	 I59bAUbAjMfQdkQD7Pdiwco0njgjAwoOt3u2l2BqLbU1VTRU1md9DY+olIg6Bnn/mW3nB
-	 4CPUD+7uSn0BFtCZC1xPXYEoq52L8raiAcEe3JeSURk4/ix5TdfDEoxHFOdvEqcKHrjB2
-	 1lnYbRgRXCw4Ue4fwkPZ0Y5EY6MjAAUpFCowUikxkwfQjYlJaZSJe9KZVZ58mRfz9S5Ow
-	 pB7wRLC+dmzZIBChj7SeJHgEkiEgkajxXOl9DjEAkpF0RLRST8lKGzRlb6goRz8F/aw==
+	t=1794459290;
+	b=4iNhu42vX0R+msbksGQWM0qmDU1gaA/8tO46AICAc4mqlXKwYRm12SBBCFdW3Ydrtl28
+	 JEUlRqcB/GkJ3BN74utxjOqZTxb9+aj9JIpHHrHWpwsAOJnndkkwWTCXFGyvJFffIeehI
+	 gekOauXfJ7zV3Z7VRRzhwwXrmwGa+1mwHo8AQdBd7sZVZSyCHUMNB1AdNFxs484YlqpAH
+	 qSDMMCD8A9dEY++iZkHqEnlTQi8MEDTaGrkp5EBCBhG3+q7K/hFgiOUd66lTHaUV7MAVH
+	 6PAR1ZMA3+5sqO6cFOH+y5v0sLpZvZ0JUnE0G0yMOWQquCF+/8QXHU2pFu6w0slo6rQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794459266;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=RAq9n/kNrP7BlUgARluwnVEw0T6kr6FCdHtXIgtVkeM=;
-	b=TkJAWOEynMmFsYQFX57hsNzK2nMd+YIZrfvEV9PmNr8Rw92jQvoD0lKVAnsANKVV8ajV
-	 tiVTKJJh72zBmGqmNeBI7/7abCXepNt/MIdw4mmk0gWRy49eq3PSBtl5IUYf++BzVm7fn
-	 6JFVB3dOu2fjzSS60h6zh5KR5rol7w4Vqi2ZR8jdALFQumVvc5vqqHOOUvxLezKxPazH3
-	 8rE9GpU0CYIOmOaBUy5c0mfk6DU9M2vEaBrj3j5j5OHS3ySbrDYLNHYnxmR1r5ERHqp9o
-	 rsESzbyMHx+bsk6SmIMj4pxDFXwluZ9z58EPUsWIkMm5gqEGFfJCSABIkjxaVkZ2VGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794459290;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Date:From:To:
+	 Cc:Subject:Message-ID:Reply-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=/V28rCHXi3T9oO9LFCn5sfVOcz0zmvubCJbcVebXDxQ=;
+	b=xEHiGJOb9wMcknM/xQqVA+uG6A8Dw1YzVX26qlYAbMjn4oioog3Mr3AAKT08BzbQoPlm
+	 e4OxRa1wKaPDLNWamivJj3958wPNvpfHxAP5PxeVSkECNXrHj2oaV/4/lAcCdMRexkeTL
+	 X0FThaqeWpQgmrzDoL3pFzhKNHmoVMUP5vmAd9pZxc8sa/B+aEOPL4ZrFGXYGhwHmntJs
+	 X5hn1wYLE0pkULJeQ3gbW4FqosCURDlMCm0jKcWUUhUDbJTt+ULk7cXmLAc7lHINhDuGf
+	 f8vZSxmm4Eiwpdkimfi00q9bVb/kT200z+62eU59VqS4jJXdgCjPqorqoo3DXRn/iZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=spDcTELD;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=MXltY6b0;
+	arc=none smtp.remote-ip=115.124.30.100
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AADCF606A898
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:54:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AADCF606A898
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FBCB606A32A;
+	Thu, 12 Nov 2026 04:54:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FBCB606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=spDcTELD
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-37628596783so3652162eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 20:54:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794459265; x=1795064065; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RAq9n/kNrP7BlUgARluwnVEw0T6kr6FCdHtXIgtVkeM=;
-        b=spDcTELDFQlcTf19OdZXBxhtBvEGg4kq4pwPb1twI9/qO4gMpLoFm3DXDFfofVF5Xs
-         Zgwx1je/2rmlyXNRFHSAu3PW34a3/XQUdfApr3W9NkndQTAU0CEesCkAmXvZEhsbgkQ1
-         Vln9R5zmJc+ypxxE7usn8nE74ZSjSvGiGFfP513vGaYmkn6y9EL042KLawQyiPgg3l8R
-         6eYQ8CHySmPTNVNxW9E567dW6scIE/PYDrkAy8Tv7qwdRAaFTLpWmG59yxRwAjUZe6iJ
-         wdYH4xPHRqCnsV/UXAHOrj74jM/7LvaB7MnHdRccV1HNJyWrigjIy1qu2HgZ2kiWs/eg
-         f1lA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794459265; x=1795064065;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RAq9n/kNrP7BlUgARluwnVEw0T6kr6FCdHtXIgtVkeM=;
-        b=xDgU/kCgO/TCiC0hn6g0LVRYRndMx1fiIcUdP/K4Gtvbm+Mqekl1xwtwaLzKRKK2m4
-         u0dDJld/PU78ZyAxqcP7ympJwgMfqSxpJE7YUb7HnIGuXcyaOmu2SWywFjlnABXdLqty
-         4zZVGOvmT/l/6ZTbt4uRkkcQsmTP+8Pz/5yXFmKGTUQkz7otEI0c8hBgqzzdELxig1uq
-         lzHl2KuJVQL2Z1RP2Ex4BzVkhmgBt/O+ZwBltFULTyJ/kjL9nMnhnFOuWr0Z2ezPyj5r
-         2cYNsHquNBf5FYZpw8KPgAxTC3Kq3Fs8DowlVUsD/7FrjH0A+wFaJeA5uDrRwk/o2ldP
-         aNWg==
-X-Forwarded-Encrypted: i=1; AL+hErEr9lMWFyOI7Xj8ARXK1KuWwvB8kY5YLL0m+SURRy60SXEFVZulJdOirMLa0MuLpg6ldhgjmv0EYq8iBh4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Zjy3zy4lvoelXg2N13EHgcJ80cPrgKsn+UCRqDW7CB9pBtNmB
-	VAV1xvyHZkMnAJh0o2+AAijxEYpY2o6Rx60SAaHBATHb4fIk6d4QCW5C
-X-Gm-Gg: AYBFou0j3S4l1yMr+H1j1k8wA+6/K77ovXZ6CZHNqvK/3MgX/Vb7OZllzKEHpVk4o5n
-	BrEOb2teFu8G/Ggno0UDaSAMJwZ23/h+S7ykM/KLp5bJf2jYB4cSikgc8JG/lGTURMBy8Fi9/vl
-	o9+6asFgGO3MiFFoKeTy8zHWbZ3dCSgYe1TYUkeLJTDqAmhkTFMyiy9W3skoEIa4lbgkDoz5dY2
-	dej8g/k9gO6Msop/rxZ3brkzAPBNeAzdI3CdyBERkAi/7YcM7pbLZgIuL5aIQJzBC66a24gQyi0
-	O2MFecjZ14GT5cgDqoknNeAKga+ORIdO3q4MuZmT7ROHXAKKct4HsHiV7K/UUwfF8rHFMEZGqdn
-	JCAVISHvm/lQFqxtORVz6oge0IKQfdgVtmTQcpREwNJqNadQ4k7i+fdMq/paUh+2fVq1jvON+o1
-	raGuYcb+9O7PzGCbsVuG5SY6PeljXQ9yAv1D74/uL+aFOhrvxIpPw/3elIknBjaIMQnBvn/liFa
-	Lue79rnQxCqROczCaqaEgkNXcY17b4XmWa4I0kEHHhvQBV4es4xKdJAWK49xXqwXtJB7qGgbk9c
-	+Bl5Oz46JXZgoh8s05GKTg0OQqKrIA==
-X-Received: by 2002:a05:693c:41c2:10b0:36e:58f3:6f0e with SMTP id 5a478bee46e88-37682f9334fmr5020480eec.5.1794459264772;
-        Wed, 11 Nov 2026 20:54:24 -0800 (PST)
-Received: from eldorado ([2600:8802:b00:1f88::287])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfdfc6sm23921585eec.17.2026.11.11.20.54.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 20:54:22 -0800 (PST)
-From: Florian Fainelli <f.fainelli@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Florian Fainelli <f.fainelli@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=MXltY6b0
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794459284; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=/V28rCHXi3T9oO9LFCn5sfVOcz0zmvubCJbcVebXDxQ=;
+	b=MXltY6b02zxJBPSSJCcrFOFIVlsBPwa+MF+BOn7nVcYMoHG/lR/idyOofAtP+7o28bmnleqYQobOuF1X03XhPFzpBC/hqZgH8dTQlrXbc1lMAFQJxWEzyBHEg4X9w+v0wAMn3OjhU+vlgQS7hHIJLJYkmTvC3eWmg5pBomYYpaY=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=37;SR=0;TI=SMTPD_---0XEaoXEq_1794459281;
+Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0XEaoXEq_1794459281 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 12 Nov 2026 12:54:41 +0800
+Date: Thu, 12 Nov 2026 12:54:41 +0800
+From: Dust Li <dust.li@linux.alibaba.com>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org
+Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
 	"David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Jijie Shao <shaojijie@huawei.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
 	Simon Horman <horms@kernel.org>,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	David Yang <mmyangfl@gmail.com>,
-	Herbert Valerio Riedel <hvr@gnu.org>,
-	Jeff Garzik <jeff@garzik.org>,
-	Danny Kukawka <danny.kukawka@bisect.de>,
-	Mugunthan V N <mugunthanvnm@ti.com>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	linux-kernel@vger.kernel.org (open list),
-	Manuel Lauss <manuel.lauss@gmail.com>
-Subject: [PATCH net v2 12/12] net: au1000: reject frames larger than the TX bounce buffer
-Date: Wed, 11 Nov 2026 20:52:54 -0800
-Message-ID: <20261112045301.3669532-13-f.fainelli@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112045301.3669532-1-f.fainelli@gmail.com>
-References: <20261112045301.3669532-1-f.fainelli@gmail.com>
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Paul Moore <paul@paul-moore.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Geliang Tang <geliang@kernel.org>, Julian Anastasov <ja@ssi.bg>,
+	Allison Henderson <achender@kernel.org>,
+	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	"D. Wythe" <alibuda@linux.alibaba.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Tony Lu <tonylu@linux.alibaba.com>,
+	Wen Gu <guwen@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+	bridge@lists.linux.dev, linux-security-module@vger.kernel.org,
+	mptcp@lists.linux.dev, lvs-devel@vger.kernel.org,
+	linux-rdma@vger.kernel.org, rds-devel@oss.oracle.com,
+	linux-sctp@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: Re: [PATCH net-next 12/14] net/smc: annotate data-races around smc
+ sysctls
+Message-ID: <avVGkcI_j0hDPjQB@linux.alibaba.com>
+Reply-To: dust.li@linux.alibaba.com
+References: <20261109025425.328445-1-jiayuan.chen@linux.dev>
+ <20261109025425.328445-13-jiayuan.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,46 +85,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109025425.328445-13-jiayuan.chen@linux.dev>
 
-au1000_tx() copies skb->len bytes into a MAX_BUF_SIZE coherent buffer
-without checking the length. Oversized non-GSO packets can reach this
-path through AF_PACKET with PACKET_VNET_HDR and PACKET_TX_RING, whose
-MTU checks are skipped when a virtio header is present. The copy can
-corrupt neighboring DMA buffers or run beyond the coherent allocation.
+On 2026-11-09 10:52:11, Jiayuan Chen wrote:
+>autocorking_size, smcr_buf_type, smcr_max_links_per_lgr,
+>smcr_max_conns_per_lgr and limit_smc_hs are read without any lock while
+>their sysctl handlers update them with WRITE_ONCE(), and the SMC netlink
+>handlers toggle limit_smc_hs with plain writes. Add READ_ONCE() to the
+>readers and WRITE_ONCE() to those handlers.
+>
+>Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Acked-by: Dust Li <dust.li@linux.alibaba.com>
 
-Drop oversized packets before touching the ring or copying any data,
-and account them in tx_dropped. Use an IRQ-safe skb free for netpoll.
+Best regards,
+Dust
 
-Identified by Sashiko AI review; implementation and validation assisted
-by OpenAI Codex. An extracted-function harness passed ASan/UBSan checks
-for 2049- and 4096-byte drops and a 2048-byte accepted frame, as well as
-TX ring regression cases. MIPS driver compilation and checkpatch passed.
-The complete AF_PACKET trigger and hardware operation were not tested.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
----
- drivers/net/ethernet/amd/au1000_eth.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/net/ethernet/amd/au1000_eth.c b/drivers/net/ethernet/amd/au1000_eth.c
-index d60430a3795e..d8855ccf87aa 100644
---- a/drivers/net/ethernet/amd/au1000_eth.c
-+++ b/drivers/net/ethernet/amd/au1000_eth.c
-@@ -1008,6 +1008,12 @@ static netdev_tx_t au1000_tx(struct sk_buff *skb, struct net_device *dev)
- 	int i;
- 	unsigned long flags;
- 
-+	if (unlikely(skb->len > MAX_BUF_SIZE)) {
-+		dev->stats.tx_dropped++;
-+		dev_kfree_skb_any(skb);
-+		return NETDEV_TX_OK;
-+	}
-+
- 	netif_dbg(aup, tx_queued, dev, "tx: aup %x len=%d, data=%p, head %d\n",
- 				(unsigned)aup, skb->len,
- 				skb->data, aup->tx_head);
--- 
-2.53.0
-
+>---
+> net/smc/af_smc.c   | 8 ++++----
+> net/smc/smc_clc.c  | 8 ++++----
+> net/smc/smc_core.c | 2 +-
+> net/smc/smc_tx.c   | 2 +-
+> 4 files changed, 10 insertions(+), 10 deletions(-)
+>
+>diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
+>index d10244af5bd29..9a657172be8f9 100644
+>--- a/net/smc/af_smc.c
+>+++ b/net/smc/af_smc.c
+>@@ -88,7 +88,7 @@ int smc_nl_dump_hs_limitation(struct sk_buff *skb, struct netlink_callback *cb)
+> 		return -ENOMEM;
+> 
+> 	if (nla_put_u8(skb, SMC_NLA_HS_LIMITATION_ENABLED,
+>-		       sock_net(skb->sk)->smc.limit_smc_hs))
+>+		       READ_ONCE(sock_net(skb->sk)->smc.limit_smc_hs)))
+> 		goto err;
+> 
+> 	genlmsg_end(skb, hdr);
+>@@ -102,13 +102,13 @@ int smc_nl_dump_hs_limitation(struct sk_buff *skb, struct netlink_callback *cb)
+> 
+> int smc_nl_enable_hs_limitation(struct sk_buff *skb, struct genl_info *info)
+> {
+>-	sock_net(skb->sk)->smc.limit_smc_hs = true;
+>+	WRITE_ONCE(sock_net(skb->sk)->smc.limit_smc_hs, true);
+> 	return 0;
+> }
+> 
+> int smc_nl_disable_hs_limitation(struct sk_buff *skb, struct genl_info *info)
+> {
+>-	sock_net(skb->sk)->smc.limit_smc_hs = false;
+>+	WRITE_ONCE(sock_net(skb->sk)->smc.limit_smc_hs, false);
+> 	return 0;
+> }
+> 
+>@@ -411,7 +411,7 @@ void smc_sk_init(struct net *net, struct sock *sk, int protocol)
+> 	spin_lock_init(&smc->conn.send_lock);
+> 	mutex_init(&smc->clcsock_release_lock);
+> 	smc_init_saved_callbacks(smc);
+>-	smc->limit_smc_hs = net->smc.limit_smc_hs;
+>+	smc->limit_smc_hs = READ_ONCE(net->smc.limit_smc_hs);
+> 	smc->use_fallback = false; /* assume rdma capability first */
+> 	smc->fallback_rsn = 0;
+> 	smc_close_init(smc);
+>diff --git a/net/smc/smc_clc.c b/net/smc/smc_clc.c
+>index 014d527d5462d..df0afeef67cbd 100644
+>--- a/net/smc/smc_clc.c
+>+++ b/net/smc/smc_clc.c
+>@@ -990,8 +990,8 @@ int smc_clc_send_proposal(struct smc_sock *smc, struct smc_init_info *ini)
+> 	}
+> 	if (smcr_indicated(ini->smc_type_v2)) {
+> 		memcpy(v2_ext->roce, ini->smcrv2.ib_gid_v2, SMC_GID_SIZE);
+>-		v2_ext->max_conns = net->smc.sysctl_max_conns_per_lgr;
+>-		v2_ext->max_links = net->smc.sysctl_max_links_per_lgr;
+>+		v2_ext->max_conns = READ_ONCE(net->smc.sysctl_max_conns_per_lgr);
+>+		v2_ext->max_links = READ_ONCE(net->smc.sysctl_max_links_per_lgr);
+> 	}
+> 
+> 	pclc_base->hdr.length = htons(plen);
+>@@ -1272,12 +1272,12 @@ int smc_clc_srv_v2x_features_validate(struct smc_sock *smc,
+> 
+> 	if (ini->smcr_version & SMC_V2) {
+> 		ini->max_conns = min_t(u8, pclc_v2_ext->max_conns,
+>-				       net->smc.sysctl_max_conns_per_lgr);
+>+				       READ_ONCE(net->smc.sysctl_max_conns_per_lgr));
+> 		if (ini->max_conns < SMC_CONN_PER_LGR_MIN)
+> 			return SMC_CLC_DECL_MAXCONNERR;
+> 
+> 		ini->max_links = min_t(u8, pclc_v2_ext->max_links,
+>-				       net->smc.sysctl_max_links_per_lgr);
+>+				       READ_ONCE(net->smc.sysctl_max_links_per_lgr));
+> 		if (ini->max_links < SMC_LINKS_ADD_LNK_MIN)
+> 			return SMC_CLC_DECL_MAXLINKERR;
+> 	}
+>diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+>index 6021322253e93..3d338019a1b8b 100644
+>--- a/net/smc/smc_core.c
+>+++ b/net/smc/smc_core.c
+>@@ -990,7 +990,7 @@ static int smc_lgr_create(struct smc_sock *smc, struct smc_init_info *ini)
+> 		lgr->net = smc_ib_net(lnk->smcibdev);
+> 		lgr_list = &smc_lgr_list.list;
+> 		lgr_lock = &smc_lgr_list.lock;
+>-		lgr->buf_type = lgr->net->smc.sysctl_smcr_buf_type;
+>+		lgr->buf_type = READ_ONCE(lgr->net->smc.sysctl_smcr_buf_type);
+> 		atomic_inc(&lgr_cnt);
+> 	}
+> 	smc->conn.lgr = lgr;
+>diff --git a/net/smc/smc_tx.c b/net/smc/smc_tx.c
+>index 0f0c6df3bf2ce..30bffe79d06a3 100644
+>--- a/net/smc/smc_tx.c
+>+++ b/net/smc/smc_tx.c
+>@@ -148,7 +148,7 @@ static bool smc_should_autocork(struct smc_sock *smc)
+> 	int corking_size;
+> 
+> 	corking_size = min_t(unsigned int, conn->sndbuf_desc->len >> 1,
+>-			     sock_net(&smc->sk)->smc.sysctl_autocorking_size);
+>+			     READ_ONCE(sock_net(&smc->sk)->smc.sysctl_autocorking_size));
+> 
+> 	if (atomic_read(&conn->cdc_pend_tx_wr) == 0 ||
+> 	    smc_tx_prepared_sends(conn) > corking_size)
+>-- 
+>2.43.0
