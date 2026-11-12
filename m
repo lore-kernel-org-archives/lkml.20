@@ -1,83 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794506942;
-	b=ofZ/57aZAPj92RsYifIjIUQ19t58Nwg4UeXhxqHp7qT4yP6SCTmmZ+O5NmjeVlxZL4tt
-	 ftDrjlPOEQBe7x9b+DYptddeAXg1vM9viK6g2tkeFYCfecG9ACEy6qPHgZS+tC1fSm42c
-	 J7mKv0nnsy+HNuDQuZJdzUsD/RbfKh850LRZdDKJkf0JvHUj8GOLn7mepB+GPY0uVXhX8
-	 JpPBTug0yQ8Lbz+3nPRTKEVVEXNzN6tffJBlJr+1xBwAlr83gCqBiecA3OAoV8IJrglcQ
-	 0wAC7UbeSDjcdyLihzY5t0GnyED6QvjI2lSeIBWvhdZbzirP5KhhcXhkz7l3hVGgprw==
+	t=1794506963;
+	b=d9wi37E6lzCRK9qV1rGC9nHt8/I8miPZGPPR203emBlIppTf6xX9gA4PwCwHGS+EV4ER
+	 Ug9UvU9o4fNiqmfjgdNWdInK2jGIa0+ecBzBRPE2Mdm64nGiHW37HfTll1c9AdaaFDtnM
+	 0+y4J7x6rx/PYEVnz4jPTuoQSdALVwH5a8MEdeBvg7Q0dUSmyb2iSvEVP8015eJujqf6Y
+	 bBfe3CQoSL1sLq3O2VwncVFElNlv5BcJ9mBG8E0ewQAntSrIm+woJzuoJmbANcDS7sFYB
+	 bNoXJmZXdBFXcVG9yhxpvYpCuom/+d0V5nX4R4Ha+wQOBdmTWwdJXh7I26i4mySrEPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794506942;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Spam-Level:
-	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:
-	 X-Spam-Score;
-	bh=0uqFwBn+9Y/5L04B28BEdx1Vva9wKMxDDuER2cKqQQY=;
-	b=ZCuHu4KPCa53eUZW/01xvv0PiO5RcQT6noIwyNacGWQIV4PdinpCO/Ttioo2YN9l4HPm
-	 H/8iKzcJuVaAUH05qCJ6e8SWZH+dpaA5oaJH0xelaMiHCKEEgjlCPhzZa1Jbv2c04Utum
-	 GMGJ110g376jXVil/f51S2aooJ8n7qOryAVSu/RGijHbrkkFDcE/1yVtVT5xX5MCW7XhT
-	 1bbK0D/fvkWh76K8S2yEEelPovmQOfCTepbTrrufub0CSBn9aVFcdX293wTRcalJjzzfk
-	 dVr+9kmzOFWUJSTyTDsDNpavNWpOhF+3VMWlFGZN1te0XE9nUlLEX8Wv1Woc3W8wylQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794506963;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=sAIJKsddtsG4PZLTb3AFGJ2ogaGi60GX16MSJGzvEmk=;
+	b=hi6hN3GfXP7W81BnABXEjP7OxNTn57hNLYfInubHOlHcylS/MN/U3yLwbVD8XIOs576U
+	 K4O+ya8bDN60YxyiImnEqW5sjR/0sLEw33JKmGe2f/5vPL60GmjgS8s91ERoBwAN2aIGn
+	 oL9yCmAYDxXUiOte0lEnY6z7rZnU47VfzY6hGzZ0PadykSmINLmTacNYbUEk8lybo261+
+	 fDLiX3kwsyMu5BGukiyjji5v5GAx/dmIxzv+yKtdI1a5GPKeAqjG54t2kAjsv5zdCQl+j
+	 wmIWXbLKc2TsTy8rYL9KU07AKWy+tW94N7mOEVOuzd0VkThqK6vMUHRsJyRN7+KnhgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=HZ4Kg0Ko;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b="oQD/PD1H";
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B6B606A31C;
-	Thu, 12 Nov 2026 18:09:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4B6B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=kIgW7C7W;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 084D7606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:09:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 084D7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=HZ4Kg0Ko;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=oQD/PD1H
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id C14A221FAF;
-	Thu, 12 Nov 2026 18:08:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1794506940; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=0uqFwBn+9Y/5L04B28BEdx1Vva9wKMxDDuER2cKqQQY=;
-	b=HZ4Kg0KofldsTFC0g7akEVAbx3P6HdGjEA++iBa32I3qGyYJjJ77Zz+5oeG/kcOmGQRRPE
-	G8RnestCrtueRtjgr8gznI5rZL/rYatlsllFYNnUCDeKN9bhSYFwAYuzM/izh7hISkHRBL
-	56A1WYWRiGzKjQkTsOR/q8sAyx+Glvk=
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b="oQD/PD1H"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1794506939; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=0uqFwBn+9Y/5L04B28BEdx1Vva9wKMxDDuER2cKqQQY=;
-	b=oQD/PD1H/AGoAjfACqF4LZB7KOJodIKVL04hIAxi2ztyKAM2J82caBMCSuYmBmWUDMcOfd
-	KoR3GchNKm8Jz8dZ2izisPF83eUDZdx3+vc260mF4EfVZydv5wEEZwHxOkp+5AWIVambBN
-	j1Z/BMvi8+5z2WAeXVi7r21VsdoQa+k=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9A35513432;
-	Thu, 12 Nov 2026 18:08:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id AU4dHbsA9mqFJwAAD6G6ig
-	(envelope-from <dsterba@suse.com>); Thu, 12 Nov 2026 18:08:59 +0000
-From: David Sterba <dsterba@suse.com>
-To: torvalds@linux-foundation.org
-Cc: David Sterba <dsterba@suse.com>,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL] Btrfs fixes for 7.4-rc3
-Date: Thu, 12 Nov 2026 19:08:57 +0100
-Message-ID: <cover.1794506624.git.dsterba@suse.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=kIgW7C7W
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 50BC51516;
+	Thu, 12 Nov 2026 10:09:19 -0800 (PST)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EF4593F673;
+	Thu, 12 Nov 2026 10:09:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794506962; bh=sAIJKsddtsG4PZLTb3AFGJ2ogaGi60GX16MSJGzvEmk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=kIgW7C7WqLM8XV7zDA8TE14RvzYRHPZw6v+7dkHVt5NZC6TLa/mSCzX7qh/kBk2k1
+	 3bf5QgekVvGaXdymPQyVSfnfDPWZNSy1cN/xUFiAOZL/Uo7AjnNJ3gP3m0k1d9mpvL
+	 wqBdLmpUnYcnR8X6rtmVP/onxfLdqpmGEz4xN6iQ=
+Date: Thu, 12 Nov 2026 18:09:20 +0000
+From: Leo Yan <leo.yan@arm.com>
+To: James Clark <james.clark@linaro.org>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>, Suyash Mahar <smahar@meta.com>,
+	Yeoreum Yun <yeoreum.yun@arm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Qi Liu <liuqi115@huawei.com>, Junhao He <hejunhao3@huawei.com>,
+	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [PATCH v4 03/10] coresight: etm-perf: Serialize AUX topology
+ access
+Message-ID: <20261112180920.GM9176@e132581.arm.com>
+References: <20261016-james-cs-multiple-per-threads-v4-0-dedf961aca0e@linaro.org>
+ <20261016-james-cs-multiple-per-threads-v4-3-dedf961aca0e@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,108 +66,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: C14A221FAF
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-12.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DKIM_TRACE(0.00)[suse.com:+]
-X-Spam-Score: -12.01
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016-james-cs-multiple-per-threads-v4-3-dedf961aca0e@linaro.org>
 
-Hi,
+On Fri, Oct 16, 2026 at 11:46:13AM +0100, James Clark wrote:
+> Perf AUX setup walks the CoreSight connections to select a sink, build
+> paths and acquire references to the devices and their helpers. Unlike
+> sysfs tracing, it does not hold coresight_mutex. Driver registration and
+> removal can therefore change or free connections while setup walks them.
+> Adding a CTI helper can also reallocate an existing device's output
+> connection array even when the device is already referenced by a path.
 
-please pull a few fixes. Thanks.
+I agree that bus traversal and devices acquisition need protection.
 
-- zoned mode fixes
-  - fix counting active zones after activation
-  - redo zone reset after error
-  - update device lock range during mount and zone loading to avoid lockdep
-    warnings with device drivers (virtio)
-  - space accounting and extent buffer handling fixes
+> Hold coresight_mutex from sink selection through buffer allocation.
+> The allocation must also be protected because ETR buffers can look up a
+> connected CATU. Release the mutex before calling etm_free_aux() on error.
 
-- fix keeping zstd workspace for the last level
+However, my concern is about the locking semantics. We should clearly
+identify the races that coresight_mutex is intended to protect and
+limit its usage accordingly. My understanding is that coresight_mutex
+primarily protects CoreSight bus operations.
 
-- in SUBVOL_SYNC ioctl handle a real case of a subvolume with 0 refs
+Holding it across the entire perf AUX setup might silence AI review
+warnings, but it may abuse the lock and hide synchronization issues in
+the CoreSight core APIs. OTOH, I'd say SysFS mode should not acquire
+such a big lock as well.
 
-- properly handle case of zero num_stripes when reading chunk items
-
-- exclude reloc tree from xarray as it's special and it's key does not fit
-  unsigned long on 32bit platforms
-
-- in tree-checker, handle extent item tree owner depending on the features
-  (enabled in simple quota mode)
-
-- fix bio control structure leak when checksumming fails
-
-----------------------------------------------------------------
-The following changes since commit 8c66a6aa59a5df1d672d72b7cd379d897ff73200:
-
-  btrfs: zoned: fix double free of bitmaps on clone failure (2026-10-30 23:17:16 +0100)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux.git tags/for-7.4-rc2-tag
-
-for you to fetch changes up to d27d0039bc1334be8a72c769e14c0b0c3efc317d:
-
-  btrfs: fix bio counter and bioc leak when async checksumming fails (2026-11-09 18:50:58 +0100)
-
-----------------------------------------------------------------
-Cheng Yongkang (2):
-      btrfs: reject refs=0 subvolume without DEAD in SUBVOL_SYNC_WAIT
-      btrfs: handle zero num_stripes in btrfs_chunk_item_size()
-
-Filipe Manana (1):
-      btrfs: zstd: prevent leak of workspace below maximum level
-
-Johannes Thumshirn (6):
-      btrfs: zoned: only change active zone counter on successful (de)activation
-      btrfs: zoned: fix possible UAF in wait_eb_writebacks()
-      btrfs: zoned: requeue block group if zone reset bails out
-      btrfs: zoned: avoid underflow of space info bytes_zone_unusable
-      btrfs: zoned: don't wait for ordered extents in do_zone_finish()
-      btrfs: zoned: fix lockdep splat on mount
-
-Mani Tofigh (1):
-      btrfs: fix bio counter and bioc leak when async checksumming fails
-
-Qu Wenruo (1):
-      btrfs: do not insert the data reloc tree into fs_roots_radix
-
-Siddharth Mishra (1):
-      btrfs: tree-checker: reject extent owner ref without simple quota
-
- fs/btrfs/bio.c          |  4 +++
- fs/btrfs/block-group.c  |  2 +-
- fs/btrfs/disk-io.c      | 53 +++++++++++++++++++++++++++------
- fs/btrfs/ioctl.c        |  8 +++--
- fs/btrfs/tree-checker.c |  6 +++-
- fs/btrfs/volumes.h      |  5 ++--
- fs/btrfs/zoned.c        | 78 +++++++++++++++++++++++++++++++++++--------------
- fs/btrfs/zstd.c         |  3 +-
- 8 files changed, 120 insertions(+), 39 deletions(-)
+BTW, I think this change is a distraction from the per-thread fixes.
+My understanding is that this series aims to fix multithreading with
+a shared sink, so we can address device lifetime issues separately.
