@@ -1,101 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794487275;
-	b=ntcuGI/tN2dnz4ywWOxkndRuqDTvWBFHxWIxW5VhQmefM3ORDkOIdyktdStSpSNZcDE7
-	 0mUSUcPQr1dNG9GTrHWIRwbl8wqzGEjBQ+R+VUChafqA6bXFXq9qaPFaePmvODSptWs3Y
-	 JalAGu1Xop3b1KkvL7GMXzDvQyKPzw+WvgTvu6XTggZ43dar/640RMxfT80Qw3F+hT/OO
-	 lS3n4IuRojhWUfGeSjUtWRrEskMiEZHtNTe08butBTsWEmzavtako+RdFSVX4jccAiSAt
-	 4b0daxVkB3FEeRkuAuJvr/xiPGAqT9or6AlGjKHp7h9Tzqx1oKRBnAFvyoxEXXoA/Mg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794487275;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=FIoCnP3oiDG1vIrSFHHGQKzBKdlWcMUHWJDoXuLp/j0=;
-	b=fo/ToyUU+ZiAc+3lFbHE6wuhCqRY2mzbLBh2qOrbaTuAaZeu2MPNZX1LCeJ7w45P7Qgk
-	 rd4vnhOFpoJI4WeuWNluu6oHdmAZYt/dOo+sZ5t9lRygxVGmb6rI6sXltmp49LDkbLYqr
-	 O8Up6wYIOnzxIZDDLlCMvHm6Dzfou5CZF3+juvQuVhRx8flRhAuxqjPoKbMrP5RJazRNb
-	 mLLMqTT2fS6wsIH7djdODaUVOXJuch1oHM6McZC1D68RdUTtUtChLp8k0BJ1//eWaFZdV
-	 Mu6GqCGo0/LLEbohNi/i5wCoaOqHZJocMTSzhbfkHaTyzDh98MN2sdiXQbniVqJWaVw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=M7jRvnRS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.43
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794487395;
+	b=5FT1IIGn2TyvNVh791389WQLN99xG4bxdBBanJbdUX7wCjOpNJLPBaWrlLOqbB2OfXU3
+	 JRh8rGOssB9NSaneXaxEx143k+d7RXITp2a+BkjRC6YYhEdeO1x648DjOj1MpQFBQ0mt0
+	 nHKWUsTT+gU82VWr4h/HRomGADrDlB2bIIWGnytGkeCYfAIgVEhobDVHgGrHGZvW7N04p
+	 y7YRYYmNLEHgHgYKPudqIBq/QLg15UhsMpH69MVOL62WvL19gfeY/xpAZ9TxbI5uLF0P6
+	 gNhbJfO7rQF/QRWULQ06Kd0zUCDG/9xvYaF6qGrSWE3F5IZAa4xLweiZjsDwGf69r+g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794487395;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ADASvMr0ewQg4jG+yxGsHqbqUreW2oMoEC40mk7HqTA=;
+	b=srCZeQ+zVf8b8Hbl70yBinFGtlH+qB6MqdRvGVSvjUeuBJcd9wRXoJ3WEh2ThZwkSG3W
+	 4BMDLOF8BW55V8KMHVC8PYxHiZvi44PFN6YLg9iBX3RSlLZ2PgXto60+O8Hh4a9GHEE9J
+	 D75ewLhd+2IXBKbTNFLHIcqi/tK980z4Wfj4aArssOPGdfGmTg0Glg7vGuk4U3+pEJxqI
+	 B1cQ8D623Smh7HDOnEGa3e5ydVOog9ZXpc9OsKAxvBhA1AXq9zGsHuJWq3pX5FSvX72iC
+	 HbBRngEFVBOgEXZaUABs0DZ4aj3YTb4cY6LJZUYCIrHvzfEU+9NYm1MoQMSqi6SRP8Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KoZVwmzZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 133CD606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:41:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 133CD606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27983606A327;
+	Thu, 12 Nov 2026 12:43:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=M7jRvnRS
-Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91e8938fd01so45943496d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:41:14 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794487274; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BqNrMv2p2FosvfzE7cVnS7lqP7+MUBA78pFAHjNfrjxNXNfMN3BFYcpcSA2Syd/tfi
-         7vXI4P+2xuIGSqxX+OV4/MdUGWd6CGCZMx6X++2T9IeA0K+kOyuMfA//Vgx2Ky77aZy3
-         ElgwX/mjWHXruFON8e0+OoZG8bRFYg8rNaGblipyoA1wPdCcEkFbwc4RSkUug99pT1KQ
-         8cDbyHzJuur/zFk0OZhF66g98iIWdPqVZc2Ssb9XDaB7a7+LlF/gAhYdkr59dnIPrrlK
-         OOk4oITsW7jpHXlzdBdsfhlSeE2Opg9HRUH2qmEtlk/W9SSmtJ97nXMjcwiHFjNOabQV
-         SsYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FIoCnP3oiDG1vIrSFHHGQKzBKdlWcMUHWJDoXuLp/j0=;
-        fh=MgeQsB03vbb1RPy3tgmosTsq+J4toPk3fNrZBkZsUfw=;
-        b=V8CfaWWpyDFylyQY/J8FsHyV1sYJ5O4BbtagQMiB/jQGkXJSqF04OgfkiyCbcSkJPY
-         4Ni38/wJ4iWW3w98VCdfuweWeIvPrseWe9W6AY061vqrNA50AR8kf0R6YorA+kbu5Fik
-         NsC46tEfEt8ysEtyOs3HHcR00c8/DAOMVX5j8FMHcOO23COOkMNBC1oruLdTm/CrVmA1
-         +gUWUlCZKMO/Z/Hj7aV1IqNk2xX67yeJJuy3Xxv3rXBB7jei2JIXl0YQtccEoUOCRfn/
-         pp2XEl5fvUdgIfL2VfonvrDguev7jO+jfDeHeNrNStHyoCbpZ74eOBKiQkr2iL1Ql69a
-         Qs+w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794487274; x=1795092074; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FIoCnP3oiDG1vIrSFHHGQKzBKdlWcMUHWJDoXuLp/j0=;
-        b=M7jRvnRS5L4EUliLJVBY3EHEkl70dFDej6EATqoHSth807tgGmaodQlAAq2YpPaGeo
-         rrQKv2ggOhQPG5sIxlY14jc9cSg3g/uOiP8b9Js2XXh86zMR4PKdL1tTFAC6dCoN+2Zg
-         zAgz4/udTIlLlOqdxXKuUZgHMqkKse95Cg/9FdX3buE+aMQRvNYHorRytFwNYi7Yr5qc
-         ndhs6f71mpZ8Qjm7L3VWjcBFmb6JSSWeNLBjruvRUzDemP7MUA1qcxC5qrAaftz4U1tk
-         qO+0mORKQLq3AKIjTnB8b7rKR7d6PHBtRJlE3ZyWC1bIKWRvIfyrWEEQEh8DQmpJiKW+
-         /klA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794487274; x=1795092074;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FIoCnP3oiDG1vIrSFHHGQKzBKdlWcMUHWJDoXuLp/j0=;
-        b=VfqsC8omphL6Wg9Tsp9bhCesAnlJDBLulxnMSCwnP3OHQQDXEEtHKvUtOeQ5v7DIDv
-         Z0UldepSYOefj0YR42x2k4Iv8pxmkSIKznwdfypYETLMZabA+bEzniXPUQ+Rr0B88GRL
-         O0jeEa8zSURn8znWt70FakDnqyscYXIsVLhHfDVIXMzBUf+JWySFyCdyqvtzUrtJbDvJ
-         W/c5Db1kqL8FVPgv8sF73K7UNN7IID1d2KFlbhpm03u+5oBdLIlj8WBKYSs1lQDwJI4O
-         hyqWfdga1QpST8s8Yamn5AgH4SJIVYKLzfllW/LWjTnwgXPgWCvGMivgp3wY8mJFlnIq
-         FQ0Q==
-X-Forwarded-Encrypted: i=1; AL+hErFsQRXajOLq/E1ZhKSrAUS2NxFjkJPzAW8/CIq0BTANswGpCeVWtOjQPjhdOmnR6zGy7qc25uOW/LZhuBU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+wZY8+P5W7QHtB6OcdBNYCGlhXZ4ObqUiOEOQ/XLLwHKTXlmCQ
-	Hv+JzB09ZcaAJSObm9cDbmzPnh6EI0PScqJ7Tdv0VzPu3ODjUiDyupcq6cOi0+393bhR6UBa0mm
-	T33ma0MQLgIueWh44it9XuvKNj+RPyJs/ShHxxhM2
-X-Gm-Gg: AYBFou2pfMiDis03nQw9k4AfZzqPFmtFsl0onu7mzzF+JiE9F+idoHmLM74BGw2oXKZ
-	RXSq1dHUq9LegRRU54joXZIvlCsLk2NFdcXYWAeLWb0rsQ1BB5TNkLYNzgBzZFg8afp57mHuvQy
-	jrl6EHqCEWvm90lDKV+IHrsvj4k0qB/xlzQRwiihiVQWmj8qibhiob2Qwxvhsi6uzzNeoI+bheD
-	bXKtAM19v5pGWt5X1JQVRPjWcrUbLMw6jYs7PZTZDIDEPVaeSjSoJf2raSjrKESJ5tIinkVQCsO
-	OURfUhbpMbmq/QNKyWYrwbfxsueoFmerfqWx9IBztKMDnTDfgXeht5193gozoado0xZFv6wiuCv
-	DwKnd4fhxcseYHqcWkkhKWTxRGP+QToa5Krj145/QFaJVYiD7D8GRjXWmWFhUZ3Q8mTgrSkxXOa
-	nM7SIjHmgUpgbK1O5WYX/3ogW4o7nbM/Nvo5r5tnKdkV4=
-X-Received: by 2002:a05:6214:55c1:b0:91f:10c3:1bfc with SMTP id
- 6a1803df08f44-91f10c32037mr52866176d6.48.1794487273295; Thu, 12 Nov 2026
- 04:41:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KoZVwmzZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB6E11F00A05;
+	Thu, 12 Nov 2026 12:43:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794487394;
+	bh=ADASvMr0ewQg4jG+yxGsHqbqUreW2oMoEC40mk7HqTA=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=KoZVwmzZj0xJxI5HCehP7AWM7Vx5hGMex4NSS9nw1Gfai7xft4UeR96HvNus1a1Eg
+	 GW53vB6RPEAvPg558EUOCcjiFyG5Pf065MbPn0vb/RI/3NsYpTuoXOEW9IW5xbvUOh
+	 MZj5Fo/Jwwzr1EwQwRNnFRAyGtj+hQruNqxNZlm0MlMQMKnsQlWnVrjDAXj4FKaU35
+	 nBLHcPsJnchGGqlLFFnQ1vdf+49Xw/t2mw4pcGIytqwHV66t9Y+0lo+hOQ2qa6gQXw
+	 VsY9UmFhiHhLUBMblc+u47WTonMFEvmwCaOT+gpVxgJUog/6bXjzVNlxpXZ5PXwUJ9
+	 8zu3RFvl84ZgQ==
+Message-ID: <3066a335-12b9-4031-84bf-af851c8e03c0@kernel.org>
+Date: Thu, 12 Nov 2026 13:43:10 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,204 +51,237 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <6af55517.a0c627da.5d811.0011.GAE@google.com>
-In-Reply-To: <6af55517.a0c627da.5d811.0011.GAE@google.com>
-From: Pimyn Girgis <pimyn@google.com>
-Date: Thu, 12 Nov 2026 13:41:02 +0100
-X-Gm-Features: AclHuK_attCAnoNuGFMRE_bVy_a69Tw0-PxKKa9Q328h3Xb-ONM8x-Dc5m4eh3o
-Message-ID: <CAJWNTGzTPD-pWeKhVcAO-J475n0osXVrZTG-gmHtwXRTAgWWig@mail.gmail.com>
-Subject: Re: [syzbot] [virt?] BUG: unable to handle kernel paging request in
- __run_timers (3)
-To: syzbot <syzbot+0d91f453e89c72a04157@syzkaller.appspotmail.com>
-Cc: ajay.kaher@broadcom.com, alexey.makhalov@broadcom.com, 
-	bcm-kernel-feedback-list@broadcom.com, bp@alien8.de, 
-	dave.hansen@linux.intel.com, hpa@zytor.com, jgross@suse.com, 
-	linux-kernel@vger.kernel.org, mingo@redhat.com, 
-	syzkaller-bugs@googlegroups.com, tglx@kernel.org, 
-	virtualization@lists.linux.dev, x86@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Mattijs Korpershoek <mkorpershoek@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Michael Riesch <michael.riesch@collabora.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
+ <xhkdby0boob5n.fsf@mkorpers-koolstof.csb>
+ <685c60fb-f209-42e8-8d75-7e65ca5353c9@kernel.org> <avMM6a6xcDHT-zCR@houat>
+ <5bb26065-d876-4ed9-bb80-a9567a369b5c@kernel.org> <avMgJ7MFks0sKD7T@houat>
+ <eb8ac54c-a357-4378-8d85-d14855a094e8@kernel.org>
+ <avWd9y7c1FVbUB7E@kekkonen.localdomain>
+Content-Language: en-US, nl
+In-Reply-To: <avWd9y7c1FVbUB7E@kekkonen.localdomain>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-#syz invalid
+On 12/11/2026 12:07, Sakari Ailus wrote:
+> Hi Hans, others,
+> 
+> On Tue, Nov 10, 2026 at 03:43:59PM +0100, Hans Verkuil wrote:
+>> On 10/11/2026 15:17, Maxime Ripard wrote:
+>>> On Tue, Nov 10, 2026 at 02:30:51PM +0100, Hans Verkuil wrote:
+>>>> On 10/11/2026 13:33, Maxime Ripard wrote:
+>>>>> Hi Hans,
+>>>>>
+>>>>> On Tue, Nov 10, 2026 at 01:08:05PM +0100, Hans Verkuil wrote:
+>>>>>> On 23/10/2026 14:26, Mattijs Korpershoek wrote:
+>>>>>>> Hi everyone,
+>>>>>>>
+>>>>>>> On Thu, Oct 01, 2026 at 14:55, Mattijs Korpershoek <mkorpershoek@kernel.org> wrote:
+>>>>>>>
+>>>>>>>> On media-centric camera pipelines, every entity is known at boot time
+>>>>>>>> and described statically (for example via device-tree).
+>>>>>>>>
+>>>>>>>> The V4L2 framework assumes that every entity of the camera
+>>>>>>>> pipeline is always present. This is a reasonable assumption for
+>>>>>>>> integrated cameras in laptops or phones. However, in automotive systems,
+>>>>>>>> cameras (e.g. rear-view or surround-view) can be damaged or disconnected.
+>>>>>>>> When the framework assumes all sensors are present, a single missing
+>>>>>>>> camera can prevent the entire pipeline from operating.
+>>>>>>>
+>>>>>>> This series has been discussed at the Camera & ISP "unconference" in
+>>>>>>> Pragues (during Linux Plumbers)
+>>>>>>>
+>>>>>>> The notes can be found here:
+>>>>>>> https://lore.kernel.org/linux-media/20261021224119.GA383235@killaraus.ideasonboard.com/T/#u
+>>>>>>
+>>>>>> What is missing in this discussion is how userspace can indicate that it
+>>>>>> actually can handle partially instantiated pipelines.
+>>>>>>
+>>>>>> Today if one or more parts do not come up, the devices nodes are also not
+>>>>>> created. This is typically exactly what you want.
+>>>>>
+>>>>> That's very arguable? We have plenty of other examples where we allow to
+>>>>> show a software representation of something that isn't available in
+>>>>> hardware, starting with virtually any memory buffer allocation, but also
+>>>>> disabled CPUs, swapped pages, etc.
+>>>>>
+>>>>> For things a bit more related to drivers, things like USB root hubs are
+>>>>> also pretty analogous. The "root" device will always be created, even if
+>>>>> devices connected to it are non-functional, missing or whatever. It's
+>>>>> the primary interface that these devices might or might not attach to.
+>>>>>
+>>>>> So it's a bit hard to understand why the device nodes not showing up is
+>>>>> exactly what we always want.
+>>>>
+>>>> It's simply how V4L2 works today: video devices do not appear until
+>>>> all components are instantiated.
+> 
+> I think I've mentioned this before, but I do it once more: there's no
+> concept of creating device nodes at the same time. It may happen roughly
+> around the same time, but not atomically. There's always a chance that
+> accessing device nodes of a device exposing multiple nodes fails for a
+> reason or another. It may also be udev rules used different permissions for
+> different set of nodes so the application can only access some of them.
 
+That's why the media device should ideally be the last device that is
+registered. I think that is usually the case.
 
-On Thu, Nov 12, 2026 at 6:56=E2=80=AFAM syzbot
-<syzbot+0d91f453e89c72a04157@syzkaller.appspotmail.com> wrote:
->
-> Hello,
->
-> syzbot found the following issue on:
->
-> HEAD commit:    d164c7d754f0 Merge tag 'devicetree-fixes-for-7.4-1' of gi=
-t..
-> git tree:       upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=3D179566fd58000=
-0
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=3D1cf189394a856=
-f11
-> dashboard link: https://syzkaller.appspot.com/bug?extid=3D0d91f453e89c72a=
-04157
-> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for D=
-ebian) 2.44
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=3D173a724e580=
-000
->
-> Downloadable assets:
-> disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d=
-900f083ada3/non_bootable_disk-d164c7d7.raw.xz
-> vmlinux: https://storage.googleapis.com/syzbot-assets/0f548ae8bf9e/vmlinu=
-x-d164c7d7.xz
-> kernel image: https://storage.googleapis.com/syzbot-assets/79563ef77b97/b=
-zImage-d164c7d7.xz
->
-> AI-generated root cause summary:
-> proc_bus_pci_write() in drivers/pci/proc.c allows userspace to write raw =
-values
-> directly into the PCI configuration space of PCI devices without restrict=
-ing
-> writes to critical platform host bridge registers when lockdown is not ac=
-tive.
-> Writing to device 00:00.0 (the Q35 Host Bridge / DRAM Controller) overwri=
-tes
-> memory controller registers, causing QEMU to unmap system RAM and return
-> all-ones (0xffffffffffffffff) for affected physical addresses. Consequent=
-ly,
-> when the timer subsystem in __run_timers() dequeues an active timer from =
-an
-> affected page, entry->next and entry->pprev evaluate to 0xfffffffffffffff=
-f,
-> causing __hlist_del() to trigger a fatal supervisor write page fault at a=
-ddress
-> 0xffffffffffffffff.
->
-> full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=3D0d91f45=
-3e89c72a04157
->
-> IMPORTANT: if you fix the issue, please add the following tag to the comm=
-it:
-> Reported-by: syzbot+0d91f453e89c72a04157@syzkaller.appspotmail.com
->
-> BUG: unable to handle page fault for address: ffffffffffffffff
-> #PF: supervisor write access in kernel mode
-> #PF: error_code(0x0002) - not-present page
-> PGD fd99067 P4D fd99067 PUD fd9b067 PMD 0
-> Oops: Oops: 0002 [#1] SMP KASAN NOPTI
-> CPU: 2 UID: 0 PID: 0 Comm: swapper/2 Not tainted syzkaller #0 PREEMPT(ful=
-l)
-> Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.=
-16.3-2 04/01/2014
-> RIP: 0010:__hlist_del include/linux/list.h:1045 [inline]
-> RIP: 0010:detach_timer kernel/time/timer.c:892 [inline]
-> RIP: 0010:expire_timers kernel/time/timer.c:1783 [inline]
-> RIP: 0010:__run_timers+0x68a/0xb00 kernel/time/timer.c:2375
-> Code: 8b 3b 48 89 f8 48 c1 e8 03 42 80 3c 20 00 0f 85 08 03 00 00 48 8b 4=
-3 08 48 89 c2 48 c1 ea 03 42 80 3c 22 00 0f 85 db 02 00 00 <4c> 89 38 48 89=
- 44 24 08 4d 85 ff 74 24 e8 54 50 15 00 49 8d 7f 08
-> RSP: 0018:ffffc90000658d48 EFLAGS: 00010046
-> RAX: ffffffffffffffff RBX: ffff8880456d98d8 RCX: 0000000000000102
-> RDX: 1fffffffffffffff RSI: ffffffff81f92b99 RDI: ffff8880456d98e0
-> RBP: ffffc90000658e08 R08: 0000000000000000 R09: 0000000000000001
-> R10: ffffffff926ab25f R11: 0000000000000001 R12: dffffc0000000000
-> R13: fffff520000cb1c1 R14: ffff88806a2266c0 R15: ffffffffffffffff
-> FS:  0000000000000000(0000) GS:ffff8880d4675000(0000) knlGS:0000000000000=
-000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: ffffffffffffffff CR3: 0000000059bd9000 CR4: 0000000000352ef0
-> Call Trace:
->  <IRQ>
->  __run_timer_base kernel/time/timer.c:2387 [inline]
->  __run_timer_base kernel/time/timer.c:2379 [inline]
->  run_timer_base+0x114/0x190 kernel/time/timer.c:2396
->  run_timer_softirq+0x1a/0x50 kernel/time/timer.c:2406
->  handle_softirqs+0x216/0xa20 kernel/softirq.c:669
->  __do_softirq kernel/softirq.c:703 [inline]
->  invoke_softirq kernel/softirq.c:542 [inline]
->  __irq_exit_rcu+0x178/0x220 kernel/softirq.c:786
->  irq_exit_rcu+0x9/0x30 kernel/softirq.c:809
->  instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inli=
-ne]
->  sysvec_apic_timer_interrupt+0xa3/0xc0 arch/x86/kernel/apic/apic.c:1062
->  </IRQ>
->  <TASK>
->  asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.=
-h:674
-> RIP: 0010:pv_native_safe_halt+0xf/0x20 arch/x86/kernel/paravirt.c:64
-> Code: 67 a0 02 e9 43 61 03 00 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 9=
-0 90 90 90 90 f3 0f 1e fa eb 07 0f 00 2d c3 6d 1c 00 fb f4 <c3> cc cc cc cc=
- 66 2e 0f 1f 84 00 00 00 00 00 66 90 90 90 90 90 90
-> RSP: 0018:ffffc90000197e00 EFLAGS: 00000206
-> RAX: 000000000004ea47 RBX: ffff888020aba580 RCX: ffffffff8bef5325
-> RDX: 0000000000000001 RSI: ffffffff8e629989 RDI: ffffffff8c835980
-> RBP: ffffed10041574b0 R08: 0000000000000001 R09: ffffed100d446825
-> R10: ffff88806a23412b R11: 0000000000000001 R12: 0000000000000000
-> R13: 0000000000000000 R14: 1ffff92000032fc4 R15: dffffc0000000000
->  arch_safe_halt arch/x86/include/asm/paravirt.h:62 [inline]
->  default_idle+0x9/0x10 arch/x86/kernel/process.c:768
->  default_idle_call+0x6c/0xb0 kernel/sched/idle.c:122
->  cpuidle_idle_call kernel/sched/idle.c:199 [inline]
->  do_idle+0x3ae/0x5b0 kernel/sched/idle.c:355
->  cpu_startup_entry+0x4f/0x60 kernel/sched/idle.c:458
->  start_secondary+0x21d/0x2d0 arch/x86/kernel/smpboot.c:312
->  common_startup_64+0x13e/0x158
->  </TASK>
-> Modules linked in:
-> CR2: ffffffffffffffff
-> ---[ end trace 0000000000000000 ]---
-> ----------------
-> Code disassembly (best guess):
->    0:   8b 3b                   mov    (%rbx),%edi
->    2:   48 89 f8                mov    %rdi,%rax
->    5:   48 c1 e8 03             shr    $0x3,%rax
->    9:   42 80 3c 20 00          cmpb   $0x0,(%rax,%r12,1)
->    e:   0f 85 08 03 00 00       jne    0x31c
->   14:   48 8b 43 08             mov    0x8(%rbx),%rax
->   18:   48 89 c2                mov    %rax,%rdx
->   1b:   48 c1 ea 03             shr    $0x3,%rdx
->   1f:   42 80 3c 22 00          cmpb   $0x0,(%rdx,%r12,1)
->   24:   0f 85 db 02 00 00       jne    0x305
-> * 2a:   4c 89 38                mov    %r15,(%rax) <-- trapping instructi=
-on
->   2d:   48 89 44 24 08          mov    %rax,0x8(%rsp)
->   32:   4d 85 ff                test   %r15,%r15
->   35:   74 24                   je     0x5b
->   37:   e8 54 50 15 00          call   0x155090
->   3c:   49 8d 7f 08             lea    0x8(%r15),%rdi
->
->
-> ---
-> This report is generated by a bot. It may contain errors.
-> See https://goo.gl/tpsmEJ for more information about syzbot.
-> syzbot engineers can be reached at syzkaller@googlegroups.com.
->
-> syzbot will keep track of this issue. See:
-> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
->
-> If the report is already addressed, let syzbot know by replying with:
-> #syz fix: exact-commit-title
->
-> If you want to overwrite report's subsystems, reply with:
-> #syz set subsystems: new-subsystem
-> (See the list of subsystem names on the web dashboard)
->
-> If the report is a duplicate of another one, reply with:
-> #syz dup: exact-subject-of-another-report
->
-> If you want to undo deduplication, reply with:
-> #syz undup
->
-> --
-> You received this message because you are subscribed to the Google Groups=
- "syzkaller-bugs" group.
-> To unsubscribe from this group and stop receiving emails from it, send an=
- email to syzkaller-bugs+unsubscribe@googlegroups.com.
-> To view this discussion visit https://groups.google.com/d/msgid/syzkaller=
--bugs/6af55517.a0c627da.5d811.0011.GAE%40google.com.
+But even then, when e.g. em28xx creates the video device for video capture,
+it can be used right away. Everything it depends on is there.
 
+> 
+>>>
+>>> Sure but that's exactly what we're trying to change.
+>>>
+>>>> Most video devices consist of multiple devices (bridges, i2c devices,
+>>>> etc.) and unless all are found and initialized, you can't capture. So
+>>>> bridge drivers postpone creating the video/media devices until
+>>>> everything is there.
+> 
+> That's not the case obviously. If you have, say, three different cameras
+> and one of them happens to be missing a driver in Kconfig, there's nothing
+> that would technically prevent streaming video from the two others: it's a
+> policy.
 
+But in that case you wouldn't create the third video device for the missing
+driver. It's up to the bridge driver to decide whether to bail out if that
+driver can't be found, or continue with the others and just skip that video
+device.
 
---=20
-=E2=B2=A0=E2=B2=9F=E2=B2=93=E2=B2=99=E2=B2=8F=E2=B2=9B =E2=B2=84=E2=B2=89=
-=E2=B2=B1=E2=B2=A3=E2=B2=85=E2=B2=93=E2=B2=9F=E2=B2=A5 - Pimyn Girgis
-Software Engineer
-Kernel Dynamic Analysis
-pimyn@google.com
+> 
+> And supposedly, there could be an application that *needs* all these three
+> cameras to function, but does it then matter how that application is going
+> to fail, is it because it lacks access to all of the hardware or just one
+> piece of it?
+
+That's up to the application. That's not relevant for this discussion.
+What is relevant is that today, if a video device is registered, then it is
+functional. The application can assume that everything it depends on is there.
+
+And applications really do this: the video device appears and they start
+streaming at once.
+
+> 
+> I'm in favour for making this reasonably easy for the user space to figure
+> out, but we currently have no APIs that cover this (and so could be used by
+> existing applications) so it's new behaviour that we're introducing. If we
+> can't do better, then I'd introduce a Kconfig option, but I'd select that
+> by default. I've seen tonnes of issues because of the current behaviour but
+> no evidence creating device nodes proactively could be actually harmful.
+> 
+> So what I'd concentrate on is to provide information to the userspace on
+> the device readiness status, so the userspace can figure out all devices in
+> a Media device complex have been registered.
+> 
+> Functional safety adds the requirement of detecting failures and how that
+> is being done is probably fairly implementation specific. New APIs will
+> very probably be needed for that as well (and they indeed should be behind
+> a specific Kconfig option).
+
+Remember that there are more devices than just ISPs that use the MC: codecs,
+various video capture drivers. Typically the MC is there primarily to help
+understand the hardware, and the topology is usually (but not always) fixed.
+
+Applications usually ignore the MC and just open a video device to start
+streaming.
+
+> 
+>>>>
+>>>> That also means that applications can safely assume that if a video device appears,
+>>>> it is functioning.
+>>>
+>>> Ish. The only safe assumption you can make about this is that it was
+>>> functional at probe time. Anything after that is very much up in the
+>>> air. If the device broken after probe for example, or if we have no way
+>>> to tell if it's functional to begin with, that assumption is no longer
+>>> true. So sure, that's what applications have been doing so far because
+>>> there was no better way to do it, but I wouldn't qualify it as a "safe"
+>>> assumption.
+>>>
+>>>> If we add fault tolerance, and you allow video devices to appear even if they are
+>>>> not functioning (or partially functioning), then that contract breaks.
+>>>>
+>>>>>
+>>>>>> But here you allow partial instantiation, and how does userspace
+>>>>>> signal that? It must be an 'opt-in' mechanism, but how is that done?
+>>>>>> There are no devices yet, so that can't be used, so what alternatives
+>>>>>> are there?
+>>>>>>
+>>>>>> We've been discussion Fault Tolerant V4L2 for many years now, and every time
+>>>>>> I raise this issue, but I never received any proposals.
+>>>>>>
+>>>>>> This must be solved.
+>>>>>
+>>>>> Is there any way to? You're saying at the same time that we must not
+>>>>> create the device, but that an application would need to signal to that
+>>>>> device that it can indeed be created. It's a circular dependency that
+>>>>> cannot be solved on a per-device basis.
+>>>>>
+>>>>> During the meeting, we had a discussion that the media device should be
+>>>>> created as a "skeleton", and then as other devices probe they would fill
+>>>>> in the blanks. How would that not work? Also what is your main concern
+>>>>> exactly that makes you ask to not do that in the first place (or make it
+>>>>> opt-in)?
+>>>>
+>>>> Applications today assume that everything works when the device nodes appear.
+>>>>
+>>>> If you change the behavior, then they just see a skeleton driver and how
+>>>> would they know that they need to wait until all components are found and
+>>>> it is ready for use? Or what to do if some parts are faulty?
+>>>
+>>> I really think that this discussion is not solely about probe. It's
+>>> something we discussed during the meeting, but I think we should try to
+>>> handle "my device was broken at probe" and "my device became broken
+>>> while the system was up" exactly the same way.
+>>
+>> If the HW breaks after probe, then you get EIO etc. errors. It's very rare and
+>> the only requirement in that case is that you return an error and don't crash
+>> the kernel. It's accepted that if the HW breaks, the application breaks as well.
+>> And you have to replace your hardware.
+>>
+>> It's been working like that for >23 years (that's when I started working with
+>> V4L). This also means that for >23 years applications have exactly this expectation
+>> of how video devices behave. It's really part of the uAPI even though I don't
+>> think it is ever explicitly stated.
+> 
+> Do you mean things like VBI with this? MC was introduced around 15 years
+> ago.
+
+No, it's a general design: when a video/vbi/radio/media/whatever device appears in /dev,
+then it is available for use.
+
+With Fault Tolerance you change that: it comes up, but some components are not available
+and userspace has to figure out what to do next: wait, continue without that specific
+component/feature, or bail out.
+
+That doesn't exist in current applications.
+
+> 
+>>
+>> To be clear: I really want to see Fault Tolerant V4L2 happening. It's clearly
+>> very useful for a specific type of use-case.
+>>
+>> But first we need a solution for this specific uAPI issue. Note that this is
+>> now to opt-in to Fault Tolerance, but in the future we might have other opt-ins
+>> as well that modify the behavior.
+> 
+> I'd try to separate the early registration of devices from fault tolerance.
+> The former probably is still a hard requirement for latter.
+> 
+
+All I want to see is an RFC for this that we can shoot at.
+
+Regards,
+
+	Hans
