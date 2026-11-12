@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794460546;
-	b=R2D58RIhBVObVO/qUWgXUIx61S6psMRHWx1PYpcXYH5yOQuYo7WzV5fHKJ6gSDeWq5LH
-	 ZOxCjxf0tvWF8ttZ3b+pd2KGtujLc+VkdYYTia2uvSsNEKz4UN99Xkax1RQUmoGWlC7r2
-	 OQo3bc3rTuZ2zxYX9SWKQrsvjlKwXkC7Mfc95QDjSLvTIk+h828vQSjUl5Mn5+bpNm5Jm
-	 a8kcs1iNTDpcAtFWUWEPMVELceazDtBFR0ade8oQdOEXXvNEvW6Xp0gIggVbMFRoQ3gUp
-	 0sSmNmYC43C8y9+i0ISfk4JXD4Ny2ay+TJKeMY1RCyAMYfXAct3OAlDMDtJIbbhW9jA==
+	t=1794460548;
+	b=CfSxVnVP5AjpEHXoPoRylgozjCTn357QSVFmU+D6F5a/85uIcyetsp1DSyeU0KVHrEqm
+	 KfUvZyPugE0vdYDj39U6hM/mfYM1L5L24hcX3k5IeK3KeAuFK46TCL4T9xZYvlQ5Tvmj1
+	 lG3NqzZvx1rCNZoA5XlaBaYBnx3GGe8OUEixjZXKyLEXk9+OS4tQM5JSWhfuQcWy3KqMs
+	 oUqAmH8jscftqKOG+5j0ZrcQM0JvB489C2ee/3COCktn6YsrUdM8aj1Vr8A2+Kc9cDysL
+	 kpE9gJetcHE1ue2yb1Wu4JVQHyLfOqpkl/CvsAqOTRBdEZr5PONpu3h3DqDzQBKlj0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794460546;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794460548;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=uhCrUZrfKuI9xdGiRCa6me3H0RB/NgF8erfFCV58p0g=;
-	b=J6CVpd4bn071y+qtfA8bzcl0O4eJk6Ur73UrbnZ1r9QAczMfpuObzqkcKxDteW0fyW5Y
-	 Cs5gOTPZPIRy5iCAAHYrT+DI8dvsIH89lsKKmtYJYx1DzherrJSAF3u7yelR8tDqMJ7B/
-	 QqC+b4LqWiRdNrvKDkpOx86eRZs835sRxBmgm71CtRyb6eQ7AKevTKj0th5VN7yiPhdoK
-	 PO334p3QZsM1jW0fD9b2Ku2Q4RZfHHKPApVstXRjo1HkWy9BVtCGU2Klra6tGb6Wzaw/f
-	 E4yer3a+gCYtfJAO/SB3SurVQzmp1MW12ARpSQ4A1dYY4ToqaNplC8i0KWDrKz2B09g==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=/euiYumCtsvNbf4xO0nQ78kwGJZBuH9NQyVFpjft41o=;
+	b=utZsDFL6R0RZBiE4GruYLv3AiE1UVXsYn5O/tvV5cqJqC5tMyYGN4zGdTJ7oidZhP2hC
+	 oCT8m9bxaq039lKFoL499C13Q7pDDiSgMAwbT+XlcbDEbSx2+fUE2tlSJ46XyUiocfnTc
+	 jR44KrdhGdCUXYgOuP+eAwIp9U/MTBiUW0fO3odh6/J+IM47PoSVABwi3h5kz3AjZgnCp
+	 av42G1mEKiHHGDTgjcRrPBSXBFkSeOHNRUuNrJJ18erluRCZpNMT9+xu4iwy6nJKmOUAz
+	 i5evkgModNRPX42HbeNcD/jLvKn++Hulk6dxZGnW6HDW607wTKIEQqno788SBsoIlUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="ayjKsB/S";
-	arc=none smtp.remote-ip=209.85.216.69
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MovcK8iQ;
+	arc=none smtp.remote-ip=209.85.210.199
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DCB606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:15:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7DCB606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CEE5606A33A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:15:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CEE5606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ayjKsB/S
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b18a173e48so3570a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:15:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MovcK8iQ
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8b691cf0eeaso5183591b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:15:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794460545; x=1795065345; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uhCrUZrfKuI9xdGiRCa6me3H0RB/NgF8erfFCV58p0g=;
-        b=ayjKsB/ST0f5tCKgVeMMt5bQM0zaGFl6+GjwRcvAdT2ZBsthuLmrsbNoQIsPBwViuL
-         xTDD1dKaIdGA64VUQrfsT9gUnpfPe/DZM2AShlOCRVY15SihFIr2VUIo/FmPCq2YkJva
-         RC2SykQsBBLCTLcF7fELfSkfRY869hYdLnlqwULsEIEZRB5SOZyihcnaDfsXqMut+6AJ
-         XlzVv20dUgBDWA2gfMQlRb5oLob8Q1ETJLsYihr8DJbELhITrKn+8jHrAFWqPu1O21/e
-         m9FzYq2KO3oDafCvePl5WOgXsRy4R9epRpOt6HsCoaPpht1oKFOsLrvPqrm+/l5CLJd+
-         jFAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794460545; x=1795065345;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1794460548; x=1795065348; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uhCrUZrfKuI9xdGiRCa6me3H0RB/NgF8erfFCV58p0g=;
-        b=zZcljmXf0i+SIvNEoqLlgcS3fG9zTs2ppH13fDo1z20JUSfB98L7AZrdy5q7DELTwH
-         PbTU4nWxJ1z6iBxjLr/fHux8ClstGwCzTnY7n9Q7rY3iVrU0H8YDgnOlngIRhL324FEh
-         nKEuzdmY9bT6mWhoY+ihCd+7mI9rOdIVuFs1O5D3C+EkjrVdvEvIIFFwyJn/5JXJxdb3
-         1tFtnwil+CA00bUK/PGB3dG6RtEZVzvMf1/vG87adYGuX0lRYpmKI0PAJcmSc5+ndgig
-         aJkBLuoYw7bB0qjBq7XzB7Ap1K+R5cNdEOKXMXb1VeBzyHf85QCOjrb90dnOLwqU9i8L
-         H2HQ==
-X-Forwarded-Encrypted: i=1; AL+hErGLopnPf3c9nN2wGZ3uAu8A8cGBnXHjwVvnR3Kw1EinPaonMFhy2JzJzXnpjQNZovHwVlyZtA1Eic82Drs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ad+PRpdGQ6+2xK5Oc5r+MSEwABqiPGQfovYOSOJIaGAnGF2dp
-	m+X1I8M0ZqhJCt5IsuXSI+ficS/PCtJir1C8+AQaceuOCghvmRfHmRB7BVh8Fd7a8n0GBMkFC63
-	4HcLFu6Ll9GN8LQCFSl3XpQ==
-X-Received: from pjbci22.prod.google.com ([2002:a17:90a:fc96:b0:3ae:d16c:c4c1])
+        bh=/euiYumCtsvNbf4xO0nQ78kwGJZBuH9NQyVFpjft41o=;
+        b=MovcK8iQyGvo4HkmSHmzjH3Pn0155+cYq3mT+kf6R/Z76p+4EAfX5wS750nDeBNAlX
+         3CIb/IcIrgF1seEhFXoVzAXshDY4MnssnUDs5IGnBW9Mec35r4EvY/tWyYYEovbCUCXu
+         U4oYHG3LSSJolvpO/zFHLL7PWWVIHw/FDTPAoW5mgTjv/HzN6ATp5EntQLexv/tC+gh4
+         1OTBGA66h2Umo2+TaP4xraND1+m+xGVFTSmFSVImo3nn/9x7CZvpZ7Tyko1KcW95mG5X
+         pP30oCgVk02ZRP8f0uIusNgFxa+DzS6rVBH8f31LfxRmFmAVITK8YNMWD580/wLdhCph
+         nLjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794460548; x=1795065348;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/euiYumCtsvNbf4xO0nQ78kwGJZBuH9NQyVFpjft41o=;
+        b=yMU3YYhU7OX64671f3/5UAhBnPz848JiMdVc2ZBWsQSgpFepApnODY21KykwetFHBe
+         XEQ1UKd4c2td5uhh5IiU4OXIyIbwcHSrymQobJ+/ca9k1dne+YtHkci+/UWjbM4rwk3B
+         4A3okTO/4KKIfc7cySKtjAqa/Ry06y6rI3K6Qzu8SVRqbA6gApSN6tmDUiyd/2TlPFK5
+         n88qX3eCD9IJqtCMeynOlwIzKD920XxLdWJ55y+FukC9FkJvxyVXnRxP6Q5dRgZRuWeG
+         od+eTNQkPks2kd2cMR9XrMAVNJ+TdF182yintISGZEGPXfikLIpNEBtZJ7gxYIRBfb13
+         swlA==
+X-Forwarded-Encrypted: i=1; AL+hErGi8F3w9i/5O/YP86gS5fTrlEM9z6Y2hqp41jlaS20ShSTG/TaBCrulmsIiO2kFUw+RTNpvBDGC4ga2XKI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9yXuO6P24iuasyFIEsm9ko04JivsV7b62GimkGQYRdADdOJ/ed
+	jlHzsuff54GbL+wepluDfLxjnZKIS+LsHMa0qqk/5q7QNmyt88g0V1TWc86GJCZAPWeBKExKi38
+	5DsZveB2+37sVQtAzvH9aSg==
+X-Received: from pfmu23.prod.google.com ([2002:aa7:8397:0:b0:89e:c160:ca9a])
  (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:4f45:b0:3a4:945e:bc33 with SMTP id 98e67ed59e1d1-3b182ff36acmr4347171a91.47.1794460544841;
- Wed, 11 Nov 2026 21:15:44 -0800 (PST)
-Date: Thu, 12 Nov 2026 13:15:33 +0800
+ 2002:a05:6a00:9512:b0:899:21db:3f6c with SMTP id d2e1a72fcca58-8bc18874be7mr4415034b3a.1.1794460547415;
+ Wed, 11 Nov 2026 21:15:47 -0800 (PST)
+Date: Thu, 12 Nov 2026 13:15:34 +0800
+In-Reply-To: <20261112051542.1539779-1-stanleyjhu@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,9 +79,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261112051542.1539779-1-stanleyjhu@google.com>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-Message-ID: <20261112051542.1539779-1-stanleyjhu@google.com>
-Subject: [PATCH 0/9] scsi: ufs: core: Fix device management and PM recovery
+Message-ID: <20261112051542.1539779-2-stanleyjhu@google.com>
+Subject: [PATCH 1/9] scsi: ufs: core: Do not poll unconfigured MCQ queues in
+ the error handler
 From: Stanley Jhu <stanleyjhu@google.com>
 To: linux-scsi@vger.kernel.org, "Martin K. Petersen" <mkp@kernel.org>
 Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
@@ -93,68 +98,63 @@ Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-A UFS PM callback holds hba->dev_cmd.lock and the only reserved tag
-while it sends device management and START STOP UNIT commands. When
-one of these commands times out, ufshcd_eh_timed_out() resets the host
-inline, but the reset path needs the same lock and tag, so it
-deadlocks or fails. The error handler can also reset the host while
-the PM callback is still using it.
+In MCQ mode, ufshcd_err_handler() can poll completion queues that a
+failed reset left unconfigured:
 
-This series:
-- skips the MCQ completion queue poll when error handling preparation
-  left the queues unconfigured (patch 1/9).
-- hands PM command timeouts to ufshcd_err_handler() instead of
-  resetting the host inline, and fails later PM commands fast
-  (patches 2/9 to 4/9).
-- disables W-LUN runtime PM during error handling instead of calling
-  ufshcd_rpm_get_sync(), so the error handler powers up the host
-  itself (patches 5/9 and 6/9).
-- keeps the host variant power state balanced across error handling,
-  resumes the UFS device W-LUN and wakes suspended logical units after
-  a successful reset, and makes the error handler wait for a running
-  PM callback (patches 7/9 to 9/9).
+1. The UFS device W-LUN is runtime suspended with the link in hibern8.
+   The device stops responding and the host reports a fatal UIC error,
+   so the interrupt handler schedules ufshcd_err_handler().
+2. ufshcd_err_handler() passes its first stop check and calls
+   ufshcd_err_handling_prepare(), which resumes the W-LUN through
+   ufshcd_rpm_get_sync().
+3. The resume fails to exit hibern8 and calls ufshcd_link_recovery().
+   The reset completes all outstanding requests, but link startup fails
+   before the MCQ queues are configured, leaving UFSHCD_STATE_ERROR.
+4. ufshcd_err_handler() calls ufshcd_complete_requests(), which logs
+   "Abnormal CQ entry!" for each empty slot and writes the head pointer
+   of each unconfigured queue.
+5. Only the second stop check sees UFSHCD_STATE_ERROR and gives up.
 
-Based on mkp/scsi 7.4/scsi-fixes (e550f2b2b4aa) plus Hoyoung Seo's v10
-series [1]. On this base, its patch 4/4 needs a context fixup in
-__ufshcd_wl_resume() because of commit 6da1bc55c060 ("scsi: ufs: core:
-Keep clock-gating hold on failed W-LUN runtime resume").
+Check the stop condition under host_lock right after preparation and
+skip ufshcd_complete_requests() when error handling is going to stop.
+The failed reset has already completed every outstanding request
+and has not set up the completion queues again, so there is nothing
+to poll.
 
-This series folds in [2] and supersedes [3].
+Fixes: ab248643d3d6 ("scsi: ufs: core: Add error handling for MCQ mode")
+Cc: stable@vger.kernel.org
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+---
+ drivers/ufs/core/ufshcd.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-[1] https://lore.kernel.org/r/2052256418.81794387787276.JavaMail.epsvc@epcpadp2new
-[2] https://lore.kernel.org/r/20261104112744.1630864-1-stanleyjhu@google.com
-[3] https://lore.kernel.org/r/20261105071518.1458428-1-stanleyjhu@google.com
-
-Brian Kao (1):
-  scsi: ufs: core: Do not recover the link concurrently with a PM
-    callback
-
-Stanley Jhu (8):
-  scsi: ufs: core: Do not poll unconfigured MCQ queues in the error
-    handler
-  scsi: ufs: core: Defer link recovery on reserved PM command timeout
-  scsi: ufs: core: Wait for the reserved tag in
-    ufshcd_get_dev_mgmt_cmd()
-  scsi: ufs: core: Fail PM commands fast when fatal recovery is
-    scheduled
-  scsi: ufs: core: Disable W-LUN runtime PM in
-    ufshcd_err_handling_prepare()
-  block: Keep RPM_ACTIVE in blk_pre_runtime_resume() when already active
-  scsi: ufs: core: Unwind variant resume in EH when reset fails
-  scsi: ufs: core: Wake suspended consumer queues after host reset
-
- block/blk-pm.c                 |  13 +-
- drivers/ufs/core/ufshcd-priv.h |  19 ++-
- drivers/ufs/core/ufshcd.c      | 244 ++++++++++++++++++++++-----------
- include/ufs/ufshcd.h           |   3 +
- 4 files changed, 189 insertions(+), 90 deletions(-)
-
-
-base-commit: e550f2b2b4aab4c5f12db89d04d8978ce4ed7b4e
-prerequisite-patch-id: 0c2cfc48bd97246e47ce689a3a8a364c18a56621
-prerequisite-patch-id: 9a413c053d618cedfc6a1a439469bc49a51e060a
-prerequisite-patch-id: 961b8b65ac8c9fd1b95d0901347cf504632531e4
-prerequisite-patch-id: 9f5c103bac288c258b541cff3742a69fd07892f1
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index 96e25a0a1dbe..e9dcab35a4cd 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -7093,6 +7093,7 @@ static void ufshcd_err_handler(struct work_struct *work)
+ 	unsigned long flags;
+ 	bool needs_restore;
+ 	bool needs_reset;
++	bool stop;
+ 	int pmc_err;
+ 
+ 	hba = container_of(work, struct ufs_hba, eh_work);
+@@ -7141,10 +7142,13 @@ static void ufshcd_err_handler(struct work_struct *work)
+ 
+ 	spin_lock_irqsave(&hba->host->host_lock, flags);
+ 	ufshcd_set_eh_in_progress(hba);
++	/* A PM callback in the preparation above may have reset the host. */
++	stop = ufshcd_err_handling_should_stop(hba);
+ 	spin_unlock_irqrestore(&hba->host->host_lock, flags);
+ 
+ 	/* Complete requests that have door-bell cleared by h/w */
+-	ufshcd_complete_requests(hba, false);
++	if (!stop)
++		ufshcd_complete_requests(hba, false);
+ 	spin_lock_irqsave(&hba->host->host_lock, flags);
+ again:
+ 	needs_restore = false;
 -- 
-2.56.0.506.g506a7eabc5-goog
+2.56.0.567.gdb80ae8cd5-goog
 
