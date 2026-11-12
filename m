@@ -1,88 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794476227;
-	b=xrU2H6Hq3cG49mbW6tOsGMZTjXe1DWDZB/bnHOBCJfD6EUoFSeLEV72Z64jqal1n8GU0
-	 TISW78BbSVNFqjYTQfDp4ZWUl2MT8hairhTcTLqbNzfr6jQ3my7tTDoOCVqnxRh1vlOnk
-	 Jx8GnSeQ0YOo4Z77CcO2XgDm34pMEvYtLOcyUlQpcxM/j9ZUnyYRPAaTeQFSGaDSq3TDU
-	 fUV/Yx7bBbePQpv1wzG3RdUJ8Hzae/N59H562zwttnJb2LAmNGrrImZH7hzkglblnvFqw
-	 ZNfXiHJy16Q1/DUO0lzGKKbClu/oNPa0KApqVv7bIk+shAM0e/qvSgU25jBm8Fa89YA==
+	t=1794476228;
+	b=vSAduSFZniF4l8UjEa1l4ASNKJUunRgNXov6D5NXbHSerOwUK7xh4JdD+/ILKzD935XB
+	 vqMIH5AJ1AT+npfVLxSR0a2aQ6mu3zIBxxuoJCCDY4x6g1OFCebU3vTmfRpSgpvO4G4UW
+	 yNQMXX9zX9flVfQRFAY0fknSXIxv4tgeMZ7gm8HjWwTNjby3lEGdrC+Q1GqvjrRpiAIZB
+	 QHh/mtjQ3FgaWwdQAey5A3RUxqxQUgmIw6xUF6uIanqQYcYbv04uu7AX7hrfY7McyWoW+
+	 aqgT8htU9XgUhgqiHy5HI614pFXbT6PRcuLGFC1A9Pzt9QFOW7G+4+R0xmzEPv3ccOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794476227;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794476228;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=ESiachlockZrnvqU0XnUvarapEpxdf04nuLSeirX8gs=;
-	b=j3d6U97ZV3yRO+CUOOh754XJHe+FhHF9vF8I497JCh8sK42pmQ6IFuLvpaBekpaDHxWb
-	 1ZzyZEgTsL2XBfKQBGs5tD8xPokk1tL67Zh52WJPDO476SSxIg1STuYEMoXAERIHiRNxP
-	 wSjVN1AQepnFrQ8x7z2+Yxlb6aLv5jtbA6zzqiVWjob7H+7zQNylBDoVu90+LIJjDmq90
-	 67F39VQvUuXN9uBSX2uDZTZofRAxyyxgLTvuT/sdvE6ccGW2Z3YnhUPrJSBtFZl3MfG8C
-	 mAVsqrWZX0pzmIGNIaBjYzIZcKvIJjAJtRt4nJch8o0UmvhwFS5u3ooxJ4rXSNweUOQ==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=HqsgP35vUysjHO2n5LSkBodI0tY85BkRFMws+nyKhe8=;
+	b=0Ri6DVOGABHA2blwtvYHxIrIltD+34hqKhQZmbW8IUVVOcBA+A6sIVfcyev/Tt55qnuE
+	 V8HALrI72hTossC9MQa6GHNCN3S57ZXDg9nYejf48wzzICsnfv2n761gOUjVIgNLPuUWT
+	 QSHCZEY8IuGy2zj1vs+2amJFYpVFQo2btlORYN1Zsw7qQrgrJRuMDjLApzmakv2EvF3gh
+	 qWZ+xz8/kKbFzE98UxiW5Gw/IBA+ONa6G1Shx1+2vPgyz8R6mMQvUJR+1ELMlX86ayDyL
+	 DqdqsQBXOERpIURiW4T30Vxcyilp8hauSiCCoOLDamn9dZrbBeKSsAJoPl/Bn9YhpUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=baylibre.com;
 	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="lB86/Wbj";
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=WkaF6h9J;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF1C2606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:37:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF1C2606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3728606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:37:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3728606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=lB86/Wbj
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4b79502c27aso39492185e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:37:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=WkaF6h9J
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-492fcbfaa87so2653559f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:37:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794476225; x=1795081025; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ESiachlockZrnvqU0XnUvarapEpxdf04nuLSeirX8gs=;
-        b=lB86/WbjKtgtbsETxD+/ofiI9T3VWhFU9RSIse8Tx6nM/BvLOP4yKp/ntcYCuLfEqI
-         +ItXvRatjhgrqHbzlWivmQnGJpiV+jeSvN96gtoD+F+y6cgJQKaWjWgaDCoHl+xBPnqA
-         G9HJ8vNLkonGr6EDAYeawNetj7/6cJwyUejaiosnGMp8QoQOeZU6iTk0uk8zIfci+5M+
-         jY3s1TqmhRHmEYOzum4eZNcjpEF+7itzDRRB6e5uzCYam3hYBSLs8tz00j8KyVE5PVZc
-         FSd1xNmR6ziDIIocNuiTTQYeoH8/IIZcZVhjCwH3fEqeI6ify1SNMBDRIJaCd7FOwg6m
-         4BEQ==
+        d=baylibre.com; s=google; t=1794476226; x=1795081026; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HqsgP35vUysjHO2n5LSkBodI0tY85BkRFMws+nyKhe8=;
+        b=WkaF6h9JurTRVTc08N135vasYLKJ/qoChtCycJzVtG1lYJV6t8FVHatj4m826g1mfB
+         RD59yS73DEsTkiYxf2eQi9K3kg0fkgOORnjnJkOKZaBLGCk+Ofg53bJYuc1jWJBQsXhP
+         3L2G3r44b2JwA1HFu+FOQweJOlQnYOGbCQLVwfmwzZOCaQaIqHpDhHgNXtmXwk/DJPlw
+         XD9uZFVnSKd8j19SnH484ywdmK9gGGHEMBA4IRtcSCl0BxBsqjaWDELhg+k9i52a6cW3
+         XAcXBiJ0ns0gavBYPDS0AMySsrBu343SJs6gmfgGCmbZ9m0HRnS4s+EPE+GeZKLKTXKK
+         uK4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794476225; x=1795081025;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ESiachlockZrnvqU0XnUvarapEpxdf04nuLSeirX8gs=;
-        b=QPpdnn8BYBe7kNxbFPVw724YDNys9R1MxVrnIt8SVmnGrNOPBk3UsEkRE8E0cDE7I2
-         5uinkyHs/aB+6BX+2GvG82XtPvxKKBJWtbsBkYf24mW1pHtlNtrG01AWDVnBTTld3aLL
-         VLE4RBLa7Zauv3f1HqgJRttexP59cBn64dY8WE6hUUlcmydduA6HhwmN9tKONzFCRXo9
-         zGv0zY50sCFDzu9BwaC2EwYLH3EcKBj7jGNNPSBudy2G/yaBC25W9jmGbrGzDDH1pI0W
-         8ltYn7fqkeWIbofsqUH1zOt7Dfibsca0dEmuLtRY8SSjVQi5U9XqpYFG7lnyBcCKOozZ
-         AEaA==
-X-Forwarded-Encrypted: i=1; AL+hErEx82ce3Wt8rQ1kxoPzFKTHa2aQSIRSqtMSu+Fkilybx24kWUxqhDOIXQPW0phYd20gtPXzR4OOSCUzDdI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z806UwiNmxqw+WSnR6gPaDgy+9i7C3iV/sx+7M9soX3I9XkblwT
-	65OUkwEF43qs/diHo/nJ3y6Syrjjg98JqLHEXsLX90o+rbeaTwJcBc4cxlnKeRw3FNQ=
-X-Gm-Gg: AYBFou2ELgNkbUBbMsm+ELG3D43gDQm2MP1LPPC61VJTVOHFfyAxZS7aY72kYf6Rjrx
-	owm9lfsBoDee05OCB5a2sm6tqG4lDxNORoZwFi4krj3t2StCnokLfmZdyykgw/NlGY6Uc6YLEDh
-	Y/Ov63LPdCAHyxcJyT+9d9IcmfrqI7iuSSOvFBSQPDuudlk3D+5Kw9CbSY2afJEIvB7hrMGtwDg
-	RF2pPnI/LhEqAwVOxzHICV/Q70VAHmgzLGCBI1it5xWxz9g5SCBvIIukX0x1/sVkjmILJuXlnFe
-	NmofaUFb7rGfhy/hhm78+LokRcWde6mauf4YbiHW9+XBRAL8xHswUTj1aypy7t+bt7NJXT3KA9B
-	XNaDZ+h7KEPqT1YOVG9Bxfjf92lDE8XBMcnKL0Iae6HqjOJKv2sH8GvFl2kueSlTfHu6RYgHm0H
-	d0YbVmVGpscGCmltbThqwIiJYrEUt3LCG5cTrLDA+xAgzq3bdOcE0FBU04qq6lBwmxXtra41aXw
-	MxU9u8nk39k7S9G8bAqjfCxvkorUgRWRgbMkM2Ei2jmFEV6zeeKHYizgLgulgiIkSuxJGWs20lv
-	ixjdHYo3rKx0KKADnLsOnhyHfyjkxWeufTMBo7zPjo2VdQdNI/zNN1oxFGekN5STIvJN4egEtkj
-	wYuGycTT4/4p+BCXhISGbIDoeT+vldnW66Ri6Tu8FmvEAlQ==
-X-Received: by 2002:a05:600c:1914:b0:49f:ce78:3562 with SMTP id 5b1f17b1804b1-4ba0937ad15mr93644665e9.19.1794476225131;
-        Thu, 12 Nov 2026 01:37:05 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794476226; x=1795081026;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HqsgP35vUysjHO2n5LSkBodI0tY85BkRFMws+nyKhe8=;
+        b=V521FoMSmzFjopm7guFXgL9dre4JLA5zv+fnVB/6x5hGlS2GwMk7PLD6Cy+dDOypyf
+         S60U7l4+UVzHOD29GoGNNbNwEMw49+JEqcYrcTw8F71R1s/KLErs83L9sFwLQUCeyviz
+         fIan2VulidnVZ2BE80GcuSOExT+G8DKArznX/YIjC/l99z344P1t416Wm52iGdYbuVI1
+         t5GWEUdZMnS/a9Fo9A3OFmlsDO5zW5P1gaY1ADveK7cOtNOtkX16OSC22MhFWpns6yoi
+         DXZE8s6UDqTC5eXmoTl9fgx64i+AWuWxXGEWrtW/GW7pgwyCbxEauL1GiMzSmh3bAj2q
+         Tf5Q==
+X-Forwarded-Encrypted: i=1; AL+hErExw1sRx5gJaZG19H7zILGk4+HFnIfEh3xsRxxtKT41lOZ+VHlxmVaBC0ufpt4j7VWipnJ8TATnBV+uLSY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xpmTc1ELzHezu369HtaYRkM2AREETRRdfAOBaJ50oL4V6db3U
+	9qggHQMjYBDpPVZBw+t/AdOWTL6OPNxJHb5zw3B/f4Busr8Hbp8nETHrQE6rgQpTPSs=
+X-Gm-Gg: AYBFou1WRkK50sHYLjEdOst3y7m0JfTz6DwvJGXuEeBNDctNlPoiETatRaI3KvelLRM
+	pBEyu6ZK4ESK2a5DY8+VnbjVhHH02ewq+5sTnmchFyg8uibUzSJu2fILp4b3KlJnRg6sOVMAnb6
+	HtI7mqzsslQz5NkRBiJzD2l7o4cbDggAOjB/VVub7174UqQ/PcGfcK8kX7UKEB2d0YEXb3iSJTI
+	hP1f4GaAeapXVdY/sEJqIIEMaEjLNrxg63Fc/EoYYsqOT+ThyEh7oNC9ruTHH/aOtl6hfIZvULX
+	OaY6PVtKhfiQzrI0618gwS4ne3hje7BGdFZuq4I0m+HotaPYHALb1rZep/KvwF2fbILuXTgqaKD
+	7griicaPVMA9bOFIcFf+Jfjdyd6rrtwhQ5IK/ykC0kp8JJ5vs8fNYK6w4zRhecwO65Yp5YFPKVa
+	Db3Zyt3DDO1ei8JEhgeg9d7vmForjHDFZXWpomlUe8WQp6jQlpa8Sw9elXyqF4DT5O8e1uFhAHm
+	9/fdGD/YpBdz27lfoC6mBm/Uxzoibjtxdfus/dA4QvUhOhNYHmsML3CUPt3ted57yy059UGv4i+
+	72BqP7rinxb6lClBHP4WfhEJe/4Wg+vFSZYHTOrnBsWCsveybuKcS50wt2syQNS61IiJsSDFbZL
+	u3sTGcSpIL3RFzIquGssQ3v3mwXlfL5TLrGzqT+GATr4MUg==
+X-Received: by 2002:a05:600c:474f:b0:4a2:47:b79c with SMTP id 5b1f17b1804b1-4ba093abb32mr92123265e9.32.1794476226357;
+        Thu, 12 Nov 2026 01:37:06 -0800 (PST)
 Received: from macbook.homenet.telecomitalia.it (host-95-246-144-141.retail.telecomitalia.it. [95.246.144.141])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba08de826asm85413905e9.0.2026.11.12.01.37.04
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba08de826asm85413905e9.0.2026.11.12.01.37.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 01:37:04 -0800 (PST)
+        Thu, 12 Nov 2026 01:37:05 -0800 (PST)
 From: Carlo Caione <ccaione@baylibre.com>
-Subject: [PATCH v2 0/3] Fix clk-divider rates above 4.29 GHz on 64-bit
-Date: Thu, 12 Nov 2026 10:36:58 +0100
-Message-Id: <20261112-upstream-clk-divider-large-rates-v2-0-18f3bb888b0c@baylibre.com>
+Date: Thu, 12 Nov 2026 10:36:59 +0100
+Subject: [PATCH v2 1/3] clk: divider: Fix the divisor for rates above 4.29
+ GHz
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,11 +95,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/5WOSw6CMBRFt0I6toYWBHTkPgyDfh7ylF9eSyMh7
- N2CK3B4kpN77socEIJjt2RlBAEdjkMEeUqYadXwBI42MpOpLIRIJZ8n5wlUz0335hYDWiDeKYo
- mKQ+OV6XMi7IqcsiuLM5MBA1+jsSj/rGb9QuM33d3o0XnR1qOD0Hs3h+5IHjKQYsyzS66UVbet
- Vo61ARnM/as3rbtC8wmwD7lAAAA
-X-Change-ID: 20261102-upstream-clk-divider-large-rates-872467864e39
+Message-Id: <20261112-upstream-clk-divider-large-rates-v2-1-18f3bb888b0c@baylibre.com>
+References: <20261112-upstream-clk-divider-large-rates-v2-0-18f3bb888b0c@baylibre.com>
+In-Reply-To: <20261112-upstream-clk-divider-large-rates-v2-0-18f3bb888b0c@baylibre.com>
 To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
  Jerome Brunet <jbrunet+clk@baylibre.com>, 
  Brian Norris <computersforpeace@gmail.com>, 
@@ -113,40 +112,68 @@ Cc: Stephen Boyd <sboyd@codeaurora.org>,
  Jerome Brunet <jbrunet@baylibre.com>, Carlo Caione <ccaione@baylibre.com>
 X-Mailer: b4 0.16.0
 
-On 64-bit platforms, the clk-divider truncates requested rates above
-4.29 GHz when computing a divisor. Fix it and add KUnit tests.
+DIV_ROUND_UP_ULL() takes a 32-bit divisor, so on 64-bit platforms a
+requested rate above 4.29 GHz is truncated. A divider fed by a 5.94 GHz
+PLL then computes a divisor of 7, not 1, for 5.94 GHz.
 
-Sebastian Reichel fixed this in 2023 [1], but later versions moved to a
-new generic macro and were never applied. Patch 1 builds on his v1 and
-rounds up with (parent_rate - 1) / rate + 1, which does not overflow
-with clk_round_rate(clk, ULONG_MAX). Patch 2 fixes a division by zero
-found by the new tests.
+Round up with (parent_rate - 1) / rate + 1 instead, building on an
+earlier fix by Sebastian Reichel. It divides by the full rate and does
+not overflow with clk_round_rate(clk, ULONG_MAX).
 
-[1] https://lore.kernel.org/linux-clk/20230519190522.194729-3-sebastian.reichel@collabora.com/
-
+Fixes: 9556f9dad8f5 ("clk: divider: handle integer overflow when dividing large clock rates")
+Suggested-by: Jerome Brunet <jbrunet@baylibre.com>
+Suggested-by: David Laight <david.laight.linux@gmail.com>
+Signed-off-by: Carlo Caione <ccaione@baylibre.com>
 ---
-Changes in v2:
-- Patch 1: round up with (parent_rate - 1) / rate + 1, as
-  DIV64_U64_ROUND_UP() overflows with clk_round_rate(clk, ULONG_MAX)
-  (Jerome, David)
-- New patch 2: fix a division by zero in round-closest dividers
-- Patch 3: also test the maximum rate (Brian) and rates above the parent
-- Link to v1: https://patch.msgid.link/20261102-upstream-clk-divider-large-rates-v1-0-eb17035bfad2@baylibre.com
+ drivers/clk/clk-divider.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
----
-Carlo Caione (3):
-      clk: divider: Fix the divisor for rates above 4.29 GHz
-      clk: divider: Fix round-closest for rates above the parent rate
-      clk: divider: test: Add tests for rates above 4.29 GHz
+diff --git a/drivers/clk/clk-divider.c b/drivers/clk/clk-divider.c
+index f68216c65d3d..c3f46f9ee451 100644
+--- a/drivers/clk/clk-divider.c
++++ b/drivers/clk/clk-divider.c
+@@ -223,11 +223,21 @@ static int _round_down_table(const struct clk_div_table *table, int div)
+ 	return down;
+ }
+ 
++/*
++ * DIV_ROUND_UP() without the addition, which overflows for rates close to
++ * ULONG_MAX, as with clk_round_rate(clk, ULONG_MAX)
++ */
++static unsigned long _get_div_round_up(unsigned long parent_rate,
++				       unsigned long rate)
++{
++	return parent_rate ? (parent_rate - 1) / rate + 1 : 0;
++}
++
+ static int _div_round_up(const struct clk_div_table *table,
+ 			 unsigned long parent_rate, unsigned long rate,
+ 			 unsigned long flags)
+ {
+-	int div = DIV_ROUND_UP_ULL((u64)parent_rate, rate);
++	int div = _get_div_round_up(parent_rate, rate);
+ 
+ 	if (flags & CLK_DIVIDER_POWER_OF_TWO)
+ 		div = __roundup_pow_of_two(div);
+@@ -244,7 +254,7 @@ static int _div_round_closest(const struct clk_div_table *table,
+ 	int up, down;
+ 	unsigned long up_rate, down_rate;
+ 
+-	up = DIV_ROUND_UP_ULL((u64)parent_rate, rate);
++	up = _get_div_round_up(parent_rate, rate);
+ 	down = parent_rate / rate;
+ 
+ 	if (flags & CLK_DIVIDER_POWER_OF_TWO) {
+@@ -423,7 +433,7 @@ int divider_get_val(unsigned long rate, unsigned long parent_rate,
+ {
+ 	unsigned int div, value;
+ 
+-	div = DIV_ROUND_UP_ULL((u64)parent_rate, rate);
++	div = _get_div_round_up(parent_rate, rate);
+ 
+ 	if (!_is_valid_div(table, div, flags))
+ 		return -EINVAL;
 
- drivers/clk/clk-divider.c      |  21 +++-
- drivers/clk/clk-divider_test.c | 244 ++++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 260 insertions(+), 5 deletions(-)
----
-base-commit: ab94dbf302331eed3679e262e1d8d1a73f308640
-change-id: 20261102-upstream-clk-divider-large-rates-872467864e39
-
-Best regards,
---  
-Carlo Caione <ccaione@baylibre.com>
+-- 
+2.56.0
 
