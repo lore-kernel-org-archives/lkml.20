@@ -1,83 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501508;
-	b=3x80HSzKC82zI+O0EAcKpnYs54yMOnfUaDYn2B0j+PsBYIoMZFYXoxdIYxpRMyq+K3eq
-	 OZp595infVvGpMl/1Fneuqp3oaXKroej1mwXrOGcBZGQDMZwaocdJ7xmmrMfZbhGaReSD
-	 D+Jk814MlWBN1P28LzSQNk+PAlKITpZziHZjeJLTG9sL4bA0YNo9Upn6wxOBaBMKjN7Yb
-	 LlV40+aZ7N/GfBJiSQTis71H0cLaUM+jpJK8bkCv7f2NgnEv6goq2HnH97sVArCHyRygR
-	 CJPu7SEij668UWPhOZieJNLZgMqC06fhQc7bpDhck6BnvIbDp8DzTSKw7tGYuSuRgtA==
+	t=1794501506;
+	b=h81TDJgpSbwkDyrOyiGKFx7KXlBMXNycFhWnQYCNNXPSEykWcryaBcO0c4hVdF2kGczW
+	 ksCMlL22ho7maHudWQ8dlkkdXKbB9VVnIC6NASYOXVpp4lBZPovlxzOjZ54Pb3edCvV5T
+	 Oj8ZbtaTLharif7rez+nQedVrniPB3IE+mGMtfnpYZZI3e4sFAXiJsvVC6MqJBMJCyyFO
+	 Xe1DAq+LEA7SlK75U1ZVjP26YmDcwxZ5K1UeAj9sChSbl1/Vx0ijkSuJ5XP+MsvVSrIvQ
+	 5f7ikslO3OC8ms5EK0dE7rys3bxfqzY1nWR4C7S6PxRQ2AH+SYWzIH6+ZXjYQ/6rv0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501508;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501506;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=bluMhG8KixmV7BcQplW0BKp2owQ6pWrz4COAjVpeJtc=;
-	b=OOCZlZ9Y7WXkmcAAOa7xstR9OXEk7RyFOQibl+r8k/lvYt2WoanSUamBXxqghB8Nr1Bt
-	 reaZgO8XSEwfsDkpG1P1o4nSsAfvXHzvjasv5hVzhwEeURWYTcEatZ262CdONPQq4Zf70
-	 iVWm9VRQ72dBc2FZivCr+VcP127DnGIw7HR70PFE0BmpaQTv03GR2yJngNd8nVEFgTASW
-	 jx0cR/QLuXKm3ygB1XdnxSXgzaSlL1DD1NgfDlwcVQ4w7Zeb6MqIkrfWILFVRug0erZ/8
-	 8TEw0IHc3Tz2gbHZz4VXgryXX+m6hRdwoUA1Jl/1Jj4lfFkJiopjF0BLOJ4KB/RYxWQ==
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Q8/FASn08ce1wwL6478CAmvhpcArWX9CxkgPS+xhg8k=;
+	b=ECfe1O6j7F0Gb5tejZVMdyU7wgGTv7nukGzfskjQ9b/Trzuus9OSj6ZbbCYAyl/5xDv+
+	 UZyNakS6sseSo5Qz2SdwDF1OPZ0O0FWVLuor4imMHBPPZOSwDWytaYsAhiIgB/meYTfs+
+	 2oU2O+Mh+gRJ2zx3rZjlyLcTO82DbUIO92cjN5BjFUFDDliLcswDldE8ApXstLVQ7plhP
+	 LATRPAWCx75qgyNKi7OTO8wzbH3K7210CTn2Wk5pRxOoIPpLzHIdl+6YfiCNb3N5+CAfg
+	 c1HoGxUA+3bsGdmdx4PbKwf3PIzogcOKs3L05hEZHo4/WyYuXGnSYvgj6euC2SgrL5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=suse.com;
 	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=gJ3HtdkR;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=M7TcOTrV;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B95D3606A8B5
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:38:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B95D3606A8B5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728CF606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:38:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 728CF606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=gJ3HtdkR
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-491aaed7565so2683978f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:38:27 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=M7TcOTrV
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a208d93758so47942755e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:38:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794501506; x=1795106306; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bluMhG8KixmV7BcQplW0BKp2owQ6pWrz4COAjVpeJtc=;
-        b=gJ3HtdkRuW9tpy3p2C8vHRLN8EP+3idltkqiF+SY1y6YwHpER+60NxPtmdlokZ1fiO
-         zhEDjiPanC9Q4/qKCjv0f+N26t9FzGkddIy/SjQrbLoQQAd4Ju3Mn275IKtiqPoR4SBm
-         zUq3UHl+eTL2gK+QE9Jeb+jPW53ObuC0V7QZCbbI5in5QU1VwOKd+m4J+MjTq980dAE6
-         FN157LSgJ2FyRF4vT9dOYiU457eDVrxEHQnjNYR36b429hSU1qS4mukUQYDIJ/tQFCNU
-         hF9BgNPO+EDsCcOR1yGvkM5NK5RAX8WVk+v9ExUYoN0D7B8lFcE6ZFQI7Qx20T9LwtgQ
-         8toA==
+        d=suse.com; s=google; t=1794501504; x=1795106304; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Q8/FASn08ce1wwL6478CAmvhpcArWX9CxkgPS+xhg8k=;
+        b=M7TcOTrV5WCiZXUexPHRt8+xKHl6M2OtEjS+wgJrh4PIZopk/2DT9OHq5byy6ipaUh
+         Hxm7ddLjzco5avstuO0MydMZbJa5hu0XOIhcqXEtYT42ua3PpRIScE7aE6MeY6x08Tfd
+         C1ZVxz8GvKvfOrdXEf1dQ4K1PhAwf9mMJJT/oXJuJIx3Y32Hj1ZeOhWFpEPjcK3BSAFQ
+         c2cT/agGbfnzvNVW8l6kF7Kca5gfUtYflRSc7wSYtF9soinbFeKbRWOU6ZT38AZcOvGV
+         ElAccGS2GtM6DNzHo6YtzC1lprJ6ub09oa2SPBV6svoC1YahMzJVn4UhcRndLxk7SJ0/
+         2HJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794501506; x=1795106306;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bluMhG8KixmV7BcQplW0BKp2owQ6pWrz4COAjVpeJtc=;
-        b=xXf5w1v2oTFdaUKOujHzK2dnmtDAdr3FkMNEx2zNSgIT27z34d+FIO/6RRx6fTyrsU
-         fFFcLjO6E8J1jHqaD4KF+11Rgi2OaBFAt1o9V8uXx6jG3P1X/1OCBR2k4CQ9HvMLpjPL
-         iYap2+dhnItCF1Cy9Zw7pxOe4KOujm0/D4FDTUdo5+F6Wqhda8e5PTfOzj+y5DU7xZkZ
-         u4W8CbFZwFV8xr6qtUrqzA20Sqh+gmExXf41vAeqhMdfLXx74Seon0gEOrOdqneMouun
-         4coIfKwqFzU+JWj4f/PYW64+S0cw+Y/jB3cyTWGE/27yKmj3/z27Rs6JVNhWids1FBV0
-         5RHw==
-X-Gm-Message-State: APuU4Z/91KRM4c5NY+lvMniKu6WyZ0dn7PZY5lF9Imk0tixkD1vrIt3P
-	wOPMnQZfJI3Xvp3BY+UDilbA1vU8MXHEbxSZUptg3cLJglkJOHz7e2KBHeV1sKBs3b247qAad31
-	nneCx53o=
-X-Gm-Gg: AYBFou0+4m6Ke2jcb54yi51whGzSht6mmENGGaK3ki29nqAv6S0KkMmpT0y+VCn+PGU
-	uhZaEOfzEwnEdcT38L0dsRX+ib1FJT70DDDAbNhF23JPiLhvnISEgKWtYEf9GGaekWwXu7cFX/t
-	oxOKHkZqPGh/puTBfiDnu8UW+L4brt7APWqFmX9JzT8nuFHlvTvwRD5fNTokuk4ct9c/r6pknFI
-	x/7kxNINbhjx0u52VYwXXNe/5/N6AzbK8JmCL0+gG+7YMODMl52FWyJfyRir0VipFw69FTAdAU7
-	EZxVJBi/M7Cf5xR+tqKq6Kyoe5pTW5uoATLiWjAVo8t2rC03FLadnx4T/fqlEt6RLO6rCjoez3r
-	P98g5Pdr0GZ7vSdAYA/cwuDRqdL0fMyk3ui9U08Icmfq4/zmou6aXyrfh5HbxRKok6Vodq4cgZe
-	VHfASfpCb6EcSrEcrEwNWZYH2W+gFMFESw09yb99fFr7fOp8f8UTFgVHErWyUqqKB1896XGUGsC
-	xRr+cF7x4y6zDLt/rmURx6TyAwRXcqTXzlMXi+TysizdvNWDRIO2Crip1SLTK2pCd3119AfX/ha
-	Xd0pkqjO0snHY9OWXqIDENsxviVjXhQge4jFOmBDMree
-X-Received: by 2002:a05:6000:186b:b0:494:6f49:246d with SMTP id ffacd0b85a97d-499c7b1b09amr12123880f8f.24.1794501505993;
-        Thu, 12 Nov 2026 08:38:25 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794501504; x=1795106304;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Q8/FASn08ce1wwL6478CAmvhpcArWX9CxkgPS+xhg8k=;
+        b=fTqC/xx77c87IQj7Jwj86FhaWewyyvPqqefKITt1sIwrhkryyLO/YDWc4q4nD63x1Q
+         A+T3tB92m+IDPVjLnIGET9kjRgmsgA6YAB8Sz72Ztm3CEiRyj3IQMYtfNDlaT78eV9ED
+         tgOqKqRZG6vvbu5xQcHf4muU4/cR4AcpJYm8Be79VChEHNgx4Pq01eMv7X1PL8I/OMP1
+         LoJtc2pq1VQJCh+SG3nwuHDe2F9B5EP1qMuDn4kISpLnVaSCa08kBLak7dULVIf8CtRE
+         cXcZUsl0qAoWqsg0lK79o1+qVkPNiI6ZNZBf7pGTC23cNhGqCpJj/c+pQWTp5wcMM7KZ
+         zWAA==
+X-Gm-Message-State: APuU4Z/6c3qkME95YBoR+crJdLMHNPxtPQP5wAmdASGIxzsWhiAyGmk+
+	5/IySHAGwn2b2DNR9ZrpyfqWrPLORbPEtVRII22RGV/2+iiwEOj4Ut6aJFQtQP0kPpBEXzFaC0C
+	i74TUwEQ=
+X-Gm-Gg: AYBFou1uRrFggmU8MrHBaIKWqDl8vm+/gDvqWwk2tUys2NKD1oNFcbBIkY+TRwXH0IM
+	RbaBoCDUib8gFEaLI4p9AtckBCiwE0iCX/K+Z5DxTNaxiWuNIpOYKYHzU9sAakCaqxut4PZxZVk
+	tb5B++A7xKbjV1K4sVAvn01szmM/l252/kRVxqo76ktc0y8tgSVjBXLauvsJWAfkR9lSBbo3SWh
+	bAmQG+mzuTwVDwmVgNh4oeMFya7LjwoYxgFIptZsXnZjYuR72uJLb8rhNO/S3BR1L4qCU1+YKYe
+	hKiwJiBPulZuEIwvwxjJTZgGiD42beu4fTWoEem4rTmfiRE9pz4vqxzmkWoTV1NqbPrwShsXDct
+	oFR4KjULNhnQj4C77X+psjcnTTW6u2S84csqUpbolbv7gQeXLXE9i7hKk03eYB9a8Xe2+dolH/7
+	f5z3hG0yJsrAUa7x22YghfZr5NNBFLqmOsHjpFkKJpuaEFwXxB6iDICiw8Pc/RjNqiSpPV9G7xe
+	dxLjhw3fhJIAc3pqi24QyyPtOvc2PXTJxBONe3+l+V84IpFAyRzp9BIDv1ykMx4ICVYRk8tbFrQ
+	tDFxZkP6lP5bVDJrlDfBMo87aSchrg1bPgXhsgsxHW9q
+X-Received: by 2002:adf:e19e:0:b0:48e:7e15:406d with SMTP id ffacd0b85a97d-499c6027cb8mr10503073f8f.11.1794501503426;
+        Thu, 12 Nov 2026 08:38:23 -0800 (PST)
 Received: from linux.fritz.box ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d223a29sm226827f8f.8.2026.11.12.08.38.24
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d223a29sm226827f8f.8.2026.11.12.08.38.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 08:38:25 -0800 (PST)
+        Thu, 12 Nov 2026 08:38:22 -0800 (PST)
 From: Marco Crivellari <marco.crivellari@suse.com>
 To: linux-kernel@vger.kernel.org
 Cc: Frederic Weisbecker <frederic@kernel.org>,
@@ -101,12 +99,10 @@ Cc: Frederic Weisbecker <frederic@kernel.org>,
 	Michal Hocko <mhocko@suse.com>,
 	Aaron Tomlin <atomlin@atomlin.com>,
 	Marcelo Tosatti <mtosatti@redhat.com>
-Subject: [PATCH v3 2/5] sched/idle: Don't handle polling idle as dynticks idle
-Date: Thu, 12 Nov 2026 17:38:10 +0100
-Message-ID: <20261112163813.524336-3-marco.crivellari@suse.com>
+Subject: [PATCH v3 0/5] Stop the idle tick on polling idle on nohz_full CPUs
+Date: Thu, 12 Nov 2026 17:38:08 +0100
+Message-ID: <20261112163813.524336-1-marco.crivellari@suse.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261112163813.524336-1-marco.crivellari@suse.com>
-References: <20261112163813.524336-1-marco.crivellari@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,138 +114,143 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-TS_FLAG_INIDLE tells nohz whether the tick is managed by the idle loop or
-on IRQ exit. With idle=poll it is set while polling, but cpu_idle_poll()
-doesn't run the idle loop again on interrupts: a nohz_full kick or the
-expiry of a stopped tick isn't re-evaluated until something sets
-TIF_NEED_RESCHED. The tick is therefore restarted before polling, and on
-nohz_full CPUs it then keeps running after the wake-up and interrupts
-userspace.
+Hi,
 
-Enter dynticks idle only on the cpuidle path, from cpuidle_idle_call(),
-and leave it before cpu_idle_poll(). While polling, the tick is then
-managed on IRQ exit as for a running task: on nohz_full CPUs it stays
-stopped if possible, and nothing is left to do on wake-up, so the task
-doesn't pay for a tick stop after waking up. On other CPUs, leaving
-dynticks idle restarts the tick as before.
+On nohz_full CPUs booted with idle=poll, the tick interrupts the task once
+after every wakeup from idle. do_idle() restarts the tick before polling,
+and on wakeup tick_nohz_idle_exit() only re-evaluates the tick if it is
+stopped, so it keeps running and fires in userspace before
+tick_nohz_irq_exit() stops it. Without idle=poll this doesn't happen:
+since commit a5183862e76f ("tick/nohz: Conditionally restart tick on idle
+exit") a nohz_full CPU leaves idle with the tick still stopped.
 
-tick_nohz_idle_enter() may now be called on each idle loop iteration and
-always runs with interrupts disabled; tick_nohz_idle_exit() may be called
-outside dynticks idle and with interrupts disabled.
+Marcelo Tosatti proposed stopping the tick on polling idle entry:
+  https://lore.kernel.org/all/aQiWfnnSzxsnwa2o@tpad/
 
-Link: https://lore.kernel.org/all/aQiWfnnSzxsnwa2o@tpad/
-Suggested-by: Frederic Weisbecker <frederic@kernel.org>
-Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
-Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
+Following Frederic's review, this series does it only on nohz_full CPUs,
+and handles on the target CPU the cases where stopping the tick in polling
+idle would leave a timer unprogrammed.
+
+[ P1 ] tick/nohz: Re-evaluate the tick on return to user space
+  On nohz_full CPUs the tick is re-evaluated on IRQ exit and on idle exit.
+
+  This is not enough on return to user space. If the tick is left running in
+  the kernel, for example because a tick dependency was cleared
+  (tick_nohz_dep_clear*() don't kick the CPU) or a timer that kept it
+  running was cancelled, it fires at least once in userspace before
+  tick_nohz_irq_exit() stops it.
+
+  Stop it from context tracking right before resuming userspace. When the
+  tick is already stopped, the common case, this costs a few flag tests on
+  each return to userspace.
+
+[ P2 ] Don't handle polling idle as dynticks idle
+
+  TS_FLAG_INIDLE tells nohz whether the tick is managed by the idle loop or
+  on IRQ exit. With idle=poll it is set while polling, but cpu_idle_poll()
+  doesn't run the idle loop again on interrupts: a nohz_full kick or the
+  expiry of a stopped tick isn't re-evaluated until something sets
+  TIF_NEED_RESCHED. The tick is therefore restarted before polling, and on
+  nohz_full CPUs it then keeps running after the wake-up and interrupts
+  userspace.
+
+  Enter dynticks idle only on the cpuidle path, from cpuidle_idle_call(),
+  and leave it before cpu_idle_poll(). While polling, the tick is then
+  managed on IRQ exit as for a running task: on nohz_full CPUs it stays
+  stopped if possible, and nothing is left to do on wake-up, so the task
+  doesn't pay for a tick stop after waking up. On other CPUs, leaving
+  dynticks idle restarts the tick as before.
+
+[ P3 ] tick/nohz: Remove tick_nohz_idle_restart_tick()
+
+  Polling idle now leaves dynticks idle through tick_nohz_idle_exit()
+  before cpu_idle_poll(), which restarts the tick where needed.
+  tick_nohz_idle_restart_tick() has no users left: remove it.
+
+[ P4 ] tick/nohz: Reset got_idle_tick when entering dynticks idle
+
+  A tick firing after the last tick_nohz_idle_got_tick() and before
+  tick_nohz_idle_exit() leaves got_idle_tick set, and the next
+  cpuidle_idle_call() then assumes that a later dynticks idle period was
+  ended by the tick. Now that the CPU leaves dynticks idle before polling,
+  this can also happen within a single idle trip when it switches between
+  cpuidle and polling, e.g. when it polls because the tick broadcast has
+  expired.
+    
+  Reset got_idle_tick when entering dynticks idle, so that it only reports
+  the ticks of the current period.
+
+[ P5 ] Documentation: no_hz: Add tick stop in polling idle
+
+  Document the above in the idle=poll item of "Known Issues".
+
+With big effort on the Claude side, I made a test suite to help testing
+the work:
+
+  https://github.com/DispatchCode/nohz-full-polling-idle-tick-test-suite
+
+The following is a short summary of the results.
+
+On x86_64 guest, HZ=1000, nohz_full=2-3 idle=poll), a task alternating
+100us sleeps with 10ms of userspace work, 200 times:
+  - ticks in userspace:              200/200 -> 0/200
+  - ticks while polling:             35 -> 0
+  - housekeeping CPUs:               unchanged (tick runs while polling)
+  - P2 without the kick change:      15 of 20 timers enqueued from an
+                                     interrupt on the polling CPU lost
+  - P2 without the stopped tick fix: the second of two queued timers up
+                                     to 1.9s late
+Tick dependencies (POSIX CPU timers, two tasks on the CPU) and CPU hotplug
+were also checked.
+
+Thanks,
+
+  Marco
+
 ---
- kernel/sched/idle.c      | 13 +++++++++++--
- kernel/time/tick-sched.c | 24 +++++++++++++-----------
- 2 files changed, 24 insertions(+), 13 deletions(-)
+Changes in v3:
+ - tick_nohz_user_enter(); moved outside of CT_STATE_USER so that also
+   guest can benefit from this.
 
-diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
-index e0c10a5dbda2..e0e3c06da528 100644
---- a/kernel/sched/idle.c
-+++ b/kernel/sched/idle.c
-@@ -193,6 +193,8 @@ static void cpuidle_idle_call(bool stop_tick)
- 		return;
- 	}
+ - __tick_nohz_user_enter() has been moved after
+   tick_nohz_full_stop_tick(), so that the same #ifdef is used.
+
+ - P2 now uses guard(irqsave)() instead of irq_save(flags) removing also
+   the "goto".
+
+ - P4, Documentation, now is P5.
+
+ - Introduced P4: reset got_idle_tick on tick_nohz_idle_enter().
+
+Link to v2: https://lore.kernel.org/all/20261111114406.346953-1-marco.crivellari@suse.com/
+
+Changes in v2:
+ - P1: Only for re-evaluate the tick on return to user space
  
-+	tick_nohz_idle_enter();
-+
- 	if (cpuidle_not_available(drv, dev)) {
- 		idle_call_stop_or_retain_tick(stop_tick);
- 
-@@ -303,7 +305,6 @@ static void do_idle(void)
- 	 */
- 
- 	__current_set_polling();
--	tick_nohz_idle_enter();
- 
- 	while (!need_resched()) {
- 
-@@ -349,7 +350,15 @@ static void do_idle(void)
- 		 * idle as we know that the IPI is going to arrive right away.
- 		 */
- 		if (cpu_idle_force_poll || tick_check_broadcast_expired()) {
--			tick_nohz_idle_restart_tick();
-+			/*
-+			 * Polling idle is not dynticks idle: leave it before
-+			 * polling so that the tick is managed on IRQ exit as for
-+			 * a running task. On nohz_full CPUs it stays stopped and
-+			 * nothing is left to do on wake-up that would delay the
-+			 * task. On other CPUs, leaving dynticks idle restarts it
-+			 * as before.
-+			 */
-+			tick_nohz_idle_exit();
- 			cpu_idle_poll();
- 		} else {
- 			cpuidle_idle_call(got_tick);
-diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
-index edaac8e7c669..cb3117453eaa 100644
---- a/kernel/time/tick-sched.c
-+++ b/kernel/time/tick-sched.c
-@@ -1225,23 +1225,22 @@ static void tick_nohz_clock_wakeup(struct tick_sched *ts)
- /**
-  * tick_nohz_idle_enter - prepare for entering idle on the current CPU
-  *
-- * Called when we start the idle loop.
-+ * Called with IRQs disabled on each idle loop iteration that enters
-+ * cpuidle. Only the first call enters dynticks idle.
-  */
- void tick_nohz_idle_enter(void)
- {
--	struct tick_sched *ts;
-+	struct tick_sched *ts = this_cpu_ptr(&tick_cpu_sched);
- 
--	lockdep_assert_irqs_enabled();
-+	lockdep_assert_irqs_disabled();
- 
--	local_irq_disable();
-+	if (tick_sched_flag_test(ts, TS_FLAG_INIDLE))
-+		return;
- 
--	ts = this_cpu_ptr(&tick_cpu_sched);
- 	WARN_ON_ONCE(ts->timer_expires_base);
- 	tick_sched_flag_set(ts, TS_FLAG_INIDLE);
- 	ts->idle_entrytime = ktime_get();
- 	tick_nohz_clock_sleep(ts);
--
--	local_irq_enable();
- }
- 
- /**
-@@ -1413,15 +1412,20 @@ static void tick_nohz_idle_update_tick(struct tick_sched *ts, ktime_t now)
-  *        as long as possible.
-  *   2.2) If the tick has dependencies, restart the tick.
-  *
-+ * Also called before polling idle, which is not dynticks idle: it may
-+ * therefore be called outside dynticks idle, with or without IRQs
-+ * disabled.
-  */
- void tick_nohz_idle_exit(void)
- {
- 	struct tick_sched *ts = this_cpu_ptr(&tick_cpu_sched);
- 	ktime_t now;
- 
--	local_irq_disable();
-+	guard(irqsave)();
-+
-+	if (!tick_sched_flag_test(ts, TS_FLAG_INIDLE))
-+		return;
- 
--	WARN_ON_ONCE(!tick_sched_flag_test(ts, TS_FLAG_INIDLE));
- 	WARN_ON_ONCE(ts->timer_expires_base);
- 
- 	tick_sched_flag_clear(ts, TS_FLAG_INIDLE);
-@@ -1432,8 +1436,6 @@ void tick_nohz_idle_exit(void)
- 		tick_nohz_dyntick_stop(ts, now);
- 		tick_nohz_idle_update_tick(ts, now);
- 	}
--
--	local_irq_enable();
- }
- 
- /*
+ - P2: Changed as suggested by Frederic: TS_FLAG_INIDLE is only set when
+   the CPU goes idle and not in polling idle; tick_nohz_idle_enter() is
+   called on every idle loop and runs with interrupt disabled. The tick
+   is not restarted before polling idle, so
+   tick_nohz_idle_restart_tick() has been removed.
+
+ - P3: Remove tick_nohz_idle_restart_tick(), now unused. 
+
+Link to v1: https://lore.kernel.org/all/20261106160621.347228-1-marco.crivellari@suse.com/
+
+Marco Crivellari (5):
+  tick/nohz: Re-evaluate the tick on return to user space
+  sched/idle: Don't handle polling idle as dynticks idle
+  tick/nohz: Remove tick_nohz_idle_restart_tick()
+  tick/nohz: Reset got_idle_tick when entering dynticks idle
+  Documentation: no_hz: Add tick stop in polling idle
+
+ Documentation/timers/no_hz.rst |  2 ++
+ include/linux/tick.h           | 10 ++++--
+ kernel/context_tracking.c      | 12 +++++++
+ kernel/sched/idle.c            | 13 +++++--
+ kernel/time/tick-sched.c       | 65 +++++++++++++++++++---------------
+ 5 files changed, 70 insertions(+), 32 deletions(-)
+
 -- 
 2.56.0
 
