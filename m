@@ -1,49 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794496140;
-	b=0OOl24EhvM6/f/dYENIT3j8q4FemNKngtNDHxb986lfBy0+Rc+J2eEAcrDtTiRX9bkVX
-	 YlfVQYLHQeQqE/SH8ivpr9AdTTpMaHWhmUhMxvhm7279RfohZy15KtmSCbZMasGJ4a9PK
-	 vJ318bFloSSERUWq8yOdmZTQCO8lVrDtTdS0JnmEKXFNyudkSmv4OrWV6n7RK1zY0iNKy
-	 32k/Ek+xOF0l/uShhbekAaGTGi9LPbTd3VByRl9X8Nq+zWXDKGt5LjGIgvzUwEFi0K9qH
-	 cYvPXLpTrwHOX0GIMLbIPJbL6ZfSyRWYOioP7d5yevxnMqoQc6tyh1oNOB16jNOPQSA==
+	t=1794496141;
+	b=njzw9l1sHNt3gZ+V84MPK3VOp2GBSAfhfPhnKvR7nZ8lHof3W87XZUquS73GPFmf3Csz
+	 RuSXCb4vbDh1szq9/+r5Pn0xk0Ab83E8Xg+ykYNLIbUsrumGsJkO4NWdcabk1EGPLj/Vz
+	 0Hkh7CBdaG/6oN409FVL4imK1AeE+fwWoxs1sv5E1gTADRxKxyyD4GG77vlVM6SKhp6vR
+	 DNNXtuk85ro7lnt18R2DoKL2L05oBqWlEW+lRHJAa6HPhffmWn3ztoein6pgoiUL4E8Sq
+	 fkmI7fzaGwCdcpzJhsXTXBOnraIwZhILSDrsM6E0Vjxa1SmLuhVn9eyvBQtn1zhVvmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794496140;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794496141;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=8wiql50cDD3qNYqOz1INc0Pqx78ED5IM9pXLG9SklOQ=;
-	b=d7Gr3KP+znwPcvZv1/yExBII1/RMvvVKKlFTLoHb+jP3VWaXaLlEkNjFpEzD7TUmsFG8
-	 p8Z2erS7hUHrPUXtGZxmSbWGKrzxR9qd39bolY5gmyivJRUBNeEPu9CbrdpKuHycqafet
-	 1cETgNmINrqwL7MN8a+G/uyfNjMJi6Rzoh7l9nUFGLGfMTZGq5cm6bXlzT+U8kwYq2dju
-	 EjlFiehQIx8tcY198HYoiRI6fE6WR6T1kbrL0e1bCfIvKbtyt9Fa3SH2rEzoQUg3l2jXA
-	 t0uAu/CkySh4B5/8P0setAEalzolZNzATSPTjSZGiZaQZS+BIQj6M14HADj1BPMS1wA==
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=WXzyXPsawQzAas62KuytGi1NmXYvupw3UlaDFU2Owg4=;
+	b=nyWb4C/Qi7+0iTFwX2sAf8xV3o5eFsyGhNUDULJCIy0wx6PXIokPlnWXwJ4Ren+WhQxx
+	 mzB8MLRXzNAx6prbX3MY+gphOJVD6IoBunfItTwWiXpNiqD+rP69hfVGgPz4Q9EYHqFNF
+	 2Gm1OkCLXeF6LzMaF2I08QZSfdnj6lBqFL4O5BH6W62OfGf+cJtwgqY7kH8EwkjJi1bzz
+	 W34F8SM8zXwvXf+HCilmz/R+Ll5myGoN7L6aWpgPb5ZvRcejFCgOt/I3wLo6fAIjl/mzC
+	 zZz7XPcyA8UDF73vpUs3xw5AdVbmkgBcpfIhJ1wHAsNuYcdTilZNaufHZSbsSKDbQeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=dolcini.it;
 	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=oYHepFWK;
+	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=e+xOaV2Y;
 	arc=none smtp.remote-ip=217.194.8.81
 Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4AB606A323;
-	Thu, 12 Nov 2026 15:08:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC4AB606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ECCE606A330;
+	Thu, 12 Nov 2026 15:09:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ECCE606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=oYHepFWK
+	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=e+xOaV2Y
 Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 3EF0F23161;
-	Thu, 12 Nov 2026 16:08:57 +0100 (CET)
+	by mail11.truemail.it (Postfix) with ESMTPA id 88E6B231B8;
+	Thu, 12 Nov 2026 16:08:58 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1794496137;
-	bh=8wiql50cDD3qNYqOz1INc0Pqx78ED5IM9pXLG9SklOQ=; h=From:To:Subject;
-	b=oYHepFWKdUOJ+ttxcB7+HifK5JBgfu/7WJNTO8WVLzOG4OWjNbIO9h7ZzPPlSwo+O
-	 QoS3aHp3ldFZIzN0wKRyijYAzCng9DShNGAnkvhPFBO2AKxkNPOAk1xunYmWVfXION
-	 M3FjBLOFGeOnhKXoE/fu6tXov4lI+HGid5MmHTARU3hwmDyt41DvTcoxIwqBuZeiF3
-	 kbub8KaetEHoq8SjwlJApaBFB1/ItSLVIygJFKtddleQUTyCoiI6HqjEhqFKLLiGgp
-	 8qxOxfrfodYVy7N6VObQPmiG7bebwwYWPOVJ6peOhDf7XIA1atp88jIXHUj8PISX7l
-	 xPjvC5CAk2kqw==
+	s=default; t=1794496139;
+	bh=WXzyXPsawQzAas62KuytGi1NmXYvupw3UlaDFU2Owg4=; h=From:To:Subject;
+	b=e+xOaV2Yn3fSU1ElQlbhub4LN2nOW/WuOUHPn4JLGSCYZKTEEYKOfTzm15DXD/XOo
+	 9PvI8pfuxxxTQwJKox6EbKRls2EvYzg6MprHwrEWkVmSbUYrXXGAQNUfk3GAH8atkr
+	 aDnMeWHBShRDnL+AUzVWL0P1jGppKoVlYhS1UJDZ8u+d8ovI7POq+6ixOPNwOf6tzk
+	 uBayUXetUES9dX3rpa2V1vvgUvo+iaJLKxJgGQzP2hT0QGTvnv1beFqgsKr1E4Sgh9
+	 08Inq2yM7v1VR1L6oyb12n+iv7NUISLaZeHA0Inqq39W4o/1bMgIDi6v1WUDHmtX4s
+	 BR/zMkMyID+pA==
 From: Francesco Dolcini <francesco@dolcini.it>
 To: Francesco Dolcini <francesco.dolcini@toradex.com>,
 	Rob Herring <robh@kernel.org>,
@@ -58,10 +59,12 @@ Cc: linux-bsp@toradex.com,
 	imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 0/4] ARM: dts: imx: Add SPI aliases to Toradex Apalis and Colibri SoMs
-Date: Thu, 12 Nov 2026 16:08:44 +0100
-Message-ID: <20261112150849.177133-1-francesco@dolcini.it>
+Subject: [PATCH v1 2/4] ARM: dts: imx6qdl-colibri: Add SPI alias
+Date: Thu, 12 Nov 2026 16:08:46 +0100
+Message-ID: <20261112150849.177133-3-francesco@dolcini.it>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261112150849.177133-1-francesco@dolcini.it>
+References: <20261112150849.177133-1-francesco@dolcini.it>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,32 +78,34 @@ Content-Transfer-Encoding: 8bit
 
 From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-Toradex SoM families (Apalis, Colibri) define the interfaces available
-to the carrier board and their numbering as part of the family pinout.
-The i.MX6, i.MX6ULL and i.MX7 SoC dtsi files number the SPI
-controllers in SoC order instead, so the Linux bus number in sysfs and
-the spidev device name follow the SoC, not the SoM interface.
+The Colibri family pinout defines the SoM interfaces, SPI being the
+single SPI bus available to the carrier board, implemented by ecspi4
+on Colibri iMX6.
 
-Add spiN aliases to the SoM dtsi files so the Linux bus number follows
-the family interface numbering, zero-based: Apalis SPI1 is spi0 and
-SPI2 is spi1, the single Colibri SPI is spi0. Where the SoC dtsi
-already gives the same controller another alias, that inherited alias
-is deleted so each controller carries a single one. Where the SoC
-numbering already matches (Apalis iMX6, Colibri iMX6ULL) the alias
-makes the mapping explicit at the SoM level.
+imx6qdl.dtsi numbers ecspi4 as spi3, so the Linux bus number in sysfs
+and the spidev name do not match the Colibri interface. Add a spi0
+alias in the SoM dtsi and delete the inherited spi3, so ecspi4 is
+bus 0 and carries a single alias. This replaces the spi0 alias
+imx6qdl.dtsi gives to ecspi1, which is not used on Colibri iMX6.
 
-Francesco Dolcini (4):
-  ARM: dts: imx6qdl-apalis: Add SPI aliases
-  ARM: dts: imx6qdl-colibri: Add SPI alias
-  ARM: dts: imx6ull-colibri: Add SPI alias
-  ARM: dts: imx7-colibri: Add SPI alias
-
- arch/arm/boot/dts/nxp/imx/imx6qdl-apalis.dtsi  | 2 ++
+Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+---
  arch/arm/boot/dts/nxp/imx/imx6qdl-colibri.dtsi | 2 ++
- arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi | 3 ++-
- arch/arm/boot/dts/nxp/imx/imx7-colibri.dtsi    | 2 ++
- 4 files changed, 8 insertions(+), 1 deletion(-)
+ 1 file changed, 2 insertions(+)
 
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-colibri.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-colibri.dtsi
+index c9e539f83f80..0c5158e6be25 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx6qdl-colibri.dtsi
++++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-colibri.dtsi
+@@ -16,6 +16,8 @@ aliases {
+ 		mmc1 = &usdhc1; /* MMC/SD Slot */
+ 		/delete-property/ mmc2;
+ 		/delete-property/ mmc3;
++		spi0 = &ecspi4;
++		/delete-property/ spi3;
+ 	};
+ 
+ 	backlight: backlight {
 -- 
 2.47.3
 
