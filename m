@@ -1,108 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794481616;
-	b=QKaROqTkrIkxdXsZI2zB1mMZ0GY2EZnc1K0i7qCvL4EIeOARGSR4G6/sm8QX5QPYxLd5
-	 pczbMf+1RjHEOGOgdqEfYksZyNAUcp/KF65KahkYxzvLezEywIlEQaTWvCPnV8ybQ1xtm
-	 v1f7xwdIrcdK38T3amrpEiH2Ls9hpsQaGdkFwWlRavqioUPF5qjvkVZs9xVF3yoYhPsyz
-	 Y9YojQnHWSzsiWou+EkCzU8SyDVw3xTnQoHIfyJ9Kp5bgTEtskUN96a+nsQgJ6pca/lK9
-	 NAFZQApFM9GzvNvJvXkMwFM68tEFhAHkpq2xasUMU4LUtP1jkxM2ygwjmzPXu4dXlng==
+	t=1794481610;
+	b=k+y0U94yDwqFtTN5NtdYB8heHqzeY13oyHdKyY/cXpnzQ/5NfOS0BIgCGFKSVnhab40H
+	 6u+YdSs9L/1bCL2pvi9LzYq7e5iM0hgJFRKnDKpBU0ht6RDxFODI3feQHcgljk+cUNKlN
+	 if1AAVKaYETSUReRJ3gK0e98z+/Zt+pku+eKWiZAVJaEN9rdFYHaAd9/OGqRvnuL9AtLG
+	 1sPZWh/fWURxJnpruHGBASAxm+GzrLrHfL8iu6ENFB5xNVnaIwlkXvwF8kW4ctmBWCnJC
+	 uGAAKjWDW9bSnfh5Jm5b5WeSiNBM2LU/gP6A+FThyJJYJhqAedSP1NKCFetV/xYGx/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794481616;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Jkl+rtsdURDObBSi0vgDZpi3RyOFjXWoPZgIXkAsj7A=;
-	b=CLtEW+p4xx+YFvmDMROzg/7IxXEmlrFgoVJHc1r4YIJrhfrrtPQXqUM/tjIHa0eHqlWY
-	 Pn9rgrC8gc9plajABp+WLri10PAi8TaZHw3yz5/wbF7DkHnUMkVQtpMg4IsNo9EGCaC7J
-	 sMDjojeJyPZkMVV7pByywsVSy6C+S8bLL69ULjDKLlj52Q6wBlE69kIRWCKTJCwmYq1ex
-	 eVBO9FbBnp+WJ8+MhFOvPijBTu/ZRgvp3i9pIHv6uuotk96vMdYMGR3Q4XIm2RvfAzoJU
-	 a9g652T8Jz6zSqioyCllm1Wf1Za/kut356F+6p4Fb8kXyktn8K0CoQDyiGemsLJV0lw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794481610;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=vSq1qT4UA/SFFJR/GJu5ROIhm9ZxkHbbkGrHiDg+96o=;
+	b=IO5P5OD5xQJZhtFM+ZW01ToFGe3IMRHsnmXSSPOJ+PDlQPU1OKPA3fUdnl6j21Yx5f8V
+	 CIZtZ+DXgzGgo30V+hFtNjCzxdrbTg/KUgMi+iiZtCqP6EMLhPkoYpSx/GGzxRWvFlqZh
+	 iJ+eUdy3W0W5TmBNvzWn3xR0Y7zUsyKwwNX8IjNsEMfgfKfaX3CH6HngpEpEa1zXyHrFr
+	 Bcli+mq7fVzYMuc89u1JMoHzAzeN7gI8wQNR3WeTW7arnC9//8k30i93vsERRlRb2XDJ1
+	 tvyHPqkKcE5A8b4pNYe7ZLVfdIe8yOL2fHAJk7y7iGxPlct8gTvu6FFGXOtADoS4OfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=U05L5wnC;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ayze4ztQ;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CgL6tMTt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DADB8606A327
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:06:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DADB8606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86CBB606A321;
+	Thu, 12 Nov 2026 11:06:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=U05L5wnC;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ayze4ztQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794481615;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Jkl+rtsdURDObBSi0vgDZpi3RyOFjXWoPZgIXkAsj7A=;
-	b=U05L5wnCqKNKCabIjLs3X7kB2xZUKavMM7/Lta+AlC5IhM56JpL1HJyCxwPo11lovlVEc6
-	DyeQXFyDH24xUE8/Y42DeZa0CtTW2Gx7tki+ecZX7THUC+YkGcxziAq3AwP9RjYVq58MdV
-	MuQbIBTjs45rCPMonEWgBw4Rtj1dF0M=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-218-NfR5TjUpNmmOX-Fsdc_1sg-1; Thu, 12 Nov 2026 06:06:53 -0500
-X-MC-Unique: NfR5TjUpNmmOX-Fsdc_1sg-1
-X-Mimecast-MFC-AGG-ID: NfR5TjUpNmmOX-Fsdc_1sg_1794481612
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a027f2e364so30986145e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:06:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794481612; x=1795086412; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Jkl+rtsdURDObBSi0vgDZpi3RyOFjXWoPZgIXkAsj7A=;
-        b=ayze4ztQA+QisQAQKoIp6BxYy7yIeln1fLI1Bxpnh+14J9eHN+fzPPKxMJrtg1zsfh
-         LF9QLyJtCzy0jSp0Bx9nhJP5AINvC/bxkSevQ7zEFwFAzk0JU2SQUpbiCjAFOcpPo8J5
-         LsuxCUCn3aQS58Sz1VWwqPUeLY5o/vllCD9rfP7hoBvmD9aHrTsLGTSTJ0jrECS3t/nF
-         ZUQMqpdUQKQCsrMdEDuTT0yszTjwJTdtGSVPUYWbVSerqfEmqRUE6Kfxzs1VJCX5WvXh
-         X//6V1As9hw4xvDLk7A3eUJJadr+xd6Rxt0ZFKNEh5GrCR8E9UvJTbyQbo+UIGMfLIMW
-         ShGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794481612; x=1795086412;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jkl+rtsdURDObBSi0vgDZpi3RyOFjXWoPZgIXkAsj7A=;
-        b=Mp+w8v6QF69dfjrRPD4ki3vFqgkOTU+PViQis0UpYwcrvh8AiNq3gsedAoVXn+iddn
-         T1sVbEFzO1y77QXi4cawitZILd4BbulIJLmeez+2z6odnEN1oW4e2lo0Yze6D2vI13MF
-         1KmedYZJPIiI63W5dHxqMkT7Vdu7BDXAhY/+VkLoG4KGT1eQh0vgsdYnqQeZy4Bjf2L7
-         I8S5D8ZNmxf2Jwjo7Hpm++WxNGcQ11/p09ufeDGz2fGOrbN+LfNUTa4h5To+QLfxg7tX
-         qTPPLj29hcPckxfb5+LtfpJD9C2v6D+mf5Kn8ndC9o4jUMeo26AolVSsYMNbZOHcTQcU
-         XVAw==
-X-Forwarded-Encrypted: i=1; AL+hErFXw/ixmle/BJAsLgQAMwcWWmwKpiklc+hb8ddPXZal3+rveaZ3BVO8qf0r/AwPAFjv+gG7R7Q/V72H5Eg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Ngk4ycHwM0kRFrmm/3XmflNsiwMJBeuw4Mbw+VX6YV7uWV76Y
-	b4YPpE28GfxoxjNbJhWHIsoNS9MZRUWZAXIsZEKUtJEF7V4ibEWG4k+j22eqoATc0UvBVmi0OpT
-	Y97GRr94c5iN4I1Xn5XOBK8mzn3w815Kqw4RBHNTOF9gX02EDjgxrwq8AFtRgNbVIIA==
-X-Gm-Gg: AYBFou1uC2F/mtChTux0BZi65NRgx+DekFdaPuyhVDAUwUHfrxDWeojgadHRtfJUX3Z
-	mMIJpbznvaBAhRmI1auelOCmpwdTa8W35fsMzyB87qhFpYeAptah7ljnxau7yY46Aw/Eqtv9qBQ
-	Ku459N4Xj7Ljztb4yO6mUSKiqiRAicyvvuxisiQH0Z/M3h6yVMYa3mck5znaCzn/zJx/HAF/8Qb
-	hxcb7fq2bn6NKzPljS4ppBxt4ox531eqyNANvAE+ArQx2YnRD5BF773IFzVHrXI1BWaPTQqCw2S
-	HAcgWrXFBBKDYtPJ4JCUiawdR+01Z6+pMXFBQMqd+XJRNRxG4uJP93gw4+W0PLn9+oYaZ7K/qf7
-	IXkh0MntJaHXpnPDi1owWUxoSrmND3OhM2hTeM/7l3A0uI77t5eGj5OGYZXUaVz61l1uBwQYak2
-	OkXhIhzCDtUXo+XzkQRMn0KzindKZUKrylP29BQpQ/qL62
-X-Received: by 2002:a05:600d:c:b0:4a3:12fb:1ef1 with SMTP id 5b1f17b1804b1-4ba093be23emr82662515e9.29.1794481611720;
-        Thu, 12 Nov 2026 03:06:51 -0800 (PST)
-X-Received: by 2002:a05:600d:c:b0:4a3:12fb:1ef1 with SMTP id 5b1f17b1804b1-4ba093be23emr82662225e9.29.1794481611257;
-        Thu, 12 Nov 2026 03:06:51 -0800 (PST)
-Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e26700fsm70550895e9.10.2026.11.12.03.06.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 03:06:50 -0800 (PST)
-Message-ID: <a8cbf073-c242-446e-85e7-6cf9158e0b9d@redhat.com>
-Date: Thu, 12 Nov 2026 12:06:49 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CgL6tMTt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 007A81F00A05;
+	Thu, 12 Nov 2026 11:06:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794481610;
+	bh=vSq1qT4UA/SFFJR/GJu5ROIhm9ZxkHbbkGrHiDg+96o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CgL6tMTtg/S8q8yyQ/zzYtg9kJGnRqNf4TdTF0m8ZeWqRXWL2/Oi+iirLh3VdN7KX
+	 /0rI4Xhikgv+80DYB8hHzH+HE7Xd9l/cKADhJoww7yeq2yT0f8VkH7WvzEaS01VtF0
+	 0/yy+UxDZIbqt1F516bbUZckJ69oh7MkXOYItH/jk6t+E+yJ3BOZlGS0lSAubIMpYk
+	 YpVBtER2Ihm5gyMIDsO72fULol91zd9fILGJjGhutuKzecoleh+Rg2ePnBFDYcI6OQ
+	 aDRCDVlVxM9EnkeradPkM0L/mqk6J/1bSht5CcFMsbZPb3GgmQ4bFfavYVN9z5mRQM
+	 eixxs/EhIbtRQ==
+Date: Thu, 12 Nov 2026 11:06:38 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
+	James Houghton <jthoughton@google.com>, Andrea Arcangeli <aarcange@redhat.com>, 
+	Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, Andrei Vagin <avagin@gmail.com>, 
+	Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>, 
+	Muhammad Usama Anjum <usama.anjum@arm.com>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Chris Down <chris@chrisdown.name>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	=?utf-8?Q?Miko=C5=82aj?= Lenczewski <miko.lenczewski@arm.com>, Michal Hocko <mhocko@suse.com>, 
+	Mike Kravetz <mike.kravetz@oracle.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 11/12] mm/madvise: send UFFD_EVENT_REMOVE when installing
+ guard regions
+Message-ID: <avWdmdtniATARDTX@gremlin>
+References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
+ <20261111-uffd-state-fixes-v1-11-00713d368976@columbia.edu>
+ <avWW5t1BiD7pbzIZ@gremlin>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,39 +77,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: ag71xx: let both QCA9550 MACs use MII, RGMII and
- SGMII
-To: Rosen Penev <rosenp@gmail.com>, netdev@vger.kernel.org
-Cc: Chris Snook <chris.snook@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- open list <linux-kernel@vger.kernel.org>
-References: <20261106221607.16215-1-rosenp@gmail.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20261106221607.16215-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avWW5t1BiD7pbzIZ@gremlin>
 
-On 11/6/26 23:16, Rosen Penev wrote:
-> The GE0_SGMII bit of the QCA955x ETH_CFG register selects which GMAC
-> gets the SerDes (QCA9558 datasheet, 10.8.1): when it is clear, GMAC0
-> connects as RGMII/MII and GMAC1 as SGMII, and when it is set, the other
-> way around. The driver only allows the second layout, with SGMII on
-> GMAC0 and RGMII/MII on GMAC1, but boards like the TP-Link Archer C7
-> use the first one, with GMAC0 on RGMII.
-> 
-> Allow MII, RGMII and SGMII on both MACs.
-> 
-> Tested on Archer C7 v2. RGMII on port 0 of the switch works.
-> 
-> Fixes: 0767ec042897 ("net: ag71xx: extend link validation to support other SoCs")
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-IMHO this is not net material.
+On Thu, Nov 12, 2026 at 11:03:29AM +0000, Lorenzo Stoakes (ARM) wrote:
+> > Fixes: 662df3e5c376 ("mm: madvise: implement lightweight guard page mechanism")
+> > Closes: https://lore.kernel.org/linux-mm/3f4b0d1b.bbf84.1a1c55cb666.Coremail.18670333770@163.com/
+>
+> This report was super-synthetic AI slop
+>
 
-Applying to net-next.
+Oops, let me finish this thought... it was super-synthetic AI slop to the point
+that I am not sure it's even worth referencing.
 
-/P
-
+--
+Cheers, Lorenzo
