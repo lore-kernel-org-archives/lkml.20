@@ -1,94 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794475960;
-	b=Pj/C5RqpRUA4YUdZbMX4lwslyuiSXA8iAIlahiDUKzNkmp5hkAH0M9t9/3gCB1EDJsHE
-	 6PxdSCIgPmdzQVCIlH+NsREBtW3b3JyABf67fpNH3ocb/5HOmN0LUcx7BlcpabqkoSD24
-	 P3DSobC/yPYshGD135Dtz7bD6fw9NzhPrMGA9MMGWLRqKfll/q5O/zptS2B8A4nZHrxOu
-	 rQClwKDhV3ZM+wAnjWImj5KCd6GlhwbdvYLxZMlU7Z06TB+QekD/pzmTki/lKziAs8pKw
-	 iS2aW76oN/5QwPKLPzUsxeGWDZCsH24HwNdktjIdFSusHWAYXPkMrYYWATKuGct2fGQ==
+	t=1794475981;
+	b=1DhpNREJA2GBeRLfxMrpP6glDqbjwCMNqDwufYfjKe6z0n7DC2/a+ne9YFLg+Qz3x9YQ
+	 EZnafx8gkJG7CwFsM/M5I0XDVmA7I2eDjbRaQcNVNAwl+k5HxS5+aAJISONDITXzCa3xE
+	 f2GWDaqkImoxuzKJzcrf1VY1jJ9gEdkiLaLXb5jmmxVcthnBaxGiC8wMTyaWn2kfI4z1P
+	 nJF7v/Fl1VBKr2RJ6K4/nOQkCi5AAooL0AP3KmRHmfLahVZL59mhLU/p7cqm45eG3URQM
+	 RnN8jLeVm72g5Efv02JZsLAjCEq5TaeE2mvaOPejClVykPnHO/c2PTM6ofaqK381k/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794475960;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/ULzW8QvK/EALUnGSLdjbhj8msZl7UoNbmnKkjE1SLk=;
-	b=X+GleR/FDhK9xrJNjPtDWuC/9oTS1XXy40X1ciTnH+bTl46I0jVqVWFvqN8zAPRq4aTG
-	 J+u8E52iyFP24udR1RsOuRd8zPxw56oJcMZOBVPdmTUaMCg/sCZNpeYpg4fiCxIP3UiWn
-	 qOQ7A28hr4TQBAn+4MkfeQavxo0FdZQzlW7R05BmizTfdG9OjfSiiBDLYlmeS9Zs5B44G
-	 9+I6+uI43TrAfItP/Z7oYA2iUGDPs17sd0U3wWIVQCCwSpx8rzdljNZYK2ho2FJJYLin4
-	 gkJnrhucz6r5lW4iHBrs1l8qB3NZJKqwaQ4DfPRqZN5e9NjwW6TnRC2BLH7+sN94S5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794475981;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Zm4uqjyTBZMLurFKBtWKGU9EMrdGi8yi2J1M7zOknh4=;
+	b=PW7yu5JE0rQ1J7BDQZ2YbdLxXkJZpLZBz7ul7J6ghpGUnvgb6x9d7tXBRoZedmgoJ0u9
+	 aHNYVDZ58fS1wFMoroQWIVqI1qR/P3qlQPnngBG5GS8MKGW6ztZdPkX5+5yTE9gmntZXA
+	 Ri3x88Yz00xuXIqDH9CMl0LaZwviApj9Mwdj2VNsReCioq32AHxA6AEiK3pdMy/R0e8Da
+	 g/KD7UA3rwuUQ7aPEdXiGX9N3R5yl0GL2l/AdeVUlFxFsrydn3eHqJeMCJALyv0hwMzCk
+	 bL42jvqZCuUHqt3/wDtFNoIyTJ/SUIEVhdBDu5EzNWpi7V1kmZH2GCnwbiblxPwgLlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lit0Km8m;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QNEs1OqV;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PmFRQoHl;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D80F606A32D
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:32:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D80F606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C622D606A32E
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:33:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C622D606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lit0Km8m
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso8652398eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:32:40 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QNEs1OqV;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PmFRQoHl
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC94LnH1475355
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:32:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Zm4uqjyTBZMLurFKBtWKGU9EMrdGi8yi2J1M7zOknh4=; b=QNEs1OqVZhxSqcNz
+	7CaxEGvyYxcn8sWAwKPUwf3KHCkip2UMa2qvizkBgf9TCcd02mfsD+Th3nFelV5U
+	fpr1KlN7ZkMZLeiHNyMKXfISrr4tOzr4oIZfitDPsleBaB+MjTrX7nWMjKl88cgH
+	hDNMhMeWDqstOTNs9TykMxIOUmaqApcZYuElS2knDaSr81Cx3eZaV7nif8X+mHnJ
+	PJRNDg4on4bnV+KAPwwCW50QG/7grnxxVavXmGET/uForAz8HKBpmqq+ce+2+i4j
+	1albDF1n9ctEO0og8+r2joQds1yFStNm4+A7xkdqR0nUe+7CGVvrH9XieFhYI7GZ
+	AcMPnw==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvtymuqfb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:32:59 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b08364cdc7so3623884a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:32:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794475959; x=1795080759; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/ULzW8QvK/EALUnGSLdjbhj8msZl7UoNbmnKkjE1SLk=;
-        b=lit0Km8mvglgymTRvaRLszRSu5Xws6AsI+wO6OwqZNtSKLDnyLrjFShCFZh0jttFgr
-         8GWqcFsh86QJnqCvBXs6qiC/a0qvAbQiSGiAdUxaJ7KYr6wNRrVOtL/FK4ss1QgWpkDP
-         gnPWP92wapYaDxAGLpt5zJ3MvPKVnkJmR200ONNFXSDF0ix6y5zunPVUeydck8obyFGA
-         5ggOqyy5aURLmNbNemvbgVl4l1+qbtUnsJMao7gwkdFs4YAcMMleNiFAtifiwI/EfeXK
-         63f6xvelUsyNroVw3jC62FZdVTXAtSs8ikTcfQZpA/JUTCEN3xCLSvll015vUQDC0Fam
-         iDGw==
+        d=oss.qualcomm.com; s=google; t=1794475978; x=1795080778; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Zm4uqjyTBZMLurFKBtWKGU9EMrdGi8yi2J1M7zOknh4=;
+        b=PmFRQoHlLhkFHXMYq2RaZkln6rN12rUizd4wQHx5rtfSHBaFKGpMkb8JVodKN0ADOr
+         xVAWbyKG6CVBE6Wv1EmZcJBuHXq3NeeQnwPXP44TfscSJqIjjzhpnoyVhjmUm8yINuJX
+         2sSgzpGU/L6bpzYkcggpfT3/OR+LlJRfCUKY2YgWzXo5UiqrnWrjDg3eJJB4f4IPPO1i
+         qpfwfnE174Ts8yjMgdI+vtqnBcEm5RiU8UthHniT37w19adBtxsOzUwCusMEREVM+Vwy
+         qtUa7MBwmndduJRI6rAPfgEQmiFUo6/HvUeEEV0FPelYDeo/iz970+HJ/AI9VurrnZ1o
+         oO9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794475959; x=1795080759;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794475979; x=1795080779;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/ULzW8QvK/EALUnGSLdjbhj8msZl7UoNbmnKkjE1SLk=;
-        b=Mqw6zwQrrXoGH7VZUpHfHQjOGEKNdhsJHad4ZDuXDaNIKMeXdYlqFncgx7RUe+JKwH
-         Am2Na/A4rJCmHsscgXSDg3xwghopTGrScwTjuEo80IcIoLn6gK0W5MG8gkgOTqJkfEEc
-         5mthBLaP2IIlx7v0hkpi2HkuwikIXjMOKzW+VI+7BiEMJcGO1pJWu4OXnNqnr3f/I9lh
-         7tfQ0ziifw7Zp6vr105RfdKyQOZpyAhsymaloLcc9Eq+ZswQvd2KW6MjY9x5oURSkWVS
-         usTiZ3HGmqvkfZZ4EpUqm/6AJ2v7M6szddPpUH8xDzioKGwT/2op9cBfyTp1V3PNyR5x
-         PsDQ==
-X-Forwarded-Encrypted: i=1; AL+hErFI6XYMBDA9HUP5UOrE9rQjlpcrX+cjqBibMkZbetechduWfrbuAl7+vev0LltfV2/Ibad/6Yg7Zql9aSI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9uQ9NdhsQnt9u2Q/xouUXh84k0D8pqEhR2PfDyW7/1eVVkLDkm
-	qrDWeeAflJKc1BpO6/Cdn5EDN7JG3GMtXfU7n//PQfhJdFORj006YCNB
-X-Gm-Gg: AYBFou0L2LS2ac0oEK5mPV5EmsdJhMkL2yu5kfMWJtkx5zjty/oYMxZIZ0uF75nLhyU
-	FXSReW8tX8MsmeJTqQmRUlTyAQD0gj7KVPh6aBe3GZBbYhiM1stkjE3XHpxd1yF4IGsHsx49DjR
-	3vfeuKCZsaxnwmV389n/9td2K75lP5EwEIGjUnxS5Jhgwjy1hSxYLaAADNVW1KqBKa50A+rPK6a
-	kY6iH2By1lk3yWXQ0udUWOz84OnN5PZUdoSkoDHWCr/MblbnlZnOGN5Ugl8Yc4O+0ljI9tl0FLf
-	p5WEUYAGlSStIV9bp5wSYfGGWq+XzejWoZUvs6y9EoHOh5qrjI5hYF5PYrKOGhlKEdXwhiGjqLp
-	87rYQClZUgbPjgGgKYPOtDLRvYFMmR4Ej5zJFZi/ZYGncSkwF5vrS0+3eZd1T/zEVViH+1IPXZQ
-	eRVEV8eTnmTXoWu3px4A/JBPLbm16MtrdE1Zf97538vSChuQh6HXIMGpOjeEZfkYA43C45Aa5rh
-	zue+chQ4AIbYIVTwC1/6IE8esE3kzHN1NoUmBO0SyCnMAXpLSMU3WnKaaoWFGE1uP3lzLJS53Yr
-	9IutyjAc9mqiP6MmJslnoYw7S2f+2VGvn8F4ZLEBTehnqw3SMOxQZ3Xy4XOVYjPCWmc=
-X-Received: by 2002:a05:7300:1899:b0:376:b957:c01 with SMTP id 5a478bee46e88-376b9570fd3mr6726823eec.16.1794475959004;
-        Thu, 12 Nov 2026 01:32:39 -0800 (PST)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520bfb58dsm45498133eec.18.2026.11.12.01.32.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 01:32:38 -0800 (PST)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: liubaolin12138@163.com,
-	ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com,
-	stable@vger.kernel.org
-Subject: [PATCH v3] ntfs: trim the sizes after a short write
-Date: Thu, 12 Nov 2026 17:32:33 +0800
-Message-ID: <20261112093233.1118469-1-zhanxusheng1024@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=Zm4uqjyTBZMLurFKBtWKGU9EMrdGi8yi2J1M7zOknh4=;
+        b=espCFILqu7K3dt37W+C+p6vH1E3tf7Z1UDfvvsuCNyeqCQ8TsTrBeTHHlfAl5rIAj1
+         gs65Y5tRBhA+LVgBiBDLIHMImmaD8qmYzjmwEAJQT5MzFoi6ub4xIlgtYaKC7kXzx2Ae
+         iuZgvKMZ+xx2aTjVCo72vLneUQaDeBu6Dtfz1s8ACmihnafCV8lWfp0Uok4VnQa+YXIx
+         Zf6teRqzOrAgxs89Bq4QDkJ0FtQOCAQr2cLtflvdZNvqJCLovW/iK58n7SEmeiPmtq3V
+         ZP9zq3FoPbMhRxDo4opklpC5++cTVt0+pc5czZzpxOvc+7fkBe4LI458sqRa+OLVO3NP
+         yJtA==
+X-Forwarded-Encrypted: i=1; AL+hErFhJpyxLwQv6puAfs3s2fjgUqeBzlvzw1yVaGyL+3MjntmofBcNZIIZsRptEm/rkS9LP2u9DSH6vrpdYLU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Vbu12/CJiBL6+TjSXr7rvv3CvbkjONSJ8vKwJ6J/Z9yUilWTw
+	ElaCwRaOZxly4c85XZXzyXzmCmnMP1XYj6D6CReLTpd3JUBIhLhWHvbVwrutHgnUuWhB+egBxDL
+	ybPJdXdihmKdGyuHYb7mpVovhuUnOiaHKcfkj+0JJV1BXr7Glhts5i8wqQEbll0bBoec=
+X-Gm-Gg: AYBFou1o/yVBpW15Yqjlb+Ae/xveLSEpFXwZSUWrRbm2C12ptdyH6Ca5wau0Q6Xs1WC
+	01QNAyqVFNIm9dP6RMKH01iyd1qMsgzQfhptLFjfRZlQvgZh0DKNQdSf1ZDDB/YONI8Fi7EHOCi
+	3KdGPhwbPKdPlUtlJSRweq1AR8cpY8YVHfyInrKYfAsCB0zK2xuyel/Sfsy0gKKbmGk9txUI5Io
+	/3tz5a8nRwdI93qeV7LITQV42Rz6P4HZ23z9kK9RZ5haXNGiMRfbuMW4Y4iaaLE51c+TAtP6KDt
+	JnHiYHbR6semvGog3mDpY3pGjfZ1j3yVSxmHMFuqUbaxddtVMlSgRUdobxaqikbT2cZYL3BuxWd
+	phJMSMe0Y1tq+w+vQNdFMV7jZA9je57A88jiteJnv2dlmPjcE/itIT81IGfsYjlK7MTXG56qvG8
+	40
+X-Received: by 2002:a17:90b:2250:b0:3ac:bc3d:6fe8 with SMTP id 98e67ed59e1d1-3b182f57e28mr5448964a91.34.1794475978583;
+        Thu, 12 Nov 2026 01:32:58 -0800 (PST)
+X-Received: by 2002:a17:90b:2250:b0:3ac:bc3d:6fe8 with SMTP id 98e67ed59e1d1-3b182f57e28mr5448935a91.34.1794475978124;
+        Thu, 12 Nov 2026 01:32:58 -0800 (PST)
+Received: from [10.217.216.70] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d916c0sm31396185ad.41.2026.11.12.01.32.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 01:32:57 -0800 (PST)
+Message-ID: <1b1c69fd-580c-4104-969b-ba09693ec6d7@oss.qualcomm.com>
+Date: Thu, 12 Nov 2026 15:02:51 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,129 +116,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 03/10] dt-bindings: ptp: Document TSCSS hardware on
+ Qualcomm Nord and Shikra SoCs
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Richard Cochran <richardcochran@gmail.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller"
+ <davem@davemloft.net>,
+        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Eric Dumazet <edumazet@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+References: <20261108-tscss-v2-0-d5f575010427@oss.qualcomm.com>
+ <20261108-tscss-v2-3-d5f575010427@oss.qualcomm.com>
+ <20261109-statuesque-polecat-from-lemuria-1b8ade@quoll>
+Content-Language: en-US
+From: Imran Shaik <imran.shaik@oss.qualcomm.com>
+In-Reply-To: <20261109-statuesque-polecat-from-lemuria-1b8ade@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: uPptjlTaHcVZe68YskdIE692u2SEBSGn
+X-Proofpoint-ORIG-GUID: uPptjlTaHcVZe68YskdIE692u2SEBSGn
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzNyBTYWx0ZWRfX8j74x4z7ScsK
+ eo96m29rNrFK70bOQyjxuJ/z02uJ1rgF83aVPGwp3TAe/fSONuXtmNjLklFV59/CeKtoZIBcgm0
+ sw1MabMHwcWte7rhI38KLxpgsPTCSnPkVv453ENLIqZILk6TG7FWVmi1vjucAWc9MA1CAO43YJj
+ D7REzNZiEiRZO0t6Z9itLO6DBxgaHJHf6n2XZIhzNFiSiVBbupFCwym0k/h/Vlhy11d6uhyTt/l
+ whzik9tTcOHPFHR/NS+R/0x4J+/hDsu0InJaQv/P/zUCjLYMIKWjbEsASeaj7bPEYR3s34oGizc
+ IL2mPfXl0zgrg3G06K6FAFpqVjAGlWSok8iH0S9veMjaBs0vvA2r+Ir5BUO5Py68YdVj5fmgjRY
+ p/YByn7Gpd1ktrSVhcgwiSHbbxMyenZvogG1zONaQqX8q+b9ojD3EfQQckOO6Hngqa7GQtOS0Y0
+ CvkPuJ6oNgkedVxbpKw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzNyBTYWx0ZWRfX4VCt2d+KfEQD
+ DInfhip22LmLb/+kB9cxkM5r8vpWFLXRNeblGzezX8SzKi1X4qP9eeRjuNDkMKm6eUK3P3EKsA1
+ kCiJ7uhzyF1LfV21U436r+9spAHpqDQ=
+X-Authority-Analysis: v=2.4 cv=Q4BHcI2a c=1 sm=1 tr=0 ts=6af587cb cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=8x6Hp9lnLVyU3yzMCIwA:9 a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0
+ adultscore=0 suspectscore=0 clxscore=1015 bulkscore=0 malwarescore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611120037
 
-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-ntfs_file_write_iter() moves the data size and, for a non-resident
-uncompressed file, the initialized size to pos + count before the copy.
-__ntfs_extend_initialized_size() only zeroes [old initialized size, pos),
-so the range [pos, pos + count) is initialized only by the copy itself.
-When iomap_file_buffered_write() copies less than count, it returns a
-positive short count and the error rollback at out: does not run.  The
-file keeps the size pos + count, and [pos + ret, pos + count) reads back
-whatever the freed clusters held before, also after a remount.  A local
-user can read the old contents of freed clusters this way.
 
-Run the existing rollback for a short write as well, and roll the two
-sizes back to the end of what was written instead of to the old sizes.
-A short copy that ends inside a block can also leave the rest of that
-block, and of the block holding pos + count, cached as read from disk,
-so clear the page cache from the new initialized size to EOF before
-shrinking it.
+On 09-11-2026 06:21 pm, Krzysztof Kozlowski wrote:
+> On Sun, Nov 08, 2026 at 06:48:24PM +0530, Imran Shaik wrote:
+>> +  interrupt-names:
+>> +    items:
+>> +      - const: etu_summary
+>> +
+>> +  pinctrl-names:
+>> +    minItems: 1
+>> +    maxItems: 32
+> 
+> So here there is difference, that justifies different binding file.
+> 
+>> +    items:
+>> +      pattern: "^slice[0-9]+$"
+>> +
+>> +  qcom,etu-slice:
+>> +    description:
+>> +      ETU slice number for each entry in pinctrl-<n>, pinctrl-names and
+>> +      qcom,etu-event-sel.
+>> +    minItems: 1
+>> +    maxItems: 32
+>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+>> +
+>> +  qcom,etu-event-sel:
+> 
+> Anyway, you need common schema defining qcom,etu-slice and
+> qcom,etu-event-sel properties. Maybe also pinctrl-names and other common
+> properties. The individual device schemas should only override/narrow
+> constraints
+> 
 
-Fixes: b041ca562526 ("ntfs: update iomap and address space operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
----
-v3: clear the cache up to EOF, not up to the extended initialized
-size, which left the rest of the block holding pos + count (Baolin).
-v2: also clear the cached tail of the last block, which v1 left in
-place when the write stayed inside the old data size (Baolin).
+Sure, I will introduce a common schema qcom,tscss.yaml with the shared 
+properties. Per-SoC files will take care of overriding their own 
+constraints.
 
-v2: https://lore.kernel.org/all/20261112030815.982026-1-zhanxusheng1024@gmail.com/
-v1: https://lore.kernel.org/all/20261111093459.660484-1-zhanxusheng1024@gmail.com/
+Thanks,
+Imran
 
-Tested in a VM on ntfs-next b025f526c5d0, with all free space filled
-with a known pattern first.  Short buffered writes of 4M, old data
-readable after drop_caches and after remount, 3 runs each:
-
-                                    unfixed    v1     v2     v3
-  fallocated, ends block-aligned    3137536    0      0      0
-  fallocated, ends inside a block   3141332    212    0      0
-  fallocated, unaligned start       3137536    412    0      0
-  same, pos + count in that page    -          -      436    0
-  append                            3137536    0      0      0
-
-A short write 1M past EOF, O_DIRECT, resident and compressed files and
-full writes give the same results with v3 as with v1.
----
- fs/ntfs/file.c | 35 ++++++++++++++++++++++++++++-------
- 1 file changed, 28 insertions(+), 7 deletions(-)
-
-diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-index 3213a0c9f96b..aa58afd729d0 100644
---- a/fs/ntfs/file.c
-+++ b/fs/ntfs/file.c
-@@ -928,10 +928,21 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		ret = iomap_file_buffered_write(iocb, from, &ntfs_write_iomap_ops,
- 				&ntfs_iomap_folio_ops, NULL);
- out:
--	if (ret < 0 && ret != -EIOCBQUEUED) {
-+	/*
-+	 * Both sizes were moved to end before the copy, so a short write,
-+	 * like a failed one, must take back what it did not write.
-+	 */
-+	if (ret < count && ret != -EIOCBQUEUED) {
-+		loff_t new_init_size = old_init_size;
-+		loff_t new_data_size = old_data_size;
- 		int init_err = 0;
- 		int data_err = 0;
- 
-+		if (ret > 0) {
-+			new_init_size = max(old_init_size, pos + ret);
-+			new_data_size = max(old_data_size, pos + ret);
-+		}
-+
- 		/*
- 		 * Like ntfs_setattr_size(): __ntfs_attr_truncate_vfs()
- 		 * expects the invalidate lock held across the size
-@@ -940,13 +951,23 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		filemap_invalidate_lock(vi->i_mapping);
- 
- 		/* ntfs_attr_set_initialized_size() rejects a resident one. */
--		if (ni->initialized_size != old_init_size &&
-+		if (ni->initialized_size != new_init_size &&
- 		    NInoNonResident(ni)) {
- 			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
- 
-+			/*
-+			 * A short copy can leave the rest of a block read
-+			 * from disk in the cache, also past the temporarily
-+			 * extended initialized size.  Clear everything that
-+			 * is no longer initialized, as
-+			 * __ntfs_extend_initialized_size() does.
-+			 */
-+			truncate_pagecache_range(vi, new_init_size,
-+					max_t(loff_t, i_size_read(vi),
-+					      ni->initialized_size) - 1);
- 			mutex_lock(&mrec_ni->mrec_lock);
- 			init_err = ntfs_attr_set_initialized_size(ni,
--					old_init_size);
-+					new_init_size);
- 			mutex_unlock(&mrec_ni->mrec_lock);
- 		}
- 		/*
-@@ -955,13 +976,13 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		 * the uninitialized tail, so skip it unless the rollback
- 		 * above restored that size.
- 		 */
--		if (ni->data_size != old_data_size && !init_err) {
-+		if (ni->data_size != new_data_size && !init_err) {
- 			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
- 
--			truncate_setsize(vi, old_data_size);
-+			truncate_setsize(vi, new_data_size);
- 			mutex_lock(&mrec_ni->mrec_lock);
--			data_err = __ntfs_attr_truncate_vfs(ni, old_data_size,
--					old_data_size);
-+			data_err = __ntfs_attr_truncate_vfs(ni, new_data_size,
-+					new_data_size);
- 			mutex_unlock(&mrec_ni->mrec_lock);
- 			/* Like ntfs_setattr_size(): stay on the durable size. */
- 			if (data_err)
-
-base-commit: b025f526c5d04929212c9d5fb7ffc96608f3eacc
--- 
-2.43.0
+> 
+>> +    description:
+>> +      External event selection value for each ETU slice listed in
+>> +      qcom,etu-slice.
+> 
+> Best regards,
+> Krzysztof
+> 
 
