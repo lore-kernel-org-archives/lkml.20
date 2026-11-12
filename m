@@ -1,68 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794480808;
-	b=pHH9o1v71oBXEeonJs6TfHSqN82xdCKhG9PAptudJSOcAdbj/tJXZg4jdsqLd1sw9gLe
-	 HtICrz9wOfZsML2m1a2IrQDkLwkusuM5hhZQkMJxz6d8pJMWrkSQZv74284JYiCrxEwmG
-	 SUcxaEHjxf9ba2eT5A96G5A6X8pnsTa5c06wLAqFrxemAxyc/jHWWTYlAxVkHLb1HLoXQ
-	 03PmX7UgDkME3m791H6mHoLfepiLIwVh/kFM+bbFupSa3zTzTUstDx2LYykuLnxgkvprs
-	 mNBMAGsnxkIPNE4J+E3JL8GTH2ZcFagC552kzFuDL4J9igw3SdTa2p6oqQEBOVY2/1g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794480808;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:X-ZohoMailClient;
-	bh=tLqa2FMlsnasCoo7Flq+ndrdNn8MeKqOwSnsMbw1pOY=;
-	b=Wxenffg9eYSwmpR/yVOatTgt/r9DaSmwyshBYaQgiQ4OuWKCpKl7LmdYd2wnV1dYC5v4
-	 seMis7YBeU9JYcTB4JR7UqniA58esEcRjsCKDskcMRnQWrxRBDepH2ov3ODf7TWjFW2Oi
-	 wekYXdTqBE0lwgAGH3UkHZpetiXpcfa/SaR3HW2gJbXf7OQuP1kS6dt2ICdHmW/uvT2Sh
-	 QMlmNphw22Et0CHdwDsL1/S/IilW/eAUueTJzeS+02Gjl4ObSvwrC/zdHDTdmgipk+DqN
-	 sxIUD+CExfkkCC5cvXIYrmMbFU8jmB2qee5sx2vpFkn6Pd74kVBJoYGyf6nMUs2d0GA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ziyao.cc;
-	spf=pass smtp.mailfrom=ziyao.cc;
-	dkim=pass header.d=ziyao.cc header.i=@ziyao.cc header.a=rsa-sha256 header.s=zmail header.b=gTIN1Kf1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.12
-Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794480835;
+	b=NSuYe4j9OzR81ZqlZSKSrwiaO9wmLCrS/t85E5etUGCezjzaIHkdvT515vM86025VDvn
+	 JZ+L6mRtp53TvGbE6jshuNsvEAcKoLN0IuchwcRelMqwtvfY0KOxn/bODwa9ZyoUC8I4U
+	 Gx0rJfiWqHvqGtQJ2hZ+SLvpkTiKEzWUtRcq+NvE6KdWarjP0QwSlooZlodfwQLvOt3M/
+	 iz+4D1ixegsVZeg3ygzlABQvX4Wa9G4XWQbZGslrSEocbQzKwLrEgtwPM7s1DlmThqioW
+	 695dD7lJt54amiZR+5FjJ6gzU/jDYDSbLdOEv6eD1nVKLnGQx/WI8pMWCFKU1gxb2Sw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794480835;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:X-Mailer:X-Mutt-Fcc;
+	bh=x9FymSRgKEmF3YLVaEmXV+qBe5FB2zMq7gJot0C8RFA=;
+	b=1AK41C7WeiokZ278gvwUaOoRiYjyyfk93Ijy5/GEjWLYty5GYERNwQ0Fje/1cBl9B5HO
+	 O/jVkBxpYhUns109QTrnZ8YaahKqQvk0kC8B8dH2JoF6051YS5eZPd5sQDKgy6aZ7Ue7m
+	 +ky5Z4kNlGOEY+J6IgzFei2daGQRBeQ3Mox6+s9JQCup+mPe0NMIypoBv74en3Et3SPNO
+	 IkAUeIquhoVG470cjxtiv4wj57bs2kEpNGbOWaCrdoM9gZcAos1bVi8GlUc1FkXeGg3K3
+	 N34FP6enzGNDUyygJtx5rY03oHSUq8wgwlU3j+dK3PI427IBHZvthGhKDjclPDH28hQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=gbIsmZyd;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=kYxzWQLj;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CBED606A323;
-	Thu, 12 Nov 2026 10:53:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CBED606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C98606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:53:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60C98606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=@ziyao.cc header.a=rsa-sha256 header.s=zmail header.b=gTIN1Kf1
-ARC-Seal: i=1; a=rsa-sha256; t=1794480779; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=BTHypljfRAlk3PgTfQxskdtuHNyT2eHhwDSiPxWGcIxxpp5EKRnJ9l+nwrKju1zF32gR5z4S+iYv6e0UOFFOJVukfdb78fs5wDpiizkF3aMI9YuQIHDRiOUHu1oYn4wFVQnzBD0whvsnuWpeVq2kHHZ9mEQOh1x+KGICvTM65bk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794480779; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=tLqa2FMlsnasCoo7Flq+ndrdNn8MeKqOwSnsMbw1pOY=; 
-	b=CH5rP2keafftl/e1MuUB8BRJ33woDqE+wNT/OnRtWXmlfi0E5Gt6anyAJ6nxg0Pe62OJ1t3oTh+JITovKbcfT3eeIQ8BnYkBps3ThTSFFnNzdFJ/lqE1rf6w7Ex/JT7PWP1aGzNJCIweSHxFLYC62xkN/gXRllCOXFyHQxBK+sg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ziyao.cc;
-	spf=pass  smtp.mailfrom=me@ziyao.cc;
-	dmarc=pass header.from=<me@ziyao.cc>
-DKIM-Signature: a=rsa-sha256; b=gTIN1Kf1OSDmSisFgXIGp5nzx0VF2FjdVAGWgze/GM97/5ObZWtXtixYOhOLTr5oOTMCHDXorlaH4phnj1Ijw0LsTX2uCTBCgF0TGLh3mNdZJPOpthgOr3pRIIJpI9Y9+OzZrIUx0AlL3cHOa6dmeFr8HOhPr59+d/J2v/9qirE=; c=relaxed/relaxed; s=zmail; d=ziyao.cc; v=1; bh=tLqa2FMlsnasCoo7Flq+ndrdNn8MeKqOwSnsMbw1pOY=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794480778136240.92925563025153;
-	Thu, 12 Nov 2026 02:52:58 -0800 (PST)
-Date: Thu, 12 Nov 2026 10:52:43 +0000
-From: Yao Zi <me@ziyao.cc>
-To: aiyengar1990@gmail.com, Ulf Hansson <ulfh@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Kevin Hilman <khilman@linaro.org>, Caesar Wang <wxt@rock-chips.com>,
-	Elaine Zhang <zhangqing@rock-chips.com>
-Cc: linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Yao Zi <me@ziyao.cc>, Igor Pecovnik <igor@armbian.com>
-Subject: Re: [PATCH v2 2/2] pmdomain: rockchip: report domain errors once,
- with dev_err_probe()
-Message-ID: <avWae91pfLv9vyUv@pie>
-References: <20261112-pmdomain-rockchip-v2-0-5cd942a23df7@gmail.com>
- <20261112-pmdomain-rockchip-v2-2-5cd942a23df7@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=gbIsmZyd;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=kYxzWQLj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794480834;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+	bh=x9FymSRgKEmF3YLVaEmXV+qBe5FB2zMq7gJot0C8RFA=;
+	b=gbIsmZyd951GkYAeuc5ZVvZPM6iBmnW+NSEqvDeWCvQAXHsX3ABjnR0P4lGihKq90YfK6Q
+	muIHNQdA/M0Q1Y76+xl/OBmt0j83U64zG185sJiLibkqkTSIltYKflwrqnOukKVyKoCKs/
+	u1a6BAw5KImAlk18fDj78C4Fx2PVzbU=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-125-E2YnazgyNIe-0tKkvEdxxw-1; Thu, 12 Nov 2026 05:53:52 -0500
+X-MC-Unique: E2YnazgyNIe-0tKkvEdxxw-1
+X-Mimecast-MFC-AGG-ID: E2YnazgyNIe-0tKkvEdxxw_1794480831
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-492d47f142cso537876f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:53:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794480831; x=1795085631; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=x9FymSRgKEmF3YLVaEmXV+qBe5FB2zMq7gJot0C8RFA=;
+        b=kYxzWQLjAgb7uaSd94J0/GnE3e+uslJh0T7nLI6J5Y2CPFK/vi8ve70V/KvrFhlfXb
+         2wV37QFKMOalUGJOTR9LzckAGvWSY7r/9RLfD/ATIjyHIUQFfjaU4/QzASTHohMie+L2
+         3JdblAlJUCqEAT9YOF+ROtjzjTpVkvTIRndO2HpUNCaV29bS0yw1R+vbbW1aSgU+pcco
+         xkboxj70uy73V4m802XAfLuy1zMD4g3P4ktC2GK9pgPGXZM4Y+DJ4vqpTtLiDak85cCl
+         j11asEvqARn4jN0bKjaFP20rZ4PCbWURM7+xQXgbCPhzVRf4LcCZ1QFPC1ropbmu3nmr
+         7Atg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794480831; x=1795085631;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=x9FymSRgKEmF3YLVaEmXV+qBe5FB2zMq7gJot0C8RFA=;
+        b=qh0iwF/Oi+7SLETR8KBXzIV3PP1bURc0jF0ec4xrph2oVu7xko8kgCtuPR4HMKvZFJ
+         RM0cr3qPYmvpXQF51k3hau0DcHKM+ZB2rDZ8HExdvcBVNr/39/iJVMTMDw5s/XLUTPTS
+         rqrTXusOxZhUDqccn7piPisyVckmxoRtMJyhXDV0VvOLOYqxg7ZrYIGu+riL/wphKitg
+         MRkA1F6xA5rNtb/o2MLSmQvSmIKQvo0m6IwgAlBl5SgO04k3lFMZx9w++CtPK1GsRV52
+         qnoeGJwlgkEaP+JO8965F6ittyqsd2qWl8PNq1CH7Y33Ljzm1CUKyRZWLqe3zBUVxXJF
+         KU1g==
+X-Gm-Message-State: APuU4Z+YT/IWGk7BK+Z12CMDvjJeSSKLtaABpWnnC1XQnjBz54MQBYlP
+	EM7XPcq6OkE81GxH9sngqljhb48RJ/tj7ZkrdZHpxg9PEqHfz25qmHYfVSVwHfIBsWoO8RTripA
+	GvKSkRUrIFYAMuHZEA0lV7JIVDqGI7e+wCop6Jwr26RBaqYiJTNVSsD1SnFSpH5PL8xQIeo4LT+
+	TxiaM/ZeTfKv8YvF0r6g8qg9uh6+W9ULLEo076Bj6c870=
+X-Gm-Gg: AYBFou2PjKf/qGUwb1B+I41MC8Ov0J06ejXhw3x/spaHPN+UkXF3Q61FXLEMV1CKRhQ
+	rJ+nVzcEqE5dvT35v/krcChtDaw/0ejGC/EggPngVPhrudUgJGj8J4QIGdJ6IbdY7vu49fRZu1R
+	DSXeuiK8staCAQhQcoeBChANniFcSqKHmSL9Dn8L8FFizm4efr5l2gmHmAUHXjYp/vUHzCbBTsP
+	8/enO4Lmc7le6QSluVTaT3LrrHvzgImjNPLTUL1Gffb3tCuz7mAF3UBJzebBYj815YGdbl1uRaF
+	zYJOeeB97odcgw8zWufllas6GYkuPx29V6EFfsN5o3cvGYgFKThEf8qmVaK4l7IijVSHRdLdVns
+	VDgImjN5PRn09waiYo1bDiYhHz5g6xD2tmqkzwOXBkQ==
+X-Received: by 2002:a05:6000:4211:b0:498:364d:7509 with SMTP id ffacd0b85a97d-49b02d4cd48mr4648436f8f.24.1794480831252;
+        Thu, 12 Nov 2026 02:53:51 -0800 (PST)
+X-Received: by 2002:a05:6000:4211:b0:498:364d:7509 with SMTP id ffacd0b85a97d-49b02d4cd48mr4648361f8f.24.1794480830624;
+        Thu, 12 Nov 2026 02:53:50 -0800 (PST)
+Received: from redhat.com ([2a0d:6fc0:1511:2900:ff37:b35c:a97:952d])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498365cbeedsm15992928f8f.43.2026.11.12.02.53.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 02:53:49 -0800 (PST)
+Date: Thu, 12 Nov 2026 05:53:47 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: Khan Zhao <zhaoguohan@kylinos.cn>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Jason Wang <jasowang@redhat.com>,
+	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
+	kvm@vger.kernel.org, virtualization@lists.linux.dev,
+	netdev@vger.kernel.org
+Subject: [PATCH RFC] vhost: set dirty log bits without pinning pages on x86
+Message-ID: <af7f05bf637337d35fdd10f3e0dbb5e39d7780e7.1794480795.git.mst@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,94 +118,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261112-pmdomain-rockchip-v2-2-5cd942a23df7@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.473.96
-X-ZohoMailClient: External
+X-Mailer: git-send-email 2.51.2.2891.g4157995a80.dirty
+X-Mutt-Fcc: =sent
 
-On Thu, Nov 12, 2026 at 08:23:30AM +0000, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
-> 
-> When a power domain clock is not available yet,
-> rockchip_pm_add_one_domain() returns -EPROBE_DEFER, and both it and its
-> callers rockchip_pm_domain_probe() and rockchip_pm_add_subdomain() print
-> that with dev_err():
-> 
->   rockchip-pm-domain ...: power-domain: failed to get clk at index 1: -517
->   rockchip-pm-domain ...: failed to handle node power-domain: -517
-> 
-> once per probe attempt, and the second line twice for a nested domain.
-> On an RK3588 board whose NPU domain clock appears late this is more than
-> 20 error lines before the domain finally probes, and the reason of the
-> deferral is not recorded. Other failures are reported twice (once where
-> they happen and once by the callers), or only by the callers, which name
-> the node but not what failed: a missing pm_qos phandle and a pm_qos node
-> without a regmap print nothing in rockchip_pm_add_one_domain(), and a
-> failed clk_bulk_prepare() only has the message of the clk core, which
-> names neither the device nor the domain.
-> 
-> Report every error once, where it happens, with dev_err_probe(), and
-> drop the "failed to handle (subdomain) node" messages from the callers.
-> A deferral is then quiet and keeps its specific reason in
-> /sys/kernel/debug/devices_deferred, such as "failed to get clk at index
-> 1", and -ENOMEM, which the callers used to print, is quiet as well. The
-> return values are unchanged, except that a failed
-> syscon_node_to_regmap() for a pm_qos node now returns its own error
-> instead of -ENODEV: it can be -EPROBE_DEFER (a syscon regmap that is
-> not registered yet, or a syscon clock or hwlock that is not available
-> yet), which must not turn into a probe failure.
-> 
-> Fixes: 7c696693a4f5 ("soc: rockchip: power-domain: Add power domain driver")
-> Fixes: 6be05b5ec161 ("soc: rockchip: power-domain: add support for sub-power domains")
-> Suggested-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
->  drivers/pmdomain/rockchip/pm-domains.c | 98 +++++++++++++++-------------------
->  1 file changed, 43 insertions(+), 55 deletions(-)
-> 
-> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
-> index 00c7e78f89b5..be077fb52f40 100644
-> --- a/drivers/pmdomain/rockchip/pm-domains.c
-> +++ b/drivers/pmdomain/rockchip/pm-domains.c
-> @@ -804,28 +804,22 @@ static int rockchip_pm_add_one_domain(struct rockchip_pmu *pmu,
->  	int error;
->  
->  	error = of_property_read_u32(node, "reg", &id);
-> -	if (error) {
-> -		dev_err(pmu->dev,
-> -			"%pOFn: failed to retrieve domain id (reg): %d\n",
-> -			node, error);
-> -		return -EINVAL;
-> -	}
-> +	if (error)
-> +		return dev_err_probe(pmu->dev, -EINVAL,
-> +				     "%pOFn: failed to retrieve domain id (reg)\n",
-> +				     node);
->  
-> -	if (id >= pmu->info->num_domains) {
-> -		dev_err(pmu->dev, "%pOFn: invalid domain id %d\n",
-> -			node, id);
-> -		return -EINVAL;
-> -	}
-> +	if (id >= pmu->info->num_domains)
-> +		return dev_err_probe(pmu->dev, -EINVAL,
-> +				     "%pOFn: invalid domain id %d\n", node, id);
+vhost had a TODO to replace page pinning with a version
+of set_bit that works on userspace memory, since forever.
 
-These look like code clean-up instead of fixes, thus should be split
-into a separate patch, especially when we probably want to backport the
-real fixes. This applies for many places below.
+It is really best to avoid GUP on fast path entirely.
+Implement set_user_bit and use it in vhost, to do just that.
 
-Aside these unnecessary code changes, this patch seems in a better shape
-than the very first version[1] I submitted a week ago, which seems,
-unfortunately, being ignored.
+Should not be too hard for non-x86 too.
 
-I'll drop the second patch in my series and use yours instead. But
-please search before sending patches next time to avoid duplicated work.
+Reported-by: Khan Zhao <zhaoguohan@kylinos.cn>
+Link: https://lore.kernel.org/all/20261112085631.128819-1-zhaoguohan@kylinos.cn/
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+---
 
+
+lightly tested. pls test and resubmit with your tool.
+
+ arch/x86/include/asm/uaccess.h | 18 ++++++++++++++++++
+ drivers/vhost/vhost.c          |  7 +++++++
+ 2 files changed, 25 insertions(+)
+
+diff --git a/arch/x86/include/asm/uaccess.h b/arch/x86/include/asm/uaccess.h
+index 3a0dd3c2b233e..ba1e7c3f83c8e 100644
+--- a/arch/x86/include/asm/uaccess.h
++++ b/arch/x86/include/asm/uaccess.h
+@@ -594,6 +594,24 @@ _label:									\
+ 	__ret;								\
+ 							})
+ 
++/* set_bit() on a byte of user memory; returns -EFAULT on fault. */
++#define set_bit_user(nr, addr)					\
++({									\
++	int __err = 0;							\
++	__uaccess_begin();						\
++	asm volatile("\n"						\
++		     "1: " LOCK_PREFIX "orb %[mask], %[ptr]\n"		\
++		     "2:\n"						\
++		     _ASM_EXTABLE_TYPE_REG(1b, 2b, EX_TYPE_EFAULT_REG,	\
++					   %[errout])			\
++		     : [errout] "=r" (__err),				\
++		       [ptr] "+m" (*(u8 __user *)(addr))		\
++		     : [mask] "q" ((unsigned char)BIT(nr))		\
++		     : "memory", "cc");				\
++	__uaccess_end();						\
++	__err ? -EFAULT : 0;						\
++})
++
+ /*
+  * We want the unsafe accessors to always be inlined and use
+  * the error labels - thus the macro games.
+diff --git a/drivers/vhost/vhost.c b/drivers/vhost/vhost.c
+index 2f2c45d208832..9ba16cbd788cc 100644
+--- a/drivers/vhost/vhost.c
++++ b/drivers/vhost/vhost.c
+@@ -2405,6 +2405,12 @@ long vhost_dev_ioctl(struct vhost_dev *d, unsigned int ioctl, void __user *argp)
+ }
+ EXPORT_SYMBOL_GPL(vhost_dev_ioctl);
+ 
++#ifdef CONFIG_X86
++static int set_bit_to_user(int nr, void __user *addr)
++{
++	return set_bit_user(nr, addr);
++}
++#else
+ /* TODO: This is really inefficient.  We need something like get_user()
+  * (instruction directly accesses the data, with an exception table entry
+  * returning -EFAULT). See Documentation/arch/x86/exception-tables.rst.
+@@ -2427,6 +2433,7 @@ static int set_bit_to_user(int nr, void __user *addr)
+ 	unpin_user_pages_dirty_lock(&page, 1, true);
+ 	return 0;
+ }
++#endif /* CONFIG_X86 */
+ 
+ static int log_write(void __user *log_base,
+ 		     u64 write_address, u64 write_length)
 -- 
-Thanks,
-Yao Zi
+MST
 
-Meow-mrrp-mrow, I'm a cat.
-
-[1]: https://lore.kernel.org/linux-rockchip/20261105001257.1368266-1-me@ziyao.cc/
