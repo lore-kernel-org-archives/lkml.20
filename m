@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794472252;
-	b=eeTuihP6xSm8QC1Nq5w2M1nqSKy9RlhYAuD9MWH5MpHnjRY8U69JL/Eof24eTbk/2s1I
-	 LO66eR7cAH640jWDjDvh65/zIURGIK6FYZWnMbM+pxmT9B0kYmnqsFgv9nQY/WzOZ6PZs
-	 lWb0fGF3rEE8kMvR3dXmqd/PG4XMABTNtoctYpiMzwZJah4+11daGOdI+Xr7gl8YSA4h3
-	 bSnBFlIyJbo8pnJbF7pRMu9Vbqb6U5GpfUsJ9kiS9pja0T/hwGvMubQNEs8mpBfFX+UBx
-	 Af6SEml45uN79dVw7eYsA09js0wMFUYrP/iQNpBGAcsQLdUOhg+bgD3FKIX0PPWGJAQ==
+	t=1794472249;
+	b=M8OUuYwpQnziRoAGoETrIRC5NE34MOxwW24Jsf3xPPAI1Fyxa5udBNzPfIxtHNQoouO+
+	 XLLnfNNXuUyQ1ibgKYJ+5Kx9WNiLhJcwl04OvY6nQsqfIyv5rGm0j3pF+ZTAUGPIMSqUH
+	 yf3u7Nacw/AlgxngrMG5BBEzm0KbuhM8Csf31iWSqo1PQWGvKJEeCtlEmnmDYbgOF5Fu1
+	 b3umW4vRGWcI2XE5GaO7Y68ZXC5bOPukZUFpl9J/94Uifo/FWhL1L9DhswCTPCECS/EAI
+	 g1AMVo1nCS8/lZ0Z9327TieBphZZCMiuz1jpcGsJmQ72geGUgL9gzEbKKhQJyQCMeOQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472252;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472249;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=/0/KMUceZYkpX3iI5TTZHsnLt8eSuwicqZLxVh4MxS4=;
-	b=TMlhVcQYK+ujugp1RF0Wbui8stBsr+dYipIGappcz7TnysoIBCZpuIKm+1qpWtypNFNc
-	 b4qv2QN6QvKLQmP8rCslepHYzx4WXfNRZBEf100bbnJVM9Q4OquOo+Q7NQ5jbDsEURUH3
-	 riQ19Q2ENkmDrPMYDA/+LHB9Bq5JwdC7F4pSJaBwUeXz64RgfvErRUnphxVpR0aj5/1lm
-	 dFH3B8z45e2FAlwcMuxG3Ind09IgiAh++WJfMp4xhXQziaJaRje5QZXfJ7XDpGZ4rvmAl
-	 HQ/mobTb9fd/MZ6RImYOQZ2dfWfiN4CIyFG0ajDLBbUHvzDCxzdpbLrRTkDk+I6S6Tg==
+	bh=CRzHgqSJ6wnWT7aGMz6+06OqkwIsCJsoPRU6TVLW0Ic=;
+	b=wIWGsx3iPW8SfkZHbftW+yz+63knmOBtS4cwTodI0MMit9MJ4yPvdoMZKfe4hyjO74dq
+	 4I+V6QBZsxjjbIZ+AwgE00hSLPDqaUoxZvCi8S8uLn8mtfcTx/pRs3DVCfNLoNlIQYmVs
+	 lCKS9fKAfz0Aor5xXku4SdCpD0JhBCd29hIBJsMawLntAvbD/WCMptrEztndJZ3KBDnwM
+	 xKgvNiKK9jyjGZBUhR6ToTuUy6HW7mehuvMEkY2uQXjShrngveqbXkmVpqlmKuwT4fh0C
+	 WWG1GjAkfvq5kmIfoeb05Koll5Ww5L6SB3dgWylt325HpxKwswEDUbNKNXzfpF6XfKA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOQw7D6L;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ozyO5n0n;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 607DF606A8BB;
-	Thu, 12 Nov 2026 08:30:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A93CB606A31C;
+	Thu, 12 Nov 2026 08:30:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOQw7D6L
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ozyO5n0n
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794472252;
-	b=sh1ldbMQ7c2XWkkZ8nNVcnfQSbJ7nKAKmjx6j8yvIUTt6EfTIE9yaUo8+3VC/6bWrKcT
-	 vZJ9R3ZsWXObY6r/o0szw+Nvx5nJ7wS4Ng1FFGIxF96Gwaip+/DnbHW8HsPlNNyUJbiyD
-	 Y9C1B/YzuzzFBkBT6E75AeWuWFcWKfbokavUJfGZfxa0T+FVQnG9460SYEgrC3zwL2q/K
-	 5I1g6/+M9q8F4YPk2YytCUhCTMut+pBSFn2nK+ghS3c7FG/WxHuCESGfX9SOrtoRHdmAd
-	 G1CxyCIuluYGn6tPLlut3F5JL8oWh1/Bhj+VaBpHFrAbSVIRyPwrhHZREQj+td8grlw==
+	t=1794472249;
+	b=cMQhTKFHZx7emVp2zxeMvXJwGeCUwdjW7fgO+y7ettZCwgHmc0opVImyYkkBjz+dB1Ut
+	 Maq8ng77/ROgPdcF2sIl168RJOmCeVm9SQMVgwS0cZHusMt4NZymX0ofV31GCA9Mkmgs0
+	 KTPaiLGnWNAknipCuGD/QWDXC8GFIfCrTnJ0PNTXPk7oJicFujDICY+LNrVbkLkYBJCO8
+	 qpSr4AjYnO2NgoyogC0AA7T7K11SsdguqbIUuHAXiqD7KAWume7bbDnUDy09JCIcDr1GN
+	 XWta6mENeGtGco9HlTMhFfc7ZzkFeuvUVXDrIZFvJuGdkQSLmnlTn8zaycVwdnKwcxg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794472252;
+	c=relaxed/relaxed; t=1794472249;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=/0/KMUceZYkpX3iI5TTZHsnLt8eSuwicqZLxVh4MxS4=;
-	b=PHABhSqGpvnVTGpF2tN4G7WQrX/uI4jGZzJ5F4xERyJ2L3zETR9Z+WLI3ZCTH+U5ALbR
-	 8oBnA5jSb/cvvYON3lUxHi9XiccQUPSm4ufYnKg9PxlXoYU4Zdh4DxH/Ru3fl+9HEG6+b
-	 n0UGj26HuFto2nekhEdDNv1KA2RuHc366HoT7YIuEZCrO+nMbWkq7bLyrNriZbhd/etLF
-	 KAnYEI4iEJEx6uE+Oaz7xQmvUv8kTP+L2KL7VBaxyZ/hu0ZyiUD8kUydr5x072/zDguim
-	 LXD9Xs8KdAZg8r9BzFh2z82e4qoy+VJ35sLDcUEMRg/qtm43DI1qoS+FVqd/5cwmkTQ==
+	bh=CRzHgqSJ6wnWT7aGMz6+06OqkwIsCJsoPRU6TVLW0Ic=;
+	b=Pfb50rmG3sKHOgVg9qkB5u7YlRImhf6Rh/z3OL6BuNCVNqfSJ3HYvAuguCI3cyREs97F
+	 QirShG6mnWlirriu6YixVF/eubbq1N0W61EcjKuhZ96sNKrDlUS97tTpajgF/GWf5MsWB
+	 Y4EGTC/5kNcQZp5Jiq7oUT3E/+xPRCJ1Ue+HHTtX/kYO63mgGpiBnZbMHYQ4aEZ3KsUAM
+	 VRAM0yytMRmWvJJfNVB9TqHKViQ823uPpK3dBtMMUjs/T0GCdaK7mNhgUrpdij5Tcdzik
+	 PIe3lfs7lKmDNIm18m5ZiAl3YXztq6KO6TopZJSJ88KxRVAHtY2ipcpIs+FTEpY8Bmw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id ACD5C1F00A0A;
+	by smtp.kernel.org (Postfix) with ESMTPS id 855EB1F00A07;
 	Thu, 12 Nov 2026 08:30:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794472252;
-	bh=/0/KMUceZYkpX3iI5TTZHsnLt8eSuwicqZLxVh4MxS4=;
+	s=k20260515; t=1794472249;
+	bh=CRzHgqSJ6wnWT7aGMz6+06OqkwIsCJsoPRU6TVLW0Ic=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=NOQw7D6LgmVQJIROcuj5se+45+BEG1g8d0du3oyNT0DTTYvAnciEdTUx0JqL5dF41
-	 /C9HhjihaodxidivlEELhbqVfiio1jNBq/mdDOXiDMi1hwxeEuFagqSpPiV+rwXw87
-	 jHy/4AOjJWy76EiuzU1sBP1GofdCDHgvZACGphZ8yohqyeU90BCcTSM0n2RZdHc6nH
-	 H6wOEYnwlADcrWAeefpRg3Zlqt6xPLJ6JX9W1HeBEMg4sXFQWM92bH9wua/5Bul2EQ
-	 tNTHETTsJslFL2k4sy1vmanMuRVXqtc4129Bki877H/T2J/BjeXREJqKrIYiOSeLut
-	 w+nEfaCNgWNsg==
+	b=ozyO5n0nGEOwxaiVaUvnBqn8QEJ8z43xOB9rjcNRiQN3HmPYVcgqNGWGOuUHsRmHy
+	 NsAteX759gwljceZ+z/ittsKGIL3YFRRTxwTKllWnaLJKVOaAhUcTaxu12E4u2xrmq
+	 984UTvIfE3EqRpQz3J+yMYVZ8V29Ne+r7iu5v4135o2hGzKYJZS322dpA7LYq5kiDV
+	 uEYRNtzADdSrYOnPlXadwa6hw/OzxzqTlyJOjJKo+xX8Qpnp8ytXXHAxRjCRS1vso+
+	 ZZO7YVu2g8Cae/E75fH9R1KypwD9fcldg1fkK+LCg53aVs08R5HohDaQzJMWStK3fA
+	 t7GG56LDoU2Fg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3571D49385;
-	Thu, 12 Nov 2026 08:30:48 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id ECC4E49378;
+	Thu, 12 Nov 2026 08:30:47 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:30:50 +0000
-Subject: [PATCH v2 4/6] media: verisilicon: Reset the Rockchip encoder
- cores on timeout
+Date: Thu, 12 Nov 2026 08:30:47 +0000
+Subject: [PATCH v2 1/6] dt-bindings: media: rockchip,rk3568-vepu: Add the
+ reset lines
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-hantro-robust-v2-4-18561fd48838@gmail.com>
+Message-Id: <20261112-hantro-robust-v2-1-18561fd48838@gmail.com>
 References: <20261112-hantro-robust-v2-0-18561fd48838@gmail.com>
 In-Reply-To: <20261112-hantro-robust-v2-0-18561fd48838@gmail.com>
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
@@ -104,11 +104,11 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  Tharit Tangkijwanichakul <tharitt97@gmail.com>, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472247; l=3574;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472247; l=1139;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=sjPXc3bh+wQfDnjkY+OSXFCX37DqawhQ7n2w7c2kMeI=;
- b=X9JO4sS2hnPO5AlElG30bo+AuIkk+YdlWqzzR6TgWIaYh3W4kX3RfhK1An5Hn7XdWa+zhO63t
- DNeTs8qlFkoDgel6eN+fQZkrni2wMDv5a+axTloX71BHl9cCItMiz//
+ bh=ugbiMmzavaBp42/wsrF8NeFbBYCV92Ge5prcqLnmtpY=;
+ b=AqK100SNGkdVVsspnozjL+VIRw8W0Iu0XIueO/Y+6dVg1eQFb0Gt/pUZv4gLQ2vp3S5+j0IyO
+ cdM4ItpfYoWDgyyEPLBdbkw5S6fiVQW2hYTpRKIw0R6PnvEPMCF5N9q
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -119,93 +119,39 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-On a job timeout, the Rockchip VEPU1 and VEPU2 reset operations mask the
-interrupt and clear the encode enable and AXI control registers. That
-only stops a core that is still responsive. On RK3588, when a VEPU121
-core reads an IOVA that isn't mapped, the IOMMU reports a page fault and
-the core never becomes idle again: its AXI transactions stay
-outstanding, the IOMMU can't be stalled anymore ("Enable stall request
-timed out", then "Disable paging request timed out" on runtime
-suspend), every later job times out as well, and unbinding the driver
-can lock up the system.
+The VEPU121 encoder cores of the RK3588 each have their own AXI and AHB
+reset lines in the CRU (SRST_A_JPEG_ENCODERx and SRST_H_JPEG_ENCODERx).
+They are needed to recover a core that is stuck on the bus, which its
+registers can't stop.
 
-The driver already gets the optional reset lines of the device and
-deasserts them at probe. Pulse them in the encoder reset operations,
-after stopping the core through its registers, to return it to a clean
-idle state. The clocks are still enabled at that point, as the job that
-timed out holds them. This is a no-op on device trees that don't
-describe the resets, which is the case for all of them so far.
-
-The Rockchip BSP MPP driver resets these cores the same way, through
-their AXI and AHB reset lines.
+Describe them as optional, so that existing device trees stay valid.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- .../media/platform/verisilicon/rockchip_vpu_hw.c   | 30 ++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+ .../devicetree/bindings/media/rockchip,rk3568-vepu.yaml        | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-index 5d4e46bd9cd6..114010d6a5c9 100644
---- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-+++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-@@ -7,6 +7,7 @@
-  */
+diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-vepu.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-vepu.yaml
+index d246f5d38427..e9fda4373f0f 100644
+--- a/Documentation/devicetree/bindings/media/rockchip,rk3568-vepu.yaml
++++ b/Documentation/devicetree/bindings/media/rockchip,rk3568-vepu.yaml
+@@ -32,6 +32,16 @@ properties:
+       - const: aclk
+       - const: hclk
  
- #include <linux/clk.h>
-+#include <linux/delay.h>
++  resets:
++    items:
++      - description: AXI reset line
++      - description: AHB reset line
++
++  reset-names:
++    items:
++      - const: axi
++      - const: ahb
++
+   power-domains:
+     maxItems: 1
  
- #include "hantro.h"
- #include "hantro_jpeg.h"
-@@ -468,6 +469,33 @@ static void rk3066_vpu_dec_reset(struct hantro_ctx *ctx)
- 	vdpu_write(vpu, G1_REG_CONFIG_DEC_CLK_GATE_E, G1_REG_CONFIG);
- }
- 
-+/*
-+ * Stopping the encoder through its registers isn't enough when it is stuck
-+ * on the bus, for instance after a translation fault in its IOMMU: it keeps
-+ * AXI transactions outstanding and never becomes idle, which also prevents
-+ * the IOMMU from stalling. Pulse the reset lines of the core, if the device
-+ * tree describes them, to return it to its idle state.
-+ */
-+static void rockchip_vpu_enc_hw_reset(struct hantro_dev *vpu)
-+{
-+	int ret;
-+
-+	if (!vpu->resets)
-+		return;
-+
-+	ret = reset_control_assert(vpu->resets);
-+	if (ret) {
-+		dev_warn(vpu->dev, "Failed to assert resets: %d\n", ret);
-+		return;
-+	}
-+
-+	udelay(5);
-+
-+	ret = reset_control_deassert(vpu->resets);
-+	if (ret)
-+		dev_err(vpu->dev, "Failed to deassert resets: %d\n", ret);
-+}
-+
- static void rockchip_vpu1_enc_reset(struct hantro_ctx *ctx)
- {
- 	struct hantro_dev *vpu = ctx->dev;
-@@ -475,6 +503,7 @@ static void rockchip_vpu1_enc_reset(struct hantro_ctx *ctx)
- 	vepu_write(vpu, H1_REG_INTERRUPT_DIS_BIT, H1_REG_INTERRUPT);
- 	vepu_write(vpu, 0, H1_REG_ENC_CTRL);
- 	vepu_write(vpu, 0, H1_REG_AXI_CTRL);
-+	rockchip_vpu_enc_hw_reset(vpu);
- 	/*
- 	 * The encoder runs don't write the interrupt register, only the
- 	 * interrupt handler clears it after each frame. Clear it here too,
-@@ -499,6 +528,7 @@ static void rockchip_vpu2_enc_reset(struct hantro_ctx *ctx)
- 	vepu_write(vpu, VEPU_REG_INTERRUPT_DIS_BIT, VEPU_REG_INTERRUPT);
- 	vepu_write(vpu, 0, VEPU_REG_ENCODE_START);
- 	vepu_write(vpu, 0, VEPU_REG_AXI_CTRL);
-+	rockchip_vpu_enc_hw_reset(vpu);
- 	/*
- 	 * The encoder runs don't write the interrupt register, only the
- 	 * interrupt handler clears it after each frame. Clear it here too,
 
 -- 
 2.55.0
