@@ -1,54 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794511122;
-	b=RYTmXr3tm7eMf4bExNdH0P9nczqVlU4nEqoTmTz9bd4F5OZ/0H9pl9W/KZSsVj3q9IeY
-	 AWvbz0ocIndk8XMPQXi0iUCwEKhK3tM3Xwcng7bd2+cZV1mQxFvoTzmgRLYIpltWDgIZ/
-	 rXkszN1X5aF9nSx7dL4HbgxZWnKcf5LU7EsXpMFgE9GwyCbsp8M0x3PeorFundh6S0RXT
-	 sldJnWRPAliIOW2UZ8hJfSyQgUe4dyobOHXHXNzkt6WweDamPKK6YiFHXr3pNFwUjwlsA
-	 4+7/g3jcewIK/rju4nhPslE54vnwL4uZ4ZfShZyF0exWE6g+UkJgeiE4hhUmzZwd0iA==
+	t=1794511132;
+	b=TwAKypZ0odGNQVBSDuQnMQzSpuMt/HSWsmDxEJ9PeS4MFI4pw7TP+k6TMM/FFsO4Se9c
+	 OqYbG8LFO/0nugTFZ740ADzMrUiM6apjXYOZ/MwPqb0LJ4oGV96Dm/h6fR4JStKRlhNs8
+	 3qBhtKKNsy+734Jd0eYis2VeEifSGaGxM+sCmaH/z143WUrrVVBn6atTWlLghV0wizfjr
+	 r4N++rZgr55or5vTxMJjdZs4Wv93u2m7XGt9dhzANq3eJph/7pqr4Tf8GGFDYm21UACmS
+	 kmAjDV8Rh80BpUX+an1WE6/P6KnPJB91R/LKrweDX0+RCFgcMboMl5hn1iv+NfXeI1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794511122;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=IXexg50WmPwtfGt6g4HQnuTR66f0QjGX0HYreFyKgk8=;
-	b=xuQT2WH5A9pkEbUS9Eivj8yIQNDPthuoKzpJJFhcwEkppquFx6Gx1aUk2Zqw/UtH8QvZ
-	 wHhhtdpQVi+/VesCA3uskeDjRkl3yzSQScc19YI/lOMgwE7AdzRxfHsIvSBh9qUDwtVPu
-	 zsUWM6wouK5xb90Fe4tGzIZTmg/O/u74R9ArSUdvjLrNCxKJET45pz97NY6CVJl4Aw5/x
-	 J/NH5Hp65IQ2QjUyTvrp+xqcTuc1E01MivzAMoH5sVuOfJCHApKsrWJWy0Ybp2EVlLIwc
-	 gqwgskunUOFA2mVYsLpi1Y5VjHSoRvVDJ+GnGjgrHTaXkFoyC+6uh7qEPFvi1qprUAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794511132;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=n+k8QuVBsbcS7lt+1FuYH5jEsin9o5MtevrgXnCVhMY=;
+	b=3/Mo7xr+bipkRTYGzLS1/fux5yl7u4WMeXN0dXqvZwWADFpsjYLE9uK7jqOps+qQpQJM
+	 1wUqdGXvOYdVWY3Avm046MN25KsYajUG4bj/ywOxxe3ExEikgzgZvDQWBBJAkkHj75wNy
+	 2mBsf8yJ6lrc491F9IsmOvgyNbwPiygHNp7lHSx8B+bgcDtcMtdV5Fd0jZkhQWcHPFo3S
+	 IufyxbmP2VYLyb6yHOfbxW2DGou1viQ7TMl7XOwoJUbR1ewXABqPH4g3uTqMObYaTdRfc
+	 561ONDYA8HsfSpG5IM7htDZugOORvWreeUJwPwHWBR9f0YxmdLqSIydCLBOHN/dggWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=mBerxBeQ;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=khMs140n;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCFFB606A31C;
-	Thu, 12 Nov 2026 19:18:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCFFB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B92E606A31C;
+	Thu, 12 Nov 2026 19:18:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B92E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=mBerxBeQ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=IXexg50WmPwtfGt6g4HQnuTR66f0QjGX0HYreFyKgk8=; b=mBerxBeQJnkwjlzlTDbN+kj3WM
-	jVZ3tair82aWMzz3qk4bpNKHWO94V1zNOy0+Dhq3LSdZhRfUGH7uD/iclRys16i9W2yOER3toc2s+
-	rU5TYF530d7Xw3Lvpya35OspbW+W7YUg6X406AIXh7V4+LHx5JZ4ZYZQp+egcfiSNiIz4MYr0LPET
-	DBOkUxvx8c37785YnZ05KRWu9ibuw7WY8NGsnmi9R/fkAvNXoFsqWu2tK1DwRP59O+XKYUu2ZS6kR
-	BIscE1U2DwqAD3rzlLjNDLcQRRFnREAtEVvDsjoMOhsBrxF0KQQWxPwBIFCzu4VED8+H6fz/jJ14F
-	4Hu+9oag==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRaJj-0000000AwDP-3EYQ;
-	Thu, 12 Nov 2026 19:18:39 +0000
-Message-ID: <85567abf-bf15-4cd8-a04d-d1238cb5fbd3@infradead.org>
-Date: Thu, 12 Nov 2026 11:18:38 -0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=khMs140n
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794511132; x=1826047132;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=YCnToFH2jDdO0u9ni7OYkpQv2fHW7DDUyxMYmDB7nm0=;
+  b=khMs140ny2UFiIARxxDsE4KY5orz5mMEvctCEoqiF70aaDX87/EM8fCN
+   FhBh5wRUQCGktHzjJwHZBQ+/UJIJTlVLvE4CUUU82hCfRRCKqU1rmqs2l
+   52RwkEvF0+rF6li8g60DT9ZbBvkqVX4TEGRJV4YaTnuZYYvtAFB6Vb4d9
+   Zp5seR++ixH9+0llnvm7FSn++RV7Y4LI/XjsoqjWkrCoR2aOmdhnv3rYz
+   kYbhUMkknLylYiM/c8oRS7IoeVrMAfOE/lpMAlWKu5Hu3PoU6bH7jYETp
+   PdRKNctKEYwf2ljoPrCBbBS/+4Vmu1DP1n1b86aTIv4L5fnlGxlMhZ86J
+   Q==;
+X-CSE-ConnectionGUID: 8I91yA8dTTSNEtV+hZO01Q==
+X-CSE-MsgGUID: QRaoLyknRhG9rVM6fs0U1g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3312464"
+X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
+   d="scan'208";a="3312464"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 11:18:51 -0800
+X-CSE-ConnectionGUID: J349Wq4+Q1CKLjGTR7p67g==
+X-CSE-MsgGUID: RpoPHp4nTfyLsRhJrrSQJw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
+   d="scan'208";a="9075973"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 12 Nov 2026 11:18:48 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xRaJp-000000011xt-0DgA;
+	Thu, 12 Nov 2026 19:18:45 +0000
+Date: Fri, 13 Nov 2026 03:17:53 +0800
+From: kernel test robot <lkp@intel.com>
+To: Jack Wang <jinpu.wang@cloud.ionos.com>, Yu Kuai <yukuai@fygo.io>,
+	Song Liu <song@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Li Nan <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>,
+	linux-raid@vger.kernel.org, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] block: suspend bio based disks around queue
+ limits updates
+Message-ID: <202611130354.oOiDWpa1-lkp@intel.com>
+References: <20261112134700.372702-2-jinpu.wang@cloud.ionos.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,68 +87,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] MIPS: perf: Add SB1 and SB1A performance counter
- support
-To: Florian Fainelli <f.fainelli@gmail.com>, linux-mips@vger.kernel.org
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Thomas Gleixner <tglx@kernel.org>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:PERFORMANCE EVENTS SUBSYSTEM" <linux-perf-users@vger.kernel.org>,
- "Maciej W. Rozycki" <macro@orcam.me.uk>
-References: <20261112190916.3725141-1-f.fainelli@gmail.com>
- <20261112190916.3725141-4-f.fainelli@gmail.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20261112190916.3725141-4-f.fainelli@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112134700.372702-2-jinpu.wang@cloud.ionos.com>
 
-Hi,
-This has one 'make htmldocs' warning (see below).
+Hi Jack,
 
-On 11/12/26 11:09 AM, Florian Fainelli wrote:
+kernel test robot noticed the following build warnings:
 
-> ---
->  Documentation/arch/mips/index.rst    |   1 +
->  Documentation/arch/mips/sb1-pmu.rst  | 162 ++++++++++++
->  arch/mips/kernel/perf_event_mipsxx.c | 373 ++++++++++++++++++++++++++-
->  include/linux/cpuhotplug.h           |   1 +
->  4 files changed, 526 insertions(+), 11 deletions(-)
->  create mode 100644 Documentation/arch/mips/sb1-pmu.rst
-> 
+[auto build test WARNING on 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4]
 
-> diff --git a/Documentation/arch/mips/sb1-pmu.rst b/Documentation/arch/mips/sb1-pmu.rst
-> new file mode 100644
-> index 000000000000..d589a6262c65
-> --- /dev/null
-> +++ b/Documentation/arch/mips/sb1-pmu.rst
-> @@ -0,0 +1,162 @@
+url:    https://github.com/intel-lab-lkp/linux/commits/Jack-Wang/block-suspend-bio-based-disks-around-queue-limits-updates/20261112-144659
+base:   6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+patch link:    https://lore.kernel.org/r/20261112134700.372702-2-jinpu.wang%40cloud.ionos.com
+patch subject: [PATCH v4 1/2] block: suspend bio based disks around queue limits updates
+config: arm-randconfig-1002-20261112 (https://download.01.org/0day-ci/archive/20261113/202611130354.oOiDWpa1-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 1b1fed44d3dcca649a9877915d57c3357a98124e)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261113/202611130354.oOiDWpa1-lkp@intel.com/reproduce)
 
-> +Counter selection and mode filtering
-> +-----------------------------------
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611130354.oOiDWpa1-lkp@intel.com/
 
-Documentation/arch/mips/sb1-pmu.rst:57: WARNING: Title underline too short.
+All warnings (new ones prefixed by >>):
 
-Counter selection and mode filtering
------------------------------------ [docutils]
-
-> +
-> +The ``counter`` format field selects a physical counter: 0 means automatic,
-> +and values 1 through 4 select physical counters 0 through 3.  A non-cycle
-> +event requesting physical counter 0 is rejected.  Automatic events may move
-> +to another eligible counter when a fixed-counter event is added, preserving
-> +their accumulated counts and sample periods.
+   In file included from block/blk-map.c:12:
+>> block/blk.h:680:10: warning: releasing mutex 'disk->queue->limits_lock' that was not held [-Wthread-safety-analysis]
+     680 |                 return queue_limits_commit_update(disk->queue, lim);
+         |                        ^
+   block/blk.h:681:9: warning: releasing mutex 'disk->queue->limits_lock' that was not held [-Wthread-safety-analysis]
+     681 |         return queue_limits_commit_update_frozen(disk->queue, lim);
+         |                ^
+   2 warnings generated.
+--
+   In file included from block/blk-sysfs.c:14:
+>> block/blk.h:680:10: warning: releasing mutex 'disk->queue->limits_lock' that was not held [-Wthread-safety-analysis]
+     680 |                 return queue_limits_commit_update(disk->queue, lim);
+         |                        ^
+   block/blk.h:681:9: warning: releasing mutex 'disk->queue->limits_lock' that was not held [-Wthread-safety-analysis]
+     681 |         return queue_limits_commit_update_frozen(disk->queue, lim);
+         |                ^
+>> block/blk-sysfs.c:909:3: warning: mutex '(kobj - #undefined)->queue->limits_lock' is not held on every path through here [-Wthread-safety-analysis]
+     909 |                 blk_disk_resume(disk);
+         |                 ^
+   block/blk-sysfs.c:897:9: note: mutex acquired here
+     897 |                 lim = queue_limits_start_update(q);
+         |                       ^
+   3 warnings generated.
 
 
--- 
-~Randy
+vim +680 block/blk.h
 
+   675	
+   676	static inline int blk_disk_commit_limits(struct gendisk *disk,
+   677						 struct queue_limits *lim)
+   678	{
+   679		if (disk->fops->suspend)
+ > 680			return queue_limits_commit_update(disk->queue, lim);
+   681		return queue_limits_commit_update_frozen(disk->queue, lim);
+   682	}
+   683	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
