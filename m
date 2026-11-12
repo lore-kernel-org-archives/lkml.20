@@ -1,111 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794493782;
-	b=Jj5/PH9vxpeB8bIYzooCAFqFEcl5j/K8DuRD2wT6hGqf98y9uy/Vt4rSUzNYbsiyEKtu
-	 tbwk6H6NylFs6Zswd9EQjTawLCxg+EI3QqIVKcR36yh5axkiu5PyI0Mc2rG59fOmsydsK
-	 cdXioqjxELqPHEG/CMyEHhxQg/XrQuBqn/L4/+hggxeOV42i92OAOz0aE7p3oDn6Aff4N
-	 4JM2FMqnCqbQnNchWt5wMQkCg7QiYsoIc51uBgE9LKDKS0fQHAK0zAw2Gf+51R8YAdhHE
-	 Y2cMWo54mCggOBTdV9lgRNQCsSJu6DCNldoK4xX9jy3md2ND63b+aM4OyxKyNTN75OQ==
+	t=1794493836;
+	b=xiBPBsRsS+fCAOec5izASjlfGbMycIsBfg+HA0J7GKIY0gINvHk/j6/x248KKlRDAS1R
+	 5PBnj7nwEx63rwhiVxV7kRboyXX8yENPISSbsdBRjdfaQaaDHyAaKakShE/lAldd1jMQM
+	 iWnkI9N/NuKTbAkVvgE7lRuuyZ03OdeYr4Z2K83AV7NeLPQfof+iDKHNUAuT3zaImD5NE
+	 CqjCqWSalzBS5FMZepjFUo9Mnrig5zX2WhCk9qkcAgDuPES+fnx9hlQV329rlMV5OwRa7
+	 fdLFpB4E7yTvKEDidkFmpZWyXU/KGkzoe4YY+Rt/mpiBYJeSlPZMGvKTliBlN4HrS0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794493782;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=hW2E8kdKpJ+xUhN2MQnavUZAOOSD3qe4wipNiYEXhF0=;
-	b=HiGcOPBtuPamoZMEOf4dzWkfc4CuPCxWwUkZ5lxmMHSAEzyy3MCWo6utBQs0PxX2jBhc
-	 g79UN8a6lxRTxha8JSgoy2zZmt9NYMucNFJpBla22W/u0JNa2D7Fjpg6N2UyOVjgg36TN
-	 56zfiFzlNn/F77uHBeCNtTqMVnO5OVEcQwQjzAktUkcjQPoUVPsZog1vD5SQfD11VL5xy
-	 m3T56x/euaj2WRZ3N7RofwVNuITQ1N/mNuHiXfS2WMSouQdTIH/8mnAS4EPTqFtlvYORr
-	 5nBhy0ULZ0OBpZU8fpJcmfP9E6Rcd7TzjuXchVbvVZbIFqwy44aW1aygSIq7Jm3tmdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794493836;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=gsmy0r2PiQc6pLBgGT2iVgxiMmcutgitiTqzWpJ1o5Q=;
+	b=qFupWTgsGUUiQvtTCj9N0K90fEOHLxsAn3acrddOZ7ij04Jz13RAU8XmCnDmDxEmdEvi
+	 j414yU6g6rx/MIuAfj5LlsmqALS6IvqWrcX0JLVTyHRmm8RcUhmWzVUySzxels69s9aqI
+	 LeHPpXy30o/m525briUfr96tz0tJIgG8d8C7d+uIxcVSYG9DF8Am3yRkE+7MrezLGus6D
+	 RErGR4TtBq8WscUVqC2z3lK5fw7Vt9yQS3D/zbQkzzejbB4GKcqLXy+uEmlrV1Cn+yerm
+	 U5REweACQ3Unj7gEnT6BoN+tI2F5p02QsGNGL+OhZM9UC6Xm//PyQ/tMGIwDVmn1pwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=lIQ24iap;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=z7uYGf1b;
-	arc=none smtp.remote-ip=202.12.124.144
-Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iKXpz5BQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6205E606A8B1
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:29:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6205E606A8B1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6583B606A337;
+	Thu, 12 Nov 2026 14:30:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=lIQ24iap;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=z7uYGf1b
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id AAAC51D00175
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:29:41 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 12 Nov 2026 09:29:41 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794493775;
-	 x=1794580175; bh=hW2E8kdKpJ+xUhN2MQnavUZAOOSD3qe4wipNiYEXhF0=; b=
-	lIQ24iapvAOQZVZ6ydsaVLJRRfDklhCsnX5aWzqcvZWpSm74aBJ3q6Hx1/B43cz6
-	tghk4YVJTkzKPWelDxsaEZY/pHj+fcFEMBrnFUtmfDZry4L3GXILayeDk4pzccI1
-	ECii1eSH/CovFmPj+EMEATyhjfyAjeucokX2VUTCrxEPfifLvwNaLA9ec4MJ5TB8
-	EcVx21Qhzn3cJlk+0VZk39O28/xQ7euIhAlhMHLb20RHuohj5BMiWbGvmsnCC16x
-	pdAqGH25Y+55iotIA8JG1IqixS7kapCE/OzUsvxgkhYnm45oW52yuIyr9BJjFVwC
-	Yyz3yDYwVlbKgF29hdvj6w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794493775; x=
-	1794580175; bh=hW2E8kdKpJ+xUhN2MQnavUZAOOSD3qe4wipNiYEXhF0=; b=z
-	7uYGf1bjt1U31PectUTsNVtzl+fZ0kQ7hAuBKicVJQ3Nf8+yoxbOLYyKH0vLxDEF
-	IInberIjgAPtJucmqLnasoEPxPqTfm1P8DCWSvitqDypwjCtX1lmMMo3jRR7SEKi
-	u6xLhpA8nIKkwB7M8hdZWfV/wVK+i3pauW2fGangVw/eo+qh98B2K5AXoy0gAPVi
-	hQ90gk2UPTnkGy6PAwygBCnUgHdw/2e+1B0ZU1pjci+/G6jHYpQdXtN+ytooCzfo
-	pokIWr9EvwywYrdU/UuRI0LobiXq/TReVtpmUPPYSuVzl71honacR5AR9+upsLXl
-	G4yGZmGQ26rFrVUgRi9fw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794493775; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:Sicz/oh3DiXHNvHARmbwzx7iBh7IaCbmNd1VZ3+wRdXgu8j
-	4YHjw+1IEzY4gZ+lxGYBtLFnPfZJI4FAvCyMuTVd6zMlJ7n6siTG9gkSubJwHD7f
-	WreZ5WFMkJUj2tMiOlJWp7fvCePs3OBkTgEsbFYlFEvRKBLvsYg73K5DvLL/2/QQ
-	2bWJWphOdFxaoMhGUUAI4XMq3ZQDvbvyiyXVJcOPOHu1OjEJhf66e3Qlq6o679db
-	d+3l2C6AKYoFpjq9Nsec/dDhayPQLFo+zpCJEC5u5PTirEeAhp8eWKP7HADN5VC1
-	HFjLYhDkxViosROQbWw8vfy3GUvyJpGVqOTZMkQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:KLKsz76cCoX4bOmDJGRV1iSPAdKOSqbFzYrIdbKT5DU=:t7kJO9uHylXzRNb/saffCqXhmz3H9h9mv/zp8RPQLpw=;
-X-ME-Sender: <xms:Ss31as8XlTp6Rf0ylYvh2uYDxjtKqqxbZArthPyjH3T6fDJ52m26aA>
-    <xme:Ss31avjwQTXEKWQ0d-EMKq16Z8kYuiIYW1i8TieVKZxmiw1AKaQnV1ekUWXHqMkmi
-    fJR7benYkgPmJf07qMa1xjl-L8mzZxL0udrYJyngAZfNUpIKYOvEjWQ>
-X-ME-Proxy-Cause: dmFkZTF2xlVBsTh7U0+KvcObs9lebmg4eeF4qotrVTF4RJE/4rVxnvYFU+GvGJ0J78d3gI
-    BKJeLU6Si+YOg+wV9ocag27R2ErF1ahBsw81IPIsdo2TzZkvh+s9Zuzsv5K0e8PyxSxPEO
-    0NEK/ykQ5eI7J8+aYgpoK09BsOeJ55ra6nlere87u9LJF3Hb47gWCKSc+1B+aapWOPtBa3
-    qlwiHoznyMBeqjKfbUvnRiEAsE7tClJykrOnNbX+BJznQUkPg2aWw1FwD9g3vhOfWnSPkK
-    728R4pfNK8cNCiT/OMyWFmeTExafPquSHVmgz8VCtEIZce4WrUMol2SBW21gKHHeYv88Ph
-    MA/L+Mydzg8WJe7Y5Pn1h5Ox6usNldsxgBT9+ttA3Yo06NmzNUvGqKzz12IM3IRGz1dNCV
-    Bkn6dhbNhoeLqVXg7Yckdou2t2EiuFb0QoCEIHSfZnv/P3sT9363SK1jgXdfuAxSRifqlq
-    p15XI4Fmu3U913n2/jfO57kzfdLZTx4DnfVb0FV55OyAR0FRgDYm3G5emo1sYWul1+xLJM
-    QeUGr7GcxlSsvOADcJWaAyalDt4nivh2F8GmKLi18TZXjGy8n3cQdI64CFo6PtnK5+kycL
-    tambxqkz2bsvSEBGzAu79v20sOxZAJuU7n6aqQZKh0Ot2dzuMjZj8eNGOauQ
-X-ME-Proxy: <xmx:Tc31aghH90_vDLqZUJG0Y60jMs0hPyIl52yEifSg5QBpUMIyGG8RZQ>
-    <xmx:Tc31apfhJNW-s6mLeYNDN9yh56rKHDyLEXRI0e7JDIK0PQ5jAss4oQ>
-    <xmx:Tc31an0neS0kqsvncjRPK7yaTmZ-mkrR9EQvCHc4HK7m4eN7DXmsiQ>
-    <xmx:Tc31atrt3VmIh5W6ll5oUBQ4fIl3lK-kHW_7sXw9RuFQ4Z8xJfYWYg>
-    <xmx:T831ajLG6GO3pgBdNoZwdHYtHcO0A2pz-6dM0EambJ8miToDE4E4JE19>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id DA43032A0099; Thu, 12 Nov 2026 09:29:30 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iKXpz5BQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DF411F00A05;
+	Thu, 12 Nov 2026 14:30:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794493836;
+	bh=gsmy0r2PiQc6pLBgGT2iVgxiMmcutgitiTqzWpJ1o5Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iKXpz5BQspSTB/yVdyil9C8T9ubHWY8dy7Fu6HvyNLXCWgAFgZHlou8L1dRh1Zs75
+	 www38WX9HcC1KcjqWybnFDKl7yzmVBKK6cUPmp8Em6U8Ui/7b/3EPj8H1BV+l+kBGY
+	 vrhmK64tjy1wZk6jq1l7MtzWiGJvZLg6rtA3+mhY45dfu0YFjMfSHXp0Q6cum6PX5T
+	 yduq9ExJuohOhP8GXdZXpwItvJCZ44kgZcBnejO6MgeVYRY3gdF/g5wAxccms0lITo
+	 5Ld9jDkL6I+Hbfusrq/seuR5n0AT+URmssp/mgtRG7vGAz9wtH/ZacSq0i1OJu3inY
+	 A/ZYRCXukx7bQ==
+Date: Thu, 12 Nov 2026 14:30:34 +0000
+From: Harry Yoo <harry@kernel.org>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
+	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] memcg: flush nr_charged_bytes when the obj stock trylock
+ fails
+Message-ID: <avXL3ZGyyiQpv4vG@thinkstation>
+References: <20261112013220.4064478-1-shakeel.butt@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,33 +61,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: ACPK2aFADPe-
-Date: Thu, 12 Nov 2026 15:29:10 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- "Masami Hiramatsu" <mhiramat@kernel.org>
-Cc: "Christian Brauner" <brauner@kernel.org>, linux-kernel@vger.kernel.org,
- linux-kbuild@vger.kernel.org, kernel-dev@igalia.com,
- "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>,
- linux-alpha@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
- linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
-Message-Id: <d9b0cca7-5c28-4a48-97c9-36d64e46ee9c@app.fastmail.com>
-In-Reply-To: <20261105-tonyk-syscall_table-v9-6-8d1275885d9c@igalia.com>
-References: <20261105-tonyk-syscall_table-v9-0-8d1275885d9c@igalia.com>
- <20261105-tonyk-syscall_table-v9-6-8d1275885d9c@igalia.com>
-Subject: Re: [PATCH v9 06/15] mips: Remove duplicated syscallnr.sh
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112013220.4064478-1-shakeel.butt@linux.dev>
 
-On Thu, Nov 5, 2026, at 21:05, Andr=C3=A9 Almeida wrote:
-> The common scripts/ already have a script for generating the numbers of
-> syscalls file. Use it and drop the custom script.
->
-> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+On Wed, Nov 11, 2026 at 05:32:20PM -0800, Shakeel Butt wrote:
+> When interrupt code, such as an RCU callback in softirq, runs on top of
+> a task that holds the obj stock lock, its trylock fails and the bytes go
+> to objcg->nr_charged_bytes. Nothing empties that counter while every CPU
+> using the objcg keeps it in its stock, so it can grow without limit.
+> 
+> Users see memory.current and the "kernel" field of memory.stat keep
+> growing while the cgroup's real usage does not. With memory.high or
+> memory.max set, the cgroup is reclaimed, throttled or even OOM-killed
+> for memory it does not use. The counter is 32-bit, so after 4 GiB it
+> wraps, and those 4 GiB stay charged to the cgroup and its ancestors
+> until reboot, even after the cgroup is removed.
+> 
+> Fix it by uncharging the whole pages in nr_charged_bytes whenever the
+> trylock fails.
+> 
+> Fixes: 200577f69f29 ("memcg: objcg stock trylock without irq disabling")
+> Reported-by: Chris Mason <mason@kernel.org>
+> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+> Cc: stable@vger.kernel.org
 > ---
->  arch/mips/kernel/syscalls/Makefile     |  7 +++----
->  arch/mips/kernel/syscalls/syscallnr.sh | 26 --------------------------
->  2 files changed, 3 insertions(+), 30 deletions(-)
 
-Acked-by: Arnd Bergmann <arnd@arndb.de>
+Looks good to me,
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+
+>  mm/memcontrol.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index f5f567f7d4a9..091401cecf39 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -3553,6 +3553,8 @@ static void __refill_obj_stock(struct obj_cgroup *objcg,
+>  	int i, slot = -1, empty_slot = -1;
+>  
+>  	if (!stock) {
+> +		nr_bytes += atomic_read(&objcg->nr_charged_bytes)
+> +			? atomic_xchg(&objcg->nr_charged_bytes, 0) : 0;
+>  		nr_pages = nr_bytes >> PAGE_SHIFT;
+>  		nr_bytes = nr_bytes & (PAGE_SIZE - 1);
+>  		atomic_add(nr_bytes, &objcg->nr_charged_bytes);
+> -- 
+> 2.53.0-Meta
+
+-- 
+Cheers,
+Harry / Hyeonggon
