@@ -1,81 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.121.94.183
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794494626;
-	b=oKudWoxW1GcnIVjFBCX2V378tdGbKSn3Vmzqql9JTOiV6cYozmC5Il/iLWPFj4sVm3Cj
-	 C2QOeSWmS7fo97PrxALeNXHiB24UE7r/QQGnQxUsCu5gzspmyekvRyK/4uX3iGTlswulJ
-	 sUgrVjTzh9C5wB+9xnprZcpT8kEkZAv44RzhuiC35cNXf/5euAGWtD/QJ5fVNBdjJWtj+
-	 VTV5UsOe3FgomKamlbIpU7Biktxqos3QCFyPYUQfyay+u0htou54Or8zKlRkGDekm+Dqg
-	 m341Q/t4HZyb+cyOa9FRT415r2Yoo6vpkQ7Jz/VA63OJB3txekPeUEqlVzI7fUji4SQ==
+	t=1794494771;
+	b=o/mbF4vT3L+RNzP2uKLU7+H0jIkufOyHlXiPHIBa/ONdl8uJnLhIC/J9n2ws9RXAmxzl
+	 xFE1QYdoIwOaOJwywlyPDpe0PzCAbmlLOwMjTrFzPDAASrjG0NlVLhIr8miE1K8OrROTT
+	 NdozWVeRz294OpHHTVX5R8wfNpJ5KM+TEFmm58pssWeNYS2BCgg4WbjE5xKcICxmTbZlm
+	 TH/ZjM04oBYbnyLpScz1OV/rGo4mTL5SOZKdtWOoIVmJo6jROKLkWowhGJrDDpqYFbrs7
+	 6Wao3N2TPBfI+zskQJYHOx/VJt4McN54Tl7/+cFbmFtxsx2C0iMuiYL4/FfeZPrCq5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794494626;
-	h=DMARC-Filter:X-KPN-MessageId:Received:Received:DKIM-Signature:
-	 X-KPN-MID:X-CMASSUN:X-KPN-VerifiedSender:Received:Date:From:To:Cc:
-	 Message-ID:In-Reply-To:References:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Priority:Importance:X-Originating-IP;
-	bh=od0sDb61Vyxn7jJRWeS+kkhSMP4jrGQol+QTMNRF7m0=;
-	b=IBru/fe2LJAN7cloe7lo4/YchGhl957NusUcpu+s6OMOV2+1HsbF8tC5OKAl+FPJGyo8
-	 WWHYj+rt6XkUa8r17acq2QDsy3WTPgpVlQN7n59HOMtqlcwpzCLZX0O5jg5CyImK+q/mG
-	 CIWPqo9Y/rTkZfnJAXg/Tj83DQTVDmplaFzhho4cM95V7aq5rVamYU+jJUBV5m5oMvDVc
-	 Go8HtU+usT+nRJC3Ike985OdWwZXJ88G1ewpDpyQ5ZmiKmf/gJhMUYPZ28bC0r6U6Qjy8
-	 fjdj80P71QUOPFqlpReuNRh38FE0L8wLkFic5vb7uNrPwGDX8kiYSy9bjWkMw+CwUQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794494771;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=BFy9u/Lz/j1zu1UciRBWtjJF5+BPg31bTX7GjReY5Wc=;
+	b=UHNrS0gv1342XxPb+/Pdm8YryLWNYUbl4TJ74JlfHB2Vn+i/DgcZNA92QEaLp+aVu3NR
+	 hKHxJHgdZ/mvgoThS5XAIV4pgrVUCjucIMn8yDptdupIf9CgI3hgMsfsbTdN9Y/ZMN7zu
+	 jFjuDGDrM+TqcE8UzoLyPRf+NNEuiTs43uMXpkrhZY4yO0Ol+bGoMBR2kuplZRVL/YI40
+	 Kl/qfvDvUT5SbMmGBvDoJewWsZhQsrU44JFtPuDLUicYMMeaalPNZawQwc1d5RYZeVe3y
+	 8GzRftq2PgSpyit+YJ4NGv5F5ZRnetZJ1S4v14FGzbHOjiadQ8GIBZbUUQndrnYvUng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=xs4all.nl;
-	spf=pass smtp.mailfrom=xs4all.nl;
-	dkim=pass header.d=xs4all.nl header.i=@xs4all.nl header.a=rsa-sha256 header.s=xs4all01 header.b=YfRkTgqQ;
-	arc=none smtp.remote-ip=195.121.94.183
-Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.183])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38ED6606A331
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:43:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38ED6606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JX1cQ+Td;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 192DF606A321;
+	Thu, 12 Nov 2026 14:46:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 192DF606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.a=rsa-sha256 header.s=xs4all01 header.b=YfRkTgqQ
-X-KPN-MessageId: 709a0b30-dea7-11f1-b91f-005056992ed3
-Received: from mta.kpnmail.nl (unknown [10.31.161.188])
-	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
-	id 709a0b30-dea7-11f1-b91f-005056992ed3;
-	Thu, 12 Nov 2026 15:43:35 +0100 (CET)
-Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.190])
-	by mta.kpnmail.nl (Halon) with ESMTP
-	id 70af84d2-dea7-11f1-b812-00505699693e;
-	Thu, 12 Nov 2026 15:43:35 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xs4all.nl; s=xs4all01;
-	h=content-type:mime-version:subject:message-id:to:from:date;
-	bh=od0sDb61Vyxn7jJRWeS+kkhSMP4jrGQol+QTMNRF7m0=;
-	b=YfRkTgqQnxqO/91/hesLveZ2fxSQYJIVkiuLMlFK1lFxqTncAH8zPh0DrbgwooXF7fNBiy7rGuYho
-	 6PITkBDfNSHF4N0a3OkYGKHAC6Q6o5efJ1GtFoEDxennrNFbU3Xc++kI4msAnUrANP9QbE8tF5wg7g
-	 vucwqAsKttr2stkKZdIAY7FfhNVv0gPafvaL06ahN6HIzxZfyFnEM2m/5T+ltrIlPCfZAz1MBdjQwn
-	 MZizqm4RKr5CcZuRUGO8UTFpNo/SSgHR6Kwt9g4XnTQMc4VQgDmYqtCibj6SsfrRz7REssiPwZDkVw
-	 lhH0irhvOC5FPT2IDuqlwsThcbEvO3g==
-X-KPN-MID: 33|Z4TXQhp2FhjmyMaCgy2XBZaHAdldqYiNjPl9y4mPDO44gTKe8JIT2wnKoKoBYPN
- GwIUJyoYWnRjmhD2gg/+EX1KhFsn1F10Qsp5rVZCSvx0=
-X-CMASSUN: 33|TYSEE/PoiuTVLIcD3FbHwsz030mnYA/ltY768Pm9Tl8kBX5hGQ2AKg2dW7NwY36
- impqVpoWNsqdJIrmumzrJhA==
-X-KPN-VerifiedSender: Yes
-Received: from cpxoxapps-mh04 (cpxoxapps-mh04.personalcloud.so.kpn.org [10.128.135.210])
-	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
-	id 70a4d10a-dea7-11f1-aa48-005056995d6c;
-	Thu, 12 Nov 2026 15:43:35 +0100 (CET)
-Date: Thu, 12 Nov 2026 15:43:35 +0100 (CET)
-From: Jori Koolstra <jkoolstra@xs4all.nl>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tejun Heo <tj@kernel.org>, Meta kernel team <kernel-team@meta.com>,
-	linux-fsdevel@vger.kernel.org, driver-core@lists.linux.dev,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JX1cQ+Td
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4824A1516;
+	Thu, 12 Nov 2026 06:46:07 -0800 (PST)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E720C3F673;
+	Thu, 12 Nov 2026 06:46:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794494770; bh=5IqOtTt0AmJdnXGpyO4sEh+N/5oyMsw1pG8wT949+5g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JX1cQ+TdoX2Xj0hHNr0KAuI9aYqWK68oXoyp16N+OQH5mHE5wrsQLYlIhrjDYBlBj
+	 8L0bJPCsw9B7H4CNUiF2CnK9WZYFXGBLG8BYHLNmWOXuRJnb1hBmoy613khDIPIyUB
+	 6xhR0R3dBbm3x9Yus8KnOCFXPPHxylHg4VHoqZxU=
+Date: Thu, 12 Nov 2026 14:46:07 +0000
+From: Leo Yan <leo.yan@arm.com>
+To: Shuai Xue <xueshuai@linux.alibaba.com>
+Cc: stable@vger.kernel.org, sashal@kernel.org, gregkh@linuxfoundation.org,
+	yeoreum.yun@arm.com, suzuki.poulose@arm.com,
+	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Message-ID: <186109292.1132834.1794494615590@kpc.webmail.kpnmail.nl>
-In-Reply-To: <avW_E0stwo6e-y58@linux.dev>
-References: <20261111215058.1837351-1-shakeel.butt@linux.dev>
- <1984940723.1098701.1794483492769@kpc.webmail.kpnmail.nl>
- <avW_E0stwo6e-y58@linux.dev>
-Subject: Re: [PATCH v4] kernfs: allocate inodes and dentry outside
- kernfs_rwsem
+Subject: Re: [PATCH] coresight/etm4: fix missing disable active config
+Message-ID: <20261112144607.GJ9176@e132581.arm.com>
+References: <20261112135406.71749-1-xueshuai@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,55 +61,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Priority: 3
-Importance: Normal
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112135406.71749-1-xueshuai@linux.alibaba.com>
 
-
-> Op 12-11-2026 08:29 EST schreef Shakeel Butt <shakeel.butt@linux.dev>:
+On Thu, Nov 12, 2026 at 09:54:06PM +0800, Shuai Xue wrote:
+> From: Yeoreum Yun <yeoreum.yun@arm.com>
 > 
->  
-> On Thu, Nov 12, 2026 at 12:38:12PM +0100, Jori Koolstra wrote:
-> > 
-> > > Op 11-11-2026 16:50 EST schreef Shakeel Butt <shakeel.butt@linux.dev>:
-> > > 
-> > >  
-> [...]
-> > > +	new = new_inode(sb);
-> > > +	if (!new)
-> > > +		return -ENOMEM;
-> > >  	down_read(&kf_root->kernfs_rwsem);
-> > > -	inode = kernfs_get_inode(sb, info->root->kn);
-> > > +	inode = kernfs_get_inode_locked(new, info->root->kn);
-> > >  	up_read(&kf_root->kernfs_rwsem);
-> > >  	if (!inode) {
-> > >  		pr_debug("kernfs: could not get root inode\n");
-> > > 
-> > > base-commit: ecdfc51a6a78aaf1c4ac1d8b6ea199cc2ed020ac
-> > > -- 
-> > > 2.53.0-Meta
-> > 
-> > Does this compile? I added a bool parameter to kernfs_get_inode_locked(),
-> > for this patch to be able to do a lookup first, but you haven't added that.
-> > I think you want to set lookup=true everywhere, right?
-> > 
+> commit 895b12b7d7b8c651f73f57a1ea040d35aa7048cb upstream.
 > 
-> Yes, it builds on vfs-7.5.directory (base-commit ecdfc51a6a78).
-> Christian's fixup there dropped @lookup, so kernfs_get_inode_locked()
-> now takes just (inode, kn).
-
-Ah, I didn't notice that.
-
+> When etm4 device is disabled via sysfs, it should disable its active
+> count.
 > 
-> I don't think this patch needs @lookup.  inode_insert5() already
-> returns an inode that is already hashed, so an ilookup() first only
-> changes things for an inactive node.
+> Fixes: 7ebd0ec6cf94 ("coresight: configfs: Allow configfs to activate configuration")
+> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> Reviewed-by: Leo Yan <leo.yan@arm.com>
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> [ shuai: kept spin_lock()/spin_unlock() in etm4_disable_sysfs(); 6.6.y does not have the raw spinlock conversion ]
+> Signed-off-by: Shuai Xue <xueshuai@linux.alibaba.com>
 
-Fair enough, I was thinking you added it on purpose becasue ilookup() does
-not get the inode_hash_lock lock. But if you see no regression by always
-taking the lock, it's cleaner to get rid of the lookup flag.
+> ---
+> Note for stable maintainers: this is patch 1/3 of LKML series
+> 20250514161951.3427590. Its siblings are already in 6.6.y: 2/3
+> (53b9e2659719) as 1cd09aaf47a5 and 3/3 (408c97c4a5e0) as
+> b3b4efa2e623, but this one was only ever picked into 6.15.y
+> (c7f2b00d5e17e) because it does not apply cleanly to 6.6.y without the
+> raw spinlock conversion. Without it, each sysfs enable/disable cycle
+> leaks one config_desc->active_cnt reference and the module reference
+> taken on the config load owner, so the configuration module can never
+> be unloaded.
 
-At any rate, feel free to add:
-
-Reviewed-by: Jori Koolstra (CIQ) <jkoolstra@xs4all.nl>
+Makes sense for me. This backport should be applied on both 6.6.y
+and 6.12.y.
