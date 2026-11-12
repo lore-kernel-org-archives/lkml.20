@@ -1,57 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794517636;
-	b=Ih6t4BGpKAsOctIiB4L94zD0dtpHj42JaHMu72bXayWsFvh92pgOnqjz9nWqgLD/ch3C
-	 3NGYXR0plOsWJEP8heaEQgTtCWF4F8zAZo1Fb53Fn3TkiD2IVrPmgl2l5LpGL+Me4bTgG
-	 o7tgSfK+yW8IiS1qUUsO7ZiBcHyD21p2IycxtOgbRT9z9eyOi6v/K2aQZATSjNzQQVpgf
-	 PdoiUVZmiU3nflAX+RWoFsG8nWex3izyPOk8Mq4znwRN0730QB6DPXVVUKGJykg76mIYd
-	 vLV5VtikBLWouqtYHyns/rvKvllu0klfM3AZT2hRVSrAc+Jn7KF2xF1yNpPWgcZJXKQ==
+	t=1794517644;
+	b=1l48npv1u8PxHkSJDqBrIpvfPpLoMh+VcekJoTv0UqGdNW7VTpVKq5d3gdu6s5S5zOVd
+	 BeJou8lcy90riCd9zH+5V+LN8G4yBj2uAsy1eB7yAeWVrJnTnV5n5hc9YEXNqHgxH5SWt
+	 qDhgSH0sg2kr6uzS67yPyy80lB6u3qz8A/7SCDwqlzGAoCTNSWvXrtk8kK16jcLjFDYbX
+	 DN4u3cMbwu4Kjyr7r/QgaBFAG58KGvaatJk1sfKLps4IKomOMOH157VifovgD2/J41C/G
+	 b8yvQWt9XgrweYTttNO7eYZIBkAtjedBnMqom5Ssz0oWz+qYhydnMc8VcpboMZ0tnYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794517636;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=3GEZTyZOwDuoCiuhG/4FprPlWRmVhdr+8eAF/q4Z+7M=;
-	b=FYrbTItxHu+pScTu9ORkEpXSR0hSzFmEioUAvV7QLWTNaYkD0rliwGIeXQ9sZD0DIaun
-	 YgSBCNcuLNTMSwbc2tt981dDsCACTO3nAy+wZP09PNLlLIv9fGhSmXXYHz2jt7A1L+VjP
-	 jFg59vWv2TKkR1ixu0AB9CuTjadx/MV8yCbc+hAMNoe8g/YI7W5CeCRlAuG9Mm2C/3Rv3
-	 fKmpLb5Wf+FRyQsyQmFrALx9fJB9AqMmW5Bg3wRigsiO+C90vnYVJ+LWrN7eNtrovpdd3
-	 qoq4ltyO8eLucSJpIwtuJy7iIwH3Je/S1fIkzVKBG43W44x5zxZ1kIJJg9t4yIQ1IKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794517644;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=KPcGxWktlaGg63UoR245IUkJTtv/C1wkP9UzgLCl4Ro=;
+	b=XrI8yEF2xYvnNYSd/aAR4y5qWndOT2/9RYpSfjALkAyCTTXOTT16wsx6IXiS9wdUVAeD
+	 ZsRBBfyqHFHeiKpyleY9SKTiJFqont1eYSDtRrm29rG6u2mBW/mMhcTFjkoXeXs+wi/dW
+	 hk5Bas+o2mn8fcVvXHd983JIrJhrqQ9z9J/aErmsENN5qPtrhNZKtS1p8te7S/imGpdjy
+	 6mqV/kkJUzo4P3JD7jFM3uTrhd1KbB9LioA8USyEM01ga81v8dBIR1C1Ja4rkU1vozh7e
+	 Cym0eh3OASjYaaLjMbCd7QvNIvGjvQxRjO66b3nclrVI5LnTFmWrxAhC5PFXSZgJ0ZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ekwxin7L;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=lst.de;
+	spf=pass smtp.mailfrom=lst.de;
+	arc=none smtp.remote-ip=213.95.11.211
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id BF25C606A31C;
-	Thu, 12 Nov 2026 21:07:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ekwxin7L
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D200C1F000C4;
-	Thu, 12 Nov 2026 21:07:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794517636;
-	bh=3GEZTyZOwDuoCiuhG/4FprPlWRmVhdr+8eAF/q4Z+7M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ekwxin7LFqq1d7kjhY15HKFXnJrTsyV4SoNVZQtby+sl39cWT1X5VoGBI/yXkA2C3
-	 tAMAtIkGw6sFwUVq03wK0DCjY96TB8Kg+wS4rxYSVNLxyt2TJv4kTWeJJBBnHGMKVL
-	 z5+KBtLCHcldAU8TMgq6q+Rt3IgdVmKzqTcuHtvrLgv6jykRiBECR6C26g496q1iRz
-	 tBJceiYhIhB9rdu6fMn/cNP3xpNr1RhKmPP4PxPEFC2yTQ9+ynrwItW6HBwlwyy9GN
-	 Qc+OFUp04318da6aPLuY3vxOLXdHp7zM9qMulL5NjyfYRA7vMQ/L0hUENuYb4N6P1L
-	 hPSMkumIHWv4g==
-Date: Thu, 12 Nov 2026 23:07:12 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
-	surenkj@amazon.com, noodles@meta.com, kernel-team@meta.com
-Subject: Re: [PATCH v2 1/2] tpm: Disable a TPM that stops responding
-Message-ID: <avYqgDjJYw-UjaZi@kernel.org>
-References: <20261112-tpm_unresponsive-v2-0-7454d2c899ef@debian.org>
- <20261112-tpm_unresponsive-v2-1-7454d2c899ef@debian.org>
- <avXGjiejK2ZlldKs@kernel.org>
- <avXHGmmdY-CVgxEf@kernel.org>
- <avYkGKXOP2-hhewz@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAFCB606A31C;
+	Thu, 12 Nov 2026 21:07:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAFCB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 12F196732A; Thu, 12 Nov 2026 22:07:19 +0100 (CET)
+Date: Thu, 12 Nov 2026 22:07:18 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Paul Menzel <pmenzel@molgen.mpg.de>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, dlemoal@kernel.org,
+	cassel@kernel.org, kbusch@kernel.org, axboe@kernel.dk, hch@lst.de,
+	sagi@grimberg.me, linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+	Alexey.Bogoslavsky@sandisk.com
+Subject: Re: [PATCH RFC] PCI: Start the reset of WD PC SN730 NVMe
+ controllers early
+Message-ID: <20261112210718.GA11040@lst.de>
+References: <20261111163145.75027-2-pmenzel@molgen.mpg.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,38 +53,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <avYkGKXOP2-hhewz@gmail.com>
+In-Reply-To: <20261111163145.75027-2-pmenzel@molgen.mpg.de>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Thu, Nov 12, 2026 at 12:40:45PM -0800, Breno Leitao wrote:
-> On Thu, Nov 12, 2026 at 04:03:06PM +0200, Jarkko Sakkinen wrote:
-> > > 
-> > > This would be then nr_lost_responses.
-> > 
-> > Oops sorry.
-> > 
-> > I mean nr_missed_responses (and I would prefer "missed" over "lost").
+On Wed, Nov 11, 2026 at 05:31:43PM +0100, Paul Menzel wrote:
+> devmem, works: the driver finds CSTS.RDY clear and continues, the reset
+> completed within the first poll in 29 of 30 boots (35 polls once), and
+> none of the 30 boots showed a slow reset, enable or read, against 8 of
+> 90 without it. The difference is not yet significant (p = 0.1).
 > 
-> Would you hate if I go with max_missed_responses?
+> So start the reset in a final fixup during enumeration, at 0.19 s on
+> this machine, about 100 ms before nvme probes, which overlaps a slow
+> reset with the remaining kernel initialization and the module loading,
+> and costs nothing for fast ones.
 
-It's a great question. Here I think asymmetry defines things better,
-and makes sense also few months from now.
+Umm, no.  PCI quirks are not a way to speed up slow device
+initialization, which while annoying is not a bug per se.
 
-So I think this would be most consistent:
-
-1. kernel command-line: tpm_max_missed_responses
-2. tpm_chip: nr_missed_responses.
-
-The first defines the modulo and second counts up to that.
-
-Can't recall (and too lazy to check) how it exactly was in your code
-change but I would formalize all this along the lines of:
-
-	if (!(++chip->nr_missed_responses % tpm_max_missed_responses)) {
-		/* chip->flags |= TPM2_CHIP_FLAG_DISABLE etc. and of course bail out. */
-	}
-
-	/* continue doing things */
-
-[those comments are not part of the proposal]
-
-Br, Jarkko
