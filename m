@@ -1,88 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794461329;
-	b=GDY8VoxhmyGPpJu8YWbWRJ4iAsA/0GJJ5gOm5ZdM1zY6ucPgkzKXkAtMRfo9sPMoKFYk
-	 hhnLVE+Ei18bgUSvppKy+oWTXlwSsNHNH5yjBTACQ+1hyo3alyMbL+s1+P2b5va9al95D
-	 DlS7La3bq0LK4NR1YSRoH1JyuQjUyHmd0bdg/Qd6dn8esHTiJdKL9n9vMDWC9WtQrVAnE
-	 oKnxVnSCeEHvyp/9nYIjC3BPTZ04KfSu+ceftgLrxbjYF9H7ydl4fZveE7h28pCZ7O6UC
-	 GrKvLyPFoNq8WqFBVOhQUcLYfGP/Ug0bvu88wLwtr/F9CBQ0FyxKdoBzPKFPPFZtKtA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794461329;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=hNlfYdQobugmf9UW73UA0KZ3DncrTeY2FGpbRf8Ii54=;
-	b=h4kYIhJesgKVADzK6pg0ZqkKKZsZ86yB/YJimszK7E/4xwuVMiVFi2aCkOLVLvR+rTc+
-	 9bQauQBXZNjDzCviRWNZ1mZ/V22l4pEew5Uc6uLbp4qrHkgTzrHFVPCSN/+ho1nwOGUq2
-	 kCVCDuDIti0/QI7xlttUlkiwyz9YRYItSAMigwCYRir920cdZ7kOuqj6kqcAFwmdQOYfw
-	 ZpBlitkDqRYJYGt8JWF3W7c2VZw9W3QiaYMuBR2COmlbo4Dc/AzvkoJ0O6OYVHdHl0d0T
-	 g42fsTAQyp+HJ8Y40IEz8ScLsGggAdevG/Fp27n8RdtpzuAAGW20j/KEKRaaQsLwnsQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=pereq.eu;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794461452;
+	b=QZT3LYgYqb2ytzt67lY7Lcj6yl/4O4U9mNzDIjt6Xw3xEqD+oJEiCckwJ03IUuVny73E
+	 ZPEF9n6kxsfj8IHzy03bInA8LIac/umDy+RloZ3eR/2ZtF7LWBAOsdVNjy625pmFOkAYB
+	 j8d0ZdQ8pUFnG1amamVfngnsWvmCP74ex9k4feP2p3mzm/qdf14AQ4CPxgG2+CmDKz65S
+	 i3OgQwAWIdzSkOOqK+TSoBr2kmKG/9CG1LKQjdM//LQv9wKClB5OqRd2FEwYckZUOYxt9
+	 yENQzQR0AobTVNO/avoqZPZXrnHf45xIzpKHRUBchl/Vgx2nVY3CDDINZQXJxgfBXrw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794461452;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=UviLEzCi5yC1tk6oTyIn9YBlv7xdwXYD5u/ePdmahAQ=;
+	b=2bnSy1LCBNQdRHIhjuzPeJIgq6jBwXFgut+geJqtwZrMx2G7zHnIqZpSK1c7+hntqGRn
+	 1Pj6og44tH9QoBdDx7VK1i43bF62fOvlO9xxE2JgSdd8wvBkSdNWQ7Zue0nlgRMjHKYz2
+	 n1e6QKgPV056yqNW8Ll37NcFh3Iqd/y5tLFLbKHgVk1tY2MgYELkzi/CmVDY+yB75+FlE
+	 2CRWClq5xgyryGWLAdHpAcjoANDhgWJ6MSqgk/gK+YRFsCjaPkH0yCIAHpVCSDwMrTz1b
+	 Z+VHSjq5dS9OJs28lLWI4E415k1Z48Ii68dQF4ZgN/XXDeoB/oYTVPdJiQgsi/Sk7OA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GUwBi8wW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42250606A327;
+	Thu, 12 Nov 2026 05:30:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GUwBi8wW
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794461451;
+	b=v/3TwPWeNUyph4m0gCDNy3iW2M1clrGxw1u+Q/sFZma27MQQj4+aQUfkW8ZWocqT+qzc
+	 12JFny53rcSZyhvRYfs4/dZa7l5hIhLT4zbjVQtf7GMxdMxskByUBlnTjg3eXMyk/Y+FC
+	 0Z3gd2sWzAx8n1nrEAucrgzbXuj7l7yi8xn/mdY70VaC6bD+A55bmLaG+surZruJ9OW99
+	 rd4oCRn7u10/Kg2RUby3NBelE2rYmG47xR0mD+CaUU7qSd1FBYzRBIQzePCnWHlcKAc9J
+	 PtsbuWr81xO//OBb+dCsR94bP5w/VSCq2ncQbgiWgoe+MSfhPnRKiyhX9nglunl4gCA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794461451;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=UviLEzCi5yC1tk6oTyIn9YBlv7xdwXYD5u/ePdmahAQ=;
+	b=qEwYb9dkwAidr8WX3GxdXdYJ0M2ZM6Fkg0UhGpsxw0NUCI2ICq2BzJBnndbiVYpBhjMg
+	 WowGroQD9CZ0GPJ/cbFNde5aCoqfYwt1M2mv6u+a1xasMGRobJ8nwNctjDqhGXVo9aPvF
+	 pRTDrdKbmn13BCOz1G8niQIfU6KCoys9sHwirjRl9oJGUVzgdnd4wDl8AjITrRtRptw8O
+	 D0YPGxLuyU1DF5iV+893NGpPLyM4+6UQjPnkLZLKX5h0xFnfdk4J4MxFcHEJjdsMyjauG
+	 GS4x3p74IoEiZVMrr8X7opiJOWpN/FEnYHjsphRSHdk6oVB//2Sc5Xzx5DYbcgVr0tw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92E9E606A32D
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:28:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92E9E606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=pereq.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-49412eb1474so2295948f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:28:48 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794461327; x=1795066127;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hNlfYdQobugmf9UW73UA0KZ3DncrTeY2FGpbRf8Ii54=;
-        b=rbe1FPO0Iw36un7uadzFIaaWHGQbA6VJ6dh7ymefANHm8cHrf82SAW7N6rMPWhyTLK
-         Kr2RXczuvK8a/WmG6FxkBmS8zMdEMM1ZWrj9KfQwRMgVGHbt/q1n6IL3dx3B1IHgnW/P
-         GiucSnQSS3i4H9RqJNeB/Es/ThWDD2r9pGykpMg0DOpyr7g3F0ppdlF0sqed7qQajahi
-         viYg+be1zN5S2YkDdCdsuK+rGrIZRYH0GyrWHkivu5bijnLwHycvNvVqpCsmGps5rSAY
-         Jm5sI+Bn+toAxLBuq1mkvt1h/edcx+ItPxgEKj2S7YQla7RFeByiHrnf07D3XkM7zHOd
-         rAeQ==
-X-Forwarded-Encrypted: i=1; AL+hErGGMPur0viHvondZIbmPm5/NKlB15U2kgAZWXIItTMl2ibu3KVfPqdDIOXu0dZjiKGVO7bG/iaBPs3eBx4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8UJ26jZB+sBMMj/BEfJESXIVsVBMpsC3AYXriSWl0KxX/7ycxp
-	YY5bA5uiNfUvSUVnTTCXM4RFGODs3lL+bLlwkeWsO4wnlq0KCPJIv3GG
-X-Gm-Gg: AYBFou276jjrAjLvJ4DQXOuMbujX6urYEYSPvMs4xMB5VoSfoaO/qlr+kgKlDG34+dh
-	tWm4mLsHJdy8ekRRTERhcyVDwjIAD+bkMTaTz6DmQqoQe2GiF2t8YbQNp6lEIdKCrtgcjth+xxp
-	ii0HjZhl5RaO1SEd4Uf5nAqumxz2Le7rSKiqhP/dFOYafBwBL7bIFXxNlUcnGa0g3RMUlnROuMy
-	66qCItJR8u6sD410h2cENZ3+E7NGKP1beg8QeEErckUaWSyCZGY3hPOnKciGSHivAdwyWuYvbaW
-	DrUrFBHSxJviekWyEsxySzwt0SVqp6qdybu6VmxMputwG3Ozv9jbdoDA4uIBZEnkWoEkcMcs420
-	HOcgGhnkNVvihmmrflTx3oxtPgfrg684WAwsfEKlTDK5hfQHGn9p9LLqEpRKA2yFY48E734RNwr
-	0rvZiNH0MD/SW28VwtA4FFgtAQsb1Felb1LMFPFFytJxdXlY3b0UUQq2Yy4WczQNqG58Of2BJC1
-	XclwkN9s3oQKDlW1q5FuV87HsGv1kdevmDqXlL9scPF2VoW00gv7tHMBQaipiqks/7LaOfhBCtP
-	V3y53dg4CwzdEY3Cnx8VzKGZXyxAAVxbet5uT+PmYifV8eIASjT6YnAx7ikvyk83wLlDLeNSPYW
-	a5l9QMEUrjJSs8SfDlX5dVcgJYqRwqOAiKALezT35MsXUMfAUg+EguST1KIgm
-X-Received: by 2002:a05:600c:8708:b0:4a7:c366:d791 with SMTP id 5b1f17b1804b1-4ba0931c364mr69232725e9.1.1794461326740;
-        Wed, 11 Nov 2026 21:28:46 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49944d646f9sm11119109f8f.32.2026.11.11.21.28.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 21:28:46 -0800 (PST)
-Date: Thu, 12 Nov 2026 08:28:42 +0300
-From: Dan Carpenter <dan@pereq.eu>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Dan Carpenter <dan@cryspen.com>, Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Karthik Bhargavan <karthik@pereq.eu>,
-	=?iso-8859-1?Q?Cl=E9ment?= Blaudeau <clement@cryspen.com>
-Subject: Re: [PATCH] KVM: arm64: nv: Initialize hw_mmu to NULL for nested
- vCPUs
-Message-ID: <avVOivX0YmlES4Pe@stanley.mountain>
-References: <d3571fb535e1832d2a067649f294b83d824d4350.1794395321.git.dan@cryspen.com>
- <86ld6z1782.wl-maz@kernel.org>
+	by smtp.kernel.org (Postfix) with ESMTPS id 436771F00A05;
+	Thu, 12 Nov 2026 05:30:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794461451;
+	bh=UviLEzCi5yC1tk6oTyIn9YBlv7xdwXYD5u/ePdmahAQ=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=GUwBi8wWY6wQbdgsyweWdRlorWzWUgdE9Op5xsZSzz4gQ6RIFYWbGWSrgj3T9rMpT
+	 2nHH5jKx1WuUn1k54RCx2VEhUB/dPXvSGnckZwUf3cROvckFVAoNs2DgNrGZEOoWWN
+	 +X4PROSX8CpJGPN2Szej/gNqRocFWcrsSVoAczPj3MQpXoxH2cK4+PdZDM8nc9MROk
+	 nZmJBiI3nZcqwJF0da4XP63wSWI5JnhKbBREAkTxKEwLBvdypV+twMWZ3GK1g1wCoM
+	 LgXqheck3lo7zpfopgdZOsRjawDoaL26IW2J9mdEtDqxo1FA8QLPp3Ib69QnJO94PR
+	 +bEosHAgaT0KA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B52AA49191;
+	Thu, 12 Nov 2026 05:30:50 +0000 (UTC)
+From: Weidong Wang via B4 Relay <devnull+weidongw.illinois.edu@kernel.org>
+Date: Wed, 11 Nov 2026 23:30:25 -0600
+Subject: [PATCH] remoteproc: elf_loader: Bound the program header table
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,34 +82,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <86ld6z1782.wl-maz@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-c3-n021-v1-1-17c9151d0245@illinois.edu>
+X-B4-Tracking: v=1; b=H4sIAPBO9WoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDINBNNtbNMzAy1DU3MzC3NDFJNbJINFMCqi4oSk3LrACbFB0L4ReXJmW
+ lJpeAtCvV1gIAFv8ZXWsAAAA=
+X-Change-ID: 20261111-c3-n021-7607944e28a6
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Zijie Zhao <zijie4@illinois.edu>, 
+ Weidong Wang <weidongw@illinois.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794461450; l=3782;
+ i=weidongw@illinois.edu; s=20261108; h=from:subject:message-id;
+ bh=1+dxp4TSkvo99vpszS33ptcnuh7ZLO8mxAuiCbEJZ2s=;
+ b=bVPFLFW4TgQVG01rb6iT1GKoLw3UEMEXZT1PQ1ti01+uV1i5KUnacemlHqoDQKt+eKN/EjRiQ
+ AdOjFspT8u7BJPxCdT1GZ+ecwgUOIhE8YRUWHLAIt+jqJQKGZCwSdUX
+X-Developer-Key: i=weidongw@illinois.edu; a=ed25519;
+ pk=DR2S1xPEa5sELrWPfOpvUphJQ2VHC+MDc/wJavE/ifg=
+X-Endpoint-Received: by B4 Relay for weidongw@illinois.edu/20261108 with
+ auth_id=1449
+X-Original-From: Weidong Wang <weidongw@illinois.edu>
+Reply-To: weidongw@illinois.edu
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 11, 2026 at 07:46:53PM +0000, Marc Zyngier wrote:
-> 
-> I think this really needs a comment to explain why we repaint hw_mmu
-> to NULL, because the next idiot who looks at this (likely me) will
-> probably remove this line...
-> 
-> The other thing is that this means that nothing can evaluate
-> vcpu->arch.hw_mmu anywhere outside of the loaded path, as it can be
-> NULL. I *think* this is OK, but I need to really convince myself...
-> 
-> I'd like to add something like:
-> 
-> 	/*
-> 	 * We can't rely on the S2 MMU being the canonical one,
-> 	 * as userspace can restore a nested context. Nuke the
-> 	 * hw_mmu early to ensure that we pick the correct one
-> 	 * load time. It also means that we can't rely on hw_mmu
-> 	 * being set to anything useful if the vcpu isn't loaded.
-> 	 */
-> 
-> If that works for you, I'll squash that in.
+From: Weidong Wang <weidongw@illinois.edu>
 
-Absolutely.  Thanks so much.
+rproc_elf_sanity_check() checks that e_phoff lies inside the image, but
+not that the e_phnum program headers after it do.
+rproc_elf_load_segments() then walks all of them, so an image that
+declares more program headers than it contains is read past the end of
+the firmware buffer. Both fields come from the image.
 
-regards,
-dan carpenter
+Commit b32177ead5f8 ("remoteproc: elf_loader: Bound the section header
+table") added the same bound for section headers. Do the same for the
+program header table.
+
+Found by an AI code review agent (an LLM-based bug-finding tool
+developed by Zijie Zhao and the submitter) and confirmed on an
+unmodified kernel, without error injection, on x86_64 under QEMU with
+KASAN, using an out-of-tree test module that registers a remote
+processor with the stock ELF helpers (rproc_elf_sanity_check,
+rproc_elf_load_segments, rproc_elf_get_boot_addr) and a da_to_va backed
+by a kernel buffer. Booting it with a 120-byte ELF64 image whose header
+claims 64 program headers at e_phoff 64 gives
+
+  BUG: KASAN: vmalloc-out-of-bounds in rproc_elf_load_segments+0x4e5/0x6a0
+  Read of size 4 at addr ffffc90000035078 by task run/72
+
+i.e. the first byte past the image, in the buffer allocated by
+kernel_read_file(). The same image with e_phnum 1 boots cleanly.
+
+With this patch the oversized image is rejected with "Program headers
+are out of bounds", and the e_phnum 1 image still boots.
+
+The reproducer, fix and changelog were drafted with AI assistance
+(Claude), then reviewed and tested by the submitter.
+
+Fixes: 400e64df6b23 ("remoteproc: add framework for controlling remote processors")
+Cc: stable@vger.kernel.org
+Cc: Zijie Zhao <zijie4@illinois.edu>
+Signed-off-by: Weidong Wang <weidongw@illinois.edu>
+---
+Tested on v7.4-rc1 (05441d697f7f), x86_64, KASAN, QEMU/KVM, with an
+out-of-tree test module that registers a remote processor using the
+stock ELF helpers and a da_to_va backed by a kernel buffer. Firmware
+is a 120-byte ELF64 image, program headers at e_phoff 64:
+
+               e_phnum 64                      e_phnum 1 (control)
+  unpatched    KASAN vmalloc-out-of-bounds     boots
+               read in rproc_elf_load_segments,
+               first byte past the image
+  patched      "Program headers are out of     boots
+               bounds", -EINVAL
+
+No KASAN/UBSAN reports on the patched kernel. The code is unchanged in
+mainline, linux-next (next-20261111) and rproc-next.
+
+The reproducer is not attached (AI-found issue, see security-bugs.rst)
+and can be shared on request.
+---
+ drivers/remoteproc/remoteproc_elf_loader.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/remoteproc/remoteproc_elf_loader.c b/drivers/remoteproc/remoteproc_elf_loader.c
+index da3cddbe7..54e1fd4bd 100644
+--- a/drivers/remoteproc/remoteproc_elf_loader.c
++++ b/drivers/remoteproc/remoteproc_elf_loader.c
+@@ -46,7 +46,7 @@ int rproc_elf_sanity_check(struct rproc *rproc, const struct firmware *fw)
+ 	struct elf32_hdr *ehdr;
+ 	u32 elf_shdr_get_size;
+ 	u64 phoff, shoff;
+-	size_t shend;
++	size_t shend, phend;
+ 	char class;
+ 	u16 phnum, shnum, shstrndx;
+ 
+@@ -126,6 +126,13 @@ int rproc_elf_sanity_check(struct rproc *rproc, const struct firmware *fw)
+ 		return -EINVAL;
+ 	}
+ 
++	/* rproc_elf_load_segments() walks all e_phnum program headers */
++	phend = size_add(size_mul(elf_size_of_phdr(class), phnum), phoff);
++	if (phend > fw->size) {
++		dev_err(dev, "Program headers are out of bounds\n");
++		return -EINVAL;
++	}
++
+ 	dev_dbg(dev, "Firmware is an elf%d file\n",
+ 		class == ELFCLASS32 ? 32 : 64);
+ 
+
+---
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+change-id: 20261111-c3-n021-7607944e28a6
+
+Best regards,
+--  
+Weidong Wang <weidongw@illinois.edu>
+
 
