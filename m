@@ -1,80 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.184.201
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=155.254.16.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794504737;
-	b=AGUrbUgTLwAgkURV+JlvifxamL6RCHRfW4REh9Lce3oZEXVueOOcn6vHopLn+VfLsvU8
-	 ao2mbYPNtqJJNPPeRb8gYZCaYXeQw0aRJoY/fUUR3JK/c5OL6G+PwtcbPdV0ksOYya9n2
-	 KwPtr1hhPCu2xMGPRehCWwP38a8HPhinQ45ntPMe1+zb4pNP952kEe+HVMZ4a8Zdt6E2F
-	 x+InosnmJuupDCc4ddIBiGrucRTn/s6mqDbFF+hwR7zAZiPrlNfM6qndBnzHczsY6iCtb
-	 ijCOvGUoYv2nyrzKeN/dvnm8GLgj8SI7u0vNRPPh4zUXXuz2/tyVLFYIrr/jQX8JaAQ==
+	t=1794504751;
+	b=T2AGgJnv2Yupldk6S0eCQqajwXAyAV3WGwEoogsiwbcxU2a4IdSTlL+Jcozb/JiNem3Y
+	 JL9lvI8VReUYeyOJ7e4uAF7HbWnZ+BhHmm3bIBqLbOYBFQtNmoP3d5S77I27BXnwkrbJJ
+	 H1M8Y/y6w3giUUG7R1LZ1JdMUp1uBan7KtuPn3cYHfLunWKvEAw7PDCl07pdqu567T0bH
+	 87f+wd8/Gy8yU94EkAL78IwN+bNnseDcjXxhLoXdBoHccVlx3pMln8QXwU3c4HQz4E/G7
+	 /Kp17EuCZ9+OF6SpfxuQTMVmIySR9O4LvRjieTmjIppb4gPk1n5RZctlGOCEC/MszaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504737;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer;
-	bh=HO43C3iEXRa6J85xNlHDELJDyLp/RMlGT8/nfr+lOp0=;
-	b=2jOHb9vnIqwNTPhzHrc+vKbY18ToutcYocBCjh0W7gVojsKD78KHYJkJq2fFCBcy3fZM
-	 JzLxIxr3tGbmrzVfuxiBmXPMwHOlP/CX2Y1OJjddpJlUWWUVgl5SK/8RK+XbtCS+q1A0i
-	 QNESMB0Yv+sOmTRVpdUvoxr4bjwQn1Y1Sjx3Y/axhTTiGYI8gUrg0Z1T/I5c4jkmJQCLZ
-	 dxBSBnOJXFv2ezF40Q7LvWjX/GnYhk+Xd2nfxf4pr/m9mqYMTzvMmsSfDVfq5wesTve8N
-	 Y5YBjOR0sJNz2C1KKMtiMERhc33KCpJImqE4jR1wM+SSqghEJMN5R32heFoE2Sa11ow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794504751;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=y1bVloTNnbdHgzouYDIE3DTRqKDUMOSVPHqHp115ktc=;
+	b=jeLAs7ializVFQPfhMysqVhJ7n8ONPiTbFDcEwH4TT33SUcSC2wT3NZ4UYML6U1oBPaQ
+	 TDkNp7al5HiNrcwmmQ/jXc4CD7MTaK0twGJ/pB+JZ+10pb5IDkcNzw/Z/0bkdFSNdEPnl
+	 W5Q5rRqlvXMKlZkxUnKqyx+rsC5ERXt0DJG/BZT7rjDeX22AsMOZPF+cOra1QSloqIez/
+	 lQ1WnURahv9r+oO1ZIyX45Jw4wIjyua4mUCjFgTqeDtuTH7J3WZ9nXv+rz+neo4R9zYVD
+	 ZH+PxmxatpHI6l/Wejaucl9X5WMflwD1p4TnRVeWwr+wCqLZsJLP4/O3UZCcQNowNFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=p5HSnhIf;
-	arc=none smtp.remote-ip=66.163.184.201
-Received: from sonic301-32.consmr.mail.ne1.yahoo.com (sonic301-32.consmr.mail.ne1.yahoo.com [66.163.184.201])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=4d2.org;
+	spf=pass smtp.mailfrom=4d2.org;
+	dkim=pass header.d=4d2.org header.i=@4d2.org header.a=rsa-sha256 header.s=mail header.b=OGLQZ0Km;
+	dkim=pass header.d=4d2.org header.i=@4d2.org header.a=rsa-sha256 header.s=mail header.b=PxpvqTDy;
+	arc=none smtp.remote-ip=155.254.16.17
+Received: from bayard.4d2.org (bayard.4d2.org [155.254.16.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6215B606A33F
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:32:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6215B606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF43606A323;
+	Thu, 12 Nov 2026 17:32:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAF43606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=4d2.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=4d2.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=p5HSnhIf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794504736; bh=HO43C3iEXRa6J85xNlHDELJDyLp/RMlGT8/nfr+lOp0=; h=Date:Subject:From:To:References:In-Reply-To:Content-Type:From:Subject:Reply-To:Content-Type; b=p5HSnhIf1TxMXdIBtR1Rl2Z350xk9bLuF0xFnl4dkPIdEXQD9KwZqKw3sJy+eogRjx9MQLn2FIxBDujr9pmi5eb8YA28vMZCEO7CQ0NXBWENOUe/F++mX/rZNDKonXBtjHMlNbYgsHK/FoqpBEcI1OtDwcWgyv/6lOiimMMG2RoZ6NC1Tmmpi1oUYqOtH3tbURPwAFlemJq58/i4zj0Y/k3vVR7nOYQL+TBg+JSvnkwYNWck1FBQ5R8LfhfD8K1P/ICLWRAcL5GQcJmi+INubVqDPepCspyKAXlPgyXHHCf86lvNmqvropp+fbi0xmevgXh6NQCOHXAYPwZTFWaztA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794504736; bh=OH1XO96dPHxKSQKiBxavipParGWiUFA5xtNuWgPXKBk=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=gBAOwDv35scsb68wlb4hFKSn5wTGoKZ7k0JPY1AaJzKQiipPLj5qORlfLTsa4TRDGBrVGrtzk/cdacz4oprxfXpb9NhVKi/C4pfI/dFaLTr8DjOri0PZbL8rDfbqifvNg/9U68gWeT2/4xyYC2nP3LlAh2o1dplotkgU0L5wAO7uDRAs58JGyQ6pKI91lpfTVSJcYUVa1TrEnRlDYURVpjmKSJ3mZZbKB4vb/wxJehdrESV8kRiJ7qfohjsvKWEEnZ5N2KLyzHI2MjMajEMrEMqODzFBpVg/QX4tNHQgXI2feyZOmKyy0qZXaiO42SMc6/wD7BBqx0WimgbziBU4Sg==
-X-YMail-OSG: XkeUTMcVM1mMy6nYdUzXcqLNzcIiyHtp7YA1p4AYltV9okoMOIsVdtuSWUCHI7C
- PvKe.7urM6S88l2G27HGYMbopclTi.nzLAqujI5bWTGLpy8XI9xWmvnub3iNmybZx05G0ql5Kd2Y
- BHKFmhnflrPI8FViL9aV5jRQ67xurZpiF.xpORkHwxu_R7siJyMqCHvvY2oF5lQRWjr7rY02Qcyb
- Yfpq1RQr.vj7wW6qmxJj5jRA5CB4w8lYHvB6G_LNFPWzjMa4L6YcCNg_6BBbQKV3YU8uw3mzdLD2
- UjTpAXRFQH.IoB96AWRzNaWyvwVhrUvSzVDbUj.eTckRrwcHH66IjHhiwvSzJkfZwtoXBeSVNYS2
- .VtbMKoNPj92_GmRWorPpbWRDTja.8ICHHFyKAfMuhVUmau7jmwXYqg0VoMq98cXd.mOXqaEsv0B
- EC78Xg_c6lhOxh0qohXlps0JgXLTBZpQrCvuNKB9tFlFbmbiMvnwQBPamiHY96Ms7Nz1R3im5qv8
- RFM6a1RA5or7.nrUyO4Ctke0cFD7iuiJmn_uzgUcseUDpYfPKTHIakjYP1VJFNWqN3iBCK5LcjzR
- _.2vVIgYLnJ2PT45pUZhq87L97uKI4eSxxJdfyfkp0pND2HUNrWyvhugma2CKhYYBXKcnpOJDdQQ
- 4U5dpywrfHErhn96e9_xJ6Fl8Q4qij3fNN6tQEKV0Grj0N5s5pSefaIQZA9kq7fByc70RA.1m0FY
- LfkhnVtAIovbgfz7vpIMCmXaUbyKvQ2Wlx3LtDdBi2f_FAe7fhDIB_yOZV5mWzroNzVLjMesinBK
- ieGeQFi_HrMoLpjqEIxEG4NhQZZvpE2yUSbx8O8VLxvwMSbjyxP8Wlv_4stMK9fSGDnK8SvVUXpU
- YxFYnQzyhuzamw1haM9fHGZlNUZjYdfkOb_hn1Qbe00nqajSjSA3rDPsrM6SmSvA1QonH4G4DUMs
- OmEXCjZkoUhAvoX_Qaw2R_cmy9CmQ5xhKNi6qQlZSyXN4DRefaNLHcfujnu5QJa50tBJ1QmYu9ge
- jAajNgcotNd5d0FShLjERJnE903S7Jnb6RgfsnDaT3WryKO3Tg2.kHnxaJrZUSHbhmaqjjKI4ZTG
- _q61qZAISrm2eksIBLAzw9hFFYjuJsMCdv.sutttdstrJNGa0NBJv5gt2KdnjLL3MchC64y.6qBU
- 6_Dx06rRcJjANHGX5AdFS_f6HsByhBI.77V_KlfGhpK4fTs..UI11grmp2mh8ShZENPHNtpikrS1
- hi2PkgLZyabEifI94gh4cKyAQzHWRx5BaO_nFxn8gd_Cwn5RHCdsCj.I_iJNXTvuoElRxUVYVhdI
- WkL_ci16iaD39tDki4qze5jfAGBFhrYKRs23y9_DunpLUMalsXMOXggxsqzsuHgl4Coaxygsg.QM
- yWU56IL7ayWuhIwir0BGvtmDI5JFZDh2bHtPLF7rNY2c6cX0wKUBhjEWlKYLAE3Bf3SPGmQQnGBT
- nkrtZ3wIAseZWiwiyqXofoB_y.csFlo34Zk0uGqtnbhC7.GAICrLCmGkcibh3W7cYyZawHMv5VkS
- .AKZxyosBP9i6tGYoJhpQJVBt0_QE2kb4m9.SFPmFQShrD03kTTtpxu70LFxZGdQRkgssHr77NKH
- 1PGICmyr07_Rsb7pDbvNbsC74srkiGAj.8SJEtYKiOl0eLwehXQQMFX1ILeIeq47hid2GkGQ8Jaj
- 0iNaR29UAhjbl.JGmn59l7Ou8IxmlN3DOOWE2kcF1RexrgrZTUW3S0owEnCD6XRImLjZHPBFlkt3
- 5LDqIE6hs.CuWRgeSpDn2tB5OVoAco.YYT2VrkU6EiBBJtkSSjj.MIsqktk.ApvYdf6QO7BcSdCt
- nEzYq.Oer4a1bqr_P6n1KmqtOOowNtluSwNI31PSIplFjU81kaZLjZnY55MAXzhzbSZq9FtPDOFe
- fjap8IAAQXs1JzCaUhZ67DifnHsGhd.OYuqzoH44w1VCfPd.PhDX_IrKWXsOTwfQAbxSx.YfKIZe
- HVmHnCjP8ok0j9SEk8fKuYvwgtH19lvnT_.1x0flOenm27DpDMCw0OIWvZBBzQUtZFwHXWxonD27
- dyrdGD50e.jgULa5_hsgFo2Tdrsjmxi6U8F4.ekAfOcbjNs2Zh3x3FWlzQMSABHW3jwykPcpy1E5
- TZ83gHd8bqQPi0b_JXj_YX2PI5NgxCNLh_GbGqtgsQZ_9mzrpa0sMFopmKa0W9yz3fg6._bkv1L5
- j9am4N1SnYmVi0ERqA7sf.myYALFS6HFYaoefdx1fggmFRxA4Q18y2Gyt0GF6BNNSgaBT1Br275e
- 4FqiHTx4Vl6UH4wfPcxGDJQELDw22KhBj0JY2J3I-
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: 7e8c6fca-ff98-470c-b0d4-82df8d9bfe58
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic301.consmr.mail.ne1.yahoo.com with HTTP; Thu, 12 Nov 2026 17:32:16 +0000
-Received: by hermes--production-ir2-5dd9bf4598-p4sz7 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 42224e00bccff5c6a214a8b243e0d427;
-          Thu, 12 Nov 2026 17:32:10 +0000 (UTC)
-Message-ID: <dfe71fcb-8458-47c2-92ac-2875d5c34944@yahoo.com>
-Date: Thu, 12 Nov 2026 18:32:08 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=4d2.org header.i=@4d2.org header.a=rsa-sha256 header.s=mail header.b=OGLQZ0Km;
+	dkim=pass (2048-bit key) header.d=4d2.org header.i=@4d2.org header.a=rsa-sha256 header.s=mail header.b=PxpvqTDy
+Received: from localhost (bayard.4d2.org [127.0.0.1])
+	by bayard.4d2.org (Postfix) with ESMTP id 0824B1792EC4;
+	Thu, 12 Nov 2026 09:32:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=4d2.org; s=mail;
+	t=1794504742; bh=8ilM/WW0yNFwn5Z6YnV4TBSV6++RgvlA1QK7yTEHAMo=;
+	h=From:To:Cc:Subject:Date:From;
+	b=OGLQZ0KmT6RbS9yjfZBGq5xA16IoWxPDapS1veX949CSz+4dnXF8pnjRDqSl96uIw
+	 /RNaX1TtsJq3U3Yeyp1KZOea+ZXnsau5Vtxo5S4C1vIHJsMl5ncSUfghe9LpsIOThy
+	 XnbdFelt1nJmbIvEEqP7oeyyyVqJD8vAyZwsAJ8rgcznDJyXQLxvh2rkt5hcQlex+s
+	 fNUEr5/lZh/i2eNCk5P4GLYNq+kBHk+HbHbeZCre0joQY8aghD3ffQMr6gD3jiuX3d
+	 4tRwto4nPe+QFGFqp73ax4UaN+bx8WG57GViUOpich7l5RZTavZaoK27uW3vAxwDaC
+	 i1MVN7p/3gDcg==
+X-Virus-Scanned: amavis at 4d2.org
+Authentication-Results: bayard.4d2.org (amavis); dkim=pass (2048-bit key)
+ header.d=4d2.org
+Received: from bayard.4d2.org ([127.0.0.1])
+ by localhost (bayard.4d2.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id D8aEd1t-1uNO; Thu, 12 Nov 2026 09:32:12 -0800 (PST)
+Received: from Headcrab-PC-Fedora (unknown [IPv6:2409:8a02:544a:fd80:923f:eea5:4b58:a8ed])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: wiagn@4d2.org)
+	by bayard.4d2.org (Postfix) with ESMTPSA id 0A9511792E4C;
+	Thu, 12 Nov 2026 09:31:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=4d2.org; s=mail;
+	t=1794504732; bh=8ilM/WW0yNFwn5Z6YnV4TBSV6++RgvlA1QK7yTEHAMo=;
+	h=From:To:Cc:Subject:Date:From;
+	b=PxpvqTDy/05OGbzxx6KmSi3E7lZR8dj0oxPuSad4L5qfeYqLFKvCUK1uEyAXb+fVH
+	 svCM4RihUkP1hMffaUwIk1dW/r8E7bk0JGJ7aUP5s5yEYWiNUhKswRo0Hg/F1eePAI
+	 hwl3GftustPgmILLDcUs2BUY3AQOiqUekG9OzTbYEYv5suWMTq80RZO2OS0H4ThC5H
+	 RuajiGtejBHTLTIkgdM4EAMloY7fceNzLtmkMnX/uJazj0pRRoaHBCN0FllYBeGoTY
+	 tbYlG5AVwjRiYU/zDS0nr+dH2xkpLYPahLHhkBnk82acXspQcYfpe8PkyCOi54fSaB
+	 e/h+rt2K5SRBA==
+From: Shengyu Qu <wiagn@4d2.org>
+To: perex@perex.cz,
+	tiwai@suse.com,
+	hulianqin@vivo.com,
+	i@rong.moe,
+	g@b4.vu,
+	jon@soh.re,
+	hhkieu@gmail.com,
+	panxucc@gmail.com
+Cc: wiagn233@outlook.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shengyu Qu <wiagn@4d2.org>
+Subject: [PATCH v1] ALSA: usb-audio: Add native DSD support for NiceHCK Octave
+Date: Fri, 13 Nov 2026 01:31:31 +0800
+Message-ID: <20261112173131.86655-1-wiagn@4d2.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,48 +95,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next v10 01/12] dt-bindings: net: dsa: realtek: add
- RTL8367S-VB
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- alvin.sipraga@analog.com, gusfmora@gmail.com, kuncy7@gmail.com,
- fabianotassotti@gmail.com, gabonpivovich@gmail.com, contact@c127.dev
-References: <d9da17af-f49e-4878-a8dd-59a8919e6930@yahoo.com>
-Content-Language: pl
-In-Reply-To: <d9da17af-f49e-4878-a8dd-59a8919e6930@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26943 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Transfer-Encoding: 8bit
 
-The RTL8367S-VB (chip ID 0x6642) is supported by the rtl8365mb driver
-with the changes that follow in this series. It is identified by its
-chip ID register, so it does not need a compatible string of its own.
-List it under realtek,rtl8365mb.
+NiceHCK Octave is an OEM of TTGK TT39039F01-PROMAX[1] and supports DSD64/
+DSD128/DSD256/DSD512[2].
 
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+It advertises the UAC2 RAW_DATA format on altsetting 4 of its playback
+interface, but without the DSD_RAW quirk flag the driver exposes it only as
+a SPECIAL format that cannot be used.
+
+Add QUIRK_FLAG_DSD_RAW for the device (USB ID 3302:39c3), so the altsetting
+is exposed as DSD_U32_BE, enabling native DSD playback.
+
+[1] https://www.audiosciencereview.com/forum/index.php?threads/nicehck-octave-dongle-dac.65535/post-2390027
+[2] https://szttgk.com/product/HIFIAUDIOMODULE/846.html
+
+Signed-off-by: Shengyu Qu <wiagn@4d2.org>
 ---
- Documentation/devicetree/bindings/net/dsa/realtek.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/usb/quirks.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/net/dsa/realtek.yaml b/Documentation/devicetree/bindings/net/dsa/realtek.yaml
-index 473facd..ca775f6 100644
---- a/Documentation/devicetree/bindings/net/dsa/realtek.yaml
-+++ b/Documentation/devicetree/bindings/net/dsa/realtek.yaml
-@@ -43,7 +43,7 @@ properties:
-       realtek,rtl8365mb:
-         Use with models RTL8363NB, RTL8363NB-VB, RTL8363SC, RTL8363SC-VB,
-         RTL8364NB, RTL8364NB-VB, RTL8365MB, RTL8366SC, RTL8367RB-VB, RTL8367S,
--        RTL8367SB, RTL8370MB, RTL8310SR
-+        RTL8367S-VB, RTL8367SB, RTL8370MB, RTL8310SR
-       realtek,rtl8366rb:
-         Use with models RTL8366RB, RTL8366S
- 
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 4ec1f2a0b359a..d59eef24363ec 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -2829,6 +2829,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+ 		   QUIRK_FLAG_DSD_RAW),
+ 	DEVICE_FLG(0x3302, 0x17c2, /* TTGK Technology USB-C Audio */
+ 		   QUIRK_FLAG_FORCE_IFACE_RESET | QUIRK_FLAG_IFACE_DELAY),
++	DEVICE_FLG(0x3302, 0x39c3, /* NiceHCK Octave */
++		   QUIRK_FLAG_DSD_RAW),
+ 	DEVICE_FLG(0x339b, 0x3a07, /* Synaptics HONOR USB-C HEADSET */
+ 		   QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
+ 	DEVICE_FLG(0x3443, 0x930d, /* NexiGo N930W 60fps Webcam */
 -- 
-2.53.0
+2.56.0
 
