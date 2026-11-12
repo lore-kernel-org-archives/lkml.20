@@ -1,47 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794480192;
-	b=KqQ4ztSRCTBXd1aVULePEUP7Puiqz7o/PMqii3PSh9o2RcR1aFZt9V3PKW0VQNBjRHBs
-	 BTBWEqPGT+skW4O2KiumubLjNjLUPForeLgV8d0mI5o/MZL9nJ2rdtCqnUS0mZoXEP2vf
-	 WAxUl2JKcsoSxLu1mQsL2zqv32mt80kpwfH64fSFG8Is1tar/VlEJVie5vPY2DO/Nb/Sd
-	 5at/WKQScrHHCu4/9u4xmOOlE1AOhe8GEX6WDx2CwQXMI8b3f+DFIOqzKnGunUfx7lxKA
-	 KDRR924V91YNhgEZn7xLgJD6SIjsXUF7nGzlg3Khpo+LMOE1gvFYm3jDyjIzNK8AbMg==
+	t=1794480198;
+	b=kMw4uISQinIS4FrDYAGI6OS/hteYVjmokBjeQvLWsoRGadb3tbDowPWlxBD1GmgXNp+j
+	 WqncAgWusU3+/aZX01Vpi4YkDlzX1ow/YPwSKa2xxonjo1KecDWq39H/ZmlfxqzqZI9WW
+	 wKhx9xqCX7EC4Opk5IxOvptPQj9cJ2uXVCH0m4fsBHDTv0t7zUJiahoEy1LY2QAFKn8x4
+	 1PmzyjvtHe7T7ah1Euni1QMCOim4B/UNa0+kKnOoSxVBsp7KGj/8uZPoHBMtbNA82MTJO
+	 84Syt1128lM+vyP+m+17ivNKJiiCQrEUpa98tVrKMAKmRlQ9zC5Y6s+LKFaTPQ75o5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794480192;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=dNp3udoHGBTm0oHVGK0tf8e5QbmrNR/x3XeLPS1gMFU=;
-	b=oE08mumgM8+2Hi7Tm4rfe9zJ6LXbi+43dah3b+NOInV/XUOCHW9FlJo1HiAKwjmJS0sv
-	 +7z016n/rmekHAm8v6TtVYUoZCsv4GB6D9uo8xSqGnx/tP/rqJYlBH1cN27RQBbAhIjc0
-	 aRUeBxXEl/fS/9urTeUmTllO+6p+7af5UWqugoq9gw2yIntXE48wgoFdHQ2IkbLjspxM1
-	 0qwVZPq2kFQr0cmzq+zUXFgYc3EpqWKw48CeGii/koIpjX4Gccfa/7/G7JxTDp5Mgrboj
-	 r+O3UkYMn1PGVaHP9lWIWRQ8SiPBM0men+F4I0rFU8Tbz813y2gXAlYQBxRQBswt2ow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794480198;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=X2j4x6ETnjsd3Kk7UiXLGfpl+QRCIcV4hL4S2HQyUOs=;
+	b=mN9AC0Ex7B+D5atKdwsnTFBIYednTNBMHoCZPCvPbFbLDadCI3Nb0+UBTKX550SfRzT8
+	 0U3gFmbqNUNuKVegrien2LL3msCz+aYUuazxcFYG8gjZUUmNLw2qx7SK6wIfIfZvc4JIQ
+	 XOuomNXOcmycIvBE2GCjUWN3e1u0vuP3kxJZ1dbLiN7iFuB8s4ez4qvyXhSnNv0d4TWG2
+	 dF1NedfWdcxVedU3pOqMkBAcb7tfvRKiZb0155hjkmiy/dwKQzGYdFpco01WWq8wB5+H+
+	 GBwnU8FZxBtyqhcZXGITaCeAqBezlg2lraF80m7nclPEtDFSu5qtUy2042HOx/nbO3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I0TPDV43;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6722F606A885;
-	Thu, 12 Nov 2026 10:43:12 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="sz/bRcPX";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 787B4606A336;
+	Thu, 12 Nov 2026 10:43:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 787B4606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I0TPDV43
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 677411F00A05;
-	Thu, 12 Nov 2026 10:42:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794480192;
-	bh=dNp3udoHGBTm0oHVGK0tf8e5QbmrNR/x3XeLPS1gMFU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=I0TPDV43709xds1YjFciabcX8qY1kutyiqT4lX2KKlYro1DwODMPjRG7nVRyeYq66
-	 vbZLurqiksVuDaoY1LkD/b5xi6IUC05VrWqzoS8cg3dmM9nvkWpd4OgnlddW53//yA
-	 122d/AkBmYZZwYRJlhvhMXsS8VBFwcTE316zNFd+ifJo08ZSFBQlXmz7faIhXQ/gQ+
-	 D5NSx6U8O4FZXgtjJm9Q3eL7+2hksA9jy6WSRf07SPq4o97j9rpTcs6rKAst/0vPMl
-	 zHVfGezyt9McTCfCB2BTmdo44x/6PrUKOMOUdEqC7pTDwmEKnIu/+nlrdqSywBLRqG
-	 moyZYmFfXgPEw==
-Message-ID: <f5a411f7-ea17-451d-9c43-26a68464c6d2@kernel.org>
-Date: Thu, 12 Nov 2026 11:42:55 +0100
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=sz/bRcPX
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9CC8C153B;
+	Thu, 12 Nov 2026 02:43:14 -0800 (PST)
+Received: from [10.0.129.47] (e122027.cambridge.arm.com [10.0.129.47])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 76C8C3F673;
+	Thu, 12 Nov 2026 02:43:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794480197; bh=xDR73f4nxpZk5DSaOewf66eooDmTQ5dy0pwmOSiLIuw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=sz/bRcPXFEyNa7belfSW5kTpVnMxp65VhQF1lieCCf0rIAi0oiwk3xn+JZFcig9CD
+	 1gcmn08lsRczfyJ6K8ZbBvOpIDzJ9EnXmgUZqfKoqEarzelQvs12nZW7bi6qrs3iCC
+	 KiUIJYqG1GFIcWLl7RHP5oXDUOBXgOfs70RBQC7E=
+Message-ID: <1e02dfff-c1ad-46bb-9834-fd4bbaa46179@arm.com>
+Date: Thu, 12 Nov 2026 10:43:13 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,109 +54,131 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/9] mm: limit pagecache folio refcount when mapping
- pages
-To: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
- Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
- Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>,
- Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Steve Sistare <steven.sistare@oracle.com>, John Hubbard
- <jhubbard@nvidia.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
- Josef Bacik <josef@toxicpanda.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>,
- Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
- linux-arch@vger.kernel.org, iommu@lists.linux.dev, netdev@vger.kernel.org,
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-References: <20261110-refcount_overflow_stable-v3-0-318625d63a98@kernel.org>
- <20261110-refcount_overflow_stable-v3-1-318625d63a98@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261110-refcount_overflow_stable-v3-1-318625d63a98@kernel.org>
+Subject: Re: [PATCH v2 02/12] KVM: arm64: guest_memfd: Check mmap support when
+ preparing memslot
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
+ Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>,
+ Oliver Upton <oliver.upton@linux.dev>, Zenghui Yu <yuzenghui@huawei.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Joey Gouly <joey.gouly@arm.com>, Alexandru Elisei
+ <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>,
+ Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev,
+ Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
+ Gavin Shan <gshan@redhat.com>, Shanker Donthineni <sdonthineni@nvidia.com>,
+ Alper Gun <alpergun@google.com>, "Aneesh Kumar K . V"
+ <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>,
+ Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Kohei Enju <enju.kohei@fujitsu.com>
+References: <20261111145758.217946-1-steven.price@arm.com>
+ <20261111145758.217946-3-steven.price@arm.com>
+ <fbc33983-cb8a-48e4-854f-ce009cc5668f@arm.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <fbc33983-cb8a-48e4-854f-ce009cc5668f@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
->  
-> diff --git a/mm/filemap.c b/mm/filemap.c
-> index 9871b4f32a916..0f6d57432a7e5 100644
-> --- a/mm/filemap.c
-> +++ b/mm/filemap.c
-> @@ -3968,6 +3968,11 @@ vm_fault_t filemap_map_pages(struct vm_fault *vmf,
->  		unsigned long end;
->  		vm_fault_t map_ret;
->  
-> +		if (unlikely(folio_ref_count_over_limit(folio))) {
-> +			folio_ref_dec(folio);
+On 11/11/2026 15:21, Suzuki K Poulose wrote:
+> On 11/11/2026 14:57, Steven Price wrote:
+>> Check the guest_memfd backing file when deciding whether an arm64
+>> memslot has mappable memory rather than checking whether the slot is
+>> gmem only. A public helper function is added to be able to reuse the
+>> static kvm_gmem_supports_mmap() function.
+>>
+> 
+> Please could you explain why we need this ? Why not rely on
+> kvm_memslot_is_gmem_only(), which already tells
+> kvm_gmem_supports_mmap() ? With inplace conversion support gmem supports
+> mmap.
 
-Going over this once more, I'll just use folio_put() here for consistency.
+Unless I'm missing something it's still possible to create a guest_memfd
+that doesn't support mmap() by not passing the GUEST_MEMFD_FLAG_MMAP
+flag. So kvm_memslot_is_gmem_only() doesn't actually guarantee that it's
+a guest_memfd that supports mmap().
 
--- 
-Cheers,
+> 
+>> Signed-off-by: Steven Price <steven.price@arm.com>
+>>
+>> ---
+>> Changes since v1:
+>> - New patch in v2. Check the guest_memfd backing file rather than the
+>>    memslot flag when deciding whether arm64 can map the backing memory.
+>> ---
+>>   arch/arm64/kvm/mmu.c     | 7 ++++---
+>>   include/linux/kvm_host.h | 1 +
+>>   virt/kvm/guest_memfd.c   | 6 ++++++
+>>   3 files changed, 11 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+>> index 1db10d8d6db7..a146f6cde3d0 100644
+>> --- a/arch/arm64/kvm/mmu.c
+>> +++ b/arch/arm64/kvm/mmu.c
+>> @@ -2839,10 +2839,11 @@ int kvm_arch_prepare_memory_region(struct kvm
+>> *kvm,
+>>           return -EFAULT;
+>>         /*
+>> -     * Only support guest_memfd backed memslots with mappable memory,
+>> since
+>> -     * there aren't any CoCo VMs that support only private memory on
+>> arm64.
+>> +     * Protected VMs currently require guest_memfd backed memslots with
+>> +     * mappable memory to support shared mappings.
+>>        */
+>> -    if (kvm_slot_has_gmem(new) && !kvm_memslot_is_gmem_only(new))
+>> +    if (kvm_arch_has_private_mem(kvm) && kvm_slot_has_gmem(new) &&
+>> +        !kvm_gmem_slot_supports_mmap(new))
 
-David
+Sashiko has identified I've screwed up this condition though.
+kvm_arch_has_private_mem(kvm) shouldn't be in there as that allows a
+non-private VM to bind a non-mmappable gmem.
+
+>>           return -EINVAL;
+>>         /* guest_memfd is incompatible with MTE. */
+>> diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+>> index e7fc94e2910a..f65728a713ec 100644
+>> --- a/include/linux/kvm_host.h
+>> +++ b/include/linux/kvm_host.h
+>> @@ -2614,6 +2614,7 @@ static inline bool kvm_is_private_gfn(struct kvm
+>> *kvm, gfn_t gfn)
+>>     #ifdef CONFIG_KVM_GUEST_MEMFD
+>>   bool kvm_gmem_is_private_gfn(struct kvm *kvm, gfn_t gfn);
+>> +bool kvm_gmem_slot_supports_mmap(const struct kvm_memory_slot *slot);
+>>   bool kvm_arch_supports_gmem_init_shared(struct kvm *kvm);
+>>     static inline u64 kvm_gmem_get_supported_flags(struct kvm *kvm)
+>> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+>> index 8c97a69b16dc..3dd8d227bebb 100644
+>> --- a/virt/kvm/guest_memfd.c
+>> +++ b/virt/kvm/guest_memfd.c
+>> @@ -442,6 +442,12 @@ static bool kvm_gmem_supports_mmap(struct inode
+>> *inode)
+>>       return GMEM_I(inode)->flags & GUEST_MEMFD_FLAG_MMAP;
+>>   }
+>>   +bool kvm_gmem_slot_supports_mmap(const struct kvm_memory_slot *slot)
+>> +{
+>> +    /* The guest_memfd file is pinned while preparing a new memslot. */
+> 
+> We should gate this on kvm_slot_has_gmem() and how do we ensure that the
+> call comes after it is prepared ?
+
+I'm not sure what you mean by "gate this on kvm_slot_has_gmem()" - yes
+this function only makes sense on a gmem slot - the user above checks
+that first. I'm not sure what value the function should call if you call
+it on a non-gmem slot?
+
+Thanks,
+Steve
+
+>> +    return kvm_gmem_supports_mmap(file_inode(slot->gmem.file));
+>> +}
+>> +
+>>   static vm_fault_t kvm_gmem_fault_user_mapping(struct vm_fault *vmf)
+>>   {
+>>       struct inode *inode = file_inode(vmf->vma->vm_file);
+> 
+> 
+> Cheers
+> Suzuki
+
