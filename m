@@ -1,103 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.49
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.53
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794513202;
-	b=NuKT11iPz+OzImxCQydRxp/zW/YeQbCqZtGk2AN0P45vkyZ2ilq6lPYszjgg+kY7VwqU
-	 I6NEy9slaMCOxasxpsasR7tu37rsHjZNISpoJfsQPPDUoTYCcQ4nLy+Hor2EhTwliGfRJ
-	 8OVFScAn+XJWxin73wDyPEikcqeOvrX86bxB1lW9f0YwYX9FX/0iw+f1VqSQhr4HQdvaN
-	 FL/+Bu96XyEF5qpff0QJP8OjQWd8QaRw7jtkexGFPvpfyjEpPXP49JO4B2s2SiBGKLCaj
-	 XgEp8vhY1VSjpm95G3iwVLhlzBeJKisiuTIfRZsXecC+Cv5o9cTSIL+LWWolmF+JqgA==
+	t=1794513258;
+	b=uy4xhflYEDrPBNlcShO1QNEYNivwHKB5d+6wlRENhq3t5cDF+S8fDukGMP7QJ0VPQ/F2
+	 DxblAPHpmPlpvKYQ9YYoPHVu0iL5FKtH9yj9vjgTX+U7/QJEtTUkAyPheHHrwUfMUzpio
+	 s97FDSDV5YH8hfPbI/u3IKBOkHFcUVcyToSCKynJc5n/VV4wpvdscQjQn9TouiQFpwlOC
+	 POLzEjwzOua6fhg20gWvoRUtG+qCwVMs3EkINILnxV39V7ebqx726PaDIJaxTUXFPsdMy
+	 s93n+j0dpAN3/yXYdL7BOffsPslt1u7K6a9P5VLg04Gbky6qn7DtU7vvsOTP3GZeVqw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794513202;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-ID:References:In-Reply-To:To:CC:
-	 X-Mailer:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=GNKAZUVbORdQSI45Uga8oImsAkhNEQ9gkzJfJOThZjg=;
-	b=LTl2PHNIJpj1uPDdmAa0OtJSY6E0ws7R3oT6S/FsIKq2imbveAALANpfedu9IrdkMHDJ
-	 lgLzn5FNtB5VUdxrDDnbXLvkk9fo48S68JkfvevsqV45RXbRTXxA8UMTzr31PzwkePaMd
-	 iWpn4/Vc9tFLEODF6KqZS3mk1OsgqJBuVJ9lX8Lg1O8VMDARB2Dm30VFXN13E7N0cYR+H
-	 DRS49snveuHnCdqGdk/65/LHctIOIS6Pwce2TkQEdyWdNRdldQDSxlYzpmZb7SZn77uDI
-	 DVgXyQNAky+TkpexXjVcPW4vgDzHGiL48UZWs0PHaqZXxpH8ao22BIueTMKH3zprKjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794513258;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=rR5/yMID20iQAlo6wmBhffVoxV5K4QIpDT1XmQHAm40=;
+	b=FELDFBhhP4LdLYxKWU2wz5VLjYri15ofjdT/ysXu+9HuRTySlJwGUD4vtpBy/P+AGWeg
+	 2GPecSI3FPOHZjHw16+lTFqQpiLI84WSbJcB4rUuv1CHCbdltY+HArGIzsuwkpebPqA+W
+	 elj7Tb+4jHDEmgwLZcNoEMj0M4RzmYQlbekNW1Xyyl1aeEI0kUD8gw7s2Unn3YAf9ZieC
+	 TpLQQ1bhHR1nOHZNVbqQvMBzqyIunTt66OrdaEI69wLXnS9vecaDc201Z6jRcJbQsV/xS
+	 XDPq5H9Uc7dwnqLkQXvzfG9z0Rs0GReZuBgvzwilJa/EoYeZzTVzDAfIJcbXK+4A2RQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=zjnWBDWt;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.49
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011049.outbound.protection.outlook.com [52.101.52.49])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bYvgJs3X;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.53
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD3760A2612;
-	Thu, 12 Nov 2026 19:53:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BD3760A2612
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D89606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:54:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68D89606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=zjnWBDWt
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k/Luasb2L+7L89is26Z+ZGWjPo14KO6/MmWiLmu6X02n2qTzeEKGiHtOZytbwv8PkyHu3+g+deFPr00KGz1EwYTVN47Lw8J8R53J/GPKj4CJ00g9BCHUbyPwAnsKY9VG03v8/AsEyoSvqnWxenha2VhNQZRQ3ujeI6ltnCM3MxIo2zp/Q88lT73FmaKTLUa1PvRrb8BPl9bdIf9sSky4QwnPGvXszAjudv2en21FEP5UgGbEuTUJsopmRNUdD/B2IJBQNlKEx2yu3xCmqQLfumQu/WzwfxyYLHJmPJip2Ll10vU8sxS8of8itZOB9yEZ2YNY+qQJY3xaW2CNRWGvBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GNKAZUVbORdQSI45Uga8oImsAkhNEQ9gkzJfJOThZjg=;
- b=HLDZSrPrN/cP/9KI3+7rbngG9NsPVpxL0Gmo011va53S2yn06o5xqBwAJAKqEiD1uSJwyQNFvAXd8gZ66BmWEyQv5s3lJRNAy70VKWyXPPaK/sJVngPl382nJJW79CS/ZGL7dmgKn88y/33zXPtqlkrX7izx8kCcuFOvVyvw8sZLsbf3KfIkWKTbUSyzWIPfpO5c44jGK3rPuZq+CyvvtQHGp3JsMdyWbwhtKnUZl/wZjWl3SHdunUb+eoJacJG/bHVL0Z6QhTNj9DDG98NAAJ6vucsSfXAoeqcpXdkN6xx7598bmp6zLWT/uSq/2jtmYg9pb357wSVdz5OOB7buEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GNKAZUVbORdQSI45Uga8oImsAkhNEQ9gkzJfJOThZjg=;
- b=zjnWBDWtOKxfQtOdviR+WNg6wuMnijiW7cySE+dWc55BstlATt4PYW7TqLIVGDYbJTClX6cr22sLTQK9XQNjlTq7SqO/xLyLyHtbVfe4Tr61rWiyC/8XolbR6a2GS68E7XrTkP6EZ4GKBUXoPCtI0oJQfoN+CvCwA92s6Pts3PE=
-Received: from CH0PR03CA0022.namprd03.prod.outlook.com (2603:10b6:610:b0::27)
- by DS0PR12MB8200.namprd12.prod.outlook.com (2603:10b6:8:f5::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
- 2026 19:53:14 +0000
-Received: from CO1PEPF00018868.namprd03.prod.outlook.com
- (2603:10b6:610:b0:cafe::48) by CH0PR03CA0022.outlook.office365.com
- (2603:10b6:610:b0::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Thu,
- 12 Nov 2026 19:53:13 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CO1PEPF00018868.mail.protection.outlook.com (10.167.249.153) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 19:53:12 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
- 2026 12:47:39 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
- 2026 12:47:38 -0600
-Received: from xhdsneeli40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Thu, 12 Nov 2026 12:47:33 -0600
-From: Srinivas Neeli <srinivas.neeli@amd.com>
-Date: Fri, 13 Nov 2026 00:16:49 +0530
-Subject: [PATCH net-next v4 5/8] net: xilinx: tsn: bring up the endpoint
- MCDMA channels
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bYvgJs3X
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-67c2c2ac1c3so246876d50.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:54:17 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794513256; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rI41SY5UqcQLu0iK1eLvIn4G0kBKIjeEG9ZxXZLhtEtegMFXPdkzhGz8LL0+5rcSP6
+         4K3Uh76la5FCw9Gm3UT8Bje3vFXNqGAMFq1rOQz5j7T57vrpkg+kPm2F0W3cZAPwsb8w
+         S7YxHO5Zn3B9hKMVsjX12gFicmyqJq77CtLxVPiGLXDpKvPzvZO8TWdSyVz7f8/igExt
+         OnX2a2j6eYkM+faGL1WKohjlPXaqbDyEI3PT7lG8Ohcawsn+s8C1wpU4vrfF9MvGXYW/
+         2SXpLx8C25DF2nkrTFUq21+cRfRL8xzUJV0M2r/WKM+Cps9SC8Y+5kzpdBMGSg8/M9rJ
+         d3PQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rR5/yMID20iQAlo6wmBhffVoxV5K4QIpDT1XmQHAm40=;
+        fh=0hFHwDSqBEvvoJcGZ3MkvvvH4M4zKalBdK9vbCVcLf4=;
+        b=QgOpFhD9hQoQPRihdIfZd7lGbcqahKFFJWy2Yst58QKeNLFkrL3Ezz/yROct6bTpgP
+         yWprEBVQ/4Ca/TUeQAcOgsw8yAX5hgNg35K8WhBiPNHdzZBJnMvQVG46NoH+uf7/IFhC
+         ggt8bqzylqrVrZxd+R1IN6exv/x7i1V6IvPqFhBrEvbuzDouhHlDRhn0Y71A5snuOKoF
+         xGzJFFbv+T7yx6jhi9QWqv4t6CGpJHFJPq3p79nFfZfWphJ/29nBlDzqZuyPzE/qmQnI
+         mU7da4oxXKoZOrrI4y7Pb2SYORxHsKFUjreMpUO8ULEutMDoyAgdU7AgSPgguQz8dmso
+         Lu3Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794513256; x=1795118056; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rR5/yMID20iQAlo6wmBhffVoxV5K4QIpDT1XmQHAm40=;
+        b=bYvgJs3XA1sAEV8iZmi5xIHD2tzK4xO0k15q8Rnuu/qFfXObetviw8pm4UW5ZjBvhT
+         oGkfxykjCb61us4SEqjEnKcXbdDaoYuon7Ek4EY6JTLcdteP06eb+quZoMSLd+5wDVx8
+         6whO02WGQqP4Uhq5v6RXld4LJoU2CykkX61t298/s+7bGuLU6/b1eDpNkFYa1fiXh23A
+         2m+/JbW27srvr17XFg5G035uOQKJi759ODasLPqXy3nRhRWC9MHfnhU1zYzrq4xR4ofI
+         jvwaJQAasiGrjJKp/gyKVxwK2vMyYIfZOinI1li6CrQ4Et4cK08QCWClruXUze4vRJzt
+         Hvow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794513256; x=1795118056;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rR5/yMID20iQAlo6wmBhffVoxV5K4QIpDT1XmQHAm40=;
+        b=YgFGiyPvdzHnjjB4yrDkYLg328xZv3OPbSyKfG7n2OlDEyx/OiMy1YWId2Tnauc2nc
+         NQgqmYVuLl0rRo9T7RoENJsJmwA6iYHe4ZVU8Ckt+oIvK2mkQPMOGDzh5q505ALLYO0T
+         Wv+SNCcU0i1G0T+UJ1yfmSafIY4ow5eYvkW/W6r6M7CzEelSdDwZecjgEB5jp+AD50MR
+         OcJT7s0fo7yfN3zCpV8St7317/TA3I5nsagLftJDnYABSMC4SzunDpcm62PTDDTn77KU
+         osoftezxsvjksMClP1RMs14bAz4rlPpTfvBQjkPYPPftkAThpIYr9qxMBw/xAUd2bIBD
+         cffg==
+X-Forwarded-Encrypted: i=1; AL+hErF9htFt1qzrFwRhAkt8y20StnSGut9wvxEJHOkceLcsvAlwOAyu1aHJ694VSybn5jR3sSWUYA/4NXOBPsA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8AKexDfwO/zlKIw1qysuwUk9DMDa1crFx0aEtjpShsHY2JivFW
+	oxlEoPaIEsQNbEmfnfbQCztZcJEoRb3WELtKPg2jp/CRVx1nx6gIen/Gdw20mWJjfd92QaGimf1
+	J9uE6gfqjmmPlGtYLK8GoCNkJPu4wngs=
+X-Gm-Gg: AYBFou1XiLQcS6075d/oEQSXyrBq7YDyNDvujZCvhk8iq4WNiuJ6me8cQ0ii8br9cGX
+	nMlzC5KbhxbajTDda/4J2oK6CcWM+0cf8WN/WraV0wkwJz2GkFFss0DBIq7XbwO6TUYTLVoNi3C
+	44/LblfU+h/rkB8y8lRsBrJC6bvx8qiFmOsZ9hbDgvFWYKyMBEFvMji+EYLcWdMIdO6SOrcwU9K
+	Ef3kU2B/DhDPvLRvswGDwfmBLqXNuSsUVOjg84dvqIPHEHR3xLNINvr+Zn4gvRZwQPUnvyN6CCu
+	mW1FEsq49ap/IBVAHxCcEMPKIE9GL2WySZ3co6Q74b0Q1oFU7XwitniQRXu5s8jf3dx9Xrt2Fu8
+	OzHnpH5/iNsjqeatWzDATV50U8YFRz6jsWPrhQA8xgGvnxOM+xnlz5+AxfGkEG0zSMVldBZiZ2d
+	k+BMzAG5ms0f/vGiTxpY/jxHNc2qiOQ8WrYi/P+mYe4zyGSjvzu+YSfKpY5lmlTsm7TuFHkix6a
+	G2vEstd
+X-Received: by 2002:a05:690e:4881:20b0:67c:1887:ff57 with SMTP id
+ 956f58d0204a3-67d895a8a51mr219004d50.23.1794513256080; Thu, 12 Nov 2026
+ 11:54:16 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,528 +106,334 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261113-patches_v2_external-v4-5-56bb26f042a4@amd.com>
-References: <20261113-patches_v2_external-v4-0-56bb26f042a4@amd.com>
-In-Reply-To: <20261113-patches_v2_external-v4-0-56bb26f042a4@amd.com>
-To: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>, "Michal
- Simek" <michal.simek@amd.com>, Sebastian Andrzej Siewior
-	<bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, "Steven
- Rostedt" <rostedt@goodmis.org>, Eric Dumazet <edumazet@kernel.org>, "Eric
- Dumazet" <edumazet@kernel.org>
-CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-rt-devel@lists.linux.dev>, Srinivas Neeli <srinivas.neeli@amd.com>,
-	<git@amd.com>, <neelisrinivas18@gmail.com>
-X-Mailer: b4 0.16.0
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00018868:EE_|DS0PR12MB8200:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4cfd456e-bcf9-422f-7a8d-08df40f6958c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|7416014|1800799024|376014|23010399003|36860700016|6133799003|261009223027099003|10067099003|261021123027099003|261022105027099003|261021135927099003|261022113327099003|261022115727099003|261026130827099003|261026140227099003|261021121427099003|261028144727099003|261021130227099003|261022075727099003|261026121527099003|261102123227099003|11063799006|56012099006|921020|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	Vhx19UIp6jh2BGx6WkfNs1o5JaMkCQBZgUcUQ7SRa0ucpYMI7ikCA8tqs5TAceYRDK6senVqFwgQ/el+xcTsbGo1y8JWT8B+rlpit5FhpW9b/Gq/aIK4O+37OziYQZ4QRaTNSy8cQBQoU78TjzS1m1wGmu3QF3Ijp2F21zqhfOIP/n7HfuE8allphZlo50Mjw95m2FZq4LCd3qD8x2gE/7fw7B+pNXbDwsbEyz6YXVJtQWap15HeUluEHu/8XscorxRp/O0C1Ds96N1H5Wnh2Kc/ZUlpqyZViKz13Ura1fgztiJ2s+1O9cqqbpox4xtUp5Ni4bJWV83fi3tbRsUki/wKJNBst+DeX4sJ6bYYbeCDuWyQQzr0hC4FJMl4gvjfD2LKMVJpcJUpWQp/eK8+Kdf127w1+CcYeKRVESby7LjbeR+FQjE9DUr+b04MDH6fziIV1ullfalEd03UZgOluWAe0Zz/SmQujzQLrt+XwZhgOgoK89pECezYPG+yUSvLOZd+UDUe+MdpQ8aZgeD+rBBWEbyQ0J1VmdXw6yBmIKPg70aMbnclYqqfksArHg72+9H4T+rEjtudswiZBXxLlyrFPQbyJdf7BVPbfX4CFp97Diyip8eygjOBbt/A2/WPjoz9hZpyW0NWvepapYcnbvNRlGheHi8BtjjLeconFaQ0yLr0L6n2KjlphNiRWj1eCsloiowy6eISCz/zxKKPAmzgveESzCt1GVsmD76LVUbJYsl7mmSjdgpbcbCkqXRbFcgRUQzoE6yzeTLzBwGDVQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(7416014)(1800799024)(376014)(23010399003)(36860700016)(6133799003)(261009223027099003)(10067099003)(261021123027099003)(261022105027099003)(261021135927099003)(261022113327099003)(261022115727099003)(261026130827099003)(261026140227099003)(261021121427099003)(261028144727099003)(261021130227099003)(261022075727099003)(261026121527099003)(261102123227099003)(11063799006)(56012099006)(921020)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Fr0OAhpy1CoV6wMGzk9bqTbAicJKa+L3GxJ07Nzd4Mb63ZstvcSX1AXEneo9Uix4geTiEVX1jIcUJwo0zKXWpTQoUg/Bb2raNSD4K/2taFGhau0Rb6nYSl2Lz4gSeAcYx8MCycFrjDr+DiJbU3Gkdo8sHfV6HSDEIFXE/CvNMOjdLHnVALxnSqERu2oAKQVolYnbIoTvjbb9aYdhjZHTPMzyAdoq9Wuph6U2+jfOgqN+Y+rWG7UR0DcNuRnuCyZNHArY56sd7HqDVH0Rd0nwiOgo1nf6E7PM+/oOX0NNz9w7uQPwBPo1bS7QnbaxpeGnZnOrCPybshIad1eYLqnwzL75iyCQ7ZNGyRZr2L9K4YMPyinTWDDq1c6ptmOfoN4TGdeh2e3Gxbsyh2z1UEmp8dy4vAMUyl1VJPN5O8baTNsgHyUqyoEOW56ARBu+kq5M
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 19:53:12.3692
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4cfd456e-bcf9-422f-7a8d-08df40f6958c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF00018868.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8200
+References: <20261112173812.18696-1-piyus@iiitd.ac.in> <20261112173812.18696-2-piyus@iiitd.ac.in>
+In-Reply-To: <20261112173812.18696-2-piyus@iiitd.ac.in>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Thu, 12 Nov 2026 14:54:03 -0500
+X-Gm-Features: AclHuK_lkn4_D_KourMkZU9cofz_4_L2A0BKE0kH3D7W9IXvjBxYzT9Avx9Y52M
+Message-ID: <CABBYNZK4akYzoWc97v8FTXc77+godNTHASn8ZnfNji=jPd2oiw@mail.gmail.com>
+Subject: Re: [PATCH] Bluetooth: L2CAP: clear the SDU before the receive callback
+To: Piyus Kedia <piyus@iiitd.ac.in>
+Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Kapil Vaswani <kapil@presceralabs.ai>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Before the endpoint can move frames, each MCDMA channel needs a ring of
-buffers and a live dmaengine channel.
+Hi Piyus,
 
-Request every TX and RX channel named in the device tree at probe and
-hold them for the lifetime of the device. dma_request_chan() returns
--EPROBE_DEFER until the MCDMA provider is bound, and probe is the only
-context the driver core retries, so acquiring the channels here keeps
-the deferral where it can be handled. Holding them also pins the
-provider, so the channels cannot go away while the interface is down.
+On Thu, Nov 12, 2026 at 12:38=E2=80=AFPM Piyus Kedia <piyus@iiitd.ac.in> wr=
+ote:
+>
+> l2cap_ecred_data_rcv() completes a reassembled SDU by calling
+> l2cap_ecred_recv() with chan->sdu still set, and only clears the
+> reassembly state after it returns:
+>
+>         if (chan->sdu->len =3D=3D chan->sdu_len) {
+>                 err =3D l2cap_ecred_recv(chan, chan->sdu);
+>                 if (!err) {
+>                         chan->sdu =3D NULL;
+>                         ...
+>
+> l2cap_ecred_recv() hands the SDU to the channel's receive callback,
+> which takes ownership of it on success, and then updates the credits:
+>
+>         err =3D chan->ops->recv(chan, skb);
+>         ...
+>         l2cap_chan_le_send_credits(chan);
+>
+> l2cap_chan_le_send_credits() calls l2cap_le_rx_credits(), which reads
+>
+>         size_t sdu_len =3D chan->sdu ? chan->sdu->len : 0;
+>
+> so between the callback consuming the skb and the assignment above,
+> chan->sdu is a dangling pointer that is dereferenced.
+>
+> For the 6LoWPAN channel the callback frees the skb outright -
+> chan_recv_cb() -> recv_pkt() ends in consume_skb(skb) and returns
 
-Reset the controller once at probe through the first held TX channel. An
-MCDMA soft reset resets the whole core, so any channel of the instance
-reaches it.
+Looks like this comment doesn't hold:
 
-Give each channel a ring of preallocated SKB descriptor slots when the
-interface opens, and tear the rings down on stop, where
-dmaengine_terminate_sync() returns each channel to a clean state. Add
-the XILINX_DMA dependency for the dmaengine and Xilinx DMA APIs.
+https://sashiko.dev/#/patchset/20261112173812.18696-2-piyus%40iiitd.ac.in
 
-Co-developed-by: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
-Signed-off-by: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
-Signed-off-by: Srinivas Neeli <srinivas.neeli@amd.com>
+The 6LoWPAN does actually free on error as well.
 
----
-Changes in v4:
-- Describe @dma_address as the DMA address of the first sgl entry. It
-  holds a dma_addr_t from the DMA mapping, not a physical address.
+> NET_RX_SUCCESS - so the read is a straightforward use-after-free that
+> KASAN reports:
+>
+>   BUG: KASAN: slab-use-after-free in l2cap_le_rx_credits
+>        net/bluetooth/l2cap_core.c:576 [inline]
+>   BUG: KASAN: slab-use-after-free in l2cap_chan_le_send_credits+0xa8/0x3e=
+0
+>        net/bluetooth/l2cap_core.c:6811
+>   Read of size 4 at addr ffff88800e134070 by task kworker/u21:2/11352
+>   Workqueue: hci0 hci_rx_work
+>    l2cap_le_rx_credits net/bluetooth/l2cap_core.c:576 [inline]
+>    l2cap_chan_le_send_credits+0xa8/0x3e0 net/bluetooth/l2cap_core.c:6811
+>    l2cap_ecred_recv+0x63/0x120 net/bluetooth/l2cap_core.c:6873
+>    l2cap_ecred_data_rcv net/bluetooth/l2cap_core.c:6976 [inline]
+>    l2cap_data_channel net/bluetooth/l2cap_core.c:7028 [inline]
+>    l2cap_recv_frame+0x6c3c/0x9650 net/bluetooth/l2cap_core.c:7162
+>    l2cap_recv_acldata+0x6fd/0xe60 net/bluetooth/l2cap_core.c:7902
+>    hci_acldata_packet net/bluetooth/hci_core.c:3865 [inline]
+>    hci_rx_work+0x3c0/0xbe0 net/bluetooth/hci_core.c:4092
+>   Freed by task 11352:
+>    recv_pkt net/bluetooth/6lowpan.c
+>    chan_recv_cb+0x88/0x150 net/bluetooth/6lowpan.c:367
+>    l2cap_ecred_recv+0x61/0x160 net/bluetooth/l2cap_core.c:6864
+>   The buggy address belongs to the object at ffff88800e134000
+>    which belongs to the cache skbuff_head_cache of size 240
+>   The buggy address is located 112 bytes inside of
+>    freed 240-byte region
+>
+> Offset 112 is sk_buff.len.
+>
+> Only a multi-frame SDU is affected: the single-frame path already calls
+> l2cap_ecred_recv() with chan->sdu NULL, so l2cap_le_rx_credits() reads a
+> zero sdu_len there.
+>
+> l2cap_reassemble_sdu() completes a segmented SDU the same way and has the
+> same defect.  On an ERTM or streaming channel l2cap_sock_recv_cb() calls
+> l2cap_publish_rx_avail(), which reaches l2cap_chan_le_send_credits()
+> through l2cap_chan_rx_avail(), and that function evaluates
+>
+>         u16 return_credits =3D l2cap_le_rx_credits(chan);
+>
+> in its initializer - before the mode test that makes the rest of it a
+> no-op for a non-LE channel.  So chan->sdu is dereferenced on that path
+> too, and the result is discarded.  What makes it a use-after-free rather
+> than a stale read is a consumer that frees the skb from another thread:
+> BNEP's session kthread takes it off the socket with a lockless
+> skb_dequeue() (net/bluetooth/bnep/core.c:530, freed at :533) and never
+> takes the socket lock, so lock_sock() is no defence.
+>
+> Fix both sites.
+>
+> Clear the reassembly state before handing the SDU to the callback, which
+> makes the fragmented path behave like the single-frame one, and free the
+> SDU on the spot if the callback refused it - the error path's
+> kfree_skb(chan->sdu) used to do that, and the callbacks leave the skb to
+> the caller when they fail.
+>
+> Clearing it first is also the arithmetically correct input, not merely a
+> safe one.  l2cap_le_rx_credits() subtracts sdu_len from chan->rx_avail
+> because a partially reassembled SDU will claim that much receive buffer
+> once it completes:
+>
+>         if (chan->rx_avail <=3D sdu_len)
+>                 return 0;
+>
+>         return DIV_ROUND_UP(chan->rx_avail - sdu_len, chan->mps);
+>
+> A completed SDU is no longer waiting for that space.  If the callback
+> queued it, l2cap_sock_recv_cb() has already called
+> l2cap_publish_rx_avail(), which recomputes rx_avail from
+> sk_rcvbuf - sk_rmem_alloc with that skb included in sk_rmem_alloc; if the
+> callback consumed it, as the 6LoWPAN one does, it occupies nothing at
+> all.  Either way the reassembly buffer is empty, so zero is the right
+> sdu_len, and a NULL chan->sdu is how l2cap_le_rx_credits() expresses
+> that - the same value l2cap_le_flowctl_init() depends on when it seeds
+> chan->rx_credits on an idle channel.  Carrying the old length into the
+> calculation instead would subtract the SDU a second time and under-grant
+> credits on every delivery, and once rx_avail fell to the size of one SDU
+> the channel would be granted none at all.
+>
+> Per Documentation/process/generated-content.rst: the use-after-free was
+> found by an AI-driven fuzzing harness built on syzkaller, developed
+> jointly by Kapil Vaswani and myself, which drove a virtual HCI
+> controller and a 6LoWPAN channel under KASAN on x86_64.  The root-cause
+> analysis, this changelog and the patch were written with the assistance
+> of a large language model over an extended session, and reviewed by
+> hand; the before/after testing below the --- was run by us.
+>
+> Signed-off-by: Kapil Vaswani <kapil@presceralabs.ai>
+> Signed-off-by: Piyus Kedia <piyus@iiitd.ac.in>
+> ---
+>
+> Tested on net/main itself, before and after.  The kernel was built from
+> a2fd526d6442 with x86_64 defconfig plus KASAN and the Bluetooth, 6LoWPAN,
+> vhci and configfs options the test needs, gcc, no instrumentation, and
+> booted by hand under qemu against the same unmodified rootfs each time
+> (-snapshot, so the image is never written).  The only difference between =
+the
+> two kernels is this patch:
+>
+>   unpatched  7.4.0-rc1-ga2fd526d6442   KASAN on every run (4 runs today)
+>   patched    7.4.0-rc1-g63fe746a609a   no report (2 runs)
+>
+> WHICH SITE THAT COVERS, because the patch changes two.  The reproducer
+> drives the ECRED path, so l2cap_ecred_data_rcv() is the hunk those runs
+> exercise.  For the l2cap_reassemble_sdu() hunk, the same patched commit w=
+as
+> rebuilt with CONFIG_BT_BNEP=3Dy and driven with a segmented SDU on an ERT=
+M
+> channel with a BNEP session attached, under two kprobes:
+>
+>   l2cap_reassemble_sdu   14 hits
+>   l2cap_sock_recv_cb      6 hits
+>   interleaved rr-C rr-C: two entries into the reassembly function per
+>   callback, which is a START frame installing chan->sdu followed by an EN=
+D
+>   frame completing it - the branch this patch changes - and not the
+>   unsegmented path, which would call back on every entry
+>
+> with no KASAN report.  So the changed line runs and reassembly still
+> completes.  What that run does NOT do is reproduce the use-after-free on
+> that path: it needs the freeing thread to win, and the harness that found
+> this bug did win it with BNEP's lockless skb_dequeue(), where we did not.
+> The argument for why that site is affected is the ordering one above, fro=
+m
+> the source.
+>
+> The clean runs are not setup failures: on both kernels the reproducer
+> reported the same L2CAP LE channel and the same frames -
+>
+>   SUMMARY mtu=3D1280 mps=3D1017 credits=3D2 scid=3D64 chan_gone=3D0
+>
+> - and exited 0.  Only the report differs.  On the unpatched kernel the
+> console shows the program's own marker immediately before the trace:
+>
+>   [   45.878309] LOWRUN sdu
+>   [   46.063560] BUG: KASAN: slab-use-after-free in
+>                  l2cap_chan_le_send_credits+0x86/0x1d0
+>   [   46.063711] Read of size 4 at addr ffff88800c9a82f0 by task
+>                  kworker/u21:0/353
+>   [   46.063838] Workqueue: hci0 hci_rx_work
+>
+> Offset 112 of the freed 240-byte skbuff_head_cache object is sk_buff.len.
+> On the patched kernel the same marker is printed and nothing follows it.
+>
+> The same reproducer also faults on an unmodified 7.3.1 kernel, and the
+> harness hit the signature 19 times over eight hours on a third kernel.
+>
+> No Fixes: tag: our clone is shallow, only 27 commits of l2cap_core.c hist=
+ory
+> are reachable and git blame lands on the shallow boundary, so we cannot n=
+ame
+> the introducing commit.  The code is byte-identical in net/main at
+> a2fd526d6442, in mainline at 79eb6679ef6a and in the 7.3.1 tree this was
+> found on, and is present in every v7.3-rc tag available to us.  Please ad=
+d
+> the tag if you can resolve it against full history.
+>
+> Reproducer: not included here.  This bug was found with AI assistance, wh=
+ich
+> Documentation/process/security-bugs.rst says to treat as public; the same
+> paragraph says not to post the reproducer publicly.  It is one C program
+> needing no Bluetooth hardware, it is tested, and we will send it on reque=
+st.
+>
+> What bounds the scope: the channel's receive callback has to be one that
+> frees the skb, which is the 6LoWPAN one, and the SDU has to arrive in mor=
+e
+> than one frame.  An administrator enables 6LoWPAN through debugfs; after
+> that bt_6lowpan_listen() listens on L2CAP_PSM_IPSP and a connected LE pee=
+r
+> reaches this with an ordinary fragmented SDU, needing no local privilege.
+>
+>  net/bluetooth/l2cap_core.c | 53 ++++++++++++++++++++++++++++----------
+>  1 file changed, 39 insertions(+), 14 deletions(-)
+>
+> diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+> index 7dcb0586a10b..fb965e4d75f2 100644
+> --- a/net/bluetooth/l2cap_core.c
+> +++ b/net/bluetooth/l2cap_core.c
+> @@ -6186,6 +6186,7 @@ static void append_skb_frag(struct sk_buff *skb, st=
+ruct sk_buff *new_frag,
+>  static int l2cap_reassemble_sdu(struct l2cap_chan *chan, struct sk_buff =
+*skb,
+>                                 struct l2cap_ctrl *control)
+>  {
+> +       struct sk_buff *sdu;
+>         int err =3D -EINVAL;
+>
+>         switch (control->sar) {
+> @@ -6246,15 +6247,25 @@ static int l2cap_reassemble_sdu(struct l2cap_chan=
+ *chan, struct sk_buff *skb,
+>                 if (chan->sdu->len !=3D chan->sdu_len)
+>                         break;
+>
+> -               err =3D chan->ops->recv(chan, chan->sdu);
+> +               /* Reassembly complete.  Hand the SDU over before the
+> +                * callback, for the reason given in l2cap_ecred_data_rcv=
+():
+> +                * the callback takes ownership and may free it, while
+> +                * l2cap_chan_rx_avail() -> l2cap_chan_le_send_credits() =
+reads
+> +                * chan->sdu->len on the way out - it does so before the =
+mode
+> +                * test that makes the rest of that function a no-op here=
+.
+> +                * Return directly, since the state this leaves is what t=
+he
+> +                * trailing error block would otherwise set again.
+> +                */
+> +               sdu =3D chan->sdu;
+> +               chan->sdu =3D NULL;
+> +               chan->sdu_last_frag =3D NULL;
+> +               chan->sdu_len =3D 0;
+>
+> -               if (!err) {
+> -                       /* Reassembly complete */
+> -                       chan->sdu =3D NULL;
+> -                       chan->sdu_last_frag =3D NULL;
+> -                       chan->sdu_len =3D 0;
+> -               }
+> -               break;
+> +               err =3D chan->ops->recv(chan, sdu);
+> +               if (err)
+> +                       kfree_skb(sdu);
+> +
+> +               return err;
+>         }
+>
+>         if (err) {
+> @@ -7245,12 +7256,26 @@ static int l2cap_ecred_data_rcv(struct l2cap_chan=
+ *chan, struct sk_buff *skb)
+>         skb =3D NULL;
+>
+>         if (chan->sdu->len =3D=3D chan->sdu_len) {
+> -               err =3D l2cap_ecred_recv(chan, chan->sdu);
+> -               if (!err) {
+> -                       chan->sdu =3D NULL;
+> -                       chan->sdu_last_frag =3D NULL;
+> -                       chan->sdu_len =3D 0;
+> -               }
+> +               struct sk_buff *sdu =3D chan->sdu;
+> +
+> +               /* The receive callback takes ownership of a reassembled =
+SDU and
+> +                * may free it, while l2cap_ecred_recv() goes on to updat=
+e the
+> +                * credits - which reads chan->sdu->len.  Drop the reasse=
+mbly
+> +                * state before handing the SDU over, and release it here=
+ if the
+> +                * callback refused it, so that it is still freed exactly=
+ once.
+> +                * The reassembly state is already clear at that point, s=
+o
+> +                * return instead of falling into the failed: block, whos=
+e
+> +                * kfree_skb(chan->sdu) would have nothing left to free.
+> +                */
+> +               chan->sdu =3D NULL;
+> +               chan->sdu_last_frag =3D NULL;
+> +               chan->sdu_len =3D 0;
+> +
+> +               err =3D l2cap_ecred_recv(chan, sdu);
+> +               if (err)
+> +                       kfree_skb(sdu);
+> +
+> +               return 0;
+>         }
+>
+>  failed:
+>
+> base-commit: a2fd526d644233d6a892c28173f07c61e21e4c93
+> --
+> 2.34.1
+>
 
-Changes in v3:
-- Acquire every TX and RX channel in probe and hold them until remove.
-  ndo_open now only builds the rings. dma_request_chan() is the call that
-  can return -EPROBE_DEFER and probe is the only context the driver core
-  retries, so the deferral no longer has to be translated in ndo_open.
-  Holding the channels also pins the MCDMA provider, so it cannot go away
-  while the interface is down.
-- Reset the controller through the first held TX channel instead of
-  requesting and releasing a channel for the reset alone.
-- Move the closing flag (field, kernel-doc and its ndo_open/ndo_stop
-  writes) to the RX data path patch, where it is first read. Drop the
-  unused io.h include and move circ_buf.h and spinlock.h to the RX patch
-  that first uses CIRC_SPACE() and spinlock_t.
-- Reword the commit description for the probe-time channel acquisition.
 
-Changes in v2:
-- Request a channel at probe time so -EPROBE_DEFER stays in the probe path and
-  ndo_open never hands a deferral back to userspace.
-- Request the channels by their real dma-names index, not a dense 0..N-1
-  sequence.
-- Reword the commit message so the reset reads as probe-time through the first
-  mapped TX channel, not on open.
----
- drivers/net/ethernet/xilinx/tsn/Kconfig         |   1 +
- drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c | 316 +++++++++++++++++++++++-
- 2 files changed, 315 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/xilinx/tsn/Kconfig b/drivers/net/ethernet/xilinx/tsn/Kconfig
-index 3164d1ce7caa..673c86ca99cd 100644
---- a/drivers/net/ethernet/xilinx/tsn/Kconfig
-+++ b/drivers/net/ethernet/xilinx/tsn/Kconfig
-@@ -6,6 +6,7 @@
- config XILINX_TSN
- 	tristate "Xilinx TSN Ethernet driver"
- 	depends on OF_ADDRESS
-+	depends on XILINX_DMA
- 	help
- 	  This driver supports the AMD/Xilinx Time-Sensitive Networking
- 	  (TSN) Endpoint Ethernet MAC IP. It provides the wrapper device
-diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-index 9458db38255d..52d2da04a5d8 100644
---- a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-+++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-@@ -6,6 +6,9 @@
-  */
- 
- #include <linux/bitops.h>
-+#include <linux/dma/xilinx_dma.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/dmaengine.h>
- #include <linux/etherdevice.h>
- #include <linux/ethtool.h>
- #include <linux/if_ether.h>
-@@ -16,6 +19,8 @@
- #include <linux/of.h>
- #include <linux/of_net.h>
- #include <linux/platform_device.h>
-+#include <linux/scatterlist.h>
-+#include <linux/slab.h>
- #include <linux/string.h>
- #include <linux/types.h>
- 
-@@ -31,6 +36,47 @@
- #define TSN_MAX_VLAN_FRAME_SIZE		(ETH_DATA_LEN + VLAN_ETH_HLEN + \
- 					 ETH_FCS_LEN)
- 
-+#define TX_BD_NUM_DEFAULT		64
-+#define RX_BD_NUM_DEFAULT		128
-+
-+/**
-+ * struct skbuf_dma_descriptor - skb container for each in-flight DMA descriptor
-+ * @sgl: scatter-gather list backing the DMA mapping
-+ * @desc: dmaengine descriptor handle
-+ * @dma_address: DMA address of the first sgl entry (RX path)
-+ * @skb: SKB owning the buffer
-+ * @sg_len: number of valid entries in @sgl (TX path)
-+ */
-+struct skbuf_dma_descriptor {
-+	struct scatterlist sgl[MAX_SKB_FRAGS + 1];
-+	struct dma_async_tx_descriptor *desc;
-+	dma_addr_t dma_address;
-+	struct sk_buff *skb;
-+	int sg_len;
-+};
-+
-+/**
-+ * struct xlnx_tsn_ep_dma_chan - one DMA channel and its SKB ring
-+ * @skb_ring: per-slot SKB descriptors
-+ * @ep: pointer back to the owning EP instance
-+ * @chan: dmaengine channel handle
-+ * @dma_dev: device used for DMA mapping (the DMA engine, not the EP)
-+ * @ring_head: producer index
-+ * @ring_tail: consumer index
-+ * @ring_size: number of slots in @skb_ring
-+ * @is_tx: true for TX channels, false for RX
-+ */
-+struct xlnx_tsn_ep_dma_chan {
-+	struct skbuf_dma_descriptor **skb_ring;
-+	struct xlnx_tsn_ep *ep;
-+	struct dma_chan *chan;
-+	struct device *dma_dev;
-+	u32 ring_head;
-+	u32 ring_tail;
-+	u32 ring_size;
-+	bool is_tx;
-+};
-+
- /**
-  * struct xlnx_tsn_ep - EP MAC private data, embedded in net_device priv area
-  * @ndev: the conduit netdev
-@@ -40,6 +86,10 @@
-  * @tx_dma_chan_map: TX queue to tx_chanN map, or TSN_DMA_CH_INVALID when
-  *	the queue has no channel
-  * @max_frm_size: maximum frame size accepted on RX
-+ * @tx_dma: dmaengine TX channels, held from probe until remove
-+ * @rx_dma: dmaengine RX channels, held from probe until remove
-+ * @tx_chans: array of TX channels (size @num_tx_queues)
-+ * @rx_chans: array of RX channels (size @num_rx_queues)
-  */
- struct xlnx_tsn_ep {
- 	struct net_device *ndev;
-@@ -48,8 +98,21 @@ struct xlnx_tsn_ep {
- 	u32 num_rx_queues;
- 	u32 tx_dma_chan_map[TSN_MAX_TX_QUEUE];
- 	u32 max_frm_size;
-+
-+	struct dma_chan *tx_dma[TSN_MAX_TX_QUEUE];
-+	struct dma_chan *rx_dma[TSN_MAX_RX_QUEUE];
-+
-+	struct xlnx_tsn_ep_dma_chan **tx_chans;
-+	struct xlnx_tsn_ep_dma_chan **rx_chans;
-+
- };
- 
-+static inline struct skbuf_dma_descriptor *
-+ep_get_desc(struct xlnx_tsn_ep_dma_chan *xchan, int idx)
-+{
-+	return xchan->skb_ring[idx];
-+}
-+
- static netdev_tx_t ep_start_xmit(struct sk_buff *skb, struct net_device *ndev)
- {
- 	dev_kfree_skb_any(skb);
-@@ -57,8 +120,21 @@ static netdev_tx_t ep_start_xmit(struct sk_buff *skb, struct net_device *ndev)
- 	return NETDEV_TX_OK;
- }
- 
-+static int ep_init_dmaengine(struct xlnx_tsn_ep *ep);
-+static void ep_exit_dmaengine(struct xlnx_tsn_ep *ep);
-+
- static int ep_open(struct net_device *ndev)
- {
-+	struct xlnx_tsn_ep *ep = netdev_priv(ndev);
-+	int ret;
-+
-+	ret = ep_init_dmaengine(ep);
-+	if (ret) {
-+		netdev_err(ndev, "failed to initialize DMA engine\n");
-+
-+		return ret;
-+	}
-+
- 	netif_tx_start_all_queues(ndev);
- 
- 	return 0;
-@@ -66,7 +142,10 @@ static int ep_open(struct net_device *ndev)
- 
- static int ep_stop(struct net_device *ndev)
- {
-+	struct xlnx_tsn_ep *ep = netdev_priv(ndev);
-+
- 	netif_tx_disable(ndev);
-+	ep_exit_dmaengine(ep);
- 
- 	return 0;
- }
-@@ -88,6 +167,228 @@ static const struct ethtool_ops ep_ethtool_ops = {
- 	.get_drvinfo	= ep_get_drvinfo,
- };
- 
-+static struct xlnx_tsn_ep_dma_chan *
-+ep_alloc_dma_chan(struct xlnx_tsn_ep *ep, struct dma_chan *dma_chan,
-+		  bool is_tx, int ring_size)
-+{
-+	struct xlnx_tsn_ep_dma_chan *chan;
-+	int i;
-+
-+	chan = kzalloc_obj(*chan);
-+	if (!chan)
-+		return ERR_PTR(-ENOMEM);
-+
-+	chan->chan = dma_chan;
-+
-+	chan->skb_ring = kcalloc(ring_size, sizeof(*chan->skb_ring), GFP_KERNEL);
-+	if (!chan->skb_ring) {
-+		kfree(chan);
-+		return ERR_PTR(-ENOMEM);
-+	}
-+
-+	for (i = 0; i < ring_size; i++) {
-+		chan->skb_ring[i] = kzalloc_obj(*chan->skb_ring[i]);
-+		if (!chan->skb_ring[i]) {
-+			while (--i >= 0)
-+				kfree(chan->skb_ring[i]);
-+			kfree(chan->skb_ring);
-+			kfree(chan);
-+			return ERR_PTR(-ENOMEM);
-+		}
-+	}
-+
-+	chan->is_tx = is_tx;
-+	chan->ep = ep;
-+	chan->ring_size = ring_size;
-+	chan->dma_dev = dmaengine_get_dma_device(chan->chan);
-+
-+	return chan;
-+}
-+
-+static void ep_free_dma_chan(struct xlnx_tsn_ep_dma_chan *chan)
-+{
-+	int i;
-+
-+	if (!chan)
-+		return;
-+
-+	if (chan->chan)
-+		dmaengine_terminate_sync(chan->chan);
-+
-+	if (chan->is_tx) {
-+		while (chan->ring_tail != chan->ring_head) {
-+			struct skbuf_dma_descriptor *skbuf_dma;
-+
-+			skbuf_dma = chan->skb_ring[chan->ring_tail &
-+						  (chan->ring_size - 1)];
-+			if (skbuf_dma && skbuf_dma->skb) {
-+				dma_unmap_sg(chan->dma_dev, skbuf_dma->sgl,
-+					     skbuf_dma->sg_len, DMA_TO_DEVICE);
-+				dev_kfree_skb_any(skbuf_dma->skb);
-+				skbuf_dma->skb = NULL;
-+			}
-+			chan->ring_tail++;
-+		}
-+	}
-+
-+	if (chan->skb_ring) {
-+		for (i = 0; i < chan->ring_size; i++) {
-+			struct skbuf_dma_descriptor *skbuf_dma = chan->skb_ring[i];
-+
-+			if (skbuf_dma && !chan->is_tx && skbuf_dma->skb) {
-+				dma_unmap_single(chan->dma_dev,
-+						 skbuf_dma->dma_address,
-+						 chan->ep->max_frm_size,
-+						 DMA_FROM_DEVICE);
-+				dev_kfree_skb_any(skbuf_dma->skb);
-+			}
-+			kfree(chan->skb_ring[i]);
-+		}
-+		kfree(chan->skb_ring);
-+	}
-+	kfree(chan);
-+}
-+
-+static void ep_exit_dmaengine(struct xlnx_tsn_ep *ep)
-+{
-+	int i;
-+
-+	if (ep->tx_chans) {
-+		for (i = 0; i < ep->num_tx_queues; i++)
-+			ep_free_dma_chan(ep->tx_chans[i]);
-+		kfree(ep->tx_chans);
-+		ep->tx_chans = NULL;
-+	}
-+	if (ep->rx_chans) {
-+		for (i = 0; i < ep->num_rx_queues; i++)
-+			ep_free_dma_chan(ep->rx_chans[i]);
-+		kfree(ep->rx_chans);
-+		ep->rx_chans = NULL;
-+	}
-+}
-+
-+static int ep_init_dmaengine(struct xlnx_tsn_ep *ep)
-+{
-+	int tx_allocated = 0, rx_allocated = 0;
-+	int i, ret;
-+
-+	ep->tx_chans = kcalloc(ep->num_tx_queues, sizeof(*ep->tx_chans),
-+			       GFP_KERNEL);
-+	if (!ep->tx_chans)
-+		return -ENOMEM;
-+
-+	ep->rx_chans = kcalloc(ep->num_rx_queues, sizeof(*ep->rx_chans),
-+			       GFP_KERNEL);
-+	if (!ep->rx_chans) {
-+		ret = -ENOMEM;
-+		goto err_free_tx;
-+	}
-+
-+	for (i = 0; i < ep->num_tx_queues; i++) {
-+		ep->tx_chans[i] = ep_alloc_dma_chan(ep, ep->tx_dma[i], true,
-+						    TX_BD_NUM_DEFAULT);
-+		if (IS_ERR(ep->tx_chans[i])) {
-+			ret = PTR_ERR(ep->tx_chans[i]);
-+			ep->tx_chans[i] = NULL;
-+			goto err_free_chans;
-+		}
-+		tx_allocated++;
-+	}
-+
-+	for (i = 0; i < ep->num_rx_queues; i++) {
-+		ep->rx_chans[i] = ep_alloc_dma_chan(ep, ep->rx_dma[i], false,
-+						    RX_BD_NUM_DEFAULT);
-+		if (IS_ERR(ep->rx_chans[i])) {
-+			ret = PTR_ERR(ep->rx_chans[i]);
-+			ep->rx_chans[i] = NULL;
-+			goto err_free_chans;
-+		}
-+		rx_allocated++;
-+	}
-+
-+	return 0;
-+
-+err_free_chans:
-+	while (--rx_allocated >= 0)
-+		ep_free_dma_chan(ep->rx_chans[rx_allocated]);
-+	while (--tx_allocated >= 0)
-+		ep_free_dma_chan(ep->tx_chans[tx_allocated]);
-+	kfree(ep->rx_chans);
-+	ep->rx_chans = NULL;
-+err_free_tx:
-+	kfree(ep->tx_chans);
-+	ep->tx_chans = NULL;
-+	return ret;
-+}
-+
-+static void ep_release_dma_chans(struct xlnx_tsn_ep *ep)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < ep->num_tx_queues; i++) {
-+		if (ep->tx_dma[i]) {
-+			dma_release_channel(ep->tx_dma[i]);
-+			ep->tx_dma[i] = NULL;
-+		}
-+	}
-+
-+	for (i = 0; i < ep->num_rx_queues; i++) {
-+		if (ep->rx_dma[i]) {
-+			dma_release_channel(ep->rx_dma[i]);
-+			ep->rx_dma[i] = NULL;
-+		}
-+	}
-+}
-+
-+static int ep_request_dma_chans(struct xlnx_tsn_ep *ep,
-+				const u32 *rx_dma_chan_map)
-+{
-+	struct dma_chan *chan;
-+	char name[16];
-+	unsigned int i;
-+	int ret;
-+
-+	for (i = 0; i < ep->num_tx_queues; i++) {
-+		snprintf(name, sizeof(name), "tx_chan%u", ep->tx_dma_chan_map[i]);
-+		chan = dma_request_chan(ep->dev, name);
-+		if (IS_ERR(chan)) {
-+			ret = PTR_ERR(chan);
-+			goto err_release;
-+		}
-+		ep->tx_dma[i] = chan;
-+	}
-+
-+	for (i = 0; i < ep->num_rx_queues; i++) {
-+		snprintf(name, sizeof(name), "rx_chan%u", rx_dma_chan_map[i]);
-+		chan = dma_request_chan(ep->dev, name);
-+		if (IS_ERR(chan)) {
-+			ret = PTR_ERR(chan);
-+			goto err_release;
-+		}
-+		ep->rx_dma[i] = chan;
-+	}
-+
-+	return 0;
-+
-+err_release:
-+	ep_release_dma_chans(ep);
-+
-+	return dev_err_probe(ep->dev, ret, "failed to request %s\n", name);
-+}
-+
-+static int ep_reset_dma_controller(struct xlnx_tsn_ep *ep)
-+{
-+	struct xilinx_vdma_config cfg = { .reset = 1 };
-+	int ret;
-+
-+	ret = xilinx_vdma_channel_set_config(ep->tx_dma[0], &cfg);
-+	if (ret < 0)
-+		return dev_err_probe(ep->dev, ret,
-+				     "failed to reset DMA controller\n");
-+
-+	return 0;
-+}
-+
- /*
-  * Parse the "tx-queues-config" child of the EP node. The logical queue
-  * index is taken from the "queue<N>" node name, so the mapping does not
-@@ -291,9 +592,17 @@ static int xlnx_tsn_ep_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto err_free_ndev;
- 
-+	ret = ep_request_dma_chans(ep, rx_dma_chan_map);
-+	if (ret)
-+		goto err_free_ndev;
-+
-+	ret = ep_reset_dma_controller(ep);
-+	if (ret)
-+		goto err_release_chans;
-+
- 	ret = of_get_mac_address(dev->of_node, mac_addr);
- 	if (ret == -EPROBE_DEFER) {
--		goto err_free_ndev;
-+		goto err_release_chans;
- 	} else if (!ret && is_valid_ether_addr(mac_addr)) {
- 		eth_hw_addr_set(ndev, mac_addr);
- 	} else {
-@@ -307,11 +616,13 @@ static int xlnx_tsn_ep_probe(struct platform_device *pdev)
- 	ret = register_netdev(ndev);
- 	if (ret) {
- 		dev_err_probe(dev, ret, "failed to register net device\n");
--		goto err_free_ndev;
-+		goto err_release_chans;
- 	}
- 
- 	return 0;
- 
-+err_release_chans:
-+	ep_release_dma_chans(ep);
- err_free_ndev:
- 	free_netdev(ndev);
- 	return ret;
-@@ -325,6 +636,7 @@ static void xlnx_tsn_ep_remove(struct platform_device *pdev)
- 		return;
- 
- 	unregister_netdev(ep->ndev);
-+	ep_release_dma_chans(ep);
- 	free_netdev(ep->ndev);
- }
- 
-
--- 
-2.43.0
-
+--=20
+Luiz Augusto von Dentz
