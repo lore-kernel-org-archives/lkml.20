@@ -1,97 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794504781;
-	b=bv/Zd9PiKuui4t8e1IB/L5BDLwsx6kX+0thU4z/1t58xX8mZwv1GzNW2LWeJletFrd3E
-	 ozu4S17zqfa4KeUU23ZwuoqOS4EEU01HnBvEGl8XN+4AQ9QVFjEx05RQcXmAMZJfVDYPU
-	 HoOITdSPTIAl1R/1EMUkhHShT737RDKUdEoHfzetJVzIBGLGLDOvxbCxyNcWsHWduUBqF
-	 vMvPgCCOJvcTvT7XC/n87Zob1hLTs/tPcj9U4y+XFPKG/VCxl1U1opXNiJ5UwiUqz0P8C
-	 ZcY6fv43Iw/CaAlC8uLXv/FUxf4YrFrbd5z6o2dOFq92aYNI0o8dXpYyJuV3+yVXrVA==
+	b=IidayTP6r/nsrmyUSndiQ26Ik4MTE1fJLDC4/feqXxEPT1ywrxyVdIYSUiF6msPFuRIm
+	 BDuvpgKNlkCd/34JRl0jeg0GFFzZAWVcrfO7HwJbQn+4zTgiyQ+v/ERJElyxFRIRQR4bN
+	 fro4c1TMvUyodcPUUaKOgljK3Y521yo8R8gYrE5BQhBPQHwQAnsme1VgTo3kTIHoeogFs
+	 77cB5Tz62nesh3kz9NqXwXftW2fT5Bg8+7OiJJ34inWT/cmtC5bxVbufe+VrZssDSkVDa
+	 ehPZRjN0MIccGBtLP5/GT1cAvlLXQ8aexZEumZenPKCybmCbsJ+LLF7KMDqI4zirr8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794504781;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=jDBHfuMO+YFOvL2/0uo8WLcQ7wfZfcV4HJJDGgpbHCo=;
-	b=WSSfRxh2k5/rwmLwhqsjVRDw0tEUeNRBdIn6ZyjHPjcN/9am57inh04TsFH5IaTCdaaZ
-	 x79BHhTEzB0GRraRaTTi+VlssqIjhERHoYw9cqb6zOKPniQZiuW9HGOCbpZt0b5mVOxrU
-	 raNjfzV693FYs7NWLuwBjgjZa6eyo/jvqEfNILks7VdRzdCSNFXs8qI0hevoZICr+Wf5m
-	 Elyj6OiEYTMPodaZ+Jip/keSyNCHvrpHybW/yD2LPN7oJbYSnSDMLu575lHK+ohFNn4tS
-	 mUaBxAcPdmgm1J5MhQxXlLixxDX4FSyRgPWSORhU5RibFfm3HZL5T5OugcUKORxBXZw==
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ijLAFKTpy2rO1cmzfktYDhNmrdiTCs2qOQ9IyeBu0gU=;
+	b=PK/JuRQ3CXlmSwj53eiL9c+8+ItVscobnswe/FvognsuqrRWOXHmoxGwGU11eh1taPoa
+	 agyNj+IpKybW1A7J3qVEIIiK831xERAi1V00li5oKQOVv791Ptrl8w9qMt1Jo4DlZz0ef
+	 aiB4S4TWyeJRHL9T34vi78gbKX7QyFq71+J+Bv8TJ3fj7sZGo3R5pRIYep6TPLMaFboPu
+	 +KvOUhmJlNuV74e6ATa725SJPev+se1OmDzy3y20Gv3RSdYdwFmlsCNpH4Atm+S6HwO5E
+	 6n99tyFeMgkquR/kDGTWLoAlOMolJUy3Z9rRwrgQkhf1NSu+6NROM77esWK/vIqZYxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ePrgk80h;
-	arc=none smtp.remote-ip=209.85.215.169
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=elhci1b6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B1C606A33E
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:33:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6B1C606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75574606A883;
+	Thu, 12 Nov 2026 17:33:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ePrgk80h
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc147d86bebso47433a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:33:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794504780; x=1795109580; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jDBHfuMO+YFOvL2/0uo8WLcQ7wfZfcV4HJJDGgpbHCo=;
-        b=ePrgk80hVWNtLXQgWA+8NxGWfct9k/FlAnCH9AMhF8FZRfKhl61gbk7uDkAaQw4tbD
-         qY9eH3VBZohAC7ixruP0VYyYUZfSp6ueU/zrAb6cyhxYXv0i1bk/L0C5sesNTDbhhEEF
-         4cfXJFhaxTpt5eSG6zXn/BmQkC+rapTkvGMehUzjlZpfaiKV4OOI9W26q80W4oyhthEQ
-         xqn69HX1sp0JsTsPNb/zm/YlK6u+hNob05rhf6YbEuu6qyz11CiZ4kgrsgt8OwkoXeO4
-         vp+m33H9Ut209Fa4ILJSiPwZNC8GSDmshBU8FLNzF/Mz1o2zT9rH/qPFdCa+kOV1ufnk
-         NjVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794504780; x=1795109580;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jDBHfuMO+YFOvL2/0uo8WLcQ7wfZfcV4HJJDGgpbHCo=;
-        b=OdxDjd42jmQNF3S9dPLitzyGo3pp5NJLWXEdwl7yJdqZtASTlQVRUPVweoYMGev8z1
-         E0mfiA/BTwnzooj9IYfgSr1buVXa/1sNjgTs28uh7h0Rw3d/d8h4icU8Bpa47nCABhFR
-         NGTNjaJ+XfSbUFwE2JC7r81yVkxbKy/WTNEVKQvLwnQffDwAnKKV73iujSwv4bAYx8wD
-         8wrETSAs84GNRPE6mUWwZj0vwZHQrkoYvg5/o2fz/+Suby9wXf40WxisuH/A8vdyFPVk
-         aBhJKNsiFW/jFqpdi9w17/NvndZ7Up/mmjKOK4Lpg6rHapg1SJPu7I0LAV5hAUOC49R+
-         FQrw==
-X-Forwarded-Encrypted: i=1; AL+hErEMBqvIr2DMBt8khOClNVITg79uf7PokA5DCUQOv/qSobYMtOL5+az42NAr0dbsDgrl9UKYgRRSJyuN8Yk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9U3G1LGX2503xhOz73ErVhyP4E6zYNkGWHLdGaBi2BvR8CaWBU
-	AzCAzHjZ+N6iGasqiApcri+neDfqyOgUm7/mu7MVJl/0uKNnMsayWZtP
-X-Gm-Gg: AYBFou2obp1+vzqR7Tc++9ZV8T6vhqzQm3uVFtyOG68tJ7eExF9nkEo0mEa39atP+Vs
-	BDMk8mMA7Lss+ZcFmR/asm906iFAPrgpj1/vVV/yD6b6Zprlswxo2PE45PNv9GFujqrXilqgU+/
-	VvWeq468QSushQ0NSEE0Ur21Pihf7lr+Dsh583QfkDSTx1C6s+H0cje/kFXb4PIkktRdWBiodpN
-	CTLgQYDowHoU04rw1ASQeiWrJKFI9clVbmZXKp1bR3qE9nNEU2TE7yY/yy2O8eNy7ipHdpcJ+Q1
-	DSc9YF+1KWYWTx6UIoHkPx63UYoBEVQdNYJhrwJR5yBpJvotD1Emiy78GkD7LBKj11tcMtWFC3D
-	8Cd6UMcpgYJt9Hs+mTGlGI0LoLe1oSuFs6xiUaEw0TGqpuCUSEwpjKAeeyCB98AzPA3o4J6jVFB
-	Nl7KdIt1YH5DjUs7bbnh+lu52TVx0QX5D3ufiFsKeHQ9kuSN0afvU+XM7vh9P/KlVyZRju/pC99
-	KWwun2RxjDPASROPwx9Sw8wW/Ejo/4bh7Klq+ZzxPdoybEDsRQNRx7aY8v/YupRkxrdjlGjXw4a
-	UPTy8U6G65eXRo4SedjV5PCpqGcvRWPJvLie4tgR8OHOyWwZIwRDo3VUR1ZkPgmVZV8JI6zzCJ6
-	CZNdSG/kWQBFrCmNIjDJGBQseYBPIdcjuaWbGpeWDyBK6
-X-Received: by 2002:a17:90a:8c15:b0:3b1:d40:2c4e with SMTP id 98e67ed59e1d1-3b197bb72aemr1627728a91.0.1794504779875;
-        Thu, 12 Nov 2026 09:32:59 -0800 (PST)
-Received: from acemagic-m1.tail4fb79.ts.net ([2401:7400:c804:b668:2c54:4647:b67e:c94c])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1ae8be5adsm383532a91.0.2026.11.12.09.32.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 09:32:59 -0800 (PST)
-From: Ho Jie Feng <hjf3108@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	Luka Gejak <luka.gejak@linux.dev>,
-	Ho Jie Feng <hjf3108@gmail.com>
-Subject: [PATCH rtw-next v3 1/5] wifi: rtw88: 8812a, 8814a: enable STBC for HT transmissions
-Date: Fri, 13 Nov 2026 01:32:40 +0800
-Message-ID: <20261112173246.3201729-2-hjf3108@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112173246.3201729-1-hjf3108@gmail.com>
-References: <20261112173246.3201729-1-hjf3108@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=elhci1b6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADE9A1F000C4;
+	Thu, 12 Nov 2026 17:32:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794504781;
+	bh=ijLAFKTpy2rO1cmzfktYDhNmrdiTCs2qOQ9IyeBu0gU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=elhci1b6GnKtBWt0nQTZvjUTh92Tkc0Atzo7j8Uh/tHub/ME65zeo1xQsu/jIpVp8
+	 5IJ/EkDpmZ7RUIaOyASBzPSETZCCEWYV5ZcE6YlUymvq6CVKiBSoHYE2l4QOYdjen+
+	 53LJsT1qg38aLYwSdA8k3QDgypHmRMmasM6uGKYCo06YUiVUQt8SK4b+DQF1kZ3Uha
+	 tpHmLS6jsp1PvpcklB4To0trHT7m70w3vUlpaSWJvNSCRoNIypW1bho53PTEbdYrpg
+	 C5FiY50vSOtCQKOBkAn0E5jzUUTLNPXpkEYW1MclJlLcpRSkKAs0s2GWQb6e7FNs+Y
+	 pZQL8t+07nmAg==
+Date: Thu, 12 Nov 2026 18:32:54 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Linus Torvalds <torvalds@linuxfoundation.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Kees Cook <kees@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, driver-core@lists.linux.dev, linux-hardening@vger.kernel.org, 
+	Lorenzo Stoakes <ljs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, David Hildenbrand <david@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, Geert Uytterhoeven <geert@linux-m68k.org>
+Subject: Re: [PATCH 2/2] devres: Provide kmalloc_obj*-style API for
+ devm_kmalloc
+Message-ID: <avX3Y08tF8Z0C4LH@devuan>
+References: <20260914223212.i.829-kees@kernel.org>
+ <20260914223219.901347-2-kees@kernel.org>
+ <20261112004039.GA523044@killaraus.ideasonboard.com>
+ <avWNCC3_Ff0knO6J@devuan>
+ <CAHk-=wgYBrhvo2NAG_Ja-0ovPf=xO20Gcopv9Yrr1u=QVxECZw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,58 +69,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="o4pnicbxuhqys6k7"
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wgYBrhvo2NAG_Ja-0ovPf=xO20Gcopv9Yrr1u=QVxECZw@mail.gmail.com>
 
-8812a and 8814a support STBC, enable it.
 
-8822c will lose reporting TX STBC capability if efuse reports
-only 1 path, but this is correct, since it in that case it doesn't
-actually support STBC.
+--o4pnicbxuhqys6k7
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Linus Torvalds <torvalds@linuxfoundation.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Kees Cook <kees@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, driver-core@lists.linux.dev, linux-hardening@vger.kernel.org, 
+	Lorenzo Stoakes <ljs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, David Hildenbrand <david@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, Geert Uytterhoeven <geert@linux-m68k.org>
+Subject: Re: [PATCH 2/2] devres: Provide kmalloc_obj*-style API for
+ devm_kmalloc
+Message-ID: <avX3Y08tF8Z0C4LH@devuan>
+References: <20260914223212.i.829-kees@kernel.org>
+ <20260914223219.901347-2-kees@kernel.org>
+ <20261112004039.GA523044@killaraus.ideasonboard.com>
+ <avWNCC3_Ff0knO6J@devuan>
+ <CAHk-=wgYBrhvo2NAG_Ja-0ovPf=xO20Gcopv9Yrr1u=QVxECZw@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAHk-=wgYBrhvo2NAG_Ja-0ovPf=xO20Gcopv9Yrr1u=QVxECZw@mail.gmail.com>
 
-Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
----
- drivers/net/wireless/realtek/rtw88/main.c     | 2 +-
- drivers/net/wireless/realtek/rtw88/rtw8812a.c | 1 +
- drivers/net/wireless/realtek/rtw88/rtw8814a.c | 1 +
- 3 files changed, 3 insertions(+), 1 deletion(-)
+Hi Linus,
 
-diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
-index f7708ad17b..e243738809 100644
---- a/drivers/net/wireless/realtek/rtw88/main.c
-+++ b/drivers/net/wireless/realtek/rtw88/main.c
-@@ -1583,7 +1583,7 @@ static void rtw_init_ht_cap(struct rtw_dev *rtwdev,
- 
- 	if (rtw_chip_has_rx_ldpc(rtwdev))
- 		ht_cap->cap |= IEEE80211_HT_CAP_LDPC_CODING;
--	if (rtw_chip_has_tx_stbc(rtwdev))
-+	if (rtw_chip_has_tx_stbc(rtwdev) && rtwdev->hal.rf_path_num > 1)
- 		ht_cap->cap |= IEEE80211_HT_CAP_TX_STBC;
- 
- 	if (efuse->hw_cap.bw & BIT(RTW_CHANNEL_WIDTH_40))
-diff --git a/drivers/net/wireless/realtek/rtw88/rtw8812a.c b/drivers/net/wireless/realtek/rtw88/rtw8812a.c
-index 781b66ccde..55f1d3d324 100644
---- a/drivers/net/wireless/realtek/rtw88/rtw8812a.c
-+++ b/drivers/net/wireless/realtek/rtw88/rtw8812a.c
-@@ -1077,6 +1077,7 @@ const struct rtw_chip_info rtw8812a_hw_spec = {
- 	.rfe_defs = rtw8812a_rfe_defs,
- 	.rfe_defs_size = ARRAY_SIZE(rtw8812a_rfe_defs),
- 	.rx_ldpc = false,
-+	.tx_stbc = true,
- 	.amsdu_in_ampdu = true,
- 	.hw_feature_report = false,
- 	.c2h_ra_report_size = 4,
-diff --git a/drivers/net/wireless/realtek/rtw88/rtw8814a.c b/drivers/net/wireless/realtek/rtw88/rtw8814a.c
-index b6916d3dc6..e35c57c9d1 100644
---- a/drivers/net/wireless/realtek/rtw88/rtw8814a.c
-+++ b/drivers/net/wireless/realtek/rtw88/rtw8814a.c
-@@ -2200,6 +2200,7 @@ const struct rtw_chip_info rtw8814a_hw_spec = {
- 	.txgi_factor = 1,
- 	.is_pwr_by_rate_dec = true,
- 	.rx_ldpc = true,
-+	.tx_stbc = true,
- 	.max_power_index = 0x3f,
- 	.ampdu_density = IEEE80211_HT_MPDU_DENSITY_2,
- 	.amsdu_in_ampdu = false, /* RX speed is better without AMSDU */
--- 
-2.53.0
+> Date: 2026-11-12 08:34:13-0800
+> From: Linus Torvalds <torvalds@linuxfoundation.org>
+>
+> On Thu, 12 Nov 2026 at 02:13, Alejandro Colomar
+> <alx+linux-hardening@kernel.org> wrote:
+> >
+> > I suggest removing kmalloc_obj() entirely, and using kmalloc_objs()
+> > always, with a second argument of 1 when we want a single object.  This
+> > would remove the risk of that typo.
+> >
+> > I also suggest having default arguments without variadic macros.  The
+> > way to do that is using empty arguments.  Linus complained that it hurts
+> > his eyes, but it really makes these macros much safer.
+>=20
+> No to both. These are both "make the code worse to catch errors that
+> the compiler should have been able to catch anyway".
 
+I don't agree that the code is worse.  It's _different_, just like Rust
+forces one to write different code in order to make certain bugs trivial
+to reject.  But I don't think having to write malloc_objs(T, 1) is
+objectively worse than malloc_obj(T).
+
+But let's agree to disagree.
+
+> If you *really* want to catch them, make "gfp_t" be a 'struct'. That
+> way even compilers without things like the restricted types that
+> sparse has will catch at least that one.
+
+Yes, that's a third alternative, which Kees and I discussed some months
+ago in Prague as a mitigation.
+
+> I did that many many years (argh, decades - I'm old) ago to catch all
+> the 'pte_t' etc issues when rewriting the MM layer, and it works very
+> well.
+>=20
+> It's going to be somewhat painful, but ti might be worth it. People
+> who only use GFP_xyz flags to pass them around wouldn't notice.
+
+Indeed, I don't volunteer for writing this patch.  :)
+But yeah, it would also work.
+
+
+Have a lovely night!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--o4pnicbxuhqys6k7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr1+EYACgkQ64mZXMKQ
+wqlMCw/8D8u1QGJxQwMLy0ohBNrNNSiwG+9uYTovzBcTZNUribjecgVSktGCQgCd
+o+kAvS4NRBmheiua/UIF9dZ1UV7Vdn1tzPIV8EQj7/mRvQy88KKwrrZXy1DCUTuo
+sNDTbAcOzuRnrTIBl1TkQvPo4zc6YbWeDh+v+ZMkelU8jU/lx5tj0XtC1LPgnI5w
+vrkXOSgyCWO9OnljQL8A68U5u3vsSdbXt9wHXyOjmFUAo8Pfu8dvhT+gv7bKAJrt
+PE9W4sMXLWaYMDjpbCSHS/4t6REVcSspzh7g9YkVXGXAKDkps5YQrJbH5eeGMG0k
+6iTxucLbzRrNck24w662nPeGWwYA6b6pn0JW4riCZfxKHTpMBY/XdlrcOWT8RBn8
+PQNSJH9/txKdRQghBIK4yCxhW+y1x1slic57adqPizBJAW6AdzVPlYVaTZOeKE4E
+ppg+JQ77XLA2BTtd+ROkTJdDAycc9fwrhY5bnpAzEzQeuojymLW3bYQZ54jxTmXc
+k5qFDyKnNKtvIVCNfelZtmExZpPBFozOr5BYZ2lo0xounJKyu+j2ynNUZeH45oxj
++ZQBvzb7NEPFMee/5zkcb9odWebSaZ468E10YYPH51AkNtFmoN2SOSyVpzmmbT/w
+fShkHI5qPzCw/J+mGgtPOmMgQN8BvD/kZTsr+SFo1Y0GDEmNWnA=
+=GL7T
+-----END PGP SIGNATURE-----
+
+--o4pnicbxuhqys6k7--
