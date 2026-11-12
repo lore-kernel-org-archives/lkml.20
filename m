@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794527435;
-	b=X0Vyf12ZAOiXOpzKM5PmDldvfr24I814BufwAFIArlT4o0A4rT6/EqR8/rJpHEfSM13T
-	 mGh2TNv6vkDzvvwUI0kSkEaKQKfpHr9pZD/iEcoUv4ONxd4ab+xKlEE1h/h/oZ9jUMpXB
-	 zb2JhRfhaqctuX79E8WGmAGR9u9t7Xyos1VfTLWlzBUB3HWs9MpIwEoFram+ttfOMZWeD
-	 UldTWtCDrZMxO4MmVIgwvUcTjHqLNb6cf5/b2D9GCJj1OfZeHEVo1aAV7sCsUKsSU2lEB
-	 49JycEt8iAHfgnXFjWnbJSow42++t62T987lH+fdS57sUE8WuM0lsYOg261SHCNZuig==
+	t=1794527447;
+	b=AOLJtdyfW0mU1jnZlzAcmNwrK/l4QejOaj+4eFybKEsIQpnzTf0qTJGyMsLiiDUYLaYR
+	 +Mf4fpAwtVDn9ktu2322tz+AkmboSSGDMvDTeqXyF2dCd/8cpBoJrMDeDibuDZSdUuAqQ
+	 O/bj6MMQWRg1IZUcv8ltb856ck57UHlx5eK8TTxm4EdTFkH4jw+3yHvyHXpUJUZuzXtix
+	 0kHlUnvZcZnBB8X4N1+CinpRFnYYq4wj1ZvYnN0kv4qBKNOS4tC3sejWDZoW2hxfm9+z6
+	 4+icJd6ma75UFPMii3aAlSC5eZjtmGsK9uHAe9k9NI1NYx/PIhSRyDX8vsJYLhLXxfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794527435;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794527447;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=q1kvRgKeqJR6EuLY1yBynSJtWsSukBAUvLh/S9hCbu4=;
-	b=GNr4/LznhOS3limB5GXLOVCAHZsvwmCuudlJWbRq3DYXUKCYNhfKsvxTlU6KyC1SDT/Q
-	 f6KxNyyhHF4cEbRkOBahAECmI7+m/TkCdoiJuvWV1GI9CrRIEuz7qdpHIaZtMSDkBCyjl
-	 rlaatPqNaPAWwpqFXfrTtdt8DeMpa/BFqvR2T27au4MwbiRQDvQX+hUk5YM1XfZDV2OKd
-	 Utcn3f+f8VTbrL117NJXijGQJuGfHF9WnfNlwDLqOqdT+S0YNZDDLkccjFyYHZ79KTohU
-	 DNScO1SaK+vuHwTTfMKn+f3mRX6M6ni86rcIEmH0PClDgTUnhzNxJQerBTMt7bci+3w==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Mczvvyy/drg/WCTWwSqRdjrsqzKouaYUkQ4KLSPDcJ8=;
+	b=K+P4ze5RXsuXOdISoYn5QfIpNwtQy2uksWH00NtilNTGdp6JLwSpcAr7BW/8mzUrUm7V
+	 H6A27VB/DvD3gJ1xBDhiZPmPmRjBBqQ7TGbxkNQ4HnMhSvY4DGBpoJ0eUso2NtFjG0vPT
+	 Zw8vvvB6GnNSIV7swANfKt0RZbBwUkvc1OrTgLESvtyHRVSaGIprk5fSkMAnMbYYORapB
+	 OB2Xo3z50/QMSWGjI6pCVUxVN1dx1LyKSdHN8ndJc0WFTdXOOlr8G0YAuadmcRaUG4/wm
+	 3SFkEX2qnzxAWeWxIBLo4hHmugaSEObnwX6Vd+TLK4T60/B3vEbiEd6/y1PNd6wXE9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rXZleSVo;
-	arc=none smtp.remote-ip=209.85.215.170
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tuxAfrML;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E3F606A338
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:50:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6E3F606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F73606A884
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:50:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97F73606A884
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rXZleSVo
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cdb2e0062bbso248968a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:50:34 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tuxAfrML
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-15ea896ddc8so417627c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:50:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794527434; x=1795132234; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=q1kvRgKeqJR6EuLY1yBynSJtWsSukBAUvLh/S9hCbu4=;
-        b=rXZleSVowkCYrx5PW2Wk6LwW1c+xXl7XUq4Z+rZPI3RX4Hptd1Hh4fEQ3QpPlNUojY
-         AiRVQUP9ui5ADgaUCGwJGxf0kqvWYffgzQBsWA9W5Z/dArNmXW7QoFiglHkcbuY8Byzu
-         HCoNG5ii/SdPvS+h4DiA56nJDccBa7Q8rdDB7B9nQ709LGyfSJ81XDY7rVSzbNoOdFw8
-         SFoBPspRD/NDApuF/0e+fmaFgia0kPri/PS4uQgR6cogQhdaE1WfLfgnIosZtv5fTv4L
-         JZhBj8sAy8/1NFlpbnrYCfNqWklJBUABZ8EixuPUAaLDqnnufc7HeoJo7uJeCc6yg9N2
-         FxUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794527434; x=1795132234;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794527446; x=1795132246; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=q1kvRgKeqJR6EuLY1yBynSJtWsSukBAUvLh/S9hCbu4=;
-        b=iNHF36Fm+4FKy2Ap+AE1Vkro43vxap6BMeE9DWDg/1lD9PSF0TC6Y/l3sbCDI5JsMw
-         6t9gozPysa6CkVbwMX6rtV7R1zgDUF/gS/WVOa9scJ3lKYc6f7I1qUsRnKEljK4w+CdQ
-         Qfc5tiBHVIh7VfRPUQqoCRjnDMksomjr3tIxgvwgHOZV6OOC5wAcdChnScmBFwAfPmyj
-         vz9Id4jn/aJd79o6wZHnUh+uvlIUAw6Kzu5aVlbqZdefTnW0iaiueSwTQ1i+5ovQMErq
-         x/TxqsR8lTvDaSwS63QJQiJS75vQk+wNISmz8tymDmTF/mih3jwYSsX+SKCYpRs6Z25a
-         Vgag==
-X-Forwarded-Encrypted: i=1; AL+hErESZgfCJHcd6hTKx4ZK4VLk9fPeGx3NqhyTo6DV/Gj4I1VHEHBoBemtO1E8an8HtOZIKlx/PmQ21Dwquwo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+3Ca49hsnkd1waFq+PhLawWbTM4Mau73R/JvNWgwA91D/kFt0K
-	fuuUB6G9j70S5393FzQWosEsje9CDLQnL8Q+IFj6yMdTXmFQHCi9KSXM
-X-Gm-Gg: AYBFou1sdE+WJLRkkM4hb7fdy3a61yGJc3h4mhACnCcBL6ip0VvO4tw8MxC1oun1dn9
-	zVmwb5qCyk4rRILoJX09KMwpdhZcs8OA5WxSVdUXHKmansYv+1dGMcuJfvXcvoyuRlX2cnI3UHP
-	MQ5UvPiLMYj1hP+RIs4FbD3nzL+kbuwO+OOAsUj/DUg7zEdPjggRCtdW7H8yTZCAfu/q3f8iznE
-	OAgfGeTdYs/QvG5tJjedU7eTT2umCUbUIhXH9Q283qXETCDsIA+uCJfaneED4q8AlejRnhYrAmy
-	+WSg5st3wUMeKs1T521i1Mt5DW61tzXxLX0gz9WZIWEHop13O2R1UuWR06UpYPZx9PSCJmlDltg
-	+0rpTFurWIKHSvklfDQLg3pgABaGxAY6hunPWsV+aKG1ssvnJ67UwxZQYIkkn8QlbItGG7v8V/F
-	z5AlhvejZrxh6hKgNyDQA9rsfu2eEY3r+yuWabtvJ9CO1YvT04a4lMYV9RKpmpnzpZQgpD1ZDLn
-	YIcJ5ODIWHjI1A7GiGe7oRSHUim1EI/sV9H6FpN7PCS06NzJAGhg02iLnBB/joEcDmkj/TtEIZr
-	i/ydaBCRQUI5bUqW
-X-Received: by 2002:a05:693c:6293:b0:378:314:4033 with SMTP id 5a478bee46e88-379679e29f2mr632919eec.32.1794527433890;
-        Thu, 12 Nov 2026 15:50:33 -0800 (PST)
+        bh=Mczvvyy/drg/WCTWwSqRdjrsqzKouaYUkQ4KLSPDcJ8=;
+        b=tuxAfrML9xkjSgwauup5PxfpJAUyQdFvUkU/EHEQwlJ0dc3/Nu7Q+oiFiyxQCqg5L0
+         9+d/WinTTlqBz/eQQ4x8vPKHalMgmqW5U6E2vhLaldlbyf88rGqnHjyIjEKvHSl9jfkg
+         R1MbpsXGDlQH3eynh6MnBtvIYNFCDkuqm2aBRUqk1DZ9NyY96Z8sgvBD4gerWYAe8S5I
+         IVSuJhY0jMMRQYJ2Yre65/8du32bI9yfK+PUoTmCpSoAMZ+tpV0FG14IcDqTUHvxAccl
+         C+QVs1FY3A1ais+xxU8A1ajhblP3Bewt2d9Stfpy/7KVcxfRMuyPJUBWFtv+OfUKDQM4
+         FVmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794527446; x=1795132246;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Mczvvyy/drg/WCTWwSqRdjrsqzKouaYUkQ4KLSPDcJ8=;
+        b=t+KcqLB2VyhZItzppSLkR6Aksd0VlhfHk7dlZbJDoTQgrH/65UgBOr4kZhvvmm/dfM
+         SgmKPTnNMdk68TneaNkANfCPy0H2hAs2kvlMpPfnwr4Bje4WCTyxfxj/NUnHQ2ERTRVJ
+         kUhgFjeBMI35PHXNnMdvUBCowfeRZoj26LeXIjPU5mtC7HwMrijFmqsDNDtKYgTOtOQW
+         /LVMrbL8Tf8T+wYzro02fDc7wph7AjjRaCqY4/MLMkHma+wV6DaqwGFatc6Wv4YW5hF3
+         7V0jaPXi9oWAg2hn2NPzjJoXCydVCiEaD2ptKMJyzEAOg5CSDro6fxgZy93YBOzT2u71
+         zsuw==
+X-Forwarded-Encrypted: i=1; AL+hErHFKWRysT+IVxTw0PXvJskXH/Iu7pzq611szDGu6BkhPpv9z0r0fhVEFFO+F0iXdhkDmyiPEbNvojbyQr8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/QUnCgBkr7znwaLokz8OM8TqPT6iHvq6doypin06GrBDRxw1Gu
+	XTLlgVJ1u0X/vlbf6dVs+LzC0xqJIYHk0NYvgytBnMsVuLqWzaPQYrR5
+X-Gm-Gg: AYBFou0WqwY2MHBNe2VxLKes9t3Dfry2Ece3lSRTR6nSGkANsfKdDHRK01zWN4Pw2XV
+	XNqMBs+JAbOG4+TAkoQ6sMFyI5sVO2O4uABzQ3DbvAq+GOcKKI3d9saCZhKtH2vLclZfeueaYIE
+	pSpOgZCSgsvftnsolODfKznrIKfcYVTc3Ovo1d240/S4aO73u002MO9WADD8V8VtGgtaB4zkxlT
+	X8qz9zaZLSJtPmpWHnjagq+pV6phyavPenHUcNjA1DWXmRjHN5F3KsOfgqYZ9BRdokeniSRxb0j
+	6ZHkoc1jDRzmFVqPSCB2/P4IBMip0J+Yiis9fxVoJtrkHQC7bBxMSTl8NrozJo5Bki7NdXmzYEr
+	aYgn8AdL3hJ5hQiDitE3vaVn/GmfewJpC+44jyVk8sSkYnTAYtHG7T+PZwYVgbk294cMLEED+ju
+	2GJDQmuYDNa4UxUGDgNPwyGUMFKy5mZ0OHTohvw3RiZ0xOPCWIZFJQCsGxnsnKHMFci7b0v+wmC
+	HVYMiqvmQhSoJB18KrQ6RzD+7yQe2PV/J2tlCLR9A2Zpd8gsM5lu0UCvxcBcVByERu528yAQK51
+	MZYq0KRGT6bIxpC5
+X-Received: by 2002:a05:7300:cca2:b0:36e:371:8255 with SMTP id 5a478bee46e88-379603825bemr628008eec.0.1794527445599;
+        Thu, 12 Nov 2026 15:50:45 -0800 (PST)
 Received: from evangelion-g ([2a09:bac5:40e4:11cd::1c6:8])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332ae7sm3842976eec.8.2026.11.12.15.50.27
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332ae7sm3842976eec.8.2026.11.12.15.50.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 15:50:33 -0800 (PST)
+        Thu, 12 Nov 2026 15:50:45 -0800 (PST)
 From: Ayush Yaduvanshi <ayush37735@gmail.com>
 To: Peter Zijlstra <peterz@infradead.org>,
 	Ingo Molnar <mingo@redhat.com>,
@@ -96,10 +97,12 @@ Cc: Mark Rutland <mark.rutland@arm.com>,
 	linux-perf-users@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ayush Yaduvanshi <ayush37735@gmail.com>
-Subject: [PATCH 0/2] perf/x86/amd: Check CPU hotplug setup and unwind failures
-Date: Fri, 13 Nov 2026 05:20:01 +0530
-Message-ID: <20261112235003.18608-1-ayush37735@gmail.com>
+Subject: [PATCH 1/2] perf/x86/amd/power: Fix missing CPU hotplug setup check and cleanup
+Date: Fri, 13 Nov 2026 05:20:02 +0530
+Message-ID: <20261112235003.18608-2-ayush37735@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261112235003.18608-1-ayush37735@gmail.com>
+References: <20261112235003.18608-1-ayush37735@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,29 +114,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The AMD Power PMU and IBS drivers register CPU hotplug callbacks during
-initialization. Both paths need to handle failures in later initialization
-steps.
+Check the return value of cpuhp_setup_state() and remove the hotplug
+state if perf_pmu_register() fails.
 
-The Power PMU change checks the return value of cpuhp_setup_state() and
-removes the hotplug state if perf_pmu_register() fails.
+Signed-off-by: Ayush Yaduvanshi <ayush37735@gmail.com>
+---
+ arch/x86/events/amd/power.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-The IBS change checks cpuhp_setup_state(), removes the hotplug state if
-perf_event_ibs_init() fails, unregisters the syscore operations registered
-earlier, and clears ibs_caps on failure.
-
-This series makes the initialization error paths unwind resources acquired
-before failure.
-
-Ayush Yaduvanshi (2):
-  perf/x86/amd/power: Fix missing CPU hotplug setup check and cleanup
-  perf/x86/amd/ibs: Fix missing CPU hotplug cleanup and unchecked init
-    return
-
- arch/x86/events/amd/ibs.c   | 26 +++++++++++++++++++++-----
- arch/x86/events/amd/power.c |  9 ++++++---
- 2 files changed, 27 insertions(+), 8 deletions(-)
-
+diff --git a/arch/x86/events/amd/power.c b/arch/x86/events/amd/power.c
+index 66197214b010..2627d5269b52 100644
+--- a/arch/x86/events/amd/power.c
++++ b/arch/x86/events/amd/power.c
+@@ -282,13 +282,16 @@ static int __init amd_power_pmu_init(void)
+ 	}
+ 
+ 
+-	cpuhp_setup_state(CPUHP_AP_PERF_X86_AMD_POWER_ONLINE,
+-			  "perf/x86/amd/power:online",
+-			  power_cpu_init, power_cpu_exit);
++	ret = cpuhp_setup_state(CPUHP_AP_PERF_X86_AMD_POWER_ONLINE,
++				"perf/x86/amd/power:online",
++				power_cpu_init, power_cpu_exit);
++	if (ret)
++		return ret;
+ 
+ 	ret = perf_pmu_register(&pmu_class, "power", -1);
+ 	if (WARN_ON(ret)) {
+ 		pr_warn("AMD Power PMU registration failed\n");
++		cpuhp_remove_state(CPUHP_AP_PERF_X86_AMD_POWER_ONLINE);
+ 		return ret;
+ 	}
+ 
 -- 
 2.53.0
 
