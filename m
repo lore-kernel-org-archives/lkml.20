@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794445811;
-	b=fONiV9ZzROEIrMBNE2/LXNycP0dxD/pJ5N3CK85v6vKM6F5Xz7H8bClzNr1WQOeoKlfO
-	 VKhfVTYnCrdhPoFLsh+1iII/yjGpjm0gdaYhbK81DkCRTlXkIOL1NyV9anE3Z10WDrQ2U
-	 ysBpg2or8ksBVxr/eK2mAuwQ+PPFF6J9vFmDQW+gXNvuoPXYZS8gOGpsINT4/QKwRc8qX
-	 cAM1isq3aHOyVpr/PT3EGyE5fGwzR4/stssHmuyCNBN+QECz3U2LREfcDncqeNEpx2i4J
-	 rosUBAN3ZLhp4uuN4jcNJVyRX/SCY/QKI/QCGDEnqcFa+jrDkJcPlxIoywBLVLzH7Bw==
+	t=1794445806;
+	b=3BTouWnad3QIHWpxO5e95U0bU5/IaGAM74mGVCn5lR/esTT2QRNO3IcWJB3U0C4YtUn7
+	 cXW/FupAriQwXmNOhRlq2K9CXGWXIXwQRmoutYWAfD6oASQGBHZ1pQZ0rFVPKRvPe1udi
+	 nceMbrxuGfWqTWLKLoF6IcsxrNUyR0hb1KJx3RZSWXE4UuwAKaHs3kWTsvuv6gJKMClQK
+	 tAfVw/46I9t2RzRbfh1dIgkGBDsRbEiQl1+TCq7Ql/SxW9JWagoWM586HRSW/zKe9i7mn
+	 tD0CAUdlK+dBvObO/MOZ7RB9NZBzrgJ/djWTE9HFvXEScKivYxfOqVYmOp31zwm4eJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794445811;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794445806;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=iUK3OkXodJtPrkBBoTTM4dXdzIv8wcciK9J4kqlaKsw=;
-	b=gs/AoOsVf12VymJfJ73iEwdWFLgLXaWi9y50tB8om6A7YnIquTN42BA5P1n3BK1gwfox
-	 NVh9+tAJAtP1sP9JxCKZxc30FqOENQDsIU6b6NlmXMaKIEfkdqa//cRsqzOlTmyerMIHs
-	 QMhsmO0qbOi3WLfo+AD7XtO+9biLmw1lduthCwdrlFevW98zcrPVUnymYiGh8ixFmTLNW
-	 KOQRdJZnyknZQ9jzUfoD1Ck6n1H/AomgLSXBAueTY4+c8FCydqwmgWO7nnxNJrHaQHkgA
-	 xk/GaA7xct848FF1SIDov5bqbElvwBMME33QPmJ+nKNVfLk2mOR356IZabq+KLufxPQ==
+	bh=6fxkIUEUzyle7Zrx0jGwr/lUnjzRkrMVgN4T1ImT6Jc=;
+	b=3RLN/YnkWTTX5xKP08sJvWma7WIGuUMhewjmAtb7zlVcycPIt6zHqxX8g6AfLjc2UnP1
+	 TITLFNAb3kQYAAEPlDiUHvLNdUq3xpmAtL/zobnDPKklG+Llb2kMGXXieJlOXpw/8v737
+	 Em8Jn+D/GA9UCLSrCJF+qLydZo+ZsSZUJb2fFFH3+budJkiktL9a/7ybQQAC2Kr8sR48t
+	 5m50pqPLBdr2e5SlJS7O93a4bwPwPYqnxqa+yqVd+YZqF1hCsUBh7kU3m47TKa9DvBKPQ
+	 1iwoM4SpW2QGnT7FRIZFrVVZL8JCqNIB43mhN7hTGBfGAOLzYRels/LMaDfTmIlzNbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ex9uc6Ld;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KAhhY4wF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76652606A89D;
-	Thu, 12 Nov 2026 01:10:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58C5606A321;
+	Thu, 12 Nov 2026 01:10:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ex9uc6Ld
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D8061F00A0C;
-	Thu, 12 Nov 2026 01:10:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KAhhY4wF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67F4D1F00A05;
+	Thu, 12 Nov 2026 01:10:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794445811;
-	bh=iUK3OkXodJtPrkBBoTTM4dXdzIv8wcciK9J4kqlaKsw=;
+	s=k20260515; t=1794445806;
+	bh=6fxkIUEUzyle7Zrx0jGwr/lUnjzRkrMVgN4T1ImT6Jc=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Ex9uc6LdL9rleAtamx2w1yYQbWoASBjdzLUGYVplfMCUUehtGTNP1csnq/CXZQFEl
-	 P99nwsNFwJTOofQcJt/BbEzVfFiHCw+4qptwXiQdOvHojdyVBcNfGCgus0GXQZUo7r
-	 DZR8JF19Lmm1DSdH55s1cnB+FlwX1yaTm9yhnO0ZZkvQWf+X3qOHzNIhbeR/QO5G7B
-	 ypyUCnWUm3LJhR+eE0Sd3dfB3nBnJcU5bICJc7QJcZzx7tK/QAZA17USCGdKOY6j0d
-	 2wqsBtFPPSkpBV7VmCkoaRM3h3FenZvUNt2M7MowFt2wzEf7kSLLRJSrJkxMObpLUn
-	 vtOUzkUQ+5Jlw==
+	b=KAhhY4wFOOxBP8prpZlGgBOJbPW4zgteWYiawD5UK33yphoZwDr/DaWfPoaDKxgXZ
+	 ghgDS7vtkU+oi/IdWXpOanuSxDPxr3DSugKZpUIFwvePkw3aU+5EDtEHhgt8l9/SoX
+	 /rZLM285Beh57SQkprl5oXYGEwA9zGvzgbgVt1dM/fjTHpajYz4LWJQLX69opD3Rzz
+	 i29z/3exIdHyaGxAIeAzV6+OXuvuKhyAQyVqPp+Tr+expPns8ZR1j82s9bU2D5Yl2a
+	 SWGeC2gR1vIhCzIPmWHttu10yQ+rqDj7vXeSU2eNX1o/7YdeaFDPP9dg5TvKa3q477
+	 MLsrnUHWTtR6g==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 45847391AFCE;
-	Thu, 12 Nov 2026 01:10:11 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5E0BC391AFCE;
+	Thu, 12 Nov 2026 01:10:06 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,40 +54,38 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next] docs: net: fix outdated default values of four
- sysctls
+Subject: Re: [PATCH net] tls: fix async encryption race on weakly ordered
+ architectures
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179444580992.1745669.85658794440257470.git-patchwork-notify@kernel.org>
-Date: Thu, 12 Nov 2026 01:10:09 +0000
-References: <20261108061746.32090-1-gopalmalaviya53@gmail.com>
-In-Reply-To: <20261108061746.32090-1-gopalmalaviya53@gmail.com>
-To: Gopal Malaviya <gopalmalaviya53@gmail.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, rdunlap@infradead.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
+ <179444580518.1745669.12722897429288810023.git-patchwork-notify@kernel.org>
+Date: Thu, 12 Nov 2026 01:10:05 +0000
+References: <20261108-tls-async-tx-ordering-v1-1-f9a1844ca88e@xsightlabs.com>
+In-Reply-To: <20261108-tls-async-tx-ordering-v1-1-f9a1844ca88e@xsightlabs.com>
+To: Ofri Zangi <ofriz@xsightlabs.com>
+Cc: john.fastabend@gmail.com, kuba@kernel.org, sd@queasysnail.net,
+ davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, vakul.garg@nxp.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, guyt@xsightlabs.com
 
 Hello:
 
-This patch was applied to netdev/net-next.git (main)
+This patch was applied to netdev/net.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Sun,  8 Nov 2026 06:17:46 +0000 you wrote:
-> The defaults documented in ip-sysctl.rst for four sysctls differ from
-> the values the kernel actually uses:
+On Sun, 08 Nov 2026 21:12:57 +0200 you wrote:
+> From: Ofri Zangi <ofriz@xsightlabs.com>
 > 
->   sysctl                  documented  actual
->   cipso_rbm_strictvalid   0           1
->   flowlabel_state_ranges  1           0
->   router_solicitations    3           -1
->   regen_max_retry         5           3
+> With async encryption, a record can be transmitted without its TLS
+> header on weakly ordered architectures such as arm64, because the
+> consumer may observe rec->tx_ready set while still seeing the old
+> scatterlist entry.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net-next] docs: net: fix outdated default values of four sysctls
-    https://git.kernel.org/netdev/net-next/c/06f74055bc1b
+  - [net] tls: fix async encryption race on weakly ordered architectures
+    https://git.kernel.org/netdev/net/c/a2fd526d6442
 
 You are awesome, thank you!
 -- 
