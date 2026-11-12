@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794473650;
-	b=0NtIsZce9J31+6McPi4ghG+AK2rczjLg+NytZAm23UYJGNJXrup7NHESJwebvANzJnWv
-	 I5xNFA+HQTHRg8i2u9kZPNg+USoC87NkiV7UuY2B8wAZJzeFachQTEqDISWfTdZSamuKd
-	 flGfZBwFs9RbD4rJJa/Dlgxg82jADT9ijS1PnZPkMeYOhoe2BOSzqTYnx+obashIW8VdH
-	 t4DhXlLUylWXdnWG2iVaFUvt2hF6kySXM/Lfyq2r2orirAadQS7aP6nx5NGi07YqK6pxs
-	 2zhVb9KZpagmkyZ0Te/Jvf5F5Po7Cl3spiDz7andUsGUAzjmFesY/VbH6hfPof9WI/w==
+	t=1794473654;
+	b=WgTUX4DPZmYbjyi28DzoMEXSZymtPb15+cBaqhf9OVpxNOg2WuBRzDHZHKmnMNzcfVY0
+	 78Ws7TGItzbuiu9pCSdDaZc4hVrnRt71Mz61ZXabo9SCOxjoLoN5sWRefBQfsRlAYwigt
+	 WnKCwW7qir6mWpMr90O3zt6NodVEFUSh5blgjOgKNLEHYrm7HVx/LLEKfpKqML9Q3S+3H
+	 cKozDO8R4K1XGZQvtMcalXtFnbiczVAGW+hlE3pzEzhxOCdABCVRwkc0x9+NSpVaWNP7S
+	 B1HpPuQWQu617nHBLGzmxUcoERPrmpstkOVchLpGDg29T9pP/QMjo+IchBMRKGp7CnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794473650;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794473654;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=ePkuZsGQpV9jd5TnZXMBz49Rl2IFx60CuIIApPV/Lyo=;
-	b=qruLFjXPl6PlkE5EUszU6+vmt1pH9t9LfOSWdInwpONH/MwYAWQG+PjbW4nfzyiDhpdy
-	 y69gPNiaBLNl6OJDqEUxDN+YMFiGPtetRsnb9pQ8htKkBLV3vxEVCC28oBM1UOo+UMk+Y
-	 /bQvmlV3X7JikjTudmeQd1yfG73dPaxsR2zkQyBec9Gx8sk8zP6Y0zIupf6NZCt32G5HT
-	 TjldQhvprRmgs188AKKukVVFXhdonNlYLdYVcD1yL2NKkGzMYyreMBsmF1vdpchZSvf05
-	 X2mVmpsW8gr0Xwy3j1MIZLczeeaSfpuFq09CFAEdRMbFeHgra/tVAHNbxblMFdBOdmA==
+	bh=OT4UYzJ55zbPPzE3sSYyUxZKuwkGev+001urY+Jtyv0=;
+	b=NKDWu41ubhskCYYV+us6/3dvN7ePqKG7hczyNw6ncWnSmMEwESu9MwwbG61ZRDh+iKaI
+	 /f1NtsJ0j2gQMq5GettajBJQGh7sqZ3jwtj67dxdzFVQ/KVZsy3U2z95lPffVaPGlMJpq
+	 1UeYK9IY3dx+3D002r6UzD8vYWdWdZn94uiCyqp3RnUe6sJOcKypeyz6wBZ9+wRI4rhdt
+	 8LD1cTTqpLpj6HUOAJ6mUptTiVSduVG42Ai8KMurIq1ApLzSh4u6Jopkyejzjrdrmsgjr
+	 GKegSEmeEb9D0TmzqJQSQ7U57EcLHC42mkyjbAtVni55yGmXgXW0urQodSvWM4TuFiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ltl8ImxL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HSxzzXAQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2304606A321;
-	Thu, 12 Nov 2026 08:54:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C85F9606A330
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:54:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ltl8ImxL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 960071F00A07;
-	Thu, 12 Nov 2026 08:54:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HSxzzXAQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DED451F00A05;
+	Thu, 12 Nov 2026 08:54:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794473650;
-	bh=ePkuZsGQpV9jd5TnZXMBz49Rl2IFx60CuIIApPV/Lyo=;
+	s=k20260515; t=1794473654;
+	bh=OT4UYzJ55zbPPzE3sSYyUxZKuwkGev+001urY+Jtyv0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ltl8ImxLoafNcK4EpGTLoPNj5qUQQrLzABRGpWQsvGY1mDdlI6VDdtd1H+ts2pVCP
-	 UNaUiMIS/ZiSZgav9R3+NQ1QnEtCSbRGPylnH7/84HLfeIRwjHIFRibRbkph5z7FuR
-	 7nHX/Ao5Rs/JC/8dPC/017P7gQXwZynLSf4GRDiI2bAe6oL1Zq8t0B2mPfTMDBP2M7
-	 gH//ZjoWG10PI/DHwgsfFRMxTon52cjOWoiBXQdqw9hNFA1pWXkrjzv9VatUuAq+Xg
-	 3nEhT64qFWQwD2QU2V5srpExAnV6DtqecgNhn9pIH/DIfY8s/uIrpk9pkJzL18YYwC
-	 RJoqAbZOaCdWA==
-Message-ID: <ceb2ef49-69e8-425c-9582-ba6fb872e0cf@kernel.org>
-Date: Thu, 12 Nov 2026 09:49:11 +0100
+	b=HSxzzXAQAXajBmw3uzuM1xXEfDxqd9aJG7PLJu051MyVrGQ1NaJm3jkY2BfPcSs61
+	 KQVrEw+f/uZxjoPuRgJso2EKttZxcRCo50io39UiuYuf4Il8I1iDf4lFu29Je5hkke
+	 wMxFFXLGjAE0evcUlapK2syy4lY2aGUBLtmwfUcQP5TEPNcCO9sC/3Oe+1isVNwt6l
+	 Oe6xf2kLohBkQTpw7HlPYlVGuPoUTVTpLqvCRH7aIGvPwbYKHiCVA5kXV0VH7M8nio
+	 zhe7wrGIvhQ6/RoYNJw700AstBFvZkICaw2fkm+pVWHqezWETqQZc1oun5vXPru4x1
+	 ZsuSAGWiWPm2Q==
+Message-ID: <bfe69f54-9eda-454b-a764-7a9b185e2175@kernel.org>
+Date: Thu, 12 Nov 2026 09:54:03 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,17 +52,15 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] mm: gup: allow long-term pins of CMA-allocated
- HugeTLB folios
-To: Qi Zheng <qi.zheng@linux.dev>, Muchun Song <muchun.song@linux.dev>
-Cc: osalvador@suse.de, akpm@linux-foundation.org, azpijr@gmail.com,
- Lance Yang <lance.yang@linux.dev>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, stable@vger.kernel.org,
- Qi Zheng <zhengqi.arch@bytedance.com>
-References: <cover.1794379433.git.zhengqi.arch@bytedance.com>
- <503c9f6d869e3206c6fd591de962c3d619b73825.1794379433.git.zhengqi.arch@bytedance.com>
- <80FED512-77D2-4D49-BAE5-745CE1F711CA@linux.dev>
- <1116fd15-a927-4f6e-a0ab-084bc36a90aa@linux.dev>
+Subject: Re: [PATCH] mm/migrate: don't move memcg NR_FILE_PAGES for swapcache
+To: Song Hu <husong@kylinos.cn>
+Cc: akpm@linux-foundation.org, apopple@nvidia.com, byungchul@sk.com,
+ gourry@gourry.net, joshua.hahnjy@gmail.com, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, matthew.brost@intel.com, ridong.chen@linux.dev,
+ shivankg@amd.com, willy@infradead.org, ying.huang@linux.alibaba.com,
+ ziy@nvidia.com
+References: <67275d3d-cc60-406c-a088-298b948d7577@kernel.org>
+ <20261112024855.424402-1-husong@kylinos.cn>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -109,150 +107,73 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <1116fd15-a927-4f6e-a0ab-084bc36a90aa@linux.dev>
+In-Reply-To: <20261112024855.424402-1-husong@kylinos.cn>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 11/12/26 07:13, Qi Zheng wrote:
-> 
-> 
-> On 11/11/26 3:42 PM, Muchun Song wrote:
+On 11/12/26 03:48, Song Hu wrote:
+>> On 11/10/26 04:09, Zi Yan wrote:
+>>>
+>>> It would be better to simplify the above like Joshua suggested.
+>>>
+>>>
+>>> Like Joshua said in another email, it will be more readable if
+>>> NR_SWAPCACHE updates can be moved into the then branch above.
 >>
->>
->>>
->>> From: Qi Zheng <zhengqi.arch@bytedance.com>
->>>
->>> Long-term pinning treats explicitly CMA-allocated HugeTLB folios as
->>> unpinnable, causing unnecessary migration or pinning failures.
->>>
->>> These folios already own their CMA bitmap ranges, and memory blocks
->>
->> Commit message needs updating to bitmap as well.
+>> Can one of you write me the updated patch description? Thanks1
 > 
-> Will do.
+> Sure. Here's an updated commit message incorporating Joshua's
+> suggestion to describe the accounting model first and then explain why
+> migration gets it wrong.
 > 
->>
->>> overlapping CMA areas cannot be offlined. Allow HugeTLB folios with
->>> HPG_cma to be pinned directly, including in ZONE_MOVABLE.
->>>
->>> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic hugepages
->>> using cma")
->>> Cc: stable@vger.kernel.org
->>> Suggested-by: Muchun Song <muchun.song@linux.dev>
->>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
->>> Acked-by: Muchun Song <muchun.song@linux.dev>
->>> Reviewed-by: Oscar Salvador <osalvador@suse.de>
->>> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
->>> ---
->>> include/linux/mm.h | 29 +----------------------------
->>> mm/gup.c           | 31 +++++++++++++++++++++++++++++++
->>> 2 files changed, 32 insertions(+), 28 deletions(-)
->>>
->>> diff --git a/include/linux/mm.h b/include/linux/mm.h
->>> index b0da9be413098..47d1d96bfc7fd 100644
->>> --- a/include/linux/mm.h
->>> +++ b/include/linux/mm.h
->>> @@ -2954,35 +2954,8 @@ static inline bool is_zero_folio(const struct folio
->>> *folio)
->>>     return is_zero_page(&folio->page);
->>> }
->>>
->>> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
->>> #ifdef CONFIG_MIGRATION
->>> -static inline bool folio_is_longterm_pinnable(struct folio *folio)
->>
->> I think David prefer to move this function first, then fix it in a separate
->> patch,
->> right?
+> mm/migrate: don't move memcg NR_FILE_PAGES for swapcache
 > 
-> Hi David, is this what you mean? If so, I will split it into two patches
-> for the v5.
+> NR_FILE_PAGES is accounted on both the node and memcg planes for page
+> cache folios.  Swapcache folios are the exception: they keep
+> NR_FILE_PAGES only on the node plane, while their memcg accounting is
+> tracked as NR_SWAPCACHE.
+> 
+> The cross-zone path in __folio_migrate_mapping() currently migrates
+> NR_FILE_PAGES through mod_lruvec_state(), which updates both planes.
+> This is correct for normal page cache, but wrong for swapcache folios
+> because there is no memcg NR_FILE_PAGES state to move.  As a result,
+> migration incorrectly increments the destination memcg counter and
+> decrements the source one, leaving the per-memcg accounting incorrect
+> until the memcg is destroyed.
+> 
+> Reproducer, on a 2-node QEMU guest with cgroup v2:
+> 
+>   1. create a cgroup with memory.max = 50M and swap enabled;
+>   2. memset 128M of anonymous memory in it, so reclaim swaps most of
+>      it out;
+>   3. fork to raise the swap entry refcount, then fault the memory
+>      back in, so the resident folios are swapcache ones;
+>   4. migrate_pages(pid, node0 -> node1).
+> 
+> "file" row of memory.numa_stat (bytes) after step 4:
+> 
+>                     without this patch      with this patch
+>                       N0          N1          N0          N1
+>                      0 (*)  51691520         0           0
+> 
+>   (*) the source counter has gone negative; negative values read as 0.
+> 
+> Fix it by updating the node accounting directly for swapcache folios
+> while leaving the nonexistent memcg NR_FILE_PAGES state untouched.
+> Non-swapcache folios continue to use mod_lruvec_state(), preserving
+> the existing behaviour.  This mirrors the existing swapcache handling
+> for NR_SHMEM in the same block.  It accompanies
+> commit 4eef27af2932 ("mm/migrate: move NR_FILE_THPS on cross-node
+> migration") and commit c5eef2e03618 ("mm/migrate: move
+> NR_KERNEL_FILE_PAGES on cross-node migration").
+> 
+> Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+> Acked-by: Zi Yan <ziy@nvidia.com>
+> Signed-off-by: Song Hu <husong@kylinos.cn>
+> 
+> Thanks to Joshua and Zi for the helpful reviews.
 
-Let's try something that is more future-directed: cma should deal with
-cma details. In the future we might implement something reasonable there.
-
-diff --git a/include/linux/cma.h b/include/linux/cma.h
-index 8555d38a97b1a..d829fd0355bae 100644
---- a/include/linux/cma.h
-+++ b/include/linux/cma.h
-@@ -21,6 +21,9 @@
- #define CMA_MIN_ALIGNMENT_BYTES (PAGE_SIZE * CMA_MIN_ALIGNMENT_PAGES)
- 
- struct cma;
-+struct folio;
-+
-+bool cma_folio_is_longterm_pinnable(struct folio *folio);
- 
- extern unsigned long totalcma_pages;
- extern phys_addr_t cma_get_base(const struct cma *cma);
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 6af3b7008f1ad..5392e225cab9b 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -3,6 +3,7 @@
- #define _LINUX_MM_H
- 
- #include <linux/args.h>
-+#include <linux/cma.h>
- #include <linux/errno.h>
- #include <linux/mmdebug.h>
- #include <linux/gfp.h>
-@@ -2975,7 +2976,10 @@ static inline bool is_zero_folio(const struct folio *folio)
- 	return is_zero_page(&folio->page);
- }
- 
--/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
-+/*
-+ * MIGRATE_CMA and ZONE_MOVABLE folios cannot normally be long-term pinned.
-+ * CMA may allow pinning folios explicitly allocated from its areas.
-+ */
- #ifdef CONFIG_MIGRATION
- static inline bool folio_is_longterm_pinnable(struct folio *folio)
- {
-@@ -2983,7 +2987,7 @@ static inline bool folio_is_longterm_pinnable(struct folio *folio)
- 	int mt = folio_migratetype(folio);
- 
- 	if (mt == MIGRATE_CMA || mt == MIGRATE_ISOLATE)
--		return false;
-+		return cma_folio_is_longterm_pinnable(folio);
- #endif
- 	/* The zero page can be "pinned" but gets special handling. */
- 	if (is_zero_folio(folio))
-diff --git a/mm/cma.c b/mm/cma.c
-index 9ec1d1fd5dff5..b3bf0014a90f5 100644
---- a/mm/cma.c
-+++ b/mm/cma.c
-@@ -27,6 +27,7 @@
- #include <linux/log2.h>
- #include <linux/cma.h>
- #include <linux/highmem.h>
-+#include <linux/hugetlb.h>
- #include <linux/io.h>
- #include <linux/kmemleak.h>
- #include <trace/events/cma.h>
-@@ -38,6 +39,16 @@
- struct cma cma_areas[MAX_CMA_AREAS];
- unsigned int cma_area_count;
- 
-+bool cma_folio_is_longterm_pinnable(struct folio *folio)
-+{
-+	/*
-+	 * Explicitly allocated CMA folios own their bitmap ranges and can be
-+	 * pinned even in ZONE_MOVABLE, as CMA memory cannot be offlined.
-+	 * For now, only HugeTLB tracks these allocations with a folio flag.
-+	 */
-+	return folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio);
-+}
-+
- phys_addr_t cma_get_base(const struct cma *cma)
- {
- 	WARN_ON_ONCE(cma->nranges != 1);
--- 
-2.43.0
-
-
-
-In a follow-up cleanup folio_is_longterm_pinnable() can be moved to gup.c.
+Updated, thanks!
 
 -- 
 Cheers,
