@@ -1,95 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794448606;
-	b=zEN2wTPlnQ/ZkKkP4OPTeZsaYImEYGZu3X4hBlX8qvLWFrZKYOKJOu5FkeRVDeg0FwxD
-	 fUYt8PP9y42GCAdBXRcVBIPzhfig1RFU3pBvupO36/lHBUrllGq6FEH+E+XYv68FSxZ5+
-	 3T0QURamOfz4amrqVzmsZ0R/eqnLofDONay6wig7eXzjVVqZhN7xqYCto6SaS9S0MXVNU
-	 FDXpcP7dOSiu+wPJGd/i0WvOMvrD/6ESVHIdDb3W4I59mGE3StBu7J2xf6PWFtK9c0Ywe
-	 ZUcdjiORGkKHPS64IIs8fW34+y4mXfj9yKjrqjXARCQmutZ2WUMY2VpfdZkyJ0+jlgA==
+	t=1794448609;
+	b=bI59p9DJUA97cGcS/PUlw5tof2WO/yLQPNk7ZUNfIrG57IrHq2UEN43jmIrooS9xhsj0
+	 1pZ9+/3jrPhP+KMTN/1OtVu/LYChdBK5mT3+FfVoFSyT5uD0tJVhGymVwQ/KETEXpNSBQ
+	 D/uWrQVIQjJLC2aJnDsCPI2s6XcIoHYLEXOlPRrbgTFrLXMp1vi/g2EEysri461nAu+Vn
+	 mnd3gmVeAyeQn5nXNfSfG8JqnFylpneTdGJi2dshQl6epWyitqNBmsoEUiR8BErd8XAPV
+	 y9aT0lx4MhiFPu35X7WdC60z1NAd8R/CjiJflHpbXgC8TninUkFE/nf1ccqGV8nfWUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794448606;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794448609;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
 	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=6oWK0y1tjnQoCAjbYtBhPA366Lo1NXdpT+rZkHBkVw4=;
-	b=aWWHND5hBjToxJFcicBfn4/sRji/PM18PkVjDugFPzEmSkteMmhIyoCTxWHBwkUGoArI
-	 4oJNSIfZWOxkmv+Gjac0raS+d6RHfUZq78L9jzoL7ipSuPh967txmLIhDgo1OmoFrmIV1
-	 6p27C4FGUQA+LrhVydSOzZHnF9J1ZrJt1I9LybF0+nEyJtCrRRt46nJi5Yy1kr2LS/TUQ
-	 l0MXEn41pbLdI0bGZrG4hzJP31D1n5J31LriLfq3JCrlv/8iIbnxQVAda9M5tOEcNayeA
-	 yO5FPyHobhUmpMOxhVVwc8bk00jc/1I3xTnkRm6/u32HVWchKoIx+U5OcWTNlyAWpsg==
+	bh=gPT6TS9j605VglnGPiOuyPIG9vvgHc+cnJP2+2bHGmo=;
+	b=Uqta1PJvdypdqoLVxwmwe/hB7q7dqWJ1KMiOuAHolX00KmnzcDWt0nQEVQqVZueks6dO
+	 eEJaYs6spNj6qFnpFKoBxqUY+EmQE8U0siwof6pURalgdcFmEJzNvAT9S2hEKF42rX/Yk
+	 Z4WxWjMSAY0U7Uz0zRigcZd0z9jBuOUnTIeQBZ+ThUtfH8NHDIHsu8AQY5ND1dq4bEF3F
+	 smi2VwYMlEHjJmdfFG80NxDVf/u+8qpPwiSXpVYXQ4OoXpIktssls2sK5VGUZkOX94vkq
+	 i8tuTTUYX0ci74eAtWNaj0DbUs5USvUvAD6IICG63juKnek4bTKI6Hnvc1i7QPTS5Mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ythwGUP2;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a58PRzpa;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3358A606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:56:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3358A606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E79F606A33B
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:56:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E79F606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ythwGUP2
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso2754513eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:56:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a58PRzpa
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-37600b0db49so359885eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:56:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794448605; x=1795053405; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794448608; x=1795053408; darn=vger.kernel.org;
         h=mime-version:content-transfer-encoding:content-type:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=6oWK0y1tjnQoCAjbYtBhPA366Lo1NXdpT+rZkHBkVw4=;
-        b=ythwGUP2tHC4I3Bh81T+Uay+Mb2Vz4InI8ORw3NkFem4O7+BbPrCRN/sG/oqNhdXpn
-         aIJbJ40t+8DUO4GE2CoCuOIId1nma9qmodDjDC6HEfp/nEDLftXm4IHhgqqjlV0nhSE0
-         QVH7oD9S7zFY4E91haRClRrrOM1xWueTKXjFtha4hwpBS0PzW71xaLugp/wkHNjhX5Zi
-         9s+gwvhgZmhIbLPjNKFS12ULSbIW6UawtY5YGCK9NqHuOZ3qaDviVIZmJS9aR4BpPzhe
-         QwnGO5qvc9gtdm1aqAuiF+mdElpn0HKM6tGu4SmYF7C1ZGuU7KIxBdZ8PfbV4eH5TNxj
-         h0+g==
+        bh=gPT6TS9j605VglnGPiOuyPIG9vvgHc+cnJP2+2bHGmo=;
+        b=a58PRzpahy8j9d1V9rko3LsARltx5Z7rj9JFjoNVm9dMGHRHjmNvF+YTZHf7EO5hfN
+         uGQqY3W8u+Nb0OpnFdml/NsYlSG+IJi0G7W3+H91dsBUVQKcOr8bcGHGgiUCrgDUTpXq
+         qsdiXL4+/vccbduOm+TahFvS/+e0qvusP8WpCjes98GyQkt6NPE/HbeOpD4f0JRfLC+8
+         Yv//zMPFAx0PH0LHGVYQnMclpGmXUwD5oOoh2QPxpfF9RnB6OI/MlJ5omrICa4tEC0Kk
+         5Ot7HAY5pNonp6oXTy6UrYRqctzK810u7R51Feu2ODIVCa9GxByGCSubTjDKsOMtbFo9
+         qEjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794448605; x=1795053405;
+        d=1e100.net; s=20260707; t=1794448608; x=1795053408;
         h=mime-version:content-transfer-encoding:content-type:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6oWK0y1tjnQoCAjbYtBhPA366Lo1NXdpT+rZkHBkVw4=;
-        b=Jyi8t46xttrFiXVSiAxmfp8WVcs7ON7DWUKgjKwhQmvjlsU46v36bGIo8uEyjuV+Jg
-         pUx5MlLroGYhnodSeAL/w7enZH/D7wGwHi1iPgg6xaBfynaFc1Ths+I9BeGoUE4Ah0GP
-         /2n0QMI1Sc10g3jcrg+ID5Bx5sKtfI7xERUqttDfuqGcrj0e3EC8yj0iRiWATtPQPc7+
-         Z0sR5h0ZLXZfuCFkz1XJepL5fWf29rXR5Ps6Nm6XT2zdocZR7tmB5zAPBmLQwaIcNmFc
-         0SE7oMo2Ek1LXjWRQPvvOcE3AJ135u3JtChDdYvfDB+wMHlr34WkHaPd8VXi/IFw+Gfe
-         fMCw==
-X-Forwarded-Encrypted: i=1; AL+hErGlB2wA6EoVpaDjtgTw7mB6icWfGGqDvLbi3MUjvcqcXM/eSquAd6ZIOTNRF9XnO77z63ka7Rdb0UvwaKw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z83mvWMaXuM5Ox/LGNsCT9TClxF7ee8Sc2h8WCvMs/IC5kXyIT6
-	T0X3SFP57rAcwJA+4fdpiu+8c/dBhuhBHF04XzzrRP+UjVPC4GJXTBwE
-X-Gm-Gg: AYBFou26G5MPGqvCkPsDjFJHeME0WDd8onwrUaeX4h3PNn6wPn/pIvGUHdN0hgetBqA
-	ZU6f4cZfN6Qq1yepHfGQjovaFHdAeQ76l7EFlvMifzOikclGZINlKCV+3v9QgvJvXt5OAu85oLH
-	bFLiL0EVv39usgRlIlkIsxKK4OKj2QqERoUmOGnmcK3ywut+4R37HLeX8j3m2p7XkokUkxpkSAQ
-	PjlvkgPSEn7V+xaeWUe9kQolhVTpZwJooAI476aNG3REgGVg7R3LQwCcGD1LCh0+zxrWYmwWUhA
-	0lSheFVbyJIiyv5fQeFR1zISuSLJ7EoucKNMCQARyNqxVB3uajfp4cm2/WC0ilerc4lDgs+b+g8
-	rSOXGm28levDBVxsNzXwGchCZCWfD9QDLvANjZjUFbQZI3CX7LgCoME7nGpfF3F56KYu+KUT4BI
-	qpC1lOtXnPV0EFVyw+iKFbN1BIP4fPWRee+cxOzvofq+PDOpNzzdj4vwzUiMtf+yPumSe9kWwY/
-	A9LMpZuKWmL7PphZxIqsD7uJYabmQMsdr+eghTR2Ng542AGJH9kMSkNzUIzKLX76GgQUNWNmYJA
-	3TKHU8Wv6zzTra8nh9sazSO6ObNxGuMSPZN+pVKQ606sqVkAkIAvG41HKYOns2KI+NgCEz9iuAm
-	ctafCPLcDFDPJj9PxX4KkYqvg
-X-Received: by 2002:a05:701b:465f:20b0:152:3812:496a with SMTP id a92af1059eb24-1b3c0875263mr3989905c88.43.1794448604886;
-        Wed, 11 Nov 2026 17:56:44 -0800 (PST)
+        bh=gPT6TS9j605VglnGPiOuyPIG9vvgHc+cnJP2+2bHGmo=;
+        b=1foEq36YwTde5tqzr2H3Iy6JsWlwFO2TLvVCGydBv9cHCCVQQqQ5rb06c0IS/wGFWl
+         G+bsbKEtSL8T5kkeAK+pD06bg2YqD4eJji+CqUQHtb0zKp4uP1DcMbmQNQ0MQD9FE3HU
+         HuGBaHDUj7J9pLOATuXIchidZSCh+CyjE7273PZThSYKktn159mPu6w2ixFo+9wEDw++
+         0UjrWogiD0gx2MPY/+7vN6v5gmyFf0VThp+hgEYw/9GwcS0ZZc2CcM8NScadtmMhatXz
+         zNt40xRlhUSP56iYx948JuG6cHlxJ9W0G8yWOBbz0O8XCgi4ic3XpBY+xfg54ChVEWHm
+         AZqg==
+X-Forwarded-Encrypted: i=1; AL+hErESC5Gm8ErSAP1ivonvQBLPvMQ2cEj+V9A6NZ0ZpU+MnRXNwXmmw4eeE8Z+gntnenAOW/FQx8Sx8zWgeyM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/hxn0DzLGquPjyzy0UJnEqZkzrPOaAk0lgvGylv7/9WErH5HEW
+	mn2jgu/hSU/NxuIM4dM3v6tNOR1z3z3II8/isQaHCybOdMnukHkeNRKB
+X-Gm-Gg: AYBFou3uFj72go0FJdW9NRYPkm5vNLR84uX+aijXyjhXPG4z7m0e976vczZQDjcdwyb
+	5RMr34sOzSJiwCVLSdlvNosLX4D1I50MnK6uiHgWFfSDlwxXz0lv9cy0IALsNJ7zfwNfyEAnFCK
+	jqaQ21EITAcWTokq9elmNShoVH2MmeIZ24lHWmrzl0IdZ6sJxNM/yo4Khjyf5q2M8uf4duoIJC8
+	gpDzm2b8fAOpg98NAE/PEr3wjyIx/ziIT85nDDFLmPRroOSZunYNSrDYA0IgXNjQB3C+qTLEjOV
+	V8CIaG7/0jozwHHao4flp2XEXEsmlPAvebXQ7wTjb4xQ8nLxPGaHw/8eELKH7urH/JaHbg05A5F
+	Z04Uintmsgk004nHbXus1VpevJBNl+lRIZNK4p4cJ6w6srYOkVSGxgvQTfMxHcZxhanJxuY/gVb
+	wxocxqMZKONi7Al71jwnFSdkImaUuru9ZGgjAKWVwzneBrxqrU6lfDWRNmz4c+BtR2p9zxpLjoR
+	XRkEjtSzQsaOp8OA8TSjSJAyH8FVUoj1EYQBQyHylOSb21dovdqpgLEkPEjSkHsVuniGumFrFKM
+	//hvyd+IG5UWBfrtDasCGwKDnQS41Bufecyteltxt/wsvZ0SF/22GLEV9zgk2lP7JkAWaa9HrF3
+	5pfnSu1sS3pY49De71xF4/8hVYaahXC/T218QQlvVJa0a8w==
+X-Received: by 2002:a05:701b:4194:20b0:1a7:77ae:11f6 with SMTP id a92af1059eb24-1b4f5eb005cmr1104575c88.17.1794448608114;
+        Wed, 11 Nov 2026 17:56:48 -0800 (PST)
 Received: from [127.0.1.1] ([2602:feda:30:cafe:ec49:29ac:0:1866])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2eeffsm21032435c88.9.2026.11.11.17.56.41
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2eeffsm21032435c88.9.2026.11.11.17.56.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 17:56:44 -0800 (PST)
+        Wed, 11 Nov 2026 17:56:47 -0800 (PST)
 From: Yaohan Li <shunsheng1218@gmail.com>
-To: xu.yang_2@oss.nxp.com
-Cc: heikki.krogerus@linux.intel.com, gregkh@linuxfoundation.org,
- badhri@google.com, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] usb: typec: tcpci: quiesce the IRQ before
- unregistering the TCPM port
+To: sebastian.reichel@collabora.com
+Cc: johannes.goede@oss.qualcomm.com, krzysztof.kozlowski@oss.qualcomm.com,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH] power: supply: bq24190: stop IRQ and work before supply removal
 Date: Thu, 12 Nov 2026 09:56:38 +0800
-Message-ID: <20261112020000.1001.yaohan@gmail.com>
-In-Reply-To: <tiszwydkunhgdxmu2lucgxntzbcosncxxzrzgggudhtnvubkcs@lcllktxpuwrc>
-References: <tiszwydkunhgdxmu2lucgxntzbcosncxxzrzgggudhtnvubkcs@lcllktxpuwrc>
+Message-ID: <20261112020000.1002.yaohan@gmail.com>
+In-Reply-To: <avEajWe1iAH-Trhr@venus>
+References:
+ <179378567491.72692.9015711605062239156@gmail.com> <avEajWe1iAH-Trhr@venus>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -102,23 +103,15 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Hi Xu,
+Hi Sebastian,
 
-Thanks for taking another look. I'll shorten the commit message.
+Thanks for the suggestion. I see what you mean about fixing the resource life=
+time from the probe side rather than manually freeing the managed IRQ in remo=
+ve.
 
-I checked the IRQ path again. tcpci_irq() reads TCPC_ALERT and handles the st=
-atus bits directly. The alert_mask field is used for the IRQ return value and=
- the loop condition, but it doesn't filter those initial TCPM callbacks.
-
-My concern is the case where an alert is still latched, or the mask write fai=
-ls during removal. Since the IRQ is shared, another device could cause _tcpci=
-_irq() to run after synchronize_irq() has returned. Without the stopping chec=
-k, that handler could still reach TCPM after the port has been unregistered.
-
-Does the TCPCI specification guarantee that TCPC_ALERT reads as zero once its=
- mask is cleared, including for previously latched alerts? If so, I've missed=
- that guarantee and can simplify the patch. Otherwise, I think the stopping c=
-heck is still needed for that last window.
+I'll rework the power supply registration and runtime PM cleanup so the resou=
+rces are released in the right order. I'll also check the delayed work path a=
+nd the probe error cases before posting v2.
 
 Thanks,
 Yaohan
