@@ -1,70 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794450722;
-	b=f5bqwiSYwdAyrEyujzjApAReYu5iwu0xgI+oOxnKn/5zxUBVP17swUZQ5EGYZt9RYaLK
-	 44/Z0P0dK2b+PQbEa49UgJ8nFHr3bpKl6uuvAsmaS096pC0x7NM2mqPU0GdPggFhzFke/
-	 jN0HAnsflJiQ+knDqAToyuO2KtWbD9ZINroClVZpB0Hin3LlvRg71aXAzZkRgkQ4NvcEJ
-	 hgQIhOOgo3zAmVb7Ehl0h9IU06vUbVdtGeFoLwNGL+464kMO66k+vpu0VqYGhGVHKcDoZ
-	 lZaB1sJlRnYaIHAq7lUqnk596NCLSuZiVvQRZR730ZLH6rlCcPIyoFqEVBIxWkNcC0Q==
+	t=1794450738;
+	b=GkZ/u+QiNpWtMYdH0UNh2/9dHqVpMRjgn3nV9AkrDDvLtn2c9Wj9fR+WEXPFyd3sRW+8
+	 DeM3ckJBOoI2wztbmc3BhZcJo6+aNElZ0gs0e3FPp3Apt/A0Pan3euRLaT8mYBJOdmocn
+	 CYSz10bmNPp8WKLNwLVSLGgHqw82VR8U/OpalbhAE2Sedrchdeu/RwzZ9MAWqo94l60PL
+	 qkjNHCnMsZFIsS1uO0dkcAxvbS9t6QfoeL+5Sr98F3byOiKuo+Idm6rok2TTaMNZh2lJ7
+	 Nx8iRsG7g0Z4kvbaS3Yn/k96hljx/HGjy3VKiUbtE0wSCaw9ZXG78s4Ssm4AA8jdtyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794450722;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=IVjZ58U4WqJtvnbqVGQmwoIG35zU3s+Yzi58o6NmRfc=;
-	b=IqhCJTCa7aayZNMQqP/jVzkofNmfamdVLXVtyDROeV4G/Uxxb1mFdyutI0tpwO7lRZ0a
-	 lXOS42kko7T8DSeRMU1xeo0a6OUqxlcVkT3pUVs7+sVGGLLK0awdcQLIpnt1P/3ROCEwA
-	 mpmn8X0uZhZk22p4m6hZMc3OJy3wn7RemDjDrwGIBVJg+LaS+aTUmwqn9G82tu3bO0zYZ
-	 va9qSARKTMxt5mGkZNXRtmu2gqwr8AaQFUCp7YQ35JOPrK5mZyCbmCZYsrhekNEr/otN7
-	 G4gmUZK0EsL51oxpT406caYfIJe/ISiOGBnysPGRhvJ7N03wTWktaySbsV2vUy3EFyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794450738;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=xA/HKNd/xvNY86VeER648zAE5tWSIqYGfPm1bcMLxyA=;
+	b=DasHJyyM/4TlOXdCg//kbfFtNkpaAc3tN44xHpU+W2iRiEzjbdlSF9UvOKhNqHvdaIjx
+	 +S6cFh1f6oMZCK3mlaTND+OT3o1q7u231IsKbEEU6e2FNCcRb7wAUJAIZUqsjwFkH1y3E
+	 dkN9aph/I/Pgt0Mi40VbmWq2zAw1+F9erteULTSfUfy9ntyuphn+ydo+ecil9EMpCzNyr
+	 tIIxW4gWQ6gucNU0D24vqG48W4d52O+XN7+smXAiUIROBZYrJ3atKQTgwB0FU0rqWwkfI
+	 RCAPTiCtJxEu8MoukKxqkxTU+atXIkOvg2OlEOA7Htsw0a30/O20E53MWA/hf7jAdoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ezwQ56No;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DC2F1606A32E;
-	Thu, 12 Nov 2026 02:32:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC2F1606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oqC1WkDU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB560606A327;
+	Thu, 12 Nov 2026 02:32:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ezwQ56No
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=ezwQ56NoBPCJcl12Ibf2rMHbt4d+MYsAxqViYAS4VwKdcyNAu95ME9q7/ig81JPIhsAW5FF87Gcnz
-	 d56dVTlulnIisLDAtwxVrp3Q/4n/4FUn5vDFUJK2yMoCK1Ldk5KWRaD3qOC7dc3050gH2q9XGgzV3d
-	 bPB7mdiN4VRhHlm4=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46af5251e636-7c5fc;
-	Thu, 12 Nov 2026 10:31:59 +0800 (CST)
-X-RM-TRANSID:2ee46af5251e636-7c5fc
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from devin-VMware-Virtual-Platform (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16af5251e178-ef4df;
-	Thu, 12 Nov 2026 10:31:59 +0800 (CST)
-X-RM-TRANSID:2ee16af5251e178-ef4df
-From: Zhu Jun <zhujun2@cmss.chinamobile.com>
-To: sboyd@kernel.org
-Cc: bmasney+clk@redhat.com,
-	jbrunet+clk@baylibre.com,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	linux-clk@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Zhu Jun <zhujun2@cmss.chinamobile.com>
-Subject: [PATCH] clk: stm32f4: Return ENOMEM when allocating clock components fails
-Date: Thu, 12 Nov 2026 10:31:58 +0800
-Message-ID: <20261112023158.118273-1-zhujun2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oqC1WkDU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33BEE1F00A07;
+	Thu, 12 Nov 2026 02:32:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794450738;
+	bh=xA/HKNd/xvNY86VeER648zAE5tWSIqYGfPm1bcMLxyA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oqC1WkDU3HfVJR9rBpnMeI+iTz8ZwhtaFjUh9OakfY9+5bjEWliGcsNMndrmszQyW
+	 Zzy9hRIGiRogX0b86Ji3fj70cdzh/B+CCBYbYfbmPti7CwQmmSSUQikck5OBLoSnnJ
+	 iAdlBzzboZldpshbSNjm23UoLUOsJzHvLQIigLGbXXAlWaKmdDs5hZt8r2bWz1XrOY
+	 eZ5KRZ09t4DCVrNExlhRsoFtFEzd2zqdLCBiMcqD6c5VyM8omUOQ49AI69QCcFmZ7B
+	 Fmj6k0DlEU54Wyuut9Xyz3PI4F1/MdJBr/Ula8FpDffEZKU0LG8+VhFU/j9jaUetch
+	 j1CkgcDymmFTw==
+Date: Wed, 11 Nov 2026 21:32:17 -0500
+From: Sasha Levin <sashal@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Theodore Ts'o <tytso@mit.edu>, workflows@vger.kernel.org,
+	ksummit@lists.linux.dev, Bradley Morgan <brads@mainlining.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Mark Brown <broonie@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+	Thorsten Leemhuis <linux@leemhuis.info>,
+	"Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Dan Carpenter <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+	Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+	Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v5 3/6] agents: add a skill to determine stable tags
+Message-ID: <avUlMcKIeJgmCg5J@laps>
+References: <20261111225940.1573565-1-tytso@mit.edu>
+ <20261111225940.1573565-4-tytso@mit.edu>
+ <20261111171055.527b4bf3da705367bc78a64c@linux-foundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,65 +74,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261111171055.527b4bf3da705367bc78a64c@linux-foundation.org>
 
-stm32_register_cclk() and stm32_register_aux_clk() return -EINVAL when
-allocating a gate or mux fails. These paths indicate memory exhaustion,
-not an invalid clock configuration.
+On Wed, Nov 11, 2026 at 05:10:55PM -0800, Andrew Morton wrote:
+>Marco had some thoughts on this just today:
+>
+>https://lore.kernel.org/CANpmjNMvM_TCs7Fao9+gM-NNpQyBKYumSuWOt_03ZX+tLwbjWw@mail.gmail.com
 
-Return -ENOMEM for those allocation failures. Keep -EINVAL for an
-auxiliary clock with neither a gate nor a mux.
+This makes a lot of sense.
 
-OpenAI Codex assisted with analysis and patch preparation.
+>And Documentation/process/stable-kernel-rules.rst does ask for real
+>things, not theoretical stuff.
 
-Fixes: 4261a881cfee ("clk: stm32f4: Add RTC clock")
-Fixes: daf2d117cbca ("clk: stm32f4: Add lcd-tft clock")
-Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
----
- drivers/clk/clk-stm32f4.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+We've actually dropped[1] the "theoretical" part.
 
-diff --git a/drivers/clk/clk-stm32f4.c b/drivers/clk/clk-stm32f4.c
-index 6603d4815514..bf78fd1744c3 100644
---- a/drivers/clk/clk-stm32f4.c
-+++ b/drivers/clk/clk-stm32f4.c
-@@ -1204,14 +1204,14 @@ static struct clk_hw *stm32_register_cclk(struct device *dev, const char *name,
- 
- 	gate = kzalloc_obj(*gate);
- 	if (!gate) {
--		hw = ERR_PTR(-EINVAL);
-+		hw = ERR_PTR(-ENOMEM);
- 		goto fail;
- 	}
- 
- 	mux = kzalloc_obj(*mux);
- 	if (!mux) {
- 		kfree(gate);
--		hw = ERR_PTR(-EINVAL);
-+		hw = ERR_PTR(-ENOMEM);
- 		goto fail;
- 	}
- 
-@@ -1778,7 +1778,7 @@ static struct clk_hw *stm32_register_aux_clk(const char *name,
- 	if (offset_gate != NO_GATE) {
- 		gate = kzalloc_obj(*gate);
- 		if (!gate) {
--			hw = ERR_PTR(-EINVAL);
-+			hw = ERR_PTR(-ENOMEM);
- 			goto fail;
- 		}
- 
-@@ -1793,7 +1793,7 @@ static struct clk_hw *stm32_register_aux_clk(const char *name,
- 	if (offset_mux != NO_MUX) {
- 		mux = kzalloc_obj(*mux);
- 		if (!mux) {
--			hw = ERR_PTR(-EINVAL);
-+			hw = ERR_PTR(-ENOMEM);
- 			goto fail;
- 		}
- 
+The problem we were seeing is that bots were sending real fixes, with a solid
+changelog, but not adding the stable@ tag.
+
+Apparently our wording is pretty strong: unless you can prove that the issue is
+real, it remains theoretical. You'd have to either show a real case where you
+hit the bug, or to have reproduced the issue and can provide a way for us to
+reproduce it.
+
+Most bots can't actually do that for technical reasons, even if the bug is 100%
+affecting our users, so they don't add the stable@ tag.
+
+>Also, I would keenly like to see changelogs clearly explain *why* a
+>backport is proposed.  As I have said 1000 times, "when fixing a bug
+>please clearly describe the userspace-visible runtime effects of that
+>bug".  Can we pleeeeeeeeeeze get this requirement clearly enshrined in
+>this patcset somewhere where the LLMs will read it and comply?  It's
+>really simple for the LLMs to cook up a paragraph for this, if so
+>directed.
+
+This is a great point, and would make our lives much easier too.
+
+It sounds a lot like something that humans would benefit from hearing as well?
+If so, I can send a patch tomorrow to add it to
+Documentation/process/submitting-patches.rst and refer to it explicitly in the
+agents file?
+
+
+[1] https://lore.kernel.org/all/20261020142537.3533510-1-sashal@kernel.org/
+
 -- 
-2.51.0
-
-
-
+Thanks,
+Sasha
