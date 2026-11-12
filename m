@@ -1,72 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794508457;
-	b=haWL8BdoQfautMBOId8mXymUL0sQH+kCB50ltp26Tt8xk8P+gMamlHV1MB7R0OBcPrnY
-	 IR15pGxbJDjq9B9VbaLmsiqypi8PAL0LenTSqGdcQ3LVBVzWgb1IBJjnWaSRBtvJ/muhA
-	 b7SPwrPtgbTjiUO2zcqe4SaycjDIojX/0Pt3dQFOgRU+mkYtwzq5+IaRSVasF0cVLaX6D
-	 QMZxBr4VoE8PyJE6DyeIhtS03vgk9CwdB6dBWIhihetwQoYq1xbKH0FCdnGqCKJDCC/N7
-	 CxghROejH0sz1j2DZYQF5JLdc9EovVAyQccn1t3JGV0BB0kgerWI3cUaooJeQ1PPyBg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794508457;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=S83ufdCuikPlcGyicMt7mpw+fBC8MVplA5DoPA/0lZw=;
-	b=P4aj9+N/NzEJ6uFM5RcN3il46NY4kkyS+QnLCqeI/fidxglUm9lW9Fa6+uxhMnz3H9TQ
-	 kB8CRZF8Oug00H0nluk3+O1xeYU5joRhPjmDVrpf7Hk90gQ8IH0avQoEcuYzsLNr1l8vX
-	 Qu0cY45DWc+bP7ykVGDxjXvkzeTNIV2RSXtJNfiEUKT9scwFoheDuonoMgkI19J6HExwp
-	 M/o4m+KL4MQHPdPu6ssjVKxGm7wuST9uoLl8wO5NtGy/x124jzXiVGoaCmWKQtE1SuGMA
-	 6sIj4gCX2AQEcmnnGIjc+WZyEYHsUf+DBjyJYAaN/Yw8pvYFwiGig5SCjOLvWmiC3FQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ijVUa1/3";
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794508525;
+	b=Wv7vfTjD7VaueaAVkjOCbdnoQbWE/Q5VSykMDkwttrTWfoLc7zcrdH7vLzRj/smea/gP
+	 FRGKjAemyqmRGAWnQLxRd11C9sp7madHMXY6zhaZ3a0rtJQg74TbWHEGWqma0Chj0MjFR
+	 anXSS4uBpp3lq5V1UeM6BdIkszfgBRjB2hMjWQ5SMGd/DgJGI0qQUC86oW6SJuI/Ny9pG
+	 2JMiNXpWfRVbK7d2SvEdg8Vs/Z95Hxk7JwvYQM8d0HxiL6BPJIgz4EDKwTj9f3tMJYFYG
+	 6qQsWNN1vTbN5z+OTXVpsFjhi2iWwrKfMvpA7Q82Kdef2o+5bSvs7cYZvHFecEdMsHg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794508525;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=GgK64frVD9K5IVuLbjzzliKVcQ7pvJjIHqZw9D+YTzE=;
+	b=HTc1qUsCmsCZBXXr/mX8JD9+oCjwTa3hdxbYAPwmWj+fpdiCNaTO+MiPRuZPGIfhzhif
+	 Nq4cCFG5nxmYYLsh3uFA5gs1Kp10Aa0twynuL6/A5eDbzJUZQkLyrFnqG7e6L6JkyaZE3
+	 3tdKRQ0NHNCZtmLNEWBVgMQMQ1yVH4zYttIzEq5y55hjGdm5nZA95GuFymn3tEJvJ2uFu
+	 BVsqP0NabnmJaM8JN5d6s4N2WsUIOpeOkyo4VTFrh3tSuUjLwCDnITVPOsH5xPCvVsdfL
+	 G2eiGc9V5xwEV8uH8LE8IZbTKjNpla2NPq9bY/OLqE5JJjdWLGiO4VUKQ/EYm/nMUhw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3hy8zCE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA4E3606A32A;
-	Thu, 12 Nov 2026 18:34:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B40A606A31C;
+	Thu, 12 Nov 2026 18:35:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ijVUa1/3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 877AC1F000C4;
-	Thu, 12 Nov 2026 18:34:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3hy8zCE
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794508524;
+	b=LSWvLnya06BKnKU4VBF3eLI1jKg3XjMqrqNxbB5dYEkNuGyVFvTQTARs2Ou4blT/q1AL
+	 Fo1fdjh6sjIWyrnf6ehsfN00oxE9JyLdoh8FwyyROFjzx2r4tikMQsQWseSTrCU6Cmmsp
+	 lGR232q6CsYLvxXLyA/NIGMyv1BHwiAWwcXQf4uzLEatSj6tu7C59klNKyYEKGGxbNdCa
+	 E+ywxHwQcz/DGMR2Ful978TnnyjULHRgb93y+AssNj/g6taLkIa5wWVIgE7lepENgHr4U
+	 oFOer8cLOmBB3fih9qemcSHjC92ehVtk3QxP1l2SeFx9vcO1GStMiVgTL1zoPsKFNsQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794508524;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=GgK64frVD9K5IVuLbjzzliKVcQ7pvJjIHqZw9D+YTzE=;
+	b=WcHgpUMKPlCr0dx8kU5y/ytHt/qOH6+Hb+NLcP/pCC0FBW7Q11Oog9TM5H7VddBbATms
+	 3EdxrD/0bSaADoIIa68DwszdmR1QZeoOXYnB78TgjqG6nwZ/gR290jf+FUMzIQUkQvvHp
+	 /80Gossw7MgSpv5I3T2qRePKRmhSTfrpTjG/4MMg2a7nhmqIY+QYDyqK9/HjBQqvF0ywl
+	 wo50EmQaXcbm7NPaBcHLBSAqJsXM6CVITCwyoJmfm7T2v1MFMGJ/XfqHWceKs8pc5LRBJ
+	 IUlvWlf1K9ajcIGSnSAfaEn2mzgnNG18RdzLzFg7VvyGXNENwAdnh4aklnVnlxxfA2Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 540621F000C4;
+	Thu, 12 Nov 2026 18:35:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794508457;
-	bh=S83ufdCuikPlcGyicMt7mpw+fBC8MVplA5DoPA/0lZw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ijVUa1/34L3eHye3zw1zN/jAyO3526dLl8D+nYyREiy4hhDzOFJpJrb4r8+nEaUUx
-	 JBE0foYCokhvT3BCWxqXX2EMxkzVL6UklJzacnsibjmkOF7aAe6VjVcfSaixmhDat5
-	 xSEAZ92rm5t0S9ncbxiexT0z/XgwndpFr92CPMNhSCW5HIlziX+SNQjKmgdSWHicyt
-	 brSJvjlB+BP0Lgm8J16kaGtiezulqMucdc69bfguxXhXtWHsfXqv5K7UBRRbGM6JCy
-	 ADXCLZ3sWbMHVZuXxhQOivf3FZj+tl7zhkdQ8DHsio+K27kcFvUG64TnK0YU8zKulU
-	 y753u/meLtukA==
-Date: Thu, 12 Nov 2026 18:34:05 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
-	James Houghton <jthoughton@google.com>, Andrea Arcangeli <aarcange@redhat.com>, 
-	Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, Andrei Vagin <avagin@gmail.com>, 
-	Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>, 
-	Muhammad Usama Anjum <usama.anjum@arm.com>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Chris Down <chris@chrisdown.name>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	=?utf-8?Q?Miko=C5=82aj?= Lenczewski <miko.lenczewski@arm.com>, Michal Hocko <mhocko@suse.com>, 
-	Mike Kravetz <mike.kravetz@oracle.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH 03/12] fs/proc/task_mmu: downgrade writable migration
- entries in PAGEMAP_SCAN write-protect
-Message-ID: <avYApSoRMz7IZSox@gremlin>
-References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
- <20261111-uffd-state-fixes-v1-3-00713d368976@columbia.edu>
+	s=k20260515; t=1794508524;
+	bh=GgK64frVD9K5IVuLbjzzliKVcQ7pvJjIHqZw9D+YTzE=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=I3hy8zCE+Zm5kBAY/dZJ7/p3Cx7Yq8zGuE9fOQUXJhYdnUmIo7zp7W6OczVsv/aDM
+	 AH6zmmgpcjDXxes6MyRSqIoVlz847YIe/sRC4i3xoIsTw2lYnxrXCYhX9Ces6BPr2l
+	 yQ985T+leHLgFwM8aWRAcyiUCuxZwtlO7U5M8jRoGcrhcIy0jG6HIrbuVdsFkPA6Qm
+	 v/9IiY8YIjciE0eRHUQ9xlZdT3GH2w7gqpM0NPUWofBfns0GZgZZc04LK/OeN/MeX8
+	 9vo0juBNeDLHyyMpPYZgZebECsgx8DuPMt9GuFkOymUlhsdWeMk04y+dEIRNAgBNm/
+	 NnphsqlmsnDwg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A04394748A;
+	Thu, 12 Nov 2026 18:35:23 +0000 (UTC)
+From: Joachim Eastwood via B4 Relay <devnull+joachim.eastwood.gmail.com@kernel.org>
+Date: Thu, 12 Nov 2026 19:34:56 +0100
+Subject: [PATCH] arm64: dts: rockchip: fix pcie wlan chip on
+ rk3588-h96-max-v58
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,194 +83,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-uffd-state-fixes-v1-3-00713d368976@columbia.edu>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261112-b4-fix-h96-max-v58-wlan-v1-1-7e918fc85b88@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBCF4auQWTsJMwKhXsW4KGUKY7SaVoGEc
+ HeqLL/kvX+FJFElwaVYIcqkSV8hg04FuNGGQVD7bOCSGyJi7Cr0uuBoGnzaBae6xflhA3LNZ1e
+ RL43xkN/vKHn3L19vh9O3u4v7/HKwbTvC0Tj4ewAAAA==
+X-Change-ID: 20261112-b4-fix-h96-max-v58-wlan-2523c41f099f
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Alexey Charkov <alchark@gmail.com>, Alexey Charkov <alchark@flipper.net>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Joachim Eastwood <joachim.eastwood@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794508523; l=1890;
+ i=joachim.eastwood@gmail.com; s=20260701; h=from:subject:message-id;
+ bh=ls/b1TaJr55nJIaXg9urdpu9Pz+PccgRCIwOKYKwuzY=;
+ b=l3ZyBULPRW1p+jSeI4lEhokzzAiNlGuxxpGKDusbTYb0Khn8w05MIb1mv2VuShv1r2Qr/5UqA
+ XsVJy3jpg9VD1L3xa/Jbje78bpPdpYYqcqj3eWgWgyF4IUDfsxeiUUZ
+X-Developer-Key: i=joachim.eastwood@gmail.com; a=ed25519;
+ pk=ZN/8xWtdYaSd5oEfloYSZ1a+/ri0n0VZqjlEeHlbXFU=
+X-Endpoint-Received: by B4 Relay for joachim.eastwood@gmail.com/20260701
+ with auth_id=846
+X-Original-From: Joachim Eastwood <joachim.eastwood@gmail.com>
+Reply-To: joachim.eastwood@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 11, 2026 at 12:55:11PM -0500, Tal Zussman wrote:
-> PAGEMAP_SCAN with PM_SCAN_WP_MATCHING write-protects pages in a VMA
-> registered for async uffd-wp, and sets the uffd bit on non-present
-> entries as they are. An entry with the uffd bit set must not be
-> writable, so that the page is write-protected once it is mapped again.
-> change_protection() therefore downgrades writable migration and
-> device-private entries to readable ones first, but PAGEMAP_SCAN does
-> not.
->
-> For a writable migration entry at the PTE level,
-> remove_migration_pte() restores a writable PTE without the uffd bit. So
-> if a page is under migration while PAGEMAP_SCAN write-protects it, the
-> write protection is lost. A user tracking writes with async uffd-wp
-> sees the page reported as written on the next scan although nothing
-> wrote to it.
->
-> With CONFIG_PAGE_TABLE_CHECK, setting the uffd bit on a writable
-> non-present PTE or PMD also triggers a warning.
->
-> To fix it, downgrade writable migration and device-private entries
-> before setting the uffd bit, as change_protection() does, at the PTE,
-> PMD, and hugetlb levels.
->
-> Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-> ---
->  fs/proc/task_mmu.c | 54 +++++++++++++++++++++++++++++++++++++++++++++++++++---
->  1 file changed, 51 insertions(+), 3 deletions(-)
->
-> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> index 22361607020d..53780a454432 100644
-> --- a/fs/proc/task_mmu.c
-> +++ b/fs/proc/task_mmu.c
-> @@ -2395,6 +2395,38 @@ static unsigned long pagemap_page_category(struct pagemap_scan_private *p,
->  	return categories;
->  }
->
-> +/* Downgrade a writable migration or device-private entry to a readable one. */
-> +static softleaf_t make_readable_softleaf(softleaf_t entry)
-> +{
-> +	if (softleaf_is_device_private_write(entry))
-> +		return make_readable_device_private_entry(swp_offset(entry));
-> +	if (!softleaf_is_migration_write(entry))
-> +		return entry;
-> +	if (folio_test_anon(softleaf_to_folio(entry)))
+From: Joachim Eastwood <joachim.eastwood@gmail.com>
 
-Hmm _seems_ a bit dubious. You identify a readable exclusive migration entry by
-checking whether its folio is anon?
+Correct the gpio used for regulator-3v3-pcie. This pin was found digging
+through the vendor dts. Also add the this regulator to the pcie port so
+it will actually be enabled.
 
-But I guess because a writable migration entry can only come from a writable
-PTE, that implies anonexclusive. But you do need to explicitly say that.
+After this fix the BCM43752 shows up in lspci and WiFi works with the
+correct firmware.
+0002:21:00.0 Network controller: BCM43752 802.11ax Dual Band Wireless LAN Controller (rev 02)
 
-Also we really do have to break this out as a helper. I see it's open coded in
-change_softleaf_pte(), change_non_present_huge_pmd() and
-hugetlb_change_protection().
+Fixes: b53864811b35 ("arm64: dts: rockchip: Add H96 Max V58 TV Box based on RK3588 SoC")
+Signed-off-by: Joachim Eastwood <joachim.eastwood@gmail.com>
+---
+ arch/arm64/boot/dts/rockchip/rk3588-h96-max-v58.dts | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-But maybe that can be a follow up...
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-h96-max-v58.dts b/arch/arm64/boot/dts/rockchip/rk3588-h96-max-v58.dts
+index 3811f9a73bb6c..e869f7ecf93ce 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-h96-max-v58.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-h96-max-v58.dts
+@@ -79,7 +79,7 @@ vcc_1v1_nldo_s3: regulator-1v1 {
+ 	pcie_3v3: regulator-3v3-pcie {
+ 		compatible = "regulator-fixed";
+ 		enable-active-high;
+-		gpios = <&gpio4 RK_PA1 GPIO_ACTIVE_HIGH>;
++		gpios = <&gpio3 RK_PD5 GPIO_ACTIVE_HIGH>;
+ 		pinctrl-0 = <&pcie2_0_pow>;
+ 		pinctrl-names = "default";
+ 		regulator-name = "pcie_3v3";
+@@ -319,6 +319,7 @@ &pcie2x1l0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pcie2_0_rst>;
+ 	reset-gpios = <&gpio4 RK_PA5 GPIO_ACTIVE_HIGH>;
++	vpcie3v3-supply = <&pcie_3v3>;
+ 	status = "okay";
+ 
+ 	pcie@0,0 {
+@@ -373,7 +374,7 @@ pcie2_0_rst: pcie2-0-rst {
+ 		};
+ 
+ 		pcie2_0_pow: pcie2-0-pow {
+-			rockchip,pins = <4 RK_PA1 RK_FUNC_GPIO &pcfg_pull_none>;
++			rockchip,pins = <3 RK_PD5 RK_FUNC_GPIO &pcfg_pull_none>;
+ 		};
+ 	};
+ 
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261112-b4-fix-h96-max-v58-wlan-2523c41f099f
+
+Best regards,
+--  
+Joachim Eastwood <joachim.eastwood@gmail.com>
 
 
-
-> +		return make_readable_exclusive_migration_entry(swp_offset(entry));
-> +	return make_readable_migration_entry(swp_offset(entry));
-
-This is all super compressed.
-
-I'd say add to leafops.h but break it up:
-
-	static inline softleaf_t softleaf_migration_mkreadable(softleaf_t entry)
-	{
-		const pgoff_t offset = swp_offset(entry);
-
-		VM_WARN_ON_ONCE(!softleaf_is_migration_write(entry));
-
-		/* A writable anon migration entry implies AnonExclusive. */
-		if (folio_test_anon(softleaf_to_folio(entry)))
-			return make_readable_exclusive_migration_entry(offset);
-		return make_readable_migration_entry(offset);
-	}
-
-	static inline softleaf_t softleaf_mkreadable(softleaf_t entry)
-	{
-		switch (softleaf_type(entry)) {
-		case SOFTLEAF_DEVICE_PRIVATE_WRITE:
-			return make_readable_device_private_entry(swp_offset(entry));
-		case SOFTLEAF_MIGRATION_WRITE:
-			return softleaf_migration_mkreadable(entry);
-		default:
-			return entry;
-		}
-	}
-
-> +}
-> +
-> +/*
-> + * An armed entry must not come back writable, so downgrade a writable
-> + * migration or device-private entry before giving it the bit, as
-> + * change_softleaf_pte() does.
-> + */
-> +static pte_t set_uffd_wp_swp_pte(pte_t pte)
-
-This is a contradictory name, you're interacting with softleaves, there's no such
-thing as a uffd swap entry :)
-
-I/we obviously have to go and fixup the naming (I didn't _quite_ finish the
-softleaf conversions I guess) but let's not propagate it.
-
-> +{
-> +	softleaf_t entry = softleaf_from_pte(pte);
-> +	pte_t newpte;
-> +
-> +	if (!softleaf_is_migration_write(entry) &&
-> +	    !softleaf_is_device_private_write(entry))
-> +		return pte_swp_mkuffd(pte);
-> +
-> +	newpte = softleaf_to_pte(make_readable_softleaf(entry));
-> +	if (pte_swp_soft_dirty(pte))
-> +		newpte = pte_swp_mksoft_dirty(newpte);
-> +	return pte_swp_mkuffd(newpte);
-> +}
-> +
->  static void make_uffd_wp_pte(struct vm_area_struct *vma,
->  			     unsigned long addr, pte_t *pte, pte_t ptent)
->  {
-> @@ -2408,7 +2440,7 @@ static void make_uffd_wp_pte(struct vm_area_struct *vma,
->  		set_pte_at(vma->vm_mm, addr, pte,
->  			   make_pte_marker(PTE_MARKER_UFFD_WP));
->  	} else {
-> -		ptent = pte_swp_mkuffd(ptent);
-> +		ptent = set_uffd_wp_swp_pte(ptent);
->  		set_pte_at(vma->vm_mm, addr, pte, ptent);
->  	}
->  }
-> @@ -2467,6 +2499,22 @@ static unsigned long pagemap_thp_category(struct pagemap_scan_private *p,
->  	return categories;
->  }
->
-> +/* Same as set_uffd_wp_swp_pte(), for a non-present PMD. */
-
-No need to say non-present. Naming it with 'softleaf' somewhere in there implies
-that. E.g. set_u
-
-> +static pmd_t set_uffd_wp_swp_pmd(pmd_t pmd)
-
-Same comment here, this is just hugely confusing.
-
-> +{
-> +	softleaf_t entry = softleaf_from_pmd(pmd);
-> +	pmd_t newpmd;
-> +
-> +	if (!softleaf_is_migration_write(entry) &&
-> +	    !softleaf_is_device_private_write(entry))
-> +		return pmd_swp_mkuffd(pmd);
-> +
-> +	newpmd = softleaf_to_pmd(make_readable_softleaf(entry));
-> +	if (pmd_swp_soft_dirty(pmd))
-> +		newpmd = pmd_swp_mksoft_dirty(newpmd);
-> +	return pmd_swp_mkuffd(newpmd);
-> +}
-> +
->  static void make_uffd_wp_pmd(struct vm_area_struct *vma,
->  			     unsigned long addr, pmd_t *pmdp)
->  {
-> @@ -2477,7 +2525,7 @@ static void make_uffd_wp_pmd(struct vm_area_struct *vma,
->  		pmd = pmd_mkuffd(old);
->  		set_pmd_at(vma->vm_mm, addr, pmdp, pmd);
->  	} else if (pmd_is_migration_entry(pmd)) {
-> -		pmd = pmd_swp_mkuffd(pmd);
-> +		pmd = set_uffd_wp_swp_pmd(pmd);
->  		set_pmd_at(vma->vm_mm, addr, pmdp, pmd);
->  	}
->  }
-> @@ -2547,7 +2595,7 @@ static void make_uffd_wp_huge_pte(struct vm_area_struct *vma,
->
->  	if (softleaf_is_migration(entry)) {
->  		set_huge_pte_at(vma->vm_mm, addr, ptep,
-> -				pte_swp_mkuffd(ptent), psize);
-> +				set_uffd_wp_swp_pte(ptent), psize);
->  	} else {
->  		pte_t old_pte, new_pte;
->
->
-> --
-> 2.39.5
->
-
---
-Cheers, Lorenzo
