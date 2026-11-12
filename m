@@ -1,67 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794450584;
-	b=t54FtLBipW9zS6+ENc0ghPeYNykyzM3MuKggr2OF+xEYKVu0vGOiceXWMm1DmB0SsK4x
-	 NOTl9CpcX2rCKZy88QzUQEhPmHHl7mu9eX9a+ymq73ERyTIkne+z3+TGxnnGvYIfL/MY+
-	 RTKuSYVqSBatKC6FtCU+yGmAWqGCd4uvddHY61ED/cGwHas0ATVfa272dND5AN5r0g7/Z
-	 sjvJW5oYNv4NLv8W9ELYIU4ol4NomAyCfjRZH0XZB9LR4WQak6Lm3NVdzv8H6Gsa6RQlV
-	 LNsRjweQyz3Q3AiotnpC5uSNvw1Muv5YvVPig2gW7ZtcRJ4Xq2KdH5XckA7gDsvgwDw==
+	t=1794450604;
+	b=vcUNVwad9xNdy1AIG0w5DUKyIudpmPyp0ZJ3+fdfSpdMhx1e356IqDq24HtCgzbIsg05
+	 xlh/fkaR3vQyzCsk4Jv5HORYjh9CjWiaanSDIO4szpDaX6oSczv9B1HnfrAnt8km2utz9
+	 CleqzXIuSB4VOaI9a/S/LckupTfWWd0QCd3fuqOnP1zIZVrTPoBaeOy9wAKy8hocyIpsC
+	 kyDPmh2Rh+zK0an1F9KCeotzNYL8kE/xtGonn/GBb1tp4ZZ20kPI/oVn+zHvcm2icO0cZ
+	 3RHcSa7M74jLAbTlu3aCkjh8KrNzZuWKD4fIznG13tkbF0aqF2MPhhiFNtyvOPqPlng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794450584;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794450604;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=3iloLVp+MdOfHSiAG7FWE9RZU0xMne9BbzFysEHDF+4=;
-	b=E14MnBdn/iOkrp35bEfo3pzGcbV6R8YnM57/DWJKaue3PByypA9O5pLqlhvLUJqTqUBT
-	 XXDn9WDJAVw04JUS994RbiF3M9aBFA70JiItT6Zn3Byq0EUNSimXSQf7p9eEen1Co8Zhy
-	 8Oxsi994H1jAt7e1Gx72xJ0xKk2SarBpjzxdlDiKhEKGPeXepeWpoSZaL28q4eIea8uje
-	 wGQVxdno/l/yeDtaHe8V86ILYV8OC+mij6hit5BHBerYVVhx+zwr9QmaFFYKwdppe+/sy
-	 41pQ9SW+pODJGjBgQgAwvoubUbJyNXc/B3cq8DVEv8kaSzSlYzjP7hftyf8bNW5nUWA==
+	bh=ZBRlQut3mwF1KjSJZBxJE4prR1XigP7CCRTm+ueBhko=;
+	b=OFip0DO3eOpy2JagP3iVM95iW++KyHJIo1fibqNuKVNPmdq7hSx6ua561TfvJiWWStK3
+	 QUpMTglOur5ctaq7Sz4FbFOMDDIkeU3L/VfYk0SGB+OWFyv6nZfQuQJXqr/hI6ZVNXpH6
+	 c7JzZeJeMI+6IH/CvodAthNcuYZ4wyiMIHLiDYiKMTuTxUng2tKgBj1OZYu/PpZUl/OLA
+	 61nKFccPPZQvL3ljWZOFibfGrWpphEkUjFAxK0w96e0P/lHzy8d3+hpwp6Hqnxii23ib4
+	 e4jw+zTAhDVrZb4IdXpVmCnJpQGPLFhljrFSCtDMCRpMZ53269xc4PTjCp6kdJPcm7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=X+EvqbIE;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4479F606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:29:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4479F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TNHSzffA;
+	arc=none smtp.remote-ip=209.85.210.175
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8CB5606A32E
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:30:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8CB5606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=X+EvqbIE
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TNHSzffA
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8a39e5161c1so2771363b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 18:30:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=X+EvqbIEcbQ2M4ftPqcIwRjuDnGa/LYANqq9oNal+OR4EMTFQXAycmbivOhBy6prQoNECYKIzdR5K
-	 iIp5l6V4VTaRNwdvZO31xtwP3PISeYQ+V53VompU2OYVEw0AdHIKhe7RWciiJ8JdcZBDmYU54b3TO3
-	 9QrAUTNv2hloesSE=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af5249106f-b85ee;
-	Thu, 12 Nov 2026 10:29:41 +0800 (CST)
-X-RM-TRANSID:2ee16af5249106f-b85ee
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from devin-VMware-Virtual-Platform (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee26af5249318b-ef5a3;
-	Thu, 12 Nov 2026 10:29:41 +0800 (CST)
-X-RM-TRANSID:2ee26af5249318b-ef5a3
-From: Zhu Jun <zhujun2@cmss.chinamobile.com>
-To: pmladek@suse.com
-Cc: john.ogness@linutronix.de,
-	rostedt@goodmis.org,
-	senozhatsky@chromium.org,
-	printk@lists.linux.dev,
+        d=gmail.com; s=20260707; t=1794450603; x=1795055403; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZBRlQut3mwF1KjSJZBxJE4prR1XigP7CCRTm+ueBhko=;
+        b=TNHSzffAV6ipZ5QX7ZX4YFi9fGrwRUHdpVvZFzGQ8XIZlthyl8sKXz6T8aRZibxLlZ
+         OmNxh7ZDMsCqFBR9SnKwYceVyIC+skfHPkXeeUfs8XwDGaJoGaxg8htKhW/agv8fYQUN
+         XkfoP1zwvdyV/aMvmSmO5Vj5SnUd+SYFrcrdKB8TaLZkpZeS3C/C+0K+KZp1p8/eQk0T
+         mOp7/Ihkk17c+Ewu/bvb6RYdcr/TTZ/PKIY0UFWJiJRPb/gNfDA3MNb+zbmGqnLGsODV
+         4gF9d1ccHhi7ATbzsGJVAo8M9zBQ1/jRoORr89hYxcvwFzktv8L9WnEU00GJfB9GNXz5
+         J4Fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794450603; x=1795055403;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZBRlQut3mwF1KjSJZBxJE4prR1XigP7CCRTm+ueBhko=;
+        b=Cwai/ZdRH8NPlH/EyHdDAMNtEi1ssx8mdz0JOKHbYC7Tisb053H1rLZAYGGZW5QFOi
+         aVbP9HGVBH006JhcrD3YVrUHQuNhQ6EMgww4uoxUBXra2uR8DgrBHrJfzd6xFZJZIQOF
+         KPR21TAYC4jszvhvTEMU/8PfvEi0R3dmYSE2Ly1k31MFYSO53p9ghMlovRrl345LbA9X
+         8KxoVuwdVgfxANA1n6TEmepVOGf1mAL+geGPn2m5KUc0PeIVR8vQtkHFdhmPGupyOEhZ
+         yUzTcsEi6dWpxlsbNjCBfQZtiMFplPt4Xl/TAMgO8dFInn7/y+m3EEJoF9zqakoxHA/I
+         qtUA==
+X-Forwarded-Encrypted: i=1; AL+hErGQ1ghvqi+c9mHsVMbjjVxdi1yRFVKhPBpK2CtkcVV/NSUiqW0nriZYrqOolNx3sHUK20+V50kA72PrvcM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9KAYlR+WWHZiKsOieeE7DnhFTJbFLeAWIjCEuiuMFrc+qBSyDW
+	dxIeLxpdKX/DU3xVlBbVDaGOtO++gT4UMMJYAabJXw/80InWz3Hd01Gu
+X-Gm-Gg: AYBFou0L6uiHZfNZKQY+uUZEbCqaYnk0ryltT9QTOhvzQjT771r9iibdN6/WKxXnnpQ
+	6O97bcDgd3DGMx5wYPbg383IKEPY+IPpg9nlPfDfFWC5qOvSuZ6nCWNWHi7vGRZH1sa+XkRcen/
+	i6cA/XZQMtqtPdcxYxcdQhXjgb1XpzMUWJLbpauhIxz3Zz9dpGBwmYfBss2Jgi48CHB5ur5JgXL
+	HqsSRuw64JChH+/W/GbnvStA19x2e4JgQ/9EgGjrC4CU21wUytzPCd6el/+icdvKRpJgN6hVGIg
+	cfzs0wxOlA/gmBL8RZ0ja8kBPGtBHVeb/hz2kEpzIKLSjoDv2kKZVHaasN2MQ1j2qQbF7rqj9M+
+	5PW3/udRU52QC5yqrvj0r82XzqE9beKQSI0YfQSFHoDJAoWWq/5QODH3U0Kj0dRx4JvWPlm5zO2
+	eL3VAG3wj6lagRJDx2cs1N/xtvYJesez6FHf7EsPN6clNzrPyJJRVGupPL4wQ+YjjUjTpqZ8wMQ
+	KOvMa8Ho6QXLWtNc4jM+qeddsj68ow7Frne5bOZ9pYduAR7TA8jZuaAME//58VG5xzW3ssokvZF
+	C0icnYIfu3UvRx5wujN1mQOx8dTWa0NOatbX9mIMgc2+MkaV
+X-Received: by 2002:a05:6a00:3693:b0:8b5:7fc8:8679 with SMTP id d2e1a72fcca58-8bc1cd5fb7fmr4228562b3a.21.1794450603001;
+        Wed, 11 Nov 2026 18:30:03 -0800 (PST)
+Received: from ubuntu24.vpn.host.chaitin.net ([124.77.124.144])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baab1226e6sm2618017b3a.43.2026.11.11.18.29.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 18:30:02 -0800 (PST)
+From: Yuansheng Yang <0xbeac@gmail.com>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: linux-mmc@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Zhu Jun <zhujun2@cmss.chinamobile.com>
-Subject: [PATCH] printk: ringbuffer: Annotate speculative record reads
-Date: Thu, 12 Nov 2026 10:29:40 +0800
-Message-ID: <20261112022940.118080-1-zhujun2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.51.0
+	stable@vger.kernel.org
+Subject: [PATCH RESEND] mmc: tmio: disable dma_issue work before releasing DMA
+Date: Thu, 12 Nov 2026 10:29:54 +0800
+Message-ID: <20261112022954.7473-1-0xbeac@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,70 +102,103 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Readers may copy a finalized record while a writer recycles its storage.
-prb_read() checks the descriptor again after copying and rejects records
-that have changed, but the plain metadata and text accesses still trigger
-KCSAN reports.
+tmio_mmc_host_remove() drains done and delayed_reset_work, but leaves
+dma_issue pending or running when it releases the DMA resources. Its
+backend callback accesses the host, controller registers and DMA state.
 
-Annotate the speculative copies and line counting with data_race(), and
-sample text_len with READ_ONCE(). The descriptor validation continues to
-determine whether the copied record can be used.
+Disable dma_issue synchronously before releasing DMA. This also rejects
+late queue attempts from an interrupt handler that is still running;
+cancel_work_sync() alone does not provide that guarantee.
 
-OpenAI Codex assisted with analysis and patch preparation.
+Some DMA backends fall back to PIO before initializing dma_issue. Move
+their work initialization ahead of the fallible setup so the work is
+always initialized when a DMA backend is present. Skip the disable call
+when no DMA backend is configured.
 
-Fixes: b6cf8b3f3312 ("printk: add lockless ringbuffer")
-Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
+The analysis, patch and validation were assisted by OpenAI Codex.
+
+Fixes: 85683fb39d9b ("mmc: sdhi: Convert from tasklet to BH workqueue")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuansheng Yang <0xbeac@gmail.com>
 ---
- kernel/printk/printk_ringbuffer.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+Resending with the real name in From/Signed-off-by only; no code changes.
 
-diff --git a/kernel/printk/printk_ringbuffer.c b/kernel/printk/printk_ringbuffer.c
-index 46a79ec0940a..077721608099 100644
---- a/kernel/printk/printk_ringbuffer.c
-+++ b/kernel/printk/printk_ringbuffer.c
-@@ -1894,9 +1894,10 @@ static bool copy_data(struct prb_data_ring *data_ring,
- 	if (data_size < (unsigned int)len)
- 		return false;
+Testing: x86_64 COMPILE_TEST object builds with gcc 13.3 and W=1 for
+tmio_mmc_core, renesas_sdhi_core, both Renesas DMA backends and
+uniphier-sd. A userspace model of the extracted remove function checks
+the no-DMA case and modeled late queue attempts before DMA release.
+It does not simulate real IRQ/DMA concurrency or backend hardware.
+
+No matching hardware, kernel crash trace or demonstrated unprivileged
+trigger is available. Please review DMA-to-PIO fallback, probe failure
+and teardown on Renesas and UniPhier. The initialization changes cover
+backends that can return before setting up DMA. Other work items and
+the wider IRQ teardown remain outside this patch.
+
+ drivers/mmc/host/renesas_sdhi_sys_dmac.c | 4 ++--
+ drivers/mmc/host/tmio_mmc_core.c         | 2 ++
+ drivers/mmc/host/uniphier-sd.c           | 4 ++--
+ 3 files changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/mmc/host/renesas_sdhi_sys_dmac.c b/drivers/mmc/host/renesas_sdhi_sys_dmac.c
+index 426308b73b..45e34d57ab 100644
+--- a/drivers/mmc/host/renesas_sdhi_sys_dmac.c
++++ b/drivers/mmc/host/renesas_sdhi_sys_dmac.c
+@@ -340,6 +340,8 @@ static void renesas_sdhi_sys_dmac_request_dma(struct tmio_mmc_host *host,
+ {
+ 	struct renesas_sdhi *priv = host_to_priv(host);
  
--	/* Caller interested in the line count? */
--	if (line_count)
--		*line_count = count_lines(data, len);
-+	if (line_count) {
-+		/* Racing text is rejected by the caller's descriptor recheck. */
-+		*line_count = data_race(count_lines(data, len));
-+	}
++	INIT_WORK(&host->dma_issue, renesas_sdhi_sys_dmac_issue_work_fn);
++
+ 	/* We can only either use DMA for both Tx and Rx or not use it at all */
+ 	if (!host->pdev->dev.of_node &&
+ 	    (!pdata->chan_priv_tx || !pdata->chan_priv_rx))
+@@ -402,8 +404,6 @@ static void renesas_sdhi_sys_dmac_request_dma(struct tmio_mmc_host *host,
+ 			goto ebouncebuf;
  
- 	/* Caller interested in the data content? */
- 	if (!buf || !buf_size)
-@@ -1904,7 +1905,7 @@ static bool copy_data(struct prb_data_ring *data_ring,
+ 		init_completion(&priv->dma_priv.dma_dataend);
+-		INIT_WORK(&host->dma_issue,
+-			  renesas_sdhi_sys_dmac_issue_work_fn);
+ 	}
  
- 	data_size = min_t(unsigned int, buf_size, len);
+ 	renesas_sdhi_sys_dmac_enable_dma(host, true);
+diff --git a/drivers/mmc/host/tmio_mmc_core.c b/drivers/mmc/host/tmio_mmc_core.c
+index 775e0d9353..d0d3dd05a0 100644
+--- a/drivers/mmc/host/tmio_mmc_core.c
++++ b/drivers/mmc/host/tmio_mmc_core.c
+@@ -1272,6 +1272,8 @@ void tmio_mmc_host_remove(struct tmio_mmc_host *host)
+ 	dev_pm_qos_hide_latency_limit(&pdev->dev);
  
--	memcpy(&buf[0], data, data_size); /* LMM(copy_data:A) */
-+	data_race(memcpy(&buf[0], data, data_size)); /* LMM(copy_data:A) */
- 	return true;
+ 	mmc_remove_host(mmc);
++	if (host->dma_ops)
++		disable_work_sync(&host->dma_issue);
+ 	cancel_work_sync(&host->done);
+ 	cancel_delayed_work_sync(&host->delayed_reset_work);
+ 	tmio_mmc_release_dma(host);
+diff --git a/drivers/mmc/host/uniphier-sd.c b/drivers/mmc/host/uniphier-sd.c
+index 1eae2f4b6c..cd0fdffa30 100644
+--- a/drivers/mmc/host/uniphier-sd.c
++++ b/drivers/mmc/host/uniphier-sd.c
+@@ -187,6 +187,8 @@ static void uniphier_sd_external_dma_request(struct tmio_mmc_host *host,
+ 	struct uniphier_sd_priv *priv = uniphier_sd_priv(host);
+ 	struct dma_chan *chan;
+ 
++	INIT_WORK(&host->dma_issue, uniphier_sd_external_dma_issue);
++
+ 	chan = dma_request_chan(mmc_dev(host->mmc), "rx-tx");
+ 	if (IS_ERR(chan)) {
+ 		dev_warn(mmc_dev(host->mmc),
+@@ -198,8 +200,6 @@ static void uniphier_sd_external_dma_request(struct tmio_mmc_host *host,
+ 	priv->chan = chan;
+ 	host->chan_rx = chan;
+ 	host->chan_tx = chan;
+-
+-	INIT_WORK(&host->dma_issue, uniphier_sd_external_dma_issue);
  }
  
-@@ -1984,12 +1985,13 @@ static int prb_read(struct printk_ringbuffer *rb, u64 seq,
- 	if (err || !r)
- 		return err;
- 
--	/* If requested, copy meta data. */
--	if (r->info)
--		memcpy(r->info, info, sizeof(*(r->info)));
-+	if (r->info) {
-+		/* The record may be recycled; the descriptor is rechecked below. */
-+		data_race(memcpy(r->info, info, sizeof(*r->info)));
-+	}
- 
- 	/* Copy text data. If it fails, this is a data-less record. */
--	if (!copy_data(&rb->text_data_ring, &desc.text_blk_lpos, info->text_len,
-+	if (!copy_data(&rb->text_data_ring, &desc.text_blk_lpos, READ_ONCE(info->text_len),
- 		       r->text_buf, r->text_buf_size, line_count)) {
- 		return -ENOENT;
- 	}
+ static void uniphier_sd_external_dma_release(struct tmio_mmc_host *host)
+
+base-commit: cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
 -- 
-2.51.0
-
-
+2.43.0
 
