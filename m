@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.46
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794524373;
-	b=aKpCWBqorNztk+EEetc7BG4R3+/AO1aJkKCXS92TUUbfT5PiQcBi+ZSEXsp7uPDsiHHG
-	 IovknSMfIxtKFbAwILAeR/Jfjg0HCpKTkr9dW2GtoP+JHfPFqaMidqGgffbe7TPqbxUAH
-	 VNPEH6XkDqkEc4v5g1InbpLFTkISI2vdrTyBg5T+5RxE3lqEtZdxKtc7wUMZEpoOBx07Q
-	 bt8p4mQ69qv4ZpplCoRJvhxFvUOQsV3Bb0MVUyoQo9iPmubCZ1PMonxw8TDn6EhhYAA55
-	 AnG+s9l8bKZkhJhHcM5WnE1GSbPdn3vKZAxrBIGdscGQEVkRbjND6HV/EkPtMaJi+Ww==
+	t=1794524367;
+	b=zg0r1jCVU+yYOmAH/5hZD9LBiR5qBUP0q9o+w3xq33r0yG0MkluuUOyBJSzmFXNg9bvz
+	 3g2fDgechowhiUZSfuiRr12T7ZVse7EBGenhXMdFGHGYtVuRc/FPgG6EJzTQXW0rX/Cw4
+	 LyozTGRuEm/Cv6EztzC/AqQX3TvbvJZhOV3qrMmv01rT7ClRwsQMOe56GXUt9CB9XYWaY
+	 PKtU2+H/fLubo/83TXZBg6LEpKFYdu4b7VDgc+Lro8pJuqsz6Tx8K9X95TKDBVm8NQOuG
+	 M5gcVobgI+ewH40ZwiByTn1tS+vEdMdV+JrbyrY/Smy/n++mTKpA1bN8DGpqp8tljgw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794524373;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794524367;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=EopehRq5ikgbdAiXlBfLUoKgyr9SSArgqvetpz1gLic=;
-	b=Hcw0r7cGAhNcAWellMiJirWeTceQajS/7GA314i6gG0ZhT3R7AfFafw/WlZX0Ny2tiyz
-	 TLc+1xLJSmXlfaRvOQPTJpEj6BqA7+YcIgptuG0tLFPD20ZOBpXGeJdT64lZ8sd2mQucn
-	 w4w/Fal7hVIjFTb9+Z/809UTqI61tCeFHck/Lj1PB0fZ8+RqZWU8p8jID2FxcYib5TI6r
-	 6J8F+IrPP3Vf3K1ghlOx0VAO+v4yT707tmXUGBrelCN7oNqILFPgMt+62WPEVA9KwsIU2
-	 7NSTysubdml0AZA7jL4z6Ivx6YfxxODqcIylu3B7mAs9RMcd073JT72U7atszBNSzbQ==
+	bh=ZsSjLqJE2zg5KnRT+r/w8Y0ianrVtar664vxU/qkfmw=;
+	b=ZG17OWtFQ1JcxJDpQK61nhCrNr451jJFmk9DYAbAeAWq0dlBCeqbd3/PgCJPTE4HPUaB
+	 l6fg7aPpaBtw3qs4gqsi9JsSBnDc809fLdzAAV7j3b6keDnU6pX//bbj1k0jBjsXUC0IY
+	 EIaWj8qz4M7K9qB/I0yY0VBMoPAPtRn01cGGV8riWQI2f22rRcXGtuh1D8LMZY0NidS12
+	 AuixRiKq89PUz86Gs/C1Mv9Q77sqf9sbFUxdZYD5rBEa/mJNYOuKmXl1S826pSAPpmPGc
+	 +hd2mhUdbRg/9ZgdwwwkgB94yUIH5Lhhs3EkIKdf3+zf9dd5YqhRE/r31S5fHYYrODQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=DTd3rU4s;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.46
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NRwZn7LS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D9C3606D593
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:59:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D9C3606D593
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A73BE60A5BDE
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:59:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A73BE60A5BDE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=DTd3rU4s
-Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-6798af41644so249394d50.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:59:32 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794524371; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NRwZn7LS
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-54492d8a988so14531cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:59:26 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794524366; cv=none;
         d=google.com; s=arc-20260327;
-        b=Yg7X/Ny+9mUe2obReyMtT4I5PgH4oP9yqhwJU3q5Boppcq/sNkZjs7+M/64G+JUvMM
-         9UO/jKcNx21bq5bGcT+CyLs0gBHBG2DmPtMMI3j1HRbaI+vw6nPIyO8NZPCksuehaJy1
-         l8GB0qFd2E3HX2kljPK6nyo2TEeCHAvglxbetR8eOBmd1qoiI2icPWMhEo+7IRxvtMyr
-         n3iugMcZuLM7QMT4JhX1zfPx0tcSyloOXOvhvmme/em7OuB3yld9oJmkidaFLX3qLD6r
-         l/mxpOZJJih59t/+BtP7XbQg8B2fWU9nI8KLLu1Vmo5ZRto11tNqjohwcYDdpGj7Qlsf
-         zF3w==
+        b=qH69RfkUDxetlN/Edjm2yfZwIhYfOFRQ5pHIlYm+SDscomxjEjoxZhAycIdDGOEJKv
+         C9T1S2kDYZAs0Vk02iG9rB+61U2/AYj+fxPrbTohxXSrFSaace6iWol4Z/V0dRV6CsDl
+         6RJQ4ax9uLAdRLj7Ozo547VnIlzfpPMDfT6tMOjlAFvmpDf4dxmUYAf3/Miicyw0w0Fi
+         QSAoeQRiC03t5wifugza+Nconi1GSl7U+x7VzH/xxk79TEY6FVWhWkDSWGf9RrqxkmHJ
+         DYmrytAKO5g6hXOw90VWSgtU2/tZGhOFI2+ZBRqxpBX89c8IOtWSzMcb5TXh5rIf/fu4
+         9qqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=EopehRq5ikgbdAiXlBfLUoKgyr9SSArgqvetpz1gLic=;
-        fh=bq1HedjQlGdBV4WvS4cfr1/5h0kp3/5dl49YL/4UBrc=;
-        b=YrSWFca7dTjjfmhEzEwoScKgPf2F9kGEchf37ThQroQsO09L2G/V33FP3zKxsBqkaM
-         cDTD0cMTlpP9sFyEttS3KFfVXvFJb3OO6qyLBqdywlwTc5BB+FvRwaWapZ0/k9ypOApf
-         rVr553B0Ni2QDu3X933Zv9CeHFsCf/wwD2xqZouJy8jf9FXj4JqwEMgGwEALniPbU+wd
-         meQ9J4eRpd4AuHJJgv60s1MvHkbvvCVZn9Bzil2g0J5fCsiWfBaSbfU1DtDixlTCW140
-         npUeakTGBJ23+kkBzTlqggsUV06ktJ8+wmTrp87YyNvgIovX7pMGmRuupt3hFDDE58Dd
-         uLpQ==;
+        bh=ZsSjLqJE2zg5KnRT+r/w8Y0ianrVtar664vxU/qkfmw=;
+        fh=B6qQouZcYiNXsfYqXtsrDCBey9fxDS7JPpH24gfvNBg=;
+        b=EnPtse320kC+nCJKvPJwyFxAwp2UJnOz3al2x9DDuXi4JtnEh5iQ5vaTxmmBwlZR4h
+         10luWPo1ptdZNBs+ZxEAU3rPa7VnNvDIa31bqQxsTHyNHAXjkRyGT7q1s/Q/cN8GFcoz
+         S2O9Z4aQRojGIhBhQ69/2b19cfriGQwlsHMfw0tKyaRZ6C/4SWNGP9+YoqoGPvpaEYnF
+         icnwSEzyl0ZmRjs/+nkW6z/4EcLTjyTI1V9/NRdjWC+so6YHEcy6TxVsem7nnk/CaAkv
+         p+OhdY4M2DWUqWVOoqvTllN1zIPWOvXWdwzKfohbUEVa76s2YCNWPf08kVao/xz8qlyx
+         jUZg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1794524371; x=1795129171; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794524366; x=1795129166; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=EopehRq5ikgbdAiXlBfLUoKgyr9SSArgqvetpz1gLic=;
-        b=DTd3rU4s5R6vEnmm1kWd4icC5YWmEubPkPw6tcqK5VA+6jF/jAlmtSdVBgXx5VeMlp
-         Uwng6NAltw4+Tb1pWu/POb6MPpQq3YfzQJ54AS89PNJ6I7PSOJkANgiHlY/I78UxCspn
-         vasN//cHgbqd2u7GLqjePJlMcefE5X7YLTw4W219h62l9Kj+TCqUXvuFCLv5DPk7yMuB
-         HtDMpLGpO2qFk2WmAL+y6K0SqSoX6MopEO8ttJjMHDfbYLCJv8oRgNuCgnA10HvAn8K4
-         Bu1B2/2AEmGzmKJVBiozBjhB9kea0JMGPn82g2jrponWHdaziIopGdd20AKYJTqt3BVZ
-         kV1g==
+        bh=ZsSjLqJE2zg5KnRT+r/w8Y0ianrVtar664vxU/qkfmw=;
+        b=NRwZn7LSFGPxX3NtvX3Y7sFS2xItJxs0r16isV8pawPhbKhy9B1louAe6i72I/3N2P
+         UniuOLDEYa6TVxl3FcjF+9fSBbbE6bEf8pNLK7WB6YbLd65ecGFIrlmSNUlXyyjpJ8vf
+         ohFZkafmiEpB/6QdOpX3lVI6mIhmWqe6T/e+zzki4c0Prg7mBZOQ6GWxsjlHiixSscXX
+         A2EnFSV9dgOF5i1DaoquT+PzW0SfWsEl1uNHbNVAhiQrzGs9Og4DdpgCz+Yv7QqLqs4H
+         +ukKqWpoNHIUUbHnQO7MzVkr7o1J4ZHyugW+l4ektn2xy8z/xNEMyuKzLtfe2JdeXdLm
+         aMkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794524371; x=1795129171;
+        d=1e100.net; s=20260707; t=1794524366; x=1795129166;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EopehRq5ikgbdAiXlBfLUoKgyr9SSArgqvetpz1gLic=;
-        b=Px/sQ3AmIOPpnXvL9KsVbJ3m0GHdlQYu36sl+e9r37xMOawfi6IKs432UAXj+yZHiC
-         aP3d5H/DSenSbVN9o/c4zarLMt93MTyxnsf3X5oqrz7QSvNzDiZNjRb4z6hJ6KWO7wol
-         mJRsMXhoM8OLuY9G7nkP7vefNToxV0wpbI0OzI+ZKurN2d6EFT6KF2oc96o92XzjxJ4G
-         AWEjt+/E6bTWfiB5mzeBKWiCSaB5RG+UhCa9GTEQC+pyEp2E46lCBSf08FZY2d2gSQTM
-         wzyB4eeQGyr2eFZtUwjpyflR4MYW8y62gfdVWPd5dsETfyoI9gyA3Zf6ABx/SBGt0ctT
-         XXIw==
-X-Forwarded-Encrypted: i=1; AL+hErGoDYJS6/5C8U7BtH3fWyJOP6IhR/29j3GEiKi3NSG75OYZgrieYTPnXspZkyvoveLEOQXLtT5bmhyQz2E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8OIJGvVXtqgKoBYkE6ZHqmbKQyPMkcWIKPiaib00RhynIFhUHy
-	x2MCa+EwEDNV/pwkOqVNtKmjR4Ugkfcdx+cwvqHPkXyimjuP+/wqZsME/nHkWwJzPR10ZEV9wXP
-	/M6psWITrF1jntKlRDAthZzc70D/bWmXTWRLF
-X-Gm-Gg: AYBFou1ATdmOJHYqtzheJKr1XC9LoGwvNqc2OB1tIGkaj24LuQRYm2KK0oDxLFcxuUI
-	cQ3fYDHWmPrY9sA8x3PlYGQPCB3yFeN/QW8j2HzVuRfK1A1AswjvKN+fZVvpP4DomFF/zZR/yod
-	QU903xLLrMUrDYPCPN9hE/oposJh5ovEnUuZUKH4/SnDb73R/KKBpdmLQc5Bl7Ky1EYLEdnsOe/
-	v0l4bMISc65yOqDqfswDIspN/XRIZ9CUg1V/k2F2mX/ILoD+Ke/6fsY4E/bIY/PiQMzcNeVrK2Y
-	yAW61HObUpisNKOEG/K4yLXIzhlCriw/s16c5Gw9EJF5vlkB2Qhkbh5LRipO5hMJfPH7ZbxsP2U
-	q0WdYW1gULTD8XVczwc0OopRFZor06jl40mFbs7NnKTKZymwZA71rO9XW//maxVNQ3NANVJ2eAt
-	/RyTX6/IEZAmuHywA=
-X-Received: by 2002:a05:690e:d83:b0:67b:f64e:b323 with SMTP id
- 956f58d0204a3-67d897f316emr491608d50.87.1794524371234; Thu, 12 Nov 2026
- 14:59:31 -0800 (PST)
+        bh=ZsSjLqJE2zg5KnRT+r/w8Y0ianrVtar664vxU/qkfmw=;
+        b=FiM+5PFNV5+mxhC84vg+JVW21rOMPfiPlwQWRG1CXfOKTT6kjJMMHmfS17KvmrdJFy
+         IsQuCcWmQ3pnyXKoZvAkQqeQAyfHh0UAie/IPcwG7nBvQ/PpKDazsCHf5KVqpIgqzcAK
+         BCFp36kPI4vNCbC9j/z8Q0FmBH2aTcRg5m3sTRLZgbCWNv5boEGWOAjyCN44zcPqHrKC
+         qHTo3XNju6noCcIiahn5UallzxsMbPnuMidWcBWnRWkobkmbWdUgsx/y/Apqc+Lx2tiT
+         TsCd2zHQgoudm3GuJdGy0Vhe6ICtYAKv1/LZAxq7AfNr3GyS26QlBsvfUxHqn+P3bpt2
+         k66g==
+X-Forwarded-Encrypted: i=1; AL+hErE7HNl8KS7Uh2oRC5IDnbNG0bH7PYurtUyEf/VxzlU+SiQhJSVMSD9T/1ljCp353Y71VX+Mo2sif7yGKzs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z94VueQ3Ko5rUxpIa5BJzVgZLsZwIoPzh6l4v6W3EcDFYbff2dg
+	U2Aq0uvYm3IaN6voP4cjGkFhG277UJNdkfnO8LLP0ertUjqAeR4cVxPYEE5W/3lwdSsZy8nxfbH
+	/Y4im7kwRGVplVM2fgnpbfVw3hU2NKGqvefkKgaLb
+X-Gm-Gg: AYBFou3jS+1OK/qvzTvEi8KZGhk4ULnj2lW/wFlhcue7wtEaotePLaYAHHE0F3hI+Vv
+	wDsd7D69ODUtvVzlM4GaO5Ot38Sp+ZuIQ2QygzZaPj0euM6iRvsrCUeTXpz5zZGKdXih4431v+i
+	KPE7dr+JHUSSQpox0sPRNkTeGg/vcfrDCTa9LoQYtAPLUkfNMokGDqV+mB+6YMdx7PSujuHsNjk
+	U4oZsvRlYj8fDHR7WtuX5BMcC/T3STe0QnOv9ef5B6X2vq5FEcUo1LQzPSvFJN3RyLC0f8ayjQS
+	776hCxeiVygoPE8WvAKowR8cJGa4kUfFLi5iK4cqRM0Wwcq4KG9UmBe0+efEjOSRXyHiRWLH1GW
+	ylDy3sSyXmQwWMn5ytWVnLMS26E87fLs1KdFuGA73TzNstBHrs7lFsiiaHpncixlEXTo=
+X-Received: by 2002:a05:622a:98c:b0:532:eff9:ca08 with SMTP id
+ d75a77b69052e-55afcbede04mr2871271cf.12.1794524364998; Thu, 12 Nov 2026
+ 14:59:24 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,73 +104,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111-gx-formatter-use-spinlock-v2-0-763241aeca52@baylibre.com>
- <20261111-gx-formatter-use-spinlock-v2-1-763241aeca52@baylibre.com>
-In-Reply-To: <20261111-gx-formatter-use-spinlock-v2-1-763241aeca52@baylibre.com>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Thu, 12 Nov 2026 23:59:20 +0100
-X-Gm-Features: AclHuK86E7RwyUwDuKN1XBLuFvJlmfcg53qNUpHMBnQ5zRn_8wYfmQuNj2Yj5C0
-Message-ID: <CAFBinCCdqpb-d4wEThYCLLEa89eqUNycxn7BYHMq9a6nTVPL=g@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] ASoC: meson: gx-formatter: change stream lock from
- mutex to spinlock
-To: Valerio Setti <vsetti@baylibre.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261103223025.2482227-1-nhuhuan@google.com> <20261106085019.90487-1-lizhe.67@bytedance.com>
+In-Reply-To: <20261106085019.90487-1-lizhe.67@bytedance.com>
+From: Huan Nguyen <nhuhuan@google.com>
+Date: Thu, 12 Nov 2026 14:58:48 -0800
+X-Gm-Features: AclHuK_MjdqInx2d6Ru3Fw1h0wqnaU6otNi9RKFyMPSDK4f5OfZNd4Zh3wXDlV8
+Message-ID: <CALwWd5tttbaNWoaXnPZjHFgYhG8yMyT67_9nhRKN336EHOVhqg@mail.gmail.com>
+Subject: Re: [RFC PATCH v3 0/3] mm: use non-temporal stores for demotion
+To: Li Zhe <lizhe.67@bytedance.com>
+Cc: Liam.Howlett@oracle.com, akpm@linux-foundation.org, 
+	alirad.malek@zptcorp.com, anna@kernel.org, apopple@nvidia.com, 
+	bharata@amd.com, bp@alien8.de, byungchul@sk.com, dave.hansen@linux.intel.com, 
+	dave@stgolabs.net, david@kernel.org, dimitrios.palyvos@zptcorp.com, 
+	fvdl@google.com, gourry@gourry.net, hannes@cmpxchg.org, hpa@zytor.com, 
+	jackmanb@google.com, jic23@kernel.org, joshua.hahnjy@gmail.com, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-nfs@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, ljs@kernel.org, 
+	mathieu.desnoyers@efficios.com, matthew.brost@intel.com, mhiramat@kernel.org, 
+	mhocko@suse.com, mingo@redhat.com, nifan.cxl@gmail.com, rakie.kim@sk.com, 
+	rientjes@google.com, rkodsara@amd.com, rostedt@goodmis.org, rppt@kernel.org, 
+	ryan.roberts@arm.com, shivankg@amd.com, sj@kernel.org, surenb@google.com, 
+	tglx@kernel.org, trondmy@kernel.org, vbabka@kernel.org, weixugc@google.com, 
+	x86@kernel.org, xuezhengchu@huawei.com, yiannis.nikolakop@gmail.com, 
+	yiannis@zptcorp.com, ying.huang@linux.alibaba.com, ziy@nvidia.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 11, 2026 at 11:12=E2=80=AFAM Valerio Setti <vsetti@baylibre.com=
-> wrote:
+On Fri, Nov 6, 2026 at 12:51=E2=80=AFAM Li Zhe <lizhe.67@bytedance.com> wro=
+te:
 >
-> Currently a mutex is being used in 'struct gx_stream' to serialize
-> access to structure data. This was inherited from the AXG design. An
-> important difference though is that in axg-card dai_links are nonatomic
-> so callback functions like 'trigger' are allowed to sleep. In GX instead
-> dai_links are atomic.
+> On Tue, 3 Nov 2026 14:30:22 -0800, Huan Nguyen wrote:
 >
-> For example, starting playback from userspace with
-> 'CONFIG_DEBUG_ATOMIC_SLEEP=3Dy' results in a warning message like:
+> > Using non-temporal stores and prefetching on x86 bypasses CPU cache
+> > allocation, protecting active workload working sets and improving
+> > demotion throughput.
 >
-> [ ] BUG: sleeping function called from invalid context at kernel/locking/=
-mutex.c:316
-> [ ] in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid: 272, name: spe=
-aker-test
-> [ ] preempt_count: 1, expected: 0
+> Could you show some real workload numbers for this? I am wondering
+> whether the reduced cache allocation and improved demotion throughput
+> also translate into visible application-level benefits.
+
+I do not have direct benchmark numbers for non-temporal demotion with
+this implementation yet. As far as I know, Alirad and Yiannis (cc'd)
+are currently evaluating its real-workload impact and may share
+results once available.
+
 >
-> due to the following call stack:
+> > - Memory ordering:
+> >   Add a wmb() barrier at the end of folio_mc_copy_nt() to ensure weakly
+> >   ordered non-temporal stores are drained before page tables are update=
+d.
 >
-> snd_pcm_do_start (called with spinlock taken)
->   dpcm_fe_dai_trigger
->     dpcm_fe_dai_do_trigger
->       dpcm_dai_trigger_fe_be
->         dpcm_be_dai_trigger
->           soc_pcm_trigger
->             snd_soc_pcm_dai_trigger
->               soc_dai_trigger
->                 aiu_encoder_i2s_trigger
->                   gx_stream_start (takes 'ts->lock')
+> I have not looked into all the details here, so I may be missing
+> something. But before migration completes, there should eventually be a
+> publication step that makes the new folio visible. In theory, that
+> publication step should already provide the required ordering before
+> userspace can observe the new folio. So I wonder whether the wmb() in
+> folio_mc_copy_nt() is really needed here.
+
+On weakly-ordered architectures like arm64, the publication step
+indeed provides the required ordering, because smp_wmb() and
+smp_store_release() emit real hardware barriers before the new folio
+becomes visible.
+
+On x86_64, however, those primitives compile down to a compiler
+barrier() with no CPU instructions, since x86 assumes TSO. Because
+movnti bypasses TSO, the standard publication barriers do not order
+non-temporal writes on x86_64, which is why folio_mc_copy_nt() needs
+an explicit wmb() at the end.
+
+Right now __HAVE_ARCH_COPY_PAGE_NT is only defined on x86_64, so that
+the wmb() is effectively x86-only today. If another architecture
+implements __HAVE_ARCH_COPY_PAGE_NT in the future, we can move the
+wmb() into an x86-specific scope in v4 so weakly-ordered architectures
+do not pay for an unnecessary barrier.
+
 >
-> Fix this by changing the lock type from mutex to spinlock. This is safe
-> on GX platform because all formatters' functions only perform MMIO regmap
-> calls that do not sleep.
->
-> 'spin_lock_irqsave' is used in 'gx_stream_start'/'gx_stream_stop' because
-> trigger runs with IRQs already disabled and stop can also run in IRQ
-> context (e.g. in case of XRUN while executing 'aiu_fifo_isr').
-> 'spin_lock_irq' is instead used in 'gx_formatter_attach'/
-> 'gx_formatter_detach' in order to prevent IRQs on the same CPU that might
-> end up calling 'gx_stream_stop' and therefore deadlock.
->
-> While at this also improve 'gx_formatter_detach()' by moving
-> 'gx_formatter_disable()' under the spinlock guard. This makes it symmetri=
-c
-> to 'gx_formatter_attach()' and ensures that the prepare/enable/disable
-> formatter callbacks are called with spinlock held.
->
-> Fixes: a295be8d6210 ("ASoC: meson: gx: add gx-formatter and gx-interface"=
-)
-> Signed-off-by: Valerio Setti <vsetti@baylibre.com>
-Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+> Thanks,
+> Zhe
