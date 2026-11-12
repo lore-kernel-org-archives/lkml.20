@@ -1,99 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794487845;
-	b=3MKhpTRY+NAp/Th/QwaXx40x8vTW7O+q/xhW4r1658KuP5Xs6OtbjK5IIZ4zk9urdOdy
-	 79rBlCF8+5TpzSpmjpzUSnXBcxESWSUaAa9Dhqv5pUmslcYKawLnfWchkrR7FKaRUdYX1
-	 fxLEg6vrrZOIMePjGiYOdT4+ZW5xjtiKqK9MyEDzXoIrFrmeARQ/59PhQdDbDMBmjLXOh
-	 gJ5v31ystMDb6BQRcuuNC0OIzwpJj87Q7NVWtUn21QRX2W60l1cKBjocUfUcCHCHlzjEV
-	 lMZ538/s3eNy1uWG4NozM0xVFYc+cQUBl1WtrikmU6YpRz0Qxupk4C7JH8aeyNSjqLw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794487845;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=ifj6UiXfbSJBfBSvReqtUSI9DQmeGitKOnO0xdeombg=;
-	b=RXUZ/99ntxWBcW45aC/fzJccHxMQYSSyf1uEDcLYPG+CM8kToSfgUY6V+t/jWd/KVUXP
-	 JGmpA/oJgCseTW0hQ8UduG7Bbces+7XRHz8gtyvsaDc7KJfOxTjGclkHeMSuK4GtXW7Sp
-	 JhUwSwQGIkpqKinxZeP0gc3w31F1F5uCSp1DXZIclK+PD0+D258rdN+x9e6VuEvDYBkG5
-	 9st2KQMDG+FUn73NPUnApNx6qiwRwq8XC2+M/9woeE5qfv5HRMPECmsB6nEVtZ4rbKYsg
-	 OO7+GJJ3soP9ZYGpCsD3OeWy5FvdjaSowSUgd8csN3gjBkEvPzOcSCV7j2v+tT75hdQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Egsq4o7R;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794487900;
+	b=1jt+VvMurJFZ/510di9oVtdWa0Jge0Z0+ryh+B6kTGROyvLa7vG48Ww+M+tErJBOOj4o
+	 OTyzR9BO0nf4BSvWZJQId+1oczfnKOT+rWQ5ps2TCctt1QQUbgJe5x1ghyqmp1rc4ha1V
+	 BH99PcBEOmPVv9vqCI3ETea/oiXgwrWQ/UQ4thtYvF6+x1YLT775hWB1N9ep6LX9xRzeb
+	 J11ZpmVdxG3vFnxVtehtCOPfDRzs1ukk6pw6vGgi5tM+uzy4bZov/njvyk0A9xm7hfeRp
+	 27IEqurEv9LtussdENRmiyzVN0Y/tNSmzdpngnj3VrB8BBjVYnIJUQv4POJulDR65yw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794487900;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=6Gj36U0uXPVABj8Go0TllSZedfwbAaqUcG4kVbOMuKg=;
+	b=P1PwwpWGdxkc6BNEi6IXoqT0BStQ+GkqCcxRCOknoyBTWipLuNPsUjRrsnv+N3ZMBhj4
+	 Jdo3ccByHFjYqVYSQvbtMjntFuCGgjguRxBaMtBal1SS203OkV1n28G6bt1Ls4HAqP0IK
+	 k9HFIWAULnF3iWx9UCrtcIpBuNsXEbgs/HZyrxxUhUXmrimaZKUfD1Nbr2Xb2dMnHBNww
+	 voK2cOmhRAf9KzNUIrj9z8ewGrb92qsUS6qtE+rJKdFMLriEZTbCXgtiurwUzU2NpM1c4
+	 Gf8u2B6VH+ddGZUVwBEXwD2HvjJn9wcS6SQMK2+oCcNi6sPWUrcHruYMSxYbxlR3nkA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=buXJgF7K;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Hjd5h4QC;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0342606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:50:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0342606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1BE606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:51:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F1BE606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Egsq4o7R
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1b3acec6677so6269519c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:50:44 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794487844; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dRVpGbyF96f7oR71DgIAUnoV/IrhQADftKamGtAx2gUX7vz9uJQGSd8ec4BeW6YRim
-         jJYB8ORDh4lWeaSkYQpWNY0QeAqAa5g5AprVK5goYNgD4h1cMi2W492AxG+yjK0IK+8i
-         VZN1KFUXlyn4q0iyPIkN1dKEQxWX/AlR4FNw57BmDSXmA1wrDkmlsQc4pR+DXF9TMlSa
-         fG4vBAFP1etQv75vFyncb2jyQ2fs47K1hKwC7czpOF686t/CFUFkmKrxxstwdtQH2JNM
-         /af2kGc6RAVXVa9gqn8mzUR/MLJZ4mvH8Fbv/iIfJMXdcK4iWOaHSM9vVa83J7X02gHe
-         yYQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ifj6UiXfbSJBfBSvReqtUSI9DQmeGitKOnO0xdeombg=;
-        fh=p8MImcYU0ziuDRJz/+zrsTXZP+obi1cEQQEkz5z9odI=;
-        b=o+FdQziuYX97uUb+E4+5Okm35mceSDT8mF4tzR5yuQsZFtevnK/1+OK8ZromN8+ZrD
-         uB7Zn6ihEnpPJvsGaotsvr5kLdhOBiKDKUUUX8dfAKWTOzx9xXIvfUVuAeDApT5t2J0T
-         oLHhSozYIvgGcNWhMy7y3T6MysM4OKs8io8HsBX8abf6SLJ+1IP5BEwtQ3+2K8K9Ppmx
-         folj+ySy9Eib03h2PFJWHtI71EGKtR04lkyhhAbOzka3wkl9YCstnEvqvr6DtoMmFvTs
-         G4Dj+dV/cvI3sI3XRvwrnAg2Z5L0wEAvDl5iUAPyi1Y2YxNnj/crOABHnn7MTeVuQ4xN
-         S0vQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=buXJgF7K;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Hjd5h4QC
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC8s1fA4149474
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:51:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=6Gj36U0uXPVABj8Go0TllS
+	ZedfwbAaqUcG4kVbOMuKg=; b=buXJgF7Kz/zYMtt2WgRhslnSLGQMYRLX4x9Y4a
+	bv3LNUz9xPEOIIWU/lwzM555gshcvEe5Sf0U4ttzdVuqAy6YGYj6ZcXS59EYXp4x
+	q3hV9VpMP2EsVNd7JwwhVtYdBBIz8/7g+c7khtCA+QoB2tAP8xfKIoEAPRSDZZD1
+	RT98zr7htkP7SKpDhtbo9IAT6fc/NOJJJfI1pE1anvAUthZGwMT2rwHm0EVAArTc
+	Exvnr/rFKrw+cxvbuh9Q/DpEqEEGHxatwn0WKdWYWvOgpR7Q4Bc1IrP28mPHgjmO
+	/oTEifSoSzjea/Y2/+10ejvcyTRXkKscVQ9BwL+s17cV7RYQ==
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvxc63f2v-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:51:38 +0000 (GMT)
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-716e54d027dso4883738eaf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:51:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794487844; x=1795092644; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ifj6UiXfbSJBfBSvReqtUSI9DQmeGitKOnO0xdeombg=;
-        b=Egsq4o7RUxtUqWQP0xuRF09bumu/ZWKK+RAmetdjLraeVC9iDjE2oV/svQD3s63ecM
-         jSkyQCUqb/gBQn6e5xnUvjeTC8TunvGusUJ9Qz1XNH+KBsvbNofaDEYpM+ZcrKraXed4
-         S0MEORv5Yf7xMoVonS1t9RUXDyOks1qLIwbpZJAGppHdHUO0f5uybz9wFn5G+vxQEOe6
-         MTIrffxOwVnSTw7bdJvFXwrLNAGwyqIv737Ifm34T4A34pJ2Z8q9I0fSEWmbnY2Dlnhm
-         q8pk/2vqILVZrhorV2G3vKwnfnmmEMdkVi6FSu9wFdl652Y3jdg82jUhO+y7vg+Q/XIj
-         iMLA==
+        d=oss.qualcomm.com; s=google; t=1794487898; x=1795092698; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6Gj36U0uXPVABj8Go0TllSZedfwbAaqUcG4kVbOMuKg=;
+        b=Hjd5h4QCEk1LIrKFmJTbXHKoJpskhlvON7xMjyjLoptlIGPshuMu2ytWZKNm7QbU+C
+         NGq+Wphc6ja62CEIROCFRXtpq4F4Ym1qI9JUUNHvpVldl21wwHWmt5KwxfIjez51JXTi
+         /o4779TjX1NyjHMBlLe3UyU5zG3oftivA+/4vLHBOoGMcsBHbdRP8cBSbI14i9t7Oj4M
+         pZ/TVDapaosb7/Qzp9W3JMxHPG+lZnadc3nTJ6jpxPV6RLcus0noeeDI/2O+4D6Vrfba
+         bugFTLtTz+oZ8HrciEzDuxr/0iHnPKG6vWxfCHgFzp/sv9ygkbckfLPdjlxZCihqZiSz
+         SNug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794487844; x=1795092644;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20260707; t=1794487898; x=1795092698;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=ifj6UiXfbSJBfBSvReqtUSI9DQmeGitKOnO0xdeombg=;
-        b=wvcpvXF5ggspAXDCw6Wrs1T6iiWj5PnRPxSmmodF3yEzc10rHNlU2gUKwrvda/jhhh
-         XT2nL4mptj14a2y8hfZcKxQI3XXI8t/nRss/vMgOidGbrncZVzaRPrcj/x2OwWi03FGP
-         vIM+rv2t5Ef79ZO429HEN45zj0qh0oPB9OU8OXJLs9ZQiclZ/qubAC4bUdL76DoCbqGl
-         PKD8xIXeXfV4E1hrVc0XojsrPtQy1U6n7WsQ1bazISY932zWhq3AKVpRAZvi/yiyB3ad
-         n9mPFDyhTBeqnBST1QP0zVj5x/0c+o9lXHsPhfNCMcuzEF07OA0y42MzD9uqVZ5szUSp
-         Wxhw==
-X-Forwarded-Encrypted: i=1; AL+hErFUuEMmajimKhdWmxCEHpcfJDjfX5nswY6vjlKesv6dty82AWX2VZlQd9Iln97hHzCW5NZw9FBNbw5UNLE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ZVDI/y1bHFdfa9UUIBO31M78XYOJufaj/YssKjCwuMacINU/F
-	59YhpxJwVVYYb9I4itZ4cXh7c02sRg1a4TmC5Hu8znEWVzt46SAwRXzWP5FdP1HN6P+CwlCjyki
-	mFd/C7Btsd+nOolYqtyYcDm7N/uoJ0XjhDMWc
-X-Gm-Gg: AYBFou1DJGeBiBkaNd5O2wq7xPq5FTVTrsq+GPc6MAK0RbrT8QDDyztFwKc743WdLCp
-	Rf2n7OxhOTann1FSWz8TyL6K0V+bJLoy2JSq1WSOtLUHUTACQmKh27PMx3vYQGqvur06p3Wey+1
-	6sPVNca+P7cbudMMJwCZh8NDS/Ere5Zj6vWRJRWjyDbOXwVt0LDmn12VhKG+zfJcKGeXNli4K+G
-	1//1BqZ8NEZ4+jQLLuu1PwaeWA8i24WABo0AYbRaX+tkfwaU1ZI2AtxpRD3LctqpkA1EJWbj/j0
-	2qMibMveIVF3TUxvei647Awpu1YVFCGT4F0sZWJJdElefE+p6n0RPI3euE2nGzPMZu1pFCNbfCl
-	6MYFzG/G+v+259izg/24oPuTziCjcRivbv/15Rg==
-X-Received: by 2002:a05:7022:285:20b0:143:8860:afa1 with SMTP id
- a92af1059eb24-1b3c036c2cbmr5206179c88.46.1794487843798; Thu, 12 Nov 2026
- 04:50:43 -0800 (PST)
+        bh=6Gj36U0uXPVABj8Go0TllSZedfwbAaqUcG4kVbOMuKg=;
+        b=T0vW87LXJhC1sJ1iih1GvzzVGtM3zXrCfdoK8uvWAyxN7E5TvB459vk4nzUSa9Tjvv
+         omjg1umZ052nm4KZK0ITcpFRtayVCvT1hbEUdTJwfveZBKSiN/bjU0jpRPUtzwigA8Yf
+         8FRFtrVU92ygdNTJ4crxJXVvRVUGjDhE0MsekSklNxyYxKzB+KGSCDys4h6vl+DDKYJQ
+         oyFDtVq1LgrC5/96YDJ9Z4u+htSb7xAvwpfh83O2uy49K2+DON2rn6c8XNKbTmTW2M9p
+         pdDDfxIn5IkJV0ujHdxiHKY40/ciIESZ7Vdx/3wn3WdAr819p7dHAvK+DW4/WvBP9WEN
+         Nwwg==
+X-Forwarded-Encrypted: i=1; AL+hErHd1tT5Fmzfwmb7AgqRWmHZw4BrAKCm6Aqb92eCd+/QpNOotzTTZ7v3IuXTBqIjUF9ACXm46BCs+YXGcvI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8t+ScL54Lfk+gc1j6A9ink6JLNR+3y7CQT+AXwon+ryKZejNLB
+	JZUmyU/EK9FzQHnuoVgqF5wFxAqptI9Kw2Yo/OkhfogBKCeeECsP8qfpdZAtEXtH4a6pI9evfb6
+	5B8O5yGTEDKe99r9aJuN4jAOGimN6EwuZ93JOnedM7raKOI7/RoABseAQ0ZSN2rDNrH4=
+X-Gm-Gg: AYBFou0wQOG+110SAXYjmKSBvz6DYesBDVmmwA/+rANinhFbMoHyKejGvW8jR80v72c
+	PMhJ7zRrGoM2tQwUk0OvH+qgHQWJePwD4JROIkSM8kQB8GG9w1MW57xuensrDJrlRBRFivUnv8U
+	vWVnI8L87rRO59h/VlHgCAcjrvsrztgJFZvMdWVcCc83QnyzkE18funqOnRzmMpXJJBEKspbzqm
+	N/MDqN6SP3OaET1Gu76U2XFLSN9BGmsfuJp12qt4EtPTtqyRgAQkkKDqAciaAk4iISb0Nv9ylz4
+	0kEH2/wEXLImZiKJcHvhpMv5epBMhd93aofl7nggBGF8Z6B6QZAo6Y9P2wE/v8tVvY7kzUxuygq
+	ONs5ou1aOqMCt+D/zWIWyiBMatIHMlQLYU2orYCfKeK4xghZXpjmSISCunyAg6STiuLCQ7/zmvK
+	MEN43w5w==
+X-Received: by 2002:a05:6820:f002:b0:703:34cb:a3ad with SMTP id 006d021491bc7-719175f2695mr3473695eaf.10.1794487897716;
+        Thu, 12 Nov 2026 04:51:37 -0800 (PST)
+X-Received: by 2002:a05:6820:f002:b0:703:34cb:a3ad with SMTP id 006d021491bc7-719175f2695mr3473674eaf.10.1794487897025;
+        Thu, 12 Nov 2026 04:51:37 -0800 (PST)
+Received: from hu-kuldsing-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-860dcbc7eecsm7608191a34.15.2026.11.12.04.51.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 04:51:36 -0800 (PST)
+From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] Shikra: Fix qce configuration
+Date: Thu, 12 Nov 2026 18:21:06 +0530
+Message-Id: <20261112-shikra_qce_fix-v2-0-2ce112cc2ccf@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,158 +114,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110-spi-runtime-pm-fix-v1-1-8601ebb2f6a8@collabora.com>
-In-Reply-To: <20261110-spi-runtime-pm-fix-v1-1-8601ebb2f6a8@collabora.com>
-From: Alexander Shiyan <eagle.alexander923@gmail.com>
-Date: Thu, 12 Nov 2026 15:50:31 +0300
-X-Gm-Features: AclHuK9YSfZpEJ-wscqvwDM5JwyJ270P-Q2k4wqitCYhbsGJfgD_snqVmQhs_tc
-Message-ID: <CAP1tNvQY3wzyXrXJmJ+MpdT5S2gSK5r91qA2rWtRW-NtN1QEnA@mail.gmail.com>
-Subject: Re: [PATCH] spi: Fix runtime PM imbalance on pump transfer message error
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Mark Brown <broonie@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
-	Mark Hasemeyer <markhas@chromium.org>, linux-spi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, kernel@collabora.com, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADq29WoC/3WNyw6CMBBFf4XM2pK28tKV/2EIKe0oVaDSAaIh/
+ LsF124mOTf3nlmA0FskOEcLeJwtWdcHkIcIdKP6OzJrAoPkMhOcZ4wa+/SqGjRWN/tmMud1fky
+ T/KQMhNHLY4h34bX8MU31A/W4WbZGY2l0/rN/nMXW+yufBeOsUDpNTCHQ1MnFEcXDpFrtui4OB
+ 8p1Xb/ssTjwxQAAAA==
+X-Change-ID: 20261006-shikra_qce_fix-270b735479ad
+To: Bartosz Golaszewski <brgl@kernel.org>,
+        Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Wenjia Zhang <wenjia.zhang@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-ORIG-GUID: Jxky-J4pju7K3tq93FbxRkA29bRZP2OF
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA1MSBTYWx0ZWRfX3JDWYI5Y72ky
+ Qnb1djEfjnboKiWTsQmS+fjq0HjjKnVyAetqfEDH0okYBsTkXBnfiwRlhKfnLv3OTDMwqH2BWSZ
+ OJfjNE9vbkjaAuc9lRWdMrjYyb5uHdp6HyNDyG1k60Zbw7HLh8iU53/xiSsmVQSDfHQUibrMauP
+ NuhL1NxHBtvFvTt5A/MBahBZo7rkC0j7elrMdJUcNAQkcHRB8eWpBMfwFL1HH33ZDFg2BUW73yt
+ X4E0v+b2kgANzbGfWHHtmtp+C/Ah2oegIgY1HFyycXjo1Tl9Wq9ExIxxACDL3YvpTxoxj8RmuXF
+ JUWtMsC15MhsqLnI8+Pv6nYFO7pJN7YMk6FCIJ/YnMIDDI/LbYTeTcdrGSTPb3pfDn0smMSptkv
+ xMVrdKiQPgHNySbpN0SFjANVZAnDWsumwnxpHuGoOsutzX3yEPWjy8+LxsWABlBCLd0du9j6pCF
+ NqXLb8KaBEEHXgx0xgQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA1MSBTYWx0ZWRfX9W+TfOcyiWuc
+ sZJU8uLhUY98pIZF2+bIHFivxIvfOFGo1I9YO121nruo5Fgy5FoN3hxpoXgEJXzuJ9CBvoagnnn
+ mZx40MtXb2mavap7TAIH21+fOIkdTPU=
+X-Proofpoint-GUID: Jxky-J4pju7K3tq93FbxRkA29bRZP2OF
+X-Authority-Analysis: v=2.4 cv=O/ysLx9W c=1 sm=1 tr=0 ts=6af5b65a cx=c_pps
+ a=lkkFf9KBb43tY3aOjL++dA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=FNyBlpCuAAAA:8
+ a=J1Y8HTJGAAAA:8 a=JAuPaQ-8la7bmygXtKwA:9 a=QEXdDO2ut3YA:10
+ a=k4UEASGLJojhI9HsvVT1:22 a=FO4_E8m0qiDe52t0p3_H:22 a=RlW-AWeGUCXs_Nkyno-6:22
+ a=y1Q9-5lHfBjTkpIzbSAN:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 lowpriorityscore=0 priorityscore=1501
+ bulkscore=0 adultscore=0 malwarescore=0 impostorscore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611120051
 
-[root@diasom-evb ~]# rtcwake -s 15 -v -m freeze
-rtcwake: assuming RTC uses UTC ...
-Using UTC time.
-        delta   = 39
-        tzone   = 0
-        tzname  = UTC
-        systime = 1773421897, (UTC) Fri Mar 13 17:11:37 2026
-        rtctime = 1773421858, (UTC) Fri Mar 13 17:10:58 2026
-alarm 0, sys_time 1773421897, rtc_time 1773421858, seconds 15
-rtcwake: wakeup from "freeze" using /dev/rtc0 at Fri Mar 13 17:11:14 2026
-suspend mode: freeze; suspending system
-[  195.026100] PM: suspend entry (s2idle)
-[  195.026582] Filesystems sync: 0.000 seconds
-[  195.031059] Freezing user space processes
-[  195.032653] Freezing user space processes completed (elapsed 0.001 seconds)
-[  195.033266] OOM killer disabled.
-[  195.033547] Freezing remaining freezable tasks
-[  195.049016] Freezing remaining freezable tasks completed (elapsed
-0.015 seconds)
-[  195.318497] xhci-hcd xhci-hcd.3.auto: xHC error in resume, USBSTS
-0x401, Reinit
-[  195.319141] usb usb3: root hub lost power or was reset
-[  195.319588] usb usb4: root hub lost power or was reset
-[  195.321839] usb usb8: root hub lost power or was reset
-[  195.324626] usb usb7: root hub lost power or was reset
-[  195.338354] xhci-hcd xhci-hcd.0.auto: xHC error in resume, USBSTS
-0x401, Reinit
-[  195.338996] usb usb1: root hub lost power or was reset
-[  195.339443] usb usb2: root hub lost power or was reset
-[  195.354495] xhci-hcd xhci-hcd.4.auto: xHC error in resume, USBSTS
-0x401, Reinit
-[  195.355136] usb usb5: root hub lost power or was reset
-[  195.355584] usb usb6: root hub lost power or was reset
-[  195.359476] rk_gmac-dwmac fe1c0000.ethernet: init for RGMII_RXID
-[  195.384855] dwmac4: Master AXI performs any burst length
-[  195.387322] rk_gmac-dwmac fe1c0000.ethernet end3: No Safety
-Features support found
-[  195.389691] rk_gmac-dwmac fe1c0000.ethernet end3: IEEE 1588-2008
-Advanced Timestamp supported
-[  195.392178] rk_gmac-dwmac fe1c0000.ethernet end3: configuring for
-phy/rgmii-rxid link mode
-[  195.442885] r8169 0004:41:00.0 end1: Link is Down
-[  195.484890] r8169 0002:21:00.0 end0: Link is Down
-[  195.490337] rk_gmac-dwmac fe1b0000.ethernet: init for RGMII_RXID
-[  195.522987] dwmac4: Master AXI performs any burst length
-[  195.524320] rk_gmac-dwmac fe1b0000.ethernet end2: No Safety
-Features support found
-[  195.526697] rk_gmac-dwmac fe1b0000.ethernet end2: IEEE 1588-2008
-Advanced Timestamp supported
-[  195.529185] rk_gmac-dwmac fe1b0000.ethernet end2: configuring for
-phy/rgmii-rxid link mode
-[  195.656869] dwhdmiqp-rockchip fdea0000.hdmi: i2c read timed out
-[  195.760866] dwhdmiqp-rockchip fdea0000.hdmi: i2c read timed out
-[  195.864875] dwhdmiqp-rockchip fdea0000.hdmi: i2c read timed out
-[  195.968867] dwhdmiqp-rockchip fdea0000.hdmi: i2c read timed out
-[  196.072873] dwhdmiqp-rockchip fdea0000.hdmi: i2c read timed out
-[  196.073408] hdmi-audio-codec hdmi-audio-codec.9.auto: HDMI: Unknown
-ELD version 0
-[  196.176872] dwhdmiqp-rockchip fdea0000.hdmi: i2c read timed out
-[  196.518457] OOM killer enabled.
-[  196.518736] Restarting tasks: Starting
-[  196.519279] pcieport 0000:00:00.0: no suspend buffer for LTR; ASPM
-issues possible after resume
-[  196.522351] Restarting tasks: Done
-[  196.522832] random: crng reseeded on system resumption
-[  196.523321] PM: suspend exit
-[root@diasom-evb ~]# [  196.534793] mmc_host mmc1: Bus speed =
-400000Hz (req 400000Hz, actual 400000HZ div = 0)
-[  196.697114] mmc_host mmc1: Bus speed = 148500000Hz (req
-150000000Hz, actual 148500000HZ div = 0)
-[  197.068697] dwmmc_rockchip fe2c0000.mmc: Successfully tuned phase to 208
+This patch series fixes QCE on Shikra and targetted for v7.4.
 
-[root@diasom-evb ~]#
+Shikra require explicit clock which is omitted with current binding
+description.
+Also, one more reason to update shikra-QCE is, clk-smd-rpm was doing proxy
+voting and crypto was consuming it. With proxy vote removal, qce need to
+vote for it's own clocks explicitly which is already being done for
+agatti target. Adapt same mechanism to Shikra QCE too.
 
-So,
-Tested-by: Alexander Shiyan <eagle.alexander923@gmail.com>
+The current qce configuration will still work but this one is more
+appropriately describing the hardware.
 
->
-> The current SPI message pumping code may drop the runtime PM twice when
-> an SPI message cannot be sent:
->
-> spi_master spi2: noqueue transfer failed
-> rockchip-spi feb20000.spi: Runtime PM usage count underflow!
->
-> Fix the problem by always keeping the runtime PM count increased when
-> exiting __spi_pump_transfer_message(), as the caller handles decreasing
-> it.
->
-> Note, that the function already keeps the RPM usage counter increased
-> for the error paths following after the prepare_transfer_hardware step.
->
-> Cc: stable@vger.kernel.org
-> Fixes: bef4a48f4ef7 ("spi: Fix null dereference on suspend")
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> ---
-> I noticed this with RK3588 system suspend/resume, which uses SPI based
-> PMIC and runs into SPI transmission problems when the PM domain driver
-> tries to disable regulators required by e.g. NPU or GPU domain. I've not
-> yet checked too closely, but suspect Heiko's atomic SPI transmission
-> support series might also help with fixing the actual failure.
->
-> My patch is not really a v2, but Alexander Shiyan probably ran into the
-> same issue before and came up with a way different patch and rationale:
->
-> https://lore.kernel.org/linux-rockchip/20260806191854.922530-1-eagle.alexander923@gmail.com/
-> ---
->  drivers/spi/spi.c | 4 ----
->  1 file changed, 4 deletions(-)
->
-> diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-> index ce257b3ec530..4d9c5d026ff6 100644
-> --- a/drivers/spi/spi.c
-> +++ b/drivers/spi/spi.c
-> @@ -1967,7 +1967,6 @@ static int __spi_pump_transfer_message(struct spi_controller *ctlr,
->         if (!was_busy && ctlr->auto_runtime_pm) {
->                 ret = pm_runtime_get_sync(ctlr->dev.parent);
->                 if (ret < 0) {
-> -                       pm_runtime_put_noidle(ctlr->dev.parent);
->                         dev_err(&ctlr->dev, "Failed to power device: %d\n",
->                                 ret);
->
-> @@ -1988,9 +1987,6 @@ static int __spi_pump_transfer_message(struct spi_controller *ctlr,
->                                 "failed to prepare transfer hardware: %d\n",
->                                 ret);
->
-> -                       if (ctlr->auto_runtime_pm)
-> -                               pm_runtime_put(ctlr->dev.parent);
-> -
->                         msg->status = ret;
->                         spi_finalize_current_message(ctlr);
->
->
-> ---
-> base-commit: 059518f775baecc9803fc97787bd0b17558f8047
-> change-id: 20261110-spi-runtime-pm-fix-529325c25582
->
-> Best regards,
-> --
-> Sebastian Reichel <sebastian.reichel@collabora.com>
->
+Validations:
+- Qce probe and kcapi_convenience.sh tests.
+- Correct clk_summary output as prepare_count and enable_count are 0.
+
+Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+---
+Changes in v2:
+- Update commit message on Konrad and Krzysztof comments.
+- Link to v1: https://patch.msgid.link/20261006-shikra_qce_fix-v1-0-8ac54d81edb4@oss.qualcomm.com
+
+To: Bartosz Golaszewski <brgl@kernel.org>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+To: "David S. Miller" <davem@davemloft.net>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+To: Abel Vesa <abelvesa@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: linux-crypto@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+---
+Kuldeep Singh (2):
+      dt-bindings: crypto: Correct Shikra QCE compatible hierarchy
+      arm64: dts: qcom: shikra: Correct QCE node configuration
+
+ Documentation/devicetree/bindings/crypto/qcom-qce.yaml | 3 ++-
+ arch/arm64/boot/dts/qcom/shikra.dtsi                   | 7 +++----
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+---
+base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
+change-id: 20261006-shikra_qce_fix-270b735479ad
+
+Best regards,
+--  
+Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+
