@@ -1,111 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794475593;
-	b=w4ar6xUPf3MWbxZpprMQWk2rbqP4KriWZJdeP8x1YiWzl4JiSItSjAgxnZQ/8NXhonSc
-	 YP6FAFXX56qxNCuSp2eD+0u8WwcwqpR4ToXgfi/jWLj0mmpd+UKLrf3D2bPO4qW8cxTE6
-	 4SN9M0Paj292C2w2znD8dIENxEcdfgx83Z6fUpxZUnDUGus8oZhrtzvGrZBIuXr1JiULx
-	 CJMrhOnEzJdA4HQ8kGHFVoR3vsFkpvCKmzMk5MdZ8ryt1DzoIg8PRUmxgAr/qplYQQS8U
-	 AIjcW7YiYZh3IqsbToecAXv++8QOL2sSJn3rRL+fwpphxd7KsYO3AJJTvDVb986H0WA==
+	t=1794475607;
+	b=3nv6Z7MzJHF/QKjgeG7UHN4kt1pfgT0EDYxAhqZIKcsoeSko1MT4+FYJlo2FtNkkWmah
+	 rCNPyJQyVqMx3c91nnZlxPTZ17j58k4VthZoJyRzngVPJbhbJoIIZKsQ2POj55Q00ggwA
+	 CfpBRtZBglXDYr3cp63BQOcZZBFMuNuo3Dybh/yrBxf2mZ/8xDu2z8GKA4XlRkeQm6hA9
+	 RkCuJCDKe2+h1c5mJSZnjxI6YpkOjAt35X/ev57inyg+9eu57dOnsIflO0rXWOegry1+g
+	 bCTpg9gBLzhijky2uu8vsy6t/PKIBrojxQewVBrDOIlDAU3AUb0VzTjyvUTrkpqYTeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794475593;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=Lu9VyNMW3mU5a5OEl9u5/3DZxAvGGfoqPTt/S5UCjdA=;
-	b=YeHavyqunAszZfuan6yNJiHQu86fMnWUkris3gkLhgNSOhup07Ny0xlaypP0kGj00WC0
-	 UrUI2l3mpXAhoxBgyqaiMrrNFu9sHs975JjVmmOGDVUJ481gR2wLAbgE/WrGAe7A0ALuD
-	 fU7NkbTZiCtVI2sEElR0Xn1xZUNlHQHooW55qLWs1axoUvUlGNPGz8qHjz+yf6ansKWos
-	 8bGXkX31ZvDYanPeI2UE0LpKm3Qsm0l7/h+F1Cwi5BAy7TErKCuphoUc0ercyusGKC2ds
-	 KDEa577ETtp5AhkmzJU/XgEaW9QnGIGDttNTXSCA6+aN29Zi78ShnL9xKuo6yeB/hmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794475607;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=fkjnmb8ggLb/84Ga++hOlK7lEjrv+JCNa/KKXlrq3oQ=;
+	b=fpl+hoWYm891YKoU3fCAE14zoP+b+UjDnEYSkdU5OEf9PckUquRRBtkHT8y9y9cTD6g0
+	 9ZEWL2tHufq6+KW82ZbmRCpCX8t5mF8cI9/EKHtTZG01wuiZoOiUR5yIuKfbkrriSTMBd
+	 BRWS5KY/a66uysVMJa0gtkPgPCcJGilZr8uY3nkwWFEzljnZg3BgyjtnceZ9CpV1A/qkA
+	 mP4+gCai+q2tlDzKPcvCx1SAeYU1OB7hulVupwD59SqF6TDF+NvYuXUp+fWZcRu6+LLEQ
+	 hMuFcmQss9KgWtaJG7yGCnBBYkWLMlUqZYD2tmEpa8KlWiKa1+DJbIyfDmQUCbTs69A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=OOUgwSFQ;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=NVWaEgIO;
-	arc=none smtp.remote-ip=202.12.124.147
-Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="L/EPgnFn";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58002606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:26:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58002606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B6BD606A31C;
+	Thu, 12 Nov 2026 09:26:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=OOUgwSFQ;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=NVWaEgIO
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id A0AEA1D00259
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:26:32 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 12 Nov 2026 04:26:32 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794475573;
-	 x=1794561973; bh=Lu9VyNMW3mU5a5OEl9u5/3DZxAvGGfoqPTt/S5UCjdA=; b=
-	OOUgwSFQfbLVJHu/UOI1xbxzxT29rpy6sRLNcFMwVTBXzHNs1EcuKtWWiF0p0vMV
-	pwgQH1sGEyg8X9BWJj9Z/NzKcXfcrv69W+X1rEzPCKgCj0h2bl3L3ihPDe2oLjYY
-	zobAf3odv5III8Y4tHRH4h7KI6Zu2YAP1UhQkG7TLYGIF7ij7jyaOKtlnwbncIBt
-	YYijyIAjywbzRp3ltvL9VcQ+OgsMOskRjbN5gFQ7kHc6RKUvcDzTn9Bv2ou+3eMQ
-	+moij8YDdCQz1xPUNUyDy748IUxc03Vs5IiimdOyBTWHHVLADFFEPPRw9kr247dq
-	eA1g8xF4ovQHK5pm56sqRA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794475573; x=
-	1794561973; bh=Lu9VyNMW3mU5a5OEl9u5/3DZxAvGGfoqPTt/S5UCjdA=; b=N
-	VWaEgIOJNaSA6tI7c9inqYnE1uxJ1vlT9Fjg51KVxZqxAtQIwJxYCc+Yxxb7rrfn
-	lqi1becGt5OevebJBN8V0kD4rsO7nanl9iJhWpW39+wqAcVowfsRChKO9vZj3XwM
-	7NhuZpLuKr+pKPwEUlXfEC8HTZXygCfCxcVDP5ySwWAwgTE1ocLPnQU9k3YbVcrg
-	8qPDj48hZiFbBg3pVGUGyWsocTCPYj+vZnwsb7ciMOC3xtR6G8+2aCSAIkSBkIfF
-	MDY35u/n4XM4lh+7S50G0rTFS8IvB0y7JNUhkRyoe1XrzafTLgNWCU6E0BQ2ICEU
-	o1x08xFRSCGrwAhYDzLTQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794475573; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:cbOsoKic4+AGsH2Xf1Vg/CfRzOBTG1MZ10A0PEzGSrPBTaQ
-	T0kmKX7HDuBABVtlEDCe7S9NrU+6L3WhKHjEbJrHxAYtx/XO7j3Ju5/HEpkv9d3w
-	PMIwltc3t3Bvtvp4OA8Ai7RGA/5Wn5oOLFvgcOkK7SN/p4xiHbox3fIvm53t3550
-	JseAFcrecsJLPjnmFGrCxn5sDt3i22ajuuV2oJmpUONdWUzxBkkzxD+CSwhXSYzB
-	H6DBoRyQqntircbKuAh62AcffrmmCghR1mYWNve/xmPIo/9LDsZbNxhi9se8IfsG
-	EQtqcLGg845gNpNyxRiKcpQt5nLJKqUR9MutJug==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:lHtQvLsWKEfUdBxf+XVyTOgUlpH79KXAE43pmsNxrkU=:Zt3fqEzGcC9UmMEpGQAYwZ0fmVAGINXNyxE6QV2Knis=;
-X-ME-Sender: <xms:J4b1aszZnXXmJXycTKT68GToSThX6hRpgSLl_4I6u4n_9y0ijscfDA>
-    <xme:J4b1arHXgXG0E3ZLvA7HJOwMoR1J3526nRnSxn39ymzynPVz3tcJjXoKQqdwOqpDJ
-    AeT-pkeNEL1EAxxeIv_exqlwG8lFva3ZbqaIZ3tJwi6d46YBYeiMr6m>
-X-ME-Proxy-Cause: dmFkZTFWfgeeGR8mo+0U7OOkwDrigGQ4sGgOFZOIt6DyKqatgGiIKMzD3PV2KmRP46YBiF
-    NN7VF9RNbZITkPsgZWpSOFDs2Hsgp/9VR+G7lO3+PQKbSnfTnKJELeW/wMgoAW5UIhwmdD
-    NSL49KegZyyd7iwPktON7yNbn9dxeoKfVhWM9t2Io9/1BIHEHKTR0WotbG6kr8eFh2z+1b
-    csxbAPpRQXO2C4GVfNYOGDOiPXISwylHCy4FaZ7cR6oRi/vJtPkZHGg3mRklsb0kNGxOVd
-    DNAGk5hP/cEFOfJdJHRax64lA7dWq1eHZmhIG5RrznsMXvnmtyPlQ334MKerO1ZX5NuqBV
-    GKnK5TATlSIwk4cWKGycpyTUodNZKF7vM4JxgjSDyU5c3JZMA/00XtklF92iMVX2n35r1M
-    D/1BnTxNkAJQYU6IHiZtnAi+F9Kc5txc7hseFdo5PA6gwuLLPcpiIgVACKdGaO06xjKt6+
-    eDS6tHC5JLF0NyKlfrEblcX91WlQ2m0ahg+JEq12dOeKhFtHqe72OYrIJRxH9aVIg4H37T
-    QC9Hsu2aYqgpvUxhfN9yptOYqfhbjSb7ExkyhKIO3SlLEus47FmO1j/M7VmkJjnZFvCjAd
-    +wpeLaOzhd2kTOw74kwWkYpnUq7IGz2Ntd9IYIHxAihCXh+HKjeLVoMLwTQg
-X-ME-Proxy: <xmx:LIb1anFpYFUFUsNVtoim2Rg7LU1Tm3N1l3d1uUOvZWcowJ5OmXznLw>
-    <xmx:LIb1autSZclqgSgCMjcYXfz7f3-TG4EIJFu13rcYRYlFv3xXvuqTzA>
-    <xmx:LIb1akvxIJ80Do08wt6yzER2CcaT4RkBEgb7xl8huakw9lE5eJlL1w>
-    <xmx:LIb1avHZkyKCDYHXN5bL4LY8EPvrUmq0Rhqocr6RmLq2C_LNQVrCwA>
-    <xmx:NYb1ag6y-0KJmsy4GI_oyZKqDIFupBSr4UE9rN5CDa5GuRRBsmAx6rWK>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 1E26232A0099; Thu, 12 Nov 2026 04:25:59 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L/EPgnFn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E79AD1F00A06;
+	Thu, 12 Nov 2026 09:26:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794475606;
+	bh=fkjnmb8ggLb/84Ga++hOlK7lEjrv+JCNa/KKXlrq3oQ=;
+	h=From:To:Cc:Subject:Date;
+	b=L/EPgnFnLTt737bs87LmLJNK7LSDwmsvC+C++AVwbCrxQ/Tbv0UUoWyu6wWzRY4CI
+	 j/pNDCbH016zGGqgq5BFhJswaDBN7XgHqecpPwbGS7Ua0WRYoMGqqexWpPC5cjSRlN
+	 SU7DT9o1zCM+WXWMZ/t0Y0xAD7zjwwwkJ7/EvdUqz6prJQxMO29vZ8xVNoO+zioGt3
+	 DUvLokKfBZGR5iqOz0RlAi+PMsmOBs6QjP+R4/KdvVqniS5y3zpk/LCsOdg4IJoLcq
+	 xiVoM8fLUQ+3Y4yGpsS5mxNacvSVJ4/Y0vnC8xF7SFEH44m56wRuhlYHoLfG6Zdbm0
+	 r1yfiJ0Cgw3TQ==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Sumit Garg <sumit.garg@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] [RESEND] wifi: ath12k: fix QCOM_RPROC_COMMON dependency
+Date: Thu, 12 Nov 2026 10:26:30 +0100
+Message-ID: <20261112092642.1144415-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,70 +61,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AD8wiEBgakfZ
-Date: Thu, 12 Nov 2026 10:25:28 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "David Hildenbrand (Red Hat)" <david@kernel.org>,
- "Linus Torvalds" <torvalds@linux-foundation.org>,
- "Christian Brauner" <brauner@kernel.org>
-Cc: "Matthew Wilcox" <willy@infradead.org>,
- "Kirill A. Shutemov" <kas@kernel.org>,
- "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Miklos Szeredi" <miklos@szeredi.hu>, "Amit Shah" <amit@kernel.org>,
- "Jan Kara" <jack@suse.cz>, "Zi Yan" <ziy@nvidia.com>,
- "Bernd Schubert" <bschubert@ddn.com>, "Hugh Dickins" <hughd@google.com>,
- "Baolin Wang" <baolin.wang@linux.alibaba.com>,
- "Andrew Morton" <akpm@linux-foundation.org>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "David S . Miller" <davem@davemloft.net>,
- "Eric Dumazet" <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>,
- "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>,
- linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
- virtualization@lists.linux.dev, Netdev <netdev@vger.kernel.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
- "Malin Jonsson" <malin.jonsson@est.tech>,
- "Richard Weinberger" <richard@nod.at>,
- "Geert Uytterhoeven" <geert+renesas@glider.be>, "Nishanth Menon" <nm@ti.com>,
- "Frank Li" <frank.li@nxp.com>
-Message-Id: <3eb60948-8fc9-4682-87c2-c113e54e7d4e@app.fastmail.com>
-In-Reply-To: <32ad880e-5946-4703-9c6f-43ff59da39af@kernel.org>
-References: <20261110145241.536019-1-kas@kernel.org>
- <20261110145241.536019-2-kas@kernel.org>
- <avNuQqLf9CG9dSsE@casper.infradead.org>
- <20261111-heimreisen-ungeziefer-empfunden-a892571f2c07@brauner>
- <20261111-thunfisch-wirbt-waldrand-822275b2d3b1@brauner>
- <CAHk-=wjPY=kfgnmtx4COEQjD5UzKx9m2-=KLGAZP4d=RKEH+pg@mail.gmail.com>
- <20261111-stumpf-montag-miterleben-c4e2feac8090@brauner>
- <CAHk-=wjGXBnme-N+HvbzHH40ftb7Suc=kZVT5cuintQWyMHJ7Q@mail.gmail.com>
- <e94bdf7c-eae6-4f64-bf93-0aeedca1a22e@app.fastmail.com>
- <32ad880e-5946-4703-9c6f-43ff59da39af@kernel.org>
-Subject: Re: [PATCH 1/4] virtio_console: copy pipe buffers in splice_write()
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026, at 10:09, David Hildenbrand (Arm) wrote:
-> On 11/12/26 09:55, Arnd Bergmann wrote:
->> On Wed, Nov 11, 2026, at 20:26, Linus Torvalds wrote:
->>
->> I tried to push for what I thought was an aggressive timeline
->> last year, but that would still keep the Arm bits for a couple more
->> LTS releases and only gradually reduce the scope of highmem in the
->> meantime, removing support from architectures, file systems, and
->> drivers where possible. See https://lwn.net/Articles/1051010/
->> for a summary of my talk in Tokyo, including the slides and
->> a link to the video for anyone wanting more details.
->> 
->> I also prepared a number of patches towards this, but have so
->> far not been great at following up to get them merged, sorry
->> about that.
->
-> I think we can already start at removing CONFIG_HIGHPTE now, right?
+From: Arnd Bergmann <arnd@arndb.de>
 
-Yes, I think my patch from two years ago still applies, see
+The AHB driver depends on the remoteproc interface, which could
+be in a loadable module when ath12k itself is built-in:
 
-https://lore.kernel.org/all/20241210160556.2341497-4-arnd@kernel.org/
-https://lore.kernel.org/all/20241210160556.2341497-5-arnd@kernel.org/
+arm-linux-gnueabi-ld: drivers/net/wireless/ath/ath12k/ahb.o: in function `ath12k_ahb_probe':
+ahb.c:(.text+0xb2c): undefined reference to `qcom_register_ssr_notifier'
+arm-linux-gnueabi-ld: ahb.c:(.text+0x1000): undefined reference to `qcom_unregister_ssr_notifier'
+arm-linux-gnueabi-ld: drivers/net/wireless/ath/ath12k/ahb.o: in function `ath12k_ahb_remove':
+ahb.c:(.text+0x1146): undefined reference to `qcom_unregister_ssr_notifier'
 
-If not, I can send you an updated version.
+Add a dependency to only allow the AHB portion to be enabled if either
+remoteproc support is built-in or ath12k is itself a loadable module.
 
-     Arnd
+A better way to fix this would be to make the driver more modular and
+ensure the AHB and PCI components are built into separate loadable modules
+like it is done for the ATH10K driver, but that is a much larger rework
+that someone else can do in the future.
+
+Link: https://lore.kernel.org/all/20260313094852.3716715-1-arnd@kernel.org/
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/net/wireless/ath/ath12k/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/wireless/ath/ath12k/Kconfig b/drivers/net/wireless/ath/ath12k/Kconfig
+index 0d5d1c55bfc1..4e8a301f2081 100644
+--- a/drivers/net/wireless/ath/ath12k/Kconfig
++++ b/drivers/net/wireless/ath/ath12k/Kconfig
+@@ -17,6 +17,7 @@ config ATH12K
+ config ATH12K_AHB
+ 	bool "Qualcomm ath12k AHB support"
+ 	depends on ATH12K && REMOTEPROC
++	depends on QCOM_RPROC_COMMON=y || ATH12K=m
+ 	select QCOM_MDT_LOADER
+ 	select QCOM_PAS
+ 	help
+-- 
+2.53.0
+
