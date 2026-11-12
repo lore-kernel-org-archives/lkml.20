@@ -1,90 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794446967;
-	b=TBmHs9CmZcObRnZL61MPQ0is+pVA4AgXwIKNYqV0O80HEjCjlTWKA2w1R8WyL4ujquCC
-	 3anKvk4B1/v4B0QMdSdJELry3d6LEd1hOGnW75ggYDkCqpRjg8i5/oCQ5PYstAYXLpYXj
-	 i5tp5IC8IEsTnHFQj4zHeiCartI3aXf628/ljXvXYxtp/SuoYzr6ZwkmEtdjd5YplHNnt
-	 moPzBU7H0xMOOFJlrI06+yMC6XhOzpfXuP6OSyhFLrbaW+DUGD4pLddnLuXngMfLV/bGm
-	 JxHd3BHitdXpvjMwHGBCwYR+MDlhrdM9qg12k8hL+g75ozVLqsk3qploOAGDm7nUgVA==
+	t=1794446962;
+	b=IydhJoJvq6Bg+rGjpgAim8nX1l7uMD08kx87P9zR2fhrsiaTc4MkRbwetx0146BNBYDS
+	 HNhtxDfnHXDSW3+M/7dxQIAs6OLlOg6os/lfDWpnlDuXEAmNzk6rYvQ5cNPtK1p7F7qlE
+	 LMBP4gQaefcsZkCwFb+08TUsJCEqNYYmYAB4WyVnYAcL1EKGkduXdo6ocXTDWOjvWWULH
+	 QrzQk0I94wunJcRuqV3t6DymvSNbJcqstO8OEN7a4JU1agqutPSdrWh4xj4gKNiJ/ZyY2
+	 bXLNa2U644c7pbIvTmi7ch38eMFCsZ+ZD+rH5OHgRqP4aeL6i6h11G9qU+ou6ubr+dA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794446967;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=5lDqHgKMjmH2LY5NTXTlzJvA5Ze9u2ECkRMDQtiflIY=;
-	b=5cc/P5GxrZtwj7unr+X4KrQpO8w9Y8FZmdzP4gq0TLsWBOOVgiyBsJbNhEWLhPBuOou7
-	 QwrSAE6K96BlQnZkCM25aKgQt8qCeQ4O3FV0ZWYw6o73687BViFv112fLpA5a0DobIxtX
-	 iPw4uKIZp1o/jaaDDyxLLKD6DuR4GX4BGWvjDoWmF0cPJQXQ3S0d3HDFSGKXnSZGcnO8z
-	 lBNSO/GmYwTl5NMvO16w8AOsrryRz2WbOarjSBnjgGYBCp29j6qYTzcocj2KxZ6x2q68B
-	 DOW2gH6Fp1qAFnyg1PXdAHQoftzqqXTWqSHJzpl3CWnoSu/6HOsVsBXjLkJXyyIZq+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794446962;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=naeHT3lsD43WVFFXOIg9/UkqxmnGM41dLQc0bv16TWs=;
+	b=gRv5iFoGWI3xHznqkrdlmSdG6eX8JZ5hkDuOILogqEZZYGacn3kYs0qGX+//eONGCO/T
+	 Ifjnpw/bd3hKbtm2xsUE7JNdxd+ohe/lVYvCVSAM7HiaKmHaooMFQYyeQPVO4NbGkjLYP
+	 iqckuUehxg6BpSy8FeICOAIvW71z4TSBl0PRy1iT2dsGXARxmIULquYnkVN+8R0lLBbuv
+	 ruiRYmShMHRN0UcrRn9847Q29dxHqJNju5B2iKC8hCTJdrZZ7gpJ8xLyBTAelOQ3UKh9z
+	 TJ+frvLotA8LCn3riC+hNPkA4JG43iw8h86h5oHO614Tg9OykX6KOskOvQgsJnJ9nfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sAuEaq8X;
-	arc=none smtp.remote-ip=209.85.167.176
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dR+4nUqB;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FD0D60725EF
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:29:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FD0D60725EF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 588666070228;
+	Thu, 12 Nov 2026 01:29:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 588666070228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sAuEaq8X
-Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-53a448f86e0so2102601b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:29:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794446966; x=1795051766; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5lDqHgKMjmH2LY5NTXTlzJvA5Ze9u2ECkRMDQtiflIY=;
-        b=sAuEaq8XPqdjLEosUfCgNuNvejs99eHsBVIFkstUho2ADWho2bV27XG/huFKLdikeK
-         47kVbbS0HyUucOi4wQ1xkws1rSsR/T3KCXFt/188cnoL/wAhSt+wgXib+rEcSDTMlMG1
-         RF6xN1qheQKLh+XCvo3clRbJqmj9mDKtVD9FDvMO4uvRek6xyCrPF8MhwC07tlSUVm/s
-         tE+xxShCgHAprBXSj6m0eislZQ42NYugzEX6HDromOKd5C3uaSYzmkul/Rq9nDDf80lF
-         1A/h/F115XWsybIZbR01HT7q2MiVMS39aBoYVdNlk5SbP6/ZJXrlraQb8XL1Y7SUShWU
-         5DKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794446966; x=1795051766;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5lDqHgKMjmH2LY5NTXTlzJvA5Ze9u2ECkRMDQtiflIY=;
-        b=bEpYiRoDZR4u9rIo4UeW1zrPSYzFRFDcabP+ZyipjbgUWI4+Kt3AOw9igWG8hI5RPb
-         7N9qPPg6vb8F2+3YHefNuvELMLr8AwuRcDV/IbasIF8kSk1n/HfpJSMRojU828GwFgRy
-         BT0j9eoSVC1byHMtsibc95AjQNFyP8g1XN9T5Le5hxVuEoJGS1aOlTPZAExIUGVgWpc7
-         nlDqqGSYYJqfIRWFTwl5IvMEhf2syWJz5z/HW8Fj0nA1oEyuR1QWK1Qt7cYVzb5YKgrJ
-         ZFaYs0tvKgC5WvN7OdLD+m8QAnfOXwDrFVYLSfXjWsytkXFHhAuoVQRWMIZPulr5/LH3
-         tTCA==
-X-Forwarded-Encrypted: i=1; AL+hErEJOczat39o8t+vndhDW5PdOthemX/nfvjZX2FZS8s4XVamEjOm4dbBU7YL6S2qzMDjXLs/LPUaf4mZ4fY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8r5fLksmq9zodyXLNBR7bxsEBTgCg/kBoSFcQR+qmOJMVZYO1j
-	w6cgmUbUKh30XE3DjEm99Llgter7oCjE6dLltgmld+i9Oxh1jWZgV55R
-X-Gm-Gg: AYBFou3MkW/sMMy7OlXcwA0u8EsBen4QhmRMdctLKMOjjN2V2rUQGkTdXjpZcw9Xc2Y
-	yJjOKJu6xYFpmoHD538Q42CNoZHltkGsLN1c7i9yUp5bmNDmBBRh8kjjEnelkTIMzRZz4BZ4sT1
-	bC6uYJWDTutWwLJgj58EZwaloApOlxnWl0jusZCsq8oKpq7cP+6xQTz/TDchMc9uffsEss6N5e2
-	YmgMiLZtMsbUBJqrVKerbyH/W5ErwlhfYfzXk2iN61FVTW85F/rSe7XoDkmQFl73iDKeyywQnZM
-	A5IPPHEaAt/RtfdtKtYG6k/0FHw4Z6mIjkhubqUwrA/5eYv3cMofjQtL6WDGFZBIGiTeKQBL93k
-	Rx/GSMBM2+ADsDhQyGD4BUkL2msiAAstiTeZCZfgrBNOJZQzPH3wSlrFEOWhn6f1En7H6AmmflC
-	Ao34N72/zwWct+Sb9s6d1de7UfdfVwV9tG9HhttW9h/MWLdIAI/CSpB4P2pe9eKoJgkTyniCgDm
-	t7P30eHmndGOSI1MbB/GEr8IbGWNXcp/xwwepTDL/0xOS5jjVVItRS85GtksrY2ynouX+vuFIwd
-	Gok82NNyh/ZiKKEjsm7wnrGPA+sf9ZHtsPGLFvGJy6ftTEA4xdv6MsHHm2hfch+6cv5B3slsAK6
-	qO6KY23tnPUt2XsXVfA8PuA8CpG6mSn8t5q5MhyFZRGWOL0crFiYq58m+gewabEg4hrCxjePdVk
-	d12/tAgM75ey5B1pXR6k7cXoj707Fp20RQMnbqnTxrrtRRIFf/0UoUzA==
-X-Received: by 2002:a05:6808:16a8:b0:4f7:867a:bfa with SMTP id 5614622812f47-56b92845782mr4040150b6e.5.1794446965567;
-        Wed, 11 Nov 2026 17:29:25 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56905738049sm6823481b6e.10.2026.11.11.17.29.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 17:29:25 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 11 Nov 2026 18:28:31 -0700
-Subject: [PATCH v3 52/58] mtd: rawnand: bcm47xxnflash: retain chip state
- across removal
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dR+4nUqB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794446961; x=1825982961;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=drwpAsrOFw4B/qCkDMxl8Rzegtt/n6DW8SOYJld6ACA=;
+  b=dR+4nUqBg1xP5hLwWGCi48LPh3R4Z1e+9HVF2DiAxa7vIuqzFzs5+cEK
+   dANeswCa4jq/MwJLiRYwr/0HCp1iV3EQPYPalLgNQ3Iv2YEeCmQnvqq6F
+   SLoiLNo3H9LawT65jaCBZGLOUMPHJWgUMYN/17xSY7H3O2uldga4R2MRu
+   1MrHAn+n6djSYIwAEYYc6Y1jLHw6i/1oiBpDToboA7+lcAR3ejJPNMQME
+   XhjJQcDFxBsS5y3JOKfz532lZFemDySb0t4xxJa+7Oq8o4wJ2Msg0RrqW
+   aQcKL22n6RuXXJ8fEPgf4G+deuSx+LUJZt83aZ7gxWLJYXx7OXGGKqSyz
+   w==;
+X-CSE-ConnectionGUID: z6iaWYs6Sdyk7hKAW7KkjQ==
+X-CSE-MsgGUID: uYM3Prp+RXKTG44qjaS7BQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3306724"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3306724"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 17:29:20 -0800
+X-CSE-ConnectionGUID: wXIAkD9OSb+cGo57KrKyqA==
+X-CSE-MsgGUID: KnBwmaLHRL28S7SM9UOKBg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="10415943"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa013.fm.intel.com with ESMTP; 11 Nov 2026 17:29:14 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xRJcl-000000010BX-15iQ;
+	Thu, 12 Nov 2026 01:29:11 +0000
+Date: Thu, 12 Nov 2026 09:28:40 +0800
+From: kernel test robot <lkp@intel.com>
+To: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Alejandro Colomar <alx@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Andreas Schwab <schwab@linux-m68k.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Len Brown <lenb@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 2/6] string: Warn if the prefix is the empty string
+Message-ID: <202611120922.GqXZB0lH-lkp@intel.com>
+References: <cd09427148a0c4718b46029c9e806f9dc1622f9b.1794425425.git.alx@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,77 +106,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-submit-rawnand-retained-handle-lifetime-v1-v3-52-ce537999741d@gmail.com>
-References: <20261111-submit-rawnand-retained-handle-lifetime-v1-v3-0-ce537999741d@gmail.com>
-In-Reply-To: <20261111-submit-rawnand-retained-handle-lifetime-v1-v3-0-ce537999741d@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cd09427148a0c4718b46029c9e806f9dc1622f9b.1794425425.git.alx@kernel.org>
 
-Disconnect the scanned chip on removal before the BCMA-backed hardware
-state becomes unavailable. Retain the embedded NAND controller and chip
-until the final MTD put, including registration failure cleanup.
+Hi Alejandro,
 
-Run NAND cleanup during disconnection; the final core-owned put only
-releases retained allocation and layout data.
+kernel test robot noticed the following build errors:
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/mtd/nand/raw/bcm47xxnflash/main.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+[auto build test ERROR on kees/for-next/hardening]
+[also build test ERROR on driver-core/driver-core-testing driver-core/driver-core-next driver-core/driver-core-linus kees/for-next/pstore kees/for-next/kspp linus/master v7.4-rc2 next-20261110]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-diff --git a/drivers/mtd/nand/raw/bcm47xxnflash/main.c b/drivers/mtd/nand/raw/bcm47xxnflash/main.c
-index 4cccf00f67f7..fac96ec596bc 100644
---- a/drivers/mtd/nand/raw/bcm47xxnflash/main.c
-+++ b/drivers/mtd/nand/raw/bcm47xxnflash/main.c
-@@ -26,9 +26,13 @@ static int bcm47xxnflash_probe(struct platform_device *pdev)
- 	struct mtd_info *mtd;
- 	int err = 0;
- 
--	b47n = devm_kzalloc(&pdev->dev, sizeof(*b47n), GFP_KERNEL);
-+	b47n = kzalloc_obj(*b47n);
- 	if (!b47n)
- 		return -ENOMEM;
-+	b47n->nand_chip.controller = &b47n->nand_chip.legacy.dummy_controller;
-+	err = devm_nand_controller_init(&pdev->dev, b47n->nand_chip.controller, b47n);
-+	if (err)
-+		return err;
- 
- 	nand_set_controller_data(&b47n->nand_chip, b47n);
- 	mtd = nand_to_mtd(&b47n->nand_chip);
-@@ -48,9 +52,16 @@ static int bcm47xxnflash_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, b47n);
- 
-+	err = nand_set_lifetime(&b47n->nand_chip, NULL);
-+	if (err) {
-+		nand_cleanup(&b47n->nand_chip);
-+		return err;
-+	}
- 	err = mtd_device_parse_register(mtd, probes, NULL, NULL, 0);
- 	if (err) {
- 		pr_err("Failed to register MTD device: %d\n", err);
-+		nand_disconnect(&b47n->nand_chip);
-+		mtd_put_master(mtd);
- 		return err;
- 	}
- 
-@@ -65,7 +76,8 @@ static void bcm47xxnflash_remove(struct platform_device *pdev)
- 
- 	ret = mtd_device_unregister(nand_to_mtd(chip));
- 	WARN_ON(ret);
--	nand_cleanup(chip);
-+	nand_disconnect(chip);
-+	mtd_put_master(nand_to_mtd(chip));
- }
- 
- static struct platform_driver bcm47xxnflash_driver = {
+url:    https://github.com/intel-lab-lkp/linux/commits/Alejandro-Colomar/string-Add-strprefix-and-deprecate-str_has_prefix/20261111-205515
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/kees/linux.git for-next/hardening
+patch link:    https://lore.kernel.org/r/cd09427148a0c4718b46029c9e806f9dc1622f9b.1794425425.git.alx%40kernel.org
+patch subject: [PATCH v4 2/6] string: Warn if the prefix is the empty string
+config: s390-allmodconfig (https://download.01.org/0day-ci/archive/20261112/202611120922.GqXZB0lH-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project c628d639fc66f8e6d8ab1f0cc6b1df38f974e020)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261112/202611120922.GqXZB0lH-lkp@intel.com/reproduce)
 
--- 
-2.53.0
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611120922.GqXZB0lH-lkp@intel.com/
 
+All errors (new ones prefixed by >>):
+
+   In file included from scripts/mod/devicetable-offsets.c:4:
+   In file included from include/linux/mod_devicetable.h:31:
+   In file included from include/linux/device-id/hv_vmbus.h:6:
+   In file included from include/linux/uuid.h:11:
+>> include/linux/string.h:575:2: error: call to undeclared function 'WARN_ON_ONCE'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     575 |         WARN_ON_ONCE(len == 0);
+         |         ^
+   1 error generated.
+   make[3]: *** [scripts/Makefile.build:185: scripts/mod/devicetable-offsets.s] Error 1
+   make[3]: Target 'scripts/mod/' not remade because of errors.
+   make[2]: *** [Makefile:1424: prepare0] Error 2
+   make[2]: Target 'prepare' not remade because of errors.
+   make[1]: *** [Makefile:248: __sub-make] Error 2
+   make[1]: Target 'prepare' not remade because of errors.
+   make: *** [Makefile:248: __sub-make] Error 2
+   make: Target 'prepare' not remade because of errors.
+
+
+vim +/WARN_ON_ONCE +575 include/linux/string.h
+
+   555	
+   556	/**
+   557	 * str_has_prefix - Test if a string has a given prefix
+   558	 * @str: The string to test
+   559	 * @prefix: The string to see if @str starts with
+   560	 *
+   561	 * This is similar to strprefix(), but returns an offset instead of
+   562	 * a pointer.
+   563	 *
+   564	 * Unlike for strprefix(), if the prefix is an empty string, the
+   565	 * behavior is undefined.  If you need to support arbitrary prefixes,
+   566	 * use strprefix().
+   567	 *
+   568	 * Returns:
+   569	 * * strlen(@prefix) if @str starts with @prefix
+   570	 * * 0 if @str does not start with @prefix
+   571	 */
+   572	static __always_inline size_t str_has_prefix(const char *str, const char *prefix)
+   573	{
+   574		size_t len = strlen(prefix);
+ > 575		WARN_ON_ONCE(len == 0);
+   576		return strncmp(str, prefix, len) == 0 ? len : 0;
+   577	}
+   578	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
