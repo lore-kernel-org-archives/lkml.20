@@ -1,84 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.121.53.167
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794449648;
-	b=eeIMfOBQlH/pV2FTwUUBCJu01TjiZq0n0r704YdSjV6OdHYdJ5Et3j79ujzQ5iOgpmJ/
-	 W/sM9WbQxZVLW5JMqGGFlSWZowQfyxLNjc//6oHkdlwf2i7fiUxK3uXKlj2vni4HFZbCm
-	 1WmQIWhN1b9Ypk/9PHWM0Q9R9KbvS92RzIWB0J5Vc9uk+kPFKvwZFEmF489SG9QPZDV7W
-	 /1ly5bU91ZdxbqM5MaOdyzpQjUlu93S7Gaj+INpzgVB6xX5pF6l3l2/vRBIcEWL7x9ZWW
-	 g+r5U1RrPH2IinXf2hJKggmW1vtp2PUYFQVigXj2ZRuIigFyvhRHrbVU7KerjzfWlmA==
+	t=1794449703;
+	b=TI4w318l/5xZFrQMG2dh/IxlqwybeQp8BujWIcL6CwsXp04oZUaW38LEfYkxgVQqWN1o
+	 X6kNqCmxxtCS0+uznJOM9i9FluELhXVgKCjR6m7QhFjG8px8rJvV97+LBrzLapjaS2Vsd
+	 X5/dIGtnRjyv9hz7Yi5LmphIuUMBBX6cRTMci5xF0D7dok9WL/CQKBevX72uvNBpzlqx3
+	 yOX28J+h0xFSr4inlNVHD9YXVgbUPWzu9KxtqMUZ94Q4HE2AM7SDbtedFPPFFB8jEKODg
+	 /FZjTBmJX3cSU5QX2HvkSugoOO7kKZARWr60/3bPVtzSpimNVYd22Nax5TDGEIN9Spw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794449648;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:X-CMAE-Analysis:
-	 Feedback-ID:X-SECURESERVER-ACCT:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding:X-CMAE-Envelope;
-	bh=7DCnhPMhPOIF6svXs06gCjoxoFnmXhoJWXAzQrckpic=;
-	b=0glCC4qODeWYD9I4h7R05BirZl/4+VaSHnOsWq7do5Qfk8mBURXRnV7+iW9pc1ATBmxX
-	 aBHcbXqBHSaVq1esxfUiagM4MfUQEaXOcgDcdJ4jXC4x1QIk/vOEpfdWb1HEOLzOTmsWv
-	 BUA2CqbcEV83pjx4LNuolYKELCDht+gr3hFQthSj8pgyOVxaL+8m6W+7cKjb441pg02Ra
-	 xUtdNcdM3sIyLz91BRpBD35NCLdhlvLaFRVABn0WRVsrmPQdpwn+a6xar1qwnflafQ0UT
-	 1DgSjtksBPvr+wT1nprZlr8PUZ3SBy0KwtXotei0OVH7znX+eUvoVBZh8qLwW7skPRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794449703;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=1xCaH4HUY4jE9shdiHIoND7z6gJxF6tiu/0JOdXHPA4=;
+	b=iq+nxzRGz0rJBGGJ2rm0D3TdtpM9ja2+rWJlqDcef+Vp8K4EhsxI2+7FoG+UMu2LqAHh
+	 Sip93yqE5WitXTyX2n0nr0TXr0n1se60cZDfXFr96V9evXlGP/1H//X0JqHQL+hFawslD
+	 xju+uO7GcbNPVD7r2O24Hc8Uy0QfAAnkW4RX6QsQXwxOOX3ZhNNLmtXDskPRJEEj+HlXR
+	 0w7BqCvlqlrKjTPaFqwHBpUs8C97+lnXOIWjPxxSO7qbXrjCJWNPDFJzA13bT1W39d5Wc
+	 qDgDuIRUq7msScGFBr/nOe02xbLfaBk+WRH+hoibRvxHr7TbZnyOgBqYZbnLgjsUDqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=squashfs.org.uk;
-	spf=pass smtp.mailfrom=squashfs.org.uk;
-	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=PUswFAGe;
-	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=BVIeVKm6;
-	arc=none smtp.remote-ip=188.121.53.167
-Received: from sxplsmtpa04-16.prod.sxb1.secureserver.net (sxplsmtpa04-16.prod.sxb1.secureserver.net [188.121.53.167])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=yH7XyaP8;
+	arc=none smtp.remote-ip=115.124.30.98
+Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 098BD606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:14:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 098BD606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=squashfs.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squashfs.org.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE081606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:15:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE081606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=PUswFAGe;
-	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=BVIeVKm6
-Received: from ravalox ([82.69.79.175])
-	by :SMTPAUTH: with ESMTPSA
-	id RKJwx3CSu2ExXRKJzx9XFb; Thu, 12 Nov 2026 02:13:52 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secureserver.net;
-	s=secureserver2; t=1794449633;
-	bh=7DCnhPMhPOIF6svXs06gCjoxoFnmXhoJWXAzQrckpic=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=PUswFAGeq++nCBHAtwOowVIKlhfsSoj2t63BIBuqkPSP+PheWANJfWxeDESTLa2gK
-	 KCMRR73VmNsF7lxJhY4fD33RKpwF18yfbVLcWfAhCqarMBzCqcbcwNRQ0pOd6uKowA
-	 WPFCt/qlRlVpyV1AhvrVauY9X494bIalwj8oz4gASmKzWUbXFqxJueQslEogsaSFH0
-	 BRKETT4buV5OArKgka1m6xOWMv5aKzwoUuSdbE3ORWR8lzh25t2wc9/M0aPzEobMhP
-	 GEysmJlVSH8gJHpFjuyI1xlDgMKZNvRgGSUegt2mbmixrWT/uQF/jYIco58YJjvRKN
-	 b5cdwVQK+TR5g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squashfs.org.uk;
-	s=secureserver1; t=1794449633;
-	bh=7DCnhPMhPOIF6svXs06gCjoxoFnmXhoJWXAzQrckpic=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=BVIeVKm6jWndtWykxaV9bSIimvBPE0vpyvJ/+Ez/JtMs2rNGMn2e4FjJPe/KPCo9y
-	 FEHeMersGiY/PLnp/jQZETq3NuRtP+fGVuzVIUsgLgSZX6/2cKnTn3NqMVBaJI8eWu
-	 BFI4Eto5q57p/PnlvwE28o5Yvb9V6pFqHHwzS8IcCXLrHrcduW3oTBBR5zKrmL1bB7
-	 1Mghop+DWIldPUYhGw8u0Zrk5fvhhQnV+fjIBr4S2SqxtiuWJaMkOr8E1coJCJgcY/
-	 HnIrruyTmyQJIbszR7nonwhDR69P70Jt6yZyNQ6we6OTlMJ+npgWlS/izv2xQ/shBy
-	 q3Llz7ByA2unA==
-X-CMAE-Analysis: v=2.4 cv=A5b5rKWG c=1 sm=1 tr=0 ts=6af520e1
- a=84ok6UeoqCVsigPHarzEiQ==:117 a=84ok6UeoqCVsigPHarzEiQ==:17
- a=kj9zAlcOel0A:10 a=IJv9LcIfAAAA:8 a=FXvPX3liAAAA:8 a=uBD6eunphCpAWh5GeVUA:9
- a=CjuIK1q_8ugA:10 a=cmr4hm9N53k6aw-X_--Q:22 a=UObqyxdv-6Yh2QiB9mM_:22
-Feedback-ID: 786f214390aa7bc1439cdcbccf6a9629:squashfs.org.uk:ssnet
-X-SECURESERVER-ACCT: phillip@squashfs.org.uk
-Date: Thu, 12 Nov 2026 02:13:48 +0000
-From: Phillip Lougher <phillip@squashfs.org.uk>
-To: Joe Perches <joe@perches.com>
-Cc: akpm@linux-foundation.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 03/18] Squashfs: convert SQUASHFS_FRAGMENT_* to inline
- functions
-Message-Id: <20261112021348.d1f1eab31819c1c2c68b3a15@squashfs.org.uk>
-In-Reply-To: <657676fd307b604b70f262251718aea9@perches.com>
-References: <20261107052843.725239-1-phillip@squashfs.org.uk>
-	<20261107052843.725239-4-phillip@squashfs.org.uk>
-	<32fd1f6ad824796b525ffaa3ebdd8d2610858bf3.camel@perches.com>
-	<20261111235940.c9bdd0f2b5faee753f9496ea@squashfs.org.uk>
-	<657676fd307b604b70f262251718aea9@perches.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; aarch64-unknown-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=yH7XyaP8
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794449694; h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
+	bh=1xCaH4HUY4jE9shdiHIoND7z6gJxF6tiu/0JOdXHPA4=;
+	b=yH7XyaP8QSJyiw3Il9T/GynPjqkX21pmeASQXdYBGEDauat7XdXeAFyEvaamu37VtvQpl3GKJTiHqpeyCiaio4+jpAQU+SmjDWrT77r6J4HRhwbXHdQ84mxRD5RwwMjyRYiDm264yG8cVKAzHETgjnJlLcadGKsfVoxZneR0nnw=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R821e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=28;SR=0;TI=SMTPD_---0XEaSUOK_1794449689;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XEaSUOK_1794449689 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 12 Nov 2026 10:14:51 +0800
+From: fangyu.yu@linux.alibaba.com
+To: tanchi25@mails.ucas.ac.cn
+Cc: alex@ghiti.fr,
+	andrew.jones@linux.dev,
+	anup@brainfault.org,
+	aou@eecs.berkeley.edu,
+	atish.patra@linux.dev,
+	baolu.lu@linux.intel.com,
+	fangyu.yu@linux.alibaba.com,
+	gong.shuai@sanechips.com.cn,
+	guoren@kernel.org,
+	iommu@lists.linux.dev,
+	jgg@nvidia.com,
+	jgg@ziepe.ca,
+	joerg.roedel@amd.com,
+	joro@8bytes.org,
+	jroedel@suse.de,
+	kevin.tian@intel.com,
+	kvm-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	palmer@dabbelt.com,
+	pjw@kernel.org,
+	robin.murphy@arm.com,
+	skhawaja@google.com,
+	tomasz.jeznach@linux.dev,
+	vasant.hegde@amd.com,
+	will@kernel.org,
+	zong.li@sifive.com
+Subject: Re: [PATCH v7 00/10] iommu/riscv: Add hardware dirty tracking for second-stage domains
+Date: Thu, 12 Nov 2026 10:14:48 +0800
+Message-Id: <20261112021448.48441-1-fangyu.yu@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20261111150249.13262-1-tanchi25@mails.ucas.ac.cn>
+References: <20261111150249.13262-1-tanchi25@mails.ucas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,62 +85,30 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfGtlnebS1dctRwNbU1eyXYye97bWGwQqNipcUQiD9HRhKZZbQtjbp+dm7jU+hEqKsc777/nk9nniCVFwJ5H4OfpDVCiKLwGWpP4768Bw6uoLc67VhhUM
- BrYv5d603JpJQpt1LlL5CFAuMMMsu5zKYInE5A7Gk6V3n8fCOINu6vgZGIUFPExf6WXGJsc7DkbqR9CiLXzgesTboT78njmqnyiFi48IBDDFAMkW16le+yx/
- m9DshHDtVSQYgnYZTm9ARQ==
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 11 Nov 2026 17:13:02 -0800
-Joe Perches <joe@perches.com> wrote:
+>Hi Fangyu,
+>
+>The following QEMU patch series adds support for automatic PTE A/D updates through AMO_HWAD:
+>
+>https://lore.kernel.org/qemu-devel/20261108143934.129923-1-tanchi25@mails.ucas.ac.cn/
+>
+>It may be useful for the end-to-end dirty tracking tests mentioned in your follow-up work,
+>particularly for testing G-stage dirty-bit updates triggered by DMA writes.
+>
+>If you notice any issues with the implementation, feedback would be very welcome.
+>
 
-> On 2026-11-11 15:59, Phillip Lougher wrote:
-> > On Sat, 07 Nov 2026 02:05:28 -0800
-> > Joe Perches <joe@perches.com> wrote:
-> > 
-> >> On Sat, 2026-11-07 at 05:28 +0000, Phillip Lougher wrote:
-> >> > Convert old fashioned #define macros into inline functions.  This has
-> >> > the following improvements:
-> >> >
-> >> > 1. Inline functions are typed, which makes the width and sigedness of
-> >> >    input and outputs explicit, which reduces errors.
-> >> []
-> >> > diff --git a/fs/squashfs/squashfs_helpers.h b/fs/squashfs/squashfs_helpers.h
-> >> []
-> >> > @@ -51,4 +51,31 @@ static inline s64 squashfs_mkinode(u32 start, u16 offset)
-> >> >  {
-> >> >  	return ((s64)start << 16) | offset;
-> >> >  }
-> >> > +
-> >> > +/* fragment and fragment table defines */
-> >> > +static inline s64 squashfs_fragment_bytes(u32 fragments)
-> >> > +{
-> >> > +	return fragments * sizeof(struct squashfs_fragment_entry);
-> >> 
-> >> Needs a cast to make the multiply work properly no?
-> >> 
-> >> 	return (s64)fragments * sizeof(struct squashfs_fragment_entry);
-> > 
-> > That is fixed in patch 7 (in the original patch-set). This is because
-> > it was reported by an AI and so it is fixed in a separate patch with
-> > an explanation of exploit and reproducer.
-> 
-> Should be corrected the first time instead.
+Hi Tan Chi,
 
-Shrug, I disagree.
+Thanks for your work on adding HWAD support in QEMU. In the next
+version, I’ll include your patch in my test setup and run the
+related tests there.
 
-The purpose of that patch is to convert the helpers to inline functions,
-and only that.  To do more than that is to do more than what the
-commit message says, and in effect it will be adding a bug fix without
-explanation or reproducer by the back-door.
+Thanks,
+Fangyu
 
-Mixing code improvements and bug fixes in a single patch is always a bad
-thing to do.  If things break, having done multiple things in a single
-patch, you can't determine whether it is the code improvements or the
-bug fix that broke things, which breaks bisectability.
-
-Phillip
-
--- 
-Phillip Lougher <phillip@squashfs.org.uk>
+>Thanks,
+>Tan Chi
