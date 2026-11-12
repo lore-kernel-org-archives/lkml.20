@@ -1,49 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794491900;
-	b=Zqt6tKEhzbRqU0F7upoSH9gaGfsDBfRlwCndO3xp/2fbOOCJdGSlNP0K1Cgc95Vf1oyA
-	 vJpl12xXxu7HTOCusT+5rlOjB85LORuA2QSPzYCL7xlOlCvuZgx5/NJR1j3M6MBvzCjC9
-	 o9XjnhQ+k9CT1yiupJ/Xiovb2qiJ77c00l3EQHk5TzP9VVoSBiHrgYcYCgfe2ifUNrVQM
-	 iFVOf7+iDlVLBQmHgQhN4j1ab1g9VLQZtIpi04aYDy5xdLt/u/oxSwckj04fiaIik0n2v
-	 LDRcbTAX+PKya1TEaG56kO2BAFYjkaw0xQKqj6Im7gEFP3EZpQ5C8qxpec47v6MDfZg==
+	t=1794491903;
+	b=Sq2ssUquiyYEosRUkRhX/tiNBs3yVE0k8rh/45MyCeBxqmGk2CzDocG+Zs7ptCTtyNgV
+	 gaHgm7Kmoolu+LATgg6C0tjU8f7J1LI5CKlIIc61Op+dMzBtRqTMi0lydyIikDh14VKmo
+	 8Ba0TYHhDMxJ9PWFALZ8xB0t6Ti0zmTVn13CwcTphRV75VLWEY9ZYmfT4nOXdIGHk4xnz
+	 kpBxBYvhWIzBhfKegxJijRQAQHGzYMRTlVfMnkaYZvOmeY2A1jr6w7hppleXiJbD3Vs7i
+	 2lpMieQ8I5PikQ20z0fcj3t1p0UKMqSLTmuKD09/lI5Q0dEro4U/pXnXJKNoIXDvWsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794491900;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Vyjn0cMX/xtz+Mc0/oeDefjIDLYei8pvDhe8USqhgWc=;
-	b=j4efX9TO7s1Wa7mbGWI6dmCHcS1/ksTPom38zQ+sK2ACWujWDve1SZVwE4ULGx/aQjrg
-	 0iYg4G95Lm6E+7Js5bg9ToFw9jJ4llIU36uVw4E6q/jAluCnVGsu6VsE3Okkzcoe0ET0z
-	 K3F0nW7Atf00Hi8jRWkNJ0wWttOykKTyU5XeC2H+KpCDZaMa0JIFMRqjie3KB+APGxD0r
-	 i+YKrnnR0/miQ7KMzWQbjQQB1EhhprkkW6A8qN0R8UeTR5oAb6WQlue1Hv716z63fY9FX
-	 LlLMomM88sPrqrA8u6DKUuMxHTvsw94NNhMpbAdS8bhMtU3vitLCpQ9hg/59LhK/W4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794491903;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=koBShxuECwa4MuNz2aTe3kw1fBo7B1Ydf3EYIIPkXLw=;
+	b=mENJowmV2bzISwXu9LtR/PYIMf3LAsRBccqkN9dcI7XizipsrZIQtVHcEIHP6qWo8+zm
+	 8JRkiBZ+9WsGKXKPmZe6p2Nk2q/twP6ST2VllTjYHzWilGPtA56OLr8Z5rKNpjbZUwpBy
+	 dShdS3CMRv+OJrlcYef4ozBpsPBTMWzlRSiPMEHB/e/8obsiALzzvBTh171YgIyEzF/uN
+	 0hulEzmJbuizxdx43Gvl0OveQ25rnaMRZ4cpIDU7dlwYc0nwlulEdsPvJrChYba+gUT+h
+	 l2l4rRqzeHnXFMqgle0slyYxWZ4Bl0CstLI/OGGRRnjYAE8w5cLaq6uI93odPtR7Sxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gdSZzVnz;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8B39A606A31C;
-	Thu, 12 Nov 2026 13:58:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B39A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KjsmsYPe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 035D160A260E;
+	Thu, 12 Nov 2026 13:58:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gdSZzVnz
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E666C1477;
-	Thu, 12 Nov 2026 05:58:15 -0800 (PST)
-Received: from [10.0.130.226] (e127648.arm.com [10.0.130.226])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 389383F632;
-	Thu, 12 Nov 2026 05:58:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794491898; bh=mYmAVgk0LofCwRTcf4hhF5TiJv5jLtvG6cy3Oi2J43s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=gdSZzVnzIJvVNOWLOsPcpfmkOjIcwMt1AZYqxj3hnuVL5WeA3FNeFSjvpyVgNphpA
-	 njrgp979TXw0m93xFyVbXBMrl6CzMFrGkexUbe0jrn9AgXulx2bkdlI/i5GsGiyjV/
-	 qV2lF1Cu7FwVgtKFBYJsdfIHKSgHqkrCFHOc7dpc=
-Message-ID: <592580a1-ba88-4e22-b586-4aa2425f9760@arm.com>
-Date: Thu, 12 Nov 2026 13:58:14 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KjsmsYPe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 281971F00A05;
+	Thu, 12 Nov 2026 13:58:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794491902;
+	bh=koBShxuECwa4MuNz2aTe3kw1fBo7B1Ydf3EYIIPkXLw=;
+	h=Date:From:To:Cc:Subject;
+	b=KjsmsYPe8owv7rERkxwVFCfVuUYpQcmt+zKe3a2bE56zPBSQQN/G9lwUOhxHo+EWH
+	 BZ+qb3M5firUSxlJiaQ5HUm4FE/lGcwMpDmBaK0xdkxX1VB1LGptjVy1fB12wzMQWK
+	 b8rowPGTyIHUjHZdB4KiFCPbDVvS3xBDwOY1g23rzcYx7NI0A6oXI7EtlP10iiK1ku
+	 j0Xwz4WhLKF8me1Lt6n+YP/uDbCP+dtCz80lJjblqx2ef75AsHh1r+56ijFwrZWwVz
+	 cYlD4vqxCd3S3CPnDSVST9XhLxJgCYh4/bsUh7w3HlT83H7C7yqvzBeBZLaqOjBS4M
+	 Zmk2/nKacCz4g==
+Date: Thu, 12 Nov 2026 13:58:18 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Kees Cook <kees@kernel.org>, Kees Cook <kees+treewide@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Sean Young <sean@mess.org>
+Subject: linux-next: manual merge of the v4l-dvb tree with the origin tree
+Message-ID: <avXF-hdMaFjI2_gE@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,166 +57,346 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ACPI: CPPC: Scale EPP values to the register width
-To: "Rafael J . Wysocki" <rafael@kernel.org>, viresh.kumar@linaro.org
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- zhanjie9@hisilicon.com, superm1@kernel.org, zhangpengjie2@huawei.com,
- Sumit Gupta <sumitg@nvidia.com>
-References: <20261112131316.827708-1-christian.loehle@arm.com>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <20261112131316.827708-1-christian.loehle@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wEfI88s8h40XiHcx"
+Content-Disposition: inline
 
-On 11/12/26 13:13, Christian Loehle wrote:
-> The EPP sysfs interface uses 0-255, but ACPI permits 4-8 bit fields.
-> Writing 128 to a 4- or 6-bit SystemMemory field currently succeeds but
-> stores zero, selecting maximum performance.
-> 
-> Scale writes to supported narrow EPP registers and normalize reads to
-> 0-255. Cover both EPP setters and cppc_get_perf() so saved firmware values
-> round-trip correctly.
-> 
-> Fixes: 922607a2b462 ("cpufreq: CPPC: Add support for autonomous selection")
-> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
-> ---
->  .../ABI/testing/sysfs-devices-system-cpu      |  5 ++
->  drivers/acpi/cppc_acpi.c                      | 46 +++++++++++++++++--
->  2 files changed, 47 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/ABI/testing/sysfs-devices-system-cpu b/Documentation/ABI/testing/sysfs-devices-system-cpu
-> index d219fc27a0c9..c63b5cfd993c 100644
-> --- a/Documentation/ABI/testing/sysfs-devices-system-cpu
-> +++ b/Documentation/ABI/testing/sysfs-devices-system-cpu
-> @@ -322,6 +322,11 @@ Description:	Energy performance preference
->  		performance increase/decrease and the result of the hardware's
->  		energy efficiency and performance optimization policies.
->  
-> +		For supported EPP registers narrower than eight bits, values are
-> +		scaled and rounded to the nearest hardware preference.
-> +		Reads use the same 0-255 scale and may differ from the requested
-> +		value due to the reduced precision.
-> +
->  		Writing to this file only has meaning when Autonomous Selection is
->  		enabled.
->  
-> diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-> index 11a9f9eb6b4a..10b52163eb56 100644
-> --- a/drivers/acpi/cppc_acpi.c
-> +++ b/drivers/acpi/cppc_acpi.c
-> @@ -38,6 +38,7 @@
->  #include <linux/iopoll.h>
->  #include <linux/ktime.h>
->  #include <linux/list.h>
-> +#include <linux/math64.h>
->  #include <linux/mutex.h>
->  #include <linux/rbtree.h>
->  #include <linux/rwsem.h>
-> @@ -2841,6 +2842,25 @@ int cppc_get_highest_perf(int cpunum, u64 *highest_perf)
->  }
->  EXPORT_SYMBOL_GPL(cppc_get_highest_perf);
->  
-> +/* Keep the EPP interface on an 8-bit scale, including firmware readback. */
-> +static u64 cppc_scale_epp(const struct cpc_register_resource *reg,
-> +			  u64 epp, bool to_reg)
-> +{
-> +	unsigned int width = reg->cpc_entry.reg.bit_width;
-> +	u32 max;
-> +
-> +	if (reg->type != ACPI_TYPE_BUFFER || width < 4 || width >= 8)
-> +		return epp;
-> +
-> +	max = BIT(width) - 1;
-> +	if (to_reg)
-> +		return DIV_ROUND_CLOSEST_ULL(epp * max,
-> +					     CPPC_EPP_ENERGY_EFFICIENCY_PREF);
-> +
-> +	return DIV_ROUND_CLOSEST_ULL(epp * CPPC_EPP_ENERGY_EFFICIENCY_PREF,
-> +				     max);
-> +}
-> +
->  /**
->   * cppc_get_epp_perf - Get the epp register value.
->   * @cpunum: CPU from which to get epp preference value.
-> @@ -2850,7 +2870,15 @@ EXPORT_SYMBOL_GPL(cppc_get_highest_perf);
->   */
->  int cppc_get_epp_perf(int cpunum, u64 *epp_perf)
->  {
-> -	return cppc_get_reg_val(cpunum, ENERGY_PERF, epp_perf);
-> +	struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpunum);
-> +	int ret;
-> +
-> +	ret = cppc_get_reg_val(cpunum, ENERGY_PERF, epp_perf);
-> +	if (!ret)
-> +		*epp_perf = cppc_scale_epp(&cpc_desc->cpc_regs[ENERGY_PERF],
-> +					   *epp_perf, false);
-> +
-> +	return ret;
->  }
->  EXPORT_SYMBOL_GPL(cppc_get_epp_perf);
->  
-> @@ -3150,6 +3178,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
->  	bool auto_sel_non_pcc;
->  	bool epp_pcc;
->  	bool epp_non_pcc;
-> +	u64 epp;
->  	int ret;
->  
->  	if (!cpc_desc) {
-> @@ -3159,6 +3188,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
->  
->  	auto_sel_reg = &cpc_desc->cpc_regs[AUTO_SEL_ENABLE];
->  	epp_set_reg = &cpc_desc->cpc_regs[ENERGY_PERF];
-> +	epp = cppc_scale_epp(epp_set_reg, perf_ctrls->energy_perf, true);
->  	if (!enable && auto_sel_reg->type == ACPI_TYPE_INTEGER &&
->  	    auto_sel_reg->cpc_entry.int_value == 1)
->  		return -EOPNOTSUPP;
-> @@ -3177,7 +3207,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
->  			return ret;
->  	}
->  	if (epp_non_pcc) {
-> -		ret = cpc_write(cpu, epp_set_reg, perf_ctrls->energy_perf);
-> +		ret = cpc_write(cpu, epp_set_reg, epp);
->  		if (ret)
->  			return ret;
->  	}
-> @@ -3205,7 +3235,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
->  		}
->  
->  		if (epp_pcc) {
-> -			ret = cpc_write(cpu, epp_set_reg, perf_ctrls->energy_perf);
-> +			ret = cpc_write(cpu, epp_set_reg, epp);
->  			if (ret)
->  				goto out_unlock;
->  		}
-> @@ -3235,9 +3265,17 @@ EXPORT_SYMBOL_GPL(cppc_set_epp_perf);
->   */
->  int cppc_set_epp(int cpu, u64 epp_val)
->  {
-> +	struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpu);
-> +
->  	if (epp_val > CPPC_EPP_ENERGY_EFFICIENCY_PREF)
->  		return -EINVAL;
->  
-> +	if (!cpc_desc)
-> +		return -ENODEV;
-> +
-> +	epp_val = cppc_scale_epp(&cpc_desc->cpc_regs[ENERGY_PERF],
-> +				 epp_val, true);
-> +
->  	return cppc_set_reg_val(cpu, ENERGY_PERF, epp_val);
->  }
->  EXPORT_SYMBOL_GPL(cppc_set_epp);
-> @@ -3496,7 +3534,7 @@ int cppc_get_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
->  		if (ret)
->  			goto out_err;
->  	}
-> -	perf_ctrls->energy_perf = energy_perf;
-> +	perf_ctrls->energy_perf = cppc_scale_epp(energy_perf_reg, energy_perf, false);
->  
->  	if (CPC_SUPPORTED(auto_sel_reg)) {
->  		ret = cpc_read(cpu, auto_sel_reg, &auto_sel);
 
-+CC Sumit's actual email, sorry about that.
+--wEfI88s8h40XiHcx
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi all,
+
+Today's linux-next merge of the v4l-dvb tree got a conflict in:
+
+  drivers/media/rc/rc-main.c
+
+between commit:
+
+  0af298e62e5cf ("treewide: refresh kmalloc_obj() conversions")
+
+=66rom the origin tree and commit:
+
+  8da461248793a ("media: rc: struct rc_map should have entries and capacity=
+")
+
+=66rom the v4l-dvb tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --combined drivers/media/rc/rc-main.c
+index 4bf645ac8d7b5,e2e99ea635166..0000000000000
+--- a/drivers/media/rc/rc-main.c
++++ b/drivers/media/rc/rc-main.c
+@@@ -8,7 -8,6 +8,6 @@@
+  #include <media/rc-core.h>
+  #include <linux/bsearch.h>
+  #include <linux/spinlock.h>
+- #include <linux/delay.h>
+  #include <linux/input.h>
+  #include <linux/leds.h>
+  #include <linux/slab.h>
+@@@ -114,8 -113,6 +113,6 @@@ struct rc_map *rc_map_get(const char *n
+  			pr_err("Couldn't load IR keymap %s\n", name);
+  			return NULL;
+  		}
+- 		msleep(20);	/* Give some time for IR to register */
+-=20
+  		map =3D seek_rc_map(name);
+  	}
+  #endif
+@@@ -155,7 -152,7 +152,7 @@@ static struct rc_map_table empty[] =3D=20
+  static struct rc_map_list empty_map =3D {
+  	.map =3D {
+  		.scan     =3D empty,
+- 		.size     =3D ARRAY_SIZE(empty),
++ 		.entries  =3D ARRAY_SIZE(empty),
+  		.rc_proto =3D RC_PROTO_UNKNOWN,	/* Legacy IR type */
+  		.name     =3D RC_MAP_EMPTY,
+  	}
+@@@ -202,10 -199,11 +199,11 @@@ static int scancode_to_u64(const struc
+   * @rc_map:	the rc_map to initialize
+   * @map_name:	name to assign to the table
+   * @rc_proto:	ir type to assign to the new table
+-  * @size:	initial size of the table
++  * @size:	number of entries the table must be able to hold
+   *
+   * This routine will initialize the rc_map and will allocate
+-  * memory to hold at least the specified number of elements.
++  * memory to hold at least @size entries; the capacity is rounded up
++  * to a power of two.
+   *
+   * return:	zero on success or a negative error code
+   */
+@@@ -213,15 -211,15 +211,15 @@@ static int ir_create_table(struct rc_de
+  			   const char *map_name, u64 rc_proto, size_t size)
+  {
+  	struct rc_map_table *scan;
+- 	unsigned int alloc;
++ 	unsigned int capacity;
+  	char *name;
+ =20
+  	name =3D kstrdup(map_name, GFP_KERNEL);
+  	if (!name)
+  		return -ENOMEM;
+ =20
+ -	capacity =3D roundup_pow_of_two(size);
+ -	scan =3D kmalloc_objs(struct rc_map_table, capacity, GFP_KERNEL);
+ +	alloc =3D roundup_pow_of_two(size);
+ +	scan =3D kmalloc_objs(struct rc_map_table, alloc);
+  	if (!scan) {
+  		kfree(name);
+  		return -ENOMEM;
+@@@ -231,12 -229,12 +229,12 @@@
+  		rc_map->name =3D name;
+  		rc_map->scan =3D scan;
+  		rc_map->rc_proto =3D rc_proto;
+- 		rc_map->len =3D 0;
+- 		rc_map->size =3D alloc;
++ 		rc_map->entries =3D 0;
++ 		rc_map->capacity =3D capacity;
+  	}
+ =20
+  	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%zu bytes)\n=
+",
+- 		alloc, alloc * sizeof(struct rc_map_table));
++ 		capacity, capacity * sizeof(struct rc_map_table));
+  	return 0;
+  }
+ =20
+@@@ -256,8 -254,8 +254,8 @@@ static void ir_free_table(struct rc_ma
+  		name =3D rc_map->name;
+  		scan =3D rc_map->scan;
+ =20
+- 		rc_map->size =3D 0;
+- 		rc_map->len =3D 0;
++ 		rc_map->capacity =3D 0;
++ 		rc_map->entries =3D 0;
+  		rc_map->name =3D NULL;
+  		rc_map->scan =3D NULL;
+  	}
+@@@ -280,37 -278,38 +278,38 @@@
+  static int ir_resize_table(struct rc_dev *dev, struct rc_map *rc_map,
+  			   gfp_t gfp_flags)
+  {
+- 	unsigned int newsize =3D rc_map->size;
++ 	unsigned int new_capacity =3D rc_map->capacity;
+  	struct rc_map_table *newscan;
+ =20
+  	lockdep_assert_held(&rc_map->lock);
+ =20
+- 	if (rc_map->size =3D=3D rc_map->len) {
++ 	if (rc_map->capacity =3D=3D rc_map->entries) {
+  		/* All entries in use -> grow keytable */
+- 		if (newsize >=3D IR_TAB_MAX_ENTRIES)
++ 		if (new_capacity >=3D IR_TAB_MAX_ENTRIES)
+  			return -ENOMEM;
+ =20
+- 		newsize *=3D 2;
++ 		new_capacity *=3D 2;
+ =20
+- 		dev_dbg(&dev->dev, "Growing table to %u entries\n", newsize);
++ 		dev_dbg(&dev->dev, "Growing table to %u entries\n", new_capacity);
+  	}
+ =20
+- 	if (rc_map->len * 3 < rc_map->size && rc_map->size > IR_TAB_MIN_ENTRIES)=
+ {
++ 	if (rc_map->entries * 3 < rc_map->capacity &&
++ 	    rc_map->capacity > IR_TAB_MIN_ENTRIES) {
+  		/* Less than 1/3 of entries in use -> shrink keytable */
+- 		newsize /=3D 2;
+- 		dev_dbg(&dev->dev, "Shrinking table to %u entries\n", newsize);
++ 		new_capacity /=3D 2;
++ 		dev_dbg(&dev->dev, "Shrinking table to %u entries\n", new_capacity);
+  	}
+ =20
+- 	if (newsize =3D=3D rc_map->size)
++ 	if (new_capacity =3D=3D rc_map->capacity)
+  		return 0;
+ =20
+- 	newscan =3D krealloc_array(rc_map->scan, newsize,
++ 	newscan =3D krealloc_array(rc_map->scan, new_capacity,
+  				 sizeof(struct rc_map_table), gfp_flags);
+  	if (!newscan)
+  		return -ENOMEM;
+ =20
+  	rc_map->scan =3D newscan;
+- 	rc_map->size =3D newsize;
++ 	rc_map->capacity =3D new_capacity;
+ =20
+  	return 0;
+  }
+@@@ -342,9 -341,9 +341,9 @@@ static unsigned int ir_update_mapping(s
+  	if (new_keycode =3D=3D KEY_RESERVED || new_keycode =3D=3D KEY_UNKNOWN) {
+  		dev_dbg(&dev->dev, "#%d: Deleting scan 0x%04llx\n",
+  			index, rc_map->scan[index].scancode);
+- 		rc_map->len--;
++ 		rc_map->entries--;
+  		memmove(&rc_map->scan[index], &rc_map->scan[index+ 1],
+- 			(rc_map->len - index) * sizeof(struct rc_map_table));
++ 			(rc_map->entries - index) * sizeof(struct rc_map_table));
+  	} else {
+  		dev_dbg(&dev->dev, "#%d: %s scan 0x%04llx with key 0x%04x\n",
+  			index,
+@@@ -358,7 -357,7 +357,7 @@@
+  		/* A previous mapping was updated... */
+  		__clear_bit(old_keycode, dev->input_dev->keybit);
+  		/* ... but another scancode might use the same keycode */
+- 		for (i =3D 0; i < rc_map->len; i++) {
++ 		for (i =3D 0; i < rc_map->entries; i++) {
+  			if (rc_map->scan[i].keycode =3D=3D old_keycode) {
+  				__set_bit(old_keycode, dev->input_dev->keybit);
+  				break;
+@@@ -410,7 -409,7 +409,7 @@@ static unsigned int ir_establish_scanco
+  	 * Binary search for an existing mapping for this ir command.
+  	 */
+  	lo =3D 0;
+- 	hi =3D rc_map->len;
++ 	hi =3D rc_map->entries;
+  	while (lo < hi) {
+  		i =3D lo + (hi - lo) / 2;
+  		if (rc_map->scan[i].scancode =3D=3D scancode)
+@@@ -423,18 -422,18 +422,18 @@@
+  	i =3D lo;
+ =20
+  	/* No previous mapping found, we might need to grow the table */
+- 	if (rc_map->size =3D=3D rc_map->len) {
++ 	if (rc_map->capacity =3D=3D rc_map->entries) {
+  		if (!resize || ir_resize_table(dev, rc_map, GFP_ATOMIC))
+  			return UINT_MAX;
+  	}
+ =20
+  	/* i is the proper index to insert our new keycode */
+- 	if (i < rc_map->len)
++ 	if (i < rc_map->entries)
+  		memmove(&rc_map->scan[i + 1], &rc_map->scan[i],
+- 			(rc_map->len - i) * sizeof(struct rc_map_table));
++ 			(rc_map->entries - i) * sizeof(struct rc_map_table));
+  	rc_map->scan[i].scancode =3D scancode;
+  	rc_map->scan[i].keycode =3D KEY_RESERVED;
+- 	rc_map->len++;
++ 	rc_map->entries++;
+ =20
+  	return i;
+  }
+@@@ -464,7 -463,7 +463,7 @@@ static int ir_setkeycode(struct input_d
+ =20
+  	if (ke->flags & INPUT_KEYMAP_BY_INDEX) {
+  		index =3D ke->index;
+- 		if (index >=3D rc_map->len) {
++ 		if (index >=3D rc_map->entries) {
+  			retval =3D -EINVAL;
+  			goto out;
+  		}
+@@@ -474,7 -473,7 +473,7 @@@
+  			goto out;
+ =20
+  		index =3D ir_establish_scancode(rdev, rc_map, scancode, true);
+- 		if (index >=3D rc_map->len) {
++ 		if (index >=3D rc_map->entries) {
+  			retval =3D -ENOMEM;
+  			goto out;
+  		}
+@@@ -503,15 -502,15 +502,15 @@@ static int ir_setkeytable(struct rc_de
+  	int rc;
+ =20
+  	rc =3D ir_create_table(dev, rc_map, from->name, from->rc_proto,
+- 			     from->size);
++ 			     from->entries);
+  	if (rc)
+  		return rc;
+ =20
+  	scoped_guard(spinlock_irqsave, &rc_map->lock) {
+- 		for (i =3D 0; i < from->size; i++) {
++ 		for (i =3D 0; i < from->entries; i++) {
+  			index =3D ir_establish_scancode(dev, rc_map,
+  						      from->scan[i].scancode, false);
+- 			if (index >=3D rc_map->len) {
++ 			if (index >=3D rc_map->entries) {
+  				rc =3D -ENOMEM;
+  				break;
+  			}
+@@@ -556,7 -555,7 +555,7 @@@ static unsigned int ir_lookup_by_scanco
+ =20
+  	lockdep_assert_held(&rc_map->lock);
+ =20
+- 	res =3D bsearch(&scancode, rc_map->scan, rc_map->len,
++ 	res =3D bsearch(&scancode, rc_map->scan, rc_map->entries,
+  		      sizeof(struct rc_map_table), rc_map_cmp);
+  	if (!res)
+  		return -1U;
+@@@ -596,7 -595,7 +595,7 @@@ static int ir_getkeycode(struct input_d
+  		index =3D ir_lookup_by_scancode(rc_map, scancode);
+  	}
+ =20
+- 	if (index < rc_map->len) {
++ 	if (index < rc_map->entries) {
+  		entry =3D &rc_map->scan[index];
+ =20
+  		ke->index =3D index;
+@@@ -644,7 -643,7 +643,7 @@@ u32 rc_g_keycode_from_table(struct rc_d
+  	spin_lock_irqsave(&rc_map->lock, flags);
+ =20
+  	index =3D ir_lookup_by_scancode(rc_map, scancode);
+- 	keycode =3D index < rc_map->len ?
++ 	keycode =3D index < rc_map->entries ?
+  			rc_map->scan[index].keycode : KEY_RESERVED;
+ =20
+  	spin_unlock_irqrestore(&rc_map->lock, flags);
+@@@ -1278,7 -1277,6 +1277,6 @@@ void ir_raw_load_modules(u64 *protocols
+  			*protocols &=3D ~proto_names[i].type;
+  			continue;
+  		}
+- 		msleep(20);
+  		available =3D ir_raw_get_allowed_protocols();
+  		if (!(*protocols & proto_names[i].type & ~available))
+  			continue;
+@@@ -1841,7 -1839,7 +1839,7 @@@ static int rc_prepare_rx_device(struct=20
+  	rc_map =3D rc_map_get(dev->map_name);
+  	if (!rc_map)
+  		rc_map =3D rc_map_get(RC_MAP_EMPTY);
+- 	if (!rc_map || !rc_map->scan || rc_map->size =3D=3D 0)
++ 	if (!rc_map || !rc_map->scan || rc_map->entries =3D=3D 0)
+  		return -EINVAL;
+ =20
+  	rc =3D ir_setkeytable(dev, rc_map);
+@@@ -2075,10 -2073,12 +2073,12 @@@ void rc_unregister_device(struct rc_de
+  	if (dev->driver_type =3D=3D RC_DRIVER_IR_RAW)
+  		ir_raw_event_unregister(dev);
+ =20
+- 	timer_delete_sync(&dev->timer_keyup);
+- 	timer_delete_sync(&dev->timer_repeat);
++ 	if (dev->driver_type !=3D RC_DRIVER_IR_RAW_TX) {
++ 		timer_delete_sync(&dev->timer_keyup);
++ 		timer_delete_sync(&dev->timer_repeat);
+ =20
+- 	rc_free_rx_device(dev);
++ 		rc_free_rx_device(dev);
++ 	}
+ =20
+  	/*
+  	 * lirc device should be freed with dev->registered =3D false, so
+
+--wEfI88s8h40XiHcx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr1xfkACgkQJNaLcl1U
+h9Cpbwf/Rj9Zp51BFTH4I5TQ/NwjDG0K+bGSwoxQYJM+dPqHZG6pHug7KlbW3dI1
+nUSxm/mCTbeAUlHWj6MKn5ojfsFcbcGF7EiUX29XDHe3YbVWYBv6xs55HZt0oSnh
+QFTZkR52W2VCkXfV1hwxYGtOBdVYQZF3joOABq2ueXVGEy1CNDhR6mu2/BB1roPv
+rVArXDBkpJVZK4eR5UATUkT42+VgbMAYP5F5JyEi81NlOncLBqdNO5aS3oIP3yYU
+S6DkzHtREvY+BXYb76VC/KnE3dBwBW+qGR1CX0W1CuWwNwnS2e4HNs1iFod2ewFt
+YOp+FiKdJwpkSi14JLhbhLWSA6xknA==
+=UV8U
+-----END PGP SIGNATURE-----
+
+--wEfI88s8h40XiHcx--
