@@ -1,68 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.218
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.240
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794487940;
-	b=No/ZHUd9uFpopLdS3oE1MSHoOh32CDOpO86ECrizvM/SxXFmFL9K20E6hoNZxphd1uJA
-	 oQZ+h3VMdwQyD6KORrkurj2/1jXKKI89jvrv1Ybc9eFKmteww94QWVBPx0xXBHZldHN6m
-	 6QMJX4zbfu/WymQwgCa0YY70UHYGXeqL6IA87/7CLDAypUX+oy2r04gmFJu0wrmtk2jlD
-	 g21WYXDobhEuYKovVM4bT8ueOKvHKoXpG1HeLR/ezMSpxk3hW4lDYz8Xyxvfy8SOd7g56
-	 tE0kwKY9R7n2jeOI/WriEcbhiv+pi9UIVLhgwFktBm4R/ZLFbfMNLMTlRTADil0xlUw==
+	t=1794487957;
+	b=TqFww3zHpN3hnTAY/E4ehLJuc9nvyVYINySxlkElurkWBg8D9m60kzCkVwBTAQ0hGs1W
+	 v4YMJvM8F1xbAmmicE4sr2F1T5sHrkTsO3hoxPDgJw5AEmA8oElKVFVnMpxnSp9yyGx6I
+	 Z3BI5/TD5cHZIXSTIXUcEkE1K2yD5B+O1VN0o332s0SOz8Q26NPntec6d0dP8V2chkvTB
+	 fGhMLj9LPaOghZuvvtuG+F0/AA/ceINd77ePwncKSBQVfVhEuGou5Ijll3KldwnVTYySh
+	 5KU2fc7FJ0qLfhn+z0rFaai+F4tXdicW7UqGzyzIC91h/1yL893lFEkPJ2qtrGkvq6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794487940;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=6XcGtGAW+6Ub371/XFnhKIHvkGjNjYFiujd/YbHY8nE=;
-	b=dkypSPzl82W2WN+w8gGuyPGd3n5bevT3oiRy5/EETySNtSFVUlLc+q33v9//il1vBX4v
-	 sPormqBU5GilPMlqAvRiwvZ86LxUQctbMN/ddoi8uzyCn7dwx7RD9TvIh7wQE8hDUvjne
-	 w9AwZPMyJuvJPsldtsapMWf/AwMh8SdeZ2Lk9LpR3q198ttQwZgF9OMEttRjJuDi6g61u
-	 LVNbTo2IjQLb9Ri3u8m3mhd9sVEKUKc1t+ssKyq5PyBsegvSICgERGAd3zyOC0UwRvS6A
-	 F2uwkxQsU+Qu+FStyKDIE4ZsKRhSPxiVtXIZC7uP2CR3sTGRV4y+AHwpgOgGOJ74HvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794487957;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:In-Reply-To:References:
+	 X-OQ-MSGID:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=zERbofYw8/MQs4m2Z97sLUq0t8UMU/kOMROzADV/pVQ=;
+	b=lv5o3qhyuDs/SP8w/GP3WtGYj7H3kmrzjWoQnLoZI26wLWNluCz9CuYSAfMulsQqF4CO
+	 CJMLnETMroRMCYNmuOiEk00WOJXW9GpkRT9XUcRFVkT9p8gVLTCmOIJtPDWExPNOmyHPp
+	 s1HwCLOdbp+A4UCRD887uI0fl1ZECnqUVfrvbA3xJcIBT2+Rz2PlouLgDXIbGibPbJylu
+	 XK7BvMpo74xSyI5TZjgnDcB+spd5DZxhWfz8luJN84U4R+cGl4CQLOd7cAUjZCw5ImYw2
+	 MVsSweXABjPPbBtJ++koZFfJkfVUrtoTv0P+2vzoLGznJeuM0YF20i0hG1zkYp9wiRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=CrPLjen4;
-	arc=none smtp.remote-ip=115.124.28.218
-Received: from out28-218.mail.aliyun.com (out28-218.mail.aliyun.com [115.124.28.218])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=kxTdaM8O;
+	arc=none smtp.remote-ip=203.205.221.240
+Received: from out203-205-221-240.mail.qq.com (out203-205-221-240.mail.qq.com [203.205.221.240])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD766606A8A7;
-	Thu, 12 Nov 2026 12:52:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD766606A8A7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7A9606A8A0;
+	Thu, 12 Nov 2026 12:52:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D7A9606A8A0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=CrPLjen4
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1794487931; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=6XcGtGAW+6Ub371/XFnhKIHvkGjNjYFiujd/YbHY8nE=;
-	b=CrPLjen4Jj8bm5y1vtxOLgbfarEbsenBrPhHAdFMCBEk5zknLkpWHUTcMPLzqzDbczpkZMvaXL5nqG8DpWax2H2u6+tGeHAN3rvrFYQ+mTbN8oGnCqhmmAJ6lC5UT7ZqVH8XIXSNjidb3MIe+QyIRk28Bm3kOld2WU1QLyYunQA=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04436265|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00745487-0.000394108-0.992151;FP=16019763649318518801|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045038069;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.k0cpdf3_1794487929;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.k0cpdf3_1794487929 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 12 Nov 2026 20:52:10 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-	netdev@vger.kernel.org
-Cc: Johannes Berg <johannes@sipsolutions.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	Maoyi Xie <maoyixie.tju@gmail.com>,
-	Simon Horman <horms@kernel.org>,
-	M Chetan Kumar <m.chetan.kumar@linux.intel.com>,
-	Guanglei Zhu <zhugl3@xiaopeng.com>
-Subject: [PATCH net 4/5] net: wwan: iosm: pass the DL command parameter by pointer
-Date: Thu, 12 Nov 2026 20:52:00 +0800
-Message-ID: <20261112125201.1019-5-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261112125201.1019-1-fangxy@xiaopeng.com>
-References: <20261112125201.1019-1-fangxy@xiaopeng.com>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=kxTdaM8O
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794487952; bh=zERbofYw8/MQs4m2Z97sLUq0t8UMU/kOMROzADV/pVQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References;
+	b=kxTdaM8OxXNWRv5c1tVA3Gb6kIa4rdauGdfFJki/6BWajxAQce42ns0gVMTxOJTbX
+	 jfjXekde6ctI/DI7FBKgtg4LVuvXbLwUpWBVrPJQ4gLZLEH4Qn1D1+AZ97xO59y8n3
+	 GmHwrWtkQxMIRgjw7JoYmKK+mliMwAzFx9CRbfFQ=
+Received: from [127.0.0.1] ([2409:8d5c:8f0:65e5:e498:8f16:a485:ceef])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id D1C80E0B; Thu, 12 Nov 2026 20:52:28 +0800
+X-QQ-mid: xmsmtpt1794487948tku1bgn3k
+Message-ID: <tencent_EB38EF4908C9FDCB369DAA2CE362CB5E8305@qq.com>
+X-QQ-XMAILINFO: NC4p7XQIBeahMxe7Nis9QgSc5JxEKESr4AuDxdFrZ/QYTDiYS9ysjDE1CnnLKM
+	 0rt3fNC31x4iIKHmDwx8FmDTUC4mSfmxvZKo+8Ssa6iAho4UM93ZmHJEE3pQ/BXbL/sGTKg/byPn
+	 67v9lzZthf80XZfrRY6NvaAq5bG9J1dn/dKa6h4z0tiL0OnV5Y/RdbTfLFoHdJiqJfCjEnoVbf3l
+	 O+Jgc+kNBPdp9dGyZLu0d5FEXPH5w7CltAjA7Lh40h99giR1kHDO6UKfzAQYQn34GyM4U/mshvsD
+	 gpiiWv4TZPU3gYvYSUaUis7ZzHtZQdD4846JB2yW479YgHuYIhUY/AbADeV1t4V9KpHlQJDsM9vU
+	 6Md0N7YwD9riXJdEMHxdXm80Xxb/FZBe++IlSWom8PIWV48b9r5bst/diW/Qdk+rFP9w+AloLAQM
+	 Jcob0yapAm4EoRSutkQKH9ZqMp4FiKHaGPQ3r1ovr0D72u7KpS6/vCVYJ6Znz6D+tDf1/NlGHd3K
+	 C0JKB2HCT5WIwMvUOfyndYUTck7rZm7zlZpb9B31OAWkqV/9eydsH/mgKsaOSGlw3VxB0xVj8i5u
+	 DQJTcYLGw36edjA0F/41wRHs77eRDaM5ZxkV3ZFvRelng6PAHIHW7PGUORDLlwb1DjWDFzKIARJd
+	 MMpvJw36pc5qbZkNqHxjP8ACX3/01W449xcZwWLIEIPp5coeJ8RO72xAnfnvQc0iZedOnr6VfN5D
+	 zoetjpNPARW9HDVnfWnqBx8AT8F+sfHB/SJQYA4q5ry7vuKpHRSC9TCswKoh+oukiF24UandgOAN
+	 uVJrK4dAdJ7WYrpcEZqIkh7eo8BKiJR1eEA0UKpb7X64p1E06bz77w256YYn4lCCXakcD/s5kRjr
+	 0qwf0Er3utPTjXuCSG/bTwr5/OXvCRHveckHBcOeFw3KxC2nC2DsUyH+BuMHxs+IEFA7gFlWb4LK
+	 LFjSu7GYk5Rnasd64nVCpruFtfhgdQ9+K2A0sCvXmwWxBWzOjqTIRBcwtYNrtcTHOb7j2qKS4RpO
+	 RPuYy/lwn/JdrYJKzosgPq4dT2585zELl4mfgi5iqPLsfW/LboBK8F8uPWOqQDNTYkpogKsnrmBD
+	 t8WEnSGKUtblBH77f9w0rqvKSwcxbAKZRjdmjfpx26vPeVqcM=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Hang Nan <2122295973@qq.com>
+To: netdev@vger.kernel.org
+Cc: mptcp@lists.linux.dev, matttbe@kernel.org, martineau@kernel.org,
+ geliang@kernel.org, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, kuniyu@google.com, willemb@google.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net 1/2] net: mptcp: take token lookup references with
+ acquire ordering
+In-Reply-To: <20261112124547.193812-2-2122295973@qq.com>
+References: <20261112124547.193812-1-2122295973@qq.com>
+ <20261112124547.193812-2-2122295973@qq.com>
+X-OQ-MSGID: <179448794830.196117.14284634941387773647@qq.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,122 +83,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-ipc_mux_dl_cmdresps_decode_process() takes the twelve byte union
-mux_cmd_param by value, so every received command copies the whole union
-out of the skb even when the command type only needs one member of it.
-The driver also builds its answers inside the received block:
-ipc_mux_dl_cmd_decode() writes the link status response into cmdh->param
-of the skb and reads it back a few lines later, and
-ipc_mux_dl_acbcmd_decode() writes into it as well.
+Hi,
 
-Take the parameter as a const pointer, and keep the link status response
-of the lite path in a local variable. The aggregated path does not need a
-parameter pointer at all: it passes a size of zero to
-ipc_mux_dl_acb_send_cmds(), so nothing is ever copied from it and the
-write into cmdh->param had no effect.
+Thanks for the automated review.  Here is the missing information for the
+series.
 
-The bytes handed to the UL path are unchanged, the lite path still sends
-the four byte response field and the aggregated path still sends none.
+How it was found: manual code inspection, not a runtime report.  While
+looking at net/ lockless lookups right after 5b5d8f351dd9 landed, I
+enumerated every refcount_inc_not_zero() call site in net/ (101 of them)
+and classified each one by whether the reference is taken only to keep
+the object alive, or whether object state is re-validated after the
+acquisition.  mptcp_token_get_sock() and mptcp_token_iter_next() are in
+the second group: they re-read msk->token and sock_net(sk) after the
+increment, and mptcp_token_destroy() unlinks the socket and then does
+WRITE_ONCE(msk->token, 0), so the re-validation is the only thing that
+rejects a socket whose token has already been cleared.
+reuseport_migrate_sock() in 2/2 is the only other site with that shape
+in net/.  The enumeration of the call sites was tool-assisted; the
+classification and both changes were checked by hand against the
+callers and against the teardown paths.
 
-Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
----
- drivers/net/wwan/iosm/iosm_ipc_mux_codec.c | 29 ++++++++++------------
- 1 file changed, 13 insertions(+), 16 deletions(-)
+Whether it was triggered: no.  This is a theoretical ordering gap, not
+an observed crash.  I have no syzbot report, no KCSAN splat, and no
+runtime reproducer.  The reordering is not observable on x86-64 (TSO
+does not allow it), and demonstrating it would need a weakly ordered
+CPU (arm64) or KCSAN, neither of which I have access to.  So the series
+does not claim to fix an observed bug.
 
-diff --git a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
-index 2c4f175233a1..aea4cd9ec20d 100644
---- a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
-+++ b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
-@@ -184,7 +184,7 @@ void ipc_mux_netif_tx_flowctrl(struct mux_session *session, int idx, bool on)
- }
- 
- static int ipc_mux_dl_cmdresps_decode_process(struct iosm_mux *ipc_mux,
--					      union mux_cmd_param param,
-+					      const union mux_cmd_param *param,
- 					      __le32 command_type, u8 if_id,
- 					      __le32 transaction_id)
- {
-@@ -194,7 +194,7 @@ static int ipc_mux_dl_cmdresps_decode_process(struct iosm_mux *ipc_mux,
- 	case MUX_CMD_OPEN_SESSION_RESP:
- 	case MUX_CMD_CLOSE_SESSION_RESP:
- 		/* Resume the control application. */
--		acb->got_param = param;
-+		acb->got_param = *param;
- 		break;
- 
- 	case MUX_LITE_CMD_FLOW_CTL_ACK:
-@@ -318,7 +318,7 @@ static void ipc_mux_dl_cmd_decode(struct iosm_mux *ipc_mux, struct sk_buff *skb)
- 	__le32 trans_id = cmdh->transaction_id;
- 	int size;
- 
--	if (ipc_mux_dl_cmdresps_decode_process(ipc_mux, cmdh->param,
-+	if (ipc_mux_dl_cmdresps_decode_process(ipc_mux, &cmdh->param,
- 					       cmdh->command_type, cmdh->if_id,
- 					       cmdh->transaction_id)) {
- 		/* Unable to decode command response indicates the cmd_type
-@@ -333,14 +333,15 @@ static void ipc_mux_dl_cmd_decode(struct iosm_mux *ipc_mux, struct sk_buff *skb)
- 			/* Decoded command may need a response. Give the
- 			 * response according to the command type.
- 			 */
-+			union mux_cmd_param response = {};
- 			union mux_cmd_param *mux_cmd = NULL;
- 			size_t size = 0;
- 			u32 cmd = MUX_LITE_CMD_LINK_STATUS_REPORT_RESP;
- 
- 			if (cmdh->command_type ==
- 			    cpu_to_le32(MUX_LITE_CMD_LINK_STATUS_REPORT)) {
--				mux_cmd = &cmdh->param;
--				mux_cmd->link_status_resp.response =
-+				mux_cmd = &response;
-+				response.link_status_resp.response =
- 					cpu_to_le32(MUX_CMD_RESP_SUCCESS);
- 				/* response field is u32 */
- 				size = sizeof(u32);
-@@ -500,26 +501,22 @@ static void ipc_mux_dl_acbcmd_decode(struct iosm_mux *ipc_mux,
- 	u32 fctl_dis = IOSM_AGGR_MUX_CMD_FLOW_CTL_DISABLE;
- 	u32 fctl_ena = IOSM_AGGR_MUX_CMD_FLOW_CTL_ENABLE;
- 	u32 fctl_ack = IOSM_AGGR_MUX_CMD_FLOW_CTL_ACK;
--	union mux_cmd_param *cmd_p = NULL;
- 	u32 cmd = link_st;
- 	u32 trans_id;
- 
- 	if (!ipc_mux_dl_cmds_decode_process(ipc_mux, &cmdh->param,
- 					    cmdh->command_type, cmdh->if_id,
- 					    cmdh->cmd_len, size)) {
--		size = 0;
--		if (cmdh->command_type == cpu_to_le32(link_st)) {
--			cmd_p = &cmdh->param;
--			cmd_p->link_status_resp.response = MUX_CMD_RESP_SUCCESS;
--		} else if ((cmdh->command_type == cpu_to_le32(fctl_ena)) ||
--				(cmdh->command_type == cpu_to_le32(fctl_dis))) {
-+		if (cmdh->command_type == cpu_to_le32(fctl_ena) ||
-+		    cmdh->command_type == cpu_to_le32(fctl_dis))
- 			cmd = fctl_ack;
--		} else {
-+		else if (cmdh->command_type != cpu_to_le32(link_st))
- 			return;
--			}
-+
- 		trans_id = le32_to_cpu(cmdh->transaction_id);
-+		/* No response parameter is sent in the aggregated protocol. */
- 		ipc_mux_dl_acb_send_cmds(ipc_mux, cmd, cmdh->if_id,
--					 trans_id, cmd_p, size, false, true);
-+					 trans_id, NULL, 0, false, true);
- 	}
- }
- 
-@@ -571,7 +568,7 @@ static void ipc_mux_dl_acb_decode(struct iosm_mux *ipc_mux, struct sk_buff *skb)
- 		     skb->len - next_cmd_index < hdr_len))
- 			break;
- 
--		if (ipc_mux_dl_cmdresps_decode_process(ipc_mux, cmdh->param,
-+		if (ipc_mux_dl_cmdresps_decode_process(ipc_mux, &cmdh->param,
- 						       cmdh->command_type,
- 						       cmdh->if_id,
- 						       cmdh->transaction_id)) {
--- 
-2.50.1
+What was verified: the re-validation exists and is the guard described
+above; the teardown order is __sk_nulls_del_node_init_rcu() followed by
+WRITE_ONCE(msk->token, 0) in mptcp_token_destroy(); both touched objects
+compile cleanly (net/mptcp/token.o, net/core/sock_reuseport.o) and the
+change is a no-op on strongly ordered CPUs.  The argument is the same
+one used in 5b5d8f351dd9 for the inet lookups: a successful reference
+acquisition has to order the validation that follows it.
+
+Happy to drop the series or fold it into a larger ordering series if
+reviewers would rather wait for a KCSAN/arm64 demonstration.
+
+Hang Nan
 
