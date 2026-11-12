@@ -1,100 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794486873;
-	b=CamCgaUMpcsiPmkceBfKgcdgeSjNz2esadEXOYS+E51STFGgG5cImMXCzVdzQQq76EMl
-	 ZYeA29IojAIgdBu56V0usWiZfA3FPVP3aFqOBm01gmBokuX4L/56OKwMsz3q2ufCzVDQX
-	 opEAAl4cu7EetpqTP1cR/OiyC6wxZYEuES0zkjDXAPqYQNDyNoFxivZvx5PtipOWqRtYs
-	 0I9kJbla6NY8+OpqblnKyHZyT/0vFXQePwPtrqYER6FpUkvUyHiTrg0Da/OmECcENPPg7
-	 BI46o1xKWlXFiab9TN3gDo1oAC3i1WF/3SPCzp+qqUDyxueBbushvhFnP1JeSVuX/3Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794486873;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=eNXeH5LCrfgsfYlStn+hfE2r3BpfJ4YwRHB6pNDWPmY=;
-	b=vh80Rw6Ij9U/Li/cD5cIPzq0hv0wrY1D8OkDRxDqon0rMqpLSYG8WtUZrneZcSi0uTg2
-	 MODfidoEAYtqoNrk4RtqYRAXCd89DHYjMgmp35Vnqap5MeWc0vKl+seLZnmS2X6VyP6x7
-	 9iZ1n4QcuAIryccof0Qvh7px4fMpozwXwLP77k6/dWGUJhN3hjgQv8qPDTlq8Oe1rDQOQ
-	 1lNkzdZQ0YipvV0mBVSNC920cIAcpti3ES9BzW1dKAjKEiq5rOBjxdSULdc8qP/0DPfvG
-	 4v226gr3Ak47aUsNEmZx67wj7ITy/hTAMgW7BWIcLwRI/PJ+cyaO296PvgXN0APfdFw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=flipper.net;
-	spf=pass smtp.mailfrom=flipper.net;
-	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=sCPuYaXh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794486886;
+	b=bKmF8fXzbtfMKvBzeQzz6mlsiYiHSkhQgtppIJNtMTKK5I+JZ6veWtdMELdu7byTkn4C
+	 6pG7GQSrb7uiSBGQ2VbtC6QZoklkGeNveQbNq+ofVhPthfrneUwZns1LgpT9hfYl0QtO+
+	 Lwf8UIA9PxL9yv0DWnS7Pjd0JOeVWo7Nj/tPIkQcKEgLEjwJGYOC+UJLmkanWhVfLclu6
+	 FyyjtABqBCWh9YRZdH4Y3GwkTMwMBdGBDMl1Qf+GTrRDYTZDw3WB5RGz+/DKdaZQAVAL7
+	 lAqoQQtI7UT1joVYbxdxG0LsW5ORNylo97zWTjs/A9wMcB6ZIYyBY9wG+oMKy71Cj9g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794486886;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:
+	 X-Spamd-Result:X-Spam-Score;
+	bh=AVpTm882LR63Nx8Y/IB3i5PfkrhJS41OXvMZP0egeqY=;
+	b=XDESYSOjqQZMOzgN3R2UeuEIQB5IlfvvCbgdfEcnjYDGWtpi/EPkDofSkOCKyCF/Z/Fq
+	 c9aPGYABevSvkmXFikO+NLK6eHmXVFPI8DoezXC56qey//ca/1Z8Dj68/G3u/7KLjMvds
+	 xrgS0dGpZI9NThus7bgYOfBIUPuNDfVvGHTkJXq2rHCKiV49iaReuNcUPpPEQBpGpqjTY
+	 sZDynpVQxQFWhYOTZ6Lffvp9jR+U079s3ff6Q3nwv5i39cBTrjwrKe63ZMWBY0wFvMGaQ
+	 1QbiAkCKibVHM9tvEsMCYCUWxkT5QCdepjzfChc1jeqk8/jyyVPcv8hNyxr8cFDQ/qQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=L62Q1giR;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1gWYc4Ws;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Jio2CM6N;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=fSran0kT;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 691D8606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:34:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 691D8606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13946606A31C;
+	Thu, 12 Nov 2026 12:34:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13946606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=sCPuYaXh
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b6e8b6d424so6304075a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:34:32 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794486871; cv=none;
-        d=google.com; s=arc-20260327;
-        b=scRSHvyjRKag3Gp3ChTbf5+lMjKHIo9DitOYNGC/JwNpqPEjEJMuYchMCDHQ+gi4cG
-         teAVaVPA4+m8plGY6zYaX9D6C/SCh8SM5sKhkQpqWI/DobLIWzdzdnkPQlnK3prGXzPi
-         wvDicOWibL9ja3weHs+0Pn98kwgNhSbjXFdvcpUjH30oybHC8Fws6XOTVCx3QWRd95lK
-         kroZuks+Rvys/vd1IBXLW2ON1iE5dAA1qNeXFwRgGRZzbBK8ei3DPC8JwjotoucomWwv
-         zJ5YjdEI1WAGGio198Eg0DPcBvURds6H6iXuH+jceME1I5ZxvfhGp/ZaEs7kK5bnJ2h3
-         LdkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=eNXeH5LCrfgsfYlStn+hfE2r3BpfJ4YwRHB6pNDWPmY=;
-        fh=QCo+w8FeWbgWBN3CHiVMSe0GzwG36pJ3AT60Jc9t7lc=;
-        b=G1Z4RHAJPq6ZG97zOUya3JfINpglb3LB8fj1mFyHKtCMiBll30GuVZciSsLPpIFvuH
-         VI/e1qcYOhnyBKJqzrr6l/bdbkxu6UchL4dKlNxNkOh+FxPY/plWWrPZMPxRU499UYhD
-         39rfie8mbjnC5FWnwyVTwBPKZ8mDaB0NaIvLazm327uMjaTr2Ljdx87piDReAYACwpP2
-         buB6KfyWgMCC24sMKa87LsD0lM18n0BuDxFM9NUjutLRkrdpghz83dVFN/tFrECIpV07
-         mv3a2MKY7x99wnP7oaftSByQ0oWb4NdMDRKFskbPIRxiRfgm5C+4PxeW6ktv2Z/CpYm0
-         7qfg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1794486871; x=1795091671; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eNXeH5LCrfgsfYlStn+hfE2r3BpfJ4YwRHB6pNDWPmY=;
-        b=sCPuYaXhuvX3OKDkIpxYBuIbiKheZ8SR1EBQVIL3zARYV4e17hLKFLTcb6vXqiQeZa
-         l0dHGIT75gnoqD7nst/Bj8nmCNuP+3whj284/D+u/Qe1edeJpcn7gIqz3GQzzQnFiXgj
-         J6nzTeTaHknSowu3C5i1X2QuvTDidqE2sy+QOUCb1/xCnXkgmODIroj5BddNzfLxPhTu
-         3LE+Pki662mNfR32peU1FBjXyWP7JUavOTneDKFgMB+DTcZfiCV4CuBWm2fVS8p8Ml5U
-         OOXLVbD2VnielBdjLss7W7xZ5IPtNwl9IBMY7Nb5KlR0EEefoAQyvMq8bXyWyn71Wxgr
-         BLDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794486871; x=1795091671;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eNXeH5LCrfgsfYlStn+hfE2r3BpfJ4YwRHB6pNDWPmY=;
-        b=2k3kxygw7NDBnS3ZcOmWQNj6PmBAaXS8rId8vkan9FcJLq/dYjOL1ElLkaB2a4YQZX
-         8ofVjQfpTMklXQHMkhI5ynt9yOKBaWGnDArUe5UdfT76hUYJBTGjpWav2YL+5lWnfFLi
-         iTZEEmgcPKfFL+VwKETHsnvmEmYYy4pfHmLijFFaVYeXK6/rooM8pk7BKOXqJ89+iwh0
-         ssDETbH0U5u7Q7Cg43gN4K5pPyeBoBFd5+D6Wwgd+xORwBSlzujzuL/gYT2qPa7gmhYU
-         qG57pQpwoFxhw667WBMhgrRLrKU+1KZ38fiYA+/acOS1LB0sDE93TUXAn0J+mHAR3lYd
-         duVQ==
-X-Forwarded-Encrypted: i=1; AL+hErEGDUTCDTdvPxcSfPd4M1CjfjI81l950oMm+XFDhj9O0Km58CmUJnSl/JzF+fu3jCviIV+il7u9DEi4KdM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8lxytFRZidl/xVYnoZQoaBeTTbdQ9Tjc3qnq/yvZ8bWksVMFXC
-	sBTveWaAO3wwtYL+g+IswrYsWkYRZiB0GzvBzqDjkWPFh30QD4SNNNMng2gsHtsDNwGIWidxqkP
-	9bLw+4TyDAxK8pt4M3zpnvzSf5dvBY5huExo+FjGo/A==
-X-Gm-Gg: AYBFou3fAORlZzjzpP6WDBvNTOS6qRrZ2YiCeuxMwOm6CSH/nBq931iPogAiaVLvBV3
-	pKvdQ3sa9W1VqDFCHxvkxjRhZr/bzUrJRoKssxYh1/2ayGGnGwvhWmZApkSVgV4C1orI3rMtPKN
-	J067xLTqxmngCRRs14GP9z8iqV158sErVyY2MHHPm7nkdfLrYhLfAoDBFOakUBp1HTqmzu8DhbD
-	ckir/prwVInUGTHZ0eXuEQjwW+OvRn06S136JO4ujkGYrqi81Z3+sdh+RhYpI9pLpiSCz/9zHoB
-	yTeAkrBBjMIop4VdJO1l/eIco3C5doum+l9TGMeUI06B/JxijnB7u5m7Aon0EIrz6YmKySq88hN
-	l7tMCbj9Hs40gQ5Ukxft/+mwb4j24LzALzGzOwNeNggoSAQQ7p8/P1UbgzmdnDmcbSLyT
-X-Received: by 2002:a17:907:3f8f:b0:c40:f9ea:7387 with SMTP id
- a640c23a62f3a-c506686227fmr432811366b.6.1794486870749; Thu, 12 Nov 2026
- 04:34:30 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=L62Q1giR;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1gWYc4Ws;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Jio2CM6N;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=fSran0kT
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E773F1F792;
+	Thu, 12 Nov 2026 12:34:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794486884; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AVpTm882LR63Nx8Y/IB3i5PfkrhJS41OXvMZP0egeqY=;
+	b=L62Q1giRe+H/EBOE4JkcAWNBf0a3UhArANwEaFd+UrPCYxVo6EF7ljn7si4tmndWUx+sQT
+	LpMRBudEBPcZ3o7k5xQWkDXbSgEQfDThIZoGZrduOOmWy2LOIxdZL1t0DwcNP6TqgrDqxZ
+	uL0bJhGSbUD7EtK7j9M4iG6qi0KIPpI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794486884;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AVpTm882LR63Nx8Y/IB3i5PfkrhJS41OXvMZP0egeqY=;
+	b=1gWYc4Ws6/lwWuEIazTSdiECqBXv0mjLcvDQtwksMKlmCsbN9JvwluBRyaK80Vw1ZsgE7J
+	bZrfTNK8oap/QeCQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794486883; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AVpTm882LR63Nx8Y/IB3i5PfkrhJS41OXvMZP0egeqY=;
+	b=Jio2CM6N4HBiMXCth/l0GaykiEzFmrELqiU4WzBWro7gNGbc7RBxLB7Mxgx7rb7pnkhH1e
+	RT9g3Vix0JJbkhSZxQZnJDsogQnpeP9gVGmB5+Omn4SnChtl5JtvoCTIl61+nwov6EYNXt
+	V8w5PY+ZFfB8u7x8gUkd2Cx3/AXDD9w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794486883;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AVpTm882LR63Nx8Y/IB3i5PfkrhJS41OXvMZP0egeqY=;
+	b=fSran0kT0+RVJaDHSIavj7Dxo0K3cU0Qcl39YFXDcoGT/wewaJ1J5SjuSZQvRG202ll145
+	67OMDWnLkEIXw9DA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AD3D513432;
+	Thu, 12 Nov 2026 12:34:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id b2qbIWOy9Wp7SgAAD6G6ig
+	(envelope-from <hare@suse.de>); Thu, 12 Nov 2026 12:34:43 +0000
+Message-ID: <03c4b56f-efcc-4de2-b49c-2305bb3e3997@suse.de>
+Date: Thu, 12 Nov 2026 13:34:43 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,48 +106,162 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112004112.3059801-1-stanleyjhu@google.com> <20261112004112.3059801-4-stanleyjhu@google.com>
-In-Reply-To: <20261112004112.3059801-4-stanleyjhu@google.com>
-From: Alexey Charkov <alchark@flipper.net>
-Date: Thu, 12 Nov 2026 16:34:19 +0400
-X-Gm-Features: AclHuK9VdUPb8KJpIagx3SivUuengHjj43Y_p7OZLWE06PaZD5Va3YxyrQkDtm4
-Message-ID: <CAKTNdwHj2YGwX6mGxCbsDv_H95y+ofKGit8R7aLiEOCx0RdWQA@mail.gmail.com>
-Subject: Re: [PATCH v6 3/3] scsi: ufs: rpmb: Drop the unregistered ufs_rpmb bus
-To: Stanley Jhu <stanleyjhu@google.com>
-Cc: "Martin K . Petersen" <mkp@kernel.org>, Jens Wiklander <jenswi@kernel.org>, linux-scsi@vger.kernel.org, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Bart Van Assche <bvanassche@acm.org>, Avri Altman <avri.altman@sandisk.com>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@iokpp.de>, 
-	Bean Huo <beanhuo@micron.com>, Can Guo <can.guo@oss.qualcomm.com>, 
-	Ulf Hansson <ulfh@kernel.org>, Linus Walleij <linusw@kernel.org>, 
-	Shyam Saini <shyamsaini@linux.microsoft.com>, =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
-	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] scsi: lpfc: Fix race conditions in ELS retry handling
+To: Kyle Mahlkuch <kmahlkuc@linux.ibm.com>, linux-kernel@vger.kernel.org,
+ linux-scsi@vger.kernel.org, Paul Ely <paul.ely@broadcom.com>
+Cc: msmurthy@linux.ibm.com, mkp@kernel.org
+References: <dcea48dd-f76c-4bb0-9275-c12ef9bd78a2@linux.ibm.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <dcea48dd-f76c-4bb0-9275-c12ef9bd78a2@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-13.29 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-0.998];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -13.29
 
-On Thu, Nov 12, 2026 at 4:41=E2=80=AFAM Stanley Jhu <stanleyjhu@google.com>=
- wrote:
->
-> ufs_rpmb_probe() assigns ufs_rpmb_bus_type to dev.bus without ever
-> calling bus_register(). Since commit 36f35b8df697 ("driver core: reject
-> devices with unregistered buses"), device_register() rejects
-> unregistered buses with -EINVAL and UFS RPMB region registration fails.
->
-> ufs_rpmb_bus_type defines no callbacks and has no drivers, and
-> consumers look up regions through /sys/class/rpmb. Drop
-> ufs_rpmb_bus_type and leave dev.bus unset.
->
-> Fixes: b06b8c421485 ("scsi: ufs: core: Add OP-TEE based RPMB driver for U=
-FS devices")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Bean Huo <beanhuo@micron.com>
-> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+On 11/11/26 6:47 PM, Kyle Mahlkuch wrote:
+> This patch addresses a race condition in the lpfc driver's ELS retry
+> event handling that can lead to a use-after-free in the
+> lpfc_cancel_retry_delay_tmo(), where the NLP_DELAY_TMO flag is cleared
+> before acquiring the lock to check if the retry event is queued. This
+> creates a window where the timer can be rescheduled and fire, causing
+> both the cancel path and the worker thread to release the same reference,
+> resulting in a double-put and use-after-free.
+> 
+> Moved capture ndlp and clear evt_arg1 under hbalock while dequeuing
+> LPFC_EVT_ELS_RETRY in lpfc_work_list_done().
+> 
+> Signed-off-by: Kyle Mahlkuch <kmahlkuc@linux.ibm.com>
 > ---
+> Changes since v3:
+> - More whitespace cleanup. (Paul Ely)
+> 
+> Changes since v2:
+> - Capture ndlp and clear evt_arg1 under hbalock while dequeuing
+>    LPFC_EVT_ELS_RETRY in lpfc_work_list_done(). A requeue by
+>    lpfc_els_retry_delay() could cause a NULL dereference in the worker.
+>    (AI review)
+> - Whitespace and line-wrapping cleanup.
+> 
+> Link: https://lore.kernel.org/lkml/29073ebc-b616-475b-bc05-384da09fbb54@linux.ibm.com/T/#u
+> 
+> Changes since v1:
+> - Leave test_and_clear_bit op and timer_delete_sync at the beginning of
+>    lpfc_cancel_retry_delay_tmo() outside of lock. (Paul Ely)
+> 
+> Link: https://lore.kernel.org/lkml/1c8a764c-fce1-4ce1-b797-47ac328cf3f2@linux.ibm.com/T/#u
+> ---
+>   drivers/scsi/lpfc/lpfc_els.c     | 29 +++++++++++++++++++++++------
+>   drivers/scsi/lpfc/lpfc_hbadisc.c | 11 ++++++++++-
+>   2 files changed, 33 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/scsi/lpfc/lpfc_els.c b/drivers/scsi/lpfc/lpfc_els.c
+> index 6f6394a0047c..98d1824aefe1 100644
+> --- a/drivers/scsi/lpfc/lpfc_els.c
+> +++ b/drivers/scsi/lpfc/lpfc_els.c
+> @@ -4477,18 +4477,35 @@ lpfc_issue_els_edc(struct lpfc_vport *vport, uint8_t retry)
+>   void
+>   lpfc_cancel_retry_delay_tmo(struct lpfc_vport *vport, struct lpfc_nodelist *nlp)
+>   {
+> -	struct lpfc_work_evt *evtp;
+> +	struct lpfc_hba *phba = vport->phba;
+> +	struct lpfc_work_evt *evtp = &nlp->els_retry_evt;
+> +	struct lpfc_nodelist *arg_ndlp = NULL;
+> +	unsigned long flags;
+>   
+>   	if (!test_and_clear_bit(NLP_DELAY_TMO, &nlp->nlp_flag))
+>   		return;
+>   	timer_delete_sync(&nlp->nlp_delayfunc);
+>   	nlp->nlp_last_elscmd = 0;
+> -	if (!list_empty(&nlp->els_retry_evt.evt_listp)) {
+> -		list_del_init(&nlp->els_retry_evt.evt_listp);
+> -		/* Decrement nlp reference count held for the delayed retry */
+> -		evtp = &nlp->els_retry_evt;
+> -		lpfc_nlp_put((struct lpfc_nodelist *)evtp->evt_arg1);
+> +
+> +	/*
+> +	 * If retry event is queued, remove it under lock and consume
+> +	 * its payload to prevent double-put. The event holds a reference
+> +	 * to the nodelist that must be released exactly once.
+> +	 */
+> +	spin_lock_irqsave(&phba->hbalock, flags);
+> +	if (!list_empty(&evtp->evt_listp)) {
+> +		list_del_init(&evtp->evt_listp);
+> +		/* Take local copy and clear to prevent reuse */
+> +		arg_ndlp = (struct lpfc_nodelist *)evtp->evt_arg1;
+> +		evtp->evt_arg1 = NULL;
+> +		smp_wmb(); /* Ensure NULL visible before unlock */
+>   	}
+> +	spin_unlock_irqrestore(&phba->hbalock, flags);
+> +
+> +	/* Drop the event-held reference outside the lock */
+> +	if (arg_ndlp)
+> +		lpfc_nlp_put(arg_ndlp);
+> +
+>   	if (test_and_clear_bit(NLP_NPR_2B_DISC, &nlp->nlp_flag)) {
+>   		if (vport->num_disc_nodes) {
+>   			if (vport->port_state < LPFC_VPORT_READY) {
+> diff --git a/drivers/scsi/lpfc/lpfc_hbadisc.c b/drivers/scsi/lpfc/lpfc_hbadisc.c
+> index 4c673dffa671..75457f19d4ea 100644
+> --- a/drivers/scsi/lpfc/lpfc_hbadisc.c
+> +++ b/drivers/scsi/lpfc/lpfc_hbadisc.c
+> @@ -840,12 +840,21 @@ lpfc_work_list_done(struct lpfc_hba *phba)
+>   	while (!list_empty(&phba->work_list)) {
+>   		list_remove_head((&phba->work_list), evtp, typeof(*evtp),
+>   				 evt_listp);
+> +		/*
+> +		 * The ELS retry event can be requeued by lpfc_els_retry_delay()
+> +		 * as soon as hbalock is dropped. Consume the payload within the
+> +		 * hbalock to prevent reuse or double-put.
+> +		 */
+> +		if (evtp->evt == LPFC_EVT_ELS_RETRY) {
+> +			ndlp = (struct lpfc_nodelist *)(evtp->evt_arg1);
+> +			evtp->evt_arg1 = NULL;
+> +		}
+>   		spin_unlock_irq(&phba->hbalock);
+>   		hba_pci_err = test_bit(HBA_PCI_ERR, &phba->bit_flags);
+>   		free_evt = 1;
+>   		switch (evtp->evt) {
+>   		case LPFC_EVT_ELS_RETRY:
+> -			ndlp = (struct lpfc_nodelist *) (evtp->evt_arg1);
+> +			/* ndlp was already captured under hbalock */
+>   			if (!hba_pci_err) {
+>   				lpfc_els_retry_delay_handler(ndlp);
+>   				free_evt = 0; /* evt is part of ndlp */
+> --
+> 2.55.0
 
-Thanks a lot, Stanley! Works like a charm on my Rockchip RK3576 with
-two UFS 2.2 parts, FORESEE C2G071 and BIWIN BWU2A0526B128G.
+I thought I already did so, but here it is again:
 
-Tested-by: Alexey Charkov <alchark@flipper.net>
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 
-Best regards,
-Alexey
+Cheers,
+
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
