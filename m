@@ -1,95 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794492424;
-	b=SJrZDwq6C9I8HQu6eG25hKU8l255TWDQehqAhK00cln6YUgYHDqUGIyOw+lCAbdLSXc9
-	 Lf9RA2LSGcZYs/dxSNc6RX9dzmqNrh7PsB2PK0EczIZ24x9CEYE7eKkf5gObn/EmH5y15
-	 UVi9WQn56Tg0sYLZXMWRYHWO42RnH3fpYZ+eLOx3gBySn1dx6sdKNdK+oXEXPx9XjZdGw
-	 EjVQAc6WR0kkM3D6G/6rHhIVhlbKVyb/9itWGioOd7CACnmG+CH7RV5gPks0GrSCdy+rD
-	 5oAmwPYROy0NlJ5bxJ5Hh20exAeOJsi44AdGtKzWnHBBdxszTPHucBSuyxpZ5+0Tqcw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492424;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=c2nV8waXvaFpo0M8AiTOHGTsxqmSzLegI12I30+rFUs=;
-	b=068u9a4vNIju0/+FZb1Q9ZM0eOmoBZS3WmhoG9h1g8aQhjJqiNxHo3VpTPhFPkgQ1QpL
-	 6HN3iNUty3PCoJCM8z9l6G2DSXKHhLp5jhJ2ikb+OsdD8+qFmU+GJJkpCICb8eAiNno/9
-	 WfFCc+oiS//j3kJ6ZLTOxnMZLZl5reysRl7nyUxH4hOZuk6WBd7Ws9BR3HsvsNHF3ggQv
-	 /hTsSePTmbAzIQYmxbc81W2xC6jLSH3FXVjyf6ynkE5KqQOzrRERyG+qkI8ij9pcPodSf
-	 QuYpKCo7GitazdqZbw+bWLNJA17gBihjjpiu12PFqq8TSFzB3WTCaVnaWJtl47FT6Mg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Kb9r2xBZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.158
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794492473;
+	b=ltSKWk2bWtEmBB5B+Avncby4TqHFMEN1yW+25xmcev9UQ+rN6mBttdiGF4NwsOcooEyk
+	 xifno4ccxb4zIo0QLJv4iqtc1TlqxnhWaYTazj8tY1lZuZswnjC19WNcpi716cX1kq56A
+	 kGtSkL/hQ1OIIlep1cxaqyxi3YeTYE/h866G0EL/sRxkCRDgbr4MuFawZWniyjLZG0Vtv
+	 zA5YdubRHmrrSne9mVVgA7ateIAwVv5qtM87e63SCNUL9IkUSVZW/OpIb5KluIuQYjpid
+	 tiv5rd55aiYj7DeOb7Zg6/XGPAE90F4DYZpHQy1PlLVq/fygPPYiSUB5u62p/ACah1A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492473;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=5GXdvZHa3knndYwSDmToIG3fcge9m7l+oguuWUgRnLk=;
+	b=MpBtj3A4fJ2+4KeCfthmvVG6j6PcI/Zwucz+wg0tgiBXXMCxqvWvx1t4O8m8WRW67iy2
+	 nFEbeyGdCoY4+oH5yc1C0n+GaUsmbxggHaz4r/hLKGMoFyjXYCjwpgV6p6HVVKKVdKI1U
+	 /SaBPFWPjEmzxcjWnHyGoWM4v4yfHdIhKd5OFXYXH326I7svxTc2PUFhqe3k1ntSZgpc6
+	 1SKy88phkGCZFcDh+42MFq2Kj0o7UnWxB6z3PRC62cRWaD330+amLgqdyhePRodWK/+B/
+	 KAwyOHQX3+4HjCS67uR4NMVxVM5edqislSpIjFUD8AyjjbRT4gDnrvvYOllYpWB0KJQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=cRlAZarm;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=QqHaFT0F;
+	arc=none smtp.remote-ip=202.12.124.158
+Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E12F606A8AF
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:07:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E12F606A8AF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9652606A33B
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:07:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9652606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Kb9r2xBZ
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D3F0220227C;
-	Thu, 12 Nov 2026 15:06:50 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794492410;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c2nV8waXvaFpo0M8AiTOHGTsxqmSzLegI12I30+rFUs=;
-	b=Kb9r2xBZpFmAXEj92zia/ZMTBD/9lzUm5uhm+qGTj0Vj9TApd8xQBM/sOKMJhpxqx948Wj
-	wmPVTkTPyiVuFEnzULWg5n1VkXlGbfhQiJcglO5vH+UYjYLLI+MyLrmnLh1d0ghuIIb0kV
-	V9t8ypd6VLCA9+1THbf6aPfWJkMsvEL9ucYwa/N5/W4bdttdP3yUP7WJmQ+06Wry2SU5Y1
-	JISYyxKzT8sCqhPN4JZsW44IR1uF+vUtLyT6KfzD/ocF9Xsz9ntgtfJOZIa8RYU99E/7Q0
-	QDamfaDdqpL+oszgauPbwpyYK5ArFONSVlMEY8xnI1Qf6BGojJfWzwYtfpNfcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794492410;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c2nV8waXvaFpo0M8AiTOHGTsxqmSzLegI12I30+rFUs=;
-	b=f89lpDzW3LIYReOYcD0FHjU2VKlX4WNSRvCzDDeDxv7Dfm2Cz/YejUnWUmJuHWTndoY637
-	1mhow7P3JCWWlsNI4h9Z2C94S93RIjnRguAKBr/gqzWttK06eMCyaYJYpWJI4OZlRObAap
-	+hYhPWWGoJpkGYm8j2wBSLGBbnAtPZjuek1m1R4bzqYaZkfxahLnuUNTu/qpNKdKG5cAZt
-	gJACagI4lYUqiDESaccOQiYmJoL5AwhNhHjd6K1zeP2irKhuo/iW/ldfhf8vsxCLXyTHYC
-	3s0iShyY6bLlz8X52n5eYw24d0Lkf6ytunISa+hfv3KONUWfqA8d67Pi73StEg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794492410; a=rsa-sha256;
-	cv=none;
-	b=F350MHBF/AKuWlPOR9h+HHLOsvF3j0OhW6vkCCkVsncg/RP1iay56sPX5e0H0l+coSkPcW
-	0hY+zvlYdyEhxK9zdZzmJCQL4HnsrkkufoP9muPFrAkgzdoUVf0sK+8V6MjnwAkGrbixtX
-	Ty3tYNruVcz6uX4+20/Pcc20u0DzbO0yJEj333UmldJsthi3eGPegs5Vvj6lZlvBBOO95E
-	4PEFrZUzlZSKRgHZNgEp0oIY2u6JvzHKfRN+sWZGf1chMclWtljwX/BNb+/KAzEn0qaT0o
-	mTlBWnjTE3tzC+lKsDIx2CoE15PATg0Kp7lnEoKZPjlJmisRB5cqGMaw9Bgxdw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Message-ID: <311c2e8ebfb3a35decce587b5d424046d6581539.camel@pengutronix.de>
-Subject: Re: [PATCH] reset: rzg2l-usbphy-ctrl: add power sequencing
- dependency
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Arnd Bergmann <arnd@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney@redhat.com>, 
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, Xuyang Dong
- <dongxuyang@eswincomputing.com>, Drew Fustini	 <fustini@kernel.org>, Junhui
- Liu <junhui.liu@pigmoral.tech>, Guodong Xu	 <guodong.xu@linux.dev>, Joakim
- Zhang <joakim.zhang@cixtech.com>, Anirudh Srinivasan
- <asrinivasan@oss.tenstorrent.com>, Sven Peter <sven@kernel.org>, 
- =?ISO-8859-1?Q?Beno=EEt?= Monin	 <benoit.monin@bootlin.com>, Robert Marko
- <robert.marko@sartura.hr>, 	linux-kernel@vger.kernel.org
-Date: Thu, 12 Nov 2026 15:06:50 +0100
-In-Reply-To: <20261112133210.3004176-1-arnd@kernel.org>
-References: <20261112133210.3004176-1-arnd@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=cRlAZarm;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=QqHaFT0F
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 1DDB47A012C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:07:52 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 12 Nov 2026 09:07:52 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794492465;
+	 x=1794578865; bh=5GXdvZHa3knndYwSDmToIG3fcge9m7l+oguuWUgRnLk=; b=
+	cRlAZarmZS4105Z8tE7f5RDZYNntIRDnBfMMwHtbWXAlvjAnUs8euZwHzC1oA4qV
+	g1bITi/YN+sbnyrChh/8anW6sQGvnqA965k71YUZ18+D4wLBl1MkPCgkyT/HKte4
+	BnpFI1Almwv7zBh0yge61xnfmnIJ3D14TFtgf94jeLh6pQ4kpKOAxpkgGPJ4CX4B
+	XlOSs37j/bSR3CdqILwBv5+w9TmIccKFqV2TqXbkCYwi6R50mLbcw57uR91SIiKs
+	tFCUNrBIqj4sy9V+Ukm8Op7fGcPOJjUPVjAvogbXgOEDgCf5Y9t8ZSRcAJPDVdRW
+	Osd+XB3y/EwjtCI7jz3f0A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794492465; x=
+	1794578865; bh=5GXdvZHa3knndYwSDmToIG3fcge9m7l+oguuWUgRnLk=; b=Q
+	qHaFT0Fm+Wxf3hVMxQa558O3fZ0Go6Jvi6S274zLQEJS6swjaKCN6kB3AUwkcVZ4
+	dHDEA5RRuivP73JeVzYN2a5M4QjNAqcGSjHw1HLzo2U59UMJIODJxa6SnojiP4lH
+	Uj8EcGbNTu6T+rJayzrCydwjkYYmRenBBxShjzXDHIPuKBwWs8nRPX3Gevj2Tt8o
+	AJNjpm3Rw9AO2nlSHmfC64ON2h78tL2HbGW6/r0IvWKMsJOacuWA0cFZV3qOs1bQ
+	nWepqOlxwFocK7Vu0Jab9gbKs2dT7oHaoq659r4agjGKZkHp0pXjsKU/1RcZxXY3
+	ZKiLkERh/JVcsTsfQvhkg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794492465; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:Y6CCevC0Y6cLRjwgzlSZ2fGml/OWZHQK/DRyaDplQoEAAAb
+	1FFLrJtp25AHR6JFSVE+PKZ3THQnN41kPJHtUbkRXMWCWDjVMtRmvrPhxrXYY/LP
+	LiSLQ4OnDmgg/lncZj1UAyJG4nu5/nEzZCOdMUTdvyAZQPOmmZYdSl2ucjPaY5J1
+	Erhf9WDA3jPfVtQJi0IzKNOiZnyu67u6g9PE2q1ZeyJSYSnOffWabwUcv2YiGxrT
+	PPhazkbhQYZRYcp/DPKIbT7m2vY5HCcybskuOVqtcwgmpQC9VPxQogO2UV+3a9Bh
+	j24z36oDBmTNvDUEjU4n0YeAaqE/xTvWQF4+kww==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:zJP+fHFCTvxBi9D/O28hUzwh2VX6rVFNk/0QKB44wyY=:8TXN24dfbYOYJLrLvVuV4dl9S5EX/zjyzYT5+JZds8s=;
+X-ME-Sender: <xms:Lcj1al2oDFJnOlUAmK_BhKEcST47Y0N6e5UIX07eNEXBv_yYUlsZtA>
+    <xme:Lcj1am4R8gX-0bHXcCTlyCS1H-JNx-BAPKywKQ0kjLuDYlEpivo9LVv98dmWysKay
+    3qssT5BdSa0DkALv8tcXnEC-qPrdrNxsauOzMj_NzZPFMcj6E7oTzM>
+X-ME-Proxy-Cause: dmFkZTEghsy3+LDBk1J/jXVYB3hbg3urWjbCnf+Is56K6KlyTy7hIW7mdHHgDWmuP6IaSb
+    ZDXdDcOc8EV8xGJ7CVkyaa8YfJnz+Oz5uIt8kzZFWND+RFfODBO8sLHZboCnmWkQc0NtGG
+    l3m+7yn/hIETUBKmCSO/0i8f92jbpUkfzY35dzz2GqeR8krzd/ZZtpA1opel6Labd8o8Jr
+    MepMBknmBvH7aoLJ+2u/caDVcD2sFC6WrTvozBvhoz+OtDk47fDCPU9aDRAS/xK9Z5NRJV
+    eZ98T+xm+0pq/5D+gOcXKSGMdgNITE5JJLPWGOTTJ8yb37oXvlE+xkuERaKDpqamuH6Znp
+    6jsnsra3ZK0HdT4HHKtvD8eikpleAHDfwks7gof9zPlIUPsvoTUFbXoatjBALn7XX1se9k
+    kCeWhN1h7Ygg92ZrcUrSM/mCxz2MLa/YggUp+0ssbZVkcA3RVSmma9cljg8YjYKA7fE1vh
+    BRTNx8nN1Y38eUCjaghHkPadoJuJID/h/SAhHbZKAMEL3WQEKGmncFIC1zTrshehz2GSt2
+    0ZD9dYFtc8YO8UDcWym4jdmJoX6Blmvh1WfUaM9DI3Faa6e1EiPsDGYj56HHmNQC/lZYlx
+    B1NZh6hbAg7ESf5+tvi5K4i06eDUo822q39zlCb/tB5MexwQOpyv+Kfk/SCw
+X-ME-Proxy: <xmx:MMj1akaCpyajzwhvAHKKZ3HZJuUDzUBJAMdPBUx4tG84ACWN6y34JA>
+    <xmx:MMj1av3Oj_SGPc4gcInww3tWYrXMmHgYyqV7T113ctRHn8jyHVYBfQ>
+    <xmx:MMj1auvfUe2etshsDERBjwS6ULQab0lCcKkEXyrIW_sbpl8v72g-IA>
+    <xmx:MMj1arBIPygLK1JsaclQxxjbHq9DZQwyg5dqTqfYUfb22rZx5khPDw>
+    <xmx:Mcj1asAQNZSZLBQmYqLGCj-qn6alc9lGF0WTdC3VDXPX5SzDibl_9SIC>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id AEE7532A009C; Thu, 12 Nov 2026 09:07:41 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,27 +115,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-ThreadId: AXRzvbN5yUxV
+Date: Thu, 12 Nov 2026 15:07:21 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ "Masami Hiramatsu" <mhiramat@kernel.org>
+Cc: "Christian Brauner" <brauner@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-kbuild@vger.kernel.org, kernel-dev@igalia.com,
+ "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>,
+ linux-alpha@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
+ linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
+Message-Id: <0cfb4dbf-f3e2-4ceb-ab89-0453ae59793d@app.fastmail.com>
+In-Reply-To: <20261105-tonyk-syscall_table-v9-9-8d1275885d9c@igalia.com>
+References: <20261105-tonyk-syscall_table-v9-0-8d1275885d9c@igalia.com>
+ <20261105-tonyk-syscall_table-v9-9-8d1275885d9c@igalia.com>
+Subject: Re: [PATCH v9 09/15] syscalls: Add an option for offsetting the common table
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Do, 2026-11-12 at 14:32 +0100, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
->=20
-> The dependency on CONFIG_POWER_SEQUENCING is ignored when
-> ARCH_RZG2L is enabled, and this can lead to a build failure
-> when power sequencing is in a loadable module but the
-> reset driver is built-in:
->=20
-> drivers/reset/reset-rzg2l-usbphy-ctrl.o: in function `rzg2l_usbphy_ctrl_s=
-uspend':
-> reset-rzg2l-usbphy-ctrl.c:(.text+0x21c): undefined reference to `pwrseq_d=
-isable'
->=20
-> Change the dependency to always depend on the power sequencing
-> interface.
->=20
-> Fixes: 5ca65d048910 ("reset: rzg2l-usbphy-ctrl: Add RZ/G3L support")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+On Thu, Nov 5, 2026, at 21:05, Andr=C3=A9 Almeida wrote:
+> To better support architectures that doesn't share the same syscall
+> numbers, but have them in the same sequence, add an new option to offs=
+et
+> the common syscall table numbers by a value. This make it possible to =
+reuse
+> the common syscall table for alpha.
+>
+> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+> ---
+> Changes from v4:
+>  - I was reusing the logic from --offset to apply the --common-offset,=
+ but
+>  the logic is different: --offset does a string concat, and --common-o=
+ffset
+>  does a addition to the number
 
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+I don't understand why this should be different here.
 
-regards
-Philipp
+    Arnd
