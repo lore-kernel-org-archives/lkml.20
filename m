@@ -1,83 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794480473;
-	b=zUmpa+z1DMZiWVvj8MXVBeEZaYDN46WF+Iev8PT1tdI8Bnu0oIXlv9tlPhSC4lGlC9zZ
-	 tl2b1rRe8Srdn63B9FGcuDqaiAPI/Wr1X9hSb0naJeXEh92wCy00ceW6oKUr8cV5yo0EE
-	 H+gHO2H0lhvDgEb+DzhY0r+Dk0AkH5Q2+RuA/+Tl3jj7l0vbGSK1kPFnma3ihxtQWVwoq
-	 Y8ffu8XTpVsflWY9xfU4bm3o+tcXQmSOWej1w5aIVUo37rqgNY2auR2/HcRh8ncYiIEUY
-	 AtBmJOi6l/cg9AzDWCXNR4KJtHBpd2KQu+TxrHPVV+btO6rAm55EUXuW4EpjopiMlyA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794480473;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=LaAKKhAngwkFxDGEu7glsCDhQDKP6or5IXQD5q9C6lk=;
-	b=OFcbvIjbOzHGNtCHG4HXx0ddP1wgbt/3Y/+r4tWI7i36QpRA3TGP0QsB2bseewFlcLCS
-	 8I4tTQUplDSzJVrhdpMpR0IPnJtPlzQeXnXCJHIuJdi76Lsr5SF1+BD+TFKCEaPbbO/s6
-	 5RrHs6wJ+YP4kvKLu1McTyGz84P2VIYLHaSHB0/Jvz52Lmq3vffGz/sCSYW9ThnJAB2uW
-	 wLDOrhRz5qCp/OgUEPfDJD+H/xDPh2Fyy0xck4E6UXLMLJnSFGtJH9n25BHQRvUXCdzYu
-	 /2xSs4cwMFQuddCM4BELRVLokR3ISqVgFmbrCOJfCSf3kiFteblPsdztAfgfHSwhG4A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bhRW52/O";
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794480481;
+	b=nR1RC6Nru4XvNq0O4Pzx4NtO+KErGHLlvRYw/O0/PigsQSp6Vlva7SNX0VAJ4+NE0I/v
+	 724RYmes9WDuW4JpDo3972r/ZJQH7VqzGQpJWX1OxFNpv/XgO0TRpGvQmHq3f8Q//tjuY
+	 an8cyrzQf9bIqPUv7BWG67XvYbcxEqmgwSQPi8I0jpaCgN4+RkYjUhmdmvIgDOrPXzTSz
+	 rr8i80BNFVBn2E9APO7Uz729y2lQKDevumXNWdj1SNlUE18HaH9oHacndq3iobiBqBdgP
+	 /05DNR3LW/kYZR/hZ/nLkUdXktMoJyeXbE6DSm0PU/7CalU8Zs7vkRKnVZAdecVRPVQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794480481;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=HI0lbFjaY/6Hi3z+bpQdk80+xCXsHYJtMP2Ovuw7Uq0=;
+	b=0lTzeWVtFK5dKurmP1JCcppAGpbKL4aNOmLmGCfOQhlr8DYTf4mzwnKvliRAm6gTwAID
+	 O37ES9NhsVVTDlQbnP+uNsbf3JL/9tNjqNtqYJZ3IVpquOpCnbETLzSIpDFi/hdWv81xM
+	 6Bl4ZfPKH3rHDhz7GTsjUMRyJhZ4uCUKBSlXuDRWJmg7VzKMBfSzHiKUcRLyhgdUJNHJA
+	 FlQOUu30VZXamN6zHtVLFQcYJT95MD7BS7aconB/Qi7rX6wnoPx+o83Rjnw/gsZFeelvl
+	 02nVjcU374dCukvPog+IPA6DOTrRselTYmkS5lNMDXYC0iB1QLRC1A7r4CLX3KeDULQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k5TMLUy1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 505CF606A32D;
-	Thu, 12 Nov 2026 10:47:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C921E606A321;
+	Thu, 12 Nov 2026 10:48:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bhRW52/O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D85FD1F00A05;
-	Thu, 12 Nov 2026 10:47:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k5TMLUy1
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794480481;
+	b=DGBsMggxx4ZptZHwWOqWY7gj6Il35TH9Pi60WU/f2l6HGPtJ9TcxALAFXMNEEfFp7/tf
+	 q4MsWx/KPF6tb7tLTcIRldHAPRRHgrmXXqAiklOvSjRA+h1XcbdvMZpcR2Ye36rypskGC
+	 8U3AwGMB2GfhLkl46ElC3Rr9QIV825fbp4WRQEt56cLMJ8LwBwwUPHaMU8g0V0MAXsolU
+	 6WOLCTF/5qxN8ea7gLpwZzH3HzcU1ZpToZdOsE+CJgodIYxRi47MUrxpHkbrQ6uMCBNxI
+	 HcFCDLQ7wTgD6H+MPIcdAIdswT1t4zP0TCPm96cBm68geXN+5ce/koeW3vpNFk4mQsg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794480481;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=HI0lbFjaY/6Hi3z+bpQdk80+xCXsHYJtMP2Ovuw7Uq0=;
+	b=f9GO2/t5oGykj/SHlapU9x4uf20lmWh0d/ZUxgDkvidibwna9Eq+gaRhF5cR4+lWD5Mr
+	 +351HRt//5oKwAcPGKiJipJGBWrx2Cq7CeGm+lj2lUZRgu8RZwV6qYMcIkh92Zh7zlfm9
+	 QjGCMfI3V1SKMV9aA8Xz6xNrjG0R9c9myhUJPZXsaekgqJ4czO2pqGpK4Xj98kBx0leEP
+	 cyxqVKmom30i5pnKJ+xweayvD5O9CtRS11YBAulEivaJ4q65tiRKOGVW0wxFYoJgr9ZOw
+	 4Qe6ZKsmcCl8kPioarAZnVejYga09pFirEGC0TCsiSZKZn6o8fAjL7jEVFDKn4jZuFA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 1AB931F00A05;
+	Thu, 12 Nov 2026 10:48:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794480472;
-	bh=LaAKKhAngwkFxDGEu7glsCDhQDKP6or5IXQD5q9C6lk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bhRW52/OaiERqOjVo+YsX7WenTAM+RkUSYdDbFFgDeELIFl5MCvdrQ4/lrfg3PaBP
-	 OJEvlXHrGI0KP6Sf7isOdA90CQUC1tSnbnlL7KMlGmOGy1uOT4Tps4k2NALfzc5lt4
-	 GBKdaLdl6Hn4QG7D1jOt3xg+R2SbDhwXqrQ5QTOpBVzV6PCDTf9sB1jcXxmSVYEwEX
-	 9k1ve7B7mHoKt9f85FezBUXVhvbLCq9DZT0dTEHtWXQsiFKFjjwdYqhwDGS2C9B8hk
-	 PMIxYSXrd0qwW336ZZGtXr/22P+Xd17f+e0rYlMLg9nZUtItJXlZjgdtGYx+r60Y9l
-	 +6iWNMqoSTUaQ==
-Date: Thu, 12 Nov 2026 11:47:38 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Bence Csokas <bence.csokas@arm.com>
-Cc: Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, Philipp Stanner <phasta@kernel.org>, 
-	Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>, 
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	Tvrtko Ursulin <tursulin@ursulin.net>, Lyude Paul <lyude@redhat.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Zack Rusin <zack.rusin@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Selvin Xavier <selvin.xavier@broadcom.com>, 
-	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Leon Romanovsky <leon@kernel.org>, Chengchang Tang <tangchengchang@huawei.com>, 
-	Junxian Huang <huangjunxian6@hisilicon.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
-	Jes Sorensen <Jes.Sorensen@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>, 
-	Johannes Berg <johannes@sipsolutions.net>, Benson Leung <bleung@chromium.org>, 
-	Tzung-Bi Shih <tzungbi@kernel.org>, Guenter Roeck <groeck@chromium.org>, 
-	Nilesh Javali <njavali@marvell.com>, GR-QLogic-Storage-Upstream@marvell.com, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, "Martin K. Petersen" <mkp@kernel.org>, 
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, linux-rdma@vger.kernel.org, 
-	linux-hyperv@vger.kernel.org, netdev@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	chrome-platform@lists.linux.dev, linux-scsi@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] stddef: Add offsetofend() variant of
- struct_offset()
-Message-ID: <avWY8kNFlkLyxIrX@devuan>
-References: <20261112-offsetof-v2-0-276ede839967@arm.com>
- <20261112-offsetof-v2-1-276ede839967@arm.com>
+	s=k20260515; t=1794480481;
+	bh=HI0lbFjaY/6Hi3z+bpQdk80+xCXsHYJtMP2Ovuw7Uq0=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=k5TMLUy1NNs3uASrSObLRHHLlr8M3JRszsjRmlRI2KoZCDpnF0XP95Nlk9U54rPYE
+	 vUotJes3R5mNClnWM6HFqjmbIHbRecVTTzOTc8Ea74f8KONIzf1/cbSBJCjdElhQW1
+	 D6Qti6N6JlXWqzD0shcTGm20eKX9EYtLAmLuuy/x5eT+Cv+f8jIKGpAX0PCxXEzZFT
+	 2nfwUz1KiNXzkkVLV+tVBsJZ5gM1GvsP+D1Lm//nTNSahgTeeGBlj0YzYWN1nrEVKt
+	 ou6moraJAqBBfQtnRYAv8bSHaLvnPd+6xkOK6tX2poBTAIwpsx8AqpnFyhXj/1cuhy
+	 N7ObVJc1CqUDw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 79C424946D;
+	Thu, 12 Nov 2026 10:47:59 +0000 (UTC)
+From: Gopi Chandra Sekhar Reddy Kanala via B4 Relay <devnull+gopi.kanala.oss.qualcomm.com@kernel.org>
+Date: Thu, 12 Nov 2026 16:17:42 +0530
+Subject: [PATCH] soundwire: qcom: force runtime suspend across system sleep
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,139 +82,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hmbonzz4lyxux25l"
-Content-Disposition: inline
-In-Reply-To: <20261112-offsetof-v2-1-276ede839967@arm.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261112-qcom-swr-system-sleep-v1-1-a61a83f6475d@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAE2Z9WoC/x2MSwqDQBAFryK9ToM9DIJeJWRhxqc2+J0OfhDv7
+ pBd1aLqIkNUGFXZRRGbms5TEnllFPp66sDaJCeXu0JEHK9hHtn2yHbaDwkHYGF4J943RYnwpdQ
+ uEa0e/+/7c98Pjrm7s2cAAAA=
+To: Srinivas Kandagatla <srini@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+ Bard Liao <yung-chuan.liao@linux.intel.com>, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Gopi Chandra Sekhar Reddy Kanala <gopi.kanala@oss.qualcomm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794480478; l=2222;
+ i=gopi.kanala@oss.qualcomm.com; s=default; h=from:subject:message-id;
+ bh=PuQRJiq95loOQNMnfaO3Q8ngHy49cFz9em3LNzvhvDU=;
+ b=KOc2VRthYaO2bun1MamwCsbJdgIeg4y9kZf9evD3HS8vfA2KlKz14lKS9JjT8zJmkmkL/h5AG
+ CTPp69Lf6QyDFnhROwDofNz8IkKZ20XkJsQscEBSqM5dowRWzaLjHEk
+X-Developer-Key: i=gopi.kanala@oss.qualcomm.com; a=ed25519;
+ pk=4bCmbkbT6dfZt13k29qAL6yx8zUQ6p+yOdkRBH8lzXQ=
+X-Endpoint-Received: by B4 Relay for gopi.kanala@oss.qualcomm.com/default
+ with auth_id=1499
+X-Original-From: Gopi Chandra Sekhar Reddy Kanala <gopi.kanala@oss.qualcomm.com>
+Reply-To: gopi.kanala@oss.qualcomm.com
+Content-Transfer-Encoding: 7bit
+
+From: Gopi Chandra Sekhar Reddy Kanala <gopi.kanala@oss.qualcomm.com>
+
+The controller only implements runtime PM callbacks and relies on
+runtime suspend to stop the bus clock, gate hclk and arm the wake IRQ.
+That is not enough across system suspend: from the prepare phase until
+the complete phase the PM core holds a runtime PM usage count on every
+device, so a controller that is runtime active at that point stays
+active until the system resumes. This happens when suspend is entered
+within the 3 second autosuspend delay after bus activity, or when a
+peripheral driver resumes its device from its own system suspend
+callback, as the SDCA class function driver does to quiesce its
+interrupts.
+
+The bus clock then keeps running and hclk stays enabled for the whole
+suspend. On Qualcomm platforms the LPASS clock votes behind it are held
+as well, which keeps CX and DDR from collapsing in s2idle.
+
+Use pm_runtime_force_suspend() and pm_runtime_force_resume() as the
+system sleep callbacks, so the runtime suspend path always runs at
+system suspend and is undone on resume. Peripherals are children of the
+bus, so they are suspended before the controller and resumed after it.
+
+Signed-off-by: Gopi Chandra Sekhar Reddy Kanala <gopi.kanala@oss.qualcomm.com>
+---
+Tested on Glymur CRD (WSA884x speakers on two controllers) with
+next-20261110. When s2idle is entered within the autosuspend delay
+after playback, both controllers now stop the bus clock and gate hclk
+during suspend, and playback works after resume.
+---
+ drivers/soundwire/qcom.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+index a4cb62897192..6884ddbe69b3 100644
+--- a/drivers/soundwire/qcom.c
++++ b/drivers/soundwire/qcom.c
+@@ -1902,6 +1902,7 @@ static int __maybe_unused swrm_runtime_suspend(struct device *dev)
+ }
+ 
+ static const struct dev_pm_ops swrm_dev_pm_ops = {
++	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
+ 	SET_RUNTIME_PM_OPS(swrm_runtime_suspend, swrm_runtime_resume, NULL)
+ };
+ 
+
+---
+base-commit: 793807ca13bf3072fc6d16ce6d90e9ab9beff2a5
+change-id: 20261112-qcom-swr-system-sleep-e42144d69ecb
+
+Best regards,
+-- 
+Gopi Chandra Sekhar Reddy Kanala <gopi.kanala@oss.qualcomm.com>
 
 
---hmbonzz4lyxux25l
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Bence Csokas <bence.csokas@arm.com>
-Cc: Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, Philipp Stanner <phasta@kernel.org>, 
-	Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>, 
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	Tvrtko Ursulin <tursulin@ursulin.net>, Lyude Paul <lyude@redhat.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Zack Rusin <zack.rusin@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Selvin Xavier <selvin.xavier@broadcom.com>, 
-	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Leon Romanovsky <leon@kernel.org>, Chengchang Tang <tangchengchang@huawei.com>, 
-	Junxian Huang <huangjunxian6@hisilicon.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
-	Jes Sorensen <Jes.Sorensen@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>, 
-	Johannes Berg <johannes@sipsolutions.net>, Benson Leung <bleung@chromium.org>, 
-	Tzung-Bi Shih <tzungbi@kernel.org>, Guenter Roeck <groeck@chromium.org>, 
-	Nilesh Javali <njavali@marvell.com>, GR-QLogic-Storage-Upstream@marvell.com, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, "Martin K. Petersen" <mkp@kernel.org>, 
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, linux-rdma@vger.kernel.org, 
-	linux-hyperv@vger.kernel.org, netdev@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	chrome-platform@lists.linux.dev, linux-scsi@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] stddef: Add offsetofend() variant of
- struct_offset()
-Message-ID: <avWY8kNFlkLyxIrX@devuan>
-References: <20261112-offsetof-v2-0-276ede839967@arm.com>
- <20261112-offsetof-v2-1-276ede839967@arm.com>
-MIME-Version: 1.0
-In-Reply-To: <20261112-offsetof-v2-1-276ede839967@arm.com>
-
-Hi Bence,
-
-> Date: 2026-11-12 10:29:33+0100
-> From: Bence Csokas <bence.csokas@arm.com>
->
-> Many call sites of offsetofend() use it for the purpose of pointer
-> artihmetic. Thus, a common usage pattern is:
->=20
->   offsetofend(typeof(*ptr), member)
->=20
-> Capturing this in one macro helps keep lines short and terse, while
-> still making the purpose clear. It also helps discourage spelling out
-> the type name on every callsite, leading to more maintainable code.
->=20
-> A similar struct_offset() macro already exists, so add an offsetof()
-> variant in the same spirit.
->=20
-> Signed-off-by: Bence Csokas <bence.csokas@arm.com>
-> ---
->  include/linux/overflow.h | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
->=20
-> diff --git a/include/linux/overflow.h b/include/linux/overflow.h
-> index d0f04436343e..060dad4b6f3e 100644
-> --- a/include/linux/overflow.h
-> +++ b/include/linux/overflow.h
-> @@ -464,6 +464,18 @@ static __always_inline size_t __must_check size_sub(=
-size_t minuend, size_t subtr
->   */
->  #define struct_offset(p, member) (offsetof(typeof(*(p)), member))
-> =20
-> +/**
-> + * struct_offsetofend() - Calculate the end of a member within a struct
-> + * @p: Pointer to the struct
-> + * @member: Name of the member to get the end offset of
-> + *
-> + * Calculates the offset of the end of a particular @member of the struc=
-ture
-> + * pointed to by @p.
-> + *
-> + * Return: number of bytes to the location of @member.
-> + */
-> +#define struct_offsetofend(p, member) (offsetofend(typeof(*(p)), member))
-
-The outer parentheses are unnecessary (they are unnecessary in
-struct_offset() too, but that already exists).
-
-
-Have a lovely day!
-Alex
-
-> +
->  /**
->   * __DEFINE_FLEX() - helper macro for DEFINE_FLEX() family.
->   * Enables caller macro to pass arbitrary trailing expressions
->=20
-> --=20
-> 2.56.1
->=20
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-
---hmbonzz4lyxux25l
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr1mUAACgkQ64mZXMKQ
-wqniCg//WgRXXz7luTnHUaMXrHNthttFpY3wBO557jzGIfLwMa+0tJqYgSh8MGS8
-7F44pQ7lX8E0qC+aMkDd3ItqdrKeD3McIbqqgpr8iU1VT0ljohr8pnTU7UIyIP/u
-bX/o22pWYohJFt/xcJcLxQ63rHmjcfjH2ug2i8ZgZHh/YGX+Biah79nfkcAB+uYX
-NI+43mSTP1aHvUK3Jf/z7PJF/v1/vyv1zJ/nsoN74w3JhlYGMggMcXHSu+dp0jmX
-qJUkyYJ5SQEzMdU/n2pSgOJFIZl6YS957I6fhU3GxEPXSldcnd/VIH/QRKMpSyjM
-jWzBsyjyyink+9RSw7AcmU46DJ28GeWMW5jZdg7jXq6ZGjO0/AKleOtMrevQLN4s
-hB7CzUrtofXBv5Oa5javphhfKIEoawgDsDch5eXFQW/Rm9rSflWysbPTCST5n/h0
-GfKbUEzD+COFj6I+Y8COEceKp4Xv8Y08A3r6CyyNIPzPwcc0CulK6xAmHbsMxIXZ
-c6uz3LLfqukMfbuquIZE4KhlNt+ZLRtnxL6rFfFkvLYdz4KwIsljmiPqoyPQxp9A
-OX5vOdZ9ulzmuuNoTY5OeJWSlsI6edzNc17hE6jjR1+wFfJSzVF2cvvv6mRGnpY/
-bGpmsQZFuH/KWJutZlHbsMGYEKF7lo42UH0Tqx57oaglMss89x4=
-=8quq
------END PGP SIGNATURE-----
-
---hmbonzz4lyxux25l--
