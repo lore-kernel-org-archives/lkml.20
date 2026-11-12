@@ -1,100 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501459;
-	b=S+dmb+OA9p/1pSDbJIyQTgsS5MuKGE1NEd22MYy/64QPVITdoiZSRmRtyiTDiJdVxbQs
-	 zF4Eok9/uSAA3atmdxT5iOyicVHaR5OU6EmfCylLwjx23EagDe300Gg7zuCPpQPBsOiRf
-	 Gc8Ie/hzoEvDIE6vKQAF+YKgc3bwwc6Epg3OZghbSE/kj+Gt+xte16dXmCG1629gMtzDq
-	 Sh4cT3/QTN3XAIptFqNHiNLEc2LFFCsliGlrxrSXUzQYUv/t3frmlBFDzkUnW3qciImCk
-	 XXT39TLcnKMr6V8uvlrHk5PcmBDCeSTPOKpp3KgOwDtBzfG2a0wvycxq/9bzvizOW+w==
+	t=1794501475;
+	b=LXoZ5/o8XauZTr6QH8I2Q393Wt9R9AeNRLYwjt19FnFwpOEYRcy6iSkX9JWHNLD6R8yC
+	 QlCSn7ImZyBSf1GQqCKDPXcYPbTtFjCOi2x3oDTpWYDXEwiaPEhU7Y9qd+kGZi6x6fYWK
+	 g633dbH68mGTHtV436fliv9PZcsH1Y3vbJcEXw1+tyvKotcM4mDFD1R8Fb1qZ/FXvmJRP
+	 MPJ4TDAgV/b9HPX73Ze3IjURa1kLG0wfJY/6ms7hyK+7UqIdXZuE0OWGMMoE24YR/6+uj
+	 xXnMT8ZUp9JQxl4SNqlp+im8xREonkJh8wdaPav1dZa5dv+ECtrtb0Fhnr8vKDa5vDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501459;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501475;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=NR5Eep1LUhJlSTDXQHVSks9fTKnm7uJPdvevn9dGzuo=;
-	b=ty5sWbr93NKTkZsDMXK+JLvZED3UmWaWGarDT0mqdFAWVjJg4rjuMxVnTdVFlArqsYjQ
-	 UR3eiilhwcKRq2urKIJh7uMEVbxt0bAIaFJUuGO360POgg+JGKybc8k87sA2RWCZCVZFD
-	 rq2lVktlbhTBpmZTQEM5ZU1eCDNQCw+FuFbZuzKmkg8CYaeX0RG5IGUUL7xBVZ+QKEG5j
-	 UoIE/5HiKAUXuY2vuUw3DphUUfE0bFBGmT8cZhrqNkCQBxYpDZ4ehmAdAApQM0gRDbG2O
-	 +VLVjcFnsD6JmH6wxosWA7sEMk6MZuj9M0EP4X5XVFS1ID6dXMaVLf0t3wOwYoxf3dQ==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=nvjirMgHIxC88ZUFqPd+mUQ9zs5Wq4hvPV8uQmDh82Q=;
+	b=1L/t14cFkObjvt4+Ikr19hqaDZtLD/YiOUPfAWrFbxwwcHolGJOXQC7RMa7sePF/DVHv
+	 BpmCPhQ78pHNcnvuobZ8azy0lsYb9etS+zPRj4PhBxx2DgwyoyQ3kB2OqajJjRQ3DTSzs
+	 w9DBdYWPvcdmXuAVDGNlRYE+GdJcWa8pu9ekfG5HXgIwHw5kFldwWU/EOVwfWoirHxiXU
+	 WXsc4uqScT1eXZV5Tot4GfnCAPiMkuOn4Ffkhn99+AhesLHcRRCEFGXtXyLDAxwAbMXqo
+	 H4NTD22TnMp/nMYPhSPPEbHs6TNlipducthz2j2QjdjjBP+XV+nxJNCwZ5oNQcHKG2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmpxchg.org;
-	spf=pass smtp.mailfrom=cmpxchg.org;
-	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b="H8U/ip7W";
-	arc=none smtp.remote-ip=209.85.128.171
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=EcWg5X0n;
+	arc=none smtp.remote-ip=209.85.222.178
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB89F606A897
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:37:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB89F606A897
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 129DB606A336
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:37:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 129DB606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=H8U/ip7W
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b37c7d767aso496247b3.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:37:38 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=EcWg5X0n
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-945e6d9ceeaso382880785a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:37:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1794501457; x=1795106257; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NR5Eep1LUhJlSTDXQHVSks9fTKnm7uJPdvevn9dGzuo=;
-        b=H8U/ip7WEvqbqQ3o0UpL9vP/NolWnMCbKtK/4K73O8hRgZCwVrYCwi5Ojy45bfBubG
-         03sYOQox/XUYYYSiQLws3JxXMGtk4GrlDAnqRLwPiIAvARHYPmGAMscaTTMmee1w1Abf
-         TKBAkTUpXBzLcQi0O03ahXhbWDneMS3zqvrrLc1/x9McGgewWyCDsyxbXht3IeBVCORZ
-         7UAK+c2sWtU1KV/cQiIlq7F2gqQo4GD3t/2QBxNwoLzhiyfJ4k8d967ZjDwgPWJCy5i3
-         HyLk9NGInDjXn64urZdq6cHGGcuUfpw0iC9Zm/m2xcmUFtduwoLx9/5EEm7jv739ep6N
-         aKuQ==
+        d=gourry.net; s=google; t=1794501474; x=1795106274; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nvjirMgHIxC88ZUFqPd+mUQ9zs5Wq4hvPV8uQmDh82Q=;
+        b=EcWg5X0nzGoNsJ0lB6GPdQ16HEXrDhDFvoQsS0VrzVleAIoPDVqS/h2acM8q0TQYfu
+         dFvoIUBys6Phs9cm9/zUsvGd4XXiUFUgl2Vvh3DVjvMRwzUYK9Q41zDGwVwWXB0/n9cw
+         dMU8taq7vFkwnnEXKmC9KIXbeUMyYq40IdG0OPHGeX7lvePvlpnmLRTcmVqFwecD6gPO
+         jcjjBvWRzbqYTQEOYNjHIngi9klLayXp1nffRLMV2zEQTxslQf78Eyf+TpWKysHmuy3J
+         4JKN5sNVVBr3UPxXRJclimCFmHmsOm3RQFiy8w08BBtCyPXwzXvbPbyunw60CSaGFLTm
+         yKPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794501457; x=1795106257;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794501474; x=1795106274;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NR5Eep1LUhJlSTDXQHVSks9fTKnm7uJPdvevn9dGzuo=;
-        b=iFtiKMg7JNjP8x82Mk/sL27SH8P8Nv7duZxOPawNaR+UTZHMTR3r2Mr+CCq8W1PRla
-         dPAJWzMXXhZdI+/rIjs7Tcao66sDAMX7DCEuypOi6lVQdWtOc5pZBt36ScmUm1zpfo9w
-         xAEGj24o6Os7aDRktx1u5G8J3TuBA8epiRe5rWqPi5nYGegSzDXuo9cSJBnVeSI8h2uy
-         NS2/MF4RI/uQkDtQavtK/taDWAoEF2llrFwam6+U0kZhJmOeGksokoiLCM568/HmIGMs
-         uw1B5c9Ng3CfGVKqo6NANZWhOml6JncvNKyRQNmta0o7yhh/lf1jpWDf65FkKdraKNFF
-         Jn0A==
-X-Forwarded-Encrypted: i=1; AL+hErFTf2d5rdab29Oz8LWa11Ze32zFay0U0PPK8QEk0pwehmAIRWJ0g98f6CZl0ckYiCP1MpOuHjuW1smVnnM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/7hNh+LnpNqAnG+X2iMh0fZqBnfzyETn9wDTLT9BNFX/SxwM49
-	swXC2K/MLXhkoQPxAMnCOrfYmbVql/DGweS52oBmuA+4Bm1Zan4zgoqa+d9UyAE+AIQ=
-X-Gm-Gg: AYBFou3q1GWXIwxJtcQjC1+8brvdItJDYO2lfxkUkdaGeYMlMOq8S954BP8BsYd0oCp
-	8XdGfHvrTMV+R+mbbl41fTK4tvY3RMkxzdc/qF03iP5hpADdggaN9DtmcCxrrQrAfaR+3YAj9JN
-	g2qb6KKTPnOdUqoUQ1o31BQQYfhUAamFA8ZhPibLMuMe5Z4rEvUFBBAPcJ0o0ddjyBw2TMKGLEo
-	WO4QvsBncE//ypBRQ4JKghd5QIVo9WOZEcanY5Xk39oyDU2QNBfM9OCm+Ozou47jt8mdYL908we
-	nIwslZDd5DEP7NsA3ZD8MA9u0koLqBpLN4Qddh3POFRVqYWhzGfImixlunG9m8FwLWjhJkirilN
-	rbgT5QBeosMGvhBWxa+tOQYXLZTCtRy40K3Flep94dmOpSyaFyZgUH5XmZCS/ehyPg3Fv4IH7iu
-	rGNBMb8qyahUGmElSp7G1rHske6PSrAtGW6X5opyi8gi5nqRVIUPIkSLd8Z43851RDURDP3wm9T
-	Cr9DEuV70ejxLENsk8njoNqLKO8Bl/qXFlJVZNEdVZw1AooCwSzyyLVaOEeW80E/+odN7zerp/O
-	47q6FLPQbZQEcAe8eHdGTBxERFfC
-X-Received: by 2002:a05:690c:c50d:b0:8a9:e801:231c with SMTP id 00721157ae682-8b4aa23ff6dmr726747b3.20.1794501457648;
-        Thu, 12 Nov 2026 08:37:37 -0800 (PST)
-Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b39340e374sm73746277b3.28.2026.11.12.08.37.35
+        bh=nvjirMgHIxC88ZUFqPd+mUQ9zs5Wq4hvPV8uQmDh82Q=;
+        b=HOwyGJZe45F/AI7OgPbyWrPaLoLfAey27dgDNP5rQQmaHTko1F00LzFoftCklXoM3S
+         XZaMP1Xph9I2xe1xGg4kVGRPKKZ7qF2C5I1J39izLXkyOUS/KmzfT1QseqPIhj9RSxXZ
+         O/SXpKFLrwzQQ//SAs8ebFBmXObBPDzSaut+NXF3TFgVyL6Mr+w4A/B2rDfzjAYbWhVM
+         4yvUDy9u4ThsMd+s3b1niU/SP7VAV1FopS0D65ZsfWaG5Docb2VlKd9SFNepqqKrtw+X
+         9tijLQuj7WCkZEItWwC46ujpuvCUeyiPsbS0CCAmIM9yVaN78im62K23lEtEplB2qhmo
+         dShQ==
+X-Forwarded-Encrypted: i=1; AL+hErFw3QCMswtiC/svwj4h63kKY8yEKfXw9/4DgCpCKn/ztja34yRt6G25ll0YvgwTjEuTYVSv+7J+FiLm8Ks=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9SINBhrSa7gwZSV7x3WngUTj4L7cTGPNpW4sY0TtF6hhahqE2J
+	5xCplucZ9v9uzKtlcdnatdLGsiyD5TxlnTprO2Lz1D3I9VCIg9NqcamMdt9akaJ8kSE=
+X-Gm-Gg: AYBFou1bClmr7I8eDg0muwuRrD2PCpVKg3OKXgdv/kLkrKh1Zv7uJTPrHENaU4pqLhL
+	irAvjmpLKtWUfPwNIDeM0ON8hk9gBacojy4Dpm7mC/1j+M0VgZqaAsSeWGpfNo7Z/i7wQ6byBiz
+	kjBfouYlg7Bj73wTngeRSW4+BvYgFnUxICeN7XpkPQYFXRJ45mea8rb6bb/CdOZ0zCPUMODqxDg
+	+iFMynL41U6Axl0NIFYKNQ86LncoB6E592nJ27dw4gMeuO14oTaY+M/Np9LvO5kRag+3KWaDb3Z
+	InD62nRjcoOFu3phcyhRcuSyuNSrYuddlnIrPX7dIxZpju1gqfPmFhNkel5Ta7AeWqte8XTrwDM
+	UsFQ0g53n16fFdO2RGRfDlxi/FWHS8FxBoqNCvylo+wYh3CS3JTUzWhO6T5Hv7GbkAw4w5WyQ1c
+	wOsVdGXPZnRuMT8N2+a45Iu6AIgO2XHRaPi5fs9eECEPRUMySdfGxnPx4wH+OGfpnLMNKX2z1ut
+	2NCjEZ7azsqayTUG8WVfcT/zvAUb33vgi/Wfd6YwCB+sdvqDlJdgBNe2d6fFtVkfEEkdvmO5jLI
+	/ZR+RaQYazl2dfUQCqxjwvqzq+4T5GYn/ZcAToAhzUPhLqp7Kvg3zrNfUoCQBt+Ggb7L6RG9eT5
+	dydzDfeU=
+X-Received: by 2002:a05:620a:28d0:b0:93f:1e3c:4a3d with SMTP id af79cd13be357-947aff8c925mr1038556485a.46.1794501473963;
+        Thu, 12 Nov 2026 08:37:53 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f02df0333sm51261056d6.27.2026.11.12.08.37.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 08:37:35 -0800 (PST)
-Date: Thu, 12 Nov 2026 11:37:31 -0500
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Gregory Price <gourry@gourry.net>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: Re: [PATCH v2] mm/page_alloc: only skip kswapd nodes below their
- kswapd watermark
-Message-ID: <avXrS168bjq0Ilgy@cmpxchg.org>
-References: <20261110224432.2347606-1-joshua.hahnjy@gmail.com>
+        Thu, 12 Nov 2026 08:37:53 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,58 +89,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110224432.2347606-1-joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 02/13] mm: cachestat: count each page only once
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
+ Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
+ =?utf-8?q?J=C3=A9r=C3=B4me_Glisse?= <jglisse@redhat.com>, 
+ Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, 
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+ Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
+ Chris Mason <mason@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ "Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
+ "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org
+In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-2-3d2454362e8d@kernel.org>
+References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
+ <20261111-mason-migrate-et-al-fixes-v1-2-3d2454362e8d@kernel.org>
+Date: Thu, 12 Nov 2026 11:37:52 -0500
+Message-Id: <179450147215.482102.15685424149106944496.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-On Tue, Nov 10, 2026 at 02:44:31PM -0800, Joshua Hahn wrote:
-> Commit 19c5fb83f2a4 ("mm: page_alloc: avoid kswapd thrashing due to
-> NUMA restrictions") makes get_page_from_freelist() skip any node with an
-> active kswapd on the first pass through the zonelist, so unrestricted
-> allocations don't immediately consume the memory kswapd is freeing.
+On 2026-11-11 18:13 +0000, Lorenzo Stoakes (ARM) wrote:
+> From: Chris Mason <mason@kernel.org>
 > 
-> But kswapd is also woken for high-order requests. With THP defrag set to
-> defer, each THP fault that fails on a fragmented node wakes kswapd at
-> PMD order. kswapd reclaims a batch, wakes kcompactd, and sleeps until
-> the next failed fault, so it stays awake much of the time even on a node
-> with plenty of free order-0 memory. This means those order-0 allocations
-> get directed elsewhere.
+> It turns out that filemap_cachestat() can unwittingly return incorrect
+> page counts, if large folios are present.
 > 
-> This was observed on some Meta production workloads running on 2-NUMA
-> systems, where processes with a preference for node0 allocations
-> continuously allocated order-0 pages on node1, despite node0 having
-> hundreds of GB of free memory.
+> This can occur due to underflow - nr_cache is nearly 2^64 on a 64-bit
+> kernel if the input range starts more than 64 pages into a folio that is
+> split during the call.
 > 
-> Only skip a zone with an active kswapd if it is also below kswapd's
-> target watermark.
+> It can also occur due to pages after a large folio being skipped if the
+> range starts in its second or later XArray slot and the call reschedules at
+> that folio.
 > 
-> On a 2-NUMA VM with a 60G node0 and a 20G node1, with THP enabled=always
-> and defrag=defer, I ran a process that prefers allocating on node0.
-> With a fragmented node0:
-> - Before the patch, 68% of pages were served from node0
-> - After the patch, 100% of pages were served from node0
+> Finally it can be caused by pages being counted twice due to folios in the
+> range being split or collapsed during the call.
 > 
-> One remaining gap is that since this uses kswapd's own threshold,
-> unrestricted allocations can take what kswapd frees above the target
-> watermark. The current code already lets such allocations drain from the
-> high to the low watermark while kswapd sleeps.
+> filemap_cachestat() walks the page cache under the RCU read lock only,
+> and for each entry it counts the pages that lie in the range. It does
+> not track how far it has counted, so the counts are only right if the
+> walk returns each index once.
 > 
-> One potential solution, as hinted by Johannes in the discussion from the
-> original fix [1] is to add some kind of fudge factor (for instance,
-> wmark_pages + high_wmark_pages - low_wmark_pages).
+> But a large folio can be split during the walk, or small folios can be
+> collapsed into a large one, and the next entries then cover indices that
+> were already counted.
 > 
-> But in tests that I ran in a VM where the allocation demand outpaces
-> kswapd, about 4% more pages landed on the busy node and kswapd reclaimed
-> about 15% more, but kswapd still finished and slept. So let's hold off
-> on the fudge factor until it becomes an observable issue in workloads.
+> Resolve the issue by tracking the current index as one past the last index
+> in the folio, and explicitly using xas_set() to set the current position in
+> the XArray.
 > 
-> [1] https://lore.kernel.org/linux-mm/20251001164131.GB1597553@cmpxchg.org/
+> Additionally, add a check for folio_last_index reaching or exceeding
+> last_index and break out of the loop if so.
 > 
-> Fixes: 19c5fb83f2a4 ("mm: page_alloc: avoid kswapd thrashing due to NUMA restrictions")
-> Suggested-by: Daniel Hodges <hodgesd@meta.com>
-> Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+> Fixes: cf264e1329fb ("cachestat: implement cachestat syscall")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ ljs: updated to use curr_index, fixed comments, updated commit message ]
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-This makes sense to me. I agree with Gregory on changelog brevity, but
-the fix looks good.
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
 
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+-- 
+~Gregory
+
