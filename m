@@ -1,93 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794489264;
-	b=2jYWFQEu0vnn8VI2ktYVUS2r7TLCXNDzFZEXHeTqXUsx/0Z3sfgZEELD/ZeAro4FJPoC
-	 jajTgzZAVITQuzINQJmuvG4ni8QTsXv+iEps8Ga3VGo6WJMFFhySVQXIuxDVZ68M2rttF
-	 LpB6zlt6XHLGtTJZPMEasbhYGYBYIGkangaZu3Tz0ZZnAN24UuPG4l11fjw40F0cjgMVJ
-	 U4mfsC1BAe7Oxp7sw8OLShfwnUFFkiep7mAjaZq3PK5ph78cmSDhoGM5uiuLBnCbaoNWu
-	 mL+oQUQrFD4706ppoHcUKUVZmyMNHYaLOLma1bUeFF4X7mnVmAXTBmJZdsdMRPub8OA==
+	t=1794489265;
+	b=pyyBRtzelAu7Z5R5moYLBdGEpotSd9r0cKYqR5h3NYsn0otNi9QxykKjMp1ADhEnZynl
+	 3NrxwXiGI7tOmncmZAOF1d/jZh3LIP7vqS400P1PTaSBMitexORl2Gq5g/k3jZZOZjNdF
+	 rtfGUG/aLfuz3HmOyRtPunoPETXasA05M1ne0P8uqTtOrV6F4IAv2ISBRc4yx07jhiqef
+	 Js0lpN411Ug2HRrBlj8613H+sic3cfk9xFiFXjdkw4kabWAlL3Znel+fYi2JBAt4rktD8
+	 oZQmaramDDB3Xckb3mV03xBPDRFhU/KNro8efQyHae9YVsupKufZNRCprTl7sda58BA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794489264;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=YUIf9+mCMOGNl2geZMGhw0spSlF1/XyFQpN5bks8zug=;
-	b=F3dT2yOWic6ZZN67v0SiDFnu5M8WDa7jyqkWV3nciVbQCarZu8Zd/gLVfZEyq3G44ZwE
-	 3Wz1x0Hnjk4kPBe2OSG7xZjtcD14kBmEwVXRJOlbsXft3Ke/TrSiFqKM/VbYbKi+CQym0
-	 qbSeCCRv0uAz/tTyjybNcJRrlALSERwuoMCvT3WBQU7rNdkwKYJdfBlmXK7ujhwFPlBfb
-	 EavjpGUlqgwXE568Y0UOxXZFN1dwlpV7L/HyPyvjle+dS9LPYg4DjEAnN8POAtq/AORxJ
-	 FQEBmxZL1PZ6imcr/d/kfNbCHMxs/w0yzKg2UAqJKJbXK6zT7gBIPITC4bo1u5yvulg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794489265;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=9mxKg6PFH2mKgwRlY7JWxXK8RldI6RUjgfddAJpwc7I=;
+	b=UrLA8vjS8hsmaNvbyRYqEN4ChKTSBSK/qGmxiK3Q5mmu6FzhHOggwGyP9CaQ4oUXkTio
+	 8LEWhvkc/Hc25oeQIxipuOSTp6/3yULxIrfA/bt4m9iTjs5fVE6TKqJe9YB21OxMOUp6f
+	 tqE3MTLxblEl9kuiiaM0eDtUWc+yMPT6B05Hz5XQK/c7KQZBpua3dBVWBtSylCPPDkL/Q
+	 z/Vi6a5CeYyknjm6QhuJ/e8JviTWR305v5PFEBkVzfTPGxL8c6SRX39eX6OsxW5NoMjn/
+	 oxbnP7CqD9kz3B7FF4cWHXnhdWR9zVBLYyWvL/W3PiS5Uxl5P6ZftG7S3PU1u2nz1CA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t3eiYG4L;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E74F606A32A
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:14:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E74F606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eTo2jkKY;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C02E560A2627;
+	Thu, 12 Nov 2026 13:14:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C02E560A2627
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t3eiYG4L
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-170135e43c7so2825697c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:14:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794489262; x=1795094062; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YUIf9+mCMOGNl2geZMGhw0spSlF1/XyFQpN5bks8zug=;
-        b=t3eiYG4LkG/KbLSMetYxzqETR3GDnIQj9EIZGy1cPyVJSj43aoZ5FxQo4t2DKNSEMR
-         lmHEsHvBtD8Q+evLwt42nBoAkE5XwOmGAfx6a+hp5a9KVqqMRhoZUo0bWWMqwODjztNy
-         LQ+xuLP+7OlKFPEWlC9jJ8p45IDJlxuUo2+fDuVdeves1RyPyHR1ZxpEl9q4Bn6Idexy
-         I4Y5+RWp0hqshUiAiwZhgaRfXG8HC2bf31d8lAF/6vOtRdsrLmehJFkfyB16SxNe8ep0
-         v1jw98c7NuclXooSoLya11zaPff+bI71ArwR8SEP9yXm6wpSV+AieXCnuTmFkbGSAnU5
-         8iAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794489262; x=1795094062;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YUIf9+mCMOGNl2geZMGhw0spSlF1/XyFQpN5bks8zug=;
-        b=oPOdEDNgFIYlTIeRf5v/blTcb+K59UUZRyVcor4pVgJC5Uw1iwqKalZl9yjPfD+PYV
-         k05S3GvOeIhTq5PRmtZlNi/7bHoptITyCQhUNzEaMLYULhIm3NvhFsfXehOCamj5aBIw
-         LVD/FLsQ9eMqQOgpGmFmz/LPi6DX2PBbLFqpt41wcAQvZJNPcCmxE2fIyZOGlue7cIzS
-         W3kQcGKsekSdGYYgfBXwLgcU0MDiAmY0cQiMncGyBpph3FMoy8YuiocbeCEZXpFhZ/nW
-         1ggB7DerPn2oCOuZ3HILlPWuCPDW0whPs7UYIGXDuemGI4MhbEoNmuwMhI6HewJMwVGN
-         fyaA==
-X-Forwarded-Encrypted: i=1; AL+hErEukofaxmt4bmpuM8YuNho/if4N0rJOqIztaafde/JOtvOgwA2PClUDX4hFvZnljvAot5436R9FpdToRPo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z94AZLqWeF57spQ515qmsrm2iUiX+To96niqHhkUT2Qv2UIRQGm
-	BtUV4+hhlilFG0IQ5h9E0NPHsfXmdkjp9nVnAonkBX2acbcA34DliNz/
-X-Gm-Gg: AYBFou1dnbqPIz/dedWZ+qOaILSS9ZvQRmJPKIpQJVEC0oQZ59lycYOxpY7csIg0xeQ
-	y+Hmv6a2Kz/XzHpUq7g7DtIIzH3Gaej/ZzyHv/o+3iooV7EwTAbZ+Ge+oJbkuZF3bumSM6viAYx
-	5kJSIDGTKEwceS4kcZvp+P9NS6nl2DrEfxARDWrRsQnqYrbjap9yNF0/il7KfI7qSDQTZ0I/sCx
-	PYUxsAhCppjuibp1D/vxo3r6uxie5s1hrTmCyw9blPYb+iym7Jvl7ZmvgyUEQZmNN0A5DkvX86o
-	W9xhpGHSPQgVxpe7/r3EDVxD14roceUd5h5zkb3c+nD3dONmJCx5ss/ycMtD2gjuTMaXMTA4Vfw
-	MijojSNTs0mcEt11h2kYqmJLWGsbzEKmmsqnpv84Z7gdcIqLrmmEPkgbhOMzoAbsGoeoA5iKmC3
-	zIc3EQ0LDI//CuyB7rY2YYHrLVOForbEbK/6/l8uPohkvhcrWCv3zA/8l8Xr3SisNCnL+G1AYYx
-	0SSTUXqhOJ2yXAJPZbVRZ7R5M8muZqtQCy01HSZc9JkK670JbMs5WzJTCZ7tliNvWtlral0TNA8
-	C+XzxJ44sUYin1AKEpJj1w==
-X-Received: by 2002:a05:7022:170a:b0:1b3:b3de:9232 with SMTP id a92af1059eb24-1b3c02f06bdmr4731155c88.9.1794489262258;
-        Thu, 12 Nov 2026 05:14:22 -0800 (PST)
-Received: from xploitoverload ([2a09:bac1:36a0:120::1c5:160])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b48a9c34c9sm8985969c88.4.2026.11.12.05.14.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 05:14:21 -0800 (PST)
-From: Kalpesh Solanki <skalpesh942@gmail.com>
-To: pkshih@realtek.com,
-	luka.gejak@linux.dev
-Cc: kvalo@kernel.org,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kalpesh Solanki <skalpesh942@gmail.com>
-Subject: [PATCH v5 0/3] wifi: rtw88: firmware recovery fixes and LPS hang handling
-Date: Thu, 12 Nov 2026 18:43:58 +0530
-Message-ID: <20261112131401.236433-1-skalpesh942@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eTo2jkKY
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2D3981477;
+	Thu, 12 Nov 2026 05:14:21 -0800 (PST)
+Received: from [10.0.130.226] (e127648.arm.com [10.0.130.226])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8E4913F632;
+	Thu, 12 Nov 2026 05:14:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794489264; bh=sJI57U+WQOiBy+zdKsRY1/z8s+X/kd45XllUmlTevYM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=eTo2jkKY3U51csyMMrfFFecVyff9fAh9wtLCDpLVnzECVxAuLlgP6dRXs3hc9xvT1
+	 HnmFmYqbfi2H67ZLhTUvZnjQ1xOhfn/mNez+PQo06bYMt1d1YHpgd7q99t+tuhgW/O
+	 smFX5zUsYOoS8bP4A869wo2NHR9ZF2gmtUcPXuLk=
+Message-ID: <8d335175-7d1e-4e12-b28b-d6f2ee13edee@arm.com>
+Date: Thu, 12 Nov 2026 13:14:16 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,94 +53,308 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 RESEND] cpufreq: CPPC: Add autonomous mode boot
+ parameter support
+To: Sumit Gupta <sumitg@nvidia.com>, rafael@kernel.org,
+ viresh.kumar@linaro.org, zhanjie9@hisilicon.com, zhenglifeng1@huawei.com,
+ pierre.gondois@arm.com, ionela.voinescu@arm.com, mario.limonciello@amd.com,
+ maciej.wieczor-retman@intel.com, pawel.chmielewski@intel.com,
+ lenb@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
+ rdunlap@infradead.org, linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org,
+ acpica-devel@lists.linux.dev, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Cc: treding@nvidia.com, jonathanh@nvidia.com, vsethi@nvidia.com,
+ ksitaraman@nvidia.com, sanjayc@nvidia.com, mochs@nvidia.com, bbasu@nvidia.com
+References: <20261112080442.4007723-1-sumitg@nvidia.com>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <20261112080442.4007723-1-sumitg@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This series addresses firmware recovery robustness and LPS hang handling
-in rtw88 based on review feedback from Luka Gejak and Ping-Ke Shih.
+On 11/12/26 08:04, Sumit Gupta wrote:
+> Configuring autonomous selection and Energy Performance Preference (EPP)
+> at every boot currently requires per-policy sysfs writes.
+> 
+> Add the 'cppc_cpufreq.auto_sel_mode' boot parameter to enable autonomous
+> selection during policy initialization and optionally set EPP. In
+> autonomous mode, the platform selects the performance level within the
+> MIN and MAX limits, which the driver sets from the policy limits. The EPP
+> hint guides that selection.
+> 
+> The parameter accepts:
+> - performance: enable autonomous selection and set EPP to 0x00
+> - balance_performance: enable it and set EPP to 0x80
+> - balance_power: enable it and set EPP to 0xc0
+> - power: enable it and set EPP to 0xff
+> - default_epp: enable it and preserve firmware EPP
+> - disabled: preserve the firmware configuration (default)
+> 
+> Warn about unrecognized values and ignore them.
+> 
+> Skip policies without autonomous-selection support. The driver enables
+> autonomous selection before writing EPP, as the platform may ignore EPP
+> while autonomous selection is disabled.
+> 
+> Record successful writes so the existing online and resume paths reapply
+> the requested values. The offline and suspend paths restore the saved
+> firmware values, including during driver unload.
+> 
+> Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
+> ---
+> Resending v6 with base-commit info and Pierre added to Cc.
+> No changes to the code or commit message.
+> 
+> This is based on the "Preserve OSPM-set registers" [1] and
+> "ospm_nominal_perf" [2] series, which are applied for 7.5.
 
-Patch 1/2 from the v2 series (DMI quirk for HP Laptop 15s-fr5xxx) was
-already applied to rtw-next. The previous LPS leave recovery patch was
-dropped from rtw-next by Ping-Ke Shih for respin.
+I've sent out
+https://lore.kernel.org/lkml/20261112113204.778904-1-christian.loehle@arm.com/
+as a follow up, if it looks sound to you, feel free to pick it up
+as a series to go in before $SUBJECT?
 
-This series splits the recovery fixes into three focused patches:
+> 
+> v5 -> v6:
+> - Split "Set CPPC Enable register in cpu_init" into a separate fix [3].
+> - Accept strings only (Pierre [4]).
+> - Move the setup into cppc_cpufreq_setup_auto_sel_mode() and check
+>   autonomous selection support first (Pierre [4]).
+> - Drop the last_governor check, as init() now runs only for a new
+>   policy (Pierre [4]).
+> - Drop the MIN/MAX seeding, Desired hint and policy->min/max override,
+>   as init() and the governor already set valid values (Pierre [4]).
+> - Apply the parameter at the end of init(), after the usual
+>   performance controls write.
+> - Save auto_sel and EPP through the saved-register code from [1]
+>   (Sashiko [5]).
+> - Drop the cppc_cpufreq_exit() loop that cleared auto_sel on all
+>   present CPUs (Pierre [4], Sashiko [5]).
+> - Enable autonomous selection before writing EPP.
+> - Set EPP also when firmware has already enabled autonomous selection.
+> - Add the balance_power (0xc0) and power (0xff) modes.
+> - Ignore an unrecognized value instead of treating it as disabled.
+> 
+> v5: https://lore.kernel.org/lkml/20260623080652.3353386-1-sumitg@nvidia.com/
+> [1] https://lore.kernel.org/lkml/20261106193304.3347374-1-sumitg@nvidia.com/
+> [2] https://lore.kernel.org/lkml/20261109195400.3600561-1-sumitg@nvidia.com/
+> [3] https://lore.kernel.org/lkml/20261110101246.3665797-1-sumitg@nvidia.com/
+> [4] https://lore.kernel.org/lkml/f61f592a-bc9c-4a83-bde1-e999c8101c36@nvidia.com/
+> [5] https://sashiko.dev/#/patchset/20260623080652.3353386-1-sumitg@nvidia.com
+> 
+>  .../admin-guide/kernel-parameters.txt         |  26 ++++
+>  drivers/cpufreq/cppc_cpufreq.c                | 120 ++++++++++++++++++
+>  include/acpi/cppc_acpi.h                      |   2 +
+>  3 files changed, 148 insertions(+)
+> 
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index 0b3c140babd9..5714c0d30fce 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -1015,6 +1015,32 @@ Kernel parameters
+>  			Format:
+>  			<first_slot>,<last_slot>,<port>,<enum_bit>[,<debug>]
+>  
+> +	cppc_cpufreq.auto_sel_mode=
+> +			[ACPI,CPU_FREQ] Enable ACPI CPPC autonomous performance
+> +			selection on all CPUs at boot. In autonomous mode, the
+> +			platform selects the performance level within the CPPC
+> +			Minimum and Maximum Performance limits. The driver sets
+> +			these limits from scaling_min_freq and scaling_max_freq.
+> +			The Energy Performance Preference (EPP) hint guides the
+> +			platform toward performance (0x00) or energy efficiency
+> +			(0xff).
+> +			Requires the ACPI CPPC Autonomous Selection Enable
+> +			register. EPP is set only if the platform implements it.
+> +			Format: <string>
+> +			  performance:
+> +				  enable autonomous selection, set EPP to 0x00
+> +			  balance_performance:
+> +				  enable autonomous selection, set EPP to 0x80
+> +			  balance_power:
+> +				  enable autonomous selection, set EPP to 0xc0
+> +			  power:
+> +				  enable autonomous selection, set EPP to 0xff
+> +			  default_epp:
+> +				  enable autonomous selection, keep firmware EPP
+> +			  disabled:
+> +				  keep the firmware configuration (default)
+> +			An unrecognized value is ignored with a warning.
+> +
+>  	cpuidle.off=1	[CPU_IDLE]
+>  			disable the cpuidle sub-system
+>  
+> diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
+> index a62589c0674f..c9bed93cf0c9 100644
+> --- a/drivers/cpufreq/cppc_cpufreq.c
+> +++ b/drivers/cpufreq/cppc_cpufreq.c
+> @@ -238,6 +238,58 @@ static void cppc_cpufreq_apply_saved_regs(struct cpufreq_policy *policy,
+>  					     saved_type);
+>  }
+>  
+> +/* Autonomous Selection boot parameter modes */
+> +enum {
+> +	AUTO_SEL_MODE_DISABLED,
+> +	AUTO_SEL_MODE_PERFORMANCE,
+> +	AUTO_SEL_MODE_BALANCE_PERFORMANCE,
+> +	AUTO_SEL_MODE_BALANCE_POWER,
+> +	AUTO_SEL_MODE_POWER,
+> +	AUTO_SEL_MODE_DEFAULT_EPP,
+> +};
+> +
+> +static const char * const auto_sel_mode_names[] = {
+> +	[AUTO_SEL_MODE_DISABLED]		= "disabled",
+> +	[AUTO_SEL_MODE_PERFORMANCE]		= "performance",
+> +	[AUTO_SEL_MODE_BALANCE_PERFORMANCE]	= "balance_performance",
+> +	[AUTO_SEL_MODE_BALANCE_POWER]		= "balance_power",
+> +	[AUTO_SEL_MODE_POWER]			= "power",
+> +	[AUTO_SEL_MODE_DEFAULT_EPP]		= "default_epp",
+> +};
+> +
+> +static int auto_sel_mode;
+> +
+> +static int auto_sel_mode_set(const char *val, const struct kernel_param *kp)
+> +{
+> +	int *mode = kp->arg;
+> +	int ret;
+> +
+> +	ret = sysfs_match_string(auto_sel_mode_names, val);
+> +	if (ret < 0) {
+> +		pr_warn("Invalid auto_sel_mode \"%s\", ignoring it\n", val);
+> +		return 0;
+> +	}
+> +
+> +	*mode = ret;
+> +	return 0;
+> +}
+> +
+> +static int auto_sel_mode_get(char *buffer, const struct kernel_param *kp)
+> +{
+> +	int *mode = kp->arg;
+> +
+> +	return sysfs_emit(buffer, "%s\n", auto_sel_mode_names[*mode]);
+> +}
+> +
+> +static const struct kernel_param_ops auto_sel_mode_ops = {
+> +	.set = auto_sel_mode_set,
+> +	.get = auto_sel_mode_get,
+> +};
+> +
+> +module_param_cb(auto_sel_mode, &auto_sel_mode_ops, &auto_sel_mode, 0444);
+> +MODULE_PARM_DESC(auto_sel_mode,
+> +		 "Autonomous selection mode: performance, balance_performance, balance_power, power, default_epp, disabled");
+> +
+>  #ifdef CONFIG_ACPI_CPPC_CPUFREQ_FIE
+>  static enum {
+>  	FIE_UNSET = -1,
+> @@ -938,6 +990,72 @@ static u32 cppc_cpufreq_effective_nominal(struct cpufreq_policy *policy)
+>  	return (u32)ospm_nominal;
+>  }
+>  
+> +/*
+> + * Apply the auto_sel_mode boot parameter in init(). Enable autonomous
+> + * selection unless it is already enabled. Then set EPP for the selected mode.
+> + *
+> + * Enable auto_sel before writing EPP, as the platform may ignore EPP while
+> + * autonomous selection is disabled. Save each value written, so that online()
+> + * and resume() write it again.
+> + */
+> +static void cppc_cpufreq_setup_auto_sel_mode(struct cpufreq_policy *policy)
+> +{
+> +	struct cppc_policy_state *st = cppc_cpufreq_policy_state(policy);
+> +	struct cppc_cpudata *cpu_data = policy->driver_data;
+> +	unsigned int cpu = policy->cpu;
+> +	u64 auto_sel, epp;
+> +	int ret;
+> +
+> +	if (auto_sel_mode == AUTO_SEL_MODE_DISABLED)
+> +		return;
+> +
+> +	/* U64_MAX means the platform does not implement the register. */
+> +	auto_sel = st->regs[CPPC_SAVED_AUTO_SEL][CPPC_SAVED_FIRMWARE];
+> +	if (auto_sel == U64_MAX) {
+> +		pr_info_once("Autonomous selection is not supported, ignoring auto_sel_mode\n");
+> +		return;
+> +	}
+> +
+> +	if (!auto_sel) {
+> +		ret = cppc_set_auto_sel(cpu, true);
+> +		if (ret) {
+> +			pr_warn("Failed to enable auto_sel for CPU%u (%d)\n",
+> +				cpu, ret);
+> +			return;
+> +		}
+> +		cppc_cpufreq_save_requested(policy, CPPC_SAVED_AUTO_SEL, true);
+> +	}
+> +	cpu_data->perf_ctrls.auto_sel = true;
+> +
+> +	switch (auto_sel_mode) {
+> +	case AUTO_SEL_MODE_PERFORMANCE:
+> +		epp = CPPC_EPP_PERFORMANCE_PREF;
+> +		break;
+> +	case AUTO_SEL_MODE_BALANCE_PERFORMANCE:
+> +		epp = CPPC_EPP_BALANCE_PERFORMANCE_PREF;
+> +		break;
+> +	case AUTO_SEL_MODE_BALANCE_POWER:
+> +		epp = CPPC_EPP_BALANCE_POWER_PREF;
+> +		break;
+> +	case AUTO_SEL_MODE_POWER:
+> +		epp = CPPC_EPP_ENERGY_EFFICIENCY_PREF;
+> +		break;
+> +	default:
+> +		/* default_epp keeps the EPP value set by firmware. */
+> +		return;
+> +	}
+> +
+> +	/* EPP is optional. */
+> +	ret = cppc_set_epp(cpu, epp);
+> +	if (ret) {
+> +		if (ret != -EOPNOTSUPP)
+> +			pr_warn("Failed to set EPP for CPU%u (%d)\n", cpu, ret);
+> +		return;
+> +	}
+> +	cpu_data->perf_ctrls.energy_perf = epp;
 
-1. Patch 1/3: Clear RTW_FLAG_RESTARTING on stop and start failure.
-   mac80211's drv_stop() skips local->ops->stop() when local->started
-   is false (such as after a failed drv_start()). If rtw_core_start()
-   fails during restart, clearing the flag only in rtw_ops_stop() left
-   it permanently set. We now clear RTW_FLAG_RESTARTING in both
-   rtw_ops_stop() and in rtw_ops_start() upon rtw_core_start() failure.
+So EPP is also allowed to be 4 or 6 bits wide and we might wanna account
+for that either here or in acpi-cppc.
+That being said that's already not working, I usually think all these
+technically compliant platforms should just be filtered out on
+acpi-cppc probe and we don't support EPP then and not worry about it.
+That being said amd-pstate requires EPP for active mode and in this case
+just handling the read/writes seems the pass of less resistance:
+https://lore.kernel.org/all/20261112131316.827708-1-christian.loehle@arm.com/
 
-2. Patch 2/3: Skip already reset station in rtw_sta_remove().
-   During station disconnect (e.g., ieee80211_set_disassoc()), mac80211
-   leaves LPS before removing the AP station. If recovery is triggered by
-   LPS leave failure, __fw_recovery_work() removes all stations via
-   rtw_reset_sta_iter(). When mac80211 subsequently calls
-   rtw_ops_sta_remove(), rtw_sta_remove() ran a second time, resulting in
-   a double free of si->mask and underflow of rtwdev->sta_cnt. We check
-   si->vif at entry and clear si->vif and si->mask upon removal.
 
-3. Patch 3/3: Trigger firmware recovery only after consecutive LPS leave
-   failures on PCI.
-   Restricts recovery to PCI devices (rtw_hci_type == RTW_HCI_TYPE_PCIE)
-   because USB (usb_control_msg()) and SDIO (sdio_claim_host()) sleep,
-   which triggers a "scheduling while atomic" panic under
-   local->key_lock during key clearing in __fw_recovery_work(). Retains
-   rtw_fw_dump_dbg_info() on the first failure (guarded by RTW_DBG_FW),
-   and requires 3 consecutive timeouts (RTW_PS_HANG_MAX_CNT) before
-   triggering hardware recovery. Gated on FW_FEATURE_LPS_C2H because
-   legacy chips clear REG_TCR on failure which masks stuck firmware from
-   accumulating consecutive timeouts. ps_hang_cnt is reset on success
-   and in rtw_core_start().
+> +	cppc_cpufreq_save_requested(policy, CPPC_SAVED_EPP, epp);
+> +}
+> +
+>  static int cppc_cpufreq_cpu_init(struct cpufreq_policy *policy)
+>  {
+>  	unsigned int cpu = policy->cpu;
+> @@ -1058,6 +1176,8 @@ static int cppc_cpufreq_cpu_init(struct cpufreq_policy *policy)
+>  	}
+>  	cpu_data->perf_limits_valid = true;
+>  
+> +	cppc_cpufreq_setup_auto_sel_mode(policy);
+> +
+>  	cppc_cpufreq_cpu_fie_init(policy);
+>  	return 0;
+>  
+> diff --git a/include/acpi/cppc_acpi.h b/include/acpi/cppc_acpi.h
+> index 2cec54b4d2e2..3d47c07f494b 100644
+> --- a/include/acpi/cppc_acpi.h
+> +++ b/include/acpi/cppc_acpi.h
+> @@ -42,6 +42,8 @@
+>  #define CPPC_AUTO_ACT_WINDOW_SIG_CARRY_THRESH 129
+>  
+>  #define CPPC_EPP_PERFORMANCE_PREF		0x00
+> +#define CPPC_EPP_BALANCE_PERFORMANCE_PREF	0x80
+> +#define CPPC_EPP_BALANCE_POWER_PREF		0xC0
+>  #define CPPC_EPP_ENERGY_EFFICIENCY_PREF		0xFF
+>  
+>  #define CPPC_PERF_LIMITED_DESIRED_EXCURSION	BIT(0)
+> 
+> base-commit: a917b5968c17196b98b514158de800194d09e505
 
-Changes in v5:
-- In patch 3/3:
-  - Drop redundant rtw_hci_type check in rtw_fw_recovery(); the check in
-    rtw_fw_leave_lps_check() and the existing PCI-only callers already
-    guarantee non-PCI devices never invoke recovery.
-  - Only increment ps_hang_cnt and trigger recovery when the firmware
-    supports FW_FEATURE_LPS_C2H. On legacy chipsets without C2H support,
-    clearing REG_TCR on failure causes subsequent register checks to pass
-    immediately, resetting the counter and preventing stuck firmware
-    from ever reaching the threshold.
-
-Changes in v4:
-- In patch 1/3: Also clear RTW_FLAG_RESTARTING in rtw_ops_start() if
-  rtw_core_start() fails.
-- Add patch 2/3: Prevent double free and sta_cnt underflow in
-  rtw_sta_remove() when recovery races with station disconnect.
-- In patch 3/3:
-  - Keep rtw_fw_dump_dbg_info() in place on first failure.
-  - Restrict firmware recovery invocation to PCIe devices to prevent
-    scheduling while atomic panic on USB and SDIO.
-  - Explicitly check rtw_hci_type() in rtw_fw_recovery().
-
-Changes in v3:
-- Note: v2 patch 1/2 (DMI quirk) is already applied in rtw-next.
-- Add patch 1/2 to clear RTW_FLAG_RESTARTING in rtw_ops_stop()
-  with Fixes tag.
-- In patch 2/2:
-  - Count consecutive failures before triggering recovery
-    (RTW_PS_HANG_MAX_CNT = 3).
-  - Reset ps_hang_cnt on successful LPS leave and in rtw_core_start().
-  - Suppress raw register dump on transient failures to avoid log spam.
-
-Changes in v2:
-- Rebase on top of rtw-next.
-
-Kalpesh Solanki (3):
-  wifi: rtw88: clear RTW_FLAG_RESTARTING on stop and start failure
-  wifi: rtw88: skip already reset station in rtw_sta_remove()
-  wifi: rtw88: ps: trigger firmware recovery only after consecutive LPS
-    leave failures on PCI
-
- drivers/net/wireless/realtek/rtw88/mac80211.c | 3 +++
- drivers/net/wireless/realtek/rtw88/main.c     | 7 +++++++
- drivers/net/wireless/realtek/rtw88/main.h     | 1 +
- drivers/net/wireless/realtek/rtw88/ps.c       | 9 +++++++++
- drivers/net/wireless/realtek/rtw88/ps.h       | 1 +
- 5 files changed, 21 insertions(+)
-
--- 
-2.53.0
-
+Actual $SUBJECT looks okay to me, I'd wait with the R-b for the
+series, though.
