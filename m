@@ -1,97 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.184.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794504789;
-	b=Emne+mLwgZkT44wibj/6F94CzJS9zMh7kOwtQSNysqMO3ebUZ6c1BkhPfONU+odLjb1a
-	 s+44y6Fxi19N0Tcs/CuxgPG3cqSPEAij3g4TzbGp0oR0b4cZ6LSZgttFjt1ScchX/kQd0
-	 jpJhpp2DDjWN1/ZvAEduO48x/YMWcCFxIGPKF6Fi+WUFT8Xli5iS71tpqriFyoDa91dQ0
-	 4/OcMtGyqejy4wtQHLxDg6th9ETsSG6peaD+FdaoOBx/2F9xCH6nLh5/PSHVYn/Id8Hk/
-	 9xhsueLHIFixltb0XTsE/7dRmOBn7MMFrX2jtwOfYqAD7vjhQvwl8+YTPx4bHzVz87A==
+	t=1794504793;
+	b=0dXIzuHATVnhfNcm8jPgo0uKnDZt15gTaa3kfG5x8pNJ9GeurS0O+1PoHyoYsuAhPK8y
+	 LZEkAdiXN+CAM8S4UHzMJhUf3xw94LMDk+Mmyc51ABvwmegt+BlbuOZxu2jU1sCXWKEnW
+	 +P2VyLC4xESn3YVgghCEWde/qZ/hSaEHEy6EFHC60IharQVwHMERhD3iM1nz7TfvcdYRM
+	 b2uaTQn3qeZEX6crM5e6ZJz4gNyv4KuNFpnIlS4QOqpH28I2dGdwyDaWu9jHqhmHp4apZ
+	 EPRHStqyibCTwIdbUCesbq8R0IYm6fo9gPx2+AC8+rYQCLZPApwOm7Zx2UHFNiTHs6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504789;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Bi9izper4hhzVGDMuEBOOUEjObfUjf3Mhvpg/zT4k3A=;
-	b=jCYdoo/PFUP7G6St1QtjNuPFxXwfbhU25T6sZZLjVsuTCTE9UL+W5z2iTP0D3nTH1nc6
-	 vogBHhBdxFvF6ifGRehdvLHMJcNZl2vA165ZaofZFh5ygOaCcmNglUiest0M9+KUkH0S4
-	 SDtY+PlZH5JmkTMpw1qdFp9PsI03WcvjLebyRcOjEq9GSSMR/4zyubcrEVu57+rEIUxCw
-	 CC3qwSNICwGS4AZyU2nxZiVuBPqViXJjECd4jr3DSh0wk+CMb3c+bkhE3khK5GBEBduIL
-	 2/GtPyiBe0tmDiGqo0S2Hj+em5NIkdHakEb3Ey2uPeB4tP6I1ASJyEhfZ99UcnJDIiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794504793;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer;
+	bh=pg2FgbyIFl0pjZOmJzpheHvkYDwQlfZjkHc9zeduk7k=;
+	b=tEFDdfH6zpirVk+FVEJrOrW2X0PKMA8u9NNHYokSZmbboB6L/DckE1sUrAu+ig3yxJsb
+	 yplswGMWLpIO1k6aE7wYuPT5yzMmMhtd4O8WPFKSzPVSABgdGp5S6vqymiq3CUEoa4Fcy
+	 7xJhigBpFNcSLYeRYv5XzN65JZs1VAH8eE5iVtR2YoPfp+lPxm4XzhTuYgGZlMb8+SgFs
+	 awa9+0NlQQwLa74Mqkja+UKzJR4LPp5egNWsQbxqQ0UsHoKW0rCBal7ZJDCcqP8D/xIkk
+	 D9dnga6DYeNE6dbcOjAkIZ+pqw5HzQUQpdUFgggjRCzkCz4dNiT2B++XCqiEsGaN6Fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="FTMt/huU";
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=ocSNBfbw;
+	arc=none smtp.remote-ip=66.163.184.43
+Received: from sonic317-32.consmr.mail.ne1.yahoo.com (sonic317-32.consmr.mail.ne1.yahoo.com [66.163.184.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98BE606A338
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:33:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B98BE606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CB1606A338
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:33:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8CB1606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FTMt/huU
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ae691283ecso37965a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:33:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794504788; x=1795109588; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Bi9izper4hhzVGDMuEBOOUEjObfUjf3Mhvpg/zT4k3A=;
-        b=FTMt/huUXEfLvXkoxiRsga2h+M6+IaVfmsnLYZA0LVzzcswoqnfhQCTMYVdm8fntQF
-         hAyCr873R0OukT7xdhlHypjV9xU97gXGOIrnmScHXhmzPUPnwUSHCB4Om9DvDrflcXTP
-         Gy5eOlPaYxmEw6+X8LoLjVLwh/vmHQevFhodSjkYXPthcR8OndKvLhMpzlQo8Vii+epU
-         uG0XaWAwOyu8kfMEwPD9n3+RvT1rupZKMIKmj41hMX2Tr7yKPC5lto2hKfrnjGbj47wK
-         D+iR0jYxtPJ+62usYc3wjyrvLSwOt9eAoZDsvPkLBoqp0c24JuY2NMN8kSyC9C1iUa6Z
-         7IJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794504788; x=1795109588;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Bi9izper4hhzVGDMuEBOOUEjObfUjf3Mhvpg/zT4k3A=;
-        b=Ef1fjT/g+YcUVivOw1ixgt4ZxPBp4cQqthGdKcBASnU9miuR13j6rcA+MP13X1UzrD
-         CVjaET9IQfPBLmvmuZrRsUb3+oSiYajlvGtWxwLkciMkT7WngzH7C/wBMeyWvTnk5i6/
-         c2ME6BXHxaZUtlHYSxq9UlOE9+6rLhhtim2dB0dzvUUPpraSryHVhTBPFYxWWMDBU6t7
-         G85nEVX7/9KMKGZfujrQXf5e+qqTaXOvSqjDKj2o+BzI1qwuetiFPR6uHf1v2H7lBRkl
-         XFD96hIQGZgDjmfXTnnMRrTYqM4JN6opIlOjOnnaCAaIX955Nppx1/ySEWdgBrS6VLeN
-         fvRg==
-X-Forwarded-Encrypted: i=1; AL+hErG0fO81wgPFRIk30vjONHcvSWAWWAwWUykClqwHgI+un3My9FfhERwax2h8Y+UafjDG0EM6G8elTpoPl90=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+AadbxzZO/gV2tHj18wJoljIBnaK7fszZm8euslImIGvwzs4XB
-	U2z+5csGFmZomz+tadGy4js0LldmQ+TGwUwsS0DOiiw02WlB5vVjZPA4
-X-Gm-Gg: AYBFou09axGfSohhLMg1ZtQ1mVjLUfhPrPNBapL5yI35NgK4OzZyVKKtLFiodSWLCDp
-	hsvz07/Ex+BnUa/GeeJ6tMc4100l1dv+Wrt+SY+GafiO6b0xyvx1obDF9P5C9Q9VEkywqypZ5re
-	mhKziCi6j17wbtMKXBfswCjJcN47pvfev/a/qmXxDTXnE+todLqYrW2aN0Uq1AaZO40FZLyDC1R
-	AV6YYD3ZLZBOLKCffbRKWypRlSp1TIWiUWuDetclsbPwh4dLkrvdh5QjDTSWM5unS+9FXyeXcWG
-	n7JwlZIe39eP8hDdNhdSFeepW6TeOxJ2sItHix/gbMvP6xZJKdNPTw34d9Gxcnw2Jia/InnuclM
-	ObAsC72BCRTuKUIdcpi07abVAS3IdMSCNy5BvXn2gW1JT1BtgG4MHzbvE0FRp4eJnhKKT5vm9HA
-	4ONZBjtbMryVHI79rUlFv/Qo7LcQvPKY3bgeBBUAMk1+GbFOB6u8Do1wOiwA2mRIzZ9+Io8H1St
-	l6q50gc1waLsu22+/WH5o4CwcuPxgBNp/nC0M/C8ftoBh+9hNgHp4FjSI0JNieH8jh0Han+P3jh
-	48vf+qUK7dj68K1Qp7x3jBIuoQteI7IO+rp4fYuxcXmV7iz/mQMiIChF5PZUPdg8ioKfUSta5uF
-	1A0N+r1pCNksmhnOfNq0rBDSp8HO+znOCLzWvdewchWqy
-X-Received: by 2002:a17:90b:1dc7:b0:3a0:e568:ed63 with SMTP id 98e67ed59e1d1-3b197c81836mr2094024a91.8.1794504787846;
-        Thu, 12 Nov 2026 09:33:07 -0800 (PST)
-Received: from acemagic-m1.tail4fb79.ts.net ([2401:7400:c804:b668:2c54:4647:b67e:c94c])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1ae8be5adsm383532a91.0.2026.11.12.09.33.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 09:33:07 -0800 (PST)
-From: Ho Jie Feng <hjf3108@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	Luka Gejak <luka.gejak@linux.dev>,
-	Ho Jie Feng <hjf3108@gmail.com>
-Subject: [PATCH rtw-next v3 3/5] wifi: rtw88: prepare frequency-offset correction for more chips
-Date: Fri, 13 Nov 2026 01:32:42 +0800
-Message-ID: <20261112173246.3201729-4-hjf3108@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112173246.3201729-1-hjf3108@gmail.com>
-References: <20261112173246.3201729-1-hjf3108@gmail.com>
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=ocSNBfbw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794504792; bh=pg2FgbyIFl0pjZOmJzpheHvkYDwQlfZjkHc9zeduk7k=; h=Date:Subject:From:To:References:In-Reply-To:Content-Type:From:Subject:Reply-To:Content-Type; b=ocSNBfbwcs7lV1KrHta7NrDeMOrBS6P6NstEyxWRs2YxFzBsM9gqgd6SgOnvqhnH76GxX3MDsUdkeixQaMJXG/p4hEduzkzOFodSIo+AYZtf79VrmPB+uyv/+lX48TgzJZe6z0Ci0pivPF9v8ZzX4hFMvMhtdIm84lXxs7gVs2yE50sPl13XzjEfoy3m38AjsZSmhlEFbsdBPEq1+Wn1xDxNsQeWMbZ+I6dEgQswFed9jxdL7Fl0S3/scEIw3JUROvivd5STMfSCBUjy33VJQq2BK/n1hHIokpQAj96oEAfs5kk/nk171HFSt6rYELoNu6HsMyTqVhI2LhycCr/kkQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794504792; bh=TK8XmyWMDEfGN9brr5wBwS50HHVfrOKjhyBSFtIWJ9G=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=VFfLBvoJzHH4YjMKiGZZTsCZH3A0Ai47enkWOqaloiZEAi/jfjk1i6yPYHkKiu3hE77zUSLYBRgBu1CTIMzjSQ5cajT9xifA8UeCOYgw+u5YQPcdXjYgPWwgH40ksi4mq4W7Wf1p9GMtwdJQt0sHpHxxvIpW0UiJlG7OU9uVBWfi7Ffx0l5s9yy8XAGyoNJ59g1C+awqv8B8qzZBGtK/7vltSs0p4sZNTQDdslRdZGEg7PNZEDUvIeYA+zXkFHJLplv9C8mJcO5/NALvdfk2Sfr5FjwEfznMPFLK1Z6M0AOHg5WFtH2LIuJswfEuOYLD5VrT9FXoKDTPt2iEDA+63g==
+X-YMail-OSG: zBYAsu8VM1l2C_DaFwUsBB2p8yzG2Xs50KZCRD6QxfOn4g7d3QGGZfRsY1CAzUD
+ nyGghg01ijM2MwUq9QPQDHurP1TdgYXcDmP61QN2ikrE3.sxdOmbdMWAi5TgTEaBE92L635qei._
+ J4_b1CEnnwxQUnitWQkRvIyqhCn1rClelJhYPFpA7ToeZnMkSAM2P3Dz3FtbXKCHza3OngJhuwe3
+ OobSU876QMYpzV4W39klOIEcIUnwaVnXWuhwpr2I_tAiZYyuwrHefcpFl4LC0z.J5A._PvkYvXZu
+ .4gIykUMqUX5QxvxwdVaLqQJ5X_hvHMB5vAeba4P_1WDonPUKH2FmR3fuVwxeZ4acaTqTLbsZvuL
+ IFPnUehatiQW6.ArMpFcw9K7KJS_ZfNwlO2wgnB4O4R9HTI.XU1vdB1MMYVujU_RZekgp4.fyqH3
+ zLzh2vH4ksXVEh7ebpJvqXtLQCHDIxVUVjpTFkK_N39hEzxo3Mi88_2I9e4PJuwOYva9EeLG8cTJ
+ zBKf7tCIcsR30v2EsN_QlPQQ5cvoWdYRsu90PBhqIw5GBllg.iXqNIsRieO48COVU5hBUsI1_lPs
+ tF2L9SYQ7s4IT_eLltgyUi7yNtdQEokFo.9SGwnLXOfe0kPj9C.67PVwp_1SESLEdII7LPcEVHt2
+ 5N6ZFRBTRQhi_uiwh7a.gjjsuwSL_76X2AKBuDfletLUkNGT5iOJjkXFGYcOQgW2Dxhw13EhrcB4
+ Y5RC7pbXBXsLv9A54p25lJtUDcaJ.9FdofUfQXXwVM9rOdBF_zGuXVbdZ_WpNRS.srHhqsEhBqnH
+ Xz.TB4Q8hR5jdEkSAqoY6kaDIbnLlRMOVY0fiq7cs2mIEMt_0MbrA0gCw2QFY8TgYxluIMexXwMX
+ ChRXNn1bGQC_372cRohXpkrohuE3UY2_qI.lFNQYqTUVGZ_wvZcGqXD5xtdRn0j8f7FdoHNpKBkz
+ cMMGy14JxDcAEGdWBdjHqOBYtyntidfa3hI5DHp29UVG8QQBJ6pJgnl8lL8ihU7k2nn9XmBuccRP
+ 2RnL3CQs2VDg8mX6UCN7NEUwk5wEljnRrPDdvdG.F2IW8dn6o1Atr3QhNRzFwHg3DEBFusG9sit2
+ c4CL.WJxHW5r3FSfq.bG4HlztEUQdUPtrhuj7YiTnH0UUYcNE_xS40P4hOevW8aYSIYxsuREdDdr
+ O0I9.1dBtwO1ZcrQgWuINf0eN5lMTwrKvqDLIAm2bWZZGBHUMe9WCAEb3WwOj6RGDKnO0.3vuBJ_
+ ukVMqcUmyCY_sexL_f9znrCMIpMY4ISp7kw12ryl.kUh0uHk1PKSFI_rPBVDiki0zYifEj26mBrZ
+ ImEApI78YFbhZSFmhxiiH60OkYiePwPMg3YKgfoxEQpAyTUIQVC_02LsX82S8G4wKoLp1jmkuGmU
+ Bjjhog_CtjLkKr_F5fdJYHsFs9l6M_uOMMMlTxNh9ytuGr0ELsqLa42_PnS.5.khTWiH5Dfo8dbg
+ L_UCFJ93fab4nz.TCYfN_FkVbA4pi_7MOxDfs1gEqzOdvHsIrG4_1f9xN89eWyaQ4v_K7Dku.k41
+ 4Ci1nkCWCAn.yE44EcffntzQhQR12i8VH6UC79rpg2mbZejHVdh6eYBoMjk5h840rRC0v1Pu_e.a
+ WZQD0omRfj1hJjoV4Wnz9xIgo9BvdC7zMaTBhDyTXhLCJzlLjcH_h955TYiRp05vAoxe8FUV5efv
+ x5fl_hPyjYZ1i_uUDqSOfvGZJW6HOqZPDZfi9GWGolOidm.io93B5z4M5mnkonC20NK4YyXr1IEf
+ lbnQijhBOiCiV9yPiO_uYAl4co0JWI6Ql5v3rRx0NOtTO1y3mnf5yAQATNHJqe0tKwcNrBKDsxAl
+ x5upIku0QA4EIGydQ81_dHy.WfPWaowb2kIu0X7zk7WwPIOe1wBdtOJJhc35IZGCYfF_JvWzbifF
+ fycUzzehHxUtTiNu4yvcNe9TvXwYUCCrDRnVm46zOHruUdRqDH3UMTYkCGxREOGg_EDTIEWJAkng
+ lpa56oBZpLfhmy3auESZVvoIDFQ42UII20Psps4wCvxtEi4S7..xOqPBu2V35h2sj00vJRL225ZC
+ .hN6ZBf3FBu4ZlVZ.8T7P2BVxtcdaV9.nVdh2r9qse8dmy5mxUHuAATdSmQ3yTnvcMVlbSlFGDAP
+ yMBvHdd3O49kJzcK2XGfPq.oFk7yME0pB2YoFX0aWREO_Miu7s4iURB.3WYhHIQvciG72.p19JbH
+ i7wwkP5vXFuqaCJTQhEh3XrJ3dpRZqYX0vOsAy59vHfRndIScdjxR.KwTpTHEbUU2ZwW95AfalqG
+ 5edHBwy0Cc2Ln8rIXU7BDOFXXnKm3wAf4CTCvyr0-
+X-Sonic-MF: <namiltd@yahoo.com>
+X-Sonic-ID: 44440209-5e6c-4872-a0e4-8dedb06f7f63
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic317.consmr.mail.ne1.yahoo.com with HTTP; Thu, 12 Nov 2026 17:33:12 +0000
+Received: by hermes--production-ir2-5dd9bf4598-hl6xw (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 6cfc8d0ea86592f985678e54fcd7913e;
+          Thu, 12 Nov 2026 17:33:06 +0000 (UTC)
+Message-ID: <decd2adc-b23e-48b2-9cef-5517be0e8c8e@yahoo.com>
+Date: Thu, 12 Nov 2026 18:33:04 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,284 +84,246 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH net-next v10 02/12] net: dsa: realtek: rtl8365mb: add chip
+ family infrastructure
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alvin.sipraga@analog.com, gusfmora@gmail.com, kuncy7@gmail.com,
+ fabianotassotti@gmail.com, gabonpivovich@gmail.com, contact@c127.dev
+References: <d9da17af-f49e-4878-a8dd-59a8919e6930@yahoo.com>
+Content-Language: pl
+In-Reply-To: <d9da17af-f49e-4878-a8dd-59a8919e6930@yahoo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.26943 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-Promote chip specific functions into the common core for cfo tracking.
-These become helpers which can be used by the other drivers.
+Add enum rtl8365mb_family and struct rtl8365mb_family_info, which holds
+the data shared by all chips of one family: the family id, the port
+count and the init jam table. struct rtl8365mb_chip_info now points to
+it through a family_info member, and all existing chips use the
+RTL8365MB_FAMILY_C instance. rtl8365mb_get_family_info() and
+rtl8365mb_is_d() are declared in a new rtl8365mb.h so that the VLAN
+code can use them too.
 
-Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+Use num_ports from the family info in rtl8365mb_detect() instead of a
+fixed constant, so that a family with a different port count can be
+described by its own entry.
+
+RTL8365MB_FAMILY_D is defined here but no chip uses it yet; it is
+needed by the following patches, which add family D handling for chips
+whose register layout differs from the existing ones.
+
+No functional change.
+
+Tested-by: Gustavo Foletto Mora <gusfmora@gmail.com>
+Tested-by: Stanislaw Pal <kuncy7@gmail.com>
+Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 ---
- drivers/net/wireless/realtek/rtw88/phy.c      | 106 ++++++++++++++++++
- drivers/net/wireless/realtek/rtw88/phy.h      |   2 +
- drivers/net/wireless/realtek/rtw88/rtw8822c.c | 100 +----------------
- drivers/net/wireless/realtek/rtw88/rtw8822c.h |   3 -
- 4 files changed, 113 insertions(+), 98 deletions(-)
+ drivers/net/dsa/realtek/rtl8365mb.h      | 29 +++++++++++++
+ drivers/net/dsa/realtek/rtl8365mb_main.c | 54 +++++++++++++++---------
+ 2 files changed, 62 insertions(+), 21 deletions(-)
+ create mode 100644 drivers/net/dsa/realtek/rtl8365mb.h
 
-diff --git a/drivers/net/wireless/realtek/rtw88/phy.c b/drivers/net/wireless/realtek/rtw88/phy.c
-index e2515a662b..d0c1fb65be 100644
---- a/drivers/net/wireless/realtek/rtw88/phy.c
-+++ b/drivers/net/wireless/realtek/rtw88/phy.c
-@@ -720,6 +720,112 @@ void rtw_phy_parsing_cfo(struct rtw_dev *rtwdev,
- }
- EXPORT_SYMBOL(rtw_phy_parsing_cfo);
+diff --git a/drivers/net/dsa/realtek/rtl8365mb.h b/drivers/net/dsa/realtek/rtl8365mb.h
+new file mode 100644
+index 0000000..daa8f0b
+--- /dev/null
++++ b/drivers/net/dsa/realtek/rtl8365mb.h
+@@ -0,0 +1,29 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _RTL8365MB_H
++#define _RTL8365MB_H
++
++#include "realtek.h"
++
++enum rtl8365mb_family {
++	RTL8365MB_FAMILY_C,
++	RTL8365MB_FAMILY_D,
++};
++
++struct rtl8365mb_jam_tbl_entry;
++
++struct rtl8365mb_family_info {
++	enum rtl8365mb_family family;
++	unsigned int num_ports;
++	const struct rtl8365mb_jam_tbl_entry *jam_table;
++	size_t jam_size;
++};
++
++const struct rtl8365mb_family_info *
++rtl8365mb_get_family_info(struct realtek_priv *priv);
++
++static inline bool rtl8365mb_is_d(struct realtek_priv *priv)
++{
++	return rtl8365mb_get_family_info(priv)->family == RTL8365MB_FAMILY_D;
++}
++
++#endif /* _RTL8365MB_H */
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
+index da06f95..e25eb7e 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_main.c
++++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
+@@ -110,12 +110,15 @@
+ #include "rtl83xx.h"
+ #include "rtl8365mb_l2.h"
+ #include "rtl8365mb_vlan.h"
++#include "rtl8365mb.h"
  
-+#define CFO_TRK_ENABLE_TH	20
-+#define CFO_TRK_STOP_TH		10
-+#define CFO_TRK_ADJ_TH		10
+ /* Family-specific data and limits */
+ #define RTL8365MB_PHYADDRMAX		7
+ #define RTL8365MB_NUM_PHYREGS		32
+ #define RTL8365MB_PHYREGMAX		(RTL8365MB_NUM_PHYREGS - 1)
+-#define RTL8365MB_MAX_NUM_PORTS		11
++#define RTL8365MB_C_MAX_NUM_PORTS	11
++/* Highest port count of any supported chip, used for sizing */
++#define RTL8365MB_MAX_NUM_PORTS		RTL8365MB_C_MAX_NUM_PORTS
+ /* Valid for the whole family except RTL8370B, which has 4160 entries.
+  * RTL8370B is mentioned in vendor code but it might not even belong
+  * to the same RTL8367C family.
+@@ -702,14 +705,20 @@ struct rtl8365mb_extint {
+ 	unsigned int supported_interfaces;
+ };
+ 
++static const struct rtl8365mb_family_info rtl8365mb_family_c = {
++	.family = RTL8365MB_FAMILY_C,
++	.num_ports = RTL8365MB_C_MAX_NUM_PORTS,
++	.jam_table = rtl8365mb_init_jam_8365mb_vc,
++	.jam_size = ARRAY_SIZE(rtl8365mb_init_jam_8365mb_vc),
++};
 +
-+static u8 rtw_phy_cfo_tracking_reset(struct rtw_dev *rtwdev)
+ /**
+  * struct rtl8365mb_chip_info - static chip-specific info
+  * @name: human-readable chip name
+  * @chip_id: chip identifier
+  * @chip_ver: chip silicon revision
++ * @family_info: data shared by all chips of the same family
+  * @extints: available external interfaces
+- * @jam_table: chip-specific initialization jam table
+- * @jam_size: size of the chip's jam table
+  *
+  * These data are specific to a given chip in the family of switches supported
+  * by this driver. When adding support for another chip in the family, a new
+@@ -719,9 +728,8 @@ struct rtl8365mb_chip_info {
+ 	const char *name;
+ 	u32 chip_id;
+ 	u32 chip_ver;
++	const struct rtl8365mb_family_info *family_info;
+ 	const struct rtl8365mb_extint extints[RTL8365MB_MAX_NUM_EXTINTS];
+-	const struct rtl8365mb_jam_tbl_entry *jam_table;
+-	size_t jam_size;
+ };
+ 
+ /* Chip info for each supported switch in the family */
+@@ -731,29 +739,28 @@ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
+ 		.name = "RTL8365MB-VC",
+ 		.chip_id = 0x6367,
+ 		.chip_ver = 0x0040,
++		.family_info = &rtl8365mb_family_c,
+ 		.extints = {
+ 			{ 6, 1, PHY_INTF(MII) | PHY_INTF(TMII) |
+ 				PHY_INTF(RMII) | PHY_INTF(RGMII) },
+ 		},
+-		.jam_table = rtl8365mb_init_jam_8365mb_vc,
+-		.jam_size = ARRAY_SIZE(rtl8365mb_init_jam_8365mb_vc),
+ 	},
+ 	{
+ 		.name = "RTL8367S",
+ 		.chip_id = 0x6367,
+ 		.chip_ver = 0x00A0,
++		.family_info = &rtl8365mb_family_c,
+ 		.extints = {
+ 			{ 6, 1, PHY_INTF(SGMII) | PHY_INTF(HSGMII) },
+ 			{ 7, 2, PHY_INTF(MII) | PHY_INTF(TMII) |
+ 				PHY_INTF(RMII) | PHY_INTF(RGMII) },
+ 		},
+-		.jam_table = rtl8365mb_init_jam_8365mb_vc,
+-		.jam_size = ARRAY_SIZE(rtl8365mb_init_jam_8365mb_vc),
+ 	},
+ 	{
+ 		.name = "RTL8367SB",
+ 		.chip_id = 0x6367,
+ 		.chip_ver = 0x0010,
++		.family_info = &rtl8365mb_family_c,
+ 		.extints = {
+ 			{ 6, 1, PHY_INTF(MII) | PHY_INTF(TMII) |
+ 				PHY_INTF(RMII) | PHY_INTF(RGMII) |
+@@ -761,21 +768,18 @@ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
+ 			{ 7, 2, PHY_INTF(MII) | PHY_INTF(TMII) |
+ 				PHY_INTF(RMII) | PHY_INTF(RGMII) },
+ 		},
+-		.jam_table = rtl8365mb_init_jam_8365mb_vc,
+-		.jam_size = ARRAY_SIZE(rtl8365mb_init_jam_8365mb_vc),
+ 	},
+ 	{
+ 		.name = "RTL8367RB-VB",
+ 		.chip_id = 0x6367,
+ 		.chip_ver = 0x0020,
++		.family_info = &rtl8365mb_family_c,
+ 		.extints = {
+ 			{ 6, 1, PHY_INTF(MII) | PHY_INTF(TMII) |
+ 				PHY_INTF(RMII) | PHY_INTF(RGMII) },
+ 			{ 7, 2, PHY_INTF(MII) | PHY_INTF(TMII) |
+ 				PHY_INTF(RMII) | PHY_INTF(RGMII) },
+ 		},
+-		.jam_table = rtl8365mb_init_jam_8365mb_vc,
+-		.jam_size = ARRAY_SIZE(rtl8365mb_init_jam_8365mb_vc),
+ 	},
+ };
+ 
+@@ -874,6 +878,14 @@ struct rtl8365mb {
+ 
+ #define pcs_to_rtl8365mb(_pcs) container_of((_pcs), struct rtl8365mb, pcs)
+ 
++const struct rtl8365mb_family_info *
++rtl8365mb_get_family_info(struct realtek_priv *priv)
 +{
-+	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
-+	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
++	struct rtl8365mb *mb = priv->chip_data;
 +
-+	cfo->is_adjust = true;
-+
-+	if (cfo->crystal_cap > rtwdev->efuse.crystal_cap)
-+		return cfo->crystal_cap - 1;
-+	else if (cfo->crystal_cap < rtwdev->efuse.crystal_cap)
-+		return cfo->crystal_cap + 1;
-+
-+	return cfo->crystal_cap;
++	return mb->chip_info->family_info;
 +}
 +
-+void rtw_phy_cfo_xcap_init(struct rtw_dev *rtwdev)
-+{
-+	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
-+	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
-+
-+	cfo->crystal_cap = rtwdev->efuse.crystal_cap;
-+	cfo->is_adjust = true;
-+}
-+EXPORT_SYMBOL(rtw_phy_cfo_xcap_init);
-+
-+#define REPORT_TO_KHZ(val) ({typeof(val) _v = (val); (_v << 1) + (_v >> 1); })
-+static s32 rtw_phy_cfo_calc_avg(struct rtw_dev *rtwdev, u8 path_num)
-+{
-+	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
-+	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
-+	s32 cfo_avg, cfo_path_sum = 0, cfo_rpt_sum;
-+	u8 i;
-+
-+	for (i = 0; i < path_num; i++) {
-+		cfo_rpt_sum = REPORT_TO_KHZ(cfo->cfo_tail[i]);
-+
-+		if (cfo->cfo_cnt[i])
-+			cfo_avg = cfo_rpt_sum / cfo->cfo_cnt[i];
-+		else
-+			cfo_avg = 0;
-+
-+		cfo_path_sum += cfo_avg;
-+	}
-+
-+	for (i = 0; i < path_num; i++) {
-+		cfo->cfo_tail[i] = 0;
-+		cfo->cfo_cnt[i] = 0;
-+	}
-+
-+	return cfo_path_sum / path_num;
-+}
-+
-+static void rtw_phy_cfo_need_adjust(struct rtw_dev *rtwdev, s32 cfo_avg)
-+{
-+	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
-+	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
-+
-+	if (!cfo->is_adjust) {
-+		if (abs(cfo_avg) > CFO_TRK_ENABLE_TH)
-+			cfo->is_adjust = true;
-+	} else {
-+		if (abs(cfo_avg) <= CFO_TRK_STOP_TH)
-+			cfo->is_adjust = false;
-+	}
-+}
-+
-+u8 rtw_phy_cfo_xcap_track(struct rtw_dev *rtwdev, u8 xcap_max, bool bt_hold)
-+{
-+	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
-+	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
-+	u8 path_num = rtwdev->hal.rf_path_num;
-+	s8 crystal_cap = cfo->crystal_cap;
-+	s32 cfo_avg = 0;
-+
-+	if (rtwdev->sta_cnt != 1)
-+		return rtw_phy_cfo_tracking_reset(rtwdev);
-+
-+	if (cfo->packet_count == cfo->packet_count_pre)
-+		return cfo->crystal_cap;
-+
-+	cfo->packet_count_pre = cfo->packet_count;
-+	cfo_avg = rtw_phy_cfo_calc_avg(rtwdev, path_num);
-+	rtw_phy_cfo_need_adjust(rtwdev, cfo_avg);
-+
-+	if (bt_hold) {
-+		cfo->is_adjust = false;
-+		return rtwdev->efuse.crystal_cap;
-+	}
-+
-+	if (cfo->is_adjust) {
-+		if (cfo_avg > CFO_TRK_ADJ_TH)
-+			crystal_cap++;
-+		else if (cfo_avg < -CFO_TRK_ADJ_TH)
-+			crystal_cap--;
-+
-+		crystal_cap = clamp_t(s8, crystal_cap, 0, xcap_max);
-+	}
-+
-+	return (u8)crystal_cap;
-+}
-+EXPORT_SYMBOL(rtw_phy_cfo_xcap_track);
-+
- static void rtw_phy_cfo_track(struct rtw_dev *rtwdev)
+ static int rtl8365mb_phy_poll_busy(struct realtek_priv *priv)
  {
- 	const struct rtw_chip_info *chip = rtwdev->chip;
-diff --git a/drivers/net/wireless/realtek/rtw88/phy.h b/drivers/net/wireless/realtek/rtw88/phy.h
-index 8a843aac73..b551cb860d 100644
---- a/drivers/net/wireless/realtek/rtw88/phy.h
-+++ b/drivers/net/wireless/realtek/rtw88/phy.h
-@@ -68,6 +68,8 @@ void rtw_phy_adaptivity_set_mode(struct rtw_dev *rtwdev);
- void rtw_phy_cck_pd_set(struct rtw_dev *rtwdev, u8 new_lvl);
- void rtw_phy_parsing_cfo(struct rtw_dev *rtwdev,
- 			 struct rtw_rx_pkt_stat *pkt_stat);
-+void rtw_phy_cfo_xcap_init(struct rtw_dev *rtwdev);
-+u8 rtw_phy_cfo_xcap_track(struct rtw_dev *rtwdev, u8 xcap_max, bool bt_hold);
- void rtw_phy_tx_path_diversity(struct rtw_dev *rtwdev);
- 
- struct rtw_txpwr_lmt_cfg_pair {
-diff --git a/drivers/net/wireless/realtek/rtw88/rtw8822c.c b/drivers/net/wireless/realtek/rtw88/rtw8822c.c
-index 09315d23e2..d7b0204e6d 100644
---- a/drivers/net/wireless/realtek/rtw88/rtw8822c.c
-+++ b/drivers/net/wireless/realtek/rtw88/rtw8822c.c
-@@ -4243,103 +4243,13 @@ static void rtw8822c_set_crystal_cap(struct rtw_dev *rtwdev, u8 crystal_cap)
- 	rtw8822c_set_crystal_cap_reg(rtwdev, crystal_cap);
- }
- 
--static void rtw8822c_cfo_tracking_reset(struct rtw_dev *rtwdev)
--{
--	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
--	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
--
--	cfo->is_adjust = true;
--
--	if (cfo->crystal_cap > rtwdev->efuse.crystal_cap)
--		rtw8822c_set_crystal_cap(rtwdev, cfo->crystal_cap - 1);
--	else if (cfo->crystal_cap < rtwdev->efuse.crystal_cap)
--		rtw8822c_set_crystal_cap(rtwdev, cfo->crystal_cap + 1);
--}
--
--static void rtw8822c_cfo_init(struct rtw_dev *rtwdev)
--{
--	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
--	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
--
--	cfo->crystal_cap = rtwdev->efuse.crystal_cap;
--	cfo->is_adjust = true;
--}
--
--#define REPORT_TO_KHZ(val) ({typeof(val) _v = (val); (_v << 1) + (_v >> 1); })
--static s32 rtw8822c_cfo_calc_avg(struct rtw_dev *rtwdev, u8 path_num)
--{
--	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
--	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
--	s32 cfo_avg, cfo_path_sum = 0, cfo_rpt_sum;
--	u8 i;
--
--	for (i = 0; i < path_num; i++) {
--		cfo_rpt_sum = REPORT_TO_KHZ(cfo->cfo_tail[i]);
--
--		if (cfo->cfo_cnt[i])
--			cfo_avg = cfo_rpt_sum / cfo->cfo_cnt[i];
--		else
--			cfo_avg = 0;
--
--		cfo_path_sum += cfo_avg;
--	}
--
--	for (i = 0; i < path_num; i++) {
--		cfo->cfo_tail[i] = 0;
--		cfo->cfo_cnt[i] = 0;
--	}
--
--	return cfo_path_sum / path_num;
--}
--
--static void rtw8822c_cfo_need_adjust(struct rtw_dev *rtwdev, s32 cfo_avg)
--{
--	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
--	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
--
--	if (!cfo->is_adjust) {
--		if (abs(cfo_avg) > CFO_TRK_ENABLE_TH)
--			cfo->is_adjust = true;
--	} else {
--		if (abs(cfo_avg) <= CFO_TRK_STOP_TH)
--			cfo->is_adjust = false;
--	}
--
--	if (!rtw_coex_disabled(rtwdev)) {
--		cfo->is_adjust = false;
--		rtw8822c_set_crystal_cap(rtwdev, rtwdev->efuse.crystal_cap);
--	}
--}
--
- static void rtw8822c_cfo_track(struct rtw_dev *rtwdev)
+ 	u32 val;
+@@ -3036,17 +3048,17 @@ static int rtl8365mb_change_tag_protocol(struct dsa_switch *ds,
+ static int rtl8365mb_switch_init(struct realtek_priv *priv)
  {
--	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
--	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
--	u8 path_num = rtwdev->hal.rf_path_num;
--	s8 crystal_cap = cfo->crystal_cap;
--	s32 cfo_avg = 0;
--
--	if (rtwdev->sta_cnt != 1) {
--		rtw8822c_cfo_tracking_reset(rtwdev);
--		return;
--	}
--
--	if (cfo->packet_count == cfo->packet_count_pre)
--		return;
--
--	cfo->packet_count_pre = cfo->packet_count;
--	cfo_avg = rtw8822c_cfo_calc_avg(rtwdev, path_num);
--	rtw8822c_cfo_need_adjust(rtwdev, cfo_avg);
--
--	if (cfo->is_adjust) {
--		if (cfo_avg > CFO_TRK_ADJ_TH)
--			crystal_cap++;
--		else if (cfo_avg < -CFO_TRK_ADJ_TH)
--			crystal_cap--;
-+	u8 crystal_cap;
+ 	struct rtl8365mb *mb = priv->chip_data;
+-	const struct rtl8365mb_chip_info *ci;
++	const struct rtl8365mb_family_info *fi;
+ 	int ret;
+ 	int i;
  
--		crystal_cap = clamp_t(s8, crystal_cap, 0, XCAP_MASK);
--		rtw8822c_set_crystal_cap(rtwdev, (u8)crystal_cap);
--	}
-+	crystal_cap = rtw_phy_cfo_xcap_track(rtwdev, XCAP_MASK,
-+					     !rtw_coex_disabled(rtwdev));
-+	rtw8822c_set_crystal_cap(rtwdev, crystal_cap);
- }
+-	ci = mb->chip_info;
++	fi = mb->chip_info->family_info;
  
- static const struct rtw_phy_cck_pd_reg
-@@ -4985,7 +4895,7 @@ static const struct rtw_chip_ops rtw8822c_ops = {
- 	.cfg_csi_rate		= rtw_bf_cfg_csi_rate,
- 	.adaptivity_init	= rtw8822c_adaptivity_init,
- 	.adaptivity		= rtw8822c_adaptivity,
--	.cfo_init		= rtw8822c_cfo_init,
-+	.cfo_init		= rtw_phy_cfo_xcap_init,
- 	.cfo_track		= rtw8822c_cfo_track,
- 	.config_tx_path		= rtw8822c_config_tx_path,
- 	.config_txrx_mode	= rtw8822c_config_trx_mode,
-diff --git a/drivers/net/wireless/realtek/rtw88/rtw8822c.h b/drivers/net/wireless/realtek/rtw88/rtw8822c.h
-index fc62b67a15..c27e4c394a 100644
---- a/drivers/net/wireless/realtek/rtw88/rtw8822c.h
-+++ b/drivers/net/wireless/realtek/rtw88/rtw8822c.h
-@@ -181,9 +181,6 @@ const struct rtw_table name ## _tbl = {			\
- #define REG_ANAPARLDO_POW_MAC	0x0029
- #define BIT_LDOE25_PON		BIT(0)
- #define XCAP_MASK		GENMASK(6, 0)
--#define CFO_TRK_ENABLE_TH	20
--#define CFO_TRK_STOP_TH		10
--#define CFO_TRK_ADJ_TH		10
+-	/* Do any chip-specific init jam before getting to the common stuff */
+-	if (ci->jam_table) {
+-		for (i = 0; i < ci->jam_size; i++) {
+-			ret = regmap_write(priv->map, ci->jam_table[i].reg,
+-					   ci->jam_table[i].val);
++	/* Do any family-specific init jam before getting to the common stuff */
++	if (fi->jam_table) {
++		for (i = 0; i < fi->jam_size; i++) {
++			ret = regmap_write(priv->map, fi->jam_table[i].reg,
++					   fi->jam_table[i].val);
+ 			if (ret)
+ 				return ret;
+ 		}
+@@ -3349,7 +3361,7 @@ static int rtl8365mb_detect(struct realtek_priv *priv)
  
- #define REG_TXDFIR0		0x808
- #define REG_DFIRBW		0x810
+ 	dev_info(priv->dev, "found an %s switch\n", mb->chip_info->name);
+ 
+-	priv->num_ports = RTL8365MB_MAX_NUM_PORTS;
++	priv->num_ports = mb->chip_info->family_info->num_ports;
+ 	mb->priv = priv;
+ 	mb->cpu.trap_port = RTL8365MB_MAX_NUM_PORTS;
+ 	mb->cpu.insert = RTL8365MB_CPU_INSERT_TO_ALL;
 -- 
 2.53.0
 
