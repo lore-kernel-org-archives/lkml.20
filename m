@@ -1,91 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794488070;
-	b=4cHSelUuhWWE1QwXq99ioLJUDJwdlP79LcQNJi2dO3z4iOlkPX3qaLpgDNZBjP0PiPEP
-	 +Z/NFjV0hTMg/sBaGV4LwqWFrD0iWQ+3IxdpY//Utd2evsS1nvP/WVbBWC97x9FiwXQGC
-	 6sNlq8IaymxJ+HVOJlhiL2Lh+p9bgDht6hPcczf+fk0pJlh/sACU8jlMu7MDre7AMsNJM
-	 BqFyV/cVEfL0eYJNPfFdL9G/bf+mrMVCrREqx7hieyMXcfgK1kdaLlwnx1yQDCz/Fwruh
-	 wTjXiAK1SFXW1PbxCSTycECFxma7J71/e1fq3jSXfTqI/ivpMdtlapKMCnzH6zVnrfA==
+	t=1794488106;
+	b=boQ9RluyJQkAyFm9MTH2hI3pgqrl2iQ7qO37GH82WGHxJx0HLvgrHUZnS6hFROK6OWso
+	 vBp1YFd5iKA1IanDUeMEaQR4ayENfzsEtbflhcxdGxQabFzRgsOejOFqobwbeAWvMq1Je
+	 DU7zy/TJp79Mcljk0obgKojISLCAapqKrYKNiDqod+HnfZJ9eS64NA4WhYGmjG78A4VDU
+	 Xa2lB1UilcfuRmloZZgrc+CLaV8cmK+pyOqa8x+xHUquJGlrGyvHHnM17dgdAiFQzuE5y
+	 9UMkvcB6P5nT793uzznG2RrAQVm3kPMKV4ql42CUVjrr944ru3lEp2vZz1p0f6WSpuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794488070;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=sK8lSGd7CdKaAvaHcw1VrkPxB7/S/YIrxUcCKrE63b0=;
-	b=tRoxMW0ZpPGJckTfApEK4uqTfRFinXxvJO89IEMOhnMjA1jBOS+QRJ2HRxAhQsch33qR
-	 qSOAxb1mFRZsdGoJlXgFTFqY/IUGr3Ipn+QVNqZvKxIRa0lvxqMQrDsjRx3J2nhp2Urdp
-	 t0Xlt+cit07KvT5UuQoThtHj0QkpUBbJgywMp0FaVwhV5XVzJ/7S1Bv2VCF3nFjVae1Gg
-	 hmzuzmmKL66gE6yLlHZzvYVy6TbSStMTOjN5QDqF2bF4BvV2ro2OkUaFCWeVuN+Jfo7xP
-	 OBFUsbq5kNcyhcMYMqL03yGMGWWgu70oNdB6CB4NGRZEzt5WGlWepnZtFNl6BX2cnGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794488106;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=FJWBGylPd+TUvS4fg6aAHxRIHS3fTwweS5Rmh/QZp8M=;
+	b=a1jOAXf71vrzcVsqZl48oT7CqJ6LBls437vMdVUKBpnUKym/9BYs+HOuFSQ3P5HVG+s3
+	 UJxDZaNkt6uafPRVgI+3Kh3aabeY7my99D87Yk5tWFbKyhuQsbCDzocou113OhFJu5dS4
+	 m0w5rfVJr/VJ7GS/rULgZi/dYNDXuXYzUqKlfftOhFfOv7gLGIWQhcL84KxrWCQY2eVgf
+	 dcum3/sd3RudN57g+NhUVH/I/mOen5va+qza6ghH2BG5ZSAimhJdNVhedaGq2wNnbk5Nk
+	 +oizEHxOWSMa+pXf1obtokKAndEFxrU1f99VFlksZZUIrCW0eJYgWLr5EA39GitLaNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iiitd.ac.in;
-	spf=pass smtp.mailfrom=iiitd.ac.in;
-	dkim=pass header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=Gu+zG9Wf;
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Mpz5ENUg;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ATRO1fxp;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 655F1606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:54:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 655F1606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iiitd.ac.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iiitd.ac.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB76606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:55:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FB76606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=Gu+zG9Wf
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8b58d6f67a5so2478613b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:54:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Mpz5ENUg;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ATRO1fxp
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACAfJ5r1953697
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:55:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	FJWBGylPd+TUvS4fg6aAHxRIHS3fTwweS5Rmh/QZp8M=; b=Mpz5ENUgcqRabHUP
+	PD3J3yeBOVQuO3lto59EUpQ+arQ2gq2AwvPOsTfYA95ODC3Rd2VWtXnNMSumVmxn
+	IX7m2D4pTpCsNVLNR6W+VCpIfjV5z02Ym5UXkWfYDRbj0W3lmSde+LMcM/Y03e3J
+	pT3c5m/VovkQTPynUrjPx12qtGwROyoAbSXISgQC62QVKXPDyK95qTCf2JLdji07
+	G6XQGZWPa+cs0PVEDzxhTuHVELhXyASTkjc036K/YUv4UBbKkRAsWHD02P9D1rCY
+	7OgLvVZe12vQOHcS6cQaLqmZ/VomqPit472dY/vnqmfJ4jE9DbqRmpCw+0V28/XS
+	XdG5Eg==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwbx30e9b-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:55:04 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cdb8b260bb4so2507680a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:55:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=iiitd.ac.in; s=google; t=1794488068; x=1795092868; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sK8lSGd7CdKaAvaHcw1VrkPxB7/S/YIrxUcCKrE63b0=;
-        b=Gu+zG9WfkrnAkdUzhHZhNWwPUAGsUrbIWEIguDBzjcb/1PDvM/iyqvtJsO+HHV2L4K
-         SYs7C+jDWrBrQNvbvzTU8XNoTfNlmnMZxLRGPK0IdZSbEXNgEJhiDsfDhCmzcg5Byagp
-         rFQaUrGJWRt58qh+CAIssN67zvXuEwCF4IwH4=
+        d=oss.qualcomm.com; s=google; t=1794488104; x=1795092904; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FJWBGylPd+TUvS4fg6aAHxRIHS3fTwweS5Rmh/QZp8M=;
+        b=ATRO1fxpOaqjoB3TBeRQ2Iq9xgkvwpqdGjYnJh1DFozvHl1ptPVKUSJBMtFO3azSSV
+         wRx1imsYOTRFk5L2lQJsu8A3TDjmu4v6P1S6/k7nMB/zXZ8GPWXrLg8BTbzKk3ygHsiU
+         6fndKA4mHPSqf0FvxRCg3J+ADRMa2VDJTS8GvK6WdvNEdJB0Ddz+n/A3u+yj4Lz+AfNT
+         KwYc8v2ViX5dRWxUO2ltvRMIWyini6HkH9fclVPDGzRjdHp0VBLLnGGW+ZW8RrENPUe4
+         DsO3cbXKfmMaFAsF6a16tc2KUv8DddAVKyZK6THjZnsnMeMfaY60o4oPgC1hUTPPxyUS
+         zrgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794488068; x=1795092868;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794488104; x=1795092904;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sK8lSGd7CdKaAvaHcw1VrkPxB7/S/YIrxUcCKrE63b0=;
-        b=iMx1w07xZm9FVjz/dwGxhK89/4pbr7ahq06UJrUlwWSUedCcZN2w+1W9S1xKJsIaia
-         8Lmbg1u0Vnfq7xOPpFeyaD2oVAeIOWjKHBJQIa/0O17fzBnq/TKNW91xmt2vl9tzeBnc
-         YG0eWle4d1Q9je06KMaZeTRI4WWMb6UfooUkozGEVv335qKbFXxrZGVo6M970KSkErSQ
-         j90F8vwk9y41dNIZSt9RLhl3dNQf7EzB03hH0WpyMi+FQn1j8NxJWy0MAcDOLWRV0VSU
-         VMTuFZRqoG/sBSwbfu/ZWYStipy8Z1R7y+to8NsFs+HMva1PXL2ZebOw14cbmJCLXCHH
-         gZUg==
-X-Forwarded-Encrypted: i=1; AL+hErFE0hkDfXT9lRy/fFmsDiNKPNP7Aqrj0QKPF9Aas4UQZBftiCE59LjPDLOgL0qTBTLonZdwAIC582boFiQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z982FuEMxxsAsvP153jopfjIWPx5FCb0c5QSYj7zPB+k9JS5GTX
-	cZ9MiPYlwuK1KL6ZVtuoRq9M6RWBJHbfZREV7zKTz3yGVi2JM71dd2peqaVTQKlsE+w=
-X-Gm-Gg: AYBFou2v1Oet6TKkTLTdlUJNWpU4Ng0VHeMAb2rsg8Qocu2aKkEeAH1Ua6J4Y0igAUi
-	sZOW/Q9a1ttNP/HqK6NYz77hyoQvXQCus9BfU0szQttHv2wl7fMEZKDnh2PAfL3J9dDqmCfSBj8
-	JaqDhfDtayduXoLgPH+3uRyRiLB5vHVEQW9Mhw26WUKV7XwFfg52HnMnkGAtbgiUXWSInEeF/B9
-	9/6lXVx7vcAukuehJKyOu6WonIXsa2gsY1IfEGkHHTwq1kwyNnuQXaNJoT6FTcoYiAx+FW2/T8T
-	PjYomrHQmOIr+A/3AsrnkIq7xDRrmFhLK1bxy16Vm6o9FjLvWBF205S8CPSbmyBWBvCDYNDwRAw
-	2SSRW48ZW7vRah5jKNeLjOTNipc11LmaLBb4mqi2dQLj++my3m0Z9VcPoGoQOt6BGKlzfPoBXFN
-	3X2Hf08yfRAR1AV6aEo0haWWsEAG1JI6CG4lhOoPvBy80t8akNQUGoFEBBa+rc/OY8qr+RGYAp5
-	sitK7MSNGfvpq0aZ3r1V104uAWk4BiWNLmCCKlv0NMFmBy4wXXX9/blZ9Njsp7rTY7h8DWAt3tz
-	6SI9Nim1hGW9gy6ehWEarZZIS3ecyC4o5JMEPuSAZXLFzWB2o1pjIzID6AUXaSdyG9ARVCpxpJE
-	jNerm+p4dN/9eNpyFZLE4Jf/PvyePlZvgT2kzJFFQB26utf84cN9xy42MD6P0VQYC
-X-Received: by 2002:a05:6a00:600d:b0:886:9078:546 with SMTP id d2e1a72fcca58-8bc1cc682cfmr5525239b3a.26.1794488068390;
-        Thu, 12 Nov 2026 04:54:28 -0800 (PST)
-Received: from iiitd-S2600STB.iiitd.edu.in ([103.25.231.160])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa86e1c9sm3492976b3a.23.2026.11.12.04.54.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 04:54:27 -0800 (PST)
-From: Piyus Kedia <piyus@iiitd.ac.in>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kapil Vaswani <kapil@presceralabs.ai>,
-	Piyus Kedia <piyus@iiitd.ac.in>
-Subject: [PATCH v3] Bluetooth: mgmt: drop advertising instances the controller cannot carry
-Date: Thu, 12 Nov 2026 18:24:20 +0530
-Message-Id: <20261112125420.3905719-1-piyus@iiitd.ac.in>
-X-Mailer: git-send-email 2.34.1
+        bh=FJWBGylPd+TUvS4fg6aAHxRIHS3fTwweS5Rmh/QZp8M=;
+        b=jIQiUeR8s5vxhcPFWu9+7MTASC3mR+mj/ndXvAjBkaC4Rwt6G534PT7AHJf7luKuYy
+         hyOf66Z2rK7FvdYdJu3B2LwQmFTH59nIXYmHDpuJRt9Rju5xYh7Hi2lIwygQJOY49ExO
+         L+XOv9YnvAu5CzoSF3o9vTHjt1Tq4puUOh8fjXi0zD9JzEoFwEaKfGaBxaHS7HXSTJXN
+         6ZG8gUndAF6bT8o4d/78Lt936CyzdSXrFNCW1rf4HnMZmDm/hp08l4EVDhG+UR1Di9r2
+         mHBnD2dVzxTSYlJ3ffaLLfAT+945j5SMwEQnW+uBS+RO6MioMN9xlvKXuWSp8gMYMUDV
+         OtvQ==
+X-Forwarded-Encrypted: i=1; AL+hErGj8LbuUa29+fxHbVXZewz8Zut5tI36tANFg87RPn5QmRuvJh8d63/Zpd1o8aC8zsVWo6Fjt6XhU811k1c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/25rv/V3VxYVrezU5EqLTI/WBmcDKkH0M8j5nqGaV2qovz7WAe
+	pyfOyRl5MKu+7QNYv3e9icvn8EH/t/NOvmBBb2tQmOJxi4yWegNxz97cnEBKZRYpJQ+vnsjaEsD
+	nEcMtoL0zYoXOAYbxgITFyoo0QeEgxciUcRSSV+cwsgEAHvJlJofL2lTmYQpO/2/e8VY=
+X-Gm-Gg: AYBFou0sVP8b/wxPKwKcqDhm3qIeCEn4nuiqOtGdUYRoj3W57GDKRQBJjD4wtURUNn8
+	aJS668t3/BH4mYqcwaqKkuHiarCPyaPuxrvsUxWwWTtqfc57kjorjTBZI3zZFLSc1e8sJDgUIKX
+	Qqbq3P/OjmKWpN13Br5o81JC1CcSHVbfAchWJDYlxE8U5EuP1TQ81Vcy0KwjukeL+K5X0mPMIvW
+	9RhRRnoAmqAVdD68Hkq6GQWNfodY75aVlPl9/2sbKosbGi/U9RK6ag7funC1t7jC+HjtxFjDioc
+	LbBJeT6z5UQyWfvQbnydRR5qAPs6xamyyXtsbIDhnM0yYYLkMU8m5t1CMglvcpMa222pcS6+0Mp
+	Z/Cx5uaRBW7N17nwzvtqHcDTZGL9v23jAhL2xxUt2HELFJdK9h0miGoMGtr7PoemZZQDddvFdQd
+	malCoFuAPzNpk3B75sa5ac1KqlDrsyVkKW3F8g6lysS773
+X-Received: by 2002:a05:6a20:ef01:b0:3e2:2fb7:844a with SMTP id adf61e73a8af0-3f2ff7caf1cmr4970705637.61.1794488104067;
+        Thu, 12 Nov 2026 04:55:04 -0800 (PST)
+X-Received: by 2002:a05:6a20:ef01:b0:3e2:2fb7:844a with SMTP id adf61e73a8af0-3f2ff7caf1cmr4970682637.61.1794488103530;
+        Thu, 12 Nov 2026 04:55:03 -0800 (PST)
+Received: from [10.133.33.220] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa9631absm3493088b3a.28.2026.11.12.04.54.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 04:55:03 -0800 (PST)
+Message-ID: <755d7440-28f1-4c9d-bcef-33beb25c71bf@oss.qualcomm.com>
+Date: Thu, 12 Nov 2026 20:54:57 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,234 +116,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cpufreq: dt: Set the initial OPP to apply its voltage
+ constraints
+To: Natanael Copa <ncopa@alpinelinux.org>,
+        "Rafael J . Wysocki" <rafael@kernel.org>,
+        Viresh Kumar <viresh.kumar@linaro.org>
+Cc: Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>,
+        =?UTF-8?Q?Milan_P_=2E_Stani=C4=87?= <mps@arvanta.net>,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Yixun Lan <dlan@kernel.org>,
+        Troy Mitchell
+ <troy.mitchell@linux.spacemit.com>,
+        Shuwei Wu <shuwei.wu@mailbox.org>,
+        Aurelien Jarno <aurelien@aurel32.net>, spacemit@lists.linux.dev,
+        linux-riscv@lists.infradead.org, stable@vger.kernel.org,
+        Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+References: <20261111130430.10359-1-ncopa@alpinelinux.org>
+Content-Language: en-US
+From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+In-Reply-To: <20261111130430.10359-1-ncopa@alpinelinux.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=S+5MU4sP c=1 sm=1 tr=0 ts=6af5b728 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=c92rfblmAAAA:8 a=kmYkUENqAAAA:8 a=VwQbUJbxAAAA:8 a=OUwkjY6KL-vEgWlMa8UA:9
+ a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22 a=GvGzcOZaWPEFPQC_NcjD:22
+ a=p9kz6gysRiz6SGr9lVkz:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA1MSBTYWx0ZWRfXxS8MfR4MEhqT
+ SR442Cu2MVXeXd1a63Yi4W70/AnepuMhnjA27VUZSo3I/sj2IhpS3ZDPMe115uuLVu7Qg3wiNK+
+ tsZrTB10LfGqiIfiA77YVR6XSDBUd4YImkIJZSA2B5+nyeHY+5UQ0ibDifT6oaIE18/qvbo+vLw
+ Pq+e/eBY1q0lX0zjYABhYdzUztelrqTd3iuS/2u3XxrOvlxlihuja6jYioDqNSuA4mtFpgK80Da
+ hpkI0pIUmSqaAEkfAwGQk+lanxAodwqpHUjAmqviEV36gdp0o7TfrXOxKVEelHjrW9SzyI343Wo
+ WQxCho7TO4oZOcsn6r6xX/5fX1Q9qGB4jW6fOpF3Nxg2T25xegTQF3EORD2vh1K8ZFIfh1EjNVM
+ OYARtLeIM3ujXOHYz0k62qRcMtrWFltB+LnfiF/TYKyq1T6U3iPVp++hmj8VZT0SiI3dpglfQku
+ zUjPEvraQ9UbbRiLdRQ==
+X-Proofpoint-ORIG-GUID: 1htXdMUX23497UyaCG_lv8TxUjso41iO
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA1MSBTYWx0ZWRfX/ljX5fIxYjK9
+ Q+iDsssM9w/9cT4GtA6hbW8Cpa72XBhRcck7L/YLfkQgruGpJkU8lOMLyg5sLni3XjuDy57srVU
+ p3P6JRTNGXFl7rxt7zO44cGJyG55TlM=
+X-Proofpoint-GUID: 1htXdMUX23497UyaCG_lv8TxUjso41iO
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0 malwarescore=0
+ adultscore=0 spamscore=0 suspectscore=0 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120051
 
-An advertising instance's data is validated once, when the instance is
-added, by tlv_data_is_valid() -> tlv_data_max_len() -> max_adv_len().
-max_adv_len() branches on ext_adv_capable(hdev), which reads
-hdev->le_features[1] - a controller capability re-read from the device on
-every bring-up.
+Hi Natanael,
+Thanks for the patch.
 
-Nothing re-checks the stored instances when that capability changes.  A
-controller that reported LE Extended Advertising when the instance was
-added, and does not report it after the next bring-up, leaves behind an
-instance of up to 251 bytes that is then rendered into the 31-byte cp.data
-of hci_set_adv_data_sync() or __hci_set_scan_rsp_data_sync():
+On 11/11/2026 9:04 PM, Natanael Copa wrote:
+> The cpufreq core skips requests for the current frequency, so a policy
+> has no voltage constraint on its supply until its first frequency
+> change. Another policy sharing the supply can then lower the voltage
+> too far.
+> 
+> On the SpacemiT K1, both clusters share one supply and boot at 1.6 GHz.
+> When policy0 scales down, the supply drops to 0.95 V while policy4
+> still runs at 1.6 GHz, causing random crashes during boot.
+> 
+> Set the OPP for the current clock rate of all CPUs before registering
+> the driver.
+> 
+> Fixes: 3b9c34556fc1 ("riscv: dts: spacemit: Add cpu scaling for K1 SoC")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5-5
+> Assisted-by: Claude:claude-fable-5-2
+> Signed-off-by: Natanael Copa <ncopa@alpinelinux.org>
+> ---
+> Reproducer, booted with cpufreq.default_governor=performance:
+> 
+>    # echo 614400 > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq
+> 
+> buck1 drops to 950000 uV while policy4 is still at 1600000 kHz, which
+> crashed my board within seconds.
+> 
+> Tested on a Banana Pi BPI-F3 with v7.3.3 and v7.4-rc2. Without the
+> patch, v7.3.3 crashed on every boot with schedutil (three). With the
+> patch, the reproducer keeps buck1 at 1050000 uV, and five boots with
+> schedutil were clean on each kernel. Not tested on other SoCs.
+> 
+> Other OPP users that never set their current OPP have the same gap. If
+> you would rather fix this in the OPP core, I can rework it.
 
-  Kernel panic - not syncing: stack-protector: Kernel stack is corrupted
-  in: hci_update_adv_data_sync+0x1dc/0x1e0
+Which other users do you have in mind? Apart from K1 I couldn't find
+another in-tree cpufreq-dt platform where several policies share one
+cpu-supply. MediaTek CPU/CCI has the similar issue, and
+mtk_cpufreq_set_target() handles it by not going below the boot
+voltage until the CCI driver is ready, so I'd keep this in cpufreq-dt.
+But I'll defer to Viresh on this.
 
-  Kernel panic - not syncing: stack-protector: Kernel stack is corrupted
-  in: hci_update_scan_rsp_data_sync+0x20f/0x210
+> 
+> Found and fixed with the help of an AI assistant (Claude). I reviewed
+> and tested the result.
+> 
+>   drivers/cpufreq/cpufreq-dt.c | 26 ++++++++++++++++++++++++++
+>   1 file changed, 26 insertions(+)
+> 
+> diff --git a/drivers/cpufreq/cpufreq-dt.c b/drivers/cpufreq/cpufreq-dt.c
+> index eb15650f99bf..2646dda10aac 100644
+> --- a/drivers/cpufreq/cpufreq-dt.c
+> +++ b/drivers/cpufreq/cpufreq-dt.c
+> @@ -153,6 +153,30 @@ static struct cpufreq_driver dt_cpufreq_driver = {
+>   	.suspend = cpufreq_generic_suspend,
+>   };
+>   
+> +/*
+> + * Set the OPP for the current clock rate, so that its voltage constraints
+> + * apply before any policy can change frequency. Otherwise another policy
+> + * sharing the supply could lower the voltage below what this one needs.
+> + */
+> +static void dt_cpufreq_set_initial_opp(struct device *cpu_dev)
+> +{
+> +	struct clk *clk = clk_get(cpu_dev, NULL);
+> +	unsigned long rate;
+> +	int ret;
+> +
+> +	if (IS_ERR(clk))
+> +		return;
+> +
+> +	rate = clk_get_rate(clk);
+> +	clk_put(clk);
+> +	if (!rate)
+> +		return;
+> +
+> +	ret = dev_pm_opp_set_rate(cpu_dev, rate);
+> +	if (ret)
+> +		dev_warn(cpu_dev, "failed to set initial OPP: %d\n", ret);
+> +}
+> +
+>   static int dt_cpufreq_early_init(struct device *dev, int cpu)
+>   {
+>   	struct private_data *priv;
+> @@ -251,6 +275,8 @@ static int dt_cpufreq_early_init(struct device *dev, int cpu)
+>   		goto out;
+>   	}
+>   
+> +	dt_cpufreq_set_initial_opp(cpu_dev);
 
-Drop such instances once the capability has been re-read, and tell
-userspace through MGMT_EV_ADVERTISING_REMOVED so it can add them again at a
-size this controller will take.
+Does this need to apply to all cpufreq-dt platforms? Could we detect
+this dynamically by checking whether the policies share the same cpu
+supply, and only do it then?
 
-Two details decide whether this is correct.
 
-The test has to be tlv_data_max_len() itself, not a bare max_adv_len().
-That function already encodes the per-flag adjustments the render applies -
-4 bytes for MGMT_ADV_FLAG_APPEARANCE, calculate_name_len() for
-MGMT_ADV_FLAG_LOCAL_NAME, and the flags and TX power fields on the
-advertising data side - so re-using it keeps one source of truth and the
-check cannot drift away from eir_create_adv_data() and
-eir_create_scan_rsp().  Comparing the stored lengths against max_adv_len()
-instead misses exactly those bytes: a 30-byte scan response carrying
-MGMT_ADV_FLAG_APPEARANCE is within 31 and is still rendered as 34.
-hci_adv_instance_flags() returns adv->flags for any non-zero instance, so
-adv->flags is the flag set the render will use.
+> +
+>   	list_add(&priv->node, &priv_list);
+>   	return 0;
+>   
+> 
+> base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
 
-Using the add-time test means the rule is "would this instance still be
-accepted today", which is marginally stricter than "would this instance
-overflow".  eir_create_adv_data() drops the flags and TX power fields when
-they do not fit rather than overflowing, so an instance can be removed
-here that would in fact still have rendered.  That seems the right way
-round: the instance is one userspace could not add now, and it is told
-about the removal so it can add a version that fits.
 
-The call goes before the HCI_LE_ENABLED test in
-hci_powered_update_adv_sync(), not after it.  set_le() on an unpowered
-device changes that flag without clearing hdev->adv_instances, so an
-instance left behind would otherwise survive a bring-up untouched.  This
-runs once per bring-up, which is also the only point at which the
-capability can have changed: hdev->le_features is written only by the two
-handlers for the controller's LE Read Local Supported Features reply, both
-inside the init sequence.
+Besides, Sashiko reported some issues, would you please have a look?
 
-Per Documentation/process/generated-content.rst: the out-of-bounds writes
-were found by an AI-driven fuzzing harness developed jointly by Kapil
-Vaswani and myself.  The approach taken here is Luiz's, from his review of
-v1; the patch text, this changelog and the test programs were produced with
-the assistance of a large language model and reviewed by Kapil Vaswani and
-myself, who designed and ran the testing described below the ---.
+https://sashiko.dev/#/patchset/20261111130430.10359-1-ncopa%40alpinelinux.org
 
-Suggested-by: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Signed-off-by: Kapil Vaswani <kapil@presceralabs.ai>
-Signed-off-by: Piyus Kedia <piyus@iiitd.ac.in>
----
-Changes in v3:
-  - take the approach you suggested on v1 and unregister the instances,
-    rather than bounding the copies in eir.c
-  - test with tlv_data_max_len() rather than max_adv_len(), which is what
-    Sashiko's second finding is about: the per-flag adjustments cannot
-    drift from the render if the check reuses the add path's own test
-  - call it before the HCI_LE_ENABLED early return, which is Sashiko's
-    first finding
-  - runtime before/after on net/main for four scenarios
 
-Changes in v2:
-  - dropped oversized instances in hci_powered_update_adv_sync(), tested
-    against max_adv_len()
-
-Both Sashiko findings, and where they land:
-
-  1. The early return skipping the loop.  Fixed by calling before it.  We
-     could not reproduce the overflow the report draws from it, though: on
-     re-enabling LE, set_le_sync() calls
-     hci_update_adv_data_sync(hdev, 0x00) and
-     hci_update_scan_rsp_data_sync(hdev, 0x00), and instance 0 has no
-     adv_info, so neither copy runs.  The skip is real and worth fixing;
-     the path from it to a write was not one we could trigger.
-
-  2. MGMT_ADV_FLAG_APPEARANCE with scan_rsp_len in 28..31.  Reproduced at
-     30, which v2 keeps and renders as 34.
-     tlv_data_max_len(hdev, MGMT_ADV_FLAG_APPEARANCE, false) is 27, so all
-     of 28..31 are now dropped, and 27 - which renders as exactly 31 -
-     is kept.
-
-Tested on net/main at a2fd526d6442 (7.4.0-rc1), x86_64 defconfig plus KASAN
-with KASAN_STACK, booted by hand under qemu against the same rootfs each
-time with the image opened read-only.  "len=" is the length field of the HCI
-command the kernel emitted, read off the virtual controller - a witness
-independent of KASAN, since anything above 31 means eir_create_*() has
-already written past cp.data[31]:
-
-  scenario    | unpatched           | v2                  | this patch
-  ------------+---------------------+---------------------+----------------
-  adv_data    | len=220, panic      | no command          | no cmd, pruned
-  scan_rsp    | len=220, panic      | no command          | no cmd, pruned
-  appearance  | len=34              | len=34              | no cmd, pruned
-  le_toggle   | no command          | no command          | no cmd, pruned
-
-adv_data / scan_rsp: a 220-byte instance added while the controller reported
-LE Extended Advertising, then re-read without it.  Both panic on an
-unpatched kernel:
-
-  Kernel panic - not syncing: stack-protector: Kernel stack is corrupted
-  in: hci_update_adv_data_sync+0x1dc/0x1e0
-  in: hci_update_scan_rsp_data_sync+0x20f/0x210
-
-appearance: KASAN does not report this one - three bytes past a 32-byte
-stack object land in adjacent locals rather than in a redzone - which is
-why the emitted length is the evidence.
-
-No Fixes: tag - our clone is shallow and git blame lands on the shallow
-boundary, so we cannot name the introducing commit.
-
-The reproducer is one C program with the four modes above and needs no
-Bluetooth hardware.  It is not included here: this was found with AI
-assistance, which Documentation/process/security-bugs.rst says to treat as
-public while not posting the reproducer.  Ask and we will send it.
-
- include/net/bluetooth/hci_core.h |  1 +
- net/bluetooth/hci_sync.c         |  8 ++++++
- net/bluetooth/mgmt.c             | 49 ++++++++++++++++++++++++++++++++
- 3 files changed, 58 insertions(+)
-
-diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
-index 6fb713d5e4be..ab5aa80abe2b 100644
---- a/include/net/bluetooth/hci_core.h
-+++ b/include/net/bluetooth/hci_core.h
-@@ -2573,6 +2573,7 @@ bool mgmt_get_connectable(struct hci_dev *hdev);
- u8 mgmt_get_adv_discov_flags(struct hci_dev *hdev);
- void mgmt_advertising_added(struct sock *sk, struct hci_dev *hdev,
- 			    u8 instance);
-+void mgmt_remove_oversized_adv_instances(struct hci_dev *hdev);
- void mgmt_advertising_removed(struct sock *sk, struct hci_dev *hdev,
- 			      u8 instance);
- int mgmt_phy_configuration_changed(struct hci_dev *hdev, struct sock *skip);
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index 9213e3ef9f26..b9f06dad1c41 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -3605,6 +3605,14 @@ static int hci_powered_update_adv_sync(struct hci_dev *hdev)
- 	struct adv_info *adv, *tmp;
- 	int err;
- 
-+	/* The controller's advertising capability has just been re-read, so
-+	 * this is the first point at which stored instances can be measured
-+	 * against it.  Do it before the HCI_LE_ENABLED test below: set_le() on
-+	 * an unpowered device clears that flag without clearing the instances,
-+	 * and one left behind must not survive to be rendered later.
-+	 */
-+	mgmt_remove_oversized_adv_instances(hdev);
-+
- 	if (!hci_dev_test_flag(hdev, HCI_LE_ENABLED))
- 		return 0;
- 
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index 260ef2a45719..d6a20a08b49d 100644
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -8933,6 +8933,55 @@ static u8 tlv_data_max_len(struct hci_dev *hdev, u32 adv_flags,
- 	return max_len;
- }
- 
-+/* Drop stored advertising instances that the controller can no longer carry.
-+ *
-+ * An instance's data was accepted against tlv_data_max_len() as it was when
-+ * the instance was added, and that depends on max_adv_len(), which branches on
-+ * ext_adv_capable() - a controller capability re-read from the device on every
-+ * bring-up.  A controller that stops reporting LE Extended Advertising
-+ * therefore leaves instances behind that can no longer be rendered:
-+ * eir_create_adv_data() and eir_create_scan_rsp() would write past the 31-byte
-+ * buffers of hci_set_adv_data_sync() and __hci_set_scan_rsp_data_sync().
-+ *
-+ * Re-using tlv_data_max_len() is deliberate.  It is the same test the add path
-+ * applies, so the per-flag adjustments - 4 bytes for MGMT_ADV_FLAG_APPEARANCE,
-+ * calculate_name_len() for MGMT_ADV_FLAG_LOCAL_NAME, and the flags and TX
-+ * power fields on the advertising data side - cannot drift out of agreement
-+ * with it.  Comparing the stored lengths against a bare max_adv_len() misses
-+ * exactly those bytes.
-+ *
-+ * hci_adv_instance_flags() returns adv->flags for any non-zero instance, so
-+ * adv->flags is the flag set the render will actually use.
-+ */
-+void mgmt_remove_oversized_adv_instances(struct hci_dev *hdev)
-+{
-+	struct adv_info *adv, *n;
-+
-+	/* This is safe as long as there is no command send while the lock is
-+	 * held.
-+	 */
-+	hci_dev_lock(hdev);
-+
-+	list_for_each_entry_safe(adv, n, &hdev->adv_instances, list) {
-+		u8 instance = adv->instance;
-+
-+		if (adv->adv_data_len <= tlv_data_max_len(hdev, adv->flags,
-+							  true) &&
-+		    adv->scan_rsp_len <= tlv_data_max_len(hdev, adv->flags,
-+							  false))
-+			continue;
-+
-+		bt_dev_warn(hdev,
-+			    "advertising instance %u no longer fits, removing",
-+			    instance);
-+
-+		if (!hci_remove_adv_instance(hdev, instance))
-+			mgmt_advertising_removed(NULL, hdev, instance);
-+	}
-+
-+	hci_dev_unlock(hdev);
-+}
-+
- static bool flags_managed(u32 adv_flags)
- {
- 	return adv_flags & (MGMT_ADV_FLAG_DISCOV |
-
-base-commit: a2fd526d644233d6a892c28173f07c61e21e4c93
 -- 
-2.34.1
-
+Thx and BRs,
+Zhongqiu Han
