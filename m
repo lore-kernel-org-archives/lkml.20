@@ -1,81 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.26.1.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794452973;
-	b=oPZ+skCeBp2fwHQe5YM+ntM8vbajwaGdGN21mqArD2hcy+38HGvvHmM0Z+461D8yFl9I
-	 bUtAo2bqPjevKG18WnA6F1mhy+8wxxksBShU/Mq6iIN6Fpo1aJry1DEl9tsAVKGW1t91q
-	 YOPhRhTkQsHKcLauaaZbhs8eRzqv6QigDTW02lAWkYLCMbN3j/N2V5UczuZQN4lnFvAO1
-	 bCVErlgogFgoQWCg8Tp4AltQRGG7ZmzdLqrkdxiWwGSiRYHUe/AjamZhh1q7eNPtMlFB2
-	 moy/3GU9sia86yA8p5su+Inne+gQdzaGSu1YOhNFS+pXdRb4I3LDaQmR50mIf8b/rzg==
+	t=1794452971;
+	b=B0GegPV/R4gVFMk64Rt3L0krV4gPB1xknfsjWUZwh0j0LC1toxuosk1YXTSfO4Sx3chG
+	 b7aFdqwIu8Kn/gGUzfhpJgcGB61ctlf7dJRalFDHZszNYcEk/zD21rjQFA9BvFLWurZ2m
+	 t1RGnDYSXsxd0fMgzgL348HxvMOE1mogphRxCu+6I7tHeJB9KtR9zK5MV5umjvm88MRyI
+	 uzJ/0BQziglJLkCUj82DpUA4SGgiRdACImacs5eLwNBaSrTxJ8MtK7d8i064+1we2fP0F
+	 4z3JolYhbe7X1OPAe5xYUZ8zTXApZbl+IbM4NVqDV45K2Rb8bv0FvLUxV2Qj77c+J6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794452973;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=9tMy7TdKo/z2NyMVYvTP/qcvuej+8nl4xCS3DkO+JpI=;
-	b=ROVSpJJk7ASjwYQMGI7fFNhnerSwa2KCoqTQwIcOQ8eCt3h+m/jNMgu7T2EzadEpxf0W
-	 /V+Q8lPxQqC1I3+qyYA1EUd0VRfPv7kWbefT/ThHt1cJcIcsp36dQ/FFEJ0SDx7jIMR6h
-	 JiO0aqDDSn5IsOd2Ws1TVdRW4+G6+6CL0fBnqzQrixSKoUr8VBN/y04t88S59HgOJ7OLR
-	 MXgsqphnQ11ADds6fgz6TcmWVuahKY0uytjUSDVX22xMraoMpHIQRDLjHylbj8vFx6FmN
-	 nYJ0tMMCRq0cy+TCRBB+qicrU5PIhmAQODoUOAAgW3ccI/KlqRpWzIExMozA8TWbyXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794452971;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=qkinF/q9GCb+35gkYPPlegUGJ9Dwb0hvfw7/Lf59FvY=;
+	b=UW1mWc9ftRBuwUdMyAGeir3BRzU6SNQ9IiXl5C3o8KP2hUlXQIcmnpKYdNTycPhGoYA7
+	 9o2qo26lJQNISq9xc04L7o0OmC7Lo4UL05CZDQyz4DRjv1HDEH3Q9DOn4Kw8pwimISktP
+	 qRA9BuSwmRvNCo0hMA04nip1pLKrqTMr2lFPsdeuIWJMZ+8UEN6nObeFI9P9bs6sdPRxx
+	 wFgZu4+JOaYd1n8eGevQgqOVm6I1eKb2vbbk80KLMRXkF6NWH6ke0og5Uj9ddt4yJUuK0
+	 o2q8JsS2m6zUTSCWGFXcXbJarvY+oqnn2F64tk/vV16bSMxcI5K8VW+CoqIaayzfVKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=EGygWNvp;
-	arc=none smtp.remote-ip=52.26.1.71
-Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9CC606A327
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:09:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F9CC606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=EGygWNvp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794452972; x=1825988972;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=9tMy7TdKo/z2NyMVYvTP/qcvuej+8nl4xCS3DkO+JpI=;
-  b=EGygWNvp+PkZBOIu2ZHORep5umbf+BYUvvT30ytWNtqys2MT0kFCuCA+
-   jp0sPY9bl2y0BSb5cYEUV19J3BqohBq2mt6rWe6usdri355P864qVuwp/
-   8dxaAQDyxrHuOxFD5QxDbv0m6NY+dv49goYZDoRkQR8fitpqEKM4fC2CP
-   RUPX3CFlKoOATJCvWp3Qesao8WQLNCsQJyHDgjZn3bcjEzqrr0tuCeTCp
-   iFOpto2mquksn4bus3vjxq5e0KYssg2LrETIADk8on9dT0rRaCnK+jos0
-   QppNSLM3+85E0553oNG5T/SS/FhVpAb3dMJyWvLNLdxdGF/ey/hTd1AHv
-   g==;
-X-CSE-ConnectionGUID: DNoAsf44QX+orUegqv/8EA==
-X-CSE-MsgGUID: NN1DSASoTBCZyT4D2H3yQQ==
-X-IronPort-AV: E=Sophos;i="6.27,208,1787011200"; 
-   d="scan'208";a="33802440"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 03:09:30 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:21370]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.46.128:2525] with esmtp (Farcaster)
- id 105b05b4-ec3c-4215-bbf2-38e8d981c68f; Thu, 12 Nov 2026 03:09:29 +0000 (UTC)
-X-Farcaster-Flow-ID: 105b05b4-ec3c-4215-bbf2-38e8d981c68f
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 03:09:29 +0000
-Received: from ip-10-253-83-51.amazon.com (172.19.99.218) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 03:09:28 +0000
-From: Alexander Graf <graf@amazon.com>
-To: <linux-kernel@vger.kernel.org>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>
-CC: Arnd Bergmann <arnd@arndb.de>, <nh-open-source@amazon.com>, "The AWS Nitro
- Enclaves Team" <aws-nitro-enclaves-devel@amazon.com>
-Subject: [PATCH 12/19] nitro_enclaves: Put the CPU pool back when the new CPU list is refused
-Date: Thu, 12 Nov 2026 03:07:08 +0000
-Message-ID: <b9098275c3fc6be796306fbaea09d0def4674965.1794393487.git.graf@amazon.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <cover.1794300000.git.graf@amazon.com>
-References: <cover.1794300000.git.graf@amazon.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D12C606A324;
+	Thu, 12 Nov 2026 03:09:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D12C606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 75f5befede4611f19a56ed5b684f684d-20261112
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:037130f9-52f9-445f-b903-0fb7fdf7388f,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:9601ed369c3b6ffe06a276b458c22895,BulkI
+	D:nil,BulkQuantity:0,SF:80|81|82|83|102|136|865|898,TC:nil,Content:0|15|50
+	|99,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 75f5befede4611f19a56ed5b684f684d-20261112
+X-User: liwang@kylinos.cn
+Received: from [10.42.16.85] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <liwang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 475416175; Thu, 12 Nov 2026 11:09:23 +0800
+Message-ID: <98d41456-a6c4-48c2-8207-0d3fe32f8860@kylinos.cn>
+Date: Thu, 12 Nov 2026 11:09:20 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,114 +62,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA003.ant.amazon.com (10.13.139.47) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] fuse: virtio-fs: stop new requests before draining
+ queues
+To: Qihang <q.h.hack.winter@gmail.com>, German Maglione
+ <gmaglione@redhat.com>, Vivek Goyal <vgoyal@redhat.com>,
+ Stefan Hajnoczi <stefanha@redhat.com>, Miklos Szeredi <miklos@szeredi.hu>
+Cc: Eugenio Perez <eperezma@redhat.com>, virtualization@lists.linux.dev,
+ linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261109023957.34500-1-q.h.hack.winter@gmail.com>
+Content-Language: en-GB
+From: Li Wang <liwang@kylinos.cn>
+In-Reply-To: <20261109023957.34500-1-q.h.hack.winter@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-An admin who writes a CPU list that the driver refuses, for example one
-that names CPU 0, leaves out a sibling or spans two NUMA nodes, loses
-the pool that was there. The checks need every CPU of the list online
-and a CPU the pool holds is offline, so they can only run after the old
-pool is torn down.
+Hi Hang,
 
-Snapshot the CPUs of the pool before the teardown, and set the pool up
-again from the snapshot when the new list is refused. Where that fails
-as well, clear ne_cpus so that it does not name a pool that is gone.
+On 09/11/2026 10:39, Qihang wrote:
+> virtio_fs_conn_destroy() drains the virtqueues and then calls
+> fuse_conn_destroy(), which aborts the connection.  The abort ends every
+> request the fuse device still owns, and each ended request is freed as
+> soon as its waiter wakes up.
+> 
+> The drain only covers the requests that were already counted in
+> fsvq->in_flight when it started.  A request submitted after it returns is
+> not covered, but is still handed to the device before the abort runs:
+> 
+>   CPU 0 (umount)                     CPU 1
+>   ---------------------------------  --------------------------------
+>   virtio_fs_drain_all_queues()
+>     /* in_flight drops to 0 and
+>        the drain returns */
+>                                      virtio_fs_enqueue_req()
+>                                        virtqueue_add_sgs()
+>                                        inc_in_flight_req() -> 1
+>   fuse_conn_destroy()
+>     fuse_send_destroy()
+>     fuse_chan_abort()
+>       /* ends and frees the
+>          request above */
+>     fuse_chan_wait_aborted()
+>                                      /* the device still owns the
+>                                         virtqueue descriptors and
+>                                         DMA-writes into the freed
+>                                         request and its argbuf */
+> 
+> Stop admitting requests on each queue before draining begins.  The flag
+> is set per queue, but that is sufficient: request admission,
+> virtqueue_add_sgs() and, on the submission path, the in_flight
+> increment are serialized by the same fsvq->lock.  A request is
+> therefore either rejected before the device can see it, or already
+> counted in fsvq->in_flight and covered by the drain.  There is no
+> window in between.
+> 
+> Rejected requests use the existing -ENOTCONN error path and are ended by
+> virtio_fs_request_dispatch_work() through end_reqs, so no new request
+> completion or ownership state is introduced.  Nothing has to be
+> discarded in the completion path, and fsvq->in_flight remains the only
+> per-queue accounting state.
+> 
+> The -ENOSPC path needs the same admission check.  virtio_fs_enqueue_req()
+> drops fsvq->lock before returning -ENOSPC, and the caller queues the
+> request in a second critical section; teardown can finish in between and
+> leave the request stranded on queued_reqs, which nothing drains.
+> Re-check connected/aborting before queueing, in both the submission path
+> and the dispatch worker.  After aborting is set, no request can newly
+> enter queued_reqs or the virtqueue, except the explicitly permitted
+> FUSE_DESTROY path.
+> 
+> Rejected requests are ended by virtio_fs_request_dispatch_work().  If
+> their end callback may block (a DAX release), ending them inline can
+> deadlock: the callback may issue a synchronous request that needs the
+> same worker.  Offload those endings to a separate work item, like the
+> device completion path already does.
+> 
+> The new state is not folded into fsvq->connected because the request
+> queues have to stay usable: fuse_conn_destroy() sends FUSE_DESTROY
+> through them, with args.force set so that fuse_simple_request() waits
+> for the reply.  Clearing fsvq->connected would make that request fail
+> with -ENOTCONN and the server would never see the destroy.
+> 
+> FUSE_DESTROY is the sole exception while aborting is set.  It is sent
+> only after the first drain, and its completion is waited for before
+> fuse_chan_abort() can end requests, so the destroy is the only request
+> the device sees after the drain.  virtio-fs exposes no userspace
+> /dev/fuse fd (and no_control disables the fusectl interface), so
+> userspace cannot inject another request.
+> 
+> virtio_fs_start_all_queues() clears the flag, so a mount that follows an
+> unmount starts with admission enabled again.
+> 
+> Fixes: a62a8ef9d97d ("virtio-fs: add virtiofs filesystem")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
+> ---
+> V2 -> V3:
+> - re-check admission before queueing on -ENOSPC, in virtio_fs_send_req()
+>   and in the dispatch worker, so teardown cannot strand a request on
+>   queued_reqs
+> - offload may_block request endings in the dispatch worker to avoid a
+>   self-deadlock through fuse_simple_request()
+> - add Fixes: and Cc: stable
+> V1 -> V2:
+> - prevent new requests from reaching the virtqueue at teardown time
+>   instead of skipping completions of aborted requests
+> - keep FUSE_DESTROY working: it is the teardown request and is waited
+>   for before fuse_chan_abort()
+> - drop the per-vq aborted flag and the completion-skip branch
+>  fs/fuse/virtio_fs.c | 104 +++++++++++++++++++++++++++++++++++++++-----
+>  1 file changed, 94 insertions(+), 10 deletions(-)
+> 
+> diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
+> index ba8d79c4bcac6..a46536c9fdc8e 100644
+> --- a/fs/fuse/virtio_fs.c
+> +++ b/fs/fuse/virtio_fs.c
+> @@ -55,6 +55,7 @@ struct virtio_fs_vq {
+>  	struct work_struct dispatch_work;
+>  	struct fuse_dev *fud;
+>  	bool connected;
+> +	bool aborting; /* reject new requests except FUSE_DESTROY */
+>  	long in_flight;
+>  	struct completion in_flight_zero; /* No inflight requests */
+>  	struct kobject *kobj;
+> @@ -97,6 +98,11 @@ struct virtio_fs_req_work {
+>  	struct work_struct done_work;
+>  };
+>  
+> +struct virtio_fs_end_work {
+> +	struct work_struct work;
+> +	struct fuse_req *req;
+> +};
 
-Fixes: ff8a4d3e3a99 ("nitro_enclaves: Add logic for setting an enclave vCPU")
-Signed-off-by: Alexander Graf <graf@amazon.com>
----
- drivers/virt/nitro_enclaves/ne_misc_dev.c | 35 +++++++++++++++++++++--
- 1 file changed, 33 insertions(+), 2 deletions(-)
+We can avoid introducing it and reuse virtio_fs_req_work instead.
 
-diff --git a/drivers/virt/nitro_enclaves/ne_misc_dev.c b/drivers/virt/nitro_enclaves/ne_misc_dev.c
-index de3bf93a4ef0f..70d740d64ee17 100644
---- a/drivers/virt/nitro_enclaves/ne_misc_dev.c
-+++ b/drivers/virt/nitro_enclaves/ne_misc_dev.c
-@@ -382,6 +382,24 @@ static void ne_teardown_cpu_pool(void)
- 	mutex_unlock(&ne_cpu_pool.mutex);
- }
- 
-+/**
-+ * ne_snapshot_cpu_pool() - Copy out the CPUs the NE CPU pool holds.
-+ * @cpu_pool:	CPU mask to fill in with the CPUs from the NE CPU pool.
-+ *
-+ * Context: Process context.
-+ */
-+static void ne_snapshot_cpu_pool(struct cpumask *cpu_pool)
-+{
-+	unsigned int i = 0;
-+
-+	mutex_lock(&ne_cpu_pool.mutex);
-+
-+	for (i = 0; i < ne_cpu_pool.nr_parent_vm_cores; i++)
-+		cpumask_or(cpu_pool, cpu_pool, ne_cpu_pool.avail_threads_per_core[i]);
-+
-+	mutex_unlock(&ne_cpu_pool.mutex);
-+}
-+
- /**
-  * ne_set_kernel_param() - Set the NE CPU pool value via the NE kernel parameter.
-  * @val:	NE CPU pool string value.
-@@ -396,6 +414,7 @@ static int ne_set_kernel_param(const char *val, const struct kernel_param *kp)
- {
- 	char error_val[] = "";
- 	cpumask_var_t cpu_pool;
-+	cpumask_var_t old_pool;
- 	struct ne_pci_dev *ne_pci_dev = NULL;
- 	int rc = -EINVAL;
- 
-@@ -405,6 +424,12 @@ static int ne_set_kernel_param(const char *val, const struct kernel_param *kp)
- 	if (!zalloc_cpumask_var(&cpu_pool, GFP_KERNEL))
- 		return -ENOMEM;
- 
-+	if (!zalloc_cpumask_var(&old_pool, GFP_KERNEL)) {
-+		free_cpumask_var(cpu_pool);
-+
-+		return -ENOMEM;
-+	}
-+
- 	rc = down_read_killable(&ne_devs.lock);
- 	if (rc)
- 		goto free_cpumasks;
-@@ -443,13 +468,16 @@ static int ne_set_kernel_param(const char *val, const struct kernel_param *kp)
- 		goto unlock;
- 	}
- 
-+	ne_snapshot_cpu_pool(old_pool);
-+
- 	ne_teardown_cpu_pool();
- 
- 	rc = ne_setup_cpu_pool(cpu_pool);
- 	if (rc < 0) {
- 		pr_err("%s: Error in setup CPU pool [rc=%d]\n", ne_misc_dev.name, rc);
- 
--		param_set_copystring(error_val, kp);
-+		if (cpumask_empty(old_pool) || ne_setup_cpu_pool(old_pool) < 0)
-+			param_set_copystring(error_val, kp);
- 
- 		goto unlock;
- 	}
-@@ -460,7 +488,8 @@ static int ne_set_kernel_param(const char *val, const struct kernel_param *kp)
- 
- 		ne_teardown_cpu_pool();
- 
--		param_set_copystring(error_val, kp);
-+		if (cpumask_empty(old_pool) || ne_setup_cpu_pool(old_pool) < 0)
-+			param_set_copystring(error_val, kp);
- 	}
- 
- unlock:
-@@ -471,6 +500,8 @@ static int ne_set_kernel_param(const char *val, const struct kernel_param *kp)
- 	up_read(&ne_devs.lock);
- 
- free_cpumasks:
-+	free_cpumask_var(old_pool);
-+
- 	free_cpumask_var(cpu_pool);
- 
- 	return rc;
--- 
-2.47.1
-
+Thanks,
+Li Wang
