@@ -1,73 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794481610;
-	b=k+y0U94yDwqFtTN5NtdYB8heHqzeY13oyHdKyY/cXpnzQ/5NfOS0BIgCGFKSVnhab40H
-	 6u+YdSs9L/1bCL2pvi9LzYq7e5iM0hgJFRKnDKpBU0ht6RDxFODI3feQHcgljk+cUNKlN
-	 if1AAVKaYETSUReRJ3gK0e98z+/Zt+pku+eKWiZAVJaEN9rdFYHaAd9/OGqRvnuL9AtLG
-	 1sPZWh/fWURxJnpruHGBASAxm+GzrLrHfL8iu6ENFB5xNVnaIwlkXvwF8kW4ctmBWCnJC
-	 uGAAKjWDW9bSnfh5Jm5b5WeSiNBM2LU/gP6A+FThyJJYJhqAedSP1NKCFetV/xYGx/Q==
+	t=1794481641;
+	b=HYbadZX/YjQZCrntQK7NDVtiXTA4NaIGWp5XeIBBN4+m4LuhrzfZOP6gnqzj7bRpBYv3
+	 2K+9tzLMncqtSGWoS4ZxwGqNR51g67wE24R4Pb988A+Xt3kdmPIPKWrBDNEfY+lMrgySd
+	 tyBhAsEjHIxuaOK1Vkd3Ze/HBDUyKAPWaseQ7hASQqqBrbVs/vGOOzcVwqJiUWzf58Oh9
+	 pLOQmtQHcwMQ0DTo3kxKQHt8nl5JdVVcg3wWIlvspGLTMqMO/QNahO9mpGGcqp1ybjDZ9
+	 ZThZoG5qO/hh7CsjwCOBZm52/tR7WOv/1wHc+PLIOf/Ksg5wtmqqeYXEiKGmg/a+Hgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794481610;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794481641;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=vSq1qT4UA/SFFJR/GJu5ROIhm9ZxkHbbkGrHiDg+96o=;
-	b=IO5P5OD5xQJZhtFM+ZW01ToFGe3IMRHsnmXSSPOJ+PDlQPU1OKPA3fUdnl6j21Yx5f8V
-	 CIZtZ+DXgzGgo30V+hFtNjCzxdrbTg/KUgMi+iiZtCqP6EMLhPkoYpSx/GGzxRWvFlqZh
-	 iJ+eUdy3W0W5TmBNvzWn3xR0Y7zUsyKwwNX8IjNsEMfgfKfaX3CH6HngpEpEa1zXyHrFr
-	 Bcli+mq7fVzYMuc89u1JMoHzAzeN7gI8wQNR3WeTW7arnC9//8k30i93vsERRlRb2XDJ1
-	 tvyHPqkKcE5A8b4pNYe7ZLVfdIe8yOL2fHAJk7y7iGxPlct8gTvu6FFGXOtADoS4OfA==
+	bh=qWeS0NgDvcKbIEpxfzf+p16AQC0TcpaMh9jlYpEYTd0=;
+	b=GA09OXlDP1Cyqpd6ooxVlzAdU5oWzuIb4s+7e9kSsxe/7KicGe+dvIwGIjYKV0O0LZmP
+	 jgK/5ZBhpLmogdSjYs01/kpH8y/ifT5PmD+GDKm90s14tWttY7RVnGsKs5ssw1FyC2vlk
+	 5A+JT59yV2iVeuCmncFNVQXwkG+xPVJlb00DfEZQchHPL9VFwVijfWIDtiLY8IF3Lgr6f
+	 TywYhWspzJ38wGh9bjHmz1zr9PYnOY+E4cj7Qqrr+e/cTJKx5MGC8KnQLGHNdmybK2AwD
+	 NfeHiLkLbhiGxeE8ZE1znMuCDyRj5IMd2uyASnsOkCSyZwtnNjFwvQz339YwwjpIKxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CgL6tMTt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QhaavtxU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86CBB606A321;
-	Thu, 12 Nov 2026 11:06:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518F7606A31C;
+	Thu, 12 Nov 2026 11:07:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CgL6tMTt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 007A81F00A05;
-	Thu, 12 Nov 2026 11:06:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QhaavtxU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BC4E1F00A05;
+	Thu, 12 Nov 2026 11:07:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794481610;
-	bh=vSq1qT4UA/SFFJR/GJu5ROIhm9ZxkHbbkGrHiDg+96o=;
+	s=k20260515; t=1794481641;
+	bh=qWeS0NgDvcKbIEpxfzf+p16AQC0TcpaMh9jlYpEYTd0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CgL6tMTtg/S8q8yyQ/zzYtg9kJGnRqNf4TdTF0m8ZeWqRXWL2/Oi+iirLh3VdN7KX
-	 /0rI4Xhikgv+80DYB8hHzH+HE7Xd9l/cKADhJoww7yeq2yT0f8VkH7WvzEaS01VtF0
-	 0/yy+UxDZIbqt1F516bbUZckJ69oh7MkXOYItH/jk6t+E+yJ3BOZlGS0lSAubIMpYk
-	 YpVBtER2Ihm5gyMIDsO72fULol91zd9fILGJjGhutuKzecoleh+Rg2ePnBFDYcI6OQ
-	 aDRCDVlVxM9EnkeradPkM0L/mqk6J/1bSht5CcFMsbZPb3GgmQ4bFfavYVN9z5mRQM
-	 eixxs/EhIbtRQ==
-Date: Thu, 12 Nov 2026 11:06:38 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
-	James Houghton <jthoughton@google.com>, Andrea Arcangeli <aarcange@redhat.com>, 
-	Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, Andrei Vagin <avagin@gmail.com>, 
-	Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>, 
-	Muhammad Usama Anjum <usama.anjum@arm.com>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Chris Down <chris@chrisdown.name>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	=?utf-8?Q?Miko=C5=82aj?= Lenczewski <miko.lenczewski@arm.com>, Michal Hocko <mhocko@suse.com>, 
-	Mike Kravetz <mike.kravetz@oracle.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH 11/12] mm/madvise: send UFFD_EVENT_REMOVE when installing
- guard regions
-Message-ID: <avWdmdtniATARDTX@gremlin>
-References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
- <20261111-uffd-state-fixes-v1-11-00713d368976@columbia.edu>
- <avWW5t1BiD7pbzIZ@gremlin>
+	b=QhaavtxU3Cm/0IiltpMBMkzhBEsLePlMEHpQEmlftFSzjCYvqxNk9TxD40Qf6at8l
+	 vvGgALTEByUzOh5Q807X8FoGvVGQZXcvQSgz/JmJwD00HwVV4o6w037ZqtM9wTgnK2
+	 8qrMerHZhm9y2SKYwPHd8B58lzGTo5Nrkivt79K5kjw4LITM4bkyQYby1eZ7R6+dLy
+	 GBBq+2xG3/ZRn94s7ylcfP672ZrT7Cz/BbD6B7EstjbKrV0C9wz60RPaOYNUKYNo4g
+	 2ZAwZ7H2nvPgx7dLiFFYA98QE7yRzvswBu/sC++RX9cQcWg3JDfGUVxOyJwwRfooaV
+	 0d2DxG1Yg0yUQ==
+Date: Thu, 12 Nov 2026 12:07:17 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Pufan Jin <cyan2254650260@gmail.com>
+Cc: Conor Dooley <conor+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Michal Simek <michal.simek@amd.com>, 
+	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>
+Subject: Re: [PATCH v2 1/2] dt-bindings: soc: xilinx: Add ALINX AX7Z020B board
+Message-ID: <20261112-hallowed-cerulean-viper-fe5d4b@quoll>
+References: <20261111162917.97532-1-cyan2254650260@gmail.com>
+ <20261111162917.97532-2-cyan2254650260@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,19 +59,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <avWW5t1BiD7pbzIZ@gremlin>
+In-Reply-To: <20261111162917.97532-2-cyan2254650260@gmail.com>
 
-On Thu, Nov 12, 2026 at 11:03:29AM +0000, Lorenzo Stoakes (ARM) wrote:
-> > Fixes: 662df3e5c376 ("mm: madvise: implement lightweight guard page mechanism")
-> > Closes: https://lore.kernel.org/linux-mm/3f4b0d1b.bbf84.1a1c55cb666.Coremail.18670333770@163.com/
->
-> This report was super-synthetic AI slop
->
+On Wed, Nov 11, 2026 at 11:29:16AM -0500, Pufan Jin wrote:
+> Document the ALINX AX7Z020B development board, built around the ALINX
+> AC7Z020 system on module.
+> 
+> Link: https://www.alinx.com/
 
-Oops, let me finish this thought... it was super-synthetic AI slop to the point
-that I am not sure it's even worth referencing.
+Drop link, pointless in this context.
 
---
-Cheers, Lorenzo
+> Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
+> ---
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
+
