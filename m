@@ -1,11 +1,11 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.68.102
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794488214;
-	b=jgXuSrnpuZ1cG8OfK/GMQC+zR2UGmCRws2UbIVTZ3RuOOiypDYxBwq5GKA47R9nNj/hx
-	 MUNhaQhbFFbCLZc9QBQt4ZP8maV4Z/oaRDhMger/lgZsnY9xBluBJWMrGGfCsGJxZd7uw
-	 /FLzeBlicT6S2u4ZXiW9raqbnquEadrg5DfglbBN23kPRL/3ybxE4GgstS85QCtNEw1yP
-	 NUcyEDtrg2jiut3HrrTV1o1jZ6SELIdAPTMhhemWXwEWPx0Q5HlqvaniW0PFOaWj4JRZB
-	 k5JwlZfGlBmI7yBmDeYkmKszA6EnjpFWkYNm5vIPhJj4OY+aRbxcTUyLnHaebow5ZPg==
+	b=tgpVQX1QDI5Qm7gTcrgYwGVJRACIc1TFX7CDYv9VwmQKfVexiDXRZJVVp5KUeY/TE50j
+	 vJ6hDQCAtJEEiIwl0+vXCIlBjbwTS266SXm5HtEJfTkkt5NBBuHDilsJ7rGbuWI97DQ74
+	 8eq0PVyKOP4r9Gt7kLnkK/cIDbiwL0Cb1y8HXh7r3lfehdjwZ6JDqmDPkHEPc/naJ4xVj
+	 +/tyST20324vb8csIsR0Ue4e4yNx0RoweMBld6JBx596qY8cHpqSKt5AtMpiFhgPiNVjV
+	 AcSwzAyEATWg16Yp0H5OVOKPVeYZgxv0pGl/Oech4VHqv77nr+Kt1xXzlxoGpZXRWng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794488214;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
@@ -13,59 +13,59 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=6Gt83+fxMlROkzHsSkTZbFg0XGnf3ZdikmYRaQBMHvc=;
-	b=kBlMHlB60CEaRV2eRXFwOUJGO6+NWThOyZ+b5gULJQjIYheQBmrheaeiL1CDLIRSiXq7
-	 nYkq/Omt29kxYb4GD3bi+7yLvR8k5X5VCo1eJY75pecKBCUER86jhezbcKbFhfDuRTljI
-	 1TsdNzsSq2TiqU0PfozdQrkA+6Nh+blvdbG0JzI06+jNRH4m4w9JeH5dA0kEcpmvfc5D3
-	 BzxtCNSoJqlLrp6F+K2HWOg6bg2wwED8p9MCUxU0oebit5GKh6enMDbScZaVX98NEfbtr
-	 gZhALdqem4sx00AGkyso6y14ZZXpTNUjrWJYalkOzQbglCZ667BL7AA9gL26pyby5Uw==
+	bh=D/d4ZrZKEqMTH1maihvf8QldnzgMpcXtRE7WhIed8OE=;
+	b=kfMrUlIdujNtgzzwS/LKCQRyWT8FW/kO7oBd12RxP81/ZYln568CWw8AJlNAq80vLxGU
+	 gTHGvGKKxvSazpa7plWnTefP4o4C1KViPKPSkt4VMze8okK8WmFevGfdVypOTZTMBPQi9
+	 EUSN3veyxsV9kKSySZ/dj12+3B2JRgR+p1h+B6SXW09Dq2MuSpanmxDdJWM5Rg6gGSIeK
+	 VYeeVNebh0cfJ+xL3U/dPp/fnYEYC47yKCis3UvZ8n6QZUfITnaXXl5PyOoNtjzaCSGnG
+	 fCTaiuM77f81QnKjSpXIQxC8YtHR1djC3fTm4R9ls8a6e4hKzx4hQ2cq626PBX/mD8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amazon.com;
 	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=WGQtNDBw;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=sg3vZJ+F;
 	arc=none smtp.remote-ip=44.246.68.102
 Received: from pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.68.102])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A67BE606A334
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:56:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A67BE606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 260AA606A88C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:56:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 260AA606A88C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=WGQtNDBw
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=sg3vZJ+F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794488213; x=1826024213;
+  t=1794488214; x=1826024214;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=6Gt83+fxMlROkzHsSkTZbFg0XGnf3ZdikmYRaQBMHvc=;
-  b=WGQtNDBwQyIUMNAYY3NcXjlOA2disVwLF7HcU+B6WhZJ7c4X9UEaOq2h
-   mj0pWv52D+nE16NKEQ4qgHoPCatoN+sxmxy5JZcRlGEOS70itCphorEKq
-   KyUDdakvMFnEWNOGzPpZtZFhutFcPncF7rOkzMLyKJE9i88rQBSBZ9urQ
-   02Zr6+1YMXDD2KeM6mwg2n+X/mFdp8q4L1hVZUvPJswXcdrOdcEo7gtWw
-   7mq4QMQpTxws6r+Tlypb1EPOKY+Bi66KsRMqUGlzA/TPSyaZq9nPDYOQy
-   VuuV9ucKM/qIdi5HHgSrGNVHuMC5jKPcfZ4wzRrfwcldT8avLWd9lXooV
-   w==;
-X-CSE-ConnectionGUID: 1QyHUlQgTrakZbRh7HeLzg==
-X-CSE-MsgGUID: yoSc2calRBWdh6F3k2s9/w==
+  bh=D/d4ZrZKEqMTH1maihvf8QldnzgMpcXtRE7WhIed8OE=;
+  b=sg3vZJ+FmDS8xn5mOLDYzdjNIfIhd7D1xiYX2lXS4Xg9U2aNB5Omv+XR
+   J34ywtJ3FccmvpdN13cUTy+WZK83OcCgvZx4gyKk0SPc523TdnApwXB4S
+   9m1SAsjKXxWCYQz6biWIOr3Y5rwEYvBLhMlPqR78e9nFn2sqgy/hGyrEm
+   ej5Gsb5ojbHWuPuGsa144wrr3AbOBKFGUAtAdYxIFqdXeSQi5AGN78syc
+   ANNRVwi6hmO5qWItFv/bWx3IxtGGL2g7u+Op9JEdfes/PUr38AAO1ECTI
+   AZjJMGKtC5B3nuCB3lRwVa7yrz0s2ljioa9B3zEqnOMIhNZPpjRQGJnHo
+   g==;
+X-CSE-ConnectionGUID: 0bekGHWISNGLadMSnjM1lQ==
+X-CSE-MsgGUID: TIokyFAQTdCLgg1s/P28Uw==
 X-IronPort-AV: E=Sophos;i="6.27,209,1787011200"; 
-   d="scan'208";a="33728090"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 12:56:52 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:31229]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.24.250:2525] with esmtp (Farcaster)
- id d063ba05-e049-4b16-a1e0-ffebd400aeab; Thu, 12 Nov 2026 12:56:52 +0000 (UTC)
-X-Farcaster-Flow-ID: d063ba05-e049-4b16-a1e0-ffebd400aeab
+   d="scan'208";a="33728083"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 12:56:50 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:12720]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.31.142:2525] with esmtp (Farcaster)
+ id 04382821-b0dc-4ada-83da-4360efc3a3c1; Thu, 12 Nov 2026 12:56:50 +0000 (UTC)
+X-Farcaster-Flow-ID: 04382821-b0dc-4ada-83da-4360efc3a3c1
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 12:56:52 +0000
+ Thu, 12 Nov 2026 12:56:50 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Thu, 12 Nov 2026
- 12:56:49 +0000
+ 12:56:47 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman
 	<gregkh@linuxfoundation.org>, David Hildenbrand <david@kernel.org>
@@ -74,9 +74,9 @@ CC: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
  Baghdasaryan" <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jann Horn
 	<jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, <linux-mm@kvack.org>,
 	<linux-kernel@vger.kernel.org>, Eliav Farber <farbere@amazon.com>
-Subject: [PATCH v2 3/4] mm/char-mem: implement huge_fault support for /dev/mem
-Date: Thu, 12 Nov 2026 12:56:37 +0000
-Message-ID: <20261112125638.12209-4-farbere@amazon.com>
+Subject: [PATCH v2 2/4] mm: add vmf_insert_pfn_order() and vmf_pfn_order_ok() helpers
+Date: Thu, 12 Nov 2026 12:56:36 +0000
+Message-ID: <20261112125638.12209-3-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261112125638.12209-1-farbere@amazon.com>
 References: <20261112125638.12209-1-farbere@amazon.com>
@@ -94,206 +94,245 @@ Content-Type: text/plain
 X-ClientProxiedBy: EX19D031UWA004.ant.amazon.com (10.13.139.19) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-/dev/mem is commonly used to map large physical regions (reserved
-memory, device memory) into userspace. mmap_mem_prepare() maps the whole
-range at mmap() time with 4K PTEs, however large and well aligned it is,
-which costs many page-table entries and TLB misses.
+->fault/->huge_fault handlers of VM_PFNMAP mappings that want huge PFN
+mappings open-code the same steps: check that the order-aligned fault
+window lies within the VMA and that the pfn is aligned to the order,
+then call vmf_insert_pfn(), vmf_insert_pfn_pmd() or vmf_insert_pfn_pud()
+depending on the order, guarded by
+CONFIG_ARCH_SUPPORTS_{PMD,PUD}_PFNMAP, and fall back to a smaller order
+otherwise. vfio-pci has its own is_aligned_for_order() and
+vfio_pci_vmf_insert_pfn() for this.
 
-Map non-COW mappings on fault instead, as vfio-pci does since commit
-f9e54c3a2f5b ("vfio/pci: implement huge_fault support"): request
-MMAP_PFN_TRACK rather than an eager remap, so the VMA is set up and its
-memory type tracked as before, and add ->fault/->huge_fault handlers
-that map the faulting window with vmf_insert_pfn_order(), using a PMD or
-PUD where alignment allows.
+Add vmf_pfn_order_ok() for the window and alignment check, and
+vmf_insert_pfn_order() for the order dispatch. The latter also checks
+pfn_modify_allowed() for huge orders: the order-0 vmf_insert_pfn() does
+this, but vmf_insert_pfn_pmd() and vmf_insert_pfn_pud() do not. The two
+are separate so that a driver can apply its own policy (access checks,
+device locking) between them.
 
-COW mappings cannot be populated by vmf_insert_pfn*(), which BUG_ON()s
-a COW VM_PFNMAP vma, so they stay eager and keep a vm_ops without
-fault handlers. do_fault() then rechecks a pte it found cleared under
-the page table lock, and refuses it with SIGBUS only once it is really
-gone, as after revoke_iomem(); a PMD-aligned COW mapping is also not
-reported as THP eligible in smaps.
+vmf_insert_pfn_order() passes the fault's write flag to
+vmf_insert_pfn_pmd() and vmf_insert_pfn_pud(), as the DAX and DRM
+->huge_fault handlers do. With write=false, insert_pmd() leaves a
+read-only entry in place and returns VM_FAULT_NOPAGE, so a store to a
+mapping that soft-dirty tracking write-protected faults forever;
+wp_huge_pmd() splits the entry only when the handler returns
+VM_FAULT_FALLBACK. Passing it marks the entry young, dirty and, where
+the VMA allows, writable, as wp_page_reuse() does at PTE level. uffd-wp
+cannot apply here: vma_can_userfault() rejects a VM_PFNMAP vma at its
+mm-backed test.
 
-The handler re-checks range_is_allowed(): with CONFIG_IO_STRICT_DEVMEM,
-revoke_iomem() zaps a range once a driver claims it, and a fault must
-not map it back in. With CONFIG_STRICT_DEVMEM this costs one
-devmem_is_allowed() call per page of the faulting window.
-Unlike the eager mapping, a revoke is not permanent: once the driver
-releases the range, a fault repopulates the mapping, as a fresh mmap()
-of it would.
+The order-0 path takes the flag too, so the helper does not behave
+differently at different orders. A CPU store does not need it: the
+order-0 fault installs a read-only entry and the store faults again,
+where do_wp_page() -> wp_pfn_shared() upgrades it. A caller that faults
+a page in without retrying the access, fixup_user_fault() from an
+->access handler, gets no second fault, and generic_access_phys() takes
+its writability from pte_write(); I have not been able to observe that
+combination failing on /dev/mem or on either UIO memtype, so this is
+consistency rather than a fix for an observed failure. vmf_insert_pfn()
+cannot pass the flag, so vmf_insert_pfn_prot() keeps its signature and
+its body moves to a static helper that takes mkwrite.
 
-Without CONFIG_IO_STRICT_DEVMEM the re-check still changes behaviour. A
-driver can take an IORESOURCE_EXCLUSIVE region at any time, which makes
-devmem_is_allowed() refuse those pages, and revoke_iomem() is a no-op
-in that configuration. The eager mapping therefore kept serving them,
-while a fault now returns SIGBUS for any page not already touched.
+The helper also declines the huge zero folio's pfn, which
+vmf_insert_pfn_pmd() refuses with SIGBUS, so that the fault is retried
+at PTE order where it maps.
 
-generic_access_phys() only follows present PTEs, so .access now faults
-the page in first; otherwise remote access (ptrace, /proc/pid/mem) to an
-untouched page would fail. A mapping that does not permit the fault,
-PROT_NONE for example, keeps that gap: fixup_user_fault() refuses it,
-where the eager mapping left a present PTE.
-
-Validation at mmap() time is unchanged, except for the L1TF pfn check.
-remap_pfn_range() rejected a disallowed pfn at mmap() time, which
-error_override turned into -EAGAIN, so an unprivileged mmap(PROT_NONE)
-of a pfn above l1tf_pfn_limit() failed. It now succeeds. Nothing fails
-later instead: pfn_modify_allowed() only denies a prot that needs PTE
-inversion, i.e. a non-present one, and no pte is installed for an
-inaccessible vma.
-
-vmf_insert_pfn() refuses the zero pfn, where remap_pfn_range() mapped
-it, so a page of RAM that happens to be the zero page now SIGBUSes.
-That needs /dev/mem access to RAM, i.e. a kernel without
-CONFIG_STRICT_DEVMEM.
-
-Without huge PFN mappings, or for small or unaligned mappings, the
-range is populated one page per fault, paid only for pages that are
-actually touched.
+They will be used by the /dev/mem and UIO huge_fault handlers added
+later in this series.
 
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
 v2:
-COW mappings get their own vm_operations_struct defining only .access,
-instead of a COW test inside the fault handler, which was not enough:
-installing ->fault at all skips do_fault()'s recheck of a pte cleared under
-the page table lock. Corrected the L1TF claim in the commit message -
-mmap(PROT_NONE) above l1tf_pfn_limit() now succeeds, and nothing fails
-later - and documented what the fault-time range_is_allowed() re-check
-changes without CONFIG_IO_STRICT_DEVMEM. Reported by sashiko-bot.
+The order-0 path passes the fault's write flag too, so a caller that does
+not retry the access, fixup_user_fault() from an ->access handler, is not
+left with a read-only pte. vmf_insert_pfn_prot() keeps its signature; its
+body moved into a static __vmf_insert_pfn_prot() taking mkwrite. Dropped
+the commit message's claim that uffd-wp can write-protect such a mapping;
+it cannot. Reported by sashiko-bot.
 
- mm/char-mem.c | 108 ++++++++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 104 insertions(+), 4 deletions(-)
+ include/linux/mm.h |  28 +++++++++++
+ mm/memory.c        | 115 +++++++++++++++++++++++++++++++++++----------
+ 2 files changed, 119 insertions(+), 24 deletions(-)
 
-diff --git a/mm/char-mem.c b/mm/char-mem.c
-index c5761ddedbd7..99f02d6a8b07 100644
---- a/mm/char-mem.c
-+++ b/mm/char-mem.c
-@@ -318,9 +318,95 @@ static inline int private_mapping_ok(struct vm_area_desc *desc)
- }
- #endif
- 
-+#ifdef CONFIG_MMU
-+/*
-+ * Populate /dev/mem mappings on fault, using a PMD or PUD mapping where the
-+ * architecture, the fault address and the pfn allow it.
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index c11bdee1596a..57437b317709 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -5010,6 +5010,34 @@ vm_fault_t vmf_insert_mixed(struct vm_area_struct *vma, unsigned long addr,
+ 			unsigned long pfn);
+ vm_fault_t vmf_insert_mixed_mkwrite(struct vm_area_struct *vma,
+ 		unsigned long addr, unsigned long pfn);
++vm_fault_t vmf_insert_pfn_order(struct vm_fault *vmf, unsigned long pfn,
++				unsigned int order);
++
++/**
++ * vmf_pfn_order_ok - check that a pfn can be mapped at a given fault order
++ * @vmf: The fault being handled.
++ * @pfn: The pfn to map at the start of the order-aligned fault window.
++ * @order: The fault order (0 for a single page).
++ *
++ * For a huge (order > 0) fault, the order-aligned window around @vmf->address
++ * must lie within the VMA and @pfn must be aligned to @order. @pfn is only
++ * looked at once the window is known to lie within the VMA, so a caller may
++ * compute it before calling, even when the window starts below vm_start.
++ *
++ * Return: true if vmf_insert_pfn_order() may map @pfn at @order, false if the
++ * fault should fall back to a smaller order.
 + */
-+static vm_fault_t mmap_mem_huge_fault(struct vm_fault *vmf, unsigned int order)
++static inline bool vmf_pfn_order_ok(const struct vm_fault *vmf,
++				    unsigned long pfn, unsigned int order)
 +{
++	const struct vm_area_struct *vma = vmf->vma;
 +	unsigned long addr = vmf->address & ~((PAGE_SIZE << order) - 1);
++
++	return !order || (addr >= vma->vm_start &&
++			  addr + (PAGE_SIZE << order) <= vma->vm_end &&
++			  IS_ALIGNED(pfn, 1UL << order));
++}
++
+ int vm_iomap_memory(struct vm_area_struct *vma, phys_addr_t start, unsigned long len);
+ 
+ static inline vm_fault_t vmf_insert_page(struct vm_area_struct *vma,
+diff --git a/mm/memory.c b/mm/memory.c
+index ab29ec719ae1..2e4bb5af22ce 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2912,6 +2912,36 @@ static vm_fault_t insert_pfn(struct vm_area_struct *vma, unsigned long addr,
+ 	return VM_FAULT_NOPAGE;
+ }
+ 
++static vm_fault_t __vmf_insert_pfn_prot(struct vm_area_struct *vma,
++					unsigned long addr, unsigned long pfn,
++					pgprot_t pgprot, bool mkwrite)
++{
++	/*
++	 * Technically, architectures with pte_special can avoid all these
++	 * restrictions (same for remap_pfn_range).  However we would like
++	 * consistency in testing and feature parity among all, so we should
++	 * try to keep these invariants in place for everybody.
++	 */
++	BUG_ON(!(vma->vm_flags & (VM_PFNMAP|VM_MIXEDMAP)));
++	BUG_ON((vma->vm_flags & (VM_PFNMAP|VM_MIXEDMAP)) ==
++						(VM_PFNMAP|VM_MIXEDMAP));
++	BUG_ON((vma->vm_flags & VM_PFNMAP) && vma_is_cow_mapping(vma));
++	BUG_ON((vma->vm_flags & VM_MIXEDMAP) && pfn_valid(pfn));
++
++	if (unlikely(is_zero_pfn(pfn)))
++		return VM_FAULT_SIGBUS;
++
++	if (addr < vma->vm_start || addr >= vma->vm_end)
++		return VM_FAULT_SIGBUS;
++
++	if (!pfn_modify_allowed(pfn, pgprot))
++		return VM_FAULT_SIGBUS;
++
++	pfnmap_setup_cachemode_pfn(pfn, &pgprot);
++
++	return insert_pfn(vma, addr, pfn, pgprot, mkwrite);
++}
++
+ /**
+  * vmf_insert_pfn_prot - insert single pfn into user vma with specified pgprot
+  * @vma: user vma to map to
+@@ -2948,30 +2978,7 @@ static vm_fault_t insert_pfn(struct vm_area_struct *vma, unsigned long addr,
+ vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
+ 			unsigned long pfn, pgprot_t pgprot)
+ {
+-	/*
+-	 * Technically, architectures with pte_special can avoid all these
+-	 * restrictions (same for remap_pfn_range).  However we would like
+-	 * consistency in testing and feature parity among all, so we should
+-	 * try to keep these invariants in place for everybody.
+-	 */
+-	BUG_ON(!(vma->vm_flags & (VM_PFNMAP|VM_MIXEDMAP)));
+-	BUG_ON((vma->vm_flags & (VM_PFNMAP|VM_MIXEDMAP)) ==
+-						(VM_PFNMAP|VM_MIXEDMAP));
+-	BUG_ON((vma->vm_flags & VM_PFNMAP) && vma_is_cow_mapping(vma));
+-	BUG_ON((vma->vm_flags & VM_MIXEDMAP) && pfn_valid(pfn));
+-
+-	if (unlikely(is_zero_pfn(pfn)))
+-		return VM_FAULT_SIGBUS;
+-
+-	if (addr < vma->vm_start || addr >= vma->vm_end)
+-		return VM_FAULT_SIGBUS;
+-
+-	if (!pfn_modify_allowed(pfn, pgprot))
+-		return VM_FAULT_SIGBUS;
+-
+-	pfnmap_setup_cachemode_pfn(pfn, &pgprot);
+-
+-	return insert_pfn(vma, addr, pfn, pgprot, false);
++	return __vmf_insert_pfn_prot(vma, addr, pfn, pgprot, false);
+ }
+ EXPORT_SYMBOL(vmf_insert_pfn_prot);
+ 
+@@ -3002,6 +3009,66 @@ vm_fault_t vmf_insert_pfn(struct vm_area_struct *vma, unsigned long addr,
+ }
+ EXPORT_SYMBOL(vmf_insert_pfn);
+ 
++/**
++ * vmf_insert_pfn_order - insert a pfn mapping of a given fault order
++ * @vmf: The fault being handled.
++ * @pfn: The pfn to map at the start of the order-aligned fault window.
++ * @order: The fault order (0 for a single page).
++ *
++ * Helper for ->fault and ->huge_fault handlers of VM_PFNMAP mappings: maps @pfn
++ * with a PTE for order 0, or with a PMD/PUD for PMD_ORDER/PUD_ORDER where the
++ * architecture supports huge PFN mappings. The caller must have checked the
++ * window and the pfn alignment with vmf_pfn_order_ok().
++ *
++ * vma cannot be a COW mapping.
++ *
++ * A write fault is mapped writable where the VMA allows it, so a first write
++ * does not call ->pfn_mkwrite.
++ *
++ * Return: vm_fault_t value; %VM_FAULT_FALLBACK if @order cannot be mapped, so
++ * that the fault is retried at a smaller order.
++ */
++vm_fault_t vmf_insert_pfn_order(struct vm_fault *vmf, unsigned long pfn,
++				unsigned int order)
++{
 +	struct vm_area_struct *vma = vmf->vma;
-+	unsigned long pfn;
++	bool write = vmf->flags & FAULT_FLAG_WRITE;
 +
 +	/*
-+	 * vm_pgoff is the base pfn of the mapping. vmf_pfn_order_ok() ignores
-+	 * pfn if the window starts below vm_start.
++	 * Map a write fault writable at order 0 too, as the PMD and PUD paths
++	 * below do. Otherwise the pte comes from vma->vm_page_prot, which is
++	 * read-only while soft-dirty tracking is armed, and a caller that has
++	 * no second fault to upgrade it - fixup_user_fault() from .access, for
++	 * one - is left with a read-only pte.
 +	 */
-+	pfn = vma->vm_pgoff + ((addr - vma->vm_start) >> PAGE_SHIFT);
-+	if (!vmf_pfn_order_ok(vmf, pfn, order))
++	if (!order)
++		return __vmf_insert_pfn_prot(vma, vmf->address, pfn,
++					     vma->vm_page_prot, write);
++
++	/*
++	 * vmf_insert_pfn_pmd() refuses the huge zero folio's pfn with SIGBUS,
++	 * while a PTE mapping of it is fine, so fall back to a smaller order.
++	 */
++	if (is_huge_zero_pfn(pfn))
 +		return VM_FAULT_FALLBACK;
 +
 +	/*
-+	 * Access was checked at mmap() time, but with CONFIG_IO_STRICT_DEVMEM
-+	 * revoke_iomem() zaps the mapping once a driver claims part of the
-+	 * range. Re-check here so a revoked page is not faulted back in. Like
-+	 * the mmap()-time check, it is not serialised against revoke_iomem(),
-+	 * so a fault that passed it can still install a page revoked right
-+	 * after.
++	 * vmf_insert_pfn_pmd()/_pud() don't call pfn_modify_allowed(), unlike
++	 * the order-0 path, so check it explicitly for the L1TF mitigation.
 +	 */
-+	if (!range_is_allowed(pfn, PAGE_SIZE << order))
-+		return order ? VM_FAULT_FALLBACK : VM_FAULT_SIGBUS;
++	if (!pfn_modify_allowed(pfn, vma->vm_page_prot))
++		return VM_FAULT_FALLBACK;
 +
-+	return vmf_insert_pfn_order(vmf, pfn, order);
++	if (IS_ENABLED(CONFIG_ARCH_SUPPORTS_PMD_PFNMAP) && order == PMD_ORDER)
++		return vmf_insert_pfn_pmd(vmf, pfn, write);
++
++	if (IS_ENABLED(CONFIG_ARCH_SUPPORTS_PUD_PFNMAP) && order == PUD_ORDER)
++		return vmf_insert_pfn_pud(vmf, pfn, write);
++
++	return VM_FAULT_FALLBACK;
 +}
++EXPORT_SYMBOL_GPL(vmf_insert_pfn_order);
 +
-+static vm_fault_t mmap_mem_fault(struct vm_fault *vmf)
-+{
-+	return mmap_mem_huge_fault(vmf, 0);
-+}
-+#endif /* CONFIG_MMU */
-+
-+#ifdef CONFIG_HAVE_IOREMAP_PROT
-+/*
-+ * generic_access_phys() only follows present PTEs, and a lazily populated
-+ * mapping has none for pages the target has not touched yet. Fault the page in
-+ * first, so that remote access (ptrace, /proc/pid/mem) keeps working.
-+ *
-+ * fixup_user_fault() refuses a fault the vma does not permit, so an untouched
-+ * page of a mapping without VM_READ stays unreadable, where the eager mapping
-+ * left a present PTE.
-+ */
-+static int mmap_mem_access(struct vm_area_struct *vma, unsigned long addr,
-+			   void *buf, int len, int write)
-+{
-+	unsigned int fault_flags = FAULT_FLAG_REMOTE;
-+
-+	if (write)
-+		fault_flags |= FAULT_FLAG_WRITE;
-+
-+	/*
-+	 * With unlocked == NULL, fixup_user_fault() keeps the mmap lock held
-+	 * and the vma valid.
-+	 */
-+	fixup_user_fault(vma->vm_mm, addr, fault_flags, NULL);
-+
-+	return generic_access_phys(vma, addr, buf, len, write);
-+}
-+#endif
-+
-+/*
-+ * COW mappings are mapped eagerly by remap_pfn_range() and cannot be populated
-+ * on fault: vmf_insert_pfn*() BUG_ON() a COW VM_PFNMAP vma. Leave them without
-+ * fault handlers, so that do_fault() rechecks a pte it found cleared under the
-+ * page table lock, and fails only once the pte is really gone, as after
-+ * revoke_iomem(), and so that they are not reported as THP eligible in smaps.
-+ */
-+static const struct vm_operations_struct mmap_mem_cow_vm_ops = {
-+#ifdef CONFIG_HAVE_IOREMAP_PROT
-+	.access = generic_access_phys,
-+#endif
-+};
-+
- static const struct vm_operations_struct mmap_mem_ops = {
-+#ifdef CONFIG_MMU
-+	.fault = mmap_mem_fault,
-+#endif
-+#ifdef CONFIG_ARCH_SUPPORTS_HUGE_PFNMAP
-+	.huge_fault = mmap_mem_huge_fault,
-+#endif
- #ifdef CONFIG_HAVE_IOREMAP_PROT
--	.access = generic_access_phys
-+	.access = mmap_mem_access,
- #endif
- };
- 
-@@ -355,11 +441,25 @@ static int mmap_mem_prepare(struct vm_area_desc *desc)
- 					       size,
- 					       desc->page_prot);
- 
-+	desc->action.error_override = -EAGAIN;
-+
-+	if (vma_desc_is_cow_mapping(desc)) {
-+		/*
-+		 * vmf_insert_pfn*() cannot populate COW mappings: map them now.
-+		 * Remap-pfn-range will mark the range with the I/O flag.
-+		 */
-+		desc->vm_ops = &mmap_mem_cow_vm_ops;
-+		mmap_action_remap_full(desc, desc->pgoff);
-+		return 0;
-+	}
-+
- 	desc->vm_ops = &mmap_mem_ops;
- 
--	/* Remap-pfn-range will mark the range with the I/O flag. */
--	mmap_action_remap_full(desc, desc->pgoff);
--	desc->action.error_override = -EAGAIN;
-+	/*
-+	 * Populate on fault (see mmap_mem_huge_fault()). Tracking the PFN range
-+	 * keeps its memory type reserved, for PAT conflict detection.
-+	 */
-+	mmap_action_pfn_track(desc, desc->pgoff);
- 
- 	return 0;
- }
+ static bool vm_mixed_ok(struct vm_area_struct *vma, unsigned long pfn,
+ 			bool mkwrite)
+ {
 -- 
 2.47.3
 
