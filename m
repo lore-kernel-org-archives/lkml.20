@@ -1,73 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.157.188.15
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794517447;
-	b=hl5yqUPLmilpZfH6DhycNZNBrsi6u9tpej2OqZHd2HU0xGpROy/JZsgUsSS5J1T/+V/+
-	 XfHXsXB9c0bsiAIh6V4WJ0chHRHX/hzOFLTGdkIGvSPnx8LTz94/4DsEwY7zA2sjqsr3Q
-	 6fwr7S56m4HYphjPt22mbtkLY4SVvdqzhJt6WlujG/HTcponrRioCWgvd62ggNF49BBG+
-	 ob9LY5nisbph9mMXAyGeG2kzm0/0IXuqAryLm76HfbG8E9RWfMPmtQAytTH8vCBIR41x2
-	 mEO8B0i5JRZRIu0juqyJyirGEV+TXH2ynepNj5koZz0FmwMgGZm9y9rJaUUVWcj3G3g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794517447;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Subject:Message-ID:
-	 Date:From:To:Cc:Reply-To:X-WS-Location:References:In-Reply-To:
-	 X-Mailer:X-WS-User-Origin:X-WS-User-Mbox:X-WS-LOCALE:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Infomaniak-Routing;
-	bh=yxolAtf7QNMOiBL160312RWUw/Z3tmCv6VZhTsBZaMg=;
-	b=Qb2Oy4ppuMuT/WI8N2R7DUQ8qHgLCFE3MS4wGXx2YJcrbvZUbn9HVzKKZ8+9yd9XsmiM
-	 w8woKHPDlgrHPb4XsEl3XCt45G47+tV1u6/Eb+H/JlwRq1cF3EqVb01H5738eVc14xEPh
-	 tYljgIILLY6r9qTtFUOJkjidkeL+N1nLKgWVAvyhQ9VLG2IrguDixVkS+RsnrijSCgcSP
-	 npBXijGRhp2QryL4PGg5ASO6NNxriC+yYPGnVc12z+z2sBCHx1CqxAhgp/LYMCGKR78Sw
-	 yvhWuxu1VMXTNpMlF+fLHSDdRfqhxZ7771nenVlafQkQa1dbUvkuHZlxm0CuoZNGwrg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jler.org;
-	spf=pass smtp.mailfrom=jler.org;
-	dkim=pass header.d=jler.org header.i=@jler.org header.a=rsa-sha256 header.s=20250203 header.b=T5DYiI+P;
-	arc=none smtp.remote-ip=45.157.188.15
-Received: from smtp-bc0f.mail.infomaniak.ch (smtp-bc0f.mail.infomaniak.ch [45.157.188.15])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.185.170.37
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794517493;
+	b=5FFGcucHH8Z+EWy4Ezm7lnnbKfD3DfzOG0hFBZwAhgS7cdIHivh5Ij4VOQudAoJEIVmh
+	 e1D/FiY7qmpfgBeaB9/dA4D4NrMY94Z5/sH4jtV5tH/SGgmsWPuzUfcIPXfwEvB3GhLO3
+	 wpJ99RE+K2R0B9VhKTW8Ot2czIizkbMv0CDICgni+HxoejiYaZYe4QeyhbQ2EwDB102ez
+	 Wba5B/H9kf4XEFeOpI+onYeWUCUoNpIrPyYDpszyjcGVpiyju4U5EfjFV0XzucHbvcDKE
+	 UIFCJ4k8HclrChe40CH9d2JhMJDa5ho1qEqSAhQOdeXR0oTBQ72dWre8YN26nuefJUw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794517493;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=O5gco7lHoYOygwHEP3RxfzTMIYTl8gyDFQ4fgofww90=;
+	b=G+aL+OS0l8EwocFPqar1ZJKayxXCe7+HytYhPPcTj1Yp6dYaIkWIrgRwrJCgtmWXcUmy
+	 K94RHv52v7CGmoBHQ0lQR50gCkIAiwN6pMpAQkzSKfDLVThAeTxWWLQS6/34LgEqmHosL
+	 IKUG1xk6JbS4EN3UoPMG9tDHWQQSsFbYHGzykFm/hV6CCjmHcbdCov4wfw/Q0tVF51FrV
+	 YpL2VT4xlzz6JsB0aCqn6N2yNoN9r6SzgWX/h9oNQn5DpDr6mN313iGbbLToX0EwLcH1U
+	 DklY0UawfLifkszE9Nlo6gaBOtjdeKlslTHpYupfTLTNB8Zn3SjtLUqqJfbyFxTq8EA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=iki.fi;
+	spf=pass smtp.mailfrom=iki.fi;
+	dkim=pass header.d=iki.fi header.i=@iki.fi header.a=rsa-sha256 header.s=lahtoruutu header.b=Ntf9RyoF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.185.170.37
+Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB322606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:04:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB322606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=jler.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jler.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6DE5606A323;
+	Thu, 12 Nov 2026 21:04:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6DE5606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jler.org header.i=@jler.org header.a=rsa-sha256 header.s=20250203 header.b=T5DYiI+P
-Received: from smtp-4-0001 (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jQXtk2G4wzJWb;
-	Thu, 12 Nov 2026 22:03:58 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jler.org;
-	s=20250203; t=1794517438;
-	bh=yxolAtf7QNMOiBL160312RWUw/Z3tmCv6VZhTsBZaMg=;
-	h=Subject:Date:From:To:Cc:Reply-To:References:In-Reply-To:From;
-	b=T5DYiI+PXo4tEkDzlSeC+6PnFz403U+Gt4d16BV+g7VwVcekpS4TMciefT/vtL2xd
-	 RUPjZ6L6DhugY24f1ktKge51PUKRoebIt4MGrw9jTCweQbeqljiT5CcLajTFY3goh7
-	 PiP024k0S7Xr5mu7w0rmV8HCR3paowlh4yac2V0qSgoYD0J2hMXNTzbddcuJCuuk4Z
-	 fKez9/6Bf7iHn7Y6Hbf7ho+P+IEDOu3+5N5LVCdXfTVfXpZ1vTIQkjQJKy7zvetg/J
-	 tywVCQwjpqjprxM8a4fcClYn/ypp0cKtNRSk66svT3v5lfrHtuaA2LCIEuuDVs+0d+
-	 ox+2AsjSq22xQ==
-Received: from unknown by smtp-4-0001 (Postfix) with ESMTPA id 4jQXtj2xR8zyHM;
-	Thu, 12 Nov 2026 22:03:57 +0100 (CET)
-Subject: Re: [PATCH] platform/x86: ayaneo-ec: Restore controller power when
- the modules are refitted
-Message-ID: <f995a6c7-46e6-433f-81d7-f51001d310d7@mail.infomaniak.com>
-Date: Thu, 12 Nov 2026 22:03:57 +0100
-From: office JLER <lily@jler.org>
-To: Antheas Kapenekakis <lkml@antheas.dev>
-Cc: Hans de Goede <hansg@kernel.org>, Ilpo =?utf-8?Q?J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>, =?utf-8?Q?Mat=C3=ADas_Mart=C3=ADnez?=
- <hello@matias.me>, platform-driver-x86@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Reply-To: office JLER <lily@jler.org>
-X-WS-Location: eJxzKUpMKykGAAfpAmU-
-References: <20261112-ayaneo-ec-module-power-v1-1-00d42014bed3@jler.org>
- <CAGwozwEVkdSpY==gBPE4E+10Ggs3zowYGWqjw2p+z1Jh9nNi6g@mail.gmail.com>
-In-Reply-To: <CAGwozwEVkdSpY==gBPE4E+10Ggs3zowYGWqjw2p+z1Jh9nNi6g@mail.gmail.com>
-X-Mailer: Infomaniak Workspace (1.3.1392)
-X-WS-User-Origin: eyJpdiI6ImRpeThUdHM2V1hSU0NFUUpNNG1IWGc9PSIsInZhbHVlIjoiSnpLNEYyYXZNdWZmcTNVYW0vL3BzUT09IiwibWFjIjoiNzRkOGVmMTMxZWI2Mjk0YzUzNzI5MDZiOGMzYTE3ODRlZDI3NjE3YWQxZDA4N2Q1MzZhNmQ0YzFhZTdlZTE5ZCIsInRhZyI6IiJ9
-X-WS-User-Mbox: eyJpdiI6Ii9sTXRXNStQRThQcDdkWXlXamFkN2c9PSIsInZhbHVlIjoiZlBRTFlHOFo2aThnTENIU09MMHFqdz09IiwibWFjIjoiZjliZDY2YWZhYmMxZGQ5YzNmNDhiY2FhMjNlZTk4MjFiY2RmYWQzZGE1ODI0YjAyYjJkYTJiMTFjZDU3YTkyOCIsInRhZyI6IiJ9
-X-WS-LOCALE: en_GB
+	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.a=rsa-sha256 header.s=lahtoruutu header.b=Ntf9RyoF
+Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sailus)
+	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4jQXvh3xyLz49Q3S;
+	Thu, 12 Nov 2026 23:04:48 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
+	t=1794517489;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=O5gco7lHoYOygwHEP3RxfzTMIYTl8gyDFQ4fgofww90=;
+	b=Ntf9RyoFS7ANT10yvOzT0aZIEdWNZj+HgpPm9deg+Yg8/nCchphZAgEjEx3u5MdWSthDrB
+	bE05ivGc9kQq7Lh4+8d2ke/d69JddZL9wQ76zHc3kMxn+BgjmXvp6gdj/zz0I0deEN1MXC
+	VaMSCf3eohzDbPJ47lQ+2xkCf6CA79lJ1krUsfuaQ5hlyoAM+H6wGtAtRGUnoYBW3wPf7m
+	Cfa2lAZ/KFsJt8qhD2+9U8zSXKzimqSdNtKmT3JFY2SY72GNgfVGU1IrQwIPg+qyA4Pscl
+	y7jzEwSmCx8vjABfs+6SM7o8DUBj6gkvySsTFDJP1ftFdsCQxxUH6WFc24oXUA==
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1794517489;
+	b=LTt2iSm1JbODNpX4huvzAYLb/04YXj6EYZHFtRPKfX4WW95nwqQuV1P8f9J8VZKCEMHh6n
+	NPxY7AMq+040l5Q4Z+WMgOvVUFWk7runbQBihvJZXAbeJNLek45eOGAunmTAi1t7DX2bCB
+	Fxxm9cJAA9zd7QiYN3XmLURFWbJm0SZFdZ2nrvyEpLixNQYRxWcfzM7paIF8rRm+3zIi1Z
+	W+MlOJtzd1wFR86IWleiRILNfSO9NB8KujH/N2wfPkkI8C9Ltmq+auYNOUsqraN0uG/mpr
+	7BZ8BwHGEP7l0ZG9GZgQCfo6hbnjOFxScL/bV4RD4LiL5UOc51Pc/dVsxnKO3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=lahtoruutu; t=1794517489;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=O5gco7lHoYOygwHEP3RxfzTMIYTl8gyDFQ4fgofww90=;
+	b=hLJ8ueaLm+Uq6EcSySnN8dUqucLtbCVfn0lI+SN7MNS6kBs2S5RJpSv89lteoTCymet1CU
+	y2uAjN2p5hibHES0CU5ybv+ccOG+lConQcyKi3dW258kxoifMwibA/yzY4qdFMSVvps56Q
+	xAXVN9y8nDygMWHCrDa8vsq1YYvnjVoFpakgaM+PZR+xZoq4thSVmeL8JpbUMlokYIvCI3
+	3xV5oaujKp8oToqqpEX6qp1jfoFtdpGX5KlcxEPtm1CgsMKYxYZ1YttWxp52TKVDxFnvRc
+	L4OUvL9WO62NCnascCZMw+yyRcsggHacm2jC8Uo/OSi71P+wh0O3La6nRqf1Lg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
+Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id 10CCC634C4E;
+	Thu, 12 Nov 2026 23:04:48 +0200 (EET)
+Date: Thu, 12 Nov 2026 23:04:47 +0200
+From: Sakari Ailus <sakari.ailus@iki.fi>
+To: mauriziocasciano7@gmail.com
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Subject: Re: [PATCH v10 02/15] media: ov8858: support 19.2 MHz clock and
+ manual white balance
+Message-ID: <avYp7y9Vvh2Oo5c6@valkosipuli.retiisi.eu>
+References: <20261002-submission-media-yogabook-v10-b4-final-v10-0-817ec765b257@gmail.com>
+ <20261002-submission-media-yogabook-v10-b4-final-v10-2-817ec765b257@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,315 +106,194 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Infomaniak-Routing: alpha
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002-submission-media-yogabook-v10-b4-final-v10-2-817ec765b257@gmail.com>
 
-Hi Antheas,
+Hi Maurizio,
 
-On Thu, 12 Nov 2026, Antheas Kapenekakis wrote:
-> If this driver was the one to power off the controller this would make
-> sense. But that's not the case. You used software to eject the modules
-> and turn off the controller. Therefore, you should expect that
-> software to decide when to turn on the controller again.
+On Fri, Oct 02, 2026 at 10:57:40AM +0200, Maurizio Casciano via B4 Relay wrote:
+> From: Maurizio Casciano <mauriziocasciano7@gmail.com>
+> 
+> Support both 19.2 MHz and 24 MHz input clocks. Move the PLL and
+> global-timing registers out of the common mode tables and select register
+> settings for the detected revision, lane count, input clock and 360 MHz
+> link frequency when starting the stream. Use the actual input-clock rate
+> when calculating the reset delay.
+> 
+> Add standard red and blue balance controls for the sensor's manual white
+> balance registers. V4L2 defines red and blue balance relative to green but
+> does not define a standard green-balance control, so keep green at unity.
+> Accumulate errors while programming all three channels.
+> 
+> The manual white-balance register definitions and programming follow
+> Intel's GPL-2.0 OV5670 driver, so retain its 2017 Intel copyright notice.
 
-Fair enough. The case I was after was the program that powered off
-the controller no longer running when the modules are refitted, but
-that is for that program to handle, not something the driver should
-cover for.
+Any others notices that should be added?
 
-> In this case, you'd use something like a new abi auto, to decide to turn
-> on the controller automatically. This would not interfere with current
-> software that handles polling on its own, such as hhd. But it is a
-> large code change compared to making the userspace software that
-> initiated the ejection handle it.
+> 
+> Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
+> Assisted-by: LLM sparse
 
-Agreed, that is more than it is worth. I'll drop this patch and
-handle it in userspace.
+The Assisted-by: tags are no longer used, please remove them.
 
-Thanks for the quick review.
+> ---
+>  drivers/media/i2c/ov8858.c | 183 ++++++++++++++++++++++++++++++++++++---------
+>  1 file changed, 147 insertions(+), 36 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/ov8858.c b/drivers/media/i2c/ov8858.c
+> index 2a0e2b08b9aa..64532237e8b5 100644
+> --- a/drivers/media/i2c/ov8858.c
+> +++ b/drivers/media/i2c/ov8858.c
 
-Best,
-lilytaylor42
+...
 
-On Thu, 12 Nov 2026 at 21:06, lilytaylor42 via B4 Relay
-<devnull+lily.jler.org@kernel.org> wrote:
+> @@ -1541,6 +1606,23 @@ static int ov8858_set_long_digital_gain(struct ov8858 *ov8858, u32 gain)
+>  	return ov8858_write(ov8858, OV8858_REG_LONG_DIGIGAIN, long_gain, NULL);
+>  }
+>  
+> +static int ov8858_set_mwb_gains(struct ov8858 *ov8858)
+> +{
+> +	int ret = 0;
+> +
+> +	ov8858_write(ov8858, OV8858_REG_MWB_RED_GAIN,
+> +		     ov8858->red_balance->val, &ret);
+> +	/*
+> +	 * Green is the unity reference for the red and blue balance controls.
+> +	 */
 
->  =20
->  From: lilytaylor42 <lily@jler.org>
->=20
->  On the AYANEO 3, releasing a Magic Module means writing the eject
->  command and then turning controller power off. Once the modules are
->  fitted again, power has to be turned back on before the controller
->  reappears. Today userspace has to watch for that. If nothing is
->  running when the modules are refitted, the controller stays off and
->  the device has no built-in input.
->=20
->  The EC raises no event when a module is attached or removed, so poll
->  the module register while controller power is off. Once a module has
->  been taken out and both are attached again for a second, turn the
->  power back on, as the vendor's Windows software does. Power turned off
->  with both modules left in place stays off. Notify controller_modules
->  and controller_power so userspace can poll() instead of re-reading.
->=20
->  The investigation, code and this changelog were produced with an AI
->  coding assistant (Claude Code). It decompiled the DSDT and traced EC
->  query events to confirm that module changes raise no event, wrote the
->  patch, and ran the tests below on my AYANEO 3 while I removed and
->  refitted the modules.
->=20
->  Signed-off-by: lilytaylor42 <lily@jler.org>
->  ---
->  Built in-tree on platform-drivers-x86 for-next (568051916) with W=3D1 an=
-d
->  x86_64_defconfig plus AYANEO_EC=3Dm: no warnings before or after.
->=20
->  Tested on an AYANEO 3 (Bazzite 45, 7.3.3 kernel), built as a module
->  against the running kernel, with no userspace module handling running:
->  after eject and power off, refitting both modules turned power back on
->  1.2 s after both were seated and the controller re-enumerated. Power
->  turned off with both modules attached stayed off.
->=20
->  Independent of this patch: after power returns, the controller first
->  connects in a state that does not answer GET_DESCRIPTOR and reconnects
->  about 11 s later, so enumeration takes ~32 s with the default scheme and
->  ~12 s with the port's old_scheme quirk set. That happens with the
->  unpatched driver too.
-=20
-Hi,
-this is the responsibility of the program that powered off the
-controller. This driver contains no logic for when to power or unpower
-the controller. It only provides a hook for userspace to access the EC
-addresses required for it.
+UAPI-wise this doesn't look great. There's a digital gain control, too, so
+you can still control the entire digital gain. But the hardware has
+per-component gains and in this case the (likely analogue TV inspired?)
+UAPI limits this. A few other sensor drivers appear to be doing the same.
 
-If this driver was the one to power off the controller this would make
-sense. But that's not the case. You used software to eject the modules
-and turn off the controller. Therefore, you should expect that
-software to decide when to turn on the controller again.
+Cc Laurent, too.
 
-AYANEO_MODULE_SETTLE is especially problematic since you are embedding
-logic into the driver about arbitrarily turning on the controller. In
-this case, you'd use something like a new abi auto, to decide to turn
-on the controller automatically. This would not interfere with current
-software that handles polling on its own, such as hhd. But it is a
-large code change compared to making the userspace software that
-initiated the ejection handle it.
+> +	ov8858_write(ov8858, OV8858_REG_MWB_GREEN_GAIN,
+> +		     OV8858_MWB_GAIN_DEFAULT, &ret);
+> +	ov8858_write(ov8858, OV8858_REG_MWB_BLUE_GAIN,
+> +		     ov8858->blue_balance->val, &ret);
+> +
+> +	return ret;
+> +}
+> +
+>  static int ov8858_set_ctrl(struct v4l2_ctrl *ctrl)
+>  {
+>  	struct ov8858 *ov8858 = container_of(ctrl->handler,
+> @@ -1589,6 +1671,10 @@ static int ov8858_set_ctrl(struct v4l2_ctrl *ctrl)
+>  	case V4L2_CID_DIGITAL_GAIN:
+>  		ret = ov8858_set_long_digital_gain(ov8858, ctrl->val);
+>  		break;
+> +	case V4L2_CID_RED_BALANCE:
+> +	case V4L2_CID_BLUE_BALANCE:
+> +		ret = ov8858_set_mwb_gains(ov8858);
+> +		break;
+>  	case V4L2_CID_VBLANK:
+>  		ret = ov8858_write(ov8858, OV8858_REG_VTS,
+>  				   ctrl->val + format->height, NULL);
+> @@ -1623,9 +1709,6 @@ static int ov8858_power_on(struct ov8858 *ov8858)
+>  	unsigned long delay_us;
+>  	int ret;
+>  
+> -	if (clk_get_rate(ov8858->xvclk) != OV8858_XVCLK_FREQ)
+> -		dev_warn(dev, "xvclk mismatched, modes are based on 24MHz\n");
+> -
+>  	ret = clk_prepare_enable(ov8858->xvclk);
+>  	if (ret < 0) {
+>  		dev_err(dev, "Failed to enable xvclk\n");
+> @@ -1644,7 +1727,7 @@ static int ov8858_power_on(struct ov8858 *ov8858)
+>  	 * transaction, but a double sleep between the release of gpios
+>  	 * helps with sporadic failures observed at probe time.
+>  	 */
+> -	delay_us = DIV_ROUND_UP(8192, OV8858_XVCLK_FREQ / 1000 / 1000);
+> +	delay_us = DIV_ROUND_UP(8192, ov8858->xvclk_rate / HZ_PER_MHZ);
+>  
+>  	gpiod_set_value_cansleep(ov8858->reset_gpio, 0);
+>  	fsleep(delay_us);
+> @@ -1710,7 +1793,7 @@ static int ov8858_init_ctrls(struct ov8858 *ov8858)
+>  	u32 h_blank;
+>  	int ret;
+>  
+> -	ret = v4l2_ctrl_handler_init(handler, 10);
+> +	ret = v4l2_ctrl_handler_init(handler, 12);
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -1752,6 +1835,19 @@ static int ov8858_init_ctrls(struct ov8858 *ov8858)
+>  			  OV8858_LONG_DIGIGAIN_STEP,
+>  			  OV8858_LONG_DIGIGAIN_DEFAULT);
+>  
+> +	ov8858->red_balance =
+> +		v4l2_ctrl_new_std(handler, &ov8858_ctrl_ops,
+> +				  V4L2_CID_RED_BALANCE,
+> +				  OV8858_MWB_GAIN_MIN, OV8858_MWB_GAIN_MAX,
+> +				  OV8858_MWB_GAIN_STEP,
+> +				  OV8858_MWB_GAIN_DEFAULT);
+> +	ov8858->blue_balance =
+> +		v4l2_ctrl_new_std(handler, &ov8858_ctrl_ops,
+> +				  V4L2_CID_BLUE_BALANCE,
+> +				  OV8858_MWB_GAIN_MIN, OV8858_MWB_GAIN_MAX,
+> +				  OV8858_MWB_GAIN_STEP,
+> +				  OV8858_MWB_GAIN_DEFAULT);
+> +
+>  	v4l2_ctrl_new_std_menu_items(handler, &ov8858_ctrl_ops,
+>  				     V4L2_CID_TEST_PATTERN,
+>  				     ARRAY_SIZE(ov8858_test_pattern_menu) - 1,
+> @@ -1805,15 +1901,20 @@ static int ov8858_check_sensor_id(struct ov8858 *ov8858)
+>  
+>  	if (id == OV8858_R2A) {
+>  		/* R2A supports 2 and 4 lanes modes. */
+> -		ov8858->global_regs = ov8858->num_lanes == 4
+> -				    ? ov8858_global_regs_r2a_4lane
+> -				    : ov8858_global_regs_r2a_2lane;
+> +		if (ov8858->num_lanes == 4) {
+> +			ov8858->global_regs = ov8858_global_regs_r2a_4lane;
+> +			ov8858->xvclk_regs = ov8858_24mhz_360mhz_r2a_4lane;
+> +		} else {
+> +			ov8858->global_regs = ov8858_global_regs_r2a_2lane;
+> +			ov8858->xvclk_regs = ov8858_24mhz_360mhz_r2a_2lane;
+> +		}
+>  	} else if (ov8858->num_lanes == 2) {
+>  		/*
+>  		 * R1A only supports 2 lanes mode and it's only partially
+>  		 * supported.
+>  		 */
+>  		ov8858->global_regs = ov8858_global_regs_r1a;
+> +		ov8858->xvclk_regs = ov8858_24mhz_360mhz_r1a_2lane;
+>  		dev_warn(&client->dev, "R1A may not work well!\n");
+>  	} else {
+>  		dev_err(&client->dev,
+> @@ -1821,6 +1922,9 @@ static int ov8858_check_sensor_id(struct ov8858 *ov8858)
+>  		return -EINVAL;
+>  	}
+>  
+> +	if (ov8858->xvclk_rate == OV8858_XVCLK_FREQ_19_2MHZ)
+> +		ov8858->xvclk_regs = ov8858_19_2mhz_360mhz;
 
-Best,
-Antheas
+The 24 MHz configurations are lane number (and variant) dependent. Isn't
+that applying to 19,2 MHz? If not, why?
 
+> +
+>  	return 0;
+>  }
+>  
+> @@ -1888,6 +1992,13 @@ static int ov8858_probe(struct i2c_client *client)
+>  		return dev_err_probe(dev, PTR_ERR(ov8858->xvclk),
+>  				     "Failed to get xvclk\n");
+>  
+> +	ov8858->xvclk_rate = clk_get_rate(ov8858->xvclk);
+> +	if (ov8858->xvclk_rate != OV8858_XVCLK_FREQ_19_2MHZ &&
+> +	    ov8858->xvclk_rate != OV8858_XVCLK_FREQ_24MHZ)
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "Unsupported xvclk rate %lu Hz\n",
+> +				     ov8858->xvclk_rate);
+> +
+>  	ov8858->reset_gpio = devm_gpiod_get_optional(dev, "reset",
+>  						     GPIOD_OUT_HIGH);
+>  	if (IS_ERR(ov8858->reset_gpio))
+> 
 
->    ---
->   Documentation/ABI/testing/sysfs-platform-ayaneo-ec | 10 ++-
->   drivers/platform/x86/ayaneo-ec.c                   | 90 +++++++++++++++=
-+++++++
->   2 files changed, 99 insertions(+), 1 deletion(-)
->=20
->  diff --git a/Documentation/ABI/testing/sysfs-platform-ayaneo-ec b/Docume=
-ntation/ABI/testing/sysfs-platform-ayaneo-ec
->  index 4cffbf5fc..8c70be0c3 100644
->  --- a/Documentation/ABI/testing/sysfs-platform-ayaneo-ec
->  +++ b/Documentation/ABI/testing/sysfs-platform-ayaneo-ec
->  @@ -7,13 +7,21 @@ Description:
->                  the controller power (e.g. for power savings). Write 1 t=
-o
->                  turn on, 0 to turn off. File is readable and writable.
->=20
->  +               After power is turned off, the driver turns it back on
->  +               once a module has been removed and both modules are
->  +               attached again, as the Windows software for this device
->  +               does. Power turned off with both modules left attached
->  +               stays off. Userspace can poll() this file for changes.
->  +
->   What:          /sys/devices/platform/ayaneo-ec/controller_modules
->   Date:          Nov 2025
->   KernelVersion: 6.19
->   Contact:       "Antheas Kapenekakis"  <lkml@antheas.dev>
->   Description:
->                  Shows which controller modules are currently connected t=
-o
->  -               the device. Possible values are "left", "right" and "bot=
-h".
->  +               the device. Possible values are "left", "right", "both"
->  +               and "none". While controller power is off, changes can b=
-e
->  +               waited for with poll().
->                  File is read-only. The Windows software for this device
->                  will only set controller power to 1 if both module sides
->                  are connected (i.e. this file returns "both").
->  diff --git a/drivers/platform/x86/ayaneo-ec.c b/drivers/platform/x86/aya=
-neo-ec.c
->  index 7c6a06330..3f89f8f9d 100644
->  --- a/drivers/platform/x86/ayaneo-ec.c
->  +++ b/drivers/platform/x86/ayaneo-ec.c
->  @@ -9,6 +9,7 @@
->=20
->   #include <linux/acpi.h>
->   #include <linux/bits.h>
->  +#include <linux/devm-helpers.h>
->   #include <linux/dmi.h>
->   #include <linux/err.h>
->   #include <linux/hwmon.h>
->  @@ -19,6 +20,7 @@
->   #include <linux/pm.h>
->   #include <linux/power_supply.h>
->   #include <linux/sysfs.h>
->  +#include <linux/workqueue.h>
->   #include <acpi/battery.h>
->=20
->   #define AYANEO_PWM_ENABLE_REG   0x4A
->  @@ -43,6 +45,13 @@
->   #define AYANEO_MODULE_RIGHT    BIT(1)
->   #define AYANEO_MODULE_MASK     (AYANEO_MODULE_LEFT | AYANEO_MODULE_RIGH=
-T)
->=20
->  +/*
->  + * The EC raises no event when a module is attached or removed, so the
->  + * module register is polled, and only while controller power is off.
->  + */
->  +#define AYANEO_MODULE_POLL_MS  500
->  +#define AYANEO_MODULE_SETTLE   3       /* polls with both attached befo=
-re power on */
->  +
->   struct ayaneo_ec_quirk {
->          bool has_fan_control;
->          bool has_charge_control;
->  @@ -58,6 +67,12 @@ struct ayaneo_ec_platform_data {
->          struct mutex hwmon_lock;
->          bool restore_charge_limit;
->          bool restore_pwm;
->  +
->  +       /* Turns controller power back on once the modules are refitted =
-*/
->  +       struct delayed_work module_work;
->  +       bool module_removed;
->  +       unsigned int module_settle;
->  +       u8 module_state;
->   };
->=20
->   static const struct ayaneo_ec_quirk quirk_fan =3D {
->  @@ -395,11 +410,69 @@ static int ayaneo_remove_battery(struct power_supp=
-ly *battery,
->          return 0;
->   }
->=20
->  +static void ayaneo_module_watch(struct ayaneo_ec_platform_data *data)
->  +{
->  +       data->module_removed =3D false;
->  +       data->module_settle =3D 0;
->  +       data->module_state =3D AYANEO_MODULE_MASK;
->  +       queue_delayed_work(system_freezable_wq, &data->module_work,
->  +                          msecs_to_jiffies(AYANEO_MODULE_POLL_MS));
->  +}
->  +
->  +/*
->  + * While controller power is off, wait for a module to be taken out and
->  + * for both modules to be attached again, then turn the power back on.
->  + * This mirrors the vendor's Windows software and means a refitted
->  + * controller works even when no userspace program is watching. Power
->  + * turned off with both modules left in place stays off.
->  + */
->  +static void ayaneo_module_work(struct work_struct *work)
->  +{
->  +       struct ayaneo_ec_platform_data *data =3D
->  +               container_of(to_delayed_work(work), struct ayaneo_ec_pla=
-tform_data,
->  +                            module_work);
->  +       struct kobject *kobj =3D &data->pdev->dev.kobj;
->  +       u8 power, modules;
->  +
->  +       if (ec_read(AYANEO_POWER_REG, &power) ||
->  +           ec_read(AYANEO_MODULE_REG, &modules))
->  +               goto again;
->  +
->  +       /* Turned back on elsewhere, e.g. by userspace */
->  +       if (power =3D=3D AYANEO_POWER_ON)
->  +               return;
->  +
->  +       modules =3D ~modules & AYANEO_MODULE_MASK;
->  +       if (modules !=3D data->module_state) {
->  +               data->module_state =3D modules;
->  +               sysfs_notify(kobj, NULL, "controller_modules");
->  +       }
->  +
->  +       if (modules !=3D AYANEO_MODULE_MASK) {
->  +               data->module_removed =3D true;
->  +               data->module_settle =3D 0;
->  +               goto again;
->  +       }
->  +
->  +       if (!data->module_removed || ++data->module_settle < AYANEO_MODU=
-LE_SETTLE)
->  +               goto again;
->  +
->  +       if (!ec_write(AYANEO_POWER_REG, AYANEO_POWER_ON)) {
->  +               sysfs_notify(kobj, NULL, "controller_power");
->  +               return;
->  +       }
->  +
->  +again:
->  +       queue_delayed_work(system_freezable_wq, &data->module_work,
->  +                          msecs_to_jiffies(AYANEO_MODULE_POLL_MS));
->  +}
->  +
->   static ssize_t controller_power_store(struct device *dev,
->                                        struct device_attribute *attr,
->                                        const char *buf,
->                                        size_t count)
->   {
->  +       struct ayaneo_ec_platform_data *data =3D dev_get_drvdata(dev);
->          bool value;
->          int ret;
->=20
->  @@ -407,10 +480,15 @@ static ssize_t controller_power_store(struct devic=
-e *dev,
->          if (ret)
->                  return ret;
->=20
->  +       cancel_delayed_work_sync(&data->module_work);
->  +
->          ret =3D ec_write(AYANEO_POWER_REG, value ? AYANEO_POWER_ON : AYA=
-NEO_POWER_OFF);
->          if (ret)
->                  return ret;
->=20
->  +       if (!value)
->  +               ayaneo_module_watch(data);
->  +
->          return count;
->   }
->=20
->  @@ -518,6 +596,18 @@ static int ayaneo_ec_probe(struct platform_device *=
-pdev)
->                          return PTR_ERR(hwdev);
->          }
->=20
->  +       if (data->quirks->has_magic_modules) {
->  +               u8 power;
->  +
->  +               ret =3D devm_delayed_work_autocancel(&pdev->dev, &data->=
-module_work,
->  +                                                  ayaneo_module_work);
->  +               if (ret)
->  +                       return ret;
->  +
->  +               if (!ec_read(AYANEO_POWER_REG, &power) && power =3D=3D A=
-YANEO_POWER_OFF)
->  +                       ayaneo_module_watch(data);
->  +       }
->  +
->          if (data->quirks->has_charge_control) {
->                  data->battery_hook.add_battery =3D ayaneo_add_battery;
->                  data->battery_hook.remove_battery =3D ayaneo_remove_batt=
-ery;
->=20
->  ---
->  base-commit: 5680519168f65666d2c03cc6ed8fe2b7052aee12
->  change-id: 20261112-ayaneo-ec-module-power-66f183285f3e
->=20
->  Best regards,
->  --
->  lilytaylor42 <lily@jler.org>
->=20
->=20
->
+-- 
+Regards,
+
+Sakari Ailus
