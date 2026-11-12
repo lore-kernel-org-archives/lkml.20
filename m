@@ -1,58 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.119
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794503275;
-	b=ZyQSxMLvEqDuEA+r7aZyEbSklosn8QvqO5A/yWAI9QWe21qF0YMsN6X0Giu2NgjW7iEi
-	 ZYiDhIONnzf4rn9n3AmczYcxZ0vX7fLS8h0QjAYrH9bxs1zuhsOn6Q9RW1GPJsdI6uxuP
-	 mFXVtKnb6n6Ud99qpYkmKe0xU40aGkxFh3E4DXf2h7gFKEDYPf5V7WpYyglcCo7Jb75cp
-	 erV5zZ/pxASAybVNAK+dRvPMRLtAWmXBLIkBkdShRj0eBvmebFohm712XaJm+/ymTByOK
-	 PyPERU3g002sWAliTQWkLYl9d8HI4dKdUB73GaryDI4dwTyyWFv7FoHSScVTHG17U2g==
+	t=1794503344;
+	b=aYU7bjmf3CIqeVdhn4aYk0fiS789YpXEn8XuGMSbqtTLb7bOaeJDJaGW5cshgAZxLHRd
+	 enbsx5bvTsaBGb0sVZSx3RMaFAE1QBHy8Rdn78JpCkI8tK+aScfBSglX7kwZXhj9itX4R
+	 XCTI2GeMN3+z0uEgPKMandTSAODEzfQDy/RwvpuzM91mKH/Jk+r5EPYkUgUPcx1KexY9K
+	 Xrpt3WSY+Fu8BPkjZPRBJ78tSGjYzgfkvNYDwYMAAhb7xsKcA9marSBqaCF/KAj8X5WOq
+	 jX+b7Co3P8Sb1RhD3vy4J7WCB2VKMLecdY6hb66v4QfFrsOMn73pdcpzAd+BgRYT0wQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794503275;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=yohNCCFWJ3Uy+nibYm0CCRLWC35AUKC1qEGysk1UZlg=;
-	b=A8kcsjG1DVQdAgq3H8T8eZoepMCvjuwipGze7neMcwoMl+HRUDCLScLA+KeuDA1LhnBg
-	 fi3HBTx+0gcoyo0SX4ZR0TRdvTqgU1tGUPQnUMc/NOLCTOQ+LLK72XWwBk+i2zYRS2loD
-	 1Z4HFVAK3q82ul7TiEwEq7Mj1mlSVN1X19qngfnRcw6+P/4+PfsHTxN0PUzWF/5SDGiMB
-	 ZefKAE7px1DLHQhmiVQpe9jkF1O0UE9lfnOEIMNQpcFhpa7RvWvexf5Fetv2gCBGsJPWl
-	 lSTL5DZTKPAVMRipl+1y9sR0MyF3NhQTO93U8qvFAwMNURJyy3UfkkhIKvE9j2zI9UQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794503344;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=oj2TNmHu0aGvGVnFAhxBXVtL1PvBAFJMiuWObtt4eU8=;
+	b=T5dmVN8maITF/iZ4r2PmPmjJProAAA3dcVc7g85/OzEodEcH5aVH0MHOBk7IE402NZKV
+	 r1xsoABUzJqYE3tc7Q5sx1Yvh/JjnuAxzbdFwrDLWXbx0ymzcPyJaOuFotQ3+gE5ELptV
+	 T6AcrSgSL5i80FB8C4kOY5my8KbO2EKZSXdl2gA/BNPpggEZvz6nJtOmTfhX0twaGsY0R
+	 Z9tKfaRO0yhLYDkX0EgVX+GxpxA+CiSN40FOVnfpGaLJ6BJveAtQylJwYi/Cn39It5Ffl
+	 n83PW+EfhVlNGeaxA9zXTghy8Uj43wWi80vuE4OKHOLSyL49l83LMWsFEDnR3aTqH6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=vwqJg43g;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=KNTpMS5P;
+	arc=none smtp.remote-ip=91.218.175.119
+Received: from mta0.migadu.com (out-119.mta0.migadu.com [91.218.175.119])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811B6606A330;
-	Thu, 12 Nov 2026 17:07:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 811B6606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B470C606A333
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:09:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B470C606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=vwqJg43g
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
-	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
-	From:Reply-To:Content-ID:Content-Description;
-	bh=yohNCCFWJ3Uy+nibYm0CCRLWC35AUKC1qEGysk1UZlg=; b=vwqJg43gaqm3Q6O33oofZGubLN
-	YnO8fHX0H8WbWVF0kbw5LALfHryZtnYAGRbPNNle3dxMt83hDoIdnNGb/10YpYxQmoEZfw4d8APdM
-	CH9BUc7A2s2zcQLTGTAw9esSh+4UdSGXXH7R3xd77yCRbsTeK8t0zlBeakdMhPkktIPWERbp3rFM5
-	TUcaMteXwJ7cMbiOWg3jMAgYr9r4eBsoXGlCgjf8ePSjYs+w1ghyGSW1HWrtC/0/WYYYc+ccP3Ay0
-	/weQM6ykdNpVmO/4RcmaCr4q/CUUP5H4FtfFXeYDa3tDeqgGxPPEew9YxId5GFbtEI54CsvXm26OC
-	R3lzTJvQ==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xRYH8-00E7aO-0m;
-	Thu, 12 Nov 2026 17:07:50 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Thu, 12 Nov 2026 09:05:27 -0800
-Subject: [PATCH net-next 3/3] selftests: net: getsockopt_iter: cover tcp
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=KNTpMS5P
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=W6VeXoYsDeuooRLOPur5oKNEUPcbNXvMYUsUnI6yMhQ=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794503340; v=1; x=1795108140;
+ b=KNTpMS5PiD58A1ons/DpdJZmpZOCajmxxKBM5F/RE+ZjoQuNDaELQmTkqYAwdvagMjqJPCOH
+ VyVorLwW83zHYFDRVk9P6fnbphJ1ZPIVuU/7JmkCTfDGeBw/ma+fwnFbeaP6RRKc9ypS1qR3P2h
+ ipGeKR709smjl2/rMw2zt6CDTkzPrBN71Ds1fLAaz78BUPpwF+3E83msDbhgNXUZh4jt2ri2HIj
+ Sak3LhdsE0QAL95+jlxE2NM8uPvNuHnRUNWNPQa5+3MHZsX0n2eNmAk1Nr1zRLXLyh7V9Be9bEH
+ Et+M8i7ydeO2Z0C2nSxkkowNxTqr+0WISXwIcDxn9lV2Q==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cc99491184bea011;
+	Thu, 12 Nov 2026 17:09:00 +0000
+X-Mizu-Trace-ID: cc99491184bea011
+X-Migadu-Flow: FLOW_OUT
+From: Val Packett <val@packett.cool>
+To: 
+Cc: Val Packett <val@packett.cool>,
+	Marc Lainez <marc.lainez@gmail.com>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	=?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>,
+	Danila Tikhonov <danila@jiaxyga.com>,
+	Sebastian Reichel <sre@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	phone-devel@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/5] Add driver for Qualcomm QGauge (qcom_qg) fuel gauge
+Date: Thu, 12 Nov 2026 14:07:26 -0300
+Message-ID: <20261112170841.2189322-1-val@packett.cool>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,329 +85,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-getsockopt_phase7-v1-3-1eb759dd0929@debian.org>
-References: <20261112-getsockopt_phase7-v1-0-1eb759dd0929@debian.org>
-In-Reply-To: <20261112-getsockopt_phase7-v1-0-1eb759dd0929@debian.org>
-To: "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Kuniyuki Iwashima <kuniyu@google.com>, 
- Willem de Bruijn <willemb@google.com>, Neal Cardwell <ncardwell@google.com>, 
- Daniel Borkmann <daniel@iogearbox.net>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, 
- Martin KaFai Lau <martin.lau@linux.dev>, 
- Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- Breno Leitao <leitao@debian.org>, kernel-team@meta.com
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7537; i=leitao@debian.org;
- h=from:subject:message-id; bh=Srvv6RQGgVr8JyB8jL0B8DLntHE5zYTcmX3okIhkLZo=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq9fJM8lzEroo+ZLLOVzVZ4NZCjVBPxSReqG2u2
- g2mGqoa//2JAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavXyTAAKCRA1o5Of/Hh3
- bZPMD/4zrNOymciutmKdsHclbjI3QTIPOwmtmeMw89tClpBHfYi7AMP6AEed3PBGJFpj/e52m72
- CZG+iclY7rQR3N5N87BuHZVFtknwdByLxYd6U9vaKik7lFFlf/6vJ9kHHGqGPbNTtRxJjB2oHOy
- Mig/X+aZnyhcmjAdYOxRWz/IFO4Ws0CgufqvkSCaidA45i1bRxpC+XxqevfXAESBxnggQHMilRa
- ClLmoMtt5OF9Y9H5OxyecZOhQfxFkH0uzBbsJbeh4jVscSUAg7aBPoKo8q99uESs4B+ri4Gpy7X
- cZ58CRzaosRsw8H38Yo1vYkn8V0Nf6FIhrs7b9bivcmEkF/UtFOqyqQKomCJE4nmUdnDD78rXXH
- FAhUspldV1PllljWq4WjKd1//I8wT6lob1SqmDpjVOVmjO9yYv7MExZEQo26YYKzhfTkyN8a45x
- t+RcF3XH/P6ojY6SgPjwb8cdKpHT7sQaUkV5QTwMBHwpfM9zT99ImED4gsP3k4i+WGHxs6G2OJV
- htSnPXdJhzcq3EVsqopDsgyRNxeyJoTCCa/zGIjUgS5RGo8GTkcrkdc5W5qVrhUQleXXwAgZVy9
- /Qkldm2/UWAcly4xswPO4U1fmOZmo/R2sDZJPvCjQbRiHZRBUeC5GAx/N2Vdyk8bGW//lYO2R7L
- u+Am1a0+eYkCE2Q==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
 
-Add a fixture for do_tcp_getsockopt(). The setup keeps both ends of a
-loopback connection, with TCP_SAVE_SYN set on the listener, so the
-accepted socket has a saved SYN to report.
+Hi o/
 
-TCP_INFO and TCP_CONGESTION cover clamping the reply down to what fits,
-TCP_ULP covers reporting zero and writing nothing, and TCP_SAVED_SYN
-covers the length-then-EINVAL path, which the second half of that test
-uses to read the SYN back.
+This series adds a driver for the "qgauge" battery fuel gauge
+present in Qualcomm PMICs like PMI632, PM6150, PM7250B, PM2250.
+The PMI632 is used in SDM632, SM6115/SM4250, SM6125 based phones.
 
-TCP_ZEROCOPY_RECEIVE reads its struct from optval and writes it back.
-With nothing queued it maps nothing and succeeds, so the tests cover
-the 16-byte struct glibc still declares, a larger buffer cut down to
-the kernel's struct, and one whose extra tail is not zero.
+This series was tested on sm6115-motorola-{cebu,guamp}, whose basic
+dts has been submitted as [1].
 
-Signed-off-by: Breno Leitao <leitao@debian.org>
+There have been two attempts at making this driver, the first one
+"WIP! power: supply: Add rude driver for QGauge" as found in
+various development forks [2] was rather infamous for wild capacity%
+swings due to load variation :D
+
+The second one was submitted to msm8953-mainline at [3] by
+Marc Lainez, and it behaved much better thanks to the use of
+power_supply_batinfo_ocv2cap.
+
+This is a continuation of that work, carrying his From/S-o-b on
+modified patches with explicit permission. I have added the
+SDAM read via NVMEM API, fixed the batt_info leak and did some
+general cleanup.
+
+With the SMB5 work also going on right now, we'll finally have
+full battery support on these awkward pre-battmgr generations!
+
+[1]: https://lore.kernel.org/all/20261109221453.658316-1-val@packett.cool/
+[2]: https://github.com/sm7150-mainline/linux/commit/76879bf7a71f4f8f66b9bcd7175069ca7bbf4274
+[3]: https://github.com/msm8953-mainline/linux/pull/242
+
+Thanks,
+~val
+
 ---
- tools/testing/selftests/net/getsockopt_iter.c | 245 ++++++++++++++++++++++++++
- 1 file changed, 245 insertions(+)
 
-diff --git a/tools/testing/selftests/net/getsockopt_iter.c b/tools/testing/selftests/net/getsockopt_iter.c
-index 2367fce226d4cc..4e51c8aa6a8555 100644
---- a/tools/testing/selftests/net/getsockopt_iter.c
-+++ b/tools/testing/selftests/net/getsockopt_iter.c
-@@ -55,6 +55,9 @@
- #ifndef TCP_ULP
- #define TCP_ULP 31
- #endif
-+#ifndef TCP_CA_NAME_MAX
-+#define TCP_CA_NAME_MAX 16
-+#endif
- /* linux/mroute.h does not coexist with netinet/in.h here. */
- #ifndef MRT_VERSION
- #define MRT_VERSION 206
-@@ -1005,4 +1008,246 @@ TEST_F(tls, bad_optname)
- 	ASSERT_EQ(ENOPROTOOPT, errno);
- }
- 
-+/* ---------- tcp ---------- */
-+
-+FIXTURE(tcp)
-+{
-+	int fd;		/* connected client */
-+	int sfd;	/* accepted server side, its SYN was saved */
-+};
-+
-+FIXTURE_SETUP(tcp)
-+{
-+	struct sockaddr_in a = {
-+		.sin_family = AF_INET,
-+		.sin_addr.s_addr = htonl(INADDR_LOOPBACK),
-+	};
-+	socklen_t alen = sizeof(a);
-+	int one = 1;
-+	int lfd;
-+
-+	self->fd = -1;
-+	self->sfd = -1;
-+
-+	lfd = socket(AF_INET, SOCK_STREAM, 0);
-+	if (lfd < 0)
-+		SKIP(return, "TCP socket: %s", strerror(errno));
-+	setsockopt(lfd, IPPROTO_TCP, TCP_SAVE_SYN, &one, sizeof(one));
-+	if (bind(lfd, (struct sockaddr *)&a, sizeof(a)) || listen(lfd, 1) ||
-+	    getsockname(lfd, (struct sockaddr *)&a, &alen)) {
-+		close(lfd);
-+		SKIP(return, "listener setup: %s", strerror(errno));
-+	}
-+	self->fd = socket(AF_INET, SOCK_STREAM, 0);
-+	if (self->fd < 0) {
-+		close(lfd);
-+		SKIP(return, "TCP socket: %s", strerror(errno));
-+	}
-+	if (connect(self->fd, (struct sockaddr *)&a, sizeof(a))) {
-+		close(lfd);
-+		SKIP(return, "connect: %s", strerror(errno));
-+	}
-+	self->sfd = accept(lfd, NULL, NULL);
-+	close(lfd);
-+	if (self->sfd < 0)
-+		SKIP(return, "accept: %s", strerror(errno));
-+}
-+
-+FIXTURE_TEARDOWN(tcp)
-+{
-+	if (self->fd >= 0)
-+		close(self->fd);
-+	if (self->sfd >= 0)
-+		close(self->sfd);
-+}
-+
-+TEST_F(tcp, maxseg_exact)
-+{
-+	socklen_t optlen = sizeof(int);
-+	int val = -1;
-+
-+	ASSERT_EQ(0, getsockopt(self->fd, IPPROTO_TCP, TCP_MAXSEG, &val,
-+				&optlen));
-+	ASSERT_EQ(sizeof(int), optlen);
-+	ASSERT_GT(val, 0);
-+}
-+
-+/* Unlike IPv4, TCP clamps the reply rather than shrinking it to a byte. */
-+TEST_F(tcp, nodelay_undersize_clamped)
-+{
-+	socklen_t optlen = 1;
-+	int val = 0;
-+
-+	ASSERT_EQ(0, getsockopt(self->fd, IPPROTO_TCP, TCP_NODELAY, &val,
-+				&optlen));
-+	ASSERT_EQ(1, optlen);
-+}
-+
-+TEST_F(tcp, info_exact)
-+{
-+	struct tcp_info info;
-+	socklen_t optlen = sizeof(info);
-+
-+	ASSERT_EQ(0, getsockopt(self->fd, IPPROTO_TCP, TCP_INFO, &info,
-+				&optlen));
-+	ASSERT_EQ(sizeof(info), optlen);
-+	ASSERT_EQ(TCP_ESTABLISHED, info.tcpi_state);
-+}
-+
-+TEST_F(tcp, info_short_clamped)
-+{
-+	struct tcp_info info;
-+	socklen_t optlen = 8;
-+
-+	ASSERT_EQ(0, getsockopt(self->fd, IPPROTO_TCP, TCP_INFO, &info,
-+				&optlen));
-+	ASSERT_EQ(8, optlen);
-+	ASSERT_EQ(TCP_ESTABLISHED, info.tcpi_state);
-+}
-+
-+TEST_F(tcp, congestion_exact)
-+{
-+	socklen_t optlen = TCP_CA_NAME_MAX;
-+	char name[TCP_CA_NAME_MAX] = {};
-+
-+	ASSERT_EQ(0, getsockopt(self->fd, IPPROTO_TCP, TCP_CONGESTION, name,
-+				&optlen));
-+	ASSERT_EQ(TCP_CA_NAME_MAX, optlen);
-+	ASSERT_NE(0, name[0]);
-+}
-+
-+TEST_F(tcp, congestion_short_clamped)
-+{
-+	socklen_t optlen = 4;
-+	char name[4] = {};
-+
-+	ASSERT_EQ(0, getsockopt(self->fd, IPPROTO_TCP, TCP_CONGESTION, name,
-+				&optlen));
-+	ASSERT_EQ(4, optlen);
-+	ASSERT_NE(0, name[0]);
-+}
-+
-+/* No ULP attached: length reported as zero, nothing written. */
-+TEST_F(tcp, ulp_none)
-+{
-+	socklen_t optlen = 16;
-+	char buf[16];
-+
-+	memset(buf, 0x5a, sizeof(buf));
-+	ASSERT_EQ(0, getsockopt(self->fd, IPPROTO_TCP, TCP_ULP, buf, &optlen));
-+	ASSERT_EQ(0, optlen);
-+	ASSERT_EQ(0x5a, (unsigned char)buf[0]);
-+}
-+
-+TEST_F(tcp, repair_window_wrong_len)
-+{
-+	socklen_t optlen = 4;
-+	char buf[4];
-+
-+	ASSERT_EQ(-1, getsockopt(self->fd, IPPROTO_TCP, TCP_REPAIR_WINDOW, buf,
-+				 &optlen));
-+	ASSERT_EQ(EINVAL, errno);
-+}
-+
-+TEST_F(tcp, zerocopy_receive_short)
-+{
-+	socklen_t optlen = 4;
-+	char buf[4] = {};
-+
-+	ASSERT_EQ(-1, getsockopt(self->fd, IPPROTO_TCP, TCP_ZEROCOPY_RECEIVE,
-+				 buf, &optlen));
-+	ASSERT_EQ(EINVAL, errno);
-+}
-+
-+/* Nothing queued: the call maps nothing and succeeds. */
-+TEST_F(tcp, zerocopy_receive_old_struct)
-+{
-+	struct tcp_zerocopy_receive zc = {};
-+	socklen_t optlen = sizeof(zc);
-+
-+	ASSERT_EQ(0, getsockopt(self->fd, IPPROTO_TCP, TCP_ZEROCOPY_RECEIVE,
-+				&zc, &optlen));
-+	ASSERT_EQ(sizeof(zc), optlen);
-+	ASSERT_EQ(0, zc.length);
-+}
-+
-+/* A larger struct is cut down to the kernel's, if its tail is zero. */
-+TEST_F(tcp, zerocopy_receive_oversize_clamped)
-+{
-+	char buf[256] = {};
-+	socklen_t optlen = sizeof(buf);
-+
-+	ASSERT_EQ(0, getsockopt(self->fd, IPPROTO_TCP, TCP_ZEROCOPY_RECEIVE,
-+				buf, &optlen));
-+	ASSERT_GE(optlen, sizeof(struct tcp_zerocopy_receive));
-+	ASSERT_LT(optlen, sizeof(buf));
-+}
-+
-+TEST_F(tcp, zerocopy_receive_oversize_dirty)
-+{
-+	char buf[256] = {};
-+	socklen_t optlen = sizeof(buf);
-+
-+	buf[sizeof(buf) - 1] = 1;
-+	ASSERT_EQ(-1, getsockopt(self->fd, IPPROTO_TCP, TCP_ZEROCOPY_RECEIVE,
-+				 buf, &optlen));
-+	ASSERT_EQ(EINVAL, errno);
-+	ASSERT_EQ(sizeof(buf), optlen);
-+}
-+
-+/* The client never saved a SYN, so there is nothing to report. */
-+TEST_F(tcp, saved_syn_none)
-+{
-+	socklen_t optlen = 128;
-+	char buf[128];
-+
-+	memset(buf, 0x5a, sizeof(buf));
-+	ASSERT_EQ(0, getsockopt(self->fd, IPPROTO_TCP, TCP_SAVED_SYN, buf,
-+				&optlen));
-+	ASSERT_EQ(0, optlen);
-+	ASSERT_EQ(0x5a, (unsigned char)buf[0]);
-+}
-+
-+/* A short buffer gets the required length back along with EINVAL, and the
-+ * SYN is still there for the retry.
-+ */
-+TEST_F(tcp, saved_syn_short_reports_len)
-+{
-+	socklen_t optlen = 1;
-+	char buf[256];
-+	socklen_t need;
-+
-+	ASSERT_EQ(-1, getsockopt(self->sfd, IPPROTO_TCP, TCP_SAVED_SYN, buf,
-+				 &optlen));
-+	ASSERT_EQ(EINVAL, errno);
-+	ASSERT_GT(optlen, 1);
-+	ASSERT_LE(optlen, sizeof(buf));
-+	need = optlen;
-+
-+	ASSERT_EQ(0, getsockopt(self->sfd, IPPROTO_TCP, TCP_SAVED_SYN, buf,
-+				&optlen));
-+	ASSERT_EQ(need, optlen);
-+}
-+
-+TEST_F(tcp, negative_optlen)
-+{
-+	socklen_t optlen = (socklen_t)-1;
-+	int val;
-+
-+	ASSERT_EQ(-1, getsockopt(self->fd, IPPROTO_TCP, TCP_MAXSEG, &val,
-+				 &optlen));
-+	ASSERT_EQ(EINVAL, errno);
-+}
-+
-+TEST_F(tcp, bad_optname)
-+{
-+	socklen_t optlen = sizeof(int);
-+	int val;
-+
-+	ASSERT_EQ(-1, getsockopt(self->fd, IPPROTO_TCP, 0x7fff, &val,
-+				 &optlen));
-+	ASSERT_EQ(ENOPROTOOPT, errno);
-+	ASSERT_EQ(sizeof(int), optlen);
-+}
-+
- TEST_HARNESS_MAIN
+Marc Lainez (2):
+  dt-bindings: power: supply: add Qualcomm QGauge fuel gauge
+  power: supply: add Qualcomm QGauge (qcom_qg) fuel gauge driver
+
+Val Packett (3):
+  iio: adc: qcom-spmi-adc5: Add ADC5_BAT_THERM_100K_PU
+  arm64: dts: qcom: pmi632: Add missing bat_therm ADC channel
+  arm64: dts: qcom: pmi632: Add battery fuel gauge node
+
+ .../bindings/power/supply/qcom,qg.yaml        | 105 +++
+ MAINTAINERS                                   |   7 +
+ arch/arm64/boot/dts/qcom/pmi632.dtsi          |  41 +
+ drivers/iio/adc/qcom-spmi-adc5.c              |   2 +
+ drivers/power/supply/Kconfig                  |  13 +
+ drivers/power/supply/Makefile                 |   1 +
+ drivers/power/supply/qcom_qg.c                | 807 ++++++++++++++++++
+ 7 files changed, 976 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/power/supply/qcom,qg.yaml
+ create mode 100644 drivers/power/supply/qcom_qg.c
 
 -- 
-2.53.0-Meta
+2.56.0
 
