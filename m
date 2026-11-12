@@ -1,69 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794469552;
-	b=1ipUC7H77lYfFhyAhG5tjsj3Mmie5BRjwo0na4izMPx9AOShZ+grh4BIXOjkCJS8SYUO
-	 eFECWmG0Xjtojz6WXJ6g8lrd8eHHZ/6s3mrzwtxvXR8gmI2hQg/jX5WDLZ6QatypB1YRr
-	 95pLSfCqKVTl9/XwAB1pczPyo1L+pOxSjtSytEcbP4yJHODsCM8YQE+a8MLXSiT3HfgVQ
-	 Xb+0DzirAGz75yYshpCFM4+CjfXDsnmprSGoEez2tcnMTh+WI+vwKNMPAO9US2j9rjDGS
-	 ppsm4xNfdSDbDP8zARMHXblaQKfv0mU9xZh9ojgzMxzfuXTNPdtnKXe4B19RUIxTe4w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794469552;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=y3w7lCKhUDSJO1hMkA378GpKP59GBJjooc29uy32nbU=;
-	b=B8iomBkcTJGClFG8FSWWTDP16eCiwsj7d1yGBk3USVYy3EZ/MFKSQ0RWTahgyp1hlBES
-	 GsPo049LvHaUyeQeawtEiDlnRybKxzwZZhY8IF39dss//ZDy5MpZIuEje9SD6e/p8HNHK
-	 F4GVBv5Bs4kBvxN2pVHCxs1qV8QVlZJ2XRi/IKsbN21Rku0CPXIt6Xb3ZdcBEfa7SLK9E
-	 bDdmOPtpvXvdH22kx4ca8lEKp3xeu5rOTz3rAAXASaP8mTxntj95vwjwtPEh3kIhsUwJ+
-	 FDlyClVVGRgVbmJ2Mb9ycUWW/3epILafTVAF8D2SVloJFOpQXw9YS/CF2cr7aS5B1ig==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=laveeshbansal.com;
-	spf=pass smtp.mailfrom=laveeshbansal.com;
-	dkim=pass header.d=laveeshbansal.com header.i=@laveeshbansal.com header.a=rsa-sha256 header.s=zoho header.b=EqxCaVpx;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794469573;
+	b=RNUlncimWXhw+2R1/aT9Yas9Vai2MrkhGdu68tC++gwWCoTUQUtdmcr8N+ZFhi8UU8S3
+	 uhgjlhX3M63yuA3INvn6bi3IdpHvY4rpcabLIh2tcEQzzMKyCvep0V+zP6kfz5zoWNQGg
+	 IWuHWZZfjWzlMxlXJvE8j8h4x624NyAseY3GH0DDl2VvQMzeL5Wf1/KAuhCqqaYLWfoFV
+	 o+9kOVz0I575VgLxOYa6q5Y7/X0pEIjAxk/uJWFuR3gBMk1AMSyCpmx4UxEOiclFLnJ8b
+	 rKMkDUGhen1rIs62cKSyFQHDlJYP5OuK1qv962MkD8NWul0MkefwXqMWtz+Gb4FTFSg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794469573;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Organization:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=U/4tUzC3TLD4FqI4xdC5pvsxvjza6A9soJUP+9C2920=;
+	b=wouxu9ESNGhk6tIqSrPsRDi0Zw2uZq8IrwmxHB4DQyHM9B+BXYrK4fcbGQRIcyAZfBv0
+	 wCtjjPl4+kf5UMT/DXvVuja8mVeJCjo8Mb8dpDmfICzmwTqvFjHrmE82yUbTm0db4OtjI
+	 IzCtKzq29oYNhO9e6H5BRa5x/gsG5wvvb4XnW7uQC9teHi4kKJKYNgD9EjtjNsY8BAwYP
+	 /o4ytzsTDCit6wd9e1AhMr2OQBp0VFRci0YcE3vGjsBGCEqF48+KDV1a3rdgHxULjq+Io
+	 MFbhuxr3RobzS1RTQSdcPCr7c7qWJSIQzmrYGrWi4D2E7Ahyih8yDczYKnEVHzJ7vQQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fogQ1fr0;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72B65606A321;
-	Thu, 12 Nov 2026 07:45:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72B65606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=laveeshbansal.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=laveeshbansal.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20086606A31C;
+	Thu, 12 Nov 2026 07:46:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20086606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=laveeshbansal.com header.i=@laveeshbansal.com header.a=rsa-sha256 header.s=zoho header.b=EqxCaVpx
-ARC-Seal: i=1; a=rsa-sha256; t=1794469439; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=oCUrl9IwMAMXQQlv0+PSYzq5FNDjzyU5MXLX5EPwX+ZbdC0yBhl+tULfTqhG4O4GB6GihjnbDrqqF/1sUWlOasYD4ZjH0gVNxzaY8oEZgWVYLWEW8hVecwiw9KJfJV72iErscjNXJAGyjk6w9QJ7VgxFDETpDuixGC1KYAuYvu0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794469439; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=y3w7lCKhUDSJO1hMkA378GpKP59GBJjooc29uy32nbU=; 
-	b=D//EkCDesnrkC8hSBSKs+caHHhQisMJnJEaqS6WJWsy/F1WWoK3dh/p/CXWyK3QEqTRs+Ou2M6KTZbnPvU9V7PORmdEs16SMoimcOH+hCSQ14aMfaRO4YxEwBJP0icoZg4u6PEy+qFtRsTcB8zjX1VnXSpRFxNDEr51OAcnVw6E=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=laveeshbansal.com;
-	spf=pass  smtp.mailfrom=laveeshb@laveeshbansal.com;
-	dmarc=pass header.from=<laveeshb@laveeshbansal.com>
-DKIM-Signature: a=rsa-sha256; b=EqxCaVpxSxZ2zq+LHH34yhkhLvzHMY6AqtXagGyp0K1P3wY3nMUYchRyTkQNa3IJGKOE+vLqCpnyO8YRZsvvJ0y3HCi0rY0xdMxS40Bskc9fiq7zSH9ppfusXxs/sTcFhphgVwUSBuUGotIYYLQ09Arh6GXCLOztx1JWBb5LqqE=; c=relaxed/relaxed; s=zoho; d=laveeshbansal.com; v=1; bh=y3w7lCKhUDSJO1hMkA378GpKP59GBJjooc29uy32nbU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794469437222955.0085428812287;
-	Wed, 11 Nov 2026 23:43:57 -0800 (PST)
-From: Laveesh Bansal <laveeshb@laveeshbansal.com>
-To: David Howells <dhowells@redhat.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Lukas Wunner <lukas@wunner.de>,
-	Ignat Korchagin <ignat@linux.win>,
-	"David S . Miller" <davem@davemloft.net>,
-	Denis Kenzior <denkenz@gmail.com>,
-	Maximilian Stahlberg <maximilian.stahlberg@uni-bremen.de>,
-	keyrings@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] X.509: Add KUnit tests for the certificate parser
-Date: Wed, 11 Nov 2026 23:42:46 -0800
-Message-ID: <20261112074246.99421-3-laveeshb@laveeshbansal.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261112074246.99421-1-laveeshb@laveeshbansal.com>
-References: <20261112074246.99421-1-laveeshb@laveeshbansal.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fogQ1fr0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794469573; x=1826005573;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=B8DZ8ac/lvdCsHwLYiCV00yrDKWFEEEp87wCEsDsqUc=;
+  b=fogQ1fr0O47koKlo7t3/U1PYYgrJGevdWYT7W5BHP26SBsf8M3jT1AdM
+   kh3wwHY092bAE5/I41vfw4uSxMtE1Lq8uQ3fsLf0TkUiqTN9qCK9kwzrJ
+   TuGopMNWhznMo9LUs2YG6qqmopKZ5Qxe4SkmG1M7alCNJD84/lcAKk7iO
+   Mkc+giTk0lphFEfzWhOJourp6SfdW4YuD4cVAa7ExY4uoVaxlcPfplXYE
+   C0WzD5kY0myqVG9iriCsXd/yz+eSP7ob3dXgzO9kGhkKnwfDDbcLciOJ1
+   7Pqugw40Vq+GR/yMSNQ3KaqgXcXTokyM9BMnvGYd5BiddQcekko8b2PzT
+   w==;
+X-CSE-ConnectionGUID: GQJcIa4DSdOk3rx9QCmbQg==
+X-CSE-MsgGUID: nE0oYHMQT+ap/49GEztx4g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3243957"
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="3243957"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 23:46:12 -0800
+X-CSE-ConnectionGUID: Vp69MBqRQdu2Arofn2sCCw==
+X-CSE-MsgGUID: tgWbJ6xUQFC8hBm4R0ZRfQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="9027153"
+Received: from carterle-desk.ger.corp.intel.com (HELO [10.245.244.5]) ([10.245.244.5])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 23:46:05 -0800
+Message-ID: <b77aecccce2dcf9bc42b1a6fccc62d06ccad4741.camel@linux.intel.com>
+Subject: Re: [Linaro-mm-sig] [PATCH v4 3/8] dma-buf: transfer memcg charges
+ via DMA_BUF_IOCTL_XFER_CHARGE
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Albert Esteve <aesteve@redhat.com>, Tejun Heo <tj@kernel.org>, Johannes
+ Weiner <hannes@cmpxchg.org>, Michal =?ISO-8859-1?Q?Koutn=FD?=
+ <mkoutny@suse.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Sumit Semwal	 <sumit.semwal@linaro.org>,
+ Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Michal
+ Hocko <mhocko@kernel.org>, Roman Gushchin	 <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song	
+ <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey
+ <Brian.Starkey@arm.com>, John Stultz	 <jstultz@google.com>, "T.J. Mercier"
+ <tjmercier@google.com>, Christian Brauner	 <brauner@kernel.org>, Paul Moore
+ <paul@paul-moore.com>, James Morris	 <jmorris@namei.org>, "Serge E. Hallyn"
+ <serge@hallyn.com>, Stephen Smalley	 <stephen.smalley.work@gmail.com>,
+ Shuah Khan <shuah@kernel.org>, Randy Dunlap	 <rdunlap@infradead.org>,
+ Ondrej =?UTF-8?Q?Mosn=C3=A1=C4=8Dek?=	 <omosnacek@gmail.com>, Jens
+ Wiklander <jenswi@kernel.org>, Sumit Garg	 <sumit.garg@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+	linux-mm@kvack.org, linux-security-module@vger.kernel.org, 
+	selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	op-tee@lists.trustedfirmware.org
+Date: Thu, 12 Nov 2026 08:46:02 +0100
+In-Reply-To: <20261104-v2_20230123_tjmercier_google_com-v4-3-1819a017000b@redhat.com>
+References: 
+	<20261104-v2_20230123_tjmercier_google_com-v4-0-1819a017000b@redhat.com>
+	 <20261104-v2_20230123_tjmercier_google_com-v4-3-1819a017000b@redhat.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,222 +105,292 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 
-Add a KUnit test for x509_cert_parse() that builds a small certificate
-in memory with different Subject and Issuer names. It checks that a
-certificate with an empty Subject parses, and that a Subject with a
-member that is not a SET and an empty Issuer are rejected.
+On Wed, 2026-11-04 at 12:09 +0100, Albert Esteve wrote:
+> dma-heap already supports charging a specific cgroup at allocation
+> time via charge_fd in DMA_HEAP_IOCTL_ALLOC. However, dma-bufs can
+> originate from any exporter (DRM, V4L2, etc.), and the allocator may
+> not know the final owner at allocation time.
+>=20
+> Add DMA_BUF_IOCTL_XFER_CHARGE to transfer a dma-buf's memcg charge
+> to a different cgroup after allocation. The target is identified by
+> charge_fd, which may be a cgroupfd or a pidfd.
+>=20
+> The transfer charges the new cgroup before uncharging the old one,
+> preserving the original charge on failure. Concurrent transfers are
+> serialized by the dma-buf reservation lock, so lockdep covers the
+> locking order of the charge path early. The transfer implementation
+> is generic (mem_cgroup_transfer_charge) and not dma-buf specific, so
+> it can be reused by other subsystems.
+>=20
+> Not all dma-buf exporters back their buffers with reclaimable system
+> memory. Some represent device registers, VRAM, or carved-out pools
+> where size is not a meaningful memory cost. The xfer ioctl returns
+> -EOPNOTSUPP for buffers whose memcg is not set. Exporters opt in by
+> passing a memcg through dma_buf_export_info at export time. Currently
+> only the system heap sets it, other exporters can opt in as needed.
+>=20
+> Usage example:
+> =C2=A0 int cg_fd =3D open("/sys/fs/cgroup/clients/app1", O_RDONLY |
+> O_DIRECTORY);
+>=20
+> =C2=A0 struct dma_buf_transfer_charge xfer =3D {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .charge_fd =3D cg_fd,
+> =C2=A0 };
+> =C2=A0 ioctl(dmabuf_fd, DMA_BUF_IOCTL_XFER_CHARGE, &xfer);
+> =C2=A0 /* charge now on app1's cgroup */
+> =C2=A0 close(cg_fd);
+>=20
+> Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> ---
+> =C2=A0drivers/dma-buf/dma-buf.c=C2=A0=C2=A0=C2=A0 | 42
+> ++++++++++++++++++++++++++++++++++++++++++
+> =C2=A0include/linux/dma-buf.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++-
+> =C2=A0include/linux/memcontrol.h=C2=A0=C2=A0 | 13 +++++++++++++
+> =C2=A0include/uapi/linux/dma-buf.h | 26 ++++++++++++++++++++++++++
+> =C2=A0mm/memcontrol.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 42
+> ++++++++++++++++++++++++++++++++++++++++++
+> =C2=A05 files changed, 125 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index 837666273550..3bd26fbb1109 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -540,6 +540,45 @@ static long dma_buf_import_sync_file(struct
+> dma_buf *dmabuf,
+> =C2=A0}
+> =C2=A0#endif
+> =C2=A0
+> +/* Transfer a dma-buf's memcg charge; see struct
+> dma_buf_transfer_charge */
+> +static long dma_buf_xfer_charge(struct dma_buf *dmabuf,
+> +				const void __user *user_data)
+> +{
+> +	struct dma_buf_transfer_charge arg;
+> +	struct mem_cgroup *memcg;
+> +	unsigned int nr_pages =3D PAGE_ALIGN(dmabuf->size) >>
+> PAGE_SHIFT;
+> +	int ret =3D 0;
+> +
+> +	if (copy_from_user(&arg, user_data, sizeof(arg)))
+> +		return -EFAULT;
+> +
+> +	if (!IS_ENABLED(CONFIG_MEMCG))
+> +		return 0;
+> +
+> +	if (arg.flags !=3D 0)
+> +		return -EINVAL;
+> +
+> +	memcg =3D mem_cgroup_get_from_fd(arg.charge_fd);
+> +	if (IS_ERR(memcg))
+> +		return PTR_ERR(memcg);
+> +
+> +	dma_resv_lock(dmabuf->resv, NULL);
+> +
+> +	if (!dmabuf->memcg) {
+> +		ret =3D -EOPNOTSUPP;
+> +		goto out;
+> +	}
+> +
+> +	if (dmabuf->memcg !=3D memcg &&
+> +	=C2=A0=C2=A0=C2=A0 !mem_cgroup_transfer_charge(&dmabuf->memcg, memcg,
+> MEMCG_DMABUF, nr_pages))
+> +		ret =3D -ENOMEM;
+> +
+> +out:
+> +	dma_resv_unlock(dmabuf->resv);
+> +	mem_cgroup_put(memcg);
+> +	return ret;
+> +}
+> +
+> =C2=A0static long dma_buf_ioctl(struct file *file,
+> =C2=A0			=C2=A0 unsigned int cmd, unsigned long arg)
+> =C2=A0{
+> @@ -590,6 +629,9 @@ static long dma_buf_ioctl(struct file *file,
+> =C2=A0		return dma_buf_import_sync_file(dmabuf, (const void
+> __user *)arg);
+> =C2=A0#endif
+> =C2=A0
+> +	case DMA_BUF_IOCTL_XFER_CHARGE:
+> +		return dma_buf_xfer_charge(dmabuf, (const void
+> __user *)arg);
+> +
+> =C2=A0	default:
+> =C2=A0		return -ENOTTY;
+> =C2=A0	}
+> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+> index 85dd747c9b36..b01149d26b44 100644
+> --- a/include/linux/dma-buf.h
+> +++ b/include/linux/dma-buf.h
+> @@ -507,7 +507,8 @@ struct dma_buf_attachment {
+> =C2=A0 * @priv:	Attach private data of allocator to this buffer
+> =C2=A0 * @memcg:	memcg to charge for this buffer's memory. Set only
+> for
+> =C2=A0 *		buffers backed by system memory where @size reflects
+> the
+> - *		actual allocation in bytes.
+> + *		actual allocation in bytes. Enables charge transfer
+> via
+> + *		DMA_BUF_IOCTL_XFER_CHARGE.
+> =C2=A0 *
+> =C2=A0 * This structure holds the information required to export the
+> buffer. Used
+> =C2=A0 * with dma_buf_export() only.
+> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+> index f8ec751b7d7b..af02d9777fe9 100644
+> --- a/include/linux/memcontrol.h
+> +++ b/include/linux/memcontrol.h
+> @@ -676,6 +676,11 @@ struct mem_cgroup *mem_cgroup_get_from_fd(int
+> fd);
+> =C2=A0bool mem_cgroup_reserve_dmabuf(struct mem_cgroup *memcg, gfp_t gfp,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int nr_pages);
+> =C2=A0
+> +bool mem_cgroup_transfer_charge(struct mem_cgroup **ptr_memcg,
+> +				struct mem_cgroup *new_memcg,
+> +				enum memcg_stat_item item,
+> +				unsigned int nr_pages);
+> +
+> =C2=A0void __mem_cgroup_uncharge(struct folio *folio);
+> =C2=A0
+> =C2=A0/**
+> @@ -1197,6 +1202,14 @@ static inline void
+> mem_cgroup_cancel_dmabuf(struct mem_cgroup *memcg,
+> =C2=A0{
+> =C2=A0}
+> =C2=A0
+> +static inline bool mem_cgroup_transfer_charge(struct mem_cgroup
+> **ptr_memcg,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct mem_cgroup
+> *new_memcg,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enum memcg_stat_item
+> item,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int nr_pages)
+> +{
+> +	return true;
+> +}
+> +
+> =C2=A0static inline void mem_cgroup_uncharge(struct folio *folio)
+> =C2=A0{
+> =C2=A0}
+> diff --git a/include/uapi/linux/dma-buf.h b/include/uapi/linux/dma-
+> buf.h
+> index e827c9d20c5d..0aaf2e7d593b 100644
+> --- a/include/uapi/linux/dma-buf.h
+> +++ b/include/uapi/linux/dma-buf.h
+> @@ -168,6 +168,31 @@ struct dma_buf_import_sync_file {
+> =C2=A0	__s32 fd;
+> =C2=A0};
+> =C2=A0
+> +/**
+> + * struct dma_buf_transfer_charge - Transfer a dma-buf's memcg
+> charge
+> + *
+> + * Any holder of a dma-buf file descriptor can perform a
+> + * DMA_BUF_IOCTL_XFER_CHARGE to attribute the buffer's memory
+> + * cost to a specific cgroup, or move it from one cgroup to
+> + * another.=C2=A0 The ioctl charges the new cgroup before uncharging
+> + * the old one atomically.=C2=A0 On failure the original charge is
+> + * preserved.=C2=A0 If the buffer has no existing memcg charge, the
+> + * ioctl returns -EOPNOTSUPP.
+> + */
+> +struct dma_buf_transfer_charge {
+> +	/** @flags: Reserved, must be zero */
+> +	__u32 flags; /* unused for now */
+> +	/**
+> +	 * @charge_fd: File descriptor identifying the target
+> cgroup.
+> +	 *
+> +	 * May be either a pidfd, in which case the charge moves to
+> the
+> +	 * memory cgroup of the referenced process, or a cgroupfd
+> obtained
+> +	 * by opening a cgroup v2 directory, in which case the
+> charge moves
+> +	 * directly to that cgroup's memory controller.
+> +	 */
+> +	__u32 charge_fd;
+> +};
+> +
+> =C2=A0#define DMA_BUF_BASE		'b'
+> =C2=A0#define DMA_BUF_IOCTL_SYNC	_IOW(DMA_BUF_BASE, 0, struct
+> dma_buf_sync)
+> =C2=A0
+> @@ -179,5 +204,6 @@ struct dma_buf_import_sync_file {
+> =C2=A0#define DMA_BUF_SET_NAME_B	_IOW(DMA_BUF_BASE, 1, __u64)
+> =C2=A0#define DMA_BUF_IOCTL_EXPORT_SYNC_FILE	_IOWR(DMA_BUF_BASE, 2,
+> struct dma_buf_export_sync_file)
+> =C2=A0#define DMA_BUF_IOCTL_IMPORT_SYNC_FILE	_IOW(DMA_BUF_BASE, 3, struct
+> dma_buf_import_sync_file)
+> +#define DMA_BUF_IOCTL_XFER_CHARGE	_IOW(DMA_BUF_BASE, 4, struct
+> dma_buf_transfer_charge)
+> =C2=A0
+> =C2=A0#endif
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index 17fdefc56b97..3e717b5663c8 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -5752,6 +5752,48 @@ void mem_cgroup_cancel_dmabuf(struct
+> mem_cgroup *memcg, unsigned int nr_pages)
+> =C2=A0}
+> =C2=A0EXPORT_SYMBOL_GPL(mem_cgroup_cancel_dmabuf);
+> =C2=A0
+> +/**
+> + * mem_cgroup_transfer_charge - move a charge between memcgs
+> + * @ptr_memcg: pointer to the memcg to transfer from
+> + * @new_memcg: target memcg; caller must hold a reference
+> + * @item: stat counter to adjust
+> + * @nr_pages: number of pages to transfer
+> + *
+> + * Transfers @nr_pages of charge from *@ptr_memcg to @new_memcg and,
+> on
+> + * success, stores @new_memcg in *@ptr_memcg.
+> + *
+> + * Updates to *@ptr_memcg must be serialized by the caller.
+> + * Returns %true on success, %false if the charge against @new_memcg
+> + * failed.
+> + */
+> +bool mem_cgroup_transfer_charge(struct mem_cgroup **ptr_memcg,
+> +				struct mem_cgroup *new_memcg,
+> +				enum memcg_stat_item item,
+> +				unsigned int nr_pages)
+> +{
+> +	struct mem_cgroup *old_memcg =3D *ptr_memcg;
+> +
+> +	if (!new_memcg || mem_cgroup_disabled())
+> +		return true;
+> +
+> +	if (try_charge(new_memcg, GFP_KERNEL, nr_pages))
+> +		return false;
+> +
+> +	mod_memcg_state(new_memcg, item, nr_pages);
+> +	css_get(&new_memcg->css);
+> +	*ptr_memcg =3D new_memcg;
+> +
+> +	if (old_memcg) {
+> +		/* Uncharge old cgroup */
+> +		mod_memcg_state(old_memcg, item, -nr_pages);
+> +		if (!mem_cgroup_is_root(old_memcg))
+> +			refill_stock(old_memcg, nr_pages);
+> +		mem_cgroup_put(old_memcg);
+> +	}
+> +
+> +	return true;
+> +}
 
-Signed-off-by: Laveesh Bansal <laveeshb@laveeshbansal.com>
----
-Without patch 1, x509_empty_subject fails and the other three cases pass;
-with it, all four pass (arm64 QEMU/KVM guest, cbbddb6b08cc, 7.3.0).
- crypto/asymmetric_keys/Kconfig            |  11 ++
- crypto/asymmetric_keys/Makefile           |   1 +
- crypto/asymmetric_keys/x509_parser_test.c | 160 ++++++++++++++++++++++
- 3 files changed, 172 insertions(+)
- create mode 100644 crypto/asymmetric_keys/x509_parser_test.c
+=20
+This has the same lifetime issue as patch 1. After a transfer, the
+buffer pins new_memcg until it is released, and with cross-process
+transfers the target may be removed before the
+buffer is. Since this helper is meant to be reused by other subsystems,
+would it be better to have it take and store an obj_cgroup from the
+start?
 
-diff --git a/crypto/asymmetric_keys/Kconfig b/crypto/asymmetric_keys/Kconfig
-index c73979b2e98e..ca2c11f82e32 100644
---- a/crypto/asymmetric_keys/Kconfig
-+++ b/crypto/asymmetric_keys/Kconfig
-@@ -126,4 +126,15 @@ config VERIFY_PEFILE_KUNIT_TEST
- 
- 	  If unsure, say N.
- 
-+config X509_PARSER_KUNIT_TEST
-+	tristate "KUnit tests for X.509 certificate parsing" if !KUNIT_ALL_TESTS
-+	depends on KUNIT && X509_CERTIFICATE_PARSER
-+	default KUNIT_ALL_TESTS
-+	help
-+	  Enable KUnit tests for the X.509 certificate parser.  The tests build
-+	  small certificates in memory and check which Subject and Issuer
-+	  names x509_cert_parse() accepts.
-+
-+	  If unsure, say N.
-+
- endif # ASYMMETRIC_KEY_TYPE
-diff --git a/crypto/asymmetric_keys/Makefile b/crypto/asymmetric_keys/Makefile
-index 35172685c533..1ce91737ac89 100644
---- a/crypto/asymmetric_keys/Makefile
-+++ b/crypto/asymmetric_keys/Makefile
-@@ -22,6 +22,7 @@ x509_key_parser-y := \
- 	x509_cert_parser.o \
- 	x509_loader.o \
- 	x509_public_key.o
-+obj-$(CONFIG_X509_PARSER_KUNIT_TEST) += x509_parser_test.o
- obj-$(CONFIG_FIPS_SIGNATURE_SELFTEST) += x509_selftest.o
- x509_selftest-y += selftest.o
- x509_selftest-$(CONFIG_FIPS_SIGNATURE_SELFTEST_RSA) += selftest_rsa.o
-diff --git a/crypto/asymmetric_keys/x509_parser_test.c b/crypto/asymmetric_keys/x509_parser_test.c
-new file mode 100644
-index 000000000000..c005b6fe68a6
---- /dev/null
-+++ b/crypto/asymmetric_keys/x509_parser_test.c
-@@ -0,0 +1,160 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * KUnit tests for the X.509 certificate parser.
-+ *
-+ * The cases build a minimal certificate in memory, vary the Subject or Issuer
-+ * name, and call x509_cert_parse().  The key and signature are dummies, so
-+ * Issuer and Subject must differ or the parser tries to verify the signature
-+ * as a self-signed certificate.
-+ */
-+#include <kunit/test.h>
-+#include <linux/cleanup.h>
-+#include <linux/err.h>
-+#include <linux/slab.h>
-+#include <linux/string.h>
-+#include "x509_parser.h"
-+
-+/* Name DERs: empty, CN=x, CN=y, and one whose member is not a SET. */
-+static const u8 name_empty[] = { 0x30, 0x00 };
-+static const u8 name_cn[] = {
-+	0x30, 0x0c, 0x31, 0x0a, 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x03,
-+	0x0c, 0x01, 0x78
-+};
-+
-+static const u8 name_other_cn[] = {
-+	0x30, 0x0c, 0x31, 0x0a, 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x03,
-+	0x0c, 0x01, 0x79
-+};
-+
-+static const u8 name_not_a_set[] = { 0x30, 0x03, 0x02, 0x01, 0x00 };
-+
-+static const u8 cert_version[] = { 0xa0, 0x03, 0x02, 0x01, 0x02 };
-+static const u8 cert_serial[] = { 0x02, 0x01, 0x01 };
-+/* sha256WithRSAEncryption, NULL parameters */
-+static const u8 cert_sig_algo[] = {
-+	0x30, 0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01,
-+	0x0b, 0x05, 0x00
-+};
-+
-+/* 2026-01-01 to 2036-01-01 */
-+static const u8 cert_validity[] = {
-+	0x30, 0x1e,
-+	0x17, 0x0d, '2', '6', '0', '1', '0', '1', '0', '0', '0', '0', '0', '0', 'Z',
-+	0x17, 0x0d, '3', '6', '0', '1', '0', '1', '0', '0', '0', '0', '0', '0', 'Z'
-+};
-+
-+/* rsaEncryption with a dummy 4-byte key; the key is not parsed here */
-+static const u8 cert_spki[] = {
-+	0x30, 0x16,
-+	0x30, 0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01,
-+	0x01, 0x05, 0x00,
-+	0x03, 0x05, 0x00, 0x01, 0x02, 0x03, 0x04
-+};
-+
-+static const u8 cert_signature[] = { 0x03, 0x05, 0x00, 0x01, 0x02, 0x03, 0x04 };
-+
-+/* Write tag, length (up to 255) and @len bytes of @val at @out. */
-+static u8 *put_tlv(u8 *out, u8 tag, const u8 *val, size_t len)
-+{
-+	*out++ = tag;
-+	if (len > 127)
-+		*out++ = 0x81;
-+	*out++ = len;
-+	memcpy(out, val, len);
-+	return out + len;
-+}
-+
-+static u8 *put_raw(u8 *out, const u8 *val, size_t len)
-+{
-+	memcpy(out, val, len);
-+	return out + len;
-+}
-+
-+static struct x509_certificate *parse_cert(struct kunit *test,
-+					   const u8 *issuer, size_t issuer_len,
-+					   const u8 *subject, size_t subject_len)
-+{
-+	/* The parsed certificate keeps pointers into this buffer. */
-+	u8 *cert = kunit_kzalloc(test, 256, GFP_KERNEL);
-+	u8 tbs[160], body[256], *p = tbs, *q = body;
-+
-+	KUNIT_ASSERT_NOT_NULL(test, cert);
-+	/* Keep tbs[] and body[] large enough for the fixed parts plus the names. */
-+	KUNIT_ASSERT_LE(test, issuer_len + subject_len, 64);
-+
-+	p = put_raw(p, cert_version, sizeof(cert_version));
-+	p = put_raw(p, cert_serial, sizeof(cert_serial));
-+	p = put_raw(p, cert_sig_algo, sizeof(cert_sig_algo));
-+	p = put_raw(p, issuer, issuer_len);
-+	p = put_raw(p, cert_validity, sizeof(cert_validity));
-+	p = put_raw(p, subject, subject_len);
-+	p = put_raw(p, cert_spki, sizeof(cert_spki));
-+
-+	q = put_tlv(q, 0x30, tbs, p - tbs);
-+	q = put_raw(q, cert_sig_algo, sizeof(cert_sig_algo));
-+	q = put_raw(q, cert_signature, sizeof(cert_signature));
-+	p = put_tlv(cert, 0x30, body, q - body);
-+
-+	return x509_cert_parse(cert, p - cert);
-+}
-+
-+/* RFC 5280 allows an empty Subject, so the certificate must parse. */
-+static void x509_empty_subject(struct kunit *test)
-+{
-+	struct x509_certificate *cert __free(x509_free_certificate) =
-+		parse_cert(test, name_other_cn, sizeof(name_other_cn),
-+			   name_empty, sizeof(name_empty));
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, cert);
-+	/* raw_subject_size counts the contents, not the tag and length. */
-+	KUNIT_EXPECT_EQ(test, cert->raw_subject_size, 0);
-+}
-+
-+/* Control: the same certificate with a one-RDN Subject parses. */
-+static void x509_named_subject(struct kunit *test)
-+{
-+	struct x509_certificate *cert __free(x509_free_certificate) =
-+		parse_cert(test, name_other_cn, sizeof(name_other_cn),
-+			   name_cn, sizeof(name_cn));
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, cert);
-+	KUNIT_EXPECT_EQ(test, cert->raw_subject_size, sizeof(name_cn) - 2);
-+}
-+
-+/* A Subject member that is not a SET must be rejected, not looped over. */
-+static void x509_subject_not_a_set(struct kunit *test)
-+{
-+	struct x509_certificate *cert __free(x509_free_certificate) =
-+		parse_cert(test, name_other_cn, sizeof(name_other_cn),
-+			   name_not_a_set, sizeof(name_not_a_set));
-+
-+	KUNIT_EXPECT_EQ(test, PTR_ERR_OR_ZERO(cert), -EBADMSG);
-+}
-+
-+/* The Issuer must not be empty. */
-+static void x509_empty_issuer(struct kunit *test)
-+{
-+	struct x509_certificate *cert __free(x509_free_certificate) =
-+		parse_cert(test, name_empty, sizeof(name_empty),
-+			   name_cn, sizeof(name_cn));
-+
-+	KUNIT_EXPECT_EQ(test, PTR_ERR_OR_ZERO(cert), -EBADMSG);
-+}
-+
-+static struct kunit_case x509_parser_cases[] = {
-+	KUNIT_CASE(x509_empty_subject),
-+	KUNIT_CASE(x509_named_subject),
-+	KUNIT_CASE(x509_subject_not_a_set),
-+	KUNIT_CASE(x509_empty_issuer),
-+	{}
-+};
-+
-+static struct kunit_suite x509_parser_suite = {
-+	.name = "x509_parser",
-+	.test_cases = x509_parser_cases,
-+};
-+
-+kunit_test_suite(x509_parser_suite);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("KUnit tests for the X.509 certificate parser");
--- 
-2.54.0
+Thanks,
+Thomas
 
+
+> +
+> =C2=A0/**
+> =C2=A0 * mem_cgroup_uncharge_dmabuf - uncharge a dma-buf from its memcg
+> =C2=A0 * @dmabuf: buffer to uncharge
