@@ -1,49 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794474634;
-	b=y3FVppbxGykmcXmRdNVRhukVu8GlI9yTnDv4QVI8ilJv6oMValjJhy94JIUCRFujdRp2
-	 WkLaNfpCczf9toL8DlBL8o7LfQa1XKfmqAbahwN4FxP8NFF2/cDAI6iJgb+sAEvXU1iny
-	 zA9mrfEDL663CN1IrRYte55fENswEzilFtdmNwp/59HE20j88X6rDQj5Cu8r9VIaMicBy
-	 6dU/ANiS6AmJz7c9kuyq+mBopKJ8Dl477c6NfPMS1+ybkbwsXONwMputgVaoDEgti8tEI
-	 Uc5wj1sp9dcSkOVcQoHLQVkUAR9ziWJLdLeTUSYMuKBhZzidmFQ2ARr6GTPLi9D+/0A==
+	t=1794474658;
+	b=HgOp1UNibHZf/OSS33xZ27XHOrAmOGPSnU4qMutm34vMjux54r+25oDfncY80Zzkm7+4
+	 Zbzymxz2Owqdz3wczCB4fX4F2L7/11/n5TMFRF8DBa2p489z0EYwH9OIyVjhYzb+kJ7R4
+	 ue0AIQFEap/+gOXJAEyGja7lYCfL/o91h8AOXkIcuqT3+d9YWXuNk4I5Y+1cAI2hb5h7H
+	 IqGAPjKtHosprcyj7tMyfyzRHGePJwcgYhYFWfiSk7X3A0dJLmTBNbdtYHAQ/gRz8EjgO
+	 KJNOmo7qE6/1AcNlnPSv5Fv9KTtt3VCOl4t8obxJOZzw7XKQvzf1FLmA7m+do/7ekUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474634;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=wQj27ksVjqLhjplnEMuQzGY5NWfyAFriN6cwBtDVCCk=;
-	b=f4m8LU/Nk5mdJNg62zETk5Nn+N9Qnpz03XJq6+sLWngj+ZEm/2dE+fWHtn1dWfaDh7FC
-	 bVOcdLH19MF5/zv4NQdg4BgjYD5HPgzBhLW0StDzYctld52qQiEDECcwXTEkDYM4JkvB9
-	 x0/ZbohcuW4OXmTy/PdS7s0nDLc/gSxK5kYfLVTo5sJFjZzlBcKOPwDCO7Gskh0f8uBgM
-	 tHbbMwTyTzce/C6BlNLKIT4R/zgMfU+WoYb4qs9lw2cDjckcSGrZsh7X+Sn/AohM91lOK
-	 JfvpFau4Mnty7dEiKFws3BdPicVK19nZd2Q61/bN53pKZfBehGIYmgLj8004hPQuhUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474658;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=kL5yNFxOQr1bNwj2yp9xsvwd7EvfVdlHCAwOgWjtFQ8=;
+	b=PTLeOY3QDrBLrZlxpZJx/bPgn03zEqpPTZicBQcnb4evXaK0e71CweK/pcxDBhlUTD/u
+	 PXLzQzw+psey1/VMO5z+y1DbmoSYLinXPORLlMcL4+jAHn9g1ljiMGjTn3ho4jF/MXJCB
+	 BJGTxdPJWlkBBxgkwfPPEke2NTmJWjIh30mQPtFyIML7J1juC96f87lhmMjcbclJtXhWq
+	 qCiT/3Y0Cx40NPFT5mcQ0rwQctWRp0QISgnPgjxa7PYmY1OszNKPO4fu+aAOHusN9wPl7
+	 1fl+DUlo3vOwhFoWMZAV3Mhxi7upAwQSJs8zTNBhtQEGPmE1D+FVtS68C6T1PyydHeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=uswq2blK;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 117D0606A32D
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:10:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 117D0606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=F8Is5QRG;
+	arc=none smtp.remote-ip=52.59.177.22
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E162606A31C;
+	Thu, 12 Nov 2026 09:10:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E162606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=uswq2blK
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 16D16339;
-	Thu, 12 Nov 2026 01:10:30 -0800 (PST)
-Received: from [10.0.130.226] (e127648.arm.com [10.0.130.226])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0CEA73F673;
-	Thu, 12 Nov 2026 01:10:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794474633; bh=BYQlVTt2TsRYaw7IbDV9qQr5GG+v5qK7pRAPyT0Uld8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=uswq2blKugXllc32B9EkYHllbNXq+RNpfxr0gL5G8z+TuwvAAwqG/9GWpKlGFCU2B
-	 WQCpnAG3OVLNUmIq8dsY0u9Wxzb3ApojwCTUBAabrO+vR++HncNcEsehCuQNZYewnn
-	 OqRbeCuFXdyaXWAN6i9Xe+KcMToka0jAht+o6CGo=
-Message-ID: <30ba2eb9-5fe4-4b8a-879d-0283a8388f28@arm.com>
-Date: Thu, 12 Nov 2026 09:10:28 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=F8Is5QRG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794474612;
+	bh=kL5yNFxOQr1bNwj2yp9xsvwd7EvfVdlHCAwOgWjtFQ8=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=F8Is5QRGRArslT0hQqs17+XCYi0XDx8/8CkFCti4JQVvG38wgGUX5j/QelAP40pdd
+	 Y94psaF1g5cgAQKo7UYaWm/xQclNCD9K/jdJvSk+1ky71HcdScColWSFNesdFld3HF
+	 ldO6dJBLI97Celqvk2R9VmG05yJdsiibTLNBsk5M=
+X-QQ-mid: esmtpgz11t1794474596t6e10af42
+X-QQ-Originating-IP: Ia2ZFIUMrwIr2+SQEeFPwzme45b8gAUcBlQNMeYD3iY=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 12 Nov 2026 17:09:55 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 5409456588328214645
+EX-QQ-RecipientCnt: 7
+From: raoxu <raoxu@uniontech.com>
+To: rafael@kernel.org
+Cc: lenb@kernel.org,
+	sakari.ailus@linux.intel.com,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	raoxu@uniontech.com,
+	stable@vger.kernel.org
+Subject: [PATCH] ACPI: property: Fix leaked buffers after skipped properties
+Date: Thu, 12 Nov 2026 17:09:54 +0800
+Message-ID: <DC796DD7AB1437C8+20261112090954.1388267-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,171 +71,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: topology: Reduce the skew for AMU feedback
- counter sampling
-To: Beata Michalska <beata.michalska@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, Vladimir.Murzin@arm.com,
- catalin.marinas@arm.com, will@kernel.org, suzuki.poulose@arm.com,
- xuewen.yan94@gmail.com, linux-kernel@vger.kernel.org
-References: <20261111124005.2688820-1-beata.michalska@arm.com>
- <20261111124005.2688820-4-beata.michalska@arm.com>
- <45d9ce54-0f6f-46b0-aed6-de8d12b3d6de@arm.com> <avS2In7pb6A2XJaT@arm.com>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <avS2In7pb6A2XJaT@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: MdX6KBrQ9NyucedZzOI13e4aPRB5YJmtlC4eAyT55xPct3WOATXmnaaO
+	16DLlehhi7M/gaKIloyNAZfvV8e4xf7/22ca21JXvXz+0Lll5DbcdSuFpR2wt/PuzMKYKLK
+	8OW+OUj5k0l3Is+xVkHKvXKEufAHO/JwbJOUCz6BiWcVgF1kGCQVdf7Z/9WmAP66O7OMt4S
+	9XoMVFVO5oXuE6O6cyzDBT9Py0OYL36hkI7KpkQP4Bmd2xk/covkbbpx7wreMmX4h5QLQHA
+	Ebj/GAT1b+C74Lbkqj+5/970gJB1YRsSJGHspurTL8gwva9pBi6vkgK6F3iu9a0i0ceCF35
+	MVkw1eG8Z263Y8S4bM813oSzslE9tT2cdJW3auhOalICe46guFs1qKg2bwRDdDQ21Ftt5/E
+	oC4CYe/SXKnA6eR5nmMiWvAWlTYshq6Q7/iVcmijh1uKji6YVkQvkV0DQ2yW9a74L+zepLQ
+	H5IAdhh7gAgByA4UAFcSe0lAxWMZUsUDUArFypW+CFwghJKyWKnN5kvQtzRpynGnnE9JUMv
+	7zcFewo3Yr8flbUcw1k35M/CpGi7VODW8Qriqf+zdzTzXHVNvL77MzZPjruku3mMikdZ85W
+	XaA6zZD57zl9ppT5yxLBeffBplrRMBbALzuT0P2gm91x3jk3cyHt+hLQaeGbupZMxUJPPfW
+	12k6yEshIYrHt55KuLWAr0r/aRCxX4wgzDoOmpIjiLaUwZvKpMWLhm3HwUtGcmwctDoYRmf
+	QppvN31WnS2Gt3NDxteKxo9TyDRR6GiEXWTaYo6MI1Tpr5CLNf5KDAjTBrR7Vvol+h64Zrs
+	jN18JcpX49f0JBti2G6x9b7QR5gfPIFrYVJke7IWUSjpCb8Wr9ypsqTwkWJADR4L3qAt/aA
+	d1JmnsjLZ+4TiVJwt/mc/Ojq9NsJPcxyU4G2PEDkpBD4gu387yNnAew5T1XN8RCGZ8jEpCI
+	WPEPW/MmciuuyZRpDyxT4JuUY5VjdTnwQe0VQpYZyQ5owRaDxPGNL3qOVsp8dXOdHyeYeF7
+	K2J7M61IuamIc+oGojUStzrBXvmi/bL2qZu2jO6hV7ZcHENtoXTo+ixisrAtY=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-On 11/11/26 18:38, Beata Michalska wrote:
-> Hi Christian,
-> On Wed, Nov 11, 2026 at 01:56:49PM +0000, Christian Loehle wrote:
->> On 11/11/26 12:39, Beata Michalska wrote:
->>> With the FFH support for CPPC, the AMU feedback counters, core and const
->>> counter, are being sampled to measure CPU performance. Checking for errata
->>> (which can affect both counters) between the reads delays the second
->>> sample and can skew the result.
->>>
->>> Take both samples in succession, then discard values from affected
->>> counters. This narrows the sampling interval used for CPPC feedback.
->>>
->>> Signed-off-by: Beata Michalska <beata.michalska@arm.com>
->>> ---
->>>  arch/arm64/kernel/topology.c | 76 +++++++++++++++++++++++-------------
->>>  1 file changed, 49 insertions(+), 27 deletions(-)
->>>
->>> diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
->>> index 66ac67bd025e..c968fa5b0c88 100644
->>> --- a/arch/arm64/kernel/topology.c
->>> +++ b/arch/arm64/kernel/topology.c
->>> @@ -381,29 +381,45 @@ enum cpc_ffh_ctr_id {
->>>  	CPC_FFH_CTR_CONST = 0x1,
->>>  };
->>>  
->>> -static void cpu_read_corecnt(void *val)
->>> +static inline void cpu_read_corecnt(void *val)
->>>  {
->>> -	/*
->>> -	 * A value of 0 can be returned if the current CPU does not support AMUs
->>> -	 * or if the counter is disabled for this CPU. A return value of 0 at
->>> -	 * counter read is properly handled as an error case by the users of the
->>> -	 * counter.
->>> -	 */
->>> -	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CORECNT) ?
->>> -		0UL : read_corecnt();
->>> +	*(u64 *)val = read_corecnt();
->>>  }
->>>  
->>> -static void cpu_read_constcnt(void *val)
->>> +static void cpu_try_read_corecnt(void *val)
->>>  {
->>> -	/*
->>> -	 * Return 0 if the current CPU is affected by a HW erratum.
->>> -	 * A value of 0 is also returned if the current CPU does not
->>> -	 * support AMUs or if the counter is disabled. A return
->>> -	 * value of 0 at counter read is properly handled as an error
->>> -	 * case by the users of the counter.
->>> -	 */
->>> -	*(u64 *)val = this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT) ?
->>> -		      0UL : read_constcnt();
->>> +	if (!this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CORECNT)) {
->>> +		cpu_read_corecnt(val);
->>> +	} else {
->>> +		/*
->>> +		 * A value of 0 can be returned if the current CPU does not support AMUs
->>> +		 * or if the counter is disabled for this CPU. A return value of 0 at
->>> +		 * counter read is properly handled as an error case by the users of the
->>> +		 * counter.
->>> +		 */
->>> +		*(u64 *)val = 0UL;
->>> +	}
->>> +}
->>> +
->>> +static inline void cpu_read_constcnt(void *val)
->>> +{
->>> +	*(u64 *)val = read_constcnt();
->>> +}
->>> +
->>> +static void cpu_try_read_constcnt(void *val)
->>> +{
->>> +	if (!this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT)) {
->>> +		cpu_read_constcnt(val);
->>> +	} else {
->>> +		/*
->>> +		 * Return 0 if the current CPU is affected by a HW erratum.
->>> +		 * A value of 0 is also returned if the current CPU does not
->>> +		 * support AMUs or if the counter is disabled. A return
->>> +		 * value of 0 at counter read is properly handled as an error
->>> +		 * case by the users of the counter.
->>> +		 */
->>> +		*(u64 *)val = 0UL;
->>> +	}
->>>  }
->>>  
->>>  static inline
->>> @@ -461,14 +477,20 @@ static void amu_read_core_const_ctrs(void *val)
->>>  {
->>>  	struct amu_ffh_ctrs *ctrs = val;
->>>  
->>> +	cpu_read_corecnt(&ctrs->corecnt);
->>> +	cpu_read_constcnt(&ctrs->constcnt);
->>> +
->>>  	/*
->>> -	 * cpu_read_constcnt() incurs slight latency due to the
->>> -	 * ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT check.
->>> -	 * Read it first to minimize the sampling skew between the const
->>> -	 * and core counters.
->>> +	 * Return 0 if the current CPU is affected by a HW erratum.
->>> +	 * A value of 0 is also returned if the current CPU does not
->>> +	 * support AMUs or if the counter is disabled. A return
->>> +	 * value of 0 at counter read is properly handled as an error
->>> +	 * case by the users of the counter.
->>
->> Why do we read them first then on 
->> ARM64_WORKAROUND_BROKEN_AMU_CORECNT or ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT
->> respectively?
->>
-> That's what this patch is all about - isn't it ?
+From: Xu Rao <raoxu@uniontech.com>
 
-I thought it's about getting (all GCC 11.4 here)
-mrs x0, amevcntr00_el0
-str x0, [x19]
-mrs x0, amevcntr01_el0
+acpi_data_add_buffer_props() compacts successfully parsed buffer
+properties into an output package, but stores their separately allocated
+evaluation buffers in props->bufs using the original input index.
+acpi_free_device_properties() only frees entries below the output
+package's successful-property count.
 
-instead of
-mrs     x1, amevcntr01_el0
-[100 instructions here...]
-mrs     x1, amevcntr00_el0
+If a property is skipped because of an invalid format, invalid types or
+a failed object evaluation, later successful entries can be stored past
+the range visited during cleanup. For example, a failed first entry and
+a successful second entry leave the allocation in bufs[1] while cleanup
+only visits bufs[0]. The evaluation buffer is then leaked when the
+properties are destroyed. Lists with no skipped entries do not exhibit
+this mismatch.
 
-(before this patch)
+Store each evaluation buffer at the current output count before
+incrementing it. This keeps the ownership array compact and aligned with
+the cleanup bound without changing property order or buffer contents.
 
-> It allows direct read of both counters (those being read first),
-> and only once that's done, it verifies whether the workaround should be applied
-> or not. For cores that do not have either it eliminates the check between
-> reading the counters.
-> Or you had smth else in mind I did not quite manage to grasp ?
+Fixes: 103e10c69c61 ("ACPI: property: Add support for parsing buffer property UUID")
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/acpi/property.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Something like:
+diff --git a/drivers/acpi/property.c b/drivers/acpi/property.c
+index 8ee5a1f0eb48..fb6b214f2335 100644
+--- a/drivers/acpi/property.c
++++ b/drivers/acpi/property.c
+@@ -523,7 +523,7 @@ static void acpi_data_add_buffer_props(acpi_handle handle,
+ 		obj->buffer.length = buf_obj->buffer.length;
+ 		obj->buffer.pointer = buf_obj->buffer.pointer;
 
-    bool core_broken = this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CORECNT);
-    bool const_broken = this_cpu_has_cap(ARM64_WORKAROUND_BROKEN_AMU_CONSTCNT);
+-		props->bufs[i] = buf.pointer;
++		props->bufs[*count] = buf.pointer;
+ 		package++;
+ 		(*count)++;
+ 	}
+--
+2.50.1
 
-    if (core_broken) {
-        ctrs->corecnt = 0;
-        ctrs->constcnt = const_broken ? 0 : read_constcnt();
-    } else if (const_broken) {
-        ctrs->corecnt = read_corecnt();
-        ctrs->constcnt = 0;
-    } else {
-        ctrs->corecnt = read_corecnt();
-        ctrs->constcnt = read_constcnt();
-    }
-
-
-gives us
-
-mrs x0, amevcntr00_el0
-mrs x1, amevcntr01_el0
-stp x0, x1, [x19]
-
-(for the non-broken case obviously)
