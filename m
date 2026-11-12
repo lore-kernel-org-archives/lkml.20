@@ -1,96 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794450604;
-	b=vcUNVwad9xNdy1AIG0w5DUKyIudpmPyp0ZJ3+fdfSpdMhx1e356IqDq24HtCgzbIsg05
-	 xlh/fkaR3vQyzCsk4Jv5HORYjh9CjWiaanSDIO4szpDaX6oSczv9B1HnfrAnt8km2utz9
-	 CleqzXIuSB4VOaI9a/S/LckupTfWWd0QCd3fuqOnP1zIZVrTPoBaeOy9wAKy8hocyIpsC
-	 kyDPmh2Rh+zK0an1F9KCeotzNYL8kE/xtGonn/GBb1tp4ZZ20kPI/oVn+zHvcm2icO0cZ
-	 3RHcSa7M74jLAbTlu3aCkjh8KrNzZuWKD4fIznG13tkbF0aqF2MPhhiFNtyvOPqPlng==
+	t=1794450617;
+	b=E/7NvToe8Op33z14awGwTTlTjhqWD8LSd/OZu1z7TdWSXqJ401sKfcv3Q4YaqSpbrzlx
+	 HFumH9pc2nxBx07tUfZ9ERPQHL7zO6XCsHYsQK+4g7dZ++uko/j/p1L1DEXDa+3VvtkJj
+	 Ae256w644eSvhwhhrQSEC8Y1x7GU1mKEPlwlgRE2CHdIdRklBfHM5cGrRiJp3pjejoL5n
+	 2nXEsypG187q+PfVEBYbxEwpsp4ptBuRkEbvfasui/W0E++K/6moqRwB7Zq4aFChOTuj/
+	 M4ywbiIpFGwDXG85UIVzhlhf+SB9EGi6ZwljnQnkZ//Hoqdt8odJS9v9ZwPVcmQ9vKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794450604;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794450617;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ZBRlQut3mwF1KjSJZBxJE4prR1XigP7CCRTm+ueBhko=;
-	b=OFip0DO3eOpy2JagP3iVM95iW++KyHJIo1fibqNuKVNPmdq7hSx6ua561TfvJiWWStK3
-	 QUpMTglOur5ctaq7Sz4FbFOMDDIkeU3L/VfYk0SGB+OWFyv6nZfQuQJXqr/hI6ZVNXpH6
-	 c7JzZeJeMI+6IH/CvodAthNcuYZ4wyiMIHLiDYiKMTuTxUng2tKgBj1OZYu/PpZUl/OLA
-	 61nKFccPPZQvL3ljWZOFibfGrWpphEkUjFAxK0w96e0P/lHzy8d3+hpwp6Hqnxii23ib4
-	 e4jw+zTAhDVrZb4IdXpVmCnJpQGPLFhljrFSCtDMCRpMZ53269xc4PTjCp6kdJPcm7Q==
+	bh=oAKsCevx3uX25D7nBgvsehpj1Do0NWR5rPVL5dcze5M=;
+	b=Sqv0cbXJFifdD6GNWHLFk49jTYlzoT6ohdx995Yce+lTwV0H8l3Azqj8FH+zTZQEy3Vx
+	 fLWLLIsCVbWARuUSCJRPpQYGWhGnKIp6K7QstgOcMok5HWaHiPgw3Zz6TKx0v1WuOETQ3
+	 UtqgoRCo8JJOaKgGh0wePKHJ2/8t0mJ7ileh8t5dpesem5LJgjHdhhqq6YsHtxuqMKOM+
+	 1xO7ya40VuhA8vJolaxb+IOuOFLz/jLcpQRVDZwUnaAcKsnlWoPQXnYZC2CfCMvZMHy1B
+	 DxPOktYEmXhSQvaKcgXdPmV7zVXRazBXT37twg67gzoVbT0HyjtNIY5FxawThbpEtig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TNHSzffA;
-	arc=none smtp.remote-ip=209.85.210.175
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8CB5606A32E
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:30:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8CB5606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=naVsIZeS;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 73C0F606A31C;
+	Thu, 12 Nov 2026 02:30:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73C0F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TNHSzffA
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8a39e5161c1so2771363b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 18:30:03 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=naVsIZeS
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794450603; x=1795055403; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZBRlQut3mwF1KjSJZBxJE4prR1XigP7CCRTm+ueBhko=;
-        b=TNHSzffAV6ipZ5QX7ZX4YFi9fGrwRUHdpVvZFzGQ8XIZlthyl8sKXz6T8aRZibxLlZ
-         OmNxh7ZDMsCqFBR9SnKwYceVyIC+skfHPkXeeUfs8XwDGaJoGaxg8htKhW/agv8fYQUN
-         XkfoP1zwvdyV/aMvmSmO5Vj5SnUd+SYFrcrdKB8TaLZkpZeS3C/C+0K+KZp1p8/eQk0T
-         mOp7/Ihkk17c+Ewu/bvb6RYdcr/TTZ/PKIY0UFWJiJRPb/gNfDA3MNb+zbmGqnLGsODV
-         4gF9d1ccHhi7ATbzsGJVAo8M9zBQ1/jRoORr89hYxcvwFzktv8L9WnEU00GJfB9GNXz5
-         J4Fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794450603; x=1795055403;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZBRlQut3mwF1KjSJZBxJE4prR1XigP7CCRTm+ueBhko=;
-        b=Cwai/ZdRH8NPlH/EyHdDAMNtEi1ssx8mdz0JOKHbYC7Tisb053H1rLZAYGGZW5QFOi
-         aVbP9HGVBH006JhcrD3YVrUHQuNhQ6EMgww4uoxUBXra2uR8DgrBHrJfzd6xFZJZIQOF
-         KPR21TAYC4jszvhvTEMU/8PfvEi0R3dmYSE2Ly1k31MFYSO53p9ghMlovRrl345LbA9X
-         8KxoVuwdVgfxANA1n6TEmepVOGf1mAL+geGPn2m5KUc0PeIVR8vQtkHFdhmPGupyOEhZ
-         yUzTcsEi6dWpxlsbNjCBfQZtiMFplPt4Xl/TAMgO8dFInn7/y+m3EEJoF9zqakoxHA/I
-         qtUA==
-X-Forwarded-Encrypted: i=1; AL+hErGQ1ghvqi+c9mHsVMbjjVxdi1yRFVKhPBpK2CtkcVV/NSUiqW0nriZYrqOolNx3sHUK20+V50kA72PrvcM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9KAYlR+WWHZiKsOieeE7DnhFTJbFLeAWIjCEuiuMFrc+qBSyDW
-	dxIeLxpdKX/DU3xVlBbVDaGOtO++gT4UMMJYAabJXw/80InWz3Hd01Gu
-X-Gm-Gg: AYBFou0L6uiHZfNZKQY+uUZEbCqaYnk0ryltT9QTOhvzQjT771r9iibdN6/WKxXnnpQ
-	6O97bcDgd3DGMx5wYPbg383IKEPY+IPpg9nlPfDfFWC5qOvSuZ6nCWNWHi7vGRZH1sa+XkRcen/
-	i6cA/XZQMtqtPdcxYxcdQhXjgb1XpzMUWJLbpauhIxz3Zz9dpGBwmYfBss2Jgi48CHB5ur5JgXL
-	HqsSRuw64JChH+/W/GbnvStA19x2e4JgQ/9EgGjrC4CU21wUytzPCd6el/+icdvKRpJgN6hVGIg
-	cfzs0wxOlA/gmBL8RZ0ja8kBPGtBHVeb/hz2kEpzIKLSjoDv2kKZVHaasN2MQ1j2qQbF7rqj9M+
-	5PW3/udRU52QC5yqrvj0r82XzqE9beKQSI0YfQSFHoDJAoWWq/5QODH3U0Kj0dRx4JvWPlm5zO2
-	eL3VAG3wj6lagRJDx2cs1N/xtvYJesez6FHf7EsPN6clNzrPyJJRVGupPL4wQ+YjjUjTpqZ8wMQ
-	KOvMa8Ho6QXLWtNc4jM+qeddsj68ow7Frne5bOZ9pYduAR7TA8jZuaAME//58VG5xzW3ssokvZF
-	C0icnYIfu3UvRx5wujN1mQOx8dTWa0NOatbX9mIMgc2+MkaV
-X-Received: by 2002:a05:6a00:3693:b0:8b5:7fc8:8679 with SMTP id d2e1a72fcca58-8bc1cd5fb7fmr4228562b3a.21.1794450603001;
-        Wed, 11 Nov 2026 18:30:03 -0800 (PST)
-Received: from ubuntu24.vpn.host.chaitin.net ([124.77.124.144])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baab1226e6sm2618017b3a.43.2026.11.11.18.29.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 18:30:02 -0800 (PST)
-From: Yuansheng Yang <0xbeac@gmail.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: linux-mmc@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=naVsIZeSE9U3e65WdrwP6bK5b/8aqj1JQOrDKfcu1i/hT0X9e0iQg0RlIuer/fRi7rW9sAkJU7tCg
+	 ibybtsPqdGh31odb9rAOFJPH3lDsECEWI/nCCq5gdnS9q/nn+kFfEyMkonjn01lzD6YA+I+J95isA7
+	 n3RJhbKtYYNXrUPs=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af524b7092-b8611;
+	Thu, 12 Nov 2026 10:30:15 +0800 (CST)
+X-RM-TRANSID:2ee16af524b7092-b8611
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from devin-VMware-Virtual-Platform (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76af524b6e2d-ef184;
+	Thu, 12 Nov 2026 10:30:15 +0800 (CST)
+X-RM-TRANSID:2ee76af524b6e2d-ef184
+From: Zhu Jun <zhujun2@cmss.chinamobile.com>
+To: axboe@kernel.dk
+Cc: linux-block@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH RESEND] mmc: tmio: disable dma_issue work before releasing DMA
-Date: Thu, 12 Nov 2026 10:29:54 +0800
-Message-ID: <20261112022954.7473-1-0xbeac@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Zhu Jun <zhujun2@cmss.chinamobile.com>
+Subject: [PATCH] blk-mq: Mark concurrent accesses to dispatch_busy
+Date: Thu, 12 Nov 2026 10:30:13 +0800
+Message-ID: <20261112023014.118106-1-zhujun2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,103 +70,101 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tmio_mmc_host_remove() drains done and delayed_reset_work, but leaves
-dma_issue pending or running when it releases the DMA resources. Its
-backend callback accesses the host, controller registers and DMA state.
+Dispatching on different CPUs updates the same hardware context's
+dispatch_busy estimate without a common lock. Scheduling and debugfs also
+read it concurrently, as reported by KCSAN.
 
-Disable dma_issue synchronously before releasing DMA. This also rejects
-late queue attempts from an interrupt handler that is still running;
-cancel_work_sync() alone does not provide that guarantee.
+Use READ_ONCE() and WRITE_ONCE() for the shared estimate. The EWMA remains
+an approximate dispatch hint; concurrent updates do not need to preserve
+every observation.
 
-Some DMA backends fall back to PIO before initializing dma_issue. Move
-their work initialization ahead of the fallible setup so the work is
-always initialized when a DMA backend is present. Skip the disable call
-when no DMA backend is configured.
+OpenAI Codex assisted with analysis and patch preparation.
 
-The analysis, patch and validation were assisted by OpenAI Codex.
-
-Fixes: 85683fb39d9b ("mmc: sdhi: Convert from tasklet to BH workqueue")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuansheng Yang <0xbeac@gmail.com>
+Fixes: 6e768717304b ("blk-mq: dequeue request one by one from sw queue if hctx is busy")
+Signed-off-by: Zhu Jun <zhujun2@cmss.chinamobile.com>
 ---
-Resending with the real name in From/Signed-off-by only; no code changes.
+ block/blk-mq-debugfs.c | 2 +-
+ block/blk-mq-sched.c   | 4 ++--
+ block/blk-mq.c         | 8 ++++----
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
-Testing: x86_64 COMPILE_TEST object builds with gcc 13.3 and W=1 for
-tmio_mmc_core, renesas_sdhi_core, both Renesas DMA backends and
-uniphier-sd. A userspace model of the extracted remove function checks
-the no-DMA case and modeled late queue attempts before DMA release.
-It does not simulate real IRQ/DMA concurrency or backend hardware.
-
-No matching hardware, kernel crash trace or demonstrated unprivileged
-trigger is available. Please review DMA-to-PIO fallback, probe failure
-and teardown on Renesas and UniPhier. The initialization changes cover
-backends that can return before setting up DMA. Other work items and
-the wider IRQ teardown remain outside this patch.
-
- drivers/mmc/host/renesas_sdhi_sys_dmac.c | 4 ++--
- drivers/mmc/host/tmio_mmc_core.c         | 2 ++
- drivers/mmc/host/uniphier-sd.c           | 4 ++--
- 3 files changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/mmc/host/renesas_sdhi_sys_dmac.c b/drivers/mmc/host/renesas_sdhi_sys_dmac.c
-index 426308b73b..45e34d57ab 100644
---- a/drivers/mmc/host/renesas_sdhi_sys_dmac.c
-+++ b/drivers/mmc/host/renesas_sdhi_sys_dmac.c
-@@ -340,6 +340,8 @@ static void renesas_sdhi_sys_dmac_request_dma(struct tmio_mmc_host *host,
+diff --git a/block/blk-mq-debugfs.c b/block/blk-mq-debugfs.c
+index 6754d8f9449c..d8b4e3b606e6 100644
+--- a/block/blk-mq-debugfs.c
++++ b/block/blk-mq-debugfs.c
+@@ -488,7 +488,7 @@ static int hctx_dispatch_busy_show(void *data, struct seq_file *m)
  {
- 	struct renesas_sdhi *priv = host_to_priv(host);
+ 	struct blk_mq_hw_ctx *hctx = data;
  
-+	INIT_WORK(&host->dma_issue, renesas_sdhi_sys_dmac_issue_work_fn);
-+
- 	/* We can only either use DMA for both Tx and Rx or not use it at all */
- 	if (!host->pdev->dev.of_node &&
- 	    (!pdata->chan_priv_tx || !pdata->chan_priv_rx))
-@@ -402,8 +404,6 @@ static void renesas_sdhi_sys_dmac_request_dma(struct tmio_mmc_host *host,
- 			goto ebouncebuf;
- 
- 		init_completion(&priv->dma_priv.dma_dataend);
--		INIT_WORK(&host->dma_issue,
--			  renesas_sdhi_sys_dmac_issue_work_fn);
- 	}
- 
- 	renesas_sdhi_sys_dmac_enable_dma(host, true);
-diff --git a/drivers/mmc/host/tmio_mmc_core.c b/drivers/mmc/host/tmio_mmc_core.c
-index 775e0d9353..d0d3dd05a0 100644
---- a/drivers/mmc/host/tmio_mmc_core.c
-+++ b/drivers/mmc/host/tmio_mmc_core.c
-@@ -1272,6 +1272,8 @@ void tmio_mmc_host_remove(struct tmio_mmc_host *host)
- 	dev_pm_qos_hide_latency_limit(&pdev->dev);
- 
- 	mmc_remove_host(mmc);
-+	if (host->dma_ops)
-+		disable_work_sync(&host->dma_issue);
- 	cancel_work_sync(&host->done);
- 	cancel_delayed_work_sync(&host->delayed_reset_work);
- 	tmio_mmc_release_dma(host);
-diff --git a/drivers/mmc/host/uniphier-sd.c b/drivers/mmc/host/uniphier-sd.c
-index 1eae2f4b6c..cd0fdffa30 100644
---- a/drivers/mmc/host/uniphier-sd.c
-+++ b/drivers/mmc/host/uniphier-sd.c
-@@ -187,6 +187,8 @@ static void uniphier_sd_external_dma_request(struct tmio_mmc_host *host,
- 	struct uniphier_sd_priv *priv = uniphier_sd_priv(host);
- 	struct dma_chan *chan;
- 
-+	INIT_WORK(&host->dma_issue, uniphier_sd_external_dma_issue);
-+
- 	chan = dma_request_chan(mmc_dev(host->mmc), "rx-tx");
- 	if (IS_ERR(chan)) {
- 		dev_warn(mmc_dev(host->mmc),
-@@ -198,8 +200,6 @@ static void uniphier_sd_external_dma_request(struct tmio_mmc_host *host,
- 	priv->chan = chan;
- 	host->chan_rx = chan;
- 	host->chan_tx = chan;
--
--	INIT_WORK(&host->dma_issue, uniphier_sd_external_dma_issue);
+-	seq_printf(m, "%u\n", hctx->dispatch_busy);
++	seq_printf(m, "%u\n", READ_ONCE(hctx->dispatch_busy));
+ 	return 0;
  }
  
- static void uniphier_sd_external_dma_release(struct tmio_mmc_host *host)
-
-base-commit: cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
+diff --git a/block/blk-mq-sched.c b/block/blk-mq-sched.c
+index d7b45778732b..66e03b676838 100644
+--- a/block/blk-mq-sched.c
++++ b/block/blk-mq-sched.c
+@@ -92,7 +92,7 @@ static int __blk_mq_do_dispatch_sched(struct blk_mq_hw_ctx *hctx)
+ 	LIST_HEAD(rq_list);
+ 	int count = 0;
+ 
+-	if (hctx->dispatch_busy)
++	if (READ_ONCE(hctx->dispatch_busy))
+ 		max_dispatch = 1;
+ 	else
+ 		max_dispatch = hctx->queue->nr_requests;
+@@ -300,7 +300,7 @@ static int __blk_mq_sched_dispatch_requests(struct blk_mq_hw_ctx *hctx)
+ 			return 0;
+ 		need_dispatch = true;
+ 	} else {
+-		need_dispatch = hctx->dispatch_busy;
++		need_dispatch = READ_ONCE(hctx->dispatch_busy);
+ 	}
+ 
+ 	if (hctx->queue->elevator)
+diff --git a/block/blk-mq.c b/block/blk-mq.c
+index 5ae22d556540..322bad6896d4 100644
+--- a/block/blk-mq.c
++++ b/block/blk-mq.c
+@@ -2007,7 +2007,7 @@ static void blk_mq_update_dispatch_busy(struct blk_mq_hw_ctx *hctx, bool busy)
+ {
+ 	unsigned int ewma;
+ 
+-	ewma = hctx->dispatch_busy;
++	ewma = READ_ONCE(hctx->dispatch_busy);
+ 
+ 	if (!ewma && !busy)
+ 		return;
+@@ -2017,7 +2017,7 @@ static void blk_mq_update_dispatch_busy(struct blk_mq_hw_ctx *hctx, bool busy)
+ 		ewma += 1 << BLK_MQ_DISPATCH_BUSY_EWMA_FACTOR;
+ 	ewma /= BLK_MQ_DISPATCH_BUSY_EWMA_WEIGHT;
+ 
+-	hctx->dispatch_busy = ewma;
++	WRITE_ONCE(hctx->dispatch_busy, ewma);
+ }
+ 
+ #define BLK_MQ_RESOURCE_DELAY	3		/* ms units */
+@@ -2587,7 +2587,7 @@ static void blk_mq_insert_requests(struct blk_mq_hw_ctx *hctx,
+ 	 * Try to issue requests directly if the hw queue isn't busy to save an
+ 	 * extra enqueue & dequeue to the sw queue.
+ 	 */
+-	if (!hctx->dispatch_busy && !run_queue_async) {
++	if (!READ_ONCE(hctx->dispatch_busy) && !run_queue_async) {
+ 		blk_mq_run_dispatch_ops(hctx->queue,
+ 			blk_mq_try_issue_list_directly(hctx, list));
+ 		if (list_empty(list))
+@@ -3235,7 +3235,7 @@ void blk_mq_submit_bio(struct bio *bio)
+ 
+ 	hctx = rq->mq_hctx;
+ 	if ((rq->rq_flags & RQF_USE_SCHED) ||
+-	    (hctx->dispatch_busy && (q->nr_hw_queues == 1 || !is_sync))) {
++	    (READ_ONCE(hctx->dispatch_busy) && (q->nr_hw_queues == 1 || !is_sync))) {
+ 		blk_mq_insert_request(rq, 0);
+ 		blk_mq_run_hw_queue(hctx, true);
+ 	} else {
 -- 
-2.43.0
+2.51.0
+
+
 
