@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.223
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794489198;
-	b=YcJHsAWneaRNa6pgdTMtoU53Gp6u/GFzhB6OkbvUgyPgvKsZhTos1RWJWTlFmCQcCF5U
-	 9GyL2feidfSyKziLgl8PzIqn6XCv2ia/dyyRhLZjz24HSECPj+F67beBSH3ux6QMkF4Kk
-	 ZCiDTaJsvsGqu9yP/s6tY9ylxtcyEwivn+jldvUhg9Em2OsEES5ZAy0sHRlsWxN9dbH/B
-	 EwOwRY0RT5V1PKswF7lEBCvSj1Y2nMPkcY6YG8ygCTdjHW3MULMrOBwJvkP2gpERrzBwm
-	 tYrTkGrhfXmvl0p3S0KLLk0bqn07c/9O2x91qwnabS16J1lqvf5wswFgrYxszH4a0gA==
+	t=1794489205;
+	b=eTBqwSJUkOKyzcFGQNYzKUIKlrdMulgL06hBYP+LilH81Ev+O2JRSBKHPSBu14/esAsd
+	 7KlSP+2m1KexZnH8unC5M/fmwumCrdCLgnyhuDVOMvNV/BftCDc37I0+a/lvmRAnETxex
+	 Oo0XWypGbunI0z3HiKIIPzef84UwuQopQnfP4eanwYh8Sa7oM6ZY2uig5n7Coi0Mx+Bqx
+	 7hF3ygLMuQYfTxUj2zrYS7OaCMgre6DMaifiiua9JIbC4hsfZDccam69qhHnthwvX8w6C
+	 YDZqCpK6+XOwQv6wDsSVPIblzr2LwxBjuqCm7AYVLbyGTDZrd5/nms5T3Ku3+wc9PyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794489198;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794489205;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=ZN6HaK+VUD2mMiXclgq103a0RWO3KL8Kpf2tLnyheMw=;
-	b=vK9iW5CSuk387FqDU+rnuiEnUl7dwX+ye/mo1RVy3EYfGd1lTwNZas1DhuMqB+ifHPQq
-	 w9/Mq/OD1Ek8CeKbKnJmEFAg+3fqc2fIMjOvcCzFNagIBGouPGNPX9hkQ8PceJcSweFst
-	 EvCYKXbze+h/YZJvAzGgP47KPymXrkrhQ87Qq+CyGQ2Cyh2a6NEsZgs7PLrYpaekfGBrI
-	 6wdddg1tGQ2sflTrUy1Jc1SsM13Fd0bFnFVWVeK33iGM3AF0xL05DlHD1qGVfdTm6ihak
-	 wTbmGkZFq8RTANiD3VKVxEXCjhR67bdYCBbKDqpZcp28TN+ddlfKOyvGSHE1tW/jxHg==
+	bh=gLB3AodSpU0dXlPx9c6iIhtx2r+VDjwaKhOy+CroF8w=;
+	b=bfJ9HQXJaZhDcWV/92wLyEmIZFpoy+stbGRbc3Ukpbo1beg/yGo99sZH9JqhfyOPLinm
+	 DDm4h9PUXEPzvpoil29Xjv90mcyqqiVUMovcXeMU7dmRsUzzgVpuxgWNuJV2Nb7aKnJ1Q
+	 9WByphZrMnLdz3oHj9Ex+NoQebLVkmTpAAD1TXBadr891s+e2MvIGLHJfYL9sDZp16yjG
+	 fTT7LOLhuEHivICXRX4uWZ5MNByM7FQXRJ0n0vJZqZ+59pNa/kLvjjS3i1s8nJTvjLSLZ
+	 f4H14hykGukyYqM0CWRgtE/hnU8gdcYvgf0wnNGwvSBOv5Gw8bH5DUma27ypi7W1XgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=wfI1WHhv;
-	arc=none smtp.remote-ip=113.46.200.223
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=drx2TZUT;
+	arc=none smtp.remote-ip=113.46.200.225
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED09606A32A;
-	Thu, 12 Nov 2026 13:13:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BED09606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F2CC60A2621;
+	Thu, 12 Nov 2026 13:13:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F2CC60A2621
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=wfI1WHhv
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=drx2TZUT
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=ZN6HaK+VUD2mMiXclgq103a0RWO3KL8Kpf2tLnyheMw=;
-	b=wfI1WHhvEIcrO/2y1iP2oNjXfgl/VIsLtYUwQo6x3V81Nz4dXrnrXN7IKpyZVxBQlwjPaX/FE
-	xYEVqY3SCszrFY9nZDdBsTDLg+rF+cvbbNrrioLuxsxVsya1CcfRaakj5ARmaevlXNJTcphKnZ5
-	W4Lvwlk2Glcz8oZMYpeyqyk=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4jQLRG3h2gzmVX9;
-	Thu, 12 Nov 2026 21:12:58 +0800 (CST)
+	bh=gLB3AodSpU0dXlPx9c6iIhtx2r+VDjwaKhOy+CroF8w=;
+	b=drx2TZUTgNbcBaDLGsueCnUS35TVKSSTWlGTziffZkaUXXQT8lZZWX7cztDxUuvqImxA7q/ob
+	+orojus/iyK4befL40vJSnXiMDxqOlxeb9erS0VQcsWn77zFnRdCl5IZhYocgR5ZpG86zVOXgS8
+	8kkQRYzKOBxZZEgTdKXdVfs=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jQLRQ6GBpz1K9BQ;
+	Thu, 12 Nov 2026 21:13:06 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 51BB64057C;
-	Thu, 12 Nov 2026 21:13:14 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id D96F64055B;
+	Thu, 12 Nov 2026 21:13:16 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 12 Nov
- 2026 21:13:13 +0800
+ 2026 21:13:16 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
 	<james.morse@arm.com>, <babu.moger@amd.com>, <corbet@lwn.net>,
@@ -61,9 +61,9 @@ To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
 	<linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
 	<linux-arm-kernel@lists.infradead.org>
 CC: <ruanjinjie@huawei.com>
-Subject: [RFC PATCH v2 4/9] fs/resctrl: Take the CPU hotplug lock for software controller updates
-Date: Thu, 12 Nov 2026 21:12:49 +0800
-Message-ID: <20261112131255.4043381-5-ruanjinjie@huawei.com>
+Subject: [RFC PATCH v2 8/9] x86,fs/resctrl: Let the architecture cap the RMIDs for the software controller
+Date: Thu, 12 Nov 2026 21:12:53 +0800
+Message-ID: <20261112131255.4043381-9-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261112131255.4043381-1-ruanjinjie@huawei.com>
 References: <20261112131255.4043381-1-ruanjinjie@huawei.com>
@@ -81,125 +81,145 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-update_mba_bw() runs from the MBM overflow worker and calls the
-architecture to read and write the control of its CPU's domain, under
-the RCU read lock.
+The MBA software controller measures every monitor group. When the
+architecture assigns each group a counter from a shared pool as the
+group is created, the number of groups must not exceed the number of
+counters while the controller is in use. resctrl has no way to learn
+this from the architecture.
 
-Writing the control can sleep: MPAM uses smp_call_on_cpu() and waits
-for a CPU that can reach the MSC, so that CPU must stay online. The
-hotplug lock cannot be taken after rdtgroup_mutex, because the offline
-path takes the hotplug lock first, and sleeping in an RCU read-side
-section is invalid.
+The rmid_idx space cannot change for this: rmid_ptrs[] is set up on
+the first mount, and RMIDs in limbo outlive an unmount.
 
-Take the hotplug lock with cpus_read_trylock() before rdtgroup_mutex.
-Skip a round when it is unavailable; a blocking lock would deadlock
-against the offline path, which holds the write lock while it drains
-this worker. The lock keeps the control domain in place, so drop the
-RCU read lock.
+Add two hooks instead.
+- resctrl_arch_set_mba_sc(). Called when the controller is enabled
+  or disabled, so the architecture can update what it reports
+- resctrl_arch_rmid_valid(). Skips the RMIDs that arch refuses.
+
+The hook runs before the number of CLOSIDs is read again, so the reset
+of the bandwidth targets covers the CLOSIDs the controller may use.
+The reset is skipped when the controller is disabled: the targets are
+not read while it is off, and a domain that came online while it was
+enabled may have allocated mbps_val for the capped, smaller number of
+CLOSIDs.
+
+Both hooks are no-ops on x86 and, for now, on MPAM.
 
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- fs/resctrl/monitor.c  | 28 +++++++++++++++++++---------
- fs/resctrl/rdtgroup.c |  8 +++++---
- 2 files changed, 24 insertions(+), 12 deletions(-)
+ arch/x86/include/asm/resctrl.h |  6 ++++++
+ fs/resctrl/monitor.c           |  6 ++++--
+ fs/resctrl/rdtgroup.c          | 25 ++++++++++++++++++++-----
+ include/linux/arm_mpam.h       |  8 ++++++++
+ 4 files changed, 38 insertions(+), 7 deletions(-)
 
-diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-index 49a4b4ce95d4..8f3b8c3e3010 100644
---- a/fs/resctrl/monitor.c
-+++ b/fs/resctrl/monitor.c
-@@ -640,19 +640,18 @@ void mon_event_count(void *info)
- /*
-  * Find the software controller's ctrl domain that contains @cpu on resource @r.
-  *
-- * Only called from the mbm_over worker via update_mba_bw() where the returned
-- * domain is kept alive by cancel_delayed_work_sync() in
-- * resctrl_offline_ctrl_domain(). This drains this worker and then waits on
-- * rdtgroup_mutex held here before the architecture can free the ctrl domain.
-+ * Only called from the mbm_over worker via update_mba_bw(), which holds the
-+ * CPU hotplug lock so the domain cannot be removed while it is being used.
-  *
-- * Context: Call from RCU read-side critical section.
-+ * Context: Call with the CPU hotplug lock held.
-  */
- static struct rdt_ctrl_domain *get_sc_ctrl_domain_from_cpu(int cpu,
- 							   struct rdt_resource *r)
- {
- 	struct rdt_ctrl_domain *d;
- 
--	list_for_each_entry_rcu(d, &r->ctrl_domains, hdr.list) {
-+	list_for_each_entry_rcu(d, &r->ctrl_domains, hdr.list,
-+				lockdep_is_cpus_held()) {
- 		/* Find the domain that contains this CPU */
- 		if (cpumask_test_cpu(cpu, &d->hdr.cpu_mask))
- 			return d;
-@@ -748,7 +747,8 @@ static void update_mba_bw(struct rdtgroup *rgrp, struct rdt_l3_mon_domain *dom_m
- 	if (WARN_ON_ONCE(!pmbm_data))
- 		return;
- 
--	guard(rcu)();
-+	lockdep_assert_cpus_held();
-+
- 	dom_mba = get_sc_ctrl_domain_from_cpu(smp_processor_id(), r_mba);
- 	if (!dom_mba) {
- 		pr_warn_once("Failure to get domain for MBA update\n");
-@@ -895,11 +895,19 @@ void mbm_handle_overflow(struct work_struct *work)
- 	struct rdt_l3_mon_domain *d;
- 	struct list_head *head;
- 	struct rdt_resource *r;
-+	bool cpus_read_locked = false;
- 
- 	/*
--	 * Safe to run without CPU hotplug lock. Work is guaranteed to be
-+	 * Reading counters is safe without the CPU hotplug lock: the work is
- 	 * canceled before the domain structure is removed.
-+	 *
-+	 * Programming the control can sleep and may need the hotplug lock,
-+	 * which cannot be taken after rdtgroup_mutex. Try it first; if
-+	 * hotplug is in progress skip the update and retry next round.
- 	 */
-+	if (is_mba_sc(NULL))
-+		cpus_read_locked = cpus_read_trylock();
-+
- 	mutex_lock(&rdtgroup_mutex);
- 
- 	/*
-@@ -934,7 +942,7 @@ void mbm_handle_overflow(struct work_struct *work)
- 		list_for_each_entry(crgrp, head, mon.crdtgrp_list)
- 			mbm_update(r, d, crgrp);
- 
--		if (is_mba_sc(NULL))
-+		if (is_mba_sc(NULL) && cpus_read_locked)
- 			update_mba_bw(prgrp, d);
- 	}
- 
-@@ -948,6 +956,8 @@ void mbm_handle_overflow(struct work_struct *work)
- 
- out_unlock:
- 	mutex_unlock(&rdtgroup_mutex);
-+	if (cpus_read_locked)
-+		cpus_read_unlock();
+diff --git a/arch/x86/include/asm/resctrl.h b/arch/x86/include/asm/resctrl.h
+index 8f6edcdcfd87..ac51b63f6dde 100644
+--- a/arch/x86/include/asm/resctrl.h
++++ b/arch/x86/include/asm/resctrl.h
+@@ -181,6 +181,12 @@ static inline u32 resctrl_arch_rmid_idx_encode(u32 ignored, u32 rmid)
+ 	return rmid;
  }
  
- /**
++static inline void resctrl_arch_set_mba_sc(bool enable) { }
++static inline bool resctrl_arch_rmid_valid(u32 closid, u32 rmid)
++{
++	return true;
++}
++
+ /* x86 can always read an rmid, nothing needs allocating */
+ struct rdt_resource;
+ static inline void *resctrl_arch_mon_ctx_alloc(struct rdt_resource *r,
+diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+index 5a67c8089615..bcd809083f18 100644
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -216,12 +216,14 @@ static struct rmid_entry *resctrl_find_free_rmid(u32 closid)
+ 		 * to be if it were used with this CLOSID.
+ 		 * If the CLOSID is irrelevant on this architecture, the two
+ 		 * index values are always the same on every entry and thus the
+-		 * very first entry will be returned.
++		 * very first entry will be returned. Skip the RMIDs the
++		 * architecture does not allow.
+ 		 */
+ 		itr_idx = resctrl_arch_rmid_idx_encode(itr->closid, itr->rmid);
+ 		cmp_idx = resctrl_arch_rmid_idx_encode(closid, itr->rmid);
+ 
+-		if (itr_idx == cmp_idx)
++		if (itr_idx == cmp_idx &&
++		    resctrl_arch_rmid_valid(closid, itr->rmid))
+ 			return itr;
+ 	}
+ 
 diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index 57ab090072c2..b32831871f70 100644
+index 9f10b6ceff8a..e186ae322f08 100644
 --- a/fs/resctrl/rdtgroup.c
 +++ b/fs/resctrl/rdtgroup.c
-@@ -4519,9 +4519,11 @@ void resctrl_offline_ctrl_domain(struct rdt_resource *r, struct rdt_ctrl_domain
- 	 * no new worker iteration can find it; drain any worker that already
- 	 * holds a pointer to it before the architecture frees the domain.
- 	 *
--	 * Software controller is enabled/disabled on mount/unmount with
--	 * cpus_read_lock() held. Running here with cpus_write_lock() so
--	 * there are no concurrent changes to software controller status.
-+	 * The overflow worker holds the CPU hotplug read lock around its
-+	 * software controller updates, and mount/unmount enable/disable the
-+	 * software controller with the read lock held. Running here with
-+	 * cpus_write_lock() means there are no in-flight software controller
-+	 * updates and no concurrent change of the software controller status.
- 	 */
- 	if (r->rid == RDT_RESOURCE_MBA && is_mba_sc(r)) {
- 		struct rdt_resource *l3 = resctrl_arch_get_resource(RDT_RESOURCE_L3);
+@@ -2640,16 +2640,20 @@ static int set_mba_sc(bool mba_sc)
+ {
+ 	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_MBA);
+ 	struct rdt_resource *rmbm = resctrl_arch_get_resource(RDT_RESOURCE_L3);
+-	u32 num_closid = resctrl_arch_get_num_closid(r);
+ 	struct rdt_ctrl_domain *d;
+ 	unsigned long fflags;
+-	int i;
+ 
+ 	if (!supports_mba_mbps() || mba_sc == is_mba_sc(r))
+ 		return -EINVAL;
+ 
+ 	r->membw.mba_sc = mba_sc;
+ 
++	/*
++	 * The architecture may cap the groups to what the controller can
++	 * measure. Do it before the number of CLOSIDs is used below.
++	 */
++	resctrl_arch_set_mba_sc(mba_sc);
++
+ 	/*
+ 	 * The controller needs its event counted in every monitoring group:
+ 	 * force automatic assignment on, and restore the user's setting when
+@@ -2666,9 +2670,20 @@ static int set_mba_sc(bool mba_sc)
+ 
+ 	rdtgroup_default.mba_mbps_event = mba_mbps_default_event;
+ 
+-	list_for_each_entry_rcu(d, &r->ctrl_domains, hdr.list, lockdep_is_cpus_held()) {
+-		for (i = 0; i < num_closid; i++)
+-			d->mbps_val[i] = MBA_MAX_MBPS;
++	/*
++	 * Reset the targets of the CLOSIDs the controller uses. Skip this
++	 * when disabling: nothing reads the targets while the controller is
++	 * off, and a domain that came online while it was enabled may have
++	 * allocated mbps_val for the capped, smaller number of CLOSIDs.
++	 */
++	if (mba_sc) {
++		u32 num_closid = resctrl_arch_get_num_closid(r);
++		int i;
++
++		list_for_each_entry_rcu(d, &r->ctrl_domains, hdr.list, lockdep_is_cpus_held()) {
++			for (i = 0; i < num_closid; i++)
++				d->mbps_val[i] = MBA_MAX_MBPS;
++		}
+ 	}
+ 
+ 	fflags = mba_sc ? RFTYPE_CTRL_BASE | RFTYPE_MON_BASE : 0;
+diff --git a/include/linux/arm_mpam.h b/include/linux/arm_mpam.h
+index 002f56e15362..73a6277f688c 100644
+--- a/include/linux/arm_mpam.h
++++ b/include/linux/arm_mpam.h
+@@ -63,6 +63,14 @@ u32 resctrl_arch_rmid_idx_encode(u32 closid, u32 rmid);
+ void resctrl_arch_rmid_idx_decode(u32 idx, u32 *closid, u32 *rmid);
+ u32 resctrl_arch_system_num_rmid_idx(void);
+ 
++/* MPAM does not limit the RMIDs for the MBA software controller yet. */
++static inline void resctrl_arch_set_mba_sc(bool enable) { }
++
++static inline bool resctrl_arch_rmid_valid(u32 closid, u32 rmid)
++{
++	return true;
++}
++
+ struct rdt_resource;
+ void *resctrl_arch_mon_ctx_alloc(struct rdt_resource *r, enum resctrl_event_id evtid);
+ void resctrl_arch_mon_ctx_free(struct rdt_resource *r, enum resctrl_event_id evtid, void *ctx);
 -- 
 2.34.1
 
