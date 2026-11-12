@@ -1,85 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794504929;
-	b=ceW/KPdfBVWcdrnW0u02X/IrRUduPeXdTCc/HOe8eojLA3ZuaI1iXstqk+m0URZPhkdO
-	 V5HvCcB+m40flPA6iP1PNTEgYeeAo2IeqNwCuRU6D/g8uroRIqQyvqo6hrmibJ7978XDV
-	 rIp/ZSplRW9rs6OaM1YGn5MysemrOtK3qM/9ZJ0QS6+QwePJelFrOE8rIhQmAZdplRY0Y
-	 e2IFVuYhQcbk/Ooo5r1JRdcsKyYwQBf1y4xZ4a6eYuCxlyO6LU8GRb2Qs2TLP6KiMQ/tX
-	 9EE0+Vo6cIiOvZgk+48VFM36C3nxa6+0N+rLYNQRDUtTwwrA3sfwepbWWHovjR0+RtQ==
+	t=1794504937;
+	b=n37W1nqN7wvV2DIt/TPinSmFRrKhDfo4ecQFRgYOSmTdBeigplXAC9u1JEm6uFlK5K2F
+	 0Bn1FdFCS4CLB0XZeptC2pK6N0UStQtyEM0XhuyrlRIcZxsWqcY7znCa3gIKqN3iD8/M5
+	 xvEgAGSE+ZbXEuHs9O9m8K4rYQA3hMeVnmzYYuko5nk7NRxaZJ/6ajYe6jNhnKcX4q2ug
+	 3J3i6mlwLWZ1OlAL0nlkoT1YksJ3aBAAND4JPNX8M74XtiiPaEP1wKewOVV3cM7Yq/c0i
+	 zQEeITbx90ho6BajTYzCPHePh8p30TVxnwtPNUQDJoY3iivLaU5a/bKkZVpCIjXvyOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504929;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794504937;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=wY/udgzoTMSU7LblXILhhflOgeGfM9mMJ7q98JCWr+4=;
-	b=BdLaStH2q0Si83XmB77lNLgFhhU6fDRkN8UK1748eunIanbVAOReYwDxNDm0au05HILN
-	 uxYGSZqprk6713VF9WTY6eKiqIg8dLujKha6MmxJRtTLJbda8zFSV29EbNIBqSffaiOz2
-	 rzOGALha5B14gUSVu1l/RjUJcsBbvMtOP2tbyY++1uXfDyDA0IRIQioIrZ0yj/zg7bWVT
-	 P4kcbReZFykbDdjrLKjHcezWeDExMXaPa1jjZmpr3T0Fr02CTTD9v18Ops0KisuD4JKdO
-	 ywC1RgXIdSLHy+L9OjJh7iLmx/xoVPlWZ29W4iGO3pdmgt8TmwbkEG/r3wZfZ4AYr1w==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=XkIbYXadeaMG9HKV2rC3JRZDLd4J3RXCWFCJdXi08X0=;
+	b=IkpcafbI7hb76SAD3tQr+fNdPeer2pitj7+1vtcjJWnuH4VmUcKGFzuKSY39jArLXC3P
+	 M6NTWjjuK2FfRdAs8VP31dJKZBB6mAmNqyZF229op8KmQmCNyHL2seR2mI0rP+p8jIGs1
+	 OAwaWhkwq/S6k5f7Y3zJXHGiwXtk7Y+D5a1PJlnRsMsgzPycMY+kwnensGE9tbp5ov1g8
+	 s3iCw9z9zP//JMsxpJhi3d+XKclxYdKo5w+wO43ljLfFsiNZsb6Yj0gPlhOrzE5baYIBJ
+	 GEIqPy1ZYp1QeN4inw63k19dRxLCk2kunK6xnNalDx6eU84NaF5Xx3w7aaIY5iAjy+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=oEs3dmHr;
-	arc=none smtp.remote-ip=209.85.160.181
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LIMP2nB3;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 938C1606A89A
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:35:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 938C1606A89A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90AD7606A8A0
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:35:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90AD7606A8A0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=oEs3dmHr
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-53669f7b518so45643841cf.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:35:28 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LIMP2nB3
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-492fcbfaa88so3074604f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:35:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794504927; x=1795109727; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wY/udgzoTMSU7LblXILhhflOgeGfM9mMJ7q98JCWr+4=;
-        b=oEs3dmHrtbo3BJbfZOVEDyiKo84vSz7vME9GeiDQFoQ1j5oKIGWHaLXsA6of593DNi
-         LSHuyxe114XTXGNJ1/Y5jCpkW7+pNUmCsJP3ME/2E1iS7aiNUDAMlZgu5frzBx4YzlN7
-         LGU9QrbJB4CDwX/JJQi4yBuDTXoPz+0pNuVnbBxJS3Y+zSavZNYfRzlE+02u6FSxVCfG
-         5AiyrOfkTxftBPH1gDgLAc4621TOLHFN0EDyYtoQh9nuWdC5b80BG3E4rlAu0JFVdD6S
-         Ac+AVCNswFwIvFTGkOL2F1V2xffk16MtyAElYxcTnz4eLh5PrNNOOrZ9e4Pi0Z2PEMrd
-         fzXw==
+        d=gmail.com; s=20260707; t=1794504936; x=1795109736; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XkIbYXadeaMG9HKV2rC3JRZDLd4J3RXCWFCJdXi08X0=;
+        b=LIMP2nB3cPMUdhws5RaIXR4tga9oAlQTraWtWrHTJKOqs5l0cXKzgKLK7GCwR58MIR
+         V0+47hH9R5MrphjjrCXy5PNmubHhEyJwWQyX+OAPcp1UrfnxUJP/zwQSU0PcsmJcKeJO
+         ZEVVgeEfZy+Kj3YWrlSmySRLjJGWy85AIg5gQU5hbH6iUea8dXk2Z6XoyI4PSe5UhkoX
+         WXtiL25Qpd1k7lOn6PIPnJfJhks4HD+3lSMpGNr3lKjeXEiI9niaqqzJnyLdud7j9e7C
+         pc2g/aov7gImzhFjDKgQSkGKy24pzW7kE+CPEL09oDrlTkH3Br51aO3wyoV9OUOHqXAw
+         XE3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794504927; x=1795109727;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wY/udgzoTMSU7LblXILhhflOgeGfM9mMJ7q98JCWr+4=;
-        b=qIsv4RHRdX2dzGtuNCt/LBKSrbXssQS5vhrrA9kSnQpfYr8jvMDayAQ8KHca3FepKg
-         cgbXKYo+mJIidBE1qqWf4xHnO5v7pG9xqTnVh5wbrzQLEOFFNUeqKCnCF3ZgcULCr5x1
-         X5Y2rEn8ZKdqRFQVlui+M6BQh+bTwHA6nowl9UXqIdyDZZwubjMqyFzu4WOFBwXxRqzg
-         rbcM1OGMKQg8NA9ir5yRprMqiFMWAkE4tH+dGFCYWmxxdCwMF5+mTwoKTv7uCKPBRpoF
-         2zQjyaiE60ojhw1HwFmhSPWIJyMcAv4EdTbRK1NPiKRs3VQS6mz16o4Z/z67qdB/C8uo
-         sTKQ==
-X-Forwarded-Encrypted: i=1; AL+hErHzqNkqcZuoHp5uY1cV2jYhXPf59fyZULCNRtJpV5tFmjacmV9+X5D3ywDvc78SdbXwTqI/081nlb/OFE4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6kgLCUuzXvthuLVyQ0ex4pdaGxaQaa/rBjUjjct5GyKQoaach
-	lC/S6G++k0gsn50kOtpjmZJCSdZsapmS6AvWdhOZcQ2QlgJCMxfjfT+refoPSl85p5g=
-X-Gm-Gg: AYBFou2ZYcATpBBAxGF8hliFqbsG4lowHLKOoJXZzaZs6tr350YsDHObpuj23+QhNNK
-	WZ7d8kC14qC9+kOc8EeNw5v8HH958aqXDfhNgobiWsE49pMdVwWD1u7vyVAZa6yK3hgM8lvoLno
-	Aeh+sYx/Q7h2IiV9+RjNr6IZCIwgiH0JXLvvVyqE9j3usQgvvFL0pSalF2rKPI8/c3PVqhdsTV3
-	3KzkTYqCugv7/HmLhttMGSLbfMCkpA+0SrPz6JE+U5OTh5Iqavkucfun0Vp/804WyfOO0KRmbBV
-	C7alkyydi5D+R8JXimJ5cBvN48BMSBwiQZVsRD/95IDgBC+mYm1SJFroCgRUoFMXrMarDsaRRSD
-	354ZHcMnyUC1QJ8LPYyj+GFA3UsZ+M8MkWQ/jIkWEkEvHIYlC2tYvGNJBDuL9zXdEAig0044RO5
-	XXYkRuB/ujiAKLbI0MPg9NMVpIDrAjray8zYrXJUaLgqYDIIon29Ue/wiNGqHpznOWyY3IHqfsZ
-	F09Xg5LWUHH68SX/D9oMWTp7wSOAU6aSxGFf35PLnKaHJONlWXaYxpaffld8aCRh9hi3p08rCSO
-	X/et5ffKOtCQYF0WrsNPOR+K6hNsaRH4F5d6QMLbwTOVydvztivxzr3wyN4HHdpEkc4pBRRXoGE
-	CvFIAMQA=
-X-Received: by 2002:ac8:5a0f:0:b0:535:a5f9:752c with SMTP id d75a77b69052e-55ac95894d0mr1164321cf.75.1794504927563;
-        Thu, 12 Nov 2026 09:35:27 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d5e579sm847456d6.17.2026.11.12.09.35.24
+        d=1e100.net; s=20260707; t=1794504936; x=1795109736;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XkIbYXadeaMG9HKV2rC3JRZDLd4J3RXCWFCJdXi08X0=;
+        b=B7lGZ/6jc9IikBdsDsiuL9qK7E/O4TUNYFFDM/d9qz061k0Utv3csCHmsDyAJpe8nL
+         MUg73DtPa7p1gX4bBo8OZjH4XgJCuYF62BdCf5ca8swTh7XvcGvL79Upnde93xphzvDb
+         v2/7JH4aO1mxtvx48rfYzGQSrNIqbmcWy86wEVvD2oxsKYgo6IscFv4DM+ROG306mWRt
+         3Bn5mUcF13+WtcYEa+ZH4JtBY+pq41ggHWDwlg+dux/VanRm465FYbQwvcmQbr3ESwA4
+         VC6Y60gxS+Gncn95BVhjUKZph4sB4DWV+hgqu4jAvSjf+m5pPoAjV1WozfwLN6jUyeW8
+         urIQ==
+X-Forwarded-Encrypted: i=1; AL+hErHHlQP8gBCurFM8aP0zM9gXpxKTxFheIqB+a5RIhgeBbohHezRlPwCcxo5hHaVfjJ0snoDM44CIhRS71Rs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+5ie16ueap3F0HrCMSXq5b3YdGJcOIgghypQT+SoIEoBixE9p0
+	H5SONi/AcJ8v6xGcbra17JLKMxQ3XjYhHttwgpZTTmVvKv3pr4KrP6KE
+X-Gm-Gg: AYBFou1Uj0FR8am9QpE/aNZQnawYEJzTpub7iMi07+YpOQCU59a1FJDgmArhgjxAGek
+	5kzUWQwmr3Vv2gNQOFyV7ukhyWD5Lqk2GOKrprCTG7Ca2qeFgTBMnkbUi/QNq+w+kyZGWpOsp9v
+	+k/Kbu2wa4UzfqtBDp4ssmy8PjQg06vikbMEJQcumXKqNv6bSMgN1vrv13aiyqF6UEaHgYwJDD4
+	gqZpq5+ilHF47geBUqy7EnlFQyn82gAvmjY7xuP+Hz6upifouLGbUVFrj9GYz/mp9AaQlWd210a
+	JVQUPbSVvRkm84DqFQL6RUlZ5RGM3B60Q57PLjp/34gbtwCiybzssf/rG04eA3TzIUx3twhZT0i
+	9d3QjQz5ZigoLfNN+AvJQuTLAOXSBkARKdoEjyWxdpnq7JsHxBC9Fgms1O5gkktokiuV3Nv1ASd
+	sUez2S2y6wR+5fj3E09J7dzpsLmxoVuAqNN+j4SvrkbpTI6Gqv7oZ6MnURcoRbgueuHCvL5UGgA
+	IU1JAzTToMNrJONw08VSAu/JOOnW6Xc6W0lgEEGgW9EAegunuM+1ei0EVxxKb+GzMhdI+1rwhF1
+	BkWkqV85xherE2kcfoLp5wef30N0gr0Lbdfo7wUghF0yZOfH/oqi4UYH
+X-Received: by 2002:a05:6000:4693:b0:490:c68e:5d5d with SMTP id ffacd0b85a97d-49c74864785mr53180f8f.49.1794504935838;
+        Thu, 12 Nov 2026 09:35:35 -0800 (PST)
+Received: from localhost.localdomain ([188.190.249.216])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm401037f8f.23.2026.11.12.09.35.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 09:35:25 -0800 (PST)
+        Thu, 12 Nov 2026 09:35:35 -0800 (PST)
+From: Vladyslav Tymoshchuk <tvlad744@gmail.com>
+To: yzddMr6 <yzddmr6@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Melody Olvera <melody.olvera@oss.qualcomm.com>,
+	Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] soc: qcom: llcc-qcom: Reserve ISLAND1 ways on SM8750
+Date: Thu, 12 Nov 2026 19:35:23 +0200
+Message-ID: <20261112173523.1474-1-tvlad744@gmail.com>
+X-Mailer: git-send-email 2.45.1.windows.1
+In-Reply-To: <20261111-sm8750-llcc-island1-v1-1-64055702ca3f@gmail.com>
+References: <20261111-sm8750-llcc-island1-v1-1-64055702ca3f@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,70 +102,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 07/13] mm/migrate_device: look up fault folio after a
- split
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
- Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
- =?utf-8?q?J=C3=A9r=C3=B4me_Glisse?= <jglisse@redhat.com>, 
- Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, 
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
- Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
- Chris Mason <mason@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- "Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
- "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
- Rick Edgecombe <rick.p.edgecombe@intel.com>, 
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
-In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-7-3d2454362e8d@kernel.org>
-References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
- <20261111-mason-migrate-et-al-fixes-v1-7-3d2454362e8d@kernel.org>
-Date: Thu, 12 Nov 2026 12:35:23 -0500
-Message-Id: <179450492332.482102.8905567682196853763.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-11 18:13 +0000, Lorenzo Stoakes (ARM) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> migrate_vma_collect_pmd() looks up the folio of migrate->fault_page once,
-> when it is entered, at which point the folio is locked.
-> 
-> The fault folio is assumed not to change after this, however if
-> migrate_vma_split_folio() splits a PTE-mapped large folio which contains
-> the fault page, the fault page ends up in a different folio.
-> 
-> Resolve the issue by looking up fault_folio again after each restart of the
-> walk.
-> 
-> Fixes: 022a12deda53 ("mm/migrate_device: handle partially mapped folios during collection")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ ljs: pared down commit message ]
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+On Wed, Nov 11, 2026 at 03:21:13PM +0800, yzddMr6 wrote:
+> With this table, system suspend can reset the SoC once nothing votes
+> for the LPASS core. On a Xiaomi Pad 8 Pro with the LPASS_HW_MACRO_VOTE
+> and LPASS_HW_DCODEC_VOTE votes released, 16 suspend attempts (15 with
+> s2idle, one with PSCI system suspend) ended in a reset. The PMIC PON log
+> shows only PS_HOLD-triggered resets and no PMIC fault.
 
-Was able to reproduce this, and i think this also reveals (and fixes)
-another bug in Nouveau (memory leak).  I think the Nouveau driver still
-needs a patch, but this otherwise looks correct.
+I tried the patch on another SM8750 tablet, the OnePlus Pad 3, which has
+what looks like the same symptom: the SoC resets about a minute after
+s2idle entry, and the PMIC PON log shows a PS_HOLD warm reset followed
+by a PS_HOLD hard reset.
 
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+It does not cure the reset here. The tree is v7.3-rc5 with out-of-tree
+board support, without Ajay's series. Each run is one 60 s s2idle on
+battery with the USB cable disconnected:
 
--- 
-~Gregory
+  this patch, Wi-Fi WoWLAN enabled                    reset
+  this patch, Wi-Fi WoWLAN disabled                   reset
+  this patch, rpmhpd domains left at their highest
+    corner (rpmhpd sync_state callback removed)       reset
+  no patch, MC0 kept voted in the sleep set           resumes
 
+The last line is a local workaround in the interconnect driver that
+keeps a minimal MC0 vote in the sleep bucket. It is the only thing that
+avoids the reset on this tablet so far, and with it cxsd, aosd and ddr
+in qcom_stats stay at 0. The first three runs are without it.
+
+> Holding LPASS_HW_MACRO_VOTE or LPASS_HW_LPR_VOTE across suspend let one
+> s2idle cycle each resume, but cxsd did not increase in either case.
+
+On this tree the two votes do not seem to be dropped: with all five
+macro codecs runtime suspended, clk_summary still shows LPASS_HW_MACRO
+and LPASS_HW_DCODEC with a prepare count of 6 (LPASS_HW_LPR_VOTE is 0).
+I read that on the workaround kernel while awake, not during suspend,
+and the codecs have no system sleep callbacks here. So the resets above
+most likely happened with both votes held, which is the state your
+tablet resumes in.
+
+> All of these suspend tests were done with a USB cable connected.
+
+Does your tablet also resume with the cable disconnected? And does your
+tree leave anything voted on MC0 in the sleep set?
+
+I can run other variants here if that is useful.
+
+Thanks,
+Vladyslav
