@@ -1,100 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794484556;
-	b=Fk93KC7NAoSOKIM6o9BoAhjA8ct2wZ7QIla4RjD5F3MAyxKRBt/RyJ/C0Zqf4/Dv6Akf
-	 9EshHJwaSKcBQHpvXkhiTofiC19Y07n1g9x9/ryEiA9segGqJXwZBi0BeJpC9snRTQfq+
-	 6xa8A+SJmfGPyt3tO6TehA/ZDeB2hjzie1ZuSh4JamoufOnXfhnmOZS3/LZynYpxhYI47
-	 GyEwrKsKUi7sOhDw9WSct3pnSaXq5tAuUHRr1sVjS9nGh4GC2Pnv7qmTp4BEqe4V6JdO2
-	 LQn+fGo/79EDNSv1w9qq+jcxKdbK6yL9hPeea9oAYYXf1hN2BiJklA6vk27ddxuBK1Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794484556;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=H9NIZBLJNCk3VF8bguUf3mZiur03yP583DFsDhIKC8I=;
-	b=RS/fke/hfp9zkUOwumPUGNKGzZjHpWaqYzsVGvzJm4Q0i38138WDpq2EpJmyITPXpNhq
-	 tkZ1+4S7OR7zY5hdUvWr532KcdcaFpH9F5eQmRT3gJXElLE6Zb8KAL1yvSc+/B5aSRmLy
-	 nRLdZm3OCbS+J1j4yF2JVYZm7AxdsRL9BpI06OSFiRcbxNy2maZxG6ZJz/WavnDnlOkuu
-	 Uyi1LVzNTx+o9s8wLtCJ4+HsxNgblh8Nl0S4/SaRu5MwWNGL5ZroBC4R1Q8VGznpm+2Gv
-	 WnNkZmdUxAHTC+Kl5stA8yfKRVfpm9SPFYYLLpx7dvt2v7Zh+eFkIf94d0qxkXkYPeQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IC0NlgPK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.41
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46AA6606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:55:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46AA6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794484582;
+	b=jbf+///6iJNbmDsQOZF88QWvMR2Oa0P/QV6/95fH8BAShC73hSMsMceTxtCtrkF/MoeO
+	 vlGsurVo9YXmLmAwinQgy53gPIA4OH21AcUaAMFY1dzOynryMieklAAh5ubnoJpFjfVEe
+	 msmB0lmrG8z3IVtG49hy1dG0By/X43illYdI01VT3hnIfFBrDJPwRZv4TKPBXEI8exVzM
+	 UkLWex2ac7F1JfPbUwKWR0uOpfqRMFF+anGrcBIkaEPBtfCE7dxzxhupFJlwDJMkZeieA
+	 Y80J7KXqDkILN4eValSZGw4Q3qU1vt+8bTNKPZlQ6KTdZ+Ee4aA/buSXwv0g1vAPw9Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794484582;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=1OPbJACaCWzcqg7qAKwMnw/GqAgbVeatHAwZUsalcW4=;
+	b=biaFXRcfGOEVsO0cPdB9FTkwZRkcZZhmsuPHEfoa7rRit5mZIJ72/TAP23shPAJALzMF
+	 Fsl5RHMRaW/9B0qhQJL3pQaWJ9Km8802CfmxafhR4mfirrklAPfZVjnAdJaVTEqHcJ5Mk
+	 71fznRT1oxtDfLTc2kDAzgOpmk2IF2px0Pj1Ae21S1sbB4zZkJLAzSxOtDQAHvheq+2RL
+	 Q0HMBfr0MsEPF7y/WcRdBwXYG+Uy42q29zKxCCnrOyRO8r7DBxqG9fKvFwTC0mPgxqTxk
+	 UO+2PfouWNk6EdI52+VXEWspXsCaBhIVbkDR/NfkZYtKpy+2gu/Z3Fsuc+2NcbcV+kg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QJu4I9ui;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1E4A3606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:56:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E4A3606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IC0NlgPK
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-679334baa1fso5631374d50.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:55:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794484555; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WXOoRVYHEtOyC8Dk5JZoux7ud7D/HlYdcPYzYRshtfZE6XWbFAffmPRMn/zLMlShtT
-         JQXi0F2Xnz9qQ35VCPSfdTOK0ZKJHJU56aLUsupazexB4O5edViDYvNSbUXUcV+3S2bQ
-         R8IcUPomWdCGT0gqFd67B7mSl/8nCZ0X0dWeQPBo1Af4jVmHM1lxlEa3ecmO3aPej2dD
-         bmvIfF7pGHXzE2MAsUpt0t5usMY+VZDD52qYFsshBGFsKtg/O19hEeQoT24Cq90xg/Su
-         hwVYpnJCYZc+i600X+zNmqYWS3sphq6o/2dtrMFzZxyrpcffrl7huP0kvgsPRFNzNbys
-         JyaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=H9NIZBLJNCk3VF8bguUf3mZiur03yP583DFsDhIKC8I=;
-        fh=eRDZtMHam77Z+fbIW9xit1zT/LMBAIkszePubEXEWEw=;
-        b=R4yunsmOhSL4z/dSiB7rziE9yT4Qr1vR45jda3FbmbGi6/Gzcm7aIUpsR/L/JrVybX
-         JRNSKYAhSkCcXYTY8i27bimiUafaXD8OQUd28zxgZDS68Krkzgn29qZ0yw+9eWuNP7ah
-         7Ooehh33j17XSVF4Ofn/r+CX3hYPIu5Jecy1q2jtEnuLrdzDwzfr3W72vxRs2LFdbHOS
-         LqTdx6eqgEv+r4li2CsYYB7c+DNO0904pZz1otxnWbJo1X3T1XN88aHyeAvhSq2FcnRF
-         1tFuhl98vXpoLWtkWCtu8PjbfrYKD8o+Mh+e4GnAHKRzIN9jA00rVZBHB1ITwPj576a2
-         8zxg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794484555; x=1795089355; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=H9NIZBLJNCk3VF8bguUf3mZiur03yP583DFsDhIKC8I=;
-        b=IC0NlgPKpvkf0lwA4TKjI3IqNZVxUXnlcdFfmdT9eUIEfpssNU4lAby4Z+c12Xu0Wv
-         Ae7DwZl2GoZlqUFR+YDpnTkvnCvU+2v933AKeweNQOsB/bQUQPoZfBgcVjRCMVYyqm1o
-         AbCI4ovbRTHG0zmzRmxvfvvHcLG7GP3hZpqSxWsGDFCQpceE0Gbu4qezSLKeH2IGpMXp
-         nhxY4K44tCHBO4soJCjvAWfYYHOVjAw017OTBceFYu0FV8Rkd8nrHSLB5VIijmCiwDRE
-         hn3/HC9Cg87C79kiqkCOFh0fUVllLsMqEqqPKXPYRGmKzOduTiBTgdchK2WoBiqZhEZA
-         ph0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794484555; x=1795089355;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H9NIZBLJNCk3VF8bguUf3mZiur03yP583DFsDhIKC8I=;
-        b=dmAyr+YcbhmWvBIqBtpz6JkOaPV2C+FYptveFJB0zaINSomqRY5AleQ551yx1Dj3l4
-         026/Es2UAxE+UTNSdNTLD6bCFbewbhBKb2wQ6TZ6SBa/5iD6tM9+PmM8s1++rATBgPuW
-         oXz8s3Cf4LHJ5VqIhc7IS08yUy+9Cl8k9he6O3kmaKVAknR8S4e0yQzWhyrFvgT4o8H1
-         IiVLaZAXFQiKvkNPNViJi+htRWgzeQj34GH4ti4tk2rxHpC3Ih3vA7YPKPNJ0/WGDfsy
-         PYZ3sge36Ap1aEVLLafUobO67vaXayHn1Pal/oRHLcDc+Z+Qwlhn5NcFBHWs7IYSh4R3
-         Qb4w==
-X-Forwarded-Encrypted: i=1; AL+hErHs2BSaRrkePhQrNj1UhWlWC8S9dnHd6HUX9A8QrIpozE67fwNcSc2OGYwpQrPqJXyflJT93ldyvd/H4js=@vger.kernel.org
-X-Gm-Message-State: APuU4Z89hk69HC6pzr8PdQNgVUL9DFGeAQy0v314PP0V7a+rZOAjMM90
-	lhTGsZwNAh7DJhXppg5wEtN9ABXflX86cRkiFLsSYwctRiGmhIQrL9RI9F439TVFYOzDPzzVXgW
-	lkB85rCHxvfsqLYrxs9gxiyf5847MFb5nHt6N
-X-Gm-Gg: AYBFou0IAYALG3C3wSs7aOh6yaQ+jd/L8yRBzcZlpAibhH/E8LXHGycvvcQ7ZpzptJo
-	Vl+Ui5kiiLkZJwmzWjPo+HwebK2+6VFz03VQ+n4XraVNtydp3uo6vO7+4X9UK2P8qGNqWj3uCB/
-	V9btcZYzGwuw90rHA2QOWEXYIUW0Jrq8A0LmwsHZmffRB59GEhfzUUjCo2uhIrY+n6V37DftbQU
-	Gioee8kp+5ZMma1zzyCx9FwcX1JOgFchX9EjcRo994xwmRe38FsbJVQqe/cuSB+WyeXx1qu45WE
-	Z5JDx0ldHC5OqF/ydrzWNoGHbhpb72YgSciEouNfnRBzLk80n05KOfmEGUaXzFe1I9243FfoRSe
-	OMCJCsutNpep87Xy8uAy+B3LBo/2ABJ53trg4p46Cy75fy673cixlzYHQdpaNC14jEg==
-X-Received: by 2002:a05:690e:1381:b0:67b:fa48:40c6 with SMTP id
- 956f58d0204a3-67c680512c2mr3277682d50.89.1794484555468; Thu, 12 Nov 2026
- 03:55:55 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QJu4I9ui
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F3CE8153B;
+	Thu, 12 Nov 2026 03:56:11 -0800 (PST)
+Received: from raptor (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CF9343F632;
+	Thu, 12 Nov 2026 03:56:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794484575; bh=jLwZvor016x+TzfEywYXeOWteUmG2ue9bXaXatigxyg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=QJu4I9uiQFFvC3WPCjDRK/KwBHVWaMDKODaqCT5puw101H172umhqeXcWf8ceOhW/
+	 1DC/yi0K4CrY0pwYUNJGU3o9Ej8c61VepdlGN1xrZHlHb09BJS5/CjgaSjF6mKrdMP
+	 ReGobp5hWGzdQXEB3jNcrNOn8pypVnlWXrF8/obA=
+Date: Thu, 12 Nov 2026 11:56:08 +0000
+From: Alexandru Elisei <alexandru.elisei@arm.com>
+To: mpenttil@redhat.com
+Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	David Hildenbrand <david@kernel.org>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Leon Romanovsky <leonro@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Subject: Re: [PATCH v17 00/12] migrate on fault for device pages
+Message-ID: <avWpWBl1nPcRVmpQ@raptor>
+References: <20261103061629.972669-1-mpenttil@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,44 +72,225 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260918165601.1014666-1-ekffu200098@gmail.com>
-In-Reply-To: <20260918165601.1014666-1-ekffu200098@gmail.com>
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-Date: Thu, 12 Nov 2026 20:55:42 +0900
-X-Gm-Features: AclHuK9PmUV8BrYAjnqEoTS4EvgydQ1Uyiy02kEKk-TSeQV6BgCr13vlHCGtulw
-Message-ID: <CABFDxMEW7a1yxZJ5TOdP244gbMebCzHBFsF7w7qJhxfxJUZRyg@mail.gmail.com>
-Subject: Re: [PATCH 0/2] memcg: remove unused page-based helpers
-To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	Muchun Song <muchun.song@linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261103061629.972669-1-mpenttil@redhat.com>
 
-2026=EB=85=84 9=EC=9B=94 19=EC=9D=BC (=ED=86=A0) =EC=98=A4=EC=A0=84 1:56, S=
-ang-Heon Jeon <ekffu200098@gmail.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> Hello,
->
-> While reading memcontrol.h, I found two page-based helpers that have
-> no callers.
->
-> No functional change.
->
-> Sang-Heon Jeon (2):
->   memcg: remove unused page_memcg_check()
->   memcg: remove unused mod_memcg_page_state()
->
->  include/linux/memcontrol.h | 32 --------------------------------
->  1 file changed, 32 deletions(-)
->
-> --
-> 2.43.0
->
+Hi Mika,
 
-While clean-up my mailbox, It looks like a later series with the same
-change has been applied instead [1].
-Either way, we succeeded in removing unused helpers :)
+I want to help getting this series merged, and I've been familiarizing myself
+with hmm and device migration, please bare with me if the questions I'm asking
+are obvious or downright silly.
 
-[1] https://lore.kernel.org/all/20261014-memcg-unused-page-helpers-v1-0-240=
-b37c53831@columbia.edu/
+On Tue, Nov 03, 2026 at 08:16:17AM +0200, mpenttil@redhat.com wrote:
+> From: Mika Penttilä <mpenttil@redhat.com>
+> 
+> Currently, the way device page faulting and migration works
+> is not optimal, if you want to do both fault handling and
+> migration at once.
+> 
+> Being able to migrate not present pages (or pages mapped with incorrect
+> permissions, eg. COW) to the GPU requires doing either of the
+> following sequences:
+> 
+> 1. hmm_range_fault() - fault in non-present pages with correct permissions, etc.
+> 2. migrate_vma_*() - migrate the pages
+> 
+> Or:
+> 
+> 1. migrate_vma_*() - migrate present pages
+> 2. If non-present pages detected by migrate_vma_*():
+>    a) call hmm_range_fault() to fault pages in
+>    b) call migrate_vma_*() again to migrate now present pages
+
+Regarding both sequences, I'm trying to get a better understanding of what
+the issue is. I assume the caller wants to fault in system memory, and then
+migrate it to the device. Is that correct?
+
+In my analysis I'm also not going to refer to THPs, since that would make
+things even more complicated than they are. I think we can come back to
+THPs later if we think it would be useful.
+
+For the !pte_present() case:
+
+Sequence 1: hmm_range_fault() -> .. -> hmm_vma_handle_pte() handles
+!pte_present() pages in two ways: faults in swap pages and device private
+pages belonging to a different device, and waits on migration entries. Then
+the migrate_vma_*() flow is used to migrate the range.
+
+Sequence 2: migrate_vma_setup() ignores !pte_present() page table entries
+After this, the caller follows the same steps as in sequence 1 -
+hmm_range_fault() faults in !pte_present() pages, and migrate_vma_*() is
+called again to migrate the pages that were faulted in/waited on by
+hmm_range_fault().
+
+Now, for the CoW case that you mentioned, I'm going to assume that the
+caller wants write permissions otherwise nothing needs to be done:
+
+Sequence 1: hmm_range_fault() -> hmm_vma_handle_pte() records a fault
+(hmm_pte_need_fault() returns HMM_NEED_FAULT | HMM_NEED_WRITE_FAULT),
+handle_mm_fault() -> .. -> do_wp_page() breaks CoW and maps an exclusive
+folio with write permissions, then the migrate_vma_* flow will take care of
+
+Sequence 2, migrate_vma_setup() installs migration entries for the page,
+then migrate_vma_finalize() replaces the migration entries with device
+private entries.
+
+Looks to me that for CoW pages, all that's needed is migrate_vma_*(), and
+the subsequent calls to hmm_range_fault() and migrate_vma_*() are not
+necessary. Is that your conclusion too?
+
+> 
+> The problem with the first sequence is that you always have to do two
+> page walks even when most of the time the pages are present or zero page
+> mappings so the common case takes a performance hit.
+
+This is the first mention of the zero page. Is the caller specifying
+HMM_PFN_REQ_WRITE? That makes a difference, because it triggers fault
+handling for the zero page, and that's an extra walk. Can you give more
+details here?
+
+Let's count page table walks when a page is mapped with a valid entry, and
+with the required permissions. Let's say N is the number of mappings for
+the page (equivalent to the number of VMAs that map the page):
+
+hmm_range_fault() -> .. -> hmm_vma_handle_pte() does one page table walk,
+migrate_vma_setup() does N page tables walks, to replace all valid mappings
+of the page with migration entries, migrate_vma_finalize() does N page
+table walks, to replace the migration entries with device entries.
+
+In total 1 + 2*N walks. Best case scenario, N == 1 (PageAnonExclusive()),
+that's three walks.
+
+Do you have any data regarding how often the best case scenario happens?
+That's what you seem to be referring to in your comment.
+
+Now let's count the number of walks for a !pte_present() page mapped in P
+VMAs, where P != N: one from hmm_range_fault(), if the entry is not a
+migration entry, another walk in the fault handler, then 2*P walks from the
+migrate_vma_*() flow.
+
+If it's a migration entry, it requires 1 + 2*P walks, PLUS waiting on
+migration to complete, which cannot be skipped.
+
+If it's a swap entry, it requires 2 + 2*P walks, PLUS waiting on swap.
+
+If it's a device private entry belonging to a different device, it requires
+2 + 2*P walks, plus waiting on the device to sync the memory with the
+device in migrate_to_ram().
+
+To summarize:
+
+pte_present()	1 + 2*N walks
+migration entry	1 + 2*P walks + waiting on migration
+swap entry	2 + 2*P walks + waiting on swap
+device private	2 + 2*P walks + waiting on device->memory sync
+
+> 
+> The second sequence is better for the common case, but far worse if
+> pages aren't present because now you have to walk the page tables three
+> times (once to find the page is not present, once so hmm_range_fault()
+> can find a non-present page to fault in and once again to setup the
+> migration). It is also tricky to code correctly. One page table walk
+
+Valid entry, the page is mapped in N VMAs: migrate_vma_*() does 2*N walks,
+best case scenario (PageAnonExclusive) two walks.
+
+!pte_present, the page is mapped in P VMAs:
+
+migrate_vma_setup() -> migrate_vma_collect() will always do one page table
+walk, regardless of what it finds, valid or invalid entries.
+migrate_vma_collect() ignores !pte_present() entries, and they will not
+trigger new walks in the next steps in the migrate_vma_* flow. Worst case
+is that all the pages are !pte_present(), that's one walk to find them all
+which I would say it translates to zero extra walks for an individual page.
+
+For hmm_range_fault(), it's the same situation as above: 1 + 2*P or 2 + 2*P
+walks.
+
+To summarize:
+
+pte_present()	2*N walks
+migration_entry	1 + 2*P walks + waiting on migration
+swap entry	2 + 2*P walks + waiting on migration
+device private	2 + 2*P walks + waiting on device memory->memory sync
+
+I agree with you, this second sequence is better for the common case.
+
+I think it would interesting to know:
+
+1. Is there a relationship between N and P, and if there is, what is it?
+Are they equal, on average? I doubt it. Is a !pte_present() page likely to
+be mapped in more VMAs than a pte_present() page, or fewer?
+
+2. What is the likelyhood of P being equal to 1 (PageAnonExclusive)? That
+would be interesting to know because the larger P is, the contribution of
+that extra walk (or two walks) to the total time becomes less and less
+significant.
+
+3. How does the time to do the walk compare to the time spent waiting on
+migration, or waiting on swap, or waiting on device to memory sync? How
+often each of them happen? I have a hunch that these will tend to dominate
+the total time.
+
+> could costs over 1000 cpu cycles on X86-64, which is a significant hit.
+> 
+> We should be able to walk the page table once, faulting
+> pages in as required and replacing them with migration entries if
+> requested.
+> 
+> Add a new flag to HMM APIs, HMM_PFN_REQ_MIGRATE,
+> which tells to prepare for migration also during fault handling.
+> For the migrate_vma_setup() call paths, new flags, MIGRATE_VMA_FAULT,
+> and MIGRATE_VMA_WRITE are added to tell to add fault handling to migrate.
+> 
+> An extra benefit of migrating with hmm_range_fault() path
+> is the migrate_vma.vma gets populated, so no need to
+> retrieve that separataly.
+> 
+> This series avoids the problems in current collecting implementation,
+> where racing MADV_DONTNEED could make the collecting arrays overflow.
+
+Can you provide more details here? How does it happen?
+
+> This is achieved mainly by having a rollback mechanism and
+> populating the collecting array as the last step.
+> 
+> Tested in X86-64 VM with HMM test device, passing the selftests.
+
+Have you tested that this series doesn't regress other architectures?
+
+> The main goal of this patchset is to provide a new feature,
+> migrate efficiently on fault, and not directly improve performance
+> of current migrate_vma_setup() (which is now routed thru
+
+I'm a bit confused by what 'on fault' means in this context? Userspace
+accesses a device entry, access that causes a fault, or using
+hmm_range_fault()? I assume the latter, but it pays to make sure.
+
+Also, can you define efficiently? Usually that's related in some way to
+performance, but immediately you say that the series doesn't aim to improve
+performance.
+
+> hmm_range_fault()) callers. That said, the migrate throughput tests
+> from the selftests show that there is at least no regression for
+> current migrate_vma_setup() callers.
+
+If the premise of the series is to reduce the number of page table walks in
+the !pte_present() case, then I think benchmarks that show a performance
+improvement would make a compelling case for this approach.
+
+Some thoughts, if I may:
+
+- Perhaps the existing test is not the right test to highlight the
+  performance gains?
+
+- Perhaps there are other parts of the migration process that dominate the
+  walks? If so, maybe we should be focusing our attention on those?
+
+- Perhaps the series adds overhead that reduces or cancels the gains from
+  reducing the number of walks?
+
+Thanks,
+Alex
