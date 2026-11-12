@@ -1,79 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794482419;
-	b=wCvGX4kpI106gaefwGeCmc0qJXVYlXtjZQWuToA0UJY4ff11E0qUmECVGNyRMZTfo3+p
-	 WwRyxaNVNXCrQVk19AXQSwJEpoM1m7wK47rw1H0YDjzUgXVACkOJElRbJEyD5orXciF8J
-	 2dTIxRVm76ixCZJrlvRU96uVA8z0+I0uz4VEpMh/kqFU+nPR0SnPEAZOVbuO029uk2nYv
-	 uAL/yfohesOKcxzBfgOOGWQCn8VBXZOGLIlpfBGZ9CSt+hHLS48NJKl74puuw7GTQxf8z
-	 XzVpkHLcMsSdy74SSter4f04GOhGDVD5osAONigBlhmovQD5Ik9IOXUkLXVmooCYkkA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794482419;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=OMGD7uNF6jjvOLE5hh23egDWm1ccouQtG/HHFpHfkjI=;
-	b=w5MjgShPoZd9d+pHvzRrg9uTMvvlFSxz4GaRjXa/pPN20MftulEP4/pmLTklsGuVCRsC
-	 vR/9yJKio8l53IWcFVDxymdhnozfB/dhvEpR5J1SvJkYRUb3JBy1ZIoYj+ZaTBankxRKw
-	 LGPk+fJL/SKHyFKQVu9moOJyRhVV51TtiI+EwtT8n9tKxfJKuAdPLtX8T+jcXRwFHMWXy
-	 rOkcb/XUApIND8izQK2fFkrOd1bElRIbTWfwPiI9guu5MGyBPjpBqRoWl98tZpqwCDRTr
-	 GVFqUWVkuc+9Jiz74nReiattPgo9QH1J6K98yU79e3S1Fpny7zsYYO/EeDgabRafxiA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=WFx6oRWd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794482414;
+	b=NbbvB6KYQtqn5npQ7JL4FyHRiMT+f1taLknnZAYMQQwOCibcO42PdX5+ibwXc1IvmPLR
+	 SWJlcoC7/WBsK5713xgR9RrONTKETtyh8JGNUPdi3IohRu6DsWiaMDC1ZygqWJMJMvZtg
+	 Z2o0j5SBnjqGbpbx8rfuKTRNi4Yyy6nx+6CuWreKHMFfQFF5Y3/E+CAw8sHsBwpy/fj9S
+	 Qlp+NcWNO34hpWPz7YXOiq0drcnBPWizzpcddB32ktLqNoiKtXlgsgSp74G/RbooJ71Ba
+	 fe5lJ33UaVwggv1BMsM/rXkGq4XoSMA9ZPaLxQjcy6hEHwDwPCyY5j/5z1CW5Ik6UOg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794482414;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=M92eLyM5Sw0gwYUIgBq4EZJwQthDYZqVWWHI2GtVQoQ=;
+	b=MFqh1myGGU4RJVJ7mD0SoVJB/dNX5urohbGzQdAtNNWxebMoIbT1u/V0o6XK5g29Hb/j
+	 Ggg/9QgZyzSKXB0Ls5Eh3YF7gcAo0mY21bSSmsSLWM3M03nQqcE6IJV22cpiwm+n5sdv2
+	 giFV4BKpWpGOl+U/H1XPUaMRIZIahlJQ9DrKS0xW2ThSYqFJN9oUl23aKpXYwUdwLI8AJ
+	 /u9iFBQlCKQfjeAEQJBmSR2h2j4/IaRsMmtr3B2hIkJwMMQkaockt4Z6MxMc1veidmd+r
+	 ptusHgCI41DW6WyAgca2YqhRhanwfM57ecC7j7F5wJcFEZT3c2Qr3oym1E1eTw8Rgzw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q/VXGkMM";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D01BD60A6F4E;
-	Thu, 12 Nov 2026 11:20:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D01BD60A6F4E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2890B606A323;
+	Thu, 12 Nov 2026 11:20:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=WFx6oRWd
-Received: from ratatoskr.trumtrar.info (unknown [IPv6:2a00:1f:f805:2b01:a03:2f4:308a:7b52])
-	(Authenticated sender: str@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C421320583B;
-	Thu, 12 Nov 2026 12:20:16 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794482417;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OMGD7uNF6jjvOLE5hh23egDWm1ccouQtG/HHFpHfkjI=;
-	b=WFx6oRWdLPWbFhVlhNFrDKwI0SseM1hOgWE993LfLmOtlzQ0aohr+n2BLiyHf9PBTItNUY
-	lhds3ATCSziusor6jpZpu5ZUGACiAvcvZRhSPMJBLvc9az2Tlq5qm6hsCoMCHsVnuL96Hr
-	8l6nFF+ZkUvla1bxOe1VD0DQG80d/AoCm7Ye4h38nhArECvd9TVsdswCoVuLeLs2QoU6z2
-	A3ZlDv8WOt/94d2er0dzJ2ziR4K0VYT7nzZ5Iv5Iw4Eht/m+I+OvDaoUeiEq6vOgn8bdNV
-	0MEvUb9bLChYdVcj/XNOMnzrBS8GlBf3V0ta3QnIz6XsGkQfXILrKzOhEiBsyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794482417;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OMGD7uNF6jjvOLE5hh23egDWm1ccouQtG/HHFpHfkjI=;
-	b=YLoiE0eWQRDCGF3XEMBBsVUijw+luUrr9dfARbnK40hzeJ05BZWM/kgVVz1h35wcsx+e8L
-	OZOUogJzcF64BIu+8OD+UagC8I57kDEGfM9Q6yU80VlMvbvxvi1bsuOQ2K5F3OSr/yPG2l
-	MfwjKkzdX+Ls0pzBxhL6FzR7SeJ4VA7ydBwltzkcTWcYp6O9268F9tUT8kkJ8msYL1eR4M
-	jcQ4mFuR57vHi/8ZczFSpQtGNY5PPrDI9a8+IgvqMsx51C8owkK+Tp0Xom+xq/9NibyA9T
-	KA/WOMAZx0GnOG0uQ4qBXkYKBbzBiiIXJgdniIvY7/eVt46F1dWfwEOxXT6sxQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794482417; a=rsa-sha256;
-	cv=none;
-	b=Y8Nat9HYPprFPpoEsAL0DtIv+OM0GfwPjXNAEwSa3j/C50d2lPiILfUtbkhbjToou6ytTa
-	+/D9wLc5mgR7b0gkaBBqfvfatCbLw4gE/tk7Cccm/gFYomO1dTvY+tsbLJZaklRYRRXEl2
-	ufyk11VjoRFv+UqVmgY1LPs03xKFYIMY3+F/qPAR7JKII7qPay+pGMQKLVwxLNC7LZSm/Q
-	sS77KqG6loTfqUFQ3KLQxig7i6+MSZJnMRn0//QOmXMm2ydecOYKBvv50fdeaoO9wnpbry
-	4DBakMLFitVyPDf8jUc9dHfg0RGnZB6hUt7+NWm/uQsIj7bh0dyKUXZaTVtLeQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=str@pengutronix.de smtp.mailfrom=s.trumtrar@pengutronix.de
-From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Date: Thu, 12 Nov 2026 12:19:38 +0100
-Subject: [PATCH net-next v5 6/9] virtio-net: assert header sizes
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q/VXGkMM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 667351F00A05;
+	Thu, 12 Nov 2026 11:20:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794482413;
+	bh=M92eLyM5Sw0gwYUIgBq4EZJwQthDYZqVWWHI2GtVQoQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Q/VXGkMMwSnZU5/vlXZvG4MwejYzQM7DZIAWt/7/U+a8QqpWaBrajY76Dxnww3yhV
+	 xthV+dAbeP+4qv/0T1NrDe66Qzt9Kp29SQ6HtOF7ORMY/lY14fptdEWKZjGtA/rfEH
+	 cxZoYSXZaQx9DeZqtFlaXjoDZIw5u5DKb5/2SISwfFBLd+nemAaWUxrpaGrDg71nOH
+	 GJPuej9zqV/bAhSMhDtGyMpwgqxKksqdMpbK51evE8z9HsPCFnoYEsGrGNtaAzIRhD
+	 /ELEZ11+ZtSa6A4FB60SZ4vSxzURR6p/CW6GJVraqpqmW5IBEh9W11BndjKs2rrCYH
+	 55Gbb1WKeY48Q==
+From: Vinod Koul <vkoul@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+In-Reply-To: <20261112-smb-repeater-power-leakage-v2-1-0f8ee55c4962@oss.qualcomm.com>
+References: <20261112-smb-repeater-power-leakage-v2-1-0f8ee55c4962@oss.qualcomm.com>
+Subject: Re: [PATCH v2] phy: qualcomm: phy-qcom-eusb2-repeater: Fix SMB
+ Power leakage issue
+Message-Id: <179448241104.492462.10336704424380926541.b4-ty@kernel.org>
+Date: Thu, 12 Nov 2026 16:50:11 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,70 +66,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-v6-7-topic-virtio-net-ptp-v5-6-7ab67b572f4f@pengutronix.de>
-References: <20261112-v6-7-topic-virtio-net-ptp-v5-0-7ab67b572f4f@pengutronix.de>
-In-Reply-To: <20261112-v6-7-topic-virtio-net-ptp-v5-0-7ab67b572f4f@pengutronix.de>
-To: "Michael S. Tsirkin" <mst@redhat.com>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Richard Cochran <richardcochran@gmail.com>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
- Jason Wang <jasowangio@gmail.com>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, 
- Jesper Dangaard Brouer <hawk@kernel.org>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, Eric Dumazet <edumazet@kernel.org>, 
- Andrew Lunn <andrew@lunn.ch>, Simon Horman <horms@kernel.org>, 
- Kory Maincent <kory.maincent@bootlin.com>, 
- Liang Chen <liangchen.linux@gmail.com>, Heng Qi <hengqi@linux.alibaba.com>
-Cc: virtualization@lists.linux.dev, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, kvm@vger.kernel.org, 
- kernel@pengutronix.de, Steffen Trumtrar <s.trumtrar@pengutronix.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1334;
- i=s.trumtrar@pengutronix.de; h=from:subject:message-id;
- bh=UCGplr/v9TmIbb5r7ucef4LV3SxkM/HbSDQ7Yt8TxiI=;
- b=owGbwMvMwCUmtVehiCsuTInxtFoSQ9bXBW+mzJkSvtVg/QGd/LMztpX/WulRxrLnX9KBfa039
- s2pYpBf01HKwiDGxSArpsiisrCCT9Tjg2fkNBEumDmsTCBDGLg4BWAivTqMDC8ZSptOynbqseRF
- TRaWiux7K2sS3nqErad4/mbVFMP5jgz/TN6v3vxg+cGF6/kl25f0WCsXrFn8+ILG7n9tRrd8G09
- NZwQA
-X-Developer-Key: i=s.trumtrar@pengutronix.de; a=openpgp;
- fpr=24A1780E1548F0495996140A1ABD20720A5E5622
+X-Mailer: b4 0.14.3
 
-The header is cast from skb->cb and from device buffers, so its layout
-must not change silently. Add static_asserts for the offset of tstamp,
-the total size, the alignment, and that the header fits into skb->cb.
 
-Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
----
- include/linux/virtio_net.h | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+On Thu, 12 Nov 2026 14:07:15 +0530, Krishna Kurapati wrote:
+> On Glymur, it is observed that although the exit call is done, there is a
+> power leakage seen on SMB2370 charger (which embeds the eUSB2 module as
+> well). As per recommendation of HW team, disable the repeater during the
+> exit call to prevent this power leakage.
+> 
+> 
 
-diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
-index 2abd8a614a23f..e7776a37a486b 100644
---- a/include/linux/virtio_net.h
-+++ b/include/linux/virtio_net.h
-@@ -29,6 +29,17 @@ struct virtio_net_common_hdr {
- 	__le16 tstamp[4];	/* le64 TAI receive time in ns, 0 if none */
- };
- 
-+/*
-+ * The header is cast from skb->cb and from device buffers, the layout must not
-+ * change silently.
-+ */
-+static_assert(offsetof(struct virtio_net_common_hdr, tstamp) == 32);
-+static_assert(sizeof(struct virtio_net_common_hdr) ==
-+	      offsetofend(struct virtio_net_common_hdr, tstamp));
-+static_assert(__alignof__(struct virtio_net_common_hdr) == 2);
-+/* virtio_net_common_hdr must fit into skb->cb */
-+static_assert(sizeof(struct virtio_net_common_hdr) <= sizeof_field(struct sk_buff, cb));
-+
- static inline bool virtio_net_hdr_match_proto(__be16 protocol, __u8 gso_type)
- {
- 	switch (gso_type & ~VIRTIO_NET_HDR_GSO_ECN) {
+Applied, thanks!
 
+[1/1] phy: qualcomm: phy-qcom-eusb2-repeater: Fix SMB Power leakage issue
+      commit: a6d71ecf65b357ae036012bc84b313b2e4fff679
+
+Best regards,
 -- 
-2.56.0
+~Vinod
+
 
