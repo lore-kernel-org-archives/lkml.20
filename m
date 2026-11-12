@@ -1,47 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.147
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794475556;
-	b=X5QOxWC76LGNeEbVYempwAd/G6X57LQsOIZPE/Aiawp7n+2+fWbyLyO2xGC1WbLbcGPp
-	 d26qWvoGN48JcF8qR0veFuByzZNA8aG0f7GwvvFSXFANScWcOXhHkIaSrAx5oNdq6Mn41
-	 2ia4IZYJeTjSIjSTgAL2hlLdBpLvXbIpn+jIrHDDW5MRKUFPlfOh/BAjkPA9JrugO5siL
-	 RcU3ttc9q7MRF+E5/kZGNmlWAPhRgnRpCG/GzR/ZH5/z+usmX+FqFSfYaZLNT0t4/9F5m
-	 DRh67I/iUhfZ3GMcjzclBGVQFly2LSSsaAwZ4Tt14aBE/7aUCYNaj5+S7rIROmm/k+g==
+	t=1794475593;
+	b=w4ar6xUPf3MWbxZpprMQWk2rbqP4KriWZJdeP8x1YiWzl4JiSItSjAgxnZQ/8NXhonSc
+	 YP6FAFXX56qxNCuSp2eD+0u8WwcwqpR4ToXgfi/jWLj0mmpd+UKLrf3D2bPO4qW8cxTE6
+	 4SN9M0Paj292C2w2znD8dIENxEcdfgx83Z6fUpxZUnDUGus8oZhrtzvGrZBIuXr1JiULx
+	 CJMrhOnEzJdA4HQ8kGHFVoR3vsFkpvCKmzMk5MdZ8ryt1DzoIg8PRUmxgAr/qplYQQS8U
+	 AIjcW7YiYZh3IqsbToecAXv++8QOL2sSJn3rRL+fwpphxd7KsYO3AJJTvDVb986H0WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794475556;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=EZx8Jw7PIP5EkW4qNXiCINH2MnOdwdHG8FWpIk2/UBs=;
-	b=XuTHJd1hUkaNrDm9lkNIPFIdxva27bYFN1o6vrCdcnH+1XC7IDK13WU5rMYJCslagiG9
-	 pwXrHbL6E6Ir3EoaVgv6E8TkPBGaXacQSIppYyMKhyk1LEyjLOZOeq6GDoLUcKK7SBX9j
-	 Rw/0G+AMj/Cho0aNeGJ0JjaIkINtcEYoGTbFjeF+eTE1kTyX7Cxbn1h56e7bomgvSYGzc
-	 N1WYVT/PQ6joeRK19z4nmdwEpgQxeQpYYhZLPrcDjTsVIV6nHQUFc7i2yf4eMwNLsmEXZ
-	 wjU8dCjhx14lsncCgeLvJDPjOeU6Zk/6L8CcX7bNpob4NDSPjMhIkkq8CqCkLWhpV+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794475593;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=Lu9VyNMW3mU5a5OEl9u5/3DZxAvGGfoqPTt/S5UCjdA=;
+	b=YeHavyqunAszZfuan6yNJiHQu86fMnWUkris3gkLhgNSOhup07Ny0xlaypP0kGj00WC0
+	 UrUI2l3mpXAhoxBgyqaiMrrNFu9sHs975JjVmmOGDVUJ481gR2wLAbgE/WrGAe7A0ALuD
+	 fU7NkbTZiCtVI2sEElR0Xn1xZUNlHQHooW55qLWs1axoUvUlGNPGz8qHjz+yf6ansKWos
+	 8bGXkX31ZvDYanPeI2UE0LpKm3Qsm0l7/h+F1Cwi5BAy7TErKCuphoUc0ercyusGKC2ds
+	 KDEa577ETtp5AhkmzJU/XgEaW9QnGIGDttNTXSCA6+aN29Zi78ShnL9xKuo6yeB/hmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOx9NI9I;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=OOUgwSFQ;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=NVWaEgIO;
+	arc=none smtp.remote-ip=202.12.124.147
+Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14904606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:25:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58002606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:26:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58002606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOx9NI9I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4BF11F00A05;
-	Thu, 12 Nov 2026 09:25:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794475555;
-	bh=EZx8Jw7PIP5EkW4qNXiCINH2MnOdwdHG8FWpIk2/UBs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DOx9NI9I4ddcEPPQnoAjTiQ22Ws+dQcJWle2kV0VS546QDyGUjb4PiC3qylGxT2ZB
-	 wfCOaapLfkWztw6H9dqA8Z5QmEgCbEQi9MjmcU51sVi1IfN/0YhNJL43dHgnOFaO1W
-	 QWoVUfNWMDSL1WiWJEpNouHq3fadIwXYp4FqthBNBpAzIhFZ48q3P32/HimqGmhTpK
-	 Gi+q9Z0h+TFtaptREw30JVyIhscF4Atx6Ferp4kLGmdEE4zvUnrEdCmm+oN7LJ9jVi
-	 KBJCBKLDslSbxGxYHFcEmhtPbysdHJQNGkju1T5PjLKjTDoztFpJHuH+NOPGg9VNdm
-	 3cHDDC6rD9dQw==
-Message-ID: <131ad9de-a475-4848-978d-08cc98c26013@kernel.org>
-Date: Thu, 12 Nov 2026 10:25:50 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=OOUgwSFQ;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=NVWaEgIO
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id A0AEA1D00259
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:26:32 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 12 Nov 2026 04:26:32 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794475573;
+	 x=1794561973; bh=Lu9VyNMW3mU5a5OEl9u5/3DZxAvGGfoqPTt/S5UCjdA=; b=
+	OOUgwSFQfbLVJHu/UOI1xbxzxT29rpy6sRLNcFMwVTBXzHNs1EcuKtWWiF0p0vMV
+	pwgQH1sGEyg8X9BWJj9Z/NzKcXfcrv69W+X1rEzPCKgCj0h2bl3L3ihPDe2oLjYY
+	zobAf3odv5III8Y4tHRH4h7KI6Zu2YAP1UhQkG7TLYGIF7ij7jyaOKtlnwbncIBt
+	YYijyIAjywbzRp3ltvL9VcQ+OgsMOskRjbN5gFQ7kHc6RKUvcDzTn9Bv2ou+3eMQ
+	+moij8YDdCQz1xPUNUyDy748IUxc03Vs5IiimdOyBTWHHVLADFFEPPRw9kr247dq
+	eA1g8xF4ovQHK5pm56sqRA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794475573; x=
+	1794561973; bh=Lu9VyNMW3mU5a5OEl9u5/3DZxAvGGfoqPTt/S5UCjdA=; b=N
+	VWaEgIOJNaSA6tI7c9inqYnE1uxJ1vlT9Fjg51KVxZqxAtQIwJxYCc+Yxxb7rrfn
+	lqi1becGt5OevebJBN8V0kD4rsO7nanl9iJhWpW39+wqAcVowfsRChKO9vZj3XwM
+	7NhuZpLuKr+pKPwEUlXfEC8HTZXygCfCxcVDP5ySwWAwgTE1ocLPnQU9k3YbVcrg
+	8qPDj48hZiFbBg3pVGUGyWsocTCPYj+vZnwsb7ciMOC3xtR6G8+2aCSAIkSBkIfF
+	MDY35u/n4XM4lh+7S50G0rTFS8IvB0y7JNUhkRyoe1XrzafTLgNWCU6E0BQ2ICEU
+	o1x08xFRSCGrwAhYDzLTQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794475573; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:cbOsoKic4+AGsH2Xf1Vg/CfRzOBTG1MZ10A0PEzGSrPBTaQ
+	T0kmKX7HDuBABVtlEDCe7S9NrU+6L3WhKHjEbJrHxAYtx/XO7j3Ju5/HEpkv9d3w
+	PMIwltc3t3Bvtvp4OA8Ai7RGA/5Wn5oOLFvgcOkK7SN/p4xiHbox3fIvm53t3550
+	JseAFcrecsJLPjnmFGrCxn5sDt3i22ajuuV2oJmpUONdWUzxBkkzxD+CSwhXSYzB
+	H6DBoRyQqntircbKuAh62AcffrmmCghR1mYWNve/xmPIo/9LDsZbNxhi9se8IfsG
+	EQtqcLGg845gNpNyxRiKcpQt5nLJKqUR9MutJug==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:lHtQvLsWKEfUdBxf+XVyTOgUlpH79KXAE43pmsNxrkU=:Zt3fqEzGcC9UmMEpGQAYwZ0fmVAGINXNyxE6QV2Knis=;
+X-ME-Sender: <xms:J4b1aszZnXXmJXycTKT68GToSThX6hRpgSLl_4I6u4n_9y0ijscfDA>
+    <xme:J4b1arHXgXG0E3ZLvA7HJOwMoR1J3526nRnSxn39ymzynPVz3tcJjXoKQqdwOqpDJ
+    AeT-pkeNEL1EAxxeIv_exqlwG8lFva3ZbqaIZ3tJwi6d46YBYeiMr6m>
+X-ME-Proxy-Cause: dmFkZTFWfgeeGR8mo+0U7OOkwDrigGQ4sGgOFZOIt6DyKqatgGiIKMzD3PV2KmRP46YBiF
+    NN7VF9RNbZITkPsgZWpSOFDs2Hsgp/9VR+G7lO3+PQKbSnfTnKJELeW/wMgoAW5UIhwmdD
+    NSL49KegZyyd7iwPktON7yNbn9dxeoKfVhWM9t2Io9/1BIHEHKTR0WotbG6kr8eFh2z+1b
+    csxbAPpRQXO2C4GVfNYOGDOiPXISwylHCy4FaZ7cR6oRi/vJtPkZHGg3mRklsb0kNGxOVd
+    DNAGk5hP/cEFOfJdJHRax64lA7dWq1eHZmhIG5RrznsMXvnmtyPlQ334MKerO1ZX5NuqBV
+    GKnK5TATlSIwk4cWKGycpyTUodNZKF7vM4JxgjSDyU5c3JZMA/00XtklF92iMVX2n35r1M
+    D/1BnTxNkAJQYU6IHiZtnAi+F9Kc5txc7hseFdo5PA6gwuLLPcpiIgVACKdGaO06xjKt6+
+    eDS6tHC5JLF0NyKlfrEblcX91WlQ2m0ahg+JEq12dOeKhFtHqe72OYrIJRxH9aVIg4H37T
+    QC9Hsu2aYqgpvUxhfN9yptOYqfhbjSb7ExkyhKIO3SlLEus47FmO1j/M7VmkJjnZFvCjAd
+    +wpeLaOzhd2kTOw74kwWkYpnUq7IGz2Ntd9IYIHxAihCXh+HKjeLVoMLwTQg
+X-ME-Proxy: <xmx:LIb1anFpYFUFUsNVtoim2Rg7LU1Tm3N1l3d1uUOvZWcowJ5OmXznLw>
+    <xmx:LIb1autSZclqgSgCMjcYXfz7f3-TG4EIJFu13rcYRYlFv3xXvuqTzA>
+    <xmx:LIb1akvxIJ80Do08wt6yzER2CcaT4RkBEgb7xl8huakw9lE5eJlL1w>
+    <xmx:LIb1avHZkyKCDYHXN5bL4LY8EPvrUmq0Rhqocr6RmLq2C_LNQVrCwA>
+    <xmx:NYb1ag6y-0KJmsy4GI_oyZKqDIFupBSr4UE9rN5CDa5GuRRBsmAx6rWK>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 1E26232A0099; Thu, 12 Nov 2026 04:25:59 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,108 +115,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu/atom: do not dereference NULL vbios string
- pointer
-To: Alex Deucher <alexdeucher@gmail.com>,
- Noah Weinberger <NoahWeinberger2003@proton.me>
-Cc: "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "Xinhui.Pan@amd.com" <Xinhui.Pan@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.com"
- <simona@ffwll.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <4VYoOFUjYIK--SKrUsijHVOOHA6ruEc8z_hXR_OMj7syXD6492lPaEKmsRRV3iLW1QAkn2X29F7_-lVKnIx4vUE1KQtKx8Zdk8sX_rFaZIA=@proton.me>
- <CADnq5_Mp0dxiK1cJOgkCcHap_0y4GhwnW0E52PR7gkySnkMk3g@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CADnq5_Mp0dxiK1cJOgkCcHap_0y4GhwnW0E52PR7gkySnkMk3g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AD8wiEBgakfZ
+Date: Thu, 12 Nov 2026 10:25:28 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "David Hildenbrand (Red Hat)" <david@kernel.org>,
+ "Linus Torvalds" <torvalds@linux-foundation.org>,
+ "Christian Brauner" <brauner@kernel.org>
+Cc: "Matthew Wilcox" <willy@infradead.org>,
+ "Kirill A. Shutemov" <kas@kernel.org>,
+ "Alexander Viro" <viro@zeniv.linux.org.uk>,
+ "Miklos Szeredi" <miklos@szeredi.hu>, "Amit Shah" <amit@kernel.org>,
+ "Jan Kara" <jack@suse.cz>, "Zi Yan" <ziy@nvidia.com>,
+ "Bernd Schubert" <bschubert@ddn.com>, "Hugh Dickins" <hughd@google.com>,
+ "Baolin Wang" <baolin.wang@linux.alibaba.com>,
+ "Andrew Morton" <akpm@linux-foundation.org>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "David S . Miller" <davem@davemloft.net>,
+ "Eric Dumazet" <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>,
+ "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>,
+ linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
+ virtualization@lists.linux.dev, Netdev <netdev@vger.kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ "Malin Jonsson" <malin.jonsson@est.tech>,
+ "Richard Weinberger" <richard@nod.at>,
+ "Geert Uytterhoeven" <geert+renesas@glider.be>, "Nishanth Menon" <nm@ti.com>,
+ "Frank Li" <frank.li@nxp.com>
+Message-Id: <3eb60948-8fc9-4682-87c2-c113e54e7d4e@app.fastmail.com>
+In-Reply-To: <32ad880e-5946-4703-9c6f-43ff59da39af@kernel.org>
+References: <20261110145241.536019-1-kas@kernel.org>
+ <20261110145241.536019-2-kas@kernel.org>
+ <avNuQqLf9CG9dSsE@casper.infradead.org>
+ <20261111-heimreisen-ungeziefer-empfunden-a892571f2c07@brauner>
+ <20261111-thunfisch-wirbt-waldrand-822275b2d3b1@brauner>
+ <CAHk-=wjPY=kfgnmtx4COEQjD5UzKx9m2-=KLGAZP4d=RKEH+pg@mail.gmail.com>
+ <20261111-stumpf-montag-miterleben-c4e2feac8090@brauner>
+ <CAHk-=wjGXBnme-N+HvbzHH40ftb7Suc=kZVT5cuintQWyMHJ7Q@mail.gmail.com>
+ <e94bdf7c-eae6-4f64-bf93-0aeedca1a22e@app.fastmail.com>
+ <32ad880e-5946-4703-9c6f-43ff59da39af@kernel.org>
+Subject: Re: [PATCH 1/4] virtio_console: copy pipe buffers in splice_write()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On 11/11/2026 17:57, Alex Deucher wrote:
-> On Mon, Nov 9, 2026 at 4:41 AM Noah Weinberger
-> <NoahWeinberger2003@proton.me> wrote:
+On Thu, Nov 12, 2026, at 10:09, David Hildenbrand (Arm) wrote:
+> On 11/12/26 09:55, Arnd Bergmann wrote:
+>> On Wed, Nov 11, 2026, at 20:26, Linus Torvalds wrote:
 >>
->> Hello,
->>
->> In atom_get_vbios_pn(), when the part-number string is empty and
->> atom_find_str_in_rom() cannot find the ATOMBIOS anchor, the fallback
->> computes NULL + sizeof(BIOS_ATOM_PREFIX) - 1, i.e. (unsigned char *)8:
->>
->>     vbios_str = atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX, 3, 1024, 64);
->>     if (vbios_str == NULL)
->>             vbios_str += sizeof(BIOS_ATOM_PREFIX) - 1;
->>
->> The subsequent range check is false for a near-NULL pointer, so the
->> value survives and *vbios_str dereferences address 8 - a NULL-page oops
->> during probe with a malformed VBIOS that passes the magic checks. The
->> recent hardening of the neighboring date/version/build helpers closed
->> their OOB reads; this fallback path was left intact.
->>
->> Simply leave the part number empty when the anchor is not found.
->>
->> Affected version/commit: mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07), drivers/gpu/drm/amd/amdgpu/atom.c:1491-1503 (atom_get_vbios_pn).
->> Pointer-arithmetic-on-NULL is pre-existing; this window's hardening series made it the sole fallback outcome.
->>
->> This was found during an assisted (AI-supported) static source review of
->> mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07); every code path cited below was re-verified by the
->> reporter against that tree. The patch below has NOT been compiled and has
->> NOT been runtime tested, and no reproducer was produced - the triggering
->> conditions are described above instead. Please treat this as a report for
->> verification rather than a battle-tested fix.
->>
->> Reported-by: Noah Weinberger <noahweinberger2003@proton.me>
-> 
-> Missing your Signed-off-by.
+>> I tried to push for what I thought was an aggressive timeline
+>> last year, but that would still keep the Arm bits for a couple more
+>> LTS releases and only gradually reduce the scope of highmem in the
+>> meantime, removing support from architectures, file systems, and
+>> drivers where possible. See https://lwn.net/Articles/1051010/
+>> for a summary of my talk in Tokyo, including the slides and
+>> a link to the video for anyone wanting more details.
+>> 
+>> I also prepared a number of patches towards this, but have so
+>> far not been great at following up to get them merged, sorry
+>> about that.
+>
+> I think we can already start at removing CONFIG_HIGHPTE now, right?
 
-That is not a patch, but a report. It wasn't tested, wasn't even
-verified and is possible that it is LLM slop like the rest.
+Yes, I think my patch from two years ago still applies, see
 
-Best regards,
-Krzysztof
+https://lore.kernel.org/all/20241210160556.2341497-4-arnd@kernel.org/
+https://lore.kernel.org/all/20241210160556.2341497-5-arnd@kernel.org/
+
+If not, I can send you an updated version.
+
+     Arnd
