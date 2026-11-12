@@ -1,71 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794501221;
-	b=lVBF7cHTPmIsNATUHmjQHnN60l85STrP/S4fHeMK2/HMiiEorh9qyBJj41wRWNBFF9DP
-	 Ds/J2n5g3LlTfKJ4oWurHrWrZ+ur/bSmbTHBlXzvLlYQjLrh/PexvzMU5eYGpbvIFLp2h
-	 rxLs5kUl2mL+9ZhOi8ihYYhfXci5dEjYBhCe/eXA7BJLKSInlHnzL9UsPQHElaDU1O1a6
-	 5dRYh/88toXImHUIKdeRz+zx4/sa0y88V32kC2l/TPkoLubCCxODGMek+i2tynbBsl2kO
-	 N73T/j64UDdKkd8HFSjxWCW/nJ0XDn00lJk1H1Yhpp3sXDF/ru6nysdYC98v1fomTqg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501221;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=Q/dnwQIhA8Sqe3WS4uwxB+IGEIoincQaBjNIe4lg0SQ=;
-	b=oAWArGTxkb+7isDP/RWRHMVa0sS80LgpZacyabDZZcx4aGZszNzierKG/7BpTd7jTV9F
-	 i+rAEnYsIBTDhsJmJpxpCaie/OXYQBOI8cnaWOBqIlj/9ujAltM0ZsDHe0JMVKfy/JQLP
-	 eRryqbSExBpo61LaUut8xdPGW0P4fjU4ke1xyuVjjyWUjAwoTrHo53e02iFWqpRU2JHj3
-	 W/3wK0xnFK7ylflsE0yzvB62kKEJR7ZdcO+sAS5W/kFRPntnOVHMdPapy39brCWHGovrG
-	 9mdp5wGPUUzCP/kdx69W5IpvUs9+Q5KIqYlQvtzdChtejXnc7Em4PzqyZoZO8GJDd1w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=ip9ePaPo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794501220;
+	b=iglIqTP5u4+89gLnBPR55MPooGiM96zhPlFHSe1/DqPfrxhgxD9bnwPfd6Q0bZGlbDAI
+	 npdCIjvoSHoTTIcp3lEAIxcs1mkA8kZeaAbDHk58NlkBEVp2Sp/TwQXbTz4689fwoVQJn
+	 AypPUiR2pLebNSpVGDY8v/pjZOpjhVg2FHHvkJKG5CquPfmmjwddk9GJQAnfwmfBygCFr
+	 2q1j7SE2s5Vns9zXPHGDkgMgDbXVyeUxyG+xZ/8HFIqnzdNMqQtCgDmDMIUHUXIgjdc3l
+	 v5r6aRpaxEZqFxKL8D4drSQqog83vYtf7Jkp7cOm8f6xNQW1CZ6H847bCkR6W3bK76w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501220;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Y+y36wVI/Dfgd1WdEh5Z5HXjHzT/2gzfAPJDb0Rnf54=;
+	b=UEzQgLztYHtn+/LxwnhE1NKMCv9a0UiLLc9Gv2t+cZ37jxHLlLEvNaV7c/ruPr6jKL9i
+	 QtJCCbJMQQISPP1il2GYLWpNxViJhijVdJDpSl3pKYlV533Y0nksB2dtl6HpH499fqY/4
+	 XzIMWP3dz+3KfcTBi869YwdRSDeNzSMFXM1/YpdCyquPnuaBmDQi/er2lXy03yHKKtKce
+	 PI4ZpgEmgCw06YJgvMirFIz+swity//kEG5zef6y/qXraalysktqfWSdtsYoG3nkm51uC
+	 dUvuzJuKjY0camvyboDQt5zKZcACp0qWiKVo9DPGjyykr0FrISgQhMAvO/jmigEhm/A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fNPmUobY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C7F60A5BFC;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A7360A5BE9;
 	Thu, 12 Nov 2026 16:33:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0C7F60A5BFC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=ip9ePaPo
-ARC-Seal: i=1; a=rsa-sha256; t=1794501203; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=TyXFnpzt6dEn7SYZRYX9LBDwUMJG88UPvXAhu+jvP4b5K+gCdAr/syvn4RXC3C4jlxNzgPt48zf10avCykyl61Pxfg9VxRNQ9qW0Bhp8PlX7zaa3tPAEHg45ps2HKNFcHyqN8NcXOyuK76PvUxqT5CQ2QLRKVmxGIixgGRD3ALI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794501203; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Q/dnwQIhA8Sqe3WS4uwxB+IGEIoincQaBjNIe4lg0SQ=; 
-	b=FYeV0xsv23iGhQRJsEl6egozOrqON5Hs+1DEvzxrPFhE0giGXnyydeA+H4uvU0eP27XOGT9QjhmbodMjSZaGgahitwsGi/J7iN3CF6PvfQdf//EqijbNMCElZGOCzIe59VipzJNXeQfzDEdreDvSs/qwDNH7dmIkDvOX4k0qH0Q=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=ip9ePaPoVY3ZGfrjNpmVgomklprEC4o4roC1mcA+NBvqB1udzuz/z6o0nXkhFtHplLQBHB033UxNnzoW5Log1fF8+y8V/j1wVXq+/AIVeAFvYdFLTXmmmob7d6MYWDTgPMujwzN+ur/vT6ibOLa11Ofo9jehlWe9PDTFjwdTyxQ=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=Q/dnwQIhA8Sqe3WS4uwxB+IGEIoincQaBjNIe4lg0SQ=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794501201770774.608247615585;
-	Thu, 12 Nov 2026 08:33:21 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id EA777180570; Thu, 12 Nov 2026 17:33:16 +0100 (CET)
-Date: Thu, 12 Nov 2026 17:33:16 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: aiyengar1990@gmail.com
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Niklas Cassel <cassel@kernel.org>, 
-	Pranjal Shrivastava <praan@google.com>, linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	Shawn Lin <shawn.lin@rock-chips.com>, Simon Xue <xxm@rock-chips.com>, 
-	Finley Xiao <finley.xiao@rock-chips.com>
-Subject: Re: [PATCH v2 4/4] arm64: dts: rockchip: Add the reset of the RK3588
- PCIe SMMU
-Message-ID: <avXqMZkpY7d0sbfR@venus>
-References: <20261112-smmu-v3-pcie-pd-v2-0-3a77bbb6b2c4@gmail.com>
- <20261112-smmu-v3-pcie-pd-v2-4-3a77bbb6b2c4@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fNPmUobY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C14731F000C5;
+	Thu, 12 Nov 2026 16:33:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794501220;
+	bh=Y+y36wVI/Dfgd1WdEh5Z5HXjHzT/2gzfAPJDb0Rnf54=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=fNPmUobY3Tt4N0S0iShSD3oZst2VWfjazlpW/bbw8Bc56qsIioCjoePIciRqGMpcz
+	 mZTxsUQFPZ4PLjngCQEsQpFrwEGsp08MgyQfuTCkuToVtQdV/DMkiptjFgriAQ3NJV
+	 JaZfOXFX0/3YgEgjg4Ihtc2fEk7wi7/xM0s2dhgT0b877s/vzBL+lzgJg4AfPSVP/9
+	 8Ltu3uNZtMUVhD16wMxKCSG6zrek3ldfQHBxkKR2oqvexZzBEsgHmIfl4gIdzCUcsV
+	 DRBu2LJ00r/K/ogMjAiLgaGsP2Unm27LhIvzJRx/dgW3uZrjA7s5A7ZQnP1axaAwFH
+	 QBzYh5OBgByzw==
+Date: Thu, 12 Nov 2026 08:33:39 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: <subash.a.kasiviswanathan@oss.qualcomm.com>
+Cc: <netdev-bot+sinfo@kernel.org>, <sean.tranchetti@oss.qualcomm.com>,
+ <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@kernel.org>,
+ <pabeni@redhat.com>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net v4] net: qualcomm: rmnet: Update MTU handling during
+ format changes
+Message-ID: <20261112083339.0eabfebc@kernel.org>
+In-Reply-To: <000801dd6f58$d38f1e00$7aad5a00$@oss.qualcomm.com>
+References: <20261108075727.2031331-1-subash.a.kasiviswanathan@oss.qualcomm.com>
+	<179412493254.488859.5909018726402609409@kernel.org>
+	<000801dd6f58$d38f1e00$7aad5a00$@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,79 +63,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="plo7cdziw5qygczc"
-Content-Disposition: inline
-In-Reply-To: <20261112-smmu-v3-pcie-pd-v2-4-3a77bbb6b2c4@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.497.36
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Sun, 8 Nov 2026 01:11:58 -0700
+subash.a.kasiviswanathan@oss.qualcomm.com wrote:
+> > The evaluation is done by an LLM so it may be wrong, if you think that is the
+> > case please reply and explain.  
+> 
+> The changes in the patch are addressing the code review comments from
+> Sashiko and not tested on real hardware.
 
---plo7cdziw5qygczc
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 4/4] arm64: dts: rockchip: Add the reset of the RK3588
- PCIe SMMU
-MIME-Version: 1.0
-
-Hi,
-
-On Thu, Nov 12, 2026 at 08:20:25AM +0000, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->=20
-> The MMU-600 for the PCIe controllers (mmu600_pcie) has a reset line in
-> the CRU, SRST_A_MMU_PCIE, which its node does not describe. Add it, so
-> that the node describes both the clock and the reset of the MMU-600.
->=20
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
-
-squash this into the previous commit.
-
--- Sebastian
-
->  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/b=
-oot/dts/rockchip/rk3588-base.dtsi
-> index dfed34a8aa57..45c1bb335447 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-> @@ -560,6 +560,7 @@ mmu600_pcie: iommu@fc900000 {
->  			     <GIC_SPI 367 IRQ_TYPE_EDGE_RISING 0>;
->  		interrupt-names =3D "eventq", "gerror", "priq", "cmdq-sync";
->  		clocks =3D <&cru ACLK_MMU_PCIE>;
-> +		resets =3D <&cru SRST_A_MMU_PCIE>;
->  		#iommu-cells =3D <1>;
->  	};
-> =20
->=20
-> --=20
-> 2.55.0
->=20
->=20
-
---plo7cdziw5qygczc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmr16kgACgkQ2O7X88g7
-+ppxMRAAj3Ltv4ErhZU0f3wZhYPQJhx+mkY3nlU/L6SyJGdIyiP+f5sNRq1yS3PC
-uFjSX4M0IV7s6bymiCkx5mimtXcqWnpJZREgT5rE/pn6qA2oEbSvaV71cPBghWMp
-cMCpa6RU7UME/Aj2laC7m+FhA9n6HUGYRchQQbSmd0y+bh6QJq2eGNstI0+1Jl8a
-xgKEyVomPUWe6U+/gvO+f5huDrx8A6AXYmvP/u+1W2pIYcl7khGjb3RimLjhN//o
-IlsoSB3yFBwQsKDJnQBlaCukfQfCaMRFjH6zvIsFMiic2wdLKWTdnDlsFwXXI3HP
-Ckxh7FkdAZmT0FhKm+AkHBschqSqzZTfrHfhy9SrOZgXWOTz1jQE9nIurWtjnyco
-0BtZjwgYCXWMIEOfV+YSrga4BvooysTtTm9/5FBy/YxY1LWjVMYf/73np8yJ4LYC
-yiaPA2M3PfhrK3Pqwany/VxcqF0mgh9wMynwWMmJQXesRv+ECPHtLz+dZ6Ib2pcs
-s+rN0hjEsm8tRsTN38r1n0MTlfMAsSBi2Ms3vTmj2v/jPsAwhb2mpPgJwEP8+k8j
-cN3vrq1sFgYJMee561K3JiUcpm0aCN55NAuTaQ9fOpV8ow4xNn4vrgh+EvjU+LTQ
-YY8DlesoqyZuG6FPd2GvJ5jpRLK2IJtMp+Ao116jHyFzg/oN3UI=
-=VZSZ
------END PGP SIGNATURE-----
-
---plo7cdziw5qygczc--
+Add this info to the cover letter, like the bot is asking you to.
