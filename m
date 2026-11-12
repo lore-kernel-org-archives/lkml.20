@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794471811;
-	b=aMn7r7648dqFQ39VVTOQ4fY9FVIPL4ZHQ5JBQB9X0vqNpsrLWDeK+sIQExzoazFgFrTS
-	 WE/poT7rTQ+vSfedu2pVOSY8Fuxh2nSZeFgTuLk0HSFE0aD/aI+bgfp5Gtg6fc7NGdwU7
-	 1fSEl/4gEibQVfCVmdwB/m3Z7kXegprPTqe3VppduAAnVBCUrr/SVI2QmXqstVAcHXX0Z
-	 iJ+LhyTSFjjJYgcLJbialth5dWF2SyRWvX29VwyfNrQSigsjhFQp4VMtsEVOZU9q7fD+K
-	 3MV4xqpm/6sk2hXqydty4dbtCn50Dx0iAGZbXd2o/Y8gSXCVZ6HvHzmkx42K+0ZSNbg==
+	t=1794471814;
+	b=B+Q7Qy53vVIA+hl/dE5RZpYnE+V2adEVUFsD4j10QUCk8y52YVezSX6vvNe/jNlCnRjB
+	 Pe3bJOOVXVyWHOfurrOOoFrjACJNgeqNefunzVDGqUsG0k5aQW6GmjMk/8Vx480+aFHy3
+	 sx+WfMVGBL/0pzNTGHlkrUd1fHX6Lqsxu0mjmWg6ejD1oI/swZ485H/6BbtLQMWPFVyZn
+	 Ad4YsLOKVnN+uBElkgg5KbaSnISKj9DY4tiaUOnmtruJmselS1ekjSPfMen9eEIV4Nhbo
+	 6qz3DcTHVhOoVjNwoubQvRVUZz+Ppgv7HepRtJhnHInUcnfmBHO1JgW/v1uJXX8j06g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794471811;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794471814;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=mOIDWOADODdIdFZtlIHRbJVwOJgcYqrpFp/gYJAH4aM=;
-	b=mZF2AyUl6Mc/zj6g6mGsCZun06iilUqaT3zlq+mwgk2OZ3bIaB43FMn4j3IH8kKX+2DD
-	 ayU+2F0kcx/Lxf/AeiCiV6Znu2nYC0/FiMCXrta/llMz92DY4VRdo1tXk8Uvm/rsPQzGj
-	 pIlYWkvPaJdLrOFIKrR/yjY9n/0slJdwx4jYchIMXN3yqr2A4uoylIPxD4QbPPmnxHOb2
-	 ckNY4d8kcDBeSGxklobotFOqXhbHuq83xnfI6AU8h2VX3Flv0mgNuLFGKBrkRbIDl+xB7
-	 di2apqT/EF4L9SwlzQ1joJLBj/CaAlhf2ggjyGzae8HEIaFUC8obX+XlF+LWfuPzxWg==
+	bh=qKYjBYnR5WGa5NCIh6j5J0rCxP117RMta7GUqAqVAXA=;
+	b=WqZNmvXj1/EGT5dbbfMGSQWZw78DrGjZG3tWMUbQqEnjRAx30BSy40Cu5YzGeHGG6O9F
+	 f6Oa/IjWX9/kWpMSPLISBw2gQWkzix0R9T1cz1kakJlwiGEefval9hrhdb/sL6z/z3Lwp
+	 3uH196Tvr1dtAJPt7BvSr1d73qMfxqW+c4RTW74rB0P824GaFGDO6YEnWHK2omPtehsa+
+	 meXQIBKxiULE24Rl1a/RXo15Vo95u4uWp38dA1EhNWcQVQwAZcG09dGkrXItES6mljWaw
+	 mY8T+i2iLd3EPxv+FeU2UXS8uVrh4L+ymShd5xKiRnzW0aso5UeO9ExbV+lgcUpTo+w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JDqze4QM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XU5tzQTW;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A266606A327;
-	Thu, 12 Nov 2026 08:23:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0AAC606A327;
+	Thu, 12 Nov 2026 08:23:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JDqze4QM
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XU5tzQTW
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794471811;
-	b=hEaqwFmTBAqXpHNzymmkOoD71UeeIj9QF6A4uWMBfg4xAyuVN1MAgUFhOy+cmeB7LpwI
-	 jfgYXMd9G5M9b0PZMm91XiYEpJjmOWY73o4zknn0SlIUYyWiJSQjFru2dTenDrtf0c/k0
-	 RzPljdk4VrskODNIA6HmxezeSJsZsZQcgbcSL8iE3wtvLwGfpfmWjw776qqJ4/q3/qff+
-	 RES8rSKlReM4JKThk/Vzy8mG39NoFkBzVyJ5WB/+suPKTWPgg8trYFgsJx8a6pOVpdvHy
-	 kf1nC9/326H4CY+jy9T6Z1ei28VY8AoGiUdmi5P2vnMZjcvkKbWbU8nqfOA6KzEa8Bw==
+	t=1794471814;
+	b=1e2vDISgZGwm4TgjZ2t+Lr0muW3unKhckD0ZUyExOvsbE1c2cGVgonqCCz95KmgBRSfU
+	 ECX23hnppeKl6IuEi1gRBH3QTA1Zt/I1Kqc6wiEXdscfOpn53fUHykzAgrb5CqSii05rA
+	 2U41IUIr4uS3otNDRF5g3A6oqQfSmYleu6Zwwu81ebhaTKHJJqK7PqVbBDctuHLnNbV9Y
+	 Pb2nEhW4U6e2eIiI2lgZn5/it/vMZ0khAUmtnO9vRscanlvMlGU64TAgFD+l4KNf8NcYX
+	 29zIS094VLHojCRYWlkBRqFbTy9Xyt06hAEosVK/Ds0T3t6QZvXSbo10B8pWU/+GlPQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794471811;
+	c=relaxed/relaxed; t=1794471814;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=mOIDWOADODdIdFZtlIHRbJVwOJgcYqrpFp/gYJAH4aM=;
-	b=oF4CMGVqt7FZwndZkV0Q5QYpItwrKbiBd7qGr+9XO08MZvBslADq2IeiC3Au6TKEYjIt
-	 ikUhjp/aV50f1+G8LyW+mSNMPO+UlAtb3AvuV2GHTyxn4+1HLRKzomOyQ7SmKbH7bumlt
-	 rm3UxRKTJiiOa9KzHYfXW2WNfHIwG3C91A+LzUA66f1qqyjGaAUaKl14I5+Q0CICQYI3p
-	 1L5JLb9biqfsM19BoQNhqmFGcDylAz6ZP4XPz/aSualoc+Qp27sPYeyNU8dwriRRT+omz
-	 ktvzCbnv8bBbThr8XbaTLSy54j2xcAyNCaQNBdUnHXIMA1Hu5TJfHe/OXE5PdMJcsgQ==
+	bh=qKYjBYnR5WGa5NCIh6j5J0rCxP117RMta7GUqAqVAXA=;
+	b=EXn12fEFNp+Wj9i0CuZmq+rPNQWGlfjNvNhVeMzhjf8XIrWlzpFyXifleWUQR5K0VmSz
+	 AHmhU3adXN4km0qRqV0g7IiVS4sRIIKRjj0Z52FcBO1CoaFlIsoKCadWBiSV/PWj6jwsJ
+	 iBUXnpk9X/ZDNnOABTyjBtswd/Fe7APXi7lxaQk8rVl9amgaAHb8SsFlXzHqJSZBk/HQs
+	 472FO+cuR/KCHZNWjelg+hw/pi3QecXf65OJ4+6j2gS33Aj0WotQ0hC4fXHgOZIDiIysT
+	 Lxejx0oZYi3ZLZBKRupXFifhzSKIqpGw3kjgAnTGzYHy5FBxb8gXRO69+cTd4fOAnew==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 40DF01F00A05;
-	Thu, 12 Nov 2026 08:23:30 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 649661F00AC8;
+	Thu, 12 Nov 2026 08:23:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794471810;
-	bh=mOIDWOADODdIdFZtlIHRbJVwOJgcYqrpFp/gYJAH4aM=;
+	s=k20260515; t=1794471814;
+	bh=qKYjBYnR5WGa5NCIh6j5J0rCxP117RMta7GUqAqVAXA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=JDqze4QM2XpDIM4Whf0EvJrt4ihMt03bT0XxLarNnZSzhzzyADvOztQ4R9/sWqR+W
-	 xo8a5NmRpDoQzQgBwDgrI5/dtjmQetybyql6LGaTYHbRqUW9jATvc742fld4U0tSki
-	 fbg5H9bHAmr5ha3kna6aGz4LXY7lzbAKjwXdvqdz0+Ms2Tl8rkGqCuhYxs7BO+LGYf
-	 5viwFseSXFeZ3c/dhG0gSrFmSq2Pel8sVkrhy0TSFhC5Us+y/+xccno3QKUIWjYVCp
-	 hvvyVuwPWlCr6uUFKhIzmlT663p06jp9mKY15/AGoIES1EXStUosX/dvhyfc/WXLTZ
-	 +E5ZzJ6Q+AWpg==
+	b=XU5tzQTWCT4XiZ6Y2N6PKN1MlXwoot/4gcxImIf4zxM0NcspUo8Bx3fLjVrPfFCbf
+	 2RaQ/PYsWWLVok6qt0YUDEHMqZHclsnCZ05bIzYIPQODArvxgQfd7nwh/WpqPhU5m7
+	 0bAqwK+dTRSrGrbun9h8SAxoEHiMFCq9xB7Q/Uv7EqE3nWhW9XVYlc4TrCf1tDrvoO
+	 JwNO5HJ77m9PEsMf4iuu8a2g3ylMeC4NduZqpH5p2JzNOVqFIq9UMJx9Rt9tN6Ctgl
+	 FZkjxne+6RzYd0Ls9Pho8bwN1oiR5OATIEolj7IJHd+x2oVY99NpSfq2U70RTJdfBJ
+	 PBft74pJJWo2w==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BD1C049351;
-	Thu, 12 Nov 2026 08:23:29 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id EC45E49361;
+	Thu, 12 Nov 2026 08:23:32 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:23:30 +0000
-Subject: [PATCH v2 2/2] pmdomain: rockchip: report domain errors once, with
- dev_err_probe()
+Date: Thu, 12 Nov 2026 08:23:34 +0000
+Subject: [PATCH v2 2/2] usb: typec: fusb302: Toggle with the default Rp
+ current
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,24 +84,22 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-pmdomain-rockchip-v2-2-5cd942a23df7@gmail.com>
-References: <20261112-pmdomain-rockchip-v2-0-5cd942a23df7@gmail.com>
-In-Reply-To: <20261112-pmdomain-rockchip-v2-0-5cd942a23df7@gmail.com>
-To: Ulf Hansson <ulfh@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Shawn Lin <shawn.lin@rock-chips.com>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Kevin Hilman <khilman@linaro.org>, Caesar Wang <wxt@rock-chips.com>, 
- Elaine Zhang <zhangqing@rock-chips.com>
-Cc: linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Yao Zi <me@ziyao.cc>, Igor Pecovnik <igor@armbian.com>, 
+Message-Id: <20261112-tcpm-attach-reboot-v2-2-b4bc6ca83490@gmail.com>
+References: <20261112-tcpm-attach-reboot-v2-0-b4bc6ca83490@gmail.com>
+In-Reply-To: <20261112-tcpm-attach-reboot-v2-0-b4bc6ca83490@gmail.com>
+To: Badhri Jagan Sridharan <badhri@google.com>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794471809; l=7366;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794471812; l=3585;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=NjDgN0qxUNb8P6mWj/gQ4TDMTDd100w9vcSH2E4Nnws=;
- b=uCNgNWReaauPLf0MyoPtleQYM2BzI10ZFEpvl6R03KZd4/DcFIva5RZJU8iUeSG0tN/b2CUrr
- dHYBRH+bmoAAaOSJG2J8OpsPMJGNdyxyhJOehfNBhVULRcqM4WsYcC/
+ bh=tD7FYH82nlIArIvaQxvwuexRhWGTOTfnEzwgYwR8d8U=;
+ b=spjM5HPPpWe+lrfW7WRU681uie2NR8dc4+wxVo2n+3xwGB6vSqQ1bU1/Os7tSe3znFz4XI8W2
+ 2ONr7RyGZJ1CXPtw6TxihfctXruTMpLrgQehwYMr6XuEBm3iocDr10+
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -112,210 +110,83 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-When a power domain clock is not available yet,
-rockchip_pm_add_one_domain() returns -EPROBE_DEFER, and both it and its
-callers rockchip_pm_domain_probe() and rockchip_pm_add_subdomain() print
-that with dev_err():
+tcpm_start_toggling() programs the Rp current that tcpm asks for, which
+is the current of the source PDO (Rp 3.0A on boards that can source
+3A) when the port starts toggling from Unattached.SRC, and the default
+current when it starts from Unattached.SNK after a detach.
 
-  rockchip-pm-domain ...: power-domain: failed to get clk at index 1: -517
-  rockchip-pm-domain ...: failed to handle node power-domain: -517
+A Genesys Logic based USB-C to DisplayPort cable connected to the
+Orange Pi 5 is often not detected after a warm reboot: the FUSB302
+toggle state machine raises no interrupt with it while it drives the
+high Rp current, but finds it within seconds once toggling restarts
+with the default current after another device was detached.
 
-once per probe attempt, and the second line twice for a nested domain.
-On an RK3588 board whose NPU domain clock appears late this is more than
-20 error lines before the domain finally probes, and the reason of the
-deferral is not recorded. Other failures are reported twice (once where
-they happen and once by the callers), or only by the callers, which name
-the node but not what failed: a missing pm_qos phandle and a pm_qos node
-without a regmap print nothing in rockchip_pm_add_one_domain(), and a
-failed clk_bulk_prepare() only has the message of the clk core, which
-names neither the device nor the domain.
+Toggle with the default current, and switch to the requested one when
+toggling stops on a sink, before tcpm is told about the attach, so the
+sink sees the configured level from the start of the connection as
+before. tcpm does not set it again after attach on every path (not on
+ports without PD, for instance). The Rd detection threshold used for
+unplug detection follows the restored current.
 
-Report every error once, where it happens, with dev_err_probe(), and
-drop the "failed to handle (subdomain) node" messages from the callers.
-A deferral is then quiet and keeps its specific reason in
-/sys/kernel/debug/devices_deferred, such as "failed to get clk at index
-1", and -ENOMEM, which the callers used to print, is quiet as well. The
-return values are unchanged, except that a failed
-syscon_node_to_regmap() for a pm_qos node now returns its own error
-instead of -ENODEV: it can be -EPROBE_DEFER (a syscon regmap that is
-not registered yet, or a syscon clock or hwlock that is not available
-yet), which must not turn into a probe failure.
+The FUSB302B datasheet sets the toggle up the same way: under "Toggle
+Functionality" the processor writes HOST_CUR for the default current
+before it sets TOGGLE, and a HOST_CUR change after attach is applied to
+the CC line immediately ("HOST_CUR Changed After Attach").
 
-Fixes: 7c696693a4f5 ("soc: rockchip: power-domain: Add power domain driver")
-Fixes: 6be05b5ec161 ("soc: rockchip: power-domain: add support for sub-power domains")
-Suggested-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Fixes: c034a43e72dd ("staging: typec: Fairchild FUSB302 Type-c chip driver")
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/pmdomain/rockchip/pm-domains.c | 98 +++++++++++++++-------------------
- 1 file changed, 43 insertions(+), 55 deletions(-)
+ drivers/usb/typec/tcpm/fusb302.c | 21 +++++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
-index 00c7e78f89b5..be077fb52f40 100644
---- a/drivers/pmdomain/rockchip/pm-domains.c
-+++ b/drivers/pmdomain/rockchip/pm-domains.c
-@@ -804,28 +804,22 @@ static int rockchip_pm_add_one_domain(struct rockchip_pmu *pmu,
- 	int error;
- 
- 	error = of_property_read_u32(node, "reg", &id);
--	if (error) {
--		dev_err(pmu->dev,
--			"%pOFn: failed to retrieve domain id (reg): %d\n",
--			node, error);
--		return -EINVAL;
--	}
-+	if (error)
-+		return dev_err_probe(pmu->dev, -EINVAL,
-+				     "%pOFn: failed to retrieve domain id (reg)\n",
-+				     node);
- 
--	if (id >= pmu->info->num_domains) {
--		dev_err(pmu->dev, "%pOFn: invalid domain id %d\n",
--			node, id);
--		return -EINVAL;
--	}
-+	if (id >= pmu->info->num_domains)
-+		return dev_err_probe(pmu->dev, -EINVAL,
-+				     "%pOFn: invalid domain id %d\n", node, id);
- 	/* RK3588 has domains with two parents (RKVDEC0/RKVDEC1) */
- 	if (pmu->genpd_data.domains[id])
- 		return 0;
- 
- 	pd_info = &pmu->info->domain_info[id];
--	if (!pd_info->pwr_mask && !pd_info->req_mask) {
--		dev_err(pmu->dev, "%pOFn: undefined domain id %d\n",
--			node, id);
--		return -EINVAL;
--	}
-+	if (!pd_info->pwr_mask && !pd_info->req_mask)
-+		return dev_err_probe(pmu->dev, -EINVAL,
-+				     "%pOFn: undefined domain id %d\n", node, id);
- 
- 	pd = devm_kzalloc_obj(pmu->dev, *pd);
- 	if (!pd)
-@@ -849,17 +843,20 @@ static int rockchip_pm_add_one_domain(struct rockchip_pmu *pmu,
- 	for (i = 0; i < pd->num_clks; i++) {
- 		pd->clks[i].clk = of_clk_get(node, i);
- 		if (IS_ERR(pd->clks[i].clk)) {
--			error = PTR_ERR(pd->clks[i].clk);
--			dev_err(pmu->dev,
--				"%pOFn: failed to get clk at index %d: %d\n",
--				node, i, error);
-+			error = dev_err_probe(pmu->dev,
-+					      PTR_ERR(pd->clks[i].clk),
-+					      "%pOFn: failed to get clk at index %d\n",
-+					      node, i);
- 			goto err_put_clocks;
- 		}
+diff --git a/drivers/usb/typec/tcpm/fusb302.c b/drivers/usb/typec/tcpm/fusb302.c
+index 3319f6a2b0c9..44aa05fd4ba2 100644
+--- a/drivers/usb/typec/tcpm/fusb302.c
++++ b/drivers/usb/typec/tcpm/fusb302.c
+@@ -97,6 +97,7 @@ struct fusb302_chip {
+ 	/* chip status */
+ 	enum toggling_mode toggling_mode;
+ 	enum src_current_status src_current_status;
++	enum src_current_status toggling_src_current;
+ 	bool intr_togdone;
+ 	bool intr_bc_lvl;
+ 	bool intr_comp_chng;
+@@ -942,10 +943,19 @@ static int tcpm_start_toggling(struct tcpc_dev *dev,
  	}
  
- 	error = clk_bulk_prepare(pd->num_clks, pd->clks);
--	if (error)
-+	if (error) {
-+		dev_err_probe(pmu->dev, error,
-+			      "%pOFn: failed to prepare clocks\n", node);
- 		goto err_put_clocks;
+ 	mutex_lock(&chip->lock);
+-	ret = fusb302_set_src_current(chip, cc_src_current[cc]);
++	/*
++	 * Look for a partner with the default USB current advertisement.
++	 * Some sinks (seen with a Genesys Logic based USB-C to DisplayPort
++	 * cable) present an Rd that the FUSB302 toggle state machine does
++	 * not detect while it drives the high (3.0 A) Rp current, so they
++	 * are only found when toggling starts from the sink side. The
++	 * requested current is restored when toggling finds a sink.
++	 */
++	chip->toggling_src_current = cc_src_current[cc];
++	ret = fusb302_set_src_current(chip, SRC_CURRENT_DEFAULT);
+ 	if (ret < 0) {
+ 		fusb302_log(chip, "unable to set src current %s, ret=%d",
+-			    typec_cc_status_name[cc], ret);
++			    typec_cc_status_name[TYPEC_CC_RP_DEF], ret);
+ 		goto done;
+ 	}
+ 	ret = fusb302_set_toggling(chip, mode);
+@@ -1357,6 +1367,13 @@ static int fusb302_handle_togdone_src(struct fusb302_chip *chip,
+ 			    typec_cc_status_name[cc2]);
+ 		return fusb302_set_toggling(chip, toggling_mode);
+ 	}
++	/* advertise the requested Rp current now that a sink is attached */
++	ret = fusb302_set_src_current(chip, chip->toggling_src_current);
++	if (ret < 0) {
++		fusb302_log(chip, "cannot set src current, ret=%d", ret);
++		return ret;
 +	}
- 
- 	pd->num_qos = of_count_phandle_with_args(node, "pm_qos",
- 						 NULL);
-@@ -884,13 +881,18 @@ static int rockchip_pm_add_one_domain(struct rockchip_pmu *pmu,
- 		for (j = 0; j < pd->num_qos; j++) {
- 			qos_node = of_parse_phandle(node, "pm_qos", j);
- 			if (!qos_node) {
--				error = -ENODEV;
-+				error = dev_err_probe(pmu->dev, -ENODEV,
-+						      "%pOFn: failed to get pm_qos %d\n",
-+						      node, j);
- 				goto err_unprepare_clocks;
- 			}
- 			pd->qos_regmap[j] = syscon_node_to_regmap(qos_node);
- 			of_node_put(qos_node);
- 			if (IS_ERR(pd->qos_regmap[j])) {
--				error = -ENODEV;
-+				error = dev_err_probe(pmu->dev,
-+						      PTR_ERR(pd->qos_regmap[j]),
-+						      "%pOFn: failed to get pm_qos %d regmap\n",
-+						      node, j);
- 				goto err_unprepare_clocks;
- 			}
- 		}
-@@ -1038,39 +1040,31 @@ static int rockchip_pm_add_subdomain(struct rockchip_pmu *pmu,
- 		u32 idx;
- 
- 		error = of_property_read_u32(parent, "reg", &idx);
--		if (error) {
--			dev_err(pmu->dev,
--				"%pOFn: failed to retrieve domain id (reg): %d\n",
--				parent, error);
--			return error;
--		}
-+		if (error)
-+			return dev_err_probe(pmu->dev, error,
-+					     "%pOFn: failed to retrieve domain id (reg)\n",
-+					     parent);
- 		parent_domain = pmu->genpd_data.domains[idx];
- 
- 		error = rockchip_pm_add_one_domain(pmu, np);
--		if (error) {
--			dev_err(pmu->dev, "failed to handle node %pOFn: %d\n",
--				np, error);
-+		if (error)
- 			return error;
--		}
- 
- 		error = of_property_read_u32(np, "reg", &idx);
--		if (error) {
--			dev_err(pmu->dev,
--				"%pOFn: failed to retrieve domain id (reg): %d\n",
--				np, error);
--			return error;
--		}
-+		if (error)
-+			return dev_err_probe(pmu->dev, error,
-+					     "%pOFn: failed to retrieve domain id (reg)\n",
-+					     np);
- 		child_domain = pmu->genpd_data.domains[idx];
- 
- 		error = pm_genpd_add_subdomain(parent_domain, child_domain);
--		if (error) {
--			dev_err(pmu->dev, "%s failed to add subdomain %s: %d\n",
--				parent_domain->name, child_domain->name, error);
--			return error;
--		} else {
--			dev_dbg(pmu->dev, "%s add subdomain: %s\n",
--				parent_domain->name, child_domain->name);
--		}
-+		if (error)
-+			return dev_err_probe(pmu->dev, error,
-+					     "%s failed to add subdomain %s\n",
-+					     parent_domain->name, child_domain->name);
-+
-+		dev_dbg(pmu->dev, "%s add subdomain: %s\n",
-+			parent_domain->name, child_domain->name);
- 
- 		error = rockchip_pm_add_subdomain(pmu, np);
- 		if (error)
-@@ -1141,18 +1135,12 @@ static int rockchip_pm_domain_probe(struct platform_device *pdev)
- 
- 	for_each_available_child_of_node_scoped(np, node) {
- 		error = rockchip_pm_add_one_domain(pmu, node);
--		if (error) {
--			dev_err(dev, "failed to handle node %pOFn: %d\n",
--				node, error);
-+		if (error)
- 			goto err_out;
--		}
- 
- 		error = rockchip_pm_add_subdomain(pmu, node);
--		if (error < 0) {
--			dev_err(dev, "failed to handle subdomain node %pOFn: %d\n",
--				node, error);
-+		if (error < 0)
- 			goto err_out;
--		}
- 	}
- 
- 	if (error) {
++	rd_mda = rd_mda_value[chip->src_current_status];
+ 	/* set polarity and pull_up, pull_down */
+ 	ret = fusb302_set_cc_polarity_and_pull(chip, cc_polarity, true, false);
+ 	if (ret < 0) {
 
 -- 
 2.55.0
