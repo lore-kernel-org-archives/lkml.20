@@ -1,59 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794451185;
-	b=TfQOsgSQkJEkezNK5pOvNYObHxVc9eCBIraveJOo0MdZ3uKrwfMcCmF9NoNQxcB2HKyN
-	 xlu6lSI0Q08kGZbT4TQfuxvJRFOE93Sus3Pgn76fjvn0DMuJ28DaPibESp+AKZbgsESla
-	 m/kG7wBmrCds3QK8hl5+F4gMwVN/xQLRyT05MDJOqy0tJTumeW4vfpDX+2eZRwmEi7AFG
-	 zu+HulbRHCf0BX0oxwUZBcL71aiC9OoiLjlVT5MIbJz4dvNwgDyKVjo4y3AZTQXzhRiqD
-	 q8Dd/FdtlKqHJH6XCrY6N0gVVDtbzWa4ro179mhIlLjuYKVpZabSw6o3G0J88Ublh2A==
+	t=1794451198;
+	b=4UTaDbQQyFNk0C75lWCdMUbfjKBrCYFcm/4nvo1c710XWPVY774j2oGnB3Jw8EwLN8+6
+	 4nQStwvm+RpmICrIR1iBdeBp7vT6aah134GJi9SkRWlym5wZVW4NJzBH1Wv+2eGaOVsyt
+	 GssoHQFpbLXI3oSxOzjx2uZizR72AgdBm1jWEDD8grXeW/FRH9fVvq36NoXcp59fk8+7R
+	 qDGtX4ldYPAD1KPc4q6Pex1ZCDxxShwQmiSYpmqG3v0XIH6Lv7znf9z7O6R1C156eVliz
+	 ZXJSYJjtciEb6nop3S9cFjFJ7uD0/DVmztN42KhuZTenEs1i8DpoZKFzk/eN2LhgMSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794451185;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Mime-Version:Subject:Reply-To:Sender:From:To:CC:X-Priority:
-	 X-Content-Kind-Code:In-Reply-To:X-CPGS-Detection:X-Drm-Type:
-	 X-Msg-Generator:X-Msg-Type:X-Reply-Demand:Message-ID:Date:
-	 X-CMS-MailID:Content-Transfer-Encoding:Content-Type:X-Sendblock-Type:
-	 CMS-TYPE:X-CPGSPASS:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
-	 X-CMS-RootMailID:References;
-	bh=wsYANF54daBhggjQ4RY4e0s/Afqnu86Njwm4rLR8ebM=;
-	b=nmvJ7ryJpvrKiSEhY05CuEzZSpLVEAC7ri/RtjKQaWpx/IIEo9CPzXZXPYoYtRJ2LTdy
-	 AxBytetFUZBeUa1Pp3ypEcwHoQNY318voBNqFro+/keH0cMNbAlJOfemJgo/9iysIn309
-	 OUoF+rx73F12x8t3g9L0x/3aRby+ARYrkxI9bZfW/dcNIDPNsZWBLO2DGNf9CozivLEHA
-	 blCsp5Nl8VXAB8Efe2rTbpApzqHaz9FvWDV8fEifxhsLBlxLrA6rvZSllg8hZqlpbp3Ne
-	 xWXQJqGLy6oviHl/DUAX3kEHM7iRrzW+PlNC1JYintYxgb4qFsHVdcB402B7wdScTMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794451198;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=RK4bEwQrHPG0m48W79BxWmrKFoNEpmeSjwkpwePfQyo=;
+	b=V75dDURWyKUcyeJvWVTBpf0/0yLC1Mf6ZuSTdujTBS8Rxe+2EDjskb7jo21M4LWvZloH
+	 jArHoxs/kbb4O7h55cZJZ5fSbI7iaMuvLV6lraaD2uSLmaa+z5pL5QYWzIBh3Ux+FPWDK
+	 FCzpSmn6i3RHwzeT3TnQTv2MPdyR1SzVMmTEwVukXrRNNb2N6YIA6vrxsOWwO0bwvFwae
+	 a78lDu9gkCvoa0ZwNVwQ+DFgTrhX6el1lT6rkBk5+oI3tD0N2HSbSgbBs6yF8dF6gIx3G
+	 JI0VU0RnvITajKGS85aGtKptqX0SiTaFjsNBk7KJJxxzLf/NFsuD0QDHyIiCsPGHBlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=larGOYB6;
-	arc=none smtp.remote-ip=203.254.224.33
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z40IR0Hr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97160606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:39:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97160606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48680606A31C;
+	Thu, 12 Nov 2026 02:39:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=larGOYB6
-Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261112023942epoutp03a326e624c5557dc5d38d1b7bf7484465~nK9e_1f_F1132111321epoutp03H
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:39:42 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261112023942epoutp03a326e624c5557dc5d38d1b7bf7484465~nK9e_1f_F1132111321epoutp03H
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1794451182;
-	bh=wsYANF54daBhggjQ4RY4e0s/Afqnu86Njwm4rLR8ebM=;
-	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
-	b=larGOYB68zTGF/VPNg5UcZBHaphn3WBqzwW0rBTTQweED3P78SUZdSej9Y3L88H18
-	 R2Gqz3LTBeGxjTtQ3GC8I+kO3BVC/TiaBitRtzkxVw13aRSQ9LIYd4zS5iRfRERxj/
-	 d4a1iRwuKUc1P5C/D+olvcl+Rha4KiZGj1GPWkBI=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
-	20261112023941epcas2p3c181fe46ed8eef70fc662c6dcef368f6~nK9enBBLN2364523645epcas2p3E;
-	Thu, 12 Nov 2026 02:39:41 +0000 (GMT)
-Received: from epcas2p4.samsung.com (unknown [182.195.38.209]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4jQ4NY2tYcz6B9m5; Thu, 12 Nov
-	2026 02:39:41 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z40IR0Hr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 715711F00A0A;
+	Thu, 12 Nov 2026 02:39:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794451198;
+	bh=RK4bEwQrHPG0m48W79BxWmrKFoNEpmeSjwkpwePfQyo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Z40IR0HrewToDIjR1nvLv5q/raoqrLKgeZMexbyGp/FwhhGqnsQPZatv5a/eEDr8v
+	 +IQQ2en8X3C500qt9zU8Jy5je5bg+NQsfZwsRIILJEhRrsLizGRAW/0HdAooktxOIY
+	 SuKGMu1xWS/CbXcZw+u0vO75W8Y8qKu4kRtSChop7OA/lDm36VOCGTtU04urzuUB9L
+	 jEQrMqs1pPDPumF4uZRbM6HzE6rbqbuvzSVqqwPZD5rJX5oN078JK5z6s3eePKxZMV
+	 jsOFQ9RpXkao9K519ogdK1yRROjS0oXkJBfrpsTGJaj75vSbh8iWwpMPozoM2uNFPL
+	 LEVDLWV/hLvqw==
+Date: Thu, 12 Nov 2026 02:39:48 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: alistair23@gmail.com
+Cc: bhelgaas@google.com, lukas@wunner.de, bvanassche@acm.org,
+ linux-pci@vger.kernel.org, alistair@alistair23.me,
+ linux-cxl@vger.kernel.org, linux-coco@lists.linux.dev,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ jgg@nvidia.com, akpm@linux-foundation.org, gary@garyguo.net,
+ a.hindborg@kernel.org, wilfred.mallawa@wdc.com, tmgross@umich.edu,
+ ojeda@kernel.org, boqun.feng@gmail.com, gregkh@linuxfoundation.org,
+ aliceryhl@google.com, bjorn3_gh@protonmail.com, benno.lossin@proton.me,
+ alex.gaynor@gmail.com, Alistair Francis <alistair.francis@wdc.com>
+Subject: Re: [PATCH v6 01/25] virt: coco: change tsm_register() to use a
+ const struct
+Message-ID: <20261112023948.75462a02@jic23-hlaptop>
+In-Reply-To: <20261110041832.1730924-2-alistair.francis@wdc.com>
+References: <20261110041832.1730924-1-alistair.francis@wdc.com>
+	<20261110041832.1730924-2-alistair.francis@wdc.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,67 +67,80 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Subject: RE:(2) [PATCH v2 2/2] xfs: skip the fsync flush when a later flush
- has completed
-Reply-To: daejun7.park@samsung.com
-Sender: Daejun Park <daejun7.park@samsung.com>
-From: Daejun Park <daejun7.park@samsung.com>
-To: Brian Foster <bfoster@redhat.com>
-CC: Carlos Maiolino <cem@kernel.org>, "linux-xfs@vger.kernel.org"
-	<linux-xfs@vger.kernel.org>, Christoph Hellwig <hch@lst.de>, Dave Chinner
-	<david@fromorbit.com>, "Darrick J. Wong" <djwong@kernel.org>, Amir Goldstein
-	<amir73il@gmail.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, Daejun Park <daejun7.park@samsung.com>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-In-Reply-To: <avR6G6TQehW08BD0@bfoster>
-X-CPGS-Detection: blocking_info_exchange
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <20261112023940epcms2p691f2ef101b0e3988d15c4250877dfea3@epcms2p6>
-Date: Thu, 12 Nov 2026 11:39:40 +0900
-X-CMS-MailID: 20261112023940epcms2p691f2ef101b0e3988d15c4250877dfea3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-223,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261111142234epcas2p48d80bde0c65d09a2fd8bdfdc9bdd2b1f
-References: <avR6G6TQehW08BD0@bfoster>
-	<20261111-xfs-fsync-flush-seq-v2-0-b5c00c25d276@samsung.com>
-	<20261111-xfs-fsync-flush-seq-v2-2-b5c00c25d276@samsung.com>
-	<CGME20261111142234epcas2p48d80bde0c65d09a2fd8bdfdc9bdd2b1f@epcms2p6>
 
-On Wed, Nov 11, 2026 at 09:22:19AM -0500, Brian Foster wrote:
-> Hmm.. that's kind of interesting. So IIUC unless dm can pass through a
-> preflush+data bio, it will split out the flushes and ignore any error
-> status in favor of the packaged data I/O..?
+On Tue, 10 Nov 2026 14:18:08 +1000
+alistair23@gmail.com wrote:
 
-Yes. dm sends the empty flush first and then reissues the data without
-REQ_PREFLUSH. __dm_io_complete() drops the flush error when it reissues
-the data.
+> From: Alistair Francis <alistair.francis@wdc.com>
+> 
+> The tsm_register() function takes a struct pci_tsm_ops *ops argument.
+> This eventually is stored in struct tsm_dev as a const, so we should
+> just change the tsm_register() register function argument to be a const.
+> 
+> Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
+An ops structure that is just function pointers definitely wants to
+be const (and it would be a less than ideal design if it mixed
+other things with those function pointers!).
 
-I sent a fix to dm-devel. With the fix, a failed preflush fails the
-iclog write, and XFS shuts down:
+Makes sense as a stand alone change.  Maybe one that can be picked
+up sooner than the rest?   
 
-https://lore.kernel.org/r/20261112-dm-flush-data-error-v1-1-c83d3f8f3ac4@samsung.com
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> ---
+>  drivers/crypto/ccp/sev-dev-tsm.c | 2 +-
+>  drivers/virt/coco/tsm-core.c     | 4 ++--
+>  include/linux/tsm.h              | 2 +-
+>  3 files changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/crypto/ccp/sev-dev-tsm.c b/drivers/crypto/ccp/sev-dev-tsm.c
+> index 46f2539d2d5ab..48df8c579c74d 100644
+> --- a/drivers/crypto/ccp/sev-dev-tsm.c
+> +++ b/drivers/crypto/ccp/sev-dev-tsm.c
+> @@ -339,7 +339,7 @@ static void dsm_disconnect(struct pci_dev *pdev)
+>  	streams_teardown(dev_data->ide);
+>  }
+>  
+> -static struct pci_tsm_ops sev_tsm_ops = {
+> +static const struct pci_tsm_ops sev_tsm_ops = {
+>  	.probe = dsm_probe,
+>  	.remove = dsm_remove,
+>  	.connect = dsm_connect,
+> diff --git a/drivers/virt/coco/tsm-core.c b/drivers/virt/coco/tsm-core.c
+> index e784993353d8f..6b735ac2a814e 100644
+> --- a/drivers/virt/coco/tsm-core.c
+> +++ b/drivers/virt/coco/tsm-core.c
+> @@ -57,7 +57,7 @@ static struct tsm_dev *alloc_tsm_dev(struct device *parent)
+>  }
+>  
+>  static struct tsm_dev *tsm_register_pci_or_reset(struct tsm_dev *tsm_dev,
+> -						 struct pci_tsm_ops *pci_ops)
+> +						 const struct pci_tsm_ops *pci_ops)
+>  {
+>  	int rc;
+>  
+> @@ -78,7 +78,7 @@ static struct tsm_dev *tsm_register_pci_or_reset(struct tsm_dev *tsm_dev,
+>  	return tsm_dev;
+>  }
+>  
+> -struct tsm_dev *tsm_register(struct device *parent, struct pci_tsm_ops *pci_ops)
+> +struct tsm_dev *tsm_register(struct device *parent, const struct pci_tsm_ops *pci_ops)
+>  {
+>  	struct tsm_dev *tsm_dev __free(put_tsm_dev) = alloc_tsm_dev(parent);
+>  	struct device *dev;
+> diff --git a/include/linux/tsm.h b/include/linux/tsm.h
+> index 381c53244c835..6ac12de8c4d36 100644
+> --- a/include/linux/tsm.h
+> +++ b/include/linux/tsm.h
+> @@ -120,7 +120,7 @@ DEFINE_FREE(put_tsm_dev, struct tsm_dev *,
+>  
+>  int tsm_report_register(const struct tsm_report_ops *ops, void *priv);
+>  int tsm_report_unregister(const struct tsm_report_ops *ops);
+> -struct tsm_dev *tsm_register(struct device *parent, struct pci_tsm_ops *ops);
+> +struct tsm_dev *tsm_register(struct device *parent, const struct pci_tsm_ops *ops);
+>  void tsm_unregister(struct tsm_dev *tsm_dev);
+>  struct tsm_dev *find_tsm_dev(int id);
+>  #endif /* __TSM_H */
 
-[...]
-> But if you have to post this again I think it would be useful to
-> describe this caveat in the commit log description as well. If there
-> happens to be some currently unknown flush failiure scenario that
-> materializes in the future and we don't currently hit due to spamming
-> enough flushes, that would be a useful clue about a subtle behavior
-> change.
-
-Thanks, agreed. If I post a v3, the dm paragraph below the --- will move
-into the commit log of patch 2.
-
-Best regards,
-Daejun
