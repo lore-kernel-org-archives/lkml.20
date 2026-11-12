@@ -1,83 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.168
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794503389;
-	b=DyqJDedCG4VzlI3Q+gYlndqOwDcgZxZ3nYz06rg2+DhQ+KHWYcdMVUZFuC7poLHAdQ3B
-	 quxRC0NXjgabaOOk7dJC3XsXjJH6DCNb87UCm9H+3ICPHqtE6zul/+EyRLAsNLBnU5h/W
-	 gDKnIjfUZ5cm2gsT0hTQKeRbeIwaXPpgPHGEXLlxmpw7tacXNBct/Yvu7tfJgjpMxUrIM
-	 lyNp9mXG7XFsZay3BUdxw8UOqkjCbmknYx7qs/Fn8g7QUVrhWeTRMBpzun+Szy3VZHb4f
-	 tJV4ug/Awf3tB94W6kikW8J2KkvdtNAFhLKOcmQteUDnhYsnKTCpahh/bhkQPeWTCTw==
+	t=1794503393;
+	b=bxoVjAsyswXhGl75SozunY7JiwFUWs+S51H2cIWd71BN9lgo309TxbUM6NhMl0mp7prs
+	 aEA9TN28WnBhQBgYEh2ZOB7BdEOK2V3GaUdOHka3gLxo1NbVXnojeQr1HUf/vw9K92GCo
+	 cO/zudTUjqwa5q73Ql2p0uPdAAQrbCFwR0OkexFcFbbQeuuwsgPFq51AxQWUNlzGKIBY1
+	 otn/qYx7L5N65A8XiyR3WMPug2E/ea5U7kmIRp9N8OL53294fOOTFBKVQV12qihLdbaXI
+	 IjYNLvOdhIRn3PNKgalGyIAL4YoIs2rdpYOAvisqPLte9HenZzs2DHzkuqiJL4PGjEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794503389;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=BGgWKkrRQl2lSND/U2uqoO60aN3FWXpk1m/u2Tb52v0=;
-	b=a9oD3oc/EzsdvZoRvMAesnuQwZPrROWBmelN/H8/nC7Nhyj18vYBhDluKf4CjKNPaOCu
-	 xLvgWL+1jC4A6b5BQqhyyYO5+pBrA99dkEajm2yj5Cygh0InhE2Nz11X476YFCCBls6wc
-	 LyezW3hjnqY4zLa3E/HQ6nJMFccrw09h8EJBZ9tBa8Mx+9v8Ng7PA+brfDY/fXrtj8gfe
-	 bakisGgblAHybFyaBI7rAyfs+sHoSf6lgvXUOdaJST1URoxKFs2dMWhVL4E9c7/uNJBPJ
-	 0tVvZLIbMzA2W72k1umlpR2zmpdMaSBb/hpKqumeA/ntA8Bos3PHt13yLqigrFBfMgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794503393;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=JQz1mAG4FwwJpOtTSrz+KeRLlzMJvENpxMLZke3zOIA=;
+	b=KsjIo/62zht9eg+LOjMsTYjZzqOqvOSa+1+jow4nYO03h9DbEU7JD7elgREMdovONXEX
+	 UHMuzs2nLBvO3ETRyAWCsqETscPnWcSTCgLSNWUM1PmqZDKfq0dMX+f7WzWXUKVcJ/S+M
+	 E+tXTF65ngnJWqjkBH5J1UruKWAeqe/DCztzg9ryDRFACUB3d8sh2QKAszmLXN1ccahhM
+	 kfWr5Ipxq76PfxnfHFDKL5MdcPXlVrgppr1kXFZxhjF77TDWTj7UF2VfQIzZTB7d1wcrf
+	 2Q9P7nhPouQeyo2mrlXyc22ohD2baW7B+BHs3fgFdqZwR6QcAYcYgHvvUZrozWl8UXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=packett.cool;
-	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=pYPsXGqL;
-	arc=none smtp.remote-ip=91.218.175.168
-Received: from mta0.migadu.com (out-168.mta0.migadu.com [91.218.175.168])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=awUCTYpT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29266606A33B
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:09:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29266606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53264606A8A0;
+	Thu, 12 Nov 2026 17:09:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=pYPsXGqL
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=qPsNvOqpGJ3pwA3WfkNEk+1ZJzUEL1h3NDg+2/5l8xs=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794503386; v=1; x=1795108186;
- b=pYPsXGqL45Wq3wn8jbxvE4KpZ24WxNKrk0W6akWqsfsjl7D4QrRL3+sFHXdih63yAxLJ8jBH
- m7F4y8htTxmp8KggwazeJmY7eFoJ7h8AY6bATXE7P6j73ohQYQJYLwjmzVpcY4b0FBrev8f+lKY
- bDh6xP2+qAp5KKqbbZXI0BhIBAjROVyBj0P2wyfh2XANGO2DV2JRiVySwMCe556nPjofW0jzNNO
- C3skSyunXr3EXExiH9GWYgYEXwiHA2/oH5T6gRH+J8GCWwjRe4Kfl3hsi4oiNuAjn0VIa0nNaGW
- vtNKt+CbzYRbPrM7VCAHxdXPs4+P3C0cRH3aXNic4Q3Ww==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3082e74ed36220db;
-	Thu, 12 Nov 2026 17:09:46 +0000
-X-Mizu-Trace-ID: 3082e74ed36220db
-X-Migadu-Flow: FLOW_OUT
-From: Val Packett <val@packett.cool>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Val Packett <val@packett.cool>,
-	Marc Lainez <marc.lainez@gmail.com>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	=?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>,
-	Danila Tikhonov <danila@jiaxyga.com>,
-	Sebastian Reichel <sre@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	phone-devel@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 4/5] arm64: dts: qcom: pmi632: Add missing bat_therm ADC channel
-Date: Thu, 12 Nov 2026 14:07:30 -0300
-Message-ID: <20261112170841.2189322-5-val@packett.cool>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261112170841.2189322-1-val@packett.cool>
-References: <20261112170841.2189322-1-val@packett.cool>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=awUCTYpT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19A801F000C4;
+	Thu, 12 Nov 2026 17:09:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794503393;
+	bh=JQz1mAG4FwwJpOtTSrz+KeRLlzMJvENpxMLZke3zOIA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=awUCTYpTsL/Oqe6fVjS9VAtu1JcOzy/ql79vB7BsSjY2uKsKiaHY/Acj8eAp4GSv7
+	 e2YXOuKtoTEentofTPEmJdAma196fYP7qDeIgA97OToCwOhpz5uN7yk1e712OJxDHL
+	 24aLHcenx9e0ZM2r69lH7TO5CohTbnvw2lC/noUnpF8F0V9751gXt77lOpolk3gwvf
+	 VJpQwFBK5zHuosDMEMb6msCer633TwwVNaK3cGSmaEHudN6tdWc+HJMp0dyGlSYI+A
+	 x51go4dIRkKaSkbxkP+ZPxnOy4n8s7A53NYiNXDGwOmRBb8MAMG+1stdufFWxX/R3s
+	 DEaXKLRxo35iQ==
+Date: Thu, 12 Nov 2026 09:09:52 -0800
+From: Kees Cook <kees@kernel.org>
+To: Linus Torvalds <torvalds@linuxfoundation.org>
+Cc: Alejandro Colomar <alx+linux-hardening@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	driver-core@lists.linux.dev, linux-hardening@vger.kernel.org,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+	David Hildenbrand <david@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Mike Rapoport <rppt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, Geert Uytterhoeven <geert@linux-m68k.org>,
+	justinstitt@google.com
+Subject: Re: [PATCH 2/2] devres: Provide kmalloc_obj*-style API for
+ devm_kmalloc
+Message-ID: <202611120905.DF88D9849@keescook>
+References: <20260914223212.i.829-kees@kernel.org>
+ <20260914223219.901347-2-kees@kernel.org>
+ <20261112004039.GA523044@killaraus.ideasonboard.com>
+ <avWNCC3_Ff0knO6J@devuan>
+ <CAHk-=wgYBrhvo2NAG_Ja-0ovPf=xO20Gcopv9Yrr1u=QVxECZw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,34 +78,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wgYBrhvo2NAG_Ja-0ovPf=xO20Gcopv9Yrr1u=QVxECZw@mail.gmail.com>
 
-Add the temperature channel that is used with the battery fuel gauge.
+On Thu, Nov 12, 2026 at 08:34:13AM -0800, Linus Torvalds wrote:
+> On Thu, 12 Nov 2026 at 02:13, Alejandro Colomar
+> <alx+linux-hardening@kernel.org> wrote:
+> >
+> > I suggest removing kmalloc_obj() entirely, and using kmalloc_objs()
+> > always, with a second argument of 1 when we want a single object.  This
+> > would remove the risk of that typo.
+> >
+> > I also suggest having default arguments without variadic macros.  The
+> > way to do that is using empty arguments.  Linus complained that it hurts
+> > his eyes, but it really makes these macros much safer.
+> 
+> No to both. These are both "make the code worse to catch errors that
+> the compiler should have been able to catch anyway".
+> 
+> If you *really* want to catch them, make "gfp_t" be a 'struct'. That
+> way even compilers without things like the restricted types that
+> sparse has will catch at least that one.
+> 
+> I did that many many years (argh, decades - I'm old) ago to catch all
+> the 'pte_t' etc issues when rewriting the MM layer, and it works very
+> well.
+> 
+> It's going to be somewhat painful, but ti might be worth it. People
+> who only use GFP_xyz flags to pass them around wouldn't notice.
 
-Signed-off-by: Val Packett <val@packett.cool>
----
- arch/arm64/boot/dts/qcom/pmi632.dtsi | 8 ++++++++
- 1 file changed, 8 insertions(+)
+One thing Justin was poking at was adding a "strict" mode to typedef
+that gets us a new native type that follows all the same rules as its
+underlying type, but refuses implicit casting. That way you get stuff
+like gfp_t or pid_t that still works sanely but refuses to take values
+from non-matching types (i.e. it would catch this case). It's handy for
+the Overflow Behavior Type work too (for similar reasons). e.g.:
 
-diff --git a/arch/arm64/boot/dts/qcom/pmi632.dtsi b/arch/arm64/boot/dts/qcom/pmi632.dtsi
-index ab850050eb22..82b5d7b7bb5b 100644
---- a/arch/arm64/boot/dts/qcom/pmi632.dtsi
-+++ b/arch/arm64/boot/dts/qcom/pmi632.dtsi
-@@ -124,6 +124,14 @@ channel@9 {
- 				label = "chg_temp";
- 			};
- 
-+			channel@4a {
-+				reg = <ADC5_BAT_THERM_100K_PU>;
-+				qcom,hw-settle-time = <200>;
-+				qcom,pre-scaling = <1 1>;
-+				qcom,ratiometric;
-+				label = "bat_therm";
-+			};
-+
- 			channel@4b {
- 				reg = <ADC5_BAT_ID_100K_PU>;
- 				qcom,hw-settle-time = <200>;
+typedef __distinct unsigned int pid_t;
+
+or something like that. Then you don't need the accessors like we have
+for the struct-style wrappers.
+
+-Kees
+
 -- 
-2.56.0
-
+Kees Cook
