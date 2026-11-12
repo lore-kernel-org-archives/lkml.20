@@ -1,133 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794508071;
-	b=iPCqkF8QF0LsqCwFhdtBBxi5DqYYawejbpzCSBGqMJUtvTjLE2IiIGGsv9ucyNb56Iph
-	 fOz2iAMaV8OHtPTlJh4QLZjvZN4cGWyUwh5IEXc/WP9Ey6hMWj0hLMiq0NM1nqes39uMu
-	 3vTDsfR526IOoVfb+i5pFohTwtBRuA2qXMfP3tzWkmgCLiPHP4U1eFpEcM8hOYdTrOSFk
-	 CwGPkXir3R1SRx/GAf/5+yxTVE8mXrSiJyAQGLmMvifVZx3JZn3UIvjOFoFfj/HRypF9v
-	 nweGd1jakAEfktkgIc7IFU/boghwy3kwU7VHZ7fX8V/zYC7Fyxd0O8XpuVeR/ZeUOCA==
+	t=1794508079;
+	b=qlw0CCja7o19fVRCj+cKjkA/NuTBGY6r+KRODIpVjJPZ4LwQqprP1dmKOnrdVJCv/L+m
+	 jQWcO0u7CiJhhpSDVEtT4LTFDTBY8bDJuoTJrH+qFylysvx+FWxGQMggtwXFI1Syx7pK1
+	 4FMU10MtxUmHqoXsdLODij+ONQ4aXp2Q72vPGaVbwiaXiDqkmAbVywLG7I0scrga3i6rp
+	 jWmg5Gp5nBQSfeKsTwFutrRKdwLFyifcng2C5Nl6KakySPSjFZBX9f9Gi8kxRjPY9Zb1H
+	 KPnsg/QWVScKRQIf9BVA1QLYcKRgq6H7au+Y9dCbYGPeZD9TR69etkOUOpDHxE96K4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794508071;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=hyOe1qIYSAlaopLsmdJoSIHlKwSSKycDo2uGB7z/DWk=;
-	b=OyA32EcvDtgRfFmDfQ20z378xNuSVCMTHZHeC4qchchYdzFJ8qdu6W5gMSblVKe5m3wq
-	 S+/U0Xni8HJcHt12YMJN775p+egS9tu9Wr8g/+eZo9A0NDuxkI9uULiFlzUA2WtSPpEXH
-	 S08g3K+VZq9VZc6G4yjD6ufCECNW2HKgCAramzIsHcZMd3E3XzHnB2cDPw232EYvR+CzC
-	 k2Ko2J2HLb5qN8yGciCAhVsj0zrRWsy1OO1nW4BpkIHWAIP7+WbDTuSRPsfVuqRuiKoeq
-	 1g3TsyPtV4BlNMeZmAb+DYQWl1N5rYrA1Ws6iE3LGKho/JFZEju69t2cC2VbsoNd7Zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794508079;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=n2B1g6rUWTzaGvCjrue47KnOs8o8AYoZ1Erjwb9P5cs=;
+	b=HLm8HeWdCZqqyc426e+qqlEZYWvo7AkewUvikR3HSwL0+JlWHKeOSpwwBlFtUJi4RcRQ
+	 Z2LskVgEU2VGwuUQH37/mqpcvXAr9LcvOiqTf4Xd5srUk/E5APCzmMbHMTGue/mZbMbSF
+	 wwPDAvSxdfXZmqjbv3ORNdCM1pfFS5puH/wEvKj5ngeceICjP7sSysl4aZ545M9SOuWhJ
+	 auQCjc7mD+OiqmJXWjkm3yZlNurxybbC60esvT5Wo2zHt1XeAZfB/5MnuKYpHHFanfZXG
+	 NDMRdR/W3zMisDgUUTZdSQMKvJ3L6/f7pd/PsbB5qKBuA0sLDm/tjHn8KSvx/6Ob7CQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=SUraC97l;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=L92YtupR;
-	arc=none smtp.remote-ip=103.168.172.138
-Received: from flow-a3-smtp.messagingengine.com (flow-a3-smtp.messagingengine.com [103.168.172.138])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gf8SFvW+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC9CA606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:27:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC9CA606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF698606A31C;
+	Thu, 12 Nov 2026 18:27:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=SUraC97l;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=L92YtupR
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailflow.phl.internal (Postfix) with ESMTP id E395D1381BB9
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:27:49 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Thu, 12 Nov 2026 13:27:49 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1794508069; x=
-	1794515269; bh=hyOe1qIYSAlaopLsmdJoSIHlKwSSKycDo2uGB7z/DWk=; b=S
-	UraC97ld/ZWGqluUoVKkoM3M5onanyZf5ksQs8TMhnm4DBBIghTFTQWx50XHAaex
-	l4gOygNfIK8VXbSVbP4KPpcdqgbWPhLqnWTHmcQ5x7981TNMuB6ryirg505VL1Ju
-	t7Joc3EvuGjUPj8+RcNZIKlJLqLYOMXypiPFuJAUXRRiski+I7iKuhb3DzYWypnS
-	+Qjia1IFPXoNhJKelG0Q1yPOz1GnwM4xSvJBBqVIIpznWhQJqRQE1pKnajxeB18/
-	qPjsi3WoV+A81x3f+W64veyRqidx7TrObN46vON5QAAEOxXxTodVyW1cfYeMNYLN
-	ixUXK81NqZmSKo0Ypo7+A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794508069; x=1794515269; bh=h
-	yOe1qIYSAlaopLsmdJoSIHlKwSSKycDo2uGB7z/DWk=; b=L92YtupR47aqC5gzt
-	Jh70DCaWAgFAReuhdjlXkE5E2fdP0jnse5+Wg6fOqIV6BpCzftFKnNh0uPbrDacu
-	XrjUIoQhPQM+r0XeCPZ27OEbfu3UgDISt4AiwvHDHPHpMB2f8k78za8pqUgyRfyW
-	QoLqw6g4N5Xvl/mvSZ1sEwyzVNG6cNFSxg21D4Mkc8240+SFG5T/GpBg2prRidni
-	dqZGuIpZMizj39PDWXVH+nZUBAGYVO8ixh7qovn2pgcAVPYhyPdQ5m5BVaV2Dyua
-	3ZiXfAygtNrUtCuFAvreA94zH97tK+6vhOFSS5u3vb4psirKXxIwkpukdbhQ3qKP
-	6tbzg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794508069; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:aZw27XlAjRF6VtJk/UEJvbHBbdEd22FvGwpltmB1qKLopUK
-	b8V2GpW3s3BWWTLOYPN8b3joDIOIHFJ471uwBmTQoCD8mbtO3JqST/NjZ2PXhNlY
-	KmAcJ0r0HmCrpJAoNa7baoReawi84Nr4qsZRuUcm99OFCL0y9DMC75kq6LSfsrLK
-	SIvmQBo1hJA2ooNnvRIjbwAh25l+IluRLOb1lc/AdUedC8DOFLrrPjmxKn0BqW+i
-	DjjPWugpKmQUa3dNH8Wey0qDN0xcnq6/ucrVSLYsG6TxFTHb5mHKtNlg9n/VaZBx
-	e7Z7FniZocRR4OmRZh/UJpNu5BiMkVhOhkZ4Htg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:+BExkCelfBm5VPLFvEeTIWT30V6rV0q+4Zo/RGtKJ/0=:hyOe1qIYSAlaopLsmdJoSIHlKwSSKycDo2uGB7z/DWk=;
-X-ME-Sender: <xms:JAX2anjnB3N85qav4ej7nTHwEnZudiWxeq0XNheg8odpw5D6lPPEVg>
-    <xme:JAX2akfRnboLAFQP66Y6JMR7sqENjTejYrR6xF-m2_zsMfwfbghgX1AdzyFc1UEFw
-    pXdkhTub3fOliqNkpdBFP5W92UjAjbBsNfT4_oaP48nst74JhN2EA>
-X-ME-Received: <xmr:JAX2am1Vjx-Az5YjQ3FAohPyGPC5yMpHyX5W4q-e2WigXMtePvVaZEzZ8KPzWmVb>
-X-ME-Proxy-Cause: dmFkZTFmlfyrKBOLV9UX274YD8pS/pTy/qCUAlkh87MPZQO3Hk1dnsDnFDzIM6ZPo8fUN0
-    yFrUad9pEaMOFZADkLNTes/olIPi4QhVXYp7r0F9+70zStg1RYJY/V+NcvMVzzv5Xj12/L
-    LAy/Lib/KhnsrDJ5mBE0huqcGiprrQpv9RPWQEKIql+2CpwQCQP38RV1m9+12NqeAI3BVw
-    4drmwq4Fm71RwuTVe+j3ilhAER4Vuf7ltdaqmBYQF0vBX/Uu1eCQLwG2P0nSRYAsqX2e+v
-    UVbMWKx/FYZUfWF7ZL9f1zPVSBDXuC1Mlvx5K86P9v+fLeiTT59ZiLAd43NC0WlKXtbLKh
-    Rx0siicelKCSswIowMUpXORqGWg18gDwoBvrSeNpwPZI6O/UJSAsM7AZgnjfQfMhT3snFD
-    5gyJYx315+soHXuxxWOx6PEXc3s3/80QD4ouC4arUMUCT+aQD4hyNDXMMGPryq850Lb6Ei
-    L+CDYIb/sINHjD2bu/+EQkVFNfyf7bLOcnStazV2oIO4FRdZIaoSopH9wFrLXwSMmhP6ew
-    Q5ZvIRKPN62HfkQ+OE5fQhRM/k0rlPMjJ/KMc8jFDyI43EQlvwXTJhmY51pBUBQnV+sSDr
-    1Pptd3/Tyae1x3T0Bd2DOAJViDQQiKEvlTyiXixqrNjPKYervZ3ukFrRWOwQ
-X-ME-Proxy: <xmx:JAX2agod1dOdMkWVfBs7bh8mYobtGzLGOXJONA0ljg3g5Q_W0Z3jpA>
-    <xmx:JAX2auhjtzUACeLY4H2NBUSkwTAMifIuGtpX6dCP04-12-p6ZaPgnw>
-    <xmx:JAX2aklZa6DoztU-EE1zCTkEfCQovIS1mTJtUMrmb7DoYPnHC74nRA>
-    <xmx:JAX2avohinEwBKLAr5OTq4XxYP9_Rz7d0dMSA3C2WIRfhJipJZBYTw>
-    <xmx:JQX2arMUyG3aF-4KdYea0ltecY1YYvJn2qLD1w77EwTiPhUzjfH-dnBw>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 12 Nov 2026 13:27:47 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: koray.fra@gmail.com
-Cc: linkinjeon@kernel.org,
-	pc@manguebit.org,
-	senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	hyc.lee@gmail.com,
-	ronniesahlberg@gmail.com,
-	sprasad@microsoft.com,
-	bharathsm@microsoft.com,
-	linux-cifs@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>
-Subject: Re: [PATCH 1/2] ksmbd: fix negative timestamps being saved to disk
-Date: Thu, 12 Nov 2026 12:27:37 -0600
-Message-ID: <20261112182737.1659245-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261112111637.184045-1-koray.fra@gmail.com>
-References: <20261112111637.184045-1-koray.fra@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gf8SFvW+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B8C51F000C5;
+	Thu, 12 Nov 2026 18:27:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794508079;
+	bh=n2B1g6rUWTzaGvCjrue47KnOs8o8AYoZ1Erjwb9P5cs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gf8SFvW+cWcPIX2hjrsa8llV4wQAtOX9H3tSwPersFCvE7xbZWRT9rsA/xaOli+K0
+	 NsFo4JlssWwPRE9PWQ6Zc/bDZE+nc/3azxjmf4om5SLyeS+2Tib6yBUDXP0gQe9FWc
+	 NFZyq4tWB+TpMyTjiUcI8e3KI0HELLFml8YZIqQ44o/OzEYEfCdj+hCyySnr7lKWdo
+	 WrjRfSQ0G5DVVkErFqUCDl7iP4v77rtgwAyWXHObTkdcjWHoEkln3g4uUyXLLtkUGv
+	 6PNiaADcgWrjLLU8lArYd3SC9UQtZ39R9bvEBHirBEaWPO2EfuoLr3Evbn3OnlDCh7
+	 /ZeYSqCnKATGg==
+Date: Thu, 12 Nov 2026 10:27:58 -0800
+From: Kees Cook <kees@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Mariia Nikitash <nikitash.mariiaw@gmail.com>, dmitry.torokhov@gmail.com,
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org, justinstitt@google.com,
+	morbo@google.com
+Subject: Re: [PATCH] Input: mouse: vsxxxaa: Replace strlcat() with strscpy()
+Message-ID: <202611121026.23C58B347@keescook>
+References: <20261104062319.288360-1-nikitash.mariiaw@gmail.com>
+ <20261105112813.13210334@pumpkin>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -137,24 +59,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105112813.13210334@pumpkin>
 
-Hi,
+On Thu, Nov 05, 2026 at 11:28:13AM +0000, David Laight wrote:
+> On Tue,  3 Nov 2026 22:23:18 -0800
+> Mariia Nikitash <nikitash.mariiaw@gmail.com> wrote:
+> 
+> > In preparation for removing the deprecated strlcat() API[1], use
+> > strscpy() to initialize the mouse device name.
+> > 
+> > The destination is zero-initialized, and the constant string fits
+> > within the buffer. Since the return value is unused, this preserves
+> > the existing behavior.
+> > 
+> > Link: https://github.com/KSPP/linux/issues/370 [1]
+> > Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+> > ---
+> >  drivers/input/mouse/vsxxxaa.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/input/mouse/vsxxxaa.c b/drivers/input/mouse/vsxxxaa.c
+> > index 042a17fe81db..b3a0d7ff5738 100644
+> > --- a/drivers/input/mouse/vsxxxaa.c
+> > +++ b/drivers/input/mouse/vsxxxaa.c
+> > @@ -463,8 +463,8 @@ static int vsxxxaa_connect(struct serio *serio, struct serio_driver *drv)
+> >  
+> >  	mouse->dev = input_dev;
+> >  	mouse->serio = serio;
+> > -	strlcat(mouse->name, "DEC VSXXX-AA/-GA mouse or VSXXX-AB digitizer",
+> > -		 sizeof(mouse->name));
+> > +	strscpy(mouse->name, "DEC VSXXX-AA/-GA mouse or VSXXX-AB digitizer",
+> > +		sizeof(mouse->name));
+> 
+> You might as well use the 2 argument form.
 
-On Thu, Nov 12, 2026 at 12:16:36PM +0100, koraynilay wrote:
-> When setting a timestamp before epoch 0, ksmbd converts it from NT
-> format to Unix format without normalizing it, leading to the nanoseconds
-> field to be saved (on-disk too) as a negative number, which leads to a
-> garbled stat command output and a reported +4 seconds in the timestamp.
+I'd agree: this is a true array, so the sizeof() can be dropped. But
+it's also exactly the same binary output, so I'm fine either way:
 
-I tested this with the ksmbd code from ksmbd-for-next. Before the
-patch, setting an access or write time before 1970 with a fraction of
-a second stored the wrong time on disk. The stored time was about four
-seconds late, stat showed garbage for the fraction, and a query over
-SMB returned the wrong time too. With the patch, the time on disk and
-the time returned over SMB match the time that was set. Times after
-1970, and whole seconds before it, behave as before. smbtorture gives
-the same results as without the patch, and KASAN reports nothing.
+Reviewed-by: Kees Cook <kees@kernel.org>
 
-Reviewed-by: Ian Bridges <icb@fastmail.org>
-Tested-by: Ian Bridges <icb@fastmail.org>
+And I echo the surprise over strlcat being used on an empty string. :P
+
+-- 
+Kees Cook
