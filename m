@@ -1,69 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.82
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794476916;
-	b=i23cT9abNMvroh/+gPMVaqBsAI7LNBzI3u9BJ7tzoQXf3X9Fb3no8yL92uBKb3BqGPTh
-	 swny0iLS5B+JItifbpny/Gx04bhgvvkDoa6X2DZq0h4ytJSKQgXvLR2gLdaHJy5cphqjy
-	 VKp5Dr8bi5/Lsc6YvmcTl/FEGk3KBkk/09SDzI+FzyRrBsVaA0GnwBGJmXrz2addxZdME
-	 mcG51XeEaF64pC5nv3jRJlUho6XvH8H5x+DZMYlM22y9E15R+GNVRAI0+y1xlJuIQhmCz
-	 atH5GyENXBU7aFgjEN5L1+4rqoArXz20YFSg2e8ixMlJVuLnX2wFMu/YKsDA4GfYhmQ==
+	t=1794476962;
+	b=xHXsXyTfz5RnUWe0y9zC1HyetAYcNrfVdsv4FICIfoP4i76tSGA0HbzZRc0XtJOJBegk
+	 CoHMBoAywk4puqeKSEhVNeuK3j7nx/i5MQpHW+/KEhfNONlZpnFTjogOCcgHM3JTtypu6
+	 S5VGVFNvH6RRtMc17iM/aWSZL3gyQjdWkQB93joIquaefTHu8KFMEx0Edt6smRmDKp7Di
+	 Uu05iYaFzpgUO0gb2chHUWoFA6qGLlsO3gIJGqZFsg3uUQqxJ8OvYfMWEJVbPxGDgxy5I
+	 rIp9Nxo1vEbgO3YAkTrdrQ+VwHSG8HM3BxAaOOdPspom7D/lQJFY/N3JjGbplHRO4TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794476916;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=S1I6Hq1LNxJ2AM3XAIf6COuRQm5+kbnmORhmffuAx1E=;
-	b=IYYdvIqwxi/cSH4rx2nisHQhSf/Lx2NnhwHNU01tQhyiQCjUHtDi/x40ONjq0K6OHPSn
-	 yMXGAhMBF2NW4p9yLlS/tD1Rn1nTcVEcok7i3Fu0Fpr0xM+fgouTjgHem/qOOivfsWjxW
-	 J5VjrPoTSpb2PPTzEHZMHq/garaPzIo8qE0/SBMd3efb+Ll6I93lbjFyzugEMDoHsW+9L
-	 pABhQYgLNLHxq1mVw7GpMwdYvJIhUyXzzPOQZHanpx8AujsK0aKzTmHE3XQN9AoVnf2b0
-	 O1QE4ZDUqALKPQc5DDsc7d70g2du+ZAGEbARtvtng9/BUw32Vatm4kNsfYjbOue5dqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794476962;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=zD0jJHrRRvAkjkRc1n4QCTiR4ZH0I6f9OpoiYG7kF2I=;
+	b=gGSlR8C4YUjCEakJh2Wi6doyaWWQ7w8pDI6dKuOQSbfQgXeuFhpm9ShmcoxoUEVadyHf
+	 OFqaYqfZKu0Im7hQ8PLcLPyb3aASRLgciPuaVgfa0VwhGHYBXEaktK+0OmDnGloD5XD8F
+	 88/hZfE0mUiPUTFG+V/5VxGzGRaGkM2QGhUvIdNF50LTlwcH8P7Atd5JQh8IGWgc1XHBB
+	 ocMG4twUk4Kq3f70QdeHk8OlYotNffEpNp+UG+vBc9Y1BrSkW1mB+HRqLu9mXtSXlpnvz
+	 8d/PUQF/ViSmVm9R5SM0SXifBbyb8BNhRmsl+yIoMQYsH8H1t28VlxIJr9kgBL9c1xA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jqc36Bwe;
-	arc=none smtp.remote-ip=91.218.175.82
-Received: from mta0.migadu.com (out-82.mta0.migadu.com [91.218.175.82])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=OiO0xzly;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3789C606A33E
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:48:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3789C606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18BCA606A31C;
+	Thu, 12 Nov 2026 09:49:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18BCA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jqc36Bwe
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=UzHD0xBypvN0pN6/OIEvkmDF15pe0Kzfmzwbbwx3SyI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794476913; v=1; x=1795081713;
- b=jqc36BweYDZmBlcdZqY8WdSEIykwJhcihOwVZJ3SkVL6iD+HGInr4Dr8GNd27wsy2kvtnsJe
- qJHZObmF0ZRyiMIqBLHvQHT0ITV9xjDwxQXawwWgrzT8H+v1UckOdTQPwrq8xbmxthHvNQRE7DQ
- LV4fq5vAEmo7w7tvzO+PEzr4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 07b5a578b5343b43;
-	Thu, 12 Nov 2026 09:48:33 +0000
-X-Mizu-Trace-ID: 07b5a578b5343b43
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 12 Nov 2026 17:48:21 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	MD Danish Anwar <danishanwar@ti.com>,
-	Murali Karicheri <m-karicheri2@ti.com>,
-	Wojciech Drewek <wojciech.drewek@intel.com>,
-	Ravi Gunasekaran <r-gunasekaran@ti.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, 1342116488@qq.com,
-	Hangbin Liu <liuhangbin@kylinos.cn>
-Subject: Re: [PATCH net v2] net: hsr: clean up synced addresses and allmulti
- in hsr_del_port()
-Message-ID: <avWLZTnYPQJ2-z7_@fedora>
-References: <20261112064716.85381-1-sunwenbo@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=OiO0xzly
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=zD0jJHrRRvAkjkRc1n4QCTiR4ZH0I6f9OpoiYG7kF2I=; b=OiO0xzlygaCWZXBcbOoGbnjGS4
+	I3ogB51oqj35kLDCI4g9Tm8lX175JhQspX3OZVzfhHfwM+f01tpu7GWZm6lhsdlNsWaA3DhBb6Jks
+	wGqWAxBcxkHoFCGtpTulgZibXc7pY32E++XnxkYqdTPLfmEY32WH8LIvyhSCNoEyrcEGMf45bDyx+
+	rfc/xVbkVIVUKNjcYaApiC0pvsUgsV5PQvX3R+DEIwbXT4x/lO7Y5YUV4Y+B0jzvJyU0eglAFG5xf
+	KrNdQdqzqzsrRpARn8cusO1zCsh/10h65g9J3uv/Eu3UeqhNTIQNlnnp+0JSKP2ujIEoBBdXm6rxS
+	o6HSPr2w==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRRQe-0000000A9Wg-1yOf;
+	Thu, 12 Nov 2026 09:49:12 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id EF3A2300400; Thu, 12 Nov 2026 10:49:10 +0100 (CET)
+Date: Thu, 12 Nov 2026 10:49:10 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: mingo@redhat.com, juri.lelli@redhat.com, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org, lukasz.luba@arm.com,
+	rafael@kernel.org, linux-pm@vger.kernel.org, tj@kernel.org,
+	void@manifault.com, arighi@nvidia.com, changwoo@igalia.com,
+	sched-ext@lists.linux.dev, qyousef@layalina.io,
+	christian.loehle@arm.com, pierre.gondois@arm.com,
+	sshegde@linux.ibm.com, kayracizmeci@gmail.com,
+	tim.c.chen@linux.intel.com
+Subject: Re: [PATCH 08/20 v3] sched/fair: Add push task mechanism for fair
+Message-ID: <20261112094910.GK2668804@noisy.programming.kicks-ass.net>
+References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
+ <20261106151947.3991524-9-vincent.guittot@linaro.org>
+ <20261109155418.GL1779021@noisy.programming.kicks-ass.net>
+ <CAKfTPtA-nrgGQGcBPqNoPk4atOHakyZK9Fk-4AsrHBrnvPXTLQ@mail.gmail.com>
+ <20261111090155.GF2668564@noisy.programming.kicks-ass.net>
+ <CAKfTPtBfQd5nD9jNdayGbEW_P2bDMvOm=GZ3Q-gu+O6KkQmKbA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,78 +81,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261112064716.85381-1-sunwenbo@cmss.chinamobile.com>
+In-Reply-To: <CAKfTPtBfQd5nD9jNdayGbEW_P2bDMvOm=GZ3Q-gu+O6KkQmKbA@mail.gmail.com>
 
-On Thu, Nov 12, 2026 at 02:47:16PM +0800, Wenbo Sun wrote:
-> hsr_set_rx_mode() syncs unicast and multicast addresses to slave A and
-> slave B devices via dev_uc_sync_multiple() and dev_mc_sync_multiple(),
-> and hsr_change_rx_flags() propagates IFF_ALLMULTI via
-> dev_set_allmulti().
-> 
-> When an UP HSR device is deleted via hsr_dellink(), hsr_del_ports()
-> removes all ports from hsr->ports before unregister_netdevice_queue()
-> leads to hsr_dev_close(). Consequently, hsr_dev_close() iterates over an
-> already-empty port list and cannot execute dev_uc_unsync() or
-> dev_mc_unsync() on the detached slaves. Likewise, when a slave device is
-> unregistered while the HSR master is UP, hsr_netdev_notify() calls
-> hsr_del_port() directly without running hsr_dev_close(). In addition,
-> hsr_dev_close() does not release IFF_ALLMULTI on slave devices either.
-> As a result, detached slave devices can retain synced unicast/multicast
-> addresses and an elevated allmulti reference count.
-> 
-> Clean up these states in hsr_del_port() when detaching slave A or slave B
-> by calling dev_uc_unsync(), dev_mc_unsync(), and, when IFF_ALLMULTI is
-> set on the master device, dev_set_allmulti(port->dev, -1).
-> 
-> This issue was identified with the assistance of an LLM-based code
-> review tool, confirmed by reproducing the retained allmulti reference
-> count and synced multicast address in a User-Mode Linux (UML)
-> environment upon deleting an active HSR interface, and verified in UML
-> that both states are properly cleared after HSR port deletion.
-> 
-> Fixes: 36b20fcdd966 ("net: hsr: Add support for MC filtering at the slave device")
-> Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
-> Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-> ---
-> Changes in v2:
-> - Clarify the commit message to explain explicitly why hsr_dev_close()
->   iterates over an already-empty hsr->ports list on hsr_dellink() and
->   does not release IFF_ALLMULTI, answering Hangbin Liu's question.
-> - Add Reviewed-by from Hangbin Liu.
-> - Link to v1: https://lore.kernel.org/r/20261111060143.183670-1-sunwenbo@cmss.chinamobile.com
-> 
->  net/hsr/hsr_slave.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/hsr/hsr_slave.c b/net/hsr/hsr_slave.c
-> index a546f70f9cc8..bab0c27dd06a 100644
-> --- a/net/hsr/hsr_slave.c
-> +++ b/net/hsr/hsr_slave.c
-> @@ -245,8 +245,14 @@ void hsr_del_port(struct hsr_port *port)
->  		netdev_rx_handler_unregister(port->dev);
->  		if (!port->hsr->fwd_offloaded || port->type == HSR_PT_INTERLINK)
->  			dev_set_promiscuity(port->dev, -1);
-> -		if (port->type == HSR_PT_SLAVE_A || port->type == HSR_PT_SLAVE_B)
-> +		if (port->type == HSR_PT_SLAVE_A ||
-> +		    port->type == HSR_PT_SLAVE_B) {
->  			vlan_vids_del_by_dev(port->dev, master->dev);
-> +			dev_uc_unsync(port->dev, master->dev);
-> +			dev_mc_unsync(port->dev, master->dev);
-> +			if (master->dev->flags & IFF_ALLMULTI)
-> +				dev_set_allmulti(port->dev, -1);
-> +		}
->  		netdev_upper_dev_unlink(port->dev, master->dev);
->  		if (hsr->prot_version == PRP_V1 &&
->  		    port->type == HSR_PT_SLAVE_B) {
-> -- 
-> 2.33.0
-> 
-> 
-> 
+On Thu, Nov 12, 2026 at 08:01:17AM +0100, Vincent Guittot wrote:
 
-Sorry, you post v2 version to fast. Please check if
-dev_uc_unsync()/dev_mc_unsync() could be called from hsr_dev_close(). If not,
-should we remove them from hsr_dev_close()?
+> I don't want to take any random task from the rq but only one that is
+> meaningful. Why do you think having a dedicated pushable list like rt
+> and deadline isn't worthwhile?
 
-Thanks
-Hangbin
+Well, effectively cfs_tasks *is* the pushable list. The below patch
+makes no effective difference, and can be argued to be an optimization.
+Currently every consumer of cfs_tasks goes through can_migrate_task()
+and every task that has nr_cpus_allowed == 1, will fail that function.
+
+The thing seems to be that you want additional constraints on your list;
+like dropping tasks after one push attempt. The other classes don't do
+that, they do the same thing cfs_tasks does and keep all runnable tasks
+that can migrate on the list.
+
+I'm not against adding another list per-se, I'm just struggling to
+understand your extra semantics, because its not _just_ another pushable
+list, it has some extra flavour.
+
+---
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 0552eaf64e95..8c81d236b24d 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -4693,7 +4693,8 @@ account_entity_enqueue(struct cfs_rq *cfs_rq, struct sched_entity *se)
+ 
+ 		account_numa_enqueue(rq, p);
+ 		account_llc_enqueue(rq, p);
+-		list_add(&se->group_node, &rq->cfs_tasks);
++		if (p->nr_cpus_allowed > 1)
++			list_add(&se->group_node, &rq->cfs_tasks);
+ 	}
+ 	cfs_rq->nr_queued++;
+ }
+@@ -4709,7 +4710,8 @@ account_entity_dequeue(struct cfs_rq *cfs_rq, struct sched_entity *se)
+ 
+ 		account_numa_dequeue(rq, p);
+ 		account_llc_dequeue(rq, p);
+-		list_del_init(&se->group_node);
++		if (p->nr_cpus_allowed > 1)
++			list_del_init(&se->group_node);
+ 	}
+ 	cfs_rq->nr_queued--;
+ }
+@@ -15620,7 +15622,7 @@ static void set_next_task_fair(struct rq *rq, struct task_struct *p, enum snt_e
+ 			set_protect_slice(cfs_rq, se);
+ 	}
+ 
+-	if (task_on_rq_queued(p)) {
++	if (task_on_rq_queued(p) && p->nr_cpus_allowed > 1) {
+ 		/*
+ 		 * Move the next running task to the front of the list, so our
+ 		 * cfs_tasks list becomes MRU one.
+
