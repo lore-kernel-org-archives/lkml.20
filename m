@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794482363;
-	b=olvsQiu8V7T4fTkohqvM2j90T7j8nm3yA9Ln2XKfdv48fPv+cZ2qvH5hCAR5vEIBOQaO
-	 iBzqGFAg+LUr/pbEue0O76WNn8Oj1f0QSBx+qLzyTe9323oD4I6QHzMPpbD3C+JS5HyNO
-	 KNXRCFvDCMaCdcegSEnprPRm6ull/MeXz/eYhc8L1m55YCltmeypStu0Nf+OARw1mZ0kZ
-	 ixC8w5gGzKuJ4XtiIOWVE/jRKvj0HxS2cnVNLVVsLzdoSFKve4F4JWwCKG/+e+W1c9VVG
-	 +pa9mPc8c34yGV2TzIn4d9HC9bhm/RCAlp1Bl0kMNF5leJDYD9GiLXTOG1Q/4HMT2Xg==
+	t=1794482369;
+	b=yaMXduZdsAIdFk6E1AyW4w9N1QR1FAAU7YqG8f0HWCQC/8M0/ROP7NPBa557b5hGimft
+	 +7vOdy46C9GwowAPx5+4drSulUOptuealttCWIHSU0h2Ul1OXTLJsolrvNf8UUb6OYodF
+	 FS7zb9SBQJrkIE1zCdS4l3lSyCk53p53x3NJKql64D02hVRsB3RdGx7kYRgtGTX+G2QWF
+	 8qzN5FfgXFvIODOdPbupEVvW5ARA21f7QlxXk2FcseDR+fZ6tE/FYaFPL0UJNE/jXAV7H
+	 TbK73v/1FRAmBal3//Bpmt84vwWq6QRR+KorT2buTklHdDn0c0awSiQ3D3qqHy9FwVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794482363;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794482369;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=CowT1E6/V7SdL0AZ8ECmMYStTdGbBiKs9Dmd83CtMis=;
-	b=XmDxcc1EYCR1C9MtxQuhojELv+UDXVgOY1EIS21aF3f2tRmfQmgcedBTEh0F+spyxVnT
-	 5V/plNSHzWv0YuUIPic2fQjeMpZmwuE//2Z/ESk3adbeaaXeCvKcJS6EOIXY8ZPcpqGc+
-	 FDoLsrNn/VCMN+qvBU06hNnPh52SRsycYaG72jSbfgbS1lRH75Bn7jJlJinJbVJNKGbJf
-	 XXEQzABFXzVUSFi/1ng7og/T0MF1Ke+9XScAX5SmPi3IgX8gj7aBF3zqVnpFj0m2tgYZM
-	 jYXk1bhk36Zm4gNlny2ZxjbdOOppK0QHV99FoOkOm2deNJkeBFa9WYCJ5lWt9fp+4nA==
+	bh=irmL5J+iRGjahND8KKQTrYXMjS6LiiFKcfsqoUbplGk=;
+	b=Fu9mH9K27G4KWbJ2xcUKJ4UzdaVEAJ/y3VP4jbxJ9uWf4/OIWMYmewFDEdM5QaSRdYK1
+	 o0enI8uOaiIc97bkiKXhQD1npDUWopjw6UHw6N3HeylQXa/GuSWAh6ViQSxWBSWrqGrDi
+	 VdBn+o4Ifb4bZsvFB2LIcRt6RMPTVpulGqzw/lGvDVZNhXVhIuiPMOTHqBYyTn3jKOvSP
+	 3sfn05bjbfJ57Y0vyXGzulyZhUoEdL6ANTdt43jjdo6zE+1b/MGynzQPbIeXaaDZysZqj
+	 ZYldvgoIFLE8GIdGu5+EiOT3mc76da4uYs1ITEN3N3ZeTc3U55/tlTvnSd7w4tTHZ6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideasonboard.com;
 	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b="oVaGAP/y";
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=aj++ih2p;
 	arc=none smtp.remote-ip=213.167.242.64
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E36606A88F;
-	Thu, 12 Nov 2026 11:19:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63E36606A88F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B7CC606A323;
+	Thu, 12 Nov 2026 11:19:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B7CC606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=oVaGAP/y
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=aj++ih2p
 Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c67:cdf:7464:6c04:36e4:ee87])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0307233D;
-	Thu, 12 Nov 2026 12:16:57 +0100 (CET)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 77E2FD77;
+	Thu, 12 Nov 2026 12:17:03 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794482218;
-	bh=MH6JqehV604jb+qJ1IQYGg93hZxQLmeoO4y2eLgengw=;
+	s=mail; t=1794482223;
+	bh=Sh/fFkblcim2sBVgut/V8LcfFgwt40wOVutD4SrDAW8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=oVaGAP/yRAOs/tK6rXXhta6K27e63Zl9HQEj75UUhzRr5LGARW8ix4N+GztARninj
-	 le+KVTRo6T/S2etnNTovxNtb0fjZwtmmb1EC7ts4EWwHcxjqAVTXP5W7lIa5VwYBXS
-	 FnqzNX1+gHYrNCvEdYzW1CmW2p00aRVvBguEvMS4=
+	b=aj++ih2pUBMzFCB/ToinGYiKbhnNJvJyJe8PgnCK/fyKKh7MZ1EonpP5WQtbg5jF3
+	 hZCLOnGxvY7l/HYTtXV0Ha5WOMjv9XnUyc/bA7VTBX1JjlPakoyFSKco3YBKCdK2m3
+	 r/bPtk58t13g/Kwh2OBL/HG4hw1TSDl5uDSulRxk=
 From: Jai Luthra <jai.luthra@ideasonboard.com>
-Date: Thu, 12 Nov 2026 16:48:08 +0530
-Subject: [PATCH v5 10/11] platform/raspberrypi: vchiq-mmal: Support bayer
- and gray formats
+Date: Thu, 12 Nov 2026 16:48:09 +0530
+Subject: [PATCH v5 11/11] platform/raspberrypi: vchiq: Add helpers for
+ vchiq driver data
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,7 +58,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-b4-vc-sm-cma-v5-10-d25e3b687e71@ideasonboard.com>
+Message-Id: <20261112-b4-vc-sm-cma-v5-11-d25e3b687e71@ideasonboard.com>
 References: <20261112-b4-vc-sm-cma-v5-0-d25e3b687e71@ideasonboard.com>
 In-Reply-To: <20261112-b4-vc-sm-cma-v5-0-d25e3b687e71@ideasonboard.com>
 To: Stefan Wahren <wahrenst@gmx.net>, 
@@ -74,112 +74,59 @@ Cc: Martin Wetterwald <martin@wetterwald.eu>,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  linux-rpi-kernel@lists.infradead.org, linux-media@vger.kernel.org, 
  Jai Luthra <jai.luthra@ideasonboard.com>, 
- Paul Elder <paul.elder@ideasonboard.com>
+ Paul Elder <paul.elder@ideasonboard.com>, Umang Jain <uajain@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4365;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1204;
  i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
- bh=MH6JqehV604jb+qJ1IQYGg93hZxQLmeoO4y2eLgengw=;
- b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBq9aB9/0lFSf2+hXENNHrLAXq8OvsTYnRDysAm7
- 8Lmu1+8Yw6JAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCavWgfQAKCRBD3pH5JJpx
- RQZ4D/0WFdSpAdWV+zJj6N0UiIcsimi1mDiKFy7OF/xPWq2Er1SjWiuuX+FWwZQSj4zxgITlNpo
- Rbvof0jUC9lKpkRvNt0ghhnWQNCII+9A0UHl/QVki/UUS5mRkH1GKtQRUTPbwJhdkhB84LFhWQl
- 0Bj2na2FHRYmoy6G3hS8Y3QPS1XBGu54MjrwRDrIfYJkp+EDQXTTelWASARZHXijumuKDd36xnz
- Nyk83hjjQSG3h8/LBDeplVPTqFBvDGvv0mnJFxCSxVQsRh93W83MAI1l7U5aCyXGR0UtUWnWAE2
- bGM2DDuU+KSL6p3cibd2Roge7n/oPxum9AIvAb7OY9b++NmjmaePybLhMyxvmTkGHNi1W5NC58U
- E2kK7SXyKPcJlu4EBoBa/QiZx6F5Tf1DrQy1FOjfel7k6f66NEJF64J5U8yjOrqZ1Q5fzk0vjTt
- FShxNB9+lt1TLW5bfxjGsZPKV5MAyIzaqYei3LzlHYszOZJxEWSktsIJqrx11jSBb5W8Npuuulr
- z74LIlpCLvNgoOm5EJ/9j/vvOgmGaAC+gM0vHSoIof9KJv7B400hUrG4V9PYSyeQVWY7kC5x1kT
- K8+XtStI7MZlAmBNMWbyNAPIW6IO85EDWXqy0yNblnIlbFztea9ld3GgS9/Br5eyQ/WEYiuShzk
- zAWG+dHI0z+aj4w==
+ bh=Sh/fFkblcim2sBVgut/V8LcfFgwt40wOVutD4SrDAW8=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBq9aB+MGj0mZOm7Frm5eJ+8tYoAivhxuqiSGSzN
+ 5Fcd9ikDgqJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCavWgfgAKCRBD3pH5JJpx
+ ReD7EACt6LxaokkuMdW2vtsU4/OSh1GgmjapvL0lbgvzDXXSQ3zt9eozQySyX2X7BDLT9GSp0Ok
+ gHhl4J+kc8d6lMTZKMypTx3fyA/IffYokigEMGMRmBDBtOjSIYH6bdesdkPd9uXMmh3bBOrFAsY
+ TwV6/1CH2OiLCmDcSsSG1nn2OWJyh7xz7RLyqaSiWQFuxv33r34UccdubfSLqxfeMeGDSwXyuTN
+ eKN0kvqUBKYHgXyf9CFcH7895GWdPuyMFLndQu+wdEU9FEOzhigzV0PgCgOORJQ916q2pvO1Iq5
+ wGzkFJYZyrW85Aktk1CVIYOHNkPTQLZLmGmHwkN6qxARvbeaQwsa3MZu8MTjOdYrzZdxuotJOHy
+ GToCAKsT9CjjAjNIbPJMVOmti5g/25E6/R0c8K0uCf6hL1SdM+Y4dTo6EvkJjSbQ1uPQoa0Kyol
+ B69tv7JSiiT5CGvPJXehIKLdn5wFcHDW0KY67htE+sToSMCfXkWR1Ml0mqlbol6OHVFTDsC2zfn
+ u/sfIRqMz7oVipLm3pvQJ5UuNuJDzNv+1jFjAcmLld94lbt4Ah5kLDfsPaa/i3j9w3TpGh/nK9K
+ o1Ukf+dxeyds+DpDQriAFW1fPAAxOicvNecn4yYblC1WUfZNwMijnT9EA41k7ssDlfitWgeWpmQ
+ O3DyGP/h/dO6dIA==
 X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
  fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
-Raw camera sensors often send data as packed or unpacked bayer and gray
-formats, which needs to be processed by the ISP.
+Add helpers to set and get vchiq driver data. vchiq_set_drvdata() and
+vchiq_get_drvdata() wraps dev_set_drvdata() and dev_get_drvdata()
+respectively.
 
-Add macros to support bayer and gray format FOURCCs in the MMAL layer.
-
-Tested-by: Paul Elder <paul.elder@ideasonboard.com>
+Signed-off-by: Umang Jain <umang.jain@ideasonboard.com>
 Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
+Tested-by: Paul Elder <paul.elder@ideasonboard.com>
 Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
 ---
- include/linux/raspberrypi/mmal-encodings.h | 63 ++++++++++++++++++++++++++++++
- 1 file changed, 63 insertions(+)
+ include/linux/raspberrypi/vchiq_bus.h | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/include/linux/raspberrypi/mmal-encodings.h b/include/linux/raspberrypi/mmal-encodings.h
-index eadf2e981408..fd9cd840cb7b 100644
---- a/include/linux/raspberrypi/mmal-encodings.h
-+++ b/include/linux/raspberrypi/mmal-encodings.h
-@@ -69,6 +69,69 @@
-  */
- #define MMAL_ENCODING_OPAQUE           MMAL_FOURCC('O', 'P', 'Q', 'V')
+diff --git a/include/linux/raspberrypi/vchiq_bus.h b/include/linux/raspberrypi/vchiq_bus.h
+index e52291a3b247..513a144bfbe9 100644
+--- a/include/linux/raspberrypi/vchiq_bus.h
++++ b/include/linux/raspberrypi/vchiq_bus.h
+@@ -37,6 +37,16 @@ static inline struct vchiq_driver *to_vchiq_driver(struct device_driver *d)
+ 	return container_of(d, struct vchiq_driver, driver);
+ }
  
-+/**
-+ * Bayer formats
-+ */
-+/* 8 bit per pixel Bayer formats. */
-+#define MMAL_ENCODING_BAYER_SBGGR8     MMAL_FOURCC('B', 'A', '8', '1')
-+#define MMAL_ENCODING_BAYER_SGBRG8     MMAL_FOURCC('G', 'B', 'R', 'G')
-+#define MMAL_ENCODING_BAYER_SGRBG8     MMAL_FOURCC('G', 'R', 'B', 'G')
-+#define MMAL_ENCODING_BAYER_SRGGB8     MMAL_FOURCC('R', 'G', 'G', 'B')
++static inline void *vchiq_get_drvdata(const struct vchiq_device *device)
++{
++	return dev_get_drvdata(&device->dev);
++}
 +
-+/* 10 bit per pixel packed Bayer formats. */
-+#define MMAL_ENCODING_BAYER_SBGGR10P   MMAL_FOURCC('p', 'B', 'A', 'A')
-+#define MMAL_ENCODING_BAYER_SGRBG10P   MMAL_FOURCC('p', 'g', 'A', 'A')
-+#define MMAL_ENCODING_BAYER_SGBRG10P   MMAL_FOURCC('p', 'G', 'A', 'A')
-+#define MMAL_ENCODING_BAYER_SRGGB10P   MMAL_FOURCC('p', 'R', 'A', 'A')
++static inline void vchiq_set_drvdata(struct vchiq_device *device, void *data)
++{
++	dev_set_drvdata(&device->dev, data);
++}
 +
-+/* 12 bit per pixel packed Bayer formats. */
-+#define MMAL_ENCODING_BAYER_SBGGR12P   MMAL_FOURCC('p', 'B', '1', '2')
-+#define MMAL_ENCODING_BAYER_SGRBG12P   MMAL_FOURCC('p', 'g', '1', '2')
-+#define MMAL_ENCODING_BAYER_SGBRG12P   MMAL_FOURCC('p', 'G', '1', '2')
-+#define MMAL_ENCODING_BAYER_SRGGB12P   MMAL_FOURCC('p', 'R', '1', '2')
-+
-+/* 14 bit per pixel packed Bayer formats. */
-+#define MMAL_ENCODING_BAYER_SBGGR14P   MMAL_FOURCC('p', 'B', 'E', 'E')
-+#define MMAL_ENCODING_BAYER_SGBRG14P   MMAL_FOURCC('p', 'G', 'E', 'E')
-+#define MMAL_ENCODING_BAYER_SGRBG14P   MMAL_FOURCC('p', 'g', 'E', 'E')
-+#define MMAL_ENCODING_BAYER_SRGGB14P   MMAL_FOURCC('p', 'R', 'E', 'E')
-+
-+/* 16 bit per pixel Bayer formats. */
-+#define MMAL_ENCODING_BAYER_SBGGR16    MMAL_FOURCC('B', 'G', '1', '6')
-+#define MMAL_ENCODING_BAYER_SGBRG16    MMAL_FOURCC('G', 'B', '1', '6')
-+#define MMAL_ENCODING_BAYER_SGRBG16    MMAL_FOURCC('G', 'R', '1', '6')
-+#define MMAL_ENCODING_BAYER_SRGGB16    MMAL_FOURCC('R', 'G', '1', '6')
-+
-+/* 10 bit per pixel unpacked (16bit) Bayer formats. */
-+#define MMAL_ENCODING_BAYER_SBGGR10    MMAL_FOURCC('B', 'G', '1', '0')
-+#define MMAL_ENCODING_BAYER_SGRBG10    MMAL_FOURCC('B', 'A', '1', '0')
-+#define MMAL_ENCODING_BAYER_SGBRG10    MMAL_FOURCC('G', 'B', '1', '0')
-+#define MMAL_ENCODING_BAYER_SRGGB10    MMAL_FOURCC('R', 'G', '1', '0')
-+
-+/* 12 bit per pixel unpacked (16bit) Bayer formats */
-+#define MMAL_ENCODING_BAYER_SBGGR12    MMAL_FOURCC('B', 'G', '1', '2')
-+#define MMAL_ENCODING_BAYER_SGRBG12    MMAL_FOURCC('B', 'A', '1', '2')
-+#define MMAL_ENCODING_BAYER_SGBRG12    MMAL_FOURCC('G', 'B', '1', '2')
-+#define MMAL_ENCODING_BAYER_SRGGB12    MMAL_FOURCC('R', 'G', '1', '2')
-+
-+/* 14 bit per pixel unpacked (16bit) Bayer formats */
-+#define MMAL_ENCODING_BAYER_SBGGR14    MMAL_FOURCC('B', 'G', '1', '4')
-+#define MMAL_ENCODING_BAYER_SGBRG14    MMAL_FOURCC('G', 'B', '1', '4')
-+#define MMAL_ENCODING_BAYER_SGRBG14    MMAL_FOURCC('G', 'R', '1', '4')
-+#define MMAL_ENCODING_BAYER_SRGGB14    MMAL_FOURCC('R', 'G', '1', '4')
-+
-+/* MIPI packed monochrome images */
-+#define MMAL_ENCODING_GREY    MMAL_FOURCC('G', 'R', 'E', 'Y')
-+#define MMAL_ENCODING_Y10P    MMAL_FOURCC('Y', '1', '0', 'P')
-+#define MMAL_ENCODING_Y12P    MMAL_FOURCC('Y', '1', '2', 'P')
-+#define MMAL_ENCODING_Y14P    MMAL_FOURCC('Y', '1', '4', 'P')
-+#define MMAL_ENCODING_Y16     MMAL_FOURCC('Y', '1', '6', ' ')
-+
-+/* Unpacked monochrome formats (16bit per sample, but only N LSBs used) */
-+#define MMAL_ENCODING_Y10     MMAL_FOURCC('Y', '1', '0', ' ')
-+#define MMAL_ENCODING_Y12     MMAL_FOURCC('Y', '1', '2', ' ')
-+#define MMAL_ENCODING_Y14     MMAL_FOURCC('Y', '1', '4', ' ')
-+
- /** An EGL image handle
-  */
- #define MMAL_ENCODING_EGL_IMAGE        MMAL_FOURCC('E', 'G', 'L', 'I')
+ extern const struct bus_type vchiq_bus_type;
+ 
+ struct vchiq_device *
 
 -- 
 2.56.0
