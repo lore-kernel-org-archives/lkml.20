@@ -1,70 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.12
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794497695;
-	b=Qj4C22alFQi79d513p1RW137M3uaf6xIYJ8tWKrYDVtTwqto63uTUImMVvXOUDTUWDs6
-	 qZeasjeAlVLpckR9s9Iw3QAN+wojgkPFxrfs2XXH/gLP4ZloxnLh7jaD2XMD6fqabuAIl
-	 Cv9uMlHU36q09dg5aZhupFeqQHF6SJu+wFau1dLo1yYwLsFqaXn2yYyP9a/QtWGEvX9W3
-	 YFIWN4tSQ4i2GmceaUGxoz16BSYHnhoHFPnhMIQEjIv5DEtI4etpmuirs+H9DXROyWpkA
-	 acfVfvB/yYnAdM1GNUnXrrJJmXD29EcLpSQZvAqrotMQwoGbzOVVWPUrbOdVQ5zpmcw==
+	t=1794497723;
+	b=iyVCQJgo2FL0xXh6Rhsccws5xcRZd/40OA55XeuK/V11qqEnkAUWlo0b83YPy2fTWqLu
+	 /3n/bmFmZTGhqiAL8/MsDvULrvxxC0NIYjSCQaRdlAM1oGgYh2KapRPB6VgO+SfnEGDi1
+	 qfgrhsxl5iH4LaOWVSLy5xZROFYqj7lclbZvssntfZkdl2Uo/GRHbSSBSkRv+0MX+pcyh
+	 mTOnUO/vCGV9s5EtorjsfPfqh+6FPiykYplQ4IZEzIolQgw6PW2w9wIl3rWTs7bEw6Vtr
+	 3HdelA5+LABkzSFNNwHrponKaWjGSh2B+xQ3WqTpxC6otd8uIiAafloKM8POJuW9Q1Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794497695;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=JRagoxBDJAa5Q1wRFKByojnXq0h1AFaHVwsm+1tOWgU=;
-	b=1eViURfWpVljY4M7z7HJdjIpnDBxypiaNAmlYSDsDsjG2nn/XSIcSYtQNSubw2BddPDk
-	 hH5Cgc0KQ0uLN7uRcHtMqK7JKhxA6PfU8dyVbgEi5C8zqPwHlqXR7/GUeBK8NSVpu9vxH
-	 6jYGS1R2q2FdKrggbX1e3ESS12tAm8NMEN4btsXxlPEBy4ovrWTxxiw6djyu14GDKg4XD
-	 9Ljx1CIAgQ17UteLi5T1ol2btPBgnUYpiYsfrBaB9tdvZeH1R7qHvxYCPz5Q4cwzSZQJz
-	 mj0SMLgURwkOvSMW1RGaTmC8EdAfXbAMLg6Hd/QAyxOCyBZtWJLUz2nnNx5uwO1ppJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794497723;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type;
+	bh=WjpgXx6NEvfU1QpeJ8K6NIoACTTNQ40ei6HG54E25G4=;
+	b=l4VzCf0G4Go2o41nxKrRqyQJF6UH1WMHg/P3bjppSUxXNh4XJRxx/mFy0booYG3ML9sc
+	 IMJt0CfmSxCBdOrLBAJqGWM4L3q1rC1oFh9aOHJHI7HU04BMR+3N+l8P1Hsq1mFxRvpls
+	 +jT1aAMQ1+v3SkuvA4x708qynDQ5xNkd9tdYMnPvejfEOL1vB4r2rWMLo+yLuNT42BCXH
+	 dF5+iSrfZipb5tcEgRAmVsmcgCXPjvswdjXCinRvI/xFyqnHnMn6HVFR4eTlE7OsyNM4y
+	 rfaXWJYS4Crc7R9uJamtxk9pV4O+Buja95L4qBG0guXdffYFMKhF9NB1ERZuH0mSgwQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=JxX9nc3F;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.12
-Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=dXXu9RMD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C14606A8AD;
-	Thu, 12 Nov 2026 15:34:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5C14606A8AD
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 718D6606A880;
+	Thu, 12 Nov 2026 15:35:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 718D6606A880
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=JxX9nc3F
-ARC-Seal: i=1; a=rsa-sha256; t=1794497676; cv=none; 
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=dXXu9RMD
+ARC-Seal: i=1; a=rsa-sha256; t=1794497650; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=CZdytktonm5eT3qUQpKVdePHZ78/3rk21ik9/Ys3ImiGTeNM7yhs/Vd0oTuzZA8qoC9I4EgN2UgORtNTd64EKBePn5wZ+I8NEkozwqIVK6zKjt8XBxZzXxEWo6P62qFZWvEyQklQt5W58t+QJoFYMZq5hkbcEOdr6p6KUuu92lg=
+	b=Kq9864SPyKvjjMeRkdipd1E35RQlhbP0ilf6aRZxwioSOZqJRi4hUgIpli49TkACpJs+Y+kjV6OsGiZxnOZqzJermko4nVXap6/lqVSYHa2aNJw6g0Y3tpGksvDE4DkMYnrAfxunpoEEzUVTaolJTZO8gQJBTUMKJoi57CBjCzw=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794497676; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=JRagoxBDJAa5Q1wRFKByojnXq0h1AFaHVwsm+1tOWgU=; 
-	b=BlkpEqRiyTfHPbrjdHsE1bSL5eEaJfSqQ72R5KoSrL439EwrZICcT2X5PUseafHW+lHN7L06nmBzygWRFMNRcVwpV2gknBR8Q9CPEbI12cLBAZf+eiQV7CLhptOOE6KPJzUDF3XnNLX8PXKDvSE39Dn7dzB2Ns4OfZCKjs5iu4g=
+	t=1794497650; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=WjpgXx6NEvfU1QpeJ8K6NIoACTTNQ40ei6HG54E25G4=; 
+	b=jL5Z6j3nO2eolGSsRFZwEnO/838+wTgReS9TqAHhUAFdXOgBTW7XKnEbORC6W1mUieN9qv06Pt5BNh7oW24fhayZSLAz6BGrt7LWsS2M6thyaMb9UjUhFZjVOa2fynYf6xhhtGDtD9Bz/wduku52/5YHoX1lJDB+kQ5uqvbN8og=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=JxX9nc3Fqx6Bys5vXStyOvxUTmJkEeXl05X9gSHdVOvBEtRuJJLI+ZOO3CMnEFxJrkHcyFI2cztCXC3BamEr64/uBe/3baQi7OILgA5LFurCV0rkoSa+zb+kd4ppu3+SV20uSK3VxS9K3V153dtBu3muZ1HSyjhMstxR6Jq8jvk=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=JRagoxBDJAa5Q1wRFKByojnXq0h1AFaHVwsm+1tOWgU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794497675183343.2615853487197;
-	Thu, 12 Nov 2026 07:34:35 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id B986B180BC0; Thu, 12 Nov 2026 16:34:30 +0100 (CET)
-Date: Thu, 12 Nov 2026 16:34:30 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Carlo Caione <ccaione@baylibre.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Brian Norris <computersforpeace@gmail.com>, 
-	Maxime Coquelin <maxime.coquelin@st.com>, 
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Michael Turquette <mturquette@linaro.org>, Stephen Boyd <sboyd@codeaurora.org>, 
-	David Laight <david.laight.linux@gmail.com>, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Jerome Brunet <jbrunet@baylibre.com>
-Subject: Re: [PATCH v2 1/3] clk: divider: Fix the divisor for rates above
- 4.29 GHz
-Message-ID: <avXcTO17vMLnmaJZ@venus>
-References: <20261112-upstream-clk-divider-large-rates-v2-0-18f3bb888b0c@baylibre.com>
- <20261112-upstream-clk-divider-large-rates-v2-1-18f3bb888b0c@baylibre.com>
+	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=dXXu9RMDE0xezo6kZ18H2VSiccbq6FlBnZmCo/DcR2ZMbbhHVHrljwAtBAOFm859uXeyyFX/pUyOZhP/wCxZjlKTahs83Fb6HxhROSkyXKsfHvpVpiRwl+92SWmr9RTRScyeK+9IbHmEctP9m3I0//4XQtkGXz38uRPAqK1914E=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=WjpgXx6NEvfU1QpeJ8K6NIoACTTNQ40ei6HG54E25G4=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794497647702543.2304470024969;
+	Thu, 12 Nov 2026 07:34:07 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Vidith Madhu <vmadhu@nvidia.com>
+Cc: Xaver Hugl <xaver.hugl@gmail.com>,
+ "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ Leo Li <sunpeng.li@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Daniel Stone <daniels@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andyshrk@163.com>,
+ Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ wayland-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2 09/27] drm: Add VRR target frame rate properties
+Date: Thu, 12 Nov 2026 16:33:58 +0100
+Message-ID: <6MnpleYQQheiUMA8VObDVg@collabora.com>
+In-Reply-To: <812a813c-05cf-190d-6006-b8f63764beb7@nvidia.com>
+References:
+ <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
+ <20261105-vrr-limiter-uapi-v2-9-55f4215be2c2@collabora.com>
+ <812a813c-05cf-190d-6006-b8f63764beb7@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,122 +86,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="iwqnrilbg3gxhv3t"
-Content-Disposition: inline
-In-Reply-To: <20261112-upstream-clk-divider-large-rates-v2-1-18f3bb888b0c@baylibre.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.473.96
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+
+On Thursday, 12 November 2026 06:24:50 Central European Standard Time Vidith Madhu wrote:
+> 
+> On Thu, 5 Nov 2026, Nicolas Frattaroli wrote:
+> 
+> > Userspace may wish to set a target frame rate for the Variable Refresh
+> > Rate mechanism. There are multiple possible ways such a target could be
+> > communicated.
+> > 
+> > It's desirable for userspace to not only set a fixed target, but a
+> > target range within which VRR may operate. This is because even if a
+> > sink advertises a certain range as supported, said range may not be the
+> > ideal range to use, as numbers on the extreme end of the range may
+> > induce flickering or other glitches.
+> > 
+> > There's four choices to how one bracketing value for the target range
+> > could be communicated:
+> > 1. Target frame rate in something like millihertz
+> > 2. Target frame period in something like usecs
+> > 3. Target vtotal value
+> > 4. Target frame rate as a fraction expressed by two integers
+> > 
+> > Choice 1 is unpleasant as it would introduce some amount of rounding to
+> > common broadcast framerates like 24/1.001, which seems minor except that
+> > exact matches to standard framerates would rely on making all userspace
+> > and kernel agree on a specific method of rounding. This is sure to go
+> > wrong, so is disqualified.
+> > 
+> > Choice 2 has the same problem as 1, with the added complication that
+> > the EDID's VRR range is expressed in frames per second, and other HDMI
+> > features express things in frames per second as well, which would
+> > require possibly imprecise computations.
+> > 
+> > Choice 3 is disqualified as mechanisms other than VRR, such as FVA, may
+> > also modify the vtotal value. Additionally, it has the same drawbacks of
+> > choice 2 and 1.
+> > 
+> > Choice 4 is therefore what's implemented. The frame rate 24/1.001Hz, for
+> > example, is expressed as nominator=24000 and denominator=1001. As there
+> > is both a minimum and a maximum, there are 4 properties in total: two
+> > numerators, and two denominators. A fixed rate with no variability is
+> > expressed by setting the minimum fractional and the maximum fractional
+> > properties to the same value.
+> > 
+> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > ---
+> >  drivers/gpu/drm/drm_atomic.c      | 14 ++++++++++++
+> >  drivers/gpu/drm/drm_atomic_uapi.c | 24 ++++++++++++++++++++
+> >  drivers/gpu/drm/drm_connector.c   | 48 +++++++++++++++++++++++++++++++++++++++
+> >  drivers/gpu/drm/drm_crtc.c        | 34 +++++++++++++++++++++++++++
+> >  drivers/gpu/drm/drm_mode_config.c | 20 ++++++++++++++++
+> >  include/drm/drm_crtc.h            |  6 +++++
+> >  include/drm/drm_mode_config.h     | 45 ++++++++++++++++++++++++++++++++++++
+> >  7 files changed, 191 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> > index 9bb761eda59f..da5c6925c349 100644
+> > --- a/drivers/gpu/drm/drm_atomic.c
+> > +++ b/drivers/gpu/drm/drm_atomic.c
+> > @@ -489,6 +489,7 @@ EXPORT_SYMBOL(drm_atomic_get_crtc_state);
+> >  static int drm_atomic_crtc_check(const struct drm_crtc_state *old_crtc_state,
+> >  				 const struct drm_crtc_state *new_crtc_state)
+> >  {
+> > +	const struct drm_crtc_vrr_state *vrr = &new_crtc_state->vrr_state;
+> >  	struct drm_crtc *crtc = new_crtc_state->crtc;
+> >  
+> >  	/* NOTE: we explicitly don't enforce constraints such as primary
+> > @@ -544,6 +545,19 @@ static int drm_atomic_crtc_check(const struct drm_crtc_state *old_crtc_state,
+> >  		return -EINVAL;
+> >  	}
+> >  
+> > +	/*
+> > +	 * Reject VRR limiter ranges that only specify one end of the limit, or
+> I think specifying just one end of the limit should still be a valid case, 
+> the client may want to use the default bound on one side implied by the 
+> base timings/min. refresh rate and constrain the other.
+
+That is what the RFC did, but unfortunately this leads to problems for
+the kernel and non-obvious behaviour for userspace. Specifically, userspace
+may set what is a fixed rate without intending to do so, and the kernel needs
+to do a chicken-and-egg dance to determine whether something could be a fixed
+rate to see if CinemaVRR lowering the minimum rate applies at which point it
+may no longer be a fixed rate.
+
+The new display-min/max properties are so that userspace knows what limits the
+kernel is using (so that it factors in quirks applied outside of what's in the
+EDID) and get to essentially specify one end that way.
+
+> 
+> > +	 * specify a numerator > 0 with a denominator that is 0.
+> > +	 */
+> > +	if ((!vrr->vrr_min_n || !vrr->vrr_min_d ||
+> > +	     !vrr->vrr_max_n || !vrr->vrr_max_d) &&
+> > +	    (vrr->vrr_min_n > 0 || vrr->vrr_max_n > 0)) {
+> > +		drm_dbg_atomic(crtc->dev,
+> > +			       "[CRTC:%d:%s] incomplete VRR limiter range\n",
+> > +			       crtc->base.id, crtc->name);
+> > +		return -EINVAL;
+> > +	}
+> > +
+> >  	return 0;
+> >  }
+> >  
+>> [snip]
 
 
---iwqnrilbg3gxhv3t
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 1/3] clk: divider: Fix the divisor for rates above
- 4.29 GHz
-MIME-Version: 1.0
 
-Hi,
 
-On Thu, Nov 12, 2026 at 10:36:59AM +0100, Carlo Caione wrote:
-> DIV_ROUND_UP_ULL() takes a 32-bit divisor, so on 64-bit platforms a
-> requested rate above 4.29 GHz is truncated. A divider fed by a 5.94 GHz
-> PLL then computes a divisor of 7, not 1, for 5.94 GHz.
->=20
-> Round up with (parent_rate - 1) / rate + 1 instead, building on an
-> earlier fix by Sebastian Reichel. It divides by the full rate and does
-> not overflow with clk_round_rate(clk, ULONG_MAX).
->=20
-> Fixes: 9556f9dad8f5 ("clk: divider: handle integer overflow when dividing=
- large clock rates")
-> Suggested-by: Jerome Brunet <jbrunet@baylibre.com>
-> Suggested-by: David Laight <david.laight.linux@gmail.com>
-> Signed-off-by: Carlo Caione <ccaione@baylibre.com>
-> ---
-
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-Greetings,
-
--- Sebastian
-
->  drivers/clk/clk-divider.c | 16 +++++++++++++---
->  1 file changed, 13 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/clk/clk-divider.c b/drivers/clk/clk-divider.c
-> index f68216c65d3d..c3f46f9ee451 100644
-> --- a/drivers/clk/clk-divider.c
-> +++ b/drivers/clk/clk-divider.c
-> @@ -223,11 +223,21 @@ static int _round_down_table(const struct clk_div_t=
-able *table, int div)
->  	return down;
->  }
-> =20
-> +/*
-> + * DIV_ROUND_UP() without the addition, which overflows for rates close =
-to
-> + * ULONG_MAX, as with clk_round_rate(clk, ULONG_MAX)
-> + */
-> +static unsigned long _get_div_round_up(unsigned long parent_rate,
-> +				       unsigned long rate)
-> +{
-> +	return parent_rate ? (parent_rate - 1) / rate + 1 : 0;
-> +}
-> +
->  static int _div_round_up(const struct clk_div_table *table,
->  			 unsigned long parent_rate, unsigned long rate,
->  			 unsigned long flags)
->  {
-> -	int div =3D DIV_ROUND_UP_ULL((u64)parent_rate, rate);
-> +	int div =3D _get_div_round_up(parent_rate, rate);
-> =20
->  	if (flags & CLK_DIVIDER_POWER_OF_TWO)
->  		div =3D __roundup_pow_of_two(div);
-> @@ -244,7 +254,7 @@ static int _div_round_closest(const struct clk_div_ta=
-ble *table,
->  	int up, down;
->  	unsigned long up_rate, down_rate;
-> =20
-> -	up =3D DIV_ROUND_UP_ULL((u64)parent_rate, rate);
-> +	up =3D _get_div_round_up(parent_rate, rate);
->  	down =3D parent_rate / rate;
-> =20
->  	if (flags & CLK_DIVIDER_POWER_OF_TWO) {
-> @@ -423,7 +433,7 @@ int divider_get_val(unsigned long rate, unsigned long=
- parent_rate,
->  {
->  	unsigned int div, value;
-> =20
-> -	div =3D DIV_ROUND_UP_ULL((u64)parent_rate, rate);
-> +	div =3D _get_div_round_up(parent_rate, rate);
-> =20
->  	if (!_is_valid_div(table, div, flags))
->  		return -EINVAL;
->=20
-> --=20
-> 2.56.0
->=20
-
---iwqnrilbg3gxhv3t
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmr13IMACgkQ2O7X88g7
-+pp12w/+Jtgek0qMQ0a6JHmqzow6wkNT4+GjgGGKbd5CRBkx/uT1G8llmBdQ0GsT
-89CBohhtcExHdubCspJD2ZFR3SidaGzOe1EElFfG5iSUTVIL9ptpY1HZfQtlkTL8
-Q13lT2sr62yPExDHZVAYkxTsEKKVxycxcFSn+GrDPwzJaPqLqrM8GvvvJmorK8hE
-v413+HPtFVZIi2OH98diCDcDiymZO8XdkxVOYT579at1P6EJNdnRoixPsp4MIiDZ
-mbsHC/w+4xfbtpTgI8uZ5DoyAQV/K+P1vmrYyHCWEXOE9kjk1msJbLmI1hAzwoLG
-xFl/NdclkfhwzHbFrSXyEPwYMfy5HezV32n2RBMciiSekTW3ga0Yri/p5MnX+XAv
-LtmsoPIin7OrixZ59uRKsTDwE8gatqe4PfwlQBVykYkVbvptJ5rOQY5jqffxM3IS
-9DpwMDixCZ78U34lppQURQhnqrX8KqLzpT6T8HZo6JUrRkncp1z/j06Tk3M3GjBj
-uB1nhksHWIjS/7vGg0XhXTL2DfKWFsiGKj1mZ7tserSbN1Td2wG4Phga4xfJlbno
-m4ARK5XTM1nYbvt7zHD+Icjci5qV3VS/qAFSDUlPHbMSNiQnHuRW4otd49S9Faul
-tUHTTHMWi9Y28C28gdvfWd45ORUp6h936emA/VQl2IZw8YZfDGg=
-=KjnP
------END PGP SIGNATURE-----
-
---iwqnrilbg3gxhv3t--
