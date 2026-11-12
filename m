@@ -1,80 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794504479;
-	b=H5YAx5Xy1hGMmdyxseVd+VuqcgJb+b0IxQdleWZNBnpLK5JZ061ZnnyiLARCARTrQW3R
-	 HFFfJfe5UsYyUcN3D/rQydigh4ufk1nNUU1OaEMJmTWkpVLflwe5/jtHGEAHor9Gs5h3S
-	 BJgpLVo9qYfkef99yja+mC3RV94uEUKzFkDYyjb0u8QmhApqX27PyMf7wOwOeOcdAb0si
-	 O7jDRm2dlhr/K4gUTDW5WSHbr3Jdy0Z8Dm82NT1PUg4ye9KN5Kmeuc8V4OTFRqDVY8673
-	 pcQX+0wDoQnn4jr5efbtPYAlloWIMZBOmgobUq3t/DEXkipmKUSTpDXKtsGUExblybw==
+	t=1794504617;
+	b=x0RqSZvxR429EdFSOg7PQ/7PwEOqzjI2O90jILRD/BHK4+eOCUjPx8HPUYAL1b69m0rl
+	 0FZfLacFpSlVi3BSsB1O9d2vXxUmqnNj+35NFOf2ag4QgeAVuDBewNLHzQPIIMrYBHYmN
+	 FZEbg9zFEjJek/U9iunCjGdd/GwB8tuTeLtnBVVFq3GyUh4VxxsO+CqU+b8T9FW06I2Qu
+	 4kh8V7czOjuVvnVJW9YnjOmwzQz1OBEJRSwU6kol6yFbEJhz5yDWhw2d07kKQXNZJm7nc
+	 2YiRMaC6aeCyvFvcjw/mY+1xRwtTtds8YSzT6A4A7aHAfulPxI8o69EJf4e+qCLtIoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504479;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=msn9KDZfrO0QD3fBAuONrovFFP9yIYwzBUbwG0cCJrM=;
-	b=EqmEWhQC2vtQfcoeFh2K61GWoByaGMpiFMf0iQD79B4nHvRSzi9BgYuCZBj7+tqbl5fW
-	 P0Fz0jg1pq2Vn67E7askJD0KJBPgd4+guGlhD0/pBaYUZU+wkL8b1i0lfBMlZAORZApD+
-	 lvg8cD5SJQrIS+q5mMnlSUGSfqg751Qsi1mWvzJaMWGlgm5odQXBSyQJmotw3jodDzhbr
-	 RFzIcQw8okFHL6KlCmc9OHsuEvz3Yd7kRig4GrAS5nJhFqYSf9x3VK7gf2QF8C8DMO79+
-	 bmdHBORWJx/M1nhPPiwleB7m0fTVsZfm5599nmvWtbRGJPVb6nvNpdWwsK9tU9zLWfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794504617;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Developer-Signature:X-Developer-Key:
+	 Autocrypt:OpenPGP;
+	bh=6wFp5qFLHUM2+68nb6g0NSA+0TAXpbuD8jgV4OUdK5M=;
+	b=ZbIGy6Zh0irGMdw9qAkVKwky9Ki2884Xsu90F47RtP4DoNyM8ROV6/zh2UFH7Vvl6Ibd
+	 UWxaNvlXgU8cPwWGLbaevfdHKOA+8MI0eb1NUYdNwb+YYMpF8tOVJHQJpfKTmdMUqKyO7
+	 F42pH+fKk2S8ALxjJoaCnH2rVjYTf1g7LI95TBV2Q+yEe2JXUZRcDj+4dHbgAJAt4SZLA
+	 53NnqkKMdLmhmuMxg/tghB4cgB3x+nf9UZu/KY6QpdJZhJRQsFqkt0yPuV44DOTnFTd/H
+	 HSubHAvQmtW+WZistB6R3yXIQ6tDf2rud8w7ZF/Rl6659F4Hm4VFALIoD8tMqDMmTFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=dhQ9O0UA;
-	arc=none smtp.remote-ip=95.215.58.174
-Received: from mta1.migadu.com (out-174.mta1.migadu.com [95.215.58.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=posteo.de;
+	spf=pass smtp.mailfrom=posteo.de;
+	dkim=pass header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=mFl1xDE1;
+	arc=none smtp.remote-ip=185.67.36.66
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C03860A3806
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:27:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C03860A3806
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF5F606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:30:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECF5F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=dhQ9O0UA
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=TST9E/y57Nvizr+gsVIQqWA7f/dSY+xcgKykPeBhINA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794504477; v=1; x=1795109277;
- b=dhQ9O0UA/LoXKwaZ7sg5/cB7iMo78P8TY2vVOGJRIuobKH2i9ruTJ348pos8X4Pw/3NyYE7S
- PGcbfakAsJDa+zRl7zIGyZkfBPoAfdfrHa4uNwdjASDz5wq6xt8reb2bU8p6m3R2h+pv4MGcT7u
- vs54oxgsVRhHPPhJ/fJDFXtY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3ebabef697ff486c;
-	Thu, 12 Nov 2026 17:27:57 +0000
-X-Mizu-Trace-ID: 3ebabef697ff486c
-X-Migadu-Flow: FLOW_OUT
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Amery Hung <ameryhung@gmail.com>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Meta kernel team <kernel-team@meta.com>,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf-next 1/3] bpf, cgroup: Don't read freed effective arrays in BPF_PROG_QUERY
-Date: Thu, 12 Nov 2026 09:27:13 -0800
-Message-ID: <20261112172721.440275-2-shakeel.butt@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112172721.440275-1-shakeel.butt@linux.dev>
-References: <20261112172721.440275-1-shakeel.butt@linux.dev>
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=mFl1xDE1
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id 337B3240104
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:30:08 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+	s=1984.8680eb; t=1794504608;
+	bh=6wFp5qFLHUM2+68nb6g0NSA+0TAXpbuD8jgV4OUdK5M=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:To:Cc:Autocrypt:OpenPGP:From;
+	b=mFl1xDE1M+gwgS87AwiPXlCha3uvFRVugKXM7a0Hbx2kAahtNW0LHxJM/FSEh2HA+
+	 rllU405tE5N6Uc2273uNuHO0a1c1lbP1EOrWC6xr7fgQ+9NM4v1/1Rw0Oy07956a/3
+	 2BlLHJL/tDirFZDXEp95mTEKfvoLDkjQBLiJo4Nz3MtsiaAWQgTp296ke6endf9hwY
+	 JL4wNHjs0QwV+02V+1/tp2lY3AjwAvkSwi3439n5YpRxBk5yjbjGoQDVXD0U+Q+WXa
+	 8AbS8ZTNOhiVitk2nHNLn7lV6Ajb7g1K1jIv3XZkHJYE70o5TFJGPjeL2xMyqv/b7y
+	 3CSKhFcTv118A==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4jQS7v05Hdz9rxG;
+	Thu, 12 Nov 2026 18:30:02 +0100 (CET)
+From: Markus Probst <markus.probst@posteo.de>
+Subject: [PATCH v6 0/4] rust: serdev: Refactor
+Date: Thu, 12 Nov 2026 17:30:06 +0000
+Message-Id: <20261112-rust_serdev_probe_refactor-v6-0-3568ed56264c@posteo.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,50 +64,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33PTW7DIBAF4KtYrEsEw5+TVe9RVRaGSUOlBAdsq
+ 1Xkuxc7UWV54eUTM988HiRjCpjJqXqQhGPIId5K0G8VcRd7+0IafMkEGGh2ZIqmIfdNWfI4Nl2
+ KLTYJz9b1MVGG0DIphZLWkAJ05SX8LPjH5zPnof1G18/iayLhfShX++cYaW1G6uL1GvpTNZqDp
+ MkBmbcvIZcjv0vTkS/Dr1J6r9TIKaP66LxFxoxE997F3GM8eFzYEVYUsF0KCiVFWyvFNZyV31J
+ iRYl9ShTK81ajMVwoZFtK/lOc8f0PyrmVrgUgE9Ios6XUigLYpVShLBhfa7CSK7umpmn6A4YKL
+ UwuAgAA
+X-Change-ID: 20260905-rust_serdev_probe_refactor-0e2b044354a7
+To: Ayush Singh <ayush@beagleboard.org>, Johan Hovold <johan@kernel.org>, 
+ Alex Elder <elder@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Eric Biggers <ebiggers@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, 
+ Jiri Slaby <jirislaby@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: greybus-dev@lists.linaro.org, linux-serial@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ driver-core@lists.linux.dev, Markus Probst <markus.probst@posteo.de>, 
+ Sashiko Bot <sashiko-bot@kernel.org>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2248;
+ i=markus.probst@posteo.de; h=from:subject:message-id;
+ bh=vw1vKdaf1SB4/j8bNrbbMO84LBnBSbEoKu2zaxTSlNg=;
+ b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBq9feZUyrSQR5mzDJNNiVXo+VAPyNQF7Z/BufBl
+ 2sTWgu5oSeJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCavX3mRsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9I/QxAAkmJz1os+EYkD/Qh2zyZj1yEhhEi5rmd
+ RkU1dy9LWdqN7VYuwG55vudAzn8LglEqgNrHcozwBsgIZfjbmN8sWdGUZCtDyIWzAmsbNyE9olh
+ i+Q8rhUUyfHT1+f0Cmh99RTUYorQl1SuRdDnwiaiUJwuf6iy6EvHk29Yic08zjKPJtj9cYLwS7e
+ ZufT2mQ3ESZpdQYZnxY9lierCMF8ErajIakBBX8SahSM38CQqyUR4u96XWPQEpXAJ20FqMAtDMx
+ 1kfptONw38dWF7kYNqHcXLHhZSFL1ssuQx7Tkdr8Zp5uLtkvRrCZ0ZwttmDzfHYjeWJaL2n9/Si
+ lNQYxWEbtoY5w5K9lQxgKzk3d/uQiZziKaOTeRAaCp+t5KRsXMZdFbTFrdz1wTmUoWHbbc37ZvI
+ Mxq2bNO3ZSPR3sl7OFGF8++fPGdHOHv7Cp7xlnSAWJ5xvCZNP5XpkRuwbzth0Vh1ZQz8MTlp6kG
+ 8HzpZl8ukSxeqWJ5Fgg1CGlwKgJ58T9CP0LYnpWjLZzuEPUbt7k+aMWDSMfEI6lRV1huD5C3wub
+ K7iauQ2viSH6FiPYyYfWcqUxgNDWKrkPG2nBqPogmsNy6eVKtB0Xv4DSAirjy0WMRzTL+Dk3a/U
+ p7N4ls1mSVfX0sIsBcLIZHJved5RE7lxry+rXdAbyWKgE+OhThDQ=
+X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
+ fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+  keydata=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
+  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-BPF_PROG_QUERY gets the cgroup from an fd before it takes cgroup_mutex.
-If the cgroup is removed in between and its bpf refcount drops to zero,
-cgroup_bpf_release() can run first.  It frees the effective arrays but
-leaves the pointers, so a BPF_F_QUERY_EFFECTIVE query then reads freed
-memory.
+The following has been changed:
+- introduce mutex to C serdev tty port controller
+- introduce a new C serdev API to fix race conditions and simplify rust
+  code. Should also be useful on the C side.
+- fix race conditions
+- simplify rust code
 
-The window is small because the release work also takes cgroup_mutex.
-
-Check under the lock that the bpf refcount isn't zero, and return
--ENOENT if it is, the error the fd lookup gives for a removed cgroup.
-The release work only runs after the count hits zero, and it takes the
-same lock.
-
-Reproduced in a VM with a debug-only delay between the fd lookup and the
-lock: KASAN reports a use-after-free in cgroup_bpf_prog_query().  With
-this patch, the query returns -ENOENT.
-
-Fixes: 4bfc0bb2c60e ("bpf: decouple the lifetime of cgroup_bpf from cgroup itself")
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+Signed-off-by: Markus Probst <markus.probst@posteo.de>
 ---
- kernel/bpf/cgroup.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Changes in v6:
+- fix issues reported by Sashiko:
+  - fix compile error on 3. patch
+- rebase onto v7.4-rc2
+- use dev_WARN instead of WARN_ON (WARN intentionally kept)
+- Link to v5: https://patch.msgid.link/20261022-rust_serdev_probe_refactor-v5-0-a27d862a415a@posteo.de
 
-diff --git a/kernel/bpf/cgroup.c b/kernel/bpf/cgroup.c
-index 57a785241d42..9258c2669fa8 100644
---- a/kernel/bpf/cgroup.c
-+++ b/kernel/bpf/cgroup.c
-@@ -1446,6 +1446,14 @@ static int __cgroup_bpf_query(struct cgroup *cgrp, const union bpf_attr *attr,
- 	if (effective_query && prog_attach_flags)
- 		return -EINVAL;
- 
-+	/*
-+	 * cgroup_bpf_release() frees the effective arrays once the bpf
-+	 * refcount is zero.  It takes this lock too, so a nonzero count means
-+	 * the arrays are still valid.
-+	 */
-+	if (percpu_ref_is_zero(&cgrp->bpf.refcnt))
-+		return -ENOENT;
-+
- 	if (type == BPF_STRUCT_OPS) {
- 		u32 type_id = attr->query.type_id;
- 
--- 
-2.53.0-Meta
+Changes in v5:
+- fix issues reported by Sashiko:
+  - fix access to serport->tty outside of locked mutex
+- only lock receive_lock in ttyport_open for set_bit
+- Link to v4: https://patch.msgid.link/20261016-rust_serdev_probe_refactor-v4-0-46832e034757@posteo.de
+
+Changes in v4:
+- fix issues reported by Sashiko:
+  - add receive_lock to prevent deadlocks
+- Link to v3: https://patch.msgid.link/20260930-rust_serdev_probe_refactor-v3-0-d1b6e77135e0@posteo.de
+
+Changes in v3:
+- add mutex
+- Link to v2: https://patch.msgid.link/20260920-rust_serdev_probe_refactor-v2-0-43b855162f5d@posteo.de
+
+Changes in v2:
+- fix missing memory barriers in serdev apis
+- use `tty_buffer_restart_work` instead of `tty_flip_buffer_push`
+- use `tty_buffer_flush_work` instead of exclusively locking the mutex
+- add `#[inline]` to `PrivateData::driver_data`
+- remove patches for mutable references
+- Link to v1: https://patch.msgid.link/20260906-rust_serdev_probe_refactor-v1-0-69cdae0074ec@posteo.de
+
+---
+Markus Probst (4):
+      tty: serdev: Add mutex lock
+      tty: serdev: Export functions to pause receive_buf callback calls
+      rust: serdev: Replace `active` mutex with receive pause
+      rust: serdev: Simplify callbacks
+
+ drivers/tty/serdev/core.c           |  56 +++++++++++-
+ drivers/tty/serdev/serdev-ttyport.c |  80 +++++++++++++++--
+ include/linux/serdev.h              |   8 +-
+ rust/kernel/serdev.rs               | 167 ++++++++++++------------------------
+ 4 files changed, 186 insertions(+), 125 deletions(-)
+---
+base-commit: fd9230005e85472b81c1c7c16afe93dd878996b1
+change-id: 20260905-rust_serdev_probe_refactor-0e2b044354a7
 
