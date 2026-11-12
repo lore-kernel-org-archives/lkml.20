@@ -1,54 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794492864;
-	b=U1/HtHS3mYCrhvT/oQkAJRKqaXZ9LnMxsSW8DWC+/lIQADPOJLC7/5hPeWJkYpEQjCPk
-	 ewuLhpZ0CzcKTmbmZ7K7Tuzch+6iuWflVxYDRfjNfcUETHsfjXPJ1uC+FZPn9A1mFW8qu
-	 XiyqwuwamKNK0emVjfaDXz6vHIphgeZK41gFgNuqOzm8HJRr34B9HyunkFwt1XRuj+uBb
-	 VFWWW+wIPiSUjwBrTO6snLOCucu5iYxziS3LbdfiM1fk9JEGhNFyjsxIOIL94mxDb5r02
-	 3e/Ra2P2NpTwRsUD0GZawbHvv2N6xPO3ofz+qlVU38v/0JHS5Zdly2vxDUyTHnCo7kQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492864;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=b/4UOiXvF4Fr1l92XLmjcr1eg7nNlBSU5NS1Fo/IyFE=;
-	b=jEB2N0FbrehnvVqUPlLWwL2YeXhofrvALCuofJrmYTVLhKAfqbNzHZvqO6d56D/fl2p+
-	 x7d0W9/MWHLzn11QYPSNq/2DHApT2RyDu0dzNlsUpsrp4OrBQet459Z5d/rfI/hF2u5AJ
-	 qx/yXnSQ3tUQ7GjGMxzWFqe9QUQZjCGlNaSydD+tMnY/N4NXqfI9/8nFdMKgDmfgPHeKn
-	 sxcanTHhVNKYqsXSToHvqa4/mMJC4zp7wcQQ/zdVaRRYqZMcy7Z3GVY23uHxky9atRfHF
-	 leAfdRK2Nk755wxl9T9PyBpjno4Eqv/UFgfzDQ/giheynN6WCa0aAqNC84msA7daM7Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=NAA3skTk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.70
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794492891;
+	b=y0bJGI+PWsP31ATuxL4xBfmBBmgxfSrB/cYGV6eO39MpxM1caGAr/UU8wn2rc9G3WruC
+	 vWFEDsoc4ojvZFriUM3prdXHHIytVPOxXVeFTpc2gQLJCrrtn9e3ugjMsbs+XK+CoIzLW
+	 Qj3kRNmAggewxz+7RiQFD6odcsghFwwVrnoTXj2com7HmSyp2RSXQ/+xSGFOjW4vLSlL7
+	 9ds0fteBRrwnixUcFSxriBKeT0S9I6yt80KJZbSoJx62mKL9mqvAEEuSMdu6E1aOb64qa
+	 sP72I0lSGM8c2WgHIksfaFcPjE5qI8sciCDVu/oFZzeh8qIibqTXqsNA7NHhEDiMFEA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492891;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=nUse+twsJnxew4r6zwWfOwbMG43DUEVmCdyLipFzEcQ=;
+	b=mxRRNfk5pWNDFA+hO2SdFk2Oo3T9kX/tXSXMIVOIUxqPz4DrKV6j3qoOeYKb/5w7CeZr
+	 a9nlBVHctJL4dZLj9aAraN3MedSnU6sFW5aAira3RDBH9/eS/9Rhp8noJw+k4rXmpN777
+	 L9SU4Awz1KYjxQNXvQ8k8mXXb8BaHZtEsVE61awfwHc+Eql/YpaxXw563L1rvQHDX+z2K
+	 4LeJrtFLwAlvXxZInf9Q4C8QgxAivRMWIhSf/6sGjM3O6VJ2o+SE7JsEzLmyeI9iB+RRG
+	 sFVyiNJ3dlmwg2PNL37eh65u4S3YfLcAQG5H9TD5JhQuDg+7JwApghVlFlKjwlkEdnw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=a9hYkTs5;
+	arc=none smtp.remote-ip=209.85.221.70
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D92E9606A31C;
-	Thu, 12 Nov 2026 14:14:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D92E9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3563F606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:14:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3563F606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=NAA3skTk
-ARC-Seal: i=1; a=rsa-sha256; t=1794492841; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=LuyQY12bW/Z83IwfAOxYJxZ41E4wry34UxveT0D7p1+KeG7vuh/g3/Z4PL/QiweY1cAObHPOqdNN/ST9ovLVoulqLB6bQcsSTjpu6+AM2Ic610a4k2B4uTEqtRfchqN3tPwu9RVXJDXtLkU6M0IGvzogik9csYMt7ietj2/S8js=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794492841; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=b/4UOiXvF4Fr1l92XLmjcr1eg7nNlBSU5NS1Fo/IyFE=; 
-	b=Jh3Jwp/xcKr3QKgJDQDf4E73hZu+wtI6ebEk8TbtrWlJP3CZ3MCU6v+pPsoAksowh2AxTMeOVC88QvUJRBWyiUjmn39z10Wfj6SFAwyNTbQsd4y688beAE9MMxDrreNbjzLFt1UAHYle0tb/I2Nc2jHyyiRzD5tU14dDYcElZ2U=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=benjamin.gaignard@collabora.com;
-	dmarc=pass header.from=<benjamin.gaignard@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=NAA3skTkaOCGS4WxaR16OMOYO4CU8JVVcpLMtoI7vIovt4Dfwq56POyv8ssffi5G2sLrZk5OMqH5Z9I5dqeVZXLfMkODQj1dVWmhQg9vXsc96zy1cvmu6WHRHj/Gvwhr50LP6e9o0juz27pfKKS/2LPFjTjLzkGAov5QTWIWmCM=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=b/4UOiXvF4Fr1l92XLmjcr1eg7nNlBSU5NS1Fo/IyFE=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794492839836438.0202804362593;
-	Thu, 12 Nov 2026 06:13:59 -0800 (PST)
-Message-ID: <f212840b-92fd-4d97-a6a7-2768a55483f7@collabora.com>
-Date: Thu, 12 Nov 2026 15:13:54 +0100
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=a9hYkTs5
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-4915ba023d4so3126294f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:14:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794492889; x=1795097689; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nUse+twsJnxew4r6zwWfOwbMG43DUEVmCdyLipFzEcQ=;
+        b=a9hYkTs5Id401mmX/DwsMx1Ln1nZfkKQ2lK00AMAqT/GMbaGQ/Tn68UaHa2BSto9lB
+         Tuhuk02Nwo8hi7mFjFvNax64TTdXr6HJp+4RSZAuzLnuJIaBeISRu+wdkOapRKWuYnDI
+         4Ao8ZUPby2vVR+6Wr6sUr1nRaUkODWxKSPXUTctovN/8rOUI5+IA/qBRVpx9j+84TLj1
+         g5Bkx12dIWKDwEleXyHPSbX52zxdgb+l1Np5+RiN+Qra7h0j9rL5vTGQ/ODzTEOYuvMm
+         aU8kS7gv2O6Qx8pbdulb2Vft2f1Ye6hOJfAywqhWpzksTMBMhSQrDGnQp5u203MqUVS8
+         kd1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794492889; x=1795097689;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nUse+twsJnxew4r6zwWfOwbMG43DUEVmCdyLipFzEcQ=;
+        b=hQsDmOvHMYio5qI5M3L2ggCHmYu3eo7jArj7Ej5zua4AqLqTEooi4nyDpO89bf9GiD
+         uJKyIso628foKGEIgAY7NssGzs+q2mlaylM6FH7kMsBA+vx+tVXjH3Zm/tyzjKwTv/II
+         w8g9o3VoXxjU+O9S+KIMuPGKANLJiuTyhQXh6kuSPlLMY+osF7pLzKN12Zx77uZZ1VTr
+         xYFzn+YrZxmqefa7FCJ9WoEq1u0HTEqR/ZZ5uC1W3xY4/b/wq94ooSS7LVtaHj9s6hsr
+         F+sYsiRc5grYXF0kI5SYA1qcvxee+IvU5oQ4+BxhFhaYMdQV/epY1WPJuuWIJ20XonRN
+         svqA==
+X-Forwarded-Encrypted: i=1; AL+hErFjexGw9ogLF6+MXNMYxanRryX9ZNqt3fl5Y4mAs7qi83qkIRlM/M/QMXqe5N0X9rkWtzlEgOKqDzHKLwU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++LzNAqq0xk/FNX3lZcMQEZwXD/Iv4uj/4j74zbhxKz7un6+hF
+	mXHCT7FaIqPYoIxh4ZBlIwDz3F2REXhkIWQ1lgowf1GnoxIyLtlQx97DGGb4jbzl2DIHSNCidM0
+	hluzjIhmX7lNo7DlCByMEgA==
+X-Received: from wrvc14.prod.google.com ([2002:a5d:528e:0:b0:48e:5d2f:1d09])
+ (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6000:4818:b0:48e:6f76:de9d with SMTP id ffacd0b85a97d-499c6f8c3c2mr9735852f8f.46.1794492889329;
+ Thu, 12 Nov 2026 06:14:49 -0800 (PST)
+Date: Thu, 12 Nov 2026 14:14:31 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,60 +75,52 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] media: verisilicon: Don't hold the VPU in reset
- after remove
-To: Philipp Zabel <p.zabel@pengutronix.de>, aiyengar1990@gmail.com,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Hans Verkuil <hverkuil@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>,
- Tharit Tangkijwanichakul <tharitt97@gmail.com>, stable@vger.kernel.org
-References: <20261112-hantro-robust-v2-0-18561fd48838@gmail.com>
- <20261112-hantro-robust-v2-2-18561fd48838@gmail.com>
- <c97eef1ba88daf83d231d2ecc78b47fcf524385c.camel@pengutronix.de>
-Content-Language: en-US
-From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-In-Reply-To: <c97eef1ba88daf83d231d2ecc78b47fcf524385c.camel@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
+Message-ID: <20261112141440.3050124-1-vdonnefort@google.com>
+Subject: [PATCH v1 0/9] ring-buffer: Enable Clang context analysis
+From: Vincent Donnefort <vdonnefort@google.com>
+To: rostedt@goodmis.org, mhiramat@kernel.org, 
+	linux-trace-kernel@vger.kernel.org
+Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
+Content-Type: text/plain; charset="UTF-8"
+
+trace_buffer::subbuf_order has caused several recent resize races from
+unguarded reads outside buffer->mutex. To prevent further regressions at
+build time, enable Clang context analysis for the ring buffer and guard
+subbuf_order with __guarded_by(&mutex).
+
+  - Patches 1-3: Fix cpumask/hotplug races around buffer->buffers and
+    trace_rb_cpu_prepare().
+  - Patch 4: Fix a trace_marker resize race.
+  - Patches 5-7: Remove subbuf_order reads from the write path.
+  - Patches 8-9: Enable context analysis on ring_buffer.o and annotate
+    subbuf_order with __guarded_by(&mutex).
+
+Note: Patch 5 conflicts with the series removing absolute timestamps
+[1], though both are independent on v7.4-rc1.
+
+[1] https://lore.kernel.org/20261105202814.1350312-1-vdonnefort@google.com/
+
+Vincent Donnefort (9):
+  ring-buffer: Always read buffer->buffers after testing the cpumask
+  ring-buffer: Drop cpus_read_lock() from ring_buffer_poll_remote()
+  ring-buffer: Hold buffer->mutex in trace_rb_cpu_prepare()
+  tracing: Cache ring_buffer_max_event_size() for trace_marker
+  ring-buffer: Validate event length against rb_page_capacity()
+  ring-buffer: Introduce rb_start_write() and rb_end_write()
+  ring-buffer: Avoid reading buffer::subbuf_order on the write path
+  ring-buffer: Enable context analysis
+  ring-buffer: Annotate subbuf_order with __guarded_by(&mutex)
+
+ kernel/trace/Makefile      |   2 +
+ kernel/trace/ring_buffer.c | 350 ++++++++++++++++++++-----------------
+ kernel/trace/trace.c       |   9 +-
+ 3 files changed, 193 insertions(+), 168 deletions(-)
 
 
-Le 12/11/2026 à 11:19, Philipp Zabel a écrit :
-> On Do, 2026-11-12 at 08:30 +0000, Arun Iyengar via B4 Relay wrote:
->> From: Arun Iyengar <aiyengar1990@gmail.com>
->>
->> On the RK3588, the resets of the AV1 decoder include the AXI and APB
->> bus interface resets (SRST_A_AV1_BIU, SRST_P_AV1_BIU), which also cover
->> the Verisilicon IOMMU of the decoder. When the driver is unbound, the
->> driver core runtime resumes the device and, through the runtime PM
->> device link, its IOMMU. hantro_remove() then asserts the resets, and
->> when the IOMMU autosuspends 100 ms later, vsi_iommu_suspend() writes to
->> its registers while they are held in reset, which raises an SError and
->> panics the system:
-> If vsi-iommu accesses require these bus interface resets to be
-> deasserted at certain points, why doesn't it request its own reset
-> controls?
->
-> Depending on implicit assumptions like another driver not asserting its
-> exclusively controlled resets seems fragile.
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.56.0.567.gdb80ae8cd5-goog
 
-There is a side note on IOMMU doc saying that once the IOMMU has been
-enabled it can't be disabled for security reasons.
-That means that writing 0 on VSI_MMU_AHB_CONTROL_BASE register in vsi_iommu_disable()
-could raise an SError so I would suggest to remove this line from IOMMU driver.
-
-Regards,
-Benjamin
-
->
-> regards
-> Philipp
