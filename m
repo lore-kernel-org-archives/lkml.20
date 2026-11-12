@@ -1,101 +1,134 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.7
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794456306;
-	b=MGpa84KH8vSTg9UBTmznCmrNx1l6unm+Pfft8eqrOkZsvQ7kEf89M1s9IVqPzJz9xGqb
-	 4H7nsn5G8suUwLgNqAZuhN8obkWMx6w/jcmTX2ypWgZiSBWdAB4lEm6LrOVDIUNVqxzm9
-	 GHMmluYA56/oymgzsv0ssVtZUOqud55dZjW9sgvqt174bdLCySz0R1tTN4l61eyonlR4D
-	 2VeOtOzDEoS640vXCZTR8UG0QULoTv91GyFy8vLq2H7pHMRGNp16GjISTovJE8R8VTKB2
-	 Ho4+Ju1gTwpmoVV3s+/scJvJGNm7nAIa0AJ102mUKzUHqC47L9SQPPzlkBhJqLmi5AQ==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.19
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794456359;
+	b=WBBfMV0X+NZKyzMiQH/vSqzGhNtFNshCR+XLN5B9Mhxk2G1ZlvQvDGorEnZcKdFfzC3K
+	 0LntVXIWmXySfD9HCbvlkxdWCpqWBJW4BlVultj5RiFfJj01iQ6n97VUsdMLl0yewPLme
+	 VBH1RD25I7VCeq00kr7IFTlsKE9DPWjxVd9xtyhqO9mfIZgYeGTDXuQLOoJ1C/lxdUWZG
+	 hT4Zpr49XRw7iRe7O28Xr7lCRDISHaAsbjUAe+J+yAcuDJ6cQchuNS9kzevkb2D8PG8q/
+	 3r3nXEfw3+uyEIrTAxN3llsYu4z/y6gfySEbO+mKd623MuTaC2G1OjmBUJQvMjEWg8Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794456306;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 CC:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794456359;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=VOG909xrB5nI6JfJ6FHZ8iy3mqrneiDcQ4SeUiHtY4I=;
-	b=INy86ICLDsKWDLXA6Rc/ya/OUHAJ26bxxrYWvkaSpkUsdtec77meBBf58QhbwtBX1e+L
-	 14DUylzP8OOEK3mQfFMTKZfwQdJJ5c2yhYXC2BvGgthOUNDCywdz2ZmCfK29PtC+XkaRo
-	 j+z6YBakiAiKyWcmA1MSyu7czhKy46MHrY0AO4Falt3Xk90wPVWvYYuWmOLXVO9kCHC6r
-	 rNtU32dxDvDxOpFhtc/0eTMddyhyhIxYYOf1BByjIfLeQYTR1NI7vWNKUOltcmm2yynjz
-	 LW3/gHtJfrRNakP1SRIEKI6OTU5KjaofJwN8n5uEApiEcRrAKI7WXoH50KWPJN6uvFw==
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=Dk4f7yqyCsI2cCGcSHNmkOtz9qqm5qPQTgUdsT+CWzs=;
+	b=HJzZZTL42Xu7egYMuz4mkJcvlVnQGpk+iPloVufdNQmWXUzk4t1iD9zt2K2OCp2ORf00
+	 AXKU/DUkPYsMkFyTF+51ur9wP1fEr/x0jbVNl5NhYpp2/3K1ryz3n8LTc0tpCxMcKBp4r
+	 52htQWYUSM/pCbvWjcz8AnoVOvsSJPeS23fmBw5VDUMf0lc+d9gaF9mMDHgnsKrgSQi5E
+	 1fRNphrlElYdh7N2h/1DxmkrTsVl/yIgzjKXteJVA00v+yvTSMbvI5Ug9fpQA0pm/D6Jm
+	 Vo9ocJNzItoDwL4KIUN5Qmj7Sv4d12mnDcCpryvlOYOLrTWJUIwK6SlKAJSmK5cCCVQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PWFGvZZA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.7
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013007.outbound.protection.outlook.com [40.107.201.7])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=biXfsrzC;
+	arc=fail smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCF00606A323;
-	Thu, 12 Nov 2026 04:05:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCF00606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B59606A32A;
+	Thu, 12 Nov 2026 04:05:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9B59606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PWFGvZZA
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=biXfsrzC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794456359; x=1825992359;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=yC2KF9A+9hoU6BoFmXo9IBx7KDWfc71LsCmph8Gl61A=;
+  b=biXfsrzCklx443euOXP6lKDUpRn7HKl/U8uR6n4TL/rPQ4An59YdQSvc
+   zurUzvWtMExOKK1BgGnZXXHZsWQsrMa+g1FCXNL5gKuB0iPZPumtN6WOi
+   neQmAq+RMMhj2WvBH0oWGnV8cp8toe4RqJJJstc9IjrpeMilgUZhMfE73
+   tMhVl8sLNAy5cSxDMKLK6RgWooNnPdb+Fv5tBZE2b0111RxJDJa2U80mm
+   JGUIg9jLQpNYPRSEm+LeIGYGnJo/kTh3QQN4hZ7de52pLVzYtLve5HrhR
+   AqT8jWj/SP5o320W46Oot/mnJf/vGGSjfA8xK/TiSyYFJv9JhTLL36grs
+   A==;
+X-CSE-ConnectionGUID: wDoDyevkTOyCILhJa+B7pA==
+X-CSE-MsgGUID: CJFHXwLTTuCt/aJkntMVAA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3327660"
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="3327660"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 20:05:59 -0800
+X-CSE-ConnectionGUID: k6VU/dh2Rrenvv6wnPB5Kw==
+X-CSE-MsgGUID: mYmWzRsSTmSA2bTFflbhMw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="8891837"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 20:05:58 -0800
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 11 Nov 2026 20:05:57 -0800
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Wed, 11 Nov 2026 20:05:57 -0800
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.64) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 11 Nov 2026 20:05:56 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BxYZpINhiS0P6N01IDx7POg9EG7TNWi1oYmQIeoV2eseX1L0oMW0YpGexTpP+TxhcEB1pbQ+qHZ6utF8py/0SzfvW02vY09x3GsMxwrwTOr0+h8cp+RGfB5LHX4qX27vymkrABk7kASQ6IqHTtwsSgW4nflESPSI8FZ7sBy2leKhEYn4rbUYFSFpvev/sU/eINfuHf9l9t+GM6klAtQdXPCOjxiuH41zwAobXHqZmI+Ay/boZsplc73sNOhENKk4YR/NkkXB+K0DeITWKLKyyKLMziW7KirE5MyBTIg4BjOdgTT0oMmF2aSovz34Fl1j3TX0Pr0+ERG+DB9zHQJgYg==
+ b=yWnJq0NWFtcVylsG1EJ2pOAIorQ6173pAPnX7rfD3WYKuTXRkxtNAWObywUEsfgVYl7mEpYF3DEsBAxQp5fiPeIWNUToAf+2tE22i6L5RxIcUjcrj7Gm8NQMAlQW9/FXeMi5wBWhxEhhiiQf9ox/we4pVmLTw4og3a8Ti/ew109ZLm4DbFmu/b8VK2BvWv8Qfb9jYJPvTT21LfuRFQcCxNmM3Y6RokFib7bnkicJEhzIt1hL0loagqgFjaQsZypIq1NcF2lUEib6brExugMpObKwoNkok1h+ofRoIK5se2UA4C97NXe3lMKGEyhrvkD2Y7UMT8whZxaAANP3F6zKhQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VOG909xrB5nI6JfJ6FHZ8iy3mqrneiDcQ4SeUiHtY4I=;
- b=FvppzOAhARs9F+Q4j7oRvnGGfHgsHpvbqKoDAxnOXL6vmtyEfmaMAigl+EFHqDGiLBQijVIre9b7bMKMd8CX7QRAq/pHsMG7di+W5ghWlIPsqtTwlXVifB4fVWouEZoFa8OOUV15GzyoG9gYAlmZKwarKpe2Vkw3va+j8k9xAPIeTY3zrht23qYCH8XoSWR8x+44nGIggnrioQjwyFB4us+Ce2iyGzlTHQm6Tvs/lvwC7v8tZ/8xBU6TOkz7Ze1B4e7+DGdfYtrQN6lHRzfOZFXCWGUkgr3rrp8kp9OfUOW4xse53bloo9yNZEKdJK+KRecVk+UQ4+BhUf31zagbBg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gourry.net smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VOG909xrB5nI6JfJ6FHZ8iy3mqrneiDcQ4SeUiHtY4I=;
- b=PWFGvZZA/JTUrITohb/IPbNo3ZMrgkDN7tku7CKbauwSQAlIZAZoV1PE1E3KuWL7kvLlMA4YICsZxX19tVxR9+wh4R3p1jPAhi/p63WfupoRK353PINC8K5bIYdukHpyR+61uHS9F7+ZlLO1zkU/cvtj2CAR5c8TiGecVKNYgJ4=
-Received: from MW4PR04CA0293.namprd04.prod.outlook.com (2603:10b6:303:89::28)
- by PH8PR12MB7375.namprd12.prod.outlook.com (2603:10b6:510:215::12) with
+ bh=Dk4f7yqyCsI2cCGcSHNmkOtz9qqm5qPQTgUdsT+CWzs=;
+ b=anLHnKP6FEXN2bkXWIEsHuFM2LFir8y2ZMBDxbp7GVTEQGBWOn5DvUxNDtwRfY4aDho8u6+wL+4+1QOjbh22d+ZrdjY2bA5ZpVM8ObVLqWXVlEozyp1/PuG4rbj6rgOI8Ef3oRpCcwTgNmErY72vm61iOUIomzEHIo+Z3DItQEfqol1FALzYT7SCplhiWxXFf+7ERlBOMFmnXIS39mX48iBCZpJV/1w5BEdgjMVvopucnRSZK0+RNpSOrxr5sHzMNMtGM+fgB2yCYd2K1LE03g4NU5h2sS2Ag556rACYDLTBf5IT5SB91abMAS7nHqJowjbp59FPy2dKaSTOpGB8bA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA0PR11MB8380.namprd11.prod.outlook.com (2603:10b6:208:485::21)
+ by CH3PR11MB343702.namprd11.prod.outlook.com (2603:10b6:610:366::23) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
- 2026 04:04:53 +0000
-Received: from SJ1PEPF000026C5.namprd04.prod.outlook.com
- (2603:10b6:303:89:cafe::63) by MW4PR04CA0293.outlook.office365.com
- (2603:10b6:303:89::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
- Nov 2026 04:04:53 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000026C5.mail.protection.outlook.com (10.167.244.102) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 04:04:53 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 11 Nov
- 2026 22:04:49 -0600
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 11 Nov
- 2026 22:04:48 -0600
-Received: from [192.168.0.152] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Wed, 11 Nov 2026 22:04:37 -0600
-Message-ID: <81841052-e524-4263-b09d-9cf823ed9728@amd.com>
-Date: Thu, 12 Nov 2026 09:34:36 +0530
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
+ 2026 04:05:49 +0000
+Received: from IA0PR11MB8380.namprd11.prod.outlook.com
+ ([fe80::ea8e:eec4:f8d3:f95d]) by IA0PR11MB8380.namprd11.prod.outlook.com
+ ([fe80::ea8e:eec4:f8d3:f95d%5]) with mapi id 15.21.0615.008; Thu, 12 Nov 2026
+ 04:05:49 +0000
+Date: Thu, 12 Nov 2026 12:05:35 +0800
+From: Chao Gao <chao.gao@intel.com>
+To: Xu Yilun <yilun.xu@linux.intel.com>
+CC: <linux-kernel@vger.kernel.org>, <linux-coco@lists.linux.dev>,
+	<kvm@vger.kernel.org>, <yilun.xu@intel.com>, <arjan.van.de.ven@intel.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, "Borislav
+ Petkov" <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+	<x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau
+	<kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>
+Subject: Re: [RFC PATCH v2 1/2] x86/virt/seamldr: Support large TDX module
+ binaries
+Message-ID: <avU7Dz3IFylm7Tae@intel.com>
+References: <20261106132159.1551365-1-chao.gao@intel.com>
+ <20261106132159.1551365-2-chao.gao@intel.com>
+ <avShYPmuMItx/tsJ@yilunxu-OptiPlex-7050>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <avShYPmuMItx/tsJ@yilunxu-OptiPlex-7050>
+X-ClientProxiedBy: SI2PR01CA0053.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:193::7) To IA0PR11MB8380.namprd11.prod.outlook.com
+ (2603:10b6:208:485::21)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,235 +138,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/7] mm: allow shared folios to be promoted to a fast
- tier
-To: "Gregory Price (Meta)" <gourry@gourry.net>, <linux-mm@kvack.org>
-CC: <linux-kernel@vger.kernel.org>, <kernel-team@meta.com>,
-	<akpm@linux-foundation.org>, <david@kernel.org>, <ljs@kernel.org>,
-	<liam@infradead.org>, <vbabka@kernel.org>, <rppt@kernel.org>,
-	<surenb@google.com>, <mhocko@suse.com>, <peterz@infradead.org>,
-	<juri.lelli@redhat.com>, <vincent.guittot@linaro.org>,
-	<dietmar.eggemann@arm.com>, <rostedt@goodmis.org>, <bsegall@google.com>,
-	<mgorman@techsingularity.net>, <mingo@kernel.org>, <vschneid@redhat.com>,
-	<kprateek.nayak@amd.com>, <ziy@nvidia.com>, <baolin.wang@linux.alibaba.com>,
-	<nico.pache@linux.dev>, <ryan.roberts@arm.com>, <dev.jain@arm.com>,
-	<baohua@kernel.org>, <lance.yang@linux.dev>, <usama.arif@linux.dev>,
-	<kas@kernel.org>, <joshua.hahnjy@gmail.com>, <rakie.kim@sk.com>,
-	<ying.huang@linux.alibaba.com>, <matthew.brost@intel.com>,
-	<byungchul@sk.com>, <apopple@nvidia.com>, <jannh@google.com>,
-	<pfalcato@suse.de>, <hannes@cmpxchg.org>, <osalvador@suse.de>,
-	<raghavendra.kt@amd.com>, <stable@vger.kernel.org>
-References: <20261110150446.2452975-1-gourry@gourry.net>
- <20261110150446.2452975-3-gourry@gourry.net>
-Content-Language: en-US
-From: Bharata B Rao <bharata@amd.com>
-In-Reply-To: <20261110150446.2452975-3-gourry@gourry.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C5:EE_|PH8PR12MB7375:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2c6889a3-869d-49ec-e088-08df40721aee
+X-MS-TrafficTypeDiagnostic: IA0PR11MB8380:EE_|CH3PR11MB343702:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5c2b6d8a-8f19-48ab-4c98-08df40723c4d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|7416014|376014|23010399003|82310400026|11063799006|4143699003|56012099006|22082099003|18002099003|6133799003|10067099003|261009223027099003|3023799007|261026140227099003|261022075727099003|261022105027099003|261021123027099003|261021121427099003|261102123227099003|261028144727099003|261026121527099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	qP/yDsPS6rnC3yMbaBhJ3tZI5qIdP/jGpRNPktQvfCt3sGlPnppV+b478rptSXcqAolPw+kfGhHXWqA3nIKINqFo+vMqtuTOTXvEqBCLZ9kbi1QLDmMRiqb758YaK2OctTQUAzhbeFGRc5Y9MVnJoNJHa2oB5tL59ahfP0RnPeShaji1LxEIN7ccC1nXL3xlClkMXGwFJ3kiryw6QimDS9jmIQMTmEbCQM1RSSBZ594HGcD6pQpBLkqiiC1dd0DCVlGqxluETwc+pUS9o5QgxcP5nmkCmXqmglOsGNkvoIpHQziwjOaKa6TKygPF91a1nuk8PiCexsHGaNOzDJwmdRLemkhOmWUVUY+Q/TPhWRSW7J+CPqmPPQK3eVPkitUvx6TVK/Au4+KkZsra7C1/5UJBTpauBle294K+ygyV77K3TNeQ18J7AoaiuJRksUPuO2hOaJIDXRr0vX1Vd40oYSPIG26P1AfU3t8h0f0JmxFEfnHlOfdJlTDwiV4QNolNpR0B+iifiziKGI1sQtWzJUGoEIr/u87h7rKAPUPkFRGSHbbj3aYRcKwEe11v1aBS0K1pMf2QRCqITPolE768WyH/24UzmfzVreHxCCfFtDzEUWY/OfidDHFHqUm/jM+NkFJNLiiYpmDOT0vUHSpFVpVLWkNKRNGnMfYdLnfDFWs=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(7416014)(376014)(23010399003)(82310400026)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003)(6133799003)(10067099003)(261009223027099003)(3023799007)(261026140227099003)(261022075727099003)(261022105027099003)(261021123027099003)(261021121427099003)(261102123227099003)(261028144727099003)(261026121527099003)(13003099007);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|22082099003|18002099003|261009223027099003|4143699003|11063799006|56012099006|261028144727099003|261102123227099003|261026121527099003|261026140227099003|261022105027099003|261022075727099003|261021121427099003|10067099003;
+X-Microsoft-Antispam-Message-Info: HDoaYJM3546i9esjlSEHI0lvO9ZJr4QZkoXQz+Ewv9UKCGWKoNBbE75MxR8WWUuT6BkwSc9fp1lKE+jNmVuLEQi6/t9j7oLcSPved1mxF0qmDdkR1i3DtrSJ070rcQzuWrOY2uIpBI8+N1bb1vxx8DYLGEqSzBdknFKuaB0CxT3PPO1pskqByW0yOD7Ec3GdJNErmJrsTGpkSY3kooeXUipxkj+1nJVEikQCGY18IsRVs0cY4dRgvJVLKHfnoC0bXXpjfYiek8Gi8PjxKb5I226JFWarIQU+Sv6+qHWWY8ygpOVd3Wkiy/j/LiW/awoH8ETQNy44egPnEWimPdzOl8oioSUfEMtuyfEHo9QxEVSNo3exgQsTQmuiu35zOhyVZuzJFYElfy8H/MRbpDmqVki2OY8zx7nDk3XDMsZyWtxflOWQWkGDS6Sr+lPwzQW5Vp7+j5vRu3gNmpu2YyRL3mm63ryOAfHhMRvXhmJdBDDv83OOzK8RL7vjMiAq3ynI0ChwthfNVIRO9QqCSoto88jJHakvBGGAIRfbSg2w2Nyvbno2e+3QsYgBAR7yN84frw6fZ7fS0fktAcjfCNVfrcBabvwexWa382EGFBphPCcTITCO6V9xMGyBwdnzxiZ+F+jetWmGS806wpkXyKTA0rjoc4ZZlIIWi//YkiDGyCc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB8380.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(22082099003)(18002099003)(261009223027099003)(4143699003)(11063799006)(56012099006)(261028144727099003)(261102123227099003)(261026121527099003)(261026140227099003)(261022105027099003)(261022075727099003)(261021121427099003)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	du1QzS+6PGyEcUPBEmAw0XRqa5f/XVaB96b3YyAuJUnIrcgZGVHfzYGLaPVYwUsMiPiK5N2ZQVeCd+GUAoey/9yX23AY3zkHd8ohwljrJN4nvg5G65HNshliVq8qiaZ9C+75dlyseosH1JBePiSsoPUbqfAnyoCubohzBJWAG4ZBbL8kOATjdinI9YK5Dnv3Hd8M3wWIAGubPh3D8eiQZqiIzsRh38FlD1UfJrSRaBpQRyTrqWhkQWTx+pb7KgdmjxqwEBNPunWTPiK8cUWS80/iL33CV1PJZ2TBdPA9zM4ECnrBwUL6Azg0rsCps0HJRNVUdMjpXCvRsZkaJyXCQVrsCbZnxRpBHffwyp4xzAksntCrmXSoV35bTV6Pfpy1nn1XPWEt23artFbaATs4Cv2syIbf6YHjJlIhmeaSR/NCEEqi6s7S+xjpp0IEo+nC
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 04:04:53.1193
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?roA4XuCIbb//8rfZE4mDgb+9LYVWccYQCET2ysw6GcbLAsN7ud7nXirjQbe3?=
+ =?us-ascii?Q?H7NboAP6q7yPzfTE2aa3Os9ivn+G1MuLiQSx0nknaK6sxQrhkGai9VTnqfmc?=
+ =?us-ascii?Q?BlH3mP6xhDuxNyHoqiej+l1FP+X7xYivYgWrGSk8mGAdo81N1L2RLgCAR1ZT?=
+ =?us-ascii?Q?3kd6tYAy63qwm5jdj+mFrE4zs1bf0h04AJZ6wc2ZXANdVj2KHlFTA/E8tGeE?=
+ =?us-ascii?Q?Klf78zPBDQQVHkloZjekYs24jlBohamyTwvNvLILFcM3K9Q4jnjXhUMf4AlU?=
+ =?us-ascii?Q?62h9PN2j0UvRrhc9ofQddDGuEkjrjGsT/veUaA5cgX2CQejM5zA3Hty74Qvs?=
+ =?us-ascii?Q?S8c5tIkuPrQjq1J1N6qXfrgeGOormjYWF0dGg6ELwXuyIqhD7MTuvMWYAGsO?=
+ =?us-ascii?Q?3QBH3SrhH0rn1jsQndrjuwE0QQCQjaTsfbzIhhik5PlpczeTWM85jjDF20qV?=
+ =?us-ascii?Q?Ddau+VEEIXVbm38GfqNYkoPlwyWsq14aKXtdR3Afv37gvDFHr4txxSeNrQX2?=
+ =?us-ascii?Q?cduT/oBIR7ZoOu4Nixnhds+/pwWadGOr+cvuhmfIr4yX01J5OpISF2FyQdGu?=
+ =?us-ascii?Q?lOW+yRSrlxmNtVmlYSJouw4QQuKMpJO2rfytSPfmWmc0njGrqGT8PMfhULkp?=
+ =?us-ascii?Q?J+0MXHH3vaa4zNHZyMlL41BggxpsPDDP7QTLmJkXmOhDzeDAHnIQqptjHkRp?=
+ =?us-ascii?Q?ly93c6slL9vyHvYT2Q4UlqtcwgCfu3x2Fu+xIJbBvzh8D7+sh05VcwIXzLZJ?=
+ =?us-ascii?Q?1QT54P/qqjZAblCnnikQ3tfYJmB02q4t8pUmkjXrf+iuSeTjbtUfbcvXMxGh?=
+ =?us-ascii?Q?qjr4p/H8Zh9rGHwefF5IGplsPtRnSgpv7huADBAFFKvK9kOzC/QYbx8t5qWQ?=
+ =?us-ascii?Q?vlJ42xzmZnJEtERiCpjdA8U2bwd4zTGBEtB6HVd4CswiyMMqTCYwCY3zRGPM?=
+ =?us-ascii?Q?SD5QXqZLI5G9IYbtIDsuUtlClT889En2l76wC8sTSCEuTMBbF3CTOmpXLAzD?=
+ =?us-ascii?Q?3XMq1m7zp2uErgjjTDeOdI+0piXlNIOricso7eNCJhXI1ENNiwNZR8aKQzwz?=
+ =?us-ascii?Q?x/TrY+0mAYee8vaiWifc/GO9mx77p0vlWAkT8Sl8o8zeIV1gMGrJcctOdmsI?=
+ =?us-ascii?Q?Jr2mVJXkCDj8uMC1K3tRSSudWlMLGNgIrARguk3/sgq36OWSQgzBUVWIarQC?=
+ =?us-ascii?Q?iDyxwjDIr1pT3Uyv/eFgUe28AiXA6/UFKgAX14XKmicq/u/oGdlc2b22DlTO?=
+ =?us-ascii?Q?9nkfqvthckUnUctaSQQmf39+LmKQEk9dCVKUeONAy8gyAcF5ilZlINAHcNah?=
+ =?us-ascii?Q?TnFjE5AszKyvWFURP7Tf406V9r9WqMQ9iwK8P5E3N9MMSWV1Ooh3WiFMNOy/?=
+ =?us-ascii?Q?gi99OwCDrKyorLv9vym7bPppT+oLtYDdfh1nG9PDDT48fMSiwsrGQoqnBuqK?=
+ =?us-ascii?Q?vEEDwKv8Zr3bG/7iTN2ZU8gv8yB6XijSIGUekkF3XKC2P+ImmrgocxWUEfy9?=
+ =?us-ascii?Q?kfUxme6l1W47Clp+0WKskHhqol2fv22No5Fl27MqwjkYKokQlicZr1JY0K50?=
+ =?us-ascii?Q?BNl8zAQCFkSVBfD0Z02kFJUcF8OESLNO57J0tEfsYM96oTyYVq5MhnsTJQJZ?=
+ =?us-ascii?Q?sCxlWx+olnxJwpCcPh2KfKH57l1hK2347bg5v7ya/mOzzcLpaQLwHnUQq7dN?=
+ =?us-ascii?Q?urgO2sbIABf3PTueHnyFwIdYOdGx5ajKD8pLpDNoSgWpmjZ+rUWJCKwus8+S?=
+ =?us-ascii?Q?mjmrg/zfcQ=3D=3D?=
+X-Exchange-RoutingPolicyChecked: CxQOve/QDoBAZZbSSfR2xaEGnBninLbMvM+fky3hAE0rqCpgE7nb8WG0R9su8VX/7amkOkXFd8BbPd2A4Jou7boVn7cYmE7ZOijgtnLq1SXq4df8aYlvZ621c9Pqtkvy2sspYs7AfBa4Rqd+OUOkn252L9R5DsojUXKAM60piFjyOLOQMsQhR7ZFFIwZAsgLMsl17HLMf2/4jGf2xEV8xUHxB3FKQHm1YdsGHpL7p9eyIlqFacADWkU2mIOQlNe66w+q064UD7rPAvafZIaMCOV6C/jIIPZ5ylHYnBbl8QdTvTFHHEnHFTl9u3oztzcULHR6zmLaToBDwiQjp0UYmw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c2b6d8a-8f19-48ab-4c98-08df40723c4d
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB8380.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 04:05:49.5566
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c6889a3-869d-49ec-e088-08df40721aee
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000026C5.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7375
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MV2+p2rMc9jltxSuX0PooqaaoFWTQjBBWIkSrHiJEvttUTE2cQ9dj+juSANfX1k/3bFYU+01oiyp5A1BUKiZiw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB343702
+X-OriginatorOrg: intel.com
 
-On 10-Nov-26 8:34 PM, Gregory Price (Meta) wrote:
-> NUMA balancing rejects shared copy-on-write folios and executable
-> file folios mapped by multiple processes to avoid east-west
-> migration bouncing. These checks break promotion from slow memory.
-> 
-> Allow such folios to participate when the folio being migrated is
-> a low-tier folio and the destination is top-tier (south->north).
-> This allows promotion, but prevents east-west or north->south
-> migrations (north->south is handled by reclaim demotion).
-> 
-> Keep the existing restrictions for ordinary placement and for
-> migrations that are not slow-to-top-tier promotions.
-> 
-> Rename folio_use_access_time() to folio_numab_promotable() so the name
-> captures the combined memory-tiering and source-tier test. The helper
-> retains its existing behavior.
-> 
-> Fixes: c574bbe91703 ("NUMA balancing: optimize page placement for memory tiering system")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Zi Yan <ziy@nvidia.com>
-> Link: https://lore.kernel.org/r/DLHS4KFPQ86I.1J4LN3352RI71@nvidia.com
-> Assisted-by: LLM
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-> ---
->  include/linux/mm.h  |  5 +++--
->  kernel/sched/fair.c |  2 +-
->  mm/memory-tiers.c   |  9 ++++++---
->  mm/memory.c         |  2 +-
->  mm/mempolicy.c      | 11 ++++++++---
->  mm/migrate.c        | 13 +++++++++----
->  6 files changed, 28 insertions(+), 14 deletions(-)
-> 
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 40de653041f92..55817dea7307f 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -2647,7 +2647,7 @@ static inline void vma_set_access_pid_bit(struct vm_area_struct *vma)
->  	}
->  }
->  
-> -bool folio_use_access_time(struct folio *folio);
-> +bool folio_numab_promotable(struct folio *folio);
->  #else /* !CONFIG_NUMA_BALANCING */
->  static inline int folio_xchg_last_cpupid(struct folio *folio, int cpupid)
->  {
-> @@ -2701,7 +2701,8 @@ static inline bool cpupid_match_pid(struct task_struct *task, int cpupid)
->  static inline void vma_set_access_pid_bit(struct vm_area_struct *vma)
->  {
->  }
-> -static inline bool folio_use_access_time(struct folio *folio)
-> +
-> +static inline bool folio_numab_promotable(struct folio *folio)
->  {
->  	return false;
->  }
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 5d3d7b61d0257..e353d3d3012ea 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -2877,7 +2877,7 @@ bool should_numa_migrate_memory(struct task_struct *p, struct folio *folio,
->  	 * The pages in slow memory node should be migrated according
->  	 * to hot/cold instead of private/shared.
->  	 */
-> -	if (folio_use_access_time(folio)) {
-> +	if (folio_numab_promotable(folio)) {
->  		struct pglist_data *pgdat;
->  		unsigned long rate_limit;
->  		unsigned int latency, th, def_th;
-> diff --git a/mm/memory-tiers.c b/mm/memory-tiers.c
-> index 7fc56a8c66518..0df54dc556f19 100644
-> --- a/mm/memory-tiers.c
-> +++ b/mm/memory-tiers.c
-> @@ -53,16 +53,19 @@ static const struct bus_type memory_tier_subsys = {
->  
->  #ifdef CONFIG_NUMA_BALANCING
->  /**
-> - * folio_use_access_time - check if a folio reuses cpupid for page access time
-> + * folio_numab_promotable - check if NUMA balancing can promote a folio
->   * @folio: folio to check
->   *
->   * folio's _last_cpupid field is repurposed by memory tiering. In memory
->   * tiering mode, cpupid of slow memory folio (not toptier memory) is used to
->   * record page access time.
->   *
-> - * Return: the folio _last_cpupid is used to record page access time
-> + * If memory tiering is disabled, then lowtier has no appreciable meaning,
-> + * so we return false (the folio should not be migrated on this distinction).
-> + *
-> + * Return: true if memory tiering can promote the folio.
->   */
-> -bool folio_use_access_time(struct folio *folio)
-> +bool folio_numab_promotable(struct folio *folio)
->  {
->  	return (sysctl_numa_balancing_mode & NUMA_BALANCING_MEMORY_TIERING) &&
->  	       !node_is_toptier(folio_nid(folio));
-> diff --git a/mm/memory.c b/mm/memory.c
-> index d477a4f986bc8..e70885653475a 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -6262,7 +6262,7 @@ int numa_migrate_check(struct folio *folio, struct vm_fault *vmf,
->  	 * For memory tiering mode, cpupid of slow memory page is used
->  	 * to record page access time.  So use default value.
->  	 */
-> -	if (folio_use_access_time(folio))
-> +	if (folio_numab_promotable(folio))
->  		*last_cpupid = (-1 & LAST_CPUPID_MASK);
->  	else
->  		*last_cpupid = folio_last_cpupid(folio);
-> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-> index f0933e9b209c9..49cfeab501b4a 100644
-> --- a/mm/mempolicy.c
-> +++ b/mm/mempolicy.c
-> @@ -866,8 +866,13 @@ bool folio_can_map_prot_numa(struct folio *folio, struct vm_area_struct *vma,
->  	if (!folio || folio_is_zone_device(folio) || folio_test_ksm(folio))
->  		return false;
->  
-> -	/* Also skip shared copy-on-write folios */
-> -	if (vma_is_cow_mapping(vma) && folio_maybe_mapped_shared(folio))
-> +	/*
-> +	 * Shared copy-on-write folios are poor east-west placement candidates.
-> +	 * When tiering is enabled, folio_numab_promotable() identifies a
-> +	 * low-tier folio that needs a hint fault for promotion.
-> +	 */
-> +	if (vma_is_cow_mapping(vma) && folio_maybe_mapped_shared(folio) &&
-> +	    !folio_numab_promotable(folio))
->  		return false;
->  
->  	/* Folios are pinned and can't be migrated */
-> @@ -894,7 +899,7 @@ bool folio_can_map_prot_numa(struct folio *folio, struct vm_area_struct *vma,
->  	if (vma_is_single_threaded_private(vma) && nid == numa_node_id())
->  		return false;
->  
-> -	if (folio_use_access_time(folio))
-> +	if (folio_numab_promotable(folio))
->  		folio_xchg_access_time(folio, jiffies_to_msecs(jiffies));
->  
->  	return true;
-> diff --git a/mm/migrate.c b/mm/migrate.c
-> index 28a8d7734735b..50a0a2e11a353 100644
-> --- a/mm/migrate.c
-> +++ b/mm/migrate.c
-> @@ -2704,14 +2704,19 @@ int migrate_misplaced_folio_prepare(struct folio *folio,
->  
->  	if (folio_is_file_lru(folio)) {
->  		/*
-> -		 * Do not migrate file folios that are mapped in multiple
-> -		 * processes with execute permissions as they are probably
-> -		 * shared libraries.
-> +		 * Limit east-west migration of file folios mapped in
-> +		 * multiple processes with execute permissions as they
-> +		 * are probably shared libraries (limits bouncing).
-> +		 *
-> +		 * If this is a low-tier folio, only migrate if the target
-> +		 * node is toptier (this allows south->north migration while
-> +		 * disallowing east-west migration between slow tiers).
->  		 *
->  		 * See folio_maybe_mapped_shared() on possible imprecision
->  		 * when we cannot easily detect if a folio is shared.
->  		 */
-> -		if ((vma->vm_flags & VM_EXEC) && folio_maybe_mapped_shared(folio))
-> +		if ((vma->vm_flags & VM_EXEC) && folio_maybe_mapped_shared(folio) &&
-> +		    (!folio_numab_promotable(folio) || !node_is_toptier(node)))
->  			return -EACCES;
->  
->  		/*
+On Thu, Nov 12, 2026 at 01:09:52AM +0800, Xu Yilun wrote:
+>On Fri, Nov 06, 2026 at 05:21:55AM -0800, Chao Gao wrote:
+>> The module binary is handed to P-SEAMLDR as a list of page physical
+>> addresses in 'struct seamldr_params'. The list has 496 entries, which
+>
+>Is it better we specify why 496 entries?
+>
+>  The struct seamldr_params is contained in a 4KB page, the first 128
+>  bytes of the page are the metadata, the rests are the list of page
+>  phsical addresses for the module binary.
+
+...
+
+>
+>
+>> caps a module at 496 pages.
+>> 
+>> TDX modules are gaining features and are about to outgrow that limit.
+>> 
+>> The P-SEAMLDR ABI was extended to chain the list across 4KB pages. For
+>
+>With the knowledge of the first 4KB page, it is nature to say the ABI
+>extends the list to more 4KB pages.
+>
+>> a module over 495 pages, the last of the 496 entries points to another
+>> page of entries instead of to a module page. The last entry of that
+>
+>Maybe we don't have to emphasize the 495/496? The last entry of each
+>page points to the next page.
+
+I would rather drop 496 and 495 from these paragraphs. Readers do not
+need the exact limit here, since the code has the numbers. How about:
 
 
-I am carrying a patch in pghot patchset to base this shared folio check
-on @vma, in the async migration case where VMA won't be available to check the
-exec permission. The effect of that is to allow promotion of shared exec folios.
+The module binary is handed to P-SEAMLDR as a list of page physical
+addresses in 'struct seamldr_params'. The list must fit in a single 4KB
+page along with a few other fields, which caps a module at just under
+2MB.
 
-This patch achieves the same in more direct manner.
+TDX modules are gaining features and are about to outgrow that limit.
 
-Reviewed-by: Bharata B Rao <bharata@amd.com>
+The P-SEAMLDR ABI was extended to continue the list on more chained 4KB
+pages. The last u64 of each page holds the physical address of the next
+page in the chain.
 
-Regards,
-Bharata.
+>
+>> page can point to yet another page, and so on, until every module page
+>> is listed.
+>> 
+>
+>[...]
+>
+>> -#define SEAMLDR_MAX_NR_MODULE_PAGES	496
+>> +/*
+>> + * module_pages_pa_list[] spans multiple pages. The last entry of each
+>> + * page points to the next page and does not hold a module page, so the
+>> + * maximum number of module pages is the array size minus one entry per
+>> + * page.
+>> + *
+>> + * SEAMLDR_PARAMS_NR_PAGES is somewhat arbitrary. It allows modules of
+>> + * up to about 32MB. Increase it if modules outgrow that.
+>> + */
+>> +#define SEAMLDR_PARAMS_NR_PAGES		16
+>> +#define SEAMLDR_NR_MODULE_PA_ENTRIES	(496 + 512 * (SEAMLDR_PARAMS_NR_PAGES - 1))
+>
+>The number 496 is not meaningful when the seamldr_params is no longer
+>one page size. We need comments to explain how it is derivee. But instead
+>of text explanation, is it better:
+>
+>#define SEAMLDR_NR_MODULE_PA_ENTRIES	(SEAMLDR_PARAMS_NR_PAGES * 512 - 16)
 
+The 16 here would still need explaining. It would also be confusing,
+because the macro right below subtracts a different 16
+(SEAMLDR_PARAMS_NR_PAGES) to get SEAMLDR_MAX_NR_MODULE_PAGES.
+
+>
+>Or:
+>
+>#define SEAMLDR_NR_MODULE_PA_ENTRIES	\
+>	((SEAMLDR_PARAMS_NR_PAGES * PAGE_SIZE -	\
+>	  offsetof(struct seamldr_params, module_pages_pa_list)) / \
+>	 sizeof(u64))
+
+offsetof() does not work here. The macro sizes module_pages_pa_list[]
+inside 'struct seamldr_params', where the struct is still incomplete. The
+compiler reports:
+
+	error: invalid use of undefined type 'struct seamldr_params
+
+How about:
+
+/*
+ * module_pages_pa_list[] fills the rest of 'struct seamldr_params' after
+ * its first 128 bytes. The last entry of each page is reserved to point
+ * to the next page and cannot hold a module address. The last entry of
+ * the final page is never used.
+ */
+#define SEAMLDR_NR_MODULE_PA_ENTRIES	(((SEAMLDR_PARAMS_NR_PAGES * PAGE_SIZE - 128)) / sizeof(u64))
+#define SEAMLDR_MAX_NR_MODULE_PAGES	(SEAMLDR_NR_MODULE_PA_ENTRIES - SEAMLDR_PARAMS_NR_PAGES)
+
+>
+>> +#define SEAMLDR_MAX_NR_MODULE_PAGES	(SEAMLDR_NR_MODULE_PA_ENTRIES - SEAMLDR_PARAMS_NR_PAGES)
+>>  #define SEAMLDR_MAX_NR_SIG_PAGES	1
+>>  
+>>  /*
+>> @@ -48,10 +59,10 @@ struct seamldr_params {
+>>  	u64	sigstruct_pages_pa_list[SEAMLDR_MAX_NR_SIG_PAGES];
+>>  	u8	reserved[104];
+>>  	u64	module_nr_pages;
+>> -	u64	module_pages_pa_list[SEAMLDR_MAX_NR_MODULE_PAGES];
+>> +	u64	module_pages_pa_list[SEAMLDR_NR_MODULE_PA_ENTRIES];
+>>  } __packed;
+>>  
+>> -static_assert(sizeof(struct seamldr_params) == 4096);
+>> +static_assert(sizeof(struct seamldr_params) == SEAMLDR_PARAMS_NR_PAGES * PAGE_SIZE);
