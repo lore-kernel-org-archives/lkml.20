@@ -1,98 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.39
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794484645;
-	b=HSqFPjNC0M+yHv/WJX9+p2O/KQYcSTDWc9r1qsezs5U9v9cS9SkUILaLcxzpepYZ4Z4o
-	 wj0tdsUyvcNaADTqITRj85eqquAy2wA2qWgXVf1YYK8sXHO1/UrR64XJKXeGK6PEcDhfd
-	 bCLNilCbpVMFnMKpHfLUi5GP5UFbMollvg6uZXnLu/lRbOSMrZVf8um3C9lqbSz67yj1q
-	 OWi8O6MH/Wh0Il+8is7Znt9/o8Xb1AGc9gRqh0LiBOnhNFIfLnoZy6+Fq60fiuhfYH5Bl
-	 i7kwCs6PJ9J879p7jWRq9wch9VTEdas27yHY7CsKN9t9AbCrRRPvnBN/9AI5eTtrxwA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794484645;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=+t7gpxQKixYkz7O1p3CgJ0F7T8gKNm1kxpQi66OvOyk=;
-	b=3Dbv5oivGFV38+baZ7G+a9IAKEy69zv2SKvCqqjvk+WJ4Vdl/i3hu2b65aLdFPbqSMpC
-	 gFGk/7bbQlc4kmiEQtLvNffnGP27SBEuW/pKM1eg16jNFnLgGJ2UCDWMQz3ZG1bY51oEB
-	 WtQJJsHevManDU1xOii378B8K0JVCk8kKGmCTivuy3yHOehIIFO90zxMJhJlD2kWdeUj/
-	 XweC3Ag2GFCrxcT14YK0OEKUuuob8ekxbluc6yBZdoCPKTdD7/L9y814CCMWVExXRgWQJ
-	 LKi1gutCmybM6wuThl9GZLdaVrcrWVEcY2YdQzY6LwxBtVr6L8TpUmC+KnE8g7W4T3w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sMYEzeIv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.39
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010039.outbound.protection.outlook.com [52.101.201.39])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794484654;
+	b=x2d09An/95hQbwo08L0lYdeeqNIfg6w/uGKfneC7yNunA7VgNvdo2B/cFhYH2XqfQqAs
+	 85y7TDvhMX1PmIDZxe263XQkZgpMeUysHfZ1R15brtQUGYSwM+AbNWbqIik5lmSfFZflh
+	 q/4ZJpZyKP5W4x1n1x3C9uMBXMcqtfO8TF1mCHDbYZUhentshrwBegtQ9nrmHrhdDS6f8
+	 UYB6PmvMl9TX/DszVeR9phgMq5rtEixukHB4j4aSZgJOF9m+/Tx1FGKPQiPYQcAjeJ1vx
+	 vuCJ5s8xJfKfOvbM0VtwZflzOdttIYRcGlpklKcdNpEOgaE4cicTLd2NgNsmySd6CPg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794484654;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=WTVUgaKTlYixZEjxttBBJ2Zx7JpChm4sT+rOhLp29zY=;
+	b=ePDYcRq77tfTt1zhXzPcSLk7z0xBLnY15QN8C/m6GgRCR9jXH1KakBtiCcmR8ydsqNzO
+	 iFiHUxPGkXTEWfHs8D/bkY9sZXIyT0TM5nHXb+gbIkimsYpiAOoQufkQT16ZOYzLlYEHi
+	 AqcXID/9zitQj2dhEYcrlDrFPDy8DHWMiTOS3LTreGAslpH+g/xyVvfHCNQJT33TlwH9g
+	 TEN2GB75Olu6fKGfViFRlcymdwIELBe98dWqFmIXLupiKAbT3/xbFz3dTpxbl0TSTctrE
+	 Fr4+iscjrhyMqkGQiyKYT8nqZ5Z7NbAPI9CV/Iz4YjFHOfjrofl0reaXxYnlRBFt2Yg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="E8/oxoUs";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Bh7Xx15v;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 253F3606A31C;
-	Thu, 12 Nov 2026 11:57:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 253F3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94DD1606A32E
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:57:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94DD1606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sMYEzeIv
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yeSx2kgETzP7LOQwnX5FUdZ4brZxPnLQlbJfODiyUL95xwqQhWxTpCz/QxaNAoA+f56j82X+g1mcfRWcKFhO7Wwq3fOsUWKufqCaIek/qUUak4gX8hfusuEQ9BQlD4P6mu6VpUAc5Vp0QpqgotcPahCWNSkiYuxB0IoNwWi8jMi2LIs/Xv0VRgNftRiMuHJ56tN1qDsE1Wowj2aezTkRWsf2AEybO+cBix9mElJ1N7+RgxzsezA2MjghjrI/VdD6BXFU0W+YZYp3kevYUf8DlsYqdaIHoc8JasHgJ/PPGEucq4ZEQ9cBaywBy5JdpRkoikgDrrMzuqvrXS2ls62twg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+t7gpxQKixYkz7O1p3CgJ0F7T8gKNm1kxpQi66OvOyk=;
- b=F4mG9C4KbW3bweOqFwChT8B66Nzikby5Jez99WG4XkDFwmCJ3OX/+/w3vtcKWvwPFOlwDgxgSRy+jVSk1amTBqEPTA9o6XMGMKI27y32dG2NZ27O56bkqH0LtXZ9dFh5s4G8/nTsRksiOLMlqEtjKJLbtmskfGzrrNmAC0+5TD7XkEgyGfqwBQgUpB7qJuQrcEqdxbIKeXuiwNhJYgTYX3OoBZTcJ36IKOAUfPbvMoawwxwijS9Nn76NUpQNj82YcjrLBOBPZO0XFfixgNXmtH58w63pYVt6rYDTmdurozX1PJjZcwUE8KDTpI0M5ANSdAEsmBGdvO66HuBaEnY7rg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+t7gpxQKixYkz7O1p3CgJ0F7T8gKNm1kxpQi66OvOyk=;
- b=sMYEzeIvJMaiOXLhUq6r7T8ViV5IL41zhI6vkfAofGMPci1YvP+gi40gX8k+AriiE9WngU9TkR6gtxUCRgXus4zgsRBFVcmyTcqRGUxUAe8UTiOpmIOV20cX1D5LLKv5hdMKYZezDUNmqV/j5Mc1r+BCD9XsiGIXSAi81wCxV7g=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY1PR12MB9559.namprd12.prod.outlook.com (2603:10b6:930:fd::14)
- by LV2PR12MB5920.namprd12.prod.outlook.com (2603:10b6:408:172::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
- 2026 11:57:17 +0000
-Received: from CY1PR12MB9559.namprd12.prod.outlook.com
- ([fe80::1761:23a3:6ab5:fbb8]) by CY1PR12MB9559.namprd12.prod.outlook.com
- ([fe80::1761:23a3:6ab5:fbb8%7]) with mapi id 15.21.0615.009; Thu, 12 Nov 2026
- 11:57:17 +0000
-Message-ID: <920c0696-da90-49a1-bf70-6fdf645a1000@amd.com>
-Date: Thu, 12 Nov 2026 17:27:09 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] dt-bindings: iio: adc: Convert xilinx-xadc bindings to
- YAML schema
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: lars@metafoo.de, sai.krishna.potthuri@amd.com, dlechner@baylibre.com,
- nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, michal.simek@amd.com, pramod.nexgen@gmail.com,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, git@amd.com
-References: <20261107134955.1423727-1-dileepkumar.nagavarapu@amd.com>
- <20261107192618.6814da6a@jic23-hlaptop>
-Content-Language: en-US
-From: "Nagavarapu, Dileep Kumar" <dnagavar@amd.com>
-In-Reply-To: <20261107192618.6814da6a@jic23-hlaptop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0032.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:178::12) To CY1PR12MB9559.namprd12.prod.outlook.com
- (2603:10b6:930:fd::14)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=E8/oxoUs;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Bh7Xx15v
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC9Qe9t4092542
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:57:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	WTVUgaKTlYixZEjxttBBJ2Zx7JpChm4sT+rOhLp29zY=; b=E8/oxoUsZdrmfVrj
+	4nLtKrhOG9FZ6nbTzxObxl3C52NPDUwzT3RfaG3E04iWVoEdRAY/kRLV3gDeErEN
+	EdnDNNWUKtIn3rSFWi/DEtx8ft4NkBLHWf1tRkpoMnu7BIFRjjcFierZlUXwmJyk
+	gf4DZWh/11dEiSkQnoEHU/53bTgxxLZcnC7E3qrzyIOGsqQ9F4EeV4uO3DwVZIA3
+	DzQw3+jA8gzMwJZlJzBzEU0g732KilaA7gFmjrblYljRRA84fXaYZoF2rI8oJaKI
+	3XI+02fyMmqvyffJesb5ff7L74yRdY2MKg+cf9B03rXLFCMiKk2jnmsXV0ScWIFp
+	oLCJ/Q==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw0m8jpcp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:57:32 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93cc50fb0d2so47371485a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:57:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794484652; x=1795089452; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WTVUgaKTlYixZEjxttBBJ2Zx7JpChm4sT+rOhLp29zY=;
+        b=Bh7Xx15vagypsXdLyaNVsJtq3yx6e59n5foGSvP/6iWwcLk+bri6CcDfKJNTi1ixrg
+         8LHE+NogN6fDOKyiehtWnaToFj4sgJj65I+Q0ZIkNhFpDEKtIJdwC/vqahsr/Yum2FPA
+         R1K8qDN3GxzzXuG43KiuJHQDyt09kEr6ME1qUmx6Iw63Kv3I9+hb+jO27RoE6XQQvTrW
+         K5kbQB+mjp+VJU4gKbKgIqHX0m5g5IgEHPTfQCt0UKTH01E03hGs0biyFQax2350gQ8o
+         JTSVAHOQWuAKvE0fC8EPjQtk1PxszA5PqkS0NjFr9zQKy7JOVc3JQBFQmrA730NySihs
+         F+Fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794484652; x=1795089452;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WTVUgaKTlYixZEjxttBBJ2Zx7JpChm4sT+rOhLp29zY=;
+        b=Ux00EY6IhC2Jvu70cyqN+jxGWedxTFBFvzOVNTB5i3eBxkrBakerRV92NNKdSkE+zS
+         13chZpT5rsg5p4RLLXtqtQ6Q42rw0p2eY6FuccQiYZFmCUibR0rTm0y3JjMHTBD27est
+         /g55fyZ4md25SGjPz8vqgpqs49Xwph3cR+++o6Gs+06717OHsFWkw+jBarWMRtC6+0S4
+         hgEwJDh7YL2bjKvJJmjZkSdziKjMPpifoKKbjJwQusRunwD3e+GI5WSd1uGMHNPhr682
+         S9mpqM5pcwoYdVL06vcNhl5ZWL6eZkSLlbwAI9YarjxMTu3jT5pUmhfABxU1O2Ov+W1r
+         LAIA==
+X-Forwarded-Encrypted: i=1; AL+hErGwSIbKwTsPlNBRimr1e71GI7zw/vlZ++aZcgrsN+BXpAXvxeRjsOCCXXuomRl2GdAaA7Rt19iTb2494iM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/2rTGoVU/gBjRuLMPUlByIkNQEmHmJglG0YDkkNm9WdSydb7uB
+	c/aZDAomN9mzUIz5ruENjztKB0uHeLSMC7LZPyvNlZHXEKLU0OzA1Y/x1iq0kWIun7mpTbKDL6z
+	UMb0m2ZjfZ54xmosfD4nXbIdDacqRLH7gOI5nnmGLEfP0RyFTGKRNi9n8LzETBChFtqt4s2YZ1i
+	A=
+X-Gm-Gg: AYBFou3wiPqz8Rka4dK0RCsryG9Lx4OP6XLdGyB7ejbrMHBH+UPexjOzdVDvtRlMeby
+	svH2fCblY5ssHSGvSdeiXKxv6B/GzzoGZ7r5+J0YK1NukW8PVJiCzIXaOakCbAPSkt9NuP936sR
+	j3YUoopGZPuAw27xDNWi9gosN+K02b0+kmQKJ7/EXBmb4o3JNEfDMjquvJ5+79tuB47Hw+hWs6r
+	vNajRv+JhckAJHot0+q8t0XMI7jNpbkqXK7TP3qKMLmFRarf3vmgNMbwNzwClnWLnW8ouTTBtUc
+	0wbd31PQrEfJRUpOS5JMYtqUvVlRDV0OA4BkANooBsOdxxD3zqdNCqeXOb9JaI4YSw5VCzbQw02
+	JL+w1k+/pbu/XaoohKeFxj/bu7UZAb4jzVeJhjdx6nuYZbwtaNSYYAt9HiAZTTITtZAyAPec=
+X-Received: by 2002:a05:620a:7201:b0:93f:740f:5a62 with SMTP id af79cd13be357-947b005d221mr898136485a.6.1794484651620;
+        Thu, 12 Nov 2026 03:57:31 -0800 (PST)
+X-Received: by 2002:a05:620a:7201:b0:93f:740f:5a62 with SMTP id af79cd13be357-947b005d221mr898134285a.6.1794484651068;
+        Thu, 12 Nov 2026 03:57:31 -0800 (PST)
+Received: from [192.168.226.72] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b75775fcf0sm3467729a12.0.2026.11.12.03.57.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 03:57:30 -0800 (PST)
+Message-ID: <b64cfe8e-7274-4a8f-8add-ee1b60522c42@oss.qualcomm.com>
+Date: Thu, 12 Nov 2026 12:57:27 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,347 +116,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY1PR12MB9559:EE_|LV2PR12MB5920:EE_
-X-MS-Office365-Filtering-Correlation-Id: 536ac935-8121-4f16-65ff-08df40b418f7
-X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|10067099003|11063799006|4143699003|56012099006|261021123027099003|261021121427099003|261021135927099003|261022105027099003|261022075727099003|261009223327099003|261009223027099003|261009221727099003|261009221227099003|261009220027099003|261102123227099003|261028144727099003|261026121527099003|261026140227099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	yEIqBOvp9UxJ2utmmX7ebeqIqtQCvH/lYPbzamJ4SsRTqX+ZaOAvxyA3kzM2kS5gP3tLMm8eGduT7d4B23jfFIs3tHxxtIpceXQSIdsXvqFjmOIROWmbasV33CM1W/MXYcXEVzlQH+au7vEvjNosyLRK7S1c3ycedgK1Z/6mRQGtTawvsMMlWOiXBQpj6S285VrnIlczhmRd1ttYGTiLbYTPAafylByXNeq8J/S0xp3YCFFi1bKG/Ublu443A81nViAT0t2FjPAQT/26fKKKlLC61vdgXtVKnuZkEbATRQECcnsFR5IZZT0u03t2RbwipLbE9frfzjvs2h9rYhRAm8Xs6KHcmI9pM4dvOrhyq1XEenpza398SfloVklWIUBJxToUY+2nePRfCUyPPtIIzz02Hjl13oJ7EoyTLkacof1HFty56bIbAfABDj++HVuSh4UiAnrta2rqa7UNEszC/I+G3s8gXlTvmhCsmbw+6bead0RdqIL7Brow/88HmIHXLg8kKJ9Vv07pW0f3q2LtqRKL4kPRSl+WPyLOqXsjjwUw47Z6mFkcYpkGDJHi6WnsFoReVOsISPjSSovtw4FBLjoK0LOarvb+A/hTGxW1kkY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY1PR12MB9559.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(10067099003)(11063799006)(4143699003)(56012099006)(261021123027099003)(261021121427099003)(261021135927099003)(261022105027099003)(261022075727099003)(261009223327099003)(261009223027099003)(261009221727099003)(261009221227099003)(261009220027099003)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TGNDRzVkU21USkd5V1RTRDBXZUNVSEZTdVVvRmVuSVJlc1NMaU5YSWtBK0JM?=
- =?utf-8?B?bUMyMld5ZGhXWWsyKzN0UkRhM1E4bmJ4RTNqV2ZaZ0IwalNVSm1vbkh0dmFy?=
- =?utf-8?B?WERxTkRYNFpFU2dMWWZVYTBVbXo4eGhudXdheHh4ZmphSVdaYlpnbFdKSXJZ?=
- =?utf-8?B?bjA2dUVTSnBjMno1SnlCS09OZnByVGZWSCtCMkFTTGhxSm8wL0xqSXpGYWND?=
- =?utf-8?B?U3VWWHlNaytJQTNPbzV2N2taMGxnV0tXbThpa3cyRWtGTldPQ00xRUJwaUFK?=
- =?utf-8?B?ajBZQjdkM0VDb2lmL2pHT2xsbnlnblJDSS82NFdiaytUK1hNZ3I0RUxweUNS?=
- =?utf-8?B?bUlPbDRudXMzM0UrNmpMMm9ENmNmWllHc09JSndraVFESU5wc1RnK2YremtH?=
- =?utf-8?B?YXJkaWRaaTl5Z0RreWJPZkMxTCtObUVMVWhER0xrU0U3K1U2cSt3bTlJR2Ni?=
- =?utf-8?B?VTFPeW80KzhKUSs2NVgyTlFFMVprYWo3OWJpSzVXaGZWZThBOTdVMzVoNk9E?=
- =?utf-8?B?ZTVjMjhKUHhoV1RpVUlBMUtSUG13KzJ2emF4OVg3R2gzQVRxNm5OdVNwckFY?=
- =?utf-8?B?QmNuekk3bEkrLzRsbzFnbFk4b2YyUCtUd1BiRG5qQWdqakZmYUJGdVlvaytH?=
- =?utf-8?B?bjdTNjVRT3BsU3dlQmNrazlJTXVYR3o1d0FtbXpqVnhzUzV0OUd3Ykp4UURV?=
- =?utf-8?B?dk5HY1lOOWI1MEgxTHRnTVpwelh0U3B1c1FJTTR1U2lQcXBsZlFJM2xwMXpY?=
- =?utf-8?B?TXBKSmczU1d0UnR6amJyOW1iVmVudVAwbVZyVW10MHpNTldxVkJKRmVTZWRi?=
- =?utf-8?B?MzZtTWJRUzRoZHBsZG9JYmlJUVFNVDdlSDBGRzlrNTU5c2RuZDRsQXgvTzg1?=
- =?utf-8?B?c0NtdWVUMHVDeDJuOUFZQndiQUs1ODlQYlFqTVAwVkFKRDVXTk1vMkxmOHVv?=
- =?utf-8?B?WFRqT1NVVXp0N3VkcGE4R3p4cmxZQ2JsclAxMVEyUEFWU0ZIVlJqbFNTYlQx?=
- =?utf-8?B?bzBNYWR2d1EvS0ZseEN5RStaRk90dlJBV2JXSXJNQnFXVjQ5cnFKSDZtVVI4?=
- =?utf-8?B?eUhQakg0cHh3TkppR2V4MDBLNy9RMVZINHBJZVovdExIU1RZTHoxNDdxRUxS?=
- =?utf-8?B?QkZiQmxpck82NjhUeFJJZC9EY2JEMkpCNS9iSmFoVWVLZ0ZCa1Z6a2NsRVZi?=
- =?utf-8?B?MjBQWVQ2ckY5T0ltWE5TY0NFRktIMysxVUxsOWJreTloSnh4KzIxSmQ0c0lS?=
- =?utf-8?B?ZXpMVGVCRFd0Y1JlTkMzcFFTUktnNG8vQ2VZTzh6Qlhra3ZxMmVzb2Fvb3Nm?=
- =?utf-8?B?cWw0WGFuRytjRDZJVEtBRnVHT1laVVNSdndYcGY2OEpQeWExckJWQTlPQmJQ?=
- =?utf-8?B?VytKY2Z4dkVCNkZVWHQzNERIWmoxdVFQN0VIVDBMUXhBeWJxMStpcStGNGJw?=
- =?utf-8?B?SlVtbDJjeFVzWHN2alltZ21rSjl2aytWUDRpZVNTeFYwK3M2RnFxZGhTMGZr?=
- =?utf-8?B?dnI1bmFsMU9Oc1NQbFVjVkhHVjFkRmZVM2hqRWZyazRod3JzR0pPWUllT1Z5?=
- =?utf-8?B?Q1ZJdFd1RzBEUjhOckg1a0FuUW9MMVFpUEdPWFA4aGprQ0g0U0VpSDdDaFBu?=
- =?utf-8?B?NitTTW9CODlKNjlZODJIb1ZxSFRyd3owQ29SQmczZzI3YVNGTHFYbjF3Zmlz?=
- =?utf-8?B?VzlCN3VXQjdHVEVqZnBGQllTN3gyTDV6Ky83cHdtUlFyTzlRZXRwd1RaV2tK?=
- =?utf-8?B?NzF2aWtEN2dBTVV2MmlUbjUrVmNJbjhCT1BIeStTVXArRjQrdlpsQkhLWVFu?=
- =?utf-8?B?YlVtQ2ZqbWdMenh3bzFITTFRdEc0anhnV29KOU40WmpCY3dNV2JLSmh1dUEr?=
- =?utf-8?B?czVPRjlrbGJYK0UvWHl1TVhqVWxUeitadFQ3NWNmMG9uL2NZYjBHK05lSFEw?=
- =?utf-8?B?Z1dGdStvby82aERTS3VQR1J2clR6RDhJSFBGVjRPN3Y1R0M3NFNJbGNISDRx?=
- =?utf-8?B?YXFHMCsreDlYbHRCaEdTMVlmdURFeThSOHZGbXVIK2ZlT3dyL2lwb1pyakpQ?=
- =?utf-8?B?VzhpRXJGZ3ZYWW1yOW1hOFBHblFDRFA1bUw5T21talB4dkU2ajhHRHpucWZa?=
- =?utf-8?B?WjQ1MTVsd3Z1cExNRjBKWll5d2p0dk9Ic1NLVG5VN1ppYmYzYy8yaklxcEUw?=
- =?utf-8?B?N2pYNlhUV1BRRDE4cjVySDlXQ0YrSElORytuWkUxUmRJeHFZRzNqL0tRcUw1?=
- =?utf-8?B?d2dJblM5RGdpUVdpNkVFbk9JdFBiV2VNUytjVGJiN2RCd2hhL0VzTCs5QUtC?=
- =?utf-8?B?bUFQeGg5c3RmVVJZTnNFNUJ4clEvVXlVNFhTNkhVdmRMbWJUV2pmQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 536ac935-8121-4f16-65ff-08df40b418f7
-X-MS-Exchange-CrossTenant-AuthSource: CY1PR12MB9559.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 11:57:17.0461
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BI8hCaMlHBaDaWwf1hR1f8AIa183wxyu21yiF6/000mo0ZnCC5kyDaXb9HNsxDh99E3w6ofx+NTqwMHfpzpp1A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5920
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] pinctrl: qcom: sm8650-lpass-lpi: Force runtime suspend on
+ system sleep
+To: gopi.kanala@oss.qualcomm.com, Bjorn Andersson <andersson@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Linus Walleij <linusw@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261112-lpass-lpi-system-sleep-v1-1-438cb997e0e9@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261112-lpass-lpi-system-sleep-v1-1-438cb997e0e9@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA0NyBTYWx0ZWRfX04MRkBK74eOq
+ FwdPyFB8QUqy/m1IFOLZM2cn3W0vXu1OEtucKRiue8y6BZyNHZ5eK5QaDMXfKIzgnCNCq5AIoxf
+ hcVYTngSl0d/uYnUhk1tM41dVyzKLxU=
+X-Proofpoint-GUID: wmag3_IOatSxr6gK7GHwsAj7FAEteT5w
+X-Proofpoint-ORIG-GUID: wmag3_IOatSxr6gK7GHwsAj7FAEteT5w
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA0NyBTYWx0ZWRfX3rCDQCcgUd6V
+ Xe1wyPYWmrMj/fX8VfT0iAX1TKY8uW/V1tZmmBgMnBESFyiLBxK3eJOvmIl9CmcFNeRW62MBCA1
+ CR25bucJzrlCdhY03kbWI29omhgwA3dvuAt1CMuLzhJNgdj5/H1sTUEAr/cca2+BzyQW+s2GQTb
+ poGeXC65WCw7LpyjrYRWd2I5/IMAuwI4+S/4GoLH+XAFDeiYfxH7lIkK49nOY7q1d6B6M8OyFV2
+ JCZT1iMBjZ9GmYGz75xVY30Osq0QPRYNqGcvj9phnPcpMzE8UVnbxtUgrX2yOFwvQlb3pRWP8pY
+ bqKZbTkQNxKreVABYIfUbGIXY3XAUNs9YlOgAXLqR2RHlVcKU5UgOGypfcmNKmNGYN9NE2o0NEz
+ +ULkRlBG5pmwH7gWo4siFPbdNqWb2fGDg6heUcReLDMRDEGHLvrFVoilWPXhKJVLSnaAWEnS4G5
+ 4MsATqnltgUsRgMmw9w==
+X-Authority-Analysis: v=2.4 cv=Q9dHcI2a c=1 sm=1 tr=0 ts=6af5a9ac cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=GwXthRHL4ZZd3--2RZMA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 impostorscore=0 adultscore=0 bulkscore=0
+ suspectscore=0 priorityscore=1501 spamscore=0 clxscore=1015
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611120047
 
-Hi Jonathan,
+On 11/12/26 11:51 AM, Gopi Chandra Sekhar Reddy Kanala via B4 Relay wrote:
+> From: Gopi Chandra Sekhar Reddy Kanala <gopi.kanala@oss.qualcomm.com>
+> 
+> The LPASS LPI pin controller votes for the LPASS HW_MACRO and HW_DCODEC
+> clocks through pm_clk and only implements runtime PM callbacks. Its
+> consumers, such as the SoundWire controllers, keep it runtime active
+> through their device links. If a consumer is active when system suspend
+> starts, or is resumed during it, the runtime PM usage count the PM core
+> holds from the prepare phase keeps the pin controller from runtime
+> suspending, and both clock votes are held for the whole suspend. On
+> Glymur CRD this keeps CX and DDR from collapsing in s2idle.
+> 
+> Use pm_runtime_force_suspend() and pm_runtime_force_resume() as the
+> system sleep callbacks so the clocks are always released at system
+> suspend. Consumers are suspended before their suppliers, so the pin
+> controller goes down after them and comes back before them.
+> 
+> Signed-off-by: Gopi Chandra Sekhar Reddy Kanala <gopi.kanala@oss.qualcomm.com>
+> ---
+> Tested on Glymur CRD with next-20261110. When s2idle is entered right
+> after playback, the LPI clock votes are now released during suspend,
+> after the SoundWire controllers, and restored before them on resume.
+> Playback works after resume.
+> ---
 
-On 11/8/2026 12:56 AM, Jonathan Cameron wrote:
-> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
-> 
-> 
-> On Sat, 7 Nov 2026 19:19:55 +0530
-> Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com> wrote:
-> 
->> From: Pramod Maurya <pramod.nexgen@gmail.com>
->>
->> Convert the Xilinx XADC and UltraScale System Monitor device tree binding
->> from the legacy plain-text format to a YAML.
->>
->> The new binding covers the same hardware and compatible strings:
->>    - xlnx,zynq-xadc-1.00.a (ZYNQ hardblock)
->>    - xlnx,axi-xadc-1.00.a  (AXI softblock)
->>    - xlnx,system-management-wiz-1.3 (UltraScale System Management Wizard)
->>
->> The xlnx,channels subnode retains its legacy name (including the comma)
->> for backwards compatibility with existing device trees.
->>
->> Move xlnx,channels under properties, as dt-schema now allows node names
->> containing a comma for long-established bindings.Constrain the reg
-> 
-> Space after .
-> 
->> property of the channel subnodes to the valid channel range of 0 to
->> 16 with minimum and maximum.
->>
->> Drop the redundant "type: boolean" from xlnx,bipolar, since its $ref to
->> the flag type already implies it.
->>
->> Signed-off-by: Pramod Maurya <pramod.nexgen@gmail.com>
->> Co-developed-by: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
->> Signed-off-by: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
-> 
-> Hi Dileep,
-> 
-> Given the legacy nature of the binding this looks fine to me.
-> I noted a few things on how I think it would look today, but not
-> expecting any changes to this doc based on those.
-> 
-> I do want an Ack from Lars-Peter Clausen though if we are going
-> to more formally list him as maintainer.  No idea if he has time
-> to keep an eye on this one!
+Should this extend to all other pinctrl-xxx-lpass-lpi drivers?
 
-As I understand, Lars-Peter is no longer active, so I’ll remove him from 
-the maintainers list for now and continue to CC him on future versions.
+Konrad
 
+>  drivers/pinctrl/qcom/pinctrl-sm8650-lpass-lpi.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> Jonathan
+> diff --git a/drivers/pinctrl/qcom/pinctrl-sm8650-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-sm8650-lpass-lpi.c
+> index bc7889c993d0..e33d4360c094 100644
+> --- a/drivers/pinctrl/qcom/pinctrl-sm8650-lpass-lpi.c
+> +++ b/drivers/pinctrl/qcom/pinctrl-sm8650-lpass-lpi.c
+> @@ -220,6 +220,7 @@ static const struct of_device_id lpi_pinctrl_of_match[] = {
+>  MODULE_DEVICE_TABLE(of, lpi_pinctrl_of_match);
+>  
+>  static const struct dev_pm_ops lpi_pinctrl_pm_ops = {
+> +	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
+>  	RUNTIME_PM_OPS(pm_clk_suspend, pm_clk_resume, NULL)
+>  };
+>  
 > 
->> ---
->>   .../bindings/iio/adc/xilinx-xadc.txt          | 141 ---------------
->>   .../bindings/iio/adc/xlnx,xadc.yaml           | 165 ++++++++++++++++++
->>   MAINTAINERS                                   |   9 +
->>   3 files changed, 174 insertions(+), 141 deletions(-)
->>   delete mode 100644 Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
->>   create mode 100644 Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
->>
->> diff --git a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt b/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
->> deleted file mode 100644
->> index f42e18078376..000000000000
->> --- a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
->> +++ /dev/null
+> ---
+> base-commit: 793807ca13bf3072fc6d16ce6d90e9ab9beff2a5
+> change-id: 20261112-lpass-lpi-system-sleep-70c4d2239abe
 > 
->> diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
->> new file mode 100644
->> index 000000000000..2cbc3b82a26f
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
->> @@ -0,0 +1,165 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/iio/adc/xlnx,xadc.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Xilinx XADC and UltraScale System Monitor
->> +
->> +maintainers:
->> +  - Lars-Peter Clausen <lars@metafoo.de>
-> 
-> As below. Need an Ack from Lars-Peter.
-> 
->> +  - Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
->> +  - Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
->> +
->> +description: |
->> +  The Xilinx XADC is an ADC found in the Series 7 FPGAs. It has a DRP
->> +  (Dynamic Reconfiguration Port) interface for communication. Two different
->> +  frontends for the DRP interface are supported:
->> +
->> +    - ZYNQ hardblock: available only on the ZYNQ family as a hardblock in
->> +      the SoC portion of the ZYNQ device.
->> +    - AXI softblock: available on all Series 7 platforms as a softblock
->> +      with an AXI interface (PG019).
->> +
->> +  The Xilinx System Monitor is an ADC found in UltraScale and UltraScale+
->> +  FPGAs. It is accessed through the Xilinx System Management Wizard IP core
->> +  via an AXI interface in the FPGA fabric.
->> +
->> +  The xlnx,channels subnode name contains a comma as part of the legacy
->> +  device tree binding that has been in use for over a decade. This name is
->> +  retained for backwards compatibility with existing device trees.
->> +
->> +properties:
->> +  compatible:
->> +    enum:
->> +      - xlnx,zynq-xadc-1.00.a
->> +      - xlnx,axi-xadc-1.00.a
->> +      - xlnx,system-management-wiz-1.3
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  interrupts:
->> +    maxItems: 1
->> +
->> +  clocks:
->> +    maxItems: 1
->> +
->> +  xlnx,external-mux:
->> +    $ref: /schemas/types.yaml#/definitions/string
->> +    description:
->> +      Selects the external multiplexer mode.
->> +    enum:
->> +      - none
->> +      - single
->> +      - dual
->> +    default: none
->> +
->> +  xlnx,external-mux-channel:
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    description: |
->> +      Configures which pair of pins is used to sample data in external
->> +      multiplexer mode. Required when xlnx,external-mux is "single" or
->> +      "dual".
-> 
-> I guess this is a legacy binding, but if we were doing this today we'd
-> put an explicit mux consumer in front of it that makes use of the
-> channel via the io-channels consumer mapping stuff.
-> My guess is that stuff all came in well after this driver!
-> 
-> This is also rather inflexible as why can't we have a 4
-> channel mux that is therefore in front of 4 ADC channels?
-> 
->> +
->> +      Valid values for single external multiplexer mode:
->> +        0: VP/VN
->> +        1: VAUXP[0]/VAUXN[0]
->> +        2: VAUXP[1]/VAUXN[1]
->> +        ...
->> +        16: VAUXP[15]/VAUXN[15]
->> +
->> +      Valid values for dual external multiplexer mode:
->> +        1: VAUXP[0]/VAUXN[0] - VAUXP[8]/VAUXN[8]
->> +        2: VAUXP[1]/VAUXN[1] - VAUXP[9]/VAUXN[9]
->> +        ...
->> +        8: VAUXP[7]/VAUXN[7] - VAUXP[15]/VAUXN[15]
->> +    minimum: 0
->> +    maximum: 16
->> +
->> +  xlnx,channels:
->> +    type: object
->> +    description:
->> +      List of external channels connected to the ADC. If this node is
->> +      absent, no external channels are assumed to be connected.
->> +
->> +    properties:
->> +      '#address-cells':
->> +        const: 1
->> +
->> +      '#size-cells':
->> +        const: 0
->> +
->> +    patternProperties:
->> +      "^channel@([0-9a-f]|10)$":
->> +        type: object
->> +        description:
->> +          Represents an external channel connected to the ADC.
->> +
->> +        properties:
->> +          reg:
->> +            description: |
->> +              Pair of pins the channel is connected to.
->> +                0: VP/VN
->> +                1: VAUXP[0]/VAUXN[0]
->> +                2: VAUXP[1]/VAUXN[1]
->> +                ...
->> +                16: VAUXP[15]/VAUXN[15]
-> 
-> Another legacy one which is fine.  If we were doing this today
-> we'd use diff-channels rather than reg to specify this I think.
-> 
->> +            minimum: 0
->> +            maximum: 16
->> +
->> +          xlnx,bipolar:
->> +            $ref: /schemas/types.yaml#/definitions/flag
->> +            description:
->> +              If set, the channel is used in bipolar mode.
->> +
->> +        required:
->> +          - reg
->> +
->> +        additionalProperties: false
->> +
->> +    required:
->> +      - '#address-cells'
->> +      - '#size-cells'
->> +
->> +    additionalProperties: false
->> +
->> +allOf:
->> +  - if:
->> +      properties:
->> +        xlnx,external-mux:
->> +          enum:
->> +            - single
->> +            - dual
->> +      required:
->> +        - xlnx,external-mux
->> +    then:
->> +      required:
->> +        - xlnx,external-mux-channel
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - interrupts
->> +  - clocks
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +    xadc@43200000 {
->> +        compatible = "xlnx,axi-xadc-1.00.a";
->> +        reg = <0x43200000 0x1000>;
->> +        interrupts = <0 53 4>;
->> +        interrupt-parent = <&gic>;
->> +        clocks = <&fpga1_clk>;
->> +
->> +        xlnx,channels {
->> +            #address-cells = <1>;
->> +            #size-cells = <0>;
->> +            channel@0 {
->> +                reg = <0>;
->> +                xlnx,bipolar;
->> +            };
->> +        };
->> +    };
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index 745d8d0169b2..2d7e9c9ca659 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -29996,6 +29996,15 @@ F:   Documentation/devicetree/bindings/watchdog/xlnx,xps-timebase-wdt.yaml
->>   F:   drivers/watchdog/of_xilinx_wdt.c
->>   F:   drivers/watchdog/xilinx_wwdt.c
->>
->> +XILINX XADC DRIVER
->> +M:   Lars-Peter Clausen <lars@metafoo.de>
-> 
-> I'll need an Ack from Lars-Peter for that.   Whilst sometimes about
-> Lars isn't anywhere near as active as he once was.
-> 
->> +M:   Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
->> +M:   Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
->> +L:   linux-iio@vger.kernel.org
->> +S:   Maintained
->> +F:   Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
->> +F:   drivers/iio/adc/xilinx-xadc*
-> 
-
-Thanks,
-Dileep
-
+> Best regards,
