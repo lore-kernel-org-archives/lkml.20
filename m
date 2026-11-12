@@ -1,99 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794482415;
-	b=2AUWJPAZAKaOMuqxmN6a0R/Tr9Y7jVldKWGZ+4qRd4wXs07Co4BM6SpftQWLv80OLQii
-	 4ZKf09LkufCNqhwmb2wBWbXdXZyq0wxsLNqpzLULMNbx6T13c6/9SG7jc1JefleRYA0Ax
-	 IEp1QFJFAmisHzflzSboZ0X0/74lXjWnMsDFPpvPT/BMIRROv+ZDaQBNXvexQ3VkCl8F0
-	 5sPn0jYrfJlf3bRCHqx28wkxDyVaC4dzCLDdlPoKTIy7VfscY4Q/5aYucwiG5FsmJ+Lut
-	 mHPfc8FHb4TWrivVMx3uRBukbYsYGJ6kZC3pudB2WFBLp+ErQ8rcCYCf9Al+BtZhowQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794482415;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=n6P1sRjIxGRsOlYiUP9NL4FyqP6Z5X1r0A8C9mbRGC4=;
-	b=iB1RWh81ozHs8SSc2BbZ4PPna/yN0q5/xcoBX0EapUWbOPrELUB0G+v2wqLUMmRRwCgI
-	 asFHZ1On4HtAa2TmZvzXX0+OIqO8rLkKuTxL2Ot+23bB+edGfVOPn5Jye/rXHuMNA9QTf
-	 Eliev3+CHPs+QU9o/dRW53KkdRucMP+6j1GPBEp97wOkJlV0Ux5tCThdQtk3V/YuNVxEN
-	 JrN7qAUJ0NociZWMWoRwlaHnMWUF1h9VEa0Ksm2iX7/514+aQii3/3d/qFzVRZ2cN/iyp
-	 Q7lzTi40VsL5A1KIlIt1nkRs98qQuRilTpF1wQB2IqrVdauJoLejTtPUVdhhXayDd9w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MDpvB1Qw;
-	arc=none smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794482420;
+	b=fgE+L8U1aVQEUpirpg7LVRI6ltv+gNkZSd1Ei6AvhBvhTsqhMaMjt2e+LVjxdQxGXUUl
+	 IguYAsyWipDHrSqNP4HCnfd8Vfy9CoTFgVxX0k4/qY7laYZpTr4J5YTjD7+WN/6olSMrJ
+	 jMoVftR0La2dKZOG/GZWoimfj+lxrzu8I7n4uA/y/cl/X7cLv5rvFCzcz2I7g6GrhQ//Z
+	 x9jjOSRiJrzNs3Gc3fpGLqoTP5J86egFSBBITWP4ZhYNlxoOrzvG38YC4OqQtc8rnaj7b
+	 blFRqIYf8PUyxr8Ijulp5Tr6JO8ElpZWwRRcIBv6CnAnEX6tcl74bH5Z48iK9Sx6ylA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794482420;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=m36al0+4iVX7mIEwm1TNnxEJqBCQUyFbjtZhiSN+ckg=;
+	b=qiafbBJd/fh0TVeoW3/KZSpEsEQyOshMgLW8LX5frVdrasf2jeveEjQXcPDRwp9H57sr
+	 wG8NDXZzSfiEFY1GQtu2sqhxeuROpbiu2SbgxHGgTs8w11ogK8OsM2S59w1NPskAYa1KO
+	 VosWbhkzcaKqwP1VRRSrilL7v4icmLLkoZa2DnY8VVtjeZwBI+aMB6QkSy50FxyGPyBvO
+	 gLg025ANOSQp66zOKUkgRhKvcg0BBCQEd7dTTX/+yrjzeEGbB3/JYv5DMLWkxbb5gxpc8
+	 GA6QjTU2JOmxGg5t9doULr1aA1GaaAu3FTBoWsIM9CLBfs8nlzzGkYvlB74PWoAJPsw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=fZVvZasw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E493606A8AD
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:20:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E493606A8AD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 338F360728F3;
+	Thu, 12 Nov 2026 11:20:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 338F360728F3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MDpvB1Qw
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3adac5c10e3so2227798a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:20:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794482413; x=1795087213; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n6P1sRjIxGRsOlYiUP9NL4FyqP6Z5X1r0A8C9mbRGC4=;
-        b=MDpvB1QwemOWm3CTeo03llC9nDTT85pdKF7CQHVJ4QTcGuG9oo4tA8eA3MBNT4FF6V
-         5DJaFqD2tAOko3Rl61+Cz0ViPM5+rdLnJWECkp7pWQkUgg8qftEEfT7iw/09S/In03vs
-         F+uzBBNpzloxd0Jzzhdne4MeV8wSngpMlmiz0lxYPpNUhl+KibVkJK10H9K1ew9ejxet
-         LHuSEOV2SFyPkZEHOTrfGjSAnE+8GKkOqymt4VuJq0mLLIw3R25l2EVcpURmish8Mu6V
-         34FcuG7yVE2XUO+dFq5anKUiGNaFBK6jYppFWvnwbi/2JioVnPxSTpLd/AFGJ1RPS0QD
-         OWyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794482413; x=1795087213;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n6P1sRjIxGRsOlYiUP9NL4FyqP6Z5X1r0A8C9mbRGC4=;
-        b=LBUz8vgUr9oRLYX6hhrCAI3wTX8zmTPDICwfFUvwVHTtOmXcFe+W/1iZSIO9axezjY
-         K5BXYTNpBuhGkCYGNJyAnk9YIeT1nghLrP3gj1+prnAo94DVL4FbCKbhVSi+Yg5WBI0b
-         Pwbo5uDkI6tXTfbX6VvMZjJuwvnv4Zvx8LHsZMAEG5uzyVgTT+wbrsdKv4HkrMgPouMp
-         Qr1CucOVpR3YEsTTIT81ufUYBQGcow18f7DjRtUObNm2wbJBoJrC7jzeK43VGZ/omQjx
-         IgLY4ISJiDGPV4HjIbQ05ZpZHOVIgPBuhDJvuz7rhIktehO1CiOnwFihIqgAUhO1oIyJ
-         NEMQ==
-X-Gm-Message-State: APuU4Z+aVIVP0zuELZ5w3mvCMkpIJ1Gy9z2aREN5RJpI1S7o+Vj29Sne
-	uhZWlAzsBe5n53GTWEs8zGJ8B3K3dXETKuMvc+1ISl3L6jVv3usicq67
-X-Gm-Gg: AYBFou06fzmy4F9o5NCeTelEPNntFRo70Awf9kq6o7heBNDPHa8lMdvzjvRVGMSmjpv
-	fYkFgYNiURFSxYN9+5gtrPGkKa9EQyuXK/IjPRJOLLsMcmN13OZYGnqqVKgcV1BaZ0wMtE2D9NE
-	t5TeT4e765T+vktWgZLrfqJ6+rdyI90wGa8zHVAUSLNUK2S3HEZb0+gfUZEtcPT8HX2cC0CLlwK
-	rP3jsSD2kS/Gd8+L5MDmx7vZE8UiWgFylIcx47EK9/BwBzUViSanndeS5uaWUU3zkjx0SJApy9v
-	ClDpqY4m1mm9ZNOen/2gANn7qHGXJfQ/KF+MJONCNQNybgj/pwu7WcELMODTqTTC1nisWXyZv7T
-	+exww6u+qE1yYC8T8Qpp0Y8OwzG0rYT7eSPOeNl/H3vUI4alm2EWF4liPP3s+AizjeUO4Cmg42d
-	FPNaCwG6D/5mqDrNKwxCxWs71MZotum5IQOZZWTFm1zCZ49NBynwF4Bckf5Sesu8H+1TSOevzvf
-	MsRZ+F0AlEpzHd91YgAgSj5LZXIM/ugiPQZJibC28/p9BekmHLTuTCFIzyyOSl+1bxxHu6HERRY
-	Rk6ytu80nqOUFgRPjFVVegvj53Sn9nwYD8kqtxgI+w==
-X-Received: by 2002:a17:90b:1f90:b0:3a7:e11c:4e6e with SMTP id 98e67ed59e1d1-3b182f5a142mr5144729a91.59.1794482413349;
-        Thu, 12 Nov 2026 03:20:13 -0800 (PST)
-Received: from buddy.mshome.net ([104.192.108.10])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b182dff97fsm3541562a91.3.2026.11.12.03.20.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 03:20:12 -0800 (PST)
-From: Jun Yao <yaojun8558363@gmail.com>
-To: netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	steffen.klassert@secunet.com,
-	herbert@gondor.apana.org.au,
-	dsahern@kernel.org,
-	idosch@nvidia.com,
-	lkp@intel.com,
-	victor@mojatatu.com,
-	Jun Yao <yaojun8558363@gmail.com>
-Subject: [PATCH v2] xfrm: avoid stale tunnel pointers in deferred input callbacks
-Date: Thu, 12 Nov 2026 19:19:46 +0800
-Message-ID: <20261112111946.375692-1-yaojun8558363@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=fZVvZasw
+Received: from ratatoskr.trumtrar.info (unknown [IPv6:2a00:1f:f805:2b01:a03:2f4:308a:7b52])
+	(Authenticated sender: str@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 5C84B2058D6;
+	Thu, 12 Nov 2026 12:20:18 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794482418;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=m36al0+4iVX7mIEwm1TNnxEJqBCQUyFbjtZhiSN+ckg=;
+	b=fZVvZaswqX/e6CLJC7uWofURD9U8dQJwEYQKTIx7HB2qKEzJx2MIatfZes3KV8Ah0bbUTp
+	2QZQdXeJZBsOWtwhUFfIoPgvDRy9u1lWqnx+fK0tqLN1PzOl9iEC77cfX29DtJanFdioKt
+	yF84Eev/q4welquakTQg3KjYH2Pmc99uCvKOOqgwiWOtX4dxPJRkuohmSHZ1XJtYWdsFfp
+	Z6SwSDztsaObf5b0HSM9sOWrZtcaCYpEgLACE6hl/yUScMTadfFdL3qX7evCkwR84ujEd8
+	Nn0wcvHrqWaLb5TgyGsSatgkzi406Af9izYxpPF0EOzCVISBGju7MjSVW6qsdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794482418;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=m36al0+4iVX7mIEwm1TNnxEJqBCQUyFbjtZhiSN+ckg=;
+	b=JR4N1y1VOXzk+xY3eqNoJN5wykqRiZVIkCcJqo6yg/QYvcaSP8PDQ78RelNk5g729iIyI5
+	h/JJpIE5qtCNBwBT0IANEVb+L89Ha0AV/xXBZbe8Y3/H/dw6IxRs9/9EOMSsPEHd0TgToh
+	FWd0CobhUwEfAWAgDG4HXB482Q5XB4vS7uPMQmnnLhdzrI9ylWF5bGknYOKH6pLq8azjqe
+	gZTqJmzCTjR4JBik/5lu77n7xyDv9hvP4OmQkZIDS7ngOU6MHKICYgHd0vGUJKGZhynW0D
+	y7HzDbrm1PxSCobB9hf1CDc3HbdNW0M/gGi5AXDG3KIsP0i61bzX/nrALmyZfg==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794482418; a=rsa-sha256;
+	cv=none;
+	b=GhNmj5zDzqmRnaGVHwxwQOnpXoqs1m1KDkMSwz+gOvICdZ04Val+rbjCYVx9lq+orOv7rj
+	fnbhlFxcsTRcWbP7y40qi2YBBspNIOLniCjKL6eW0o+J2Mo4DegbIYgvRqM2QlYeoZAn2q
+	pdXBZhPeCRrZRNkmKPL038Z2WScrFPhxNJNtI+CbJOYTNBWbmPS260a56zu2fJKs9fJ8Qy
+	68i0R2GH2vh/9sfG/VwUXERT4xU3p+qf24WI+VEHWgjomwv7BhnXKnPYAntMuEhAUkJOxs
+	BodPMzw6WzQhApnBklSdz/G3/Beez1X5UDem27+YyDnBfz3//aJmXobyklXq6g==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=str@pengutronix.de smtp.mailfrom=s.trumtrar@pengutronix.de
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Thu, 12 Nov 2026 12:19:41 +0100
+Subject: [PATCH net-next v5 9/9] tun: add rx timestamp to the vnet header
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,579 +83,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-v6-7-topic-virtio-net-ptp-v5-9-7ab67b572f4f@pengutronix.de>
+References: <20261112-v6-7-topic-virtio-net-ptp-v5-0-7ab67b572f4f@pengutronix.de>
+In-Reply-To: <20261112-v6-7-topic-virtio-net-ptp-v5-0-7ab67b572f4f@pengutronix.de>
+To: "Michael S. Tsirkin" <mst@redhat.com>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Richard Cochran <richardcochran@gmail.com>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+ Jason Wang <jasowangio@gmail.com>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Eric Dumazet <edumazet@kernel.org>, 
+ Andrew Lunn <andrew@lunn.ch>, Simon Horman <horms@kernel.org>, 
+ Kory Maincent <kory.maincent@bootlin.com>, 
+ Liang Chen <liangchen.linux@gmail.com>, Heng Qi <hengqi@linux.alibaba.com>
+Cc: virtualization@lists.linux.dev, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, kvm@vger.kernel.org, 
+ kernel@pengutronix.de, Steffen Trumtrar <s.trumtrar@pengutronix.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3819;
+ i=s.trumtrar@pengutronix.de; h=from:subject:message-id;
+ bh=sHvGg59eOg5DQGGBFOkvl7QZBIqLz3Bc5qdr7aC+s+s=;
+ b=owGbwMvMwCUmtVehiCsuTInxtFoSQ9bXBW8PNkjN/GYjuZ79qeOeFw0GZbWWVaEvM/svGaqsr
+ z/Ld727o5SFQYyLQVZMkUVlYQWfqMcHz8hpIlwwc1iZQIYwcHEKwEQ2WzP8jzXfqFD9w4BVaHLW
+ 9U/6f5Kslczcjm9yfTFhxo+8fya3mhj+e9Tpan4UN2FVUKhasWXF1YeKOnppIRK7SqfJsa+Y1nu
+ XHQA=
+X-Developer-Key: i=s.trumtrar@pengutronix.de; a=openpgp;
+ fpr=24A1780E1548F0495996140A1ABD20720A5E5622
 
-IP-TFS input can be deferred while its reordering queue waits for a missing
-sequence number. The VTI receive callback stores a pointer to the tunnel in
-skb->cb, and the device can be removed and freed before the callback runs.
+Reference implementation of the device side of VIRTIO_NET_F_RX_TSTAMP: if
+the configured vnet_hdr_sz covers the tstamp field, write the current
+TAI time into the header when a packet is handed to userspace or vhost.
+__tun_vnet_hdr_put() now takes the full struct virtio_net_common_hdr
+and copies as much of it as vnet_hdr_sz holds.
 
-The issue was discovered by Qihoo 360's Tulongfeng multi-agent system.
+This is not intended to be merged. A full test needs a QEMU that knows
+the feature and sets the matching vnet_hdr_sz in
+virtio_net_set_mrg_rx_bufs(); see
+https://github.com/strumtrar/qemu/tree/v11.0.1/virtio-rx-stamps
 
-This IPv4 VTI use-after-free was reproduced on Linux 7.4-rc2 in an x86-64
-QEMU guest. When the IP-TFS reorder timer resumes input after VTI deletion,
-KASAN reports an 8-byte read from freed memory in vti_rcv_cb(). Relevant
-parts of the report are:
-
-  BUG: KASAN: slab-use-after-free in vti_rcv_cb+0x696/0x770
-  Read of size 8 at addr ffff88810eae4b58 by task swapper/3/0
-  Call Trace:
-   [...]
-   vti_rcv_cb+0x696/0x770
-   xfrm4_rcv_cb+0xa6/0x110
-   xfrm_rcv_cb+0xca/0x140
-   xfrm_input+0x11eb/0x6660
-   __input_process_payload+0xb87/0x24c0
-   iptfs_input_ordered+0x560/0x8e0
-   iptfs_drop_timer+0x464/0x8e0
-   __hrtimer_run_queues+0x270/0x600
-   hrtimer_run_softirq+0x14b/0x270
-   [...]
-
-  Freed by task 394:
-   [...]
-   kfree+0x23c/0x490
-   kvfree+0x31/0x40
-   netdev_release+0x6d/0x90
-   device_release+0xce/0x250
-   kobject_put+0x18d/0x4f0
-   netdev_run_todo+0x724/0x1360
-   rtnl_dellink+0x401/0x1020
-   [...]
-
-Keep only scalar tunnel metadata in an skb extension. The VTI callbacks
-look up the device by ifindex under RCU and check its link configuration
-before using its private data. If the VTI no longer exists, drop the
-deferred packet. Use the same metadata to preserve tunnel mark handling
-and IPv6 tunnel detection, and clear it when a new XFRM receive path starts
-and after the callback completes.
-
-Guard the skb extension accesses with CONFIG_XFRM and provide no-op or
-NULL-returning helpers when it is disabled, since xfrm.h is also included
-by code built without XFRM support.
-
-Signed-off-by: Jun Yao <yaojun8558363@gmail.com>
-
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
-v1: https://lore.kernel.org/lkml/20261111094629.230568-1-yaojun8558363@gmail.com/T/#u
+ drivers/net/tun.c      | 14 +++++++++-----
+ drivers/net/tun_vnet.h | 18 ++++++++++++------
+ 2 files changed, 21 insertions(+), 11 deletions(-)
 
-Changes in v2:
-- Group the tunnel info helpers under CONFIG_XFRM and provide NULL-returning
-  or no-op stubs when it is disabled, fixing the !CONFIG_XFRM build errors.
-- Document the runtime reproduction and include a trimmed KASAN report.
+diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+index 8920c797acfd7..1a8c3377753d7 100644
+--- a/drivers/net/tun.c
++++ b/drivers/net/tun.c
+@@ -57,6 +57,7 @@
+ #include <linux/math.h>
+ #include <linux/nsproxy.h>
+ #include <linux/virtio_net.h>
++#include <linux/unaligned.h>
+ #include <linux/rcupdate.h>
+ #include <net/net_namespace.h>
+ #include <net/netns/generic.h>
+@@ -2168,12 +2169,16 @@ static ssize_t tun_put_user(struct tun_struct *tun,
+ 	}
+ 
+ 	if (vnet_hdr_sz) {
+-		struct virtio_net_hdr_v1_hash_tunnel hdr;
+-		struct virtio_net_hdr *gso;
++		struct virtio_net_common_hdr hdr;
+ 
+ 		memset(&hdr, 0, sizeof(hdr));
++
++		/* The configured header covers the tstamp field */
++		if (vnet_hdr_sz >= offsetofend(struct virtio_net_common_hdr, tstamp))
++			put_unaligned_le64(ktime_get_clocktai_ns(), hdr.tstamp);
++
+ 		ret = tun_vnet_hdr_tnl_from_skb(tun->flags, tun->dev, skb,
+-						&hdr);
++						&hdr.tnl_hdr);
+ 		if (ret)
+ 			return ret;
+ 
+@@ -2181,9 +2186,8 @@ static ssize_t tun_put_user(struct tun_struct *tun,
+ 		 * Drop the packet if the configured header size is too small
+ 		 * WRT the enabled offloads.
+ 		 */
+-		gso = (struct virtio_net_hdr *)&hdr;
+ 		ret = __tun_vnet_hdr_put(vnet_hdr_sz, tun->dev->features,
+-					 iter, gso);
++					 iter, &hdr);
+ 		if (ret)
+ 			return ret;
+ 	}
+diff --git a/drivers/net/tun_vnet.h b/drivers/net/tun_vnet.h
+index f4c652b1fa44d..d4cc56dac98d6 100644
+--- a/drivers/net/tun_vnet.h
++++ b/drivers/net/tun_vnet.h
+@@ -153,19 +153,21 @@ static inline int tun_vnet_hdr_get(int sz, unsigned int flags,
+ 	return __tun_vnet_hdr_get(sz, flags, 0, from, hdr);
+ }
+ 
++/* hdr is fully initialized, copy as much of it as the configured size holds */
+ static inline int __tun_vnet_hdr_put(int sz, netdev_features_t features,
+ 				     struct iov_iter *iter,
+-				     const struct virtio_net_hdr *hdr)
++				     const struct virtio_net_common_hdr *hdr)
+ {
+-	unsigned int parsed_size = tun_vnet_parse_size(features);
++	unsigned int put_size = min_t(unsigned int, sizeof(*hdr), sz);
+ 
+-	if (unlikely(iov_iter_count(iter) < sz))
++	if (unlikely(iov_iter_count(iter) < sz ||
++		     sz < tun_vnet_parse_size(features)))
+ 		return -EINVAL;
+ 
+-	if (unlikely(copy_to_iter(hdr, parsed_size, iter) != parsed_size))
++	if (unlikely(copy_to_iter(hdr, put_size, iter) != put_size))
+ 		return -EFAULT;
+ 
+-	if (iov_iter_zero(sz - parsed_size, iter) != sz - parsed_size)
++	if (iov_iter_zero(sz - put_size, iter) != sz - put_size)
+ 		return -EFAULT;
+ 
+ 	return 0;
+@@ -174,7 +176,11 @@ static inline int __tun_vnet_hdr_put(int sz, netdev_features_t features,
+ static inline int tun_vnet_hdr_put(int sz, struct iov_iter *iter,
+ 				   const struct virtio_net_hdr *hdr)
+ {
+-	return __tun_vnet_hdr_put(sz, 0, iter, hdr);
++	struct virtio_net_common_hdr common_hdr = {};
++
++	common_hdr.hdr = *hdr;
++
++	return __tun_vnet_hdr_put(sz, 0, iter, &common_hdr);
+ }
+ 
+ static inline int tun_vnet_hdr_to_skb(unsigned int flags, struct sk_buff *skb,
 
-Build failure reported by the kernel test robot:
-https://lore.kernel.org/oe-kbuild-all/202611120519.EG3LbKfu-lkp@intel.com/
-
-Build-tested bzImage and modules using x86_64_defconfig-based configurations
-with CONFIG_WERROR=y and GCC 13.3.0:
-- CONFIG_XFRM=y, including IPv4/IPv6 VTI and ESP offload, XFRM interface,
-  and IP-TFS.
-- CONFIG_XFRM=n and CONFIG_SKB_EXTENSIONS=n.
-Both builds completed without errors or warnings.
-
-diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-index 6787fcf6a..f97412b95 100644
---- a/include/linux/skbuff.h
-+++ b/include/linux/skbuff.h
-@@ -5044,6 +5044,7 @@ enum skb_ext_id {
- #endif
- #ifdef CONFIG_XFRM
- 	SKB_EXT_SEC_PATH,
-+	SKB_EXT_XFRM_TUNNEL,
- #endif
- #if IS_ENABLED(CONFIG_NET_TC_SKB_EXT)
- 	TC_SKB_EXT,
-diff --git a/include/net/xfrm.h b/include/net/xfrm.h
-index 445223a8d..38815faca 100644
---- a/include/net/xfrm.h
-+++ b/include/net/xfrm.h
-@@ -382,6 +382,7 @@ struct xfrm_dst_lookup_params {
- };
- 
- struct net_device;
-+struct ip6_tnl;
- struct xfrm_type;
- struct xfrm_dst;
- struct xfrm_policy_afinfo {
-@@ -740,14 +741,70 @@ struct xfrm_tunnel_skb_cb {
- 		struct inet_skb_parm h4;
- 		struct inet6_skb_parm h6;
- 	} header;
-+	/* Keep the layout of the other XFRM skb control blocks stable. */
-+	unsigned long reserved;
-+};
-+
-+enum xfrm_tunnel_info_type {
-+	XFRM_TUNNEL_INFO_VTI4,
-+	XFRM_TUNNEL_INFO_VTI6,
-+	XFRM_TUNNEL_INFO_IP6,
-+};
- 
-+/* Stored in an skb extension so it survives asynchronous XFRM input. */
-+struct xfrm_tunnel_info {
-+	int ifindex;
-+	__be32 i_key;
-+	u8 type;
- 	union {
--		struct ip_tunnel *ip4;
--		struct ip6_tnl *ip6;
--	} tunnel;
-+		struct {
-+			int link;
-+			__be32 saddr;
-+			__be32 daddr;
-+		} ip4;
-+		struct {
-+			int link;
-+			u8 proto;
-+			struct in6_addr laddr;
-+			struct in6_addr raddr;
-+		} ip6;
-+	};
- };
- 
--#define XFRM_TUNNEL_SKB_CB(__skb) ((struct xfrm_tunnel_skb_cb *)&((__skb)->cb[0]))
-+#ifdef CONFIG_XFRM
-+static inline struct xfrm_tunnel_info *
-+xfrm_tunnel_info_add(struct sk_buff *skb)
-+{
-+	return skb_ext_add(skb, SKB_EXT_XFRM_TUNNEL);
-+}
-+
-+static inline const struct xfrm_tunnel_info *
-+xfrm_tunnel_info(const struct sk_buff *skb)
-+{
-+	return skb_ext_find(skb, SKB_EXT_XFRM_TUNNEL);
-+}
-+
-+static inline void xfrm_tunnel_info_clear(struct sk_buff *skb)
-+{
-+	skb_ext_del(skb, SKB_EXT_XFRM_TUNNEL);
-+}
-+#else
-+static inline struct xfrm_tunnel_info *
-+xfrm_tunnel_info_add(struct sk_buff *skb)
-+{
-+	return NULL;
-+}
-+
-+static inline const struct xfrm_tunnel_info *
-+xfrm_tunnel_info(const struct sk_buff *skb)
-+{
-+	return NULL;
-+}
-+
-+static inline void xfrm_tunnel_info_clear(struct sk_buff *skb)
-+{
-+}
-+#endif /* CONFIG_XFRM */
- 
- /*
-  * This structure is used for the duration where packets are being
-@@ -1851,7 +1908,7 @@ int xfrm4_rcv(struct sk_buff *skb);
- 
- static inline int xfrm4_rcv_spi(struct sk_buff *skb, int nexthdr, __be32 spi)
- {
--	XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip4 = NULL;
-+	xfrm_tunnel_info_clear(skb);
- 	XFRM_SPI_SKB_CB(skb)->family = AF_INET;
- 	XFRM_SPI_SKB_CB(skb)->daddroff = offsetof(struct iphdr, daddr);
- 	return xfrm_input(skb, nexthdr, spi, 0);
-@@ -2300,15 +2357,17 @@ static inline int xfrm_if_id_put(struct sk_buff *skb, __u32 if_id)
- static inline int xfrm_tunnel_check(struct sk_buff *skb, struct xfrm_state *x,
- 				    unsigned int family)
- {
-+	const struct xfrm_tunnel_info *info = xfrm_tunnel_info(skb);
- 	bool tunnel = false;
- 
- 	switch(family) {
- 	case AF_INET:
--		if (XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip4)
-+		if (info && info->type == XFRM_TUNNEL_INFO_VTI4)
- 			tunnel = true;
- 		break;
- 	case AF_INET6:
--		if (XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip6)
-+		if (info && (info->type == XFRM_TUNNEL_INFO_VTI6 ||
-+			     info->type == XFRM_TUNNEL_INFO_IP6))
- 			tunnel = true;
- 		break;
- 	}
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 8da53d5b7..32f41370d 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -5241,6 +5241,7 @@ static const u8 skb_ext_type_len[] = {
- #endif
- #ifdef CONFIG_XFRM
- 	[SKB_EXT_SEC_PATH] = SKB_EXT_CHUNKSIZEOF(struct sec_path),
-+	[SKB_EXT_XFRM_TUNNEL] = SKB_EXT_CHUNKSIZEOF(struct xfrm_tunnel_info),
- #endif
- #if IS_ENABLED(CONFIG_NET_TC_SKB_EXT)
- 	[TC_SKB_EXT] = SKB_EXT_CHUNKSIZEOF(struct tc_skb_ext),
-diff --git a/net/ipv4/esp4_offload.c b/net/ipv4/esp4_offload.c
-index abd77162f..fa0a2a73b 100644
---- a/net/ipv4/esp4_offload.c
-+++ b/net/ipv4/esp4_offload.c
-@@ -81,7 +81,7 @@ static struct sk_buff *esp4_gro_receive(struct list_head *head,
- 	if (NAPI_GRO_CB(skb)->proto == IPPROTO_UDP)
- 		encap_type = UDP_ENCAP_ESPINUDP;
- 
--	XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip4 = NULL;
-+	xfrm_tunnel_info_clear(skb);
- 	XFRM_SPI_SKB_CB(skb)->family = AF_INET;
- 	XFRM_SPI_SKB_CB(skb)->daddroff = offsetof(struct iphdr, daddr);
- 	XFRM_SPI_SKB_CB(skb)->seq = seq;
-diff --git a/net/ipv4/ip_vti.c b/net/ipv4/ip_vti.c
-index c4f14d42d..3594254df 100644
---- a/net/ipv4/ip_vti.c
-+++ b/net/ipv4/ip_vti.c
-@@ -58,10 +58,25 @@ static int vti_input(struct sk_buff *skb, int nexthdr, __be32 spi,
- 	tunnel = ip_tunnel_lookup(itn, skb->dev->ifindex, flags,
- 				  iph->saddr, iph->daddr, 0);
- 	if (tunnel) {
-+		struct xfrm_tunnel_info *info;
-+
- 		if (!xfrm4_policy_check(NULL, XFRM_POLICY_IN, skb))
- 			goto drop;
- 
--		XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip4 = tunnel;
-+		info = xfrm_tunnel_info_add(skb);
-+		if (!info)
-+			goto drop;
-+
-+		*info = (struct xfrm_tunnel_info) {
-+			.ifindex = tunnel->dev->ifindex,
-+			.i_key = tunnel->parms.i_key,
-+			.type = XFRM_TUNNEL_INFO_VTI4,
-+			.ip4 = {
-+				.link = tunnel->parms.link,
-+				.saddr = tunnel->parms.iph.saddr,
-+				.daddr = tunnel->parms.iph.daddr,
-+			},
-+		};
- 
- 		if (update_skb_dev)
- 			skb->dev = tunnel->dev;
-@@ -96,18 +111,28 @@ static int vti_rcv_proto(struct sk_buff *skb)
- 
- static int vti_rcv_cb(struct sk_buff *skb, int err)
- {
-+	const struct xfrm_tunnel_info *info = xfrm_tunnel_info(skb);
- 	unsigned short family;
- 	struct net_device *dev;
- 	struct xfrm_state *x;
- 	const struct xfrm_mode *inner_mode;
--	struct ip_tunnel *tunnel = XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip4;
-+	struct ip_tunnel *tunnel;
- 	u32 orig_mark = skb->mark;
- 	int ret;
- 
--	if (!tunnel)
-+	if (!info || info->type != XFRM_TUNNEL_INFO_VTI4)
- 		return 1;
- 
--	dev = tunnel->dev;
-+	dev = dev_get_by_index_rcu(dev_net(skb->dev), info->ifindex);
-+	if (!dev || dev->rtnl_link_ops != &vti_link_ops)
-+		return err ? 1 : -ENODEV;
-+
-+	tunnel = netdev_priv(dev);
-+	if (tunnel->parms.i_key != info->i_key ||
-+	    tunnel->parms.link != info->ip4.link ||
-+	    tunnel->parms.iph.saddr != info->ip4.saddr ||
-+	    tunnel->parms.iph.daddr != info->ip4.daddr)
-+		return err ? 1 : -ENODEV;
- 
- 	if (err) {
- 		DEV_STATS_INC(dev, rx_errors);
-@@ -131,7 +156,7 @@ static int vti_rcv_cb(struct sk_buff *skb, int err)
- 
- 	family = inner_mode->family;
- 
--	skb->mark = be32_to_cpu(tunnel->parms.i_key);
-+	skb->mark = be32_to_cpu(info->i_key);
- 	ret = xfrm_policy_check(NULL, XFRM_POLICY_IN, skb, family);
- 	skb->mark = orig_mark;
- 
-diff --git a/net/ipv4/xfrm4_protocol.c b/net/ipv4/xfrm4_protocol.c
-index 4ee624d8e..c31426ea8 100644
---- a/net/ipv4/xfrm4_protocol.c
-+++ b/net/ipv4/xfrm4_protocol.c
-@@ -65,7 +65,7 @@ int xfrm4_rcv_encap(struct sk_buff *skb, int nexthdr, __be32 spi,
- 	struct xfrm4_protocol *handler;
- 	struct xfrm4_protocol __rcu **head = proto_handlers(nexthdr);
- 
--	XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip4 = NULL;
-+	xfrm_tunnel_info_clear(skb);
- 	XFRM_SPI_SKB_CB(skb)->family = AF_INET;
- 	XFRM_SPI_SKB_CB(skb)->daddroff = offsetof(struct iphdr, daddr);
- 
-@@ -98,7 +98,7 @@ static int xfrm4_esp_rcv(struct sk_buff *skb)
- 	int ret;
- 	struct xfrm4_protocol *handler;
- 
--	XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip4 = NULL;
-+	xfrm_tunnel_info_clear(skb);
- 
- 	for_each_protocol_rcu(esp4_handlers, handler)
- 		if ((ret = handler->handler(skb)) != -EINVAL)
-@@ -126,7 +126,7 @@ static int xfrm4_ah_rcv(struct sk_buff *skb)
- 	int ret;
- 	struct xfrm4_protocol *handler;
- 
--	XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip4 = NULL;
-+	xfrm_tunnel_info_clear(skb);
- 
- 	for_each_protocol_rcu(ah4_handlers, handler)
- 		if ((ret = handler->handler(skb)) != -EINVAL)
-@@ -154,7 +154,7 @@ static int xfrm4_ipcomp_rcv(struct sk_buff *skb)
- 	int ret;
- 	struct xfrm4_protocol *handler;
- 
--	XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip4 = NULL;
-+	xfrm_tunnel_info_clear(skb);
- 
- 	for_each_protocol_rcu(ipcomp4_handlers, handler)
- 		if ((ret = handler->handler(skb)) != -EINVAL)
-diff --git a/net/ipv6/esp6_offload.c b/net/ipv6/esp6_offload.c
-index 22895521a..00cdae2c7 100644
---- a/net/ipv6/esp6_offload.c
-+++ b/net/ipv6/esp6_offload.c
-@@ -110,7 +110,7 @@ static struct sk_buff *esp6_gro_receive(struct list_head *head,
- 		goto out;
- 
- 	IP6CB(skb)->nhoff = nhoff;
--	XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip6 = NULL;
-+	xfrm_tunnel_info_clear(skb);
- 	XFRM_SPI_SKB_CB(skb)->family = AF_INET6;
- 	XFRM_SPI_SKB_CB(skb)->daddroff = offsetof(struct ipv6hdr, daddr);
- 	XFRM_SPI_SKB_CB(skb)->seq = seq;
-diff --git a/net/ipv6/ip6_vti.c b/net/ipv6/ip6_vti.c
-index c79027839..6cf40b000 100644
---- a/net/ipv6/ip6_vti.c
-+++ b/net/ipv6/ip6_vti.c
-@@ -302,6 +302,8 @@ static int vti6_input_proto(struct sk_buff *skb, int nexthdr, __be32 spi,
- 	rcu_read_lock();
- 	t = vti6_tnl_lookup(dev_net(skb->dev), &ipv6h->saddr, &ipv6h->daddr);
- 	if (t) {
-+		struct xfrm_tunnel_info *info;
-+
- 		if (t->parms.proto != IPPROTO_IPV6 && t->parms.proto != 0) {
- 			rcu_read_unlock();
- 			goto discard;
-@@ -319,9 +321,26 @@ static int vti6_input_proto(struct sk_buff *skb, int nexthdr, __be32 spi,
- 			goto discard;
- 		}
- 
-+		info = xfrm_tunnel_info_add(skb);
-+		if (!info) {
-+			rcu_read_unlock();
-+			goto discard;
-+		}
-+
-+		*info = (struct xfrm_tunnel_info) {
-+			.ifindex = t->dev->ifindex,
-+			.i_key = t->parms.i_key,
-+			.type = XFRM_TUNNEL_INFO_VTI6,
-+			.ip6 = {
-+				.link = t->parms.link,
-+				.proto = t->parms.proto,
-+				.laddr = t->parms.laddr,
-+				.raddr = t->parms.raddr,
-+			},
-+		};
-+
- 		rcu_read_unlock();
- 
--		XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip6 = t;
- 		XFRM_SPI_SKB_CB(skb)->family = AF_INET6;
- 		XFRM_SPI_SKB_CB(skb)->daddroff = offsetof(struct ipv6hdr, daddr);
- 		return xfrm_input(skb, nexthdr, spi, encap_type);
-@@ -342,18 +361,29 @@ static int vti6_rcv(struct sk_buff *skb)
- 
- static int vti6_rcv_cb(struct sk_buff *skb, int err)
- {
-+	const struct xfrm_tunnel_info *info = xfrm_tunnel_info(skb);
- 	unsigned short family;
- 	struct net_device *dev;
- 	struct xfrm_state *x;
- 	const struct xfrm_mode *inner_mode;
--	struct ip6_tnl *t = XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip6;
-+	struct ip6_tnl *t;
- 	u32 orig_mark = skb->mark;
- 	int ret;
- 
--	if (!t)
-+	if (!info || info->type != XFRM_TUNNEL_INFO_VTI6)
- 		return 1;
- 
--	dev = t->dev;
-+	dev = dev_get_by_index_rcu(dev_net(skb->dev), info->ifindex);
-+	if (!dev || dev->rtnl_link_ops != &vti6_link_ops)
-+		return err ? 1 : -ENODEV;
-+
-+	t = netdev_priv(dev);
-+	if (t->parms.i_key != info->i_key ||
-+	    t->parms.link != info->ip6.link ||
-+	    t->parms.proto != info->ip6.proto ||
-+	    !ipv6_addr_equal(&t->parms.laddr, &info->ip6.laddr) ||
-+	    !ipv6_addr_equal(&t->parms.raddr, &info->ip6.raddr))
-+		return err ? 1 : -ENODEV;
- 
- 	if (err) {
- 		DEV_STATS_INC(dev, rx_errors);
-@@ -377,7 +407,7 @@ static int vti6_rcv_cb(struct sk_buff *skb, int err)
- 
- 	family = inner_mode->family;
- 
--	skb->mark = be32_to_cpu(t->parms.i_key);
-+	skb->mark = be32_to_cpu(info->i_key);
- 	ret = xfrm_policy_check(NULL, XFRM_POLICY_IN, skb, family);
- 	skb->mark = orig_mark;
- 
-diff --git a/net/ipv6/xfrm6_input.c b/net/ipv6/xfrm6_input.c
-index 07edef258..9aed0b21d 100644
---- a/net/ipv6/xfrm6_input.c
-+++ b/net/ipv6/xfrm6_input.c
-@@ -15,6 +15,7 @@
- #include <linux/netfilter.h>
- #include <linux/netfilter_ipv6.h>
- #include <net/ipv6.h>
-+#include <net/ip6_tunnel.h>
- #include <net/xfrm.h>
- #include <net/protocol.h>
- #include <net/gro.h>
-@@ -22,7 +23,28 @@
- int xfrm6_rcv_spi(struct sk_buff *skb, int nexthdr, __be32 spi,
- 		  struct ip6_tnl *t)
- {
--	XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip6 = t;
-+	struct xfrm_tunnel_info *info;
-+
-+	xfrm_tunnel_info_clear(skb);
-+	if (t) {
-+		info = xfrm_tunnel_info_add(skb);
-+		if (!info) {
-+			kfree_skb(skb);
-+			return 0;
-+		}
-+
-+		*info = (struct xfrm_tunnel_info) {
-+			.ifindex = t->dev->ifindex,
-+			.i_key = t->parms.i_key,
-+			.type = XFRM_TUNNEL_INFO_IP6,
-+			.ip6 = {
-+				.link = t->parms.link,
-+				.proto = t->parms.proto,
-+				.laddr = t->parms.laddr,
-+				.raddr = t->parms.raddr,
-+			},
-+		};
-+	}
- 	XFRM_SPI_SKB_CB(skb)->family = AF_INET6;
- 	XFRM_SPI_SKB_CB(skb)->daddroff = offsetof(struct ipv6hdr, daddr);
- 	return xfrm_input(skb, nexthdr, spi, 0);
-diff --git a/net/ipv6/xfrm6_protocol.c b/net/ipv6/xfrm6_protocol.c
-index 9b586fcec..2e93029a3 100644
---- a/net/ipv6/xfrm6_protocol.c
-+++ b/net/ipv6/xfrm6_protocol.c
-@@ -66,7 +66,7 @@ int xfrm6_rcv_encap(struct sk_buff *skb, int nexthdr, __be32 spi,
- 	struct xfrm6_protocol *handler;
- 	struct xfrm6_protocol __rcu **head = proto_handlers(nexthdr);
- 
--	XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip6 = NULL;
-+	xfrm_tunnel_info_clear(skb);
- 	XFRM_SPI_SKB_CB(skb)->family = AF_INET6;
- 	XFRM_SPI_SKB_CB(skb)->daddroff = offsetof(struct ipv6hdr, daddr);
- 
-@@ -113,7 +113,7 @@ static int xfrm6_esp_rcv(struct sk_buff *skb)
- 	int ret;
- 	struct xfrm6_protocol *handler;
- 
--	XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip6 = NULL;
-+	xfrm_tunnel_info_clear(skb);
- 
- 	for_each_protocol_rcu(esp6_handlers, handler)
- 		if ((ret = handler->handler(skb)) != -EINVAL)
-@@ -142,7 +142,7 @@ static int xfrm6_ah_rcv(struct sk_buff *skb)
- 	int ret;
- 	struct xfrm6_protocol *handler;
- 
--	XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip6 = NULL;
-+	xfrm_tunnel_info_clear(skb);
- 
- 	for_each_protocol_rcu(ah6_handlers, handler)
- 		if ((ret = handler->handler(skb)) != -EINVAL)
-@@ -171,7 +171,7 @@ static int xfrm6_ipcomp_rcv(struct sk_buff *skb)
- 	int ret;
- 	struct xfrm6_protocol *handler;
- 
--	XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip6 = NULL;
-+	xfrm_tunnel_info_clear(skb);
- 
- 	for_each_protocol_rcu(ipcomp6_handlers, handler)
- 		if ((ret = handler->handler(skb)) != -EINVAL)
-diff --git a/net/xfrm/xfrm_input.c b/net/xfrm/xfrm_input.c
-index 5ed87d513..a5d67d506 100644
---- a/net/xfrm/xfrm_input.c
-+++ b/net/xfrm/xfrm_input.c
-@@ -466,6 +466,7 @@ static int xfrm_inner_mode_input(struct xfrm_state *x,
- int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- {
- 	const struct xfrm_state_afinfo *afinfo;
-+	const struct xfrm_tunnel_info *tunnel_info;
- 	struct net *net = dev_net(skb->dev);
- 	struct net_device *dev = skb->dev;
- 	int err;
-@@ -555,16 +556,20 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 	}
- 
- 	family = XFRM_SPI_SKB_CB(skb)->family;
-+	tunnel_info = xfrm_tunnel_info(skb);
- 
- 	/* if tunnel is present override skb->mark value with tunnel i_key */
- 	switch (family) {
- 	case AF_INET:
--		if (XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip4)
--			mark = be32_to_cpu(XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip4->parms.i_key);
-+		if (tunnel_info &&
-+		    tunnel_info->type == XFRM_TUNNEL_INFO_VTI4)
-+			mark = be32_to_cpu(tunnel_info->i_key);
- 		break;
- 	case AF_INET6:
--		if (XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip6)
--			mark = be32_to_cpu(XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip6->parms.i_key);
-+		if (tunnel_info &&
-+		    (tunnel_info->type == XFRM_TUNNEL_INFO_VTI6 ||
-+		     tunnel_info->type == XFRM_TUNNEL_INFO_IP6))
-+			mark = be32_to_cpu(tunnel_info->i_key);
- 		break;
- 	}
- 
-@@ -739,6 +744,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 		goto drop;
- 	}
- 
-+	xfrm_tunnel_info_clear(skb);
- 	nf_reset_ct(skb);
- 
- 	if (decaps) {
-diff --git a/net/xfrm/xfrm_interface_core.c b/net/xfrm/xfrm_interface_core.c
-index 9835fbe63..d91b5f22d 100644
---- a/net/xfrm/xfrm_interface_core.c
-+++ b/net/xfrm/xfrm_interface_core.c
-@@ -322,10 +322,10 @@ static int xfrmi_input(struct sk_buff *skb, int nexthdr, __be32 spi,
- 	XFRM_SPI_SKB_CB(skb)->family = family;
- 	if (family == AF_INET) {
- 		XFRM_SPI_SKB_CB(skb)->daddroff = offsetof(struct iphdr, daddr);
--		XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip4 = NULL;
-+		xfrm_tunnel_info_clear(skb);
- 	} else {
- 		XFRM_SPI_SKB_CB(skb)->daddroff = offsetof(struct ipv6hdr, daddr);
--		XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip6 = NULL;
-+		xfrm_tunnel_info_clear(skb);
- 	}
- 
- 	return xfrm_input(skb, nexthdr, spi, encap_type);
+-- 
+2.56.0
 
