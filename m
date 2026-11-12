@@ -1,58 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794465102;
-	b=G/qGkVVWUXSAQR3QSsdJy479BnFEk/YzOjxQtdO0ntXCWz42aoMioInIyeo9Nx8M9NJp
-	 ggq1sgMIKsLVCNW2Vt5xAyXyVTMszaFeDAkNhrQZj4MlHmLwbYwMYWLS277/FQitMpkTJ
-	 3y2nAktxt2a0XGOkXjcpu2XT3c3Ygu2yxN5Gsz600aXeyzkAisuCvsV/AK6Qb7zHI2wcw
-	 SWmVUyqv9SQEPupdX9+NDWmde3yxPoOA5no+y6tG8yloOcru2hLD+Aw/AvykIpuPAhioM
-	 eYPi0iZVDbwttXfYQAfLejCKS8zsHM3vP0RFt+J3Nq2rNICz6G6uKMc/i1O25wAip5g==
+	t=1794465136;
+	b=ysZ0R7hO2UQqBg/9WmRrTn7BRaNg9uoAR2PQEPgX6qX6jbCd1IoZ0w6/ssIR/9AblHej
+	 yA0IysyacC9zFSbVd+Pos09TwR8LKuyKjDneLIW/ExSWa3z4BYzJEVKsCyQN3tggAtiF8
+	 RnbsZt1jrN/UE8Jd1XqR+BqYK1fDEbnGgqKrt1nTTCJFQWX10Y9NXBp/xWbuayLzldIFL
+	 PihXunWUhf4q1O2P93K9QErSU6RETTX+Z8+/V9XgKxy/WVWW7oQKBa29Y4pSJihIh2bRv
+	 xDe0ngcfeYwGr3iHFsFaX3fJVTJTp/qanessbbyl+aTnEcE07ARv7LarLDdgzoSGyjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794465102;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xelzJ71a7eYNaa/8/njM+SPLWsyTOImXfTRQg8wC9dc=;
-	b=3MgU8M1K8fAYqOKgYkZKftqte5XQ2gI/flZmLSKrAo6vEx1pbKdGzChjLmWyWe2QT+UY
-	 cmLAW15cm6eNrGCfUHYCzNauAPkFer0Bmn4o+rzCmzE1yyXE+rhmyXUOMATmhwDVdrfPv
-	 IJwKDj1EXBM7JYgIgzkbRaWgF+R03aDrFHYfBTMA40aa4Y963VIxR/weycoxtrvLpd4OS
-	 u8LkmtwaRo5SnxcMuxcmzbKAeKk+6dsgDpB/x+iOz+Y3XLSznzrPwRI0gB0JEGx+66q7R
-	 syJrsJz+17NkbNoli9JqzFVG7jtaevabtxaxdCgwtYMFVogrP8Uq8bc6TyJ7sJrzW+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794465136;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=lNjzCkgXtfexLjozyq2Y9l2D4DehQKcLgP4hhpEJaxk=;
+	b=g6jnKQJ3jtj2lNs2RRhaohNC3YCTk6Dc/1UtuxP1NgOSdOKky4s1Odnr3TmxS8q21jvF
+	 rZ7tGbg7b3IGnIHe5YADvMMkgRCzeQQlYWI7Es7WPzeldlbDH+s4m0uQFB2L5DY1R/YGr
+	 gwyYjm452lHSLR2RY2AwGSG9/+qjNfuXOed6ymGvrXvGd1ImCdrncMJj5gDEtukwYtJmx
+	 6H0sXL0BEklVGgeg3CUzdXX98NdWZOAzNQSXge5lU5NN722FuI8BY5z1OpF9xo4B5Zmad
+	 YhQH1iMILXKWtDwG9+JuwVIUlsMfDCdJgtKgXLzbouaqCKmX3K/Mri/cPHmooCF5F5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fJou8EAV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=EiRz0mJG;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=m+B3CNLd;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7356606A31C;
-	Thu, 12 Nov 2026 06:31:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E76C606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:32:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E76C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fJou8EAV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A5EE1F00A05;
-	Thu, 12 Nov 2026 06:31:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794465102;
-	bh=xelzJ71a7eYNaa/8/njM+SPLWsyTOImXfTRQg8wC9dc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fJou8EAVl58QSQV8lGU2bP0nP0s+7uXdid/zx4HwPIXTi7HhOb6bkDW7FDQPKDA++
-	 g5rtRRNhUn2LYIezN8N6GpbdeshsvjB6B3yxmzlwPLigVo/H/RVb477Nh2qoqlahq6
-	 cPcmy4/M0Jr1vVcpPnF/Hm6b7JYd27P+tGxbUXnYiTvVm+A+GG+q/qKPlivF0hjpoI
-	 MLbhteAuR5dn+6qIdq+cVJ9cA8LX7Dqn4CuQDOlOhfugCFaVpy+nQJ6c5iNWBykG7T
-	 ZWs1WAWClIx8sF2eVJsvM43tDm4dRYCApmcXwInBs2iyLxG6Y5LC49yjkx8wfV/ypH
-	 h7IatdtK8CfDA==
-Date: Wed, 11 Nov 2026 22:31:39 -0800
-From: Namhyung Kim <namhyung@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: acme@kernel.org, adrian.hunter@intel.com, bvanassche@acm.org,
-	elver@google.com, james.clark@linaro.org, jolsa@kernel.org,
-	justinstitt@google.com, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org, llvm@lists.linux.dev,
-	mingo@redhat.com, morbo@google.com, nathan@kernel.org,
-	ndesaulniers@google.com, peterz@infradead.org
-Subject: Re: [PATCH v12 02/20] tools headers compiler: Synchronize
- compiler_types.h with the kernel sources
-Message-ID: <avVdS5oMaBnqYlyE@google.com>
-References: <20261111174213.3526604-1-irogers@google.com>
- <20261111174213.3526604-3-irogers@google.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=EiRz0mJG;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=m+B3CNLd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794465135;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lNjzCkgXtfexLjozyq2Y9l2D4DehQKcLgP4hhpEJaxk=;
+	b=EiRz0mJGQCB3AlumGLarDCSSjb2e9Dg7ocBk+JVriOYSc4nhRmIwxTRCTOURxM1au2fyF4
+	JM25U7uKtWRb0QwQ0Lc9ZUja/KA0/H3hSf9dMNaQsJkQ4DTrLzP+dm6ktyEWk12ySg23lG
+	0FpmELz/sQIY7T8iO28PJm4FxhwOgBE=
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-264-mg9vmDvENuSt2YQHy8UNTA-1; Thu, 12 Nov 2026 01:32:13 -0500
+X-MC-Unique: mg9vmDvENuSt2YQHy8UNTA-1
+X-Mimecast-MFC-AGG-ID: mg9vmDvENuSt2YQHy8UNTA_1794465132
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ad91787a1aso2999773a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:32:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794465132; x=1795069932; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lNjzCkgXtfexLjozyq2Y9l2D4DehQKcLgP4hhpEJaxk=;
+        b=m+B3CNLds7L1u7+hO8GwVfvo7SVNJPZ8zWnlgO2kFdkUI5HV5vdlei49PDGl/p0Sl6
+         EwmMO3+EOLKuo/wE87sHx+gQ7wzYC1/SmsJfw6VmlPg27r4Jq/LfwaxeUBqFwpPaWKpY
+         rh05IRvlmzGHTHRvX7W+LehoQFhbr3Y/MN44P1FAFh/kP7y+PcajOl/BKXcN4OgHWX+Z
+         EfOkUndpWGsUsq3qHI+o/ZecT1e496qw9pG3o0K+0Jpx4SjRJs9BPmP3y02AQsZdPn08
+         Fx5ykP+fu+YjuuUjFPZYtPZC2cm37lgWDxeahxzyzBFIHg5hGv1vv/AQS+Wa+SyAKzuf
+         FVmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794465132; x=1795069932;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lNjzCkgXtfexLjozyq2Y9l2D4DehQKcLgP4hhpEJaxk=;
+        b=p/KPXEzpNATw15y0FJ+gus/GB3JnufNCH4RsS3MKr7VVMEFgSGPJCWCXnf0HmXdOMj
+         sljTZRTbBaekPLImrkwKINm2zn53MHeNiH6LUtmgLEuSuAXiNlxxyWKu6oifo7aEe2fP
+         1K49qrEglsK9GcRESAhw7Oy8TTJAdKT3aDYjf2xsXcfB1uTg7rNSHNmo5dbkUmxi0gNG
+         Lff+OKluY6DzybM4heaCKdbRLFxvmauaK+uW4jKwhM3to1IzDak1Lh+XrL3XltTY5bHA
+         5AHSV8tnoXpOToiOYjRSkY6K5NgE6wkQRy2mkUNfNy3QG1iSLtwBiVMhFXWnDcXBmRhW
+         pqIQ==
+X-Forwarded-Encrypted: i=1; AL+hErHSzkidrLAYKVnXvfBAEsBAApn2cD0ushJGRRs/KAZ+nEQQ69YqSvLFlGKLvDdXL1j2W0y55w905Y+xqvc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8vDuiBwF+vzaphjgVXgK410+BviBI3TsYo8nLsxUXrClXoD5DD
+	8iWmqq/7oJdk156Gyyey3n1UMNqixu3uHXd0CSznOVT038FBvX4mASd70TPeMyxuZ86udP7vtZU
+	Fqsje8M8TVrPo74MyNc4LHO0wuI93udJTcgZ4MCRJH2QSK+JDoSNcUa95qhBZxrTb11atbjn8vw
+	==
+X-Gm-Gg: AYBFou1YsRf3YYHV3KNdgsqtdkxYAG3cEwlHqTypbmrRu3BpFq3mYBwI+aSc4hlSgq+
+	MqSlmOfLQjbEKvHPk1BclSFUiYq6ezq+uVi3P/fRlXpQlJbx48sgXdJhwtYXFvCmyZNKDpKTzqL
+	G/DQBBTpStq9g1AqbKddHyfu4KgUnCBjKuVNyrRrefbeeKuyCIyKAjUZAN3KymjLNc13ODleJGE
+	pKLZKbpWHnD06K2Ad3sJsTfru3oOUr65kkxlvygrZ6xielpg0NlkUDl6EVhcMuGUVBnGzzOuFEV
+	PkLoMgMtaUQ5N6VBR3S2zq7bdn5P1o/TSEanlaQABC2TONmS92lIwf6Wnb8UMO+ZqsWFPLptdb7
+	unL9h62idYSYoRHZ9BpZ2bF8h5ctq9HMUEP7na5QjAHg6iiJwjkaJonFj+5u3AhbN/pwzY6X5wL
+	XvM2wvynxEfOj2M1pKwEoU3mgcSjz5zecT0KCayVzZ83bgGQ==
+X-Received: by 2002:a17:90b:37c3:b0:3ab:413:49bc with SMTP id 98e67ed59e1d1-3b182ee2462mr4497394a91.37.1794465132353;
+        Wed, 11 Nov 2026 22:32:12 -0800 (PST)
+X-Received: by 2002:a17:90b:37c3:b0:3ab:413:49bc with SMTP id 98e67ed59e1d1-3b182ee2462mr4497373a91.37.1794465131889;
+        Wed, 11 Nov 2026 22:32:11 -0800 (PST)
+Received: from ?IPV6:2001:4490:489d:4213:2481:b5a5:59e1:8f87? ([2001:4490:489d:4213:2481:b5a5:59e1:8f87])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197ce49d6sm3019469a91.4.2026.11.11.22.32.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 22:32:11 -0800 (PST)
+Message-ID: <990cc079-70ab-4fcf-9974-679aaf07849e@redhat.com>
+Date: Thu, 12 Nov 2026 12:02:05 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,461 +113,177 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261111174213.3526604-3-irogers@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] kho: walk bootmem areas in address order
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>
+Cc: Alexander Graf <graf@amazon.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Chen Pei <cp0613@linux.alibaba.com>, George Guo <guodongtai@kylinos.cn>,
+ Kexin Liu <liukexin@kylinos.cn>, Sourabh Jain <sourabhjain@linux.ibm.com>,
+ kexec@lists.infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20261104-kho-bootmem-sizing-v2-0-b0d1a834780f@kernel.org>
+ <20261104-kho-bootmem-sizing-v2-1-b0d1a834780f@kernel.org>
+Content-Language: en-US
+From: Mukesh Pilaniya <mpilaniy@redhat.com>
+In-Reply-To: <20261104-kho-bootmem-sizing-v2-1-b0d1a834780f@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 11, 2026 at 09:41:54AM -0800, Ian Rogers wrote:
-> Synchronize the non-__KERNEL__ sections of
-> tools/include/linux/compiler_types.h and
-> tools/include/linux/compiler-gcc.h with the kernel sources (including
-> ___PASTE/__PASTE, BTF_TYPE_TAG, object-size helpers, asm_goto_output,
-> ASM_INPUT_*, asm_inline, __typeof_unqual__/__unqual_scalar_typeof,
-> __signed_scalar_typeof, __native_word, compiletime_assert, and the
-> __diag pragma helpers required by compiler-context-analysis.h), and
-> remove the duplicated definitions from tools/include/linux/compiler.h.
+Hi Mike,
+
+On 04/11/26 10:20 pm, Mike Rapoport (Microsoft) wrote:
+> kexec_add_buffer() users may depend on the order in which memory holes are
+> searched. For instance, arm64 places the kernel bottom-up and then
+> requires the DTB to be above the kernel.
 > 
-> Signed-off-by: Ian Rogers <irogers@google.com>
+> kho_walk_bootmem() walks the bootmem areas in the order they were
+> reserved, so if the kernel lands in a small area at the top of the memory
+> there is no room left for the DTB and kexec fails. For example, on an
+> arm64 VM with 2G of RAM and kho_bootmem=8M,64M,64M, the lowmem area is
+> reserved first at the top of the memory, the kernel image takes most of
+> it and kexec fails with
+> 
+>   kexec_file(Image): Could not find any suitable kernel location!
+> 
+> Sort the bootmem areas by address and walk them in ascending order, or in
+> descending order for top-down searches, like kexec_walk_resources() does.
+> 
+> Fixes: 3bdecc3c93f9 ("kexec: add KHO support to kexec file loads")
+> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 > ---
->  tools/include/linux/compiler-gcc.h   |  72 +++++++++-
->  tools/include/linux/compiler.h       |  50 +------
->  tools/include/linux/compiler_types.h | 206 ++++++++++++++++++++++++++-
->  3 files changed, 275 insertions(+), 53 deletions(-)
+>  kernel/liveupdate/kexec_handover.c | 57 ++++++++++++++++++++++++++++++--------
+>  1 file changed, 46 insertions(+), 11 deletions(-)
 > 
-> diff --git a/tools/include/linux/compiler-gcc.h b/tools/include/linux/compiler-gcc.h
-> index e20f98e14e81..e005e8d5dfda 100644
-> --- a/tools/include/linux/compiler-gcc.h
-> +++ b/tools/include/linux/compiler-gcc.h
-> @@ -1,7 +1,7 @@
->  /* SPDX-License-Identifier: GPL-2.0 */
-> -#ifndef _TOOLS_LINUX_COMPILER_H_
-> +#ifndef __LINUX_COMPILER_TYPES_H
+> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+> index 6f1f55fe31819..2ac5d94f33fd4 100644
+> --- a/kernel/liveupdate/kexec_handover.c
+> +++ b/kernel/liveupdate/kexec_handover.c
+> @@ -26,6 +26,7 @@
+>  #include <linux/list.h>
+>  #include <linux/memblock.h>
+>  #include <linux/page-isolation.h>
+> +#include <linux/sort.h>
+>  #include <linux/unaligned.h>
+>  #include <linux/vmalloc.h>
+>  
+> @@ -820,6 +821,14 @@ bool kho_bootmem_overlap(phys_addr_t phys, size_t size)
+>  	return false;
+>  }
+>  
+> +static int __init kho_bootmem_cmp(const void *_a, const void *_b)
+> +{
+> +	const struct kho_bootmem *a = _a;
+> +	const struct kho_bootmem *b = _b;
+> +
+> +	return cmp_int(a->addr, b->addr);
+> +}
+> +
+>  /**
+>   * kho_reserve_bootmem - Reserve a contiguous chunk of memory for kexec
+>   *
+> @@ -904,6 +913,9 @@ static void __init kho_reserve_bootmem(void)
+>  	 */
+>  	kho_bootmem_cnt = i;
+>  
+> +	sort(kho_bootmem, kho_bootmem_cnt, sizeof(*kho_bootmem),
+> +	     kho_bootmem_cmp, NULL);
+This only covers the case where this kernel allocated the areas itself.
+On a KHO boot the array comes from the previous kernel. A kernel with
+this series that is handed over from one without it therefore keeps
+walking the areas in reservation order for every following
+kexec_file_load, and the arm64 failure you describe comes back until the
+next cold boot and vise versa because the ABI string is still
+"kho-v4".
 
-I'm not sure if it's better to keep the TOOLS part in the macro guard.
-It would make the sync-ing a bit harder.  And I also see other files
-already don't have TOOLS so it seems ok to drop.
+So, sorting once in kho_memory_init_early after kho_bootmem is
+mapped would make the invariant independent of the producer.  When the
+previous kernel does have the sort this is a no-op, but the consumer
+cannot tell which kernel recorded the array, because the ABI string is
+the same.
 
-Thanks,
-Namhyung
+> +
+>  	return;
+>  
+>  err_free_bootmem_areas:
+> @@ -2081,20 +2093,40 @@ int kho_fill_kimage(struct kimage *image)
+>  	return 0;
+>  }
+>  
+> -static int kho_walk_bootmem(struct kexec_buf *kbuf,
+> -			    int (*func)(struct resource *, void *))
+> +static int kho_bootmem_walk_one(struct kexec_buf *kbuf,
+> +				const struct kho_bootmem *area,
+> +				int (*func)(struct resource *, void *))
+> +{
+> +	struct resource res = {
+> +		.start = area->addr,
+> +		.end = area->addr + area->size - 1,
+> +	};
+> +
+> +	/* Try to fit the kbuf into our KHO bootmem region */
+> +	return func(&res, kbuf);
+> +}
+> +
+> +static int kho_bootmem_walk_top_down(struct kexec_buf *kbuf,
+> +				     int (*func)(struct resource *, void *))
+>  {
+>  	int ret = 0;
+> -	int i;
+>  
+> -	for (i = 0; i < kho_bootmem_cnt; i++) {
+> -		struct resource res = {
+> -			.start = kho_bootmem[i].addr,
+> -			.end = kho_bootmem[i].addr + kho_bootmem[i].size - 1,
+> -		};
+> +	for (int i = kho_bootmem_cnt - 1; i >= 0; i--) {
+kho_bootmem_cnt is unsigned, but the reverse loops in
+kho_reserve_bootmem() and kho_bootmem_walk_top_down() start an int
+counter at kho_bootmem_cnt - 1, which for a zero count is UINT_MAX
+converted to int.  That conversion is implementation-defined; with the
+current compilers it yields -1 and the loop body is skipped.
 
+How about using this one.
+	for (unsigned int i = kho_bootmem_cnt; i-- > 0;)
 
->  #error "Please do not include <linux/compiler-gcc.h> directly, include <linux/compiler.h> instead."
-> -#endif
-> +#endif /* __LINUX_COMPILER_TYPES_H */
+Reviewed-by: Mukesh Pilaniya <mpilaniy@redhat.com>
+
+> +		ret = kho_bootmem_walk_one(kbuf, &kho_bootmem[i], func);
+> +		if (ret)
+> +			break;
+> +	}
+> +
+> +	return ret;
+> +}
 >  
->  /*
->   * Common definitions for all gcc versions go here.
-> @@ -33,10 +33,76 @@
->  #define __packed	__attribute__((packed))
->  #endif
->  #ifndef __noreturn
-> -#define __noreturn	__attribute__((noreturn))
-> +#define __noreturn	__attribute__((__noreturn__))
->  #endif
->  #ifndef __aligned
->  #define __aligned(x)	__attribute__((aligned(x)))
->  #endif
->  #define __printf(a, b)	__attribute__((format(printf, a, b)))
->  #define __scanf(a, b)	__attribute__((format(scanf, a, b)))
+> -		/* Try to fit the kimage into our KHO bootmem region */
+> -		ret = func(&res, kbuf);
+> +static int kho_bootmem_walk_bottom_up(struct kexec_buf *kbuf,
+> +				      int (*func)(struct resource *, void *))
+> +{
+> +	int ret = 0;
 > +
-> +/*
-> + * Turn individual warnings and errors on and off locally, depending
-> + * on version.
-> + */
-> +#define __diag_str1(s)		#s
-> +#define __diag_str(s)		__diag_str1(s)
-> +
-> +#ifdef __clang__
-> +#define __diag_clang(version, severity, s) \
-> +	__diag_clang_ ## version(__diag_clang_ ## severity s)
-> +
-> +/* Severity used in pragma directives */
-> +#define __diag_clang_ignore	ignored
-> +#define __diag_clang_warn	warning
-> +#define __diag_clang_error	error
-> +
-> +#define __diag(s)		_Pragma(__diag_str(clang diagnostic s))
-> +
-> +#if __clang_major__ >= 23
-> +#define __diag_clang_23(s)	__diag(s)
-> +#else
-> +#define __diag_clang_23(s)
-> +#endif
-> +
-> +#define __diag_clang_all(s)	__diag(s)
-> +
-> +#define __diag_ignore_all(option, comment) \
-> +	__diag_clang(all, ignore, option)
-> +
-> +/*
-> + * clang has horrible behavior with "g" or "rm" constraints for asm
-> + * inputs, turning them into something worse than "m". Avoid using
-> + * constraints with multiple possible uses (but "ir" seems to be ok):
-> + *
-> + *	https://github.com/llvm/llvm-project/issues/20571
-> + */
-> +#define ASM_INPUT_G "ir"
-> +#define ASM_INPUT_RM "r"
-> +#define ASM_OUTPUT_RM "=r"
-> +
-> +#define CC_HAS_TYPEOF_UNQUAL (__clang_major__ > 19 || (__clang_major__ == 19 && __clang_minor__ > 0))
-> +#else /* !__clang__ */
-> +#define __diag_GCC(version, severity, s) \
-> +	__diag_GCC_ ## version(__diag_GCC_ ## severity s)
-> +
-> +/* Severity used in pragma directives */
-> +#define __diag_GCC_ignore	ignored
-> +#define __diag_GCC_warn		warning
-> +#define __diag_GCC_error	error
-> +
-> +#define __diag(s)		_Pragma(__diag_str(GCC diagnostic s))
-> +
-> +#if GCC_VERSION >= 80000
-> +#define __diag_GCC_8(s)		__diag(s)
-> +#else
-> +#define __diag_GCC_8(s)
-> +#endif
-> +
-> +#define __diag_GCC_all(s)	__diag(s)
-> +
-> +#define __diag_ignore_all(option, comment) \
-> +	__diag(__diag_GCC_ignore option)
-> +
-> +#define CC_HAS_TYPEOF_UNQUAL (__GNUC__ >= 14)
-> +#endif /* __clang__ */
-> diff --git a/tools/include/linux/compiler.h b/tools/include/linux/compiler.h
-> index 03ecf9086643..505fbb0080d0 100644
-> --- a/tools/include/linux/compiler.h
-> +++ b/tools/include/linux/compiler.h
-> @@ -1,41 +1,11 @@
->  /* SPDX-License-Identifier: GPL-2.0 */
-> -#ifndef _TOOLS_LINUX_COMPILER_H_
-> -#define _TOOLS_LINUX_COMPILER_H_
-> +#ifndef __LINUX_COMPILER_H
-> +#define __LINUX_COMPILER_H
+> +	for (int i = 0; i < kho_bootmem_cnt; i++) {
+> +		ret = kho_bootmem_walk_one(kbuf, &kho_bootmem[i], func);
+>  		if (ret)
+>  			break;
+>  	}
+> @@ -2110,7 +2142,10 @@ int kho_locate_mem_hole(struct kexec_buf *kbuf,
+>  	if (!kho_enable || kbuf->image->type == KEXEC_TYPE_CRASH)
+>  		return 1;
 >  
->  #ifndef __ASSEMBLY__
+> -	ret = kho_walk_bootmem(kbuf, func);
+> +	if (kbuf->top_down)
+> +		ret = kho_bootmem_walk_top_down(kbuf, func);
+> +	else
+> +		ret = kho_bootmem_walk_bottom_up(kbuf, func);
 >  
->  #include <linux/compiler_types.h>
->  
-> -#ifndef __compiletime_error
-> -# define __compiletime_error(message)
-> -#endif
-> -
-> -#ifdef __OPTIMIZE__
-> -# define __compiletime_assert(condition, msg, prefix, suffix)		\
-> -	do {								\
-> -		extern void prefix ## suffix(void) __compiletime_error(msg); \
-> -		if (!(condition))					\
-> -			prefix ## suffix();				\
-> -	} while (0)
-> -#else
-> -# define __compiletime_assert(condition, msg, prefix, suffix) do { } while (0)
-> -#endif
-> -
-> -#define _compiletime_assert(condition, msg, prefix, suffix) \
-> -	__compiletime_assert(condition, msg, prefix, suffix)
-> -
-> -/**
-> - * compiletime_assert - break build and emit msg if condition is false
-> - * @condition: a compile-time constant condition to check
-> - * @msg:       a message to emit if condition is false
-> - *
-> - * In tradition of POSIX assert, this macro will break the build if the
-> - * supplied condition is *false*, emitting the supplied error message if the
-> - * compiler has support to do so.
-> - */
-> -#define compiletime_assert(condition, msg) \
-> -	_compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-> -
->  /* Optimization barrier */
->  /* The "volatile" is due to gcc bugs */
->  #define barrier() __asm__ __volatile__("": : :"memory")
-> @@ -48,10 +18,6 @@
->  #define __always_unused __attribute__((__unused__))
->  #endif
->  
-> -#ifndef __noreturn
-> -#define __noreturn __attribute__((__noreturn__))
-> -#endif
-> -
->  #ifndef unreachable
->  #define unreachable() __builtin_unreachable()
->  #endif
-> @@ -68,11 +34,6 @@
->  #define __naked __attribute__((__naked__))
->  #endif
->  
-> -/* Are two types/vars the same type (ignoring qualifiers)? */
-> -#ifndef __same_type
-> -# define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
-> -#endif
-> -
->  /* Enforce static storage duration. */
->  #define ASSERT_STATIC_STORAGE(name) \
->  	static typeof(name) * const __always_unused \
-> @@ -242,11 +203,6 @@ static __always_inline void __write_once_size(volatile void *p, void *res, int s
->  	__u.__val;					\
->  })
->  
-> -
-> -/* Indirect macros required for expanded argument pasting, eg. __LINE__. */
-> -#define ___PASTE(a, b) a##b
-> -#define __PASTE(a, b) ___PASTE(a, b)
-> -
->  #ifndef OPTIMIZER_HIDE_VAR
->  /* Make the optimizer believe the variable can be manipulated arbitrarily. */
->  #define OPTIMIZER_HIDE_VAR(var)						\
-> @@ -263,4 +219,4 @@ static __always_inline void __write_once_size(volatile void *p, void *res, int s
->  
->  #endif /* __ASSEMBLY__ */
->  
-> -#endif /* _TOOLS_LINUX_COMPILER_H */
-> +#endif /* __LINUX_COMPILER_H */
-> diff --git a/tools/include/linux/compiler_types.h b/tools/include/linux/compiler_types.h
-> index b3adbf5682f0..31e9f7d2a466 100644
-> --- a/tools/include/linux/compiler_types.h
-> +++ b/tools/include/linux/compiler_types.h
-> @@ -2,8 +2,6 @@
->  #ifndef __LINUX_COMPILER_TYPES_H
->  #define __LINUX_COMPILER_TYPES_H
->  
-> -/* Builtins */
-> -
->  /*
->   * __has_builtin is supported on gcc >= 10, clang >= 3 and icc >= 21.
->   * In the meantime, to support gcc < 10, we implement __has_builtin
-> @@ -13,6 +11,23 @@
->  #define __has_builtin(x) (0)
->  #endif
->  
-> +/* Indirect macros required for expanded argument pasting, eg. __LINE__. */
-> +#define ___PASTE(a, b) a##b
-> +#define __PASTE(a, b) ___PASTE(a, b)
-> +
-> +#ifndef __ASSEMBLY__
-> +
-> +/*
-> + * Skipped when running bindgen due to a libclang issue;
-> + * see https://github.com/rust-lang/rust-bindgen/issues/2244.
-> + */
-> +#if defined(CONFIG_DEBUG_INFO_BTF) && defined(CONFIG_PAHOLE_HAS_BTF_TAG) && \
-> +	__has_attribute(btf_type_tag) && !defined(__BINDGEN__)
-> +# define BTF_TYPE_TAG(value) __attribute__((btf_type_tag(#value)))
-> +#else
-> +# define BTF_TYPE_TAG(value) /* nothing */
-> +#endif
-> +
->  #include <linux/compiler-context-analysis.h>
->  
->  /* Compiler specific macros. */
-> @@ -20,14 +35,101 @@
->  #include <linux/compiler-gcc.h>
->  #endif
->  
-> +#ifndef __compiletime_error
-> +# define __compiletime_error(message)
-> +#endif
-> +
-> +#ifndef __noreturn
-> +# define __noreturn __attribute__((__noreturn__))
-> +#endif
-> +
-> +#endif /* __ASSEMBLY__ */
-> +
-> +/*
-> + * When the size of an allocated object is needed, use the best available
-> + * mechanism to find it. (For cases where sizeof() cannot be used.)
-> + *
-> + * Optional: only supported since gcc >= 12
-> + *
-> + *   gcc: https://gcc.gnu.org/onlinedocs/gcc/Object-Size-Checking.html
-> + * clang: https://clang.llvm.org/docs/LanguageExtensions.html#evaluating-object-size
-> + */
-> +#if __has_builtin(__builtin_dynamic_object_size)
-> +#define __struct_size(p)	__builtin_dynamic_object_size(p, 0)
-> +#define __member_size(p)	__builtin_dynamic_object_size(p, 1)
-> +#else
-> +#define __struct_size(p)	__builtin_object_size(p, 0)
-> +#define __member_size(p)	__builtin_object_size(p, 1)
-> +#endif
-> +
-> +/*
-> + * Determine if an attribute has been applied to a variable.
-> + * Using __annotated needs to check for __annotated being available,
-> + * or negative tests may fail when annotation cannot be checked. For
-> + * example, see the definition of __is_cstr().
-> + */
-> +#if __has_builtin(__builtin_has_attribute)
-> +#define __annotated(var, attr)	__builtin_has_attribute(var, attr)
-> +#endif
-> +
-> +/*
-> + * Optional: only supported since gcc >= 15, clang >= 19
-> + *
-> + *   gcc: https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html#index-_005f_005fbuiltin_005fcounted_005fby_005fref
-> + * clang: https://clang.llvm.org/docs/LanguageExtensions.html#builtin-counted-by-ref
-> + */
-> +#if __has_builtin(__builtin_counted_by_ref) && \
-> +    !defined(CONFIG_CC_HAS_BROKEN_COUNTED_BY_REF)
-> +#define __flex_counter(FAM)	__builtin_counted_by_ref(FAM)
-> +#else
-> +#define __flex_counter(FAM)	((void *)NULL)
-> +#endif
-> +
-> +/*
-> + * Some versions of gcc do not mark 'asm goto' volatile:
-> + *
-> + *  https://gcc.gnu.org/bugzilla/show_bug.cgi?id=103979
-> + *
-> + * We do it here by hand, because it doesn't hurt.
-> + */
->  #ifndef asm_goto_output
-> -#define asm_goto_output(x...) asm goto(x)
-> +#define asm_goto_output(x...) asm volatile goto(x)
-> +#endif
-> +
-> +/*
-> + * Clang has trouble with constraints with multiple
-> + * alternative behaviors ("g" , "rm" and "=rm").
-> + */
-> +#ifndef ASM_INPUT_G
-> +  #define ASM_INPUT_G "g"
-> +  #define ASM_INPUT_RM "rm"
-> +  #define ASM_OUTPUT_RM "=rm"
-> +#endif
-> +
-> +#ifdef CONFIG_CC_HAS_ASM_INLINE
-> +#define asm_inline asm __inline
-> +#else
-> +#define asm_inline asm
-> +#endif
-> +
-> +#ifndef __ASSEMBLY__
-> +/*
-> + * Use __typeof_unqual__() when available.
-> + */
-> +#if (defined(CC_HAS_TYPEOF_UNQUAL) && CC_HAS_TYPEOF_UNQUAL) || defined(__CHECKER__)
-> +# define USE_TYPEOF_UNQUAL 1
-> +#endif
-> +
-> +/* Are two types/vars the same type (ignoring qualifiers)? */
-> +#ifndef __same_type
-> +# define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
->  #endif
->  
->  /*
->   * __unqual_scalar_typeof(x) - Declare an unqualified scalar type, leaving
->   *			       non-scalar types unchanged.
->   */
-> +#ifndef USE_TYPEOF_UNQUAL
->  /*
->   * Prefer C11 _Generic for better compile-times and simpler code. Note: 'char'
->   * is not type-compatible with 'signed char', and we define a separate case.
-> @@ -45,5 +147,103 @@
->  			 __scalar_type_to_expr_cases(long),		\
->  			 __scalar_type_to_expr_cases(long long),	\
->  			 default: (x)))
-> +#else
-> +#define __unqual_scalar_typeof(x) __typeof_unqual__(x)
-> +#endif
-> +
-> +#endif /* !__ASSEMBLY__ */
-> +
-> +/*
-> + * __signed_scalar_typeof(x) - Declare a signed scalar type, leaving
-> + *			       non-scalar types unchanged.
-> + */
-> +
-> +#define __scalar_type_to_signed_cases(type)				\
-> +		unsigned type:	(signed type)0,				\
-> +		signed type:	(signed type)0
-> +
-> +#define __signed_scalar_typeof(x) typeof(				\
-> +		_Generic((x),						\
-> +			 char:	(signed char)0,				\
-> +			 __scalar_type_to_signed_cases(char),		\
-> +			 __scalar_type_to_signed_cases(short),		\
-> +			 __scalar_type_to_signed_cases(int),		\
-> +			 __scalar_type_to_signed_cases(long),		\
-> +			 __scalar_type_to_signed_cases(long long),	\
-> +			 default: (x)))
-> +
-> +/* Is this type a native word size -- useful for atomic operations */
-> +#define __native_word(t) \
-> +	(sizeof(t) == sizeof(char) || sizeof(t) == sizeof(short) || \
-> +	 sizeof(t) == sizeof(int) || sizeof(t) == sizeof(long))
-> +
-> +#ifdef __OPTIMIZE__
-> +/*
-> + * #ifdef __OPTIMIZE__ is only a good approximation; for instance "make
-> + * CFLAGS_foo.o=-Og" defines __OPTIMIZE__, does not elide the conditional code
-> + * and can break compilation with wrong error message(s). Combine with
-> + * -U__OPTIMIZE__ when needed.
-> + */
-> +# define __compiletime_assert(condition, msg, prefix, suffix)		\
-> +	do {								\
-> +		/*							\
-> +		 * __noreturn is needed to give the compiler enough	\
-> +		 * information to avoid certain possibly-uninitialized	\
-> +		 * warnings (regardless of the build failing).		\
-> +		 */							\
-> +		__noreturn extern void prefix ## suffix(void)		\
-> +			__compiletime_error(msg);			\
-> +		if (!(condition))					\
-> +			prefix ## suffix();				\
-> +	} while (0)
-> +#else
-> +# define __compiletime_assert(condition, msg, prefix, suffix) ((void)(condition))
-> +#endif
-> +
-> +#define _compiletime_assert(condition, msg, prefix, suffix) \
-> +	__compiletime_assert(condition, msg, prefix, suffix)
-> +
-> +/**
-> + * compiletime_assert - break build and emit msg if condition is false
-> + * @condition: a compile-time constant condition to check
-> + * @msg:       a message to emit if condition is false
-> + *
-> + * In tradition of POSIX assert, this macro will break the build if the
-> + * supplied condition is *false*, emitting the supplied error message if the
-> + * compiler has support to do so.
-> + */
-> +#define compiletime_assert(condition, msg) \
-> +	_compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-> +
-> +#define compiletime_assert_atomic_type(t)				\
-> +	compiletime_assert(__native_word(t),				\
-> +		"Need native word sized stores/loads for atomicity.")
-> +
-> +/* Helpers for emitting diagnostics in pragmas. */
-> +#ifndef __diag
-> +#define __diag(string)
-> +#endif
-> +
-> +#ifndef __diag_GCC
-> +#define __diag_GCC(version, severity, string)
-> +#endif
-> +
-> +#ifndef __diag_clang
-> +#define __diag_clang(version, severity, string)
-> +#endif
-> +
-> +#define __diag_push()	__diag(push)
-> +#define __diag_pop()	__diag(pop)
-> +
-> +#define __diag_ignore(compiler, version, option, comment) \
-> +	__diag_ ## compiler(version, ignore, option)
-> +#define __diag_warn(compiler, version, option, comment) \
-> +	__diag_ ## compiler(version, warn, option)
-> +#define __diag_error(compiler, version, option, comment) \
-> +	__diag_ ## compiler(version, error, option)
-> +
-> +#ifndef __diag_ignore_all
-> +#define __diag_ignore_all(option, comment)
-> +#endif
->  
->  #endif /* __LINUX_COMPILER_TYPES_H */
-> -- 
-> 2.56.0.542.g3ef89b7020-goog
+>  	return ret == 1 ? 0 : -EADDRNOTAVAIL;
+>  }
 > 
+
+-- 
+Regards,
+Mukesh Pilaniya
+
