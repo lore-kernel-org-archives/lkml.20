@@ -1,111 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794452551;
-	b=4exxjwpdw6uTUGdJ4LhqjcIRCXAL0tHoOVIc5wsg16RcIYs0gcHHw+BSx/pRl8uMgHNv
-	 oo0quV2AFqbxap1MZRN+64Uq+EUtdmpEgup2KbZT24p1XpwYExp5/h8lMSUgYCg025ie6
-	 w4iab41RX4vCpSWC4vuYHQaB79NlrP6hNlliBCyGKuZFLYitA98t1tMjH5GdHDpH+N30B
-	 +Q1Cp4lRQLN4S0gnMMxeeHiEgQcu9+6dsO5TTFpYsFkVYXPIpnZy4KUsDwxHBwZz7g7vg
-	 hbH8jEGJL43LUmcin/kUugRanc98O3JFvRxRB9uZaM6e3BsAMiFVKBmjpBRaMyRZy2Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794452551;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=47XUdNMwRC82iFxZq7ZQ86CfwaRvSX1dghpcrXI2Iiw=;
-	b=UzNPFlfwrwF//I4CgR/HgOGYQmNNVN9K+WO5PKRtekk3gwmGmFBrelPQCTbxtsdtMdrv
-	 7DMQOosnDNmzVTXecsEdSzBCgxErAzzzTS2W9GNtNzg46jGo0yUmM2XhdPT/+sHm3i5RW
-	 23yYfwpzAJ8J8MmkfQwivGZ+4P4o7eWv4vt51yNe9JU9m97kjQYs8iRgadziCOEcHfvpG
-	 LNhkDVyltyOiEPct763eaSDGT6Y7vtg/KJQSvX8ECFeFpaEVp5WAIKTUV17REbBR5cQUy
-	 Pk18fE+2Rsm2r3f6JjODIHtTwYWVT9FeEj4prSOEa9EzQLrNKG414a4O448PIoXNuAA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="U+B/DW44";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iuvtCTmW;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794452639;
+	b=DgIJ62twNFA2D6XEtqhZyzEcc3Sp4CwuMwSmOEspCxtNGpabGzZDEf34YI2wV/R9j1zA
+	 //qDBvwKlmBfvygIXswpm/8yZ1Gd3VDHL4VFihTx3ER+6zZMMjzxVkcG+M5IsLjnzgyoN
+	 IVO0ka74gLhx6Y4pdxn4i+OSnXD+6reTPyqqhhUbfBTR9zEk45ZWmkYvGaiybRB9N0nFL
+	 81FRSkpMwnk3kZRfUbYbKRjcevY8qPHIz+go2GUhm0RbgK9NneItEl4nDmIqAplcxz5vm
+	 xssa/L85AckysAy4NSUSbanbGSPHahqQKtbJkRGM3FfgVttuLQm6sYNWcQrcCoY+oKA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794452639;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=GTeGZu2+9xZSrtftnB09MXJ0s6NLQku+8Y5vW10jAeo=;
+	b=jC9R8GuqxxNI+d+vCNVJ7TM2whSrSVowaEmQw9w5lpAwwnHXTb8UWFkCkHEvqz6/Eba2
+	 v7ALApm6DIvqA2nv784lt+wdG27N0gtwai0fyPc2WcHykToNjzFoGlkTZYxfZRLd3sONS
+	 5fl46hA9lUk5caHZlAaOu3EUkzlm+n5hBn5GP2Da0Blge1gkJUmYNxEz3cTmRMPU094Yl
+	 gQiS4JbdVeNf+HEnOgqtpf8qUk9YjoV5bJsZBK0OlH3YcB6mr3HrWI4sBRpg33PbTE26P
+	 TN/vB4R+yWUS+7ryFAE3bglhLydhjU9DGbNrdnyTRpEEoyBa0dBdoGjSfT5h+lPHQyg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NYWQ+ASk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D1C8606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:02:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D1C8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C745606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:03:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C745606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=U+B/DW44;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iuvtCTmW
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2aWEV1475415
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:02:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=47XUdNMwRC82iFxZq7ZQ86
-	CfwaRvSX1dghpcrXI2Iiw=; b=U+B/DW444pgNFnzIAIwWB9DfGuGpZCwbiDkfmK
-	PlVd199bKF3c5eAjl/hBVVqwukcv7qSM2loL08xt1+oIITws/OHP6BuByqM918JP
-	lvLAjzebNumwF6Yf5Q05+We2TI4k4QTG6xyh84QuzBaP/qtqIVqVZXdQYB68/huq
-	QC/IJthVm9MldmX1ulTlo+4YIIoqvlRYLjicPA5QpSjHoKCD7pZNsKnZDYC7AVbu
-	J3AKeqNd12ScS6K+HU3bbOGQUuUuMnKzRBlZHnyD9dlkdfg4JzA5WYjAgUJWYXAK
-	5hYgQqRpNO6mMAoMCHd+zm4I4KSpQ9jqktfagPbi5A0JMOXg==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvtymtbqh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:02:30 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36ecd5db581so757906eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:02:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NYWQ+ASk
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso24303475e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:03:58 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794452637; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FLaeBZM7XI/zaxcw5+29Od7u60F1tyX4L59Xt353a2No8KPdmwLdEzod2mhEA0WHhu
+         L9IrTrjdZB0Ue0phpIeHO7jNt8FHsuTgzAhG4O5+0YyyIFQhyuGSyJGdLuhLgRUyJy7C
+         K2WN618kGuTd7hJZGA6DW7sYIqnlP1W8zuGuuFTr5xrLv8i/fKVUF2xKaaK4e8NsfXzM
+         +SeCwoBmDorVf+JIRD7X4OPU90kf0yhZD4++UIsrFEjtVL6zUSZSNQiLCoxaqCqTWBtW
+         YpUgXrI+sRLIo5+I8SA2wagQcy+ok8MBVum5eT/72mcQlXua6pybGNszYsSZkMV7vd6l
+         qEvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GTeGZu2+9xZSrtftnB09MXJ0s6NLQku+8Y5vW10jAeo=;
+        fh=Y45Nekw0eN4o5ZwjdyzxFcXJkxN5ZGkMHv84AKCokbc=;
+        b=r4Jw7W8AeHbLGvUX224ugW7hz7yWUl/TVdVjMDqaUot1onvrrLvNEzasaDhQDItDJ2
+         WLFv11qcP24SIz3WmaNsAcVuR8dLHuzt9b0j6t7wE5WCeNsdKeO7+QbFzzQ8SEgZxtg2
+         ds80869DrbF3zuJvOtuT3S1kb4TBgz2FdqFcgkXnVMrUFNigqQFFiC2fXeYyrEVktt+L
+         iLeSrBfQf3DBWN7GqfxFtkVeY+6LgRMoyjUbR0FwYQtLPwl9pODAv6am4J5fzqshSq0w
+         YjRo9Tl7hDVozx67fFDy//AJ/x6F3vnVzlFNnKMnVqLsrcLzZJ0qDgvOc3vtaLmkS6pX
+         KlFw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794452549; x=1795057349; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=47XUdNMwRC82iFxZq7ZQ86CfwaRvSX1dghpcrXI2Iiw=;
-        b=iuvtCTmWZMmTx02RWxcP1sJli9R8ZT/pz1r0l1KROYXq2pHm9Q/1PffGfssepxjXPl
-         8SNzC+zOvbvvNlMoPcSlYbWaNN/EQDahXFII1feH4eFhy3WocnF21VQ1J+3ozB0riHHF
-         RVEhla3PHZd5i0lz4T8YWLg9OHuWwyY4+YYjmguEvHJJLzZeZRMSC8WNh9/bviu3kB2O
-         k903tjnoaVYRTRPyKwCtntpoIgQGYEFAyRzwiOrAAkgJ+++IrACel+r54YQhFE2+nm6o
-         bEL8qLMUnb6PZIS0R+3p+DF7dTx2q6A5NGLHpEktSlxdPmIxlqAyxc5s/dpTYQx6Unj4
-         wyhQ==
+        d=gmail.com; s=20260707; t=1794452637; x=1795057437; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GTeGZu2+9xZSrtftnB09MXJ0s6NLQku+8Y5vW10jAeo=;
+        b=NYWQ+ASkcj3iXlWnKEe9C54SGHbNXuCQpbfPm5kHOQWlr00Vvts9RWWSScfoYWBhei
+         ABVydHzxQpQpz9CFkW+x+vIRmXP6tsCnb8FsZe4AtYu/QCtFAN1Lywiav+VRirHbiAnq
+         E/3SWKWrfYKIUpcwgWTL76XevBO5cTZYDITBGiKw/47BBRNaoJ5bzgM5KSnroNHMUACv
+         q2ZLQ9b6Q09XPcZzbzTqhjgVhS3o3pgxelaEsMmG1enjZaUqtvQ3hqBJk3Dj2BnBjAj+
+         MP8iMKPAy8tzdpT30gE8HbFp/jdvSjztkiVHLAV+xKlQZoqY3wjFH7c+DKHqCS0Otjys
+         dSHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794452549; x=1795057349;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=47XUdNMwRC82iFxZq7ZQ86CfwaRvSX1dghpcrXI2Iiw=;
-        b=hekeo3U0+nneea7Bc0Ny7tdPX2O/T0gX8lI29pY5BrR8RM0fGdThfIQEyLVbbu7vbl
-         OaWBTo18ZcskGmZPF/MDHnkViei9ssGQ4rJsjNxrDJILej2blbEBrIJPaNb8EUzwnsvO
-         vKjsGCXloqecXu1C90tj65XuzSV6qj35bkMKr+jlKfMb83vvBH1Xj+5HR3gmUoUXIK4w
-         vvjkmcJOuw8i7uceCQL3kyY2TdhPVROw6cZsTF5lJ7NzRN5vMqYKVG7NQYjXIQULGaNr
-         h0Nv8DnNd35SY+TDoR2Qrqryru9fSjKRdDBx39mClEcF3CRu9EzW7jVLnMR4jAQdrpFd
-         3VtQ==
-X-Forwarded-Encrypted: i=1; AL+hErED4rrCf1hpe8dRC7RUu8JDQKxAuVLGiWnO8fTY5sKlb5XGbMIdyeLojvpiya+qloTXjHh1geABcdksVS4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+c1ou/H+wfq/nSezji5ABZZ1W65UT5PMhNhDUnfV6sfZUvctkM
-	Yf3rFTDMCwQnkBqwPx8Qf93ksIbdyxpyCtZTsdarJxQmtUEh+HTC2gwb59k9+IfyaRR0mdD0ttp
-	rTa7McmHQSoXk/XfqN870nJ5np2i25pBqgVQ7iX4DraENHZRYpMvf+3603P9buj0Fgfk=
-X-Gm-Gg: AYBFou0YkNHy5yd2Mfa9qvWaPrpX2NnXziFJfjvVwu5WjnLoz0+mTEFdJ0rR7WrMSJF
-	ZwquPWgbEF131sQ0YznAcvMFut+0ojKGaazysU0TAOnsFZuRHd1nF9wEKHwsL5QQWOcBmqBqtap
-	gR7QaCD1ddx4HTGo/mg/VfjtEOwcbt4HGLSsDzvVyrIvUwFR5hlJCKwrw55Xts5uNfEo88FQGJP
-	+PaT0dXj4xX9Vgl/ax1jtxtQ+Q5Fm1RtIUAr1rRM3ObK4NLalSLsb6uKA5if/Wa6OOavcnNWR+P
-	JfjqhUdbDt+fzDB35aVo6ETMGG8Vsady4RW4ag9RfH0gj4mAhtVeZqD0McALv7Ik9Ejzzw5eBn+
-	eR/+1IvWdT/pEIGCmJReh5izkb0CF5ducAfM7czDWVoRxxDpGcPR/XcvI8aGpj3Y4Yk3key43FR
-	11lfscjGIHTl/iZLxMl35VMoPVblUjRFAf
-X-Received: by 2002:a05:701b:4207:10b0:1b2:6cba:7f48 with SMTP id a92af1059eb24-1b3c03329f9mr4187391c88.31.1794452548869;
-        Wed, 11 Nov 2026 19:02:28 -0800 (PST)
-X-Received: by 2002:a05:701b:4207:10b0:1b2:6cba:7f48 with SMTP id a92af1059eb24-1b3c03329f9mr4187369c88.31.1794452548244;
-        Wed, 11 Nov 2026 19:02:28 -0800 (PST)
-Received: from alfred-sh01-lnx.ap.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5890e04sm20729029c88.2.2026.11.11.19.02.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 19:02:27 -0800 (PST)
-From: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 11:02:22 +0800
-Subject: [PATCH net-next v3] net: phy: aquantia: Poll global status
- register for provision ID
+        d=1e100.net; s=20260707; t=1794452637; x=1795057437;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GTeGZu2+9xZSrtftnB09MXJ0s6NLQku+8Y5vW10jAeo=;
+        b=NKRbPEBerkq/N3lb/fX7FlTu0og/b7DPxA61QnnAm/iKUHGg7r1EHzQMxxkXeQ19rM
+         8nZRpJhBj8f0cxPp3ne2xuQSr3a/BnQEQyCkdOW0oP7Jqkx+VUsiscpo3AgzD15FPkw+
+         +FKoA+TqRJQ1oUvqel0BOjycwERHuN4qUOV7e2z6QfU3OfZnqfdkPtOG+mbnGoIS0iCi
+         Lmum2lQFrqIukpbX3tUDNT5BHOi7UeqvjwkoxUsL4sja8WTBys8v1HKVDWjlYB9kknvY
+         fe4bhFNn8F+YzH0rqhCNFk4zddBv+Dj4DTKZFCNLhGMWHsVb7CUGY6Z28h/+hXnX/eX5
+         ysxA==
+X-Forwarded-Encrypted: i=1; AL+hErE5j2ijjSJW1KgaWr8wJcBVrljp7jwEKn84/zyPdZEDShhSwz6HjfDdnrgQqS/sokOY60XMOD29wS/XULU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/VXcJzZFzCLK0q45y2y72vyYd9KlKIeRQ1AMGkXb15+eusRWA5
+	3XF4uZ2omXbfokLN9NSSndrRpIEkeP685/pFFQ5OixffcANkKf14HGf1YyH9KbMB1HYSqX8DfEO
+	wNPhyGdg5yu9Y0x/ecMXDMb6hjrdizk0=
+X-Gm-Gg: AYBFou13m+TLlzmJEuwU4SYQ5kbcUP0iFVytF97i4bkcqdiU+z+oYDeCWkXG132MdM4
+	Tzby3EMWWeJa9g1DxrqJynQTcLD2n8GtzoTqcH7u8vnC8OtRf1kPKrVPML19e6e/BYmCfINbJ8k
+	huDM2KQrB9+85bguoknQVKDuB6dNZTETdDi2oP5nN1zAdrVAwHGuprZf02DOxzghUyek9WWTkdR
+	L/dPC3EpcnDyIbpnGXCgeXAxUnoNM7SSrIkXW4cvXO+qiLKvKINF0AoMk9C8Ki4t/Lo6viHG3GS
+	atPubNrNSw4zcbXnYsetQDViPdmuBvEZjsHfVpezWq0eibB9/UwEtbbguQcFiGaDsGlJOQHVgPY
+	Hq9XF0kHxJyRMfeJLRxnP5YG8Rj9XV4jBUwTgsw==
+X-Received: by 2002:a05:600c:6089:b0:4a2:1612:637a with SMTP id
+ 5b1f17b1804b1-4ba09376ccfmr70937035e9.16.1794452636496; Wed, 11 Nov 2026
+ 19:03:56 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,144 +104,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-aquantia-poll-global-status-register-v3-1-c805647a60b4@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAD0s9WoC/42OwW7CMAxAfwXljFGasqzZaf8xcXBbU4JCwuK0A
- qH++9xy4LIDtmTJsv2eH4ope2L1tXmoTJNnn6I09XajuhPGgcD30iujjdXO1IC/I8biEa4pBBh
- CajEAFywjQ6bBc6EMfeOsxb2lD9srQV0zHf1t1fyoSAUi3Yo6PCc8tmfqymJZdk+CSPm+fjRV6
- 8Uir7Rx78mnCipotKRrzB7r/jsx7+QydOly2UlZzZN5sSXeZBtht1abY/dJjUb3D3ue5z/913G
- tVwEAAA==
-X-Change-ID: 20260923-aquantia-poll-global-status-register-d8966a46e56d
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>,
-        Hongmei Xu <hongmei.xu@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794452545; l=3843;
- i=hongmei.xu@oss.qualcomm.com; s=20260917; h=from:subject:message-id;
- bh=r2y4qoQ/sYPNNcw1MBOflb7fpnnrMPK+pwaDLLaUVTA=;
- b=cw5Y0Pke6JSvkwF4kpYiJupaG6fLUopl0LderboDEVsSdif9DheunNjnh+5mhshD5TTs4B8VG
- gHoSrEvJ3ZYBX2SAXt3nfAkbaPWYaa+yr0z4RPeH4LqNfH/byKrBPlB
-X-Developer-Key: i=hongmei.xu@oss.qualcomm.com; a=ed25519;
- pk=8J3IzbyuOOHSwLvktng8AEQIdStEQDAGNCSOlkASmk4=
-X-Proofpoint-GUID: e46PiVzOaVju_Zw0n01h-YoiRLyGnGgJ
-X-Proofpoint-ORIG-GUID: e46PiVzOaVju_Zw0n01h-YoiRLyGnGgJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAxMSBTYWx0ZWRfX8IUAZoOMlQ8F
- l/ll24hlLOKwBLW4qyNs9Ev0r3JDT8jnGShj5ieJRuz0ZSHFIQNkSReiRIltrggA5vldYXSukZe
- H5BD8L4jSjPM7ttwg4l6zZT+rYCAIJKBBv6psEqplaohsaEfxQKbNNV8lrCwBoh5LYZ1UcWcleG
- NYBBGCieRU9i6pQddfEyb1xvdsvO3FKntuth4SHS2LR1QLgx0MszDRZ0P8yILKiVOzUlU5gench
- 9yNjH83RvN6T6GaZwc1l3BG/lsYIUcb7P8QXXk2crM7sQNYUYvbBxC0IlNxsjlVA8ypjF6suNg+
- 4B9GREfn1+86eiOCFcynlIvgYWYeAoNT8dyYH9jZIuZd7jhWVPQQipI9dm0vj3WJDvG0JuzAVek
- +tQodLzMRRkxdC4Aq2gfaVVkO6mkL3UhGxA5F5b4rvNMBUuXT75D3WZlSqWtzZ0L9yHg2dTYmrM
- LZKIFC5oTZpK+lRLjIA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAxMSBTYWx0ZWRfX3N4ANUOGV+rl
- GuBl7PkTSQLMeHjtlewkmFaYQ8dTZwQmznYWAkZgFuTOFT5oRESjLFulolRnaQoq7LNhO40peo/
- mBiwWVQP9Nb2wROJCPkjAubdVH/KVOE=
-X-Authority-Analysis: v=2.4 cv=Q4BHcI2a c=1 sm=1 tr=0 ts=6af52c46 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=bE3ElnuJEPo-UkmYN9QA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0
- adultscore=0 suspectscore=0 clxscore=1015 bulkscore=0 malwarescore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611120011
+References: <20261111145949.70845-1-mathieu.desnoyers@efficios.com> <20261111145949.70845-2-mathieu.desnoyers@efficios.com>
+In-Reply-To: <20261111145949.70845-2-mathieu.desnoyers@efficios.com>
+From: KunWu Chan <kunwu.chan@gmail.com>
+Date: Thu, 12 Nov 2026 11:03:44 +0800
+X-Gm-Features: AclHuK-9md0vcPevHW5yCaXCA8-TIbsg6XxGXtCuTXXP4lXtaJiSsteqqebRV7I
+Message-ID: <CAN_Opa-j6weQV6G1191vDG7hq2kkOfuGF=i83zpRQLvfo8cfwA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/7] srcutiny: Do not call synchronize_rcu() from synchronize_srcu_atomic()
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: "Paul E . McKenney" <paulmck@kernel.org>, linux-kernel@vger.kernel.org, 
+	David Woodhouse <dwmw2@infradead.org>, Frederic Weisbecker <frederic@kernel.org>, 
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, 
+	Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>, 
+	Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, 
+	Davidlohr Bueso <dave@stgolabs.net>, Puranjay Mohan <puranjay@kernel.org>, rcu@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-According to the AQR113 PHY databook, after firmware reset, a 20ms
-timer needs to be engaged to allow the supplies to settle prior to
-allowing the PHY to boot. The working flow is:
-  -After the 20 ms timer has completed, hardware state machines
-   designed to guarantee PLL and band-gap stability engage.
-  -After the PLLs and band-gap are locked and functioning properly,
-   the processor and digital circuitry are released from reset.
-  -The PHY image is then loaded through MDIO boot-load and the
-   processor boots.
-  -After the processor boots, any provisioned register values are
-   set, and the PHY enters the provisioned operating state.
+Thanks, Mathieu.
 
-Starting subsequent firmware operations before the provision ID is
-valid leads to steady link failures; this has been observed during
-AQR113 PHY bring-up.
+Reviewed-by: Kunwu Chan <chentao@kylinos.cn>
 
-Also the provisioning ID is a component of the firmware fingerprint
-used to identify the host interface mode for PHYs like AQR412C. When
-such a PHY is provisioned with MUSX firmware, the fingerprint
-determines whether the host interface should be reported as 10G-QXGMII
-rather than USXGMII. Without a valid provisioning ID, the fingerprint
-cannot be correctly built, making USXGMII and 10G-QXGMII
-indistinguishable and potentially causing an interface mismatch.
-
-Poll VEND1_GLOBAL_RSVD_STAT1 until the provision ID field is non-zero
-before returning from aqr_wait_reset_complete(). A timeout indicates
-a hardware-level provisioning failure that software cannot remediate;
-the warning is logged to flag the hardware problem, but probe is not
-failed since not all PHYs require a valid provision ID.
-
-Co-developed-by: Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
-Signed-off-by: Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
-Signed-off-by: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
----
-Changes in v3:
-- Merge split string in phydev_warn() into a single line per kernel coding style
-- Link to v2: https://patch.msgid.link/20261111-aquantia-poll-global-status-register-v2-1-b602fc7e80a9@oss.qualcomm.com
-
-Changes in v2:
-- Change the log when provisioning ID poll times out to hint the
-  mode mismatch possibility
-- Update commit message to describe the AQR113 databook boot sequence
-  and explain why polling PROV_ID is necessary
-- Update commit message to explain that timeout prevents fingerprint
-  construction for PHYs like AQR412C with MUSX firmware which in a result cause mode mismatch
-- Link to v1: https://patch.msgid.link/20261029-aquantia-poll-global-status-register-v1-1-808089824a3d@oss.qualcomm.com
----
- drivers/net/phy/aquantia/aquantia_main.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/phy/aquantia/aquantia_main.c b/drivers/net/phy/aquantia/aquantia_main.c
-index e95d391a6dc2..b90221f1cf41 100644
---- a/drivers/net/phy/aquantia/aquantia_main.c
-+++ b/drivers/net/phy/aquantia/aquantia_main.c
-@@ -702,7 +702,22 @@ int aqr_wait_reset_complete(struct phy_device *phydev)
- 		return val;
- 	}
- 
--	return ret;
-+	if (ret)
-+		return ret;
-+
-+	ret = read_poll_timeout(phy_read_mmd, val,
-+				val < 0 ||
-+				FIELD_GET(VEND1_GLOBAL_RSVD_STAT1_PROV_ID, val),
-+				AQR_FW_WAIT_SLEEP_US, AQR_FW_WAIT_TIMEOUT_US,
-+				false, phydev, MDIO_MMD_VEND1,
-+				VEND1_GLOBAL_RSVD_STAT1);
-+	if (val < 0)
-+		phydev_warn(phydev, "Failed to read VEND1_GLOBAL_RSVD_STAT1: %pe\n",
-+			    ERR_PTR(val));
-+	else if (ret)
-+		phydev_warn(phydev, "Firmware provisioning ID not ready; interface mode detection may be incorrect\n");
-+
-+	return 0;
- }
- 
- static int aqr_build_fingerprint(struct phy_device *phydev)
-
----
-base-commit: 944ae66642b726bd6b25ae71b1e9ff88a0e0bdb0
-change-id: 20260923-aquantia-poll-global-status-register-d8966a46e56d
-
-Best regards,
---  
-Hongmei Xu <hongmei.xu@oss.qualcomm.com>
-
+On Wed, Nov 11, 2026 at 10:59=E2=80=AFPM Mathieu Desnoyers
+<mathieu.desnoyers@efficios.com> wrote:
+>
+> synchronize_srcu_atomic() never blocks, so that it can be called from
+> atomic context.  This includes interrupt handlers, and code within
+> rcu_read_lock().
+>
+> With CONFIG_PREEMPTION=3Dy, the Tiny SRCU version first calls
+> synchronize_rcu().  Tiny synchronize_rcu() does not wait: it only
+> advances rcu_ctrlblk.gp_seq.  This is valid where the caller is in a
+> quiescent state, in task context and outside of any RCU reader.
+>
+> The callers of synchronize_srcu_atomic() need not be in a quiescent
+> state.  An interrupt handler may have interrupted an RCU reader.  A
+> caller within rcu_read_lock() is itself an RCU reader.  In both cases,
+> synchronize_rcu() ends an RCU grace period while an RCU reader is still
+> in its critical section.  poll_state_synchronize_rcu() would then
+> report a grace period that did not happen.  The caller within
+> rcu_read_lock() also gets "Illegal synchronize_rcu() in RCU read-side
+> critical section" from lockdep.
+>
+> srcu_drive_gp() has the same call.  There, it makes an RCU Tasks
+> Trace grace period imply an RCU grace period.  RCU Tasks Trace uses
+> call_srcu() and synchronize_srcu(), which are both forbidden on a
+> srcu_struct that uses synchronize_srcu_atomic().  And the Tree SRCU
+> version of synchronize_srcu_atomic() does not wait for an RCU grace
+> period either.
+>
+> Fix this by removing the call.
+>
+> This was found by reading the code.  An rcutorture test added later in
+> this series fails without this change.
+>
+> Fixes: a48669f0c49c ("srcutiny: Add an atomic Tiny SRCU")
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> ---
+>  kernel/rcu/srcutiny.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+>
+> diff --git a/kernel/rcu/srcutiny.c b/kernel/rcu/srcutiny.c
+> index 63a3f0a8bc53..d58f4160f925 100644
+> --- a/kernel/rcu/srcutiny.c
+> +++ b/kernel/rcu/srcutiny.c
+> @@ -367,9 +367,10 @@ void synchronize_srcu_atomic(struct srcu_struct *ssp=
+)
+>         if (rcu_scheduler_active =3D=3D RCU_SCHEDULER_INACTIVE)
+>                 return;
+>
+> -       if (IS_ENABLED(CONFIG_PREEMPTION))
+> -               synchronize_rcu(); // Needed for RCU Tasks Trace to imply=
+ RCU grace period.
+> -                                  // And in Tiny RCU, it is near zero co=
+st and doesn't block.
+> +       // No synchronize_rcu() here, unlike in srcu_drive_gp().  The cal=
+ler
+> +       // may be in an interrupt handler or within rcu_read_lock().  Tin=
+y
+> +       // synchronize_rcu() would then end an RCU grace period that an R=
+CU
+> +       // reader still holds up.
+>
+>         // Usually, there will be no readers.
+>         preempt_disable();  // Guard against lazy preemption and some oth=
+er grace period.
+> --
+> 2.47.3
+>
