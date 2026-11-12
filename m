@@ -1,65 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794481706;
-	b=VF185SZnGc+Jkomwh4U82T99kSrymmYEdOcvE+VIOSnAGWuHPTH6By6fuYZWog6vNVxL
-	 UfLWIkEtkaY15PdCIJwaoKAEVA1YoV4QcDUlW/sQFGfbMKSmzIm2BQf/oH3b4M0V5Jln1
-	 mW+HWH8y46SHILBqcHpdNlt9Gs1giv6Kth2LhOc96kdUh3Am04tm6IHqOicsmCm7BENlH
-	 0zCDWwDlEEukUboQJlJdt1J38K7L4WTRBXMUEwPNNcYdva36v8/l9T+0rKcKAMj4LA1Kc
-	 TNOn2Sz6UTZibxRXLkMRrFFPbV6ezbs1fCw7YHnYjLGrqpYqbKhNxm8zyiv1EZe9tLQ==
+	t=1794481723;
+	b=Aqx9S0mYPxzeCrMSBOd7gmlbReKXbuOkkjz/ew4bMIdHqmD4oLig2BM7yzJRQigC1ufo
+	 ognfPYkS4RptvCxaVsE8sTAKoP9rzNzCS3W3kx62CLvHpvvpYhP+sfyJzsUhfb5yR4Tcf
+	 rVqsTP99U/m+nvyAeBl4H0rNMiklmjGGS48ZaZgnCoLu7FUejTvG3D6An7DYRlAelpNY/
+	 1JP017CDUwvbzEG3V6CGA66xmcAgoGB247cpCWC9GUIf9D8iZedf04WRYY8xQ/MwG0lnd
+	 Pksy3C8Ud+iE2VnIIxBTUyCoLAs06Hqccp4+uM8CQazZ1hgKb49OLrflLIakzUzN3OA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794481706;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794481723;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=CwOsftxfNPZqsPWmATYl8H3Jcuwt3wJErixQ5+qMlpE=;
-	b=ykd+fLSKQS5xFbmU04Yw1oaINwbfoBy+XF2UkZvFibfQZj8Tu41JPIKDZ9U+mm5yw245
-	 X+RJmCt2sbatP0sOSq2QGDoFyY+bS0A1mUmEVV1qCxrF5v3DNEAMmVrlLCtpdGFTbI4mz
-	 9d9i4Iye+pxv+z2OIZMhMcdcHFT9KaktHcUE5xYHIp4X5qi/bp9y195DmQAYmkWJ5oJqz
-	 UtpCtDOHb+75qwdQj7LvAnw+RDj1pJgGvFMXrK0WdILAr5BYfycwXjR+9jrW7+XrNk7Fr
-	 KE/veMYr/ezh7SPkAp2rRKPsSiwo6bjb7dSaYLgwZ0M93Qc/I9U0roWH7zbFadmOzGQ==
+	bh=HiPw/vO6fj89ZTfYmyeZnIAu27qYcwnBAOmXn+WneYM=;
+	b=ht41sXj4A7UJ3kItyb0RMtVUxaoSjQKKZ+cxEfciV4INZ4pXIXlap3m1DAUeXNyQ5tFQ
+	 FlxbYN6eQPrFhNfzLK+csaBhQnRvGp0YL3jliU2knBU5riGZW47WwPsyTC3SMNsFBpFaB
+	 ZDnVwMDk06SYH4PszriFpPjZyk3i3sj9nMKKztdrTi5UfYYUwCmF3DCQgfpxX0jWOPRng
+	 bvB/1j2OyFTztbwVC8T5jUgUkvnHWCRVQG/VwouLsheqxWlcs+gQYVa7QsBMu9QRX+bfT
+	 ApjA8ynZ3rhVTUrSDPwk0Of3SVa1P/fF5pIfeBMgpcoHIYfRScUe/RUMlpkdpjqQIMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="DyW/n0qa";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T8WWcBab;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADEB5606A327;
-	Thu, 12 Nov 2026 11:08:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7534606A321;
+	Thu, 12 Nov 2026 11:08:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DyW/n0qa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1711F00A05;
-	Thu, 12 Nov 2026 11:08:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T8WWcBab
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79AEA1F00A05;
+	Thu, 12 Nov 2026 11:08:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794481706;
-	bh=CwOsftxfNPZqsPWmATYl8H3Jcuwt3wJErixQ5+qMlpE=;
+	s=k20260515; t=1794481723;
+	bh=HiPw/vO6fj89ZTfYmyeZnIAu27qYcwnBAOmXn+WneYM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DyW/n0qa91KOXYIdySgHj3eIEbcxiNLeNpFJQeJIhuco7rqZhcUrZWt85zW2HvkZ9
-	 2wHcJEktysymXTF6HagokqiVhCbjwDWD8yix6rDxMSGsopa8pZHnoxnrvLe/8Hz+2u
-	 /Oeg3+Wul0MlRp1g521fXX3TFW07X/L5HX5Qvh0aSubdGVt08DH7GwnuO2LSJ2KXau
-	 RPAXXyI2D8ChNftplFJpDpNSn2iMeD5JkQihuDtFyl16gS3OoJJvQR25xqK55OoY+3
-	 gzGIr1nwOPmi+95UfGmefDWE5eByHd4cmfi1D0Ti6MIdqFXLTfEYjZ7WsHvUTpW7GR
-	 EzmSUwBmBxA8g==
-Date: Thu, 12 Nov 2026 16:38:22 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: aidenisik@member.fsf.org
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org
-Subject: Re: [PATCH 2/2] phy: exynos5-usbdrd: Add support for the Exynos5515
- usbdrd phy
-Message-ID: <avWeJqbpbLcWgq_R@parshuram>
-References: <20261022-for-next-lucky7-usb-phy-v1-0-2e47f8484bf4@member.fsf.org>
- <20261022-for-next-lucky7-usb-phy-v1-2-2e47f8484bf4@member.fsf.org>
+	b=T8WWcBabyiIZJt9o4CRWXCXqWprHnqX/iN3JpjVXQksv65oEatvA7TfzcUnPKz8mz
+	 NTsKi80nGYIxl1a0wZnUAxfimcMlBPQq8SQ33l/rCDZ86XFhxtH04Bdcgth7iEhGXO
+	 0xc/P9YLJNHE1ST277DK0pA4o7DQyBn8YWKtBkKaxY91DpvQ6xjT2p9tyYMVsZ90/d
+	 M5m6LK4NLX9pyxOUJME4ljdvcr/FU6We7PrcibPjgBRP4vOV3ISuQ7pV1DM+duznMc
+	 UIHCOy9NwJj133zfvBo6x6sPosW7OkrqjunUcezd3iKhqGycpYUO85/g9MbjSazy9q
+	 fd47LzyUQzGgw==
+Date: Thu, 12 Nov 2026 12:08:39 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Pufan Jin <cyan2254650260@gmail.com>
+Cc: Conor Dooley <conor+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Michal Simek <michal.simek@amd.com>, 
+	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>
+Subject: Re: [PATCH v2 2/2] ARM: dts: zynq: Add ALINX AX7Z020B development
+ board
+Message-ID: <20261112-mottled-formidable-galago-eb933b@quoll>
+References: <20261111162917.97532-1-cyan2254650260@gmail.com>
+ <20261111162917.97532-3-cyan2254650260@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,60 +60,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261022-for-next-lucky7-usb-phy-v1-2-2e47f8484bf4@member.fsf.org>
+In-Reply-To: <20261111162917.97532-3-cyan2254650260@gmail.com>
 
-On 22-10-26, 17:46, Aiden Isik via B4 Relay wrote:
-> From: Aiden Isik <aidenisik@member.fsf.org>
+On Wed, Nov 11, 2026 at 11:29:17AM -0500, Pufan Jin wrote:
+> Add devicetree support for the ALINX AX7Z020B development board.
+> The board is built around the ALINX AC7Z020 system on module with a
+> Zynq-7000 (XC7Z020-2CLG400I) SoC, 1 GB DDR3 SDRAM and 32 MB QSPI
+> flash, and provides Gigabit Ethernet (JLSemi JL2121 PHY), USB 2.0
+> host, MicroSD slot, dual CAN buses (SN65HVD232 transceivers on
+> MIO 10-13), I2C RTC/EEPROM/LM75 and the serial console on UART1.
+> DevCFG FPGA manager is also enabled.
 > 
-> The Exynos5515 USBDRD PHY is a USB PHY which supports USB Super-Speed
-> and High-Speed. Add support for High-Speed (UTMI+) operation.
+> The two SMA AD inputs and the spare differential pair are wired to
+> XADC aux channels VAUX1, VAUX9 and VAUX12. The XADC hard macro is
+> always accessible from the PS, so expose these channels via the
+> driver's xlnx,channels property.
 > 
-> Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
+> Link: https://www.alinx.com/
+
+Drop link. We do not advertise websites, unless it brings some value.
+
+> Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
 > ---
->  drivers/phy/samsung/phy-exynos5-usbdrd.c | 43 ++++++++++++++++++++++++++++++++
->  1 file changed, 43 insertions(+)
-> 
-> diff --git a/drivers/phy/samsung/phy-exynos5-usbdrd.c b/drivers/phy/samsung/phy-exynos5-usbdrd.c
-> index f10cf7b6e0aa..8718e8f01e46 100644
-> --- a/drivers/phy/samsung/phy-exynos5-usbdrd.c
-> +++ b/drivers/phy/samsung/phy-exynos5-usbdrd.c
-> @@ -2075,6 +2075,46 @@ static const struct exynos5_usbdrd_phy_drvdata exynos5433_usbdrd_phy = {
->  	.n_regulators		= ARRAY_SIZE(exynos5_regulator_names),
->  };
->  
-> +static const struct exynos5_usbdrd_phy_tuning exynos5515_tunes_utmi_postinit[] = {
-> +	PHY_TUNING_ENTRY_PHY(EXYNOS850_DRD_HSPPARACON,
-> +			     (HSPPARACON_TXVREF | HSPPARACON_TXRISE |
-> +			      HSPPARACON_TXRES |
-> +			      HSPPARACON_TXPREEMPPULSE |
-> +			      HSPPARACON_TXPREEMPAMP |
-> +			      HSPPARACON_TXHSXV | HSPPARACON_TXFSLS |
-> +			      HSPPARACON_SQRX | HSPPARACON_OTG |
-> +			      HSPPARACON_COMPDIS),
-> +			     (FIELD_PREP_CONST(HSPPARACON_TXVREF, 15) |
-> +			      FIELD_PREP_CONST(HSPPARACON_TXRISE, 3) |
-> +			      FIELD_PREP_CONST(HSPPARACON_TXRES, 3) |
-> +			      FIELD_PREP_CONST(HSPPARACON_TXPREEMPPULSE, 0) |
-> +			      FIELD_PREP_CONST(HSPPARACON_TXPREEMPAMP, 3) |
-> +			      FIELD_PREP_CONST(HSPPARACON_TXHSXV, 3) |
-> +			      FIELD_PREP_CONST(HSPPARACON_TXFSLS, 3) |
-> +			      FIELD_PREP_CONST(HSPPARACON_SQRX, 7) |
-> +			      FIELD_PREP_CONST(HSPPARACON_OTG, 2) |
-> +			      FIELD_PREP_CONST(HSPPARACON_COMPDIS, 7))),
-> +	PHY_TUNING_ENTRY_LAST
-> +};
-> +
-> +static const struct exynos5_usbdrd_phy_tuning *exynos5515_tunes[PTS_MAX] = {
-> +	[PTS_UTMI_POSTINIT] = exynos5515_tunes_utmi_postinit,
-> +};
-> +
-> +static const struct exynos5_usbdrd_phy_drvdata exynos5515_usbdrd_phy = {
-> +	.phy_cfg		= phy_cfg_exynos850,
-> +	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos850),
+>  arch/arm/boot/dts/xilinx/Makefile             |   1 +
+>  .../boot/dts/xilinx/zynq-alinx-ac7z020.dtsi   |  70 +++++++++
+>  .../boot/dts/xilinx/zynq-alinx-ax7z020b.dts   | 142 ++++++++++++++++++
+>  3 files changed, 213 insertions(+)
+>  create mode 100644 arch/arm/boot/dts/xilinx/zynq-alinx-ac7z020.dtsi
+>  create mode 100644 arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts
 
-.n_phy_cfg does not exist.. Please fix this
+...
 
--- 
-~Vinod
+> diff --git a/arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts b/arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts
+> new file mode 100644
+> index 0000000000..472d9fcaaf
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts
+> @@ -0,0 +1,142 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * DTS for ALINX AX7Z020B Development Board
+> + *
+> + * Copyright (C) 2026 Pufan Jin <cyan2254650260@gmail.com>
+> + */
+> +
+> +/dts-v1/;
+> +#include "zynq-alinx-ac7z020.dtsi"
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/leds/common.h>
+> +
+> +/ {
+> +	model = "ALINX AX7Z020B Development Board";
+> +	compatible = "alinx,ax7z020b", "alinx,ac7z020", "xlnx,zynq-7000";
+> +
+> +	aliases {
+> +		ethernet0 = &gem0;
+> +		serial0 = &uart1;
+> +		serial1 = &uart0;
+> +		mmc0 = &sdhci0;
+> +		spi0 = &qspi;
+> +		i2c0 = &i2c0;
+> +	};
+> +
+> +	chosen {
+> +		bootargs = "";
+
+Drop bootargs, why do you need empty ones anyway?
+
+
+> +		stdout-path = "serial0:115200n8";
+> +	};
+> +
+> +	usb_phy0: phy0 {
+
+just "phy" or is there phy-1?
+
+Best regards,
+Krzysztof
+
