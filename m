@@ -1,98 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.39
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794464115;
-	b=i31Oa3yeQOnbRybmnEGHxxy38KRhO+E8rcfVl2me4QJHCDSCcXee/iL3XZRmnSjfapRo
-	 REtVpPsISls3Yz9nq2ZeN4ZUJg6VgtkkYrJM0SHjJexumSGLcft9lgZ6HMDGytIUTWsTl
-	 nZuQnUJc/J8DPKvcEZa/lD7HOtPGzipW73UYhGBWRYExxq4fxIxXCaZfKmVYG97MLbK8d
-	 l2cdLkjHtdEApYlqpT4eO/eSK1FsP8YMhM7JtafGKMdOg6TAT9yV0zZbrGv6dPzjb1nnY
-	 wvFuVBhPmSmg5wAyJUxLlOtr1o3qXYcCXOu8cLEKCvzDQByqfzhpl/uHGEhQaz3n32w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794464115;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ss+2O4s3tdLCILnx9V4W2a31zjrrX4eCywwtEK/Rx6E=;
-	b=WH6O3Baug4DZDAFi0/Hxm2PQ2Mr9zxopf1Mm/aOT/Hyp3aGj6KWCBvQW5MH9Wga3yFa1
-	 L2iaPwDYW/0/U/QQC5Xqa1l9PfMk66tGv4Pt7H7ap2MjaG7zUqSYJs942sOf3vTopPr7V
-	 TS9kw8YHtW+M/ZrEcwZ9dT3HuNEnUYUhweNxI+Js8TMgbiOacUlrDoVJEFunOLdO1Ep0c
-	 FYLVaLJPv8lrz2w1a0bhMMymqtIQbhUVPZpbfq40L7GEgOHTAXSJ9a600n1RhhCMCwCJN
-	 qmalcydmJuKUXGYA7+t8XY89+TSV9zOBCimFecN2BqwB+l0xokXcLfPub5/BSrHVZ2w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=F2iRiM6x;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.39
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012039.outbound.protection.outlook.com [40.93.195.39])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794464114;
+	b=rQOKc0NA8ULJvPqdlVv+Q1QaYzDx19c9aUG5lUSg5Sp4nF5KdymLl2c9N4Xu3M8FrctH
+	 uA26E8b7OgPGB5InWYPFxNuBu/bPSR9WIVdguRkxxfgSnSdZYfA1lwZMoWD0AJslSQU28
+	 P1pNdl0Lr7Ylfrbq+5uL9gqh7+3WmA8qGO/9pt/phKswlAHCe7KGfv9Tj+HzutqxnuK4u
+	 C30pxIwof3bfoM4/H2go6uevD38Cpfn4PY9EPpQHgU2ZN5KlwLmnWg1bG/YSON/GQzlW4
+	 SEQqyUIA+7O8t3/oacClHhi7dYtb9+B2CpYfcXA37AuhCNST+4yKC2DjrO7xZC6Ls0A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794464114;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=Vx8jegixfG8ud0k0rnqc4fDDdtC8/64S6FMHMTINRGs=;
+	b=IwM+kd4cU/XzSVoeL2EGr243fUSsgIgJ+Am4VNQ/hknjc4te3WRH21fYgsqTxJqF4u3o
+	 LCA+AACQNriyiy7m+CT9PF1UC4UwAtWINi7ps2bL0I9pwdVt3olxC28v7bOmF+8Pxq8jV
+	 CRnljDEftFFPoffO58pfdbZyFqXWSOyVQPOXQcfBjHDBUCVz4P6dAHBkDijI8uB6xxqox
+	 C7CYk23Wa+j79iUDYB3q7vkM2nAJfqQaKyM+tCvH2+Uml7wQjyL0sxizyLP7UOg3OKkVm
+	 lvlD5Zj0CKy8KNoYHT11hflTZmiaPwlP9JrS6Ly6HkzfTsjKRyFGSv/+4rJclWn0ZEw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DfBtHZiA;
+	arc=none smtp.remote-ip=209.85.216.69
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4126E606A32E
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:15:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4126E606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DEFE606A895
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:15:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DEFE606A895
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=F2iRiM6x
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xdEVp78cfxJQzMDjzVeRxe/0kR3OtLfv5oNNp/AteGcQhFb8t/pwt1AhUX82YPMHPsImOEiDVik4DFujYlH2RANSG3St0VHk0kQ/eeGLBfAqgD+FVwlJRrekL8iLIbTLaLB+nsp04w4FFaGM1TbOoCsembUDg2lOa7zMCPBZTxL696CHY2LMU5x1Nv09z87316saTZH7l7EevFzL6slgs7QR+ccv44Eu8hSi840Nco1h3ocG2UunZGcXGJ+rQLo+6q/f0WONIOFNXTSawChy/KitXsKN4PawjH+BsDRzvchHhPwRFuzvEhV9F3FwHhkgz407U+Jdxn/VuJSgtYIEKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ss+2O4s3tdLCILnx9V4W2a31zjrrX4eCywwtEK/Rx6E=;
- b=fydEFRtikWd+kQm+uYxGIaU9TRDnS8I7xtQpKEnpedmrsbp77rrAfRH+fS3ZHFF43lBYjiUgwrt4j7Wj6Wat21ency6IuHoCh7/FqoT2XhnRz0EOSHGKjD/IildXVlJungn8NrmeqRpU6adUVDQ8rwPctAFB0dxgrqqx1YOR/deLjcsELKM5vl6cUONFuS9hD1KrhGhZYzE01lu04UHWchd6julRZmw8e0FAAfE6U50hGmHj4hO9JWJCWXXcYd/3NinSvc7Wf2g4CmFQt3Cn/vNMVnmfNQHWZtsaX3K8t9aycFeO0DAvk/2KmEZBq6Q2K/ui1wJKAkXN+YvVFhyOnw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ss+2O4s3tdLCILnx9V4W2a31zjrrX4eCywwtEK/Rx6E=;
- b=F2iRiM6xAFRip27uYx07Wm6VFmdcT8Xt7cat2wu0PM9Egqzwm0n0fzIDwlTB/kGTm7BmXORglE24La8C0RX1+csIBAPXS+I0ZAXi05uRvPj2euPzUkVMJ6Nukp8GiEM1rDhOW9a3zPH+IJZ3tn8Dou9xgSWfKeA7OcQHoNr401dMc0C0BbBPh3s5Ex72oy9aoTilUTv/eC+VAzLSMKl/4M3HLj53MZnsE4d0iDL+ncO6n5FKexN5ot4c3BcOv9KpVot2MEn1LSh09UO9iGbs3wJD9bp58qN1aRMhhd/kcPQ/0yy0vBKyQd4J1eX9AFAU3Dq7mw2kR/Azfbcgfr5Xdg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- LV2PR12MB5966.namprd12.prod.outlook.com (2603:10b6:408:171::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
- 2026 06:15:11 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0615.008; Thu, 12 Nov 2026
- 06:15:11 +0000
-From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Thu, 12 Nov 2026 15:14:54 +0900
-Subject: [PATCH v2 2/2] gpu: nova-core: gsp: cmdq: increase MSGQ_NUM_PAGES
- to 64
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-msgq-64-pages-v2-2-bc1e6f7301ca@nvidia.com>
-References: <20261112-msgq-64-pages-v2-0-bc1e6f7301ca@nvidia.com>
-In-Reply-To: <20261112-msgq-64-pages-v2-0-bc1e6f7301ca@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alexandre Courbot <acourbot@nvidia.com>
-Cc: John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCPR01CA0126.jpnprd01.prod.outlook.com
- (2603:1096:400:26d::6) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DfBtHZiA
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ae7faf4ff7so4903499a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:15:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794464113; x=1795068913; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Vx8jegixfG8ud0k0rnqc4fDDdtC8/64S6FMHMTINRGs=;
+        b=DfBtHZiADm8aC1tIo3EBpHmPHMVbr7D6BjdBoK2VJBrjXXlJu/3NFxui5H1d6DCWUw
+         De2QHLNcIqLLTOnXxnkpXkprRoegjS8s+jb8K8ih1VwQnl/3AYLhR7Un2oKQnWvUvPF5
+         f2ChaFGA/RIIarWf+k44PrAyM6EesC0A3rFNoy/JValIylnNdCBggZUA01b4ejL7h3To
+         aNw3p+RaefqN9eHJ7UJKD/wpR6IuBR/NyQS00D/90dLg3W3jhIc+Vf8vezS46xHvrHlX
+         fEEV1Ew9K3rkG9ZooGMxEAFRGww8gOHmr35RKNw6qSuJDjwHprjV5iPx8x/zP5EKTXmR
+         L9yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794464113; x=1795068913;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Vx8jegixfG8ud0k0rnqc4fDDdtC8/64S6FMHMTINRGs=;
+        b=Evvmd0FyP6+yd/N8q401RZIymlnYT2mMuIqob7O/rSXyEl13RmhvvHPEDN5ODtPs34
+         x00yr5fQ4XPS1yPznu0IWUIhVHnkzJ/yL8qbNNXVhlLH9MKALCKf5FKCLzf6i4oL2neB
+         wSLxU/EndogVE8edFdhPOOmFPbL+3j0XoydrGAsXjIvfcFA11hCVKwiYiiyAXn9e3qVE
+         q3D1oMThnQ1ALJzAMcZo7zZazofNvdq2m43450S/QeDI5WL0kMG8E4OP4sy69JAyXe9t
+         BesK2G89W7SKow3YQY0mo6kQBuqLEISKDCztig0JoM3a91m0lw9PkojZptRvxovdKBMl
+         pYnA==
+X-Forwarded-Encrypted: i=1; AL+hErFiMr+lYL/yIPX7GZsEF+qbL0Tcnw0q9QavPBiiMMpn8CmILoWRqLtdkwL9HSXuTXsS+iHX4wXk0fMMC8M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Y6/hoSIEua1FQn2ZafljviJL2oZVF4ov8UJSArjb9UgYPCcTD
+	4qrOhvI4VA3NFNbfDIgHIGwYYew41YQbVqgK98J0m/0Ykt1LdSBVi0EonVCQCM0LfHCxqIOpLaQ
+	Np2EFbA==
+X-Received: from pjbee14.prod.google.com ([2002:a17:90a:fc4e:b0:3ae:c243:313b])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2245:b0:3b0:ab34:afc8
+ with SMTP id 98e67ed59e1d1-3b182e94123mr4304859a91.20.1794464112721; Wed, 11
+ Nov 2026 22:15:12 -0800 (PST)
+Date: Thu, 12 Nov 2026 06:15:12 +0000
+In-Reply-To: <340d9f1f96e235642e8b47b5e7c836a18de8dd56.1794325665.git.x-professor@outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,114 +77,85 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|LV2PR12MB5966:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0edb0680-a730-44d4-7ddf-08df40844edb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|10070799003|1800799024|366016|18002099003|22082099003|3023799007|11063799006|261026121527099003|261022105027099003|261026140227099003|261009223027099003|261028144727099003|56012099006|261021123027099003|261021121427099003|261021135927099003|261102123227099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	FHZT/butKmLCM3vV7NtNnrYY1PAxo+KnSMKBXXUfoGKWsmgvYPoJmGlWl/J5p0lbFHQ4iIqILn5JxWtJShqr4RaUAj05HW4II0l6ECvviqKlUNJ97oMKjEwAtWGDH4TKuCqBYE9oUsz6orHBMhw+LdWtr5JnQ0FCUHzbSN9I0+8jObOzUVVXdw/sYfgCaomR+Ia6tgvRCFwfhRBbcTVRxflEny7S6b7B8wzwjRmzVjazX1m8+ltKb0oonRcfs3aTlxdcFzlljfdiK1l+vXPO/jpShXxsIgnvQTXqzDcHVwSdrxv7d7U851vTWOmHonx5hTdMTumM8EyTycgg/dN99Way4NpuXVUO8hXr+mgA/lWpDzJSZU4qsuVkiicBY2zr/N1ifullyZYyV5OxpaOKbhtRC8jyjlzyC5TC+a+/MYSto0KE07wwnjVvhrxr5+bnD9RO4UoQRosaoStKarygU+SCt9SOcRiT9IYG3vlqAMzMCfcy3EdP79PsHffghoDbUGQwpz3TzGjB+YAGo3o3itwqKNhdd9VoaPm0eU8pCQfXzDUH4Gvn0VGl2aMcGn5W+3Z1fTgfECMqn40xkqOOY3Q5t1zGlZ44BEpIvc17ALn3npvjUVnq/QDpvE91IZ6YEeJAlK2divvaL3rFhidiF00PNWa9NBIH2wsiTJptUGU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(10070799003)(1800799024)(366016)(18002099003)(22082099003)(3023799007)(11063799006)(261026121527099003)(261022105027099003)(261026140227099003)(261009223027099003)(261028144727099003)(56012099006)(261021123027099003)(261021121427099003)(261021135927099003)(261102123227099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TFBTTTEyc3VIR0M1WjZIK2NiVlZGZEtGcUt6NmcraHZpYXh2dksxSkYwakNJ?=
- =?utf-8?B?a2FnQVFEOWh2SU9zaVBlUHdVN0NmVk43anA5UHZDM0NIWVZsZ0lIRXVzVSs5?=
- =?utf-8?B?VFdMMitzZlJua0x0VlVJckljL1JTcjVORjZOZVo0eWFHdXdES29IY00zZ3Jq?=
- =?utf-8?B?a1dueHJwaG5Ea0F0YUNuMTNvdmxTa2gyd1VKY3E0ZkFYY1pLUGdhQWYySVZ4?=
- =?utf-8?B?NTF4VWIxVHV5L1A1MGg4U2p1SzJBQUU1UXlUeHhRQmpEWU9mbHB3VmZzSjVa?=
- =?utf-8?B?WlBKSzNXU29GVnFIOG1jQWxuS2Q3bDExV1JZV055bWpRWDBQeDRxTmIwdTlL?=
- =?utf-8?B?YmptMitmcC85N0pERWtIK3d3dFZCeW5JN2c5Q2VYWUJSay8zblh0R0FFRzRm?=
- =?utf-8?B?MWkyRjBxTU9lUGNFeDNWdG5oR0dYRjZqOURUajRvc01WM0NMWmNGZXpaVDZs?=
- =?utf-8?B?djZyOUNEbEJuYUloWjkvNXc5ZlNWR2FQeHdMN2dWZ1FmMHp5UjBNd3VSL0U3?=
- =?utf-8?B?L3RtYUVoSXdQek9zYVdLVGZRRUoxMktiTEVNRW1kNjVVcWhJUTUrOFVRUy80?=
- =?utf-8?B?dEYvVVh1dVJ4Wityc2t2eVF6RmczYWpLRC9ObDF4bmtCcm9McUJiTHdsejVo?=
- =?utf-8?B?YXhmNy9SRGN1WmZSTzV6VUtQd1JqNTJRYWdDWkV4Vi8xNjJTWVdqZkowZUJi?=
- =?utf-8?B?dU5wbGtMeXpiOWlrOHZOaEFZTWY0aEJ0QW5FVDl4ZmY1KzRkZFVVL3o4d3ZR?=
- =?utf-8?B?WkJPOFNpRElqUDkyQ0tTU3Qvb0dVY2U5bnRML1BpWU1wamliWE1RejkvQlN2?=
- =?utf-8?B?UmVMVlRnSHJBU213dE5IUDcwUXRXakRGNWhoVUdQVG85SDZ2WjhMY2ZDWjh0?=
- =?utf-8?B?RUgrTDFGbG9xUmN4TU5wekZHUXhHS2Rhayt5NHVFWTBZdHQ5cVFCTUNwODY2?=
- =?utf-8?B?a1VhRDhzSWxkdnlTOWJXOVJJWktXTTVvc0dicy9WRjBva3ZJZ0lnMjNCRmRJ?=
- =?utf-8?B?dStvVS8xYUwrUjlEZFBnZG1lV0Y0bWN0M01LZGtUZDhiN2krZzM2R2tuMUY1?=
- =?utf-8?B?a09uODh4UHJIdlk4SjdvRFdnaGs4S2I0akEvZnJ6U0xBaExMWDVteHJJQUd3?=
- =?utf-8?B?T29UVFliZ2tISmxwby9ab2RhVFZySDNlNHU0Yk5taklwa2lmZmRqeFd0UVFJ?=
- =?utf-8?B?RzgzMzRtWUl6N2tVb3Y4L1BVOG1JdUVORlVjK2RrOExVa1RvYkJlakNTUS96?=
- =?utf-8?B?Yk80NEo0MWdjcWVSR1lxY1F0UGVLMm1PaGRZWTJiR1l0bGluQ2VDcmFoSDFr?=
- =?utf-8?B?TURrcHN4em55dFJ6QmVSTE5JcHZNQ0N2WGtrdU8xVHoxSGxqYWJYM0M5eHNL?=
- =?utf-8?B?UnptWXpVeXZDTGtPUkpwVFZzWGJ6ZmhPL2xWU2dQeXlpYlZxMTNueFRTamZu?=
- =?utf-8?B?dS9vemFUaUI3czA2Rk9oazVWbklCVjY4cWxpY2dJQzRxZFBZc3V2cFdEZUxt?=
- =?utf-8?B?b3Bla00zcTdFSmhHQ0ZqTzVLQzROKzMrU2w0SWJscXYyZFRoaEFuQ2tvQ0NR?=
- =?utf-8?B?M0J5RitTTkZSQysvSGpiNk1nMWdHbEdhRFpvc043aVN0VUhEZzJVZFFqdVRI?=
- =?utf-8?B?b3pzTEpJMG02WkNBTXZjWElBTXV6UWZ0aHdYem1xMUZmcGtwN01TNzV3SzdR?=
- =?utf-8?B?MmVydTJPT0hOamNoaGJGb29hRVRVbkdXZXFodURvTTVpVmNybUowdFZkMnJV?=
- =?utf-8?B?eTBvS1RucUoyVDZWZjRxRjlRdTU3UGdvaEhXRmc0TWFHcFBDTmp0MC9RT3Aw?=
- =?utf-8?B?SFQ2Qm4yTE44VjVuQ0NZZmk5ME8wdmZmd0RFUnhvL0Q5eUZXNUpNTmdlUGh1?=
- =?utf-8?B?OFhxR2UyTVR6a2loYm9rTTgyVlFQTjVSQmUyZFltVDRDS0N6aEZQaGVRTVls?=
- =?utf-8?B?WTFoRmRtVjM2S2FweVVUWG1ZNG53bmdjUmtJZzBIelBLRkM4bVFQZ296d3pM?=
- =?utf-8?B?bWtkMUJtcTBkV2lEVDR5MHdZanh5VTlVLzNUaEFHbTBRWFB0SnVwSGEybnRH?=
- =?utf-8?B?bHNKbkxkcHVVeGFWSkhSQTBnN01hNENRSGcveHVzRVFySXpDNXFXeG9CVGJm?=
- =?utf-8?B?elRndnhRZWNUMFR4Z3Ftc0hSK2pXL0JKZDBibjQrSHJaTGZnaXZwcFduUUJu?=
- =?utf-8?B?bHMrWmZTcVllRFBVUmcwZG9yNHd2d3FaZm1rS1JmM3lWa2l6RllzVHNpRmFu?=
- =?utf-8?B?T1h1c3J1aS90Y1hZcG1JRlZOc2RhQjVCNXM0U0d1azBwZlB3alFXalpSdUdY?=
- =?utf-8?B?MkNuQU9nc2xFNXA0dEpNU080QkpFcG0vczdVczR2ZkgzZVJLMmpSUXY3elk1?=
- =?utf-8?Q?zEDHb6Cq1jhoERx6+nAc4yjz5P4XqX65SJ69LSrJc5Dlv?=
-X-MS-Exchange-AntiSpam-MessageData-1: haLfugm5mJpA6A==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0edb0680-a730-44d4-7ddf-08df40844edb
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 06:15:11.5103
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vR0+qYyDCS3qEr8XNZb0poimDbw+2a0hbNjoXbT0XxPv1ypxq3ruT+Nc1R90LDZ6/KUEjkHrILwaWHcImm7yEw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5966
+Mime-Version: 1.0
+References: <cover.1794325665.git.x-professor@outlook.com> <340d9f1f96e235642e8b47b5e7c836a18de8dd56.1794325665.git.x-professor@outlook.com>
+Message-ID: <avVX-3s3AYwtxQe7@google.com>
+Subject: Re: [PATCH net 1/2] tcp: avoid wrapping Fast Open blackhole timeout
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Yingjie Wang <x-professor@outlook.com>
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "mptcp@lists.linux.dev" <mptcp@lists.linux.dev>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "edumazet@kernel.org" <edumazet@kernel.org>, 
+	"ncardwell@google.com" <ncardwell@google.com>, "davem@davemloft.net" <davem@davemloft.net>, 
+	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>, 
+	"horms@kernel.org" <horms@kernel.org>, "matttbe@kernel.org" <matttbe@kernel.org>, 
+	"martineau@kernel.org" <martineau@kernel.org>, "geliang@kernel.org" <geliang@kernel.org>, 
+	"ycheng@google.com" <ycheng@google.com>, "weiwan@google.com" <weiwan@google.com>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 
-In the msgq v2 protocol, which the r000 firmware uses, the queue
-pointers are kept in u32 registers and increase monotonically until they
-wrap at 2^32.
+On Tue, 10 Nov 2026 15:47:58 +0000, Yingjie Wang wrote:
+> tcp_fastopen_active_should_disable() calculates the active-disable
+> interval as multiplier * tfo_bh_timeout * HZ. Since all operands are
+> 32-bit, a large tcp_fastopen_blackhole_timeout_sec can wrap the delay
+> even on 64-bit kernels and re-enable active Fast Open too soon.
+> 
+> For example, with HZ=1000, a timeout of 6912213 seconds and the maximum
 
-`MSGQ_NUM_PAGES` is currently 63 and does not divide 2^32. This means
-that on msgq v2, the slot can jump backwards when the counters wrap.
-For example:
+No one wants to configure 80 days blackhole timeout.
 
-    (2^32 - 2) % 63 == 2
-    (2^32 - 1) % 63 == 3
-             0 % 63 == 0    (slot 0 instead of slot 4)
+Please apply a sane limit in proc_tfo_blackhole_detect_timeout().
 
-The writer can then overwrite slots before the reader has read them.
-
-Increase `MSGQ_NUM_PAGES` to 64 and check at compile time that
-`MSGQ_NUM_PAGES` divides 2^32.
-
-Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp/cmdq.rs | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+pw-bot: cr
 
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index 33074bb53e8c..8d34acaef9ea 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -84,7 +84,12 @@ trait CommandElement {
- }
- 
- /// Number of GSP pages making the [`Msgq`].
--pub(crate) const MSGQ_NUM_PAGES: u32 = 0x3f;
-+pub(crate) const MSGQ_NUM_PAGES: u32 = 64;
-+
-+// The queue pointers are wrapping `u32` counters, and the slot is
-+// `counter % MSGQ_NUM_PAGES`. For slots to remain contiguous when a counter
-+// wraps, `MSGQ_NUM_PAGES` must divide `1 << 32`.
-+static_assert!((1u64 << u32::BITS) % cv!(MSGQ_NUM_PAGES => u64) == 0);
- 
- /// Circular buffer of a [`Msgq`].
- ///
 
--- 
-2.56.0
-
+> multiplier of 64 should produce 442381632000 jiffies, but the current
+> calculation truncates it to 512 jiffies.
+> 
+> This issue was found using a static analysis tool. A loopback reproducer
+> induced 12 Fast Open blackholes and waited 1.2 seconds before opening
+> another connection. The unpatched kernel retried active Fast Open, while
+> the patched kernel kept Fast Open disabled and used a regular TCP
+> handshake. The reproducer required neither kernel modifications nor
+> fault injection.
+> 
+> Compute the interval in u64 and cap it at MAX_JIFFY_OFFSET before adding
+> it to the saved timestamp. This preserves the existing exponential
+> backoff for representable intervals and prevents large values from
+> wrapping into short timeouts.
+> 
+> Fixes: cf1ef3f0719b ("net/tcp_fastopen: Disable active side TFO in certain scenarios")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
+> ---
+>  net/ipv4/tcp_fastopen.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/ipv4/tcp_fastopen.c b/net/ipv4/tcp_fastopen.c
+> index 7f7eb3cc1c04..aeefd605414f 100644
+> --- a/net/ipv4/tcp_fastopen.c
+> +++ b/net/ipv4/tcp_fastopen.c
+> @@ -613,6 +613,7 @@ bool tcp_fastopen_active_should_disable(struct sock *sk)
+>  	unsigned long timeout;
+>  	int tfo_da_times;
+>  	int multiplier;
+> +	u64 delay;
+>  
+>  	if (!tfo_bh_timeout)
+>  		return false;
+> @@ -626,10 +627,11 @@ bool tcp_fastopen_active_should_disable(struct sock *sk)
+>  
+>  	/* Limit timeout to max: 2^6 * initial timeout */
+>  	multiplier = 1 << min(tfo_da_times - 1, 6);
+> +	delay = (u64)multiplier * tfo_bh_timeout * HZ;
+>  
+>  	/* Paired with the WRITE_ONCE() in tcp_fastopen_active_disable(). */
+>  	timeout = READ_ONCE(sock_net(sk)->ipv4.tfo_active_disable_stamp) +
+> -		  multiplier * tfo_bh_timeout * HZ;
+> +		  min(delay, MAX_JIFFY_OFFSET);
+>  	if (time_before(jiffies, timeout))
+>  		return true;
+>  
+> -- 
+> 2.43.0
+> 
