@@ -1,58 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794481342;
-	b=PF4a3foBQLLP6et2ovFkRooIj0r2wMd4Ig+UIZZ2eoQVB70Xz79bO4XC2AgrZ5ydlI4g
-	 srtwktyKgQKDCxgqjYeSsTZTngMLulgBMrKlniEBrXiiEURwy9uqV9QP43etw9Dqf2jhQ
-	 N2VdIorplCha79ke2eDBl0D51voCZbnMShjHm6ke3iQbOqaTJA6qQNRDm8VOJ3XqGxeIc
-	 IiOENauZdJJXqRMqM5EmKy1CnkrHpc2Kt++TRb6anqCXnLR+SgwcO3aBZ53qzc061WcO1
-	 S7wrkVIOpwxRAL1ItdJom+g+J7B9Etm9z+6U734nSB7gI7a+UnTXb1NxaetXu3xDRQg==
+	t=1794481348;
+	b=kAgwMc1NzR3l8MooinD8DAlqQv0kkv4lHcf6M+/PEN2Hwuou4gmHkHbeOzzautNiqMci
+	 ANyvWvO7xEfGZsQkKg5uUY7QbQJ6sqJrkkDZ8hUCRhYN3QQO/4QhUnNd2/x6RWiMsitF3
+	 1yFceGeXU5lWe06eSyjGZ09QnmEZg9UvV+PM6TOwnq7fsEN2+AMw+i9g98tWRWl6yJa4l
+	 /qKbDm0jaIte4ZExz65W+TuI6frLV7OuRsiljqz1LGE8BpD6ITSCBxRSl3RBgpbFka/GH
+	 BcdPQOfGPuyUxtowemUN9g4vIQAyi3bGpK0kFFytbyP1LP65vqpyVSUA0nOGKaqK5qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794481342;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Rspamd-Server:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=MLBNurMu74zK5/JLIz4Q/wOK32rcLNUYysfbDLmGV2g=;
-	b=x3joWWpLh0fWnE+qS+S5nFAFgdi6RRmRsoeTjjJlgUN3mNEeq4Hq4/Yt2w+5EMY1McU/
-	 n8V2Oz96l1JVh8Fc7tJaEHwkJa96EhiU+kadZQierkagvKVD8HtuWwkmDyHz9+qekAlnV
-	 m3cggGy4cCzZ0CZNsw6uAoygn+P4iIVVsHfZh7vnaThaWS2asTFrlwcJi6SqvMqwrZp5I
-	 MDKK5q/yiFB+TZVHQWrV8Mafrv4/+wBZCxv1EbPj8NWfu7+4mA17L4T//9vWF3CT2TNPV
-	 gLNgX5IH/dTDUWtvSt0cqoIL9Flh0X1NkAvHE0d0kk3jAt5MXclywVWtxjuVArY0ZDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794481348;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=RAUVUkaVAJutQSAxyGsrEcG/xVcU2rDE9W8151Bo6sk=;
+	b=rEc5lD5yTUcXk4hxYBXXu82/fbOU22NWdwZTeBeg7QDWnOtuL4fvF68vOeL+Cgs7fW89
+	 8mhHbGJOHaAZze1YqeH9GkO0ZtGurrQqVggHQk4XdOnlJKMByPSlZuSDl6Rb+LGXNqy4h
+	 dgNdJPJvpB4f5meRIBfi2+qrkgdIYl9fd7D9esCh6Iamq+sGmrRBkoq92yxRSUcA2XCcD
+	 k/H/l6nTtkL8x6hOBMYTYQuZTjLfzmSlkXdJJQOaPqISQgd63tJdlqGQ3aA3R8gUDyFfE
+	 8yrCiz94SIA/q9OW1BSonu3gci9eALarUkTKOBFSBm4YIx7y1WDuVbybGFgoXDM1zQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=bn3plYk3;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PZzuWkX5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B6E606A31C;
-	Thu, 12 Nov 2026 11:02:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63B6E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB11606A321;
+	Thu, 12 Nov 2026 11:02:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=bn3plYk3
-Received: from omf12.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay04.hostedemail.com (Postfix) with ESMTP id 189181A0578;
-	Thu, 12 Nov 2026 11:02:13 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf12.hostedemail.com (Postfix) with ESMTPA id 1051817;
-	Thu, 12 Nov 2026 11:02:03 +0000 (UTC)
-Date: Thu, 12 Nov 2026 06:01:50 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Haoli Zhang <26031212468@stu.xidian.edu.cn>
-Cc: mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- syzbot+37e1793bdb0061ea3a47@syzkaller.appspotmail.com,
- 25031212117@stu.xidian.edu.cn, byu@xidian.edu.cn
-Subject: Re: [PATCH v3] tracing: ring-buffer: serialize shrink with NMI
- readers
-Message-ID: <20261112060150.7fd677dd@fedora>
-In-Reply-To: <20261111094301.2213435-1-26031212468@stu.xidian.edu.cn>
-References: <20261111094301.2213435-1-26031212468@stu.xidian.edu.cn>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PZzuWkX5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A82C01F00A06;
+	Thu, 12 Nov 2026 11:02:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794481347;
+	bh=RAUVUkaVAJutQSAxyGsrEcG/xVcU2rDE9W8151Bo6sk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PZzuWkX5dhUpmRTusTre4F/Jqr9VN2K2tAHChfkXDRi294DhJb0EvzGyUCeIhJfas
+	 5O9rNAESEV/CLSctmpg01bI1SV6Nvb+9RgaBNqqi9OgKJJcutZy4wlnNIEbICHs6VH
+	 ZkE1zUDS/0zTEMfKBD9EaD6dlOfkqvAS57BE/GAzcNLsNfFJKxCKEC1E1RC/nTDq58
+	 I07GN3yXmVanWnomWX+OcSh5Er9pnJhn3WZQiurH7+AygYHnillHCenOFhm9NHiA8o
+	 b6L6iDKsVK8NZRMrweKevYTQAQTLRwFFcojFZe4xJ0fhFKYQjErw2A22hiCtsi5PN5
+	 674tdiZSSyCDw==
+Date: Thu, 12 Nov 2026 12:02:24 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Asdlerto Korry <korryasdlerto@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+	David Heidelberg <david@ixit.cz>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, oe-linux-nfc@lists.linux.dev, 
+	netdev@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] dt-bindings: net: nfc: samsung,s3fwrn5: Add
+ pvdd-supply
+Message-ID: <20261112-sophisticated-peculiar-husky-c8ce51@quoll>
+References: <20261111-m52xq-dts-v2-0-063289405882@gmail.com>
+ <20261111-m52xq-dts-v2-2-063289405882@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,84 +65,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 1051817
-X-Rspamd-Server: rspamout08
-X-Stat-Signature: fhpjrxe8kmbwb3xdu9weo6rn7u1qogrw
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19KuSRyjj3kZpinHmEmz+io+tglLFQ+FAs=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=MLBNurMu74zK5/JLIz4Q/wOK32rcLNUYysfbDLmGV2g=; b=bn3plYk3IC7ItRvnIkgmewWwoX0KtH2W9haKSrVSk7Kuplm6BfLU8UL9pLJuJce0CoFliirNDQDgMNYutpTvgXznjXCjjLqpgekdsLJVGq9OS9HGecz3O4Dc70p4vR+pIfDrwGE7ToHrPUtHUCtxmTGIQVornAZwERoABjKqdKA=
-X-HE-Tag: 1794481323-159622
-X-HE-Meta: U2FsdGVkX18tIA76OVX8a94CzBM4AXHoOGr+hqgE9+rKzeFBwL7B3whDbiFdoP/6l42mfRkfZFXlblnMtsjH9xLZVlC91Sb3UDVl8ZO4ZQ5Gn3xMwEpHjV9hoFBGvf7Bx+X7uWZ95O4Idg5EieqYFd3e7byoZw/KqjaqIfbwkFiJ5kpG54+6MQZWC+MdUvNS/v6gwK1AKQJRSsLZ4fONeMEW967MjpxYLp1AkLlF1mdqcH0WyfR/tFZ+RoCr7Q5mp6WeYzultPZkNLCv2QxksIklZxKxX7zbpsN9ypEQvmG5Kve0lWpDDBZlO7/Qm0U4MFZWB3wmckI/kCTwkw6s5JqW1WAf8K7EyIjQSa0ZbDQrJlHPv8xtl3ByqrOCvF8m3DxfqfgpK84yObQIo+t8AoQ/7G6qrH1xqcAaiW2PQL+jPKT3bgLJgCrRWGxKXefY
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261111-m52xq-dts-v2-2-063289405882@gmail.com>
 
-On Wed, 11 Nov 2026 17:43:01 +0800
-Haoli Zhang <26031212468@stu.xidian.edu.cn> wrote:
-
-> The syzbot report shows a use-after-free in rb_is_reader_page(), reached
-> from rb_move_tail(), with the freed page released by rb_remove_pages().
-> Source inspection suggests that a detached reader page can retain a link
-> into the range removed during a shrink. This patch addresses that possible
-> stale-link path and coordinates NMI readers with page removal.
+On Wed, Nov 11, 2026 at 05:07:46PM +0200, Asdlerto Korry wrote:
+> The PVDD pin of the S3FWRN5 has to be powered before the chip is
+> enabled. On some boards, like the Samsung Galaxy M52 5G, this supply
+> is switched by a SoC GPIO. Document it, so that the regulator can be
+> handed to the driver instead of being kept always on.
 > 
-> When an NMI reader cannot acquire reader_lock, rb_reader_lock() falls back
-
-What NMI readers?
-
-The only time NMI reads the ring buffer is on a crash
-
-> to reading the ring buffer without the lock. Gate lockless NMI readers
-
-Yes, it reads without a lock because the system crashed and the NMI
-handler is doing a *BEST EFFORT* to read the ring buffer to see if it
-can produce output that tells us why the system crashed.
-
-> while rb_remove_pages() removes pages. Drain readers that entered before
-> the gate before changing the page list. New NMI readers that cannot acquire
-> reader_lock while the gate is closed skip that CPU. Readers that acquire
-> reader_lock remain serialized by it. The drain loop calls cond_resched()
-> while waiting for readers to exit.
-> 
-> During shrink, redirect reader_page->list.prev if it points to a page being
-> removed. Also detect a stale reader_page->list.next and redirect it after
-> reconnecting the ring to the surviving successor link, including the
-> transferred head flag.
-> 
-> When an NMI reader skips a CPU while resize_in_progress is set, treat that
-> CPU buffer as empty in the empty-query helpers. This lets ftrace_dump_one()
-> make progress instead of retrying forever when peek/consume also skip the buffer. Entries on a skipped CPU may be omitted from the dump.
-> Clear event on every consume retry. Cache whether it is padding
-> before unlocking. This avoids reading event fields after unlock.
-> Clear timestamps on skipped peek and consume operations.
-> 
-> The NMI fallback increment of record_disabled is intentionally retained.
-> The existing fallback comment says an unlocked NMI read may corrupt the
-> buffer and that recording must remain disabled afterward; the existing
-> unlock path does not undo that disable. The nmi_readers counter is separate
-> and tracks only the temporary lifetime of a lockless NMI read.
-> 
-> Fixes: 83f40318dab0 ("ring-buffer: Make removal of ring buffer pages atomic")
-
-This is not a fix.
-
-> Reported-by: syzbot+37e1793bdb0061ea3a47@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=37e1793bdb0061ea3a47
-
-No the bug report has NOTHING TO DO WITH NMIs!
-
-
-> Co-developed-by: Jinning Zhang <25031212117@stu.xidian.edu.cn>
-> Signed-off-by: Jinning Zhang <25031212117@stu.xidian.edu.cn>
-> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-> Signed-off-by: Haoli Zhang <26031212468@stu.xidian.edu.cn>
-> 
+> Signed-off-by: Asdlerto Korry <korryasdlerto@gmail.com>
 > ---
-> v3:
+>  Documentation/devicetree/bindings/net/nfc/samsung,s3fwrn5.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
 
-I'm not adding this complexity to handle the best effort case of an NMI
-reading the ring buffer during a crash.
+This should be sent for net-next.
 
-NAK!
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
--- Steve
+Best regards,
+Krzysztof
+
