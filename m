@@ -1,111 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.223
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794490462;
-	b=Qxn+tiE08AHMT8Ty4pxguwyJeJGGugcDw6emnkNxIajtRN6WUWfRQPmsspA3NA91fpk1
-	 nXIF07gcWXPwUHzbq6pNOJ8luE4Z8BebYcCsQd9cDcYM0fLLopf5orUYLeqTBVDJ9nbZO
-	 UYT5JP84WBDdkdz7lak8BQlqVXOKLlR8ENh9m6wogHiiNJlfpneTAnNTLGOhhBf9uxKF+
-	 y9mlvXehApv/P2TF61txW/sBY89E+zohSFTI+fxlbZ5FtCF0zdM1Rf44G1VO0fZ70TN1T
-	 FQB4yf6rGYSXgxjsR8aQpk9TPpFbxeOADAJbw710bNTdQTr1X7TGEDv5QAhigUZqUfw==
+	t=1794490482;
+	b=hioWbwWJncOUM24gTz8V/zrae5T/idVIwshjhhnrncuZXaQoWbjU+jVw8nZND/Mh/D1D
+	 QgRSrBw9YQeExYPeOOK0c3Ws27f/7hT4a+jojDDDj4md3pd7clyzxrGt+0p+VbUl0uvNa
+	 HFFhJothPsGfeySHHa/6Xkrk7r9QdZUH1oMZW7y7geItRMA91AhKG+vX5NjuwVH0ey7Uc
+	 Vyug/xcUlqOCJ1EJs+Fkc0l8jOAasz4klDT8JDaqjRhsa3fQmG96HeYE0kRjsXpfwh7YL
+	 0b9nuqZhRlClKfJOeEf4K2RDtsWtgCHUqRsDwayqAfVjTv2DyJ9ps0Wq5pxgRWEHqWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794490462;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=MS0b8nEt88g1wfp0LivrvP9tCkFoNKaIyooh0vFsgK4=;
-	b=nZYUELNLVw0/yj1r7TTLJjOdt1yyFBj1CsVSkllbdYTzosTcGX9YD8G1mDsV4xkXnOFh
-	 RH/VsD2X1VQzW/0iRDZzQmx3Vtq/QLjjAiZsTxIrVO7v6TLFRXVJ9NveZ4DhY+SUrpFV0
-	 Z65u8POf5abyXbB/nyYBmiL+uyPTj9gVsQyFBp9KYo+2ZZXzgb5im+oFc0/zpFlPdPvUx
-	 la1wzZtIPDM30Znz+eldCpnfxXftWDZ5uXEB83AOjbiK23FtBENWDz4NQLtGRU9Vj6wo/
-	 zSI0f+OWOFQ+o9HVZgvhnu+QgI1Z0hjHTMW8xVZsnKD+Bbq47VFh3xQ7jBzsPBK02hw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794490482;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=IIjwTcz15PyMsksQJ/ixjXOV4ou2zq7XqHr0HTbVuxU=;
+	b=rqZdgEfv57A1z8R22z/iN/tM8GzftnONQjN/XWybjjS/b+H3yJKCkPF6QUhQsoB3Fdai
+	 9fltsm2F8udd8N7U9QHMNh/CQyw6KA2mLkEFbKKoY0uua1syMxXCnbRspaBfFR8tjH2c7
+	 Hmsnk6BiaMMit8N4PU1gA752UcO/pESqUXLJhv3xWLW3+DMoyKTp9T4xZidpXthFfkqbP
+	 aZwfh5XsGzqe4HORBjACpYduMsGlwMpW4MEnUFE8qIialL3c/maH7G0Jo6LWoszmJyqff
+	 rJ8Rb1UIu5ZofBv4ERkJ0n4in1DlMD1jbll0D9+GIUX+gueSeEJsrWgoG/I5HQGsglA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hHsGRD7C;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=I5jfqXnb;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="0/VHn0iE";
+	arc=none smtp.remote-ip=113.46.200.223
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44AB0606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:34:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44AB0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE01D606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:34:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE01D606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hHsGRD7C;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=I5jfqXnb
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC90v692514210
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:34:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	MS0b8nEt88g1wfp0LivrvP9tCkFoNKaIyooh0vFsgK4=; b=hHsGRD7CIheVre2s
-	LWP8gjwXgsLt5YhSb8KdPblO0CHJxMoTwEJlliXeohBUyt9bGYvN5fGTChs5iPiS
-	6azkvQnMhe7LRyYNcqCZmOhbrLctwwy8iaqRXher5tl5L3Sp4z7bOY4+ar1fBG89
-	C3sz4TXbCcUpd4Rnv88Nlc9boMpjcLGZ33AJbW5oYafE0HD2Z2ojpNlFJKQCLXyJ
-	MSRib5HXQa7yqSUWkuGy6kyEYnTX9Fg5BE1sAtHEU9KwaWLPba1IM8pUvNJt/SBP
-	m5f0x0MZD2RAp5ztCgoj+cN2tcxAA1YwbYVnrw9HmcE4ojEfJh6RHXJwdui7UsBF
-	Xjg4kA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvwm1urt3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:34:21 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-947a607ec40so303860485a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:34:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794490460; x=1795095260; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MS0b8nEt88g1wfp0LivrvP9tCkFoNKaIyooh0vFsgK4=;
-        b=I5jfqXnbAu+K5yIZKbvly4xkMmcd+toykRbvoCSRapj5x7z51HZTGvchLU7DY5JlYn
-         GO027vlJ2p/OF99J42MLzJjegyOw51yxnm5hlK60NZ5/ROyoJ5shI23iM5QI3oxYzm34
-         CBBlNQxGVu+vzj+oHHpemo68g65fIjyV/mfi0/tQVc/KAjN3yBeAWyl8fiQDFIa3iCz2
-         pa23+/oy9mxsUk2UrKhJ9ewCwz64MuGmWxKkak6DdjoxWsa4POTORGJ6XQg/vSsx36L9
-         AFtXhBkse29ziyqrk1Ps9KVBDP1EnJ4Aa59GG1T1l8C92qRNGfP9Qcl3DN89zpYm+F31
-         BfSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794490460; x=1795095260;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MS0b8nEt88g1wfp0LivrvP9tCkFoNKaIyooh0vFsgK4=;
-        b=0Ki8wE1PuwFU72VzuFnS1MaCX89vSiz1VOamaeDm37JsXZc1d1U89TUBwYN1AMfXCx
-         doAiBeertn5ChKXkidT1GJybwqt4KJvZtbe21xGVyebyFf6yUXp01PblHrMaJ9gHpPTa
-         UKhB/UQxRslal3+08E2c5+Pjj9AwDGNnsNuJ+N9xJjfKh0VjDRgKLcCPdHLFSf7WBlzL
-         dmSY9Tj1To05UrzXF6eIQq/OfmuhbKbHY8S+cNxx8jL5wo9XFL95J2XzVpqqJ1dPlbnw
-         1OsOvEOda82VHtaPrvvBBth+2cnv0tYx8zFPl+JoxN0WqdPbaO2ggyWFAZI4ujIqTRtP
-         1PkQ==
-X-Forwarded-Encrypted: i=1; AL+hErFIIax/SjcWudDSrhvte5+/M1jU3AoNuBMDEjDf54Kj+PkTvp9wLpI8yhfeQO6Egw2Nzsfi6teQrjJYo5U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/OCbND7BafvrSmJjAxOiiTMMZ/ylkOHXd7V8XJIFF69ovLOpDp
-	lJ8r5VExMqXdYL/wwVDYDHbicRQ/eWsO/fPX3nX/PsrfmineuTpfPSd15/bhPF6SAX/kfuC6O8E
-	jznmh1NIVXS5MRTDDiedPBLUuQuxVjbwx0rW+4zcmzq2xf5L8+9Azneo8AoZ/6Px3wVs=
-X-Gm-Gg: AYBFou1dgSFhx+PrMyNq1CHA2GeQQzpeD3IuRl85wEszvsBK+9AaTYw/HPPK9+f0PP1
-	jbhzCJHEQM3KAVLGYKjwCBOcxfEd1RJIhIfev5BuHopHmiFDSCbOQjpzcoSNrxePfEvdrNGRZfL
-	7EYGMrtig+t/xV3Y9X2zzugCTuR5gWh3QNRIywevzJtnXPPa924dlkpzuIM4BA56WTOltBMfFfM
-	d4QJVVu6VXdAT8Qz/kG4xp/IgfY+ccyAong6haNf8SCL/K88Gp7YiTAXcI0OzexluO8pIcBKBPB
-	xb1W8JiLe9hig4cf16tL9japgras+xxsyeH6JDn4qFxdYade07+6gzoHgh9ufEwKNCEzDUz/WjB
-	jI8hi3OPW8B/rU1R8hKd8Ad6HTF3SGAecNjxkqgJ6r77IAaShE+uxE6TKl4f0gKbMiZio2I3zYh
-	ixjSCSW13ubQ6wha1kiUEGwL4mZZBuayCSSJKQh2sGwDuvBIEAvFFcvA+VAnJnxCJzg5hwDl/Yw
-	VwtBaumW3jAclBGs44/vsr63/hE4WlnXaPGEefLnnXy
-X-Received: by 2002:a05:620a:a01b:b0:948:d833:1bee with SMTP id af79cd13be357-948d83321camr607632485a.3.1794490460257;
-        Thu, 12 Nov 2026 05:34:20 -0800 (PST)
-X-Received: by 2002:a05:620a:a01b:b0:948:d833:1bee with SMTP id af79cd13be357-948d83321camr607626985a.3.1794490459701;
-        Thu, 12 Nov 2026 05:34:19 -0800 (PST)
-Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec? (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a67ab93sm341707766b.77.2026.11.12.05.34.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 05:34:18 -0800 (PST)
-Message-ID: <f55dddf1-d745-471a-8001-8f9e5768d97d@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 14:34:17 +0100
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=0/VHn0iE
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=IIjwTcz15PyMsksQJ/ixjXOV4ou2zq7XqHr0HTbVuxU=;
+	b=0/VHn0iEGb0IPORrcHUCZuDCJqtkFCHQM1NvMeBpdC1cNSBSUA9ZqE98TmpC22IvlErEFnlCh
+	h+a12v7jlnaSmyZbkdGSAsEFlj1ySCiupETxSkoDPMfuxOYFM03TJgZiBrMi9ML4/XkTAqnfd9Y
+	/SEuLRkPeN9uDFXLxgENIxM=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4jQLvz4bdVzmV7y;
+	Thu, 12 Nov 2026 21:34:23 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 6E9CE4048B;
+	Thu, 12 Nov 2026 21:34:39 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 12 Nov
+ 2026 21:34:37 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
+	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
+	<ritesh.list@gmail.com>, <sshegde@linux.ibm.com>, <pjw@kernel.org>,
+	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <akpm@linux-foundation.org>,
+	<baoquan.he@linux.dev>, <rppt@kernel.org>, <pasha.tatashin@soleen.com>,
+	<pratyush@kernel.org>, <ruanjinjie@huawei.com>, <leitao@debian.org>,
+	<yeoreum.yun@arm.com>, <mpilaniy@redhat.com>, <robh@kernel.org>,
+	<coiby.xu@gmail.com>, <Yeking@Red54.com>, <prudo@redhat.com>,
+	<brads@mainlining.org>, <sourabhjain@linux.ibm.com>, <mkchauras@gmail.com>,
+	<blum@kernel.org>, <adityag@linux.ibm.com>, <qirui.001@bytedance.com>,
+	<hui.wang@canonical.com>, <sohammetha01@gmail.com>, <guoren@kernel.org>,
+	<gaohan@iscas.ac.cn>, <ionut.nechita@windriver.com>,
+	<vishal.l.verma@intel.com>, <seanjc@google.com>, <ardb@kernel.org>,
+	<richard.lyu@suse.com>, <arnd@arndb.de>, <tzimmermann@suse.de>,
+	<rick.p.edgecombe@intel.com>, <kai.huang@intel.com>, <kas@kernel.org>,
+	<piliu@redhat.com>, <thuth@redhat.com>, <shradhagupta@linux.microsoft.com>,
+	<ebiggers@kernel.org>, <jbouron@amazon.com>, <me@linux.beauty>,
+	<mclapinski@google.com>, <graf@amazon.com>, <tangyouling@kylinos.cn>,
+	<x86@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
+	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
+	<kexec@lists.infradead.org>
+Subject: [PATCH v8 02/11] kexec: Add helpers to load the elf core header, initrd and FDT
+Date: Thu, 12 Nov 2026 21:34:09 +0800
+Message-ID: <20261112133418.4044428-3-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261112133418.4044428-1-ruanjinjie@huawei.com>
+References: <20261112133418.4044428-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,105 +92,188 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: soc-core: start rtd->num_components at zero
-To: Mark Brown <broonie@kernel.org>, Dennis Gilmore <dennis@ausil.us>,
-        kees@kernel.org
-Cc: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, gustavoars@kernel.org,
-        linux-sound@vger.kernel.org, linux-hardening@vger.kernel.org,
-        linux-kernel@vger.kernel.org, michael.hennerich@analog.com,
-        nuno.sa@analog.com, dlechner@baylibre.com, linux-spi@vger.kernel.org,
-        miriam.rachel.korenblit@intel.com, linux-wireless@vger.kernel.org
-References: <20261112025252.71375-1-dennis@ausil.us>
- <179448342405.66517.5463730214277229760.b4-review@b4>
-From: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Content-Language: en-US, nl
-In-Reply-To: <179448342405.66517.5463730214277229760.b4-review@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=KsnYSmWN c=1 sm=1 tr=0 ts=6af5c05d cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=dp6IbyjqBwS_WhlRAgoA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-GUID: Fw_FJ3byWnRfXQNakz6uoFLP3pHGUQpR
-X-Proofpoint-ORIG-GUID: Fw_FJ3byWnRfXQNakz6uoFLP3pHGUQpR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA1MyBTYWx0ZWRfX6rCx4VCRLZSW
- 13XFAly1dNghMdycLRjLC5+Px6XJC4Rv+3T3lRdX2aE0OWKfiYOsPURsL6dBMsZ60V+HobEFdHv
- 8fQPTWDFkeNHZdI4+4LzvGnYV8wzPkaQTPvy451roFMr3iJy9GxGGcg9LyghaCtgh7wGtLHgzk1
- lx4qLLsu8BBn3R88Naq+i+ORrDQ/RyoOBcbh1ItbKqT9jEaKPBHAaRODeeL5iBlC5hXJ6/0kFx5
- zKtLQ2oUmyh+RPtivmlLpvGNdhy3E/5vkTM8HgtyH+Y3uhJaeDGHs86EZNAGVFV2Z8BYffcOrJ3
- etGwyk23ku8YB4p4pEu1XIkNl/y0j7RNdqL9cwNrvW6UtNV8Q3+pa/Me6edp1cGv4KLUbFYxCsA
- iBQcMZEk7pmibldreu4ITZFS8l65as/YbGH61KQ70aRgm3ZVcFpSYwsqS/1sbfae0Gt7hKJi26D
- hcaev6f10fx4FXzEMUQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA1MyBTYWx0ZWRfX0jPYIPkUnWSA
- EfXpBgee3SnzfhzJj/PAIjGvZseTSPrIvDblqCBK3YKi2CqkjsgjMSa0pg/OlfAjjHYSSdGsEVD
- qOiF/nJ+03LedDCK8SS0HUaRG0UL9GQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 bulkscore=0 adultscore=0 malwarescore=0
- spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611120053
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-Hi Mark,
+x86, arm64, LoongArch, RISC-V and powerpc all build an elf core header,
+load the initrd by hand before loading the kdump kernel, while arm64 and
+RISC-V also duplicate the code that builds the device tree for the kexec
+kernel
 
-I was about to send a regression bug report for 7.4-rc2 but I first
-checked the list to see if a fix was already available and I'm happy
-to report that this fixes things for me:
+Add the following 4 helpers for reuse:
+- kexec_prepare_elf_core_header() builds the header once per image and
+  returns the number of memory ranges, which x86 needs to reserve room
+  for the crash hotplug updates.
 
-Tested-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+- kexec_add_elf_core_header() places the prepared header as a segment.
+  The caller provides the kexec_buf with its placement policy and the
+  size to reserve.  On success it also records the segment index that
+  the crash hotplug code uses to find the header.
 
-On 12-Nov-26 12:37, Mark Brown wrote:
->> Since the conversion to devm_kzalloc_flex(), the allocator sets the
->> __counted_by() counter num_components to the allocated length
->> (num_cpus + num_codecs + num_platforms). This only happens when the
->> compiler supports __builtin_counted_by_ref() (GCC 16 here). With
->> older compilers the counter stays zero, as before.
-> 
-> This doesn't apply against current code, I think this is an issue that
-> was already fixed.  Please check and resend if it's still needed.
+- kexec_add_initrd() places the initrd from the image with the placement
+  policy the caller put into the kexec_buf.
 
-This applies cleanly on 7.4-rc2 and fixes a regression breaking
-audio on a lot of different devices there.
+- kexec_add_fdt() builds the device tree for the kexec kernel, packs
+  it and places it with the kexec_buf the caller passes in.
 
-If some form of this is already in ASoC-next, then that needs to be
-send to Linux as a fix ASAP.
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Mike Rapoport <rppt@kernel.org>
+Link: https://lore.kernel.org/all/179430504583.425130.15302016434972990362.b4-review@b4/
+Suggested-by: Mike Rapoport <rppt@kernel.org>
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+---
+ include/linux/kexec.h |  11 +++++
+ kernel/kexec_file.c   | 104 ++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 115 insertions(+)
 
-Regards,
-
-Hans
-
-p.s.
-
-@Kees, have you seen Dennis' remark about the same problem with
-devm_kzalloc_flex() changing the semantics with the num-components
-counter now no longer being initialized to zero in at least 2 other
-places? :
-
-"""
-Kees, the same pattern (a *_flex() allocation followed by code that uses
-the counter as a fill index starting from zero) looks to be present in
-two places converted by 69050f8d6d07 ("treewide: Replace kmalloc with
-kmalloc_obj for non-scalar types"). I have only read the code for these.
-I have no hardware for either and have not reproduced them, so please
-treat them as possible issues rather than confirmed bugs:
-
- - drivers/spi/spi-axi-spi-engine.c: spi_engine_optimize_message()
-   allocates p with kzalloc_flex(*p, instructions, p_dry.length + 1),
-   which presets p->length, and spi_engine_compile_message() then
-   appends with p->length++ through spi_engine_program_add_cmd().
-
- - drivers/net/wireless/intel/iwlwifi/mld/d3.c:
-   iwl_mld_process_netdetect_res() allocates netdetect_info with
-   kzalloc_flex(..., matches, n_matches), presetting n_matches, and
-   iwl_mld_set_netdetect_info() stores at matches[n_matches] and then
-   increments it. The per-match kzalloc_flex(..., channels, n_channels)
-   has the same issue with match->n_channels.
-"""
-
+diff --git a/include/linux/kexec.h b/include/linux/kexec.h
+index bac11e940e74..89cb47521d6d 100644
+--- a/include/linux/kexec.h
++++ b/include/linux/kexec.h
+@@ -258,6 +258,17 @@ int kexec_kernel_verify_pe_sig(const char *kernel, unsigned long kernel_len);
+ 
+ extern int kexec_add_buffer(struct kexec_buf *kbuf);
+ int kexec_locate_mem_hole(struct kexec_buf *kbuf);
++int kexec_add_initrd(struct kimage *image, struct kexec_buf *kbuf);
++#ifdef CONFIG_CRASH_DUMP
++int kexec_prepare_elf_core_header(struct kimage *image, bool need_kernel_map,
++				  unsigned long *nr_ranges);
++int kexec_add_elf_core_header(struct kimage *image, struct kexec_buf *kbuf);
++#endif
++#if defined(CONFIG_OF) && defined(CONFIG_OF_FLATTREE)
++int kexec_add_fdt(struct kimage *image, struct kexec_buf *kbuf,
++		  unsigned long initrd_load_addr, const char *cmdline,
++		  void **fdt);
++#endif
+ 
+ #ifndef arch_kexec_apply_relocations_add
+ /*
+diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
+index 1f128c6e6fa3..25c9bef639d2 100644
+--- a/kernel/kexec_file.c
++++ b/kernel/kexec_file.c
+@@ -14,7 +14,9 @@
+ #include <linux/file.h>
+ #include <linux/slab.h>
+ #include <linux/kexec.h>
++#include <linux/libfdt.h>
+ #include <linux/memblock.h>
++#include <linux/of.h>
+ #include <linux/mutex.h>
+ #include <linux/list.h>
+ #include <linux/fs.h>
+@@ -109,6 +111,108 @@ static void kexec_free_elf_headers(struct kimage *image)
+ 	image->elf_headers_sz = 0;
+ }
+ 
++#ifdef CONFIG_CRASH_DUMP
++int kexec_prepare_elf_core_header(struct kimage *image, bool need_kernel_map,
++				  unsigned long *nr_ranges)
++{
++	int ret;
++
++	if (image->elf_headers)
++		return 0;
++
++	ret = crash_prepare_headers(need_kernel_map, &image->elf_headers,
++				    &image->elf_headers_sz, nr_ranges);
++	if (ret)
++		pr_err("Preparing elf core header failed\n");
++
++	return ret;
++}
++
++int kexec_add_elf_core_header(struct kimage *image, struct kexec_buf *kbuf)
++{
++	unsigned long memsz = kbuf->memsz;
++	int ret;
++
++	kbuf->buffer = image->elf_headers;
++	kbuf->bufsz = image->elf_headers_sz;
++	kbuf->mem = KEXEC_BUF_MEM_UNKNOWN;
++
++	ret = kexec_add_buffer(kbuf);
++	if (ret)
++		return ret;
++
++	image->elf_load_addr = kbuf->mem;
++
++	/* The crash hotplug reservation can exceed the header size. */
++	if (memsz > image->elf_headers_sz) {
++		image->elf_headers_sz = memsz;
++#ifdef CONFIG_CRASH_HOTPLUG
++		image->elfcorehdr_index = image->nr_segments - 1;
++#endif
++	}
++
++	kexec_dprintk("Loaded elf core header at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
++		      image->elf_load_addr, kbuf->bufsz, kbuf->memsz);
++
++	return 0;
++}
++#endif /* CONFIG_CRASH_DUMP */
++
++int kexec_add_initrd(struct kimage *image, struct kexec_buf *kbuf)
++{
++	int ret;
++
++	kbuf->buffer = image->initrd_buf;
++	kbuf->bufsz = kbuf->memsz = image->initrd_buf_len;
++	kbuf->mem = KEXEC_BUF_MEM_UNKNOWN;
++
++	ret = kexec_add_buffer(kbuf);
++	if (ret)
++		return ret;
++
++	kexec_dprintk("Loaded initrd at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
++		      kbuf->mem, kbuf->bufsz, kbuf->memsz);
++
++	return 0;
++}
++
++#if defined(CONFIG_OF) && defined(CONFIG_OF_FLATTREE)
++int kexec_add_fdt(struct kimage *image, struct kexec_buf *kbuf,
++		  unsigned long initrd_load_addr, const char *cmdline,
++		  void **fdt)
++{
++	void *new_fdt;
++	int ret;
++
++	new_fdt = of_kexec_alloc_and_setup_fdt(image, initrd_load_addr,
++					       image->initrd_buf_len,
++					       cmdline, 0);
++	if (!new_fdt) {
++		pr_err("Preparing for new dtb failed\n");
++		return -EINVAL;
++	}
++
++	fdt_pack(new_fdt);
++
++	kbuf->buffer = new_fdt;
++	kbuf->bufsz = kbuf->memsz = fdt_totalsize(new_fdt);
++	kbuf->mem = KEXEC_BUF_MEM_UNKNOWN;
++
++	ret = kexec_add_buffer(kbuf);
++	if (ret) {
++		kvfree(new_fdt);
++		return ret;
++	}
++
++	*fdt = new_fdt;
++
++	kexec_dprintk("Loaded dtb at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
++		      kbuf->mem, kbuf->bufsz, kbuf->memsz);
++
++	return 0;
++}
++#endif /* CONFIG_OF && CONFIG_OF_FLATTREE */
++
+ /*
+  * Free up memory used by kernel, initrd, and command line. This is temporary
+  * memory allocation which is not needed any more after these buffers have
+-- 
+2.34.1
 
