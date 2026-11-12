@@ -1,100 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794453857;
-	b=eU0wsgiEIG49I+X7ylWCAgFKi5GMzMAf/PsOaMHeIo6vZlpfXZnOq6+EjMdYlE5nMNVS
-	 07qY4ikLMxiDDVWFBHbyEAb0I7j1mnVXFFzxMgTMx76aSy7MCEw4CzK8KnoH7ewRcaat2
-	 RrWmyQWPyUqgdFYyFd6TLof0P1CnjQJojY35BBGCcSxgLmKjV61CFVhs9Xo4KMZ/gVKPn
-	 R97QCdjjnjUHC2JVrHjLQHH19xvbNC/DK6wmMwd1/Gp2PsZtUfe+ubEBHACPVpz4QCRaN
-	 PHhQSu40c4as08PL3fxAMf2G/GG9ZfjbsppNzF4p4iqsHUqov6mKnOKO0v2PLd+Sa/A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794453857;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Q4vGBoYjXFEqsa4lUNP8BKLQi2KAQQHSCj0yiO/z3RQ=;
-	b=hOBSS5HlA4lcc6BE41c56kmX4vqEbMUze67OLNt2pZ8VvqvaV59Va2ZFHW91aQ4dxEJS
-	 RzVoLJnD1p/JzQMlrnKS2MKwTOegUturuxz7UhmWi9qdIQEouDZoLS51UQkxdMpsmNsxx
-	 sEBlqHy9EduGxHWGyQaSUP1wrtsm04Fpe1sisCzeapV+JizgC+u2XJ00kQQHHbR2I5Iui
-	 TJUb4zEYGb/ym7UAVWrpJOz0/UCPzz5FqDYZMdLh9CewwHcVGQMq7oAQ1QE78fsNhQjOh
-	 0h5AM//xWXQ/b+CZQWFteHGQRHoe1c9jdoQjubDxTFkdIUVkMtC/FjbTtUPURje9keA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oHmtI1ml;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794453912;
+	b=NEhyQMpJO6RG4k0ktBL7cFXnYACvaD94JEEztufrMcuWybMrgSkAwYfnkK3AhfnG4zt8
+	 uEf80yE6t31Nu8fDGmVnItiyguJnqvXUmvmhChRffSifFN6nEITHqqUjMnwdiEEExM/kZ
+	 G2fGFTb3v+y3zwWdMoxNA6iJdAcZgjhOItOsXS1cDNpf89wFlUfsCXd2qrHjglnAlqSCJ
+	 DnIVt60E0+kdMGZiF0Fd8W+9NIQTFJrFm4mQnQB6fCsqxxgbHrw2htAZKmp5YZ+9YXHOy
+	 lRC6//HmVCtespmFTNLfq+tEDyLk9XeC+Ar3CtRXOYvI5uVXEH3q237KPZaOgVrUKEg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794453912;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=aSZC4kEoEyuUkUaX3CMkALuKhmGWqIihhc7PPVMPEZM=;
+	b=2sFvHNDggXIy9bgtdAdcVZanws+HWW5KkgSNf6PlNRpV8/O6VzyezpgKemUlpq+ObL9G
+	 8oD7qCFVL3byHp5pW+a6VUvB6oBhhXG6mwgb7r/5qe5PBsDrVu8mvBvlsCQ5STZ7/MEWc
+	 adGifQzMMEeqQfSGjpI6LmCkO7WPvvszG1xyA7H5qxBueIF7q/aMKxAxWpApmqHKs0koi
+	 pnTMls0JKBtmx2QcnZYwbpvtnoqTXODA9jZqmotaC8kTY3whRkS1uLTDEz4YPRZqHsa0V
+	 BvBXcZJ3ZxZKn4H3M1ViMGEtefk3v0tzy3uBFZ8CZmh6E2nly0eBjWHHBeBixKPR2/w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=wyuan.org;
+	spf=pass smtp.mailfrom=wyuan.org;
+	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=OjKAlZCF;
+	arc=none smtp.remote-ip=91.218.175.182
+Received: from mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84257606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:24:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84257606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78E5606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:25:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C78E5606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oHmtI1ml
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33fb4680717so4537052eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:24:17 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794453857; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eu/FCp2zTXfTbUeLIh4aEZzkm/yOwxuCAgBCXadbUhK4wWUDEqVMKvQjW9xJ/ndYLL
-         JHoEbHdZZXQjt5hrZAWNUUhklZTacX6LJBuelnfM7LrO/Hul69aVcccJrJC1eKCD7/3Y
-         /N5QGAbkEWiY/tpE5zodc8dmH3scLqHtOavInAmYfGTJVPO6sEb6m7mtlgrc8Pp1m0fO
-         8Y16+2B22I0GPMg0V/36Z5E/iBTpozH+SkWwNODDLBt6Dn950TXe1rjdFElYHpGZdxoY
-         djoLKQsWFYOoi/Z6hytZ+LHybOgAZXck6RonTQr3mfKxqGqkh02zayqDnfSC1Libt9fv
-         bCbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Q4vGBoYjXFEqsa4lUNP8BKLQi2KAQQHSCj0yiO/z3RQ=;
-        fh=6i5cbYK3RL5MsmIk7aPYjnM1xqNagKV4OfUBRyrXBy0=;
-        b=W6hlP3Q2PfKODR2D0acvd7GR6eLDbXKVaa2jd39NtaLcEHJXKvEwL72J9heCBRGyOa
-         j9lO58peBpV7yHj/Td2C/bto00JyfHnS7ptJO/H4Ywwx+FUEp5hRNCR1ypMBmhczuW0k
-         FjLobO3m5r7YwTo5+Ou+W3pKbCNPKYtymUZ93/NhhL7RRtNezggpUF2xLWbmEUPJxA49
-         5BiSOxkh+4xebC6ZDLlbBY+NnUnA1nnPz6yD+ZtlrSNHebmIyNKjG6l8AFpw/CSScM2+
-         sinOrKd5FP/+KR+iGhGO0wKD85tCz2NHGCIoU0/7M6TiJRoQGtxU7uT5WdAJAGK85+AX
-         Q+jA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794453857; x=1795058657; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Q4vGBoYjXFEqsa4lUNP8BKLQi2KAQQHSCj0yiO/z3RQ=;
-        b=oHmtI1mlCv4ejGkzncxu4FeiQZGkBkIG+Uipng9xKmEURLEeUg+XV/wMMGwyP4iUqy
-         1ItFv9ibWqS7p/99s3Qm42lMFDBe/pmPegJQgBorqDceE0nhC8TQqWuynEn3UyxGVZDO
-         euLuq7aziNRtCdc98K61q15gOB5u60w3kmItbRWwQdMYRxj3UIrTd24e+Re2GfxcxZ1Z
-         HB9ReMrvDB0CAhX0T/iNV72w3DAFm12h1aEv5otcOb2DJw3PkYlMuobGefAmy0DRM4YU
-         c/ihWqKX1tvaOizP2nIpgaEm16Hu6PVJPZminkArvqGxS+0dC0nrZ3boINckuDZXOy4/
-         mwWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794453857; x=1795058657;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q4vGBoYjXFEqsa4lUNP8BKLQi2KAQQHSCj0yiO/z3RQ=;
-        b=CDHjbN4htveVJuN9GXuFE+RGBWUD428CwmvOVwAlkf4QIGmSWLjt+p7lmGDOzvOR4S
-         n6JpD0ZsAUxRGAdAYOPUbraE7MJpgeHYN/xu3A4VcGV2h7YYP+YPLffOckNf9MfVMFK3
-         TcsMhHp6WBznciU+JaSLrgvWD2MSOb00FoN6XvH7o31gxsj8+WSAlQbxneB56IDs/29I
-         oWQt7D35QIRuJcK2fmD1Ew1QOnYaSK9Al4jkbco0z01xcBmsEuK093xhk1yn/Xd3sHfo
-         ZuMVf8y8GBcoQEDp5tfjpoF6dKxBQOa6CnMu+Td73lA3JzSfHPLgPMzHKayei0ik/oE9
-         qzqQ==
-X-Forwarded-Encrypted: i=1; AL+hErGmSMqsfqWs7RHyy6TlaKrjtwlRRTrrB0Jpbtm6ylsAqJV4v83sTjQgnFLD7S9LW5GyZAZzEqELr1VEZnA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/1jrQ2xwd6E13RxxZAuo0c3r/oT8v691QjXspa1D60G5XKmwzo
-	ckLAyXgJw0ZHeE+DSST68j6cq12vrdosvVK781CCNEC6w0u5cRZSSC64UBGYSX+wRCe3at5s7Ju
-	kVSyULqlzQJ7gxxRqeu12Li4gtXvGHLY=
-X-Gm-Gg: AYBFou2NDx9qrwPtnBEFKbFD4TyiKbv4Pgeji/+9e5o2qs7KmEGX3K92A/Gz1a4yX9n
-	/PVgsWB3wDt2EjBoo8WT0hFIkz2I5tErtpfOguYYu3LmBV3mz/8xipOoGXJrc1IsSGHUlGmAiab
-	ME3eO9gQ6GMCeCC/ze6MLQZhYdIegMpALf5qjZt+x7WEUEgm/s5CZ6k6N92932V5l1Zkvywp80A
-	T02F92XCsFeuRktzW2brc1QrJNSb5vRioUfsAyl+FI8W1+wRCPCo5gsvAYXkfuEtmTTIyJ+6HFt
-	9b3D5jo1QvVod/cpKPPsTqhZRlrFLfHtoUC+gM0I0Q1e1u8qKL2ZjqCuEiKHjfzjbIJiAOKm4cs
-	/rODSmJe+qIG00hVugrIQyYyrKd5eFBVkMq0ZpoI3q+ILkr9SWbtUISjOChU/x0dbQGaA
-X-Received: by 2002:a05:7300:2324:b0:369:4c3f:8a5 with SMTP id
- 5a478bee46e88-376858967b7mr6629283eec.14.1794453856441; Wed, 11 Nov 2026
- 19:24:16 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=OjKAlZCF
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=HvooxPlyjQcGS58VJz94P7HNxCR6qXLyjr3CAFFCPA4=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794453909; v=1; x=1795058709;
+ b=OjKAlZCFa4pK98lAZEWT8h10zOr7gSee7lK2ocPKo9XnF19B5Tzf7sRisdcvO6YNRCDz4DtW
+ 4jdfrGanrCBFPl930sIHxwilW8cPP1qQmT4YyzxCmkQEyU8/638sbr0GA3quz0rQAIw+HOSVjrf
+ kZ9LpvJejf4ISYrNJ5F3Ys51U/DuZ1YITNe2NfGcM5FpIN/CM7kIKmLxIPgIObi0ow+FlTfuQrq
+ 6fgfACGRX4NayeuTtfXR28o3jkyeDvw/H7gtXmoNLesAadPQeN5yDG6ayRIAB5NXznXF5ud3W6e
+ L/ETJV0qyBTW+9fBn55bIA8Hzt7TCrSYmD/MHUSSo5CwQ==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 86332a4202345b87;
+	Thu, 12 Nov 2026 03:25:08 +0000
+X-Mizu-Trace-ID: 86332a4202345b87
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 12 Nov 2026 11:25:04 +0800
+From: Weijie Yuan <wy@wyuan.org>
+To: Chen-Yu Yeh <chenyou910331@gmail.com>
+Cc: Alex Shi <alexs@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Dongliang Mu <dzm91@hust.edu.cn>, Yanteng Si <si.yanteng@linux.dev>,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 03/25] docs/zh_TW: process: sync 4.Coding.rst with the
+ English original
+Message-ID: <avUxkMii_xlAdUZu@wyuan.org>
+References: <20261106113142.706783-1-chenyou910331@gmail.com>
+ <20261106113142.706783-4-chenyou910331@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,30 +69,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109124933.1603575-1-hj351016@gmail.com> <20261111172718.1e41f48b@kernel.org>
-In-Reply-To: <20261111172718.1e41f48b@kernel.org>
-From: khj <hj351016@gmail.com>
-Date: Thu, 12 Nov 2026 12:24:04 +0900
-X-Gm-Features: AclHuK8dZXGZrK50IL11IFqhm4T154m_E5AYrfNaDTyQqii--eKK6YwdxrFnb7g
-Message-ID: <CAGr5VtMkhKim-qOuHBOo-6S+o3uf3J9mcKF1MRKGFZ0_XZraQQ@mail.gmail.com>
-Subject: Re: [PATCH net] net: wwan: iosm: cancel adb_timer on cleanup to avoid use-after-free
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, Sergey Ryazanov <ryazanov.s.a@gmail.com>, 
-	M Chetan Kumar <m.chetan.kumar@linux.intel.com>, Johannes Berg <johannes@sipsolutions.net>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261106113142.706783-4-chenyou910331@gmail.com>
 
-Understood, I'll drop this one. Sorry for the noise -- I won't send
-untested driver fixes to netdev.
+On Fri, Nov 06, 2026 at 07:31:18PM +0800, Chen-Yu Yeh wrote:
+> The translation carried no "update to commit" marker and was still the
+> converted zh_CN text.  A section-by-section comparison against the
+> current English text shows it never picked up several changes and
+> mistranslated a number of sentences.  Bring it in line with the full
+> current original:
+> 
+> - add the missing paragraph on EditorConfig
+> - add the missing "There are, of course, some catches." sentence in
+>   the internal API section
+> - replace the Coccinelle :ref: that pointed a URL at the coccinelle.rst
+>   label with the plain project URL, as in the original
+> - fix the sparse and LWN URLs, and the coding-style.rst reference that
+>   displayed a zh_CN path
+> - keep Linus's quote verbatim in its literal block and add the
+>   translation after it
+> - retranslate sentences whose meaning had drifted (the always-zero
+>   argument, driver abstraction layers, multiple evaluation of macro
+>   arguments, the inline function temptation, Devicescape being offered
+>   for inclusion, failure recovery paths, fault injection percentages,
+>   distributors, compiler warnings that should not appear, documentation
+>   being the exception, rare deadlocks)
+> - spell Devicescape and Coccinelle correctly, and fix the *why*
+>   emphasis that was not rendered
+> - replace mainland terms with Taiwanese usage (內核, 代碼, 內存, 線程,
+>   函數, 接口, 文檔, 信息, ...) and the 爲/着/啓 conversion artifacts
+> - expand tabs in the literal block
+> 
+> update to commit 5adb3698bbe8 ("coccinelle: update Coccinelle website URL")
+> 
+> Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
 
-2026=EB=85=84 11=EC=9B=94 12=EC=9D=BC (=EB=AA=A9) =EC=98=A4=EC=A0=84 10:27,=
- Jakub Kicinski <kuba@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> On Mon,  9 Nov 2026 21:49:33 +0900 hyunjungg wrote:
-> > Found by static analysis; not tested on real hardware (needs an Intel
-> > M.2 7360 WWAN modem).
->
-> Please don't send these low effort untested driver fixes for networking.
+Reviewed-by: Weijie Yuan <wy@wyuan.org>
+
+Thanks.
+
+> ---
+>  .../translations/zh_TW/process/4.Coding.rst   | 414 +++++++++---------
+>  1 file changed, 216 insertions(+), 198 deletions(-)
