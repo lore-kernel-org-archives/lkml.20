@@ -1,94 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794460178;
-	b=09g3V/ysswjub52VUuuip5lC6KG7RAp8TIh2N6pqz3SyxddkYPsskHJyGqqET/3z7Q+N
-	 H631hFHcwHFjaDhkcZUCdlVDx2LBF8xAwMqlV//tJGv0Czqvb6hIMhYTyio/pwz40a2dX
-	 P59gULALErvCesgv4E3fC8M5JbFEU20IElDl7OaqymfXwJuiM7A+VtCLVSw2B5Wpi72TS
-	 ndGJA3aNEiTOXay0lj3OqdYZFyfEyJDy6lxo4RP5N1R4Rmvums15PvgMA3nOQtEHJSKYR
-	 EUyJMazT7e5r3/G8Da7+fjJuoRgCzShilDF51YzfotddxHVrW1mIs2DRHAjSX2LPtxQ==
+	t=1794460191;
+	b=YydkyqvNq6SAM9C6jAzwJfuInIkHWrGhRY8dr9lGA2ng/dCmD54fXrfStY4HMyhL7GoC
+	 KwckVDk2lYluMLXSAeIbOjnCT50A7Q0osCF5gYl6+oyBzsSPtlw3Ask8IrIj6DBhmJ9ws
+	 ANIMxJcNhFrdoDJ4Idh+8tCQcAor7ExaUbxHVDUowfXJuDN4ZxCgTv0+7PcT688zwrcUM
+	 zTETx1GSZG/Pil6gDqyg8K6tBTt3j27S8YleL1j1dwyMUpSujJloHnJP5rKKfjBLc281b
+	 aLZCOsqgkTCVaompuDvCNcfKBN6EQluPmgs1dDGlgNjyrnJfb2GepUaVsXa/+ij/Ewg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794460178;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=GX4UBF4+o9VP0UVeZf0hRho2t5z7boGHcIQ9wJV6Itc=;
-	b=uu0MWr7OLu3h4KQ20xaVYeNY3nAa1y/Pnm1SVA+Z3AzKuD+aulPWauX89GdqoBFdKGcx
-	 NFyh1t1YszqN77BsN25bb6Ud9CrqkpPxhSr5uafO2x5uuawYu3GaM6Ofx4PyjSxWhX8L5
-	 s6T7t0xEOluyjQy9uciCV9XS8+xk0b07JXavEPWb72HElBCK92RQJyaedGbvB39UAunby
-	 RCDI5OyLkAPR3OECQ4FwAyryb3QWgi2/1C8QfofsSZ6tKrQe/yk/Xz9Sa5RRAKnvL8BG4
-	 U5KDddhpn2v0S3y/d4HNgMeIKlVzy+oIHdnZjjmKdP1Zijxkhi22hImnLHCK4Tj7Vew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794460191;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=nVVIfN4BTkm5Q9xCDqSEMw7hlfWL7ACUPVcuHFZ/o3g=;
+	b=SMRLO2xDlwSiozn82XgngJ0sTR3wFJRpnzbX+GMa9mjZY3l6xUGOSDKeTqGXDJGGReor
+	 zMFlYNWv5fX6EStLQrTBu0h0pKkYbgefLOfuxKU0Fdoy+MkRDMyGuO9HfQG5KJnm3ZLLp
+	 RTyr3IwGbEY9j2aSSkkQs7KclFAL4q1oET6JxVKZvYJVqSZ/5TOkbTsrJldH8TTlYHvxt
+	 3p7H05MREg250goVGsOd9e/PSiU6kanAHGo4Iz3UfFhnOGXB41ZB3oAU8hA3RVJohvBx+
+	 whb5ZgPZS+ztejstWh4RiUbEm4jpVG1Gk4bqDs7Ky6Y8lM/ZxGvlExHH6jtKsYCHGLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uvEgGSAJ;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=OlG5tUX1;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B82606A324
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:09:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0B82606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D2E606A31C;
+	Thu, 12 Nov 2026 05:09:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84D2E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uvEgGSAJ
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3704d30b84fso4943560eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 21:09:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794460177; x=1795064977; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GX4UBF4+o9VP0UVeZf0hRho2t5z7boGHcIQ9wJV6Itc=;
-        b=uvEgGSAJdPlE+0MbfNEHzpFg9qOC+Z5pg1ohg/tyFdZoj3SQRH/5iqUEQFcL0J/EqF
-         BLqPwIeXiU9TnULiEHHHKOp4U/IbJOcVeFMEgXf2eF5Z3idUzzH/GIJSeRsRdURcSmN+
-         A0yoqh2Y1JyYYTcVH4chUFmZwMcqEs2s2QTZB821tlZo85XR/5uXGHOhcC93i9q/FR0E
-         eR1DUNR2zRvulBBzCuBc/R2ZS/GVV5aeV+mK/iNV221j91cfyTbZNjtBkNIAER/JzCvI
-         4KujnxLVtVVraJ93Mm4qhyfJIn6B6TgREMaCD+ywiIjYjlKRx/6xNuXHB0vIExJpW43X
-         aNkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794460177; x=1795064977;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GX4UBF4+o9VP0UVeZf0hRho2t5z7boGHcIQ9wJV6Itc=;
-        b=IftJtSzpMT6JYU4K6+QCH9e6KBKoqWLNEReIlXiZ5ExuWNPP/R/jsO+TSvKFMsYmze
-         oQAgyOC6jbka0eK62SheWXH9SC+lKe8MYMDI2Ri77ylaRRLefUddmnh2ocq4rJ5YVbSj
-         5SJ5S8o/K43Nof2pzK6k0i0sl+sYWMdqbVSBH1LyyWMsP9ryaen7j/9uRrvNtvMbyXmm
-         rArE8DjKzaqtgh/H+2oJ5AdtKt3jIbrli47ThBb1ZfE1gqpF2YXL4jUD2/9GdcJEbFKI
-         F9IDq9rQx3AncHaIGYImL6g6TvZ4XwFToEmM/xSoiQw5O0U1QGKr3h2kPh5qmRzuEsXc
-         B+eg==
-X-Forwarded-Encrypted: i=1; AL+hErGJQOR64DV0T5gsfXYGzoUhHZCgTLKb4dWuYG2cGpqOP3k/605mV/RRRHXGWLGj8dh/M1REipw4cdLMlko=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8E5D/QW6RMdb29bze4V6hyo0lZDBbbcH44dGMRANObVSJyzV5L
-	HMzZkdf0ucWGsMiQw4kgCXgq1xqSyNje3yWg9P6g9IA/dWfPSpgP3ioB
-X-Gm-Gg: AYBFou3k8N6ZPLRMVJiyIcoimudTk8RVC0I6sSUK1KlP+hjjsww2IZjV8mpCHNSmRJK
-	xs9/gpBPwO+fZIPi60x6QXCdfFR+K1ISocYevQMNQPTIGl8Hx6UPJFaQTcRqtMqJMj/tZzVSJQ8
-	LrIXEp5/9IpoxVj8xjjb2t8eaNbN11qLNP7Tw7q2KosjVWdfHn0yUNun4ShWM+iFPukw0fBERPu
-	C7v7tHhZiyNsLvByK1NwMbhGS/p8Cy9If4pzNoXUPShbytdYAYGfrFQgfJu1x8B2hn/LNIGaMcu
-	58tK+WbMl4qy+rXe1NJy78rJ7OtVWw+5+T4t5/PIFdL+gK+dGVTes7BVwDlu8kwPtm74iJi3Lf4
-	6C6pHacsehWbcQpmwRD6FRpiJdxPAmOpCn1eAT6B0Afyf8+8/LZVYjLDWUYfxuQUegjoTcB/yIB
-	qJYoQhie/WgYyk5LX2bN7DF53ZvZ1rY3qJ7USehnT9uRgjP2ZAi9py093PgHxjh4bKW0Tajns+W
-	5lBwz3Vi5PVlpuWG+ZPU7GqyN1E92sVb4F3fqX44fVM1uG7E21S4bPAduG23sUv8vadJqyH+4Ek
-	fKw9KGwDWfYo6Ztpv5zkER/hFEZZ3yJW6pv8FcD9RW/jPaICC0XVQUE=
-X-Received: by 2002:a05:7300:d404:b0:372:32a1:b384 with SMTP id 5a478bee46e88-3768695036dmr4937182eec.33.1794460176694;
-        Wed, 11 Nov 2026 21:09:36 -0800 (PST)
-Received: from acemagic-m1.tail4fb79.ts.net ([2401:7400:c804:b668:37ea:9b2d:3d7a:8379])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520608b52sm19537627eec.13.2026.11.11.21.09.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 21:09:36 -0800 (PST)
-From: Ragul Balaji <ragulbaby@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: Ragul Balaji <ragulbaby@gmail.com>,
-	Ho Jie Feng <hjf3108@gmail.com>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	linux-kernel@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com
-Subject: [PATCH] wifi: brcm80211: move the USB bootloader definitions to a shared header
-Date: Thu, 12 Nov 2026 13:08:15 +0800
-Message-ID: <20261112050816.2795512-1-ragulbaby@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=OlG5tUX1
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2iXeY1214888;
+	Thu, 12 Nov 2026 05:09:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=nVVIfN
+	4BTkm5Q9xCDqSEMw7hlfWL7ACUPVcuHFZ/o3g=; b=OlG5tUX1O2ww6cm14macBK
+	cjdgAgo854InLT7kSM7FJBlU0ki9XlUW6NlQAycQTkwTh+HDjEbPX3cQvzHZs6zm
+	KnoQoE5MO47PSQIRmChH5gDaAm9K/vycIVK8ulHnbbe34AuQfZMIap6DN3IU+DQM
+	GO/fMKgGYq+U0XuXx4v9P66yTDkWnjRlghuRnxmZ9dc1CDTzNVm2qSsqPBD5tJ3t
+	CcQiv8l0f5RD/w4Z2iA1PaZL4IYYH1QMQ04qiTZdeL789Gt31X7YKUe2nLm8FHvj
+	PuYoaETiuPCHOcTWdYaJRlNC42SnLcgUac7/sq0B8YOEJLPfRkLftjJ6sxwkxnew
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsuntdwak-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 12 Nov 2026 05:09:18 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2ZnlC016704;
+	Thu, 12 Nov 2026 05:09:17 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hv3327f2u-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 12 Nov 2026 05:09:17 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AC59DeP48890152
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 12 Nov 2026 05:09:13 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E9F1720043;
+	Thu, 12 Nov 2026 05:09:12 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3CA882004E;
+	Thu, 12 Nov 2026 05:09:04 +0000 (GMT)
+Received: from [9.39.17.134] (unknown [9.39.17.134])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 12 Nov 2026 05:09:03 +0000 (GMT)
+Message-ID: <1d170fb4-7e78-4c8c-9cd0-642973dd9163@linux.ibm.com>
+Date: Thu, 12 Nov 2026 10:39:03 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,200 +86,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/6] sched: Expose writable interface for preferred CPUs
+ mask
+To: Yury Norov <ynorov@nvidia.com>
+Cc: Maxim Kuvyrkov <maxim.kuvyrkov@grdncc.com>,
+        Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+        Thomas Gleixner <tglx@kernel.org>, Juri Lelli <juri.lelli@redhat.com>,
+        Vincent Guittot <vincent.guittot@linaro.org>,
+        Yury Norov <yury.norov@gmail.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Andrea Righi
+ <arighi@nvidia.com>, Ben Segall <bsegall@google.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Dietmar Eggemann <dietmar.eggemann@arm.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Heiko Carstens <hca@linux.ibm.com>, Johan Hovold <johan@kernel.org>,
+        Jonathan Corbet <corbet@lwn.net>,
+        K Prateek Nayak <kprateek.nayak@amd.com>, Mel Gorman <mgorman@suse.de>,
+        Mete Durlu <meted@linux.ibm.com>, Randy Dunlap <rdunlap@infradead.org>,
+        Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Steven Rostedt
+ <rostedt@goodmis.org>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Valentin Schneider <vschneid@redhat.com>,
+        Vasily Gorbik <gor@linux.ibm.com>, linux-kernel@vger.kernel.org,
+        linux-doc@vger.kernel.org, driver-core@lists.linux.dev,
+        linux-s390@vger.kernel.org
+References: <20261101192203.6979-1-ynorov@nvidia.com>
+ <A2B09626-39F0-4EC3-B57D-CD83D77DD208@grdncc.com>
+ <1d1b22ce-fdf1-47ad-99ec-8c9925ea7275@linux.ibm.com> <avSorfTkB3pZX2ic@yury>
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+Content-Language: en-US
+In-Reply-To: <avSorfTkB3pZX2ic@yury>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAxOCBTYWx0ZWRfX311hCVMLD0Hc
+ Kt4HlOAhsQOnWUC78GYq0edsRUwn/hPsvXRE3OjmQrYBWkTXjJYTVt//CaMzQmiyJiFcEeQt4dq
+ vo3NkFb+W8PLaZnW49I/NRYDGE9AFmQsWN780tb+WzHjhYt7Ch9fNLotNoO3RYhwzKaCzd7+N6B
+ /c4T1cKQhIBP1tyR2piSpOenZ8vV6pDAPEY4Jny41DxLMvLJ/d9RdrCu4v5NImh0fjwgko8Ww4R
+ k02HM7PxH0hpwyse1d7IJlrZ2QYsCAjR+uh2DTSX+4lfHqxFlmTA2fEpmACYtQyummjm59IghOZ
+ KB0fLOcg8MW5xJV6vsKAuKhDvJGxXWuY33rCcHefh3ifSIoe5Rh4qXTT3MGTLAJvo2uBfJA8ipK
+ 2BhVQr7fsdkOVlneP2+PTyDyqKDyn6Be1T5jFxK1ITZ2yxdTZp3hA1RowSimbEnYHk/anYWRRmI
+ ZCD8oJrRiuO6BsiXcjg==
+X-Proofpoint-ORIG-GUID: mwJVrk1495EbgCbioZERqcZZWLE3v8di
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAxOCBTYWx0ZWRfX90f2Q/uxeZHe
+ BwIB1tOEwf31qkUi5OKpqWym4bFrZxa0Gc7VkteZXl9nM1Kv2x61K2UKk2Wbk43/y8QCoyE1H6x
+ avmCGoBVhmICPW77VY2mhOr/bWo8nnI=
+X-Authority-Analysis: v=2.4 cv=euZKXYpX c=1 sm=1 tr=0 ts=6af549fe cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=Ikd4Dj_1AAAA:8
+ a=9Qk1hqGbzmtnogXl2ysA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: eD0RfhbmiDm4gZvmVYr9UM_KGr6YPB50
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 suspectscore=0 spamscore=0 priorityscore=1501
+ lowpriorityscore=0 bulkscore=0 impostorscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120018
 
-The Broadcom USB bootloader downloads firmware the same way for other
-USB chips than the FullMAC ones of brcmfmac.  Move its commands, states,
-firmware header and response layouts from brcmfmac's usb.c to a header
-in the shared include directory, so that other drivers can use them.
 
-Signed-off-by: Ragul Balaji <ragulbaby@gmail.com>
-Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
----
-In preparation for the brcmbmac driver.
 
- .../broadcom/brcm80211/brcmfmac/usb.c         | 68 +---------------
- .../broadcom/brcm80211/include/brcm_usb_rdl.h | 78 +++++++++++++++++++
- 2 files changed, 79 insertions(+), 67 deletions(-)
- create mode 100644 drivers/net/wireless/broadcom/brcm80211/include/brcm_usb_rdl.h
+On 11/11/26 11:11 PM, Yury Norov wrote:
+> On Tue, Nov 10, 2026 at 02:45:58PM +0530, Shrikanth Hegde wrote:
+>> Hi,
+>>
+>> On 11/10/26 8:45 AM, Maxim Kuvyrkov wrote:
+>>>> On Nov 2, 2026, at 08:21, Yury Norov <ynorov@nvidia.com> wrote:
+>>>>
+>>>> The preferred CPU mask currently lets the steal governor reduce vCPU
+>>>> demand when physical CPUs are contended. This series adds manual control,
+>>>> opening more use cases.
+>>>>
+>>>> For example, setting CPUs aside for selected fair tasks at runtime while
+>>>> steering other fair tasks toward the remaining CPUs.
+>>>
+>>> Hi Yury,
+>>>
+>>> I've been trying to do this with crutches in user-space for a long time.  Thanks for implementing this in the kernel, and with a convenient user interface.
+>>>
+>>>>
+>>>> A user can mark a CPU non-preferred and pin a workload to it. Fair tasks
+>>>> whose affinity includes preferred CPUs are steered away, while tasks
+>>>> whose allowed CPUs contain no preferred CPU can still run there. The CPU
+>>>> stays online, task affinity is preserved, and the selection can be
+>>>> reversed without rebooting:
+>>>>
+>>>>      # rmmod steal_governor
+>>>>      # echo 0 > /sys/devices/system/cpu/cpu3/preferred
+>>>>      # taskset -c 3 ./my_workload
+>>>>      # echo 1 > /sys/devices/system/cpu/cpu3/preferred
+>>>
+>>> My use-case (being a compiler optimization engineer) is to pin benchmarks to specific cores, and stop the system from using those cores even when the cores are idle.  This prevents L1/L2 cache pollution and makes performance numbers more stable.
+>>>
+>>
+>> Do you change it when running workload based on any signal/event? or you set it before starting it?
+>>
+>> If it is set before starting, you might as well offline the CPUs to achieve the same. I assume you are
+>> managing the preferred CPUs manually with write interface. You can do the same for online state.
+>> (Though it takes a longer)
+> 
+> How that? I tried, and offlining destroys the affinity, as it should:
+> 
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c
-index b41949a9bd..e48f064682 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c
-@@ -12,6 +12,7 @@
- #include <brcmu_utils.h>
- #include <brcm_hw_ids.h>
- #include <brcmu_wifi.h>
-+#include <brcm_usb_rdl.h>
- #include "bus.h"
- #include "debug.h"
- #include "firmware.h"
-@@ -26,8 +27,6 @@
- #define BRCMF_USB_RESET_GETVER_SPINWAIT	100	/* in unit of ms */
- #define BRCMF_USB_RESET_GETVER_LOOP_CNT	10
- 
--#define BRCMF_POSTBOOT_ID		0xA123  /* ID to detect if dongle
--						   has boot up */
- #define BRCMF_USB_NRXQ			50
- #define BRCMF_USB_NTXQ			50
- 
-@@ -52,71 +51,6 @@ static const struct brcmf_firmware_mapping brcmf_usb_fwnames[] = {
- 	BRCMF_FW_ENTRY(CY_CC_4373_CHIP_ID, 0xFFFFFFFF, 4373)
- };
- 
--#define TRX_MAGIC		0x30524448	/* "HDR0" */
--#define TRX_MAX_OFFSET		3		/* Max number of file offsets */
--#define TRX_UNCOMP_IMAGE	0x20		/* Trx holds uncompressed img */
--#define TRX_RDL_CHUNK		1500		/* size of each dl transfer */
--#define TRX_OFFSETS_DLFWLEN_IDX	0
--
--/* Control messages: bRequest values */
--#define DL_GETSTATE	0	/* returns the rdl_state_t struct */
--#define DL_CHECK_CRC	1	/* currently unused */
--#define DL_GO		2	/* execute downloaded image */
--#define DL_START	3	/* initialize dl state */
--#define DL_REBOOT	4	/* reboot the device in 2 seconds */
--#define DL_GETVER	5	/* returns the bootrom_id_t struct */
--#define DL_GO_PROTECTED	6	/* execute the downloaded code and set reset
--				 * event to occur in 2 seconds.  It is the
--				 * responsibility of the downloaded code to
--				 * clear this event
--				 */
--#define DL_EXEC		7	/* jump to a supplied address */
--#define DL_RESETCFG	8	/* To support single enum on dongle
--				 * - Not used by bootloader
--				 */
--#define DL_DEFER_RESP_OK 9	/* Potentially defer the response to setup
--				 * if resp unavailable
--				 */
--
--/* states */
--#define DL_WAITING	0	/* waiting to rx first pkt */
--#define DL_READY	1	/* hdr was good, waiting for more of the
--				 * compressed image
--				 */
--#define DL_BAD_HDR	2	/* hdr was corrupted */
--#define DL_BAD_CRC	3	/* compressed image was corrupted */
--#define DL_RUNNABLE	4	/* download was successful,waiting for go cmd */
--#define DL_START_FAIL	5	/* failed to initialize correctly */
--#define DL_NVRAM_TOOBIG	6	/* host specified nvram data exceeds DL_NVRAM
--				 * value
--				 */
--#define DL_IMAGE_TOOBIG	7	/* firmware image too big */
--
--
--struct trx_header_le {
--	__le32 magic;		/* "HDR0" */
--	__le32 len;		/* Length of file including header */
--	__le32 crc32;		/* CRC from flag_version to end of file */
--	__le32 flag_version;	/* 0:15 flags, 16:31 version */
--	__le32 offsets[TRX_MAX_OFFSET];	/* Offsets of partitions from start of
--					 * header
--					 */
--};
--
--struct rdl_state_le {
--	__le32 state;
--	__le32 bytes;
--};
--
--struct bootrom_id_le {
--	__le32 chip;		/* Chip id */
--	__le32 chiprev;		/* Chip rev */
--	__le32 ramsize;		/* Size of  RAM */
--	__le32 remapbase;	/* Current remap base address */
--	__le32 boardtype;	/* Type of board */
--	__le32 boardrev;	/* Board revision */
--};
--
- struct brcmf_usbdev_info {
- 	struct brcmf_usbdev bus_pub; /* MUST BE FIRST */
- 	spinlock_t qlock;
-diff --git a/drivers/net/wireless/broadcom/brcm80211/include/brcm_usb_rdl.h b/drivers/net/wireless/broadcom/brcm80211/include/brcm_usb_rdl.h
-new file mode 100644
-index 0000000000..bf6665d33f
---- /dev/null
-+++ b/drivers/net/wireless/broadcom/brcm80211/include/brcm_usb_rdl.h
-@@ -0,0 +1,78 @@
-+/* SPDX-License-Identifier: ISC */
-+/*
-+ * Copyright (c) 2011 Broadcom Corporation
-+ */
-+
-+#ifndef	_BRCM_USB_RDL_H_
-+#define	_BRCM_USB_RDL_H_
-+
-+#include <linux/types.h>
-+
-+#define BRCMF_POSTBOOT_ID		0xA123  /* ID to detect if dongle
-+						   has boot up */
-+
-+#define TRX_MAGIC		0x30524448	/* "HDR0" */
-+#define TRX_MAX_OFFSET		3		/* Max number of file offsets */
-+#define TRX_UNCOMP_IMAGE	0x20		/* Trx holds uncompressed img */
-+#define TRX_RDL_CHUNK		1500		/* size of each dl transfer */
-+#define TRX_OFFSETS_DLFWLEN_IDX	0
-+
-+/* Control messages: bRequest values */
-+#define DL_GETSTATE	0	/* returns the rdl_state_t struct */
-+#define DL_CHECK_CRC	1	/* currently unused */
-+#define DL_GO		2	/* execute downloaded image */
-+#define DL_START	3	/* initialize dl state */
-+#define DL_REBOOT	4	/* reboot the device in 2 seconds */
-+#define DL_GETVER	5	/* returns the bootrom_id_t struct */
-+#define DL_GO_PROTECTED	6	/* execute the downloaded code and set reset
-+				 * event to occur in 2 seconds.  It is the
-+				 * responsibility of the downloaded code to
-+				 * clear this event
-+				 */
-+#define DL_EXEC		7	/* jump to a supplied address */
-+#define DL_RESETCFG	8	/* To support single enum on dongle
-+				 * - Not used by bootloader
-+				 */
-+#define DL_DEFER_RESP_OK 9	/* Potentially defer the response to setup
-+				 * if resp unavailable
-+				 */
-+
-+/* states */
-+#define DL_WAITING	0	/* waiting to rx first pkt */
-+#define DL_READY	1	/* hdr was good, waiting for more of the
-+				 * compressed image
-+				 */
-+#define DL_BAD_HDR	2	/* hdr was corrupted */
-+#define DL_BAD_CRC	3	/* compressed image was corrupted */
-+#define DL_RUNNABLE	4	/* download was successful,waiting for go cmd */
-+#define DL_START_FAIL	5	/* failed to initialize correctly */
-+#define DL_NVRAM_TOOBIG	6	/* host specified nvram data exceeds DL_NVRAM
-+				 * value
-+				 */
-+#define DL_IMAGE_TOOBIG	7	/* firmware image too big */
-+
-+struct trx_header_le {
-+	__le32 magic;		/* "HDR0" */
-+	__le32 len;		/* Length of file including header */
-+	__le32 crc32;		/* CRC from flag_version to end of file */
-+	__le32 flag_version;	/* 0:15 flags, 16:31 version */
-+	__le32 offsets[TRX_MAX_OFFSET];	/* Offsets of partitions from start of
-+					 * header
-+					 */
-+};
-+
-+struct rdl_state_le {
-+	__le32 state;
-+	__le32 bytes;
-+};
-+
-+struct bootrom_id_le {
-+	__le32 chip;		/* Chip id */
-+	__le32 chiprev;		/* Chip rev */
-+	__le32 ramsize;		/* Size of  RAM */
-+	__le32 remapbase;	/* Current remap base address */
-+	__le32 boardtype;	/* Type of board */
-+	__le32 boardrev;	/* Board revision */
-+};
-+
-+#endif /* _BRCM_USB_RDL_H_ */
--- 
-2.53.0
+You are doing "hotplug when workload is running".
 
+>    # taskset -c 3 sh -c 'while :; do :; done' &
+>    [1] 380
+>    # taskset -pc "$pid"
+>    pid 380's current affinity list: 3
+>    # echo 0 >/sys/devices/system/cpu/cpu3/online
+>    [  115.767634] process 380 (sh) no longer affine to cpu3
+>    [  115.772881] smpboot: CPU 3 is now offline
+>    taskset -pc 380
+>    pid 380's current affinity list: 0-2,4-7
+> 
+> Did you mean something else, maybe?
+
+What matters is how/when you start the workload.
+ From the use case, I see it is about using only specific set of CPUs and there is no explicit affinity assigned.
+
+Sequence1:
+1. You are setting preferred CPUs.
+2. You start the workload. Workload finishes using preferred CPUs.
+3. You set the preferred same as active.
+
+In that sequence, offlining the CPUs is going to be similar. You are managing preferred CPUs, you can as well manage
+offline CPUs. Most of the workload check the CPU state before assigning any explicit affinity or spawning threads etc.
+
+Sequence 2:
+1. workload is long running job. Lets say comprising of warmup/steady/closure phases.
+2. You only to run on specific CPUs during steady phase.
+3. You fallback to active during closure phase again.
+
+In that sequence what you said about offline breaking affinities is very much possibility. It is
+good to set preferred CPUs in this sequence.
+
+but reading maxim's description it fitted Sequence1.
