@@ -1,56 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794474341;
-	b=Eh3a7awPchDe50d+poBIKPKW0CXc0xqfzN1fppN9cm48+z+jDwssvqT24l2r3X+1oCK1
-	 fdm/PtyC8QDVphZ1Gvz5XNLatYTQBFd+IaeWB0mWbYyIXTSSmonTY93RjIF8oV7kg+RaF
-	 gK4hZn9SZTtDXir4CSzyflyLkHq5Nhp0p2aNeExpyxyzppGS4/Ev9aWBHBMK71AT5QwH+
-	 sIRy6x2fd3SczR5lz+mgTVXoBrMddFY7UodOYuW7V7l7q1vhsNi6C/1YfAemNN1+2nwTO
-	 /Pe6x/TwsvctQfdH6Hb4bcPRcOTqfTGC5LcrcR7SLS4cgaukD3xyKsovzdEjdp+T7Xw==
+	t=1794474366;
+	b=bYOWvMagvgnncedQQf5PvPE04zhCYSnCt9aFfDx5lPTPwzSL+E7xyRqx9byMEKz72W+0
+	 VKaLMKAA6oMPq2SWHToC+x2XjmQvkEhlwnCpoePHec2SFwPKI2FTbwCCwsyWoRz2GT1jr
+	 IExhO/lrPGDca0qucUnJuLfiY3a7JtvmK/vqV4agVYLs1fVptWxugsiTSC9LtwwmKmOwX
+	 scWdj1++rCKOl8zluh9AM3rnd3hK89tgklHpGSH5AXg0iE78SOiZ/wQhtiOhlMF+h8dRo
+	 noSzKHwS9j6PJfXZxdTPQFNh/MyUvS4g43oE/ER7T7B7KOsV4aLJ+q7VgND/yj6zjNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474341;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:To:Cc:
-	 X-Mailer;
-	bh=zdwRUxVnTZpYGma3zR8iiLeIgpobDvdrNh1nRqXAWMA=;
-	b=2P54ZpeKX0s22CrtpxwMjwZWdjwl2BBurB92nJZi4/OZUFNOWEXn8EPkPvQjrt8mgkB0
-	 coN05J2BlwNOKbI77hbl/cbtJj/IUoenUlsPN6SKM09u/+477i1sj349ysckHdCG74DhK
-	 WNcx9J4QxQ7M3gfHDIYn+T9H/dbz+VMxODE9z2i1yt+Cl1PUk3y1Mfk4AjSilJJu/GS9G
-	 JKlzJLACa3P5pUso0lg81nAgyaoLOvDbqZaMqDrseCkHWqdnax8E64detpvAcYaxMfeEj
-	 7/8Ge5c9gThnNmzDJrqJKqs0lWHtcKlkhVQP4a9Nu2Rb46NzPtgwusAGj8sIPjgoduw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474366;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:
+	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Rspamd-Queue-Id;
+	bh=w+J4cfzvIkYfhSsRO9GW6mn6A7rg77PGWNHJk+zmkqw=;
+	b=SUnG7ASfHcVvXofR3go/JmbkO8Uk/XtZnB54jaVt2me6ritvhW7KtrhLU5rvcUiE20Wd
+	 feHFMcrTj1XHYoGPCLWtpR/dlNJVuaZl3DTUYGQmeFZcVePK12DWxMOgY5/8gDjFACrpR
+	 oQvTJ9qlTw0zwqHUs8WGCKoyi6Hjvot35NZaXyc3JwdJsGLYG+YJwKZMLwBVdJ/zasY+R
+	 Ervo1RQdpbQ8hNNj2OnDp1IVXur4rtsj7KMnGKpDtqy204hvXtPfaaEMHxNrYF0LK/CDM
+	 M7ZkLLe40it6v1ANyow78mbZZbZ3/4pYe1TwN7Dqy74zDu8zRn++oU4lNmoCaXtzRmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DCsQmUyQ;
-	arc=none smtp.remote-ip=95.215.58.46
-Received: from mta1.migadu.com (out-46.mta1.migadu.com [95.215.58.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=mandelbit.com;
+	spf=pass smtp.mailfrom=mandelbit.com;
+	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=AQvRFziB;
+	arc=none smtp.remote-ip=195.10.208.47
+Received: from mout-b-107.mailbox.org (mout-b-107.mailbox.org [195.10.208.47])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC5C8606A89A
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:05:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC5C8606A89A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D0D606A330;
+	Thu, 12 Nov 2026 09:06:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8D0D606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DCsQmUyQ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=KIBx6J3ONlwSdrSfqJem9k0si8vhTNYH9l6d114wjKA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794474338; v=1; x=1795079138;
- b=DCsQmUyQ79v5wBYgkdsZd8ebSpT4VClpeRJd66dX/56CNzO3uF0SfW4Ta/e/y66fZWzLpKDm
- O10ZENMP0VPHQaI/l+Yiju9S06dT8WsH8EtITnzH3wo6+7Uv5Hz6r0rcGSI/SRjCho0G9cfIhwB
- cVrvXWjk4uCw+4q6jva6EuOM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 60eafffd12fdfb43;
-	Thu, 12 Nov 2026 09:05:33 +0000
-X-Mizu-Trace-ID: 60eafffd12fdfb43
-X-Migadu-Flow: FLOW_OUT
-From: Qiliang Yuan <qiliang.yuan@linux.dev>
-Date: Thu, 12 Nov 2026 04:05:12 -0500
-Subject: [PATCH v3] mm/shmem: remove truncated folios from the page cache
- in batches
+	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=AQvRFziB
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-b-107.mailbox.org (Postfix) with ESMTPS id 4jQDyB5BdRz3yG9;
+	Thu, 12 Nov 2026 10:05:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
+	s=MBO0001; t=1794474354;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=w+J4cfzvIkYfhSsRO9GW6mn6A7rg77PGWNHJk+zmkqw=;
+	b=AQvRFziBUyqdb8x3QiU+/VyW2cW/0vmQl7GRPLMGskX9qdplkQ0OqBSdFfTfBBv4bKRDv7
+	K5K4t9XZm07C6wddEjFikIsXJijAx9I+KZPJ57Z7dAU+oYkg4k/vlMZVZq1fLoBERMMH9o
+	v8HxKhk3riOEOZ8NoijwUgDzrOR99/qpN/5H011E32pN/S1tAZEVuMs1DbBJDbM6vSsfkE
+	M++qd1stt/HGE6narT/gMsef7TKfihT6Z9878qM5CmB9bvTyv7Fk96+mmNqXzKDe2X/T1F
+	FjxEmX4dl98/L1hOQ4neaiG+HCeq9HLF7fMuHPyecunYtxXM4zHnQfvXR6nM/w==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of antonio@mandelbit.com designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=antonio@mandelbit.com
+Message-ID: <1d0d447f-f458-4eec-8b63-80119fee618b@mandelbit.com>
+Date: Thu, 12 Nov 2026 10:05:51 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,133 +66,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] udp_tunnel: don't treat IPv4 sockets bound to an
+ address as wildcard
+To: Kuniyuki Iwashima <kuniyu@google.com>
+Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Willem de Bruijn <willemb@google.com>,
+ Nikolay Aleksandrov <razor@blackwall.org>,
+ Alice Mikityanska <alice.kernel@fastmail.im>, linux-kernel@vger.kernel.org
+References: <20261110113306.3698438-1-antonio@mandelbit.com>
+ <avVVzxL3pVZc6yQ5@google.com>
+Content-Language: en-US
+From: Antonio Quartulli <antonio@mandelbit.com>
+Organization: Mandelbit SRL
+In-Reply-To: <avVVzxL3pVZc6yQ5@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-bug-mm-shmem-undo-batch-v3-1-212db8c24058@linux.dev>
-X-B4-Tracking: v=1; b=H4sIAEiB9WoC/4XNTQ7CIBCG4as0rB0D9MfWlfcwLigMhUSKgZZom
- t5d2o1ujMv3S+aZhUQMFiM5FwsJmGy0fsxRHgoijRgHBKtyE055wyjvoJ8HcA6icehgHpWHXkz
- SgEJKmepkoxmSfP0IqO1zl6+33MbGyYfX/iixbf1vJgYM6q4vK864xlN7GZyw96P0jmxm4h+H0
- fq3w7MjsNZtJ1HRqvp21nV9A4XaRgoGAQAA
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, Qiliang Yuan <qiliang.yuan@linux.dev>
-X-Mailer: b4 0.13.0
+X-Rspamd-Queue-Id: 4jQDyB5BdRz3yG9
 
-truncate_inode_pages_range() takes the folios it finds out of the page
-cache with delete_from_page_cache_batch(), which takes the inode's
-i_lock and the i_pages lock once for each batch of up to
-FOLIO_BATCH_SIZE folios.
+On 12/11/2026 07:02, Kuniyuki Iwashima wrote:
+>> diff --git a/net/ipv4/udp_tunnel_core.c b/net/ipv4/udp_tunnel_core.c
+>> index a128fe85620d..29581c94fdcf 100644
+>> --- a/net/ipv4/udp_tunnel_core.c
+>> +++ b/net/ipv4/udp_tunnel_core.c
+>> @@ -62,10 +62,10 @@ EXPORT_SYMBOL(udp_sock_create4);
+>>   static bool sk_saddr_any(struct sock *sk)
+>>   {
+>>   #if IS_ENABLED(CONFIG_IPV6)
+>> -	return ipv6_addr_any(&sk->sk_v6_rcv_saddr);
+>> -#else
+>> -	return !sk->sk_rcv_saddr;
+>> +	if (sk->sk_family == AF_INET6)
+>> +		return ipv6_addr_any(&sk->sk_v6_rcv_saddr);
+>>   #endif
+>> +	return !sk->sk_rcv_saddr;
+> 
+> This is identical with inet_rcv_saddr_any().  As a follow-up
+> in net-next, please move sk_saddr_any() to include/net/sock.h
+> and use it everywhere.
 
-shmem_undo_range() calls truncate_inode_folio() on each folio instead,
-so filemap_remove_folio() takes and drops both locks once per folio.
-Truncating, punching or freeing a tmpfs file or memfd made of small
-folios, such as a large /dev/shm segment, pays for that on every page.
+Yes, indeed.
+Ok, I'll add it to my todo list.
 
-Clean each folio up as truncate_inode_folio() does and, once the swap
-entries are gone, pass the batch to delete_from_page_cache_batch(),
-which needs truncate_cleanup_folio() outside mm/truncate.c. Undoing a
-failed fallocate() only removes the folios that are not uptodate, so
-keep removing those one at a time.
+> 
+> Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
 
-Dropping an 8 GiB file of 4K folios in a 32 vCPU VM takes (median of
-five runs, averaged over two boots of each kernel):
+Thanks!
 
-  operation           before (ms)  after (ms)  change
-  ftruncate() to 0           1144         901    -21%
-  hole punch                 1148         906    -21%
-  close() of a memfd         1139         912    -20%
-  unlink()                   1142         914    -20%
 
-Files of PMD-sized folios take 18-31 ms with or without this change.
-
-Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
----
-V2 -> V3:
-- Delete the folios from fbatch directly instead of collecting them in
-  a second folio_batch, which pushed the shmem_undo_range() stack frame
-  past 1024 bytes on mips with clang (reported by the kernel test robot)
-- Rebase onto bf87d3fe8b35 in core.git shmem-7.5.misc and update the
-  numbers from a new run
-- Drop the Reviewed-by tags from Jan and Baolin, since the loop changed
-
-V1 -> V2:
-- Unlock the folios after folio_batch_remove_exceptionals(), as Jan
-  suggested
-- Rebase onto v7.4-rc1-132-g05441d697f7f and update the numbers from a
-  new run
-
-v2: https://lore.kernel.org/r/20261105-bug-mm-shmem-undo-batch-v2-1-ae5f89ced044@gmail.com
-v1: https://lore.kernel.org/r/20261029-bug-mm-shmem-undo-batch-v1-1-59b34212fe78@gmail.com
-
-To see it, fill and remove a large /dev/shm file:
-
-  fallocate -l 8G /dev/shm/f && time rm /dev/shm/f
----
- mm/internal.h | 1 +
- mm/shmem.c    | 9 +++++++--
- mm/truncate.c | 2 +-
- 3 files changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/mm/internal.h b/mm/internal.h
-index 566cbd2dce485..abe64e49a4170 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -628,6 +628,7 @@ unsigned find_lock_entries(struct address_space *mapping, pgoff_t *start,
- 		pgoff_t end, struct folio_batch *fbatch, pgoff_t *indices);
- unsigned find_get_entries(struct address_space *mapping, pgoff_t *start,
- 		pgoff_t end, struct folio_batch *fbatch, pgoff_t *indices);
-+void truncate_cleanup_folio(struct folio *folio);
- int truncate_inode_folio(struct address_space *mapping, struct folio *folio);
- bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
- 		loff_t lend, pgoff_t *pstart, pgoff_t *pend);
-diff --git a/mm/shmem.c b/mm/shmem.c
-index ce92e74baeb75..5bcbdd6078a73 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -1363,11 +1363,16 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
- 				continue;
- 			}
- 
--			if (!unfalloc || !folio_test_uptodate(folio))
-+			if (!unfalloc)
-+				truncate_cleanup_folio(folio);
-+			else if (!folio_test_uptodate(folio))
- 				truncate_inode_folio(mapping, folio);
--			folio_unlock(folio);
- 		}
- 		folio_batch_remove_exceptionals(&fbatch);
-+		if (!unfalloc)
-+			delete_from_page_cache_batch(mapping, &fbatch);
-+		for (i = 0; i < folio_batch_count(&fbatch); i++)
-+			folio_unlock(fbatch.folios[i]);
- 		folio_batch_release(&fbatch);
- 		cond_resched_tasks_rcu_qs();
- 	}
-diff --git a/mm/truncate.c b/mm/truncate.c
-index 733d2713a875a..c6bf4aa0b91e8 100644
---- a/mm/truncate.c
-+++ b/mm/truncate.c
-@@ -151,7 +151,7 @@ EXPORT_SYMBOL_GPL(folio_invalidate);
-  * its lock, b) when a concurrent invalidate_mapping_pages got there first and
-  * c) when tmpfs swizzles a page between a tmpfs inode and swapper_space.
-  */
--static void truncate_cleanup_folio(struct folio *folio)
-+void truncate_cleanup_folio(struct folio *folio)
- {
- 	if (folio_mapped(folio))
- 		unmap_mapping_folio(folio);
-
----
-base-commit: bf87d3fe8b35087c2c043642e76e9f100d61328b
-change-id: 20261029-bug-mm-shmem-undo-batch-de001d9c6f1e
-
-Best regards,
 -- 
-Qiliang Yuan <qiliang.yuan@linux.dev>
+Antonio Quartulli
+
+CEO and Co-Founder
+Mandelbit Srl
+https://www.mandelbit.com
 
