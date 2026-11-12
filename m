@@ -1,108 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501880;
-	b=AJ1FB/b4f4EVPvFRpxHZh5RARXoYVt6XETf1C6M7JpVbIAK/L74NnIY5LrchlQBQ3o5z
-	 KPH2kEqEVtY2xh6RlpiLRH77RIawE/Ft6mIUD6ZPGEEP+KWIUxdYiAgYQ9NjqKiAr8Ksn
-	 M3bP0/RWLkG69cucyPxnYt0vfXVXnXaoTae8IdRA/T6kn3qIgIxbtC5igs+m5KSdLH0R3
-	 TqoY9UXqqj2Ywc7+zbIDHo7Tp08cPqEIz2/dv5RLw76A9TaiylNGBs+pWIsRWYMCV2Udd
-	 8w4aUCrS3xcVEW9BRb5ba8TDy7pGDTE8gCPMW1M+Ee97lG7WTNbSIb8BevYVtMi46Aw==
+	t=1794501884;
+	b=ObPM2AMWcJykcgZ4CjvpbqhIOUz0CMq30Yabpy4R8EgrWpNjZRwAW58QasmCb9D5Q31N
+	 WhkGv1iENWR13o6qa5BeexG2xd02Ky2li17sLPZeLkXso3Z0UBT3NPdr5Ud+tBMlGLUf4
+	 xDwx6ULnD1f1jblx4xa7QOB7eARN44uweibMvL29TUcT/pxiPwMkjH/gyNLBaZfncNuvk
+	 EvoRJ6EsShe+VVun5pqRuV0ejLE3uL5gnEsu5Ojskzu6/cVyvDQxv5zJah737S8V9AZLz
+	 td6uHuV+dG2jLjVMI+XuwWVuHH0jtyH0BqDmaFyGS1dqL5mOsRjP/V1kKLQL0an9p9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501880;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=L0I0n48oV5o7BRj/oH4f6pc2kqveIFdpMiqQByS78r4=;
-	b=pCUaVQst+cJxpfqqB8pH5mIM0FDMPQ2LTSszB0CWuZyENqD/lc/crCqQJSBYvPhPQLtd
-	 de1OCwp772hi9MWOTbcmVI/R1dpldl/Avzyj0Ggd7dFaZLCk1eWM8umy8XBQbmF5kEDaw
-	 Zoy/eoUrOV3KaYcFznHHHMOd8Q4g65ahcigp0wYHI9S/sJuWRR6C9sS3sCRtLjJlbZ5Dl
-	 yDNbiJ9tFZSCQLBd1s5FQOgYXF7eH4O41DcuI1W2npNwhfBfsBVK5k6bqpfooqdPTf4Rs
-	 uTaFlzxBNbAC0VnaJvtNuDuZDlLFR+5Y5/uCMvOjCdUOTfoF9R3vhQC9uvFZO5Sb7kA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501884;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=wH/2gBEdpxp8UBeVAcys5rd13wXemB1O143+nbBPh6o=;
+	b=K/WuciFlMcVTPfwnx/57vOXLCqXyJIgsKsaPfpuEfzuz7Jd1phkTX3IObRa5Oi4fI6ZH
+	 uyR2s3T5Hj8n/4eOrKI3jE4ej8jXPJ7O6F4p63DkO7sKiv8hDkTtiHKreCRiQjVjRE40v
+	 UPOTou/XC2+0AE77lvqSo7yxd/oDSFd83QVH5rqCJjkog9Qo0bgv7UVnrNyL2kbf4N9QA
+	 21E+DTM2TRk7qULtEIjL1Mg2xldkkypZ9MCeNPLIzjNLz/JigGMwN+IRjzUcXmnm6r7dx
+	 Ox/iAMSW4ZA4S6quhIhZsfuBPduOhotqTzO2/XJNZ2rvSLv/R9Sly+WgXNc7yi7sGhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=SuIlegSD;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KQnClF0U;
+	arc=none smtp.remote-ip=91.218.175.46
+Received: from mta0.migadu.com (out-46.mta0.migadu.com [91.218.175.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F00606A331
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:44:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62F00606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 293E9606A88B
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:44:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 293E9606A88B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=SuIlegSD
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3700ed8dbe3so155153eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:44:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794501879; x=1795106679; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=L0I0n48oV5o7BRj/oH4f6pc2kqveIFdpMiqQByS78r4=;
-        b=SuIlegSDTiqLxvrjbgM1Q95iPFjnvtJm1AHCpbYH/Aa1M6ec3/6OeF0Inudj0wOHYZ
-         yZ7mAckhOQmOJVRTYUhe2ll5Ca8hBUUGL8CDuNM+jE2if7teqm7z7i2a60bjAqE65pzp
-         K1mWu1/+QywHczH0apEZY2OsitrAMzx8FfRoo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794501879; x=1795106679;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=L0I0n48oV5o7BRj/oH4f6pc2kqveIFdpMiqQByS78r4=;
-        b=OIRB+Mt2K/dEHtxiSQgqj4GIDQVDUBvgiAupsQe4kuSxEDQ58L1NeUn9t7GHB1/E1N
-         z/r/3sxLbMCftRRtUJZfx7aiP8JwyU1A7oi54JIn7oAeeRUSedlrWeukth+TB0h+oAJL
-         0KiZInYaan96++zPwBBFTZwgxEICb4VqoBc19ofKpwNTkuhFVIREpsgwTFAYJdvR+tUJ
-         xsoVf9VQm5VmJC98tlzawpSPLaEc2HKOk7/pb5/qXQq3GPvz6YF2sEDtFOjsWeMJWtfg
-         stHLlhd0pkZijEAU8gC0LE6X0eYMjp+WIZXXbWcgL/I4YP53uQEB0nJ1ovj4RAdjVF+u
-         nz3Q==
-X-Forwarded-Encrypted: i=1; AL+hErEoFYkzRMRwpCqG+ZCYIfQV28q6b3OZTTIlkMCwD3v7oIdl66af49W49chQS9kezeep5C1R+gNgViiObVQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/PcOSaZnPh4ntdubveMemB4z0qxYqQPDr/IYoS3nz0kPvPB7QA
-	UwmN98N60SShOCafeVvV3HsIksCTXUsU1+YNDIPzsrvR7+usmW7tCU5Wrg4wy3VQTg==
-X-Gm-Gg: AYBFou0Oml1qDBFbBVEfIJ6QX+Ea9m2X+380bJyM0UNQDet6+VeTMmP/hXn1DrISMdq
-	vmz2ggNfbaBqZiLdw2sJEtWP/IAy/fxWNa1h9pkVKX7YGE2Tii/5l4D4x1aQjiJXDGTH13VRxTT
-	Hq5Mk/Qx642yTBgRkeWz7p/noE6MVNObJjIlNoepN1jDxUh4a4rw89QcWDS6KAcbxgDfNv8Yqel
-	vRWFcllij6IVSL/eF9gNVl+vIo6oLOgWQqevwdrcP69M0xEe7oU4tmzBbXc6WWJBm7bG6XjEG9s
-	ErilwibdGLHtn5qteVIqlPNsESiv5a99xzfA2HricF6VwY2VJtLclSpUs7ufWRnCRNqoeWcFcTp
-	o3hzI7f/3OREP5FBSFR1YeV8IMrj6E5wZSCn01UaPX+vsRTnhkvH77tKIDcNOPGhBhSbuqZJwFM
-	8o1pjdi1wAiLR+fqZ8vrfO5h5FjCRLuYkHtJIkklAOAS8XkEZmKC/yqd9L/8V2vYkMYZARtvbTe
-	oR82NKXU+/Htk6mJUZ2LV0jP49A8dBgrMZXu1loJXIN9aTCWm1wUr2pwG8lOFzwdLcixNyMsodu
-	EvIQvuCL+DhgGmFLt4k4XzYK7sWLUIkkE9mPaJKPo5W1eDIUOIq6BdqTso0RAdJ2AnUD
-X-Received: by 2002:a05:701b:4551:20b0:194:3a84:e67d with SMTP id a92af1059eb24-1b5031b37dcmr81202c88.44.1794501879423;
-        Thu, 12 Nov 2026 08:44:39 -0800 (PST)
-Received: from localhost ([2a00:79e0:2e7c:8:5446:563c:ac92:43a8])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b5031b2519sm137097c88.13.2026.11.12.08.44.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 08:44:37 -0800 (PST)
-Date: Thu, 12 Nov 2026 08:44:35 -0800
-From: Brian Norris <briannorris@chromium.org>
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Fabrice Gasnier <fabrice.gasnier@st.com>, linux-pm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, Ulf Hansson <ulfh@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	Andy Shevchenko <andy@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alan Stern <stern@rowland.harvard.edu>
-Subject: Re: [PATCH v2 3/5] PM: runtime: Propagate last_busy from dependent
- to dependency
-Message-ID: <avXs826ikSctpUnA@google.com>
-References: <auzlLwlleGLPsLcw@google.com>
- <CAJZ5v0g25xQeRaLJWJyAo2fcJko+gZ7w6JhX7FzMgRx2+uuimw@mail.gmail.com>
- <au0oKFb9CmNzc6Cg@google.com>
- <CAJZ5v0hKpjMsGQm8Cpa89x5wkNxqkggDNbp+eQ0S-E52DETWjQ@mail.gmail.com>
- <avOw_4ZkqtKFHu1B@google.com>
- <2c3bda2b-ccc3-4430-8e09-81b25f6fcda7@rowland.harvard.edu>
- <avSa97F1Nu1LTSCA@google.com>
- <fc43eb13-816b-4cd0-9711-848fdab605ef@rowland.harvard.edu>
- <avUHG8mLuTOUMr8O@google.com>
- <CAJZ5v0j+8_fOc_EEGx4tquqcaH3-nmHd0YMJRb38t2Rw40iV3g@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KQnClF0U
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yuRDaN/g6NhM222+4RRlCyCrWE0jFiozuoxcmO1nhMk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794501880; v=1; x=1795106680;
+ b=KQnClF0U6aNVHl2emoF/U+SxdQmy4deR4rBHqtjlPsesMwQQC2VHjO553AYBMamYl5KYF2/k
+ jipr8HO7Alqe4k8pm652MU+V+t5PfsvLPHiQNEcc6CshiEB7uzQ5Wxn8F3JnMxE8nZef/lADEME
+ xyB8aMGk9Bocmd8bWsvfcndA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 50b709560c217e5f;
+	Thu, 12 Nov 2026 16:44:40 +0000
+X-Mizu-Trace-ID: 50b709560c217e5f
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7ffdabc6-27f3-440b-97e6-94c7f66c807a@linux.dev>
+Date: Fri, 13 Nov 2026 00:44:28 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,73 +58,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJZ5v0j+8_fOc_EEGx4tquqcaH3-nmHd0YMJRb38t2Rw40iV3g@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 00/39] sysctl: replace overloaded extra pointers with
+ typed bounds and context
+To: Joel Granados <joel.granados@kernel.org>
+Cc: David Laight <david.laight.linux@gmail.com>,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <cover.1793204511.git.wen.yang@linux.dev>
+ <20261029105837.2f8bee67@pumpkin>
+ <0316f664-d98c-43be-92af-13c30436727a@linux.dev> <au85ISJ2qUsB7y-6@hobbes>
+ <20261107170507.0d66cc2e@pumpkin> <avGVyB9erjZl8zIO@hobbes>
+ <e3c7bf98-64f9-4c29-b300-f54b7a4813d0@linux.dev> <avRVHIx-6nA1mP2F@hobbes>
+Content-Language: en-US
+From: Wen Yang <wen.yang@linux.dev>
+In-Reply-To: <avRVHIx-6nA1mP2F@hobbes>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 12, 2026 at 05:13:09PM +0100, Rafael J. Wysocki (Intel) wrote:
-> On Thu, Nov 12, 2026 at 1:24 AM Brian Norris <briannorris@chromium.org> wrote:
-> > I'll give this some time in case Rafael had any other thoughts/replies,
-> > but unless something major changes, I'll plan to write/test/submit v3
-> > where rpm_idle() calls pm_runtime_mark_last_busy() (part of Rafael's
-> > proposal), and *not* make it conditional (i.e., no
-> > pm_runtime_use_autosuspend_always()).
+
+
+On 11/11/26 19:55, Joel Granados wrote:
+> On Wed, Nov 11, 2026 at 01:45:15AM +0800, Wen Yang wrote:
+>>
+>>
+>> On 11/9/26 18:07, Joel Granados wrote:
+>>> On Sat, Nov 07, 2026 at 05:05:07PM +0000, David Laight wrote:
+>>>> On Sat, 7 Nov 2026 16:27:39 +0100
+>>>> Joel Granados <joel.granados@kernel.org> wrote:
+>>>>
+>>>>> On Mon, Nov 02, 2026 at 11:40:40PM +0800, Wen Yang wrote:
+>>>>>>
+>>>>>>
+>>>>>> On 10/29/26 18:58, David Laight wrote:
+>>>>>>> On Thu, 29 Oct 2026 00:34:39 +0800
+>>>>>>> wen.yang@linux.dev wrote:
+>>>>>>>> From: Wen Yang <wen.yang@linux.dev>
+>>>>>>>>
+>>>>>>>> struct ctl_table describes an entry with data, maxlen and, until this
+>>>>>>>> series, two untyped misc pointers in extra1 and extra2. Those two pointers
+>>>>>>>> have accumulated at least seven unrelated jobs: a fixed bound, a bound read
+>>>>>>>> through a pointer on every call, an object or namespace pointer, a small
+>>>>>>>> integer cookie encoded into the pointer, a lock signal, NULL standing for
+>>>>>>>> "no bound", and a value the core itself casts to unsigned int while
+>>>>>>>> validating a u8 range. Nothing in the entry says which job applies, so
+>>>>>>>> readers infer it from the handler, and the core gets it wrong where it
+>>>>>>>> treats extra1 as an unsigned int.
+>>>>> <--- snip --->
+> <--- snip --->
+>>    for (i = 0; i < head->ctl_table_size; i++) {
+>>            entry = sysctl_entry_at(head, i);
+>>            node = &head->node[i];
+>>            ...
+>>    }
+>>
+>> Insertion/deletion would take the node directly. Readdir would retain
+>> its RB-tree node cursor, recovering each entry through that node's header:
+>>
+>>      entry = sysctl_entry_at(node->header, node - node->header->node);
+>>
+>> No entry - head->ctl_table, caller slot constants or per-slot wrappers.
+>> RB-tree order remains unchanged. Old APIs and generated directory/link
+>> tables use sizeof(struct ctl_table).
+>>
+>> The two mechanisms have existing precedents:
+>>
+>>    /* include/linux/bsearch.h: explicit element size */
+>>    pivot = base + (num >> 1) * size;
+>>    result = cmp(key, pivot);
+>>
+>>    /* include/linux/hwmon-sysfs.h: extended descriptor */
+>>    struct sensor_device_attribute {
+>>            struct device_attribute dev_attr;
+>>            int index;
+>>    };
+>>
+>>    /* drivers/hwmon/adcxx.c: ordinary device_attribute callback */
+>>    const struct sensor_device_attribute *attr = to_sensor_dev_attr(devattr);
+>>
+>> hwmon registers &ad_input[i].dev_attr via device_create_file(); the core
+>> passes that same base descriptor to the callback. These are precedents
+>> for explicit-size traversal and embedded callback context separately,
+>> not an existing strided sysctl registration API.
+>>
+>> I agree that my fixed-slot solution adds maintenance overhead. Would
+>> it make sense to explore this in three small steps?
+>>
+>>    1. Entry-access helpers, unchanged packed layout.
+>>    2. Header stride and compatible registration wrappers.
+>>    3. nf_log conversion and code/memory comparison.
+>>
+>> I would appreciate your thoughts on whether this is worth pursuing.
 > 
-> That will work for me.
+> Hey Wen
 > 
-> > (Or, Rafael is free to do so, since it's his idea. Just let me know so I
-> > don't waste my time on it. But I figure he'd rather someone else do the
-> > work.)
+> Without a series, it is hard to see how everything fits. Maybe you can
+> send out an RFC with just the changes to the sysctl core and one or two
+> examples of how it would be used in the more involved users.
 > 
-> I can cut that patch.  It is going to be a one-liner if I'm not
-> mistaken and I'd like to write a changelog for it.
+> The rest of the users can be "vibe coded" (so it compiles) and put into
+> one big commit that we will ignore for the first RFC. Just so we get a
+> clear idea of what you mean.
+> 
+> Tell me what you think
+> 
 
-OK.
+Thanks.
 
-There's potentially quite a bit of follow-up, including patch 5 of this
-series (to drop now-redundant .runtime_idle() callbacks), but I can roll
-that separately if you'd like. (Would you want to make an immutable
-branch for other subsystems to pick the 1-liner up? Or just apply such
-patches to your tree, as it seems the IIO maintainer was probably OK
-with that?)
+That makes total sense. I will prepare a focused RFC series based on
+the next-20261111 structured as follows:
 
-I also feel like there's probably room for unit tests in this area, but
-again, I can do that separately if they still seem valuable.
+Patch 1: sysctl: add numeric bounds and core stride infrastructure
+(ctl_table_stride in header, sysctl_entry_at(), register_*_stride())
 
-> After that patch though, using pm_runtime_mark_last_busy() elsewhere
-> will be mostly redundant except for pm_runtime_*_autosuspend().  Since
-> all of them call pm_runtime_mark_last_busy() (AFAICS), it looks like
-> last_busy can be updated directly in rpm_suspend() when RPM_AUTO is
-> passed to it, but if so, rpm_suspend() can simply set the autosuspend
-> timer unless it is already running and so last_busy can be eliminated
-> entirely.  I guess that should be done too (in follow-up patches)?
+Patch 2: sysctl: cover numeric bounds and table containers in KUnit
 
-__pm_runtime_put_autosuspend() still sticks out, but it's nearly gone.
-Its only user is just re-implementinng pm_runtime_put_autosuspend(), so
-obviously it doesn't actually make a difference. I've been waiting for
-someone to finish this patch...
-https://lore.kernel.org/all/20260806-smmu-rpm-v4-1-8183d007331c@oss.qualcomm.com/
+Patch 3: netfilter: embed logger sysctl context using stride
+(demonstrates the use of container_of(), and also eliminating some 
+wrapper functions)
 
-So I think you may be correct.
+Patch 4: net/ipv4: embed device sysctl context using stride
+(demonstrates the use of container_of(), and also eliminating some 
+wrapper functions)
 
-> Moreover, after all of that the difference between pm_runtime_put()
-> and pm_runtime_put_autosuspend() will become somewhat academic, so is
-> the difference worth retaining?  Or can we just say "If you set the
-> autosuspend delay, all async suspends will be deferred" and drop the
-> "autosuspend" variant?.
+Patch 5: scripts/coccinelle: add script to detect and convert sysctl bounds
+(provides automatic conversion and proves that no extra1/extra2 fields 
+remain)
 
-That's my preference. I think having so many put() variants hurts a lot
-more than it helps, and especially so if the differences are nearly
-nonexistent.
 
-> I also have to say that I agree with your remarks regarding the
-> .runtime_idle() callback.  I don't think it has ever been particularly
-> useful and life without it would have been simpler.  I'd be happy to
-> just get rid of it at one point.
+The ctl_table_stride and type are packed as u16 in struct 
+ctl_table_header, yielding zero size increas.
 
-Great! If a few other things settle, and I find that I'm able to clean
-up my existing patches to my liking, then I hope to submit such patches
-at a later time.
+I will send out this v2 RFC shortly for review.
 
-Brian
+
+
+--
+Best wishes,
+Wen
+
