@@ -1,67 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.64
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794466882;
-	b=bybTovhsnsZlPx+l/5yLPTJktdAxFhOzEEDVUyWfwFaX5Kyui36jkLOVnfwzAuMaK+JM
-	 jFG0ZsKFvug6AtHtIFXtyp+1bc/rOMUSezfcXdqJLvJ1/s1Ge9R3HcHxOxqm6XT5tv9RT
-	 5y35XVSCY4HwjROJskvS/olVzxRZraSKZ7hVr+eAGMnAFFFay+mbrSWa8rsT6qIM3wmgP
-	 ybF+fy3jGWdx6utK6AKlTVTJ1VGFZoog3gqytBSDP+bwkSFzvN10Wmn095mhDIYJfB48/
-	 m4qeLTVIWdAVZpntBLRLy5VeqM8KchVM+ug2d2hZRQMmXylNt0uMDXA9dacFjWRSpOg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794466882;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=MWJBAoI6Q3L0rHwEVEAsPxA9+MzfVuCyWdcvDOlOHcQ=;
-	b=aha43hAsNhg3rEJjE57f+9xGe1aV7u2J/fF89yuYRIHpNChotPDeIcCJGkitNRKWxMpw
-	 1Dl6j462zSjvolqmp2WFybCFlDDy7Qs8ltGByn0Ce3mKbGQaMI5K8/LacNR5skDWNRCCT
-	 1ldkHeAdos+9HXADvYBDFx/Y2Exx3xxG8wS858aqhqTDIEgBlgAjwZeaR9PkDkNa5CFta
-	 flVdFmqLZHS86WiJPOGQDdvnFhx8hz+XTGHT7xcSwMOe3/m6+wserliPLxBqXJ3Ux4wAh
-	 HdyOR+B8T0AsfOH0NPZWL7OcgXI8G8OX7lzymbR5CTUUK3CSeYyIwqV4Uh6e7NkRZdg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kNKiT5ls;
-	arc=none smtp.remote-ip=95.215.58.64
-Received: from mta1.migadu.com (out-64.mta1.migadu.com [95.215.58.64])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794466892;
+	b=HCET3PZQHWzjv3RVeaH3TA5YgGmoh2LNujlExHt2NhLEr30PsviQ55y/bZ9yUIzXW24R
+	 rHE4Lkb1u1nzs4zg1RLwKCimncHKbn/VD/7i64TyRosFx2oZJNe/IVuJltU5nfSJeM0TD
+	 v2P5I2zMWCB6Va2cp+Ai3ZVvFjiDtPbxO/Uglk1+soKw3MWxOwPZFDYBKUMI22m50Jrjz
+	 J0kagQqe4i75YsgpgG0JkV86hCoOGVshPmvcLvmr8xhb7cjiV4F9QLCx/MbXJntPwBJT/
+	 VdZXE+73YOF+zLxm86xSdq+uZS82/zc0Bev+AD5fdyCjBHTQH+X+oGuRFO16jPfap+Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794466892;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=MSgj+o0QjwP2h00l2eEN+Ttef4mTAsT4O3zROWvRIfE=;
+	b=FdVnVBYhKWc85zIrt9jSm0C+YkBWX3SNUqP89sX30Fp9h3IOfxaWJYJcMJtxHgvPY9XC
+	 B4R2NgPVu+5URZBLcrKK6BhyyKgEG9jkEzqp7iMLuoLD3F13OnxOA/YPgpY3wi8on4I91
+	 5DbGE7A6UQx5PJ9y4lx+yZqQl7BZRtP4g2YPiduQOIRls3jLRYNxFSNlwVF0lCLwfUzsU
+	 +AAtWo+P1tNzPnCYFWvoIiqR4xG3/OeRbRZpY0eZouE/xUa3mcP1GyM0pAA+MtYauMj+3
+	 xzSQAB2Hi8vib4sVWdB0tpqIm9Xh5VtgLTW7j1lH1ICWBRYu83JnJFcOyvDA1E24APw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=rmS+WN59;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D293606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:01:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D293606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FCD3606A32E
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:01:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FCD3606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kNKiT5ls
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4j+AMbRycxeWs+fHLwXrjL4tOlZ+wuEL4eMEvsEOGF8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794466880; v=1; x=1795071680;
- b=kNKiT5lszobFGxQKLtegnsQ91t+v/tt57xGgcikSZTidFLzbh5ZlbALcHG4RXbWRDxaTqHcF
- pyRmEnKCCaHpaYWzZ6aysa9YoN8HPV86TSeEL7iY3szprO6MTXY+wgwBoACwvWrxOzBcgFvTGcc
- jbN7c+m75IqUqjbl5B/F1+gg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id b2b9d25aaa0ba4d9;
-	Thu, 12 Nov 2026 07:01:20 +0000
-X-Mizu-Trace-ID: b2b9d25aaa0ba4d9
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 12 Nov 2026 15:01:07 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Mahesh Bandewar <maheshb@google.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, 1342116488@qq.com
-Subject: Re: [PATCH net] ipvlan: update port flags only after
- ipvlan_set_port_mode() succeeds
-Message-ID: <avVkM5XY1kNswdcY@fedora>
-References: <20261111064655.233265-1-sunwenbo@cmss.chinamobile.com>
- <avRnWUbGFbdfirZB@fedora>
- <20261112035152.43363-1-sunwenbo@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=rmS+WN59
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b750e40ce2so601141a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:01:32 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794466891; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GcKBu7OsBAx3Ru9cZnBkPr2+X13LujKkqgoY3MLKE85vahizyIcSWa26MDzVp5dFZU
+         QzXNB4APi/Vq3b4JE0SCuEvGBtv6ikWHjKirkcPjd+hguhahQ24BFHCHNstSIRJyyZA9
+         uY9320NBluhj3sqqwwA6KYFZLmWITwP01I+lJVB+CbG1IGTcbv+Fb0fojozWhCYLPTOD
+         hKF3/B5jQeaBHnfGYQ+NWsy0CXf4bu0XBaOcQWVGOVan7x2mvo9oSK7OyQa3DpgiL5xo
+         7DMfXQkWaT6UMBJOcIDOcHnNK33Fyt0CoLkB6lWSqxV1JuoYTsTubtWpTwLYOItCFtD0
+         sw/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=MSgj+o0QjwP2h00l2eEN+Ttef4mTAsT4O3zROWvRIfE=;
+        fh=sCh5cTePk49gP/rpCaC2+q4DPpSdq8BcXF6Ox3VA7v8=;
+        b=e1MYkaiA/vXeh2vT3TXb2coO9/E5P2KRnHCU01iP0dyPUPlWVuaS3jnSTGToDndVVw
+         bx6V/s4h0Orqf/ClV/bd+VKGmspsbmMg/q2K46Xbs/6C19u/tQ7z/+5viwggX2p4H9qC
+         oA3Jp7dCaw87zX0N5orBpYm1jNVwNw4dEMG/hXCHzasnmvtv19deDcAHCkX1sHV6RHcu
+         0Fn97q4JykyBDAJ6NC9Fn6orDoVV84mPLLJ/pM4N5N1QaxGr+lJOhyKYxGzuH9SJ+pDq
+         bcMlR85Yhn+ZU5ghhbh2kqgzZcsNoQmglnTrl4BD7VCFFY5+CchC1qmSg3ePhshRuBvy
+         ludg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794466891; x=1795071691; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MSgj+o0QjwP2h00l2eEN+Ttef4mTAsT4O3zROWvRIfE=;
+        b=rmS+WN59pRfu3zA88Ph9vwJg/f1cxiHLZyCa6G6ikfkSc77VhNYJeKMsXE1tupusLq
+         bCz4LUKrMGwryaY4QUT32wE7dSIyFG82glovFDyMk+VrHj+fzLvK0o0e38esqbmYORbE
+         Ea2COIULhz+egmEIIFJmvYVhKhSWLoDBWHtOnSDP8+VrDlO0uubcTBg5FC875tRyWzKj
+         Pplp0az6Ilcy1phPVzdYpE+0d+intL2Y1bpujSVtTUCGF1PTXOiwu9JW8hcjIJDaFT5c
+         8uey6h23M2rMzyPEspzGOhwzdOqW81oDbmGeLuA1K/0v43cZfSQ+f5lpyMEnRVkcDTgZ
+         GEWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794466891; x=1795071691;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=MSgj+o0QjwP2h00l2eEN+Ttef4mTAsT4O3zROWvRIfE=;
+        b=PxvVpMGY6EdpUoDzShnjF2i3nbLmokOu0G+vpqqrNNyBDxoytQ3e2wg/LFDtho6wJM
+         HJ/4ELxWd1NvAr6GfGD3JPa44PRLnZAFVBSEvkso1hyapYnxTe7z8551fqrPNhyOo2Im
+         Atk+FTIa7wwGMRGendwbqljcWJXitSnkTAYVstQHlAzqIWyFI0QD1zGglVak5vwU30z3
+         ge2Oe/2OTbcfGyC0T5JgK99ePgqNnujuPJRanIsNK+30cmlzeWgsvQaEhZqB/RZDlvYH
+         FwEjm7QIKQGtZMLefR7m1hxZ2RXtRDMCEqw9rAcek1xQ4Kv/WGPLloBbs04wD5YlCEiG
+         rRmA==
+X-Forwarded-Encrypted: i=1; AL+hErEkJX/Se/1cEUfaeQU2tVvDgMfx67oD+ekoZqoehEXFpSlB+JTos4kTSgECpx0tdvISALD/wGwEPmJvAe4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Nyckbc/FTB3Ee7i/auaz1nDoPy4PQrYVctDNJYqwPTDYmuWrI
+	DHg5zxojqO2ZdjAmyW/gV69xd+a1KGZ+gcd9kJ7wHg6hzAQk80t5fgYoSFKbBb3vLRmc9BpedSd
+	s0s1uf8gtXpUFcK5tYBZezrtBEly2qf94RoCPcjSyuQ==
+X-Gm-Gg: AYBFou2eLyIxFrEeFZrIunCKZVR5wU1/1bljiFmTz0cA7lcP+ewa1vtvY1+5ZSCG7ap
+	Sc45x6vncu5F/PqVX4z+vFhdwbJizKAWQ83Wt5/EexXtVSzvwh19ZI9eMl0XCh11rOODik8AKm7
+	2jHR5JqiZxo05g3hNR/+uRoTGam/B7Ay5kI+K4crY0LSdCy9AK/t5C4/Pmw8VLS/0Yz7wP/s9i+
+	rBQAtLrJT021Z1EeEcKM9wJiYT47ISRwvuLQoRcJ7DcleUHEN3qcRdItuPg41PpGFkkhJFj97lm
+	mM14+2xDx4L8SUMhxxN8AGPvQjyDBTLxj/tHQCCpRU/Tj5KHccuGMEFymV+GT0WdTxis0S28Ifj
+	8rsS3ro5W0fXS5rNanfRcDLsth+56M7Rz+7Hr48sMjotAObfAFK0uftB7W3OHTqXM8TVJFcxUG0
+	ww63Wxq5YpOy/3J2g=
+X-Received: by 2002:aa7:c606:0:b0:6b5:94d9:10f8 with SMTP id
+ 4fb4d7f45d1cf-6b7773f5a18mr2509828a12.21.1794466889315; Wed, 11 Nov 2026
+ 23:01:29 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,45 +104,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112035152.43363-1-sunwenbo@cmss.chinamobile.com>
+References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
+ <20261106151947.3991524-9-vincent.guittot@linaro.org> <20261109155418.GL1779021@noisy.programming.kicks-ass.net>
+ <CAKfTPtA-nrgGQGcBPqNoPk4atOHakyZK9Fk-4AsrHBrnvPXTLQ@mail.gmail.com> <20261111090155.GF2668564@noisy.programming.kicks-ass.net>
+In-Reply-To: <20261111090155.GF2668564@noisy.programming.kicks-ass.net>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Thu, 12 Nov 2026 08:01:17 +0100
+X-Gm-Features: AclHuK8UVt3x6vMPLZS8pSfeYTsVIPRoQvrz41V51tB_Ja3VDFaTVes1TsX82JE
+Message-ID: <CAKfTPtBfQd5nD9jNdayGbEW_P2bDMvOm=GZ3Q-gu+O6KkQmKbA@mail.gmail.com>
+Subject: Re: [PATCH 08/20 v3] sched/fair: Add push task mechanism for fair
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: mingo@redhat.com, juri.lelli@redhat.com, dietmar.eggemann@arm.com, 
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
+	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, lukasz.luba@arm.com, 
+	rafael@kernel.org, linux-pm@vger.kernel.org, tj@kernel.org, 
+	void@manifault.com, arighi@nvidia.com, changwoo@igalia.com, 
+	sched-ext@lists.linux.dev, qyousef@layalina.io, christian.loehle@arm.com, 
+	pierre.gondois@arm.com, sshegde@linux.ibm.com, kayracizmeci@gmail.com, 
+	tim.c.chen@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Nov 12, 2026 at 11:51:52AM +0800, Wenbo Sun wrote:
-> Hi Hangbin,
-> 
-> On Wed, Nov 11, 2026 at 09:02:17PM +0800, Hangbin Liu wrote:
-> > If ipvlan_set_port_mode() failed, the unregister_netdevice(dev) will be
-> > called. Does port->flags still need to restore?
-> 
-> Thank you very much for taking the time to review this patch and for
-> pointing out the question about the commit description.
-> 
-> You are completely right that when creating the first ipvlan device on a
-> lower device, unregister_netdevice(dev) drops the last reference to the
-> port in ipvlan_uninit() -> ipvlan_port_put(), destroying the port so no
-> flag restoration is needed.
-> 
-> The issue happens when one or more ipvlan interfaces already exist on the
-> same lower device:
-> 
-> 1. Because struct ipvl_port is shared across all ipvlan interfaces on a
->    lower device, ipvlan_init() takes an additional reference via
->    refcount_inc(&port->count) when creating a new ipvlan interface.
-> 2. If ipvlan_link_new() writes port->flags before calling
->    ipvlan_set_port_mode(), and ipvlan_set_port_mode() fails (for
->    instance, requesting L3S mode when CONFIG_IPVLAN_L3S is disabled),
->    unregister_netdevice(dev) only decrements port->count back down to at
->    least 1. Since ipvlan_port_destroy() is not called, the shared port
->    remains active for the existing ipvlan interfaces while still carrying
->    the newly written port->flags.
-> 
-> Rather than saving and restoring port->flags on the error path, moving
-> the port->flags assignment after ipvlan_set_port_mode() succeeds avoids
-> modifying it on failure altogether, as there are no remaining failure
-> paths afterward in ipvlan_link_new() (matching ipvlan_nl_changelink()).
+On Wed, 11 Nov 2026 at 10:02, Peter Zijlstra <peterz@infradead.org> wrote:
+>
+> On Mon, Nov 09, 2026 at 05:14:39PM +0100, Vincent Guittot wrote:
+> > On Mon, 9 Nov 2026 at 16:54, Peter Zijlstra <peterz@infradead.org> wrote:
+>
+> > > Can't we add the 'p->nr_cpus_allowed > 1' condition to rq->cfs_tasks and
+> > > use that, rather than adding yet another list? I mean, its used for
+> > > migration, so excluding all pinned tasks actually makes sense.
+> >
+> > rq->cfs_tasks can be quite large (we even take a breath during LB)
+> > whereas this list should be 1 task most of the time (except during
+> > wakeup)
+>
+> Like in the other email; detach_one_task() is also just one task :-)
 
-Thanks for the explanation. The change makes sense to me now.
+but in some case I want to do more than one like the case described in patch 20
 
-Regards
-Hangbin
+>
+> > > Also, I'm still not sure why we need a plist. The rq->cfs_tasks list is
+> > > MRU per set_next_task_fair() moving the current task to the front.
+> >
+> > The plist was only to reuse struct plist_node pushable_tasks; in
+> > struct task that is already there for RT
+>
+> So while plist makes sense for RT, it doesn't make sense for fair or DL.
+> Notably for DL we keep pushable tasks in a RB tree.
+
+I can use a rb tree as well my gaol was only to reuse the
+pushable_tasks as those pushable list are exclusive
+
+>
+> > > So reserve iterating rq->cfs_tasks, skipping blocked and current and
+> > > such, should get you much the same over-all.
+> >
+> > Yes but I was afraid by the overhead of iterating this list which can
+> > be very long; We have already seen email about bug with thousands of
+> > tasks queued on the rq
+>
+> Right, so just take one of the tail and stop there.
+
+I don't want to take any random task from the rq but only one that is
+meaningful. Why do you think having a dedicated pushable list like rt
+and deadline isn't worthwhile?
