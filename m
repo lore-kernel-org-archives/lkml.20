@@ -1,63 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.16.66.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794525918;
-	b=cBMquqhf7Om+BxAdo4IGLz46chBn8yAXkWpKJi/2O3mbsebz1InGPW0cPb/kS5ITdm9Q
-	 Gsjlv0PCZpvTODQS41fduRYeOH8ZcAkY6ylQWW+ckVpgXGa3P9vyqUYfxV7Jcn5EC8eBX
-	 YtAC1KRBLUJBYUupcRj+6DQBu+GtILtnhRYS9qZVj8mGVFnz9YySezgP06ERhvYgG17WL
-	 Puyxj6NWva+Q6O6hPLQRSJu44zgLTrHojzvXoL+Oim+nPq+kzZFEtKPRYKJOJ2nlNfvsv
-	 lroEuBtVEcohD39RCWr4/vgR+VP9NgUIfEe2UROZwlK+fSG8p5UOn2RYVSjOjs3+jYg==
+	t=1794525935;
+	b=OTPIaiv9CyfFd4gdH1ObD48FcsfuAn7l0NUoxROYj3mLQA6KEUm2XDtpXik0pKbz2kGs
+	 04qxBTbFaUdpeW13yqNVC8LJoB0/KSXcoalARieOHur7mBbrQuN5CJ21exzD2Bve91ofV
+	 DWZ3yaFzcvXe+N/DWkBZf/IRp+Sr0SxYBVm0HrjePw/+NMYnPxdITjrYdEK0beeeoReCd
+	 bi4UdA7H0t+Gz5I3QQel59wirtEXV+1birEyeEzEwgQ9snF0Nvnuvhcr32Cinf5voFvIa
+	 MoLLlSyeEzNsNWr7GCI4nX9kqonJ7zsR+qxKOTBkVKaQh1oYLD2Wj7S5vGN1hA3R/UA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794525918;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794525935;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
 	 X-Infomaniak-Routing;
-	bh=flRGmW4d8UtNlDD87yf7rhJ0aJW0FN8fSmJOwF+K9Ro=;
-	b=u0BV3XRomDRQiiiAU4gj9iZrt6AfU0lc6OGcztaswRQSkINUGWNNmIeCJxCZ6QmtrZIx
-	 3dLdHubNtK5mJX38XNjkQioOJHItkBFTtdvd1r13EP3F5ewSmIt1vhbQh4KXbtBhKiOb8
-	 mfG0gc13D7pIo6oG5cTlJtZgzDVVcYt9vK/5JgQ1K9hLLDt/cgKddKLd1kwHFpXTVNVcS
-	 nDmSl+YUH2xj4X9yxZ7ycfelsGbkVX102JIudmbmMlMd5avkxb+D7m064GPqKCAJnrzjZ
-	 bX9pUvbbungBsLuGIkecAiiHGaBRnfvcTcQ/x/ARNeRTHsdYpY0KEaFd/oGJnT5Piuw==
+	bh=i/IEb5sbCw+dvUMD/y77Bue90xBTDxwEBx04VZhs2ho=;
+	b=No4M0CVIC+oHtTo2tNfG4rrjiqcSQBTa0otd1oPu5C5rRqcY5QjClzXJGShHMYj6sM2Z
+	 JkhwYDfuYfcZT7pMz+h5FWLvWfCPMDz6lywUSExXzU2Fcp453i1y3Iq8RftI7G5z0C54A
+	 ZUI5pmIZzdjj9ZMy0U/iLH51RmVrGc5ZNnZdRHK5NXblKbi+QxFJ1jTiNTsXza2c0JhU3
+	 EA3tQSWCMEkXmtCSbpy6wbyD31qfhn5TUdSmyAMryvvFop2jRptVa8WgFqo5vn/ipWT7R
+	 2SaPq9mrl5cdEbuPqSQlbg3Vk4DiLx95IAdwJgDXCzcZIXTS2EnORBJxvgD1FQ9Mntw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=digikod.net;
 	spf=pass smtp.mailfrom=digikod.net;
-	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=ZttEeMjp;
+	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b="gf/JdALV";
 	arc=none smtp.remote-ip=84.16.66.172
 Received: from smtp-42ac.mail.infomaniak.ch (smtp-42ac.mail.infomaniak.ch [84.16.66.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA3B606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:25:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CA3B606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D9D606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:25:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55D9D606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=ZttEeMjp
-Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jQc1d4PW3zGQw;
-	Fri, 13 Nov 2026 00:25:09 +0100 (CET)
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=gf/JdALV
+Received: from smtp-3-0000.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246b])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jQc1x3q6Vz19hb;
+	Fri, 13 Nov 2026 00:25:25 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1794525909;
-	bh=flRGmW4d8UtNlDD87yf7rhJ0aJW0FN8fSmJOwF+K9Ro=;
+	s=20191114; t=1794525925;
+	bh=i/IEb5sbCw+dvUMD/y77Bue90xBTDxwEBx04VZhs2ho=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZttEeMjpoAZBEhWdJYwvM3Y/+MmD+wmyDPpWwtWKoGceHTobl4Dmvz9JywLGNJl/5
-	 b380W89bLmw+MdwGGkdgQ2gYUGH9tqDfy8GoSeIm+Mm1N650OIi2I4VgBB1rU5BZB0
-	 YURyErSosF6VWKlEKujdUuDaxTBZvseEpI6AXiQY=
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jQc1b4mZ9zZvv;
-	Fri, 13 Nov 2026 00:25:07 +0100 (CET)
-Date: Fri, 13 Nov 2026 00:25:07 +0100
+	b=gf/JdALVgMfOJ9gpLyi77NKnYwrmlwdWXNWVXqdTg2OW8CmZ+sVFXC6pu6sQV4arr
+	 okdznOth5fq5rlLfj1afci94886gvR5PWLE2Ug+KfMPQC2l0X8HJ32MJhD46kuxYPy
+	 EsQX+xCI2p45zNCgWuhrVXFkwkGeqLSPrp87WZ68=
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jQc1w1fzszfxX;
+	Fri, 13 Nov 2026 00:25:24 +0100 (CET)
+Date: Fri, 13 Nov 2026 00:25:23 +0100
 From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
 To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
 Cc: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
 	"Serge E. Hallyn" <serge@hallyn.com>, Konstantin Meskhidze <konstantin.meskhidze@huawei.com>, 
 	Shuah Khan <shuah@kernel.org>, Dwi Siswanto <me@dw1.io>, linux-security-module@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] landlock: Fix layer composition of
- LANDLOCK_ACCESS_FS_REFER
-Message-ID: <20261113.hij1gi7Ees1A@digikod.net>
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] selftests/landlock: Test that layering does not
+ break refer
+Message-ID: <20261113.eivahj2ohKae@digikod.net>
 References: <20261108-b4-landlock-refer-nonfs-layer-v2-0-2b405fc1b3aa@gmail.com>
- <20261108-b4-landlock-refer-nonfs-layer-v2-1-2b405fc1b3aa@gmail.com>
+ <20261108-b4-landlock-refer-nonfs-layer-v2-2-2b405fc1b3aa@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,63 +70,82 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261108-b4-landlock-refer-nonfs-layer-v2-1-2b405fc1b3aa@gmail.com>
+In-Reply-To: <20261108-b4-landlock-refer-nonfs-layer-v2-2-2b405fc1b3aa@gmail.com>
 X-Infomaniak-Routing: alpha
 
-Good. Please add erratum 5 in this patch with abi-4.h .
-
-On Sun, Nov 08, 2026 at 09:23:48PM +0100, Günther Noack wrote:
-> In landlock_get_fs_access_mask(), only add the
-> LANDLOCK_ACCESS_FS_REFER right if any filesystem access rights are
-> handled at all.  This prevents us from accidentally treating
-> non-filesystem layers as if they handled LANDLOCK_ACCESS_FS_REFER.
+On Sun, Nov 08, 2026 at 09:23:49PM +0100, Günther Noack wrote:
+> Regression test to exercise that layered Landlock domains do not
+> accidentally deny the LANDLOCK_ACCESS_FS_REFER access right.  This
+> used to be the case when layering a non-filesystem ruleset with a
+> filesystem-enforcing ruleset.  In that case, REFER operations that
+> would have been allowed for the individual rulesets would get denied
+> when layering the same rulesets.
 > 
-> landlock_get_fs_access_mask() is used when initializing the layer
-> masks for doing access right checks, so this bug meant that we
-> unintentionally denied "refer" (e.g., link, rename) operations in
-> layered cases, where the same operation would have been accepted if
-> only either one of the two layers had been enforced.  If the rulesets
-> individually allow an operation, the composition of these rulesets
-> should also allow it.
-> 
-> The bug only manifests as soon as one other layer handles filesystem
-> access rights.  Otherwise, Landlock filesystem path walk is guarded by
-> an early exit for the case that no filesystem-enforcing layer exists.
-> 
-> Reported-by: Dwi Siswanto <me@dw1.io>
 > Link: https://github.com/landlock-lsm/linux/issues/67
 > Link: https://github.com/landlock-lsm/go-landlock/issues/66
-> Fixes: fff69fb03dde ("landlock: Support network rules with TCP bind and connect")
-> Cc: stable@vger.kernel.org
 > Signed-off-by: Günther Noack <gnoack3000@gmail.com>
+
+This test patch should also be backported (Cc stable@ + Fixes).
+
 > ---
->  security/landlock/domain.h | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
+>  tools/testing/selftests/landlock/fs_test.c | 39 ++++++++++++++++++++++++++++++
+>  1 file changed, 39 insertions(+)
 > 
-> diff --git a/security/landlock/domain.h b/security/landlock/domain.h
-> index 935e18b12b3c..d9ebf4857fce 100644
-> --- a/security/landlock/domain.h
-> +++ b/security/landlock/domain.h
-> @@ -262,9 +262,16 @@ static inline access_mask_t
->  landlock_get_fs_access_mask(const struct landlock_domain *const domain,
->  			    const u16 layer_level)
->  {
-> -	/* Handles all initially denied by default access rights. */
-> -	return domain->layers[layer_level].handled.fs |
-> -	       _LANDLOCK_ACCESS_FS_INITIALLY_DENIED;
-> +	access_mask_t handled = domain->layers[layer_level].handled.fs;
-> +
-> +	/*
-> +	 * Handles all initially denied by default access rights, but only for
-> +	 * layers handling filesystem accesses.
-> +	 */
-> +	if (handled)
-> +		handled |= _LANDLOCK_ACCESS_FS_INITIALLY_DENIED;
-> +
-> +	return handled;
+> diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
+> index f725882fa4a7..b92cb988a39f 100644
+> --- a/tools/testing/selftests/landlock/fs_test.c
+> +++ b/tools/testing/selftests/landlock/fs_test.c
+> @@ -2612,6 +2612,45 @@ TEST_F_FORK(layout1, refer_denied_by_default4)
+>  				layer_dir_s1d1_refer);
 >  }
 >  
->  static inline access_mask_t
+> +/*
+> + * Regression test for layered domains: The two enforced Landlock layers both do
+> + * not restrict the tested "refer" operations on their own, so they should also
+> + * not restrict them when they are layered.
+> + */
+> +static void test_layering_does_not_break_refer(
+> +	struct __test_metadata *const _metadata,
+> +	const struct landlock_ruleset_attr *const non_fs_attr)
+> +{
+> +	ASSERT_EQ(0, unlink(file1_s1d2));
+> +
+> +	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_REFER, layer_dir_s1d1_refer);
+> +
+> +	drop_access_rights(_metadata, non_fs_attr);
+> +
+> +	EXPECT_EQ(0, test_rename(file1_s1d1, file1_s1d2));
+> +	EXPECT_EQ(0, test_rename(file1_s1d2, file1_s1d1));
+> +	EXPECT_EQ(0, test_exchange(file2_s1d1, file2_s1d2));
+> +	EXPECT_EQ(0, test_exchange(file2_s1d2, file2_s1d1));
+> +}
+> +
+> +TEST_F_FORK(layout1, layering_with_net_does_not_break_refer)
+> +{
+> +	const struct landlock_ruleset_attr attr = {
+> +		.handled_access_net = LANDLOCK_ACCESS_NET_BIND_TCP,
+> +	};
+> +
+> +	test_layering_does_not_break_refer(_metadata, &attr);
+> +}
+> +
+> +TEST_F_FORK(layout1, layering_with_scoped_does_not_break_refer)
+> +{
+> +	const struct landlock_ruleset_attr attr = {
+> +		.scoped = LANDLOCK_SCOPE_SIGNAL,
+> +	};
+> +
+> +	test_layering_does_not_break_refer(_metadata, &attr);
+> +}
+
+This looks good, but it would be better to also exercise both
+layer-construction orders for non-FS categories (e.g. FS then scope, and
+scope then FS).  That would confirm patch 3 is good.
+
+> +
+>  /*
+>   * Tests walking through a denied root mount.
+>   */
 > 
 > -- 
 > 2.56.0
