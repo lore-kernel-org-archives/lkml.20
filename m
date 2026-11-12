@@ -1,69 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794494547;
-	b=GhpLjV3ss1U2Q9U1gUsvfqlLcAK7WHl9kzg3xeBKpD21LR5+o1N0DY+T8Fb7VmNvWCo4
-	 ijj6oWjxkJJIg2At969qpF2qrYgoU1CJkLAdmaH9RhOEtyodiCzSl2t+WvX4SHeypqETQ
-	 E1+Nf6/5ffKuI6AV+F5hj7zvgEXS93KKQNSbflTmP22Lh2qvBa0B7oX4al4yNK8Jrn4uv
-	 IOe+pqMtvOQBEU5ZXdYmPWCOojxulII6lAQCit6pvxkriy6VofF+Snj/+QpVM40vl5VI1
-	 CyAQOCu5eqjcVgiUX1GtwozPmbNR4OrbYg1tZ5OSjqD0cY4QWkcMgKSQhVIL+ezI9cQ==
+	t=1794494560;
+	b=4HLwi1dlzEE0lFNd3bmFJDbn6WiobXkQObmKnGplR6dMUq2KAXEzN5OkDc1i8DIj2mVq
+	 PuahEEpdsEuhZgSzEy2TyRoapYRqZaRNTR/LOyJQ/3HpcWOSAipwgsbRXcuGA8qtBmnkl
+	 ltxssVA3LADVNwEQarOC3HM/UBN2OsgHKAEkRTHj6zVqpC3E93nsDWmycbBRdBdBUg3LZ
+	 SeHE6P/Fsl6sMkX/zbn3lR9DweupdBWHchcmjjrXHIkvkTQD1CWWWo54IbPUxpknnK43E
+	 6i2oBFV5SZB+weDTbLg75EjFzi2JvHME9mnurX0IRKiWoBWFkpZjPU13N7ALDRTzZNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794494547;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 Sender:X-SRS-Rewrite;
-	bh=qZYyj62zk4DKgGeMeAwMpBAlP2Mi8ofGhkV/pgn7PNs=;
-	b=2mfYcYSbdOLsrU1MpTVJMsqehR30PQxLUTMhWGEzPF6CpJcOJJTJwTvOVCXBQeS5iPyc
-	 ZNsUttfbC60VrgcNy/HA3H6dmhEOPoRNTQfnRcqNiLZsErU/iRqW+tXMTOrEwoiWT6vBZ
-	 VvXppOpB6nTzppF8s+kfyO2UyujpZ7FP25oyaGTfpFKI3OY0jNNHnGOTMB6OrDfSIK4EU
-	 TU3oEZa498xlKUV0c3oLFKVSxnpmTXWgwtA8go2OgCmRDKIvdZbf0r0V3+SPl3JKoT7j0
-	 Wne47XqPJxAMMP2jpOv3dwCztT49O804MQj9xAHjcQokpUmt0wWUGrc9wnp7xXVB3og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794494560;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=aq0o03R7e9F2pw69m+iUpHwCBUrNrj8FRpthGHachfU=;
+	b=nDShsOQqn9edCwpqVSQ537dBPsOD4+drt7zUEqZrcjLutTnm1ia8Es6y4R9YSJsiSh7l
+	 bHy5UR+tKPFSJrorxVD+6ZF0XMv/pKrQAcQfrDSGn7lI7rvNXybsuQH2PCNLef75FU7+E
+	 g4JW4l1SDbiRIATJL2qLYIlceohUL6ZKGXpjc0KQvncQIWxG3othNac7OmWaMAxpetEEZ
+	 eW14UBDAs4cAqpyn4jckFEzK6/4NaBE6Yv/JKimNY4qRao44mZVobk5IR/EyGHNm47828
+	 adfkIsYJhiApt8DnzUCgnMqi6oC8z2+Po20s9XZvaogBA7/hw8No4YjkntbfnldsZUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=desiato.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=qSmsmSGf;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dmarc=pass header.from=onurozkan.dev;
+	spf=pass smtp.mailfrom=onurozkan.dev;
+	dkim=pass header.d=onurozkan.dev header.i=@onurozkan.dev header.a=rsa-sha256 header.s=protonmail2 header.b=D6i1tabR;
+	arc=none smtp.remote-ip=79.135.106.112
+Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2E1606A31C;
-	Thu, 12 Nov 2026 14:42:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F2E1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B718606A31C;
+	Thu, 12 Nov 2026 14:42:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B718606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=qSmsmSGf
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Content-Type:
-	Content-ID:Content-Description:In-Reply-To:References;
-	bh=qZYyj62zk4DKgGeMeAwMpBAlP2Mi8ofGhkV/pgn7PNs=; b=qSmsmSGfb1mtxy7pnlkZ7QJVdY
-	M5PqfEID+y88Y0NyMwhrF+tZ6z2nHfHWYkTAg+cmRggQYOJw1m+kAwlDNDceoDktqtq072X8fofrD
-	fvOHzETrBlCATXTp7rtjFgDzYbUczA2arBII3GwSgWvm5dd7IOatsTxTHxRMjciefd1HnnqCiJ5ud
-	u0xwRF/qFB+NEXx4qESQzSyBYAOByukM+HJnLg18lj3PSyUKT2x7B58A3exvNb00DhX/FWmL6IZ/S
-	LQmPetx0sN3Fk2663fmOTk4JUywQ+otRwPNy02MjopFS44uVA+rHiYv+Pc4qeDqmxh8mc64GcdsDa
-	y1DRP+0A==;
-Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRW0O-0000000ARvJ-00Aj;
-	Thu, 12 Nov 2026 14:42:23 +0000
-Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xRW0K-0000000080t-3EEa;
-	Thu, 12 Nov 2026 14:42:20 +0000
-From: David Woodhouse <dwmw2@infradead.org>
-To: kvm@vger.kernel.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-	Anish Moorthy <amoorthy@google.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Nicolas Saenz Julienne <nsaenz@amazon.com>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH] KVM: selftests: Drop stale exact flags check in private_mem_kvm_exits_test
-Date: Thu, 12 Nov 2026 14:42:20 +0000
-Message-ID: <20261112144220.30801-1-dwmw2@infradead.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.a=rsa-sha256 header.s=protonmail2 header.b=D6i1tabR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+	s=protonmail2; t=1794494555; x=1794753755;
+	bh=aq0o03R7e9F2pw69m+iUpHwCBUrNrj8FRpthGHachfU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=D6i1tabRaiEabLSjKLt60DBdRBgc1ghMp/8bV7MeYncwMKpZbKK5AAv1JEBCvN7mG
+	 NAHVRlu5d231+HRbVexe+koI+ubiZZX1olmurWYZjkLfMZFTmhy0cg9Lg6BeXneYu0
+	 msslEAx9R23M6rViDj5jTAqogNYMjpgOEeuf7E59esqA6WKnFUP+PFgWIBGdSLBwX2
+	 hN39xgBJl2xBY6D/eKneQFGvb4LSe5r668ZbM/AW3jEsJrxQWZd84uaCf7LQ5vQbiD
+	 mJKrsNO4SNSEcrBQjbU/A8RzVipo2I05KdurWxBE8phhDuupBSA7K60VPAwlfn/SJV
+	 apHpNx4EsqQQg==
+X-Pm-Submission-Id: 4jQNQc4KLdz2Scmw
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: Daniel Almeida <daniel.almeida@collabora.com>
+Cc: linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	dakr@kernel.org,
+	aliceryhl@google.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	ojeda@kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	tmgross@umich.edu
+Subject: Re: [PATCH v7 0/3] drm/tyr: GPU reset infrastructure
+Date: Thu, 12 Nov 2026 17:42:27 +0300
+Message-ID: <20261112144231.279851-1-work@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <AE29D511-8F4A-49A3-BE4E-31E6411816D7@collabora.com>
+References: <20260912-tyr-reset-impl-v7-0-077ce72084eb@onurozkan.dev> <70AFEE33-C637-4D49-88F1-9DF3A9BBF097@collabora.com> <20261111100745.3929894-1-work@onurozkan.dev> <AE29D511-8F4A-49A3-BE4E-31E6411816D7@collabora.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,44 +76,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-From: David Woodhouse <dwmw@amazon.co.uk>
-
-Commit 7d0afe669374 ("KVM: selftests: Take into account mixed memory
-fault flags") relaxed the memory_fault.flags checks so that they only
-test for KVM_MEMORY_EXIT_FLAG_PRIVATE, since KVM may report the access
-type alongside it. In test_private_access_memslot_deleted() it added
-the relaxed check but left the exact match above it, and with the
-READ flag now reported the test fails for me there:
-
-  x86/private_mem_kvm_exits_test.c:93: vcpu->run->memory_fault.flags == KVM_MEMORY_EXIT_FLAG_PRIVATE
-  0x9 != 0x8 (vcpu->run->memory_fault.flags != KVM_MEMORY_EXIT_FLAG_PRIVATE)
-
-Drop the exact match, leaving the check that the fault was private.
-
-Fixes: 7d0afe669374 ("KVM: selftests: Take into account mixed memory fault flags")
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
----
- tools/testing/selftests/kvm/x86/private_mem_kvm_exits_test.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/tools/testing/selftests/kvm/x86/private_mem_kvm_exits_test.c b/tools/testing/selftests/kvm/x86/private_mem_kvm_exits_test.c
-index ed8edde9b718..e07f4972ab7e 100644
---- a/tools/testing/selftests/kvm/x86/private_mem_kvm_exits_test.c
-+++ b/tools/testing/selftests/kvm/x86/private_mem_kvm_exits_test.c
-@@ -90,7 +90,6 @@ static void test_private_access_memslot_deleted(void)
- 		TEST_ASSERT_EQ(vcpu->run->mmio.is_write, false);
- 	} else {
- 		TEST_ASSERT_EQ(exit_reason, KVM_EXIT_MEMORY_FAULT);
--		TEST_ASSERT_EQ(vcpu->run->memory_fault.flags, KVM_MEMORY_EXIT_FLAG_PRIVATE);
- 		TEST_ASSERT(vcpu->run->memory_fault.flags & KVM_MEMORY_EXIT_FLAG_PRIVATE,
- 			    "Memory fault didn't occur on a private memory access");
- 		TEST_ASSERT_EQ(vcpu->run->memory_fault.gpa, EXITS_TEST_GPA);
-
-base-commit: e71c4e83c03926c300f6c43e79b783d47ba8b588
--- 
-2.50.1
-
+On Wed, 11 Nov 2026 12:33:47 -0300=0D
+Daniel Almeida <daniel.almeida@collabora.com> wrote:=0D
+=0D
+> Hi Onur,=0D
+> =0D
+> > =0D
+> > Any updates on this? I am preparing v2 of the GPU unplug series [1] whi=
+ch=0D
+> > depends on this series. The reset patches need rebasing against current=
+=0D
+> > drm-rust-next.=0D
+> > =0D
+> > Would you prefer me to send a rebased v8 and base unplug v2 on it or ar=
+e=0D
+> > you planning to pick up v7 and handle the rebase?=0D
+> > =0D
+> > Thanks,=0D
+> > Onur=0D
+> > =0D
+> > [1]: https://lore.kernel.org/all/20260823-tyr-gpu-unplug-b4-v1-0-e99c07=
+d4c785@onurozkan.dev=0D
+> > =0D
+> =0D
+> I'm only waiting Alice's R-b before bringing this in. Feel free to send a=
+=0D
+> rebased version, since it will probably be needed for the unplug work too=
+.=0D
+> =0D
+> -- Daniel=0D
+=0D
+Okay, I will.=0D
+=0D
+Thanks,=0D
+Onur=0D
