@@ -1,54 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794473699;
-	b=HTA1eVqU7ZIxxez4CJLQzh8vrqSMWnOjCMc+OlAKedSgPJ7PLLVl27Xvq2eVqfJ31/rM
-	 ZoMvu3rSeGTIMPX5lAqvmvbMV2yflDtL8ka9t6aVKAQ32Pa8CGsbASVn2QUV5A3+lljVy
-	 esTEhSG5EcRhBmNCQET0nf1ZMhg4am9+G/D+oYaTsDKqr7Pj7KEwFwHu33t/mEXcHFZQA
-	 DJ/Bs8d/F7q+JIWQVM6qBLdLcLCvhYzmxLIHGcaTNoCtTG/3FnOq5/LXfMpvYUmHl13PO
-	 tzMin1gu++NnuXTv7M5ZHXxGJDK8d6F5XDs9weW7zmrTo9v3c/mpkTxAivdRSYNTNJg==
+	t=1794473724;
+	b=295Pin6DiD5fS5PQn2UY8ql1Su+Wa1ZYHk7uMrfm7Yda8E7DTP4YJHeJuVv9e6HG3Co1
+	 SVyCCOBWV9NW1ep1PoaewVgg/y4rNBlPvARv8dUBM257hUpIoxztaSG6QP+lW/I/qOfeK
+	 UHqiPsvmlxQ+KUj7cUW/gKzsFqx4eU+9HguE2yipbhWiEH8REDuK+yq6PkTNZBBpQVWfB
+	 JoUfbYaVimeIeysLC15IcLR/CbbRBvrM/L3j+Soxkh8tBrtRnSBDXh/WBfRt4xAWr8IFz
+	 XZ2wBHqeNIr1crlKCXDJQ3Qi8aJi0TnavHcTa832yf+0qUn1lLTXGv+YW84AlQqsDIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794473699;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=bUU8aJriCj4L30614In2cmZDuMPUuAtDiWuioRCy4Ew=;
-	b=lTBPxdAi8h+cqas7N8Y8SyBKDA9CMSMa3SwcscxlZuSS9Tb/Pm4WroVjS4HzWu1269XL
-	 zGZjj6CW5gn7//GWzHStf/xEuekmWp33PgkUrQ4WA7vxrJMEFUSL0vg4IA/G3N9gpcb3A
-	 zkFEQmUiPBifluP0oVFdaD9s2x3kb5WFAuueTrShQQCv2FxyScbgGH9+2p8+Rs00NmWjL
-	 A/l2ywD7XrzBtFA4QIhrFQkfrW0dB7mB1EIM3UlEYOtC83p11rB7QPS3rHicgnV8tl5U9
-	 BNowk3jDg50i5C3opu0DPq75dnwkJXyss3NDimTpdAJq6R+mSG28Nbx+R0sxIgeTGdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794473724;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type;
+	bh=/tlF4suFgWB3YLT3tkIuz/E/f8bGCMYQInm9HkaXt1M=;
+	b=STdW6WgkLdL3d++sHgCxygYILyNBU385cng2FDGDCJCPia8Z7aCBEA3IxzfeF8LGUd84
+	 NL4PukO1SfQC7Fz5KInLwuYios3ztg5iGioxYCrXMsnvFLAEwnoS5CDp32+LDADVG7KQc
+	 UPEHjJm74QE1xIGbnxmOAwCYrjrlBgtR4ZsxK0swQErQCKxO3IzRtCtBawHmefYTl6F8l
+	 uxSMcvj9gkHP6dKIvxdVNcougEWlk/1KC6QikyxQHvGrSMrhe3hH0eX9VXN9j03YuM8jS
+	 wYAbjh6zZa43Lcs6ugHrybnAiuddWoUG9nt1Yjj4e9EZPmay9c5Do9I4bCg6qiFDWhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GCOsEAnk;
-	arc=none smtp.remote-ip=95.215.58.64
-Received: from mta1.migadu.com (out-64.mta1.migadu.com [95.215.58.64])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gvl6nteJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC19606A891
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:54:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AC19606A891
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86C5E606A332;
+	Thu, 12 Nov 2026 08:55:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GCOsEAnk
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=YsFJ1UStpx7QYNPW/2zE3mPvngieaVFLiicQbyvU7PY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794473696; v=1; x=1795078496;
- b=GCOsEAnkfrVVwc3xDIKSkChL0T2tbcjDklKI3DDvJGU3CIkgZ9A3Jq9G9400Yhoop1pf8WSO
- Ue12sTlUWpkut0nadfeMg6022lvCUmdhqM54Kvcw9WrT4OI2+gIIsiDl8f0yccptEp/83bEMVTN
- WUDQPbaHjr+Ld6/bG2ojuAG0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5255a3e99e026359;
-	Thu, 12 Nov 2026 08:54:56 +0000
-X-Mizu-Trace-ID: 5255a3e99e026359
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <c01ec177-da44-49bc-a542-35b64554526f@linux.dev>
-Date: Thu, 12 Nov 2026 16:54:47 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gvl6nteJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9ED11F00A05;
+	Thu, 12 Nov 2026 08:55:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794473724;
+	bh=/tlF4suFgWB3YLT3tkIuz/E/f8bGCMYQInm9HkaXt1M=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=Gvl6nteJGPyJS3pfR4zg+GVzIZ5ylC0wabJLdSVZBWfWJ/YX/YZqFAzuqZ6JP5j/7
+	 L70XnwICVY+DqS03AM1oiqY0CxTtMXvf0Baf7FihestcLFtkaXSP3a5YVZC6zEHXg1
+	 +06vWw6fUKxVA96Vpf+9o8yISsRj2wdlIodiuJdCNCJadq4ah2I+GP60xIb1Dx9We7
+	 SMND8zgX3pn4g74ro7MOZi0vPK4t9qypjE6BVMTh3AE5KXTdacMC2bn2LN8iQ6AHHT
+	 Lutp8vkmu2jq4iadDubX/kph4ux/mD6z6uwT0JiXEYQr892Vr5lTXjheS+X50hkjc7
+	 RTYLSS6lV+KGA==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: FUJITA Tomonori <tomo@flapping.org>
+Cc: boqun@kernel.org, fujita.tomonori@gmail.com, frederic@kernel.org,
+ lyude@redhat.com, tglx@kernel.org, anna-maria@linutronix.de,
+ jstultz@google.com, sboyd@kernel.org, ojeda@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, aliceryhl@google.com,
+ tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com,
+ tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] rust: hrtimer: add active() method to query timer state
+In-Reply-To: <20261105.201145.828445900027892304.tomo@flapping.org>
+References: <20261105-hrtimer-active-v3-1-52636808ccda@kernel.org>
+ <20261105.201145.828445900027892304.tomo@flapping.org>
+Date: Thu, 12 Nov 2026 09:55:05 +0100
+Message-ID: <87wlqiv386.fsf@t14s.mail-host-address-is-not-set>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,92 +63,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/mglru: deactivate anon folios into the oldest
- generation
-To: Barry Song <baohua@kernel.org>, Kairui Song <ryncsn@gmail.com>
-Cc: David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Yu Zhao <yuzhao@google.com>,
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>
-References: <20261112081928.3014946-1-ridong.chen@linux.dev>
- <avV52J2rD19cjM2J@KASONG-MC4>
- <CAGsJ_4yibOkJmi9niJ8svu2NdEkZ5Qyf98VO6qMrJMa_9wGFgQ@mail.gmail.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <CAGsJ_4yibOkJmi9niJ8svu2NdEkZ5Qyf98VO6qMrJMa_9wGFgQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
+FUJITA Tomonori <tomo@flapping.org> writes:
 
-
-On 11/12/2026 4:41 PM, Barry Song wrote:
-> On Thu, Nov 12, 2026 at 4:38 PM Kairui Song <ryncsn@gmail.com> wrote:
+> On Thu, 05 Nov 2026 11:17:24 +0100
+> Andreas Hindborg <a.hindborg@kernel.org> wrote:
+>
+>> Add an `active()` method to HrTimer that returns true if the timer is in
+>> the started or running states. This wraps the kernel's hrtimer_active()
+>> function.
+>> 
+>> Unlike a direct read of `node.expires`, this does not race with a
+>> concurrent start operation. hrtimer_active() reads the timer state inside a
+>> seqcount retry loop and re-reads `timer->base` with READ_ONCE(), and the
+>> core documents that it must not return a false negative. No exclusive
+>> access to the timer is therefore required, and the SAFETY comment reflects
+>> that.
+>> 
+>> The returned value is still only a snapshot: a concurrent start or an
+>> expiry can change the state right after the call. Callers that need a
+>> stable answer have to serialize against those operations themselves,
+>> exactly as C callers of hrtimer_active() do. This is documented on the
+>> method.
+>> 
+>> Also add documentation clarifying the definition of an active timer.
+>> 
+>> Introduce the term `active` as a set of timer states composed of `started`
+>> and `running`.
+>> 
+>> Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+>> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+>
 > [...]
->>>   mm/folio.c | 11 ++++++++++-
->>>   1 file changed, 10 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/mm/folio.c b/mm/folio.c
->>> index ea3adb6a89d7..c412d9b398e4 100644
->>> --- a/mm/folio.c
->>> +++ b/mm/folio.c
->>> @@ -583,7 +583,16 @@ static void lru_deactivate(struct lruvec *lruvec, struct folio *folio)
->>>        lruvec_del_folio(lruvec, folio);
->>>        folio_clear_active(folio);
->>>        folio_clear_referenced(folio);
->>> -     lruvec_add_folio(lruvec, folio);
->>> +     /*
->>> +      * For MGLRU, lruvec_add_folio() places anon folios that are not in
->>> +      * the swap cache into the second youngest generation, which is an
->>> +      * active one. Add the folio to the oldest generation instead, like
->>> +      * lru_deactivate_file() does for clean folios.
->>> +      */
->>> +     if (lru_gen_enabled())
->>> +             lruvec_add_folio_tail(lruvec, folio);
->>> +     else
->>> +             lruvec_add_folio(lruvec, folio);
->>
->> Hi Ridong,
->>
->> One question here, why MGLRU/CLRU have to use two different ways to
->> add the folio back?  Will this cause over aggressive reclaim of the
->> folio?
-> 
-> I guess that is because on mglru, that is lacing a way to add the folio to
-> the head of the oldest generation for anon folios while CLRU can do
-> that :-)
+>
+>> +    /// Query the state of the timer.
+>> +    ///
+>> +    /// Returns [`true`] if the timer is in the started or running states.
+>> +    ///
+>> +    /// This method synchronizes internally and does not require exclusive access to the timer.
+>> +    ///
+>> +    /// The returned value is a snapshot. A concurrent start or expiry can change the state of the
+>> +    /// timer right after this method returns, so callers that need the state to be stable must
+>> +    /// serialize against those operations by other means.
+>
+> Does "expiry" here mean that the callback returns HrTimerRestart::NoRestart
+> on another CPU? An expiry alone moves the timer from started to running, so
+> active() still returns true. If so, I think it is clearer to write this case
+> directly, and to add the case where the timer is canceled on another CPU.
+>
+> The same sentence is in the commit message, so please update it too.
 
-Hi Kairui, Barry,
+Right. How about this:
 
-Thanks for taking a look.
+  The returned value is a snapshot. A concurrent evnet can change the state of the
+  timer right after this method returns, so callers that need the state to be stable must
+  serialize against those operations by other means.
 
-Barry is right about the reason. With the classic LRU,
-lruvec_add_folio() adds the deactivated folio to the head of the
-inactive list. With MGLRU, lruvec_add_folio() can't put an anon folio
-into the oldest generation at all: lru_gen_folio_seq() places a
-swap-backed folio that is not in the swap cache into max_seq - 1,
-regardless of its refs. The only way to reach the oldest generation is
-the reclaiming path of lruvec_add_folio_tail(), and that path adds the
-folio to the tail.
+The intention is not to reiterate the state machine, but to indicate
+that things might changes.
 
-And you are right that this makes it more aggressive than the classic
-LRU. With this patch, a deactivated folio is evicted before the folios
-already in the oldest generation, while the classic LRU puts it behind
-the folios already on the inactive list. It also changes file folios:
-before this patch they are added to the head of the oldest generation,
-the same as the classic LRU, and now they go to the tail.
+Best regards,
+Andreas Hindborg
 
-So the problem in the current code is that a deactivated anon folio is
-promoted into an active generation, and with this patch it goes one
-step further than the classic LRU in the other direction.
-
--- 
-Best regards
-Ridong
 
