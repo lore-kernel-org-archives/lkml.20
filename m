@@ -1,56 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794507791;
-	b=NOAvVjc9I9tcMfCcPpOkJomXHPCWz7N64qltFxq2jW4tAuMDFSvlqTBpv/6VXSJ+ZAGS
-	 aj3mSvVoIhR4m7cMJBHnZyvuqDdFVgNXLW81I7Cy0uPc7qQrK5VG3UGakblRKIOdtNuQS
-	 qSzqQGmWanQeiJRqy/RkTaxncCmkf5E/uKyd1hV4EDTHDKNKuEsFKPtJZrvvCfc2ixVTe
-	 c2AfUBQnxtc+3jpetzic7WtYIMa9x+AlP7WHe30izBftIedicj46rYQQmqVLtBbilYAmy
-	 AIBryWy5s2vAXjZ65dvnI7g11XKVcOZoleELJPJG5siCr9RXtog4GBYl5P7uv7XhWdA==
+	t=1794507820;
+	b=kArUMyC3A8o6LyaxTn5CSXpxi4jf5uW7JvZR0HPN1rPbvsXxm0ijvIIRcJnRMiSuGlSE
+	 tgQf0dX9aBRX8r7SIYMQDTHYSZ0tBIABeRXldaACR+WPP4rjBXpoa1bFQmzVDh0YMHeuP
+	 ncXsxKU1Gas0LVLrxj2c8cbqj4s3P3psePyxvd3JGNUmgRbFAtzKOC7JDI8VUgHwAvJoI
+	 k/Lzd4fR5SHQMxrdLdkMn1ISDViMEUBGpY4zwCnIQu4RrgaD02UVC+nyrgYJc0goZW1WI
+	 ZIP3LY2+rRRm0z7Lff+CtYQkaEzflMiGopO940bqiUTBzrgRRT/aWE20v9LZRmSg6RA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794507791;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=aZfej9mgZwVFYQI8nFMtJg3a2yXEJBTyr1oRqLjT+fc=;
-	b=jlYq5wN3JNABqPqI0t4DVEjyzXCtPMqpY74bjkuqESkbqBjA5eHm5MxSzi1jyIUctKs9
-	 bHDhh88d+VOnnPl0AgTNypoKzPUw9X0gfLl8SKyQ0Zptrzgsc4P8xNOw9wDY+JZE2xrKU
-	 n3OmJ1dhrQ9b7LH3nxAb0EE5qL0m0D/uoI4eswlkzdzCf5hJJ9+KnUovvpuppE8L2KC2L
-	 n4bJQ/mcj+vEtZeig5TfH+65xoZpJyAVxoUR8XB+zAX14472qdCiSTDpR3auLK+Nnv037
-	 tBMHtW86aVdD7va9NEgkiAFPgBdzXmra8ZovtU7lSc7LBjCvBeIBuFkm6OcxiCh5O6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794507820;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=/ugvi3p+1Q6B+bFi2vdXrchwTSTW2J4vItqHqbpYTlc=;
+	b=Frzwo7SBQiBceoZ2dv++FYuY+PwPMJ9lj1fcmUEu9tfqIKQeS0CjbFPjeWL02++t+Win
+	 22t6h3T8fDV8QZZj9YrRnHvUiUNq7pxbZFvY1xIVxQLiKR+L8Gj9ONve2bRBEJ7ZP+11o
+	 po4FHfe9EyA+K18n8VPSZwpIQvgLf9lboR/2OE4Bbkxb5xBR0tNoMSqU7EBIj4JCTi31o
+	 OW6u13t4reiQl60r2xrlgXisLmV3TFAJaJJ1ZnMPvPxnmX9eUSDprt8n6tA/4+wxV27zt
+	 rfcErEcd8SbyUjZJcf5SbDYlIwAAaLU1WN4S9vhrA6JJiXWl3DxuPvI87MYJcVXJ3lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h8ThRzZp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o3AvEEug;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9117C606A321;
-	Thu, 12 Nov 2026 18:23:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD71606A323;
+	Thu, 12 Nov 2026 18:23:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h8ThRzZp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CC6A1F000C5;
-	Thu, 12 Nov 2026 18:23:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o3AvEEug
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 922591F000C4;
+	Thu, 12 Nov 2026 18:23:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794507791;
-	bh=aZfej9mgZwVFYQI8nFMtJg3a2yXEJBTyr1oRqLjT+fc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=h8ThRzZp9xfSo8kPstvcnHh4oW++vNVs2dRAlyj9J7hY+vdbHeCVSHImavtGBclb5
-	 ZW0ywfrjQUXxuG57VUDz7DIhG20zf39ohoNBzWAIwVowxwR671pzZV8Vwx5Inl2x3v
-	 ly7cDrM4FmCCofUr/w1SDqPZyJ2Q4wt8Ss5sZqCYc1UsLSb1mz+9pWb3TXs5lqLibR
-	 08HNeeFeuzwMD60xhqSHRV9Rd6dw7yPFGLyjKZpp6dxLIOwDZi28MNo8n6EC3e75DI
-	 hrWmUartQcj7HjBAwlCy4Po81jqG0Rk1hi1raJN+zeQjCx1vT8/Z2BBJISnjxEzmEd
-	 fYScd4JxaWk8g==
-Date: Thu, 12 Nov 2026 10:23:11 -0800
-From: Kees Cook <kees@kernel.org>
-To: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-	justinstitt@google.com, morbo@google.com, alx@kernel.org,
-	shlomojune6@gmail.com
-Subject: Re: [PATCH v4] media: siano: Replace strlcat() with scnprintf() in
- sms_ir_init()
-Message-ID: <202611121022.A022CD5A4@keescook>
-References: <20261104090239.311074-1-nikitash.mariiaw@gmail.com>
- <20261107033928.13891-1-nikitash.mariiaw@gmail.com>
+	s=k20260515; t=1794507820;
+	bh=/ugvi3p+1Q6B+bFi2vdXrchwTSTW2J4vItqHqbpYTlc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=o3AvEEugDRMSiPEcsyV4fok2MwtaQixS9AaTOx7tzHoOVPMKZIwlORX6dUPo88Yz3
+	 4SBv0/LGuaYRuqtecNQ9/hz49qrx2n+6kda41NGQINKPa95O22rKIQdt1cIiokOhv3
+	 A34nHZtbkvpWE5zuBj4qDtP4fzSDqK4Vsa7vk869JIMZ+566oy/UhknDlxv8R7K+Mj
+	 m8o0JC7JoWb8nTl9fJz1orlyt5WsSFys2JdLdZcNvL4ASAlC8LZ+nEFYdA0XEVkMIZ
+	 XABg9PhhU7xdZOYkMF92c51msDP4118pa+n8+CWtOiL+lHlNu6QkMj3cf+WvxHHimm
+	 cdsZozxw8KdDQ==
+Message-ID: <389eac39-87ea-44a3-b0bd-1e097ebf4206@kernel.org>
+Date: Thu, 12 Nov 2026 20:23:34 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,24 +51,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107033928.13891-1-nikitash.mariiaw@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 00/14] PCI: rzg3s-host: Add PCIe hotplug support
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
+ robh@kernel.org, bhelgaas@google.com, p.zabel@pengutronix.de,
+ geert+renesas@glider.be, magnus.damm@gmail.com, claudiu.beznea@tuxon.dev,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org,
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+References: <20261019065025.2146539-1-claudiu.beznea@kernel.org>
+ <atphAmy8ZIjY_JNC@ninjato> <f1df2818-be5c-4019-a86f-4e782a70d3fb@kernel.org>
+ <avOBDu8XaZ-kZIsF@ninjato> <85acc16c-01e7-46a4-af68-3d6f24fe90c1@kernel.org>
+ <avS4cLVpkXI-Lf0A@ninjato>
+Content-Language: en-US
+From: Claudiu Beznea <claudiu.beznea@kernel.org>
+In-Reply-To: <avS4cLVpkXI-Lf0A@ninjato>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 06, 2026 at 07:39:28PM -0800, Mariia Nikitash wrote:
-> In preparation for removing the deprecated strlcat() API[1], replace
-> the strscpy() and strlcat() calls with a single bounded scnprintf()
-> call to construct the IR device path.
+Hi, Wolfram,
+
+On 11/11/26 20:48, Wolfram Sang wrote:
+> Hi Claudiu,
 > 
-> This preserves the original NUL-terminated output, including partial
-> or omitted "/ir0" suffixes when the 32-byte buffer is too small.
+> thanks for the explanation!
 > 
-> Link: https://github.com/KSPP/linux/issues/370 [1]
-> Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+>> E.g.: if you keep the ASPM policy to default and generate a link up/down
+>> event that will not be seen by Linux. A subsequent lspci will trigger it.
+> 
+> Well, 'lspci' does not trigger it (at least the busybox version I am
+> using). 
 
-Thanks for the revisions! :)
+I'm using Yocto version.
 
-Reviewed-by: Kees Cook <kees@kernel.org>
+> But setting the policy to 'performance' does. Then, the 'link
+> down' event gets recognized late. I'd think this also proves your
+> theory?
 
--- 
-Kees Cook
+Yes!
+
+Thank you for you testing,
+Claudiu
