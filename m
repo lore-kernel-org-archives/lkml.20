@@ -1,66 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.72.107
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794444446;
-	b=hCf6L6sKzj01A+8r0IOfWMQsFg3SvOi2qPoJU4/63huEZFP/9JIr2/HSdkiHiqdnWHNq
-	 FL5JzWHLBvZAq1rays37X88UwSDelxF7dAjqNsbH1FGP52ZSPXm8LVYV1JgSKFxBbUhsn
-	 FMWwHJCbdC7xBc5CQgY7eUXVYROeE5j6OSc0QQtl+nmie4TytUPxhI/SfMt18BFEWu55O
-	 MG/GwkAxgEDi08LAa55992dkgaDWCV/t3FnPINS8/9osQfCr5MN2GYaluw/bz8oSemxpw
-	 oTpjfLK6Y2ATPvHvRoWjD50XMGBMwhHHYUUQDAmIQK2gYdOmC2Swn+Em1k5Cxicecaw==
+	t=1794444437;
+	b=cXQ09nxlmoY1QrUbds2MYh7qLQWh7hkEKL4yXfTqrWGr2YjXI/FFIQtKZ4AoQ2ASyGlr
+	 oTVS0ZvwOwe592hDfrNcyMobJgvDDI2cWIvWzwfsqIgMzb5FPkY7EHhSff1joG+mvB+Q9
+	 EWexm12/jfM2LwdN5S6vz1CHztJJyeEQ1Jw8XxXu27HIpZAhgE3AQyR+lS04SmvdGU+nr
+	 8vP6j8dGIlnIRKYeEbe8HtjlW+QwWwNY3ogBSWOFr2vudUox+CVWbdZ/3cSMZiUnnIlcq
+	 /Q393+WTe8F5dhl51aRwoqCSa6Fg4KnpgJYiGNo/mRCqQ6ADiZYC+6bN2ja4viS3N4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794444446;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/meX34FFjvsBjwEFSiF7h2pMrlZOIlpgdM74rS/8GJs=;
-	b=KNCQfCGyKMgAANei869NX0SQStFygxsLtE375NOAhy6qLFSprtZq1S4UHXTIVrtBWWla
-	 BtetPmRjc7G1Mv7IaCzKZgx1Q0M4A4p+8feKMVN9EgYPQ4advsDBm2pNB/5ywFQqAqmid
-	 6pInde9CYf9dFSQKboVmWNWBj821PUqedQElHCI7RqQWXgwAyPe2mBPMnWTlr7FwSDSBg
-	 Z6vmugUM1GGojkRskyIFVvbXaU/IC1tRfiuz7q4bibCJRWV5ROemWmk+eHJ6a7aCL7Xlb
-	 PBwLvzeQG53XSdvQ62CeEatEzUrrSYtaoqYMh3xk4eoIZgyrVtxLzl2jEzAcLwTsNVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794444437;
+	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Info-Out:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-JNJ;
+	bh=w1MSemEJM1D/SKYXOB78QWPp3WbL5Fkt44BuJYa+ISY=;
+	b=oRBWwLZgqN1W1D2jjagdp4JLKjNHiFEZfxkvQ3ypHmF+DpAMnVO2+FU/w7cVahWJpE1U
+	 vfvsVfeXer401tjj1F5CWTIjLvUQVK8Y4b+FN+ovw4EGuMFENO0uPLMQI6aFMpP0RhTk+
+	 L0puGLv0zv13qJDn3IxmWx3kzqhFAtHEfQ1I57p0hEompqwu4HSM6pHw1qJaIZnluvdCW
+	 Abr221wWZjIYO9SH9Gtx/mqNOWLBZaNowbkqCi0TcK/Xc2qaDxJbE8KdJ3T7p5hAB6+oK
+	 zy1y1dTqb9txze3DwAP98Int+au77FJhN4Rn8cUTUUQvjBXAvBMbr/oNzBHM7pMoKoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=c5tECsEz;
-	arc=none smtp.remote-ip=95.215.58.197
-Received: from mta1.migadu.com (out-197.mta1.migadu.com [95.215.58.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=icloud.com;
+	spf=pass smtp.mailfrom=icloud.com;
+	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=kmKcYj5f;
+	arc=none smtp.remote-ip=57.103.72.107
+Received: from outbound.ms.icloud.com (ms-2005k-snip4-4.eps.apple.com [57.103.72.107])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 374E160A3821
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:47:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 374E160A3821
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB1C60A2603
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:47:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DB1C60A2603
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=c5tECsEz
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fMSPfR8xyIbF4ge2e/H/gRNwNJPj7Dk9rRNiQdhWwhY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794444443; v=1; x=1795049243;
- b=c5tECsEzcVpY0zNvO3yky12+P2vnJ9u9wB+JEUAUgXq9umTxM7Q2GY9Q0Irv+lFRohwQOLB9
- ww9lzmfDlag+xxB+sr/SWygRH2ulL3R0seuVpN9rJ/YGhDnrKtLYrHvPcjIWPyHOtzSmiUez3a0
- P+XmAYdfetd8/8xz3wwVFNhM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id a465595a3c07692d;
-	Thu, 12 Nov 2026 00:47:23 +0000
-X-Mizu-Trace-ID: a465595a3c07692d
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 12 Nov 2026 08:47:13 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Yuyang Huang <yuyanghuang@google.com>,
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, 1342116488@qq.com
-Subject: Re: [PATCH net] ipv4: igmp: report IFA_TARGET_NETNSID in multicast
- address dumps
-Message-ID: <avUMkYmCtkwNYf8_@fedora>
-References: <20261111082222.327963-1-sunwenbo@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=kmKcYj5f
+Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-3a-20-percent-0 (Postfix) with ESMTPS id 35A611800111;
+	Thu, 12 Nov 2026 00:47:13 +0000 (UTC)
+X-ICL-RepId: 01a1cd39-16e1-7950-8021-524aa0ca467e
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1794444436; x=1825980436; bh=w1MSemEJM1D/SKYXOB78QWPp3WbL5Fkt44BuJYa+ISY=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=kmKcYj5fXvMBhQHP6XnuMRQN+dESlVF7BUNKj35oA06sINDxWCNuxVU5EggWUVDZK/9eBvPtkc2wfLlr3+NuTWOLTDGEEU0F9bY7DK0E1KUUbExGRjU6xtpAk1Ip1V4izoz9h9RhXl5LpeD5HqHn1ptw+lPUTQZUq6XWCrHPRIKMGP0DDr1gxQFRIeht+gfEBle1uEyjvQI3pGFkFsB8nTvCG0E7BJjglnvfmE7hoZy5QOimGAWVyAhfd8R0zFhJvymWrtMczGlpeE/Eh3DDF6ywxsJYQjMDh6HyD/0npDKWDMLLBuTSuF6LVIETPPci3B3UhSe0bQbm03T/dFAL3w==
+Received: from bigre.tail98293.ts.net (unknown [17.156.208.39])
+	by p00-icloudmta-asmtp-us-west-3a-20-percent-0 (Postfix) with ESMTPSA id F275E18004AF;
+	Thu, 12 Nov 2026 00:47:10 +0000 (UTC)
+From: Vincent Cloutier <vincent.cloutier@icloud.com>
+To: linux-media@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Purism Kernel Team <kernel@puri.sm>,
+	Vincent Cloutier <vincent@cloutier.co>
+Subject: [PATCH v2 3/3] arm64: dts: imx8mq-librem5: Add rear camera
+Date: Wed, 11 Nov 2026 19:46:36 -0500
+Message-ID: <20261112004636.739749-4-vincent.cloutier@icloud.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261112004636.739749-1-vincent.cloutier@icloud.com>
+References: <20261112004636.739749-1-vincent.cloutier@icloud.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,77 +75,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111082222.327963-1-sunwenbo@cmss.chinamobile.com>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: OCFqYr7Pjo1O7WVFNgRWk5-Ja6V15d8B
+X-Authority-Info-Out: v=2.4 cv=EOcLElZC c=1 sm=1 tr=0 ts=6af50c93
+ cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
+ a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10
+ a=5j__JWfIoqoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=44ESNHm707DTucqp3sAA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAwMiBTYWx0ZWRfX8Y3k0/Cx0Vhb
+ Inccjb37r6h2jFAvXC+1/3v0R+NkiA3XyhJmUqfT712fzny47j7oHVcwk+Vgjp75v9XNHDBpz7z
+ W82zOr0Ry/pa9+ECowoAtLu+q39HxLDXVwezp6zes0NujzhjuKkxfgBI/6zAEPKnAb5nX0d/WXc
+ 0QgvPpHQtmQqFKe03ltAlYTfVWm2mwAft0lQIS0ku1GtFWLLTk3yaEVn4UO+2bA+4Qi+l8S173W
+ LAweMsRxKGSCw+82BOYVwuPJ6t2MIhfaXshbA6ZzIYx7Mj7LMvN2hm63Bd93XYXP51OH3P0C7gj
+ 2bof0472kWkHnoQjIFlRbJDNyT0eM58Upf9oxB91A9ejHRXmAA2LwPUR8HPsyg=
+X-Proofpoint-GUID: OCFqYr7Pjo1O7WVFNgRWk5-Ja6V15d8B
+X-JNJ: AAAAAAABT0bWZgp92u068rDpBd1Os7N/dqlUxUsAYPTvb3Tenj77CpnC3vU+9EeHCXcFsC
+ 6Y3JpWFPj1XVodEZb14XtghgH6qXCtQKF3gjzhVaW73rj5iiWTG0o25NuJqerOUodGGWfN
+ k4nHVF/xP0mndIPb5kMoT6tDu0Gp89eVfUCu9PzEeihNU8hXI7EzwAf4q+8DYnDS6QARBW
+ 7dKSK88xHPcleXYFRY9NgBdMKArd9MdE3n5KdyyV+lLdnjxOMP5J1h0LwVFI9nRDP0RKPe
+ BQ4V4C4RVh/nhm6+hJ9rUSclaPWc0wjSSdpgsQUYCDwoIbp6zE6Xv9DrUzdFORpa84N/D3
+ auLjHjlrJqne95GIw3PTZA/ReYXqK57p7roKGUiNKcXwPO0yORGbzN6Ul6qVXnftnWXXZ0
+ coz75iwVXG8oKE+GYilGcfyQgkxnLRk80JNAPkcpBcz+jOsJGua4ZB+cPMXrAex02VcP+8
+ 7PBEkmWrPB+m2BcZOY0Esq2KskSXiNEULeuy9h9iT9uG7VS1SDBIqvEBXRgTA+Q5FBJjz3
+ VBRLSRxcRxAMefylufoGd1K5l74V+BvYC3gKrrpqacf5VcSWUwsW0HnKXpTBYe6F43a5So
+ j5Q3RjqBLYqjLTCs5EfI5E3tmw5TI88Vaxwri7934nVaL5zn30ED/FFWRDsdRMlDpilrUA
+ 09FXRoZc4XNsvqXOhaDuNVYwQwq81bk7nCtyDDgALq/nYhTELDU8YINpLASkgdjh5e9VVR
+ Ew3z2NnXmKDXSxyGQUdc3ZDZ2/iJX8cA17Wl+LIJkYA8tQRvFKBAu7gWcKuskLR/kmplW2
+ GUHFx/XEYHdJ1rISLhwx3c36APk8XDr2t4yqcUl9bGwtmjCyMR9MtIy5UGAN+6sxiymq14
+ wNBB2F3kHJI3Nq2TSgMstHpC+zBw==
 
-On Wed, Nov 11, 2026 at 04:22:22PM +0800, Wenbo Sun wrote:
-> Commit eb4e17a1d915 ("netlink: support dumping IPv4 multicast addresses")
-> extended RTM_GETMULTICAST to support dumping IPv4 multicast addresses.
-> While inet_valid_dump_ifaddr_req() accepts IFA_TARGET_NETNSID in dump
-> requests and dumps addresses from the target network namespace,
-> inet_fill_ifmcaddr() never puts IFA_TARGET_NETNSID in the netlink
-> replies.
-> 
-> As a result, userspace applications querying multicast addresses in a
-> target netns receive entries without IFA_TARGET_NETNSID, which may lead
-> them to conclude that the kernel does not support netns-targeted dumps
-> or to misattribute the returned addresses. In contrast, IPv4 unicast
-> address dumps (inet_fill_ifaddr()), IPv6 multicast address dumps
-> (inet6_fill_ifmcaddr()), and AF_PACKET multicast address dumps all
-> report IFA_TARGET_NETNSID.
-> 
-> Add IFA_TARGET_NETNSID to inet_fill_ifmcaddr() when requested, and
-> explicitly set fillargs.netnsid = -1 in inet_ifmcaddr_notify() to
-> prevent notification messages from exceeding their preallocated skb
-> size.
-> 
-> This issue was identified with the assistance of an LLM-based code
-> review tool, confirmed by reproducing in a User-Mode Linux (UML)
-> environment where AF_INET RTM_GETMULTICAST dumps with IFA_TARGET_NETNSID
-> omitted the attribute, and verified in UML that AF_INET multicast dumps
-> now report IFA_TARGET_NETNSID, normal dumps without netnsid continue to
-> work, and socket multicast join/leave notifications succeed without
-> warning.
-> 
-> Fixes: eb4e17a1d915 ("netlink: support dumping IPv4 multicast addresses")
+From: Vincent Cloutier <vincent@cloutier.co>
 
-I don't think this should be fix. Maybe consider this as a new feature and
-target to net-next?
+Add the Librem 5 rear camera sensor node and enable the second CSI-2
+capture path that receives data from it.
 
-Thanks
-Hangbin
-> Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-> ---
->  net/ipv4/igmp.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/net/ipv4/igmp.c b/net/ipv4/igmp.c
-> index 144fca158adc..831d003677ba 100644
-> --- a/net/ipv4/igmp.c
-> +++ b/net/ipv4/igmp.c
-> @@ -1517,6 +1517,12 @@ int inet_fill_ifmcaddr(struct sk_buff *skb, struct net_device *dev,
->  	ifm->ifa_scope = RT_SCOPE_UNIVERSE;
->  	ifm->ifa_index = dev->ifindex;
->  
-> +	if (args->netnsid >= 0 &&
-> +	    nla_put_s32(skb, IFA_TARGET_NETNSID, args->netnsid)) {
-> +		nlmsg_cancel(skb, nlh);
-> +		return -EMSGSIZE;
-> +	}
-> +
->  	ci.cstamp = (READ_ONCE(im->mca_cstamp) - INITIAL_JIFFIES) * 100UL / HZ;
->  	ci.tstamp = ci.cstamp;
->  	ci.ifa_prefered = INFINITY_LIFE_TIME;
-> @@ -1538,6 +1544,7 @@ static void inet_ifmcaddr_notify(struct net_device *dev,
->  {
->  	struct inet_fill_args fillargs = {
->  		.event = event,
-> +		.netnsid = -1,
->  	};
->  	struct net *net = dev_net(dev);
->  	struct sk_buff *skb;
-> -- 
-> 2.33.0
-> 
+Describe the Samsung S5K3L6 sensor with the upstream binding property
+names, including reset-gpios and the link frequencies used by the initial
+two-lane RAW8/RAW10 driver modes.
+
+Signed-off-by: Vincent Cloutier <vincent@cloutier.co>
+Assisted-by: OpenCode:GPT-6.1 Sol
+---
+ .../boot/dts/freescale/imx8mq-librem5.dtsi    | 51 +++++++++++++++++++
+ 1 file changed, 51 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
+index a212c031d4c6..25e3e6736181 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
+@@ -319,6 +319,10 @@ &csi1 {
+ 	status = "okay";
+ };
+ 
++&csi2 {
++	status = "okay";
++};
++
+ &ddrc {
+ 	operating-points-v2 = <&ddrc_opp_table>;
+ 	status = "okay";
+@@ -435,6 +439,13 @@ MX8MQ_IOMUXC_ENET_RXC_GPIO1_IO25	0x83
+ 		>;
+ 	};
+ 
++	pinctrl_csi2: csi2grp {
++		fsl,pins = <
++			/* CSI2_NRST */
++			MX8MQ_IOMUXC_ENET_RD0_GPIO1_IO26	0x83
++		>;
++	};
++
+ 	pinctrl_charger_in: chargeringrp {
+ 		fsl,pins = <
+ 			/* CHRG_INT */
+@@ -1176,6 +1187,31 @@ vcm@c {
+ 		vcc-supply = <&reg_csi_1v8>;
+ 	};
+ 
++	camera_rear: camera@2d {
++		compatible = "samsung,s5k3l6";
++		reg = <0x2d>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_csi2>;
++		clocks = <&clk IMX8MQ_CLK_CLKO2>;
++		assigned-clocks = <&clk IMX8MQ_CLK_CLKO2>;
++		assigned-clock-rates = <25000000>;
++		reset-gpios = <&gpio1 26 GPIO_ACTIVE_LOW>;
++		vdda-supply = <&reg_vcam_2v8>;
++		vddd-supply = <&reg_vcam_1v2>;
++		vddio-supply = <&reg_csi_1v8>;
++		rotation = <270>;
++		orientation = <1>;
++
++		port {
++			camera2_ep: endpoint {
++				data-lanes = <1 2>;
++				link-frequencies = /bits/ 64
++					<537500000 600000000 625000000>;
++				remote-endpoint = <&mipi2_sensor_ep>;
++			};
++		};
++	};
++
+ 	bat: fuel-gauge@36 {
+ 		compatible = "maxim,max17055";
+ 		reg = <0x36>;
+@@ -1227,6 +1263,21 @@ mipi1_sensor_ep: endpoint {
+ 	};
+ };
+ 
++&mipi_csi2 {
++	status = "okay";
++
++	ports {
++		port@0 {
++			reg = <0>;
++
++			mipi2_sensor_ep: endpoint {
++				remote-endpoint = <&camera2_ep>;
++				data-lanes = <1 2>;
++			};
++		};
++	};
++};
++
+ &mipi_dsi {
+ 	#address-cells = <1>;
+ 	#size-cells = <0>;
+-- 
+2.56.0
 
