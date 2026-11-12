@@ -1,142 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794488360;
-	b=aKoFkPnMpggtjAQKViqGXP2Z2PbcxkW6bEEN2ZMceEkRZMZ7csrHeWgwCx+Mb6Zzu3zT
-	 wV419Hsw2pju/JChS1QPbLT5iNkT10jrtJprvCdYe6EbJ2GMkwjRkgMq8+OREYcwkQGuv
-	 coenzYdho67BPLbsOi1PLhjJowi0qwFBXh6Qw/m7wjDlkyZKhR8VXPzp4bEzJQ0KzoAZ9
-	 gCOKMlVyq1+C2C2LsPsyC9n0dP3I0X4csUEjWzB1p22O/J+L0eFKp+UaURArZmpyadp8V
-	 DgrBgCK1ev3ZJrHtZZMXzTyr66IK4sObMILWfNYKByW4utQwH0kvVHXyCgwXaNcqhug==
+	t=1794488379;
+	b=gbDl6GyVt0+842Xe7kKgEzFzu86RJar9/1+wBe1UEc/2JDqgPjNvgB45a1FJthkJG6hC
+	 VfExgLVKeFGWuTzqHiTV63hWaUJH6PbZ6nbIl0mlEvQ69y1JYxnIolImaJz4ntL/FkUbD
+	 1/xazeE2DGfgTWkBuVyGgzp74Ax6XBDrMpA5trKJv2kDpmybzLP82YU0SW9hyiuwauULa
+	 v3G8nWnTX514R3ajQppKtkF6MZx6peWcwabkg1H0HImmubgXupfia2nBWT3OJFBJzdCkn
+	 ynd1ZvQp765bs8v/FTOdVH3ZLQcb3RvFOupJnABhEZt+EvK0MjU9twJF6KE0WBGQl/Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794488360;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:
-	 Subject:To:CC:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=otrPz9KLHoQflFJOYPrmY0DJKWg/ktDMfTNNhxe+Z7U=;
-	b=qKzy56rbIsGKWWfFu/L/SCrdKLgqKcB61oIaPcl+YdBPGGU1KtBZ0C6fqO4w3DtkKZh0
-	 zpRITKYJLmX/YdlQl4ilMLPLYR1yTX8qsl/heUGOns8NNJ3x7Dd7dQeCVH0vzF6HS2kyv
-	 2Zi1FAj7GGl/BBFkp1dpdlFJjbA8ITaXLjv8eAtd/KOtBZieOw4Tp9iyfUrjhh0u4PE08
-	 2G+N7n0Z1JRTt1J1xrEvqwYk6sNhh1fJ/Ktq0tlW+doZaOjPAeWS4LoSnuaXyngL/NuU/
-	 hFG1zKeZrX14b/wHIisqWjIDWgIyifsg3pMf+DeME9iJDcE6qJzQSM+5f+/R7iPmg3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794488379;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=tOkzJ7VMBcKazDEOFcyhu0vHJNJyobb4AhUu0aqQ2nQ=;
+	b=n4asZmskcA06OtWImgl4L0kKlN9XXiy/S9htVYNwlZPuo869ZOwGH+blB+C2OwVT2gj5
+	 LJA6ShJox2mlS5QkL7pkGgpZelnKemNu7a9cjlsybr2+PqYgxdz6TPYPMSuAw/Vv0dhEQ
+	 ZPnNALIS7fzz82IgL0cfaGss/EQZBb6dNpzC1UigQ69uzcucpuyycJyf1diCZXVJNO5BR
+	 fSo7uT2nBsWB9z/p3iVDf21MQ6zU+rCxhNuARXsRsCCsMryppyDlvtp5Df+hwpFQif9Eh
+	 siM1PDgamz+fDTPNpXvwbZlFGgkyQ6EcJYAKTJzsn0BbCgVl/eE4KkGPYfmEggAbMig==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UwnA4mjs;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=auHUyiuQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RopZJ93S;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C726606A321;
-	Thu, 12 Nov 2026 12:59:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C726606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A46606A8B7;
+	Thu, 12 Nov 2026 12:59:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UwnA4mjs;
-	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=auHUyiuQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794488359; x=1826024359;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=YZv/rjY/CmwHxoxOiyCUIWxMOcjMZJSMz6GH4n4fDr4=;
-  b=UwnA4mjs1UBNIpmtnKBWTx8CTxnVDefxZkURccL9D10gN2hu4tppUH8a
-   aKiP7DlPVqi/AKBI9VsUmbHgQfHlQ7o0/p3raXeaADqhwWvFHMFojkD/7
-   ZXdWOe6H2j86MZl8myNu3eJPQaSTaG51vpX7J9+mEUkX+T7FrpaazEVlj
-   JFAt15OKEFs/c1rs3uXCgKmxJgIACmT+LeBtp+hoxf2ZhDFNlWAc6qZfu
-   w0e3oDv4faNc+yBdo2F+eAkU+D85G9WbCWFDiAwSN8lIbeO2y5GeGu3sp
-   ODC/5SFJ7A9cKC144Cqee8Fg32wCRNSI2xTGS39IB0deZnp9mt3OECJjQ
-   A==;
-X-CSE-ConnectionGUID: krk9ngZzT5ikS5miHyWVfg==
-X-CSE-MsgGUID: afNUNu1hRimkzHQAhOah5Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3269279"
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="3269279"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 04:59:18 -0800
-X-CSE-ConnectionGUID: JZt1F2U6S8esqtDSI4KauA==
-X-CSE-MsgGUID: 8GBMHZE1TTK4boNSTGQdOg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="8804622"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 04:59:17 -0800
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 12 Nov 2026 04:59:16 -0800
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Thu, 12 Nov 2026 04:59:16 -0800
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.9) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 12 Nov 2026 04:59:16 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WmfX7wIEBywxBxnU00XSfYvRMWFI7N7rxt2G/14N5nBO/37pX9p73qipY5F4OIfHJDijfxvV9iNiyYVOmLRNjbeJXcxBXT8cWWg3/wzyiiHCzUsSw9fmKM5B725fY0hONFhEVJGx/orAhw/mpSfEbaa/hRpmnbApcrIcKGyyYk0xKIOCXK/DM2A0O1Al9jZwjpsJP8C8XnW6MZy/L0j70jzzq2Jh7bjz9AeSk8iKCNXljWugyO+WGs4xPXWexGijwXJhOoeJOBFeW2WyTBjPc/lVl0SR5WISM6TQpqitHQ6agWDVi+BhBxrqJ35A6aa5urQhI2rNY1ZnV0JlR2+/tw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=otrPz9KLHoQflFJOYPrmY0DJKWg/ktDMfTNNhxe+Z7U=;
- b=tesbrcih6sxwsC8x/OcbZ1i/bSWTA7l6n3L9DsnUneBULbl3IdjZki04Y2gyZf6rfZUOm0X8LoztKIKxTokTC/A3MEkRESkT+6DHDZ0lIHOzqQFXVVaIOVztUeeasLA8rARPSOWq2N/bWHF2yi6rLTasMHhPgPEkSsLJmH2Oe7viM0CZrxrY5J4n0CMwCvdM+flLGF6TlBM0bv6OeTTVjX9RzN+DboY65HRVDYQ7xy4l7Y1JJetqykdnTi4qmCWW3RlP+k+v/q48P2fmGwAeMzDy+dD3iODsNunfeX7rGS/aQ8FDya8zzILjUmPOPFmrKOs1fdl0udDePYYvqFc0Fw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=otrPz9KLHoQflFJOYPrmY0DJKWg/ktDMfTNNhxe+Z7U=;
- b=auHUyiuQ32ZuI5OS//eBuDbwzvgFGy1ROmYXKHNF7I6+NDgin3zvyCwhYf1AvbrlEF4CmLRQLjgbAx6XZXK/XWH/kwVcDixSqMQrTbI8STOmVzzh8fcFe9EcgXkDuDb+K1ly+oINQDA541xiHdI+Ya2/nNud/lrgfppFvz8175k=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from LV3PR11MB8508.namprd11.prod.outlook.com (2603:10b6:408:1b4::8)
- by IA1PR11MB7198.namprd11.prod.outlook.com (2603:10b6:208:419::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
- 2026 12:59:10 +0000
-Received: from LV3PR11MB8508.namprd11.prod.outlook.com
- ([fe80::a1e8:1786:e5d1:8e51]) by LV3PR11MB8508.namprd11.prod.outlook.com
- ([fe80::a1e8:1786:e5d1:8e51%5]) with mapi id 15.21.0615.009; Thu, 12 Nov 2026
- 12:59:10 +0000
-Message-ID: <7b5a13d2-6ddf-417f-a8a9-a75ece393823@intel.com>
-Date: Thu, 12 Nov 2026 14:06:22 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH iwl-net] ice: do not classify EAPOL MAC address as LLDP
-To: Petr Oros <poros@redhat.com>, <netdev@vger.kernel.org>
-CC: Tony Nguyen <anthony.l.nguyen@intel.com>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
-	Simon Horman <horms@kernel.org>, Larysa Zaremba <larysa.zaremba@intel.com>,
-	Mateusz Pacuszka <mateuszx.pacuszka@intel.com>,
-	<intel-wired-lan@lists.osuosl.org>, <linux-kernel@vger.kernel.org>
-References: <20261104220042.1421735-1-poros@redhat.com>
-From: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Content-Language: en-US
-In-Reply-To: <20261104220042.1421735-1-poros@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DUZPR01CA0130.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4bc::25) To LV3PR11MB8508.namprd11.prod.outlook.com
- (2603:10b6:408:1b4::8)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RopZJ93S
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794488379;
+	b=22ynhcovCHP/eeWOpVutLwBq1JW3CSke9miHjUjp5gunOzJjDnDMgWIhC/4U5/DzU0xz
+	 jV/HqgQZ+udOpOZXSC5ornNmlzZRiVxuWH1OF9OelM74S6E2vKGpgjUun5Tcx/MyQFmoG
+	 k4MnTWd0vKWMQxgDxrh+mNibuYm+ry/RL0HbWuZmJs3B9yWutEr1+HyZDTl9LusC8BDSk
+	 /L66GRAVStWp92aIV9TLT2ELcRx5y3U8NxpJDBJDLOLugkfzW+Es4GFtZMCaAjVBo73tv
+	 Wo09zyBtNEBiHh1dfh/QzCv9rWxrJb8PtO/hZV3lgi+GQzX4TAlSLkRWQItMF5L31vQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794488379;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=tOkzJ7VMBcKazDEOFcyhu0vHJNJyobb4AhUu0aqQ2nQ=;
+	b=lVNHoPf1j/qh+izUllAK5Gim71CxGIxdB+ldkAvPm7gzbJFnqxv1+qGZn+MxQ4LFRY0a
+	 YB8Miq0y3pZFs+ScNzIOZt4cqSN/pXWp1aAznggxbDOZkYxVdOJ3iYMX3c5VeL2FVfmXe
+	 ZaWDglHhTScjYNXAGcaiWOH4uIOra88zamnMwHDvF9+0JxOmebuwH+vqQADYXk7HWjS+K
+	 0tGroWeBgGXi8veCPPMttbKh2N+tEY9uvQQfuhzke29GwKo9XqqgkDE1xenBJYkZvxHa/
+	 AM+CFOhvZZqo1bL2JPbt52JGIToKAgXgsx6AOzefBbzbJfVzzyAWSr0XdYPDZcHVKxQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 055FA1F00A0C;
+	Thu, 12 Nov 2026 12:59:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794488379;
+	bh=tOkzJ7VMBcKazDEOFcyhu0vHJNJyobb4AhUu0aqQ2nQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=RopZJ93Stlk5FijBuSpncuGjb54eu45EKb98TW49lY3PRfzkOLLubGBHQ1GJiwrHI
+	 nkrcoogGT2pAf8VZIgwq5XesRKuShOQg5oBLV0yBj7QClUwpqK/qS55CgXeUhf/c83
+	 Htav8QaEfY5kewsEL9p20tVQ19gue6YN421yfklyebrdZe00SJ5DnMTeEBJvb2mGdi
+	 rpNTeiSZgsqlwFj9YFC+K8rprB6Sm8mWROmrtX+qD3AP/BhqceU5pYn9g/7sJJv899
+	 mEjFjiYB45aHqrdmYmUarDM2xiBsQl9YZRau0xZCtsswyrxptkXyzFacBn7qFdjH8K
+	 OJc63Y/fYXmDg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 691A1494EC;
+	Thu, 12 Nov 2026 12:59:36 +0000 (UTC)
+From: Bryam Vargas via B4 Relay <devnull+hexlabsecurity.proton.me@kernel.org>
+Date: Thu, 12 Nov 2026 07:59:39 -0500
+Subject: [PATCH net v9 5/6] net/smc: keep an RDMA write inside the peer's
+ RMBE
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -146,117 +83,210 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR11MB8508:EE_|IA1PR11MB7198:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a5bab55-dd75-4343-b508-08df40bcbe7d
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|18002099003|22082099003|261009223027099003|11063799006|261026140227099003|261028144727099003|261022105027099003|261102123227099003|10067099003|56012099006|261021123027099003|261026121527099003|261021121427099003|260925021311599003|260925021911599003|260925022911599003;
-X-Microsoft-Antispam-Message-Info: Edn8sKDenzF1CcLGq7HJYs4V35HtExtT+EyaeoOj63+gFC1T08QnKRpP7BxtHaqZrdtAlOr8sbiNMJQC4aXLzVL+uAZs/xEXqcjI01Edapzqo/+ZIzPJqPHjBSWzf5USeVlp0ZpSkRV500OBoJXfhwhp/DyNfCdjf18zI/xrSa2PTFaaBMYHGHbGhP7UQNW8wlPkJGLy9bQRw7wYE26pLAgY1emqKOE/EpusxWvYoART6FhyHVbFtUb5J6naOYkAkekSmF/8v08ziCmKFMOgL8j7HfG3bU3JEZyNuN9aOx7CifiQalGTD3paonYqoUI/DwpOQzkfE+D7esCobNq39rnf+A0RMPEqiHKA0rzQvO/hYT+cQjJzs448FvA4oGqz+9bmN5kwajikFCoc/ipRrxfHzBUm2Wj/xg5sPNq9YVTvt8doW+4r7Sxudcj7uOCyQ/13LwbZRu/ouqR5PGJFRuOdZCEiJOJyvksQida72EuBnQbseSv9u6Wc48lSsRjTRUaXiufqSNLlCvxAOhieSJ9SReLOfrtrrDVWB73tXWB1/0ON7XQorHygC7GdnLftlMIa8Q5lwGwV8MYugv/I/PnRDesYKD9pITg7gy90l7XuDHgKUo9UsQwidsBWYv3Z/t0YK49TgXCwNq1wE0lgFCnCQcdgD6v5HlgBt7/2YBw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR11MB8508.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(18002099003)(22082099003)(261009223027099003)(11063799006)(261026140227099003)(261028144727099003)(261022105027099003)(261102123227099003)(10067099003)(56012099006)(261021123027099003)(261026121527099003)(261021121427099003)(260925021311599003)(260925021911599003)(260925022911599003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SlBLWXVob2JZcmJ0NTU2VjFTTlFEdzlsQ2ZXcU5jU2M0UkZtYllwMG1NK1lL?=
- =?utf-8?B?TEZrVmFhRXNpTFJxNmZWYVE2c0tXeEwzcS9rTG5hamVSWmkvWFZXQlZnRDdL?=
- =?utf-8?B?UGRUckZId09TSDNxdmYwNHJXQTlHLzBYRXVJV2oyaWJtRndkSG5DM2F2WnVi?=
- =?utf-8?B?OTd2NUxvbFV5VTJNeXhxOUl5azIrZmMzSTRvanZQSDJpd1ovY3BEaFByOVY0?=
- =?utf-8?B?T0VkdExKa282dExzelpQOVFQVEJXclRqcFFPYm52bTAxWHQySDJ6TkRVWjN4?=
- =?utf-8?B?TEVrT2FNc3JkcktEVlpZSnREM0RZNVozUExFd2FTWE16dWViamNGd1V6UmRq?=
- =?utf-8?B?RExKY25mNXlPenJHcXZnQ2lJVnZlQkc2a2Zsdms3K3N2MXNNWTJac01FWFdQ?=
- =?utf-8?B?alhjelpEMHpPaXpEeG5TSEtNcUpvS2xHZlArYlJMQ1FOcXhtQjdiWWZMS2Rv?=
- =?utf-8?B?cFBCRGVML1cyaFZSMzUyM2dvVkYxQ2FlUk9vTDdCbVpkQTZkbjZ4NW9TbVNM?=
- =?utf-8?B?MVM3MjhHYjN4Uy9ZTThINGEvWGlEZ04zakp3UlYwMXpMZEsrbVFzRDZ1dDFo?=
- =?utf-8?B?OHJiVnNSend2emxDVlRWdUJYZHFiN2dsRGkrV3dVcGlhN2RpU0tWSTZWN2Rv?=
- =?utf-8?B?NWs0RVRob05RQTRSc3YxSmM4dlR0cVRibjZjWWRXbmk2ajZzeDdPSEc2VmE4?=
- =?utf-8?B?bDJzS1BrdlJYdS9jUkkvZU00U3BFeU5MNVZ4amErc3VOSzdEaDNQb0RsQ0k0?=
- =?utf-8?B?M2ZnZWhpR0hFWkdaNVhkS0lxVzRWMS9pY2FVY0RIbEp0K3I5U1ZNTVhIRy8y?=
- =?utf-8?B?bDFyUjhXN2xKdW11N3lXQzQwRDZ4UityeHQwUHJaZ2VkVDFva0dFelNlM0VH?=
- =?utf-8?B?ek54WjhPUGg5Sk5oTXlvYldWeUxyNkZkSjM2ZEZLZFk3ajl2QURJZFFzeFRa?=
- =?utf-8?B?NyswNmRDSlBwVVd1SWdSTUhnT24wZ0hmVlhXNThublQ4dXJrd1J3eUxzNERN?=
- =?utf-8?B?T3VxR2dTQ1NiZVZMUmZITmJlU0RPTmkvQ3BkT1hZK2YrRVRmWUl1RUpBaE5S?=
- =?utf-8?B?TDFxenJkS05RcHRQL2x5cWpZOVAxYno1MFpieVgwRWNKbHBTRHo2b1N6Tk1U?=
- =?utf-8?B?SThETUk4SnkxcTNid0QyN2R3eXJYRmU5dVlBU0Z5RjFUbXlzazRVZ3Z6a05p?=
- =?utf-8?B?dlRFMm5NL2UzM1ZBdEJqT0ErWU1OR0t4ZDR1Z0JLSGsxQ0R5UnZuazNlQzVS?=
- =?utf-8?B?eHdRaEFwMTYvTHRhTXhjd0VHK05MRkVIaHZYUDVZQndIcXN4dDZjV0wwSy84?=
- =?utf-8?B?RUNock9CT2pQT21pQVhBY3ZNalhXSSszZjRnY2lMbzdyRnNCSzhqendpUmpD?=
- =?utf-8?B?eUt4MmpaUlI4NnF6Ulo4SlMyem9mV3hXSXFVK2hqQkgzRnpGL0hTTnJyWThY?=
- =?utf-8?B?ajc2V3VxRHNpK291RUhsc1dJNHNFa3BWM1ZWRHZ1WTJJQUV0NE1iTU03dUhP?=
- =?utf-8?B?aVMzYm9hYi8zRnVCYlYxcjIwT3htcGkxWUZPLzlLd2FtTXdDSm0rR21vWXhQ?=
- =?utf-8?B?RzdPS1V4VTY3cHZsNk9GZmQwRWVZYytFVFlMQk0wcXUrUUd0T3B0dnFpd21O?=
- =?utf-8?B?Vk9wMFhqMnVXaWo1TTFJNCsrc01ORlhPY3VDTDFibFNCbXRrRHc5S1h1REVs?=
- =?utf-8?B?NmZwOE1sZGVJQVJKOXpLaHVuUHUxSktSQ05yTUZKaERRcFM1K1YvVEFpczN0?=
- =?utf-8?B?SGN6U3BoUVplNnpXSXUzMlFiYmtJYXdhTkZKZ3ZJT3VLZ3lsSGprNjRoanlm?=
- =?utf-8?B?TUgvdzM3TlY2SHpweW5LT1B5UFlZUWlCYVVrdHVKRFNUM05DQnF1YVgxZURU?=
- =?utf-8?B?bi9lK0dxRGZSOWRYVVRiVGZBZit4dlo1YzNPTlc0QUUxTzhMR0k1UHV5a2t1?=
- =?utf-8?B?aU5ZRWRkOWRONTE5am1LdW5nWnkvaG0yOGpnYS9CNWFKeXlZSHdGSFc5R3k1?=
- =?utf-8?B?djc0YjVoUEFuT3pDejlEcWpMTTBWdnhhc2xpL2dOMjRtTVI1UnJLT0laZWg2?=
- =?utf-8?B?cFVqVTVkTGhuUFZEMVVIWlZrbWpadDBGd3RDZUt5VEVVM0NjZUZia0xSR1E5?=
- =?utf-8?B?eEFIUE5lNVVudzVlQm9FWDY4bWk0bXNDazFXUzgzamlRZ2xCSmx3cUtZSlEr?=
- =?utf-8?B?a2hXeGhiNjQwR3B6WWpsQUo5RlIzYU14SUlOVHV2UDFxTFpzYWl6VGJ0T0pa?=
- =?utf-8?B?Y0FsWFNldHY1aDNyLzh0bWtLRG9jNjU0aFRrWHNpakl0YU5Idk5JVDZwVXZZ?=
- =?utf-8?B?OHMxY2FRSXZoOTJJK0wvbmEyTVdpNEJXNFpnVEgwbjlKTmpVZXpRbWxNRU9Q?=
- =?utf-8?Q?XyW4SYuIh0072jbQ=3D?=
-X-Exchange-RoutingPolicyChecked: FVY76Lj4bQ8yF0M5TkD6mOZryhdC/aEoovdxJ98q1WaAC1j/akEutqwoQUDBDvESDqBitHxvwnF4auKeJB0Q8ThAgg/AwhglAsU2z5ETJYYLIpL90TRoOSKFlaA8TZbtoIRHGLSfgaOaOKwQBaliLkHw1fkQFtqVHXmwM0M4u7hZzP92dXGddDlBmT6f3B/7um17GmRU4xa90sVqaGolFKhxs8aNPhnS19azQM3sC9/yrBZi+ofsJ/6J4JF1R1P9tVk96nxyV+3Y9X1Ei021EP0aMu9wYUT6HIZuggSa2A/k59Gb4nTFV5fHAEtHVqiMzmXhY+vG2l1e/GsGN8YjnA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a5bab55-dd75-4343-b508-08df40bcbe7d
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR11MB8508.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 12:59:10.6184
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Mk73Jep35JxjO1kv+gmz5HCjyZXlmhnV+5fD+afRkDX5OobGNQgIQHwIJy/UU0UbnMvFcKyFAqXyQc9sm2dpiWvwOrCnA+4rGcieuMnbocI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB7198
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261112-b4-disp-0287c16e-v9-5-e5e8fa688177@proton.me>
+References: <20261112-b4-disp-0287c16e-v9-0-e5e8fa688177@proton.me>
+In-Reply-To: <20261112-b4-disp-0287c16e-v9-0-e5e8fa688177@proton.me>
+To: Mahanta Jambigi <mjambigi@linux.ibm.com>, 
+ Dust Li <dust.li@linux.alibaba.com>, Eric Dumazet <edumazet@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>, 
+ Jakub Kicinski <kuba@kernel.org>, "D. Wythe" <alibuda@linux.alibaba.com>, 
+ Sidraya Jayagond <sidraya@linux.ibm.com>
+Cc: Ursula Braun <ubraun@linux.ibm.com>, 
+ Wenjia Zhang <wenjia@linux.ibm.com>, Stefan Raspl <raspl@linux.ibm.com>, 
+ linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Wen Gu <guwen@linux.alibaba.com>, Tony Lu <tonylu@linux.alibaba.com>, 
+ Simon Horman <horms@kernel.org>, 
+ Guangguan Wang <guangguan.wang@linux.alibaba.com>, 
+ linux-rdma@vger.kernel.org, netdev@vger.kernel.org, 
+ Hidayath Khan <hidayath@linux.ibm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794488375; l=8896;
+ i=hexlabsecurity@proton.me; s=default; h=from:subject:message-id;
+ bh=AouuOv6hleOcymBLYNFRRGYbka4qvSS1/VHLRubUqs0=;
+ b=vC9ofnngrCEtc8IUa4LUNcd/AQ2tprBZLC/l32L3uH9GMekHI/0q/VEYOlvmrKe2mO5OBP+4i
+ Ut8g82apEg8AgXtNyOLAc60pDzmyyycQkLrxxbVL2Fu6nJchZ9Nn6zU
+X-Developer-Key: i=hexlabsecurity@proton.me; a=ed25519;
+ pk=xw1AhCtQdvuoQc+bOQIYy9o8G++cp4/VniI2G/tc3G8=
+X-Endpoint-Received: by B4 Relay for hexlabsecurity@proton.me/default with
+ auth_id=893
+X-Original-From: Bryam Vargas <hexlabsecurity@proton.me>
+Reply-To: hexlabsecurity@proton.me
+Content-Transfer-Encoding: 7bit
 
-On 11/4/26 11:00 PM, Petr Oros wrote:
-> 01:80:c2:00:00:03 (Nearest Non-TPMR Bridge) is also the 802.1X PAE
-> group address used by EAPOL, and the virtchnl MAC filter API carries no
-> ethertype to tell the two apart. ice_vc_can_add_mac() therefore rejects
-> it on untrusted VFs, which fails the whole ADD_ETH_ADDR request and
-> breaks 802.1X authentication:
-> 
-> [  128.447213] ice 0000:17:00.2: An untrusted VF 0 is attempting to configure an LLDP multicast address
-> [  128.447301] iavf 0000:17:11.0: Failed to add MAC filter, error IAVF_ERR_ADMIN_QUEUE_ERROR
-> 
-> Drop 0x03 from ice_is_mc_lldp_eth_addr() and treat it as a regular
-> multicast MAC. Trusted VFs still get the ETH_P_LLDP forwarding rule
-> through the other two LLDP addresses and the rule does not match on
-> the destination MAC anyway.
-> 
-> Fixes: 2296345416b0 ("ice: receive LLDP on trusted VFs")
-> Signed-off-by: Petr Oros <poros@redhat.com>
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-Thank you!
-Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+smc_tx_rdma_writes() takes the length of a write from peer_rmbe_space
+and decides from the cursor wraps whether the destination is one chunk
+or two. Both follow the peer's consumer cursor, which nothing bounds: a
+forged one takes a one-chunk write past the peer's RMBE, and so does a
+conforming peer that keeps reading across the end of its RMBE before
+the resend after an SMC-R link failover. With one RMBE per RMB, as
+Linux allocates them, the peer's HCA refuses the write and the link
+goes down.
 
-> ---
->   drivers/net/ethernet/intel/ice/virt/virtchnl.c | 7 ++++---
->   1 file changed, 4 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/intel/ice/virt/virtchnl.c b/drivers/net/ethernet/intel/ice/virt/virtchnl.c
-> index ca8018e3dd4288..27f0e1dee24642 100644
-> --- a/drivers/net/ethernet/intel/ice/virt/virtchnl.c
-> +++ b/drivers/net/ethernet/intel/ice/virt/virtchnl.c
-> @@ -744,8 +744,9 @@ ice_vfhw_mac_add(struct ice_vf *vf, struct virtchnl_ether_addr *vc_ether_addr)
->    * ice_is_mc_lldp_eth_addr - check if the given MAC is a multicast LLDP address
->    * @mac: address to check
->    *
-> - * Return: true if the address is one of the three possible LLDP multicast
-> - *	   addresses, false otherwise.
-> + * Return: true if the address is one of the LLDP multicast addresses
-> + *	   handled by this driver (Nearest Bridge or Nearest Customer Bridge),
-> + *	   false otherwise.
->    */
->   static bool ice_is_mc_lldp_eth_addr(const u8 *mac)
->   {
-> @@ -754,7 +755,7 @@ static bool ice_is_mc_lldp_eth_addr(const u8 *mac)
->   	if (memcmp(mac, lldp_mac_base, sizeof(lldp_mac_base)))
->   		return false;
->   
-> -	return (mac[5] == 0x0e || mac[5] == 0x03 || mac[5] == 0x00);
-> +	return (mac[5] == 0x0e || mac[5] == 0x00);
->   }
->   
->   /**
+Write at most one RMBE per call and end the first chunk no later than
+the RMBE, whatever the wraps say. A conforming peer outside failover
+gets the chunks it got before. A write that was one chunk can now be
+two, which needs "net/smc: keep the source of an RDMA write inside the
+send buffer"; the first chunk needs prod.count inside the RMBE, which
+"net/smc: bound the link failover cursor advance to the send buffer"
+keeps at failover.
+
+Fixes: e6727f39004b ("smc: send data (through RDMA)")
+Fixes: c6f02ebeea3a ("net/smc: switch connections to alternate link")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013-b4-disp-f345196c-v7-0-ef3dddfbfa68%40proton.me?part=4
+Cc: stable@vger.kernel.org # see patch description, needs two other patches
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+---
+New in v9, for the first point of Sashiko's review of v8's 4/4 [1]: v8
+skipped the failover advance for a consumer count past the peer's RMBE,
+but the window for this write was still sized from the same cursor. A
+check in smc_write_space() is not enough: smc_cdc_msg_recv_action()
+credits peer_rmbe_space from the next cursor, and the differing-wrap
+branch here then writes the whole length from prod.count as before. The
+review of v7's 4/4 [2] had already pointed out the one-chunk write and
+the window larger than the RMBE, both in the unpatched code, hence the
+Reported-by and Closes tags.
+
+rxe, two links (v7.4-rc2 plus d7900fa51642, KASAN), send buffer 64K,
+peer RMBE 16K, test hooks forging the peer's cursor and making the
+timing deterministic. Every connection carries one byte first; the
+counts include it. "With the patch" is the whole series.
+  - consumer cursor forged one wrap ahead at 3 * RMBE, then send(40000):
+    unpatched and v8 post 40000 bytes in one chunk from offset 1, rxe
+    refuses the write and the link goes down. With the patch the first
+    write is 16383 + 1 bytes, neither chunk ends past the RMBE and both
+    links stay up.
+  - 40000 bytes sent and read, the consumer count then forged a million
+    bytes ahead with the wrap unchanged, then send(30000): unpatched and
+    v8 post 9152 + 20848 bytes. The second chunk is longer than the RMBE
+    and its source SGE is 20848 bytes from offset 49152 of the
+    65536-byte send buffer, 4464 past its end; rxe refuses the write.
+    With the patch: 9152 + 7232, every source SGE inside. Same result
+    with 4/6 reverted; with this patch's length bound reverted the
+    second chunk is still longer than the RMBE and its source stays
+    inside (4/6).
+  - conforming peer: 12001 bytes sent and confirmed, then 9000 whose
+    completions are lost with the failing link, the failover, the resend
+    held until the peer has read them, then 2000 more. Unpatched and v8
+    post 11000 bytes in one chunk from offset 12001 of the 16384-byte
+    RMBE; the surviving link goes down and the peer's read fails. With
+    the patch the write is 4383 + 6617 bytes and the peer reads the
+    stream intact.
+  - conforming peer, send buffer and RMBE 64K: 60000 bytes sent and
+    read, then 600 and 6000 that the peer reads only after the switch;
+    the completion of the 600 handled between the first two cursor
+    copies of the switch, as in the first case under 4/6, which leaves
+    tx_curs_sent 600 bytes behind prod; the resend held until the peer
+    has read; then send(400). Unpatched and v8 post 7000 bytes in one
+    chunk that ends 2064 past the RMBE, rxe refuses the write and the
+    connection is lost. With this patch and not 4/6 the write is
+    4936 + 2064, inside the RMBE, and the second chunk's source ends
+    1464 bytes past the send buffer: the peer reads bytes from outside
+    it. With 4/6 the source is inside too, the link stays up and the
+    peer gets 600 bytes twice (see 6/6; the run reads 400 of them).
+  - the second case of the note under v8's 4/4 (consumer cursor forged
+    two wraps ahead at count RMBE + 4096; 40001 bytes sent and read, the
+    completions of all but the first held): unpatched moves prod onto
+    the forged count and writes nothing more, 3137 bytes stay queued
+    (SIOCOUTQ); v8 posts 16384 bytes from offset 1, rxe refuses the
+    write and the link goes down; with the patch the write is 16383 + 1
+    and the link stays up.
+  - 600001 bytes of a conforming stream across a failover, with the
+    patch: 39 writes, 18 in two chunks, each chunked as the two removed
+    branches would chunk it (compared in the kernel, write by write).
+
+Without the length bound the first two cases fail; with the chunk
+decided from the wraps again, the first, third, fourth and fifth do.
+
+The comment on the credit in smc_cdc_msg_recv_action() still claims
+0 <= peer_rmbe_space <= peer_rmbe_size: the lines after it exist only
+since v6.10, and a hunk there would not apply to 6.6.y and older.
+
+The first chunk needs prod.count inside the RMBE.
+smc_tx_advance_cursors() keeps it there and, with 6/6, so does
+smc_switch_cursor(); without 6/6 a forged cursor can still leave it
+outside at failover, and the write then starts where it started before
+this patch (by inspection).
+
+On SMC-D the same lines size the ISM write. On loopback
+smcd_tx_rdma_writes() returns before it writes; not tested on ISM
+hardware.
+
+[1] https://lore.kernel.org/all/179364387382.3131.13471253186660322977@kernel.org/
+[2] https://lore.kernel.org/all/179209532452.434549.6588379141939967966@kernel.org/
+---
+ net/smc/smc_tx.c | 32 ++++++++++++--------------------
+ 1 file changed, 12 insertions(+), 20 deletions(-)
+
+diff --git a/net/smc/smc_tx.c b/net/smc/smc_tx.c
+index d37c74754461..c90bdc77f82d 100644
+--- a/net/smc/smc_tx.c
++++ b/net/smc/smc_tx.c
+@@ -362,7 +362,7 @@ static inline void smc_tx_advance_cursors(struct smc_connection *conn,
+ 	smp_mb__before_atomic();
+ 	/* data in flight reduces usable snd_wnd */
+ 	atomic_sub(len, &conn->peer_rmbe_space);
+-	/* guarantee 0 <= peer_rmbe_space <= peer_rmbe_size */
++	/* can be out of range, see smc_tx_rdma_writes() */
+ 	smp_mb__after_atomic();
+ 	smc_curs_add(conn->sndbuf_desc->len, sent, len);
+ }
+@@ -480,7 +480,7 @@ static int smc_tx_rdma_writes(struct smc_connection *conn,
+ 			      struct smc_rdma_wr *wr_rdma_buf)
+ {
+ 	size_t len, src_len, dst_off, dst_len; /* current chunk values */
+-	union smc_host_cursor sent, prep, prod, cons;
++	union smc_host_cursor sent, prep, prod;
+ 	struct smc_cdc_producer_flags *pflags;
+ 	int to_send, rmbespace;
+ 	int rc;
+@@ -503,31 +503,23 @@ static int smc_tx_rdma_writes(struct smc_connection *conn,
+ 		return 0;
+ 	}
+ 	smc_curs_copy(&prod, &conn->local_tx_ctrl.prod, conn);
+-	smc_curs_copy(&cons, &conn->local_rx_ctrl.cons, conn);
+ 
+ 	/* if usable snd_wnd closes ask peer to advertise once it opens again */
+ 	pflags = &conn->local_tx_ctrl.prod_flags;
+ 	pflags->write_blocked = (to_send >= rmbespace);
+-	/* cf. usable snd_wnd */
+-	len = min(to_send, rmbespace);
++	/* cf. usable snd_wnd. The window follows the peer's consumer cursor,
++	 * which comes off the wire: write at most one RMBE per call.
++	 */
++	len = min3(to_send, rmbespace, conn->peer_rmbe_size);
+ 
+ 	/* initialize variables for first iteration of subsequent nested loop */
+ 	dst_off = prod.count;
+-	if (prod.wrap == cons.wrap) {
+-		/* the filled destination area is unwrapped,
+-		 * hence the available free destination space is wrapped
+-		 * and we need 2 destination chunks of sum len; start with 1st
+-		 * which is limited by what's available in sndbuf
+-		 */
+-		dst_len = min_t(size_t,
+-				conn->peer_rmbe_size - prod.count, len);
+-	} else {
+-		/* the filled destination area is wrapped,
+-		 * hence the available free destination space is unwrapped
+-		 * and we need a single destination chunk of entire len
+-		 */
+-		dst_len = len;
+-	}
++	/* at most 2 destination chunks of sum len; the 1st ends no later than
++	 * the peer's RMBE. The cursor wraps do not decide that: the peer's
++	 * cursor comes off the wire, and after a link failover prod can be
++	 * behind it.
++	 */
++	dst_len = min_t(size_t, conn->peer_rmbe_size - prod.count, len);
+ 	/* dst_len determines the maximum src_len */
+ 	if (sent.count + dst_len <= conn->sndbuf_desc->len) {
+ 		/* unwrapped src case: single chunk of entire dst_len */
+
+-- 
+2.56.0
+
 
