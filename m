@@ -1,87 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794515123;
-	b=rDpqTq5HWyfkLbacJQhuGxZL4o3kdaYiyAjFnS510c6i4Qf11DygcQ/bYI0Y72XZ7ZLn
-	 U5SL8xR3bbGJkqdVYdX/v0xTDaDF/q/Z3lPH8D6bUDRSwbB7QP3Hb3+N/m0OwYScXCkOG
-	 FPBqfWJI0USMjbQwLGiCzCvsBggpK6J0bcwXHoM/ecC6CluLxDQHPU+7AgphjApMwvBiA
-	 WwtRl5XMsUZst6t7ZYVlXUgxVMxYGSsvL2oKvH8eAMKtGtWYUBOwiiI4uBuHj0ysOpXK6
-	 UTCHFKT1KwaKmR4LsWbE04P7p/QyAeaHD9ux9E638vcrxnrbMirwA2pm0ZE3JwyKTXg==
+	t=1794515145;
+	b=QyY/EfzQo2qOJkLJ3EyfaN7fjFFJs156oS70y58gn54Hgu7MhpTXJagFH6nC9TvACdup
+	 JI+Vhw1CVmcpfRuZXksdyJlX6fbhiny9t8euuZXIk846t0fY3FK+R98bTYOSlvhFjnhR0
+	 2dBA0azizr5+8H9JOwEpitjmDzz6fjg7XfS9S6HMJWk9eK9qjZI+p8MO5Na8H4CspDLnb
+	 WsdKRbuUz6O6qwaXdzKQ0SDOoh3aWO7mROjCpqXUDJbOQNSO5e/SytoYy12RU+0RwfVNg
+	 dCkkK44ECJ96pi5tL6dv6rvSu0jj8YnQ5tyS0slzXiU1K3lZgvvDgmmwR691bhI96+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794515123;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=1VzZEHJcJ+vp+pdkBmdK1oTXcFN5N4/X1/G64qzwI5U=;
-	b=O091/c5QhIX6Gw5vewXmNU/sjj4kV4GjYm5OzRtxD0rZWI5ZzTHaHEDO8kfh9tDDBVxf
-	 1qf6S2JhYM1WwmtqokqxJVPGStHL3JkewjR8SOwU0F20tFdAG5dkscomjApD2O2xmo7we
-	 CLmzrWM3Lr1fpQjGfEYkOH1NhmFTNS15jCzIpJ3TIe15ZKj/3kNHDH3SK/7mPy/vjH/jo
-	 sF56DPLeS6WOtc33obmkyDrz+Vja2gkK1RikLr0yCuu78RQU1whj9RQK01Bb3KruTnyKv
-	 xaLca7gcnhkpvNBwZXbK6To9qQIMRKcI/4R7TQYiA6ZFCuX7bfoXpLZmmq/eikMfHFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794515145;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:User-Agent:MIME-Version:
+	 X-SRS-Rewrite;
+	bh=MWkqelEF70+bqNnn0MQew2W+BRBoOtX+2k+WeWZTjQg=;
+	b=vuJCw1cXQe9R/Y7rvvxIQx8CVT6JBUmAbTNkNfRQVWa5VxJ+bElheE6hxxGN+ypUmMmS
+	 pH57OF1zz7MtMM2Vd0RodNZin2qH4NznZyfdYcXMtL6ddtjiFR8Wm/DtE8iXmu0A5SOR3
+	 HLCRmlZm2nZj3J3NuXjQHVGBCovYo5MlzP0CaqtDSi5v4pOv0NOo95eGyt6jHLHY36NxG
+	 zUi6rqNmQqmczIoOFWrNuWVoMx2kAgxtcOhfD47lQ0Feu3YwMzfEms4onxJ2RFS/wIs9x
+	 K8svoCxqfcrBbumTkyB640kU7FubXMidbCM49vXp1QwpRZRH9Yvyja40vtEKqBCD9pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fairphone.com;
-	spf=pass smtp.mailfrom=fairphone.com;
-	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=k12cRKh2;
-	arc=none smtp.remote-ip=74.125.228.134
-Received: from mail-ej2-f6.google.com (mail-ej2-f6.google.com [74.125.228.134])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=casper.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=L+WdrBWT;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D31606A32D
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:25:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49D31606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4161606A31C;
+	Thu, 12 Nov 2026 20:25:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4161606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=k12cRKh2
-Received: by mail-ej2-f6.google.com with SMTP id a640c23a62f3a-c50515c3ba6so14707966b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:25:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1794515120; x=1795119920; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=1VzZEHJcJ+vp+pdkBmdK1oTXcFN5N4/X1/G64qzwI5U=;
-        b=k12cRKh26zksVO8S824tp/DolPEFhTQ/HaDRc8qqsPIRhEMSezynLaLVjj1m4tFV3g
-         clbSSzznizZAPQfW4HojBdgAO1drWUAYpABP0F2wP/XQFxH4idY3RxdFQoDMLJGqDjNM
-         MICHZjEy7oHne/QNi6KP4c/T6Ae4n7Fk53aQKOkm2NkI4lQoDnI87TKxTKwtsDFQhrd2
-         Jw8TM4CKvqHZvlIwB548+RJr+l2rCWGRTBSzLx0gNTQS2kCUYghWXFrxFVGFS+K5JD5T
-         6MMGMZ/NJQMEFGyKb8LgIB/Nc69c9+QSFwfzAT8acZKMR7vJAwV3Lrb5QGEX0aKFLS/5
-         PpBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794515120; x=1795119920;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=1VzZEHJcJ+vp+pdkBmdK1oTXcFN5N4/X1/G64qzwI5U=;
-        b=qKf3Iwl5cScT6GPBL7N+4bbJ+VAJwfB902DIzqGeqs9qWgoJ5XpQNB9uqtA34lMaeI
-         +gMKS7CYV5CiYv/4QR3TgZzYqKLH8q5F+hpyqYxi6NO677/N8stXrU2PVrQQHQfUKVe9
-         JiuNi9tuaoXa/5rIEtvbh0Hzd2oWjNYWWA4ea+Bb6ouurpwYCGBI2d4+X83/4bA4HXDm
-         K5fTUH/w8I3fq8CiLaHV4GqT0IRC2bK4gZZjuhiP6ripfWATcqwf917ZxpQs4jBsDefb
-         ZKUEklJDbamfsq1Z3u1uuuSUaSpsYUudKJ/+til6HJcyWJ4lVKWMJDJOD6MgCLH+Ti+t
-         79zA==
-X-Forwarded-Encrypted: i=1; AL+hErH2oF4+WHCg388tLnX6pqeoq3ZPJ2Y58Bf+cLWwWNKy4yrN0HhREd+zXrxOoLfwLZxGyY+IhI1K3MsWd/0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/o/YLExQqWVNzYqYxB4udvXNxSLDkllKerFV3NDAsWGjzPAN55
-	NrKcbE0kZDYZESOLso5x4sb45ctx470GSMj/C2ap9z6ofRm4+g3e/8vDPENyNNy4VdI=
-X-Gm-Gg: AYBFou2aYtxGzHCUp8xwG1s3/wlX9cHm7EVyq//nncO9qmIuMwq/0C37rgxBF10vZ5q
-	k807UWObsgo00rhBDfiZXtMA2I1QUrJpMbrjN8dP4JsGx7ZFGRJmYtgIwcKGqTLzFF771TfqiHX
-	rVtmPBISH0Zv9lBt3zNH2HxhcFezpmK/kE5FpaYRwKF/3wqYljdecopt41Ms4FgeiX5ZxQPrtW4
-	DQoYUdxmw/iW7ICfEFl5jaB5Gb/MbOmiL+Y3hcA3QlMyMifXahh3EWM+CJVy/aRPQKgCStQjznj
-	IM+AezDuBxHvQgGeNY5cMi0Eo2P+ZBJxOWeKOl8+eLErI3DYsIX6jHTe9yucHomhU8BVDyXoayf
-	FJxMsf1g3wuODMTuE9YAlk842mrfoXVliVk0xrJ8uiq+8pQQbLzWeyp++zTv1Emj9T+i6zGYF3G
-	NRIabxE5YH86vdsJGnJ5f3tJy7+OYX9dD+xfB1m0ytr9duYKcPlw37h4scvRI1ZcbwJkezPwMtt
-	apD3G2Hax0phxUlKt4rdjyp5/scXqocMv/Kb5Vw9g/mxWnzkLKJOaF7ZBbatfWal+ZsDwiVpGW6
-	K+YzmHQBr11ueCPakZcUJUn5FtLeU9lS+jZB2mpzp7Ksaw==
-X-Received: by 2002:a17:907:9411:b0:c41:64c1:cc2e with SMTP id a640c23a62f3a-c50963f37c0mr30784866b.46.1794515120585;
-        Thu, 12 Nov 2026 12:25:20 -0800 (PST)
-Received: from [192.168.101.179] ([2001:1c04:504:7401:4b2e:1820:6d24:b264])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c266cf12sm108474a12.37.2026.11.12.12.25.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 12:25:20 -0800 (PST)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Thu, 12 Nov 2026 21:24:55 +0100
-Subject: [PATCH v2] arm64: dts: qcom: Add Samsung Galaxy Book2 Go
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=L+WdrBWT
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=MWkqelEF70+bqNnn0MQew2W+BRBoOtX+2k+WeWZTjQg=; b=L+WdrBWTNmH3LoV7IJlM1OZU+o
+	qR8isCcXadQa3t4rzxZgd7Zc3fYligqXA4Sih2ebfidjwN1Gld9w7jE+zMPSzfdTRZZHVqEzuTNZq
+	C378C86ZK91gzYMqc/td1EVQFGXHNHuXZsbWQ5RxPXPTXbqrXTCLVY4I09X7Rs5WLYlt40f3CcTSm
+	m7kGgioviHn/rTEVLR2Gr8FlbZzrU74a2ywGby9SYb6cORTmXrIegCnQEtVg12bMmqBSMZRnD9XBi
+	0drqX/72lESNEjQdUpCUKbkCw4FtLnuHO/ajCVhtUtmy+YtQip3cHg51ry+nAVBv6ydchwD3oSQf6
+	xRB/9Nrg==;
+Received: from [205.251.233.178] (helo=edge-m3-r3-132.e-iad51.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRbMX-0000000BIOH-1VRH;
+	Thu, 12 Nov 2026 20:25:37 +0000
+Message-ID: <876c4f4fc442116c9bff8abd8c34f99fcfa65531.camel@infradead.org>
+Subject: Re: [PATCH v3 06/12] KVM: x86: Forward VMware hypercalls to
+ userspace
+From: David Woodhouse <dwmw2@infradead.org>
+To: Zack Rusin <zack.rusin@broadcom.com>, Sean Christopherson	
+ <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ kvm@vger.kernel.org
+Cc: Doug Covelli <doug.covelli@broadcom.com>, Thomas Gleixner
+ <tglx@kernel.org>,  Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+ <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 	x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Jonathan Corbet <corbet@lwn.net>,  Randy
+ Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>, Vitaly
+ Kuznetsov <vkuznets@redhat.com>,  Paul Durrant	 <paul@xen.org>, Xin Li
+ <xin@zytor.com>, Francesco Lavra <flavra@baylibre.com>,  Radim
+ =?UTF-8?Q?Kr=C4=8Dm=C3=A1=C5=99?=	 <rkrcmar@ventanamicro.com>, Liran Alon
+ <liran.alon@oracle.com>, Arbel Moshe	 <arbel.moshe@oracle.com>,
+ linux-doc@vger.kernel.org, 	linux-kselftest@vger.kernel.org,
+ bcm-kernel-feedback-list@broadcom.com, 	linux-kernel@vger.kernel.org
+Date: Thu, 12 Nov 2026 13:25:31 -0700
+In-Reply-To: <90467782be23b83fd3e9a6afe2f1d2149eaf9db9.1794374897.git.zack.rusin@broadcom.com>
+References: <cover.1794374897.git.zack.rusin@broadcom.com>
+	 <90467782be23b83fd3e9a6afe2f1d2149eaf9db9.1794374897.git.zack.rusin@broadcom.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-yTvQ6tvp7IrGjOWLOTd2"
+User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,746 +81,181 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-book2go-v2-1-12691134e34e@fairphone.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/z2NQQ6CMBBFr0JmbU2niiAr72FYtDDAaOyQFomGc
- HcBo8uXvP/+BJECU4QimSDQyJHFL2B2CVSd9S0prhcGo80JNaJyInfTinKazseU0kNTO1jsPlD
- Dr610Lb8cn+5G1bDOV6PjOEh4b1cjrt6vav7VEZVWGeY5ZWQzi+mlsRz6TjztK3lAOc/zBwM0i
- gK0AAAA
-X-Change-ID: 20261011-book2go-b0e945e53fdb
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, cros-qcom-dts-watchers@chromium.org
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Jasper Korten <jja2000@gmail.com>, 
- Federico Amedeo Izzo <federico@izzo.pro>, Luca Weiss <luca@lucaweiss.eu>, 
- Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794515119; l=16429;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=qhnGwsbAzWiy3FSkOh/v/CmCuUEnR7XUf/giyVKT+LI=;
- b=gZbuUQHRGhWbWQ3GPouOEZ7cF9SFngC+WIsUKkGyQRG453xraGEHTQnS5N7e7eZUPqZyAAMcF
- mjvuk646SC1BZYstZQw1fJjLq6Fd9jM0OWcLUJWzx/kp6Wx9A3msP4M
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-From: Jasper Korten <jja2000@gmail.com>
 
-The Samsung Galaxy Book2 Go is a laptop with a Snapdragon 7c+ Gen 3 SoC
-(SC7280).
+--=-yTvQ6tvp7IrGjOWLOTd2
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add initial functionality:
-* Display (with backlight, GPU)
-* Touchpad & keyboard (without Fn key mapping support)
-* UFS storage
-* SD card
-* USB Type-A port
-* Modem and mobile data
-* WiFi & Bluetooth
-* ADSP & CDSP bootup
-* Battery fuel gauge
-* Venus/Iris
-* Lid switch
-* RGB LED (Operating status LED)
-* Webcam (USB UVC)
+On Wed, 2026-11-11 at 00:59 -0500, Zack Rusin wrote:
+>=20
+> +		/* KVM_EXIT_VMWARE */
+> +		struct kvm_vmware_exit {
+> +			__u32 type;
+> +			__u32 pad1;
+> +			union {
+> +				struct {
+> +					__u32 longmode;
+> +					__u32 cpl;
+> +					struct {
+> +						__u32 inject;
+> +						__u32 pad2;
+> +						__u32 vector;
+> +						__u32 error_code;
+> +						__u64 address;
 
-Notably missing:
-* Speaker & microphone
-* Charging
-* USB Type-C ports (except when active at boot)
-* DisplayPort on right-side USB-C port
+Perhaps add a few words more padding here?
 
-Signed-off-by: Jasper Korten <jja2000@gmail.com>
-Co-developed-by: Federico Amedeo Izzo <federico@izzo.pro>
-Signed-off-by: Federico Amedeo Izzo <federico@izzo.pro>
-Co-developed-by: Luca Weiss <luca@lucaweiss.eu>
-Signed-off-by: Luca Weiss <luca@lucaweiss.eu>
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
----
-Changes in v2:
-- Fix swapped vdda-pll-supply/vdda-phy-supply (Sashiko)
-- Fix wrong pinctrl pin for touchpad (Sashiko)
-- Drop output-low from pinctrl states (Konrad)
-- Add space after /delete-property/ (Konrad)
-- Wrap qup_uart7_sleep_* lines (Konrad)
-- Drop applied patches
-- Link to v1: https://patch.msgid.link/20261012-book2go-v1-0-7188e7ea7a15@fairphone.com
----
- arch/arm64/boot/dts/qcom/Makefile                  |   1 +
- .../dts/qcom/sc7280-samsung-galaxy-book2-go.dts    | 644 +++++++++++++++++++++
- 2 files changed, 645 insertions(+)
+> +					} exception;
+> +				} hcall;
+> +			};
+> +		} vmware;
+>=20
+...
+> +Userspace may instead set ``exception.inject`` to one and request #UD, #=
+GP,
+> +or #PF.=C2=A0 #UD requires a zero error code and address.=C2=A0 #GP acce=
+pts an error
+> +code verbatim and requires a zero address.=C2=A0 #PF also accepts the er=
+ror code
+> +verbatim and uses ``address`` as CR2.=C2=A0 Userspace may dirty synchron=
+ized REGS
+> +when requesting an exception, e.g. to preserve partial progress from a
+> +high-bandwidth backdoor transfer.=C2=A0 KVM applies the synchronized reg=
+isters
+> +before queuing the exception.=C2=A0
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 8329c06b60a3..8152089a1c8c 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -354,6 +354,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sc7280-herobrine-zombie-nvme-lte.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sc7280-idp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sc7280-idp2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sc7280-crd-r3.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= sc7280-samsung-galaxy-book2-go.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sc8180x-lenovo-flex-5g.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sc8180x-primus.dtb
- sc8280xp-crd-el2-dtbs	:= sc8280xp-crd.dtb sc8280xp-el2.dtbo
-diff --git a/arch/arm64/boot/dts/qcom/sc7280-samsung-galaxy-book2-go.dts b/arch/arm64/boot/dts/qcom/sc7280-samsung-galaxy-book2-go.dts
-new file mode 100644
-index 000000000000..51f0a92d0026
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sc7280-samsung-galaxy-book2-go.dts
-@@ -0,0 +1,644 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2025, Jasper Korten <jja2000@gmail.com>
-+ * Copyright (c) 2026, Luca Weiss <luca@lucaweiss.eu>
-+ */
-+
-+/dts-v1/;
-+
-+/* PM7250B is configured to use SID8/9 */
-+#define PM7250B_SID 8
-+#define PM7250B_SID1 9
-+
-+#include <dt-bindings/leds/common.h>
-+#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-+#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+#include "kodiak.dtsi"
-+#include "qcs6490-audioreach.dtsi"
-+#include "pm7250b.dtsi"
-+#include "pm7325.dtsi"
-+#include "pm8350c.dtsi"
-+#include "pmk8350.dtsi"
-+
-+/delete-node/ &ipa_fw_mem;
-+/delete-node/ &rmtfs_mem;
-+/delete-node/ &wpss_mem;
-+/delete-node/ &xbl_mem;
-+
-+/ {
-+	model = "Samsung Galaxy Book2 Go";
-+	compatible = "samsung,galaxy-book2-go", "qcom,sc7280";
-+	chassis-type = "laptop";
-+
-+	aliases {
-+		serial1 = &uart7;
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		pinctrl-0 = <&hall_int_default>;
-+		pinctrl-names = "default";
-+
-+		switch-lid {
-+			label = "Switch Lid";
-+			gpios = <&tlmm 35 GPIO_ACTIVE_LOW>;
-+			linux,input-type = <EV_SW>;
-+			linux,code = <SW_LID>;
-+			wakeup-source;
-+		};
-+	};
-+
-+	pm8350c_pwm_backlight: backlight {
-+		compatible = "pwm-backlight";
-+		pwms = <&pm8350c_pwm 3 65535>;
-+		enable-gpios = <&pm8350c_gpios 7 GPIO_ACTIVE_HIGH>;
-+		pinctrl-0 = <&pmic_lcd_bl_en>;
-+		pinctrl-names = "default";
-+	};
-+
-+	vreg_edp_3p3: regulator-edp-3p3 {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "VREG_EDP_3P3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+
-+		gpio = <&tlmm 96 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&edp_reg_en>;
-+		pinctrl-names = "default";
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	reserved-memory {
-+		wpss_mem: wpss@84800000 {
-+			reg = <0x0 0x84800000 0x0 0x1900000>;
-+			no-map;
-+		};
-+
-+		rmtfs_mem: rmtfs@a0800000 {
-+			compatible = "qcom,rmtfs-mem";
-+			reg = <0x0 0xa0800000 0x0 0x300000>;
-+			no-map;
-+
-+			qcom,client-id = <1>;
-+		};
-+
-+		ipa_fw_mem: ipa-fw@81800000 {
-+			reg = <0x0 0x81800000 0x0 0x70000>;
-+			no-map;
-+		};
-+	};
-+};
-+
-+&apps_rsc {
-+	regulators-0 {
-+		compatible = "qcom,pm7325-rpmh-regulators";
-+		qcom,pmic-id = "b";
-+
-+		vreg_l1b_0p8: ldo1 {
-+			regulator-name = "vreg_l1b";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <912000>;
-+		};
-+
-+		vreg_l2b_3p0: ldo2 {
-+			regulator-name = "vreg_l2b";
-+			regulator-min-microvolt = <3072000>;
-+			regulator-max-microvolt = <3072000>;
-+		};
-+
-+		vreg_l6b_1p2: ldo6 {
-+			regulator-name = "vreg_l6b";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+		};
-+
-+		vreg_l7b_2p9: ldo7 {
-+			regulator-name = "vreg_l7b";
-+			regulator-min-microvolt = <2504000>;
-+			regulator-max-microvolt = <2960000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l9b_1p2: ldo9 {
-+			regulator-name = "vreg_l9b";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l18b_1p8: ldo18 {
-+			regulator-name = "vreg_l18b";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		vreg_l19b_1p8: ldo19 {
-+			regulator-name = "vreg_l19b";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		vreg_s1b_1p8: smps1 {
-+			regulator-name = "vreg_s1b";
-+			regulator-min-microvolt = <1872000>;
-+			regulator-max-microvolt = <1872000>;
-+		};
-+
-+		vreg_s7b_0p9: smps7 {
-+			regulator-name = "vreg_s7b";
-+			regulator-min-microvolt = <952000>;
-+			regulator-max-microvolt = <952000>;
-+		};
-+
-+		vreg_s8b_1p2: smps8 {
-+			regulator-name = "vreg_s8b";
-+			regulator-min-microvolt = <1256000>;
-+			regulator-max-microvolt = <1256000>;
-+		};
-+	};
-+
-+	regulators-1 {
-+		compatible = "qcom,pm8350c-rpmh-regulators";
-+		qcom,pmic-id = "c";
-+
-+		vreg_l1c_1p8: ldo1 {
-+			regulator-name = "vreg_l1c";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		vreg_l6c_2p9: ldo6 {
-+			regulator-name = "vreg_l6c";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		vreg_l7c_3p0: ldo7 {
-+			regulator-name = "vreg_l7c";
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3300000>;
-+		};
-+
-+		vreg_l9c_2p9: ldo9 {
-+			regulator-name = "vreg_l9c";
-+			regulator-min-microvolt = <2960000>;
-+			regulator-max-microvolt = <2960000>;
-+		};
-+
-+		vreg_l10c_0p8: ldo10 {
-+			regulator-name = "vreg_l10c";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <880000>;
-+		};
-+
-+		vreg_l12c_1p8: ldo12 {
-+			regulator-name = "vreg_l12c";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+	};
-+};
-+
-+&gcc {
-+	protected-clocks = <GCC_CFG_NOC_LPASS_CLK>,
-+			   <GCC_EDP_CLKREF_EN>,
-+			   <GCC_MSS_CFG_AHB_CLK>,
-+			   <GCC_MSS_GPLL0_MAIN_DIV_CLK_SRC>,
-+			   <GCC_MSS_OFFLINE_AXI_CLK>,
-+			   <GCC_MSS_Q6SS_BOOT_CLK_SRC>,
-+			   <GCC_MSS_Q6_MEMNOC_AXI_CLK>,
-+			   <GCC_MSS_SNOC_AXI_CLK>,
-+			   <GCC_QSPI_CNOC_PERIPH_AHB_CLK>,
-+			   <GCC_QSPI_CORE_CLK>,
-+			   <GCC_QSPI_CORE_CLK_SRC>,
-+			   <GCC_SEC_CTRL_CLK_SRC>,
-+			   <GCC_WPSS_AHB_BDG_MST_CLK>,
-+			   <GCC_WPSS_AHB_CLK>,
-+			   <GCC_WPSS_RSCP_CLK>;
-+};
-+
-+&gpu {
-+	status = "okay";
-+};
-+
-+&gpu_zap_shader {
-+	firmware-name = "qcom/sc7280/Samsung/galaxy-book2-go/qcdxkmsuc7280.mbn";
-+};
-+
-+&i2c0 {
-+	clock-frequency = <400000>;
-+
-+	status = "okay";
-+
-+	/* SSTP0001 */
-+	touchpad@40 {
-+		compatible = "hid-over-i2c";
-+		reg = <0x40>;
-+		hid-descr-addr = <0x0e>;
-+
-+		interrupts-extended = <&tlmm 51 IRQ_TYPE_LEVEL_LOW>;
-+
-+		vdd-supply = <&vreg_l7c_3p0>;
-+		vddl-supply = <&vreg_l18b_1p8>;
-+
-+		post-power-on-delay-ms = <2>;
-+
-+		pinctrl-0 = <&hid_touchpad_default>;
-+		pinctrl-names = "default";
-+
-+		wakeup-source;
-+	};
-+};
-+
-+&i2c1 {
-+	status = "okay";
-+};
-+
-+&i2c2 {
-+	status = "okay";
-+
-+	/* A96T396 Proximity @ 0x20 & 0x21 ? */
-+};
-+
-+&i2c4 {
-+	status = "okay";
-+
-+	/* LIS2DLC12 Accelerometer @ 0x1d ? */
-+};
-+
-+&i2c9 {
-+	status = "okay";
-+
-+	/* A96T396 Proximity @ 0x20 ? */
-+};
-+
-+&i2c10 {
-+	status = "okay";
-+
-+	/* ? @ 0x09 */
-+
-+	battery@b {
-+		compatible = "sbs,sbs-battery";
-+		reg = <0x0b>;
-+	};
-+};
-+
-+&i2c12 {
-+	clock-frequency = <100000>;
-+
-+	status = "okay";
-+
-+	/* SSEC0001 */
-+	keyboard@5 {
-+		compatible = "hid-over-i2c";
-+		reg = <0x5>;
-+		hid-descr-addr = <0x20>;
-+
-+		interrupts-extended = <&tlmm 131 IRQ_TYPE_LEVEL_LOW>;
-+
-+		pinctrl-0 = <&hid_keyboard_default>;
-+		pinctrl-names = "default";
-+
-+		wakeup-source;
-+	};
-+};
-+
-+&i2c14 {
-+	status = "okay";
-+
-+	/* EC2 (?) @ 0x62 */
-+};
-+
-+&ipa {
-+	firmware-name = "qcom/sc7280/Samsung/galaxy-book2-go/ipa_fws.elf";
-+
-+	status = "okay";
-+};
-+
-+&mdss {
-+	status = "okay";
-+};
-+
-+&mdss_edp {
-+	status = "okay";
-+
-+	aux-bus {
-+		edp_panel: panel {
-+			compatible = "edp-panel";
-+
-+			power-supply = <&vreg_edp_3p3>;
-+			backlight = <&pm8350c_pwm_backlight>;
-+
-+			port {
-+				edp_panel_in: endpoint {
-+					remote-endpoint = <&mdss_edp_out>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&mdss_edp_out {
-+	data-lanes = <0 1 2 3>;
-+	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
-+	remote-endpoint = <&edp_panel_in>;
-+};
-+
-+&mdss_edp_phy {
-+	vdda-pll-supply = <&vreg_l10c_0p8>;
-+	vdda-phy-supply = <&vreg_l6b_1p2>;
-+
-+	status = "okay";
-+};
-+
-+&pm8350c_gpios {
-+	pmic_lcd_bl_en: pmic-lcd-bl-en-state {
-+		pins = "gpio7";
-+		function = "normal";
-+		bias-disable;
-+		qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
-+		power-source = <0>;
-+	};
-+
-+	pmic_lcd_bl_pwm: pmic-lcd-bl-pwm-state {
-+		pins = "gpio8";
-+		function = "func1";
-+		bias-disable;
-+		qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
-+		power-source = <0>;
-+	};
-+};
-+
-+&pm8350c_pwm {
-+	pinctrl-0 = <&pmic_lcd_bl_pwm>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+
-+	multi-led {
-+		color = <LED_COLOR_ID_RGB>;
-+		function = LED_FUNCTION_STATUS;
-+
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		led@1 {
-+			reg = <1>;
-+			color = <LED_COLOR_ID_RED>;
-+		};
-+
-+		led@2 {
-+			reg = <2>;
-+			color = <LED_COLOR_ID_GREEN>;
-+		};
-+
-+		led@3 {
-+			reg = <3>;
-+			color = <LED_COLOR_ID_BLUE>;
-+		};
-+	};
-+};
-+
-+&pon_pwrkey {
-+	status = "okay";
-+};
-+
-+&qupv3_id_0 {
-+	status = "okay";
-+};
-+
-+&qupv3_id_1 {
-+	status = "okay";
-+};
-+
-+&remoteproc_adsp {
-+	firmware-name = "qcom/sc7280/Samsung/galaxy-book2-go/qcadsp7280.mbn";
-+
-+	status = "okay";
-+};
-+
-+&remoteproc_cdsp {
-+	firmware-name = "qcom/sc7280/Samsung/galaxy-book2-go/qccdsp7280.mbn";
-+
-+	status = "okay";
-+};
-+
-+&remoteproc_mpss {
-+	firmware-name = "qcom/sc7280/Samsung/galaxy-book2-go/qcmpss7280.mbn";
-+
-+	status = "okay";
-+};
-+
-+&remoteproc_wpss {
-+	firmware-name = "qcom/sc7280/Samsung/galaxy-book2-go/wpss.mbn";
-+
-+	status = "okay";
-+};
-+
-+&sdc2_clk {
-+	drive-strength = <16>;
-+	bias-disable;
-+};
-+
-+&sdc2_cmd {
-+	drive-strength = <10>;
-+	bias-pull-up;
-+};
-+
-+&sdc2_data {
-+	drive-strength = <10>;
-+	bias-pull-up;
-+};
-+
-+&sdhc_2 {
-+	vmmc-supply = <&vreg_l9c_2p9>;
-+	vqmmc-supply = <&vreg_l6c_2p9>;
-+
-+	pinctrl-0 = <&sdc2_clk>, <&sdc2_cmd>, <&sdc2_data>;
-+	pinctrl-1 = <&sdc2_clk_sleep>, <&sdc2_cmd_sleep>, <&sdc2_data_sleep>;
-+
-+	status = "okay";
-+};
-+
-+&tlmm {
-+	qup_uart7_sleep_cts: qup-uart7-sleep-cts-state {
-+		pins = "gpio28";
-+		function = "gpio";
-+		/*
-+		 * Configure a bias-bus-hold on CTS to lower power
-+		 * usage when Bluetooth is turned off. Bus hold will
-+		 * maintain a low power state regardless of whether
-+		 * the Bluetooth module drives the pin in either
-+		 * direction or leaves the pin fully unpowered.
-+		 */
-+		bias-bus-hold;
-+	};
-+
-+	qup_uart7_sleep_rts: qup-uart7-sleep-rts-state {
-+		pins = "gpio29";
-+		function = "gpio";
-+		/*
-+		 * Configure pull-down on RTS. As RTS is active low
-+		 * signal, pull it low to indicate the BT SoC that it
-+		 * can wakeup the system anytime from suspend state by
-+		 * pulling RX low (by sending wakeup bytes).
-+		 */
-+		bias-pull-down;
-+	};
-+
-+	qup_uart7_sleep_tx: qup-uart7-sleep-tx-state {
-+		pins = "gpio30";
-+		function = "gpio";
-+		/*
-+		 * Configure pull-up on TX when it isn't actively driven
-+		 * to prevent BT SoC from receiving garbage during sleep.
-+		 */
-+		bias-pull-up;
-+	};
-+
-+	qup_uart7_sleep_rx: qup-uart7-sleep-rx-state {
-+		pins = "gpio31";
-+		function = "gpio";
-+		/*
-+		 * Configure a pull-up on RX. This is needed to avoid
-+		 * garbage data when the TX pin of the Bluetooth module
-+		 * is floating which may cause spurious wakeups.
-+		 */
-+		bias-pull-up;
-+	};
-+
-+	hall_int_default: hall-int-state {
-+		pins = "gpio35";
-+		function = "gpio";
-+		bias-disable;
-+	};
-+
-+	hid_touchpad_default: hid-touchpad-default-state {
-+		pins = "gpio51";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	bluetooth_enable_default: bluetooth-enable-default-state {
-+		pins = "gpio85";
-+		function = "gpio";
-+		output-low;
-+		bias-disable;
-+	};
-+
-+	sw_ctrl_default: sw-ctrl-default-state {
-+		pins = "gpio86";
-+		function = "gpio";
-+		bias-pull-down;
-+	};
-+
-+	edp_reg_en: edp-reg-en-state {
-+		pins = "gpio96";
-+		function = "gpio";
-+		drive-strength = <16>;
-+		bias-pull-up;
-+	};
-+
-+	hid_keyboard_default: hid-keyboard-default-state {
-+		pins = "gpio131";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+};
-+
-+&uart7 {
-+	/delete-property/ interrupts;
-+	interrupts-extended = <&intc GIC_SPI 608 IRQ_TYPE_LEVEL_HIGH>,
-+			      <&tlmm 31 IRQ_TYPE_EDGE_FALLING>;
-+
-+	pinctrl-1 = <&qup_uart7_sleep_cts>,
-+		    <&qup_uart7_sleep_rts>,
-+		    <&qup_uart7_sleep_tx>,
-+		    <&qup_uart7_sleep_rx>;
-+	pinctrl-names = "default", "sleep";
-+
-+	status = "okay";
-+
-+	bluetooth: bluetooth {
-+		compatible = "qcom,wcn6750-bt";
-+
-+		pinctrl-0 = <&bluetooth_enable_default>, <&sw_ctrl_default>;
-+		pinctrl-names = "default";
-+
-+		enable-gpios = <&tlmm 85 GPIO_ACTIVE_HIGH>;
-+		swctrl-gpios = <&tlmm 86 GPIO_ACTIVE_HIGH>;
-+
-+		vddio-supply = <&vreg_l19b_1p8>;
-+		vddaon-supply = <&vreg_s7b_0p9>;
-+		vddbtcxmx-supply = <&vreg_s7b_0p9>;
-+		vddrfacmn-supply = <&vreg_s7b_0p9>;
-+		vddrfa0p8-supply = <&vreg_s7b_0p9>;
-+		vddrfa1p7-supply = <&vreg_s1b_1p8>;
-+		vddrfa1p2-supply = <&vreg_s8b_1p2>;
-+
-+		max-speed = <3200000>;
-+	};
-+};
-+
-+&ufs_mem_hc {
-+	reset-gpios = <&tlmm 175 GPIO_ACTIVE_LOW>;
-+
-+	vcc-supply = <&vreg_l7b_2p9>;
-+	vcc-max-microamp = <800000>;
-+	vccq-supply = <&vreg_l9b_1p2>;
-+	vccq-max-microamp = <900000>;
-+
-+	status = "okay";
-+};
-+
-+&ufs_mem_phy {
-+	vdda-phy-supply = <&vreg_l10c_0p8>;
-+	vdda-pll-supply = <&vreg_l6b_1p2>;
-+
-+	status = "okay";
-+};
-+
-+&usb_1 {
-+	dr_mode = "host";
-+
-+	status = "okay";
-+};
-+
-+&usb_1_hsphy {
-+	vdda-pll-supply = <&vreg_l10c_0p8>;
-+	vdda33-supply = <&vreg_l2b_3p0>;
-+	vdda18-supply = <&vreg_l1c_1p8>;
-+	qcom,hs-rise-fall-time-bp = <0>;
-+	qcom,squelch-detector-bp = <(-2090)>;
-+	qcom,hs-disconnect-bp = <1743>;
-+	qcom,hs-amplitude-bp = <1780>;
-+	qcom,hs-crossover-voltage-microvolt = <(-31000)>;
-+	qcom,hs-output-impedance-micro-ohms = <2600000>;
-+
-+	status = "okay";
-+};
-+
-+&usb_1_qmpphy {
-+	vdda-phy-supply = <&vreg_l1b_0p8>;
-+	vdda-pll-supply = <&vreg_l6b_1p2>;
-+
-+	status = "okay";
-+};
-+
-+&venus {
-+	firmware-name = "qcom/sc7280/Samsung/galaxy-book2-go/qcvss7280.mbn";
-+
-+	status = "okay";
-+};
-+
-+&wifi {
-+	status = "okay";
-+};
+Does all that work as expected under FRED?
 
----
-base-commit: b915a556f84147d973ba794e7b80d6059cd5d0a0
-change-id: 20261011-book2go-b0e945e53fdb
+I've added something slightly similar for Hyper-V hcalls in=20
+https://lore.kernel.org/all/20261111205836.4186584-3-dwmw2@infradead.org/
 
-Best regards,
---  
-Luca Weiss <luca.weiss@fairphone.com>
+I only know of a need to inject #UD, so it was a simple flag =E2=80=94 but =
+I'm
+wondering if we should strive for some kind of consistency in the
+userspace API?
 
+And I wonder if the cleaner answer in both cases is just to give
+userspace a way to cancel the pending hypercall completion and use
+KVM_SET_VCPU_EVENTS instead of piling all this stuff into the hcall
+structs? It could even just be a KVM_VCPUEVENT_ flag to make it cancel
+the hypercall completion?
+
+--=-yTvQ6tvp7IrGjOWLOTd2
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
+ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
+MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
+AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
+DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
+q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
+S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
+Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
+72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
+CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
+mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
+h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
+CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
+GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
+v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
+b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
+Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
+A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
+vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
+0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
+jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
+FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
+HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
+IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
+MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
+MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
+sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
+tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
+EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
+6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
+ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
+bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
+Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
+02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
+sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
+ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
+JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
+LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
+LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
+hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
+SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
+c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
+RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
+AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
+EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
+ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
++3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
++icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
+McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
+LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
+nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
+gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
+Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
+CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
+QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
+Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
+YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
+kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
+pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
+v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
+vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
+PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
+REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
+lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
+aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
+D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
+bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
+MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
+oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
+TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
+bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
+BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
+MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
+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
+RIansF4zzUcjr8MJMSb6Cy0AAAAAAAA=
+
+
+--=-yTvQ6tvp7IrGjOWLOTd2--
