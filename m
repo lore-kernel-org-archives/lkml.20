@@ -1,106 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=94.136.29.106
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794487542;
-	b=QLdc1gr7njQJlXbMjNviCsCRV6KQDy/WzCmftGeE7/r9HMFHIvjxd8A2HYhbwdttcKNW
-	 F7mCDKAl6SFr3hGzNUaRC7soJwumrT9OQf5lpS5wipOzwvi4mkDQYzHqwCQ+/ppqxsCdZ
-	 9TQ7ybNQ2M+YxuPUnmp5FSRq/tgHL1CCfxX3vCQ3tpQWF4qKNkQy/5iaQFb33oAVnuUl+
-	 XCnmbYy7yyUyDbA7lI8hxtqlCsUOPWH5hYBG0YEvbUSYIhlWCeYyF/dYgUCHjHERpn1xA
-	 bQoU29jPtdMTKJejJmvrgLXbxenyPFhRjmB2eHqAo+HE8PIABGZA0/U0C2H3cg8Mp4Q==
+	t=1794487552;
+	b=CwcnpBcfTyZjVI/EozQVIWn1NMfuoXhO4QaWzrcQ9d+6UsxQS2a8vY3U7g+vLq5D74ua
+	 DkvjJiDqFmev7KP5WVFYwRh9hSF34QjlVonbElivY/+eeoR/9rsgWfQFzlFmOlwkvwHNo
+	 R8Y7lJG8nRBrTkPZjpKwO3az4N6osw883PkYEMX07v4uQOtPwlJ5gLkNLOEcpeOfodfK4
+	 PX0ykooU1tgySzf8pB9p6gJt8LJ8gFy1oJ3vxYuLcaj+onhtRpL8TMmPGIzmLapD4Kizz
+	 6XA7Un9xVx5GzWeDb2K30k0Z1qQ+FX3nss1C/vyVLxue+WNXvGmHp0zPLgZISSZgTNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794487542;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=VpCk+/HIv7Hx98swHySrIZB8KgIMpjiM+UkgHDX5AIE=;
-	b=k+egMEU9v+7HimPAUYAUR2UFVFuH1LgJACWkQmaM0D0V1RxYs+u/n1rKI0Ka45Op2hHe
-	 Y408aZlV8AUaEq0Kg0kSFubOQl0as9T08Z3AFWJTsijoOEIxF/1mjc7y0Jq65eQzmKy7F
-	 q+RZaizkq8EUGw49B28Amw2wFDCGKzhoq6Gb5kJjKD3x7h4t1Q5ROAlMYdnkG6fOa+v2I
-	 aZu6e4LpwqMCLKX+uC2rQMZN1sYKPErAciz0sKeRPSjzIM92uKv0niV62wGh0Q5EhjtnS
-	 zSge9Pt7akn1gq7LO7FyC2eEazsOVyP4HCvkVxxufET0YuXTYFUtXtdHe/MpHxCluSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794487552;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:User-Agent:X-Bm-Milter-Handled:
+	 X-Bm-Transport-Timestamp;
+	bh=fkuD8USi293M2GyM1a4ma7QYzKDoDimjsvNM+ReEAsc=;
+	b=ELgtsApgpcTtGKhGG21D5WRG0g1T25nW82Ez4fHkPkaVI9Ebfa2x7wRF+2ILe5w5aJvU
+	 4b5iWlogBGtb+WZak9EfnZN7/IkLh0c7tzZgyqQZfuhuqa/LjDD7P7G2QmJkSFDednApS
+	 59CZoXjJdeF0CILcQQBGwfDqKhNCmWFxWosqs08+XeehY4SM9OuH1Fe0T9bkfAf+uEvnF
+	 hSY8Lo8QkWylfopra66y20g7ym1IfuGgB1T5PamrB3piA/X39ClmQvoDsCj6yGQIX5YXw
+	 8pPg6R/Y0lvb56uvIWFZH3KOgLYRs25VJtpsJO83cbtszQYpqSFjbjWAmRJ6h9YQpUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=el1Pstvy;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=proxmox.com;
+	spf=pass smtp.mailfrom=proxmox.com;
+	arc=none smtp.remote-ip=94.136.29.106
+Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62976606A32D
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:45:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62976606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=el1Pstvy
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3282db206d3so5160916eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:45:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794487541; x=1795092341; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VpCk+/HIv7Hx98swHySrIZB8KgIMpjiM+UkgHDX5AIE=;
-        b=el1PstvymrHEPDC9SiZqcfcg2GMycCDVyoy1Yfz1FY9gLV3vyp3xH2b+xkC7K+ocym
-         BRB/jrA697aEgziZUleZXMR93U317+MS938mfxG4gJLwSwR4R1rzg/fKexQPS1AbFFOB
-         aUQ5WusHQM5kMcUuqmt9NIyyX8XLRfGilsEtx7tZqAB3PoKkR1J/RYxtmxNx7053dB4L
-         mCWj6ybX5ExaMmAnf7ni/24o1RSZGG6mrZ6cCk/2XD97I3u32ToBeYK+wbp+P5kG5rs5
-         exby4RpBUN+gGBn5MHgwHrQ0pDm1zq50MZ9VHAFr+pyI//1eI+rcyNz921oZMQKXqCPj
-         2Jkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794487541; x=1795092341;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=VpCk+/HIv7Hx98swHySrIZB8KgIMpjiM+UkgHDX5AIE=;
-        b=PoDishiz0MVuQr8A64z2LwOduA1+zNAbdfMZocLxRFcfjGRdUGVbBOqiE/1YYxWuan
-         l3/4IoQSqCAoNAsXaZlhSmQ0TpCGK+u0Gy228FNOI/IGbPlxeC8t/5qSx6gJeh7OuyDG
-         nW1A3az610bTYt+Tybv4hxPttkYS2BTNir/Jn8XfC7VWIIZyLk9SaxJwWYZdc6TLwlJP
-         NmZDW+FMV72eQO1VY3ESzUF9hJ0aGfIxQBNBqLMAx0utaDVSFrNiYpBqtG6AKWc+f6cn
-         tvbaGpVFoQb/B27Cuv0iODh92s4AY0L2hp2eqm5C5KaY73p4sHxfiWDHPKQCocFu5/Za
-         tPyQ==
-X-Forwarded-Encrypted: i=1; AL+hErFmyrhDboISBENlYoB0EqnHEvALoMaUeLSUrtVbP1arr8Y7dijjwfqqtWohvwb+Xz5yITvKhwsI/yQF2pI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+sxTa1B8+Pg3m47+sTRNmJrvJ8I7gz7EuvBHi4+rkkAwWvdfBC
-	eAQFbJIniksFgiFK/G/xvLQmlxqA7u5gwCvMsQ+2ZfdT1AHxEY7J9Ur+
-X-Gm-Gg: AYBFou2LbspL/+x1OVRu990lEP55DR1zM8cZ8EKX2Le+iMwVsdLDPtfxfj/IsSL8Dz4
-	jHIU9SIXiBALkPwQqL7kRoHs6oFokJ7c5gNsqFWlkzn/gmlYOh4bMDbJ6O7twJGdQ0kRLAJFoAY
-	HmMDhCD6gghz5EoQtujtDmWYP1b5NxaXZEyKUQccMN1Am94ndcj/VMYNxGwEfs6V7I+P1Ji38he
-	eHuVU7dlm/tmdsTz1qW+x0aaWyp+cctMI6ZQClhwOUTwsmwyEtPFgT7KaQXriWtDeuZ3OlJzOPl
-	wPJzhMjKRmaJY01cvnCK+7HIP5LI6Luc8tAQdmmjvkfJrR9/JtRqHYiwmHkwDg2fWq6xH1VpAPN
-	jFkc+VTieWBKy8ubOlidzCTGggg4yZJz7TSC8uVI1H0FiK8rkPnGeYzPUgPRq33YBHPFuTYPNm1
-	84xuDZKnrU6XWFZs7XxMDSI0gmI7mFxteHpbgXD+Q+AvfTwldcrX8Q3f85JbDn1gFxHpqETAcng
-	NHKb3UA6yjzNgWfZ8i0TRWtBqFiiacb6sESAAPAe+jPiO1DUekWhYk5LjSkuE66bZeCgW1CPy7A
-	eiNkaBVku/T8OaTjyjZj+F0LGFI=
-X-Received: by 2002:a05:693c:8349:b0:36d:b933:675c with SMTP id 5a478bee46e88-376858969c4mr6125233eec.17.1794487540338;
-        Thu, 12 Nov 2026 04:45:40 -0800 (PST)
-Received: from localhost ([154.21.93.22])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520bf3e18sm55246175eec.16.2026.11.12.04.45.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 04:45:39 -0800 (PST)
-Date: Thu, 12 Nov 2026 20:45:36 +0800
-From: Yao Yuan <yaoyuan0329os@gmail.com>
-To: Vishnu Sankar <vishnuocv@gmail.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Jingle Wu =?utf-8?B?5ZCz6YeR5ZyL?= <jingle.wu@emc.com.tw>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
-	"linux-input@vger.kernel.org" <linux-input@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	Phoenix Huang =?utf-8?B?6buD5LiW6bWs?= <phoenix@emc.com.tw>, Stanley Chen =?utf-8?B?6Zmz5bu657at?= <stanley.chen@emc.com.tw>, 
-	Vishnu Sankar <vsankar@lenovo.com>
-Subject: Re: [PATCH 1/1] Input: trackpoint - Add new ELAN trackpoint device
- variant id 7
-Message-ID: <avWzauR7nGj90S13@sapienza>
-References: <20261102130836.11863-1-yaoyuan0329os@gmail.com>
- <20261102130836.11863-2-yaoyuan0329os@gmail.com>
- <avKBsi-E7IeUgsSY@google.com>
- <TY0PR0101MB4786C8CF42ED66617BD9DA1EDC722@TY0PR0101MB4786.apcprd01.prod.exchangelabs.com>
- <avMcB0q7wF9oP5X8@sapienza>
- <PUZPR01MB477458CD012208A31DE60068DC712@PUZPR01MB4774.apcprd01.prod.exchangelabs.com>
- <avRttU9N0EZeq8nY@sapienza>
- <TY0PR0101MB47865DFC765932B9E6C3E1C0DC702@TY0PR0101MB4786.apcprd01.prod.exchangelabs.com>
- <avVPRySmoH_KKHa6@google.com>
- <CABxCQKt9o--KrucZ-jcG+tb4AGtrBnPY_mypqX64ojWRpoO_yw@mail.gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCBCE606A323;
+	Thu, 12 Nov 2026 12:45:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCBCE606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
+Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
+	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id 040824832C;
+	Thu, 12 Nov 2026 13:45:43 +0100 (CET)
+Date: Thu, 12 Nov 2026 13:45:34 +0100
+From: Gabriel Goller <g.goller@proxmox.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] ipv6: reset all.force_forwarding when disabling
+ all.forwarding
+Message-ID: <avW0C4_kHRv9v3Lr@luna.proxmox.com>
+References: <20261109-ipv6_reset_all-v1-1-815dfd508246@proxmox.com>
+ <179436921928.2199510.2583920348009853721@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,53 +57,155 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABxCQKt9o--KrucZ-jcG+tb4AGtrBnPY_mypqX64ojWRpoO_yw@mail.gmail.com>
+In-Reply-To: <179436921928.2199510.2583920348009853721@kernel.org>
+User-Agent: NeoMutt/20260504
+X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
+X-Bm-Transport-Timestamp: 1794487536000
 
-On Thu, Nov 12, 2026 at 04:14:35PM +0900, Vishnu Sankar wrote:
-> Hi Dimitry, Jingle, Yuan,
->
-> On Thu, Nov 12, 2026 at 2:33 PM Dmitry Torokhov
-> <dmitry.torokhov@gmail.com> wrote:
-> >
-> > Hi Jingle,
-> >
-> > On Thu, Nov 12, 2026 at 05:26:46AM +0000, Jingle Wu 吳金國 wrote:
-> > > Hi Yao:
-> > >
-> > > Upon inquiry, it was confirmed that a black TrackPoint stick (0x07)
-> > > underneath the red TrackPoint cap corresponds to a vendor that is
-> > > compatible with the Windows ELAN driver.
-> >
-> > Are you at liberty to share the vendor name? Or should we mark it as
-> > "Elan" or "Elan-compatible"?
->
-> Sorry to jump in; this is Vishnu from Lenovo.
-> I have now confirmed with the component owner and supplier that the
-> TrackPoint reporting variant ID `0x07` and firmware revision `0xA1`
-> are made by JYT/NDT, not ELAN. The physical check also identified the
-> corresponding button/stick as white. It uses the same ELAN driver for
-> Windows but has different FW.
->
-> Therefore, the patch should recognize `0x07` as the JYT/NDT variant
-> rather than naming it as an ELAN variant.
->
-> Can name it something like  [TP_VARIANT_JYT_NDT]          = "JYT_NDT"
-> or something like that.
-
-Ah thank you!
-
-Now with yours and Jingle Wu's info the things become clear now!
-
-I will respin v2 w/ TP_VARIANT_JYT_NDT to 0x7 and "JYT_NTD" if no more object.
-
-> >
-> > Thanks.
-> >
-> > --
-> > Dmitry
->
+On 11.11.2026 03:53, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 2 · Low: 1
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] In net/ipv6/addrconf.c, addrconf_fixup_forwarding() (lines
+>   908-915) now sends inet6_netconf_notify_devconf(net, RTM_NEWNETCONF,…
+> - [Medium] ipv6: missing NETCONFA_FORCE_FORWARDING in
+>   inet6_netconf_fill_devconf()
+> - [Low] The patch fixes a user-visible bug but has no Fixes: tag.
+> 
 > --
->
-> Regards,
->
->       Vishnu Sankar
+> 
+> ipv6: reset all.force_forwarding when disabling all.forwarding
+> 
+> When all.forwarding is disabled, this patch also clears
+> all.force_forwarding, so that writing 1 to all.force_forwarding later
+> re-enables the interfaces. It also sends a netconf notification for the
+> change.
+> 
+> > diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
+> > index d9d13e78bf13b..9007a58039e65 100644
+> > --- a/net/ipv6/addrconf.c
+> > +++ b/net/ipv6/addrconf.c
+> > @@ -905,6 +905,14 @@ static int addrconf_fixup_forwarding(const struct ctl_table *table, int *p, int
+> >  						     net->ipv6.devconf_dflt);
+> >  
+> >  		addrconf_forward_change(net, newf);
+> > +		/* Disabling all.forwarding also resets all.force_forwarding */
+> > +		if (newf == 0 && net->ipv6.devconf_all->force_forwarding) {
+> > +			WRITE_ONCE(net->ipv6.devconf_all->force_forwarding, 0);
+> 
+> [Severity: Low]
+> Should this patch carry a Fixes: tag for commit f24987ef6959, the commit
+> that added the force_forwarding sysctl?
+> 
+> That commit added the per-interface reset in addrconf_forward_change():
+> 
+>     if (newf == 0)
+>         WRITE_ONCE(idev->cnf.force_forwarding, 0);
+> 
+> It did not reset devconf_all->force_forwarding. Because
+> addrconf_sysctl_force_forwarding() only acts on a write when
+> old_val != new_val, writing 1 again does nothing.
+> 
+> Without the tag, stable kernels that have force_forwarding may not pick
+> up this fix.
+
+Hmm not sure about this one. If I make a new version I'll add it.
+
+> > +			inet6_netconf_notify_devconf(net, RTM_NEWNETCONF,
+> > +						     NETCONFA_FORCE_FORWARDING,
+> > +						     NETCONFA_IFINDEX_ALL,
+> > +						     net->ipv6.devconf_all);
+> 
+> [Severity: Medium]
+> Does this notification carry the force_forwarding value at all?
+> 
+> inet6_netconf_notify_devconf() sizes the skb with
+> inet6_netconf_msgsize_devconf(type) and fills it with
+> inet6_netconf_fill_devconf(). Neither helper handles
+> NETCONFA_FORCE_FORWARDING. They only know about NETCONFA_FORWARDING,
+> NETCONFA_MC_FORWARDING, NETCONFA_PROXY_NEIGH and
+> NETCONFA_IGNORE_ROUTES_WITH_LINKDOWN.
+> 
+> So when all.forwarding is set to 0 while all.force_forwarding is set,
+> RTNLGRP_IPV6_NETCONF listeners get an RTM_NEWNETCONF for
+> NETCONFA_IFINDEX_ALL that contains only NETCONFA_IFINDEX. The size and
+> fill helpers agree with each other, so WARN_ON(err == -EMSGSIZE) in
+> inet6_netconf_notify_devconf() never fires. The message without a
+> value goes out silently.
+> 
+> An RTM_GETNETCONF request that ends up with all set in
+> inet6_netconf_fill_devconf() also omits force_forwarding. A listener
+> therefore cannot recover the new state by querying afterwards either.
+> 
+> The commit message says netconf listeners are notified. With this
+> message they cannot tell what changed or what the new value is.
+> 
+> The gap predates this patch. The existing force_forwarding
+> notifications in addrconf_sysctl_force_forwarding() and
+> addrconf_force_forward_change() have the same problem. This patch adds
+> one more caller that depends on that path.
+> 
+> Could NETCONFA_FORCE_FORWARDING handling be added to
+> inet6_netconf_msgsize_devconf() and inet6_netconf_fill_devconf(),
+> either as a preceding patch or in the same series?
+
+This is fixed by this commit:
+2d916a8c307c ("ipv6: Add NETCONFA_FORCE_FORWARDING to netconf messages")
+
+> [Severity: Medium]
+> Does this notification actually carry the new force_forwarding value?
+> 
+> inet6_netconf_fill_devconf() only puts NETCONFA_FORWARDING,
+> NETCONFA_MC_FORWARDING, NETCONFA_PROXY_NEIGH and
+> NETCONFA_IGNORE_ROUTES_WITH_LINKDOWN. It has no branch for
+> NETCONFA_FORCE_FORWARDING, so for this type it emits only the ifindex:
+> 
+> net/ipv6/addrconf.c:inet6_netconf_fill_devconf() {
+>     ...
+> 	if ((all || type == NETCONFA_IGNORE_ROUTES_WITH_LINKDOWN) &&
+> 	    nla_put_s32(skb, NETCONFA_IGNORE_ROUTES_WITH_LINKDOWN,
+> 			READ_ONCE(devconf->ignore_routes_with_linkdown)) < 0)
+> 		goto nla_put_failure;
+> 
+> out:
+> 	nlmsg_end(skb, nlh);
+>     ...
+> }
+> 
+> inet6_netconf_msgsize_devconf() reserves no space for it either. The two
+> helpers agree, so no WARN fires.
+> 
+> As a result, RTNLGRP_IPV6_NETCONF listeners get an RTM_NEWNETCONF for
+> "all" with no NETCONFA_FORCE_FORWARDING attribute.
+> 
+> The commit message says "Reset all.force_forwarding too and notify netconf
+> listeners", but listeners cannot tell from this message what changed or
+> what the new value is.
+> 
+> The missing fill support dates back to f24987ef6959. The existing
+> force_forwarding notifications in addrconf_sysctl_force_forwarding() and
+> addrconf_force_forward_change() have the same gap. This patch adds one more
+> caller that depends on that path.
+> 
+> Could NETCONFA_FORCE_FORWARDING branches be added to both
+> inet6_netconf_msgsize_devconf() and inet6_netconf_fill_devconf(), either
+> as a prerequisite or in the same series?
+
+Same as above, already fixed.
+
+> > +		}
+> >  		if ((!newf) ^ (!old))
+> >  			inet6_netconf_notify_devconf(net, RTM_NEWNETCONF,
+> >  						     NETCONFA_FORWARDING,
+> 
+> -- 
+> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109-ipv6_reset_all-v1-1-815dfd508246%40proxmox.com
+
