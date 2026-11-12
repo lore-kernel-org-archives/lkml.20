@@ -1,42 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=94.136.29.106
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794490922;
-	b=LwBw02R9zR+ny31hU+GwP+NIoX7bozQJXsyuSVaQccFHMg4u9S3VyTVW+y05s8Qa8yNb
-	 LH0EpUtOIM1AlV52K2gD3jGjvWxI64ey4YCPHSP0dDyjcZLK7nnCk8h26AEYEJrESx9Rb
-	 rbtqU3dQRg5SCiJn+SOSDaJ5dFoAJNpjXwbbUXwLKt3r6P1d/ze9v7N+7viMGflVsa2Gq
-	 UCnN7WhLRBSElhzHot/6HAZdhqKMaA/KjHWjiJZtneAndiOfsgDUZEJ9PV2LaURf1nXi2
-	 xDVSgoHZ9loZ7gO9ifzpO1vd2gbafuyRM4lY7JxEQQYAVXn+9d5Rx8Xxlzm2JKHbYhQ==
+	t=1794490931;
+	b=W9Ts/RraWCEYSJdZzSTBOcBimF6gJNOupsZ/xjkn/NRiUpPE860H5yowo/em0B+jK4uF
+	 66PGSZcBvkML53vkbCi3VJ0v/eICkDOgMDC+TwFamvvRq1/SdKdRfIBr695xfoTkmqI+4
+	 leoWOcD6GNI7o1bVz130cTi6HV7M5BWGWBMYGwwH1Zdu7zdf+a/O5nUWXrKKH22c17LDk
+	 0eTIeWGLSAyrkeSMWOB4BLqDPh8D4+i5CgR1P/YZv8tpR5/UOWaumUQKNRNFJ5NF1qmz/
+	 ONIX1AfoXqxV9I14H9YxhJnRcPERLpcMIOutnn1IGqpmOgnTsZBx4Q41G5Y57rCB0YQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794490922;
-	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Bm-Milter-Handled:X-Bm-Transport-Timestamp;
-	bh=YfBBZc7pNzNbAvzjWT1h8ZQQXAFZwd0rLhVnqfxyIdI=;
-	b=VRqlz5wdUbqpUSWjy58QDBE8tPPPuXID8jkPG8tD0oNawJhK85OEKEYExSntBlS2c/xg
-	 w9rpr0xaowGjPL0m1skTxBXx0vd2vqZ1iJp320YixEAVbDYdhShw0RT2l5aUhDHeiRqy2
-	 jq+kvn4dzH76W7ppRQD5HftcJ7/K58drKmQvSMADpK4V7gW6Wzcgxsw31reo71sebMeZX
-	 fMQ30RfYklsvfXuMjhrGBPM3ZVHBxddHFkGtSyZnSyGLVLPaIagWoGPTGDbEn2+KnV1Jk
-	 J0L7eZRx5dwtUAwC5KQzYDya/RYjCPCYbmQFto4egPIjjBXQ6Fdklpn9SSnyckwfzvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794490931;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
+	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
+	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
+	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
+	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
+	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
+	bh=KAOxkN7k61kk5jB4lBPmNan8FcEwgZkxLh55eZiLZ1E=;
+	b=q4KfbFm1nvC9m5vyax0TSU1sQeUCyMakFKG61VA5vpS51DShRiVHJxLCvT1ov/wzhKtP
+	 OWS8k3lj4UtYweIzCaQaubSzBgdafMlDL+oS001TzFYDFvEwUZHjYDOvG60Gj0H36lBic
+	 mdT3Hwqe8kkNgOXczhb0rHATeblvYJ7UQzKttJ1o0BLsW8MNJZe/jqP+1CE1zARiGx8Hr
+	 iTkh/z1U3EkJG0LpGGAMsWy4OA8nbOmB4mnr71dj4c0mnaV3nRHG77g9cijsir46hydmZ
+	 gKyizcrlN1r/XaPph1K4M/HycwCv0CkwF+85L0YO6XoFJyieFJbRhFQBhtfSHNjnEXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=proxmox.com;
-	spf=pass smtp.mailfrom=proxmox.com;
-	arc=none smtp.remote-ip=94.136.29.106
-Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
+	dmarc=pass header.from=astralinux.ru;
+	spf=pass smtp.mailfrom=astralinux.ru;
+	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=xYl95GU3;
+	arc=none smtp.remote-ip=37.230.196.243
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C35CB606A321;
-	Thu, 12 Nov 2026 13:42:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C35CB606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
-Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
-	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id 5B28446704;
-	Thu, 12 Nov 2026 14:41:59 +0100 (CET)
-From: Gabriel Goller <g.goller@proxmox.com>
-Date: Thu, 12 Nov 2026 14:41:00 +0100
-Subject: [PATCH net-next] ipv6: always apply all.force_forwarding to every
- interface
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 465B0606A321;
+	Thu, 12 Nov 2026 13:42:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 465B0606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=xYl95GU3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1794490926;
+	bh=JFkgqyB9Qz4kgc74Z73hpp3q8ytJXtkelNU5Si7Ll8g=;
+	h=From:To:Cc:Subject:Date:From;
+	b=xYl95GU3amK1NcwLSA/KZrnbuXOde3M4NbVwP39PBTjGYaVCV0QtZmdCAuTgR0y0p
+	 PmY/qw7AIpdLVBjP8tajGwySo0ACOLfroXGbZJbuWaEU81chB1crZR8Mw10RLQQetR
+	 m8NLmA7tTDngwJqfVTlsBdNlgFY94THBNIku/kpOkTudn4PddUiw6b30AlKGvE39LG
+	 VMQaqNkTbc4z0/8W6iAOSLXzu4dw5lCY7UMwIQBoVhxvEks1m6hZaWjPXjhmtUF6ZJ
+	 8f7lloiTCu4Uf6q0wX6kmJyWQ1hf608S6obgF+GB83/iEBmP5wNG9i2BCWnqdnHw4d
+	 GiHQFHtD9rLlg==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id AC78D255EC;
+	Thu, 12 Nov 2026 16:42:06 +0300 (MSK)
+Received: from mail.astralinux.ru (unknown [10.205.207.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Thu, 12 Nov 2026 16:42:00 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (rbta-msk-lt-981255.astralinux.ru [10.198.28.246])
+	by mail.astralinux.ru (Postfix) with ESMTPA id 4jQM4m38XtzVQV;
+	Thu, 12 Nov 2026 16:42:00 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Bryam Vargas <hexlabsecurity@proton.me>,
+	Ming-Hung Tsai <mtsai@redhat.com>,
+	Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	dm-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH 5.10/5.15] dm array: validate array block headers on read
+Date: Thu, 12 Nov 2026 16:40:10 +0300
+Message-ID: <20261112134011.586-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -46,218 +86,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-ipv6_always_apply-v1-1-8df846631005@proxmox.com>
-X-B4-Tracking: v=1; b=H4sIAPfB9WoC/y2NUQ6CMBBEr0L22ya2gWK8iiFkLYuuIbV2C0IId
- 7eKn5OZ92YFocgkcC5WiDSx8NPnoA8FuDv6GynucgZzNFZrbRSHybY4vHGRFkMYFoW9K0+VMbW
- 2NWQuROp5/jkv4CkpT3OCZm9kvD7Ipa/yv430GvNt2oFm2z5/T7/plAAAAA==
-X-Change-ID: 20261112-ipv6_always_apply-afc485227167
-To: "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, David Ahern <dsahern@kernel.org>, 
- Ido Schimmel <idosch@nvidia.com>, 
- Nicolas Dichtel <nicolas.dichtel@6wind.com>
-Cc: netdev@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- Gabriel Goller <g.goller@proxmox.com>
-X-Mailer: b4 0.17-dev
-X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
-X-Bm-Transport-Timestamp: 1794490917824
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 134 0.3.134 ce9cca31102af372fedb0df49d70b90f771aea0b, {Tracking_from_domain_doesnt_match_to}, 127.0.0.199:7.1.2;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;mail.astralinux.ru:7.1.1;astralinux.ru:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 207439 [Nov 12 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/12 10:50:00 #28857468
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-Currently, writing to all.force_forwarding updates the interfaces
-only if the value stored in all.force_forwarding changes. Setting an
-interface to a different value and then writing the same value to all
-leaves that interface unchanged:
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-  # sysctl -wq net.ipv6.conf.all.force_forwarding=1
-  # sysctl -wq net.ipv6.conf.dummy1.force_forwarding=0
-  # sysctl -wq net.ipv6.conf.all.force_forwarding=1
-  # sysctl net.ipv6.conf.dummy1.force_forwarding
-  net.ipv6.conf.dummy1.force_forwarding = 0
+commit 2965787723084835b18dfe993cd450ebf5bd4540 upstream.
 
-Apply every write to all.force_forwarding to all interfaces, even when
-its stored value is unchanged, matching all.forwarding. In the example,
-the final write to all now sets dummy1.force_forwarding back to 1.
+array_block_check() validates blocknr and csum and nothing else, while
+node_check(), next to it, has bounded the structural fields since both
+were written. dm_array_cursor_next() takes its loop bound from the
+on-disk nr_entries and element_at() is unguarded pointer arithmetic, so
+a count larger than the block holds keeps the cursor in one block while
+the index grows past it and the read walks off the dm-bufio buffer --
+dm_cache_load_mappings() drives it once per cache block at activation.
 
-Also match forwarding's locking: take RTNL for every write and compare
-the old and new values under the lock, rather than returning early based
-on an unlocked comparison. Send netconf notifications only for actual
-value changes, including for default and per-interface writes.
+Check the header against itself: reject a zero value_size, require
+max_entries to equal calc_max_entries() for that value_size and block
+size, and require nr_entries to fit. Equality rather than an upper bound,
+since a count below the real capacity trips BUG_ON() in fill_ablock() and
+trim_ablock(). Metadata dm-array writes satisfies all three.
 
-Note that IPv4's forwarding does not behave like this, but we won't
-change that one and align force_forward to the IPv6 forwarding.
-
-Fixes: f24987ef6959 ("ipv6: add `force_forwarding` sysctl to enable per-interface forwarding")
-Suggested-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
-Signed-off-by: Gabriel Goller <g.goller@proxmox.com>
+Fixes: 6513c29f44f2 ("dm persistent data: add transactional array")
+Suggested-by: Ming-Hung Tsai <mtsai@redhat.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Reviewed-by: Ming-Hung Tsai <mtsai@redhat.com>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+[mdmitrichenko: Keep the existing non-const validator argument when
+ moving calc_max_entries() above array_block_prepare_for_write().]
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
 ---
- Documentation/networking/ip-sysctl.rst             |  2 +
- net/ipv6/addrconf.c                                | 38 +++++++++-------
- .../testing/selftests/net/ipv6_force_forwarding.sh | 51 ++++++++++++++++++++++
- 3 files changed, 75 insertions(+), 16 deletions(-)
+Backport fix for CVE-2026-89574
 
-diff --git a/Documentation/networking/ip-sysctl.rst b/Documentation/networking/ip-sysctl.rst
-index 0b7bfbd98a92..3cc80d9b024b 100644
---- a/Documentation/networking/ip-sysctl.rst
-+++ b/Documentation/networking/ip-sysctl.rst
-@@ -2683,6 +2683,8 @@ force_forwarding - BOOLEAN
- 	Enable forwarding on this interface only -- regardless of the setting on
- 	``conf/all/forwarding``. When setting ``conf.all.forwarding`` to 0,
- 	the ``force_forwarding`` flag will be reset on all interfaces.
-+	Writing to ``conf/all/force_forwarding`` applies the value to all
-+	interfaces, even if the value did not change.
+ drivers/md/persistent-data/dm-array.c | 37 +++++++++++++++++++++------
+ 1 file changed, 29 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/md/persistent-data/dm-array.c b/drivers/md/persistent-data/dm-array.c
+index b7c82ad11bcc..c18349dd36d3 100644
+--- a/drivers/md/persistent-data/dm-array.c
++++ b/drivers/md/persistent-data/dm-array.c
+@@ -37,6 +37,14 @@ struct array_block {
+  */
+ #define CSUM_XOR 595846735
  
- fwmark_reflect - BOOLEAN
- 	Controls the fwmark of kernel-generated IPv6 reply packets that are not
-diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
-index 6572bb22b2c0..10642c68571b 100644
---- a/net/ipv6/addrconf.c
-+++ b/net/ipv6/addrconf.c
-@@ -6841,7 +6841,7 @@ static int addrconf_sysctl_force_forwarding(const struct ctl_table *ctl, int wri
- 	struct net *net = ctl->extra2;
- 	int *valp = ctl->data;
- 	int new_val = *valp;
--	int old_val = *valp;
-+	int old_val;
- 	int ret;
++/*
++ * Each array block can hold this many values.
++ */
++static uint32_t calc_max_entries(size_t value_size, size_t size_of_block)
++{
++	return (size_of_block - sizeof(struct array_block)) / value_size;
++}
++
+ static void array_block_prepare_for_write(struct dm_block_validator *v,
+ 					  struct dm_block *b,
+ 					  size_t size_of_block)
+@@ -54,6 +62,7 @@ static int array_block_check(struct dm_block_validator *v,
+ 			     size_t size_of_block)
+ {
+ 	struct array_block *bh_le = dm_block_data(b);
++	uint32_t nr_entries, max_entries, value_size;
+ 	__le32 csum_disk;
  
- 	tmp_ctl.extra1 = SYSCTL_ZERO;
-@@ -6849,35 +6849,41 @@ static int addrconf_sysctl_force_forwarding(const struct ctl_table *ctl, int wri
- 	tmp_ctl.data = &new_val;
- 
- 	ret = proc_douintvec_minmax(&tmp_ctl, write, buffer, lenp, ppos);
-+	if (ret || !write)
-+		return ret;
- 
--	if (write && old_val != new_val) {
--		if (!rtnl_net_trylock(net))
--			return restart_syscall();
-+	if (!rtnl_net_trylock(net))
-+		return restart_syscall();
- 
--		WRITE_ONCE(*valp, new_val);
-+	old_val = *valp;
-+	WRITE_ONCE(*valp, new_val);
- 
--		if (valp == &net->ipv6.devconf_dflt->force_forwarding) {
-+	if (valp == &net->ipv6.devconf_dflt->force_forwarding) {
-+		if (old_val != new_val)
- 			inet6_netconf_notify_devconf(net, RTM_NEWNETCONF,
- 						     NETCONFA_FORCE_FORWARDING,
- 						     NETCONFA_IFINDEX_DEFAULT,
- 						     net->ipv6.devconf_dflt);
--		} else if (valp == &net->ipv6.devconf_all->force_forwarding) {
-+	} else if (valp == &net->ipv6.devconf_all->force_forwarding) {
-+		if (old_val != new_val)
- 			inet6_netconf_notify_devconf(net, RTM_NEWNETCONF,
- 						     NETCONFA_FORCE_FORWARDING,
- 						     NETCONFA_IFINDEX_ALL,
- 						     net->ipv6.devconf_all);
- 
--			addrconf_force_forward_change(net, new_val);
--		} else {
--			inet6_netconf_notify_devconf(net, RTM_NEWNETCONF,
--						     NETCONFA_FORCE_FORWARDING,
--						     idev->dev->ifindex,
--						     &idev->cnf);
--		}
--		rtnl_net_unlock(net);
-+		/* Like all.forwarding, apply to every interface even if
-+		 * all.force_forwarding did not change.
-+		 */
-+		addrconf_force_forward_change(net, new_val);
-+	} else if (old_val != new_val) {
-+		inet6_netconf_notify_devconf(net, RTM_NEWNETCONF,
-+					     NETCONFA_FORCE_FORWARDING,
-+					     idev->dev->ifindex,
-+					     &idev->cnf);
+ 	if (dm_block_location(b) != le64_to_cpu(bh_le->blocknr)) {
+@@ -73,6 +82,26 @@ static int array_block_check(struct dm_block_validator *v,
+ 		return -EILSEQ;
  	}
-+	rtnl_net_unlock(net);
  
--	return ret;
-+	return 0;
++	nr_entries = le32_to_cpu(bh_le->nr_entries);
++	max_entries = le32_to_cpu(bh_le->max_entries);
++	value_size = le32_to_cpu(bh_le->value_size);
++
++	if (!value_size) {
++		DMERR_LIMIT("%s failed: value_size is zero", __func__);
++		return -EILSEQ;
++	}
++
++	if (max_entries != calc_max_entries(value_size, size_of_block)) {
++		DMERR_LIMIT("%s failed: max_entries %u invalid for value_size %u",
++			    __func__, max_entries, value_size);
++		return -EILSEQ;
++	}
++
++	if (nr_entries > max_entries) {
++		DMERR_LIMIT("%s failed: too many entries", __func__);
++		return -EILSEQ;
++	}
++
+ 	return 0;
  }
  
- static int minus_one = -1;
-diff --git a/tools/testing/selftests/net/ipv6_force_forwarding.sh b/tools/testing/selftests/net/ipv6_force_forwarding.sh
-index bf0243366caa..383d1ec64f1c 100755
---- a/tools/testing/selftests/net/ipv6_force_forwarding.sh
-+++ b/tools/testing/selftests/net/ipv6_force_forwarding.sh
-@@ -86,12 +86,63 @@ test_force_forwarding() {
-     return $ret
+@@ -138,14 +167,6 @@ static void dec_ablock_entries(struct dm_array_info *info, struct array_block *a
+ 		on_entries(info, ab, vt->dec);
  }
  
-+check_force_forwarding() {
-+    local dev=$1
-+    local expected=$2
-+    local msg=$3
-+    local val
-+
-+    val=$(ip netns exec $ns2 sysctl -n net.ipv6.conf.$dev.force_forwarding) || return 1
-+    if [ "$val" = "$expected" ]; then
-+        echo "PASS: $msg"
-+        return 0
-+    fi
-+
-+    echo "FAIL: $msg (got $val, expected $expected)"
-+    return 1
-+}
-+
-+test_all_force_forwarding() {
-+    local ret=0
-+
-+    echo "TEST: all.force_forwarding"
-+
-+    ip netns exec $ns2 sysctl -qw net.ipv6.conf.veth21.force_forwarding=0 || return 1
-+    ip netns exec $ns2 sysctl -qw net.ipv6.conf.all.force_forwarding=1 || return 1
-+    check_force_forwarding veth21 1 "all.force_forwarding applied to interfaces" || ret=1
-+
-+    # Rewriting the same value to all re-applies it to every interface
-+    ip netns exec $ns2 sysctl -qw net.ipv6.conf.veth21.force_forwarding=0 || return 1
-+    check_force_forwarding veth21 0 "interface force_forwarding overridden" || return 1
-+    ip netns exec $ns2 sysctl -qw net.ipv6.conf.all.force_forwarding=1 || return 1
-+    check_force_forwarding veth21 1 "unchanged all.force_forwarding re-applied" || ret=1
-+
-+    if ip netns exec $ns1 ping -6 -c 1 -W 2 2001:db8:2::2 &>/dev/null; then
-+        echo "PASS: forwarding after re-applying all.force_forwarding"
-+    else
-+        echo "FAIL: ping failed after re-applying all.force_forwarding"
-+        ret=1
-+    fi
-+
-+    # Disabling all.forwarding resets force_forwarding, including on all
-+    ip netns exec $ns2 sysctl -qw net.ipv6.conf.all.forwarding=1 || return 1
-+    ip netns exec $ns2 sysctl -qw net.ipv6.conf.all.forwarding=0 || return 1
-+    check_force_forwarding all 0 "all.forwarding=0 resets all.force_forwarding" || ret=1
-+    check_force_forwarding veth21 0 "all.forwarding=0 resets interface force_forwarding" || ret=1
-+
-+    return $ret
-+}
-+
- echo "IPv6 force_forwarding test"
- echo "=========================="
- 
- setup_test
- test_force_forwarding
- ret=$?
-+if [ $ret -eq 0 ]; then
-+    test_all_force_forwarding
-+    ret=$?
-+fi
- 
- if [ $ret -eq 0 ]; then
-     echo "OK"
-
----
-base-commit: 676f3aace662fbbc180b3898b190a372fa2a516b
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git main
-change-id: 20261112-ipv6_always_apply-afc485227167
-
-Best regards,
---  
-Gabriel Goller <g.goller@proxmox.com>
-
+-/*
+- * Each array block can hold this many values.
+- */
+-static uint32_t calc_max_entries(size_t value_size, size_t size_of_block)
+-{
+-	return (size_of_block - sizeof(struct array_block)) / value_size;
+-}
+-
+ /*
+  * Allocate a new array block.  The caller will need to unlock block.
+  */
+-- 
+2.43.0
 
