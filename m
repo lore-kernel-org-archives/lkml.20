@@ -1,98 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794448613;
-	b=NTcvtT4h+T6WnAG+F4yunaGJnSPk1QUkK4E084A+JM7TcedAw178Ok6T0dASdn/ZoiNm
-	 pIgWCdxl+gfl/WVEhslvHnIjJlGK0lrEVeD0Mb1VPSsUVFkbV57wCmGBNdACGzQhi5uwP
-	 ZzqTPS2XbvNqB8B0s1iO4LIO50f7FN2KY1hJUIFbDcFX1xiHs+4e2mbvyAwiV5rHNvT6M
-	 z4kQagpVf/nKLLmfhwMH7fd//+3SJM7lUCjFh+YkLBd+ucmpLiYwxHkdivnwkD9R8MUB5
-	 WCVTrNtqCV6kzvB0QphoJ6xjlD43YJuAD8+pES9mTWmzgoUCZUtyJe3xwrGee/I7amw==
+	t=1794448617;
+	b=vM2ke14Q6e021PHI0F/8oqPJItXStSD6P7ByWmVVLndp+s4u/f6zNxT9dcQWTXpIFogB
+	 22aSvpz0tEHCq/dqwpRE/f/1sNDHrm115wwF0vGj49elOBao4MZrAp6SYLRabxhnGmdeo
+	 Mez9EfyY0yfR8rzvjyqMNnD8UJqKfsxJCF9NliEdGUpmGc0UH0TvTVIi5nmq/mmOtU9vi
+	 mx3uTPg/6yeRzx5tsVbFk4LbolXxsmrAUbCPghK7ERTULoVq0LzKKtUTj4s2DWzEotKjb
+	 PtHVXTtt/9GvZAG6jdj748wdmhBd1hnWXwOGIowkprlZxpKq8LL3WDA6PROm2LKYsXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794448613;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=vZqO0In2n5tOz2hnsdR3SO6+3JMhXipUZdYYnYL8NEc=;
-	b=0dgGNoksbGyLo9NY3hQx/kL/8lDIRQIP5850lnTeGgJPOf4A0+w6n78dse+i39j7s+jp
-	 vwVAKtSfmTJpi3JMLGbhVR2z9bVyX9g3iwhX8nDMg4+rWLyV/EliTzkMZS7wIm+SM9Svi
-	 bohcaVf233IuP8NpJqto9+DmXGRM59fEAEEO7sbXw+FpfEyA6u+GJeLCcnfG5kp3RC1ES
-	 XUxhoZOw72MLbJARui3c73OboEaoX02SfDUTJYEqQ5rxYMwvM5bq2vFzFJHbbllFHPJPF
-	 MnwRTpXYYTaJQl+Q75j3bwZGOE8oeyxLlEzHjBCo+01S4k8VDDzmCQXFcfoaQMEfM7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794448617;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=vlcD19G9xALmfVWh6qixAsChTTMjTVjAvWOnGyaCmRU=;
+	b=D+Taq+62ouF9EGGbauLlSNEJV+P79Mj0CDiEZCvuBoOQnRwMGFE9W4yBjt29sZMtrKca
+	 2f8Ou9SDEhBD76EVHg571fwb7opWBPHO5UYA3tq8uds1nrTvio3XR8oGgq0oQTHwkSp92
+	 ZXvGfo6nFYFcjMhuSIDoDX/F6CtXn3h31YG4beo1iG+Mo/GS5UJc6opZGNetlRZlnUjem
+	 SW87eXCM69JUQzwFFBxKNY9z1ouNC1rOjpvQzIPde6XDq89SOJ2jIGy2/itl6YEs7MG2X
+	 sdLWvqmOyRkICajUEpb/uBteKlrolYmb+Pr+y9dbCfe9F0eYQmtApfbopDNx613MzRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vk0kM9fR;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KVg8hANL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42199606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:56:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42199606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A58606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:56:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vk0kM9fR
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-37198ed3727so499719eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:56:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794448612; x=1795053412; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vZqO0In2n5tOz2hnsdR3SO6+3JMhXipUZdYYnYL8NEc=;
-        b=vk0kM9fRQhoMcC9QiMfLW4K7xPOuCg/X8XmsXYEmu3stw1OxEyle4Z+xNpQ2dvjG1e
-         RdxjOUpV4aM8kZZowTz1yGKr93mL3c3Dq57yD2iohR+0EchHqXD99fAGXGgcu4a75qRK
-         B8QNJUe1aP1AEwLAVz6aaU8u/lvgdusTyLhFmdYaI1xkOCMMFFp5XRVtunj3HbdW77ZZ
-         H4RjHF8g1QivxHLjo7T1dU7CVKJeNiKQt4P8nLw/Hw/wDLrJSEqzntzZB02fm0GCYiyz
-         QUe8yDbWiEf37aDUuZskHYfZfsG5Ii4sJRBPpHJk2VFyh6m75F/SLPTtIJQRn4H428OK
-         1LLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794448612; x=1795053412;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vZqO0In2n5tOz2hnsdR3SO6+3JMhXipUZdYYnYL8NEc=;
-        b=Y2FtqZwaPHQkVLJY65v6WemncJInOf38zWQHM5N0jqT6GK7QEQNNOLWDFGKLn7lKUc
-         fTD3waJAD1QdTpMCBdCpNG+sV0XldEI4r0qMNslayghNFPFQ7fm4bsqUzPvzkKXL1tIZ
-         ZE8u4owtkraM1feN2vsb3KIa7xBPuTt40eUOrffUCiPc3ViSK2vghJzCmJT8ZZkk9Tt7
-         FHyWOJfsD4TeU1iq46Vo1E3AvVb6Zz6IYm3+ccVFmYLs0zmxuRMG50GGZHzSC+4ylh7X
-         QHZJ/xDmAyCMWHgzsVRfQryRF0y5X+ilgd+H8zWBSusbOiZoSbpaSxg8ZcfVKsrAmz3g
-         8AyQ==
-X-Forwarded-Encrypted: i=1; AL+hErGnqAFTDRYDOn6i7BxytTjnBSVuaJF0m58UZbAqY1xK+PsccaAxiTAe92pGPrE1cYk4wpYJJV//eYBAD54=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/q4J6aOph2riY8i7NYZ6Ez7xMOYsDd+xMzEh7JPb1vHX8Kge+9
-	F/cGk/R5MG1kMjQJD2Nz1VROOp2jMF5a9Z67cLbS3Z3O0Jd+yIvhSCq1/bXSwnps
-X-Gm-Gg: AYBFou1Nd3k/zNYnltOvxH0gnYRETt5vqshCVIK26Np9k7tfWDzpDDedKGhI4p8gzRP
-	ghmXstkWWNlXA+6QtTQs4ntRGYh+QutLEnXz9IQHmFDwzRn9mDrpnqFmzmBcTlLptePp5oN0hvd
-	2i4Q083O332tkILUJ7ESSJcM8ila0UUVZDwJ9KKiuE0cZe6YXc2qOj6f/WjQso3G5+vaShdQHGY
-	Nn6F+d7aNtOJd7Ax7RjxUBwCaTNKvEDUWGj+n8l662PFqtE8vHmkbO5PRDWK2qtiEoYE6tviFtS
-	e0yK8yTnsO5Eg0rTUofAsz4LpwL/8M/nCRU1Ltp5YpSaeCSFVpuoHbvy9+XlyP7uXyV9XqYdCvR
-	TdPS626R9XVyEZKXB6YxFKH9WmkWAfDSRbwrGmqnhFRstQhnBJQvZgm+5d25CkByHzbUVCK4Ucs
-	3g1EizIetoa/BhCbwgaeGahy/6EYOJTbVb4MOwz6rgFtqKtq34QXgUwKzQ3b3eWuz651R5nL3JM
-	JGwvAt+hMyTnXqYiYkxTmtBQsixQLZYai7vrNBz7cDFjSTsDHhcCa7SKD6zN2qf4FZVFt8TYSWz
-	n5i54dPDB5mcbXBDAyySx3GoZbejAxwE6RkyQlS1GzIQcHEUcmO59xNGl1tc0xFCiFni9kFFgWZ
-	W4FsYNW4YC65z0BlMe4Lc1WmWYrU/Uenz00K4XkZ3teU6lQ==
-X-Received: by 2002:a05:701b:42c5:10b0:14e:61bb:ec3d with SMTP id a92af1059eb24-1b4f5eb2338mr1128050c88.16.1794448612207;
-        Wed, 11 Nov 2026 17:56:52 -0800 (PST)
-Received: from [127.0.1.1] ([2602:feda:30:cafe:ec49:29ac:0:1866])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2eeffsm21032435c88.9.2026.11.11.17.56.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 17:56:51 -0800 (PST)
-From: Yaohan Li <shunsheng1218@gmail.com>
-To: hare@suse.de, kbusch@kernel.org, axboe@kernel.dk, hch@lst.de,
- sagi@grimberg.me
-Cc:
- mkp@kernel.org, linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] nvme: stop asynchronous event work before ANA teardown
-Date: Thu, 12 Nov 2026 09:56:38 +0800
-Message-ID: <20261112020000.1003.yaohan@gmail.com>
-In-Reply-To: <508595ec-0540-4534-afd4-44ef8ee01da6@suse.de>
-References: <20261105114149.970315-1-shunsheng1218@gmail.com>
- <508595ec-0540-4534-afd4-44ef8ee01da6@suse.de>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KVg8hANL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DC321F00A0E
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 01:56:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794448617;
+	bh=vlcD19G9xALmfVWh6qixAsChTTMjTVjAvWOnGyaCmRU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=KVg8hANLAXoO4hjUTXJD88oRydg5HS0AYNxQVPyuoKzVm0EzcXS4t3Cp1efu4QNd7
+	 cCoMliDydlabNX8nRDYdEGCFwjwXqDgyyu0hdKT80vkFoduN/6sitOT8AyRkuIHV4K
+	 uOxX5aY6+YRtM7uHFbuVgOBArvcFsqgDs73ZqlCntPtna1kMcrjnhOQ5NVRSOuGXfl
+	 7A64kABhMJvbZ0kuwlsbQPOuWFhfhEXlqDA3rTFZTK2DgDJ+c1Dbt507GZLSwBGEFX
+	 Js+zqSfokjA1+OWT8REZ91NlF8u6ZgoVDrXMPxQ43o3/iM1ua5rub1UZZNxqZzccZn
+	 rqxfZU2t2B+qw==
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3acd523a802so31325281fa.2
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 17:56:57 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFFEK+nGFZp31EBT+wOMGeYwt4NglhXZqgN4rmBt0KbB5mFmktduhWcc1CnPOq6/inMXvxrI+wPHs/PYk0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9eUEYXtZs4w0fvNf552b/0eY67ewlgpSwv/m3nPt0DucrFJti5
+	Vx5EwxPks/KtkAUG9WmeeMK0xxzIa0aI74ZhpaDvgHMIbY4DBqX5EaPBVXOAl4t2TTYkLA8h4yt
+	hQTMSacu0N6wA/gTeOMMrWJ1vwwGFXMg=
+X-Received: by 2002:a05:6512:b9e:b0:5c1:44ea:cfa8 with SMTP id
+ 2adb3069b0e04-5c15d649f37mr1460481e87.47.1794448615836; Wed, 11 Nov 2026
+ 17:56:55 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,25 +59,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <1794382813.6AF41BD9.002.4jPb5k0FlFz6R2s@fangwg01>
+In-Reply-To: <1794382813.6AF41BD9.002.4jPb5k0FlFz6R2s@fangwg01>
+From: Xiubo Li <xiubli@kernel.org>
+Date: Thu, 12 Nov 2026 02:56:43 +0100
+X-Gmail-Original-Message-ID: <CAOuZWzxwa2hB-Sr7zm7aAhhsM6OBqMF_A5C==Y=HvM47EAc9Nw@mail.gmail.com>
+X-Gm-Features: AclHuK_9QaL_JNXEb95zt0gFcFLZIxE5kmkdC5h7lK5XobXrnpOjdQOgNcl3ID8
+Message-ID: <CAOuZWzxwa2hB-Sr7zm7aAhhsM6OBqMF_A5C==Y=HvM47EAc9Nw@mail.gmail.com>
+Subject: Re: [PATCH] ceph: fix slab-use-after-free of capsnap in ceph_put_wrbuffer_cap_refs()
+To: zhangdaolong <dlzhangak@isoftstone.com>
+Cc: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+	Viacheslav Dubeyko <slava@dubeyko.com>, ceph-devel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Hannes,
+On ... zhangdaolong wrote:
+> In ceph_put_wrbuffer_cap_refs(), when capsnap->dirty_pages drops to 0
+> and !capsnap->writing, ceph_try_drop_cap_snap() may drop the last
+> reference on capsnap and free it via ceph_put_cap_snap(). ...
 
-That's a fair point. I agree that we shouldn't submit new AER requests once t=
-eardown has started.
+Hi Daolong,
 
-The case I was trying to cover is a completion for an AER that was already ou=
-tstanding. nvme_stop_ctrl() flushes async_event_work, but a completion can st=
-ill queue it again before the transport has finished shutting down the admin =
-queue.
+Thanks for your patch.
 
-In v2, I added the final cancellation in nvme_uninit_ctrl(), after the transp=
-ort teardown, and kept the separate cancellation of ana_work before releasing=
- its resources. Keith has since applied that version to nvme-7.4.
+Reproduced on testing with KASAN and the doutc in
+ceph_put_wrbuffer_cap_refs() enabled: dirty a file under a snapshotted
+dir, rmdir the snapshot (snapc seq bump without new snaps, so the
+cap_snap is queued with need_flush =3D=3D false), then sync. Every
+writeback completion that drops the cap_snap gave two
+slab-use-after-free reports (4-byte read of dirty_pages and 8-byte
+read of ->context) on the ceph_cap_snap cache, freed by
+ceph_try_drop_cap_snap(). With this patch the same 30 drops give no
+KASAN report.
 
-I agree that stopping the producer is preferable where possible. I don't thin=
-k the final cancellation should be treated as a substitute for quiescing the =
-completion path, and I'll check whether any transport can still deliver a cal=
-lback beyond that point.
+Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
+Tested-by: Xiubo Li <xiubo.li@clyso.com>
 
-Thanks,
-Yaohan
+Thanks
+- Xiubo
+
+zhangdaolong <dlzhangak@isoftstone.com> =E4=BA=8E2026=E5=B9=B411=E6=9C=8811=
+=E6=97=A5=E5=91=A8=E4=B8=89 08:40=E5=86=99=E9=81=93=EF=BC=9A
+>
+> In ceph_put_wrbuffer_cap_refs(), when capsnap->dirty_pages drops to 0
+> and !capsnap->writing, ceph_try_drop_cap_snap() may drop the last
+> reference on capsnap and free it via ceph_put_cap_snap(). However, the
+> subsequent doutc() statement still dereferences capsnap->context->seq
+> and capsnap->dirty_pages, triggering a KASAN slab-use-after-free when
+> debug logging is enabled.
+>
+> Fix this by emitting the doutc() log message before calling
+> ceph_try_drop_cap_snap().
+>
+> Fixes: 860560904962 ("ceph: avoid sending unnessesary FLUSHSNAP message")
+> Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+> Closes: https://tracker.ceph.com/issues/77923
+> Signed-off-by: zhangdaolong <dlzhangak@isoftstone.com>
+> ---
+>  fs/ceph/caps.c | 21 +++++++++++----------
+>  1 file changed, 11 insertions(+), 10 deletions(-)
+>
+> diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
+> index 4b37d9ffdf7f..2f9f334276d1 100644
+> --- a/fs/ceph/caps.c
+> +++ b/fs/ceph/caps.c
+> @@ -3393,23 +3393,24 @@ void ceph_put_wrbuffer_cap_refs(struct ceph_inode=
+_info *ci, int nr,
+>                 }
+>
+>                 capsnap->dirty_pages -=3D nr;
+> -               if (capsnap->dirty_pages =3D=3D 0) {
+> +               if (capsnap->dirty_pages =3D=3D 0)
+>                         complete_capsnap =3D true;
+> -                       if (!capsnap->writing) {
+> -                               if (ceph_try_drop_cap_snap(ci, capsnap)) =
+{
+> -                                       put++;
+> -                               } else {
+> -                                       set_bit(CEPH_I_FLUSH_SNAPS_BIT, &=
+ci->i_ceph_flags);
+> -                                       flush_snaps =3D true;
+> -                               }
+> -                       }
+> -               }
+> +
+>                 doutc(cl, "%p %llx.%llx cap_snap %p snap %lld %d/%d -> %d=
+/%d %s%s\n",
+>                       inode, ceph_vinop(inode), capsnap, capsnap->context=
+->seq,
+>                       ci->i_wrbuffer_ref+nr, capsnap->dirty_pages + nr,
+>                       ci->i_wrbuffer_ref, capsnap->dirty_pages,
+>                       last ? " (wrbuffer last)" : "",
+>                       complete_capsnap ? " (complete capsnap)" : "");
+> +
+> +               if (complete_capsnap && !capsnap->writing) {
+> +                       if (ceph_try_drop_cap_snap(ci, capsnap)) {
+> +                               put++;
+> +                       } else {
+> +                               set_bit(CEPH_I_FLUSH_SNAPS_BIT, &ci->i_ce=
+ph_flags);
+> +                               flush_snaps =3D true;
+> +                       }
+> +               }
+>         }
+>
+>  unlock:
+> --
+> 2.48.1
+>
