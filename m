@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794472391;
-	b=tS3S3ee8DQOqgQCi1x61nGvUXmeuVHB8t4n7X1w/m3Ie360vVT6Mm0X8JmzGHm3dlTwL
-	 1My2bM8OV5qxJUJxVm3jTxElRch8unYNvzMEuKm+JVrXpCcomn+dw0auqpzQxrzJWDkWe
-	 VG+OITT4seFey7g4qjYoMlsZq1TxufnXmXIB8C/DMrmoO7sTiXeoLyXCnHsL3J4EZOvcG
-	 NgdZv0ncItW9NBzErU/Mm/77bNNhG6aBTiJQQdyKdp4Khj1PGY78wEaXKO8rIl0vQVlsP
-	 H8DNZ2+yn0WDeQt7s5nYMbteKrEWX9VGCUwB3HXU4zOzSyNLUa8hWCg3wdfykQ0csLQ==
+	t=1794472388;
+	b=zR5cq8BPphp1btsN+Pxb3vr/hP8sTYiTAW5wivH8fzTb29722iAujjZIH08QAQ7kKyLi
+	 /vd5n0L6lh85c/9Nm9yLm1vb73xMI5Hyqk/PGYpFNNeRGyEKrJM2MtBHCrwG72oZYXpo9
+	 58mGKGl/Nv2LB5p3Paj36f51e8seYOeqgu23BusdbiSo2Z4Ts0AYPosvwMw55WmA2Tyyk
+	 m16yqvPPvusDRnRfj9j5hRegnIpmoZznrMiwR7EgAJQkrxfSYR3qXESj9ZzZuv1XWewLM
+	 75kT3aefM09We+bGiRyCBdysqnDkRf/JQTn2uo71r8hsDLhHNpnyk2+svKqNuaOTcXg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472391;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472388;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dHj51gMQ8uQhwkQpY2b4D9/D/MpMtRNQyvnnTdQLIJ0=;
-	b=Q1lVz4xk8dzlgzkJTRHXEJ2+HHanwYg/KdeaIyEQJQWYyLl6EzHFan9Xp3n3qrd46Ptz
-	 rHTWGzTVbJvUKRFPUa3zjUR+wOw5g7XC6idA/1PKvYoIaKLOAkjlwxYkmjlsPdDXCjqIT
-	 DWNhvLDOPLmvJtaChcnKjmKFvSLbMgfqp9vPcxFbqY1n8qIZqvHpnbIc76HndA7DNbJ8Z
-	 WLivXyHgDoQyMWbK3M/hYXRW1A9Kqnyjo7jlcL7X3dQA0S71/+Veze+eSQ229cAb9AqvT
-	 tpqullBYCsTqARj+kejiy+i/TRmGEoQLyHK2yge8zEzgvzsQJ71Z9pXyJOovYcogYrA==
+	bh=s1Qj21qpcNfOQIR9sV5LF1bI2tlwUQfLEP8RYtsxPDs=;
+	b=WwQhM826fjbZEZQL78akaUq1stCgbAwjZDkaApyzHbFRN7vAQUEamaC+75JRBCAi4aMl
+	 JoOFjglML6DJ6JFpmAtAA640BHePBYEQdW0PFQtPTXWlUwjm6TvH435x+ooRayCIxvPuB
+	 0ZcaPz/JN/2P/KZbNb7uXmQl8QZEE4wffjsR4FVCVvWzUGZVtgnKO0qBcShRHx0qI8LNY
+	 X/POe2i5pEo9rzc/Ace2Nhs73W1oDG/d6tTdxQ4eGP4htpqJltuLwe8INGWa2voYC5dv9
+	 51irYtZczSpSNNwdCMNPIUfcTKGg/4pTIz3yjdGrz0IJGoR+ueSvEDuS7UzuLebbTgQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nM2p2EIy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fULWnQEz;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76BB1606E99C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:33:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4453606C823
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:33:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nM2p2EIy
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fULWnQEz
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794472391;
-	b=Cl/+97nCA1h8i8VgsOOtbvbtjUdvJKYOEU+semB1YK9rtFKEG9wWFA47/kk4uFcMh5Ar
-	 6kRLHnREcuntx8sC6836pfdp/S/PF6iO+W+lquF4v2EWHg7LeQbij6Uo6Dfh5fEjSl2az
-	 Ro0NT/6TdyQQUm3PA6kqcZb0yWcJfgjB2kCmmszLWeM3hE8bmsEDMvsKIe4eD3Tkv5Ji1
-	 T8c3dix4e3OUyhm6TQxVWiRi31nZY75KPEyXvhulyw3ru1mX8i8NEfgxboroAXp231wbT
-	 i1ayAWanM4wJ/g50tvsVNRLPpX+HTyxmuCbhQ9kv4LqiEoGZiGvp8ow7F/fVaikhN9g==
+	t=1794472388;
+	b=erdygLEBqaceeRIneVQtngsWxUPorg4YZ5ro7J+10r3jG5rYN57VwEZ7Pv1cSvKlp1Mq
+	 o+LZaE/VXy4FwHnG8WY/xkiF61jLbJrf06wh25/Z+lazLsauruHCFH7/WNj7ae6WZTGN6
+	 kybk2fEXW7K4A7g8XhwtWX2qxw5LXQUMiEtYQOfCPyaD6OdYhXx3YdT6E8zPrxvqflk1X
+	 56IOZbn3aFp1L4qJDLz6SJEU8FXbqK/xr1UUq9yQ4TmtNC9UsC3dzOKXDrdNnqA/8WUPI
+	 kpTp5ZA8rXRuKwROE2FutyTJwTwOMfdHzR9M5PMZaYnfJbbtRY4RQcXWF9hLfhYnp9A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794472391;
+	c=relaxed/relaxed; t=1794472388;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dHj51gMQ8uQhwkQpY2b4D9/D/MpMtRNQyvnnTdQLIJ0=;
-	b=AIIio3y2Zt9DH8Nk/uXDrXKSP9660sNgQXYAg8OGKYISVyq6QP9KnBQ/2DPiHUy2BOrb
-	 lEhdbFA5qI2W2sgyD6M76P/G4R6mD0MhT0F++Rn3UgnKoAVVoN1dE62uq5xo+CNCOZ/w8
-	 CcXuflHqnC3nojH/TC3z8FWWUd1js3b8Tw/0lai7K9Ku6ReljggdqRMXzGOoEm/sPcecm
-	 zF7zsN2xRTkjiKrwP1e/pqqhC8s7gdi2puejyCA3u8GKZhpaetJ9e8VSSYdttnYdMNXkc
-	 AqpaE6BLFeKbBB9uMrjHjKKuMUfWA6dQWyuTeu+5GGWp2aF3RMaju23CILfVNS1nd1Q==
+	bh=s1Qj21qpcNfOQIR9sV5LF1bI2tlwUQfLEP8RYtsxPDs=;
+	b=aix1mE+j9ogrrTsGiR6pzlCnavqD4+0DLByVredCd97nuaiKJT9hHFTovAoaHlc6TK2A
+	 p/vN7d5uYzgPHOguKVR6CsFrwCbNRsh/WW2yUe0i0O/lh992A6ZW7/TPPLhpAFiaTJyu+
+	 JTkJBNtSj4nl4SSNzN0pgystI4p+iDkeQ6SwAW5HfUt/APB8f82JkmZWPyVkvxLPT5qDU
+	 pdMNKt6t8SQ/og7Jn4boY6rRg+65LMgJHy1QpGimyp7iWQPnCAh0ynzCj8SHp3zFMwrw6
+	 G4qs1Dbh0/1GfLYqIEckmCVls5lN7TXbrUSvLYWkaBtlAm3yXT97Qp1fmlEz8KXnyoA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 180051F00A0D;
-	Thu, 12 Nov 2026 08:33:09 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id EFB221F00A0E;
+	Thu, 12 Nov 2026 08:33:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794472391;
-	bh=dHj51gMQ8uQhwkQpY2b4D9/D/MpMtRNQyvnnTdQLIJ0=;
+	s=k20260515; t=1794472388;
+	bh=s1Qj21qpcNfOQIR9sV5LF1bI2tlwUQfLEP8RYtsxPDs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=nM2p2EIyQbYw6w4tzyFZccWyqHZsgK07vS+589h3zb8usjVHBhwhVs16rEC1zzuCt
-	 U4v/FVMkMlpTClna8YVsuSPk89I0foVAKkjvNIiARh0tnLdEy4ZkBExlCglLTqWyeu
-	 7+Bx0RBTXdlV5D8d8sZfvrbptE0EeUJoHfUOgP6h4nE9PUjkTB/Xuoqt+c5Po+Z7ur
-	 /p3GSgFPNwj/Pz4DzjXUAT4zWSH4GxlB1ypI6tPpixHjvPKGCPwohrYUQ3Vp4bbUNX
-	 SI5Aw30k2dM12/ZzEP3Xe2Pk9+P0dzDUnLKx/ck5NGz39UjZ5s1sdXUs5vwpHJN3Bw
-	 qruPCeXWeC4yg==
+	b=fULWnQEzBenPW//AusdSEtwF9InOwVooMr9vbTriZrgp8Nhxpyt7b2QiK74b4U1Sc
+	 RjL7GDfHfL2O0XO4O2huOb6f24rjA5xmJrFZu2qnyaLyi+6VhsKVvysdOZX1r0/By0
+	 PSP6yYJmLxjUbjrKHPopNlTl91qRqtTHyr/oZmUr+g2SA5G4jI+WQHNMPl9v5iCQnj
+	 /zlTmysAUaHIjd6O9Wvc3E+z3GW4GOtpjEop5HN7Go4WGrWhVYmWGqa0XRX91Nmukz
+	 SkpoY3pydbJmNPNa4S+9Yy+jJhAL45MYbqLrylGZL5XEEu4A1C33tlrRmvCQ5ydM9Y
+	 elG5silqoa7MQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id EEDB5493C6;
+	by lkml.kernel.org (Postfix) with ESMTP id 76D1C493AE;
 	Thu, 12 Nov 2026 08:33:06 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:33:13 +0000
-Subject: [PATCH v2 9/9] drm/rockchip: vop2: Fix the AFBC offsets of a
- source that starts inside a superblock
+Date: Thu, 12 Nov 2026 08:33:07 +0000
+Subject: [PATCH v2 3/9] drm/rockchip: vop2: Fix the HDMI sync polarity on
+ RK3588
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-vop2-fixes-v2-9-8218c1cf8ac8@gmail.com>
+Message-Id: <20261112-vop2-fixes-v2-3-8218c1cf8ac8@gmail.com>
 References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
 In-Reply-To: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -99,11 +99,11 @@ Cc: Piotr Zalewski <pZ010001011111@proton.me>,
  linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472385; l=3183;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472385; l=1785;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=NK+8Rm2INnnfeJa9OAQjLE/uLIeTJ3MOciFQGunaOiA=;
- b=ERQHyJ9mru3JgMuiW7seaQd/zSoJEeU3ViTogqMI2QQLi0rUy54OLXDZSEIQ/RqSjPOhLxEmA
- yG5JhwK2z2kBoOBkPrDdinC+TBgqvztb+0jd9F6+GD56YpmsQWYkMBI
+ bh=/jrSLrVkUlalHW0TPexjIwQp3BO194HjqfgHRaS4qLM=;
+ b=Jg6meUyXq0Uz256Ig80kxHy1oSEEEHzihfWIPDgi7+o3Q6fpbL85hn/hAbCg0vMy9MpP3Odlr
+ WQL9UBlqIQGBH0yPLhS8/8B/4jqeq1nmTgMzh6oC4mkeXm7Jf8wRuU0
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -114,79 +114,49 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-The AFBC decoder of a window takes the position of the source in the
-framebuffer (AFBC_PIC_OFFSET), the number of superblock columns to
-decode (AFBC_TILE_NUM) and the offset of the first pixel inside its
-superblock (the transform offset). For a source that doesn't start at
-x = 0:
+rk3588_set_intf_mux() passes the POLFLAG bits of the mode to
+rk3588_get_hdmi_pol(), which decodes them as DRM mode flags: the
+VSYNC_POSITIVE bit is taken for DRM_MODE_FLAG_NHSYNC and POLFLAG_DCLK_INV
+for DRM_MODE_FLAG_NVSYNC. As a result GRF_VO1_CON0 marks the HSYNC of
+every +HSync/+VSync mode (e.g. all 1080p, 2160p CTA modes) as negative
+and both syncs of -HSync/-VSync modes (e.g. 720x480, 640x480) as
+positive.
 
-- The tile number only counts the superblocks of the source width, one
-  short when the source starts inside a superblock and ends inside
-  another one.
-- The transform offset is the whole x position, truncated to the 8 bit
-  field, instead of the position in the superblock (16 pixels wide, or
-  32 with AFBC_FORMAT_MOD_BLOCK_SIZE_32x8 on RK3576).
+The bits in GRF_VO1_CON0 are set for a negative sync; that is how the
+vendor kernel programs them (vop2_get_hdmi_pol(), called with the mode
+flags, sets them for DRM_MODE_FLAG_NHSYNC/NVSYNC on RK3588). Decode the
+POLFLAG bits accordingly.
 
-Count the superblock columns from the first one the source touches, and
-take the x offset in the superblock, like the vendor kernel does for the
-not mirrored cases. The X mirrored and rotated cases are left as they are.
-
-Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
+Fixes: 5a028e8f062f ("drm/rockchip: vop2: Add support for rk3588")
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 259e30ebb9cb..0e16b665ccac 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -439,7 +439,7 @@ static bool vop2_half_block_enable(struct drm_plane_state *pstate)
+diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+index 659fd0a3ab63..7c48b440cb29 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
++++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+@@ -1687,12 +1687,16 @@ static u32 rk3588_get_mipi_port_mux(int vp_id)
+ 		return 0;
  }
  
- static u32 vop2_afbc_transform_offset(struct drm_plane_state *pstate,
--				      bool afbc_half_block_en)
-+				      bool afbc_half_block_en, u32 block_w)
+-static u32 rk3588_get_hdmi_pol(u32 flags)
++/*
++ * The HDMI sync polarity bits in GRF_VO1_CON0 are set for an active low
++ * (negative) sync.
++ */
++static u32 rk3588_get_hdmi_pol(u32 polflags)
  {
- 	struct drm_rect *src = &pstate->src;
- 	struct drm_framebuffer *fb = pstate->fb;
-@@ -487,7 +487,7 @@ static u32 vop2_afbc_transform_offset(struct drm_plane_state *pstate,
- 		ty = act_yoffset;
- 		break;
- 	case DRM_MODE_REFLECT_Y:
--		tx = act_xoffset;
-+		tx = act_xoffset % block_w;
- 		ty = bottom_crop_line_num - act_yoffset;
- 		break;
- 	case DRM_MODE_ROTATE_90:
-@@ -499,7 +499,7 @@ static u32 vop2_afbc_transform_offset(struct drm_plane_state *pstate,
- 		ty = vir_width - width - act_xoffset;
- 		break;
- 	case 0:
--		tx = act_xoffset;
-+		tx = act_xoffset % block_w;
- 		ty = act_yoffset;
- 		break;
- 	}
-@@ -1816,7 +1816,8 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
- 		if (fb->modifier & AFBC_FORMAT_MOD_YTR)
- 			afbc_format |= (1 << 4);
+ 	u32 val;
  
--		afbc_tile_num = ALIGN(src_w, block_w) / block_w;
-+		/* Superblock columns the source covers, the first one partly */
-+		afbc_tile_num = ALIGN(src_w + (src->x1 >> 16) % block_w, block_w) / block_w;
+-	val = (flags & DRM_MODE_FLAG_NHSYNC) ? BIT(HSYNC_POSITIVE) : 0;
+-	val |= (flags & DRM_MODE_FLAG_NVSYNC) ? BIT(VSYNC_POSITIVE) : 0;
++	val = (polflags & BIT(HSYNC_POSITIVE)) ? 0 : BIT(HSYNC_POSITIVE);
++	val |= (polflags & BIT(VSYNC_POSITIVE)) ? 0 : BIT(VSYNC_POSITIVE);
  
- 		/*
- 		 * AFBC pic_vir_width is count by pixel, this is different
-@@ -1867,7 +1868,7 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
- 			vop2_win_write(win, VOP2_WIN_AFBC_PLD_OFFSET, yrgb_mst);
- 		}
- 
--		transform_offset = vop2_afbc_transform_offset(pstate, half_block_en);
-+		transform_offset = vop2_afbc_transform_offset(pstate, half_block_en, block_w);
- 		vop2_win_write(win, VOP2_WIN_AFBC_HDR_PTR, yrgb_mst);
- 		vop2_win_write(win, VOP2_WIN_AFBC_PIC_SIZE, act_info);
- 		vop2_win_write(win, VOP2_WIN_TRANSFORM_OFFSET, transform_offset);
+ 	return val;
+ }
 
 -- 
 2.55.0
