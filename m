@@ -1,115 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794498246;
-	b=pDDd9y/eOiGtcJ/ipIfzP5SgGjDAkihPueaNVRlqCvyrIaJU9rl9ITthN3lOinp7U1r6
-	 FY+NjNDkDZCsNBF6cp8JBRXM08ZVJiqnvr/Tk7u7gEDAZgYIAjqugwqzxvhvVCSBD+41g
-	 qLOukTFmFYrLoo1oKZJ5umDHlKiQ+UjwYRFMDClLllv9hgqzI/u9B/PGi2zVNGqBYEmpm
-	 71WkYWBiuGrcr+evkYffzff03Q1N/yf6khosGsqQ72Szfmwj0qemk8t6bUTWwpH6zcnLo
-	 t39UsU9ilC924BJQ9dbldqFQzjOpQ4VeqnYwOABPA2H8+KECvIFhfZbSZPp/XUgW0aQ==
+	t=1794498264;
+	b=jc5W7L/EBa1jScsK+N5vxY8fG+dMTfawL0mphSL7V/37y478NC4xwR+EVSfC1RUcmTHZ
+	 Yut9TGWV6NhbQF8ztoiqZEDvc4iZ7yNSHYVmrQGGie9TGwXMIWaMbkruvQQk78dmw9Ckq
+	 GY1IKWfOIX3kvnlqu/gZFuN0V+kGrK8JTB1cQHhWxXyQWVNqnzUxsJATPEwg7ehJ58YpR
+	 S1f9IxcjstgrCDxPHyWvqgwij2Pwa75DX9hFhXiPI1skb3KnSLesppC/Iz1L2c2h0l6Wt
+	 UokT06DW+OgHi73CS6VhIbBYesEFRBWuPTwfAkWK3ixrxBE5Ek/JTgCrf3ODfmdJ97A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794498246;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
-	 X-Developer-Key:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=vijXeEfm77qaUFkbqHOmBEgEJ6GlTLFtkhRoObThLTg=;
-	b=NEm/r1usIeJn3JZVtYe38Wn8SUjY7wDsjM0FneBo6spR7E136GWg1rJq4jv1fpjaJfu1
-	 WKb9LwXPM27lr4eBrdoEpr3jKHDubBS4joTD4ZC3UAGIWHoxzzZFCFX17hzzXboCzua2e
-	 HmGITo1Ka/bldwtvcUcvqgFf11HaKrfLCfhcMLQAm7MpqTPqHgTyz1xAC1XIrP+z/NK8P
-	 CXrZ4YwpSa4LR6JfUh17I4mkpxKjQxWzysYNFkh/xjdmkJotxgh1oiMPa1VHnl5VhFLmV
-	 RnCevdOrtnJob718SZewYXjG7OEP+qauCfEynm5jsMQeOMMsFP91wMcXcvTWJgdiweA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794498264;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:X-B4-Tracking:To:CC:X-Mailer;
+	bh=2jggDFXfiKjyjxfNyJQQxWRj7IWrl5y+P/gKpuovSl0=;
+	b=GuFA1iO/LobznPBK9XGeCHL6azXRtuWBf2dHtg59J3RsICkrWie90Tzh7ofkZ0a6U/BJ
+	 +PX/NpstuTpfSlIsqQQZt4EjXhHFDuxGqHrdqs3TsAlxHln/Lw3SSGk7/O9lpf1UTZ9yD
+	 zYMFVN1dEbcc3fOqkz+WDSqeVRn9QuKGIPRKe/T2bNI7+9p6IifbNewxGhGdWbOXUvkKD
+	 QSN6scI7U+4CPqLNObtc6+uM3La4gle0n2M2m+38UZZDlWh7H14oYWQjLYKFoYNnktoBm
+	 1THghNmDRJHiMxujJf8+Z75tObcLjHjuf1ZEePG9hgTTPEEqNRU6DprhSe9DdrHqASA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BesBSvfu;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WjvVpNR0;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=sioSg+Wy;
+	arc=none smtp.remote-ip=68.232.153.233
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23E9606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:44:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E23E9606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C264606A327;
+	Thu, 12 Nov 2026 15:44:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C264606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BesBSvfu;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WjvVpNR0
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACFZNNe2293189
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:44:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=vijXeEfm77qaUFkbqHOmBEgEJ6GlTLFtkhR
-	oObThLTg=; b=BesBSvfucNVWwXG0Yk3BAVUgkQD40nmb0GiJV9cal2w4WfiFIT4
-	uJyQMgEhJfxYyiFtD+CbaBHILrEsH5qIn4zaGfQh432EhnMmlBq/4DYZ3xiItJNw
-	r+VKdIiJq/TW9Z/rk9Tfl1fxX5KOnisQZ3h0BOiAnN7K3EZrzGqjeHkkD7EOWrxS
-	V14IWnAhxApLJJ11jCBWo8fVt3YkemGdVI/4oaYCNgeyP3ZBMvwxqMJWg88cKp9E
-	Z917PjKJTSWzJG/w+Iovqr5VIV1fC1YfoGh2rQbrZrY3MlBfjcOoLkBfAD9xILRh
-	t+b8aYTAO5TVV3l47W8rRKGWZbyvm8gZuIw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwbs013y4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:44:03 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f559420f3so529729085a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:44:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794498243; x=1795103043; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vijXeEfm77qaUFkbqHOmBEgEJ6GlTLFtkhRoObThLTg=;
-        b=WjvVpNR0svU26bE4uBmbym5pioq/0kNaZ7SH1sphynwwvTSkhgprr976CBXxGFtMjS
-         5X5Ex/Fibu3rstcjWga7oHaAYCD6IPB/1QngV3nAExCBSCfnCklhKT7lIJI9ZW2MhWLQ
-         z0dl+xLdjU2of3aY0mpv7S+iDMytt3kQc/hAxeQ5ACs+fbBxOrWbkOboO1qtSFTHC6hG
-         q9/ADAG4LqUKLTALUVsvGuyG3XcARZncBrI9tEIep544PjyfI9lAuONlYB0lpiwEH11a
-         8z76ZmhNvQUP0jIPmq04bzAjDjuzqyi2/V2c1oju6R/DYjdD/k7p9jGr3HQJq9D6Mqeh
-         Uk1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794498243; x=1795103043;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vijXeEfm77qaUFkbqHOmBEgEJ6GlTLFtkhRoObThLTg=;
-        b=Ac9JPCste8LDvnalJAzFCJXmAzUyQ4r7f2HSjiolsRFmRsVDHWDGDifxV+eGnCDiqw
-         ecyjt69JZio50x8PlD0WtiCenUTBmtgV7dLBGDfNQBqgJLL+6yq53yWcxUZnQ4nYq1g5
-         SUw7Ocy/P0edQzFPA4HF8lkVnAxwMZ/r/b9GkGLesZfS/ljsqVQGsMEwpVTpeGP5MkEM
-         HExDq5y33VwPyXtvBKhxfHHpwcO+3Ejf9r9vDATKTnYBDaazAHDqkhhs1+N8NJaOFhKW
-         NlgY7aFGj/bPJl+xjQovAGfUM+Dr4dEy66QO3/0n1UErXxjiOb3Xn0R09TFhDzfGX4el
-         8OkQ==
-X-Forwarded-Encrypted: i=1; AL+hErHlmx6RuavjlgnNpwIqDx3JtGhodosll1i/rUT7CH+3XdDjBO0xC5+XtbqADQknuSWPVOYuvjRC9boKlCA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+FvkRClVSsGhD2LCuyxE2e8LIgm2QUjuafTtWjBaMwdkXteWLI
-	wCBCOUMek+gqc04ymU2aq2+9EERSxIUYv3juZ3JIIjEtuVkgo5j/UQBZ3Gxh7Jm9RvceYT7+QU8
-	50IYm0tvFybfkFsP+CdANIJ7dlfiPER/b1rNLSkea92waE0XpNzewiswlSW6nV40Gn5U=
-X-Gm-Gg: AYBFou2vjcg0+1iYHJpY/cwOWzNVh5cxPF5ZuFu4yfTKZp61s10q7BqApBpwGIYKUXw
-	cSfBd5yLGpowApkbZFDMSHkLsIL6fDWMstTNnEQQ4vOqijpvRXZwKKcjGmvCZnszzjKvWoFyq9a
-	MZ4F8C9Ner/AuykH8X0nVxR1GACqTfxQWpsYgDpIZsvJRK2AowBZhNjXtivUrBgcF8ALP2q4Uf3
-	nHK0WGxkWPCz+Lr5iVVHFwXeHM1i0UND9ndk219onfxmxc0eRuYaXzoNFWJ54a8xWYqg4JwqTRT
-	hEow67pJFs8htNTbK9xSi0bi2BC872VMJPNWWh4rhSOcN8UTa59uwOwSYZNVqzPBS+hfQk3j11/
-	k3XhJoOTKv/QCAuEuaAzk+qI5qhqfsJ4kfIlaACa4wzld//OFIqRTDt/Dcs+OjQ==
-X-Received: by 2002:a05:620a:4706:b0:944:2f1d:950a with SMTP id af79cd13be357-947affdbf4cmr1107779485a.47.1794498242932;
-        Thu, 12 Nov 2026 07:44:02 -0800 (PST)
-X-Received: by 2002:a05:620a:4706:b0:944:2f1d:950a with SMTP id af79cd13be357-947affdbf4cmr1107775585a.47.1794498242449;
-        Thu, 12 Nov 2026 07:44:02 -0800 (PST)
-Received: from quoll ([178.197.218.7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498811fa70esm15653540f8f.19.2026.11.12.07.44.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 07:44:01 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH] clk: qcom: hawi: Constify known static data
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=sioSg+Wy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1794498264; x=1826034264;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:to:cc;
+  bh=HxgHa+ylojaHP6gqM1yhKD1ewdvIyZI+z1/zt8wg2Fk=;
+  b=sioSg+WyLRTLusM3eoYOdq/dVGiqqLver6U79of/vV9/8g43Jej2gTzl
+   gAr5AsNvOiwI1r9FS6LKzGxdA8JwVYrktSz7BnRFPhuzKnnat0bdeI4iE
+   5LLDYZdMlRAPC/t2ilmwdBmBFVovI2M2EIh89nmTHOVSEEo/XANF9F5/4
+   9wFdzzMZqm94pOcgzAGWzhXUU3vy4lB1CcjP00q8/kjm1ET+DLZSiVGmC
+   1xTelJSiDKvTPUBhBJJh3NSEnwqwo3osISKFV+U4wu5LtrbkZXNIYIv0a
+   engWfs0BHV02zeRw5/ooMYvsvvK5JeCxqyYfIbAdCkUjjntUuDFaPrQbr
+   g==;
+X-CSE-ConnectionGUID: hFPvcHixS26nUTs0b7YK8w==
+X-CSE-MsgGUID: bvlYCDkkQXWNbTmxtQ8J0w==
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="66419760"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 08:44:17 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
+ chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Thu, 12 Nov 2026 08:44:16 -0700
+Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex04.mchp-main.com
+ (10.10.85.152) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
+ Transport; Thu, 12 Nov 2026 08:44:14 -0700
+From: =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
+	<jensemil.schulzostergaard@microchip.com>
 Date: Thu, 12 Nov 2026 16:43:58 +0100
-Message-ID: <20261112154357.271072-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
+Subject: [PATCH] spi: atmel: poll short PIO transfers
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,93 +75,199 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1849; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=+9G1x++waY3FZmbS5XzFqR9Ri7Cj7glIWwNL3cyr4Ko=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq9d6+Hw8Ck2TV8fYw/32sQuZ+6QlQs94atYjc5
- 42n+gg50rKJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCavXevgAKCRDBN2bmhouD
- 1xcFD/0Y5Ldz0Kg8I/9Wc/P9c2P1kq/x24j/erAnqL3JbGSWl6q9AmGIH8fd6t0nby6ItpFYZ0B
- c32AgbgpDNw0WiAM3jenAQ0xrUlFLFwig1o5HL8p94zW6h80N5s7XWY0R2kSik5wUAbp0/WN1Mg
- rSltJUPqdjfOc8uIyu/qEUOvyxtjcgw6tZkgaRiL2dCjZInB+K1T5zo28edH7b83E+eiB9N9RGd
- 3asDfK9APkZJjbUA9Hl+YtgCqU23egHlHrH6APFr1lSGA29Iu9QoCD0vgtGPNaWSh5CD0HB7sl7
- nrGEB1L1YcUixrWwzHGPZsXn7xdxzuQnM2NOXHl2OI4PDO64l5NS8itDc6sTBDXkimQM+mYZ/S1
- xs9QNMo7g+HBHUBSgO8dAwtm+cbN3lhPGaLTS0eBRbiE2/mk4ei7bpb3otSAySNNM5E8bPjvqJd
- kBzOuIlArgAh86P85ESR3IX5zddN50Kqm21LeZbr2eXkjVRS+TQOzAb3gu0nRyq63x0+xu4H5km
- U1wR6oX5JdVuKRhIU8LYMl82uS5vN2lHnHWr0q6iBseLFaYfiugrTTOMnhmKJi4TGeBx3FzsEgk
- mJw1wI/9MPeMLbW1UFFGXFK7BqMp0t2MyEaq0+vn5/DfIuZfod5L9+2lrvLYQsC6aLHgtkSW5f4 wkj2/JczuPPUb1A==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA2MiBTYWx0ZWRfX3zXlYmWMOfR+
- SNDvKLJtGoN+dDkLUq7u3Kee6Yx8cWE4a9XvjuzbrxPYA2E17xgzDql0IxQg1u6wWlNvymTq/Cy
- gZJ43rNqGEpHIdZ0N9EfB3wYu+hXjmqcWvSmJ0xGz2RjlKfSr3B9kpWovH2blG6HuinHMpj8bNK
- 1o2DA7mLdKLuatm0K/6LLf8JVUYQwLDoKQB4m1mWwldeIZJkuCKwU/aTgH//MMGz3qKIZD0LN6Z
- 27+iFqfmTdxCosX1H1bjpQ9O9lZ/rsOrkXU2k2LaxYXuow9BIwaK4nY0tnl1yunUPhY6ie/IcV2
- Fgg4ql955b5QQ40k8u6ian3NsAfrylP3wpu3ykzGeyW4ED4uzoehGQrI8kJUvTqMAjgbB+uCCav
- 96v14xsRcCbbACajpKz0dpZeI3kXgCWT+mCvC8L19z4queYel5fImnajP8fk6S5Djbb/Uw3vyqt
- 6CF0QkkHifBNNlY2MpQ==
-X-Authority-Analysis: v=2.4 cv=AsF7T+9P c=1 sm=1 tr=0 ts=6af5dec3 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=srLn0zS6XOEjdFiaqEEA:9 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA2MiBTYWx0ZWRfXzr7pRiy9TzT4
- spie1vgmpy8eO2c0u4Sqn0cnSi6cZ5ZAZA4qTSWo9yVQ6NNX0zQZE07OsIoEg9H7O3oExsAHQpl
- mhcoocdC/z9gLk0rcmiFFrmPvIWuBeQ=
-X-Proofpoint-GUID: BCpUHMjpS_iZhT9vIkC-VvUZ5qxgFwAF
-X-Proofpoint-ORIG-GUID: BCpUHMjpS_iZhT9vIkC-VvUZ5qxgFwAF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_02,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 phishscore=0 impostorscore=0 bulkscore=0
- adultscore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120062
+Message-ID: <20261112-spi-atmel-poll-short-pio-transfers-v1-1-240ccc868cc3@microchip.com>
+X-B4-Tracking: v=1; b=H4sIAL3e9WoC/x3NMQrDMAxA0asEzRVUHkrSq5QOtiM3Atc2kimBk
+ LvXZHzL/wcYq7DBczpA+ScmtQzQbYK4+fJhlHUY3N09iMihNUHfv5yx1ZzRtqodm1Ts6oslVsO
+ wzimGJdISAoxQU06yX5PX+zz/IAezvnQAAAA=
+To: Ryan Wanner <ryan.wanner@microchip.com>, Mark Brown <broonie@kernel.org>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>, Alexandre Belloni
+	<alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>
+CC: <linux-spi@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
+	<jensemil.schulzostergaard@microchip.com>
+X-Mailer: b4 0.15-dev
 
-The static 'struct qcom_cc_driver_data' and array 'xxx_critical_cbcrs'
-are already treated by common.c code as pointers to const, so constify
-few remaining pieces.
+Every PIO transfer enables the controller interrupt and sleeps in
+wait_for_completion_timeout() until the interrupt handler has drained the
+receive data. For a transfer of a few bytes, the interrupt, the
+completion and the two context switches take several times longer than
+the transfer on the wire. Devices that do their register IO over SPI,
+such as SPI attached Ethernet switches, issue one message of a few short
+transfers per register access, so this overhead dominates their register
+access time.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Busy-wait on the status register instead of enabling the interrupt when
+the transfer is estimated to take less than polling_limit_us, 30 us by
+default, as spi-imx does. The estimate uses the effective clock rate and
+the word delay. Setting the module parameter to 0 disables polling.
+
+Mask the receive and overrun interrupts before a polled transfer is
+started. An earlier interrupt driven transfer can leave them enabled:
+the overrun interrupt always stays enabled, and the receive interrupt
+also stays enabled after an overrun or a timeout. The interrupt handler
+would then consume the status the poll waits for. Like the interrupt
+handler, the poll only reads received data while bytes are outstanding.
+
+Signed-off-by: Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
 ---
- drivers/clk/qcom/gpucc-hawi.c   | 4 ++--
- drivers/clk/qcom/videocc-hawi.c | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/spi/spi-atmel.c | 80 +++++++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 78 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/clk/qcom/gpucc-hawi.c b/drivers/clk/qcom/gpucc-hawi.c
-index 3deb7edf7810..ab6c4598bae6 100644
---- a/drivers/clk/qcom/gpucc-hawi.c
-+++ b/drivers/clk/qcom/gpucc-hawi.c
-@@ -411,7 +411,7 @@ static struct clk_alpha_pll *gpu_cc_hawi_plls[] = {
- 	&gpu_cc_pll0,
- };
+diff --git a/drivers/spi/spi-atmel.c b/drivers/spi/spi-atmel.c
+index ffc1292b08c1..25a0a3acfc4e 100644
+--- a/drivers/spi/spi-atmel.c
++++ b/drivers/spi/spi-atmel.c
+@@ -234,6 +234,11 @@
+  */
+ #define DMA_MIN_BYTES	16
  
--static u32 gpu_cc_hawi_critical_cbcrs[] = {
-+static const u32 gpu_cc_hawi_critical_cbcrs[] = {
- 	0x93a4, /* GPU_CC_CB_CLK */
- 	0x9704, /* GPU_CC_MXG_XO_CLK */
- 	0x90e4, /* GPU_CC_CXO_CLK */
-@@ -429,7 +429,7 @@ static const struct regmap_config gpu_cc_hawi_regmap_config = {
- 	.fast_io = true,
- };
++static unsigned int polling_limit_us = 30;
++module_param(polling_limit_us, uint, 0664);
++MODULE_PARM_DESC(polling_limit_us,
++		 "maximum time in us to run a transfer in polling mode");
++
+ #define AUTOSUSPEND_TIMEOUT	2000
  
--static struct qcom_cc_driver_data gpu_cc_hawi_driver_data = {
-+static const struct qcom_cc_driver_data gpu_cc_hawi_driver_data = {
- 	.alpha_plls = gpu_cc_hawi_plls,
- 	.num_alpha_plls = ARRAY_SIZE(gpu_cc_hawi_plls),
- 	.clk_cbcrs = gpu_cc_hawi_critical_cbcrs,
-diff --git a/drivers/clk/qcom/videocc-hawi.c b/drivers/clk/qcom/videocc-hawi.c
-index 318270105dfe..fe9691a02e2b 100644
---- a/drivers/clk/qcom/videocc-hawi.c
-+++ b/drivers/clk/qcom/videocc-hawi.c
-@@ -795,7 +795,7 @@ static const struct regmap_config video_cc_hawi_regmap_config = {
- 	.fast_io = true,
- };
+ struct atmel_spi_caps {
+@@ -274,6 +279,8 @@ struct atmel_spi {
  
--static struct qcom_cc_driver_data video_cc_hawi_driver_data = {
-+static const struct qcom_cc_driver_data video_cc_hawi_driver_data = {
- 	.alpha_plls = video_cc_hawi_plls,
- 	.num_alpha_plls = ARRAY_SIZE(video_cc_hawi_plls),
- 	.clk_cbcrs = video_cc_hawi_critical_cbcrs,
+ 	bool			use_dma;
+ 	bool			use_pdc;
++	bool			poll;
++	unsigned int		poll_limit_us;
+ 
+ 	bool			keep_cs;
+ 
+@@ -688,6 +695,9 @@ static void atmel_spi_next_xfer_single(struct spi_controller *host,
+ 
+ 	dev_vdbg(host->dev.parent, "atmel_spi_next_xfer_pio\n");
+ 
++	if (as->poll)
++		spi_writel(as, IDR, SPI_BIT(RDRF) | SPI_BIT(OVRES));
++
+ 	/* Make sure data is not remaining in RDR */
+ 	spi_readl(as, RDR);
+ 	while (spi_readl(as, SR) & SPI_BIT(RDRF)) {
+@@ -706,7 +716,8 @@ static void atmel_spi_next_xfer_single(struct spi_controller *host,
+ 		xfer->bits_per_word);
+ 
+ 	/* Enable relevant interrupts */
+-	spi_writel(as, IER, SPI_BIT(RDRF) | SPI_BIT(OVRES));
++	if (!as->poll)
++		spi_writel(as, IER, SPI_BIT(RDRF) | SPI_BIT(OVRES));
+ }
+ 
+ /*
+@@ -725,6 +736,9 @@ static void atmel_spi_next_xfer_fifo(struct spi_controller *host,
+ 
+ 	dev_vdbg(host->dev.parent, "atmel_spi_next_xfer_fifo\n");
+ 
++	if (as->poll)
++		spi_writel(as, IDR, SPI_BIT(RXFTHF) | SPI_BIT(OVRES));
++
+ 	/* Compute the number of data to transfer in the current iteration */
+ 	current_remaining_data = ((xfer->bits_per_word > 8) ?
+ 				  ((u32)as->current_remaining_bytes >> 1) :
+@@ -776,7 +790,8 @@ static void atmel_spi_next_xfer_fifo(struct spi_controller *host,
+ 	 * Enable RX FIFO Threshold Flag interrupt to be notified about
+ 	 * transfer completion.
+ 	 */
+-	spi_writel(as, IER, SPI_BIT(RXFTHF) | SPI_BIT(OVRES));
++	if (!as->poll)
++		spi_writel(as, IER, SPI_BIT(RXFTHF) | SPI_BIT(OVRES));
+ }
+ 
+ /*
+@@ -1375,6 +1390,58 @@ static void atmel_spi_set_cs(struct spi_device *spi, bool enable)
+ 
+ }
+ 
++static bool atmel_spi_use_poll(struct atmel_spi *as,
++			       struct spi_transfer *xfer)
++{
++	u32 hz = xfer->effective_speed_hz ?: xfer->speed_hz;
++	unsigned int limit = as->poll_limit_us;
++	int word_delay_ns;
++	u32 words;
++	u64 us;
++
++	if (!limit || as->use_pdc || atmel_spi_use_dma(as, xfer) || !hz)
++		return false;
++
++	us = div_u64((u64)xfer->len * BITS_PER_BYTE * USEC_PER_SEC, hz);
++
++	word_delay_ns = spi_delay_to_ns(&xfer->word_delay, xfer);
++	if (word_delay_ns > 0) {
++		words = xfer->len / DIV_ROUND_UP(xfer->bits_per_word,
++						 BITS_PER_BYTE);
++		us += div_u64((u64)words * word_delay_ns, NSEC_PER_USEC);
++	}
++
++	return us < limit;
++}
++
++static int atmel_spi_poll_xfer(struct atmel_spi *as,
++			       struct spi_transfer *xfer)
++{
++	u32 done = as->fifo_size ? SPI_BIT(RXFTHF) : SPI_BIT(RDRF);
++	u32 status;
++	int ret;
++
++	ret = readl_poll_timeout(as->regs + SPI_SR, status,
++				 status & (done | SPI_BIT(OVRES)),
++				 0, (u64)as->poll_limit_us * 10);
++	if (ret) {
++		dev_err(&as->pdev->dev, "spi transfer timeout\n");
++		return -EIO;
++	}
++
++	if (status & SPI_BIT(OVRES)) {
++		dev_warn(&as->pdev->dev, "overrun\n");
++		return -EIO;
++	}
++
++	atmel_spi_lock(as);
++	if (as->current_remaining_bytes)
++		atmel_spi_pump_pio_data(as, xfer);
++	atmel_spi_unlock(as);
++
++	return 0;
++}
++
+ static int atmel_spi_one_transfer(struct spi_controller *host,
+ 					struct spi_device *spi,
+ 					struct spi_transfer *xfer)
+@@ -1412,6 +1479,8 @@ static int atmel_spi_one_transfer(struct spi_controller *host,
+ 	as->done_status = 0;
+ 	as->current_transfer = xfer;
+ 	as->current_remaining_bytes = xfer->len;
++	as->poll_limit_us = READ_ONCE(polling_limit_us);
++	as->poll = atmel_spi_use_poll(as, xfer);
+ 	while (as->current_remaining_bytes) {
+ 		reinit_completion(&as->xfer_completion);
+ 
+@@ -1437,6 +1506,13 @@ static int atmel_spi_one_transfer(struct spi_controller *host,
+ 			atmel_spi_lock(as);
+ 			atmel_spi_next_xfer_pio(host, xfer);
+ 			atmel_spi_unlock(as);
++
++			if (as->poll) {
++				as->done_status = atmel_spi_poll_xfer(as, xfer);
++				if (as->done_status)
++					break;
++				continue;
++			}
+ 		}
+ 
+ 		dma_timeout = msecs_to_jiffies(spi_controller_xfer_timeout(host, xfer));
+
+---
+base-commit: 2bc7eb398cd0f89fd2331d5a1a8fe7ed17addd35
+change-id: 20261112-spi-atmel-poll-short-pio-transfers-bd8fcb9c19bb
+
+Best regards,
 -- 
-2.53.0
+Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
 
