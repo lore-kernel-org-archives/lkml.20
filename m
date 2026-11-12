@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794480305;
-	b=zf9ozK8RlDMgWUuOGdLHa2FKZWGUdQmPSsvbj2jSGOLzcz+WD78asDX5cFSX5VeLLsb8
-	 um/EP7ga3GxTheIJHFq7Q9k0AT6ck8EH+qIAQ+rZVlNVWOQFwi+N37Nr5jMHgvH3bikEN
-	 48B368cvY/fg1MCKzxRwmFT4eC5+e0RFuzuIDd0K6tDqny+/NEERdzL7WF6RWpnMDDoKZ
-	 XRp/qNHzS4hnU3d1BWCGcv+dobHjNWPK3iyCKpwEbPEis+kZVfD5jH3pl6kHCF8LxJEn0
-	 7P9n18Wgkrv589SCrFtu9CLIBUtNKmRlliSprUh4Jy4YTZ0pxL/ctCYEZOKrhm5yRvA==
+	t=1794480324;
+	b=5IYrpwWJFyBZy+eV9NJkNXk12JRbFOGcvmiQWdGU81epcjpW7dl3r5X62NYfbn/+Nj1s
+	 YqIxr41gmur8QCNmIQT+fA3GmLtsUqumBvd+ZMAj35FXjfsR9vre1kAHY8pZw+td5SSIk
+	 JbIi0mmRqx6Y1/F035ogGmTwraFx+pYwNOiNsJP3Y47NgE1VAABcuuVHn0GkEYzy0LU/J
+	 2OKD5s38ZdScirB5ukLSawAZ0TcAlGnrS8QZAUIYOmbUexPMcQlNF8xjIFYTV45JjADb8
+	 9EAJiTXstqtfL7A9k/zPXoaGuI+BM8orSfeYp41TQ0Fy9L4uSkUmrSkddeZJXVA7RnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794480305;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794480324;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=INpeTcchLLbS0psUlyWopVBCXTqH0HdLEcZJcLgnzp8=;
-	b=yLcW3AGEnAdjhmpCusUnZR3cWwiQ1Q5FcR3K7CinKoluBLGIfaGiIwpchFDOO/hkWCPG
-	 NZgybMtYsT+nqOELcnsMVvZpYrRcVGfuRu7jXU6xecJm96ADp6PJ7qcjEH5jq9e/Nwuc4
-	 uSuFRLmYh/xAGDCiZjXdD81rkiU7HT2QcchomPp/SLNZpJy6D6HChodbbBBgHy12zb7r/
-	 B2FTbfOLf4x5SNOLu+63bEsO3u+QYNJ+TaNd/CPyfSaIi4hEz8qeVXspEbTyRYbXlwgo+
-	 kmQ3emnFsoqGO+SoxqU2V11U7fbxr5cU+cpt1arxAOMl2zkS0KA7oVWo7ZZ+bgjIMlA==
+	bh=XnCYVNofTC0C6ktldCAu6GTGzm+Q8FA6+tvEuphsY/w=;
+	b=Ie9DtX17qV6hamhvRP3quKimRfP331vRSZi741n8sjchD+/KVHjQ9PRBFVY7AS+SS8zk
+	 feuCUkQWhYq7EllENV2V0rmCsLc34n2JemD1T1Dgx3selLfp4CnNq4A/wKg3uJbkCXMrs
+	 tLB/jn53gvClwyKENQNjY6VBIkySqBy7/i8QoII8eApvDsIlsBG3gMha0ToZyg2d/X+Lj
+	 maWCiTBWCiSEG5IKJZq5AuS/kMlLesUeicqBZ0o78gYTm4KblzISWWplFeMYUuFxuuodC
+	 PzzenCKEP7x1/uqf/kU/ETJLeSLnoZZHYTNUpaXc+A0ArJEnPN6KuBqqfWOoMGE1emw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bytedance.com;
 	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=VhSAjEJT;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=Zp09kXBl;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E97606A333
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:45:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8E97606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB27606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:45:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DB27606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=VhSAjEJT
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1ae58d17cd9so3188779c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:45:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=Zp09kXBl
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3720addb068so7337900eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 02:45:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1794480304; x=1795085104; darn=vger.kernel.org;
+        d=bytedance.com; s=google; t=1794480323; x=1795085123; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=INpeTcchLLbS0psUlyWopVBCXTqH0HdLEcZJcLgnzp8=;
-        b=VhSAjEJTXAaXpQdaf5y/37clY9qum96I3OhdyoKcrPdx+eQDYT1E8PzrMoO3VlQurs
-         YHhhVBZNj/IgW66JlKShiypHEubXT+akNNMBoQ+k3KEI/6H8UwZ/nD3lT2xEGA643A4W
-         cvW5sUY6nAGixGav8ggIG5AEFVZCoImkhfTz+k8o2a6GEfFtlfJ2uv79ocuQQsqJTSdv
-         r4gQbyLtAMihEboCJCe3TbqPES8SyE5dulGcxXI9Gkwm1Xs5MVXnJcNbBpx7TB/026gt
-         dAFy19CipMBI7/CGRzjPJ1NiXqXnXOl+kmn4j1w6yyjppCB+kiR/rdbYLXGvIfo0Z7+V
-         HJCQ==
+        bh=XnCYVNofTC0C6ktldCAu6GTGzm+Q8FA6+tvEuphsY/w=;
+        b=Zp09kXBl3tmzhNDXnluIDoVu4hJxPbk8hdtimF2khZPOnmQNb/S51ybbT4EWDLGxFw
+         Be7xVzGkqwAHxCgQynyRwNUgCxhCFxrW3KOQASvFTF9D8v9z5Ty/Z1wOAnlUMbVzE4Go
+         RWxAo8OlK4tyKB8j6Qr7/bQpjb+eWhQrynqXYzLMO/fX+PBfZdj1SoaL4IBkHxGx3rjg
+         mVHJPVd0NHLJYHqnhTFUjKsz2XzQFt1cG2JrXhnnmVTqrUwPrdc8l7KrkRFHqmzbjUAQ
+         D8vzOQKHC5fSAMhWu8rcUEyk7QBhECesNnISmx9JsCfbfMYsY2GZ9zBZS2JUP9fCcIAv
+         Om5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794480304; x=1795085104;
+        d=1e100.net; s=20260707; t=1794480323; x=1795085123;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=INpeTcchLLbS0psUlyWopVBCXTqH0HdLEcZJcLgnzp8=;
-        b=cEGQbDliyKZjgI2fcoNH3q3Xdc6oRjOIFpfl4L+WVwJXpGCI8M2WqZX6QMIi4P+XJu
-         hx6MQoccg1qu4qHWRwNOyXkoc7nLPYMZQaKWdhh1pRM2A5OgRMEcqIKBYUfJnKM3MbjK
-         XjNO2gU8zwRxiYue7QWXlKOwT06cx/wTeCT6vUtFJE0xdbMC2MClrwp+UG3BqCKBOnt+
-         jyZyiE1/NbEvSJFhPUvJ4vKdTlYNCojFQ02xqI2JeidK4Dap5mfh7Q5joOnuR741euKq
-         Fgx3S4rB/Kc0fcdLYUrVOrWPbA3CwaxzxIHo9g7MUcgslwGzkp4Gpqcf71NwpzRUQ22O
-         vpLA==
-X-Forwarded-Encrypted: i=1; AL+hErGhx8WnDFyvuPA4HKISMiz4XgFlPh/Xy18SOVGGvikA2cE4FtDd9cyJ0iY1stTD67x0AoffBF8n09x5W70=@vger.kernel.org
-X-Gm-Message-State: APuU4Z97aB81EknnQRJVyjz06OS++WhfqWoCWHetoYDYionnFY6H0mrH
-	H1rPSLbuU1+dJ7ZjcjahT08bp/hyrQzYjWHdt4XDT1lJXuvCgKAdL6tmy4vM/F1neaw=
-X-Gm-Gg: AYBFou30LCptJ6WpvbAlc1CWpeoUpQBborVrkdVyYuCP4RMYnPyl98bRwAqdNcUJ/wr
-	qxWkJ+2bPQFVQiASV3pSCh50cRqxxW1CVIlPpYh6O8lI2JleUp5DvBunXZbTvMESyjkiM9cuskL
-	226fI79fCzyv35KvGOjh33HZyCMFQ2qBKmAjsZTGh3wCHnG+jTQO+4s1mVme0uYxGdnXYFwmlD9
-	84FVG3ORvFWSoI10A6ZGc9nD1IYgabRWFogvxEAkpgve1a2u2oJ3sWJ9EhUc+94JBdbFSvHgYe8
-	JDHxW7ldTbnUlqD3FkvUxLPJNh6Alzoz7nQ5i5ldCsCnVDfszA23dHR+qRPL4nVwCCoaGhkr6cd
-	hhRhnfcWfTokOksArDrm4djXabNu3HUwycposJq3rOnvjhf31ZTEknvdlIabCVjvwfE/vWQZep1
-	4l48ynrT0y0gtdxQNeOcacKLUIHIj9pTfF/Rz/BN1+3fRC/U2gkrdOel6I9IjX8S66qDqcKC57O
-	7iB9xJxd2xcBSQi5AOFtdruEaeD+QdpvoJpF3b7s/P3vuWoWERQL78fXmE+jxJ3QmUWB/ZuNlMN
-	ZZcmJ5Vm5j0UTIgu3XQsY9Ol/6L9QqMg8WTgPgaBPv3Yl9oKS634fVGmF74sD8qMcrU=
-X-Received: by 2002:a05:701a:ca05:b0:166:5552:780a with SMTP id a92af1059eb24-1b3c02f379amr4916378c88.8.1794480303681;
-        Thu, 12 Nov 2026 02:45:03 -0800 (PST)
+        bh=XnCYVNofTC0C6ktldCAu6GTGzm+Q8FA6+tvEuphsY/w=;
+        b=nEhMvq8olFYc+d+kZdoN+/zf+zmoI60PdmND+QQ8IouzIuPq/Vm3MrjvCANgI7uDis
+         K2Kk8C/FIEIeDp8S0Ib2EgrIiEh9UHzJDM02GWO+DwPpdbHzM98TFdhGKI1AQYFKYg8/
+         YRTgJQ3LHTFqlduIgjoTxqr9sXm+WXSaYrimksX0CQdwvvjz30aZ0TWyeA2p8E0kb0zC
+         6ucV5U6MHBoRk5qgWBOV6fjZZcNuP3Wik8KuwGWU2x7KCW8oZYdD+JkQHzf7BnZoGc7H
+         THca7dFffH/dd/t9cGcBrx1qV1UtMusTW99xLxD8+kEF4LtZqSI/GLjaXS6eGdSTeoNe
+         N88A==
+X-Forwarded-Encrypted: i=1; AL+hErGfxqrE3N9N+qWdyT+VjqHiB3grnA6ROBvK+Xyfy1+bJFlgHCQ1ZUf9BMb+p4Aq29PCyIWDxuUwbTbKIGQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8aLjwRVAnnBnJ1w2lUd+2oeTJqUZ3kPl989fAMyhvwM66gXTfY
+	JLuruSMP8Q2VG2bRyPq8CBkrcRj/hODEW9kDhzguC8KN/phyRkVXTscBTPUbfoy84wY=
+X-Gm-Gg: AYBFou2GjnR+TaDXvqGcvLHRpI2t99DqZ+qfOZBm93woyPEiX3HCOO9Hk9yezm053wu
+	3huVrILyPEF5HzxKjiitwqj58dhsWJ+Qn8h2v3N9Zb2z0mhIJ2Clup0FcNldWPwNtjFeMiveaVS
+	hJb2gAz9CeO3xB3U9NNCHrGB8xyB9+aX7SnfhGf/DMcQsuFnQjR664qelHzhjDihuaG/rpzsxgp
+	a0wHWrGpu4aFJ9x+4gVZo8ke2i1e4U+0OBFiuXSS2x9TOqfPRDGnDmgBEIKbZgiSEENW4pO+hUd
+	6i8+IKUuo/15nSc8v+721CLs8f1wna0UhLuQ0BPb3oUlAK8LuM2wFO0qKDUybOnSXjUKOkVzOaZ
+	Wa7+1LzcrTu5UJ81T7mH6Avkk/EwKL37UWm/w8jbWvWqasdfbr5zdnlcePbuf8GDcx+QA8x8QXt
+	OwmBpypHNvPJXIG2Vgyg0veZXRl3t/NQ9D6Km6ZmmnliU5tkh4puqF4wKShThtROvuA1G+rfu0E
+	U4rdfPc2qTJvnpEj7f0lujN8yPy1VP/Hqm5yKPzGQSFT9lqkyxvJQz2N29K1Vk+0Qa3TUr2TW+q
+	YSWh2jcwZ3UeTQbnkSrJ7unYieM7RG7UgA5HWqklxoldI+oSg9N9LF3QvX2lfaQ7lJg=
+X-Received: by 2002:a05:693c:69c8:b0:369:fe81:a575 with SMTP id 5a478bee46e88-37686756684mr5116143eec.35.1794480322588;
+        Thu, 12 Nov 2026 02:45:22 -0800 (PST)
 Received: from FR9WL0RHKY.bytedance.net ([139.177.225.242])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3772121e654sm13228694eec.2.2026.11.12.02.44.45
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3772121e654sm13228694eec.2.2026.11.12.02.45.04
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 12 Nov 2026 02:45:02 -0800 (PST)
+        Thu, 12 Nov 2026 02:45:22 -0800 (PST)
 From: Yunhui Cui <cuiyunhui@bytedance.com>
 To: pjw@kernel.org,
 	palmer@dabbelt.com,
@@ -134,9 +134,9 @@ To: pjw@kernel.org,
 	bpf@vger.kernel.org,
 	linux-arch@vger.kernel.org,
 	llvm@lists.linux.dev
-Subject: [PATCH v10 8/9] riscv: implement preemptible this_cpu cmpxchg128
-Date: Thu, 12 Nov 2026 18:41:48 +0800
-Message-Id: <20261112104149.38589-9-cuiyunhui@bytedance.com>
+Subject: [PATCH v10 9/9] riscv: select HAVE_CMPXCHG_LOCAL
+Date: Thu, 12 Nov 2026 18:41:49 +0800
+Message-Id: <20261112104149.38589-10-cuiyunhui@bytedance.com>
 X-Mailer: git-send-email 2.39.2 (Apple Git-143)
 In-Reply-To: <20261112104149.38589-1-cuiyunhui@bytedance.com>
 References: <20261112104149.38589-1-cuiyunhui@bytedance.com>
@@ -151,113 +151,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Extend the preemptible compare-and-exchange support to 128-bit values on
-systems with native AMOCAS.Q support.
+Now that RISC-V provides this_cpu_cmpxchg(), select
+HAVE_CMPXCHG_LOCAL so mm/vmstat.c and lib/percpu_counter.c can use
+this_cpu_try_cmpxchg() instead of serializing per-CPU counter updates
+with local_irq_save() and local_irq_restore().
 
-AMOCAS.Q implicitly consumes register pairs, so keep both halves of the new
-value in fixed registers even when either half is zero. Retain the
-local-IRQ-protected fallback when native cmpxchg128 is unavailable.
-
+Suggested-by: Davidlohr Bueso <dave@stgolabs.net>
+Link: https://lore.kernel.org/r/20260826010748.zphu3wh2hlm4t4o2@offworld
 Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
 ---
- arch/riscv/include/asm/percpu.h | 66 +++++++++++++++++++++++++++++++++
- 1 file changed, 66 insertions(+)
+ arch/riscv/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/riscv/include/asm/percpu.h b/arch/riscv/include/asm/percpu.h
-index 4d2fc10cbdab1..1d35fc89eeeb2 100644
---- a/arch/riscv/include/asm/percpu.h
-+++ b/arch/riscv/include/asm/percpu.h
-@@ -9,10 +9,12 @@
- #include <linux/thread_info.h>
- 
- #include <asm/asm.h>
-+#include <asm/cmpxchg.h>
- #include <asm/cpufeature-macros.h>
- #include <asm/current.h>
- #include <asm/gpr-num.h>
- #include <asm/hwcap.h>
-+#include <asm/irqflags.h>
- 
- #define __my_cpu_offset (((struct thread_info *)current)->pcpu_offset)
- 
-@@ -518,6 +520,65 @@ __percpu_cmpxchg_case_##sz(void __percpu *pcp, unsigned long old,	\
- 
- __PERCPU_8_16_CMPXCHG_CASE(8, .b)
- __PERCPU_8_16_CMPXCHG_CASE(16, .h)
-+
-+#ifdef system_has_cmpxchg128
-+static __always_inline u128
-+__percpu_cmpxchg128_case(void __percpu *pcp, u128 old, u128 new)
-+{
-+	__PCPU_OP_CONTEXT();
-+	union __u128_halves old_halves = { .full = old };
-+	union __u128_halves new_halves = { .full = new };
-+
-+	register unsigned long new_lo asm("t1") = new_halves.low;
-+	register unsigned long new_hi asm("t2") = new_halves.high;
-+	register unsigned long old_lo asm("t3") = old_halves.low;
-+	register unsigned long old_hi asm("t4") = old_halves.high;
-+
-+	asm volatile (__PCPU_GPRS_BEGIN
-+		".option push\n"
-+		".option arch, +zacas\n"
-+		"amocas.q %[old_lo], %[new_lo], 0(%[addr])\n"
-+		".option pop\n"
-+		__PCPU_GPRS_END
-+		: [gprs] "=m" (__ti->pcpu_gprs),
-+		  [off] "=&r" (__off), [addr] "=&r" (__addr),
-+		  [old_lo] "+&r" (old_lo), [old_hi] "+&r" (old_hi)
-+		: [pcpu_offset] "m" (__ti->pcpu_offset),
-+		  [pcp] "r" (pcp), [new_lo] "r" (new_lo),
-+		  [new_hi] "r" (new_hi)
-+		: "memory");
-+
-+	return ((u128)old_hi << 64) | old_lo;
-+}
-+
-+static __always_inline u128
-+__percpu_generic_cmpxchg128(void __percpu *pcp, u128 old, u128 new)
-+{
-+	unsigned long flags;
-+	u128 *ptr;
-+	u128 ret;
-+
-+	flags = arch_local_irq_save();
-+	ptr = (u128 *)((__force unsigned long)pcp +
-+			 __my_cpu_offset);
-+	ret = *ptr;
-+	if (ret == old)
-+		*ptr = new;
-+	arch_local_irq_restore(flags);
-+
-+	return ret;
-+}
-+
-+static __always_inline u128
-+__percpu_cmpxchg128(void __percpu *pcp, u128 old, u128 new)
-+{
-+	if (system_has_cmpxchg128())
-+		return __percpu_cmpxchg128_case(pcp, old, new);
-+
-+	return __percpu_generic_cmpxchg128(pcp, old, new);
-+}
-+#endif
-+
- #define _pcp_wrap(op, pcp, ...)						\
- ({									\
- 	op(&(pcp), __VA_ARGS__);					\
-@@ -618,6 +679,11 @@ __PERCPU_8_16_CMPXCHG_CASE(16, .h)
- #define this_cpu_cmpxchg64(pcp, o, n)	this_cpu_cmpxchg_8(pcp, o, n)
- #endif
- 
-+#ifdef system_has_cmpxchg128
-+#define this_cpu_cmpxchg128(pcp, o, n)					\
-+	_pcp_wrap_return(__percpu_cmpxchg128, pcp, (u128)(o), (u128)(n))
-+#endif
-+
- #undef PERCPU_RW_OPS
- #undef __PERCPU_AMO_OP_CASE
- #undef __PERCPU_8_16_OP_CASE
+diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
+index bde1f1885038f..458ef01e926a4 100644
+--- a/arch/riscv/Kconfig
++++ b/arch/riscv/Kconfig
+@@ -155,6 +155,7 @@ config RISCV
+ 	select HAVE_ARCH_VMAP_STACK if MMU && 64BIT
+ 	select HAVE_ASM_MODVERSIONS
+ 	select HAVE_BUILDTIME_MCOUNT_SORT
++	select HAVE_CMPXCHG_LOCAL
+ 	select HAVE_CONTEXT_TRACKING_USER
+ 	select HAVE_DEBUG_KMEMLEAK
+ 	select HAVE_DMA_CONTIGUOUS if MMU
 -- 
 2.39.5
 
