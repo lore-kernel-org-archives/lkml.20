@@ -1,90 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794504217;
-	b=ZqK6bj/v5/LY8Du4vdDsKNcdv1cOO7MujPWxaYOZSksIflVl+zYOy0ZKP+YInsJbXTPF
-	 xLfcB5xs7Ln4WEDHU8rcLqvRGaqTz6UHfxBLsF+/p7pApXzAO+ze0LbSE1Xx7EtADt5dS
-	 8ON+6Zc0N+PRksXtwfS0kpP17EXmZIZNprtcm0s2QXhQwSYvVLOhVL3hyZteBVkjBcy5E
-	 6wKhPTxtKeX76dg4K26pRTMl3Xfliq4Rr059yzd41lP8qNoO0cKgLkI0vgFLoSldNNfj5
-	 /KlupGXLJ3sAUyRX80ir828Z38oEicDv9KY9xaX6ctlTO9ji3bfMBKjyWwvS4G/aFzQ==
+	t=1794504223;
+	b=gewa20eWcQ/CFDW9zC5tlhADX63knP/gKVGt3ay/7z1Gkp/61b5c3YeK4myfaPo3rC8X
+	 3BLJhDXeJ1RYKfWNriPXxQWDuA86emFmXevZxEAJFITLvvuNGDVpRBjygHDanTaT9ucwQ
+	 cjaBfXPyhbS8TH9lhOP2DaorcrYAVWQnSDxsza/Dm1e4JkanaNm437LZfSmWYXLtu3V48
+	 qQxrs3foNOvr5vj22WUrDUomOjQQennIKWlqBrKmr1i1MQC7w8d0KZGdDmfk3IxXbUl13
+	 dzYAF6n1bqJwEHjVS7nPkLU7WjPBt6AK3X09mPBfTdN0nEeezYtHq2X3yPDSVYLOGcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504217;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=CPqL/jXjgacEff5dEPASqy6/Bbk+NnoKXgfKHY7JVag=;
-	b=5FeklrbTLhSJ1JMhTgER8Olkc+DOtSbJMY7UePerZw1NLCIziYr7Q6wxP1Z6KozSRoPV
-	 w6nuVQwiz6t33mvEy3pDvxJlrrfKiULJCLc9z0pDN772ckGAsGOU7/lsxkgh4VcEDbn3M
-	 rm9LtI45VyAC5WYgCWmPOyhJGDE+2/cPx3RBHDbOFd3kPs6B4mTx8k5/TGF1MpBvHQBS1
-	 5DuFA5/1irQf0259nHjZXHGCIgh1Dq/418InL0QVSOupFsaz7lut5Ejxq5HNOgz82GrAr
-	 WAkR6p4FrPl/za47eSRqzwzg9HBp+2RK6JOf/V9D+eQpkXbDOLifAs4HaZRjJ1XRXcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794504223;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Afhs0UD2/muICMANXtYRGRJeNv91U/qFXGHXS8V9iyc=;
+	b=OFyGyy+FevgaYrY8DWSYe6Q54CyF0FS/w2mK52ZPTeK+kjTZJ53vKY7bOFDlLwJWiung
+	 040lztqItIJq1QAxD6wAm84Den8AgHn8acbrzX+uMZJcAmdbYZKj8wfIvABQvEo3JbuJT
+	 rfmpVDgALA324ige2bEpOwx3ZQDNReGurQvaRknR8OsYRU0tsWgHuPAKg7s7eL/MfyvyD
+	 JietYW1fS0xhgInosjHukEqKgsx5P3vWdU7RzkTJvI25gYr7rNfhRi53AeqTzc3iFuvsA
+	 Rzv11Laa1WdN8+8jgc896EXibrkLUcTdpohTfUvEh9vSDdA1rrL/c/CMBcZmDa1l/Tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b="EF/x7gOB";
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=acJOtzoV;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=adDmi+5I;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8BE606A32A
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:23:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D8BE606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3029D606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:23:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3029D606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=EF/x7gOB
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so723594466b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:23:37 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=acJOtzoV;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=adDmi+5I
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794504221;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Afhs0UD2/muICMANXtYRGRJeNv91U/qFXGHXS8V9iyc=;
+	b=acJOtzoVDJPukgvBm1LKaRMargPAhYq1ebjVHaUTQhGa7yun0be2035WyiJl9GaQ9tcIWq
+	ZTnZacKn7Uvi975FeQfVZ9FZ2oHkp/yYirZxFRtxkmX/Jy96Ookxe3RBtFZVUEIW3na2eZ
+	kg4RijlHd4PJAHXc/1zETrsNdpeCRAU=
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-349-gsHnH7fSP--bf4Dz8kAMSA-1; Thu, 12 Nov 2026 12:23:39 -0500
+X-MC-Unique: gsHnH7fSP--bf4Dz8kAMSA-1
+X-Mimecast-MFC-AGG-ID: gsHnH7fSP--bf4Dz8kAMSA_1794504218
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b0afbf532eso18048a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:23:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1794504216; x=1795109016; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CPqL/jXjgacEff5dEPASqy6/Bbk+NnoKXgfKHY7JVag=;
-        b=EF/x7gOBEIGhqkGdxKEYf35ZdWOhDxfn109eWZfPteP/otxZot73Q+EUGGQw6zUwaU
-         NeOzVUiBehGY1wNoIvGQThgAeZkcKbRlOplYUlLGGR30SMmuTqQ2QHKsFN/pBCKq1b+I
-         TgZISNF+syi0ksuOLqjp1UefpgYpsZ1qJtzbw=
+        d=redhat.com; s=google; t=1794504218; x=1795109018; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Afhs0UD2/muICMANXtYRGRJeNv91U/qFXGHXS8V9iyc=;
+        b=adDmi+5IuAkZhQxUrUkZpuLzCN90cyBbb3ei2b/lJqZZMeuYzu8jJ4lhXcgHlblB2N
+         hIwxvuoF41WhsRAbBKOa+xfY+TtEX3bXzeK5BKNWxzoM/4UWvzSX8s/2LIrJ/ERL/6Z9
+         6jmD28bJYXE/T4CQ06fMBYt4mvSXq9y1YUKRygUh/5BU04kBzl4yyjJdjXqgy6EAg7l1
+         QnaHDJ8NuFjOdu9Pe0jpj3VTt4HbDewZ2r/IS0ZSv/ViuGa6rjprtqTCtGCMX0j/rdKN
+         0pez2P5UFrB3RIbzBwYqMOMl6T8ti8OwoZE4b4SrhqzFyuyUkxMkXmB4a31uHnHabLl2
+         L5Kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794504216; x=1795109016;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=CPqL/jXjgacEff5dEPASqy6/Bbk+NnoKXgfKHY7JVag=;
-        b=u9t1zT85OVPMdC9+78p1j400+0YXk02DgNBxTWEUCMN9tPcd5Mgvl4A5a4z2hyn60F
-         T2D78p3AJtqrwHMVMIGR+x5E1hvbwECipbJu+iaxyWNDU/fT6LsLmSfs4QwthcktrfdD
-         AZoNZMOHCaE6bD3eieDo8IEDzJGRGwGECqF9hPIDRamZAkqQKjv68KX8UQM3U44d1N0+
-         GXY66dpZsZT/ce64tAu77tXplFFISaQ/rLlil+ls5saAugxZ8zqkDSaUu14bOBITbgL0
-         Ef5nnnr8yItxrz+OdYXXl7HATxoQuT0zEl7SPCBD4n2JaSGS/USnksF7pTLnW1ddNMly
-         yTEw==
-X-Forwarded-Encrypted: i=1; AL+hErFSN9YRy4QnFJIG1vTA3PmcXpBwLN6s7bO8/8RwByTksq/cLdhQhgefQdsg0LVdpCtHcTzSNVJ4WgutWdI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ffOsGnXaN1LYAsK5uW2COq1qc0S8MBCC5PQn29irPnBdcn1Zr
-	1Ta1kViSD0aDnC2iDmlnF3iOf8toINlvB0+lezytCxPFphi2Js/S2AlYcVJL+FmgBQLNv2T1nNk
-	pWgBQBT2M/A==
-X-Gm-Gg: AYBFou1leJ7o8ZG6NieIyzXgKBPg56bSEsNOSK3B2yNQPHPEzooH5NNwGWbPbBVugxh
-	yguAkkBg/aZOM7Rx/YWDi1AXGHNERQpzLkiKpA15ZKQpVXQYDVc0MeE3L49NZzFSkoaVmdMiKHC
-	fL5DEjTSFDN0Q+E0WwgpJJgGSFba8+4V0gPvgq6xYPmfcKWT4ShByAQQ4Sg4jvksDatKTcvkLHw
-	yWasNvVlhnou+8b1ACLapyT8wyapBQff1OMChbfnqZyhrdOnXoTfkNWVgrzjka7wrQAn3oBkpmT
-	RbF3kFdd2b0fNRQtYnsaOtw1ZNdAeYLNMu5pTv1mwO/ADcVB40qqoyLlT8f/VU9UpRj39m29RCa
-	ndQC/aWD4YFw/JoXQUGrp0BnT5HFkhlJOj40kxtUMF1yFqx907L1VNuJ1Ttv5HotYwHpu1EjiMq
-	8vqljimVLnd0+1mfGx9PZgwRgo4V+5mWvAiW3kU4ry3BTAfJNNlqZzUlVvEE98BAGTyy9h4Eh8e
-	WmpC2O0ko9J7OfXaxG2LC1Z2ROtJgvg8X6AhfTs7i+/87gry4VbohwcVCQT/T1FUlVAlzJOa+AO
-	bXmnjaUvM21dtg8AHxOm/Vl/5Mh1TXHoggPoq9/2YwkxwD9mBomGvznNCBDVaSiQOGVzlETnMtx
-	JSg==
-X-Received: by 2002:a17:907:2d27:b0:c2e:4a61:d436 with SMTP id a640c23a62f3a-c5066d3bd65mr636599966b.36.1794504215494;
-        Thu, 12 Nov 2026 09:23:35 -0800 (PST)
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com. [209.85.218.48])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b911desm360566b.81.2026.11.12.09.23.34
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 09:23:34 -0800 (PST)
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4395d31228so624383766b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:23:34 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGhD7AktzxOZ3hEs2rwX/r9mnJq4MqnmoNEXHXIufputGjnMVbY82UnoJ2wvQmDfBnDre/2da+HQFVkGyI=@vger.kernel.org
-X-Received: by 2002:a17:907:2d9e:b0:c50:4b7a:de71 with SMTP id
- a640c23a62f3a-c5066c973bfmr611766466b.28.1794504214466; Thu, 12 Nov 2026
- 09:23:34 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794504218; x=1795109018;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Afhs0UD2/muICMANXtYRGRJeNv91U/qFXGHXS8V9iyc=;
+        b=YzDAp4hdJ6q9Pic8toobYCKHFCbBVG3mZqr21uIOnhgOq9GxGvLuEppggf9GrkPwt6
+         4r0NYoxaaPWF2F7BgAEQ1umRegbxOOfUty3vLfD6EhfBOcE6sOo00pN1cDpxX8GFAa8V
+         TOTnkBs2qK6NAXCFVNyAnXEO4sLr33IA3iC5QSs2w01deSEnYOp6A6YpQyj1BwgvqQNn
+         oUg3QthkNL65XmyJ9k6o1ZsaGSo3Hhx7o6t1d2rcLHrYLoKTskXP3UPclRNNT+FU8ocC
+         EPN4wbtT6l3mJQ/w+kdAD3bnhDxDhjYGUFKCScY7bMzOAdC867hqkloR/mmuvrjm+e8I
+         VgEQ==
+X-Forwarded-Encrypted: i=1; AL+hErF4Wb6MCAZWiOPC2GLKixsxBOboIr6JE7pp/4BnWSZqPeb6lrdyiu7Zn9sXI55f3Rd3WSxVhAYRDYEEZhU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+sijjrdAIgaxjsalT8UYF82Mv87DUFJmifJ88pL9yJ7DZknphv
+	ym8vGdiVEh+oPm34To76yrJ3VIK1p77fmL/HCOgsApJx8WoJ2YIb57O4+7J0e7goP3xAH91elT3
+	iUYHN7ujQb45CWJxhtkHTAOIZ4jHYMyzfc65TfSjNVsHA1CUVdgVouYKlDVzDjDIU+w==
+X-Gm-Gg: AYBFou1pEckIVWFKGh70RcK7S4mKR+VUTOcp31GLsMv4u5el6LLIDhVcNkJ4CDQTfhd
+	U7yWdxZjrD2WFYeRHaItHOs9Najm2i84yKszlSHmHPC1/ET/AfY94wvcRtYhS2hjJp6mq538XFt
+	4KRmIeVBpYqjuBbZSR27TdSCo3+ZoY7/TgNODAFRiBds3WjnaaZ0cx5g+Cx7jX0V0Gf/R5W/5Ia
+	nClubfKpTdaiS8yjVlcUxLNPUaeQbDNaDBWbBf0CW/DDeZWitzlV2WFMCECSTkSd/TvTGle/2il
+	N6tQj4K5JWQjSJeAnATnFNgsxjkbEQIVJVb7gYKdbUPTxxnf77zcAwLpKWAKtHiyhlwxEtzUHvA
+	CSTsjF07gnEg0nUslSJNG3eONEnP9M0seZCNRSPfNgGXW5OZsJ29F
+X-Received: by 2002:a17:90b:2f04:b0:3b0:9317:5849 with SMTP id 98e67ed59e1d1-3b182e1076dmr5100309a91.1.1794504218208;
+        Thu, 12 Nov 2026 09:23:38 -0800 (PST)
+X-Received: by 2002:a17:90b:2f04:b0:3b0:9317:5849 with SMTP id 98e67ed59e1d1-3b182e1076dmr5100284a91.1.1794504217598;
+        Thu, 12 Nov 2026 09:23:37 -0800 (PST)
+Received: from sgarzare-redhat ([209.52.143.85])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d04336sm5592725a91.7.2026.11.12.09.23.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 09:23:37 -0800 (PST)
+Date: Thu, 12 Nov 2026 18:23:32 +0100
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: jrmmhm.kernel@eldare.de
+Cc: Bobby Eshleman <bobbyeshleman@meta.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	"Michael S. Tsirkin" <mst@redhat.com>, Alexei Starovoitov <ast@kernel.org>, 
+	Michal Luczaj <mhal@rbox.co>, virtualization@lists.linux.dev, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v5] vsock/bpf: release sock lock while waiting for
+ data in recvmsg
+Message-ID: <avXyzxvIN3ngFepE@sgarzare-redhat>
+References: <20261109-kbh3-1-022-fix-v2-v5-1-4d9af04f0fad@eldare.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,46 +119,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260914223212.i.829-kees@kernel.org> <20260914223219.901347-2-kees@kernel.org>
- <20261112004039.GA523044@killaraus.ideasonboard.com> <avWNCC3_Ff0knO6J@devuan>
- <CAHk-=wgYBrhvo2NAG_Ja-0ovPf=xO20Gcopv9Yrr1u=QVxECZw@mail.gmail.com> <202611120905.DF88D9849@keescook>
-In-Reply-To: <202611120905.DF88D9849@keescook>
-From: Linus Torvalds <torvalds@linuxfoundation.org>
-Date: Thu, 12 Nov 2026 09:23:18 -0800
-X-Gmail-Original-Message-ID: <CAHk-=whAF3brA9Wrcf3KDhNn_653zhUsoqe1MSneYJWtS5505Q@mail.gmail.com>
-X-Gm-Features: AclHuK_HNQpT4tCfX_FLYbv7PC35fGzeh8ZhM2vC9ghehMzLoLgyRTCdJiNaTCw
-Message-ID: <CAHk-=whAF3brA9Wrcf3KDhNn_653zhUsoqe1MSneYJWtS5505Q@mail.gmail.com>
-Subject: Re: [PATCH 2/2] devres: Provide kmalloc_obj*-style API for devm_kmalloc
-To: Kees Cook <kees@kernel.org>
-Cc: Alejandro Colomar <alx+linux-hardening@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, driver-core@lists.linux.dev, 
-	linux-hardening@vger.kernel.org, Lorenzo Stoakes <ljs@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, justinstitt@google.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261109-kbh3-1-022-fix-v2-v5-1-4d9af04f0fad@eldare.de>
 
-On Thu, 12 Nov 2026 at 09:09, Kees Cook <kees@kernel.org> wrote:
+
+On Mon, Nov 09, 2026 at 09:08:29PM +0100, Jerome Mohm via B4 Relay 
+wrote:
+>From: Jerome Mohm <jrmmhm.kernel@eldare.de>
 >
-> One thing Justin was poking at was adding a "strict" mode to typedef
+>vsock_bpf_recvmsg() sleeps in vsock_msg_wait_data() with the socket lock
+>held, so the virtio delivery worker, which needs that lock, deadlocks
+>with the reader and all vsock rx on that worker stops.
+>
+>Release the lock around the wait. The reader can then wake without
+>data, so the wait loops until data arrives, the timeout, a signal
+>(wait_woken() returns at once while one is pending), or a state in
+>which __vsock_recvmsg() would not wait. Those states, and zero-length,
+>MSG_OOB and MSG_ERRQUEUE reads, go to __vsock_recvmsg(), as Alexei
+>suggested; a non-blocking read now sees them before -EAGAIN. The loop
+>and the zero-length check belong to the fix (without them the reader
+>returns early or spins with the lock held), so this is one patch;
 
-Honestly, the sparse setup is superior. It does that 'strict' thing
-(except it calls it 'nocast') _and_ it has 'bitwise' that is a nocast
-that also disallows non-bit type checks (which is *very* useful for
-things like "this is a big-endian value: you can only do bitwise
-checks against other big-endian values).
+I don't understand why that fix can't be in a fist patch of the 
+series...
 
-So the compiler addition may be worth it, but  even the "poking at" is
-weaker than what sparse already does.
+>MSG_OOB and MSG_ERRQUEUE just share that path. One tested difference
+>remains: a reader asleep at a virtio transport reset gets -ENOTCONN,
+>where a native socket gets -ECONNRESET (0 on seqpacket).
+>
+>The deadlock and the MSG_ERRQUEUE case were found with the help of
+>Anthropic's Claude, the rest by the netdev Sashiko reviews and Alexei.
+>Each was reproduced in a VM without kernel changes or error injection
+>(the resets unbind the guest's virtio-vsock device), except one Sashiko
+>case that was checked in the code; with this patch they behave as on a
+>native socket apart from the reset case above. The vsock vmtest.sh
+>single-VM tests and the BPF sockmap selftests still pass, though they
+>never sleep in this wait.
+>
+>Fixes: 634f1a7110b4 ("vsock: support sockmap")
+>Suggested-by: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+>Cc: stable@vger.kernel.org
+>Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
+>---
+>Changes in v5:
+>- One patch, using Alexei's approach: in the states where
+>  __vsock_recvmsg() does not wait, and for zero-length, MSG_OOB and
+>  MSG_ERRQUEUE reads, fall back to __vsock_recvmsg() instead of
+>  copying its return values (Alexei).
+>- So after a reset, recv(), a zero-length read and MSG_OOB return
+>  -ENOTCONN, and a peer shutdown with SO_INQ reports SCM_INQ, as on a
+>  socket outside a sockmap. A reset while the reader sleeps now
+>  returns -ENOTCONN instead of -ECONNRESET.
+>- This also covers the netdev Sashiko review of v4: SEQPACKET after a
+>  reset, MSG_OOB on a closed socket and SCM_INQ on a zero-length read;
+>  SHUT_RD with a pending sk_err by code reading only. A SEQPACKET
+>  reader asleep at a reset still gets -ENOTCONN (native 0).
+>- Don't cite the selftests as coverage of the wait (Alexei).
+>- Link to v4: https://patch.msgid.link/20261106-kbh3-1-022-fix-v2-v4-0-c7d36703814d@eldare.de
+>
+>Not tested: virtio-mmio, repeated runs, a sockmap delete while a
+>reader sleeps, a signal arriving in the same wakeup as the timeout
+>(returns -EAGAIN, native -EINTR), and the vmtest.sh ns_* tests.
+>Still left for separate patches, as in v4: data that sits only in
+>psock->ingress_skb, and READ_ONCE()/WRITE_ONCE() for the lockless
+>accesses.
+>
+>Changes in v4: comments, one data <= 0 check and message changes
+>(Stefano); rebase; retest with a new dataless-wakeup reproducer.
+>Changes in v3: split into two patches (Michal); end the wait after a
+>reset read with SO_ERROR, and MSG_OOB returns -EOPNOTSUPP (Sashiko).
+>Changes in v2: loop in the wait, len == 0 guard (Sashiko); MSG_ERRQUEUE
+>to the native path.
+>---
+> net/vmw_vsock/vsock_bpf.c | 43 ++++++++++++++++++++++++++++---------------
+> 1 file changed, 28 insertions(+), 15 deletions(-)
+>
+>diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
+>index 9049d2648646..c0c9e69860dc 100644
+>--- a/net/vmw_vsock/vsock_bpf.c
+>+++ b/net/vmw_vsock/vsock_bpf.c
+>@@ -34,24 +34,35 @@ static bool vsock_has_data(struct sock *sk, struct sk_psock *psock)
+> 	return vsock_sk_has_data(sk, psock);
+> }
+>
+>-static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
+>+/* __vsock_recvmsg() doesn't wait in these states and knows what to return. */
+>+static bool vsock_rx_done(struct sock *sk)
+> {
+>-	bool ret;
+>+	return sk->sk_err || sk->sk_state != TCP_ESTABLISHED ||
+>+	       (sk->sk_shutdown & RCV_SHUTDOWN) ||
+>+	       (vsock_sk(sk)->peer_shutdown & SEND_SHUTDOWN);
+>+}
+>+
+>+static int vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock,
+>+			       long timeo)
+>+{
+>+	int ret = 0;
+>
+> 	DEFINE_WAIT_FUNC(wait, woken_wake_function);
+>
+>-	if (sk->sk_shutdown & RCV_SHUTDOWN)
+>-		return true;
+>-
+>-	if (!timeo)
+>-		return false;
+>-
+> 	add_wait_queue(sk_sleep(sk), &wait);
+> 	sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+>-	ret = vsock_has_data(sk, psock);
+>-	if (!ret) {
+>-		wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
+>-		ret = vsock_has_data(sk, psock);
+>+	while (!vsock_has_data(sk, psock) && !vsock_rx_done(sk)) {
+>+		if (!timeo) {
+>+			ret = -EAGAIN;
+>+			break;
+>+		}
+>+		if (signal_pending(current)) {
+>+			ret = sock_intr_errno(timeo);
+>+			break;
+>+		}
+>+		release_sock(sk);
+>+		timeo = wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
+>+		lock_sock(sk);
+> 	}
+> 	sk_clear_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+> 	remove_wait_queue(sk_sleep(sk), &wait);
+>@@ -80,6 +91,9 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
+> 	struct vsock_sock *vsk;
+> 	int copied;
+>
+>+	if (unlikely(!len || (flags & (MSG_OOB | MSG_ERRQUEUE))))
+>+		return __vsock_recvmsg(sk, msg, len, flags);
 
-And the 'struct' model is honestly superior to both when it works -
-but can add extra overhead (but can also end up being nicer than both:
-instead of casting with special "I really mean it" casts, you can
-derefence the struct and get its value that way)
+... I mean, why this change ^^^ can't be in patch 1/2?
 
-              Linus
+BTW I'm not asking to split it (at least for now).
+
+I saw some comments from sashiko, can you reply to them?
+https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109-kbh3-1-022-fix-v2-v5-1-4d9af04f0fad%40eldare.de
+
+Thanks,
+Stefano
+
