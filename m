@@ -1,83 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794503356;
-	b=hTDP61zxrYBywHr70UyWH8B0x1A+HJQsjcnUt7XfSUApi3AA9GCwBZj/na9bLDqECVDp
-	 OC8/0otqsM51Dmt2CeSYIxauCbqSLjMlmPJsdy3OR6Qld93faJRa2MupWuE/X103bRUPA
-	 6cfG0UaIIuoYc2mY5YZL7n1hfb3qjJyMps2yZvQQYy0qnoymn8rEoc5JWg4kHPfjZ19b2
-	 +LtOIR3fbFSqkvVmGl4uSEAkaKfb9y+G7q5PJlFtXZq8333BPHTrEsX8OpDAPLq15D/o+
-	 P9vp4T/97nHAUsgZ7deGa3fmAb5I9Sm5nNbw3xZcE9l04B0eM5CXI7jTASGgUMShyvw==
+	t=1794503367;
+	b=tbFPVHwvGsUKxInXPnRDTcc3Pm4pNbAyM5hRjUofvQGBrg0NmAlAQTO6mF7qzzv61GYG
+	 CzX9rkX40ivr8F81qpWBV+fn71sLnsrkigApdT+wk1jE6k4EG34M/4xzZPwbZH2+mpZd6
+	 uCUeMgZUvRniIqUo2yDUKtPhNMgDLeGdZLq5OPpTuaZJQ1vR8zkxe+lK4o4DheUg2PgJ9
+	 MkiKC2IrNJ01EX42z135Mv5dH7Z6xQ72KFdT/mQJDLAQYOhZzPqTxps0VM+AuuVwmw6PR
+	 gpwpHjJRFXHzVFCC3bvoJtxodh77J/SutVzj9zoREMLcQz7+7GB99uHMR7qCOkZyeVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794503356;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=pDkrQb08D5M8j1MP1dcWcJZplXdGWPMsv1pB47P3qyg=;
-	b=R3kcB7/9eoNrwYXjk7tFNzUg3OuAsyyz+CmE7wn9/DV5dOeLL9ILn7pNShmBoFeiU9Lu
-	 OepLRVgC6DuuDNXxzhmFKJ/MN8qo0sVkvJWUEWAKPG1GEL1TZrjFKEIKgpl+hacOXqzYh
-	 N1UAAg29iFdo6SOEsJ6+VTMLnV+MVi19zDUTvyn8U4wNnSvAX6uGQD/M/yVikLULWlpJV
-	 FEoM1gepz4O58izPc7O+ZC1SFZGVxiqnGsYU4BEC0FZOaw1wleyJP3QKgDBahipiq7Nup
-	 Q2xeOwtV2TdDDbu2CGYarSX8i5nhVK2VBdG5orf+mTkyN2sD+hdCBQvWWJ10iB/OA4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794503367;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=XgO6TvwkTbETFKtMuKfDtt/v/BUeO0jfQ5e64t9KyAY=;
+	b=l+GLx+JOxrg5+xhFflevF8XkT4z0vlVQ1F6ezSitRxYeTtBhZFN+XmczDwNIWNB64K2C
+	 cBgzzR1wAQZUv5PV8b+srMZsBJAaFRo730UvAWtdF2xK7Byjhej1b8wkvbIjuK8NxqrEa
+	 8vsf5Nc93ZIs2b/PPSVX2Lr2N+IzrIUbhhuY1RByQ8pz62hRgSsMZib2CBZDPqUUh7Ca4
+	 h7vy/DcKvmZhF8x38MGzjbvCZ8nE/w3e5yUjyPeJbyPIwLU0geDwpA5aNts2tCEhQnswY
+	 omWNEQ1KX2SW1hqy0VoC7JDDu58JTrWeHjNqaHJqCLIohGoGJwdCxs90aC44o3xSqsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=packett.cool;
-	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=l0GZ8dvA;
-	arc=none smtp.remote-ip=91.218.175.134
-Received: from mta0.migadu.com (out-134.mta0.migadu.com [91.218.175.134])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Jet4S+gw;
+	arc=none smtp.remote-ip=209.85.216.71
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FBB7606A331
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:09:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FBB7606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B51606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:09:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4B51606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=l0GZ8dvA
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=AEUTIZyGb3mCSCpfGc5hg6pIGxMhxghjc7n8dp9pmKU=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794503353; v=1; x=1795108153;
- b=l0GZ8dvA/INoJIxMcEleWaeT2K3Ut8NTJJ4/le6/b6ZXOT08HyAfhGj493iR9A59RnS/jzWO
- Irw1iNb3N7TjjdrpkneMmEy6hblS0bws0HlT0bR8QoAIKZK+0tjjSB87xEEBMQoYb0BKo3Xrkhv
- OBVQfj4+XZjhJLBYkSygo9DNVSYSkxGePKyXmiX0D42CSgB2vUxpB/1GoVYMzeyu00UaLpp52b2
- RJlqqTR3lXO5Q19AuHOsQMS4vArgP+YHqoKrko+1IuMfUCNCGw6RpukF1dB986vh9X3AyIysq9h
- YLGeC8Sk2sOTkP6eSe1Nd+G0sNtWH8c8s2IrUbuJQ3GoQ==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id fd5fd19beb92ad4a;
-	Thu, 12 Nov 2026 17:09:13 +0000
-X-Mizu-Trace-ID: fd5fd19beb92ad4a
-X-Migadu-Flow: FLOW_OUT
-From: Val Packett <val@packett.cool>
-To: Val Packett <val@packett.cool>,
-	Sebastian Reichel <sre@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Marc Lainez <marc.lainez@gmail.com>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	=?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>,
-	Danila Tikhonov <danila@jiaxyga.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	phone-devel@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/5] dt-bindings: power: supply: add Qualcomm QGauge fuel gauge
-Date: Thu, 12 Nov 2026 14:07:27 -0300
-Message-ID: <20261112170841.2189322-2-val@packett.cool>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261112170841.2189322-1-val@packett.cool>
-References: <20261112170841.2189322-1-val@packett.cool>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Jet4S+gw
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3b15e47e57fso2526258a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 09:09:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794503366; x=1795108166; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XgO6TvwkTbETFKtMuKfDtt/v/BUeO0jfQ5e64t9KyAY=;
+        b=Jet4S+gwLGLCtxSH/m59uliIMh/vAV2Eb40A8ex8cq5/T7tOyXRa7tMbM2KAmEMLpF
+         jl7FGsFUO19SQaX4XdQ6K9U47wsYXh3VyijUjVWMkgL3uEPIYgDMpZJTY3qvFlUp4yf3
+         d4qhMZy7/RLBFKooSr2bsOTLaqdNlvwtESMGJit/AmdGxbTmoU44zwUpJjBFrVKTeN1H
+         3GcqwKeI29EIsqASDXnHfLcvZB9r7nq8qtZ6bZcfP4TzykCHMEZOBw3j/3dDEgF/1URR
+         BkjztNJVWNa8HqwKyDUInlZFx21816iWFbpzl75P9zGLTjFMrjYtZglsT0TdSxl83zUe
+         TgLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794503366; x=1795108166;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XgO6TvwkTbETFKtMuKfDtt/v/BUeO0jfQ5e64t9KyAY=;
+        b=QS1JedAM6uMuhuYYz31HGWsUNCuJ/WixdPFPpmbrKdfj0lr3Q3KnS6SwrPasS3++vk
+         ZeaRrKqgR/hEpA77JMKpBLQS1GfkOeKzxwXqzCAf7EOVhh43JuiszHd1N84S/Pe7dEKY
+         yttab5eHA5wxkr4xuWjHXIPQC+iQmT6TIEfjEFpwSWcLvV97e7nwmYkQBHdHyJKRzSjx
+         mPW8qYKT0dKjHEsvWw+evz/sK5gdGYCzbsffRrOJ81UnTZYJH/z6z3nbvq4MXwWVZcJy
+         WkEQZ/A/XrN36seo2wlu/XeLab7pOROwdbJIGM6+6BwS3Sa4F58bnO6HMfsMOzOyleue
+         lpVg==
+X-Forwarded-Encrypted: i=1; AL+hErHMmrDkOyEx3jRszgjWg5KmtevkeemPPkAoy8T9ecHZ3sjBw3vdr1Pdx6WdEQ7u1Nsl4Sbzpu/wzT1YahI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/OzyUCXDxsvdtcmF2uXi5N+BVRgz5TmdBC5P8vHj+VMuqwa4Cv
+	m/fQLHhLinBEIjxIaEcOIDpEjtKi2bS6QZ8XdgFrypruB1kl6Ro3+vdIaB3swsA650qU3YDhjxX
+	5gz7G8w==
+X-Received: from pjgo16.prod.google.com ([2002:a17:90a:4210:b0:3b0:a2c4:246b])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2ec3:b0:3a4:b0a1:c7ed
+ with SMTP id 98e67ed59e1d1-3b182eebe02mr6104935a91.13.1794503365644; Thu, 12
+ Nov 2026 09:09:25 -0800 (PST)
+Date: Thu, 12 Nov 2026 09:09:24 -0800
+In-Reply-To: <3d4804e9-3e5a-447e-8a54-8fa5d1c28f5b@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,150 +77,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261106013927.166209-14-zide.chen@intel.com> <au491iiV7koeP0t6@google.com>
+ <f20b59bb-a3c6-4129-ba61-5cec4d975601@intel.com> <f12bcb27-9c17-4b8c-b48c-c36a17e70ab6@linux.intel.com>
+ <5f129d63-10c6-414b-86a9-a604e42038ce@intel.com> <51089074-1be0-47e3-8d53-732ca33f29a2@intel.com>
+ <fceb4f61-621a-4d62-a648-a1cdd0de1671@linux.intel.com> <970e231b-c3ce-4159-ab27-ac371426500c@intel.com>
+ <avSLss14zigMfUww@seanjc-mac.roam.internal> <3d4804e9-3e5a-447e-8a54-8fa5d1c28f5b@intel.com>
+Message-ID: <avXyxMgGzRBGbBN3@google.com>
+Subject: Re: [PATCH v3 13/18] KVM: x86/pmu: Populate CPUID.0AH:ECX
+ fixed-counter bitmap
+From: Sean Christopherson <seanjc@google.com>
+To: Zide Chen <zide.chen@intel.com>
+Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>, Yosry Ahmed <yosry@kernel.org>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
+	Jim Mattson <jmattson@google.com>, Andi Kleen <ak@linux.intel.com>, 
+	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
+	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
+	Shukla Manali <Manali.Shukla@amd.com>, Xudong Hao <xudong.hao@intel.com>
+Content-Type: text/plain; charset="us-ascii"
 
-From: Marc Lainez <marc.lainez@gmail.com>
+On Wed, Nov 11, 2026, Zide Chen wrote:
+> On 11/11/2026 9:37 AM, Sean Christopherson wrote:
+> > On Tue, Nov 10, 2026, Zide Chen wrote:
+> >>>>> KVM's principle of "not policing guest CPUID" means KVM allows userspace
+> >>>>> to configure an arbitrary guest CPUID without rejecting the ioctl or
+> >>>>> mutating the vCPUID entries.
 
-Document the QGauge fuel-gauge block handled by the qcom_qg driver, with
-compatibles for the PMI632 and PM6150 PMICs.
+...
 
-Signed-off-by: Marc Lainez <marc.lainez@gmail.com>
-Signed-off-by: Val Packett <val@packett.cool>
----
- .../bindings/power/supply/qcom,qg.yaml        | 105 ++++++++++++++++++
- MAINTAINERS                                   |   6 +
- 2 files changed, 111 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/power/supply/qcom,qg.yaml
+> > Just because we *can* do something in KVM doesn't mean we *should* do that thing
+> > in KVM.    
+> 
+> Got it.
+> 
+> >>>> - Features that actually need host hardware support need to be checked
+> >>>> against both guest and host PMU capabilities.
+> >>>>
+> >>>> I'd propose something like this instead, leaving pmu->version unclamped:
+> > 
+> > Why?  What real world use case is there for KVM actively supporting a PMU version
+> > "greater" than the underlying hardware?  E.g. emulating AnyThread deprecation is
+> > (presumably) easy, emulating *all* of v5 on a v3 host, not so much...
+> 
+> Got it. I can think of a few discrepancies:
+> 
+> For example, the guest is supposed to handle Freeze_LBRs_On_PMI (legacy
+> vs. streamlined) based on the guest PMU version. If KVM emulates the
+> legacy behavior, but a v4+ guest expects the streamlined one, it may
+> run into issues.
 
-diff --git a/Documentation/devicetree/bindings/power/supply/qcom,qg.yaml b/Documentation/devicetree/bindings/power/supply/qcom,qg.yaml
-new file mode 100644
-index 000000000000..79dd18d87879
---- /dev/null
-+++ b/Documentation/devicetree/bindings/power/supply/qcom,qg.yaml
-@@ -0,0 +1,105 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/power/supply/qcom,qg.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm QGauge Fuel Gauge
-+
-+maintainers:
-+  - Val Packett <val@packett.cool>
-+
-+description:
-+  The QGauge (QG) block found in some Qualcomm PMICs (PM6150, PMI632)
-+  provides battery fuel gauging through hardware voltage and current
-+  FIFO sampling, open circuit voltage (OCV) measurement, and coulomb
-+  counting. The hardware has a multi-state FSM (S1-S7) that automatically
-+  transitions between active sampling and low-power sleep states.
-+
-+allOf:
-+  - $ref: /schemas/power/supply/power-supply.yaml#
-+  - $ref: /schemas/nvmem/nvmem-consumer.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - qcom,pm6150-qg
-+      - qcom,pmi632-qg
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    items:
-+      - description: Battery missing interrupt
-+      - description: Battery voltage low interrupt
-+      - description: Battery voltage empty interrupt
-+      - description: FIFO data update done interrupt
-+      - description: Good OCV measured interrupt
-+      - description: FSM state change interrupt
-+      - description: QG event interrupt
-+
-+  interrupt-names:
-+    items:
-+      - const: batt-missing
-+      - const: vbat-low
-+      - const: vbat-empty
-+      - const: fifo-done
-+      - const: good-ocv
-+      - const: fsm-state-chg
-+      - const: event
-+
-+  io-channels:
-+    items:
-+      - description: ADC channel for battery thermistor temperature
-+
-+  io-channel-names:
-+    items:
-+      - const: batt-therm
-+
-+  monitored-battery: true
-+
-+  nvmem: true
-+
-+  power-supplies: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - interrupt-names
-+  - monitored-battery
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    pmic {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      fuel-gauge@4800 {
-+        compatible = "qcom,pmi632-qg";
-+        reg = <0x4800>;
-+
-+        interrupts = <0x2 0x48 0x0 IRQ_TYPE_EDGE_BOTH>,
-+                     <0x2 0x48 0x1 IRQ_TYPE_EDGE_BOTH>,
-+                     <0x2 0x48 0x2 IRQ_TYPE_EDGE_RISING>,
-+                     <0x2 0x48 0x3 IRQ_TYPE_EDGE_RISING>,
-+                     <0x2 0x48 0x4 IRQ_TYPE_EDGE_RISING>,
-+                     <0x2 0x48 0x5 IRQ_TYPE_EDGE_RISING>,
-+                     <0x2 0x48 0x6 IRQ_TYPE_EDGE_RISING>;
-+        interrupt-names = "batt-missing",
-+                          "vbat-low",
-+                          "vbat-empty",
-+                          "fifo-done",
-+                          "good-ocv",
-+                          "fsm-state-chg",
-+                          "event";
-+
-+        nvmem = <&pmi632_sdam_2>;
-+
-+        monitored-battery = <&battery>;
-+      };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index b253b10dd436..7b76b07ed66f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23328,6 +23328,12 @@ F:	drivers/firmware/qcom/qcom_pas.h
- F:	drivers/firmware/qcom/qcom_pas_tee.c
- F:	include/linux/firmware/qcom/qcom_pas.h
- 
-+QUALCOMM QGAUGE FUEL GAUGE DRIVER
-+M:	Val Packett <val@packett.cool>
-+L:	linux-arm-msm@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/power/supply/qcom,qg.yaml
-+
- QUALCOMM SMB CHARGER DRIVER
- M:	Casey Connolly <casey.connolly@linaro.org>
- L:	linux-arm-msm@vger.kernel.org
--- 
-2.56.0
+Well, yeah.  Because I'm saying KVM should *NOT* support running guests with a
+"greater" vPMU version than is present in underlying hardware.  That's nothing
+new; KVM rarely emulates features that don't exist in underlying hardare.
 
+KVM doesn't generally enforce the virtual CPU model presented to the guest though,
+because (a) userspace can do all of the same checks KVM can, e.g. by validating
+its configuration against KVM_GET_SUPPORTED_CPUID, (b) adding that validation
+in KVM would require a ton of code and create all kinds of ABI issues, and (c)
+there are legitimate use cases for exposing a virtual CPU model that appears to
+be insane/nonsensical.
