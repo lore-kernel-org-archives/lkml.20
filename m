@@ -1,64 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794488581;
-	b=tWUydDuWyltVYkZrDdca+qPwZkdQTBXWM9XS7P/ELXKb6H3a5VEXbDrGZM/ypN8Ech1v
-	 e+vfd5/G8V/E0csxosE/P9Sc7K0dFHfXEIzPJ3v/OqbqRzNUxSdiaml5wa4jhZgb5q4ow
-	 NHlozCvkBAqQ5tISWvSFk51kJIE5STC6xmxYyy1FmFzXFr8xvtY6wm8tpHqErPAfm9mRT
-	 fwxGspkQjK5ShhhT8MYeCk5TqwDe/N6UBG+60z1xNmjiVO59Xnof1QzTlrHeNFY9ITWdB
-	 kIJkBwV73G6Og7xmaEyB7N53xmSSNPWchjewtxfrcYMGm1v5UQt+/m+r2HG23I4I9Fw==
+	t=1794488617;
+	b=S7yAyzjg9pbXMEENGZc+Ed+6eoWNzLTOsOSq+/jiVo4XSvtF3RqeMvKu734BNxqOt2jE
+	 fdS0jnxLS6jIHmxnh61s0H8c7/trHTyL24EkrjsuixlBdFxTsZsznQMW+EmOnDoz0ncg+
+	 xEnBGQuqLfbnb1ssGJUQyjm8Mv1Id2VdbkUFN8j7ca2ws+3kvsfDDEEy0poHgbB96wMB4
+	 I6XyUurJfRG6Wg2gEMwkkvMvomxHQVpo5VDcXPGm+yiKBZlp+loS8aR9uxSlrt4Jf/dGh
+	 pj9X02kS8BQHu8puA3NznvxuUs9DsMoe85DbIRFJIjg0aV6ypdwTMLPTlz3al2WAzGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794488581;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=PBMXrFHASTKvrJ3Cb5b0x0+RtF3vzzYr8AtwvtbYKsw=;
-	b=eBzqwnKj6nxRAs85F9d91ojB97+YahzPdIXl/RtjQ3NbF/tNRp6AAdXKGpV/pQIG8LC2
-	 w6e20KzXfULHK5lQVuHGplwZ2f75fp2Qnsnxj2H15qk8blvyxVX4dyyYbO+6KTinp1LUT
-	 STXee7gYvX8A8JMglOqwno0Xcr5BZZOWqruowKQ0pmtmj4bjGDKOoWtTOFxRWr6/U7gJi
-	 FWjLDPi0iYdwev/wdfzc9uoY3miudsdS4g4pmpaavtRgcyj3TMURCjAATxwWjjxyD+FRI
-	 QM5sSwSTGpM3sclHhtK0A8eTYxyc5ZdyAJLHXEfFGoQ+6re5KlGR8179qDzteYNYV1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794488617;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=xxLvafh8oElSW/f5s1DQzYPUCi1n+N6BxV/jYvId0hQ=;
+	b=UX0pHiMa/HQnZM2bQ5oCjXgZzEpg2F+Tm6LwjWp0QtOqz1JCa9iifQOJpbKjujaztkgo
+	 FTzSwrn1lPXT5/NjTqh2H7vo1x9MvGWBxWOdlnojsV2L7WAUhDnUR3pKKP52Lgwi9SCwn
+	 4ALg1+P9VLeyuxC+9gEBz2N4PHzmG+fuTwze/LhlDWHbiBgJ4pChJHQ5Rz9eTb5USnCBr
+	 ls47RYxTBKUrHFxf7aCFfr+1ZMAJlWcACa+A0Gy4ETzvsyDR9qBB0saD7V6TfS7KUX21S
+	 i/5agqJtQ6y1M8ZCaFoiFiE2MxmPScRUqLYqxqJ0u/axwNDlY3pXLBlZWQslvRT+zuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jRHY2zLx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FbFpC5Ft;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE87606A32D;
-	Thu, 12 Nov 2026 13:03:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A90606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:03:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99A90606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jRHY2zLx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9FD91F00A05;
-	Thu, 12 Nov 2026 13:02:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794488581;
-	bh=PBMXrFHASTKvrJ3Cb5b0x0+RtF3vzzYr8AtwvtbYKsw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jRHY2zLxOj7WOeDeEhGyK3iIohwoIz8uR9UPmPqVT352H9skpMuFTV9PBQ/6y/1Fx
-	 GzdmrtGGqJQ63ZNgLxvdxP6/TqfDfv+pWpyJzzJjsEy0uLq0gCHvLtP2kFaPaF2gmD
-	 k+82GEbMTwloLecctiZmDuG7AmYK6+EdtzWP4kHBvpz/QaP6+ggdm+v2Euvg+7jxrf
-	 dZ8PsSmiuOYeuKxv4Ga7Hc56IzIDxYY5JTbQN7bguZv3KvKcNni9eKjMhpoB8uQHcL
-	 gImrGD5cw+GOgZatap3BjEF7H+jbUQyRB1xDogkvH5zB1pphPHXsBWhyi9bL21hoJy
-	 iD99ShP63r5Fg==
-Date: Thu, 12 Nov 2026 07:02:54 -0600
-From: "Serge Hallyn (AMD)" <sergeh@kernel.org>
-To: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>
-Cc: James Morris <jmorris@namei.org>, Paul Moore <paul@paul-moore.com>,
-	Serge Hallyn <serge@hallyn.com>, Ada Smith <adasmithgt@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
-	=?iso-8859-1?Q?G=FCnther?= Noack <gnoack@google.com>,
-	John Johansen <john.johansen@canonical.com>,
-	KP Singh <kpsingh@kernel.org>, Matt Bobrowski <matt@bobrowski.net>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	apparmor@lists.ubuntu.com, bpf@vger.kernel.org,
-	kernel-team@cloudflare.com, linux-kernel@vger.kernel.org,
-	linux-security-module@vger.kernel.org, selinux@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] capabilities: Check PR_SET_SECUREBITS with
- ns_capable()
-Message-ID: <avW4_r3IwLTNsXDg@shallyn-amd>
-References: <20261110202811.2409395-1-mic@digikod.net>
- <20261110202811.2409395-2-mic@digikod.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FbFpC5Ft
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4b4571ff080so46855625e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 05:03:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794488615; x=1795093415; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xxLvafh8oElSW/f5s1DQzYPUCi1n+N6BxV/jYvId0hQ=;
+        b=FbFpC5FtmYFLbosvpB2Z24RHv80qu5IzgGbbxLrSQDljBdZPwF+00JWXdf+r47D/Er
+         aCZv2UJBRmLOjpt49nqx1a/Eb147hUABDpXj35FxgZH4X9JFhN8OtDMaiwgqADnFDrB5
+         EtxqJHBSFY0gxJquzSkaMWcR5U04Txlqldl41ynQW5eAlJt1cIPD8pU9lgaN++tC/Veu
+         KBqvK+5quHNX5oFgiEu+fwPV64Um+2jMT+3DDF1fsgjnd0Jo4PmS2BaPy4rA47W+uZJF
+         192zCOzXBLbvDQdAv2E4yFvOLU3G+B0MHDVd0vDwBSVyIn8m3YpkvMaaUde7ezc2nu07
+         pIdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794488615; x=1795093415;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xxLvafh8oElSW/f5s1DQzYPUCi1n+N6BxV/jYvId0hQ=;
+        b=NjSZhfbu0qWcKPjryUSPrtnbSSFtBegOpD9BzLylQfW1+G2i2LoWYgV4kFpNEwHnHL
+         bGhcAt9BbITw7FoEnRgJdk5UD9b+YheWziNoi9GV89MjElsGP14Fvnvxnl8euiPKYpzN
+         JBxaFK/KkOYLEUIHBYrxjOBEZs0V0TRGHP90qh448BD3QQvINwkcLh4KfoMDg+sqPuso
+         lmM47jAIBhWhbm+l/gT2NB1coFtC5/O+nncBlP40wZ04COfeSxhtyUUvcj0EgoLt1qrn
+         deoW2WIymgzlWKi9UVj2P/dkr779BTiQenWd6S10EK/vOEaZaj2Zm47u1fsxoJhOkdUO
+         TlVw==
+X-Forwarded-Encrypted: i=1; AL+hErFwW/Ok7FmtPif7SoguXvGAzy8JlyxKlDxNgrB1FyhzPFN6s58J56Vl0lVNhh/P4idzCVLFlt1vryOJ/Y0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+7ikUQ6q+kiQUYvq9f02Kw2bh9MRWPAhQjhg5PMb8Tt6+cjibi
+	0fPQwSmtdzo3Z6pMYuDxAb0juV+pyAfn0fcEK5o2qyYeUVZXZqY323V7
+X-Gm-Gg: AYBFou0GeBptZOH67atwVsPmzM+HA0awGTOd4Dn/bsrYwvmpXfUoaIHNwLrQF6B/Tx/
+	dYukiHoEeMRHq/b65+ePJpvBA1ODFqoTip/RVcKwSPH5P3yYRKPJT16g5igx2kO5nDKVO94vcCa
+	yuGSRO+Od78iirEPTFOD2romMdB31c5ZLpjy2ffb5Sg/Rg2jtHQHu6A85OhHq7hpHxTq/rvLeZc
+	fEQVKTVITlJwNpsZd4WPG8xoGlnF0eUktUKD5HeVoaaSualnKsEv85fRQQg2R+NPp5AP8MBJKDL
+	0CpyUiFzCiBrXfI/GuyJZN8p2wQYdzbc9DA+nhNqRlHYB2E/la7a2NOu0PlstT8TwASXXw3Tgy+
+	QrGpJ62CmkXGKjd/orXY8Th01xu294o2/PbnjFoIntHfTC25A8YhsvLkh6X1kGSrrNsmJHmPqOF
+	oZgaLFsPKp25c4TJeKX/HPUGMe/7U0PJ9pQTjnAyAoaBxH5RTJF1IbW71OfxswO3As7GRIHXatt
+	cSW/EvIpLO8Vzc40iHWUrsKTrgQi2KiCvSs1EF/+SaU7bULK4JGauUIlZDkIB2WurtzGa9TSukC
+	ZfYSXwRr6TejXrgefNfQkaoG
+X-Received: by 2002:a05:600c:871b:b0:4a1:fe26:24f0 with SMTP id 5b1f17b1804b1-4ba0938a4cdmr100328715e9.20.1794488614828;
+        Thu, 12 Nov 2026 05:03:34 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e26700fsm78144135e9.10.2026.11.12.05.03.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 05:03:33 -0800 (PST)
+Message-ID: <e9033159-ffd5-4c84-b355-964687b75226@gmail.com>
+Date: Thu, 12 Nov 2026 14:03:31 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,128 +92,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261110202811.2409395-2-mic@digikod.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 0/2] mm/huge_memory: find partially mapped shared
+ folios with NO_PAGE_MAPCOUNT
+To: "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Rik van Riel <riel@surriel.com>, Vlastimil Babka <vbabka@kernel.org>,
+ Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Joanne Koong <joannelkoong@gmail.com>
+References: <20261111113535.330078-1-azpijr@gmail.com>
+ <4411389c-2246-4af6-9b34-10d3f259aeb4@kernel.org>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <4411389c-2246-4af6-9b34-10d3f259aeb4@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 10, 2026 at 09:28:06PM +0100, Mickaël Salaün wrote:
-> Per-process securebits were introduced with a direct cap_capable() check
-> for CAP_SETPCAP.  The capable LSM hook and SELinux capability policy
-> already existed, and SELinux forwarded task_prctl operations to
-> commoncap.  The direct call therefore bypassed SELinux policy from the
-> start.  It now also bypasses AppArmor, Landlock, and BPF LSM programs
-> attached to the capable hook.
+On 11/12/26 1:46 PM, David Hildenbrand (Arm) wrote:
+> On 11/11/26 12:31, Jose A. Perez de Azpillaga wrote:
+>> With CONFIG_NO_PAGE_MAPCOUNT, an anon large folio mapped by several MMs
+>> isn't seen as partially mapped while its mapcount stays at or above the
+>> number of pages. If parent and child zap the same half of a THP after
+>> fork(), that half is mapped by nobody, the folio is never queued for
+>> deferred split, and the memory stays allocated until every mapper is
+>> gone.
 > 
-> A task with CAP_SETPCAP in its effective set can consequently change
-> privileged securebits despite an LSM denial.  This can alter how its
-> capabilities evolve across UID and execution transitions without the
-> expected LSM denial or audit record.
+> If you follow the history on this, in e.g., some raised in my talk
 > 
-> Use ns_capable(), as cap_prctl_drop() already does for PR_CAPBSET_DROP.
-> Call it only for a no-op, which requires privilege for legacy reasons,
-> or when a privileged bit changes.  Changes limited to
-> SECURE_ALL_UNPRIVILEGED and their lock bits do not need the capability,
-> so they must not invoke an LSM check or set PF_SUPERPRIV.  Successful
-> privileged checks now set PF_SUPERPRIV, as other ns_capable() callers
-> do.  Without other LSMs, the same requests remain allowed as before.
+> https://share.daveh.de/s/bQsDpD7xigJ6wD8/download?path=&files=LSF_MM%2726_+Deferred_folio_splitting.pdf
 > 
-> The check now reaches every capable hook before commoncap commits the
-> new credentials.  A later task_prctl hook cannot provide equivalent
-> mediation because commoncap runs first and commits the change itself.
+> There are a lot of questions around this.
 > 
-> Cc: Christian Brauner <brauner@kernel.org>
-> Cc: Günther Noack <gnoack@google.com>
-> Cc: James Morris <jmorris@namei.org>
-> Cc: John Johansen <john.johansen@canonical.com>
-> Cc: KP Singh <kpsingh@kernel.org>
-> Cc: Matt Bobrowski <matt@bobrowski.net>
-> Cc: Paul Moore <paul@paul-moore.com>
-> Cc: Serge Hallyn <serge@hallyn.com>
-
-The commit message is a bit wordy.  All it really needed to say was
-that 1. s/cap_capable/ns_capable to query other lsms, and 2. move
-the check to a concise helper.  I really do not relish looking through
-a git log where every commit message re-litigates the full history of
-any code that is touched or moved.
-
-But it looks good, thanks.
-
-Reviewed-by: Serge Hallyn (AMD) <sergeh@kernel.org>
-
-> Cc: Stephen Smalley <stephen.smalley.work@gmail.com>
-> Cc: stable@vger.kernel.org
-> Reported-by: Ada Smith <adasmithgt@gmail.com>
-> Fixes: 3898b1b4ebff ("capabilities: implement per-process securebits")
-> Signed-off-by: Mickaël Salaün <mic@digikod.net>
-> ---
->  security/commoncap.c | 42 ++++++++++++++++++++----------------------
->  1 file changed, 20 insertions(+), 22 deletions(-)
+> In particular
 > 
-> diff --git a/security/commoncap.c b/security/commoncap.c
-> index d47ab3022343..1947128396e2 100644
-> --- a/security/commoncap.c
-> +++ b/security/commoncap.c
-> @@ -1283,6 +1283,23 @@ static int cap_prctl_drop(unsigned long cap)
->  	return commit_creds(new);
->  }
->  
-> +/*
-> + * Doing anything with securebits requires privilege (go read about the
-> + * "sendmail capabilities bug"), except for unprivileged bits.  Indeed, the
-> + * SECURE_ALL_UNPRIVILEGED bits are not restrictions enforced by the kernel but
-> + * by user space on itself.  For legacy reasons, a non-change requires
-> + * privilege too.  Only checking CAP_SETPCAP when it is needed keeps LSMs from
-> + * seeing (and logging) a capability check for unprivileged changes.
-> + */
-> +static bool securebits_need_setpcap(unsigned long old, unsigned long new)
-> +{
-> +	const unsigned long unpriv_and_locks = SECURE_ALL_UNPRIVILEGED |
-> +					       SECURE_ALL_UNPRIVILEGED << 1;
-> +	const unsigned long changed = old ^ new;
-> +
+> (a) Is it really relevant in practice. The only way you can trigger this if a
+> folio becomes partially mapped *after* fork (by parent and child unmapping the
+> same pages), and the child stays alive. Once the child is gone, the folio is
+> only mapped by one process (e.g., child quit), the folio is properly detected as
+> partially mapped.
 
-FWIW, I think the code was clearer when the !changed was separate with a
-one line comment above it, than rolled into this return.
+I don't have any relevant evidence in practice. found it by just reading
+and testing in qemu. that is why I sent it as RFC.
 
-> +	return !changed || (changed & ~unpriv_and_locks);
-> +}
-> +
->  /**
->   * cap_task_prctl - Implement process control functions for this security module
->   * @option: The process control function requested
-> @@ -1346,28 +1363,9 @@ int cap_task_prctl(int option, unsigned long arg2, unsigned long arg3,
->  			/* cannot change a locked bit */
->  			return -EPERM;
->  
-> -		/*
-> -		 * Doing anything requires privilege (go read about the
-> -		 * "sendmail capabilities bug"), except for unprivileged bits.
-> -		 * Indeed, the SECURE_ALL_UNPRIVILEGED bits are not
-> -		 * restrictions enforced by the kernel but by user space on
-> -		 * itself.
-> -		 */
-> -		if (cap_capable(current_cred(), current_cred()->user_ns,
-> -				CAP_SETPCAP, CAP_OPT_NONE) != 0) {
-> -			const unsigned long unpriv_and_locks =
-> -				SECURE_ALL_UNPRIVILEGED |
-> -				SECURE_ALL_UNPRIVILEGED << 1;
-> -			const unsigned long changed = old->securebits ^ arg2;
-> -
-> -			/* For legacy reason, denies non-change. */
-> -			if (!changed)
-> -				return -EPERM;
-> -
-> -			/* Denies privileged changes. */
-> -			if (changed & ~unpriv_and_locks)
-> -				return -EPERM;
-> -		}
-> +		if (securebits_need_setpcap(old->securebits, arg2) &&
-> +		    !ns_capable(current_user_ns(), CAP_SETPCAP))
-> +			return -EPERM;
->  
->  		new = prepare_creds();
->  		if (!new)
-> -- 
-> 2.56.0
 > 
+> So you need a long-running parent+child, and have them both do questionable things.
+> 
+> (b) What is the overhead from having way too many folios in the deferred split list.
+> 
+
+I don't know yet. I only measured the walk in a TCG guest, nothing on
+how long the list gets
+
+>>
+>> Patch 1 moves the split_underused_thp check out of
+>> deferred_split_folio(). Patch 2 queues such folios as candidates and has
+>> the shrinker walk the rmap to see which pages are still mapped.
+>>
+>> 512 MB of THPs with the same half zapped by every mapper, memory freed
+>> by the shrinker:
+>>
+>>                                 before    after
+>>   2M,  2 processes                0 MB   252 MB
+>>   2M,  3 processes                0 MB   237 MB
+>>   2M,  2 children + parent PMD    0 MB   244 MB
+>>   64K, 2 processes                0 MB   252 MB
+>>   64K, 3 processes                0 MB   252 MB
+>>
+> 
+> Again, we can create nice scenarios that are likely not relevant in practice
+> (such as 512 MB THPs, lol), but so far I doubted that this is relevant in practice.
+
+that's 512 MB in total, not the folio size. maybe I should have
+clarified it.
+
+> 
+> Do we have any evidence that real applications run into that and it's a problem
+> for them?
+> 
+> The memory is charged to these processes and swapout etc. would still work.
+> 
+>> With patch 2 the shrinker reads shrink_underused itself, so folios
+>> queued for the underused check aren't split anymore once it's turned
+>> off.
+>>
+>> David suggested a check from the shrinker for the opposite case in [1],
+>> folios marked partially mapped by a PTE by PTE unmap. The walk in patch 2
+>> could clear the flag there too, this series doesn't do it.
+>>
+>> Questions:
+>>
+>> - Is an rmap walk from the shrinker fine for this? Every CoW of a page
+>>   in a shared PTE-mapped folio queues a candidate, and so does the last
+>>   PMD mapper when it splits its PMD.
+> 
+> You are asking the same question I asked in my LSF/MM session :)
+> 
+> I don't have a good answer to that, especially, once large folios (smaller than
+> most THPs) come into play. Like 64k folios on a 4k kernel.
+> 
+>>
+>> - The walk needs one bit per page, which is too much for the stack with
+>>   64K pages, so I used a static bitmap under a mutex. That serializes
+>>   the walks of all nodes and memcgs, and the mutex is taken with the
+>>   folio locked. Where should the bitmap live?
+> 
+> Maybe one could track it a bit broader? "any page in this set of 16 pages is
+> present". Reclaiming a single 4k page from a 2M folios is barely worth it.
+> 
+
+yes, that works. maybe with the group size scaled to the folio, so the
+map is one long on the stack and 64K folio still gets one bit per page?
+
+however, maybe if I don't have real evidence, better drop it?
+
+-- 
+cheers,
+jose a. p-a
