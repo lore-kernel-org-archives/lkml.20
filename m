@@ -1,83 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794473181;
-	b=EliwXpZqDhIKtvIzsKFDPDC1ohqIrkGA5flgepTj2Q+JYx7unok9ixGYaM/s50xl+MEZ
-	 Zp7AjzphSkilr4pxB0NPmEy1pzqZfxV2/T8mYhiwQrVokNVGwLaMRMJT+Iov8EK00R7p5
-	 KBT1IsKDiwKfwzE7fhtLKtRMyVcAw1Xcrfg9cbnve53Hh0hdyqZzudMW+6NGR5/zwdeMd
-	 RzyKxjbsT9dypCEC2FlVNPjS5h0n5g4cgJ0tNJavKLyWZj5BxH59SzGEqPYPpHm+n0BgT
-	 WR6UUeJOdpwIslXO/4jzSLBgffvcowlXN4KGcAZnnRpjx85IhRy9B3ytbB9C/m3SB5A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794473181;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=X5xO1tQxHVc542YRl8XxQDbU33aenQ7GQV213HCAao4=;
-	b=udVAkJEnqYXmLrJFxGCq520maRCaVOy10EaSUZwP3EPjl3fj2zy9157E5aI5y12wt4UG
-	 Vc604x7+YI+3kqh8AzCDsmAqb/fo64qjsWn86tpiFpAkgG0och7pN7POrXAjqoPVRbqaj
-	 Bes1bLdI69ZPjD0qvojjZV+SAOMJFnYX+f4f1DXOMFQ4ecefiJzI/eOi4Q5kfgrcF1QlA
-	 AQWJESB1xCL1a/eTMNnWDVkAUwrLMkS0lbxdjS8mOBwzdNAimO73FsT2LyrC61zps3RAb
-	 rb2zep38jEKrXJex73+CC/GeQXhOgTbRUw8kh5Lrxng+ookUidXxD6SeB6ac1CIk6FA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mkT2w7kB;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794473237;
+	b=HbXZ7d92z7uWB36xtoa10zaNbPGka8hnunV96sHbQG83NrABCkmyftlwjKx8nLIY0wfV
+	 F6Odr6HdCujP1VWDgqw87bW36Lie9sT4mSj0joO+KBuHIJwsVudSwWS0BR3SB5icU0Wiu
+	 wk5JUYarhNxsiGjzf1vgb2xvbZ6pEqu7jAKsoCbaSwkMMSlyGrJam0kQM/ARRdfSJ4+Kf
+	 jJ99O8X46QEOU8isi3pbMlLdh8trC6+8OyBjTCF9+Q2urVjjYhD8YWTmkuWUK9rJjY5gl
+	 kI3VGX2ccWKSZWxrI1je4NkS1NnE56O90PxkBgBWCT4b2j+h6RMGoUhSrp879ojuuOg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794473237;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=kVtvjLNQqVhAbmabkyBPJW5OAK7r3mnKjNng1ZW6k8Q=;
+	b=NwEUjIbYVULjc4i18Y3htJXfrYI3FbhTNEir45lt8sS8zOEL1mXCvGULzn8HsJp/b/m8
+	 QQ01ExAMcNWJ/Wk1VV8Eg6bsASe3sUwL6+00Kh025RVy+8WMZKxkRhO89zIny9ar4J8uR
+	 iXPQ0a1ZrSyTOKw/Qe6UJ0L7niUFLEAhZkyQnG7OPrcFDa3KnQKOX6JIeh176LJUB3o03
+	 Eh1iIimpgquhqphioYZ4Tkg7SYhbDrV9/Zci9HZZimY/zoVKDwfI9qlmU9lSWJcEk+ZnJ
+	 VNMASsQ25LqxR5Q7qDp2rKINVpfPmMhlcN18K6q1Vru6M1/OAM/nevw3zEPpZSMKMlA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uEPmkKFY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0308606A88C;
-	Thu, 12 Nov 2026 08:46:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0308606A88C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A81606A8AA
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:47:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52A81606A8AA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mkT2w7kB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794473181; x=1826009181;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=PtnlpKJNBfqTK49mgpDQc+YKEm0fPAg1hXMyx7FBqg8=;
-  b=mkT2w7kBIjGka5IeR0Dp262Rzyc/Gg2bhDCVP7gxSpI6OUNglr47iDb1
-   akdGF2zREBmFs4+GQmlf8+igSju6+LueGrg7428/KrPC04Jyev5lC6ruM
-   UtqVb1HpV/VcPF/NRfUZ1c3M683zAK+D1XDhHJ5H/bHOHGtBFjSfWiySk
-   QwaBuz+vMFi1VHEh63t9d3sgcrwUbnilx8kzjXbbpLbWN4k9SiR6L0j+E
-   Y+yTyPHBIVz18MCK8+0ydGKHTRdqYOCG3/XY/Bio0jvG4qWWU0csW1GRU
-   pBhKCU93+t6WA7jSDGt83r3izCnHFVFeHJMBaDn/94FkwtXkiaED5XIzT
-   w==;
-X-CSE-ConnectionGUID: ocV0s1oSRg6Fn+8DftumUQ==
-X-CSE-MsgGUID: TXJQhvtkSg+LRsbqk1pLYg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3133288"
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="3133288"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 00:46:20 -0800
-X-CSE-ConnectionGUID: 1U6o/uASRdCC9FMomnfvgQ==
-X-CSE-MsgGUID: SQGJ+CdBTdy1CT3GmooNkw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
-   d="scan'208";a="9175632"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa010.fm.intel.com with ESMTP; 12 Nov 2026 00:46:18 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id BECD799; Thu, 12 Nov 2026 09:46:16 +0100 (CET)
-Date: Thu, 12 Nov 2026 09:46:16 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Atif Ashhar <atifashhar@google.com>
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Jarkko Nikula <jarkko.nikula@linux.intel.com>,
-	Wolfram Sang <wsa@kernel.org>, linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] i2c: designware: Release slave SCL hold in
- __i2c_dw_disable()
-Message-ID: <avV82EfLER5vZost@black.igk.intel.com>
-References: <20261104133745.1432212-1-atifashhar@google.com>
- <20261109102006.GJ176724@black.igk.intel.com>
- <20261110190559.819337-1-atifashhar@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uEPmkKFY
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c506094fd93so352821066b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 00:47:17 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794473236; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nMQ1LfboWrEsGadoT5p5OycoGRdot2+17OxtrMte+Ae6BxdtbzgkWlC+kN71Fhgr1C
+         AGlbmY+qUa8b4zLpZivy+HbH5Hd7OQJxJXw1DWIpk+PQ+4KpSqDnKAIzIwGwFEYFVAS5
+         9O6XRety3w1/owDgYdQiFuODvCNZ2Eoe2HGyEqc6ZZywJILrIPbzzWM6mbZkAKwkjWma
+         ckwpmoE7DQjPb4r4zAmoFgtTJOjfjFznEK2T3dkRA1m7bxghOVme59ifsbVEqQNfEwfU
+         4YY9U+c8v0BJ6L44pHN0eA4q9NHkryYUYGApTkmz9YO+TyZorHRgKy6Yk20aXFQg37Ib
+         JfIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kVtvjLNQqVhAbmabkyBPJW5OAK7r3mnKjNng1ZW6k8Q=;
+        fh=ZLjHTKso+G24c+0PRyHMIsZt3mLtTnvJ2fd8ioNhUfE=;
+        b=RV7RdSb/semxo1X+YEVnOPF9V4XhnDZnEg+IU30wdqxsipzSrnMpXruPVO5QCjjRW8
+         ARRJ7XNj4BS2GouO4Q34R52i5m20IiFRNAKxVDvc2YUA/NP7ilZ74wFixFeApt0jPd3l
+         sSiacHcx9TzASBoDzJlorFW9Pfvp3mxXnXgWAXQ7r55gS/90AEe1rBL+e+x6Q3YIuc1d
+         ndMWJumUQjJSWHFxbkmx3YyEdLv2oPIYkqlxvZ6qzRfpDMljP2DKsk7KSVP2Ie/aQ5E8
+         PuecUMb+p6FbjF83VVUO9MUE8FFI4FefpPPtAdDObYo5045sPM4/oQAA7NHVG3ZAVf2R
+         wFRQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794473236; x=1795078036; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kVtvjLNQqVhAbmabkyBPJW5OAK7r3mnKjNng1ZW6k8Q=;
+        b=uEPmkKFYDZGqzMS6Im7HzsxoKOpcibpnU6u57KBes5t1zyN4CQRWwWRk+TtlWl7TQB
+         eIHvWPY7yr6ymLq9sW8C5lxy1y3X0M0WVRdii0eUXDB4RqIg0BzDrPmePaphs/fMr/rQ
+         XE57Rxot0Q4QzIaThJqIJeJdyJE1VRT7tckrH2UTrsrdwLRQYlsMXS7OuamXZNqD254a
+         BC/Mmz2TCWvM7RJs75YAq2ecQIAJHfXUCKGJO9Z7DgQfwEsm7dpn1xBk7YeZimMf6Bhp
+         ge/iT/R9ZbLyBKFziIBaA5hoSEdEtO4zLHTuxKh63EO6SN8IjU6peV0DEJ60pKCDK0RK
+         xdaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794473236; x=1795078036;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kVtvjLNQqVhAbmabkyBPJW5OAK7r3mnKjNng1ZW6k8Q=;
+        b=U0PhPALf1yWT0eFOHd4EI75o17jOp8tpBRUzpyfYM/Y4/EedZE5E+14VlNZVpQx6HT
+         /stgltFC0Hs+9PLTh1RVKD+qzdjq2qSzzL1XG7AWn4cyKhjDaSkhHwYLaCS85fvC4m+R
+         mtbXdYH7DgkZfJtj+47kw1QvPr7j9qd2zE5lKEWOxW0nNq0aBG70MVjN/yUtpM8TJXjh
+         1mKVJJzSExPJOwg63dt07tmHbE0UDasNeiHOhKpiyom29xACL2BgFa5vmYg/9u0KUNd8
+         97lTPXuKF93oGqGzRdR8N16wNeo5kyhbJQQVLNH9pyZVQk8IksNwq133rol//iGyux//
+         JJRg==
+X-Forwarded-Encrypted: i=1; AL+hErF2mkD+37Abn0ZM+LbfSDyONo7mMgdVuoEnmk07x1Hx6DzOD/Du3uIOWwum85dm47x+tvQ2hUM22+j5JGU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z81sq+ZYso91HBBIVEooMlpSXTfzALmpKCcuAt3QM477Pyhn/nq
+	b9ZAEf3On5eNG14pBEOFq3WtFXq3xN/V3q/jFS1uTBOZoefFYg7dBs8OONcEXqrcIf8hAxCedbv
+	TjU1UhPOF9e16vvqzDoDpKK2GqRIXWRQ=
+X-Gm-Gg: AYBFou3OZfBhRdx2fwg0J2e/IzEm2t9c+tIzSpIwHVPveoXvKGT//9gjkjQmy33Kxzb
+	jVjuF3wtbcpBilh0SzZptYfSryPxQ/CGEpwX3SqyJ+5agFPMxD4DGza0Da8GhOLgVp13vatIbLl
+	TkSfSxtLhRJURtPbpAZwxXWU8K9/OZ+mfx3K899+yZZb+5h6UmtBeAoDAOXBQCXYvKrUvsD16n/
+	TyQAb9uIv3DOCPi2LJ66LU/QTzeAXKHzousqz5LK3khjt1eWKBW3dAjcki8i57QMo6ZZlUlNfzb
+	+0XfjtjRUigszTcUj6J6Ye2A5FPVAecGbqC4Zar9cGcznhEcW8NXFdKQCv4hr/SlilK7pV6orQ5
+	7gYv4Q2oDIBKxSRuERkpPJFtQ3MvKaDtZPUL0FTT1mzHRsn0ewV6a8Xoh+XCq39j3zMpe+g==
+X-Received: by 2002:a17:906:f59c:b0:c44:16ad:c31d with SMTP id
+ a640c23a62f3a-c50668b84bemr390386166b.4.1794473235463; Thu, 12 Nov 2026
+ 00:47:15 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,47 +104,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110190559.819337-1-atifashhar@google.com>
+References: <20261112081928.3014946-1-ridong.chen@linux.dev>
+ <avV52J2rD19cjM2J@KASONG-MC4> <CAGsJ_4yibOkJmi9niJ8svu2NdEkZ5Qyf98VO6qMrJMa_9wGFgQ@mail.gmail.com>
+In-Reply-To: <CAGsJ_4yibOkJmi9niJ8svu2NdEkZ5Qyf98VO6qMrJMa_9wGFgQ@mail.gmail.com>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Thu, 12 Nov 2026 16:46:38 +0800
+X-Gm-Features: AclHuK_EcloF2JvrHuKv7xoNWQwKzuk5RGeSJlKLhscR6ySvKSoZqdKqRDkMuSU
+Message-ID: <CAMgjq7Disoabm_4yyp60=AdaEH1RWfUpawc8vckV2e6c7g2RmA@mail.gmail.com>
+Subject: Re: [PATCH] mm/mglru: deactivate anon folios into the oldest generation
+To: Barry Song <baohua@kernel.org>
+Cc: Ridong Chen <ridong.chen@linux.dev>, David Hildenbrand <david@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Yu Zhao <yuzhao@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi guys,
+On Thu, Nov 12, 2026 at 4:42=E2=80=AFPM Barry Song <baohua@kernel.org> wrot=
+e:
+>
+> On Thu, Nov 12, 2026 at 4:38=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wr=
+ote:
+> [...]
+> > >  mm/folio.c | 11 ++++++++++-
+> > >  1 file changed, 10 insertions(+), 1 deletion(-)
+> > >
+> > > diff --git a/mm/folio.c b/mm/folio.c
+> > > index ea3adb6a89d7..c412d9b398e4 100644
+> > > --- a/mm/folio.c
+> > > +++ b/mm/folio.c
+> > > @@ -583,7 +583,16 @@ static void lru_deactivate(struct lruvec *lruvec=
+, struct folio *folio)
+> > >       lruvec_del_folio(lruvec, folio);
+> > >       folio_clear_active(folio);
+> > >       folio_clear_referenced(folio);
+> > > -     lruvec_add_folio(lruvec, folio);
+> > > +     /*
+> > > +      * For MGLRU, lruvec_add_folio() places anon folios that are no=
+t in
+> > > +      * the swap cache into the second youngest generation, which is=
+ an
+> > > +      * active one. Add the folio to the oldest generation instead, =
+like
+> > > +      * lru_deactivate_file() does for clean folios.
+> > > +      */
+> > > +     if (lru_gen_enabled())
+> > > +             lruvec_add_folio_tail(lruvec, folio);
+> > > +     else
+> > > +             lruvec_add_folio(lruvec, folio);
+> >
+> > Hi Ridong,
+> >
+> > One question here, why MGLRU/CLRU have to use two different ways to
+> > add the folio back?  Will this cause over aggressive reclaim of the
+> > folio?
+>
+> I guess that is because on mglru, that is lacing a way to add the folio t=
+o
+> the head of the oldest generation for anon folios while CLRU can do
+> that :-)
 
-On Tue, Nov 10, 2026 at 07:05:59PM +0000, Atif Ashhar wrote:
-> Hi Mika,
-> 
-> On Mon, Nov 09, 2026 at 11:20:06AM +0100, Mika Westerberg wrote:
-> > > +	if (tx_hold) {
-> > > +		regmap_read(dev->map, DW_IC_CLR_RD_REQ, &dummy);
-> > > +		regmap_read(dev->map, DW_IC_CLR_TX_ABRT, &dummy);
-> > > +		regmap_write(dev->map, DW_IC_DATA_CMD, 0xFF);
-> > 
-> > I'm not super familiar with the slave mode so adding Heikki just in case.
-> > Can this cause some unintended traffic on the bus towards the master?
-> 
-> No, it cannot initiate new traffic. DW_IC_STATUS_SLAVE_HOLD_TX_FIFO_EMPTY
-> is only asserted when an external master has already addressed this
-> controller and initiated a read transfer, and the slave hardware is
-> actively stretching SCL low waiting for TX data. When no slave read
-> hold is active, i2c_dw_release_slave_hold() returns early without
-> writing to DW_IC_DATA_CMD.
-> 
-> Writing 0xff simply satisfies the ongoing master-clocked read byte
-> while keeping SDA passively high (released via pull-ups), allowing the
-> external master to finish clocking the byte and terminate the transfer
-> with NACK/STOP instead of hanging the bus indefinitely.
-> 
-> > Also use 0xff instead.
-> 
-> Ack, I will update 0xFF to 0xff (and wait to see if Heikki has any
-> comments before sending v2).
-
-No comments yet, but just out of curiosity, I'll try to test this.
-
-Please go ahead with the v2. I can then give you my Tested-by tag if I
-figure out how to reproduce the problem fast enough.
-
-Thanks,
-
--- 
-heikki
+Right, but lruvec_add_folio_tail also added the folio to the very tail
+of the inactive / oldest list, could it be a gain or problem if we do
+that too for CLRU?
