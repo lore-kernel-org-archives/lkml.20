@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501512;
-	b=FIpMKz9LXjrlvTN1XBOY2KnixmgwDvuYemg4Z8+hfijrAZof/N2+EpS2JsQdhkKte8bH
-	 mUHe0ZbmU71GoXkVf5Ic6nEA1rbLyzESOqzcq9Ko0JPm+M2SnLuBqzJAkydc33y8hAVDF
-	 GghdSzFg2JrzM2iZcgPAwOBvhUHN4zxnPy08xbuskNeSbHwOpM65j1WH/pzA5uUp3RF8G
-	 oHWk1wpBbKFLNJjQzZrqLpym7Q6/sxHMVZYQEJGhDxQ+2ydkqY0T+Nq163T1QA7e/qkML
-	 8c4uGKbSphUEyMJc3V4zTvdctj8cxT52vdb1tcldqkZ1BQs3QHnrMHJI9ucvh0nxsQg==
+	t=1794501514;
+	b=B74B5pn53FGM5yMSX0E7oACyhQMwyqPQIhZ/xyo6iRS/wV4ncMTWlcRVupAA2EbJ0hL8
+	 LuqEcQGTRBJV5yTnUNrWqMcF3J5ZbeRvMX5AJz2YFiI34XoHn05kw8zWrQZgc7iO2PwvD
+	 rqTTpyepPGdG9v985D5MXABEsK77eNthhl6lMjcaG/3rBAusqExIXbe3iziWbCox8pXBA
+	 28CXWKPBIllFaiIiXYJIhVinl/zWPF4eeb6LnNHpwrkQYI0B3OVuHlWTUgdI+KUI4OqNE
+	 y/NRbJj63f8XlFMCMo/OncCCyoqDA9jx7+RAYN4CeurKzOZfdYqi7hIwYvs1VG/pEcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501512;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501514;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=haUjdu1WTVujKp4YFXADZSg1hyHI5GFdMi/VVgymMz0=;
-	b=VEAR0WtUWiinPWdg3oe4x2BwrXeEO04DWekPFM0nTYzsT5A7BNjdr+72L8+5ZqX4aaD/
-	 D6w+4hSY8EcdaQIT/q7wVBt/DZ8P7RkhwbdHEjNvtBwipSEJpfEDsOhCcyH7evq8UP01I
-	 /qi3ZEUcxYSo9bRY0QmatloVBjs4Fa/PXyrXcInuQy/TLzy2NN495O4YWJbdaLvAA5i5e
-	 xNZmxgoHNEb8ikFEBcZ9v6dD1r8IlHBo7EVeLkCl3mzxTgctIfGDE8I9VXC1jkTTvINbf
-	 YtTKdct0EzxzmF+gfOEt0XL/HbxaEwqL7RRDJ54C5YgtVUnT5TD2pAeYV6V+6sYb88Q==
+	bh=KAyauhGpYq+rx+Ov+2pDwEo7otWeal2Xqa9jMkbqz4o=;
+	b=Bt4UcBLu+OH3ipI0Qur491sFDUcOVGuFhz/ZGFPKyB46ut8UFFDzibqBrWIVPofVouie
+	 xHCfh4DNHRLz12XJgl8KE+PPI4IDvL0PzEK/WjaIjWnzMmmofeDY7rhooC/fHt6WC+Rsb
+	 zkW50Akzvomybna7JVQQXgflcyrJj8T6J+DEAjrvx0HpbbJK+iRzzsjB6AhQzRdE2HVYY
+	 NnZrB41klSDSrRuxKoWf4ScC61u7aOXVSaYqxaHWal7tbRMVXjBs23f5Z5xrocLDROtB8
+	 tlKrVdbsL9/2Eo/uzPXikOQ1QSbqEp4P7TjmkXeGWfXqieL8+n1f0oyNXurK53sq5LQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=suse.com;
 	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Bi60AtY2;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=IPIBqmgs;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E95460A2633
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:38:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E95460A2633
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1FDD60A2611
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:38:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1FDD60A2611
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Bi60AtY2
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-492fcbfaa88so3031793f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:38:32 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=IPIBqmgs
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4918c2d727fso2546019f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:38:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794501511; x=1795106311; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1794501512; x=1795106312; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=haUjdu1WTVujKp4YFXADZSg1hyHI5GFdMi/VVgymMz0=;
-        b=Bi60AtY2A3IkJfYSZH6WGIvYksnGMwcrt2Z2Qs8KhmO+rLZm2cS2eyK7bYUUTgMzuc
-         kLFi8C1PSHKQyvSTh5efSlBUpupGQ4SUn5wE//7EVkbNz9e8qOMMVjOffliENPaNNTi1
-         9BEHMgH0yb962CLprV1M/6pIWqcfBpLL8Dj0HMXVKrg7vjJXXlNpI26Oo5LaC5jomUs+
-         5nqezPumU+lPK/8ve/a4a19mOiyvxotAvwZp58L0kHR9nU14qobcwV/8W1eT9MihCmdb
-         MEpTH9ZtJX8zur8+iSpfbvG6L55UKfJj9eLXwiTH6Wi0mCrgNY3DTYBHHR2B8ER1oWkp
-         JBwg==
+        bh=KAyauhGpYq+rx+Ov+2pDwEo7otWeal2Xqa9jMkbqz4o=;
+        b=IPIBqmgsuxWcSkDWAhFvmYMDee+qeQaf0IIB2iyaCJQQIH3nJ+ZDmBOpKavtvLs9tk
+         REiWhUkVR2lgZdLeezw6ukJZdzTRxA8hdRJefrKpAQ1agBcRLvj/uU7TrDy6bkyO1Iav
+         T8yPeLbJgqQ7dbgKZA1r65bRLsiIUyhpEIJxLH+IsVPlDSbyrIt/kJtuNDpDDY/ooc83
+         cbVFZZOCz/4wvL9kkgyFEt/LHKYjYHO+tU2N2sWxMjwZCf02yaR3MotDmxE/BI4rE9Bz
+         S+N0RlkOiIGdT8OBDWna2EQonMYhjaPgyiUa0/LKpYB/sYPGasiOUt/72b99xGi1n5hV
+         SFCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794501511; x=1795106311;
+        d=1e100.net; s=20260707; t=1794501512; x=1795106312;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=haUjdu1WTVujKp4YFXADZSg1hyHI5GFdMi/VVgymMz0=;
-        b=A1x33MmiJlh+Wit5Q4aL/nuQxxLj8I4j+FJzheu5zOcJA5Vzom10vNyT8O6N1BTGPb
-         LapaBRpaLvTtDyPHFymWI7E3qmBTuogKZoTFwLlGBFoqW/JwJGAnhrzIZCLv2I3Y5GdR
-         U0KOPQ2M+EhYTDyUztE/iWd+JaupyHs0HXQNxssHvfj+Tn8edwo/uAqgR6UIbejt9JAu
-         vQ/2Cu+Vzjslq954um71+eXIWlclDmpkz7stryLRfWIwAznv8TFlQcXvvdRJAVlT9m7T
-         0U9ZHdnhaVzuv838gVFedlSCQv42lAwTzzMdrR7osXiLbZjHuR4fUEfm8Vo0zu2dUyBz
-         6CfA==
-X-Gm-Message-State: APuU4Z8UZradBtn1G5DUjyDHFTsZ93EQ0Qtva+zYCFwxX4aaBqjDN2Dd
-	ufpnInU+sV/XCnMdbl+a6xW3pXxl+iwcAGox7f6lWSpWtw670GS0z/0+aQI3WTQnv+teLQWKOIh
-	prGeIzrw=
-X-Gm-Gg: AYBFou0+HEA2tnAZq0x+U9T1HqWnHTVYiu40366uhMk4TVLkM5NgsIdybMduxbGGpZ9
-	Z7uYm8aDjrt4+ibJK9UveRRHyGKM+thU0jxWV/1Y5LZ3TNfCVE1yeEl8ZbGWBAuU65Nw68Bybna
-	4j3KIrfXWgJ/l7+8wAny/8903As7mNYfjQ/VtUrZBoi6eVP8L3JlLLr6gKy7syIexP7lWFNY4VN
-	N31u9h8sOeQHle7Ha4Qm1tKk00UKRsYASLXdmtLwycqWUPzMak91jdeapSrcPA8lnUR3EYKHMQE
-	Preo+9V5XOsMXcH6b0xII3jshRCd/plsHu87TxuLsmXpy+G6Hfs2rM3/ZPzPv9xrUCNTHQsYnTN
-	nsYajbktlVeW8Adb2ycKxpNtvrahTqDxqmSVRu9frAOxYLrQDrgGB3fnfpJYiFaPOraqzNzcGEF
-	4kG8LTSL6MgseF/+86AQzHmnSGT7lbwFqqYOCEzTIFzvSgJhl8azBJfjS/GfR7ZxdwKzV2kmyXn
-	8FNxSjMJTerLhaeyD+38INHBmlhgl0F8Ok3d0RJ89SVmjlNwTffunNjm3YSgdd/MOy25tRaRUTN
-	1bKhK0Cbgd8gj92czPsgqU3dU77IT4gReQzz9LjCcdDh
-X-Received: by 2002:a05:600c:3f0a:b0:4a1:7d9b:d4ae with SMTP id 5b1f17b1804b1-4ba09379befmr110638405e9.5.1794501510866;
-        Thu, 12 Nov 2026 08:38:30 -0800 (PST)
+        bh=KAyauhGpYq+rx+Ov+2pDwEo7otWeal2Xqa9jMkbqz4o=;
+        b=Ms8UnQWKOePnmjNtWsqWKfIECFfKpq6JVx3xTErGkJVNVNMGnhvcXGnXILzC12ejCn
+         Iw2P/lx9JxN4MN88B4eIIv4Txb69A9ZtFz3UJdMqJA02lhadi9vxZ3AW/aRRYCfLQDgv
+         1mAZhldrO/dlikZ8fDOrJCaa8eto14cC66Qw5mn4JXXxMUcesQee5cmjb5+j87E4tHui
+         Bhj9cK2VCTHiPPU4kzarROqCxCMMOueoPGRA6yIsEvMUpMw4AKYYdH/Goj+QJqvhFzHy
+         bRzRTLS7egam3p7yaHgoQ2pFxr6NGogE+Q1pbZfnTF8mur55wKL0yxy3XnWbXsS0tm+p
+         wm1g==
+X-Gm-Message-State: APuU4Z/y9N+IPQYYL1JLZ6asdtL2SiWawDI2PLpviaqWiEeYh4DNC1pE
+	lgKopXTrJQa94eyHobp8Mye+PkvzfGZKwAO2iUIt7mULdQTnDkFLDxEmh+Y+T0JgKorGVoIUcrZ
+	vIOOsE7w=
+X-Gm-Gg: AYBFou3ENkEIVcolGzIlHyR/aRF1MnYdODshRA8D1HcEQqHxV433jxaX5f2Epo6Pi/K
+	Kk9KKrCZ450XQ2dKMgi5Ijl3eTEg9zumUhPZUgiMpJaJW6PBOYmIlLk9efi03ncTmCEL+gzwwKd
+	Su6l17yeN/UiJRLarT1Wm57FETECOPTAjaIEpbg3iVVQYShhj8OXH94aXEDSgHXWMbmlqOlb7sD
+	VTBakGN4jqNjRi2ZtSj78kJ82OuK0tt+BGniXmEJyRxEUM5SKS5jt5YI2nlkluv6EYsEZ3wiwL7
+	n4uG3QwUoUc7Lu60LIM6b3wDfEpIvB0GzPp97EcxEGijwzzZAwGc2cx9iDq09VtheSHVpFCL1WC
+	IYr30D1kGvZkq3cV3iPtk7GeCTvr57GvWuC2gA6j4WWYGcx3SW9b9Kkr/I/Sd9dAgFxH7IQWa/K
+	MRHF1O4h3nb+K1rm4VFKBgprV043qutRgeJYKaoa6lnJKO6uFTIx5NyBIg69U0Qn+aDGZlVDLld
+	JU3yF4V5m0yYY3cVHfkhvilYyIzgHhYpCH1Ib0JOYaRJ4yZH5C/IUDhopCe2sAWGO74Fv5LhzR7
+	OhIML45JGIa0YwzgzX8fa5VsT5uysrRMsHSfG+nTsNxmhw==
+X-Received: by 2002:a05:6000:240b:b0:48e:b1a:fa6 with SMTP id ffacd0b85a97d-499c6da1276mr11397006f8f.40.1794501512093;
+        Thu, 12 Nov 2026 08:38:32 -0800 (PST)
 Received: from linux.fritz.box ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d223a29sm226827f8f.8.2026.11.12.08.38.28
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d223a29sm226827f8f.8.2026.11.12.08.38.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 08:38:29 -0800 (PST)
+        Thu, 12 Nov 2026 08:38:31 -0800 (PST)
 From: Marco Crivellari <marco.crivellari@suse.com>
 To: linux-kernel@vger.kernel.org
 Cc: Frederic Weisbecker <frederic@kernel.org>,
@@ -101,9 +101,9 @@ Cc: Frederic Weisbecker <frederic@kernel.org>,
 	Michal Hocko <mhocko@suse.com>,
 	Aaron Tomlin <atomlin@atomlin.com>,
 	Marcelo Tosatti <mtosatti@redhat.com>
-Subject: [PATCH v3 4/5] tick/nohz: Reset got_idle_tick when entering dynticks idle
-Date: Thu, 12 Nov 2026 17:38:12 +0100
-Message-ID: <20261112163813.524336-5-marco.crivellari@suse.com>
+Subject: [PATCH v3 5/5] Documentation: no_hz: Add tick stop in polling idle
+Date: Thu, 12 Nov 2026 17:38:13 +0100
+Message-ID: <20261112163813.524336-6-marco.crivellari@suse.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261112163813.524336-1-marco.crivellari@suse.com>
 References: <20261112163813.524336-1-marco.crivellari@suse.com>
@@ -118,36 +118,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A tick firing after the last tick_nohz_idle_got_tick() and before
-tick_nohz_idle_exit() leaves got_idle_tick set, and the next
-cpuidle_idle_call() then assumes that a later dynticks idle period was
-ended by the tick. Now that the CPU leaves dynticks idle before polling,
-this can also happen within a single idle trip when it switches between
-cpuidle and polling, e.g. when it polls because the tick broadcast has
-expired.
+On nohz_full CPUs the scheduling-clock tick is stopped while polling.
+Update the documentation accordingly.
 
-Reset got_idle_tick when entering dynticks idle, so that it only reports
-the ticks of the current period.
-
-Suggested-by: Frederic Weisbecker <frederic@kernel.org>
 Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
 ---
- kernel/time/tick-sched.c | 2 ++
+ Documentation/timers/no_hz.rst | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
-index b4149f40b5f1..fb47d5dfbf4e 100644
---- a/kernel/time/tick-sched.c
-+++ b/kernel/time/tick-sched.c
-@@ -1237,6 +1237,8 @@ void tick_nohz_idle_enter(void)
- 	if (tick_sched_flag_test(ts, TS_FLAG_INIDLE))
- 		return;
+diff --git a/Documentation/timers/no_hz.rst b/Documentation/timers/no_hz.rst
+index 4006cab64079..86cea04d2a49 100644
+--- a/Documentation/timers/no_hz.rst
++++ b/Documentation/timers/no_hz.rst
+@@ -246,6 +246,8 @@ Known Issues
+ 		be even worse than that of dyntick-idle.  Furthermore,
+ 		this parameter effectively disables Turbo Mode on Intel
+ 		CPUs, which can significantly reduce maximum performance.
++		Note also that on nohz_full CPUs the scheduling-clock tick
++		is stopped while polling, as in the other idle states.
  
-+	/* Only report the ticks of this dynticks idle period */
-+	ts->got_idle_tick = 0;
- 	WARN_ON_ONCE(ts->timer_expires_base);
- 	tick_sched_flag_set(ts, TS_FLAG_INIDLE);
- 	ts->idle_entrytime = ktime_get();
+ *	Adaptive-ticks slows user/kernel transitions slightly.
+ 	This is not expected to be a problem for computationally intensive
 -- 
 2.56.0
 
