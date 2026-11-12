@@ -1,47 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.8
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794467290;
-	b=hOWz3qu1Bh/drEjx3VZuyK3frRg+uTC0GjA3PvU4ppLxoWtmpcvzI3gJ128WWu3pvtCL
-	 zidgr+X7UiEEqjTkIk0RGTeiEnNVCzqTrPHcoey3DIRr1BBrr6Tpvit6TbK5bWiIa6THS
-	 6KtTD0Aq8E6uCDZZAy7mHcvq80/+EZ3sf4dB6DHQ0yomOskKX/cDFbRoeA7ASosaY8PtV
-	 E21nxuU+Xh5v/tED5tBpv+lvV8nheaLFX4PLd/nEzivK+vxfy48XN7pqX7KN1G/E8Squp
-	 3kyJ0zWRDLEJNmih8bXzdjsOMrA8MUSUsURJ8slKn9UXwKzN6xoFaOyU75+jUCnQ4HQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794467290;
-	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=T1EVA641LW6g9iZivmErL6bCgrLZeRILPc29/4zkGT4=;
-	b=OJbu/jhvIKC8G+tr1StpugeEQbO5c3MmpX//QjfVANxFeo025SbR62pUEuLITvTlIRuq
-	 Z/i3B46qav8whzyILS/in6Vgt/2H97KCj+pO05j8exvxH31mfYeDOQxJQ82sxUx8aX4dJ
-	 JOtD1xhURSWnTX6lTKwY1fWjgL/1j/JXVAcQAbzlGO/79/J3cLR4nGQS8S8mQYK+nLmBY
-	 oIYAAdkCt+ULmhDHT30j/IEqPGUM0zpGwmmYu15kATXLxzPZGxdtMdFeTBt/UPc0loRUN
-	 xEoe45/EcdMDWyEp2h85GdwLRHqG+NWnqS6KGGLR8aPNwXii3+L2jmpFlHmbzBzJlcA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=126.com;
-	spf=pass smtp.mailfrom=126.com;
-	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b="S//XLNwV";
-	arc=none smtp.remote-ip=117.135.210.8
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794467310;
+	b=fTasrUoUtDus6hftAfrMzTHtuPLZqVMQblAO0Og8CUc/V9a4t4VJYWwKR1cN3r2Lz3vg
+	 w1xh021ItuM43XWQ/56w4n12WKRK33wYBdX/3AIx87WPDqqqhJUaw+oe0YvKfBVTjxi1N
+	 B6hweK8epSZlE7WO8DLYBXd1BEzF/DqeW9Xo43u4m2g9H6fxIV0/3ftCvWn15zKJ7OzgL
+	 8Wfmf+hlzyhiL7Pg3alqDewcKoCkWc2CBKkMdOQzKhxBfPGyRhiz+ixMML95UBekF8JSO
+	 MskjXbZ446+rzaen7hz0R36Qc2Flhf1SJPROzgg72P0L4E0KRmT0SVrgkLQvsGWMfZQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794467310;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=7hoDHAclas2s7Cj2vs8nwdI3qFg9ru7EadW68gJifyo=;
+	b=pIH+AAWYY8aYEEjs6z7aHqOr8aYilVilQp+6hyGoyU1gg8k1acYyj+PUGMapGwxvVYo0
+	 T1Pzt7+6XX0roiR+XIotLzkvp6CtVWmAx8er4SKOsyufe+EJzyYec6SKJm1jVFOFlLxOm
+	 TwYpFKM0bBBcTKUMPAt901nxUsQM/RKGxG1gIb87e+OJjXvdSPZwm7TsErBnwvLg886xX
+	 /8aGrnQ54mzUrLtr5nLdThPZlC+F1pkT/4lZFs4+luXcpCtQVTgIxCi+MH0SM8TOnVFk8
+	 RjbxzQHBH2ahkJ6a7VvPS3CV59jvsgomX6LioJh2wLKhqZqI/ilAs/+OXsknJN73nmg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XFwzp3Lv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19642606A31C;
+	Thu, 12 Nov 2026 07:08:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XFwzp3Lv
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794467309;
+	b=D5mf9ugk6N/S6vIPniI88I4GA6ZvQXV2Z9GoqQV8ZjP2uxt0Ed1fIpnA93/xweuNHCrI
+	 zbzgD3jXaiFD6t84JgrMxNRVjI7WCFJuj0cyQyJoHdeIv3MHiww/vIrANCaQzhdAztOut
+	 RytqSneicz8Hnhgt3pc9Bb3yWOUDC+fv22pjXSrOMCtBB/47d561SNUZNGK1Wn24OTDYm
+	 lhQsXABq/GmMcGpYWTJgL4R0nEAiZpl+11OcRkrrTKznbpKjqUp/jdZeJPeoOUEnVIQFN
+	 ZY5y9wlpx68fr1cE6xqno6vG5X4ttFVcdzaP9i0qWmb0ZBl10Dd98fybxp0bGEmaPaQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794467309;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=7hoDHAclas2s7Cj2vs8nwdI3qFg9ru7EadW68gJifyo=;
+	b=k0brYy46UuBG+eYvYSEW2sGXOozYovNsw7zRupsqNC67FiFnBvNMQWdv6Gf3RdoXr4PG
+	 UWdzScHadoquDNegoVKki/E1aWpEu2HV9Kd501Od6GUxEXay9zfIOmYR//WV5cZqRg0pP
+	 Xh456cexRBESh2CA8zqF7q+8xSfYwq+2obsdIAiZYBAus2yIJ6Hz+nsokTOdXpAnfwhWY
+	 GPEZHJcdGQ2LVTpW5R3ePqTdh/PjjGSP4fRjMKTmSCnGO6RdCvql5+iNeq0kOX7A1e/1H
+	 c3azPAs4USdyTlXGYKt/hh+KlvAudNhkgsbtXtJ0T9CXstv+V/avV7rj6jDVs7xiuJA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D82606A321;
-	Thu, 12 Nov 2026 07:08:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3D82606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=S//XLNwV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=T1EVA641LW6g9iZivmErL6bCgrLZeRILPc29/4zkGT4=;
-	b=S//XLNwVKhOE7xO+/wor137Eqehl62HRrZStQYQm1vHrYC1i4PuLq2nsKwS2sR
-	1InxIpGDfqkNQ91YXV9TFENyITpMYiXDknFw64JMxHAeK5mgKzmz5Z/OcghwMnh1
-	a9HrFE5dU0jyW0psnzbHaajyYIrSrmOGuIHn8PQo5S7uk=
-Message-ID: <82d01fb0-cf0a-473c-bef7-6ccb6d827ec9@126.com>
-Date: Thu, 12 Nov 2026 15:06:29 +0800
+	by smtp.kernel.org (Postfix) with ESMTPS id 213031F00A05;
+	Thu, 12 Nov 2026 07:08:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794467309;
+	bh=7hoDHAclas2s7Cj2vs8nwdI3qFg9ru7EadW68gJifyo=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=XFwzp3Lv93ahTTd4PoZ5+BeFsd/yNs9DdPabq5jLaTuzgv/VDrvpOW8A8J2mgSRSQ
+	 iCe1bSYX1ftdKUAtsS7aCI/1hEWO7cUTzHWwUP7EIVezpjdaROUDzHf2HP3OoDw2MW
+	 qAKYZbBlXQO96sqtDnTpPOBdXL1h0v/PH4frUbmz0xxh8CW8HpTyscKdjfVUjQVEu0
+	 jHbhKlLoPGqwZsFd0uAbpx++B7t0BMxbDkG1Lb4i9tFAG9Vy86o5IefsK9N/l/w1j9
+	 Cl00fpy8PgzHnsaNfzr8KhEWMq1tpbOGDQLtS4h2N+gKmzv20rq/8XRWRYYi+EJd+b
+	 ZUILZowFI3nAA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 7691649318;
+	Thu, 12 Nov 2026 07:08:28 +0000 (UTC)
+From: Weidong Wang via B4 Relay <devnull+weidongw.illinois.edu@kernel.org>
+Date: Thu, 12 Nov 2026 01:07:06 -0600
+Subject: [PATCH] serial: 8250_pci: don't re-enable an enabled device on
+ resume
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,137 +83,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: ethtool: phy: fix NULL link_topo dereference in
- phy_prepare_data()
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: maxime.chevallier@bootlin.com, kuba@kernel.org, davem@davemloft.net,
- edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org, sdf@fomichev.me,
- nb@tipi-net.de, 2022090917019@std.uestc.edu.cn, devnexen@gmail.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261111072146.3293821-1-xiaolinkui@126.com>
- <1fb006fc-aab9-456d-95c2-0e94df1dfb09@lunn.ch>
-Content-Language: en-US
-From: Linkui Xiao <xiaolinkui@126.com>
-In-Reply-To: <1fb006fc-aab9-456d-95c2-0e94df1dfb09@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261112-c3-n108-v1-1-d48f8da5894e@illinois.edu>
+X-B4-Tracking: v=1; b=H4sIAJll9WoC/yXMQQqAIBCF4avErBOcESK6SrQoHWtaWGhFEN09q
+ +UH/3sXJI7CCZrigsiHJFlCBpYF2KkPIytx2UCaKkQkZY0KqGvl9KANeSZ0HnK9RvZyfk9t9zv
+ tw8x2e+dw3w/SS9AMawAAAA==
+X-Change-ID: 20261112-c3-n108-d0b032fe21df
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Zijie Zhao <zijie4@illinois.edu>, Weidong Wang <weidongw@illinois.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794467308; l=2915;
+ i=weidongw@illinois.edu; s=20261108; h=from:subject:message-id;
+ bh=0/xY/OhzLDNgjLSJD2wXj/hY/A/IDIPAMgsYLiXYrAs=;
+ b=nx1qBuKW7AP8OO6fTYRGSCF1fL0L0NWzb0cDILi7zFqEvGZCjKuNWjkvGhHZ2yt55OuQM4LOB
+ ySXnlKw6j0CAP4XIWCdIgYTyd1EV+gysYCfdX2ZPVqk6QWapm/lTs3O
+X-Developer-Key: i=weidongw@illinois.edu; a=ed25519;
+ pk=DR2S1xPEa5sELrWPfOpvUphJQ2VHC+MDc/wJavE/ifg=
+X-Endpoint-Received: by B4 Relay for weidongw@illinois.edu/20261108 with
+ auth_id=1449
+X-Original-From: Weidong Wang <weidongw@illinois.edu>
+Reply-To: weidongw@illinois.edu
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_____wD3Hxd5ZfVqDhzRDA--.51826S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxtF15uryftF1fuFWktr18Zrb_yoW7Wr4rpa
-	yYgF9YkryDGrWSqr4rZry0kFyY9rnayw4rKFy8K345u3s8Gr48ZFW8tryqvr4YkFZ5G3Wj
-	qF4UJa9xWF4DZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UcBMNUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqRuPZmr1ZXvC7wAA33
 
-Hi Andrew,
+From: Weidong Wang <weidongw@illinois.edu>
 
-Thanks for the review.
+pciserial_resume_one() calls pci_enable_device() on every resume. Probe
+already enabled the device with pcim_enable_device() and suspend does
+not disable it, so each suspend/resume cycle adds one to enable_cnt
+that nothing drops. After N cycles, unbinding the driver leaves
+enable_cnt at N and the device enabled.
 
-You are right - the ethtool patch was treating the symptom. I have split
-this into two separate [PATCH net] threads: the EMAC driver fix, and a
-reworked ethtool change that warns instead of hiding the bug.
+Only re-enable the device when it is actually disabled.
 
- > There is another way to look at this. The MAC driver might be broken,
- > it is assigning ndev->phydev, which it should not. It needs to call
- > one of the helpers that get to phy_attach_direct(), which sets
- > ndev->phydev.
+Found by an AI code review agent (an LLM-based bug-finding tool
+developed by Zijie Zhao and the submitter) and confirmed on an
+unmodified kernel, without error injection, on x86_64 under QEMU with
+the "pci-serial" device (1b36:0002), which 8250_pci drives: after five
+s2idle cycles with pm_test=devices, /sys/bus/pci/devices/.../enable
+read 6, and 5 after unbinding the driver; without the suspend
+cycles it read 1, and 0 after unbinding.
 
-Agreed, and EMAC is the broken one. emac_init_phy() handles a
-"fixed-link" property by registering a fixed PHY for the MAC's own OF
-node and then assigning the netdev pointer by hand:
+With this patch it stays at 1 across the cycles and drops to 0 on
+unbind.
 
-		res = of_phy_register_fixed_link(np);
-		ndev->phydev = of_phy_find_device(np);
-		if (res || !ndev->phydev)
-			return res ? res : -EINVAL;
-		emac_adjust_link(dev->ndev);
-		put_device(&ndev->phydev->mdio.dev);
+The reproducer, fix and changelog were drafted with AI assistance
+(Claude), then reviewed and tested by the submitter.
 
-Skipping phy_attach_direct() leaves phydev->attached_dev NULL, installs
-no link change handler, keeps the PHY out of the netdev's
-phy_link_topology, and the put_device() drops the reference the driver
-just took. The user visible part is the missing topology entry:
-ethnl_req_get_phydev() returns dev->phydev as-is for a request without a
-phy-index, so phy_prepare_data() ends up doing xa_load() on a link_topo
-that was never allocated.
+Cc: Zijie Zhao <zijie4@illinois.edu>
+Signed-off-by: Weidong Wang <weidongw@illinois.edu>
+---
+Tested on v7.4-rc1 (05441d697f7f), x86_64, QEMU/KVM with -device
+pci-serial (1b36:0002), pm_test=devices, five suspend-to-idle cycles
+and then an unbind of the serial driver:
 
-The fix makes the fixed-link branch match what gianfar, fec, davinci_emac
-and nixge already do: of_phy_register_fixed_link() followed by
-of_phy_connect() on the MAC's own OF node (gemini uses
-of_phy_get_and_connect() and stores the result, the same harmless shape
-as the icssg users). The explicit put_device() goes away because
-of_phy_connect() takes over the reference. The manual
-emac_adjust_link() stays; the PHY state machine is still not started,
-which is fine because a fixed link does not change and the driver
-already treats dev->phy.address < 0 as "no PHY to poll". Full
-rationale is in the commit message.
+               5 x s2idle, then unbind         unbind only (control)
+  unpatched    enable_cnt 1 -> 6, 5 after      1 -> 0
+               unbind
+  patched      stays 1, 0 after unbind         1 -> 0
 
-Cross compiled for powerpc with W=1 out of ppc44x_defconfig, no warnings.
-No EMAC hardware here and no in-tree DTS pairs "ibm,emac" with
-"fixed-link", so beyond the build it is inspection only. The hand
-assignment goes back to 08e39982ef64, but it only started touching the
-net_device with baab9de385a8, which is the Fixes: target.
+No KASAN/UBSAN reports on the patched kernel. The code is unchanged in
+mainline, linux-next (next-20261111) and tty-next.
 
-Two adjacent issues I left out on purpose: emac_remove() never calls
-phy_disconnect(), and the fixed-link branch never calls phy_read_status(),
-so emac_adjust_link() copies SPEED_UNKNOWN/DUPLEX_UNKNOWN. Both predate
-this patch and are worth separate fixes; happy to send them.
+The reproducer is available on request.
+---
+ drivers/tty/serial/8250/8250_pci.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
- > Are there other MAC drivers which assign ndev->phydev?
+diff --git a/drivers/tty/serial/8250/8250_pci.c b/drivers/tty/serial/8250/8250_pci.c
+index 1dda63be6..e9b9bcc3d 100644
+--- a/drivers/tty/serial/8250/8250_pci.c
++++ b/drivers/tty/serial/8250/8250_pci.c
+@@ -4250,12 +4250,16 @@ static int pciserial_resume_one(struct device *dev)
+ 
+ 	if (priv) {
+ 		/*
+-		 * The device may have been disabled.  Re-enable it.
++		 * The device may have been disabled.  Re-enable it, but only
++		 * then: probe enabled it once, and every extra enable here is
++		 * never undone.
+ 		 */
+-		err = pci_enable_device(pdev);
+-		/* FIXME: We cannot simply error out here */
+-		if (err)
+-			pci_err(pdev, "Unable to re-enable ports, trying to continue.\n");
++		if (!pci_is_enabled(pdev)) {
++			err = pci_enable_device(pdev);
++			/* FIXME: We cannot simply error out here */
++			if (err)
++				pci_err(pdev, "Unable to re-enable ports, trying to continue.\n");
++		}
+ 		pciserial_resume_ports(priv);
+ 	}
+ 	return 0;
 
-I went through every "->phydev =" in drivers/net/ and net/. EMAC is the
-only driver that leaves net_device::phydev pointing at a PHY that was
-never attached. The others are redundant but harmless:
+---
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+change-id: 20261112-c3-n108-d0b032fe21df
 
-   - icssg_prueth.c:425 and icssg_prueth_sr1.c:238 assign the result of
-     of_phy_connect(), which already stored the same pointer via
-     phy_attach_direct().
-   - gemini.c:374 stores the result of of_phy_get_and_connect(), same
-     shape.
-   - net/dsa/user.c:2643 pre-fills user_dev->phydev from mdiobus_get_phy()
-     before phylink_connect_phy() overwrites it with the same phy_device;
-     mdiobus_get_phy() takes no reference, so nothing leaks.
-   - Plain "phydev = NULL" right after a disconnect (gemini, rtsn, dpaa,
-     icssg) clears what the disconnect already cleared.
+Best regards,
+--  
+Weidong Wang <weidongw@illinois.edu>
 
-Everything else called phydev in drivers/net/ is a private member of a
-driver structure rather than net_device::phydev (tehuti, wangxun, r8169,
-xgbe, qualcomm emac, tsnep, hns3, hibmcge, bgx, smsc95xx, oa_tc6,
-dm9051, plus phylib internals and phylink's pl->phydev).  tsnep does
-have a separate of_phy_find_device() reference leak, but that is
-unrelated to net_device::phydev and not touched here.  So EMAC is the
-only offender.
-
- > This NULL pointer dereference can be considered good, because it might
- > be pointing out a bug. So we might want to keep it.
-
-Fair, and that is why v2 no longer returns -EOPNOTSUPP silently. It
-warns once and then returns -EOPNOTSUPP:
-
-	if (WARN_ON_ONCE(!topo))
-		return -EOPNOTSUPP;
-
-phy_prepare_data() already returns -EOPNOTSUPP when the phydev is not in
-the topology, so callers do not learn a new error code. The driver bug
-still lands in the log with a stack trace, but a plain ethtool query no
-longer takes the machine down. The dump side returns early when
-dev->link_topo is NULL, so this can only fire from the doit path, at most
-once per boot.
-
-This is also the only spot in net/ethtool/ that touches ->link_topo
-without coping with a missing one - phy_link_topo_empty() is "return
-!dev->link_topo", phy_link_topo_get_phy()/get_port() return NULL, and
-common.c, port.c, tsinfo.c all test it first. Before 9dd2ad5e92b9,
-ethnl_phy_parse_request() had "if (!topo) return 0;" ahead of the xarray;
-that check did not make it into phy_prepare_data().
-
-If you would rather keep the oops as the canary, say the word and I will
-drop the ethtool patch - the EMAC one is the part that actually fixes
-something.
-
-Both v2 patches drop Cc: stable: the EMAC one is latent in mainline, and
-the ethtool one only warns. Say the word if you disagree.
-
-Thanks,
-Linkui
 
