@@ -1,79 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794488379;
-	b=gbDl6GyVt0+842Xe7kKgEzFzu86RJar9/1+wBe1UEc/2JDqgPjNvgB45a1FJthkJG6hC
-	 VfExgLVKeFGWuTzqHiTV63hWaUJH6PbZ6nbIl0mlEvQ69y1JYxnIolImaJz4ntL/FkUbD
-	 1/xazeE2DGfgTWkBuVyGgzp74Ax6XBDrMpA5trKJv2kDpmybzLP82YU0SW9hyiuwauULa
-	 v3G8nWnTX514R3ajQppKtkF6MZx6peWcwabkg1H0HImmubgXupfia2nBWT3OJFBJzdCkn
-	 ynd1ZvQp765bs8v/FTOdVH3ZLQcb3RvFOupJnABhEZt+EvK0MjU9twJF6KE0WBGQl/Q==
+	t=1794488378;
+	b=UZX82h7AIPLA0m7HoiLFe0fSBNwsvnlHeK0IFmw6YsJs5U0a0kJgpq0Mg0NWlk8Cyoj7
+	 wkMlaePDYoYIYsLal1rmSYapMMxwqWc+O0SpRtOiPZdNYGEVL0yOvPObte/hNl/pj4LO7
+	 XSJp3/PJ0rYvkyYqR+obHwGcnyuvLg3OgawiNimv9E+k9GTd3P3iPZY165xu5kbfmAZ55
+	 BdSVQt5h3F9D5qKSQO4EGNCXXU1bZxYjZZWXh/I3BUnwAHuqtqM/Gnyq+zjgI7A4V33R6
+	 AydfNSxqdAm7lcqS5uQpfunISqkXfAbwbu4CI2e5KJQvcofFJiDeb24tJv2f/B2fvHA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794488379;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=tOkzJ7VMBcKazDEOFcyhu0vHJNJyobb4AhUu0aqQ2nQ=;
-	b=n4asZmskcA06OtWImgl4L0kKlN9XXiy/S9htVYNwlZPuo869ZOwGH+blB+C2OwVT2gj5
-	 LJA6ShJox2mlS5QkL7pkGgpZelnKemNu7a9cjlsybr2+PqYgxdz6TPYPMSuAw/Vv0dhEQ
-	 ZPnNALIS7fzz82IgL0cfaGss/EQZBb6dNpzC1UigQ69uzcucpuyycJyf1diCZXVJNO5BR
-	 fSo7uT2nBsWB9z/p3iVDf21MQ6zU+rCxhNuARXsRsCCsMryppyDlvtp5Df+hwpFQif9Eh
-	 siM1PDgamz+fDTPNpXvwbZlFGgkyQ6EcJYAKTJzsn0BbCgVl/eE4KkGPYfmEggAbMig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794488378;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=7q+H4jjG/SnPge8Pd9y4oUGYFqvp50HbTGMvp1CBhwE=;
+	b=Emb+k7wOhEd8uHDdFuYkg7qJgMuvyNUYxxg3lP5GXFvl8q1J8jJp2AwiKTlNg/qGF6Z2
+	 GO1TKQqyu2x43FPRUmhNDUmTgZic9G3MmEd2wRBSN4YaI5RxXT18o1e+LkazHrt9DvCYn
+	 85ggAdc5Us4T3MPPHNJDQ7Vlh/NDHYXfKoMED2OVThvxOBrNVeJDPMCE9y7inKyWfVKyU
+	 aqfExzJlyHyjeRpDgRjEB5RIJE9wsw78/nR6YMYXynnuju1wqxcr95Eknyjc0sHL+Ll1J
+	 jMAPuZV/mpLWNCYTMz7It3juw0KRnsVcTn1YXqNppqTx1dZhIgiwKpGOFEBmCge7khg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RopZJ93S;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FTj34m0z;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A46606A8B7;
-	Thu, 12 Nov 2026 12:59:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17FDA606A323;
+	Thu, 12 Nov 2026 12:59:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RopZJ93S
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FTj34m0z
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794488379;
-	b=22ynhcovCHP/eeWOpVutLwBq1JW3CSke9miHjUjp5gunOzJjDnDMgWIhC/4U5/DzU0xz
-	 jV/HqgQZ+udOpOZXSC5ornNmlzZRiVxuWH1OF9OelM74S6E2vKGpgjUun5Tcx/MyQFmoG
-	 k4MnTWd0vKWMQxgDxrh+mNibuYm+ry/RL0HbWuZmJs3B9yWutEr1+HyZDTl9LusC8BDSk
-	 /L66GRAVStWp92aIV9TLT2ELcRx5y3U8NxpJDBJDLOLugkfzW+Es4GFtZMCaAjVBo73tv
-	 Wo09zyBtNEBiHh1dfh/QzCv9rWxrJb8PtO/hZV3lgi+GQzX4TAlSLkRWQItMF5L31vQ==
+	t=1794488377;
+	b=20EYv8FoQXOoR9R5+eH8qaxA7uN2gWHrNMbDn8ELwJzj+rl+VtcROlPYMCIoLA8Xjgri
+	 CaXi5GdXft0+rsVb/zcbHhkSyaUBzt+wnEoi1QP4ILSWbVtGGncw+Nxs9Yh7FOWGOBM/M
+	 7rxU7NDLUkQ0D6JMkm//VO3WudByquOFGhy+gdEscn03fU9UuECe1orDHIxzSWYAcFW/a
+	 JlVlCv1l23Y9VZfV+XRI+M/fyfGIAOZnMvlQGoPDUNxWt4QwPmNihngP9JKejMJxSiFs6
+	 uhSs2LqlAlvE9Wm+2+jBzutuDVy3CfY/U2Q9F2edNDzRV+EWQLwClFkBvS8HLodrFmQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794488379;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=tOkzJ7VMBcKazDEOFcyhu0vHJNJyobb4AhUu0aqQ2nQ=;
-	b=lVNHoPf1j/qh+izUllAK5Gim71CxGIxdB+ldkAvPm7gzbJFnqxv1+qGZn+MxQ4LFRY0a
-	 YB8Miq0y3pZFs+ScNzIOZt4cqSN/pXWp1aAznggxbDOZkYxVdOJ3iYMX3c5VeL2FVfmXe
-	 ZaWDglHhTScjYNXAGcaiWOH4uIOra88zamnMwHDvF9+0JxOmebuwH+vqQADYXk7HWjS+K
-	 0tGroWeBgGXi8veCPPMttbKh2N+tEY9uvQQfuhzke29GwKo9XqqgkDE1xenBJYkZvxHa/
-	 AM+CFOhvZZqo1bL2JPbt52JGIToKAgXgsx6AOzefBbzbJfVzzyAWSr0XdYPDZcHVKxQ==
+	c=relaxed/relaxed; t=1794488377;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=7q+H4jjG/SnPge8Pd9y4oUGYFqvp50HbTGMvp1CBhwE=;
+	b=lpZWSJqd2amY+gKi2KSybRvEp5s2hhdMruBiCuR/8C/fBVH3IebP1tnm156Eg6L4tZ4P
+	 nmWTcLyWzxmiGYGJxBGftsizuSieDgjNc9aBgwOENzs4tjMqn10QFnWQYRQ49LNMWe0b8
+	 iMZt/h6Ij5q8b1WQG9kVfSZIbOJpRtyaNn9ScKPTliM/cKGzo2KgiJT1VDNjc/sLo3aIa
+	 F9P/iiLi+PdGcxNMXe4p1UKNNpJK96o8CyRCoiCE3kNMrZWWtJzUJS2Z6mwHxv1K6irSa
+	 zfP8ua4UGQcQLn5CpFjVjE2B9RbNOQcvKHEgkt24r1RwNmxCYMggmIbJqBIgOWI2JfA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 055FA1F00A0C;
-	Thu, 12 Nov 2026 12:59:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794488379;
-	bh=tOkzJ7VMBcKazDEOFcyhu0vHJNJyobb4AhUu0aqQ2nQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=RopZJ93Stlk5FijBuSpncuGjb54eu45EKb98TW49lY3PRfzkOLLubGBHQ1GJiwrHI
-	 nkrcoogGT2pAf8VZIgwq5XesRKuShOQg5oBLV0yBj7QClUwpqK/qS55CgXeUhf/c83
-	 Htav8QaEfY5kewsEL9p20tVQ19gue6YN421yfklyebrdZe00SJ5DnMTeEBJvb2mGdi
-	 rpNTeiSZgsqlwFj9YFC+K8rprB6Sm8mWROmrtX+qD3AP/BhqceU5pYn9g/7sJJv899
-	 mEjFjiYB45aHqrdmYmUarDM2xiBsQl9YZRau0xZCtsswyrxptkXyzFacBn7qFdjH8K
-	 OJc63Y/fYXmDg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 691A1494EC;
+	by smtp.kernel.org (Postfix) with ESMTPS id A10951F00A05;
 	Thu, 12 Nov 2026 12:59:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794488377;
+	bh=7q+H4jjG/SnPge8Pd9y4oUGYFqvp50HbTGMvp1CBhwE=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=FTj34m0zeRI2xOSxGL+McG0fdIGYk+cZL0QVwJ+hWRAlGH02DyH1ifn/As4giVT6n
+	 qxQuA1zEVf4elZeGqn4jKJms61oW9RvjoGfeTMBQYfjohm7lzKvec84WezPNR43i5T
+	 3VJZfKcHIuYV/U37jNRPMwei82i4Dvu+TxtB3qgg5u3F7m7wYB136xvxJaPmS81CAj
+	 thJcvbj3YCKYszd+u43xUNvv9CSh9DeZkjKKVjnDtTKEBJtYCvq1ekAjb6oTmkHnh3
+	 h/F0MfN15Z3fFna8MHLsEO2rWwefihROxKGbM/fjhMPB413HlAOQZ+00MzLMf2lDV1
+	 UcqTlCqxhsukQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id F1FF8494DC;
+	Thu, 12 Nov 2026 12:59:35 +0000 (UTC)
 From: Bryam Vargas via B4 Relay <devnull+hexlabsecurity.proton.me@kernel.org>
-Date: Thu, 12 Nov 2026 07:59:39 -0500
-Subject: [PATCH net v9 5/6] net/smc: keep an RDMA write inside the peer's
- RMBE
+Subject: [PATCH net v9 0/6] net/smc: bound wire-controlled CDC cursors
+ against the local buffers
+Date: Thu, 12 Nov 2026 07:59:34 -0500
+Message-Id: <20261112-b4-disp-0287c16e-v9-0-e5e8fa688177@proton.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,9 +85,11 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-b4-disp-0287c16e-v9-5-e5e8fa688177@proton.me>
-References: <20261112-b4-disp-0287c16e-v9-0-e5e8fa688177@proton.me>
-In-Reply-To: <20261112-b4-disp-0287c16e-v9-0-e5e8fa688177@proton.me>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQrCMBAFf6Xs2YVskNb4K+LBJK+6HmLJtiKU/
+ rvRHmdgZiVDVRidu5Uq3mr6Kg3CoaP0uJU7WHNj8s73IuI5HjmrTez8aUjSg2Ny4occMgKoZVP
+ FqJ//8kIFM113aUt8Is2/GW3bF+8hVMN5AAAA
+X-Change-ID: 20261112-b4-disp-0287c16e-bc0127d9de9e
 To: Mahanta Jambigi <mjambigi@linux.ibm.com>, 
  Dust Li <dust.li@linux.alibaba.com>, Eric Dumazet <edumazet@kernel.org>, 
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>, 
@@ -101,192 +104,214 @@ Cc: Ursula Braun <ubraun@linux.ibm.com>,
  linux-rdma@vger.kernel.org, netdev@vger.kernel.org, 
  Hidayath Khan <hidayath@linux.ibm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794488375; l=8896;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794488375; l=11712;
  i=hexlabsecurity@proton.me; s=default; h=from:subject:message-id;
- bh=AouuOv6hleOcymBLYNFRRGYbka4qvSS1/VHLRubUqs0=;
- b=vC9ofnngrCEtc8IUa4LUNcd/AQ2tprBZLC/l32L3uH9GMekHI/0q/VEYOlvmrKe2mO5OBP+4i
- Ut8g82apEg8AgXtNyOLAc60pDzmyyycQkLrxxbVL2Fu6nJchZ9Nn6zU
+ bh=z++ZMghTeaKO0JLJIgpjFgPH3h5+RjbCWk+r52e9oYA=;
+ b=rWrpr1e4QgDouKFtuggjwhlwjZN+uDIWx7eDu9Fipm7eMrQwjzKF0t6SGe6vdfX4OO80MHBYQ
+ /RVKijKliM7B8PazM7yhIidJrx0SuxNvjlgJOTPGSE92o7vUJGWJ0Li
 X-Developer-Key: i=hexlabsecurity@proton.me; a=ed25519;
  pk=xw1AhCtQdvuoQc+bOQIYy9o8G++cp4/VniI2G/tc3G8=
 X-Endpoint-Received: by B4 Relay for hexlabsecurity@proton.me/default with
  auth_id=893
 X-Original-From: Bryam Vargas <hexlabsecurity@proton.me>
 Reply-To: hexlabsecurity@proton.me
-Content-Transfer-Encoding: 7bit
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+A peer's CDC cursors come off the wire and are used, with no bound
+against the buffers they address, as a raw index into the RMB on the
+urgent path (1/6), as the rx length (2/6), as the tx write space (3/6),
+as the length and the destination of an RDMA write (5/6), and as the
+cursor advance at SMC-R link failover (6/6). Any peer that completes the
+SMC handshake controls them. With a forged cursor these run past the
+buffer: an OOB read of kernel memory returned to the reader, send() data
+written past the send buffer, an RDMA write that ends past the peer's
+RMBE (its HCA refuses it and the link goes down) or whose source runs
+past the send buffer. 4/6 fixes a bug in the existing code, how
+smcr_tx_rdma_writes() sizes the source of a write's second chunk; it
+sits before 5/6 because 5/6 turns writes that were one chunk into two.
 
-smc_tx_rdma_writes() takes the length of a write from peer_rmbe_space
-and decides from the cursor wraps whether the destination is one chunk
-or two. Both follow the peer's consumer cursor, which nothing bounds: a
-forged one takes a one-chunk write past the peer's RMBE, and so does a
-conforming peer that keeps reading across the end of its RMBE before
-the resend after an SMC-R link failover. With one RMBE per RMB, as
-Linux allocates them, the peer's HCA refuses the write and the link
-goes down.
+Four cases need no forged cursor: a MSG_PEEK|MSG_WAITALL reader racing
+another recv() (2/6), late completions on the old link after a
+failover (3/6), a peer that reads across the end of its RMBE while
+unconfirmed data waits for the resend after a failover (5/6), and a
+completion handled while the failover switches the connection, after
+which the next RDMA write can send the peer the memory that follows the
+send buffer (4/6; it does on rxe). With a second link in the group the
+peer can force the failover: a DELETE LINK request, or failing one of
+our RDMA writes.
 
-Write at most one RMBE per call and end the first chunk no later than
-the RMBE, whatever the wraps say. A conforming peer outside failover
-gets the chunks it got before. A write that was one chunk can now be
-two, which needs "net/smc: keep the source of an RDMA write inside the
-send buffer"; the first chunk needs prod.count inside the RMBE, which
-"net/smc: bound the link failover cursor advance to the send buffer"
-keeps at failover.
+Bounding each cursor on arrival is not enough. A peer that only bumps
+prod.wrap with count 0 makes smc_curs_diff() return the full buffer
+length on every CDC, so bytes_to_rcv grows past the RMB while every
+cursor looks in range. IOW the overflow is in the accumulator, not the
+cursor. 1/6 can clamp on arrival because the urgent path indexes with
+the count itself; 2/6, 3/6, 5/6 and 6/6 bound the value where it is
+used. The series does not depend on Hidayath Khan's "net/smc: abort the
+connection when the peer overruns the RMB" [1] (net-next).
 
-Fixes: e6727f39004b ("smc: send data (through RDMA)")
-Fixes: c6f02ebeea3a ("net/smc: switch connections to alternate link")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013-b4-disp-f345196c-v7-0-ef3dddfbfa68%40proton.me?part=4
-Cc: stable@vger.kernel.org # see patch description, needs two other patches
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
----
-New in v9, for the first point of Sashiko's review of v8's 4/4 [1]: v8
-skipped the failover advance for a consumer count past the peer's RMBE,
-but the window for this write was still sized from the same cursor. A
-check in smc_write_space() is not enough: smc_cdc_msg_recv_action()
-credits peer_rmbe_space from the next cursor, and the differing-wrap
-branch here then writes the whole length from prod.count as before. The
-review of v7's 4/4 [2] had already pointed out the one-chunk write and
-the window larger than the RMBE, both in the unpatched code, hence the
-Reported-by and Closes tags.
+Not fixed here: the failover switch is not serialized against
+smc_cdc_tx_handler() (send_lock on one side, the socket spinlock on the
+other), so a completion can be handled inside smc_switch_cursor(). It is
+then credited to sndbuf_space more than once: 3/6 keeps send() inside
+the buffer, but send() can then overwrite data the peer has not
+received (by inspection). One handled between the switch's first two
+cursor copies makes the next write hand the peer bytes it has already
+read. Unpatched does both. v9 ends worse than unpatched in two cases,
+both with a completion handled inside the switch (figures from the runs
+in the notes under 5/6 and 6/6):
+  - one between the first two copies, and the peer has read across the
+    end of its RMBE before the resend: unpatched has the write refused
+    and loses the connection; with 5/6 the write goes out and the
+    connection lives on, the peer gets 600 bytes twice and sndbuf_space
+    ends at 3x the buffer (fourth case under 5/6).
+  - one that has moved tx_curs_fin ahead: 6/6 sets it back to the
+    advanced tx_curs_sent, so an old-link completion handled before the
+    validation message's is credited once more, and the first case under
+    4/6 ends 1200 bytes over the buffer where unpatched and v8 end 600
+    over.
 
-rxe, two links (v7.4-rc2 plus d7900fa51642, KASAN), send buffer 64K,
-peer RMBE 16K, test hooks forging the peer's cursor and making the
-timing deterministic. Every connection carries one byte first; the
-counts include it. "With the patch" is the whole series.
-  - consumer cursor forged one wrap ahead at 3 * RMBE, then send(40000):
-    unpatched and v8 post 40000 bytes in one chunk from offset 1, rxe
-    refuses the write and the link goes down. With the patch the first
-    write is 16383 + 1 bytes, neither chunk ends past the RMBE and both
-    links stay up.
-  - 40000 bytes sent and read, the consumer count then forged a million
-    bytes ahead with the wrap unchanged, then send(30000): unpatched and
-    v8 post 9152 + 20848 bytes. The second chunk is longer than the RMBE
-    and its source SGE is 20848 bytes from offset 49152 of the
-    65536-byte send buffer, 4464 past its end; rxe refuses the write.
-    With the patch: 9152 + 7232, every source SGE inside. Same result
-    with 4/6 reverted; with this patch's length bound reverted the
-    second chunk is still longer than the RMBE and its source stays
-    inside (4/6).
-  - conforming peer: 12001 bytes sent and confirmed, then 9000 whose
-    completions are lost with the failing link, the failover, the resend
-    held until the peer has read them, then 2000 more. Unpatched and v8
-    post 11000 bytes in one chunk from offset 12001 of the 16384-byte
-    RMBE; the surviving link goes down and the peer's read fails. With
-    the patch the write is 4383 + 6617 bytes and the peer reads the
-    stream intact.
-  - conforming peer, send buffer and RMBE 64K: 60000 bytes sent and
-    read, then 600 and 6000 that the peer reads only after the switch;
-    the completion of the 600 handled between the first two cursor
-    copies of the switch, as in the first case under 4/6, which leaves
-    tx_curs_sent 600 bytes behind prod; the resend held until the peer
-    has read; then send(400). Unpatched and v8 post 7000 bytes in one
-    chunk that ends 2064 past the RMBE, rxe refuses the write and the
-    connection is lost. With this patch and not 4/6 the write is
-    4936 + 2064, inside the RMBE, and the second chunk's source ends
-    1464 bytes past the send buffer: the peer reads bytes from outside
-    it. With 4/6 the source is inside too, the link stays up and the
-    peer gets 600 bytes twice (see 6/6; the run reads 400 of them).
-  - the second case of the note under v8's 4/4 (consumer cursor forged
-    two wraps ahead at count RMBE + 4096; 40001 bytes sent and read, the
-    completions of all but the first held): unpatched moves prod onto
-    the forged count and writes nothing more, 3137 bytes stay queued
-    (SIOCOUTQ); v8 posts 16384 bytes from offset 1, rxe refuses the
-    write and the link goes down; with the patch the write is 16383 + 1
+Serializing the switch means taking the socket spinlock around
+send_lock in smc_switch_conns(); this series does not change the
+locking. smc_curs_comp() is not changed either: it misorders two cursors
+across the u16 wrap rollover [2], and 6/6 only caps what the advance
+then adds (by inspection).
+
+For stable: 4/6, 5/6 and 6/6 go together. With 6/6 and not 5/6, after
+a failover with a consumer count past the peer's RMBE the next write
+can end past that RMBE, where unpatched stalls; with 5/6 and not 4/6
+the peer can be sent the memory that follows the send buffer, where
+unpatched has the write refused. 1/6 and 2/6 are both needed: 1/6
+alone bounds the count, not what wrap bumps add to bytes_to_rcv.
+
+Found by inspection of the cursor handling in net/smc; the cases below
+were then confirmed on a KASAN rig, except where marked by inspection.
+
+Testing: KASAN, v7.4-rc2 plus d7900fa51642 ("net/smc: fix lgr/lnk
+lifetime vs diag reader race"), where net/smc is identical to the base
+commit's; unpatched, v8 and v9. The test lists of v7 and v8 are in the
+v8 cover (link below): unpatched reads and writes past the buffers, the
+series stays inside, conforming traffic is unchanged. Their SMC-D
+cases, rerun on loopback, give the same results, v9 as v8 in every one.
+Over SMC-R on rxe with two links, v7's two failover cases stay inside
+their buffers on v9, no KASAN splat. The SMC-R cases run for v9, with
+test hooks making the timing deterministic (inputs and figures in the
+notes under 4/6, 5/6 and 6/6):
+  - a completion handled inside smc_switch_cursor(): unpatched and v8
+    leave local_tx_ctrl_fin at count 16713 for a 16384-byte RMBE and
+    tx_curs_fin past tx_curs_prep; v9 leaves tx_curs_fin on tx_curs_prep
+    and local_tx_ctrl_fin on the producer cursor (6/6).
+  - consumer cursor forged one wrap ahead at count 3 * RMBE, which adds
+    four RMBEs to the window: unpatched and v8 post 40000 bytes in one
+    chunk for a 16384-byte RMBE, rxe refuses the write and the link goes
+    down; v9 posts one RMBE in two chunks and both links stay up (5/6).
+  - consumer count forged a million bytes ahead with the wrap unchanged,
+    send buffer larger than the RMBE: unpatched and v8 post a second
+    chunk longer than the RMBE, with a source SGE that ends 4464 bytes
+    past the send buffer; v9 posts one RMBE with every SGE inside (5/6;
+    either of 4/6 and 5/6 keeps this source inside).
+  - conforming peer, a completion handled between the switch's first two
+    cursor copies, which leaves tx_curs_sent 600 bytes behind the
+    producer cursor: unpatched and v8 build a source SGE that ends 4536
+    bytes past the send buffer and the peer reads bytes from outside it
+    (KASAN splat on the unpatched run); v9 builds none (4/6). The peer
+    reads 600 bytes twice on all three.
+  - same race, the peer reading across the end of its RMBE before the
+    resend: unpatched and v8 have the write refused and lose the
+    connection. With 5/6 and not 4/6 the source of the second chunk ends
+    1464 bytes past the send buffer and the peer reads bytes from
+    outside it. v9 keeps source and destination inside and the link up,
+    and the peer gets 600 bytes twice.
+  - conforming peer, completions lost with the failing link, the resend
+    held until the peer has read the data: unpatched and v8 post 11000
+    bytes in one chunk that ends past the 16384-byte RMBE, the surviving
+    link goes down and the peer's read fails; v9 posts two chunks and
+    the peer reads the stream intact (5/6).
+  - the two forged-cursor cases of the note under v8's 4/4. Cursor one
+    wrap ahead at count 64: v9 as that note reports for v8, nothing is
+    written after the switch (v8 and unpatched not rerun). Count at RMBE
+    + 4096: unpatched stalls with 3137 bytes still queued, v8 posts
+    16384 bytes from offset 1 and the link goes down, v9 posts 16383 + 1
     and the link stays up.
-  - 600001 bytes of a conforming stream across a failover, with the
-    patch: 39 writes, 18 in two chunks, each chunked as the two removed
-    branches would chunk it (compared in the kernel, write by write).
+  - conforming traffic on v9: 600001 bytes across a failover in 39
+    writes, 18 of them in two chunks, each chunked as the code that 5/6
+    replaces would chunk it (compared in the kernel, write by write).
 
-Without the length bound the first two cases fail; with the chunk
-decided from the wraps again, the first, third, fourth and fifth do.
+Reverting any one code change of 4/6 or 5/6, or v9's change to 6/6,
+makes its case fail. smc_cdc.o built from v9 is byte-identical to v8's
+on the same tree: v9 changes only a comment in smc_cdc.c. Not covered:
+SMC-R ran on rxe only, with physically contiguous buffers (no real HCA,
+no vmalloc'ed send buffer); SMC-D ran on loopback only, where
+smcd_tx_rdma_writes() returns before it writes, so the ISM write that
+5/6 sizes has not been run. Logs on request.
 
-The comment on the credit in smc_cdc_msg_recv_action() still claims
-0 <= peer_rmbe_space <= peer_rmbe_size: the lines after it exist only
-since v6.10, and a hunk there would not apply to 6.6.y and older.
+Changes in v9:
+  - 4/6 is new, for the bug in the existing code that the review of
+    v7's 4/4 [3] pointed out: the source of the second chunk is sized
+    from the send cursor as it was before the first. The review, and my
+    reply to it, took it for unreachable by a conforming peer; the race
+    above reaches it.
+  - 5/6 is new, for the first point of Sashiko's review of v8's 4/4
+    [2]: with a consumer count past the peer's RMBE, v8 skipped the
+    advance but peer_rmbe_space was still sized from that cursor, and
+    the next write ended past the peer's RMBE where unpatched only
+    stalls. 5/6 bounds the write where its length and destination are
+    computed, which also covers a conforming peer after a failover and
+    a forged window with no failover. [3] had already pointed out the
+    one-chunk write and the window larger than the RMBE, both in the
+    unpatched code, hence the Reported-by and Closes tags on 5/6.
+  - 6/6 (was v8 4/4): tx_curs_fin and local_tx_ctrl_fin are set from
+    the advanced cursors instead of being added to, for the second
+    point of [2]. Without a completion inside the switch the result is
+    the same as v8's. The switch is still not serialized (see above).
+  - 5/6 and 6/6: the Cc: stable lines point at the descriptions, which
+    name the patches each one needs.
+  - 2/6: conn->rmb_len is accessed with READ_ONCE()/WRITE_ONCE(); the
+    wait predicates read it without the socket lock [4]. The message
+    and the comment in smc_rx_pipe_buf_release() now claim the
+    splice_pending change only for a reader that ran between the cursor
+    update and the drop; the double count that [4] describes, a splice
+    whose second chunk fails, is a different bug and is not fixed here.
+  - 3/6: code unchanged. Of the three comments in smc_cdc.c that claim
+    0 <= sndbuf_space <= len [5], the one in smc_cdc_tx_handler()
+    points at the clamp now. The other two stay: the claim holds in
+    smcd_cdc_msg_send(), and the DMB-merge block only exists since
+    v6.10, so a hunk there would not apply to 6.6.y and older. The
+    message now says that the over-credit itself stays. R-b kept.
+  - 1/6: unchanged.
+  - Rebased on net (8d5ce4751fad).
 
-The first chunk needs prod.count inside the RMBE.
-smc_tx_advance_cursors() keeps it there and, with 6/6, so does
-smc_switch_cursor(); without 6/6 a forged cursor can still leave it
-outside at failover, and the write then starts where it started before
-this patch (by inspection).
+v8, with the earlier changelogs and test lists:
+  https://lore.kernel.org/all/20261029-b4-disp-33001ace-v8-0-f9bb96e17827@proton.me/
 
-On SMC-D the same lines size the ISM write. On loopback
-smcd_tx_rdma_writes() returns before it writes; not tested on ISM
-hardware.
+[1] https://lore.kernel.org/all/20260804141109.542202-1-hidayath@linux.ibm.com/
+[2] https://lore.kernel.org/all/179364387382.3131.13471253186660322977@kernel.org/
+[3] https://lore.kernel.org/all/179209532452.434549.6588379141939967966@kernel.org/
+[4] https://lore.kernel.org/all/179364387064.3131.5492897013975868107@kernel.org/
+[5] https://lore.kernel.org/all/179364387223.3131.12837391370219531719@kernel.org/
 
-[1] https://lore.kernel.org/all/179364387382.3131.13471253186660322977@kernel.org/
-[2] https://lore.kernel.org/all/179209532452.434549.6588379141939967966@kernel.org/
 ---
- net/smc/smc_tx.c | 32 ++++++++++++--------------------
- 1 file changed, 12 insertions(+), 20 deletions(-)
+Bryam Vargas (6):
+      net/smc: bound the wire-controlled producer cursor to the RMB
+      net/smc: bound the receive length to the RMB
+      net/smc: bound the send length to the send buffer in smc_tx_sendmsg()
+      net/smc: keep the source of an RDMA write inside the send buffer
+      net/smc: keep an RDMA write inside the peer's RMBE
+      net/smc: bound the link failover cursor advance to the send buffer
 
-diff --git a/net/smc/smc_tx.c b/net/smc/smc_tx.c
-index d37c74754461..c90bdc77f82d 100644
---- a/net/smc/smc_tx.c
-+++ b/net/smc/smc_tx.c
-@@ -362,7 +362,7 @@ static inline void smc_tx_advance_cursors(struct smc_connection *conn,
- 	smp_mb__before_atomic();
- 	/* data in flight reduces usable snd_wnd */
- 	atomic_sub(len, &conn->peer_rmbe_space);
--	/* guarantee 0 <= peer_rmbe_space <= peer_rmbe_size */
-+	/* can be out of range, see smc_tx_rdma_writes() */
- 	smp_mb__after_atomic();
- 	smc_curs_add(conn->sndbuf_desc->len, sent, len);
- }
-@@ -480,7 +480,7 @@ static int smc_tx_rdma_writes(struct smc_connection *conn,
- 			      struct smc_rdma_wr *wr_rdma_buf)
- {
- 	size_t len, src_len, dst_off, dst_len; /* current chunk values */
--	union smc_host_cursor sent, prep, prod, cons;
-+	union smc_host_cursor sent, prep, prod;
- 	struct smc_cdc_producer_flags *pflags;
- 	int to_send, rmbespace;
- 	int rc;
-@@ -503,31 +503,23 @@ static int smc_tx_rdma_writes(struct smc_connection *conn,
- 		return 0;
- 	}
- 	smc_curs_copy(&prod, &conn->local_tx_ctrl.prod, conn);
--	smc_curs_copy(&cons, &conn->local_rx_ctrl.cons, conn);
- 
- 	/* if usable snd_wnd closes ask peer to advertise once it opens again */
- 	pflags = &conn->local_tx_ctrl.prod_flags;
- 	pflags->write_blocked = (to_send >= rmbespace);
--	/* cf. usable snd_wnd */
--	len = min(to_send, rmbespace);
-+	/* cf. usable snd_wnd. The window follows the peer's consumer cursor,
-+	 * which comes off the wire: write at most one RMBE per call.
-+	 */
-+	len = min3(to_send, rmbespace, conn->peer_rmbe_size);
- 
- 	/* initialize variables for first iteration of subsequent nested loop */
- 	dst_off = prod.count;
--	if (prod.wrap == cons.wrap) {
--		/* the filled destination area is unwrapped,
--		 * hence the available free destination space is wrapped
--		 * and we need 2 destination chunks of sum len; start with 1st
--		 * which is limited by what's available in sndbuf
--		 */
--		dst_len = min_t(size_t,
--				conn->peer_rmbe_size - prod.count, len);
--	} else {
--		/* the filled destination area is wrapped,
--		 * hence the available free destination space is unwrapped
--		 * and we need a single destination chunk of entire len
--		 */
--		dst_len = len;
--	}
-+	/* at most 2 destination chunks of sum len; the 1st ends no later than
-+	 * the peer's RMBE. The cursor wraps do not decide that: the peer's
-+	 * cursor comes off the wire, and after a link failover prod can be
-+	 * behind it.
-+	 */
-+	dst_len = min_t(size_t, conn->peer_rmbe_size - prod.count, len);
- 	/* dst_len determines the maximum src_len */
- 	if (sent.count + dst_len <= conn->sndbuf_desc->len) {
- 		/* unwrapped src case: single chunk of entire dst_len */
+ net/smc/af_smc.c   |  6 +++---
+ net/smc/smc.h      |  3 +++
+ net/smc/smc_cdc.c  |  4 ++--
+ net/smc/smc_cdc.h  | 17 ++++++++++++++---
+ net/smc/smc_core.c | 27 +++++++++++++++++----------
+ net/smc/smc_rx.c   |  9 +++++++--
+ net/smc/smc_rx.h   | 12 +++++++++++-
+ net/smc/smc_tx.c   | 46 ++++++++++++++++++++++------------------------
+ 8 files changed, 79 insertions(+), 45 deletions(-)
+---
+base-commit: 8d5ce4751fad9499ea408163af7f410f18a85782
+change-id: 20261112-b4-disp-0287c16e-bc0127d9de9e
 
--- 
-2.56.0
+Best regards,
+--  
+Bryam Vargas <hexlabsecurity@proton.me>
 
 
