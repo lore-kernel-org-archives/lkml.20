@@ -1,96 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.29
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794473504;
-	b=Qd4t/b7K7h07GaIcnRhnTkeSjl3kkjbD5gtSCwh5RBG6Ouj97Y456mmHeF4FOrMltpbA
-	 z2opxsc9HrRTg7rpT7mINRzGpV9A0CoPJNaJJPQfHR+i7CttTM0PQe0AR0yhNLStlVwkI
-	 1v8qMpRtXSK59e/PAkmKITRDWTYPnPHE+pH49Sk4kbxH6Wontaz0jiPB1jClQYLhOCMhg
-	 kGhakUbn18x6PpP63j+Mv4d62p/uDXvke0uaqs984BMKRXEyMYMCy5QPw8wA0bhz4oDTV
-	 /sf2EHCf11G642AsZvW85iWEt5/Dn4X++AgFfbYHBEyNVAdBwc3ZTmCy/DskUPSLySg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794473504;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=jt++C1ZNnguN/39H7lf00CEfy8uuee8pJv/ASVxiEoE=;
-	b=zeH8AbRpqbf0er125NP2DjhVtJbuZB0z85GFQUtGWYtjov2fHjoGYGqfQ7vCW+eIJRWb
-	 9HiXesQt/Wu/Sc2r7vyds2bTa9fBzSW0EXYh0mlHl1lwuDjweqDvVQX8upV/Afi8xJN4d
-	 Oy5iLOCZ5t44aDOpSLCuF21XOBjI+4iaVkZ2eVr4iKQHvXlpMQb/tgFfDcttZFgCOqFcM
-	 Zr9ihKHxgNKKlQOXj1+Hh684jId0AzxpGAKSoENaMMZEHSTNFjurmy1qc5Wg4IzMgWH0n
-	 YPpRcLBc3CvVSJbEx8LB5GPpRUNK0xHIIEdLKGp9I3Vr7t7Ar6QSDTH0SVczSTmYe0w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=JWG8IlYO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.29
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010029.outbound.protection.outlook.com [52.101.46.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.1
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794473511;
+	b=W8KoAKoyc+27nLjngAKMWSDWW3Wkz6DVfUlS5ucSEYys5yasDVdoVy9gNL/ctsJkYWFr
+	 86Mnj29OZroQ/SQOeuaftwMO48aw2G/JqQh5k8OkeyfskFN6iKwhb6ARkOZkIIZqE2oUT
+	 WPwWun0lN/vvaH+Mr2mqWATGCO+f0J9lxQOd48woTdTrgVlDmmwsLU8u+iDBCIEGCMYyn
+	 ujfpV5IOZgJ3b7HmmJJqZnWdoyPudonhELeTWqr+KjeisZAM1gWtPjIGQ46E284K8v9EI
+	 mzvYYYmdvNUHyQpsoE6Oaaozx99TstdUeK3D9Zdio+KuQVn0LSdjdL8jGEKk9ZeGIxA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794473511;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ifd3Ny9pO2imzHx3tZY9omeBo1tLc+ksznp/hcOFanc=;
+	b=lGnaum4IycputvvD8ggyJEMf8vJx7wWle+OKy7x8IirlTydiMnP4YTyRLBBSGLJTddMN
+	 85Ar9uojNRwL8a1ORJSD6GAdmIqxA1I/Ei78zx1GdunV3XUEgkvQMiALuaGCUoT/fyJjh
+	 YP6smVSrv3sesd6cBFBLOjoAN2EjwJwBXEH38pGR2Zuz40+OnNd75IhsTtq6YSPDWNTsa
+	 GERhwtTlYkJmEY7DC0arbZFx81RqtFthN0qVUyAKNF4N0OokoiYSTzoFzRfuB9fIfJTBQ
+	 03ViJWgZDMbS3eiJKW+GBa9IvEI2N9NIiQuASLEZ4OOB3ENseibZjQn3JaHplH9yG7Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="Z5w/hPHN";
+	arc=none smtp.remote-ip=95.215.58.1
+Received: from mta1.migadu.com (out-1.mta1.migadu.com [95.215.58.1])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ACEC606A323;
-	Thu, 12 Nov 2026 08:51:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3ACEC606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8332A606B259
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:51:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8332A606B259
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=JWG8IlYO
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bXoWjR1DcdOsluYgf0OYhxbaG0wGHGWWiKOySadYd+kCGh6SJildE4kRBVv+rUR8bLN0bGj4+J9enEir86FW2H+OADCLy6U+7JhzhXyAe27zBrFIKQ8eE/Z6RFNgZ4taPDSUkkbk/R4LaJSVLc4tJHmflljH0zGGQ7D/arXC2vzX1mjn4l0u+CSntDcXuPSMI3LPZzLv+QrN+EB2V6hPntoGjH0+oGN/ccQzPArEHaDPAFNWHwfHxG/9svWcIJTQ3rhr9So/urkIQyVY75ve6kpgEqUlZBu4MU8Q6BlZ9hfzN+cpiz4H2qeXYudyvZDXPIseq8ci6Q60phLqhHmGmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jt++C1ZNnguN/39H7lf00CEfy8uuee8pJv/ASVxiEoE=;
- b=UNgllfno8GYckuB1avsBRUifa9EhTIF7n2yct0E+8HN0eBdesjvxuViVnFEhnuMgdCZDChLxI7YtZJXlGU/UG9TUWBbtLBhlIckrYV4NUGfRQwBfEU95DfjGQ98CkiOU4K06JEoic+gbdYeO6ftF5PPhd/Pr/wh0rckN1DaBl27Q8wFBuqa/mkzVu0zAPumDVe9mPlQvrqlnCQD3o82ryiZ4zEX3KhhKPuzt4WQj/LEZdkcmgJiYZOTUpMDwiBhxoCVtkYNt4RnK4pcMke7WwlV8ECOV9ZotI96Q4XBqMFWf60+2DQQZy7bQkhmTSzTTHkukehSDiqz1ghCQ6Xp+hg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jt++C1ZNnguN/39H7lf00CEfy8uuee8pJv/ASVxiEoE=;
- b=JWG8IlYODMLgWkBpKYLO1McnUwQo7bzRtdygtYcdkrLoSAfgt/sgylBohH94kGsvE2IYshcDwgT3CRlnVhZAeaJpERO4u4V8ESkZ4YRGEZb4v6ULve65MBFGTGeCbcmHN2AwElWHGdxSeGbDnB38nCveivCB/4Qtnf4u2CVNJpP/6WVdb2tqXy3s004QTC/aWmt1xPln13cy3MVCoSYwzlWCQOKLbYIQLwfvDIMx140XU5lMIUOiN5K0hWjRelpG4JJ/t23nqstzzVeqh+3vCLKNqRA+m06wlNJZl7svAPWMePc2D2wldrI2ekr27OO0Mzs4Z/U3AFXINFTpLn+xOQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by PH8PR12MB999272.namprd12.prod.outlook.com (2603:10b6:510:42f::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
- 2026 08:51:42 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0615.008; Thu, 12 Nov 2026
- 08:51:42 +0000
-Date: Thu, 12 Nov 2026 10:51:31 +0200
-From: Ido Schimmel <idosch@nvidia.com>
-To: Junyoung Jang <graypanda.inzag@gmail.com>
-Cc: David Ahern <dsahern@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] igmp: use the joined device when leaving a multicast
- group
-Message-ID: <20261112085131.GA2948232@shredder>
-References: <20261109125312.2208874-1-graypanda.inzag@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109125312.2208874-1-graypanda.inzag@gmail.com>
-X-ClientProxiedBy: VIUP296CA0139.AUTP296.PROD.OUTLOOK.COM
- (2603:10a6:800:34a::12) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Z5w/hPHN
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=mx9E1e/I3LCYVSIIJ+glyO3DlhIEku7AJQTeqmgZKic=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794473507; v=1; x=1795078307;
+ b=Z5w/hPHNqBkIdfcdI3VGvQtN1Gu/r/DrsPHjjpJ/gO5yiMtl4HeYhe78kGfsRDc+85K9eHOk
+ d4uxXVUl03LQCXgK7nL+bqgh1TgSm3v7gJhhT0t03G3HqQ3dGoXI8bAjhuVeOkYJh3JAeOpF3lB
+ BuLxORa9tK8nRtk3+YQlQSpc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id fdb8d4e8cc49206d;
+	Thu, 12 Nov 2026 08:51:47 +0000
+X-Mizu-Trace-ID: fdb8d4e8cc49206d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <5edbb6e7-589a-441a-b82d-99b64d5ecdbe@linux.dev>
+Date: Thu, 12 Nov 2026 16:51:32 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,112 +58,256 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|PH8PR12MB999272:EE_
-X-MS-Office365-Filtering-Correlation-Id: e08c6b27-59a6-446c-441f-08df409a2c1a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|18002099003|22082099003|6133799003|11063799006|261026121527099003|261022105027099003|261026140227099003|261028144727099003|56012099006|261021121427099003|261102123227099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	FQd9LdTSpJiZhDTNgyqZry51hKUIqulqg69DPN4HcsINKqshtucBoteNt0EyX/iMa39FRKig/hixU4KiHYsNRnDgb9yhF83zleoE6Lk1Una+3tiLl/lLt6Ggzn68CTswMQJ26Fms0GZSEYZrPAw6UTU1a1ynkSNbAjnZ2hGBxOW4cHL5pepOb7sWzox+WyTo2riSOPMU63QFWWegmGiWkbcsYhcrh9/Yh4s3+c069/E/Iv3P6U9hTBrtpPJ/Ygvx5+26ndtCwPFdaOooHFFPPImKdawcOuFN9Ks/sSU/K47lb+CJXU13TjCNiXVb6LggYUwUewd8DTMNA1kgbpr7IGO+3dSxlSk0iJ+heus6gglgg4cBurCPCu/a9PY1fzxKPAoYX6LOL5tbTUPTze4QvkR8SESe1bxpYaj2KxqGwv/3NDJh6R8LRL0r218RfljTrS6ZsaH6vaJM0A8sdbqcqX8KUv8UqvQeBSCaQWL5Ijbxqiu6XdOpkV94kQ30QY+OsuVZBowkc1JOTzT25FUbkHlekMKcl4uabONChsorHQzC8QYGryeGCJgEwXn83T1ZdDGPzeT8jacmiBKVtQVInEQa3yCbuIXZSU+jomERBSM2QKYaI7Vs3YK7mDBTG/1lcbhCv9XCFEOBvKoe431iEu/cHFAbgAvvFyldPUm3mOs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(18002099003)(22082099003)(6133799003)(11063799006)(261026121527099003)(261022105027099003)(261026140227099003)(261028144727099003)(56012099006)(261021121427099003)(261102123227099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?9PYwwcw45NPv3JCAvyxFLevFQcOjOQr/thzdI9B2YEJWwlKlvYo9SbUvgIWO?=
- =?us-ascii?Q?zhjVqt84pqqSwwY+xCEqkvhyU6phK+pHa1TM7EAV5ztoq7s8LZvcdLsv952z?=
- =?us-ascii?Q?3wXxoQTtQLAQ9aQsPbOl1HO1LbS3hMatc0BIY/YNEtbqfujSU/59BHkwYreG?=
- =?us-ascii?Q?+cHdAfT9+2ocuLw2SOPoYq9RlNO/kFC5pzmRRnO9b+qoVrGD0zqDdqBrUlzC?=
- =?us-ascii?Q?ebEQzbVF05cnaEBnFO7pZOdw9trGleYCS0/bqXvVOIVwV8oQFxUaz60RWnqH?=
- =?us-ascii?Q?zhYYxGWOq8TtUw9KxeNDbanxfqfSaBPVavPFu514GD2ZfaHpI3ac29mBbnbT?=
- =?us-ascii?Q?AlLNW1SUwHQ1cbo0euzgLMvOyYTjXZ2psWVT2g7Yi8ivONP7eXATbl+0TLeb?=
- =?us-ascii?Q?13f9jVGvwv03s2D7oTqF5ixt39IFkkoXpPCVRGmQZkO/uedTO1pzyzq19UPB?=
- =?us-ascii?Q?PzmY0+le/EF3xa78VjqeoUGS+h0q/NAj0gXsxKrulQuJI0QUuDKbyjc8ZDiJ?=
- =?us-ascii?Q?QzknKI63fZBHwonmNM/v6omXgpT4RJcuyAnkGht8/uqryZIxsgPdm6xohwVp?=
- =?us-ascii?Q?GBM9HgBIvXqSnJwgefXAkDv01HAQcwz/I+i3WU89AYkg/FPabW7zDc7xB4B0?=
- =?us-ascii?Q?DhloGtgE6qNAu/j4I99Y1ja4mDOLxOzOsvtagyll2yoN/KWpAT8Rljz0S1Ie?=
- =?us-ascii?Q?RsbVp5ic0NMqzSfoGBeZ4Mj1gQ6+opVqNJATHgu0TuKpaRHwZlAr2MwmIPN0?=
- =?us-ascii?Q?1l3/cT29+Wlk/Bkk312d6KAwU7WjSsjXgn7GLrGgwD3hUBmQ95h4ihTBTBtE?=
- =?us-ascii?Q?TxI/sdfxuj2h9pHZPp9r8xhZcgJCJY8McHxAmfEzEgNHo3+55wkYgnixTlJz?=
- =?us-ascii?Q?ZJGalfUY4Z9gFcgOiGe6PVv4Ncmg9EC7gwrzF7jX9YNjIIMjV9zYlyGRsPzJ?=
- =?us-ascii?Q?I5D63NKZZmhmbprJ4wyV4Y81i575S3iPOPJhEdGuKiJppVnXeRGTo2o2Kace?=
- =?us-ascii?Q?8huGWxcQabvXRlArWoDswCYQ44z0jScfkrk123RIEfyAL7Ts+MaMdT+y1jXw?=
- =?us-ascii?Q?0rZs0DUZd7fdEvGadXP6jypgMYTTGP3xWC3XxfIc7yksMGAI22DJktAcb0oG?=
- =?us-ascii?Q?Q2UCJoSlmhxi59fC7CATLfEibU6G+uAmnV6ZNW6qR3E21ADxfLOJrs5Q+CA1?=
- =?us-ascii?Q?9VSU9947ExerhsB/yXgkPWRQA1xbm1FdlAal33H7FO42hEDOLaYyRJHRTrZg?=
- =?us-ascii?Q?RVyYmSrsWT22dKJc/Vk61mX/t+0biX3LZQk0qqXvHrhz0V82kWVrJ+pjyWFk?=
- =?us-ascii?Q?4wlKVzaTBo7BP1dQUT7FB5/AiULCyZpQF5gEjoPXh5DKw8GzWNM5hMlahQpj?=
- =?us-ascii?Q?jeVYgw9cJRIoEV+miAkbkbmushwfJmCEXkuVlC4B/xJb9pAvVWBKQ5DD3OMP?=
- =?us-ascii?Q?uylVQ8Ug50xNL6jiGA6/o3e8pSgaDQB2vsNy1HDozU38WSjSg9LbDuTxymmm?=
- =?us-ascii?Q?/2NEN1DIjV5jg1u86I8mlU/YUAmFMzxiWpjNc8kF+eE1NVno1Bqp5wf4Jjq9?=
- =?us-ascii?Q?owG23vf5gmSPqALz0cQZqlBsKFqp9tC7HBTQ+I8QZSI+50gtuZEFZHUiOlbl?=
- =?us-ascii?Q?iUDWdpCOreZxAp4hqwLXwBlglB9PC0dq6cy6GnN5Fgs5tNO2pzjpNhLW1iU0?=
- =?us-ascii?Q?cEaCPvv+tFTuzLTOYAi8S2y3/ndY6/P3ss4P+J3otbABkqMq?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e08c6b27-59a6-446c-441f-08df409a2c1a
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 08:51:42.1269
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FpPksRFYUcX4LhOYSikYNkXNN2K3wekoFJ5bFRwbM4hLnAkxXq5sxKUArSn5WENkulVA7cO3GLRfFq2VdfqKgQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB999272
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-7.4-fixes v4 2/2] cpuset: generalize the
+ validate_partition() interface
+To: Ridong Chen <ridong.chen@linux.dev>, Waiman Long <longman@redhat.com>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Guopeng Zhang <zhangguopeng@kylinos.cn>,
+ Ridong Chen <chenridong@xiaomi.com>
+References: <20261112031931.2815548-1-ridong.chen@linux.dev>
+ <20261112031931.2815548-3-ridong.chen@linux.dev>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <20261112031931.2815548-3-ridong.chen@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 09:53:11PM +0900, Junyoung Jang wrote:
-> ip_mc_leave_group() resolves in_dev from the leave request before
-> matching the request against the socket's multicast membership list.
-> This lookup can return NULL even while the interface recorded in the
-> matched membership (iml->multi.imr_ifindex) is still alive:
+
+
+在 2026/11/12 11:19, Ridong Chen 写道:
+> From: Ridong Chen <chenridong@xiaomi.com>
 > 
-> 1. An application joins a group using a local IPv4 address, that
->    secondary address is later removed while the interface stays up,
->    and the application leaves using the same 8-byte ip_mreq.
-> 2. An unprivileged user joins a group with a 12-byte ip_mreqn
->    specifying a valid imr_ifindex and a nonlocal imr_address, then
->    leaves with an 8-byte ip_mreq containing that nonlocal address
->    and no ifindex.
+> Refactor validate_partition() to take the parent partition, the new
+> partition root state, the new effective exclusive CPUs and the CPUs to
+> be deleted, instead of a trial cpuset. A NULL parent stands for a
+> remote partition, whose CPUs come from top_cpuset. This makes the
+> interface flexible enough to handle both local and remote partition
+> validation.
 > 
-> Because imr_address is nonzero, the early -ENODEV check is bypassed.
-> The loop then removes and frees the socket's ip_mc_socklist entry
-> (iml) and returns 0, but skips ip_mc_dec_group() because in_dev is
-> NULL. Closing the socket cannot release the group via
-> ip_mc_drop_socket() because the socket membership entry has already
-> been unlinked. This leaks the interface's struct ip_mc_list reference
-> and multicast MAC filter beyond the socket's lifetime, allowing an
-> unprivileged user to repeatedly leak multicast group entries on a
-> live interface.
+> This also fixes a false PERR_NOCPUS error when expanding a remote
+> partition. The no CPU left for tasks check in partition_cpus_change()
+> is done against the cgroup parent, but the CPUs of a remote partition
+> come from top_cpuset, not from its parent. For example, on a 4-CPU
+> system:
 > 
-> Fix this by looking up in_dev from the matched membership's saved
-> imr_ifindex under RTNL, matching ip_mc_drop_socket(). If the interface
-> was genuinely removed, inetdev_by_index() still returns NULL and the
-> existing hot-unplug cleanup behavior is preserved.
+>   echo 2-3 > P/cpuset.cpus
+>   echo 2-3 > P/cpuset.cpus.exclusive
+>   echo 2-3 > P/C/cpuset.cpus
+>   echo 2 > P/C/cpuset.cpus.exclusive
+>   echo root > P/C/cpuset.cpus.partition
+>   (a task in P)
+>   echo 2-3 > P/C/cpuset.cpus.exclusive
+>   cat P/C/cpuset.cpus.partition
+>   root invalid (Parent is not a partition root)
 > 
-> Fixes: 4eba7bb1d72d ("ipv4: igmp: Allow removing groups from a removed interface")
-> Signed-off-by: Junyoung Jang <graypanda.inzag@gmail.com>
+> The effective_cpus of P is 3, a subset of the new exclusive CPUs 2-3 of
+> C, and P has a task, so the expansion is rejected. However, P is not a
+> partition root and does not give any CPU to C, and top_cpuset still has
+> CPUs 0-1 for the task. Enabling C directly with exclusive CPUs 2-3
+> succeeds, as remote_partition_enable() checks top_cpuset instead.
+> 
+> The no CPU left for tasks check now uses the given parent instead of
+> parent_cs(cs), and top_cpuset for a remote partition, as that is where
+> its CPUs are taken from.
+> 
+> The housekeeping conflict check is folded into validate_partition(). It
+> is skipped when the parent is not a valid partition root, as @cs can't
+> be a valid local partition in that case.
+> 
+> Use the new interface for local partition enablement in
+> update_parent_effective_cpumask() and in partition_cpus_change(),
+> replacing the open-coded checks there. The order of the checks is now
+> the same for both paths: empty CPUs, housekeeping conflict, then no CPU
+> left for tasks.
+> 
+> Add a test case to test_cpuset_prs.sh for the remote partition
+> expansion above.
+> 
+> Fixes: 181c8e091aae ("cgroup/cpuset: Introduce remote partition")
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+> ---
+>  kernel/cgroup/cpuset.c                        | 119 +++++++++---------
+>  .../selftests/cgroup/test_cpuset_prs.sh       |   5 +
+>  2 files changed, 64 insertions(+), 60 deletions(-)
+> 
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index c7d4cfb615b7..7e374210c123 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -1414,6 +1414,48 @@ static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
+>  	return res;
+>  }
+>  
+> +/**
+> + * validate_partition - Validate a cpuset partition configuration
+> + * @cs: The cpuset to validate
+> + * @parent: Parent partition of @cs, NULL for remote partition
+> + * @new_prs: The proposed new partition root state
+> + * @new_excpus: The new effective exclusive CPUs mask to validate
+> + * @del: exclusive CPUs to be deleted from @cs, can be NULL
+> + *
+> + * A remote partition gets its CPUs from top_cpuset, so top_cpuset is used
+> + * as the parent when @parent is NULL.
+> + *
+> + * The housekeeping check is skipped if @parent is not a valid partition
+> + * root as @cs can't be a valid local partition in that case.
+> + *
+> + * Return: PRS error code (0 if valid, non-zero error code if invalid)
+> + */
+> +static enum prs_errcode validate_partition(struct cpuset *cs,
+> +					   struct cpuset *parent, int new_prs,
+> +					   struct cpumask *new_excpus,
+> +					   struct cpumask *del)
+> +{
+> +	int parent_prs;
+> +
+> +	if (new_prs == PRS_MEMBER)
+> +		return PERR_NONE;
+> +
+> +	if (cpumask_empty(new_excpus))
+> +		return PERR_INVCPUS;
+> +
+> +	if (!parent)
+> +		parent = &top_cpuset;
+> +	parent_prs = parent->partition_root_state;
+> +	if (parent_prs > 0 &&
+> +	    prstate_housekeeping_conflict(new_prs, parent_prs, new_excpus, del))
+> +		return PERR_HKEEPING;
+> +
+> +	if (tasks_nocpu_error(parent, cs, new_excpus))
+> +		return PERR_NOCPUS;
+> +
+> +	return PERR_NONE;
+> +}
+> +
+>  /*
+>   * cpuset_update_sd_hk_unlock - Rebuild sched domains, update HK & unlock
+>   *
+> @@ -1934,18 +1976,10 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>  	if ((cmd == partcmd_enable) || (cmd == partcmd_enablei)) {
+>  		new_prs = (cmd == partcmd_enable) ? PRS_ROOT : PRS_ISOLATED;
+>  
+> -		/*
+> -		 * Enabling partition root is not allowed if its
+> -		 * effective_xcpus is empty.
+> -		 */
+> -		if (cpumask_empty(tmp->delmask))
+> -			return PERR_INVCPUS;
+> -
+> -		if (prstate_housekeeping_conflict(new_prs, parent_prs, tmp->delmask, NULL))
+> -			return PERR_HKEEPING;
+> -
+> -		if (nocpu)
+> -			return PERR_NOCPUS;
+> +		part_error = validate_partition(cs, parent, new_prs,
+> +						tmp->delmask, NULL);
+> +		if (part_error)
+> +			return part_error;
+>  
+>  		/*
+>  		 * This function will only be called when all the preliminary
+> @@ -2428,32 +2462,6 @@ static int parse_cpuset_cpulist(const char *buf, struct cpumask *out_mask)
+>  	return 0;
+>  }
+>  
+> -/**
+> - * validate_partition - Validate a cpuset partition configuration
+> - * @cs: The cpuset to validate
+> - * @trialcs: The trial cpuset containing proposed configuration changes
+> - *
+> - * If any validation check fails, the appropriate error code is set in the
+> - * cpuset's prs_err field.
+> - *
+> - * Return: PRS error code (0 if valid, non-zero error code if invalid)
+> - */
+> -static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *trialcs)
+> -{
+> -	struct cpuset *parent = parent_cs(cs);
+> -
+> -	if (cs_is_member(trialcs))
+> -		return PERR_NONE;
+> -
+> -	if (cpumask_empty(trialcs->effective_xcpus))
+> -		return PERR_INVCPUS;
+> -
+> -	if (tasks_nocpu_error(parent, cs, trialcs->effective_xcpus))
+> -		return PERR_NOCPUS;
+> -
+> -	return PERR_NONE;
+> -}
+> -
+>  /**
+>   * partition_cpus_change - Handle partition state changes due to CPU mask updates
+>   * @cs: The target cpuset being modified
+> @@ -2467,33 +2475,24 @@ static void partition_cpus_change(struct cpuset *cs, struct cpuset *trialcs,
+>  				  struct tmpmasks *tmp)
+>  {
+>  	enum prs_errcode prs_err;
+> -	int parent_prs = is_remote_partition(cs)
+> -		       ? PRS_ROOT : parent_cs(cs)->partition_root_state;
+> +	struct cpuset *parent = is_remote_partition(cs) ? NULL : parent_cs(cs);
+>  
+>  	if (cs_is_member(cs))
+>  		return;
+>  
+> -	prs_err = validate_partition(cs, trialcs);
+> -	if (!prs_err && (parent_prs > 0) &&
+> -	    !cpumask_empty(trialcs->effective_xcpus)) {
+> -		int prs = cs->partition_root_state;
+> -
+> -		/*
+> -		 * Check for housekeeping conflict by passing the whole
+> -		 * effective_xcpus as well as those CPUs that are to be
+> -		 * removed from cs as delmask.
+> -		 */
+> -		if (prs > 0)
+> -			cpumask_andnot(tmp->delmask, cs->effective_xcpus,
+> -				       trialcs->effective_xcpus);
+> -		else
+> -			cpumask_clear(tmp->delmask);
+> -
+> -		if (prstate_housekeeping_conflict(prs, parent_prs,
+> -						  trialcs->effective_xcpus, tmp->delmask))
+> -			prs_err = PERR_HKEEPING;
+> -	}
+> +	/*
+> +	 * Check for housekeeping conflict by passing the whole
+> +	 * effective_xcpus as well as those CPUs that are to be
+> +	 * removed from cs as delmask.
+> +	 */
+> +	if (is_partition_valid(cs))
+> +		cpumask_andnot(tmp->delmask, cs->effective_xcpus,
+> +			       trialcs->effective_xcpus);
+> +	else
+> +		cpumask_clear(tmp->delmask);
+>  
+> +	prs_err = validate_partition(cs, parent, trialcs->partition_root_state,
+> +				     trialcs->effective_xcpus, tmp->delmask);
+>  	if (prs_err) {
+>  		WRITE_ONCE(cs->prs_err, prs_err);
+>  		trialcs->prs_err = prs_err;
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index 1e9e6b4c6f7b..1397ec428c46 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -707,6 +707,11 @@ REMOTE_TEST_MATRIX=(
+>  	"  C1-4:P1 C5-6   C1-2     .       C5      .  \
+>  	      .      P1    P1      .      O5=0     .     p1:3-4|p2:6|c11:1-2|c12:3-4|c21:6|c22:6 \
+>  							 p1:P1|p2:P1|c11:P1"
+> +	# Expanding a remote partition should check top cpuset, not its member
+> +	# parent, for the no CPU left for tasks error.
+> +	"  CX2-3:T  .   C2-3:X2:P1  .       .       .  \
+> +	      .      .     X2-3    .       .       .     p1:1,4-7|c11:2-3 \
+> +							 p1:P0|c11:P1"
+>  )
+>  
+>  #
 
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-IMO, the commit message is close to being unreadable. Simpler (don't
-respin):
-
-"
-When a socket joins a multicast group, the ifindex of the device is
-stored in the socket's membership entry. When leaving,
-ip_mc_leave_group() resolves the device again from the request. If the
-request only specifies an interface address and that address is not
-assigned to any device, no device is found. The membership is still
-matched by address and removed from the socket, but the group is not
-released on the device it was joined on.
-
-The group is then leaked on the device until the device is unregistered.
-An unprivileged user can trigger this by joining with an ifindex and a
-non-local address and leaving with the address only. It can also happen
-when a socket joins and leaves with the address only and the address is
-removed in between.
-
-Fix by resolving the device from the ifindex stored in the membership,
-like ip_mc_drop_socket() does.
-"
+Thanks,
+Guopeng
