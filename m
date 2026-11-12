@@ -1,88 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794490499;
-	b=CHdI+iuHbQAwnUanogZTNpgvxDCzn0yZjB0wyvPUb2EgUT+t/UjaGXZ4kgSB208Qwahs
-	 aSIwyfJ/Zjjpk2zDQ2rlh1RFdOFBYbr0dCghx6iY3SRmJRL5Uw85DEJIFu9MuefUvOznP
-	 cqDRqy4CEO5PIGtkoCHeKCjrarpnME+2xNqsdmPHiNqpjkTkrIohowVb/e9JqcE/G8iF3
-	 vgTXnnMiZXgMhvgaUzOCZJtCIklyYQ5G8/RUM3GIQEkicEPJt7iRwCvdGf8+5JGTE1zhr
-	 h1MTg+UE6C9ustJTZj9ZmsqCCDJKwYm6jjslRVjAYH1JRearUSwyBHiasq3x4dq9cAQ==
+	t=1794490533;
+	b=qqEn9AOMMuHOebCSNMKDff2cCn0/mUwzHolHY95GpAZk/RUDu+vvbXqs8DegGTZhOzwA
+	 ztJXpivHmy8zX1Qo0rSfs+qSPSRWk+2VKe8hdTRrn2RgJ4VAE8ZHswG4/ceup/WxYKsMd
+	 RS0giN5RZU/dNOyMsgUYT7Thj4aDxVE7B4BoyGfMSHrGjUtfdjuact9SZDE5RYgrMl7VW
+	 dVIcI4geRfjKF3NaZDzd9SKF/lbUKFxTmpL3srLN9tciGVQGTNX866PfawIDPsObVAnf5
+	 7V705sAhtHed+2qnDLML8oCm5Au7Mz53kswpdiZCYZFN9qNRfYGqKGdoImM4ixIAR1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794490499;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=tIQmeBavWwtlHFLNqUczBSlf/4cBgAc0LbNh8aHp/iA=;
-	b=lH7Zuc8hbxzfuKNI9++PHIiQa+9ytGT00XfxvVt6NghOaNzgLVJ2BhZlF20f3lh0YO8o
-	 nZ/VcSvPMZZoJ/h51xHY93mc3rZ24ABdPwLjNfDorHfUU78K8dYZZvAGIpKdlELTTmzRO
-	 QygBJNv+vCr/18XJNijvVe3hYvH1aXQFYGdNfxFGwMIhJTTLNPFaNsF7LHLI3++Aglk0P
-	 rmN8pq3fgq/KtMHZd87N+w8uh1IM3/yJrrbP1sD68/IC0mNuuxC9a27XAeAI+aOTNtr1C
-	 N03wS+7cgR1iwiNkIZvaomgbHWhtfbpsTdDovQOscOJ9bMFk0WzYHdHMlSCppzzy8SA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794490533;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=UHPmfaVCv3XumqUh3m5IWc7lSA9GngT16E5AJZp8cdg=;
+	b=zVE62Eq/nuX98ZW0Wd4BXwO/Q17snTF0ThJvTdbX9myDqDpqZYuEcIl2fPb4lMx/vyC+
+	 b/xx4eV/hG5Ykn4WXJEBGlcnmH8L46QPCDRtRerzemzdm9YQ01FoOtv9NFynGvQKHKgrT
+	 +SSLEIZym9Q1Gwo20qzl+P4MxX9xBDG1/GRB4iPuHwCqF350GsDqSD5cYuZM7hSpdEB+Y
+	 i3dwYh+wnypew9vYyVoLTVDM6XHMda1ZB4Fm9e4jTQTZ0ByT3AyrN3fkn7qlyNMGudJ0j
+	 nViUETe5Ldrg9RZgPecBEkDPeU824nz+pcErcpLL3syfFCyBz3OQuQkM8AZhUQdCNVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=OiDtIf6u;
-	arc=none smtp.remote-ip=113.46.200.221
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OCbnsPLT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E8560A381E
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 13:34:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8E8560A381E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0368606A31C;
+	Thu, 12 Nov 2026 13:35:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=OiDtIf6u
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=tIQmeBavWwtlHFLNqUczBSlf/4cBgAc0LbNh8aHp/iA=;
-	b=OiDtIf6uHabJJFsJNnuEonq52+w08+gk6rdCnY2NaGXjd5htZSxj7F8mCjUYZPXpl4pZV5PxC
-	VGhb+9xcp8qbHZ0/wxqyPQtTdYeyi5kW9zaM8hFzgNvHT1Ikpeeq9Oly0GN6T5u8GrGZuREJAmA
-	7mDKp5UskfIYOmb/dwgS9BA=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jQLwJ4Yc1zRhRt;
-	Thu, 12 Nov 2026 21:34:40 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id B3D3140537;
-	Thu, 12 Nov 2026 21:34:51 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 12 Nov
- 2026 21:34:50 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
-	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
-	<ritesh.list@gmail.com>, <sshegde@linux.ibm.com>, <pjw@kernel.org>,
-	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
-	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <akpm@linux-foundation.org>,
-	<baoquan.he@linux.dev>, <rppt@kernel.org>, <pasha.tatashin@soleen.com>,
-	<pratyush@kernel.org>, <ruanjinjie@huawei.com>, <leitao@debian.org>,
-	<yeoreum.yun@arm.com>, <mpilaniy@redhat.com>, <robh@kernel.org>,
-	<coiby.xu@gmail.com>, <Yeking@Red54.com>, <prudo@redhat.com>,
-	<brads@mainlining.org>, <sourabhjain@linux.ibm.com>, <mkchauras@gmail.com>,
-	<blum@kernel.org>, <adityag@linux.ibm.com>, <qirui.001@bytedance.com>,
-	<hui.wang@canonical.com>, <sohammetha01@gmail.com>, <guoren@kernel.org>,
-	<gaohan@iscas.ac.cn>, <ionut.nechita@windriver.com>,
-	<vishal.l.verma@intel.com>, <seanjc@google.com>, <ardb@kernel.org>,
-	<richard.lyu@suse.com>, <arnd@arndb.de>, <tzimmermann@suse.de>,
-	<rick.p.edgecombe@intel.com>, <kai.huang@intel.com>, <kas@kernel.org>,
-	<piliu@redhat.com>, <thuth@redhat.com>, <shradhagupta@linux.microsoft.com>,
-	<ebiggers@kernel.org>, <jbouron@amazon.com>, <me@linux.beauty>,
-	<mclapinski@google.com>, <graf@amazon.com>, <tangyouling@kylinos.cn>,
-	<x86@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
-	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
-	<kexec@lists.infradead.org>
-Subject: [PATCH v8 11/11] LoongArch: kexec_file: Fix CMA segment placement retries
-Date: Thu, 12 Nov 2026 21:34:18 +0800
-Message-ID: <20261112133418.4044428-12-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261112133418.4044428-1-ruanjinjie@huawei.com>
-References: <20261112133418.4044428-1-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OCbnsPLT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCAFE1F00A05;
+	Thu, 12 Nov 2026 13:35:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794490532;
+	bh=UHPmfaVCv3XumqUh3m5IWc7lSA9GngT16E5AJZp8cdg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OCbnsPLTs21tyQm+Wi5ln9bf0ZNIMHMGLbXBU2OtF1+St0c2o5RNxxgxhMObKn7IX
+	 nurmQIxSH0+q0B8A8VmcAUt953RccLViCbljpL6lvaBXl4d5usemBoG0AX0ZwvYf0b
+	 Rynzd4j64cQV3eMc+xGUP2XlZ+j3l9mYmUke9CGpNCknOgQfzydI6JcZx/Igk7IIqi
+	 VSQ+IXEu1mjAfSqHYGVnyU8UgfMwmAGh96ZRdmfG1scnIcFlRCI2TTLF8Qh5QhERBk
+	 TLZIAlDM9A97oMUctjpOF1Mgf4smjwTW4dcM/59V8j7cEES8J/dnLBmuYj2Co3vwFf
+	 mSK4RornEbLaw==
+Date: Thu, 12 Nov 2026 19:05:28 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wesley Cheng <quic_wcheng@quicinc.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: phy: qcom: Relax required supplies
+Message-ID: <avXAoMcmDLeNuWED@parshuram>
+References: <20261021022446.3619435-1-robh@kernel.org>
+ <avWbmsjkYo2LMJKs@parshuram>
+ <20261112125346.GA3821108-robh@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,93 +65,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112125346.GA3821108-robh@kernel.org>
 
-The file-based kexec system call places segments with kexec_add_buffer(),
-which takes them from CMA when kexec_alloc_contig() succeeds, to avoid
-copying the payload at kexec time.
+On 12-11-26, 06:53, Rob Herring wrote:
+> +Konrad
+> 
+> On Thu, Nov 12, 2026 at 04:27:30PM +0530, Vinod Koul wrote:
+> > On 20-10-26, 21:24, Rob Herring (Arm) wrote:
+> > > For the QUSB2 PHY binding, keep the three regulator supplies required
+> > > except for legacy IPQ6018 nodes that do not describe the board rails.
+> > > 
+> > > This relaxes the requirements for the IPQ5210 as well as if it is
+> > > compatible with IPQ6018, then it shouldn't have more required
+> > > properties either.
+> > 
+> > Hey Rob,
+> > 
+> > This fails for phy/next I see vdd-supply has been moved around..
+> 
+> The change in question[1] should not be applied until the .dts changes 
+> in the series are applied. It introduces a bunch of warnings. Can the
+> QCom folks stop doing that! Coordinate applying the series or take 
+> the binding and dts changes in 1 tree. Given the patch series is 2+ 
+> months old, I'd be surprised if the rest gets applied.
 
-When load_other_segments() cannot place the initrd, the segments of the
-attempt are dropped but their CMA pages are leaked.  Release them with
-kexec_rollback_segments() in the retry loop and in the error path of
-load_other_segments().
+If Konrad/Bjorn want to take this all together thur QC tree they can
+have my ack
 
-The loop makes progress by advancing buf_min past a segment placed by the
-walk.  kexec_alloc_contig() ignores buf_min, so once the pages of a CMA
-segment are released, the next attempt can get the same region again and
-the retry makes no progress.  Disable CMA for the retry.
+Acked-by: Vinod Koul <vkoul@kernel.org>
 
-A CMA segment can be anywhere in RAM, so moving buf_min to its end can
-raise the walk's lower bound close to the top of memory and leave the
-retry with too little space for the initrd, failing with -EADDRNOTAVAIL.
-Only advance buf_min for segments found by the walk.
-
-Tested with a non-crash kexec_file_load() on QEMU virt, 2 GiB RAM and
-cma=64M@0xe8000000, which leaves only 64 MiB above the CMA area.
-
-Before the fix:
-	The retry leaks the CMA pages and kexec_file_load() returns
-	-EADDRNOTAVAIL even though RAM below CMA is free.
-
-After the fix:
-	The kernel and initrd are placed below CMA and the second
-	kernel boots.
-
-Cc: Huacai Chen <chenhuacai@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>
-Cc: Youling Tang <tangyouling@kylinos.cn>
-Cc: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
-Cc: Kees Cook <kees@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%40huawei.com
-Fixes: 55d990f0084c ("LoongArch: Add EFI binary support for kexec_file")
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
- arch/loongarch/kernel/kexec_efi.c          | 12 ++++++++----
- arch/loongarch/kernel/machine_kexec_file.c |  2 +-
- 2 files changed, 9 insertions(+), 5 deletions(-)
-
-diff --git a/arch/loongarch/kernel/kexec_efi.c b/arch/loongarch/kernel/kexec_efi.c
-index 4824c47907ac..1fbd0ee1deb6 100644
---- a/arch/loongarch/kernel/kexec_efi.c
-+++ b/arch/loongarch/kernel/kexec_efi.c
-@@ -82,11 +82,15 @@ static void *efi_kexec_load(struct kimage *image,
- 			break;
- 
- 		/*
--		 * We couldn't find space for the other segments; erase the
--		 * kernel segment and try the next available hole.
-+		 * kexec_alloc_contig() ignores buf_min and always returns
-+		 * CMA memory, so disable it and keep buf_min.
- 		 */
--		image->nr_segments -= 1;
--		kbuf.buf_min = kernel_segment->mem + kernel_segment->memsz;
-+		if (image->segment_cma[kernel_segment_number])
-+			image->no_cma = true;
-+		else
-+			kbuf.buf_min = kernel_segment->mem + kernel_segment->memsz;
-+
-+		kexec_rollback_segments(image, kernel_segment_number);
- 		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
- 	}
- 
-diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/kernel/machine_kexec_file.c
-index 5a3d5026303e..0341dfd04b1f 100644
---- a/arch/loongarch/kernel/machine_kexec_file.c
-+++ b/arch/loongarch/kernel/machine_kexec_file.c
-@@ -191,7 +191,7 @@ int load_other_segments(struct kimage *image,
- 	return 0;
- 
- out_err:
--	image->nr_segments = orig_segments;
-+	kexec_rollback_segments(image, orig_segments);
- 	kfree(modified_cmdline);
- 	return ret;
- }
 -- 
-2.34.1
-
+~Vinod
