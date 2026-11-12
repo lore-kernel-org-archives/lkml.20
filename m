@@ -1,68 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794527373;
-	b=T/V3hxdWy/g5j+v0GhQfeKhLFpIYuszrswXT62kX7+adazaCQ6+UbALm3MqZXvHf6/7Y
-	 V3yFn4kMtyBiK6/Moqln0PZGdZma9pcxSWovPL4S7utUz7AAvOFw1eFI0fXm8HpP+D8UL
-	 J9kS3RKsG9wqMTvjv0JYIq08PQxlXBmgqwHs3FqJkAM0vljOTMvv+3/EPy2ia99v9dm08
-	 V0Pbq1XgI6CK4TT1naPsczG5U2q9n1BT9Sky23gXQmu62Sf84zQz2qIIOu/u99gWN6kKK
-	 8WFK8UzeksOTmsPz5jXBOXrXuJZdg0UgvtKEECWkO4Lhw/cewRZyUdIm67wsiX5i0zw==
+	t=1794527435;
+	b=X0Vyf12ZAOiXOpzKM5PmDldvfr24I814BufwAFIArlT4o0A4rT6/EqR8/rJpHEfSM13T
+	 mGh2TNv6vkDzvvwUI0kSkEaKQKfpHr9pZD/iEcoUv4ONxd4ab+xKlEE1h/h/oZ9jUMpXB
+	 zb2JhRfhaqctuX79E8WGmAGR9u9t7Xyos1VfTLWlzBUB3HWs9MpIwEoFram+ttfOMZWeD
+	 UldTWtCDrZMxO4MmVIgwvUcTjHqLNb6cf5/b2D9GCJj1OfZeHEVo1aAV7sCsUKsSU2lEB
+	 49JycEt8iAHfgnXFjWnbJSow42++t62T987lH+fdS57sUE8WuM0lsYOg261SHCNZuig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794527373;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=kCaNw5eRaBRwjcLXTE3JL4PVNoPNDMQQUQLGaZbHGXw=;
-	b=H6GD7V3yA7k5zCVl5Ur4v5HIVWSExnBN6ZD8uKXd+V1+MTEv/ky0HHXG9ZOGQLFCP5KV
-	 +g7kkyHSRdYkNbUlY/z2uvkrPjjx7xr3A+emZZt1OWl02vG8SbtW5mdsYiq9akUq1D5ZY
-	 zqyjwr2SuZQdPrKRUozU8g0EQXuOg1kkNAwzoG6uWR6o8/oGsOf6QkJ9Tau5BfFXup8Po
-	 tA+u2J5D9bzpPhA9+zSyDrcf2li3hCT81GttxG+mc2CUYG5SgFt7oeyMTvkdgGNchdXaz
-	 obY5GIhxpzDTYffJPoTFptDZ5bgWdHF9RYHP4tK+skl88b2ibdaoybZvMmphdZDphXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794527435;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=q1kvRgKeqJR6EuLY1yBynSJtWsSukBAUvLh/S9hCbu4=;
+	b=GNr4/LznhOS3limB5GXLOVCAHZsvwmCuudlJWbRq3DYXUKCYNhfKsvxTlU6KyC1SDT/Q
+	 f6KxNyyhHF4cEbRkOBahAECmI7+m/TkCdoiJuvWV1GI9CrRIEuz7qdpHIaZtMSDkBCyjl
+	 rlaatPqNaPAWwpqFXfrTtdt8DeMpa/BFqvR2T27au4MwbiRQDvQX+hUk5YM1XfZDV2OKd
+	 Utcn3f+f8VTbrL117NJXijGQJuGfHF9WnfNlwDLqOqdT+S0YNZDDLkccjFyYHZ79KTohU
+	 DNScO1SaK+vuHwTTfMKn+f3mRX6M6ni86rcIEmH0PClDgTUnhzNxJQerBTMt7bci+3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KO94zEM4;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rXZleSVo;
+	arc=none smtp.remote-ip=209.85.215.170
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB70606A31C;
-	Thu, 12 Nov 2026 23:49:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEB70606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E3F606A338
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:50:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6E3F606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KO94zEM4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794527373; x=1826063373;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=LDTlgoTiXXPqULWE834iHtRR+DdZfRL5mgHiLZgHS7I=;
-  b=KO94zEM4m22WKsa4oFwZTcslwg3eBxTwKT1ITmw2fPhUaDE5mSLD+zWI
-   ujJKctErh8QxvrHrJp8xYFnFKaFG6avXKRn8HI3QsxIkDuoQBsnGae5aK
-   SLzCoHuCeUjx5vyxLn1+mBMgmAagkMMJp0dD7Y+4UybvaByz0efMCkKSx
-   H3YQHYQlLCDGqaTncmT+awChsfgG8YRfiOywE3FYTwVfc3kjmXSN/sC74
-   fnw7a7o+VPK5I8QxlNU7AiyL1LzIWM+d1IBy0vyNweha1Ud2poOrujGK4
-   e2GpR9RJ9XS1vnLpMpkx6XnalRI6I4lxHWsKO+oK3r7sqnjYOZYeSBoZO
-   w==;
-X-CSE-ConnectionGUID: Pfvhf3ZlRvyFBZnRxbA5Zg==
-X-CSE-MsgGUID: y5KVO1I3RIeP7YemhVijgg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3247782"
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="3247782"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 15:49:32 -0800
-X-CSE-ConnectionGUID: u6GHNGKtRReKeINebfksyg==
-X-CSE-MsgGUID: yItJD5dmQG6m6BtvGQiJ8w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="8613663"
-Received: from jjgreens-desk24.amr.corp.intel.com (HELO [10.125.111.216]) ([10.125.111.216])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 15:49:30 -0800
-Message-ID: <bb459b23-0f26-4371-9228-9e69e061260d@intel.com>
-Date: Thu, 12 Nov 2026 16:49:28 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rXZleSVo
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cdb2e0062bbso248968a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:50:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794527434; x=1795132234; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q1kvRgKeqJR6EuLY1yBynSJtWsSukBAUvLh/S9hCbu4=;
+        b=rXZleSVowkCYrx5PW2Wk6LwW1c+xXl7XUq4Z+rZPI3RX4Hptd1Hh4fEQ3QpPlNUojY
+         AiRVQUP9ui5ADgaUCGwJGxf0kqvWYffgzQBsWA9W5Z/dArNmXW7QoFiglHkcbuY8Byzu
+         HCoNG5ii/SdPvS+h4DiA56nJDccBa7Q8rdDB7B9nQ709LGyfSJ81XDY7rVSzbNoOdFw8
+         SFoBPspRD/NDApuF/0e+fmaFgia0kPri/PS4uQgR6cogQhdaE1WfLfgnIosZtv5fTv4L
+         JZhBj8sAy8/1NFlpbnrYCfNqWklJBUABZ8EixuPUAaLDqnnufc7HeoJo7uJeCc6yg9N2
+         FxUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794527434; x=1795132234;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=q1kvRgKeqJR6EuLY1yBynSJtWsSukBAUvLh/S9hCbu4=;
+        b=iNHF36Fm+4FKy2Ap+AE1Vkro43vxap6BMeE9DWDg/1lD9PSF0TC6Y/l3sbCDI5JsMw
+         6t9gozPysa6CkVbwMX6rtV7R1zgDUF/gS/WVOa9scJ3lKYc6f7I1qUsRnKEljK4w+CdQ
+         Qfc5tiBHVIh7VfRPUQqoCRjnDMksomjr3tIxgvwgHOZV6OOC5wAcdChnScmBFwAfPmyj
+         vz9Id4jn/aJd79o6wZHnUh+uvlIUAw6Kzu5aVlbqZdefTnW0iaiueSwTQ1i+5ovQMErq
+         x/TxqsR8lTvDaSwS63QJQiJS75vQk+wNISmz8tymDmTF/mih3jwYSsX+SKCYpRs6Z25a
+         Vgag==
+X-Forwarded-Encrypted: i=1; AL+hErESZgfCJHcd6hTKx4ZK4VLk9fPeGx3NqhyTo6DV/Gj4I1VHEHBoBemtO1E8an8HtOZIKlx/PmQ21Dwquwo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+3Ca49hsnkd1waFq+PhLawWbTM4Mau73R/JvNWgwA91D/kFt0K
+	fuuUB6G9j70S5393FzQWosEsje9CDLQnL8Q+IFj6yMdTXmFQHCi9KSXM
+X-Gm-Gg: AYBFou1sdE+WJLRkkM4hb7fdy3a61yGJc3h4mhACnCcBL6ip0VvO4tw8MxC1oun1dn9
+	zVmwb5qCyk4rRILoJX09KMwpdhZcs8OA5WxSVdUXHKmansYv+1dGMcuJfvXcvoyuRlX2cnI3UHP
+	MQ5UvPiLMYj1hP+RIs4FbD3nzL+kbuwO+OOAsUj/DUg7zEdPjggRCtdW7H8yTZCAfu/q3f8iznE
+	OAgfGeTdYs/QvG5tJjedU7eTT2umCUbUIhXH9Q283qXETCDsIA+uCJfaneED4q8AlejRnhYrAmy
+	+WSg5st3wUMeKs1T521i1Mt5DW61tzXxLX0gz9WZIWEHop13O2R1UuWR06UpYPZx9PSCJmlDltg
+	+0rpTFurWIKHSvklfDQLg3pgABaGxAY6hunPWsV+aKG1ssvnJ67UwxZQYIkkn8QlbItGG7v8V/F
+	z5AlhvejZrxh6hKgNyDQA9rsfu2eEY3r+yuWabtvJ9CO1YvT04a4lMYV9RKpmpnzpZQgpD1ZDLn
+	YIcJ5ODIWHjI1A7GiGe7oRSHUim1EI/sV9H6FpN7PCS06NzJAGhg02iLnBB/joEcDmkj/TtEIZr
+	i/ydaBCRQUI5bUqW
+X-Received: by 2002:a05:693c:6293:b0:378:314:4033 with SMTP id 5a478bee46e88-379679e29f2mr632919eec.32.1794527433890;
+        Thu, 12 Nov 2026 15:50:33 -0800 (PST)
+Received: from evangelion-g ([2a09:bac5:40e4:11cd::1c6:8])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332ae7sm3842976eec.8.2026.11.12.15.50.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 15:50:33 -0800 (PST)
+From: Ayush Yaduvanshi <ayush37735@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ayush Yaduvanshi <ayush37735@gmail.com>
+Subject: [PATCH 0/2] perf/x86/amd: Check CPU hotplug setup and unwind failures
+Date: Fri, 13 Nov 2026 05:20:01 +0530
+Message-ID: <20261112235003.18608-1-ayush37735@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,94 +109,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 08/19] cxl: Move cxl_rwsem into built-in code
-To: Srirangan Madhavan <smadhavan@nvidia.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
- Ira Weiny <iweiny@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Li Ming <ming.li@zohomail.com>, Joshua Machauer <machaujo@amazon.de>,
- Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
- alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-References: <20261105185917.2667656-1-smadhavan@nvidia.com>
- <20261105185917.2667656-9-smadhavan@nvidia.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20261105185917.2667656-9-smadhavan@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+The AMD Power PMU and IBS drivers register CPU hotplug callbacks during
+initialization. Both paths need to handle failures in later initialization
+steps.
 
+The Power PMU change checks the return value of cpuhp_setup_state() and
+removes the hotplug state if perf_pmu_register() fails.
 
-On 11/5/26 11:59 AM, Srirangan Madhavan wrote:
-> Keep the region and DPA locks available to built-in CXL state management
-> when cxl_core is modular.
-> 
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-> Reviewed-by: Richard Cheng <icheng@nvidia.com>
+The IBS change checks cpuhp_setup_state(), removes the hotplug state if
+perf_event_ibs_init() fails, unregisters the syscore operations registered
+earlier, and clears ibs_caps on failure.
 
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+This series makes the initialization error paths unwind resources acquired
+before failure.
 
-> ---
->  drivers/cxl/core/Makefile    |  2 +-
->  drivers/cxl/core/hdm.c       |  5 -----
->  drivers/cxl/core/hdm_state.c | 15 +++++++++++++++
->  3 files changed, 16 insertions(+), 6 deletions(-)
->  create mode 100644 drivers/cxl/core/hdm_state.c
-> 
-> diff --git a/drivers/cxl/core/Makefile b/drivers/cxl/core/Makefile
-> index 6703c1729396..9971efb237fb 100644
-> --- a/drivers/cxl/core/Makefile
-> +++ b/drivers/cxl/core/Makefile
-> @@ -1,6 +1,6 @@
->  # SPDX-License-Identifier: GPL-2.0
->  obj-$(CONFIG_CXL_BUS) += cxl_core.o
-> -obj-$(subst m,y,$(CONFIG_CXL_BUS)) += hdm_regs.o
-> +obj-$(subst m,y,$(CONFIG_CXL_BUS)) += hdm_regs.o hdm_state.o
->  obj-$(CONFIG_CXL_SUSPEND) += suspend.o
->  
->  ccflags-y += -I$(srctree)/drivers/cxl
-> diff --git a/drivers/cxl/core/hdm.c b/drivers/cxl/core/hdm.c
-> index 5b5f5f22ea32..85f9abf58a42 100644
-> --- a/drivers/cxl/core/hdm.c
-> +++ b/drivers/cxl/core/hdm.c
-> @@ -17,11 +17,6 @@
->   * for enumerating these registers and capabilities.
->   */
->  
-> -struct cxl_rwsem cxl_rwsem = {
-> -	.region = __RWSEM_INITIALIZER(cxl_rwsem.region),
-> -	.dpa = __RWSEM_INITIALIZER(cxl_rwsem.dpa),
-> -};
-> -
->  static int add_hdm_decoder(struct cxl_port *port, struct cxl_decoder *cxld)
->  {
->  	int rc;
-> diff --git a/drivers/cxl/core/hdm_state.c b/drivers/cxl/core/hdm_state.c
-> new file mode 100644
-> index 000000000000..c9cc019902ef
-> --- /dev/null
-> +++ b/drivers/cxl/core/hdm_state.c
-> @@ -0,0 +1,15 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/* Copyright (c) 2026 NVIDIA Corporation & Affiliates */
-> +#include <linux/export.h>
-> +#include <linux/rwsem.h>
-> +
-> +#include <cxl/hdm.h>
-> +
-> +#include "cxl.h"
-> +#include "core.h"
-> +
-> +struct cxl_rwsem cxl_rwsem = {
-> +	.region = __RWSEM_INITIALIZER(cxl_rwsem.region),
-> +	.dpa = __RWSEM_INITIALIZER(cxl_rwsem.dpa),
-> +};
-> +EXPORT_SYMBOL_FOR_MODULES(cxl_rwsem, "cxl_core");
+Ayush Yaduvanshi (2):
+  perf/x86/amd/power: Fix missing CPU hotplug setup check and cleanup
+  perf/x86/amd/ibs: Fix missing CPU hotplug cleanup and unchecked init
+    return
+
+ arch/x86/events/amd/ibs.c   | 26 +++++++++++++++++++++-----
+ arch/x86/events/amd/power.c |  9 ++++++---
+ 2 files changed, 27 insertions(+), 8 deletions(-)
+
+-- 
+2.53.0
 
