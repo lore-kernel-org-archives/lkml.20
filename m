@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794516229;
-	b=jNm/vo0egDa+ptl4kVTNlAgYK0DlCirh5QndpZlLKHTqGlzUJ56WCqKio+gXvwMCcfYi
-	 z4o2Tme5AJJcYVsqxAGYNW8Am1MoIG2bu1aGJKhuVTb/FRAUOSZ4cFnACkcOQCKKmRFyK
-	 JZmXG3SjRLrgAfY6muApJG3MiVp0Udt0F6xP2FbddCRKNBwVk2PTRBi7aSWbbQ0QuUrQW
-	 MzZy4v2C8xn3xCDAx1RwPebooJ6xbu/7YOyWb+VlAWLjXOwljt+DoHX4kPSERQJ2XGasd
-	 4KIJimoTimiFL/20Nyk434j3k2AcRzfj/Nhs7Hn0awGbGIFS0g0cWG+Rn1A7P/VY5uw==
+	t=1794516230;
+	b=mwYNo9kdpi7FYXq/OSH9uI9VG90I0T8nqOpO9PPoOWl2EJk8K34XK12hs0g6r7Rb4aWt
+	 5UB9FMuWJEdIvkRF/6ig6d8brb1YvbIj42Be2PQfH+0AVQqSDFD8J8TVYqIL5YjGd85ZC
+	 +8IZ3rzSqsxxQnSwNl+GI7lKc4NpqaMkSp0BF2IPQmWWbJplsmrjlwxydFJvj/WsFdNoY
+	 YRW6410nVwkSVz/hZuSR6ApFWkLEy4PNT2wUL7zvzHGUEY2aOJ3L320AeKLvOqL4V02Rs
+	 OWcvfGWr5g3HEJJN720Z3UBdMEmApwn3N3Tw/S9yLjYFKRp7N7WeeJstnExhd0KotVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794516229;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794516230;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=I3y68qJSl+P6xP/WySEdfzygrb9CjfS4jxxPfaaMe3M=;
-	b=S/PdRe20OtLgdntbJHMjW85uLh7UPM5S3c1e+pTpO/XdgQzx7+1rhruLcaMUEOS1mt15
-	 yab3ldmJaK4AotlAI0c3+j6zJ6NOQH8CmXI37lFXY3dMvT3vcrIT3K45yspcvaSYhY9K3
-	 vpwyS9VXMQqymu5v5Xo9ZFXHzmGYSdkNUbGpH/lO4WGyTm8cl7Dr5CeJE7McS54VcibzF
-	 tPxgnVNTZl6y+lWmVjszK4I5xMjJq9gstrji1wjHI/3MGYpCBPTGwCBacPu9BgWcDO174
-	 JX5bbFDbO3+kfJ8HodO+1uIkCnoxI/mXm0lqXt6ZbhvRSGwDvDYh0++KhiE5Ev06rJA==
+	bh=DpJeVq5Af3h76fC87FYMdmCsO875zyo7iv2ORJR1dp8=;
+	b=cR39XYs0c3XmsYwfiOpN63colMa+5fFliya2PgrrKiNFxGqsku4OJluXYKgq2YQms4I8
+	 VCwt8j1qmqAqx33MKvXCMLmSoszPeuINFiRsxXruH+Se7aGkeqUDCz8K6H63C8prgpozX
+	 PzOw2Z2aW5sFbG5JhAnsp+qwS3an0OfYMSgcLC0fHi7yLEGSPRv7Cnt1/D0FFXQxhzAli
+	 mG3ioPGy0/Bo+7lUdD9ahOVJMKsEz8BbaEXJEvHrmNpg9Ec9m9C+z8ffY6XYXlXC2sDVM
+	 0w4tgK6bGa9WnorCD4wD2bBx42yKziirwLdh+qKynwXt1DfdaQbZf1WGAddFn6W/7LA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ihnXa3Ud;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Trn40thW;
 	arc=none smtp.remote-ip=192.198.163.9
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D47606A89B;
-	Thu, 12 Nov 2026 20:43:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1D47606A89B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFDCA60A2607;
+	Thu, 12 Nov 2026 20:43:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFDCA60A2607
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ihnXa3Ud
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Trn40thW
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794516229; x=1826052229;
+  t=1794516230; x=1826052230;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=JfJvfpLwpM3XTNdq0mrf6exMBASCLRDcjxitWKRd24g=;
-  b=ihnXa3UdXvgp2PVios9BYmzO8/FQKbY0pT1zafCaHFWhbTLCxIjR/7Vf
-   hqCls9CLC3PF4ttv2pkzuOZkRJVlYGqpIMeLdrziGf5/f10gxArx1W7Ht
-   I5BVp41IuLTpJtBUWyTXnqqIe/j1EnOq3XjlJmMjAMwm9zMIlaO+p3PgC
-   p6ivhNgNxAF8YJaigta454kbqqT9rVOc3CLhFxszq78XxSki5N1iHknHh
-   +JaS0sKkP4myoEhBldkXGiAiND1Tun/vy8YGg3nNATJO24xQ65QlqX152
-   cXjntaz/3I5IWPMemm94whX5RGkOeK7mg1JVbNjqCcVDNlOqNbl0b/dPy
-   w==;
-X-CSE-ConnectionGUID: z6mMqFBSTTSNxkSI+qJZTA==
-X-CSE-MsgGUID: CLDrCI7WR7i59LWULDcZcA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3192250"
+  bh=QJTc4D297zDURXjoyOpF1vj7y3gLtfhEpzDS1BjmDpw=;
+  b=Trn40thWAtiiFYEDJtCd1+1nrL/M+/juFw/VSah7weZNyp5eE4gB5Pij
+   i439mlq4glN47AJ6O+ALT8+D1VJ2itVlO4fCF9e8ADq99Wm11rz0AfEvz
+   tG8qNsFsjoWw4S1tdD9UOIjlEiePwOHr0iAjqGbNd4qL0AXQDihEOghLL
+   hiqLx9SVali/QVF+0NKZF82awEf/oA21CijpaL7ryzJy71LybqlubqjD9
+   /zqVGTHR/hqbFiHiy4UvCuyfqyFGkNzrWn7bsDKhmJxz05jJX5dPdxwHo
+   ZQUHYp3CbGpiuXC+EX51v/YeCz46vLWUdYnfcYCpwineODO4E40W2gRC7
+   g==;
+X-CSE-ConnectionGUID: +QxRhFJBT/qzK4isOtFFXw==
+X-CSE-MsgGUID: IzORqreEQcGSRfK0O1GvQQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3192270"
 X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="3192250"
+   d="scan'208";a="3192270"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 12:43:48 -0800
-X-CSE-ConnectionGUID: CRW9F1tISruc8RZJ7Kfe5g==
-X-CSE-MsgGUID: SO37GhklR5qtthBwLXx1Ww==
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 12:43:49 -0800
+X-CSE-ConnectionGUID: yXJA2m2bRICAIEl7pi8k2Q==
+X-CSE-MsgGUID: 9+qFgqOrTtScdtPGtmMenA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="9087886"
+   d="scan'208";a="9087900"
 Received: from 9cc2c43eec6b.jf.intel.com ([10.54.77.29])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 12:43:48 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 12:43:49 -0800
 From: Zide Chen <zide.chen@intel.com>
 To: Sean Christopherson <seanjc@google.com>,
 	Paolo Bonzini <pbonzini@redhat.com>,
@@ -77,9 +77,9 @@ Cc: kvm@vger.kernel.org,
 	Shukla Manali <Manali.Shukla@amd.com>,
 	Dapeng Mi <dapeng1.mi@linux.intel.com>,
 	Xudong Hao <xudong.hao@intel.com>
-Subject: [PATCH v4 07/21] KVM: x86/pmu: Expose kvm_host_pmu to vendor modules
-Date: Thu, 12 Nov 2026 13:32:13 -0700
-Message-ID: <20261112203227.289379-8-zide.chen@intel.com>
+Subject: [PATCH v4 10/21] perf/x86: Remove num_counters_{gp,fixed} from x86_pmu_capability
+Date: Thu, 12 Nov 2026 13:32:16 -0700
+Message-ID: <20261112203227.289379-11-zide.chen@intel.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261112203227.289379-1-zide.chen@intel.com>
 References: <20261112203227.289379-1-zide.chen@intel.com>
@@ -94,53 +94,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-kvm_host_pmu holds the unadulterated host PMU capabilities, which
-can be used to compare against guest capabilities to determine whether
-certain MSRs should be intercepted by KVM.
+From: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-Exposing it directly avoids the need to introduce per-field accessors,
-which would add boilerplate without hiding any implementation detail
-worth encapsulating.
+Now that KVM has switched to bitmap-based PMU capabilities,
+num_counters_{gp,fixed} can be removed from x86_pmu_capability.
 
-Opportunistically, fix typo "Unadultered" in the comment.
-
+Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
 Signed-off-by: Zide Chen <zide.chen@intel.com>
-Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Reviewed-by: Jim Mattson <jmattson@google.com>
-Reviewed-by: Yosry Ahmed <yosry@kernel.org>
 ---
- arch/x86/kvm/pmu.c | 5 +++--
- arch/x86/kvm/pmu.h | 1 +
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ arch/x86/events/core.c            | 2 --
+ arch/x86/include/asm/perf_event.h | 2 --
+ 2 files changed, 4 deletions(-)
 
-diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
-index 484dfd2eba10..d203cbc7fd12 100644
---- a/arch/x86/kvm/pmu.c
-+++ b/arch/x86/kvm/pmu.c
-@@ -27,8 +27,9 @@
- /* This is enough to filter the vast majority of currently defined events. */
- #define KVM_PMU_EVENT_FILTER_MAX_EVENTS 300
+diff --git a/arch/x86/events/core.c b/arch/x86/events/core.c
+index a9b86cecbc78..990d3be5a07f 100644
+--- a/arch/x86/events/core.c
++++ b/arch/x86/events/core.c
+@@ -3156,8 +3156,6 @@ void perf_get_x86_pmu_capability(struct x86_pmu_capability *cap)
+ 	 * base PMU holds the correct number of counters for P-cores.
+ 	 */
+ 	cap->version		= x86_pmu.version;
+-	cap->num_counters_gp	= x86_pmu_num_counters(NULL);
+-	cap->num_counters_fixed	= x86_pmu_num_counters_fixed(NULL);
+ 	cap->cntr_mask64	= x86_pmu.cntr_mask64;
+ 	cap->fixed_cntr_mask64	= x86_pmu.fixed_cntr_mask64;
+ 	cap->bit_width_gp	= cap->cntr_mask64 ? x86_pmu.cntval_bits : 0;
+diff --git a/arch/x86/include/asm/perf_event.h b/arch/x86/include/asm/perf_event.h
+index 190fda412a61..17b0bc7dfce7 100644
+--- a/arch/x86/include/asm/perf_event.h
++++ b/arch/x86/include/asm/perf_event.h
+@@ -300,8 +300,6 @@ union cpuid_0x80000022_ebx {
  
--/* Unadultered PMU capabilities of the host, i.e. of hardware. */
--static struct x86_pmu_capability __read_mostly kvm_host_pmu;
-+/* Unadulterated PMU capabilities of the host, i.e. of hardware. */
-+struct x86_pmu_capability __read_mostly kvm_host_pmu;
-+EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_host_pmu);
- 
- /* KVM's PMU capabilities, i.e. the intersection of KVM and hardware support. */
- struct x86_pmu_capability __read_mostly kvm_pmu_cap;
-diff --git a/arch/x86/kvm/pmu.h b/arch/x86/kvm/pmu.h
-index b312f80f5cda..02a19aa7e7de 100644
---- a/arch/x86/kvm/pmu.h
-+++ b/arch/x86/kvm/pmu.h
-@@ -252,6 +252,7 @@ static inline bool pmc_is_locally_enabled(struct kvm_pmc *pmc)
- 	return !kvm_pmu_call(pmc_is_disabled_in_current_mode)(pmc);
- }
- 
-+extern struct x86_pmu_capability kvm_host_pmu;
- extern struct x86_pmu_capability kvm_pmu_cap;
- 
- void kvm_init_pmu_capability(struct kvm_pmu_ops *pmu_ops);
+ struct x86_pmu_capability {
+ 	int		version;
+-	int		num_counters_gp;
+-	int		num_counters_fixed;
+ 	union {
+ 		u64	cntr_mask64;
+ 		DECLARE_BITMAP(cntr_mask, X86_PMC_IDX_MAX);
 -- 
 2.56.1
 
