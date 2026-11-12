@@ -1,79 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.52
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794531215;
-	b=VAk1eHpSJvOXaLtbkZHAQtONKPxKkiw+6NoHoi6wYIMhDZvgf0iMeMbMpki3N7e7zKCa
-	 LJ5RFdolDk21PVOw7NTExsK57VpAq8Ib2BE0bBxsYSGG70Jm68DctRH1yRlJyptEITWXe
-	 QbwhAasxuSXv1WM0/EsJzZKWJWA6s8C+czlEZe8to914ZsxwsWJYST2vc5xNJxPAzWwBz
-	 t3oGX0NzVMrQygALAILYux6LK0jdXGWwq2nG8HgFeyXVFWr2IRaE8u+jujyfQMG0dWqJY
-	 2aFUMOlSq2QgpRrdpfSpvOX/GAU9/xlzrX6aVIPHwu9n5rsqt9OMtyG20qzLZGX3Jpg==
+	t=1794531254;
+	b=I/y72wuFpL5vtDUcv2YBYY85AGBcNKEl/upxwRMRSyRBZyiB/QfwaI6dFMxAJVfYBllU
+	 lEl5Vc6chW9kzv69M/TAjnu2ZcufYc6iI9uwX1ecejuWAJzNePk1TwvHhUHKtvrm6ErdJ
+	 6BzkwR2XSqKLbjz4XolgoPtk8m9BQErSnWwos4On9oulTJPglCPyHX9o3D5bcoR60pMJq
+	 OHTuzMatpK01+6KZZHlcCV8Bl3qhyddrG1DJqyx3VOh9xvqA9fsCSp6kcarn1CW9o9w5C
+	 1x8jKhhLfLSdWz3UFElUkvjj3BlX9MoRh18XdeQWlG/QykV+enTe7LfJah/Z+Ui7TEQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794531215;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=TZ2I5JnqLLKymQjgfGOiu7gr6dxmqb2X30Vtl73Qezg=;
-	b=jBSpOpf/YhsuBh7jBds9321GMk3fVbSCpBOsBSOGtudFrvkZTIXEy2Z8mr3fAlwCxDxL
-	 lYv9Wxo7i63r7lRPWyPJAx7rOgD7grw8r/il7Y2B00nNRCclCz0rbbFIGcpW0g20VO/BC
-	 5laL0fTzCXeZAGjlrXJCql3OD7FHj95Qm4qYxWIKyaqFmOhtVuGdvV23+jB0rdSzuXvx0
-	 A9c1uIV5RZEBa+jGc/BCzG3PyxvjKNLZX0iN0ffyErVkY2D4mv8zZKdwmOMLPBqvw8xOD
-	 L+Q6Ec/IgqsCrPdOkZp4rvgPhKye2XspYqiZ/OJ12tGCt4yTBlDMfK4o8a5N4C3kbgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794531254;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=lZ0Bz1hPv5O2qx+E5MPu+2FgjsX16i7WQUUNCqOeMv4=;
+	b=0rqiv+Ya4W3uia4+7E+SYDlKyStqDcyZODPCtw7I5mZdLdp8muuELwYdLgEiSEIrU4MB
+	 kwxVNMJMMUWskp229ntFwqZBtNInyWVATD0TIKn0pDmmKTA9AQ94XnNnNijq1NdoaZRUc
+	 Ivl9UCW7rvuQjXVADbPZIj5HyNH9gzDMHxkX05sf27FUNbXy33ksxqv7yrW6LgoJ1Nftn
+	 YyTcpuibfUXfoKhrYgGi0i4m5QHQ+S9A4icGjWWzhnHSy0bsUCSPTejhqHPxPCEX1mVwl
+	 iIEW/6OwiaPNDwqrNrDi/w0bPFV4jc2B502nAPiauyxh+/ZIk0TZMklI0gCrZBlgiMg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k2fk84om;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Vlt6wk3J;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.52
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012052.outbound.protection.outlook.com [52.101.43.52])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64BE2606A31C;
-	Fri, 13 Nov 2026 00:53:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECDB606A31C;
+	Fri, 13 Nov 2026 00:54:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DECDB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k2fk84om
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794531215;
-	b=i1ypHyINAFlMF19BUCyfxKdUISPqTJVLHjYr4hRqWwHz/685pJu8tuk7q9q85iPBAPno
-	 06+rLLqzipcSN1dMz3+QTCEvNEZ24MD24UmPT7JMG7hUcmEXYTkLNg1WQDT/Es/xIbiwh
-	 0K5mFxIduzrGhYeLMfrtRLhjPelljIV7EwPvrOheMS5/aYfP0B4OZ9MSlypfrqXJNnS6L
-	 GJi+A7xCt+GWYZ50/LXaIlyxYhCnCT7EOyAaRtnIci9LLcvGlXDir3RMUMawfAI7SY+uG
-	 +m12/ZiQTjuVJjmFbM/RXMl6X/I9mcz+qWObHt+i4NL/9uqwNt9Xq/XHJqSzOlUyRCA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794531215;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=TZ2I5JnqLLKymQjgfGOiu7gr6dxmqb2X30Vtl73Qezg=;
-	b=tjr7P8TI7EJ3ZvBcXIrAfTw3xUJcgQrQmMxxzwbndUmv0mLS1U3rHjp/l29yE2idRu2R
-	 TxUvxP80rEaqWioWjOxBFGPjurFhCzt7xbw7jFQErsLmUmCpTz6i1eptHZNwWtx9Ns6Cm
-	 J26vzfqIVzCGDg+hnYxorcAMJ49ltD4wGAc0bO2rj18tQijKEwg8+KP23+/aweKOBxQQi
-	 CNbfRc/Z8h2gZb6C3ydMEO6gJDwSPlR52hQAc0sgjo/daLz5stZZ7onRRO1H1HZG98E+3
-	 Kv16Jldngi2Rjz+9XIV68O960zcimjcK6n4A/PaScUQGczbeya9fYMzrsRFZOsS8aGw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8D5461F000C4;
-	Fri, 13 Nov 2026 00:53:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794531215;
-	bh=TZ2I5JnqLLKymQjgfGOiu7gr6dxmqb2X30Vtl73Qezg=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=k2fk84omGb+9fxXGdDJC37V90qpM9sf2rmA3nl1YeLY7TaNVxIZwJu5izng/ssAl+
-	 2w6tvVShWxtdDGJrESgnPoDw7KDd4BqmA/RdzuLdhRQjWGvXTEz76OGIoSwyj4UoqO
-	 iTxzYsits/07LY1p8fIE0/cVAPgFSs9p+xs9vQSJNJck71tbPxfBGwPKGr4XCsUUlb
-	 CYL31kdb9uy1yNacxocOrZeGCvTTJZSR+AlPpYAbFg3RptWn/GVR6+RtsDffLoQsUM
-	 fC305+MzadZX/PH5c+jukkUN8dOt6F7NqEMGt42IQjKDa1k/RnUB5w+DOzj3Qk10To
-	 ZVxEWoGYI1jxw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E272547569;
-	Fri, 13 Nov 2026 00:53:33 +0000 (UTC)
-From: Suyuan Wang via B4 Relay <devnull+shyckless.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 00:47:28 +0000
-Subject: [PATCH] vfio/spapr: Check the whole IOVA range in
- VFIO_IOMMU_MAP_DMA
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Vlt6wk3J
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rwn2XqVec2nmAtONsQ4ItggIy1NoLD5xICURQncdi1fB9EIbSuR63plLbuBRe1N7d7MbsHjfc7qitBQfw36eRILCzTzCrhaS2ByoY1dtfOA6KuVm1y/eQB+ajBy9dzOrx13pxNQtFsqYkDFUBYT6uYRGlc2iA0wWvCkhdX0nqLA63QiOuHcbZZIAJW1tCi58SGpgNMW445fEQVQhoPQ8QZeQMwhPqWr66wWsicXG5uwKuByG5PhZm0o/nAFIh/nF822OT4wov1hChEr++c6J2nLbuYVvEEV9HF2uRBY/CUuLnWuex1OXFxaa0tYB5RXOzSW7UFbj/nb3IICgdvCUjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lZ0Bz1hPv5O2qx+E5MPu+2FgjsX16i7WQUUNCqOeMv4=;
+ b=BVGRVVMQvxU2wOuxtwNjZUTYzR2BApP7U2Nx8/B8ijlXa94hvjiVS3pHpqKFiCqfZfYChKfz13no7vLu/hMLw1K6eZcujH7Aksy6zgb+ZpaCJrqEUctLH9KS4qjx3HWvIkW/sLDjR6isdJo09z8frTHTVtRs+tkJRhP5hJ1a+8GNTk+hCRQQj5BSP+Rb59kkJct7eW4eZ/X3yaPqdgJMp6mMxD3B5lAHOs2cwapDCRJkLka/Vx/yjW88NDtfLXncGjZ87T3FmKCj/ezRLasX5wG6ZMmDkBkxOiEijYUKQ3HOh/FKQW51Cf3//r8ctmLEHFz400q7BkTMxrQzGCTmSg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lZ0Bz1hPv5O2qx+E5MPu+2FgjsX16i7WQUUNCqOeMv4=;
+ b=Vlt6wk3JtNHJoAZB/GLt7UIP70iUmjNGBl57KN4lSUd5stZhi2z1guhHi5vOcsxkH8wgKiRycBh/y6DYRP2hc04dcyMTY/NsUt5fP+naFqXcaYlO6YK1kOFc5gYbkGwNsBvC188gar5uuLCFdj2a1ok/QxH327M4cqz4VQ6DuhY=
+Received: from MW4PR03CA0356.namprd03.prod.outlook.com (2603:10b6:303:dc::31)
+ by MN0PR12MB5836.namprd12.prod.outlook.com (2603:10b6:208:37b::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Fri, 13 Nov
+ 2026 00:52:05 +0000
+Received: from SJ1PEPF00002323.namprd03.prod.outlook.com
+ (2603:10b6:303:dc:cafe::96) by MW4PR03CA0356.outlook.office365.com
+ (2603:10b6:303:dc::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Fri, 13
+ Nov 2026 00:52:04 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00002323.mail.protection.outlook.com (10.167.242.85) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 00:51:53 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
+ 2026 15:55:01 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+Date: Thu, 12 Nov 2026 15:54:55 -0600
+Subject: [PATCH v7 3/3] drm/radeon: Match VFCT using initial PCI bus number
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,107 +101,108 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-vfio-spapr-v1-1-e3107da71f5c@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAB9e9moC/yXMQQqAIBBA0avIrBNSKairRAvLqaaFiVMSRHfPa
- vkW/1/AGAkZWnFBxERMm89QhYBxsX5GSS4bdKlrpZSRaaJNcrAhSluhLSvdDKZxkIMQcaLzm3X
- 9bz6GFcf9PcB9P3bpoIFuAAAA
-X-Change-ID: 20261113-vfio-spapr-a5ea0529b39d
-To: alex@shazbot.org, tpearson@raptorengineering.com
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794531212; l=3170;
- i=shyckless@gmail.com; s=default; h=from:subject:message-id;
- bh=9BK/s46bs5g6IksgcgM4VCdYbHZgPl56YVsnMO2gB94=;
- b=uG9dqKsbXc/iJ+FJP43GK6Aj4pUwI+80tlxxpH7Pxo8VCcrTLl86bFrFV25OH7nrSaebJ3eyM
- rgtqDGgz8XnDkGxYvgadf+jfa6RcqyEpU2jdjSUgecW8FHRUUyKbL4q
-X-Developer-Key: i=shyckless@gmail.com; a=ed25519;
- pk=pMtccVGiWES3bV+7YBFuBclkvq2n2HBHQ5azaBrK2lY=
-X-Endpoint-Received: by B4 Relay for shyckless@gmail.com/default with
- auth_id=1498
-X-Original-From: Suyuan Wang <shyckless@gmail.com>
-Reply-To: shyckless@gmail.com
+Message-ID: <20261112-vfct-regression-v7-3-69b1e0cf45c2@amd.com>
+References: <20261112-vfct-regression-v7-0-69b1e0cf45c2@amd.com>
+In-Reply-To: <20261112-vfct-regression-v7-0-69b1e0cf45c2@amd.com>
+To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
+	<alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
+	<christian.koenig@amd.com>
+CC: Oz Tiram <oz@shift-computing.de>, <linux-pci@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>, Mario Limonciello
+	<mario.limonciello@amd.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002323:EE_|MN0PR12MB5836:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0190b5b0-ab5b-4b64-e641-08df41204fa4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|10067099003|11063799006|56012099006|261022115727099003|261022075727099003|261026121527099003|261026140227099003|261022105027099003|261021121427099003|261021123027099003|261028144727099003|261102123227099003|261009223027099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	kJth+L9EaAG+vtWR/Q3HSISTAXdCGU7ry3+IPMrhWmtoiKOJquykeT/2d3ca6hOizX+Gk3tbQJkfylPDShLp1Ek5qk9D/3saQVhHeF2PZOPHkfydSdxmAYSkCy4zo1msd/J1vnQcRi178qMoxc9tHqXdpqbEkhonejFtx1fdERrpB1WaJkH9663dmF9Nv9+EDpBEami+3IZhxox2j4CoRJ9h3990SCM5ugQ8SF13bN3JtsBIJJW0Yq50oBgKQb5cFdUoRC53oXIe5otTGw7mxXkQU7kPPiAZDpZFSqvRX0Lfi7sa1WOVG89nIN51NMM0m3jvH2d0+GVPWH2m2+K7yG+qVF0a/LbxdqSpTkmlPrfbF0bhYhZAnLONZVDQKhdE4DTWu0GQvRF2Ny5p9EfDgF3JM0aR0yShFHuRuMFO3NmKHgrWi6A4g/dURYoWoS9ICJMIsdV/ogoX0TNBdQ58okUx7KicV48HSwlZ6lDPO38PmAwPdmEYKmmVIH4prWVxtDaZEIi/cACGqhBtwkbgPRC9YPh2vg2VHkn+TEZr2UT9ysHgMweei85uQ8njP0+26J5IqYRw/X5foQfQLjuh0VHRcv47Y7b1Ady8tcKAaO+Uq/m3J2H4a7wxWLZFKzX8lYEk6CrGLIQiTs3wnK28XzuZSrLKHZjVi/+mctYLQx1W+0rkLeUwQIDQc1egryJhX7EwrSHbDl1t/73YYY7T/Q==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(10067099003)(11063799006)(56012099006)(261022115727099003)(261022075727099003)(261026121527099003)(261026140227099003)(261022105027099003)(261021121427099003)(261021123027099003)(261028144727099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	+wZglADTIDM6r3S6q6qjaoQB1iaK4A+YbZFYVrAPWE9waP8SyHDzqGI8vVW3R7AA9vYLNP/2Tb6g2FsuV3AgpS95KAMWZLPwdhPjIPuYcYhfKSj+TxXpJUOrWa4JGTntD7i1MJak5qg8CW+Hgq6mGdwBeGWsewm2TrLIs++E+qIZAXJuunsCVK4AowejH9MCov94ha/iIO19d8Sto2IO8t6SnKdllCWPg/DfmRkUg+SruaQCJ1uG1CnP6Eck+ROMp49ZdBmL9vd41/0pEOVFmsn3X9y+gDgk9KiZQAhtOHkzWP1AQSYAPPLuMTW2bDssFqirjDEtY/mZzggUXsezrxFug1hr6Q5MTTUhetHImhx/oy4YS1/2q8uzT1Y5ki2Qc+84oQcUrm3vi+RTT/+rrlwu8xdMuH84qZzKKWLn8H4RIvbmVyiiWYO937pgSa69
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 00:51:53.9841
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0190b5b0-ab5b-4b64-e641-08df41204fa4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00002323.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5836
 
-From: Suyuan Wang <stevewong@hust.edu.cn>
+VFCT records the PCI bus number from BIOS POST. The current bus number
+can change after PCI core renumbers the bus, while accepting a mismatch
+based only on device identity can select the wrong VFCT image when
+matching devices are present. Compare against the bus number captured
+from the firmware bus assignment before bridge renumbering.
 
-VFIO_IOMMU_MAP_DMA checks the request with iommu_tce_put_param_check(),
-which only checks one page against the DMA window:
-
-    #define iommu_tce_put_param_check(tbl, ioba, gpa)          \
-            (iommu_tce_check_ioba((tbl)->it_page_shift,        \
-                            (tbl)->it_offset, (tbl)->it_size,  \
-                            (ioba), 1) ||                      \
-
-tce_iommu_ioctl() then maps the whole size:
-
-    ret = iommu_tce_put_param_check(tbl, param.iova, param.vaddr);
-    ...
-    ret = tce_iommu_build(container, tbl,
-                    param.iova >> tbl->it_page_shift,
-                    param.vaddr,
-                    param.size >> tbl->it_page_shift,
-                    direction);
-
-tce_iommu_build() and tce_iommu_build_v2() write one TCE per page,
-entry + i for i up to the page count, and nothing below them checks the
-index. On PowerNV, iommu_tce_xchg_no_kill() goes through pnv_tce_xchg()
-to pnv_tce(), which for a single level table ends with
-
-    return tmp + idx;
-
-where tmp is it_base. So a mapping that starts inside the window and
-runs past its end writes TCEs past the end of the table. Each of them
-holds the host physical address of one of the caller's pages plus
-permission bits. v2 also stores the caller's userspace addresses past
-the end of it_userspace, through the same pnv_tce() lookup.
-
-To get there the caller needs an enabled SPAPR TCE container with a
-group attached and valid memory behind the whole range (preregistered
-for v2), which is what QEMU sets up for device passthrough.
-
-VFIO_IOMMU_UNMAP_DMA already checks the whole range. Do the same for
-MAP_DMA. This relies on commit 0b271f7d7f5e ("powerpc/iommu: Fix the
-overflow validation in iommu_tce_check_ioba"), before which
-iommu_tce_check_ioba() ignored npages, so stable trees need that commit
-too.
-
-Found with a static analysis tool and checked by hand.
-
-Fixes: 5ffd229c0273 ("powerpc/vfio: Implement IOMMU driver for VFIO")
-Cc: stable@vger.kernel.org
-Co-developed-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
-Signed-off-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
-Signed-off-by: Suyuan Wang <stevewong@hust.edu.cn>
+Fixes: 4059e2f02c8a ("drm/radeon: Fix VFCT bus number matching with soft filter")
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
-Compile tested only, I don't have a PowerNV machine to try passthrough.
----
- drivers/vfio/vfio_iommu_spapr_tce.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/radeon/radeon_bios.c | 25 +++++++++++--------------
+ 1 file changed, 11 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/vfio/vfio_iommu_spapr_tce.c b/drivers/vfio/vfio_iommu_spapr_tce.c
-index 1c0eec228cc6..bf0df5a74963 100644
---- a/drivers/vfio/vfio_iommu_spapr_tce.c
-+++ b/drivers/vfio/vfio_iommu_spapr_tce.c
-@@ -952,6 +952,13 @@ static long tce_iommu_ioctl(void *iommu_data,
- 		if (ret)
- 			return ret;
- 
-+		/* The check above only covers the first page */
-+		ret = iommu_tce_check_ioba(tbl->it_page_shift, tbl->it_offset,
-+					   tbl->it_size, param.iova,
-+					   param.size >> tbl->it_page_shift);
-+		if (ret)
-+			return ret;
+diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
+index 1da6bf1c17ff3..707566e376d05 100644
+--- a/drivers/gpu/drm/radeon/radeon_bios.c
++++ b/drivers/gpu/drm/radeon/radeon_bios.c
+@@ -609,16 +609,17 @@ static bool radeon_read_disabled_bios(struct radeon_device *rdev)
+  * VFCT entries contain the PCI bus number as recorded during BIOS POST.
+  * On systems where the kernel renumbers PCI buses (e.g. pci=realloc or
+  * resource conflicts), the runtime bus number may differ from the POST
+- * value.  Match by device identity (vendor + device + function) and use
+- * the bus number as a preference: exact bus match is preferred, but when
+- * the bus numbers disagree we accept the entry if the device identity
+- * matches.
++ * value.  Match using the bus number captured when the device was
++ * discovered, before any bus renumbering.
+  *
+  * Returns: 0 on match, -ENODEV on no match
+  */
+ static int radeon_acpi_vfct_match(struct radeon_device *rdev,
+-				  VFCT_IMAGE_HEADER *vhdr)
++				   VFCT_IMAGE_HEADER *vhdr)
+ {
++	struct pci_dev *bridge = rdev->pdev->bus->self;
++	unsigned char initial_bus;
 +
- 		if (container->v2)
- 			ret = tce_iommu_build_v2(container, tbl,
- 					param.iova >> tbl->it_page_shift,
+ 	/* Vendor and device IDs must always match */
+ 	if (vhdr->VendorID != rdev->pdev->vendor ||
+ 	    vhdr->DeviceID != rdev->pdev->device)
+@@ -628,16 +629,12 @@ static int radeon_acpi_vfct_match(struct radeon_device *rdev,
+ 	    vhdr->PCIFunction != PCI_FUNC(rdev->pdev->devfn))
+ 		return -ENODEV;
+ 
+-	/* Exact bus number match - preferred */
+-	if (vhdr->PCIBus == rdev->pdev->bus->number)
+-		return 0;
++	if (bridge && bridge->fw_sec_bus_valid)
++		initial_bus = bridge->fw_sec_busnr;
++	else
++		initial_bus = rdev->pdev->bus->number;
+ 
+-	/* Bus mismatch but device identity matches (PCI renumbering case) */
+-	dev_notice(&rdev->pdev->dev,
+-		   "VFCT bus number mismatch: table %u != runtime %u, matching by device identity (vendor 0x%04x device 0x%04x)\n",
+-		   vhdr->PCIBus, rdev->pdev->bus->number,
+-		   rdev->pdev->vendor, rdev->pdev->device);
+-	return 0;
++	return vhdr->PCIBus == initial_bus ? 0 : -ENODEV;
+ }
+ 
+ static bool radeon_acpi_vfct_bios(struct radeon_device *rdev)
 
----
-base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
-change-id: 20261113-vfio-spapr-a5ea0529b39d
-
-Best regards,
---  
-Suyuan Wang <shyckless@gmail.com>
-
+-- 
+2.43.0
 
