@@ -1,99 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794453383;
-	b=qxmDLoE2CafaQdl70uHQ62l1616QGfv6WhIzLbdQ5SqLNXdoes94zSfXYw6OnTWnN18i
-	 6nOIkCmcL8MjAE9T4EZZe0UTjZ0sDfqJ+QA+sEelLHlK2EGTppTswci2C3tphn/zrBz8N
-	 QgEE1g8cbNijv+SqmsrJdJbzZ4GGQFX1kPk4phsP2lEa/lmxCPMixhIakUEKPl/AQ9Vxn
-	 gScWWGuBt0Gtp3DWnZOpsx/0+654n36+TgtPCsQcpqmhRPR5JJ6KTvMvEUIS8xmrpJlEe
-	 lzpkWWpCu4a4979h7QTpd8tRdq37Znhq+iUore/mygtOZIK1fh6Uk8+6QU8dwnpyqTg==
+	t=1794453399;
+	b=2jXlo77zffOWsqCxkCy1cV7RTaM7S7KbdnWo0ogSYlOq3hhMqa5Guc+VQhmTbYaFKrw4
+	 qYp3IacYal0iubXX2Lezoj/6GCWxslDILxVgS18LFF/y5ZTdfq9YKkSSq6vuC7WvIYpt1
+	 veDXnVOd4k2L1qgs20rqOFL9pfZU3SVSuoeFTtYXoeARPyVm0QrAhL1ecMA7l1Uc+Q0Hs
+	 pL586ejwtePd3D2IkuV5hcHeBbaNM9pAEYjUvUdyIf4/ZbWRVXw+nd7RGlzR+wH9G+axT
+	 pmTtkJ4WOdRdTECcOFxLavvYrKXQw1l/jRIcVDONZTNby9MY1gJAJabNZATPHGAdarA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794453383;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794453399;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=B1+ma03bcpp5acNonkpy2s1c2LTj/v5z83tVJvaJ6z4=;
-	b=X6C4lVmXrFHjiqQEMcS82uwzIXOUKaCvxHyrSBfpvBKECeWrZy61uj0cdmTcqmq7PI/S
-	 Ph/Y6pD8zhM6uqiDQGkKHJKkG+t0L/hIisMFVVF+iHk3upbPdbczSuGgySZjwfYOXwoHZ
-	 jbKlAUAuuwqsHgF8rvwo8tMDpYjydP5b+Rey8CbXbHuA/GzjOCZqYDS91FipEGCSzB5dy
-	 XJhgT8n9B/bAo1+tW8TzdPIfYpyIE1Hdodn8NVk76XDv+n8IYO/eXZaIk1BYeimoRSIYg
-	 zVTtWsHhSRZPLRx4LSUmG0kTqFIzzJGNI4ZAE0VumZfhS6IQWQhz1ZKH/fWD4hJdkOw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=ddRQginrThQgj4nnc9G2rYqF4a54eNqys3J2p7naBLw=;
+	b=SuPoLQBCtaJKYmlZoo1/EWVm48iktASVmMv+s3A4oPH/ckBg8BdO8QMlrOZgJ34nYPOf
+	 il3pnCn59B5dxSswSGHQqW+/5TfUboZJgY7Z1IhlnHbhVtumydGWjvArfy0l5G+9RHSG9
+	 GB5CnyYIJzKOFrLN2mhihkkseHihhtnCkG/cfFpzMKRBy3OX0ZX7BZqm7z/jpgfS/8fhV
+	 rvWnodAZcntDx8gxsYNf4Epc3PyJRRg8Wgc5aTg6fz4f9OjPMDoD3XfqtJHvijDFkpruC
+	 R0PRkMKjsKXEa+l0WBPEcY4+rUBrFZwo4th1jafHt+IkINmSNApHRjQB1H/pWDQQTpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pzQ8Uuex;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--mrungta.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=HRp8aGHG;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E80606A330
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:16:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54E80606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA543606A882
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 03:16:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA543606A882
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--mrungta.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pzQ8Uuex
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e10a70540so2288028f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:16:23 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=HRp8aGHG
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso7167243eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 19:16:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794453382; x=1795058182; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=B1+ma03bcpp5acNonkpy2s1c2LTj/v5z83tVJvaJ6z4=;
-        b=pzQ8Uuexjt1M5LTPHmPjA/0AkTNNox0xoewfbs0mmNXc2ebwhaseX7U2bMdJ/b/nwr
-         PZaUwldH/h8WVsErNvfL1vx4tSc69uuqLHbiJRM6ZljGwd4Er1H9s25geQRt/b+P9lCq
-         AecblAHgho2WS8Vk6Hu/PI5d7yp7SnNwpaK15iCSveNyPC3dR4eSDSnSsUvSjoklOkLp
-         VyALg+f4s9J8ViIF/3TmxYnR8H0xT9la+53qwdS1xsdG1uCnOkuXR0//RyvrV4zOwsFO
-         VB1Od+Ej8HO54DGOv3T1LkhZjRRVvz0NZxav85z59DLvd2vZhnFE91VtaBaeyjJI2ajT
-         Gh5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794453382; x=1795058182;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1794453397; x=1795058197; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=B1+ma03bcpp5acNonkpy2s1c2LTj/v5z83tVJvaJ6z4=;
-        b=deExDZ2tCX+ptjS54dVGGRBSXCX/YLfE+rwdq7v+dMf2v27CjbrHV3RXSFFg8wEjYa
-         y5p1ew3ECU7HIi4Sd5mBSkmn17wf9QbJ3/1cWvpaIPHY22a2xO44s8gMT2KhctNqKGqJ
-         AWR9zXHEKrwwNfLVgZYS8zhm2M2d95xZhAqzKImhcH7c5TGfnP4v2qfDNpuZ4AU2AhWb
-         AXyIdu6cC5A7aKDtMqIVj9y1+FpWR3DtwHUghpj6CjIZMmbDtLlLhr99ilx6qc4gTAC5
-         SP9ODCN1oeIUdve5ErZxS2/X2IWX9oT8b6YxvTltVGyNuwUk0fZweftATjZtsDmWOz9P
-         2dfw==
-X-Forwarded-Encrypted: i=1; AL+hErEzxPvpUkbs9HhlGqlUrhcXoQvIE6QCwz5RAxS32Cb/CbpRrf/1pCZdz1tTjt7VovyIbFeZwU7rirtWrxQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/IO1M560nR1maq0du+U2nfoZoskwHwFrU5EIumOuu8aifs9i68
-	f4OYn2on34NJzlC9FSobH8YWd3UcxVcOR9MNbwof/MFr93DnTx4EyQgC
-X-Gm-Gg: AYBFou33+qFMmdmrK4vFnk3WBiwxvTeGxwFsRE39AIgThohWhCiYQun7DP9OkqTosIK
-	1w/Bdf60XSt+EenVozvUvx2OM6JeGIA+EwZVZgvi7YJAzlUTHf6O28NN6ABw2SqbNwvhRh4b+qi
-	4DZZfuigJmhwQr7pIVUJfdYMBS+LG5Ba7XRItwZ0JUTNct2SKOwdBL1kiFwTHllfika6nc2Hvmu
-	sXdew9+D5aP2en2LBz4htqdzQFus0TIiVebZWB1R/vGcYiKiSTBnga7t9l/31PhgAMd0qZMfQXB
-	nHyk+ustjB1uqCheuI1TUL2DVqKxkWvLiEZLctkIRP/gMOwkt6QnF0irm/GanlIOGOd0HaQgDNF
-	voNV4KqQL7wIgd2ZF9rd3Vv8inkyHaePO50HyR/R3Tg3h4Z4vsnrOMgXFaTenU8a6C7eKvp88JH
-	OUdhE4/+Q2yoYP+TRSHdIlAip9530ezDqFgLvkJuDoHn5+zJH4AKTNDLZge4xYGEzda1yJefh6I
-	yToi7drhKUVrLieeum47QjXZZ69tpV7n+rpOVNjkJu6KTs1aoD/S+WmMUax57IAgAk40vj6eiLd
-	QFjbfNpJdsa6WytlF45qf+eblIzIkl4JaP8LYmZC9IdkPXwQywvcw4Gv/C95RmYHwj7h1OOm9Ci
-	k+pp8NUyacHW3EJXMoIi9DlNEc6+nA8y2CNsYmiRbaSpNjcNl9e4qggwqBPcwedn7nLdrYjhQ9J
-	MtXyjkWeT1mkabhYFAkEJZoNMUpKxBLA==
-X-Received: by 2002:a05:6000:401e:b0:495:5c83:51bc with SMTP id ffacd0b85a97d-499c3b9ff3emr7370230f8f.5.1794453381449;
-        Wed, 11 Nov 2026 19:16:21 -0800 (PST)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-a181-4b01-25fa-1a8a-4f45-ba49.310.pool.telefonica.de. [2a02:3100:a181:4b01:25fa:1a8a:4f45:ba49])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498363dffa1sm13523836f8f.39.2026.11.11.19.16.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 19:16:20 -0800 (PST)
-Date: Thu, 12 Nov 2026 04:16:19 +0100
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Tomasz Figa <tfiga@chromium.org>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Hans de Goede <hansg@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, Nicolas Dufresne <nicolas@ndufresne.ca>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] media: synchronize CPU access to imported DMA-BUFs
-Message-ID: <avUvHGb4talXW7qS@gmail.com>
-References: <20261107104703.44111-1-kmehltretter@gmail.com>
- <20261107105946.GA96745@killaraus.ideasonboard.com>
+        bh=ddRQginrThQgj4nnc9G2rYqF4a54eNqys3J2p7naBLw=;
+        b=HRp8aGHG3i/zUXZgYZcozPi+RvF/MCbHk1NIEWzCJE8cI8ho6CmqDbNmO06BDEueOk
+         0cRTadHFyZD7feerv+QI2T+TBlKBuqc6ub708Vc1734Rz6UCjhxKd4NNEUBCxDSwMU6B
+         ujMXoww8G412RRkr6CfxxU6iOcq1NbPVU+kyqG2f+klB2VZqcrOns7TsZ+ZjfzvTsRAi
+         xbxr1wtIE9lOoVeNzsFQA30H1KDE4a7V/Ab8pI0a/zckhdnuSu7pNUq8bDPuicSTjrl8
+         43TWEw3NBV74WvTk9/zpttl0mNdZFit6OpZe4n2PjvKvl8ahtY0ax5kNx1Nh8Z8VZoJS
+         9FVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794453397; x=1795058197;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ddRQginrThQgj4nnc9G2rYqF4a54eNqys3J2p7naBLw=;
+        b=JESv8qObqH8hoWDodYWmkFz7UEdrmitUyvxTzh+QQTEDqUfwMpQ6Rnj1P7+UeHeuEA
+         E6jd66RZSlSkjnV7habFDBBQSja3yZkL3HFblC+WvMRSBGGYNP3f01hLBTBBfM927tRh
+         S2h8EjWpgRZc+E0YBHnx97vVWItFDCD1u4tRzOxNVKxvFdy4/CQOGwdsnIt3rom8NWSO
+         yoOBt+1koY12ydfHvsYB5FlmVfCyS/ShH/qDjyK1Aam7HoUyk9eM0RHTSrDr8pWSvJW8
+         6Rv1AiVZCT2LJ3SkYSJkGavy4kbhiCBQTbjljqwA9sudVCNDzQtA8HcTBU/B6WvbetDs
+         6W4Q==
+X-Forwarded-Encrypted: i=1; AL+hErFnWdwNxjvNceiy5tZR5EW5k6EJtjrY8VmCr5LS/wmkvimeTu9k6UEADmVlihgOPAIR5KQ/sPp0XcTifak=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/MW1fNMfo6chhzus5RHUWm2JmyPrngI+qjkqJJd8opuFKcYfrK
+	ZqFw8OnFhwXEkUpXgSGTcekmNuDIQgDEjZJnJpoP7LMin8SlSsNhmqpnacKCGaPOH4Yj8XVA2+x
+	4Xi3UB9UIEA==
+X-Received: from dycqz3.prod.google.com ([2002:a05:7301:df43:b0:360:7b4:106a])
+ (user=mrungta job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:d18f:b0:366:703c:5ef8
+ with SMTP id 5a478bee46e88-376850cefb9mr4096627eec.7.1794453396787; Wed, 11
+ Nov 2026 19:16:36 -0800 (PST)
+Date: Wed, 11 Nov 2026 19:16:24 -0800
+In-Reply-To: <20261112031629.396819-1-mrungta@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,49 +78,93 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107105946.GA96745@killaraus.ideasonboard.com>
+Mime-Version: 1.0
+References: <20261112031629.396819-1-mrungta@google.com>
+X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
+Message-ID: <20261112031629.396819-3-mrungta@google.com>
+Subject: [PATCH v4 2/7] genirq: Allow global interrupts in request_nmi()
+From: Mayank Rungta <mrungta@google.com>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>
+Cc: Marc Zyngier <maz@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, "Kirill A . Shutemov" <kas@kernel.org>, 
+	Douglas Anderson <dianders@chromium.org>, Mayank Rungta <mrungta@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Nov 07, 2026 at 12:59:46PM +0100, Laurent Pinchart wrote:
-> Hi Karl,
-> 
-> We discussed in v1 how this is not the right approach. Why are you
-> posting a v2 without addressing that ? You need to go back to the design
-> table.
-> 
+request_nmi() currently requires IRQF_PERCPU and forces
+IRQF_NOBALANCING. For global system-wide interrupts (such as watchdog
+pretimeout SPIs), forcing IRQF_PERCPU sets IRQD_PER_CPU and prevents CPU
+hotplug teardown (migrate_one_irq()) from migrating the interrupt off an
+offline CPU.
 
-v1 ended with two conflicting positions on non-coherent DMA-BUFs:
+Now that in-flight NMI handlers are synchronized via
+__synchronize_nmi(), drop the mandatory IRQF_PERCPU check and stop
+forcing IRQF_NOBALANCING in request_nmi() (existing per-CPU callers
+already pass both flags explicitly). Also check irq_is_nmi(desc) in
+irq_seq_show() (matching kstat_irqs_desc() from commit c09cb1293523
+("genirq: Update irq stats from NMI handlers")) so /proc/interrupts
+emits per-CPU counts for non-IRQF_PERCPU NMIs.
 
-- Laurent [1] and Nicolas [2]: end_cpu_access(WRITE) only marks the CPU
-  cache dirty, and non-coherent DMA importers clean before starting DMA.
-  Persistent DRM/KMS imports then need a sync call on each submission.
-- Christian [3]: devices must access DMA-BUFs coherently with the CPU,
-  using begin/end_cpu_access() around CPU accesses. Importing a buffer
-  with dirty CPU caches onto a non-coherent device is intentionally
-  unsupported. Today cma_heap and system_heap sync all mapped
-  attachments inside begin/end_cpu_access().
+Signed-off-by: Mayank Rungta <mrungta@google.com>
+---
+ kernel/irq/manage.c | 9 +++------
+ kernel/irq/proc.c   | 6 ++++--
+ 2 files changed, 7 insertions(+), 8 deletions(-)
 
-On my Pi 500+ with a USB UVC camera (640x480 YUYV) and V3D on CMA
-DMA-BUFs:
+diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
+index 3fb77a2d954d..bd7cf91719d7 100644
+--- a/kernel/irq/manage.c
++++ b/kernel/irq/manage.c
+@@ -2352,8 +2352,8 @@ EXPORT_SYMBOL_GPL(request_any_context_irq);
+  * An interrupt line delivering NMIs cannot be shared and IRQ handling
+  * cannot be threaded.
+  *
+- * Interrupt lines requested for NMI delivering must produce per cpu
+- * interrupts and have auto enabling setting disabled.
++ * Interrupt lines requested for NMI delivering must have auto enabling
++ * setting disabled.
+  *
+  * @dev_id must be globally unique. Normally the address of the device data
+  * structure is used as the cookie. Since the handler receives this value
+@@ -2376,9 +2376,6 @@ int request_nmi(unsigned int irq, irq_handler_t handler,
+ 	if (irqflags & (IRQF_SHARED | IRQF_COND_SUSPEND | IRQF_IRQPOLL))
+ 		return -EINVAL;
+ 
+-	if (!(irqflags & IRQF_PERCPU))
+-		return -EINVAL;
+-
+ 	if (!handler)
+ 		return -EINVAL;
+ 
+@@ -2396,7 +2393,7 @@ int request_nmi(unsigned int irq, irq_handler_t handler,
+ 		return -ENOMEM;
+ 
+ 	action->handler = handler;
+-	action->flags = irqflags | IRQF_NO_THREAD | IRQF_NOBALANCING;
++	action->flags = irqflags | IRQF_NO_THREAD;
+ 	action->name = name;
+ 	action->dev_id = dev_id;
+ 
+diff --git a/kernel/irq/proc.c b/kernel/irq/proc.c
+index 0c0df16de581..d92f456191e1 100644
+--- a/kernel/irq/proc.c
++++ b/kernel/irq/proc.c
+@@ -559,10 +559,12 @@ static int irq_seq_show(struct seq_file *p, void *v)
+ 	seq_putc(p, ':');
+ 
+ 	/*
+-	 * Always output per CPU interrupts. Output device interrupts only when
+-	 * desc::tot_count is not zero.
++	 * Always output per CPU and NMI interrupts, as NMI handlers only
++	 * update per-CPU kstat counters and leave desc::tot_count zero.
++	 * Output other device interrupts only when desc::tot_count is not zero.
+ 	 */
+ 	if (irq_settings_is_per_cpu(desc) || irq_settings_is_per_cpu_devid(desc) ||
++	    irq_is_nmi(desc) ||
+ 	    data_race(desc->tot_count))
+ 		irq_proc_emit_counts(p, &desc->kstat_irqs->cnt);
+ 	else
+-- 
+2.56.0.611.g1030f0b940-goog
 
-- Without vb2 CPU sync, V3D reads stale data on 8/8 zero-copy frames.
-- With vb2 begin/end_cpu_access() on cma_heap, zero-copy V3D is clean
-  (0/8 stale). CPU capture takes 91 us/frame without a V3D import, and
-  144 us/frame when an idle V3D PRIME import is attached.
-- With a test heap that tracks CPU cache state and syncs imported BOs
-  at V3D job submission, zero-copy V3D stays clean (0/8 stale) and the
-  idle-V3D CPU read drops back to 89 us/frame.
-
-Question to all: should I look at opt-in cache-state tracking in
-dma-buf (with a sync call before DMA submission), or keep
-begin/end_cpu_access() as is and handle CPU consumers via V4L2 cache
-hints?
-
-[1] https://lore.kernel.org/r/20261021175900.GG15441@killaraus.ideasonboard.com/
-[2] https://lore.kernel.org/r/7e4c7707880e9092180d28484ecf674be29b40a0.camel@ndufresne.ca/
-[3] https://lore.kernel.org/r/1e798600-5a76-412a-959c-94313629baf4@amd.com/
-
-Thanks,
-Karl
