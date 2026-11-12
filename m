@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794515533;
-	b=ujzRLxYR6TfCpNmMIyLgx7m+jKUXjqooL1IyXNpwa7MFpzbvyBnv+HDEPdqlONSBaaOH
-	 +JjI71z9iKAlzQkQ9potQLcae5hfx9HIlidVs08J2r8G6JmoivhZmIFxGofaK89EzCwXd
-	 lan46RVroN62NV1tOCQBvevHmMALL4BNKYP/O93dT2E24ayMvw4ShbLhpgKzg5Uh8oiiX
-	 HyQKLiKB4DVcJ2VNMK6maOghqLeCIO32HmBI6PYDYwqvYLfeL9NDpfMvfahbBGsr05J8Q
-	 vvn80RxKcNFCq4HnoWbIi5FSkoQ6YAzZUXxosAf6a+3nQKgPtGPcUgAxyoQCyMmjuJg==
+	t=1794515569;
+	b=SuhUXT8Yz9Qi/I9xJLcR5PjU1wQhtzXoObtZa5o+yzhF4Zz0rATHen4PPYOWvABYd1fZ
+	 qecZf2qlt8gLghtHcw7pbWyej+vJcdwzDYZfso/JWdLHDUsroou6Qt37lE0OZ8lf+en/h
+	 pqb3XMJRPiswcGUyVd/svNQWxS4/lM8tpt+6RR+uXTtSsvoSauSl10d8yVajI/RP84+Ul
+	 qOW0xcN90b/LPQG4coYSUz7YsIoR8qH2zmBKAbsSMv6jz0teFVvxsxOpP3TAfDsl1VvMP
+	 DWq43FEotW2hXZzg4GrZD0TD5VVYbUnwtl+y5DLc0TnDErY9CFtx3lEbYYi/LIU/phw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794515533;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=DoT1gWlNcywXL51XhC1dosze2pdAAQJ9HM9HWYdCkOA=;
-	b=i2Sv71qcSXqeQI8ZKBe/6+6DeMupZGcp4AJmSQWeSy9apjChxHsyuMdgnOHy655Es01U
-	 4OQx6eO5ddE5kclBwdUvWAu5flWhGMOoe3Yb+z5neWylBN+0kqfAIADHo8GVGntScTi+m
-	 jsCso5u1mOcVhmJqxv1wKOYbTprNEx5/zy/Y+4phMkMgseufCsaNQcgWMk/4kwmvxb/95
-	 nfj6/1z5sTO78NLgvttVI4rOjqyOyFe8+Kigy1vVnw2b1ZECQITZ8V6In4uc1G9tjvyMd
-	 Z2T4vAXiEv1Q1+Huu3uQFnoB7qT0PSx+vMcqGKIaC8IoOBweMlxOU57TAi++ce4uJLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794515569;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=AsDn4YF/+HTUtS5asRLtQH9IQtupKKhhd90EY+I1wbw=;
+	b=CEXTBAEpBjMJR8hhgzM1GRUpUhe94PQos88w4Cv879bF1v3paO339ZbgBUVJdPxDX0xu
+	 UuWfCw59TPD+YaZvGLROEdtbKIsHpUkf4p2mcEbfrgIR7/nUT5yeEVefkTOHx8Is3/uap
+	 FHxhOWSAeuE5I4lT5cDWW4Wgp9MxEiyHQBtvaVFW8Q2rCaLBcXICyMbM8YzL55HkWDD9T
+	 lOe0eTD+/SkVlX52EPhMeJ0a65TL6MXOueKnkgc/Uf2xVf6pLQvH2uA+6qWSUD1W5WBRS
+	 QWl1jZ+2/qYmUNYe+6XDgHe161qRU7US6YeGtk3xLmal36VPuVJvgxY8N0pLOifUeOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eJAu0nJ9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eYMDP93k;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2A3606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:32:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B77606A31C;
+	Thu, 12 Nov 2026 20:32:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eJAu0nJ9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75FBE1F000C9
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:32:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eYMDP93k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED7611F000C4;
+	Thu, 12 Nov 2026 20:32:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794515533;
-	bh=DoT1gWlNcywXL51XhC1dosze2pdAAQJ9HM9HWYdCkOA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=eJAu0nJ9x7Ljub3U0UxNVpfisYlKjovUyXgwUNhOORuyWvt4YrfJisx84Cis3VKsU
-	 3kLt7xy1tPVpDsbMrGl/wu2F9rslDQKiXFhSSokOPkq7sbAyOaj5pBD7v71s+W//tk
-	 olkEroLcktV8MPzd4o1Tx1eVCfDOWPWz9oOQGiCgoTcp+PQrcy6E+66CwD0NC0W8We
-	 DR10yq+R61qyn/8TfUUTYf3TPAxRhs3xaKbU0zK3ZW3LyiC1vNNZw5bD1oDPYCRspB
-	 VO+dpI/dGdcYnCjoFjb15Otb2NyZU7YTOWIrUKRKwKUBYyc0/ALJqdaos2OKkaI4BJ
-	 nuxTqow48O6Hw==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5c0a520df2eso299390e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:32:13 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEIbvRlEXsJy6FO4kaCTwQQajKOlr4ORhjrmNr4G8i6HziactdSVUmy1QqDii5kVbb8n60u2go9Ch9HqBM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+zCdbBael64i2dQ0rYcQcqmd7w0ywlFAu5KjvlrSv2Up9+m67X
-	54nC7Xam4DdiymDd09dQH37Bci2VWOapa+Y78Sg8n7kZFjNu5Vtots6h8sjIIbJ/A7eiCBT13RB
-	F9cBrNkPs8DQrIUqmcsByE56SP5gnvW8=
-X-Received: by 2002:a05:6512:1192:b0:5bf:dfd0:27 with SMTP id
- 2adb3069b0e04-5c17079a53cmr156941e87.20.1794515532233; Thu, 12 Nov 2026
- 12:32:12 -0800 (PST)
+	s=k20260515; t=1794515569;
+	bh=AsDn4YF/+HTUtS5asRLtQH9IQtupKKhhd90EY+I1wbw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eYMDP93koWyy/bnx/t+S0mi7oSlBuShcNN76TL6LVHpwbR1k51DE28dg4inwVIl0q
+	 hm26eb7WPFydUtzDoM/EKEUQeAWsxI+aKU0qF44g5BqGM0U+UijCcvq8VTOlUAzguX
+	 YFjCWRXQcD0iwfT10wPUWiJOL/Z9xVo89QfrPErjZ+3WdeapbfbCsLI//otlpJVPQg
+	 SHHlh6pqahodo+lp7X9+exGhWWyk6TSsEadsrHDp5bUFJdidTjk35zR2d6RNyu9Y/S
+	 tnHGUUOt1bm6y8aqhSqkofB+EXQABzWD2SGf0roo15ICi3z1LtaHc87bvqAxUAReF9
+	 PmKvoBRjg8MTg==
+Date: Thu, 12 Nov 2026 12:32:48 -0800
+From: Kees Cook <kees@kernel.org>
+To: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+Cc: abbotti@mev.co.uk, hsweeten@visionengravers.com,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+	morbo@google.com, justinstitt@google.com,
+	codemender-patching+linux@google.com
+Subject: Re: [PATCH] comedi: comedi_bond: Refactor strlcat() to seq_buf in
+ do_dev_config()
+Message-ID: <202611121231.A1A73DF@keescook>
+References: <20260927060000.518354-1-nikitash.mariiaw@gmail.com>
+ <202611121039.836B308B1@keescook>
+ <CAPDEY+UbZ_VdJQR3n_nf2M4e5dVEQA5wVDTPbPE-T3ckP6H1OA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,82 +61,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112-rtl8365mb-dcb-ingress-v2-0-f8e6fbdf8c99@pengutronix.de> <20261112-rtl8365mb-dcb-ingress-v2-7-f8e6fbdf8c99@pengutronix.de>
-In-Reply-To: <20261112-rtl8365mb-dcb-ingress-v2-7-f8e6fbdf8c99@pengutronix.de>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 12 Nov 2026 21:31:58 +0100
-X-Gmail-Original-Message-ID: <CAD++jL=k8qb+Z3gpvbAZdf7sSqeV3QKZ+vgY-Qxj__vxrX3cfw@mail.gmail.com>
-X-Gm-Features: AclHuK9Hf8g52Xh-gfYzwcqfX3g9r9Q2Fj2fZZ5tW4iPcLqaLOZ91aQWc2W5bkU
-Message-ID: <CAD++jL=k8qb+Z3gpvbAZdf7sSqeV3QKZ+vgY-Qxj__vxrX3cfw@mail.gmail.com>
-Subject: Re: [PATCH net-next v2 07/10] net: dsa: realtek: rtl8365mb: add QoS
- baseline and DCB default prio
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Luiz Angelo Daros de Luca <luizluca@gmail.com>, =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
-	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, kernel@pengutronix.de
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAPDEY+UbZ_VdJQR3n_nf2M4e5dVEQA5wVDTPbPE-T3ckP6H1OA@mail.gmail.com>
 
-On Thu, Nov 12, 2026 at 9:37=E2=80=AFAM Oleksij Rempel <o.rempel@pengutroni=
-x.de> wrote:
+On Thu, Nov 12, 2026 at 12:16:11PM -0800, Mariia Nikitash wrote:
+> Thanks for the review! This patch has already been merged, but I'd be
+> happy to send a follow up patch with seq_buf_terminate() if you'd
+> like.
 
-> Add a shared rtl83xx-qos.c layer and the rtl8365mb backend behind it.
-> The backend programs the QoS classification tables and one
-> priority-to-queue table at setup instead of leaving them at their reset
-> state, and offloads the DCB default priority.
->
-> The switch classifies traffic by the port default, by PCP and by DSCP.
-> Each source numbers its values on its own scale. Use the IEEE 802.1Q
-> traffic types as the meaning of the switch's 3-bit internal priority,
-> and map every source onto them. Best Effort then outranks Background,
-> instead of following the raw PCP number.
->
-> Keep the driver-independent dcbnl handling and the ieee8021q priority
-> conversions in rtl83xx-qos.c. That layer programs the chip only through t=
-he
-> realtek_ops qos_* callbacks, so other realtek DSA backends can share one
-> dcbnl implementation and only program their own chip registers.
->
-> The baseline trusts only the port default. PCP and DSCP stay untrusted;
-> classification by PCP or DSCP starts only once the port trusts it
-> through dcb apptrust, offloaded by "net: dsa: realtek: rtl8365mb:
-> offload DCB apptrust".
->
-> Every port in use defaults to Best Effort, so all classified traffic
-> takes one egress queue.
->
-> Select NET_IEEE8021Q_HELPERS from NET_DSA_REALTEK, but not DCB. The new
-> code calls no DCB-core function, and DSA installs the dcbnl ops only
-> when CONFIG_DCB is set. The QoS baseline is programmed either way.
->
-> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Nah, it's fine. :) I don't see value in the churn since the binary
+output will be identical.
 
-
-It's a nice patch!
-
-> Q: Luiz, Linus: should the driver select DCB, as the Microchip KSZ
-> driver does, or have it enabled by default?
-> A: No. The QoS baseline is built and programmed without DCB on purpose.
-> The code calls no DCB-core function, and only the dcbnl hookup in DSA
-> depends on CONFIG_DCB. Whether DCB is enabled stays a choice of the
-> kernel configuration.
-
-OK!
-
-> Q: Linus: can the port queue-number field and the priority-to-queue
-> table use one index, as in the RTL8370 code?
-> A: No. Measured on RTL8365MB-VC for every field value, the port field
-> picks one of eight priority-to-queue tables: value v picks table v - 1,
-> and 0 picks table 7. One shared index would make the port read another
-> table than the one programmed. A field value of 1 did not limit the port
-> to one queue, so the field is not a queue count. The driver programs
-> table 7 only and points every port in use at it.
-
-Thanks for looking into this, much appreciated!
-
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-
-Yours,
-Linus Walleij
+-- 
+Kees Cook
