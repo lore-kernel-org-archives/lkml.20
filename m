@@ -1,69 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492089;
-	b=vx9PEQ/2g5JeoZqIGC+OAN7me49BlCxrAIzUfly8U8G0ptAdQyn3TyRFtp9TJiI4cAHN
-	 znj/An2/+12k7jGj3NErnTQctF9B+LdFAiXnKh6V/Nd2dzm6/MRVSkG6JuP6NEVhUMQHk
-	 HcHlhYl96I7XDZDyiKd9luNCAYfHPeKbklHl7WSHhQMq8YkbndSiCVjbugOxPvtt+mk6x
-	 tTVwU5Q8WbANxoBtkt3Ka/QAvCWz/23+XSwvBHqDOQ0XbN4grzW1abYpjF7nk0UyrJHU9
-	 7+uq8NJZ+3vLJ0R9ynkFGGHHISnRHLwlEGJs1RnbkZq/JJTvCyXBN6gLpV3LLNim0Hg==
+	t=1794492094;
+	b=SdOgWn6tLHQSr3huDuRdCOJheXDOZgE682cbVtj4/vqmY1YmkMUlr7Wzt4wtL344/Hu9
+	 mIlSr8Z2y893HiMa+syClxNNMOtpEtomxC8P9diNKb92La07aNj8HHTyX3j7VUTK+r5Xp
+	 y3eykGkSOl+GeO3F+StT85aDy/ZqkQiM0vhz6Yn3/3aNQ4NZrv+Bqg3iYu9XxdrkuTmLX
+	 JXxquyA3CUTCjCyqmaeHQaq0U9K83t/I5OYbl0wCs0PAvJcvDXbHqbi6YGMJdqicNZmbl
+	 sm2KSwqBTWfgtNOGNjUHobORQfQl2twl+sEJb/4xdptuylWqOL/qiudzUxXOJ88ChKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492089;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=qSrrxlXSrvDW1CQp8qkLH5sycAw35jCLbIKk24p0C9E=;
-	b=e+GP5cXYWbRHV0jbi8MqhkVdbMxH4XHtRKH2jgZVeb0k4IyIiLOA6kSVIm9IQunQHMPV
-	 YghJbcfOjr5Mg+TCXL5eDogA7+LevCbij1i+LrBbTgu7RgC46CLe03ZOkXELQ30vpuP4F
-	 uCYVztk67GJmWWGVom6lLmo+DLJ0hSEgpp5oRjKEzjCmJ4c++M7Y5f9u6yU04DwRfE1hL
-	 wV0xiXnNQz2IMO8nGgFfvq5Ye51pyL2OgsdNPzVW2CyvtA10TvqcCbIjCpVGnYbUje/C4
-	 DcahLwz40d+T6PEkJVDOFHeu2Z4YS0XQ2TvZJg9OlQdTj3qmezlbeQuWgN2traZaoeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492094;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+d+2w/kP1HSpx1Wuo82bePoixwqF95UhUQrN/Uv14yk=;
+	b=1gAfwWL6NAa/eIZ+MpCQiXwcR0Jryqu/NRjiAPq1iEGnKG1Wl3PypkG2mjPsDUViScQl
+	 8Oojf1TL1x46lCGH/QzlXfzcDu9lLCswjCjzGzCDfhgPxRvOggDPhHkmyAS9EFTo5vo0L
+	 Df5TVSMFKRH41ZQgl8xytnswf+hBEy8972+R4CFxXbwHRXlfe1eQysWq++z+0tmjPxuCt
+	 D/1pNbLOMYjhehigioOZFxKjBd6Wt81C2qu1BPzYoood1RP82v8BAr9/Q2+r0owYVJ/9k
+	 uuM2RuNRbcNQI9t7iVprX6FAwR545Ro/KHWdZwI8CB/WUIW+H4D413ufJJUv25ft0YA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=Fkciihrv;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Fltq/LZE";
+	arc=none smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9344960A5BD7;
-	Thu, 12 Nov 2026 14:01:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9344960A5BD7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17B3860A6F63
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 14:01:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17B3860A6F63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=Fkciihrv
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jQMWC15kQz8XrrM;
-	Thu, 12 Nov 2026 22:01:27 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794492087;
-	bh=9Kon7OtLP1/pYdGeNko2YWUcoBpKki3aQ1pnmPC37DI=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=Fkciihrvo/GuHkhLd12h013O7MAibcfyai9XW55MnVCvDjNm7VFJoX9v3ECUiGdQZ
-	 RVt7uN6syUcvcv9llVXf5i539ml7O5x/+9NgHnKI8ETH43pgxldHVthYKp71KHPgC1
-	 5TTevOI0QYXIW90lH+JhZ9V4e5C171oje8AoinJ2C0ABjTs0wEW0pFjLR6qqWcjKv7
-	 Zw/dpXD4VV1fUeMqZ3vLkMtKx3u+Whfh/U6oUVpDmipRR+dIHRMbiezi1oWm6gIXZo
-	 8c5+V3y7J2NythSkztqosoVIekXxDiiHCKlgk3jNrzSJeBGH/NUHyxSfVlCMAJVB67
-	 wYX+wYWlUhqjg==
-Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl1.zte.com.cn with SMTP id 6ACE1GuG045392;
-	Thu, 12 Nov 2026 22:01:16 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp04[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Thu, 12 Nov 2026 22:01:20 +0800 (CST)
-X-Zmail-TransId: 2afb6af5c6b0b24-d52a2
-X-Mailer: Zmail v1.0
-Message-ID: <20261112220120113cXLhRk6iDVvhfgGPoZ5vJ@zte.com.cn>
-In-Reply-To: <20261112220113627e1oAXj5lbAzyI0Xe6Joud@zte.com.cn>
-References: 20261112220113627e1oAXj5lbAzyI0Xe6Joud@zte.com.cn
-Date: Thu, 12 Nov 2026 22:01:20 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fltq/LZE
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1b3ada81853so4000144c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:01:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794492093; x=1795096893; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+d+2w/kP1HSpx1Wuo82bePoixwqF95UhUQrN/Uv14yk=;
+        b=Fltq/LZEr/fWUfnOsLQk6D3tBL6ZwkW63axHxR4iInnMNMChKAn34xiYZVdxZKTlRh
+         VDpd/AZSpMzwb1jhHKccGpEfSHEYqrZZahTrdQ2xfqwsoS551lXHebGu20EnskGqvvFU
+         7lgRPrHpapf6MuewHtr1saEbGU48WaQ/xl8Zd6hI///4zoXaNi27V8Tkj1gCn0Nt2pyH
+         iVDiH19P9naDiw9ofnR2Biro8pMSkqT4Hum/CsALabzVDRvBOAqK9PcodQyx+iGl0v6w
+         lLbhTn4edlCLPyikLmFaBtVMsATzVfS9zBmBKH0IeYMhGg1qcDQt+m5RsffLX/Gc15FZ
+         GRhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794492093; x=1795096893;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+d+2w/kP1HSpx1Wuo82bePoixwqF95UhUQrN/Uv14yk=;
+        b=IUhcEHXG5X+F1IJs967df4E3LgoeIRi3TbzvIkJGbnXo4IZbx31EC75xxh5XXofIIG
+         YxAJS7GIbjsQoerkdFnAOXBDy53HA1ZdyZyurhx3LwORaxUeflMO484JbwUh2tFsgu8s
+         52YXoSLf2W5SWHUBRbpf/G/2tGF+xt8eGxBObq5HBDEmeyNcVWneVj6bVfEZ++UIsgOP
+         xMa0F9euZABEvvywid/ik9RUC/APtMLgC0nd37SPhv8AAY5wRI3E9IVoN0436cJFmp3I
+         X1gXnqNI4zC4w46j700XZXs89ttWEWBDHQrnhAimsvH4/2arfWZysz/4Z72p+hJqD8CW
+         /UgQ==
+X-Forwarded-Encrypted: i=1; AL+hErHhBMiZKh5Ykr31asgNKRP7N7KVY4CoaKo90sdy35BKWo3PvRZP8+kmI3dVEoreW8w6FJWkAr6u64itiss=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+rJWDV/NS0H/OR8YGt2ZVO2vlRQ2t12p8mbhJS4cux4HizdIa2
+	hwYirEdOcE6updS2pi8Le5HEFCvxoyklYAk2gVnHo7KtRxFQ4JUVIIWd
+X-Gm-Gg: AYBFou25rSMpDtAaR2G4fNuF7w/Zy/Acqv0lMyulONLkUq+PXlSBI5+FkL2kLiD3au/
+	NGnaBT5yG8SyMr65qsNe3Ug+p069uG1c17W8yzNnJazS+7/8FeQdxQu4Z+VzzVR+LM9+3F1iljC
+	HhgHtJYQXVE1vWr9sPCPViW3tEvbID7wpjGgqK+GLygG9m20RyJ5pUuIUNH59ut56xgtEe7P3gv
+	D+nm06adNtKTxMSX/pnmbCd9WfP6bjCVpDshtt4TN938Bm+2H1NlOMgj+Sb/xoiekRMUIps9t/f
+	N3yP7Elhy+fq3pKBO/xGTUGHrs34oV7m1iGgaUDv2Y/C7kepqMZaWn2ILeQC5dfqXW44Nd1VEYI
+	g4QN7GLtfOMixzJvAlIAGK6HAVgYEmDp9nvEKT9NVZ9I6ktLzkp2h6/aL/3/p956GZhIkZKLgnt
+	OZCn0AGTZG5qHVNJNdwHdMTYxcPUYgWoPHdS4uS9wDHY7CocIc4GTu67XX7V+HSVvbs3dAwkb/s
+	S35zj+lYgLyvjxlCg3Z627rSYkjjzclOPnh9mvgGz7VDd5h45ipHzSto7B1OG2SehgTxN+T4Q6Z
+	SYdhZvwf7Ckv622AF4rFShuJyubSWVKd9DbaDE4LPL40+Yvxh2GgbMLfkzXT9pTfmNGQp9zNoyT
+	zOLzC1Rz/xYjtznjBF22I7FN4VBDu1Q==
+X-Received: by 2002:a05:7022:c93:b0:176:a225:e364 with SMTP id a92af1059eb24-1b3c0342f80mr4576641c88.35.1794492092808;
+        Thu, 12 Nov 2026 06:01:32 -0800 (PST)
+Received: from AHUANG12-3ZHH9X.lenovo.com (static-ip-5-78-56-61.rev.dyxnet.com. [61.56.78.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfdfadsm31478659eec.19.2026.11.12.06.01.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 06:01:32 -0800 (PST)
+From: "Adrian Huang (Lenovo)" <adrianhuang0701@gmail.com>
+To: Suren Baghdasaryan <surenb@google.com>,
+	Lorenzo Stoakes <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	ahuang12@lenovo.com,
+	"Adrian Huang (Lenovo)" <adrianhuang0701@gmail.com>
+Subject: [PATCH mm-unstable 1/1] fs/proc/task_mmu: advance seq_file position on interrupted VMA lookup
+Date: Thu, 12 Nov 2026 22:01:01 +0800
+Message-Id: <20261112140101.647-1-adrianhuang0701@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,106 +103,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIHYzIDEvNF0gYXRhOiBsaWJhdGEtc2NzaTogcmVqZWN0IHJlc2VydmVkIGJpdHMgaW4gMzItYnl0ZSBwYXNzdGhydQ==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6ACE1GuG045392
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Thu, 12 Nov 2026 22:01:27 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF5C6B7.000/4jQMWC15kQz8XrrM
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+Commit 5631da56c9a8 ("fs/proc/task_mmu: read proc/pid/maps under
+per-vma lock") introduced the possibility of returning -EINTR
+from proc_get_vma() when the VMA lookup is interrupted.
 
-ATA PASS-THROUGH(32) has no MULTIPLE_COUNT field. Byte 1 is CONTROL,
-and bits 7:5 are reserved or obsolete. Interpreting these bits as a
-multiple count can issue spurious count mismatch warnings for multiple
-commands instead of rejecting the invalid CDB.
+When this happens in m_next(), proc_get_vma() returns an error
+pointer without updating the position index. Consequently,
+seq_read_iter() reports:
 
-Reject nonzero byte 1 bits 7:5 with field pointer 1. Skip the CDB count
-comparison for the 32-byte form while retaining the device multiple-mode
-check. Also point to byte 10 for invalid PROTOCOL. The 12- and 16-byte
-MULTIPLE_COUNT checks remain unchanged.
+  seq_file: buggy .next function m_next did not update position index
 
-Fixes: b1ffbf854e08 ("libata: Support for an ATA PASS-THROUGH(32) command.")
-Suggested-by: Niklas Cassel <cassel@kernel.org>
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+The above buggy message is reproduced by the following command:
+
+  # stress-ng --vma 0 -t 60
+
+Update the position index when VMA lookup fails, as required by
+the seq_file interface. Also save the original position in
+priv->last_pos so that subsequent iteration can restart from
+the correct address without skipping or repeating a VMA.
+
+Fixes: 5631da56c9a8 ("fs/proc/task_mmu: read proc/pid/maps under per-vma lock")
+Signed-off-by: Adrian Huang (Lenovo) <adrianhuang0701@gmail.com>
 ---
-Changes in v3 (Damien Le Moal):
-- Reject nonzero reserved/obsolete bits 7:5 of byte 1 with fp=1.
-- Retain the short-CDB count and device multiple-mode checks.
-- Update the subject, description and CONTROL-byte test expectations.
-v2: https://lore.kernel.org/all/20261111223129430zClEJF8TDgu_h8ZYM843Q@zte.com.cn/
+ fs/proc/task_mmu.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-Validation on x86-64 with GCC 13 and UBSAN: a userspace harness compiles
-ata_scsi_pass_thru() verbatim with SCSI/device stubs. All 256 CONTROL
-values are checked for both non-multiple and multiple commands. Nonzero
-bits 7:5 are rejected with field pointer 1; values with those bits clear
-are accepted without count warnings. The device multiple-mode check and
-12-/16-byte count checks still pass. Field pointers are observed helper
-arguments; sense construction and device access use stubs.
-
- drivers/ata/libata-scsi.c | 25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index a61fb03312793ca94d81d8061a16c66e786c4cf3..0bc147cf4c0fa50c7d5b84029b7fb1a548c6f1a3 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -3388,7 +3388,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index 22361607020d..164b4efc5e09 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -221,6 +221,16 @@ static struct vm_area_struct *proc_get_vma(struct seq_file *m, loff_t *ppos)
+ 		if (PTR_ERR(vma) == -EAGAIN && fallback_to_mmap_lock(priv, *ppos))
+ 			goto retry;
  
- 	tf->protocol = ata_scsi_map_proto(cdb[1 + cdb_offset]);
- 	if (tf->protocol == ATA_PROT_UNKNOWN) {
--		fp = 1;
-+		fp = 1 + cdb_offset;
- 		goto invalid_fld;
- 	}
- 
-@@ -3573,27 +3573,32 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
- 		goto invalid_fld;
- 	}
- 
--	/* sanity check for pio multi commands */
-+	/* Sanity check for pio multi commands (not supported with ATA 32). */
-+	if (cdb[0] == VARIABLE_LENGTH_CMD && (cdb[1] & 0xe0)) {
-+		fp = 1;
-+		goto invalid_fld;
-+	}
++		/*
++		 * seq_file checks that the position advanced before it looks at
++		 * the returned pointer, so an error return that leaves *ppos
++		 * alone is reported as a buggy ->next. Advance it, and keep
++		 * last_pos at the pending position so m_start() would resume
++		 * the lookup from there.
++		 */
++		priv->last_pos = *ppos;
++		(*ppos)++;
 +
- 	if ((cdb[1] & 0xe0) && !is_multi_taskfile(tf)) {
- 		fp = 1;
- 		goto invalid_fld;
+ 		return vma;
  	}
  
- 	if (is_multi_taskfile(tf)) {
--		unsigned int multi_count = 1 << (cdb[1] >> 5);
--
- 		if (!dev->multi_count) {
- 			ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND,
- 					   NO_ADDITIONAL_SENSE_INFORMATION);
- 			return 1;
- 		}
- 
--		/* compare the passed through multi_count
--		 * with the cached multi_count of libata
--		 */
--		if (multi_count != dev->multi_count)
--			ata_dev_warn(dev, "invalid multi_count %u ignored\n",
--				     multi_count);
-+		if (cdb[0] != VARIABLE_LENGTH_CMD) {
-+			unsigned int multi_count = 1 << (cdb[1] >> 5);
-+
-+			/* Compare with the cached multiple count of libata. */
-+			if (multi_count != dev->multi_count)
-+				ata_dev_warn(dev, "invalid multi_count %u ignored\n",
-+					     multi_count);
-+		}
- 	}
- 
- 	/*
+-- 
+2.43.0
+
