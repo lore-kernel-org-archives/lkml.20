@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794484842;
-	b=s9E5uiBJSfRZ9exHvUg63o7xsrGQxTM+vU+fshxZrZPl61BceXBthbl8ZCB33Ac+FhW3
-	 1uq/72wyd1WbvRR6C/FyAX6CGEYyRidIKi5tmtRmu3qHC94LrtKg+DhrS+zCRuQaS/RG/
-	 88jNF4cNAzIC0Ir1tvaZ7xnu/U06BG75O9CAeLAK3nsIqufK9loZzfMarxIpdW/n1NM+u
-	 i5zvEc6LDax/4E35/IIs/k21wrGVbC9MPI/zw7v5lMeHAQvgbU5gurjQepgCQ04VzVX+Q
-	 +hklBLxqPbJB7rW6Q4Fe9UFZPtsp/YHH55TZxxP7G5qZgbUDkmimkGyLevWoPrTmWvg==
+	t=1794484839;
+	b=X4s2qjYCQZfdIEuUWnQ5B/1Y9wpKrgReiCNAzN9512xFPFlQ7DqMUOsHdsjf3jOSQ5sv
+	 4N8Lh/fHP0UdE2AxJ4IBeiGJ+k22yY/8oXURELzmrn9DytYKp1Ngmfgh+Zq1HJxfPuxZ+
+	 KqQMm0Hmt4BMfxs9djd7xYR6YI6PB8i5a8BwjhnKX4IOOWH4nwZB1EPnFNqjqKappqPb2
+	 FTLj0npEqZsM+Esli0YztonLratFf3hfJ4JRziwnHFvx+MkMMQF85ky7f2Fx0rvr3W/Q8
+	 8E0rinK8MhrjQtjn5ulKKxeAQ4QfzfNamfb/WtpG8C7sKkr7jjvSNd4JWdq0g11uEUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794484842;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794484839;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=IOcav2pGNy3lQm/PSqemR+GeEy0HZzX9o8Nsfel6XUU=;
-	b=i7DEEPmqFwcv86UiGSfBJUBjnVpdK47EuyeFxoZ6IRpjRRKXtfkbPyrhGDEiwMSGbwYT
-	 G9HvTAptMc0uUyHgtqy9JhVWOFl/Pl/9PnOReiD69GST74OihdQ5fvOOVIqc6pNdkptFc
-	 0iSBmpCCQR7Mfah/ZP+aHvhwq3uFyYvtwXATVJ4ycPOeJB6OEUvXiX4mT6mjHKqqtRpxB
-	 4pCiYKQtD/M+eOHkcYxEA+RkhARAhNvka2A5YkEyL9jSYRaDQHbwGe39fbLgeHA5AnxrO
-	 o0jxvxP5QkqQeFD4FhVWpS8QhPqw8gt9JP5vVOUg4XzDMhtytVxLrjP0XREeLrHpGkA==
+	bh=5PnvePViqRVgTyh191bMD2IOvsKk1Zkj+A+MkvxzKeY=;
+	b=GOboKu16nBW+WvS3sqBuY0AqLMzJYf1a/9LOm3mF++QJaqjXr+707UWTV6F674DkR36I
+	 KakPdPHfXxsBEPsGhSTwaXWupV6HmQy9iG51Xm5dmrCuJaOoLvFZ8wMiYjnf014zL5Awa
+	 37lulQt/HegMUxtTlTFP3MUsaqaAPCURERvAdciUVcQ4biOI6w3u3omEvqUfQQ5R/OvOS
+	 Q5WwlbY4Y9rysYELS4xeTe5X4unQ5RNNpi9k1Jfups4saOff2KO6WOlWYZqWUrIdisU9V
+	 virKsOFf2sg1CTaelJuQjiyxHha/X1FJ04KWeZBbExltToi1a+ijdLsU/IAtCAfJo2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wh8Ez97S;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcDznNFe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D220606A334;
-	Thu, 12 Nov 2026 12:00:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F8F9606A31C;
+	Thu, 12 Nov 2026 12:00:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wh8Ez97S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 913CD1F00A0E;
-	Thu, 12 Nov 2026 12:00:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcDznNFe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94ADA1F00A05;
+	Thu, 12 Nov 2026 12:00:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794484842;
-	bh=IOcav2pGNy3lQm/PSqemR+GeEy0HZzX9o8Nsfel6XUU=;
+	s=k20260515; t=1794484839;
+	bh=5PnvePViqRVgTyh191bMD2IOvsKk1Zkj+A+MkvxzKeY=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Wh8Ez97SyplE1hdS6xGQqcW0vUz2ojKiNChkZlYVhSnZsX67HEx7QqHg/etqCu0fB
-	 mbWsSfOjWc8Dnaym7foFhvq5VRLKcDBixhCmnTFF+5JKq81dDFYJDnotBYMOFLdklx
-	 OVQRHp039bfGbCJTug31TErpyJzWo89FYyouubdTDMiVsw0euGnyH6abG/nBXzFvln
-	 TCxUheytvVHDo0VCqwgK0W9Eo3TggBMZccDdMqjgtSwQGXKmHluW0TFxYxtXYmhsST
-	 ZaExAugTlRaWMukf3pbBGbSVCjxgCl8+PE9A6zTKPQLLK/afzMZN1yn6x1lhoJP/Fy
-	 WbiK2pZJ5veBw==
-Subject: Re: [PATCH net-next v2 4/7] net: phy: adin1100: Add separate driver
- entries for ADIN1110/ADIN2111
+	b=ZcDznNFetFWJG1C8faMGgggQqfq7WNRRlWLrT6elduD5KlKbsEUl+di9xfASULHeN
+	 iL/j7Rcu3FqVDtvSyJxUx9dWNIJFriiQO1mX3ePai8pbmvBLTbBGQ2y+OVs+XlCiUb
+	 zZjpr3l3gD6c/tJGHQQzjTsFLkAL1tyf0DrsSDTZSEqF+kBWQGBRp1tvG+Tt49jXqq
+	 QkgFMWd+rnNqa8PSH+FSh9qpQPZr6qGSFYf3y6jc8qf2/504Q2kgnoxnIeIlOfLx4m
+	 mqD+OuUSs0OZwAZrIzEXBYdLqAAsf7q+Y2g+Rr4yUXK9x1oxQMgTuUvRhfqE2i79Ya
+	 K/QzMqZf/9S8g==
+Subject: Re: [PATCH net-next v2 2/7] net: ethernet: oa_tc6: Allow custom reset
+ settle time values
 From: netdev-bot+sashiko@kernel.org
 To: iustin.stolniceanu@analog.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
@@ -50,10 +50,10 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
  hkallweit1@gmail.com, linux@armlinux.org.uk, marcelo.schmitt@analog.com,
  alvin.sipraga@analog.com, ciprian.regus@analog.com, netdev@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 12 Nov 2026 12:00:41 +0000
-Message-ID: <179448484117.2199510.5313880396309449143@kernel.org>
-In-Reply-To: <20261109085952.105331-5-iustin.stolniceanu@analog.com>
-References: <20261109085952.105331-5-iustin.stolniceanu@analog.com>
+Date: Thu, 12 Nov 2026 12:00:38 +0000
+Message-ID: <179448483815.2199510.2819430860684021311@kernel.org>
+In-Reply-To: <20261109085952.105331-3-iustin.stolniceanu@analog.com>
+References: <20261109085952.105331-3-iustin.stolniceanu@analog.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -78,70 +78,102 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The commit message for "net: phy: adin1100: Add separate
-  driver entries for ADIN1110/ADIN2111" says the patch is "not a…
+- [Medium] oa_tc6_init() (drivers/net/ethernet/oa_tc6.c) runs the
+  hardware reset sequence without holding the SPI bus.
 
 --
 
-net: phy: adin1100: Add separate driver entries for ADIN1110/ADIN2111
+net: ethernet: oa_tc6: Allow custom reset settle time values
 
-This patch splits the single adin_driver[] entry into three entries, one
-each for ADIN1100, ADIN1110 and ADIN2111. The old entry used a 0xffffffcf
-mask to match all three parts. Each new entry uses PHY_ID_MATCH_MODEL(),
-as the mdio_device_id table already does, and keeps the same callbacks.
+This commit adds hwreset_settle_us and softreset_settle_us fields to
+struct oa_tc6_quirks. MAC-PHY drivers can use them to set the wait after
+deasserting the reset GPIO and the wait after the software reset. The
+hardware reset wait stays at 1 ms by default, and there is still no
+software reset wait unless a driver sets one.
 
-> diff --git a/drivers/net/phy/adin1100.c b/drivers/net/phy/adin1100.c
-> index 8f9753d4318c8..b946cb86b6c41 100644
-> --- a/drivers/net/phy/adin1100.c
-> +++ b/drivers/net/phy/adin1100.c
-> @@ -322,8 +322,7 @@ static int adin_probe(struct phy_device *phydev)
+> diff --git a/drivers/net/ethernet/oa_tc6.c b/drivers/net/ethernet/oa_tc6.c
+> index 364027c39fa4a..549997ba363ad 100644
+> --- a/drivers/net/ethernet/oa_tc6.c
+> +++ b/drivers/net/ethernet/oa_tc6.c
+
+[ ... ]
+
+> @@ -1515,12 +1524,12 @@ struct oa_tc6 *oa_tc6_init(struct spi_device *spi, struct net_device *netdev,
+>  					     "failed to get reset gpio\n"));
 >  
->  static struct phy_driver adin_driver[] = {
->  	{
-> -		.phy_id			= PHY_ID_ADIN1100,
-> -		.phy_id_mask		= 0xffffffcf,
-> +		PHY_ID_MATCH_MODEL(PHY_ID_ADIN1100),
+>  	if (tc6->reset_gpio) {
+> -		/* Keep the reset asserted for 10 us and then allow 1 ms of
+> -		 * settle time for the crystal oscillator startup.
+> +		/* Keep the reset asserted for 10 us and then allow the reset
+> +		 * settle time (1 ms by default).
+>  		 */
+>  		fsleep(10);
+>  		gpiod_set_value_cansleep(tc6->reset_gpio, 0);
+> -		fsleep(1000);
+> +		fsleep(tc6->hwreset_settle_us);
 
 [Severity: Medium]
-The commit message says:
+Should this reset sequence in oa_tc6_init() hold the SPI bus while
+the MAC-PHY settles?
 
-  The callbacks are unchanged, so this is not a functional change apart
-  from the reported driver name.
+The commit message says the ADIN1110 tristates its SDO pin during
+reset. For the same chip, adin1110_check_spi() in
+drivers/net/ethernet/adi/adin1110.c locks the bus for the whole
+reset and settle window:
 
-Doesn't this change also alter which PHY IDs bind to the driver?
+	if (reset_gpio) {
+		/* MISO pin is used for internal configuration, can't have
+		 * anyone else disturbing the SDO line.
+		 */
+		spi_bus_lock(priv->spidev->controller);
 
-The old entry used PHY_ID_ADIN1100 (0x0283bc81) with a 0xffffffcf mask.
-That mask ignores bits [5:4] but keeps the revision bits [3:0]. So
-phy_bus_match()->genphy_match_phy_device() only matched these four IDs,
-all with revision 1:
+		gpiod_set_value(reset_gpio, 1);
+		fsleep(10000);
+		gpiod_set_value(reset_gpio, 0);
+		...
+		fsleep(90000);
 
-  0x0283bc81, 0x0283bc91, 0x0283bca1, 0x0283bcb1
+		spi_bus_unlock(priv->spidev->controller);
+	}
 
-PHY_ID_MATCH_MODEL() uses PHY_ID_MATCH_MODEL_MASK from
-include/linux/phy.h:
+Here, reset is asserted by devm_gpiod_get_optional(..., GPIOD_OUT_HIGH),
+then deasserted and held for hwreset_settle_us. No spi_bus_lock() or
+spi_bus_unlock() surrounds any of these steps.
 
-  #define PHY_ID_MATCH_MODEL_MASK GENMASK(31, 4)
+The last patch in the series, "net: ethernet: adi: adin1110: Add OA
+TC6 protocol support for ADIN1110", does this in
+adin1110_oa_tc6_probe():
 
-That mask ignores the revision nibble completely. After this patch:
+	quirks.hwreset_settle_us = 50000;
+	quirks.softreset_settle_us = 10000;
 
-- Every silicon revision of models 0x8, 0x9 and 0xa binds to the ADIN
-  driver. Before, any revision other than 1 fell back to the generic PHY
-  driver.
+	port_priv->tc6 = oa_tc6_init(priv->spidev, netdev, &quirks);
 
-- 0x0283bcb1 (model 0xb) was accepted by the old mask, but no new entry
-  matches it.
+In that mode adin1110_check_spi() is never called. The bus-locked reset
+is replaced by this unlocked sequence, and the window grows from 1 ms
+to 50 ms.
 
-The 0xffffffcf mask came from commit 875b718ac380 ("net: phy: adin1100:
-add PHY IDs of adin1110/adin2111"). That commit replaced a
-revision-agnostic PHY_ID_MATCH_MODEL(PHY_ID_ADIN1100) entry, and adin_tbl
-stayed revision-agnostic. This patch partly reverts that narrowing.
+Can a transfer by another device on the same spi_controller drive MISO
+in that window and make the ADIN1110 latch a strap that differs from
+the board configuration? The later software reset in
+oa_tc6_sw_reset_macphy() does not appear to re-sample straps.
 
-Could the commit message describe the change in revision matching? It
-would also help to say whether the change is a deliberate fix, perhaps
-with a Fixes: tag for 875b718ac380, or a side effect.
+Whether this happens depends on which strap is on SDO and when the
+part samples it. Those are datasheet details I couldn't verify from
+the tree. If the protocol strap were flipped, the first OA TC6 transfer
+would fail with -EPROTO. adin1110_oa_tc6_probe() would then fail the
+probe with -ENODEV, and this would happen only sometimes, depending on
+timing.
 
-The later patches in the series keep PHY_ID_MATCH_MODEL(), so this
-difference is still there at the end of the series.
+Later patches in the series don't seem to add a bus lock to this path.
+Would wrapping the reset assert, deassert and settle in oa_tc6_init()
+with spi_bus_lock() and spi_bus_unlock() be appropriate here?
+
+>  	}
+>  
+>  	/* Check the PROTE bit status so that we can reset the device */
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109085952.105331-1-iustin.stolniceanu%40analog.com
