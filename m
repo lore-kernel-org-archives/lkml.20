@@ -1,56 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794481723;
-	b=Aqx9S0mYPxzeCrMSBOd7gmlbReKXbuOkkjz/ew4bMIdHqmD4oLig2BM7yzJRQigC1ufo
-	 ognfPYkS4RptvCxaVsE8sTAKoP9rzNzCS3W3kx62CLvHpvvpYhP+sfyJzsUhfb5yR4Tcf
-	 rVqsTP99U/m+nvyAeBl4H0rNMiklmjGGS48ZaZgnCoLu7FUejTvG3D6An7DYRlAelpNY/
-	 1JP017CDUwvbzEG3V6CGA66xmcAgoGB247cpCWC9GUIf9D8iZedf04WRYY8xQ/MwG0lnd
-	 Pksy3C8Ud+iE2VnIIxBTUyCoLAs06Hqccp4+uM8CQazZ1hgKb49OLrflLIakzUzN3OA==
+	t=1794481743;
+	b=JsPRysf88TZCsExiA6PSfLikjyIx6HOiq1pZGhnsK8yygFQHAH8fuk6WJTlMoSmU3vHj
+	 nRB9MC0DKbQo5hm7J3EZTaHxpJG/xOqyy4p1zm7wxFlgmuTGqhm6Xs9JT/Be79C+WLzed
+	 UKmgPVSSlnae4+BTdZUZExdC7WMiSh27LLq38rtobR0HkgSejtNPC3HIrScVUenNTPcTK
+	 L62Y2q33+JYAxhrS5qiCzWXGQ9gTcJ615bfGK1INSetcfSTY7DVOJn57BFzHwwry1P4At
+	 XWCeQel4Q6UpM0vpexVUXCgUvtpk5t6+1y25pNngU1Ld+TD+uy5treFOxcJPdyJV+Kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794481723;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794481743;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=HiPw/vO6fj89ZTfYmyeZnIAu27qYcwnBAOmXn+WneYM=;
-	b=ht41sXj4A7UJ3kItyb0RMtVUxaoSjQKKZ+cxEfciV4INZ4pXIXlap3m1DAUeXNyQ5tFQ
-	 FlxbYN6eQPrFhNfzLK+csaBhQnRvGp0YL3jliU2knBU5riGZW47WwPsyTC3SMNsFBpFaB
-	 ZDnVwMDk06SYH4PszriFpPjZyk3i3sj9nMKKztdrTi5UfYYUwCmF3DCQgfpxX0jWOPRng
-	 bvB/1j2OyFTztbwVC8T5jUgUkvnHWCRVQG/VwouLsheqxWlcs+gQYVa7QsBMu9QRX+bfT
-	 ApjA8ynZ3rhVTUrSDPwk0Of3SVa1P/fF5pIfeBMgpcoHIYfRScUe/RUMlpkdpjqQIMg==
+	bh=UwAE7JZbz6BZSDqMSG1PdFWp7D8tf1YwFLlJFvJVmaM=;
+	b=khKAUs0wfUuAYQlPU8vLn8ARdDaCQ4oGhLJy3Xxg7lrh0DpQe3sBKH3Wc5QKjPEG9uHO
+	 3p5uyVnICbYhrfSZkpFerLLBvZdV3WQ1CeVEyG/0YvwZsQyCA/GH7S59BcfaWHVVgXTZC
+	 XjYYmmD64yywSOfMJn9Q/z1ROobV1L3CDlJTzz2aTu2aMM4Ti/lxwOjLNA/T41ZNwwLOD
+	 d3jxFva+KkLo9lmvPDyEUTTOHtZRNqA0TnDs30suvnQdXSZD7BWSSO5TkwTeIXLg1FjSv
+	 3Ahx0lxKN9WEmsTqt2TQeq4PPCNhPWa/9tPoqwve1eF/tl/Sc503ANqNEGo+a6EQWqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T8WWcBab;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lDVZN/xj";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7534606A321;
-	Thu, 12 Nov 2026 11:08:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F15606A31C;
+	Thu, 12 Nov 2026 11:09:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T8WWcBab
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79AEA1F00A05;
-	Thu, 12 Nov 2026 11:08:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lDVZN/xj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 927941F00A05;
+	Thu, 12 Nov 2026 11:09:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794481723;
-	bh=HiPw/vO6fj89ZTfYmyeZnIAu27qYcwnBAOmXn+WneYM=;
+	s=k20260515; t=1794481743;
+	bh=UwAE7JZbz6BZSDqMSG1PdFWp7D8tf1YwFLlJFvJVmaM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=T8WWcBabyiIZJt9o4CRWXCXqWprHnqX/iN3JpjVXQksv65oEatvA7TfzcUnPKz8mz
-	 NTsKi80nGYIxl1a0wZnUAxfimcMlBPQq8SQ33l/rCDZ86XFhxtH04Bdcgth7iEhGXO
-	 0xc/P9YLJNHE1ST277DK0pA4o7DQyBn8YWKtBkKaxY91DpvQ6xjT2p9tyYMVsZ90/d
-	 M5m6LK4NLX9pyxOUJME4ljdvcr/FU6We7PrcibPjgBRP4vOV3ISuQ7pV1DM+duznMc
-	 UIHCOy9NwJj133zfvBo6x6sPosW7OkrqjunUcezd3iKhqGycpYUO85/g9MbjSazy9q
-	 fd47LzyUQzGgw==
-Date: Thu, 12 Nov 2026 12:08:39 +0100
+	b=lDVZN/xjnSgyoNZxykOUM3Smp2WGUkPhk9j7mDaN9E+JVptgcnjP2lOTs1wTllHiR
+	 7T7ifFTHJ5Eb7Jnk6KjQdUwaMGLfQn+gdJBlXy7b87UL5fnHI77Bn93qfElLXl56hf
+	 TRPklvFnuBF3h0B5me9Ipvfsjphlp0Nze5qbkSNFiii3uil+YcN6Gksl3jve+OiDv0
+	 DAbNTNN16OR29/MWoYpahhudH1MXLyhXPBM6D3yfWPK38qBJPSPN7hcKpamwdgWbzT
+	 jCy0J66OB5GcBXIVvBvMVmApo3apv9P/IUXCHZtuUbfsD3leaBH4U37jB+xowe4k3r
+	 /LrWqjAM/OqGA==
+Date: Thu, 12 Nov 2026 12:09:00 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Pufan Jin <cyan2254650260@gmail.com>
-Cc: Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Michal Simek <michal.simek@amd.com>, 
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>
-Subject: Re: [PATCH v2 2/2] ARM: dts: zynq: Add ALINX AX7Z020B development
- board
-Message-ID: <20261112-mottled-formidable-galago-eb933b@quoll>
-References: <20261111162917.97532-1-cyan2254650260@gmail.com>
- <20261111162917.97532-3-cyan2254650260@gmail.com>
+To: Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	pierluigi.p@variscite.com, Stefano Radaelli <stefano.r@variscite.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Shawn Guo <shawnguo@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>, 
+	Joseph Guo <qijian.guo@nxp.com>, Francesco Dolcini <francesco.dolcini@toradex.com>, 
+	Josua Mayer <josua@solid-run.com>, Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, 
+	Maud Spierings <maudspierings@gocontroll.com>, Mehmet Fide <mehmet.fide@screeningeagle.com>, 
+	Markus Niebel <Markus.Niebel@ew.tq-group.com>, Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Subject: Re: [PATCH v2 1/3] dt-bindings: arm: fsl: Add Variscite
+ VAR-SMARC-MX8M Plus
+Message-ID: <20261112-vivacious-archetypal-kingfisher-edd054@quoll>
+References: <cover.1794420001.git.stefano.r@variscite.com>
+ <b8f4c61c0171ed19c8fb60b702e4fd2e2c9d7b95.1794420001.git.stefano.r@variscite.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,80 +69,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261111162917.97532-3-cyan2254650260@gmail.com>
+In-Reply-To: <b8f4c61c0171ed19c8fb60b702e4fd2e2c9d7b95.1794420001.git.stefano.r@variscite.com>
 
-On Wed, Nov 11, 2026 at 11:29:17AM -0500, Pufan Jin wrote:
-> Add devicetree support for the ALINX AX7Z020B development board.
-> The board is built around the ALINX AC7Z020 system on module with a
-> Zynq-7000 (XC7Z020-2CLG400I) SoC, 1 GB DDR3 SDRAM and 32 MB QSPI
-> flash, and provides Gigabit Ethernet (JLSemi JL2121 PHY), USB 2.0
-> host, MicroSD slot, dual CAN buses (SN65HVD232 transceivers on
-> MIO 10-13), I2C RTC/EEPROM/LM75 and the serial console on UART1.
-> DevCFG FPGA manager is also enabled.
+On Wed, Nov 11, 2026 at 09:23:10PM +0100, Stefano Radaelli wrote:
+> From: Stefano Radaelli <stefano.r@variscite.com>
 > 
-> The two SMA AD inputs and the spare differential pair are wired to
-> XADC aux channels VAUX1, VAUX9 and VAUX12. The XADC hard macro is
-> always accessible from the PS, so expose these channels via the
-> driver's xlnx,channels property.
+> Add compatible strings for the Variscite VAR-SMARC-MX8M Plus module
+> and its Echo development board.
 > 
-> Link: https://www.alinx.com/
-
-Drop link. We do not advertise websites, unless it brings some value.
-
-> Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
+> Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
 > ---
->  arch/arm/boot/dts/xilinx/Makefile             |   1 +
->  .../boot/dts/xilinx/zynq-alinx-ac7z020.dtsi   |  70 +++++++++
->  .../boot/dts/xilinx/zynq-alinx-ax7z020b.dts   | 142 ++++++++++++++++++
->  3 files changed, 213 insertions(+)
->  create mode 100644 arch/arm/boot/dts/xilinx/zynq-alinx-ac7z020.dtsi
->  create mode 100644 arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts
+> v1->v2:
+>  - No changes.
 
-...
-
-> diff --git a/arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts b/arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts
-> new file mode 100644
-> index 0000000000..472d9fcaaf
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/xilinx/zynq-alinx-ax7z020b.dts
-> @@ -0,0 +1,142 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * DTS for ALINX AX7Z020B Development Board
-> + *
-> + * Copyright (C) 2026 Pufan Jin <cyan2254650260@gmail.com>
-> + */
-> +
-> +/dts-v1/;
-> +#include "zynq-alinx-ac7z020.dtsi"
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/leds/common.h>
-> +
-> +/ {
-> +	model = "ALINX AX7Z020B Development Board";
-> +	compatible = "alinx,ax7z020b", "alinx,ac7z020", "xlnx,zynq-7000";
-> +
-> +	aliases {
-> +		ethernet0 = &gem0;
-> +		serial0 = &uart1;
-> +		serial1 = &uart0;
-> +		mmc0 = &sdhci0;
-> +		spi0 = &qspi;
-> +		i2c0 = &i2c0;
-> +	};
-> +
-> +	chosen {
-> +		bootargs = "";
-
-Drop bootargs, why do you need empty ones anyway?
-
-
-> +		stdout-path = "serial0:115200n8";
-> +	};
-> +
-> +	usb_phy0: phy0 {
-
-just "phy" or is there phy-1?
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
