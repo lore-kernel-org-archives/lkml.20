@@ -1,88 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794525273;
-	b=VQFFx83zzOpBo8J4Etzq3Venk0QIgPjpRYJ1gsgThz4EpoXnRpCbLiRjT79SAB5FPXhS
-	 x0dXYXA0p2ZNQaIrsH/rL0ICOvW4x6TbvCnwSBEEj3eoj35C4gtZGUU/TwT67GO4wDPiM
-	 2Ffakyc16a91Bns/wKqjy2uXPsOYFuW4wpkIhyVwnCQIJJf7Nh21cnQnk55UQBMZqantS
-	 JjNu+8NVqzHc/pU6ghqtxbpA032H95TRCgV0g+fULiFs5xmG/CMFBPxfzbqF57yloysne
-	 aWT28N1LZ6hhH6cMrVd3rbCXDlHT4dUEa7AdfJmU4u3LNL1tbX5SvrLr0F0JPhhngSw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794525273;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794525393;
+	b=p7qT9/vRF0t77Sjzqw4FnnCKr/0V4NAaMBXtzoNx2y+dvQAGKEY8SQqcnRU2cZZZ6pOq
+	 LCpG5YVBmLH0EyrHC2Fpt3IJex20EpdEoQSyZ5AogU6IlelYWFA+fJ+B9S7juVVlBOw/r
+	 Jzm12WwGZgKnFYNw6OpYeFfp5EYKgxKfrj9OeQyTPmZjwskfWOrVCxR2BuL3QZSaww/wA
+	 H30/HGm1VQCRZr/3p9Ir0/MdVTLclM1hMOTglPkBh/b8Q8bmGC4hzhjux6+AqKr7VJNfG
+	 5Hf7sRahNu1a0M8uemtlsTR/kfMPMQSebLckMyPpu5VorUoBxsX3KpDREqFUFbu+MnA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794525393;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type;
-	bh=DN/qNmYDsOB9nL6rphMvlGN6Wu4Xb8ATnikeAxhxNfo=;
-	b=2VRhyLHQi7nDYNfJ4TrietGhe1Fra0oYW13Y35kCXn5L1DKGVdY3RXlhK+8enpnCIpNc
-	 88YHR7NU2YksqucyLnp3mR8a3cbVY4z+pg5R4TvEC5l0zU1uCAJr9ooR8TVuQOJkucSTx
-	 3sLvd0dwk6afEoSDW49aUagS817X53An+9nAg5OGhwjLyRj7t5E04P516EO/llErFyFbK
-	 E+CN8fgg1DsMH5GPb+sD8WpgSBlZPTYywLjGJX6TAldAGgXhtNUwA4AkNqw58gapdxFVF
-	 YglpCLGknL09LT9GOHtHpbNkG+9tW6sM3I5l9w81H0TC/4+7DCKPMEJmecTuQ5cZ6TA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=YCt6YKhP3iRu11RrkHzPffGw1/WrazJq8WC9GVsXVNQ=;
+	b=0PlHthJ2FU3ew1ihnMS7ZjwOwfWIavifVbVaylVXNixaIbng+9640TJ4ZE+Y3Ie2Bpk4
+	 LP8ep9Xx8UDzWZGgh6ZjwqkWjLKWYa1KE7bhPcE9UI6eItlifJYbiKlJdkHCMozCV/TAf
+	 9fqMQ3zvneSzOO+VTag2f08Ozew3eR+jTG8HCYazxIB1U+IK1SrEpSyzF8pLbAgHICbep
+	 kY61z5oCtG9POfsUaeFWN8FlNEwhLEegjyhvVg1eNDBqGwUYG/fO9jBQ4lSfTP7OMVgST
+	 StNZbMnlBRqoG6tR1OrwsCb2Lgwa5rd/bnOENxW7Tcg4fH7QKPtyJSsOCS/5ynwUp5A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EsvJdqN+;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PcqGLabY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80FBB606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:14:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80FBB606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 800F2606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:16:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 800F2606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EsvJdqN+
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so2291155e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:14:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PcqGLabY
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1931ff67a29so77589c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 15:16:32 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794525392; cv=none;
+        d=google.com; s=arc-20260327;
+        b=P2lWKN6Qc72TcFFmZ0dXOuPcbadYwekgxIkW3+BMBHCFwzQvPg/gmG2a1M8jmct/I0
+         GA2YAQsdvDBsf1W3cSgm4ZZEDHvm11oT3vPj0xj0/M6vOSrTZKFwoWtqiZvwE48Nf8+o
+         MjpXllDziPf+j0RajXX0qTAeoKrmHMhRr6XytE3MQFCq5O1/cWczziR4yoAuaTxPSmn8
+         vRyqqmyOsZh+yNkKnDOU1O5VTkHo0kDVVO7uZO2r5/+i6Cbam+/soYetLmiS6l942wwl
+         zWtq/d0aqBnyKcvTrcJ1Hr6DwPe46JeRs8W/arIOhIhrYVirU2IQhJDKbS91xiUXHBpr
+         /nTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YCt6YKhP3iRu11RrkHzPffGw1/WrazJq8WC9GVsXVNQ=;
+        fh=zYFXQim7oAAr0k6JjnqO5RBW1dekwk87OiZhI1VQURs=;
+        b=dxbgIcjLbaHmKYkunFKdaI7+xeHBQ3Fy7THzG7XVeM+LFCilzl13Z2+OC4nkSLLLhc
+         v+RSTx1N51PWJuceELXhYmyctgOM2XrlBzM73HTvBSLTI8iURa+rWYageWVQOaYfvjoh
+         FVHy+VikbY2vvl743ju1JMIJC3W88F79uODXNdsrfqsMZC7PD/xpJKgnMGiNwQFuvmKF
+         f+27Pt4yEd/RPHgwrE22j7CnrF276jdc9qMl8vRJx0YziMYrcclTNGQFK0XZx95R2tF1
+         3EDpvQ0vwtgiGmI/TQBY9GBRP+2JS1czRzI+lgXX5E8IJ/P7wHq7yYKpMkbeACX3t/6R
+         NVXg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794525272; x=1795130072; darn=vger.kernel.org;
-        h=content-type:in-reply-to:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DN/qNmYDsOB9nL6rphMvlGN6Wu4Xb8ATnikeAxhxNfo=;
-        b=EsvJdqN+wWCfOMVWs6MUfw7XtuobuRCUPvEe6yaTTEFIspcg/SFHUzBExrtZtJMH+/
-         WfIz7fdJHXtBzhFUxWQ/vq9c2Y71iKDMQOjJM099c77pSaaK3RtGVGFNi9grouSdUDYx
-         d/Xw3C5QjmcT0YCXCLUQNfKxeqDOLGmvrP9bhZhxEycST49kjuObKaXrXzJonXajTTD8
-         ItxcN/ZJpvZ2Kd38Tkvl/LO+v9rvYVLaGNtZr2F/tTd0ejZ5cQhKzW8y9QcZBJVficIz
-         N2DVpC+JtYfBVIfCGC/Zs1ayz3EM8nKfaJCkx5jf5B+1tf5Hk2rqteKfCXH6HiVyYDk1
-         kCRg==
+        d=gmail.com; s=20260707; t=1794525392; x=1795130192; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YCt6YKhP3iRu11RrkHzPffGw1/WrazJq8WC9GVsXVNQ=;
+        b=PcqGLabY0qbX789utrbySNOrwQkNq2cB4pnsRIKpK69t12rvdji70sLBSBoeWWVn2s
+         4wnlfOP61C6XJ3rRbulB4DxM+EKEpAsxUQSo2JA+aAxYWOoz1mPZUVZ7hYAoMjCqdJ+Z
+         YlyR+c9G5ag0Zg2wP6Nd9y5zd2mDpQKWmwjvn5+gtyobt8SMhU21EB+Kqx+vQWXNATGA
+         hG1zf6G5Ug69yuzP41e4rRz/RSKQwhpyqDt89pV90Qf0CvqQ79O/x2glhFYtrJhRgsyV
+         dsgoM6sFjo04BhvOVgBFhX80gl5mDmtlPjqNuMYlfNz80/eO6cLtmjg1rj1qtj+qOvm9
+         Un7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794525272; x=1795130072;
-        h=content-type:in-reply-to:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:sender:x-gm-gg
+        d=1e100.net; s=20260707; t=1794525392; x=1795130192;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DN/qNmYDsOB9nL6rphMvlGN6Wu4Xb8ATnikeAxhxNfo=;
-        b=w+7a2fKM88+ct1PlRA1wNn9nLANhLrvGsDA9W+4i/S4mkoCcJDZklqGUcRJES2YjlB
-         FYfPZpYYGyDoSk8Xrew6v8EQuwHQZ7DlwXfLVKE9UqHTCEh8PNGLexl+nWgVy42mrsNa
-         U6tw7q1IZCF6ws3y/rjwuTtBYeQvTQ3Gqz9HBpe+N1sdXkevVKuIGv68Km263yHeAjaQ
-         j8NUJP62wOKTOQI6M67R1B3rWV5KjcAx8taT1gl0+rRzo91f9LeXLzAS8xlR7VvYCAJH
-         sGzvcPn0jR4BAC4O7rT187jca7RddigvFthf/DaVLz9qF5r3fkDX3rwyUachUZRQ5n3z
-         ibfQ==
-X-Forwarded-Encrypted: i=1; AL+hErHITwQqe2TX+YTNCktT0Ip52HYL657JMqetSgcBK8zK4gg1YtiI6PWA/kCj13dtJVojYz3hub9V5arP/J8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/bGmVghov8iKC4YrA68I2rIlc92a/KD4dNxArqc++oKkiC69dv
-	a6VyjlxzfS2WSM3t1BRQQBN641Z0HE/WQoVWS1z9xZBQ/7EP/W2moFWJ
-X-Gm-Gg: AYBFou2fGr1diMVwl2UymPFEIx+mFI60UjfXRnugNjDdknY1X5SxHKiggWh/I92x4Wm
-	X7NLxpHEeBjrAIH2W3cuTet02oBDdy5twAMCMSiEdDfJgslxI5eQbqP33s90P3wDkAtL/fZNma7
-	E0aAyQoBDTzrajqmKxsvL6kfYCXaPTCN3dBRAFkVBozzhBvIoDAueTsVOdxt6UYXSRAkR2xU4sb
-	ng4qHJnBmG1r8lw/uefNcwq/3n9uAs1QWYKnvqggfvIVb/xSMqVun8YILfJY3/LD+hZEE0Ln/el
-	+jNmAxwTkNyBIT+5hRJm3+kcSkVDBfT29yJixVEkG7VMM5A2hAoH4YOFa5dVqyUgMVVJKbdTKYN
-	3ZzgODKmN7a/Ls3vw/3Put3kjvZjrC9NyW4bua41CgyJCixDs2P+n55W2ebNx1WM3POxLGkjNUZ
-	HYNtR9clJ1XYWv6bRja8jXAJD7cyDHzGaHqMgfgZ/YOjLxmtEvLhL9+3MqrPfQktpi1gNLE0Qwv
-	JAHzMUWPKUrDIaWXkyJmS7GtYzDVojRLvtcid35N6NQ3nsk8qywaq7JJqQ6mVj9ZtgpxRQb+lwc
-	CCD5bpoYBRTwmi4KLjgAEfMfWfP+eThJiw4VZ1Prd8j0qbaBWbokWSKoHYnQ1sEAC9SANtF11fb
-	g38Q6ZLFVUngfUGlzkQ==
-X-Received: by 2002:a05:600c:46d5:b0:4a5:87b3:ddc1 with SMTP id 5b1f17b1804b1-4bb55a8329amr13702305e9.13.1794525271736;
-        Thu, 12 Nov 2026 15:14:31 -0800 (PST)
-Received: from [192.168.0.41] (bl22-190-205.dsl.telepac.pt. [2.83.190.205])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2acf81sm96030325e9.14.2026.11.12.15.14.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 15:14:30 -0800 (PST)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <2226c85e-2902-4964-858a-2d1603263252@gmail.com>
-Date: Thu, 12 Nov 2026 23:14:28 +0000
+        bh=YCt6YKhP3iRu11RrkHzPffGw1/WrazJq8WC9GVsXVNQ=;
+        b=EgZzFmvx9vBLpgdKBD69btliLU0TAUMnsqfjrFfq9yIlUENa8DSjFfvKFlYAckKl3c
+         Hmy/sMB1fo5HVLGsk8GugkE0xQemR2xHP4y9lsY2tforTw6YUV+JHHYNI3Vtml3zpFp8
+         pOVnr9QvZeeNHNfcnh15tgHqtOn+o0UGBbUUKaYJLLxcji27qGyYJDU/OBRNg+gUCi9U
+         ovnJWJrlCckBJHLULIzpiCzJU6dJi+s1FyL0vzsKI5B1ijx6D16QrAbRg2B7lLR5szj0
+         2bflsaZ04QvV4vBelnMq7pp792P+0AgSpBCyAVYhu6oCqM1U2Om1qMl9iAXaVnk9lOB/
+         qCKg==
+X-Forwarded-Encrypted: i=1; AL+hErHZ8a7A6j11oTyy7n5x8vKS9BId+CoxrOpACo9gJKCMmWrNkTljVlhlqqpk3GfxbergdPHBkqkdOXPJHNg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+bEfsq7quKG2BGw5hPM4vz4OYGLz9AkwZBFyHG9E5rGN/5Y36k
+	CxtkhJBOv3CnyF4TBFb7Qz3NePlLiVNQq3so1tb1Z54EXen3Fz1luQcOtqZ+0XZtXBkcMxCr01d
+	Do6gxXpsfVIOWjPA9WAtq6wwcROlxk+k=
+X-Gm-Gg: AYBFou1aKQLo/w0KsmiLYss0TXvthv24ug5pT8ow1fjAFz4NLtne97mOHII3RInh969
+	Yh1kfcCKvbXaiM4YpDJZsbeqKzQlMOxEs9JwAoQ7404lCNgKyNVi0/Gq6m2Rs7Enkf1lqrewCkI
+	07Yt5ogJbFwAMjkKhxqcbmJaiAXwVo4GDt86eCjoeOGYGO2JJW57NSfogaEFBC9VNylHgPwSHmi
+	GsfgxeyLHr4ha2ezj2lAOlxXBhDtNaAKV6BVE5U++gyL+nYG2LT1EOG3vfrx4XGdwOXccO2oQ4f
+	oHBl8eqjJ9SWdwpbEpaXuh+SYQRX/rlA2Ju2s3e5IUWG9kS2LMdtPe188k3acamLIX8p9dqAq2P
+	6Zy+j2GmpiADR7gPqSMa3Fui43HAWGRHD4U1sl+rmOsIdxGAh2sELprJj2OA64ugzFUt0AUqF4f
+	fUayU2HxybHtO3ZkKJM4N1SBIF3JmnuJsPzAd/evgWH9Dozf6CjDx3Iw1o1xxY/BeOJTRNtqkwj
+	gT0Az1vtVe4mlOMKhNVh85F3UVhgSPpb/QYGupX6b0MY1eDsX9HaY4UUSsc
+X-Received: by 2002:a05:7022:2584:b0:196:d6e1:108b with SMTP id
+ a92af1059eb24-1b5030e32e2mr1199073c88.10.1794525391639; Thu, 12 Nov 2026
+ 15:16:31 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,121 +106,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 00/10] tools: Introduce a kernel configuration checker
-To: "Ahmed S. Darwish" <darwi@linutronix.de>, Nicolas Schier <nsc@kernel.org>
-Cc: Clark Williams <clrkwllms@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, Ingo Molnar <mingo@redhat.com>,
- Nathan Chancellor <nathan@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Frederic Weisbecker <frederic@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jonathan Corbet <corbet@lwn.net>, John Ogness <john.ogness@linutronix.de>,
- Derek Barbosa <debarbos@redhat.com>,
- =?UTF-8?Q?Zbigniew_J=C4=99drzejewski-Szmek?= <zbyszek@amutable.com>,
- Daan De Meyer <daan.j.demeyer@gmail.com>,
- Luca Boccassi <luca.boccassi@gmail.com>, linux-rt-devel@lists.linux.dev,
- debian-kernel@lists.debian.org, linux-kbuild@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261106091922.7560-1-darwi@linutronix.de>
- <avQNdicGzL3De556@derry.ads.avm.de> <avWy2r1BcDatzwo1@lx-t490>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <avWy2r1BcDatzwo1@lx-t490>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------K2GKi8S106PfrZNN3W4EREbC"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------K2GKi8S106PfrZNN3W4EREbC
-Content-Type: multipart/mixed; boundary="------------onQYsP5IVHvnHSUuO3vsIGv7";
- protected-headers="v1"; hp="clear"
-Message-ID: <2226c85e-2902-4964-858a-2d1603263252@gmail.com>
-Date: Thu, 12 Nov 2026 23:14:28 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 00/10] tools: Introduce a kernel configuration checker
-To: "Ahmed S. Darwish" <darwi@linutronix.de>, Nicolas Schier <nsc@kernel.org>
-Cc: Clark Williams <clrkwllms@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, Ingo Molnar <mingo@redhat.com>,
- Nathan Chancellor <nathan@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Frederic Weisbecker <frederic@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jonathan Corbet <corbet@lwn.net>, John Ogness <john.ogness@linutronix.de>,
- Derek Barbosa <debarbos@redhat.com>,
- =?UTF-8?Q?Zbigniew_J=C4=99drzejewski-Szmek?= <zbyszek@amutable.com>,
- Daan De Meyer <daan.j.demeyer@gmail.com>,
- Luca Boccassi <luca.boccassi@gmail.com>, linux-rt-devel@lists.linux.dev,
- debian-kernel@lists.debian.org, linux-kbuild@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261106091922.7560-1-darwi@linutronix.de>
- <avQNdicGzL3De556@derry.ads.avm.de> <avWy2r1BcDatzwo1@lx-t490>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <avWy2r1BcDatzwo1@lx-t490>
-
---------------onQYsP5IVHvnHSUuO3vsIGv7
-Content-Type: text/plain; charset=UTF-8
+References: <20261021000338.2160223-1-miro.kropacek@gmail.com>
+ <20261021022336.2232886-1-miro.kropacek@gmail.com> <c77944ee-f170-ce57-9065-d7d49fcfed6e@gmail.com>
+ <CAMuHMdXWHXjbCNojoukGq4OWvLSibk-goJo4quLdbOj01neOew@mail.gmail.com>
+ <atqTLxkEusWSS-wf@google.com> <CAN5rfbQWDTXZVyh8fDjxqRVO_HEKvWLC7Q_i-7aTtSxi9sWuSg@mail.gmail.com>
+In-Reply-To: <CAN5rfbQWDTXZVyh8fDjxqRVO_HEKvWLC7Q_i-7aTtSxi9sWuSg@mail.gmail.com>
+From: =?UTF-8?B?TWlybyBLcm9ww6HEjWVr?= <miro.kropacek@gmail.com>
+Date: Fri, 13 Nov 2026 09:16:15 +1000
+X-Gm-Features: AclHuK9omy7qW74EtahCV4gmD-m_X0i6pDAOWe6bsljrf0RlmsCYb8yPkvkcYRk
+Message-ID: <CAN5rfbQr9wjnAZN4fitmCyZs_CGd0A37omicP3hfiH3+_SWahA@mail.gmail.com>
+Subject: Re: [PATCH v5] m68k: Fix atari mouse movement
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>, Michael Schmitz <schmitzmic@gmail.com>, 
+	linux-m68k@vger.kernel.org, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On 11/12/26 12:36, Ahmed S. Darwish wrote:
-> Hi Nicolas,
->=20
-> On Wed, 11 Nov 2026, Nicolas Schier wrote:
->> Thanks!  I know some people who are definitly interested in such a
->> config policy checker.
->>
-> Great, thanks!
->=20
-> I hope this leads to more mainline kernel configuration policies as wel=
-l.
->=20
-> On the user-space side, it's one of the reasons I'm versioning the sche=
-ma
-> in v2.  This way, projects like systemd can ship their own kernel polic=
-y
-> file, and that policy will be guaranteed to work with all future versio=
-ns
-> of this tool.
->=20
-> So it's all mainline-first; both kernel upstream and userspace downstre=
-am.
->=20
->> Please prepare a new MAINTAINERS entry in a respin.
-> Sure.
->=20
-> Beside a separate entry for the checker itself, I'll also add:
->=20
->     F: tools/kconfig-audit/policies/preempt_rt.yml
->=20
-> to the 'Real-time Linux (PREEMPT_RT)' entry.
->=20
->> Are you planning to maintain it after inclusion?
-> Yes, I'll be happy to maintain it.
->=20
-> Would it be OK if one or two people from the Kconfig side also step-up =
-as
-> reviewrs?  Julian? Nicolas? Nathan?
+Hi Dmitry,
 
-I will politely decline the official title, but I will (unofficially)
-watch and review some patches if merged :)
+Just wondering if there is anything I can do to get this merged? Geert
+gave his Reviewed-by on v5, plus his Acked-by for the arch/m68k files,
+and Michael is fine with adding his Reviewed-by.
 
-- Julian Braha
+Would you take v5 as it is through the input tree, or would you rather
+I re-send it as a standalone patch with the tags collected?
 
---------------onQYsP5IVHvnHSUuO3vsIGv7--
+It is basically the last patch to be merged from my "atari stream".
 
---------------K2GKi8S106PfrZNN3W4EREbC
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+On Fri, 23 Oct 2026 at 10:21, Miro Krop=C3=A1=C4=8Dek <miro.kropacek@gmail.=
+com> wrote:
+>
+> Hi Dmitry,
+>
+> On Fri, 23 Oct 2026 at 08:51, Dmitry Torokhov <dmitry.torokhov@gmail.com>=
+ wrote:
+> > Could you please re-post v1? Can't seem to find it.
+>
+> v1 went to linux-m68k only, without linux-input:
+> https://lore.kernel.org/linux-m68k/20260814031745.17140-2-schmitzmic@gmai=
+l.com/
+>
+> It touched only atarimouse.c, keeping char * and casting the two
+> deltas to s8. v5 is the same two casts with u8 instead of char. The u8
+> can't stay in input alone though: a char * hook doesn't accept a u8 *
+> handler (-Werror=3Dincompatible-pointer-types), so the arch side has to
+> follow.
+>
+> --
+> http://mikro.atari.org
 
------BEGIN PGP SIGNATURE-----
 
-wnsEABYIACMWIQT6qjll++tIFxF8TUPElYPCBXNxIAUCavZIVQUDAAAAAAAKCRDElYPCBXNxICgY
-AQCrg7omkjFSbzIwDbf86DhWih90vS9Sw1cD5XogAdL8JQEAugMEfkQyo0VYrMXEMxzxjaqaD4Dv
-40JhZXotRyfJ9A8=
-=Wy7B
------END PGP SIGNATURE-----
 
---------------K2GKi8S106PfrZNN3W4EREbC--
+--=20
+http://mikro.atari.org
