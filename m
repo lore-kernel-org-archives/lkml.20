@@ -1,21 +1,21 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794509700;
-	b=mxGfl8CqBe0U5b8xVhlkctEkv6RkfUIMaz85MIZmbc2cfQlh3zJPJ4YShTEeRy8kOBcg
-	 aEi2N2o+mnSzglcNw2LNUuUYdrCbgyqePrVL2arMGV8xWl/6dTspvg9Lq5CRlamffIDgC
-	 X4pQzXxAn0yoUqre6DIp7zy1pFyWOCYzd5AzB1FXVqMO13iOR8xejWQdjYGPbVAM/kB7z
-	 U4SnPzqf9P1FcFCkzPJQbE2l3sqN9As4X/9P7+7wylG/T29Y8ZmBJQNTtiPIrd07N5xxr
-	 i6EG+YHxj7PwsTlGfIze5KbAjS1gdpwYnAnbLeaL2qNmhVia3jxfLGLqtX1wT5A9Apw==
+	t=1794509701;
+	b=MVZHAu6WDi1neBtY0IccppGbZMSyO+IyU74YIx9giC4ZHf9MpmWR81gOpuO/bJhGXepS
+	 pO1Kev8anrD7Oe0NkuT2tljHkHvxUZYl3fiUU8e0MYuRnrqeWGs+zm37JyVU6+thTJSk2
+	 SXVQ1Yxy10La3tFz18luqkF4rr8qvjMvQzXXMGz0me5yQY7ZS52TooihLiAncTQDo80pS
+	 Sqe3PsOWDHfx68OJ//a+2F3f57xlICP0dFY3ls5jhVqpWSdEHowcca83nwRXq8gZUx3ue
+	 KxjRI3quQwwD1tt1dPr6LfttNTeWoq1xtlf/NFh9YKMDAFFC3o7ZxkaqMAS1qMZGMJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794509700;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794509701;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=AEi1yAbNDHs7LRU8b5V/4XKfG/FYEAHp+93KsT9otlk=;
-	b=gZGL/4+hWI/I4xxuKAyXtAAbvytrVK4LxYzZftpEqGZjLybatTY+QxkHl2EGQp69v5vX
-	 qwDf/vhdcz7bMajk59VeDQ6VnH5HCEQXIkQwsnduoV7Wvb6Un+cd1b81vQcG5pMGOSqTA
-	 9fE8gnTXbqB7yNGzlQ3IIjUNSUmuMBj6Z8EZVyqNZWmNiBCO3sjJhZqCxeO+Jj2r3oEWt
-	 ZEVmjBT7aNj5ZVG8lZ+RWKHB8EXke0XGwsYbDfwuqIYSykukQZdnDDQ6cn6NEDQArWNIk
-	 i/AukrwZdfLspJi5c1kIVQfdYBIX8rXlcByJAX58n5bUoZZFwT7PTyKu3ZH4NeGvCCw==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=0GCLapWmIezzyEfrQyi4uMy74mmpvzRuFkK70SRG3GE=;
+	b=2i7P+r5FGJ9um5amsUbm1Uk0FPWpz71FV1sw1NTRrkrpThoZzVDkKpQJUzkeqBH087Wu
+	 l5VzeCkJCMylK7YG+WDEnYQFwggM+iiwZnjXtJ9Ba9h4bbw0glu8A3t7UaX60lyRhwAJK
+	 6pVgJJ411jMM8VzfH9gLEI5uCnIBm4rHPougM+5GlzlqFiAF3Noidvh81w1QhjK9SZEiO
+	 XQkAvsU52XETJHVLQ/IBpSMn6C6YkDe1NQJRtZpM15XHFaPXAAhhtp4yjUz0J1uC1qsAK
+	 cDSGmseW6qqE/xMbcMlqx4fA7fLG7ky6BXWGUsN6bdlTmScRpGhowR5gIhu95oYw7Hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=phrozen.org;
 	spf=pass smtp.mailfrom=phrozen.org;
@@ -24,17 +24,17 @@ Received: from nbd.name (nbd.name [46.4.11.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642F7606A887;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE64F606A885;
 	Thu, 12 Nov 2026 18:55:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 642F7606A887
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE64F606A885
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
 Received: from [2a04:4540:1403:f2fc:83ce:6656:246:c906] (helo=bertha10..)
 	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <john@phrozen.org>)
-	id 1xRZwk-002XXn-2j;
-	Thu, 12 Nov 2026 19:54:54 +0100
+	id 1xRZwj-002XXn-2b;
+	Thu, 12 Nov 2026 19:54:53 +0100
 From: John Crispin <john@phrozen.org>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -53,12 +53,10 @@ Cc: Christian Marangi <ansuelsmth@gmail.com>,
 	upstream@airoha.com,
 	Weifeng.xu@airoha.com,
 	zhengping.zhang@airoha.com
-Subject: [PATCH v2 3/3] arm64: dts: airoha: add AN7589 evaluation board
-Date: Thu, 12 Nov 2026 19:54:46 +0100
-Message-Id: <20261112185446.1314808-4-john@phrozen.org>
+Subject: [PATCH v2 0/3] arm64: dts: airoha: add AN7589 support
+Date: Thu, 12 Nov 2026 19:54:43 +0100
+Message-Id: <20261112185446.1314808-1-john@phrozen.org>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261112185446.1314808-1-john@phrozen.org>
-References: <20261112185446.1314808-1-john@phrozen.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,52 +68,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the device tree for the Airoha AN7589 evaluation board, with 2 GiB
-of DRAM and the console on UART1.
+The Airoha AN7589 is a quad Cortex-A73 SoC. This series adds its board
+compatibles, a base SoC dtsi with the CPUs, PSCI, the GICv3, the
+architected timer and the console UART, and the device tree of the
+evaluation board with 2 GiB of DRAM.
 
-Signed-off-by: John Crispin <john@phrozen.org>
----
- arch/arm64/boot/dts/airoha/Makefile       |  1 +
- arch/arm64/boot/dts/airoha/an7589-evb.dts | 22 ++++++++++++++++++++++
- 2 files changed, 23 insertions(+)
+The remaining blocks follow with the series of their drivers.
+
+The series applies to next-20261105 and has no dependencies.
+
+Changes in v2:
+- Patch 1: add Acked-by of Conor.
+- Patch 2: set the size of the GICV region to 0x2000 and order the nodes
+  and properties as Documentation/devicetree/bindings/dts-coding-style.rst
+  describes.
+- Link to v1: https://lore.kernel.org/r/20261110172143.296304-1-john@phrozen.org
+
+John Crispin (3):
+  dt-bindings: arm: airoha: add AN7589
+  arm64: dts: airoha: add AN7589 SoC dtsi
+  arm64: dts: airoha: add AN7589 evaluation board
+
+ .../devicetree/bindings/arm/airoha.yaml       |   4 +
+ arch/arm64/boot/dts/airoha/Makefile           |   1 +
+ arch/arm64/boot/dts/airoha/an7589-evb.dts     |  22 +++
+ arch/arm64/boot/dts/airoha/an7589.dtsi        | 134 ++++++++++++++++++
+ 4 files changed, 161 insertions(+)
  create mode 100644 arch/arm64/boot/dts/airoha/an7589-evb.dts
+ create mode 100644 arch/arm64/boot/dts/airoha/an7589.dtsi
 
-diff --git a/arch/arm64/boot/dts/airoha/Makefile b/arch/arm64/boot/dts/airoha/Makefile
-index ebea112ce1d7..78146871db77 100644
---- a/arch/arm64/boot/dts/airoha/Makefile
-+++ b/arch/arm64/boot/dts/airoha/Makefile
-@@ -1,2 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0-only
-+dtb-$(CONFIG_ARCH_AIROHA) += an7589-evb.dtb
- dtb-$(CONFIG_ARCH_AIROHA) += en7581-evb.dtb
-diff --git a/arch/arm64/boot/dts/airoha/an7589-evb.dts b/arch/arm64/boot/dts/airoha/an7589-evb.dts
-new file mode 100644
-index 000000000000..eadba7154350
---- /dev/null
-+++ b/arch/arm64/boot/dts/airoha/an7589-evb.dts
-@@ -0,0 +1,22 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+/dts-v1/;
-+
-+#include "an7589.dtsi"
-+
-+/ {
-+	model = "Airoha AN7589 Evaluation Board";
-+	compatible = "airoha,an7589-evb", "airoha,an7589";
-+
-+	aliases {
-+		serial0 = &uart1;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x0 0x80000000 0x0 0x80000000>;
-+	};
-+};
+
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
 -- 
 2.34.1
 
