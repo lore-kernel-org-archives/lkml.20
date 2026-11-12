@@ -1,98 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794468586;
-	b=cEgJkZxHoq7XD/X7vEuK++voOMHds1LsD8EbqcpEvpm8TCY3eV+n63QnGsz9cNPyKiNi
-	 hwYbAfpWzuO0ouDJWbG/f4jZyvhmTeTVPdRZ8oAY6w0Z0kzFuW5Vc384koPyQzVPkh1SQ
-	 flJcGLbRAMle17nkmbScmAwu13B4Ubi2t9j6be3JGEnAIH+g0jWnTX70V6lRCusKQuwk1
-	 n8XvYrOgqH1D40J8T/WOdbxBXh9v41AXMCet+0bPe6S46dQgL06/wRTjsVAutsii/YOtk
-	 2BGE4AvbR1EqetDVUq2T9zVMyjaRocYdyLgLrfAGclriUVYVgCEZQu/GJo8/E4rJWqw==
+	t=1794468594;
+	b=wfw5I3CAP0as1uVrWDBc8EOv4ghaVdHTvrLmC674FvWsMvqOYDMuwLcUurDVdruWFK4f
+	 2NSwkWsY1OekuR3PW07pwpXn3PoojrxpA4IGP+M5bDYshVLDFxsPxtqKNN9jhr+98f7dD
+	 GBSAa78XLghnS8tvxb5+1AutIlZ/JS+pdx2W6AL/bTkuEY1ig2OtiCK1qTt8qBbG+KG3K
+	 rjeGhUI8HWLqosd4oO7l7uqGpsmEYsEzUqrkKiCZs8MGWvhPTyP9hmKl09hjGDTDBzst4
+	 48EUedOK/kl7DovnrthCmh+ciG7RsX3TwhYMDIXvL8gT+klGL/OW+5je7vPv+lc2hHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794468586;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=EeCGyqkm0JqSOK4vQP3xUOcJ8X0Mgwj1dqLLK6KYn3E=;
-	b=fxiURPBXhX0Fw5JN9iROBj+S79UxaQM/ecprtZ1Im8xzA/vfigS6oJMW117g0UrIQMtH
-	 vITvCrHeTJgEyC0y755MzoBQ4cXNcR7LORnJiGfY2hkYoHw2ZarReNXcYQu6EwpvgY7r2
-	 FQo5ztAkn8PJowHG6uuiznitgaAkdYmRo596kMaEh00zT7x1dFQ22PUoWSArHUmHSdqu2
-	 aetaW6/dyJv410a91ii3Icz7pM5vSdyyYhmeaMxWufxMBmWswfcwwTjeAVWeeIj/aaOu5
-	 wIin6BP+RcAOufn3uSFE/5sBt2GL2OWPoEWYgw1vrBEU1g96CQ8YfuN8SDVyN4MOEdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794468594;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=lMsj9nudmBv/iI5Os6pRVy6bLDebR7965kvSPVwO+Vg=;
+	b=nIPQnPsP1AbdMRB+P1LN7C0qCJMHvsFqv5Oi6dPGaI3/tJSwc8U8UVbdcqIHMsHjZSFc
+	 bFxQeeLOjveF5aSntiD0M2Ql/eKeWjzP4eDax8AMknr3HjgIR7F0+9zPj+MMwP9xjcG+p
+	 2ZQdwmJ/l5W1nLdbQlv1rJCDoZrG6AzP1sqd/X38xEurVYEWYE87cgTh1yO4ipLeA0huV
+	 ErnWnjEDiQuKFJQEsvPQvCHfm8LM50u7ttOr53Lj3xCKEh3dx1fWreN5qoaGwkUsXJ9ZT
+	 8cr41v07MoxhKI+pIT9KF3E+KhOcJGl399dOfhE/NEYuWZMnOB4pr25oVjOHRbfXkyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gOmxHypx;
-	arc=none smtp.remote-ip=209.85.210.178
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZPX1ieU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3AC606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:29:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B3AC606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08777606A330
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:29:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gOmxHypx
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8a0880a46e7so339153b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:29:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794468585; x=1795073385; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EeCGyqkm0JqSOK4vQP3xUOcJ8X0Mgwj1dqLLK6KYn3E=;
-        b=gOmxHypxd4O4PUIV8u4WBmDa9ZbYNZauWX/5z3f7n4qIiWsDVvKE5ksPpqLRja/Fx7
-         syfnGKTMQKsemE9DYKzof9wMvwuaztIhowiACaT0TZDl2pOO81i/quJBa3z/LYcLeLFb
-         LHLT3TGVFFu9puCuj5J7I9JfcDHOGL64+8CR7MaaFPNUfRBXnXAQC57Tm8yTM6qXapGi
-         ShbuZ7OSvxHpcu/7LR3pJtuh50Q+rJ69QRVvanQmFu5dygF7+yJcjuuClLFJIrfc8bqC
-         l1LgjEVXtzdnU0e25i2m6CSiRhIjPPcTq2p9iM6NWTrI8vjlOl6RkQIiXUNbYY7i20HI
-         l0Xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794468585; x=1795073385;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EeCGyqkm0JqSOK4vQP3xUOcJ8X0Mgwj1dqLLK6KYn3E=;
-        b=0rM5csvieTRQeHw2YNWFsW1X4UMwLCEJ8EX7qazFxAtwWW5xCdPpy7IUSBYF7XGSGC
-         yYurQjkVSfh7ORxqw/TJjkLqxEM3B9EIUG8+8RJ4YzTVciCPJGZ9S/fGQQ/KKL9eSyZf
-         zUoFU8fEyPxdEN+O/ZfUk+s6V6ufk099ApHdMCUGYyhcaFFo/85uJNLDICPywPJ8jKXH
-         9+rYa0k7MfM6qWAEDCPbX0Ae7VhjbXuNNJoeLOexJCrmL1xKdZDwe7XwHBGxIrDgsaY4
-         xCvCNx/4uKs+gAwW9elM9ukkLMBFh628rkEqeBs7QqwkLSww6Yh8d3Zl8xWXMody5Tr+
-         M/AQ==
-X-Forwarded-Encrypted: i=1; AL+hErF0ZTC+82hsOx/G0celJ5nqBFjL6SXtDIKx8regFQf/2TGPHQD+Ab1sEq2O8qOmoO3Dlsd+rANm4ynN3PE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Ggs9COL81hkhZzEgg/FMQTUy5Dm/I1lka6unMfUA2XeYu+fhm
-	wtA0Lm+RpXFITAxy4XtBfnWgmlu1faVC1IYWgbKy29RwSYZkdiwCyC+p
-X-Gm-Gg: AYBFou1xlacV/25RllgWu04NZoSXo3LU5dmdY7m9FoaHtDyvoH9GmTMRv0oy/mjyA52
-	usgA4ekQLImY3RWIvKtQxFfviu566jszTt0kYp6E2EOMl0Bk+8W+nR+7cjmAvaOmKPu72jBEqEY
-	CRO6ljsMuEyIOszUp+Jr7RGc5EVJEiw0wEB+edBl0w2lYewK4SXl7axOPow41vz8aezo9pbElrc
-	BsLgHHnWRn7HYxDLEA8SIj/AQQhZn2Xcal4bJAuGDezWoPZB6d9jN7VmoDkpAWmpV/ZOc/iaW2s
-	aBQNxZaOVOG5L4/Pdd6Pk7OAVvhEQVmOZSxpWtbpFBGS8VWzHEJJI/KUoOR1/ypNDHQuDU1HmnJ
-	DojvUBX65OQUnxB9SIWRQFGDwlgM0BBo6sXCVZMCv483Z7rgB7CAcymhGMEWSknn1NEluSieeah
-	78OFr2jPyUcWmpf2pmnTr33HDc/7dOCSc4SixAmxnCGxmz0NntyVlLX//abS6T9pLsvCWM0lwmy
-	WlF2wcI+lBg1LB15MFhQ6ITtGeNXfrRxWG8Z7MjyzkcHYFnaUPGWzB68xNFWEpyE2YlbuqQ9cLj
-	VA0XSbAT7WeHDOJhNif4oDgC+L/1iTaVWglZ6Z2E9IjUDbmiN8dScsy3AtAa
-X-Received: by 2002:a05:6a00:451a:b0:8a9:b07c:7709 with SMTP id d2e1a72fcca58-8bd5cd78ad6mr1206200b3a.19.1794468585366;
-        Wed, 11 Nov 2026 23:29:45 -0800 (PST)
-Received: from shaunak ([43.242.208.118])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baab8dd5b4sm2980797b3a.53.2026.11.11.23.29.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 23:29:44 -0800 (PST)
-From: Shaunak Datar <shaunakkdatar@gmail.com>
-To: rafael@kernel.org
-Cc: daniel.lezcano@kernel.org,
-	rui.zhang@intel.com,
-	lukasz.luba@arm.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shaunak Datar <shaunakkdatar@gmail.com>
-Subject: [PATCH] dt-bindings: thermal: kirkwood-thermal: Convert to DT Schema
-Date: Thu, 12 Nov 2026 12:59:25 +0530
-Message-ID: <20261112072925.22075-1-shaunakkdatar@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZPX1ieU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B22BB1F00A06
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 07:29:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794468593;
+	bh=lMsj9nudmBv/iI5Os6pRVy6bLDebR7965kvSPVwO+Vg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=OZPX1ieU+LbZoavvKaae8CDwAXx0pXP/AVuIjvVIEP0B5iqW5LhQXjbWE2Nmk00ow
+	 thRg7jxz6UwzjBfNsrToylEh9RR0J02ECSLdMFzun+Fy03Ax7UAvIp7YXgdR3WaIL2
+	 2ip22Ghvkzq1/YV9OKlCgCgP34BE6rJWRjVrD1lvXNG+iF7B5fIUf3qGjn/c4nG2se
+	 ZJcnsTVICDY7h74vfvoDzKA5u78tH5xp8jkmt8jT5DLdRnoAVMMNrqSfCLxIjqt64E
+	 7S+AwaS1E5uYdLaDoPSv8bRPQqNEzzPOfry0H6Vv/RErkHpEgi+8wnZpx4COFPE6vQ
+	 +lcdFr/WJdCeg==
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c40e30c26a4so93977966b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 23:29:53 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErF6P/To74aLolzg5riZh7A52UBOc6nNMGQloWAmexedwMxf5fz2EhT+ulmPWa+ouT9/z2KqXk2vAw2YJD4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+gZyXaF6YIPNNBcPmOadQeHACTMrZQGRXweVjWK9ZbN3vkO+v7
+	pGPhSPCfC5B9kJgDQV8Vs1gBcPVWn5YAvHL3hlZ8uOskH/I4cbwaqmdqqL5Ef5PPQ42SObr2/P1
+	c6t/YWZSrlD6eKRr1OWZnZcj+3z0eSNk=
+X-Received: by 2002:a17:907:ea8f:b0:c25:4d9e:bb28 with SMTP id
+ a640c23a62f3a-c507b396562mr148147766b.3.1794468592306; Wed, 11 Nov 2026
+ 23:29:52 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,79 +59,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261111222534.839117-1-koray.fra@gmail.com> <20261112031157.677256-1-icb@fastmail.org>
+In-Reply-To: <20261112031157.677256-1-icb@fastmail.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Thu, 12 Nov 2026 16:29:38 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9u1EQWXwxiGfdTyvsDCRoYpDTo97A-hqjPKZ868S+3sA@mail.gmail.com>
+X-Gm-Features: AclHuK89hAf45QYH6l79cOyFN2CoMoYTpTZ7STKRVcYi0T6MEFvVcHL7RDTmuoc
+Message-ID: <CAKYAXd9u1EQWXwxiGfdTyvsDCRoYpDTo97A-hqjPKZ868S+3sA@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: fix timestamp corruption on special values
+To: Ian Bridges <icb@fastmail.org>
+Cc: koray.fra@gmail.com, senozhatsky@chromium.org, tom@talpey.com, 
+	chenxiaosong@chenxiaosong.com, hyc.lee@gmail.com, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Convert the Kirkwood thermal binding from the legacy text format to YAML
-schema to enable validation with dtbs_check.
-
-Signed-off-by: Shaunak Datar <shaunakkdatar@gmail.com>
----
- .../bindings/thermal/kirkwood-thermal.txt     | 15 ---------
- .../bindings/thermal/kirkwood-thermal.yaml    | 32 +++++++++++++++++++
- 2 files changed, 32 insertions(+), 15 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/thermal/kirkwood-thermal.txt
- create mode 100644 Documentation/devicetree/bindings/thermal/kirkwood-thermal.yaml
-
-diff --git a/Documentation/devicetree/bindings/thermal/kirkwood-thermal.txt b/Documentation/devicetree/bindings/thermal/kirkwood-thermal.txt
-deleted file mode 100644
-index 8c0f5eb86da7..000000000000
---- a/Documentation/devicetree/bindings/thermal/kirkwood-thermal.txt
-+++ /dev/null
-@@ -1,15 +0,0 @@
--* Kirkwood Thermal
--
--This version is for Kirkwood 88F8262 & 88F6283 SoCs. Other kirkwoods
--don't contain a thermal sensor.
--
--Required properties:
--- compatible : "marvell,kirkwood-thermal"
--- reg : Address range of the thermal registers
--
--Example:
--
--	thermal@10078 {
--		compatible = "marvell,kirkwood-thermal";
--		reg = <0x10078 0x4>;
--	};
-diff --git a/Documentation/devicetree/bindings/thermal/kirkwood-thermal.yaml b/Documentation/devicetree/bindings/thermal/kirkwood-thermal.yaml
-new file mode 100644
-index 000000000000..1f9b97bdd48f
---- /dev/null
-+++ b/Documentation/devicetree/bindings/thermal/kirkwood-thermal.yaml
-@@ -0,0 +1,32 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/thermal/kirkwood-thermal.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Kirkwood Thermal
-+
-+maintainers: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
-+
-+description:
-+  Thermal sensor present in the Marvell Kirkwood 88F8262 and 88F6283 SoCs.
-+
-+properties:
-+  compatible:
-+    const: marvell,kirkwood-thermal
-+
-+  reg:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    thermal@10078 {
-+        compatible = "marvell,kirkwood-thermal";
-+        reg = <0x10078 0x4>;
-+    };
-\ No newline at end of file
--- 
-2.53.0
-
+On Thu, Nov 12, 2026 at 12:12=E2=80=AFPM Ian Bridges <icb@fastmail.org> wro=
+te:
+>
+> Hi,
+>
+> On Wed, Nov 11, 2026 at 11:25:34PM +0100, koraynilay wrote:
+> > When a timestamp is being sent with "-1" or "-2" as its value because i=
+t
+> > should be ignored, as specified in MS-FSCC 2.4.7 FileBasicInformation,
+> > ksmbd would clobber it in both the xattr and on-disk value by setting i=
+t
+> > to -1.
+>
+> I tested this with the ksmbd code from ksmbd-for-next. Before the
+> patch, setting any of the four times to -1 or -2 stored that value.
+> The access and write times on disk moved to 1901, and the creation
+> time in the DOS attribute xattr was overwritten. With the patch, -1
+> and -2 leave every time unchanged, and valid times are still set as
+> before. smbtorture confirms the result in the commit message, the rest
+> of its results are unchanged, and KASAN reports nothing.
+>
+> Reviewed-by: Ian Bridges <icb@fastmail.org>
+> Tested-by: Ian Bridges <icb@fastmail.org>
+Applied it to #ksmbd-for-next.
+Thanks!
