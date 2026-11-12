@@ -1,76 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794465215;
-	b=EE+mTbQN8quasIu8CXwrKRqHVoFwkFjrdJ4uPVRaRny0IEx+o//reI0CNWDUyobcw5Vi
-	 gDza1PKVGTV3VOz2t/VdH0XI9glwrord8nAwa7H1172rvXbAB204ZDcpRZejJooCDqy6T
-	 qC73mApPG8vmS40pzOKNw0IxCYZHVGBPcBoSCZllxRh+jnecT+yEvjwkj4nBcVF1JQ/AP
-	 nypvHEbWH2p2jTJlPFNkWr8jaVGWKGOXSGsFU6wcdtbfdf6yfT+VZbLhkfeX4Vpvp/Yw2
-	 PnwclW4Y8NhcZUy6AeLUrZ7XRg2xrWcoJOftBgStKKMZz44lcpjPt242FAttyl/+gQQ==
+	t=1794465296;
+	b=doP8eG/s2PWSY+tEly7oOFKGc/jAEKid9D0AfYq1UC4ynSln+0v0Lrn7cY+SFJ2o2I9k
+	 tI0Iai+3xRVcmGH6bUIx2jgL+TKpxba0k6eZ5ZAD/36RLRoWVC9bQne8Chrf+7FowHFAu
+	 RCkVZPyHtbcZ9+FWXNeuBexwf+ghXcAdNFMThihZyQlSm2//oFBjUSsfuqdcmMjW4SrSW
+	 vLpQCS3OeJFR0lkVSPjsQjlRqxzGYQkveKAKBaEqSz2jYKXpOwxEBViNDg5wmN8B0NuJL
+	 5dqA5tDC2jxDXdJtT1yQf3pOt7ctdFBf+x/VDDjvAEnAaQ6Etz8CrPWk+X0jpdacHCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794465215;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=uHXe8pVlE4dqfLIyGP09qtemqH9DvHUqldPU0PjaBp4=;
-	b=OwaQr5Y+ASgJ/+xcC6TEKnEBIKRkNFNR2Gl2jb5EGL26LHafIZd8ly8YQ1k43eiXix7J
-	 ctZg6y8S/b5frE6b64P9fwBnAHNGUxEuUJWDdGTPCsMUAwNDGnMiPfME6wwVfgJ6D4hbC
-	 PM1UKJ0BQA/XnkmqJVF2D39zJWBN0UkNU1LHKIhC7uCvc+OIsUJuvwiKfX2pvhlz7HkCe
-	 HJ8PRSIdrKe8mv82JQsQE1aEcdUscAqR718iDRWgssJrhVesrE7jYrZNozR1lxHwo/qtN
-	 p3wsvlXZbUs8ooVKoHLFdH/vKYHFlho+ion5zUZIaDW2mFkFj/x2mXBA7PiT8dUZ68w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794465296;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=XzN+ftZH8nOljyMprPWsB+uz3H4ojG5d3KlA9M9z9jE=;
+	b=n/bO8Rn9O/w4U/ld7acy/UlMCUkUmdYGlpPRwOwikavybZS5FRLQS7sEV6BtX0I2+mDw
+	 lsEroDcNjMhfzvRBbaqvgpAsAYIUFR9692K5g517GFJIbLCtA7pWVxapOtY0l4crciZZU
+	 JdJf4gl8CRDrDmYBhPucVZzW+beuMram0DY32ARCdo1+/GYpbdiQYboZDt5nhcI2WYrXP
+	 h2JVa9SC6q4vxTxRxf0fZu5KbphAPHBrQYlkgKJTjnmZqDBnc5SG6k6eD4YMMhChlFO2Q
+	 nb3WmCQEzfgUeG9Y7BCDBby7zQ7cUwGlNelrA1gYwnud4whK+Jo36Qu/lH3rpYE2PHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ZHf7iJJR;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DA814606A31C;
-	Thu, 12 Nov 2026 06:33:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA814606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=f24zqfC2;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5A1606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 06:34:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E5A1606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ZHf7iJJR
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=f24zqfC2
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4b79502c27aso38127015e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 22:34:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=ZHf7iJJRwiC6lSaXY5rEk2qaazALqlsVkaG6IbgaVpRZTP/TdFcfZdqSJ2s13YE204Foo8yNTDgPJ
-	 sVCPqlNtTMzZJ8dWqu/ZyiGtxwJbJaCMdV1drPvCXRoEMdzWCqPwHkNeKn1Mhk9G8xT+7yXD1Zfsr1
-	 Jw5kra7aS1urSwzI=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76af55dbaba0-df60f;
-	Thu, 12 Nov 2026 14:33:32 +0800 (CST)
-X-RM-TRANSID:2ee76af55dbaba0-df60f
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.net (unknown[112.23.105.204])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af55dbbd68-f5292;
-	Thu, 12 Nov 2026 14:33:31 +0800 (CST)
-X-RM-TRANSID:2eea6af55dbbd68-f5292
-From: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-To: Hangbin Liu <hangbin.liu@linux.dev>
-Cc: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Yuyang Huang <yuyanghuang@google.com>,
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	sunwenbo@cmss.chinamobile.com,
-	1342116488@qq.com
-Subject: Re: [PATCH net] ipv4: igmp: report IFA_TARGET_NETNSID in multicast address dumps
-Date: Thu, 12 Nov 2026 14:33:11 +0800
-Message-Id: <20261112063311.75767-1-sunwenbo@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <avUMkYmCtkwNYf8_@fedora>
-References: <20261111082222.327963-1-sunwenbo@cmss.chinamobile.com> <avUMkYmCtkwNYf8_@fedora>
+        d=suse.com; s=google; t=1794465295; x=1795070095; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XzN+ftZH8nOljyMprPWsB+uz3H4ojG5d3KlA9M9z9jE=;
+        b=f24zqfC2sGIBsI0kWpFkCCkygINwUTYVlHQDYSfiHVWQuqnAzYSUFr9LugKke/eiJ6
+         tbZbVWjzCj1v6zO8JPipjGRc4mAGUg/3pUBsVG9fpR7qdQEyRjYh3zH4QHiB2rYFNoLW
+         DC7IjCohdHpkzeUM73jSCYcY8ACK/NNMvXhoZMey9+ocS7Nn8Ar2EvoU1mtcVXY9+GPu
+         h9WYYKLoxcNw5/ue/rIB67dFH43SKyl2IvFbxc1QlD304HW65aHW+CBa8sJPEP6rVWop
+         plV6211Y97rUz8XcJDmelyEkqg7uTXE4xNjhs1EPdls+Qopspn4rH5MvsK2apotCM00O
+         zNeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794465295; x=1795070095;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XzN+ftZH8nOljyMprPWsB+uz3H4ojG5d3KlA9M9z9jE=;
+        b=O+4Jt46Y6HVQF/ilHHx5REFGgjCw/XivbX23OhXgX7gZylTsHRbmiZZNFA8svMkmnu
+         ilVrz7f3TDcK9BkfEKKtsVSq99ExbtzD2lLaUSPiHgoGI02cAlVH5y5B7zVsmkrQZRoa
+         fIbJ+EqhUQMUZG1YUoeV1MwXsKCdH8S3L/HSkHWM0VDiE3gomeFuLJCGOnFmiO10AUvo
+         NIG/BPzXt+GP8A7tnIbdI4ifExqFb/w1GH7CvZRdx4qLCJKuhfDyT6lcz+RPTr3tah2U
+         A2IWQ+YNBagoYn/VpRfT/Q5KEh9SLJ+I15sRJVJWZyGuheCRC1CWqYMUV38al3XonXez
+         mgGQ==
+X-Forwarded-Encrypted: i=1; AL+hErGyEL+pqi0UgbNL09Aq9o2VbBeNSXo1VwSAeA9dC2GELjlb6mFtnMlxoit5IjWWnVPoEZaZ91w0UjzrdHY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8LfOYXwKDN+c7eNSy61cDNsRQnLzk68A85SUgKzAyCyglefqNu
+	I4MIVcKBSA9MCzgaR9MEP10qdfnj3L2vGvke4HFiwuJ+mTm0V9p12By2Zg+vNTv2EQ==
+X-Gm-Gg: AYBFou2h1oKyBu5sMM6aTk3VK2WTXI364CmbQhZBI4A4u/9r6yccR6Lg/XXTFyQ1lSv
+	BKX6TdUl/wXJPGswxirj5FCza0HHjRXsLwEQc0tPMNQZikkJAhaSwoM6kttrAm+32Mf+V5FBkva
+	TE0AnFs4I3gAEyCid6i/VZH1F5dDCRXTp1alF4KmL9qBZPzqmV8EMaH+yPCUl20b4PGYGC7iU5I
+	azIJJlhKzJq2F7ZlqHA68XQF1budPpeYSSzz6nJGR4nv74O8iR2rgAQUksdUqGq1Y87Hg3+jZNx
+	hA+vsF6k90zCcuJqZcKDZgR2s0UwvjiVRPB4ebWDIeJ4ihBsKR6u4mPrCN3RMOHqAomrDNMWaCl
+	8iZHy+m4OSL7SkvFw3UFWlM+cYCP0U+GbZZL4q0OeIhiMG2yo5tSirIVdu22+kg8YCDE+ttvqnd
+	YgaxrsAJ+0bNzsZJAZcSWgdcpbEupd505kyb+6T64sbxB93E7wNNH7TaXXtXIjHRWeibnfrwGo1
+	LITdSfaheQegPQXUONPGVll73bHb/MJnweGOiyFzDh/+xk8oMp99q8Z749bVvv1Qpmxw0N1/fNn
+	cLt5v6cPiMzGhF5iXbZwozrKx/tkv4ETeD6CF3tSzQZnfEeP0AXekIY0WOhgDjUcyJZa+lcXqUL
+	UoAFq0TXli8H4WiGJX81I3xc79ESs/+Az13WCoMxpK/+r2VGuu7TdxD0dWL0pxBgHpI7APtJZcU
+	KPpLQXxPQ=
+X-Received: by 2002:a05:600c:3151:b0:4a5:cfc:1e95 with SMTP id 5b1f17b1804b1-4ba093ac1f6mr79613765e9.33.1794465294776;
+        Wed, 11 Nov 2026 22:34:54 -0800 (PST)
+Received: from ?IPV6:2003:ca:b726:28fe:61da:a0a6:3f98:b9fb? (p200300cab72628fe61daa0a63f98b9fb.dip0.t-ipconnect.de. [2003:ca:b726:28fe:61da:a0a6:3f98:b9fb])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e271378sm52598445e9.13.2026.11.11.22.34.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 22:34:54 -0800 (PST)
+Message-ID: <7af69a18-fcd7-48f9-a9e4-c2ddc060755e@suse.com>
+Date: Thu, 12 Nov 2026 07:34:54 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,40 +94,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] xen-blkback: do some I/O statistics rework
+To: Juergen Gross <jgross@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger@xenproject.org>,
+ Jens Axboe <axboe@kernel.dk>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, linux-block@vger.kernel.org
+References: <20261111162058.804033-1-jgross@suse.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20261111162058.804033-1-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Hangbin,
+On 11.11.2026 17:20, Juergen Gross wrote:
+> Some rework of the blkback statics data handling.
+> 
+> Juergen Gross (3):
+>   xen-blkback: Remove statistics logging on console
+>   xen-blkback: move statistics data into sub-structure
+>   xen-blkback: make statistics data persistent across disconnect/connect
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Thanks for the review and the helpful suggestion.
+In the last patch a brief comment on the global stats instance may be
+worth, to indicate it's guarded by the rings lock.
 
-On Thu, Nov 12, 2026 at 08:47:13AM +0800, Hangbin Liu wrote:
-> On Wed, Nov 11, 2026 at 04:22:22PM +0800, Wenbo Sun wrote:
-> > Commit eb4e17a1d915 ("netlink: support dumping IPv4 multicast addresses")
-> > extended RTM_GETMULTICAST to support dumping IPv4 multicast addresses.
-> > While inet_valid_dump_ifaddr_req() accepts IFA_TARGET_NETNSID in dump
-> > requests and dumps addresses from the target network namespace,
-> > inet_fill_ifmcaddr() never puts IFA_TARGET_NETNSID in the netlink
-> > replies.
-> ...
-> > Fixes: eb4e17a1d915 ("netlink: support dumping IPv4 multicast addresses")
->
-> I don't think this should be fix. Maybe consider this as a new feature and
-> target to net-next?
+Also, do I maybe get a Reported-by: on the last patch?
 
-You're right. While eb4e17a1d915 reused inet_valid_dump_ifaddr_req()
-for dump requests, inet_fill_ifmcaddr() never emitted IFA_TARGET_NETNSID
-from the start, so this is not a regression. Adding IFA_TARGET_NETNSID to
-IPv4 RTM_GETMULTICAST dump replies (alongside setting fillargs.netnsid = -1
-in inet_ifmcaddr_notify() to preserve the preallocated skb size) is better
-framed as a consistency/feature alignment with inet_fill_ifaddr(),
-inet6_fill_ifmcaddr(), and dev_mc_fill_addr().
-
-I will drop the Fixes tag, soften the commit message accordingly, and
-repost this as [PATCH net-next v2] in a new thread once the 24-hour
-resubmission interval has elapsed.
-
-Thanks,
-Wenbo
-
-
+Jan
