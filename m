@@ -1,113 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794506618;
-	b=is1CJ36EC+Yi3f+61TS/Urnj61HG7Qxz8TjgPDiQBPQS87NaUOkZK6GOizaNiBr6VlM9
-	 3jOh1A93YkcUktbHtZzQxqaUC4SipIUaerY9gLy908fCYKlYjQU3ujNteZwQjqO0U8wtT
-	 MV6H055WK+owYp80Mum5uHqDjSRvxzDu9FCD5HR5YRFNUFIX0r4pZlOWsVKF9T74mOBE+
-	 ad6K66aTio+gHV1JdxZoewF2E880tAbJGGpkQSe9Y+7dicHgrcm8ckNz2mfsTFvJB4k8N
-	 QSIAdBzKV4SgiL8dduxW5Zcskz1tit2xTscL+b/jgHT4Hs564Ulkyzb464/KSrDIfFg==
+	t=1794506627;
+	b=rhXJvpr1CB3/93N81XbikZw0jRvdij4v0pgkfPEPz39iYdvrlX2iEn8uLyVQXTKQWH/k
+	 8vVmzmG7UDi8gQlfGcIuBQPee5dIgQofx0IWXdePT7Bc7A/qAUvZIvaquUAb9VlRl50oW
+	 h0nxG5a58eqZaiv3hxawrU0be9rLzSuJN45Ry0EF+nB3WZfBGv5a7Y1k0y9Nm3xpRk6i+
+	 5yEPXEJTHx4FfrG167xLoJc0e5heyVCtWsChsJqnRs5QHiHWAQ5C+umPg7JoapHTzwy89
+	 qlEUCmLn9JA79Jxp9V4qi9VL48XYt34iY+I4xK7wmBI8gjRDqJti7PyBbr8tqRU/rwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794506618;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=is1IjOBk13wV8pAnUUZXWALQm5FmYZmf98T0QXm6I/k=;
-	b=A3pQ5T1RHb4dOZd40tHPqmmPq9L1cpJM3zU7TqIJz+oHq4/tnTuzhRK9UcnlWh+VW6Xl
-	 Ox8o9RBX4EdfXATqn8///5/LVdAZIUFWaehIePdsOG7IwIytnRvtuuBPl9Un+3sU9PbO2
-	 f5Z0i4iNgWvjdcShYx4Wa6nc+QZ+gmrxL7whF+HHdDeK0dVBN3h8O0Bsx0iSA31Wqj6TJ
-	 f4PdC4eCghVPbmYcHMGKRjyZucArWRE5lvpzYulnYAqWhYQIRiRiX7HXur4HK5i+uLdpt
-	 IkJdmX72i4i3eSDfofH2lRfD1sK35T7BgQNAa9zmVYCgtQO4miH7Jb5LQteL5T3XaSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794506627;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=KWmfQ4Rcktpupq70cQYmKdTekcTMgohpolHe+exndVY=;
+	b=TuZr5pGmlUobNQ4LeL9317O8uwhrDnd6m3R5kKnnq8qpCxPmlNZVsDSth/QnTDM/5WXW
+	 U0+QG2f8Xf93DJUJc+6bvB3PTUzq6deBfpjZmrhTJQq+1bql65cTkVgVWAchSkLZ90MSH
+	 Z76EfUYxK7hSyz1IZMOSlnP6sE5MAMf2Q13MYpr2FbigtO/eWR8yTsxwQzlBHnvixEG6R
+	 ETqfDGwlhXNf0m4KHka0I9FAqFPKVzjmnI3BzNNMhu4uahWHqrep0wUAhESXjWS4XjCLD
+	 ucfz7igjUYW8UGeTJFKAZ52qT7PRPcGNkYRcyxzHPZ3425/FNym/foxK+pNjsGFMfdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="IpV8/bXk";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ss8TDFcW;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=JEYDUHef;
+	arc=none smtp.remote-ip=209.85.216.98
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF55606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:03:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FF55606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56598606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:03:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56598606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IpV8/bXk;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ss8TDFcW
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACFZUd13841266
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:03:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	is1IjOBk13wV8pAnUUZXWALQm5FmYZmf98T0QXm6I/k=; b=IpV8/bXkpYXuHKVf
-	kdWRRPY9OgvhYkjJ9MVBevP/Md7oek15QRAzpgkKf6CHE1OCUKr19RE/4q+x532M
-	2Ic/9mkFsJWPZIKBqrbIP0w8fv5tkqveh/hZIyy2EtfZsa4+9Oas4kRJB164knVa
-	MhJ6VK1S576kZjFjLSxjcfYD3ot+JTaY8Ojpjdhne7Oy4qaTjBKwU203HqTpXH53
-	W4jdkp0kMzDJXwkt4Z/w2XTg+WzfskLVhG96XXTA8+1HBP56Bz6aOgO8YDD9iZkG
-	NEOBRQIBENPXEKUZ7+6EfvuhZFhGPuTuO/EWfq8vvOL35D+V+RDButzh2h6Kaxom
-	d7TN9Q==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw9e1aach-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:03:36 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5eac2cf3905so46384e0c.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:03:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794506616; x=1795111416; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=is1IjOBk13wV8pAnUUZXWALQm5FmYZmf98T0QXm6I/k=;
-        b=Ss8TDFcWlia5yaF4YCZ0rMhiY84SrFXeb+C6j/TgIXjx7PF0pWhYdNE8eoZ+js5ATJ
-         +QxpNgPr1g5Nn8PqB1qGwoejhLBrW18b7Y7A0tZHk8+CVquB+pqqjGORER1Kk6bur3L1
-         dn5MP7+Y23jQbhIfbOYNcvCS78Ml2ehE2t/M9jiIrmdQVQ4quudNn9+QtDmptaVM8xlo
-         zClv297K/+tcd+yt865PCAxvteqxhiWlFmc6DpBQW1lBJKvKUroHtyRvPSy6rKcqbQfo
-         s3+5D5PYQhY+Dg0F05KosgjUBrqSe47iUIt9Z5RoWDyF6bjgZE/EXg+EMCoIZFGX5uC5
-         9U+g==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=JEYDUHef
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ae2b7e1e17so24232a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:03:47 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794506616; x=1795111416;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=is1IjOBk13wV8pAnUUZXWALQm5FmYZmf98T0QXm6I/k=;
-        b=KFeLJQr7968K2H9ZfsvtpQz34hXnpv+jKFcvzk0hreSXLxTPbY3H5s0x6V6GRBLYE2
-         bRtG5fYI2OhaUiywNmHCqlYD8Z17Gmzv7ejgTLyd736Lw18JomsuVWcynYU15VjBU3Ro
-         9RI8VmcCZSozwDDwU3QYZ9wwAHQlIO7MyGIgaIhnt55KYzJY4q/LLQ2g5VQQqpUL9Iaq
-         BLyOU/9pE5VjzbK/cSsA7P3xFdwr8giVPZLYxmq3z7UkjFfw4spWzPSyH0FppepqZTaF
-         1eRFtbz16SeHxpYN26R3dL3fJ6ziF07LM23O2aun4VmfgWX0lQxpbHo//deMu3WzI/CE
-         YGjg==
-X-Forwarded-Encrypted: i=1; AL+hErE7g65VGFoiejTRSF5k7Pai2BOwI5OkEQZXiPz4XZuK/AumDq/YBZyT5K5nzRGEhIIZ3Wg3iz03plwZmw8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/D6y7hWh8Dd7HlXLghxcxhkW9PkSQZRaAWLJTSe6GE2n6mRvLi
-	Oa/VxOIgHZFF/vonvspnQ9VBL2CuFOK6v4iW39E9rzMQhI3SyncfBJDRQ/AQZz84mhNM8Q8EBXB
-	IsrrOjJcaJuqYBVzE2QJmMnvoL9MQAPx+Nw873e6NEiZS8LX5+UTdQTMKut+CRszHrkGlwGYYwE
-	Nraw==
-X-Gm-Gg: AYBFou16MfwPB69TYv0uxNb9T9ELRaoYEsqXJu4585TdGHG6iEq6iwTZHLZi3R4ffHF
-	zfS0FRikDvvL4tuERDsNS1XaMOQr6zxhSbwU+Wj3HZoomXhoURcW7CWJPjLK+mReWuhxwxFGwis
-	JTsGBFE7QrPMK56Vwp3EbCiu34M9AOGGcIkfov3TOtFfPbYFG7TvsLk3ox+0fyohzPd3qKhTsb+
-	TUwPzbFbpqKZ+ei4qqzbvrQUk5jf3A0+gz6ClYdLRTUrsZ8p9ghxAa7XZgLiyqd804xOO1mq899
-	vcypFz857rju5nY27fa0GS8KGrX4ubaZRfMOtVy6bO3tkVICFHA+4XJT57hGUB8Ltn0kgC1GdQc
-	8wSJOeN+Xn6mFW5M+RtNRe+tGDL8dmeIZANbfe+irUCs9sJ82q64wDeyuEuacv0ld3xipnFJA/J
-	/jlogGTDoPK2GiFpQKmel9GcFdYl6WQynKsrQ=
-X-Received: by 2002:a05:6122:3d06:b0:5ec:3e18:a912 with SMTP id 71dfb90a1353d-5ee1c41a938mr2612959e0c.14.1794506615464;
-        Thu, 12 Nov 2026 10:03:35 -0800 (PST)
-X-Received: by 2002:a05:6122:3d06:b0:5ec:3e18:a912 with SMTP id 71dfb90a1353d-5ee1c41a938mr2612929e0c.14.1794506614860;
-        Thu, 12 Nov 2026 10:03:34 -0800 (PST)
-Received: from ?IPV6:2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7? ([2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2acf81sm80058415e9.14.2026.11.12.10.03.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 10:03:32 -0800 (PST)
-Message-ID: <d30df23c-c1f4-4a7d-a56d-33c1f9e1a6f7@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 19:03:31 +0100
+        d=1e100.net; s=20260707; t=1794506626; x=1795111426;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=KWmfQ4Rcktpupq70cQYmKdTekcTMgohpolHe+exndVY=;
+        b=Ouwnv9UiFDGUTmNh+jpiN7613Tfpm0wLQ/TzCQnsMdKbeKcUh35SsGGX1fOW26RKGz
+         kLb3Ehn3tES1F6lXnAy9nldk9poJlvngbbfyKxWuMQ92BLpB2b1s9elM+k36r2TbeXvs
+         qhouHkPtJAR3Mu6fdqkK3DMBvMcpOMxb5xx3yscZFULge6AQygMagLeVQTAGSNT90LhT
+         BnNVKJwsoSmeKcu8Xdcuo5qVIR3jgetoyJWv1gdQBJJ49VIxvJCKWVjvY2UhypERx7J1
+         ZA5Q1VkiS/2N1PFG4U3Snwyd89e4y8OwH7cXoCsD1gLHt/nX9YHaa4yuCZaLy49wZ5Wl
+         huUQ==
+X-Forwarded-Encrypted: i=1; AL+hErHxUHepF6ImjzTJmPd5JcOcF3jhIa9lagNBk/9VghInHAKPPjY0yhKHNTC8p32aL6bJHr0HeBwwrWGas7o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/JG3K1zWKp07RaX02OxTHje/qQdbe35UVAdbBN6wcOVAV7JqE8
+	c3eIcIf6ZvqKDXm4BB0se1Tn5mY729c5kGJmy1PBlRJisC7ScRrBEtnTLfV6PTW7EnKOF7/yeW0
+	zlOn542tZTMIk5qJu0iDvDW+ziptf/ygfWQigyFP7GVDnNF4D/Q6VnoMcKO7zJLj2ZKB2O9bVkL
+	hCafQ1ougeWBKEIuCzGc2cGtzM8Rm8GQOqYh1Q+dOLS54gt6vaiSAcjrLZqAuXTgupE8lKob6ol
+	B9pLIwB+Kug5Uinf5mks3fC
+X-Gm-Gg: AYBFou3BkveIVVnT9fQc8dUnYoJR9knInHT1nv65qbMnbWoippT2OkRga4gRYGw0tRN
+	k9JVa4k0KBwnQTv5xxgaIyp4ZkMCYm+aPQzBDeb82cv8V4pN/jlWdHg1ECWgj8ZqROXTO4ovpWi
+	gmFfRc3cB9SKDPBVg+cmFFK3vmgnygUd51goHqO5JMEira/YeXnoomsEAULixpKr8i1dMjhH3zG
+	Sn6lMUsVCF92Dya4ZTGAEEoNQv/N2EhOvHYZbAbndJrhC2yeY0yMOeodm2nf02LdRAJPlKefaTY
+	/DLf2WpNe3rfVJ/25ZnJMShYDrilRQchrG58Vp2LmaHYS4cXhn7BRwCY8FC0ULFKN9YbfBNBBu0
+	DMBj50FqdRzbQd94/jFBAkD5MdPz0qFOtvwqQLjrwF5nvcGsYvLCAtUjuSvJBkMC0TCPI0z2AVQ
+	S4Wds/x+VxU9JbTS7s33ON0JUBYEKe0QZyS9XnLQoE
+X-Received: by 2002:a17:90b:4ecc:b0:3ac:eeb:e0ed with SMTP id 98e67ed59e1d1-3b182eec2f2mr5992597a91.36.1794506626192;
+        Thu, 12 Nov 2026 10:03:46 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1ae81cfa5sm418384a91.0.2026.11.12.10.03.45
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 12 Nov 2026 10:03:46 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b0a13ae043so60919a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 10:03:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794506624; x=1795111424; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KWmfQ4Rcktpupq70cQYmKdTekcTMgohpolHe+exndVY=;
+        b=JEYDUHeffcLgfzq4udhuNGiGnRIyktFi/daKzE0I3FHTKN7NrPzWHTSv4Zv2zSRTFi
+         j+qgeQXS5mGQmnyByNtapbANmW5NiEDO+14O1FyWvOCjwKrQjprZvBxYTMd7cBe7tGOS
+         w19tw7l1NcCi19du6gLRff9tBMwq9QBUSrtHk=
+X-Forwarded-Encrypted: i=1; AL+hErGh3c+Btc+87LEzinCYveBNdTr+wAqdRuDu55Az86rYhfTNBbbcNIKm88feQP8jjMfw+0Nf13YHSQgeDIc=@vger.kernel.org
+X-Received: by 2002:a05:6a21:798f:b0:3e1:c08f:16dd with SMTP id adf61e73a8af0-3f7a6ea0853mr7267637.27.1794506624304;
+        Thu, 12 Nov 2026 10:03:44 -0800 (PST)
+X-Received: by 2002:a05:6a21:798f:b0:3e1:c08f:16dd with SMTP id adf61e73a8af0-3f7a6ea0853mr7236637.27.1794506623837;
+        Thu, 12 Nov 2026 10:03:43 -0800 (PST)
+Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cddc18abc06sm95004a12.22.2026.11.12.10.03.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 10:03:42 -0800 (PST)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: netdev@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Jonas Gorski <jonas.gorski@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Vivien Didelot <vivien.didelot@gmail.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net v5 0/8] net: dsa: b53: Preliminary fixes
+Date: Thu, 12 Nov 2026 10:01:54 -0800
+Message-ID: <20261112180202.324504-1-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,104 +116,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] smpboot: Allow restricting per-CPU threads to a CPU
- mask
-To: Thomas Gleixner <tglx@kernel.org>, akpm@linux-foundation.org,
-        rafael@kernel.org, peterz@infradead.org
-Cc: Heiko Stuebner <heiko@sntech.de>,
-        "moderated list:ARM/Rockchip SoC support"
- <linux-arm-kernel@lists.infradead.org>,
-        "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
-        "open list:CPU HOTPLUG" <linux-kernel@vger.kernel.org>
-References: <cover.1793660202.git.daniel.lezcano@oss.qualcomm.com>
- <af37c4e7811a86adafb2064e7cf4aa4f5090ab4b.1793660202.git.daniel.lezcano@oss.qualcomm.com>
- <87zeverlrs.ffs@fw13>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <87zeverlrs.ffs@fw13>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA3MSBTYWx0ZWRfXxrUw1/pmAb8c
- PWrKjaK57SY+NbpLMCRS1hgsXqG8qoz/sMu6N2E8VXPVkLuPSxQBjVjppxCZvhPI4sISnQij/mN
- W5dCkDDxVJFmp56mYkITCFfU+MUSKWHaH3bv1zKDrtyag6HFUMFFpTJ9UFUkXCM2NDRmn8TBqoE
- 8pQXxFOmr8vsJipgbZIwAi1DDTDttldvOUF1Qm8XyACOpGk6pVwhQaqRuKcazQBDUoeyv6WI6Bn
- 2CS0veM36+KnGo0x2pX65qyczrYymTESjFKMf9hrtJglBfrdyCRLPvznXJxuTmw+Jd8UqKlPcOV
- KUMr1PIIOYjoZEUvG4w8LRtCvO/GlmKgfxjJ2DTghUtHvjTJ5/0ktLGLoUw7DcxBqLYKz/K3z1Z
- lZZVQL5E8rq9qXWs6ovLWRInug/8+M5VEWYBlS+4rSAY5K580yoOIxIH4DGTzFNWzE225dVJt8d
- Y/t2nj/ZEqWEIjo1CFQ==
-X-Proofpoint-GUID: Od603GS5u4kTAVQtz8WC2OD1i8YRSpMq
-X-Proofpoint-ORIG-GUID: Od603GS5u4kTAVQtz8WC2OD1i8YRSpMq
-X-Authority-Analysis: v=2.4 cv=F6fC5ahN c=1 sm=1 tr=0 ts=6af5ff78 cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=A-cxFYNZenKyrZAO6n4A:9
- a=QEXdDO2ut3YA:10 a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA3MSBTYWx0ZWRfX6ECFcS+WqLpv
- SMRZL097NTunOph5Jp6dlG1BdRFA2683pp3dsG3hoN4iie6/174WUB/aG1hMufl0KA7Xw1t0WM5
- hqevSyboDeEnOnACcDixFufo5kOrLIU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_02,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 malwarescore=0 spamscore=0 clxscore=1015
- bulkscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120071
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
+This patch series contains fixes to issues reported by Sashiko on the
+b53 PCS bug fixes being submitted, and then some more that came from
+code review and testing.
 
-Hi Thomas,
+Except for issue #2, all of the other issues did trigger in testing and
+needed to be corrected.
 
-thanks for reviewing the patch
+Changes in v5:
 
-On 11/12/26 18:40, Thomas Gleixner wrote:
-> On Tue, Nov 03 2026 at 00:09, Daniel Lezcano wrote:
->> smpboot_register_percpu_thread() creates a thread for every online CPU
->> and registers the descriptor for subsequent CPU hotplug operations.
->> There is currently no way to restrict these threads to a subset of
->> CPUs, even when the user only needs work performed on that subset.
->>
->> For example, an idle injection device targets a specific CPU mask.
->> Creating threads outside that mask consumes resources unnecessarily.
->> Supporting multiple such devices also requires each descriptor to
->> manage only the threads associated with its own CPUs.
->>
->> Add an optional CPU mask to struct smp_hotplug_thread and apply it
->> throughout the thread lifecycle. Registration creates threads only for
->> online CPUs in the mask. CPU bring-up creates threads for selected
->> CPUs that were offline at registration, while parking and unparking
->> are restricted to the same mask.
->>
->> Apply the restriction to thread destruction as well, both during
->> unregistration and registration failure cleanup. This is necessary
->> when descriptors with disjoint masks share the same per-CPU task
->> storage: tearing down one descriptor must not stop or clear threads
->> owned by another descriptor.
->>
->> The caller must keep the mask valid and unchanged until the descriptor
->> is unregistered. Callers sharing per-CPU task storage must ensure their
->> masks do not overlap and serialize ownership changes themselves.
-> 
-> This really wants a built-in check which prevents overlapping
-> registrations for the same thread storage. It's easy enough to do:
-> 
-> smpboot_register_percpu_thread()
-> 
-> 	if (!pt->cpumask)
-> 		pt->cpu_mask = cpu_possible_mask;
-> 
-> 	guard(cpus_read_lock)();
->          guard(mutex)(&smpboot_threads_lock);
->          list_for_each_entry(ht, &hotplug_threads, list) {
-> 		if (ht->store != pt->store)
->                  	continue;
->                  if (WARN_ON_ONCE(cpumask_intersects(ht->cpumask, pt->cpumask)))
->                  	return -EBUSY;
->          }
->                  
-> Hmm?
-Yes, I agree it will prevent strange things happening
+- resolved build warning in patch #7 by moving b53_mirror_init()'s
+  declaration into patch #6
 
-Thanks for the suggestion
+Changes in v4:
 
-   -- Daniel
+- Return success when deleting an ARL entry that does not exist per
+  Sashiko's review
+- Restrict the 2 Gbps override bit to BCM5301x and BCM58xx
+- Restore mirror configuration on resume, moving mirror initialization into the reference-counting patch
+- Propagate SF2 setup errors on resume and disable the clock on failure when WoL is inactive
+- Add a patch fixing BCM5325/BCM5365 mirror port encoding, including CPU port bitmap translation
+
+Changes in v3:
+
+- patch 2: added Daniel's R-b tag
+- patch 3: mention in the commit message that deleting an absent entry
+  now returns -ENOENT, including when the lookup runs out of space
+- patch 4: document that the patch also fixes the clear of the capture
+  port field in b53_mirror_del()
+- patch 6: reference count the mirror source bits per port and
+  direction, ignoring deletions without a matching reference
+- patch 7: new, harden mirror register programming:
+  - reset the mirror capture and source control registers at setup for
+    b53 and bcm_sf2, since not all switches are reset
+  - check and propagate all mirror register read/write errors, only
+    taking a source reference once hardware programming succeeded
+  - use the source masks rather than MIRROR_EN to decide whether the
+    destination is occupied, and write the destination before the source
+- log failures in b53_mirror_del() since it cannot return an error
+- patch 8: new, fix the mirror capture port encoding on BCM5325 and
+  BCM5365, which use an 11-bit bitmap (CPU port at bit 8) instead of a
+  port ID, and translate the CPU port in the ingress/egress source
+  masks as well (verified against the BCM5325E, BCM5325M and BCM5365P
+  datasheets)
+
+Changes in v2:
+
+- collected Jonas' R-b tags
+- corrected logic in patch #3 to propagate -ENOENT, memset after the
+  debug print, translate -ENOSPC to -ENOENT when deleting
+
+Florian Fainelli (8):
+  net: dsa: b53: initialize the jumbo frame size register offset
+  net: dsa: b53: fix the SRAB grant timeout check
+  net: dsa: b53: clear stale state when creating an ARL entry
+  net: dsa: b53: reject conflicting mirror destinations
+  net: dsa: b53: use the correct override register 2 Gbps bit
+  net: dsa: b53: reference count shared mirror source bits
+  net: dsa: b53: harden mirror register programming
+  net: dsa: b53: fix mirror port encoding on BCM5325 and BCM5365
+
+ drivers/net/dsa/b53/b53_common.c | 209 +++++++++++++++++++++++++------
+ drivers/net/dsa/b53/b53_priv.h   |   4 +
+ drivers/net/dsa/b53/b53_regs.h   |   1 +
+ drivers/net/dsa/b53/b53_srab.c   |   2 +-
+ drivers/net/dsa/bcm_sf2.c        |  10 +-
+ 5 files changed, 183 insertions(+), 43 deletions(-)
+
+-- 
+2.53.0
+
