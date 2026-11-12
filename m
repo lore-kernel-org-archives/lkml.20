@@ -1,54 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794472190;
-	b=CDukykWmJzOefQaZKsnmFZdEklOvOsoAj+Qm+YpcugDjz3Qi8cF2sXUAUiLr6907Fn3T
-	 hXxuWaYMoVV83ZQA7n2bzZV0ibY1v41JnOEtJeMKeQvT4DhUVeDQ3oHZ5VTt0s2SJULEo
-	 KesNX1NuowMJpzzqZQvXejFhctsPO6SqPvWDfGU7PiAujQ3eOvzDHiBAqI3729u8Z8Zyf
-	 PfxY2HcKlYNE2YhSCE9yDqNNNSl3+GH8GFBeWilo8nNKs3tCbyV2oGCrvawyY5a8oV7aO
-	 pTtonP/ONBsJlLDQ2w4LkbSynTbQXYLAvgfgfZ61hkKC08UsV0qJF0w27LcGL6c0hJA==
+	t=1794472242;
+	b=C6nV32jyvnz57jA8ZiWpy1UX3RIu1RHD38ah3RF489kyQS+zzb6o9HGCCHdqj1APqp1K
+	 G4dd6tQP8djbkBijwk0bjgsFnS3OmHq6BAxOEuK4gwT0oOK5rXufOaVll4xogy7icygds
+	 f4RDpsBzom5Z5Q4pa0K4bPSqnat7i0xiqahFIWx0xU/S0w97CxWyAndeFYiRPpSmxAROm
+	 KwUU1q48MEwG/n0ujagQIMjmMcEOc4ADGdLLy5HcQB3HNkgZM7Sv1hEJ7aWNTWYvENBE/
+	 VQaoyfPatnr2ydKbQFw+n1OnnWh7AyIXX3pq096JhDjbxuBzrVr98Om5bn4OmQApD5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472190;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=gc7aRKi1OTN38gZF0iB1g/aVZMHfRfxSo8k9cS0cF6U=;
-	b=zrlTQiBIMEiFnmagPns6DiOEGRhdzllbxK74WVe++MERkTm29crNtMO+Q+b9+7Xzm13o
-	 UOW6bpMK+hvEsWIWzx3aKFMHzXEQ/wTof7MqXiftH6c3vmuLpfIwCssjgtWOyedL6AE4t
-	 9JndjDWYH7F4PbxFkO6tRiFX0FS0WNSv95VKrhbqQC+QDhzL45hllEktPNbhd61wHvt6C
-	 17ubrms2DUxlphBimxw8MJek3o8gVauh3t/qPsXIUG9NCQ3i+K6G62lc/W5RNLlPtB8Ds
-	 Nu/f19t0JM+juy+u37V4iZmQwdkIySnEWXlQbjHbVk2JjlhrZR2/OowdiFCwB1FsdbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472242;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=J1ZxmriRqQ9+61x/KiVxYgCraVJwWtPh71bpXSpp/vM=;
+	b=1opqYPjVMnVmoRU/sD4G6K4bTxbxsJPECSGszvvb0o55qXRZA+u94ny/ULjKKUoMFXHC
+	 6iQJnPPBZbxfrmR2TDaN79hVRRhPzvV6yUVUvRAsDxRgX1BH+25PzKdPq+x66i+aFFpkc
+	 8eRlEyjckdTbQIpcjoxOVHQIA9cnH2dUukgLymFrpRJAnuadYK7gQctSRw1ds1JCCxTNa
+	 KogXBM8t/JH2Np8Z8qBZWX8IuW44i8JjOFEN4svN2sICjNiHcKiUK1cEskPsTuR6FKudb
+	 UBdYNx3n9ChMMPgyhAxK8MfzbDYKtED7gBwy2x8gVFBw32gRA4fay9FcEZP3RjoVhwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=le10vfeh;
-	arc=none smtp.remote-ip=91.218.175.112
-Received: from mta0.migadu.com (out-112.mta0.migadu.com [91.218.175.112])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=zgboRtwD;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=n4fsSVxH;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D38606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:29:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83D38606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D7B606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 08:30:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9D7B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=le10vfeh
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=j0RJG2N4IABZ2jiB6Vune71gW/eL62u62prLnDIf4is=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794472187; v=1; x=1795076987;
- b=le10vfehYmTwx5d6lbPFDp/FYTliOrxj6gxM6Eu4je1+TIRVL8e5/jEZY73hXY/bcHTtJmIW
- /ictlRFd8ubj4dK3EU2t/KY5O2GB1XO5A/3M9dWsBECzukJgLhkpfI6SopsSyYj8kc2AzHOLEAF
- mgBSeLJ0b+D2njpiWdIcV270=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 796e21b03d4ff1c1;
-	Thu, 12 Nov 2026 08:29:47 +0000
-X-Mizu-Trace-ID: 796e21b03d4ff1c1
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b1fba95d-97c8-44ae-a5be-6d2fba7e7e78@linux.dev>
-Date: Thu, 12 Nov 2026 08:29:42 +0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=zgboRtwD;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=n4fsSVxH
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794472239;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J1ZxmriRqQ9+61x/KiVxYgCraVJwWtPh71bpXSpp/vM=;
+	b=zgboRtwDlXPdubW6FP+TXnwTzg9cuCoi2bNi1WycLLB0WfukOGm+PVjzxmGlr4sT2Swt4r
+	lEg10MYTOIBEWIZ6u/xicw4PPf+xuKHQNcSnbn+7bh/2LUplXT4YX0pmtrCDnovCmK+50k
+	KWNhj2ZK/6EPX5EekIsMEFPnr7LnHjLxL4mbSx/ntsq+S4oDKUvyfii2ielIU9yXY5FRN7
+	F+bp07OfYjoITgduXQK9S6Lr6Z0qwCxzPQRZvoRA1wulBPZMOTs2zf3KcMoKJRtIr1Ofqo
+	TEOcMRzUQC0MB3cooRqXoaid4DyHWJpDTVWVJ0+7RgJrs0B0350eCt7sEXnc2Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794472239;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J1ZxmriRqQ9+61x/KiVxYgCraVJwWtPh71bpXSpp/vM=;
+	b=n4fsSVxHQCpoGUrSswAqR01TxjQMU7WRkZTHV4T+HNj6vMAE/KrCFqtWX3p0e4K1b296BY
+	6AEEPG806uO4nHDg==
+To: Zhu Jun <zhujun2@cmss.chinamobile.com>, pmladek@suse.com
+Cc: rostedt@goodmis.org, senozhatsky@chromium.org, paulmck@kernel.org,
+ printk@lists.linux.dev, linux-kernel@vger.kernel.org, Zhu Jun
+ <zhujun2@cmss.chinamobile.com>
+Subject: Re: [PATCH v2] printk: ringbuffer: Annotate speculative record reads
+In-Reply-To: <20261112031441.120773-1-zhujun2@cmss.chinamobile.com>
+References: <20261112031441.120773-1-zhujun2@cmss.chinamobile.com>
+Date: Thu, 12 Nov 2026 09:36:39 +0106
+Message-ID: <87pkwah2og.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,91 +72,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xfs: check the disk address for hardware atomic writes
-To: daejun7.park@samsung.com, Carlos Maiolino <cem@kernel.org>,
- linux-xfs@vger.kernel.org
-Cc: Pankaj Raghav <p.raghav@samsung.com>,
- Pankaj Raghav <pankaj.raghav@linux.dev>, "Darrick J. Wong"
- <djwong@kernel.org>, Christoph Hellwig <hch@lst.de>,
- Dave Chinner <david@fromorbit.com>, linux-kernel@vger.kernel.org
-References: <20261112-xfs-hw-atomic-align-v2-1-c90394805e7b@samsung.com>
-Content-Language: en-US
-From: John Garry <john.garry@linux.dev>
-In-Reply-To: <20261112-xfs-hw-atomic-align-v2-1-c90394805e7b@samsung.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 11/12/26 00:41, Daejun Park via B4 Relay wrote:
-> From: Daejun Park <daejun7.park@samsung.com>
-> 
-> xfs_bmap_hw_atomic_write_possible() checks the alignment of the encoded
-> br_startblock, not of the disk address. This was harmless while atomic
-> writes were capped at the greatest power-of-two factor of the group
-> size.
-> 
-> Commit ec8f62cc109a ("xfs: don't limit software atomic writes by the
-> group alignment") lifted that cap. The block layer can now fail a
-> misaligned write with -EINVAL, 
+Hi Zhu,
 
-It's a good thing that we have those block layer checks...
+On 2026-11-12, Zhu Jun <zhujun2@cmss.chinamobile.com> wrote:
+> diff --git a/kernel/printk/printk_ringbuffer.c b/kernel/printk/printk_ringbuffer.c
+> index 46a79ec0940a..8a1075d00d0a 100644
+> --- a/kernel/printk/printk_ringbuffer.c
+> +++ b/kernel/printk/printk_ringbuffer.c
+> @@ -1894,9 +1894,10 @@ static bool copy_data(struct prb_data_ring *data_ring,
+>  	if (data_size < (unsigned int)len)
+>  		return false;
+>  
+> -	/* Caller interested in the line count? */
 
-> and XFS does not fall back to COW.
-> Unaligned AGs, such as those made by mkfs.xfs before 6.16, and rtgroups
-> made by any version can hit this.
-> 
-> Check the disk address instead.
-> 
-> Fixes: ec8f62cc109a ("xfs: don't limit software atomic writes by the group alignment")
-> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-> ---
-> The bug needs a group size that is not a multiple of the device's
-> atomic write unit max. mkfs.xfs 6.16+ rounds agsize to a multiple
-> of it if the device reports one at mkfs time, but never rounds
-> rgsize. Before 6.16, a single device of 4 TB or more got an odd
-> agsize.
-> 
-> Tested on emulated NVMe with a 64 KiB atomic unit and boundary.
-> 64 KiB atomic overwrites in AG 1-3 (mkfs.xfs 6.6.0 -d agsize=262142b)
-> and rtgroups 1-7 (xfsprogs 7ebfc20eb88e -r rgsize=65534b) failed with
-> EINVAL before and used COW after. fstests -g atomicwrites and xfs/838
-> (rt) give the same results before and after (generic/773 fails with
-> ENOSPC on both).
-> 
-> Changes in v2:
-> - Explain why the check was harmless before ec8f62cc109a and which
->    filesystems are affected (Pankaj).
-> - Reword the comment: an fsbno is not always a linear disk address
->    (Pankaj).
-> ---
->   fs/xfs/xfs_iomap.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/xfs/xfs_iomap.c b/fs/xfs/xfs_iomap.c
-> index c3465204b8d..119ff8e4c95 100644
-> --- a/fs/xfs/xfs_iomap.c
-> +++ b/fs/xfs/xfs_iomap.c
-> @@ -848,8 +848,10 @@ xfs_bmap_hw_atomic_write_possible(
->   	 * atomic writes are required to be naturally aligned for disk blocks,
->   	 * which ensures that we adhere to block layer rules that we won't
->   	 * straddle any boundary or violate write alignment requirement.
-> +	 * Check the disk address: an fsbno is not always a linear disk address.
->   	 */
-> -	if (!IS_ALIGNED(imap->br_startblock, imap->br_blockcount))
+Please do not drop the above comment.
 
-Is there anywhere else in which we do an alignment check on 
-br_startblock that relies on the group size to be a multiple of the HW 
-awu max?
+> -	if (line_count)
+> -		*line_count = count_lines(data, len);
+> +	if (line_count) {
+> +		/* Racing text is rejected by the caller's descriptor recheck. */
+> +		*line_count = data_race(count_lines(data, len));
+> +	}
+>  
+>  	/* Caller interested in the data content? */
+>  	if (!buf || !buf_size)
+> @@ -1969,6 +1970,7 @@ static int prb_read(struct printk_ringbuffer *rb, u64 seq,
+>  	atomic_long_t *state_var = &rdesc->state_var;
+>  	struct prb_desc desc;
+>  	unsigned long id;
+> +	u16 text_len;
+>  	int err;
+>  
+>  	/* Extract the ID, used to specify the descriptor to read. */
+> @@ -1984,12 +1986,16 @@ static int prb_read(struct printk_ringbuffer *rb, u64 seq,
+>  	if (err || !r)
+>  		return err;
+>  
+> -	/* If requested, copy meta data. */
 
-> +	if (!IS_ALIGNED(xfs_fsb_to_db(ip, imap->br_startblock),
-> +			XFS_FSB_TO_BB(mp, imap->br_blockcount)))
->   		return false;
->   
->   	/*
-> 
-> ---
-> base-commit: 48326a2382d80715475d10ce98734ac65d2d2150
-> change-id: 20261110-xfs-hw-atomic-align-0eab6833447a
-> 
-> Best regards,
+Please do not drop the above comment.
 
+> -	if (r->info)
+> -		memcpy(r->info, info, sizeof(*(r->info)));
+> +	if (r->info) {
+> +		/* The record may be recycled; the descriptor is rechecked below. */
+> +		data_race(memcpy(r->info, info, sizeof(*r->info)));
+> +	}
+> +
+> +	/* The descriptor recheck below also rejects a raced length. */
+> +	text_len = data_race(READ_ONCE(info->text_len));
+
+There is no need to prevent compiler optimization with
+READ_ONCE(). Using data_race() is enough.
+
+>  
+>  	/* Copy text data. If it fails, this is a data-less record. */
+> -	if (!copy_data(&rb->text_data_ring, &desc.text_blk_lpos, info->text_len,
+> +	if (!copy_data(&rb->text_data_ring, &desc.text_blk_lpos, text_len,
+>  		       r->text_buf, r->text_buf_size, line_count)) {
+>  		return -ENOENT;
+>  	}
+
+John Ogness
