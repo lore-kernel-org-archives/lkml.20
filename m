@@ -1,85 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794513549;
-	b=DvZ7oz2rvtWcangdM9xM9/tWqhPo47sHXgl1IIs0/qLoLuahUCuah5hI8ZCay/SHIcRC
-	 vv7ROC/Yf0RFmtIFFBpp3ITFxagGkRKGKy0LuTjm1GtwdpH/h7vrioeEOz8fOLXN1wJsF
-	 GehJP2yec37HnHmLeVsWC8sm/SI9kFpEE9WtcfKR38MYsao/aw1Lrx27alXOINGFGuZdW
-	 j8/s/xxRyU7rLbI+qZb7J/IxAsluVVcB/o0SX4TxRzBwO//CQ7aXMaJgEQGlZvOPt4CRr
-	 dwK4unjMHzypWRZIFdm/lzdLkGw9XFBrqPUuEKo5gerEnc3NoMfflIRZ2mgkEXDplHQ==
+	t=1794513609;
+	b=FcwDTEPyI1C/TILc6q3LYQyn6aCf23N8qtDYE4GiBAf0QtPSlg2mR+omNZGPTve5FtpD
+	 64FMSIYsU/KFZZAo97ngKyqIekjJF9rMEosJPPpDt4cMtdWd/tpluC3CFCc2m9UejKgw4
+	 9w9pxH/cq+Je/HRBD1ZV5mp84p+UKjOBeRZuNeWswTVGqZuJMfdSNYKgxUNJXoFuZEfwv
+	 tCJh7pf89n7qpEouSNeBmiqQnK1SkT/WVjVJwIUj9kVP4EWTtokBjql+scDfvVtsj1ODe
+	 JpMsKA2UFZAWOpFV0gRpGWr3iOd66JTEzetjfZOIb9M3IY+hqk/hAGwhwxAtuqzQkHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794513549;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=T/wWb7fRaZUGBhzDhHV/eUFOWgluySiOaHkvWzqe8FM=;
-	b=ZVoi2icXfpOZAPFDbribTzSyDQTWDRE67w/w6ryeMiAoRbrumUNPg1OjKPoBD7Sp4g0/
-	 lzHE4Ia0AdOycPsrdK4vFvme5l8qnOaDSE+4jknuHo+QjFoQhAur7nPbz5mO4Gve4Xbwd
-	 WKwOhbvS3lktimFK8Q8RQ/LvaMr2whpAln/td+GfgTHTbgfwgA7Xva5nMKc+o/UiBewN+
-	 Zii8mVyHAcFekA3k0+tNZfbDtew9Nb0UDoqp7GdWfNOaBZ2ZBVzGfC8oPCOY5K+cRa/FC
-	 QZ+7s1DHTEISr2ObSNchf9xF8K6o+dh1B+yNjW8VQUJigSh122neOGMbpsp/ctVQOZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794513609;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=DHRuyG9ReqiocMJ/VqKG+CT5yWVQXJORMVXHUkARiSo=;
+	b=0MS6Kv2XXGex2+66sWosroX3t3SKKVGiTlGgEDj0s8/2Dq3x1LX1hXoP87ejPSomnumz
+	 kgXNao9ivFQdsXth0ESjuAMVwoLvHQEL7Bghew9FkynPqJR0elY0SfDIHfGvvF6uRtT0R
+	 Ebr1S5pRvQS912QYyvOXlDGqHiB7I4sQpYBqzu5h12cLqbgV++8dpfrwz/aGcpcsnljed
+	 gHGuuLbcDo4dEwGTl3JL3YidgtB5tDzPQqdHYV1vHJzDEos+/K3/xiClwjnfMBJAFc13c
+	 YakPBCkkawadaVgXbWgKCbI/JMIuVh0x6dwZoaMPbw0JsRQBuTA1AXI23RYuk9rQyYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nZ99iNli;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=po36a2x7yrbt7bhcbekms7rm7e.protonmail2 header.b=RPOIVCps;
+	arc=none smtp.remote-ip=79.135.106.28
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057BC606A32A
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:59:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 057BC606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 919EB606A336
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:00:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 919EB606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nZ99iNli
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3b0e61a4decso176846a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:59:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794513548; x=1795118348; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=T/wWb7fRaZUGBhzDhHV/eUFOWgluySiOaHkvWzqe8FM=;
-        b=nZ99iNli759lMAvhBbAMaHI4hL3nQwqz1Nsq0QOZXT8qpzrscDd3JSrlc3xG0/w1ss
-         Nm/+eLkmQRT1o7ffssVqdFEfKY1Tg0f9G6j1GiHyJikbuFchJSqkXb4hrb/POXYl44Xq
-         YBKDZRwUjSdmcl87FPpc9Nguo+mzOXATLf0hIs1F3C18yIWDSQldm7zk3Caxcl7TSoxS
-         RrFf0GyszcFOdlOVRqel4dF/0Sa3LoQMY2vRsXDoHxHkX59n7ZJLg4VHdVctijhiV6he
-         KAY6C72+00GzPDhM5Tk2cHQ8TnLprNZ7kmUEqGJ7NRYrRdqhaFRESOQdzlX97UQqOf6g
-         lipw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794513548; x=1795118348;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=T/wWb7fRaZUGBhzDhHV/eUFOWgluySiOaHkvWzqe8FM=;
-        b=jdfaBLMc0KDJiqzt41opQWp0Q1Z1i43a0kCvXH6SC3GfAf/zteQFlCrmXBz1+2Mut5
-         cZ3aGPCNfdJxYrWeM4ia1DSDdDzL2pbMtvD9UPlnP/sH4XfC7hbs9sM6/aFXHWR2wbZD
-         1Dm8z7FzFstxq5f74b1uAbyEHhg1SqmOwUN4WF5to/dGH6PFQF/Kb1XZBBtkxs5mrH9/
-         yrguoVT4Q8SH1JUjn6WBHldF8qhE6Oiodd4znr4IKIpgzuO9IkgUfrz163uf/dufVIFJ
-         phJFfQxPrLrUQ0py1tt9W92cPMLsBjHHEHlSWQMYPkLtuWflf8sbrjPwX919XqwwcfyV
-         ITzg==
-X-Forwarded-Encrypted: i=1; AL+hErGlimvH4VXkIK/EMHYXv1ke/UontHPjib3zRrWL5esgHP/Yj/AAhzzlW1UUSe24HXYD9jZBgrqnf7oT7oE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/f1neQ731jR0iwYmSTuCc+iaLek1J9C8j0aXeIuXgkza2fTG1D
-	7ZGtosxBP1pqcrn8KiWTKltWSdbA/9Y7EqiDpcKb0ksHCYuK8A081h1D
-X-Gm-Gg: AYBFou1FgVsuYdHGQNv5bVvolpqarLseZF0L2a3bbcN2TECBQvvYyI6ZEI3DebG7Ip9
-	I2RpYDz+dY0zaumYkD6D98/jSM0GtZOWOeBslg5cMrizOMVMq2rkDsQoxiSq29ex7r89CeNww64
-	e8cpZchgm0SgbSa9PZg8ScY0SG/A9ULJ6yFL2p+L4sgJwrCbHHl9jVYEOhkMmCRZNkai94u5FCm
-	VYGk4kGEfzxXu2Fm41xdpmwHPvacDCMdvE9OfVCRdDN6PMfRYYgtXryiT0p23xHVR2N1qCJx8tX
-	LYxwnEfwlC45Kq38OTMtKpo3i+zsYVlrrEuNIiH0whSbYCd2AdWJpsyzBdjlWZoVle5eUUm0XPb
-	nNlr8mmHz6bA7eWjPiUlTmaG4kAJvAcTGO9EvHY1YqTtkQvE8ib7qmbtJ0mCHDcD4uQ6rQ8J1qJ
-	JiR56BSxP8UJSlFKSQ5IRdDPXsvVx781ZfL7rxrEptGg0oj3UBCGsOkCJkigkfxlWr7zb30SiB1
-	GLrDSqf4JfJUnuQ0lK+IoSQs9DPBGfxS8Q/UViMfJxm7Jb7+M5dL61+nGv28gxejpfL/0UlZl2Z
-	YiLZnSzL6NpVL0NpOiWVF9zd06FZa3t3rdy2iVJ2ouM3PCOGfCqiJ5dxJAvcuyy+p/XotDMmKiP
-	Bf8dfVuHeSdHKXxz4Hgzx+E8RjoT4pgc8kw==
-X-Received: by 2002:a17:90b:280c:b0:3b0:a9de:9886 with SMTP id 98e67ed59e1d1-3b1b0b669camr123766a91.12.1794513547754;
-        Thu, 12 Nov 2026 11:59:07 -0800 (PST)
-Received: from localhost ([153.61.198.252])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aec3a903sm838062a91.8.2026.11.12.11.59.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 11:59:07 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=po36a2x7yrbt7bhcbekms7rm7e.protonmail2 header.b=RPOIVCps
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=po36a2x7yrbt7bhcbekms7rm7e.protonmail2; t=1794513604;
+	x=1794772804; bh=DHRuyG9ReqiocMJ/VqKG+CT5yWVQXJORMVXHUkARiSo=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=RPOIVCpsJF0WjGQPlpS+oZ25Oo55ylMpfLiKMr477IilrAkyZlWjcDiUQRdl2BpVo
+	 36axSLu30xJmzb9fcRxquEtAUXlZhK2FGakH1bhLEpvpvvIglHKdU9RCo5vPfUA0Jb
+	 wuBc0+sDeD1i1N9CrWSZgp7VuKR0S85c5PV0+KHz3l/abMM9p/v/X56OvIuTXrAJ6l
+	 PcIkMqBAAT/qeMvYba7qgLMqiYB+ah2aJsck2/HMERuAtV+GUk3waEUdnL9Pk31Z4d
+	 emN4IRFct36mShGerxyRSiXmsSSHcIBv3Eq4UyBNQu7bpmE65XiO8dHf5lI0cVEMrr
+	 c7wQ776Guy3Yg==
+Date: Thu, 12 Nov 2026 19:59:58 +0000
+To: Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+From: Yun Wang <7z0423arsenova@proton.me>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, Mingyou Chen <qby140326@gmail.com>, Ilya Gladyshev <ilya.gladyshev@linux.dev>, Armin Wolf <W_Armin@gmx.de>, Chris Taraszka <chris@miget.com>, Yu Pan <neko205@aosc.io>
+Subject: [PATCH v2] platform/x86: bitland-mifs-wmi: Add Redmi G 2022 (TM2135) quirk
+Message-ID: <20261112195915.875137-1-7z0423arsenova@proton.me>
+Feedback-ID: 227066774:user:proton
+X-Pm-Message-ID: 464e5f091033ba32779e1d75426cc588f4912257
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,39 +60,104 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 12 Nov 2026 19:59:06 +0000
-Message-Id: <DMTHYMNVPCR4.1GZZE98IRO363@gmail.com>
-Cc: "Andrii Nakryiko" <andrii@kernel.org>, "Eduard Zingerman"
- <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Martin
- KaFai Lau" <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong
- Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
- Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
- <ihor.solodrai@linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH bpf] bpf: Fix soft lockup in fd_array_map_free()
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Li Jinyue" <jinyue.li@linux.alibaba.com>, <bpf@vger.kernel.org>,
- "Alexei Starovoitov" <ast@kernel.org>, "Daniel Borkmann"
- <daniel@iogearbox.net>
-X-Mailer: aerc 0.20.1-355-gf870624f6c37
-References: <20261112122015.3356106-1-jinyue.li@linux.alibaba.com>
-In-Reply-To: <20261112122015.3356106-1-jinyue.li@linux.alibaba.com>
 
-On Thu Nov 12, 2026 at 12:20 PM UTC, Li Jinyue wrote:
-> fd_array_map_free() walks all map entries to assert that the map is
-> empty before its memory is freed. max_entries is not bounded, and the
-> free runs from the bpf_map_free_deferred work item, so with a large
-> max_entries the scan occupies the CPU for a long time without a
-> scheduling point:
->
->   watchdog: BUG: soft lockup - CPU#1 stuck for 26s! [kworker/u8:5:8894]
->   Workqueue: events_unbound bpf_map_free_deferred
->    epc : fd_array_map_free+0x7c/0xea
+The Redmi G 2022 (board TM2135, BIOS RMGAD6T0P1313) implements only
+three modes: 0x02 for quiet, 0x01 for balanced and 0x03 for performance.
+The default profile table maps balanced to 0x00, but this firmware
+recognizes it as the performance mode. Because the firmware does not
+implement the AC adapter type query, setting balanced-performance or
+performance fails with -ENODATA.
 
-I don't think you root caused it correctly.
+Add a DMI entry with a three-entry profile table for this model and
+enable skip_ac_type_check. 0x04 is not used for performance: writing it
+succeeds and the value reads back as 0x04, but in three test runs on
+7.2.11 the firmware did not emit WMI event 0x16, which it emits after
+every other mode change. The Fn+K hotkey also cycles only through the
+three modes above.
 
-pw-bot: cr
+Tested on this machine with this patch and the series it depends on,
+built as an out-of-tree module and loaded on a 7.2.14 kernel. Writing
+low-power, balanced, and performance succeeds, the profile reads back
+correctly, and the firmware emits one 0x16 event for each (values 2, 1,
+and 3). Writing balanced-performance is rejected, and Fn+K cycles
+through low-power, balanced, and performance.
+
+Claude Code (claude-opus-5-5) analyzed the ACPI tables, wrote the test
+scripts, specified the change and corrected this changelog. I wrote the
+code and the changelog and ran the tests on this machine.
+
+Link: https://lore.kernel.org/platform-driver-x86/OT2JfRLDi6yHShYvywRZoFBYd=
+W-TUgdKqKtahRM5b0cZxNo6eGZHnO5dKf4oYFaEtZhEsqU-Q-2OFe0D-qToJMVUrS5_d2aa2Q5L=
+D50ISIc=3D@proton.me/
+Link: https://lore.kernel.org/all/BelDdF5woNEBX6dZ3_zJDEbVkifs1pdxEjtQ1yC-a=
+KyZahijFJCllxm0l_SqZ5Hsj61D8wfJNa7uDSuNKmyyxo2S0tZp9QS5yaafeZUxvxE=3D@proto=
+n.me/
+Suggested-by: Mingyou Chen <qby140326@gmail.com>
+Tested-by: Yu Pan <neko205@aosc.io>
+Signed-off-by: Yun Wang <7z0423arsenova@proton.me>
+---
+Changes in v2:
+- Rebased onto review-ilpo-next, which now has Mingyou Chen's merge
+  series (v16) and Chris Taraszka's Xiaomi Book Pro 14 series. The
+  TM2135 entries now follow the TM2424 ones; the added lines are the
+  same as in v1.
+- Added Yu Pan's Tested-by.
+- Retested with this patch on top of review-ilpo-next, built as an
+  out-of-tree module and loaded on a 7.4-rc2 based kernel: the results
+  are the same as described in the changelog.
+
+v1: https://lore.kernel.org/all/20261106143114.95008-1-7z0423arsenova@proto=
+n.me/
+
+ drivers/platform/x86/bitland-mifs-wmi.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86=
+/bitland-mifs-wmi.c
+index d834168381..3aac9d17ff 100644
+--- a/drivers/platform/x86/bitland-mifs-wmi.c
++++ b/drivers/platform/x86/bitland-mifs-wmi.c
+@@ -128,6 +128,18 @@ static const struct bitland_mifs_quirks tm2424_quirks =
+=3D {
+ =09.skip_ac_type_check =3D true,
+ };
+=20
++static const struct bitland_profile_entry tm2135_profile_entries[] =3D {
++=09{ PLATFORM_PROFILE_LOW_POWER,=09=090x02 },
++=09{ PLATFORM_PROFILE_BALANCED,=09=090x01 },
++=09{ PLATFORM_PROFILE_PERFORMANCE,=09=090x03 },
++};
++
++static const struct bitland_mifs_quirks tm2135_quirks =3D {
++=09.profile_entries =3D tm2135_profile_entries,
++=09.num_profile_entries =3D ARRAY_SIZE(tm2135_profile_entries),
++=09.skip_ac_type_check =3D true,
++};
++
+ static const struct dmi_system_id bitland_mifs_dmi_table[] =3D {
+ =09{
+ =09=09.matches =3D {
+@@ -136,6 +148,13 @@ static const struct dmi_system_id bitland_mifs_dmi_tab=
+le[] =3D {
+ =09=09},
+ =09=09.driver_data =3D (void *)&tm2424_quirks,
+ =09},
++=09{
++=09=09.matches =3D {
++=09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "TIMI"),
++=09=09=09DMI_EXACT_MATCH(DMI_BOARD_NAME, "TM2135"),
++=09=09},
++=09=09.driver_data =3D (void *)&tm2135_quirks,
++=09},
+ =09{}
+ };
+=20
+
+base-commit: 11b27ad8c8078e18b74d0d507180422bfafc962e
+--=20
+2.56.1
 
 
