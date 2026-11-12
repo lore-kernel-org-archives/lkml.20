@@ -1,49 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794476780;
-	b=iDIY9MUNkKSYu28cU1D5gVraVNCQLlVBPBNfZGKbLAeVxaknwMu0kp93wnKM9mz14Xet
-	 drJkLh6NGMcl9l4TcVb4BVLeTuZnME+FYlGINZ9lWCw4rbGlulr09eGIZ4m3d7D8a7LX0
-	 8fJyHzt4cm3KUFKWlomZGJEHE2ftdchnJPvgH3/XZmPwAgSbhN4Z2L+Mrajn4hhYm/3nV
-	 OE0bVCF1rg61veWCBLFI1KkVu24elrJvboLJ+wMuVwuHz+2EP6oQczfIUxE+6nPrZHYC7
-	 oPGiYpCHB0zhihvidAhjkjo48NiQCG2OMbkE5e5jOXFAxrpaxoUZzVBdWA25bzjbqNQ==
+	t=1794476814;
+	b=vQsrTdhimU/P8clIeyGtt2O71kZzNC4Th0gF3gK9kyimMokn2jO2sThezyeDQ9twyuiN
+	 xoN5+dB/ZwOrfg45WP+PrVv+x1fh+jz3/AUEwlbQkbc22yOjyqzJv04Pjycx3ERaSKMbz
+	 lw9qslqErncSgz6ZIoKmbEKPCc2E/kN2g4lrDonkBEB90TMVNohXJiBR9pFsGRFDBBDB0
+	 F7ioIY01j+1d7NJo2x6S30qNvjwLZddABI6kc/80YUBL3pi/YaZlHTiAJpKxskHo7RcxC
+	 21opYdp5hkiMtJVGzvdoTev2jhtOrUptgBM/zZe5WUb1L4EJlz/CUY0LH1SsKKsaU/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794476780;
-	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=zF4RKurSPbtIZr5y6aisxGcnIy7a/9xHHcRfZOEEHKY=;
-	b=OFm0/0qj5sEWeGPUjYTJqgmsXheoOPIWUc+9M0gOVk4VBhO2fiq6heEgbZw7RE7ORuwm
-	 KKdpNjlEOteGn1q3xzMl/d32NnxFp/nPT3SQjpC5CPamM+zGQFbupxTzSr7SBbKPoGJec
-	 z0kqTpxLOy0aUootE/m6qlEoDJ+FlfzCaf4pISlgScEiJaRpEAgf11KcNh4cvXdgfNcL/
-	 ZmBYkTsPz4ObffFHRoxZom0rV9ndTfQAEybXVnJGA8W9ROUiO9AtYVIUj25t0/bcueprM
-	 HTilw5sdDkfUCLAwg0JYkESHpQV+7O/aZQ9s326+mYRcuY4Y8dBJjRcFGVfr6TsYN7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794476814;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Y4YhAhyayvyCbm+IS4ybj27bnorKrlzrUXxTUWhF7GQ=;
+	b=VefG1S8wV8540YhA5Es6wyiYe2AewwgpsNwg/+hEhPkclR4Flfbzr5XiJWlAL0ddlpqC
+	 YjTYXUXeodUP0M/s/DKiI7Cp6SurNyD0V6cKb4cAzNwvGSOE6B0dgzJBeTzBql394cnLL
+	 bTeEFk4T8sVzXAJ8dNA7esMdOxGiJ7yEvhUKtC+gMH3PgYy9jMcpytEdbQiMzPPyAxn8/
+	 7osA3gzow7b6leV0v+xflSJCYK36x5aEIpyiAuTj2D2qwmBVuHCMYLv8iU5CtS+icFMqx
+	 lIaJVCZRQVXusI6lHZg4MLrVADEGtgdbkztuZqKo3tqy9J5D/YNwhhuzvU/WEGWpRqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=2pXqmXMP;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B592606A323;
-	Thu, 12 Nov 2026 09:46:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B592606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=RmN0t7IQ;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 77C8A606A321;
+	Thu, 12 Nov 2026 09:46:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77C8A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=2pXqmXMP
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 85196A0064;
-	Thu, 12 Nov 2026 10:46:16 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1794476777; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=zF4RKurSPbtIZr5y6aisxGcnIy7a/9xHHcRfZOEEHKY=;
-	b=2pXqmXMP8GV7SvW37kAVDSxQn4a35G1NODITlm961BJyJKuTT4HfH7yNcaBeBN4U7Eb3SF
-	oGoK1o/QgNZ93MnAS6xYwRJFTIckJQVngdNqeBszfwHk3jZwF+9MUSzkvqSL3rUdWWOmIn
-	/pZph+Gzp5APYCp3MmrS3XrDTJCFBDAo3ae2EZafPKBes8q1zu2HSsGOWEeCZsq//Hfd54
-	pGZ6TMzePxnA/mbDS9PvreQE1Wmuurcx6zATx0sTy2N6DxcJwEygFLY7y6YKTnpcurFyiV
-	mvOoMIx7Pmbs9BvgaXK6x1zNAiFJO+3VECTyNllVrq9nQZM3UDeQXq2vkYWX/Q==
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=RmN0t7IQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=RmN0t7IQnY+8+6sci+0WgpfDt+qRBy4KujaIG3zvrgsBbzd8+eJChK255EGPGR47Qw1NPlohV/aE4
+	 QBrPgNNOHCYoGIxplD6y/56ElAsVPmbC26JcNnBfUYXPqk789MqTeo8YN7vRq9l6Thm37/8ZxaVg5P
+	 gMreI/BCfNtSvvBs=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46af58b096e9-816ca;
+	Thu, 12 Nov 2026 17:46:49 +0800 (CST)
+X-RM-TRANSID:2ee46af58b096e9-816ca
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from  (unknown[223.64.115.200])
+	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16af58b07794-fbc62;
+	Thu, 12 Nov 2026 17:46:49 +0800 (CST)
+X-RM-TRANSID:2ee16af58b07794-fbc62
+From: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
+To: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	Hangbin Liu <hangbin.liu@linux.dev>,
+	Hangbin Liu <liuhangbin@kylinos.cn>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	sunwenbo@cmss.chinamobile.com,
+	1342116488@qq.com
+Subject: [PATCH net-next v2 1/2] ipv6: check mc_forwarding before calling ip6mr_get_route()
+Date: Thu, 12 Nov 2026 17:46:29 +0800
+Message-Id: <20261112094630.197244-2-sunwenbo@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20261112094630.197244-1-sunwenbo@cmss.chinamobile.com>
+References: <20261112094630.197244-1-sunwenbo@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,45 +79,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Thu, 12 Nov 2026 10:46:16 +0100
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: aiyengar1990@gmail.com
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Corentin Labbe <clabbe.montjoie@gmail.com>
-Subject: Re: [PATCH net-next v2 2/2] net: stmmac: dwmac-sun8i: Enable jumbo
- frames up to MTU 2018
-In-Reply-To: <20261112-sun8i-emac-jumbo-v2-2-aca0cf23cf17@gmail.com>
-References: <20261112-sun8i-emac-jumbo-v2-0-aca0cf23cf17@gmail.com>
- <20261112-sun8i-emac-jumbo-v2-2-aca0cf23cf17@gmail.com>
-Message-ID: <328e66e47898b772f2956649bf4cf795@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Hi Arun
+When CONFIG_IPV6_MROUTE is enabled, rt6_fill_node() calls
+ip6mr_get_route() whenever an input interface is specified and the
+destination address is multicast.
 
-On 12.11.2026 09:41, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
+However, when multicast routing is not enabled in the network namespace
+(i.e. mc_forwarding is 0), there is typically no matching (S,G)
+multicast routing cache entry, and skb->dev is NULL in the query skb
+allocated by inet6_rtm_getroute(). As a result, ip6mr_get_route()
+returns -ENODEV, which causes rt6_fill_node() to jump to
+nla_put_failure and report -EMSGSIZE ("RTNETLINK answers: Message too
+long") to userspace.
 
-> [...]
+In contrast, the IPv4 counterpart rt_fill_info() checks
+IPV4_DEVCONF_ALL_RO(net, MC_FORWARDING) before calling ipmr_get_route(),
+so queries with mc_forwarding disabled fall back to emitting RTA_IIF and
+normal route attributes.
 
-> Limit max_mtu so that a frame with two VLAN tags and the FCS fits in
-> 2044 bytes (MTU 2018). A device tree max-frame-size can still lower it.
+This discrepancy was identified with the assistance of an LLM-based code
+review comparing IPv4 and IPv6 multicast route get handling, confirmed on
+a UML kernel where "ip -6 route get <mcast_addr> from <src_addr> iif
+<dev>" returned -EMSGSIZE on an unpatched kernel, and verified after the
+change that multicast route get with iif succeeds while unicast and
+non-iif multicast queries continue to work as expected.
 
-max-frame-size is only parsed for the snps,dwmac compatibles, not for 
-sun8i.
+Check atomic_read(&net->ipv6.devconf_all->mc_forwarding) before calling
+ip6mr_get_route() in rt6_fill_node() so that queries with multicast
+forwarding disabled report RTA_IIF and normal route attributes, matching
+IPv4 behavior.
 
-> [...]
+Built with W=1 on UML, x86_64 allmodconfig, and x86_64 allyesconfig with
+zero new warnings or errors.
 
-Thanks,
-Nicolai
+Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+---
+ net/ipv6/route.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/net/ipv6/route.c b/net/ipv6/route.c
+index 2eb884558c24..6dd4a70f6490 100644
+--- a/net/ipv6/route.c
++++ b/net/ipv6/route.c
+@@ -5862,7 +5862,8 @@ static int rt6_fill_node(struct net *net, struct sk_buff *skb,
+ #endif
+ 	if (iif) {
+ #ifdef CONFIG_IPV6_MROUTE
+-		if (ipv6_addr_is_multicast(&rt6_dst->addr)) {
++		if (ipv6_addr_is_multicast(&rt6_dst->addr) &&
++		    atomic_read(&net->ipv6.devconf_all->mc_forwarding)) {
+ 			int err = ip6mr_get_route(net, skb, rtm, portid);
+ 
+ 			if (err == 0)
+-- 
+2.33.0
+
+
+
