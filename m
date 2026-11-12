@@ -1,87 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794486252;
-	b=wTNKTCkiJTe65Bk/zx6S/GnXscd0ck9PTmJada9LgF1Hl/MtMSbvP/ffwtbmx53z9IBW
-	 cWUqYkyUpl+ilILKadzruoArVzQYh7M05+V5ra4plbE73XThz3WG7SesTc6bgMuNFuXEO
-	 pg7/byxvnduwhvLPNyqCrfgD5ft6auO9+5F/eC+GSaPINlk2TjzS1A4CEl+8G4DRhZRcO
-	 mv9DvrOuAgVfb8u5lP+3vyIacDrUPCAynMS+MXsksARQj9DR/tN9p2tYpGZspbbmrxQ1Z
-	 3Qa1JvMWiWox5Vv7n1TOtzU69/c/vAAVx6XCc+S3fb62+j4hBOn4JxIXWAMkl+WZQ+Q==
+	t=1794486248;
+	b=FlhXLZcYCWl51NgVegF34f7npTB8txag02KpjW0Cm718RXQZFDMfNBIocS1WCyY5mTBE
+	 82g7Qs0qpWJErLX8BJke+F928FMIqXHUL6DD/7tvwAnKkEvlPXA95kwGg9H/0lLW9H82W
+	 wF++3aL2HWEcX5nMB0b4tdYZUvAJJw3JWQdvUuwTQx0EBVDF4qxT+FbwX8ExismBzo5z9
+	 LE0evVP4GEuDdEBHj0KXRhC+nUz+PPxwUyrxb/WhgvZLEPwzbqkP8LOrRHBVcS2i7t21n
+	 E1XnvxkKRn2XlI6ZXut5+vOI6tMfAa+sF0/Hlf+jQhzukjLGHJPnuNOG6wCknJ8phqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794486252;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794486248;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=GsIbIoeOdN4hRu67cJKyoEtdVFyqYqyLk0dos7CScCU=;
-	b=ax1t88YqtcccJGuyKbsjsIbnxNkYXqBa/0rzACSeVxZRqBBUJk3Fo32c9AD53tWZHGBY
-	 aMeW/Tj0Eqv/tFxOZohpv1+0ES2zOvsQI/fza3nKx9fX9fmnUyxxtJnMEqvFrF/V2oVOC
-	 h8Guhe3L91D3ztts5N4EukHNrxqOWaQhqmjGY9eLU2voiW0eCMld5V2ibDLq+ycmgyz/q
-	 cvLNN3tzCFiSW4xl347mscdQwEx2bZtEdKG2OuOmmSnw9Lngs8kq8rRsVddgQbCYgFNJx
-	 2qJTuAQdy4ShATAcR1Ulo58g2EscyPbY+rV8OSMpcfiObuVlRH1qIjAR7MSB5rDlPQw==
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=6jjbM3FM0vEh41D6tTAiBxzcbzcUKnDu2QUW56tX9Ug=;
+	b=336AbVPpbcz9ksYxQE5CgvxAtF5UGZjfL1V1V1so7Tdl1/eJhALAXzTy8Zs0ErSjzPaA
+	 EdS/Bf8EQSN6vOZjcWk7xD80sjv+1WavJ91ANNV13qzYW9rGG6xp+E3rn74jzjvGJRtU0
+	 AEPB1FrQqqjIt6um9EKUrg7roHej5OyXIELl8o1Tf7OwpxyPdrTl3hSObfYtQBKlxqqSC
+	 ULlTo/9YQKUGeP+Gdw9vwCIflj1l2MVMLHP6iOKSWSfemv/FpvLdj58XDPbxjXbDgJ5aC
+	 SbAFgH/v/sjrqdrtrgXU9jccEBDLaJK5WYRqjylhJxnjmMJ6moG7JZ7k4LTW9OzthVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xRCnTnlw;
-	arc=none smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=02Ee+baK;
+	arc=none smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF80C606A334
-	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:24:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF80C606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36315606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 12:24:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36315606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xRCnTnlw
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b6e8b6d424so6291171a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:24:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=02Ee+baK
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b47c1a3c74so5162404a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 04:24:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794486250; x=1795091050; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GsIbIoeOdN4hRu67cJKyoEtdVFyqYqyLk0dos7CScCU=;
-        b=xRCnTnlwyQK/GwQHxD3U4V7068WV71muUSmVB9T+ddX6SRehGgIRfKDBahkM38wTRv
-         kNZp5kkNQzsufsP7DK7ZzC+86U4LtwZ/ulFefiWzKJ8kG+5b4enkrM+5Wt3q5Dd4Cud9
-         f1SW0m8Ng3vnfQD+16RQHbrBZ0rte2lorC2UhcHuZIPqevOF0tP0IE+QcVf2d2ARWXJR
-         Bgw8Zi+IRfyhg15kYLr2z4JdAKyo0ZI4qiEPudMMsoXS3+HTWqJNUSbHsxXS5ideZ7JG
-         dBqxoKOUg/XpiFtpkkpYfwXWYXaJBbnyVPEQZu8XpYe3BdCLBvTjtAUpMlO6WlBWvz9C
-         25Kw==
+        d=gmail.com; s=20260707; t=1794486247; x=1795091047; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6jjbM3FM0vEh41D6tTAiBxzcbzcUKnDu2QUW56tX9Ug=;
+        b=02Ee+baK1h1XUD6WO/nascEjWrwiuWrZ9E9j2MFQcrZI5K14rA7YSabQFZqCFSvC3N
+         ikyw7KKQgOI1ld3nNdFDTDd5OmzNRUttM1oIZghE0ToKxHlOE17aLobyJRitiIoejqNG
+         SX3XX8oHBl/GOFBVpjPgVTxjDbSle/WjdqOh3U8OGGI/2vZzio5/iVz5eAVVsJpDRnvM
+         eyx92Iw2Ybw9Da1/5/WmCEY9yES7r+L+75EybPosobSiFFqEC9MOqcLtX8lqUVwiDxVi
+         4V//JpLYWXeWE0e02nucAt510hEbI43eS7S3Xlwp/s0W1fjuv1UYI6ioe2Sj6ehZ70DD
+         nZmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794486250; x=1795091050;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GsIbIoeOdN4hRu67cJKyoEtdVFyqYqyLk0dos7CScCU=;
-        b=K/5l9R+xkCtk8RgW9d+byDWDeDGk82rDWrP3yROGMK68qcy6wEaRLx1t4IcQyS0Ogp
-         lCEOwDSxmrokcr+iopVs6EM9kW9nxgR72Xf3d2lcO7fNDV5xOpEFUe3o6Wd2WmKeRsS1
-         eMkxeqvQSvIWy7/YnOPyn0ie5eFUoBYcFuHp6soeTbTOqzELV90vVu2jW5AldXkM3S8J
-         OEI7IcoD/9aUSKd4Y8hZnO34N0MHD7H0QJlY5O+INi6JypFeoGmoz4J/MF4MJKcqIGxu
-         ZoYhWNKcIMYBSMuX6GYsj2ouy04PToRkIvg4ASX/psRA+H3qbpbSENjB5rVGumfh6DG0
-         0B1g==
-X-Forwarded-Encrypted: i=1; AL+hErGgDHzZAGpZ4/gBrwYng2ZZlr1CsdAu/XnVQNLXoPOWs1bbq+YcvAdDPkpKYLQ23Yq+Gil542d9fvSo9xo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9P3O6G9jdpuNuhMa/E3hmVxevk30CrZFj4rXyuW0ni9RkNsmnN
-	P8Nui3U290ADOgaZfu56E8zG00+sWdiSZgGLuoeHjbFFPKH5aGaJwCOP
-X-Gm-Gg: AYBFou0sfeim/bzRoNCwxUby1lU9FGiur2TWQP3KIO1iShexcaxPEWXvI316FX2VT+s
-	ayCMo2jgs4jRcWwqsDF53K9u+Veke4gzEj4Mnh2AymNTkZgArp5mYIn2qlp8ZkAjU4g+grzPGUj
-	AkPXN2j6Eam53dSZjIeShBHOej/crDstex4SGlxLK4Om9f5LBfT58NVClzZW9ntlH2M7R78a7PA
-	Xo3BqGlFJG4pqawrYHKLVj5ZyjsGNSmy7VAJquefGfLmNS6g2mXTdbzH5UuhovcCE5tsngybwKV
-	9Y1WbyxNsTjT7mQmqEMAO2tE30f4HCnxU/fecwXCTMRCSMRbJTfgahhJFVzvq9WOtwG7Fs9sH8l
-	WPwo2LSoFJWx/PPuZ0IN1GGzWLeJbJgMbOCl8qrANaOVLR5QzMYemPWX2hzeoo9hfRxEVH7KdEw
-	dEUR9PEajfnzJBklqaB5phQEQlyeX8eXg9/j8tYEbEzeOxeymIx0xJh6k1yjFUM7ddkJEOH6RYE
-	Na+ymrCUbYDGd0eP3nOSvdD2rZLnfFkWIeLJtgoYcxr5IjuzAMuzWiJqaNFMd6nuGfl+tv7eU/N
-	WJwFuCaSXdPYxvOsyhgmYzAJrQAt+58ZxJdgizzU
-X-Received: by 2002:a05:6402:5607:b0:6b7:b872:27b6 with SMTP id 4fb4d7f45d1cf-6b7b872305cmr250988a12.13.1794486250115;
-        Thu, 12 Nov 2026 04:24:10 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794486247; x=1795091047;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6jjbM3FM0vEh41D6tTAiBxzcbzcUKnDu2QUW56tX9Ug=;
+        b=ybEZCLwwdnaQ2eTL3IRf4Uc1gJvf10ffqTP1J/zpGkAK6WWleC/NjMOwzJHEh1x52S
+         7xg62xPjGZ5Q173ObjD//J85gB85iZG8aqR/quIUKsbKsNiW1NOP7jMe8G7p3SVtFWWF
+         9Yg1TIBZjaDweCT2W4Xdy9QchmES8XPThAy/sX9BBejIBDCIlj+QrzH+ClssWCdJEeMX
+         d0XRJasskbvxNLDjxDakW5HjZduNFrIvL3JtPBhKTzFM5HgzuaykIFGzA0hs9fKW2/QE
+         1ydRcYIDurZoEyqX0rFv7HfUHu6+FFx2epQNUAvJtkEQPfO+1uCvNka5vu46YCu0RRZV
+         RoKA==
+X-Forwarded-Encrypted: i=1; AL+hErGdTFDiyQa7e9GnakSiBJwD7FOTGQFVydhXLKhpQr6gM2YNijERHUU+5AysAREdLEdRPwpGFd2JuTLGfIA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ZK7kcXAUU0RHbSfunmGhHiGPYAljqbJ0ViQn/Ga3cDKYdwKa9
+	JmkdHllA+zFo8Ke7K8Q0+wJwZlwx1lF2a76cQ8zLMcF71twOa3nf9N4T
+X-Gm-Gg: AYBFou3b16puonFyqPB6Tg4axt4F8wtwrVCLAnamrf7Yg3R/HjE6IqNspmBbhMC5zYc
+	OB96lD3ZM2z4wrb1c1H/E/8i/Pupdg85Rk3AWPkEVTaomG79w9wpdGnlndjXpjgdM55XIbfrIT+
+	9Ex1dDjq/5IK7kfU7FDH/eMRR+d1YE/zPwa1Kt9oBuS6ME/4kjydMHJYD6MLHlpNC7AfHNtCTAo
+	igB53Pj4TwJ5LVefOR75X1uFG77JH1L1kuGdyzud2a1TTiqL5KQaKcQS7q8RR+2zZEcPB+uYobg
+	aVhg+6R0vkLQerlDVZUWWlP5AhojBo7EkU+M8reI4jU4jSI+dQ5FLM9P+WRQLmBs5E+GZFGDWEG
+	YdAtTgXWBOvTflhDG6cA1wjyRGqVAeAtvRSdvfAkzJUpVeD3YWc6bZWnrlMBfI8ORD72vUuuOry
+	3nwCDqP6PK4uyHkaI6YkhMe6CJ+8Ic90blGtzT7NPrk4eCpChUW97ohGt/tx3jUqCNIF5dg3yH1
+	5D2plPIw62kCrAUnMP0llliE42y2C+h74ZZaYy309Ic3W5fpT4fm+HuTLKkDgpDVBUf24lolpCb
+	i3UmVvSM57/iZPCT3Kxgkvpz5dO/qspzVJJPAoyu
+X-Received: by 2002:aa7:da59:0:b0:6b3:b10c:40f9 with SMTP id 4fb4d7f45d1cf-6b77770232emr3279335a12.31.1794486246730;
+        Thu, 12 Nov 2026 04:24:06 -0800 (PST)
 Received: from crispy-cucumber.local ([79.133.247.80])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b77918d094sm1835931a12.26.2026.11.12.04.24.08
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b77918d094sm1835931a12.26.2026.11.12.04.24.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 04:24:09 -0800 (PST)
+        Thu, 12 Nov 2026 04:24:06 -0800 (PST)
 From: Erikas Bitovtas <xerikasxx@gmail.com>
-Date: Thu, 12 Nov 2026 14:23:23 +0200
-Subject: [PATCH 2/2] arm64: dts: qcom: sc7180: Add GPI DMA
+Subject: [PATCH 0/2] arm64: dts: qcom: sc7180: enable GPI DMA
+Date: Thu, 12 Nov 2026 14:23:21 +0200
+Message-Id: <20261112-sc7180-gpi-dma-v1-0-2a8eceb49563@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,9 +93,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-sc7180-gpi-dma-v1-2-2a8eceb49563@gmail.com>
-References: <20261112-sc7180-gpi-dma-v1-0-2a8eceb49563@gmail.com>
-In-Reply-To: <20261112-sc7180-gpi-dma-v1-0-2a8eceb49563@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5EQBCF4atIrVWiSTSuIhatulCTDNLFZBJxd
+ 423+xbvP0A5CCs0yQGBf6KyzBEmTYAmN4+M4qMhz/LSxKGSNVWG4yrovw6dtXVZ+JoNEcTTGni
+ Q/xNsu9e69x+m7a7AeV78i3zncgAAAA==
+X-Change-ID: 20261111-sc7180-gpi-dma-a77963d9e1cc
 To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, cros-qcom-dts-watchers@chromium.org, 
@@ -106,284 +107,30 @@ Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
  Erikas Bitovtas <xerikasxx@gmail.com>, Vitalii Skorkin <nikroksm@mail.ru>
 X-Mailer: b4 0.15.2
 
-From: Vitalii Skorkin <nikroksm@mail.ru>
+Enable GPI DMA controller for SC7180 SoC. This can be used to
+make access to I2C, SPI and UART peripherals faster.
 
-Add support for GPI DMA on SC7180. This SoC uses the same GPI DMA as
-SM6350.
+Tested on Samsung Galaxy A72 on an I2C peripheral, in particular the
+Samsung S3NRN4V NFC module located in i2c0 0x27. The peripheral driver
+is not upstream yet, submission can be found here:
+https://lore.kernel.org/all/20260811220135.472380-1-jorijnvdgraaf@catcrafts.net/
 
-Signed-off-by: Vitalii Skorkin <nikroksm@mail.ru>
 Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/sc7180.dtsi | 101 +++++++++++++++++++++++++++++++++++
- 1 file changed, 101 insertions(+)
+Erikas Bitovtas (1):
+      dt-bindings: dma: qcom-gpi: add SC7180 GPI DMA
 
-diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-index 29e345a6a13f..8bf669ce9f89 100644
---- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-@@ -12,6 +12,7 @@
- #include <dt-bindings/clock/qcom,lpasscorecc-sc7180.h>
- #include <dt-bindings/clock/qcom,rpmh.h>
- #include <dt-bindings/clock/qcom,videocc-sc7180.h>
-+#include <dt-bindings/dma/qcom-gpi.h>
- #include <dt-bindings/firmware/qcom,scm.h>
- #include <dt-bindings/interconnect/qcom,icc.h>
- #include <dt-bindings/interconnect/qcom,osm-l3.h>
-@@ -881,6 +882,26 @@ opp-384000000 {
- 			};
- 		};
- 
-+		gpi_dma0: dma-controller@800000  {
-+			compatible = "qcom,sc7180-gpi-dma", "qcom,sm6350-gpi-dma";
-+			reg = <0 0x00800000 0 0x60000>;
-+			interrupts = <GIC_SPI 244 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 245 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 246 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 248 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 249 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 250 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 251 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 252 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 253 IRQ_TYPE_LEVEL_HIGH>;
-+			dma-channels = <10>;
-+			dma-channel-mask = <0x1f>;
-+			iommus = <&apps_smmu 0x56 0x0>;
-+			#dma-cells = <3>;
-+			status = "disabled";
-+		};
-+
- 		qupv3_id_0: geniqup@8c0000 {
- 			compatible = "qcom,geni-se-qup";
- 			reg = <0 0x008c0000 0 0x6000>;
-@@ -908,6 +929,9 @@ i2c0: i2c@880000 {
- 						<&aggre1_noc MASTER_QUP_0 0 &mc_virt SLAVE_EBI1 0>;
- 				interconnect-names = "qup-core", "qup-config",
- 							"qup-memory";
-+				dmas = <&gpi_dma0 0 0 QCOM_GPI_I2C>,
-+				       <&gpi_dma0 1 0 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
- 				power-domains = <&rpmhpd SC7180_CX>;
- 				required-opps = <&rpmhpd_opp_low_svs>;
- 				status = "disabled";
-@@ -928,6 +952,9 @@ spi0: spi@880000 {
- 				interconnects = <&qup_virt MASTER_QUP_CORE_0 0 &qup_virt SLAVE_QUP_CORE_0 0>,
- 						<&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_QUP_0 0>;
- 				interconnect-names = "qup-core", "qup-config";
-+				dmas = <&gpi_dma0 0 0 QCOM_GPI_SPI>,
-+				       <&gpi_dma0 1 0 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
- 				status = "disabled";
- 			};
- 
-@@ -962,6 +989,9 @@ i2c1: i2c@884000 {
- 						<&aggre1_noc MASTER_QUP_0 0 &mc_virt SLAVE_EBI1 0>;
- 				interconnect-names = "qup-core", "qup-config",
- 							"qup-memory";
-+				dmas = <&gpi_dma0 0 1 QCOM_GPI_I2C>,
-+				       <&gpi_dma0 1 1 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
- 				power-domains = <&rpmhpd SC7180_CX>;
- 				required-opps = <&rpmhpd_opp_low_svs>;
- 				status = "disabled";
-@@ -982,6 +1012,9 @@ spi1: spi@884000 {
- 				interconnects = <&qup_virt MASTER_QUP_CORE_0 0 &qup_virt SLAVE_QUP_CORE_0 0>,
- 						<&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_QUP_0 0>;
- 				interconnect-names = "qup-core", "qup-config";
-+				dmas = <&gpi_dma0 0 1 QCOM_GPI_SPI>,
-+				       <&gpi_dma0 1 1 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
- 				status = "disabled";
- 			};
- 
-@@ -1016,6 +1049,9 @@ i2c2: i2c@888000 {
- 						<&aggre1_noc MASTER_QUP_0 0 &mc_virt SLAVE_EBI1 0>;
- 				interconnect-names = "qup-core", "qup-config",
- 							"qup-memory";
-+				dmas = <&gpi_dma0 0 2 QCOM_GPI_I2C>,
-+				       <&gpi_dma0 1 2 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
- 				power-domains = <&rpmhpd SC7180_CX>;
- 				required-opps = <&rpmhpd_opp_low_svs>;
- 				status = "disabled";
-@@ -1052,6 +1088,9 @@ i2c3: i2c@88c000 {
- 						<&aggre1_noc MASTER_QUP_0 0 &mc_virt SLAVE_EBI1 0>;
- 				interconnect-names = "qup-core", "qup-config",
- 							"qup-memory";
-+				dmas = <&gpi_dma0 0 3 QCOM_GPI_I2C>,
-+				       <&gpi_dma0 1 3 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
- 				power-domains = <&rpmhpd SC7180_CX>;
- 				required-opps = <&rpmhpd_opp_low_svs>;
- 				status = "disabled";
-@@ -1072,6 +1111,9 @@ spi3: spi@88c000 {
- 				interconnects = <&qup_virt MASTER_QUP_CORE_0 0 &qup_virt SLAVE_QUP_CORE_0 0>,
- 						<&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_QUP_0 0>;
- 				interconnect-names = "qup-core", "qup-config";
-+				dmas = <&gpi_dma0 0 3 QCOM_GPI_SPI>,
-+				       <&gpi_dma0 1 3 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
- 				status = "disabled";
- 			};
- 
-@@ -1106,6 +1148,9 @@ i2c4: i2c@890000 {
- 						<&aggre1_noc MASTER_QUP_0 0 &mc_virt SLAVE_EBI1 0>;
- 				interconnect-names = "qup-core", "qup-config",
- 							"qup-memory";
-+				dmas = <&gpi_dma0 0 4 QCOM_GPI_I2C>,
-+				       <&gpi_dma0 1 4 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
- 				power-domains = <&rpmhpd SC7180_CX>;
- 				required-opps = <&rpmhpd_opp_low_svs>;
- 				status = "disabled";
-@@ -1142,6 +1187,9 @@ i2c5: i2c@894000 {
- 						<&aggre1_noc MASTER_QUP_0 0 &mc_virt SLAVE_EBI1 0>;
- 				interconnect-names = "qup-core", "qup-config",
- 							"qup-memory";
-+				dmas = <&gpi_dma0 0 5 QCOM_GPI_I2C>,
-+				       <&gpi_dma0 1 5 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
- 				power-domains = <&rpmhpd SC7180_CX>;
- 				required-opps = <&rpmhpd_opp_low_svs>;
- 				status = "disabled";
-@@ -1162,6 +1210,9 @@ spi5: spi@894000 {
- 				interconnects = <&qup_virt MASTER_QUP_CORE_0 0 &qup_virt SLAVE_QUP_CORE_0 0>,
- 						<&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_QUP_0 0>;
- 				interconnect-names = "qup-core", "qup-config";
-+				dmas = <&gpi_dma0 0 5 QCOM_GPI_SPI>,
-+				       <&gpi_dma0 1 5 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
- 				status = "disabled";
- 			};
- 
-@@ -1182,6 +1233,26 @@ uart5: serial@894000 {
- 			};
- 		};
- 
-+		gpi_dma1: dma-controller@a00000 {
-+			compatible = "qcom,sc7180-gpi-dma", "qcom,sm6350-gpi-dma";
-+			reg = <0 0x00a00000 0 0x60000>;
-+			interrupts = <GIC_SPI 645 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 646 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 647 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 648 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 649 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 650 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 651 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 652 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 653 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 654 IRQ_TYPE_LEVEL_HIGH>;
-+			dma-channels = <10>;
-+			dma-channel-mask = <0x3f>;
-+			iommus = <&apps_smmu 0x4d6 0x0>;
-+			#dma-cells = <3>;
-+			status = "disabled";
-+		};
-+
- 		qupv3_id_1: geniqup@ac0000 {
- 			compatible = "qcom,geni-se-qup";
- 			reg = <0 0x00ac0000 0 0x6000>;
-@@ -1209,6 +1280,9 @@ i2c6: i2c@a80000 {
- 						<&aggre2_noc MASTER_QUP_1 0 &mc_virt SLAVE_EBI1 0>;
- 				interconnect-names = "qup-core", "qup-config",
- 							"qup-memory";
-+				dmas = <&gpi_dma1 0 0 QCOM_GPI_I2C>,
-+				       <&gpi_dma1 1 0 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
- 				power-domains = <&rpmhpd SC7180_CX>;
- 				required-opps = <&rpmhpd_opp_low_svs>;
- 				status = "disabled";
-@@ -1229,6 +1303,9 @@ spi6: spi@a80000 {
- 				interconnects = <&qup_virt MASTER_QUP_CORE_1 0 &qup_virt SLAVE_QUP_CORE_1 0>,
- 						<&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_QUP_1 0>;
- 				interconnect-names = "qup-core", "qup-config";
-+				dmas = <&gpi_dma1 0 0 QCOM_GPI_SPI>,
-+				       <&gpi_dma1 1 0 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
- 				status = "disabled";
- 			};
- 
-@@ -1263,6 +1340,9 @@ i2c7: i2c@a84000 {
- 						<&aggre2_noc MASTER_QUP_1 0 &mc_virt SLAVE_EBI1 0>;
- 				interconnect-names = "qup-core", "qup-config",
- 							"qup-memory";
-+				dmas = <&gpi_dma1 0 1 QCOM_GPI_I2C>,
-+				       <&gpi_dma1 1 1 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
- 				power-domains = <&rpmhpd SC7180_CX>;
- 				required-opps = <&rpmhpd_opp_low_svs>;
- 				status = "disabled";
-@@ -1299,6 +1379,9 @@ i2c8: i2c@a88000 {
- 						<&aggre2_noc MASTER_QUP_1 0 &mc_virt SLAVE_EBI1 0>;
- 				interconnect-names = "qup-core", "qup-config",
- 							"qup-memory";
-+				dmas = <&gpi_dma1 0 2 QCOM_GPI_I2C>,
-+				       <&gpi_dma1 1 2 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
- 				power-domains = <&rpmhpd SC7180_CX>;
- 				required-opps = <&rpmhpd_opp_low_svs>;
- 				status = "disabled";
-@@ -1319,6 +1402,9 @@ spi8: spi@a88000 {
- 				interconnects = <&qup_virt MASTER_QUP_CORE_1 0 &qup_virt SLAVE_QUP_CORE_1 0>,
- 						<&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_QUP_1 0>;
- 				interconnect-names = "qup-core", "qup-config";
-+				dmas = <&gpi_dma1 0 2 QCOM_GPI_SPI>,
-+				       <&gpi_dma1 1 2 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
- 				status = "disabled";
- 			};
- 
-@@ -1353,6 +1439,9 @@ i2c9: i2c@a8c000 {
- 						<&aggre2_noc MASTER_QUP_1 0 &mc_virt SLAVE_EBI1 0>;
- 				interconnect-names = "qup-core", "qup-config",
- 							"qup-memory";
-+				dmas = <&gpi_dma1 0 3 QCOM_GPI_I2C>,
-+				       <&gpi_dma1 1 3 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
- 				power-domains = <&rpmhpd SC7180_CX>;
- 				required-opps = <&rpmhpd_opp_low_svs>;
- 				status = "disabled";
-@@ -1389,6 +1478,9 @@ i2c10: i2c@a90000 {
- 						<&aggre2_noc MASTER_QUP_1 0 &mc_virt SLAVE_EBI1 0>;
- 				interconnect-names = "qup-core", "qup-config",
- 							"qup-memory";
-+				dmas = <&gpi_dma1 0 4 QCOM_GPI_I2C>,
-+				       <&gpi_dma1 1 4 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
- 				power-domains = <&rpmhpd SC7180_CX>;
- 				required-opps = <&rpmhpd_opp_low_svs>;
- 				status = "disabled";
-@@ -1409,6 +1501,9 @@ spi10: spi@a90000 {
- 				interconnects = <&qup_virt MASTER_QUP_CORE_1 0 &qup_virt SLAVE_QUP_CORE_1 0>,
- 						<&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_QUP_1 0>;
- 				interconnect-names = "qup-core", "qup-config";
-+				dmas = <&gpi_dma1 0 4 QCOM_GPI_SPI>,
-+				       <&gpi_dma1 1 4 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
- 				status = "disabled";
- 			};
- 
-@@ -1443,6 +1538,9 @@ i2c11: i2c@a94000 {
- 						<&aggre2_noc MASTER_QUP_1 0 &mc_virt SLAVE_EBI1 0>;
- 				interconnect-names = "qup-core", "qup-config",
- 							"qup-memory";
-+				dmas = <&gpi_dma1 0 5 QCOM_GPI_I2C>,
-+				       <&gpi_dma1 1 5 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
- 				power-domains = <&rpmhpd SC7180_CX>;
- 				required-opps = <&rpmhpd_opp_low_svs>;
- 				status = "disabled";
-@@ -1463,6 +1561,9 @@ spi11: spi@a94000 {
- 				interconnects = <&qup_virt MASTER_QUP_CORE_1 0 &qup_virt SLAVE_QUP_CORE_1 0>,
- 						<&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_QUP_1 0>;
- 				interconnect-names = "qup-core", "qup-config";
-+				dmas = <&gpi_dma1 0 5 QCOM_GPI_SPI>,
-+				       <&gpi_dma1 1 5 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
- 				status = "disabled";
- 			};
- 
+Vitalii Skorkin (1):
+      arm64: dts: qcom: sc7180: Add GPI DMA
 
--- 
-2.56.1
+ .../devicetree/bindings/dma/qcom,gpi.yaml          |   1 +
+ arch/arm64/boot/dts/qcom/sc7180.dtsi               | 101 +++++++++++++++++++++
+ 2 files changed, 102 insertions(+)
+---
+base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
+change-id: 20261111-sc7180-gpi-dma-a77963d9e1cc
+
+Best regards,
+--  
+Erikas Bitovtas <xerikasxx@gmail.com>
 
