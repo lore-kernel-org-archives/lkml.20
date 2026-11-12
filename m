@@ -1,107 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.191.109
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794447174;
-	b=bew1OR0meIkFOOoDVJ01o4r4eBWWzsOYxWCpwMBY/vFnHhej+bZmSfrqaxxaZ5mpydDC
-	 OeFaH4OU4xNMCWWHPPhxXwmuP8HHDm+yso8qqRatu9JDf0/okRS0eW23KlKfFZvMNCHOu
-	 LjtfXORuU5jQgvQsZf51bCVGHfC3HP0w/GXqp/0x43oLDOGrKLeCwVabfxSOoHK62hRqq
-	 DDM+knJQZfpW/tTH0bqnW9ryimt5px5MpQMn3L8iEBL5Q8Is+qrMOdot6nd1lq/3ajsE/
-	 KrTOzsat25ti17IPEs2vdYPW4UOq2VH3PtHuex0Nho11Jtjqa9Ax11e49AgLFwcsPMw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794447174;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=kL3qS2X4V0rTwk0XQZV8vV6zPfc+zr3/+ZkOSUt7vNw=;
-	b=h7SwdyPAQQryZv9wkCaaf0NPIXP1gJaQCDgkKNS1anTc/J7kbEHPHlG86Fza4IkdDyRp
-	 Ddz6+W7a5rkm6Vnfla1oJ/CurJuRTggf5lRvhtbZRaJRBSzXqU7C31BDcGjWpX/qiRcur
-	 K6z0YaWisLxzCIhck6XWj4gBeZZ8pPjZsWjFT6PzyXqQjQ72rnnoBB3DmEnqK/Ntfr0Pm
-	 18iLGJfX6pPGGhQm4O3a4SuYGeYcUjYoxBqiMnxQvGjgl6E1pe6yltC6RTIpPYDsgIqj7
-	 OC3vSG1w2DhF67BSrQRXLvnTKa6EGKh/rAgLsl+5B3lfXFx74ClOEC40Yk1XriOv9Dg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b="KLRRA/Vy";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.191.109
-Received: from YQZPR01CU011.outbound.protection.outlook.com (mail-canadaeastazon11020109.outbound.protection.outlook.com [52.101.191.109])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794447319;
+	b=oYAdfMpdI7W1a2G2SxghSX//+8I6cOtr8ycTQASx+vv6OaNf9qUWU6+KSwmdTTZ8h2f7
+	 aOG6ZvHZwJ4Zor2D4asRxQg3nnmZb5Bm+JUXS0FBpKFJbzNiyIX0KAwHQ1JTVsED8QeyW
+	 ZrtUkAf99Se7K/swSdEUhgAzNV+Abk8F7lhnHEm3s1bhJ7AK/Xut3CiWPsgMvrlmuf1yC
+	 FJbTXITRwXsGvMV53R6Bp+28b2vlW0QGhQSHA/16Kac1rKHLwx3/jQ5BirLMYiiYILppC
+	 pUOCQuu8qc1Mxl1gOLPIA3hjPBwrLCnQoE0xHhjwOahpbGTSrVCfN0lZyiQiEenEfeA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794447319;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=9qYkLbX/jBWfhi0JFqENdn73axFTFxV3xClGvE2vBpQ=;
+	b=S8xBDwJFh3cRhb5h3YOQbaJirV7cvik+OqRz4iTDLmAoumx1lvZGe+9AR99PAnsLGPEC
+	 Lf+hAkHnpz9V8jNxb+nbrsg7IC2R+t0/DabySFEvnQWeh8bxe+3kzmEqvEpbczy/mIZ9Z
+	 iMyPMzrGX2+v4grPj+vU3nnPOzDO67vthJTPhg0i8I/+0gFvgjJ0A3vIYqyMYR7Ps5ri3
+	 wYSBLP2IoKU4kIYOl7jCMKbtqXQ0hTJD//RdiNVOOPBmiAUmMQNd0mFbdGo1xcsSbaH1Z
+	 JPMYtKpii2dxnrcAzQQEqFUT/XwGs2Ytn9uCckN+ok9VxlgkEp/8DTTK3OrXGlakgAw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=Igalia.com;
+	spf=pass smtp.mailfrom=Igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Jirew0by;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B4D2606AD69;
-	Thu, 12 Nov 2026 01:32:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B4D2606AD69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BC7E606A33F;
+	Thu, 12 Nov 2026 01:35:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BC7E606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=Igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=Igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=KLRRA/Vy
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ySGtFzVxYM4viNY/CIGCNV4jPlKPcaSmXc3CrZqJBtZvzxpMVNBmpkgCPyG8StdnQoEVpQIOL/lLXXLcaVMcgp3dY+SYAwKC7HNt2fM2oTdhxGUyVxpZiOm+NVfH6hKc2V6gOTASBdx5O30dx7gcBAJoQL+ktMEvY83S+ehvJPddirpurqStrRrEo0y28Ej8qwcIJkXCvwX+32PdaQsSyr19RRPUnUEs2Yh80AxjkkTt4WZjHh2Xa8ivQhIKHhBCpEM68Uk55POaVdLsPeEtFWaHYci1I4KESCamdMbEKV/L0U58RmxkGxm6GI8zeWPQ31dkV70npApQpvn0zbgrOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kL3qS2X4V0rTwk0XQZV8vV6zPfc+zr3/+ZkOSUt7vNw=;
- b=xEqA1qn6ac8GuiVhwM9PG5QxQ8RfeyU1mpS8Z3Gr5OyK7JnoxddNn3xOWFozW73ufomalrZv9tGrHfplOs40rlhZMUEDHuQCk5uT6LpUdO1avx21MzO4ZV6jFEHiyk1+/5xf+ssK9xLGDI8DkIAXAMPAOpbQkI7LnVS4gkf6f49krb7D1cvYnOdsyO8wbleo7f3qom+Otc4EYmcmkK0BtmS0dLi+n38GwY1pqO7hU+qL0EiJHX+JzI52gOmTURu7LIDpaz0+qPV7EN4tPet+mFx5ZjSuPwowdfetW3OlQ3nZc6/RCYverAtqqHcqxp1xN34LH2nW73m2gV5Unc8eaw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
- dkim=pass header.d=efficios.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kL3qS2X4V0rTwk0XQZV8vV6zPfc+zr3/+ZkOSUt7vNw=;
- b=KLRRA/VyUBtpI+ACIf7+Re3TNJb6O9KgwF0Ar1gcnpWv5rFmTK5xvAPQhBblxhPh3o9oJOS1FhR+ySop/E7BkQ7tgKQVooXU7Tq3uO4qkgD5QCOWFtQkV/9n7HA9CM4ohKifrzeZKUnHqucjFUQEzUXdsKKT2rT+bfYI5uDeQga5BClZ1y70vOlP9XgHXxe3fQIZuemkXUWfzJ4xptwsRW+6Qjn4XhPCOSFXv1YwYoowCOtceuEjnlOo6dbb3XB8JUknISM6jYW8gKevB7gwYb+SmsEyzM3OT22vkvDLXM7vHl+L+G35KdFO9iTjTsB26HYfdONNsMeBmDkyAG1reg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=efficios.com;
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10) by YT2PR01MB8232.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:b3::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
- 2026 01:32:50 +0000
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0615.008; Thu, 12 Nov 2026
- 01:32:50 +0000
-Message-ID: <fc1bbc25-a410-42bd-b5b9-d734d2444b70@efficios.com>
-Date: Wed, 11 Nov 2026 20:32:48 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/7] srcu: Add irqsave variants of the atomic SRCU
- readers
-To: paulmck@kernel.org
-Cc: linux-kernel@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>,
- Frederic Weisbecker <frederic@kernel.org>,
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
- Joel Fernandes <joelagnelf@nvidia.com>, Josh Triplett
- <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>,
- Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
- Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
- Davidlohr Bueso <dave@stgolabs.net>, Kunwu Chan <kunwu.chan@gmail.com>,
- Puranjay Mohan <puranjay@kernel.org>, rcu@vger.kernel.org
-References: <20261111145949.70845-1-mathieu.desnoyers@efficios.com>
- <20261111145949.70845-5-mathieu.desnoyers@efficios.com>
- <0f5b9d22-353a-4e30-91e1-aeea47461583@paulmck-laptop>
- <31ba97d2-f02e-4c43-a9a6-5ed49263c511@paulmck-laptop>
- <9207ad1c-fe1c-4041-80c2-52723bc58486@efficios.com>
- <9fc742ab-457c-41e2-ba05-0ef0bb15d00b@paulmck-laptop>
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Content-Language: en-US
-In-Reply-To: <9fc742ab-457c-41e2-ba05-0ef0bb15d00b@paulmck-laptop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0040.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:86::10) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10)
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Jirew0by
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=9qYkLbX/jBWfhi0JFqENdn73axFTFxV3xClGvE2vBpQ=; t=1794447318; x=2109807318; 
+	b=Jirew0bysQdVDQNy80gmRHhCbDhyYl1qlXWMlMY+fzkA25FO4avCBJSJ3H8c+BIT6Rsrgv/hFH/
+	tK5JHWGCtFNdl6OmFudw1DuxCZ88jdHhBHXfepM0Rq1IgFvsDtMHFLfNsNujfLTT4Tkm052vjq60I
+	9dhesJhwWE9BR++qRVE+WeCDUPYByWUnCZn0YVOa57nECqsq6jWjdhNVWPFcu7/nHAQ5hoUD7fN/M
+	0D0ZEli0j7EY5ZYkdadzCmyUtWr4bqFbRwKBXkQY6RznyHJpBf7a4Ys48uUfX/MhZOy27XEx9dSu+
+	GJ8Tnr5NSlDW1V7m+OvLN0/WESNUyZAJasAQ==;
+Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91] helo=[192.168.1.133])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xRJiP-009F7G-62; Thu, 12 Nov 2026 02:35:01 +0100
+Message-ID: <3be36c29-8c6d-4205-9c93-3de2445577e0@Igalia.com>
+Date: Wed, 11 Nov 2026 17:34:53 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,123 +57,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT2PR01MB8232:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b5d88b5-97fe-43ee-a950-08df405cdd0d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|23010399003|376014|7416014|366016|1800799024|10067099003|4143699003|5023799004|56012099006|261026121527099003|261021121427099003|261102123227099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	LvKh5O41hdB72FjzS5vrZ3gISfjsVpfZZMHOl1bO2hQRCb7mmbQ7Dc4LtTBdEbcRzCPbs782N+FbhMp/p96C/gA01BUy+3QnWMRUq5/DQ+qz1weWkghntwUMh7GjHXKnyx+C78HQohZR/HfzuBo1U1ufcP1yQNgufX9qk2Lin6PS/4W07QNOwScl7AAT7wwDyW8VT9VICIpF+6BebHZTt1K3MOgpIedCadSA/G6nXXJP5G6OtykD3lR+Jke2w/EFZiGpTaATXNNeKyyw76her0YEjzy3n9FKyHTFbML6b6GTT3VfLFVZymovCclDBoiiU8uqzCKaLNxY9+LavtyO9h3SxTv0Hpa21ewzquVyiOvFiDhibqi+u49tfogVPrT4yV0EwiPv4TJ+A/wcIKaXElycBEtYHcN30JblFV6+BvKupk2eumXAV7lTaJo28ZrvM8UWKYr9Ulvj3OdV8lTO8v+dzJdyPnkp4YPaa5mn7is0SBqLtCdtm0e1yiB6R0hImnvO7XLM2AFTmNHtDeYLroG0OlTSdrrSgx5fE5DdEC0mylbcXjU3GewyZ2HalFbompopSsiMuXdN1kUjp8tAlvafoZF4kA07sOvBzTox4I4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(376014)(7416014)(366016)(1800799024)(10067099003)(4143699003)(5023799004)(56012099006)(261026121527099003)(261021121427099003)(261102123227099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RlZEdmxvVDdLY0dTWU9IL0JEL0hhSEFCWDJ2L0JqeW9OL3NPWTdrdm8wUnow?=
- =?utf-8?B?NThlYjNXY2hEZ0FKbUUvQk5ML1BJaHE5S1E4ZE5JR1FBWlpnVzg4Y1VLeTZq?=
- =?utf-8?B?Z0MwcmxLOEhHUVdNQ2NiQ2haNmxFdFZidFBhNFVtSzNMU2VFT25UQ1NwQnJS?=
- =?utf-8?B?L0lrOWpEY0JtNDI4OU1wUDVhdkh1eGRyemZoUXlDSmRBZDZOcXZzRDMwZFg5?=
- =?utf-8?B?YjVsWU9FYjVHaW4rNWczNDBuWks2WFNxK3Q3dkhTRTJZd2hFelFXbnRHV3R5?=
- =?utf-8?B?MXp5YllBWTdDYWs2UVdNcE1YUEM2QUVZMU4wNkNHMUIvcXZpdmZjbGRXWTJG?=
- =?utf-8?B?QzJJNUkyNlQ4OThyZnNaTjdIY0UrOGpKUVNrS1dOT0h0a3JBdUZUNzhHTVJS?=
- =?utf-8?B?ZFlWZlJFWlZONjE2S0U5bUtWK2d6S3FXWVE2eWxyOXNaWUdjdzhrdFZrdkxS?=
- =?utf-8?B?N3BMSDRJN1BiSXNESEQzY0RzcHFaM0U0K2w4b1JQSWgxbVNQamZwS1ZoUldk?=
- =?utf-8?B?ZzFSSU94ZkkvTjBBTGpoUDVnUGJGMUZQUXUwTDNIWVRqSmROWjVuQXB2dnBO?=
- =?utf-8?B?NXVMUGFIUTZJMWFSVzVoTjhialZ3dlY0QVV2Ni9QTUVWOSs2OEhpMGpNY012?=
- =?utf-8?B?UVFHU2lMQXp0UmM0Tm0yb3dIbDBza0JwVS85YXFWOEI4R0VMMnFSdGx6OG91?=
- =?utf-8?B?WUU1cWorcGFhYVhHd1pnNm4wSTV1dmVpS0NLM2dIMVFCRVNhaGtoR25OdVZP?=
- =?utf-8?B?NGZPWnNDRnEyVHpaeEkxZy9RbXJFdVJaWlNiMkMrbVhZKzdDWlFlTmRoYnE3?=
- =?utf-8?B?d3dUSmFzQ1NRNFg5UnMrZlpGOXF3ZW43SW9IT3VJMlBRcmRDS0FZLzY0L2Fq?=
- =?utf-8?B?YUFvdGZtRkFEZ1BXYjNiOXl1TmxLeHQwRHhXQVlWUklXN0xTczM1VXJYNWZ0?=
- =?utf-8?B?RXFkelBsVUVPYkNlOHZLVXN2VG9JTmJMc21zcGQ0ZjdGMlVSOGNmZUhOTS9N?=
- =?utf-8?B?RVB2eGhSMytUY3hIYndjRTAvVmhyTzFZM2VqY005WUtxL0xuWWZSODRxT0FD?=
- =?utf-8?B?QjBuelhVUmNEUzVqTEtOcFdNMjVMSTVFRVVoMzJUbkZQYkhlRXlYN0NIeVhn?=
- =?utf-8?B?ZFBNVnMxWW1XWWFzaVZoNGlsc3d2S1JpZ281NXIzU1h0cVR4U2xuUk9LV09T?=
- =?utf-8?B?NFdBcElCT2JVVC9kS0pXTjhHa0E4NDJMWDh5NjJqZkRuVzEraUUvS25DZkM4?=
- =?utf-8?B?Mmc5R1R4VTBBbE1ab3dUT1ZqTWw1UWF6dlR2ajFyRnJXc2RZTWJHc3NJTU1a?=
- =?utf-8?B?UGZMc2xBdjBBM3BlNWQ1ajZxRXNTblJ2ZmtHQlZqSGJTa3BpWDJhUEZPVTR1?=
- =?utf-8?B?SGcvRTZqaGpWS1RucG9NS2FlMlpydnVMU3hZVXhOc2Yzb1JzVDJkQWVDaWZi?=
- =?utf-8?B?MndQSGI3MGhpcUpjTm96djV3WlhPMGNkeWdoYkN4ZFBEZ3NkMFBUNjNIdjc3?=
- =?utf-8?B?SUJjMjVwbVdCTWlSVE81d3haNitlSVRmZWlyb1RyeU9FbUVUMGRETXc0SWl6?=
- =?utf-8?B?RjBSWmdkMXZJRXI4Q2ZtRlBaaWYxbmc5aktBQi9QQ0xmK2FNSTJtRGlSSFNq?=
- =?utf-8?B?UzVXNmhmZU94NkZoNkhiZG9JY2p1N0tBdGs2QTNpL1dObDlwVDRCZytub1I5?=
- =?utf-8?B?MHY1OUF6MVZ2QUdtbHA4N3d3RXQ2UTk2TDZvTXBBZHk4NnByRnJTVGM1SGpS?=
- =?utf-8?B?ODYzZzRsb2ZudmU0YnR3dlRlTGdGZDNRMGQwaEpaN3ZmQmI0ZGExb2FFL0Fp?=
- =?utf-8?B?RUpXVmJ0ay9WOGtoci9ERTZRbFB5R0MrdTNFeUpmc3BWM3dyRS92VjVXQmJM?=
- =?utf-8?B?MlI1aDg1Mmd0UkM1bitXUzZ2RVVNZ3NwKzBaajB3MENJTUM2czJIdkFSTzlx?=
- =?utf-8?B?TWxSa0JzVWYvMFFmOVQwSjVETjdpTmRkMGFIaWU1bU10QjE5b0U3aDd4Wm9B?=
- =?utf-8?B?NGUva21YUytYZEQvdnF5NU5NdWdwTnFub09IeTNOVHFCTUJCVXFXaklEREJ1?=
- =?utf-8?B?UStTVzhoNGYxU2dHcUFiSmJYUkw4K0E4citac0VFUG5SY0Ewd29kM2JnZGVZ?=
- =?utf-8?B?SDB3YWRPQUtFdW1jMFFlV2ZLVGRpNlAvMGtscTA3N011b2RjNy9NVFU5Szd3?=
- =?utf-8?B?R3drQjg4cm5OZHVOcTltc0ZaUk9Bd3RaenI1VVlvNW96WmphWUFXdHN1QXU4?=
- =?utf-8?B?YnFDVno2ck8ydEFVbzlXRkxaR1gxTWwyakhWVG8zdTlaNTNKV1ZnTyticy85?=
- =?utf-8?B?Zk9ieWMxUHZxempiU1hES1pDSmNXYzZpckdUUDRvemJtUTBQNHYvVm9QZktJ?=
- =?utf-8?Q?F/E3+pIU+qeV+a1AZhffhlWm2XI0Bo5ueuiVGgrAEv1pX?=
-X-MS-Exchange-AntiSpam-MessageData-1: hWDDh/4VOmW58f+t5gMGz6Wv/OICtdLeLRA=
-X-OriginatorOrg: efficios.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b5d88b5-97fe-43ee-a950-08df405cdd0d
-X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 01:32:50.0593
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tjcmZNXTHiVlxPEWkYluX9cSCBZMfEOMEVX6+JcnDbFfNwhtCjt/HcSxActKmHOiZ+HQwDJtPrYDlnOKNWfQWkOSAhPgGULV0wVu7qmg8Dk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT2PR01MB8232
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 08/10] drm: writeback: clean up writeback jobs outside
+ the job_lock
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Mihail Atanassov <mihail.atanassov@arm.com>, Eric Anholt <eric@anholt.net>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Brian Starkey <brian.starkey@arm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
+References: <20261111-wb-drop-encoder-v8-0-62948ed87d13@oss.qualcomm.com>
+ <20261111-wb-drop-encoder-v8-8-62948ed87d13@oss.qualcomm.com>
+Content-Language: en-GB
+From: John Harrison <John.Harrison@Igalia.com>
+In-Reply-To: <20261111-wb-drop-encoder-v8-8-62948ed87d13@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 2026-11-11 19:07, Paul E. McKenney wrote:
-[...]
-> Although that doesn't help on my laptop, it does work on my x86 test
-> system.
+On 11/10/26 16:42, Dmitry Baryshkov wrote:
+> drm_writeback_connector_cleanup() frees the jobs left on the queue while
+> holding job_lock with interrupts disabled. drm_writeback_cleanup_job()
+> may sleep, though: dropping the last framebuffer reference takes
+> mode_config.idr_mutex and other mutexes, and a driver's
+> cleanup_writeback_job() hook (e.g. amdgpu) grabs a dma_resv ww_mutex.
+>
+> Splice the queue onto a local list under the lock and free the jobs after
+> dropping it, so the sleeping work runs in process context.
+>
+> Fixes: 1914ba2b91ea ("drm: writeback: Create drmm variants for drm_writeback_connector initialization")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: John Harrison <John.Harrison@Igalia.com>
 
-Is the laptop a hybrid CPU, with P-cores and E-cores?  KVM gives its
-guests no PMU on those.  kvm_init_pmu_capability() in arch/x86/kvm/pmu.c
-clears enable_pmu under X86_FEATURE_HYBRID_CPU.
+> ---
+>   drivers/gpu/drm/drm_writeback.c | 11 +++++++----
+>   1 file changed, 7 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
+> index 2f6a7b50336c..6487f4a104f2 100644
+> --- a/drivers/gpu/drm/drm_writeback.c
+> +++ b/drivers/gpu/drm/drm_writeback.c
+> @@ -281,18 +281,21 @@ EXPORT_SYMBOL(drm_writeback_connector_init);
+>   static void drm_writeback_connector_cleanup(struct drm_device *dev,
+>   					    void *data)
+>   {
+> -	unsigned long flags;
+> -	struct drm_writeback_job *pos, *n;
+>   	struct drm_writeback_connector *wb_connector = data;
+> +	struct drm_writeback_job *pos, *n;
+> +	unsigned long flags;
+> +	LIST_HEAD(jobs);
+>   
+>   	drm_property_blob_put(wb_connector->pixel_formats_blob_ptr);
+>   
+>   	spin_lock_irqsave(&wb_connector->job_lock, flags);
+> -	list_for_each_entry_safe(pos, n, &wb_connector->job_queue, list_entry) {
+> +	list_splice_init(&wb_connector->job_queue, &jobs);
+> +	spin_unlock_irqrestore(&wb_connector->job_lock, flags);
+> +
+> +	list_for_each_entry_safe(pos, n, &jobs, list_entry) {
+>   		list_del(&pos->list_entry);
+>   		drm_writeback_cleanup_job(pos);
+>   	}
+> -	spin_unlock_irqrestore(&wb_connector->job_lock, flags);
+>   }
+>   
+>   /**
+>
 
-> Perhaps something like the following would be helpful in keeping this
-> well-tested?
-
-Yes, that would help.  Three comments on the patch:
-
-[...]
-> +             qemu_args='--qemu-args "-cpu host,pmu=on"'
-[...]
-> +             --configs "SRCU-P" ${qemu_args} --trust-make
-
-1) The quotes inside the variable stay literal.  The expansion is split
-    on spaces, so kvm.sh gets three words:
-
-        --qemu-args
-        "-cpu
-        host,pmu=on"
-
-    A kvm.sh --dryrun with these arguments stops with:
-
-        --qemu-args (qemu arguments) ""-cpu" must match "^-"
-
-    Keeping only the value in the variable works:
-
-        qemu_arg="-cpu host,pmu=on"
-        [...]
-        --configs "SRCU-P" ${qemu_arg:+--qemu-args "$qemu_arg"} --trust-make
-
-    It expands to two words when set, and to nothing when empty.  I
-    checked it with kvm.sh --dryrun only.
-
-2) nmi_readers and nmi_calls both default to true.  So the two boot
-    arguments change nothing.  They are fine if you want them explicit.
-
-3) The "atomic-srcu" run just above also runs readers in NMI, by
-    default.  It still starts without a PMU, so it keeps printing the
-    "went untested" lines.  It could take the same qemu argument.
-
-Thanks,
-
-Mathieu
-
--- 
-Mathieu Desnoyers
-EfficiOS Inc.
-https://www.efficios.com
