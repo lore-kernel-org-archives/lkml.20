@@ -1,49 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794511213;
-	b=wfoKxVzLdtsXghf+tdfVoSgs2WL95mpBa5a3PxHuL0EFOZdxHFFDgObA2k5BLMOrt9NI
-	 Ycfd+FBzQ6r3BlPapMzCdtTacM1WMDyV1wMWVhK+RI2LSw+xgvYX7Bvyua0RqIuQiS36Y
-	 yzbeO217QSSmyled+ZB2AHi7kbqkxZnybmyHpqLF8sTeULCno3TOxSmtn7Ywqmrv1MIEv
-	 ZoUMMtu5ubPxdLgm6P4mFf4Z79OETCuyaubA0ysDyISVpgdupeAT8Np7mfppqmwg6fcBU
-	 gVd/nR/3IeglETkis9E0IW5yYSezM+GQ+Yn2+ah9AqkDx06s0AEJadZ5KjCHlzRZouw==
+	t=1794511316;
+	b=g09So3C94/XhgO0xS+uKjpyC1/V1WwPHnet2DMMwLneIIUun6hkeYoGEMEa4Y8T6kgdL
+	 VZQkQAqISL8wgDDZP480Mhoqfj9sv3Wnynm125Tc8t52pt3+SgfzgI8zmhCEZJ1CgKGa7
+	 0P6u2lMpCQIy7klfv0UfHm0JHmlolLc3WHRw4rd6++HUVPULeykwloRwsH2OFzPGAIPUH
+	 T/A4A+7yT7ybO54ENbC2nCYGubp4dsupvYrG6qPtQypO+RBowm/CajYmzzFqgyN+SknPI
+	 iK+JqLJMfPY1e22FLlnsv+PB3ugerD+wA2Eem/Hnf3AvySnJf0vljLJ1dzRploLyIyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794511213;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=6m0jb+42bLB8LuKMpGgRNsw9nHlOHHRHCPu/r8lmSNo=;
-	b=2YKa7dWH+z0RYRfedQFi2eRsQpqnKYwxT23rdRMXtIgWdMDLxSGxlJZR7nxNBGSdr6XE
-	 w1cKX2EhFEmpVzqW7JIkHL1z94DHJYakPqeGBcXgdsMfy8OQNb9jll08YojZA/UuCwYRD
-	 aFL46aNSPuCWyRb8RXbcjGm1VDUdjiXpQzZMU+tcSoaGsHwJbkpNNvQ/KsuHCioRbXSr8
-	 X+J+GhTufxrfCPrkInBWo/M/U7QsY2n50FsCHsUwbIgFIwZ7rrRfgucGbeK0vPQV9A8LG
-	 PuDv0Q8lneQGSQEiuUuU1r2XHc4axoSx0pB0bDNOvzLgMwyWfOtlcMbv+nWh4C3MfiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794511316;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=01sL97ssAo9+QnpHtaCzSuqPvKdXMurbEXs7EQQ6WQY=;
+	b=gcVWk+5GKXHwPeB9kjsAkmTiC0pYxbChaAMQEYd6JW6mc9Ef8K+44derXKyarRzbiO6p
+	 AqX0oNOGOcTEcUJ/BIwJrUgUmhCybE5RosY2HQuo/QQjx78x1dLcwIYISeMh8dYQmKdD+
+	 qy39aoZTsw03+fZQsOzgUhmKZO/hOnUW+O0toksBGeuuA7+xTFqLrJ382jIEwRpP6zg1n
+	 Z/q/6Kd4sICeGpW9wX/YGnje8xnqmDs5ZeF0pNoFPHEACVCfVZvBZN2wBHZGMkq14BFWc
+	 0VCNTTH2DBj2pAvHSM+awv4E3HAP4sWEiwoMjPTmZQZL9Xbn76UIUZOx8RxylFeCUQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kaiuZyvc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XryGaR31;
+	arc=none smtp.remote-ip=209.85.222.176
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DEF9606A33D;
-	Thu, 12 Nov 2026 19:20:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49EC1606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:21:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49EC1606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kaiuZyvc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 085091F000C4;
-	Thu, 12 Nov 2026 19:20:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794511213;
-	bh=6m0jb+42bLB8LuKMpGgRNsw9nHlOHHRHCPu/r8lmSNo=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=kaiuZyvcCIolncEDEueqVuLsyDvf+OkQRQFmNQkiDPMH9BEnfxvyvJkFmG1/OVFJu
-	 ER/V7FqY+ViZcr+3y7G3ugGYgVke+oG9yeaVS+zjspfJujw+wtvuEPE4wuTCNujJQF
-	 Gdv4gR4gEDB5ugco1G8matkSn9721H5gei3q3D3w/Hb6lpCP+6oL7yvcPvd5V8hLeK
-	 SuK0JbiWATcFPGQnZlwzce984Ol0gPfoPLdb3GmwC2d/p2C7yT32xllGHkMcg5q2F/
-	 86dH8veqZACgpDzypS+6QayLHrZOeL9XS1OdfbZXI8qIhjuHjF3z+iaUJqwrfqlGzz
-	 C0JC6nqTtf9MA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F16EB392624F;
-	Thu, 12 Nov 2026 19:20:12 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XryGaR31
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-93e515769d3so8854885a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 11:21:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794511315; x=1795116115; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=01sL97ssAo9+QnpHtaCzSuqPvKdXMurbEXs7EQQ6WQY=;
+        b=XryGaR31B5ngrL4TkY5JKI8s/l0YrSvOED2HMkhUaYiyQcWTWrU8K8NbwJufCLwSBA
+         7YxQKvHJkNdUZaV1YTiuhCc9sOeqAwTNjELeNQGUB827v/6LeB4kroWT0MdJjf95N3g/
+         403nAVntpIL80gVaOkshrX878wldPB733TJLTp+7IPRUqjSS4aNGfcZFfWDGwrOYoaFi
+         ChRI5a8Yu7UbHCkQJJ+LxHWRAKdfLhGowvUWfOUxjZGmiHV0rfYVHMRBtVfqMwk0sn8D
+         bp9qDgD+Ne1JWHCxIN2l47sXnOZLJjuSZkqaDJUWFtQQmb4UROflT5qu/rpeXtPaPBeR
+         GCCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794511315; x=1795116115;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=01sL97ssAo9+QnpHtaCzSuqPvKdXMurbEXs7EQQ6WQY=;
+        b=QxGEazbutHesb1TYHEFjd5Vm6NcpgyVJJ2CwTiPGejfdCPyzYEQb2jKGvPdrP1J3Hr
+         3O2o8O3RLB46RMD5Q4abdnmhlLZ8NtZm4jcbJY5CtYF0MKXrcbERilnoFeoPMpKrAvYt
+         yt/NI7r37wRbFfO2PJRvZQUY62CjJCc6ZcOqjTmzHc1GixyIq8LsCRXMkMS32Q1xsoYJ
+         2VCyYIM5La5jrq3XiHVDm0pAdOD5tnvM546+OVz0fO0H8NdjtBQuFbmkZD+gmC3vERga
+         SMZYiT8QDajTmpXLGlMZEVInQjCJ/OyRt46UoReHyj1rFnhg3V2ruLqv2R3rOQnmkZvO
+         ZJ4w==
+X-Forwarded-Encrypted: i=1; AL+hErFr43arqNDqlZtu70grkCbWP+A3IlmN7/WDfF2voCzl1WhEytvTP4ghaN6hIMPPeqyHFumgChAz8E8Z+ds=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9J6AIExvxxSHmB/IOff98YtJKEX657m6amT+CBIv9gDW1w0p/0
+	vuvsrzTKRFW+z9hnJEu7n7F/BIokcx3pKGMHVXI/HRtxEmPetK5DGnabz0gYaA==
+X-Gm-Gg: AYBFou3g3QJFUG2MlpIurADOtIzkhlcO+QAx0gl0z8a5aUkzsJjR2EWff90l9i2B7An
+	iKyiaQYBJXZVhZA5xfjjVOgaAh+tWGjFn8VNUiBbnfbcWA8EzfoOiSx8U/MG08Ygith4IPgXVCH
+	/u/7LE6t1HCKORMVAaLquodHuvG9LsxPSrlRF+CbNaXRzp78Tlfo/Bh5dIP649qj34TMdXaE8ly
+	B0maFeiuFbH1gYQ/+QcW8Ggrbs9+axeD8r7WYukTmQEBF2fFmwIWk+L6lWqOXZjUOv4Hl7MVydO
+	tB8+Mx2JbebC5GTtQZjucYIBJLK8ZLhNZSPvxY2ToRvaGf36UclRMcep+dMl3Wy2g9lDntnNVBz
+	mfRtCAEmcksu8SWu7D4Kt6yGhDbkTC6wMfkNQ0uORNAEOkJE3TCM+vmidBCsn+CKvM34ZIL6kXo
+	YYkoYO0wiwTGEAzReLEeN7bzJq8r5rLJki9Gjj+KWzJ5sLdjSazPkYyKa4y5OgQYVFoLrf06/L1
+	0EvzfYOw21wsv6vQmlEAcJdD5VYOPm0oyKcks1rYoe8V+89GdhEJ7aCaayujeQ5KPpSgfNU/p6e
+	un/QxRfagAZfmGZ0MJP3xKMcRps62yFc+jS6zuMUT9FKUMMMZIg63CMX
+X-Received: by 2002:a05:620a:4109:b0:93f:3e39:efa1 with SMTP id af79cd13be357-9494bb85894mr67625385a.23.1794511315258;
+        Thu, 12 Nov 2026 11:21:55 -0800 (PST)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c80387dsm8362885a.13.2026.11.12.11.21.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 11:21:54 -0800 (PST)
+Message-ID: <01705c8c-2043-40d9-bd4a-446081eac4a5@gmail.com>
+Date: Thu, 12 Nov 2026 11:21:52 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,48 +92,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] MIPS: SiByte: Add missing sb1_cache_error() prototype
+To: linux-mips@vger.kernel.org
+Cc: macro@orcam.me.uk, Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20261110223651.2698860-1-f.fainelli@gmail.com>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20261110223651.2698860-1-f.fainelli@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] ppp: restore uncompressed fallback during CCP
- negotiation
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179451121152.604801.16504171266860549530.git-patchwork-notify@kernel.org>
-Date: Thu, 12 Nov 2026 19:20:11 +0000
-References: <20261111155112.149204-1-qingfang.deng@linux.dev>
-In-Reply-To: <20261111155112.149204-1-qingfang.deng@linux.dev>
-To: Qingfang Deng <qingfang.deng@linux.dev>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, leitao@debian.org,
- tristan@talencesecurity.com, hataegu0826@gmail.com, norbert@doyensec.com,
- Brice.Goglin@ens-lyon.org, akpm@osdl.org, Matt_Domsch@dell.com,
- paulus@ozlabs.org, linux-ppp@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev-bot+sashiko@kernel.org
 
-Hello:
-
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Wed, 11 Nov 2026 23:51:11 +0800 you wrote:
-> ppp_ccp_peek() enables SC_COMP_RUN when sending a CCP Configure-Ack,
-> before userspace sets SC_CCP_UP. Data traffic during this window can
-> reach pad_compress_skb() while CCP is still negotiating. If compression
-> succeeds, len is positive, but the SC_CCP_UP check fails and the packet
-> falls through to the error path instead of being sent uncompressed.
+On 11/10/26 14:36, Florian Fainelli wrote:
+> Fixes the following warning:
 > 
-> Deflate and BSD-Compress have already advanced their compression state
-> by then. Dropping the packet can desynchronize with the peer's state,
-> causing decompression errors.
+> arch/mips/mm/cerr-sb1.c:165:17: warning: no previous prototype for ‘sb1_cache_error’ [-Wmissing-prototypes]
+>    165 | asmlinkage void sb1_cache_error(void)
+>        |                 ^~~~~~~~~~~~~~~
 > 
-> [...]
+> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
 
-Here is the summary with links:
-  - [net] ppp: restore uncompressed fallback during CCP negotiation
-    https://git.kernel.org/netdev/net-next/c/f03ef07adfae
-
-You are awesome, thank you!
+There are many more, let me squash them all and resubmit.
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Florian
