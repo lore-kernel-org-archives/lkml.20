@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794504797;
-	b=ZpXQogP/tld14YkHV6fyGCWISSWUamcGF5FxEGAVdgmeuiFFkJiL0B5jHOE7a5/p9lhk
-	 NHGf0KqHadqdtrm+GPM6sRnhhhIR1NsueAVX+f1imrHSl8QfHQQBzqD+cmgtVd4RU2HYj
-	 3f8Tcj6rMy3anQIX2Rvo4vQwWm0r6Cxqm4aUES2mtZlA/PNjUvudqeyOAb4vJRRLyqoeH
-	 5O9wrNDmXBoVC6PAGShCWkdQqOUKiS2Nw++wIrbtptRjDd2KZISXMun+VI4F1v/UlnonA
-	 QtiRfu/MoCgX7ZwDwuAuafjeWpKc6b3rZxSn2N5fF7fXM+YxumKviPBAVu7/UyK+pug==
+	t=1794504800;
+	b=NfanDTJJQ++I00VfzVqRXiCV1A+zP0KyS/xP/hX94L4VbwcIOESXj+eID8IxE0G3WKKZ
+	 gvjXB1vVTaGE5PFGY1l1lWtju3wmulZBvXnQ0aCwzxYatc/9aNGlU6jCAtwOI2qnaBYyW
+	 KeJBfH7UZBrRFe92ajiRf9R9it+fGVcLoRknlyHgxiRnh8bEWGWhjzDm/Zspxd88RjUEW
+	 K9rWLdr3XFL82I9kCybVkf38HbVUrJy0ytq3my/3EQnWxT+PcWpCAOoWgg1lV6ofIopQ0
+	 14Cp3O1ceaQ8Xe+lsDltAZmDWSL7ARnNL04zBhJ1XKNhi53Myyetnff02zy2LWXJBZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504797;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794504800;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=ggmLOcruT1G1b2ZukTwuMIVuiyxgrbAXSuX5T2fz/qE=;
-	b=fg1i8VyBkz2beL96cKXm9tmV9wxHrURnPdKGJ2fsA/TYba16nCz7+qmizlPBWY2LeQke
-	 wL8JgmfPGutALpmVsOvXJEA3NPTA0qu743J2U8wL6KuNUzTPsvChJVyMOFsQLiLatZgNc
-	 ByrDNxaX/YIDeQcQQydo4XxeZXNxDy1DZCWbctifUSc0F0y/BF4PPx0efEM/fGKmhPdXv
-	 l2W9/chqZmPTXl/mzhhOqdbcqEiKmqRP5wZuPm+7ZMtubZFM2+B5jL7+LzL+O0KtFgryn
-	 8OXN4oBPsWc/mQOC/cX/9w/7ZITwUzZlaJfuXFTjKMN7/U843qQ3z2OoqH7Lkc3/q8Q==
+	bh=k6pn9nCU8/diiJOQiOnHSa9q5XfgvqFN2sbLyFB5850=;
+	b=tTU8gOPSs4znW0LWJpzpzKtbmotGxvK0Odg4TvO4rlzemwn2vQwQg5gA8M27Zhh9YRmA
+	 Zk2O5ctOIgyHxGoJHVaQfRzNRmOgc7wVkqa1nQtj4zBkJz/RouOWwfZ96hJ+Qc+lE0S1F
+	 KOL0EBJajrWOzKyB8hT86T19P6YApYKOQKP9pAHH7T+X/d1XFNmG+zCM8Q7Cw6eOrhBJa
+	 +NGx08lGyJfX6v6j5OqO0MfpZcFU/ntJQ5GeAvM4GcPMVTB9Hbj+0ZeQl/GrmpsYjyHay
+	 uIsTAFnnZfWzlG0gi/FbqKr4Mjq1MsN5Icc8nea9HLu9MygKC4auRCy06KB18YHfKZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OweugKwy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KvkJz7/c";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A338A606A8A5;
-	Thu, 12 Nov 2026 17:33:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80EE460A5BE7;
+	Thu, 12 Nov 2026 17:33:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OweugKwy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B76661F000C5;
-	Thu, 12 Nov 2026 17:33:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KvkJz7/c
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83DBF1F000D1;
+	Thu, 12 Nov 2026 17:33:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794504797;
-	bh=ggmLOcruT1G1b2ZukTwuMIVuiyxgrbAXSuX5T2fz/qE=;
+	s=k20260515; t=1794504800;
+	bh=k6pn9nCU8/diiJOQiOnHSa9q5XfgvqFN2sbLyFB5850=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=OweugKwyvvDT8Lx3qpAUjfosSibH7Y0FQDgkg3Ldpv8GW+Sm31GzCy/B7jbTrilRz
-	 haQ64yC9Y75BPLMPTux3hEO0nagkRSIV2DeyfXscg3tpYlGrGQ+yx1j05QGrzM4tyC
-	 OqiNelVfHN8NxbxcGJw8rLnFwUgZyQOYQ+nvD5cjDhJXMbLKh0CXm0sWTKijGiqBNS
-	 a7tyBQe75y3Jz19hS5jWjP/EeQ+PtVaxYIrymcAv/0CawAFLPAEdUlV27EOmOFPkbj
-	 xTvEx6G7ayQ5rob8dWZl7ZS8xYa8hhVgcCid25re2lslt6cpN4u0ZfkyP+lgdimGbT
-	 11NP+h+nP5xNg==
-Subject: Re: [PATCH net-next v2 2/9] net: sparx5/lan969x: free the FDMA
- buffers on init errors and deinit
+	b=KvkJz7/cDU6GejIo9YKXTnmGT9HZlN/dB6E+Rsl8vTX0AP/71In0QYgP8yk3YUsg5
+	 SkvrlMI65/yplVDu/waX12zntZsOnCDXA53KDSKs+uHqBFcsVYttrAXYIRm+/0RjRp
+	 ZvCWr+Laabf36G/3gdZRBnWTJJSJF/lGgUhMlMyS4zAzSVGHlck4i/XdIwjpjxpA94
+	 d6yM71n3nBSRc55H2EB86YU2enXKslc4MRPb1VjGWY6VmZCOPQkFncxyDF9S3Tslay
+	 pjnd1OkFqIw4a80+BbcP8yG5QsLEZeaJyS1oJLkjRlD7t39Lexva1IHKBdhoa0lBjV
+	 JCUtGJeeIMwbQ==
+Subject: Re: [PATCH net-next v2 8/9] net: sparx5/lan969x: scale the TAS guard
+ band with the MTU
 From: netdev-bot+sashiko@kernel.org
 To: daniel.machon@microchip.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
@@ -50,11 +50,11 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
  netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, robert.marko@sartura.hr,
  horatiu.vultur@microchip.com, jensemil.schulzostergaard@microchip.com
-Date: Thu, 12 Nov 2026 17:33:16 +0000
-Message-ID: <179450479633.2199510.4808333993834819818@kernel.org>
-In-Reply-To: <20261111-sparx5-mtu-change-v2-2-59c91357e8f6@microchip.com>
-References: <20261111-sparx5-mtu-change-v2-2-59c91357e8f6@microchip.com>
-X-sashiko-severity: High
+Date: Thu, 12 Nov 2026 17:33:19 +0000
+Message-ID: <179450479909.2199510.1751417721062491348@kernel.org>
+In-Reply-To: <20261111-sparx5-mtu-change-v2-8-59c91357e8f6@microchip.com>
+References: <20261111-sparx5-mtu-change-v2-8-59c91357e8f6@microchip.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -67,10 +67,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -78,167 +78,130 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] On lan969x, the ownership tracking for RX pages is still
-  incomplete in the free_page error path of lan969x_fdma_rx_get_frame().
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but both NAPI
-  handlers ignore the return value of fdma_dcb_add() when they refill RX…
+- [Medium] sparx5_tas_gb_update()
+  (drivers/net/ethernet/microchip/sparx5/sparx5_tas.c) computes one…
+- [Low] sparx5_tas_gb_update() sizes the guard band from L2 bytes only:
+  SPX5_HW_MTU(max_mtu) + 2*VLAN_HLEN, i.e. MTU + ETH_HLEN + FCS + two…
 
 --
 
-net: sparx5/lan969x: free the FDMA buffers on init errors and deinit
+net: sparx5/lan969x: scale the TAS guard band with the MTU
 
-This patch adds sparx5_fdma_rx_free(), lan969x_fdma_rx_free() and
-lan969x_fdma_tx_free(). They release the RX skbs/pages, the page_pool,
-the TX buffer state and the in-flight TX buffers on init error paths and
-on deinit. It also checks the return value of fdma_dcbs_init() for RX,
-and stores the mapped TX length so it no longer reads skb->len.
+This commit adds the HSCH_TAS_QMAXSDU_CFG register. It also adds
+sparx5_tas_gb_update(), which sizes the TAS guard band of every port and
+traffic class for the largest MTU across all ports. The guard band is
+programmed at init, and the helper is exported so it can be called when
+the MTU changes.
 
-> diff --git a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
-> index 053d125eda658..8e0f1ddcbf2c4 100644
-> --- a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
-> +++ b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
+> diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_tas.c b/drivers/net/ethernet/microchip/sparx5/sparx5_tas.c
+> index ec80bc69371ab..32e502bc4f18f 100644
+> --- a/drivers/net/ethernet/microchip/sparx5/sparx5_tas.c
+> +++ b/drivers/net/ethernet/microchip/sparx5/sparx5_tas.c
 
 [ ... ]
 
-> @@ -90,12 +90,29 @@ static void lan969x_fdma_free_pages(struct sparx5_rx *rx)
->  	struct fdma *fdma = &rx->fdma;
+> @@ -718,6 +721,40 @@ int sparx5_tas_disable(struct sparx5_port *port)
+>  	return err;
+>  }
 >  
->  	for (int i = 0; i < fdma->n_dcbs; ++i) {
-> -		for (int j = 0; j < fdma->n_dbs; ++j)
-> +		for (int j = 0; j < fdma->n_dbs; ++j) {
-> +			if (!rx->page[i][j])
-> +				continue;
+> +/* Size the guard band of all ports for a frame of the largest MTU of all
+> + * ports, as a port can transmit frames forwarded from any port.
+> + */
+> +void sparx5_tas_gb_update(struct sparx5 *sparx5)
+> +{
+> +	u32 max_mtu = 0, gb;
+> +	int i, tc;
 > +
->  			page_pool_put_full_page(rx->page_pool,
->  						rx->page[i][j], false);
-> +			rx->page[i][j] = NULL;
-> +		}
->  	}
->  }
-
-[Severity: High]
-Is a non-NULL slot here always a page that the driver still owns?
-
-lan969x_fdma_rx_get_frame() takes its free_page error path when
-WARN_ON(!port) fires or build_skb() fails:
-
-free_page:
-	page_pool_recycle_direct(rx->page_pool, page);
-
-	return NULL;
-
-That returns the page to the pool, but
-rx->page[fdma->dcb_index][fdma->db_index] still points at it.
-lan969x_fdma_napi_poll() then breaks out of the loop without advancing
-or refilling that DB:
-
-		skb = lan969x_fdma_rx_get_frame(sparx5, rx);
-		if (!skb)
-			break;
-
-On a later teardown through
-lan969x_fdma_deinit()->lan969x_fdma_rx_free()->lan969x_fdma_free_pages(),
-wouldn't page_pool_put_full_page() run on that stale slot a second time?
-
-A page in the pool cache still has pp_ref_count == 1. So
-page_pool_unref_netmem() takes the second put as the last reference and
-recycles the page again, this time into the ptr_ring, while it also
-sits in the alloc cache. page_pool_destroy() would then DMA-unmap the
-page twice and call put_page() on it twice.
-
-The commit message says:
-
-  "To know which RX buffers are still owned by the driver, clear the RX
-  buffer slot once the buffer has been passed to the stack on Sparx5, and
-  make lan969x_fdma_free_pages() skip and clear the empty slots of the
-  ring."
-
-However, lan969x does not clear any slot at this commit. A later patch
-in the series, "net: sparx5/lan969x: add support for resizing the FDMA
-buffers", fixes the success path: it sets rx->page[...] = NULL before
-returning the skb. The free_page path still leaves the slot set there.
-
-That later patch also adds lan969x_fdma_resize(), which calls
-lan969x_fdma_rx_free() on an MTU change. After it, the double put can
-happen without an unbind.
-
-Separately, and this part predates the patch: the stuck DB stays DONE,
-so the next poll processes the same, already recycled page again. If
-build_skb() succeeds that time, the stack gets an skb on a page that
-the refill can hand straight back to the hardware.
-
-Would it work to set rx->page[fdma->dcb_index][fdma->db_index] = NULL
-after page_pool_recycle_direct()? The poll loop would also need to
-consume or refill that DB, or reuse the page in place, instead of
-recycling the page while the DB still references it.
-
-[ ... ]
-
-> @@ -169,14 +186,18 @@ static int lan969x_fdma_rx_alloc(struct sparx5 *sparx5)
->  		return PTR_ERR(rx->page_pool);
->  
->  	err = fdma_alloc_coherent(sparx5->dev, fdma);
-> -	if (err)
-> +	if (err) {
-> +		page_pool_destroy(rx->page_pool);
->  		return err;
+> +	for (i = 0; i < sparx5->data->consts->n_ports; i++) {
+> +		if (sparx5->ports[i])
+> +			max_mtu = max_t(u32, max_mtu,
+> +					READ_ONCE(sparx5->ports[i]->ndev->mtu));
 > +	}
->  
-> -	fdma_dcbs_init(fdma,
-> -		       FDMA_DCB_INFO_DATAL(fdma->db_size),
-> -		       FDMA_DCB_STATUS_INTR);
-> +	err = fdma_dcbs_init(fdma,
-> +			     FDMA_DCB_INFO_DATAL(fdma->db_size),
-> +			     FDMA_DCB_STATUS_INTR);
-> +	if (err)
-> +		lan969x_fdma_rx_free(sparx5);
->  
-> -	return 0;
-> +	return err;
->  }
+> +
+> +	gb = DIV_ROUND_UP(SPX5_HW_MTU(max_mtu) + 2 * VLAN_HLEN,
+> +			  TAS_QMAXSDU_UNIT);
 
-[Severity: High]
-This isn't a bug introduced by this patch, but the same allocation
-failure is still unchecked when the RX DCBs are refilled at runtime. The
-patch only adds the check at init time.
+[Severity: Low]
+Should this calculation include the 8 bytes of preamble and SFD?
 
-lan969x_fdma_napi_poll() ignores the return value of fdma_dcb_add():
+The guard band is MTU + ETH_HLEN + ETH_FCS_LEN + 2 * VLAN_HLEN, rounded up
+to 64 bytes, so the rounding slack is anywhere from 0 to 63 bytes. For some
+MTUs the slack is under 8 bytes. With MTU 9190, for example:
 
-		fdma_dcb_add(fdma,
-			     old_dcb,
-			     FDMA_DCB_INFO_DATAL(fdma->db_size),
-			     FDMA_DCB_STATUS_INTR);
+    9190 + 14 + 4 + 8 = 9216 = 144 * 64
 
-So does sparx5_fdma_napi_callback() in sparx5_fdma.c:
+which leaves no slack at all.
 
-		fdma_dcb_add(fdma, fdma->dcb_index,
-			     FDMA_DCB_INFO_DATAL(fdma->db_size),
-			     FDMA_DCB_STATUS_INTR);
+Suppose the HSCH converts QMAXSDU_VAL * 64 to time at the link speed and
+does not add preamble/SFD itself. Then a maximum size frame started just
+before the guard band could still be on the wire for up to 8 byte times
+after the gate closes.
 
-__fdma_db_add() in fdma_api.c writes the status, with DONE cleared,
-before it calls the dataptr callback:
+I couldn't confirm this from the register definitions. The felix driver
+uses the same formula for QSYS_PORT_MAX_SDU and adds the 24 byte L1
+overhead only when it checks gate lengths, so the hardware may already
+handle it. The default MTU of 1500 has 10 bytes of slack and is not
+affected.
 
-	db->status = cpu_to_le64(status);
+> +
+> +	mutex_lock(&sparx5->tas_lock);
+> +
+> +	/* Each port uses the TAS profile of its own number */
+> +	for (i = 0; i < sparx5->data->consts->n_ports; i++) {
+> +		if (!sparx5->ports[i])
+> +			continue;
+> +
+> +		for (tc = 0; tc < SPX5_PRIOS; tc++)
+> +			spx5_rmw(HSCH_TAS_QMAXSDU_CFG_QMAXSDU_VAL_SET(gb),
+> +				 HSCH_TAS_QMAXSDU_CFG_QMAXSDU_VAL,
+> +				 sparx5,
+> +				 HSCH_TAS_QMAXSDU_CFG(i, tc));
+> +	}
+> +
+> +	mutex_unlock(&sparx5->tas_lock);
+> +}
 
-	err = cb(fdma, dcb_idx, db_idx, &dataptr);
-	if (unlikely(err))
-		return err;
+[Severity: Medium]
+A later patch in this series, "net: sparx5/lan969x: add support for
+changing the MTU", makes sparx5_port_change_mtu() call
+sparx5_tas_gb_update(). After that, raising the MTU of any one port grows
+the guard band of every port. This includes ports that stay at MTU 1500
+and already run an offloaded taprio schedule.
 
-Suppose page_pool_dev_alloc_pages() in lan969x_fdma_rx_dataptr_cb() or
-the GFP_ATOMIC __netdev_alloc_skb() in sparx5_fdma_rx_dataptr_cb()
-fails. __fdma_dcb_add() then returns before it links the DCB or updates
-fdma->last_dcb. The next successful add links around that DCB, so the
-hardware skips it.
+For example, port A runs a 1G schedule in which one TC has a 15-20 us
+window. That works with the 1536 byte guard band (about 12.3 us at 1G).
+Setting MTU 9000 on port B raises the guard band on port A to 9088 bytes
+(about 72.7 us at 1G).
 
-Once dcb_index wraps around to that DCB, fdma_has_frames() and
-fdma_db_is_done() return false. Would both NAPI handlers then stop at
-that DCB on every poll? The hardware would fill the remaining DCBs, but
-nothing would consume or refill them, and CPU RX would stay stalled
-until the driver is rebound.
+Would that TC on port A then stop starting frames, without any error or
+log message?
 
-This code is unchanged through the end of the series.
+Nothing seems to catch this case. sparx5_tas_enable() checks entry
+intervals only against TAS_MIN_CYCLE_TIME_NS and TAS_MAX_CYCLE_TIME_NS,
+not against the guard band time at the port speed.
+sparx5_tas_gb_update() rewrites the live profiles without looking at
+running schedules. Because sparx5_tas_init() sets
+HSCH_TAS_CFG_CTRL_ALWAYS_GUARD_BAND_SCH_Q, the new value applies to every
+gate close.
+
+For comparison, vsc9959_tas_guard_bands_update() in felix_vsc9959.c
+re-checks each TC's minimum gate length against the required frame time
+when the MTU changes. When the gate is too short, it enables oversize
+frame dropping and prints a dev_info, so the TC does not hang the port.
+
+Sizing for the global maximum looks reasonable, because matchall mirred
+and flower redirect can send frames from any port to any egress port.
+Could running schedules whose windows become unusable be validated, or at
+least reported?
+
+The commit message also says:
+
+    As the scheduler does not start a frame inside the guard band, a gate
+    window shorter than the guard band at the link speed cannot transmit,
+    as is already the case for the default 1536 byte guard band.
+
+It doesn't mention that this threshold now changes under existing
+schedules when another port's MTU changes.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111-sparx5-mtu-change-v2-0-59c91357e8f6%40microchip.com
